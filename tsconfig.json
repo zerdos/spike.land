@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "jsx": "react",
+    "allowJs": true,
+    "checkJs": true,
+    "noEmit": true,
+    "target": "esnext",
+    "module": "esnext",
+    "lib": ["WebWorker", "dom", "dom.iterable", "ESNext"],
+    "resolveJsonModule": true,
+    "moduleResolution": "node",
+    "strict": true
+  },
+  "exclude": [
+    "worker/dist",
+    "cloudflare/zed-vision/dist",
+    "packages/zed-vision-site",
+    "node_modules",
+    "packages/monaco-editor",
+    "docs"
+  ]
+}

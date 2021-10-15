@@ -1,0 +1,25 @@
+{
+  "private": false,
+  "name": "@zedvision/spike-land-counter",
+  "version": "14.6.6",
+  "publishConfig": {
+    "access": "public"
+  },
+  "description": "A template for kick starting a Cloudflare Workers project",
+  "module": "./dist/index.mjs",
+  "scripts": {
+    "build": "esbuild --bundle --format=esm --target=esnext src/index.ts --outfile=dist/index.mjs",
+    "deploy": "wrangler publish",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "@cloudflare/workers-types": "https://github.com/cloudflare/workers-types#master",
+    "@cloudflare/wrangler": "1.19.3"
+  },
+  "dependencies": {
+    "axax": "0.2.2",
+    "esbuild": "0.13.6",
+    "is-even": "1.0.0"
+  }
+}

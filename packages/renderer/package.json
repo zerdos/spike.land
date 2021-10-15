@@ -1,0 +1,31 @@
+{
+  "name": "@zedvision/renderer",
+  "version": "14.6.6",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "source": "./src/renderer.ts",
+  "exports": "./dist/renderer.js",
+  "main": "./dist/renderer.js",
+  "sideEffects": false,
+  "scripts": {
+    "clean": "rm -rf dist && mkdir dist && deno fmt src",
+    "build": "esbuild src/DraggableWindow.tsx src/icons/PhoneAndroid.tsx src/icons/QrCode.tsx src/icons/Share.tsx src/icons/TabletAndroid.tsx src/icons/Tv.tsx src/Qr.tsx src/renderer.ts --format=esm --outdir=dist"
+  },
+  "dependencies": {
+    "@emotion/react": "11.4.1",
+    "@emotion/styled": "11.3.0",
+    "@mui/material": "5.0.4",
+    "@types/react": "17.0.30",
+    "@types/react-dom": "17.0.9",
+    "@zedvision/qrious": "^14.6.6",
+    "esbuild": "0.13.6",
+    "framer-motion": "4.1.17",
+    "react": "17.0.2",
+    "react-dom": "17.0.2",
+    "tslib": "2.3.1",
+    "typescript": "4.4.4"
+  },
+  "gitHead": "ca6fb1f76c1cc444bf6239deca1d6a6f1dd752d3"
+}

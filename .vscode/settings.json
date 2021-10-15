@@ -1,0 +1,33 @@
+{
+  "files.exclude": {
+    "**/node_modules": true,
+    "**/.git": true,
+    "**/.svn": true,
+    "**/.hg": true,
+    "**/dist": true,
+    "**/CVS": true,
+    "**/.DS_Store": true
+  },
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/bower_components": true,
+    "**/*.code-search": true,
+    "**/dist": true,
+    "**/.yarn": true,
+    "**/.pnp.*": true
+  },
+  "typescript.tsserver.useSeparateSyntaxServer": true,
+  "search.useIgnoreFiles": true,
+  "files.autoSave": "afterDelay",
+  "files.autoSaveDelay": 1,
+  "git.autorefresh": true,
+  "git.autofetch": true,
+  "npm.packageManager": "yarn",
+  "typescript.enablePromptUseWorkspaceTsdk": true,
+  "cSpell.words": [
+    "Erdos",
+    "esbuild",
+    "esms",
+    "ipfs"
+  ]
+}

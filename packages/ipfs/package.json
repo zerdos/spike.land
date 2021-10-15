@@ -1,0 +1,38 @@
+{
+  "name": "@zedvision/ipfs",
+  "version": "14.6.6",
+  "sideEffects": false,
+  "files": [
+    "*/*"
+  ],
+  "keywords": [
+    "ipfs"
+  ],
+  "authors": [
+    "Zoltan Erdos <zolika84@gmail.com>"
+  ],
+  "main": "./dist/ipfs.client.mjs",
+  "exports": "./dist/ipfs.client.mjs",
+  "types": "./dist/ipfs.client.d.ts",
+  "scripts": {
+    "clean": "rm -rf dist && deno fmt . && mkdir dist && yarn tsc",
+    "build": "esbuild  src/ipfs.client.ts --bundle --platform=browser --minify --format=esm --target=es2018 --outfile=dist/ipfs.client.mjs"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/zed-vision/monorepo"
+  },
+  "homepage": "https://github.com/zed-vision/monorepo",
+  "repository": "https://github.com/zed-vision/monorepo",
+  "publishConfig": {
+    "access": "public"
+  },
+  "gitHead": "b5dbe1db58bdc7cd90eff2995a3ec9a18767c232",
+  "dependencies": {
+    "esbuild": "0.13.6",
+    "ipfs-message-port-client": "0.9.1",
+    "it-all": "1.0.6",
+    "typescript": "4.4.4",
+    "uint8arrays": "3.0.0"
+  }
+}

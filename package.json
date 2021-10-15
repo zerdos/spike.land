@@ -1,0 +1,43 @@
+{
+  "name": "zedvision",
+  "description": "our monorepo",
+  "repository": "git@github.com:zed-vision/monorepo.git",
+  "author": "Zoltan Erdos <zoliika84@gmail.com>",
+  "license": "MIT",
+  "private": true,
+  "workspaces": [
+    "packages/*",
+    "sites/*",
+    "dockerhub/devimages/*"
+  ],
+  "scripts": {
+    "screenshot": "rm -rf spike.land-1920x1080.png && npx pageres-cli https://spike.land 1920x1080 --delay=5 --scale=1",
+    "importmap": "node packages/code/scripts/importmapGenerator.mjs > packages/code/js/importmap.json",
+    "build:renderer": "cd packages/renderer && yarn build",
+    "build:code": "cd packages/code && yarn build && yarn build:dev",
+    "start": "yarn build:renderer && yarn build:code && sh start.sh",
+    "deploy:worker": "lerna run deploy",
+    "deploy": "yarn lerna run deploy",
+    "push": "yarn start && yarn deploy:worker && yarn build && git add . && git commit -m pre-release && git push && git pull",
+    "release": "lerna publish patch --yes && yarn push",
+    "clean": "yarn lerna run clean --parallel --since main",
+    "pre:build": "yarn lerna run prebuild --parallel --since main",
+    "build": "yarn pre:build && yarn lerna run build --parallel --since main",
+    "re:build": "yarn lerna run clean --parallel && yarn build"
+  },
+  "dependencies": {
+    "latest-version": "6.0.0",
+    "path": "0.12.7",
+    "react": "17.0.2",
+    "workbox-window": "6.3.0"
+  },
+  "devDependencies": {
+    "axios": "0.23.0",
+    "console-log-json": "2.8.0",
+    "csstype": "3.0.9",
+    "eslint-plugin-react": "7.26.1",
+    "lerna": "4.0.0",
+    "typescript": "4.4.4",
+    "yarn": "1.22.15"
+  }
+}

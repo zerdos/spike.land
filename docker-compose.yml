@@ -1,0 +1,23 @@
+version: "3.7"
+services:
+  ipfs:  
+    image: ipfs/go-ipfs:latest
+    ports: 
+    #   - 4001:4001
+    #   - 5001:5001
+      - 8080:8080
+    volumes:
+      - ipfs:/data/ipfs
+      - .:/export
+  devcontainer: 
+    image: devimages/rolling-devcontainer:latest
+    ports: 
+      - 5901:5901
+      - 6080:6080
+    privileged: true
+    shm_size: 4gb
+    volumes:
+      # - $HOME:/home/$USER/host:delegated
+      - .:/z
+volumes: 
+  ipfs:

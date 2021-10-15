@@ -1,0 +1,7 @@
+{
+  "arrowParens": "avoid",
+  "semi": false,
+  "ecmaFeatures": {
+    "jsx": true
+  }
+}

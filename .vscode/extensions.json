@@ -1,0 +1,11 @@
+{
+  "recommendations": [
+    "streetsidesoftware.code-spell-checker",
+    "pflannery.vscode-versionlens",
+    "silvenon.mdx",
+    "xyc.vscode-mdx-preview",
+    "jpoissonnier.vscode-styled-components",
+    "arcanis.vscode-zipfs"
+  ],
+  "unwantedRecommendations": []
+}

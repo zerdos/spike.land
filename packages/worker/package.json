@@ -1,0 +1,33 @@
+{
+  "private": false,
+  "name": "@zedvision/spike-land-worker",
+  "version": "14.6.8",
+  "description": "A template for kick starting a Cloudflare Workers project",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prebuild": "deno fmt src",
+    "build": "rm -rf dist && mkdir dist && esbuild --bundle src/spike.land.handler.ts > dist/index.js",
+    "deploy": "yarn build && wrangler publish"
+  },
+  "author": "Zoltan Erdos <zoltan.erdos@me.com>",
+  "license": "MIT",
+  "dependencies": {
+    "@cloudflare/workers-types": "https://github.com/cloudflare/workers-types#master",
+    "@cloudflare/wrangler": "1.19.3",
+    "@zedvision/code": "^14.6.8",
+    "@zedvision/ipfs": "^14.6.6",
+    "esbuild": "0.13.6",
+    "ipfs-message-port-protocol": "0.10.1",
+    "ipfs-message-port-server": "0.10.1",
+    "ipfs-only-hash": "4.0.0",
+    "uuid": "8.3.2"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "devDependencies": {
+    "@types/uuid": "8.3.1"
+  },
+  "gitHead": "b5dbe1db58bdc7cd90eff2995a3ec9a18767c232"
+}

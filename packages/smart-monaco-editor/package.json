@@ -1,0 +1,40 @@
+{
+  "name": "@zedvision/smart-monaco-editor",
+  "version": "14.6.6",
+  "description": "Monaco Editor with auto type downloads mostly for React",
+  "sideEffects": false,
+  "main": "./dist/editor.mjs",
+  "typings": "src/editor.d.ts",
+  "scripts": {
+    "build": "esbuild --bundle src/editor.ts --format=esm --target=es2018 --outfile=dist/editor.mjs",
+    "clean": "rm -rf dist tsconfig.tsbuildinfo && yarn format && mkdir dist",
+    "format": "deno fmt ."
+  },
+  "keywords": [
+    "monaco",
+    "editor",
+    "react",
+    "html",
+    "vscode"
+  ],
+  "authors": [
+    "Zoltan Erdos <zolika84@gmail.com>"
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/zed-vision/monorepo"
+  },
+  "homepage": "https://github.com/zed-vision/monorepo",
+  "repository": "https://github.com/zed-vision/monorepo",
+  "devDependencies": {
+    "esbuild": "0.13.6",
+    "typescript": "4.4.4"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "gitHead": "ca6fb1f76c1cc444bf6239deca1d6a6f1dd752d3",
+  "dependencies": {
+    "monaco-editor": "0.29.1"
+  }
+}

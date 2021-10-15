@@ -1,0 +1,42 @@
+name: Update DockerHub Images
+
+on:
+  push:
+    branches:
+      - main
+    tags:
+      - v*
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    if: "!contains(toJSON(github.event.commits.*.message), '[skip ci]')"
+    strategy:
+      fail-fast: false
+      matrix:
+        # run copies of the current job in parallel
+        image-name: [cypress,  eoan-xfce-novnc,  focal-devcontainer, focal-xfce-vnc,  groovy-devcontainer,  groovy-xfce-novnc,  hirsute-devcontainer]
+
+    steps:
+      - uses: actions/checkout@master
+
+      - name: Docker Login
+        uses: docker/login-action@v1.10.0
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Set up Docker Buildx
+        id: buildx
+        uses: docker/setup-buildx-action@v1
+
+      - name: Build and push
+        id: docker_build
+        uses: docker/build-push-action@v2
+        with:
+          context: ./
+          file: ./dockerhub/devimages/${{ matrix.image-name }}/Dockerfile
+          push: true
+          tags: devimages/${{ matrix.image-name }}:latest          
+          cache-from: type=registry,ref=devimages/${{ matrix.image-name }}:buildcache
+          cache-to: type=registry,ref=devimages/${{ matrix.image-name }}:buildcache,mode=max

@@ -1,0 +1,21 @@
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.concat = exports.toString = exports.fromString = exports.raceToSuccess = exports.publicIpfsGateways = exports.all = exports.CID = exports.fromHexString = exports.IPFSClient = void 0;
+const it_all_1 = __importDefault(require("it-all"));
+exports.all = it_all_1.default;
+const ipfs_message_port_client_1 = require("ipfs-message-port-client");
+Object.defineProperty(exports, "IPFSClient", { enumerable: true, get: function () { return ipfs_message_port_client_1.IPFSClient; } });
+const cids_1 = __importDefault(require("cids"));
+exports.CID = cids_1.default;
+const gateways_js_1 = require("./gateways.js");
+Object.defineProperty(exports, "publicIpfsGateways", { enumerable: true, get: function () { return gateways_js_1.publicIpfsGateways; } });
+Object.defineProperty(exports, "raceToSuccess", { enumerable: true, get: function () { return gateways_js_1.raceToSuccess; } });
+const uint8arrays_1 = require("uint8arrays");
+Object.defineProperty(exports, "concat", { enumerable: true, get: function () { return uint8arrays_1.concat; } });
+Object.defineProperty(exports, "fromString", { enumerable: true, get: function () { return uint8arrays_1.fromString; } });
+Object.defineProperty(exports, "toString", { enumerable: true, get: function () { return uint8arrays_1.toString; } });
+const fromHexString = (hexString) => new Uint8Array((hexString.match(/.{1,2}/g) || []).map((byte) => parseInt(byte, 16)));
+exports.fromHexString = fromHexString;

@@ -1,0 +1,30 @@
+{
+  "name": "@devcontainer/hirsute-devcontainer",
+  "tagname": "hirsute-devcontainer",
+  "scripts": {
+    "tag:version": "node -e 'const p = require(__dirname + `/package.json`); console.log(`devimages/${p.tagname}:${p.version}`)'",
+    "tag:latest": "node -e 'const p = require(__dirname + `/package.json`); console.log(`devimages/${p.tagname}:latest`)'",
+    "docker:push": "node docker.js",
+    "docker:build": "docker build .",
+    "build": "node index.js"
+  },
+  "files": [
+    ".devcontainer/**/*",
+    "docker-compose.yml",
+    "Dockerfile",
+    "README.md"
+  ],
+  "devDependencies": {
+    "@devcontainer/generator": "^14.6.8"
+  },
+  "version": "14.6.8",
+  "description": "devcontainer vscode docker xfce remoteDesktop",
+  "main": "index.js",
+  "repository": "https://github.com/zed-vision/monorepo",
+  "author": "Zoltan Erdos <zolika84@gmail.com>",
+  "license": "BSD-3-Clause",
+  "gitHead": "b5dbe1db58bdc7cd90eff2995a3ec9a18767c232",
+  "publishConfig": {
+    "access": "public"
+  }
+}

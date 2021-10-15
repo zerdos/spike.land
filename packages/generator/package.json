@@ -1,0 +1,22 @@
+{
+  "name": "@devcontainer/generator",
+  "version": "14.6.8",
+  "description": "generates custom devcontainer Dockerfiles",
+  "files": [
+    "lib/**/*",
+    "templates/*",
+    "versions.json"
+  ],
+  "main": "index.js",
+  "scripts": {
+    "build": "yarn tsc && deno fmt src"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "typescript": "4.4.4"
+  },
+  "gitHead": "b5dbe1db58bdc7cd90eff2995a3ec9a18767c232"
+}

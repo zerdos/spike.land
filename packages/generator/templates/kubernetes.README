@@ -1,0 +1,3 @@
+- Installs kubctl
+- Installs skaffold
+- Installs kind

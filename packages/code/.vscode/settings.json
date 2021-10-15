@@ -1,0 +1,30 @@
+{
+  "cSpell.words": [
+    "Erdos",
+    "Roboto",
+    "SHAKV",
+    "Zkey",
+    "Zoltan",
+    "cids",
+    "comlink",
+    "darkred",
+    "deno",
+    "esbuild",
+    "ipfs",
+    "js",
+    "mhash",
+    "multihash",
+    "nocheck",
+    "outfile",
+    "prebuild",
+    "shadb",
+    "src",
+    "transpiled",
+    "zbody",
+    "zedvision"
+  ],
+  "deno.enable": true,
+  "deno.config": "./tsconfig.json",
+  "deno.unstable": true,
+  "files.autoSave": "onFocusChange"
+}

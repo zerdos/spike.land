@@ -1,0 +1,41 @@
+{
+  "name": "@zedvision/esm",
+  "version": "14.6.6",
+  "description": "esm modules for packages with maintainers from the 2015",
+  "main": "dist/react.mjs",
+  "files": [
+    "**/*"
+  ],
+  "authors": [
+    "Zoltan Erdos <zolika84@gmail.com>"
+  ],
+  "bugs": {
+    "url": "https://github.com/zed-vision/monorepo"
+  },
+  "exports": {
+    "./react.mjs": "./dist/react.mjs",
+    "./react-dom.mjs": "./dist/react-dom.mjs",
+    "./react-is.mjs": "./dist/react-is.mjs"
+  },
+  "license": "BSD-3-Clause",
+  "dependencies": {
+    "@types/react": "17.0.30",
+    "@types/react-dom": "17.0.9",
+    "esbuild": "0.13.6",
+    "react": "17.0.2",
+    "react-dom": "17.0.2",
+    "react-is": "17.0.2"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "sideEffects": false,
+  "scripts": {
+    "build": "yarn build:react && yarn build:react-is && yarn build:react-dom",
+    "build:react": "yarn esbuild --bundle src/react.mjs --format=esm --outfile=dist/react.mjs",
+    "build:react-is": "yarn esbuild --bundle src/react-is.mjs --format=esm --outfile=dist/react-is.mjs",
+    "build:react-dom": "yarn esbuild --bundle src/react-dom.mjs --external:react --external:react-is  --format=esm --outfile=dist/react-dom.mjs"
+  },
+  "private": false,
+  "gitHead": "ca6fb1f76c1cc444bf6239deca1d6a6f1dd752d3"
+}
