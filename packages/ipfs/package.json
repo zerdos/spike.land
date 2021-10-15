@@ -27,7 +27,7 @@
   "publishConfig": {
     "access": "public"
   },
-  "gitHead": "b5dbe1db58bdc7cd90eff2995a3ec9a18767c232",
+  "gitHead": "71e08793322e6576dcbe3f3ea8b469bae7d54775",
   "dependencies": {
     "esbuild": "0.13.6",
     "ipfs-message-port-client": "0.9.1",
