@@ -48,22 +48,6 @@ export const SEO: React.FC<Props> = (
       }}
       title={title}
       titleTemplate={`%s | ${site.siteMetadata.title}`}
-      script={[{
-        defer: "true",
-        "type": "text/javascript",
-        src: "https://unpkg.com/es-module-shims@1.3.0/dist/es-module-shims.js",
-        async: "true",
-      }, {
-        type: "importmap-shim",
-        innerHTML: JSON.stringify(importMap),
-      }, {
-        type: "esms-options",
-        innerHTML: JSON.stringify({
-          "shimMode": true,
-          "polyfillEnable": ["css-modules", "json-modules"],
-          "nonce": "n0nce",
-        }),
-      }]}
       meta={[
         {
           name: `description`,

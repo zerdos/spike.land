@@ -12,7 +12,7 @@ export const shasums = {
   "js/importScript.d.ts":
     "863a8f91f1d5750d68903b9493472d186067185cf0f9cf09f40c6c273ddef229",
   "js/reactLoader.mjs":
-    "f990c4ccadef23d725c45d42ff0c24e3879e8ab01befc77e87a24ebaa66b82df",
+    "78f5ac25e8cdf1149085209fc22483820c7703bb8af1b46a0ffdffd29b04fc60",
   "js/workers/transpile.worker.js":
     "fd83999a3b16c8fb07b509301facea7d0cf8d8fa31ed6c0d922f6330b017460a",
   "js/workers/prettierWorker.js":
@@ -26,7 +26,7 @@ export const shasums = {
   "js/templates.ts":
     "f59c9e362a7ea610204f8db8879ba64b9cef0442b259a3bcf52ce7d47d5bad16",
   "js/importmap.json":
-    "027e90a5780275f1ec6e7e1d954ca55cf732e4101895da40157c1024d2843add",
+    "c7197a683aeeb9f8274bc151d6cc1c9e6315fee5ff76d456545d745a46ef75db",
   "js/sendSignalToQrCode.mjs":
     "11bef815470e2d7abf4848410def1975b1541a1d752bb441bfa18ddd45e6c03d",
   "js/examples/starter_framer.js":
@@ -48,16 +48,16 @@ export const shasums = {
   "js/workboxLoader.mjs":
     "5a3698567870068de84d888cd9ea5ee98124d37468afbb7f4bee4f6594de9031",
   "dev.mjs.map":
-    "3d2b78f81e0f9fd3dee45be284d61aa35a05c808d41ddaeac77d4b974296c0b4",
+    "dca16bda4e45582b7c80d3023a71d82ee2aa871bc0b034066725ab0861116172",
   "scripts/importmapGenerator.mjs":
     "ef0d974511a11588574909403207d12ef50a1d424183242f731184de3d04b2b4",
   ".vscode/settings.json":
     "59518a7d473e186d1edb3b105cac5644bb6f04a20f5d21a17b69b89b3f7837c9",
   "index.html":
-    "2b82c2d595f2eecf6efdbf4720d423de2e9c8ce50cf266e2b2dc922b2c1ca783",
+    "7e4ac8fc5d2a8d540f760a5fbfa8cbdf3a6e8ed6f027dbefcc3a1cc0ad3df1fb",
   ".ignore": "bcae0416621b3db43d8cba1e4454a792c7af9e4b7287e51056efc5a215d95839",
   "build.mjs":
-    "e10c2fccee84782cb276492ec6f6ebce874f52f489c6141639ca028227c2a92e",
+    "384734548a167e2a781d86a69aecbca24ac1c9b2d687bea7c4d627c340d620dd",
   "sw.js": "c70f657b29fd5179b512af1938932be107640be340582a932ae602dffa4784de",
   "tsconfig.json":
     "fba771ff062cafcfec28f165716fa5609f8a13346e49f59bce06da7beeb2b5aa",
@@ -83,9 +83,9 @@ export const shasums = {
     "d4cfbb0537146f1f477d5050b2b19a8ccad2cbe8d22d4d18bfefb510b53571be",
   "assets/synthwave.jpg":
     "ddb7a1699251a0daecf2c4ff494760608cd9d5f39e8ce09426a31b2d505ceb4e",
-  "dev.mjs": "3b4aed4d28c155979c71c5e890b35249c531fbdfb2a27b3dd4325ac44f1d8588",
+  "dev.mjs": "a1c7fddc6a8a50b7f25ae14c29696d66c1bb2efcf94e4bab13e1e8180730d3e2",
   "package.json":
-    "cb2ac52271b82c9f396b83b5138afd1a30efad44f254ae10498314769b05f986",
+    "93fbd0da4887d83d1be48b04f1260d9944d8142743c12e08d0615d0af74de2cb",
   "edit/index.html":
     "6bedf2adaf3b015d95ef000fe886b446ff1cc39184be9c8f060e63a325ed50af",
   "esbuild-dev.mjs":
