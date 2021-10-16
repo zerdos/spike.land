@@ -30,7 +30,7 @@
   "gitHead": "d0b137b49660b6106c2e1cab2a7f5d31345c4324",
   "dependencies": {
     "diff": "5.0.0",
-    "esbuild": "0.13.6",
+    "esbuild": "0.13.7",
     "idb": "6.1.4"
   },
   "devDependencies": {
