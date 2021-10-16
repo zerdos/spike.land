@@ -2,7 +2,7 @@
   "name": "blog.spike.land",
   "private": "true",
   "scripts": {
-    "develop": "gatsby develop",
+    "develop": "gatsby develop --https",
     "gatsby:build": "cp -afr blog/. static && gatsby build",
     "clean": "gatsby clean"
   },
