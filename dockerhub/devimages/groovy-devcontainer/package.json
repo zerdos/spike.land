@@ -1,5 +1,5 @@
 {
-  "name": "@devcontainer/groovy-devcontainer",
+  "name": "@spike.land/groovy-devcontainer",
   "tagname": "groovy-devcontainer",
   "scripts": {
     "tag:version": "node -e 'const p = require(__dirname + `/package.json`); console.log(`devimages/${p.tagname}:${p.version}`)'",
@@ -23,7 +23,7 @@
   "repository": "https://github.com/spike-land/monorepo",
   "author": "Zoltan Erdos <zolika84@gmail.com>",
   "license": "BSD-3-Clause",
-  "gitHead": "b5dbe1db58bdc7cd90eff2995a3ec9a18767c232",
+  "gitHead": "e184ba1bad605e8e09d5870ff49596e9d218ada7",
   "publishConfig": {
     "access": "public"
   }

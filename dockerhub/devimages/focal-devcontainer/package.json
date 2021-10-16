@@ -1,5 +1,5 @@
 {
-  "name": "@devcontainer/focal-devcontainer",
+  "name": "@spike.land/focal-devcontainer",
   "tagname": "focal-devcontainer",
   "scripts": {
     "tag:version": "node --no-warnings -e 'const p = require(__dirname + `/package.json`); console.log(`devimages/${p.tagname}:${p.version}`)'",
@@ -23,7 +23,7 @@
   "repository": "git@github.com:spike-land/monorepo.git",
   "author": "Zoltan Erdos <zolika84@gmail.com>",
   "license": "BSD-3-Clause",
-  "gitHead": "b5dbe1db58bdc7cd90eff2995a3ec9a18767c232",
+  "gitHead": "e184ba1bad605e8e09d5870ff49596e9d218ada7",
   "publishConfig": {
     "access": "public"
   }

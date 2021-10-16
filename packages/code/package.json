@@ -40,7 +40,7 @@
     "ipfs": "0.59.1",
     "typescript": "4.4.4"
   },
-  "gitHead": "d0b137b49660b6106c2e1cab2a7f5d31345c4324",
+  "gitHead": "e184ba1bad605e8e09d5870ff49596e9d218ada7",
   "author": "Zoltan Erdos <zolika84@gmail.com>",
   "license": "BSD-3-Clause",
   "publishConfig": {
