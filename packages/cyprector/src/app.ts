@@ -26,6 +26,8 @@ app
 
 app.get('/', (_, res) =>
   res.redirect('https://github.com/agoldis/sorry-cypress')
+
+  
 );
 
 app.post('/runs', blockKeys, catchRequestHandlerErrors(handleCreateRun));
