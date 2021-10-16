@@ -158,6 +158,7 @@ const list = [
   "simple-window-manager",
   "uuid/",
   "@spike.land/shadb",
+  "@spike.land/code",
   "comlink",
   "@spike.land/ipfs",
   "workbox-window",

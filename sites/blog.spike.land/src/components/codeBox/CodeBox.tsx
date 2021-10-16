@@ -1,5 +1,5 @@
 import React from "react";
-
+import { dynamicImport } from "../../dynamicImport";
 export const CodeBox: React.FC<{
   live?: boolean;
   toRender?: boolean;
@@ -11,10 +11,7 @@ export const CodeBox: React.FC<{
 
   React.useEffect(() => {
     async function start() {
-      const { run } = await new Function(
-        `return import("https://spike.land/js/codeLoader.mjs")`,
-      )();
-
+      const { run } = await dynamicImport("@spike.land/code")
       run("embedded", starterCode);
     }
 

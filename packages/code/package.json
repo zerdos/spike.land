@@ -7,7 +7,11 @@
     "**/*"
   ],
   "source": "./js/codeLoader.mjs",
-  "exports": "./js/codeLoader.mjs",
+  "exports": {
+    ".": "./js/dev.mjs",
+    "./js/codeLoader": "./js/dev.mjs",
+    "./js/importmap.json": "./js/importmap.json"
+  },
   "scripts": {
     "clean": "rm -rf .tsBuildInfo modules && mkdir -p modules",
     "start": "cd ../.. && yarn start",

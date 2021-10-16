@@ -2,7 +2,7 @@
 
 import React from "react";
 import { css, jsx } from "@emotion/react";
-
+import {dynamicImport} from "../../dynamicImport";
 import { sha256 } from "../utils/sha256/sha256";
 
 export const Qr = () => {
@@ -51,9 +51,7 @@ export const Qr = () => {
     const qr = `qr${side}`;
 
     if (typeof cubeSides[qr] === "undefined") {
-      const LazyQR = await new Function(
-        `return import('https://spike.land/modules/QRious.mjs').then(x=>x.QRious)`,
-      )();
+      const LazyQR = await dynamicImport("@spike.land/qrious");
 
       cubeSides[qr] = new LazyQR(options) as IDummyQR;
     }
@@ -89,9 +87,7 @@ export const Qr = () => {
 
       if (typeof window === "undefined") return;
 
-      const { fetchSignal } = await new Function(
-        `return import("https://spike.land/js/hash.mjs")`,
-      )();
+      const { fetchSignal } = await dynamicImport("@spike.land/ipfs")
 
       const getData = await fetchSignal(url, 7);
       if (!getData) return;

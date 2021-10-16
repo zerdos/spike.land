@@ -1,6 +1,8 @@
 import * as React from "react";
 import { graphql, useStaticQuery } from "gatsby";
 import { Helmet } from "react-helmet";
+
+const importMap = require("@spike.land/code/js/importmap.json")
 /**
  * SEO component that queries for data with
  *  Gatsby's useStaticQuery React hook
@@ -46,6 +48,15 @@ export const SEO: React.FC<Props> = (
       }}
       title={title}
       titleTemplate={`%s | ${site.siteMetadata.title}`}
+      script={[{
+        defer: "true",
+        "type": "text/javascript",
+        src: "https://unpkg.com/es-module-shims@1.3.0/dist/es-module-shims.js",
+        async: "true",
+      },{ 
+        type: 'importmap-shim', 
+        innerHTML: JSON.stringify(importMap) 
+      }]}
       meta={[
         {
           name: `description`,
