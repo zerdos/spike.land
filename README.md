@@ -7,9 +7,9 @@
 if (code) return "it is in the monorepo";
 
 // blog:          sites/blog.spike.land
-// docker-images: dockerhub/packages/groovy*
-//                                      /focal*
-//                                         etc.
+// docker-images: dockerhub/devimages/groovy-devcontainer
+//                                   /focal-devcontainer
+//                                   /rolling-devcontainer
 //
 // code-editor:   packages/code
 ```

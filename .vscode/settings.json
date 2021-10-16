@@ -16,7 +16,7 @@
     "**/.yarn": true,
     "**/.pnp.*": true
   },
-  "typescript.tsserver.useSeparateSyntaxServer": true,
+  "typescript.tsserver.useSyntaxServer": "always",
   "search.useIgnoreFiles": true,
   "files.autoSave": "afterDelay",
   "files.autoSaveDelay": 1,

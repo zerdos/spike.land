@@ -15,6 +15,7 @@
     "README.md"
   ],
   "devDependencies": {
+    
     "@spike.land/devcontainer-generator": "^0.0.1"
   },
   "version": "0.0.1",

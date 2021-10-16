@@ -7,7 +7,7 @@ github:
     addComment: true
     addBadge: true
     addLabel: prebuilt-in-gitpod
-image: devimages/focal-devcontainer:13.0.14
+image: devimages/focal-devcontainer:latest
 vscode:
   extensions:
     - denoland.vscode-deno
