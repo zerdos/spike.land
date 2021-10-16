@@ -1,7 +1,6 @@
 module.exports = {
-  pathPrefix: "blog",
   siteMetadata: {
-    title: `Zed vision`,
+    title: `Spike land blog`,
     author: {
       name: `Zoltan Erdos`,
       summary: ` - developer experience and software quality expert`,

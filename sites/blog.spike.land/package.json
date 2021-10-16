@@ -3,7 +3,7 @@
   "private": "true",
   "scripts": {
     "develop": "gatsby develop",
-    "build": "cp -afr blog/. static && gatsby build --no-uglify --prefix-paths",
+    "gatsby:build": "cp -afr blog/. static && gatsby build",
     "clean": "gatsby clean"
   },
   "description": "Zed vision blog",
