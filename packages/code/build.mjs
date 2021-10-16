@@ -65,7 +65,7 @@ import {
   IPFSClient,
   raceToSuccess,
   toString
-} from "https://unpkg.com/@spike.land/ipfs@0.0.6/dist/ipfs.client.mjs";
+} from "https://unpkg.com/@spike.land/ipfs@0.0.8/dist/ipfs.client.mjs";
 var workerSrc, forceNormalWorker, port, ipfsClient, ipfsCat;
 var init_ipfsClient = __esm({
   "js/ipfsClient.mjs"() {
@@ -313,10 +313,10 @@ var init_importmap = __esm({
       "@spike.land/smart-monaco-editor": "https://unpkg.com/@spike.land/smart-monaco-editor@0.0.6/dist/editor.mjs",
       "simple-window-manager": "https://unpkg.com/simple-window-manager@2.1.2/public/simple-window-manager.min.js",
       "uuid/": "https://unpkg.com/uuid@8.3.2/dist/esm-browser/",
-      "@spike.land/shadb": "https://unpkg.com/@spike.land/shadb@0.0.6/dist/shaDB.mjs",
-      "@spike.land/code": "https://unpkg.com/@spike.land/code@0.0.6/js/codeLoader.mjs",
+      "@spike.land/shadb": "https://unpkg.com/@spike.land/shadb@0.0.8/dist/shaDB.mjs",
+      "@spike.land/code": "https://unpkg.com/@spike.land/code@0.0.8/js/codeLoader.mjs",
       comlink: "https://unpkg.com/comlink@4.3.1/dist/esm/comlink.mjs",
-      "@spike.land/ipfs": "https://unpkg.com/@spike.land/ipfs@0.0.6/dist/ipfs.client.mjs",
+      "@spike.land/ipfs": "https://unpkg.com/@spike.land/ipfs@0.0.8/dist/ipfs.client.mjs",
       "workbox-window": "https://unpkg.com/workbox-window@6.3.0/build/workbox-window.prod.es5.mjs"
     };
     importmap_default = {
@@ -421,7 +421,7 @@ var share_exports = {};
 __export(share_exports, {
   shareItAsHtml: () => shareItAsHtml
 });
-import { sha256, shaDB } from "https://unpkg.com/@spike.land/shadb@0.0.6/dist/shaDB.mjs";
+import { sha256, shaDB } from "https://unpkg.com/@spike.land/shadb@0.0.8/dist/shaDB.mjs";
 async function addAll(files) {
   try {
     const res = await all(ipfsClient.addAll(files));
@@ -593,7 +593,7 @@ var require_v4 = __commonJS({
 });
 
 // js/data.mjs
-import { sha256 as sha2562, shaDB as shaDB2 } from "https://unpkg.com/@spike.land/shadb@0.0.6/dist/shaDB.mjs";
+import { sha256 as sha2562, shaDB as shaDB2 } from "https://unpkg.com/@spike.land/shadb@0.0.8/dist/shaDB.mjs";
 async function getUserId() {
   if (uuid)
     return uuid;
@@ -771,7 +771,7 @@ __export(sendSignalToQrCode_exports, {
   getZkey: () => getZkey,
   sendSignalToQrCode: () => sendSignalToQrCode
 });
-import { sha256 as sha2563 } from "https://unpkg.com/@spike.land/shadb@0.0.6/dist/shaDB.mjs";
+import { sha256 as sha2563 } from "https://unpkg.com/@spike.land/shadb@0.0.8/dist/shaDB.mjs";
 async function sendSignalToQrCode(session) {
   const { searchParams } = new URL(window.location.href);
   const maybeRoute = searchParams.get("signalToQr") || "";
@@ -779,7 +779,7 @@ async function sendSignalToQrCode(session) {
   if (!isKey)
     return;
   await saveCode(session);
-  const { sendSignal } = await import("https://unpkg.com/@spike.land/ipfs@0.0.6/dist/ipfs.client.mjs");
+  const { sendSignal } = await import("https://unpkg.com/@spike.land/ipfs@0.0.8/dist/ipfs.client.mjs");
   const signal = `https://spike.land/${maybeRoute}`;
   await sendSignal(signal, {
     rootUrl: `${session.url}edit/`,

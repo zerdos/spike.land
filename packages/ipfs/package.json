@@ -15,7 +15,7 @@
   "exports": "./dist/ipfs.client.mjs",
   "types": "./dist/ipfs.client.d.ts",
   "scripts": {
-    "clean": "rm -rf dist && deno fmt . && mkdir dist && yarn tsc",
+    "clean": "rm -rf dist && deno fmt . && mkdir dist",
     "build": "esbuild  src/ipfs.client.ts --bundle --platform=browser --minify --format=esm --target=es2018 --outfile=dist/ipfs.client.mjs"
   },
   "license": "MIT",
