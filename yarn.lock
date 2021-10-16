@@ -4988,7 +4988,7 @@ aws4@^1.8.0:
   resolved "https://registry.yarnpkg.com/aws4/-/aws4-1.11.0.tgz#d61f46d83b2519250e2784daf5b09479a8b41c59"
   integrity sha512-xh1Rl34h6Fi1DC2WWKfxUTVqRsNnr6LsKz2+hfwDxQJWmrx8+c7ylaqBMcHfl1U1r2dsifOvKX3LQuLNZ+XSvA==
 
-axax@0.2.2, axax@^0.2.2:
+axax@0.2.2:
   version "0.2.2"
   resolved "https://registry.yarnpkg.com/axax/-/axax-0.2.2.tgz#bce20fb7e4eef04fcece8a8b6156c084f11c6425"
   integrity sha512-xPTMeQzPOENNONCFLFsPLjubtrnjju9FdOr6u/P0dFKDjC3m+/8NydLNvrukNxxto+usR2dKGZ8DVKOz4MBo2g==
