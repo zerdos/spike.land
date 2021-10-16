@@ -9,10 +9,11 @@ export const dynamicImport = async(moduleName: string)=> {
     while(i++<100){
 
     
-    if(window.importShim) {
-        const {importShim} = window;
+    if(window.importShim && window.importShim.getImportMap) {
 
-        return moduleCache[moduleName] = await importShim(moduleName);;
+
+
+        return moduleCache[moduleName] = await window.importShim(moduleName);;
     }
 
     console.log(`lets delay ${i*50} ms`)
