@@ -13,11 +13,11 @@
   "author": "Zoltan Erdos <zoltan.erdos@me.com>",
   "license": "MIT",
   "dependencies": {
-    "@cloudflare/workers-types": "https://github.com/cloudflare/workers-types#master",
+    "@cloudflare/workers-types": "3.0.0",
     "@cloudflare/wrangler": "1.19.3",
     "@spike.land/code": "^0.0.4",
     "@spike.land/ipfs": "^0.0.4",
-    "esbuild": "0.13.6",
+    "esbuild": "0.13.7",
     "ipfs-message-port-protocol": "0.10.1",
     "ipfs-message-port-server": "0.10.1",
     "ipfs-only-hash": "4.0.0",

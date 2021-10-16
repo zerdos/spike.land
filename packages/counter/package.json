@@ -14,12 +14,12 @@
   },
   "license": "MIT",
   "devDependencies": {
-    "@cloudflare/workers-types": "https://github.com/cloudflare/workers-types#master",
+    "@cloudflare/workers-types": "3.0.0",
     "@cloudflare/wrangler": "1.19.3"
   },
   "dependencies": {
     "axax": "0.2.2",
-    "esbuild": "0.13.6",
+    "esbuild": "0.13.7",
     "is-even": "1.0.0"
   },
   "gitHead": "d0b137b49660b6106c2e1cab2a7f5d31345c4324"
