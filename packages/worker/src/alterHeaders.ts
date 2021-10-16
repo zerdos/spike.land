@@ -21,6 +21,8 @@ export async function alterHeaders(response: Response, pathname: string) {
     "GET,HEAD,POST,OPTIONS",
   );
   resp.headers.delete("access-control-max-age");
+  resp.headers.delete("Referrer-Policy");
+
   resp.headers.delete("content-security-policy");
   resp.headers.delete("feature-policy");
   resp.headers.set("cache-control", "public, max-age=604800, immutable");
@@ -35,6 +37,9 @@ export async function alterHeaders(response: Response, pathname: string) {
   resp.headers.delete("strict-transport-security");
   resp.headers.delete("X-Frame-Options");
   resp.headers.delete("x-content-type-options");
+
+  resp.headers.set("Referrer-Policy", "no-referrer");
+  resp.headers.set("Access-Control-Allow-Headers", "uid");
   if (pathname.endsWith(".mjs") || pathname.endsWith(".js")) {
     resp.headers.delete("content-type");
     resp.headers.set(

@@ -5,6 +5,7 @@ export function js(resp: string) {
       "Cache-Control": "no-cache",
       "Access-Control-Allow-Methods": "GET,HEAD,POST,OPTIONS",
       "Access-Control-Max-Age": "86400",
+      "Access-Control-Allow-Headers": "uid",
       "Content-Type": "application/javascript;charset=UTF-8",
     },
   });
@@ -17,6 +18,7 @@ export function json(obj: Object) {
       "Cache-Control": "no-cache",
       "Access-Control-Allow-Methods": "GET,HEAD,POST,OPTIONS",
       "Access-Control-Max-Age": "86400",
+      "Access-Control-Allow-Headers": "uid",
       "Content-Type": "application/json;charset=UTF-8",
     },
   });
@@ -29,6 +31,7 @@ export function text(resp: string) {
       "Access-Control-Allow-Origin": "*",
       "Access-Control-Allow-Methods": "GET,HEAD,POST,OPTIONS",
       "Access-Control-Max-Age": "86400",
+      "Access-Control-Allow-Headers": "uid",
       "Content-Type": "text/html;charset=UTF-8",
     },
   });

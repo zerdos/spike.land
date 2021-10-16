@@ -36,7 +36,7 @@ export const shasums = {
   "js/examples/rca.tsx":
     "c27cd6dbdc3c131ef24590f07a1c6c2d0f444b85ca482dc5f4204ce313c5325e",
   "js/codeLoader.mjs":
-    "89ef31c629709ecf56a8d41297eb09aa4f584ab0c0035e1455493c9cd74b9c0a",
+    "28ddb17d3ca06136350477d376e9a2b1ac5dd625def24e2cb3b3fe7b0d7d18a5",
   "js/data.mjs":
     "1a63f5609866e8330baa5fa336ead2e0fd967eb13a38bace87d8666cf0a48adf",
   "js/importScript.mjs":
@@ -48,7 +48,7 @@ export const shasums = {
   "js/workboxLoader.mjs":
     "5a3698567870068de84d888cd9ea5ee98124d37468afbb7f4bee4f6594de9031",
   "dev.mjs.map":
-    "dca16bda4e45582b7c80d3023a71d82ee2aa871bc0b034066725ab0861116172",
+    "22ed7ce027fd1fffc7db5f1564d24f8714fb7fb1e94f8495a8364987c12587e1",
   "scripts/importmapGenerator.mjs":
     "ef0d974511a11588574909403207d12ef50a1d424183242f731184de3d04b2b4",
   ".vscode/settings.json":
@@ -57,7 +57,7 @@ export const shasums = {
     "7e4ac8fc5d2a8d540f760a5fbfa8cbdf3a6e8ed6f027dbefcc3a1cc0ad3df1fb",
   ".ignore": "bcae0416621b3db43d8cba1e4454a792c7af9e4b7287e51056efc5a215d95839",
   "build.mjs":
-    "384734548a167e2a781d86a69aecbca24ac1c9b2d687bea7c4d627c340d620dd",
+    "5fb44b211793129c04d18bd8355826383e2faadd52d968403a2cc62744886ba4",
   "sw.js": "c70f657b29fd5179b512af1938932be107640be340582a932ae602dffa4784de",
   "tsconfig.json":
     "fba771ff062cafcfec28f165716fa5609f8a13346e49f59bce06da7beeb2b5aa",
@@ -83,9 +83,9 @@ export const shasums = {
     "d4cfbb0537146f1f477d5050b2b19a8ccad2cbe8d22d4d18bfefb510b53571be",
   "assets/synthwave.jpg":
     "ddb7a1699251a0daecf2c4ff494760608cd9d5f39e8ce09426a31b2d505ceb4e",
-  "dev.mjs": "a1c7fddc6a8a50b7f25ae14c29696d66c1bb2efcf94e4bab13e1e8180730d3e2",
+  "dev.mjs": "c577fbf595454bbf27c5d4875f3a32d68bff2d3f1e277ba7c7a7fc579b17cd3e",
   "package.json":
-    "93fbd0da4887d83d1be48b04f1260d9944d8142743c12e08d0615d0af74de2cb",
+    "089776cb540dc95b811f28a3359fc9e29f857ac78197a8536ba1c8543177b399",
   "edit/index.html":
     "6bedf2adaf3b015d95ef000fe886b446ff1cc39184be9c8f060e63a325ed50af",
   "esbuild-dev.mjs":

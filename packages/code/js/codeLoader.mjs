@@ -228,14 +228,10 @@ export async function run(mode = "window", code = "") {
         const saveErrorCode = async () => {
           const res = await ipfsClient.add(c, { onlyHash: true });
           const CID = res.cid.toString();
-          const UID = await getUserId();
 
           const url = `/error/${CID}`;
           fetch(`https://spike.land${url}`, {
             method: "POST",
-            headers: {
-              UID: UID,
-            },
             body: c,
           });
         };
