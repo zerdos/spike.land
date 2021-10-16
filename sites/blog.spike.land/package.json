@@ -5,9 +5,11 @@
     "gatsby:build": "cp -afr blog/. static && gatsby build",
     "clean": "gatsby clean"
   },
-  "files": ["public/**/*"],
+  "files": [
+    "public/**/*"
+  ],
   "description": "Zed vision blog",
-  "version": "0.0.13",
+  "version": "0.0.14",
   "author": "Zoltan Erdos <zolika84@gmail.com>",
   "bugs": {
     "url": "https://github.com/spike-land/monorepo/"
