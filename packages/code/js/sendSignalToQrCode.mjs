@@ -15,7 +15,7 @@ export async function sendSignalToQrCode(session) {
 
   await saveCode(session);
 
-  const { sendSignal } = await import("./hash.mjs");
+  const { sendSignal } = await import("@spike.land/ipfs");
   const signal = `https://spike.land/${maybeRoute}`;
 
   await sendSignal(

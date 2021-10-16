@@ -51,9 +51,11 @@ export const Qr = () => {
     const qr = `qr${side}`;
 
     if (typeof cubeSides[qr] === "undefined") {
-      const LazyQR = await dynamicImport("@spike.land/qrious");
+      console.log("Booo")
+      const {QRious} = await dynamicImport("@spike.land/qrious");
+      console.log({QRious})
 
-      cubeSides[qr] = new LazyQR(options) as IDummyQR;
+      cubeSides[qr] = new QRious(options) as IDummyQR;
     }
 
     if (cubeSides[qr].get().value !== urls.current) {
@@ -185,7 +187,7 @@ const Cube = ({ sides, size: _size, animate }) => {
     <div
       css={css`
       position: relative;
-        display: inline-block; 
+        display: inline-block; c
         perspective: 900px;
 
          perspective-origin: 50% 50% ; 
