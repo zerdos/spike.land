@@ -13,10 +13,8 @@ if (!window.React) {
   ]));
 }
 
-console.log("EVERYTHING is in.")
-setTimeout(async()=>{
-  const {run: runCode } = await import("../dev.mjs");
+
+    const {run: runCode } = await import("../dev.mjs");
 
   return runCode(mode, code);
-},100);
 }

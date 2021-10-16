@@ -35,7 +35,7 @@ export const files = {
   "js/importmap.json": "QmdV7bcYGExdxbu2fXBKK2aQSetqnAQzN24pTvNoQDj3yh",
   "js/ipfsClient.mjs": "QmUPQkdW2UBaN7RuTTX4G1k2bF7oG4SfkUjjuZSy7N84cg",
   "js/openWindows.mjs": "QmdGHg1TYyP31NqJkAQKsrWQudjBbLc56GKK4s6unpFAvc",
-  "js/reactLoader.mjs": "QmbBPtZfSiRWCWCez3Acwr1ZuYX7dwiEz3r6xVXszvFrwf",
+  "js/reactLoader.mjs": "Qmf2Ukgd2d4sSSRMqB9UnnQaUKZ3QbrsA6Wzf1NfiRG2hg",
   "js/renderPreviewWindow.mjs":
     "QmUyh5zKwnWAjG8W6rYKc4sRcJkd7wn7HdWGeENiLxca3i",
   "js/sendSignalToQrCode.mjs": "QmcwkWzt5EkYykTPgwLyyVvQeftvkEVmjNPgcD1P4jbBBP",
@@ -52,7 +52,7 @@ export const files = {
   "js/workers/transpile.worker.js":
     "QmUo7nNGTPDUbTkv33Vsge4Ke6BpMAUCQ84uZ6X3dCfNDV",
   "manifest.json": "Qmb8h3PjM5RvHpNZSQztqVdrCHANNT7k8Dsj8Jmv24XmRQ",
-  "package.json": "QmTUWF5GpP6LEmn9QJtUj5NqCNDosy6KVdJHWUN6wdePNm",
+  "package.json": "QmeWUxnYBvrevvsyKXGKCDV2oaaEiWx2o5uV5vDWmpnbM7",
   "scripts/importmapGenerator.mjs":
     "QmfKS5a9GXS3ZxAigiFGcPvUVJHmw1DbcvdmQn7rP5bQoZ",
   "sw.js": "QmZs73xvygu9Zx4mvDdwWWv6zL81UGY1geTsVZGrXdnTEf",
@@ -62,10 +62,10 @@ export const files = {
   "edit": "QmRBtzxNHPENXEfZwv1aZk9XmznUM6mesSe3GKVB8UwwXS",
   "js/examples": "Qmbcmjf53NLhuNdY6uDDpPeqNbNGAi76Qo4jdZCageGrFJ",
   "js/workers": "QmcB4V7zvE94b5wW492GM7wfFTmChtcAm5t5HrFyZjQRuj",
-  "js": "QmXHziK1nkXLwNAKecoqkMtr3SdX2BmWXrE5gKngWA5k9g",
+  "js": "QmZ1kn9SgXV3b9LuvwtwX4bWGEBxFomLoJjBaJM5Myau5R",
   "modules": "QmUNLLsPACCz1vLxQVkXqqLX5R1X345qqfHbsf67hvA3Nn",
   "node_modules": "QmUNLLsPACCz1vLxQVkXqqLX5R1X345qqfHbsf67hvA3Nn",
   "scripts": "QmdNRsoUNGpBWuoUSUV9fcG5Ch6DJ5VtTAubFVvkbAJGKN",
-  "": "QmfMjundFqwHDeSJBZ1pFu8LPu2K1pf2nrLJ9Q4ULHvToF",
+  "": "Qma7MFSkXTZkH42TWUNiErcxuEEbDA2hFdPz7q64D7oLgq",
   "foo": "bar",
 };

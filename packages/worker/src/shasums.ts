@@ -12,7 +12,7 @@ export const shasums = {
   "js/importScript.d.ts":
     "863a8f91f1d5750d68903b9493472d186067185cf0f9cf09f40c6c273ddef229",
   "js/reactLoader.mjs":
-    "8a25058bf4cf00a0c44f8abc606e6160626488ed68d878f653c9b7bb0e5f20f1",
+    "f990c4ccadef23d725c45d42ff0c24e3879e8ab01befc77e87a24ebaa66b82df",
   "js/workers/transpile.worker.js":
     "fd83999a3b16c8fb07b509301facea7d0cf8d8fa31ed6c0d922f6330b017460a",
   "js/workers/prettierWorker.js":
@@ -85,7 +85,7 @@ export const shasums = {
     "ddb7a1699251a0daecf2c4ff494760608cd9d5f39e8ce09426a31b2d505ceb4e",
   "dev.mjs": "3b4aed4d28c155979c71c5e890b35249c531fbdfb2a27b3dd4325ac44f1d8588",
   "package.json":
-    "4f350083de23626e4bc8343858cf9a3d734715abf0fc9ec7e5a180c469b95c4c",
+    "cb2ac52271b82c9f396b83b5138afd1a30efad44f254ae10498314769b05f986",
   "edit/index.html":
     "6bedf2adaf3b015d95ef000fe886b446ff1cc39184be9c8f060e63a325ed50af",
   "esbuild-dev.mjs":
