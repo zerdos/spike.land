@@ -2,7 +2,7 @@
 
 - Base image: ubuntu:hirsute
 - Deno: 1.15.1- Node: 16.11.1
-- Yarn: 1.22.15
+- Yarn: 1.22.16
 - With noVNC - XFCE trough noVNC (http://localhost:6080)
 - With google-chrome
 - With Vscode- docker preinstalled

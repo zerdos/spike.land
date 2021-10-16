@@ -2,7 +2,7 @@
 
 - Base image: ubuntu:focal
 - Node: 14.18.1
-- Yarn: 1.22.15
+- Yarn: 1.22.16
 - With noVNC - XFCE trough noVNC (http://localhost:6080)
 - With google-chrome
 

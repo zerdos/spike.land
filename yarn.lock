@@ -21660,10 +21660,10 @@ yargs@^16.0.3, yargs@^16.1.1, yargs@^16.2.0:
     y18n "^5.0.5"
     yargs-parser "^20.2.2"
 
-yarn@1.22.15:
-  version "1.22.15"
-  resolved "https://registry.yarnpkg.com/yarn/-/yarn-1.22.15.tgz#3431d5f134d3c752a57a9dd7f5e1167627ca3cc3"
-  integrity sha512-AzoEDxj256BOS/jqDXA3pjyhmi4FRBBUMgYoTHI4EIt2EhREkvH0soPVEtnD+DQIJfU5R9bKhcZ1H9l8zPWeoA==
+yarn@1.22.16:
+  version "1.22.16"
+  resolved "https://registry.yarnpkg.com/yarn/-/yarn-1.22.16.tgz#fb3e6ecd34b006e175b6336c222dfd14429041fc"
+  integrity sha512-2B/Ml9jE9aTuC98ouzpN9M+e5FZGTU0ljdTKAlVokyuEqT6emFoVhgfThE0L8a90PaAlJw3s4CEcCJ9dSYH1Xg==
 
 yauzl@^2.10.0:
   version "2.10.0"
