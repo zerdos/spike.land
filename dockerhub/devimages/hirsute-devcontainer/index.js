@@ -1,4 +1,4 @@
-const { DevcontainerGenerator } = require("@devcontainer/generator");
+const { DevcontainerGenerator } = require("@spike.land/devcontainer-generator");
 const { writeFile } = require("fs").promises;
 
 const run = async () => {

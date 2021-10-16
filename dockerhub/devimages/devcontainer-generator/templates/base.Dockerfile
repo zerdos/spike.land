@@ -1,7 +1,8 @@
 FROM {DISTRO}
 
 ### base.Dockerfile
-### Generator: https://github.com/spike-land/monorepo/
+### Generator: https://github.com/spike-land/monorepo/tree/main/dockerhub/devimages
+
 LABEL maintainer=zoltan.erdos@me.com
 
 ENV DEBIAN_FRONTEND=noninteractive

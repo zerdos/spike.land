@@ -71,7 +71,7 @@ const BlogIndex: React.FC<Props> = ({ data }) => {
           </h1>
         )
         : <h1>This is my blog.</h1>}
-      <a href="https://github.com/spike-land/monorepo">
+      <a href="https://github.com/spike-land/monorepo/tree/main/dockerhub/devimages">
         <img
           loading="lazy"
           width="149"

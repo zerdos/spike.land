@@ -6,8 +6,8 @@
 ```js
 if (code) return "it is in the monorepo";
 
-// blog:          packages/spike-land-site
-// docker-images: docker-images/packages/groovy*
+// blog:          sites/blog.spike.land
+// docker-images: dockerhub/packages/groovy*
 //                                      /focal*
 //                                         etc.
 //
