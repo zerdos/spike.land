@@ -213,7 +213,7 @@
     "simple-window-manager": "https://unpkg.com/simple-window-manager@2.1.2/public/simple-window-manager.min.js",
     "uuid/": "https://unpkg.com/uuid@8.3.2/dist/esm-browser/",
     "@spike.land/shadb": "https://unpkg.com/@spike.land/shadb@0.0.9/dist/shaDB.mjs",
-    "@spike.land/code": "https://unpkg.com/@spike.land/code@0.0.9/js/codeLoader.mjs",
+    "@spike.land/code": "https://unpkg.com/@spike.land/code@0.0.10/dev.mjs",
     "comlink": "https://unpkg.com/comlink@4.3.1/dist/esm/comlink.mjs",
     "@spike.land/ipfs": "https://unpkg.com/@spike.land/ipfs@0.0.9/dist/ipfs.client.mjs",
     "workbox-window": "https://unpkg.com/workbox-window@6.3.0/build/workbox-window.prod.es5.mjs"

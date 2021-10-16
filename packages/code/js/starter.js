@@ -9,17 +9,12 @@ try {
 }
 
 async function start() {
-  try {
+
     const { run } = await import(
-      location.host.includes("spike.land") ? "../dev.mjs" : "../dev.mjs"
+      location.host.includes("spike.land") ? "./reactLoader.mjs" : "./reactLoader.mjs"
     );
     run("window");
-  } catch (e) {
-    throw e;
-    console.error("error", { e });
-    //        const { run } = await import("https://unpkg.com/@spike.land/code@13.0.16/js/codeLoader.mjs");
-    //      run("window");
-  }
+ 
   setTimeout(async () => {
     const { workboxLoader } = await import("./workboxLoader.mjs");
     workboxLoader();
