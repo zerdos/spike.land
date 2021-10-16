@@ -2,13 +2,13 @@
   "name": "@spike.land/code",
   "version": "0.0.9",
   "description": "spike.land",
-  "main": "js/codeLoader.mjs",
+  "main": "./dev.mjs",
   "files": [
     "**/*"
   ],
   "source": "./js/codeLoader.mjs",
   "exports": {
-    ".": "./js/dev.mjs",
+    ".": "./dev.mjs",
     "./js/codeLoader": "./js/dev.mjs",
     "./js/importmap.json": "./js/importmap.json"
   },
