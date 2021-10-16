@@ -1,11 +1,11 @@
 {
-  "name": "blog.spike.land",
-  "private": "true",
+  "name": "@spike.land/blog-artifacts",
   "scripts": {
     "develop": "gatsby develop --https",
     "gatsby:build": "cp -afr blog/. static && gatsby build",
     "clean": "gatsby clean"
   },
+  "files": ["public/**/*"],
   "description": "Zed vision blog",
   "version": "0.0.13",
   "author": "Zoltan Erdos <zolika84@gmail.com>",
