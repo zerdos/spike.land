@@ -11,7 +11,7 @@
     "public/**/*"
   ],
   "description": "Zed vision blog",
-  "version": "0.0.15",
+  "version": "0.0.16",
   "author": "Zoltan Erdos <zolika84@gmail.com>",
   "bugs": {
     "url": "https://github.com/spike-land/monorepo/"

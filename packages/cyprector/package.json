@@ -1,7 +1,7 @@
 {
   "name": "@spike.land/cyprector",
   "private": true,
-  "version": "0.0.15",
+  "version": "0.0.16",
   "author": {
     "name": "Andrew Goldis",
     "email": "agoldis@gmail.com"
