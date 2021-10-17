@@ -1,14 +1,11 @@
-version: "3.7"
+version: "3.4"
 services:
   devcontainer:
-    build:
-      context: .
-      args:
-        USER: $USER
+    image: devimages/groovy-xfce-novnc:latest
     tmpfs:
       - /home/$USER/tmpfs:exec
     network_mode: host
-    user: $USER
+    privileged: true
     shm_size: 4gb
     volumes:
       # - $HOME:/home/$USER/host:delegated
