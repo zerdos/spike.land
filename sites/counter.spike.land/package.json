@@ -19,7 +19,7 @@
   },
   "dependencies": {
     "axax": "0.2.2",
-    "esbuild": "0.13.7",
+    "esbuild": "0.13.8",
     "is-even": "1.0.0"
   },
   "gitHead": "e184ba1bad605e8e09d5870ff49596e9d218ada7"

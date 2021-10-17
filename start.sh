@@ -1,7 +1,7 @@
 # alias ipfs="ipfs || (docker-compose exec -T ipfs ipfs)"
 rm -rf packages/code/js/workers/shaSums.json  packages/code/js/workers/fileCids.json
-find ./packages/code -type f -exec sha256sum {} \; | grep -v node_modules | awk '{print "\"" substr($2,17) "\": \"" $1 "\","}' |  awk 'BEGIN{print "export const shasums = {"}{print $0}END{print " \"food\":\"bar\" }"}' > packages/worker/src/shasums.ts;
-deno fmt packages/code/js/workers/shaSums.json packages/worker/src/shasums.ts;
+find ./packages/code -type f -exec sha256sum {} \; | grep -v node_modules | awk '{print "\"" substr($2,17) "\": \"" $1 "\","}' |  awk 'BEGIN{print "export const shasums = {"}{print $0}END{print " \"food\":\"bar\" }"}' > sites/spike.land/src/shasums.ts;
+deno fmt packages/code/js/workers/shaSums.json sites/spike.land/src/shasums.ts;
 
 #docker-compose exec -T ipfs 
 ipfs add -r packages/code > ipfs.txt
@@ -20,7 +20,7 @@ URL="http://127.0.0.1:8080/ipfs/$CID"
 # rm -rf docs/code/$(cat code.CID)
 # mkdir -p docs/code
 # cp -ar packages/code docs/code/$CID
-echo "export const cid = '$CID';" > packages/worker/src/cid.ts
+echo "export const cid = '$CID';" > sites/spike.land/src/cid.ts
 
 #yarn jsipfs daemon &
 
@@ -35,8 +35,8 @@ echo $URL
 # ipfs add -r packages/code > files.txt
 
 # | awk '{print "echo " $2 " > "$3 ";"}' >cids/commands.sh
-cat ipfs.txt | awk '{print "\"" substr($3,6) "\": \"" $2 "\","}' | awk 'BEGIN{print "export const files = {"}{print $0}END{print " \"foo\":\"bar\" }"}' >  packages/worker/src/files.ts
-deno fmt packages/worker
+cat ipfs.txt | awk '{print "\"" substr($3,6) "\": \"" $2 "\","}' | awk 'BEGIN{print "export const files = {"}{print $0}END{print " \"foo\":\"bar\" }"}' >  sites/spike.land/src/files.ts
+deno fmt sites/spike.land
 
 
 # cp -r packages/code cids/code

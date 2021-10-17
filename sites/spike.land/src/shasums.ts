@@ -85,7 +85,7 @@ export const shasums = {
     "ddb7a1699251a0daecf2c4ff494760608cd9d5f39e8ce09426a31b2d505ceb4e",
   "dev.mjs": "c577fbf595454bbf27c5d4875f3a32d68bff2d3f1e277ba7c7a7fc579b17cd3e",
   "package.json":
-    "089776cb540dc95b811f28a3359fc9e29f857ac78197a8536ba1c8543177b399",
+    "41ce382c112957d6b761d71a4dab99b913e7d35a72bc40a07d4154a859802b50",
   "edit/index.html":
     "6bedf2adaf3b015d95ef000fe886b446ff1cc39184be9c8f060e63a325ed50af",
   "esbuild-dev.mjs":
