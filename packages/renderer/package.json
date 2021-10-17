@@ -14,7 +14,7 @@
     "build": "esbuild src/DraggableWindow.tsx src/icons/PhoneAndroid.tsx src/icons/QrCode.tsx src/icons/Share.tsx src/icons/TabletAndroid.tsx src/icons/Tv.tsx src/Qr.tsx src/renderer.ts --format=esm --outdir=dist"
   },
   "dependencies": {
-    "@emotion/react": "11.4.1",
+    "@emotion/react": "11.5.0",
     "@emotion/styled": "11.3.0",
     "@mui/material": "5.0.4",
     "@spike.land/qrious": "^0.0.19",
