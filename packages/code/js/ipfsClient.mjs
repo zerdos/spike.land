@@ -45,7 +45,7 @@ export const ipfsCat = async (cid, opts) => {
   const resultStr = toString(result);
   return resultStr;
 };
-
+globalThis.ipfsClient = ipfsClient;
 globalThis.ipfsCat = ipfsCat;
 export { CID };
 export { all };

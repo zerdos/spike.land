@@ -92,6 +92,7 @@ var init_ipfsClient = __esm({
       const resultStr = toString(result);
       return resultStr;
     };
+    globalThis.ipfsClient = ipfsClient;
     globalThis.ipfsCat = ipfsCat;
   }
 });
