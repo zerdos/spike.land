@@ -2,9 +2,9 @@
 var src_default = {
   async fetch(request, env) {
     try {
-      return new Response("Ello ");
-    } catch (e) {
-      return new Response(e.message);
+      return new Response(`Hello. ${request.url.toString()}`);
+    } catch (Error) {
+      return new Response(`Yayy... ${Object.prototype.toString.call(Error)}`);
     }
   }
 };

@@ -1,9 +1,17 @@
 {
   "compilerOptions": {
-    "target": "ES2020",
-    "module": "CommonJS",
-    "lib": ["ES2020"],
+    "allowJs": true,
+    "target": "esnext",
+    "module": "esnext",
+    "lib": ["es2020"],
+    "alwaysStrict": true,
+    "strict": true,
     "noEmit": true,
+    "preserveConstEnums": true,
+    "moduleResolution": "node",
+    "sourceMap": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
     "types": ["@cloudflare/workers-types"]
   }
 }

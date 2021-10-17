@@ -1,9 +1,9 @@
 export default {
-    async fetch(request, env) {
+    async fetch(request: Request, env: EventInit) {
       try {
-        return new Response(`Hello. ${request}`);
-      } catch (e) {
-        return new Response(e.message);
+        return new Response(`Hello. ${request.url.toString()}`);
+      } catch (Error) {
+        return new Response(`Yayy... ${Object.prototype.toString.call(Error)}`);
       }
     },
   };
