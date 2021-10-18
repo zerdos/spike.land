@@ -11,3 +11,4 @@ image: devimages/gitpod:latest
 vscode:
   extensions:
     - denoland.vscode-deno
+    - vscode.simple-browser
