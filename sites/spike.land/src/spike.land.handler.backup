@@ -3,7 +3,6 @@ import { handleCloudRequest } from "./handler";
 import Hash from "ipfs-only-hash";
 import { js, json, text } from "./utils/responds";
 import { log } from "./log";
-import { wait } from "axax/esnext/wait";
 
 import { shasums } from "./shasums";
 import { publicIpfsGateways, raceToSuccess } from "@spike.land/ipfs";

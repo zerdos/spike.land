@@ -426,6 +426,7 @@ import { sha256, shaDB } from "https://unpkg.com/@spike.land/shadb@0.0.20/dist/s
 async function addAll(files) {
   try {
     const res = await all(ipfsClient.addAll(files));
+    console.log(`REES: `, res);
     return res.map((r) => {
       const CID2 = r.cid.toString();
       return { path: r.path, CID: CID2 };

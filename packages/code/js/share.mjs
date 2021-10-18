@@ -127,6 +127,8 @@ async function addAll(files) {
     //   const CID = cid.toString();
     //   res.push({ path, CID });
     // }
+
+    console.log(`REES: `, res);
     return res.map((r) => {
       const CID = r.cid.toString();
 

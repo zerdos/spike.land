@@ -8,6 +8,8 @@ import { shasums } from "./shasums";
 import { publicIpfsGateways, raceToSuccess } from "@spike.land/ipfs";
 import { cid } from "./cid";
 import { alterHeaders, sha256, sha256UArray } from "./alterHeaders";
+import { wait } from "axax/esnext/wait";
+
 
 export type KV = { [key: string]: string };
 
@@ -29,8 +31,14 @@ Object.keys(fileKV).forEach((k) => {
   }
 });
 
-addEventListener("fetch", (event) => {
-  event.respondWith(handleRequest(event.request));
+addEventListener("fetch", async (event) => {
+  try{
+      event.respondWith(handleRequest(event.request));
+  return;
+  } catch{
+    await wait(1000);
+    event.respondWith(handleRequest(event.request));
+  }
 });
 
 /**
