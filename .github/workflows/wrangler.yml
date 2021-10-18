@@ -1,0 +1,21 @@
+name: Wrangler Deploy
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  deploy:
+    runs-on: node:14-buster
+    name: Deploy
+    steps:
+      - uses: actions/checkout@v2
+      - name: Yarn install
+        run: 'yarn'
+      - name: deploy
+        run: 'yarn deploy'
+        env:
+          CF_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
+          CF_ACCOUNT_ID: ${{ secrets.CF_ACCOUNT_ID }}
+          
