@@ -1,3 +1,10 @@
+FROM devimages/groovy-devcontainer:latest
+
+USER 0
+
+ADD https://raw.githubusercontent.com/gitpod-io/workspace-images/master/base/install-packages /usr/bin
+
+
 ARG DEBIAN_FRONTEND=noninteractive
 
 RUN yes | unminimize \
@@ -25,7 +32,7 @@ RUN yes | unminimize \
         fish \
         zsh \
     && locale-gen en_US.UTF-8
-FROM devimages/groovy-devcontainer:latest
+
 ENV LANG=en_US.UTF-8
 
 ### Git ###
@@ -41,6 +48,7 @@ ENV HOME=/home/gitpod
 WORKDIR $HOME
 # custom Bash prompt
 RUN { echo && echo "PS1='\[\033[01;32m\]\u\[\033[00m\] \[\033[01;34m\]\w\[\033[00m\]\$(__git_ps1 \" (%s)\") $ '" ; } >> .bashrc
+
 
 ### Gitpod user (2) ###
 USER gitpod
