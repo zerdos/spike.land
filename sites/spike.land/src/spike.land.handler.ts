@@ -56,7 +56,6 @@ addEventListener("fetch", (event) => {
       })());
       
   } catch{
-    await wait(1000);
     event.respondWith(handleRequest(event.request));
   }
 });
