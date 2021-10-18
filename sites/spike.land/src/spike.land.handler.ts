@@ -33,25 +33,28 @@ Object.keys(fileKV).forEach((k) => {
 
 addEventListener("fetch", async (event) => {
   try{
-      const resp = await handleRequest(event.request);
-      const clone = resp.clone();
-      const {request} = event;
-      const url = new URL(request.url);
-      const { pathname } = url;
 
 
-      if (pathname.slice(0, 6) === `/ipfs/`) {
-          let customCID = pathname.slice(6,52);
-          const respOfClone = await clone.arrayBuffer();
-          const cid = await Hash.of(respOfClone);
-          if (cid!==customCID) {
-            event.respondWith(text("CID MISMATCH"));
-            return;
-          }
-      }
-
-      event.respondWith(resp);
-  return;
+      event.respondWith((async()=>{
+        const resp = await handleRequest(event.request);
+        const clone = resp.clone();
+        const {request} = event;
+        const url = new URL(request.url);
+        const { pathname } = url;
+  
+  
+        if (pathname.slice(0, 6) === `/ipfs/`) {
+            let customCID = pathname.slice(6,52);
+            const respOfClone = await clone.arrayBuffer();
+            const cid = await Hash.of(respOfClone);
+            if (cid!==customCID) {
+              return text("CID MISMATCH");
+            }
+        }
+        return resp;
+      
+      })());
+      
   } catch{
     await wait(1000);
     event.respondWith(handleRequest(event.request));
