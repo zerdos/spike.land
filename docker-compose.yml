@@ -10,7 +10,7 @@ services:
       - ipfs:/data/ipfs
       - .:/export
   devcontainer: 
-    image: devimages/rolling-devcontainer:latest
+    image: devimages/groovy-devcontainer:latest
     ports: 
       - 5901:5901
       - 6080:6080

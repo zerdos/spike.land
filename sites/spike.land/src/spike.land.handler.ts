@@ -43,9 +43,11 @@ addEventListener("fetch", async (event) => {
       if (pathname.slice(0, 6) === `/ipfs/`) {
           let customCID = pathname.slice(6,52);
           const respOfClone = await clone.arrayBuffer();
-          if (Hash.of(respOfClone)!==customCID) 
-          event.respondWith(text("CID MISMATCH"));
-          return;
+          const cid = await Hash.of(respOfClone);
+          if (cid!==customCID) {
+            event.respondWith(text("CID MISMATCH"));
+            return;
+          }
       }
 
       event.respondWith(resp);
