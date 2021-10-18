@@ -7,8 +7,7 @@ github:
     addComment: true
     addBadge: true
     addLabel: prebuilt-in-gitpod
-image:
-  file: .gitpod.Dockerfile
+image: devimages/gitpod:latest
 vscode:
   extensions:
     - denoland.vscode-deno

@@ -15,7 +15,7 @@ jobs:
       fail-fast: false
       matrix:
         # run copies of the current job in parallel
-        image-name: [cypress,  eoan-xfce-novnc,  focal-devcontainer,  groovy-devcontainer,  groovy-xfce-novnc,  hirsute-devcontainer]
+        image-name: [cypress,  eoan-xfce-novnc, gitpod, focal-devcontainer,  groovy-devcontainer,  groovy-xfce-novnc,  hirsute-devcontainer]
 
     steps:
       - uses: actions/checkout@master
