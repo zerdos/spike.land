@@ -6,7 +6,7 @@
   "main": "dist/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "prebuild": "deno fmt src",
+    "clean": "deno fmt src",
     "build": "rm -rf dist && mkdir dist && esbuild --bundle src/spike.land.handler.ts > dist/index.js",
     "deploy": "yarn build && wrangler publish"
   },
