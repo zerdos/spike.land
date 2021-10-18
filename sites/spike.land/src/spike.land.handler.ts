@@ -10,7 +10,6 @@ import { cid } from "./cid";
 import { alterHeaders, sha256, sha256UArray } from "./alterHeaders";
 import { wait } from "axax/esnext/wait";
 
-
 export type KV = { [key: string]: string };
 
 const reverseMap: KV = {};
@@ -32,30 +31,25 @@ Object.keys(fileKV).forEach((k) => {
 });
 
 addEventListener("fetch", (event) => {
-  try{
+  try {
+    event.respondWith((async () => {
+      const resp = await handleRequest(event.request);
+      const clone = resp.clone();
+      const { request } = event;
+      const url = new URL(request.url);
+      const { pathname } = url;
 
-
-      event.respondWith((async()=>{
-        const resp = await handleRequest(event.request);
-        const clone = resp.clone();
-        const {request} = event;
-        const url = new URL(request.url);
-        const { pathname } = url;
-  
-  
-        if (pathname.slice(0, 6) === `/ipfs/`) {
-            let customCID = pathname.slice(6,52);
-            const respOfClone = await resp.arrayBuffer();
-            const cid = await Hash.of(respOfClone);
-            if (cid!==customCID) {
-              return text("CID MISMATCH");
-            }
+      if (pathname.slice(0, 6) === `/ipfs/`) {
+        let customCID = pathname.slice(6, 52);
+        const respOfClone = await resp.arrayBuffer();
+        const cid = await Hash.of(respOfClone);
+        if (cid !== customCID) {
+          return text("CID MISMATCH");
         }
-        return clone;
-      
-      })());
-      
-  } catch{
+      }
+      return clone;
+    })());
+  } catch {
     event.respondWith(handleRequest(event.request));
   }
 });
