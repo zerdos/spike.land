@@ -71,3 +71,13 @@ RUN sudo echo "Running 'sudo' for Gitpod: succUess" && \
 
 # configure git-lfs
 RUN sudo git lfs install --system
+
+RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" \
+    && sed -i -e 's/plugins=(git)/plugins=(git gitfast git-extras npm yarn)/g'  ~/.zshrc \
+    && curl -fsSL https://deno.land/x/install/install.sh | sh \
+    && touch  ~/.bashrc  \ 
+    && echo "export DENO_INSTALL=\"/home/gitpod/.deno\"" >> ~/.zshrc  \
+    && echo "export DENO_INSTALL=\"/home/gitpod/.deno\"" >> ~/.bashrc \
+    && echo "export PATH=\"\$DENO_INSTALL/bin:\$PATH\""  >>  ~/.zshrc \
+    && echo "export PATH=\"\$DENO_INSTALL/bin:\$PATH\"" >>  ~/.bashrc \
+    && echo ":)" >  ~/.mood
