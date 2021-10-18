@@ -11,6 +11,10 @@ jobs:
     name: Deploy
     steps:
       - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+          cache: 'yarn'
       - name: Yarn install
         run: 'yarn'
       - name: deploy
