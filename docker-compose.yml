@@ -19,5 +19,6 @@ services:
     volumes:
       # - $HOME:/home/$USER/host:delegated
       - .:/workspace
+      - /var/run/docker.sock:/var/run/docker.sock
 volumes: 
   ipfs:
