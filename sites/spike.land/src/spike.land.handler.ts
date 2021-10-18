@@ -31,7 +31,7 @@ Object.keys(fileKV).forEach((k) => {
   }
 });
 
-addEventListener("fetch", async (event) => {
+addEventListener("fetch", (event) => {
   try{
 
 
@@ -45,13 +45,13 @@ addEventListener("fetch", async (event) => {
   
         if (pathname.slice(0, 6) === `/ipfs/`) {
             let customCID = pathname.slice(6,52);
-            const respOfClone = await clone.arrayBuffer();
+            const respOfClone = await resp.arrayBuffer();
             const cid = await Hash.of(respOfClone);
             if (cid!==customCID) {
               return text("CID MISMATCH");
             }
         }
-        return resp;
+        return clone;
       
       })());
       
