@@ -46,14 +46,6 @@ RUN (addgroup --gid 1000 ${USER}  \
   && chmod +x /usr/bin/startx /usr/bin/startWithBash \
   && echo "(sudo sysctl fs.inotify.max_user_watches=524288 fs.inotify.max_user_instances=524288 net.core.somaxconn=524288 fscache.object_max_active=524288 || echo failed) && (sudo sysctl -p || echo failed) && (sudo chown ${USER}:${USER} /home/${USER}/tmpfs)" >> /usr/bin/startx \
   && echo "bash /usr/bin/startx" >> /usr/bin/startWithBash && chmod +x /usr/bin/startWithBash 
-### deno.Dockerfile
-RUN  apt-get update && apt-get install -y --no-install-recommends unzip \
-     && apt-get autoremove -y \
-  && apt-get clean -y \
-  && rm -rf /var/lib/apt/lists/* \
-  && curl -fsSL https://deno.land/x/install/install.sh | sh -s v1.15.1
-
-  
 ENV NODE_VERSION 16.11.1
 RUN ARCH= && dpkgArch="$(dpkg --print-architecture)" \
   && case "${dpkgArch##*-}" in \
@@ -265,6 +257,20 @@ ENV SHELL=/usr/bin/zsh
 RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" \
     && sed -i -e 's/plugins=(git)/plugins=(git gitfast git-extras npm yarn)/g'  ~/.zshrc \
     && touch  ~/.bashrc && echo ":)" >  ~/.mood
+### deno.Dockerfile
+
+USER 0
+RUN apt-get update && apt-get install -y --no-install-recommends unzip \
+     && apt-get autoremove -y \
+  && apt-get clean -y \
+  && rm -rf /var/lib/apt/lists/* 
+
+USER ${USER}
+
+RUN curl -fsSL https://deno.land/x/install/install.sh | sh -s v1.15.1 \
+  echo "export DENO_INSTALL="\${HOME}/.deno\"" >> ${HOME}/.zshrc \
+  echo "export PATH=\"\$DENO_INSTALL/bin:\$PATH\"" >> ${HOME}/.zshrc
+  
 ### suffix.Dockerfie
 
 

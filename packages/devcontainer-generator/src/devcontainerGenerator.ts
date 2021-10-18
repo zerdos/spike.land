@@ -197,13 +197,7 @@ export class DevcontainerGenerator {
         );
       }
     }
-    if (this._deno) {
-      this._dockerfile += dockerTemplates["deno"]
-        .replace("{DENO_VERSION}", softwareVersions.deno);
-
-      this._readme += readmeTemplates["deno"]
-        .replace("{DENO_VERSION}", softwareVersions.deno);
-    }
+  
 
     if (this._nodeVersion) {
       this._dockerfile += dockerTemplates["node"]
@@ -340,6 +334,14 @@ export class DevcontainerGenerator {
     if (this._zsh) {
       this._dockerfile += dockerTemplates["zsh"];
       this._readme += readmeTemplates["zsh"];
+    }
+
+    if (this._deno) {
+      this._dockerfile += dockerTemplates["deno"]
+        .replace("{DENO_VERSION}", softwareVersions.deno);
+
+      this._readme += readmeTemplates["deno"]
+        .replace("{DENO_VERSION}", softwareVersions.deno);
     }
 
     this._dockerfile += dockerTemplates["suffix"];
