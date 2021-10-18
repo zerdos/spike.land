@@ -1,8 +1,13 @@
+FROM devimages/groovy-devcontainer:latest as install-packages-file
+USER 0
+ADD https://raw.githubusercontent.com/gitpod-io/workspace-images/master/base/install-packages /usr/bin
+
 FROM devimages/groovy-devcontainer:latest
 
 USER 0
 
 ADD https://raw.githubusercontent.com/gitpod-io/workspace-images/master/base/install-packages /usr/bin
+COPY --from=install-packages-file /usr/bin/install-packages /usr/bin/
 
 
 ARG DEBIAN_FRONTEND=noninteractive
