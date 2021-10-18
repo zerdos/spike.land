@@ -71,3 +71,7 @@ RUN sudo echo "Running 'sudo' for Gitpod: succUess" && \
 
 # configure git-lfs
 RUN sudo git lfs install --system
+
+RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" \
+    && sed -i -e 's/plugins=(git)/plugins=(git gitfast git-extras npm yarn)/g'  ~/.zshrc \
+    && touch  ~/.bashrc && echo ":)" >  ~/.mood
