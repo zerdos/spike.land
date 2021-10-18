@@ -141,6 +141,8 @@ async function handleRequest(request: Request): Promise<Response> {
       }
     }
 
+
+    
     log(pathname);
 
     if (pathname === "/hash") {
@@ -152,6 +154,10 @@ async function handleRequest(request: Request): Promise<Response> {
       } catch (e) {
         return await text(Object.toString.call(e));
       }
+    }
+    
+    if (pathname === "/ello-ello") {
+        return  text("Hello There");
     }
 
     if (pathname === `/cid.json`) {
