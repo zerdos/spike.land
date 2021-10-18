@@ -1,5 +1,5 @@
 {
-  "name": "blog.spike.land",
+  "name": "@spike.land/blog",
   "version": "0.0.20",
   "main": "index.js",
   "private": true,

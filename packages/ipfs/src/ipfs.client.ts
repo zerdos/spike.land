@@ -22,17 +22,18 @@ export { concat };
 export async function fetchSignal(
   signal: string,
   _retry: number,
-){
+) {
   if (typeof window === "undefined") return;
   const retry = (typeof _retry === "number") ? _retry : 999;
- 
+
   try {
-    const {ipfsClient, ipfsCat} = globalThis as unknown as  {ipfsClient: IPFSClient; ipfsCat: (cid: string, opt: unknown)=>Promise<string>}
+    const { ipfsClient, ipfsCat } = globalThis as unknown as {
+      ipfsClient: IPFSClient;
+      ipfsCat: (cid: string, opt: unknown) => Promise<string>;
+    };
     if (retry === 0) {
       throw new Error("No more retry");
     }
-
-
 
     const res = await ipfsClient.add(signal, { onlyHash: true });
     const resCID = res.cid.toString();
@@ -93,15 +94,14 @@ export function sha256ToCid(hash: string) {
  */
 
 export async function sendSignal(signal: string, data: Object) {
-  const {ipfsClient} = globalThis as unknown as  {ipfsClient: IPFSClient}
+  const { ipfsClient } = globalThis as unknown as { ipfsClient: IPFSClient };
 
   log(`sending signal: ${signal}`);
 
   if (data) {
-   
     log(`sending data as well....`);
 
-    const toSave = (typeof data !== "string")?  JSON.stringify(data): data;
+    const toSave = (typeof data !== "string") ? JSON.stringify(data) : data;
 
     log(toSave);
 
@@ -113,7 +113,6 @@ export async function sendSignal(signal: string, data: Object) {
     );
 
     fetch(`https://spike.land/ipfs/${dataCid}`);
-
   }
 
   const { path } = await ipfsClient.add(signal);
