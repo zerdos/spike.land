@@ -14,7 +14,7 @@
   "license": "MIT",
   "dependencies": {
     "@cloudflare/workers-types": "3.0.0",
-    "@cloudflare/wrangler": "1.19.3",
+    "@cloudflare/wrangler": "1.19.4",
     "@spike.land/code": "^0.0.20",
     "@spike.land/ipfs": "^0.0.20",
     "esbuild": "0.13.8",
