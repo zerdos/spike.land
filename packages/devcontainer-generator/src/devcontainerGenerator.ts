@@ -197,7 +197,6 @@ export class DevcontainerGenerator {
         );
       }
     }
-  
 
     if (this._nodeVersion) {
       this._dockerfile += dockerTemplates["node"]
