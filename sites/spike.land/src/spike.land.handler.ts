@@ -32,7 +32,7 @@ Object.keys(fileKV).forEach((k) => {
 
 addEventListener("fetch", (event) => {
   try {
-    event.respondWith((async(request)=>{
+    event.respondWith((async (request) => {
       const resp = await handleRequest(request);
       const clone = resp.clone();
       const url = new URL(request.url);
@@ -43,7 +43,7 @@ addEventListener("fetch", (event) => {
         const respOfClone = await clone.text();
         const cid = await Hash.of(respOfClone);
         if (cid !== customCID) {
-          return text( `${cid}  ==  ${customCID}
+          return text(`${cid}  ==  ${customCID}
           
           ${respOfClone}
           
