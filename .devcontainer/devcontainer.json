@@ -23,9 +23,15 @@
 	"settings": {},
 
 	// Add the IDs of extensions you want installed when the container is created.
-	"extensions": []
+	"extensions": [
+		"jpoissonnier.vscode-styled-components",
+		"xyc.vscode-mdx-preview",
+		"silvenon.mdx",
+		"pflannery.vscode-versionlens",
+		"streetsidesoftware.code-spell-checker"
+	]
 
-	// Use 'forwardPorts' to make a list of ports inside the container available locally.
+	// Use 'forwardPorts' to make a l ist of ports inside the container available locally.
 	// "forwardPorts": [],
 
 	// Uncomment the next line if you want start specific services in your Docker Compose config.
