@@ -21,6 +21,7 @@ RUN apt-get update \
   inotify-tools \
   libvips \
   locales \
+  make \
   mc \
   dirmngr \
   procps \
