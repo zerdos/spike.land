@@ -8,6 +8,7 @@
   ],
   "source": "./js/codeLoader.mjs",
   "exports": {
+    "./package.json": "./package.json",
     ".": "./js/reactLoader.mjs",
     "./js/importmap.json": "./js/importmap.json"
   },
