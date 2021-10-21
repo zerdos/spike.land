@@ -8,8 +8,8 @@
   "description": "A template for kick starting a Cloudflare Workers project",
   "module": "./dist/index.mjs",
   "scripts": {
-    "build": "esbuild --bundle --format=esm --target=esnext src/index.ts --outfile=dist/index.mjs",
-    "deploy": "wrangler publish",
+    "x.build": "esbuild --bundle --format=esm --target=esnext src/index.ts --outfile=dist/index.mjs",
+    "x.deploy": "wrangler publish",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "license": "MIT",
