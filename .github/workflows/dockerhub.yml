@@ -25,11 +25,10 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: get-npm-version
-        id: package-version
-        uses: martinbeentjes/npm-get-version-action@master
+      - name: Extract Package Version
+        uses: Saionaro/extract-package-version@v1.1.1
         with:
-          path: packages/${{ matrix.image-name }}
+          path: dockerhub/devimages/${{ matrix.image-name }}
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
@@ -40,6 +39,6 @@ jobs:
           context: ./
           file: ./dockerhub/devimages/${{ matrix.image-name }}/Dockerfile
           push: true
-          tags: devimages/${{ matrix.image-name }}:latest, devimages/${{ matrix.image-name }}:${{ steps.package-version.outputs.current-version}}          
+          tags: devimages/${{ matrix.image-name }}:latest, devimages/${{ matrix.image-name }}:${{ steps.extract_version.outputs.version }}          
           cache-from: type=registry,ref=devimages/${{ matrix.image-name }}:buildcache
           cache-to: type=registry,ref=devimages/${{ matrix.image-name }}:buildcache,mode=max
