@@ -25,13 +25,14 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Extract Package Version
-        uses: Saionaro/extract-package-version@v1.1.1
-        with:
-          path: dockerhub/devimages/${{ matrix.image-name }}
-
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
+
+      - name: Extract Package Version
+        uses: Saionaro/extract-package-version@v1.1.1
+        id: extract_version
+        with:
+          path: dockerhub/devimages/${{ matrix.image-name }}
 
       - name: Build and push
         uses: docker/build-push-action@v2
