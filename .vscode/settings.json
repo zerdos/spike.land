@@ -29,7 +29,8 @@
     "Erdos",
     "esbuild",
     "esms",
-    "ipfs"
+    "ipfs",
+    "Saionaro"
   ],
   "deno.enable": false
 }
