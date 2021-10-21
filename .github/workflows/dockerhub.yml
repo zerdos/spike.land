@@ -26,6 +26,7 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: get-npm-version
+        id: package-version
         uses: martinbeentjes/npm-get-version-action@master
         with:
           path: packages/${{ matrix.image-name }}
