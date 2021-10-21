@@ -1,0 +1,26 @@
+{
+  "private": false,
+  "name": "@spike.land/todo",
+  "version": "0.0.20",
+  "publishConfig": {
+    "access": "public"
+  },
+  "description": "A template for kick starting a Cloudflare Workers project",
+  "module": "./dist/index.mjs",
+  "scripts": {
+    "build": "esbuild --bundle --format=esm --target=esnext src/index.ts --outfile=dist/index.mjs",
+    "deploy": "wrangler publish",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "@cloudflare/workers-types": "3.0.0",
+    "@cloudflare/wrangler": "1.19.4"
+  },
+  "dependencies": {
+    "axax": "0.2.2",
+    "esbuild": "0.13.8",
+    "is-even": "1.0.0"
+  },
+  "gitHead": "e184ba1bad605e8e09d5870ff49596e9d218ada7"
+}

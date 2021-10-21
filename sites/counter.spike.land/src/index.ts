@@ -5,11 +5,11 @@ import isOdd from "is-odd";
 export { Counter } from "./counter";
 
 export default {
-  async fetch(request, env) {
+  async fetch(request: Request, env: string) {
     try {
       return await handleRequest(request, env);
-    } catch (e) {
-      return new Response(e.message);
+    } catch (Error) {
+      return new Response((Error as {message?: string}).message);
     }
   },
 };
@@ -17,7 +17,7 @@ export default {
 async function handleRequest(request, env) {
   let url = new URL(request.url);
   let pathname = url.pathname;
-  let id = env.COUNTER.idFromName(pathname.substr(1, 3));
+  let id = env.COUNTER.idFromName(pathname.substring(1, 3));
   let obj = env.COUNTER.get(id);
   let resp = await obj.fetch(request.url);
 
