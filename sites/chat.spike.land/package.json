@@ -1,7 +1,7 @@
 {
   "name": "@spike.land/chat",
   "description": "An edge chat service that runs on Cloudflare Workers using Durable Objects",
-  "version": "0.0.25",
+  "version": "0.0.26",
   "module": "./src/chat.mjs",
   "private": true
 }
