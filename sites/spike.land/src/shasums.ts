@@ -93,6 +93,6 @@ export const shasums = {
   "dev.mjs.map":
     "200342d5cdb3cb7eda419b8a2c57bbd9e469a746c8a8c884150f340f07702d5b",
   "package.json":
-    "dcddf11e17126296e681bf6e194fc0299eda27219ecb1bbedebc17838b416df5",
+    "a0b274c9fd8bce5a1c40b74e281a08a2e639fe96a0611ff21e7f0f3356264e6c",
   "food": "bar",
 };
