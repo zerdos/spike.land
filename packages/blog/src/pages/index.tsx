@@ -67,7 +67,7 @@ const BlogIndex: React.FC<Props> = ({ data }) => {
       {isMobile() === false
         ? (
           <h1>
-            Open the code editor here: <Qr />
+            Welcome. Open the code editor here: <Qr />
           </h1>
         )
         : <h1>This is my blog.</h1>}
