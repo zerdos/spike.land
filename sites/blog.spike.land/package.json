@@ -1,6 +1,6 @@
 {
   "name": "@spike.land/blog",
-  "version": "0.0.23",
+  "version": "0.0.24",
   "main": "index.js",
   "private": true,
   "license": "MIT",
@@ -8,6 +8,6 @@
     "build": "rm -rf node_modules && npm install --only=prod  --ignore-scripts --no-package-lock && rm -rf public && mv node_modules/@spike.land/blog-artifacts/public ./ "
   },
   "dependencies": {
-    "@spike.land/blog-artifacts": "^0.0.23"
+    "@spike.land/blog-artifacts": "^0.0.24"
   }
 }
