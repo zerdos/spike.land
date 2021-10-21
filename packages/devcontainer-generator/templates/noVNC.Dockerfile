@@ -11,6 +11,7 @@ RUN  apt-get update \
   fonts-noto-color-emoji \
   # xvfb \
   novnc \
+  g++ \
   # websockify \
   tigervnc-standalone-server \
   tigervnc-xorg-extension \
