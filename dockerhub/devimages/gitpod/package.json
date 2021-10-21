@@ -1,0 +1,14 @@
+{
+  "name": "@spike.land/gitpod",
+  "tagname": "gitpod",
+  "version": "0.0.21",
+  "description": "devcontainer vscode docker xfce remoteDesktop",
+  "main": "index.js",
+  "repository": "https://github.com/spike-land/monorepo",
+  "author": "Zoltan Erdos <zolika84@gmail.com>",
+  "license": "BSD-3-Clause",
+  "gitHead": "e184ba1bad605e8e09d5870ff49596e9d218ada7",
+  "publishConfig": {
+    "access": "public"
+  }
+}
