@@ -22,6 +22,11 @@ export const shasums = {
     "104f08c4fac5ed711bcefd1e87004f7b24d0b77c85972138f03e0fc5c71c0e0d",
   "assets/zed-icon-big.png":
     "1a8004c802bbcbdf49d4dacff5df98eb769d161df0d17d7a4ffd8093e957b18d",
+  "build.mjs":
+    "bd1dee3e58bd7307196ae4ca2b4db664bf6a5601cbbc3ef6c22ff3f7d21df2a1",
+  "dev.mjs": "7d0600685f5242bb822450a3c3d279e9d08db1a28ff9489a650a43a6bf1ef26c",
+  "dev.mjs.map":
+    "200342d5cdb3cb7eda419b8a2c57bbd9e469a746c8a8c884150f340f07702d5b",
   "edit/index.html":
     "6bedf2adaf3b015d95ef000fe886b446ff1cc39184be9c8f060e63a325ed50af",
   "esbuild-dev.mjs":
@@ -48,6 +53,8 @@ export const shasums = {
     "863a8f91f1d5750d68903b9493472d186067185cf0f9cf09f40c6c273ddef229",
   "js/importScript.mjs":
     "f1170901faaf51af6553d9a5d5c67a1c807653d55d57f1bbfe266a2be76c00e1",
+  "js/importmap.json":
+    "6d0ff989c959fa1a28fd79755ed926d73cd669d6b5db3818237a19dc86f363c8",
   "js/ipfsClient.mjs":
     "245fcc1b36fc68a92b21d606ab5b4af5abd24bab6db96269aa68e9f6e3c69618",
   "js/openWindows.mjs":
@@ -69,7 +76,7 @@ export const shasums = {
   "js/transpile.mjs":
     "3e9b4471a36bf0170b58cd0d69f7ad21b34eb29885eac3ffacbc83b0d332fd02",
   "js/workboxLoader.mjs":
-    "5a3698567870068de84d888cd9ea5ee98124d37468afbb7f4bee4f6594de9031",
+    "c75b56267c5b21ee98942e11a72319a7deea59f3ecf6da2e1dd19fe405494194",
   "js/workers/getWorker.mjs":
     "037bf6a9fb39245f82d995b0cac018f5ae86c2621f1fe6e73d68c9dab5f9e170",
   "js/workers/ipfsWorker.js":
@@ -78,21 +85,14 @@ export const shasums = {
     "6b4049d46f2346319919b286e488da5728cb688b31d118c65553abbcb56a9f80",
   "js/workers/transpile.worker.js":
     "fd83999a3b16c8fb07b509301facea7d0cf8d8fa31ed6c0d922f6330b017460a",
-  "js/importmap.json":
-    "6d0ff989c959fa1a28fd79755ed926d73cd669d6b5db3818237a19dc86f363c8",
   "manifest.json":
     "6b7f17d4eaea1e194e0270b8144b496347488b726bf894601e59c40873ffe429",
+  "package.json":
+    "43c9234686c8d88d8d84c1db7fe22c979a857b376ba5ff6b070eba2e0e34b31a",
   "scripts/importmapGenerator.mjs":
     "ef0d974511a11588574909403207d12ef50a1d424183242f731184de3d04b2b4",
   "sw.js": "c70f657b29fd5179b512af1938932be107640be340582a932ae602dffa4784de",
   "tsconfig.json":
     "fba771ff062cafcfec28f165716fa5609f8a13346e49f59bce06da7beeb2b5aa",
-  "build.mjs":
-    "bd1dee3e58bd7307196ae4ca2b4db664bf6a5601cbbc3ef6c22ff3f7d21df2a1",
-  "dev.mjs": "7d0600685f5242bb822450a3c3d279e9d08db1a28ff9489a650a43a6bf1ef26c",
-  "dev.mjs.map":
-    "200342d5cdb3cb7eda419b8a2c57bbd9e469a746c8a8c884150f340f07702d5b",
-  "package.json":
-    "a0b274c9fd8bce5a1c40b74e281a08a2e639fe96a0611ff21e7f0f3356264e6c",
   "food": "bar",
 };
