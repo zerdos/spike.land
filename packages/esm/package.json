@@ -37,5 +37,5 @@
     "build:react-dom": "yarn esbuild --bundle src/react-dom.mjs --external:react --external:react-is  --format=esm --outfile=dist/react-dom.mjs"
   },
   "private": false,
-  "gitHead": "c228b668602dd1c8754acfb7fdf5154512be9152"
+  "gitHead": "55a99b7efecc7bb2752d443be615b8b23ef4860f"
 }
