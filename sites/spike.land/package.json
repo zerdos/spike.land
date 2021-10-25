@@ -17,7 +17,7 @@
     "@cloudflare/wrangler": "1.19.4",
     "@spike.land/code": "^0.0.26",
     "@spike.land/ipfs": "^0.0.26",
-    "esbuild": "0.13.8",
+    "esbuild": "0.13.9",
     "ipfs-message-port-protocol": "0.10.1",
     "ipfs-message-port-server": "0.10.1",
     "ipfs-only-hash": "4.0.0",

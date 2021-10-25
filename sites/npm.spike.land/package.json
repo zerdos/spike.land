@@ -7,8 +7,8 @@
     "build": "esbuild --bundle --format=esm --target=esnext src/index.ts --outfile=dist/index.mjs"
   },
   "devDependencies": {
-    "@spike.land/blog-artifacts": "^0.0.26",
-    "esbuild": "0.13.8"
+    "@spike.land/blog-artifacts": "0.0.26",
+    "esbuild": "0.13.9"
   },
   "private": true
 }

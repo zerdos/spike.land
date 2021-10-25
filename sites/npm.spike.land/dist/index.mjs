@@ -1,5 +1,5 @@
 // ../../packages/blog/package.json
-var version = "0.0.24";
+var version = "0.0.26";
 
 // src/index.ts
 var src_default = {
