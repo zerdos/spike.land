@@ -12,3 +12,6 @@ vscode:
   extensions:
     - denoland.vscode-deno
     - vscode.simple-browser
+tasks:
+  - init: mv /home/gitpod/monorepo/node_modules /workspace/monorepo/ && yarn
+    command: echo 'start script'
