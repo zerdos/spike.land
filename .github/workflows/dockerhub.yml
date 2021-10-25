@@ -14,7 +14,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        image-name: [cypress,  eoan-xfce-novnc, gitpod, focal-devcontainer,  groovy-devcontainer,  groovy-xfce-novnc,  hirsute-devcontainer, rolling-devcontainer]
+        image-name: [cypress,  eoan-xfce-novnc, gitpod, monorepo-modules, focal-devcontainer,  groovy-devcontainer,  groovy-xfce-novnc,  hirsute-devcontainer, rolling-devcontainer]
 
     steps:
       - uses: actions/checkout@v2
