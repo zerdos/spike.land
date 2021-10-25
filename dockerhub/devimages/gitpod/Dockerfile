@@ -1,13 +1,3 @@
-    FROM node as workspace-cache
-
-WORKDIR /workspace
-RUN chown node:node /workspace
-
-USER node
-
-RUN git clone https://github.com/spike-land/monorepo.git
-RUN cd monorepo && yarn 
-
 FROM devimages/groovy-devcontainer:latest as devimage
 
 USER 0
@@ -92,9 +82,3 @@ RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master
     && echo "export PATH=\"\$DENO_INSTALL/bin:\$PATH\"" >>  ~/.bashrc \
     && echo ":)" >  ~/.mood
 
-COPY --chown=gitpod:gitpod --from=workspace-cache /home/node/.cache/yarn /home/gitpod/.cache/
-COPY --chown=gitpod:gitpod --from=workspace-cache /workspace/monorepo /home/gitpod/
-
-# FROM devimage as gitpod-workspace
-
-# RUN cd /home/gitpod/monorepo && yarn

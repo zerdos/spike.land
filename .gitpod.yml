@@ -7,11 +7,11 @@ github:
     addComment: true
     addBadge: true
     addLabel: prebuilt-in-gitpod
-image: devimages/gitpod:latest
+image: devimages/gitpod-monorepo:latest
 vscode:
   extensions:
     - denoland.vscode-deno
     - vscode.simple-browser
-tasks:
-  - init: mv /home/gitpod/monorepo/node_modules /workspace/monorepo/ && yarn
-    command: echo 'start script'
+# tasks:
+#   - init: mv /home/gitpod/monorepo/node_modules /workspace/monorepo/ && yarn
+#     command: echo 'start script'
