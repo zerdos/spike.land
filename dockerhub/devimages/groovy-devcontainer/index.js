@@ -4,7 +4,7 @@ const { writeFile } = require("fs").promises;
 const run = async () => {
   const devGenerator = new DevcontainerGenerator("groovy");
 
-  devGenerator.setNodeVersion("current");
+  devGenerator.setNodeVersion("lts");
   devGenerator.setXfce();
   devGenerator.setDeno();
   devGenerator.setZsh();
