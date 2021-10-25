@@ -92,7 +92,7 @@ RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master
     && echo "export PATH=\"\$DENO_INSTALL/bin:\$PATH\"" >>  ~/.bashrc \
     && echo ":)" >  ~/.mood
 
-COPY --chown=gitpod:gitpod --from=workspace-cache /home/node/.cache/yarn /home/gitpod/.cache
+COPY --chown=gitpod:gitpod --from=workspace-cache /home/node/.cache/yarn /home/gitpod/.cache/
 COPY --chown=gitpod:gitpod --from=workspace-cache /workspace /home/gitpod/
 
 RUN cd /workspace/monorepo && yarn
