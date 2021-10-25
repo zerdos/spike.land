@@ -1,6 +1,10 @@
 FROM node as workspace-cache
-RUN chown node:node /workspace
+
 WORKDIR /workspace
+RUN chown node:node /workspace
+
+USER node
+
 RUN git clone https://github.com/spike-land/monorepo.git
 RUN cd monorepo && yarn 
 
@@ -88,7 +92,7 @@ RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master
     && echo "export PATH=\"\$DENO_INSTALL/bin:\$PATH\"" >>  ~/.bashrc \
     && echo ":)" >  ~/.mood
 
-COPY --chown=gitpod:gitpod --from=workspace-cache /home/node/.cache/yarn /home/gitpod/.cache/
+COPY --chown=gitpod:gitpod --from=workspace-cache /home/node/.cache/yarn /home/gitpod/.cache
 COPY --chown=gitpod:gitpod --from=workspace-cache /workspace /home/gitpod/
 
 RUN cd /workspace/monorepo && yarn
