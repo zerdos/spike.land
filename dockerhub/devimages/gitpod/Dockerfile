@@ -95,6 +95,6 @@ RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master
 COPY --chown=gitpod:gitpod --from=workspace-cache /home/node/.cache/yarn /home/gitpod/.cache/
 COPY --chown=gitpod:gitpod --from=workspace-cache /workspace /home/gitpod/
 
-FROM devimage as gitpod-workspace
+# FROM devimage as gitpod-workspace
 
-RUN cd /home/gitpod/monorepo && yarn
+# RUN cd /home/gitpod/monorepo && yarn
