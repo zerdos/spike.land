@@ -8,7 +8,7 @@ USER node
 RUN git clone https://github.com/spike-land/monorepo.git
 RUN cd monorepo && yarn 
 
-FROM devimages/groovy-devcontainer:latest
+FROM devimages/groovy-devcontainer:latest as devimage
 
 USER 0
 
@@ -94,5 +94,7 @@ RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master
 
 COPY --chown=gitpod:gitpod --from=workspace-cache /home/node/.cache/yarn /home/gitpod/.cache/
 COPY --chown=gitpod:gitpod --from=workspace-cache /workspace /home/gitpod/
+
+FROM devimage as gitpod-workspace
 
 RUN cd /home/gitpod/monorepo && yarn
