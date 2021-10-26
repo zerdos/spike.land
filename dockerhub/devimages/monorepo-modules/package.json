@@ -1,15 +1,14 @@
 {
-    "name": "@spike.land/monorepo-modules",
-    "tagname": "gitpod",
-    "version": "0.0.28",
-    "description": "devcontainer vscode docker xfce remoteDesktop",
-    "main": "index.js",
-    "repository": "https://github.com/spike-land/monorepo",
-    "author": "Zoltan Erdos <zolika84@gmail.com>",
-    "license": "BSD-3-Clause",
-    "gitHead": "55a99b7efecc7bb2752d443be615b8b23ef4860f",
-    "publishConfig": {
-      "access": "public"
-    }
+  "name": "@spike.land/monorepo-modules",
+  "tagname": "gitpod",
+  "version": "0.0.29",
+  "description": "devcontainer vscode docker xfce remoteDesktop",
+  "main": "index.js",
+  "repository": "https://github.com/spike-land/monorepo",
+  "author": "Zoltan Erdos <zolika84@gmail.com>",
+  "license": "BSD-3-Clause",
+  "gitHead": "55a99b7efecc7bb2752d443be615b8b23ef4860f",
+  "publishConfig": {
+    "access": "public"
   }
-  
+}

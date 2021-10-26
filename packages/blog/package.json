@@ -11,7 +11,7 @@
     "**/*"
   ],
   "description": "Zed vision blog",
-  "version": "0.0.28",
+  "version": "0.0.29",
   "author": "Zoltan Erdos <zolika84@gmail.com>",
   "bugs": {
     "url": "https://github.com/spike-land/monorepo/"
