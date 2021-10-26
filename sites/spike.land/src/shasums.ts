@@ -23,8 +23,8 @@ export const shasums = {
   "assets/zed-icon-big.png":
     "1a8004c802bbcbdf49d4dacff5df98eb769d161df0d17d7a4ffd8093e957b18d",
   "build.mjs":
-    "bd1dee3e58bd7307196ae4ca2b4db664bf6a5601cbbc3ef6c22ff3f7d21df2a1",
-  "dev.mjs": "cce7ccb2856919375e5168d8724012353ce8ff225110c6ee3f0aced411598ef5",
+    "b8dccec4efda937020f9790019a56a3aad8373e46bc1d9a1ce01cd125f81a42b",
+  "dev.mjs": "a0fa33b5c4c77669c1aeb628a0cf1fcefa878cd96b2d8b291c1c346282197218",
   "dev.mjs.map":
     "46c8a13d42ea48569fdf8b87f6cbd2f9898f030690d685c8fe81928f0c5a932c",
   "edit/index.html":
@@ -54,7 +54,7 @@ export const shasums = {
   "js/importScript.mjs":
     "f1170901faaf51af6553d9a5d5c67a1c807653d55d57f1bbfe266a2be76c00e1",
   "js/importmap.json":
-    "6d0ff989c959fa1a28fd79755ed926d73cd669d6b5db3818237a19dc86f363c8",
+    "0121be18366dceec30abd1b3f56f84060d36182735f7ccca2c33ba7cbce91d70",
   "js/ipfsClient.mjs":
     "245fcc1b36fc68a92b21d606ab5b4af5abd24bab6db96269aa68e9f6e3c69618",
   "js/openWindows.mjs":
