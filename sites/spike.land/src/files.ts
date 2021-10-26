@@ -16,8 +16,8 @@ export const files = {
     "QmZ5Nic3MRHT8m9SY5ZrSp38UHGEYmJqgk4RAmDV3xXqa1",
   "assets/zed-icon-big.png": "QmeHY7RZzR5wm9ELZr5xgq6XMQKjRAHgmxoQaCzHjgpRm8",
   "build.mjs": "Qmap1XVMLeR972GS2YpWWMzSLCnemTo9cBbCbgTvHcWmvr",
-  "dev.mjs": "QmU7U1zByxaXmmJwqzvog5qJEoXTn8HTrmUHtqM3Ff5G7U",
-  "dev.mjs.map": "QmbRxCVp3aZMBbEqcC85TQStdCcqiaXJCQxuPuefvYciFu",
+  "dev.mjs": "QmW11j2jr2MhqQAr6NWHhaPdF76fmxEfiXz32xsHBwq18f",
+  "dev.mjs.map": "QmbCoo5BYAnAh5jkwt435XVrWtzNP4HBTbr2iHj7EiAgtj",
   "edit/index.html": "QmfXTNa9t9Yi9mcrrK9Y8fi6yfSzJ89XxCmGShH1CyZjFX",
   "esbuild-dev.mjs": "QmNbYHeZvHhwEYyUTtnFvaoWq8yZ32iX1XXhngcaxHq1DT",
   "esbuild.mjs": "QmSaddDHVdzrh6jNmE1SVq2QdqCeoy2sRskLdYhLTAQBPb",
@@ -52,7 +52,7 @@ export const files = {
   "js/workers/transpile.worker.js":
     "QmUo7nNGTPDUbTkv33Vsge4Ke6BpMAUCQ84uZ6X3dCfNDV",
   "manifest.json": "Qmb8h3PjM5RvHpNZSQztqVdrCHANNT7k8Dsj8Jmv24XmRQ",
-  "package.json": "QmPE5h511oLugFZxwPy67GurQk81Wizo3zj3GUEqQf9cnp",
+  "package.json": "QmeTsdtgoTgnjevHgTJj1jngk87TvoUgjKweFTjDLnWiX4",
   "scripts/importmapGenerator.mjs":
     "QmfKS5a9GXS3ZxAigiFGcPvUVJHmw1DbcvdmQn7rP5bQoZ",
   "sw.js": "QmZs73xvygu9Zx4mvDdwWWv6zL81UGY1geTsVZGrXdnTEf",
@@ -65,6 +65,6 @@ export const files = {
   "js": "QmdrmzH3QnkwgVNJ4TLzGuvifstQgm5XUuZM1qLcsSD9hW",
   "node_modules": "QmUNLLsPACCz1vLxQVkXqqLX5R1X345qqfHbsf67hvA3Nn",
   "scripts": "QmdNRsoUNGpBWuoUSUV9fcG5Ch6DJ5VtTAubFVvkbAJGKN",
-  "": "QmddbBuMBDU4iQ5i8uGFYrfNpB6ze7eXM2nzuTUS9RwHR7",
+  "": "QmeB5Uvh8CbmHRGR88RAfc7wJcWhuQRHMHZZdSKAgPRqEt",
   "foo": "bar",
 };
