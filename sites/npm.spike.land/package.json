@@ -8,7 +8,7 @@
   },
   "devDependencies": {
     "@spike.land/blog-artifacts": "^0.0.29",
-    "esbuild": "0.13.9"
+    "esbuild": "0.13.10"
   },
   "private": true
 }
