@@ -8,7 +8,6 @@ import { shasums } from "./shasums";
 import { publicIpfsGateways, raceToSuccess } from "@spike.land/ipfs";
 import { cid } from "./cid";
 import { alterHeaders, sha256, sha256UArray } from "./alterHeaders";
-// import { wait } from "axax/esnext/wait";
 
 export type KV = { [key: string]: string };
 
@@ -31,31 +30,7 @@ Object.keys(fileKV).forEach((k) => {
 });
 
 addEventListener("fetch", (event) => {
-  try {
-    event.respondWith((async (request) => {
-      const resp = await handleRequest(request);
-      const clone = resp.clone();
-      const url = new URL(request.url);
-      const { pathname } = url;
-
-      if (pathname.slice(0, 6) === `/ipfs/`) {
-        let customCID = pathname.slice(6, 52);
-        const respOfClone = await clone.text();
-        const cid = await Hash.of(respOfClone);
-        if (cid !== customCID) {
-          return text(`${cid}  ==  ${customCID}
-          
-          ${respOfClone}
-          
-          `);
-        }
-      }
-      return resp;
-    })(event.request));
-    // event.respondWith(handleRequest(event.request));
-  } catch {
-    event.respondWith(handleRequest(event.request));
-  }
+  event.respondWith(handleRequest(event.request));
 });
 
 /**
@@ -177,6 +152,10 @@ async function handleRequest(request: Request): Promise<Response> {
       } catch (e) {
         return await text(Object.toString.call(e));
       }
+    }
+
+    if (pathname === "/ello-ello") {
+      return text("Hello There");
     }
 
     if (pathname === `/cid.json`) {
