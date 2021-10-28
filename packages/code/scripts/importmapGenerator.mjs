@@ -19,8 +19,6 @@ const exceptions = {
     `https://unpkg.com/@spike.land/esm@${zedEsmLatestVersion}/dist/react-dom.mjs`,
   "react-is":
     `https://unpkg.com/@spike.land/esm@${zedEsmLatestVersion}/dist/react-is.mjs`,
-  "simple-window-manager":
-    "https://unpkg.com/simple-window-manager@2.1.2/public/simple-window-manager.min.js",
   "uuid/": `https://unpkg.com/uuid@${uidVersion}/dist/esm-browser/`,
 };
 
@@ -155,7 +153,7 @@ const list = [
   "@spike.land/qrious",
   "tslib",
   "@spike.land/smart-monaco-editor",
-  "simple-window-manager",
+  "@zedvision/swm",
   "uuid/",
   "@spike.land/shadb",
   "@spike.land/code",

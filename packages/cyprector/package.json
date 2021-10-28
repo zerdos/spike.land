@@ -27,14 +27,14 @@
     "release": "yarn version --no-git-tag-version"
   },
   "dependencies": {
-    "aws-sdk": "2.1015.0",
+    "aws-sdk": "2.1016.0",
     "axios": "0.24.0",
     "clone-deep": "4.0.1",
     "date-fns": "2.25.0",
     "dotenv": "10.0.0",
     "express": "4.17.1",
     "express-pino-logger": "6.0.0",
-    "graphql": "15.7.0",
+    "graphql": "15.7.2",
     "ibm-cos-sdk": "1.10.2",
     "lodash": "4.17.21",
     "md5": "2.3.0",

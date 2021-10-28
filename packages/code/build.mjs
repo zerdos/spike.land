@@ -296,7 +296,7 @@ var init_importmap = __esm({
       "@emotion/unitless": "https://unpkg.com/@emotion/unitless@0.7.5/dist/unitless.browser.esm.js",
       "@emotion/weak-memoize": "https://unpkg.com/@emotion/weak-memoize@0.2.5/dist/weak-memoize.browser.esm.js",
       "prop-types": "https://esm.sh/prop-types",
-      "framer-motion": "https://unpkg.com/framer-motion@4.1.17/dist/es/index.js",
+      "framer-motion": "https://unpkg.com/framer-motion@5.0.0/dist/es/index.mjs",
       framesync: "https://unpkg.com/framesync@6.0.1/dist/es/index.mjs",
       "hey-listen": "https://unpkg.com/hey-listen@1.0.8/dist/hey-listen.es.js",
       "hoist-non-react-statics": "https://esm.sh/hoist-non-react-statics",
@@ -312,7 +312,7 @@ var init_importmap = __esm({
       "@spike.land/qrious": "https://unpkg.com/@spike.land/qrious@0.0.29/dist/QRious.mjs",
       tslib: "https://unpkg.com/tslib@2.3.1/tslib.es6.js",
       "@spike.land/smart-monaco-editor": "https://unpkg.com/@spike.land/smart-monaco-editor@0.0.29/dist/editor.mjs",
-      "simple-window-manager": "https://unpkg.com/simple-window-manager@2.1.2/public/simple-window-manager.min.js",
+      "@zedvision/swm": "https://unpkg.com/@zedvision/swm@4.0.0/public/swm-esm.js",
       "uuid/": "https://unpkg.com/uuid@8.3.2/dist/esm-browser/",
       "@spike.land/shadb": "https://unpkg.com/@spike.land/shadb@0.0.29/dist/shaDB.mjs",
       "@spike.land/code": "https://unpkg.com/@spike.land/code@0.0.29/js/reactLoader.mjs",
@@ -841,7 +841,7 @@ async function renderPreviewWindow(session) {
 
 // js/openWindows.mjs
 async function openWindows() {
-  const WM = await import("https://unpkg.com/simple-window-manager@2.1.2/public/simple-window-manager.min.js");
+  const WM = await import("https://unpkg.com/@zedvision/swm@4.0.0/public/swm-esm.js");
   const WindowManager = WM.WindowManager ? WM.WindowManager : window.WindowManager.WindowManager;
   const wm = new WindowManager({ backgroundWindow: "green" });
   wm.snap(false);
