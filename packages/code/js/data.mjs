@@ -71,7 +71,7 @@ export async function getUserId() {
 
   if (!newID) {
     const resp = await fetch(
-      "https://spike.land/register",
+      "https://code.spike.land/register",
     );
     const data = await resp.json();
     if (uuid) return uuid;
@@ -117,7 +117,7 @@ export async function edit(name) {
 
   console.log("done");
 
-  location.href = "https://spike.land";
+  location.href = "https://code.spike.land";
 }
 
 /**
@@ -222,7 +222,7 @@ export const saveCode =
       const UID = await getUserId();
 
       const url = `/add/${CID}`;
-      fetch(`https://spike.land${url}`, {
+      fetch(`https://code.spike.land${url}`, {
         method: "POST",
         headers: {
           UID: UID,

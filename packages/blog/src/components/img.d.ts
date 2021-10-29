@@ -1,3 +1,3 @@
 declare module "*.jpg";
 
-declare module "https://spike.land/modules/QRious.mjs";
+declare module "https://code.spike.land/modules/QRious.mjs";

@@ -49,7 +49,7 @@ deno fmt sites/spike.land
 #      -H "Content-Type: application/json" \
 #      --data  $(CID=$CID node -pe 'JSON.stringify({"type":"TXT","name":"_dnslink.ipfs","content": "dnslink=/ipfs/"+process.env["CID"],"ttl":1,"proxied":false})')
 
-# echo "----  https://spike.land -------" 
+# echo "----  https://code.spike.land -------" 
 # echo "-------------------------------------------------------------" 
 # echo "-------------------------------------------------------------" 
 

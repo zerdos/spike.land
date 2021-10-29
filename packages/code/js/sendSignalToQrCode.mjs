@@ -16,7 +16,7 @@ export async function sendSignalToQrCode(session) {
   await saveCode(session);
 
   const { sendSignal } = await import("@spike.land/ipfs");
-  const signal = `https://spike.land/${maybeRoute}`;
+  const signal = `https://code.spike.land/${maybeRoute}`;
 
   await sendSignal(
     signal,
@@ -47,7 +47,7 @@ export async function sendSignalToQrCode(session) {
 //   const hash = await sha256(dataAsString);
 //   const ZKEY = await getZkey(hash);
 
-//   return fetch("https://spike.land", {
+//   return fetch("https://code.spike.land", {
 //     body: dataAsString,
 //     method: "POST",
 //     headers: {

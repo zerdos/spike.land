@@ -35,7 +35,7 @@ const transform = (code) => {
   //   replaceWith,
   // ).replaceAll(searchRegExp2, replace2);
 
-  // let rendererSrc = `https://spike.land/modules/renderer.mjs`;
+  // let rendererSrc = `https://code.spike.land/modules/renderer.mjs`;
 
   // if (self.location.hostname.indexOf("0.0") !== -1) {
   //   const cid = self.location.pathname.slice(6, 52);

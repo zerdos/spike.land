@@ -113,12 +113,12 @@ globalThis.register = () => {
 
         const urlList = [
           new URL(
-            `https://spike.land/ipfs/${currentCid}/${fileName}`,
+            `https://code.spike.land/ipfs/${currentCid}/${fileName}`,
           ),
         ];
         if (fileCid) {
           urlList.push(
-            new URL(`https://spike.land/ipfs/${fileCid}`),
+            new URL(`https://code.spike.land/ipfs/${fileCid}`),
             new URL(`https://cf-ipfs.com/ipfs/${fileCid}`),
           );
         }

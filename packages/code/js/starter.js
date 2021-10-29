@@ -2,7 +2,7 @@ try {
   start();
 } catch (error) {
   console.error({ error });
-  fetch("https://spike.land/error", {
+  fetch("https://code.spike.land/error", {
     method: "POST",
     body: JSON.stringify({ error }),
   });

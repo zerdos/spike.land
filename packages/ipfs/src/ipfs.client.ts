@@ -45,7 +45,7 @@ export async function fetchSignal(
     const smallSignal = signal.slice(-8);
 
     const cid = await fetch(
-      `https://spike.land/signal?signal=${smallSignal}&securityrandomparam=${
+      `https://code.spike.land/signal?signal=${smallSignal}&securityrandomparam=${
         Math
           .random() * 10000
       }`,
@@ -54,7 +54,7 @@ export async function fetchSignal(
     );
 
     const resData = await fetch(
-      `https://spike.land/ipfs/${cid}`,
+      `https://code.spike.land/ipfs/${cid}`,
     ).then((
       x,
     ) => x.text());
@@ -109,10 +109,12 @@ export async function sendSignal(signal: string, data: Object) {
     const { pathname } = new URL(signal);
 
     await fetch(
-      `https://spike.land/signal/?cid=${dataCid}&signal=${pathname.slice(1)}`,
+      `https://code.spike.land/signal/?cid=${dataCid}&signal=${
+        pathname.slice(1)
+      }`,
     );
 
-    fetch(`https://spike.land/ipfs/${dataCid}`);
+    fetch(`https://code.spike.land/ipfs/${dataCid}`);
   }
 
   const { path } = await ipfsClient.add(signal);

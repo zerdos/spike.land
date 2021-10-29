@@ -21,8 +21,8 @@ app.use(async (ctx, next) => {
 app.use(async (ctx) => {
 
     const {url} = ctx.request;
-    console.log(`fetch: https://spike.land/${url.pathname}`)
-    const resp = await fetch(`https://spike.land/${url.pathname}`, {method: ctx.request.method});
+    console.log(`fetch: https://code.spike.land/${url.pathname}`)
+    const resp = await fetch(`https://code.spike.land/${url.pathname}`, {method: ctx.request.method});
 
     const respBack = resp.clone();
 

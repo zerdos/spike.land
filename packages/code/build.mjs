@@ -40,13 +40,13 @@ var init_getWorker = __esm({
         const cid = pathname.slice(6, 52);
         forceNormalWorker4 = true;
         workerSrc4 = `/ipfs/${cid}/js/workers/${file}`;
-      } else if (location.origin !== "https://spike.land") {
+      } else if (location.origin !== "https://code.spike.land") {
         forceNormalWorker4 = true;
         workerSrc4 = window.URL.createObjectURL(new Blob([
-          `self.importScripts("https://spike.land/js/workers/${file}");`
+          `self.importScripts("https://code.spike.land/js/workers/${file}");`
         ]));
       } else {
-        workerSrc4 = `https://spike.land/js/workers/${file}`;
+        workerSrc4 = `https://code.spike.land/js/workers/${file}`;
       }
       return {
         workerSrc: workerSrc4,
@@ -345,7 +345,7 @@ function getHtml({ html, css }) {
 <meta name="Description" content="Generated with spike.land">
 <title>${title}</title>
 <link rel="modulepreload" href="./app.js">  
-<link rel="icon" type="image/png" href="https://spike.land/zed-icon-big.png" />
+<link rel="icon" type="image/png" href="https://code.spike.land/zed-icon-big.png" />
 <link rel="stylesheet" href="https://unpkg.com/modern-css-reset/dist/reset.min.css" />
 <script crossorigin src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"><\/script>
 <script crossorigin src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"><\/script>
@@ -392,7 +392,7 @@ var init_templates = __esm({
 <html lang="en">
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-  <link rel="icon" type="image/png" href="https://spike.land/zed-icon-big.png" />
+  <link rel="icon" type="image/png" href="https://code.spike.land/zed-icon-big.png" />
   <script async src="https://unpkg.com/es-module-shims@1.3.0/dist/es-module-shims.js"><\/script>
   <script crossorigin src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"><\/script>
   <script crossorigin src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"><\/script>
@@ -405,11 +405,11 @@ var init_templates = __esm({
 ${JSON.stringify(importmap_default)}
 <\/script>
 <script type="module-shim">
-import {edit} from "https://spike.land/js/data.mjs"
+import {edit} from "https://code.spike.land/js/data.mjs"
 try{
   edit(location.pathname.slice(42, 52));
 }catch(error){
-  fetch("https://spike.land/error", {method: "POST",  body: JSON.stringify({error})})
+  fetch("https://code.spike.land/error", {method: "POST",  body: JSON.stringify({error})})
 }
 <\/script>
 </body>
@@ -479,7 +479,7 @@ var init_share = __esm({
         const appDir = res.find((x) => x.path === "app");
         if (typeof appDir === "undefined")
           return null;
-        rootUrl = `https://spike.land/ipfs/${appDir.CID}`;
+        rootUrl = `https://code.spike.land/ipfs/${appDir.CID}`;
         const { pathname } = new URL(window.location.href);
         if (pathname.endsWith("/edit/") || pathname.endsWith("/edit")) {
           history.pushState({}, "", `/ipfs/${appDir.CID}/edit/`);
@@ -601,7 +601,7 @@ async function getUserId() {
     return uuid;
   const newID = await shaDB2.get("uuid", "string");
   if (!newID) {
-    const resp = await fetch("https://spike.land/register");
+    const resp = await fetch("https://code.spike.land/register");
     const data = await resp.json();
     if (uuid)
       return uuid;
@@ -725,7 +725,7 @@ var init_data = __esm({
         const CID2 = res.cid.toString();
         const UID = await getUserId();
         const url2 = `/add/${CID2}`;
-        fetch(`https://spike.land${url2}`, {
+        fetch(`https://code.spike.land${url2}`, {
           method: "POST",
           headers: {
             UID
@@ -782,7 +782,7 @@ async function sendSignalToQrCode(session) {
     return;
   await saveCode(session);
   const { sendSignal } = await import("https://unpkg.com/@spike.land/ipfs@0.0.29/dist/ipfs.client.mjs");
-  const signal = `https://spike.land/${maybeRoute}`;
+  const signal = `https://code.spike.land/${maybeRoute}`;
   await sendSignal(signal, {
     rootUrl: `${session.url}edit/`,
     signals: {
@@ -1107,7 +1107,7 @@ async function run(mode = "window", code = "") {
           const res = await ipfsClient.add(c, { onlyHash: true });
           const CID2 = res.cid.toString();
           const url = `/error/${CID2}`;
-          fetch(`https://spike.land${url}`, {
+          fetch(`https://code.spike.land${url}`, {
             method: "POST",
             body: c
           });

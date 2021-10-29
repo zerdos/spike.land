@@ -33,7 +33,7 @@
   "bugs": {
     "url": "https://github.com/spike-land/monorepo"
   },
-  "homepage": "https://spike.land",
+  "homepage": "https://code.spike.land",
   "repository": "https://github.com/spike-land/monorepo",
   "devDependencies": {
     "esbuild": "0.13.10",

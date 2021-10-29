@@ -8,12 +8,12 @@
   "start_url": "/",
   "icons": [
     {
-      "src": "https://spike.land/codeZedIcon.png",
+      "src": "https://code.spike.land/codeZedIcon.png",
       "sizes": "192x192",
       "type": "image/png"
     },
     {
-      "src": "https://spike.land/codeZedIcon.png",
+      "src": "https://code.spike.land/codeZedIcon.png",
       "sizes": "512x512",
       "type": "image/png"
     }

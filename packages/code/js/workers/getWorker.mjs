@@ -6,15 +6,15 @@ export const getWorker = (file) => {
     const cid = pathname.slice(6, 52);
     forceNormalWorker = true;
     workerSrc = `/ipfs/${cid}/js/workers/${file}`;
-  } else if (location.origin !== "https://spike.land") {
+  } else if (location.origin !== "https://code.spike.land") {
     forceNormalWorker = true;
     workerSrc = window.URL.createObjectURL(
       new Blob([
-        `self.importScripts("https://spike.land/js/workers/${file}");`,
+        `self.importScripts("https://code.spike.land/js/workers/${file}");`,
       ]),
     );
   } else {
-    workerSrc = `https://spike.land/js/workers/${file}`;
+    workerSrc = `https://code.spike.land/js/workers/${file}`;
   }
 
   return {

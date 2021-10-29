@@ -32,7 +32,7 @@ export function getHtml({ html, css }) {
 <meta name="Description" content="Generated with spike.land">
 <title>${title}</title>
 <link rel="modulepreload" href="./app.js">  
-<link rel="icon" type="image/png" href="https://spike.land/zed-icon-big.png" />
+<link rel="icon" type="image/png" href="https://code.spike.land/zed-icon-big.png" />
 <link rel="stylesheet" href="https://unpkg.com/modern-css-reset/dist/reset.min.css" />
 <script crossorigin src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
 <script crossorigin src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
@@ -81,7 +81,7 @@ export const getEditorHTML = () =>
 <html lang="en">
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-  <link rel="icon" type="image/png" href="https://spike.land/zed-icon-big.png" />
+  <link rel="icon" type="image/png" href="https://code.spike.land/zed-icon-big.png" />
   <script async src="https://unpkg.com/es-module-shims@1.3.0/dist/es-module-shims.js"></script>
   <script crossorigin src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
   <script crossorigin src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
@@ -94,11 +94,11 @@ export const getEditorHTML = () =>
 ${JSON.stringify(importmapJson)}
 </script>
 <script type="module-shim">
-import {edit} from "https://spike.land/js/data.mjs"
+import {edit} from "https://code.spike.land/js/data.mjs"
 try{
   edit(location.pathname.slice(42, 52));
 }catch(error){
-  fetch("https://spike.land/error", {method: "POST",  body: JSON.stringify({error})})
+  fetch("https://code.spike.land/error", {method: "POST",  body: JSON.stringify({error})})
 }
 </script>
 </body>

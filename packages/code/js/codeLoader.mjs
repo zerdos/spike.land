@@ -230,7 +230,7 @@ export async function run(mode = "window", code = "") {
           const CID = res.cid.toString();
 
           const url = `/error/${CID}`;
-          fetch(`https://spike.land${url}`, {
+          fetch(`https://code.spike.land${url}`, {
             method: "POST",
             body: c,
           });

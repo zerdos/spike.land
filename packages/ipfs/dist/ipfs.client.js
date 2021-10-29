@@ -35,9 +35,9 @@ async function fetchSignal(signal, _retry) {
         //
         await ipfsCat(resCID, { timeout: 1500 });
         const smallSignal = signal.slice(-8);
-        const cid = await fetch(`https://spike.land/signal?signal=${smallSignal}&securityrandomparam=${Math
+        const cid = await fetch(`https://code.spike.land/signal?signal=${smallSignal}&securityrandomparam=${Math
             .random() * 10000}`).then((x) => x.text());
-        const resData = await fetch(`https://spike.land/ipfs/${cid}`).then((x) => x.text());
+        const resData = await fetch(`https://code.spike.land/ipfs/${cid}`).then((x) => x.text());
         //log(`${resCID} downloaded - ${resData}`);
         return () => parse(resData);
     }
@@ -85,8 +85,8 @@ async function sendSignal(signal, data) {
         log(toSave);
         const dataCid = (await ipfsClient.add(toSave)).cid.toString();
         const { pathname } = new URL(signal);
-        await fetch(`https://spike.land/signal/?cid=${dataCid}&signal=${pathname.slice(1)}`);
-        fetch(`https://spike.land/ipfs/${dataCid}`);
+        await fetch(`https://code.spike.land/signal/?cid=${dataCid}&signal=${pathname.slice(1)}`);
+        fetch(`https://code.spike.land/ipfs/${dataCid}`);
     }
     const { path } = await ipfsClient.add(signal);
     log(`signal sent --- ${path}`);
