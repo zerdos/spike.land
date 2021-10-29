@@ -1,13 +1,13 @@
 {
   "name": "@spike.land/npm",
   "description": "An edge chat service that runs on Cloudflare Workers using Durable Objects",
-  "version": "0.0.31",
+  "version": "0.0.32",
   "module": "./dist/index.mjs",
   "scripts": {
     "build": "esbuild --bundle --format=esm --target=esnext src/index.ts --outfile=dist/index.mjs"
   },
   "devDependencies": {
-    "@spike.land/blog-artifacts": "^0.0.31",
+    "@spike.land/blog-artifacts": "^0.0.32",
     "esbuild": "0.13.10"
   },
   "private": true
