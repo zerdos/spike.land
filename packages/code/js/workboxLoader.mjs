@@ -2,7 +2,7 @@ export const workboxLoader = async () => {
   if (
     "serviceWorker" in window.navigator
   ) {
-    fetch("https://code.spike.land/check").then((x) => x.json())
+    fetch("https://spike.land/check").then((x) => x.json())
       .then((x) => x.missing).then((missingArray) =>
         import("./ipfsClient.mjs").then(({ ipfsCat }) =>
           Promise.all(
