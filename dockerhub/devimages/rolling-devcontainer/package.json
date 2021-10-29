@@ -15,9 +15,9 @@
     "README.md"
   ],
   "devDependencies": {
-    "@spike.land/devcontainer-generator": "^0.0.33"
+    "@spike.land/devcontainer-generator": "^0.0.34"
   },
-  "version": "0.0.33",
+  "version": "0.0.34",
   "description": "devcontainer vscode docker xfce remoteDesktop",
   "main": "index.js",
   "repository": "https://github.com/spike-land/monorepo",
