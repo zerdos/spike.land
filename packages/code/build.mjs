@@ -601,7 +601,7 @@ async function getUserId() {
     return uuid;
   const newID = await shaDB2.get("uuid", "string");
   if (!newID) {
-    const resp = await fetch("https://code.spike.land/register");
+    const resp = await fetch("https://spike.land/register");
     const data = await resp.json();
     if (uuid)
       return uuid;

@@ -71,7 +71,7 @@ export async function getUserId() {
 
   if (!newID) {
     const resp = await fetch(
-      "https://code.spike.land/register",
+      "https://spike.land/register",
     );
     const data = await resp.json();
     if (uuid) return uuid;
