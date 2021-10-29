@@ -653,7 +653,7 @@ async function getCodeToLoad() {
   return data;
 }
 function getStarter() {
-  return fetch(`./js/examples/rca.tsx`).then((res) => res.text());
+  return fetch(`https://code.spike.land/js/examples/rca.tsx`).then((res) => res.text());
 }
 var import_v4, uuid, getProjects, activeProject, saved, toSave, saveCode;
 var init_data = __esm({
