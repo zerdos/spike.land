@@ -1,14 +1,14 @@
-import { SetInstanceTestsPayload } from '@sorry-cypress/common';
+import { SetInstanceTestsPayload } from "@sorry-cypress/common";
 import {
   AppError,
   INSTANCE_NOT_EXIST,
   SCREENSHOT_URL_UPDATE_FAILED,
-} from '@sorry-cypress/director/lib/errors';
-import { mergeInstanceResults } from '@sorry-cypress/director/lib/instance';
-import { ExecutionDriver } from '@sorry-cypress/director/types';
-import { getLogger } from '@sorry-cypress/logger';
-import { updateRunSpecCompleted } from '../runs/run.controller';
-import { incProgressOverallTests } from '../runs/run.model';
+} from "@sorry-cypress/director/lib/errors";
+import { mergeInstanceResults } from "@sorry-cypress/director/lib/instance";
+import { ExecutionDriver } from "@sorry-cypress/director/types";
+import { getLogger } from "@sorry-cypress/logger";
+import { updateRunSpecCompleted } from "../runs/run.controller";
+import { incProgressOverallTests } from "../runs/run.model";
 import {
   getInstanceById,
   insertInstance,
@@ -16,16 +16,16 @@ import {
   setInstanceTests as modelSetInstanceTests,
   setScreenshotUrl as modelsetScreenshotUrl,
   setvideoUrl as modelsetvideoUrl,
-} from './instance.model';
+} from "./instance.model";
 
 export const createInstance = insertInstance;
 
 export const setInstanceResults = modelSetInstanceResults;
 
-export const setScreenshotUrl: ExecutionDriver['setScreenshotUrl'] = async (
+export const setScreenshotUrl: ExecutionDriver["setScreenshotUrl"] = async (
   instanceId,
   screenshotId,
-  screenshotURL
+  screenshotURL,
 ) => {
   try {
     await modelsetScreenshotUrl(instanceId, screenshotId, screenshotURL);
@@ -34,7 +34,7 @@ export const setScreenshotUrl: ExecutionDriver['setScreenshotUrl'] = async (
   }
 };
 
-export const setVideoUrl: ExecutionDriver['setVideoUrl'] = async ({
+export const setVideoUrl: ExecutionDriver["setVideoUrl"] = async ({
   instanceId,
   videoUrl,
 }) => modelsetvideoUrl(instanceId, videoUrl);
@@ -43,64 +43,65 @@ export const setVideoUrl: ExecutionDriver['setVideoUrl'] = async ({
 // increment progress
 export const setInstanceTests = async (
   instanceId: string,
-  payload: SetInstanceTestsPayload
+  payload: SetInstanceTestsPayload,
 ) => {
   const instance = await getInstanceById(instanceId);
   if (!instance) {
     getLogger().error(
       { instanceId },
-      'No instance found for setting instance tests'
+      "No instance found for setting instance tests",
     );
-    throw new Error('No instance found');
+    throw new Error("No instance found");
   }
   getLogger().log(
     { instanceId, runId: instance.runId, groupId: instance.groupId },
-    'Setting instance tests'
+    "Setting instance tests",
   );
   await modelSetInstanceTests(instanceId, payload);
   getLogger().log(
     { instanceId, runId: instance.runId, groupId: instance.groupId },
-    'Updating group progress'
+    "Updating group progress",
   );
   await incProgressOverallTests(
     instance.runId,
     instance.groupId,
-    payload.tests.length
+    payload.tests.length,
   );
 };
 
 // merge and save the results
-export const updateInstanceResults: ExecutionDriver['updateInstanceResults'] = async (
-  instanceId,
-  update
-) => {
-  const instance = await getInstanceById(instanceId);
-  if (!instance) {
-    getLogger().error(
-      { instanceId },
-      'No instance found for setting instance results'
+export const updateInstanceResults: ExecutionDriver["updateInstanceResults"] =
+  async (
+    instanceId,
+    update,
+  ) => {
+    const instance = await getInstanceById(instanceId);
+    if (!instance) {
+      getLogger().error(
+        { instanceId },
+        "No instance found for setting instance results",
+      );
+      throw new AppError(INSTANCE_NOT_EXIST);
+    }
+
+    const instanceResult = mergeInstanceResults(
+      instance._createTestsPayload,
+      update,
     );
-    throw new AppError(INSTANCE_NOT_EXIST);
-  }
 
-  const instanceResult = mergeInstanceResults(
-    instance._createTestsPayload,
-    update
-  );
+    getLogger().log(
+      { instanceId, runId: instance.runId, groupId: instance.groupId },
+      "Setting instance results",
+    );
+    await Promise.all([
+      modelSetInstanceResults(instanceId, instanceResult),
+      updateRunSpecCompleted(
+        instance.runId,
+        instance.groupId,
+        instanceId,
+        instanceResult,
+      ),
+    ]);
 
-  getLogger().log(
-    { instanceId, runId: instance.runId, groupId: instance.groupId },
-    'Setting instance results'
-  );
-  await Promise.all([
-    modelSetInstanceResults(instanceId, instanceResult),
-    updateRunSpecCompleted(
-      instance.runId,
-      instance.groupId,
-      instanceId,
-      instanceResult
-    ),
-  ]);
-
-  return { ...instance, results: instanceResult };
-};
+    return { ...instance, results: instanceResult };
+  };

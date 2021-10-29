@@ -1,9 +1,9 @@
-import { Project } from '@sorry-cypress/common';
+import { Project } from "@sorry-cypress/common";
 import {
   AppError,
   PROJECT_CREATE_FAILED,
-} from '@sorry-cypress/director/lib/errors';
-import { Collection } from '@sorry-cypress/mongo';
+} from "@sorry-cypress/director/lib/errors";
+import { Collection } from "@sorry-cypress/mongo";
 
 export const getProjectById = (id: string) =>
   Collection.project().findOne({ projectId: id });

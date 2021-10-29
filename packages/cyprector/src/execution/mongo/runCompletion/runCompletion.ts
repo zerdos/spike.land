@@ -1,15 +1,15 @@
-import { emitRunTimedout } from '@sorry-cypress/director/lib/hooks/events';
-import { getLogger } from '@sorry-cypress/logger';
-import { runTimeoutModel } from '@sorry-cypress/mongo';
+import { emitRunTimedout } from "@sorry-cypress/director/lib/hooks/events";
+import { getLogger } from "@sorry-cypress/logger";
+import { runTimeoutModel } from "@sorry-cypress/mongo";
 import {
   allRunSpecsCompleted,
   getNonCompletedGroups,
-} from '../runs/run.controller';
+} from "../runs/run.controller";
 import {
   getRunById,
   setRunCompleted,
   setRunCompletedWithTimeout,
-} from '../runs/run.model';
+} from "../runs/run.model";
 
 export const maybeSetRunCompleted = async (runId: string) => {
   if (await allRunSpecsCompleted(runId)) {
@@ -22,7 +22,7 @@ export const maybeSetRunCompleted = async (runId: string) => {
 
 export const checkRunCompletionOnTimeout = async (
   runId: string,
-  timeoutSeconds: number
+  timeoutSeconds: number,
 ) => {
   const run = await getRunById(runId);
   if (!run) {
@@ -30,7 +30,7 @@ export const checkRunCompletionOnTimeout = async (
       {
         runId,
       },
-      '[run-completion] No run found for checking completion'
+      "[run-completion] No run found for checking completion",
     );
     return;
   }
@@ -45,7 +45,7 @@ export const checkRunCompletionOnTimeout = async (
       timeoutSeconds,
       createdAt: run.createdAt,
     },
-    `[run-completion] Run timed out after ${timeoutSeconds} seconds`
+    `[run-completion] Run timed out after ${timeoutSeconds} seconds`,
   );
 
   setRunCompletedWithTimeout({
@@ -63,24 +63,24 @@ export const checkRunCompletionOnTimeout = async (
 };
 
 export const checkRunTimeouts = async () => {
-  getLogger().debug('[run-timeout] Checking run timeouts...');
+  getLogger().debug("[run-timeout] Checking run timeouts...");
   const runTimeouts = await runTimeoutModel.getUncheckedRunTimeouts();
 
   runTimeouts.forEach(async (timeoutTask) => {
     try {
       getLogger().debug(
         timeoutTask,
-        `[run-timeout] Checking run timeout for runId...`
+        `[run-timeout] Checking run timeout for runId...`,
       );
       await checkRunCompletionOnTimeout(
         timeoutTask.runId,
-        timeoutTask.timeoutSeconds
+        timeoutTask.timeoutSeconds,
       );
       await runTimeoutModel.setRunTimeoutChecked(timeoutTask._id);
     } catch (error) {
       getLogger().error(
         { ...timeoutTask, error },
-        `[run-timeout] Error checking run timeout`
+        `[run-timeout] Error checking run timeout`,
       );
     }
   });

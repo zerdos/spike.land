@@ -5,31 +5,31 @@ import {
   SetInstanceTestsPayload,
   UpdateInstanceResponse,
   UpdateInstanceResultsPayload,
-} from '@sorry-cypress/common';
+} from "@sorry-cypress/common";
 import {
   getExecutionDriver,
   getScreenshotsDriver,
-} from '@sorry-cypress/director/drivers';
-import { RUN_NOT_EXIST } from '@sorry-cypress/director/lib/errors';
+} from "@sorry-cypress/director/drivers";
+import { RUN_NOT_EXIST } from "@sorry-cypress/director/lib/errors";
 import {
   emitInstanceFinish,
   emitInstanceStart,
   emitRunFinish,
   emitRunStart,
-} from '@sorry-cypress/director/lib/hooks/events';
-import { getLogger } from '@sorry-cypress/logger';
-import { RequestHandler } from 'express';
+} from "@sorry-cypress/director/lib/hooks/events";
+import { getLogger } from "@sorry-cypress/logger";
+import { RequestHandler } from "express";
 
 export const createInstance: RequestHandler = async (req, res) => {
   const { groupId, machineId } = req.body;
   const { runId } = req.params;
-  const cypressVersion = req.headers['x-cypress-version']?.toString() ?? '';
+  const cypressVersion = req.headers["x-cypress-version"]?.toString() ?? "";
 
   const executionDriver = await getExecutionDriver();
 
   getLogger().log(
     { ...req.body, ...req.headers },
-    `Machine is requesting a new task`
+    `Machine is requesting a new task`,
   );
 
   try {
@@ -43,7 +43,7 @@ export const createInstance: RequestHandler = async (req, res) => {
     if (task.instance === null) {
       getLogger().log(
         { runId, machineId, groupId, task },
-        `All spec files claimed, nothing to run`
+        `All spec files claimed, nothing to run`,
       );
       return res.json({
         spec: null,
@@ -64,7 +64,7 @@ export const createInstance: RequestHandler = async (req, res) => {
         {
           ...task,
         },
-        'Detected first claimed instance for group'
+        "Detected first claimed instance for group",
       );
       emitRunStart({
         runId,
@@ -76,7 +76,7 @@ export const createInstance: RequestHandler = async (req, res) => {
     //Instance Start
     getLogger().log(
       { ...task.instance, machineId, groupId, cypressVersion },
-      `Sending a new instance to machine`
+      `Sending a new instance to machine`,
     );
 
     return res.json({
@@ -86,7 +86,7 @@ export const createInstance: RequestHandler = async (req, res) => {
       totalInstances: task.totalInstances,
     });
   } catch (error) {
-    getLogger().error({ error }, 'Error while creating instance...');
+    getLogger().error({ error }, "Error while creating instance...");
     if (error.code && error.code === RUN_NOT_EXIST) {
       return res.sendStatus(404);
     }
@@ -104,7 +104,7 @@ export const setInstanceTests: RequestHandler<
   const { instanceId } = req.params;
   const executionDriver = await getExecutionDriver();
 
-  getLogger().log({ instanceId }, 'Received instance tests');
+  getLogger().log({ instanceId }, "Received instance tests");
   await executionDriver.setInstanceTests(instanceId, instanceTests);
   res.json({});
 };
@@ -123,11 +123,11 @@ export const updateInstanceResults: RequestHandler<
 
   const instance = await executionDriver.updateInstanceResults(
     instanceId,
-    results
+    results,
   );
 
   if (!instance.results) {
-    throw new Error('Missing results on instance after updating');
+    throw new Error("Missing results on instance after updating");
   }
 
   completeInstance(instanceId, instance.runId, instance.groupId);
@@ -138,7 +138,7 @@ export const updateInstanceResults: RequestHandler<
   } catch (error) {
     getLogger().error(
       { error, instanceId },
-      'Unable to get upload instructions'
+      "Unable to get upload instructions",
     );
 
     res.json({});
@@ -150,13 +150,13 @@ export const updateInstanceResults: RequestHandler<
 async function completeInstance(
   instanceId: string,
   runId: string,
-  groupId: string
+  groupId: string,
 ) {
   const executionDriver = await getExecutionDriver();
 
   const instance = await executionDriver.getInstanceById(instanceId);
   if (!instance) {
-    throw new Error('Cannot find instance to complete');
+    throw new Error("Cannot find instance to complete");
   }
   emitInstanceFinish({
     runId: instance.runId,
@@ -177,27 +177,29 @@ async function completeInstance(
 }
 async function getInstanceScreenshots(
   instanceId: string,
-  result: InstanceResult
+  result: InstanceResult,
 ) {
   const executionDriver = await getExecutionDriver();
   const screenshotsDriver = await getScreenshotsDriver();
 
-  const screenshotUploadUrls: ScreenshotUploadInstruction[] = await screenshotsDriver.getScreenshotsUploadUrls(
-    instanceId,
-    result
-  );
+  const screenshotUploadUrls: ScreenshotUploadInstruction[] =
+    await screenshotsDriver.getScreenshotsUploadUrls(
+      instanceId,
+      result,
+    );
 
-  const videoUploadInstructions: AssetUploadInstruction | null = await screenshotsDriver.getVideoUploadUrl(
-    instanceId,
-    result
-  );
+  const videoUploadInstructions: AssetUploadInstruction | null =
+    await screenshotsDriver.getVideoUploadUrl(
+      instanceId,
+      result,
+    );
 
   if (screenshotUploadUrls.length > 0) {
     screenshotUploadUrls.forEach((screenshot: ScreenshotUploadInstruction) => {
       executionDriver.setScreenshotUrl(
         instanceId,
         screenshot.screenshotId,
-        screenshot.readUrl
+        screenshot.readUrl,
       );
     });
   }
@@ -211,7 +213,7 @@ async function getInstanceScreenshots(
 
   getLogger().log(
     { instanceId, screenshotUploadUrls, videoUploadInstructions },
-    `Sending assets upload URLs`
+    `Sending assets upload URLs`,
   );
 
   const responsePayload: UpdateInstanceResponse = {

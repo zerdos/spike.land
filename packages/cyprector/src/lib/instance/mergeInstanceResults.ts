@@ -4,18 +4,18 @@ import {
   Test,
   TestState,
   UpdateInstanceResultsPayload,
-} from '@sorry-cypress/common';
-import { getReporterStatsFromTests, getStatsFromTests } from './reporterStats';
+} from "@sorry-cypress/common";
+import { getReporterStatsFromTests, getStatsFromTests } from "./reporterStats";
 
 export function mergeInstanceResults(
   createTestsPayload: SetInstanceTestsPayload | null | undefined,
-  updateInstanceResults: UpdateInstanceResultsPayload
+  updateInstanceResults: UpdateInstanceResultsPayload,
 ): InstanceResult {
   // if there's an exception - backfill the failed tests
   if (updateInstanceResults.exception) {
     const failedTests = getTestsForFailedRunner(
       createTestsPayload?.tests ?? null,
-      updateInstanceResults.exception
+      updateInstanceResults.exception,
     );
     return {
       ...updateInstanceResults,
@@ -30,7 +30,7 @@ export function mergeInstanceResults(
   // Create test payload is missing
   if (!createTestsPayload) {
     const missingTests = getTestResultWithMissingPrecommit(
-      updateInstanceResults.tests
+      updateInstanceResults.tests,
     );
     return {
       ...updateInstanceResults,
@@ -46,7 +46,7 @@ export function mergeInstanceResults(
 
   const mergedTests = mergeTests(
     createTestsPayload.tests,
-    updateInstanceResults.tests
+    updateInstanceResults.tests,
   );
   const instanceResult: InstanceResult = {
     ...updateInstanceResults,
@@ -62,21 +62,21 @@ export function mergeInstanceResults(
 }
 
 function getTestsForFailedRunner(
-  existingTests: SetInstanceTestsPayload['tests'] | null,
-  exception: string
-): InstanceResult['tests'] {
+  existingTests: SetInstanceTestsPayload["tests"] | null,
+  exception: string,
+): InstanceResult["tests"] {
   if (!existingTests) {
     return [
       {
-        body: '',
+        body: "",
         hookIds: [],
         state: TestState.Failed,
-        title: ['Unknown'],
-        testId: 'unknown0',
+        title: ["Unknown"],
+        testId: "unknown0",
         displayError: exception,
         attempts: [],
         hooks: [],
-        clientId: 'r1',
+        clientId: "r1",
       },
     ];
   }
@@ -91,17 +91,17 @@ function getTestsForFailedRunner(
 }
 
 function mergeTests(
-  existingTests: SetInstanceTestsPayload['tests'] | null,
-  testResults: UpdateInstanceResultsPayload['tests']
+  existingTests: SetInstanceTestsPayload["tests"] | null,
+  testResults: UpdateInstanceResultsPayload["tests"],
 ): Test[] {
   return (testResults ?? []).map((t) => {
     const existingTest = (existingTests ?? []).find(
-      (i) => i.clientId === t.clientId
+      (i) => i.clientId === t.clientId,
     );
     return {
-      body: '',
+      body: "",
       hookIds: [],
-      title: ['Unknown'],
+      title: ["Unknown"],
       hooks: [],
       ...existingTest,
       ...t,
@@ -111,18 +111,18 @@ function mergeTests(
 }
 
 function getTestResultWithMissingPrecommit(
-  tests: UpdateInstanceResultsPayload['tests'] = []
-): InstanceResult['tests'] {
+  tests: UpdateInstanceResultsPayload["tests"] = [],
+): InstanceResult["tests"] {
   return (tests ?? []).map((t) => {
     return {
       ...t,
       testId: t.clientId,
-      title: ['Unknown'],
+      title: ["Unknown"],
       config: {
         retries: 0,
       },
       hookIds: [],
-      body: '',
+      body: "",
       hooks: [],
     };
   });

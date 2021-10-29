@@ -1,9 +1,9 @@
-import { getLogger } from '@sorry-cypress/logger';
-import { setInterval } from 'timers';
-import { checkRunTimeouts } from './runCompletion';
+import { getLogger } from "@sorry-cypress/logger";
+import { setInterval } from "timers";
+import { checkRunTimeouts } from "./runCompletion";
 
 export function initRunCompletion() {
-  getLogger().log('🎧 Initializing inactivity timeout task...');
+  getLogger().log("🎧 Initializing inactivity timeout task...");
 
   setInterval(async () => {
     try {

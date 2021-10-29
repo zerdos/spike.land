@@ -1,4 +1,4 @@
-import { InstanceResult, SetInstanceTestsPayload } from '@sorry-cypress/common';
+import { InstanceResult, SetInstanceTestsPayload } from "@sorry-cypress/common";
 import {
   AppError,
   INSTANCE_EXISTS,
@@ -6,9 +6,9 @@ import {
   INSTANCE_SET_TESTS_FAILED,
   SCREENSHOT_URL_UPDATE_FAILED,
   VIDEO_URL_UPDATE_FAILED,
-} from '@sorry-cypress/director/lib/errors';
-import { getSanitizedMongoObject } from '@sorry-cypress/director/lib/results';
-import { Collection } from '@sorry-cypress/mongo';
+} from "@sorry-cypress/director/lib/errors";
+import { getSanitizedMongoObject } from "@sorry-cypress/director/lib/results";
+import { Collection } from "@sorry-cypress/mongo";
 
 export const insertInstance = async ({
   runId,
@@ -47,7 +47,7 @@ export const getInstanceById = (instanceId: string) =>
 
 export const setInstanceResults = async (
   instanceId: string,
-  results: InstanceResult | SetInstanceTestsPayload
+  results: InstanceResult | SetInstanceTestsPayload,
 ) => {
   const { matchedCount, modifiedCount } = await Collection.instance().updateOne(
     {
@@ -57,7 +57,7 @@ export const setInstanceResults = async (
       $set: {
         results: getSanitizedMongoObject(results),
       },
-    }
+    },
   );
 
   if (matchedCount && modifiedCount) {
@@ -69,7 +69,7 @@ export const setInstanceResults = async (
 
 export const setInstanceTests = async (
   instanceId: string,
-  payload: SetInstanceTestsPayload
+  payload: SetInstanceTestsPayload,
 ) => {
   const { matchedCount, modifiedCount } = await Collection.instance().updateOne(
     {
@@ -79,7 +79,7 @@ export const setInstanceTests = async (
       $set: {
         _createTestsPayload: getSanitizedMongoObject(payload),
       },
-    }
+    },
   );
 
   if (matchedCount && modifiedCount) {
@@ -92,7 +92,7 @@ export const setInstanceTests = async (
 export const setScreenshotUrl = async (
   instanceId: string,
   screenshotId: string,
-  screenshotURL: string
+  screenshotURL: string,
 ) => {
   const { matchedCount, modifiedCount } = await Collection.instance().updateOne(
     {
@@ -100,12 +100,12 @@ export const setScreenshotUrl = async (
     },
     {
       $set: {
-        'results.screenshots.$[screenshot].screenshotURL': screenshotURL,
+        "results.screenshots.$[screenshot].screenshotURL": screenshotURL,
       },
     },
     {
-      arrayFilters: [{ 'screenshot.screenshotId': screenshotId }],
-    }
+      arrayFilters: [{ "screenshot.screenshotId": screenshotId }],
+    },
   );
 
   if (matchedCount && modifiedCount) {
@@ -122,9 +122,9 @@ export const setvideoUrl = async (instanceId: string, videoUrl: string) => {
     },
     {
       $set: {
-        'results.videoUrl': videoUrl,
+        "results.videoUrl": videoUrl,
       },
-    }
+    },
   );
 
   if (matchedCount && modifiedCount) {

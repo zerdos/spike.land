@@ -11,29 +11,29 @@ import {
   SetInstanceTestsPayload,
   Task,
   UpdateInstanceResultsPayload,
-} from '@sorry-cypress/common';
-import { INACTIVITY_TIMEOUT_SECONDS } from '@sorry-cypress/director/config';
-import { getRunCiBuildId } from '@sorry-cypress/director/lib/ciBuildId';
+} from "@sorry-cypress/common";
+import { INACTIVITY_TIMEOUT_SECONDS } from "@sorry-cypress/director/config";
+import { getRunCiBuildId } from "@sorry-cypress/director/lib/ciBuildId";
 import {
   AppError,
   INSTANCE_NOT_EXIST,
   RUN_NOT_EXIST,
-} from '@sorry-cypress/director/lib/errors';
+} from "@sorry-cypress/director/lib/errors";
 import {
   generateGroupId,
   generateRunIdHash,
   generateUUID,
-} from '@sorry-cypress/director/lib/hash';
-import { mergeInstanceResults } from '@sorry-cypress/director/lib/instance';
-import { getDashboardRunURL } from '@sorry-cypress/director/lib/urls';
-import { ExecutionDriver } from '@sorry-cypress/director/types';
+} from "@sorry-cypress/director/lib/hash";
+import { mergeInstanceResults } from "@sorry-cypress/director/lib/instance";
+import { getDashboardRunURL } from "@sorry-cypress/director/lib/urls";
+import { ExecutionDriver } from "@sorry-cypress/director/types";
 import {
   enhanceSpec,
   getClaimedSpecs,
   getFirstUnclaimedSpec,
   getNewSpecsInGroup,
   getSpecsForGroup,
-} from './utils';
+} from "./utils";
 
 const projects: { [key: string]: Project } = {};
 const runs: { [key: string]: Run } = {};
@@ -46,15 +46,15 @@ const createProject = (project: Project) => {
   return project;
 };
 
-const createRun: ExecutionDriver['createRun'] = async (
-  params: CreateRunParameters
+const createRun: ExecutionDriver["createRun"] = async (
+  params: CreateRunParameters,
 ): Promise<CreateRunResponse> => {
   const ciBuildId = getRunCiBuildId(params);
 
   const runId = generateRunIdHash(
     ciBuildId,
     params.commit.sha,
-    params.projectId
+    params.projectId,
   );
 
   const machineId = generateUUID();
@@ -86,9 +86,10 @@ const createRun: ExecutionDriver['createRun'] = async (
     const existingGroupSpecs = getSpecsForGroup(runs[runId], groupId);
     if (newSpecs.length && existingGroupSpecs.length) {
       response.warnings?.push({
-        message: `Group ${groupId} has different specs for the same run. Make sure each group in run has the same specs.`,
-        originalSpecs: existingGroupSpecs.map((spec) => spec.spec).join(', '),
-        newSpecs: newSpecs.join(','),
+        message:
+          `Group ${groupId} has different specs for the same run. Make sure each group in run has the same specs.`,
+        originalSpecs: existingGroupSpecs.map((spec) => spec.spec).join(", "),
+        newSpecs: newSpecs.join(","),
       });
       return response;
     }
@@ -102,7 +103,7 @@ const createRun: ExecutionDriver['createRun'] = async (
 
   if (!projects[params.projectId]) {
     createProject(
-      getCreateProjectValue(params.projectId, INACTIVITY_TIMEOUT_SECONDS)
+      getCreateProjectValue(params.projectId, INACTIVITY_TIMEOUT_SECONDS),
     );
   }
 
@@ -127,7 +128,7 @@ const createRun: ExecutionDriver['createRun'] = async (
   return response;
 };
 
-const getNextTask: ExecutionDriver['getNextTask'] = async ({
+const getNextTask: ExecutionDriver["getNextTask"] = async ({
   runId,
   groupId,
 }): Promise<Task> => {
@@ -147,17 +148,17 @@ const getNextTask: ExecutionDriver['getNextTask'] = async ({
   }
 
   const unclaimedSpecIndex = runs[runId].specs.findIndex(
-    (s) => s === unclaimedSpec
+    (s) => s === unclaimedSpec,
   );
   runs[runId].specs[unclaimedSpecIndex].claimedAt = new Date().toISOString();
   instances[unclaimedSpec.instanceId] = {
     _createTestsPayload: undefined,
-    projectId: 'some',
+    projectId: "some",
     spec: runs[runId].specs[unclaimedSpecIndex].spec,
     runId,
     groupId,
     instanceId: unclaimedSpec.instanceId,
-    cypressVersion: '',
+    cypressVersion: "",
   };
 
   return {
@@ -170,7 +171,7 @@ const getNextTask: ExecutionDriver['getNextTask'] = async ({
 
 const setInstanceResults = async (
   instanceId: string,
-  results: InstanceResult
+  results: InstanceResult,
 ) => {
   if (!instances[instanceId]) {
     throw new AppError(INSTANCE_NOT_EXIST);
@@ -180,7 +181,7 @@ const setInstanceResults = async (
 
 const setInstanceTests = async (
   instanceId: string,
-  payload: SetInstanceTestsPayload
+  payload: SetInstanceTestsPayload,
 ) => {
   if (!instances[instanceId]) {
     throw new AppError(INSTANCE_NOT_EXIST);
@@ -193,7 +194,7 @@ const setInstanceTests = async (
 
 const updateInstanceResults = async (
   instanceId: string,
-  update: UpdateInstanceResultsPayload
+  update: UpdateInstanceResultsPayload,
 ) => {
   const instance = instances[instanceId];
 
@@ -203,7 +204,7 @@ const updateInstanceResults = async (
 
   const instanceResult = mergeInstanceResults(
     instance._createTestsPayload,
-    update
+    update,
   );
 
   instances[instanceId].results = instanceResult;
@@ -211,7 +212,7 @@ const updateInstanceResults = async (
 };
 
 export const driver: ExecutionDriver = {
-  id: 'in-memory',
+  id: "in-memory",
   init: () => Promise.resolve(),
   getProjectById: (projectId: string) => Promise.resolve(projects[projectId]),
   getRunById: (runId: string) => Promise.resolve(runs[runId]),

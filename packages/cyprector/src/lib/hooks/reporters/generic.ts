@@ -3,10 +3,10 @@ import {
   HookEvent,
   Run,
   RunGroupProgress,
-} from '@sorry-cypress/common';
-import { getDashboardRunURL } from '@sorry-cypress/director/lib/urls';
-import { getLogger } from '@sorry-cypress/logger';
-import axios from 'axios';
+} from "@sorry-cypress/common";
+import { getDashboardRunURL } from "@sorry-cypress/director/lib/urls";
+import { getLogger } from "@sorry-cypress/logger";
+import axios from "axios";
 
 interface GenericHookReporterStatusParams {
   run: Run;
@@ -17,7 +17,7 @@ interface GenericHookReporterStatusParams {
 }
 export async function reportToGenericWebHook(
   hook: GenericHook,
-  eventData: GenericHookReporterStatusParams
+  eventData: GenericHookReporterStatusParams,
 ) {
   const { groupProgress, eventType, run, groupId, spec } = eventData;
 
@@ -46,10 +46,10 @@ export async function reportToGenericWebHook(
         eventType,
         ...data,
       },
-      '[webhook-reporter] Posting webhook'
+      "[webhook-reporter] Posting webhook",
     );
     await axios({
-      method: 'post',
+      method: "post",
       headers: hook.headers ? JSON.parse(hook.headers) : {},
       url: hook.url,
       data,
@@ -57,7 +57,7 @@ export async function reportToGenericWebHook(
   } catch (error) {
     getLogger().error(
       { error },
-      '[webhook-reporter] Post hook responded with error'
+      "[webhook-reporter] Post hook responded with error",
     );
   }
 }

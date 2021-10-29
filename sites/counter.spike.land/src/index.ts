@@ -9,7 +9,7 @@ export default {
     try {
       return await handleRequest(request, env);
     } catch (Error) {
-      return new Response((Error as {message?: string}).message);
+      return new Response((Error as { message?: string }).message);
     }
   },
 };

@@ -16,4 +16,7 @@ main = "./index.mjs"
 # rules = [{type = "Data", globs = ["**/*.html"]}]
 
 [durable_objects]
-bindings = [{name = "CODE", class_name = "Code"}]
+bindings = [
+    { name = "CODE", class_name = "Code" },
+    { name = "LIMITERS", class_name = "CodeRateLimiter" }
+]

@@ -9,13 +9,13 @@ import {
   Project,
   Run,
   RunGroupProgress,
-} from '@sorry-cypress/common';
-import { getLogger } from '@sorry-cypress/logger';
-import { reportStatusToBitbucket } from './bitbucket';
-import { reportToGenericWebHook } from './generic';
-import { reportStatusToGithub } from './github';
-import { reportToSlack } from './slack';
-import { reportToTeams } from './teams';
+} from "@sorry-cypress/common";
+import { getLogger } from "@sorry-cypress/logger";
+import { reportStatusToBitbucket } from "./bitbucket";
+import { reportToGenericWebHook } from "./generic";
+import { reportStatusToGithub } from "./github";
+import { reportToSlack } from "./slack";
+import { reportToTeams } from "./teams";
 
 interface ReportHooksParams {
   eventType: HookEvent;
@@ -25,7 +25,7 @@ interface ReportHooksParams {
   spec?: string;
 }
 export async function reportToHooks(
-  reportParams: ReportHooksParams
+  reportParams: ReportHooksParams,
 ): Promise<void> {
   try {
     if (!reportParams.project.hooks?.length) {
@@ -33,13 +33,13 @@ export async function reportToHooks(
     }
 
     const groupProgress = reportParams.run.progress?.groups.find(
-      (g) => g.groupId === reportParams.groupId
+      (g) => g.groupId === reportParams.groupId,
     );
 
     if (!groupProgress) {
       getLogger().error(
         { groupId: reportParams.groupId },
-        'No progress for group'
+        "No progress for group",
       );
       return;
     }
@@ -55,9 +55,9 @@ export async function reportToHooks(
               hookType: hook.hookType,
               error,
             },
-            '[hooks] Error while reporting hook'
+            "[hooks] Error while reporting hook",
           );
-        }
+        },
       );
     });
   } catch (error) {
@@ -66,7 +66,7 @@ export async function reportToHooks(
         runId: reportParams.run.runId,
         error,
       },
-      `[hooks] Failed to run hooks`
+      `[hooks] Failed to run hooks`,
     );
   }
   return;
@@ -98,7 +98,7 @@ const runSingleReporter = async ({
       run,
       groupId,
       groupProgress,
-      spec: spec ?? '',
+      spec: spec ?? "",
     });
   }
   if (isTeamsHook(hook)) {
@@ -107,7 +107,7 @@ const runSingleReporter = async ({
       run,
       groupId,
       groupProgress,
-      spec: spec ?? '',
+      spec: spec ?? "",
     });
   }
   if (isBitbucketHook(hook)) {

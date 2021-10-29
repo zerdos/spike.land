@@ -1,6 +1,6 @@
-import { Run, RunSpec } from '@sorry-cypress/common';
-import { generateUUID } from '@sorry-cypress/director/lib/hash';
-import { difference } from 'lodash';
+import { Run, RunSpec } from "@sorry-cypress/common";
+import { generateUUID } from "@sorry-cypress/director/lib/hash";
+import { difference } from "lodash";
 
 export const getSpecsForGroup = (run: Run, groupId: string) =>
   run.specs.filter((spec) => spec.groupId === groupId);
@@ -24,10 +24,11 @@ export const getNewSpecsInGroup = ({
   return difference(candidateSpecs, existingSpecs);
 };
 
-export const enhanceSpec = (groupId: string) => (spec: string): RunSpec => ({
-  spec,
-  instanceId: generateUUID(),
-  claimedAt: null,
-  completedAt: null,
-  groupId,
-});
+export const enhanceSpec = (groupId: string) =>
+  (spec: string): RunSpec => ({
+    spec,
+    instanceId: generateUUID(),
+    claimedAt: null,
+    completedAt: null,
+    groupId,
+  });

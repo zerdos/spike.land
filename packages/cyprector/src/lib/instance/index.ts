@@ -1,1 +1,1 @@
-export * from './mergeInstanceResults';
+export * from "./mergeInstanceResults";

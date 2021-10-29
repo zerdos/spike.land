@@ -1,5 +1,5 @@
 import { wait } from "axax/esnext/wait";
-import type {DurableObject} from "@cloudflare/workers-types"
+import type { DurableObject } from "@cloudflare/workers-types";
 
 export class Counter implements DurableObject {
   state: DurableObjectState;

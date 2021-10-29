@@ -1,8 +1,8 @@
-import { CreateRunParameters } from '@sorry-cypress/common';
-import { getExecutionDriver } from '@sorry-cypress/director/drivers';
-import { isKeyAllowed } from '@sorry-cypress/director/lib/allowedKeys';
-import { getLogger } from '@sorry-cypress/logger';
-import { RequestHandler } from 'express';
+import { CreateRunParameters } from "@sorry-cypress/common";
+import { getExecutionDriver } from "@sorry-cypress/director/drivers";
+import { isKeyAllowed } from "@sorry-cypress/director/lib/allowedKeys";
+import { getLogger } from "@sorry-cypress/logger";
+import { RequestHandler } from "express";
 
 export const blockKeys: RequestHandler = (req, res, next) => {
   const { recordKey } = req.body;
@@ -22,12 +22,12 @@ export const handleCreateRun: RequestHandler<
   unknown,
   CreateRunParameters
 > = async (req, res) => {
-  const cypressVersion = req.headers['x-cypress-version']?.toString();
+  const cypressVersion = req.headers["x-cypress-version"]?.toString();
   const executionDriver = await getExecutionDriver();
 
   getLogger().log(
     { ...req.body, ...req.headers },
-    `New machine is requesting to create a run`
+    `New machine is requesting to create a run`,
   );
 
   const response = await executionDriver.createRun({

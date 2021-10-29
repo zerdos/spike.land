@@ -39,6 +39,80 @@ var require_wait = __commonJS({
 // ../../packages/code/package.json
 var version = "0.0.34";
 
+// src/websocket.mjs
+var handleSession = async (webSocket, ip) => {
+  webSocket.accept();
+  let limiterId = (void 0).env.limiters.idFromName(ip);
+  let limiter = new RateLimiterClient(() => (void 0).env.limiters.get(limiterId), (err) => webSocket.close(1011, err.stack));
+  let session = { webSocket, blockedMessages: [] };
+  (void 0).sessions.push(session);
+  (void 0).sessions.forEach((otherSession) => {
+    if (otherSession.name) {
+      session.blockedMessages.push(JSON.stringify({ joined: otherSession.name }));
+    }
+  });
+  let storage = await (void 0).storage.list({ reverse: true, limit: 100 });
+  let backlog = [...storage.values()];
+  backlog.reverse();
+  backlog.forEach((value) => {
+    session.blockedMessages.push(value);
+  });
+  let receivedUserInfo = false;
+  webSocket.addEventListener("message", async (msg) => {
+    try {
+      if (session.quit) {
+        webSocket.close(1011, "WebSocket broken.");
+        return;
+      }
+      if (!limiter.checkLimit()) {
+        webSocket.send(JSON.stringify({
+          error: "Your IP is being rate-limited, please try again later."
+        }));
+        return;
+      }
+      let data = JSON.parse(msg.data);
+      if (!receivedUserInfo) {
+        session.name = "" + (data.name || "anonymous");
+        if (session.name.length > 32) {
+          webSocket.send(JSON.stringify({ error: "Name too long." }));
+          webSocket.close(1009, "Name too long.");
+          return;
+        }
+        session.blockedMessages.forEach((queued) => {
+          webSocket.send(queued);
+        });
+        delete session.blockedMessages;
+        (void 0).broadcast({ joined: session.name });
+        webSocket.send(JSON.stringify({ ready: true }));
+        receivedUserInfo = true;
+        return;
+      }
+      data = { name: session.name, message: "" + data.message };
+      if (data.message.length > 256) {
+        webSocket.send(JSON.stringify({ error: "Message too long." }));
+        return;
+      }
+      data.timestamp = Math.max(Date.now(), (void 0).lastTimestamp + 1);
+      (void 0).lastTimestamp = data.timestamp;
+      let dataStr = JSON.stringify(data);
+      (void 0).broadcast(dataStr);
+      let key = new Date(data.timestamp).toISOString();
+      await (void 0).storage.put(key, dataStr);
+    } catch (err) {
+      webSocket.send(JSON.stringify({ error: err.stack }));
+    }
+  });
+  let closeOrErrorHandler = (evt) => {
+    session.quit = true;
+    (void 0).sessions = (void 0).sessions.filter((member) => member !== session);
+    if (session.name) {
+      (void 0).broadcast({ quit: session.name });
+    }
+  };
+  webSocket.addEventListener("close", closeOrErrorHandler);
+  webSocket.addEventListener("error", closeOrErrorHandler);
+};
+
 // src/code.ts
 var import_wait = __toModule(require_wait());
 var Code = class {
@@ -68,17 +142,45 @@ var Code = class {
   }
 };
 
+// src/rateLimiter.mjs
+var CodeRateLimiter = class {
+  constructor(controller, env) {
+    this.nextAllowedTime = 0;
+  }
+  async fetch(request) {
+    return await handleErrors(request, async () => {
+      let now = Date.now() / 1e3;
+      this.nextAllowedTime = Math.max(now, this.nextAllowedTime);
+      if (request.method == "POST") {
+        this.nextAllowedTime += 5;
+      }
+      let cooldown = Math.max(0, this.nextAllowedTime - now - 20);
+      return new Response(cooldown);
+    });
+  }
+};
+
 // src/index.ts
 var src_default = {
   async fetch(request, env) {
     try {
       const url = new URL(request.url);
       const { pathname } = url;
+      if (pathname === "/websocket") {
+        if (request.headers.get("Upgrade") != "websocket") {
+          return new Response("expected websocket", { status: 400 });
+        }
+        let ip = request.headers.get("CF-Connecting-IP");
+        let pair = new WebSocketPair();
+        await handleSession(pair[1], ip);
+        return new Response(null, { status: 101, webSocket: pair[0] });
+      }
       const uri = pathname.startsWith("/@") ? pathname.substring(1) : `@${version}${pathname}`;
       let myCache = await caches.open(`blog-npm:${version}`);
       const cachedResp = await myCache.match(request, {});
-      if (cachedResp)
+      if (cachedResp) {
         return cachedResp;
+      }
       let targetPath = uri;
       if (uri.endsWith("/")) {
         targetPath = `${uri}/index.html`;
@@ -93,5 +195,6 @@ var src_default = {
 };
 export {
   Code,
+  CodeRateLimiter,
   src_default as default
 };

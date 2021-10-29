@@ -10,7 +10,7 @@ import {
   SetInstanceTestsPayload,
   Task,
   UpdateInstanceResultsPayload,
-} from '@sorry-cypress/common';
+} from "@sorry-cypress/common";
 
 interface Driver {
   id: string;
@@ -19,12 +19,12 @@ interface Driver {
 export interface ScreenshotsDriver extends Driver {
   getVideoUploadUrl: (
     instanceId: string,
-    result: InstanceResult
+    result: InstanceResult,
   ) => Promise<AssetUploadInstruction | null>;
 
   getScreenshotsUploadUrls: (
     instanceId: string,
-    result: InstanceResult
+    result: InstanceResult,
   ) => Promise<ScreenshotUploadInstruction[]>;
 }
 
@@ -50,24 +50,24 @@ export interface ExecutionDriver extends Driver {
   getNextTask: (params: GetNextTaskParams) => Promise<Task>;
   setRunCompleted: (runId: string) => Promise<void>;
   setRunCompletedWithTimeout: (
-    params: SetRunCompletedWithTimeout
+    params: SetRunCompletedWithTimeout,
   ) => Promise<void>;
   setInstanceResults: (
     instanceId: string,
-    results: InstanceResult
+    results: InstanceResult,
   ) => Promise<void>;
   setInstanceTests: (
     instanceId: string,
-    payload: SetInstanceTestsPayload
+    payload: SetInstanceTestsPayload,
   ) => Promise<void>;
   updateInstanceResults: (
     instanceId: string,
-    payload: UpdateInstanceResultsPayload
+    payload: UpdateInstanceResultsPayload,
   ) => Promise<Instance>;
   setScreenshotUrl: (
     instanceId: string,
     screenshotId: string,
-    screenshotUrl: string
+    screenshotUrl: string,
   ) => Promise<void>;
   setVideoUrl: (params: {
     instanceId: string;

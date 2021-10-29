@@ -19,16 +19,16 @@ app.use(async (ctx, next) => {
 
 // Hello World!GET  - 481ms
 app.use(async (ctx) => {
+  const { url } = ctx.request;
+  console.log(`fetch: https://code.spike.land/${url.pathname}`);
+  const resp = await fetch(`https://code.spike.land/${url.pathname}`, {
+    method: ctx.request.method,
+  });
 
-    const {url} = ctx.request;
-    console.log(`fetch: https://code.spike.land/${url.pathname}`)
-    const resp = await fetch(`https://code.spike.land/${url.pathname}`, {method: ctx.request.method});
+  const respBack = resp.clone();
 
-    const respBack = resp.clone();
-
-
-    ctx.response.body = respBack.body;
-    ctx.response.headers = new Headers(respBack.headers);
+  ctx.response.body = respBack.body;
+  ctx.response.headers = new Headers(respBack.headers);
 });
 
 await app.listen({ port: 8000 });

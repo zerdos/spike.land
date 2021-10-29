@@ -1,3 +1,3 @@
-import { EventEmitter } from 'events';
+import { EventEmitter } from "events";
 
 export const pubsub = new EventEmitter();

@@ -1,5 +1,5 @@
-import { HookEvent } from '@sorry-cypress/common';
-import { pubsub } from '../pubsub';
+import { HookEvent } from "@sorry-cypress/common";
+import { pubsub } from "../pubsub";
 
 export const emitInstanceStart = (payload: InstanceEventPayload) =>
   pubsub.emit(HookEvent.INSTANCE_START, payload);

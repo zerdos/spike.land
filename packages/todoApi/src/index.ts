@@ -1,5 +1,2 @@
-
-export interface ITodoApi{
-
+export interface ITodoApi {
 }
-

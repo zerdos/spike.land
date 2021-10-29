@@ -5,11 +5,11 @@ import {
   Run,
   RunGroupProgress,
   SlackHook,
-} from '@sorry-cypress/common';
-import { getDashboardRunURL } from '@sorry-cypress/director/lib/urls';
-import { getLogger } from '@sorry-cypress/logger';
-import axios from 'axios';
-import { truncate } from 'lodash';
+} from "@sorry-cypress/common";
+import { getDashboardRunURL } from "@sorry-cypress/director/lib/urls";
+import { getLogger } from "@sorry-cypress/logger";
+import axios from "axios";
+import { truncate } from "lodash";
 
 interface SlackReporterEventPayload {
   eventType: HookEvent;
@@ -21,26 +21,26 @@ interface SlackReporterEventPayload {
 
 export async function reportToSlack(
   hook: SlackHook,
-  event: SlackReporterEventPayload
+  event: SlackReporterEventPayload,
 ) {
   if (
     !shouldReportSlackHook(
       event.eventType,
       hook,
       event.groupProgress,
-      event.run.meta.commit?.branch
+      event.run.meta.commit?.branch,
     )
   ) {
     return;
   }
   const ciBuildId = event.run.meta.ciBuildId;
-  let groupLabel = '';
+  let groupLabel = "";
 
   if (event.groupId !== event.run.meta.ciBuildId) {
     groupLabel = `, group ${event.groupId}`;
   }
 
-  let title = '';
+  let title = "";
   let color = isRunGroupSuccessful(event.groupProgress)
     ? successColor
     : failureColor;
@@ -57,7 +57,7 @@ export async function reportToSlack(
       break;
     case HookEvent.RUN_FINISH:
       title = `${
-        isRunGroupSuccessful(event.groupProgress) ? ':white_check_mark:' : ':x:'
+        isRunGroupSuccessful(event.groupProgress) ? ":white_check_mark:" : ":x:"
       } *Run finished* (${ciBuildId}${groupLabel})`;
       break;
     case HookEvent.RUN_TIMEOUT:
@@ -75,42 +75,44 @@ export async function reportToSlack(
   } = event.groupProgress.tests;
   const resultsDescription =
     `${
-      passes > 0 ? ':large_green_circle:' : ':white_circle:'
+      passes > 0 ? ":large_green_circle:" : ":white_circle:"
     } *Passed:* ${passes}\n\n\n` +
     `${
-      pending > 0 ? ':large_yellow_circle:' : ':white_circle:'
+      pending > 0 ? ":large_yellow_circle:" : ":white_circle:"
     } *Skipped:* ${pending}\n\n\n` +
-    `${failures + skipped > 0 ? ':red_circle:' : ':white_circle:'} *Failed*: ${
+    `${failures + skipped > 0 ? ":red_circle:" : ":white_circle:"} *Failed*: ${
       failures + skipped
     }` +
-    `${retries > 0 ? `\n\n\n:large_yellow_circle: *Retries*: ${retries}` : ''}`;
+    `${retries > 0 ? `\n\n\n:large_yellow_circle: *Retries*: ${retries}` : ""}`;
 
   const commitDescription =
     (event.run.meta.commit?.branch || event.run.meta.commit?.message) &&
-    `*Branch:*\n${event.run.meta.commit.branch}\n\n*Commit:*\n${truncate(
-      event.run.meta.commit.message,
-      {
-        length: 100,
-      }
-    )}`;
+    `*Branch:*\n${event.run.meta.commit.branch}\n\n*Commit:*\n${
+      truncate(
+        event.run.meta.commit.message,
+        {
+          length: 100,
+        },
+      )
+    }`;
 
   axios({
-    method: 'post',
+    method: "post",
     url: hook.url,
     data: {
-      username: 'sorry-cypress',
+      username: "sorry-cypress",
       blocks: [
         {
-          type: 'section',
+          type: "section",
           text: {
-            type: 'mrkdwn',
+            type: "mrkdwn",
             text: `${title}`,
           },
           accessory: {
-            type: 'button',
+            type: "button",
             text: {
-              type: 'plain_text',
-              text: 'View Results',
+              type: "plain_text",
+              text: "View Results",
               emoji: true,
             },
             value: `view_run_${event.run.runId}`,
@@ -124,31 +126,31 @@ export async function reportToSlack(
           color,
           blocks: [
             {
-              type: 'section',
+              type: "section",
               fields: [
                 {
-                  type: 'mrkdwn',
+                  type: "mrkdwn",
                   text: `${resultsDescription}`,
                 },
                 ...(commitDescription
                   ? [
-                      {
-                        type: 'mrkdwn',
-                        text: `${commitDescription}`,
-                      },
-                    ]
+                    {
+                      type: "mrkdwn",
+                      text: `${commitDescription}`,
+                    },
+                  ]
                   : []),
               ],
             },
           ],
         },
       ],
-      icon_url: 'https://sorry-cypress.s3.amazonaws.com/images/icon-bg.png',
+      icon_url: "https://sorry-cypress.s3.amazonaws.com/images/icon-bg.png",
     },
   }).catch((error) => {
     getLogger().error(
       { error, ...hook },
-      `Error while posting hook to ${hook.url}`
+      `Error while posting hook to ${hook.url}`,
     );
   });
 }
@@ -157,7 +159,7 @@ export function shouldReportSlackHook(
   event: HookEvent,
   hook: SlackHook,
   groupProgress: RunGroupProgress,
-  branch?: string
+  branch?: string,
 ) {
   return (
     isSlackEventFilterPassed(event, hook) &&
@@ -176,7 +178,7 @@ export function isSlackEventFilterPassed(event: HookEvent, hook: SlackHook) {
 
 export function isSlackResultFilterPassed(
   hook: SlackHook,
-  groupProgress: RunGroupProgress
+  groupProgress: RunGroupProgress,
 ) {
   switch (hook.slackResultFilter) {
     case ResultFilter.ONLY_FAILED:
@@ -209,12 +211,12 @@ export function isSlackBranchFilterPassed(hook: SlackHook, branch?: string) {
     // We shouldn't warn about handling branch names having '*' or '?' symbols
     // as such names are prohibited (see 'man git-check-ref-format')
     .map((filter: string) => {
-      const negative = filter[0] === '!';
+      const negative = filter[0] === "!";
       const formattedFilter = filter
-        .replace(/^!/g, '')
-        .replace(/[!\-[]\/\{\}\(\)\+\.\\\^\$\|]/g, '\\$&')
-        .replace(/\*/g, '.*')
-        .replace(/\?/g, '.');
+        .replace(/^!/g, "")
+        .replace(/[!\-[]\/\{\}\(\)\+\.\\\^\$\|]/g, "\\$&")
+        .replace(/\*/g, ".*")
+        .replace(/\?/g, ".");
       return {
         negative,
         filter: formattedFilter,
@@ -225,10 +227,10 @@ export function isSlackBranchFilterPassed(hook: SlackHook, branch?: string) {
     // we return inverted value to set isBranchInFilter to 'false'
     .every(({ filter, negative }: { filter: string; negative: boolean }) => {
       return (
-        branch.search(new RegExp(`^${filter}$`, 'i')) === (negative ? 0 : -1)
+        branch.search(new RegExp(`^${filter}$`, "i")) === (negative ? 0 : -1)
       );
     });
 }
 
-const successColor = '#0E8A16';
-const failureColor = '#AB1616';
+const successColor = "#0E8A16";
+const failureColor = "#AB1616";

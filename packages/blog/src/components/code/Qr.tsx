@@ -2,7 +2,7 @@
 
 import React from "react";
 import { css, jsx } from "@emotion/react";
-import {dynamicImport} from "../../dynamicImport";
+import { dynamicImport } from "../../dynamicImport";
 import { sha256 } from "../utils/sha256/sha256";
 
 export const Qr = () => {
@@ -51,9 +51,9 @@ export const Qr = () => {
     const qr = `qr${side}`;
 
     if (typeof cubeSides[qr] === "undefined") {
-      console.log("Booo")
-      const {QRious} = await dynamicImport("@spike.land/qrious");
-      console.log({QRious})
+      console.log("Booo");
+      const { QRious } = await dynamicImport("@spike.land/qrious");
+      console.log({ QRious });
 
       cubeSides[qr] = new QRious(options) as IDummyQR;
     }
@@ -89,7 +89,7 @@ export const Qr = () => {
 
       if (typeof window === "undefined") return;
 
-      const { fetchSignal } = await dynamicImport("@spike.land/ipfs")
+      const { fetchSignal } = await dynamicImport("@spike.land/ipfs");
 
       const getData = await fetchSignal(url, 7);
       if (!getData) return;

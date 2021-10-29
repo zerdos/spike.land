@@ -9,12 +9,13 @@ try {
 }
 
 async function start() {
+  const { run } = await import(
+    location.host.includes("spike.land")
+      ? "./reactLoader.mjs"
+      : "./reactLoader.mjs"
+  );
+  run("window");
 
-    const { run } = await import(
-      location.host.includes("spike.land") ? "./reactLoader.mjs" : "./reactLoader.mjs"
-    );
-    run("window");
- 
   setTimeout(async () => {
     const { workboxLoader } = await import("./workboxLoader.mjs");
     workboxLoader();

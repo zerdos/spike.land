@@ -11,7 +11,7 @@ export const CodeBox: React.FC<{
 
   React.useEffect(() => {
     async function start() {
-      const { run } = await dynamicImport("@spike.land/code")
+      const { run } = await dynamicImport("@spike.land/code");
       run("embedded", starterCode);
     }
 
