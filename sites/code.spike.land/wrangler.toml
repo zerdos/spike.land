@@ -7,8 +7,13 @@ zone_id = "07e8952f4aa2d9e95f04a2b32a9cf084"
 route = "https://code.spike.land/*"
 compatibility_date = "2021-10-16"
 
+[build]
+command = "yarn build"
+
 [build.upload]
 format = "modules"
-dir = "dist"
 main = "./index.mjs"
 # rules = [{type = "Data", globs = ["**/*.html"]}]
+
+[durable_objects]
+bindings = [{name = "CODE", class_name = "Code"}]

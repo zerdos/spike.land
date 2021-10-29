@@ -1,4 +1,5 @@
 import {version} from "@spike.land/code/package.json"
+export { Code } from "./code";
 
 export default {
     async fetch(request: Request, env: EventInit) {
@@ -7,6 +8,15 @@ export default {
         const url = new URL(request.url);
         const {pathname} = url;
 
+
+        // let id = env.CODE.idFromName(pathname.substring(1, 3));
+        // let obj = env.CODE.get(id);
+
+        // let response = await obj.fetch(request.url);
+
+        // let count = parseInt(await response.text());
+        
+      
         const uri = (pathname.startsWith("/@")?pathname.substring(1):`@${version}${pathname}`)
 
 
