@@ -29,6 +29,9 @@
     "type": "git",
     "url": "git+https://github.com/spike-land/monorepo"
   },
+  "dependencies": {
+    "@spike.land/code": "0.0.32"
+  },
   "devDependencies": {
     "@emotion/react": "11.5.0",
     "@mdx-js/mdx": "1.6.22",
