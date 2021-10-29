@@ -20,7 +20,7 @@ export async function getUserId() {
   const uuid = await shaDB.get("uuid", "string");
   if (!uuid) {
     const resp = await fetch(
-      "https://code.spike.land/register",
+      "https://spike.land/register",
     );
     const data = await resp.json();
     await shaDB.put("uuid", data.uuid);
