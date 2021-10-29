@@ -78,7 +78,7 @@ export const shareItAsHtml = async ({ transpiled, code, html }) => {
     );
     if (typeof appDir === "undefined") return null;
 
-    rootUrl = `https://code.spike.land/ipfs/${appDir.CID}`;
+    rootUrl = `https://ipfs.io/ipfs/${appDir.CID}`;
 
     const { pathname } = new URL(window.location.href);
 
@@ -89,18 +89,18 @@ export const shareItAsHtml = async ({ transpiled, code, html }) => {
     await shaDB.put(sha, rootUrl);
   }
 
-  const preLoad = async (retry = 3) => {
-    try {
-      await Promise.all([
-        fetch(`${rootUrl}/app.js`).then((x) => x.text()),
-        fetch(`${rootUrl}/edit/index.html`).then((x) => x.text()),
-        fetch(rootUrl).then((x) => x.text()),
-      ]);
-    } catch {
-      if (retry > 0) return preLoad(retry - 1);
-    }
-  };
-  preLoad(3);
+  // const preLoad = async (retry = 3) => {
+  //   try {
+  //     await Promise.all([
+  //       fetch(`${rootUrl}/app.js`).then((x) => x.text()),
+  //       fetch(`${rootUrl}/edit/index.html`).then((x) => x.text()),
+  //       fetch(rootUrl).then((x) => x.text()),
+  //     ]);
+  //   } catch {
+  //     if (retry > 0) return preLoad(retry - 1);
+  //   }
+  // };
+  // preLoad(3);
   // await saveHtml(
   //   getHtml({ HTML, css, link: linkToCode }),
   // );
