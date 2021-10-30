@@ -8,7 +8,7 @@
   },
   "devDependencies": {
     "@spike.land/code": "^0.0.35",
-    "esbuild": "0.13.10"
+    "esbuild": "0.13.11"
   },
   "private": true
 }
