@@ -39,7 +39,7 @@ var require_wait = __commonJS({
 });
 
 // ../../packages/code/package.json
-var version = "0.0.35";
+var version = "0.0.36";
 
 // src/websocket.mjs
 var handleSession = async (webSocket, ip) => {
