@@ -4,6 +4,7 @@
   "version": "0.0.36",
   "module": "./dist/index.mjs",
   "scripts": {
+    "deploy": "wrangler publish",
     "build": "esbuild --bundle --format=esm --target=esnext src/index.ts --outfile=dist/index.mjs"
   },
   "devDependencies": {
