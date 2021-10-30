@@ -55,7 +55,7 @@ RUN add-apt-repository ppa:git-core/ppa && apt-get update \
 && apt-get clean -y \
 && rm -rf /var/lib/apt/lists/* 
 
-ENV NODE_VERSION 14.18.1
+ENV NODE_VERSION 16.13.0
 RUN ARCH= && dpkgArch="$(dpkg --print-architecture)" \
   && case "${dpkgArch##*-}" in \
     amd64) ARCH='x64';; \
