@@ -8,7 +8,8 @@
     "clean": "gatsby clean"
   },
   "files": [
-    "**/*"
+    "public/**/*",
+    "package.json"
   ],
   "description": "Zed vision blog",
   "version": "0.0.36",
