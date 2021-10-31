@@ -20,7 +20,7 @@
     "@spike.land/qrious": "^0.0.37",
     "@types/react": "17.0.33",
     "@types/react-dom": "17.0.10",
-    "esbuild": "0.13.11",
+    "esbuild": "0.13.12",
     "framer-motion": "5.0.0",
     "react": "17.0.2",
     "react-dom": "17.0.2",
