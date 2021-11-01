@@ -1,0 +1,14 @@
+{
+  "name": "@spike.land/cf-npm-site",
+  "version": "0.0.0",
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "clean": "rm -rf dist",
+    "build": "yarn tsc && esbuild --bundle --format=esm --target=esnext src/index.ts --outfile=dist/index.mjs"
+  },
+  "types": "dist/index.d.ts",
+  "main": "dist/index.mjs",
+  "license": "MIT"
+}
