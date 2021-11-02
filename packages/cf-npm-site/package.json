@@ -1,6 +1,6 @@
 {
   "name": "@spike.land/cf-npm-site",
-  "version": "0.0.39",
+  "version": "0.0.40",
   "publishConfig": {
     "access": "public"
   },
