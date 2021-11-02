@@ -1,11 +1,11 @@
-// ../../packages/cf-npm-site/dist/index.mjs
-function src_default(packageName, version2, serveDir = "") {
+// src/index.ts
+function src_default(packageName, version, serveDir = "") {
   return async function(request, env) {
     try {
       const url = new URL(request.url);
       const { pathname } = url;
-      const uri = pathname.startsWith("/@") ? pathname.substring(1) : `@${version2}${serveDir ? `/${serveDir}` : ``}${pathname}`;
-      let myCache = await caches.open(`blog-npm:${version2}-${serveDir}`);
+      const uri = pathname.startsWith("/@") ? pathname.substring(1) : `@${version}${serveDir ? `/${serveDir}` : ``}${pathname}`;
+      let myCache = await caches.open(`blog-npm:${version}-${serveDir}`);
       const cachedResp = await myCache.match(request, {});
       if (cachedResp) {
         return cachedResp;
@@ -24,15 +24,6 @@ function src_default(packageName, version2, serveDir = "") {
     }
   };
 }
-
-// ../../packages/blog/package.json
-var version = "0.0.40";
-
-// src/index.ts
-var fetch2 = src_default("@spike.land/blog-artifacts", version, "public");
-var src_default2 = {
-  fetch: fetch2
-};
 export {
-  src_default2 as default
+  src_default as default
 };

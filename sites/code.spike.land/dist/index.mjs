@@ -39,6 +39,33 @@ var require_wait = __commonJS({
 // ../../packages/code/package.json
 var version = "0.0.40";
 
+// ../../packages/cf-npm-site/dist/index.mjs
+function src_default(packageName, version2, serveDir = "") {
+  return async function(request, env) {
+    try {
+      const url = new URL(request.url);
+      const { pathname } = url;
+      const uri = pathname.startsWith("/@") ? pathname.substring(1) : `@${version2}${serveDir ? `/${serveDir}` : ``}${pathname}`;
+      let myCache = await caches.open(`blog-npm:${version2}-${serveDir}`);
+      const cachedResp = await myCache.match(request, {});
+      if (cachedResp) {
+        return cachedResp;
+      }
+      let targetPath = uri;
+      if (uri.endsWith("/")) {
+        targetPath = `${uri}index.html`;
+      } else if (pathname.indexOf(".") === -1) {
+        targetPath = `${uri}/index.html`;
+      }
+      const resp = fetch(`https://unpkg.com/${packageName}${targetPath}`);
+      myCache.put(request, (await resp).clone());
+      return resp;
+    } catch (Error2) {
+      return new Response(`Yayy... ${Object.prototype.toString.call(Error2)}`);
+    }
+  };
+}
+
 // src/websocket.mjs
 var handleSession = async (webSocket, ip) => {
   webSocket.accept();
@@ -161,7 +188,7 @@ var CodeRateLimiter = class {
 };
 
 // src/index.ts
-var src_default = {
+var src_default2 = {
   async fetch(request, env) {
     try {
       const url = new URL(request.url);
@@ -175,19 +202,7 @@ var src_default = {
         await handleSession(pair[1], ip);
         return new Response(null, { status: 101, webSocket: pair[0] });
       }
-      const uri = pathname.startsWith("/@") ? pathname.substring(1) : `@${version}${pathname}`;
-      let myCache = await caches.open(`blog-npm:${version}`);
-      const cachedResp = await myCache.match(request, {});
-      if (cachedResp) {
-        return cachedResp;
-      }
-      let targetPath = uri;
-      if (uri.endsWith("/")) {
-        targetPath = `${uri}/index.html`;
-      }
-      const resp = fetch(`https://unpkg.com/@spike.land/code${targetPath}`);
-      myCache.put(request, (await resp).clone());
-      return resp;
+      return src_default("@spike.land/code", version)(request, env);
     } catch (Error2) {
       return new Response(`Yayy... ${Object.prototype.toString.call(Error2)}`);
     }
@@ -196,5 +211,5 @@ var src_default = {
 export {
   Code,
   CodeRateLimiter,
-  src_default as default
+  src_default2 as default
 };

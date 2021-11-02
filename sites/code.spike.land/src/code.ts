@@ -1,5 +1,4 @@
 import { wait } from "axax/esnext/wait";
-import type { DurableObject } from "@cloudflare/workers-types";
 
 export class Code implements DurableObject {
   state: DurableObjectState;
