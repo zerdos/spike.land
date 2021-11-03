@@ -20,7 +20,7 @@
   "license": "BSD-3-Clause",
   "dependencies": {
     "@types/react": "17.0.34",
-    "@types/react-dom": "17.0.10",
+    "@types/react-dom": "17.0.11",
     "esbuild": "0.13.12",
     "react": "17.0.2",
     "react-dom": "17.0.2",
