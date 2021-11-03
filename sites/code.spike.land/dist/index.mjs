@@ -37,7 +37,7 @@ var require_wait = __commonJS({
 });
 
 // ../../packages/code/package.json
-var version = "0.0.42";
+var version = "0.0.43";
 
 // ../../packages/cf-npm-site/dist/index.mjs
 function src_default(packageName, version2, serveDir = "") {
