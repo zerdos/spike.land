@@ -216,6 +216,6 @@
     "@spike.land/code": "https://unpkg.com/@spike.land/code@0.0.42/js/reactLoader.mjs",
     "comlink": "https://unpkg.com/comlink@4.3.1/dist/esm/comlink.mjs",
     "@spike.land/ipfs": "https://unpkg.com/@spike.land/ipfs@0.0.42/dist/ipfs.client.mjs",
-    "workbox-window": "https://unpkg.com/workbox-window@6.3.0/build/workbox-window.prod.es5.mjs"
+    "workbox-window": "https://unpkg.com/workbox-window@6.3.0/build/workbox-window.prod.mjs"
   }
 }

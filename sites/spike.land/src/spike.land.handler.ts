@@ -245,43 +245,43 @@ async function handleRequest(request: Request): Promise<Response> {
       return await text("test");
     }
 
-    if (pathname.startsWith("/add/")) {
-      const deploySHA = await sha256(JSON.stringify(filteredFiles));
+    // if (pathname.startsWith("/add/")) {
+    //   const deploySHA = await sha256(JSON.stringify(filteredFiles));
 
-      const res = await SHAKV.get(deploySHA);
+    //   const res = await SHAKV.get(deploySHA);
 
-      if (res) {
-        const resJson = JSON.parse(res);
-        if (resJson.missing.length === 0) {
-          //
-          // save it to a special place
-          //
+    //   if (res) {
+    //     const resJson = JSON.parse(res);
+    //     if (resJson.missing.length === 0) {
+    //       //
+    //       // save it to a special place
+    //       //
 
-          return await text("nothing missing!");
-        }
+    //       return await text("nothing missing!");
+    //     }
 
-        const maybeCID = pathname.slice(5);
-        if (resJson.missing.indexOf(maybeCID) !== -1) {
-          const content = await request.text();
-          const calculatedCID = await Hash.of(content);
-          const contentSHA = await sha256(content);
-          const fileName = reverseSHAKV[contentSHA] as keyof typeof files;
-          if (fileName) {
-            const cid = files[fileName];
-            if (cid === maybeCID) {
-              await IPFS.put(cid, content);
-              return await text("Thanks :)" + calculatedCID);
-            }
+    //     const maybeCID = pathname.slice(5);
+    //     if (resJson.missing.indexOf(maybeCID) !== -1) {
+    //       const content = await request.text();
+    //       const calculatedCID = await Hash.of(content);
+    //       const contentSHA = await sha256(content);
+    //       const fileName = reverseSHAKV[contentSHA] as keyof typeof files;
+    //       if (fileName) {
+    //         const cid = files[fileName];
+    //         if (cid === maybeCID) {
+    //           await IPFS.put(cid, content);
+    //           return await text("Thanks :)" + calculatedCID);
+    //         }
 
-            return await text(fileName);
-          }
-          return await text(`content sha not found: ${contentSHA}`);
-        }
+    //         return await text(fileName);
+    //       }
+    //       return await text(`content sha not found: ${contentSHA}`);
+    //     }
 
-        return await text(`this content is not missing: ${maybeCID}`);
-      }
-      return await text("Nah:(");
-    }
+    //     return await text(`this content is not missing: ${maybeCID}`);
+    //   }
+    //   return await text("Nah:(");
+    // }
 
     if (pathname === `/cid.js`) {
       return new Response(`export const cid = "${cid}"`, {

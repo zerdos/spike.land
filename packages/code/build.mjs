@@ -318,7 +318,7 @@ var init_importmap = __esm({
       "@spike.land/code": "https://unpkg.com/@spike.land/code@0.0.42/js/reactLoader.mjs",
       comlink: "https://unpkg.com/comlink@4.3.1/dist/esm/comlink.mjs",
       "@spike.land/ipfs": "https://unpkg.com/@spike.land/ipfs@0.0.42/dist/ipfs.client.mjs",
-      "workbox-window": "https://unpkg.com/workbox-window@6.3.0/build/workbox-window.prod.es5.mjs"
+      "workbox-window": "https://unpkg.com/workbox-window@6.3.0/build/workbox-window.prod.mjs"
     };
     importmap_default = {
       imports
@@ -707,20 +707,6 @@ var init_data = __esm({
         return saved.url;
       }
       toSave.code = opts.code;
-      const saveCode2 = async () => {
-        const res = await ipfsClient.add(code, { onlyHash: true });
-        const CID2 = res.cid.toString();
-        const UID = await getUserId();
-        const url2 = `/add/${CID2}`;
-        fetch(`https://code.spike.land${url2}`, {
-          method: "POST",
-          headers: {
-            UID
-          },
-          body: code
-        });
-      };
-      saveCode2();
       const { shareItAsHtml: shareItAsHtml2 } = await Promise.resolve().then(() => (init_share(), share_exports));
       const sharePromise = shareItAsHtml2({ code, html, transpiled });
       if (opts.i > counter)

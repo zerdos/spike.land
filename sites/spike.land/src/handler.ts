@@ -92,43 +92,43 @@ export async function handleCloudRequest(request: Request): Promise<Response> {
         }
       }
 
-      if (pathname === "/check") {
-        const key = searchParams.get("key");
+      // if (pathname === "/check") {
+      //   const key = searchParams.get("key");
 
-        if (key === null) return new Response("500");
+      //   if (key === null) return new Response("500");
 
-        const waitForChange = async () => {
-          const uuid = await USERKEYS.get(
-            key,
-          );
+      //   const waitForChange = async () => {
+      //     const uuid = await USERKEYS.get(
+      //       key,
+      //     );
 
-          if (!uuid) return null;
+      //     if (!uuid) return null;
 
-          const data = await USERS.get<{ connected: boolean }>(
-            uuid,
-            "json",
-          );
-          if (!data || data.connected) {
-            return data;
-          }
-          return new Promise((resolve) => {
-            const clear = setInterval(async () => {
-              const data = await USERS.get<{ connected: boolean }>(
-                uuid,
-                "json",
-              );
-              if (!data || data.connected) {
-                clearInterval(clear);
-                resolve(data);
-              }
-            }, 1000);
-          });
-        };
+      //     const data = await USERS.get<{ connected: boolean }>(
+      //       uuid,
+      //       "json",
+      //     );
+      //     if (!data || data.connected) {
+      //       return data;
+      //     }
+      //     return new Promise((resolve) => {
+      //       const clear = setInterval(async () => {
+      //         const data = await USERS.get<{ connected: boolean }>(
+      //           uuid,
+      //           "json",
+      //         );
+      //         if (!data || data.connected) {
+      //           clearInterval(clear);
+      //           resolve(data);
+      //         }
+      //       }, 1000);
+      //     });
+      //   };
 
-        const data = await waitForChange();
+      //   const data = await waitForChange();
 
-        return json({ expired: data === null });
-      }
+      //   return json({ expired: data === null });
+      // }
 
       if (pathname === "/register") {
         const uuid = v4();
