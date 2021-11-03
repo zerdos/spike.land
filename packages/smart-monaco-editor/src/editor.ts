@@ -114,17 +114,17 @@ export default async (
     const importHelper = [
       {
         name: "react",
-        url: "https://unpkg.com/@types/react@17.0.33/index.d.ts",
+        url: "https://unpkg.com/@types/react@17.0.34/index.d.ts",
         depend: ["global", "csstype", "react-dom", "prop-types"],
       },
       {
         name: "react/jsx-dev-runtime",
-        url: "https://unpkg.com/@types/react@17.0.33/jsx-dev-runtime.d.ts",
+        url: "https://unpkg.com/@types/react@17.0.34/jsx-dev-runtime.d.ts",
         depend: ["global", "csstype", "react-dom", "prop-types"],
       },
       {
-        name: "react-exp  ",
-        url: "https://unpkg.com/@types/react@17.0.33/experimental.d.ts",
+        name: "react-exp",
+        url: "https://unpkg.com/@types/react@17.0.34/experimental.d.ts",
         depend: [],
       },
       {
@@ -134,12 +134,12 @@ export default async (
       },
       {
         name: "prop-types",
-        url: "https://unpkg.com/@types/prop-types@15.7.3/index.d.ts",
+        url: "https://unpkg.com/@types/prop-types@15.7.4/index.d.ts",
         depend: [],
       },
       {
         name: "react-dom",
-        url: "https://unpkg.com/@types/react-dom@17.0.10/index.d.ts",
+        url: "https://unpkg.com/@types/react-dom@17.0.11/index.d.ts",
         depend: [],
       },
       {
@@ -167,7 +167,7 @@ export default async (
       },
       {
         name: "@emotion/cache/index.d.ts",
-        url: "https://unpkg.com/@emotion/cache@11.4.0/types/index.d.ts",
+        url: "https://unpkg.com/@emotion/cache@11.5.0/types/index.d.ts",
         depend: ["@emotion/utils"],
       },
       {
@@ -208,13 +208,12 @@ export default async (
       },
       {
         name: "framer-motion",
-        url:
-          "https://unpkg.com/framer-motion@5.0.0-beta.35/dist/framer-motion.d.ts",
+        url: "https://unpkg.com/framer-motion@5.1.0/types/index.d.ts",
         depend: ["popmotion"],
       },
       {
         name: "popmotion",
-        url: "https://unpkg.com/popmotion@9.4.1/lib/index.d.ts",
+        url: "https://unpkg.com/popmotion@10.0.2/lib/index.d.ts",
       },
     ];
     const dts = importHelper.map(({ name, url }) =>

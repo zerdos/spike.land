@@ -7,5 +7,7 @@
   "scripts": {
     "build": "rm -rf dist public && mkdir dist && cp package.json dist/ && cd dist && npm remove @spike.land/blog-artifacts && npm install @spike.land/blog-artifacts --ignore-scripts --no-package-lock && rm -rf public && mv node_modules/@spike.land/blog-artifacts/public ../ "
   },
-  "dependencies": {}
+  "dependencies": {
+    "@spike.land/blog-artifacts": "^0.0.40"
+  }
 }

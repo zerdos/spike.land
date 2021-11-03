@@ -16,8 +16,8 @@ export const files = {
     "QmZ5Nic3MRHT8m9SY5ZrSp38UHGEYmJqgk4RAmDV3xXqa1",
   "assets/zed-icon-big.png": "QmeHY7RZzR5wm9ELZr5xgq6XMQKjRAHgmxoQaCzHjgpRm8",
   "build.mjs": "QmPh6cfwgazifBaEwWN1GtZDQoeW2e7fZpNKGFBWdRdCau",
-  "dev.mjs": "QmQKKuSvJKhGwpJqoVonwTYi3xZPEF9kZ537a9XfJiqFfa",
-  "dev.mjs.map": "QmTBgLo2kXZd8ekQBU4EAdKen3FsVYhmLXcUeT5wVD3GfE",
+  "dev.mjs": "QmYxtr6EqVdjA5Wj8NeNrYRCQVNze5nd8xLftt4P4xRLJh",
+  "dev.mjs.map": "QmVpsCtofeTR5KhiuLQNs7hVxCoVDky38KW4u4uPV9mWEc",
   "edit/index.html": "QmfXTNa9t9Yi9mcrrK9Y8fi6yfSzJ89XxCmGShH1CyZjFX",
   "esbuild-dev.mjs": "QmNbYHeZvHhwEYyUTtnFvaoWq8yZ32iX1XXhngcaxHq1DT",
   "esbuild.mjs": "QmSaddDHVdzrh6jNmE1SVq2QdqCeoy2sRskLdYhLTAQBPb",
@@ -66,6 +66,6 @@ export const files = {
   "modules": "QmUNLLsPACCz1vLxQVkXqqLX5R1X345qqfHbsf67hvA3Nn",
   "node_modules": "QmUNLLsPACCz1vLxQVkXqqLX5R1X345qqfHbsf67hvA3Nn",
   "scripts": "QmbW4MskUSgTKTX2myZhtKu7RBmNXRsaypRDNRAAxTUTrc",
-  "": "QmZYe99aBf3s5VCkCjnQpiLdexS6o2XEKxtKZKMRb1FyMb",
+  "": "Qmc7gmV3ArfJDYQhuQJ6jaTikh5V3KCaXRAZXJpCmpQiSj",
   "foo": "bar",
 };
