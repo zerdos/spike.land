@@ -1006,7 +1006,7 @@ async function run(mode = "window", code = "") {
     } catch (e) {
       throw e;
     }
-    await restartCode(session.transpiled, session.i);
+    await restartCode(session.transpiled, session.code, session.i);
     await editorPromise;
     monaco = window.monaco;
     monaco.editor.createModel("define module './hash.js';", "typescript", monaco.Uri.parse("file:///refs.d.ts"));
@@ -1029,7 +1029,7 @@ async function run(mode = "window", code = "") {
       if (transpiled.length && session.lastErrors < 2) {
         if (counter < session.i)
           return;
-        restartError = await restartCode(transpiled, counter);
+        restartError = await restartCode(transpiled, c, counter);
       }
       if (session.i > counter)
         return;
@@ -1042,7 +1042,7 @@ async function run(mode = "window", code = "") {
       if (err.length)
         console.log({ err });
       if (session.lastErrors && err.length === 0) {
-        restartCode(transpiled, counter);
+        restartCode(transpiled, c, counter);
       }
       session.lastErrors = err.length;
       if (err.length === 0 && transpiled.length) {
@@ -1119,9 +1119,12 @@ async function run(mode = "window", code = "") {
     URL.revokeObjectURL(objUrl);
     return jsx(mod.default);
   }
-  async function restartCode(transpiled, counter) {
+  async function restartCode(transpiled, code2, counter) {
     if (session.i > counter)
       return false;
+    if (session.actualT === transpiled)
+      return false;
+    session.actualT = transpiled;
     session.html = "";
     session.transpiled = "";
     let hadError = false;

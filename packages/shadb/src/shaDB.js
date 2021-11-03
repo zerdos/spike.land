@@ -2,10 +2,11 @@
 import { openDB } from "idb";
 import { getDbObj } from "./getDbObj.js";
 import { sha256 } from "./sha256.js";
-import { diff } from "./diff.js";
+import { diff, assemble} from "./diff.js";
 
 export { sha256 };
 export { diff };
+export {assemble};
 export { getDbObj };
 
 export function getDB(storeName = "defaultStore") {

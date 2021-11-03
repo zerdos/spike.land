@@ -8,7 +8,7 @@ import startMonaco from "@spike.land/smart-monaco-editor";
 import { jsx } from "@emotion/react";
 import { ipfsClient } from "./ipfsClient.mjs";
 import { getUserId } from "./data.mjs";
-
+// import Hash from "ipfs-only-hash";
 export { DraggableWindow, jsx, render } from "@spike.land/renderer";
 
 // const charWidthSpan = document.createElement('span');
@@ -131,7 +131,7 @@ export async function run(mode = "window", code = "") {
     } catch (e) {
       throw e;
     }
-    await restartCode(session.transpiled, session.i);
+    await restartCode(session.transpiled, session.code, session.i);
 
     await editorPromise;
     monaco = window.monaco;
@@ -169,7 +169,7 @@ export async function run(mode = "window", code = "") {
       ///yellow
       if (transpiled.length && session.lastErrors < 2) {
         if (counter < session.i) return;
-        restartError = await restartCode(transpiled, counter);
+        restartError = await restartCode(transpiled, c, counter);
       }
       if (session.i > counter) return;
       const err = await getErrors(cd);
@@ -182,8 +182,9 @@ export async function run(mode = "window", code = "") {
       }
 
       if (err.length) console.log({ err });
+
       if (session.lastErrors && err.length === 0) {
-        restartCode(transpiled, counter);
+        restartCode(transpiled, c, counter);
       }
       session.lastErrors = err.length;
       // const errorDiv = document.getElementById("error");
@@ -247,7 +248,7 @@ export async function run(mode = "window", code = "") {
     }
   }
 
-  async function getErrors() {
+  async function getErrors() { 
     if (!monaco) {
       return [{ messageText: "Error with the error checking. Try to reload!" }];
     }
@@ -289,8 +290,13 @@ export async function run(mode = "window", code = "") {
    * @param {string} transpiled
    * @param {number} counter
    */
-  async function restartCode(transpiled, counter) {
+  async function restartCode(transpiled, code, counter) {
     if (session.i > counter) return false;
+
+    if(session.actualT === transpiled) return false;
+    session.actualT = transpiled;
+
+    // const codeHash = await Hash.of(code);
 
     session.html = "";
     session.transpiled = "";
@@ -308,6 +314,7 @@ export async function run(mode = "window", code = "") {
       console.error({ error, message: "error in rendering" });
       return false;
     }
+
 
     // session.unmount = render(Element(), root);
     const zbody = document.createElement("div");
