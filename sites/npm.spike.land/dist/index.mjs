@@ -26,7 +26,7 @@ function src_default(packageName, version2, serveDir = "") {
 }
 
 // ../../packages/blog/package.json
-var version = "0.0.44";
+var version = "0.0.45";
 
 // src/index.ts
 var fetch2 = src_default("@spike.land/blog-artifacts", version, "public");
