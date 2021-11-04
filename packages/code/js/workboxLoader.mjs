@@ -33,7 +33,7 @@ export const workboxLoader = async () => {
       const { Workbox } = await import(
         "workbox-window"
       );
-      const wb = new Workbox(`./sw.js`);
+      const wb = new Workbox(`./js/sw.js`);
 
       wb.addEventListener("activated", async (event) => {
         if (!event.isUpdate) {
