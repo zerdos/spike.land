@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.shaDB = exports.getDB = exports.getDbObj = exports.diff = exports.sha256 = void 0;
+exports.shaDB = exports.getDB = exports.getDbObj = exports.assemble = exports.diff = exports.sha256 = void 0;
 //@ts-nocheck
 const idb_1 = require("idb");
 const getDbObj_js_1 = require("./getDbObj.js");
@@ -9,6 +9,7 @@ const sha256_js_1 = require("./sha256.js");
 Object.defineProperty(exports, "sha256", { enumerable: true, get: function () { return sha256_js_1.sha256; } });
 const diff_js_1 = require("./diff.js");
 Object.defineProperty(exports, "diff", { enumerable: true, get: function () { return diff_js_1.diff; } });
+Object.defineProperty(exports, "assemble", { enumerable: true, get: function () { return diff_js_1.assemble; } });
 function getDB(storeName = "defaultStore") {
     return async () => {
         const dbPromise = (0, idb_1.openDB)("spike-land-alpha", 1, {

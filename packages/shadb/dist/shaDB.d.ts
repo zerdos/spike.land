@@ -11,6 +11,7 @@ export namespace shaDB {
 }
 import { sha256 } from "./sha256.js";
 import { diff } from "./diff.js";
+import { assemble } from "./diff.js";
 import { getDbObj } from "./getDbObj.js";
-export { sha256, diff, getDbObj };
+export { sha256, diff, assemble, getDbObj };
 //# sourceMappingURL=shaDB.d.ts.map

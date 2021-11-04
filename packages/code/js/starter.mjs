@@ -1,6 +1,5 @@
-import {run} from "./reactLoader.mjs"
-import {workboxLoader} from './workboxLoader.mjs'
-
+import { run } from "./reactLoader.mjs";
+import { workboxLoader } from "./workboxLoader.mjs";
 
 workboxLoader();
 run("window");
