@@ -248,7 +248,7 @@ export async function run(mode = "window", code = "") {
     }
   }
 
-  async function getErrors() { 
+  async function getErrors() {
     if (!monaco) {
       return [{ messageText: "Error with the error checking. Try to reload!" }];
     }
@@ -293,7 +293,7 @@ export async function run(mode = "window", code = "") {
   async function restartCode(transpiled, code, counter) {
     if (session.i > counter) return false;
 
-    if(session.actualT === transpiled) return false;
+    if (session.actualT === transpiled) return false;
     session.actualT = transpiled;
 
     // const codeHash = await Hash.of(code);
@@ -314,7 +314,6 @@ export async function run(mode = "window", code = "") {
       console.error({ error, message: "error in rendering" });
       return false;
     }
-
 
     // session.unmount = render(Element(), root);
     const zbody = document.createElement("div");

@@ -4,12 +4,12 @@ self.importScripts(
 
 let SW_VERSION = null;
 
-addEventListener('message', async (event) => {
-  if (event.data.type === 'GET_VERSION') {
+addEventListener("message", async (event) => {
+  if (event.data.type === "GET_VERSION") {
     const resp = await fetch("../package.json");
 
     const json = await resp.json();
-    SW_VERSION = json.version
+    SW_VERSION = json.version;
 
     event.ports[0].postMessage(SW_VERSION);
   }
@@ -20,11 +20,9 @@ addEventListener('message', async (event) => {
 
   //   const json = await resp.json();
 
-
   //   event.ports[0].postMessage(JSON.stringify(json));
   // }
 });
-
 
 // // self.importScripts(
 // //   "https://unpkg.com/ipfs@0.55.3/dist/index.min.js",
