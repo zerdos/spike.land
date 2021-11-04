@@ -6,7 +6,7 @@ let SW_VERSION = null;
 
 addEventListener('message', async (event) => {
   if (event.data.type === 'GET_VERSION') {
-    const resp = await fetch("./package.json");
+    const resp = await fetch("../package.json");
 
     const json = await resp.json();
     SW_VERSION = json.version

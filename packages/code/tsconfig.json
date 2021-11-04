@@ -68,7 +68,7 @@
   "include": [
     "js/**/*.js",
     "js/**/*.mjs",
-    "sw.js"
+    "js/sw.js"
   ],
   "exclude": ["js/bundle.min.js"]
 }
