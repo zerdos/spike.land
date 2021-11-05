@@ -50,7 +50,7 @@ export const shasums = {
   "js/workboxLoader.mjs":
     "7c96ed628f64f30d3b6c204cd3189002d858351edaf9bfd5fc94b6ae462b9411",
   "dev.mjs.map":
-    "cb0c88813f46b528e21d7b2361da8784a0189d86c03bc74b2802b37365cc5ed8",
+    "2737cd64e9dc22eb94407c23abd31de1160fc3376c1ad03823c2448db4e50752",
   "scripts/importmapGenerator.mjs":
     "a65c217a14d76de989c964d7066a989ee03dddb5dc7ebb3d9b8bfea1622d739a",
   ".vscode/settings.json":
@@ -84,7 +84,7 @@ export const shasums = {
     "d4cfbb0537146f1f477d5050b2b19a8ccad2cbe8d22d4d18bfefb510b53571be",
   "assets/synthwave.jpg":
     "ddb7a1699251a0daecf2c4ff494760608cd9d5f39e8ce09426a31b2d505ceb4e",
-  "dev.mjs": "6e49884dc3a01e1e90470dcc03f2a4f3db63d26a2d14435ff887268a35229a5f",
+  "dev.mjs": "2205bf4e127e8d74355faef16b22399b6f488c49a6edf96a7a9397841fc10168",
   "package.json":
     "61c7d5b5c1174217419bb745f377d34d7b86aa3b7c85a4065bea4080418e3130",
   "edit/index.html":

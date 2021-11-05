@@ -9,8 +9,8 @@ added QmVP5gg9nYuPg1au5pBmdn75xmUvuGevRPLhEngyEyQfkT code/assets/synthwave.jpg
 added QmZ5Nic3MRHT8m9SY5ZrSp38UHGEYmJqgk4RAmDV3xXqa1 code/assets/triangle-geometry.png
 added QmeHY7RZzR5wm9ELZr5xgq6XMQKjRAHgmxoQaCzHjgpRm8 code/assets/zed-icon-big.png
 added QmWHdDjcmo1epVvWCXirpD1XwZikobDYeP3fA9WoMYNEMq code/build.mjs
-added QmeQuS4nGVww2VZg7rvvoQpVVbxrcXJYK6ZYzCgULCps4C code/dev.mjs
-added QmNPh2wboZiRUE2aBeAtEQv8jR51yx2RFno8q2XYgEK6Ev code/dev.mjs.map
+added QmfBzS6VTTTSv3URxvUSButQcXxvZNrMVL16sDnVRnxkJ4 code/dev.mjs
+added QmVswLJ1drz3Nn5cbRxtpMiJkczSheAThppZRejzRWLyc1 code/dev.mjs.map
 added QmfXTNa9t9Yi9mcrrK9Y8fi6yfSzJ89XxCmGShH1CyZjFX code/edit/index.html
 added QmNbYHeZvHhwEYyUTtnFvaoWq8yZ32iX1XXhngcaxHq1DT code/esbuild-dev.mjs
 added QmSaddDHVdzrh6jNmE1SVq2QdqCeoy2sRskLdYhLTAQBPb code/esbuild.mjs
@@ -54,4 +54,4 @@ added QmY9s4LDE4eGt9hYrc4GAS7yhAMThrFeuRYQcxrwoWpamx code/js
 added QmUNLLsPACCz1vLxQVkXqqLX5R1X345qqfHbsf67hvA3Nn code/modules
 added QmUNLLsPACCz1vLxQVkXqqLX5R1X345qqfHbsf67hvA3Nn code/node_modules
 added QmTtFxvTGrkqYxEGN91fB19s3Y5XGWAWNCC4v6z6SFr97b code/scripts
-added QmY75yvbbTxJHJMwc3RxAgtqoJ4SY4oYdtHx9FYUHaU4d7 code
+added QmRuhBon6V9pqU2RNw8LWD6uwh3GkFX4vksausq6iqGem8 code
