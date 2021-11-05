@@ -37,10 +37,137 @@ var require_wait = __commonJS({
 });
 
 // ../../packages/code/package.json
-var version = "0.0.45";
+var version = "0.0.46";
+
+// src/index.html
+var src_default = `<!DOCTYPE html>
+<html lang="en">
+<head profile="http://www.w3.org/2005/10/profile">
+  <meta http-equiv="Content-Type" content="text/html,charset=utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+  <link rel="icon" type="image/png" href="./assets/zed-icon-big.png" />
+  <link rel="stylesheet" href="https://unpkg.com/modern-css-reset/dist/reset.min.css" />
+  <link rel="stylesheet" href="./assets/app.css" />
+  <link rel="stylesheet" href="./assets/roboto.css" />
+
+  <script async src="https://unpkg.com/es-module-shims@1.3.1/dist/es-module-shims.js"><\/script>
+  <title>Instant React Editor</title>
+  <script type="esms-options">
+    {
+      "shimMode": true,
+      "polyfillEnable": ["css-modules", "json-modules"],
+      "nonce": "n0nce"
+    }
+    <\/script>
+</head>
+<body>
+  <script type="importmap-shim" src="./js/importmap.json"><\/script>
+  <script type="module-shim" src="./js/starter.mjs"><\/script>
+  <script type="text/javascript">
+    (async()=>{
+    let currentWebSocket = null;
+
+    const chCode = (code) => {
+  const { monaco } = window;
+  const modelUri = monaco.Uri.parse(\`file:///main.tsx\`);
+  const model = monaco.editor.getModel(modelUri);
+
+  model.setValue(code);
+    
+}
+
+
+    let hostname = window.location.host;
+if (hostname == "") {
+  // Probably testing the HTML locally.
+  hostname = "code.spike.land";
+}
+
+
+let roomname = "ROOMNAMEname";
+let username = 'PistiTheUser';
+let lastSeenTimestamp = Date.now();
+
+    function join() {
+  let ws = new WebSocket("wss://" + hostname + "/api/room/" + roomname + "/websocket");
+  let rejoined = false;
+  let startTime = Date.now();
+
+  let rejoin = async () => {
+    if (!rejoined) {
+      rejoined = true;
+      currentWebSocket = null;
+
+      // Clear the roster.
+    //  while (roster.firstChild) {
+     //   roster.removeChild(roster.firstChild);
+  //    }
+
+      // Don't try to reconnect too rapidly.
+      let timeSinceLastJoin = Date.now() - startTime;
+      if (timeSinceLastJoin < 10000) {
+        // Less than 10 seconds elapsed since last join. Pause a bit.
+        await new Promise(resolve => setTimeout(resolve, 10000 - timeSinceLastJoin));
+      }
+
+      // OK, reconnect now!
+      join();
+    }
+  }
+
+  ws.addEventListener("open", event => {
+    currentWebSocket = ws;
+    window.chCode = chCode;
+    window.broad = (code)=>{
+      chCode(code);
+    currentWebSocket.send(JSON.stringify({code: code}));
+  }
+
+    // Send user info message.
+    ws.send(JSON.stringify({name: username}));
+  });
+
+ 
+
+  ws.addEventListener("message", event => {
+    let data = JSON.parse(event.data);
+
+    if (data.code) {
+
+     chCode(data.code)
+    
+    } else {
+      // A regular chat message.
+      if (data.timestamp > lastSeenTimestamp) {
+        addChatMessage(data.name, data.message);
+        lastSeenTimestamp = data.timestamp;
+      }
+    }
+  });
+
+  ws.addEventListener("close", event => {
+    console.log("WebSocket closed, reconnecting:", event.code, event.reason);
+    rejoin();
+  });
+  ws.addEventListener("error", event => {
+    console.log("WebSocket error, reconnecting:", event);
+    rejoin();
+  });
+}
+
+
+
+    console.log("hello hello2");
+    join();
+})()
+    /**************/
+  <\/script>
+</body>
+</html>
+`;
 
 // ../../packages/cf-npm-site/dist/index.mjs
-function src_default(packageName, version2, serveDir = "") {
+function src_default2(packageName, version2, serveDir = "") {
   return async function(request, env) {
     try {
       const url = new URL(request.url);
@@ -66,106 +193,92 @@ function src_default(packageName, version2, serveDir = "") {
   };
 }
 
-// src/websocket.mjs
-var handleSession = async (webSocket, ip) => {
-  webSocket.accept();
-  let limiterId = (void 0).env.limiters.idFromName(ip);
-  let limiter = new RateLimiterClient(() => (void 0).env.limiters.get(limiterId), (err) => webSocket.close(1011, err.stack));
-  let session = { webSocket, blockedMessages: [] };
-  (void 0).sessions.push(session);
-  (void 0).sessions.forEach((otherSession) => {
-    if (otherSession.name) {
-      session.blockedMessages.push(JSON.stringify({ joined: otherSession.name }));
-    }
-  });
-  let storage = await (void 0).storage.list({ reverse: true, limit: 100 });
-  let backlog = [...storage.values()];
-  backlog.reverse();
-  backlog.forEach((value) => {
-    session.blockedMessages.push(value);
-  });
-  let receivedUserInfo = false;
-  webSocket.addEventListener("message", async (msg) => {
-    try {
-      if (session.quit) {
-        webSocket.close(1011, "WebSocket broken.");
-        return;
-      }
-      if (!limiter.checkLimit()) {
-        webSocket.send(JSON.stringify({
-          error: "Your IP is being rate-limited, please try again later."
-        }));
-        return;
-      }
-      let data = JSON.parse(msg.data);
-      if (!receivedUserInfo) {
-        session.name = "" + (data.name || "anonymous");
-        if (session.name.length > 32) {
-          webSocket.send(JSON.stringify({ error: "Name too long." }));
-          webSocket.close(1009, "Name too long.");
-          return;
-        }
-        session.blockedMessages.forEach((queued) => {
-          webSocket.send(queued);
-        });
-        delete session.blockedMessages;
-        (void 0).broadcast({ joined: session.name });
-        webSocket.send(JSON.stringify({ ready: true }));
-        receivedUserInfo = true;
-        return;
-      }
-      data = { name: session.name, message: "" + data.message };
-      if (data.message.length > 256) {
-        webSocket.send(JSON.stringify({ error: "Message too long." }));
-        return;
-      }
-      data.timestamp = Math.max(Date.now(), (void 0).lastTimestamp + 1);
-      (void 0).lastTimestamp = data.timestamp;
-      let dataStr = JSON.stringify(data);
-      (void 0).broadcast(dataStr);
-      let key = new Date(data.timestamp).toISOString();
-      await (void 0).storage.put(key, dataStr);
-    } catch (err) {
-      webSocket.send(JSON.stringify({ error: err.stack }));
-    }
-  });
-  let closeOrErrorHandler = (evt) => {
-    session.quit = true;
-    (void 0).sessions = (void 0).sessions.filter((member) => member !== session);
-    if (session.name) {
-      (void 0).broadcast({ quit: session.name });
-    }
-  };
-  webSocket.addEventListener("close", closeOrErrorHandler);
-  webSocket.addEventListener("error", closeOrErrorHandler);
-};
-
 // src/code.ts
 var import_wait = __toModule(require_wait());
+
+// src/handleErrors.ts
+async function handleErrors2(request, func) {
+  try {
+    return await func();
+  } catch (err) {
+    if (request.headers.get("Upgrade") === "websocket") {
+      let stack = null;
+      if (err instanceof Error) {
+        stack = err.stack;
+        console.log({ error: err.stack, message: err.message });
+      }
+      let pair = new WebSocketPair();
+      pair[1].accept();
+      pair[1].send(JSON.stringify({ error: stack }));
+      pair[1].close(1011, "Uncaught exception during session setup");
+      return new Response(null, { status: 101, webSocket: pair[0] });
+    } else {
+      let stack = "We have noooo idea what happpened";
+      if (err instanceof Error) {
+        stack = err.stack || stack;
+        console.log({ error: err.stack, message: err.message });
+      }
+      return new Response(stack, { status: 500 });
+    }
+  }
+}
+
+// src/code.ts
 var Code = class {
   state;
+  users;
+  code = "";
   value = 0;
   constructor(state, env) {
     this.state = state;
     this.state.blockConcurrencyWhile(async () => {
       let stored = Number(await this.state.storage.get("value"));
+      let users = await this.state.storage.get("users");
+      this.code = String(await this.state.storage.get("code"));
+      this.users = users;
       this.value = stored || 0;
     });
+  }
+  async add(user) {
+    this.users.push(user);
+  }
+  async remove(user) {
+    this.users = this.users.filter((u) => u !== user);
   }
   async increment() {
     await (0, import_wait.wait)(1e4);
     this.state.waitUntil((0, import_wait.wait)(1e3));
     await this.state.storage.put("value", ++this.value);
   }
+  handleSession(userSocket, ip) {
+    this.add(userSocket);
+    userSocket.accept();
+    userSocket.addEventListener("close", () => this.remove(userSocket));
+    userSocket.addEventListener("message", (event) => {
+      let data = typeof event.data === "string" ? JSON.parse(event.data) : {};
+      if (data.code) {
+        this.code = data.code;
+      }
+      this.users.map((user) => user.send(JSON.stringify({ code: this.code })));
+    });
+  }
   async fetch(request) {
-    let url = new URL(request.url);
-    let currentValue = this.value;
-    if (url.pathname.includes("inc")) {
-      await this.increment();
-    } else if (url.pathname.includes("dec")) {
-      await this.state.storage.put("value", --this.value);
-    }
-    return new Response(String(this.value));
+    return await handleErrors2(request, async () => {
+      let url = new URL(request.url);
+      switch (url.pathname) {
+        case "/websocket": {
+          if (request.headers.get("Upgrade") != "websocket") {
+            return new Response("expected websocket", { status: 400 });
+          }
+          let ip = request.headers.get("CF-Connecting-IP");
+          let pair = new WebSocketPair();
+          await this.handleSession(pair[1], ip);
+          return new Response(null, { status: 101, webSocket: pair[0] });
+        }
+        default:
+          return new Response("Not found", { status: 404 });
+      }
+    });
   }
 };
 
@@ -188,28 +301,65 @@ var CodeRateLimiter = class {
 };
 
 // src/index.ts
-var src_default2 = {
-  async fetch(request, env) {
-    try {
-      const url = new URL(request.url);
-      const { pathname } = url;
-      if (pathname === "/websocket") {
-        if (request.headers.get("Upgrade") != "websocket") {
-          return new Response("expected websocket", { status: 400 });
-        }
-        let ip = request.headers.get("CF-Connecting-IP");
-        let pair = new WebSocketPair();
-        await handleSession(pair[1], ip);
-        return new Response(null, { status: 101, webSocket: pair[0] });
+async function handleApiRequest(paths, request, env) {
+  const last = paths[paths.length - 1];
+  if (last === "websocket") {
+    const roomname = paths.pop();
+    let spikeLandSpace = env.CODE.idFromName(roomname);
+    let pair = new WebSocketPair();
+    pair[1].accept();
+    const userSocket = pair[1];
+    userSocket.send(JSON.stringify({ hello: "i am:", roomname }));
+    let newUrl = new URL(request.url);
+    newUrl.pathname = "/" + paths.slice(2).join("/");
+    fetch(request, env);
+    setInterval(() => {
+      userSocket.send(JSON.stringify({ hello: Date.now() }));
+    }, 2e4);
+    userSocket.addEventListener("close", () => {
+      spikeLandSpace.remove(userSocket);
+    });
+    userSocket.addEventListener("message", function(event) {
+      let data = typeof event.data === "string" ? JSON.parse(event.data) : { type: "" };
+      if (data) {
       }
-      return src_default("@spike.land/code", version)(request, env);
-    } catch (Error2) {
-      return new Response(`Yayy... ${Object.prototype.toString.call(Error2)}`);
-    }
+    });
+    return new Response(null, { status: 101, webSocket: userSocket });
+  }
+  return new Response(`{
+    "message": "api-${paths}"
+  }`);
+}
+var src_default3 = {
+  async fetch(request, env) {
+    return await handleErrors2(request, async () => {
+      let url = new URL(request.url);
+      let path = url.pathname.slice(1).split("/");
+      if (!path[0]) {
+        const html1 = src_default.slice(0, src_default.length - 40) + "*/";
+        const html2 = "/*" + src_default.slice(src_default.length - 40);
+        const rand = Math.random();
+        const injection = `
+              console.log(${rand});
+          `;
+        return new Response(html1 + injection + html2, {
+          headers: {
+            "Content-Type": "text/html;charset=UTF-8",
+            "Cache-Control": "no-cache"
+          }
+        });
+      }
+      switch (path[0]) {
+        case "api":
+          return handleApiRequest(path.slice(1), request, env);
+        default:
+          return src_default2("@spike.land/code", version)(request, env);
+      }
+    });
   }
 };
 export {
   Code,
   CodeRateLimiter,
-  src_default2 as default
+  src_default3 as default
 };

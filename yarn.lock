@@ -11829,9 +11829,9 @@ listr2@^3.8.3:
     wrap-ansi "^7.0.0"
 
 lmdb-store@^1.6.8:
-  version "1.6.12"
-  resolved "https://registry.yarnpkg.com/lmdb-store/-/lmdb-store-1.6.12.tgz#95edc584992b558632a95ad82dc429be89dcabe9"
-  integrity sha512-zFQS4J0dmMamAH+oF1keWS7MlYW4rjX3+qsYvpZu5jU9AR2vSRnzMRFrc/R94uwOkyMptR7hT2fzqaQ/DcrDeg==
+  version "1.6.13"
+  resolved "https://registry.yarnpkg.com/lmdb-store/-/lmdb-store-1.6.13.tgz#ae4c9d4faccbc07aaf47a79664f703799fc61221"
+  integrity sha512-WJPNfzSZXD6anGFdIEK/wq/HzAU5kfi7+LSUSzQ2Qo9uV9REeIYPGqWX+FKl/QCb6qK4ie1D4f44aEvvv7M7rw==
   dependencies:
     nan "^2.14.2"
     node-gyp-build "^4.2.3"
@@ -18733,9 +18733,9 @@ webpack-virtual-modules@^0.3.2:
     debug "^3.0.0"
 
 webpack@^5.58.1:
-  version "5.61.0"
-  resolved "https://registry.yarnpkg.com/webpack/-/webpack-5.61.0.tgz#fa827f0ee9bdfd141dd73c3e891e955ebd52fe7f"
-  integrity sha512-fPdTuaYZ/GMGFm4WrPi2KRCqS1vDp773kj9S0iI5Uc//5cszsFEDgHNaX4Rj1vobUiU1dFIV3mA9k1eHeluFpw==
+  version "5.62.1"
+  resolved "https://registry.yarnpkg.com/webpack/-/webpack-5.62.1.tgz#06f09b56a7b1bb13ed5137ad4b118358a90c9505"
+  integrity sha512-jNLtnWChS2CMZ7vqWtztv0G6fYB5hz11Zsadp5tE7e4/66zVDj7/KUeQZOsOl8Hz5KrLJH1h2eIDl6AnlyE12Q==
   dependencies:
     "@types/eslint-scope" "^3.7.0"
     "@types/estree" "^0.0.50"

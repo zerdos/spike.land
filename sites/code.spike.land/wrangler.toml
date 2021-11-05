@@ -13,7 +13,6 @@ command = "yarn build"
 [build.upload]
 format = "modules"
 main = "./index.mjs"
-# rules = [{type = "Data", globs = ["**/*.html"]}]
 
 [durable_objects]
 bindings = [
