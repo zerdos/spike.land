@@ -9,17 +9,16 @@ const uidVersion = await latestVersion("uuid");
 // const muiMateriaVersion = await latestVersion("@mui/material");
 // const muiCoreVersion = await latestVersion("@mui/core");
 
-
 const exceptions = {
   "scheduler/": "https://esm.sh/scheduler/",
   "react-transition-group": "https://esm.sh/react-transition-group",
   "hoist-non-react-statics": "https://esm.sh/hoist-non-react-statics",
   "prop-types": "https://esm.sh/prop-types",
-  // "@mui/material": `https://unpkg.com/@mui/material@${muiMateriaVersion}/modern/index.js`,  
+  // "@mui/material": `https://unpkg.com/@mui/material@${muiMateriaVersion}/modern/index.js`,
   // "@mui/material/": `https://unpkg.com/@mui/material@${muiMateriaVersion}/modern/`,
   // "@mui/core": `https://unpkg.com/@mui/core@${muiCoreVersion}/modern/index.js`,
   // "@mui/core/": `https://unpkg.com/@mui/core@${muiCoreVersion}/modern/`,
-  
+
   // "@mui/core/": `https://unpkg.com/@mui/material@${muiMateriaVersion}/modern/`,
   "react/jsx-runtime": "https://esm.sh/react/jsx-runtime",
   "react":
@@ -151,7 +150,7 @@ const list = [
   // "@mui/utils",
   "prop-types",
   "framer-motion",
-// "clsx",
+  // "clsx",
   "framesync",
   "hey-listen",
   "hoist-non-react-statics",

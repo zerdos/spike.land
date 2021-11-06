@@ -5,7 +5,9 @@ export default function (packageName, version, serveDir = "") {
             const { pathname } = url;
             const uri = (pathname.startsWith("/@")
                 ? pathname.substring(1)
-                : `@${version}${serveDir ? `/${serveDir}` : ``}${pathname}`);
+                : `@${version}${serveDir
+                    ? `/${serveDir}`
+                    : ``}${pathname}`);
             let myCache = await caches.open(`blog-npm:${version}-${serveDir}`);
             const cachedResp = await myCache.match(request, {});
             if (cachedResp) {

@@ -8,8 +8,8 @@ Object.defineProperty(exports, "getDbObj", { enumerable: true, get: function () 
 const sha256_js_1 = require("./sha256.js");
 Object.defineProperty(exports, "sha256", { enumerable: true, get: function () { return sha256_js_1.sha256; } });
 const diff_js_1 = require("./diff.js");
-Object.defineProperty(exports, "diff", { enumerable: true, get: function () { return diff_js_1.diff; } });
 Object.defineProperty(exports, "assemble", { enumerable: true, get: function () { return diff_js_1.assemble; } });
+Object.defineProperty(exports, "diff", { enumerable: true, get: function () { return diff_js_1.diff; } });
 function getDB(storeName = "defaultStore") {
     return async () => {
         const dbPromise = (0, idb_1.openDB)("spike-land-alpha", 1, {

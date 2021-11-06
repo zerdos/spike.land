@@ -269,5 +269,7 @@ export const saveCode =
   };
 
 function getStarter() {
-  return fetch(`https://code.spike.land/js/examples/rca.tsx`).then((res) => res.text());
+  return fetch(`https://code.spike.land/js/examples/rca.tsx`).then((res) =>
+    res.text()
+  );
 }

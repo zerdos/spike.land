@@ -12,20 +12,20 @@ export class Code implements DurableObject {
     // initialization completes.
     this.state.blockConcurrencyWhile(async () => {
       let stored = Number(await this.state.storage!.get("value"));
-    
+
       let users = (await this.state.storage!.get("users")) as WebSocket[];
-      
+
       this.code = String(await this.state.storage!.get("code"));
       this.users = users;
       this.value = stored || 0;
     });
   }
   async add(user: WebSocket) {
-    this.users.push(user)
+    this.users.push(user);
   }
-  
+
   async remove(user: WebSocket) {
-    this.users = this.users.filter(u=> u!==user);
+    this.users = this.users.filter((u) => u !== user);
   }
 
   async increment() {
@@ -34,23 +34,21 @@ export class Code implements DurableObject {
     await this.state.storage!.put("value", ++this.value);
   }
 
-  handleSession(userSocket: WebSocket, ip:string){
-
+  handleSession(userSocket: WebSocket, ip: string) {
     this.add(userSocket);
     userSocket.accept();
 
-    userSocket.addEventListener("close", (()=>this.remove(userSocket)))
+    userSocket.addEventListener("close", () => this.remove(userSocket));
 
-    userSocket.addEventListener("message", (event: MessageEvent)=>{
-      let data = (typeof event.data === "string")?JSON.parse(event.data): {};
+    userSocket.addEventListener("message", (event: MessageEvent) => {
+      let data = (typeof event.data === "string") ? JSON.parse(event.data) : {};
 
       if (data.code) {
         this.code = data.code;
       }
 
-      this.users.map(user=>user.send(JSON.stringify({code: this.code})))
-      
-    })
+      this.users.map((user) => user.send(JSON.stringify({ code: this.code })));
+    });
   }
 
   // Handle HTTP requests from clients.
@@ -87,5 +85,5 @@ export class Code implements DurableObject {
           return new Response("Not found", { status: 404 });
       }
     });
-}
+  }
 }
