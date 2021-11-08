@@ -6,8 +6,8 @@
   "main": "dist/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "clean": "deno fmt src",
-    "build": "rm -rf dist && mkdir dist && esbuild --bundle src/spike.land.handler.ts > dist/index.js",
+    "clean": "rm -rf dist && mkdir dist && deno fmt src && yarn build",
+    "build": "esbuild --bundle src/spike.land.handler.ts --outfile=dist/index.js",
     "deploy": "yarn build && wrangler publish"
   },
   "author": "Zoltan Erdos <zoltan.erdos@me.com>",
