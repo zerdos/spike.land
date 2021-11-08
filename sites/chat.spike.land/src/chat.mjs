@@ -62,9 +62,8 @@
 import HTML from "chat.html";
 import { handleErrors } from "./handleErrors.mjs";
 
-export {ChatRoom} from "./chatRoom.mjs"
-export {RateLimiter} from "./rateLimiter.mjs"
-
+export { ChatRoom } from "./chatRoom.mjs";
+export { RateLimiter } from "./rateLimiter.mjs";
 
 // In modules-syntax workers, we use `export default` to export our script's main event handlers.
 // Here, we export one handler, `fetch`, for receiving HTTP requests. In pre-modules workers, the
@@ -185,4 +184,3 @@ async function handleApiRequest(path, request, env) {
       return new Response("Not found", { status: 404 });
   }
 }
-
