@@ -3,5 +3,8 @@
   "description": "An edge chat service that runs on Cloudflare Workers using Durable Objects",
   "version": "0.0.47",
   "module": "./src/chat.mjs",
+  "devDependencies": {
+    "@cloudflare/workers-types": "3.1.1"
+  },
   "private": true
 }
