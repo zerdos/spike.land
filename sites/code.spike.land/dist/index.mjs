@@ -37,7 +37,7 @@ var require_wait = __commonJS({
 });
 
 // ../../packages/code/package.json
-var version = "0.0.46";
+var version = "0.0.47";
 
 // src/index.html
 var src_default = `<!DOCTYPE html>
