@@ -35,7 +35,7 @@
     "express": "4.17.1",
     "express-pino-logger": "6.0.0",
     "graphql": "16.0.1",
-    "ibm-cos-sdk": "1.10.2",
+    "ibm-cos-sdk": "1.11.0",
     "lodash": "4.17.21",
     "md5": "2.3.0",
     "minio": "7.0.19",

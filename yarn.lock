@@ -9985,10 +9985,10 @@ humanize-ms@^1.2.1:
   dependencies:
     ms "^2.0.0"
 
-ibm-cos-sdk@1.10.2:
-  version "1.10.2"
-  resolved "https://registry.yarnpkg.com/ibm-cos-sdk/-/ibm-cos-sdk-1.10.2.tgz#c49a34ddc00f4b13c039967559baed59c1dda39e"
-  integrity sha512-lYzhhPSPaLQYKNCizc9/G4/9Js8yE9yweuRqV3Fs1EZhG5CdzPc0OyRZWIZvYo8pB0B+kxU4ESZvtkl60zYdbA==
+ibm-cos-sdk@1.11.0:
+  version "1.11.0"
+  resolved "https://registry.yarnpkg.com/ibm-cos-sdk/-/ibm-cos-sdk-1.11.0.tgz#572c3da1e76d87a09d5a0186b91ddbd97e24745f"
+  integrity sha512-6Z3PKCwVdw9ErklSfhlUV40gPN+yCGkZGlPAnLQuCU+NTiDfQlLgRpOjusGMacURaBamVHzuBuXd8v6CJ0DjRQ==
   dependencies:
     buffer "^4.9.2"
     crypto-browserify "^3.12.0"
