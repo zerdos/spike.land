@@ -27,7 +27,7 @@
   "homepage": "https://github.com/spike-land/monorepo",
   "repository": "https://github.com/spike-land/monorepo",
   "devDependencies": {
-    "esbuild": "0.13.12",
+    "esbuild": "0.13.13",
     "typescript": "4.4.4"
   },
   "publishConfig": {
