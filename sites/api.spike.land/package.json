@@ -7,7 +7,7 @@
     "build": "esbuild --bundle --format=esm --target=esnext src/index.ts --outfile=dist/index.mjs"
   },
   "devDependencies": {
-    "esbuild": "0.13.12"
+    "esbuild": "0.13.13"
   },
   "private": true
 }
