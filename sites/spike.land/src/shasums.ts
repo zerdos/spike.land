@@ -5,7 +5,7 @@ export const shasums = {
   "esbuild.mjs":
     "853c4c29c72667b00d9b7a2e9afe218af006a9e83058c74ef73a84ddebc97f99",
   "package.json":
-    "3ab8e0ba310c8cd02dcdb5d48b601e8fc2c3e2e4d84ce1fadb1f1bb29fae1f06",
+    "c83edf7851d74d4c19eb77c526d0741576c3ba008d8d67e8f56ebe756c29a09e",
   "edit/index.html":
     "6bedf2adaf3b015d95ef000fe886b446ff1cc39184be9c8f060e63a325ed50af",
   "manifest.json":
@@ -67,7 +67,7 @@ export const shasums = {
   "js/workers/ipfsWorker.js":
     "c3037f8925aa7e4473fa053539be93fa2874cc1bfeadd7d62d712b765ab81d16",
   "js/workers/transpile.worker.js":
-    "44a487ab2978ec3e16fb4c930da9bdc30da2b3915e79c11068b7e114b3555af8",
+    "d5028ca46a6f415047c6a9b22addf4f32d15617fe52d19655b25152d7a60e5d5",
   "js/codeLoader.mjs":
     "915386e9cfa79d5d2cc677a18e31f320a99f763a6cf40830dd9326a8683b43ff",
   "js/transpile.mjs":
@@ -93,7 +93,7 @@ export const shasums = {
   "js/importScript.d.ts":
     "863a8f91f1d5750d68903b9493472d186067185cf0f9cf09f40c6c273ddef229",
   "dev.mjs.map":
-    "10eba4726da4b33749dccb7c2f2c1b51ed5d0738ebb66d84cfe971d63e772b19",
-  "dev.mjs": "de3ad448960801ec420666aa830490c67f6e71bd9e5db36a04824dd882e9ad33",
+    "3a46edb0b27f217b4fdd9c50d7d5e676066863789adec2c5608b68578205e568",
+  "dev.mjs": "b98144bd4d44a7102671249a41a96b6e90741b2d82d5dd90e4c165ae1e464e21",
   "food": "bar",
 };
