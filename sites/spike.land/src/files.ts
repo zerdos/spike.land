@@ -15,8 +15,8 @@ export const files = {
   "assets/triangle-geometry.png":
     "QmZ5Nic3MRHT8m9SY5ZrSp38UHGEYmJqgk4RAmDV3xXqa1",
   "assets/zed-icon-big.png": "QmeHY7RZzR5wm9ELZr5xgq6XMQKjRAHgmxoQaCzHjgpRm8",
-  "build.mjs": "QmWYnAFvhnP3549jP5V3f9uZRTMXqohr8qgWJy2MUWzPRM",
-  "dev.mjs": "QmRQRJMaqDRqNG9QKmfFC18nEvbeyxeCFDVxJy5ukBnyaj",
+  "build.mjs": "QmZLrB4AtAhLW8Frc4P3NzAA8nmvRxuXq4Pt6o3bYzrBDr",
+  "dev.mjs": "QmYXX6ZbwMfxVV7AJATNo4XHc4bbSKdzjZj8W1HHMk7qBL",
   "dev.mjs.map": "QmQ5Wqy444jtUibXvx55SqyJQh5Cz8fTg265keHFrt9qgf",
   "edit/index.html": "QmfXTNa9t9Yi9mcrrK9Y8fi6yfSzJ89XxCmGShH1CyZjFX",
   "esbuild-dev.mjs": "QmNbYHeZvHhwEYyUTtnFvaoWq8yZ32iX1XXhngcaxHq1DT",
@@ -32,7 +32,7 @@ export const files = {
   "js/formatter.mjs": "Qmcvc7jZkrSvbattfsxi1BqmP7d1pVDy4pjjxeiJL8zmQn",
   "js/importScript.d.ts": "QmV1V5Fb2ZxP5Kn31nSU7FS2TtrDMg6wR7sMTsKeeR1txL",
   "js/importScript.mjs": "QmQBhy9H2prXzc5DnjVcF7qfkEMYVz4TFtwzegpcpEp4Da",
-  "js/importmap.json": "QmStn7ZKCvBq8TUymBSndGhFfjhGMtHqa2UtiCzFZXsf1j",
+  "js/importmap.json": "QmVaHv9BB3qcLVmrfSbz9hhQ5ysBxT9EQxj8p1CasEQ2gv",
   "js/ipfsClient.mjs": "QmbuDJs8LgqAjJKrT4Uyjd3FHYZw9tN9B9RcwdUkNCoRdy",
   "js/openWindows.mjs": "QmaFnxSVkYqEBDhrTpZQTFP5S7Rm2fUtTEDV6ptzpDfnYQ",
   "js/reactLoader.mjs": "Qmacvt7gBakvaKMG81JDDvq2hXWDnTNBoPRfo2WcVXDYhP",
@@ -53,7 +53,7 @@ export const files = {
   "js/workers/transpile.worker.js":
     "QmXnznp89yrhNkKBukYoxxeqs6JkraJya7gxnVzN7eM7Sn",
   "manifest.json": "QmXmokoZc6CTgga36sBaEXYvw3fPCjJSCrXx1HzLkQewnm",
-  "package.json": "QmUTFm6sohjmnb9StPbxB7QvvRZ6JPTxpb5DJuFG93L3VL",
+  "package.json": "QmZtFDbe5aGHbZmRMqnGcJctEQU7mNr4RohusaRFo1n4di",
   "scripts/importmapGenerator.mjs":
     "QmUb6F6q7QK2MsYqVBkhc5NdpSfmou82DvJdhutMz6qyx1",
   "tsconfig.json": "QmQuH91sPQ36qvHdFaMmbtg8btgPFXXLcdGfuUBDwhH44k",
@@ -62,10 +62,10 @@ export const files = {
   "edit": "QmRBtzxNHPENXEfZwv1aZk9XmznUM6mesSe3GKVB8UwwXS",
   "js/examples": "Qmbcmjf53NLhuNdY6uDDpPeqNbNGAi76Qo4jdZCageGrFJ",
   "js/workers": "Qmbbzkp2iSuwKCd4VZQ3bWEHiP41QFQxBj9WqhPT3LZW7t",
-  "js": "QmV69iJAHNikkKbo6owD3K9Fi75MJvNER8e2UMVExQLaN7",
+  "js": "QmQaap5VCWbXK5Y7gZiNzv8C45en27Z89hZeDMGVCUJEa5",
   "modules": "QmUNLLsPACCz1vLxQVkXqqLX5R1X345qqfHbsf67hvA3Nn",
   "node_modules": "QmUNLLsPACCz1vLxQVkXqqLX5R1X345qqfHbsf67hvA3Nn",
   "scripts": "QmahoKr8L1TgqB2JiZkS4FfGdyRUoYafFgWioyCmHsScQ3",
-  "": "QmcQEgQn1zCZVVnG4pNSciH7c9hx7GDVGyeHP7xJShd8Mt",
+  "": "QmPwLZaND5JFvuCkLXdWCPz3BQKy1G6hnKKwPYcSjBA3LM",
   "foo": "bar",
 };
