@@ -28,7 +28,7 @@ echo "export const cid = '$CID';" > sites/spike.land/src/cid.ts
 echo $CID > code.CID
 echo $URL
 
-(open  $URL)&
+(xdg-open $URL)&
 
 # rm -rf cids/code
 # mkdir -p cids
