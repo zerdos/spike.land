@@ -3,13 +3,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.sendSignal = exports.sha256ToCid = exports.fetchSignal = exports.concat = exports.toString = exports.fromString = exports.raceToSuccess = exports.publicIpfsGateways = exports.all = exports.CID = exports.fromHexString = exports.IPFSClient = void 0;
+exports.sendSignal = exports.fetchSignal = exports.concat = exports.toString = exports.fromString = exports.raceToSuccess = exports.publicIpfsGateways = exports.all = exports.fromHexString = exports.IPFSClient = void 0;
 const it_all_1 = __importDefault(require("it-all"));
 exports.all = it_all_1.default;
 const ipfs_message_port_client_1 = require("ipfs-message-port-client");
 Object.defineProperty(exports, "IPFSClient", { enumerable: true, get: function () { return ipfs_message_port_client_1.IPFSClient; } });
-const cids_1 = __importDefault(require("cids"));
-exports.CID = cids_1.default;
 const gateways_js_1 = require("./gateways.js");
 Object.defineProperty(exports, "publicIpfsGateways", { enumerable: true, get: function () { return gateways_js_1.publicIpfsGateways; } });
 Object.defineProperty(exports, "raceToSuccess", { enumerable: true, get: function () { return gateways_js_1.raceToSuccess; } });
@@ -68,10 +66,6 @@ const log = (msg) => {
     else
         console.log(msg);
 };
-function sha256ToCid(hash) {
-    return (new cids_1.default(0, 112, (0, exports.fromHexString)("1220" + hash))).toString();
-}
-exports.sha256ToCid = sha256ToCid;
 /**
  * @param {string} signal
  * @param {string} data

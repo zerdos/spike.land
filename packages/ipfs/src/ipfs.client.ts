@@ -82,7 +82,6 @@ const log = (msg: string | Object) => {
   else console.log(msg);
 };
 
-
 /**
  * @param {string} signal
  * @param {string} data
