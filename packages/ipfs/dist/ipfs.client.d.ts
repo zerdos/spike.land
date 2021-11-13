@@ -3,7 +3,6 @@ import { IPFSClient } from "ipfs-message-port-client";
 import { publicIpfsGateways, raceToSuccess } from "./gateways.js";
 import { concat, fromString, toString } from "uint8arrays";
 export { IPFSClient };
-export declare const fromHexString: (hexString: string) => Uint8Array;
 export { all };
 export { publicIpfsGateways };
 export { raceToSuccess };

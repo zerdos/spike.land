@@ -41,7 +41,7 @@ export const shasums = {
   "tsconfig.json":
     "e992c8b781dcf67ee3196fdc77b4deef52550fa172d9bb14bf123c9713535560",
   "build.mjs":
-    "df3751e8579229c75da68e9f8f8b38d47514e996c44824713e6f40ba3ffdb226",
+    "73c8c341fd8a9c6d1b42a18408628c714e97bf5dd6a36c615d8b5f84441f51be",
   "js/starter.mjs":
     "b05dcc32da299f2e028ad21593f48b7954141ac82ebf8766e7529424721b7ae3",
   "js/formatter.mjs":
@@ -75,7 +75,7 @@ export const shasums = {
   "js/data.mjs":
     "0c9b3a3c0720845b55bca04cc0616e92c7f61c03282b51f7bb32cc23db78d9d3",
   "js/ipfsClient.mjs":
-    "95acbeb4105c44b0047073683584c555ff418e05c0973303e82f49c007ee0021",
+    "5edabecc5b545336ef0b8bd48bc7f6002c03c97f6c54ffcfa3bd9f49df48171e",
   "js/renderPreviewWindow.mjs":
     "c487d9b5a2f568c2ecf220d1e10ec81afc66cbe5ca7d055ad519d71ddd86b61b",
   "js/sendSignalToQrCode.mjs":
@@ -93,7 +93,7 @@ export const shasums = {
   "js/importScript.d.ts":
     "863a8f91f1d5750d68903b9493472d186067185cf0f9cf09f40c6c273ddef229",
   "dev.mjs.map":
-    "70596a2da4e0a2aee7330ff0dae81a6f396c645814d10c026cf62cc6f9788685",
-  "dev.mjs": "992096c3b8284f26461a302ff3eac6c888b16250d30dac7333d9715034c6bd37",
+    "d9afb3f284def59ab368501f2b0b69fbabca43802967e8117c5d95ff37da74bc",
+  "dev.mjs": "961576e58e2e1ee6387c9ceec156a1038a90676671824f4b9f642a02553a004e",
   "food": "bar",
 };

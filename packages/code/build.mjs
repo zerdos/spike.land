@@ -60,9 +60,7 @@ var init_getWorker = __esm({
 import {
   all,
   concat,
-  fromHexString,
   IPFSClient,
-  raceToSuccess,
   toString
 } from "https://unpkg.com/@spike.land/ipfs@0.0.52/dist/ipfs.client.mjs";
 var workerSrc, forceNormalWorker, port, ipfsClient, ipfsCat;

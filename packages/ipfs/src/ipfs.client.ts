@@ -5,10 +5,7 @@ import { publicIpfsGateways, raceToSuccess } from "./gateways.js";
 import { concat, fromString, toString } from "uint8arrays";
 
 export { IPFSClient };
-export const fromHexString = (hexString: string) =>
-  new Uint8Array(
-    (hexString.match(/.{1,2}/g) || []).map((byte) => parseInt(byte, 16)),
-  );
+
 export { all };
 export { publicIpfsGateways };
 export { raceToSuccess };

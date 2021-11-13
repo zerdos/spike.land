@@ -2,9 +2,7 @@ import { getWorker } from "./workers/getWorker.mjs";
 import {
   all,
   concat,
-  fromHexString,
   IPFSClient,
-  raceToSuccess,
   toString,
 } from "@spike.land/ipfs";
 
@@ -49,5 +47,3 @@ globalThis.ipfsCat = ipfsCat;
 export { all };
 export { concat };
 export { toString };
-export { raceToSuccess };
-export { fromHexString };

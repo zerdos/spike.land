@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.sendSignal = exports.fetchSignal = exports.concat = exports.toString = exports.fromString = exports.raceToSuccess = exports.publicIpfsGateways = exports.all = exports.fromHexString = exports.IPFSClient = void 0;
+exports.sendSignal = exports.fetchSignal = exports.concat = exports.toString = exports.fromString = exports.raceToSuccess = exports.publicIpfsGateways = exports.all = exports.IPFSClient = void 0;
 const it_all_1 = __importDefault(require("it-all"));
 exports.all = it_all_1.default;
 const ipfs_message_port_client_1 = require("ipfs-message-port-client");
@@ -15,8 +15,6 @@ const uint8arrays_1 = require("uint8arrays");
 Object.defineProperty(exports, "concat", { enumerable: true, get: function () { return uint8arrays_1.concat; } });
 Object.defineProperty(exports, "fromString", { enumerable: true, get: function () { return uint8arrays_1.fromString; } });
 Object.defineProperty(exports, "toString", { enumerable: true, get: function () { return uint8arrays_1.toString; } });
-const fromHexString = (hexString) => new Uint8Array((hexString.match(/.{1,2}/g) || []).map((byte) => parseInt(byte, 16)));
-exports.fromHexString = fromHexString;
 //@ts-ignore
 async function fetchSignal(signal, _retry) {
     if (typeof window === "undefined")
