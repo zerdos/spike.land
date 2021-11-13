@@ -159,10 +159,6 @@ async function handleRequest(request: Request): Promise<Response> {
       }
     }
 
-    if (pathname === "/ello-ello") {
-      return text("Hello There");
-    }
-
     if (pathname === `/cid.json`) {
       return await json({ cid });
     }
