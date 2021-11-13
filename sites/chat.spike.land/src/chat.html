@@ -21,7 +21,7 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
-#chatlog {
+#chatLog {
   position: fixed;
   top: 0;
   bottom: 32px;
@@ -31,7 +31,7 @@ body {
   padding: 8px;
   overflow-wrap: break-word;
 }
-#chatlog span.username {
+#chatLog span.username {
   font-weight: bold;
 }
 #spacer {
@@ -66,7 +66,7 @@ p:last-of-type {
 
 @media(max-width:600px) {
   #roster { display: none; }
-  #chatlog { right: 0; }
+  #chatLog { right: 0; }
 }
 
 #chat-input {
@@ -188,7 +188,7 @@ p:last-of-type {
       <button id="go-private">Create a Private Room &raquo;</button>
     </form>
     <form id="chatroom" action="/fake-form-action">
-      <div id="chatlog">
+      <div id="chatLog">
         <div id="spacer"></div>
       </div>
       <div id="roster"></div>
@@ -209,20 +209,20 @@ let roomNameInput = document.querySelector("#room-name");
 let goPublicButton = document.querySelector("#go-public");
 let goPrivateButton = document.querySelector("#go-private");
 let chatroom = document.querySelector("#chatroom");
-let chatlog = document.querySelector("#chatlog");
+let chatLog = document.querySelector("#chatLog");
 let chatInput = document.querySelector("#chat-input");
 let roster = document.querySelector("#roster");
 
-// Is the chatlog scrolled to the bottom?
+// Is the chatLog scrolled to the bottom?
 let isAtBottom = true;
 
 let username;
-let roomname;
+let roomName;
 
 let hostname = window.location.host;
 if (hostname == "") {
   // Probably testing the HTML locally.
-  hostname = "edge-chat-demo.cloudflareworkers.com";
+  hostname = "chat.spike.land";
 }
 
 function startNameChooser() {
@@ -247,15 +247,15 @@ function startRoomChooser() {
   nameForm.remove();
 
   if (document.location.hash.length > 1) {
-    roomname = document.location.hash.slice(1);
+    roomName = document.location.hash.slice(1);
     startChat();
     return;
   }
 
   roomForm.addEventListener("submit", event => {
     event.preventDefault();
-    roomname = roomNameInput.value;
-    if (roomname.length > 0) {
+    roomName = roomNameInput.value;
+    if (roomName.length > 0) {
       startChat();
     }
   });
@@ -267,8 +267,8 @@ function startRoomChooser() {
   });
 
   goPublicButton.addEventListener("click", event => {
-    roomname = roomNameInput.value;
-    if (roomname.length > 0) {
+    roomName = roomNameInput.value;
+    if (roomName.length > 0) {
       startChat();
     }
   });
@@ -285,7 +285,7 @@ function startRoomChooser() {
       return;
     }
 
-    roomname = await response.text();
+    roomName = await response.text();
     startChat();
   });
 
@@ -296,28 +296,28 @@ function startChat() {
   roomForm.remove();
 
   // Normalize the room name a bit.
-  roomname = roomname.replace(/[^a-zA-Z0-9_-]/g, "").replace(/_/g, "-").toLowerCase();
+  roomName = roomName.replace(/[^a-zA-Z0-9_-]/g, "").replace(/_/g, "-").toLowerCase();
 
-  if (roomname.length > 32 && !roomname.match(/^[0-9a-f]{64}$/)) {
+  if (roomName.length > 32 && !roomName.match(/^[0-9a-f]{64}$/)) {
     addChatMessage("ERROR", "Invalid room name.");
     return;
   }
 
-  document.location.hash = "#" + roomname;
+  document.location.hash = "#" + roomName;
 
   chatInput.addEventListener("keydown", event => {
     if (event.keyCode == 38) {
       // up arrow
-      chatlog.scrollBy(0, -50);
+      chatLog.scrollBy(0, -50);
     } else if (event.keyCode == 40) {
       // down arrow
-      chatlog.scrollBy(0, 50);
+      chatLog.scrollBy(0, 50);
     } else if (event.keyCode == 33) {
       // page up
-      chatlog.scrollBy(0, -chatlog.clientHeight + 50);
+      chatLog.scrollBy(0, -chatLog.clientHeight + 50);
     } else if (event.keyCode == 34) {
       // page down
-      chatlog.scrollBy(0, chatlog.clientHeight - 50);
+      chatLog.scrollBy(0, chatLog.clientHeight - 50);
     }
   });
 
@@ -329,7 +329,7 @@ function startChat() {
       chatInput.value = "";
 
       // Scroll to bottom whenever sending a message.
-      chatlog.scrollBy(0, 1e8);
+      chatLog.scrollBy(0, 1e8);
     }
   });
 
@@ -339,8 +339,8 @@ function startChat() {
     }
   });
 
-  chatlog.addEventListener("scroll", event => {
-    isAtBottom = chatlog.scrollTop + chatlog.clientHeight >= chatlog.scrollHeight;
+  chatLog.addEventListener("scroll", event => {
+    isAtBottom = chatLog.scrollTop + chatLog.clientHeight >= chatLog.scrollHeight;
   });
 
   chatInput.focus();
@@ -356,7 +356,7 @@ function startChat() {
   if('visualViewport' in window) {
     window.visualViewport.addEventListener('resize', function(event) {
       if (isAtBottom) {
-        chatlog.scrollBy(0, 1e8);
+        chatLog.scrollBy(0, 1e8);
       }
     });
   }
@@ -368,7 +368,7 @@ let lastSeenTimestamp = 0;
 let wroteWelcomeMessages = false;
 
 function join() {
-  let ws = new WebSocket("wss://" + hostname + "/api/room/" + roomname + "/websocket");
+  let ws = new WebSocket("wss://" + hostname + "/api/room/" + roomName + "/websocket");
   let rejoined = false;
   let startTime = Date.now();
 
@@ -428,12 +428,12 @@ function join() {
             "* WARNING: Participants in this chat are random people on the internet. " +
             "Names are not authenticated; anyone can pretend to be anyone. The people " +
             "you are chatting with are NOT Cloudflare employees. Chat history is saved.");
-        if (roomname.length == 64) {
+        if (roomName.length == 64) {
           addChatMessage(null,
               "* This is a private room. You can invite someone to the room by sending them the URL.");
         } else {
           addChatMessage(null,
-              "* Welcome to #" + roomname + ". Say hi!");
+              "* Welcome to #" + roomName + ". Say hi!");
         }
       }
     } else {
@@ -465,12 +465,12 @@ function addChatMessage(name, text) {
   }
   p.appendChild(document.createTextNode(text));
 
-  // Append the new chat line, making sure that if the chatlog was scrolled to the bottom
+  // Append the new chat line, making sure that if the chatLog was scrolled to the bottom
   // before, it remains scrolled to the bottom, and otherwise the scroll position doesn't
   // change.
-  chatlog.appendChild(p);
+  chatLog.appendChild(p);
   if (isAtBottom) {
-    chatlog.scrollBy(0, 1e8);
+    chatLog.scrollBy(0, 1e8);
   }
 }
 

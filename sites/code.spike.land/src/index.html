@@ -42,12 +42,12 @@ if (hostname == "") {
 }
 
 
-let roomname = "ROOMNAMEname";
+let roomName = "ROOMNAMEname";
 let username = 'PistiTheUser';
 let lastSeenTimestamp = Date.now();
 
     function join() {
-  let ws = new WebSocket("wss://" + hostname + "/api/room/" + roomname + "/websocket");
+  let ws = new WebSocket("wss://" + hostname + "/api/room/" + roomName + "/websocket");
   let rejoined = false;
   let startTime = Date.now();
 

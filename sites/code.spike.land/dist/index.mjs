@@ -37,7 +37,7 @@ var require_wait = __commonJS({
 });
 
 // ../../packages/code/package.json
-var version = "0.0.51";
+var version = "0.0.52";
 
 // src/index.html
 var src_default = `<!DOCTYPE html>
@@ -84,12 +84,12 @@ if (hostname == "") {
 }
 
 
-let roomname = "ROOMNAMEname";
+let roomName = "ROOMNAMEname";
 let username = 'PistiTheUser';
 let lastSeenTimestamp = Date.now();
 
     function join() {
-  let ws = new WebSocket("wss://" + hostname + "/api/room/" + roomname + "/websocket");
+  let ws = new WebSocket("wss://" + hostname + "/api/room/" + roomName + "/websocket");
   let rejoined = false;
   let startTime = Date.now();
 
@@ -304,12 +304,12 @@ var CodeRateLimiter = class {
 async function handleApiRequest(paths, request, env) {
   const last = paths[paths.length - 1];
   if (last === "websocket") {
-    const roomname = paths.pop();
-    let spikeLandSpace = env.CODE.idFromName(roomname);
+    const roomName = paths.pop();
+    let spikeLandSpace = env.CODE.idFromName(roomName);
     let pair = new WebSocketPair();
     pair[1].accept();
     const userSocket = pair[1];
-    userSocket.send(JSON.stringify({ hello: "i am:", roomname }));
+    userSocket.send(JSON.stringify({ hello: "i am:", roomName }));
     let newUrl = new URL(request.url);
     newUrl.pathname = "/" + paths.slice(2).join("/");
     fetch(request, env);

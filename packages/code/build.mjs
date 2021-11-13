@@ -944,6 +944,7 @@ async function init2() {
 // js/codeLoader.mjs
 init_ipfsClient();
 import React from "https://unpkg.com/@spike.land/esm@0.0.52/dist/react.mjs";
+import ReactDOM from "https://unpkg.com/@spike.land/esm@0.0.52/dist/react-dom.mjs";
 import startMonaco from "https://unpkg.com/@spike.land/smart-monaco-editor@0.0.52/dist/editor.mjs";
 import { jsx } from "https://unpkg.com/@emotion/react@11.5.0/dist/emotion-react.browser.esm.js";
 import { DraggableWindow, jsx as jsx2, render } from "https://unpkg.com/@spike.land/renderer@0.0.52/dist/renderer.js";
@@ -968,54 +969,46 @@ function getSession() {
 async function run(mode = "window", code = "") {
   const session = getSession();
   let monaco;
-  try {
-    console.log("Runner!");
-    const { pathname } = new URL(window.location.href);
-    if (mode === "window") {
-      await openWindows();
-    }
-    session.mode = mode;
-    if (code) {
-      session.code = await formatter(code);
-      session.transpiled = await transpileCode(session.code);
-    }
-    if (!code) {
-      try {
-        const { code: code2, transpiled, html } = pathname.endsWith("/edit/") || pathname.endsWith("/edit") ? await getIPFSCodeToLoad(void 0) : await getCodeToLoad();
-        session.code = await formatter(code2);
-        session.transpiled = await transpileCode(session.code) || transpiled;
-        session.div.innerHTML = html;
-      } catch (e) {
-        console.error({ e, message: "couldn't start" });
-        return;
-      }
-    }
-    const container = window.document.getElementById("editor");
-    if (container === null)
-      return "No editor window";
-    const editorPromise = startMonaco({
-      language: "typescript",
-      container,
-      code: session.code,
-      onChange: (code2) => runner(code2)
-    });
-    try {
-      await renderPreviewWindow(session);
-    } catch (e) {
-      throw e;
-    }
-    await restartCode(session.transpiled, session.code, session.i);
-    await editorPromise;
-    monaco = window.monaco;
-    monaco.editor.createModel("define module './hash.js';", "typescript", monaco.Uri.parse("file:///refs.d.ts"));
-    if (!session.url) {
-      await saveCode(session, session.i);
-    }
-    const { sendSignalToQrCode: sendSignalToQrCode2 } = await Promise.resolve().then(() => (init_sendSignalToQrCode(), sendSignalToQrCode_exports));
-    await sendSignalToQrCode2(session);
-  } catch (e) {
-    throw e;
+  console.log("Runner!");
+  const { pathname } = new URL(window.location.href);
+  if (mode === "window") {
+    await openWindows();
   }
+  session.mode = mode;
+  if (code) {
+    session.code = await formatter(code);
+    session.transpiled = await transpileCode(session.code);
+  }
+  if (!code) {
+    try {
+      const { code: code2, transpiled, html } = pathname.endsWith("/edit/") || pathname.endsWith("/edit") ? await getIPFSCodeToLoad(void 0) : await getCodeToLoad();
+      session.code = await formatter(code2);
+      session.transpiled = await transpileCode(session.code) || transpiled;
+      session.div.innerHTML = html;
+    } catch (e) {
+      console.error({ e, message: "couldn't start" });
+      return;
+    }
+  }
+  const container = window.document.getElementById("editor");
+  if (container === null)
+    return "No editor window";
+  const editorPromise = startMonaco({
+    language: "typescript",
+    container,
+    code: session.code,
+    onChange: (code2) => runner(code2)
+  });
+  await renderPreviewWindow(session);
+  await restartCode(session.transpiled, session.code, session.i);
+  await editorPromise;
+  monaco = window.monaco;
+  monaco.editor.createModel("define module './hash.js';", "typescript", monaco.Uri.parse("file:///refs.d.ts"));
+  if (!session.url) {
+    await saveCode(session, session.i);
+  }
+  const { sendSignalToQrCode: sendSignalToQrCode2 } = await Promise.resolve().then(() => (init_sendSignalToQrCode(), sendSignalToQrCode_exports));
+  await sendSignalToQrCode2(session);
   async function runner(c) {
     session.errorText = "";
     session.i++;
@@ -1140,7 +1133,7 @@ async function run(mode = "window", code = "") {
     const zbody = document.createElement("div");
     ReactDOM.render(children, zbody);
     session.div = zbody;
-    if (!!zbody.innerHTML) {
+    if (zbody.innerHTML) {
       session.transpiled = transpiled;
       session.html = zbody.innerHTML;
       session.children = children;

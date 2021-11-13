@@ -4,6 +4,8 @@ import { getCodeToLoad, getIPFSCodeToLoad, saveCode } from "./data.mjs";
 import { transpileCode } from "./transpile.mjs";
 import { formatter } from "./formatter.mjs";
 import React from "react";
+import ReactDOM from "react-dom";
+
 import startMonaco from "@spike.land/smart-monaco-editor";
 import { jsx } from "@emotion/react";
 import { ipfsClient } from "./ipfsClient.mjs";
@@ -66,7 +68,7 @@ function getSession() {
 export async function run(mode = "window", code = "") {
   const session = getSession();
   let monaco;
-  try {
+
     console.log("Runner!");
 
     const { pathname } = new URL(window.location.href);
@@ -123,14 +125,11 @@ export async function run(mode = "window", code = "") {
         onChange: (code) => runner(code),
       },
     );
-    try {
       // session.children = await getReactChild(session.transpiled);
-      await renderPreviewWindow(
-        session,
-      );
-    } catch (e) {
-      throw e;
-    }
+    await renderPreviewWindow(
+      session,
+    );
+  
     await restartCode(session.transpiled, session.code, session.i);
 
     await editorPromise;
@@ -148,10 +147,7 @@ export async function run(mode = "window", code = "") {
 
     const { sendSignalToQrCode } = await import("./sendSignalToQrCode.mjs");
     await sendSignalToQrCode(session);
-  } catch (e) {
-    throw e;
-    ///    session.errorText = "YAY!! There is an error";
-  }
+  
 
   /**
    * @param {string} c
@@ -327,7 +323,7 @@ export async function run(mode = "window", code = "") {
 
     // zbody && zbody.children[0].replaceWith(root);
     session.div = zbody;
-    if (!!zbody.innerHTML) {
+    if (zbody.innerHTML) {
       session.transpiled = transpiled;
       session.html = zbody.innerHTML;
       session.children = children;

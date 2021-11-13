@@ -14,13 +14,13 @@ async function handleApiRequest(
 ) {
   const last = paths[paths.length - 1];
   if (last === "websocket") {
-    const roomname = paths.pop();
-    let spikeLandSpace = env.CODE.idFromName(roomname) as unknown as Code;
+    const roomName = paths.pop();
+    let spikeLandSpace = env.CODE.idFromName(roomName) as unknown as Code;
 
     let pair = new WebSocketPair();
     pair[1].accept();
     const userSocket = pair[1];
-    userSocket.send(JSON.stringify({ hello: "i am:", roomname }));
+    userSocket.send(JSON.stringify({ hello: "i am:", roomName }));
 
     let newUrl = new URL(request.url);
     newUrl.pathname = "/" + paths.slice(2).join("/");
