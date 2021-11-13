@@ -7,7 +7,7 @@ import React from "react";
 import startMonaco from "@spike.land/smart-monaco-editor";
 import { jsx } from "@emotion/react";
 import { ipfsClient } from "./ipfsClient.mjs";
-import { getUserId } from "./data.mjs";
+//import { getUserId } from "./data.mjs";
 // import Hash from "ipfs-only-hash";
 export { DraggableWindow, jsx, render } from "@spike.land/renderer";
 

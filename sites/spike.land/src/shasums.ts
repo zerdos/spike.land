@@ -5,7 +5,7 @@ export const shasums = {
   "esbuild.mjs":
     "fa6917c6d637ea664d0d1170b8ca241c69456508993484124c981e4f17ab5d8c",
   "package.json":
-    "2ea11774c3f0207b8fb729ed974457dd829c675db170a473dd784ddc9426ed9b",
+    "480ad1880e4abc86b975485b12d22b290e537d99ca35f38b48cb53433310fce8",
   "edit/index.html":
     "6bedf2adaf3b015d95ef000fe886b446ff1cc39184be9c8f060e63a325ed50af",
   "manifest.json":
@@ -41,7 +41,7 @@ export const shasums = {
   "tsconfig.json":
     "e992c8b781dcf67ee3196fdc77b4deef52550fa172d9bb14bf123c9713535560",
   "build.mjs":
-    "93c7709acf7d1045f3a05a71c4c8acff8e182734b349cb4e04634b867ea04392",
+    "ca264737decdaadc00eae3f872a1fca3f0d98460ca874a37e5f8d96c9d8285d4",
   "js/starter.mjs":
     "b05dcc32da299f2e028ad21593f48b7954141ac82ebf8766e7529424721b7ae3",
   "js/formatter.mjs":
@@ -59,7 +59,7 @@ export const shasums = {
   "js/test.mjs":
     "5312ca9eeb6631de50bcc6be45e0bde961294e3e817203e124480681a17fd141",
   "js/importmap.json":
-    "3d1d064f446acb2a50e42891d5dcfe08087c471574cb07181f24a1608470f9b4",
+    "07d5ad0f3608f0988059deecef89c84becd80bf63aa6cce813f78387bfc81c91",
   "js/workers/getWorker.mjs":
     "154a9800e6e5a342bc839ae7dfa82262e59241acd5b956f21a05109128ad151a",
   "js/workers/prettierWorker.js":
@@ -69,7 +69,7 @@ export const shasums = {
   "js/workers/transpile.worker.js":
     "d5028ca46a6f415047c6a9b22addf4f32d15617fe52d19655b25152d7a60e5d5",
   "js/codeLoader.mjs":
-    "915386e9cfa79d5d2cc677a18e31f320a99f763a6cf40830dd9326a8683b43ff",
+    "d7d134eeda0cce2a0d331fb9f5177c044c623ed580b2488c86f76128b7620a8d",
   "js/transpile.mjs":
     "3e9b4471a36bf0170b58cd0d69f7ad21b34eb29885eac3ffacbc83b0d332fd02",
   "js/data.mjs":
@@ -93,7 +93,7 @@ export const shasums = {
   "js/importScript.d.ts":
     "863a8f91f1d5750d68903b9493472d186067185cf0f9cf09f40c6c273ddef229",
   "dev.mjs.map":
-    "0099d99f3ad7d0fa421cb859a970f918fe44b36cd2bd2c98f3875980c9eed46c",
-  "dev.mjs": "2156b2e8548eadbe55ad9fa2eaed85d6858cbc5ff2ed00e166b7fcafcb913209",
+    "a33e258518452c7cbbb59061d07820dca934b505b562b7e55de32d87e3353abf",
+  "dev.mjs": "78a80d2954460cf4402b112b5d5d0f131c0f11425b93cad4b7c17c0a0d3f0152",
   "food": "bar",
 };

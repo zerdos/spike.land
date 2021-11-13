@@ -65,7 +65,7 @@ import {
   IPFSClient,
   raceToSuccess,
   toString
-} from "https://unpkg.com/@spike.land/ipfs@0.0.51/dist/ipfs.client.mjs";
+} from "https://unpkg.com/@spike.land/ipfs@0.0.52/dist/ipfs.client.mjs";
 var workerSrc, forceNormalWorker, port, ipfsClient, ipfsCat;
 var init_ipfsClient = __esm({
   "js/ipfsClient.mjs"() {
@@ -301,23 +301,23 @@ var init_importmap = __esm({
       "hey-listen": "https://unpkg.com/hey-listen@1.0.8/dist/hey-listen.es.js",
       "hoist-non-react-statics": "https://esm.sh/hoist-non-react-statics",
       popmotion: "https://unpkg.com/popmotion@11.0.0/dist/es/index.mjs",
-      react: "https://unpkg.com/@spike.land/esm@0.0.51/dist/react.mjs",
-      "react-dom": "https://unpkg.com/@spike.land/esm@0.0.51/dist/react-dom.mjs",
-      "react-is": "https://unpkg.com/@spike.land/esm@0.0.51/dist/react-is.mjs",
+      react: "https://unpkg.com/@spike.land/esm@0.0.52/dist/react.mjs",
+      "react-dom": "https://unpkg.com/@spike.land/esm@0.0.52/dist/react-dom.mjs",
+      "react-is": "https://unpkg.com/@spike.land/esm@0.0.52/dist/react-is.mjs",
       "react-transition-group": "https://esm.sh/react-transition-group",
       "react/jsx-runtime": "https://esm.sh/react/jsx-runtime",
-      "@spike.land/renderer": "https://unpkg.com/@spike.land/renderer@0.0.51/dist/renderer.js",
+      "@spike.land/renderer": "https://unpkg.com/@spike.land/renderer@0.0.52/dist/renderer.js",
       "style-value-types": "https://unpkg.com/style-value-types@5.0.0/dist/es/index.mjs",
       stylis: "https://unpkg.com/stylis@4.0.10/dist/stylis.mjs",
-      "@spike.land/qrious": "https://unpkg.com/@spike.land/qrious@0.0.51/dist/QRious.mjs",
+      "@spike.land/qrious": "https://unpkg.com/@spike.land/qrious@0.0.52/dist/QRious.mjs",
       tslib: "https://unpkg.com/tslib@2.3.1/tslib.es6.js",
-      "@spike.land/smart-monaco-editor": "https://unpkg.com/@spike.land/smart-monaco-editor@0.0.51/dist/editor.mjs",
+      "@spike.land/smart-monaco-editor": "https://unpkg.com/@spike.land/smart-monaco-editor@0.0.52/dist/editor.mjs",
       "@zedvision/swm": "https://unpkg.com/@zedvision/swm@4.0.0/public/swm-esm.js",
       "uuid/": "https://unpkg.com/uuid@8.3.2/dist/esm-browser/",
-      "@spike.land/shadb": "https://unpkg.com/@spike.land/shadb@0.0.51/dist/shaDB.mjs",
-      "@spike.land/code": "https://unpkg.com/@spike.land/code@0.0.51/js/reactLoader.mjs",
+      "@spike.land/shadb": "https://unpkg.com/@spike.land/shadb@0.0.52/dist/shaDB.mjs",
+      "@spike.land/code": "https://unpkg.com/@spike.land/code@0.0.52/js/reactLoader.mjs",
       comlink: "https://unpkg.com/comlink@4.3.1/dist/esm/comlink.mjs",
-      "@spike.land/ipfs": "https://unpkg.com/@spike.land/ipfs@0.0.51/dist/ipfs.client.mjs",
+      "@spike.land/ipfs": "https://unpkg.com/@spike.land/ipfs@0.0.52/dist/ipfs.client.mjs",
       "workbox-window": "https://unpkg.com/workbox-window@6.3.0/build/workbox-window.prod.es5.mjs"
     };
     importmap_default = {
@@ -422,7 +422,7 @@ var share_exports = {};
 __export(share_exports, {
   shareItAsHtml: () => shareItAsHtml
 });
-import { sha256, shaDB } from "https://unpkg.com/@spike.land/shadb@0.0.51/dist/shaDB.mjs";
+import { sha256, shaDB } from "https://unpkg.com/@spike.land/shadb@0.0.52/dist/shaDB.mjs";
 async function addAll(files) {
   try {
     const res = await all(ipfsClient.addAll(files));
@@ -581,7 +581,7 @@ var require_v4 = __commonJS({
 });
 
 // js/data.mjs
-import { sha256 as sha2562, shaDB as shaDB2 } from "https://unpkg.com/@spike.land/shadb@0.0.51/dist/shaDB.mjs";
+import { sha256 as sha2562, shaDB as shaDB2 } from "https://unpkg.com/@spike.land/shadb@0.0.52/dist/shaDB.mjs";
 async function getUserId() {
   if (uuid)
     return uuid;
@@ -745,7 +745,7 @@ __export(sendSignalToQrCode_exports, {
   getZkey: () => getZkey,
   sendSignalToQrCode: () => sendSignalToQrCode
 });
-import { sha256 as sha2563 } from "https://unpkg.com/@spike.land/shadb@0.0.51/dist/shaDB.mjs";
+import { sha256 as sha2563 } from "https://unpkg.com/@spike.land/shadb@0.0.52/dist/shaDB.mjs";
 async function sendSignalToQrCode(session) {
   const { searchParams } = new URL(window.location.href);
   const maybeRoute = searchParams.get("signalToQr") || "";
@@ -753,7 +753,7 @@ async function sendSignalToQrCode(session) {
   if (!isKey)
     return;
   await saveCode(session);
-  const { sendSignal } = await import("https://unpkg.com/@spike.land/ipfs@0.0.51/dist/ipfs.client.mjs");
+  const { sendSignal } = await import("https://unpkg.com/@spike.land/ipfs@0.0.52/dist/ipfs.client.mjs");
   const signal = `https://code.spike.land/${maybeRoute}`;
   await sendSignal(signal, {
     rootUrl: `${session.url}edit/`,
@@ -782,7 +782,7 @@ async function renderPreviewWindow(session) {
     DraggableWindow: DraggableWindow2,
     jsx: jsx3,
     render: render2
-  } = await import("https://unpkg.com/@spike.land/renderer@0.0.51/dist/renderer.js");
+  } = await import("https://unpkg.com/@spike.land/renderer@0.0.52/dist/renderer.js");
   const onShare = async () => {
     const { shareItAsHtml: shareItAsHtml2 } = await Promise.resolve().then(() => (init_share(), share_exports));
     const link = await shareItAsHtml2({
@@ -943,11 +943,10 @@ async function init2() {
 
 // js/codeLoader.mjs
 init_ipfsClient();
-init_data();
-import React from "https://unpkg.com/@spike.land/esm@0.0.51/dist/react.mjs";
-import startMonaco from "https://unpkg.com/@spike.land/smart-monaco-editor@0.0.51/dist/editor.mjs";
+import React from "https://unpkg.com/@spike.land/esm@0.0.52/dist/react.mjs";
+import startMonaco from "https://unpkg.com/@spike.land/smart-monaco-editor@0.0.52/dist/editor.mjs";
 import { jsx } from "https://unpkg.com/@emotion/react@11.5.0/dist/emotion-react.browser.esm.js";
-import { DraggableWindow, jsx as jsx2, render } from "https://unpkg.com/@spike.land/renderer@0.0.51/dist/renderer.js";
+import { DraggableWindow, jsx as jsx2, render } from "https://unpkg.com/@spike.land/renderer@0.0.52/dist/renderer.js";
 function getSession() {
   const session = {
     i: 0,
