@@ -118,12 +118,12 @@ var editor_default = async ({ onChange, code, language, container, options }) =>
       },
       {
         name: "global",
-        url: "https://unpkg.com/@types/react@17.0.30/global.d.ts",
+        url: "https://unpkg.com/@types/react@17.0.34/global.d.ts",
         depend: []
       },
       {
         name: "prop-types",
-        url: "https://unpkg.com/@types/prop-types@15.7.4/index.d.ts",
+        url: "https://unpkg.com/@types/prop-types@15.7.2/index.d.ts",
         depend: []
       },
       {
@@ -196,12 +196,12 @@ var editor_default = async ({ onChange, code, language, container, options }) =>
       },
       {
         name: "framer-motion",
-        url: "https://unpkg.com/framer-motion@5.2.0/types/index.d.ts",
+        url: "https://unpkg.com/framer-motion@5.3.0/types/index.d.ts",
         depend: ["popmotion"]
       },
       {
         name: "popmotion",
-        url: "https://unpkg.com/popmotion@10.0.2/lib/index.d.ts"
+        url: "https://unpkg.com/popmotion@11.0.0/lib/index.d.ts"
       }
     ];
     const dts = importHelper.map(({ name, url }) => (async () => modules.monaco.languages.typescript.typescriptDefaults.addExtraLib(await (await fetch(url)).text(), name.includes("@") ? `file:///node_modules/${name}` : `file:///node_modules/@types/${name}/index.d.ts`))());
