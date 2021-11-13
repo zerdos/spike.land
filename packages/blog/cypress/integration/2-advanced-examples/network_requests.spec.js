@@ -75,8 +75,7 @@ context("Network Requests", () => {
       // note that the value here is the returned value of the 2nd request
       // which is the new post object
       .then((response) => {
-        expect(response).property("status").to.equal(201) // new entity created
-        ;
+        expect(response).property("status").to.equal(201); // new entity created
         expect(response).property("body").to.contain({
           title: "Cypress Test Runner",
         });
@@ -110,8 +109,7 @@ context("Network Requests", () => {
           body:
             "Fast, easy and reliable testing for anything that runs in a browser.",
         })
-          .its("body").as("post") // save the new post from the response
-        ;
+          .its("body").as("post"); // save the new post from the response
       })
       .then(function () {
         // When this callback runs, both "cy.request" API commands have finished
