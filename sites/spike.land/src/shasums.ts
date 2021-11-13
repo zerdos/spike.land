@@ -41,7 +41,7 @@ export const shasums = {
   "tsconfig.json":
     "e992c8b781dcf67ee3196fdc77b4deef52550fa172d9bb14bf123c9713535560",
   "build.mjs":
-    "d17e35c977ce5bda048cfa8a538ecb372d280981e520aab96c33c65304d35bdd",
+    "df3751e8579229c75da68e9f8f8b38d47514e996c44824713e6f40ba3ffdb226",
   "js/starter.mjs":
     "b05dcc32da299f2e028ad21593f48b7954141ac82ebf8766e7529424721b7ae3",
   "js/formatter.mjs":
@@ -69,13 +69,13 @@ export const shasums = {
   "js/workers/transpile.worker.js":
     "d5028ca46a6f415047c6a9b22addf4f32d15617fe52d19655b25152d7a60e5d5",
   "js/codeLoader.mjs":
-    "e44e7f4bf0c8dc8818e768d1b892083fa799da3169014a5869b27c08b58c740d",
+    "17f796ab59215d7392738be3d261d4c5e2198b13f7f03739f4d2d417d2d69693",
   "js/transpile.mjs":
     "3e9b4471a36bf0170b58cd0d69f7ad21b34eb29885eac3ffacbc83b0d332fd02",
   "js/data.mjs":
     "0c9b3a3c0720845b55bca04cc0616e92c7f61c03282b51f7bb32cc23db78d9d3",
   "js/ipfsClient.mjs":
-    "245fcc1b36fc68a92b21d606ab5b4af5abd24bab6db96269aa68e9f6e3c69618",
+    "95acbeb4105c44b0047073683584c555ff418e05c0973303e82f49c007ee0021",
   "js/renderPreviewWindow.mjs":
     "c487d9b5a2f568c2ecf220d1e10ec81afc66cbe5ca7d055ad519d71ddd86b61b",
   "js/sendSignalToQrCode.mjs":
@@ -93,7 +93,7 @@ export const shasums = {
   "js/importScript.d.ts":
     "863a8f91f1d5750d68903b9493472d186067185cf0f9cf09f40c6c273ddef229",
   "dev.mjs.map":
-    "3e67e62fa4da02a3f0daa0b17a3bd9053978733d13a4af33bafe69b771ea628d",
-  "dev.mjs": "a3d42d173209535eb675dae57654b21351bfc3bcaa2b59cd9d0b714aa2ff7c8e",
+    "70596a2da4e0a2aee7330ff0dae81a6f396c645814d10c026cf62cc6f9788685",
+  "dev.mjs": "992096c3b8284f26461a302ff3eac6c888b16250d30dac7333d9715034c6bd37",
   "food": "bar",
 };

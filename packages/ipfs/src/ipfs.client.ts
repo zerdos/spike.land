@@ -1,6 +1,5 @@
 import all from "it-all";
 import { IPFSClient } from "ipfs-message-port-client";
-import CID from "cids";
 import { publicIpfsGateways, raceToSuccess } from "./gateways.js";
 
 import { concat, fromString, toString } from "uint8arrays";
@@ -10,7 +9,6 @@ export const fromHexString = (hexString: string) =>
   new Uint8Array(
     (hexString.match(/.{1,2}/g) || []).map((byte) => parseInt(byte, 16)),
   );
-export { CID };
 export { all };
 export { publicIpfsGateways };
 export { raceToSuccess };
@@ -84,9 +82,6 @@ const log = (msg: string | Object) => {
   else console.log(msg);
 };
 
-export function sha256ToCid(hash: string) {
-  return (new CID(0, 112, fromHexString("1220" + hash))).toString();
-}
 
 /**
  * @param {string} signal

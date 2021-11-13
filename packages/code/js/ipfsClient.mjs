@@ -1,7 +1,6 @@
 import { getWorker } from "./workers/getWorker.mjs";
 import {
   all,
-  CID,
   concat,
   fromHexString,
   IPFSClient,
@@ -47,7 +46,6 @@ export const ipfsCat = async (cid, opts) => {
 };
 globalThis.ipfsClient = ipfsClient;
 globalThis.ipfsCat = ipfsCat;
-export { CID };
 export { all };
 export { concat };
 export { toString };

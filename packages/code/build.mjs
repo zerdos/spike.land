@@ -59,7 +59,6 @@ var init_getWorker = __esm({
 // js/ipfsClient.mjs
 import {
   all,
-  CID,
   concat,
   fromHexString,
   IPFSClient,
@@ -427,8 +426,8 @@ async function addAll(files) {
   try {
     const res = await all(ipfsClient.addAll(files));
     return res.map((r) => {
-      const CID2 = r.cid.toString();
-      return { path: r.path, CID: CID2 };
+      const CID = r.cid.toString();
+      return { path: r.path, CID };
     });
   } catch (e) {
     console.error({ error: e });
@@ -1069,8 +1068,8 @@ async function run(mode = "window", code = "") {
         session.errorText = err.message;
         const saveErrorCode = async () => {
           const res = await ipfsClient.add(c, { onlyHash: true });
-          const CID2 = res.cid.toString();
-          const url = `/error/${CID2}`;
+          const CID = res.cid.toString();
+          const url = `/error/${CID}`;
           fetch(`https://code.spike.land${url}`, {
             method: "POST",
             body: c

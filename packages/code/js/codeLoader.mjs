@@ -73,10 +73,6 @@ export async function run(mode = "window", code = "") {
 
     const { pathname } = new URL(window.location.href);
 
-    // setTimeout(async () =>
-    //  import { fetchSignal, sendSignal, sha256ToCid } from "./hash.js";
-    //   Object.assign(window, { sendSignal, fetchSignal, sha256ToCid })
-    // );
 
     if (mode === "window") {
       await openWindows();
