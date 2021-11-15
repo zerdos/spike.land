@@ -1,43 +1,5 @@
-var __create = Object.create;
-var __defProp = Object.defineProperty;
-var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
-var __getOwnPropNames = Object.getOwnPropertyNames;
-var __getProtoOf = Object.getPrototypeOf;
-var __hasOwnProp = Object.prototype.hasOwnProperty;
-var __markAsModule = (target) => __defProp(target, "__esModule", { value: true });
-var __commonJS = (cb, mod) => function __require() {
-  return mod || (0, cb[Object.keys(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
-};
-var __reExport = (target, module, desc) => {
-  if (module && typeof module === "object" || typeof module === "function") {
-    for (let key of __getOwnPropNames(module))
-      if (!__hasOwnProp.call(target, key) && key !== "default")
-        __defProp(target, key, { get: () => module[key], enumerable: !(desc = __getOwnPropDesc(module, key)) || desc.enumerable });
-  }
-  return target;
-};
-var __toModule = (module) => {
-  return __reExport(__markAsModule(__defProp(module != null ? __create(__getProtoOf(module)) : {}, "default", module && module.__esModule && "default" in module ? { get: () => module.default, enumerable: true } : { value: module, enumerable: true })), module);
-};
-
-// ../../node_modules/axax/esnext/wait.js
-var require_wait = __commonJS({
-  "../../node_modules/axax/esnext/wait.js"(exports) {
-    "use strict";
-    Object.defineProperty(exports, "__esModule", { value: true });
-    function wait2(delay) {
-      return new Promise((resolve) => {
-        setTimeout(() => {
-          resolve();
-        }, delay);
-      });
-    }
-    exports.wait = wait2;
-  }
-});
-
 // ../../packages/code/package.json
-var version = "0.0.53";
+var version = "0.0.54";
 
 // src/index.html
 var src_default = `<!DOCTYPE html>
@@ -85,7 +47,7 @@ if (hostname == "") {
 
 
 let roomName = "ROOMNAMEname";
-let username = 'PistiTheUser';
+let username = 'Pisti'+Math.random();
 let lastSeenTimestamp = Date.now();
 
     function join() {
@@ -120,7 +82,7 @@ let lastSeenTimestamp = Date.now();
     window.chCode = chCode;
     window.broad = (code)=>{
       chCode(code);
-    currentWebSocket.send(JSON.stringify({code: code}));
+    currentWebSocket.send(JSON.stringify({message:  code}));
   }
 
     // Send user info message.
@@ -137,6 +99,9 @@ let lastSeenTimestamp = Date.now();
      chCode(data.code)
     
     } else {
+      if (data.message){
+        chCode(data.message)
+      }
       // A regular chat message.
       if (data.timestamp > lastSeenTimestamp) {
         addChatMessage(data.name, data.message);
@@ -187,152 +152,33 @@ function src_default2(packageName, version2, serveDir = "") {
       const resp = fetch(`https://unpkg.com/${packageName}${targetPath}`);
       myCache.put(request, (await resp).clone());
       return resp;
-    } catch (Error2) {
-      return new Response(`Yayy... ${Object.prototype.toString.call(Error2)}`);
+    } catch (Error) {
+      return new Response(`Yayy... ${Object.prototype.toString.call(Error)}`);
     }
   };
 }
 
-// src/code.ts
-var import_wait = __toModule(require_wait());
-
-// src/handleErrors.ts
-async function handleErrors2(request, func) {
+// src/handleErrors.mjs
+async function handleErrors(request, func) {
   try {
     return await func();
   } catch (err) {
-    if (request.headers.get("Upgrade") === "websocket") {
-      let stack = null;
-      if (err instanceof Error) {
-        stack = err.stack;
-        console.log({ error: err.stack, message: err.message });
-      }
+    if (request.headers.get("Upgrade") == "websocket") {
       let pair = new WebSocketPair();
       pair[1].accept();
-      pair[1].send(JSON.stringify({ error: stack }));
+      pair[1].send(JSON.stringify({ error: err.stack }));
       pair[1].close(1011, "Uncaught exception during session setup");
       return new Response(null, { status: 101, webSocket: pair[0] });
     } else {
-      let stack = "We have noooo idea what happpened";
-      if (err instanceof Error) {
-        stack = err.stack || stack;
-        console.log({ error: err.stack, message: err.message });
-      }
-      return new Response(stack, { status: 500 });
+      return new Response(err.stack, { status: 500 });
     }
   }
 }
 
-// src/code.ts
-var Code = class {
-  state;
-  users;
-  code = "";
-  value = 0;
-  constructor(state, env) {
-    this.state = state;
-    this.state.blockConcurrencyWhile(async () => {
-      let stored = Number(await this.state.storage.get("value"));
-      let users = await this.state.storage.get("users");
-      this.code = String(await this.state.storage.get("code"));
-      this.users = users;
-      this.value = stored || 0;
-    });
-  }
-  async add(user) {
-    this.users.push(user);
-  }
-  async remove(user) {
-    this.users = this.users.filter((u) => u !== user);
-  }
-  async increment() {
-    await (0, import_wait.wait)(1e4);
-    this.state.waitUntil((0, import_wait.wait)(1e3));
-    await this.state.storage.put("value", ++this.value);
-  }
-  handleSession(userSocket, ip) {
-    this.add(userSocket);
-    userSocket.accept();
-    userSocket.addEventListener("close", () => this.remove(userSocket));
-    userSocket.addEventListener("message", (event) => {
-      let data = typeof event.data === "string" ? JSON.parse(event.data) : {};
-      if (data.code) {
-        this.code = data.code;
-      }
-      this.users.map((user) => user.send(JSON.stringify({ code: this.code })));
-    });
-  }
-  async fetch(request) {
-    return await handleErrors2(request, async () => {
-      let url = new URL(request.url);
-      switch (url.pathname) {
-        case "/websocket": {
-          if (request.headers.get("Upgrade") != "websocket") {
-            return new Response("expected websocket", { status: 400 });
-          }
-          let ip = request.headers.get("CF-Connecting-IP");
-          let pair = new WebSocketPair();
-          await this.handleSession(pair[1], ip);
-          return new Response(null, { status: 101, webSocket: pair[0] });
-        }
-        default:
-          return new Response("Not found", { status: 404 });
-      }
-    });
-  }
-};
-
-// src/rateLimiter.mjs
-var CodeRateLimiter = class {
-  constructor(controller, env) {
-    this.nextAllowedTime = 0;
-  }
-  async fetch(request) {
-    return await handleErrors(request, async () => {
-      let now = Date.now() / 1e3;
-      this.nextAllowedTime = Math.max(now, this.nextAllowedTime);
-      if (request.method == "POST") {
-        this.nextAllowedTime += 5;
-      }
-      let cooldown = Math.max(0, this.nextAllowedTime - now - 20);
-      return new Response(cooldown);
-    });
-  }
-};
-
-// src/index.ts
-async function handleApiRequest(paths, request, env) {
-  const last = paths[paths.length - 1];
-  if (last === "websocket") {
-    const roomName = paths.pop();
-    let spikeLandSpace = env.CODE.idFromName(roomName);
-    let pair = new WebSocketPair();
-    pair[1].accept();
-    const userSocket = pair[1];
-    userSocket.send(JSON.stringify({ hello: "i am:", roomName }));
-    let newUrl = new URL(request.url);
-    newUrl.pathname = "/" + paths.slice(2).join("/");
-    fetch(request, env);
-    setInterval(() => {
-      userSocket.send(JSON.stringify({ hello: Date.now() }));
-    }, 2e4);
-    userSocket.addEventListener("close", () => {
-      spikeLandSpace.remove(userSocket);
-    });
-    userSocket.addEventListener("message", function(event) {
-      let data = typeof event.data === "string" ? JSON.parse(event.data) : { type: "" };
-      if (data) {
-      }
-    });
-    return new Response(null, { status: 101, webSocket: userSocket });
-  }
-  return new Response(`{
-    "message": "api-${paths}"
-  }`);
-}
-var src_default3 = {
+// src/chat.mjs
+var chat_default = {
   async fetch(request, env) {
-    return await handleErrors2(request, async () => {
+    return await handleErrors(request, async () => {
       let url = new URL(request.url);
       let path = url.pathname.slice(1).split("/");
       if (!path[0]) {
@@ -358,6 +204,222 @@ var src_default3 = {
     });
   }
 };
+async function handleApiRequest(path, request, env) {
+  switch (path[0]) {
+    case "room": {
+      if (!path[1]) {
+        if (request.method == "POST") {
+          let id2 = env.CODE.newUniqueId();
+          return new Response(id2.toString(), {
+            headers: { "Access-Control-Allow-Origin": "*" }
+          });
+        } else {
+          return new Response("Method not allowed", { status: 405 });
+        }
+      }
+      let name = path[1];
+      let id;
+      if (name.match(/^[0-9a-f]{64}$/)) {
+        id = env.CODE.idFromString(name);
+      } else if (name.length <= 32) {
+        id = env.CODE.idFromName(name);
+      } else {
+        return new Response("Name too long", { status: 404 });
+      }
+      let roomObject = env.CODE.get(id);
+      let newUrl = new URL(request.url);
+      newUrl.pathname = "/" + path.slice(2).join("/");
+      return roomObject.fetch(newUrl, request);
+    }
+    default:
+      return new Response("Not found", { status: 404 });
+  }
+}
+
+// src/rateLimiterClient.mjs
+var RateLimiterClient = class {
+  constructor(getLimiterStub, reportError) {
+    this.getLimiterStub = getLimiterStub;
+    this.reportError = reportError;
+    this.limiter = getLimiterStub();
+    this.inCooldown = false;
+  }
+  checkLimit() {
+    if (this.inCooldown) {
+      return false;
+    }
+    this.inCooldown = true;
+    this.callLimiter();
+    return true;
+  }
+  async callLimiter() {
+    try {
+      let response;
+      try {
+        response = await this.limiter.fetch("https://dummy-url", {
+          method: "POST"
+        });
+      } catch (err) {
+        this.limiter = this.getLimiterStub();
+        response = await this.limiter.fetch("https://dummy-url", {
+          method: "POST"
+        });
+      }
+      let cooldown = +await response.text();
+      await new Promise((resolve) => setTimeout(resolve, cooldown * 1e3));
+      this.inCooldown = false;
+    } catch (err) {
+      this.reportError(err);
+    }
+  }
+};
+
+// src/chatRoom.mjs
+var Code = class {
+  constructor(controller, env) {
+    this.storage = controller.storage;
+    this.env = env;
+    this.sessions = [];
+    this.lastTimestamp = 0;
+  }
+  async fetch(request) {
+    return await handleErrors(request, async () => {
+      let url = new URL(request.url);
+      switch (url.pathname) {
+        case "/websocket": {
+          if (request.headers.get("Upgrade") != "websocket") {
+            return new Response("expected websocket", { status: 400 });
+          }
+          let ip = request.headers.get("CF-Connecting-IP");
+          let pair = new WebSocketPair();
+          await this.handleSession(pair[1], ip);
+          return new Response(null, { status: 101, webSocket: pair[0] });
+        }
+        default:
+          return new Response("Not found", { status: 404 });
+      }
+    });
+  }
+  async handleSession(webSocket, ip) {
+    webSocket.accept();
+    let limiterId = this.env.LIMITERS.idFromName(ip);
+    let limiter = new RateLimiterClient(() => this.env.LIMITERS.get(limiterId), (err) => webSocket.close(1011, err.stack));
+    let session = { webSocket, blockedMessages: [] };
+    this.sessions.push(session);
+    this.sessions.forEach((otherSession) => {
+      if (otherSession.name) {
+        session.blockedMessages.push(JSON.stringify({ joined: otherSession.name }));
+      }
+    });
+    let storage = await this.storage.list({ reverse: true, limit: 100 });
+    let backlog = [...storage.values()];
+    backlog.reverse();
+    backlog.forEach((value) => {
+      session.blockedMessages.push(value);
+    });
+    let receivedUserInfo = false;
+    webSocket.addEventListener("message", async (msg) => {
+      try {
+        if (session.quit) {
+          webSocket.close(1011, "WebSocket broken.");
+          return;
+        }
+        if (!limiter.checkLimit()) {
+          webSocket.send(JSON.stringify({
+            error: "Your IP is being rate-limited, please try again later."
+          }));
+          return;
+        }
+        let data = JSON.parse(msg.data);
+        if (!receivedUserInfo) {
+          session.name = "" + (data.name || "anonymous");
+          if (session.name.length > 32) {
+            webSocket.send(JSON.stringify({ error: "Name too long." }));
+            webSocket.close(1009, "Name too long.");
+            return;
+          }
+          session.blockedMessages.forEach((queued) => {
+            webSocket.send(queued);
+          });
+          delete session.blockedMessages;
+          this.broadcast({ joined: session.name });
+          webSocket.send(JSON.stringify({ ready: true }));
+          receivedUserInfo = true;
+          return;
+        }
+        data = { name: session.name, message: "" + data.message };
+        if (data.message.length > 256) {
+          webSocket.send(JSON.stringify({ error: "Message too long." }));
+          return;
+        }
+        data.timestamp = Math.max(Date.now(), this.lastTimestamp + 1);
+        this.lastTimestamp = data.timestamp;
+        let dataStr = JSON.stringify(data);
+        this.broadcast(dataStr);
+        let key = new Date(data.timestamp).toISOString();
+        await this.storage.put(key, dataStr);
+      } catch (err) {
+        webSocket.send(JSON.stringify({ error: err.stack }));
+      }
+    });
+    let closeOrErrorHandler = (evt) => {
+      session.quit = true;
+      this.sessions = this.sessions.filter((member) => member !== session);
+      if (session.name) {
+        this.broadcast({ quit: session.name });
+      }
+    };
+    webSocket.addEventListener("close", closeOrErrorHandler);
+    webSocket.addEventListener("error", closeOrErrorHandler);
+  }
+  broadcast(message) {
+    if (typeof message !== "string") {
+      message = JSON.stringify(message);
+    }
+    let quitters = [];
+    this.sessions = this.sessions.filter((session) => {
+      if (session.name) {
+        try {
+          session.webSocket.send(message);
+          return true;
+        } catch (err) {
+          session.quit = true;
+          quitters.push(session);
+          return false;
+        }
+      } else {
+        session.blockedMessages.push(message);
+        return true;
+      }
+    });
+    quitters.forEach((quitter) => {
+      if (quitter.name) {
+        this.broadcast({ quit: quitter.name });
+      }
+    });
+  }
+};
+
+// src/rateLimiter.mjs
+var CodeRateLimiter = class {
+  constructor(controller, env) {
+    this.nextAllowedTime = 0;
+  }
+  async fetch(request) {
+    return await handleErrors(request, async () => {
+      let now = Date.now() / 1e3;
+      this.nextAllowedTime = Math.max(now, this.nextAllowedTime);
+      if (request.method == "POST") {
+        this.nextAllowedTime += 5;
+      }
+      let cooldown = Math.max(0, this.nextAllowedTime - now - 20);
+      return new Response(cooldown);
+    });
+  }
+};
+
+// src/index.ts
+var src_default3 = chat_default;
 export {
   Code,
   CodeRateLimiter,

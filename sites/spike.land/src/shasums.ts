@@ -41,7 +41,7 @@ export const shasums = {
   "tsconfig.json":
     "e992c8b781dcf67ee3196fdc77b4deef52550fa172d9bb14bf123c9713535560",
   "build.mjs":
-    "88bb36c970af90713f46640bb9c330a6b49debf4e3192a346b64ce6d803ac3fb",
+    "caf00c8755b38e7097b8720540c4140c5111b234f1516e854c32270542388f35",
   "js/starter.mjs":
     "b05dcc32da299f2e028ad21593f48b7954141ac82ebf8766e7529424721b7ae3",
   "js/formatter.mjs":
@@ -69,7 +69,7 @@ export const shasums = {
   "js/workers/transpile.worker.js":
     "d5028ca46a6f415047c6a9b22addf4f32d15617fe52d19655b25152d7a60e5d5",
   "js/codeLoader.mjs":
-    "17f796ab59215d7392738be3d261d4c5e2198b13f7f03739f4d2d417d2d69693",
+    "fa6b5a8089dcb3426dcc3d11fad091a973b4b626ac7b52ddd3d8e48fc750a142",
   "js/transpile.mjs":
     "3e9b4471a36bf0170b58cd0d69f7ad21b34eb29885eac3ffacbc83b0d332fd02",
   "js/data.mjs":
@@ -93,7 +93,7 @@ export const shasums = {
   "js/importScript.d.ts":
     "863a8f91f1d5750d68903b9493472d186067185cf0f9cf09f40c6c273ddef229",
   "dev.mjs.map":
-    "97a4d2740d2344691c4eaca0de4a0839faac3c656e1ac8d0ccefea2c2bc1a735",
-  "dev.mjs": "8cd7f47282eff581a1cc59d570222f347fb4089453dfe42340aedcb5f2de4241",
+    "4058b6a927fdbba737e1724c1fadf001c6b2e8ec4d5cbed84c1536a832818ca2",
+  "dev.mjs": "287c4ea68f7f07bd47955a6ddbf6959826b16784244bcef399709a49c693ce56",
   "food": "bar",
 };

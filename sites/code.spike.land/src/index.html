@@ -43,7 +43,7 @@ if (hostname == "") {
 
 
 let roomName = "ROOMNAMEname";
-let username = 'PistiTheUser';
+let username = 'Pisti'+Math.random();
 let lastSeenTimestamp = Date.now();
 
     function join() {
@@ -78,7 +78,7 @@ let lastSeenTimestamp = Date.now();
     window.chCode = chCode;
     window.broad = (code)=>{
       chCode(code);
-    currentWebSocket.send(JSON.stringify({code: code}));
+    currentWebSocket.send(JSON.stringify({message:  code}));
   }
 
     // Send user info message.
@@ -95,6 +95,9 @@ let lastSeenTimestamp = Date.now();
      chCode(data.code)
     
     } else {
+      if (data.message){
+        chCode(data.message)
+      }
       // A regular chat message.
       if (data.timestamp > lastSeenTimestamp) {
         addChatMessage(data.name, data.message);
