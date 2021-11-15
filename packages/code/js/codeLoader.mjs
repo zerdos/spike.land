@@ -138,6 +138,7 @@ export async function run(mode = "window", code = "") {
     );
 
     if (!session.url) {
+      session.codeNonFormatted = code;
       await saveCode(session, session.i);
     }
 

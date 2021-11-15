@@ -692,7 +692,7 @@ var init_data = __esm({
       transpiled: null
     };
     saveCode = async (opts, counter) => {
-      const { code, html, transpiled } = opts;
+      const { code, codeNonFormatted, html, transpiled } = opts;
       toSave.code = code || await getStarter();
       if (opts.i > counter)
         return;
@@ -705,7 +705,7 @@ var init_data = __esm({
       toSave.code = opts.code;
       if (window.broad) {
         const { broad } = window;
-        broad(code);
+        broad(codeNonFormatted);
       }
       const { shareItAsHtml: shareItAsHtml2 } = await Promise.resolve().then(() => (init_share(), share_exports));
       const sharePromise = shareItAsHtml2({ code, html, transpiled });
@@ -1006,6 +1006,7 @@ async function run(mode = "window", code = "") {
   monaco = window.monaco;
   monaco.editor.createModel("define module './hash.js';", "typescript", monaco.Uri.parse("file:///refs.d.ts"));
   if (!session.url) {
+    session.codeNonFormatted = code;
     await saveCode(session, session.i);
   }
   const { sendSignalToQrCode: sendSignalToQrCode2 } = await Promise.resolve().then(() => (init_sendSignalToQrCode(), sendSignalToQrCode_exports));

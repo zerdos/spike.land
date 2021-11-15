@@ -26,14 +26,19 @@
     let currentWebSocket = null;
 
     const chCode = (code) => {
-  const { monaco } = window;
-  if (!monaco || !monaco.Uri) return;
-  const modelUri = monaco.Uri.parse(`file:///main.tsx`);
-  const model = monaco.editor.getModel(modelUri);
+        const { monaco } = window;
+        if (!monaco || !monaco.Uri) return;
+        const modelUri = monaco.Uri.parse(`file:///main.tsx`);
+        const model = monaco.editor.getModel(modelUri);
+        const oldCode = model.getValue();
 
-  model.setValue(code);
-    
-}
+        if (oldCode !==code ){
+          console.log({oldCode});
+
+          model.setValue(code);
+        }
+          
+      }
 
 
     let hostname = window.location.host;
@@ -43,7 +48,7 @@ if (hostname == "") {
 }
 
 
-let roomName = "ROOMNAMEname";
+let roomName = "ROOMNAMEagain";
 let username = 'Pisti'+Math.random();
 let lastSeenTimestamp = Date.now();
 let lastSeenCode = "";

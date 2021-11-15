@@ -1,5 +1,5 @@
 // ../../packages/code/package.json
-var version = "0.0.57";
+var version = "0.0.58";
 
 // src/index.html
 var src_default = `<!DOCTYPE html>
@@ -30,14 +30,19 @@ var src_default = `<!DOCTYPE html>
     let currentWebSocket = null;
 
     const chCode = (code) => {
-  const { monaco } = window;
-  if (!monaco || !monaco.Uri) return;
-  const modelUri = monaco.Uri.parse(\`file:///main.tsx\`);
-  const model = monaco.editor.getModel(modelUri);
+        const { monaco } = window;
+        if (!monaco || !monaco.Uri) return;
+        const modelUri = monaco.Uri.parse(\`file:///main.tsx\`);
+        const model = monaco.editor.getModel(modelUri);
+        const oldCode = model.getValue();
 
-  model.setValue(code);
-    
-}
+        if (oldCode !==code ){
+          console.log({oldCode});
+
+          model.setValue(code);
+        }
+          
+      }
 
 
     let hostname = window.location.host;
@@ -47,7 +52,7 @@ if (hostname == "") {
 }
 
 
-let roomName = "ROOMNAMEname";
+let roomName = "ROOMNAMEagain";
 let username = 'Pisti'+Math.random();
 let lastSeenTimestamp = Date.now();
 let lastSeenCode = "";
@@ -354,7 +359,7 @@ var Code = class {
           return;
         }
         data = { name: session.name, message: "" + data.message };
-        if (data.message.length > 256) {
+        if (data.message.length > 4096) {
           webSocket.send(JSON.stringify({ error: "Message too long." }));
           return;
         }
@@ -416,7 +421,7 @@ var CodeRateLimiter = class {
       let now = Date.now() / 1e3;
       this.nextAllowedTime = Math.max(now, this.nextAllowedTime);
       if (request.method == "POST") {
-        this.nextAllowedTime += 5;
+        this.nextAllowedTime += 1;
       }
       let cooldown = Math.max(0, this.nextAllowedTime - now - 20);
       return new Response(cooldown);

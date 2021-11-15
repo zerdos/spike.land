@@ -200,7 +200,7 @@ export const saveCode =
    * @param {number} counter
    */
   async (opts, counter) => {
-    const { code, html, transpiled } = opts;
+    const { code, codeNonFormatted, html, transpiled } = opts;
     toSave.code = code || await getStarter();
 
     // deno-lint-ignore ban-ts-comment
@@ -219,7 +219,7 @@ export const saveCode =
 
     if (window.broad){
       const {broad} = window;
-      broad(code);
+      broad(codeNonFormatted);
     }
     // const saveCode = async () => {
     //   const res = await ipfsClient.add(code, { onlyHash: true });

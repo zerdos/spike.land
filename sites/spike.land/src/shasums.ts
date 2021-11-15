@@ -5,7 +5,7 @@ export const shasums = {
   "esbuild.mjs":
     "fa6917c6d637ea664d0d1170b8ca241c69456508993484124c981e4f17ab5d8c",
   "package.json":
-    "4479624b545d3058e61e35ef5e758de24fb2619aaf508cb518789ad689229b24",
+    "7759afe9cbf4bdf049ae0b92f269429c2486b2fdb33e3435b3e08f32bba50eac",
   "edit/index.html":
     "6bedf2adaf3b015d95ef000fe886b446ff1cc39184be9c8f060e63a325ed50af",
   "manifest.json":
@@ -41,7 +41,7 @@ export const shasums = {
   "tsconfig.json":
     "e992c8b781dcf67ee3196fdc77b4deef52550fa172d9bb14bf123c9713535560",
   "build.mjs":
-    "71c64923d5af416ea84fc0c9aacd4438c38043cf6280d4c52ff4253be9dc8e12",
+    "e7ecf3a42dd6ab9cf37d68e10c5c2afe34c3ed573eb6b7c4178d35f2df45e1ee",
   "js/starter.mjs":
     "b05dcc32da299f2e028ad21593f48b7954141ac82ebf8766e7529424721b7ae3",
   "js/formatter.mjs":
@@ -69,11 +69,11 @@ export const shasums = {
   "js/workers/transpile.worker.js":
     "d5028ca46a6f415047c6a9b22addf4f32d15617fe52d19655b25152d7a60e5d5",
   "js/codeLoader.mjs":
-    "0be4553ff3f99e93be0bff3235864d9db45579345826af3ece200458eb9b5da2",
+    "33f7921a15aa131652f32dc8ff7a0f990332539d6535a898ea980397243d43b1",
   "js/transpile.mjs":
     "3e9b4471a36bf0170b58cd0d69f7ad21b34eb29885eac3ffacbc83b0d332fd02",
   "js/data.mjs":
-    "4ed9c558d283517e0618960c3500afd36d4bee1b6ec8eb124c44000ee53c0b05",
+    "ca737820020c15bde38bb8d50fe0f4318d1b0335823cf34a174fa05cd162cec2",
   "js/ipfsClient.mjs":
     "5edabecc5b545336ef0b8bd48bc7f6002c03c97f6c54ffcfa3bd9f49df48171e",
   "js/renderPreviewWindow.mjs":
@@ -93,7 +93,7 @@ export const shasums = {
   "js/importScript.d.ts":
     "863a8f91f1d5750d68903b9493472d186067185cf0f9cf09f40c6c273ddef229",
   "dev.mjs.map":
-    "d7e7a7ebf0b0bf559c3159f8f1d8926edec546b8e159909395d892441c87acfe",
-  "dev.mjs": "41e8c7548fef72b933fdc8279199201d33bcbae9248fabb91e4701d5a50624c2",
+    "f78765d7fba0e4f4c9dad8d5fa2d0c5f7a17303dcc33b168cc7fea5cdb0cdbc5",
+  "dev.mjs": "3d404e70bb1ecc3403582495450885ccf4acd0f0f26ea45eb7825c6fc705662d",
   "food": "bar",
 };
