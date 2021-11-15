@@ -25,7 +25,8 @@ export default {
           `;
 
         // Serve our HTML at the root path.
-        return new Response(html1 + injection + html2, {
+        const regex = /VERSION/ig;
+        return new Response(html1.replaceAll(regex,version) + injection + html2, {
           headers: {
             "Content-Type": "text/html;charset=UTF-8",
             "Cache-Control": "no-cache",

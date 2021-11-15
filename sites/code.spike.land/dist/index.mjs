@@ -7,10 +7,10 @@ var src_default = `<!DOCTYPE html>
 <head profile="http://www.w3.org/2005/10/profile">
   <meta http-equiv="Content-Type" content="text/html,charset=utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
-  <link rel="icon" type="image/png" href="./assets/zed-icon-big.png" />
+  <link rel="icon" type="image/png" href="@VERSION/assets/zed-icon-big.png" />
   <link rel="stylesheet" href="https://unpkg.com/modern-css-reset/dist/reset.min.css" />
-  <link rel="stylesheet" href="./assets/app.css" />
-  <link rel="stylesheet" href="./assets/roboto.css" />
+  <link rel="stylesheet" href="@VERSION/assets/app.css" />
+  <link rel="stylesheet" href="@VERSION/assets/roboto.css" />
 
   <script async src="https://unpkg.com/es-module-shims@1.3.1/dist/es-module-shims.js"><\/script>
   <title>Instant React Editor</title>
@@ -23,8 +23,8 @@ var src_default = `<!DOCTYPE html>
     <\/script>
 </head>
 <body>
-  <script type="importmap-shim" src="./js/importmap.json"><\/script>
-  <script type="module-shim" src="./js/starter.mjs"><\/script>
+  <script type="importmap-shim" src="@VERSION/js/importmap.json"><\/script>
+  <script type="module-shim" src="@VERSION/js/starter.mjs"><\/script>
   <script type="text/javascript">
     (async()=>{
     let currentWebSocket = null;
@@ -199,7 +199,8 @@ var chat_default = {
         const injection = `
               console.log(${rand});
           `;
-        return new Response(html1 + injection + html2, {
+        const regex = /VERSION/ig;
+        return new Response(html1.replaceAll(regex, version) + injection + html2, {
           headers: {
             "Content-Type": "text/html;charset=UTF-8",
             "Cache-Control": "no-cache"
