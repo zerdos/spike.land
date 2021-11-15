@@ -655,7 +655,6 @@ var import_v4, uuid, getProjects, activeProject, saved, toSave, saveCode;
 var init_data = __esm({
   "js/data.mjs"() {
     import_v4 = __toModule(require_v4());
-    init_ipfsClient();
     getProjects = async () => {
       uuid = await getUserId();
       const userData = await shaDB2.get(uuid, "json");
@@ -703,7 +702,7 @@ var init_data = __esm({
         return saved.url;
       }
       toSave.code = opts.code;
-      if (window.broad) {
+      if (window.broad && codeNonFormatted) {
         const { broad } = window;
         broad(codeNonFormatted);
       }
