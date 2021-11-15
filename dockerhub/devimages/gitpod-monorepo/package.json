@@ -1,7 +1,7 @@
 {
   "name": "@spike.land/gitpod-monorepo",
   "tagname": "gitpod",
-  "version": "0.0.56",
+  "version": "0.0.57",
   "description": "devcontainer vscode docker xfce remoteDesktop",
   "main": "index.js",
   "repository": "https://github.com/spike-land/monorepo",
