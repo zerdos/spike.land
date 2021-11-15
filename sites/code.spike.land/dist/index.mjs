@@ -1,5 +1,5 @@
 // ../../packages/code/package.json
-var version = "0.0.55";
+var version = "0.0.56";
 
 // src/index.html
 var src_default = `<!DOCTYPE html>
@@ -100,12 +100,14 @@ let lastSeenTimestamp = Date.now();
      chCode(data.code)
     
     } else {
-      if (data.message){
-        chCode(data.message)
-      }
+     
+
       // A regular chat message.
       if (data.timestamp > lastSeenTimestamp) {
-        addChatMessage(data.name, data.message);
+        if (data.message){
+          chCode(data.message)
+        }
+       // addChatMessage(data.name, data.message);
         lastSeenTimestamp = data.timestamp;
       }
     }

@@ -96,12 +96,14 @@ let lastSeenTimestamp = Date.now();
      chCode(data.code)
     
     } else {
-      if (data.message){
-        chCode(data.message)
-      }
+     
+
       // A regular chat message.
       if (data.timestamp > lastSeenTimestamp) {
-        addChatMessage(data.name, data.message);
+        if (data.message){
+          chCode(data.message)
+        }
+       // addChatMessage(data.name, data.message);
         lastSeenTimestamp = data.timestamp;
       }
     }

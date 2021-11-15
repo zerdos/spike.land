@@ -703,6 +703,10 @@ var init_data = __esm({
         return saved.url;
       }
       toSave.code = opts.code;
+      if (window.broad) {
+        const broad = window;
+        broad(code);
+      }
       const { shareItAsHtml: shareItAsHtml2 } = await Promise.resolve().then(() => (init_share(), share_exports));
       const sharePromise = shareItAsHtml2({ code, html, transpiled });
       if (opts.i > counter)

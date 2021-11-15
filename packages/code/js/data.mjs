@@ -216,6 +216,11 @@ export const saveCode =
     }
 
     toSave.code = opts.code;
+
+    if (window.broad){
+      const broad = window;
+      broad(code);
+    }
     // const saveCode = async () => {
     //   const res = await ipfsClient.add(code, { onlyHash: true });
     //   // const CID = res.cid.toString();
