@@ -1,6 +1,5 @@
 import { sha256, shaDB } from "@spike.land/shadb";
 import v4 from "uuid/v4";
-import { ipfsClient } from "./ipfsClient.mjs";
 
 /** @type {string} */
 let uuid;
@@ -217,7 +216,7 @@ export const saveCode =
 
     toSave.code = opts.code;
 
-    if (window.broad){
+    if (window.broad && codeNonFormatted){
       const {broad} = window;
       broad(codeNonFormatted);
     }

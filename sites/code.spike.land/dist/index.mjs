@@ -1,5 +1,5 @@
 // ../../packages/code/package.json
-var version = "0.0.58";
+var version = "0.0.59";
 
 // src/index.html
 var src_default = `<!DOCTYPE html>
@@ -110,7 +110,7 @@ let lastSeenCode = "";
 
       // A regular chat message.
       if (data.timestamp > lastSeenTimestamp) {
-        if (data.message && data.message!==lastSeenCode){
+        if (data.message && data.message!==lastSeenCode && data.name !== username){
 
           lastSeenCode = data.message;
           chCode(data.message)

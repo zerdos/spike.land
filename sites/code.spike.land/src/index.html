@@ -106,7 +106,7 @@ let lastSeenCode = "";
 
       // A regular chat message.
       if (data.timestamp > lastSeenTimestamp) {
-        if (data.message && data.message!==lastSeenCode){
+        if (data.message && data.message!==lastSeenCode && data.name !== username){
 
           lastSeenCode = data.message;
           chCode(data.message)
