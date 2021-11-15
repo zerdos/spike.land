@@ -281,14 +281,14 @@ var init_importmap = __esm({
       "@babel/runtime/helpers/esm/classPrivateMethodInitSpec": "https://unpkg.com/@babel/runtime@7.16.3/helpers/esm/classPrivateMethodInitSpec.js",
       "@babel/runtime/helpers/classPrivateMethodSet": "https://unpkg.com/@babel/runtime@7.16.3/helpers/esm/classPrivateMethodSet.js",
       "@babel/runtime/helpers/esm/classPrivateMethodSet": "https://unpkg.com/@babel/runtime@7.16.3/helpers/esm/classPrivateMethodSet.js",
-      "@emotion/cache": "https://unpkg.com/@emotion/cache@11.5.0/dist/emotion-cache.browser.esm.js",
+      "@emotion/cache": "https://unpkg.com/@emotion/cache@11.6.0/dist/emotion-cache.browser.esm.js",
       "@emotion/hash": "https://unpkg.com/@emotion/hash@0.8.0/dist/hash.browser.esm.js",
-      "@emotion/is-prop-valid": "https://unpkg.com/@emotion/is-prop-valid@1.1.0/dist/emotion-is-prop-valid.browser.esm.js",
+      "@emotion/is-prop-valid": "https://unpkg.com/@emotion/is-prop-valid@1.1.1/dist/emotion-is-prop-valid.browser.esm.js",
       "@emotion/memoize": "https://unpkg.com/@emotion/memoize@0.7.5/dist/emotion-memoize.browser.esm.js",
-      "@emotion/react": "https://unpkg.com/@emotion/react@11.5.0/dist/emotion-react.browser.esm.js",
+      "@emotion/react": "https://unpkg.com/@emotion/react@11.6.0/dist/emotion-react.browser.esm.js",
       "@emotion/serialize": "https://unpkg.com/@emotion/serialize@1.0.2/dist/emotion-serialize.browser.esm.js",
-      "@emotion/sheet": "https://unpkg.com/@emotion/sheet@1.0.3/dist/emotion-sheet.browser.esm.js",
-      "@emotion/styled": "https://unpkg.com/@emotion/styled@11.3.0/dist/emotion-styled.browser.esm.js",
+      "@emotion/sheet": "https://unpkg.com/@emotion/sheet@1.1.0/dist/emotion-sheet.browser.esm.js",
+      "@emotion/styled": "https://unpkg.com/@emotion/styled@11.6.0/dist/emotion-styled.browser.esm.js",
       "@emotion/utils": "https://unpkg.com/@emotion/utils@1.0.0/dist/emotion-utils.browser.esm.js",
       "@emotion/unitless": "https://unpkg.com/@emotion/unitless@0.7.5/dist/unitless.browser.esm.js",
       "@emotion/weak-memoize": "https://unpkg.com/@emotion/weak-memoize@0.2.5/dist/weak-memoize.browser.esm.js",
@@ -943,7 +943,7 @@ init_ipfsClient();
 import React from "https://unpkg.com/@spike.land/esm@0.0.53/dist/react.mjs";
 import ReactDOM from "https://unpkg.com/@spike.land/esm@0.0.53/dist/react-dom.mjs";
 import startMonaco from "https://unpkg.com/@spike.land/smart-monaco-editor@0.0.53/dist/editor.mjs";
-import { jsx } from "https://unpkg.com/@emotion/react@11.5.0/dist/emotion-react.browser.esm.js";
+import { jsx } from "https://unpkg.com/@emotion/react@11.6.0/dist/emotion-react.browser.esm.js";
 import { DraggableWindow, jsx as jsx2, render } from "https://unpkg.com/@spike.land/renderer@0.0.53/dist/renderer.js";
 function getSession() {
   const session = {
