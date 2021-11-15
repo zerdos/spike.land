@@ -138,7 +138,7 @@ var editor_default = async ({ onChange, code, language, container, options }) =>
       },
       {
         name: "@emotion/styled/base.d.ts",
-        url: "https://unpkg.com/@emotion/styled@11.3.0/types/base.d.ts",
+        url: "https://unpkg.com/@emotion/styled@11.6.0/types/base.d.ts",
         depend: [
           "@emotion/react",
           "@emotion/serialize",
@@ -147,7 +147,7 @@ var editor_default = async ({ onChange, code, language, container, options }) =>
       },
       {
         name: "@emotion/styled/index.d.ts",
-        url: "https://unpkg.com/@emotion/styled@11.3.0/types/index.d.ts",
+        url: "https://unpkg.com/@emotion/styled@11.6.0/types/index.d.ts",
         depend: [
           "@emotion/react",
           "@emotion/serialize",
@@ -156,17 +156,17 @@ var editor_default = async ({ onChange, code, language, container, options }) =>
       },
       {
         name: "@emotion/cache/index.d.ts",
-        url: "https://unpkg.com/@emotion/cache@11.5.0/types/index.d.ts",
+        url: "https://unpkg.com/@emotion/cache@11.6.0/types/index.d.ts",
         depend: ["@emotion/utils"]
       },
       {
         name: "@emotion/react/index.d.ts",
-        url: "https://unpkg.com/@emotion/react@11.5.0/types/index.d.ts",
+        url: "https://unpkg.com/@emotion/react@11.6.0/types/index.d.ts",
         depend: ["@emotion/cache"]
       },
       {
         name: "@emotion/react/jsx-namespace.d.ts",
-        url: "https://unpkg.com/@emotion/react@11.5.0/types/jsx-namespace.d.ts",
+        url: "https://unpkg.com/@emotion/react@11.6.0/types/jsx-namespace.d.ts",
         depend: ["@emotion/utils", "csstype"]
       },
       {
