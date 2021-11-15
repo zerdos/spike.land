@@ -218,7 +218,7 @@ export const saveCode =
     toSave.code = opts.code;
 
     if (window.broad){
-      const broad = window;
+      const {broad} = window;
       broad(code);
     }
     // const saveCode = async () => {

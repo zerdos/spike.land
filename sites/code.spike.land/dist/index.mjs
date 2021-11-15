@@ -1,5 +1,5 @@
 // ../../packages/code/package.json
-var version = "0.0.56";
+var version = "0.0.57";
 
 // src/index.html
 var src_default = `<!DOCTYPE html>
@@ -50,6 +50,7 @@ if (hostname == "") {
 let roomName = "ROOMNAMEname";
 let username = 'Pisti'+Math.random();
 let lastSeenTimestamp = Date.now();
+let lastSeenCode = "";
 
     function join() {
   let ws = new WebSocket("wss://" + hostname + "/api/room/" + roomName + "/websocket");
@@ -83,7 +84,7 @@ let lastSeenTimestamp = Date.now();
     window.chCode = chCode;
     window.broad = (code)=>{
       chCode(code);
-    currentWebSocket.send(JSON.stringify({message:  code}));
+      if (code !== lastSeenCode) currentWebSocket.send(JSON.stringify({message:  code}));
   }
 
     // Send user info message.
@@ -104,7 +105,9 @@ let lastSeenTimestamp = Date.now();
 
       // A regular chat message.
       if (data.timestamp > lastSeenTimestamp) {
-        if (data.message){
+        if (data.message && data.message!==lastSeenCode){
+
+          lastSeenCode = data.message;
           chCode(data.message)
         }
        // addChatMessage(data.name, data.message);
