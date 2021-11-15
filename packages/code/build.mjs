@@ -1043,7 +1043,7 @@ async function run(mode = "window", code = "") {
         if (session.i > counter)
           return;
         if (cd.length < 1e3 && session.code.length < 1e3) {
-          const { diff } = await import("@spike.land/shaDb");
+          const { diff } = await import("https://unpkg.com/@spike.land/shadb@0.0.54/dist/shaDB.mjs");
           const slices = await diff(session.code, cd);
           if (slices.c.length <= 3) {
             session.lastErrors = 0;

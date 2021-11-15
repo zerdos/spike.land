@@ -1,5 +1,5 @@
 // ../../packages/code/package.json
-var version = "0.0.54";
+var version = "0.0.55";
 
 // src/index.html
 var src_default = `<!DOCTYPE html>
@@ -31,6 +31,7 @@ var src_default = `<!DOCTYPE html>
 
     const chCode = (code) => {
   const { monaco } = window;
+  if (!monaco || !monaco.Uri) return;
   const modelUri = monaco.Uri.parse(\`file:///main.tsx\`);
   const model = monaco.editor.getModel(modelUri);
 

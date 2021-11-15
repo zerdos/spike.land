@@ -5,7 +5,7 @@ export const shasums = {
   "esbuild.mjs":
     "fa6917c6d637ea664d0d1170b8ca241c69456508993484124c981e4f17ab5d8c",
   "package.json":
-    "fa8652ff60cd9209f2394f71b2f42a8c807eb3ba27f83511ed6a2e0486a4363c",
+    "4fbb4f48dd4d85e380b419e85d55f2c800cdb039757da393ed8d1bcba7551ae5",
   "edit/index.html":
     "6bedf2adaf3b015d95ef000fe886b446ff1cc39184be9c8f060e63a325ed50af",
   "manifest.json":
@@ -41,7 +41,7 @@ export const shasums = {
   "tsconfig.json":
     "e992c8b781dcf67ee3196fdc77b4deef52550fa172d9bb14bf123c9713535560",
   "build.mjs":
-    "caf00c8755b38e7097b8720540c4140c5111b234f1516e854c32270542388f35",
+    "c19ef87a606d39015c875a60c712de27114384949d2eb8aadef85c4913a9fdd8",
   "js/starter.mjs":
     "b05dcc32da299f2e028ad21593f48b7954141ac82ebf8766e7529424721b7ae3",
   "js/formatter.mjs":
@@ -69,7 +69,7 @@ export const shasums = {
   "js/workers/transpile.worker.js":
     "d5028ca46a6f415047c6a9b22addf4f32d15617fe52d19655b25152d7a60e5d5",
   "js/codeLoader.mjs":
-    "fa6b5a8089dcb3426dcc3d11fad091a973b4b626ac7b52ddd3d8e48fc750a142",
+    "0be4553ff3f99e93be0bff3235864d9db45579345826af3ece200458eb9b5da2",
   "js/transpile.mjs":
     "3e9b4471a36bf0170b58cd0d69f7ad21b34eb29885eac3ffacbc83b0d332fd02",
   "js/data.mjs":
@@ -93,7 +93,7 @@ export const shasums = {
   "js/importScript.d.ts":
     "863a8f91f1d5750d68903b9493472d186067185cf0f9cf09f40c6c273ddef229",
   "dev.mjs.map":
-    "4058b6a927fdbba737e1724c1fadf001c6b2e8ec4d5cbed84c1536a832818ca2",
-  "dev.mjs": "287c4ea68f7f07bd47955a6ddbf6959826b16784244bcef399709a49c693ce56",
+    "0134e868747648cfeb71df82cdc9e0ba1a6791142c30c68e759547f9b8a859c5",
+  "dev.mjs": "5c983a09c03feb0acdefaffe83584f4df97cbef058f6210aa1b734ca73890556",
   "food": "bar",
 };
