@@ -138,7 +138,7 @@ export async function run(mode = "window", code = "") {
     );
 
     if (!session.url) {
-      session.codeNonFormatted = code;
+      session.codeNonFormatted = null;
       await saveCode(session, session.i);
     }
 
@@ -184,6 +184,7 @@ export async function run(mode = "window", code = "") {
       if (err.length === 0 && transpiled.length) {
         if (session.i > counter) return;
         session.code = cd;
+        session.codeNonFormatted = c;
         saveCode(session, counter);
       } else {
         console.log({ code: c, transpiled });

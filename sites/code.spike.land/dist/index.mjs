@@ -1,5 +1,5 @@
 // ../../packages/code/package.json
-var version = "0.0.59";
+var version = "0.0.60";
 
 // src/index.html
 var src_default = `<!DOCTYPE html>
