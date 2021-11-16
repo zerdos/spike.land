@@ -4,6 +4,7 @@ import { openWindows } from "./openWindows.mjs";
 import { getCodeToLoad, getIPFSCodeToLoad, saveCode } from "./data.mjs";
 import { transpileCode } from "./transpile.mjs";
 import { formatter } from "./formatter.mjs";
+import { diff } from "@spike.land/shadb";
 import React from "react";
 import ReactDOM from "react-dom";
 
@@ -70,6 +71,7 @@ function getSession() {
 }
 
 export async function run(mode = "window", code = "") {
+  window.diff = diff;
   const session = getSession();
   let monaco;
 
@@ -195,7 +197,7 @@ export async function run(mode = "window", code = "") {
         if (session.i > counter) return;
 
         if (cd.length < 1000 && session.code.length < 1000) {
-          const { diff } = await import("@spike.land/shadb");
+         
           const slices = await diff(session.code, cd);
 
           if (slices.c.length <= 3) {
