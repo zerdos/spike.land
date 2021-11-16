@@ -27,6 +27,10 @@ const exceptions = {
     `https://unpkg.com/@spike.land/esm@${zedEsmLatestVersion}/dist/react-dom.mjs`,
   "react-is":
     `https://unpkg.com/@spike.land/esm@${zedEsmLatestVersion}/dist/react-is.mjs`,
+  
+  "framer-motion":  `https://unpkg.com/@spike.land/esm@${zedEsmLatestVersion}/dist/framer-motion.mjs`,
+  
+
   "uuid/": `https://unpkg.com/uuid@${uidVersion}/dist/esm-browser/`,
 };
 

@@ -1,3 +1,4 @@
+import {loadMonaco} from "@spike.land/smart-monaco-editor"
 import { renderPreviewWindow } from "./renderPreviewWindow.mjs";
 import { openWindows } from "./openWindows.mjs";
 import { getCodeToLoad, getIPFSCodeToLoad, saveCode } from "./data.mjs";
@@ -12,6 +13,9 @@ import { ipfsClient } from "./ipfsClient.mjs";
 //import { getUserId } from "./data.mjs";
 // import Hash from "ipfs-only-hash";
 export { DraggableWindow, jsx, render } from "@spike.land/renderer";
+loadMonaco();
+
+
 
 // const charWidthSpan = document.createElement('span');
 
