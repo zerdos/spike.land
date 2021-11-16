@@ -72,7 +72,10 @@ function getSession() {
 
 export async function run(mode = "window", code = "") {
   window.diff = diff;
+  
   const session = getSession();
+  window.sess = session;
+
   let monaco;
 
     console.log("Runner!");
