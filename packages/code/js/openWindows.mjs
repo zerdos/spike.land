@@ -13,19 +13,22 @@ export async function openWindows() {
     {
       titlebarHeight: "42px",
       width: 720,
+      resizable: true,
       closable: false,
       borderRadius: "0px",
       overflow: "hidden",
       backgroundWindow: "#1e1e1e",
-      height: "100vh",
+      height: "100%",
       title: "app.tsx",
     },
   );
 
   win.content.innerHTML =
-    `<div style="min-height: 20px;  min-width: 600px; height: ${
-      isMobile() ? "2000px" : "calc(100%)"
-    }; width:100%; display: block; overflow: hidden;" id="editor"></div>`;
+    `<div
+    id="editor"
+    style="float: left; width: 100%; height: 100%; border: 1px solid grey"
+  ></div>
+  <div style="clear: both"></div>`;
 
   // const zbody = wm.createWindow(
   //   {
@@ -45,20 +48,20 @@ export async function openWindows() {
   //     isMobile() ? "2000px" : "calc(100% - 25px);"
   //   }; width:100%; display: block;" id="zbody"></div>`;
 
-  if (!isMobile()) {
-    try {
+  // if (!isMobile()) {
+    // try {
       const element = window.document.querySelector(
-        "body > div:nth-child(2) > div:nth-child(3) > div:nth-child(1) > section",
+        "div:nth-child(3) > div:nth-child(1) > section:nth-child(2)"
       );
       if (element !== null) {
         // deno-lint-ignore ban-ts-comment
         //@ts-ignore
-        element.style.overflow = "";
+        element.style.overflow = "hidden"
       }
-    } catch (e) {
-      console.error({ e });
-    }
-  }
+    // } catch (e) {
+      // console.error({ e });
+    // }
+  
   (function (global) {
     if (typeof (global) === "undefined") {
       throw new Error("window is undefined");
@@ -96,13 +99,14 @@ export async function openWindows() {
   })(window);
 }
 
-function isMobile() {
-  if (typeof window === "undefined") {
-    return false;
-  }
 
-  return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i
-    .test(
-      window.navigator.userAgent,
-    );
-}
+// function isMobile() {
+//   if (typeof window === "undefined") {
+//     return false;
+//   }
+
+//   return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i
+//     .test(
+//       window.navigator.userAgent,
+//     );
+// }

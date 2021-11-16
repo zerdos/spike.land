@@ -27,7 +27,7 @@ var getMonaco = async () => {
   };
   const vsPath = `https://unpkg.com/monaco-editor@0.30.1/min/vs`;
   const { require: require2 } = await importScript(`${vsPath}/loader.js`);
-  require2.config({ paths: { "vs": vsPath } });
+  require2.config({ paths: { "vs": vsPath }, "vs/css": { disabled: true } });
   exp.monaco = await new Promise((resolve) => require2(["vs/editor/editor.main"], (_m) => resolve(_m)));
   return exp.monaco;
 };
@@ -54,11 +54,33 @@ var editor_default = async ({ onChange, code, language, container, options }) =>
     }
   };
   const model = getModel();
+  const shadowRoot = container.attachShadow({
+    mode: "closed"
+  });
+  const innerContainer = document.createElement("div");
+  shadowRoot.appendChild(innerContainer);
+  const parent = container.parentElement;
+  if (parent) {
+    const { width, height } = parent.getClientRects()[0];
+    innerContainer.style.width = `${Math.min(window.innerWidth, width)}px`;
+    innerContainer.style.height = `${height - 28}px`;
+    parent.addEventListener("resize", (ev) => {
+      const { width: width2, height: height2 } = parent.getClientRects()[0];
+      innerContainer.style.width = `${Math.min(window.innerWidth, width2)}px`;
+      innerContainer.style.height = `${height2 - 28}px`;
+      innerContainer.style.resize = "vertical";
+      innerContainer.style.overflow = "auto";
+      parent.style.overflow = "hidden";
+    });
+  }
+  const innerStyle = document.createElement("style");
+  innerStyle.innerText = '@import "https://unpkg.com/monaco-editor@0.30.1/min/vs/editor/editor.main.css";';
+  shadowRoot.appendChild(innerStyle);
   if (!container)
     return;
   const modules = {
     monaco,
-    editor: monaco.editor.create(container, {
+    editor: monaco.editor.create(innerContainer, {
       formatOnType: false,
       scrollbar: {
         horizontal: "hidden",
@@ -89,7 +111,7 @@ var editor_default = async ({ onChange, code, language, container, options }) =>
       padding: {
         bottom: 300
       },
-      lineNumbers: "on",
+      lineNumbers: isMobile() ? "off" : "on",
       autoClosingBrackets: "beforeWhitespace",
       autoClosingOvertype: "auto",
       suggest: {},
@@ -240,6 +262,12 @@ var editor_default = async ({ onChange, code, language, container, options }) =>
     return modules;
   }
 };
+function isMobile() {
+  if (typeof window === "undefined") {
+    return false;
+  }
+  return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(window.navigator.userAgent);
+}
 export {
   editor_default as default,
   loadMonaco

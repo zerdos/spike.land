@@ -2,6 +2,8 @@
 <html lang="en">
 <head profile="http://www.w3.org/2005/10/profile">
   <meta http-equiv="Content-Type" content="text/html,charset=utf-8" />
+  <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+	
   <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
   <link rel="icon" type="image/png" href="./assets/zed-icon-big.png" />
   <link rel="stylesheet" href="https://unpkg.com/modern-css-reset@1.4.0/dist/reset.min.css" />
@@ -14,6 +16,14 @@
     body{
       background-image: url(./assets/synthwave.webp);
     }
+
+    /* We must define the font face outside the shadowroot */
+    @font-face {
+      font-family: 'codicon';
+      src: url('https://unpkg.com/monaco-editor@0.30.1/min/vs/base/browser/ui/codicons/codicon/codicon.ttf')
+        format('truetype');
+    }
+		
   </style>
   <script type="esms-options">
     {
