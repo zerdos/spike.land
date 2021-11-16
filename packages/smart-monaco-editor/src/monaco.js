@@ -1,6 +1,6 @@
 const exp = {
-  monaco: null
-}
+  monaco: null,
+};
 
 export const getMonaco = async () => {
   if (exp.monaco) return exp.monaco;
@@ -37,6 +37,6 @@ export const getMonaco = async () => {
   exp.monaco = await new Promise((resolve) =>
     require(["vs/editor/editor.main"], (_m) => resolve(_m))
   );
-  
+
   return exp.monaco;
 };
