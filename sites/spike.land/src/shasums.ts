@@ -3,7 +3,7 @@ export const shasums = {
   "esbuild-dev.mjs":
     "5187c026596a8d41fb6707ad1b42c38388c6e3540fad283f8aecc671151c9e7e",
   "package.json":
-    "9e798d0cb4d668ded123aa4a814a33b295d5974b8e06cd18f65e41f94ab7366d",
+    "2b5a9ed2518e4893987a71990a4566732cee2175d54c5e2da5c3f9ec84827cb3",
   "edit/index.html":
     "6bedf2adaf3b015d95ef000fe886b446ff1cc39184be9c8f060e63a325ed50af",
   "manifest.json":
@@ -15,7 +15,7 @@ export const shasums = {
   ".vscode/settings.json":
     "59518a7d473e186d1edb3b105cac5644bb6f04a20f5d21a17b69b89b3f7837c9",
   "scripts/importmapGenerator.mjs":
-    "1da643f884542d19faf9957b8927d3f9ba1bd08166255f773f2664fd969a520c",
+    "80bed4b7b1d89d23ab755ad3adbc213428be76542c61982ecb9d03424a6f76cf",
   "assets/fonts/KFOlCnqEu92Fr1MmSU5fBBc9.ttf":
     "b4c96f55c265e0a80be4243a16f7e88b9a67c85b71b4e2aa8cea4e1aa989b0d1",
   "assets/fonts/KFOlCnqEu92Fr1MmWUlfBBc9.ttf":
@@ -57,7 +57,7 @@ export const shasums = {
   "js/test.mjs":
     "5312ca9eeb6631de50bcc6be45e0bde961294e3e817203e124480681a17fd141",
   "js/importmap.json":
-    "0d64f6b98e185914c43b308033791c9f445e4f70bd7e545cee51c42e62178cb1",
+    "f9f61272e29a84ff203e502597f61d6a1b55be9dce9a8e6b4899acbe138dac43",
   "js/workers/getWorker.mjs":
     "154a9800e6e5a342bc839ae7dfa82262e59241acd5b956f21a05109128ad151a",
   "js/workers/prettierWorker.js":
@@ -67,7 +67,7 @@ export const shasums = {
   "js/workers/transpile.worker.js":
     "d5028ca46a6f415047c6a9b22addf4f32d15617fe52d19655b25152d7a60e5d5",
   "js/codeLoader.mjs":
-    "8f865dc2e2894b0ea53d1110cc7454428ec9d131804ba5de630dd7dace8cbed1",
+    "9243136decb3fb1aee64271795cba84f1cf22ca17515dcfd0b34c173fe2410ce",
   "js/transpile.mjs":
     "3e9b4471a36bf0170b58cd0d69f7ad21b34eb29885eac3ffacbc83b0d332fd02",
   "js/data.mjs":
@@ -91,7 +91,7 @@ export const shasums = {
   "js/importScript.d.ts":
     "863a8f91f1d5750d68903b9493472d186067185cf0f9cf09f40c6c273ddef229",
   "dev.mjs.map":
-    "0807cff3bec9a26f4929c65d2acc55b199e9b2b01232a2b1860df422ea622ead",
-  "dev.mjs": "21fe1117afabb5f2a0633f09181978af49e63dde3f9f60c9fd6644ae476a33bf",
+    "8b6cfcbc94e5950a281be3a18c52f137bdc7ec38e02c67174e5b96a43ac9d25a",
+  "dev.mjs": "d5d8d06aa01d98b248b1b867d272a74b0156abc35ed77591262bd96eeb1f5e25",
   "food": "bar",
 };
