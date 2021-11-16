@@ -1,4 +1,9 @@
+const exp = {
+  monaco: null
+}
+
 export const getMonaco = async () => {
+  if (exp.monaco) return exp.monaco;
   const importScript = (src, res = []) => {
     if (typeof window === "undefined") return {};
     return (window.document.head.querySelector(`script[src="${src}"]`) &&
@@ -29,8 +34,9 @@ export const getMonaco = async () => {
   );
 
   require.config({ paths: { "vs": vsPath } });
-  const monaco = await new Promise((resolve) =>
+  exp.monaco = await new Promise((resolve) =>
     require(["vs/editor/editor.main"], (_m) => resolve(_m))
   );
-  return monaco;
+  
+  return exp.monaco;
 };

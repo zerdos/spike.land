@@ -3,7 +3,7 @@ export const shasums = {
   "esbuild-dev.mjs":
     "5187c026596a8d41fb6707ad1b42c38388c6e3540fad283f8aecc671151c9e7e",
   "package.json":
-    "2cde56cc283a79ef9910604da18112ee02351c085647cc73428e3eea3daff516",
+    "f232c2f3cb0307b28e5dd7da8bab5e997547477f8491ede5760703093968bbd8",
   "edit/index.html":
     "6bedf2adaf3b015d95ef000fe886b446ff1cc39184be9c8f060e63a325ed50af",
   "manifest.json":
@@ -57,7 +57,7 @@ export const shasums = {
   "js/test.mjs":
     "5312ca9eeb6631de50bcc6be45e0bde961294e3e817203e124480681a17fd141",
   "js/importmap.json":
-    "edc9953b6e6f99c2b95ea6401e05e210c5e4dc90564c3048864096a657e63d57",
+    "f12c4c69a274d3fc97eba30f0660dbf9f3e586c05c9765b9194f90ddcf80cf69",
   "js/workers/getWorker.mjs":
     "154a9800e6e5a342bc839ae7dfa82262e59241acd5b956f21a05109128ad151a",
   "js/workers/prettierWorker.js":
@@ -92,6 +92,6 @@ export const shasums = {
     "863a8f91f1d5750d68903b9493472d186067185cf0f9cf09f40c6c273ddef229",
   "dev.mjs.map":
     "9777a48f8f3c05ec3526e96123d18c02301e99f9d9ca0c83145d5187f54f8a18",
-  "dev.mjs": "73997c03fcf5d9a8a7ef09a53fe18877c56d935270d9d765b529c3e7a2930329",
+  "dev.mjs": "9d6078366fc871f5debc6a50b149af3a051370a7ac6ca87cbf5cefa78a6b9ef0",
   "food": "bar",
 };

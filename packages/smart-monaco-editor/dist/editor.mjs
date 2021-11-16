@@ -1,5 +1,10 @@
 // src/monaco.js
+var exp = {
+  monaco: null
+};
 var getMonaco = async () => {
+  if (exp.monaco)
+    return exp.monaco;
   const importScript = (src, res = []) => {
     if (typeof window === "undefined")
       return {};
@@ -23,8 +28,8 @@ var getMonaco = async () => {
   const vsPath = `https://unpkg.com/monaco-editor@0.30.1/min/vs`;
   const { require: require2 } = await importScript(`${vsPath}/loader.js`);
   require2.config({ paths: { "vs": vsPath } });
-  const monaco = await new Promise((resolve) => require2(["vs/editor/editor.main"], (_m) => resolve(_m)));
-  return monaco;
+  exp.monaco = await new Promise((resolve) => require2(["vs/editor/editor.main"], (_m) => resolve(_m)));
+  return exp.monaco;
 };
 
 // src/editor.ts
