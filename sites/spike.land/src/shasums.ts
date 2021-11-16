@@ -3,13 +3,13 @@ export const shasums = {
   "esbuild-dev.mjs":
     "5187c026596a8d41fb6707ad1b42c38388c6e3540fad283f8aecc671151c9e7e",
   "package.json":
-    "2b5a9ed2518e4893987a71990a4566732cee2175d54c5e2da5c3f9ec84827cb3",
+    "8117bf937bf7cf1d1fd9e8787bd9a2d75a18b5e94ae947677b69c27ad3a286df",
   "edit/index.html":
     "6bedf2adaf3b015d95ef000fe886b446ff1cc39184be9c8f060e63a325ed50af",
   "manifest.json":
     "67193a5aefec147d6b040943a63d1a42945a5ba5401653e6e0062e5251ec611f",
   "index.html":
-    "636d9df320112b9c6cf1d1ec1589289f831003914030a11e34f4cc85db41d2ec",
+    "92199769ac97003d9b449b86149eea0f8d19db27695726aea8ecbd3305753cdb",
   "favicon.ico":
     "eda0a26de2fce5c67ff530025ef9b7889a91f6893465069d6c6de6796cb8acef",
   ".vscode/settings.json":
@@ -37,7 +37,7 @@ export const shasums = {
   "assets/social-media-computer-icons-share-icon-png":
     "30b4c131034e159063469faa6ac82912e4993285210ae6dafe999c9bd0d26cf3",
   "assets/app.css":
-    "bdcdade4f11fe31e7c57a25bc6fe4e3b5383162a9e201b9f46c5d5142401846e",
+    "a77123f1bb83e6c527e4eb1f6b146d06927529b219ebe0480810c48c6fdeb282",
   "tsconfig.json":
     "e992c8b781dcf67ee3196fdc77b4deef52550fa172d9bb14bf123c9713535560",
   "js/starter.mjs":
@@ -57,7 +57,7 @@ export const shasums = {
   "js/test.mjs":
     "5312ca9eeb6631de50bcc6be45e0bde961294e3e817203e124480681a17fd141",
   "js/importmap.json":
-    "f9f61272e29a84ff203e502597f61d6a1b55be9dce9a8e6b4899acbe138dac43",
+    "77ee6b645656dc7f47c1ae41f649ec4cdf9fac4a9707edf26253600dd07e583b",
   "js/workers/getWorker.mjs":
     "154a9800e6e5a342bc839ae7dfa82262e59241acd5b956f21a05109128ad151a",
   "js/workers/prettierWorker.js":
@@ -92,6 +92,6 @@ export const shasums = {
     "863a8f91f1d5750d68903b9493472d186067185cf0f9cf09f40c6c273ddef229",
   "dev.mjs.map":
     "8b6cfcbc94e5950a281be3a18c52f137bdc7ec38e02c67174e5b96a43ac9d25a",
-  "dev.mjs": "d5d8d06aa01d98b248b1b867d272a74b0156abc35ed77591262bd96eeb1f5e25",
+  "dev.mjs": "422fab81c848f4a7c41738925a64026e6e01d8e2d7d2e9b2d1eda4ea53b8bd47",
   "food": "bar",
 };
