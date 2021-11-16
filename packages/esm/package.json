@@ -15,7 +15,8 @@
   "exports": {
     "./react.mjs": "./dist/react.mjs",
     "./react-dom.mjs": "./dist/react-dom.mjs",
-    "./react-is.mjs": "./dist/react-is.mjs"
+    "./react-is.mjs": "./dist/react-is.mjs",
+    "./framer-motion.mjs": "./dist/framer-motion.mjs"
   },
   "license": "BSD-3-Clause",
   "dependencies": {
