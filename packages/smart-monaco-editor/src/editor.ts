@@ -109,17 +109,17 @@ export default async (
         scrollBeyondLastLine: false,
         autoIndent: "full",
         accessibilitySupport: "off",
-        
+
         autoClosingQuotes: "beforeWhitespace",
         padding: {
           bottom: 300,
         },
-        lineNumbers: "on",//isMobile() ? "off" : "on",
+        lineNumbers: "on", //isMobile() ? "off" : "on",
 
         autoClosingBrackets: "beforeWhitespace",
 
         smartSelect: {
-          selectLeadingAndTrailingWhitespace: true
+          selectLeadingAndTrailingWhitespace: true,
         },
         autoClosingOvertype: "auto",
 
