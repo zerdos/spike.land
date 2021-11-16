@@ -3,7 +3,7 @@ export const shasums = {
   "esbuild-dev.mjs":
     "5187c026596a8d41fb6707ad1b42c38388c6e3540fad283f8aecc671151c9e7e",
   "package.json":
-    "17b2fa1f71f2125b180798a55c3a88b742fdd22291e6090f5eb876e0b7134661",
+    "2cde56cc283a79ef9910604da18112ee02351c085647cc73428e3eea3daff516",
   "edit/index.html":
     "6bedf2adaf3b015d95ef000fe886b446ff1cc39184be9c8f060e63a325ed50af",
   "manifest.json":
@@ -26,6 +26,8 @@ export const shasums = {
     "719df7954428f52779f3fa18641c19fc854b39394193d87eea5a61795dec8dbe",
   "assets/zed-icon-big.png":
     "1a8004c802bbcbdf49d4dacff5df98eb769d161df0d17d7a4ffd8093e957b18d",
+  "assets/synthwave.webp":
+    "81450c9cd63047123c0d34c7eea6aec7fc63ec444f3854805ab4a1bb3b8aa5b6",
   "assets/roboto.css":
     "d4cfbb0537146f1f477d5050b2b19a8ccad2cbe8d22d4d18bfefb510b53571be",
   "assets/synthwave.jpg":
@@ -35,11 +37,11 @@ export const shasums = {
   "assets/social-media-computer-icons-share-icon-png":
     "30b4c131034e159063469faa6ac82912e4993285210ae6dafe999c9bd0d26cf3",
   "assets/app.css":
-    "e1b7ce0c8beb3c44a43a8ef8149353f12c3d7c8f4f51ef4453f221a760c22863",
+    "bdcdade4f11fe31e7c57a25bc6fe4e3b5383162a9e201b9f46c5d5142401846e",
   "tsconfig.json":
     "e992c8b781dcf67ee3196fdc77b4deef52550fa172d9bb14bf123c9713535560",
   "js/starter.mjs":
-    "b05dcc32da299f2e028ad21593f48b7954141ac82ebf8766e7529424721b7ae3",
+    "fd9ec61710eaa1bede498f5dbcddad165416e8d0310dea5df0582b612ae11675",
   "js/formatter.mjs":
     "af3a15b6edab0bc477a95fa4daaa0ef619272b7036f9be91dead1c47d95a4358",
   "js/importScript.mjs":
@@ -55,7 +57,7 @@ export const shasums = {
   "js/test.mjs":
     "5312ca9eeb6631de50bcc6be45e0bde961294e3e817203e124480681a17fd141",
   "js/importmap.json":
-    "aa8bdc97dcd36c043db615e57e562706746a974e93c2efa795b9420313598ce6",
+    "edc9953b6e6f99c2b95ea6401e05e210c5e4dc90564c3048864096a657e63d57",
   "js/workers/getWorker.mjs":
     "154a9800e6e5a342bc839ae7dfa82262e59241acd5b956f21a05109128ad151a",
   "js/workers/prettierWorker.js":
@@ -89,7 +91,7 @@ export const shasums = {
   "js/importScript.d.ts":
     "863a8f91f1d5750d68903b9493472d186067185cf0f9cf09f40c6c273ddef229",
   "dev.mjs.map":
-    "938c1b41ca8b54e63982be07b22a3f0544798e14ee04bcd18a43ffbc6b6c75d1",
-  "dev.mjs": "f69982f3f7b7ececcf31d550ea9b8a82c89c37ee7565d8a1e9ce3b8fff09fe22",
+    "9777a48f8f3c05ec3526e96123d18c02301e99f9d9ca0c83145d5187f54f8a18",
+  "dev.mjs": "73997c03fcf5d9a8a7ef09a53fe18877c56d935270d9d765b529c3e7a2930329",
   "food": "bar",
 };

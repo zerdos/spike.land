@@ -1,7 +1,9 @@
 import { run } from "./reactLoader.mjs";
+import {loadMonaco} from "@spike.land/smart-monaco-editor"
 import { workboxLoader } from "./workboxLoader.mjs";
 
 workboxLoader();
+loadMonaco();
 run("window");
 
 // try {

@@ -10,7 +10,13 @@ interface StartMonacoProps {
     gylph: boolean;
   };
 }
-const monacoProm =  getMonaco();
+
+let monacoProm = getMonaco();
+
+export const loadMonaco = () => {
+  if (!monacoProm) monacoProm = getMonaco();
+  return monacoProm;
+};
 
 export default async (
   { onChange, code, language, container, options }: StartMonacoProps,
