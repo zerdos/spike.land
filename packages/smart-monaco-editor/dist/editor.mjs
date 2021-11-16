@@ -99,6 +99,7 @@ var editor_default = async ({ onChange, code, language, container, options }) =>
       mouseWheelZoom: false,
       wordWrapColumn: 80,
       useTabStops: false,
+      useShadowDOM: true,
       dragAndDrop: true,
       disableLayerHinting: true,
       formatOnPaste: false,
@@ -111,8 +112,11 @@ var editor_default = async ({ onChange, code, language, container, options }) =>
       padding: {
         bottom: 300
       },
-      lineNumbers: isMobile() ? "off" : "on",
+      lineNumbers: "on",
       autoClosingBrackets: "beforeWhitespace",
+      smartSelect: {
+        selectLeadingAndTrailingWhitespace: true
+      },
       autoClosingOvertype: "auto",
       suggest: {},
       codeLens: true,
@@ -262,12 +266,6 @@ var editor_default = async ({ onChange, code, language, container, options }) =>
     return modules;
   }
 };
-function isMobile() {
-  if (typeof window === "undefined") {
-    return false;
-  }
-  return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(window.navigator.userAgent);
-}
 export {
   editor_default as default,
   loadMonaco

@@ -98,6 +98,7 @@ export default async (
         mouseWheelZoom: false,
         wordWrapColumn: 80,
         useTabStops: false,
+        useShadowDOM: true,
         dragAndDrop: true,
         disableLayerHinting: true,
         formatOnPaste: false,
@@ -108,14 +109,18 @@ export default async (
         scrollBeyondLastLine: false,
         autoIndent: "full",
         accessibilitySupport: "off",
+        
         autoClosingQuotes: "beforeWhitespace",
         padding: {
           bottom: 300,
         },
-        lineNumbers: isMobile() ? "off" : "on",
+        lineNumbers: "on",//isMobile() ? "off" : "on",
 
         autoClosingBrackets: "beforeWhitespace",
 
+        smartSelect: {
+          selectLeadingAndTrailingWhitespace: true
+        },
         autoClosingOvertype: "auto",
 
         suggest: {},
