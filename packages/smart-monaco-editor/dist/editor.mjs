@@ -28,8 +28,9 @@ var getMonaco = async () => {
 };
 
 // src/editor.ts
+var monacoProm = getMonaco();
 var editor_default = async ({ onChange, code, language, container, options }) => {
-  const monaco = await getMonaco();
+  const monaco = await monacoProm;
   const modelUri = monaco.Uri.parse(language === "typescript" ? "file:///main.tsx" : "file:///main.html");
   const createModel = () => monaco.editor.createModel(code, language, modelUri);
   const getModel = () => {
