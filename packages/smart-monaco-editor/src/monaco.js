@@ -33,8 +33,7 @@ export const getMonaco = async () => {
     `${vsPath}/loader.js`,
   );
 
-  require.config({ paths: { "vs": vsPath },	'vs/css': { disabled: true } });
-
+  require.config({ paths: { "vs": vsPath }, "vs/css": { disabled: true } });
 
   exp.monaco = await new Promise((resolve) =>
     require(["vs/editor/editor.main"], (_m) => resolve(_m))
@@ -42,6 +41,3 @@ export const getMonaco = async () => {
 
   return exp.monaco;
 };
-
-
-

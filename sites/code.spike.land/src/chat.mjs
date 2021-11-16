@@ -1,7 +1,6 @@
 import { version } from "@spike.land/code/package.json";
 import importMap from "@spike.land/code/js/importmap.json";
 
-
 import HTML from "./index.html";
 
 import { default as npmAns } from "@spike.land/cf-npm-site";
@@ -29,7 +28,10 @@ export default {
         // Serve our HTML at the root path.
         const regex = /VERSION/ig;
         return new Response(
-          html1.replace("$$IMPORTMAP", JSON.stringify(importMap)).replaceAll(regex, version) + injection + html2,
+          html1.replace("$$IMPORTMAP", JSON.stringify(importMap)).replaceAll(
+            regex,
+            version,
+          ) + injection + html2,
           {
             headers: {
               "Content-Type": "text/html;charset=UTF-8",

@@ -47,28 +47,27 @@ export default async (
   const model = getModel();
 
   const shadowRoot = container.attachShadow({
-    mode: 'closed'
+    mode: "closed",
   });
 
-  const innerContainer = document.createElement('div');
+  const innerContainer = document.createElement("div");
   shadowRoot.appendChild(innerContainer);
   const parent = container.parentElement;
   if (parent) {
-  const {width, height} = parent.getClientRects()[0];
-  innerContainer.style.width = `${Math.min(window.innerWidth, width)}px`
-  innerContainer.style.height = `${height-28}px`
+    const { width, height } = parent.getClientRects()[0];
+    innerContainer.style.width = `${Math.min(window.innerWidth, width)}px`;
+    innerContainer.style.height = `${height - 28}px`;
 
-  parent.addEventListener("resize", (ev=>{
-    const {width, height} = parent.getClientRects()[0];
-    innerContainer.style.width = `${Math.min(window.innerWidth, width)}px`
-    innerContainer.style.height = `${height-28}px`
-    innerContainer.style.resize = "vertical"
-    innerContainer.style.overflow = "auto"
-    parent.style.overflow  = "hidden";
-     
-  }));
+    parent.addEventListener("resize", (ev) => {
+      const { width, height } = parent.getClientRects()[0];
+      innerContainer.style.width = `${Math.min(window.innerWidth, width)}px`;
+      innerContainer.style.height = `${height - 28}px`;
+      innerContainer.style.resize = "vertical";
+      innerContainer.style.overflow = "auto";
+      parent.style.overflow = "hidden";
+    });
   }
-  const innerStyle = document.createElement('style');
+  const innerStyle = document.createElement("style");
   innerStyle.innerText =
     '@import "https://unpkg.com/monaco-editor@0.30.1/min/vs/editor/editor.main.css";';
   shadowRoot.appendChild(innerStyle);
@@ -113,7 +112,7 @@ export default async (
         padding: {
           bottom: 300,
         },
-        lineNumbers: isMobile()?"off":"on",
+        lineNumbers: isMobile() ? "off" : "on",
 
         autoClosingBrackets: "beforeWhitespace",
 
@@ -293,8 +292,6 @@ export default async (
     return modules;
   }
 };
-
-
 
 function isMobile() {
   if (typeof window === "undefined") {
