@@ -19,7 +19,10 @@ import importMap from "@spike.land/code/js/importmap.json";
 //     innerHTML: JSON.stringify({ imports: { x: './y.js' } }),
 //   }));
 
-const moduleCache = {};
+const moduleCache = {
+  shimAdded: 0
+};
+
 
 export const dynamicImport = async (moduleName: string) => {
   if (!moduleCache.shimAdded) {
@@ -37,6 +40,7 @@ export const dynamicImport = async (moduleName: string) => {
       type: "importmap-shim",
       innerHTML: JSON.stringify(importMap),
     }));
+    console.log({importMap});
     document.body.appendChild(Object.assign(document.createElement("script"), {
       src: "https://unpkg.com/es-module-shims@1.3.2/dist/es-module-shims.js",
       async: "async",
