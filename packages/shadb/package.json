@@ -1,6 +1,6 @@
 {
   "name": "@spike.land/shadb",
-  "version": "0.0.71",
+  "version": "0.0.72",
   "description": "db layer top on idb",
   "sideEffects": false,
   "main": "./dist/shaDB.mjs",
