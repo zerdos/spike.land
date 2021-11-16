@@ -1,3 +1,5 @@
+import { Workbox } from "workbox-window";
+
 export const workboxLoader = async () => {
   if (
     "serviceWorker" in window.navigator
@@ -30,9 +32,7 @@ export const workboxLoader = async () => {
     // });
 
     try {
-      const { Workbox } = await import(
-        "workbox-window"
-      );
+
       const wb = new Workbox(`./js/sw.js`);
 
       wb.addEventListener("activated", async (event) => {

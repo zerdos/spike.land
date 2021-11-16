@@ -235,23 +235,15 @@ var src_default = `<!DOCTYPE html>
   <link rel="icon" type="image/png" href="@VERSION/assets/zed-icon-big.png" />
   <link rel="stylesheet" href="https://unpkg.com/modern-css-reset@1.4.0/dist/reset.min.css" />
   <link rel="stylesheet" href="@VERSION/assets/app.css" />
-
-  <script async src="https://unpkg.com/es-module-shims@1.3.1/dist/es-module-shims.js"><\/script>
   <title>Instant React Editor</title>
   <style>
     body{
       background-image: url(./assets/synthwave.webp);
     }
   </style>
-  <script type="esms-options">
-    {
-      "shimMode": true,
-      "polyfillEnable": ["css-modules", "json-modules"],
-      "nonce": "n0nce"
-    }
-    <\/script>
 </head>
 <body>
+  <script async src="https://unpkg.com/es-module-shims@1.3.1/dist/es-module-shims.js"><\/script>
   <script type="importmap">
     $$IMPORTMAP
   <\/script>
