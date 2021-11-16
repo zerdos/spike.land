@@ -26,12 +26,15 @@ export default {
 
         // Serve our HTML at the root path.
         const regex = /VERSION/ig;
-        return new Response(html1.replaceAll(regex,version) + injection + html2, {
-          headers: {
-            "Content-Type": "text/html;charset=UTF-8",
-            "Cache-Control": "no-cache",
+        return new Response(
+          html1.replaceAll(regex, version) + injection + html2,
+          {
+            headers: {
+              "Content-Type": "text/html;charset=UTF-8",
+              "Cache-Control": "no-cache",
+            },
           },
-        });
+        );
       }
 
       switch (path[0]) {

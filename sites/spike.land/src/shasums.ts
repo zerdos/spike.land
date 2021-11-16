@@ -2,10 +2,8 @@ export const shasums = {
   ".ignore": "bcae0416621b3db43d8cba1e4454a792c7af9e4b7287e51056efc5a215d95839",
   "esbuild-dev.mjs":
     "5187c026596a8d41fb6707ad1b42c38388c6e3540fad283f8aecc671151c9e7e",
-  "esbuild.mjs":
-    "fa6917c6d637ea664d0d1170b8ca241c69456508993484124c981e4f17ab5d8c",
   "package.json":
-    "47e7a5177d790247bb651214c93239f0a598f9e949901fccc102e9b908b38ceb",
+    "17b2fa1f71f2125b180798a55c3a88b742fdd22291e6090f5eb876e0b7134661",
   "edit/index.html":
     "6bedf2adaf3b015d95ef000fe886b446ff1cc39184be9c8f060e63a325ed50af",
   "manifest.json":
@@ -40,8 +38,6 @@ export const shasums = {
     "e1b7ce0c8beb3c44a43a8ef8149353f12c3d7c8f4f51ef4453f221a760c22863",
   "tsconfig.json":
     "e992c8b781dcf67ee3196fdc77b4deef52550fa172d9bb14bf123c9713535560",
-  "build.mjs":
-    "ae3b702dda3c0c9a0b775313a0eeda752811bfcb5fdf71231d368ae5a9e30940",
   "js/starter.mjs":
     "b05dcc32da299f2e028ad21593f48b7954141ac82ebf8766e7529424721b7ae3",
   "js/formatter.mjs":
