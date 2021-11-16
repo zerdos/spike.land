@@ -2,10 +2,10 @@
   "name": "@spike.land/blog-artifacts",
   "scripts": {
     "develop": "gatsby develop --https",
-    "xbuild": "gatsby build",
-    "xclean": "gatsby clean && rm -rf .cache && rm -rf public",
+    "build": "gatsby build",
+    "clean": "gatsby clean && rm -rf .cache && rm -rf public",
     "gatsby:build": "cp -afr blog/. static && gatsby build",
-    "xprepublish": "yarn build"
+    "prepublish": "yarn build"
   },
   "files": [
     "public/**/*",
