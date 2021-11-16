@@ -93,7 +93,7 @@ var editor_default = async ({ onChange, code, language, container, options }) =>
       ...options
     })
   };
-  modules.editor.onDidChangeModelContent(() => onChange(modules.editor.getValue()));
+  modules.editor.onDidChangeModelContent((e) => onChange(modules.editor.getValue(), e));
   modules.monaco.languages.typescript.typescriptDefaults.setDiagnosticsOptions({
     noSuggestionDiagnostics: true,
     noSemanticValidation: true,

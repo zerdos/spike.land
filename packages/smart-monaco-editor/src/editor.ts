@@ -1,7 +1,8 @@
 import { getMonaco } from "./monaco.js";
+import type * as monaco from "monaco-editor";
 
 interface StartMonacoProps {
-  onChange: (code: string) => void;
+  onChange: (code: string, e: monaco.editor.IModelContentChangedEvent) => void;
   code: string;
   container: HTMLElement;
   language: "html" | "javascript" | "typescript";
@@ -99,9 +100,9 @@ export default async (
     ),
   };
 
-  modules.editor.onDidChangeModelContent(() =>
-    onChange(modules.editor.getValue())
-  );
+  modules.editor.onDidChangeModelContent((
+    e: monaco.editor.IModelContentChangedEvent,
+  ) => onChange(modules.editor.getValue(), e));
 
   modules.monaco.languages.typescript.typescriptDefaults
     .setDiagnosticsOptions({
