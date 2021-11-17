@@ -33,7 +33,7 @@
   "publishConfig": {
     "access": "public"
   },
-  "gitHead": "55a99b7efecc7bb2752d443be615b8b23ef4860f",
+  "gitHead": "7b4f14ea1a68ff6cb1b33acd730da8e5542d518e",
   "dependencies": {
     "monaco-editor": "0.30.1",
     "p-all": "4.0.0"

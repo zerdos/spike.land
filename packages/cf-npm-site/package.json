@@ -10,5 +10,6 @@
   },
   "typings": "dist/index.d.ts",
   "main": "dist/index.mjs",
-  "license": "MIT"
+  "license": "MIT",
+  "gitHead": "7b4f14ea1a68ff6cb1b33acd730da8e5542d518e"
 }
