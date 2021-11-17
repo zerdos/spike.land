@@ -40,5 +40,5 @@
     "build:framer-motion": "yarn esbuild --bundle src/framer-motion.mjs --external:tslib --format=esm --external:react --external:@emotion/is-prop-valid --outfile=dist/framer-motion.mjs"
   },
   "private": false,
-  "gitHead": "76edbb42329bec617e43dd43cc2d16d542311195"
+  "gitHead": "9a6c323d30cdcb35a077b26f0c6ae6e68e923229"
 }
