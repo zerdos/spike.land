@@ -1,6 +1,8 @@
 import { getMonaco } from "./monaco.js";
 import type * as monaco from "monaco-editor";
 
+import pAll from 'p-all';
+
 interface StartMonacoProps {
   onChange: (code: string, e: monaco.editor.IModelContentChangedEvent) => void;
   code: string;
@@ -256,7 +258,7 @@ export default async (
       },
     ];
     const dts = importHelper.map(({ name, url }) =>
-      (async () =>
+      async () =>
         modules.monaco.languages.typescript.typescriptDefaults.addExtraLib(
           await (await fetch(
             url,
@@ -264,7 +266,7 @@ export default async (
           name.includes("@")
             ? `file:///node_modules/${name}`
             : `file:///node_modules/@types/${name}/index.d.ts`,
-        ))()
+        )
     );
 
     modules.monaco.languages.typescript.typescriptDefaults.setCompilerOptions(
@@ -286,7 +288,7 @@ export default async (
       },
     );
 
-    await Promise.all(dts);
+    await pAll(dts,{concurrency: 2});
 
     modules.monaco.languages.typescript.typescriptDefaults
       .setDiagnosticsOptions({
