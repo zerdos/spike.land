@@ -5,9 +5,8 @@
   "module": "./dist/index.mjs",
   "scripts": {
     "deploy": "wrangler publish",
-    "prepublish": "yarn build",
-    "clean": "deno fmt src && rm -rf dist && yarn build",
-    "build": "esbuild --bundle --format=esm --loader:.html=text --target=esnext src/index.ts --outfile=dist/index.mjs"
+    "bundle": "esbuild --bundle --format=esm --loader:.html=text --target=esnext src/index.ts --outfile=dist/index.mjs",
+    "postpublish": "yarn bundle"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "3.2.0",

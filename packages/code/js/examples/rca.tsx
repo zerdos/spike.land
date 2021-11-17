@@ -20,8 +20,9 @@ export default () => (
     <motion.div
       animate={{ rotate: 360 }}
       transition={{
+        repeat: 0,
         duration: 2,
-        loop: 0,
+        repeatType: "loop",
       }}
     >
       <div css="font-size: calc(10px + 20vmin)">|🔥|</div>

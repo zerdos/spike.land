@@ -6,8 +6,8 @@
   "main": "dist/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "clean": "rm -rf dist && mkdir dist && deno fmt src && yarn build",
-    "build": "esbuild --bundle src/spike.land.handler.ts --outfile=dist/index.js",
+    "prepublish": "rm -rf dist && mkdir dist && deno fmt src && yarn build",
+    "bundle": "esbuild --bundle src/spike.land.handler.ts --outfile=dist/index.js",
     "deploy": "yarn build && wrangler publish"
   },
   "author": "Zoltan Erdos <zoltan.erdos@me.com>",
@@ -29,5 +29,5 @@
   "devDependencies": {
     "@types/uuid": "8.3.1"
   },
-  "gitHead": "7b4f14ea1a68ff6cb1b33acd730da8e5542d518e"
+  "gitHead": "76edbb42329bec617e43dd43cc2d16d542311195"
 }

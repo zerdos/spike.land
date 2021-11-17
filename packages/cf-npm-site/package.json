@@ -11,5 +11,5 @@
   "typings": "dist/index.d.ts",
   "main": "dist/index.mjs",
   "license": "MIT",
-  "gitHead": "7b4f14ea1a68ff6cb1b33acd730da8e5542d518e"
+  "gitHead": "76edbb42329bec617e43dd43cc2d16d542311195"
 }

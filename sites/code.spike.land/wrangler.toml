@@ -8,7 +8,7 @@ route = "https://code.spike.land/*"
 compatibility_date = "2021-10-16"
 
 [build]
-command = "yarn build"
+command = "yarn bundle"
 
 [build.upload]
 format = "modules"
