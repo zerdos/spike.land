@@ -2,9 +2,9 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.assemble = exports.isDiff = exports.diff = void 0;
 const diff_1 = require("diff");
-const sha256_js_1 = require("./sha256.js");
+const ipfs_only_hash_1 = require("ipfs-only-hash");
 const diff = async (str1, str2) => {
-    const sha1Str1 = (0, sha256_js_1.sha256)(str1);
+    const sha1Str1 = ipfs_only_hash_1.default.of(str1);
     const res = (0, diff_1.diffChars)(str1, str2);
     return {
         b: await sha1Str1,

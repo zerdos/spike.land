@@ -1,5 +1,5 @@
 export function diff(str1: any, str2: any): Promise<{
-    b: string;
+    b: any;
     c: any;
 }>;
 export function isDiff(str: any): boolean;

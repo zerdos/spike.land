@@ -30,7 +30,7 @@ const exceptions = {
 
   "framer-motion":
     `https://unpkg.com/@spike.land/esm@${zedEsmLatestVersion}/dist/framer-motion.mjs`,
-    "ipfs-only-hash":
+  "ipfs-only-hash":
     `https://unpkg.com/@spike.land/esm@${zedEsmLatestVersion}/dist/ipfs-only-hash.mjs`,
 
   "uuid/": `https://unpkg.com/uuid@${uidVersion}/dist/esm-browser/`,

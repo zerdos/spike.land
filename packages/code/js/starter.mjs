@@ -3,18 +3,18 @@ const wb = () =>
 
 const runTheApp = () =>
   import("./reactLoader.mjs").then(({ run }) => run("window"));
-export default function(){
-try {
-  wb();
-} catch {
-  setTimeout(wb, 100);
-}
+export default function () {
+  try {
+    wb();
+  } catch {
+    setTimeout(wb, 100);
+  }
 
-try {
-  runTheApp();
-} catch {
-  location.reload();
-}
+  try {
+    runTheApp();
+  } catch {
+    location.reload();
+  }
 }
 // try {
 //   start();

@@ -4,7 +4,7 @@ import { openWindows } from "./openWindows.mjs";
 import { getCodeToLoad, getIPFSCodeToLoad, saveCode } from "./data.mjs";
 import { transpileCode } from "./transpile.mjs";
 import { formatter } from "./formatter.mjs";
-import { diff, assemble } from "@spike.land/shadb";
+import { assemble, diff } from "@spike.land/shadb";
 import React from "react";
 import ReactDOM from "react-dom";
 
