@@ -1,7 +1,7 @@
 {
   "private": false,
   "name": "@spike.land/todo",
-  "version": "0.0.87",
+  "version": "0.0.88",
   "publishConfig": {
     "access": "public"
   },
