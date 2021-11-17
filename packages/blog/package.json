@@ -5,8 +5,7 @@
     "build": "echo fast-ok",
     "manual-build": "gatsby build",
     "manual-clean": "gatsby clean && rm -rf .cache && rm -rf public",
-    "gatsby:build": "cp -afr blog/. static && gatsby build",
-    "prepublish": "yarn build"
+    "gatsby:build": "cp -afr blog/. static && gatsby build"
   },
   "files": [
     "public/**/*",
