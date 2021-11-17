@@ -1,8 +1,8 @@
 import { diffChars } from "diff";
-import { sha256 } from "./sha256.js";
+import Hash from "ipfs-only-hash";
 
 export const diff = async (str1, str2) => {
-  const sha1Str1 = sha256(str1);
+  const sha1Str1 = Hash.of(str1);
 
   const res = diffChars(str1, str2);
   return {

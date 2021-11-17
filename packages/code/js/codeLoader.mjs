@@ -4,7 +4,7 @@ import { openWindows } from "./openWindows.mjs";
 import { getCodeToLoad, getIPFSCodeToLoad, saveCode } from "./data.mjs";
 import { transpileCode } from "./transpile.mjs";
 import { formatter } from "./formatter.mjs";
-import { diff } from "@spike.land/shadb";
+import { diff, assemble } from "@spike.land/shadb";
 import React from "react";
 import ReactDOM from "react-dom";
 
@@ -70,6 +70,7 @@ function getSession() {
 
 export async function run(mode = "window", code = "") {
   window.diff = diff;
+  window.assemble = assemble;
 
   const session = getSession();
   window.sess = session;
