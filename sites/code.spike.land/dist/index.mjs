@@ -1,5 +1,5 @@
 // ../../packages/code/package.json
-var version = "0.0.79";
+var version = "0.0.80";
 
 // ../../packages/code/js/importmap.json
 var imports = {

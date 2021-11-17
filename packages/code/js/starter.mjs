@@ -1,9 +1,20 @@
-import { run } from "./reactLoader.mjs";
+const wb = () =>
+  import("./workboxLoader.mjs").then(({ workboxLoader }) => workboxLoader());
 
-import { workboxLoader } from "./workboxLoader.mjs";
+const runTheApp = () =>
+  import("./reactLoader.mjs").then(({ run }) => run("window"));
 
-workboxLoader();
-run("window");
+try {
+  wb();
+} catch {
+  setTimeout(wb, 100);
+}
+
+try {
+  runTheApp();
+} catch {
+  location.reload();
+}
 
 // try {
 //   start();

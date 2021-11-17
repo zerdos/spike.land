@@ -55,13 +55,13 @@ export const shasums = {
   "js/transpile.mjs":
     "3e9b4471a36bf0170b58cd0d69f7ad21b34eb29885eac3ffacbc83b0d332fd02",
   "js/starter.mjs":
-    "713cf83d9bfc30c6a50b3e59972e515c971088f6e0cffd61f663ebe75b8d0c45",
+    "be8defd9fd26fc278fa0857b6e19e12e9ee743a44f087b5d0b8fff881a203136",
   "tsconfig.json":
     "e992c8b781dcf67ee3196fdc77b4deef52550fa172d9bb14bf123c9713535560",
   "index.html":
     "f2a616b19457fd2711ee311384889299d177542307691e04fba34c66c7bd2459",
   "package.json":
-    "7cdd0bc5c2ccf548b429c36fc564b6721415fac83033a9031245dbcc9b3e9ad8",
+    "fc697492aec4b1d52e4d97be1706a06072776da94be48981514c0c6f9bac68ee",
   "esbuild-dev.mjs":
     "6991f9b31c9c03610bf242fcd2a5ee735700baeaff6b6cfca39a319dcb307eaa",
   "scripts/importmapGenerator.mjs":
