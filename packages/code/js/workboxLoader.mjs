@@ -32,7 +32,6 @@ export const workboxLoader = async () => {
     // });
 
     try {
-
       const wb = new Workbox(`./js/sw.js`);
 
       wb.addEventListener("activated", async (event) => {

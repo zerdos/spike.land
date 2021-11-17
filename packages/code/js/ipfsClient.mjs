@@ -1,10 +1,5 @@
 import { getWorker } from "./workers/getWorker.mjs";
-import {
-  all,
-  concat,
-  IPFSClient,
-  toString,
-} from "@spike.land/ipfs";
+import { all, concat, IPFSClient, toString } from "@spike.land/ipfs";
 
 const { workerSrc, forceNormalWorker } = getWorker("ipfsWorker.js");
 

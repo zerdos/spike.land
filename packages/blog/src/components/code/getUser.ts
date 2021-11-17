@@ -1,13 +1,11 @@
-import {getDB}  from "@spike.land/shadb";
+import { getDB } from "@spike.land/shadb";
 
 export const shaDB = {
   get: async (key: string, type: "string" | "json") => {
-
     const db = await (await getDB("shaDB"))();
     return db.get(key, type);
   },
   put: async (key: string, value: string) => {
-
     const db = await (await getDB("shaDB"))();
     return db.put(key, value);
   },

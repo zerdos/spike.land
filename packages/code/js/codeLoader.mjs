@@ -1,4 +1,4 @@
-import {loadMonaco} from "@spike.land/smart-monaco-editor"
+import { loadMonaco } from "@spike.land/smart-monaco-editor";
 import { renderPreviewWindow } from "./renderPreviewWindow.mjs";
 import { openWindows } from "./openWindows.mjs";
 import { getCodeToLoad, getIPFSCodeToLoad, saveCode } from "./data.mjs";
@@ -15,8 +15,6 @@ import { ipfsClient } from "./ipfsClient.mjs";
 // import Hash from "ipfs-only-hash";
 export { DraggableWindow, jsx, render } from "@spike.land/renderer";
 loadMonaco();
-
-
 
 // const charWidthSpan = document.createElement('span');
 
@@ -72,88 +70,86 @@ function getSession() {
 
 export async function run(mode = "window", code = "") {
   window.diff = diff;
-  
+
   const session = getSession();
   window.sess = session;
 
   let monaco;
 
-    console.log("Runner!");
+  console.log("Runner!");
 
-    const { pathname } = new URL(window.location.href);
+  const { pathname } = new URL(window.location.href);
 
+  if (mode === "window") {
+    await openWindows();
+  }
 
-    if (mode === "window") {
-      await openWindows();
-    }
+  session.mode = mode;
 
-    session.mode = mode;
+  if (code) {
+    session.code = await formatter(code);
+    session.transpiled = await transpileCode(session.code);
+  }
 
-    if (code) {
+  if (!code) {
+    try {
+      const { code, transpiled, html } =
+        (pathname.endsWith("/edit/") || pathname.endsWith("/edit"))
+          ? await getIPFSCodeToLoad(undefined)
+          : await getCodeToLoad();
+
       session.code = await formatter(code);
-      session.transpiled = await transpileCode(session.code);
+      session.transpiled = await transpileCode(
+        session.code,
+      ) || transpiled;
+
+      session.div.innerHTML = html;
+    } catch (e) {
+      console.error({ e, message: "couldn't start" });
+      return;
     }
+  }
 
-    if (!code) {
-      try {
-        const { code, transpiled, html } =
-          (pathname.endsWith("/edit/") || pathname.endsWith("/edit"))
-            ? await getIPFSCodeToLoad(undefined)
-            : await getCodeToLoad();
+  const container = window.document.getElementById("editor");
+  if (container === null) return "No editor window";
 
-        session.code = await formatter(code);
-        session.transpiled = await transpileCode(
-          session.code,
-        ) || transpiled;
-
-        session.div.innerHTML = html;
-      } catch (e) {
-        console.error({ e, message: "couldn't start" });
-        return;
-      }
-    }
-
-    const container = window.document.getElementById("editor");
-    if (container === null) return "No editor window";
-
-    const editorPromise = startMonaco(
+  const editorPromise = startMonaco(
+    /**
+     * @param {any} code
+     */
+    {
+      language: "typescript",
+      container: container,
+      code: session.code,
       /**
-       * @param {any} code
+       * @param {string} code
        */
-      {
-        language: "typescript",
-        container: container,
-        code: session.code,
-        /**
-         * @param {string} code
-         */
-        onChange: (code) => runner(code),
-      },
-    );
-      // session.children = await getReactChild(session.transpiled);
-    await renderPreviewWindow(
-      session,
-    );
-  
-    await restartCode(session.transpiled, session.code, session.i);
+      onChange: (code) => runner(code),
+    },
+  );
+  // session.children = await getReactChild(session.transpiled);
+  await renderPreviewWindow(
+    session,
+  );
 
-    await editorPromise;
-    monaco = window.monaco;
+  await restartCode(session.transpiled, session.code, session.i);
 
-    monaco.editor.createModel(
-      "define module './hash.js';",
-      "typescript",
-      monaco.Uri.parse("file:///refs.d.ts"),
-    );
+  await editorPromise;
+  monaco = window.monaco;
 
-    if (!session.url) {
-      session.codeNonFormatted = null;
-      await saveCode(session, session.i);
-    }
+  monaco.editor.createModel(
+    "define module './hash.js';",
+    "typescript",
+    monaco.Uri.parse("file:///refs.d.ts"),
+  );
 
-    const { sendSignalToQrCode } = await import("./sendSignalToQrCode.mjs");
-    await sendSignalToQrCode(session);
-  
+  if (!session.url) {
+    session.codeNonFormatted = null;
+    await saveCode(session, session.i);
+  }
+
+  const { sendSignalToQrCode } = await import("./sendSignalToQrCode.mjs");
+  await sendSignalToQrCode(session);
 
   /**
    * @param {string} c
@@ -200,7 +196,6 @@ export async function run(mode = "window", code = "") {
         if (session.i > counter) return;
 
         if (cd.length < 1000 && session.code.length < 1000) {
-         
           const slices = await diff(session.code, cd);
 
           if (slices.c.length <= 3) {

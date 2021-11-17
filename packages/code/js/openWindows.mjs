@@ -23,8 +23,7 @@ export async function openWindows() {
     },
   );
 
-  win.content.innerHTML =
-    `<div
+  win.content.innerHTML = `<div
     id="editor"
     style="float: left; width: 100%; height: 100%; border: 1px solid grey"
   ></div>
@@ -49,19 +48,19 @@ export async function openWindows() {
   //   }; width:100%; display: block;" id="zbody"></div>`;
 
   // if (!isMobile()) {
-    // try {
-      const element = window.document.querySelector(
-        "div:nth-child(3) > div:nth-child(1) > section:nth-child(2)"
-      );
-      if (element !== null) {
-        // deno-lint-ignore ban-ts-comment
-        //@ts-ignore
-        element.style.overflow = "hidden"
-      }
-    // } catch (e) {
-      // console.error({ e });
-    // }
-  
+  // try {
+  const element = window.document.querySelector(
+    "div:nth-child(3) > div:nth-child(1) > section:nth-child(2)",
+  );
+  if (element !== null) {
+    // deno-lint-ignore ban-ts-comment
+    //@ts-ignore
+    element.style.overflow = "hidden";
+  }
+  // } catch (e) {
+  // console.error({ e });
+  // }
+
   (function (global) {
     if (typeof (global) === "undefined") {
       throw new Error("window is undefined");
@@ -98,7 +97,6 @@ export async function openWindows() {
     };
   })(window);
 }
-
 
 // function isMobile() {
 //   if (typeof window === "undefined") {

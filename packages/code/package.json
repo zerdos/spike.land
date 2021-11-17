@@ -16,7 +16,7 @@
     "clean": "rm -rf .tsBuildInfo modules",
     "start": "cd ../.. && yarn start",
     "push": "cd ../.. && yarn push",
-    "build": "node --experimental-json-modules esbuild-dev.mjs"
+    "build": "deno fmt .  && node --experimental-json-modules esbuild-dev.mjs"
   },
   "keywords": [
     "monaco",
