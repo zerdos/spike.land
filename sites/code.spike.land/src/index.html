@@ -27,7 +27,8 @@
     $$IMPORTMAP
   </script>
   <script type="module">
-    import app from "@VERSION/js/starter.mjs";
+    import app from "app";
+    app()
   </script>
   <script type="text/javascript">
     (async()=>{
@@ -119,7 +120,7 @@ let lastSeenCode = "";
           lastSeenCode = data.message;
           chCode(data.message)
         }
-       // addChatMessage(data.name, data.message);
+      // addChatMessage(data.name, data.message);
         lastSeenTimestamp = data.timestamp;
       }
     }

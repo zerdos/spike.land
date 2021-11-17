@@ -1,5 +1,5 @@
 // ../../packages/code/package.json
-var version = "0.0.85";
+var version = "0.0.86";
 
 // ../../packages/code/js/importmap.json
 var imports = {
@@ -197,26 +197,26 @@ var imports = {
   "@emotion/unitless": "https://unpkg.com/@emotion/unitless@0.7.5/dist/unitless.browser.esm.js",
   "@emotion/weak-memoize": "https://unpkg.com/@emotion/weak-memoize@0.2.5/dist/weak-memoize.browser.esm.js",
   "prop-types": "https://esm.sh/prop-types",
-  "framer-motion": "https://unpkg.com/@spike.land/esm@0.0.85/dist/framer-motion.mjs",
+  "framer-motion": "https://unpkg.com/@spike.land/esm@0.0.86/dist/framer-motion.mjs",
   framesync: "https://unpkg.com/framesync@6.0.1/dist/es/index.mjs",
   "hey-listen": "https://unpkg.com/hey-listen@1.0.8/dist/hey-listen.es.js",
   "hoist-non-react-statics": "https://esm.sh/hoist-non-react-statics",
   popmotion: "https://unpkg.com/popmotion@11.0.0/dist/es/index.mjs",
-  react: "https://unpkg.com/@spike.land/esm@0.0.85/dist/react.mjs",
-  "react-dom": "https://unpkg.com/@spike.land/esm@0.0.85/dist/react-dom.mjs",
-  "react-is": "https://unpkg.com/@spike.land/esm@0.0.85/dist/react-is.mjs",
+  react: "https://unpkg.com/@spike.land/esm@0.0.86/dist/react.mjs",
+  "react-dom": "https://unpkg.com/@spike.land/esm@0.0.86/dist/react-dom.mjs",
+  "react-is": "https://unpkg.com/@spike.land/esm@0.0.86/dist/react-is.mjs",
   "react-transition-group": "https://esm.sh/react-transition-group",
   "react/jsx-runtime": "https://esm.sh/react/jsx-runtime",
-  "@spike.land/renderer": "https://unpkg.com/@spike.land/renderer@0.0.85/dist/renderer.js",
+  "@spike.land/renderer": "https://unpkg.com/@spike.land/renderer@0.0.86/dist/renderer.js",
   "style-value-types": "https://unpkg.com/style-value-types@5.0.0/dist/es/index.mjs",
   stylis: "https://unpkg.com/stylis@4.0.10/dist/stylis.mjs",
-  "@spike.land/qrious": "https://unpkg.com/@spike.land/qrious@0.0.85/dist/QRious.mjs",
+  "@spike.land/qrious": "https://unpkg.com/@spike.land/qrious@0.0.86/dist/QRious.mjs",
   tslib: "https://unpkg.com/tslib@2.3.1/tslib.es6.js",
   "@zedvision/swm": "https://unpkg.com/@zedvision/swm@4.0.0/public/swm-esm.js",
   "uuid/": "https://unpkg.com/uuid@8.3.2/dist/esm-browser/",
-  "@spike.land/code": "https://unpkg.com/@spike.land/code@0.0.85/js/reactLoader.mjs",
+  "@spike.land/code": "https://unpkg.com/@spike.land/code@0.0.86/js/reactLoader.mjs",
   comlink: "https://unpkg.com/comlink@4.3.1/dist/esm/comlink.mjs",
-  "@spike.land/ipfs": "https://unpkg.com/@spike.land/ipfs@0.0.85/dist/ipfs.client.mjs",
+  "@spike.land/ipfs": "https://unpkg.com/@spike.land/ipfs@0.0.86/dist/ipfs.client.mjs",
   "workbox-window": "https://unpkg.com/workbox-window@6.4.1/build/workbox-window.prod.es5.mjs"
 };
 var importmap_default = {
@@ -252,7 +252,10 @@ var src_default = `<!DOCTYPE html>
   <script type="importmap">
     $$IMPORTMAP
   <\/script>
-  <script type="module" src="@VERSION/js/starter.mjs"><\/script>
+  <script type="module">
+    import app from "app";
+    app()
+  <\/script>
   <script type="text/javascript">
     (async()=>{
     let currentWebSocket = null;
@@ -343,7 +346,7 @@ let lastSeenCode = "";
           lastSeenCode = data.message;
           chCode(data.message)
         }
-       // addChatMessage(data.name, data.message);
+      // addChatMessage(data.name, data.message);
         lastSeenTimestamp = data.timestamp;
       }
     }
@@ -428,6 +431,7 @@ var chat_default = {
               console.log(${rand});
           `;
         const regex = /VERSION/ig;
+        importmap_default.imports.app = `./@${version}/js/starter.mjs`;
         return new Response(html1.replace("$$IMPORTMAP", JSON.stringify(importmap_default)).replaceAll(regex, version) + injection + html2, {
           headers: {
             "Content-Type": "text/html;charset=UTF-8",

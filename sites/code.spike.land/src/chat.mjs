@@ -27,6 +27,7 @@ export default {
 
         // Serve our HTML at the root path.
         const regex = /VERSION/ig;
+        importMap.imports.app = `./@${version}/js/starter.mjs`;
         return new Response(
           html1.replace("$$IMPORTMAP", JSON.stringify(importMap)).replaceAll(
             regex,
