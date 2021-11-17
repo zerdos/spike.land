@@ -23,6 +23,7 @@
     "@types/react": "17.0.35",
     "@types/react-dom": "17.0.11",
     "esbuild": "0.13.14",
+    "framer-motion": "5.3.0",
     "react": "17.0.2",
     "react-dom": "17.0.2",
     "react-is": "17.0.2"
@@ -36,7 +37,7 @@
     "build:react": "yarn esbuild --bundle src/react.mjs --format=esm --outfile=dist/react.mjs",
     "build:react-is": "yarn esbuild --bundle src/react-is.mjs --format=esm --outfile=dist/react-is.mjs",
     "build:react-dom": "yarn esbuild --bundle src/react-dom.mjs --external:react --external:react-is  --format=esm --outfile=dist/react-dom.mjs",
-    "build:framer-motion": "yarn esbuild --bundle src/framer-motion.mjs --format=esm --external:react --external:@emotion/* --external:react-is  --tree-shaking=true --minify --outfile=dist/framer-motion.mjs"
+    "build:framer-motion": "yarn esbuild --bundle src/framer-motion.mjs --external:tslib --format=esm --external:react --external:@emotion/is-prop-valid --outfile=dist/framer-motion.mjs"
   },
   "private": false,
   "gitHead": "55a99b7efecc7bb2752d443be615b8b23ef4860f"
