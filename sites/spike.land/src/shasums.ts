@@ -1,9 +1,9 @@
 export const shasums = {
-  "dev.mjs": "0f6f29655205c5635f0aeec7764aa3bed4b4ab2d679371394f8df17115fb1174",
+  "dev.mjs": "e35c3a4c7230233dc347885cf0961ceb4235422c5e90036bac0afd6cf0f665fc",
   "edit/index.html":
     "6bedf2adaf3b015d95ef000fe886b446ff1cc39184be9c8f060e63a325ed50af",
   "dev.mjs.map":
-    "40a1f6149e50491d06899c4b13c7b440c4ef7e394df8d8388ec93d70986aabb5",
+    "04bcec9cd090558545b51ee8eaf1cab4058a4e125c7e4c2e1b6d3b49c596c8c1",
   ".vscode/settings.json":
     "59518a7d473e186d1edb3b105cac5644bb6f04a20f5d21a17b69b89b3f7837c9",
   "js/ipfsClient.mjs":
@@ -29,9 +29,9 @@ export const shasums = {
   "js/templates.ts":
     "c2fd203867b8fdab66b62e5a46c232b9ea539398eac7cbbb54298b00b85bfd2f",
   "js/codeLoader.mjs":
-    "ceba11e5c63166e3c0826f71036b0d324bb755b4f0d0aff7b14850dce49cb3c1",
+    "49d7a35610cd3ff010a2413958f0557e005603f5fedd8939d51a3533a72af804",
   "js/importmap.json":
-    "ad3ee083d83526b5092492b1636adb41e58f85177e6c9abe54e465a1d523746e",
+    "ffb2891e02b472cc7f04a2a890f7fcb5bbd529b3d645bea419d7188cadbbbdfb",
   "js/sw.js":
     "e8493b6ab208d22c048635935efa2932a9abc4994b32ef4bacc59f604ca1eb53",
   "js/share.mjs":
@@ -55,17 +55,17 @@ export const shasums = {
   "js/transpile.mjs":
     "3e9b4471a36bf0170b58cd0d69f7ad21b34eb29885eac3ffacbc83b0d332fd02",
   "js/starter.mjs":
-    "fa1251b42864f7e14ec9414c26dbf2e14a0ec0bfc34e398b6e69af2de1f8f11b",
+    "2c9fcf92b93a17c6d1188a87e729e95d8d930fbdc024c91b7b45a9bfa53a0522",
   "tsconfig.json":
     "e992c8b781dcf67ee3196fdc77b4deef52550fa172d9bb14bf123c9713535560",
   "index.html":
     "ace344796a5c5214be3f5de5e9241ee2aff5bff525956debeea3ab4a4995f5b7",
   "package.json":
-    "a4c19b9d39ee10b9e2318ad4e955d54ea21541f72b622a5cd3fdf92a0230f6d8",
+    "8f2ee4eedfb584886e30560a035bc0beb85a6ba6c0e3ef0193639a400a49fa69",
   "esbuild-dev.mjs":
-    "dc76461dbeed8fe4f9d88e61c3521df0b69b4e8d9a526df8552aaa818520f13e",
+    "2ce6dbeb1a973464803bea837e46beed452727e2153fc5ab12c6d9e1007dec69",
   "scripts/importmapGenerator.mjs":
-    "3ee3cd9154ec6e1996a09d985bcb8be8f7ba1e71bf7ef23ce67484414840e57e",
+    "c1af17d89d1ea176ff835327403b5711c20861824280109c6ce31d5ce649e1c5",
   "manifest.json":
     "67193a5aefec147d6b040943a63d1a42945a5ba5401653e6e0062e5251ec611f",
   ".ignore": "bcae0416621b3db43d8cba1e4454a792c7af9e4b7287e51056efc5a215d95839",
