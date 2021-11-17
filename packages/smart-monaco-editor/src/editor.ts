@@ -1,7 +1,7 @@
 import { getMonaco } from "./monaco.js";
 import type * as monaco from "monaco-editor";
 
-import pAll from 'p-all';
+import pAll from "p-all";
 
 interface StartMonacoProps {
   onChange: (code: string, e: monaco.editor.IModelContentChangedEvent) => void;
@@ -288,7 +288,7 @@ export default async (
       },
     );
 
-    await pAll(dts,{concurrency: 2});
+    await pAll(dts, { concurrency: 2 });
 
     modules.monaco.languages.typescript.typescriptDefaults
       .setDiagnosticsOptions({

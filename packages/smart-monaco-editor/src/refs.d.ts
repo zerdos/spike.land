@@ -1,3 +1,3 @@
 /// <reference lib="dom" />
 
-declare module "await-semaphore"; 
+declare module "await-semaphore";
