@@ -3,7 +3,7 @@ const wb = () =>
 
 const runTheApp = () =>
   import("./reactLoader.mjs").then(({ run }) => run("window"));
-
+export default function(){
 try {
   wb();
 } catch {
@@ -15,7 +15,7 @@ try {
 } catch {
   location.reload();
 }
-
+}
 // try {
 //   start();
 // } catch (error) {

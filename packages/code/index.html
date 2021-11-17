@@ -35,7 +35,10 @@
 </head>
 <body>
   <script type="importmap-shim" src="./js/importmap.json"></script>
-  <script type="module-shim" src="./js/starter.mjs"></script>
+  <script type="module-shim">
+    import app from "./js/starter.mjs";
+    app();
+  </script>
   <script type="text/javascript">
     let currentWebSocket = null;
 
