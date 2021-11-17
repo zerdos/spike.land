@@ -8,6 +8,7 @@ const run = async () => {
   devGenerator.setXfce();
   devGenerator.setDeno();
   devGenerator.setDotnet("6");
+  devGenerator.updateGit(true);
   devGenerator.setZsh();
   devGenerator.setDocker();
   devGenerator.setVscode();

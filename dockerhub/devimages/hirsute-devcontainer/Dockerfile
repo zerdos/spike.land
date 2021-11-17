@@ -47,6 +47,30 @@ RUN (addgroup --gid 1000 ${USER}  \
   && chmod +x /usr/bin/startx /usr/bin/startWithBash \
   && echo "(sudo sysctl fs.inotify.max_user_watches=524288 fs.inotify.max_user_instances=524288 net.core.somaxconn=524288 fscache.object_max_active=524288 || echo failed) && (sudo sysctl -p || echo failed) && (sudo chown ${USER}:${USER} /home/${USER}/tmpfs)" >> /usr/bin/startx \
   && echo "bash /usr/bin/startx" >> /usr/bin/startWithBash && chmod +x /usr/bin/startWithBash 
+### git.Dockerfile
+
+RUN apt-get update && \ 
+    apt-get install --no-install-recommends -y \ 
+    make \
+    libssl-dev \
+    libghc-zlib-dev \
+    libcurl4-gnutls-dev \
+    libexpat1-dev \
+    gettext \
+    gpg \
+&& curl -Lo /usr/src/git.tar.gz  https://github.com/git/git/archive/v2.34.0.tar.gz \
+&& tar -C /usr/src/ -xf /usr/src/git.tar.gz && cd /usr/src/git-* \
+&& make prefix=/usr/local all \
+&& make prefix=/usr/local install \
+&& apt-get remove -y \
+    libssl-dev \
+    libghc-zlib-dev \
+    libcurl4-gnutls-dev \
+    libexpat1-dev \
+    gettext \
+&& apt-get autoremove -y \
+&& apt-get clean -y \
+&& rm -rf /tmp/* /var/lib/apt/lists/* /usr/src/*
 ENV NODE_VERSION 17.1.0
 RUN ARCH= && dpkgArch="$(dpkg --print-architecture)" \
   && case "${dpkgArch##*-}" in \
