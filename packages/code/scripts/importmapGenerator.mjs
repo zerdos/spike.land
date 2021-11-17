@@ -30,6 +30,8 @@ const exceptions = {
 
   "framer-motion":
     `https://unpkg.com/@spike.land/esm@${zedEsmLatestVersion}/dist/framer-motion.mjs`,
+    "ipfs-only-hash":
+    `https://unpkg.com/@spike.land/esm@${zedEsmLatestVersion}/dist/ipfs-only-hash.mjs`,
 
   "uuid/": `https://unpkg.com/uuid@${uidVersion}/dist/esm-browser/`,
 };
@@ -169,6 +171,7 @@ const list = [
   "stylis",
   "@spike.land/qrious",
   "tslib",
+  "ipfs-only-hash",
   "@zedvision/swm",
   "uuid/",
   "@spike.land/code",

@@ -9,7 +9,7 @@
     "import": "./dist/shaDB.mjs"
   },
   "scripts": {
-    "build": "esbuild --bundle --tree-shaking=true --minify --target=es2020 src/shaDB.js --format=esm  --outfile=./dist/shaDB.mjs",
+    "build": "esbuild --bundle --tree-shaking=true --minify --external:ipfs-only-hash --target=es2020 src/shaDB.js --format=esm  --outfile=./dist/shaDB.mjs",
     "clean": "rm -rf dist tsconfig.tsbuildinfo && mkdir dist && yarn tsc -d && yarn build"
   },
   "keywords": [
@@ -30,6 +30,7 @@
   "gitHead": "9a6c323d30cdcb35a077b26f0c6ae6e68e923229",
   "dependencies": {
     "diff": "5.0.0",
+    "ipfs-only-hash": "4.0.0",
     "esbuild": "0.13.14",
     "idb": "6.1.5"
   },

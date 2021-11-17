@@ -2,8 +2,9 @@
   "name": "@spike.land/blog-artifacts",
   "scripts": {
     "develop": "gatsby develop --https",
-    "build": "gatsby build",
-    "clean": "gatsby clean && rm -rf .cache && rm -rf public",
+    "build": "echo fast-ok",
+    "manual-build": "gatsby build",
+    "manual-clean": "gatsby clean && rm -rf .cache && rm -rf public",
     "gatsby:build": "cp -afr blog/. static && gatsby build",
     "prepublish": "yarn build"
   },

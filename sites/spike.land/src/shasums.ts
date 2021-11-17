@@ -1,9 +1,9 @@
 export const shasums = {
-  "dev.mjs": "ef3d7ad50334c32f6903dbd72d828bbcfedf55d5d33fc81fea104ecb471b85c5",
+  "dev.mjs": "0f6f29655205c5635f0aeec7764aa3bed4b4ab2d679371394f8df17115fb1174",
   "edit/index.html":
     "6bedf2adaf3b015d95ef000fe886b446ff1cc39184be9c8f060e63a325ed50af",
   "dev.mjs.map":
-    "66ba41c351c1248052778db76bcbcbfe132d6c97c88bbfc60631520ca8ab4f13",
+    "40a1f6149e50491d06899c4b13c7b440c4ef7e394df8d8388ec93d70986aabb5",
   ".vscode/settings.json":
     "59518a7d473e186d1edb3b105cac5644bb6f04a20f5d21a17b69b89b3f7837c9",
   "js/ipfsClient.mjs":
@@ -29,9 +29,9 @@ export const shasums = {
   "js/templates.ts":
     "c2fd203867b8fdab66b62e5a46c232b9ea539398eac7cbbb54298b00b85bfd2f",
   "js/codeLoader.mjs":
-    "79b149d2f26698fa5f571faf994ff17d9e4a1e75dc055cd1e7f4eb6b242ca969",
+    "ceba11e5c63166e3c0826f71036b0d324bb755b4f0d0aff7b14850dce49cb3c1",
   "js/importmap.json":
-    "33a10a2ff62b4091ad4b2c9506130bab9f7d3854fe6224b5cb80903de1c6597c",
+    "ad3ee083d83526b5092492b1636adb41e58f85177e6c9abe54e465a1d523746e",
   "js/sw.js":
     "e8493b6ab208d22c048635935efa2932a9abc4994b32ef4bacc59f604ca1eb53",
   "js/share.mjs":
@@ -59,13 +59,13 @@ export const shasums = {
   "tsconfig.json":
     "e992c8b781dcf67ee3196fdc77b4deef52550fa172d9bb14bf123c9713535560",
   "index.html":
-    "127e0355ef8b6ce563ef11e15dd4e6cc56eb4e98da4044613aedb6a5207edce9",
+    "ace344796a5c5214be3f5de5e9241ee2aff5bff525956debeea3ab4a4995f5b7",
   "package.json":
-    "2bb99021dfcffc466ba2872a9ad7f74320281265f0f6a103b956ae4043f4752e",
+    "a4c19b9d39ee10b9e2318ad4e955d54ea21541f72b622a5cd3fdf92a0230f6d8",
   "esbuild-dev.mjs":
-    "6991f9b31c9c03610bf242fcd2a5ee735700baeaff6b6cfca39a319dcb307eaa",
+    "dc76461dbeed8fe4f9d88e61c3521df0b69b4e8d9a526df8552aaa818520f13e",
   "scripts/importmapGenerator.mjs":
-    "f175f4870bc2f25bd36249ff8c4682ca3bfa1ea221d2d10e4da0ff514bb08bec",
+    "3ee3cd9154ec6e1996a09d985bcb8be8f7ba1e71bf7ef23ce67484414840e57e",
   "manifest.json":
     "67193a5aefec147d6b040943a63d1a42945a5ba5401653e6e0062e5251ec611f",
   ".ignore": "bcae0416621b3db43d8cba1e4454a792c7af9e4b7287e51056efc5a215d95839",
