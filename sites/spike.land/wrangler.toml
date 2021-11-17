@@ -17,5 +17,3 @@ kv_namespaces = [
 [dev]
 port=9000
 local_protocol="https"
-[build]
-command = "yarn build"

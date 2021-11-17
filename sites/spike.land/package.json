@@ -8,7 +8,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "prepublish": "rm -rf dist && mkdir dist && deno fmt src && yarn bundle",
     "bundle": "esbuild --bundle src/spike.land.handler.ts --outfile=dist/index.js",
-    "deploy": "yarn build && wrangler publish"
+    "deploy": "yarn bundle && wrangler publish"
   },
   "author": "Zoltan Erdos <zoltan.erdos@me.com>",
   "license": "MIT",
