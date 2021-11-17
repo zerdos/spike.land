@@ -13,10 +13,12 @@
     "./js/importmap.json": "./js/importmap.json"
   },
   "scripts": {
-    "clean": "rm -rf .tsBuildInfo modules",
+    "clean": "yarn importmap && rm -rf .tsBuildInfo",
     "start": "cd ../.. && yarn start",
     "push": "cd ../.. && yarn push",
-    "build": "deno fmt .  && node --experimental-json-modules esbuild-dev.mjs"
+    "build": "deno fmt . && node --experimental-json-modules esbuild-dev.mjs",
+    "importmap": "node scripts/importmapGenerator.mjs > js/importmap.json",
+    "postpublish": "yarn importmap"
   },
   "keywords": [
     "monaco",

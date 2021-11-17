@@ -12,7 +12,6 @@
   ],
   "scripts": {
     "screenshot": "rm -rf spike.land-1920x1080.png && npx pageres-cli https://code.spike.land 1920x1080 --delay=5 --scale=1",
-    "importmap": "node packages/code/scripts/importmapGenerator.mjs > packages/code/js/importmap.json",
     "build:renderer": "cd packages/renderer && yarn build",
     "build:code": "cd packages/code && yarn build",
     "build:editor": "cd packages/smart-monaco-editor && yarn build",
