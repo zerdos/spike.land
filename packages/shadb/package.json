@@ -1,6 +1,6 @@
 {
   "name": "@spike.land/shadb",
-  "version": "0.0.86",
+  "version": "0.0.87",
   "description": "db layer top on idb",
   "sideEffects": false,
   "main": "./dist/shaDB.mjs",
@@ -30,9 +30,9 @@
   "gitHead": "9a6c323d30cdcb35a077b26f0c6ae6e68e923229",
   "dependencies": {
     "diff": "5.0.0",
-    "ipfs-only-hash": "4.0.0",
     "esbuild": "0.13.14",
-    "idb": "6.1.5"
+    "idb": "6.1.5",
+    "ipfs-only-hash": "4.0.0"
   },
   "devDependencies": {
     "typescript": "4.5.2"
