@@ -52,7 +52,7 @@
     "@babel/preset-typescript": "7.16.0",
     "@types/clone-deep": "4.0.1",
     "@types/express": "4.17.13",
-    "@types/jest": "27.0.2",
+    "@types/jest": "27.0.3",
     "@types/lodash": "4.14.177",
     "@types/md5": "2.3.1",
     "@types/minio": "7.0.11",
