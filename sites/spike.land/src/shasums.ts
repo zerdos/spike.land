@@ -1,5 +1,5 @@
 export const shasums = {
-  "dev.mjs": "f701ff09d6f20fe10dade88305184cff54333bdc1ed0a8cc2494dbdf3f75a4f6",
+  "dev.mjs": "4fc558fe7cf514c28fab3c250d67cdf66082ed3cb49c6ced29f5fe009076fc9a",
   "edit/index.html":
     "6bedf2adaf3b015d95ef000fe886b446ff1cc39184be9c8f060e63a325ed50af",
   "dev.mjs.map":
@@ -31,7 +31,7 @@ export const shasums = {
   "js/codeLoader.mjs":
     "2248159128d3f68544db0cc6a0b9d5edc81c6c34ebfd2c137244f9ccdafb6a22",
   "js/importmap.json":
-    "31aac055649d4898191d8bc82cdc8dc76be4cb6285e29c5f0882f362dad1188d",
+    "68cbed08e68277f6502064d8f16a85a5102be86fce28cd436dc33df7d6d2d364",
   "js/sw.js":
     "e8493b6ab208d22c048635935efa2932a9abc4994b32ef4bacc59f604ca1eb53",
   "js/share.mjs":
