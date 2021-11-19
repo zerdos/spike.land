@@ -1,5 +1,6 @@
 import { sha256, shaDB } from "@spike.land/shadb";
 import v4 from "uuid/v4";
+import Hash from "ipfs-only-hash"
 
 /** @type {string} */
 let uuid;
@@ -218,7 +219,8 @@ export const saveCode =
 
     if (window.broad && codeNonFormatted) {
       const { broad } = window;
-      broad(codeNonFormatted);
+      const hasOfCode = await Hash.of(codeNonFormatted);
+      broad(codeNonFormatted, hasOfCode);
     }
     // const saveCode = async () => {
     //   const res = await ipfsClient.add(code, { onlyHash: true });

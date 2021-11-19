@@ -3075,6 +3075,7 @@ var require_v4 = __commonJS({
 });
 
 // js/data.mjs
+import Hash from "https://unpkg.com/@spike.land/esm@0.1.0/dist/ipfs-only-hash.mjs";
 async function addNewProject(projectName, hash3) {
   uuid = await getUserId();
   const userData = await Oe.get(uuid, "json") || { list: [] };
@@ -3243,7 +3244,8 @@ var init_data = __esm({
       toSave.code = opts.code;
       if (window.broad && codeNonFormatted) {
         const { broad } = window;
-        broad(codeNonFormatted);
+        const hasOfCode = await Hash.of(codeNonFormatted);
+        broad(codeNonFormatted, hasOfCode);
       }
       const { shareItAsHtml: shareItAsHtml2 } = await Promise.resolve().then(() => (init_share(), share_exports));
       const sharePromise = shareItAsHtml2({ code, html: html2, transpiled });

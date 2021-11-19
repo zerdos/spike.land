@@ -108,7 +108,7 @@
       console.log("connected");
       currentWebSocket = ws;
       window.chCode = chCode;
-      window.broad = async (code) => {
+      window.broad = async (code, hashOfCode) => {
         if (code !== lastSeenCode) {
           let difference;
           try {
@@ -121,7 +121,7 @@
             console.error({ e });
           }
 
-          currentWebSocket.send(JSON.stringify({ difference, code }));
+          currentWebSocket.send(JSON.stringify({ difference, hashOfCode }));
         }
       };
 

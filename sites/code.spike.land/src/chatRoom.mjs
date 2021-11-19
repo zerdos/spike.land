@@ -1,6 +1,7 @@
 import { handleErrors } from "./handleErrors.mjs";
 import { RateLimiterClient } from "./rateLimiterClient.mjs";
 import DiffMatchPatch from "diff-match-patch"
+import Hash from "ipfs-only-hash"
 
 // =======================================================================================
 // The ChatRoom Durable Object Class
@@ -181,6 +182,8 @@ export class Code {
           const dmp = new DiffMatchPatch();
           const patches = dmp.patch_fromText(difference);
           code = dmp.patch_apply(patches, lastSeenCode)[0];
+          const hashOfAPatched = await Hash.of(code);
+          if (data.hashOfAPatched )
           await this.storage.put("lastSeenCode", code);
         }
         // if (code) {
