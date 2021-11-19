@@ -130,6 +130,7 @@
     });
 
     ws.addEventListener("message", (event) => {
+      try{
       let data = JSON.parse(event.data);
       if (data.code) {
           lastSeenCode = data.code;
@@ -170,6 +171,9 @@
       }
       // addChatMessage(data.name, data.message);
       lastSeenTimestamp = data.timestamp;
+    } catch(e){
+      console.error({e});
+    }
     });
 
     ws.addEventListener("close", (event) => {

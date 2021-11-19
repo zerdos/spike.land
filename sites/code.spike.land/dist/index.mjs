@@ -1756,6 +1756,7 @@ var src_default = `<!DOCTYPE html>
     });
 
     ws.addEventListener("message", (event) => {
+      try{
       let data = JSON.parse(event.data);
       if (data.code) {
           lastSeenCode = data.code;
@@ -1796,6 +1797,9 @@ var src_default = `<!DOCTYPE html>
       }
       // addChatMessage(data.name, data.message);
       lastSeenTimestamp = data.timestamp;
+    } catch(e){
+      console.error({e});
+    }
     });
 
     ws.addEventListener("close", (event) => {
