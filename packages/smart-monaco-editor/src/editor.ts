@@ -80,10 +80,28 @@ export default async (
       innerContainer,
       {
         formatOnType: false,
+        
         scrollbar: {
-          horizontal: "hidden",
+          // Subtle shadows to the left & top. Defaults to true.
+          useShadows: false,
+      
+          // Render vertical arrows. Defaults to false.
           verticalHasArrows: true,
-          verticalScrollbarSize: 20,
+          // Render horizontal arrows. Defaults to false.
+          horizontalHasArrows: true,
+      
+          // Render vertical scrollbar.
+          // Accepted values: 'auto', 'visible', 'hidden'.
+          // Defaults to 'auto'
+          vertical: 'visible',
+          // Render horizontal scrollbar.
+          // Accepted values: 'auto', 'visible', 'hidden'.
+          // Defaults to 'auto'
+          horizontal: 'visible',
+      
+          verticalScrollbarSize: 17,
+          horizontalScrollbarSize: 17,
+          arrowSize: 30
         },
         minimap: {
           enabled: true,

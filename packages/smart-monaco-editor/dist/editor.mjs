@@ -339,9 +339,14 @@ var editor_default = async ({ onChange, code, language, container, options }) =>
     editor: monaco.editor.create(innerContainer, {
       formatOnType: false,
       scrollbar: {
-        horizontal: "hidden",
+        useShadows: false,
         verticalHasArrows: true,
-        verticalScrollbarSize: 20
+        horizontalHasArrows: true,
+        vertical: "visible",
+        horizontal: "visible",
+        verticalScrollbarSize: 17,
+        horizontalScrollbarSize: 17,
+        arrowSize: 30
       },
       minimap: {
         enabled: true,

@@ -9,12 +9,12 @@ added QmVP5gg9nYuPg1au5pBmdn75xmUvuGevRPLhEngyEyQfkT code/assets/synthwave.jpg
 added QmVUXK99dtKSob78XiURnzafewgiF7dTy8LkRJMR3yNTaS code/assets/synthwave.webp
 added QmZ5Nic3MRHT8m9SY5ZrSp38UHGEYmJqgk4RAmDV3xXqa1 code/assets/triangle-geometry.png
 added QmeHY7RZzR5wm9ELZr5xgq6XMQKjRAHgmxoQaCzHjgpRm8 code/assets/zed-icon-big.png
-added QmYRdQ5NbBygodFmk7JVT5V3PFVwzXFFPWBbjEYQZhdRHS code/dev.mjs
-added QmQTsSLqRnw8dWdtrdvyPRRoY4UCA4z9tUibUiQoqt2jUf code/dev.mjs.map
+added QmSudm1oPH7bEwgVUWkE1erHhCA7ikkiZpKmr2vZ9wp2AC code/dev.mjs
+added QmSuLvCpPaYWAcN3AZpESgYfkV7sKtVJttt7cCSfN3LyiG code/dev.mjs.map
 added QmfXTNa9t9Yi9mcrrK9Y8fi6yfSzJ89XxCmGShH1CyZjFX code/edit/index.html
 added QmUqp7sUH1QAkE8uVZgozsNufupqgDcQR7eMhpjR3GERhv code/esbuild-dev.mjs
 added QmWF8oNe7SDdaY6t4WrJ8ZzM46dHEFmHDXzd8MBeNrELxe code/favicon.ico
-added QmRE83PaGqSQ1soX1Kz9sTfFn1jz8rwBtzArSRWbb8Ywwm code/index.html
+added QmZExJpoLhdE5ihHDzrXHSwZuBNkKSivbnqsTcMKFLjMu1 code/index.html
 added Qmdtmui8WuFbwVZTJVxVCQGqbrkzAsmnQShNNBS6L4WE6t code/js/codeLoader.mjs
 added QmbUe7fpk5FnHH98jq5DHtwunwQWjbxyEFT93ukGgPofSL code/js/data.mjs
 added QmNbioNuTEMZYjG8fuoKMK1Kph4dakn2k8GA5Vspfjr9A8 code/js/examples/app.tsx
@@ -41,7 +41,7 @@ added QmSetyS7xucfSd5wz4x6KKrdAecYU2EM83E23hnHhmzNES code/js/workers/ipfsWorker.
 added QmTzHQedmz11rTh1HHJuyEas3DgSW5ct8BzzSSWMLpQgB7 code/js/workers/prettierWorker.js
 added QmURZxeJkk2kQjNfhBb98B9vH6FnbUefPZedZw6RN8rw45 code/js/workers/transpile.worker.js
 added QmXmokoZc6CTgga36sBaEXYvw3fPCjJSCrXx1HzLkQewnm code/manifest.json
-added QmZ4YsiaY7bKn1k6d8xTiBVYZhJtuCrYnU4bQXKEC3oST9 code/package.json
+added QmQwUak82CPni6UVabgjJkg9ehwWQRAcbuSqcAZzB4SemE code/package.json
 added QmV61FsF9CsY6ZZJ2LcW3gYcvGQ393QVQuWFC5REiyBrig code/scripts/importmapGenerator.mjs
 added QmQuH91sPQ36qvHdFaMmbtg8btgPFXXLcdGfuUBDwhH44k code/tsconfig.json
 added QmYAJJ726yRoCVerLBgUHdLax1JKS85SYLrnrG54WxSDtK code/assets/fonts
@@ -52,4 +52,4 @@ added QmNNjHbvVvtqSUM2Nt8G3QfHL5fd41MGpdXgiMf9YxcT3M code/js/workers
 added QmaRQVXjdqtAfYSkZq9kWJNpmzEYrsXND1EcawKudpLJhz code/js
 added QmUNLLsPACCz1vLxQVkXqqLX5R1X345qqfHbsf67hvA3Nn code/node_modules
 added QmS5KENvPcwUwsW4WMDeNQEGfEYBTcCddxHR1EUiGZPPuf code/scripts
-added QmTM98GUq1atZWdoq8hPEXJF3ZPV5PVP15XqWb3ACtY7qG code
+added QmWQ3UArLUj9XkSkHDFjxqYBthfVKvC9rAjVSzxFJRKZXc code
