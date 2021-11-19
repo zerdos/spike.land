@@ -2352,7 +2352,7 @@ var init_importmap = __esm({
       "react-is": "https://unpkg.com/@spike.land/esm@0.1.0/dist/react-is.mjs",
       "react-transition-group": "https://esm.sh/react-transition-group",
       "react/jsx-runtime": "https://esm.sh/react/jsx-runtime",
-      "@spike.land/renderer": "https://unpkg.com/@spike.land/renderer@0.1.0/dist/renderer.js",
+      "@spike.land/renderer": "https://unpkg.com/@spike.land/renderer@0.1.2/dist/renderer.js",
       "style-value-types": "https://unpkg.com/style-value-types@5.0.0/dist/es/index.mjs",
       stylis: "https://unpkg.com/stylis@4.0.10/dist/stylis.mjs",
       "@spike.land/qrious": "https://unpkg.com/@spike.land/qrious@0.1.0/dist/QRious.mjs",
@@ -2360,7 +2360,7 @@ var init_importmap = __esm({
       "ipfs-only-hash": "https://unpkg.com/@spike.land/esm@0.1.0/dist/ipfs-only-hash.mjs",
       "@zedvision/swm": "https://unpkg.com/@zedvision/swm@4.0.0/public/swm-esm.js",
       "uuid/": "https://unpkg.com/uuid@8.3.2/dist/esm-browser/",
-      "@spike.land/code": "https://unpkg.com/@spike.land/code@0.1.1/js/reactLoader.mjs",
+      "@spike.land/code": "https://unpkg.com/@spike.land/code@0.1.2/js/reactLoader.mjs",
       comlink: "https://unpkg.com/comlink@4.3.1/dist/esm/comlink.mjs",
       "@spike.land/ipfs": "https://unpkg.com/@spike.land/ipfs@0.1.0/dist/ipfs.client.mjs",
       "workbox-window": "https://unpkg.com/workbox-window@6.4.1/build/workbox-window.prod.es5.mjs"
@@ -41796,7 +41796,7 @@ var init_DraggableWindow = __esm({
         return () => clearInterval(handler);
       }, [setErrorText, setQRUrl, errorText, qrUrl]);
       const scale = scaleRange / 100;
-      return /* @__PURE__ */ jsx(React208.Fragment, null, /* @__PURE__ */ jsx(motion.div, {
+      return /* @__PURE__ */ jsx(React208.Fragment, null, /* @__PURE__ */ jsx("div", {
         css: css2`
             left: 20px;
             background-color:rgba(152 ,92, 92, 0.5);
@@ -41807,10 +41807,7 @@ var init_DraggableWindow = __esm({
             padding: 20px;
             white-space: normal;
             position: ${position2 ? position2 : "fixed"};
-          `,
-        dragElastic: 0.5,
-        dragMomentum: false,
-        drag: true
+          `
       }, /* @__PURE__ */ jsx("div", {
         css: css2`
                           height: 80vh;

@@ -43,7 +43,7 @@ const DraggableWindow = ({ onShare, onRestore, position, session }) => {
     return () => clearInterval(handler);
   }, [setErrorText, setQRUrl, errorText, qrUrl]);
   const scale = scaleRange / 100;
-  return /* @__PURE__ */ jsx(React.Fragment, null, /* @__PURE__ */ jsx(motion.div, {
+  return /* @__PURE__ */ jsx(React.Fragment, null, /* @__PURE__ */ jsx("div", {
     css: css`
             left: 20px;
             background-color:rgba(152 ,92, 92, 0.5);
@@ -54,10 +54,7 @@ const DraggableWindow = ({ onShare, onRestore, position, session }) => {
             padding: 20px;
             white-space: normal;
             position: ${position ? position : "fixed"};
-          `,
-    dragElastic: 0.5,
-    dragMomentum: false,
-    drag: true
+          `
   }, /* @__PURE__ */ jsx("div", {
     css: css`
                           height: 80vh;

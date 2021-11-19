@@ -74,7 +74,7 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
   const scale = scaleRange / 100;
 
   return (<React.Fragment>
-    <motion.div css={css`
+    <div css={css`
             left: 20px;
             background-color:rgba(152 ,92, 92, 0.5);
             backdrop-filter: blur(10px);
@@ -85,15 +85,13 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
             white-space: normal;
             position: ${position ? position : "fixed"};
           `}
-      dragElastic={0.5}
       // dragConstraints={{
       //   left: 0,
       //   right: width - 20 - width/6,
       //   top: -height +100,
       //   bottom: innerHeight -100,
       // }}
-      dragMomentum={false}
-      drag={true}>
+    >
         <div css={css`
                           height: 80vh;
                           border-radius: 16px;
@@ -101,7 +99,7 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
                         `}>
                           <div id="editor" />
                         </div>
-      </motion.div>
+      </div>
     <motion.div
       ref={ref}
       css={css`
