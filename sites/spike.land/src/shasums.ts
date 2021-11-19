@@ -61,7 +61,7 @@ export const shasums = {
   "index.html":
     "b110926a6e07c9e01c7f31c484b11eac57ce7f4485ff63f5f41d442ca93b0831",
   "package.json":
-    "667b84eb5d0784e6e83ebbafc4ccbdda55a8c896bf009d8b2426ef2dd7d5c6ed",
+    "2167b06e30abbcf48cd42ce7708de5a6ee7fd9c5c22d86fe095d60a7ed6028e8",
   "esbuild-dev.mjs":
     "2ce6dbeb1a973464803bea837e46beed452727e2153fc5ab12c6d9e1007dec69",
   "scripts/importmapGenerator.mjs":
@@ -90,7 +90,7 @@ export const shasums = {
   "assets/synthwave.jpg":
     "ddb7a1699251a0daecf2c4ff494760608cd9d5f39e8ce09426a31b2d505ceb4e",
   "assets/app.css":
-    "4573ef5cfb7154a086b6bedac3fe7e954bb93cebc7e1c664df9cfe9bbf6fda11",
+    "f50c9b2ca8155bf73b925b40f1cfe167a351e2607bba16650c0d08c192da9599",
   "assets/roboto.css":
     "d4cfbb0537146f1f477d5050b2b19a8ccad2cbe8d22d4d18bfefb510b53571be",
   "food": "bar",

@@ -1,5 +1,5 @@
 export const files = {
-  "assets/app.css": "QmaRAeMUGtu2gakR4oBZT8MsfBJUQxUmVE2s6mkmjGLv82",
+  "assets/app.css": "QmaoLT3r7Jodsaz4pAxPX9d2RdL4ZaKUeogG4PH9nyj8Jh",
   "assets/fonts/KFOlCnqEu92Fr1MmEU9fBBc9.ttf":
     "QmVB1APqxwoFrkjZ9B2kYmukzGPdVrdct1JdxhkPbeY28Q",
   "assets/fonts/KFOlCnqEu92Fr1MmSU5fBBc9.ttf":
@@ -52,18 +52,18 @@ export const files = {
   "js/workers/transpile.worker.js":
     "QmURZxeJkk2kQjNfhBb98B9vH6FnbUefPZedZw6RN8rw45",
   "manifest.json": "QmXmokoZc6CTgga36sBaEXYvw3fPCjJSCrXx1HzLkQewnm",
-  "package.json": "QmXi7G4kyosrU5aSgSo69MZd3CjMV42czW5CeDzkCdCzVX",
+  "package.json": "QmZ4YsiaY7bKn1k6d8xTiBVYZhJtuCrYnU4bQXKEC3oST9",
   "scripts/importmapGenerator.mjs":
     "QmV61FsF9CsY6ZZJ2LcW3gYcvGQ393QVQuWFC5REiyBrig",
   "tsconfig.json": "QmQuH91sPQ36qvHdFaMmbtg8btgPFXXLcdGfuUBDwhH44k",
   "assets/fonts": "QmYAJJ726yRoCVerLBgUHdLax1JKS85SYLrnrG54WxSDtK",
-  "assets": "QmaBBJsW4q5JATLoKue6Pr4hfHJWUAdpxXmp4ed7zDoSbQ",
+  "assets": "QmUervByBFGXk5VnQhFqrJwJ3irnaoHSLrzxDFHnr8GSJ8",
   "edit": "QmRBtzxNHPENXEfZwv1aZk9XmznUM6mesSe3GKVB8UwwXS",
   "js/examples": "QmbZePTm4aHmFmZefnvz4CNm7omsSHvpGDn4HXSpq1atQB",
   "js/workers": "QmNNjHbvVvtqSUM2Nt8G3QfHL5fd41MGpdXgiMf9YxcT3M",
   "js": "QmbzrVUeSyjDSjnP8dQNzM37ADpvdJHNsLEptvsYmSNcRX",
   "node_modules": "QmUNLLsPACCz1vLxQVkXqqLX5R1X345qqfHbsf67hvA3Nn",
   "scripts": "QmS5KENvPcwUwsW4WMDeNQEGfEYBTcCddxHR1EUiGZPPuf",
-  "": "Qmb53QUhkKW26SL6fQyQ2MJXRZ4bUCzhTsAutymTuV412j",
+  "": "QmbhXQRHhrVcxPSTvd45gYz7YWoyNBnzLu4HNM4pnE42d7",
   "foo": "bar",
 };

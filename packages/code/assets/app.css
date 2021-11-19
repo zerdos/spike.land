@@ -1,11 +1,9 @@
 html{
     width: 100%;
-    height: 100%;
-    overflow: auto;
 }
 
-
 body {
+    border: 0;
     padding: 0;
     overflow: hidden;
     margin: 0;
@@ -21,7 +19,7 @@ body {
 }
 
 #editor {
-  width: 100%;
+  width: auto;
   height: 100vh;
   margin: 0;
 }
