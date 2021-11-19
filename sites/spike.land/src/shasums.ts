@@ -1,5 +1,5 @@
 export const shasums = {
-  "dev.mjs": "dbf3c4876fa3050548cfa31f1377ba238f8f0077193da8a05b026be2a6133a95",
+  "dev.mjs": "e7684ae2b1d1d0e802ce37ef5885980ad30720754dd42f06d9b76e4b786a9efc",
   "edit/index.html":
     "6bedf2adaf3b015d95ef000fe886b446ff1cc39184be9c8f060e63a325ed50af",
   "dev.mjs.map":
@@ -31,7 +31,7 @@ export const shasums = {
   "js/codeLoader.mjs":
     "c98afd674981224004ac2a6357554cb74a1431b4442f706de224773d9f60aa01",
   "js/importmap.json":
-    "bce9611c6f8e8c12db35870b5ce69285d1ca456a3e5a3b68d52b5fa9171394f4",
+    "d18b27bfe88d48c0f9217b605ff7ee7b3ad6035d67b62db254b13598e9ed4820",
   "js/sw.js":
     "e8493b6ab208d22c048635935efa2932a9abc4994b32ef4bacc59f604ca1eb53",
   "js/share.mjs":
@@ -90,7 +90,7 @@ export const shasums = {
   "assets/synthwave.jpg":
     "ddb7a1699251a0daecf2c4ff494760608cd9d5f39e8ce09426a31b2d505ceb4e",
   "assets/app.css":
-    "b317399615210aede7d965ae62180575ca7f5c5cd7d1224efd1f769545719a4c",
+    "920ce45718551e47b3da47be715956cd115a17a50e9a3ee36c9a5f9a16181235",
   "assets/roboto.css":
     "d4cfbb0537146f1f477d5050b2b19a8ccad2cbe8d22d4d18bfefb510b53571be",
   "food": "bar",
