@@ -75,15 +75,16 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
 
   return (<React.Fragment>
     <div css={css`
-            left: 20px;
+            margin: 20px;
             background-color:rgba(152 ,92, 92, 0.5);
-            backdrop-filter: blur(10px);
-            top: 20px;
+            backdrop-filter: blur(10px);           
             padding: 0px 0px 0px 16px;
+            box-sizing: border-box;
             border-radius: 16px;
             padding: 20px;
+            width: 100%;
+            width: 680px;
             white-space: normal;
-            position: ${position ? position : "fixed"};
           `}
       // dragConstraints={{
       //   left: 0,
