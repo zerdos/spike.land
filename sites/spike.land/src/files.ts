@@ -16,13 +16,13 @@ export const files = {
   "assets/triangle-geometry.png":
     "QmZ5Nic3MRHT8m9SY5ZrSp38UHGEYmJqgk4RAmDV3xXqa1",
   "assets/zed-icon-big.png": "QmeHY7RZzR5wm9ELZr5xgq6XMQKjRAHgmxoQaCzHjgpRm8",
-  "dev.mjs": "QmQE7invMtNxc2Mf5go66wzPzoWcWMVX5Nd16iMEoCdDyP",
-  "dev.mjs.map": "QmXwhDuCsyVDxTDKinNzkTeLG9qgkHubVMxXDGcckCZocN",
+  "dev.mjs": "QmPgLSMz84CupXDsRzqeHJjhHY7RYP8hxqzpK4hgMRout4",
+  "dev.mjs.map": "QmeCjPj7NLNkJ5JzKYXbBvvo9pn75qYMSWQZBVYR7maPbi",
   "edit/index.html": "QmfXTNa9t9Yi9mcrrK9Y8fi6yfSzJ89XxCmGShH1CyZjFX",
   "esbuild-dev.mjs": "QmUqp7sUH1QAkE8uVZgozsNufupqgDcQR7eMhpjR3GERhv",
   "favicon.ico": "QmWF8oNe7SDdaY6t4WrJ8ZzM46dHEFmHDXzd8MBeNrELxe",
   "index.html": "QmYHBAvY7aYLgq9CLoEp4x7vxfvv75QSPjpJNC5q9kqMQb",
-  "js/codeLoader.mjs": "QmZ22kamyNuFUPSfJExTuy5oNLMGWGSDaLf2yNc3ivMo6H",
+  "js/codeLoader.mjs": "QmWw8KJacvCNYu1zhDtoMAqJJEDEUDjPve69ScDWLp2X8R",
   "js/data.mjs": "QmbUe7fpk5FnHH98jq5DHtwunwQWjbxyEFT93ukGgPofSL",
   "js/examples/app.tsx": "QmNbioNuTEMZYjG8fuoKMK1Kph4dakn2k8GA5Vspfjr9A8",
   "js/examples/rca.tsx": "QmSdyVsc9Lda7zpvN7hAGAuQisgPcLsRztEoRxfkH3F9Cm",
@@ -52,7 +52,7 @@ export const files = {
   "js/workers/transpile.worker.js":
     "QmURZxeJkk2kQjNfhBb98B9vH6FnbUefPZedZw6RN8rw45",
   "manifest.json": "QmXmokoZc6CTgga36sBaEXYvw3fPCjJSCrXx1HzLkQewnm",
-  "package.json": "QmZvUydbFn5b5gUbhhAfpL42Xh9zR4P1gYjr4nnMCnzTa1",
+  "package.json": "Qmc5mcY1soyZz8SkcCTt9ahXh4JLtL3Eh1ZTEpMadNR1aT",
   "scripts/importmapGenerator.mjs":
     "QmV61FsF9CsY6ZZJ2LcW3gYcvGQ393QVQuWFC5REiyBrig",
   "tsconfig.json": "QmQuH91sPQ36qvHdFaMmbtg8btgPFXXLcdGfuUBDwhH44k",
@@ -61,9 +61,9 @@ export const files = {
   "edit": "QmRBtzxNHPENXEfZwv1aZk9XmznUM6mesSe3GKVB8UwwXS",
   "js/examples": "QmbZePTm4aHmFmZefnvz4CNm7omsSHvpGDn4HXSpq1atQB",
   "js/workers": "QmNNjHbvVvtqSUM2Nt8G3QfHL5fd41MGpdXgiMf9YxcT3M",
-  "js": "QmX1AA7Shdr1Z2K7JfhjkyJMsj8Vr7AKqjTznpBuCStuTQ",
+  "js": "QmPairkk9arGaonnYctfJxZrwVyvpfPVpRo1uW8eVst6wt",
   "node_modules": "QmUNLLsPACCz1vLxQVkXqqLX5R1X345qqfHbsf67hvA3Nn",
   "scripts": "QmS5KENvPcwUwsW4WMDeNQEGfEYBTcCddxHR1EUiGZPPuf",
-  "": "QmZbZ3utCudJp23VoccKnLU7oQhwoeFVRssRk37h9duSLV",
+  "": "QmTFRwy3nnMAebkimDxVSRD2Xm2dp4mxYJwJiqoDyLUY3S",
   "foo": "bar",
 };

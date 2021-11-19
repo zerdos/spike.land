@@ -389,6 +389,9 @@ var editor_default = async ({ onChange, code, language, container, options }) =>
       ...options
     })
   };
+  window.addEventListener("resize", () => {
+    monaco.editor.layout();
+  });
   modules.editor.onDidChangeModelContent((e) => onChange(modules.editor.getValue(), e));
   modules.monaco.languages.typescript.typescriptDefaults.setDiagnosticsOptions({
     noSuggestionDiagnostics: true,

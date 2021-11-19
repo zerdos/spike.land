@@ -140,6 +140,9 @@ export default async (
     ),
   };
 
+  window.addEventListener("resize", ()=>{
+    monaco.editor.layout();
+  })
   modules.editor.onDidChangeModelContent((
     e: monaco.editor.IModelContentChangedEvent,
   ) => onChange(modules.editor.getValue(), e));
