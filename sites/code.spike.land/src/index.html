@@ -41,7 +41,7 @@
     app()
   </script>
   <script type="text/javascript">
-   (async () => {
+ (async () => {
   let currentWebSocket = null;
 
   const chCode = (code) => {
@@ -108,31 +108,43 @@
       console.log("connected");
       currentWebSocket = ws;
       window.chCode = chCode;
-      window.broad = async (code, hashOfCode) => {
+      window.broad = async (
+        { code, hashOfCode, starterCode, hashOfStarterCode },
+      ) => {
         console.log(code, hashOfCode);
         if (code !== lastSeenCode) {
           let difference;
 
-          if (window.starterCode){
-          try {
-            const dmp = new diff_match_patch();
+          if (window.starterCode) {
+            if (window.starterCode !== starterCode) {
+              throw new Error(
+                "window.starterCode !== starterCode",
+                starterCode,
+                window.starterCode,
+              );
+            }
+            try {
+              const dmp = new diff_match_patch();
 
-            const patches = dmp.patch_make(window.starterCode, code);
-            difference = dmp.patch_toText(patches);
-            console.log(difference);
-          } catch (e) {
-            console.error({ e });
-          }
+              const patches = dmp.patch_make(window.starterCode, code);
+              difference = dmp.patch_toText(patches);
+              console.log(difference);
+            } catch (e) {
+              console.error({ e });
+            }
           }
 
           const message = { hashOfCode };
           if (difference) {
             message.difference = difference;
+            message.hashOfCode = hashOfCode,
+              message.hashOfStarterCode = hashOfStarterCode;
+
+            window.starterCode = starterCode;
           }
           if (!window.starterCode || !lastSeenCode) {
-            message.code = code;
-            starterCode = code;
-            lastSeenCode = code;
+            console.error("NO STARTER-CODE");
+            throw new Error("NO STARTER CODE");
           }
 
           currentWebSocket.send(JSON.stringify(message));
@@ -144,51 +156,50 @@
     });
 
     ws.addEventListener("message", (event) => {
-      try{
-      let data = JSON.parse(event.data);
-      if (data.code && data.hashOfCode) {
+      try {
+        let data = JSON.parse(event.data);
+        if (data.code && data.hashOfCode) {
           lastSeenCode = data.code;
-          window.hashOfCode = hashOfCode;
+          window.hashOfCode = data.hashOfCode;
           window.starterCode = lastSeenCode;
         }
 
-      // A regular chat message.
-      if (data.timestamp > lastSeenTimestamp) {
-        if (data.code) {
-          lastSeenCode = data.code;
-          window.starterCode = lastSeenCode;
-        } else if (
-          (data.message === "undefined" || !data.message) &&
-          data.message !== lastSeenCode && data.name !== username
-        ) {
-          if (
+        // A regular chat message.
+        if (data.timestamp > lastSeenTimestamp) {
+          if (data.code && data.hashOfCode) {
+            lastSeenCode = data.code;
+            window.hashOfCode = data.hashOfCode;
+            window.starterCode = lastSeenCode;
+          } else if (
             (data.message === "undefined" || !data.message) &&
-            data.difference && lastSeenCode 
+            data.message !== lastSeenCode && data.name !== username
           ) {
-            const dmp = new diff_match_patch();
-            const patches = dmp.patch_fromText(data.difference);
-            const patched = dmp.patch_apply(patches, lastSeenCode);
+            if (
+              (data.message === "undefined" || !data.message) &&
+              data.difference && lastSeenCode
+            ) {
+              const dmp = new diff_match_patch();
+              const patches = dmp.patch_fromText(data.difference);
+              const patched = dmp.patch_apply(patches, lastSeenCode);
 
-            if (patched[0]) lastSeenCode = patched[0];
-            console.log(patched[1]);
+              if (patched[0]) lastSeenCode = patched[0];
 
-            // const newLastSeen = window.assemble(lastSeenCode, JSON.stringify(data.difference.c));
-            // console.log("AASSEMBLED", newLastSeen);
-          } else if (data.message && data.message!=="undefined") {
-            lastSeenCode = data.message;
+              // const newLastSeen = window.assemble(lastSeenCode, JSON.stringify(data.difference.c));
+              // console.log("AASSEMBLED", newLastSeen);
+            }
+          }
+
+          if (lastSeenCode && lastSeenCode !== window.starterCode) {
+            window.starterCode = lastSeenCode;
+            window.hashOfCode = data.hashOfCode;
+            if (data.username !== username) chCode(lastSeenCode);
           }
         }
-
-        if (lastSeenCode && lastSeenCode !== window.starterCode) {
-          window.starterCode = lastSeenCode;
-          if (data.username !== username) chCode(lastSeenCode);
-        }
+        // addChatMessage(data.name, data.message);
+        lastSeenTimestamp = data.timestamp;
+      } catch (e) {
+        console.error({ e });
       }
-      // addChatMessage(data.name, data.message);
-      lastSeenTimestamp = data.timestamp;
-    } catch(e){
-      console.error({e});
-    }
     });
 
     ws.addEventListener("close", (event) => {
@@ -204,6 +215,7 @@
   console.log("hello hello2");
   join();
 })();
+
     /**************/
   </script>
 </body>

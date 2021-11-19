@@ -218,9 +218,14 @@ export const saveCode =
     toSave.code = opts.code;
 
     if (window.broad && codeNonFormatted) {
-      const { broad } = window;
-      const hasOfCode = await Hash.of(codeNonFormatted);
-      broad(codeNonFormatted, hasOfCode);
+      const { broad, starterCode } = window;
+      const hashOfCode = await Hash.of(codeNonFormatted);
+      const hashOfStarterCode = await Hash.of(window.starterCode)
+      broad({starterCode,
+        code: codeNonFormatted,
+        hashOfStarterCode,
+        hashOfCode
+  });
     }
     // const saveCode = async () => {
     //   const res = await ipfsClient.add(code, { onlyHash: true });

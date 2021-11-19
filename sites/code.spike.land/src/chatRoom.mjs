@@ -1,7 +1,7 @@
 import { handleErrors } from "./handleErrors.mjs";
 import { RateLimiterClient } from "./rateLimiterClient.mjs";
-import DiffMatchPatch from "diff-match-patch"
-import Hash from "ipfs-only-hash"
+import DiffMatchPatch from "diff-match-patch";
+import Hash from "ipfs-only-hash";
 
 // =======================================================================================
 // The ChatRoom Durable Object Class
@@ -100,7 +100,7 @@ export class Code {
     // client.
     // let storage = await this.storage.list({ reverse: true, limit: 100 });
     // let backlog = [...storage.values()];
-    
+
     // backlog.reverse();
     // backlog.forEach((value) => {
     //   session.blockedMessages.push(value);
@@ -108,8 +108,9 @@ export class Code {
 
     let lastSeenCode = await this.storage.get("lastSeenCode");
     let hashOfLastSeen = await Hash.of(lastSeenCode);
-    session.blockedMessages.push(JSON.stringify({ hashOfCode: hashOfLastSeen, code: lastSeenCode,}));
-
+    session.blockedMessages.push(
+      JSON.stringify({ hashOfCode: hashOfLastSeen, code: lastSeenCode }),
+    );
 
     // Set event handlers to receive messages.
     let receivedUserInfo = false;
@@ -173,32 +174,35 @@ export class Code {
         let code = data.code;
 
         data = { name: session.name, message: "" || data.message };
-        
+
         // if (code) {
         //   data.code = code;
         // }
 
         if (difference) {
-          
           const dmp = new DiffMatchPatch();
           const patches = dmp.patch_fromText(difference);
           const patchedCode = dmp.patch_apply(patches, lastSeenCode)[0];
           const hashOfAPatched = await Hash.of(patchedCode);
-          if (data.hashOfCode === hashOfAPatched ){
-          data.hashOfCode = hashOfAPatched;
-          data.difference = difference;
-          code = patchedCode;
+          if (data.hashOfCode === hashOfAPatched) {
+            data.hashOfCode = hashOfAPatched;
+            data.difference = difference;
+            code = patchedCode;
+          } else {
+            data.hashToNeed = hashOfAPatched;
           }
         }
+
         if (data.code && data.hashOfCode) {
           const hashOfAPatched = await Hash.of(data.code);
-          if (data.hashOfCode === hashOfAPatched )
-          code = data.code;
+          if (data.hashOfCode === hashOfAPatched) {
+            code = data.code;
+          }
         }
         // if (code) {
         //   data.code = code;
         // }
-       
+
         // Block people from sending overly long messages. This is also enforced on the client,
         // so to trigger this the user must be bypassing the client code.
         // if (data..length > 4096) {
@@ -218,8 +222,10 @@ export class Code {
 
         // Save message.
         let key = new Date(data.timestamp).toISOString();
-        
-        if (code && lastSeenCode!==code) await this.storage.put("lastSeenCode", code);
+
+        if (code && lastSeenCode !== code) {
+          await this.storage.put("lastSeenCode", code);
+        }
         await this.storage.put(key, dataStr);
       } catch (err) {
         // Report any exceptions directly back to the client. As with our handleErrors() this

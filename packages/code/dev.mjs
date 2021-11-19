@@ -3243,9 +3243,15 @@ var init_data = __esm({
       }
       toSave.code = opts.code;
       if (window.broad && codeNonFormatted) {
-        const { broad } = window;
-        const hasOfCode = await Hash.of(codeNonFormatted);
-        broad(codeNonFormatted, hasOfCode);
+        const { broad, starterCode } = window;
+        const hashOfCode = await Hash.of(codeNonFormatted);
+        const hashOfStarterCode = await Hash.of(window.starterCode);
+        broad({
+          starterCode,
+          code: codeNonFormatted,
+          hashOfStarterCode,
+          hashOfCode
+        });
       }
       const { shareItAsHtml: shareItAsHtml2 } = await Promise.resolve().then(() => (init_share(), share_exports));
       const sharePromise = shareItAsHtml2({ code, html: html2, transpiled });
