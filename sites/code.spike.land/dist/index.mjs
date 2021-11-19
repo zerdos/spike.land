@@ -2000,6 +2000,12 @@ var Code = class {
         session.blockedMessages.push(JSON.stringify({ joined: otherSession.name }));
       }
     });
+    let storage = await this.storage.list({ reverse: true, limit: 100 });
+    let backlog = [...storage.values()];
+    backlog.reverse();
+    backlog.forEach((value) => {
+      session.blockedMessages.push(value);
+    });
     let lastSeenCode = await this.storage.get("lastSeenCode");
     session.blockedMessages.push(JSON.stringify({ code: lastSeenCode }));
     let receivedUserInfo = false;

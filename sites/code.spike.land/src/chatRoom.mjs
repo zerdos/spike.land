@@ -97,13 +97,13 @@ export class Code {
 
     // Load the last 100 messages from the chat history stored on disk, and send them to the
     // client.
-    // let storage = await this.storage.list({ reverse: true, limit: 100 });
-    // let backlog = [...storage.values()];
+    let storage = await this.storage.list({ reverse: true, limit: 100 });
+    let backlog = [...storage.values()];
     
-    // backlog.reverse();
-    // backlog.forEach((value) => {
-    //   session.blockedMessages.push(value);
-    // });
+    backlog.reverse();
+    backlog.forEach((value) => {
+      session.blockedMessages.push(value);
+    });
 
     let lastSeenCode = await this.storage.get("lastSeenCode");
     session.blockedMessages.push(JSON.stringify({code: lastSeenCode}));
