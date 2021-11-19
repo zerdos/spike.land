@@ -111,10 +111,9 @@ export async function run(mode = "window", code = "") {
     }
   }
 
-  const editorContainer = window.document.getElementById("editor");
-  editorContainer.innerHTML = `<div class="editor-frame">
-  <div id="editor"></div>
-</div>`;
+  const editorContainer = window.document.createElement("div");
+  editorContainer.className= "editor-frame"
+  editorContainer.innerHTML = `<div id="editor"></div>`;
   document.body.appendChild(editorContainer);
 
 
