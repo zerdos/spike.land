@@ -111,16 +111,23 @@ export async function run(mode = "window", code = "") {
     }
   }
 
-  const editorContainer = window.document.createElement("div");
-  editorContainer.className= "editor-frame"
-  editorContainer.innerHTML = `<div id="editor"></div>`;
-  document.body.appendChild(editorContainer);
+  // const editorContainer = window.document.createElement("div");
+  // editorContainer.className= "editor-frame"
+  // editorContainer.innerHTML = `<div id="editor"></div>`;
+  // document.body.appendChild(editorContainer);
 
+
+ 
+  // session.children = await getReactChild(session.transpiled);
+  await renderPreviewWindow(
+    session,
+  );
 
   const container = document.getElementById("editor");
 
   if (container === null) return "No editor window";
 
+  
   const editorPromise = startMonaco(
     /**
      * @param {any} code
@@ -134,10 +141,6 @@ export async function run(mode = "window", code = "") {
        */
       onChange: (code) => runner(code),
     },
-  );
-  // session.children = await getReactChild(session.transpiled);
-  await renderPreviewWindow(
-    session,
   );
 
   await restartCode(session.transpiled, session.code, session.i);

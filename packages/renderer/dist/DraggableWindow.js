@@ -43,7 +43,30 @@ const DraggableWindow = ({ onShare, onRestore, position, session }) => {
     return () => clearInterval(handler);
   }, [setErrorText, setQRUrl, errorText, qrUrl]);
   const scale = scaleRange / 100;
-  return /* @__PURE__ */ jsx(motion.div, {
+  return /* @__PURE__ */ jsx(React.Fragment, null, /* @__PURE__ */ jsx(motion.div, {
+    css: css`
+            left: 20px;
+            background-color:rgba(152 ,92, 92, 0.5);
+            backdrop-filter: blur(10px);
+            top: 20px;
+            padding: 0px 0px 0px 16px;
+            border-radius: 16px;
+            padding: 20px;
+            white-space: normal;
+            position: ${position ? position : "fixed"};
+          `,
+    dragElastic: 0.5,
+    dragMomentum: false,
+    drag: true
+  }, /* @__PURE__ */ jsx("div", {
+    css: css`
+                          height: 80vh;
+                          border-radius: 16px;
+                          width: 640px;
+                        `
+  }, /* @__PURE__ */ jsx("div", {
+    id: "editor"
+  }))), /* @__PURE__ */ jsx(motion.div, {
     ref,
     css: css`
             right: 20px;
@@ -181,7 +204,7 @@ const DraggableWindow = ({ onShare, onRestore, position, session }) => {
     onClick: () => {
       onShare();
     }
-  }, /* @__PURE__ */ jsx(Share, null)))));
+  }, /* @__PURE__ */ jsx(Share, null))))));
 };
 function createMarkup(__html) {
   return { __html };

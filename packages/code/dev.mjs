@@ -2360,7 +2360,7 @@ var init_importmap = __esm({
       "ipfs-only-hash": "https://unpkg.com/@spike.land/esm@0.1.0/dist/ipfs-only-hash.mjs",
       "@zedvision/swm": "https://unpkg.com/@zedvision/swm@4.0.0/public/swm-esm.js",
       "uuid/": "https://unpkg.com/uuid@8.3.2/dist/esm-browser/",
-      "@spike.land/code": "https://unpkg.com/@spike.land/code@0.1.0/js/reactLoader.mjs",
+      "@spike.land/code": "https://unpkg.com/@spike.land/code@0.1.1/js/reactLoader.mjs",
       comlink: "https://unpkg.com/comlink@4.3.1/dist/esm/comlink.mjs",
       "@spike.land/ipfs": "https://unpkg.com/@spike.land/ipfs@0.1.0/dist/ipfs.client.mjs",
       "workbox-window": "https://unpkg.com/workbox-window@6.4.1/build/workbox-window.prod.es5.mjs"
@@ -41796,7 +41796,30 @@ var init_DraggableWindow = __esm({
         return () => clearInterval(handler);
       }, [setErrorText, setQRUrl, errorText, qrUrl]);
       const scale = scaleRange / 100;
-      return /* @__PURE__ */ jsx(motion.div, {
+      return /* @__PURE__ */ jsx(React208.Fragment, null, /* @__PURE__ */ jsx(motion.div, {
+        css: css2`
+            left: 20px;
+            background-color:rgba(152 ,92, 92, 0.5);
+            backdrop-filter: blur(10px);
+            top: 20px;
+            padding: 0px 0px 0px 16px;
+            border-radius: 16px;
+            padding: 20px;
+            white-space: normal;
+            position: ${position2 ? position2 : "fixed"};
+          `,
+        dragElastic: 0.5,
+        dragMomentum: false,
+        drag: true
+      }, /* @__PURE__ */ jsx("div", {
+        css: css2`
+                          height: 80vh;
+                          border-radius: 16px;
+                          width: 640px;
+                        `
+      }, /* @__PURE__ */ jsx("div", {
+        id: "editor"
+      }))), /* @__PURE__ */ jsx(motion.div, {
         ref,
         css: css2`
             right: 20px;
@@ -41934,7 +41957,7 @@ var init_DraggableWindow = __esm({
         onClick: () => {
           onShare();
         }
-      }, /* @__PURE__ */ jsx(Share_default, null)))));
+      }, /* @__PURE__ */ jsx(Share_default, null))))));
     };
   }
 });
@@ -42634,10 +42657,7 @@ async function run(mode = "window", code = "") {
       return;
     }
   }
-  const editorContainer = window.document.createElement("div");
-  editorContainer.className = "editor-frame";
-  editorContainer.innerHTML = `<div id="editor"></div>`;
-  document.body.appendChild(editorContainer);
+  await renderPreviewWindow(session);
   const container = document.getElementById("editor");
   if (container === null)
     return "No editor window";
@@ -42647,7 +42667,6 @@ async function run(mode = "window", code = "") {
     code: session.code,
     onChange: (code2) => runner(code2)
   });
-  await renderPreviewWindow(session);
   await restartCode(session.transpiled, session.code, session.i);
   await editorPromise;
   monaco = window.monaco;
