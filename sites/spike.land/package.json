@@ -1,7 +1,7 @@
 {
   "private": false,
   "name": "@spike.land/spike-land-worker",
-  "version": "0.0.94",
+  "version": "0.0.95",
   "description": "A template for kick starting a Cloudflare Workers project",
   "main": "dist/index.js",
   "scripts": {
@@ -15,8 +15,8 @@
   "dependencies": {
     "@cloudflare/workers-types": "3.2.0",
     "@cloudflare/wrangler": "1.19.5",
-    "@spike.land/code": "^0.0.94",
-    "@spike.land/ipfs": "^0.0.94",
+    "@spike.land/code": "^0.0.95",
+    "@spike.land/ipfs": "^0.0.95",
     "esbuild": "0.13.14",
     "ipfs-message-port-protocol": "0.10.2",
     "ipfs-message-port-server": "0.10.2",
