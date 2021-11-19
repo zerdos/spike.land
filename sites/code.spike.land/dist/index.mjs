@@ -1,5 +1,5 @@
 // ../../packages/code/package.json
-var version = "0.1.3";
+var version = "0.1.4";
 
 // ../../packages/code/js/importmap.json
 var imports = {
@@ -242,7 +242,6 @@ var src_default = `<!DOCTYPE html>
 				margin: 0;
 				padding: 0;
 				border: 0;
-				overflow: hidden;
 			}
     
      @font-face {
@@ -272,6 +271,7 @@ var src_default = `<!DOCTYPE html>
     let currentWebSocket = null;
 
     const chCode = (code) => {
+      try{
         const { monaco } = window;
         if (!monaco || !monaco.Uri) return;
         const modelUri = monaco.Uri.parse(\`file:///main.tsx\`);
@@ -283,6 +283,9 @@ var src_default = `<!DOCTYPE html>
 
           model.setValue(code);
         }
+      }catch(e){
+        console.error({e});
+      }
           
       }
 
@@ -296,7 +299,7 @@ if (hostname == "") {
 
 let roomName = "ROOMNAMEagain";
 let username = 'Pisti'+Math.random();
-let lastSeenTimestamp = Date.now();
+let lastSeenTimestamp = 0;
 let lastSeenCode = "";
 
     function join() {
@@ -327,11 +330,20 @@ let lastSeenCode = "";
   }
 
   ws.addEventListener("open", event => {
+    console.log("connected");
     currentWebSocket = ws;
     window.chCode = chCode;
-    window.broad = (code)=>{
-      chCode(code);
-      if (code !== lastSeenCode) currentWebSocket.send(JSON.stringify({message:  code}));
+    window.broad = async (code)=>{
+    
+      if (code !== lastSeenCode) {
+      
+        const difference = await diff(lastSeenCode, code);
+        console.log({
+          code,
+          lastSeenCode,
+          difference});  
+        currentWebSocket.send(JSON.stringify({message:  code, difference}));
+      }
   }
 
     // Send user info message.
@@ -354,7 +366,9 @@ let lastSeenCode = "";
       if (data.timestamp > lastSeenTimestamp) {
         if (data.message && data.message!==lastSeenCode && data.name !== username){
 
+
           lastSeenCode = data.message;
+          window.starterCode = data.message;
           chCode(data.message)
         }
       // addChatMessage(data.name, data.message);

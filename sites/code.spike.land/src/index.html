@@ -44,6 +44,7 @@
     let currentWebSocket = null;
 
     const chCode = (code) => {
+      try{
         const { monaco } = window;
         if (!monaco || !monaco.Uri) return;
         const modelUri = monaco.Uri.parse(`file:///main.tsx`);
@@ -55,6 +56,9 @@
 
           model.setValue(code);
         }
+      }catch(e){
+        console.error({e});
+      }
           
       }
 
@@ -68,7 +72,7 @@ if (hostname == "") {
 
 let roomName = "ROOMNAMEagain";
 let username = 'Pisti'+Math.random();
-let lastSeenTimestamp = Date.now();
+let lastSeenTimestamp = 0;
 let lastSeenCode = "";
 
     function join() {
@@ -99,11 +103,20 @@ let lastSeenCode = "";
   }
 
   ws.addEventListener("open", event => {
+    console.log("connected");
     currentWebSocket = ws;
     window.chCode = chCode;
-    window.broad = (code)=>{
-      chCode(code);
-      if (code !== lastSeenCode) currentWebSocket.send(JSON.stringify({message:  code}));
+    window.broad = async (code)=>{
+    
+      if (code !== lastSeenCode) {
+      
+        const difference = await diff(lastSeenCode, code);
+        console.log({
+          code,
+          lastSeenCode,
+          difference});  
+        currentWebSocket.send(JSON.stringify({message:  code, difference}));
+      }
   }
 
     // Send user info message.
@@ -126,7 +139,9 @@ let lastSeenCode = "";
       if (data.timestamp > lastSeenTimestamp) {
         if (data.message && data.message!==lastSeenCode && data.name !== username){
 
+
           lastSeenCode = data.message;
+          window.starterCode = data.message;
           chCode(data.message)
         }
       // addChatMessage(data.name, data.message);
