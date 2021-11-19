@@ -1,9 +1,9 @@
 export const shasums = {
-  "dev.mjs": "de53850d1b665e33b0e9312cc131b2f37cf483aefb573b86bc28e6abe9472c68",
+  "dev.mjs": "25bf8a8dc2971e1f354db1e33e67bcfcc62fdd2b5210393a52b408705df312e1",
   "edit/index.html":
     "6bedf2adaf3b015d95ef000fe886b446ff1cc39184be9c8f060e63a325ed50af",
   "dev.mjs.map":
-    "5ceb8c3260879629d31adb7c10fc0b8fa5ab265d7c8e7b3649069c9eb87b495a",
+    "99b55593d89feaff9846b2ac39ef7d5909047f4d99394c8c5ee12d406ddc5972",
   ".vscode/settings.json":
     "59518a7d473e186d1edb3b105cac5644bb6f04a20f5d21a17b69b89b3f7837c9",
   "js/ipfsClient.mjs":
@@ -29,9 +29,9 @@ export const shasums = {
   "js/templates.ts":
     "c2fd203867b8fdab66b62e5a46c232b9ea539398eac7cbbb54298b00b85bfd2f",
   "js/codeLoader.mjs":
-    "ea8f3e9dc6c53687046f2f92dcfcc6450fc7f49965aa3a7c324bf0a421b851ae",
+    "eda1622311d45a3aef427f26994b523b6b69d5455690dfc7d105392d4aece02a",
   "js/importmap.json":
-    "642df12454b5065b3855265ecbd1dc8541793f94aa902b73c9f463d0129eec68",
+    "6f2074b43ada7000c9f972b6484bfb50b43364916b48ffd563d369816ce0b9b2",
   "js/sw.js":
     "e8493b6ab208d22c048635935efa2932a9abc4994b32ef4bacc59f604ca1eb53",
   "js/share.mjs":
@@ -61,7 +61,7 @@ export const shasums = {
   "index.html":
     "19d7d5b7d6572cca6e6a6cb24201e007eb6898d21d9fbd2f2d2474dc3edb94db",
   "package.json":
-    "6163eca3f74f4ebb30f8a0a0d85cd1b5c30337f5759e98efd81b8523f689c314",
+    "088ea1a05613ff86ec2ff20dadc16b69d94407a311cf3a172f8107ae40d11683",
   "esbuild-dev.mjs":
     "2ce6dbeb1a973464803bea837e46beed452727e2153fc5ab12c6d9e1007dec69",
   "scripts/importmapGenerator.mjs":
@@ -90,7 +90,7 @@ export const shasums = {
   "assets/synthwave.jpg":
     "ddb7a1699251a0daecf2c4ff494760608cd9d5f39e8ce09426a31b2d505ceb4e",
   "assets/app.css":
-    "27a490fb6e2a10f6a6b361d72d42c60299bd1a62478569aea45176f341f45341",
+    "9a31fdbde5f82bb274bc217ad78e0871924e5650586442f203deaee0343f5973",
   "assets/roboto.css":
     "d4cfbb0537146f1f477d5050b2b19a8ccad2cbe8d22d4d18bfefb510b53571be",
   "food": "bar",
