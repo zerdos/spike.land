@@ -98,16 +98,17 @@ export class Code {
 
     // Load the last 100 messages from the chat history stored on disk, and send them to the
     // client.
-    let storage = await this.storage.list({ reverse: true, limit: 100 });
-    let backlog = [...storage.values()];
+    // let storage = await this.storage.list({ reverse: true, limit: 100 });
+    // let backlog = [...storage.values()];
     
-    backlog.reverse();
-    backlog.forEach((value) => {
-      session.blockedMessages.push(value);
-    });
+    // backlog.reverse();
+    // backlog.forEach((value) => {
+    //   session.blockedMessages.push(value);
+    // });
 
     let lastSeenCode = await this.storage.get("lastSeenCode");
-    session.blockedMessages.push(JSON.stringify({code: lastSeenCode}));
+    let hashOfLastSeen = await Hash.of(lastSeenCode);
+    session.blockedMessages.push(JSON.stringify({ hashOfCode: hashOfLastSeen, code: lastSeenCode,}));
 
 
     // Set event handlers to receive messages.
@@ -168,6 +169,7 @@ export class Code {
         // Construct sanitized message for storage and broadcast.
         const difference = data.difference;
         const lastSeenCode = await this.storage.get("lastSeenCode");
+
         let code = data.code;
 
         data = { name: session.name, message: "" || data.message };
@@ -177,14 +179,21 @@ export class Code {
         // }
 
         if (difference) {
-          data.difference = difference;
-
+          
           const dmp = new DiffMatchPatch();
           const patches = dmp.patch_fromText(difference);
-          code = dmp.patch_apply(patches, lastSeenCode)[0];
-          const hashOfAPatched = await Hash.of(code);
-          if (data.hashOfAPatched )
-          await this.storage.put("lastSeenCode", code);
+          const patchedCode = dmp.patch_apply(patches, lastSeenCode)[0];
+          const hashOfAPatched = await Hash.of(patchedCode);
+          if (data.hashOfCode === hashOfAPatched ){
+          data.hashOfCode = hashOfAPatched;
+          data.difference = difference;
+          code = patchedCode;
+          }
+        }
+        if (data.code && data.hashOfCode) {
+          const hashOfAPatched = await Hash.of(data.code);
+          if (data.hashOfCode === hashOfAPatched )
+          code = data.code;
         }
         // if (code) {
         //   data.code = code;
@@ -210,7 +219,7 @@ export class Code {
         // Save message.
         let key = new Date(data.timestamp).toISOString();
         
-
+        if (code && lastSeenCode!==code) await this.storage.put("lastSeenCode", code);
         await this.storage.put(key, dataStr);
       } catch (err) {
         // Report any exceptions directly back to the client. As with our handleErrors() this

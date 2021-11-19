@@ -13997,7 +13997,7 @@ var require_ipfs_only_hash = __commonJS({
 });
 
 // ../../packages/code/package.json
-var version = "0.1.5";
+var version = "0.1.6";
 
 // ../../packages/code/js/importmap.json
 var imports = {
@@ -14293,7 +14293,7 @@ var src_default = `<!DOCTYPE html>
     hostname = "code.spike.land";
   }
 
-  let roomName = "ROOMNAMEagain";
+  let roomName = "ROOMagain";
   let username = "Pisti" + Math.random();
   let lastSeenTimestamp = 0;
   let lastSeenCode = "";
@@ -14336,17 +14336,30 @@ var src_default = `<!DOCTYPE html>
       window.broad = async (code, hashOfCode) => {
         if (code !== lastSeenCode) {
           let difference;
+
+          if (window.starterCode){
           try {
             const dmp = new diff_match_patch();
 
-            const patches = dmp.patch_make(lastSeenCode, code);
+            const patches = dmp.patch_make(window.starterCode, code);
             difference = dmp.patch_toText(patches);
             console.log(difference);
           } catch (e) {
             console.error({ e });
           }
+          }
 
-          currentWebSocket.send(JSON.stringify({ difference, hashOfCode }));
+          const message = { hashOfCode };
+          if (difference) {
+            message.difference = difference;
+          }
+          if (!window.starterCode || !lastSeenCode) {
+            message.code = code;
+            starterCode = code;
+            lastSeenCode = code;
+          }
+
+          currentWebSocket.send(JSON.stringify(message));
         }
       };
 
@@ -14357,8 +14370,9 @@ var src_default = `<!DOCTYPE html>
     ws.addEventListener("message", (event) => {
       try{
       let data = JSON.parse(event.data);
-      if (data.code) {
+      if (data.code && data.hashOfCode) {
           lastSeenCode = data.code;
+          window.hashOfCode = hashOfCode;
           window.starterCode = lastSeenCode;
         }
 
@@ -14604,14 +14618,9 @@ var Code = class {
         session.blockedMessages.push(JSON.stringify({ joined: otherSession.name }));
       }
     });
-    let storage = await this.storage.list({ reverse: true, limit: 100 });
-    let backlog = [...storage.values()];
-    backlog.reverse();
-    backlog.forEach((value) => {
-      session.blockedMessages.push(value);
-    });
     let lastSeenCode = await this.storage.get("lastSeenCode");
-    session.blockedMessages.push(JSON.stringify({ code: lastSeenCode }));
+    let hashOfLastSeen = await import_ipfs_only_hash.default.of(lastSeenCode);
+    session.blockedMessages.push(JSON.stringify({ hashOfCode: hashOfLastSeen, code: lastSeenCode }));
     let receivedUserInfo = false;
     webSocket.addEventListener("message", async (msg) => {
       try {
@@ -14647,19 +14656,28 @@ var Code = class {
         let code3 = data.code;
         data = { name: session.name, message: data.message };
         if (difference) {
-          data.difference = difference;
           const dmp = new import_diff_match_patch.default();
           const patches = dmp.patch_fromText(difference);
-          code3 = dmp.patch_apply(patches, lastSeenCode2)[0];
-          const hashOfAPatched = await import_ipfs_only_hash.default.of(code3);
-          if (data.hashOfAPatched)
-            await this.storage.put("lastSeenCode", code3);
+          const patchedCode = dmp.patch_apply(patches, lastSeenCode2)[0];
+          const hashOfAPatched = await import_ipfs_only_hash.default.of(patchedCode);
+          if (data.hashOfCode === hashOfAPatched) {
+            data.hashOfCode = hashOfAPatched;
+            data.difference = difference;
+            code3 = patchedCode;
+          }
+        }
+        if (data.code && data.hashOfCode) {
+          const hashOfAPatched = await import_ipfs_only_hash.default.of(data.code);
+          if (data.hashOfCode === hashOfAPatched)
+            code3 = data.code;
         }
         data.timestamp = Math.max(Date.now(), this.lastTimestamp + 1);
         this.lastTimestamp = data.timestamp;
         let dataStr = JSON.stringify(data);
         this.broadcast(dataStr);
         let key = new Date(data.timestamp).toISOString();
+        if (code3 && lastSeenCode2 !== code3)
+          await this.storage.put("lastSeenCode", code3);
         await this.storage.put(key, dataStr);
       } catch (err) {
         webSocket.send(JSON.stringify({ error: err.stack }));

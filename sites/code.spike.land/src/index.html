@@ -68,7 +68,7 @@
     hostname = "code.spike.land";
   }
 
-  let roomName = "ROOMNAMEagain";
+  let roomName = "ROOMagain";
   let username = "Pisti" + Math.random();
   let lastSeenTimestamp = 0;
   let lastSeenCode = "";
@@ -111,17 +111,30 @@
       window.broad = async (code, hashOfCode) => {
         if (code !== lastSeenCode) {
           let difference;
+
+          if (window.starterCode){
           try {
             const dmp = new diff_match_patch();
 
-            const patches = dmp.patch_make(lastSeenCode, code);
+            const patches = dmp.patch_make(window.starterCode, code);
             difference = dmp.patch_toText(patches);
             console.log(difference);
           } catch (e) {
             console.error({ e });
           }
+          }
 
-          currentWebSocket.send(JSON.stringify({ difference, hashOfCode }));
+          const message = { hashOfCode };
+          if (difference) {
+            message.difference = difference;
+          }
+          if (!window.starterCode || !lastSeenCode) {
+            message.code = code;
+            starterCode = code;
+            lastSeenCode = code;
+          }
+
+          currentWebSocket.send(JSON.stringify(message));
         }
       };
 
@@ -132,8 +145,9 @@
     ws.addEventListener("message", (event) => {
       try{
       let data = JSON.parse(event.data);
-      if (data.code) {
+      if (data.code && data.hashOfCode) {
           lastSeenCode = data.code;
+          window.hashOfCode = hashOfCode;
           window.starterCode = lastSeenCode;
         }
 
