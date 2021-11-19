@@ -109,6 +109,7 @@
       currentWebSocket = ws;
       window.chCode = chCode;
       window.broad = async (code, hashOfCode) => {
+        console.log(code, hashOfCode);
         if (code !== lastSeenCode) {
           let difference;
 
