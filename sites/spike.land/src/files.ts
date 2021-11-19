@@ -16,7 +16,7 @@ export const files = {
   "assets/triangle-geometry.png":
     "QmZ5Nic3MRHT8m9SY5ZrSp38UHGEYmJqgk4RAmDV3xXqa1",
   "assets/zed-icon-big.png": "QmeHY7RZzR5wm9ELZr5xgq6XMQKjRAHgmxoQaCzHjgpRm8",
-  "dev.mjs": "QmQciJ3pkfVj32zUZcxxaVCyNE3dCAjW5uL1bprSTSmM8t",
+  "dev.mjs": "QmYF4bMAB1VZ3kVyxiFfc2TZpp3D7nYCXFUmWJw7RdAHKV",
   "dev.mjs.map": "QmVeMab4mz4ojrhjKRwGmiNqCdsy32gaofpYWdoW79xyMS",
   "edit/index.html": "QmfXTNa9t9Yi9mcrrK9Y8fi6yfSzJ89XxCmGShH1CyZjFX",
   "esbuild-dev.mjs": "QmUqp7sUH1QAkE8uVZgozsNufupqgDcQR7eMhpjR3GERhv",
@@ -31,7 +31,7 @@ export const files = {
   "js/formatter.mjs": "Qmcvc7jZkrSvbattfsxi1BqmP7d1pVDy4pjjxeiJL8zmQn",
   "js/importScript.d.ts": "QmV1V5Fb2ZxP5Kn31nSU7FS2TtrDMg6wR7sMTsKeeR1txL",
   "js/importScript.mjs": "QmQBhy9H2prXzc5DnjVcF7qfkEMYVz4TFtwzegpcpEp4Da",
-  "js/importmap.json": "QmV8323ZrRz9cv7UWbcP15QpuiyDA7HiiPJT6LvUaEhWdM",
+  "js/importmap.json": "QmcCduvq4miKB9X1ajFzmmwnmNRgyr18e8dqkKHbdYWQRc",
   "js/ipfsClient.mjs": "Qma5ZP226wff835FKrLgvaEwYMeQQ8q6EWUL8d7vsNeSHt",
   "js/openWindows.mjs": "QmZ8jsH2gfgZRo24YzQ9L4DprQkLa1MNCYYB3j9wbRE4am",
   "js/reactLoader.mjs": "Qmacvt7gBakvaKMG81JDDvq2hXWDnTNBoPRfo2WcVXDYhP",
@@ -52,7 +52,7 @@ export const files = {
   "js/workers/transpile.worker.js":
     "QmURZxeJkk2kQjNfhBb98B9vH6FnbUefPZedZw6RN8rw45",
   "manifest.json": "QmXmokoZc6CTgga36sBaEXYvw3fPCjJSCrXx1HzLkQewnm",
-  "package.json": "QmXpVaYnTYqw7NkSrSXbEmqoidd3JDYUV7PAoiyHrEP9SW",
+  "package.json": "QmXP6LKtkJqXTMc7jc1CdeEmhwrga2sumxqHaRx2Bq1UvD",
   "scripts/importmapGenerator.mjs":
     "QmV61FsF9CsY6ZZJ2LcW3gYcvGQ393QVQuWFC5REiyBrig",
   "tsconfig.json": "QmQuH91sPQ36qvHdFaMmbtg8btgPFXXLcdGfuUBDwhH44k",
@@ -61,9 +61,9 @@ export const files = {
   "edit": "QmRBtzxNHPENXEfZwv1aZk9XmznUM6mesSe3GKVB8UwwXS",
   "js/examples": "QmbZePTm4aHmFmZefnvz4CNm7omsSHvpGDn4HXSpq1atQB",
   "js/workers": "QmNNjHbvVvtqSUM2Nt8G3QfHL5fd41MGpdXgiMf9YxcT3M",
-  "js": "QmUmTgYg6Mom6dPp2AuWs25ikJsRk8AJG3mHKVp6Ff5VD9",
+  "js": "QmdrxfuY7eg6V3p2KaHQd5rucnReRidP9sbz3P5jr95dj5",
   "node_modules": "QmUNLLsPACCz1vLxQVkXqqLX5R1X345qqfHbsf67hvA3Nn",
   "scripts": "QmS5KENvPcwUwsW4WMDeNQEGfEYBTcCddxHR1EUiGZPPuf",
-  "": "QmWgVrS2DWzgRoAqRT2cUN5Wa5yHfKbRX2LAE7WxYDBCCg",
+  "": "QmeV5A4J2pbjQ7VE6zAu1t9deG4htwTnt4XcZSYTW39Je2",
   "foo": "bar",
 };
