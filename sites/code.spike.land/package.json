@@ -15,5 +15,8 @@
     "@spike.land/code": "^0.1.5",
     "esbuild": "0.13.14"
   },
-  "private": true
+  "private": true,
+  "dependencies": {
+    "diff-match-patch": "^1.0.5"
+  }
 }

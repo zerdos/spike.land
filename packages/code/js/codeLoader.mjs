@@ -88,8 +88,9 @@ export async function run(mode = "window", code = "") {
   session.mode = mode;
 
   if (code) {
-    session.code = await formatter(code);
-    session.transpiled = await transpileCode(session.code);
+    session.code = code;
+    session.formattedCode = await formatter(session.code)
+    session.transpiled = await transpileCode(session.formattedCode);
   }
 
   if (!code) {
@@ -99,9 +100,10 @@ export async function run(mode = "window", code = "") {
           ? await getIPFSCodeToLoad(undefined)
           : await getCodeToLoad();
 
-      session.code = await formatter(code);
+      session.code = code;
+      session.formattedCode = await formatter(code);
       session.transpiled = await transpileCode(
-        session.code,
+        session.formattedCode,
       ) || transpiled;
 
       session.div.innerHTML = html;

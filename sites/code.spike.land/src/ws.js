@@ -1,47 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head profile="http://www.w3.org/2005/10/profile">
-  <meta http-equiv="Content-Type" content="text/html,charset=utf-8" />
-  <meta name="viewport" content="width=device-width">
-  <link rel="preload" href="https://unpkg.com/monaco-editor@0.30.1/min/vs/editor/editor.main.js" as="script" />
-  <link rel="icon" type="image/png" href="@VERSION/assets/zed-icon-big.png" />
-  <link rel="stylesheet" href="@VERSION/assets/app.css" />
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/diff_match_patch/20121119/diff_match_patch_uncompressed.js" integrity="sha512-nvDKZefgrUzFIvEHMqag0VFPe6QYOVKGP9e40yCfbY+nOeSzSxzoFSUj1D6Mpc5r5UZzQISujUWDNhwReIyRzA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-  <title>Instant React Editor</title>
-  <style>
-    body{
-      background-image: url(./assets/synthwave.webp);
-    }
-			body {
-				margin: 0;
-				padding: 0;
-				border: 0;
-			}
-    
-     @font-face {
-      font-family: 'codicon';
-      src: url('https://unpkg.com/monaco-editor@0.30.1/min/vs/base/browser/ui/codicons/codicon/codicon.ttf')
-        format('truetype');
-    }
-		
-  </style>
-		<link
-			data-name="vs/editor/editor.main"
-			rel="stylesheet"
-			href="https://unpkg.com/monaco-editor@0.30.1/min/vs/editor/editor.main.css"
-		/>
-</head>
-<body>
-  <script async src="https://unpkg.com/es-module-shims@1.3.2/dist/es-module-shims.js"></script>
-  <script type="importmap">
-    $$IMPORTMAP
-  </script>
-  <script type="module">
-    import app from "app";
-    app()
-  </script>
-  <script type="text/javascript">
-   (async () => {
+(async () => {
   let currentWebSocket = null;
 
   const chCode = (code) => {
@@ -131,23 +88,18 @@
 
     ws.addEventListener("message", (event) => {
       let data = JSON.parse(event.data);
-      if (data.code) {
-          lastSeenCode = data.code;
-          window.starterCode = lastSeenCode;
-        }
 
       // A regular chat message.
       if (data.timestamp > lastSeenTimestamp) {
         if (data.code) {
           lastSeenCode = data.code;
-          window.starterCode = lastSeenCode;
         } else if (
-          (data.message === "undefined" || !data.message) &&
+          !(data.message === "undefined" || !data.message) &&
           data.message !== lastSeenCode && data.name !== username
         ) {
           if (
             (data.message === "undefined" || !data.message) &&
-            data.difference && lastSeenCode 
+            data.difference && lastSeenCode && window.assemble
           ) {
             const dmp = new diff_match_patch();
             const patches = dmp.patch_fromText(data.difference);
@@ -158,14 +110,14 @@
 
             // const newLastSeen = window.assemble(lastSeenCode, JSON.stringify(data.difference.c));
             // console.log("AASSEMBLED", newLastSeen);
-          } else if (data.message && data.message!=="undefined") {
+          } else if (data.message) {
             lastSeenCode = data.message;
           }
         }
 
-        if (lastSeenCode && lastSeenCode !== window.starterCode) {
+        if (lastSeenCode) {
           window.starterCode = lastSeenCode;
-          if (data.username !== username) chCode(lastSeenCode);
+          chCode(lastSeenCode);
         }
       }
       // addChatMessage(data.name, data.message);
@@ -185,7 +137,3 @@
   console.log("hello hello2");
   join();
 })();
-    /**************/
-  </script>
-</body>
-</html>

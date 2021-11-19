@@ -1,5 +1,7 @@
 import { handleErrors } from "./handleErrors.mjs";
 import { RateLimiterClient } from "./rateLimiterClient.mjs";
+import DiffMatchPatch from "diff-match-patch"
+
 // =======================================================================================
 // The ChatRoom Durable Object Class
 
@@ -95,12 +97,17 @@ export class Code {
 
     // Load the last 100 messages from the chat history stored on disk, and send them to the
     // client.
-    let storage = await this.storage.list({ reverse: true, limit: 100 });
-    let backlog = [...storage.values()];
-    backlog.reverse();
-    backlog.forEach((value) => {
-      session.blockedMessages.push(value);
-    });
+    // let storage = await this.storage.list({ reverse: true, limit: 100 });
+    // let backlog = [...storage.values()];
+    
+    // backlog.reverse();
+    // backlog.forEach((value) => {
+    //   session.blockedMessages.push(value);
+    // });
+
+    let lastSeenCode = await this.storage.get("lastSeenCode");
+    session.blockedMessages.push(JSON.stringify({code: lastSeenCode}));
+
 
     // Set event handlers to receive messages.
     let receivedUserInfo = false;
@@ -158,14 +165,34 @@ export class Code {
         }
 
         // Construct sanitized message for storage and broadcast.
-        data = { name: session.name, message: "" + data.message };
+        const difference = data.difference;
+        const lastSeenCode = await this.storage.get("lastSeenCode");
+        let code = data.code;
 
+        data = { name: session.name, message: "" || data.message };
+        
+        // if (code) {
+        //   data.code = code;
+        // }
+
+        if (difference) {
+          data.difference = difference;
+
+          const dmp = new DiffMatchPatch();
+          const patches = dmp.patch_fromText(difference);
+          code = dmp.patch_apply(patches, lastSeenCode)[0];
+          await this.storage.put("lastSeenCode", code);
+        }
+        // if (code) {
+        //   data.code = code;
+        // }
+       
         // Block people from sending overly long messages. This is also enforced on the client,
         // so to trigger this the user must be bypassing the client code.
-        if (data.message.length > 4096) {
-          webSocket.send(JSON.stringify({ error: "Message too long." }));
-          return;
-        }
+        // if (data..length > 4096) {
+        //   webSocket.send(JSON.stringify({ error: "Message too long." }));
+        //   return;
+        // }
 
         // Add timestamp. Here's where this.lastTimestamp comes in -- if we receive a bunch of
         // messages at the same time (or if the clock somehow goes backwards????), we'll assign
@@ -179,6 +206,8 @@ export class Code {
 
         // Save message.
         let key = new Date(data.timestamp).toISOString();
+        
+
         await this.storage.put(key, dataStr);
       } catch (err) {
         // Report any exceptions directly back to the client. As with our handleErrors() this
