@@ -94,21 +94,10 @@ export default async (
         folding: true,
         glyphMargin: false,
         wordWrap: "off",
-        mouseWheelZoom: false,
-        wordWrapColumn: 80,
-        useTabStops: false,
-        useShadowDOM: true,
-        dragAndDrop: true,
-        disableLayerHinting: true,
-        formatOnPaste: false,
         showUnused: true,
 
         //       glyphMargin: true,
-        automaticLayout: true,
         scrollBeyondLastLine: false,
-        autoIndent: "full",
-        accessibilitySupport: "off",
-
         autoClosingQuotes: "beforeWhitespace",
         padding: {
           bottom: 300,

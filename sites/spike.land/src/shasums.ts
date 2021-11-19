@@ -1,9 +1,9 @@
 export const shasums = {
-  "dev.mjs": "eddf165747babfb115396812e7b77dd50a6e49e15be26425fcac16bb97ed1508",
+  "dev.mjs": "863a2ced21c6955780b94af659aa88a0d4134783cdd4bd59a2576add7f68bc21",
   "edit/index.html":
     "6bedf2adaf3b015d95ef000fe886b446ff1cc39184be9c8f060e63a325ed50af",
   "dev.mjs.map":
-    "d772be36d883209adfc825c38fd120b3befbdabb970cf6d1f4a360a82cacc600",
+    "641272cce823d1968eacac081d2e3432658983de3c100b66703d1d3ed6f47302",
   ".vscode/settings.json":
     "59518a7d473e186d1edb3b105cac5644bb6f04a20f5d21a17b69b89b3f7837c9",
   "js/ipfsClient.mjs":
@@ -31,7 +31,7 @@ export const shasums = {
   "js/codeLoader.mjs":
     "ea8f3e9dc6c53687046f2f92dcfcc6450fc7f49965aa3a7c324bf0a421b851ae",
   "js/importmap.json":
-    "ed17651b06c0e194b6958335b8031688f111b172f7dea6ffb4f022c7e059c19b",
+    "642df12454b5065b3855265ecbd1dc8541793f94aa902b73c9f463d0129eec68",
   "js/sw.js":
     "e8493b6ab208d22c048635935efa2932a9abc4994b32ef4bacc59f604ca1eb53",
   "js/share.mjs":
@@ -90,7 +90,7 @@ export const shasums = {
   "assets/synthwave.jpg":
     "ddb7a1699251a0daecf2c4ff494760608cd9d5f39e8ce09426a31b2d505ceb4e",
   "assets/app.css":
-    "f50c9b2ca8155bf73b925b40f1cfe167a351e2607bba16650c0d08c192da9599",
+    "27a490fb6e2a10f6a6b361d72d42c60299bd1a62478569aea45176f341f45341",
   "assets/roboto.css":
     "d4cfbb0537146f1f477d5050b2b19a8ccad2cbe8d22d4d18bfefb510b53571be",
   "food": "bar",
