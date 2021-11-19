@@ -49,7 +49,7 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
   const child = childArray[childArray.length - 1];
 
   React.useEffect(() => {
-    window.addEventListener("resize", () => changeHeight(innerHeight));
+    window.addEventListener("resize", () => changeHeight(window.innerHeight));
   });
 
   React.useEffect(() => {
@@ -89,9 +89,9 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
       dragElastic={0.5}
       dragConstraints={{
         left: 0,
-        right: 300,
-        top: -height / 4,
-        bottom: height / 2,
+        right: width - 20 - width/6,
+        top: -height +100,
+        bottom: innerHeight -100,
       }}
       dragMomentum={false}
       drag={true}

@@ -23,7 +23,7 @@ const DraggableWindow = ({ onShare, onRestore, position, session }) => {
   const zbody = React.useRef(null);
   const child = childArray[childArray.length - 1];
   React.useEffect(() => {
-    window.addEventListener("resize", () => changeHeight(innerHeight));
+    window.addEventListener("resize", () => changeHeight(window.innerHeight));
   });
   React.useEffect(() => {
     const handler = setInterval(() => {
@@ -58,9 +58,9 @@ const DraggableWindow = ({ onShare, onRestore, position, session }) => {
     dragElastic: 0.5,
     dragConstraints: {
       left: 0,
-      right: 300,
-      top: -height / 4,
-      bottom: height / 2
+      right: width - 20 - width / 6,
+      top: -height + 100,
+      bottom: innerHeight - 100
     },
     dragMomentum: false,
     drag: true

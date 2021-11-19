@@ -23,11 +23,15 @@ export async function openWindows() {
     },
   );
 
-  win.content.innerHTML = `<div
-    id="editor"
-    style="float: left; width: 100%; height: 100%; border: 1px solid grey"
-  ></div>
-  <div style="clear: both"></div>`;
+  win.content.innerHTML = `
+  <div class="editor-frame">
+  <div class="loading editor" style="display: none">
+								<div class="progress progress-striped active">
+									<div class="bar"></div>
+								</div>
+		</div>
+    <div id="editor" style></div>
+    </div>`;
 
   // const zbody = wm.createWindow(
   //   {
