@@ -322,14 +322,11 @@ var editor_default = async ({ onChange, code, language, container, options }) =>
   if (parent) {
     const { width, height } = parent.getClientRects()[0];
     innerContainer.style.width = `${Math.min(window.innerWidth, width)}px`;
-    innerContainer.style.height = `${height - 28}px`;
-    parent.addEventListener("resize", (ev) => {
+    innerContainer.style.height = `${height}px`;
+    window.addEventListener("resize", (ev) => {
       const { width: width2, height: height2 } = parent.getClientRects()[0];
       innerContainer.style.width = `${Math.min(window.innerWidth, width2)}px`;
-      innerContainer.style.height = `${height2 - 28}px`;
-      innerContainer.style.resize = "vertical";
-      innerContainer.style.overflow = "auto";
-      parent.style.overflow = "hidden";
+      innerContainer.style.height = `${height2}px`;
     });
   }
   const innerStyle = document.createElement("style");
@@ -390,7 +387,7 @@ var editor_default = async ({ onChange, code, language, container, options }) =>
     })
   };
   window.addEventListener("resize", () => {
-    monaco.editor.layout();
+    modules.editor.layout();
   });
   modules.editor.onDidChangeModelContent((e) => onChange(modules.editor.getValue(), e));
   modules.monaco.languages.typescript.typescriptDefaults.setDiagnosticsOptions({

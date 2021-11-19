@@ -58,15 +58,12 @@ export default async (
   if (parent) {
     const { width, height } = parent.getClientRects()[0];
     innerContainer.style.width = `${Math.min(window.innerWidth, width)}px`;
-    innerContainer.style.height = `${height - 28}px`;
+    innerContainer.style.height = `${height}px`;
 
-    parent.addEventListener("resize", (ev) => {
+    window.addEventListener("resize", (ev) => {
       const { width, height } = parent.getClientRects()[0];
       innerContainer.style.width = `${Math.min(window.innerWidth, width)}px`;
-      innerContainer.style.height = `${height - 28}px`;
-      innerContainer.style.resize = "vertical";
-      innerContainer.style.overflow = "auto";
-      parent.style.overflow = "hidden";
+      innerContainer.style.height = `${height}px`;
     });
   }
   const innerStyle = document.createElement("style");
@@ -141,7 +138,7 @@ export default async (
   };
 
   window.addEventListener("resize", ()=>{
-    monaco.editor.layout();
+    modules.editor.layout();
   })
   modules.editor.onDidChangeModelContent((
     e: monaco.editor.IModelContentChangedEvent,
