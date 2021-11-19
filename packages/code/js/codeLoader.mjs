@@ -136,7 +136,8 @@ export async function run(mode = "window", code = "") {
   await restartCode(session.transpiled, session.code, session.i);
 
   await editorPromise;
-
+ 
+  monaco = window.monaco;
  
   monaco.editor.createModel(
     "define module './hash.js';",

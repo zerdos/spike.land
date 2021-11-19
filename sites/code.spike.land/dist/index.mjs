@@ -1,5 +1,5 @@
 // ../../packages/code/package.json
-var version = "0.0.95";
+var version = "0.0.96";
 
 // ../../packages/code/js/importmap.json
 var imports = {
@@ -197,27 +197,27 @@ var imports = {
   "@emotion/unitless": "https://unpkg.com/@emotion/unitless@0.7.5/dist/unitless.browser.esm.js",
   "@emotion/weak-memoize": "https://unpkg.com/@emotion/weak-memoize@0.2.5/dist/weak-memoize.browser.esm.js",
   "prop-types": "https://esm.sh/prop-types",
-  "framer-motion": "https://unpkg.com/@spike.land/esm@0.0.94/dist/framer-motion.mjs",
+  "framer-motion": "https://unpkg.com/@spike.land/esm@0.0.95/dist/framer-motion.mjs",
   framesync: "https://unpkg.com/framesync@6.0.1/dist/es/index.mjs",
   "hey-listen": "https://unpkg.com/hey-listen@1.0.8/dist/hey-listen.es.js",
   "hoist-non-react-statics": "https://esm.sh/hoist-non-react-statics",
   popmotion: "https://unpkg.com/popmotion@11.0.0/dist/es/index.mjs",
-  react: "https://unpkg.com/@spike.land/esm@0.0.94/dist/react.mjs",
-  "react-dom": "https://unpkg.com/@spike.land/esm@0.0.94/dist/react-dom.mjs",
-  "react-is": "https://unpkg.com/@spike.land/esm@0.0.94/dist/react-is.mjs",
+  react: "https://unpkg.com/@spike.land/esm@0.0.95/dist/react.mjs",
+  "react-dom": "https://unpkg.com/@spike.land/esm@0.0.95/dist/react-dom.mjs",
+  "react-is": "https://unpkg.com/@spike.land/esm@0.0.95/dist/react-is.mjs",
   "react-transition-group": "https://esm.sh/react-transition-group",
   "react/jsx-runtime": "https://esm.sh/react/jsx-runtime",
-  "@spike.land/renderer": "https://unpkg.com/@spike.land/renderer@0.0.94/dist/renderer.js",
+  "@spike.land/renderer": "https://unpkg.com/@spike.land/renderer@0.0.95/dist/renderer.js",
   "style-value-types": "https://unpkg.com/style-value-types@5.0.0/dist/es/index.mjs",
   stylis: "https://unpkg.com/stylis@4.0.10/dist/stylis.mjs",
-  "@spike.land/qrious": "https://unpkg.com/@spike.land/qrious@0.0.94/dist/QRious.mjs",
+  "@spike.land/qrious": "https://unpkg.com/@spike.land/qrious@0.0.95/dist/QRious.mjs",
   tslib: "https://unpkg.com/tslib@2.3.1/tslib.es6.js",
-  "ipfs-only-hash": "https://unpkg.com/@spike.land/esm@0.0.94/dist/ipfs-only-hash.mjs",
+  "ipfs-only-hash": "https://unpkg.com/@spike.land/esm@0.0.95/dist/ipfs-only-hash.mjs",
   "@zedvision/swm": "https://unpkg.com/@zedvision/swm@4.0.0/public/swm-esm.js",
   "uuid/": "https://unpkg.com/uuid@8.3.2/dist/esm-browser/",
-  "@spike.land/code": "https://unpkg.com/@spike.land/code@0.0.94/js/reactLoader.mjs",
+  "@spike.land/code": "https://unpkg.com/@spike.land/code@0.0.95/js/reactLoader.mjs",
   comlink: "https://unpkg.com/comlink@4.3.1/dist/esm/comlink.mjs",
-  "@spike.land/ipfs": "https://unpkg.com/@spike.land/ipfs@0.0.94/dist/ipfs.client.mjs",
+  "@spike.land/ipfs": "https://unpkg.com/@spike.land/ipfs@0.0.95/dist/ipfs.client.mjs",
   "workbox-window": "https://unpkg.com/workbox-window@6.4.1/build/workbox-window.prod.es5.mjs"
 };
 var importmap_default = {
@@ -246,9 +246,6 @@ var src_default = `<!DOCTYPE html>
     }
 		
   </style>
-  	<style>body{padding:54px 0 40px 0;overflow-y:scroll}body.home{padding-top:0}.navbar-search .search-query,body,button,input,select,textarea{font:400 14px/1.4em 'Segoe UI','Open Sans',Calibri,Candara,Arial,sans-serif}.navbar .nav{float:left;margin-right:0}a{color:#06c;cursor:pointer}h1,h2,h3,h4,h5,h6{letter-spacing:-.01em;margin:0;line-height:normal}h1,h2{font-family:'Segoe UI Light','Segoe UI','Open Sans',Calibri,Candara,Arial,sans-serif;font-weight:300}h1{font-size:72px;letter-spacing:-.02em}.hero-unit h1{font-size:48px}h2{font-size:26px}h3{font-size:26px}h4{font-size:16px}h1 small,h2 small,h3 small,h4 small,h5 small,h6 small{color:#999}.alert h1,.alert h2,.alert h3,.alert h4,.alert h5,.alert h6,.alert-heading{color:inherit}.alert-info{color:#3a87ad;background-color:#d9edf7}.navbar-inverse .navbar-inner{background-color:#68217a;-webkit-filter:none;filter:none}.navbar-inverse.home .navbar-inner{background-color:transparent}.navbar-inverse .btn-navbar{background:0 0;margin-top:14px}.navbar-inverse .btn-navbar.active,.navbar-inverse .btn-navbar.disabled,.navbar-inverse .btn-navbar:active,.navbar-inverse .btn-navbar:focus,.navbar-inverse .btn-navbar:hover,.navbar-inverse .btn-navbar[disabled]{background:#442359}.btn-primary{background-color:#0072c6}.home .hero-unit{margin-top:-54px;position:relative;z-index:100}.hero-unit{font-weight:400}.hero-unit h1{margin:0 0 6px}.nav-tabs>li>a{color:#999}.nav-tabs>li>a:hover{color:#555}.nav-tabs>.active>a,.nav-tabs>.active>a:focus,.nav-tabs>.active>a:hover{color:#0072c6}body>section>.container{padding-top:12px}.masthead{background-color:#0072c6;color:#fff}.masthead .hero-unit{padding:30px 0 0;background:0 0}.navbar.home{position:relative;z-index:500}.navbar .nav>li>a{text-shadow:none;padding-top:18px;font-size:14px;text-transform:uppercase}.navbar-inverse .nav-collapse .nav>li>a{color:#fff;padding-left:0}.navbar-inverse .nav>li>a.nav-item:focus,.navbar-inverse .nav>li>a.nav-item:hover{background-color:rgba(0,0,0,.12)}.navbar-inverse .nav .active>a.nav-item,.navbar-inverse .nav .active>a.nav-item:focus,.navbar-inverse .nav .active>a.nav-item:hover{color:#fff;background-color:rgba(0,0,0,.24);-webkit-box-shadow:none;box-shadow:none}.navbar .logo{padding:16px 12px 0 0;height:35px;display:block;float:left}.navbar .logo a{color:#fff;font-size:24px;letter-spacing:-1px}.navbar-fixed-top{z-index:500}.flgroup:after{content:'';display:block;visibility:hidden;height:0;clear:both}@media (min-width:1200px){h1,h2{letter-spacing:-.04em}.hero-unit h1{font-size:72px}h2{font-size:36px}}#gh-link{display:none;position:fixed;top:0;right:0;border:0;margin:0;z-index:1000}@media (min-width:980px){#gh-link{display:block}}@media (min-width:980px){.navbar .nav{float:right}.navbar-inverse .nav-collapse .nav>li>a{padding-left:15px}}@media (min-width:768px) and (max-width:979px){h1{letter-spacing:-.02em}}@media (max-width:979px){body{padding:inherit}.navbar-fixed-bottom,.navbar-fixed-top,.navbar-static-top{margin-right:inherit;margin-left:inherit;margin-bottom:0}.navbar-fixed-top .navbar-inner{padding:0 20px}.navbar .container{width:724px}}@media (max-width:767px){.navbar .container{width:100%}}@media (max-width:480px){.navbar .logo a{display:none}}</style>
-		<style>.try .drops{margin:0;list-style:none;float:right}.try .drops li{float:left;width:auto;height:auto;text-indent:0;font-size:26px;line-height:normal;margin:0 12px;cursor:pointer}.try .drops li a:focus,.try .drops li a:hover{text-decoration:none}.try .drops li h4{color:#999}.try .drops li.active h4,.try .drops li.active:hover h4{color:#0072c6}.try .drops li:hover h4{color:rgba(0,114,198,.5)}.try .editor.row{padding:18px 0}.try .row h4{padding-bottom:6px}.try .tile{position:relative;height:72px;border:1px solid #ddd;text-align:right;overflow:hidden;cursor:pointer;-webkit-box-shadow:0 1px 3px rgba(0,0,0,.055);-moz-box-shadow:0 1px 3px rgba(0,0,0,.055);box-shadow:0 1px 3px rgba(0,0,0,.055);-webkit-box-sizing:border-box;-o-box-sizing:border-box;-moz-box-sizing:border-box;-ms-box-sizing:border-box;box-sizing:border-box}.try .tile:hover{-webkit-box-shadow:0 1px 5px rgba(0,0,0,.25);-moz-box-shadow:0 1px 5px rgba(0,0,0,.25);box-shadow:0 1px 5px rgba(0,0,0,.25)}.try .tile h4{margin:0;position:absolute;right:12px;bottom:12px;z-index:1}.try .tile .glyph{position:absolute;left:12px;bottom:-6px;background:url('../img/cloud.png') no-repeat;background-size:80px 43px;height:43px;width:80px;opacity:.5;transition:opacity .5s ease,bottom .5s ease;-webkit-transition:opacity .5s ease,bottom .5s ease}.try .tile:hover .glyph{opacity:1;bottom:-2px}.try .editor.row h4 small{color:#555}.try .editor.row .control-label{display:inline-block;position:relative;top:-4px;margin-right:4px}.try .editor.row .monaco-editor .find-widget input[type=text]{margin-bottom:0;-webkit-box-shadow:none;-moz-box-shadow:none;box-shadow:none;-webkit-transition:none;-moz-transition:none;-o-transition:none;transition:none}.try .editor.row .monaco-editor .find-widget .monaco-checkbox .label{min-height:20px;min-width:20px}.try .editor.row .monaco-editor .find-widget .close{float:none;opacity:1}.try .editor .editor-frame{position:relative}.try .editor .editor-frame #diff-editor,.try .editor .editor-frame #editor{height:400px;margin-bottom:10px;border:1px solid #eee}.try .editor .editor-frame .loading{position:absolute;height:100%;width:100%;background-color:rgba(255,255,255,.5);margin:0 auto;display:none;z-index:100}.try .editor .editor-frame .progress{width:50%;margin:15% auto 0}.try .editor .editor-frame .progress .bar{width:100%;background-color:#4bb1cf}.try .editor .editor-frame #diff-editor .alert,.try .editor .editor-frame #editor .alert{margin:18% auto 0;width:30%;text-align:center;color:#b94a48;background-color:#f2dede;border-color:#eed3d7}.try .editor #diff-editor .monaco-editor .row,.try .editor #editor .monaco-editor .row{margin-left:0}.try .editor .vs.monaco-editor .context-view.monaco-menu-container a{color:#646465}.try .editor .vs-dark.monaco-editor .context-view.monaco-menu-container a{color:#bbb}@media (min-width:1200px){.try .editor .row{margin-left:0}}@media (max-width:767px){.try .container{margin:0 24px}.try .tile h4{right:6px}.try .editor>.span9 .row .span4{float:left;width:50%}.try .editor h4{margin-top:0}}@media (max-width:520px){.try .editor>.span3 h4,.try .editor>.span3 p{display:none}}@media (max-width:320px){.try .editor>.span9{display:none}}.monaco-editor .container:before,.monaco-editor .row:before{content:'';display:inherit}.monaco-editor .container:after,.monaco-editor .row:after{clear:inherit}.monaco-editor .container{width:auto;margin:inherit;padding:inherit}.monaco-editor .close{float:none;font-size:inherit;font-weight:inherit;line-height:inherit;color:inherit;text-shadow:inherit;opacity:inherit;filter:inherit}.monaco-editor .row{margin:inherit}.monaco-editor .invisible{visibility:visible}</style>
-
 		<link
 			data-name="vs/editor/editor.main"
 			rel="stylesheet"
