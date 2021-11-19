@@ -1,6 +1,6 @@
 {
   "name": "@spike.land/qrious",
-  "version": "0.0.91",
+  "version": "0.0.92",
   "description": "Library for QR code generation using canvas",
   "homepage": "https://github.com/neocotic/qrious",
   "publishConfig": {
