@@ -31,10 +31,10 @@ const exceptions = {
   "framer-motion":
     `https://unpkg.com/@spike.land/esm@${zedEsmLatestVersion}/dist/framer-motion.mjs`,
 
-    "ipfs-only-hash":
+  "ipfs-only-hash":
     `https://unpkg.com/@spike.land/esm@${zedEsmLatestVersion}/dist/ipfs-only-hash.mjs`,
 
-    "diff-match-patch":
+  "diff-match-patch":
     `https://unpkg.com/@spike.land/esm@${zedEsmLatestVersion}/dist/diff-match-patch.mjs`,
 
   "uuid/": `https://unpkg.com/uuid@${uidVersion}/dist/esm-browser/`,
