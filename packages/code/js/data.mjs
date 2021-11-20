@@ -224,6 +224,8 @@ export const saveCode =
       broad({
         starterCode,
         code: codeNonFormatted,
+        transpiled,
+        html,
         hashOfStarterCode,
         hashOfCode,
       });

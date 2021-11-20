@@ -1,9 +1,18 @@
+import { join } from "./ws.mjs";
+
 const wb = () =>
   import("./workboxLoader.mjs").then(({ workboxLoader }) => workboxLoader());
 
 const runTheApp = () =>
   import("./reactLoader.mjs").then(({ run }) => run("window"));
+
 export default function () {
+  try {
+    join();
+  } catch {
+    setTimeout(join, 100);
+  }
+
   try {
     wb();
   } catch {

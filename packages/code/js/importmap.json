@@ -194,6 +194,7 @@
     "@emotion/unitless": "https://unpkg.com/@emotion/unitless@0.7.5/dist/unitless.browser.esm.js",
     "@emotion/weak-memoize": "https://unpkg.com/@emotion/weak-memoize@0.2.5/dist/weak-memoize.browser.esm.js",
     "prop-types": "https://esm.sh/prop-types",
+    "diff-match-patch": "https://unpkg.com/@spike.land/esm@0.1.8/dist/diff-match-patch.mjs",
     "framer-motion": "https://unpkg.com/@spike.land/esm@0.1.8/dist/framer-motion.mjs",
     "framesync": "https://unpkg.com/framesync@6.0.1/dist/es/index.mjs",
     "hey-listen": "https://unpkg.com/hey-listen@1.0.8/dist/hey-listen.es.js",

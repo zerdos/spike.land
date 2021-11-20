@@ -1,11 +1,13 @@
 export const shasums = {
-  "dev.mjs": "9e5a87bfb5a24414a0226bf06bd6a980e2b8eddaff0954ad4ea5086a043e930d",
+  "dev.mjs": "ff3dd91a8d5236f2b0b050451b73ebe36a8c75ec13086d4319021bdd35071233",
   "edit/index.html":
     "6bedf2adaf3b015d95ef000fe886b446ff1cc39184be9c8f060e63a325ed50af",
   "dev.mjs.map":
-    "056a94cd18d692f2700d2cd448cf4f14e3d80d943b60ca257ae4d3ef33460d32",
+    "dc8eca93ebe31495da9ec860bd4b1caac758e1d07a2672853d732c79888a2dfb",
   ".vscode/settings.json":
     "59518a7d473e186d1edb3b105cac5644bb6f04a20f5d21a17b69b89b3f7837c9",
+  "js/ws.mjs":
+    "464094b3d736746aa258616f5abd895256e2c53a4e51fae252d26f5f8e566cf2",
   "js/ipfsClient.mjs":
     "5bba59ecc4f9895950dcbdfc6b3ab5b7d85ddb394a91b4454a61310c0db6f852",
   "js/workers/transpile.worker.js":
@@ -43,7 +45,7 @@ export const shasums = {
   "js/renderPreviewWindow.mjs":
     "c487d9b5a2f568c2ecf220d1e10ec81afc66cbe5ca7d055ad519d71ddd86b61b",
   "js/data.mjs":
-    "91a416e20b8bb166a28b9eb76a996588865a7362e3e3bc2f790b0e255da02256",
+    "cc86c3ad1866be4761d5dba8414053380b718688de4e932cb20a1b0cd8316df9",
   "js/importScript.mjs":
     "f1170901faaf51af6553d9a5d5c67a1c807653d55d57f1bbfe266a2be76c00e1",
   "js/examples/app.tsx":
@@ -55,7 +57,7 @@ export const shasums = {
   "js/transpile.mjs":
     "3e9b4471a36bf0170b58cd0d69f7ad21b34eb29885eac3ffacbc83b0d332fd02",
   "js/starter.mjs":
-    "2c9fcf92b93a17c6d1188a87e729e95d8d930fbdc024c91b7b45a9bfa53a0522",
+    "072740aaf876cc51a199398a047e17abf53f95272e8260446c6fdf7a6b5bfe02",
   "tsconfig.json":
     "e992c8b781dcf67ee3196fdc77b4deef52550fa172d9bb14bf123c9713535560",
   "index.html":
@@ -65,7 +67,7 @@ export const shasums = {
   "esbuild-dev.mjs":
     "2ce6dbeb1a973464803bea837e46beed452727e2153fc5ab12c6d9e1007dec69",
   "scripts/importmapGenerator.mjs":
-    "c1af17d89d1ea176ff835327403b5711c20861824280109c6ce31d5ce649e1c5",
+    "fda345c248a09f9f730d60607403343cce498ef6d5a10282a2050083a1474315",
   "manifest.json":
     "67193a5aefec147d6b040943a63d1a42945a5ba5401653e6e0062e5251ec611f",
   ".ignore": "bcae0416621b3db43d8cba1e4454a792c7af9e4b7287e51056efc5a215d95839",
