@@ -80,28 +80,28 @@ export default async (
       innerContainer,
       {
         formatOnType: false,
-        
+
         scrollbar: {
           // Subtle shadows to the left & top. Defaults to true.
           useShadows: false,
-      
+
           // Render vertical arrows. Defaults to false.
           verticalHasArrows: true,
           // Render horizontal arrows. Defaults to false.
           horizontalHasArrows: true,
-      
+
           // Render vertical scrollbar.
           // Accepted values: 'auto', 'visible', 'hidden'.
           // Defaults to 'auto'
-          vertical: 'visible',
+          vertical: "visible",
           // Render horizontal scrollbar.
           // Accepted values: 'auto', 'visible', 'hidden'.
           // Defaults to 'auto'
-          horizontal: 'visible',
-      
+          horizontal: "visible",
+
           verticalScrollbarSize: 17,
           horizontalScrollbarSize: 17,
-          arrowSize: 30
+          arrowSize: 30,
         },
         minimap: {
           enabled: true,
@@ -144,9 +144,9 @@ export default async (
     ),
   };
 
-  window.addEventListener("resize", ()=>{
+  window.addEventListener("resize", () => {
     modules.editor.layout();
-  })
+  });
   modules.editor.onDidChangeModelContent((
     e: monaco.editor.IModelContentChangedEvent,
   ) => onChange(modules.editor.getValue(), e));

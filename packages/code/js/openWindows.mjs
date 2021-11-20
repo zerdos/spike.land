@@ -1,5 +1,5 @@
 export async function openWindows() {
-  return ;
+  return;
   // const WM = await import("@zedvision/swm");
 
   // const WindowManager = WM.WindowManager

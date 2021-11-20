@@ -19,7 +19,7 @@ export const run = async (mode = "window", code = "") => {
 
   const { run: runCode } = await import("../dev.mjs");
 
-  const {starterCode} = window;
+  const { starterCode } = window;
 
   return runCode(mode, starterCode || code);
 };

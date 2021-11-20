@@ -4478,10 +4478,10 @@ available-typed-arrays@^1.0.5:
   resolved "https://registry.yarnpkg.com/available-typed-arrays/-/available-typed-arrays-1.0.5.tgz#92f95616501069d07d10edb2fc37d3e1c65123b7"
   integrity sha512-DMD0KiN46eipeziST1LPP/STfDU0sufISXmjSgvVsoU2tqxctQeASejWcfNtxYKqETM1UxQ8sp2OrSBWpHY6sw==
 
-aws-sdk@2.1032.0:
-  version "2.1032.0"
-  resolved "https://registry.yarnpkg.com/aws-sdk/-/aws-sdk-2.1032.0.tgz#6711efdd61e9a4d306030a69684633702cc43113"
-  integrity sha512-e3477Kka0XoIKrxTMdbBKWxizdesWpZK77FUv0FtcviZtKJd/yxymz50NREP3+88OZIj5a0WihG4YIjuZOla5Q==
+aws-sdk@2.1033.0:
+  version "2.1033.0"
+  resolved "https://registry.yarnpkg.com/aws-sdk/-/aws-sdk-2.1033.0.tgz#8bd0084142b15cc2ca427483c36c86b27abc046b"
+  integrity sha512-cgcjiuR82bhfBWTffqt6e9+Cn/UgeC6QPQTrlJy3GxwPxChthyrt/h5pekj2l4PLFvETsG10Y6CqQysJEMsncw==
   dependencies:
     buffer "4.9.2"
     events "1.1.1"
@@ -7113,9 +7113,9 @@ ejs@^3.1.6:
     jake "^10.6.1"
 
 electron-to-chromium@^1.3.564, electron-to-chromium@^1.3.896:
-  version "1.3.903"
-  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.3.903.tgz#e2d3c3809f4ef05fdbe5cc88969dfc94b1bd15b9"
-  integrity sha512-+PnYAyniRRTkNq56cqYDLq9LyklZYk0hqoDy9GpcU11H5QjRmFZVDbxtgHUMK/YzdNTcn1XWP5gb+hFlSCr20g==
+  version "1.3.904"
+  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.3.904.tgz#52a353994faeb0f2a9fab3606b4e0614d1af7b58"
+  integrity sha512-x5uZWXcVNYkTh4JubD7KSC1VMKz0vZwJUqVwY3ihsW0bst1BXDe494Uqbg3Y0fDGVjJqA8vEeGuvO5foyH2+qw==
 
 elliptic@^6.5.3:
   version "6.5.4"
@@ -8512,10 +8512,10 @@ fragment-cache@^0.2.1:
   dependencies:
     map-cache "^0.2.2"
 
-framer-motion@5.3.0:
-  version "5.3.0"
-  resolved "https://registry.yarnpkg.com/framer-motion/-/framer-motion-5.3.0.tgz#22956eebab7a14032b3467a76822b946f8ff9bd0"
-  integrity sha512-b3AIRy5lvJ4Fo2ZJ3nNRl7U8qF+uVG4VGY/Gi+fwLVxSqxkkX1hLuXV67uXxn+ideGUs0wRj+X7DzQEfvQsmaw==
+framer-motion@5.3.1:
+  version "5.3.1"
+  resolved "https://registry.yarnpkg.com/framer-motion/-/framer-motion-5.3.1.tgz#5588f904f16b20a617f112ee2b10573e7392c488"
+  integrity sha512-wBqW2eAoIxGcp6zhIPlzHq9b6FqWG3Xir6ovgg/HZgbKajGLfcfYRsQU6qri0U53Qov5QZwb7CkfMjl0UIxL4A==
   dependencies:
     framesync "6.0.1"
     hey-listen "^1.0.8"
@@ -10265,43 +10265,43 @@ ipaddr.js@1.9.1:
   resolved "https://registry.yarnpkg.com/ipaddr.js/-/ipaddr.js-1.9.1.tgz#bff38543eeb8984825079ff3a2a8e6cbd46781b3"
   integrity sha512-0KI/607xoxSToH7GjN1FfSbLoU0+btTicjsQSWQlh/hZykN8KpmMf7uYwPW3R+akZ6R/w18ZlXSHBYXiYUPO3g==
 
-ipfs-core-types@^0.8.2:
-  version "0.8.2"
-  resolved "https://registry.yarnpkg.com/ipfs-core-types/-/ipfs-core-types-0.8.2.tgz#6923dd1a5fda9ea26d7b03e83f96a16a9e8cfc24"
-  integrity sha512-qgKn+hHAdRRyP4eX7ygmNSPucI75KUMxtoxgYaJGPcew4rdvCA1VCD/Rc0W+dHlRbTRM4CYIE10VS3qjpXSgDQ==
+ipfs-core-types@^0.8.3:
+  version "0.8.3"
+  resolved "https://registry.yarnpkg.com/ipfs-core-types/-/ipfs-core-types-0.8.3.tgz#cb042a35c4ccb0b100348a0d9f473b22dd482102"
+  integrity sha512-AmVIeYhYJfBXwPlJxJE4sYaW7CM9AhP+hZzdNJdnCP450Kaw8OXRct7fwIvp0SBm2d4AdeHrA9QNpPuH3vMTKQ==
   dependencies:
     interface-datastore "^6.0.2"
     multiaddr "^10.0.0"
     multiformats "^9.4.1"
 
-ipfs-message-port-client@0.10.0:
-  version "0.10.0"
-  resolved "https://registry.yarnpkg.com/ipfs-message-port-client/-/ipfs-message-port-client-0.10.0.tgz#2043e645a511b44ceed5b80294c3ce1821e53bb9"
-  integrity sha512-oVcZVlG44288LHDeyTaAxbVt9NS9LPjj8o6RSwBjHMNvw9epGstbK+7yl39978r6sj7dAoWTQg+NRqheVAQw2w==
+ipfs-message-port-client@0.10.1:
+  version "0.10.1"
+  resolved "https://registry.yarnpkg.com/ipfs-message-port-client/-/ipfs-message-port-client-0.10.1.tgz#9d6a3c5a464bdd0b45dad347fd60c0e9ac77ce9d"
+  integrity sha512-8T07SPV2SIoKCzv1qQl3WhLPH0InL8/C1ghkkfVC5ATsmgLlXHoGpMmjH9qKyXPGTN7tJL0K3JvX/xfLrqrhBw==
   dependencies:
     browser-readablestream-to-it "^1.0.1"
     err-code "^3.0.1"
-    ipfs-core-types "^0.8.2"
-    ipfs-message-port-protocol "^0.10.2"
+    ipfs-core-types "^0.8.3"
+    ipfs-message-port-protocol "^0.10.3"
     ipfs-unixfs "^6.0.3"
     it-peekable "^1.0.2"
     multiformats "^9.4.1"
 
-ipfs-message-port-protocol@0.10.2, ipfs-message-port-protocol@^0.10.2:
-  version "0.10.2"
-  resolved "https://registry.yarnpkg.com/ipfs-message-port-protocol/-/ipfs-message-port-protocol-0.10.2.tgz#362f9e15ba3270fc7adbdb42991f6dd77f59f810"
-  integrity sha512-XkyUCdwHHkeMNdYCcu8WOzr9YrrRoxAtLCpiprG6TsUF5q0JqnIQqBEMQNr2wPatG4zq1xjZnr9yghpBSpmqmA==
+ipfs-message-port-protocol@0.10.3, ipfs-message-port-protocol@^0.10.3:
+  version "0.10.3"
+  resolved "https://registry.yarnpkg.com/ipfs-message-port-protocol/-/ipfs-message-port-protocol-0.10.3.tgz#66e5abb284ca49b56e2763a0f7bfe9b6a74db278"
+  integrity sha512-/NlEfy9L/aTKsCQoRFNok8Am0IqSGEp+I9OZQNG6ToXFtLn/GON8pxXBJ7wnEwKQweuBNM/K9mIlSL6tFSRfKg==
   dependencies:
-    ipfs-core-types "^0.8.2"
+    ipfs-core-types "^0.8.3"
     multiformats "^9.4.1"
 
-ipfs-message-port-server@0.10.2:
-  version "0.10.2"
-  resolved "https://registry.yarnpkg.com/ipfs-message-port-server/-/ipfs-message-port-server-0.10.2.tgz#d4d465b4481a338bee06ca5dfdd7715184feab8e"
-  integrity sha512-hJt9N63BEAXw342CnTmjoR/uw/VJZ1Fo/c3oZVJUISPBAI2bkKrw47+eCxVkFG9VyCrRsqzAlJN42IQKkbz+Mw==
+ipfs-message-port-server@0.10.3:
+  version "0.10.3"
+  resolved "https://registry.yarnpkg.com/ipfs-message-port-server/-/ipfs-message-port-server-0.10.3.tgz#a264b42a55d332b34c945e4d86e7ac8b318689e8"
+  integrity sha512-3m1Y46qwZa9S0FP7uILCuYC18hCSCaIgGlqirSda4A1GPtKX0gaGvSWlFBJjSqdt6UYsYwGutHqUlF+7zgIYXA==
   dependencies:
-    ipfs-core-types "^0.8.2"
-    ipfs-message-port-protocol "^0.10.2"
+    ipfs-core-types "^0.8.3"
+    ipfs-message-port-protocol "^0.10.3"
     it-all "^1.0.4"
     multiformats "^9.4.1"
 
@@ -12989,14 +12989,14 @@ micromark-util-symbol@^1.0.0:
   integrity sha512-NZA01jHRNCt4KlOROn8/bGi6vvpEmlXld7EHcRH+aYWUfL3Wc8JLUNNlqUMKa0hhz6GrpUWsHtzPmKof57v0gQ==
 
 micromark-util-types@^1.0.0, micromark-util-types@^1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/micromark-util-types/-/micromark-util-types-1.0.1.tgz#8bb8a092d93d326bd29fe29602799f2d0d922fd4"
-  integrity sha512-UT0ylWEEy80RFYzK9pEaugTqaxoD/j0Y9WhHpSyitxd99zjoQz7JJ+iKuhPAgOW2MiPSUAx+c09dcqokeyaROA==
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/micromark-util-types/-/micromark-util-types-1.0.2.tgz#f4220fdb319205812f99c40f8c87a9be83eded20"
+  integrity sha512-DCfg/T8fcrhrRKTPjRrw/5LLvdGV7BHySf/1LOZx7TzWZdYRjogNtyNq885z3nNallwr3QUKARjqvHqX1/7t+w==
 
 micromark@^3.0.0:
-  version "3.0.7"
-  resolved "https://registry.yarnpkg.com/micromark/-/micromark-3.0.7.tgz#036dfc974ddf8e6e773b197839c5671d92d0928c"
-  integrity sha512-67ipZ2CzQVsDyH1kqNLh7dLwe5QMPJwjFBGppW7JCLByaSc6ZufV0ywPOxt13MIDAzzmj3wctDL6Ov5w0fOHXw==
+  version "3.0.8"
+  resolved "https://registry.yarnpkg.com/micromark/-/micromark-3.0.8.tgz#4c8b1312f496af3fd376e5fcd51f594c71d7ca45"
+  integrity sha512-RXc/UmMhTW++rxDNbw045w1E2WS4u7Ixd4g8cp7vmMi8U+m8Ua2SZniz8nrWlNHFUJZJk/lW3m0n19z2RCauxA==
   dependencies:
     "@types/debug" "^4.0.0"
     debug "^4.0.0"
@@ -16866,10 +16866,10 @@ source-map-support@0.5.19:
     buffer-from "^1.0.0"
     source-map "^0.6.0"
 
-source-map-support@0.5.20, source-map-support@^0.5.16, source-map-support@^0.5.17, source-map-support@^0.5.19, source-map-support@^0.5.20, source-map-support@^0.5.6, source-map-support@~0.5.20:
-  version "0.5.20"
-  resolved "https://registry.yarnpkg.com/source-map-support/-/source-map-support-0.5.20.tgz#12166089f8f5e5e8c56926b377633392dd2cb6c9"
-  integrity sha512-n1lZZ8Ve4ksRqizaBQgxXDgKwttHDhyfQjA6YZZn8+AroHbsIz+JjwxQDxbp+7y5OYCI8t1Yk7etjD9CRd2hIw==
+source-map-support@0.5.21, source-map-support@^0.5.16, source-map-support@^0.5.17, source-map-support@^0.5.19, source-map-support@^0.5.20, source-map-support@^0.5.6, source-map-support@~0.5.20:
+  version "0.5.21"
+  resolved "https://registry.yarnpkg.com/source-map-support/-/source-map-support-0.5.21.tgz#04fe7c7f9e1ed2d662233c28cb2b35b9f63f6e4f"
+  integrity sha512-uBHU3L3czsIyYXKX88fdrGovxdSCoTGDRZ6SYXtSRxLZUzHg5P/66Ht6uoUlHu9EZod+inXhKo3qQgwXUT/y1w==
   dependencies:
     buffer-from "^1.0.0"
     source-map "^0.6.0"
@@ -17794,9 +17794,9 @@ ts-node@^9:
     yn "3.1.1"
 
 tsconfig-paths@^3.11.0:
-  version "3.11.0"
-  resolved "https://registry.yarnpkg.com/tsconfig-paths/-/tsconfig-paths-3.11.0.tgz#954c1fe973da6339c78e06b03ce2e48810b65f36"
-  integrity sha512-7ecdYDnIdmv639mmDwslG6KQg1Z9STTz1j7Gcz0xa+nshh/gKDAHcPxRbWOsA3SPp0tXP2leTcY9Kw+NAkfZzA==
+  version "3.12.0"
+  resolved "https://registry.yarnpkg.com/tsconfig-paths/-/tsconfig-paths-3.12.0.tgz#19769aca6ee8f6a1a341e38c8fa45dd9fb18899b"
+  integrity sha512-e5adrnOYT6zqVnWqZu7i/BQ3BnhzvGbjEjejFXO20lKIKpwTaupkCPgEfv4GZK1IBciJUEhYs3J3p75FdaTFVg==
   dependencies:
     "@types/json5" "^0.0.29"
     json5 "^1.0.1"

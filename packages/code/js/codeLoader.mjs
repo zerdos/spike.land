@@ -89,7 +89,7 @@ export async function run(mode = "window", code = "") {
 
   if (code) {
     session.code = code;
-    session.formattedCode = await formatter(session.code)
+    session.formattedCode = await formatter(session.code);
     session.transpiled = await transpileCode(session.formattedCode);
   }
 
@@ -118,8 +118,6 @@ export async function run(mode = "window", code = "") {
   // editorContainer.innerHTML = `<div id="editor"></div>`;
   // document.body.appendChild(editorContainer);
 
-
- 
   // session.children = await getReactChild(session.transpiled);
   await renderPreviewWindow(
     session,
@@ -129,7 +127,6 @@ export async function run(mode = "window", code = "") {
 
   if (container === null) return "No editor window";
 
-  
   const editorPromise = startMonaco(
     /**
      * @param {any} code
@@ -148,9 +145,9 @@ export async function run(mode = "window", code = "") {
   await restartCode(session.transpiled, session.code, session.i);
 
   await editorPromise;
- 
+
   monaco = window.monaco;
- 
+
   monaco.editor.createModel(
     "define module './hash.js';",
     "typescript",

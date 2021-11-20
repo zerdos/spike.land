@@ -9,8 +9,8 @@
   ],
   "main": "index.js",
   "scripts": {
-    "build": "yarn tsc",
-    "clean": "deno fmt src"
+    "build": "yarn esbuild --bundle src/index.ts --platform=node --outfile=lib/src/devcontainerGenerator.js",
+    "clean": "rm -rf lib"
   },
   "publishConfig": {
     "access": "public"

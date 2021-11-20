@@ -73,8 +73,10 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
 
   const scale = scaleRange / 100;
 
-  return (<React.Fragment>
-    <div css={css`
+  return (
+    <React.Fragment>
+      <div
+        css={css`
             margin: 20px;
             background-color:rgba(152 ,92, 92, 0.5);
             backdrop-filter: blur(10px);           
@@ -86,24 +88,26 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
             width: 680px;
             white-space: normal;
           `}
-      // dragConstraints={{
-      //   left: 0,
-      //   right: width - 20 - width/6,
-      //   top: -height +100,
-      //   bottom: innerHeight -100,
-      // }}
-    >
-        <div css={css`
+        // dragConstraints={{
+        //   left: 0,
+        //   right: width - 20 - width/6,
+        //   top: -height +100,
+        //   bottom: innerHeight -100,
+        // }}
+      >
+        <div
+          css={css`
                           height: 80vh;
                           border-radius: 16px;
                           width: 640px;
-                        `}>
-                          <div id="editor" />
-                        </div>
+                        `}
+        >
+          <div id="editor" />
+        </div>
       </div>
-    <motion.div
-      ref={ref}
-      css={css`
+      <motion.div
+        ref={ref}
+        css={css`
             right: 20px;
             background-color:rgba(92 ,92, 152, 0.8);
             backdrop-filter: blur(10px);
@@ -113,70 +117,70 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
             white-space: normal;
             position: ${position ? position : "fixed"};
           `}
-      dragElastic={0.5}
-      dragConstraints={{
-        left: 0,
-        right: width - 20 - width/6,
-        top: -height +100,
-        bottom: innerHeight -100,
-      }}
-      dragMomentum={false}
-      drag={true}
-    >
-      
-      <div
-        css={css` 
-              display: flex;
-                `}
+        dragElastic={0.5}
+        dragConstraints={{
+          left: 0,
+          right: width - 20 - width / 6,
+          top: -height + 100,
+          bottom: innerHeight - 100,
+        }}
+        dragMomentum={false}
+        drag={true}
       >
         <div
-          css={css`
+          css={css` 
+              display: flex;
+                `}
+        >
+          <div
+            css={css`
             display: flex;
             flex-direction: column;
             align-items: center;
           `}
-        >
-          <ToggleButtonGroup
-            value={scaleRange}
-            size="small"
-            exclusive
-            onChange={(_e, newScale) => newScale && changeScaleRange(newScale)}
           >
-            {sizes.map((size) => (
-              <ToggleButton
-                key={size}
-                value={size}
-              >
-                <span
-                  css={css`
-                       color: ${
-                    size === scaleRange
-                      ? "rgba(255,255,255,.8)"
-                      : "rgba(0,0,0,.3)"
-                  };
-                       `}
+            <ToggleButtonGroup
+              value={scaleRange}
+              size="small"
+              exclusive
+              onChange={(_e, newScale) =>
+                newScale && changeScaleRange(newScale)}
+            >
+              {sizes.map((size) => (
+                <ToggleButton
+                  key={size}
+                  value={size}
                 >
-                  {size}%
-                </span>
-              </ToggleButton>
-            ))}
-          </ToggleButtonGroup>
+                  <span
+                    css={css`
+                       color: ${
+                      size === scaleRange
+                        ? "rgba(255,255,255,.8)"
+                        : "rgba(0,0,0,.3)"
+                    };
+                       `}
+                  >
+                    {size}%
+                  </span>
+                </ToggleButton>
+              ))}
+            </ToggleButtonGroup>
 
-          <motion.div
-            animate={{
-              width: width * scale / devicePixelRatio,
-              height: height * scale,
-            }}
-            css={css`
+            <motion.div
+              animate={{
+                width: width * scale / devicePixelRatio,
+                height: height * scale,
+              }}
+              css={css`
               display: block;
               overflow: hidden;
               border-radius: 8px;
               opacity: 0.9;
            `}
-          >
-            {errorText.trim() !== "" && (
-              <pre
-                css={css`
+            >
+              {errorText.trim() !== "" && (
+                <pre
+                  css={css`
                     position: absolute;
                     z-index:3;
                     color: rgb(255, 240, 240);
@@ -189,40 +193,38 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
                     font-family: monospace;
                     white-space: pre-wrap;
                 `}
-              >
-                {isStable && errorText.trim()}
-                {isStable && errorText.trim() !== "" &&
-                  (
-                    <div
-                      css={css`
+                >
+                  {isStable && errorText.trim()}
+                  {isStable && errorText.trim() !== "" &&
+                    (
+                      <div
+                        css={css`
                           text-align: right;
                         `}
-                    >
-                      <Button
-                        variant="contained"
-                        onClick={() => {
-                          onRestore();
-                          setErrorText("");
-                        }}
-                        color="primary"
                       >
-                        Restore
-                      </Button>
-                    </div>
-                  )}
-              </pre>
-            )}
+                        <Button
+                          variant="contained"
+                          onClick={() => {
+                            onRestore();
+                            setErrorText("");
+                          }}
+                          color="primary"
+                        >
+                          Restore
+                        </Button>
+                      </div>
+                    )}
+                </pre>
+              )}
 
-            
-
-            <motion.div
-              animate={{
-                transformOrigin: "0px 0px",
-                width: width / devicePixelRatio,
-                height: height,
-                scale,
-              }}
-              css={css`
+              <motion.div
+                animate={{
+                  transformOrigin: "0px 0px",
+                  width: width / devicePixelRatio,
+                  height: height,
+                  scale,
+                }}
+                css={css`
                   overflow:overlay;
                   >div{
                     width:100%;
@@ -231,96 +233,95 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
                     background: white;
                   }
               `}
-            >
-            
-              {errorText
-                ? <div dangerouslySetInnerHTML={createMarkup(session.html)} />
-                : (
-                  <React.Suspense fallback={<div>Error fallback</div>}>
-                    <div
-                      id="zbody"
-                      key={session.i}
-                      ref={zbody}
-                    >
-                      {child}
-                    </div>
-                  </React.Suspense>
-                )}
-            </motion.div>
-          </motion.div>
-          <ToggleButtonGroup
-            value={width}
-            size="small"
-            exclusive
-            onChange={(_e, newSize) => newSize && setWidth(newSize)}
-          >
-            {breakPoints.map((size) => (
-              <ToggleButton
-                key={size}
-                value={size}
               >
-                {size === 640
-                  ? (
-                    <Phone
-                      css={css`
-                        color: ${
-                        width === 640
-                          ? "rgba(255,255,255,.8)"
-                          : "rgba(0,0,0,.3)"
-                      };
-                        `}
-                    />
-                  )
-                  : size === 1024
-                  ? (
-                    <Tablet
-                      css={css`
-                        color: ${
-                        width === 1024
-                          ? "rgba(255,255,255,.8)"
-                          : "rgba(0,0,0,.3)"
-                      };
-                        `}
-                    />
-                  )
+                {errorText
+                  ? <div dangerouslySetInnerHTML={createMarkup(session.html)} />
                   : (
-                    <Tv
-                      css={css`
-                        color: ${
-                        width === 1920
-                          ? "rgba(255,255,255,.8)"
-                          : "rgba(0,0,0,.3)"
-                      };
-                      `}
-                    />
+                    <React.Suspense fallback={<div>Error fallback</div>}>
+                      <div
+                        id="zbody"
+                        key={session.i}
+                        ref={zbody}
+                      >
+                        {child}
+                      </div>
+                    </React.Suspense>
                   )}
-              </ToggleButton>
-            ))}
-          </ToggleButtonGroup>
-        </div>
+              </motion.div>
+            </motion.div>
+            <ToggleButtonGroup
+              value={width}
+              size="small"
+              exclusive
+              onChange={(_e, newSize) => newSize && setWidth(newSize)}
+            >
+              {breakPoints.map((size) => (
+                <ToggleButton
+                  key={size}
+                  value={size}
+                >
+                  {size === 640
+                    ? (
+                      <Phone
+                        css={css`
+                        color: ${
+                          width === 640
+                            ? "rgba(255,255,255,.8)"
+                            : "rgba(0,0,0,.3)"
+                        };
+                        `}
+                      />
+                    )
+                    : size === 1024
+                    ? (
+                      <Tablet
+                        css={css`
+                        color: ${
+                          width === 1024
+                            ? "rgba(255,255,255,.8)"
+                            : "rgba(0,0,0,.3)"
+                        };
+                        `}
+                      />
+                    )
+                    : (
+                      <Tv
+                        css={css`
+                        color: ${
+                          width === 1920
+                            ? "rgba(255,255,255,.8)"
+                            : "rgba(0,0,0,.3)"
+                        };
+                      `}
+                      />
+                    )}
+                </ToggleButton>
+              ))}
+            </ToggleButtonGroup>
+          </div>
 
-        <div
-          css={css`
+          <div
+            css={css`
               display: flex;
               align-items: center;          
               flex-direction: column;
               padding: 16px;
               `}
-        >
-          <QRButton url={qrUrl} />
-
-          <Fab
-            variant="extended"
-            color="primary"
-            onClick={() => {
-              onShare();
-            }}
           >
-            <Share />
-          </Fab>
+            <QRButton url={qrUrl} />
+
+            <Fab
+              variant="extended"
+              color="primary"
+              onClick={() => {
+                onShare();
+              }}
+            >
+              <Share />
+            </Fab>
+          </div>
         </div>
-      </div>
-    </motion.div>
+      </motion.div>
     </React.Fragment>
   );
 };

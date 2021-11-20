@@ -18,8 +18,8 @@
     "@spike.land/code": "^0.1.7",
     "@spike.land/ipfs": "^0.1.0",
     "esbuild": "0.13.14",
-    "ipfs-message-port-protocol": "0.10.2",
-    "ipfs-message-port-server": "0.10.2",
+    "ipfs-message-port-protocol": "0.10.3",
+    "ipfs-message-port-server": "0.10.3",
     "ipfs-only-hash": "4.0.0",
     "uuid": "8.3.2"
   },
