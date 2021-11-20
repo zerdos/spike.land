@@ -3,7 +3,7 @@ export const shasums = {
   "edit/index.html":
     "6bedf2adaf3b015d95ef000fe886b446ff1cc39184be9c8f060e63a325ed50af",
   "dev.mjs.map":
-    "bab958ea53ff5eb6b25fc62b9c19dc340eb2d6038714ceb4e36cb5c86af88ac3",
+    "056a94cd18d692f2700d2cd448cf4f14e3d80d943b60ca257ae4d3ef33460d32",
   ".vscode/settings.json":
     "59518a7d473e186d1edb3b105cac5644bb6f04a20f5d21a17b69b89b3f7837c9",
   "js/ipfsClient.mjs":
@@ -13,7 +13,7 @@ export const shasums = {
   "js/workers/prettierWorker.js":
     "6b4049d46f2346319919b286e488da5728cb688b31d118c65553abbcb56a9f80",
   "js/workers/ipfsWorker.js":
-    "becc3d794a4ec6134d3825838be649329f8f6558014b8ac3ffefb47bd0ef55fc",
+    "637349c933064ec65b9b34c89c15a16228ec7b6322e00ff9b887f675ef5f0112",
   "js/workers/getWorker.mjs":
     "154a9800e6e5a342bc839ae7dfa82262e59241acd5b956f21a05109128ad151a",
   "js/test.mjs":
@@ -21,7 +21,7 @@ export const shasums = {
   "js/importScript.d.ts":
     "863a8f91f1d5750d68903b9493472d186067185cf0f9cf09f40c6c273ddef229",
   "js/reactLoader.mjs":
-    "cc126539e880d7598a7be060d38989ac5c4d2d1e6cc0449b845cec43ffab25e2",
+    "eb316aa60499cad595d9125d860bba4bedc9446c643919a3243bd4d7cce9b3a6",
   "js/formatter.mjs":
     "af3a15b6edab0bc477a95fa4daaa0ef619272b7036f9be91dead1c47d95a4358",
   "js/sendSignalToQrCode.mjs":
@@ -29,7 +29,7 @@ export const shasums = {
   "js/templates.ts":
     "c2fd203867b8fdab66b62e5a46c232b9ea539398eac7cbbb54298b00b85bfd2f",
   "js/codeLoader.mjs":
-    "cd3c97c4663e1a34af47adfa3daf641f24a9ac6c0f626ecdb76468c616c77848",
+    "580de5bb3f9f12892295cf8a0ca0b6aa1388ffbd9e2fd0aff3692166e55ee9c0",
   "js/importmap.json":
     "32f01c4dca1c1d2c025ffb11b8b6b191aa766f4f3e1cd61ca069d9b445ba533e",
   "js/sw.js":
@@ -39,11 +39,11 @@ export const shasums = {
   "js/workboxLoader.mjs":
     "bcb3e78a29441717bcfaf0b167859c9ff3cb364440b0e20c041dfb4d209c64e2",
   "js/openWindows.mjs":
-    "baaa72c64ca999e9d5c38c23a764ff96345161c14f438253f75040108b6aa2d3",
+    "47f9cc0127e7dc3d6e31fed7886a7119b5df6cb162cddc9893e9c7c560ebf33d",
   "js/renderPreviewWindow.mjs":
     "c487d9b5a2f568c2ecf220d1e10ec81afc66cbe5ca7d055ad519d71ddd86b61b",
   "js/data.mjs":
-    "bc8244524c6c0257812673702cc1fa9267ee955f3251504c23ec7347476cc3a0",
+    "91a416e20b8bb166a28b9eb76a996588865a7362e3e3bc2f790b0e255da02256",
   "js/importScript.mjs":
     "f1170901faaf51af6553d9a5d5c67a1c807653d55d57f1bbfe266a2be76c00e1",
   "js/examples/app.tsx":
@@ -61,7 +61,7 @@ export const shasums = {
   "index.html":
     "be8ae8fb5f8fcd3f951efb5fd472a775286561ee62354d0a3d1239dd4eee20a7",
   "package.json":
-    "a48b6d0a6b66f43f0243312146c09e05eb3462ec1ad9bc03b08ef0e2a1d58aa0",
+    "bcb2b22a18c2d6b74614ae06db333c0dca3d34af21ab048064245e1aeb59c0ad",
   "esbuild-dev.mjs":
     "2ce6dbeb1a973464803bea837e46beed452727e2153fc5ab12c6d9e1007dec69",
   "scripts/importmapGenerator.mjs":
