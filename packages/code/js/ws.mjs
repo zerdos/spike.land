@@ -1,4 +1,4 @@
-import diff_match_patch from "diff-match-patch";
+import { diff_match_patch } from "diff-match-patch";
 let currentWebSocket = null;
 
 const chCode = (code) => {

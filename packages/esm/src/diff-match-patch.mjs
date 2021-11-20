@@ -1,1 +1,2 @@
-export * from "diff-match-patch"
+import DiffMatchPatch from "diff-match-patch"
+export default DiffMatchPatch
