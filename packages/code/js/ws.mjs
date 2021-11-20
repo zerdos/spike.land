@@ -1,4 +1,4 @@
-import { diff_match_patch } from "diff-match-patch";
+import DiffMatchPatch from "diff-match-patch";
 let currentWebSocket = null;
 
 const chCode = (code) => {
@@ -69,7 +69,7 @@ export const broad = (
         );
       }
       try {
-        const dmp = new diff_match_patch();
+        const dmp = new DiffMatchPatch();
 
         const patches = dmp.patch_make(window.starterCode, code);
         difference = dmp.patch_toText(patches);
@@ -150,7 +150,7 @@ export function join() {
                 lastSeenCode = window[data.hashOfCode];
               }
             } else {
-              const dmp = new diff_match_patch();
+              const dmp = new DiffMatchPatch();
               const patches = dmp.patch_fromText(data.difference);
               const patched = dmp.patch_apply(patches, lastSeenCode);
 
