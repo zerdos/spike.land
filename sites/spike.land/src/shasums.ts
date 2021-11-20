@@ -1,9 +1,9 @@
 export const shasums = {
-  "dev.mjs": "e7684ae2b1d1d0e802ce37ef5885980ad30720754dd42f06d9b76e4b786a9efc",
+  "dev.mjs": "81c428c06160ec179248ca50444e2367dfe4b791094c51cfcb84a1a4590db9d1",
   "edit/index.html":
     "6bedf2adaf3b015d95ef000fe886b446ff1cc39184be9c8f060e63a325ed50af",
   "dev.mjs.map":
-    "116d940963369474ef6778deeb7a51af1b302309080e95a4468a7e65527dbd2e",
+    "bab958ea53ff5eb6b25fc62b9c19dc340eb2d6038714ceb4e36cb5c86af88ac3",
   ".vscode/settings.json":
     "59518a7d473e186d1edb3b105cac5644bb6f04a20f5d21a17b69b89b3f7837c9",
   "js/ipfsClient.mjs":
@@ -21,7 +21,7 @@ export const shasums = {
   "js/importScript.d.ts":
     "863a8f91f1d5750d68903b9493472d186067185cf0f9cf09f40c6c273ddef229",
   "js/reactLoader.mjs":
-    "78f5ac25e8cdf1149085209fc22483820c7703bb8af1b46a0ffdffd29b04fc60",
+    "cc126539e880d7598a7be060d38989ac5c4d2d1e6cc0449b845cec43ffab25e2",
   "js/formatter.mjs":
     "af3a15b6edab0bc477a95fa4daaa0ef619272b7036f9be91dead1c47d95a4358",
   "js/sendSignalToQrCode.mjs":
@@ -29,9 +29,9 @@ export const shasums = {
   "js/templates.ts":
     "c2fd203867b8fdab66b62e5a46c232b9ea539398eac7cbbb54298b00b85bfd2f",
   "js/codeLoader.mjs":
-    "c98afd674981224004ac2a6357554cb74a1431b4442f706de224773d9f60aa01",
+    "cd3c97c4663e1a34af47adfa3daf641f24a9ac6c0f626ecdb76468c616c77848",
   "js/importmap.json":
-    "d18b27bfe88d48c0f9217b605ff7ee7b3ad6035d67b62db254b13598e9ed4820",
+    "32f01c4dca1c1d2c025ffb11b8b6b191aa766f4f3e1cd61ca069d9b445ba533e",
   "js/sw.js":
     "e8493b6ab208d22c048635935efa2932a9abc4994b32ef4bacc59f604ca1eb53",
   "js/share.mjs":
@@ -43,7 +43,7 @@ export const shasums = {
   "js/renderPreviewWindow.mjs":
     "c487d9b5a2f568c2ecf220d1e10ec81afc66cbe5ca7d055ad519d71ddd86b61b",
   "js/data.mjs":
-    "9e85d6f93aa379a9f63eb6997745a6dbf9555f3e905e424f4c2851f550d68902",
+    "bc8244524c6c0257812673702cc1fa9267ee955f3251504c23ec7347476cc3a0",
   "js/importScript.mjs":
     "f1170901faaf51af6553d9a5d5c67a1c807653d55d57f1bbfe266a2be76c00e1",
   "js/examples/app.tsx":
@@ -61,7 +61,7 @@ export const shasums = {
   "index.html":
     "be8ae8fb5f8fcd3f951efb5fd472a775286561ee62354d0a3d1239dd4eee20a7",
   "package.json":
-    "c97687eae31113ed23c63e21878d7758f6710bb1e0a466c27141868b5878e889",
+    "a48b6d0a6b66f43f0243312146c09e05eb3462ec1ad9bc03b08ef0e2a1d58aa0",
   "esbuild-dev.mjs":
     "2ce6dbeb1a973464803bea837e46beed452727e2153fc5ab12c6d9e1007dec69",
   "scripts/importmapGenerator.mjs":

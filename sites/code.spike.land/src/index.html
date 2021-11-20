@@ -46,6 +46,7 @@
 
   const chCode = (code) => {
     try {
+      window.starterCode = code;
       const { monaco } = window;
       if (!monaco || !monaco.Uri) return;
       const modelUri = monaco.Uri.parse(`file:///main.tsx`);
@@ -138,7 +139,8 @@
           if (difference) {
             message.difference = difference;
             message.hashOfCode = hashOfCode,
-              message.hashOfStarterCode = hashOfStarterCode;
+            message.hashOfStarterCode = hashOfStarterCode;
+            window[hashOfCode] = code;
 
             window.starterCode = starterCode;
           }
@@ -160,8 +162,16 @@
         let data = JSON.parse(event.data);
         if (data.code && data.hashOfCode) {
           lastSeenCode = data.code;
+          window[data.hashOfCode] = data.code;
+          if (!window.starterCode) window.starterCode = data.code;
           window.hashOfCode = data.hashOfCode;
           window.starterCode = lastSeenCode;
+        }
+        if (data.hashOfCode && !data.code){
+          if (window[data.hashOfCode]) {
+            window.starterCode = window[data.hashOfCode];
+            lastSeenCode = window.starterCode;
+          }
         }
 
         // A regular chat message.
@@ -175,14 +185,22 @@
             data.message !== lastSeenCode && data.name !== username
           ) {
             if (
-              (data.message === "undefined" || !data.message) &&
-              data.difference && lastSeenCode
+              data.difference
             ) {
-              const dmp = new diff_match_patch();
-              const patches = dmp.patch_fromText(data.difference);
-              const patched = dmp.patch_apply(patches, lastSeenCode);
 
-              if (patched[0]) lastSeenCode = patched[0];
+              if (window[data.hashOfCode]){
+                if (window[data.hashOfCode] !== window.starterCode){
+                  lastSeenCode = window[data.hashOfCode];
+                } 
+              } else {
+
+
+                const dmp = new diff_match_patch();
+                const patches = dmp.patch_fromText(data.difference);
+                const patched = dmp.patch_apply(patches, lastSeenCode);
+
+                if (patched[0]) lastSeenCode = patched[0];
+              }
 
               // const newLastSeen = window.assemble(lastSeenCode, JSON.stringify(data.difference.c));
               // console.log("AASSEMBLED", newLastSeen);

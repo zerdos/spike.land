@@ -172,6 +172,7 @@ export class Code {
         const lastSeenCode = await this.storage.get("lastSeenCode");
 
         let code = data.code;
+        const hashOfCode = data.hashOfCode;
 
         data = { name: session.name, message: "" || data.message };
 
@@ -184,7 +185,7 @@ export class Code {
           const patches = dmp.patch_fromText(difference);
           const patchedCode = dmp.patch_apply(patches, lastSeenCode)[0];
           const hashOfAPatched = await Hash.of(patchedCode);
-          if (data.hashOfCode === hashOfAPatched) {
+          if (hashOfCode === hashOfAPatched) {
             data.hashOfCode = hashOfAPatched;
             data.difference = difference;
             code = patchedCode;

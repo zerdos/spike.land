@@ -14271,6 +14271,7 @@ var src_default = `<!DOCTYPE html>
 
   const chCode = (code) => {
     try {
+      window.starterCode = code;
       const { monaco } = window;
       if (!monaco || !monaco.Uri) return;
       const modelUri = monaco.Uri.parse(\`file:///main.tsx\`);
@@ -14363,7 +14364,8 @@ var src_default = `<!DOCTYPE html>
           if (difference) {
             message.difference = difference;
             message.hashOfCode = hashOfCode,
-              message.hashOfStarterCode = hashOfStarterCode;
+            message.hashOfStarterCode = hashOfStarterCode;
+            window[hashOfCode] = code;
 
             window.starterCode = starterCode;
           }
@@ -14385,8 +14387,16 @@ var src_default = `<!DOCTYPE html>
         let data = JSON.parse(event.data);
         if (data.code && data.hashOfCode) {
           lastSeenCode = data.code;
+          window[data.hashOfCode] = data.code;
+          if (!window.starterCode) window.starterCode = data.code;
           window.hashOfCode = data.hashOfCode;
           window.starterCode = lastSeenCode;
+        }
+        if (data.hashOfCode && !data.code){
+          if (window[data.hashOfCode]) {
+            window.starterCode = window[data.hashOfCode];
+            lastSeenCode = window.starterCode;
+          }
         }
 
         // A regular chat message.
@@ -14400,14 +14410,22 @@ var src_default = `<!DOCTYPE html>
             data.message !== lastSeenCode && data.name !== username
           ) {
             if (
-              (data.message === "undefined" || !data.message) &&
-              data.difference && lastSeenCode
+              data.difference
             ) {
-              const dmp = new diff_match_patch();
-              const patches = dmp.patch_fromText(data.difference);
-              const patched = dmp.patch_apply(patches, lastSeenCode);
 
-              if (patched[0]) lastSeenCode = patched[0];
+              if (window[data.hashOfCode]){
+                if (window[data.hashOfCode] !== window.starterCode){
+                  lastSeenCode = window[data.hashOfCode];
+                } 
+              } else {
+
+
+                const dmp = new diff_match_patch();
+                const patches = dmp.patch_fromText(data.difference);
+                const patched = dmp.patch_apply(patches, lastSeenCode);
+
+                if (patched[0]) lastSeenCode = patched[0];
+              }
 
               // const newLastSeen = window.assemble(lastSeenCode, JSON.stringify(data.difference.c));
               // console.log("AASSEMBLED", newLastSeen);
@@ -14667,13 +14685,14 @@ var Code = class {
         const difference = data.difference;
         const lastSeenCode2 = await this.storage.get("lastSeenCode");
         let code3 = data.code;
+        const hashOfCode = data.hashOfCode;
         data = { name: session.name, message: data.message };
         if (difference) {
           const dmp = new import_diff_match_patch.default();
           const patches = dmp.patch_fromText(difference);
           const patchedCode = dmp.patch_apply(patches, lastSeenCode2)[0];
           const hashOfAPatched = await import_ipfs_only_hash.default.of(patchedCode);
-          if (data.hashOfCode === hashOfAPatched) {
+          if (hashOfCode === hashOfAPatched) {
             data.hashOfCode = hashOfAPatched;
             data.difference = difference;
             code3 = patchedCode;
