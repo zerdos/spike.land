@@ -17,6 +17,7 @@
     "./react-dom.mjs": "./dist/react-dom.mjs",
     "./react-is.mjs": "./dist/react-is.mjs",
     "./framer-motion.mjs": "./dist/framer-motion.mjs",
+    "./diff-match-patch.mjs": "./dist/diff-match-patch.mjs",
     "./ipfs-only-hash.mjs": "./dist/ipfs-only-hash.mjs"
   },
   "license": "BSD-3-Clause",
