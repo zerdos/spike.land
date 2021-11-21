@@ -61,9 +61,9 @@ export const shasums = {
   "tsconfig.json":
     "e992c8b781dcf67ee3196fdc77b4deef52550fa172d9bb14bf123c9713535560",
   "index.html":
-    "be8ae8fb5f8fcd3f951efb5fd472a775286561ee62354d0a3d1239dd4eee20a7",
+    "3f2d3ea80fc62b8bf503a416ac3919b29f0b14603cb1ad52e40af22836f4a5fb",
   "package.json":
-    "d19be587e1922b8af433f520d27b7bcd2dc4ffe3ca2275d0b7b9d2e79d11d9bd",
+    "bb98042f00408fcb2aabc9f4dec94c0d4c62c1b26bc669c9eab5c91347214f50",
   "esbuild-dev.mjs":
     "2ce6dbeb1a973464803bea837e46beed452727e2153fc5ab12c6d9e1007dec69",
   "scripts/importmapGenerator.mjs":

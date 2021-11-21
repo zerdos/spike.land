@@ -21,7 +21,7 @@ export const files = {
   "edit/index.html": "QmfXTNa9t9Yi9mcrrK9Y8fi6yfSzJ89XxCmGShH1CyZjFX",
   "esbuild-dev.mjs": "QmUqp7sUH1QAkE8uVZgozsNufupqgDcQR7eMhpjR3GERhv",
   "favicon.ico": "QmWF8oNe7SDdaY6t4WrJ8ZzM46dHEFmHDXzd8MBeNrELxe",
-  "index.html": "QmfHsPYT6CGouYHNFYk7A3cnZFNVbF7M6S2RkqqRSC7dX3",
+  "index.html": "QmS3XvCMn9NQaEYsA239ANvaAo75hi3Q4n95m9zM7KeHUZ",
   "js/codeLoader.mjs": "QmNsNXx8hjxEXy6VsCBNc2dxYsY5y14pqwCvBRpdZ9WA6u",
   "js/data.mjs": "QmYiipFsDxwwY4RJ46PJvTAk6eZ73XwczjbwYYbi5Hmzzx",
   "js/examples/app.tsx": "QmNbioNuTEMZYjG8fuoKMK1Kph4dakn2k8GA5Vspfjr9A8",
@@ -53,7 +53,7 @@ export const files = {
     "QmURZxeJkk2kQjNfhBb98B9vH6FnbUefPZedZw6RN8rw45",
   "js/ws.mjs": "QmYPGR3gEgaWrHkL8SZDMyTg98G4rD4TdpAnCv64DbSWB1",
   "manifest.json": "QmXmokoZc6CTgga36sBaEXYvw3fPCjJSCrXx1HzLkQewnm",
-  "package.json": "QmQi7N6u5ALz58JgAEy94L1b21v4BMgdyNrBD8wR7wCpbe",
+  "package.json": "QmbVS3fCEXbyafpqHzDQs328RnKxNrUtwj1ULqpriAoWtX",
   "scripts/importmapGenerator.mjs":
     "QmPnqpi5iyWPqRP1dEGPnHUo4916YSVDUBhCvqdV5SNUBW",
   "tsconfig.json": "QmQuH91sPQ36qvHdFaMmbtg8btgPFXXLcdGfuUBDwhH44k",
@@ -65,6 +65,6 @@ export const files = {
   "js": "QmcfwC4vLTNbvFT23cq6Ek9ncYcsv2nEyy9wkpATe5D3Mq",
   "node_modules": "QmUNLLsPACCz1vLxQVkXqqLX5R1X345qqfHbsf67hvA3Nn",
   "scripts": "QmVc56wBvEw5meoMV3WKdTdVPSHk36EeCF71F5no8AuFC4",
-  "": "QmSwxH4ZauTTyLAS6zRRhrSxshayH1pCSrf3K7q2YZYYjN",
+  "": "QmeGEi2LRGDeCx8HywWvnUZZvUymkxiYkYJ6nc2bJ4dCdn",
   "foo": "bar",
 };
