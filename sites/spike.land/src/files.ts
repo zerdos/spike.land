@@ -16,7 +16,7 @@ export const files = {
   "assets/triangle-geometry.png":
     "QmZ5Nic3MRHT8m9SY5ZrSp38UHGEYmJqgk4RAmDV3xXqa1",
   "assets/zed-icon-big.png": "QmeHY7RZzR5wm9ELZr5xgq6XMQKjRAHgmxoQaCzHjgpRm8",
-  "dev.mjs": "QmQU9Qy3619LeHHWuhqzhLuk6xXC7pArcQ4sxgzmCScLt7",
+  "dev.mjs": "QmdjozFcXN3S2r124naZGfwpqbUbdGYF1SAsNA2CpyTcyh",
   "dev.mjs.map": "QmUmaiLuqSUaM9WcCXDzD3j4xskvLQcfLx1LKZVci5ZmKk",
   "edit/index.html": "QmfXTNa9t9Yi9mcrrK9Y8fi6yfSzJ89XxCmGShH1CyZjFX",
   "esbuild-dev.mjs": "QmUqp7sUH1QAkE8uVZgozsNufupqgDcQR7eMhpjR3GERhv",
@@ -31,7 +31,7 @@ export const files = {
   "js/formatter.mjs": "Qmcvc7jZkrSvbattfsxi1BqmP7d1pVDy4pjjxeiJL8zmQn",
   "js/importScript.d.ts": "QmV1V5Fb2ZxP5Kn31nSU7FS2TtrDMg6wR7sMTsKeeR1txL",
   "js/importScript.mjs": "QmQBhy9H2prXzc5DnjVcF7qfkEMYVz4TFtwzegpcpEp4Da",
-  "js/importmap.json": "QmPqiwnWCS6QeJW688WkR7YSKVRSkfdu4ytc6fHUGMpcnL",
+  "js/importmap.json": "QmRHXJicSry9ooDTrtgRE1PUQz7GMrWEJ9noGW2RQShThp",
   "js/ipfsClient.mjs": "Qma5ZP226wff835FKrLgvaEwYMeQQ8q6EWUL8d7vsNeSHt",
   "js/openWindows.mjs": "QmQDSXPm2xLjd1VZpthAjpt81CRVynQMWM26nNVncnYMdW",
   "js/reactLoader.mjs": "QmQVz3MRExedsNSyzKQyeU5te84tE4ACMzrEEuntyG4MjM",
@@ -51,9 +51,9 @@ export const files = {
     "QmTzHQedmz11rTh1HHJuyEas3DgSW5ct8BzzSSWMLpQgB7",
   "js/workers/transpile.worker.js":
     "QmURZxeJkk2kQjNfhBb98B9vH6FnbUefPZedZw6RN8rw45",
-  "js/ws.mjs": "Qmau3PisAAjtUGXRq2PzwPDeFWcm8oGZZgyPLRhp5EsbkS",
+  "js/ws.mjs": "QmYPGR3gEgaWrHkL8SZDMyTg98G4rD4TdpAnCv64DbSWB1",
   "manifest.json": "QmXmokoZc6CTgga36sBaEXYvw3fPCjJSCrXx1HzLkQewnm",
-  "package.json": "QmWqkBy6cY145xZ5mzEZe1Kjc4XBLdXnp9GLKBxD1TBS3A",
+  "package.json": "QmQi7N6u5ALz58JgAEy94L1b21v4BMgdyNrBD8wR7wCpbe",
   "scripts/importmapGenerator.mjs":
     "QmPnqpi5iyWPqRP1dEGPnHUo4916YSVDUBhCvqdV5SNUBW",
   "tsconfig.json": "QmQuH91sPQ36qvHdFaMmbtg8btgPFXXLcdGfuUBDwhH44k",
@@ -62,9 +62,9 @@ export const files = {
   "edit": "QmRBtzxNHPENXEfZwv1aZk9XmznUM6mesSe3GKVB8UwwXS",
   "js/examples": "QmbZePTm4aHmFmZefnvz4CNm7omsSHvpGDn4HXSpq1atQB",
   "js/workers": "QmPxzCnYuV32u4nzMyutJcQzSvkUqtT58A2EkaZcYnpHzf",
-  "js": "QmcGHydA1Eyj17mBKofJp2oTSqkrHiKYT96YLj7dkB9Epf",
+  "js": "QmcfwC4vLTNbvFT23cq6Ek9ncYcsv2nEyy9wkpATe5D3Mq",
   "node_modules": "QmUNLLsPACCz1vLxQVkXqqLX5R1X345qqfHbsf67hvA3Nn",
   "scripts": "QmVc56wBvEw5meoMV3WKdTdVPSHk36EeCF71F5no8AuFC4",
-  "": "QmTnQztGDHZsJ367ETEj4w4nSNccEVz5sYzy91uHNGqFQD",
+  "": "QmSwxH4ZauTTyLAS6zRRhrSxshayH1pCSrf3K7q2YZYYjN",
   "foo": "bar",
 };

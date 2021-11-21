@@ -1,6 +1,6 @@
 {
   "name": "@spike.land/blog",
-  "version": "0.1.9",
+  "version": "0.1.10",
   "main": "index.js",
   "private": true,
   "license": "MIT",
