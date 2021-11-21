@@ -13997,7 +13997,7 @@ var require_ipfs_only_hash = __commonJS({
 });
 
 // ../../packages/code/package.json
-var version = "0.1.8";
+var version = "0.1.11";
 
 // ../../packages/code/js/importmap.json
 var imports = {
@@ -14195,14 +14195,15 @@ var imports = {
   "@emotion/unitless": "https://unpkg.com/@emotion/unitless@0.7.5/dist/unitless.browser.esm.js",
   "@emotion/weak-memoize": "https://unpkg.com/@emotion/weak-memoize@0.2.5/dist/weak-memoize.browser.esm.js",
   "prop-types": "https://esm.sh/prop-types",
-  "framer-motion": "https://unpkg.com/@spike.land/esm@0.1.8/dist/framer-motion.mjs",
+  "diff-match-patch": "https://unpkg.com/@spike.land/esm@0.1.10/dist/diff-match-patch.mjs",
+  "framer-motion": "https://unpkg.com/@spike.land/esm@0.1.10/dist/framer-motion.mjs",
   framesync: "https://unpkg.com/framesync@6.0.1/dist/es/index.mjs",
   "hey-listen": "https://unpkg.com/hey-listen@1.0.8/dist/hey-listen.es.js",
   "hoist-non-react-statics": "https://esm.sh/hoist-non-react-statics",
   popmotion: "https://unpkg.com/popmotion@11.0.0/dist/es/index.mjs",
-  react: "https://unpkg.com/@spike.land/esm@0.1.8/dist/react.mjs",
-  "react-dom": "https://unpkg.com/@spike.land/esm@0.1.8/dist/react-dom.mjs",
-  "react-is": "https://unpkg.com/@spike.land/esm@0.1.8/dist/react-is.mjs",
+  react: "https://unpkg.com/@spike.land/esm@0.1.10/dist/react.mjs",
+  "react-dom": "https://unpkg.com/@spike.land/esm@0.1.10/dist/react-dom.mjs",
+  "react-is": "https://unpkg.com/@spike.land/esm@0.1.10/dist/react-is.mjs",
   "react-transition-group": "https://esm.sh/react-transition-group",
   "react/jsx-runtime": "https://esm.sh/react/jsx-runtime",
   "@spike.land/renderer": "https://unpkg.com/@spike.land/renderer@0.1.8/dist/renderer.js",
@@ -14210,10 +14211,10 @@ var imports = {
   stylis: "https://unpkg.com/stylis@4.0.10/dist/stylis.mjs",
   "@spike.land/qrious": "https://unpkg.com/@spike.land/qrious@0.1.0/dist/QRious.mjs",
   tslib: "https://unpkg.com/tslib@2.3.1/tslib.es6.js",
-  "ipfs-only-hash": "https://unpkg.com/@spike.land/esm@0.1.8/dist/ipfs-only-hash.mjs",
+  "ipfs-only-hash": "https://unpkg.com/@spike.land/esm@0.1.10/dist/ipfs-only-hash.mjs",
   "@zedvision/swm": "https://unpkg.com/@zedvision/swm@4.0.0/public/swm-esm.js",
   "uuid/": "https://unpkg.com/uuid@8.3.2/dist/esm-browser/",
-  "@spike.land/code": "https://unpkg.com/@spike.land/code@0.1.8/js/reactLoader.mjs",
+  "@spike.land/code": "https://unpkg.com/@spike.land/code@0.1.10/js/reactLoader.mjs",
   comlink: "https://unpkg.com/comlink@4.3.1/dist/esm/comlink.mjs",
   "@spike.land/ipfs": "https://unpkg.com/@spike.land/ipfs@0.1.8/dist/ipfs.client.mjs",
   "workbox-window": "https://unpkg.com/workbox-window@6.4.1/build/workbox-window.prod.es5.mjs"
@@ -14231,7 +14232,11 @@ var src_default = `<!DOCTYPE html>
   <link rel="preload" href="https://unpkg.com/monaco-editor@0.30.1/min/vs/editor/editor.main.js" as="script" />
   <link rel="icon" type="image/png" href="@VERSION/assets/zed-icon-big.png" />
   <link rel="stylesheet" href="@VERSION/assets/app.css" />
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/diff_match_patch/20121119/diff_match_patch_uncompressed.js" integrity="sha512-nvDKZefgrUzFIvEHMqag0VFPe6QYOVKGP9e40yCfbY+nOeSzSxzoFSUj1D6Mpc5r5UZzQISujUWDNhwReIyRzA==" crossorigin="anonymous" referrerpolicy="no-referrer"><\/script>
+
+  
+  <script crossorigin src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"><\/script>
+  <script crossorigin src="https://unpkg.com/react-is@17.0.2/umd/react-is.production.min.js"><\/script>
+  <script crossorigin src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"><\/script>
   <title>Instant React Editor</title>
   <style>
     body{
@@ -14266,199 +14271,6 @@ var src_default = `<!DOCTYPE html>
     app()
   <\/script>
   <script type="text/javascript">
- (async () => {
-  let currentWebSocket = null;
-
-  const chCode = (code) => {
-    try {
-      window.starterCode = code;
-      const { monaco } = window;
-      if (!monaco || !monaco.Uri) return;
-      const modelUri = monaco.Uri.parse(\`file:///main.tsx\`);
-      const model = monaco.editor.getModel(modelUri);
-      const oldCode = model.getValue();
-
-      if (oldCode !== code) {
-        console.log({ oldCode });
-
-        model.setValue(code);
-      }
-    } catch (e) {
-      console.error({ e });
-    }
-  };
-
-  let hostname = window.location.host;
-  if (hostname == "") {
-    // Probably testing the HTML locally.
-    hostname = "code.spike.land";
-  }
-
-  let roomName = "ROOMagain";
-  let username = "Pisti" + Math.random();
-  let lastSeenTimestamp = 0;
-  let lastSeenCode = "";
-
-  function join() {
-    let ws = new WebSocket(
-      "wss://" + hostname + "/api/room/" + roomName + "/websocket",
-    );
-    let rejoined = false;
-    let startTime = Date.now();
-
-    let rejoin = async () => {
-      if (!rejoined) {
-        rejoined = true;
-        currentWebSocket = null;
-
-        // Clear the roster.
-        //  while (roster.firstChild) {
-        //   roster.removeChild(roster.firstChild);
-        //    }
-
-        // Don't try to reconnect too rapidly.
-        let timeSinceLastJoin = Date.now() - startTime;
-        if (timeSinceLastJoin < 10000) {
-          // Less than 10 seconds elapsed since last join. Pause a bit.
-          await new Promise((resolve) =>
-            setTimeout(resolve, 10000 - timeSinceLastJoin)
-          );
-        }
-
-        // OK, reconnect now!
-        join();
-      }
-    };
-
-    ws.addEventListener("open", (event) => {
-      console.log("connected");
-      currentWebSocket = ws;
-      window.chCode = chCode;
-      window.broad = async (
-        { code, hashOfCode, starterCode, hashOfStarterCode },
-      ) => {
-        console.log(code, hashOfCode);
-        if (code !== lastSeenCode) {
-          let difference;
-
-          if (window.starterCode) {
-            if (window.starterCode !== starterCode) {
-              throw new Error(
-                "window.starterCode !== starterCode",
-                starterCode,
-                window.starterCode,
-              );
-            }
-            try {
-              const dmp = new diff_match_patch();
-
-              const patches = dmp.patch_make(window.starterCode, code);
-              difference = dmp.patch_toText(patches);
-              console.log(difference);
-            } catch (e) {
-              console.error({ e });
-            }
-          }
-
-          const message = { hashOfCode };
-          if (difference) {
-            message.difference = difference;
-            message.hashOfCode = hashOfCode,
-            message.hashOfStarterCode = hashOfStarterCode;
-            window[hashOfCode] = code;
-
-            window.starterCode = starterCode;
-          }
-          if (!window.starterCode || !lastSeenCode) {
-            console.error("NO STARTER-CODE");
-            throw new Error("NO STARTER CODE");
-          }
-
-          currentWebSocket.send(JSON.stringify(message));
-        }
-      };
-
-      // Send user info message.
-      ws.send(JSON.stringify({ name: username }));
-    });
-
-    ws.addEventListener("message", (event) => {
-      try {
-        let data = JSON.parse(event.data);
-        if (data.code && data.hashOfCode) {
-          lastSeenCode = data.code;
-          window[data.hashOfCode] = data.code;
-          if (!window.starterCode) window.starterCode = data.code;
-          window.hashOfCode = data.hashOfCode;
-          window.starterCode = lastSeenCode;
-        }
-        if (data.hashOfCode && !data.code){
-          if (window[data.hashOfCode]) {
-            window.starterCode = window[data.hashOfCode];
-            lastSeenCode = window.starterCode;
-          }
-        }
-
-        // A regular chat message.
-        if (data.timestamp > lastSeenTimestamp) {
-          if (data.code && data.hashOfCode) {
-            lastSeenCode = data.code;
-            window.hashOfCode = data.hashOfCode;
-            window.starterCode = lastSeenCode;
-          } else if (
-            (data.message === "undefined" || !data.message) &&
-            data.message !== lastSeenCode && data.name !== username
-          ) {
-            if (
-              data.difference
-            ) {
-
-              if (window[data.hashOfCode]){
-                if (window[data.hashOfCode] !== window.starterCode){
-                  lastSeenCode = window[data.hashOfCode];
-                } 
-              } else {
-
-
-                const dmp = new diff_match_patch();
-                const patches = dmp.patch_fromText(data.difference);
-                const patched = dmp.patch_apply(patches, lastSeenCode);
-
-                if (patched[0]) lastSeenCode = patched[0];
-              }
-
-              // const newLastSeen = window.assemble(lastSeenCode, JSON.stringify(data.difference.c));
-              // console.log("AASSEMBLED", newLastSeen);
-            }
-          }
-
-          if (lastSeenCode && lastSeenCode !== window.starterCode) {
-            window.starterCode = lastSeenCode;
-            window.hashOfCode = data.hashOfCode;
-            if (data.username !== username) chCode(lastSeenCode);
-          }
-        }
-        // addChatMessage(data.name, data.message);
-        lastSeenTimestamp = data.timestamp;
-      } catch (e) {
-        console.error({ e });
-      }
-    });
-
-    ws.addEventListener("close", (event) => {
-      console.log("WebSocket closed, reconnecting:", event.code, event.reason);
-      rejoin();
-    });
-    ws.addEventListener("error", (event) => {
-      console.log("WebSocket error, reconnecting:", event);
-      rejoin();
-    });
-  }
-
-  console.log("hello hello2");
-  join();
-})();
-
     /**************/
   <\/script>
 </body>
