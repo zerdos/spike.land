@@ -138,9 +138,10 @@ export function join() {
   });
 
   ws.addEventListener("message", (event) => {
-    if (event.data.timeStamp) {
-      messageQueue[event.timeStamp] = event;
-      messageQueue.timestamps.push(event.timeStamp);
+    let data = JSON.parse(event.data)
+    if (data.timestamp) {
+      messageQueue[data.timestamp] = event;
+      messageQueue.timestamps.push(data.timestamp);
       messageQueue.timestamps.sort();
 
       setTimeout(() => {
