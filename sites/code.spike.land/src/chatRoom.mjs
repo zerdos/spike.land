@@ -182,8 +182,8 @@ export class Code {
 
         if (difference) {
           const dmp = new DiffMatchPatch();
-          const patches = dmp.patch_fromText(difference);
-          const patchedCode = dmp.patch_apply(patches, lastSeenCode)[0];
+          const patches = dmp.patch_fromText((difference));
+          const patchedCode = (dmp.patch_apply(patches, (lastSeenCode))[0]);
           const hashOfAPatched = await Hash.of(patchedCode);
           if (hashOfCode === hashOfAPatched) {
             data.hashOfCode = hashOfAPatched;

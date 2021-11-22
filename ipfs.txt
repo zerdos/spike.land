@@ -9,8 +9,8 @@ added QmVP5gg9nYuPg1au5pBmdn75xmUvuGevRPLhEngyEyQfkT code/assets/synthwave.jpg
 added QmVUXK99dtKSob78XiURnzafewgiF7dTy8LkRJMR3yNTaS code/assets/synthwave.webp
 added QmZ5Nic3MRHT8m9SY5ZrSp38UHGEYmJqgk4RAmDV3xXqa1 code/assets/triangle-geometry.png
 added QmeHY7RZzR5wm9ELZr5xgq6XMQKjRAHgmxoQaCzHjgpRm8 code/assets/zed-icon-big.png
-added QmQKFQxcLmA84aygSzwMnJxf7u1cH7ymS7Cn37wa8ujfb3 code/dev.mjs
-added Qmb49E2f9YkSfXKNkaxCK18Vuv17pfE8fapDNksQcp2GoT code/dev.mjs.map
+added QmSQTSfvmBJSYw4NdWvxWasn3mE8EVXrqGntAW58knr8gy code/dev.mjs
+added QmVpnd6wZwFBnRa7FhNno9aQvJTUrVKMXkuxcCjT6XtMkf code/dev.mjs.map
 added QmfXTNa9t9Yi9mcrrK9Y8fi6yfSzJ89XxCmGShH1CyZjFX code/edit/index.html
 added QmUqp7sUH1QAkE8uVZgozsNufupqgDcQR7eMhpjR3GERhv code/esbuild-dev.mjs
 added QmWF8oNe7SDdaY6t4WrJ8ZzM46dHEFmHDXzd8MBeNrELxe code/favicon.ico
@@ -32,7 +32,7 @@ added QmP9ZZ462aU9KZkiXykmh7DXuxdJkCYn68neF7bxCfq43M code/js/sendSignalToQrCode.
 added QmQiqF8xkpXyWrv8bo47iWyMqDs1e1PN7nJfbZbfwcwERu code/js/share.mjs
 added QmTmkvbwsXwLRNbZYRQbpyHcd7w3K1jMyyJbdL9VVjXQem code/js/starter.mjs
 added QmPujUc2VFeEwmWV4jnqKraz1Sxva7cneVZyudjjLALuQc code/js/sw.js
-added QmZJS4mQCGfX1Ddnnj86ecgdFEHkQYraLSH4JTAPwWttUs code/js/templates.ts
+added QmYscDQ3RExi4GxvS6K5vDrq3fv3SpefnuMj4ciB5J755V code/js/templates.ts
 added QmVnzwNd3k5NioNUeMagb77Q4LRW5DmGxaeBJp7hdoapLK code/js/test.mjs
 added QmcpPZZrhCgSykw5Xh194W86wwpDycgS1SQHfKNVXiT3tE code/js/transpile.mjs
 added QmUJazcXnb8Ue2oa37zumPByvPju9BkuP3ooQacZKSNxq8 code/js/workboxLoader.mjs
@@ -40,7 +40,7 @@ added QmNsgRYgX3YSwM66LuoZAD4fQy4Xvy4dKKNTn8BSm3bGLE code/js/workers/getWorker.m
 added QmanHgJXuinvNKMm7ACKFyQQrhCLMsPvpyK6KY1ZQYs9Wf code/js/workers/ipfsWorker.js
 added QmTzHQedmz11rTh1HHJuyEas3DgSW5ct8BzzSSWMLpQgB7 code/js/workers/prettierWorker.js
 added QmURZxeJkk2kQjNfhBb98B9vH6FnbUefPZedZw6RN8rw45 code/js/workers/transpile.worker.js
-added QmUZKYDZcMVHfg1ZbhGWGuA7EFnYz3xmiTwpevnj5sDw17 code/js/ws.mjs
+added QmcmU2TtgbSd699mQNEPxQzMGGomACQKqhnrP7aySkmbug code/js/ws.mjs
 added QmXmokoZc6CTgga36sBaEXYvw3fPCjJSCrXx1HzLkQewnm code/manifest.json
 added QmeFtJfSeFQ69GKwywLvP9Dm4j1TmbFAUSG9n2NYWN62iW code/package.json
 added QmPnqpi5iyWPqRP1dEGPnHUo4916YSVDUBhCvqdV5SNUBW code/scripts/importmapGenerator.mjs
@@ -50,7 +50,7 @@ added QmedqU5fD5EAX2XssVy6HUM8R71uqyYQzn72fRDDnz13f6 code/assets
 added QmRBtzxNHPENXEfZwv1aZk9XmznUM6mesSe3GKVB8UwwXS code/edit
 added QmbZePTm4aHmFmZefnvz4CNm7omsSHvpGDn4HXSpq1atQB code/js/examples
 added QmPxzCnYuV32u4nzMyutJcQzSvkUqtT58A2EkaZcYnpHzf code/js/workers
-added QmUUk3r6T3yWc7FSaUgiq5E8CZBJH1xP9czwbD83wTVN6s code/js
+added Qmb8xEzAWSeoHRdcX5HG49XeuZuauQvFhx4Bux2renLFd7 code/js
 added QmUNLLsPACCz1vLxQVkXqqLX5R1X345qqfHbsf67hvA3Nn code/node_modules
 added QmVc56wBvEw5meoMV3WKdTdVPSHk36EeCF71F5no8AuFC4 code/scripts
-added QmfLoo7G7UMthSGMSyeorvTCRrEz5HRBWKxYEKzuT2Gkg9 code
+added Qmct2XvfACLp2vmwoprLRRSbjrc1cFfnkDa35zaDs92AVL code

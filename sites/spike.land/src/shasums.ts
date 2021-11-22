@@ -1,13 +1,13 @@
 export const shasums = {
-  "dev.mjs": "66f38fef374b00dd994c88a962ed27d9cee1d5b60acec57766de0a6615b5d255",
+  "dev.mjs": "7ff62ccc600bd4f16a8d2115edc109d85ceff40b3d6355febfce73b199f758a6",
   "edit/index.html":
     "6bedf2adaf3b015d95ef000fe886b446ff1cc39184be9c8f060e63a325ed50af",
   "dev.mjs.map":
-    "99a409c2579652ee72fe7e44cc42f8438a2710e24d6dc3b30cdfff915a2dcd3d",
+    "27e50b91eed6a51750c24cdd513b4b9f6c6a28182fb4caa64466025d86b9a261",
   ".vscode/settings.json":
     "59518a7d473e186d1edb3b105cac5644bb6f04a20f5d21a17b69b89b3f7837c9",
   "js/ws.mjs":
-    "d0a3c217baefe09c0c061839f09c6f49a5278dfa232f2ebea94b3f373471300a",
+    "5fdeaf25390a7bd139209a89a0afea7bddf6f7813d0351c4be3c17bea0163ccc",
   "js/ipfsClient.mjs":
     "5bba59ecc4f9895950dcbdfc6b3ab5b7d85ddb394a91b4454a61310c0db6f852",
   "js/workers/transpile.worker.js":
@@ -29,7 +29,7 @@ export const shasums = {
   "js/sendSignalToQrCode.mjs":
     "b3dbc31d893c271542abcd517a3d6d33ccd3198ba65680c210af95a0c446e98a",
   "js/templates.ts":
-    "b70c576521d0df53d4218c135aea685cf68f97c3e8ee0355416bf4a5f735ab1d",
+    "2871deefb5670ee1eaf4480fa0c4b015eaf78f5bf0d714ee5962dfa20082080a",
   "js/codeLoader.mjs":
     "79c68db8e7939c51f44321aeb88b0d77053c03fff45d5affb8562aa29eeea753",
   "js/importmap.json":
