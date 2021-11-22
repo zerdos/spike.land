@@ -59,7 +59,7 @@ export const shareItAsHtml = async ({ transpiled, code, html }) => {
 
   const { getHtml, getEditorHTML } = await import("./templates.js");
   const allContent = [
-    { path: "/app/index.html", content: getHtml({ html, css }) },
+    { path: "/app/index.html", content: getHtml({ html, css, transpiled }) },
     { path: "/app/app.js", content: transpiled },
     { path: "/app/app.tsx", content: code },
     { path: "/app/edit/index.html", content: getEditorHTML() },

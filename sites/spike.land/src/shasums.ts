@@ -1,9 +1,9 @@
 export const shasums = {
-  "dev.mjs": "d295029d5ca5c2fa88b87b5babff9d78a6c5ecbe87bbf5f9772cd837a1aef6c9",
+  "dev.mjs": "66f38fef374b00dd994c88a962ed27d9cee1d5b60acec57766de0a6615b5d255",
   "edit/index.html":
     "6bedf2adaf3b015d95ef000fe886b446ff1cc39184be9c8f060e63a325ed50af",
   "dev.mjs.map":
-    "68b91e6c7a2210d028b34abe36d7352eb3ca20d200096cfcbdb524147dfb11d4",
+    "99a409c2579652ee72fe7e44cc42f8438a2710e24d6dc3b30cdfff915a2dcd3d",
   ".vscode/settings.json":
     "59518a7d473e186d1edb3b105cac5644bb6f04a20f5d21a17b69b89b3f7837c9",
   "js/ws.mjs":
@@ -29,7 +29,7 @@ export const shasums = {
   "js/sendSignalToQrCode.mjs":
     "b3dbc31d893c271542abcd517a3d6d33ccd3198ba65680c210af95a0c446e98a",
   "js/templates.ts":
-    "c2fd203867b8fdab66b62e5a46c232b9ea539398eac7cbbb54298b00b85bfd2f",
+    "b70c576521d0df53d4218c135aea685cf68f97c3e8ee0355416bf4a5f735ab1d",
   "js/codeLoader.mjs":
     "79c68db8e7939c51f44321aeb88b0d77053c03fff45d5affb8562aa29eeea753",
   "js/importmap.json":
@@ -37,7 +37,7 @@ export const shasums = {
   "js/sw.js":
     "e8493b6ab208d22c048635935efa2932a9abc4994b32ef4bacc59f604ca1eb53",
   "js/share.mjs":
-    "5c6cbe7f501b1699ad8c8da3fd62fe6a1936cc2caef7c344e3ad1a070173706c",
+    "b9ca11d2359da333b21b04cb9716e179a7edb2bb6efcd555bc0c08f215274a9c",
   "js/workboxLoader.mjs":
     "bcb3e78a29441717bcfaf0b167859c9ff3cb364440b0e20c041dfb4d209c64e2",
   "js/openWindows.mjs":

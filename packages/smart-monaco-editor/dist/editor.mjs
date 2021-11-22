@@ -409,7 +409,7 @@ var editor_default = async ({ onChange, code, language, container, options }) =>
       },
       {
         name: "global",
-        url: "httpyares://unpkg.com/@types/react@17.0.36/global.d.ts",
+        url: "https://unpkg.com/@types/react@17.0.36/global.d.ts",
         depend: []
       },
       {
