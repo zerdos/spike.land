@@ -1,7 +1,7 @@
 import DiffMatchPatch from "diff-match-patch";
 let currentWebSocket = null;
 const messageQueue = {
-  timestamps: []
+  timestamps: [],
 };
 
 const chCode = (code) => {
@@ -137,82 +137,81 @@ export function join() {
     ws.send(JSON.stringify({ name: username }));
   });
 
-
-
   ws.addEventListener("message", (event) => {
-    if (event.data.timeStamp){
-    messageQueue[event.timeStamp] = event;
-    messageQueue.timestamps.push(event.timeStamp);
-    messageQueue.timestamps.sort();
+    if (event.data.timeStamp) {
+      messageQueue[event.timeStamp] = event;
+      messageQueue.timestamps.push(event.timeStamp);
+      messageQueue.timestamps.sort();
 
-    setTimeout(() => {
-      const timestamp = messageQueue.timestamps.shift();
-      const event = messageQueue[timestamp];
-      messageQueue[timestamp] = null;
+      setTimeout(() => {
+        const timestamp = messageQueue.timestamps.shift();
+        const event = messageQueue[timestamp];
+        messageQueue[timestamp] = null;
+        process(event);
+      }, 100);
+    } else {
       process(event);
-    }, 100);
-  } else {
-    process(event);
-  }
+    }
 
-    function process (event){
-    try {
-      let data = JSON.parse(event.data);
-      if (data.code && data.hashOfCode) {
-        lastSeenCode = data.code;
-        window[data.hashOfCode] = data.code;
-        if (!window.starterCode) window.starterCode = data.code;
-        window.hashOfCode = data.hashOfCode;
-        window.starterCode = lastSeenCode;
-      }
-      if (data.hashOfCode && !data.code) {
-        if (window[data.hashOfCode]) {
-          window.starterCode = window[data.hashOfCode];
-          lastSeenCode = window.starterCode;
-        }
-      }
-
-      // A regular chat message.
-      if (data.timestamp > lastSeenTimestamp) {
+    function process(event) {
+      try {
+        let data = JSON.parse(event.data);
         if (data.code && data.hashOfCode) {
           lastSeenCode = data.code;
+          window[data.hashOfCode] = data.code;
+          if (!window.starterCode) window.starterCode = data.code;
           window.hashOfCode = data.hashOfCode;
           window.starterCode = lastSeenCode;
-        } else if (
-          (data.message === "undefined" || !data.message) &&
-          data.message !== lastSeenCode && data.name !== username
-        ) {
-          if (
-            data.difference
-          ) {
-            if (window[data.hashOfCode]) {
-              if (window[data.hashOfCode] !== window.starterCode) {
-                lastSeenCode = window[data.hashOfCode];
-              }
-            } else {
-              const dmp = new DiffMatchPatch();
-              const patches = dmp.patch_fromText(data.difference);
-              const patched = dmp.patch_apply(patches, lastSeenCode);
-
-              if (patched[0]) lastSeenCode = patched[0];
-            }
-
-            // const newLastSeen = window.assemble(lastSeenCode, JSON.stringify(data.difference.c));
-            // console.log("AASSEMBLED", newLastSeen);
+        }
+        if (data.hashOfCode && !data.code) {
+          if (window[data.hashOfCode]) {
+            window.starterCode = window[data.hashOfCode];
+            lastSeenCode = window.starterCode;
           }
         }
 
-        if (lastSeenCode && lastSeenCode !== window.starterCode) {
-          window.starterCode = lastSeenCode;
-          window.hashOfCode = data.hashOfCode;
-          if (data.username !== username) chCode(lastSeenCode);
+        // A regular chat message.
+        if (data.timestamp > lastSeenTimestamp) {
+          if (data.code && data.hashOfCode) {
+            lastSeenCode = data.code;
+            window.hashOfCode = data.hashOfCode;
+            window.starterCode = lastSeenCode;
+          } else if (
+            (data.message === "undefined" || !data.message) &&
+            data.message !== lastSeenCode && data.name !== username
+          ) {
+            if (
+              data.difference
+            ) {
+              if (window[data.hashOfCode]) {
+                if (window[data.hashOfCode] !== window.starterCode) {
+                  lastSeenCode = window[data.hashOfCode];
+                }
+              } else {
+                const dmp = new DiffMatchPatch();
+                const patches = dmp.patch_fromText(data.difference);
+                const patched = dmp.patch_apply(patches, lastSeenCode);
+
+                if (patched[0]) lastSeenCode = patched[0];
+              }
+
+              // const newLastSeen = window.assemble(lastSeenCode, JSON.stringify(data.difference.c));
+              // console.log("AASSEMBLED", newLastSeen);
+            }
+          }
+
+          if (lastSeenCode && lastSeenCode !== window.starterCode) {
+            window.starterCode = lastSeenCode;
+            window.hashOfCode = data.hashOfCode;
+            if (data.username !== username) chCode(lastSeenCode);
+          }
         }
+        // addChatMessage(data.name, data.message);
+        lastSeenTimestamp = data.timestamp;
+      } catch (e) {
+        console.error({ e });
       }
-      // addChatMessage(data.name, data.message);
-      lastSeenTimestamp = data.timestamp;
-    } catch (e) {
-      console.error({ e });
-    }}
+    }
   });
 
   ws.addEventListener("close", (event) => {
