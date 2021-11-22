@@ -138,7 +138,7 @@ export function join() {
   });
 
   ws.addEventListener("message", (event) => {
-    let data = JSON.parse(event.data)
+    let data = JSON.parse(event.data);
     if (data.timestamp) {
       messageQueue[data.timestamp] = event;
       messageQueue.timestamps.push(data.timestamp);
@@ -175,7 +175,7 @@ export function join() {
         if (data.timestamp > lastSeenTimestamp) {
           if (data.code && data.hashOfCode) {
             lastSeenCode = data.code;
-            
+
             window.hashOfCode = data.hashOfCode;
             window.starterCode = lastSeenCode;
             window[data.hashOfCode] = data.code;
@@ -205,13 +205,12 @@ export function join() {
                     window.starterCode = lastSeenCode;
                     window.hashOfCode = data.hashOfCode;
                     if (data.username !== username) chCode(lastSeenCode);
-                  }else{
+                  } else {
                     console.error("we are out of sync...");
-                    username =  "OutOfSync..." + Math.random();
+                    username = "OutOfSync..." + Math.random();
                     rejoin();
                     return;
                   }
-
                 }
               }
 
