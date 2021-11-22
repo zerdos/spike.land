@@ -2361,7 +2361,7 @@ var init_importmap = __esm({
       "ipfs-only-hash": "https://unpkg.com/@spike.land/esm@0.1.12/dist/ipfs-only-hash.mjs",
       "@zedvision/swm": "https://unpkg.com/@zedvision/swm@4.0.0/public/swm-esm.js",
       "uuid/": "https://unpkg.com/uuid@8.3.2/dist/esm-browser/",
-      "@spike.land/code": "https://unpkg.com/@spike.land/code@0.1.18/js/reactLoader.mjs",
+      "@spike.land/code": "https://unpkg.com/@spike.land/code@0.1.19/js/reactLoader.mjs",
       comlink: "https://unpkg.com/comlink@4.3.1/dist/esm/comlink.mjs",
       "@spike.land/ipfs": "https://unpkg.com/@spike.land/ipfs@0.1.11/dist/ipfs.client.mjs",
       "workbox-window": "https://unpkg.com/workbox-window@6.4.1/build/workbox-window.prod.es5.mjs"
@@ -3204,11 +3204,12 @@ async function getCodeToLoad() {
 function getStarter() {
   return fetch(`https://code.spike.land/js/examples/rca.tsx`).then((res) => res.text());
 }
-var import_v4, uuid, getProjects, activeProject, saved, toSave, saveCode;
+var import_v4, sess, uuid, getProjects, activeProject, saved, toSave, saveCode;
 var init_data = __esm({
   "js/data.mjs"() {
     init_shaDB();
     import_v4 = __toModule(require_v4());
+    sess = {};
     getProjects = async () => {
       uuid = await getUserId();
       const userData = await Oe.get(uuid, "json");
@@ -3259,15 +3260,16 @@ var init_data = __esm({
       if (window.broad && codeNonFormatted) {
         const { broad, starterCode } = window;
         const hashOfCode = await Hash.of(codeNonFormatted);
-        const hashOfStarterCode = await Hash.of(window.starterCode);
-        broad({
+        const hashOfStarterCode = starterCode && await Hash.of(window.starterCode);
+        sess.codeNonFormatted = codeNonFormatted;
+        setTimeout(() => sess.codeNonFormatted === codeNonFormatted && broad({
           starterCode,
           code: codeNonFormatted,
           transpiled,
           html: opts.html,
           hashOfStarterCode,
           hashOfCode
-        });
+        }), 500);
       }
       const { shareItAsHtml: shareItAsHtml2 } = await Promise.resolve().then(() => (init_share(), share_exports));
       const sharePromise = shareItAsHtml2({ code, html: html2, transpiled });

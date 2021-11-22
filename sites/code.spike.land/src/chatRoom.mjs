@@ -106,11 +106,16 @@ export class Code {
     //   session.blockedMessages.push(value);
     // });
 
+    let hashOfCode;
     let code = await this.storage.get("code") || await this.storage.get("lastSeenCode");
-    let hashOfCode = await Hash.of(code);
-    session.blockedMessages.push(
-      JSON.stringify({ hashOfCode, code })
-    );
+  
+    if (code){
+      
+      hashOfCode = await Hash.of(code);
+      session.blockedMessages.push(
+        JSON.stringify({ hashOfCode, code })
+      );
+    }
 
     // Set event handlers to receive messages.
     let receivedUserInfo = false;
@@ -175,7 +180,7 @@ export class Code {
         const hashOfCode = data.hashOfCode;
         const hashOfPreviousCode = data.hashOfStarterCode;
      
-        const previousCode = await this.storage.get(hashOfPreviousCode) || await this.storage.get("code") || await this.storage.get("lastSeenCode");
+        const previousCode = hashOfPreviousCode && ( await this.storage.get(hashOfPreviousCode) || await this.storage.get("code") || await this.storage.get("lastSeenCode"));
 
         data = { name: session.name, message: "" || data.message };
 
@@ -198,8 +203,8 @@ export class Code {
         }
 
         if (data.code && data.hashOfCode) {
-          const hashOfAPatched = await Hash.of(data.code);
-          if (data.hashOfCode === hashOfAPatched) {
+          const hashOfCode = await Hash.of(data.code);
+          if (data.hashOfCode === hashOfCode) {
             code = data.code;
           }
         }

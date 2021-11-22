@@ -13997,7 +13997,7 @@ var require_ipfs_only_hash = __commonJS({
 });
 
 // ../../packages/code/package.json
-var version = "0.1.18";
+var version = "0.1.19";
 
 // ../../packages/code/js/importmap.json
 var imports = {
@@ -14214,7 +14214,7 @@ var imports = {
   "ipfs-only-hash": "https://unpkg.com/@spike.land/esm@0.1.12/dist/ipfs-only-hash.mjs",
   "@zedvision/swm": "https://unpkg.com/@zedvision/swm@4.0.0/public/swm-esm.js",
   "uuid/": "https://unpkg.com/uuid@8.3.2/dist/esm-browser/",
-  "@spike.land/code": "https://unpkg.com/@spike.land/code@0.1.17/js/reactLoader.mjs",
+  "@spike.land/code": "https://unpkg.com/@spike.land/code@0.1.18/js/reactLoader.mjs",
   comlink: "https://unpkg.com/comlink@4.3.1/dist/esm/comlink.mjs",
   "@spike.land/ipfs": "https://unpkg.com/@spike.land/ipfs@0.1.11/dist/ipfs.client.mjs",
   "workbox-window": "https://unpkg.com/workbox-window@6.4.1/build/workbox-window.prod.es5.mjs"
@@ -14461,9 +14461,12 @@ var Code = class {
         session.blockedMessages.push(JSON.stringify({ joined: otherSession.name }));
       }
     });
+    let hashOfCode;
     let code3 = await this.storage.get("code") || await this.storage.get("lastSeenCode");
-    let hashOfCode = await import_ipfs_only_hash.default.of(code3);
-    session.blockedMessages.push(JSON.stringify({ hashOfCode, code: code3 }));
+    if (code3) {
+      hashOfCode = await import_ipfs_only_hash.default.of(code3);
+      session.blockedMessages.push(JSON.stringify({ hashOfCode, code: code3 }));
+    }
     let receivedUserInfo = false;
     webSocket.addEventListener("message", async (msg) => {
       try {
@@ -14498,7 +14501,7 @@ var Code = class {
         let code4 = data.code;
         const hashOfCode2 = data.hashOfCode;
         const hashOfPreviousCode = data.hashOfStarterCode;
-        const previousCode = await this.storage.get(hashOfPreviousCode) || await this.storage.get("code") || await this.storage.get("lastSeenCode");
+        const previousCode = hashOfPreviousCode && (await this.storage.get(hashOfPreviousCode) || await this.storage.get("code") || await this.storage.get("lastSeenCode"));
         data = { name: session.name, message: data.message };
         if (difference) {
           const dmp = new import_diff_match_patch.default();
@@ -14514,8 +14517,8 @@ var Code = class {
           }
         }
         if (data.code && data.hashOfCode) {
-          const hashOfAPatched = await import_ipfs_only_hash.default.of(data.code);
-          if (data.hashOfCode === hashOfAPatched) {
+          const hashOfCode3 = await import_ipfs_only_hash.default.of(data.code);
+          if (data.hashOfCode === hashOfCode3) {
             code4 = data.code;
           }
         }

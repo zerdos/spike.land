@@ -25,7 +25,7 @@ const chCode = (code) => {
 
 let hostname = "code.spike.land";
 
-let roomName = "ROOMagain12";
+let roomName = "ROOMagain12`";
 let username = "Pisti" + Math.random();
 let lastSeenTimestamp = 0;
 let lastSeenCode = "";
@@ -69,6 +69,8 @@ function getDiff(from, to) {
 export const broad = (
   { code, hashOfCode, starterCode, transpiled, html },
 ) => {
+
+
   if (code !== lastSeenCode) {
     let difference;
     const prevHash = window[window.wantedHashBase]?window.wantedHashBase:window.currentHashOfCode;
@@ -111,14 +113,14 @@ export const broad = (
       };
 
       window.starterCode = starterCode;
-      currentWebSocket.send(JSON.stringify(message));
- 
+     
     }
-    if (!window.starterCode || !lastSeenCode) {
-      console.error("NO STARTER-CODE");
-      throw new Error("NO STARTER CODE");
+    else {
+      message.code = code;
+      message.hashOfCode = hashOfCode;
     }
 
+    currentWebSocket.send(JSON.stringify(message));
   }
 };
 
@@ -148,7 +150,7 @@ export function join() {
 
       messageQueue[timestamp] = data;
       messageQueue.timestamps.push(timestamp);
-      messageQueue.timestamps.sort();
+      messageQueue.timestamps.sort(function(a, b){return a-b});
 
       setTimeout(() => {
         const timestamp = messageQueue.timestamps.shift();

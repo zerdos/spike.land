@@ -2,6 +2,8 @@ import { sha256, shaDB } from "@spike.land/shadb";
 import v4 from "uuid/v4";
 import Hash from "ipfs-only-hash";
 
+
+const sess = {};
 /** @type {string} */
 let uuid;
 export const getProjects = async () => {
@@ -220,15 +222,20 @@ export const saveCode =
     if (window.broad && codeNonFormatted) {
       const { broad, starterCode } = window;
       const hashOfCode = await Hash.of(codeNonFormatted);
-      const hashOfStarterCode = await Hash.of(window.starterCode);
-      broad({
+      const hashOfStarterCode = starterCode && await Hash.of(window.starterCode);
+
+      
+      sess.codeNonFormatted = codeNonFormatted;
+      
+
+     setTimeout(()=>sess.codeNonFormatted===codeNonFormatted && broad({
         starterCode,
         code: codeNonFormatted,
         transpiled,
         html: opts.html,
         hashOfStarterCode,
         hashOfCode,
-      });
+      }), 500);
     }
     // const saveCode = async () => {
     //   const res = await ipfsClient.add(code, { onlyHash: true });
