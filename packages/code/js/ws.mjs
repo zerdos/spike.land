@@ -1,5 +1,8 @@
 import DiffMatchPatch from "diff-match-patch";
 let currentWebSocket = null;
+const messageQueue = {
+  timestamps: []
+};
 
 const chCode = (code) => {
   try {
@@ -134,7 +137,25 @@ export function join() {
     ws.send(JSON.stringify({ name: username }));
   });
 
+
+
   ws.addEventListener("message", (event) => {
+    if (event.data.timeStamp){
+    messageQueue[event.timeStamp] = event;
+    messageQueue.timestamps.push(event.timeStamp);
+    messageQueue.timestamps.sort();
+
+    setTimeout(() => {
+      const timestamp = messageQueue.timestamps.shift();
+      const event = messageQueue[timestamp];
+      messageQueue[timestamp] = null;
+      process(event);
+    }, 100);
+  } else {
+    process(event);
+  }
+
+    function process (event){
     try {
       let data = JSON.parse(event.data);
       if (data.code && data.hashOfCode) {
@@ -191,7 +212,7 @@ export function join() {
       lastSeenTimestamp = data.timestamp;
     } catch (e) {
       console.error({ e });
-    }
+    }}
   });
 
   ws.addEventListener("close", (event) => {
