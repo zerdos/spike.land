@@ -16,7 +16,7 @@ export const files = {
   "assets/triangle-geometry.png":
     "QmZ5Nic3MRHT8m9SY5ZrSp38UHGEYmJqgk4RAmDV3xXqa1",
   "assets/zed-icon-big.png": "QmeHY7RZzR5wm9ELZr5xgq6XMQKjRAHgmxoQaCzHjgpRm8",
-  "dev.mjs": "QmT64ZWpy7ponMushn4VNzUzySdQ7TH72npEdfqRef9W18",
+  "dev.mjs": "QmYL4Ec6uRBxSYciX5EuxqB2v2DMf6BwTTtST1w41fmX8m",
   "dev.mjs.map": "QmboqMRnRNg3CBtYiHe9n9UjdfScndzs9nNFWmrbZGb7t4",
   "edit/index.html": "QmfXTNa9t9Yi9mcrrK9Y8fi6yfSzJ89XxCmGShH1CyZjFX",
   "esbuild-dev.mjs": "QmUqp7sUH1QAkE8uVZgozsNufupqgDcQR7eMhpjR3GERhv",
@@ -31,7 +31,7 @@ export const files = {
   "js/formatter.mjs": "Qmcvc7jZkrSvbattfsxi1BqmP7d1pVDy4pjjxeiJL8zmQn",
   "js/importScript.d.ts": "QmV1V5Fb2ZxP5Kn31nSU7FS2TtrDMg6wR7sMTsKeeR1txL",
   "js/importScript.mjs": "QmQBhy9H2prXzc5DnjVcF7qfkEMYVz4TFtwzegpcpEp4Da",
-  "js/importmap.json": "QmR42qBUgMTj4HbrMutgUAHQHC7qeNfmhxRRMX2wfjzEmq",
+  "js/importmap.json": "QmYXtbBMyzTpg2AxrUHrsieDzB2iiuxf2LwfK3BxTTik5U",
   "js/ipfsClient.mjs": "Qma5ZP226wff835FKrLgvaEwYMeQQ8q6EWUL8d7vsNeSHt",
   "js/openWindows.mjs": "QmQDSXPm2xLjd1VZpthAjpt81CRVynQMWM26nNVncnYMdW",
   "js/reactLoader.mjs": "QmQVz3MRExedsNSyzKQyeU5te84tE4ACMzrEEuntyG4MjM",
@@ -51,7 +51,7 @@ export const files = {
     "QmTzHQedmz11rTh1HHJuyEas3DgSW5ct8BzzSSWMLpQgB7",
   "js/workers/transpile.worker.js":
     "QmURZxeJkk2kQjNfhBb98B9vH6FnbUefPZedZw6RN8rw45",
-  "js/ws.mjs": "Qmc6z93LkQApXE8BP6x62o6GRHKdisneVr8hjjMocG2rAe",
+  "js/ws.mjs": "QmVkWNV7BjpS2Y8VuGpUaPdipcGipQp8fyy2sV2VHvsK5c",
   "manifest.json": "QmXmokoZc6CTgga36sBaEXYvw3fPCjJSCrXx1HzLkQewnm",
   "package.json": "QmaiwmwhgLLLLjsH3PytqnLMR4nNRMXp1MnFpF5BbZXkUx",
   "scripts/importmapGenerator.mjs":
@@ -62,9 +62,9 @@ export const files = {
   "edit": "QmRBtzxNHPENXEfZwv1aZk9XmznUM6mesSe3GKVB8UwwXS",
   "js/examples": "QmbZePTm4aHmFmZefnvz4CNm7omsSHvpGDn4HXSpq1atQB",
   "js/workers": "QmPxzCnYuV32u4nzMyutJcQzSvkUqtT58A2EkaZcYnpHzf",
-  "js": "QmYJNT7xhgKvFf8arSpdQeKThDNY8b2mo4Pf2JwPn8so2v",
+  "js": "QmQ9pb69xTvfKNmB8bmwjheT4B1wchJsE6g5Sd7cuJ5cfH",
   "node_modules": "QmUNLLsPACCz1vLxQVkXqqLX5R1X345qqfHbsf67hvA3Nn",
   "scripts": "QmVc56wBvEw5meoMV3WKdTdVPSHk36EeCF71F5no8AuFC4",
-  "": "Qme1RZUcZuQeY14A7fNYS7QGTp44u6iJQtNtduvcitj8Cg",
+  "": "QmZAjszULKxcdxYAz2jwD3bBLLCHQyf2Gec7rUVmFfAwbJ",
   "foo": "bar",
 };

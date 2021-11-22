@@ -14214,7 +14214,7 @@ var imports = {
   "ipfs-only-hash": "https://unpkg.com/@spike.land/esm@0.1.12/dist/ipfs-only-hash.mjs",
   "@zedvision/swm": "https://unpkg.com/@zedvision/swm@4.0.0/public/swm-esm.js",
   "uuid/": "https://unpkg.com/uuid@8.3.2/dist/esm-browser/",
-  "@spike.land/code": "https://unpkg.com/@spike.land/code@0.1.18/js/reactLoader.mjs",
+  "@spike.land/code": "https://unpkg.com/@spike.land/code@0.1.19/js/reactLoader.mjs",
   comlink: "https://unpkg.com/comlink@4.3.1/dist/esm/comlink.mjs",
   "@spike.land/ipfs": "https://unpkg.com/@spike.land/ipfs@0.1.11/dist/ipfs.client.mjs",
   "workbox-window": "https://unpkg.com/workbox-window@6.4.1/build/workbox-window.prod.es5.mjs"
@@ -14414,7 +14414,7 @@ var RateLimiterClient = class {
         });
       }
       let cooldown = +await response.text();
-      await new Promise((resolve) => setTimeout(resolve, cooldown * 1e3));
+      await new Promise((resolve) => setTimeout(resolve, cooldown * 100));
       this.inCooldown = false;
     } catch (err) {
       this.reportError(err);

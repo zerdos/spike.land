@@ -58,7 +58,7 @@ export class RateLimiterClient {
 
       // The response indicates how long we want to pause before accepting more requests.
       let cooldown = +(await response.text());
-      await new Promise((resolve) => setTimeout(resolve, cooldown * 1000));
+      await new Promise((resolve) => setTimeout(resolve, cooldown * 100));
 
       // Done waiting.
       this.inCooldown = false;

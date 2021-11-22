@@ -77,16 +77,9 @@ export const broad = (
     if (code === window[prevHash]) return;
 
     if (window.starterCode) {
-      if (window.starterCode !== starterCode) {
-        throw new Error(
-          "window.starterCode !== starterCode",
-          starterCode,
-          window.starterCode,
-        );
-      }
       try {
 
-        difference = getDiff(window[prevHash], code);
+        difference = prevHash && window[prevHash] && getDiff(window[prevHash], code);
 
         // console.log(difference);
       } catch (e) {
@@ -117,10 +110,13 @@ export const broad = (
     }
     else {
       message.code = code;
+      message.name = username;
       message.hashOfCode = hashOfCode;
     }
+ 
 
-    currentWebSocket.send(JSON.stringify(message));
+    ws && ws.send(JSON.stringify(message)) || rejoin();
+  
   }
 };
 
@@ -220,7 +216,7 @@ export function join() {
 
                 if (patched[0]) {
                   const lastSeenCode = patched[0];
-                  const hashFromDiffCode = await Hash.of(lastSeenCode);
+                  const hashFromDiffCode =lastSeenCode && await Hash.of(lastSeenCode);
                  if (hashFromDiffCode === hashOfCode) {
                     window[hashOfCode]=lastSeenCode;
                     window.hashOfCode = hashOfCode;
