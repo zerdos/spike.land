@@ -63,7 +63,7 @@ export const shasums = {
   "index.html":
     "3f2d3ea80fc62b8bf503a416ac3919b29f0b14603cb1ad52e40af22836f4a5fb",
   "package.json":
-    "5ec27b62f4fe46ed47764330a94a3f9ecfb87c448495ca6a119ccc173cdb2101",
+    "53e2347c23025625ae0f9e0f710287c30416391ea97262acea4f8a989a698585",
   "esbuild-dev.mjs":
     "2ce6dbeb1a973464803bea837e46beed452727e2153fc5ab12c6d9e1007dec69",
   "scripts/importmapGenerator.mjs":
