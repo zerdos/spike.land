@@ -25,7 +25,7 @@ const chCode = (code) => {
 
 let hostname = "code.spike.land";
 
-let roomName = "ROOMagain";
+let roomName = "ROOMagain12";
 let username = "Pisti" + Math.random();
 let lastSeenTimestamp = 0;
 let lastSeenCode = "";
@@ -63,15 +63,16 @@ function getDiff(from, to) {
   const dmp = new DiffMatchPatch();
 
   const patches = dmp.patch_make(from, to);
-  console.log({ patches });
   return dmp.patch_toText(patches);
 }
 
 export const broad = (
-  { code, hashOfCode, starterCode, hashOfStarterCode, transpiled, html },
+  { code, hashOfCode, starterCode, transpiled, html },
 ) => {
   if (code !== lastSeenCode) {
     let difference;
+    const prevHash = window[window.wantedHashBase]?window.wantedHashBase:window.currentHashOfCode;
+    if (code === window[prevHash]) return;
 
     if (window.starterCode) {
       if (window.starterCode !== starterCode) {
@@ -82,9 +83,10 @@ export const broad = (
         );
       }
       try {
-        difference = getDiff(window.starterCode, code);
 
-        console.log(difference);
+        difference = getDiff(window[prevHash], code);
+
+        // console.log(difference);
       } catch (e) {
         console.error({ e });
       }
@@ -92,11 +94,11 @@ export const broad = (
 
     const message = { hashOfCode };
     if (difference) {
-      const prevHash = window.currentHashOfCode;
+
       message.transpiled = transpiled;
       message.difference = difference;
       message.hashOfCode = hashOfCode;
-      message.hashOfStarterCode = hashOfStarterCode;
+      message.hashOfStarterCode = prevHash;
       if (prevHash && mod[prevHash]) {
         message.htmlDiff = getDiff(mod[prevHash].html, html);
         message.transpiledDiff = getDiff(mod[prevHash].transpiled, transpiled);
@@ -109,13 +111,14 @@ export const broad = (
       };
 
       window.starterCode = starterCode;
+      currentWebSocket.send(JSON.stringify(message));
+ 
     }
     if (!window.starterCode || !lastSeenCode) {
       console.error("NO STARTER-CODE");
       throw new Error("NO STARTER CODE");
     }
 
-    currentWebSocket.send(JSON.stringify(message));
   }
 };
 
@@ -160,6 +163,13 @@ export function join() {
 
     async function process(data) {
       try {
+        if (data.timestamp && !lastSeenTimestamp){
+          lastSeenTimestamp=data.timestamp
+        }
+
+        if (data.hashOfCode) {
+          window.wantedHashBase = data.hashOfCode;
+        }
         if (data.name === username) return;
         if (data.code && data.hashOfCode) {
           lastSeenCode = data.code;
@@ -173,19 +183,18 @@ export function join() {
             console.error("error in chCode");
           }
         }
-        if (data.hashOfCode && !data.code) {
-          if (window[data.hashOfCode]) {
+
+        if (data.hashOfCode && window[data.hashOfCode]) {
+         
             window.starterCode = window[data.hashOfCode];
             lastSeenCode = window[data.hashOfCode];
             chCode(lastSeenCode);
           
-          }
-        }else
+          
+        }
 
         // A regular chat message.
-        if (data.timestamp && !lastSeenTimestamp){
-          lastSeenTimestamp=data.timestamp
-        }
+     
 
 
           if (data.code && data.hashOfCode) {

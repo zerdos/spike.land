@@ -7,7 +7,7 @@ export const shasums = {
   ".vscode/settings.json":
     "59518a7d473e186d1edb3b105cac5644bb6f04a20f5d21a17b69b89b3f7837c9",
   "js/ws.mjs":
-    "ac6df015354eb8b64ee3e242cd2026fae86aa6e1228d1f9e73fb2bc3ec15ef64",
+    "322d91c3ef3623df846f032a85dab693f403db0b4982e5c9984253312bf5c43f",
   "js/ipfsClient.mjs":
     "5bba59ecc4f9895950dcbdfc6b3ab5b7d85ddb394a91b4454a61310c0db6f852",
   "js/workers/transpile.worker.js":
@@ -63,7 +63,7 @@ export const shasums = {
   "index.html":
     "3f2d3ea80fc62b8bf503a416ac3919b29f0b14603cb1ad52e40af22836f4a5fb",
   "package.json":
-    "ebf0086e2dd2a54aceccc5deb7500a72e835f9f1dce922a8c4f738a51ece7b95",
+    "ce4f0e5b91b2143cb827ae8e82ff3f76a6c0d132eefe94230030374f128fa727",
   "esbuild-dev.mjs":
     "2ce6dbeb1a973464803bea837e46beed452727e2153fc5ab12c6d9e1007dec69",
   "scripts/importmapGenerator.mjs":

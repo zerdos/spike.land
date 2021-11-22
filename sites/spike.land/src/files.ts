@@ -51,9 +51,9 @@ export const files = {
     "QmTzHQedmz11rTh1HHJuyEas3DgSW5ct8BzzSSWMLpQgB7",
   "js/workers/transpile.worker.js":
     "QmURZxeJkk2kQjNfhBb98B9vH6FnbUefPZedZw6RN8rw45",
-  "js/ws.mjs": "QmNtgceLovHFHwPYCmAWTS19FJDCyV5uQ2acJYsf71RjXb",
+  "js/ws.mjs": "QmZ5zTw6L64NsTzkcqjo1p3PDxXr55Qq9bFJ1CeUFLx9oj",
   "manifest.json": "QmXmokoZc6CTgga36sBaEXYvw3fPCjJSCrXx1HzLkQewnm",
-  "package.json": "QmaZUH5fSEcLxkHTVDCPfWQ7Qpczr4VjYxReDP5QWiKdf8",
+  "package.json": "Qmde9tEaY5fvhZTnEKHrbepD7J9ha4rgd5vFytmm8JMFiV",
   "scripts/importmapGenerator.mjs":
     "QmPnqpi5iyWPqRP1dEGPnHUo4916YSVDUBhCvqdV5SNUBW",
   "tsconfig.json": "QmQuH91sPQ36qvHdFaMmbtg8btgPFXXLcdGfuUBDwhH44k",
@@ -62,9 +62,9 @@ export const files = {
   "edit": "QmRBtzxNHPENXEfZwv1aZk9XmznUM6mesSe3GKVB8UwwXS",
   "js/examples": "QmbZePTm4aHmFmZefnvz4CNm7omsSHvpGDn4HXSpq1atQB",
   "js/workers": "QmPxzCnYuV32u4nzMyutJcQzSvkUqtT58A2EkaZcYnpHzf",
-  "js": "QmVr8MwTJg96pJoJN7AxcJ5WoBz6CYLiKzwcQAE2ptqfwh",
+  "js": "QmSXEG9SckGq9ejqRrEF3HC65Ew1PAjKGgan9Lz1vpboBF",
   "node_modules": "QmUNLLsPACCz1vLxQVkXqqLX5R1X345qqfHbsf67hvA3Nn",
   "scripts": "QmVc56wBvEw5meoMV3WKdTdVPSHk36EeCF71F5no8AuFC4",
-  "": "QmSGeawAwgU1vio1rYMH7ircU5n3p7UJ4yK4CgBxWrG2mQ",
+  "": "QmXkJzqjEsZg6LuPjJKp4h7gBgwt2w3FPuhgyknHPf6HhZ",
   "foo": "bar",
 };
