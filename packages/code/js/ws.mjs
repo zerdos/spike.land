@@ -138,59 +138,69 @@ export function join() {
   });
 
   ws.addEventListener("message", (event) => {
-    let data = JSON.parse(event.data);
+    const data = JSON.parse(event.data);
     if (data.timestamp) {
-      messageQueue[data.timestamp] = event;
-      messageQueue.timestamps.push(data.timestamp);
+      let timestamp = data.timestamp;
+      while (messageQueue[timestamp]) timestamp++;
+
+      messageQueue[timestamp] = data;
+      messageQueue.timestamps.push(timestamp);
       messageQueue.timestamps.sort();
 
       setTimeout(() => {
         const timestamp = messageQueue.timestamps.shift();
-        const event = messageQueue[timestamp];
+        const event = {...messageQueue[timestamp]};
         messageQueue[timestamp] = null;
         process(event);
       }, 100);
     } else {
-      process(event);
+      
+      process(data);
     }
 
-    async function process(event) {
+    async function process(data) {
       try {
-        let data = JSON.parse(event.data);
+        if (data.name === username) return;
         if (data.code && data.hashOfCode) {
           lastSeenCode = data.code;
           window[data.hashOfCode] = data.code;
           if (!window.starterCode) window.starterCode = data.code;
           window.hashOfCode = data.hashOfCode;
           window.starterCode = lastSeenCode;
+          try{
+            chCode(data.code)
+          }catch(e){
+            console.error("error in chCode");
+          }
         }
         if (data.hashOfCode && !data.code) {
           if (window[data.hashOfCode]) {
             window.starterCode = window[data.hashOfCode];
-            lastSeenCode = window.starterCode;
+            lastSeenCode = window[data.hashOfCode];
+            chCode(lastSeenCode);
+          
           }
-        }
+        }else
 
         // A regular chat message.
-        if (data.timestamp > lastSeenTimestamp) {
+        if (data.timestamp && !lastSeenTimestamp){
+          lastSeenTimestamp=data.timestamp
+        }
+
+
           if (data.code && data.hashOfCode) {
             lastSeenCode = data.code;
 
             window.hashOfCode = data.hashOfCode;
             window.starterCode = lastSeenCode;
             window[data.hashOfCode] = data.code;
-          } else if (
-            (data.message === "undefined" || !data.message) &&
-            data.message !== lastSeenCode && data.name !== username
-          ) {
-            if (
-              data.difference
+          } else if ( data.name !== username && data.difference) {
+            if ( data.hashOfCode &&
+              data.difference && data.hashOfCode !== window.hashOfCode
             ) {
-              if (window[data.hashOfCode]) {
-                if (window[data.hashOfCode] !== window.starterCode) {
-                  lastSeenCode = window[data.hashOfCode];
-                }
-              } else {
+
+              const hashOfCode = data.hashOfCode;
+
                 const Hash = (await import("ipfs-only-hash")).default;
 
                 const dmp = new DiffMatchPatch();
@@ -198,23 +208,23 @@ export function join() {
                 const patched = dmp.patch_apply(patches, lastSeenCode);
 
                 if (patched[0]) {
-                  const fromDiffCode = patched[0];
-                  const hashFromDiffCode = await Hash.of(fromDiffCode);
-                  if (hashFromDiffCode === data.hashOfCode) {
-                    lastSeenCode = patched[0];
-                    window.starterCode = lastSeenCode;
-                    window.hashOfCode = data.hashOfCode;
-                    if (data.username !== username) chCode(lastSeenCode);
-                  } else {
-                    console.error("we are out of sync...");
-                    ws.close("500", "out of sync");
-                    return;
-                  }
-                }
-              }
+                  const lastSeenCode = patched[0];
+                  const hashFromDiffCode = await Hash.of(lastSeenCode);
+                 if (hashFromDiffCode === hashOfCode) {
+                    window[hashOfCode]=lastSeenCode;
+                    window.hashOfCode = hashOfCode;
+                    chCode(lastSeenCode);
+                 }
+ 
+                
+              
 
               // const newLastSeen = window.assemble(lastSeenCode, JSON.stringify(data.difference.c));
               // console.log("AASSEMBLED", newLastSeen);
+            } else {
+              console.error("we are out of sync...");
+              ws.close(1000, "out of sync");
+              return;
             }
           }
         }

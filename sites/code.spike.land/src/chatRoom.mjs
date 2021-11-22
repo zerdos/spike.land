@@ -106,10 +106,10 @@ export class Code {
     //   session.blockedMessages.push(value);
     // });
 
-    let lastSeenCode = await this.storage.get("lastSeenCode");
-    let hashOfLastSeen = await Hash.of(lastSeenCode);
+    let code = await this.storage.get("code") || await this.storage.get("lastSeenCode");
+    let hashOfCode = await Hash.of(code);
     session.blockedMessages.push(
-      JSON.stringify({ hashOfCode: hashOfLastSeen, code: lastSeenCode }),
+      JSON.stringify({ hashOfCode, code })
     );
 
     // Set event handlers to receive messages.
@@ -167,12 +167,15 @@ export class Code {
           return;
         }
 
-        // Construct sanitized message for storage and broadcast.
+        // Construct sanitizedlastSeenCode message for storage and broadcast.
+       
+       
         const difference = data.difference;
-        const lastSeenCode = await this.storage.get("lastSeenCode");
-
         let code = data.code;
         const hashOfCode = data.hashOfCode;
+        const hashOfPreviousCode = data.hashOfStarterCode;
+     
+        const previousCode = await this.storage.get(hashOfPreviousCode) || await this.storage.get("code") || await this.storage.get("lastSeenCode");
 
         data = { name: session.name, message: "" || data.message };
 
@@ -183,7 +186,7 @@ export class Code {
         if (difference) {
           const dmp = new DiffMatchPatch();
           const patches = dmp.patch_fromText((difference));
-          const patchedCode = (dmp.patch_apply(patches, (lastSeenCode))[0]);
+          const patchedCode = (dmp.patch_apply(patches, (previousCode))[0]);
           const hashOfAPatched = await Hash.of(patchedCode);
           if (hashOfCode === hashOfAPatched) {
             data.hashOfCode = hashOfAPatched;
@@ -224,10 +227,12 @@ export class Code {
         // Save message.
         let key = new Date(data.timestamp).toISOString();
 
-        if (code && lastSeenCode !== code) {
-          await this.storage.put("lastSeenCode", code);
+        if (code && previousCode !== code) {
+          const hashOfCode = await Hash.of(code);
+          await this.storage.put(hashOfCode, code);
+          await this.storage.put("code", code);
         }
-        await this.storage.put(key, dataStr);
+        await this.storage.put(key, dataStr)
       } catch (err) {
         // Report any exceptions directly back to the client. As with our handleErrors() this
         // probably isn't what you'd want to do in production, but it's convenient when testing.

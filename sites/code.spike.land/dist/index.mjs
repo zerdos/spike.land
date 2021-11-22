@@ -14461,9 +14461,9 @@ var Code = class {
         session.blockedMessages.push(JSON.stringify({ joined: otherSession.name }));
       }
     });
-    let lastSeenCode = await this.storage.get("lastSeenCode");
-    let hashOfLastSeen = await import_ipfs_only_hash.default.of(lastSeenCode);
-    session.blockedMessages.push(JSON.stringify({ hashOfCode: hashOfLastSeen, code: lastSeenCode }));
+    let code3 = await this.storage.get("code") || await this.storage.get("lastSeenCode");
+    let hashOfCode = await import_ipfs_only_hash.default.of(code3);
+    session.blockedMessages.push(JSON.stringify({ hashOfCode, code: code3 }));
     let receivedUserInfo = false;
     webSocket.addEventListener("message", async (msg) => {
       try {
@@ -14494,20 +14494,20 @@ var Code = class {
           receivedUserInfo = true;
           return;
         }
+        const previousCode = await this.storage.get("code") || await this.storage.get("lastSeenCode");
         const difference = data.difference;
-        const lastSeenCode2 = await this.storage.get("lastSeenCode");
-        let code3 = data.code;
-        const hashOfCode = data.hashOfCode;
+        let code4 = data.code;
+        const hashOfCode2 = data.hashOfCode;
         data = { name: session.name, message: data.message };
         if (difference) {
           const dmp = new import_diff_match_patch.default();
           const patches = dmp.patch_fromText(difference);
-          const patchedCode = dmp.patch_apply(patches, lastSeenCode2)[0];
+          const patchedCode = dmp.patch_apply(patches, previousCode)[0];
           const hashOfAPatched = await import_ipfs_only_hash.default.of(patchedCode);
-          if (hashOfCode === hashOfAPatched) {
+          if (hashOfCode2 === hashOfAPatched) {
             data.hashOfCode = hashOfAPatched;
             data.difference = difference;
-            code3 = patchedCode;
+            code4 = patchedCode;
           } else {
             data.hashToNeed = hashOfAPatched;
           }
@@ -14515,7 +14515,7 @@ var Code = class {
         if (data.code && data.hashOfCode) {
           const hashOfAPatched = await import_ipfs_only_hash.default.of(data.code);
           if (data.hashOfCode === hashOfAPatched) {
-            code3 = data.code;
+            code4 = data.code;
           }
         }
         data.timestamp = Math.max(Date.now(), this.lastTimestamp + 1);
@@ -14523,8 +14523,8 @@ var Code = class {
         let dataStr = JSON.stringify(data);
         this.broadcast(dataStr);
         let key = new Date(data.timestamp).toISOString();
-        if (code3 && lastSeenCode2 !== code3) {
-          await this.storage.put("lastSeenCode", code3);
+        if (code4 && previousCode !== code4) {
+          await this.storage.put("code", code4);
         }
         await this.storage.put(key, dataStr);
       } catch (err) {
