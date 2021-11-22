@@ -154,7 +154,7 @@ export function join() {
       process(event);
     }
 
-    function process(event) {
+    async function process(event) {
       try {
         let data = JSON.parse(event.data);
         if (data.code && data.hashOfCode) {
@@ -175,8 +175,10 @@ export function join() {
         if (data.timestamp > lastSeenTimestamp) {
           if (data.code && data.hashOfCode) {
             lastSeenCode = data.code;
+            
             window.hashOfCode = data.hashOfCode;
             window.starterCode = lastSeenCode;
+            window[data.hashOfCode] = data.code;
           } else if (
             (data.message === "undefined" || !data.message) &&
             data.message !== lastSeenCode && data.name !== username
@@ -189,22 +191,33 @@ export function join() {
                   lastSeenCode = window[data.hashOfCode];
                 }
               } else {
+                const Hash = (await import("ipfs-only-hash")).default;
+
                 const dmp = new DiffMatchPatch();
                 const patches = dmp.patch_fromText(data.difference);
                 const patched = dmp.patch_apply(patches, lastSeenCode);
 
-                if (patched[0]) lastSeenCode = patched[0];
+                if (patched[0]) {
+                  const fromDiffCode = patched[0];
+                  const hashFromDiffCode = await Hash.of(fromDiffCode);
+                  if (hashFromDiffCode === data.hashOfCode) {
+                    lastSeenCode = patched[0];
+                    window.starterCode = lastSeenCode;
+                    window.hashOfCode = data.hashOfCode;
+                    if (data.username !== username) chCode(lastSeenCode);
+                  }else{
+                    console.error("we are out of sync...");
+                    username =  "OutOfSync..." + Math.random();
+                    rejoin();
+                    return;
+                  }
+
+                }
               }
 
               // const newLastSeen = window.assemble(lastSeenCode, JSON.stringify(data.difference.c));
               // console.log("AASSEMBLED", newLastSeen);
             }
-          }
-
-          if (lastSeenCode && lastSeenCode !== window.starterCode) {
-            window.starterCode = lastSeenCode;
-            window.hashOfCode = data.hashOfCode;
-            if (data.username !== username) chCode(lastSeenCode);
           }
         }
         // addChatMessage(data.name, data.message);

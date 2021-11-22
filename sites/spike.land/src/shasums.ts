@@ -1,5 +1,5 @@
 export const shasums = {
-  "dev.mjs": "e03d08aa6f5a67056f4e080bbf2c6f813136a58a969ce26caf56bd722bc2cc5c",
+  "dev.mjs": "11e60352ed5f9eb10d4fdbd5bb7bc7c38b922aa45fe0d64211118a293d5678fe",
   "edit/index.html":
     "6bedf2adaf3b015d95ef000fe886b446ff1cc39184be9c8f060e63a325ed50af",
   "dev.mjs.map":
@@ -7,7 +7,7 @@ export const shasums = {
   ".vscode/settings.json":
     "59518a7d473e186d1edb3b105cac5644bb6f04a20f5d21a17b69b89b3f7837c9",
   "js/ws.mjs":
-    "f277d1cbf4d3efed10a9641194d9d0be9882844c23c9b7a510a86876aa284897",
+    "91377c46c3355aac3701c6e120ded8e1a4c31ab6beac3f172126234eca804c58",
   "js/ipfsClient.mjs":
     "5bba59ecc4f9895950dcbdfc6b3ab5b7d85ddb394a91b4454a61310c0db6f852",
   "js/workers/transpile.worker.js":
@@ -33,7 +33,7 @@ export const shasums = {
   "js/codeLoader.mjs":
     "79c68db8e7939c51f44321aeb88b0d77053c03fff45d5affb8562aa29eeea753",
   "js/importmap.json":
-    "ae8cb7cb31c8c243a0d4b4907efb848c186a4163236ecb22f52ebd3eb7983500",
+    "933a71c2747294bc08343f34fc6eae15fb1bb9f4941eff5ac01fc4f059dc333e",
   "js/sw.js":
     "e8493b6ab208d22c048635935efa2932a9abc4994b32ef4bacc59f604ca1eb53",
   "js/share.mjs":
