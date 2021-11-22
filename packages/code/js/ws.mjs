@@ -207,8 +207,7 @@ export function join() {
                     if (data.username !== username) chCode(lastSeenCode);
                   } else {
                     console.error("we are out of sync...");
-                    username = "OutOfSync..." + Math.random();
-                    rejoin();
+                    ws.close("500","out of sync");
                     return;
                   }
                 }
