@@ -54,17 +54,14 @@ let rejoin = async () => {
   }
 };
 
-
 const mod = {};
 
-function getDiff(from, to){
-
+function getDiff(from, to) {
   const dmp = new DiffMatchPatch();
 
-  const patches = dmp.patch_make(from , to);
-  console.log({patches});
+  const patches = dmp.patch_make(from, to);
+  console.log({ patches });
   return encodeURI(dmp.patch_toText(patches));
-
 }
 
 export const broad = (
@@ -104,9 +101,9 @@ export const broad = (
       window.currentHashOfCode = hashOfCode;
       window[hashOfCode] = code;
       mod[hashOfCode] = {
-        transpiled, 
-        html
-      }
+        transpiled,
+        html,
+      };
 
       window.starterCode = starterCode;
     }

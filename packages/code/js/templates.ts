@@ -68,7 +68,7 @@ ${css}</style>
 </main>
 <script>window.process = {env: {NODE_ENV:"production" }}</script>
 <script type="importmap-shim">
-${JSON.stringify({imports: {...importmapJson.imports,"app": './app.js'}}   )}
+${JSON.stringify({ imports: { ...importmapJson.imports, "app": "./app.js" } })}
 </script>
 <script type="module-shim">
   import App from 'app';
@@ -102,7 +102,11 @@ export const getEditorHTML = () =>
 <body>
 <script>window.process = {env: {NODE_ENV:"production" }}</script>
 <script type="importmap">
-${JSON.stringify({imports: {...importmapJson.imports,"app": ['./app.js']}})}
+${
+    JSON.stringify({
+      imports: { ...importmapJson.imports, "app": ["./app.js"] },
+    })
+  }
 </script>
 <script type="module">
 import {edit} from "https://code.spike.land/js/data.mjs"

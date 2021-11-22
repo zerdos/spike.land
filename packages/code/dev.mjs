@@ -2459,7 +2459,9 @@ var init_templates = __esm({
 <body>
 <script>window.process = {env: {NODE_ENV:"production" }}<\/script>
 <script type="importmap">
-${JSON.stringify({ imports: { ...importmap_default.imports, "app": ["./app.js"] } })}
+${JSON.stringify({
+      imports: { ...importmap_default.imports, "app": ["./app.js"] }
+    })}
 <\/script>
 <script type="module">
 import {edit} from "https://code.spike.land/js/data.mjs"
