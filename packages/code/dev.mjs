@@ -3251,7 +3251,7 @@ var init_data = __esm({
           starterCode,
           code: codeNonFormatted,
           transpiled,
-          html: html2,
+          html: opts.html,
           hashOfStarterCode,
           hashOfCode
         });

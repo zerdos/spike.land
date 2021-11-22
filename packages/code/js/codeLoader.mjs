@@ -196,7 +196,7 @@ export async function run(mode = "window", code = "") {
         restartCode(transpiled, c, counter);
       }
       session.lastErrors = err.length;
-      // const errorDiv = document.getElementById("error");
+      // const erro\rDiv = document.getElementById("error");
       if (err.length === 0 && transpiled.length) {
         if (session.i > counter) return;
         session.code = cd;

@@ -54,8 +54,21 @@ let rejoin = async () => {
   }
 };
 
+
+const mod = {};
+
+function getDiff(from, to){
+
+  const dmp = new DiffMatchPatch();
+
+  const patches = dmp.patch_make(from , to);
+  console.log({patches});
+  return encodeURI(dmp.patch_toText(patches));
+
+}
+
 export const broad = (
-  { code, hashOfCode, starterCode, hashOfStarterCode },
+  { code, hashOfCode, starterCode, hashOfStarterCode, transpiled, html },
 ) => {
   if (code !== lastSeenCode) {
     let difference;
@@ -69,10 +82,8 @@ export const broad = (
         );
       }
       try {
-        const dmp = new DiffMatchPatch();
+        difference = getDiff(window.starterCode, code);
 
-        const patches = dmp.patch_make(window.starterCode, code);
-        difference = dmp.patch_toText(patches);
         console.log(difference);
       } catch (e) {
         console.error({ e });
@@ -81,10 +92,21 @@ export const broad = (
 
     const message = { hashOfCode };
     if (difference) {
+      const prevHash = window.currentHashOfCode;
+      message.transpiled = transpiled;
       message.difference = difference;
-      message.hashOfCode = hashOfCode,
-        message.hashOfStarterCode = hashOfStarterCode;
+      message.hashOfCode = hashOfCode;
+      message.hashOfStarterCode = hashOfStarterCode;
+      if (prevHash && mod[prevHash]) {
+        message.htmlDiff = getDiff(mod[prevHash].html, html);
+        message.transpiledDiff = getDiff(mod[prevHash].transpiled, transpiled);
+      }
+      window.currentHashOfCode = hashOfCode;
       window[hashOfCode] = code;
+      mod[hashOfCode] = {
+        transpiled, 
+        html
+      }
 
       window.starterCode = starterCode;
     }

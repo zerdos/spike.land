@@ -225,7 +225,7 @@ export const saveCode =
         starterCode,
         code: codeNonFormatted,
         transpiled,
-        html,
+        html: opts.html,
         hashOfStarterCode,
         hashOfCode,
       });
