@@ -59,7 +59,7 @@ const mod = {};
 function getDiff(from, to) {
   const dmp = new DiffMatchPatch();
 
-  const patches = dmp.patch_make((from), (to));
+  const patches = dmp.patch_make(from, to);
   console.log({ patches });
   return dmp.patch_toText(patches);
 }
@@ -170,10 +170,10 @@ export function join() {
               }
             } else {
               const dmp = new DiffMatchPatch();
-              const patches = dmp.patch_fromText(( data.difference));
-              const patched = dmp.patch_apply(patches, (lastSeenCode));
+              const patches = dmp.patch_fromText(data.difference);
+              const patched = dmp.patch_apply(patches, lastSeenCode);
 
-              if (patched[0]) lastSeenCode = (patched[0]);
+              if (patched[0]) lastSeenCode = patched[0];
             }
 
             // const newLastSeen = window.assemble(lastSeenCode, JSON.stringify(data.difference.c));

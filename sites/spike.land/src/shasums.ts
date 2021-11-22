@@ -7,7 +7,7 @@ export const shasums = {
   ".vscode/settings.json":
     "59518a7d473e186d1edb3b105cac5644bb6f04a20f5d21a17b69b89b3f7837c9",
   "js/ws.mjs":
-    "5fdeaf25390a7bd139209a89a0afea7bddf6f7813d0351c4be3c17bea0163ccc",
+    "99ad68b4085bf55b8d9b9a10257c7e876ab1ef373977546b329263bc3a97dc2d",
   "js/ipfsClient.mjs":
     "5bba59ecc4f9895950dcbdfc6b3ab5b7d85ddb394a91b4454a61310c0db6f852",
   "js/workers/transpile.worker.js":
