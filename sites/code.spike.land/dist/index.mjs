@@ -14494,10 +14494,11 @@ var Code = class {
           receivedUserInfo = true;
           return;
         }
-        const previousCode = await this.storage.get("code") || await this.storage.get("lastSeenCode");
         const difference = data.difference;
         let code4 = data.code;
         const hashOfCode2 = data.hashOfCode;
+        const hashOfPreviousCode = data.hashOfStarterCode;
+        const previousCode = await this.storage.get(hashOfPreviousCode) || await this.storage.get("code") || await this.storage.get("lastSeenCode");
         data = { name: session.name, message: data.message };
         if (difference) {
           const dmp = new import_diff_match_patch.default();
@@ -14524,6 +14525,8 @@ var Code = class {
         this.broadcast(dataStr);
         let key = new Date(data.timestamp).toISOString();
         if (code4 && previousCode !== code4) {
+          const hashOfCode3 = await import_ipfs_only_hash.default.of(code4);
+          await this.storage.put(hashOfCode3, code4);
           await this.storage.put("code", code4);
         }
         await this.storage.put(key, dataStr);
