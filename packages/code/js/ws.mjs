@@ -69,17 +69,17 @@ function getDiff(from, to) {
 export const broad = (
   { code, hashOfCode, starterCode, transpiled, html },
 ) => {
-
-
   if (code !== lastSeenCode) {
     let difference;
-    const prevHash = window[window.wantedHashBase]?window.wantedHashBase:window.currentHashOfCode;
+    const prevHash = window[window.wantedHashBase]
+      ? window.wantedHashBase
+      : window.currentHashOfCode;
     if (code === window[prevHash]) return;
 
     if (window.starterCode) {
       try {
-
-        difference = prevHash && window[prevHash] && getDiff(window[prevHash], code);
+        difference = prevHash && window[prevHash] &&
+          getDiff(window[prevHash], code);
 
         // console.log(difference);
       } catch (e) {
@@ -89,7 +89,6 @@ export const broad = (
 
     const message = { hashOfCode };
     if (difference) {
-
       message.transpiled = transpiled;
       message.difference = difference;
       message.hashOfCode = hashOfCode;
@@ -106,17 +105,13 @@ export const broad = (
       };
 
       window.starterCode = starterCode;
-     
-    }
-    else {
+    } else {
       message.code = code;
       message.name = username;
       message.hashOfCode = hashOfCode;
     }
- 
 
     ws && ws.send(JSON.stringify(message)) || rejoin();
-  
   }
 };
 
@@ -146,23 +141,24 @@ export function join() {
 
       messageQueue[timestamp] = data;
       messageQueue.timestamps.push(timestamp);
-      messageQueue.timestamps.sort(function(a, b){return a-b});
+      messageQueue.timestamps.sort(function (a, b) {
+        return a - b;
+      });
 
       setTimeout(() => {
         const timestamp = messageQueue.timestamps.shift();
-        const event = {...messageQueue[timestamp]};
+        const event = { ...messageQueue[timestamp] };
         messageQueue[timestamp] = null;
         process(event);
       }, 100);
     } else {
-      
       process(data);
     }
 
     async function process(data) {
       try {
-        if (data.timestamp && !lastSeenTimestamp){
-          lastSeenTimestamp=data.timestamp
+        if (data.timestamp && !lastSeenTimestamp) {
+          lastSeenTimestamp = data.timestamp;
         }
 
         if (data.hashOfCode) {
@@ -175,56 +171,49 @@ export function join() {
           if (!window.starterCode) window.starterCode = data.code;
           window.hashOfCode = data.hashOfCode;
           window.starterCode = lastSeenCode;
-          try{
-            chCode(data.code)
-          }catch(e){
+          try {
+            chCode(data.code);
+          } catch (e) {
             console.error("error in chCode");
           }
         }
 
         if (data.hashOfCode && window[data.hashOfCode]) {
-         
-            window.starterCode = window[data.hashOfCode];
-            lastSeenCode = window[data.hashOfCode];
-            chCode(lastSeenCode);
-          
-          
+          window.starterCode = window[data.hashOfCode];
+          lastSeenCode = window[data.hashOfCode];
+          chCode(lastSeenCode);
         }
 
         // A regular chat message.
-     
 
+        if (data.code && data.hashOfCode) {
+          lastSeenCode = data.code;
 
-          if (data.code && data.hashOfCode) {
-            lastSeenCode = data.code;
+          window.hashOfCode = data.hashOfCode;
+          window.starterCode = lastSeenCode;
+          window[data.hashOfCode] = data.code;
+        } else if (data.name !== username && data.difference) {
+          if (
+            data.hashOfCode &&
+            data.difference && data.hashOfCode !== window.hashOfCode
+          ) {
+            const hashOfCode = data.hashOfCode;
 
-            window.hashOfCode = data.hashOfCode;
-            window.starterCode = lastSeenCode;
-            window[data.hashOfCode] = data.code;
-          } else if ( data.name !== username && data.difference) {
-            if ( data.hashOfCode &&
-              data.difference && data.hashOfCode !== window.hashOfCode
-            ) {
+            const Hash = (await import("ipfs-only-hash")).default;
 
-              const hashOfCode = data.hashOfCode;
+            const dmp = new DiffMatchPatch();
+            const patches = dmp.patch_fromText(data.difference);
+            const patched = dmp.patch_apply(patches, lastSeenCode);
 
-                const Hash = (await import("ipfs-only-hash")).default;
-
-                const dmp = new DiffMatchPatch();
-                const patches = dmp.patch_fromText(data.difference);
-                const patched = dmp.patch_apply(patches, lastSeenCode);
-
-                if (patched[0]) {
-                  const lastSeenCode = patched[0];
-                  const hashFromDiffCode =lastSeenCode && await Hash.of(lastSeenCode);
-                 if (hashFromDiffCode === hashOfCode) {
-                    window[hashOfCode]=lastSeenCode;
-                    window.hashOfCode = hashOfCode;
-                    chCode(lastSeenCode);
-                 }
- 
-                
-              
+            if (patched[0]) {
+              const lastSeenCode = patched[0];
+              const hashFromDiffCode = lastSeenCode &&
+                await Hash.of(lastSeenCode);
+              if (hashFromDiffCode === hashOfCode) {
+                window[hashOfCode] = lastSeenCode;
+                window.hashOfCode = hashOfCode;
+                chCode(lastSeenCode);
+              }
 
               // const newLastSeen = window.assemble(lastSeenCode, JSON.stringify(data.difference.c));
               // console.log("AASSEMBLED", newLastSeen);

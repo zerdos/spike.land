@@ -1,13 +1,13 @@
 export const shasums = {
-  "dev.mjs": "598d101634ded3a2a0928483bb806de03baca4f177f95a5e80acf6d70fccd1b1",
+  "dev.mjs": "7089aa14bade4e3759b620ff4b118ad019564eb2955014fadb66673466f0b751",
   "edit/index.html":
     "6bedf2adaf3b015d95ef000fe886b446ff1cc39184be9c8f060e63a325ed50af",
   "dev.mjs.map":
-    "2dee4716062dbef725b1154253d1bd5d49569247b7e760d42f67a37c9c84a95a",
+    "cf71e23d501d68f3967360f3ae3569b487a1c467625d1b393089353e768788d8",
   ".vscode/settings.json":
     "59518a7d473e186d1edb3b105cac5644bb6f04a20f5d21a17b69b89b3f7837c9",
   "js/ws.mjs":
-    "8a8aba3048d266b2a557a1b4bffafc445a0033af7ab0d79fed36fddd961a0faf",
+    "e3b509e375ed4c69830be55f36300ad278b0592417313dffe994b2c5b179dabd",
   "js/ipfsClient.mjs":
     "5bba59ecc4f9895950dcbdfc6b3ab5b7d85ddb394a91b4454a61310c0db6f852",
   "js/workers/transpile.worker.js":
@@ -33,7 +33,7 @@ export const shasums = {
   "js/codeLoader.mjs":
     "79c68db8e7939c51f44321aeb88b0d77053c03fff45d5affb8562aa29eeea753",
   "js/importmap.json":
-    "93166d37fa2d29f4ebd3cc7fa583e0ee28ec1998de7094712a1958b770dcf402",
+    "a77693d8cf1f0954321e903a0767de58155881ef3a93ee19ef65c355b772d27b",
   "js/sw.js":
     "e8493b6ab208d22c048635935efa2932a9abc4994b32ef4bacc59f604ca1eb53",
   "js/share.mjs":
@@ -45,7 +45,7 @@ export const shasums = {
   "js/renderPreviewWindow.mjs":
     "c487d9b5a2f568c2ecf220d1e10ec81afc66cbe5ca7d055ad519d71ddd86b61b",
   "js/data.mjs":
-    "b1c20212c4fb18a21a54e0531ac4f58e1e3990f9748ee6c67d7edff75ab13f20",
+    "f4a66dffc765743abfebde10128969d890c265bee468db577085362ee178b2b3",
   "js/importScript.mjs":
     "f1170901faaf51af6553d9a5d5c67a1c807653d55d57f1bbfe266a2be76c00e1",
   "js/examples/app.tsx":
@@ -63,7 +63,7 @@ export const shasums = {
   "index.html":
     "3f2d3ea80fc62b8bf503a416ac3919b29f0b14603cb1ad52e40af22836f4a5fb",
   "package.json":
-    "bf99d096eee555927533c6bb0ac6cfdcfd837374c6276320b06a1ecd5e4d259c",
+    "d11307033873b410d0c2090aece7be279fb8a5c9d63a8ebeecd7323e3e69ae57",
   "esbuild-dev.mjs":
     "2ce6dbeb1a973464803bea837e46beed452727e2153fc5ab12c6d9e1007dec69",
   "scripts/importmapGenerator.mjs":
