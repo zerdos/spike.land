@@ -89,6 +89,7 @@ export const broad = (
 
     const message = { hashOfCode };
     if (difference) {
+      message.name = username;
       message.transpiled = transpiled;
       message.difference = difference;
       message.hashOfCode = hashOfCode;
