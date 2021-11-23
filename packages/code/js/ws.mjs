@@ -201,9 +201,10 @@ export function join() {
           if (data.hashOfPreviousCode) {
             if (window[data.hashOfPreviousCode]) {
               lastSeenCode = window[data.hashOfPreviousCode];
-            }
-            else {
-              const resp = await fetch(`https://code.spike.land/api/room/${roomName}/code`);
+            } else {
+              const resp = await fetch(
+                `https://code.spike.land/api/room/${roomName}/code`,
+              );
               const code = await resp.body.text();
               const hashOfCode = await Hash.of(code);
               window[hashOfCode] = code;
@@ -216,8 +217,6 @@ export function join() {
             data.difference && data.hashOfCode !== window.hashOfCode
           ) {
             const hashOfCode = data.hashOfCode;
-
-            
 
             const dmp = new DiffMatchPatch();
             const patches = dmp.patch_fromText(data.difference);
