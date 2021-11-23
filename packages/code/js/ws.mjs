@@ -195,11 +195,19 @@ export function join() {
           window.starterCode = lastSeenCode;
           window[data.hashOfCode] = data.code;
         } else if (data.name !== username && data.difference) {
+
+          if (data.hashOfPreviousCode) {
+            if (window[data.hashOfPreviousCode]) {
+              lastSeenCode = window[data.hashOfPreviousCode];
+            }
+          }
+
           if (
             data.hashOfCode &&
             data.difference && data.hashOfCode !== window.hashOfCode
           ) {
             const hashOfCode = data.hashOfCode;
+          
 
             const Hash = (await import("ipfs-only-hash")).default;
 
