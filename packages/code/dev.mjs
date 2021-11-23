@@ -2361,7 +2361,7 @@ var init_importmap = __esm({
       "ipfs-only-hash": "https://unpkg.com/@spike.land/esm@0.1.23/dist/ipfs-only-hash.mjs",
       "@zedvision/swm": "https://unpkg.com/@zedvision/swm@4.0.0/public/swm-esm.js",
       "uuid/": "https://unpkg.com/uuid@8.3.2/dist/esm-browser/",
-      "@spike.land/code": "https://unpkg.com/@spike.land/code@0.1.31/js/reactLoader.mjs",
+      "@spike.land/code": "https://unpkg.com/@spike.land/code@0.1.32/js/reactLoader.mjs",
       comlink: "https://unpkg.com/comlink@4.3.1/dist/esm/comlink.mjs",
       "@spike.land/ipfs": "https://unpkg.com/@spike.land/ipfs@0.1.11/dist/ipfs.client.mjs",
       "workbox-window": "https://unpkg.com/workbox-window@6.4.1/build/workbox-window.prod.es5.mjs"
@@ -2473,6 +2473,75 @@ try{
 <\/script>
 </body>
 </html>`;
+  }
+});
+
+// js/workers/getWorker.mjs
+var getWorker;
+var init_getWorker = __esm({
+  "js/workers/getWorker.mjs"() {
+    getWorker = (file) => {
+      let workerSrc4;
+      let forceNormalWorker4 = false;
+      const { pathname } = window.location;
+      if (pathname.indexOf("/ipfs/") !== -1) {
+        const cid = pathname.slice(6, 52);
+        forceNormalWorker4 = true;
+        workerSrc4 = `/ipfs/${cid}/js/workers/${file}`;
+      } else if (location.origin !== "https://code.spike.land") {
+        forceNormalWorker4 = true;
+        workerSrc4 = window.URL.createObjectURL(new Blob([
+          `self.importScripts("https://code.spike.land/js/workers/${file}");`
+        ]));
+      } else {
+        workerSrc4 = `https://code.spike.land/js/workers/${file}`;
+      }
+      return {
+        workerSrc: workerSrc4,
+        forceNormalWorker: forceNormalWorker4
+      };
+    };
+  }
+});
+
+// js/ipfsClient.mjs
+var ipfsClient_exports = {};
+__export(ipfsClient_exports, {
+  all: () => export_all,
+  concat: () => on,
+  ipfsCat: () => ipfsCat,
+  ipfsClient: () => ipfsClient,
+  toString: () => hn
+});
+var workerSrc, forceNormalWorker, port, ipfsClient, ipfsCat;
+var init_ipfsClient = __esm({
+  "js/ipfsClient.mjs"() {
+    init_getWorker();
+    init_ipfs_client();
+    ({ workerSrc, forceNormalWorker } = getWorker("ipfsWorker.js"));
+    if (typeof SharedWorker !== "undefined" && !forceNormalWorker) {
+      const ipfsWorker = new SharedWorker(workerSrc);
+      port = ipfsWorker.port;
+    } else {
+      const worker = new Worker(workerSrc);
+      const { port1, port2 } = new MessageChannel();
+      const msg = {
+        clientInit: true,
+        port: port1
+      };
+      worker.postMessage(msg, [port1]);
+      port = port2;
+    }
+    ipfsClient = ge.from(port);
+    ipfsCat = async (cid, opts) => {
+      const options = opts || {};
+      const res = ipfsClient.cat(cid, options);
+      const result = on(await export_all(res));
+      const resultStr = hn(result);
+      return resultStr;
+    };
+    globalThis.ipfsClient = ipfsClient;
+    globalThis.ipfsCat = ipfsCat;
   }
 });
 
@@ -2864,75 +2933,15 @@ var init_shaDB = __esm({
   }
 });
 
-// js/workers/getWorker.mjs
-var getWorker;
-var init_getWorker = __esm({
-  "js/workers/getWorker.mjs"() {
-    getWorker = (file) => {
-      let workerSrc4;
-      let forceNormalWorker4 = false;
-      const { pathname } = window.location;
-      if (pathname.indexOf("/ipfs/") !== -1) {
-        const cid = pathname.slice(6, 52);
-        forceNormalWorker4 = true;
-        workerSrc4 = `/ipfs/${cid}/js/workers/${file}`;
-      } else if (location.origin !== "https://code.spike.land") {
-        forceNormalWorker4 = true;
-        workerSrc4 = window.URL.createObjectURL(new Blob([
-          `self.importScripts("https://code.spike.land/js/workers/${file}");`
-        ]));
-      } else {
-        workerSrc4 = `https://code.spike.land/js/workers/${file}`;
-      }
-      return {
-        workerSrc: workerSrc4,
-        forceNormalWorker: forceNormalWorker4
-      };
-    };
-  }
-});
-
-// js/ipfsClient.mjs
-var workerSrc, forceNormalWorker, port, ipfsClient, ipfsCat;
-var init_ipfsClient = __esm({
-  "js/ipfsClient.mjs"() {
-    init_getWorker();
-    init_ipfs_client();
-    ({ workerSrc, forceNormalWorker } = getWorker("ipfsWorker.js"));
-    if (typeof SharedWorker !== "undefined" && !forceNormalWorker) {
-      const ipfsWorker = new SharedWorker(workerSrc);
-      port = ipfsWorker.port;
-    } else {
-      const worker = new Worker(workerSrc);
-      const { port1, port2 } = new MessageChannel();
-      const msg = {
-        clientInit: true,
-        port: port1
-      };
-      worker.postMessage(msg, [port1]);
-      port = port2;
-    }
-    ipfsClient = ge.from(port);
-    ipfsCat = async (cid, opts) => {
-      const options = opts || {};
-      const res = ipfsClient.cat(cid, options);
-      const result = on(await export_all(res));
-      const resultStr = hn(result);
-      return resultStr;
-    };
-    globalThis.ipfsClient = ipfsClient;
-    globalThis.ipfsCat = ipfsCat;
-  }
-});
-
 // js/share.mjs
 var share_exports = {};
 __export(share_exports, {
   shareItAsHtml: () => shareItAsHtml
 });
 async function addAll(files) {
+  const { all, ipfsClient: ipfsClient2 } = await Promise.resolve().then(() => (init_ipfsClient(), ipfsClient_exports));
   try {
-    const res = await export_all(ipfsClient.addAll(files));
+    const res = await all(ipfsClient2.addAll(files));
     return res.map((r) => {
       const CID = r.cid.toString();
       return { path: r.path, CID };
@@ -2945,7 +2954,6 @@ var shareItAsHtml;
 var init_share = __esm({
   "js/share.mjs"() {
     init_shaDB();
-    init_ipfsClient();
     shareItAsHtml = async ({ transpiled, code, html: html2 }) => {
       var _a;
       const bodyClass = String((_a = window.document.getElementById("zbody")) == null ? void 0 : _a.getAttribute("class"));

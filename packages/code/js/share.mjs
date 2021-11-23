@@ -1,5 +1,4 @@
 import { sha256, shaDB } from "@spike.land/shadb";
-import { all, ipfsClient } from "./ipfsClient.mjs";
 
 /**
  * @param {{
@@ -112,6 +111,9 @@ export const shareItAsHtml = async ({ transpiled, code, html }) => {
  * @param {{ path: string; content: any; }[]} files
  */
 async function addAll(files) {
+
+  const { all, ipfsClient } = await import("./ipfsClient.mjs");
+
   // const res = [];
 
   // for await (const result of ipfsClient.addAll(files)) {

@@ -59,7 +59,6 @@ async function handleApiRequest(path, request, env) {
 
   switch (path[0]) {
     case "room": {
-      // Request for `/api/room/...`.
 
       if (!path[1]) {
         if (request.method === "POST") {

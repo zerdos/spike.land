@@ -1,16 +1,16 @@
 export const shasums = {
   "esbuild-dev.mjs":
     "2ce6dbeb1a973464803bea837e46beed452727e2153fc5ab12c6d9e1007dec69",
-  "dev.mjs": "b7b774acc9a974173adf086a3845a87586d343d5330de74dee7d6f378e696e62",
+  "dev.mjs": "aa7f659844063763c2ff1f285ad5431bc87f0037d4d0b0cb3ea6e3b1fb8b15ac",
   ".ignore": "bcae0416621b3db43d8cba1e4454a792c7af9e4b7287e51056efc5a215d95839",
   "manifest.json":
     "67193a5aefec147d6b040943a63d1a42945a5ba5401653e6e0062e5251ec611f",
   "edit/index.html":
     "6bedf2adaf3b015d95ef000fe886b446ff1cc39184be9c8f060e63a325ed50af",
   "package.json":
-    "1d0b57e85e4205bf7f5d7dbfc6f26f20191bd972dc47d111078b92ed0ada73ea",
+    "7c30514428e24ebacd35a3d2d3bb5c49909bde732768cda82feac68dd0e006f6",
   "dev.mjs.map":
-    "d9af72b47452f815c4e39da53c462c0c31d217dfb7c73fb0af102e9718c96cff",
+    "b2281deb6a6e6d34d4fee4f0880221be83c61f2061f5718409b95bedd0145c26",
   "tsconfig.json":
     "e992c8b781dcf67ee3196fdc77b4deef52550fa172d9bb14bf123c9713535560",
   "assets/social-media-computer-icons-share-icon-png":
@@ -34,7 +34,7 @@ export const shasums = {
   "assets/roboto.css":
     "d4cfbb0537146f1f477d5050b2b19a8ccad2cbe8d22d4d18bfefb510b53571be",
   "js/ws.mjs":
-    "d8f15ea23c0529bdfcd74a8e93eba1e2351efdda7ec99c777fabe2ef3b8cdfd8",
+    "7f947e24834c3111fba0c7741951e9f42bb7eaf79936b47b0604ba7c39f3bd09",
   "js/sw.js":
     "e8493b6ab208d22c048635935efa2932a9abc4994b32ef4bacc59f604ca1eb53",
   "js/ipfsClient.mjs":
@@ -72,7 +72,7 @@ export const shasums = {
   "js/starter.mjs":
     "072740aaf876cc51a199398a047e17abf53f95272e8260446c6fdf7a6b5bfe02",
   "js/share.mjs":
-    "b9ca11d2359da333b21b04cb9716e179a7edb2bb6efcd555bc0c08f215274a9c",
+    "03e392e9229fa86d2a86583f709563c0419ef974aaa79ebd104a59eaa0fb7564",
   "js/workboxLoader.mjs":
     "bcb3e78a29441717bcfaf0b167859c9ff3cb364440b0e20c041dfb4d209c64e2",
   "js/importScript.d.ts":
@@ -84,7 +84,7 @@ export const shasums = {
   "js/reactLoader.mjs":
     "eb316aa60499cad595d9125d860bba4bedc9446c643919a3243bd4d7cce9b3a6",
   "js/importmap.json":
-    "cd6a161fccaa23991f9f0bfbf400953bd677a17db5ef1a6d2494022673b4376e",
+    "8d9d2bbe632b985e45d70ba7f9c37517553f2b5f162efb77aa21d7590083e221",
   "index.html":
     "3f2d3ea80fc62b8bf503a416ac3919b29f0b14603cb1ad52e40af22836f4a5fb",
   ".vscode/settings.json":
