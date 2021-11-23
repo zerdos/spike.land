@@ -1,6 +1,6 @@
 {
   "name": "@spike.land/code",
-  "version": "0.1.22",
+  "version": "0.1.23",
   "description": "spike.land",
   "main": "./js/reactLoader.mjs",
   "files": [
