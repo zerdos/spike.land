@@ -26,7 +26,7 @@
     "@types/react-dom": "17.0.11",
     "diff-match-patch": "1.0.5",
     "esbuild": "0.13.15",
-    "framer-motion": "5.3.1",
+    "framer-motion": "5.3.2",
     "ipfs-only-hash": "4.0.0",
     "react": "17.0.2",
     "react-dom": "17.0.2",
