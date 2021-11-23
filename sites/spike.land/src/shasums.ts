@@ -1,5 +1,5 @@
 export const shasums = {
-  "dev.mjs": "da16e30a76016e61772063017a6967b5be6b2f0eb5c0edf4c38184328d819ad2",
+  "dev.mjs": "003ad2b01c29d9867622baad5f15a449d4b236ab9b0fd68c6360bf34594eb8db",
   "edit/index.html":
     "6bedf2adaf3b015d95ef000fe886b446ff1cc39184be9c8f060e63a325ed50af",
   "dev.mjs.map":
@@ -33,7 +33,7 @@ export const shasums = {
   "js/codeLoader.mjs":
     "79c68db8e7939c51f44321aeb88b0d77053c03fff45d5affb8562aa29eeea753",
   "js/importmap.json":
-    "4d30da65a9f46ad77c87f5770224589af6d1a6603fed9c3c18bba45f097c9950",
+    "1bd6d6e7ebe80f1a2c23d57a757dfc7901251f452a8ae56c59b809e8ce668f99",
   "js/sw.js":
     "e8493b6ab208d22c048635935efa2932a9abc4994b32ef4bacc59f604ca1eb53",
   "js/share.mjs":
@@ -63,7 +63,7 @@ export const shasums = {
   "index.html":
     "3f2d3ea80fc62b8bf503a416ac3919b29f0b14603cb1ad52e40af22836f4a5fb",
   "package.json":
-    "16d8c32df45fcaf81cba5fb3363e5f0cdf695397b7ccfa1931245e49b245197c",
+    "137b4d26f5f9c3e106b7f9a6c32a08b1c509a029150ea566408a51fffcaf1e05",
   "esbuild-dev.mjs":
     "2ce6dbeb1a973464803bea837e46beed452727e2153fc5ab12c6d9e1007dec69",
   "scripts/importmapGenerator.mjs":

@@ -9,7 +9,7 @@ added QmVP5gg9nYuPg1au5pBmdn75xmUvuGevRPLhEngyEyQfkT code/assets/synthwave.jpg
 added QmVUXK99dtKSob78XiURnzafewgiF7dTy8LkRJMR3yNTaS code/assets/synthwave.webp
 added QmZ5Nic3MRHT8m9SY5ZrSp38UHGEYmJqgk4RAmDV3xXqa1 code/assets/triangle-geometry.png
 added QmeHY7RZzR5wm9ELZr5xgq6XMQKjRAHgmxoQaCzHjgpRm8 code/assets/zed-icon-big.png
-added QmQhFkLfz868nFByLmZNW3cRJUo9uXXTox7uPECdehn4Qt code/dev.mjs
+added QmdxnY1kLam4pWNpX4cELFTWw4y8hKcsCo3ckQc5vN4Nst code/dev.mjs
 added QmceCi7oX5GJ6p8oLp7GvFzYtt45KSsnCWn8ZG7ckmHJ8R code/dev.mjs.map
 added QmfXTNa9t9Yi9mcrrK9Y8fi6yfSzJ89XxCmGShH1CyZjFX code/edit/index.html
 added QmUqp7sUH1QAkE8uVZgozsNufupqgDcQR7eMhpjR3GERhv code/esbuild-dev.mjs
@@ -23,7 +23,7 @@ added QmfHYHrBujTA1ZnMuLUUwZQ8GLdh55xRpUvoqK4PK3tdUn code/js/examples/starter_fr
 added Qmcvc7jZkrSvbattfsxi1BqmP7d1pVDy4pjjxeiJL8zmQn code/js/formatter.mjs
 added QmV1V5Fb2ZxP5Kn31nSU7FS2TtrDMg6wR7sMTsKeeR1txL code/js/importScript.d.ts
 added QmQBhy9H2prXzc5DnjVcF7qfkEMYVz4TFtwzegpcpEp4Da code/js/importScript.mjs
-added QmT1zf4eGZHBTv3KwzxdD2AqcmwdxyM1TPDSt6tWNdkrdw code/js/importmap.json
+added QmPS9JGpQMMRmAxM54ZCYLjArAy2mhbqU2zu7rBiH47Rvs code/js/importmap.json
 added Qma5ZP226wff835FKrLgvaEwYMeQQ8q6EWUL8d7vsNeSHt code/js/ipfsClient.mjs
 added QmQDSXPm2xLjd1VZpthAjpt81CRVynQMWM26nNVncnYMdW code/js/openWindows.mjs
 added QmQVz3MRExedsNSyzKQyeU5te84tE4ACMzrEEuntyG4MjM code/js/reactLoader.mjs
@@ -42,7 +42,7 @@ added QmTzHQedmz11rTh1HHJuyEas3DgSW5ct8BzzSSWMLpQgB7 code/js/workers/prettierWor
 added QmURZxeJkk2kQjNfhBb98B9vH6FnbUefPZedZw6RN8rw45 code/js/workers/transpile.worker.js
 added QmauP4Ys8Jep7KPW8SjSoJq2igN1vNsse2TN6VitfXYavt code/js/ws.mjs
 added QmXmokoZc6CTgga36sBaEXYvw3fPCjJSCrXx1HzLkQewnm code/manifest.json
-added QmbwUpB5FJdqwTHAbDPwCEWaMKtyytBc9q8AJMkVgJm2Fd code/package.json
+added QmVFNd8v6FjbroHuZ7rqxh8mtmPkDz8E2LMcKntLpjFsvq code/package.json
 added QmPnqpi5iyWPqRP1dEGPnHUo4916YSVDUBhCvqdV5SNUBW code/scripts/importmapGenerator.mjs
 added QmQuH91sPQ36qvHdFaMmbtg8btgPFXXLcdGfuUBDwhH44k code/tsconfig.json
 added QmYAJJ726yRoCVerLBgUHdLax1JKS85SYLrnrG54WxSDtK code/assets/fonts
@@ -50,7 +50,7 @@ added QmedqU5fD5EAX2XssVy6HUM8R71uqyYQzn72fRDDnz13f6 code/assets
 added QmRBtzxNHPENXEfZwv1aZk9XmznUM6mesSe3GKVB8UwwXS code/edit
 added QmbZePTm4aHmFmZefnvz4CNm7omsSHvpGDn4HXSpq1atQB code/js/examples
 added QmPxzCnYuV32u4nzMyutJcQzSvkUqtT58A2EkaZcYnpHzf code/js/workers
-added QmdAhqFwaLmpQf3hmc9ZaYXjwW46DVKhpem4noewPXfiPP code/js
+added QmTAyu8jDnTDbCcG2VHvYLcTdP7E2SQQQwNuwsyf9GY13Y code/js
 added QmUNLLsPACCz1vLxQVkXqqLX5R1X345qqfHbsf67hvA3Nn code/node_modules
 added QmVc56wBvEw5meoMV3WKdTdVPSHk36EeCF71F5no8AuFC4 code/scripts
-added QmTAG54X1yWLYTVfWTXoRgMLWvmgiGas5zWt8RJqtZW42T code
+added QmauXURNvdP4uDSRxkpzYvkr3CRHkM3B6w9TQe8UEgeWkP code
