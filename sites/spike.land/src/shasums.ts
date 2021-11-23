@@ -1,14 +1,14 @@
 export const shasums = {
   "esbuild-dev.mjs":
     "2ce6dbeb1a973464803bea837e46beed452727e2153fc5ab12c6d9e1007dec69",
-  "dev.mjs": "9cdc43fceb104eb2292401ca977d2c53a28bf0dd102023e09b5e436fe5ad8103",
+  "dev.mjs": "b7b774acc9a974173adf086a3845a87586d343d5330de74dee7d6f378e696e62",
   ".ignore": "bcae0416621b3db43d8cba1e4454a792c7af9e4b7287e51056efc5a215d95839",
   "manifest.json":
     "67193a5aefec147d6b040943a63d1a42945a5ba5401653e6e0062e5251ec611f",
   "edit/index.html":
     "6bedf2adaf3b015d95ef000fe886b446ff1cc39184be9c8f060e63a325ed50af",
   "package.json":
-    "72bae48868ebae865bfadb73e49c1d0c2388f6ee34b50b841ef4ecc0bf25faba",
+    "1d0b57e85e4205bf7f5d7dbfc6f26f20191bd972dc47d111078b92ed0ada73ea",
   "dev.mjs.map":
     "d9af72b47452f815c4e39da53c462c0c31d217dfb7c73fb0af102e9718c96cff",
   "tsconfig.json":
@@ -34,7 +34,7 @@ export const shasums = {
   "assets/roboto.css":
     "d4cfbb0537146f1f477d5050b2b19a8ccad2cbe8d22d4d18bfefb510b53571be",
   "js/ws.mjs":
-    "5abd55d20c59d7e61e87c99b660e0ad22c5cefb629ec5eded804c5c6c9810aef",
+    "d8f15ea23c0529bdfcd74a8e93eba1e2351efdda7ec99c777fabe2ef3b8cdfd8",
   "js/sw.js":
     "e8493b6ab208d22c048635935efa2932a9abc4994b32ef4bacc59f604ca1eb53",
   "js/ipfsClient.mjs":
@@ -84,7 +84,7 @@ export const shasums = {
   "js/reactLoader.mjs":
     "eb316aa60499cad595d9125d860bba4bedc9446c643919a3243bd4d7cce9b3a6",
   "js/importmap.json":
-    "f774f0d0b7ecc4a4815e61e3658c7c8efbc7fa8ce251367f76de8ce81d2b5b8c",
+    "cd6a161fccaa23991f9f0bfbf400953bd677a17db5ef1a6d2494022673b4376e",
   "index.html":
     "3f2d3ea80fc62b8bf503a416ac3919b29f0b14603cb1ad52e40af22836f4a5fb",
   ".vscode/settings.json":

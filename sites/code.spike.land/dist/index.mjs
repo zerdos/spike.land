@@ -13997,7 +13997,7 @@ var require_ipfs_only_hash = __commonJS({
 });
 
 // ../../packages/code/package.json
-var version = "0.1.29";
+var version = "0.1.31";
 
 // ../../packages/code/js/importmap.json
 var imports = {
@@ -14214,7 +14214,7 @@ var imports = {
   "ipfs-only-hash": "https://unpkg.com/@spike.land/esm@0.1.23/dist/ipfs-only-hash.mjs",
   "@zedvision/swm": "https://unpkg.com/@zedvision/swm@4.0.0/public/swm-esm.js",
   "uuid/": "https://unpkg.com/uuid@8.3.2/dist/esm-browser/",
-  "@spike.land/code": "https://unpkg.com/@spike.land/code@0.1.29/js/reactLoader.mjs",
+  "@spike.land/code": "https://unpkg.com/@spike.land/code@0.1.31/js/reactLoader.mjs",
   comlink: "https://unpkg.com/comlink@4.3.1/dist/esm/comlink.mjs",
   "@spike.land/ipfs": "https://unpkg.com/@spike.land/ipfs@0.1.11/dist/ipfs.client.mjs",
   "workbox-window": "https://unpkg.com/workbox-window@6.4.1/build/workbox-window.prod.es5.mjs"
@@ -14438,7 +14438,7 @@ var Code = class {
       let path = url.pathname.slice(1).split("/");
       switch (path[0]) {
         case "code": {
-          const code3 = await this.storage.get("lastSeenCode");
+          const code3 = await this.storage.get("code");
           return new Response(`code is: ${code3}`, {
             status: 200,
             headers: {
@@ -14545,6 +14545,7 @@ var Code = class {
           await this.storage.put(hashOfCode3, code4);
           await this.storage.put("code", code4);
         }
+        await this.storage.put("code", code4);
         await this.storage.put(key, dataStr);
       } catch (err) {
         webSocket.send(JSON.stringify({ error: err.stack }));

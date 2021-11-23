@@ -1,4 +1,6 @@
 import DiffMatchPatch from "diff-match-patch";
+import Hash from "ipfs-only-hash";
+
 let currentWebSocket = null;
 const messageQueue = {
   timestamps: [],
@@ -195,10 +197,17 @@ export function join() {
           window.hashOfCode = data.hashOfCode;
           window.starterCode = lastSeenCode;
           window[data.hashOfCode] = data.code;
-        } else if (data.name !== username && data.difference) {
+        } else if (data.difference) {
           if (data.hashOfPreviousCode) {
             if (window[data.hashOfPreviousCode]) {
               lastSeenCode = window[data.hashOfPreviousCode];
+            }
+            else {
+              const resp = await fetch(`https://code.spike.land/api/room/${roomName}/code`);
+              const code = await resp.body.text();
+              const hashOfCode = await Hash.of(code);
+              window[hashOfCode] = code;
+              chCode(code);
             }
           }
 
@@ -208,7 +217,7 @@ export function join() {
           ) {
             const hashOfCode = data.hashOfCode;
 
-            const Hash = (await import("ipfs-only-hash")).default;
+            
 
             const dmp = new DiffMatchPatch();
             const patches = dmp.patch_fromText(data.difference);
