@@ -3,6 +3,7 @@ const React = window.React;
 export const { createContext } = React;
 export const { useDebugValue } = React;
 export const { useState } = React;
+export const { useId } = React;
 export const { useRef } = React;
 export const { useContext } = React;
 

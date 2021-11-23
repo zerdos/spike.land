@@ -3,6 +3,7 @@ var React = window.React;
 var { createContext } = React;
 var { useDebugValue } = React;
 var { useState } = React;
+var { useId } = React;
 var { useRef } = React;
 var { useContext } = React;
 var { useEffect } = React;
@@ -39,6 +40,7 @@ export {
   useContext,
   useDebugValue,
   useEffect,
+  useId,
   useImperativeHandle,
   useLayoutEffect,
   useMemo,
