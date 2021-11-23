@@ -195,6 +195,7 @@ export class Code {
           const hashOfAPatched = await Hash.of(patchedCode);
           if (hashOfCode === hashOfAPatched) {
             data.hashOfCode = hashOfAPatched;
+            data.hashOfPreviousCode = hashOfPreviousCode;
             data.difference = difference;
             code = patchedCode;
           } else {
