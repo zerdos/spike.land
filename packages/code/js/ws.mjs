@@ -66,57 +66,7 @@ function getDiff(from, to) {
   return dmp.patch_toText(patches);
 }
 
-export const broad = (
-  { code, hashOfCode, starterCode, transpiled, html },
-) => {
-  if (code !== lastSeenCode) {
-    let difference;
-    const prevHash = window[window.wantedHashBase]
-      ? window.wantedHashBase
-      : window.currentHashOfCode;
-    if (code === window[prevHash]) return;
 
-    if (window.starterCode) {
-      try {
-        difference = prevHash && window[prevHash] &&
-          getDiff(window[prevHash], code);
-
-        // console.log(difference);
-      } catch (e) {
-        console.error({ e });
-      }
-    }
-
-    const message = { hashOfCode };
-    if (difference) {
-      message.name = username;
-      message.transpiled = transpiled;
-      message.difference = difference;
-      message.hashOfCode = hashOfCode;
-      message.hashOfStarterCode = prevHash;
-      if (prevHash && mod[prevHash]) {
-        message.htmlDiff = getDiff(mod[prevHash].html, html);
-        message.transpiledDiff = getDiff(mod[prevHash].transpiled, transpiled);
-      }
-      window.currentHashOfCode = hashOfCode;
-      window[hashOfCode] = code;
-      mod[hashOfCode] = {
-        transpiled,
-        html,
-      };
-
-      window.starterCode = starterCode;
-    } else {
-      message.code = code;
-      message.name = username;
-      message.hashOfCode = hashOfCode;
-    }
-
-    ws && ws.send(JSON.stringify(message)) || rejoin();
-  }
-};
-
-window.broad = broad;
 
 export function join() {
   ws = new WebSocket(
@@ -128,6 +78,57 @@ export function join() {
   ws.addEventListener("open", () => {
     console.log("connected");
     currentWebSocket = ws;
+    const broad = (
+      { code, hashOfCode, starterCode, transpiled, html },
+    ) => {
+      if (code !== lastSeenCode) {
+        let difference;
+        const prevHash = window[window.wantedHashBase]
+          ? window.wantedHashBase
+          : window.currentHashOfCode;
+        if (code === window[prevHash]) return;
+    
+        if (window.starterCode) {
+          try {
+            difference = prevHash && window[prevHash] &&
+              getDiff(window[prevHash], code);
+    
+            // console.log(difference);
+          } catch (e) {
+            console.error({ e });
+          }
+        }
+    
+        const message = { hashOfCode };
+        if (difference) {
+          message.name = username;
+          message.transpiled = transpiled;
+          message.difference = difference;
+          message.hashOfCode = hashOfCode;
+          message.hashOfStarterCode = prevHash;
+          if (prevHash && mod[prevHash]) {
+            message.htmlDiff = getDiff(mod[prevHash].html, html);
+            message.transpiledDiff = getDiff(mod[prevHash].transpiled, transpiled);
+          }
+          window.currentHashOfCode = hashOfCode;
+          window[hashOfCode] = code;
+          mod[hashOfCode] = {
+            transpiled,
+            html,
+          };
+    
+          window.starterCode = starterCode;
+        } else {
+          message.code = code;
+          message.name = username;
+          message.hashOfCode = hashOfCode;
+        }
+    
+        currentWebSocket.send(JSON.stringify(message));
+      }
+    };
+    
+    window.broad = broad;
     window.chCode = chCode;
 
     // Send user info message.

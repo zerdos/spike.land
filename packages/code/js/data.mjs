@@ -219,20 +219,19 @@ export const saveCode =
     toSave.code = opts.code;
 
     if (window.broad && codeNonFormatted) {
-      const { broad, starterCode } = window;
-      const hashOfCode = await Hash.of(codeNonFormatted);
-      const hashOfStarterCode = starterCode &&
-        await Hash.of(window.starterCode);
-
+      const hashOfCode = await Hash.of(codeNonFormatted);     
+    
       sess.codeNonFormatted = codeNonFormatted;
 
-      setTimeout(() =>
-        sess.codeNonFormatted === codeNonFormatted && broad({
-          starterCode,
+      setTimeout(async () =>
+        sess.codeNonFormatted === codeNonFormatted && window.broad({
+          starterCode: window.starterCode,
           code: codeNonFormatted,
           transpiled,
           html: opts.html,
-          hashOfStarterCode,
+          hashOfStarterCode: window.starterCode &&
+          await Hash.of(window.starterCode)
+  ,
           hashOfCode,
         }), 500);
     }

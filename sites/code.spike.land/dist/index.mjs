@@ -13997,7 +13997,7 @@ var require_ipfs_only_hash = __commonJS({
 });
 
 // ../../packages/code/package.json
-var version = "0.1.23";
+var version = "0.1.24";
 
 // ../../packages/code/js/importmap.json
 var imports = {

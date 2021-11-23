@@ -1,16 +1,16 @@
 export const shasums = {
   "esbuild-dev.mjs":
     "2ce6dbeb1a973464803bea837e46beed452727e2153fc5ab12c6d9e1007dec69",
-  "dev.mjs": "003ad2b01c29d9867622baad5f15a449d4b236ab9b0fd68c6360bf34594eb8db",
+  "dev.mjs": "ce1ddd939104ae8f5fc0cb63182107063b4cd575d65c17d1ff6e404945a17ff1",
   ".ignore": "bcae0416621b3db43d8cba1e4454a792c7af9e4b7287e51056efc5a215d95839",
   "manifest.json":
     "67193a5aefec147d6b040943a63d1a42945a5ba5401653e6e0062e5251ec611f",
   "edit/index.html":
     "6bedf2adaf3b015d95ef000fe886b446ff1cc39184be9c8f060e63a325ed50af",
   "package.json":
-    "137b4d26f5f9c3e106b7f9a6c32a08b1c509a029150ea566408a51fffcaf1e05",
+    "30eb1a6a5f510fd76042a3bd083e13c1be25fc1936919b59831c4dd639809fe7",
   "dev.mjs.map":
-    "8d2b5c6da65e627120ea76a6e80ecbc84ee7b904cce455a2beac9246cd5649f2",
+    "7f14b4a415a3446969299ba7869250e910e3cc33f07d1daacb10830abd98af69",
   "tsconfig.json":
     "e992c8b781dcf67ee3196fdc77b4deef52550fa172d9bb14bf123c9713535560",
   "assets/synthwave.jpg":
@@ -36,7 +36,7 @@ export const shasums = {
   "assets/roboto.css":
     "d4cfbb0537146f1f477d5050b2b19a8ccad2cbe8d22d4d18bfefb510b53571be",
   "js/ws.mjs":
-    "6a1971fa48f88da88c1cfb2d66298a45a315c0ac18bd63531552efd150d616d4",
+    "a25bcec022448fd6f05e16fe1030edab6b1a23235b553f4f8df644c1d3cef114",
   "js/sw.js":
     "e8493b6ab208d22c048635935efa2932a9abc4994b32ef4bacc59f604ca1eb53",
   "js/ipfsClient.mjs":
@@ -50,7 +50,7 @@ export const shasums = {
   "js/workers/transpile.worker.js":
     "02ec89bdd8c9e29ed2a837638ed71b008fdd9534dccf273dabb8be2b627b2f49",
   "js/data.mjs":
-    "f4a66dffc765743abfebde10128969d890c265bee468db577085362ee178b2b3",
+    "ecc76f2ed51682f6a602f7a4f17d7ef5db6af5456d6289b5bd6c3d1ec1f925c9",
   "js/transpile.mjs":
     "3e9b4471a36bf0170b58cd0d69f7ad21b34eb29885eac3ffacbc83b0d332fd02",
   "js/importScript.mjs":
