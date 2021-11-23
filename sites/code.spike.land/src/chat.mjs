@@ -63,7 +63,7 @@ async function handleApiRequest(path, request, env) {
 
       if (!path[1]) {
         // The request is for just "/api/room", with no ID.
-        if (request.method == "POST") {
+        if (request.method === "POST") {
           // POST to /api/room creates a private room.
           //
           // Incidentally, this code doesn't actually store anything. It just generates a valid

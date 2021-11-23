@@ -14214,7 +14214,7 @@ var imports = {
   "ipfs-only-hash": "https://unpkg.com/@spike.land/esm@0.1.23/dist/ipfs-only-hash.mjs",
   "@zedvision/swm": "https://unpkg.com/@zedvision/swm@4.0.0/public/swm-esm.js",
   "uuid/": "https://unpkg.com/uuid@8.3.2/dist/esm-browser/",
-  "@spike.land/code": "https://unpkg.com/@spike.land/code@0.1.28/js/reactLoader.mjs",
+  "@spike.land/code": "https://unpkg.com/@spike.land/code@0.1.29/js/reactLoader.mjs",
   comlink: "https://unpkg.com/comlink@4.3.1/dist/esm/comlink.mjs",
   "@spike.land/ipfs": "https://unpkg.com/@spike.land/ipfs@0.1.11/dist/ipfs.client.mjs",
   "workbox-window": "https://unpkg.com/workbox-window@6.4.1/build/workbox-window.prod.es5.mjs"
@@ -14356,7 +14356,7 @@ async function handleApiRequest(path, request, env) {
   switch (path[0]) {
     case "room": {
       if (!path[1]) {
-        if (request.method == "POST") {
+        if (request.method === "POST") {
           let id2 = env.CODE.newUniqueId();
           return new Response(id2.toString(), {
             headers: { "Access-Control-Allow-Origin": "*" }
@@ -14435,8 +14435,20 @@ var Code = class {
   async fetch(request) {
     return await handleErrors(request, async () => {
       let url = new URL(request.url);
-      switch (url.pathname) {
-        case "/websocket": {
+      let path = url.pathname.slice(1).split("/");
+      switch (path[0]) {
+        case "code": {
+          const code3 = await this.storage.get("lastSeenCode");
+          return new Response(`code is: ${code3}`, {
+            status: 200,
+            headers: {
+              "Access-Control-Allow-Origin": "*",
+              "Cache-Control": "no-cache",
+              "Content-Type": "text/html; charset=UTF-8"
+            }
+          });
+        }
+        case "websocket": {
           if (request.headers.get("Upgrade") != "websocket") {
             return new Response("expected websocket", { status: 400 });
           }

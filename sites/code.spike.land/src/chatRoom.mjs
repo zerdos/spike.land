@@ -36,12 +36,15 @@ export class Code {
   async fetch(request) {
     return await handleErrors(request, async () => {
       let url = new URL(request.url);
+      
 
-      switch (url.pathname) {
+      let path = url.pathname.slice(1).split("/");
+
+      switch (path[0]) {
         case "code": {
-          const code = await this.storage.get("code");
+          const code = await this.storage.get("lastSeenCode");
 
-          return new Response(code, {
+          return new Response(`code is: ${code}`, {
              status: 200, 
              headers: {
                 "Access-Control-Allow-Origin": "*",
@@ -51,7 +54,7 @@ export class Code {
            });
           }
         
-        case "/websocket": {
+        case "websocket": {
           // The request is to `/api/room/<name>/websocket`. A client is trying to establish a new
           // WebSocket session.
           if (request.headers.get("Upgrade") != "websocket") {
