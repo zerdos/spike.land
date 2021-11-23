@@ -1,16 +1,16 @@
 export const shasums = {
   "esbuild-dev.mjs":
     "2ce6dbeb1a973464803bea837e46beed452727e2153fc5ab12c6d9e1007dec69",
-  "dev.mjs": "8d5facfe914ba727d5cd4abb660e2283a6dd8bb0312ee4f7d227761e3c7a1d1c",
+  "dev.mjs": "9cdc43fceb104eb2292401ca977d2c53a28bf0dd102023e09b5e436fe5ad8103",
   ".ignore": "bcae0416621b3db43d8cba1e4454a792c7af9e4b7287e51056efc5a215d95839",
   "manifest.json":
     "67193a5aefec147d6b040943a63d1a42945a5ba5401653e6e0062e5251ec611f",
   "edit/index.html":
     "6bedf2adaf3b015d95ef000fe886b446ff1cc39184be9c8f060e63a325ed50af",
   "package.json":
-    "25cf0d1a79e00e1e6eab25969338e07642338974945a7eefa86f9d4d9ef1ec9c",
+    "02ef0b0b365d2e72a4c85efafaff6ce0363f6f86269a81ea7858ab64a535e900",
   "dev.mjs.map":
-    "7f14b4a415a3446969299ba7869250e910e3cc33f07d1daacb10830abd98af69",
+    "d9af72b47452f815c4e39da53c462c0c31d217dfb7c73fb0af102e9718c96cff",
   "tsconfig.json":
     "e992c8b781dcf67ee3196fdc77b4deef52550fa172d9bb14bf123c9713535560",
   "assets/synthwave.jpg":
@@ -36,7 +36,7 @@ export const shasums = {
   "assets/roboto.css":
     "d4cfbb0537146f1f477d5050b2b19a8ccad2cbe8d22d4d18bfefb510b53571be",
   "js/ws.mjs":
-    "b51a21858bc4b1e6ba6c2bb2cb0fb2c7859c83137bd46dc0a5865cd873b73b73",
+    "6fcf01dd242897ffaf32cf0f2317a0be8d3f43f0abb76d579981d54f5bcdb2d6",
   "js/sw.js":
     "e8493b6ab208d22c048635935efa2932a9abc4994b32ef4bacc59f604ca1eb53",
   "js/ipfsClient.mjs":
@@ -50,7 +50,7 @@ export const shasums = {
   "js/workers/transpile.worker.js":
     "02ec89bdd8c9e29ed2a837638ed71b008fdd9534dccf273dabb8be2b627b2f49",
   "js/data.mjs":
-    "ecc76f2ed51682f6a602f7a4f17d7ef5db6af5456d6289b5bd6c3d1ec1f925c9",
+    "a87e3d953ba05731db6b59ed8f2ae404092d7ccb0ddb9245c6ce3cee60b2efb8",
   "js/transpile.mjs":
     "3e9b4471a36bf0170b58cd0d69f7ad21b34eb29885eac3ffacbc83b0d332fd02",
   "js/importScript.mjs":
@@ -86,7 +86,7 @@ export const shasums = {
   "js/reactLoader.mjs":
     "eb316aa60499cad595d9125d860bba4bedc9446c643919a3243bd4d7cce9b3a6",
   "js/importmap.json":
-    "e0f09f30b1888dc7ec83e9ff8b418020cc64de11bb3b1e8535216e5ba7d731b6",
+    "f774f0d0b7ecc4a4815e61e3658c7c8efbc7fa8ce251367f76de8ce81d2b5b8c",
   "index.html":
     "3f2d3ea80fc62b8bf503a416ac3919b29f0b14603cb1ad52e40af22836f4a5fb",
   ".vscode/settings.json":
