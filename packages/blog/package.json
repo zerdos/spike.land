@@ -12,7 +12,7 @@
     "package.json"
   ],
   "description": "Zed vision blog",
-  "version": "0.1.20",
+  "version": "0.1.21",
   "author": "Zoltan Erdos <zolika84@gmail.com>",
   "bugs": {
     "url": "https://github.com/spike-land/monorepo/"
@@ -31,8 +31,8 @@
     "url": "git+https://github.com/spike-land/monorepo"
   },
   "dependencies": {
-    "@spike.land/code": "^0.1.20",
-    "@spike.land/shadb": "^0.1.11"
+    "@spike.land/code": "^0.1.21",
+    "@spike.land/shadb": "^0.1.21"
   },
   "devDependencies": {
     "@emotion/react": "11.6.0",
