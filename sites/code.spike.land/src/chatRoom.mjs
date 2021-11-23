@@ -38,6 +38,19 @@ export class Code {
       let url = new URL(request.url);
 
       switch (url.pathname) {
+        case "code": {
+          const code = await this.storage.get("code");
+
+          return new Response(code, {
+             status: 200, 
+             headers: {
+                "Access-Control-Allow-Origin": "*",
+                "Cache-Control": "no-cache",
+                "Content-Type": "text/html; charset=UTF-8"
+              }
+           });
+          }
+        
         case "/websocket": {
           // The request is to `/api/room/<name>/websocket`. A client is trying to establish a new
           // WebSocket session.
