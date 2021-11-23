@@ -1,14 +1,14 @@
 export const shasums = {
   "esbuild-dev.mjs":
     "2ce6dbeb1a973464803bea837e46beed452727e2153fc5ab12c6d9e1007dec69",
-  "dev.mjs": "382463d2e895a332288570d4dc5b2e8fa8d40346cd59374f74e548aa467a96fa",
+  "dev.mjs": "8d5facfe914ba727d5cd4abb660e2283a6dd8bb0312ee4f7d227761e3c7a1d1c",
   ".ignore": "bcae0416621b3db43d8cba1e4454a792c7af9e4b7287e51056efc5a215d95839",
   "manifest.json":
     "67193a5aefec147d6b040943a63d1a42945a5ba5401653e6e0062e5251ec611f",
   "edit/index.html":
     "6bedf2adaf3b015d95ef000fe886b446ff1cc39184be9c8f060e63a325ed50af",
   "package.json":
-    "6df09dc6cc4a628684c6f3106d8ec0ffdbe5b9ae9845d639b523534716532304",
+    "25cf0d1a79e00e1e6eab25969338e07642338974945a7eefa86f9d4d9ef1ec9c",
   "dev.mjs.map":
     "7f14b4a415a3446969299ba7869250e910e3cc33f07d1daacb10830abd98af69",
   "tsconfig.json":
@@ -86,7 +86,7 @@ export const shasums = {
   "js/reactLoader.mjs":
     "eb316aa60499cad595d9125d860bba4bedc9446c643919a3243bd4d7cce9b3a6",
   "js/importmap.json":
-    "9ef5e735b7708a3aa0b04bf8db2979af13900bb52eb2e10efdb5c2b76f42a301",
+    "e0f09f30b1888dc7ec83e9ff8b418020cc64de11bb3b1e8535216e5ba7d731b6",
   "index.html":
     "3f2d3ea80fc62b8bf503a416ac3919b29f0b14603cb1ad52e40af22836f4a5fb",
   ".vscode/settings.json":

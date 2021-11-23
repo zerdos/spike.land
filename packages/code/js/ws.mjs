@@ -66,8 +66,6 @@ function getDiff(from, to) {
   return dmp.patch_toText(patches);
 }
 
-
-
 export function join() {
   ws = new WebSocket(
     "wss://" + hostname + "/api/room/" + roomName + "/websocket",
@@ -87,18 +85,18 @@ export function join() {
           ? window.wantedHashBase
           : window.currentHashOfCode;
         if (code === window[prevHash]) return;
-    
+
         if (window.starterCode) {
           try {
             difference = prevHash && window[prevHash] &&
               getDiff(window[prevHash], code);
-    
+
             // console.log(difference);
           } catch (e) {
             console.error({ e });
           }
         }
-    
+
         const message = { hashOfCode };
         if (difference) {
           message.name = username;
@@ -108,7 +106,10 @@ export function join() {
           message.hashOfStarterCode = prevHash;
           if (prevHash && mod[prevHash]) {
             message.htmlDiff = getDiff(mod[prevHash].html, html);
-            message.transpiledDiff = getDiff(mod[prevHash].transpiled, transpiled);
+            message.transpiledDiff = getDiff(
+              mod[prevHash].transpiled,
+              transpiled,
+            );
           }
           window.currentHashOfCode = hashOfCode;
           window[hashOfCode] = code;
@@ -116,18 +117,18 @@ export function join() {
             transpiled,
             html,
           };
-    
+
           window.starterCode = starterCode;
         } else {
           message.code = code;
           message.name = username;
           message.hashOfCode = hashOfCode;
         }
-    
+
         currentWebSocket.send(JSON.stringify(message));
       }
     };
-    
+
     window.broad = broad;
     window.chCode = chCode;
 
@@ -195,7 +196,6 @@ export function join() {
           window.starterCode = lastSeenCode;
           window[data.hashOfCode] = data.code;
         } else if (data.name !== username && data.difference) {
-
           if (data.hashOfPreviousCode) {
             if (window[data.hashOfPreviousCode]) {
               lastSeenCode = window[data.hashOfPreviousCode];
@@ -207,7 +207,6 @@ export function join() {
             data.difference && data.hashOfCode !== window.hashOfCode
           ) {
             const hashOfCode = data.hashOfCode;
-          
 
             const Hash = (await import("ipfs-only-hash")).default;
 

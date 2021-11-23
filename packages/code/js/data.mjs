@@ -219,21 +219,23 @@ export const saveCode =
     toSave.code = opts.code;
 
     if (window.broad && codeNonFormatted) {
-      const hashOfCode = await Hash.of(codeNonFormatted);     
-    
+      const hashOfCode = await Hash.of(codeNonFormatted);
+
       sess.codeNonFormatted = codeNonFormatted;
 
-      setTimeout(async () =>
-        sess.codeNonFormatted === codeNonFormatted && window.broad({
-          starterCode: window.starterCode,
-          code: codeNonFormatted,
-          transpiled,
-          html: opts.html,
-          hashOfStarterCode: window.starterCode &&
-          await Hash.of(window.starterCode)
-  ,
-          hashOfCode,
-        }), 500);
+      setTimeout(
+        async () =>
+          sess.codeNonFormatted === codeNonFormatted && window.broad({
+            starterCode: window.starterCode,
+            code: codeNonFormatted,
+            transpiled,
+            html: opts.html,
+            hashOfStarterCode: window.starterCode &&
+              await Hash.of(window.starterCode),
+            hashOfCode,
+          }),
+        500,
+      );
     }
     // const saveCode = async () => {
     //   const res = await ipfsClient.add(code, { onlyHash: true });
