@@ -42,7 +42,7 @@ export class Code {
 
       switch (path[0]) {
         case "code": {
-          const code = await this.storage.get("lastSeenCode");
+          const code = await this.storage.get("code");
 
           return new Response(`code is: ${code}`, {
              status: 200, 
@@ -254,6 +254,7 @@ export class Code {
           await this.storage.put(hashOfCode, code);
           await this.storage.put("code", code);
         }
+        await this.storage.put("code", code);
         await this.storage.put(key, dataStr)
       } catch (err) {
         // Report any exceptions directly back to the client. As with our handleErrors() this
