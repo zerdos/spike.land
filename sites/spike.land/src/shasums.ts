@@ -8,13 +8,11 @@ export const shasums = {
   "edit/index.html":
     "6bedf2adaf3b015d95ef000fe886b446ff1cc39184be9c8f060e63a325ed50af",
   "package.json":
-    "02ef0b0b365d2e72a4c85efafaff6ce0363f6f86269a81ea7858ab64a535e900",
+    "72bae48868ebae865bfadb73e49c1d0c2388f6ee34b50b841ef4ecc0bf25faba",
   "dev.mjs.map":
     "d9af72b47452f815c4e39da53c462c0c31d217dfb7c73fb0af102e9718c96cff",
   "tsconfig.json":
     "e992c8b781dcf67ee3196fdc77b4deef52550fa172d9bb14bf123c9713535560",
-  "assets/synthwave.jpg":
-    "ddb7a1699251a0daecf2c4ff494760608cd9d5f39e8ce09426a31b2d505ceb4e",
   "assets/social-media-computer-icons-share-icon-png":
     "30b4c131034e159063469faa6ac82912e4993285210ae6dafe999c9bd0d26cf3",
   "assets/synthwave.webp":
@@ -36,7 +34,7 @@ export const shasums = {
   "assets/roboto.css":
     "d4cfbb0537146f1f477d5050b2b19a8ccad2cbe8d22d4d18bfefb510b53571be",
   "js/ws.mjs":
-    "6fcf01dd242897ffaf32cf0f2317a0be8d3f43f0abb76d579981d54f5bcdb2d6",
+    "5abd55d20c59d7e61e87c99b660e0ad22c5cefb629ec5eded804c5c6c9810aef",
   "js/sw.js":
     "e8493b6ab208d22c048635935efa2932a9abc4994b32ef4bacc59f604ca1eb53",
   "js/ipfsClient.mjs":
