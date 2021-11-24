@@ -38,12 +38,10 @@ export class Code {
           }
           
       case "public": {
-            const code = await this.storage.get("code");
 
-          importMap.imports["appLoader"] = `https://code.spike.land/@{version}/dev.mjs`;
-           HTML.replace("$$IMPORTMAP", JSON.stringify(importMap ))
+         const html =  HTML.replace("$$IMPORTMAP", JSON.stringify({imports: {...importMap.imports, appLoader: `https://code.spike.land/@${version}/dev.mjs` }}));
   
-            return new Response(HTML, {
+            return new Response(html, {
                status: 200, 
                headers: {
                   "Access-Control-Allow-Origin": "*",

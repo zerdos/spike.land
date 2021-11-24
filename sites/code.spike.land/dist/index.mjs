@@ -13997,7 +13997,7 @@ var require_ipfs_only_hash = __commonJS({
 });
 
 // ../../packages/code/package.json
-var version = "0.1.33";
+var version = "0.1.34";
 
 // ../../packages/code/js/importmap.json
 var imports = {
@@ -14214,7 +14214,7 @@ var imports = {
   "ipfs-only-hash": "https://unpkg.com/@spike.land/esm@0.1.23/dist/ipfs-only-hash.mjs",
   "@zedvision/swm": "https://unpkg.com/@zedvision/swm@4.0.0/public/swm-esm.js",
   "uuid/": "https://unpkg.com/uuid@8.3.2/dist/esm-browser/",
-  "@spike.land/code": "https://unpkg.com/@spike.land/code@0.1.32/js/reactLoader.mjs",
+  "@spike.land/code": "https://unpkg.com/@spike.land/code@0.1.33/js/reactLoader.mjs",
   comlink: "https://unpkg.com/comlink@4.3.1/dist/esm/comlink.mjs",
   "@spike.land/ipfs": "https://unpkg.com/@spike.land/ipfs@0.1.11/dist/ipfs.client.mjs",
   "workbox-window": "https://unpkg.com/workbox-window@6.4.1/build/workbox-window.prod.es5.mjs"
@@ -14425,6 +14425,11 @@ var RateLimiterClient = class {
 // src/chatRoom.mjs
 var import_diff_match_patch = __toModule(require_diff_match_patch());
 var import_ipfs_only_hash = __toModule(require_ipfs_only_hash());
+
+// src/target.html
+var target_default = '<!DOCTYPE html>\n<html lang="en">\n<head profile="http://www.w3.org/2005/10/profile">\n  <meta http-equiv="Content-Type" content="text/html,charset=utf-8" />\n  <meta name="viewport" content="width=device-width">\n  <link rel="stylesheet" href="https://unpkg.com/modern-css-reset/dist/reset.min.css" />\n\n  <script crossorigin src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"><\/script>\n  <script crossorigin src="https://unpkg.com/react-is@17.0.2/umd/react-is.production.min.js"><\/script>\n  <script crossorigin src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"><\/script>\n  <script async src="https://unpkg.com/es-module-shims@1.3.2/dist/es-module-shims.js"><\/script>\n  <script type="esms-options">\n  {\n    "shimMode": true,\n    "polyfillEnable": ["css-modules", "json-modules"],\n    "nonce": "n0nce"\n  }\n  <\/script>\n  <script type="importmap">\n    $$IMPORTMAP\n  <\/script>\n\n  <title>Instant React Editor</title>\n<body>\n  <div in="zbody"></div>\n  <script type="module">\n    import {restart} from "appLoader";\n\n    const run = async () =>{\n          \n        const resp = await fetch(\n                `https://code.spike.land/api/room/${roomName}/code`,\n              );\n        const code = await resp.body.text();\n        const target = document.getElementById("zbody");\n        restart(code, target);\n             \n    }\n    run();\n  <\/script>\n  <script type="text/javascript">\n    /**************/\n  <\/script>\n</body>\n</html>\n';
+
+// src/chatRoom.mjs
 var Code = class {
   constructor(controller, env) {
     this.storage = controller.storage;
@@ -14440,6 +14445,17 @@ var Code = class {
         case "code": {
           const code3 = await this.storage.get("code");
           return new Response(`code is: ${code3}`, {
+            status: 200,
+            headers: {
+              "Access-Control-Allow-Origin": "*",
+              "Cache-Control": "no-cache",
+              "Content-Type": "text/html; charset=UTF-8"
+            }
+          });
+        }
+        case "public": {
+          const html = target_default.replace("$$IMPORTMAP", JSON.stringify({ imports: { ...importmap_default.imports, appLoader: `https://code.spike.land/@${version}/dev.mjs` } }));
+          return new Response(html, {
             status: 200,
             headers: {
               "Access-Control-Allow-Origin": "*",
