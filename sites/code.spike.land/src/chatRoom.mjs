@@ -27,7 +27,7 @@ export class Code {
         case "code": {
           const code = await this.storage.get("code");
 
-          return new Response(`code is: }`, {
+          return new Response(code, {
              status: 200, 
              headers: {
                 "Access-Control-Allow-Origin": "*",

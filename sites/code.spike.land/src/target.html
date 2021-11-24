@@ -33,7 +33,7 @@
       console.log("run....");
           
         const resp = await fetch(
-                "https://code.spike.land/api/room/$$ROOMNAME/code",
+                "./code",
               );
         const code = await resp.text();
         const target = document.getElementById("zbody");
