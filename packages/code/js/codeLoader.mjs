@@ -124,7 +124,6 @@ export async function run(mode = "window", code = "") {
 
   if (container === null) return "No editor window";
 
-
   const editorPromise = startMonaco(
     /**
      * @param {any} code
@@ -357,7 +356,7 @@ function createJsBlob(code) {
 }
 const session = {
   i: 0,
-  setChild: ()=>{},
+  setChild: () => {},
   counter: 0,
 };
 

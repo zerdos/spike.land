@@ -15,7 +15,7 @@ const chCode = (code) => {
     if (!monaco || !monaco.Uri) {
       return;
     }
-    
+
     const modelUri = monaco.Uri.parse(`file:///main.tsx`);
     const model = monaco.editor.getModel(modelUri);
     const oldCode = model && model.getValue();
