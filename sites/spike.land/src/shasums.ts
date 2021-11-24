@@ -22,9 +22,9 @@ export const shasums = {
     "104f08c4fac5ed711bcefd1e87004f7b24d0b77c85972138f03e0fc5c71c0e0d",
   "assets/zed-icon-big.png":
     "1a8004c802bbcbdf49d4dacff5df98eb769d161df0d17d7a4ffd8093e957b18d",
-  "dev.mjs": "ff9912677f0f78b096221d5a7265bad44ec6cd3e3bedc0b272095033dd02cec1",
+  "dev.mjs": "8506f0442aa58119ee6409aae3a3ef0589803174ed0205eb184cbed710b35102",
   "dev.mjs.map":
-    "2ad1f10e1e969f47e097da385b9fe6e2f41a4cd8f66c3688f4365c17ad38b2f7",
+    "2c7e3f077c79181ec3ba0c9c6fa0a59272790cee449a46f3f48da76efcd3e461",
   "edit/index.html":
     "6bedf2adaf3b015d95ef000fe886b446ff1cc39184be9c8f060e63a325ed50af",
   "esbuild-dev.mjs":
@@ -50,7 +50,7 @@ export const shasums = {
   "js/importScript.mjs":
     "f1170901faaf51af6553d9a5d5c67a1c807653d55d57f1bbfe266a2be76c00e1",
   "js/importmap.json":
-    "7d074100994d5269edd0c3121a09d31002655b1f1b9de456386736c1df739c8c",
+    "e950e8863c17cb2c7dadaf8867ddaf1fb38e6dbe015f25aca0be1095199e5387",
   "js/ipfsClient.mjs":
     "5bba59ecc4f9895950dcbdfc6b3ab5b7d85ddb394a91b4454a61310c0db6f852",
   "js/openWindows.mjs":
@@ -92,6 +92,6 @@ export const shasums = {
   "tsconfig.json":
     "e992c8b781dcf67ee3196fdc77b4deef52550fa172d9bb14bf123c9713535560",
   "package.json":
-    "372724df0c6508e10f442ba498effa9ede25a9773e04c82e928346be194c426b",
+    "c3800863310edb4e7360aa0d2108440dd32da67b56f0ca53bf5caa8e783a0cd5",
   "food": "bar",
 };
