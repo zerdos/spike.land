@@ -27,7 +27,7 @@ export class Code {
         case "code": {
           const code = await this.storage.get("code");
 
-          return new Response(`code is: ${code}`, {
+          return new Response(`code is: }`, {
              status: 200, 
              headers: {
                 "Access-Control-Allow-Origin": "*",
@@ -39,7 +39,7 @@ export class Code {
           
       case "public": {
 
-         const html =  HTML.replace("$$IMPORTMAP", JSON.stringify({imports: {...importMap.imports, appLoader: `https://code.spike.land/@${version}/dev.mjs` }}));
+         const html =  HTML.replace("$$ROOMNAME", "roomie").replace("$$IMPORTMAP", JSON.stringify({imports: {...importMap.imports, app: `https://code.spike.land/@${version}/dev.mjs` }}));
   
             return new Response(html, {
                status: 200, 

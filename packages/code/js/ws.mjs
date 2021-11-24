@@ -207,7 +207,7 @@ export function join() {
               const resp = await fetch(
                 `https://code.spike.land/api/room/${roomName}/code`,
               );
-              const code = await resp.body.text();
+              const code = await resp.text();
               const hashOfCode = await Hash.of(code);
               window[hashOfCode] = code;
               chCode(code);
