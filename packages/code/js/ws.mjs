@@ -20,7 +20,7 @@ const chCode = (code) => {
     const model = monaco.editor.getModel(modelUri);
     const oldCode = model && model.getValue();
 
-    if (oldCode !== code) {
+    if (oldCode !== code && model && model.setValue) {
       console.log({ oldCode });
 
       model.setValue(code);

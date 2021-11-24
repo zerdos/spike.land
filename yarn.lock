@@ -3525,10 +3525,15 @@
     "@types/node" "*"
     form-data "^3.0.0"
 
-"@types/node@*", "@types/node@16.11.9", "@types/node@>=10.0.0", "@types/node@>=13.7.0":
+"@types/node@*", "@types/node@>=10.0.0", "@types/node@>=13.7.0":
   version "16.11.9"
   resolved "https://registry.npmjs.org/@types/node/-/node-16.11.9.tgz"
   integrity sha512-MKmdASMf3LtPzwLyRrFjtFFZ48cMf8jmX5VRYrDQiJa8Ybu5VAmkqBWqKU8fdCwD8ysw4mQ9nrEHvzg6gunR7A==
+
+"@types/node@16.11.10":
+  version "16.11.10"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-16.11.10.tgz#2e3ad0a680d96367103d3e670d41c2fed3da61ae"
+  integrity sha512-3aRnHa1KlOEEhJ6+CvyHKK5vE9BcLGjtUpwvqYLRvYNQKMfabu3BwfJaA/SLW8dxe28LsNDjtHwePTuzn3gmOA==
 
 "@types/node@^14.14.31":
   version "14.17.34"
@@ -4485,10 +4490,10 @@ available-typed-arrays@^1.0.5:
   resolved "https://registry.npmjs.org/available-typed-arrays/-/available-typed-arrays-1.0.5.tgz"
   integrity sha512-DMD0KiN46eipeziST1LPP/STfDU0sufISXmjSgvVsoU2tqxctQeASejWcfNtxYKqETM1UxQ8sp2OrSBWpHY6sw==
 
-aws-sdk@2.1034.0:
-  version "2.1034.0"
-  resolved "https://registry.npmjs.org/aws-sdk/-/aws-sdk-2.1034.0.tgz"
-  integrity sha512-yo0B9nOZAKgsQqIKXqkeOJ2Wrt8zx4wd1JmCP1XZzdz1O4b1TfZA/mTN5cMiszOaEk8EWqvPESrw8MaIHFS3wA==
+aws-sdk@2.1035.0:
+  version "2.1035.0"
+  resolved "https://registry.yarnpkg.com/aws-sdk/-/aws-sdk-2.1035.0.tgz#89a34c5b1e76e8304201036bf5258bceeebf4137"
+  integrity sha512-BjSGGZIQE/SCLDgj2T4AhtBG4A4NgXhV/Z/I/E7Mst/RpOepTqZGznUbgXTvO+Z3gKqx33jJa6mS7ZxStCb/Wg==
   dependencies:
     buffer "4.9.2"
     events "1.1.1"
@@ -13152,10 +13157,10 @@ minimist@^1.1.0, minimist@^1.2.0, minimist@^1.2.3, minimist@^1.2.5:
   resolved "https://registry.npmjs.org/minimist/-/minimist-1.2.5.tgz"
   integrity sha512-FM9nNUYrRBAELZQT3xeZQ7fmMOBg6nWNmJKTcgsJeaLstP/UODVpGsr5OhXhhXg6f+qtJ8uiZ+PUxkDWcgIXLw==
 
-minio@7.0.20:
-  version "7.0.20"
-  resolved "https://registry.npmjs.org/minio/-/minio-7.0.20.tgz"
-  integrity sha512-vPWShIQm8Ub573w4Yt/cKiDWY43cD3sDsX9V1gNYTH9p2etEP09W8Rw2/xRnaVEG7B5N2SFhMhUUZOZGIGF8Cg==
+minio@7.0.21:
+  version "7.0.21"
+  resolved "https://registry.yarnpkg.com/minio/-/minio-7.0.21.tgz#bf9fb117e632656f0f84c962d7c2339c841cf4aa"
+  integrity sha512-4tCFcEwYnh8RvnqHArMzfKm2Rpz7BLSYteb0RO+0yCc9i5WlxAlPV2MxcYgzYo8//6tjaWe02VRWKldpMbIfmQ==
   dependencies:
     async "^3.1.0"
     block-stream2 "^2.0.0"
