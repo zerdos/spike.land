@@ -10,7 +10,11 @@ const chCode = (code) => {
   try {
     window.starterCode = code;
     const { monaco } = window;
-    if (!monaco || !monaco.Uri) return;
+    if (!monaco || !monaco.Uri) {
+      if (window.restartCode) window.restartCode(code);
+      return;
+    }
+    
     const modelUri = monaco.Uri.parse(`file:///main.tsx`);
     const model = monaco.editor.getModel(modelUri);
     const oldCode = model.getValue();
