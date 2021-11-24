@@ -13993,7 +13993,7 @@ var require_ipfs_only_hash = __commonJS({
 });
 
 // ../../packages/code/package.json
-var version = "0.1.40";
+var version = "0.1.41";
 
 // ../../packages/code/js/importmap.json
 var imports = {
@@ -14191,28 +14191,28 @@ var imports = {
   "@emotion/unitless": "https://unpkg.com/@emotion/unitless@0.7.5/dist/unitless.browser.esm.js",
   "@emotion/weak-memoize": "https://unpkg.com/@emotion/weak-memoize@0.2.5/dist/weak-memoize.browser.esm.js",
   "prop-types": "https://esm.sh/prop-types",
-  "diff-match-patch": "https://unpkg.com/@spike.land/esm@0.1.23/dist/diff-match-patch.mjs",
-  "framer-motion": "https://unpkg.com/@spike.land/esm@0.1.23/dist/framer-motion.mjs",
-  framesync: "https://unpkg.com/framesync@6.0.1/dist/es/index.mjs",
+  "diff-match-patch": "https://unpkg.com/@spike.land/esm@0.1.41/dist/diff-match-patch.mjs",
+  "framer-motion": "https://unpkg.com/@spike.land/esm@0.1.41/dist/framer-motion.mjs",
+  framesync: "https://unpkg.com/framesync@6.1.0/dist/es/index.mjs",
   "hey-listen": "https://unpkg.com/hey-listen@1.0.8/dist/hey-listen.es.js",
   "hoist-non-react-statics": "https://esm.sh/hoist-non-react-statics",
   popmotion: "https://unpkg.com/popmotion@11.0.0/dist/es/index.mjs",
-  react: "https://unpkg.com/@spike.land/esm@0.1.23/dist/react.mjs",
-  "react-dom": "https://unpkg.com/@spike.land/esm@0.1.23/dist/react-dom.mjs",
-  "react-is": "https://unpkg.com/@spike.land/esm@0.1.23/dist/react-is.mjs",
+  react: "https://unpkg.com/@spike.land/esm@0.1.41/dist/react.mjs",
+  "react-dom": "https://unpkg.com/@spike.land/esm@0.1.41/dist/react-dom.mjs",
+  "react-is": "https://unpkg.com/@spike.land/esm@0.1.41/dist/react-is.mjs",
   "react-transition-group": "https://esm.sh/react-transition-group",
   "react/jsx-runtime": "https://esm.sh/react/jsx-runtime",
-  "@spike.land/renderer": "https://unpkg.com/@spike.land/renderer@0.1.23/dist/renderer.js",
-  "style-value-types": "https://unpkg.com/style-value-types@5.0.0/dist/es/index.mjs",
+  "@spike.land/renderer": "https://unpkg.com/@spike.land/renderer@0.1.41/dist/renderer.js",
+  "style-value-types": "https://unpkg.com/style-value-types@5.1.0/dist/es/index.mjs",
   stylis: "https://unpkg.com/stylis@4.0.10/dist/stylis.mjs",
   "@spike.land/qrious": "https://unpkg.com/@spike.land/qrious@0.1.11/dist/QRious.mjs",
   tslib: "https://unpkg.com/tslib@2.3.1/tslib.es6.js",
-  "ipfs-only-hash": "https://unpkg.com/@spike.land/esm@0.1.23/dist/ipfs-only-hash.mjs",
+  "ipfs-only-hash": "https://unpkg.com/@spike.land/esm@0.1.41/dist/ipfs-only-hash.mjs",
   "@zedvision/swm": "https://unpkg.com/@zedvision/swm@4.0.0/public/swm-esm.js",
   "uuid/": "https://unpkg.com/uuid@8.3.2/dist/esm-browser/",
-  "@spike.land/code": "https://unpkg.com/@spike.land/code@0.1.40/js/reactLoader.mjs",
+  "@spike.land/code": "https://unpkg.com/@spike.land/code@0.1.41/js/reactLoader.mjs",
   comlink: "https://unpkg.com/comlink@4.3.1/dist/esm/comlink.mjs",
-  "@spike.land/ipfs": "https://unpkg.com/@spike.land/ipfs@0.1.40/dist/ipfs.client.mjs",
+  "@spike.land/ipfs": "https://unpkg.com/@spike.land/ipfs@0.1.41/dist/ipfs.client.mjs",
   "workbox-window": "https://unpkg.com/workbox-window@6.4.1/build/workbox-window.prod.es5.mjs"
 };
 var importmap_default = {
@@ -14423,7 +14423,7 @@ var import_diff_match_patch = __toModule(require_diff_match_patch());
 var import_ipfs_only_hash = __toModule(require_ipfs_only_hash());
 
 // src/target.html
-var target_default = '<!DOCTYPE html>\n<html lang="en">\n<head profile="http://www.w3.org/2005/10/profile">\n  <meta http-equiv="Content-Type" content="text/html,charset=utf-8" />\n  <meta name="viewport" content="width=device-width">\n  <link rel="stylesheet" href="https://unpkg.com/modern-css-reset/dist/reset.min.css" />\n  <script crossorigin src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"><\/script>\n  <script crossorigin src="https://unpkg.com/react-is@17.0.2/umd/react-is.production.min.js"><\/script>\n  <script crossorigin src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"><\/script>\n  \n  <title>Instant React Editor</title>\n  <script>\n    window.process = {env: {NODE_ENV:"production" }};\n  <\/script>\n    \n<body>\n  <div id="zbody"></div>\n  <script async src="https://unpkg.com/es-module-shims@1.3.2/dist/es-module-shims.js"><\/script>\n  <script type="esms-options">\n  {\n    "shimMode": true,\n    "polyfillEnable": ["css-modules", "json-modules"],\n    "nonce": "n0nce"\n  }\n  <\/script>\n  <script type="importmap">\n    $$IMPORTMAP\n  <\/script>\n  <script type="module">\n    import {restart} from "app";\n    import {join} from "ws";\n\n    const run = async () =>{\n     \n          \n        const resp = await fetch(\n                "./code",\n              );\n        const code = await resp.text();\n        const target = document.getElementById("zbody");\n        await restart(code, target);\n\n        window.restartCode = (c)=>restart(c, document.getElementById("zbody"));\n        join();\n             \n    }\n    run();\n  <\/script>\n</body>\n</html>\n';
+var target_default = '<!DOCTYPE html>\n<html lang="en">\n<head profile="http://www.w3.org/2005/10/profile">\n  <meta http-equiv="Content-Type" content="text/html,charset=utf-8" />\n  <meta name="viewport" content="width=device-width">\n  <link rel="stylesheet" href="https://unpkg.com/modern-css-reset/dist/reset.min.css" />\n  <script crossorigin src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"><\/script>\n  <script crossorigin src="https://unpkg.com/react-is@17.0.2/umd/react-is.production.min.js"><\/script>\n  <script crossorigin src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"><\/script>\n  \n  <title>Instant React Editor</title>\n  <script>\n    window.process = {env: {NODE_ENV:"production" }};\n  <\/script>\n    \n<body>\n  <div id="zbody"></div>\n  <script async src="https://unpkg.com/es-module-shims@1.3.2/dist/es-module-shims.js"><\/script>\n  <script type="importmap">\n    $$IMPORTMAP\n  <\/script>\n  <script type="module">\n    import {restart} from "app";\n    import {join} from "https://code.spike.land/js/ws.mjs";\n\n    const run = async () =>{\n     \n          \n        const resp = await fetch(\n                "./code",\n              );\n        const code = await resp.text();\n        const target = document.getElementById("zbody");\n        await restart(code, target);\n\n        window.restartCode = (c)=>restart(c, document.getElementById("zbody"));\n        join();\n             \n    }\n    run();\n  <\/script>\n</body>\n</html>\n';
 
 // src/chatRoom.mjs
 var Code = class {
