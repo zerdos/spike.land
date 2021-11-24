@@ -43626,6 +43626,8 @@ function createJsBlob(code) {
 }
 var session = {
   i: 0,
+  setChild: () => {
+  },
   counter: 0
 };
 var restart = async (code, target) => {

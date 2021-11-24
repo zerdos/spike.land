@@ -39,7 +39,7 @@ export class Code {
           
       case "public": {
 
-         const html =  HTML.replace("$$ROOMNAME", "roomie").replace("$$IMPORTMAP", JSON.stringify({imports: {...importMap.imports, app: `https://code.spike.land/@${version}/dev.mjs` }}));
+         const html =  HTML.replace("$$ROOMNAME", "roomie").replace("$$IMPORTMAP", JSON.stringify({imports: {...importMap.imports, app: `https://code.spike.land/@${version}/dev.mjs`, ws: app: `https://code.spike.land/@${version}/js/ws.mjs }}));
   
             return new Response(html, {
                status: 200, 

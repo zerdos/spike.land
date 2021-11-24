@@ -28,16 +28,20 @@
   </script>
   <script type="module">
     import {restart} from "app";
+    import {join} from "ws";
 
     const run = async () =>{
-      console.log("run....");
+     
           
         const resp = await fetch(
                 "./code",
               );
         const code = await resp.text();
         const target = document.getElementById("zbody");
-        restart(code, target);
+        await restart(code, target);
+
+        window.restartCode = (c)=>restart(c, document.getElementById("zbody"));
+        join();
              
     }
     run();

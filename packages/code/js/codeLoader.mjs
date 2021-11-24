@@ -359,6 +359,7 @@ function createJsBlob(code) {
 }
 const session = {
   i: 0,
+  setChild: ()=>{},
   counter: 0,
 };
 
