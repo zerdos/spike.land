@@ -33,32 +33,32 @@ var ipfs_client_exports = {};
 __export(ipfs_client_exports, {
   IPFSClient: () => ge,
   all: () => export_all,
-  concat: () => on,
-  fetchSignal: () => ei,
-  fromString: () => un,
-  publicIpfsGateways: () => zo,
-  raceToSuccess: () => Io,
-  sendSignal: () => Ta,
-  toString: () => hn
+  concat: () => sn,
+  fetchSignal: () => ti,
+  fromString: () => hn,
+  publicIpfsGateways: () => Io,
+  raceToSuccess: () => Lo,
+  sendSignal: () => _a,
+  toString: () => pn
 });
-function Ct(r, e, t) {
+function Ot(r, e, t) {
   e = e || [], t = t || 0;
-  for (var n = t; r >= jn; )
-    e[t++] = r & 255 | Ot, r /= 128;
-  for (; r & Dn; )
-    e[t++] = r & 255 | Ot, r >>>= 7;
-  return e[t] = r | 0, Ct.bytes = t - n + 1, e;
+  for (var n = t; r >= kn; )
+    e[t++] = r & 255 | _t, r /= 128;
+  for (; r & jn; )
+    e[t++] = r & 255 | _t, r >>>= 7;
+  return e[t] = r | 0, Ot.bytes = t - n + 1, e;
 }
-function Re(r, e) {
+function Pe(r, e) {
   var t = 0, e = e || 0, n = 0, o2 = e, i, s = r.length;
   do {
     if (o2 >= s)
-      throw Re.bytes = 0, new RangeError("Could not decode varint");
-    i = r[o2++], t += n < 28 ? (i & At) << n : (i & At) * Math.pow(2, n), n += 7;
-  } while (i >= Tn);
-  return Re.bytes = o2 - e, t;
+      throw Pe.bytes = 0, new RangeError("Could not decode varint");
+    i = r[o2++], t += n < 28 ? (i & Ct) << n : (i & Ct) * Math.pow(2, n), n += 7;
+  } while (i >= _n);
+  return Pe.bytes = o2 - e, t;
 }
-function Pn(r, e) {
+function Rn(r, e) {
   if (r.length >= 255)
     throw new TypeError("Alphabet too long");
   for (var t = new Uint8Array(256), n = 0; n < t.length; n++)
@@ -118,19 +118,19 @@ function Pn(r, e) {
       }
     }
   }
-  function pn(y2) {
+  function dn(y2) {
     var E2 = k2(y2);
     if (E2)
       return E2;
     throw new Error(`Non-${e} character`);
   }
-  return { encode: w3, decodeUnsafe: k2, decode: pn };
+  return { encode: w3, decodeUnsafe: k2, decode: dn };
 }
-function Zr(r) {
+function Kr(r) {
   if (r != null)
     return typeof r == "number" ? r & 4095 : (r = r.toString(), r.substring(0, 1) === "0" ? parseInt(r, 8) & 4095 : parseInt(r, 10) & 4095);
 }
-function Kr(r) {
+function Yr(r) {
   if (r == null)
     return;
   let e;
@@ -140,42 +140,42 @@ function Kr(r) {
   }
   if (!!Object.prototype.hasOwnProperty.call(e, "secs")) {
     if (e != null && e.nsecs != null && (e.nsecs < 0 || e.nsecs > 999999999))
-      throw (0, Xr.default)(new Error("mtime-nsecs must be within the range [0,999999999]"), "ERR_INVALID_MTIME_NSECS");
+      throw (0, Zr.default)(new Error("mtime-nsecs must be within the range [0,999999999]"), "ERR_INVALID_MTIME_NSECS");
     return e;
   }
 }
-function Co(r) {
+function Ao(r) {
   return ArrayBuffer.isView(r) || r instanceof ArrayBuffer;
 }
-function Io(r) {
+function Lo(r) {
   let e = 0;
   return new Promise((t, n) => r.forEach((o2) => o2.then(t).catch(() => {
     ++e === r.length && n();
   })));
 }
-function on(r, e) {
+function sn(r, e) {
   e || (e = r.reduce((o2, i) => o2 + i.length, 0));
   let t = new Uint8Array(e), n = 0;
   for (let o2 of r)
     t.set(o2, n), n += o2.length;
   return t;
 }
-function fn(r, e, t, n) {
+function ln(r, e, t, n) {
   return { name: r, prefix: e, encoder: { name: r, prefix: e, encode: t }, decoder: { decode: n } };
 }
-function un(r, e = "utf8") {
-  let t = Ie[e];
+function hn(r, e = "utf8") {
+  let t = ze[e];
   if (!t)
     throw new Error(`Unsupported encoding "${e}"`);
   return t.decoder.decode(`${t.prefix}${r}`);
 }
-function hn(r, e = "utf8") {
-  let t = Ie[e];
+function pn(r, e = "utf8") {
+  let t = ze[e];
   if (!t)
     throw new Error(`Unsupported encoding "${e}"`);
   return t.encoder.encode(r).substring(1);
 }
-async function ei(r, e) {
+async function ti(r, e) {
   if (typeof window == "undefined")
     return;
   let t = typeof e == "number" ? e : 999;
@@ -186,63 +186,63 @@ async function ei(r, e) {
     let s = (await n.add(r, { onlyHash: true })).cid.toString();
     await o2(s, { timeout: 1500 });
     let f = r.slice(-8), a = await fetch(`https://code.spike.land/signal?signal=${f}&securityrandomparam=${Math.random() * 1e4}`).then((l) => l.text()), c2 = await fetch(`https://code.spike.land/ipfs/${a}`).then((l) => l.text());
-    return () => ti(c2);
+    return () => ri(c2);
   } catch (n) {
     if (t > 1)
-      return ei(r, t - 1);
+      return ti(r, t - 1);
   }
 }
-function ti(r) {
+function ri(r) {
   try {
     return typeof r != "string" ? r : JSON.parse(r);
   } catch (e) {
     return r;
   }
 }
-async function Ta(r, e) {
+async function _a(r, e) {
   let { ipfsClient: t } = globalThis;
-  if (Le(`sending signal: ${r}`), e) {
-    Le("sending data as well....");
+  if (Ie(`sending signal: ${r}`), e) {
+    Ie("sending data as well....");
     let o2 = typeof e != "string" ? JSON.stringify(e) : e;
-    Le(o2);
+    Ie(o2);
     let i = (await t.add(o2)).cid.toString(), { pathname: s } = new URL(r);
     await fetch(`https://code.spike.land/signal/?cid=${i}&signal=${s.slice(1)}`), fetch(`https://code.spike.land/ipfs/${i}`);
   }
   let { path: n } = await t.add(r);
-  return Le(`signal sent --- ${n}`), { success: true };
+  return Ie(`signal sent --- ${n}`), { success: true };
 }
-var dn, Se, yn, mn, bn, gn, jt, m, A, wn, re, Tt, Xt, He, er, or, sr, pr, dr, mr, gr, xr, Q, tt, Or, ot, Fr, Pr, qr, $r, Wr, Qr, en, Yo, _t, ne, Sn, Ne, Me, Fe, H, Ue, Pe, q, En, Ot, vn, Dn, jn, kn, Tn, At, _n, On, Cn, An, Bn, zn, In, Ln, Nn, Mn, Fn, Un, ue, he, oe, ie, mi, zt, V, It, Lt, Ee, Mt, Ft, pe, qe, Rn, qn, Pt, Rt, qt, ve, Vt, De, W, Vn, $n, b, M, Jn, Ve, se, Hn, Wn, Gn, Qn, Xn, Zn, Kn, Yn, d, eo, to, ro, de, no, $t, Jt, je, ke, oo, io, so, j, v, Ht, K, ao, Wt, Gt, $e, ae, co, Te, F, fo, Je, lo, Be, Xr, $, fe, st, h, S, vo, ps, ds, bs, gs, tn, rn, te, nn, jo, ko, To, _o, le, at, ct, Oo, ft, lt, ut, ht, pt, ze, Ao, Bo, ge, zo, dt, Lo, yt, No, mt, Mo, bt, Fo, gt, Uo, Po, wt, Ro, qo, xt, Vo, $o, Jo, Ho, St, we, sn, cn, Wo, Go, Et, Qo, ea, ta, vt, ia, ln, Dt, Ko, Ie, Le, export_all;
+var yn, Se, mn, bn, gn, wn, Dt, m, A, xn, re, kt, Zt, Je, tr, ir, ar, dr, yr, br, wr, Sr, Q, et, Cr, nt, Ur, Rr, Vr, Jr, Gr, Xr, tn, ei, Tt, ne, En, Le, Ne, Me, H, Fe, Ue, q, vn, _t, Dn, jn, kn, Tn, _n, Ct, On, Cn, An, Bn, zn, In, Ln, Nn, Mn, Fn, Un, Pn, ue, he, oe, ie, bi, Bt, V, zt, It, Ee, Nt, Mt, pe, Re, qn, Vn, Ut, Pt, Rt, qt, Vt, $t, ve, W, $n, Jn, b, M, Hn, qe, se, Wn, Gn, Qn, Xn, Zn, Kn, Yn, eo, d, to, ro, no, de, oo, Jt, Ht, De, je, io, so, ao, j, v, Wt, K, co, Gt, Qt, Ve, ae, fo, ke, F, lo, $e, uo, Ae, Zr, $, fe, it, h, S, Do, ds, ys, gs, ws, rn, nn, te, on, ko, To, _o, Oo, le, st, at, Co, ct, ft, lt, ut, ht, Be, Bo, zo, ge, Io, pt, No, dt, Mo, yt, Fo, mt, Uo, bt, Po, Ro, gt, qo, Vo, wt, $o, Jo, Ho, Wo, xt, we, an, fn, Go, Qo, St, Xo, ta, ra, Et, sa, un, vt, Yo, ze, Ie, export_all;
 var init_ipfs_client = __esm({
   "../ipfs/dist/ipfs.client.mjs"() {
-    dn = Object.create;
+    yn = Object.create;
     Se = Object.defineProperty;
-    yn = Object.getOwnPropertyDescriptor;
-    mn = Object.getOwnPropertyNames;
-    bn = Object.getPrototypeOf, gn = Object.prototype.hasOwnProperty;
-    jt = (r) => Se(r, "__esModule", { value: true });
+    mn = Object.getOwnPropertyDescriptor;
+    bn = Object.getOwnPropertyNames;
+    gn = Object.getPrototypeOf, wn = Object.prototype.hasOwnProperty;
+    Dt = (r) => Se(r, "__esModule", { value: true });
     m = (r, e) => () => (e || r((e = { exports: {} }).exports, e), e.exports), A = (r, e) => {
-      jt(r);
+      Dt(r);
       for (var t in e)
         Se(r, t, { get: e[t], enumerable: true });
-    }, wn = (r, e, t) => {
+    }, xn = (r, e, t) => {
       if (e && typeof e == "object" || typeof e == "function")
-        for (let n of mn(e))
-          !gn.call(r, n) && n !== "default" && Se(r, n, { get: () => e[n], enumerable: !(t = yn(e, n)) || t.enumerable });
+        for (let n of bn(e))
+          !wn.call(r, n) && n !== "default" && Se(r, n, { get: () => e[n], enumerable: !(t = mn(e, n)) || t.enumerable });
       return r;
-    }, re = (r) => wn(jt(Se(r != null ? dn(bn(r)) : {}, "default", r && r.__esModule && "default" in r ? { get: () => r.default, enumerable: true } : { value: r, enumerable: true })), r);
-    Tt = m((ni, kt) => {
+    }, re = (r) => xn(Dt(Se(r != null ? yn(gn(r)) : {}, "default", r && r.__esModule && "default" in r ? { get: () => r.default, enumerable: true } : { value: r, enumerable: true })), r);
+    kt = m((oi, jt) => {
       "use strict";
-      var xn = async (r) => {
+      var Sn = async (r) => {
         let e = [];
         for await (let t of r)
           e.push(t);
         return e;
       };
-      kt.exports = xn;
+      jt.exports = Sn;
     });
-    Xt = m((Gi, Qt) => {
+    Zt = m((Qi, Xt) => {
       "use strict";
-      async function* uo(r, e = {}) {
+      async function* ho(r, e = {}) {
         let t = r.getReader();
         try {
           for (; ; ) {
@@ -255,34 +255,34 @@ var init_ipfs_client = __esm({
           e.preventCancel !== true && t.cancel(), t.releaseLock();
         }
       }
-      Qt.exports = uo;
+      Xt.exports = ho;
     });
-    He = m((Qi, Kt) => {
+    Je = m((Xi, Yt) => {
       "use strict";
-      function Zt(r, e) {
+      function Kt(r, e) {
         for (let t in e)
           Object.defineProperty(r, t, { value: e[t], enumerable: true, configurable: true });
         return r;
       }
-      function ho(r, e, t) {
+      function po(r, e, t) {
         if (!r || typeof r == "string")
           throw new TypeError("Please pass an Error to err-code");
         t || (t = {}), typeof e == "object" && (t = e, e = ""), e && (t.code = e);
         try {
-          return Zt(r, t);
+          return Kt(r, t);
         } catch (n) {
           t.message = r.message, t.stack = r.stack;
           let o2 = function() {
           };
-          return o2.prototype = Object.create(Object.getPrototypeOf(r)), Zt(new o2(), t);
+          return o2.prototype = Object.create(Object.getPrototypeOf(r)), Kt(new o2(), t);
         }
       }
-      Kt.exports = ho;
-    });
-    er = m((Xi, Yt) => {
-      "use strict";
       Yt.exports = po;
-      function po(r, e) {
+    });
+    tr = m((Zi, er) => {
+      "use strict";
+      er.exports = yo;
+      function yo(r, e) {
         for (var t = new Array(arguments.length - 1), n = 0, o2 = 2, i = true; o2 < arguments.length; )
           t[n++] = arguments[o2++];
         return new Promise(function(f, a) {
@@ -304,10 +304,10 @@ var init_ipfs_client = __esm({
         });
       }
     });
-    or = m((nr) => {
+    ir = m((or) => {
       "use strict";
-      var _e2 = nr;
-      _e2.length = function(e) {
+      var Te = or;
+      Te.length = function(e) {
         var t = e.length;
         if (!t)
           return 0;
@@ -315,11 +315,11 @@ var init_ipfs_client = __esm({
           ++n;
         return Math.ceil(e.length * 3) / 4 - n;
       };
-      var ce2 = new Array(64), tr = new Array(123);
+      var ce2 = new Array(64), rr = new Array(123);
       for (B2 = 0; B2 < 64; )
-        tr[ce2[B2] = B2 < 26 ? B2 + 65 : B2 < 52 ? B2 + 71 : B2 < 62 ? B2 - 4 : B2 - 59 | 43] = B2++;
+        rr[ce2[B2] = B2 < 26 ? B2 + 65 : B2 < 52 ? B2 + 71 : B2 < 62 ? B2 - 4 : B2 - 59 | 43] = B2++;
       var B2;
-      _e2.encode = function(e, t, n) {
+      Te.encode = function(e, t, n) {
         for (var o2 = null, i = [], s = 0, f = 0, a; t < n; ) {
           var c2 = e[t++];
           switch (f) {
@@ -337,14 +337,14 @@ var init_ipfs_client = __esm({
         }
         return f && (i[s++] = ce2[a], i[s++] = 61, f === 1 && (i[s++] = 61)), o2 ? (s && o2.push(String.fromCharCode.apply(String, i.slice(0, s))), o2.join("")) : String.fromCharCode.apply(String, i.slice(0, s));
       };
-      var rr = "invalid encoding";
-      _e2.decode = function(e, t, n) {
+      var nr = "invalid encoding";
+      Te.decode = function(e, t, n) {
         for (var o2 = n, i = 0, s, f = 0; f < e.length; ) {
           var a = e.charCodeAt(f++);
           if (a === 61 && i > 1)
             break;
-          if ((a = tr[a]) === void 0)
-            throw Error(rr);
+          if ((a = rr[a]) === void 0)
+            throw Error(nr);
           switch (i) {
             case 0:
               s = a, i = 1;
@@ -361,23 +361,23 @@ var init_ipfs_client = __esm({
           }
         }
         if (i === 1)
-          throw Error(rr);
+          throw Error(nr);
         return n - o2;
       };
-      _e2.test = function(e) {
+      Te.test = function(e) {
         return /^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$/.test(e);
       };
     });
-    sr = m((Ki, ir) => {
+    ar = m((Yi, sr) => {
       "use strict";
-      ir.exports = Oe2;
-      function Oe2() {
+      sr.exports = _e2;
+      function _e2() {
         this._listeners = {};
       }
-      Oe2.prototype.on = function(e, t, n) {
+      _e2.prototype.on = function(e, t, n) {
         return (this._listeners[e] || (this._listeners[e] = [])).push({ fn: t, ctx: n || this }), this;
       };
-      Oe2.prototype.off = function(e, t) {
+      _e2.prototype.off = function(e, t) {
         if (e === void 0)
           this._listeners = {};
         else if (t === void 0)
@@ -387,7 +387,7 @@ var init_ipfs_client = __esm({
             n[o2].fn === t ? n.splice(o2, 1) : ++o2;
         return this;
       };
-      Oe2.prototype.emit = function(e) {
+      _e2.prototype.emit = function(e) {
         var t = this._listeners[e];
         if (t) {
           for (var n = [], o2 = 1; o2 < arguments.length; )
@@ -398,10 +398,10 @@ var init_ipfs_client = __esm({
         return this;
       };
     });
-    pr = m((Yi, hr) => {
+    dr = m((es, pr) => {
       "use strict";
-      hr.exports = ar(ar);
-      function ar(r) {
+      pr.exports = cr(cr);
+      function cr(r) {
         return typeof Float32Array != "undefined" ? function() {
           var e = new Float32Array([-0]), t = new Uint8Array(e.buffer), n = t[3] === 128;
           function o2(a, c2, l) {
@@ -434,12 +434,12 @@ var init_ipfs_client = __esm({
               n((f << 31 | a + 127 << 23 | c2) >>> 0, i, s);
             }
           }
-          r.writeFloatLE = e.bind(null, cr), r.writeFloatBE = e.bind(null, fr);
+          r.writeFloatLE = e.bind(null, fr), r.writeFloatBE = e.bind(null, lr);
           function t(n, o2, i) {
             var s = n(o2, i), f = (s >> 31) * 2 + 1, a = s >>> 23 & 255, c2 = s & 8388607;
             return a === 255 ? c2 ? NaN : f * (1 / 0) : a === 0 ? f * 1401298464324817e-60 * c2 : f * Math.pow(2, a - 150) * (c2 + 8388608);
           }
-          r.readFloatLE = t.bind(null, lr), r.readFloatBE = t.bind(null, ur);
+          r.readFloatLE = t.bind(null, ur), r.readFloatBE = t.bind(null, hr);
         }(), typeof Float64Array != "undefined" ? function() {
           var e = new Float64Array([-0]), t = new Uint8Array(e.buffer), n = t[7] === 128;
           function o2(a, c2, l) {
@@ -475,28 +475,28 @@ var init_ipfs_client = __esm({
               }
             }
           }
-          r.writeDoubleLE = e.bind(null, cr, 0, 4), r.writeDoubleBE = e.bind(null, fr, 4, 0);
+          r.writeDoubleLE = e.bind(null, fr, 0, 4), r.writeDoubleBE = e.bind(null, lr, 4, 0);
           function t(n, o2, i, s, f) {
             var a = n(s, f + o2), c2 = n(s, f + i), l = (c2 >> 31) * 2 + 1, w3 = c2 >>> 20 & 2047, k2 = 4294967296 * (c2 & 1048575) + a;
             return w3 === 2047 ? k2 ? NaN : l * (1 / 0) : w3 === 0 ? l * 5e-324 * k2 : l * Math.pow(2, w3 - 1075) * (k2 + 4503599627370496);
           }
-          r.readDoubleLE = t.bind(null, lr, 0, 4), r.readDoubleBE = t.bind(null, ur, 4, 0);
+          r.readDoubleLE = t.bind(null, ur, 0, 4), r.readDoubleBE = t.bind(null, hr, 4, 0);
         }(), r;
       }
-      function cr(r, e, t) {
+      function fr(r, e, t) {
         e[t] = r & 255, e[t + 1] = r >>> 8 & 255, e[t + 2] = r >>> 16 & 255, e[t + 3] = r >>> 24;
       }
-      function fr(r, e, t) {
+      function lr(r, e, t) {
         e[t] = r >>> 24, e[t + 1] = r >>> 16 & 255, e[t + 2] = r >>> 8 & 255, e[t + 3] = r & 255;
       }
-      function lr(r, e) {
+      function ur(r, e) {
         return (r[e] | r[e + 1] << 8 | r[e + 2] << 16 | r[e + 3] << 24) >>> 0;
       }
-      function ur(r, e) {
+      function hr(r, e) {
         return (r[e] << 24 | r[e + 1] << 16 | r[e + 2] << 8 | r[e + 3]) >>> 0;
       }
     });
-    dr = m((exports, module) => {
+    yr = m((exports, module) => {
       "use strict";
       module.exports = inquire;
       function inquire(moduleName) {
@@ -509,15 +509,15 @@ var init_ipfs_client = __esm({
         return null;
       }
     });
-    mr = m((yr) => {
+    br = m((mr) => {
       "use strict";
-      var We = yr;
-      We.length = function(e) {
+      var He = mr;
+      He.length = function(e) {
         for (var t = 0, n = 0, o2 = 0; o2 < e.length; ++o2)
           n = e.charCodeAt(o2), n < 128 ? t += 1 : n < 2048 ? t += 2 : (n & 64512) == 55296 && (e.charCodeAt(o2 + 1) & 64512) == 56320 ? (++o2, t += 4) : t += 3;
         return t;
       };
-      We.read = function(e, t, n) {
+      He.read = function(e, t, n) {
         var o2 = n - t;
         if (o2 < 1)
           return "";
@@ -525,16 +525,16 @@ var init_ipfs_client = __esm({
           a = e[t++], a < 128 ? s[f++] = a : a > 191 && a < 224 ? s[f++] = (a & 31) << 6 | e[t++] & 63 : a > 239 && a < 365 ? (a = ((a & 7) << 18 | (e[t++] & 63) << 12 | (e[t++] & 63) << 6 | e[t++] & 63) - 65536, s[f++] = 55296 + (a >> 10), s[f++] = 56320 + (a & 1023)) : s[f++] = (a & 15) << 12 | (e[t++] & 63) << 6 | e[t++] & 63, f > 8191 && ((i || (i = [])).push(String.fromCharCode.apply(String, s)), f = 0);
         return i ? (f && i.push(String.fromCharCode.apply(String, s.slice(0, f))), i.join("")) : String.fromCharCode.apply(String, s.slice(0, f));
       };
-      We.write = function(e, t, n) {
+      He.write = function(e, t, n) {
         for (var o2 = n, i, s, f = 0; f < e.length; ++f)
           i = e.charCodeAt(f), i < 128 ? t[n++] = i : i < 2048 ? (t[n++] = i >> 6 | 192, t[n++] = i & 63 | 128) : (i & 64512) == 55296 && ((s = e.charCodeAt(f + 1)) & 64512) == 56320 ? (i = 65536 + ((i & 1023) << 10) + (s & 1023), ++f, t[n++] = i >> 18 | 240, t[n++] = i >> 12 & 63 | 128, t[n++] = i >> 6 & 63 | 128, t[n++] = i & 63 | 128) : (t[n++] = i >> 12 | 224, t[n++] = i >> 6 & 63 | 128, t[n++] = i & 63 | 128);
         return n - o2;
       };
     });
-    gr = m((ts, br) => {
+    wr = m((rs, gr) => {
       "use strict";
-      br.exports = yo;
-      function yo(r, e, t) {
+      gr.exports = mo;
+      function mo(r, e, t) {
         var n = t || 8192, o2 = n >>> 1, i = null, s = n;
         return function(a) {
           if (a < 1 || a > o2)
@@ -545,9 +545,9 @@ var init_ipfs_client = __esm({
         };
       }
     });
-    xr = m((rs, wr) => {
+    Sr = m((ns, xr) => {
       "use strict";
-      wr.exports = x;
+      xr.exports = x;
       var ye = Q();
       function x(r, e) {
         this.lo = r >>> 0, this.hi = e >>> 0;
@@ -562,7 +562,7 @@ var init_ipfs_client = __esm({
       Y2.length = function() {
         return 1;
       };
-      var mo = x.zeroHash = "\0\0\0\0\0\0\0\0";
+      var bo = x.zeroHash = "\0\0\0\0\0\0\0\0";
       x.fromNumber = function(e) {
         if (e === 0)
           return Y2;
@@ -593,7 +593,7 @@ var init_ipfs_client = __esm({
       };
       var G3 = String.prototype.charCodeAt;
       x.fromHash = function(e) {
-        return e === mo ? Y2 : new x((G3.call(e, 0) | G3.call(e, 1) << 8 | G3.call(e, 2) << 16 | G3.call(e, 3) << 24) >>> 0, (G3.call(e, 4) | G3.call(e, 5) << 8 | G3.call(e, 6) << 16 | G3.call(e, 7) << 24) >>> 0);
+        return e === bo ? Y2 : new x((G3.call(e, 0) | G3.call(e, 1) << 8 | G3.call(e, 2) << 16 | G3.call(e, 3) << 24) >>> 0, (G3.call(e, 4) | G3.call(e, 5) << 8 | G3.call(e, 6) << 16 | G3.call(e, 7) << 24) >>> 0);
       };
       x.prototype.toHash = function() {
         return String.fromCharCode(this.lo & 255, this.lo >>> 8 & 255, this.lo >>> 16 & 255, this.lo >>> 24, this.hi & 255, this.hi >>> 8 & 255, this.hi >>> 16 & 255, this.hi >>> 24);
@@ -611,19 +611,19 @@ var init_ipfs_client = __esm({
         return n === 0 ? t === 0 ? e < 16384 ? e < 128 ? 1 : 2 : e < 2097152 ? 3 : 4 : t < 16384 ? t < 128 ? 5 : 6 : t < 2097152 ? 7 : 8 : n < 128 ? 9 : 10;
       };
     });
-    Q = m((Ge) => {
+    Q = m((We) => {
       "use strict";
-      var u2 = Ge;
-      u2.asPromise = er();
-      u2.base64 = or();
-      u2.EventEmitter = sr();
-      u2.float = pr();
-      u2.inquire = dr();
-      u2.utf8 = mr();
-      u2.pool = gr();
-      u2.LongBits = xr();
+      var u2 = We;
+      u2.asPromise = tr();
+      u2.base64 = ir();
+      u2.EventEmitter = ar();
+      u2.float = dr();
+      u2.inquire = yr();
+      u2.utf8 = br();
+      u2.pool = wr();
+      u2.LongBits = Sr();
       u2.isNode = Boolean(typeof global != "undefined" && global && global.process && global.process.versions && global.process.versions.node);
-      u2.global = u2.isNode && global || typeof window != "undefined" && window || typeof self != "undefined" && self || Ge;
+      u2.global = u2.isNode && global || typeof window != "undefined" && window || typeof self != "undefined" && self || We;
       u2.emptyArray = Object.freeze ? Object.freeze([]) : [];
       u2.emptyObject = Object.freeze ? Object.freeze({}) : {};
       u2.isInteger = Number.isInteger || function(e) {
@@ -664,22 +664,22 @@ var init_ipfs_client = __esm({
         var n = u2.LongBits.fromHash(e);
         return u2.Long ? u2.Long.fromBits(n.lo, n.hi, t) : n.toNumber(Boolean(t));
       };
-      function Sr(r, e, t) {
+      function Er(r, e, t) {
         for (var n = Object.keys(e), o2 = 0; o2 < n.length; ++o2)
           (r[n[o2]] === void 0 || !t) && (r[n[o2]] = e[n[o2]]);
         return r;
       }
-      u2.merge = Sr;
+      u2.merge = Er;
       u2.lcFirst = function(e) {
         return e.charAt(0).toLowerCase() + e.substring(1);
       };
-      function Er(r) {
+      function vr(r) {
         function e(t, n) {
           if (!(this instanceof e))
             return new e(t, n);
           Object.defineProperty(this, "message", { get: function() {
             return t;
-          } }), Error.captureStackTrace ? Error.captureStackTrace(this, e) : Object.defineProperty(this, "stack", { value: new Error().stack || "" }), n && Sr(this, n);
+          } }), Error.captureStackTrace ? Error.captureStackTrace(this, e) : Object.defineProperty(this, "stack", { value: new Error().stack || "" }), n && Er(this, n);
         }
         return (e.prototype = Object.create(Error.prototype)).constructor = e, Object.defineProperty(e.prototype, "name", { get: function() {
           return r;
@@ -687,8 +687,8 @@ var init_ipfs_client = __esm({
           return this.name + ": " + this.message;
         }, e;
       }
-      u2.newError = Er;
-      u2.ProtocolError = Er("ProtocolError");
+      u2.newError = vr;
+      u2.ProtocolError = vr("ProtocolError");
       u2.oneOfGetter = function(e) {
         for (var t = {}, n = 0; n < e.length; ++n)
           t[e[n]] = 1;
@@ -718,31 +718,31 @@ var init_ipfs_client = __esm({
         };
       };
     });
-    tt = m((os, kr) => {
+    et = m((is, Tr) => {
       "use strict";
-      kr.exports = p;
-      var _6 = Q(), Qe, Ce = _6.LongBits, vr = _6.base64, Dr = _6.utf8;
+      Tr.exports = p;
+      var _6 = Q(), Ge, Oe2 = _6.LongBits, Dr = _6.base64, jr = _6.utf8;
       function me2(r, e, t) {
         this.fn = r, this.len = e, this.next = void 0, this.val = t;
       }
-      function Xe() {
+      function Qe() {
       }
-      function bo(r) {
+      function go(r) {
         this.head = r.head, this.tail = r.tail, this.len = r.len, this.next = r.states;
       }
       function p() {
-        this.len = 0, this.head = new me2(Xe, 0, 0), this.tail = this.head, this.states = null;
+        this.len = 0, this.head = new me2(Qe, 0, 0), this.tail = this.head, this.states = null;
       }
-      var jr = function() {
+      var kr = function() {
         return _6.Buffer ? function() {
           return (p.create = function() {
-            return new Qe();
+            return new Ge();
           })();
         } : function() {
           return new p();
         };
       };
-      p.create = jr();
+      p.create = kr();
       p.alloc = function(e) {
         return new _6.Array(e);
       };
@@ -750,29 +750,29 @@ var init_ipfs_client = __esm({
       p.prototype._push = function(e, t, n) {
         return this.tail = this.tail.next = new me2(e, t, n), this.len += t, this;
       };
-      function Ze(r, e, t) {
+      function Xe(r, e, t) {
         e[t] = r & 255;
       }
-      function go(r, e, t) {
+      function wo(r, e, t) {
         for (; r > 127; )
           e[t++] = r & 127 | 128, r >>>= 7;
         e[t] = r;
       }
-      function Ke(r, e) {
+      function Ze(r, e) {
         this.len = r, this.next = void 0, this.val = e;
       }
-      Ke.prototype = Object.create(me2.prototype);
-      Ke.prototype.fn = go;
+      Ze.prototype = Object.create(me2.prototype);
+      Ze.prototype.fn = wo;
       p.prototype.uint32 = function(e) {
-        return this.len += (this.tail = this.tail.next = new Ke((e = e >>> 0) < 128 ? 1 : e < 16384 ? 2 : e < 2097152 ? 3 : e < 268435456 ? 4 : 5, e)).len, this;
+        return this.len += (this.tail = this.tail.next = new Ze((e = e >>> 0) < 128 ? 1 : e < 16384 ? 2 : e < 2097152 ? 3 : e < 268435456 ? 4 : 5, e)).len, this;
       };
       p.prototype.int32 = function(e) {
-        return e < 0 ? this._push(Ye, 10, Ce.fromNumber(e)) : this.uint32(e);
+        return e < 0 ? this._push(Ke, 10, Oe2.fromNumber(e)) : this.uint32(e);
       };
       p.prototype.sint32 = function(e) {
         return this.uint32((e << 1 ^ e >> 31) >>> 0);
       };
-      function Ye(r, e, t) {
+      function Ke(r, e, t) {
         for (; r.hi; )
           e[t++] = r.lo & 127 | 128, r.lo = (r.lo >>> 7 | r.hi << 25) >>> 0, r.hi >>>= 7;
         for (; r.lo > 127; )
@@ -780,27 +780,27 @@ var init_ipfs_client = __esm({
         e[t++] = r.lo;
       }
       p.prototype.uint64 = function(e) {
-        var t = Ce.from(e);
-        return this._push(Ye, t.length(), t);
+        var t = Oe2.from(e);
+        return this._push(Ke, t.length(), t);
       };
       p.prototype.int64 = p.prototype.uint64;
       p.prototype.sint64 = function(e) {
-        var t = Ce.from(e).zzEncode();
-        return this._push(Ye, t.length(), t);
+        var t = Oe2.from(e).zzEncode();
+        return this._push(Ke, t.length(), t);
       };
       p.prototype.bool = function(e) {
-        return this._push(Ze, 1, e ? 1 : 0);
+        return this._push(Xe, 1, e ? 1 : 0);
       };
-      function et(r, e, t) {
+      function Ye(r, e, t) {
         e[t] = r & 255, e[t + 1] = r >>> 8 & 255, e[t + 2] = r >>> 16 & 255, e[t + 3] = r >>> 24;
       }
       p.prototype.fixed32 = function(e) {
-        return this._push(et, 4, e >>> 0);
+        return this._push(Ye, 4, e >>> 0);
       };
       p.prototype.sfixed32 = p.prototype.fixed32;
       p.prototype.fixed64 = function(e) {
-        var t = Ce.from(e);
-        return this._push(et, 4, t.lo)._push(et, 4, t.hi);
+        var t = Oe2.from(e);
+        return this._push(Ye, 4, t.lo)._push(Ye, 4, t.hi);
       };
       p.prototype.sfixed64 = p.prototype.fixed64;
       p.prototype.float = function(e) {
@@ -809,7 +809,7 @@ var init_ipfs_client = __esm({
       p.prototype.double = function(e) {
         return this._push(_6.float.writeDoubleLE, 8, e);
       };
-      var wo = _6.Array.prototype.set ? function(e, t, n) {
+      var xo = _6.Array.prototype.set ? function(e, t, n) {
         t.set(e, n);
       } : function(e, t, n) {
         for (var o2 = 0; o2 < e.length; ++o2)
@@ -818,22 +818,22 @@ var init_ipfs_client = __esm({
       p.prototype.bytes = function(e) {
         var t = e.length >>> 0;
         if (!t)
-          return this._push(Ze, 1, 0);
+          return this._push(Xe, 1, 0);
         if (_6.isString(e)) {
-          var n = p.alloc(t = vr.length(e));
-          vr.decode(e, n, 0), e = n;
+          var n = p.alloc(t = Dr.length(e));
+          Dr.decode(e, n, 0), e = n;
         }
-        return this.uint32(t)._push(wo, t, e);
+        return this.uint32(t)._push(xo, t, e);
       };
       p.prototype.string = function(e) {
-        var t = Dr.length(e);
-        return t ? this.uint32(t)._push(Dr.write, t, e) : this._push(Ze, 1, 0);
+        var t = jr.length(e);
+        return t ? this.uint32(t)._push(jr.write, t, e) : this._push(Xe, 1, 0);
       };
       p.prototype.fork = function() {
-        return this.states = new bo(this), this.head = this.tail = new me2(Xe, 0, 0), this.len = 0, this;
+        return this.states = new go(this), this.head = this.tail = new me2(Qe, 0, 0), this.len = 0, this;
       };
       p.prototype.reset = function() {
-        return this.states ? (this.head = this.states.head, this.tail = this.states.tail, this.len = this.states.len, this.states = this.states.next) : (this.head = this.tail = new me2(Xe, 0, 0), this.len = 0), this;
+        return this.states ? (this.head = this.states.head, this.tail = this.states.tail, this.len = this.states.len, this.states = this.states.next) : (this.head = this.tail = new me2(Qe, 0, 0), this.len = 0), this;
       };
       p.prototype.ldelim = function() {
         var e = this.head, t = this.tail, n = this.len;
@@ -845,17 +845,17 @@ var init_ipfs_client = __esm({
         return t;
       };
       p._configure = function(r) {
-        Qe = r, p.create = jr(), Qe._configure();
+        Ge = r, p.create = kr(), Ge._configure();
       };
     });
-    Or = m((is, _r) => {
+    Cr = m((ss, Or) => {
       "use strict";
-      _r.exports = U2;
-      var Tr = tt();
-      (U2.prototype = Object.create(Tr.prototype)).constructor = U2;
+      Or.exports = U2;
+      var _r = et();
+      (U2.prototype = Object.create(_r.prototype)).constructor = U2;
       var X2 = Q();
       function U2() {
-        Tr.call(this);
+        _r.call(this);
       }
       U2._configure = function() {
         U2.alloc = X2._Buffer_allocUnsafe, U2.writeBytesBuffer = X2.Buffer && X2.Buffer.prototype instanceof Uint8Array && X2.Buffer.prototype.set.name === "set" ? function(e, t, n) {
@@ -873,26 +873,26 @@ var init_ipfs_client = __esm({
         var t = e.length >>> 0;
         return this.uint32(t), t && this._push(U2.writeBytesBuffer, t, e), this;
       };
-      function xo(r, e, t) {
+      function So(r, e, t) {
         r.length < 40 ? X2.utf8.write(r, e, t) : e.utf8Write ? e.utf8Write(r, t) : e.write(r, t);
       }
       U2.prototype.string = function(e) {
         var t = X2.Buffer.byteLength(e);
-        return this.uint32(t), t && this._push(xo, t, e), this;
+        return this.uint32(t), t && this._push(So, t, e), this;
       };
       U2._configure();
     });
-    ot = m((ss, Ir) => {
+    nt = m((as, Lr) => {
       "use strict";
-      Ir.exports = g;
-      var P2 = Q(), rt, Cr = P2.LongBits, So = P2.utf8;
+      Lr.exports = g;
+      var P2 = Q(), tt, Ar = P2.LongBits, Eo = P2.utf8;
       function z2(r, e) {
         return RangeError("index out of range: " + r.pos + " + " + (e || 1) + " > " + r.len);
       }
       function g(r) {
         this.buf = r, this.pos = 0, this.len = r.length;
       }
-      var Ar = typeof Uint8Array != "undefined" ? function(e) {
+      var Br = typeof Uint8Array != "undefined" ? function(e) {
         if (e instanceof Uint8Array || Array.isArray(e))
           return new g(e);
         throw Error("illegal buffer");
@@ -900,14 +900,14 @@ var init_ipfs_client = __esm({
         if (Array.isArray(e))
           return new g(e);
         throw Error("illegal buffer");
-      }, Br = function() {
+      }, zr = function() {
         return P2.Buffer ? function(t) {
           return (g.create = function(o2) {
-            return P2.Buffer.isBuffer(o2) ? new rt(o2) : Ar(o2);
+            return P2.Buffer.isBuffer(o2) ? new tt(o2) : Br(o2);
           })(t);
-        } : Ar;
+        } : Br;
       };
-      g.create = Br();
+      g.create = zr();
       g.prototype._slice = P2.Array.prototype.subarray || P2.Array.prototype.slice;
       g.prototype.uint32 = function() {
         var e = 4294967295;
@@ -926,8 +926,8 @@ var init_ipfs_client = __esm({
         var e = this.uint32();
         return e >>> 1 ^ -(e & 1) | 0;
       };
-      function nt() {
-        var r = new Cr(0, 0), e = 0;
+      function rt() {
+        var r = new Ar(0, 0), e = 0;
         if (this.len - this.pos > 4) {
           for (; e < 4; ++e)
             if (r.lo = (r.lo | (this.buf[this.pos] & 127) << e * 7) >>> 0, this.buf[this.pos++] < 128)
@@ -960,23 +960,23 @@ var init_ipfs_client = __esm({
       g.prototype.bool = function() {
         return this.uint32() !== 0;
       };
-      function Ae(r, e) {
+      function Ce(r, e) {
         return (r[e - 4] | r[e - 3] << 8 | r[e - 2] << 16 | r[e - 1] << 24) >>> 0;
       }
       g.prototype.fixed32 = function() {
         if (this.pos + 4 > this.len)
           throw z2(this, 4);
-        return Ae(this.buf, this.pos += 4);
+        return Ce(this.buf, this.pos += 4);
       };
       g.prototype.sfixed32 = function() {
         if (this.pos + 4 > this.len)
           throw z2(this, 4);
-        return Ae(this.buf, this.pos += 4) | 0;
+        return Ce(this.buf, this.pos += 4) | 0;
       };
-      function zr() {
+      function Ir() {
         if (this.pos + 8 > this.len)
           throw z2(this, 8);
-        return new Cr(Ae(this.buf, this.pos += 4), Ae(this.buf, this.pos += 4));
+        return new Ar(Ce(this.buf, this.pos += 4), Ce(this.buf, this.pos += 4));
       }
       g.prototype.float = function() {
         if (this.pos + 4 > this.len)
@@ -998,7 +998,7 @@ var init_ipfs_client = __esm({
       };
       g.prototype.string = function() {
         var e = this.bytes();
-        return So.read(e, 0, e.length);
+        return Eo.read(e, 0, e.length);
       };
       g.prototype.skip = function(e) {
         if (typeof e == "number") {
@@ -1036,32 +1036,32 @@ var init_ipfs_client = __esm({
         return this;
       };
       g._configure = function(r) {
-        rt = r, g.create = Br(), rt._configure();
+        tt = r, g.create = zr(), tt._configure();
         var e = P2.Long ? "toLong" : "toNumber";
         P2.merge(g.prototype, { int64: function() {
-          return nt.call(this)[e](false);
+          return rt.call(this)[e](false);
         }, uint64: function() {
-          return nt.call(this)[e](true);
+          return rt.call(this)[e](true);
         }, sint64: function() {
-          return nt.call(this).zzDecode()[e](false);
+          return rt.call(this).zzDecode()[e](false);
         }, fixed64: function() {
-          return zr.call(this)[e](true);
+          return Ir.call(this)[e](true);
         }, sfixed64: function() {
-          return zr.call(this)[e](false);
+          return Ir.call(this)[e](false);
         } });
       };
     });
-    Fr = m((as, Mr) => {
+    Ur = m((cs, Fr) => {
       "use strict";
-      Mr.exports = ee2;
-      var Lr = ot();
-      (ee2.prototype = Object.create(Lr.prototype)).constructor = ee2;
-      var Nr = Q();
+      Fr.exports = ee2;
+      var Nr = nt();
+      (ee2.prototype = Object.create(Nr.prototype)).constructor = ee2;
+      var Mr = Q();
       function ee2(r) {
-        Lr.call(this, r);
+        Nr.call(this, r);
       }
       ee2._configure = function() {
-        Nr.Buffer && (ee2.prototype._slice = Nr.Buffer.prototype.slice);
+        Mr.Buffer && (ee2.prototype._slice = Mr.Buffer.prototype.slice);
       };
       ee2.prototype.string = function() {
         var e = this.uint32();
@@ -1069,22 +1069,22 @@ var init_ipfs_client = __esm({
       };
       ee2._configure();
     });
-    Pr = m((cs, Ur) => {
+    Rr = m((fs, Pr) => {
       "use strict";
-      Ur.exports = be2;
-      var it = Q();
-      (be2.prototype = Object.create(it.EventEmitter.prototype)).constructor = be2;
+      Pr.exports = be2;
+      var ot = Q();
+      (be2.prototype = Object.create(ot.EventEmitter.prototype)).constructor = be2;
       function be2(r, e, t) {
         if (typeof r != "function")
           throw TypeError("rpcImpl must be a function");
-        it.EventEmitter.call(this), this.rpcImpl = r, this.requestDelimited = Boolean(e), this.responseDelimited = Boolean(t);
+        ot.EventEmitter.call(this), this.rpcImpl = r, this.requestDelimited = Boolean(e), this.responseDelimited = Boolean(t);
       }
       be2.prototype.rpcCall = function r(e, t, n, o2, i) {
         if (!o2)
           throw TypeError("request must be specified");
         var s = this;
         if (!i)
-          return it.asPromise(r, s, e, t, n, o2);
+          return ot.asPromise(r, s, e, t, n, o2);
         if (!s.rpcImpl) {
           setTimeout(function() {
             i(Error("already ended"));
@@ -1118,39 +1118,39 @@ var init_ipfs_client = __esm({
         return this.rpcImpl && (e || this.rpcImpl(null, null, null), this.rpcImpl = null, this.emit("end").off()), this;
       };
     });
-    qr = m((Rr) => {
+    Vr = m((qr) => {
       "use strict";
-      var Eo = Rr;
-      Eo.Service = Pr();
+      var vo = qr;
+      vo.Service = Rr();
     });
-    $r = m((ls, Vr) => {
+    Jr = m((us, $r) => {
       "use strict";
-      Vr.exports = {};
+      $r.exports = {};
     });
-    Wr = m((Hr) => {
+    Gr = m((Wr) => {
       "use strict";
-      var D2 = Hr;
+      var D2 = Wr;
       D2.build = "minimal";
-      D2.Writer = tt();
-      D2.BufferWriter = Or();
-      D2.Reader = ot();
-      D2.BufferReader = Fr();
+      D2.Writer = et();
+      D2.BufferWriter = Cr();
+      D2.Reader = nt();
+      D2.BufferReader = Ur();
       D2.util = Q();
-      D2.rpc = qr();
-      D2.roots = $r();
-      D2.configure = Jr;
-      function Jr() {
+      D2.rpc = Vr();
+      D2.roots = Jr();
+      D2.configure = Hr;
+      function Hr() {
         D2.util._configure(), D2.Writer._configure(D2.BufferWriter), D2.Reader._configure(D2.BufferReader);
       }
-      Jr();
+      Hr();
     });
-    Qr = m((hs, Gr) => {
+    Xr = m((ps, Qr) => {
       "use strict";
-      Gr.exports = Wr();
+      Qr.exports = Gr();
     });
-    en = m((xs, Yr) => {
+    tn = m((Ss, en) => {
       "use strict";
-      function Do(r) {
+      function jo(r) {
         let [e, t] = r[Symbol.asyncIterator] ? [r[Symbol.asyncIterator](), Symbol.asyncIterator] : [r[Symbol.iterator](), Symbol.iterator], n = [];
         return { peek: () => e.next(), push: (o2) => {
           n.push(o2);
@@ -1158,10 +1158,10 @@ var init_ipfs_client = __esm({
           return this;
         } };
       }
-      Yr.exports = Do;
+      en.exports = jo;
     });
-    Yo = re(Tt());
-    _t = (r) => {
+    ei = re(kt());
+    Tt = (r) => {
       let { name: e, message: t, stack: n, code: o2, detail: i } = r;
       return { name: e, message: t, stack: n, code: o2, detail: i };
     }, ne = (r) => {
@@ -1169,9 +1169,9 @@ var init_ipfs_client = __esm({
         return r;
       {
         let { name: e, message: t, stack: n, code: o2 } = r;
-        return Object.assign(Sn(e, t), { name: e, stack: n, code: o2 });
+        return Object.assign(En(e, t), { name: e, stack: n, code: o2 });
       }
-    }, Sn = (r, e) => {
+    }, En = (r, e) => {
       switch (r) {
         case "RangeError":
           return new RangeError(e);
@@ -1187,15 +1187,15 @@ var init_ipfs_client = __esm({
           return new Error(e);
       }
     };
-    Ne = class extends Error {
+    Le = class extends Error {
+      get name() {
+        return this.constructor.name;
+      }
+    }, Ne = class extends Error {
       get name() {
         return this.constructor.name;
       }
     }, Me = class extends Error {
-      get name() {
-        return this.constructor.name;
-      }
-    }, Fe = class extends Error {
       get name() {
         return this.constructor.name;
       }
@@ -1216,18 +1216,18 @@ var init_ipfs_client = __esm({
           H.postQuery(e, t, n);
       }
       disconnect() {
-        let e = new Fe();
+        let e = new Me();
         for (let [t, n] of Object.entries(this.queries))
           n.fail(e), this.abort(t);
         this.port && (this.port.removeEventListener("message", this), this.port.close());
       }
       static timeout(e, t) {
         let { queries: n } = e, o2 = n[t];
-        o2 && (delete n[t], o2.fail(new Ne("request timed out")), e.port && e.port.postMessage({ type: "abort", id: t }));
+        o2 && (delete n[t], o2.fail(new Le("request timed out")), e.port && e.port.postMessage({ type: "abort", id: t }));
       }
       abort(e) {
         let { queries: t } = this, n = t[e];
-        n && (delete t[e], n.fail(new Me()), this.port && this.port.postMessage({ type: "abort", id: e }), n.timerID != null && clearTimeout(n.timerID));
+        n && (delete t[e], n.fail(new Ne()), this.port && this.port.postMessage({ type: "abort", id: e }), n.timerID != null && clearTimeout(n.timerID));
       }
       static postQuery(e, t, n) {
         e.postMessage({ type: "query", namespace: n.namespace, method: n.method, id: t, input: n.toJSON() }, n.transfer());
@@ -1237,7 +1237,7 @@ var init_ipfs_client = __esm({
         o2 && (delete this.queries[t], n.ok ? o2.succeed(n.value) : o2.fail(ne(n.error)), o2.timerID != null && clearTimeout(o2.timerID));
       }
     };
-    Ue = class {
+    Fe = class {
       constructor(e, t, n) {
         this.result = new Promise((o2, i) => {
           this.succeed = o2, this.fail = i, this.signal = n.signal, this.input = n, this.namespace = e, this.method = t, this.timeout = n.timeout == null ? 1 / 0 : n.timeout, this.timerID = null;
@@ -1250,27 +1250,27 @@ var init_ipfs_client = __esm({
         return this.input.transfer;
       }
     };
-    Pe = class {
+    Ue = class {
       constructor(e, t, n) {
         this.transport = n;
         let o2 = this;
         for (let i of t)
-          o2[i] = (s) => this.transport.execute(new Ue(e, i.toString(), s));
+          o2[i] = (s) => this.transport.execute(new Fe(e, i.toString(), s));
       }
     };
     q = class {
       constructor(e, t, n) {
-        this.remote = new Pe(e, t, n);
+        this.remote = new Ue(e, t, n);
       }
     };
-    En = Ct, Ot = 128, vn = 127, Dn = ~vn, jn = Math.pow(2, 31);
-    kn = Re, Tn = 128, At = 127;
-    _n = Math.pow(2, 7), On = Math.pow(2, 14), Cn = Math.pow(2, 21), An = Math.pow(2, 28), Bn = Math.pow(2, 35), zn = Math.pow(2, 42), In = Math.pow(2, 49), Ln = Math.pow(2, 56), Nn = Math.pow(2, 63), Mn = function(r) {
-      return r < _n ? 1 : r < On ? 2 : r < Cn ? 3 : r < An ? 4 : r < Bn ? 5 : r < zn ? 6 : r < In ? 7 : r < Ln ? 8 : r < Nn ? 9 : 10;
-    }, Fn = { encode: En, decode: kn, encodingLength: Mn }, Un = Fn, ue = Un;
+    vn = Ot, _t = 128, Dn = 127, jn = ~Dn, kn = Math.pow(2, 31);
+    Tn = Pe, _n = 128, Ct = 127;
+    On = Math.pow(2, 7), Cn = Math.pow(2, 14), An = Math.pow(2, 21), Bn = Math.pow(2, 28), zn = Math.pow(2, 35), In = Math.pow(2, 42), Ln = Math.pow(2, 49), Nn = Math.pow(2, 56), Mn = Math.pow(2, 63), Fn = function(r) {
+      return r < On ? 1 : r < Cn ? 2 : r < An ? 3 : r < Bn ? 4 : r < zn ? 5 : r < In ? 6 : r < Ln ? 7 : r < Nn ? 8 : r < Mn ? 9 : 10;
+    }, Un = { encode: vn, decode: Tn, encodingLength: Fn }, Pn = Un, ue = Pn;
     he = (r) => [ue.decode(r), ue.decode.bytes], oe = (r, e, t = 0) => (ue.encode(r, e, t), e), ie = (r) => ue.encodingLength(r);
-    mi = new Uint8Array(0);
-    zt = (r, e) => {
+    bi = new Uint8Array(0);
+    Bt = (r, e) => {
       if (r === e)
         return true;
       if (r.byteLength !== e.byteLength)
@@ -1288,24 +1288,24 @@ var init_ipfs_client = __esm({
         return new Uint8Array(r.buffer, r.byteOffset, r.byteLength);
       throw new Error("Unknown type, must be binary type");
     };
-    It = (r) => new TextEncoder().encode(r), Lt = (r) => new TextDecoder().decode(r);
+    zt = (r) => new TextEncoder().encode(r), It = (r) => new TextDecoder().decode(r);
     Ee = (r, e) => {
       let t = e.byteLength, n = ie(r), o2 = n + ie(t), i = new Uint8Array(o2 + t);
       return oe(r, i, 0), oe(t, i, n), i.set(e, o2), new pe(r, t, e, i);
-    }, Mt = (r) => {
+    }, Nt = (r) => {
       let e = V(r), [t, n] = he(e), [o2, i] = he(e.subarray(n)), s = e.subarray(n + i);
       if (s.byteLength !== o2)
         throw new Error("Incorrect length");
       return new pe(t, o2, s, e);
-    }, Ft = (r, e) => r === e ? true : r.code === e.code && r.size === e.size && zt(r.bytes, e.bytes), pe = class {
+    }, Mt = (r, e) => r === e ? true : r.code === e.code && r.size === e.size && Bt(r.bytes, e.bytes), pe = class {
       constructor(e, t, n, o2) {
         this.code = e, this.size = t, this.digest = n, this.bytes = o2;
       }
     };
-    qe = {};
-    A(qe, { base58btc: () => M, base58flickr: () => Jn });
-    Rn = Pn, qn = Rn, Pt = qn;
-    Rt = class {
+    Re = {};
+    A(Re, { base58btc: () => M, base58flickr: () => Hn });
+    qn = Rn, Vn = qn, Ut = Vn;
+    Pt = class {
       constructor(e, t, n) {
         this.name = e, this.prefix = t, this.baseEncode = n;
       }
@@ -1314,7 +1314,7 @@ var init_ipfs_client = __esm({
           return `${this.prefix}${this.baseEncode(e)}`;
         throw Error("Unknown type, must be binary type");
       }
-    }, qt = class {
+    }, Rt = class {
       constructor(e, t, n) {
         this.name = e, this.prefix = t, this.baseDecode = n;
       }
@@ -1330,16 +1330,14 @@ var init_ipfs_client = __esm({
           throw Error("Can only multibase decode strings");
       }
       or(e) {
-        let t = { [this.prefix]: this, ...e.decoders || { [e.prefix]: e } };
-        return new ve(t);
+        return Vt(this, e);
       }
-    }, ve = class {
+    }, qt = class {
       constructor(e) {
         this.decoders = e;
       }
       or(e) {
-        let t = e.decoders || { [e.prefix]: e };
-        return new ve({ ...this.decoders, ...t });
+        return Vt(this, e);
       }
       decode(e) {
         let t = e[0], n = this.decoders[t];
@@ -1347,9 +1345,9 @@ var init_ipfs_client = __esm({
           return n.decode(e);
         throw RangeError(`Unable to decode multibase string ${JSON.stringify(e)}, only inputs prefixed with ${Object.keys(this.decoders)} are supported`);
       }
-    }, Vt = class {
+    }, Vt = (r, e) => new qt({ ...r.decoders || { [r.prefix]: r }, ...e.decoders || { [e.prefix]: e } }), $t = class {
       constructor(e, t, n, o2) {
-        this.name = e, this.prefix = t, this.baseEncode = n, this.baseDecode = o2, this.encoder = new Rt(e, t, n), this.decoder = new qt(e, t, o2);
+        this.name = e, this.prefix = t, this.baseEncode = n, this.baseDecode = o2, this.encoder = new Pt(e, t, n), this.decoder = new Rt(e, t, o2);
       }
       encode(e) {
         return this.encoder.encode(e);
@@ -1357,10 +1355,10 @@ var init_ipfs_client = __esm({
       decode(e) {
         return this.decoder.decode(e);
       }
-    }, De = ({ name: r, prefix: e, encode: t, decode: n }) => new Vt(r, e, t, n), W = ({ prefix: r, name: e, alphabet: t }) => {
-      let { encode: n, decode: o2 } = Pt(t, e);
-      return De({ prefix: r, name: e, encode: n, decode: (i) => V(o2(i)) });
-    }, Vn = (r, e, t, n) => {
+    }, ve = ({ name: r, prefix: e, encode: t, decode: n }) => new $t(r, e, t, n), W = ({ prefix: r, name: e, alphabet: t }) => {
+      let { encode: n, decode: o2 } = Ut(t, e);
+      return ve({ prefix: r, name: e, encode: n, decode: (i) => V(o2(i)) });
+    }, $n = (r, e, t, n) => {
       let o2 = {};
       for (let l = 0; l < e.length; ++l)
         o2[e[l]] = l;
@@ -1377,7 +1375,7 @@ var init_ipfs_client = __esm({
       if (f >= t || 255 & a << 8 - f)
         throw new SyntaxError("Unexpected end of data");
       return s;
-    }, $n = (r, e, t) => {
+    }, Jn = (r, e, t) => {
       let n = e[e.length - 1] === "=", o2 = (1 << t) - 1, i = "", s = 0, f = 0;
       for (let a = 0; a < r.length; ++a)
         for (f = f << 8 | r[a], s += 8; s > t; )
@@ -1386,18 +1384,18 @@ var init_ipfs_client = __esm({
         for (; i.length * t & 7; )
           i += "=";
       return i;
-    }, b = ({ name: r, prefix: e, bitsPerChar: t, alphabet: n }) => De({ prefix: e, name: r, encode(o2) {
-      return $n(o2, n, t);
+    }, b = ({ name: r, prefix: e, bitsPerChar: t, alphabet: n }) => ve({ prefix: e, name: r, encode(o2) {
+      return Jn(o2, n, t);
     }, decode(o2) {
-      return Vn(o2, n, t, r);
+      return $n(o2, n, t, r);
     } });
-    M = W({ name: "base58btc", prefix: "z", alphabet: "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz" }), Jn = W({ name: "base58flickr", prefix: "Z", alphabet: "123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ" });
-    Ve = {};
-    A(Ve, { base32: () => se, base32hex: () => Qn, base32hexpad: () => Zn, base32hexpadupper: () => Kn, base32hexupper: () => Xn, base32pad: () => Wn, base32padupper: () => Gn, base32upper: () => Hn, base32z: () => Yn });
-    se = b({ prefix: "b", name: "base32", alphabet: "abcdefghijklmnopqrstuvwxyz234567", bitsPerChar: 5 }), Hn = b({ prefix: "B", name: "base32upper", alphabet: "ABCDEFGHIJKLMNOPQRSTUVWXYZ234567", bitsPerChar: 5 }), Wn = b({ prefix: "c", name: "base32pad", alphabet: "abcdefghijklmnopqrstuvwxyz234567=", bitsPerChar: 5 }), Gn = b({ prefix: "C", name: "base32padupper", alphabet: "ABCDEFGHIJKLMNOPQRSTUVWXYZ234567=", bitsPerChar: 5 }), Qn = b({ prefix: "v", name: "base32hex", alphabet: "0123456789abcdefghijklmnopqrstuv", bitsPerChar: 5 }), Xn = b({ prefix: "V", name: "base32hexupper", alphabet: "0123456789ABCDEFGHIJKLMNOPQRSTUV", bitsPerChar: 5 }), Zn = b({ prefix: "t", name: "base32hexpad", alphabet: "0123456789abcdefghijklmnopqrstuv=", bitsPerChar: 5 }), Kn = b({ prefix: "T", name: "base32hexpadupper", alphabet: "0123456789ABCDEFGHIJKLMNOPQRSTUV=", bitsPerChar: 5 }), Yn = b({ prefix: "h", name: "base32z", alphabet: "ybndrfg8ejkmcpqxot1uwisza345h769", bitsPerChar: 5 });
+    M = W({ name: "base58btc", prefix: "z", alphabet: "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz" }), Hn = W({ name: "base58flickr", prefix: "Z", alphabet: "123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ" });
+    qe = {};
+    A(qe, { base32: () => se, base32hex: () => Xn, base32hexpad: () => Kn, base32hexpadupper: () => Yn, base32hexupper: () => Zn, base32pad: () => Gn, base32padupper: () => Qn, base32upper: () => Wn, base32z: () => eo });
+    se = b({ prefix: "b", name: "base32", alphabet: "abcdefghijklmnopqrstuvwxyz234567", bitsPerChar: 5 }), Wn = b({ prefix: "B", name: "base32upper", alphabet: "ABCDEFGHIJKLMNOPQRSTUVWXYZ234567", bitsPerChar: 5 }), Gn = b({ prefix: "c", name: "base32pad", alphabet: "abcdefghijklmnopqrstuvwxyz234567=", bitsPerChar: 5 }), Qn = b({ prefix: "C", name: "base32padupper", alphabet: "ABCDEFGHIJKLMNOPQRSTUVWXYZ234567=", bitsPerChar: 5 }), Xn = b({ prefix: "v", name: "base32hex", alphabet: "0123456789abcdefghijklmnopqrstuv", bitsPerChar: 5 }), Zn = b({ prefix: "V", name: "base32hexupper", alphabet: "0123456789ABCDEFGHIJKLMNOPQRSTUV", bitsPerChar: 5 }), Kn = b({ prefix: "t", name: "base32hexpad", alphabet: "0123456789abcdefghijklmnopqrstuv=", bitsPerChar: 5 }), Yn = b({ prefix: "T", name: "base32hexpadupper", alphabet: "0123456789ABCDEFGHIJKLMNOPQRSTUV=", bitsPerChar: 5 }), eo = b({ prefix: "h", name: "base32z", alphabet: "ybndrfg8ejkmcpqxot1uwisza345h769", bitsPerChar: 5 });
     d = class {
       constructor(e, t, n, o2) {
-        this.code = t, this.version = e, this.multihash = n, this.bytes = o2, this.byteOffset = o2.byteOffset, this.byteLength = o2.byteLength, this.asCID = this, this._baseCache = new Map(), Object.defineProperties(this, { byteOffset: ke, byteLength: ke, code: je, version: je, multihash: je, bytes: je, _baseCache: ke, asCID: ke });
+        this.code = t, this.version = e, this.multihash = n, this.bytes = o2, this.byteOffset = o2.byteOffset, this.byteLength = o2.byteLength, this.asCID = this, this._baseCache = new Map(), Object.defineProperties(this, { byteOffset: je, byteLength: je, code: De, version: De, multihash: De, bytes: De, _baseCache: je, asCID: je });
       }
       toV0() {
         switch (this.version) {
@@ -1407,7 +1405,7 @@ var init_ipfs_client = __esm({
             let { code: e, multihash: t } = this;
             if (e !== de)
               throw new Error("Cannot convert a non dag-pb CID to CIDv0");
-            if (t.code !== no)
+            if (t.code !== oo)
               throw new Error("Cannot convert non sha2-256 multihash CID to CIDv0");
             return d.createV0(t);
           }
@@ -1426,15 +1424,15 @@ var init_ipfs_client = __esm({
         }
       }
       equals(e) {
-        return e && this.code === e.code && this.version === e.version && Ft(this.multihash, e.multihash);
+        return e && this.code === e.code && this.version === e.version && Mt(this.multihash, e.multihash);
       }
       toString(e) {
         let { bytes: t, version: n, _baseCache: o2 } = this;
         switch (n) {
           case 0:
-            return to(t, o2, e || M.encoder);
+            return ro(t, o2, e || M.encoder);
           default:
-            return ro(t, o2, e || se.encoder);
+            return no(t, o2, e || se.encoder);
         }
       }
       toJSON() {
@@ -1447,7 +1445,7 @@ var init_ipfs_client = __esm({
         return "CID(" + this.toString() + ")";
       }
       static isCID(e) {
-        return io(/^0\.0/, so), !!(e && (e[Jt] || e.asCID === e));
+        return so(/^0\.0/, ao), !!(e && (e[Ht] || e.asCID === e));
       }
       get toBaseEncodedString() {
         throw new Error("Deprecated, use .toString()");
@@ -1469,9 +1467,9 @@ var init_ipfs_client = __esm({
           return e;
         if (e != null && e.asCID === e) {
           let { version: t, code: n, multihash: o2, bytes: i } = e;
-          return new d(t, n, o2, i || $t(t, n, o2.bytes));
-        } else if (e != null && e[Jt] === true) {
-          let { version: t, multihash: n, code: o2 } = e, i = Mt(n);
+          return new d(t, n, o2, i || Jt(t, n, o2.bytes));
+        } else if (e != null && e[Ht] === true) {
+          let { version: t, multihash: n, code: o2 } = e, i = Nt(n);
           return d.create(t, o2, i);
         } else
           return null;
@@ -1486,7 +1484,7 @@ var init_ipfs_client = __esm({
             return new d(e, t, n, n.bytes);
           }
           case 1: {
-            let o2 = $t(e, t, n.bytes);
+            let o2 = Jt(e, t, n.bytes);
             return new d(e, t, n, o2);
           }
           default:
@@ -1523,10 +1521,10 @@ var init_ipfs_client = __esm({
         return { version: o2, codec: i, multihashCode: f, digestSize: a, multihashSize: l, size: c2 };
       }
       static parse(e, t) {
-        let [n, o2] = eo(e, t), i = d.decode(o2);
+        let [n, o2] = to(e, t), i = d.decode(o2);
         return i._baseCache.set(n, e), i;
       }
-    }, eo = (r, e) => {
+    }, to = (r, e) => {
       switch (r[0]) {
         case "Q": {
           let t = e || M;
@@ -1546,7 +1544,7 @@ var init_ipfs_client = __esm({
           return [r[0], e.decode(r)];
         }
       }
-    }, to = (r, e, t) => {
+    }, ro = (r, e, t) => {
       let { prefix: n } = t;
       if (n !== M.prefix)
         throw Error(`Cannot string encode V0 in ${t.name} encoding`);
@@ -1556,22 +1554,22 @@ var init_ipfs_client = __esm({
         return e.set(n, i), i;
       } else
         return o2;
-    }, ro = (r, e, t) => {
+    }, no = (r, e, t) => {
       let { prefix: n } = t, o2 = e.get(n);
       if (o2 == null) {
         let i = t.encode(r);
         return e.set(n, i), i;
       } else
         return o2;
-    }, de = 112, no = 18, $t = (r, e, t) => {
+    }, de = 112, oo = 18, Jt = (r, e, t) => {
       let n = ie(r), o2 = n + ie(e), i = new Uint8Array(o2 + t.byteLength);
       return oe(r, i, 0), oe(e, i, n), i.set(t, o2), i;
-    }, Jt = Symbol.for("@ipld/js-cid/CID"), je = { writable: false, configurable: false, enumerable: true }, ke = { writable: false, enumerable: false, configurable: false }, oo = "0.0.0-dev", io = (r, e) => {
-      if (r.test(oo))
+    }, Ht = Symbol.for("@ipld/js-cid/CID"), De = { writable: false, configurable: false, enumerable: true }, je = { writable: false, enumerable: false, configurable: false }, io = "0.0.0-dev", so = (r, e) => {
+      if (r.test(io))
         console.warn(e);
       else
         throw new Error(e);
-    }, so = `CID.isCID(v) is deprecated and will be removed in the next major release.
+    }, ao = `CID.isCID(v) is deprecated and will be removed in the next major release.
 Following code pattern:
 
 if (CID.isCID(value)) {
@@ -1590,7 +1588,7 @@ if (cid) {
       let e = r;
       return e._baseCache || Object.defineProperty(e, "_baseCache", { value: new Map() }), e.asCID || Object.defineProperty(e, "asCID", { get: () => e }), Object.setPrototypeOf(e.multihash.digest, Uint8Array.prototype), Object.setPrototypeOf(e.multihash.bytes, Uint8Array.prototype), Object.setPrototypeOf(e.bytes, Uint8Array.prototype), Object.setPrototypeOf(e, d.prototype), Object.defineProperty(e, Symbol.for("@ipld/js-cid/CID"), { value: true }), e;
     };
-    Ht = (r, e) => (e && e.add(r.buffer), r);
+    Wt = (r, e) => (e && e.add(r.buffer), r);
     K = class extends q {
       constructor(e) {
         super("block", ["put", "get", "rm", "stat"], e);
@@ -1603,29 +1601,29 @@ if (cid) {
     K.prototype.put = async function(e, t = {}) {
       let { transfer: n } = t;
       delete t.progress;
-      let o2 = await this.remote.put({ ...t, block: e instanceof Uint8Array ? e : Ht(e, n) });
+      let o2 = await this.remote.put({ ...t, block: e instanceof Uint8Array ? e : Wt(e, n) });
       return v(o2.cid);
     };
     K.prototype.rm = async function* (e, t = {}) {
       let { transfer: n } = t;
-      yield* (await this.remote.rm({ ...t, cids: Array.isArray(e) ? e.map((i) => j(i, n)) : [j(e, n)] })).map(ao);
+      yield* (await this.remote.rm({ ...t, cids: Array.isArray(e) ? e.map((i) => j(i, n)) : [j(e, n)] })).map(co);
     };
     K.prototype.stat = async function(e, t = {}) {
       let { transfer: n } = t, o2 = await this.remote.stat({ ...t, cid: j(e, n) });
       return { ...o2, cid: v(o2.cid) };
     };
-    ao = (r) => {
+    co = (r) => {
       let e = v(r.cid);
       return r.error ? { cid: e, error: ne(r.error) } : { cid: e };
     };
-    Wt = ({ dagNode: r, cids: e }) => {
+    Gt = ({ dagNode: r, cids: e }) => {
       for (let t of e)
         v(t);
       return r;
-    }, Gt = (r, e) => {
+    }, Qt = (r, e) => {
       let t = [];
-      return $e(r, t, e), { dagNode: r, cids: t };
-    }, $e = (r, e, t) => {
+      return Ve(r, t, e), { dagNode: r, cids: t };
+    }, Ve = (r, e, t) => {
       if (r != null && typeof r == "object") {
         let n = d.asCID(r);
         if (n)
@@ -1636,10 +1634,10 @@ if (cid) {
           t && t.add(r.buffer);
         else if (Array.isArray(r))
           for (let o2 of r)
-            $e(o2, e, t);
+            Ve(o2, e, t);
         else
           for (let o2 of Object.values(r))
-            $e(o2, e, t);
+            Ve(o2, e, t);
       }
     };
     ae = class extends q {
@@ -1648,19 +1646,19 @@ if (cid) {
       }
     };
     ae.prototype.put = async function(e, t = {}) {
-      let n = await this.remote.put({ ...t, dagNode: Gt(e, t.transfer) });
+      let n = await this.remote.put({ ...t, dagNode: Qt(e, t.transfer) });
       return v(n);
     };
     ae.prototype.get = async function(e, t = {}) {
       let { value: n, remainderPath: o2 } = await this.remote.get({ ...t, cid: j(e, t.transfer) });
-      return { value: Wt(n), remainderPath: o2 };
+      return { value: Gt(n), remainderPath: o2 };
     };
     ae.prototype.resolve = async function(e, t = {}) {
-      let { cid: n, remainderPath: o2 } = await this.remote.resolve({ ...t, cid: co(e, t.transfer) });
+      let { cid: n, remainderPath: o2 } = await this.remote.resolve({ ...t, cid: fo(e, t.transfer) });
       return { cid: v(n), remainderPath: o2 };
     };
-    co = (r, e) => typeof r == "string" ? r : j(r, e);
-    Te = async function* ({ port: r }, e) {
+    fo = (r, e) => typeof r == "string" ? r : j(r, e);
+    ke = async function* ({ port: r }, e) {
       let t = (s) => {
       }, n = () => new Promise((s) => t = s), o2 = () => (r.postMessage({ method: "next" }), n());
       r.onmessage = (s) => t(s.data);
@@ -1676,7 +1674,7 @@ if (cid) {
         i || r.postMessage({ method: "return" }), r.close();
       }
     }, F = (r, e, t) => {
-      let { port1: n, port2: o2 } = new MessageChannel(), i = fo(r), s = new Set();
+      let { port1: n, port2: o2 } = new MessageChannel(), i = lo(r), s = new Set();
       return n.onmessage = async ({ data: { method: f } }) => {
         switch (f) {
           case "next": {
@@ -1687,10 +1685,10 @@ if (cid) {
               else {
                 s.clear();
                 let l = e(c2, s);
-                lo(n, { type: "next", done: false, value: l }, s);
+                uo(n, { type: "next", done: false, value: l }, s);
               }
             } catch (a) {
-              n.postMessage({ type: "throw", error: _t(a) }), n.close();
+              n.postMessage({ type: "throw", error: Tt(a) }), n.close();
             }
             break;
           }
@@ -1702,7 +1700,7 @@ if (cid) {
             break;
         }
       }, n.start(), t.add(o2), { type: "RemoteIterable", port: o2 };
-    }, fo = (r) => {
+    }, lo = (r) => {
       if (r != null) {
         if (typeof r[Symbol.asyncIterator] == "function")
           return r[Symbol.asyncIterator]();
@@ -1710,21 +1708,21 @@ if (cid) {
           return r[Symbol.iterator]();
       }
       throw TypeError("Value must be async or sync iterable");
-    }, Je = (r, e) => {
+    }, $e = (r, e) => {
       let { port1: t, port2: n } = new MessageChannel();
       return t.onmessage = ({ data: o2 }) => r.apply(null, o2), e.add(n), { type: "RemoteCallback", port: n };
     };
-    lo = (r, e, t) => r.postMessage(e, t);
-    Be = re(Xt());
-    Xr = re(He());
-    $ = re(Qr()), fe = $.default.Reader, st = $.default.Writer, h = $.default.util, S = $.default.roots["ipfs-unixfs"] || ($.default.roots["ipfs-unixfs"] = {}), vo = S.Data = (() => {
+    uo = (r, e, t) => r.postMessage(e, t);
+    Ae = re(Zt());
+    Zr = re(Je());
+    $ = re(Xr()), fe = $.default.Reader, it = $.default.Writer, h = $.default.util, S = $.default.roots["ipfs-unixfs"] || ($.default.roots["ipfs-unixfs"] = {}), Do = S.Data = (() => {
       function r(e) {
         if (this.blocksizes = [], e)
           for (var t = Object.keys(e), n = 0; n < t.length; ++n)
             e[t[n]] != null && (this[t[n]] = e[t[n]]);
       }
       return r.prototype.Type = 0, r.prototype.Data = h.newBuffer([]), r.prototype.filesize = h.Long ? h.Long.fromBits(0, 0, true) : 0, r.prototype.blocksizes = h.emptyArray, r.prototype.hashType = h.Long ? h.Long.fromBits(0, 0, true) : 0, r.prototype.fanout = h.Long ? h.Long.fromBits(0, 0, true) : 0, r.prototype.mode = 0, r.prototype.mtime = null, r.encode = function(t, n) {
-        if (n || (n = st.create()), n.uint32(8).int32(t.Type), t.Data != null && Object.hasOwnProperty.call(t, "Data") && n.uint32(18).bytes(t.Data), t.filesize != null && Object.hasOwnProperty.call(t, "filesize") && n.uint32(24).uint64(t.filesize), t.blocksizes != null && t.blocksizes.length)
+        if (n || (n = it.create()), n.uint32(8).int32(t.Type), t.Data != null && Object.hasOwnProperty.call(t, "Data") && n.uint32(18).bytes(t.Data), t.filesize != null && Object.hasOwnProperty.call(t, "filesize") && n.uint32(24).uint64(t.filesize), t.blocksizes != null && t.blocksizes.length)
           for (var o2 = 0; o2 < t.blocksizes.length; ++o2)
             n.uint32(32).uint64(t.blocksizes[o2]);
         return t.hashType != null && Object.hasOwnProperty.call(t, "hashType") && n.uint32(40).uint64(t.hashType), t.fanout != null && Object.hasOwnProperty.call(t, "fanout") && n.uint32(48).uint64(t.fanout), t.mode != null && Object.hasOwnProperty.call(t, "mode") && n.uint32(56).uint32(t.mode), t.mtime != null && Object.hasOwnProperty.call(t, "mtime") && S.UnixTime.encode(t.mtime, n.uint32(66).fork()).ldelim(), n;
@@ -1845,14 +1843,14 @@ if (cid) {
         let e = {}, t = Object.create(e);
         return t[e[0] = "Raw"] = 0, t[e[1] = "Directory"] = 1, t[e[2] = "File"] = 2, t[e[3] = "Metadata"] = 3, t[e[4] = "Symlink"] = 4, t[e[5] = "HAMTShard"] = 5, t;
       }(), r;
-    })(), ps = S.UnixTime = (() => {
+    })(), ds = S.UnixTime = (() => {
       function r(e) {
         if (e)
           for (var t = Object.keys(e), n = 0; n < t.length; ++n)
             e[t[n]] != null && (this[t[n]] = e[t[n]]);
       }
       return r.prototype.Seconds = h.Long ? h.Long.fromBits(0, 0, false) : 0, r.prototype.FractionalNanoseconds = 0, r.encode = function(t, n) {
-        return n || (n = st.create()), n.uint32(8).int64(t.Seconds), t.FractionalNanoseconds != null && Object.hasOwnProperty.call(t, "FractionalNanoseconds") && n.uint32(21).fixed32(t.FractionalNanoseconds), n;
+        return n || (n = it.create()), n.uint32(8).int64(t.Seconds), t.FractionalNanoseconds != null && Object.hasOwnProperty.call(t, "FractionalNanoseconds") && n.uint32(21).fixed32(t.FractionalNanoseconds), n;
       }, r.decode = function(t, n) {
         t instanceof fe || (t = fe.create(t));
         for (var o2 = n === void 0 ? t.len : t.pos + n, i = new S.UnixTime(); t.pos < o2; ) {
@@ -1892,14 +1890,14 @@ if (cid) {
       }, r.prototype.toJSON = function() {
         return this.constructor.toObject(this, $.default.util.toJSONOptions);
       }, r;
-    })(), ds = S.Metadata = (() => {
+    })(), ys = S.Metadata = (() => {
       function r(e) {
         if (e)
           for (var t = Object.keys(e), n = 0; n < t.length; ++n)
             e[t[n]] != null && (this[t[n]] = e[t[n]]);
       }
       return r.prototype.MimeType = "", r.encode = function(t, n) {
-        return n || (n = st.create()), t.MimeType != null && Object.hasOwnProperty.call(t, "MimeType") && n.uint32(10).string(t.MimeType), n;
+        return n || (n = it.create()), t.MimeType != null && Object.hasOwnProperty.call(t, "MimeType") && n.uint32(10).string(t.MimeType), n;
       }, r.decode = function(t, n) {
         t instanceof fe || (t = fe.create(t));
         for (var o2 = n === void 0 ? t.len : t.pos + n, i = new S.Metadata(); t.pos < o2; ) {
@@ -1927,29 +1925,29 @@ if (cid) {
         return this.constructor.toObject(this, $.default.util.toJSONOptions);
       }, r;
     })();
-    bs = parseInt("0644", 8), gs = parseInt("0755", 8);
-    tn = re(en()), rn = re(He()), te = class extends q {
+    gs = parseInt("0644", 8), ws = parseInt("0755", 8);
+    rn = re(tn()), nn = re(Je()), te = class extends q {
       constructor(e) {
         super("core", ["add", "addAll", "cat", "ls"], e);
       }
     };
     te.prototype.addAll = async function* (e, t = {}) {
-      let { timeout: n, signal: o2 } = t, i = t.transfer || new Set(), s = t.progress ? Je(t.progress, i) : void 0, f = await this.remote.addAll({ ...t, input: _o(e, i), progress: void 0, progressCallback: s, transfer: i, timeout: n, signal: o2 });
-      yield* Te(f.data, nn);
+      let { timeout: n, signal: o2 } = t, i = t.transfer || new Set(), s = t.progress ? $e(t.progress, i) : void 0, f = await this.remote.addAll({ ...t, input: Oo(e, i), progress: void 0, progressCallback: s, transfer: i, timeout: n, signal: o2 });
+      yield* ke(f.data, on);
     };
     te.prototype.add = async function(e, t = {}) {
-      let { timeout: n, signal: o2 } = t, i = t.transfer || new Set(), s = t.progress ? Je(t.progress, i) : void 0, f = await this.remote.add({ ...t, input: await To(e, i), progress: void 0, progressCallback: s, transfer: i, timeout: n, signal: o2 });
-      return nn(f.data);
+      let { timeout: n, signal: o2 } = t, i = t.transfer || new Set(), s = t.progress ? $e(t.progress, i) : void 0, f = await this.remote.add({ ...t, input: await _o(e, i), progress: void 0, progressCallback: s, transfer: i, timeout: n, signal: o2 });
+      return on(f.data);
     };
     te.prototype.cat = async function* (e, t = {}) {
       let n = d.asCID(e), o2 = n ? j(n) : e, i = await this.remote.cat({ ...t, path: o2 });
-      yield* Te(i.data, ko);
+      yield* ke(i.data, To);
     };
     te.prototype.ls = async function* (e, t = {}) {
       let n = d.asCID(e), o2 = n ? j(n) : e, i = await this.remote.ls({ ...t, path: o2 });
-      yield* Te(i.data, jo);
+      yield* ke(i.data, ko);
     };
-    nn = ({ path: r, cid: e, mode: t, mtime: n, size: o2 }) => ({ path: r, cid: v(e), mode: t, mtime: n, size: o2 }), jo = ({ name: r, path: e, size: t, cid: n, type: o2, mode: i, mtime: s }) => ({ cid: v(n), type: o2, name: r, path: e, mode: i, mtime: s, size: t }), ko = (r) => r, To = async (r, e) => {
+    on = ({ path: r, cid: e, mode: t, mtime: n, size: o2 }) => ({ path: r, cid: v(e), mode: t, mtime: n, size: o2 }), ko = ({ name: r, path: e, size: t, cid: n, type: o2, mode: i, mtime: s }) => ({ cid: v(n), type: o2, name: r, path: e, mode: i, mtime: s, size: t }), To = (r) => r, _o = async (r, e) => {
       if (r instanceof Blob)
         return r;
       if (typeof r == "string")
@@ -1959,30 +1957,30 @@ if (cid) {
       if (ArrayBuffer.isView(r))
         return r;
       {
-        let t = ft(r);
+        let t = ct(r);
         if (t)
-          return F(await pt(t), at, e);
-        let n = lt(r);
+          return F(await ht(t), st, e);
+        let n = ft(r);
         if (n)
-          return F(await pt(n), le, e);
-        let o2 = ut(r);
+          return F(await ht(n), le, e);
+        let o2 = lt(r);
         if (o2)
-          return F(await pt((0, Be.default)(o2)), le, e);
-        let i = ht(r);
+          return F(await ht((0, Ae.default)(o2)), le, e);
+        let i = ut(r);
         if (i)
-          return ct(i, e);
+          return at(i, e);
         throw TypeError("Unexpected input: " + typeof r);
       }
-    }, _o = (r, e) => {
-      let t = ft(r);
+    }, Oo = (r, e) => {
+      let t = ct(r);
       if (t)
-        return F(t, at, e);
-      let n = lt(r);
+        return F(t, st, e);
+      let n = ft(r);
       if (n)
         return F(n, le, e);
-      let o2 = ut(r);
+      let o2 = lt(r);
       if (o2)
-        return F((0, Be.default)(o2), le, e);
+        return F((0, Ae.default)(o2), le, e);
       throw TypeError("Unexpected input: " + typeof r);
     }, le = (r, e) => {
       if (r instanceof ArrayBuffer)
@@ -1994,12 +1992,12 @@ if (cid) {
       if (typeof r == "string")
         return { path: "", content: r };
       {
-        let t = ht(r);
+        let t = ut(r);
         if (t)
-          return ct(t, e);
+          return at(t, e);
         throw TypeError("Unexpected input: " + typeof r);
       }
-    }, at = (r, e) => {
+    }, st = (r, e) => {
       if (typeof r == "number")
         throw TypeError("Iterable of numbers is not supported");
       if (r instanceof ArrayBuffer)
@@ -2011,15 +2009,15 @@ if (cid) {
       if (typeof r == "string")
         return { path: "", content: r };
       {
-        let t = ht(r);
+        let t = ut(r);
         if (t)
-          return ct(t, e);
+          return at(t, e);
         throw TypeError("Unexpected input: " + typeof r);
       }
-    }, ct = ({ path: r, mode: e, mtime: t, content: n }, o2) => {
-      let i = { path: r, mode: Zr(e), mtime: Kr(t) };
-      return n && (i.content = Oo(n, o2)), i;
-    }, Oo = (r, e) => {
+    }, at = ({ path: r, mode: e, mtime: t, content: n }, o2) => {
+      let i = { path: r, mode: Kr(e), mtime: Yr(t) };
+      return n && (i.content = Co(n, o2)), i;
+    }, Co = (r, e) => {
       if (r == null)
         return "";
       if (r instanceof ArrayBuffer || ArrayBuffer.isView(r))
@@ -2029,45 +2027,45 @@ if (cid) {
       if (typeof r == "string")
         return r;
       {
-        let t = ft(r);
+        let t = ct(r);
         if (t)
-          return F(t, at, e);
-        let n = lt(r);
+          return F(t, st, e);
+        let n = ft(r);
         if (n)
           return F(n, le, e);
-        let o2 = ut(r);
+        let o2 = lt(r);
         if (o2)
-          return F((0, Be.default)(o2), le, e);
+          return F((0, Ae.default)(o2), le, e);
         throw TypeError("Unexpected input: " + typeof r);
       }
-    }, ft = (r) => {
+    }, ct = (r) => {
       let e = r;
       return e && typeof e[Symbol.iterator] == "function" ? e : null;
-    }, lt = (r) => {
+    }, ft = (r) => {
       let e = r;
       return e && typeof e[Symbol.asyncIterator] == "function" ? e : null;
-    }, ut = (r) => r && typeof r.getReader == "function" ? r : null, ht = (r) => typeof r == "object" && (r.path || r.content) ? r : null, pt = async (r) => {
-      let e = (0, tn.default)(r), { value: t, done: n } = await e.peek();
+    }, lt = (r) => r && typeof r.getReader == "function" ? r : null, ut = (r) => typeof r == "object" && (r.path || r.content) ? r : null, ht = async (r) => {
+      let e = (0, rn.default)(r), { value: t, done: n } = await e.peek();
       if (n)
         return [];
-      if (e.push(t), Number.isInteger(t) || Co(t) || typeof t == "string" || t instanceof String)
+      if (e.push(t), Number.isInteger(t) || Ao(t) || typeof t == "string" || t instanceof String)
         return e;
-      throw (0, rn.default)(new Error("Unexpected input: multiple items passed - if you are using ipfs.add, please use ipfs.addAll instead"), "ERR_UNEXPECTED_INPUT");
+      throw (0, nn.default)(new Error("Unexpected input: multiple items passed - if you are using ipfs.add, please use ipfs.addAll instead"), "ERR_UNEXPECTED_INPUT");
     };
-    ze = class extends q {
+    Be = class extends q {
       constructor(e) {
         super("files", ["stat"], e);
       }
     };
-    ze.prototype.stat = async function(e, t = {}) {
-      let { size: n, hash: o2, withLocal: i, timeout: s, signal: f } = t, { stat: a } = await this.remote.stat({ path: Ao(e), size: n, hash: o2, withLocal: i, timeout: s, signal: f });
-      return Bo(a);
+    Be.prototype.stat = async function(e, t = {}) {
+      let { size: n, hash: o2, withLocal: i, timeout: s, signal: f } = t, { stat: a } = await this.remote.stat({ path: Bo(e), size: n, hash: o2, withLocal: i, timeout: s, signal: f });
+      return zo(a);
     };
-    Ao = (r) => d.asCID(r) ? `/ipfs/${r.toString()}` : r.toString(), Bo = (r) => ({ ...r, cid: v(r.cid) });
+    Bo = (r) => d.asCID(r) ? `/ipfs/${r.toString()}` : r.toString(), zo = (r) => ({ ...r, cid: v(r.cid) });
     ge = class extends te {
       constructor(e) {
         super(e);
-        this.transport = e, this.dag = new ae(this.transport), this.files = new ze(this.transport), this.block = new K(this.transport);
+        this.transport = e, this.dag = new ae(this.transport), this.files = new Be(this.transport), this.block = new K(this.transport);
       }
       static attach(e, t) {
         e.transport.connect(t);
@@ -2079,31 +2077,31 @@ if (cid) {
         return new ge(new H(e));
       }
     };
-    zo = ["https://ipfs.io/ipfs/:hash", "https://cf-ipfs.com/ipfs/:hash"];
+    Io = ["https://ipfs.io/ipfs/:hash", "https://cf-ipfs.com/ipfs/:hash"];
+    pt = {};
+    A(pt, { identity: () => No });
+    No = ve({ prefix: "\0", name: "identity", encode: (r) => It(r), decode: (r) => zt(r) });
     dt = {};
-    A(dt, { identity: () => Lo });
-    Lo = De({ prefix: "\0", name: "identity", encode: (r) => Lt(r), decode: (r) => It(r) });
+    A(dt, { base2: () => Mo });
+    Mo = b({ prefix: "0", name: "base2", alphabet: "01", bitsPerChar: 1 });
     yt = {};
-    A(yt, { base2: () => No });
-    No = b({ prefix: "0", name: "base2", alphabet: "01", bitsPerChar: 1 });
+    A(yt, { base8: () => Fo });
+    Fo = b({ prefix: "7", name: "base8", alphabet: "01234567", bitsPerChar: 3 });
     mt = {};
-    A(mt, { base8: () => Mo });
-    Mo = b({ prefix: "7", name: "base8", alphabet: "01234567", bitsPerChar: 3 });
+    A(mt, { base10: () => Uo });
+    Uo = W({ prefix: "9", name: "base10", alphabet: "0123456789" });
     bt = {};
-    A(bt, { base10: () => Fo });
-    Fo = W({ prefix: "9", name: "base10", alphabet: "0123456789" });
+    A(bt, { base16: () => Po, base16upper: () => Ro });
+    Po = b({ prefix: "f", name: "base16", alphabet: "0123456789abcdef", bitsPerChar: 4 }), Ro = b({ prefix: "F", name: "base16upper", alphabet: "0123456789ABCDEF", bitsPerChar: 4 });
     gt = {};
-    A(gt, { base16: () => Uo, base16upper: () => Po });
-    Uo = b({ prefix: "f", name: "base16", alphabet: "0123456789abcdef", bitsPerChar: 4 }), Po = b({ prefix: "F", name: "base16upper", alphabet: "0123456789ABCDEF", bitsPerChar: 4 });
+    A(gt, { base36: () => qo, base36upper: () => Vo });
+    qo = W({ prefix: "k", name: "base36", alphabet: "0123456789abcdefghijklmnopqrstuvwxyz" }), Vo = W({ prefix: "K", name: "base36upper", alphabet: "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ" });
     wt = {};
-    A(wt, { base36: () => Ro, base36upper: () => qo });
-    Ro = W({ prefix: "k", name: "base36", alphabet: "0123456789abcdefghijklmnopqrstuvwxyz" }), qo = W({ prefix: "K", name: "base36upper", alphabet: "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ" });
+    A(wt, { base64: () => $o, base64pad: () => Jo, base64url: () => Ho, base64urlpad: () => Wo });
+    $o = b({ prefix: "m", name: "base64", alphabet: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/", bitsPerChar: 6 }), Jo = b({ prefix: "M", name: "base64pad", alphabet: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=", bitsPerChar: 6 }), Ho = b({ prefix: "u", name: "base64url", alphabet: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_", bitsPerChar: 6 }), Wo = b({ prefix: "U", name: "base64urlpad", alphabet: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_=", bitsPerChar: 6 });
     xt = {};
-    A(xt, { base64: () => Vo, base64pad: () => $o, base64url: () => Jo, base64urlpad: () => Ho });
-    Vo = b({ prefix: "m", name: "base64", alphabet: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/", bitsPerChar: 6 }), $o = b({ prefix: "M", name: "base64pad", alphabet: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=", bitsPerChar: 6 }), Jo = b({ prefix: "u", name: "base64url", alphabet: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_", bitsPerChar: 6 }), Ho = b({ prefix: "U", name: "base64urlpad", alphabet: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_=", bitsPerChar: 6 });
-    St = {};
-    A(St, { sha256: () => Wo, sha512: () => Go });
-    we = ({ name: r, code: e, encode: t }) => new sn(r, e, t), sn = class {
+    A(xt, { sha256: () => Go, sha512: () => Qo });
+    we = ({ name: r, code: e, encode: t }) => new an(r, e, t), an = class {
       constructor(e, t, n) {
         this.name = e, this.code = t, this.encode = n;
       }
@@ -2115,16 +2113,16 @@ if (cid) {
           throw Error("Unknown type, must be binary type");
       }
     };
-    cn = (r) => async (e) => new Uint8Array(await crypto.subtle.digest(r, e)), Wo = we({ name: "sha2-256", code: 18, encode: cn("SHA-256") }), Go = we({ name: "sha2-512", code: 19, encode: cn("SHA-512") });
-    Et = {};
-    A(Et, { identity: () => Qo });
-    Qo = we({ name: "identity", code: 0, encode: (r) => V(r) });
-    ea = new TextEncoder(), ta = new TextDecoder();
-    vt = { ...dt, ...yt, ...mt, ...bt, ...gt, ...Ve, ...wt, ...qe, ...xt }, ia = { ...St, ...Et };
-    ln = fn("utf8", "u", (r) => {
+    fn = (r) => async (e) => new Uint8Array(await crypto.subtle.digest(r, e)), Go = we({ name: "sha2-256", code: 18, encode: fn("SHA-256") }), Qo = we({ name: "sha2-512", code: 19, encode: fn("SHA-512") });
+    St = {};
+    A(St, { identity: () => Xo });
+    Xo = we({ name: "identity", code: 0, encode: (r) => V(r) });
+    ta = new TextEncoder(), ra = new TextDecoder();
+    Et = { ...pt, ...dt, ...yt, ...mt, ...bt, ...qe, ...gt, ...Re, ...wt }, sa = { ...xt, ...St };
+    un = ln("utf8", "u", (r) => {
       let e = new TextDecoder("utf8");
       return "u" + e.decode(r);
-    }, (r) => new TextEncoder().encode(r.substring(1))), Dt = fn("ascii", "a", (r) => {
+    }, (r) => new TextEncoder().encode(r.substring(1))), vt = ln("ascii", "a", (r) => {
       let e = "a";
       for (let t = 0; t < r.length; t++)
         e += String.fromCharCode(r[t]);
@@ -2135,11 +2133,11 @@ if (cid) {
       for (let t = 0; t < r.length; t++)
         e[t] = r.charCodeAt(t);
       return e;
-    }), Ko = { utf8: ln, "utf-8": ln, hex: vt.base16, latin1: Dt, ascii: Dt, binary: Dt, ...vt }, Ie = Ko;
-    Le = (r) => {
+    }), Yo = { utf8: un, "utf-8": un, hex: Et.base16, latin1: vt, ascii: vt, binary: vt, ...Et }, ze = Yo;
+    Ie = (r) => {
       typeof r == "string" ? console.log(r) : typeof r == "object" ? console.table({ msg: r }) : console.log(r);
     };
-    export_all = Yo.default;
+    export_all = ei.default;
   }
 });
 
@@ -2361,7 +2359,7 @@ var init_importmap = __esm({
       "ipfs-only-hash": "https://unpkg.com/@spike.land/esm@0.1.23/dist/ipfs-only-hash.mjs",
       "@zedvision/swm": "https://unpkg.com/@zedvision/swm@4.0.0/public/swm-esm.js",
       "uuid/": "https://unpkg.com/uuid@8.3.2/dist/esm-browser/",
-      "@spike.land/code": "https://unpkg.com/@spike.land/code@0.1.38/js/reactLoader.mjs",
+      "@spike.land/code": "https://unpkg.com/@spike.land/code@0.1.39/js/reactLoader.mjs",
       comlink: "https://unpkg.com/comlink@4.3.1/dist/esm/comlink.mjs",
       "@spike.land/ipfs": "https://unpkg.com/@spike.land/ipfs@0.1.11/dist/ipfs.client.mjs",
       "workbox-window": "https://unpkg.com/workbox-window@6.4.1/build/workbox-window.prod.es5.mjs"
@@ -2507,10 +2505,10 @@ var init_getWorker = __esm({
 var ipfsClient_exports = {};
 __export(ipfsClient_exports, {
   all: () => export_all,
-  concat: () => on,
+  concat: () => sn,
   ipfsCat: () => ipfsCat,
   ipfsClient: () => ipfsClient,
-  toString: () => hn
+  toString: () => pn
 });
 var workerSrc, forceNormalWorker, port, ipfsClient, ipfsCat;
 var init_ipfsClient = __esm({
@@ -2535,8 +2533,8 @@ var init_ipfsClient = __esm({
     ipfsCat = async (cid, opts) => {
       const options = opts || {};
       const res = ipfsClient.cat(cid, options);
-      const result = on(await export_all(res));
-      const resultStr = hn(result);
+      const result = sn(await export_all(res));
+      const resultStr = pn(result);
       return resultStr;
     };
     globalThis.ipfsClient = ipfsClient;
@@ -2954,8 +2952,8 @@ var init_share = __esm({
   "js/share.mjs"() {
     init_shaDB();
     shareItAsHtml = async ({ transpiled, code, html: html2 }) => {
-      var _a;
-      const bodyClass = String((_a = window.document.getElementById("zbody")) == null ? void 0 : _a.getAttribute("class"));
+      var _a2;
+      const bodyClass = String((_a2 = window.document.getElementById("zbody")) == null ? void 0 : _a2.getAttribute("class"));
       let css3 = "";
       const cssRules = window.document.querySelector("head > style[data-emotion=css]");
       if (cssRules) {
@@ -42039,7 +42037,7 @@ var init_QRious = __esm({
     });
     j2 = o((v0, T2) => {
       "use strict";
-      var Ae = M3(), ye = Ae.extend({ draw: function(i) {
+      var Ae2 = M3(), ye = Ae2.extend({ draw: function(i) {
         var e, t, r = this.qrious, x = this.getModuleSize(i), s = this.getOffset(i), a = this.element.getContext("2d");
         for (a.fillStyle = r.foreground, a.globalAlpha = r.foregroundAlpha, e = 0; e < i.width; e++)
           for (t = 0; t < i.width; t++)
@@ -42065,7 +42063,7 @@ var init_QRious = __esm({
     });
     G2 = o((b0, U2) => {
       "use strict";
-      var Te2 = u(), je2 = Te2.extend(null, { EXPONENT: [1, 2, 4, 8, 16, 32, 64, 128, 29, 58, 116, 232, 205, 135, 19, 38, 76, 152, 45, 90, 180, 117, 234, 201, 143, 3, 6, 12, 24, 48, 96, 192, 157, 39, 78, 156, 37, 74, 148, 53, 106, 212, 181, 119, 238, 193, 159, 35, 70, 140, 5, 10, 20, 40, 80, 160, 93, 186, 105, 210, 185, 111, 222, 161, 95, 190, 97, 194, 153, 47, 94, 188, 101, 202, 137, 15, 30, 60, 120, 240, 253, 231, 211, 187, 107, 214, 177, 127, 254, 225, 223, 163, 91, 182, 113, 226, 217, 175, 67, 134, 17, 34, 68, 136, 13, 26, 52, 104, 208, 189, 103, 206, 129, 31, 62, 124, 248, 237, 199, 147, 59, 118, 236, 197, 151, 51, 102, 204, 133, 23, 46, 92, 184, 109, 218, 169, 79, 158, 33, 66, 132, 21, 42, 84, 168, 77, 154, 41, 82, 164, 85, 170, 73, 146, 57, 114, 228, 213, 183, 115, 230, 209, 191, 99, 198, 145, 63, 126, 252, 229, 215, 179, 123, 246, 241, 255, 227, 219, 171, 75, 150, 49, 98, 196, 149, 55, 110, 220, 165, 87, 174, 65, 130, 25, 50, 100, 200, 141, 7, 14, 28, 56, 112, 224, 221, 167, 83, 166, 81, 162, 89, 178, 121, 242, 249, 239, 195, 155, 43, 86, 172, 69, 138, 9, 18, 36, 72, 144, 61, 122, 244, 245, 247, 243, 251, 235, 203, 139, 11, 22, 44, 88, 176, 125, 250, 233, 207, 131, 27, 54, 108, 216, 173, 71, 142, 0], LOG: [255, 0, 1, 25, 2, 50, 26, 198, 3, 223, 51, 238, 27, 104, 199, 75, 4, 100, 224, 14, 52, 141, 239, 129, 28, 193, 105, 248, 200, 8, 76, 113, 5, 138, 101, 47, 225, 36, 15, 33, 53, 147, 142, 218, 240, 18, 130, 69, 29, 181, 194, 125, 106, 39, 249, 185, 201, 154, 9, 120, 77, 228, 114, 166, 6, 191, 139, 98, 102, 221, 48, 253, 226, 152, 37, 179, 16, 145, 34, 136, 54, 208, 148, 206, 143, 150, 219, 189, 241, 210, 19, 92, 131, 56, 70, 64, 30, 66, 182, 163, 195, 72, 126, 110, 107, 58, 40, 84, 250, 133, 186, 61, 202, 94, 155, 159, 10, 21, 121, 43, 78, 212, 229, 172, 115, 243, 167, 87, 7, 112, 192, 247, 140, 128, 99, 13, 103, 74, 222, 237, 49, 197, 254, 24, 227, 165, 153, 119, 38, 184, 180, 124, 17, 68, 146, 217, 35, 32, 137, 46, 55, 63, 209, 91, 149, 188, 207, 205, 144, 135, 151, 178, 220, 252, 190, 97, 242, 86, 211, 171, 20, 42, 93, 158, 132, 60, 57, 83, 71, 109, 65, 162, 31, 45, 67, 216, 183, 123, 164, 118, 196, 23, 73, 236, 127, 12, 111, 246, 108, 161, 59, 82, 41, 157, 85, 170, 251, 96, 134, 177, 187, 204, 62, 90, 203, 89, 95, 176, 156, 169, 160, 81, 11, 245, 22, 235, 122, 117, 44, 215, 79, 174, 213, 233, 230, 231, 173, 232, 116, 214, 244, 234, 168, 80, 88, 175] });
+      var Te = u(), je2 = Te.extend(null, { EXPONENT: [1, 2, 4, 8, 16, 32, 64, 128, 29, 58, 116, 232, 205, 135, 19, 38, 76, 152, 45, 90, 180, 117, 234, 201, 143, 3, 6, 12, 24, 48, 96, 192, 157, 39, 78, 156, 37, 74, 148, 53, 106, 212, 181, 119, 238, 193, 159, 35, 70, 140, 5, 10, 20, 40, 80, 160, 93, 186, 105, 210, 185, 111, 222, 161, 95, 190, 97, 194, 153, 47, 94, 188, 101, 202, 137, 15, 30, 60, 120, 240, 253, 231, 211, 187, 107, 214, 177, 127, 254, 225, 223, 163, 91, 182, 113, 226, 217, 175, 67, 134, 17, 34, 68, 136, 13, 26, 52, 104, 208, 189, 103, 206, 129, 31, 62, 124, 248, 237, 199, 147, 59, 118, 236, 197, 151, 51, 102, 204, 133, 23, 46, 92, 184, 109, 218, 169, 79, 158, 33, 66, 132, 21, 42, 84, 168, 77, 154, 41, 82, 164, 85, 170, 73, 146, 57, 114, 228, 213, 183, 115, 230, 209, 191, 99, 198, 145, 63, 126, 252, 229, 215, 179, 123, 246, 241, 255, 227, 219, 171, 75, 150, 49, 98, 196, 149, 55, 110, 220, 165, 87, 174, 65, 130, 25, 50, 100, 200, 141, 7, 14, 28, 56, 112, 224, 221, 167, 83, 166, 81, 162, 89, 178, 121, 242, 249, 239, 195, 155, 43, 86, 172, 69, 138, 9, 18, 36, 72, 144, 61, 122, 244, 245, 247, 243, 251, 235, 203, 139, 11, 22, 44, 88, 176, 125, 250, 233, 207, 131, 27, 54, 108, 216, 173, 71, 142, 0], LOG: [255, 0, 1, 25, 2, 50, 26, 198, 3, 223, 51, 238, 27, 104, 199, 75, 4, 100, 224, 14, 52, 141, 239, 129, 28, 193, 105, 248, 200, 8, 76, 113, 5, 138, 101, 47, 225, 36, 15, 33, 53, 147, 142, 218, 240, 18, 130, 69, 29, 181, 194, 125, 106, 39, 249, 185, 201, 154, 9, 120, 77, 228, 114, 166, 6, 191, 139, 98, 102, 221, 48, 253, 226, 152, 37, 179, 16, 145, 34, 136, 54, 208, 148, 206, 143, 150, 219, 189, 241, 210, 19, 92, 131, 56, 70, 64, 30, 66, 182, 163, 195, 72, 126, 110, 107, 58, 40, 84, 250, 133, 186, 61, 202, 94, 155, 159, 10, 21, 121, 43, 78, 212, 229, 172, 115, 243, 167, 87, 7, 112, 192, 247, 140, 128, 99, 13, 103, 74, 222, 237, 49, 197, 254, 24, 227, 165, 153, 119, 38, 184, 180, 124, 17, 68, 146, 217, 35, 32, 137, 46, 55, 63, 209, 91, 149, 188, 207, 205, 144, 135, 151, 178, 220, 252, 190, 97, 242, 86, 211, 171, 20, 42, 93, 158, 132, 60, 57, 83, 71, 109, 65, 162, 31, 45, 67, 216, 183, 123, 164, 118, 196, 23, 73, 236, 127, 12, 111, 246, 108, 161, 59, 82, 41, 157, 85, 170, 251, 96, 134, 177, 187, 204, 62, 90, 203, 89, 95, 176, 156, 169, 160, 81, 11, 245, 22, 235, 122, 117, 44, 215, 79, 174, 213, 233, 230, 231, 173, 232, 116, 214, 244, 234, 168, 80, 88, 175] });
       U2.exports = je2;
     });
     K3 = o((m0, F3) => {
@@ -42348,7 +42346,7 @@ var init_QRious = __esm({
     });
     $3 = o((B0, Z2) => {
       "use strict";
-      var He2 = u(), k2 = q3(), d2 = He2.extend(function(i) {
+      var He = u(), k2 = q3(), d2 = He.extend(function(i) {
         this.options = {}, i.forEach(function(e) {
           this.options[e.name] = e;
         }, this);
@@ -42512,7 +42510,7 @@ var init_Qr = __esm({
             background: "#1e1e1e",
             value: url
           };
-          const qr2 = new QRious(options);
+          const qr = new QRious(options);
         };
         load();
       }, [url]);

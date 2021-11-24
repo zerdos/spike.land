@@ -2651,7 +2651,7 @@ var init_bytes = __esm({
 });
 
 // ../../node_modules/multiformats/esm/src/bases/base.js
-var Encoder, Decoder, ComposedDecoder, Codec, from, baseX, decode, encode, rfc4648;
+var Encoder, Decoder, ComposedDecoder, or, Codec, from, baseX, decode, encode, rfc4648;
 var init_base = __esm({
   "../../node_modules/multiformats/esm/src/bases/base.js"() {
     init_base_x();
@@ -2691,11 +2691,7 @@ var init_base = __esm({
         }
       }
       or(decoder) {
-        const decoders = {
-          [this.prefix]: this,
-          ...decoder.decoders || { [decoder.prefix]: decoder }
-        };
-        return new ComposedDecoder(decoders);
+        return or(this, decoder);
       }
     };
     ComposedDecoder = class {
@@ -2703,11 +2699,7 @@ var init_base = __esm({
         this.decoders = decoders;
       }
       or(decoder) {
-        const other = decoder.decoders || { [decoder.prefix]: decoder };
-        return new ComposedDecoder({
-          ...this.decoders,
-          ...other
-        });
+        return or(this, decoder);
       }
       decode(input) {
         const prefix = input[0];
@@ -2719,6 +2711,10 @@ var init_base = __esm({
         }
       }
     };
+    or = (left, right) => new ComposedDecoder({
+      ...left.decoders || { [left.prefix]: left },
+      ...right.decoders || { [right.prefix]: right }
+    });
     Codec = class {
       constructor(name3, prefix, baseEncode, baseDecode) {
         this.name = name3;
@@ -13997,7 +13993,7 @@ var require_ipfs_only_hash = __commonJS({
 });
 
 // ../../packages/code/package.json
-var version = "0.1.38";
+var version = "0.1.39";
 
 // ../../packages/code/js/importmap.json
 var imports = {
@@ -14214,7 +14210,7 @@ var imports = {
   "ipfs-only-hash": "https://unpkg.com/@spike.land/esm@0.1.23/dist/ipfs-only-hash.mjs",
   "@zedvision/swm": "https://unpkg.com/@zedvision/swm@4.0.0/public/swm-esm.js",
   "uuid/": "https://unpkg.com/uuid@8.3.2/dist/esm-browser/",
-  "@spike.land/code": "https://unpkg.com/@spike.land/code@0.1.37/js/reactLoader.mjs",
+  "@spike.land/code": "https://unpkg.com/@spike.land/code@0.1.38/js/reactLoader.mjs",
   comlink: "https://unpkg.com/comlink@4.3.1/dist/esm/comlink.mjs",
   "@spike.land/ipfs": "https://unpkg.com/@spike.land/ipfs@0.1.11/dist/ipfs.client.mjs",
   "workbox-window": "https://unpkg.com/workbox-window@6.4.1/build/workbox-window.prod.es5.mjs"
