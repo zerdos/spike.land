@@ -9,15 +9,16 @@ const messageQueue = {
 const chCode = (code) => {
   try {
     window.starterCode = code;
+    if (window.restartCode) window.restartCode(code);
+
     const { monaco } = window;
     if (!monaco || !monaco.Uri) {
-      if (window.restartCode) window.restartCode(code);
       return;
     }
     
     const modelUri = monaco.Uri.parse(`file:///main.tsx`);
     const model = monaco.editor.getModel(modelUri);
-    const oldCode = model.getValue();
+    const oldCode = model && model.getValue();
 
     if (oldCode !== code) {
       console.log({ oldCode });
