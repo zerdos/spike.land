@@ -2361,7 +2361,7 @@ var init_importmap = __esm({
       "ipfs-only-hash": "https://unpkg.com/@spike.land/esm@0.1.23/dist/ipfs-only-hash.mjs",
       "@zedvision/swm": "https://unpkg.com/@zedvision/swm@4.0.0/public/swm-esm.js",
       "uuid/": "https://unpkg.com/uuid@8.3.2/dist/esm-browser/",
-      "@spike.land/code": "https://unpkg.com/@spike.land/code@0.1.32/js/reactLoader.mjs",
+      "@spike.land/code": "https://unpkg.com/@spike.land/code@0.1.33/js/reactLoader.mjs",
       comlink: "https://unpkg.com/comlink@4.3.1/dist/esm/comlink.mjs",
       "@spike.land/ipfs": "https://unpkg.com/@spike.land/ipfs@0.1.11/dist/ipfs.client.mjs",
       "workbox-window": "https://unpkg.com/workbox-window@6.4.1/build/workbox-window.prod.es5.mjs"
@@ -2396,7 +2396,6 @@ function getHtml({ html: html2, css: css3 }) {
 <script crossorigin src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"><\/script>
 <script crossorigin src="https://unpkg.com/react-is@17.0.2/umd/react-is.production.min.js"><\/script>
 <script crossorigin src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"><\/script>
-<script crossorigin src="https://unpkg.com/react-is@17.0.2/umd/react-is.production.min.js"><\/script>
 <script async src="https://unpkg.com/es-module-shims@1.3.2/dist/es-module-shims.js"><\/script>
 <script type="esms-options">
 {
@@ -3316,17 +3315,17 @@ __export(sendSignalToQrCode_exports, {
   getZkey: () => getZkey,
   sendSignalToQrCode: () => sendSignalToQrCode
 });
-async function sendSignalToQrCode(session) {
+async function sendSignalToQrCode(session2) {
   const { searchParams } = new URL(window.location.href);
   const maybeRoute = searchParams.get("signalToQr") || "";
   const isKey = maybeRoute.length === 8 && [...maybeRoute].filter((x) => x < "0" || x > "f").length === 0;
   if (!isKey)
     return;
-  await saveCode(session);
+  await saveCode(session2);
   const { sendSignal } = await Promise.resolve().then(() => (init_ipfs_client(), ipfs_client_exports));
   const signal = `https://code.spike.land/${maybeRoute}`;
   await sendSignal(signal, {
-    rootUrl: `${session.url}edit/`,
+    rootUrl: `${session2.url}edit/`,
     signals: {
       onChange: "url",
       onLogout: "url"
@@ -42571,13 +42570,13 @@ var init_DraggableWindow = __esm({
     init_renderer();
     breakPoints = [640, 1024, 1920];
     sizes = [10, 25, 50, 75, 100];
-    DraggableWindow = ({ onShare, onRestore, position: position2, session }) => {
+    DraggableWindow = ({ onShare, onRestore, position: position2, session: session2 }) => {
       const [isStable, setIsStable] = React215.useState(false);
       const [scaleRange, changeScaleRange] = React215.useState(75);
       const [height2, changeHeight] = React215.useState(innerHeight);
-      const [childArray, setChild] = React215.useState([session.children]);
-      session.setChild = setChild;
-      const [qrUrl, setQRUrl] = React215.useState(session.url);
+      const [childArray, setChild] = React215.useState([session2.children]);
+      session2.setChild = setChild;
+      const [qrUrl, setQRUrl] = React215.useState(session2.url);
       const [errorText, setErrorText] = React215.useState(" ");
       const [width2, setWidth] = React215.useState(breakPoints[1]);
       const ref = React215.useRef(null);
@@ -42588,18 +42587,18 @@ var init_DraggableWindow = __esm({
       });
       React215.useEffect(() => {
         const handler = setInterval(() => {
-          if (errorText !== session.errorText) {
-            const newErr = session.errorText;
+          if (errorText !== session2.errorText) {
+            const newErr = session2.errorText;
             setErrorText(newErr);
             setIsStable(false);
             setTimeout(() => {
-              if (session.errorText === newErr) {
+              if (session2.errorText === newErr) {
                 setIsStable(true);
               }
             }, 2e3);
           }
-          if (qrUrl !== session.url)
-            setQRUrl(session.url);
+          if (qrUrl !== session2.url)
+            setQRUrl(session2.url);
         }, 200);
         return () => clearInterval(handler);
       }, [setErrorText, setQRUrl, errorText, qrUrl]);
@@ -42721,12 +42720,12 @@ var init_DraggableWindow = __esm({
                   }
               `
       }, errorText ? /* @__PURE__ */ jsx("div", {
-        dangerouslySetInnerHTML: createMarkup(session.html)
+        dangerouslySetInnerHTML: createMarkup(session2.html)
       }) : /* @__PURE__ */ jsx(React215.Suspense, {
         fallback: /* @__PURE__ */ jsx("div", null, "Error fallback")
       }, /* @__PURE__ */ jsx("div", {
         id: "zbody",
-        key: session.i,
+        key: session2.i,
         ref: zbody
       }, child)))), /* @__PURE__ */ jsx(ToggleButtonGroup_default, {
         value: width2,
@@ -43305,7 +43304,7 @@ var editor_default = async ({ onChange, code, language, container, options }) =>
 };
 
 // js/renderPreviewWindow.mjs
-async function renderPreviewWindow(session) {
+async function renderPreviewWindow(session2) {
   const {
     DraggableWindow: DraggableWindow2,
     jsx: jsx3,
@@ -43314,9 +43313,9 @@ async function renderPreviewWindow(session) {
   const onShare = async () => {
     const { shareItAsHtml: shareItAsHtml2 } = await Promise.resolve().then(() => (init_share(), share_exports));
     const link = await shareItAsHtml2({
-      code: session.code,
-      transpiled: session.transpiled,
-      html: session.html
+      code: session2.code,
+      transpiled: session2.transpiled,
+      html: session2.html
     });
     open(link + "/");
   };
@@ -43328,14 +43327,14 @@ async function renderPreviewWindow(session) {
   }
   render3(jsx3(DraggableWindow2, {
     onShare,
-    session,
+    session: session2,
     onRestore: () => {
       const { monaco } = window;
       const modelUri = monaco.Uri.parse(`file:///main.tsx`);
       const model = monaco.editor.getModel(modelUri);
-      model.setValue(session.code);
+      model.setValue(session2.code);
     },
-    position: session.mode === "window" ? "fixed" : "absolute"
+    position: session2.mode === "window" ? "fixed" : "absolute"
   }), preview);
 }
 
@@ -43419,7 +43418,7 @@ import ReactDOM3 from "https://unpkg.com/@spike.land/esm@0.1.23/dist/react-dom.m
 import { jsx as jsx2 } from "https://unpkg.com/@emotion/react@11.6.0/dist/emotion-react.browser.esm.js";
 loadMonaco();
 function getSession() {
-  const session = {
+  const session2 = {
     i: 0,
     unmount: () => {
     },
@@ -43434,102 +43433,102 @@ function getSession() {
     transpiled: "",
     code: ""
   };
-  return session;
+  return session2;
 }
 async function run(mode = "window", code = "") {
   window.diff = T;
   window.assemble = B;
-  const session = getSession();
-  window.sess = session;
+  const session2 = getSession();
+  window.sess = session2;
   let monaco;
   console.log("Runner!");
   const { pathname } = new URL(window.location.href);
   if (mode === "window") {
     await openWindows();
   }
-  session.mode = mode;
+  session2.mode = mode;
   if (code) {
-    session.code = code;
-    session.formattedCode = await formatter(session.code);
-    session.transpiled = await transpileCode(session.formattedCode);
+    session2.code = code;
+    session2.formattedCode = await formatter(session2.code);
+    session2.transpiled = await transpileCode(session2.formattedCode);
   }
   if (!code) {
     try {
       const { code: code2, transpiled, html: html2 } = pathname.endsWith("/edit/") || pathname.endsWith("/edit") ? await getIPFSCodeToLoad(void 0) : await getCodeToLoad();
-      session.code = code2;
-      session.formattedCode = await formatter(code2);
-      session.transpiled = await transpileCode(session.formattedCode) || transpiled;
-      session.div.innerHTML = html2;
+      session2.code = code2;
+      session2.formattedCode = await formatter(code2);
+      session2.transpiled = await transpileCode(session2.formattedCode) || transpiled;
+      session2.div.innerHTML = html2;
     } catch (e) {
       console.error({ e, message: "couldn't start" });
       return;
     }
   }
-  await renderPreviewWindow(session);
+  await renderPreviewWindow(session2);
   const container = document.getElementById("editor");
   if (container === null)
     return "No editor window";
   const editorPromise = editor_default({
     language: "typescript",
     container,
-    code: session.code,
+    code: session2.code,
     onChange: (code2) => runner(code2)
   });
-  await restartCode(session.transpiled, session.code, session.i);
+  await restartCode(session2.transpiled, session2.code, session2.i);
   await editorPromise;
   monaco = window.monaco;
   monaco.editor.createModel("define module './hash.js';", "typescript", monaco.Uri.parse("file:///refs.d.ts"));
-  if (!session.url) {
-    session.codeNonFormatted = null;
-    await saveCode(session, session.i);
+  if (!session2.url) {
+    session2.codeNonFormatted = null;
+    await saveCode(session2, session2.i);
   }
   const { sendSignalToQrCode: sendSignalToQrCode2 } = await Promise.resolve().then(() => (init_sendSignalToQrCode(), sendSignalToQrCode_exports));
-  await sendSignalToQrCode2(session);
+  await sendSignalToQrCode2(session2);
   async function runner(c2) {
-    session.errorText = "";
-    session.i++;
-    const counter = session.i;
+    session2.errorText = "";
+    session2.i++;
+    const counter = session2.i;
     try {
       const cd = await formatter(c2);
       const transpiled = await transpileCode(cd);
       let restartError = false;
-      if (transpiled.length && session.lastErrors < 2) {
-        if (counter < session.i)
+      if (transpiled.length && session2.lastErrors < 2) {
+        if (counter < session2.i)
           return;
         restartError = await restartCode(transpiled, c2, counter);
       }
-      if (session.i > counter)
+      if (session2.i > counter)
         return;
       const err = await getErrors(cd);
-      if (session.i > counter)
+      if (session2.i > counter)
         return;
       if (restartError) {
         err.push({ messageText: "Error while starting the app. Check the console!" });
       }
       if (err.length)
         console.log({ err });
-      if (session.lastErrors && err.length === 0) {
+      if (session2.lastErrors && err.length === 0) {
         restartCode(transpiled, c2, counter);
       }
-      session.lastErrors = err.length;
+      session2.lastErrors = err.length;
       if (err.length === 0 && transpiled.length) {
-        if (session.i > counter)
+        if (session2.i > counter)
           return;
-        session.code = cd;
-        session.codeNonFormatted = c2;
-        saveCode(session, counter);
+        session2.code = cd;
+        session2.codeNonFormatted = c2;
+        saveCode(session2, counter);
       } else {
         console.log({ code: c2, transpiled });
-        if (session.i > counter)
+        if (session2.i > counter)
           return;
-        if (cd.length < 1e3 && session.code.length < 1e3) {
-          const slices = await T(session.code, cd);
+        if (cd.length < 1e3 && session2.code.length < 1e3) {
+          const slices = await T(session2.code, cd);
           if (slices.c.length <= 3) {
-            session.lastErrors = 0;
+            session2.lastErrors = 0;
             return;
           }
           if (slices.c.length == 4) {
-            session.lastErrors = 0;
+            session2.lastErrors = 0;
             monaco.editor.setTheme("hc-black");
             return;
           }
@@ -43542,7 +43541,7 @@ async function run(mode = "window", code = "") {
       monaco.editor.setTheme("vs-dark");
     } catch (err) {
       if (err.message) {
-        session.errorText = err.message;
+        session2.errorText = err.message;
         const saveErrorCode = async () => {
           const res = await ipfsClient.add(c2, { onlyHash: true });
           const CID = res.cid.toString();
@@ -43579,53 +43578,66 @@ async function run(mode = "window", code = "") {
       ...fastError
     ];
   }
-  async function getReactChild(transpiled) {
-    const codeToHydrate = mode === "window" ? transpiled.replace("body{", "#zbody{") : transpiled;
-    const objUrl = createJsBlob(codeToHydrate);
-    const mod2 = await import(objUrl);
-    URL.revokeObjectURL(objUrl);
-    return jsx2(mod2.default);
+  function restartCode(transpiled, code2, counter) {
+    restartX(transpiled, null, counter, session2);
   }
-  async function restartCode(transpiled, code2, counter) {
-    if (session.i > counter)
-      return false;
-    if (session.actualT === transpiled)
-      return false;
-    session.actualT = transpiled;
-    session.html = "";
-    session.transpiled = "";
-    let hadError = false;
-    if (typeof transpiled !== "string" || transpiled === "") {
-      hadError = true;
-      return hadError;
-    }
-    let children;
-    try {
-      children = await getReactChild(transpiled);
-    } catch (error) {
-      console.error({ error, message: "error in rendering" });
-      return false;
-    }
-    const zbody = document.createElement("div");
-    ReactDOM3.render(children, zbody);
-    session.div = zbody;
-    if (zbody.innerHTML) {
-      session.transpiled = transpiled;
-      session.html = zbody.innerHTML;
-      session.children = children;
-      session.setChild((c2) => [...c2, session.children]);
-    }
-    return !zbody.innerHTML;
+}
+async function getReactChild(transpiled, mode = "window") {
+  const codeToHydrate = mode === "window" ? transpiled.replace("body{", "#zbody{") : transpiled;
+  const objUrl = createJsBlob(codeToHydrate);
+  const mod2 = await import(objUrl);
+  URL.revokeObjectURL(objUrl);
+  return jsx2(mod2.default);
+}
+async function restartX(transpiled, target, counter, session2) {
+  if (session2.i > counter)
+    return false;
+  if (session2.actualT === transpiled)
+    return false;
+  session2.actualT = transpiled;
+  session2.html = "";
+  session2.transpiled = "";
+  let hadError = false;
+  if (typeof transpiled !== "string" || transpiled === "") {
+    hadError = true;
+    return hadError;
   }
+  let children;
+  try {
+    children = await getReactChild(transpiled);
+  } catch (error) {
+    console.error({ error, message: "error in rendering" });
+    return false;
+  }
+  const zbody = target || document.createElement("div");
+  ReactDOM3.render(children, zbody);
+  session2.div = zbody;
+  if (zbody.innerHTML) {
+    session2.transpiled = transpiled;
+    session2.html = zbody.innerHTML;
+    session2.children = children;
+    session2.setChild((c2) => [...c2, session2.children]);
+  }
+  return !zbody.innerHTML;
 }
 function createJsBlob(code) {
   const blob = new Blob([code], { type: "application/javascript" });
   return URL.createObjectURL(blob);
 }
+var session = {
+  i: 0,
+  counter: 0
+};
+var restart = async (code, target) => {
+  const transpiled = await transpileCode(code);
+  restartX(transpiled, target, session.counter, session);
+  return session;
+};
 export {
   DraggableWindow,
   jsx,
   render,
+  restart,
   run
 };
 /** @license MUI v5.0.0-alpha.56

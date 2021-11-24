@@ -280,71 +280,75 @@ export async function run(mode = "window", code = "") {
     ];
   }
 
-  async function getReactChild(transpiled) {
-    const codeToHydrate = mode === "window"
-      ? transpiled.replace("body{", "#zbody{")
-      : transpiled;
-
-    const objUrl = createJsBlob(
-      codeToHydrate,
-    );
-
-    const mod = (await import(objUrl));
-    URL.revokeObjectURL(objUrl);
-
-    return jsx(mod.default);
-  }
-
-  /**
-   * @param {string} transpiled
-   * @param {number} counter
-   */
-  async function restartCode(transpiled, code, counter) {
-    if (session.i > counter) return false;
-
-    if (session.actualT === transpiled) return false;
-    session.actualT = transpiled;
-
-    // const codeHash = await Hash.of(code);
-
-    session.html = "";
-    session.transpiled = "";
-    let hadError = false;
-    if (typeof transpiled !== "string" || transpiled === "") {
-      // console.log(transpiled.error);
-      hadError = true;
-      return hadError;
-    }
-
-    let children;
-    try {
-      children = await getReactChild(transpiled);
-    } catch (error) {
-      console.error({ error, message: "error in rendering" });
-      return false;
-    }
-
-    // session.unmount = render(Element(), root);
-    const zbody = document.createElement("div");
-    // if (!zbody) {
-    //   zbody = document.createElement('div');
-    //   document.body.appendChild(zbody);
-
-    // }
-
-    ReactDOM.render(children, zbody);
-
-    // zbody && zbody.children[0].replaceWith(root);
-    session.div = zbody;
-    if (zbody.innerHTML) {
-      session.transpiled = transpiled;
-      session.html = zbody.innerHTML;
-      session.children = children;
-      session.setChild((c) => [...c, session.children]);
-    }
-    return !zbody.innerHTML;
+  function restartCode(transpiled, code, counter) {
+    restartX(transpiled, null, counter, session);
   }
 }
+
+async function getReactChild(transpiled, mode = "window") {
+  const codeToHydrate = mode === "window"
+    ? transpiled.replace("body{", "#zbody{")
+    : transpiled;
+
+  const objUrl = createJsBlob(
+    codeToHydrate,
+  );
+
+  const mod = (await import(objUrl));
+  URL.revokeObjectURL(objUrl);
+
+  return jsx(mod.default);
+}
+/**
+ * @param {string} transpiled
+ * @param {number} counter
+ */
+async function restartX(transpiled, target, counter, session) {
+  if (session.i > counter) return false;
+
+  if (session.actualT === transpiled) return false;
+  session.actualT = transpiled;
+
+  // const codeHash = await Hash.of(code);
+
+  session.html = "";
+  session.transpiled = "";
+  let hadError = false;
+  if (typeof transpiled !== "string" || transpiled === "") {
+    // console.log(transpiled.error);
+    hadError = true;
+    return hadError;
+  }
+
+  let children;
+  try {
+    children = await getReactChild(transpiled);
+  } catch (error) {
+    console.error({ error, message: "error in rendering" });
+    return false;
+  }
+
+  // session.unmount = render(Element(), root);
+  const zbody = target || document.createElement("div");
+  // if (!zbody) {
+  //   zbody = document.createElement('div');
+  //   document.body.appendChild(zbody);
+
+  // }
+
+  ReactDOM.render(children, zbody);
+
+  // zbody && zbody.children[0].replaceWith(root);
+  session.div = zbody;
+  if (zbody.innerHTML) {
+    session.transpiled = transpiled;
+    session.html = zbody.innerHTML;
+    session.children = children;
+    session.setChild((c) => [...c, session.children]);
+  }
+  return !zbody.innerHTML;
+}
+
 /**
  * @param {BlobPart} code
  */
@@ -353,3 +357,13 @@ function createJsBlob(code) {
 
   return URL.createObjectURL(blob);
 }
+const session = {
+  i: 0,
+  counter: 0,
+};
+
+export const restart = async (code, target) => {
+  const transpiled = await transpileCode(code);
+  restartX(transpiled, target, session.counter, session);
+  return session;
+};

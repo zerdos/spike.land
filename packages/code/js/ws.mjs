@@ -106,6 +106,7 @@ export function join() {
           message.difference = difference;
           message.hashOfCode = hashOfCode;
           message.hashOfStarterCode = prevHash;
+
           if (prevHash && mod[prevHash]) {
             message.htmlDiff = getDiff(mod[prevHash].html, html);
             message.transpiledDiff = getDiff(
@@ -113,6 +114,7 @@ export function join() {
               transpiled,
             );
           }
+
           window.currentHashOfCode = hashOfCode;
           window[hashOfCode] = code;
           mod[hashOfCode] = {

@@ -2,6 +2,9 @@ import { handleErrors } from "./handleErrors.mjs";
 import { RateLimiterClient } from "./rateLimiterClient.mjs";
 import DiffMatchPatch from "diff-match-patch";
 import Hash from "ipfs-only-hash";
+import HTML from "./target.html"
+import importMap from "@spike.land/code/js/importmap.json";
+import { version } from "@spike.land/code/package.json";
 
 export class Code {
   constructor(controller, env) {
@@ -33,7 +36,23 @@ export class Code {
               }
            });
           }
-        
+          
+      case "public": {
+            const code = await this.storage.get("code");
+
+          importMap.imports["appLoader"] = `https://code.spike.land/@{version}/dev.mjs`;
+           HTML.replace("$$IMPORTMAP", JSON.stringify(importMap ))
+  
+            return new Response(HTML, {
+               status: 200, 
+               headers: {
+                  "Access-Control-Allow-Origin": "*",
+                  "Cache-Control": "no-cache",
+                  "Content-Type": "text/html; charset=UTF-8"
+                }
+             });
+            }
+
         case "websocket": {
           if (request.headers.get("Upgrade") != "websocket") {
             return new Response("expected websocket", { status: 400 });

@@ -1,16 +1,16 @@
 export const shasums = {
   "esbuild-dev.mjs":
     "2ce6dbeb1a973464803bea837e46beed452727e2153fc5ab12c6d9e1007dec69",
-  "dev.mjs": "aa7f659844063763c2ff1f285ad5431bc87f0037d4d0b0cb3ea6e3b1fb8b15ac",
+  "dev.mjs": "48f8ece6d00fa3e36f53ce49b368a2aa212bf5a0306c32744ed92cfef08cedd9",
   ".ignore": "bcae0416621b3db43d8cba1e4454a792c7af9e4b7287e51056efc5a215d95839",
   "manifest.json":
     "67193a5aefec147d6b040943a63d1a42945a5ba5401653e6e0062e5251ec611f",
   "edit/index.html":
     "6bedf2adaf3b015d95ef000fe886b446ff1cc39184be9c8f060e63a325ed50af",
   "package.json":
-    "7c30514428e24ebacd35a3d2d3bb5c49909bde732768cda82feac68dd0e006f6",
+    "58b211824dac21010f689f9f81ff721e5e49c6a15cb9f2fd4f9f580230a2d699",
   "dev.mjs.map":
-    "b2281deb6a6e6d34d4fee4f0880221be83c61f2061f5718409b95bedd0145c26",
+    "d036f228302f52eef2267112030260b585b056f8b2b3ee3a039247d875913fbe",
   "tsconfig.json":
     "e992c8b781dcf67ee3196fdc77b4deef52550fa172d9bb14bf123c9713535560",
   "assets/social-media-computer-icons-share-icon-png":
@@ -34,7 +34,7 @@ export const shasums = {
   "assets/roboto.css":
     "d4cfbb0537146f1f477d5050b2b19a8ccad2cbe8d22d4d18bfefb510b53571be",
   "js/ws.mjs":
-    "7f947e24834c3111fba0c7741951e9f42bb7eaf79936b47b0604ba7c39f3bd09",
+    "22406775bc6684fb9e80cece22de1c019d8d858dd274e1ff2e92cbc56e357ea4",
   "js/sw.js":
     "e8493b6ab208d22c048635935efa2932a9abc4994b32ef4bacc59f604ca1eb53",
   "js/ipfsClient.mjs":
@@ -60,7 +60,7 @@ export const shasums = {
   "js/openWindows.mjs":
     "47f9cc0127e7dc3d6e31fed7886a7119b5df6cb162cddc9893e9c7c560ebf33d",
   "js/codeLoader.mjs":
-    "79c68db8e7939c51f44321aeb88b0d77053c03fff45d5affb8562aa29eeea753",
+    "07b6259ba194f08fc49274ca9006f0fdf610ac9a4e6d46bc62000dcf4ea84560",
   "js/sendSignalToQrCode.mjs":
     "b3dbc31d893c271542abcd517a3d6d33ccd3198ba65680c210af95a0c446e98a",
   "js/examples/rca.tsx":
@@ -72,13 +72,13 @@ export const shasums = {
   "js/starter.mjs":
     "072740aaf876cc51a199398a047e17abf53f95272e8260446c6fdf7a6b5bfe02",
   "js/share.mjs":
-    "03e392e9229fa86d2a86583f709563c0419ef974aaa79ebd104a59eaa0fb7564",
+    "c0565278ba5fdf879d296dc34e26dbe5d19f9ca814b31dab666238d347734c31",
   "js/workboxLoader.mjs":
     "bcb3e78a29441717bcfaf0b167859c9ff3cb364440b0e20c041dfb4d209c64e2",
   "js/importScript.d.ts":
     "863a8f91f1d5750d68903b9493472d186067185cf0f9cf09f40c6c273ddef229",
   "js/templates.ts":
-    "2871deefb5670ee1eaf4480fa0c4b015eaf78f5bf0d714ee5962dfa20082080a",
+    "1c86984fec7f8d403c8955d825f48e77cf48444e54fe4c242035005df78e6116",
   "js/formatter.mjs":
     "af3a15b6edab0bc477a95fa4daaa0ef619272b7036f9be91dead1c47d95a4358",
   "js/reactLoader.mjs":
