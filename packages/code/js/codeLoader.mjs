@@ -1,4 +1,3 @@
-import { loadMonaco } from "@spike.land/smart-monaco-editor";
 import { renderPreviewWindow } from "./renderPreviewWindow.mjs";
 import { openWindows } from "./openWindows.mjs";
 import { getCodeToLoad, getIPFSCodeToLoad, saveCode } from "./data.mjs";
@@ -7,14 +6,12 @@ import { formatter } from "./formatter.mjs";
 import { assemble, diff } from "@spike.land/shadb";
 import React from "react";
 import ReactDOM from "react-dom";
-
 import startMonaco from "@spike.land/smart-monaco-editor";
 import { jsx } from "@emotion/react";
 import { ipfsClient } from "./ipfsClient.mjs";
 //import { getUserId } from "./data.mjs";
 // import Hash from "ipfs-only-hash";
 export { DraggableWindow, jsx, render } from "@spike.land/renderer";
-loadMonaco();
 
 // const charWidthSpan = document.createElement('span');
 
@@ -126,6 +123,7 @@ export async function run(mode = "window", code = "") {
   const container = document.getElementById("editor");
 
   if (container === null) return "No editor window";
+
 
   const editorPromise = startMonaco(
     /**

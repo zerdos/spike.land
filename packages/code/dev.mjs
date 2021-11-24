@@ -2361,7 +2361,7 @@ var init_importmap = __esm({
       "ipfs-only-hash": "https://unpkg.com/@spike.land/esm@0.1.23/dist/ipfs-only-hash.mjs",
       "@zedvision/swm": "https://unpkg.com/@zedvision/swm@4.0.0/public/swm-esm.js",
       "uuid/": "https://unpkg.com/uuid@8.3.2/dist/esm-browser/",
-      "@spike.land/code": "https://unpkg.com/@spike.land/code@0.1.35/js/reactLoader.mjs",
+      "@spike.land/code": "https://unpkg.com/@spike.land/code@0.1.36/js/reactLoader.mjs",
       comlink: "https://unpkg.com/comlink@4.3.1/dist/esm/comlink.mjs",
       "@spike.land/ipfs": "https://unpkg.com/@spike.land/ipfs@0.1.11/dist/ipfs.client.mjs",
       "workbox-window": "https://unpkg.com/workbox-window@6.4.1/build/workbox-window.prod.es5.mjs"
@@ -42799,6 +42799,111 @@ var init_renderer = __esm({
   }
 });
 
+// js/renderPreviewWindow.mjs
+async function renderPreviewWindow(session2) {
+  const {
+    DraggableWindow: DraggableWindow2,
+    jsx: jsx3,
+    render: render3
+  } = await Promise.resolve().then(() => (init_renderer(), renderer_exports));
+  const onShare = async () => {
+    const { shareItAsHtml: shareItAsHtml2 } = await Promise.resolve().then(() => (init_share(), share_exports));
+    const link = await shareItAsHtml2({
+      code: session2.code,
+      transpiled: session2.transpiled,
+      html: session2.html
+    });
+    open(link + "/");
+  };
+  let preview = window.document.getElementById("preview");
+  if (!preview) {
+    const element = window.document.createElement("div");
+    window.document.body.appendChild(element);
+    preview = element;
+  }
+  render3(jsx3(DraggableWindow2, {
+    onShare,
+    session: session2,
+    onRestore: () => {
+      const { monaco } = window;
+      const modelUri = monaco.Uri.parse(`file:///main.tsx`);
+      const model = monaco.editor.getModel(modelUri);
+      model.setValue(session2.code);
+    },
+    position: session2.mode === "window" ? "fixed" : "absolute"
+  }), preview);
+}
+
+// js/openWindows.mjs
+async function openWindows() {
+  return;
+}
+
+// js/transpile.mjs
+init_getWorker();
+import { wrap } from "https://unpkg.com/comlink@4.3.1/dist/esm/comlink.mjs";
+var { workerSrc: workerSrc2, forceNormalWorker: forceNormalWorker2 } = getWorker("transpile.worker.js");
+var transform2 = null;
+async function transpileCode(code) {
+  if (transform2 === null) {
+    await init();
+    return transpileCode(code);
+  }
+  const transformed = await transform2(code);
+  return transformed;
+}
+async function init() {
+  if (forceNormalWorker2 || typeof SharedWorker === "undefined") {
+    const worker2 = new Worker(workerSrc2);
+    const { port1, port2 } = new MessageChannel();
+    const msg = {
+      comlinkInit: true,
+      port: port1
+    };
+    worker2.postMessage(msg, [port1]);
+    transform2 = await wrap(port2);
+    return transform2;
+  }
+  const worker = new SharedWorker(workerSrc2);
+  worker.port.start();
+  transform2 = await wrap(worker.port);
+  return transform2;
+}
+
+// js/formatter.mjs
+init_getWorker();
+import { wrap as wrap2 } from "https://unpkg.com/comlink@4.3.1/dist/esm/comlink.mjs";
+var { workerSrc: workerSrc3, forceNormalWorker: forceNormalWorker3 } = getWorker("prettierWorker.js");
+var format2 = null;
+async function formatter(code) {
+  if (format2 === null) {
+    await init2();
+    return formatter(code);
+  }
+  const formatted = await format2(code);
+  return formatted;
+}
+async function init2() {
+  if (format2) {
+    console.log("INIT INIT");
+  }
+  if (forceNormalWorker3 || typeof SharedWorker === "undefined") {
+    const worker2 = new Worker(workerSrc3);
+    const { port1, port2 } = new MessageChannel();
+    const msg = {
+      comlinkInit: true,
+      port: port1
+    };
+    worker2.postMessage(msg, [port1]);
+    format2 = await wrap2(port2);
+    return format2;
+  }
+  const worker = new SharedWorker(workerSrc3);
+  worker.port.start();
+  format2 = await wrap2(worker.port);
+  return format2;
+}
+
 // ../smart-monaco-editor/dist/editor.mjs
 var __create2 = Object.create;
 var __defProp2 = Object.defineProperty;
@@ -43303,111 +43408,6 @@ var editor_default = async ({ onChange, code, language, container, options }) =>
   }
 };
 
-// js/renderPreviewWindow.mjs
-async function renderPreviewWindow(session2) {
-  const {
-    DraggableWindow: DraggableWindow2,
-    jsx: jsx3,
-    render: render3
-  } = await Promise.resolve().then(() => (init_renderer(), renderer_exports));
-  const onShare = async () => {
-    const { shareItAsHtml: shareItAsHtml2 } = await Promise.resolve().then(() => (init_share(), share_exports));
-    const link = await shareItAsHtml2({
-      code: session2.code,
-      transpiled: session2.transpiled,
-      html: session2.html
-    });
-    open(link + "/");
-  };
-  let preview = window.document.getElementById("preview");
-  if (!preview) {
-    const element = window.document.createElement("div");
-    window.document.body.appendChild(element);
-    preview = element;
-  }
-  render3(jsx3(DraggableWindow2, {
-    onShare,
-    session: session2,
-    onRestore: () => {
-      const { monaco } = window;
-      const modelUri = monaco.Uri.parse(`file:///main.tsx`);
-      const model = monaco.editor.getModel(modelUri);
-      model.setValue(session2.code);
-    },
-    position: session2.mode === "window" ? "fixed" : "absolute"
-  }), preview);
-}
-
-// js/openWindows.mjs
-async function openWindows() {
-  return;
-}
-
-// js/transpile.mjs
-init_getWorker();
-import { wrap } from "https://unpkg.com/comlink@4.3.1/dist/esm/comlink.mjs";
-var { workerSrc: workerSrc2, forceNormalWorker: forceNormalWorker2 } = getWorker("transpile.worker.js");
-var transform2 = null;
-async function transpileCode(code) {
-  if (transform2 === null) {
-    await init();
-    return transpileCode(code);
-  }
-  const transformed = await transform2(code);
-  return transformed;
-}
-async function init() {
-  if (forceNormalWorker2 || typeof SharedWorker === "undefined") {
-    const worker2 = new Worker(workerSrc2);
-    const { port1, port2 } = new MessageChannel();
-    const msg = {
-      comlinkInit: true,
-      port: port1
-    };
-    worker2.postMessage(msg, [port1]);
-    transform2 = await wrap(port2);
-    return transform2;
-  }
-  const worker = new SharedWorker(workerSrc2);
-  worker.port.start();
-  transform2 = await wrap(worker.port);
-  return transform2;
-}
-
-// js/formatter.mjs
-init_getWorker();
-import { wrap as wrap2 } from "https://unpkg.com/comlink@4.3.1/dist/esm/comlink.mjs";
-var { workerSrc: workerSrc3, forceNormalWorker: forceNormalWorker3 } = getWorker("prettierWorker.js");
-var format2 = null;
-async function formatter(code) {
-  if (format2 === null) {
-    await init2();
-    return formatter(code);
-  }
-  const formatted = await format2(code);
-  return formatted;
-}
-async function init2() {
-  if (format2) {
-    console.log("INIT INIT");
-  }
-  if (forceNormalWorker3 || typeof SharedWorker === "undefined") {
-    const worker2 = new Worker(workerSrc3);
-    const { port1, port2 } = new MessageChannel();
-    const msg = {
-      comlinkInit: true,
-      port: port1
-    };
-    worker2.postMessage(msg, [port1]);
-    format2 = await wrap2(port2);
-    return format2;
-  }
-  const worker = new SharedWorker(workerSrc3);
-  worker.port.start();
-  format2 = await wrap2(worker.port);
-  return format2;
-}
-
 // js/codeLoader.mjs
 init_data();
 init_shaDB();
@@ -43416,7 +43416,6 @@ init_renderer();
 import React216 from "https://unpkg.com/@spike.land/esm@0.1.23/dist/react.mjs";
 import ReactDOM3 from "https://unpkg.com/@spike.land/esm@0.1.23/dist/react-dom.mjs";
 import { jsx as jsx2 } from "https://unpkg.com/@emotion/react@11.6.0/dist/emotion-react.browser.esm.js";
-loadMonaco();
 function getSession() {
   const session2 = {
     i: 0,

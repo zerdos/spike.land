@@ -13997,7 +13997,7 @@ var require_ipfs_only_hash = __commonJS({
 });
 
 // ../../packages/code/package.json
-var version = "0.1.35";
+var version = "0.1.36";
 
 // ../../packages/code/js/importmap.json
 var imports = {
@@ -14427,7 +14427,7 @@ var import_diff_match_patch = __toModule(require_diff_match_patch());
 var import_ipfs_only_hash = __toModule(require_ipfs_only_hash());
 
 // src/target.html
-var target_default = '<!DOCTYPE html>\n<html lang="en">\n<head profile="http://www.w3.org/2005/10/profile">\n  <meta http-equiv="Content-Type" content="text/html,charset=utf-8" />\n  <meta name="viewport" content="width=device-width">\n  <link rel="stylesheet" href="https://unpkg.com/modern-css-reset/dist/reset.min.css" />\n  <script crossorigin src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"><\/script>\n  <script crossorigin src="https://unpkg.com/react-is@17.0.2/umd/react-is.production.min.js"><\/script>\n  <script crossorigin src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"><\/script>\n  \n  <title>Instant React Editor</title>\n  <script>\n    window.process = {env: {NODE_ENV:"production" }};\n  <\/script>\n    \n<body>\n  <div id="zbody"></div>\n  <script async src="https://unpkg.com/es-module-shims@1.3.2/dist/es-module-shims.js"><\/script>\n  <script type="esms-options">\n  {\n    "shimMode": true,\n    "polyfillEnable": ["css-modules", "json-modules"],\n    "nonce": "n0nce"\n  }\n  <\/script>\n  <script type="importmap">\n    $$IMPORTMAP\n  <\/script>\n  <script type="module">\n    import {restart} from "app";\n\n    const run = async () =>{\n      console.log("run....");\n          \n        const resp = await fetch(\n                "../code",\n              );\n        const code = await resp.text();\n        const target = document.getElementById("zbody");\n        restart(code, target);\n             \n    }\n    run();\n  <\/script>\n</body>\n</html>\n';
+var target_default = '<!DOCTYPE html>\n<html lang="en">\n<head profile="http://www.w3.org/2005/10/profile">\n  <meta http-equiv="Content-Type" content="text/html,charset=utf-8" />\n  <meta name="viewport" content="width=device-width">\n  <link rel="stylesheet" href="https://unpkg.com/modern-css-reset/dist/reset.min.css" />\n  <script crossorigin src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"><\/script>\n  <script crossorigin src="https://unpkg.com/react-is@17.0.2/umd/react-is.production.min.js"><\/script>\n  <script crossorigin src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"><\/script>\n  \n  <title>Instant React Editor</title>\n  <script>\n    window.process = {env: {NODE_ENV:"production" }};\n  <\/script>\n    \n<body>\n  <div id="zbody"></div>\n  <script async src="https://unpkg.com/es-module-shims@1.3.2/dist/es-module-shims.js"><\/script>\n  <script type="esms-options">\n  {\n    "shimMode": true,\n    "polyfillEnable": ["css-modules", "json-modules"],\n    "nonce": "n0nce"\n  }\n  <\/script>\n  <script type="importmap">\n    $$IMPORTMAP\n  <\/script>\n  <script type="module">\n    import {restart} from "app";\n    import {join} from "ws";\n\n    const run = async () =>{\n     \n          \n        const resp = await fetch(\n                "./code",\n              );\n        const code = await resp.text();\n        const target = document.getElementById("zbody");\n        await restart(code, target);\n\n        window.restartCode = (c)=>restart(c, document.getElementById("zbody"));\n        join();\n             \n    }\n    run();\n  <\/script>\n</body>\n</html>\n';
 
 // src/chatRoom.mjs
 var Code = class {
@@ -14454,7 +14454,7 @@ var Code = class {
           });
         }
         case "public": {
-          const html = target_default.replace("$$ROOMNAME", "roomie").replace("$$IMPORTMAP", JSON.stringify({ imports: { ...importmap_default.imports, app: `https://code.spike.land/@${version}/dev.mjs` } }));
+          const html = target_default.replace("$$ROOMNAME", "roomie").replace("$$IMPORTMAP", JSON.stringify({ imports: { ...importmap_default.imports, app: `https://code.spike.land/@${version}/dev.mjs`, ws: `https://code.spike.land/@${version}/js/ws.mjs` } }));
           return new Response(html, {
             status: 200,
             headers: {
