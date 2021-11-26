@@ -1,19 +1,17 @@
 //@ts-ignore
 
-import { shasums } from "./shasums.ts";
 
 export async function alterHeaders(response: Response, pathname: string) {
   const arrBuff = await response!.arrayBuffer();
   ///@ts-ignore
-  const sha = shasums[pathname];
   const shaCalculated = await sha256(arrBuff);
 
   const resp = new Response(arrBuff, response);
   //  const respCID = await getCID(arrBuff);
 
-  if (sha) {
-    resp.headers.set("x-sha256", sha);
-  }
+  // if (sha) {
+  //   resp.headers.set("x-sha256", sha);
+  // }
   resp.headers.set("x-calc-sha256", shaCalculated);
   resp.headers.set("access-control-allow-origin", "*");
   resp.headers.set(
