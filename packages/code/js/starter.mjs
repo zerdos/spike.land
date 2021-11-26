@@ -6,11 +6,15 @@ const wb = () =>
 const runTheApp = () =>
   import("./reactLoader.mjs").then(({ run }) => run("window"));
 
+  const path = location.pathname.split("/");
+  const user = "user"+Math.random();
+  const room = (path.pop() || path.pop()).slice(-12);
+
 export default function () {
   try {
-    join();
+    join(user, room);
   } catch {
-    setTimeout(join, 100);
+    setTimeout(() => join(user, room), 100);
   }
 
   try {

@@ -16,30 +16,7 @@ export default {
 
       if (!path[0]) {
         // Serve our HTML at the root path.
-
-        const html1 = HTML.slice(0, HTML.length - 40) + "*/";
-        const html2 = "/*" + HTML.slice(HTML.length - 40);
-
-        const rand = Math.random();
-        const injection = `
-              console.log(${rand});
-          `;
-
-        // Serve our HTML at the root path.
-        const regex = /VERSION/ig;
-        importMap.imports.app = `./@${version}/js/starter.mjs`;
-        return new Response(
-          html1.replace("$$IMPORTMAP", JSON.stringify(importMap)).replaceAll(
-            regex,
-            version,
-          ) + injection + html2,
-          {
-            headers: {
-              "Content-Type": "text/html;charset=UTF-8",
-              "Cache-Control": "no-cache",
-            },
-          },
-        );
+          return getHTMLResp();       
       }
 
       switch (path[0]) {
@@ -48,14 +25,7 @@ export default {
           return handleApiRequest(path.slice(1), request, env);
 
         case "live":
-          return new Response("woof", {
-            status: 200, 
-            headers: {
-               "Access-Control-Allow-Origin": "*",
-               "Cache-Control": "no-cache",
-               "Content-Type": "text/html; charset=UTF-8"
-             }
-          });
+          return getHTMLResp();
 
         default:
           return npmAns("@spike.land/code", version)(request, env);
@@ -103,4 +73,30 @@ async function handleApiRequest(path, request, env) {
     default:
       return new Response("Not found", { status: 404 });
   }
+}
+
+function getHTMLResp(){
+  const html1 = HTML.slice(0, HTML.length - 40) + "*/";
+  const html2 = "/*" + HTML.slice(HTML.length - 40);
+
+  const rand = Math.random();
+  const injection = `
+        console.log(${rand});
+    `;
+
+  // Serve our HTML at the root path.
+  const regex = /VERSION/ig;
+  importMap.imports.app = `./@${version}/js/starter.mjs`;
+  return new Response(
+    html1.replace("$$IMPORTMAP", JSON.stringify(importMap)).replaceAll(
+      regex,
+      version,
+    ) + injection + html2,
+    {
+      headers: {
+        "Content-Type": "text/html;charset=UTF-8",
+        "Cache-Control": "no-cache",
+      },
+    },
+  );
 }

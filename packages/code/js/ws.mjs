@@ -33,7 +33,7 @@ const chCode = (code) => {
 let hostname = "code.spike.land";
 
 let roomName = "roomie";
-let username = "Pisti" + Math.random();
+let username = "user" + Math.random();
 let lastSeenTimestamp = 0;
 let lastSeenCode = "";
 let ws;
@@ -73,7 +73,10 @@ function getDiff(from, to) {
   return dmp.patch_toText(patches);
 }
 
-export function join() {
+export function join(user, room) {
+  if (user) username = user;
+  if (room) roomName = room;
+
   ws = new WebSocket(
     "wss://" + hostname + "/api/room/" + roomName + "/websocket",
   );

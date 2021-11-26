@@ -1,6 +1,5 @@
 //@ts-ignore
 
-
 export async function alterHeaders(response: Response, pathname: string) {
   const arrBuff = await response!.arrayBuffer();
   ///@ts-ignore
