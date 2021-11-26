@@ -1,8 +1,8 @@
 self.importScripts("https://unpkg.com/comlink@4.3.1/dist/umd/comlink.min.js");
 
-self.importScripts("https://unpkg.com/prettier@2.4.1/standalone.js");
-self.importScripts("https://unpkg.com/prettier@2.4.1/parser-babel.js");
-self.importScripts("https://unpkg.com/prettier@2.4.1/parser-html.js");
+self.importScripts("https://unpkg.com/prettier@2.5.0/standalone.js");
+self.importScripts("https://unpkg.com/prettier@2.5.0/parser-babel.js");
+self.importScripts("https://unpkg.com/prettier@2.5.0/parser-html.js");
 
 const { prettier, prettierPlugins, Comlink } = self;
 
