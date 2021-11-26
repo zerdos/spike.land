@@ -186,7 +186,7 @@
     "@emotion/hash": "https://unpkg.com/@emotion/hash@0.8.0/dist/hash.browser.esm.js",
     "@emotion/is-prop-valid": "https://unpkg.com/@emotion/is-prop-valid@1.1.1/dist/emotion-is-prop-valid.browser.esm.js",
     "@emotion/memoize": "https://unpkg.com/@emotion/memoize@0.7.5/dist/emotion-memoize.browser.esm.js",
-    "@emotion/react": "https://unpkg.com/@emotion/react@11.6.0/dist/emotion-react.browser.esm.js",
+    "@emotion/react": "https://unpkg.com/@emotion/react@11.7.0/dist/emotion-react.browser.esm.js",
     "@emotion/serialize": "https://unpkg.com/@emotion/serialize@1.0.2/dist/emotion-serialize.browser.esm.js",
     "@emotion/sheet": "https://unpkg.com/@emotion/sheet@1.1.0/dist/emotion-sheet.browser.esm.js",
     "@emotion/styled": "https://unpkg.com/@emotion/styled@11.6.0/dist/emotion-styled.browser.esm.js",

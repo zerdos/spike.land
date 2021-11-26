@@ -8,8 +8,8 @@ added QmcsMurTbnEVPqP42x15FiisSjQdXJ7vGGHhf279UtwPxE code/assets/social-media-co
 added QmVUXK99dtKSob78XiURnzafewgiF7dTy8LkRJMR3yNTaS code/assets/synthwave.webp
 added QmZ5Nic3MRHT8m9SY5ZrSp38UHGEYmJqgk4RAmDV3xXqa1 code/assets/triangle-geometry.png
 added QmeHY7RZzR5wm9ELZr5xgq6XMQKjRAHgmxoQaCzHjgpRm8 code/assets/zed-icon-big.png
-added QmTRZJnogD65utsXqABncM1bPaKsv1N2SQRkurbzPciWKf code/dev.mjs
-added QmeBEvfdHeaXDxCNpnMtyuChNV3upS4P14wtQ715vSfzuP code/dev.mjs.map
+added QmYKhcb4fxvvsp4VToeU9VVzTMPppiP82wr9viEVYgoVAQ code/dev.mjs
+added QmNMpgmmwg7UWUiZoJnxwJuVQLNXBjcV9MvZ1o3vjUcMW3 code/dev.mjs.map
 added QmfXTNa9t9Yi9mcrrK9Y8fi6yfSzJ89XxCmGShH1CyZjFX code/edit/index.html
 added QmUqp7sUH1QAkE8uVZgozsNufupqgDcQR7eMhpjR3GERhv code/esbuild-dev.mjs
 added QmWF8oNe7SDdaY6t4WrJ8ZzM46dHEFmHDXzd8MBeNrELxe code/favicon.ico
@@ -22,7 +22,7 @@ added QmfHYHrBujTA1ZnMuLUUwZQ8GLdh55xRpUvoqK4PK3tdUn code/js/examples/starter_fr
 added Qmcvc7jZkrSvbattfsxi1BqmP7d1pVDy4pjjxeiJL8zmQn code/js/formatter.mjs
 added QmV1V5Fb2ZxP5Kn31nSU7FS2TtrDMg6wR7sMTsKeeR1txL code/js/importScript.d.ts
 added QmQBhy9H2prXzc5DnjVcF7qfkEMYVz4TFtwzegpcpEp4Da code/js/importScript.mjs
-added QmQxhQAinPnJZsTMf6Eqmtabg59kvxoavorfx8gmLeBPA1 code/js/importmap.json
+added QmdY6GNCG17YyDUAnGj16iTf6dSd4VwSwafg7ytGycDZ8a code/js/importmap.json
 added Qma5ZP226wff835FKrLgvaEwYMeQQ8q6EWUL8d7vsNeSHt code/js/ipfsClient.mjs
 added QmQDSXPm2xLjd1VZpthAjpt81CRVynQMWM26nNVncnYMdW code/js/openWindows.mjs
 added QmQVz3MRExedsNSyzKQyeU5te84tE4ACMzrEEuntyG4MjM code/js/reactLoader.mjs
@@ -49,7 +49,7 @@ added QmNNzye3PRvcTn6KwGq1W9TN9k32eZGzBEDozQGCs9b6ya code/assets
 added QmRBtzxNHPENXEfZwv1aZk9XmznUM6mesSe3GKVB8UwwXS code/edit
 added QmbZePTm4aHmFmZefnvz4CNm7omsSHvpGDn4HXSpq1atQB code/js/examples
 added QmZVNsjpySndEAYL1ohcCGb7oNgP2wAkkEUQtvfuGrdfSL code/js/workers
-added QmVGQuzUSNDHmq5p9VT36m9pQ9eMzicCAmKiXdT85ygMFu code/js
+added QmWA9U7cpW8Us2UrQxjtxb7gyVcks9DhoA5M2GMbK7YUVx code/js
 added QmUNLLsPACCz1vLxQVkXqqLX5R1X345qqfHbsf67hvA3Nn code/node_modules
 added QmVc56wBvEw5meoMV3WKdTdVPSHk36EeCF71F5no8AuFC4 code/scripts
-added QmZDSu7PYuMzBzCMdSsBifsp6dT2UiGdoXk9mQAhX1tffQ code
+added QmeF8ZDsS9TW9LiEyVeL5c7iCF1ngw4fmvK3fZxdbGwcvf code

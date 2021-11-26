@@ -23,7 +23,7 @@ export const shasums = {
   "assets/zed-icon-big.png":
     "1a8004c802bbcbdf49d4dacff5df98eb769d161df0d17d7a4ffd8093e957b18d",
   "dev.mjs.map":
-    "e56e4a961df8447864ca8bbdd856523fb45c5282598ef9ad9996e9e7bc5c0205",
+    "3bee51c256628a52c567fcddbd1b7689b6e8fd415f4b4d9053a00c78d02fcd69",
   "edit/index.html":
     "6bedf2adaf3b015d95ef000fe886b446ff1cc39184be9c8f060e63a325ed50af",
   "esbuild-dev.mjs":
@@ -83,14 +83,14 @@ export const shasums = {
   "js/ws.mjs":
     "4fdc85a4f730f28cf86e24aa43a07f52da963472a06f933c7f08117e377a6df4",
   "js/importmap.json":
-    "3425b061cc5d931fe4a90885ab6f962f45b4898494b5ab110635d7f1764b006d",
+    "0954f699ffda60dafe81881f0a4c1af2a131748da006cdf205d2436429bc84bb",
   "manifest.json":
     "67193a5aefec147d6b040943a63d1a42945a5ba5401653e6e0062e5251ec611f",
   "scripts/importmapGenerator.mjs":
     "b3ad2d3bdbda4bef0e11317da9b3e8bca6da2d7c7e8fc37d7ae8d533488762ae",
   "tsconfig.json":
     "e992c8b781dcf67ee3196fdc77b4deef52550fa172d9bb14bf123c9713535560",
-  "dev.mjs": "960ae41822586fb25cc5e83b6c72372c4b10e38d1b1d42655fffe9b1be76a86f",
+  "dev.mjs": "d3b46ba5221b8636f9bbd2aa2c8d5b33c36136519c97b409c80989f88395e1ff",
   "package.json":
     "abeb9b4905af1b49f0060c500e47a16a9884f057d3d5a5b0a63cd46a916c55e6",
   "food": "bar",

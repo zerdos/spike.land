@@ -452,27 +452,27 @@ var editor_default = async ({ onChange, code, language, container, options }) =>
       },
       {
         name: "@emotion/react/index.d.ts",
-        url: "https://unpkg.com/@emotion/react@11.6.0/types/index.d.ts",
+        url: "https://unpkg.com/@emotion/react@11.7.0/types/index.d.ts",
         depend: ["@emotion/cache"]
       },
       {
         name: "@emotion/react/jsx-namespace.d.ts",
-        url: "https://unpkg.com/@emotion/react@11.6.0/types/jsx-namespace.d.ts",
+        url: "https://unpkg.com/@emotion/react@11.7.0/types/jsx-namespace.d.ts",
         depend: ["@emotion/utils", "csstype"]
       },
       {
         name: "@emotion/react/css-prop.d.ts",
-        url: "https://unpkg.com/@emotion/react@11.5.0/types/css-prop.d.ts",
+        url: "https://unpkg.com/@emotion/react@11.7.0/types/css-prop.d.ts",
         depend: ["@emotion/utils", "csstype"]
       },
       {
         name: "@emotion/react/helper.d.ts",
-        url: "https://unpkg.com/@emotion/react@11.5.0/types/helper.d.ts",
+        url: "https://unpkg.com/@emotion/react@11.7.0/types/helper.d.ts",
         depend: ["@emotion/utils", "csstype"]
       },
       {
         name: "@emotion/react/theming.d.ts",
-        url: "https://unpkg.com/@emotion/react@11.5.0/types/theming.d.ts",
+        url: "https://unpkg.com/@emotion/react@11.7.0/types/theming.d.ts",
         depend: ["@emotion/utils", "csstype"]
       },
       {

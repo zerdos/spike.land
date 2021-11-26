@@ -2332,7 +2332,7 @@ var init_importmap = __esm({
       "@emotion/hash": "https://unpkg.com/@emotion/hash@0.8.0/dist/hash.browser.esm.js",
       "@emotion/is-prop-valid": "https://unpkg.com/@emotion/is-prop-valid@1.1.1/dist/emotion-is-prop-valid.browser.esm.js",
       "@emotion/memoize": "https://unpkg.com/@emotion/memoize@0.7.5/dist/emotion-memoize.browser.esm.js",
-      "@emotion/react": "https://unpkg.com/@emotion/react@11.6.0/dist/emotion-react.browser.esm.js",
+      "@emotion/react": "https://unpkg.com/@emotion/react@11.7.0/dist/emotion-react.browser.esm.js",
       "@emotion/serialize": "https://unpkg.com/@emotion/serialize@1.0.2/dist/emotion-serialize.browser.esm.js",
       "@emotion/sheet": "https://unpkg.com/@emotion/sheet@1.1.0/dist/emotion-sheet.browser.esm.js",
       "@emotion/styled": "https://unpkg.com/@emotion/styled@11.6.0/dist/emotion-styled.browser.esm.js",
@@ -3750,10 +3750,9 @@ var init_useEnhancedEffect = __esm({
 // ../../node_modules/@mui/utils/esm/useId.js
 import {
   useEffect as useEffect2,
-  useId,
   useState
 } from "https://unpkg.com/@spike.land/esm@0.1.41/dist/react.mjs";
-function useRandomId(idOverride) {
+function useId(idOverride) {
   const [defaultId, setDefaultId] = useState(idOverride);
   const id = idOverride || defaultId;
   useEffect2(() => {
@@ -3762,13 +3761,6 @@ function useRandomId(idOverride) {
     }
   }, [defaultId]);
   return id;
-}
-function useReactId(idOverride) {
-  if (useId !== void 0) {
-    const reactId = useId();
-    return idOverride != null ? idOverride : reactId;
-  }
-  return useRandomId(idOverride);
 }
 var init_useId = __esm({
   "../../node_modules/@mui/utils/esm/useId.js"() {
@@ -4278,7 +4270,7 @@ function useAutocomplete(props) {
     selectOnFocus = !props.freeSolo,
     value: valueProp
   } = props;
-  const id = useReactId(idProp);
+  const id = useId(idProp);
   let getOptionLabel = getOptionLabelProp;
   getOptionLabel = (option) => {
     const optionLabel = getOptionLabelProp(option);
@@ -10402,7 +10394,7 @@ var init_useTabs = __esm({
         name: "Tabs",
         state: "value"
       });
-      const idPrefix = useReactId();
+      const idPrefix = useId();
       const onSelected = useCallback9((e, newValue) => {
         setValue(newValue);
         if (onChange) {
@@ -11187,7 +11179,7 @@ var init_StyledEngineProvider = __esm({
 // ../../node_modules/@mui/styled-engine/GlobalStyles/GlobalStyles.js
 import "https://unpkg.com/@spike.land/esm@0.1.41/dist/react.mjs";
 import PropTypes21 from "https://esm.sh/prop-types";
-import { Global } from "https://unpkg.com/@emotion/react@11.6.0/dist/emotion-react.browser.esm.js";
+import { Global } from "https://unpkg.com/@emotion/react@11.7.0/dist/emotion-react.browser.esm.js";
 import { jsx as _jsx17 } from "https://esm.sh/react/jsx-runtime";
 function isEmpty(obj) {
   return obj === void 0 || obj === null || Object.keys(obj).length === 0;
@@ -11220,7 +11212,7 @@ var init_GlobalStyles2 = __esm({
 
 // ../../node_modules/@mui/styled-engine/index.js
 import emStyled from "https://unpkg.com/@emotion/styled@11.6.0/dist/emotion-styled.browser.esm.js";
-import { ThemeContext, keyframes, css } from "https://unpkg.com/@emotion/react@11.6.0/dist/emotion-react.browser.esm.js";
+import { ThemeContext, keyframes, css } from "https://unpkg.com/@emotion/react@11.7.0/dist/emotion-react.browser.esm.js";
 function styled(tag, options) {
   const stylesFactory = emStyled(tag, options);
   if (true) {
@@ -12262,6 +12254,12 @@ var init_styleFunctionSx2 = __esm({
   "../../node_modules/@mui/system/esm/styleFunctionSx/index.js"() {
     init_styleFunctionSx();
     init_extendSxProp();
+  }
+});
+
+// ../../node_modules/@mui/system/esm/sx/index.js
+var init_sx = __esm({
+  "../../node_modules/@mui/system/esm/sx/index.js"() {
   }
 });
 
@@ -13600,6 +13598,7 @@ var init_esm2 = __esm({
     init_typography();
     init_typography();
     init_styleFunctionSx2();
+    init_sx();
     init_getThemeValue();
     init_Box();
     init_createBox();
@@ -17004,7 +17003,7 @@ var useId_default;
 var init_useId2 = __esm({
   "../../node_modules/@mui/material/utils/useId.js"() {
     init_esm();
-    useId_default = useReactId;
+    useId_default = useId;
   }
 });
 
@@ -24257,7 +24256,7 @@ var init_Dialog = __esm({
           onClose(event, "backdropClick");
         }
       };
-      const ariaLabelledby = useReactId(ariaLabelledbyProp);
+      const ariaLabelledby = useId(ariaLabelledbyProp);
       const dialogContextValue = useMemo6(() => {
         return {
           titleId: ariaLabelledby
@@ -34285,7 +34284,11 @@ var init_SelectInput = __esm({
         }, [foundMatch, childrenArray, multiple, name, value]);
       }
       if (computeDisplay) {
-        display = multiple ? displayMultiple.join(", ") : displaySingle;
+        if (multiple) {
+          display = displayMultiple.reduce((prev, curr) => [prev, ", ", curr]);
+        } else {
+          display = displaySingle;
+        }
       }
       let menuMinWidth = menuMinWidthState;
       if (!autoWidth && isOpenControlled && displayNode) {
@@ -42784,7 +42787,7 @@ import React215, { Fragment as Fragment18 } from "https://unpkg.com/@spike.land/
 import {
   render as render2
 } from "https://unpkg.com/@spike.land/esm@0.1.41/dist/react-dom.mjs";
-import { css as css2, Global as Global2, jsx } from "https://unpkg.com/@emotion/react@11.6.0/dist/emotion-react.browser.esm.js";
+import { css as css2, Global as Global2, jsx } from "https://unpkg.com/@emotion/react@11.7.0/dist/emotion-react.browser.esm.js";
 var motion, render, renderer_default;
 var init_renderer = __esm({
   "../renderer/dist/renderer.js"() {
@@ -43337,27 +43340,27 @@ var editor_default = async ({ onChange, code, language, container, options }) =>
       },
       {
         name: "@emotion/react/index.d.ts",
-        url: "https://unpkg.com/@emotion/react@11.6.0/types/index.d.ts",
+        url: "https://unpkg.com/@emotion/react@11.7.0/types/index.d.ts",
         depend: ["@emotion/cache"]
       },
       {
         name: "@emotion/react/jsx-namespace.d.ts",
-        url: "https://unpkg.com/@emotion/react@11.6.0/types/jsx-namespace.d.ts",
+        url: "https://unpkg.com/@emotion/react@11.7.0/types/jsx-namespace.d.ts",
         depend: ["@emotion/utils", "csstype"]
       },
       {
         name: "@emotion/react/css-prop.d.ts",
-        url: "https://unpkg.com/@emotion/react@11.5.0/types/css-prop.d.ts",
+        url: "https://unpkg.com/@emotion/react@11.7.0/types/css-prop.d.ts",
         depend: ["@emotion/utils", "csstype"]
       },
       {
         name: "@emotion/react/helper.d.ts",
-        url: "https://unpkg.com/@emotion/react@11.5.0/types/helper.d.ts",
+        url: "https://unpkg.com/@emotion/react@11.7.0/types/helper.d.ts",
         depend: ["@emotion/utils", "csstype"]
       },
       {
         name: "@emotion/react/theming.d.ts",
-        url: "https://unpkg.com/@emotion/react@11.5.0/types/theming.d.ts",
+        url: "https://unpkg.com/@emotion/react@11.7.0/types/theming.d.ts",
         depend: ["@emotion/utils", "csstype"]
       },
       {
@@ -43413,7 +43416,7 @@ init_ipfsClient();
 init_renderer();
 import React216 from "https://unpkg.com/@spike.land/esm@0.1.41/dist/react.mjs";
 import ReactDOM3 from "https://unpkg.com/@spike.land/esm@0.1.41/dist/react-dom.mjs";
-import { jsx as jsx2 } from "https://unpkg.com/@emotion/react@11.6.0/dist/emotion-react.browser.esm.js";
+import { jsx as jsx2 } from "https://unpkg.com/@emotion/react@11.7.0/dist/emotion-react.browser.esm.js";
 function getSession() {
   const session2 = {
     i: 0,
@@ -43639,12 +43642,17 @@ export {
   restart,
   run
 };
-/** @license MUI v5.0.0-alpha.56
+/** @license MUI v5.0.0-alpha.57
  *
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  */
 /** @license MUI v5.2.0
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+/** @license MUI v5.2.1
  *
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
