@@ -83,14 +83,14 @@ export const shasums = {
   "js/ws.mjs":
     "4fdc85a4f730f28cf86e24aa43a07f52da963472a06f933c7f08117e377a6df4",
   "js/importmap.json":
-    "72cddaebe76af75b923815421d2e1c956e0065bd51a6aa4c1fa113d6f5ee35ca",
+    "3425b061cc5d931fe4a90885ab6f962f45b4898494b5ab110635d7f1764b006d",
   "manifest.json":
     "67193a5aefec147d6b040943a63d1a42945a5ba5401653e6e0062e5251ec611f",
   "scripts/importmapGenerator.mjs":
     "b3ad2d3bdbda4bef0e11317da9b3e8bca6da2d7c7e8fc37d7ae8d533488762ae",
   "tsconfig.json":
     "e992c8b781dcf67ee3196fdc77b4deef52550fa172d9bb14bf123c9713535560",
-  "dev.mjs": "e440f3563ec31d1d3bed440a969e7faecba27d907a47e70b51a0635a18e6660f",
+  "dev.mjs": "960ae41822586fb25cc5e83b6c72372c4b10e38d1b1d42655fffe9b1be76a86f",
   "package.json":
     "abeb9b4905af1b49f0060c500e47a16a9884f057d3d5a5b0a63cd46a916c55e6",
   "food": "bar",

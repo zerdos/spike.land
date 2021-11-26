@@ -14342,6 +14342,15 @@ var chat_default = {
       switch (path[0]) {
         case "api":
           return handleApiRequest(path.slice(1), request, env);
+        case "live":
+          return new Response("woof", {
+            status: 200,
+            headers: {
+              "Access-Control-Allow-Origin": "*",
+              "Cache-Control": "no-cache",
+              "Content-Type": "text/html; charset=UTF-8"
+            }
+          });
         default:
           return src_default2("@spike.land/code", version)(request, env);
       }

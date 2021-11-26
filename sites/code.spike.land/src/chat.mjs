@@ -47,6 +47,16 @@ export default {
           // This is a request for `/api/...`, call the API handler.
           return handleApiRequest(path.slice(1), request, env);
 
+        case "live":
+          return new Response("woof", {
+            status: 200, 
+            headers: {
+               "Access-Control-Allow-Origin": "*",
+               "Cache-Control": "no-cache",
+               "Content-Type": "text/html; charset=UTF-8"
+             }
+          });
+
         default:
           return npmAns("@spike.land/code", version)(request, env);
       }
