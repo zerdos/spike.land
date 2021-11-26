@@ -58,7 +58,7 @@ RUN apt-get update && \
     libexpat1-dev \
     gettext \
     gpg \
-&& curl -Lo /usr/src/git.tar.gz  https://github.com/git/git/archive/v2.34.0.tar.gz \
+&& curl -Lo /usr/src/git.tar.gz  https://github.com/git/git/archive/v2.34.1.tar.gz \
 && tar -C /usr/src/ -xf /usr/src/git.tar.gz && cd /usr/src/git-* \
 && make prefix=/usr/local all \
 && make prefix=/usr/local install \
