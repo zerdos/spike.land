@@ -131,7 +131,7 @@ export async function run(mode = "window", code = "") {
     {
       language: "typescript",
       container: container,
-      code: session.code,
+      code: session.formattedCode,
       /**
        * @param {string} code
        */

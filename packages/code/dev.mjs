@@ -43471,7 +43471,7 @@ async function run(mode = "window", code = "") {
   const editorPromise = editor_default({
     language: "typescript",
     container,
-    code: session2.code,
+    code: session2.formattedCode,
     onChange: (code2) => runner(code2)
   });
   await restartCode(session2.transpiled, session2.code, session2.i);

@@ -23,7 +23,7 @@ export const shasums = {
   "assets/zed-icon-big.png":
     "1a8004c802bbcbdf49d4dacff5df98eb769d161df0d17d7a4ffd8093e957b18d",
   "dev.mjs.map":
-    "3bee51c256628a52c567fcddbd1b7689b6e8fd415f4b4d9053a00c78d02fcd69",
+    "583952f9d2fa52f64d9a292ac02d341291c6eb323af1d5226155eedee2de1a56",
   "edit/index.html":
     "6bedf2adaf3b015d95ef000fe886b446ff1cc39184be9c8f060e63a325ed50af",
   "esbuild-dev.mjs":
@@ -33,7 +33,7 @@ export const shasums = {
   "index.html":
     "3f2d3ea80fc62b8bf503a416ac3919b29f0b14603cb1ad52e40af22836f4a5fb",
   "js/codeLoader.mjs":
-    "e7bd75301fc3e28e3ccd5a226a55a32b673883b74eee53fc69962409eea604e7",
+    "ad5adef31f06b5b22506ddcad106d12c3d123da22df3bbbb5ea3b24256e35c5c",
   "js/data.mjs":
     "a87e3d953ba05731db6b59ed8f2ae404092d7ccb0ddb9245c6ce3cee60b2efb8",
   "js/examples/app.tsx":
@@ -77,21 +77,21 @@ export const shasums = {
   "js/workers/ipfsWorker.js":
     "d715c85bbfb43925bdcafd856c0b02cc9824024c626766569724fd578f8ee4ac",
   "js/workers/prettierWorker.js":
-    "6b4049d46f2346319919b286e488da5728cb688b31d118c65553abbcb56a9f80",
+    "8204e34ac787f4891a7f74aac374058e00747a0c6d5c179a68a28741fac8bc6c",
   "js/workers/transpile.worker.js":
     "02ec89bdd8c9e29ed2a837638ed71b008fdd9534dccf273dabb8be2b627b2f49",
   "js/ws.mjs":
     "4fdc85a4f730f28cf86e24aa43a07f52da963472a06f933c7f08117e377a6df4",
   "js/importmap.json":
-    "0954f699ffda60dafe81881f0a4c1af2a131748da006cdf205d2436429bc84bb",
+    "f6d5f4ffe0a187fa07a0aa5986053067c495532f5478ecf5b6d7e625a33d22b1",
   "manifest.json":
     "67193a5aefec147d6b040943a63d1a42945a5ba5401653e6e0062e5251ec611f",
   "scripts/importmapGenerator.mjs":
     "b3ad2d3bdbda4bef0e11317da9b3e8bca6da2d7c7e8fc37d7ae8d533488762ae",
   "tsconfig.json":
     "e992c8b781dcf67ee3196fdc77b4deef52550fa172d9bb14bf123c9713535560",
-  "dev.mjs": "d3b46ba5221b8636f9bbd2aa2c8d5b33c36136519c97b409c80989f88395e1ff",
+  "dev.mjs": "d64d334bb97464a15f338e14efd94f6bcfd372ee96c8cd83bd515482b8aeaae5",
   "package.json":
-    "abeb9b4905af1b49f0060c500e47a16a9884f057d3d5a5b0a63cd46a916c55e6",
+    "bb906e2999bfeab6a5e4624a980892b08e45cdf174a14526349ea0eb76a2d136",
   "food": "bar",
 };
