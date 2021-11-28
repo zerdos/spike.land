@@ -198,7 +198,7 @@ async function pMap(iterable, mapper, {
     }
     const result = [];
     const errors = [];
-    const skippedIndexesMap = new Map();
+    const skippedIndexesMap = /* @__PURE__ */ new Map();
     let isRejected = false;
     let isResolved = false;
     let isIterableDone = false;
