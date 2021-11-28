@@ -28,4 +28,4 @@ esbuild.build({
   target: ["es2018"],
   plugins: [importMap.plugin()],
   outfile: "dev.mjs",
-}).catch(() => self.process.exit(1));
+}).catch(() => process.exit(1));

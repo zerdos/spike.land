@@ -3,7 +3,7 @@
   "scripts": {
     "develop": "gatsby develop --https",
     "clean": "gatsby clean && rm -rf .cache && rm -rf public",
-    "build": "cp -afr blog/. static && gatsby build"
+    "build": "cp -a blog/. static && gatsby build"
   },
   "files": [
     "public/**/*",
