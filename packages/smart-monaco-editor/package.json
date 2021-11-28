@@ -1,6 +1,6 @@
 {
   "name": "@spike.land/smart-monaco-editor",
-  "version": "0.1.42",
+  "version": "0.1.47",
   "description": "Monaco Editor with auto type downloads mostly for React",
   "sideEffects": false,
   "main": "./dist/editor.mjs",
