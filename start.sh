@@ -26,7 +26,7 @@ URL="http://127.0.0.1:8080/ipfs/$CID/"
 
 echo $URL
 
-(xdg-open $URL)&
+(xdg-open $URL || open $URL)&
 
 # rm -rf cids/code
 # mkdir -p cids
