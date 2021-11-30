@@ -30,7 +30,6 @@ esbuild.build({
   outfile: "dist/dev.mjs",
 }).catch(() => process.exit(1));
 
-
 esbuild.build({
   entryPoints: ["js/ws.mjs"],
   bundle: true,

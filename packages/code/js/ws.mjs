@@ -73,7 +73,7 @@ function getDiff(from, to) {
   return dmp.patch_toText(patches);
 }
 
-export  const  join = (user, room)=> {
+export const join = (user, room) => {
   if (user) username = user;
   if (room) roomName = room;
 
@@ -267,4 +267,4 @@ export  const  join = (user, room)=> {
     console.log("WebSocket error, reconnecting:", event);
     rejoin();
   });
-}
+};
