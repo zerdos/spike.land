@@ -1,4 +1,4 @@
-import { join } from "./ws.mjs";
+import { join } from "../dist/ws.mjs";
 
 const wb = () =>
   import("./workboxLoader.mjs").then(({ workboxLoader }) => workboxLoader());
