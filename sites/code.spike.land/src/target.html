@@ -21,7 +21,7 @@
   </script>
   <script type="module">
     import {restart} from "app";
-    import {join} from "  ";
+    import {join} from "ws";
 
     const run = async () =>{
      
@@ -35,8 +35,11 @@
 
         window.restartCode = (c)=>restart(c, document.getElementById("zbody"));
         const user = Math.random()-"html";
-        const 
-        join();
+        const room = location.pathname.slice(1).split("/")[2];
+
+        console.log(user, room);
+      
+        join(user, room);
              
     }
     run();
