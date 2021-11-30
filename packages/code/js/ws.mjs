@@ -73,7 +73,7 @@ function getDiff(from, to) {
   return dmp.patch_toText(patches);
 }
 
-export function join(user, room) {
+export  const  join = (user, room)=> {
   if (user) username = user;
   if (room) roomName = room;
 
