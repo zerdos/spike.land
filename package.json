@@ -22,7 +22,7 @@
     "release": "lerna publish patch --yes && yarn push",
     "clean": "yarn lerna run clean --parallel --since main",
     "pre:build": "yarn lerna run prebuild --parallel --since main",
-    "build": "yarn pre:build && yarn lerna run build --parallel --since main",
+    "build": "yarn pre:build && yarn lerna run build --parallel --since main --no-bail",
     "re:build": "yarn lerna run clean --parallel && yarn build"
   },
   "dependencies": {
