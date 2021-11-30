@@ -1,6 +1,7 @@
 import Hash from "ipfs-only-hash";
 import { text } from "./utils/responds";
 import { log } from "./log";
+import { handleCloudRequest } from "./handler";
 
 import { publicIpfsGateways, raceToSuccess } from "@spike.land/ipfs";
 
@@ -55,7 +56,7 @@ async function handleRequest(request: Request): Promise<Response> {
 
     return await text("test");
   }
-  return await text("yo");
+  return await handleCloudRequest(request);
 }
 
 async function fetchCid(path: string, retry = 3): Promise<Response> {
