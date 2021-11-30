@@ -39,7 +39,6 @@ export const dynamicImport = async (moduleName: string) => {
       type: "importmap-shim",
       innerHTML: JSON.stringify(importMap),
     }));
-    console.log({ importMap });
     document.body.appendChild(Object.assign(document.createElement("script"), {
       src: "https://unpkg.com/es-module-shims@1.3.2/dist/es-module-shims.js",
       async: "async",
@@ -63,7 +62,7 @@ export const dynamicImport = async (moduleName: string) => {
       }
     }
 
-    console.log(`lets delay ${i * 50} ms`);
+    // console.log(`lets delay ${i * 50} ms`);
     await wait(i * 50);
   }
 };

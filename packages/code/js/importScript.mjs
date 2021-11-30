@@ -3,8 +3,6 @@
  * @param {*} res
  */
 export const importScript = (src, res = []) => {
-  const prefix = src.slice(0, 8);
-  // if (prefix === "https://") {
   return window.document.head.querySelector(`script[src="${src}"]`) ||
     new Promise(function (resolve, reject) {
       const s = window.document.createElement("script");
