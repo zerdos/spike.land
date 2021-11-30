@@ -17,7 +17,7 @@ export const run = async (mode = "window", code = "") => {
 
   window.process = { env: { NODE_ENV: "production" } };
 
-  const { run: runCode } = await import("../dev.mjs");
+  const { run: runCode } = await import("../dist/dev.mjs");
 
   const { starterCode } = window;
 

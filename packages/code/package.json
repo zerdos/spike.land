@@ -10,6 +10,8 @@
   "exports": {
     "./package.json": "./package.json",
     ".": "./js/reactLoader.mjs",
+    "./dist/dev.mjs": "./dist/dev.mjs",
+    "./dist/ws.mjs": "./dist/ws.mjs",
     "./js/importmap.json": "./js/importmap.json"
   },
   "scripts": {
