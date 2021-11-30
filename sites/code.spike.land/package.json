@@ -17,7 +17,7 @@
   },
   "private": true,
   "dependencies": {
-    "@types/websocket": "^1.0.4",
-    "diff-match-patch": "^1.0.5"
+    "@types/websocket": "1.0.4",
+    "diff-match-patch": "1.0.5"
   }
 }
