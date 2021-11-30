@@ -13,7 +13,7 @@
     "@cloudflare/wrangler": "1.19.5",
     "@spike.land/cf-npm-site": "^0.1.0",
     "@spike.land/code": "^0.1.47",
-    "esbuild": "0.14.0"
+    "esbuild": "0.14.1"
   },
   "private": true,
   "dependencies": {

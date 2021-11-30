@@ -3757,13 +3757,16 @@ function useId(idOverride) {
   const id = idOverride || defaultId;
   useEffect2(() => {
     if (defaultId == null) {
-      setDefaultId(`mui-${Math.round(Math.random() * 1e9)}`);
+      globalId += 1;
+      setDefaultId(`mui-${globalId}`);
     }
   }, [defaultId]);
   return id;
 }
+var globalId;
 var init_useId = __esm({
   "../../node_modules/@mui/utils/esm/useId.js"() {
+    globalId = 0;
   }
 });
 
@@ -3966,7 +3969,6 @@ var init_useIsFocusVisible = __esm({
   "../../node_modules/@mui/utils/esm/useIsFocusVisible.js"() {
     hadKeyboardEvent = true;
     hadFocusVisibleRecently = false;
-    hadFocusVisibleRecentlyTimeout = null;
     inputTypesWhitelist = {
       text: true,
       search: true,
@@ -5111,6 +5113,7 @@ var init_generateUtilityClass = __esm({
 // ../../node_modules/@mui/base/generateUtilityClass/index.js
 var init_generateUtilityClass2 = __esm({
   "../../node_modules/@mui/base/generateUtilityClass/index.js"() {
+    init_generateUtilityClass();
     init_generateUtilityClass();
   }
 });
@@ -13443,7 +13446,8 @@ import _objectWithoutPropertiesLoose22 from "https://unpkg.com/@babel/runtime@7.
 import {
   createContext as createContext4,
   useContext as useContext4,
-  useEffect as useEffect15
+  useEffect as useEffect15,
+  useRef as useRef18
 } from "https://unpkg.com/@spike.land/esm@0.1.47/dist/react.mjs";
 import PropTypes27 from "https://esm.sh/prop-types";
 import { jsx as _jsx22 } from "https://esm.sh/react/jsx-runtime";
@@ -13453,6 +13457,8 @@ function createCssVarsProvider(options) {
     theme: baseTheme = {},
     defaultMode: desisgnSystemMode = "light",
     defaultColorScheme: designSystemColorScheme,
+    disableTransitionOnChange = false,
+    enableColorScheme = true,
     prefix: designSystemPrefix = "",
     shouldSkipGeneratingVar
   } = options;
@@ -13482,7 +13488,10 @@ function createCssVarsProvider(options) {
     const {
       colorSchemes: colorSchemesProp = {}
     } = themeProp, restThemeProp = _objectWithoutPropertiesLoose22(themeProp, _excluded25);
-    let mergedTheme = deepmerge(restBaseTheme, restThemeProp);
+    const hasMounted = useRef18(null);
+    let _deepmerge = deepmerge(restBaseTheme, restThemeProp), {
+      components = {}
+    } = _deepmerge, mergedTheme = _objectWithoutPropertiesLoose22(_deepmerge, _excluded33);
     const colorSchemes = deepmerge(baseColorSchemes, colorSchemesProp);
     const allColorSchemes = Object.keys(colorSchemes);
     const defaultLightColorScheme = typeof defaultColorScheme === "string" ? defaultColorScheme : defaultColorScheme.light;
@@ -13490,6 +13499,7 @@ function createCssVarsProvider(options) {
     const {
       mode,
       setMode,
+      systemMode,
       lightColorScheme,
       darkColorScheme,
       colorScheme,
@@ -13519,6 +13529,7 @@ function createCssVarsProvider(options) {
       shouldSkipGeneratingVar
     });
     mergedTheme = _extends35({}, mergedTheme, colorSchemes[resolvedColorScheme], {
+      components,
       colorSchemes,
       vars: rootVars
     });
@@ -13553,6 +13564,38 @@ function createCssVarsProvider(options) {
         document.body.setAttribute(attribute, colorScheme);
       }
     }, [colorScheme, attribute]);
+    useEffect15(() => {
+      if (!mode || !enableColorScheme) {
+        return void 0;
+      }
+      const priorColorScheme = document.documentElement.style.getPropertyValue("color-scheme");
+      if (mode === "system") {
+        document.documentElement.style.setProperty("color-scheme", systemMode);
+      } else {
+        document.documentElement.style.setProperty("color-scheme", mode);
+      }
+      return () => {
+        document.documentElement.style.setProperty("color-scheme", priorColorScheme);
+      };
+    }, [mode, systemMode]);
+    useEffect15(() => {
+      let timer;
+      if (disableTransitionOnChange && hasMounted.current) {
+        const css3 = document.createElement("style");
+        css3.appendChild(document.createTextNode(DISABLE_CSS_TRANSITION));
+        document.head.appendChild(css3);
+        (() => window.getComputedStyle(document.body))();
+        timer = setTimeout(() => {
+          document.head.removeChild(css3);
+        }, 1);
+      }
+      return () => {
+        clearTimeout(timer);
+      };
+    }, [colorScheme]);
+    useEffect15(() => {
+      hasMounted.current = true;
+    }, []);
     return /* @__PURE__ */ _jsxs9(ColorSchemeContext.Provider, {
       value: {
         mode,
@@ -13590,7 +13633,7 @@ function createCssVarsProvider(options) {
     getInitColorSchemeScript
   };
 }
-var _excluded24, _excluded25;
+var _excluded24, _excluded25, _excluded33, DISABLE_CSS_TRANSITION;
 var init_createCssVarsProvider = __esm({
   "../../node_modules/@mui/system/esm/cssVars/createCssVarsProvider.js"() {
     init_esm();
@@ -13600,7 +13643,8 @@ var init_createCssVarsProvider = __esm({
     init_ThemeProvider4();
     init_getInitColorSchemeScript();
     init_useCurrentColorScheme();
-    _excluded24 = ["colorSchemes"], _excluded25 = ["colorSchemes"];
+    _excluded24 = ["colorSchemes"], _excluded25 = ["colorSchemes"], _excluded33 = ["components"];
+    DISABLE_CSS_TRANSITION = "*{-webkit-transition:none!important;-moz-transition:none!important;-o-transition:none!important;-ms-transition:none!important;transition:none!important}";
   }
 });
 
@@ -14544,7 +14588,7 @@ import {
   useCallback as useCallback12,
   useEffect as useEffect17,
   useImperativeHandle as useImperativeHandle4,
-  useRef as useRef18,
+  useRef as useRef19,
   useState as useState15
 } from "https://unpkg.com/@spike.land/esm@0.1.47/dist/react.mjs";
 import PropTypes29 from "https://esm.sh/prop-types";
@@ -14677,18 +14721,18 @@ var init_TouchRipple = __esm({
         className
       } = props, other = _objectWithoutPropertiesLoose27(props, _excluded30);
       const [ripples, setRipples] = useState15([]);
-      const nextKey = useRef18(0);
-      const rippleCallback = useRef18(null);
+      const nextKey = useRef19(0);
+      const rippleCallback = useRef19(null);
       useEffect17(() => {
         if (rippleCallback.current) {
           rippleCallback.current();
           rippleCallback.current = null;
         }
       }, [ripples]);
-      const ignoringMouseDown = useRef18(false);
-      const startTimer = useRef18(null);
-      const startTimerCommit = useRef18(null);
-      const container = useRef18(null);
+      const ignoringMouseDown = useRef19(false);
+      const startTimer = useRef19(null);
+      const startTimerCommit = useRef19(null);
+      const container = useRef19(null);
       useEffect17(() => {
         return () => {
           clearTimeout(startTimer.current);
@@ -14861,7 +14905,7 @@ import {
   forwardRef as forwardRef18,
   useEffect as useEffect18,
   useImperativeHandle as useImperativeHandle5,
-  useRef as useRef19,
+  useRef as useRef20,
   useState as useState16
 } from "https://unpkg.com/@spike.land/esm@0.1.47/dist/react.mjs";
 import PropTypes30 from "https://esm.sh/prop-types";
@@ -14966,8 +15010,8 @@ var init_ButtonBase = __esm({
         TouchRippleProps,
         type
       } = props, other = _objectWithoutPropertiesLoose28(props, _excluded31);
-      const buttonRef = useRef19(null);
-      const rippleRef = useRef19(null);
+      const buttonRef = useRef20(null);
+      const rippleRef = useRef20(null);
       const {
         isFocusVisibleRef,
         onFocus: handleFocusVisible,
@@ -15044,7 +15088,7 @@ var init_ButtonBase = __esm({
         const button = buttonRef.current;
         return component && component !== "button" && !(button.tagName === "A" && button.href);
       };
-      const keydownRef = useRef19(false);
+      const keydownRef = useRef20(false);
       const handleKeyDown2 = useEventCallback_default((event) => {
         if (focusRipple && !keydownRef.current && focusVisible && rippleRef.current && event.key === " ") {
           keydownRef.current = true;
@@ -15225,7 +15269,7 @@ import {
 } from "https://unpkg.com/@spike.land/esm@0.1.47/dist/react.mjs";
 import PropTypes31 from "https://esm.sh/prop-types";
 import { jsx as _jsx26 } from "https://esm.sh/react/jsx-runtime";
-var _excluded33, useUtilityClasses11, FabRoot, Fab, Fab_default;
+var _excluded34, useUtilityClasses11, FabRoot, Fab, Fab_default;
 var init_Fab = __esm({
   "../../node_modules/@mui/material/Fab/Fab.js"() {
     init_clsx_m();
@@ -15235,7 +15279,7 @@ var init_Fab = __esm({
     init_useThemeProps3();
     init_fabClasses();
     init_styled2();
-    _excluded33 = ["children", "className", "color", "component", "disabled", "disableFocusRipple", "focusVisibleClassName", "size", "variant"];
+    _excluded34 = ["children", "className", "color", "component", "disabled", "disableFocusRipple", "focusVisibleClassName", "size", "variant"];
     useUtilityClasses11 = (ownerState) => {
       const {
         color: color2,
@@ -15355,7 +15399,7 @@ var init_Fab = __esm({
         focusVisibleClassName,
         size = "large",
         variant = "circular"
-      } = props, other = _objectWithoutPropertiesLoose29(props, _excluded33);
+      } = props, other = _objectWithoutPropertiesLoose29(props, _excluded34);
       const ownerState = _extends43({}, props, {
         color: color2,
         component,
@@ -15443,7 +15487,7 @@ import {
 import PropTypes32 from "https://esm.sh/prop-types";
 import { jsx as _jsx27 } from "https://esm.sh/react/jsx-runtime";
 import { jsxs as _jsxs11 } from "https://esm.sh/react/jsx-runtime";
-var _excluded34, useUtilityClasses12, commonIconStyles, ButtonRoot, ButtonStartIcon, ButtonEndIcon, Button, Button_default;
+var _excluded35, useUtilityClasses12, commonIconStyles, ButtonRoot, ButtonStartIcon, ButtonEndIcon, Button, Button_default;
 var init_Button = __esm({
   "../../node_modules/@mui/material/Button/Button.js"() {
     init_clsx_m();
@@ -15455,7 +15499,7 @@ var init_Button = __esm({
     init_capitalize2();
     init_buttonClasses();
     init_ButtonGroupContext();
-    _excluded34 = ["children", "className", "color", "component", "disabled", "disableElevation", "disableFocusRipple", "disableRipple", "endIcon", "focusVisibleClassName", "fullWidth", "size", "startIcon", "type", "variant"];
+    _excluded35 = ["children", "className", "color", "component", "disabled", "disableElevation", "disableFocusRipple", "disableRipple", "endIcon", "focusVisibleClassName", "fullWidth", "size", "startIcon", "type", "variant"];
     useUtilityClasses12 = (ownerState) => {
       const {
         color: color2,
@@ -15679,7 +15723,7 @@ var init_Button = __esm({
         startIcon: startIconProp,
         type,
         variant: variantProp
-      } = props, other = _objectWithoutPropertiesLoose30(props, _excluded34);
+      } = props, other = _objectWithoutPropertiesLoose30(props, _excluded35);
       const color2 = colorProp || colorContext || "primary";
       const disabled = disabledProp || disabledContext || false;
       const disableElevation = disableElevationProp || disableElevationContext || false;
@@ -15772,7 +15816,7 @@ function adaptV4Theme(inputTheme) {
     palette: palette2 = {},
     props = {},
     styleOverrides = {}
-  } = inputTheme, other = _objectWithoutPropertiesLoose31(inputTheme, _excluded35);
+  } = inputTheme, other = _objectWithoutPropertiesLoose31(inputTheme, _excluded36);
   const theme = _extends45({}, other, {
     components: {}
   });
@@ -15826,11 +15870,11 @@ function adaptV4Theme(inputTheme) {
   }, paletteRest);
   return theme;
 }
-var _excluded35, _excluded210;
+var _excluded36, _excluded210;
 var init_adaptV4Theme = __esm({
   "../../node_modules/@mui/material/styles/adaptV4Theme.js"() {
     init_esm2();
-    _excluded35 = ["defaultProps", "mixins", "overrides", "palette", "props", "styleOverrides"], _excluded210 = ["type", "mode"];
+    _excluded36 = ["defaultProps", "mixins", "overrides", "palette", "props", "styleOverrides"], _excluded210 = ["type", "mode"];
   }
 });
 
@@ -16073,7 +16117,7 @@ import {
 } from "https://unpkg.com/@spike.land/esm@0.1.47/dist/react.mjs";
 import PropTypes33 from "https://esm.sh/prop-types";
 import { jsx as _jsx28 } from "https://esm.sh/react/jsx-runtime";
-var _excluded36, useUtilityClasses13, ToggleButtonRoot, ToggleButton, ToggleButton_default;
+var _excluded37, useUtilityClasses13, ToggleButtonRoot, ToggleButton, ToggleButton_default;
 var init_ToggleButton = __esm({
   "../../node_modules/@mui/material/ToggleButton/ToggleButton.js"() {
     init_clsx_m();
@@ -16084,7 +16128,7 @@ var init_ToggleButton = __esm({
     init_useThemeProps3();
     init_styled2();
     init_toggleButtonClasses();
-    _excluded36 = ["children", "className", "color", "disabled", "disableFocusRipple", "fullWidth", "onChange", "onClick", "selected", "size", "value"];
+    _excluded37 = ["children", "className", "color", "disabled", "disableFocusRipple", "fullWidth", "onChange", "onClick", "selected", "size", "value"];
     useUtilityClasses13 = (ownerState) => {
       const {
         classes,
@@ -16167,7 +16211,7 @@ var init_ToggleButton = __esm({
         selected,
         size = "medium",
         value
-      } = props, other = _objectWithoutPropertiesLoose32(props, _excluded36);
+      } = props, other = _objectWithoutPropertiesLoose32(props, _excluded37);
       const ownerState = _extends47({}, props, {
         color: color2,
         disabled,
@@ -16270,7 +16314,7 @@ import {
 import { isFragment as isFragment2 } from "https://unpkg.com/@spike.land/esm@0.1.47/dist/react-is.mjs";
 import PropTypes34 from "https://esm.sh/prop-types";
 import { jsx as _jsx29 } from "https://esm.sh/react/jsx-runtime";
-var _excluded37, useUtilityClasses14, ToggleButtonGroupRoot, ToggleButtonGroup, ToggleButtonGroup_default;
+var _excluded38, useUtilityClasses14, ToggleButtonGroupRoot, ToggleButtonGroup, ToggleButtonGroup_default;
 var init_ToggleButtonGroup = __esm({
   "../../node_modules/@mui/material/ToggleButtonGroup/ToggleButtonGroup.js"() {
     init_clsx_m();
@@ -16280,7 +16324,7 @@ var init_ToggleButtonGroup = __esm({
     init_capitalize2();
     init_isValueSelected();
     init_toggleButtonGroupClasses();
-    _excluded37 = ["children", "className", "color", "disabled", "exclusive", "fullWidth", "onChange", "orientation", "size", "value"];
+    _excluded38 = ["children", "className", "color", "disabled", "exclusive", "fullWidth", "onChange", "orientation", "size", "value"];
     useUtilityClasses14 = (ownerState) => {
       const {
         classes,
@@ -16366,7 +16410,7 @@ var init_ToggleButtonGroup = __esm({
         orientation = "horizontal",
         size = "medium",
         value
-      } = props, other = _objectWithoutPropertiesLoose33(props, _excluded37);
+      } = props, other = _objectWithoutPropertiesLoose33(props, _excluded38);
       const ownerState = _extends48({}, props, {
         disabled,
         fullWidth,
@@ -16816,7 +16860,7 @@ import {
 import PropTypes35 from "https://esm.sh/prop-types";
 import { jsx as _jsx30 } from "https://esm.sh/react/jsx-runtime";
 import { jsxs as _jsxs12 } from "https://esm.sh/react/jsx-runtime";
-var _excluded38, useUtilityClasses15, SvgIconRoot, SvgIcon, SvgIcon_default;
+var _excluded39, useUtilityClasses15, SvgIconRoot, SvgIcon, SvgIcon_default;
 var init_SvgIcon = __esm({
   "../../node_modules/@mui/material/SvgIcon/SvgIcon.js"() {
     init_clsx_m();
@@ -16825,7 +16869,7 @@ var init_SvgIcon = __esm({
     init_useThemeProps3();
     init_styled2();
     init_svgIconClasses();
-    _excluded38 = ["children", "className", "color", "component", "fontSize", "htmlColor", "titleAccess", "viewBox"];
+    _excluded39 = ["children", "className", "color", "component", "fontSize", "htmlColor", "titleAccess", "viewBox"];
     useUtilityClasses15 = (ownerState) => {
       const {
         color: color2,
@@ -16888,7 +16932,7 @@ var init_SvgIcon = __esm({
         htmlColor,
         titleAccess,
         viewBox = "0 0 24 24"
-      } = props, other = _objectWithoutPropertiesLoose34(props, _excluded38);
+      } = props, other = _objectWithoutPropertiesLoose34(props, _excluded39);
       const ownerState = _extends49({}, props, {
         color: color2,
         component,
@@ -17122,12 +17166,12 @@ import _extends51 from "https://unpkg.com/@babel/runtime@7.16.3/helpers/esm/exte
 import {
   forwardRef as forwardRef25,
   useEffect as useEffect19,
-  useRef as useRef20
+  useRef as useRef21
 } from "https://unpkg.com/@spike.land/esm@0.1.47/dist/react.mjs";
 import PropTypes36 from "https://esm.sh/prop-types";
 import { Transition } from "https://esm.sh/react-transition-group";
 import { jsx as _jsx32 } from "https://esm.sh/react/jsx-runtime";
-var _excluded39, useUtilityClasses16, CollapseRoot, CollapseWrapper, CollapseWrapperInner, Collapse, Collapse_default;
+var _excluded40, useUtilityClasses16, CollapseRoot, CollapseWrapper, CollapseWrapperInner, Collapse, Collapse_default;
 var init_Collapse = __esm({
   "../../node_modules/@mui/material/Collapse/Collapse.js"() {
     init_clsx_m();
@@ -17140,7 +17184,7 @@ var init_Collapse = __esm({
     init_useTheme4();
     init_utils2();
     init_collapseClasses();
-    _excluded39 = ["addEndListener", "children", "className", "collapsedSize", "component", "easing", "in", "onEnter", "onEntered", "onEntering", "onExit", "onExited", "onExiting", "orientation", "style", "timeout", "TransitionComponent"];
+    _excluded40 = ["addEndListener", "children", "className", "collapsedSize", "component", "easing", "in", "onEnter", "onEntered", "onEntering", "onExit", "onExited", "onExiting", "orientation", "style", "timeout", "TransitionComponent"];
     useUtilityClasses16 = (ownerState) => {
       const {
         orientation,
@@ -17231,16 +17275,16 @@ var init_Collapse = __esm({
         style: style3,
         timeout = duration.standard,
         TransitionComponent = Transition
-      } = props, other = _objectWithoutPropertiesLoose35(props, _excluded39);
+      } = props, other = _objectWithoutPropertiesLoose35(props, _excluded40);
       const ownerState = _extends51({}, props, {
         orientation,
         collapsedSize: collapsedSizeProp
       });
       const classes = useUtilityClasses16(ownerState);
       const theme = useTheme4();
-      const timer = useRef20();
-      const wrapperRef = useRef20(null);
-      const autoTransitionDuration = useRef20();
+      const timer = useRef21();
+      const wrapperRef = useRef21(null);
+      const autoTransitionDuration = useRef21();
       const collapsedSize = typeof collapsedSizeProp === "number" ? `${collapsedSizeProp}px` : collapsedSizeProp;
       const isHorizontal2 = orientation === "horizontal";
       const size = isHorizontal2 ? "width" : "height";
@@ -17249,7 +17293,7 @@ var init_Collapse = __esm({
           clearTimeout(timer.current);
         };
       }, []);
-      const nodeRef = useRef20(null);
+      const nodeRef = useRef21(null);
       const handleRef = useForkRef_default(ref, nodeRef);
       const normalizedTransitionCallback = (callback) => (maybeIsAppearing) => {
         if (callback) {
@@ -17450,7 +17494,7 @@ import {
 } from "https://unpkg.com/@spike.land/esm@0.1.47/dist/react.mjs";
 import PropTypes37 from "https://esm.sh/prop-types";
 import { jsx as _jsx33 } from "https://esm.sh/react/jsx-runtime";
-var _excluded40, getOverlayAlpha, useUtilityClasses17, PaperRoot, Paper, Paper_default;
+var _excluded41, getOverlayAlpha, useUtilityClasses17, PaperRoot, Paper, Paper_default;
 var init_Paper = __esm({
   "../../node_modules/@mui/material/Paper/Paper.js"() {
     init_clsx_m();
@@ -17461,7 +17505,7 @@ var init_Paper = __esm({
     init_useThemeProps3();
     init_useTheme4();
     init_paperClasses();
-    _excluded40 = ["className", "component", "elevation", "square", "variant"];
+    _excluded41 = ["className", "component", "elevation", "square", "variant"];
     getOverlayAlpha = (elevation) => {
       let alphaValue;
       if (elevation < 1) {
@@ -17519,7 +17563,7 @@ var init_Paper = __esm({
         elevation = 1,
         square = false,
         variant = "elevation"
-      } = props, other = _objectWithoutPropertiesLoose36(props, _excluded40);
+      } = props, other = _objectWithoutPropertiesLoose36(props, _excluded41);
       const ownerState = _extends52({}, props, {
         component,
         elevation,
@@ -17614,7 +17658,7 @@ import { isFragment as isFragment3 } from "https://unpkg.com/@spike.land/esm@0.1
 import PropTypes38 from "https://esm.sh/prop-types";
 import { jsx as _jsx34 } from "https://esm.sh/react/jsx-runtime";
 import { jsxs as _jsxs13 } from "https://esm.sh/react/jsx-runtime";
-var _excluded41, useUtilityClasses18, AccordionRoot, Accordion, Accordion_default;
+var _excluded42, useUtilityClasses18, AccordionRoot, Accordion, Accordion_default;
 var init_Accordion = __esm({
   "../../node_modules/@mui/material/Accordion/Accordion.js"() {
     init_clsx_m();
@@ -17627,7 +17671,7 @@ var init_Accordion = __esm({
     init_AccordionContext();
     init_useControlled2();
     init_accordionClasses();
-    _excluded41 = ["children", "className", "defaultExpanded", "disabled", "disableGutters", "expanded", "onChange", "square", "TransitionComponent", "TransitionProps"];
+    _excluded42 = ["children", "className", "defaultExpanded", "disabled", "disableGutters", "expanded", "onChange", "square", "TransitionComponent", "TransitionProps"];
     useUtilityClasses18 = (ownerState) => {
       const {
         classes,
@@ -17737,7 +17781,7 @@ var init_Accordion = __esm({
         square = false,
         TransitionComponent = Collapse_default,
         TransitionProps
-      } = props, other = _objectWithoutPropertiesLoose37(props, _excluded41);
+      } = props, other = _objectWithoutPropertiesLoose37(props, _excluded42);
       const [expanded, setExpandedState] = useControlled_default({
         controlled: expandedProp,
         default: defaultExpanded,
@@ -17844,7 +17888,7 @@ import {
 } from "https://unpkg.com/@spike.land/esm@0.1.47/dist/react.mjs";
 import PropTypes39 from "https://esm.sh/prop-types";
 import { jsx as _jsx35 } from "https://esm.sh/react/jsx-runtime";
-var _excluded42, useUtilityClasses19, AccordionActionsRoot, AccordionActions, AccordionActions_default;
+var _excluded43, useUtilityClasses19, AccordionActionsRoot, AccordionActions, AccordionActions_default;
 var init_AccordionActions = __esm({
   "../../node_modules/@mui/material/AccordionActions/AccordionActions.js"() {
     init_clsx_m();
@@ -17852,7 +17896,7 @@ var init_AccordionActions = __esm({
     init_styled2();
     init_useThemeProps3();
     init_accordionActionsClasses();
-    _excluded42 = ["className", "disableSpacing"];
+    _excluded43 = ["className", "disableSpacing"];
     useUtilityClasses19 = (ownerState) => {
       const {
         classes,
@@ -17892,7 +17936,7 @@ var init_AccordionActions = __esm({
       const {
         className,
         disableSpacing = false
-      } = props, other = _objectWithoutPropertiesLoose38(props, _excluded42);
+      } = props, other = _objectWithoutPropertiesLoose38(props, _excluded43);
       const ownerState = _extends54({}, props, {
         disableSpacing
       });
@@ -17944,7 +17988,7 @@ import {
 } from "https://unpkg.com/@spike.land/esm@0.1.47/dist/react.mjs";
 import PropTypes40 from "https://esm.sh/prop-types";
 import { jsx as _jsx36 } from "https://esm.sh/react/jsx-runtime";
-var _excluded43, useUtilityClasses20, AccordionDetailsRoot, AccordionDetails, AccordionDetails_default;
+var _excluded44, useUtilityClasses20, AccordionDetailsRoot, AccordionDetails, AccordionDetails_default;
 var init_AccordionDetails = __esm({
   "../../node_modules/@mui/material/AccordionDetails/AccordionDetails.js"() {
     init_clsx_m();
@@ -17952,7 +17996,7 @@ var init_AccordionDetails = __esm({
     init_styled2();
     init_useThemeProps3();
     init_accordionDetailsClasses();
-    _excluded43 = ["className"];
+    _excluded44 = ["className"];
     useUtilityClasses20 = (ownerState) => {
       const {
         classes
@@ -17978,7 +18022,7 @@ var init_AccordionDetails = __esm({
       });
       const {
         className
-      } = props, other = _objectWithoutPropertiesLoose39(props, _excluded43);
+      } = props, other = _objectWithoutPropertiesLoose39(props, _excluded44);
       const ownerState = props;
       const classes = useUtilityClasses20(ownerState);
       return /* @__PURE__ */ _jsx36(AccordionDetailsRoot, _extends55({
@@ -18029,7 +18073,7 @@ import {
 import PropTypes41 from "https://esm.sh/prop-types";
 import { jsx as _jsx37 } from "https://esm.sh/react/jsx-runtime";
 import { jsxs as _jsxs14 } from "https://esm.sh/react/jsx-runtime";
-var _excluded44, useUtilityClasses21, AccordionSummaryRoot, AccordionSummaryContent, AccordionSummaryExpandIconWrapper, AccordionSummary, AccordionSummary_default;
+var _excluded45, useUtilityClasses21, AccordionSummaryRoot, AccordionSummaryContent, AccordionSummaryExpandIconWrapper, AccordionSummary, AccordionSummary_default;
 var init_AccordionSummary = __esm({
   "../../node_modules/@mui/material/AccordionSummary/AccordionSummary.js"() {
     init_clsx_m();
@@ -18039,7 +18083,7 @@ var init_AccordionSummary = __esm({
     init_ButtonBase2();
     init_AccordionContext();
     init_accordionSummaryClasses();
-    _excluded44 = ["children", "className", "expandIcon", "focusVisibleClassName", "onClick"];
+    _excluded45 = ["children", "className", "expandIcon", "focusVisibleClassName", "onClick"];
     useUtilityClasses21 = (ownerState) => {
       const {
         classes,
@@ -18133,7 +18177,7 @@ var init_AccordionSummary = __esm({
         expandIcon,
         focusVisibleClassName,
         onClick
-      } = props, other = _objectWithoutPropertiesLoose40(props, _excluded44);
+      } = props, other = _objectWithoutPropertiesLoose40(props, _excluded45);
       const {
         disabled = false,
         disableGutters,
@@ -18235,7 +18279,7 @@ import {
 } from "https://unpkg.com/@spike.land/esm@0.1.47/dist/react.mjs";
 import PropTypes42 from "https://esm.sh/prop-types";
 import { jsx as _jsx38 } from "https://esm.sh/react/jsx-runtime";
-var _excluded45, useUtilityClasses22, IconButtonRoot, IconButton, IconButton_default;
+var _excluded46, useUtilityClasses22, IconButtonRoot, IconButton, IconButton_default;
 var init_IconButton = __esm({
   "../../node_modules/@mui/material/IconButton/IconButton.js"() {
     init_clsx_m();
@@ -18247,7 +18291,7 @@ var init_IconButton = __esm({
     init_ButtonBase2();
     init_capitalize2();
     init_iconButtonClasses();
-    _excluded45 = ["edge", "children", "className", "color", "disabled", "disableFocusRipple", "size"];
+    _excluded46 = ["edge", "children", "className", "color", "disabled", "disableFocusRipple", "size"];
     useUtilityClasses22 = (ownerState) => {
       const {
         classes,
@@ -18334,7 +18378,7 @@ var init_IconButton = __esm({
         disabled = false,
         disableFocusRipple = false,
         size = "medium"
-      } = props, other = _objectWithoutPropertiesLoose41(props, _excluded45);
+      } = props, other = _objectWithoutPropertiesLoose41(props, _excluded46);
       const ownerState = _extends57({}, props, {
         edge,
         color: color2,
@@ -18459,7 +18503,7 @@ import {
 import PropTypes43 from "https://esm.sh/prop-types";
 import { jsx as _jsx44 } from "https://esm.sh/react/jsx-runtime";
 import { jsxs as _jsxs15 } from "https://esm.sh/react/jsx-runtime";
-var _CloseIcon, _excluded46, useUtilityClasses23, AlertRoot, AlertIcon, AlertMessage, AlertAction, defaultIconMapping, Alert, Alert_default;
+var _CloseIcon, _excluded47, useUtilityClasses23, AlertRoot, AlertIcon, AlertMessage, AlertAction, defaultIconMapping, Alert, Alert_default;
 var init_Alert = __esm({
   "../../node_modules/@mui/material/Alert/Alert.js"() {
     init_clsx_m();
@@ -18476,7 +18520,7 @@ var init_Alert = __esm({
     init_ErrorOutline();
     init_InfoOutlined();
     init_Close();
-    _excluded46 = ["action", "children", "className", "closeText", "color", "icon", "iconMapping", "onClose", "role", "severity", "variant"];
+    _excluded47 = ["action", "children", "className", "closeText", "color", "icon", "iconMapping", "onClose", "role", "severity", "variant"];
     useUtilityClasses23 = (ownerState) => {
       const {
         variant,
@@ -18591,7 +18635,7 @@ var init_Alert = __esm({
         role = "alert",
         severity = "success",
         variant = "standard"
-      } = props, other = _objectWithoutPropertiesLoose42(props, _excluded46);
+      } = props, other = _objectWithoutPropertiesLoose42(props, _excluded47);
       const ownerState = _extends58({}, props, {
         color: color2,
         severity,
@@ -18687,7 +18731,7 @@ import {
 } from "https://unpkg.com/@spike.land/esm@0.1.47/dist/react.mjs";
 import PropTypes44 from "https://esm.sh/prop-types";
 import { jsx as _jsx45 } from "https://esm.sh/react/jsx-runtime";
-var _excluded47, useUtilityClasses24, TypographyRoot, defaultVariantMapping, colorTransformations, transformDeprecatedColors, Typography, Typography_default;
+var _excluded48, useUtilityClasses24, TypographyRoot, defaultVariantMapping, colorTransformations, transformDeprecatedColors, Typography, Typography_default;
 var init_Typography = __esm({
   "../../node_modules/@mui/material/Typography/Typography.js"() {
     init_clsx_m();
@@ -18697,7 +18741,7 @@ var init_Typography = __esm({
     init_useThemeProps3();
     init_capitalize2();
     init_typographyClasses();
-    _excluded47 = ["align", "className", "component", "gutterBottom", "noWrap", "paragraph", "variant", "variantMapping"];
+    _excluded48 = ["align", "className", "component", "gutterBottom", "noWrap", "paragraph", "variant", "variantMapping"];
     useUtilityClasses24 = (ownerState) => {
       const {
         align,
@@ -18778,7 +18822,7 @@ var init_Typography = __esm({
         paragraph = false,
         variant = "body1",
         variantMapping = defaultVariantMapping
-      } = props, other = _objectWithoutPropertiesLoose43(props, _excluded47);
+      } = props, other = _objectWithoutPropertiesLoose43(props, _excluded48);
       const ownerState = _extends59({}, props, {
         align,
         color: color2,
@@ -18846,7 +18890,7 @@ import {
 } from "https://unpkg.com/@spike.land/esm@0.1.47/dist/react.mjs";
 import PropTypes45 from "https://esm.sh/prop-types";
 import { jsx as _jsx46 } from "https://esm.sh/react/jsx-runtime";
-var _excluded48, useUtilityClasses25, AlertTitleRoot, AlertTitle, AlertTitle_default;
+var _excluded49, useUtilityClasses25, AlertTitleRoot, AlertTitle, AlertTitle_default;
 var init_AlertTitle = __esm({
   "../../node_modules/@mui/material/AlertTitle/AlertTitle.js"() {
     init_clsx_m();
@@ -18855,7 +18899,7 @@ var init_AlertTitle = __esm({
     init_useThemeProps3();
     init_Typography2();
     init_alertTitleClasses();
-    _excluded48 = ["className"];
+    _excluded49 = ["className"];
     useUtilityClasses25 = (ownerState) => {
       const {
         classes
@@ -18884,7 +18928,7 @@ var init_AlertTitle = __esm({
       });
       const {
         className
-      } = props, other = _objectWithoutPropertiesLoose44(props, _excluded48);
+      } = props, other = _objectWithoutPropertiesLoose44(props, _excluded49);
       const ownerState = props;
       const classes = useUtilityClasses25(ownerState);
       return /* @__PURE__ */ _jsx46(AlertTitleRoot, _extends60({
@@ -18935,7 +18979,7 @@ import {
 } from "https://unpkg.com/@spike.land/esm@0.1.47/dist/react.mjs";
 import PropTypes46 from "https://esm.sh/prop-types";
 import { jsx as _jsx47 } from "https://esm.sh/react/jsx-runtime";
-var _excluded49, useUtilityClasses26, AppBarRoot, AppBar, AppBar_default;
+var _excluded50, useUtilityClasses26, AppBarRoot, AppBar, AppBar_default;
 var init_AppBar = __esm({
   "../../node_modules/@mui/material/AppBar/AppBar.js"() {
     init_clsx_m();
@@ -18945,7 +18989,7 @@ var init_AppBar = __esm({
     init_capitalize2();
     init_Paper2();
     init_appBarClasses();
-    _excluded49 = ["className", "color", "enableColorOnDark", "position"];
+    _excluded50 = ["className", "color", "enableColorOnDark", "position"];
     useUtilityClasses26 = (ownerState) => {
       const {
         color: color2,
@@ -19030,7 +19074,7 @@ var init_AppBar = __esm({
         color: color2 = "primary",
         enableColorOnDark = false,
         position: position2 = "fixed"
-      } = props, other = _objectWithoutPropertiesLoose45(props, _excluded49);
+      } = props, other = _objectWithoutPropertiesLoose45(props, _excluded50);
       const ownerState = _extends61({}, props, {
         color: color2,
         position: position2,
@@ -19149,7 +19193,7 @@ import {
 } from "https://unpkg.com/@spike.land/esm@0.1.47/dist/react.mjs";
 import PropTypes48 from "https://esm.sh/prop-types";
 import { jsx as _jsx49 } from "https://esm.sh/react/jsx-runtime";
-var _excluded50, useUtilityClasses27, ListSubheaderRoot, ListSubheader, ListSubheader_default;
+var _excluded51, useUtilityClasses27, ListSubheaderRoot, ListSubheader, ListSubheader_default;
 var init_ListSubheader = __esm({
   "../../node_modules/@mui/material/ListSubheader/ListSubheader.js"() {
     init_clsx_m();
@@ -19158,7 +19202,7 @@ var init_ListSubheader = __esm({
     init_useThemeProps3();
     init_capitalize2();
     init_listSubheaderClasses();
-    _excluded50 = ["className", "color", "component", "disableGutters", "disableSticky", "inset"];
+    _excluded51 = ["className", "color", "component", "disableGutters", "disableSticky", "inset"];
     useUtilityClasses27 = (ownerState) => {
       const {
         classes,
@@ -19219,7 +19263,7 @@ var init_ListSubheader = __esm({
         disableGutters = false,
         disableSticky = false,
         inset = false
-      } = props, other = _objectWithoutPropertiesLoose46(props, _excluded50);
+      } = props, other = _objectWithoutPropertiesLoose46(props, _excluded51);
       const ownerState = _extends63({}, props, {
         color: color2,
         component,
@@ -19292,7 +19336,7 @@ import {
   cloneElement as cloneElement7,
   forwardRef as forwardRef38,
   isValidElement as isValidElement7,
-  useRef as useRef21
+  useRef as useRef22
 } from "https://unpkg.com/@spike.land/esm@0.1.47/dist/react.mjs";
 import PropTypes49 from "https://esm.sh/prop-types";
 import { jsx as _jsx51 } from "https://esm.sh/react/jsx-runtime";
@@ -19300,7 +19344,7 @@ import { jsxs as _jsxs16 } from "https://esm.sh/react/jsx-runtime";
 function isDeleteKeyboardEvent(keyboardEvent) {
   return keyboardEvent.key === "Backspace" || keyboardEvent.key === "Delete";
 }
-var _excluded51, useUtilityClasses28, ChipRoot, ChipLabel, Chip, Chip_default;
+var _excluded52, useUtilityClasses28, ChipRoot, ChipLabel, Chip, Chip_default;
 var init_Chip = __esm({
   "../../node_modules/@mui/material/Chip/Chip.js"() {
     init_clsx_m();
@@ -19314,7 +19358,7 @@ var init_Chip = __esm({
     init_useThemeProps3();
     init_styled2();
     init_chipClasses();
-    _excluded51 = ["avatar", "className", "clickable", "color", "component", "deleteIcon", "disabled", "icon", "label", "onClick", "onDelete", "onKeyDown", "onKeyUp", "size", "variant"];
+    _excluded52 = ["avatar", "className", "clickable", "color", "component", "deleteIcon", "disabled", "icon", "label", "onClick", "onDelete", "onKeyDown", "onKeyUp", "size", "variant"];
     useUtilityClasses28 = (ownerState) => {
       const {
         classes,
@@ -19576,8 +19620,8 @@ var init_Chip = __esm({
         onKeyUp,
         size = "medium",
         variant = "filled"
-      } = props, other = _objectWithoutPropertiesLoose47(props, _excluded51);
-      const chipRef = useRef21(null);
+      } = props, other = _objectWithoutPropertiesLoose47(props, _excluded52);
+      const chipRef = useRef22(null);
       const handleRef = useForkRef_default(chipRef, ref);
       const handleDeleteIconClick = (event) => {
         event.stopPropagation();
@@ -19790,7 +19834,7 @@ import {
 import PropTypes50 from "https://esm.sh/prop-types";
 import { jsx as _jsx53 } from "https://esm.sh/react/jsx-runtime";
 import { jsxs as _jsxs17 } from "https://esm.sh/react/jsx-runtime";
-var _ClearIcon, _ArrowDropDownIcon, _excluded52, useUtilityClasses29, AutocompleteRoot, AutocompleteEndAdornment, AutocompleteClearIndicator, AutocompletePopupIndicator, AutocompletePopper, AutocompletePaper, AutocompleteLoading, AutocompleteNoOptions, AutocompleteListbox, AutocompleteGroupLabel, AutocompleteGroupUl, Autocomplete, Autocomplete_default;
+var _ClearIcon, _ArrowDropDownIcon, _excluded53, useUtilityClasses29, AutocompleteRoot, AutocompleteEndAdornment, AutocompleteClearIndicator, AutocompletePopupIndicator, AutocompletePopper, AutocompletePaper, AutocompleteLoading, AutocompleteNoOptions, AutocompleteListbox, AutocompleteGroupLabel, AutocompleteGroupUl, Autocomplete, Autocomplete_default;
 var init_Autocomplete = __esm({
   "../../node_modules/@mui/material/Autocomplete/Autocomplete.js"() {
     init_clsx_m();
@@ -19812,7 +19856,7 @@ var init_Autocomplete = __esm({
     init_styled2();
     init_autocompleteClasses();
     init_capitalize2();
-    _excluded52 = ["autoComplete", "autoHighlight", "autoSelect", "blurOnSelect", "ChipProps", "className", "clearIcon", "clearOnBlur", "clearOnEscape", "clearText", "closeText", "componentsProps", "defaultValue", "disableClearable", "disableCloseOnSelect", "disabled", "disabledItemsFocusable", "disableListWrap", "disablePortal", "filterOptions", "filterSelectedOptions", "forcePopupIcon", "freeSolo", "fullWidth", "getLimitTagsText", "getOptionDisabled", "getOptionLabel", "isOptionEqualToValue", "groupBy", "handleHomeEndKeys", "id", "includeInputInList", "inputValue", "limitTags", "ListboxComponent", "ListboxProps", "loading", "loadingText", "multiple", "noOptionsText", "onChange", "onClose", "onHighlightChange", "onInputChange", "onOpen", "open", "openOnFocus", "openText", "options", "PaperComponent", "PopperComponent", "popupIcon", "renderGroup", "renderInput", "renderOption", "renderTags", "selectOnFocus", "size", "value"];
+    _excluded53 = ["autoComplete", "autoHighlight", "autoSelect", "blurOnSelect", "ChipProps", "className", "clearIcon", "clearOnBlur", "clearOnEscape", "clearText", "closeText", "componentsProps", "defaultValue", "disableClearable", "disableCloseOnSelect", "disabled", "disabledItemsFocusable", "disableListWrap", "disablePortal", "filterOptions", "filterSelectedOptions", "forcePopupIcon", "freeSolo", "fullWidth", "getLimitTagsText", "getOptionDisabled", "getOptionLabel", "isOptionEqualToValue", "groupBy", "handleHomeEndKeys", "id", "includeInputInList", "inputValue", "limitTags", "ListboxComponent", "ListboxProps", "loading", "loadingText", "multiple", "noOptionsText", "onChange", "onClose", "onHighlightChange", "onInputChange", "onOpen", "open", "openOnFocus", "openText", "options", "PaperComponent", "PopperComponent", "popupIcon", "renderGroup", "renderInput", "renderOption", "renderTags", "selectOnFocus", "size", "value"];
     useUtilityClasses29 = (ownerState) => {
       const {
         classes,
@@ -20183,7 +20227,7 @@ var init_Autocomplete = __esm({
         renderTags,
         selectOnFocus = !props.freeSolo,
         size = "medium"
-      } = props, other = _objectWithoutPropertiesLoose48(props, _excluded52);
+      } = props, other = _objectWithoutPropertiesLoose48(props, _excluded53);
       const {
         getRootProps,
         getInputProps,
@@ -20523,7 +20567,7 @@ function useLoaded({
   }, [crossOrigin, referrerPolicy, src, srcSet]);
   return loaded;
 }
-var _excluded53, useUtilityClasses30, AvatarRoot, AvatarImg, AvatarFallback, Avatar, Avatar_default;
+var _excluded54, useUtilityClasses30, AvatarRoot, AvatarImg, AvatarFallback, Avatar, Avatar_default;
 var init_Avatar = __esm({
   "../../node_modules/@mui/material/Avatar/Avatar.js"() {
     init_clsx_m();
@@ -20532,7 +20576,7 @@ var init_Avatar = __esm({
     init_useThemeProps3();
     init_Person();
     init_avatarClasses();
-    _excluded53 = ["alt", "children", "className", "component", "imgProps", "sizes", "src", "srcSet", "variant"];
+    _excluded54 = ["alt", "children", "className", "component", "imgProps", "sizes", "src", "srcSet", "variant"];
     useUtilityClasses30 = (ownerState) => {
       const {
         classes,
@@ -20615,7 +20659,7 @@ var init_Avatar = __esm({
         src,
         srcSet,
         variant = "circular"
-      } = props, other = _objectWithoutPropertiesLoose49(props, _excluded53);
+      } = props, other = _objectWithoutPropertiesLoose49(props, _excluded54);
       let children = null;
       const loaded = useLoaded(_extends66({}, imgProps, {
         src,
@@ -20707,7 +20751,7 @@ import {
 import PropTypes52 from "https://esm.sh/prop-types";
 import { isFragment as isFragment4 } from "https://unpkg.com/@spike.land/esm@0.1.47/dist/react-is.mjs";
 import { jsxs as _jsxs18 } from "https://esm.sh/react/jsx-runtime";
-var _excluded54, SPACINGS, useUtilityClasses31, AvatarGroupRoot, AvatarGroupAvatar, AvatarGroup, AvatarGroup_default;
+var _excluded55, SPACINGS, useUtilityClasses31, AvatarGroupRoot, AvatarGroupAvatar, AvatarGroup, AvatarGroup_default;
 var init_AvatarGroup = __esm({
   "../../node_modules/@mui/material/AvatarGroup/AvatarGroup.js"() {
     init_clsx_m();
@@ -20717,7 +20761,7 @@ var init_AvatarGroup = __esm({
     init_useThemeProps3();
     init_Avatar2();
     init_avatarGroupClasses();
-    _excluded54 = ["children", "className", "max", "spacing", "variant"];
+    _excluded55 = ["children", "className", "max", "spacing", "variant"];
     SPACINGS = {
       small: -16,
       medium: null
@@ -20777,7 +20821,7 @@ var init_AvatarGroup = __esm({
         max: max2 = 5,
         spacing: spacing2 = "medium",
         variant = "circular"
-      } = props, other = _objectWithoutPropertiesLoose50(props, _excluded54);
+      } = props, other = _objectWithoutPropertiesLoose50(props, _excluded55);
       const clampedMax = max2 < 2 ? 2 : max2;
       const ownerState = _extends67({}, props, {
         max: max2,
@@ -20852,12 +20896,12 @@ import _objectWithoutPropertiesLoose51 from "https://unpkg.com/@babel/runtime@7.
 import {
   cloneElement as cloneElement9,
   forwardRef as forwardRef42,
-  useRef as useRef22
+  useRef as useRef23
 } from "https://unpkg.com/@spike.land/esm@0.1.47/dist/react.mjs";
 import PropTypes53 from "https://esm.sh/prop-types";
 import { Transition as Transition2 } from "https://esm.sh/react-transition-group";
 import { jsx as _jsx56 } from "https://esm.sh/react/jsx-runtime";
-var _excluded55, styles2, defaultTimeout, Fade, Fade_default;
+var _excluded56, styles2, defaultTimeout, Fade, Fade_default;
 var init_Fade = __esm({
   "../../node_modules/@mui/material/Fade/Fade.js"() {
     init_esm();
@@ -20865,7 +20909,7 @@ var init_Fade = __esm({
     init_useTheme4();
     init_utils3();
     init_useForkRef2();
-    _excluded55 = ["addEndListener", "appear", "children", "easing", "in", "onEnter", "onEntered", "onEntering", "onExit", "onExited", "onExiting", "style", "timeout", "TransitionComponent"];
+    _excluded56 = ["addEndListener", "appear", "children", "easing", "in", "onEnter", "onEntered", "onEntering", "onExit", "onExited", "onExiting", "style", "timeout", "TransitionComponent"];
     styles2 = {
       entering: {
         opacity: 1
@@ -20894,10 +20938,10 @@ var init_Fade = __esm({
         style: style3,
         timeout = defaultTimeout,
         TransitionComponent = Transition2
-      } = props, other = _objectWithoutPropertiesLoose51(props, _excluded55);
+      } = props, other = _objectWithoutPropertiesLoose51(props, _excluded56);
       const theme = useTheme4();
       const enableStrictModeCompat = true;
-      const nodeRef = useRef22(null);
+      const nodeRef = useRef23(null);
       const foreignRef = useForkRef_default(children.ref, ref);
       const handleRef = useForkRef_default(nodeRef, foreignRef);
       const normalizedTransitionCallback = (callback) => (maybeIsAppearing) => {
@@ -21013,7 +21057,7 @@ import {
 } from "https://unpkg.com/@spike.land/esm@0.1.47/dist/react.mjs";
 import PropTypes54 from "https://esm.sh/prop-types";
 import { jsx as _jsx57 } from "https://esm.sh/react/jsx-runtime";
-var _excluded56, backdropClasses, extendUtilityClasses, BackdropRoot, Backdrop, Backdrop_default;
+var _excluded57, backdropClasses, extendUtilityClasses, BackdropRoot, Backdrop, Backdrop_default;
 var init_Backdrop = __esm({
   "../../node_modules/@mui/material/Backdrop/Backdrop.js"() {
     init_base();
@@ -21021,7 +21065,7 @@ var init_Backdrop = __esm({
     init_styled2();
     init_useThemeProps3();
     init_Fade2();
-    _excluded56 = ["children", "components", "componentsProps", "className", "invisible", "open", "transitionDuration", "TransitionComponent"];
+    _excluded57 = ["children", "components", "componentsProps", "className", "invisible", "open", "transitionDuration", "TransitionComponent"];
     backdropClasses = backdropUnstyledClasses_default;
     extendUtilityClasses = (ownerState) => {
       const {
@@ -21069,7 +21113,7 @@ var init_Backdrop = __esm({
         open: open2,
         transitionDuration,
         TransitionComponent = Fade_default
-      } = props, other = _objectWithoutPropertiesLoose52(props, _excluded56);
+      } = props, other = _objectWithoutPropertiesLoose52(props, _excluded57);
       const ownerState = _extends69({}, props, {
         invisible
       });
@@ -21132,7 +21176,7 @@ import {
 } from "https://unpkg.com/@spike.land/esm@0.1.47/dist/react.mjs";
 import PropTypes55 from "https://esm.sh/prop-types";
 import { jsx as _jsx58 } from "https://esm.sh/react/jsx-runtime";
-var _excluded57, badgeClasses, RADIUS_STANDARD, RADIUS_DOT, extendUtilityClasses2, BadgeRoot, BadgeBadge, Badge, Badge_default;
+var _excluded58, badgeClasses, RADIUS_STANDARD, RADIUS_DOT, extendUtilityClasses2, BadgeRoot, BadgeBadge, Badge, Badge_default;
 var init_Badge = __esm({
   "../../node_modules/@mui/material/Badge/Badge.js"() {
     init_clsx_m();
@@ -21142,7 +21186,7 @@ var init_Badge = __esm({
     init_styled2();
     init_useThemeProps3();
     init_capitalize2();
-    _excluded57 = ["components", "componentsProps", "color", "invisible", "badgeContent", "showZero", "variant"];
+    _excluded58 = ["components", "componentsProps", "color", "invisible", "badgeContent", "showZero", "variant"];
     badgeClasses = _extends70({}, badgeUnstyledClasses_default, generateUtilityClasses("MuiBadge", ["colorError", "colorInfo", "colorPrimary", "colorSecondary", "colorSuccess", "colorWarning"]));
     RADIUS_STANDARD = 10;
     RADIUS_DOT = 4;
@@ -21291,7 +21335,7 @@ var init_Badge = __esm({
         badgeContent: badgeContentProp,
         showZero = false,
         variant: variantProp = "standard"
-      } = props, other = _objectWithoutPropertiesLoose53(props, _excluded57);
+      } = props, other = _objectWithoutPropertiesLoose53(props, _excluded58);
       const prevProps = usePreviousProps_default({
         color: colorProp
       });
@@ -21391,7 +21435,7 @@ import {
 import { isFragment as isFragment5 } from "https://unpkg.com/@spike.land/esm@0.1.47/dist/react-is.mjs";
 import PropTypes56 from "https://esm.sh/prop-types";
 import { jsx as _jsx59 } from "https://esm.sh/react/jsx-runtime";
-var _excluded58, useUtilityClasses32, BottomNavigationRoot, BottomNavigation, BottomNavigation_default;
+var _excluded59, useUtilityClasses32, BottomNavigationRoot, BottomNavigation, BottomNavigation_default;
 var init_BottomNavigation = __esm({
   "../../node_modules/@mui/material/BottomNavigation/BottomNavigation.js"() {
     init_clsx_m();
@@ -21399,7 +21443,7 @@ var init_BottomNavigation = __esm({
     init_styled2();
     init_useThemeProps3();
     init_bottomNavigationClasses();
-    _excluded58 = ["children", "className", "component", "onChange", "showLabels", "value"];
+    _excluded59 = ["children", "className", "component", "onChange", "showLabels", "value"];
     useUtilityClasses32 = (ownerState) => {
       const {
         classes
@@ -21433,7 +21477,7 @@ var init_BottomNavigation = __esm({
         onChange,
         showLabels = false,
         value
-      } = props, other = _objectWithoutPropertiesLoose54(props, _excluded58);
+      } = props, other = _objectWithoutPropertiesLoose54(props, _excluded59);
       const ownerState = _extends71({}, props, {
         component,
         showLabels
@@ -21509,7 +21553,7 @@ import {
 import PropTypes57 from "https://esm.sh/prop-types";
 import { jsx as _jsx60 } from "https://esm.sh/react/jsx-runtime";
 import { jsxs as _jsxs19 } from "https://esm.sh/react/jsx-runtime";
-var _excluded59, useUtilityClasses33, BottomNavigationActionRoot, BottomNavigationActionLabel, BottomNavigationAction, BottomNavigationAction_default;
+var _excluded60, useUtilityClasses33, BottomNavigationActionRoot, BottomNavigationActionLabel, BottomNavigationAction, BottomNavigationAction_default;
 var init_BottomNavigationAction = __esm({
   "../../node_modules/@mui/material/BottomNavigationAction/BottomNavigationAction.js"() {
     init_clsx_m();
@@ -21519,7 +21563,7 @@ var init_BottomNavigationAction = __esm({
     init_ButtonBase2();
     init_unsupportedProp2();
     init_bottomNavigationActionClasses();
-    _excluded59 = ["className", "icon", "label", "onChange", "onClick", "selected", "showLabel", "value"];
+    _excluded60 = ["className", "icon", "label", "onChange", "onClick", "selected", "showLabel", "value"];
     useUtilityClasses33 = (ownerState) => {
       const {
         classes,
@@ -21595,7 +21639,7 @@ var init_BottomNavigationAction = __esm({
         onChange,
         onClick,
         value
-      } = props, other = _objectWithoutPropertiesLoose55(props, _excluded59);
+      } = props, other = _objectWithoutPropertiesLoose55(props, _excluded60);
       const ownerState = props;
       const classes = useUtilityClasses33(ownerState);
       const handleChange = (event) => {
@@ -21749,7 +21793,7 @@ import {
   Children as Children7,
   forwardRef as forwardRef47,
   isValidElement as isValidElement10,
-  useRef as useRef23,
+  useRef as useRef24,
   useState as useState18
 } from "https://unpkg.com/@spike.land/esm@0.1.47/dist/react.mjs";
 import { isFragment as isFragment6 } from "https://unpkg.com/@spike.land/esm@0.1.47/dist/react-is.mjs";
@@ -21770,7 +21814,7 @@ function insertSeparators(items, className, separator, ownerState) {
     return acc;
   }, []);
 }
-var _excluded60, useUtilityClasses34, BreadcrumbsRoot, BreadcrumbsOl, BreadcrumbsSeparator, Breadcrumbs, Breadcrumbs_default;
+var _excluded61, useUtilityClasses34, BreadcrumbsRoot, BreadcrumbsOl, BreadcrumbsSeparator, Breadcrumbs, Breadcrumbs_default;
 var init_Breadcrumbs = __esm({
   "../../node_modules/@mui/material/Breadcrumbs/Breadcrumbs.js"() {
     init_clsx_m();
@@ -21781,7 +21825,7 @@ var init_Breadcrumbs = __esm({
     init_Typography2();
     init_BreadcrumbCollapsed();
     init_breadcrumbsClasses();
-    _excluded60 = ["children", "className", "component", "expandText", "itemsAfterCollapse", "itemsBeforeCollapse", "maxItems", "separator"];
+    _excluded61 = ["children", "className", "component", "expandText", "itemsAfterCollapse", "itemsBeforeCollapse", "maxItems", "separator"];
     useUtilityClasses34 = (ownerState) => {
       const {
         classes
@@ -21839,7 +21883,7 @@ var init_Breadcrumbs = __esm({
         itemsBeforeCollapse = 1,
         maxItems = 8,
         separator = "/"
-      } = props, other = _objectWithoutPropertiesLoose56(props, _excluded60);
+      } = props, other = _objectWithoutPropertiesLoose56(props, _excluded61);
       const [expanded, setExpanded] = useState18(false);
       const ownerState = _extends74({}, props, {
         component,
@@ -21851,7 +21895,7 @@ var init_Breadcrumbs = __esm({
         separator
       });
       const classes = useUtilityClasses34(ownerState);
-      const listRef = useRef23(null);
+      const listRef = useRef24(null);
       const renderItemsBeforeAndAfter = (allItems2) => {
         const handleClickExpand = () => {
           setExpanded(true);
@@ -21944,7 +21988,7 @@ import {
 } from "https://unpkg.com/@spike.land/esm@0.1.47/dist/react.mjs";
 import PropTypes60 from "https://esm.sh/prop-types";
 import { jsx as _jsx64 } from "https://esm.sh/react/jsx-runtime";
-var _excluded61, overridesResolver, useUtilityClasses35, ButtonGroupRoot, ButtonGroup, ButtonGroup_default;
+var _excluded62, overridesResolver, useUtilityClasses35, ButtonGroupRoot, ButtonGroup, ButtonGroup_default;
 var init_ButtonGroup = __esm({
   "../../node_modules/@mui/material/ButtonGroup/ButtonGroup.js"() {
     init_clsx_m();
@@ -21955,7 +21999,7 @@ var init_ButtonGroup = __esm({
     init_useThemeProps3();
     init_buttonGroupClasses();
     init_ButtonGroupContext();
-    _excluded61 = ["children", "className", "color", "component", "disabled", "disableElevation", "disableFocusRipple", "disableRipple", "fullWidth", "orientation", "size", "variant"];
+    _excluded62 = ["children", "className", "color", "component", "disabled", "disableElevation", "disableFocusRipple", "disableRipple", "fullWidth", "orientation", "size", "variant"];
     overridesResolver = (props, styles7) => {
       const {
         ownerState
@@ -22080,7 +22124,7 @@ var init_ButtonGroup = __esm({
         orientation = "horizontal",
         size = "medium",
         variant = "outlined"
-      } = props, other = _objectWithoutPropertiesLoose57(props, _excluded61);
+      } = props, other = _objectWithoutPropertiesLoose57(props, _excluded62);
       const ownerState = _extends75({}, props, {
         color: color2,
         component,
@@ -22168,7 +22212,7 @@ import {
 } from "https://unpkg.com/@spike.land/esm@0.1.47/dist/react.mjs";
 import PropTypes61 from "https://esm.sh/prop-types";
 import { jsx as _jsx65 } from "https://esm.sh/react/jsx-runtime";
-var _excluded62, useUtilityClasses36, CardRoot, Card, Card_default;
+var _excluded63, useUtilityClasses36, CardRoot, Card, Card_default;
 var init_Card = __esm({
   "../../node_modules/@mui/material/Card/Card.js"() {
     init_clsx_m();
@@ -22178,7 +22222,7 @@ var init_Card = __esm({
     init_useThemeProps3();
     init_Paper2();
     init_cardClasses();
-    _excluded62 = ["className", "raised"];
+    _excluded63 = ["className", "raised"];
     useUtilityClasses36 = (ownerState) => {
       const {
         classes
@@ -22205,7 +22249,7 @@ var init_Card = __esm({
       const {
         className,
         raised = false
-      } = props, other = _objectWithoutPropertiesLoose58(props, _excluded62);
+      } = props, other = _objectWithoutPropertiesLoose58(props, _excluded63);
       const ownerState = _extends76({}, props, {
         raised
       });
@@ -22264,7 +22308,7 @@ import {
 import PropTypes62 from "https://esm.sh/prop-types";
 import { jsx as _jsx66 } from "https://esm.sh/react/jsx-runtime";
 import { jsxs as _jsxs20 } from "https://esm.sh/react/jsx-runtime";
-var _excluded63, useUtilityClasses37, CardActionAreaRoot, CardActionAreaFocusHighlight, CardActionArea, CardActionArea_default;
+var _excluded64, useUtilityClasses37, CardActionAreaRoot, CardActionAreaFocusHighlight, CardActionArea, CardActionArea_default;
 var init_CardActionArea = __esm({
   "../../node_modules/@mui/material/CardActionArea/CardActionArea.js"() {
     init_clsx_m();
@@ -22273,7 +22317,7 @@ var init_CardActionArea = __esm({
     init_styled2();
     init_cardActionAreaClasses();
     init_ButtonBase2();
-    _excluded63 = ["children", "className", "focusVisibleClassName"];
+    _excluded64 = ["children", "className", "focusVisibleClassName"];
     useUtilityClasses37 = (ownerState) => {
       const {
         classes
@@ -22334,7 +22378,7 @@ var init_CardActionArea = __esm({
         children,
         className,
         focusVisibleClassName
-      } = props, other = _objectWithoutPropertiesLoose59(props, _excluded63);
+      } = props, other = _objectWithoutPropertiesLoose59(props, _excluded64);
       const ownerState = props;
       const classes = useUtilityClasses37(ownerState);
       return /* @__PURE__ */ _jsxs20(CardActionAreaRoot, _extends77({
@@ -22390,7 +22434,7 @@ import {
 } from "https://unpkg.com/@spike.land/esm@0.1.47/dist/react.mjs";
 import PropTypes63 from "https://esm.sh/prop-types";
 import { jsx as _jsx67 } from "https://esm.sh/react/jsx-runtime";
-var _excluded64, useUtilityClasses38, CardActionsRoot, CardActions, CardActions_default;
+var _excluded65, useUtilityClasses38, CardActionsRoot, CardActions, CardActions_default;
 var init_CardActions = __esm({
   "../../node_modules/@mui/material/CardActions/CardActions.js"() {
     init_clsx_m();
@@ -22398,7 +22442,7 @@ var init_CardActions = __esm({
     init_styled2();
     init_useThemeProps3();
     init_cardActionsClasses();
-    _excluded64 = ["disableSpacing", "className"];
+    _excluded65 = ["disableSpacing", "className"];
     useUtilityClasses38 = (ownerState) => {
       const {
         classes,
@@ -22437,7 +22481,7 @@ var init_CardActions = __esm({
       const {
         disableSpacing = false,
         className
-      } = props, other = _objectWithoutPropertiesLoose60(props, _excluded64);
+      } = props, other = _objectWithoutPropertiesLoose60(props, _excluded65);
       const ownerState = _extends78({}, props, {
         disableSpacing
       });
@@ -22489,7 +22533,7 @@ import {
 } from "https://unpkg.com/@spike.land/esm@0.1.47/dist/react.mjs";
 import PropTypes64 from "https://esm.sh/prop-types";
 import { jsx as _jsx68 } from "https://esm.sh/react/jsx-runtime";
-var _excluded65, useUtilityClasses39, CardContentRoot, CardContent, CardContent_default;
+var _excluded66, useUtilityClasses39, CardContentRoot, CardContent, CardContent_default;
 var init_CardContent = __esm({
   "../../node_modules/@mui/material/CardContent/CardContent.js"() {
     init_clsx_m();
@@ -22497,7 +22541,7 @@ var init_CardContent = __esm({
     init_styled2();
     init_useThemeProps3();
     init_cardContentClasses();
-    _excluded65 = ["className", "component"];
+    _excluded66 = ["className", "component"];
     useUtilityClasses39 = (ownerState) => {
       const {
         classes
@@ -22527,7 +22571,7 @@ var init_CardContent = __esm({
       const {
         className,
         component = "div"
-      } = props, other = _objectWithoutPropertiesLoose61(props, _excluded65);
+      } = props, other = _objectWithoutPropertiesLoose61(props, _excluded66);
       const ownerState = _extends79({}, props, {
         component
       });
@@ -22581,7 +22625,7 @@ import {
 import PropTypes65 from "https://esm.sh/prop-types";
 import { jsx as _jsx69 } from "https://esm.sh/react/jsx-runtime";
 import { jsxs as _jsxs21 } from "https://esm.sh/react/jsx-runtime";
-var _excluded66, useUtilityClasses40, CardHeaderRoot, CardHeaderAvatar, CardHeaderAction, CardHeaderContent, CardHeader, CardHeader_default;
+var _excluded67, useUtilityClasses40, CardHeaderRoot, CardHeaderAvatar, CardHeaderAction, CardHeaderContent, CardHeader, CardHeader_default;
 var init_CardHeader = __esm({
   "../../node_modules/@mui/material/CardHeader/CardHeader.js"() {
     init_clsx_m();
@@ -22590,7 +22634,7 @@ var init_CardHeader = __esm({
     init_useThemeProps3();
     init_styled2();
     init_cardHeaderClasses();
-    _excluded66 = ["action", "avatar", "className", "component", "disableTypography", "subheader", "subheaderTypographyProps", "title", "titleTypographyProps"];
+    _excluded67 = ["action", "avatar", "className", "component", "disableTypography", "subheader", "subheaderTypographyProps", "title", "titleTypographyProps"];
     useUtilityClasses40 = (ownerState) => {
       const {
         classes
@@ -22659,7 +22703,7 @@ var init_CardHeader = __esm({
         subheaderTypographyProps,
         title: titleProp,
         titleTypographyProps
-      } = props, other = _objectWithoutPropertiesLoose62(props, _excluded66);
+      } = props, other = _objectWithoutPropertiesLoose62(props, _excluded67);
       const ownerState = _extends80({}, props, {
         component,
         disableTypography
@@ -22757,7 +22801,7 @@ import {
 } from "https://unpkg.com/@spike.land/esm@0.1.47/dist/react.mjs";
 import PropTypes66 from "https://esm.sh/prop-types";
 import { jsx as _jsx70 } from "https://esm.sh/react/jsx-runtime";
-var _excluded67, useUtilityClasses41, CardMediaRoot, MEDIA_COMPONENTS, IMAGE_COMPONENTS, CardMedia, CardMedia_default;
+var _excluded68, useUtilityClasses41, CardMediaRoot, MEDIA_COMPONENTS, IMAGE_COMPONENTS, CardMedia, CardMedia_default;
 var init_CardMedia = __esm({
   "../../node_modules/@mui/material/CardMedia/CardMedia.js"() {
     init_clsx_m();
@@ -22766,7 +22810,7 @@ var init_CardMedia = __esm({
     init_useThemeProps3();
     init_styled2();
     init_cardMediaClasses();
-    _excluded67 = ["children", "className", "component", "image", "src", "style"];
+    _excluded68 = ["children", "className", "component", "image", "src", "style"];
     useUtilityClasses41 = (ownerState) => {
       const {
         classes,
@@ -22817,7 +22861,7 @@ var init_CardMedia = __esm({
         image,
         src,
         style: style3
-      } = props, other = _objectWithoutPropertiesLoose63(props, _excluded67);
+      } = props, other = _objectWithoutPropertiesLoose63(props, _excluded68);
       const isMediaComponent = MEDIA_COMPONENTS.indexOf(component) !== -1;
       const composedStyle = !isMediaComponent && image ? _extends81({
         backgroundImage: `url("${image}")`
@@ -22918,7 +22962,7 @@ import {
 import PropTypes67 from "https://esm.sh/prop-types";
 import { jsx as _jsx71 } from "https://esm.sh/react/jsx-runtime";
 import { jsxs as _jsxs22 } from "https://esm.sh/react/jsx-runtime";
-var _excluded68, useUtilityClasses42, SwitchBaseRoot, SwitchBaseInput, SwitchBase, SwitchBase_default;
+var _excluded69, useUtilityClasses42, SwitchBaseRoot, SwitchBaseInput, SwitchBase, SwitchBase_default;
 var init_SwitchBase = __esm({
   "../../node_modules/@mui/material/internal/SwitchBase.js"() {
     init_clsx_m();
@@ -22930,7 +22974,7 @@ var init_SwitchBase = __esm({
     init_useFormControl2();
     init_ButtonBase2();
     init_switchBaseClasses();
-    _excluded68 = ["autoFocus", "checked", "checkedIcon", "className", "defaultChecked", "disabled", "disableFocusRipple", "edge", "icon", "id", "inputProps", "inputRef", "name", "onBlur", "onChange", "onFocus", "readOnly", "required", "tabIndex", "type", "value"];
+    _excluded69 = ["autoFocus", "checked", "checkedIcon", "className", "defaultChecked", "disabled", "disableFocusRipple", "edge", "icon", "id", "inputProps", "inputRef", "name", "onBlur", "onChange", "onFocus", "readOnly", "required", "tabIndex", "type", "value"];
     useUtilityClasses42 = (ownerState) => {
       const {
         classes,
@@ -22993,7 +23037,7 @@ var init_SwitchBase = __esm({
         tabIndex,
         type,
         value
-      } = props, other = _objectWithoutPropertiesLoose64(props, _excluded68);
+      } = props, other = _objectWithoutPropertiesLoose64(props, _excluded69);
       const [checked, setCheckedState] = useControlled_default({
         controlled: checkedProp,
         default: Boolean(defaultChecked),
@@ -23164,7 +23208,7 @@ import {
 } from "https://unpkg.com/@spike.land/esm@0.1.47/dist/react.mjs";
 import PropTypes68 from "https://esm.sh/prop-types";
 import { jsx as _jsx75 } from "https://esm.sh/react/jsx-runtime";
-var _excluded69, useUtilityClasses43, CheckboxRoot, defaultCheckedIcon, defaultIcon, defaultIndeterminateIcon, Checkbox, Checkbox_default;
+var _excluded70, useUtilityClasses43, CheckboxRoot, defaultCheckedIcon, defaultIcon, defaultIndeterminateIcon, Checkbox, Checkbox_default;
 var init_Checkbox = __esm({
   "../../node_modules/@mui/material/Checkbox/Checkbox.js"() {
     init_esm();
@@ -23178,7 +23222,7 @@ var init_Checkbox = __esm({
     init_useThemeProps3();
     init_styled2();
     init_checkboxClasses();
-    _excluded69 = ["checkedIcon", "color", "icon", "indeterminate", "indeterminateIcon", "inputProps", "size"];
+    _excluded70 = ["checkedIcon", "color", "icon", "indeterminate", "indeterminateIcon", "inputProps", "size"];
     useUtilityClasses43 = (ownerState) => {
       const {
         classes,
@@ -23238,7 +23282,7 @@ var init_Checkbox = __esm({
         indeterminateIcon: indeterminateIconProp = defaultIndeterminateIcon,
         inputProps,
         size = "medium"
-      } = props, other = _objectWithoutPropertiesLoose65(props, _excluded69);
+      } = props, other = _objectWithoutPropertiesLoose65(props, _excluded70);
       const icon = indeterminate ? indeterminateIconProp : iconProp;
       const indeterminateIcon = indeterminate ? indeterminateIconProp : checkedIcon;
       const ownerState = _extends83({}, props, {
@@ -23318,7 +23362,7 @@ import {
 } from "https://unpkg.com/@spike.land/esm@0.1.47/dist/react.mjs";
 import PropTypes69 from "https://esm.sh/prop-types";
 import { jsx as _jsx76 } from "https://esm.sh/react/jsx-runtime";
-var _excluded70, _3, _t5, _t23, _t32, _t42, SIZE, circularRotateKeyframe, circularDashKeyframe, useUtilityClasses44, CircularProgressRoot, CircularProgressSVG, CircularProgressCircle, CircularProgress, CircularProgress_default;
+var _excluded71, _3, _t5, _t23, _t32, _t42, SIZE, circularRotateKeyframe, circularDashKeyframe, useUtilityClasses44, CircularProgressRoot, CircularProgressSVG, CircularProgressCircle, CircularProgress, CircularProgress_default;
 var init_CircularProgress = __esm({
   "../../node_modules/@mui/material/CircularProgress/CircularProgress.js"() {
     init_clsx_m();
@@ -23329,7 +23373,7 @@ var init_CircularProgress = __esm({
     init_useThemeProps3();
     init_styled2();
     init_circularProgressClasses();
-    _excluded70 = ["className", "color", "disableShrink", "size", "style", "thickness", "value", "variant"];
+    _excluded71 = ["className", "color", "disableShrink", "size", "style", "thickness", "value", "variant"];
     _3 = (t) => t;
     SIZE = 44;
     circularRotateKeyframe = keyframes(_t5 || (_t5 = _3`
@@ -23439,7 +23483,7 @@ var init_CircularProgress = __esm({
         thickness = 3.6,
         value = 0,
         variant = "indeterminate"
-      } = props, other = _objectWithoutPropertiesLoose66(props, _excluded70);
+      } = props, other = _objectWithoutPropertiesLoose66(props, _excluded71);
       const ownerState = _extends84({}, props, {
         color: color2,
         disableShrink,
@@ -23521,7 +23565,7 @@ import {
   Fragment as Fragment6,
   cloneElement as cloneElement12,
   useEffect as useEffect21,
-  useRef as useRef24
+  useRef as useRef25
 } from "https://unpkg.com/@spike.land/esm@0.1.47/dist/react.mjs";
 import PropTypes70 from "https://esm.sh/prop-types";
 import { jsx as _jsx77 } from "https://esm.sh/react/jsx-runtime";
@@ -23539,10 +23583,10 @@ function ClickAwayListener(props) {
     onClickAway,
     touchEvent = "onTouchEnd"
   } = props;
-  const movedRef = useRef24(false);
-  const nodeRef = useRef24(null);
-  const activatedRef = useRef24(false);
-  const syntheticEventRef = useRef24(false);
+  const movedRef = useRef25(false);
+  const nodeRef = useRef25(null);
+  const activatedRef = useRef25(false);
+  const syntheticEventRef = useRef25(false);
   useEffect21(() => {
     setTimeout(() => {
       activatedRef.current = true;
@@ -23675,7 +23719,7 @@ import {
 } from "https://unpkg.com/@spike.land/esm@0.1.47/dist/react.mjs";
 import PropTypes71 from "https://esm.sh/prop-types";
 import { jsx as _jsx78 } from "https://esm.sh/react/jsx-runtime";
-var _excluded71, useUtilityClasses45, ContainerRoot, Container, Container_default;
+var _excluded72, useUtilityClasses45, ContainerRoot, Container, Container_default;
 var init_Container = __esm({
   "../../node_modules/@mui/material/Container/Container.js"() {
     init_clsx_m();
@@ -23684,7 +23728,7 @@ var init_Container = __esm({
     init_styled2();
     init_containerClasses();
     init_capitalize2();
-    _excluded71 = ["className", "component", "disableGutters", "fixed", "maxWidth"];
+    _excluded72 = ["className", "component", "disableGutters", "fixed", "maxWidth"];
     useUtilityClasses45 = (ownerState) => {
       const {
         classes,
@@ -23756,7 +23800,7 @@ var init_Container = __esm({
         disableGutters = false,
         fixed = false,
         maxWidth: maxWidth2 = "lg"
-      } = props, other = _objectWithoutPropertiesLoose67(props, _excluded71);
+      } = props, other = _objectWithoutPropertiesLoose67(props, _excluded72);
       const ownerState = _extends85({}, props, {
         component,
         disableGutters,
@@ -23922,7 +23966,7 @@ import {
 } from "https://unpkg.com/@spike.land/esm@0.1.47/dist/react.mjs";
 import PropTypes74 from "https://esm.sh/prop-types";
 import { jsx as _jsx81 } from "https://esm.sh/react/jsx-runtime";
-var _excluded72, modalClasses, extendUtilityClasses3, ModalRoot, ModalBackdrop, Modal, Modal_default;
+var _excluded73, modalClasses, extendUtilityClasses3, ModalRoot, ModalBackdrop, Modal, Modal_default;
 var init_Modal = __esm({
   "../../node_modules/@mui/material/Modal/Modal.js"() {
     init_base();
@@ -23931,7 +23975,7 @@ var init_Modal = __esm({
     init_styled2();
     init_useThemeProps3();
     init_Backdrop2();
-    _excluded72 = ["BackdropComponent", "closeAfterTransition", "children", "components", "componentsProps", "disableAutoFocus", "disableEnforceFocus", "disableEscapeKeyDown", "disablePortal", "disableRestoreFocus", "disableScrollLock", "hideBackdrop", "keepMounted"];
+    _excluded73 = ["BackdropComponent", "closeAfterTransition", "children", "components", "componentsProps", "disableAutoFocus", "disableEnforceFocus", "disableEscapeKeyDown", "disablePortal", "disableRestoreFocus", "disableScrollLock", "hideBackdrop", "keepMounted"];
     modalClasses = modalUnstyledClasses_default;
     extendUtilityClasses3 = (ownerState) => {
       return ownerState.classes;
@@ -23987,7 +24031,7 @@ var init_Modal = __esm({
         disableScrollLock = false,
         hideBackdrop = false,
         keepMounted = false
-      } = props, other = _objectWithoutPropertiesLoose68(props, _excluded72);
+      } = props, other = _objectWithoutPropertiesLoose68(props, _excluded73);
       const [exited, setExited] = useState19(true);
       const commonProps = {
         closeAfterTransition,
@@ -24092,11 +24136,11 @@ import _extends89 from "https://unpkg.com/@babel/runtime@7.16.3/helpers/esm/exte
 import {
   forwardRef as forwardRef60,
   useMemo as useMemo6,
-  useRef as useRef25
+  useRef as useRef26
 } from "https://unpkg.com/@spike.land/esm@0.1.47/dist/react.mjs";
 import PropTypes75 from "https://esm.sh/prop-types";
 import { jsx as _jsx82 } from "https://esm.sh/react/jsx-runtime";
-var _excluded73, DialogBackdrop, useUtilityClasses46, DialogRoot, DialogContainer, DialogPaper, defaultTransitionDuration, Dialog, Dialog_default;
+var _excluded74, DialogBackdrop, useUtilityClasses46, DialogRoot, DialogContainer, DialogPaper, defaultTransitionDuration, Dialog, Dialog_default;
 var init_Dialog = __esm({
   "../../node_modules/@mui/material/Dialog/Dialog.js"() {
     init_clsx_m();
@@ -24112,7 +24156,7 @@ var init_Dialog = __esm({
     init_dialogClasses();
     init_DialogContext();
     init_Backdrop2();
-    _excluded73 = ["aria-describedby", "aria-labelledby", "BackdropComponent", "BackdropProps", "children", "className", "disableEscapeKeyDown", "fullScreen", "fullWidth", "maxWidth", "onBackdropClick", "onClose", "open", "PaperComponent", "PaperProps", "scroll", "TransitionComponent", "transitionDuration", "TransitionProps"];
+    _excluded74 = ["aria-describedby", "aria-labelledby", "BackdropComponent", "BackdropProps", "children", "className", "disableEscapeKeyDown", "fullScreen", "fullWidth", "maxWidth", "onBackdropClick", "onClose", "open", "PaperComponent", "PaperProps", "scroll", "TransitionComponent", "transitionDuration", "TransitionProps"];
     DialogBackdrop = styled_default2(Backdrop_default, {
       name: "MuiDialog",
       slot: "Backdrop",
@@ -24264,7 +24308,7 @@ var init_Dialog = __esm({
         TransitionComponent = Fade_default,
         transitionDuration = defaultTransitionDuration,
         TransitionProps
-      } = props, other = _objectWithoutPropertiesLoose69(props, _excluded73);
+      } = props, other = _objectWithoutPropertiesLoose69(props, _excluded74);
       const ownerState = _extends89({}, props, {
         disableEscapeKeyDown,
         fullScreen,
@@ -24273,7 +24317,7 @@ var init_Dialog = __esm({
         scroll
       });
       const classes = useUtilityClasses46(ownerState);
-      const backdropClick = useRef25();
+      const backdropClick = useRef26();
       const handleMouseDown = (event) => {
         backdropClick.current = event.target === event.currentTarget;
       };
@@ -24399,7 +24443,7 @@ import {
 } from "https://unpkg.com/@spike.land/esm@0.1.47/dist/react.mjs";
 import PropTypes76 from "https://esm.sh/prop-types";
 import { jsx as _jsx83 } from "https://esm.sh/react/jsx-runtime";
-var _excluded74, useUtilityClasses47, DialogActionsRoot, DialogActions, DialogActions_default;
+var _excluded75, useUtilityClasses47, DialogActionsRoot, DialogActions, DialogActions_default;
 var init_DialogActions = __esm({
   "../../node_modules/@mui/material/DialogActions/DialogActions.js"() {
     init_clsx_m();
@@ -24407,7 +24451,7 @@ var init_DialogActions = __esm({
     init_styled2();
     init_useThemeProps3();
     init_dialogActionsClasses();
-    _excluded74 = ["className", "disableSpacing"];
+    _excluded75 = ["className", "disableSpacing"];
     useUtilityClasses47 = (ownerState) => {
       const {
         classes,
@@ -24448,7 +24492,7 @@ var init_DialogActions = __esm({
       const {
         className,
         disableSpacing = false
-      } = props, other = _objectWithoutPropertiesLoose70(props, _excluded74);
+      } = props, other = _objectWithoutPropertiesLoose70(props, _excluded75);
       const ownerState = _extends90({}, props, {
         disableSpacing
       });
@@ -24513,7 +24557,7 @@ import {
 } from "https://unpkg.com/@spike.land/esm@0.1.47/dist/react.mjs";
 import PropTypes77 from "https://esm.sh/prop-types";
 import { jsx as _jsx84 } from "https://esm.sh/react/jsx-runtime";
-var _excluded75, useUtilityClasses48, DialogContentRoot, DialogContent, DialogContent_default;
+var _excluded76, useUtilityClasses48, DialogContentRoot, DialogContent, DialogContent_default;
 var init_DialogContent = __esm({
   "../../node_modules/@mui/material/DialogContent/DialogContent.js"() {
     init_clsx_m();
@@ -24522,7 +24566,7 @@ var init_DialogContent = __esm({
     init_useThemeProps3();
     init_dialogContentClasses();
     init_dialogTitleClasses();
-    _excluded75 = ["className", "dividers"];
+    _excluded76 = ["className", "dividers"];
     useUtilityClasses48 = (ownerState) => {
       const {
         classes,
@@ -24567,7 +24611,7 @@ var init_DialogContent = __esm({
       const {
         className,
         dividers = false
-      } = props, other = _objectWithoutPropertiesLoose71(props, _excluded75);
+      } = props, other = _objectWithoutPropertiesLoose71(props, _excluded76);
       const ownerState = _extends91({}, props, {
         dividers
       });
@@ -24619,7 +24663,7 @@ import {
 } from "https://unpkg.com/@spike.land/esm@0.1.47/dist/react.mjs";
 import PropTypes78 from "https://esm.sh/prop-types";
 import { jsx as _jsx85 } from "https://esm.sh/react/jsx-runtime";
-var _excluded76, useUtilityClasses49, DialogContentTextRoot, DialogContentText, DialogContentText_default;
+var _excluded77, useUtilityClasses49, DialogContentTextRoot, DialogContentText, DialogContentText_default;
 var init_DialogContentText = __esm({
   "../../node_modules/@mui/material/DialogContentText/DialogContentText.js"() {
     init_base();
@@ -24627,7 +24671,7 @@ var init_DialogContentText = __esm({
     init_useThemeProps3();
     init_Typography2();
     init_dialogContentTextClasses();
-    _excluded76 = ["children"];
+    _excluded77 = ["children"];
     useUtilityClasses49 = (ownerState) => {
       const {
         classes
@@ -24649,7 +24693,7 @@ var init_DialogContentText = __esm({
         props: inProps,
         name: "MuiDialogContentText"
       });
-      const ownerState = _objectWithoutPropertiesLoose72(props, _excluded76);
+      const ownerState = _objectWithoutPropertiesLoose72(props, _excluded77);
       const classes = useUtilityClasses49(ownerState);
       return /* @__PURE__ */ _jsx85(DialogContentTextRoot, _extends92({
         component: "p",
@@ -24688,7 +24732,7 @@ import {
 } from "https://unpkg.com/@spike.land/esm@0.1.47/dist/react.mjs";
 import PropTypes79 from "https://esm.sh/prop-types";
 import { jsx as _jsx86 } from "https://esm.sh/react/jsx-runtime";
-var _excluded77, useUtilityClasses50, DialogTitleRoot, DialogTitle, DialogTitle_default;
+var _excluded78, useUtilityClasses50, DialogTitleRoot, DialogTitle, DialogTitle_default;
 var init_DialogTitle = __esm({
   "../../node_modules/@mui/material/DialogTitle/DialogTitle.js"() {
     init_clsx_m();
@@ -24698,7 +24742,7 @@ var init_DialogTitle = __esm({
     init_useThemeProps3();
     init_dialogTitleClasses();
     init_DialogContext();
-    _excluded77 = ["className", "id"];
+    _excluded78 = ["className", "id"];
     useUtilityClasses50 = (ownerState) => {
       const {
         classes
@@ -24724,7 +24768,7 @@ var init_DialogTitle = __esm({
       const {
         className,
         id: idProp
-      } = props, other = _objectWithoutPropertiesLoose73(props, _excluded77);
+      } = props, other = _objectWithoutPropertiesLoose73(props, _excluded78);
       const ownerState = props;
       const classes = useUtilityClasses50(ownerState);
       const {
@@ -24780,7 +24824,7 @@ import {
 } from "https://unpkg.com/@spike.land/esm@0.1.47/dist/react.mjs";
 import PropTypes80 from "https://esm.sh/prop-types";
 import { jsx as _jsx87 } from "https://esm.sh/react/jsx-runtime";
-var _excluded78, useUtilityClasses51, DividerRoot, DividerWrapper, Divider, Divider_default;
+var _excluded79, useUtilityClasses51, DividerRoot, DividerWrapper, Divider, Divider_default;
 var init_Divider = __esm({
   "../../node_modules/@mui/material/Divider/Divider.js"() {
     init_clsx_m();
@@ -24789,7 +24833,7 @@ var init_Divider = __esm({
     init_styled2();
     init_useThemeProps3();
     init_dividerClasses();
-    _excluded78 = ["absolute", "children", "className", "component", "flexItem", "light", "orientation", "role", "textAlign", "variant"];
+    _excluded79 = ["absolute", "children", "className", "component", "flexItem", "light", "orientation", "role", "textAlign", "variant"];
     useUtilityClasses51 = (ownerState) => {
       const {
         absolute,
@@ -24930,7 +24974,7 @@ var init_Divider = __esm({
         role = component !== "hr" ? "separator" : void 0,
         textAlign: textAlign2 = "center",
         variant = "fullWidth"
-      } = props, other = _objectWithoutPropertiesLoose74(props, _excluded78);
+      } = props, other = _objectWithoutPropertiesLoose74(props, _excluded79);
       const ownerState = _extends94({}, props, {
         absolute,
         component,
@@ -24991,7 +25035,7 @@ import {
   forwardRef as forwardRef66,
   useCallback as useCallback14,
   useEffect as useEffect22,
-  useRef as useRef26
+  useRef as useRef27
 } from "https://unpkg.com/@spike.land/esm@0.1.47/dist/react.mjs";
 import PropTypes81 from "https://esm.sh/prop-types";
 import { Transition as Transition3 } from "https://esm.sh/react-transition-group";
@@ -25048,7 +25092,7 @@ function setTranslateValue(direction, node, containerProp) {
     node.style.transform = transform3;
   }
 }
-var _excluded79, defaultEasing, defaultTimeout2, Slide, Slide_default;
+var _excluded80, defaultEasing, defaultTimeout2, Slide, Slide_default;
 var init_Slide = __esm({
   "../../node_modules/@mui/material/Slide/Slide.js"() {
     init_esm();
@@ -25058,7 +25102,7 @@ var init_Slide = __esm({
     init_createTransitions();
     init_utils3();
     init_utils2();
-    _excluded79 = ["addEndListener", "appear", "children", "container", "direction", "easing", "in", "onEnter", "onEntered", "onEntering", "onExit", "onExited", "onExiting", "style", "timeout", "TransitionComponent"];
+    _excluded80 = ["addEndListener", "appear", "children", "container", "direction", "easing", "in", "onEnter", "onEntered", "onEntering", "onExit", "onExited", "onExiting", "style", "timeout", "TransitionComponent"];
     defaultEasing = {
       enter: easing.easeOut,
       exit: easing.sharp
@@ -25085,9 +25129,9 @@ var init_Slide = __esm({
         style: style3,
         timeout = defaultTimeout2,
         TransitionComponent = Transition3
-      } = props, other = _objectWithoutPropertiesLoose75(props, _excluded79);
+      } = props, other = _objectWithoutPropertiesLoose75(props, _excluded80);
       const theme = useTheme4();
-      const childrenRef = useRef26(null);
+      const childrenRef = useRef27(null);
       const handleRefIntermediary = useForkRef_default(children.ref, childrenRef);
       const handleRef = useForkRef_default(handleRefIntermediary, ref);
       const normalizedTransitionCallback = (callback) => (isAppearing) => {
@@ -25267,7 +25311,7 @@ import _extends96 from "https://unpkg.com/@babel/runtime@7.16.3/helpers/esm/exte
 import {
   forwardRef as forwardRef67,
   useEffect as useEffect23,
-  useRef as useRef27
+  useRef as useRef28
 } from "https://unpkg.com/@spike.land/esm@0.1.47/dist/react.mjs";
 import PropTypes82 from "https://esm.sh/prop-types";
 import { jsx as _jsx89 } from "https://esm.sh/react/jsx-runtime";
@@ -25277,7 +25321,7 @@ function isHorizontal(anchor) {
 function getAnchor(theme, anchor) {
   return theme.direction === "rtl" && isHorizontal(anchor) ? oppositeDirection[anchor] : anchor;
 }
-var _excluded80, _excluded211, overridesResolver2, useUtilityClasses52, DrawerRoot, DrawerDockedRoot, DrawerPaper, oppositeDirection, defaultTransitionDuration2, Drawer, Drawer_default;
+var _excluded81, _excluded211, overridesResolver2, useUtilityClasses52, DrawerRoot, DrawerDockedRoot, DrawerPaper, oppositeDirection, defaultTransitionDuration2, Drawer, Drawer_default;
 var init_Drawer = __esm({
   "../../node_modules/@mui/material/Drawer/Drawer.js"() {
     init_clsx_m();
@@ -25292,7 +25336,7 @@ var init_Drawer = __esm({
     init_useThemeProps3();
     init_styled2();
     init_drawerClasses();
-    _excluded80 = ["BackdropProps"], _excluded211 = ["anchor", "BackdropProps", "children", "className", "elevation", "hideBackdrop", "ModalProps", "onClose", "open", "PaperProps", "SlideProps", "TransitionComponent", "transitionDuration", "variant"];
+    _excluded81 = ["BackdropProps"], _excluded211 = ["anchor", "BackdropProps", "children", "className", "elevation", "hideBackdrop", "ModalProps", "onClose", "open", "PaperProps", "SlideProps", "TransitionComponent", "transitionDuration", "variant"];
     overridesResolver2 = (props, styles7) => {
       const {
         ownerState
@@ -25412,9 +25456,9 @@ var init_Drawer = __esm({
         TransitionComponent = Slide_default,
         transitionDuration = defaultTransitionDuration2,
         variant = "temporary"
-      } = props, ModalProps = _objectWithoutPropertiesLoose76(props.ModalProps, _excluded80), other = _objectWithoutPropertiesLoose76(props, _excluded211);
+      } = props, ModalProps = _objectWithoutPropertiesLoose76(props.ModalProps, _excluded81), other = _objectWithoutPropertiesLoose76(props, _excluded211);
       const theme = useTheme4();
-      const mounted = useRef27(false);
+      const mounted = useRef28(false);
       useEffect23(() => {
         mounted.current = true;
       }, []);
@@ -25553,13 +25597,13 @@ import {
   forwardRef as forwardRef68,
   useCallback as useCallback15,
   useEffect as useEffect24,
-  useRef as useRef28,
+  useRef as useRef29,
   useState as useState20
 } from "https://unpkg.com/@spike.land/esm@0.1.47/dist/react.mjs";
 import PropTypes83 from "https://esm.sh/prop-types";
 import { jsx as _jsx90 } from "https://esm.sh/react/jsx-runtime";
 import { jsxs as _jsxs24 } from "https://esm.sh/react/jsx-runtime";
-var _excluded81, rootOverridesResolver, inputOverridesResolver, useUtilityClasses53, InputBaseRoot, InputBaseComponent, inputGlobalStyles, InputBase, InputBase_default;
+var _excluded82, rootOverridesResolver, inputOverridesResolver, useUtilityClasses53, InputBaseRoot, InputBaseComponent, inputGlobalStyles, InputBase, InputBase_default;
 var init_InputBase = __esm({
   "../../node_modules/@mui/material/InputBase/InputBase.js"() {
     init_esm();
@@ -25577,7 +25621,7 @@ var init_InputBase = __esm({
     init_GlobalStyles4();
     init_utils4();
     init_inputBaseClasses();
-    _excluded81 = ["aria-describedby", "autoComplete", "autoFocus", "className", "color", "components", "componentsProps", "defaultValue", "disabled", "endAdornment", "error", "fullWidth", "id", "inputComponent", "inputProps", "inputRef", "margin", "maxRows", "minRows", "multiline", "name", "onBlur", "onChange", "onClick", "onFocus", "onKeyDown", "onKeyUp", "placeholder", "readOnly", "renderSuffix", "rows", "size", "startAdornment", "type", "value"];
+    _excluded82 = ["aria-describedby", "autoComplete", "autoFocus", "className", "color", "components", "componentsProps", "defaultValue", "disabled", "endAdornment", "error", "fullWidth", "id", "inputComponent", "inputProps", "inputRef", "margin", "maxRows", "minRows", "multiline", "name", "onBlur", "onChange", "onClick", "onFocus", "onKeyDown", "onKeyUp", "placeholder", "readOnly", "renderSuffix", "rows", "size", "startAdornment", "type", "value"];
     rootOverridesResolver = (props, styles7) => {
       const {
         ownerState
@@ -25769,12 +25813,12 @@ var init_InputBase = __esm({
         startAdornment,
         type = "text",
         value: valueProp
-      } = props, other = _objectWithoutPropertiesLoose77(props, _excluded81);
+      } = props, other = _objectWithoutPropertiesLoose77(props, _excluded82);
       const value = inputPropsProp.value != null ? inputPropsProp.value : valueProp;
       const {
         current: isControlled
-      } = useRef28(value != null);
-      const inputRef = useRef28();
+      } = useRef29(value != null);
+      const inputRef = useRef29();
       const handleInputRefWarning = useCallback15((instance) => {
         if (true) {
           if (instance && instance.nodeName !== "INPUT" && !instance.focus) {
@@ -26046,7 +26090,7 @@ import {
 } from "https://unpkg.com/@spike.land/esm@0.1.47/dist/react.mjs";
 import PropTypes84 from "https://esm.sh/prop-types";
 import { jsx as _jsx91 } from "https://esm.sh/react/jsx-runtime";
-var _excluded82, useUtilityClasses54, FilledInputRoot, FilledInputInput, FilledInput, FilledInput_default;
+var _excluded83, useUtilityClasses54, FilledInputRoot, FilledInputInput, FilledInput, FilledInput_default;
 var init_FilledInput = __esm({
   "../../node_modules/@mui/material/FilledInput/FilledInput.js"() {
     init_esm();
@@ -26056,7 +26100,7 @@ var init_FilledInput = __esm({
     init_useThemeProps3();
     init_filledInputClasses();
     init_InputBase();
-    _excluded82 = ["disableUnderline", "components", "componentsProps", "fullWidth", "hiddenLabel", "inputComponent", "multiline", "type"];
+    _excluded83 = ["disableUnderline", "components", "componentsProps", "fullWidth", "hiddenLabel", "inputComponent", "multiline", "type"];
     useUtilityClasses54 = (ownerState) => {
       const {
         classes,
@@ -26211,7 +26255,7 @@ var init_FilledInput = __esm({
         inputComponent = "input",
         multiline = false,
         type = "text"
-      } = props, other = _objectWithoutPropertiesLoose78(props, _excluded82);
+      } = props, other = _objectWithoutPropertiesLoose78(props, _excluded83);
       const ownerState = _extends98({}, props, {
         fullWidth,
         inputComponent,
@@ -26313,12 +26357,12 @@ import {
   Children as Children8,
   forwardRef as forwardRef70,
   useCallback as useCallback16,
-  useRef as useRef29,
+  useRef as useRef30,
   useState as useState21
 } from "https://unpkg.com/@spike.land/esm@0.1.47/dist/react.mjs";
 import PropTypes85 from "https://esm.sh/prop-types";
 import { jsx as _jsx92 } from "https://esm.sh/react/jsx-runtime";
-var _excluded83, useUtilityClasses55, FormControlRoot, FormControl, FormControl_default;
+var _excluded84, useUtilityClasses55, FormControlRoot, FormControl, FormControl_default;
 var init_FormControl = __esm({
   "../../node_modules/@mui/material/FormControl/FormControl.js"() {
     init_clsx_m();
@@ -26330,7 +26374,7 @@ var init_FormControl = __esm({
     init_isMuiElement2();
     init_FormControlContext2();
     init_formControlClasses();
-    _excluded83 = ["children", "className", "color", "component", "disabled", "error", "focused", "fullWidth", "hiddenLabel", "margin", "required", "size", "variant"];
+    _excluded84 = ["children", "className", "color", "component", "disabled", "error", "focused", "fullWidth", "hiddenLabel", "margin", "required", "size", "variant"];
     useUtilityClasses55 = (ownerState) => {
       const {
         classes,
@@ -26389,7 +26433,7 @@ var init_FormControl = __esm({
         required = false,
         size = "medium",
         variant = "outlined"
-      } = props, other = _objectWithoutPropertiesLoose79(props, _excluded83);
+      } = props, other = _objectWithoutPropertiesLoose79(props, _excluded84);
       const ownerState = _extends99({}, props, {
         color: color2,
         component,
@@ -26439,7 +26483,7 @@ var init_FormControl = __esm({
       const focused = visuallyFocused !== void 0 && !disabled ? visuallyFocused : focusedState;
       let registerEffect;
       if (true) {
-        const registeredInput = useRef29(false);
+        const registeredInput = useRef30(false);
         registerEffect = () => {
           if (registeredInput.current) {
             console.error(["MUI: There are multiple `InputBase` components inside a FormControl.", "This creates visual inconsistencies, only use one `InputBase`."].join("\n"));
@@ -26545,7 +26589,7 @@ import {
 import PropTypes86 from "https://esm.sh/prop-types";
 import { jsx as _jsx93 } from "https://esm.sh/react/jsx-runtime";
 import { jsxs as _jsxs25 } from "https://esm.sh/react/jsx-runtime";
-var _excluded84, useUtilityClasses56, FormControlLabelRoot, FormControlLabel, FormControlLabel_default;
+var _excluded85, useUtilityClasses56, FormControlLabelRoot, FormControlLabel, FormControlLabel_default;
 var init_FormControlLabel = __esm({
   "../../node_modules/@mui/material/FormControlLabel/FormControlLabel.js"() {
     init_clsx_m();
@@ -26557,7 +26601,7 @@ var init_FormControlLabel = __esm({
     init_styled2();
     init_useThemeProps3();
     init_formControlLabelClasses();
-    _excluded84 = ["checked", "className", "componentsProps", "control", "disabled", "disableTypography", "inputRef", "label", "labelPlacement", "name", "onChange", "value"];
+    _excluded85 = ["checked", "className", "componentsProps", "control", "disabled", "disableTypography", "inputRef", "label", "labelPlacement", "name", "onChange", "value"];
     useUtilityClasses56 = (ownerState) => {
       const {
         classes,
@@ -26625,7 +26669,7 @@ var init_FormControlLabel = __esm({
         disableTypography,
         label,
         labelPlacement = "end"
-      } = props, other = _objectWithoutPropertiesLoose80(props, _excluded84);
+      } = props, other = _objectWithoutPropertiesLoose80(props, _excluded85);
       const muiFormControl = useFormControl();
       let disabled = disabledProp;
       if (typeof disabled === "undefined" && typeof control.props.disabled !== "undefined") {
@@ -26711,7 +26755,7 @@ import {
 } from "https://unpkg.com/@spike.land/esm@0.1.47/dist/react.mjs";
 import PropTypes87 from "https://esm.sh/prop-types";
 import { jsx as _jsx94 } from "https://esm.sh/react/jsx-runtime";
-var _excluded85, useUtilityClasses57, FormGroupRoot, FormGroup, FormGroup_default;
+var _excluded86, useUtilityClasses57, FormGroupRoot, FormGroup, FormGroup_default;
 var init_FormGroup = __esm({
   "../../node_modules/@mui/material/FormGroup/FormGroup.js"() {
     init_clsx_m();
@@ -26719,7 +26763,7 @@ var init_FormGroup = __esm({
     init_styled2();
     init_useThemeProps3();
     init_formGroupClasses();
-    _excluded85 = ["className", "row"];
+    _excluded86 = ["className", "row"];
     useUtilityClasses57 = (ownerState) => {
       const {
         classes,
@@ -26756,7 +26800,7 @@ var init_FormGroup = __esm({
       const {
         className,
         row = false
-      } = props, other = _objectWithoutPropertiesLoose81(props, _excluded85);
+      } = props, other = _objectWithoutPropertiesLoose81(props, _excluded86);
       const ownerState = _extends101({}, props, {
         row
       });
@@ -26808,7 +26852,7 @@ import {
 } from "https://unpkg.com/@spike.land/esm@0.1.47/dist/react.mjs";
 import PropTypes88 from "https://esm.sh/prop-types";
 import { jsx as _jsx95 } from "https://esm.sh/react/jsx-runtime";
-var _excluded86, useUtilityClasses58, FormHelperTextRoot, FormHelperText, FormHelperText_default;
+var _excluded87, useUtilityClasses58, FormHelperTextRoot, FormHelperText, FormHelperText_default;
 var init_FormHelperText = __esm({
   "../../node_modules/@mui/material/FormHelperText/FormHelperText.js"() {
     init_clsx_m();
@@ -26819,7 +26863,7 @@ var init_FormHelperText = __esm({
     init_capitalize2();
     init_formHelperTextClasses();
     init_useThemeProps3();
-    _excluded86 = ["children", "className", "component", "disabled", "error", "filled", "focused", "margin", "required", "variant"];
+    _excluded87 = ["children", "className", "component", "disabled", "error", "filled", "focused", "margin", "required", "variant"];
     useUtilityClasses58 = (ownerState) => {
       const {
         classes,
@@ -26877,7 +26921,7 @@ var init_FormHelperText = __esm({
         children,
         className,
         component = "p"
-      } = props, other = _objectWithoutPropertiesLoose82(props, _excluded86);
+      } = props, other = _objectWithoutPropertiesLoose82(props, _excluded87);
       const muiFormControl = useFormControl();
       const fcs = formControlState({
         props,
@@ -26958,7 +27002,7 @@ import {
 } from "https://unpkg.com/@spike.land/esm@0.1.47/dist/react.mjs";
 import PropTypes89 from "https://esm.sh/prop-types";
 import { jsxs as _jsxs26 } from "https://esm.sh/react/jsx-runtime";
-var _excluded87, useUtilityClasses59, FormLabelRoot, AsteriskComponent, FormLabel, FormLabel_default;
+var _excluded88, useUtilityClasses59, FormLabelRoot, AsteriskComponent, FormLabel, FormLabel_default;
 var init_FormLabel = __esm({
   "../../node_modules/@mui/material/FormLabel/FormLabel.js"() {
     init_clsx_m();
@@ -26969,7 +27013,7 @@ var init_FormLabel = __esm({
     init_useThemeProps3();
     init_styled2();
     init_formLabelClasses();
-    _excluded87 = ["children", "className", "color", "component", "disabled", "error", "filled", "focused", "required"];
+    _excluded88 = ["children", "className", "color", "component", "disabled", "error", "filled", "focused", "required"];
     useUtilityClasses59 = (ownerState) => {
       const {
         classes,
@@ -27033,7 +27077,7 @@ var init_FormLabel = __esm({
         children,
         className,
         component = "label"
-      } = props, other = _objectWithoutPropertiesLoose83(props, _excluded87);
+      } = props, other = _objectWithoutPropertiesLoose83(props, _excluded88);
       const muiFormControl = useFormControl();
       const fcs = formControlState({
         props,
@@ -27284,7 +27328,7 @@ function generateColumnGap({
   }
   return styles7;
 }
-var _excluded88, GridRoot, useUtilityClasses60, Grid, Grid_default;
+var _excluded89, GridRoot, useUtilityClasses60, Grid, Grid_default;
 var init_Grid = __esm({
   "../../node_modules/@mui/material/Grid/Grid.js"() {
     init_clsx_m();
@@ -27295,7 +27339,7 @@ var init_Grid = __esm({
     init_useThemeProps3();
     init_GridContext();
     init_gridClasses();
-    _excluded88 = ["className", "columns", "columnSpacing", "component", "container", "direction", "item", "lg", "md", "rowSpacing", "sm", "spacing", "wrap", "xl", "xs", "zeroMinWidth"];
+    _excluded89 = ["className", "columns", "columnSpacing", "component", "container", "direction", "item", "lg", "md", "rowSpacing", "sm", "spacing", "wrap", "xl", "xs", "zeroMinWidth"];
     GridRoot = styled_default2("div", {
       name: "MuiGrid",
       slot: "Root",
@@ -27381,7 +27425,7 @@ var init_Grid = __esm({
         xl = false,
         xs = false,
         zeroMinWidth = false
-      } = props, other = _objectWithoutPropertiesLoose84(props, _excluded88);
+      } = props, other = _objectWithoutPropertiesLoose84(props, _excluded89);
       const rowSpacing = rowSpacingProp || spacing2;
       const columnSpacing = columnSpacingProp || spacing2;
       const columnsContext = useContext9(GridContext_default);
@@ -27467,7 +27511,7 @@ import {
   cloneElement as cloneElement15,
   forwardRef as forwardRef76,
   useEffect as useEffect25,
-  useRef as useRef30
+  useRef as useRef31
 } from "https://unpkg.com/@spike.land/esm@0.1.47/dist/react.mjs";
 import PropTypes91 from "https://esm.sh/prop-types";
 import { Transition as Transition4 } from "https://esm.sh/react-transition-group";
@@ -27475,14 +27519,14 @@ import { jsx as _jsx97 } from "https://esm.sh/react/jsx-runtime";
 function getScale(value) {
   return `scale(${value}, ${value ** 2})`;
 }
-var _excluded89, styles4, Grow, Grow_default;
+var _excluded90, styles4, Grow, Grow_default;
 var init_Grow = __esm({
   "../../node_modules/@mui/material/Grow/Grow.js"() {
     init_esm();
     init_useTheme4();
     init_utils3();
     init_useForkRef2();
-    _excluded89 = ["addEndListener", "appear", "children", "easing", "in", "onEnter", "onEntered", "onEntering", "onExit", "onExited", "onExiting", "style", "timeout", "TransitionComponent"];
+    _excluded90 = ["addEndListener", "appear", "children", "easing", "in", "onEnter", "onEntered", "onEntering", "onExit", "onExited", "onExiting", "style", "timeout", "TransitionComponent"];
     styles4 = {
       entering: {
         opacity: 1,
@@ -27509,11 +27553,11 @@ var init_Grow = __esm({
         style: style3,
         timeout = "auto",
         TransitionComponent = Transition4
-      } = props, other = _objectWithoutPropertiesLoose85(props, _excluded89);
-      const timer = useRef30();
-      const autoTimeout = useRef30();
+      } = props, other = _objectWithoutPropertiesLoose85(props, _excluded90);
+      const timer = useRef31();
+      const autoTimeout = useRef31();
       const theme = useTheme4();
-      const nodeRef = useRef30(null);
+      const nodeRef = useRef31(null);
       const foreignRef = useForkRef_default(children.ref, ref);
       const handleRef = useForkRef_default(nodeRef, foreignRef);
       const normalizedTransitionCallback = (callback) => (maybeIsAppearing) => {
@@ -27700,7 +27744,7 @@ import {
 } from "https://unpkg.com/@spike.land/esm@0.1.47/dist/react.mjs";
 import PropTypes92 from "https://esm.sh/prop-types";
 import { jsx as _jsx98 } from "https://esm.sh/react/jsx-runtime";
-var _excluded90, useUtilityClasses61, IconRoot, Icon, Icon_default;
+var _excluded91, useUtilityClasses61, IconRoot, Icon, Icon_default;
 var init_Icon = __esm({
   "../../node_modules/@mui/material/Icon/Icon.js"() {
     init_clsx_m();
@@ -27709,7 +27753,7 @@ var init_Icon = __esm({
     init_useThemeProps3();
     init_capitalize2();
     init_iconClasses();
-    _excluded90 = ["baseClassName", "className", "color", "component", "fontSize"];
+    _excluded91 = ["baseClassName", "className", "color", "component", "fontSize"];
     useUtilityClasses61 = (ownerState) => {
       const {
         color: color2,
@@ -27770,7 +27814,7 @@ var init_Icon = __esm({
         color: color2 = "inherit",
         component: Component = "span",
         fontSize: fontSize2 = "medium"
-      } = props, other = _objectWithoutPropertiesLoose86(props, _excluded90);
+      } = props, other = _objectWithoutPropertiesLoose86(props, _excluded91);
       const ownerState = _extends106({}, props, {
         baseClassName,
         color: color2,
@@ -27848,7 +27892,7 @@ import {
   useMemo as useMemo7
 } from "https://unpkg.com/@spike.land/esm@0.1.47/dist/react.mjs";
 import { jsx as _jsx99 } from "https://esm.sh/react/jsx-runtime";
-var _excluded91, useUtilityClasses62, ImageListRoot, ImageList, ImageList_default;
+var _excluded92, useUtilityClasses62, ImageListRoot, ImageList, ImageList_default;
 var init_ImageList = __esm({
   "../../node_modules/@mui/material/ImageList/ImageList.js"() {
     init_base();
@@ -27858,7 +27902,7 @@ var init_ImageList = __esm({
     init_useThemeProps3();
     init_imageListClasses();
     init_ImageListContext();
-    _excluded91 = ["children", "className", "cols", "component", "rowHeight", "gap", "style", "variant"];
+    _excluded92 = ["children", "className", "cols", "component", "rowHeight", "gap", "style", "variant"];
     useUtilityClasses62 = (ownerState) => {
       const {
         classes,
@@ -27905,7 +27949,7 @@ var init_ImageList = __esm({
         gap: gap2 = 4,
         style: styleProp,
         variant = "standard"
-      } = props, other = _objectWithoutPropertiesLoose87(props, _excluded91);
+      } = props, other = _objectWithoutPropertiesLoose87(props, _excluded92);
       const contextValue = useMemo7(() => ({
         rowHeight,
         gap: gap2,
@@ -27996,7 +28040,7 @@ import {
 } from "https://unpkg.com/@spike.land/esm@0.1.47/dist/react.mjs";
 import { isFragment as isFragment7 } from "https://unpkg.com/@spike.land/esm@0.1.47/dist/react-is.mjs";
 import { jsx as _jsx100 } from "https://esm.sh/react/jsx-runtime";
-var _excluded92, useUtilityClasses63, ImageListItemRoot, ImageListItem, ImageListItem_default;
+var _excluded93, useUtilityClasses63, ImageListItemRoot, ImageListItem, ImageListItem_default;
 var init_ImageListItem = __esm({
   "../../node_modules/@mui/material/ImageListItem/ImageListItem.js"() {
     init_base();
@@ -28007,7 +28051,7 @@ var init_ImageListItem = __esm({
     init_useThemeProps3();
     init_isMuiElement2();
     init_imageListItemClasses();
-    _excluded92 = ["children", "className", "cols", "component", "rows", "style"];
+    _excluded93 = ["children", "className", "cols", "component", "rows", "style"];
     useUtilityClasses63 = (ownerState) => {
       const {
         classes,
@@ -28067,7 +28111,7 @@ var init_ImageListItem = __esm({
         component = "li",
         rows = 1,
         style: style3
-      } = props, other = _objectWithoutPropertiesLoose88(props, _excluded92);
+      } = props, other = _objectWithoutPropertiesLoose88(props, _excluded93);
       const {
         rowHeight = "auto",
         gap: gap2,
@@ -28163,7 +28207,7 @@ import {
 } from "https://unpkg.com/@spike.land/esm@0.1.47/dist/react.mjs";
 import { jsx as _jsx101 } from "https://esm.sh/react/jsx-runtime";
 import { jsxs as _jsxs27 } from "https://esm.sh/react/jsx-runtime";
-var _excluded93, useUtilityClasses64, ImageListItemBarRoot, ImageListItemBarTitleWrap, ImageListItemBarTitle, ImageListItemBarSubtitle, ImageListItemBarActionIcon, ImageListItemBar, ImageListItemBar_default;
+var _excluded94, useUtilityClasses64, ImageListItemBarRoot, ImageListItemBarTitleWrap, ImageListItemBarTitle, ImageListItemBarSubtitle, ImageListItemBarActionIcon, ImageListItemBar, ImageListItemBar_default;
 var init_ImageListItemBar = __esm({
   "../../node_modules/@mui/material/ImageListItemBar/ImageListItemBar.js"() {
     init_base();
@@ -28172,7 +28216,7 @@ var init_ImageListItemBar = __esm({
     init_useThemeProps3();
     init_capitalize2();
     init_imageListItemBarClasses();
-    _excluded93 = ["actionIcon", "actionPosition", "className", "subtitle", "title", "position"];
+    _excluded94 = ["actionIcon", "actionPosition", "className", "subtitle", "title", "position"];
     useUtilityClasses64 = (ownerState) => {
       const {
         classes,
@@ -28305,7 +28349,7 @@ var init_ImageListItemBar = __esm({
         subtitle,
         title,
         position: position2 = "bottom"
-      } = props, other = _objectWithoutPropertiesLoose89(props, _excluded93);
+      } = props, other = _objectWithoutPropertiesLoose89(props, _excluded94);
       const ownerState = _extends109({}, props, {
         position: position2,
         actionPosition
@@ -28365,7 +28409,7 @@ import {
 } from "https://unpkg.com/@spike.land/esm@0.1.47/dist/react.mjs";
 import PropTypes96 from "https://esm.sh/prop-types";
 import { jsx as _jsx102 } from "https://esm.sh/react/jsx-runtime";
-var _excluded94, useUtilityClasses65, InputRoot, InputInput, Input, Input_default;
+var _excluded95, useUtilityClasses65, InputRoot, InputInput, Input, Input_default;
 var init_Input = __esm({
   "../../node_modules/@mui/material/Input/Input.js"() {
     init_base();
@@ -28375,7 +28419,7 @@ var init_Input = __esm({
     init_useThemeProps3();
     init_inputClasses();
     init_InputBase();
-    _excluded94 = ["disableUnderline", "components", "componentsProps", "fullWidth", "inputComponent", "multiline", "type"];
+    _excluded95 = ["disableUnderline", "components", "componentsProps", "fullWidth", "inputComponent", "multiline", "type"];
     useUtilityClasses65 = (ownerState) => {
       const {
         classes,
@@ -28473,7 +28517,7 @@ var init_Input = __esm({
         inputComponent = "input",
         multiline = false,
         type = "text"
-      } = props, other = _objectWithoutPropertiesLoose90(props, _excluded94);
+      } = props, other = _objectWithoutPropertiesLoose90(props, _excluded95);
       const classes = useUtilityClasses65(props);
       const ownerState = {
         disableUnderline
@@ -28571,7 +28615,7 @@ import {
 import PropTypes97 from "https://esm.sh/prop-types";
 import { jsx as _jsx103 } from "https://esm.sh/react/jsx-runtime";
 import { jsxs as _jsxs28 } from "https://esm.sh/react/jsx-runtime";
-var _excluded95, overridesResolver3, useUtilityClasses66, InputAdornmentRoot, InputAdornment, InputAdornment_default;
+var _excluded96, overridesResolver3, useUtilityClasses66, InputAdornmentRoot, InputAdornment, InputAdornment_default;
 var init_InputAdornment = __esm({
   "../../node_modules/@mui/material/InputAdornment/InputAdornment.js"() {
     init_clsx_m();
@@ -28583,7 +28627,7 @@ var init_InputAdornment = __esm({
     init_styled2();
     init_inputAdornmentClasses();
     init_useThemeProps3();
-    _excluded95 = ["children", "className", "component", "disablePointerEvents", "disableTypography", "position", "variant"];
+    _excluded96 = ["children", "className", "component", "disablePointerEvents", "disableTypography", "position", "variant"];
     overridesResolver3 = (props, styles7) => {
       const {
         ownerState
@@ -28642,7 +28686,7 @@ var init_InputAdornment = __esm({
         disableTypography = false,
         position: position2,
         variant: variantProp
-      } = props, other = _objectWithoutPropertiesLoose91(props, _excluded95);
+      } = props, other = _objectWithoutPropertiesLoose91(props, _excluded96);
       const muiFormControl = useFormControl() || {};
       let variant = variantProp;
       if (variantProp && muiFormControl.variant) {
@@ -28730,7 +28774,7 @@ import {
 } from "https://unpkg.com/@spike.land/esm@0.1.47/dist/react.mjs";
 import PropTypes98 from "https://esm.sh/prop-types";
 import { jsx as _jsx104 } from "https://esm.sh/react/jsx-runtime";
-var _excluded96, useUtilityClasses67, InputLabelRoot, InputLabel, InputLabel_default;
+var _excluded97, useUtilityClasses67, InputLabelRoot, InputLabel, InputLabel_default;
 var init_InputLabel = __esm({
   "../../node_modules/@mui/material/InputLabel/InputLabel.js"() {
     init_base();
@@ -28740,7 +28784,7 @@ var init_InputLabel = __esm({
     init_useThemeProps3();
     init_styled2();
     init_inputLabelClasses();
-    _excluded96 = ["disableAnimation", "margin", "shrink", "variant"];
+    _excluded97 = ["disableAnimation", "margin", "shrink", "variant"];
     useUtilityClasses67 = (ownerState) => {
       const {
         classes,
@@ -28827,7 +28871,7 @@ var init_InputLabel = __esm({
       const {
         disableAnimation = false,
         shrink: shrinkProp
-      } = props, other = _objectWithoutPropertiesLoose92(props, _excluded96);
+      } = props, other = _objectWithoutPropertiesLoose92(props, _excluded97);
       const muiFormControl = useFormControl();
       let shrink = shrinkProp;
       if (typeof shrink === "undefined" && muiFormControl) {
@@ -28904,7 +28948,7 @@ import {
 import PropTypes99 from "https://esm.sh/prop-types";
 import { jsx as _jsx105 } from "https://esm.sh/react/jsx-runtime";
 import { jsxs as _jsxs29 } from "https://esm.sh/react/jsx-runtime";
-var _excluded97, _4, _t6, _t24, _t33, _t43, _t52, _t62, TRANSITION_DURATION, indeterminate1Keyframe, indeterminate2Keyframe, bufferKeyframe, useUtilityClasses68, getColorShade, LinearProgressRoot, LinearProgressDashed, LinearProgressBar1, LinearProgressBar2, LinearProgress, LinearProgress_default;
+var _excluded98, _4, _t6, _t24, _t33, _t43, _t52, _t62, TRANSITION_DURATION, indeterminate1Keyframe, indeterminate2Keyframe, bufferKeyframe, useUtilityClasses68, getColorShade, LinearProgressRoot, LinearProgressDashed, LinearProgressBar1, LinearProgressBar2, LinearProgress, LinearProgress_default;
 var init_LinearProgress = __esm({
   "../../node_modules/@mui/material/LinearProgress/LinearProgress.js"() {
     init_clsx_m();
@@ -28915,7 +28959,7 @@ var init_LinearProgress = __esm({
     init_styled2();
     init_useThemeProps3();
     init_linearProgressClasses();
-    _excluded97 = ["className", "color", "value", "valueBuffer", "variant"];
+    _excluded98 = ["className", "color", "value", "valueBuffer", "variant"];
     _4 = (t) => t;
     TRANSITION_DURATION = 4;
     indeterminate1Keyframe = keyframes(_t6 || (_t6 = _4`
@@ -29130,7 +29174,7 @@ var init_LinearProgress = __esm({
         value,
         valueBuffer,
         variant = "indeterminate"
-      } = props, other = _objectWithoutPropertiesLoose93(props, _excluded97);
+      } = props, other = _objectWithoutPropertiesLoose93(props, _excluded98);
       const ownerState = _extends113({}, props, {
         color: color2,
         variant
@@ -29232,7 +29276,7 @@ import {
 } from "https://unpkg.com/@spike.land/esm@0.1.47/dist/react.mjs";
 import PropTypes100 from "https://esm.sh/prop-types";
 import { jsx as _jsx106 } from "https://esm.sh/react/jsx-runtime";
-var _excluded98, colorTransformations2, transformDeprecatedColors2, useUtilityClasses69, LinkRoot, Link, Link_default;
+var _excluded99, colorTransformations2, transformDeprecatedColors2, useUtilityClasses69, LinkRoot, Link, Link_default;
 var init_Link = __esm({
   "../../node_modules/@mui/material/Link/Link.js"() {
     init_clsx_m();
@@ -29246,7 +29290,7 @@ var init_Link = __esm({
     init_useForkRef2();
     init_Typography2();
     init_linkClasses();
-    _excluded98 = ["className", "color", "component", "onBlur", "onFocus", "TypographyClasses", "underline", "variant"];
+    _excluded99 = ["className", "color", "component", "onBlur", "onFocus", "TypographyClasses", "underline", "variant"];
     colorTransformations2 = {
       primary: "primary.main",
       textPrimary: "text.primary",
@@ -29332,7 +29376,7 @@ var init_Link = __esm({
         TypographyClasses,
         underline = "always",
         variant = "inherit"
-      } = props, other = _objectWithoutPropertiesLoose94(props, _excluded98);
+      } = props, other = _objectWithoutPropertiesLoose94(props, _excluded99);
       const {
         isFocusVisibleRef,
         onBlur: handleBlurVisible,
@@ -29443,7 +29487,7 @@ import {
 import PropTypes101 from "https://esm.sh/prop-types";
 import { jsxs as _jsxs30 } from "https://esm.sh/react/jsx-runtime";
 import { jsx as _jsx107 } from "https://esm.sh/react/jsx-runtime";
-var _excluded99, useUtilityClasses70, ListRoot, List, List_default;
+var _excluded100, useUtilityClasses70, ListRoot, List, List_default;
 var init_List = __esm({
   "../../node_modules/@mui/material/List/List.js"() {
     init_clsx_m();
@@ -29452,7 +29496,7 @@ var init_List = __esm({
     init_useThemeProps3();
     init_ListContext();
     init_listClasses();
-    _excluded99 = ["children", "className", "component", "dense", "disablePadding", "subheader"];
+    _excluded100 = ["children", "className", "component", "dense", "disablePadding", "subheader"];
     useUtilityClasses70 = (ownerState) => {
       const {
         classes,
@@ -29499,7 +29543,7 @@ var init_List = __esm({
         dense = false,
         disablePadding = false,
         subheader
-      } = props, other = _objectWithoutPropertiesLoose95(props, _excluded99);
+      } = props, other = _objectWithoutPropertiesLoose95(props, _excluded100);
       const context = useMemo8(() => ({
         dense
       }), [dense]);
@@ -29576,11 +29620,11 @@ import _extends116 from "https://unpkg.com/@babel/runtime@7.16.3/helpers/esm/ext
 import {
   forwardRef as forwardRef87,
   useContext as useContext11,
-  useRef as useRef31
+  useRef as useRef32
 } from "https://unpkg.com/@spike.land/esm@0.1.47/dist/react.mjs";
 import PropTypes102 from "https://esm.sh/prop-types";
 import { jsx as _jsx108 } from "https://esm.sh/react/jsx-runtime";
-var _excluded100, overridesResolver4, useUtilityClasses71, ListItemButtonRoot, ListItemButton, ListItemButton_default;
+var _excluded101, overridesResolver4, useUtilityClasses71, ListItemButtonRoot, ListItemButton, ListItemButton_default;
 var init_ListItemButton = __esm({
   "../../node_modules/@mui/material/ListItemButton/ListItemButton.js"() {
     init_clsx_m();
@@ -29593,7 +29637,7 @@ var init_ListItemButton = __esm({
     init_useForkRef2();
     init_ListContext();
     init_listItemButtonClasses();
-    _excluded100 = ["alignItems", "autoFocus", "component", "children", "dense", "disableGutters", "divider", "focusVisibleClassName", "selected"];
+    _excluded101 = ["alignItems", "autoFocus", "component", "children", "dense", "disableGutters", "divider", "focusVisibleClassName", "selected"];
     overridesResolver4 = (props, styles7) => {
       const {
         ownerState
@@ -29690,14 +29734,14 @@ var init_ListItemButton = __esm({
         divider = false,
         focusVisibleClassName,
         selected = false
-      } = props, other = _objectWithoutPropertiesLoose96(props, _excluded100);
+      } = props, other = _objectWithoutPropertiesLoose96(props, _excluded101);
       const context = useContext11(ListContext_default);
       const childContext = {
         dense: dense || context.dense || false,
         alignItems: alignItems2,
         disableGutters
       };
-      const listItemRef = useRef31(null);
+      const listItemRef = useRef32(null);
       useEnhancedEffect_default2(() => {
         if (autoFocus) {
           if (listItemRef.current) {
@@ -29778,7 +29822,7 @@ import {
 } from "https://unpkg.com/@spike.land/esm@0.1.47/dist/react.mjs";
 import PropTypes103 from "https://esm.sh/prop-types";
 import { jsx as _jsx109 } from "https://esm.sh/react/jsx-runtime";
-var _excluded101, useUtilityClasses72, ListItemSecondaryActionRoot, ListItemSecondaryAction, ListItemSecondaryAction_default;
+var _excluded102, useUtilityClasses72, ListItemSecondaryActionRoot, ListItemSecondaryAction, ListItemSecondaryAction_default;
 var init_ListItemSecondaryAction = __esm({
   "../../node_modules/@mui/material/ListItemSecondaryAction/ListItemSecondaryAction.js"() {
     init_clsx_m();
@@ -29787,7 +29831,7 @@ var init_ListItemSecondaryAction = __esm({
     init_useThemeProps3();
     init_ListContext();
     init_listItemSecondaryActionClasses();
-    _excluded101 = ["className"];
+    _excluded102 = ["className"];
     useUtilityClasses72 = (ownerState) => {
       const {
         disableGutters,
@@ -29824,7 +29868,7 @@ var init_ListItemSecondaryAction = __esm({
       });
       const {
         className
-      } = props, other = _objectWithoutPropertiesLoose97(props, _excluded101);
+      } = props, other = _objectWithoutPropertiesLoose97(props, _excluded102);
       const context = useContext12(ListContext_default);
       const ownerState = _extends117({}, props, {
         disableGutters: context.disableGutters
@@ -29863,12 +29907,12 @@ import {
   Children as Children10,
   forwardRef as forwardRef89,
   useContext as useContext13,
-  useRef as useRef32
+  useRef as useRef33
 } from "https://unpkg.com/@spike.land/esm@0.1.47/dist/react.mjs";
 import PropTypes104 from "https://esm.sh/prop-types";
 import { jsx as _jsx110 } from "https://esm.sh/react/jsx-runtime";
 import { jsxs as _jsxs31 } from "https://esm.sh/react/jsx-runtime";
-var _excluded102, _excluded212, overridesResolver5, useUtilityClasses73, ListItemRoot, ListItemContainer, ListItem, ListItem_default;
+var _excluded103, _excluded212, overridesResolver5, useUtilityClasses73, ListItemRoot, ListItemContainer, ListItem, ListItem_default;
 var init_ListItem = __esm({
   "../../node_modules/@mui/material/ListItem/ListItem.js"() {
     init_clsx_m();
@@ -29885,7 +29929,7 @@ var init_ListItem = __esm({
     init_listItemClasses();
     init_ListItemButton2();
     init_ListItemSecondaryAction2();
-    _excluded102 = ["className"], _excluded212 = ["alignItems", "autoFocus", "button", "children", "className", "component", "components", "componentsProps", "ContainerComponent", "ContainerProps", "dense", "disabled", "disableGutters", "disablePadding", "divider", "focusVisibleClassName", "secondaryAction", "selected"];
+    _excluded103 = ["className"], _excluded212 = ["alignItems", "autoFocus", "button", "children", "className", "component", "components", "componentsProps", "ContainerComponent", "ContainerProps", "dense", "disabled", "disableGutters", "disablePadding", "divider", "focusVisibleClassName", "secondaryAction", "selected"];
     overridesResolver5 = (props, styles7) => {
       const {
         ownerState
@@ -30013,14 +30057,14 @@ var init_ListItem = __esm({
         focusVisibleClassName,
         secondaryAction,
         selected = false
-      } = props, ContainerProps = _objectWithoutPropertiesLoose98(props.ContainerProps, _excluded102), other = _objectWithoutPropertiesLoose98(props, _excluded212);
+      } = props, ContainerProps = _objectWithoutPropertiesLoose98(props.ContainerProps, _excluded103), other = _objectWithoutPropertiesLoose98(props, _excluded212);
       const context = useContext13(ListContext_default);
       const childContext = {
         dense: dense || context.dense || false,
         alignItems: alignItems2,
         disableGutters
       };
-      const listItemRef = useRef32(null);
+      const listItemRef = useRef33(null);
       useEnhancedEffect_default2(() => {
         if (autoFocus) {
           if (listItemRef.current) {
@@ -30172,7 +30216,7 @@ import {
 } from "https://unpkg.com/@spike.land/esm@0.1.47/dist/react.mjs";
 import PropTypes105 from "https://esm.sh/prop-types";
 import { jsx as _jsx111 } from "https://esm.sh/react/jsx-runtime";
-var _excluded103, useUtilityClasses74, ListItemAvatarRoot, ListItemAvatar, ListItemAvatar_default;
+var _excluded104, useUtilityClasses74, ListItemAvatarRoot, ListItemAvatar, ListItemAvatar_default;
 var init_ListItemAvatar = __esm({
   "../../node_modules/@mui/material/ListItemAvatar/ListItemAvatar.js"() {
     init_clsx_m();
@@ -30181,7 +30225,7 @@ var init_ListItemAvatar = __esm({
     init_styled2();
     init_useThemeProps3();
     init_listItemAvatarClasses();
-    _excluded103 = ["className"];
+    _excluded104 = ["className"];
     useUtilityClasses74 = (ownerState) => {
       const {
         alignItems: alignItems2,
@@ -30216,7 +30260,7 @@ var init_ListItemAvatar = __esm({
       });
       const {
         className
-      } = props, other = _objectWithoutPropertiesLoose99(props, _excluded103);
+      } = props, other = _objectWithoutPropertiesLoose99(props, _excluded104);
       const context = useContext14(ListContext_default);
       const ownerState = _extends119({}, props, {
         alignItems: context.alignItems
@@ -30269,7 +30313,7 @@ import {
 } from "https://unpkg.com/@spike.land/esm@0.1.47/dist/react.mjs";
 import PropTypes106 from "https://esm.sh/prop-types";
 import { jsx as _jsx112 } from "https://esm.sh/react/jsx-runtime";
-var _excluded104, useUtilityClasses75, ListItemIconRoot, ListItemIcon, ListItemIcon_default;
+var _excluded105, useUtilityClasses75, ListItemIconRoot, ListItemIcon, ListItemIcon_default;
 var init_ListItemIcon = __esm({
   "../../node_modules/@mui/material/ListItemIcon/ListItemIcon.js"() {
     init_clsx_m();
@@ -30278,7 +30322,7 @@ var init_ListItemIcon = __esm({
     init_useThemeProps3();
     init_listItemIconClasses();
     init_ListContext();
-    _excluded104 = ["className"];
+    _excluded105 = ["className"];
     useUtilityClasses75 = (ownerState) => {
       const {
         alignItems: alignItems2,
@@ -30316,7 +30360,7 @@ var init_ListItemIcon = __esm({
       });
       const {
         className
-      } = props, other = _objectWithoutPropertiesLoose100(props, _excluded104);
+      } = props, other = _objectWithoutPropertiesLoose100(props, _excluded105);
       const context = useContext15(ListContext_default);
       const ownerState = _extends120({}, props, {
         alignItems: context.alignItems
@@ -30370,7 +30414,7 @@ import {
 import PropTypes107 from "https://esm.sh/prop-types";
 import { jsx as _jsx113 } from "https://esm.sh/react/jsx-runtime";
 import { jsxs as _jsxs32 } from "https://esm.sh/react/jsx-runtime";
-var _excluded105, useUtilityClasses76, ListItemTextRoot, ListItemText, ListItemText_default;
+var _excluded106, useUtilityClasses76, ListItemTextRoot, ListItemText, ListItemText_default;
 var init_ListItemText = __esm({
   "../../node_modules/@mui/material/ListItemText/ListItemText.js"() {
     init_clsx_m();
@@ -30380,7 +30424,7 @@ var init_ListItemText = __esm({
     init_useThemeProps3();
     init_styled2();
     init_listItemTextClasses();
-    _excluded105 = ["children", "className", "disableTypography", "inset", "primary", "primaryTypographyProps", "secondary", "secondaryTypographyProps"];
+    _excluded106 = ["children", "className", "disableTypography", "inset", "primary", "primaryTypographyProps", "secondary", "secondaryTypographyProps"];
     useUtilityClasses76 = (ownerState) => {
       const {
         classes,
@@ -30436,7 +30480,7 @@ var init_ListItemText = __esm({
         primaryTypographyProps,
         secondary: secondaryProp,
         secondaryTypographyProps
-      } = props, other = _objectWithoutPropertiesLoose101(props, _excluded105);
+      } = props, other = _objectWithoutPropertiesLoose101(props, _excluded106);
       const {
         dense
       } = useContext16(ListContext_default);
@@ -30521,7 +30565,7 @@ import {
   forwardRef as forwardRef93,
   isValidElement as isValidElement12,
   useImperativeHandle as useImperativeHandle6,
-  useRef as useRef33
+  useRef as useRef34
 } from "https://unpkg.com/@spike.land/esm@0.1.47/dist/react.mjs";
 import { isFragment as isFragment8 } from "https://unpkg.com/@spike.land/esm@0.1.47/dist/react-is.mjs";
 import PropTypes108 from "https://esm.sh/prop-types";
@@ -30581,7 +30625,7 @@ function moveFocus2(list, currentFocus, disableListWrap, disabledItemsFocusable,
   }
   return false;
 }
-var _excluded106, MenuList, MenuList_default;
+var _excluded107, MenuList, MenuList_default;
 var init_MenuList = __esm({
   "../../node_modules/@mui/material/MenuList/MenuList.js"() {
     init_ownerDocument2();
@@ -30589,7 +30633,7 @@ var init_MenuList = __esm({
     init_getScrollbarSize2();
     init_useForkRef2();
     init_useEnhancedEffect2();
-    _excluded106 = ["actions", "autoFocus", "autoFocusItem", "children", "className", "disabledItemsFocusable", "disableListWrap", "onKeyDown", "variant"];
+    _excluded107 = ["actions", "autoFocus", "autoFocusItem", "children", "className", "disabledItemsFocusable", "disableListWrap", "onKeyDown", "variant"];
     MenuList = /* @__PURE__ */ forwardRef93(function MenuList2(props, ref) {
       const {
         actions,
@@ -30601,9 +30645,9 @@ var init_MenuList = __esm({
         disableListWrap = false,
         onKeyDown,
         variant = "selectedMenu"
-      } = props, other = _objectWithoutPropertiesLoose102(props, _excluded106);
-      const listRef = useRef33(null);
-      const textCriteriaRef = useRef33({
+      } = props, other = _objectWithoutPropertiesLoose102(props, _excluded107);
+      const listRef = useRef34(null);
+      const textCriteriaRef = useRef34({
         keys: [],
         repeating: true,
         previousKeyMatched: true,
@@ -30751,7 +30795,7 @@ import {
   useCallback as useCallback17,
   useEffect as useEffect27,
   useImperativeHandle as useImperativeHandle7,
-  useRef as useRef34
+  useRef as useRef35
 } from "https://unpkg.com/@spike.land/esm@0.1.47/dist/react.mjs";
 import PropTypes109 from "https://esm.sh/prop-types";
 import { jsx as _jsx115 } from "https://esm.sh/react/jsx-runtime";
@@ -30783,7 +30827,7 @@ function getTransformOriginValue(transformOrigin) {
 function resolveAnchorEl2(anchorEl) {
   return typeof anchorEl === "function" ? anchorEl() : anchorEl;
 }
-var _excluded107, _excluded213, useUtilityClasses77, PopoverRoot, PopoverPaper, Popover, Popover_default;
+var _excluded108, _excluded213, useUtilityClasses77, PopoverRoot, PopoverPaper, Popover, Popover_default;
 var init_Popover = __esm({
   "../../node_modules/@mui/material/Popover/Popover.js"() {
     init_clsx_m();
@@ -30799,7 +30843,7 @@ var init_Popover = __esm({
     init_Modal2();
     init_Paper2();
     init_popoverClasses();
-    _excluded107 = ["onEntering"], _excluded213 = ["action", "anchorEl", "anchorOrigin", "anchorPosition", "anchorReference", "children", "className", "container", "elevation", "marginThreshold", "open", "PaperProps", "transformOrigin", "TransitionComponent", "transitionDuration", "TransitionProps"];
+    _excluded108 = ["onEntering"], _excluded213 = ["action", "anchorEl", "anchorOrigin", "anchorPosition", "anchorReference", "children", "className", "container", "elevation", "marginThreshold", "open", "PaperProps", "transformOrigin", "TransitionComponent", "transitionDuration", "TransitionProps"];
     useUtilityClasses77 = (ownerState) => {
       const {
         classes
@@ -30859,8 +30903,8 @@ var init_Popover = __esm({
         TransitionProps: {
           onEntering
         } = {}
-      } = props, TransitionProps = _objectWithoutPropertiesLoose103(props.TransitionProps, _excluded107), other = _objectWithoutPropertiesLoose103(props, _excluded213);
-      const paperRef = useRef34();
+      } = props, TransitionProps = _objectWithoutPropertiesLoose103(props.TransitionProps, _excluded108), other = _objectWithoutPropertiesLoose103(props, _excluded213);
+      const paperRef = useRef35();
       const handlePaperRef = useForkRef_default(paperRef, PaperProps.ref);
       const ownerState = _extends123({}, props, {
         anchorOrigin,
@@ -31110,12 +31154,12 @@ import {
   Children as Children12,
   forwardRef as forwardRef95,
   isValidElement as isValidElement13,
-  useRef as useRef35
+  useRef as useRef36
 } from "https://unpkg.com/@spike.land/esm@0.1.47/dist/react.mjs";
 import { isFragment as isFragment9 } from "https://unpkg.com/@spike.land/esm@0.1.47/dist/react-is.mjs";
 import PropTypes110 from "https://esm.sh/prop-types";
 import { jsx as _jsx116 } from "https://esm.sh/react/jsx-runtime";
-var _excluded108, _excluded214, RTL_ORIGIN, LTR_ORIGIN, useUtilityClasses78, MenuRoot, MenuPaper, MenuMenuList, Menu, Menu_default;
+var _excluded109, _excluded214, RTL_ORIGIN, LTR_ORIGIN, useUtilityClasses78, MenuRoot, MenuPaper, MenuMenuList, Menu, Menu_default;
 var init_Menu = __esm({
   "../../node_modules/@mui/material/Menu/Menu.js"() {
     init_clsx_m();
@@ -31128,7 +31172,7 @@ var init_Menu = __esm({
     init_useTheme4();
     init_useThemeProps3();
     init_menuClasses();
-    _excluded108 = ["onEntering"], _excluded214 = ["autoFocus", "children", "disableAutoFocusItem", "MenuListProps", "onClose", "open", "PaperProps", "PopoverClasses", "transitionDuration", "TransitionProps", "variant"];
+    _excluded109 = ["onEntering"], _excluded214 = ["autoFocus", "children", "disableAutoFocusItem", "MenuListProps", "onClose", "open", "PaperProps", "PopoverClasses", "transitionDuration", "TransitionProps", "variant"];
     RTL_ORIGIN = {
       vertical: "top",
       horizontal: "right"
@@ -31188,7 +31232,7 @@ var init_Menu = __esm({
           onEntering
         } = {},
         variant = "selectedMenu"
-      } = props, TransitionProps = _objectWithoutPropertiesLoose104(props.TransitionProps, _excluded108), other = _objectWithoutPropertiesLoose104(props, _excluded214);
+      } = props, TransitionProps = _objectWithoutPropertiesLoose104(props.TransitionProps, _excluded109), other = _objectWithoutPropertiesLoose104(props, _excluded214);
       const theme = useTheme4();
       const isRtl = theme.direction === "rtl";
       const ownerState = _extends124({}, props, {
@@ -31203,7 +31247,7 @@ var init_Menu = __esm({
       });
       const classes = useUtilityClasses78(ownerState);
       const autoFocusItem = autoFocus && !disableAutoFocusItem && open2;
-      const menuListActionsRef = useRef35(null);
+      const menuListActionsRef = useRef36(null);
       const handleEntering = (element, isAppearing) => {
         if (menuListActionsRef.current) {
           menuListActionsRef.current.adjustStyleForScrollbar(element, theme);
@@ -31326,11 +31370,11 @@ import _extends125 from "https://unpkg.com/@babel/runtime@7.16.3/helpers/esm/ext
 import {
   forwardRef as forwardRef96,
   useContext as useContext17,
-  useRef as useRef36
+  useRef as useRef37
 } from "https://unpkg.com/@spike.land/esm@0.1.47/dist/react.mjs";
 import PropTypes111 from "https://esm.sh/prop-types";
 import { jsx as _jsx117 } from "https://esm.sh/react/jsx-runtime";
-var _excluded109, overridesResolver6, useUtilityClasses79, MenuItemRoot, MenuItem, MenuItem_default;
+var _excluded110, overridesResolver6, useUtilityClasses79, MenuItemRoot, MenuItem, MenuItem_default;
 var init_MenuItem = __esm({
   "../../node_modules/@mui/material/MenuItem/MenuItem.js"() {
     init_clsx_m();
@@ -31346,7 +31390,7 @@ var init_MenuItem = __esm({
     init_ListItemIcon2();
     init_ListItemText2();
     init_menuItemClasses();
-    _excluded109 = ["autoFocus", "component", "dense", "divider", "disableGutters", "focusVisibleClassName", "role", "tabIndex"];
+    _excluded110 = ["autoFocus", "component", "dense", "divider", "disableGutters", "focusVisibleClassName", "role", "tabIndex"];
     overridesResolver6 = (props, styles7) => {
       const {
         ownerState
@@ -31463,13 +31507,13 @@ var init_MenuItem = __esm({
         focusVisibleClassName,
         role = "menuitem",
         tabIndex: tabIndexProp
-      } = props, other = _objectWithoutPropertiesLoose105(props, _excluded109);
+      } = props, other = _objectWithoutPropertiesLoose105(props, _excluded110);
       const context = useContext17(ListContext_default);
       const childContext = {
         dense: dense || context.dense || false,
         disableGutters
       };
-      const menuItemRef = useRef36(null);
+      const menuItemRef = useRef37(null);
       useEnhancedEffect_default2(() => {
         if (autoFocus) {
           if (menuItemRef.current) {
@@ -31555,7 +31599,7 @@ import {
 import PropTypes112 from "https://esm.sh/prop-types";
 import { jsxs as _jsxs33 } from "https://esm.sh/react/jsx-runtime";
 import { jsx as _jsx118 } from "https://esm.sh/react/jsx-runtime";
-var _excluded110, useUtilityClasses80, MobileStepperRoot, MobileStepperDots, MobileStepperDot, MobileStepperProgress, MobileStepper, MobileStepper_default;
+var _excluded111, useUtilityClasses80, MobileStepperRoot, MobileStepperDots, MobileStepperDot, MobileStepperProgress, MobileStepper, MobileStepper_default;
 var init_MobileStepper = __esm({
   "../../node_modules/@mui/material/MobileStepper/MobileStepper.js"() {
     init_clsx_m();
@@ -31567,7 +31611,7 @@ var init_MobileStepper = __esm({
     init_useThemeProps3();
     init_styled2();
     init_mobileStepperClasses();
-    _excluded110 = ["activeStep", "backButton", "className", "LinearProgressProps", "nextButton", "position", "steps", "variant"];
+    _excluded111 = ["activeStep", "backButton", "className", "LinearProgressProps", "nextButton", "position", "steps", "variant"];
     useUtilityClasses80 = (ownerState) => {
       const {
         classes,
@@ -31673,7 +31717,7 @@ var init_MobileStepper = __esm({
         position: position2 = "bottom",
         steps,
         variant = "dots"
-      } = props, other = _objectWithoutPropertiesLoose106(props, _excluded110);
+      } = props, other = _objectWithoutPropertiesLoose106(props, _excluded111);
       const ownerState = _extends126({}, props, {
         activeStep,
         position: position2,
@@ -31753,7 +31797,7 @@ import {
 import PropTypes113 from "https://esm.sh/prop-types";
 import { jsx as _jsx119 } from "https://esm.sh/react/jsx-runtime";
 import { jsxs as _jsxs34 } from "https://esm.sh/react/jsx-runtime";
-var _excluded111, useUtilityClasses81, nativeSelectSelectStyles, NativeSelectSelect, nativeSelectIconStyles, NativeSelectIcon, NativeSelectInput, NativeSelectInput_default;
+var _excluded112, useUtilityClasses81, nativeSelectSelectStyles, NativeSelectSelect, nativeSelectIconStyles, NativeSelectIcon, NativeSelectInput, NativeSelectInput_default;
 var init_NativeSelectInput = __esm({
   "../../node_modules/@mui/material/NativeSelect/NativeSelectInput.js"() {
     init_clsx_m();
@@ -31762,7 +31806,7 @@ var init_NativeSelectInput = __esm({
     init_capitalize2();
     init_nativeSelectClasses();
     init_styled2();
-    _excluded111 = ["className", "disabled", "IconComponent", "inputRef", "variant"];
+    _excluded112 = ["className", "disabled", "IconComponent", "inputRef", "variant"];
     useUtilityClasses81 = (ownerState) => {
       const {
         classes,
@@ -31868,7 +31912,7 @@ var init_NativeSelectInput = __esm({
         IconComponent,
         inputRef,
         variant = "standard"
-      } = props, other = _objectWithoutPropertiesLoose107(props, _excluded111);
+      } = props, other = _objectWithoutPropertiesLoose107(props, _excluded112);
       const ownerState = _extends127({}, props, {
         disabled,
         variant
@@ -31913,7 +31957,7 @@ import {
 } from "https://unpkg.com/@spike.land/esm@0.1.47/dist/react.mjs";
 import PropTypes114 from "https://esm.sh/prop-types";
 import { jsx as _jsx120 } from "https://esm.sh/react/jsx-runtime";
-var _excluded112, _excluded215, useUtilityClasses82, defaultInput, NativeSelect, NativeSelect_default;
+var _excluded113, _excluded215, useUtilityClasses82, defaultInput, NativeSelect, NativeSelect_default;
 var init_NativeSelect = __esm({
   "../../node_modules/@mui/material/NativeSelect/NativeSelect.js"() {
     init_clsx_m();
@@ -31925,7 +31969,7 @@ var init_NativeSelect = __esm({
     init_Input2();
     init_useThemeProps3();
     init_nativeSelectClasses();
-    _excluded112 = ["className", "children", "classes", "IconComponent", "input", "inputProps", "variant"], _excluded215 = ["root"];
+    _excluded113 = ["className", "children", "classes", "IconComponent", "input", "inputProps", "variant"], _excluded215 = ["root"];
     useUtilityClasses82 = (ownerState) => {
       const {
         classes
@@ -31948,7 +31992,7 @@ var init_NativeSelect = __esm({
         IconComponent = ArrowDropDown_default,
         input = defaultInput,
         inputProps
-      } = props, other = _objectWithoutPropertiesLoose108(props, _excluded112);
+      } = props, other = _objectWithoutPropertiesLoose108(props, _excluded113);
       const muiFormControl = useFormControl();
       const fcs = formControlState({
         props,
@@ -32017,7 +32061,7 @@ function NotchedOutline(props) {
     className,
     label,
     notched
-  } = props, other = _objectWithoutPropertiesLoose109(props, _excluded113);
+  } = props, other = _objectWithoutPropertiesLoose109(props, _excluded114);
   const ownerState = _extends129({}, props, {
     notched,
     label
@@ -32040,11 +32084,11 @@ function NotchedOutline(props) {
     })
   }));
 }
-var _excluded113, NotchedOutlineRoot, NotchedOutlineLegend;
+var _excluded114, NotchedOutlineRoot, NotchedOutlineLegend;
 var init_NotchedOutline = __esm({
   "../../node_modules/@mui/material/OutlinedInput/NotchedOutline.js"() {
     init_styled2();
-    _excluded113 = ["children", "classes", "className", "label", "notched"];
+    _excluded114 = ["children", "classes", "className", "label", "notched"];
     NotchedOutlineRoot = styled_default2("fieldset")({
       textAlign: "left",
       position: "absolute",
@@ -32120,7 +32164,7 @@ import {
 } from "https://unpkg.com/@spike.land/esm@0.1.47/dist/react.mjs";
 import PropTypes116 from "https://esm.sh/prop-types";
 import { jsx as _jsx122 } from "https://esm.sh/react/jsx-runtime";
-var _excluded114, useUtilityClasses83, OutlinedInputRoot, NotchedOutlineRoot2, OutlinedInputInput, OutlinedInput, OutlinedInput_default;
+var _excluded115, useUtilityClasses83, OutlinedInputRoot, NotchedOutlineRoot2, OutlinedInputInput, OutlinedInput, OutlinedInput_default;
 var init_OutlinedInput = __esm({
   "../../node_modules/@mui/material/OutlinedInput/OutlinedInput.js"() {
     init_esm();
@@ -32130,7 +32174,7 @@ var init_OutlinedInput = __esm({
     init_outlinedInputClasses();
     init_InputBase();
     init_useThemeProps3();
-    _excluded114 = ["components", "fullWidth", "inputComponent", "label", "multiline", "notched", "type"];
+    _excluded115 = ["components", "fullWidth", "inputComponent", "label", "multiline", "notched", "type"];
     useUtilityClasses83 = (ownerState) => {
       const {
         classes
@@ -32230,7 +32274,7 @@ var init_OutlinedInput = __esm({
         multiline = false,
         notched,
         type = "text"
-      } = props, other = _objectWithoutPropertiesLoose110(props, _excluded114);
+      } = props, other = _objectWithoutPropertiesLoose110(props, _excluded115);
       const classes = useUtilityClasses83(props);
       return /* @__PURE__ */ _jsx122(InputBase_default, _extends130({
         components: _extends130({
@@ -32332,7 +32376,7 @@ function usePagination(props = {}) {
     showFirstButton = false,
     showLastButton = false,
     siblingCount = 1
-  } = props, other = _objectWithoutPropertiesLoose111(props, _excluded115);
+  } = props, other = _objectWithoutPropertiesLoose111(props, _excluded116);
   const [page, setPageState] = useControlled({
     controlled: pageProp,
     default: defaultPage,
@@ -32406,11 +32450,11 @@ function usePagination(props = {}) {
     items
   }, other);
 }
-var _excluded115;
+var _excluded116;
 var init_usePagination = __esm({
   "../../node_modules/@mui/material/usePagination/usePagination.js"() {
     init_esm();
-    _excluded115 = ["boundaryCount", "componentName", "count", "defaultPage", "disabled", "hideNextButton", "hidePrevButton", "onChange", "page", "showFirstButton", "showLastButton", "siblingCount"];
+    _excluded116 = ["boundaryCount", "componentName", "count", "defaultPage", "disabled", "hideNextButton", "hidePrevButton", "onChange", "page", "showFirstButton", "showLastButton", "siblingCount"];
   }
 });
 
@@ -32495,7 +32539,7 @@ import {
 import PropTypes117 from "https://esm.sh/prop-types";
 import { jsx as _jsx127 } from "https://esm.sh/react/jsx-runtime";
 import { jsxs as _jsxs35 } from "https://esm.sh/react/jsx-runtime";
-var _excluded116, overridesResolver7, useUtilityClasses84, PaginationItemEllipsis, PaginationItemPage, PaginationItemPageIcon, PaginationItem, PaginationItem_default;
+var _excluded117, overridesResolver7, useUtilityClasses84, PaginationItemEllipsis, PaginationItemPage, PaginationItemPageIcon, PaginationItem, PaginationItem_default;
 var init_PaginationItem = __esm({
   "../../node_modules/@mui/material/PaginationItem/PaginationItem.js"() {
     init_clsx_m();
@@ -32511,7 +32555,7 @@ var init_PaginationItem = __esm({
     init_NavigateBefore();
     init_NavigateNext();
     init_styled2();
-    _excluded116 = ["className", "color", "component", "components", "disabled", "page", "selected", "shape", "size", "type", "variant"];
+    _excluded117 = ["className", "color", "component", "components", "disabled", "page", "selected", "shape", "size", "type", "variant"];
     overridesResolver7 = (props, styles7) => {
       const {
         ownerState
@@ -32715,7 +32759,7 @@ var init_PaginationItem = __esm({
         size = "medium",
         type = "page",
         variant = "text"
-      } = props, other = _objectWithoutPropertiesLoose112(props, _excluded116);
+      } = props, other = _objectWithoutPropertiesLoose112(props, _excluded117);
       const ownerState = _extends132({}, props, {
         color: color2,
         disabled,
@@ -32806,7 +32850,7 @@ function defaultGetAriaLabel(type, page, selected) {
   }
   return `Go to ${type} page`;
 }
-var _excluded117, useUtilityClasses85, PaginationRoot, PaginationUl, Pagination, Pagination_default;
+var _excluded118, useUtilityClasses85, PaginationRoot, PaginationUl, Pagination, Pagination_default;
 var init_Pagination = __esm({
   "../../node_modules/@mui/material/Pagination/Pagination.js"() {
     init_clsx_m();
@@ -32817,7 +32861,7 @@ var init_Pagination = __esm({
     init_usePagination2();
     init_PaginationItem2();
     init_styled2();
-    _excluded117 = ["boundaryCount", "className", "color", "count", "defaultPage", "disabled", "getItemAriaLabel", "hideNextButton", "hidePrevButton", "onChange", "page", "renderItem", "shape", "showFirstButton", "showLastButton", "siblingCount", "size", "variant"];
+    _excluded118 = ["boundaryCount", "className", "color", "count", "defaultPage", "disabled", "getItemAriaLabel", "hideNextButton", "hidePrevButton", "onChange", "page", "renderItem", "shape", "showFirstButton", "showLastButton", "siblingCount", "size", "variant"];
     useUtilityClasses85 = (ownerState) => {
       const {
         classes,
@@ -32873,7 +32917,7 @@ var init_Pagination = __esm({
         siblingCount = 1,
         size = "medium",
         variant = "text"
-      } = props, other = _objectWithoutPropertiesLoose113(props, _excluded117);
+      } = props, other = _objectWithoutPropertiesLoose113(props, _excluded118);
       const {
         items
       } = usePagination(_extends133({}, props, {
@@ -33108,7 +33152,7 @@ function areEqualValues(a, b2) {
   }
   return String(a) === String(b2);
 }
-var _excluded118, useUtilityClasses86, RadioRoot, defaultCheckedIcon2, defaultIcon2, Radio, Radio_default;
+var _excluded119, useUtilityClasses86, RadioRoot, defaultCheckedIcon2, defaultIcon2, Radio, Radio_default;
 var init_Radio = __esm({
   "../../node_modules/@mui/material/Radio/Radio.js"() {
     init_esm();
@@ -33122,7 +33166,7 @@ var init_Radio = __esm({
     init_useRadioGroup();
     init_radioClasses();
     init_styled2();
-    _excluded118 = ["checked", "checkedIcon", "color", "icon", "name", "onChange", "size"];
+    _excluded119 = ["checked", "checkedIcon", "color", "icon", "name", "onChange", "size"];
     useUtilityClasses86 = (ownerState) => {
       const {
         classes,
@@ -33181,7 +33225,7 @@ var init_Radio = __esm({
         name: nameProp,
         onChange: onChangeProp,
         size = "medium"
-      } = props, other = _objectWithoutPropertiesLoose114(props, _excluded118);
+      } = props, other = _objectWithoutPropertiesLoose114(props, _excluded119);
       const ownerState = _extends135({}, props, {
         color: color2,
         size
@@ -33297,7 +33341,7 @@ import _extends136 from "https://unpkg.com/@babel/runtime@7.16.3/helpers/esm/ext
 import {
   Fragment as Fragment12,
   forwardRef as forwardRef104,
-  useRef as useRef37,
+  useRef as useRef38,
   useState as useState23
 } from "https://unpkg.com/@spike.land/esm@0.1.47/dist/react.mjs";
 import PropTypes121 from "https://esm.sh/prop-types";
@@ -33324,7 +33368,7 @@ function roundValueToPrecision(value, precision) {
   return Number(nearest.toFixed(getDecimalPrecision2(precision)));
 }
 function IconContainer(props) {
-  const other = _objectWithoutPropertiesLoose115(props, _excluded119);
+  const other = _objectWithoutPropertiesLoose115(props, _excluded120);
   return /* @__PURE__ */ _jsx135("span", _extends136({}, other));
 }
 function RatingItem(props) {
@@ -33403,7 +33447,7 @@ function RatingItem(props) {
 function defaultLabelText(value) {
   return `${value} Star${value !== 1 ? "s" : ""}`;
 }
-var _excluded119, _excluded216, useUtilityClasses87, RatingRoot, RatingLabel, RatingIcon, RatingDecimal, defaultIcon3, defaultEmptyIcon, Rating, Rating_default;
+var _excluded120, _excluded216, useUtilityClasses87, RatingRoot, RatingLabel, RatingIcon, RatingDecimal, defaultIcon3, defaultEmptyIcon, Rating, Rating_default;
 var init_Rating = __esm({
   "../../node_modules/@mui/material/Rating/Rating.js"() {
     init_clsx_m();
@@ -33416,7 +33460,7 @@ var init_Rating = __esm({
     init_useThemeProps3();
     init_styled2();
     init_ratingClasses();
-    _excluded119 = ["value"], _excluded216 = ["className", "defaultValue", "disabled", "emptyIcon", "emptyLabelText", "getLabelText", "highlightSelectedOnly", "icon", "IconContainerComponent", "max", "name", "onChange", "onChangeActive", "onMouseLeave", "onMouseMove", "precision", "readOnly", "size", "value"];
+    _excluded120 = ["value"], _excluded216 = ["className", "defaultValue", "disabled", "emptyIcon", "emptyLabelText", "getLabelText", "highlightSelectedOnly", "icon", "IconContainerComponent", "max", "name", "onChange", "onChangeActive", "onMouseLeave", "onMouseMove", "precision", "readOnly", "size", "value"];
     useUtilityClasses87 = (ownerState) => {
       const {
         classes,
@@ -33620,7 +33664,7 @@ var init_Rating = __esm({
         ref: focusVisibleRef
       } = useIsFocusVisible_default();
       const [focusVisible, setFocusVisible] = useState23(false);
-      const rootRef = useRef37();
+      const rootRef = useRef38();
       const handleFocusRef = useForkRef_default(focusVisibleRef, rootRef);
       const handleRef = useForkRef_default(handleFocusRef, ref);
       const handleMouseMove = (event) => {
@@ -33870,7 +33914,7 @@ import {
 } from "https://unpkg.com/@spike.land/esm@0.1.47/dist/react.mjs";
 import PropTypes122 from "https://esm.sh/prop-types";
 import { jsx as _jsx136 } from "https://esm.sh/react/jsx-runtime";
-var _excluded120, useUtilityClasses88, ScopedCssBaselineRoot, ScopedCssBaseline, ScopedCssBaseline_default;
+var _excluded121, useUtilityClasses88, ScopedCssBaselineRoot, ScopedCssBaseline, ScopedCssBaseline_default;
 var init_ScopedCssBaseline = __esm({
   "../../node_modules/@mui/material/ScopedCssBaseline/ScopedCssBaseline.js"() {
     init_clsx_m();
@@ -33879,7 +33923,7 @@ var init_ScopedCssBaseline = __esm({
     init_styled2();
     init_CssBaseline();
     init_scopedCssBaselineClasses();
-    _excluded120 = ["className", "component", "enableColorScheme"];
+    _excluded121 = ["className", "component", "enableColorScheme"];
     useUtilityClasses88 = (ownerState) => {
       const {
         classes
@@ -33914,7 +33958,7 @@ var init_ScopedCssBaseline = __esm({
       const {
         className,
         component = "div"
-      } = props, other = _objectWithoutPropertiesLoose116(props, _excluded120);
+      } = props, other = _objectWithoutPropertiesLoose116(props, _excluded121);
       const ownerState = _extends137({}, props, {
         component
       });
@@ -33971,7 +34015,7 @@ import {
   useCallback as useCallback18,
   useEffect as useEffect28,
   useImperativeHandle as useImperativeHandle8,
-  useRef as useRef38,
+  useRef as useRef39,
   useState as useState24
 } from "https://unpkg.com/@spike.land/esm@0.1.47/dist/react.mjs";
 import { isFragment as isFragment10 } from "https://unpkg.com/@spike.land/esm@0.1.47/dist/react-is.mjs";
@@ -33987,7 +34031,7 @@ function areEqualValues2(a, b2) {
 function isEmpty4(display) {
   return display == null || typeof display === "string" && !display.trim();
 }
-var _excluded121, SelectSelect, SelectIcon, SelectNativeInput, useUtilityClasses89, SelectInput, SelectInput_default;
+var _excluded122, SelectSelect, SelectIcon, SelectNativeInput, useUtilityClasses89, SelectInput, SelectInput_default;
 var init_SelectInput = __esm({
   "../../node_modules/@mui/material/Select/SelectInput.js"() {
     init_esm();
@@ -34003,7 +34047,7 @@ var init_SelectInput = __esm({
     init_useForkRef2();
     init_useControlled2();
     init_selectClasses();
-    _excluded121 = ["aria-describedby", "aria-label", "autoFocus", "autoWidth", "children", "className", "defaultValue", "disabled", "displayEmpty", "IconComponent", "inputRef", "labelId", "MenuProps", "multiple", "name", "onBlur", "onChange", "onClose", "onFocus", "onOpen", "open", "readOnly", "renderValue", "SelectDisplayProps", "tabIndex", "type", "value", "variant"];
+    _excluded122 = ["aria-describedby", "aria-label", "autoFocus", "autoWidth", "children", "className", "defaultValue", "disabled", "displayEmpty", "IconComponent", "inputRef", "labelId", "MenuProps", "multiple", "name", "onBlur", "onChange", "onClose", "onFocus", "onOpen", "open", "readOnly", "renderValue", "SelectDisplayProps", "tabIndex", "type", "value", "variant"];
     SelectSelect = styled_default2("div", {
       name: "MuiSelect",
       slot: "Select",
@@ -34100,18 +34144,18 @@ var init_SelectInput = __esm({
         tabIndex: tabIndexProp,
         value: valueProp,
         variant = "standard"
-      } = props, other = _objectWithoutPropertiesLoose117(props, _excluded121);
+      } = props, other = _objectWithoutPropertiesLoose117(props, _excluded122);
       const [value, setValueState] = useControlled_default({
         controlled: valueProp,
         default: defaultValue,
         name: "Select"
       });
-      const inputRef = useRef38(null);
-      const displayRef = useRef38(null);
+      const inputRef = useRef39(null);
+      const displayRef = useRef39(null);
       const [displayNode, setDisplayNode] = useState24(null);
       const {
         current: isOpenControlled
-      } = useRef38(openProp != null);
+      } = useRef39(openProp != null);
       const [menuMinWidthState, setMenuMinWidthState] = useState24();
       const [openState, setOpenState] = useState24(false);
       const handleRef = useForkRef_default(ref, inputRefProp);
@@ -34452,7 +34496,7 @@ import {
 } from "https://unpkg.com/@spike.land/esm@0.1.47/dist/react.mjs";
 import PropTypes124 from "https://esm.sh/prop-types";
 import { jsx as _jsx138 } from "https://esm.sh/react/jsx-runtime";
-var _Input, _FilledInput, _excluded122, useUtilityClasses90, Select, Select_default;
+var _Input, _FilledInput, _excluded123, useUtilityClasses90, Select, Select_default;
 var init_Select = __esm({
   "../../node_modules/@mui/material/Select/Select.js"() {
     init_clsx_m();
@@ -34467,7 +34511,7 @@ var init_Select = __esm({
     init_OutlinedInput2();
     init_useThemeProps3();
     init_useForkRef2();
-    _excluded122 = ["autoWidth", "children", "classes", "className", "displayEmpty", "IconComponent", "id", "input", "inputProps", "label", "labelId", "MenuProps", "multiple", "native", "onClose", "onOpen", "open", "renderValue", "SelectDisplayProps", "variant"];
+    _excluded123 = ["autoWidth", "children", "classes", "className", "displayEmpty", "IconComponent", "id", "input", "inputProps", "label", "labelId", "MenuProps", "multiple", "native", "onClose", "onOpen", "open", "renderValue", "SelectDisplayProps", "variant"];
     useUtilityClasses90 = (ownerState) => {
       const {
         classes
@@ -34500,7 +34544,7 @@ var init_Select = __esm({
         renderValue,
         SelectDisplayProps,
         variant: variantProps = "outlined"
-      } = props, other = _objectWithoutPropertiesLoose118(props, _excluded122);
+      } = props, other = _objectWithoutPropertiesLoose118(props, _excluded123);
       const inputComponent = native ? NativeSelectInput_default : SelectInput_default;
       const muiFormControl = useFormControl();
       const fcs = formControlState({
@@ -34614,7 +34658,7 @@ import {
 } from "https://unpkg.com/@spike.land/esm@0.1.47/dist/react.mjs";
 import PropTypes125 from "https://esm.sh/prop-types";
 import { jsx as _jsx139 } from "https://esm.sh/react/jsx-runtime";
-var _excluded123, _5, _t7, _t25, _t34, _t44, useUtilityClasses91, pulseKeyframe, waveKeyframe, SkeletonRoot, Skeleton, Skeleton_default;
+var _excluded124, _5, _t7, _t25, _t34, _t44, useUtilityClasses91, pulseKeyframe, waveKeyframe, SkeletonRoot, Skeleton, Skeleton_default;
 var init_Skeleton = __esm({
   "../../node_modules/@mui/material/Skeleton/Skeleton.js"() {
     init_clsx_m();
@@ -34624,7 +34668,7 @@ var init_Skeleton = __esm({
     init_styled2();
     init_useThemeProps3();
     init_skeletonClasses();
-    _excluded123 = ["animation", "className", "component", "height", "style", "variant", "width"];
+    _excluded124 = ["animation", "className", "component", "height", "style", "variant", "width"];
     _5 = (t) => t;
     useUtilityClasses91 = (ownerState) => {
       const {
@@ -34746,7 +34790,7 @@ var init_Skeleton = __esm({
         style: style3,
         variant = "text",
         width: width2
-      } = props, other = _objectWithoutPropertiesLoose119(props, _excluded123);
+      } = props, other = _objectWithoutPropertiesLoose119(props, _excluded124);
       const ownerState = _extends140({}, props, {
         animation,
         component,
@@ -34799,7 +34843,7 @@ import {
 } from "https://unpkg.com/@spike.land/esm@0.1.47/dist/react.mjs";
 import PropTypes126 from "https://esm.sh/prop-types";
 import { jsx as _jsx140 } from "https://esm.sh/react/jsx-runtime";
-var _excluded124, sliderClasses, SliderRoot, SliderRail, SliderTrack, SliderThumb, SliderValueLabel, SliderMark, SliderMarkLabel, extendUtilityClasses4, shouldSpreadOwnerState, Slider, Slider_default;
+var _excluded125, sliderClasses, SliderRoot, SliderRail, SliderTrack, SliderThumb, SliderValueLabel, SliderMark, SliderMarkLabel, extendUtilityClasses4, shouldSpreadOwnerState, Slider, Slider_default;
 var init_Slider = __esm({
   "../../node_modules/@mui/material/Slider/Slider.js"() {
     init_clsx_m();
@@ -34811,7 +34855,7 @@ var init_Slider = __esm({
     init_styled2();
     init_useTheme4();
     init_capitalize2();
-    _excluded124 = ["components", "componentsProps", "color", "size"];
+    _excluded125 = ["components", "componentsProps", "color", "size"];
     sliderClasses = _extends141({}, sliderUnstyledClasses_default, generateUtilityClasses("MuiSlider", ["colorPrimary", "colorSecondary", "thumbColorPrimary", "thumbColorSecondary", "sizeSmall", "thumbSizeSmall"]));
     SliderRoot = styled_default2("span", {
       name: "MuiSlider",
@@ -35161,7 +35205,7 @@ var init_Slider = __esm({
         componentsProps = {},
         color: color2 = "primary",
         size = "medium"
-      } = props, other = _objectWithoutPropertiesLoose120(props, _excluded124);
+      } = props, other = _objectWithoutPropertiesLoose120(props, _excluded125);
       const ownerState = _extends141({}, props, {
         color: color2,
         size
@@ -35297,7 +35341,7 @@ import {
 import PropTypes127 from "https://esm.sh/prop-types";
 import { jsx as _jsx141 } from "https://esm.sh/react/jsx-runtime";
 import { jsxs as _jsxs39 } from "https://esm.sh/react/jsx-runtime";
-var _excluded125, useUtilityClasses92, SnackbarContentRoot, SnackbarContentMessage, SnackbarContentAction, SnackbarContent, SnackbarContent_default;
+var _excluded126, useUtilityClasses92, SnackbarContentRoot, SnackbarContentMessage, SnackbarContentAction, SnackbarContent, SnackbarContent_default;
 var init_SnackbarContent = __esm({
   "../../node_modules/@mui/material/SnackbarContent/SnackbarContent.js"() {
     init_clsx_m();
@@ -35307,7 +35351,7 @@ var init_SnackbarContent = __esm({
     init_useThemeProps3();
     init_Paper2();
     init_snackbarContentClasses();
-    _excluded125 = ["action", "className", "message", "role"];
+    _excluded126 = ["action", "className", "message", "role"];
     useUtilityClasses92 = (ownerState) => {
       const {
         classes
@@ -35371,7 +35415,7 @@ var init_SnackbarContent = __esm({
         className,
         message,
         role = "alert"
-      } = props, other = _objectWithoutPropertiesLoose121(props, _excluded125);
+      } = props, other = _objectWithoutPropertiesLoose121(props, _excluded126);
       const ownerState = props;
       const classes = useUtilityClasses92(ownerState);
       return /* @__PURE__ */ _jsxs39(SnackbarContentRoot, _extends142({
@@ -35434,12 +35478,12 @@ import {
   forwardRef as forwardRef111,
   useCallback as useCallback19,
   useEffect as useEffect29,
-  useRef as useRef39,
+  useRef as useRef40,
   useState as useState25
 } from "https://unpkg.com/@spike.land/esm@0.1.47/dist/react.mjs";
 import PropTypes128 from "https://esm.sh/prop-types";
 import { jsx as _jsx142 } from "https://esm.sh/react/jsx-runtime";
-var _excluded126, _excluded217, useUtilityClasses93, SnackbarRoot, Snackbar, Snackbar_default;
+var _excluded127, _excluded217, useUtilityClasses93, SnackbarRoot, Snackbar, Snackbar_default;
 var init_Snackbar = __esm({
   "../../node_modules/@mui/material/Snackbar/Snackbar.js"() {
     init_clsx_m();
@@ -35454,7 +35498,7 @@ var init_Snackbar = __esm({
     init_Grow2();
     init_SnackbarContent2();
     init_snackbarClasses();
-    _excluded126 = ["onEnter", "onExited"], _excluded217 = ["action", "anchorOrigin", "autoHideDuration", "children", "className", "ClickAwayListenerProps", "ContentProps", "disableWindowBlurListener", "message", "onClose", "onMouseEnter", "onMouseLeave", "open", "resumeHideDuration", "TransitionComponent", "transitionDuration", "TransitionProps"];
+    _excluded127 = ["onEnter", "onExited"], _excluded217 = ["action", "anchorOrigin", "autoHideDuration", "children", "className", "ClickAwayListenerProps", "ContentProps", "disableWindowBlurListener", "message", "onBlur", "onClose", "onFocus", "onMouseEnter", "onMouseLeave", "open", "resumeHideDuration", "TransitionComponent", "transitionDuration", "TransitionProps"];
     useUtilityClasses93 = (ownerState) => {
       const {
         classes,
@@ -35544,7 +35588,9 @@ var init_Snackbar = __esm({
         ContentProps,
         disableWindowBlurListener = false,
         message,
+        onBlur,
         onClose,
+        onFocus,
         onMouseEnter,
         onMouseLeave,
         open: open2,
@@ -35558,7 +35604,7 @@ var init_Snackbar = __esm({
           onEnter,
           onExited
         } = {}
-      } = props, TransitionProps = _objectWithoutPropertiesLoose122(props.TransitionProps, _excluded126), other = _objectWithoutPropertiesLoose122(props, _excluded217);
+      } = props, TransitionProps = _objectWithoutPropertiesLoose122(props.TransitionProps, _excluded127), other = _objectWithoutPropertiesLoose122(props, _excluded217);
       const theme = useTheme4();
       const isRtl = theme.direction === "rtl";
       const ownerState = _extends143({}, props, {
@@ -35569,7 +35615,7 @@ var init_Snackbar = __esm({
         isRtl
       });
       const classes = useUtilityClasses93(ownerState);
-      const timerAutoHide = useRef39();
+      const timerAutoHide = useRef40();
       const [exited, setExited] = useState25(true);
       const handleClose = useEventCallback_default((...args) => {
         if (onClose) {
@@ -35601,11 +35647,23 @@ var init_Snackbar = __esm({
           setAutoHideTimer(resumeHideDuration != null ? resumeHideDuration : autoHideDuration * 0.5);
         }
       }, [autoHideDuration, resumeHideDuration, setAutoHideTimer]);
+      const handleFocus = (event) => {
+        if (onFocus) {
+          onFocus(event);
+        }
+        handlePause();
+      };
       const handleMouseEnter = (event) => {
         if (onMouseEnter) {
           onMouseEnter(event);
         }
         handlePause();
+      };
+      const handleBlur = (event) => {
+        if (onBlur) {
+          onBlur(event);
+        }
+        handleResume();
       };
       const handleMouseLeave = (event) => {
         if (onMouseLeave) {
@@ -35641,6 +35699,24 @@ var init_Snackbar = __esm({
         }
         return void 0;
       }, [disableWindowBlurListener, handleResume, open2]);
+      useEffect29(() => {
+        if (!open2) {
+          return void 0;
+        }
+        function handleKeyDown2(nativeEvent) {
+          if (!nativeEvent.defaultPrevented) {
+            if (nativeEvent.key === "Escape" || nativeEvent.key === "Esc") {
+              if (onClose) {
+                onClose(nativeEvent, "escapeKeyDown");
+              }
+            }
+          }
+        }
+        document.addEventListener("keydown", handleKeyDown2);
+        return () => {
+          document.removeEventListener("keydown", handleKeyDown2);
+        };
+      }, [exited, open2, onClose]);
       if (!open2 && exited) {
         return null;
       }
@@ -35649,6 +35725,8 @@ var init_Snackbar = __esm({
       }, ClickAwayListenerProps, {
         children: /* @__PURE__ */ _jsx142(SnackbarRoot, _extends143({
           className: clsx_m_default(classes.root, className),
+          onBlur: handleBlur,
+          onFocus: handleFocus,
           onMouseEnter: handleMouseEnter,
           onMouseLeave: handleMouseLeave,
           ownerState,
@@ -35685,7 +35763,9 @@ var init_Snackbar = __esm({
       disableWindowBlurListener: PropTypes128.bool,
       key: () => null,
       message: PropTypes128.node,
+      onBlur: PropTypes128.func,
       onClose: PropTypes128.func,
+      onFocus: PropTypes128.func,
       onMouseEnter: PropTypes128.func,
       onMouseLeave: PropTypes128.func,
       open: PropTypes128.bool,
@@ -35718,12 +35798,12 @@ import _objectWithoutPropertiesLoose123 from "https://unpkg.com/@babel/runtime@7
 import {
   cloneElement as cloneElement22,
   forwardRef as forwardRef112,
-  useRef as useRef40
+  useRef as useRef41
 } from "https://unpkg.com/@spike.land/esm@0.1.47/dist/react.mjs";
 import PropTypes129 from "https://esm.sh/prop-types";
 import { Transition as Transition5 } from "https://esm.sh/react-transition-group";
 import { jsx as _jsx143 } from "https://esm.sh/react/jsx-runtime";
-var _excluded127, styles5, defaultTimeout3, Zoom, Zoom_default;
+var _excluded128, styles5, defaultTimeout3, Zoom, Zoom_default;
 var init_Zoom = __esm({
   "../../node_modules/@mui/material/Zoom/Zoom.js"() {
     init_esm();
@@ -35731,7 +35811,7 @@ var init_Zoom = __esm({
     init_useTheme4();
     init_utils3();
     init_useForkRef2();
-    _excluded127 = ["addEndListener", "appear", "children", "easing", "in", "onEnter", "onEntered", "onEntering", "onExit", "onExited", "onExiting", "style", "timeout", "TransitionComponent"];
+    _excluded128 = ["addEndListener", "appear", "children", "easing", "in", "onEnter", "onEntered", "onEntering", "onExit", "onExited", "onExiting", "style", "timeout", "TransitionComponent"];
     styles5 = {
       entering: {
         transform: "none"
@@ -35760,9 +35840,9 @@ var init_Zoom = __esm({
         style: style3,
         timeout = defaultTimeout3,
         TransitionComponent = Transition5
-      } = props, other = _objectWithoutPropertiesLoose123(props, _excluded127);
+      } = props, other = _objectWithoutPropertiesLoose123(props, _excluded128);
       const theme = useTheme4();
-      const nodeRef = useRef40(null);
+      const nodeRef = useRef41(null);
       const foreignRef = useForkRef_default(children.ref, ref);
       const handleRef = useForkRef_default(nodeRef, foreignRef);
       const normalizedTransitionCallback = (callback) => (maybeIsAppearing) => {
@@ -35893,7 +35973,7 @@ import {
   isValidElement as isValidElement15,
   useCallback as useCallback20,
   useEffect as useEffect30,
-  useRef as useRef41
+  useRef as useRef42
 } from "https://unpkg.com/@spike.land/esm@0.1.47/dist/react.mjs";
 import { isFragment as isFragment11 } from "https://unpkg.com/@spike.land/esm@0.1.47/dist/react-is.mjs";
 import PropTypes130 from "https://esm.sh/prop-types";
@@ -35917,7 +35997,7 @@ function clamp4(value, min2, max2) {
   }
   return value;
 }
-var _excluded128, _excluded218, _excluded310, useUtilityClasses94, dialRadius, spacingActions, SpeedDialRoot, SpeedDialFab, SpeedDialActions, SpeedDial, SpeedDial_default;
+var _excluded129, _excluded218, _excluded310, useUtilityClasses94, dialRadius, spacingActions, SpeedDialRoot, SpeedDialFab, SpeedDialActions, SpeedDial, SpeedDial_default;
 var init_SpeedDial = __esm({
   "../../node_modules/@mui/material/SpeedDial/SpeedDial.js"() {
     init_clsx_m();
@@ -35932,7 +36012,7 @@ var init_SpeedDial = __esm({
     init_useForkRef2();
     init_useControlled2();
     init_speedDialClasses();
-    _excluded128 = ["ref"], _excluded218 = ["ariaLabel", "FabProps", "children", "className", "direction", "hidden", "icon", "onBlur", "onClose", "onFocus", "onKeyDown", "onMouseEnter", "onMouseLeave", "onOpen", "open", "openIcon", "TransitionComponent", "transitionDuration", "TransitionProps"], _excluded310 = ["ref"];
+    _excluded129 = ["ref"], _excluded218 = ["ariaLabel", "FabProps", "children", "className", "direction", "hidden", "icon", "onBlur", "onClose", "onFocus", "onKeyDown", "onMouseEnter", "onMouseLeave", "onOpen", "open", "openIcon", "TransitionComponent", "transitionDuration", "TransitionProps"], _excluded310 = ["ref"];
     useUtilityClasses94 = (ownerState) => {
       const {
         classes,
@@ -36048,7 +36128,7 @@ var init_SpeedDial = __esm({
           exit: duration.leavingScreen
         },
         TransitionProps
-      } = props, FabProps = _objectWithoutPropertiesLoose124(props.FabProps, _excluded128), other = _objectWithoutPropertiesLoose124(props, _excluded218);
+      } = props, FabProps = _objectWithoutPropertiesLoose124(props.FabProps, _excluded129), other = _objectWithoutPropertiesLoose124(props, _excluded218);
       const [open2, setOpenState] = useControlled_default({
         controlled: openProp,
         default: false,
@@ -36060,15 +36140,15 @@ var init_SpeedDial = __esm({
         direction
       });
       const classes = useUtilityClasses94(ownerState);
-      const eventTimer = useRef41();
+      const eventTimer = useRef42();
       useEffect30(() => {
         return () => {
           clearTimeout(eventTimer.current);
         };
       }, []);
-      const focusedAction = useRef41(0);
-      const nextItemArrowKey = useRef41();
-      const actions = useRef41([]);
+      const focusedAction = useRef42(0);
+      const nextItemArrowKey = useRef42();
+      const actions = useRef42([]);
       actions.current = [actions.current[0]];
       const handleOwnFabRef = useCallback20((fabFef) => {
         actions.current[0] = fabFef;
@@ -36304,7 +36384,7 @@ import {
   useCallback as useCallback21,
   useEffect as useEffect31,
   useMemo as useMemo9,
-  useRef as useRef42,
+  useRef as useRef43,
   useState as useState26
 } from "https://unpkg.com/@spike.land/esm@0.1.47/dist/react.mjs";
 import PropTypes131 from "https://esm.sh/prop-types";
@@ -36325,7 +36405,7 @@ function composeEventHandler(handler, eventHandler) {
     handler(event);
   };
 }
-var _excluded129, useUtilityClasses95, TooltipPopper, TooltipTooltip, TooltipArrow, hystersisOpen, hystersisTimer, Tooltip, Tooltip_default;
+var _excluded130, useUtilityClasses95, TooltipPopper, TooltipTooltip, TooltipArrow, hystersisOpen, hystersisTimer, Tooltip, Tooltip_default;
 var init_Tooltip = __esm({
   "../../node_modules/@mui/material/Tooltip/Tooltip.js"() {
     init_clsx_m();
@@ -36344,7 +36424,7 @@ var init_Tooltip = __esm({
     init_useIsFocusVisible2();
     init_useControlled2();
     init_tooltipClasses();
-    _excluded129 = ["arrow", "children", "classes", "components", "componentsProps", "describeChild", "disableFocusListener", "disableHoverListener", "disableInteractive", "disableTouchListener", "enterDelay", "enterNextDelay", "enterTouchDelay", "followCursor", "id", "leaveDelay", "leaveTouchDelay", "onClose", "onOpen", "open", "placement", "PopperComponent", "PopperProps", "title", "TransitionComponent", "TransitionProps"];
+    _excluded130 = ["arrow", "children", "classes", "components", "componentsProps", "describeChild", "disableFocusListener", "disableHoverListener", "disableInteractive", "disableTouchListener", "enterDelay", "enterNextDelay", "enterTouchDelay", "followCursor", "id", "leaveDelay", "leaveTouchDelay", "onClose", "onOpen", "open", "placement", "PopperComponent", "PopperProps", "title", "TransitionComponent", "TransitionProps"];
     useUtilityClasses95 = (ownerState) => {
       const {
         classes,
@@ -36546,17 +36626,17 @@ var init_Tooltip = __esm({
         title,
         TransitionComponent: TransitionComponentProp = Grow_default,
         TransitionProps
-      } = props, other = _objectWithoutPropertiesLoose125(props, _excluded129);
+      } = props, other = _objectWithoutPropertiesLoose125(props, _excluded130);
       const theme = useTheme4();
       const isRtl = theme.direction === "rtl";
       const [childNode, setChildNode] = useState26();
       const [arrowRef, setArrowRef] = useState26(null);
-      const ignoreNonTouchEvents = useRef42(false);
+      const ignoreNonTouchEvents = useRef43(false);
       const disableInteractive = disableInteractiveProp || followCursor;
-      const closeTimer = useRef42();
-      const enterTimer = useRef42();
-      const leaveTimer = useRef42();
-      const touchTimer = useRef42();
+      const closeTimer = useRef43();
+      const enterTimer = useRef43();
+      const leaveTimer = useRef43();
+      const touchTimer = useRef43();
       const [openState, setOpenState] = useControlled_default({
         controlled: openProp,
         default: false,
@@ -36567,7 +36647,7 @@ var init_Tooltip = __esm({
       if (true) {
         const {
           current: isControlled
-        } = useRef42(openProp !== void 0);
+        } = useRef43(openProp !== void 0);
         useEffect31(() => {
           if (childNode && childNode.disabled && !isControlled && title !== "" && childNode.tagName.toLowerCase() === "button") {
             console.error(["MUI: You are providing a disabled `button` child to the Tooltip component.", "A disabled element does not fire events.", "Tooltip needs to listen to the child element's events to display the title.", "", "Add a simple wrapper element, such as a `span`."].join("\n"));
@@ -36575,7 +36655,7 @@ var init_Tooltip = __esm({
         }, [title, childNode, isControlled]);
       }
       const id = useId_default(idProp);
-      const prevUserSelect = useRef42();
+      const prevUserSelect = useRef43();
       const stopTouchInteraction = useCallback21(() => {
         if (prevUserSelect.current !== void 0) {
           document.body.style.WebkitUserSelect = prevUserSelect.current;
@@ -36712,11 +36792,11 @@ var init_Tooltip = __esm({
       if (title === "") {
         open2 = false;
       }
-      const positionRef = useRef42({
+      const positionRef = useRef43({
         x: 0,
         y: 0
       });
-      const popperRef = useRef42();
+      const popperRef = useRef43();
       const handleMouseMove = (event) => {
         const childrenProps2 = children.props;
         if (childrenProps2.onMouseMove) {
@@ -36926,7 +37006,7 @@ import {
 import PropTypes132 from "https://esm.sh/prop-types";
 import { jsx as _jsx146 } from "https://esm.sh/react/jsx-runtime";
 import { jsxs as _jsxs42 } from "https://esm.sh/react/jsx-runtime";
-var _excluded130, useUtilityClasses96, SpeedDialActionFab, SpeedDialActionStaticTooltip, SpeedDialActionStaticTooltipLabel, SpeedDialAction, SpeedDialAction_default;
+var _excluded131, useUtilityClasses96, SpeedDialActionFab, SpeedDialActionStaticTooltip, SpeedDialActionStaticTooltipLabel, SpeedDialAction, SpeedDialAction_default;
 var init_SpeedDialAction = __esm({
   "../../node_modules/@mui/material/SpeedDialAction/SpeedDialAction.js"() {
     init_clsx_m();
@@ -36938,7 +37018,7 @@ var init_SpeedDialAction = __esm({
     init_Tooltip2();
     init_capitalize2();
     init_speedDialActionClasses();
-    _excluded130 = ["className", "delay", "FabProps", "icon", "id", "open", "TooltipClasses", "tooltipOpen", "tooltipPlacement", "tooltipTitle"];
+    _excluded131 = ["className", "delay", "FabProps", "icon", "id", "open", "TooltipClasses", "tooltipOpen", "tooltipPlacement", "tooltipTitle"];
     useUtilityClasses96 = (ownerState) => {
       const {
         open: open2,
@@ -37046,7 +37126,7 @@ var init_SpeedDialAction = __esm({
         tooltipOpen: tooltipOpenProp = false,
         tooltipPlacement = "left",
         tooltipTitle
-      } = props, other = _objectWithoutPropertiesLoose126(props, _excluded130);
+      } = props, other = _objectWithoutPropertiesLoose126(props, _excluded131);
       const ownerState = _extends147({}, props, {
         tooltipPlacement
       });
@@ -37169,7 +37249,7 @@ import {
 import PropTypes133 from "https://esm.sh/prop-types";
 import { jsx as _jsx148 } from "https://esm.sh/react/jsx-runtime";
 import { jsxs as _jsxs43 } from "https://esm.sh/react/jsx-runtime";
-var _excluded131, useUtilityClasses97, SpeedDialIconRoot, SpeedDialIcon, SpeedDialIcon_default;
+var _excluded132, useUtilityClasses97, SpeedDialIconRoot, SpeedDialIcon, SpeedDialIcon_default;
 var init_SpeedDialIcon = __esm({
   "../../node_modules/@mui/material/SpeedDialIcon/SpeedDialIcon.js"() {
     init_clsx_m();
@@ -37178,7 +37258,7 @@ var init_SpeedDialIcon = __esm({
     init_useThemeProps3();
     init_Add();
     init_speedDialIconClasses();
-    _excluded131 = ["className", "icon", "open", "openIcon"];
+    _excluded132 = ["className", "icon", "open", "openIcon"];
     useUtilityClasses97 = (ownerState) => {
       const {
         classes,
@@ -37246,7 +37326,7 @@ var init_SpeedDialIcon = __esm({
         className,
         icon: iconProp,
         openIcon: openIconProp
-      } = props, other = _objectWithoutPropertiesLoose127(props, _excluded131);
+      } = props, other = _objectWithoutPropertiesLoose127(props, _excluded132);
       const ownerState = props;
       const classes = useUtilityClasses97(ownerState);
       function formatIcon(icon, newClassName) {
@@ -37350,7 +37430,7 @@ import {
 import PropTypes134 from "https://esm.sh/prop-types";
 import { jsxs as _jsxs44 } from "https://esm.sh/react/jsx-runtime";
 import { jsx as _jsx149 } from "https://esm.sh/react/jsx-runtime";
-var _excluded132, useUtilityClasses98, StepRoot, Step, Step_default;
+var _excluded133, useUtilityClasses98, StepRoot, Step, Step_default;
 var init_Step = __esm({
   "../../node_modules/@mui/material/Step/Step.js"() {
     init_clsx_m();
@@ -37361,7 +37441,7 @@ var init_Step = __esm({
     init_useThemeProps3();
     init_styled2();
     init_stepClasses();
-    _excluded132 = ["active", "children", "className", "completed", "disabled", "expanded", "index", "last"];
+    _excluded133 = ["active", "children", "className", "completed", "disabled", "expanded", "index", "last"];
     useUtilityClasses98 = (ownerState) => {
       const {
         classes,
@@ -37406,7 +37486,7 @@ var init_Step = __esm({
         expanded = false,
         index,
         last
-      } = props, other = _objectWithoutPropertiesLoose128(props, _excluded132);
+      } = props, other = _objectWithoutPropertiesLoose128(props, _excluded133);
       const {
         activeStep,
         connector,
@@ -37527,7 +37607,7 @@ import {
 import PropTypes135 from "https://esm.sh/prop-types";
 import { jsx as _jsx152 } from "https://esm.sh/react/jsx-runtime";
 import { jsxs as _jsxs45 } from "https://esm.sh/react/jsx-runtime";
-var _circle, _excluded133, useUtilityClasses99, StepIconRoot, StepIconText, StepIcon, StepIcon_default;
+var _circle, _excluded134, useUtilityClasses99, StepIconRoot, StepIconText, StepIcon, StepIcon_default;
 var init_StepIcon = __esm({
   "../../node_modules/@mui/material/StepIcon/StepIcon.js"() {
     init_clsx_m();
@@ -37538,7 +37618,7 @@ var init_StepIcon = __esm({
     init_Warning();
     init_SvgIcon2();
     init_stepIconClasses();
-    _excluded133 = ["active", "className", "completed", "error", "icon"];
+    _excluded134 = ["active", "className", "completed", "error", "icon"];
     useUtilityClasses99 = (ownerState) => {
       const {
         classes,
@@ -37596,7 +37676,7 @@ var init_StepIcon = __esm({
         completed = false,
         error = false,
         icon
-      } = props, other = _objectWithoutPropertiesLoose129(props, _excluded133);
+      } = props, other = _objectWithoutPropertiesLoose129(props, _excluded134);
       const ownerState = _extends150({}, props, {
         active,
         completed,
@@ -37687,7 +37767,7 @@ import {
 import PropTypes136 from "https://esm.sh/prop-types";
 import { jsx as _jsx153 } from "https://esm.sh/react/jsx-runtime";
 import { jsxs as _jsxs46 } from "https://esm.sh/react/jsx-runtime";
-var _excluded134, useUtilityClasses100, StepLabelRoot, StepLabelLabel, StepLabelIconContainer, StepLabelLabelContainer, StepLabel, StepLabel_default;
+var _excluded135, useUtilityClasses100, StepLabelRoot, StepLabelLabel, StepLabelIconContainer, StepLabelLabelContainer, StepLabel, StepLabel_default;
 var init_StepLabel = __esm({
   "../../node_modules/@mui/material/StepLabel/StepLabel.js"() {
     init_clsx_m();
@@ -37698,7 +37778,7 @@ var init_StepLabel = __esm({
     init_StepperContext();
     init_StepContext();
     init_stepLabelClasses();
-    _excluded134 = ["children", "className", "componentsProps", "error", "icon", "optional", "StepIconComponent", "StepIconProps"];
+    _excluded135 = ["children", "className", "componentsProps", "error", "icon", "optional", "StepIconComponent", "StepIconProps"];
     useUtilityClasses100 = (ownerState) => {
       const {
         classes,
@@ -37804,7 +37884,7 @@ var init_StepLabel = __esm({
         optional,
         StepIconComponent: StepIconComponentProp,
         StepIconProps
-      } = props, other = _objectWithoutPropertiesLoose130(props, _excluded134);
+      } = props, other = _objectWithoutPropertiesLoose130(props, _excluded135);
       const {
         alternativeLabel,
         orientation
@@ -37904,7 +37984,7 @@ import {
 } from "https://unpkg.com/@spike.land/esm@0.1.47/dist/react.mjs";
 import PropTypes137 from "https://esm.sh/prop-types";
 import { jsx as _jsx154 } from "https://esm.sh/react/jsx-runtime";
-var _excluded135, useUtilityClasses101, StepButtonRoot, StepButton, StepButton_default;
+var _excluded136, useUtilityClasses101, StepButtonRoot, StepButton, StepButton_default;
 var init_StepButton = __esm({
   "../../node_modules/@mui/material/StepButton/StepButton.js"() {
     init_clsx_m();
@@ -37917,7 +37997,7 @@ var init_StepButton = __esm({
     init_StepperContext();
     init_StepContext();
     init_stepButtonClasses();
-    _excluded135 = ["children", "className", "icon", "optional"];
+    _excluded136 = ["children", "className", "icon", "optional"];
     useUtilityClasses101 = (ownerState) => {
       const {
         classes,
@@ -37966,7 +38046,7 @@ var init_StepButton = __esm({
         className,
         icon,
         optional
-      } = props, other = _objectWithoutPropertiesLoose131(props, _excluded135);
+      } = props, other = _objectWithoutPropertiesLoose131(props, _excluded136);
       const {
         disabled
       } = useContext21(StepContext_default);
@@ -38040,7 +38120,7 @@ import {
 } from "https://unpkg.com/@spike.land/esm@0.1.47/dist/react.mjs";
 import PropTypes138 from "https://esm.sh/prop-types";
 import { jsx as _jsx155 } from "https://esm.sh/react/jsx-runtime";
-var _excluded136, useUtilityClasses102, StepConnectorRoot, StepConnectorLine, StepConnector, StepConnector_default;
+var _excluded137, useUtilityClasses102, StepConnectorRoot, StepConnectorLine, StepConnector, StepConnector_default;
 var init_StepConnector = __esm({
   "../../node_modules/@mui/material/StepConnector/StepConnector.js"() {
     init_clsx_m();
@@ -38051,7 +38131,7 @@ var init_StepConnector = __esm({
     init_StepperContext();
     init_StepContext();
     init_stepConnectorClasses();
-    _excluded136 = ["className"];
+    _excluded137 = ["className"];
     useUtilityClasses102 = (ownerState) => {
       const {
         classes,
@@ -38118,7 +38198,7 @@ var init_StepConnector = __esm({
       });
       const {
         className
-      } = props, other = _objectWithoutPropertiesLoose132(props, _excluded136);
+      } = props, other = _objectWithoutPropertiesLoose132(props, _excluded137);
       const {
         alternativeLabel,
         orientation = "horizontal"
@@ -38187,7 +38267,7 @@ import {
 } from "https://unpkg.com/@spike.land/esm@0.1.47/dist/react.mjs";
 import PropTypes139 from "https://esm.sh/prop-types";
 import { jsx as _jsx156 } from "https://esm.sh/react/jsx-runtime";
-var _excluded137, useUtilityClasses103, StepContentRoot, StepContentTransition, StepContent, StepContent_default;
+var _excluded138, useUtilityClasses103, StepContentRoot, StepContentTransition, StepContent, StepContent_default;
 var init_StepContent = __esm({
   "../../node_modules/@mui/material/StepContent/StepContent.js"() {
     init_clsx_m();
@@ -38198,7 +38278,7 @@ var init_StepContent = __esm({
     init_StepperContext();
     init_StepContext();
     init_stepContentClasses();
-    _excluded137 = ["children", "className", "TransitionComponent", "transitionDuration", "TransitionProps"];
+    _excluded138 = ["children", "className", "TransitionComponent", "transitionDuration", "TransitionProps"];
     useUtilityClasses103 = (ownerState) => {
       const {
         classes,
@@ -38246,7 +38326,7 @@ var init_StepContent = __esm({
         TransitionComponent = Collapse_default,
         transitionDuration: transitionDurationProp = "auto",
         TransitionProps
-      } = props, other = _objectWithoutPropertiesLoose133(props, _excluded137);
+      } = props, other = _objectWithoutPropertiesLoose133(props, _excluded138);
       const {
         orientation
       } = useContext23(StepperContext_default);
@@ -38335,7 +38415,7 @@ import {
 } from "https://unpkg.com/@spike.land/esm@0.1.47/dist/react.mjs";
 import PropTypes140 from "https://esm.sh/prop-types";
 import { jsx as _jsx157 } from "https://esm.sh/react/jsx-runtime";
-var _excluded138, useUtilityClasses104, StepperRoot, defaultConnector, Stepper, Stepper_default;
+var _excluded139, useUtilityClasses104, StepperRoot, defaultConnector, Stepper, Stepper_default;
 var init_Stepper = __esm({
   "../../node_modules/@mui/material/Stepper/Stepper.js"() {
     init_clsx_m();
@@ -38346,7 +38426,7 @@ var init_Stepper = __esm({
     init_stepperClasses();
     init_StepConnector2();
     init_StepperContext();
-    _excluded138 = ["activeStep", "alternativeLabel", "children", "className", "connector", "nonLinear", "orientation"];
+    _excluded139 = ["activeStep", "alternativeLabel", "children", "className", "connector", "nonLinear", "orientation"];
     useUtilityClasses104 = (ownerState) => {
       const {
         orientation,
@@ -38393,7 +38473,7 @@ var init_Stepper = __esm({
         connector = defaultConnector,
         nonLinear = false,
         orientation = "horizontal"
-      } = props, other = _objectWithoutPropertiesLoose134(props, _excluded138);
+      } = props, other = _objectWithoutPropertiesLoose134(props, _excluded139);
       const ownerState = _extends155({}, props, {
         alternativeLabel,
         orientation
@@ -38476,7 +38556,7 @@ import {
 import PropTypes141 from "https://esm.sh/prop-types";
 import { jsx as _jsx158 } from "https://esm.sh/react/jsx-runtime";
 import { jsxs as _jsxs47 } from "https://esm.sh/react/jsx-runtime";
-var _excluded139, useUtilityClasses105, SwitchRoot, SwitchSwitchBase, SwitchTrack, SwitchThumb, Switch, Switch_default;
+var _excluded140, useUtilityClasses105, SwitchRoot, SwitchSwitchBase, SwitchTrack, SwitchThumb, Switch, Switch_default;
 var init_Switch = __esm({
   "../../node_modules/@mui/material/Switch/Switch.js"() {
     init_clsx_m();
@@ -38488,7 +38568,7 @@ var init_Switch = __esm({
     init_useThemeProps3();
     init_styled2();
     init_switchClasses();
-    _excluded139 = ["className", "color", "edge", "size", "sx"];
+    _excluded140 = ["className", "color", "edge", "size", "sx"];
     useUtilityClasses105 = (ownerState) => {
       const {
         classes,
@@ -38658,7 +38738,7 @@ var init_Switch = __esm({
         edge = false,
         size = "medium",
         sx
-      } = props, other = _objectWithoutPropertiesLoose135(props, _excluded139);
+      } = props, other = _objectWithoutPropertiesLoose135(props, _excluded140);
       const ownerState = _extends156({}, props, {
         color: color2,
         edge,
@@ -38746,7 +38826,7 @@ import {
 } from "https://unpkg.com/@spike.land/esm@0.1.47/dist/react.mjs";
 import PropTypes142 from "https://esm.sh/prop-types";
 import { jsxs as _jsxs48 } from "https://esm.sh/react/jsx-runtime";
-var _excluded140, useUtilityClasses106, TabRoot, Tab, Tab_default;
+var _excluded141, useUtilityClasses106, TabRoot, Tab, Tab_default;
 var init_Tab = __esm({
   "../../node_modules/@mui/material/Tab/Tab.js"() {
     init_clsx_m();
@@ -38757,7 +38837,7 @@ var init_Tab = __esm({
     init_styled2();
     init_unsupportedProp2();
     init_tabClasses();
-    _excluded140 = ["className", "disabled", "disableFocusRipple", "fullWidth", "icon", "iconPosition", "indicator", "label", "onChange", "onClick", "onFocus", "selected", "selectionFollowsFocus", "textColor", "value", "wrapped"];
+    _excluded141 = ["className", "disabled", "disableFocusRipple", "fullWidth", "icon", "iconPosition", "indicator", "label", "onChange", "onClick", "onFocus", "selected", "selectionFollowsFocus", "textColor", "value", "wrapped"];
     useUtilityClasses106 = (ownerState) => {
       const {
         classes,
@@ -38869,7 +38949,7 @@ var init_Tab = __esm({
         textColor = "inherit",
         value,
         wrapped = false
-      } = props, other = _objectWithoutPropertiesLoose136(props, _excluded140);
+      } = props, other = _objectWithoutPropertiesLoose136(props, _excluded141);
       const ownerState = _extends157({}, props, {
         disabled,
         disableFocusRipple,
@@ -38987,7 +39067,7 @@ import {
 } from "https://unpkg.com/@spike.land/esm@0.1.47/dist/react.mjs";
 import PropTypes143 from "https://esm.sh/prop-types";
 import { jsx as _jsx159 } from "https://esm.sh/react/jsx-runtime";
-var _excluded141, useUtilityClasses107, TableRoot, defaultComponent, Table, Table_default;
+var _excluded142, useUtilityClasses107, TableRoot, defaultComponent, Table, Table_default;
 var init_Table = __esm({
   "../../node_modules/@mui/material/Table/Table.js"() {
     init_clsx_m();
@@ -38996,7 +39076,7 @@ var init_Table = __esm({
     init_useThemeProps3();
     init_styled2();
     init_tableClasses();
-    _excluded141 = ["className", "component", "padding", "size", "stickyHeader"];
+    _excluded142 = ["className", "component", "padding", "size", "stickyHeader"];
     useUtilityClasses107 = (ownerState) => {
       const {
         classes,
@@ -39045,7 +39125,7 @@ var init_Table = __esm({
         padding: padding2 = "normal",
         size = "medium",
         stickyHeader = false
-      } = props, other = _objectWithoutPropertiesLoose137(props, _excluded141);
+      } = props, other = _objectWithoutPropertiesLoose137(props, _excluded142);
       const ownerState = _extends158({}, props, {
         component,
         padding: padding2,
@@ -39128,7 +39208,7 @@ import {
 } from "https://unpkg.com/@spike.land/esm@0.1.47/dist/react.mjs";
 import PropTypes144 from "https://esm.sh/prop-types";
 import { jsx as _jsx160 } from "https://esm.sh/react/jsx-runtime";
-var _excluded142, useUtilityClasses108, TableBodyRoot, tablelvl2, defaultComponent2, TableBody, TableBody_default;
+var _excluded143, useUtilityClasses108, TableBodyRoot, tablelvl2, defaultComponent2, TableBody, TableBody_default;
 var init_TableBody = __esm({
   "../../node_modules/@mui/material/TableBody/TableBody.js"() {
     init_clsx_m();
@@ -39137,7 +39217,7 @@ var init_TableBody = __esm({
     init_useThemeProps3();
     init_styled2();
     init_tableBodyClasses();
-    _excluded142 = ["className", "component"];
+    _excluded143 = ["className", "component"];
     useUtilityClasses108 = (ownerState) => {
       const {
         classes
@@ -39166,7 +39246,7 @@ var init_TableBody = __esm({
       const {
         className,
         component = defaultComponent2
-      } = props, other = _objectWithoutPropertiesLoose138(props, _excluded142);
+      } = props, other = _objectWithoutPropertiesLoose138(props, _excluded143);
       const ownerState = _extends159({}, props, {
         component
       });
@@ -39224,7 +39304,7 @@ import {
 } from "https://unpkg.com/@spike.land/esm@0.1.47/dist/react.mjs";
 import PropTypes145 from "https://esm.sh/prop-types";
 import { jsx as _jsx161 } from "https://esm.sh/react/jsx-runtime";
-var _excluded143, useUtilityClasses109, TableCellRoot, TableCell, TableCell_default;
+var _excluded144, useUtilityClasses109, TableCellRoot, TableCell, TableCell_default;
 var init_TableCell = __esm({
   "../../node_modules/@mui/material/TableCell/TableCell.js"() {
     init_clsx_m();
@@ -39236,7 +39316,7 @@ var init_TableCell = __esm({
     init_useThemeProps3();
     init_styled2();
     init_tableCellClasses();
-    _excluded143 = ["align", "className", "component", "padding", "scope", "size", "sortDirection", "variant"];
+    _excluded144 = ["align", "className", "component", "padding", "scope", "size", "sortDirection", "variant"];
     useUtilityClasses109 = (ownerState) => {
       const {
         classes,
@@ -39323,7 +39403,7 @@ var init_TableCell = __esm({
         size: sizeProp,
         sortDirection,
         variant: variantProp
-      } = props, other = _objectWithoutPropertiesLoose139(props, _excluded143);
+      } = props, other = _objectWithoutPropertiesLoose139(props, _excluded144);
       const table = useContext24(TableContext_default);
       const tablelvl24 = useContext24(Tablelvl2Context_default);
       const isHeadCell = tablelvl24 && tablelvl24.variant === "head";
@@ -39408,7 +39488,7 @@ import {
 } from "https://unpkg.com/@spike.land/esm@0.1.47/dist/react.mjs";
 import PropTypes146 from "https://esm.sh/prop-types";
 import { jsx as _jsx162 } from "https://esm.sh/react/jsx-runtime";
-var _excluded144, useUtilityClasses110, TableContainerRoot, TableContainer, TableContainer_default;
+var _excluded145, useUtilityClasses110, TableContainerRoot, TableContainer, TableContainer_default;
 var init_TableContainer = __esm({
   "../../node_modules/@mui/material/TableContainer/TableContainer.js"() {
     init_clsx_m();
@@ -39416,7 +39496,7 @@ var init_TableContainer = __esm({
     init_useThemeProps3();
     init_styled2();
     init_tableContainerClasses();
-    _excluded144 = ["className", "component"];
+    _excluded145 = ["className", "component"];
     useUtilityClasses110 = (ownerState) => {
       const {
         classes
@@ -39442,7 +39522,7 @@ var init_TableContainer = __esm({
       const {
         className,
         component = "div"
-      } = props, other = _objectWithoutPropertiesLoose140(props, _excluded144);
+      } = props, other = _objectWithoutPropertiesLoose140(props, _excluded145);
       const ownerState = _extends161({}, props, {
         component
       });
@@ -39495,7 +39575,7 @@ import {
 } from "https://unpkg.com/@spike.land/esm@0.1.47/dist/react.mjs";
 import PropTypes147 from "https://esm.sh/prop-types";
 import { jsx as _jsx163 } from "https://esm.sh/react/jsx-runtime";
-var _excluded145, useUtilityClasses111, TableFooterRoot, tablelvl22, defaultComponent3, TableFooter, TableFooter_default;
+var _excluded146, useUtilityClasses111, TableFooterRoot, tablelvl22, defaultComponent3, TableFooter, TableFooter_default;
 var init_TableFooter = __esm({
   "../../node_modules/@mui/material/TableFooter/TableFooter.js"() {
     init_clsx_m();
@@ -39504,7 +39584,7 @@ var init_TableFooter = __esm({
     init_useThemeProps3();
     init_styled2();
     init_tableFooterClasses();
-    _excluded145 = ["className", "component"];
+    _excluded146 = ["className", "component"];
     useUtilityClasses111 = (ownerState) => {
       const {
         classes
@@ -39533,7 +39613,7 @@ var init_TableFooter = __esm({
       const {
         className,
         component = defaultComponent3
-      } = props, other = _objectWithoutPropertiesLoose141(props, _excluded145);
+      } = props, other = _objectWithoutPropertiesLoose141(props, _excluded146);
       const ownerState = _extends162({}, props, {
         component
       });
@@ -39590,7 +39670,7 @@ import {
 } from "https://unpkg.com/@spike.land/esm@0.1.47/dist/react.mjs";
 import PropTypes148 from "https://esm.sh/prop-types";
 import { jsx as _jsx164 } from "https://esm.sh/react/jsx-runtime";
-var _excluded146, useUtilityClasses112, TableHeadRoot, tablelvl23, defaultComponent4, TableHead, TableHead_default;
+var _excluded147, useUtilityClasses112, TableHeadRoot, tablelvl23, defaultComponent4, TableHead, TableHead_default;
 var init_TableHead = __esm({
   "../../node_modules/@mui/material/TableHead/TableHead.js"() {
     init_clsx_m();
@@ -39599,7 +39679,7 @@ var init_TableHead = __esm({
     init_useThemeProps3();
     init_styled2();
     init_tableHeadClasses();
-    _excluded146 = ["className", "component"];
+    _excluded147 = ["className", "component"];
     useUtilityClasses112 = (ownerState) => {
       const {
         classes
@@ -39628,7 +39708,7 @@ var init_TableHead = __esm({
       const {
         className,
         component = defaultComponent4
-      } = props, other = _objectWithoutPropertiesLoose142(props, _excluded146);
+      } = props, other = _objectWithoutPropertiesLoose142(props, _excluded147);
       const ownerState = _extends163({}, props, {
         component
       });
@@ -39685,7 +39765,7 @@ import {
 } from "https://unpkg.com/@spike.land/esm@0.1.47/dist/react.mjs";
 import PropTypes149 from "https://esm.sh/prop-types";
 import { jsx as _jsx165 } from "https://esm.sh/react/jsx-runtime";
-var _excluded147, useUtilityClasses113, ToolbarRoot, Toolbar, Toolbar_default;
+var _excluded148, useUtilityClasses113, ToolbarRoot, Toolbar, Toolbar_default;
 var init_Toolbar = __esm({
   "../../node_modules/@mui/material/Toolbar/Toolbar.js"() {
     init_clsx_m();
@@ -39693,7 +39773,7 @@ var init_Toolbar = __esm({
     init_useThemeProps3();
     init_styled2();
     init_toolbarClasses();
-    _excluded147 = ["className", "component", "disableGutters", "variant"];
+    _excluded148 = ["className", "component", "disableGutters", "variant"];
     useUtilityClasses113 = (ownerState) => {
       const {
         classes,
@@ -39744,7 +39824,7 @@ var init_Toolbar = __esm({
         component = "div",
         disableGutters = false,
         variant = "regular"
-      } = props, other = _objectWithoutPropertiesLoose143(props, _excluded147);
+      } = props, other = _objectWithoutPropertiesLoose143(props, _excluded148);
       const ownerState = _extends164({}, props, {
         component,
         disableGutters,
@@ -39815,7 +39895,7 @@ import {
 import PropTypes150 from "https://esm.sh/prop-types";
 import { jsx as _jsx168 } from "https://esm.sh/react/jsx-runtime";
 import { jsxs as _jsxs49 } from "https://esm.sh/react/jsx-runtime";
-var _LastPageIcon, _FirstPageIcon, _KeyboardArrowRight, _KeyboardArrowLeft, _KeyboardArrowLeft2, _KeyboardArrowRight2, _FirstPageIcon2, _LastPageIcon2, _excluded148, TablePaginationActions, TablePaginationActions_default;
+var _LastPageIcon, _FirstPageIcon, _KeyboardArrowRight, _KeyboardArrowLeft, _KeyboardArrowLeft2, _KeyboardArrowRight2, _FirstPageIcon2, _LastPageIcon2, _excluded149, TablePaginationActions, TablePaginationActions_default;
 var init_TablePaginationActions = __esm({
   "../../node_modules/@mui/material/TablePagination/TablePaginationActions.js"() {
     init_KeyboardArrowLeft();
@@ -39824,7 +39904,7 @@ var init_TablePaginationActions = __esm({
     init_IconButton2();
     init_LastPage();
     init_FirstPage();
-    _excluded148 = ["backIconButtonProps", "count", "getItemAriaLabel", "nextIconButtonProps", "onPageChange", "page", "rowsPerPage", "showFirstButton", "showLastButton"];
+    _excluded149 = ["backIconButtonProps", "count", "getItemAriaLabel", "nextIconButtonProps", "onPageChange", "page", "rowsPerPage", "showFirstButton", "showLastButton"];
     TablePaginationActions = /* @__PURE__ */ forwardRef133(function TablePaginationActions2(props, ref) {
       const {
         backIconButtonProps,
@@ -39836,7 +39916,7 @@ var init_TablePaginationActions = __esm({
         rowsPerPage,
         showFirstButton,
         showLastButton
-      } = props, other = _objectWithoutPropertiesLoose144(props, _excluded148);
+      } = props, other = _objectWithoutPropertiesLoose144(props, _excluded149);
       const theme = useTheme4();
       const handleFirstPageButtonClick = (event) => {
         onPageChange(event, 0);
@@ -39932,7 +40012,7 @@ function defaultLabelDisplayedRows({
 function defaultGetAriaLabel2(type) {
   return `Go to ${type} page`;
 }
-var _InputBase, _excluded149, TablePaginationRoot, TablePaginationToolbar, TablePaginationSpacer, TablePaginationSelectLabel, TablePaginationSelect, TablePaginationMenuItem, TablePaginationDisplayedRows, useUtilityClasses114, TablePagination, TablePagination_default;
+var _InputBase, _excluded150, TablePaginationRoot, TablePaginationToolbar, TablePaginationSpacer, TablePaginationSelectLabel, TablePaginationSelect, TablePaginationMenuItem, TablePaginationDisplayedRows, useUtilityClasses114, TablePagination, TablePagination_default;
 var init_TablePagination = __esm({
   "../../node_modules/@mui/material/TablePagination/TablePagination.js"() {
     init_clsx_m();
@@ -39948,7 +40028,7 @@ var init_TablePagination = __esm({
     init_TablePaginationActions();
     init_useId2();
     init_tablePaginationClasses();
-    _excluded149 = ["ActionsComponent", "backIconButtonProps", "className", "colSpan", "component", "count", "getItemAriaLabel", "labelDisplayedRows", "labelRowsPerPage", "nextIconButtonProps", "onPageChange", "onRowsPerPageChange", "page", "rowsPerPage", "rowsPerPageOptions", "SelectProps", "showFirstButton", "showLastButton"];
+    _excluded150 = ["ActionsComponent", "backIconButtonProps", "className", "colSpan", "component", "count", "getItemAriaLabel", "labelDisplayedRows", "labelRowsPerPage", "nextIconButtonProps", "onPageChange", "onRowsPerPageChange", "page", "rowsPerPage", "rowsPerPageOptions", "SelectProps", "showFirstButton", "showLastButton"];
     TablePaginationRoot = styled_default2(TableCell_default, {
       name: "MuiTablePagination",
       slot: "Root",
@@ -40078,7 +40158,7 @@ var init_TablePagination = __esm({
         SelectProps = {},
         showFirstButton = false,
         showLastButton = false
-      } = props, other = _objectWithoutPropertiesLoose145(props, _excluded149);
+      } = props, other = _objectWithoutPropertiesLoose145(props, _excluded150);
       const ownerState = props;
       const classes = useUtilityClasses114(ownerState);
       const MenuItemComponent = SelectProps.native ? "option" : TablePaginationMenuItem;
@@ -40226,7 +40306,7 @@ import {
 } from "https://unpkg.com/@spike.land/esm@0.1.47/dist/react.mjs";
 import PropTypes152 from "https://esm.sh/prop-types";
 import { jsx as _jsx170 } from "https://esm.sh/react/jsx-runtime";
-var _excluded150, useUtilityClasses115, TableRowRoot, defaultComponent5, TableRow, TableRow_default;
+var _excluded151, useUtilityClasses115, TableRowRoot, defaultComponent5, TableRow, TableRow_default;
 var init_TableRow = __esm({
   "../../node_modules/@mui/material/TableRow/TableRow.js"() {
     init_clsx_m();
@@ -40236,7 +40316,7 @@ var init_TableRow = __esm({
     init_useThemeProps3();
     init_styled2();
     init_tableRowClasses();
-    _excluded150 = ["className", "component", "hover", "selected"];
+    _excluded151 = ["className", "component", "hover", "selected"];
     useUtilityClasses115 = (ownerState) => {
       const {
         classes,
@@ -40287,7 +40367,7 @@ var init_TableRow = __esm({
         component = defaultComponent5,
         hover = false,
         selected = false
-      } = props, other = _objectWithoutPropertiesLoose146(props, _excluded150);
+      } = props, other = _objectWithoutPropertiesLoose146(props, _excluded151);
       const tablelvl24 = useContext25(Tablelvl2Context_default);
       const ownerState = _extends167({}, props, {
         component,
@@ -40362,7 +40442,7 @@ import {
 } from "https://unpkg.com/@spike.land/esm@0.1.47/dist/react.mjs";
 import { jsx as _jsx172 } from "https://esm.sh/react/jsx-runtime";
 import { jsxs as _jsxs51 } from "https://esm.sh/react/jsx-runtime";
-var _excluded151, useUtilityClasses116, TableSortLabelRoot, TableSortLabelIcon, TableSortLabel, TableSortLabel_default;
+var _excluded152, useUtilityClasses116, TableSortLabelRoot, TableSortLabelIcon, TableSortLabel, TableSortLabel_default;
 var init_TableSortLabel = __esm({
   "../../node_modules/@mui/material/TableSortLabel/TableSortLabel.js"() {
     init_base();
@@ -40373,7 +40453,7 @@ var init_TableSortLabel = __esm({
     init_useThemeProps3();
     init_capitalize2();
     init_tableSortLabelClasses();
-    _excluded151 = ["active", "children", "className", "direction", "hideSortIcon", "IconComponent"];
+    _excluded152 = ["active", "children", "className", "direction", "hideSortIcon", "IconComponent"];
     useUtilityClasses116 = (ownerState) => {
       const {
         classes,
@@ -40458,7 +40538,7 @@ var init_TableSortLabel = __esm({
         direction = "asc",
         hideSortIcon = false,
         IconComponent = ArrowDownward_default
-      } = props, other = _objectWithoutPropertiesLoose147(props, _excluded151);
+      } = props, other = _objectWithoutPropertiesLoose147(props, _excluded152);
       const ownerState = _extends168({}, props, {
         active,
         direction,
@@ -40561,16 +40641,16 @@ import _extends169 from "https://unpkg.com/@babel/runtime@7.16.3/helpers/esm/ext
 import _objectWithoutPropertiesLoose148 from "https://unpkg.com/@babel/runtime@7.16.3/helpers/esm/objectWithoutPropertiesLoose.js";
 import {
   useEffect as useEffect32,
-  useRef as useRef43
+  useRef as useRef44
 } from "https://unpkg.com/@spike.land/esm@0.1.47/dist/react.mjs";
 import PropTypes154 from "https://esm.sh/prop-types";
 import { jsx as _jsx173 } from "https://esm.sh/react/jsx-runtime";
 function ScrollbarSize(props) {
   const {
     onChange
-  } = props, other = _objectWithoutPropertiesLoose148(props, _excluded152);
-  const scrollbarHeight = useRef43();
-  const nodeRef = useRef43(null);
+  } = props, other = _objectWithoutPropertiesLoose148(props, _excluded153);
+  const scrollbarHeight = useRef44();
+  const nodeRef = useRef44(null);
   const setMeasurements = () => {
     scrollbarHeight.current = nodeRef.current.offsetHeight - nodeRef.current.clientHeight;
   };
@@ -40598,12 +40678,12 @@ function ScrollbarSize(props) {
     ref: nodeRef
   }, other));
 }
-var _excluded152, styles6;
+var _excluded153, styles6;
 var init_ScrollbarSize = __esm({
   "../../node_modules/@mui/material/Tabs/ScrollbarSize.js"() {
     init_debounce3();
     init_utils2();
-    _excluded152 = ["onChange"];
+    _excluded153 = ["onChange"];
     styles6 = {
       width: 99,
       height: 99,
@@ -40638,7 +40718,7 @@ import {
 } from "https://unpkg.com/@spike.land/esm@0.1.47/dist/react.mjs";
 import PropTypes155 from "https://esm.sh/prop-types";
 import { jsx as _jsx174 } from "https://esm.sh/react/jsx-runtime";
-var _KeyboardArrowLeft3, _KeyboardArrowRight3, _excluded153, useUtilityClasses117, TabScrollButtonRoot, TabScrollButton, TabScrollButton_default;
+var _KeyboardArrowLeft3, _KeyboardArrowRight3, _excluded154, useUtilityClasses117, TabScrollButtonRoot, TabScrollButton, TabScrollButton_default;
 var init_TabScrollButton = __esm({
   "../../node_modules/@mui/material/TabScrollButton/TabScrollButton.js"() {
     init_clsx_m();
@@ -40650,7 +40730,7 @@ var init_TabScrollButton = __esm({
     init_useThemeProps3();
     init_styled2();
     init_tabScrollButtonClasses();
-    _excluded153 = ["className", "direction", "orientation", "disabled"];
+    _excluded154 = ["className", "direction", "orientation", "disabled"];
     useUtilityClasses117 = (ownerState) => {
       const {
         classes,
@@ -40695,7 +40775,7 @@ var init_TabScrollButton = __esm({
       const {
         className,
         direction
-      } = props, other = _objectWithoutPropertiesLoose149(props, _excluded153);
+      } = props, other = _objectWithoutPropertiesLoose149(props, _excluded154);
       const theme = useTheme4();
       const isRtl = theme.direction === "rtl";
       const ownerState = _extends170({
@@ -40764,14 +40844,14 @@ import {
   useEffect as useEffect33,
   useImperativeHandle as useImperativeHandle9,
   useMemo as useMemo13,
-  useRef as useRef44,
+  useRef as useRef45,
   useState as useState28
 } from "https://unpkg.com/@spike.land/esm@0.1.47/dist/react.mjs";
 import { isFragment as isFragment12 } from "https://unpkg.com/@spike.land/esm@0.1.47/dist/react-is.mjs";
 import PropTypes156 from "https://esm.sh/prop-types";
 import { jsx as _jsx175 } from "https://esm.sh/react/jsx-runtime";
 import { jsxs as _jsxs52 } from "https://esm.sh/react/jsx-runtime";
-var _excluded154, nextItem3, previousItem3, moveFocus3, useUtilityClasses118, TabsRoot, TabsScroller, FlexContainer, TabsIndicator, TabsScrollbarSize, defaultIndicatorStyle, warnedOnceTabPresent, Tabs, Tabs_default;
+var _excluded155, nextItem3, previousItem3, moveFocus3, useUtilityClasses118, TabsRoot, TabsScroller, FlexContainer, TabsIndicator, TabsScrollbarSize, defaultIndicatorStyle, warnedOnceTabPresent, Tabs, Tabs_default;
 var init_Tabs = __esm({
   "../../node_modules/@mui/material/Tabs/Tabs.js"() {
     init_clsx_m();
@@ -40789,7 +40869,7 @@ var init_Tabs = __esm({
     init_tabsClasses();
     init_ownerDocument2();
     init_ownerWindow2();
-    _excluded154 = ["aria-label", "aria-labelledby", "action", "centered", "children", "className", "component", "allowScrollButtonsMobile", "indicatorColor", "onChange", "orientation", "ScrollButtonComponent", "scrollButtons", "selectionFollowsFocus", "TabIndicatorProps", "TabScrollButtonProps", "textColor", "value", "variant", "visibleScrollbar"];
+    _excluded155 = ["aria-label", "aria-labelledby", "action", "centered", "children", "className", "component", "allowScrollButtonsMobile", "indicatorColor", "onChange", "orientation", "ScrollButtonComponent", "scrollButtons", "selectionFollowsFocus", "TabIndicatorProps", "TabScrollButtonProps", "textColor", "value", "variant", "visibleScrollbar"];
     nextItem3 = (list, item) => {
       if (list === item) {
         return list.firstChild;
@@ -40991,7 +41071,7 @@ var init_Tabs = __esm({
         value,
         variant = "standard",
         visibleScrollbar = false
-      } = props, other = _objectWithoutPropertiesLoose150(props, _excluded154);
+      } = props, other = _objectWithoutPropertiesLoose150(props, _excluded155);
       const scrollable = variant === "scrollable";
       const vertical = orientation === "vertical";
       const scrollStart = vertical ? "scrollTop" : "scrollLeft";
@@ -41033,8 +41113,8 @@ var init_Tabs = __esm({
         scrollbarWidth: 0
       });
       const valueToIndex = /* @__PURE__ */ new Map();
-      const tabsRef = useRef44(null);
-      const tabListRef = useRef44(null);
+      const tabsRef = useRef45(null);
+      const tabListRef = useRef45(null);
       const getTabsMeta = () => {
         const tabsNode = tabsRef.current;
         let tabsMeta;
@@ -41428,7 +41508,7 @@ import {
 import PropTypes157 from "https://esm.sh/prop-types";
 import { jsxs as _jsxs53 } from "https://esm.sh/react/jsx-runtime";
 import { jsx as _jsx176 } from "https://esm.sh/react/jsx-runtime";
-var _excluded155, variantComponent, useUtilityClasses119, TextFieldRoot, TextField, TextField_default;
+var _excluded156, variantComponent, useUtilityClasses119, TextFieldRoot, TextField, TextField_default;
 var init_TextField = __esm({
   "../../node_modules/@mui/material/TextField/TextField.js"() {
     init_clsx_m();
@@ -41444,7 +41524,7 @@ var init_TextField = __esm({
     init_FormHelperText2();
     init_Select2();
     init_textFieldClasses();
-    _excluded155 = ["autoComplete", "autoFocus", "children", "className", "color", "defaultValue", "disabled", "error", "FormHelperTextProps", "fullWidth", "helperText", "id", "InputLabelProps", "inputProps", "InputProps", "inputRef", "label", "maxRows", "minRows", "multiline", "name", "onBlur", "onChange", "onFocus", "placeholder", "required", "rows", "select", "SelectProps", "type", "value", "variant"];
+    _excluded156 = ["autoComplete", "autoFocus", "children", "className", "color", "defaultValue", "disabled", "error", "FormHelperTextProps", "fullWidth", "helperText", "id", "InputLabelProps", "inputProps", "InputProps", "inputRef", "label", "maxRows", "minRows", "multiline", "name", "onBlur", "onChange", "onFocus", "placeholder", "required", "rows", "select", "SelectProps", "type", "value", "variant"];
     variantComponent = {
       standard: Input_default,
       filled: FilledInput_default,
@@ -41481,7 +41561,7 @@ var init_TextField = __esm({
         FormHelperTextProps,
         fullWidth = false,
         helperText,
-        id,
+        id: idOverride,
         InputLabelProps,
         inputProps,
         InputProps,
@@ -41502,7 +41582,7 @@ var init_TextField = __esm({
         type,
         value,
         variant = "outlined"
-      } = props, other = _objectWithoutPropertiesLoose151(props, _excluded155);
+      } = props, other = _objectWithoutPropertiesLoose151(props, _excluded156);
       const ownerState = _extends172({}, props, {
         autoFocus,
         color: color2,
@@ -41539,6 +41619,7 @@ var init_TextField = __esm({
         }
         InputMore["aria-describedby"] = void 0;
       }
+      const id = useId(idOverride);
       const helperTextId = helperText && id ? `${id}-helper-text` : void 0;
       const inputLabelId = label && id ? `${id}-label` : void 0;
       const InputComponent = variantComponent[variant];
@@ -43675,7 +43756,7 @@ export {
   restart,
   run
 };
-/** @license MUI v5.0.0-alpha.57
+/** @license MUI v5.0.0-alpha.58
  *
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
@@ -43685,7 +43766,7 @@ export {
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  */
-/** @license MUI v5.2.1
+/** @license MUI v5.2.2
  *
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.

@@ -37,7 +37,7 @@
   "homepage": "https://code.spike.land",
   "repository": "https://github.com/spike-land/monorepo",
   "devDependencies": {
-    "esbuild": "0.14.0",
+    "esbuild": "0.14.1",
     "typescript": "4.5.2"
   },
   "gitHead": "fa5861e9f08ea403ece080657618ef985cc30fa5",
