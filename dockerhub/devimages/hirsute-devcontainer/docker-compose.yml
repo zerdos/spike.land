@@ -13,11 +13,11 @@ services:
       - ipns:/ipns
 
   devcontainer: 
-    image: devimages/hirsute-devcontainer:latest
-    # build:
-    #   context: .
-    #   args:
-    #     USER: $USER
+    # image: devimages/hirsute-devcontainer:latest
+    build:
+      context: .
+      args:
+        USER: $USER
     tmpfs:
       - /home/$USER/tmpfs:exec
     privileged: true
