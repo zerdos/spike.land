@@ -4,7 +4,7 @@ import importMap from "@spike.land/code/js/importmap.json";
 // [{
 //     defer: "true",
 //     "type": "text/javascript",
-//     src: "https://unpkg.com/es-module-shims@1.3.2/dist/es-module-shims.js",
+//     src: "https://unpkg.com/es-module-shims@1.3.3/dist/es-module-shims.js",
 //     async: "true",
 //   }, {
 //     type: "importmap-shim",
@@ -40,7 +40,7 @@ export const dynamicImport = async (moduleName: string) => {
       innerHTML: JSON.stringify(importMap),
     }));
     document.body.appendChild(Object.assign(document.createElement("script"), {
-      src: "https://unpkg.com/es-module-shims@1.3.2/dist/es-module-shims.js",
+      src: "https://unpkg.com/es-module-shims@1.3.3/dist/es-module-shims.js",
       async: "async",
     }));
   }
