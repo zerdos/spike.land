@@ -203,7 +203,7 @@ RUN curl -fsSL https://deno.land/x/install/install.sh | sh -s v1.16.3 \
   && echo "export PATH=\"\$DENO_INSTALL/bin:\$PATH\"" >> ${HOME}/.zshrc
 
 USER 0
-RUN ln /home/gitpod/.deno/bin/deno /usr/bin
+RUN ln /home/${USER}/.deno/bin/deno /usr/bin
 
 USER ${USER}
 
