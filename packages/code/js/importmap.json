@@ -199,7 +199,7 @@
     "framesync": "https://unpkg.com/framesync@6.1.0/dist/es/index.mjs",
     "hey-listen": "https://unpkg.com/hey-listen@1.0.8/dist/hey-listen.es.js",
     "hoist-non-react-statics": "https://esm.sh/hoist-non-react-statics",
-    "popmotion": "https://unpkg.com/popmotion@11.0.0/dist/es/index.mjs",
+    "popmotion": "https://unpkg.com/popmotion@11.0.2/dist/es/index.mjs",
     "react": "https://unpkg.com/@spike.land/esm@0.1.48/dist/react.mjs",
     "react-dom": "https://unpkg.com/@spike.land/esm@0.1.48/dist/react-dom.mjs",
     "react-is": "https://unpkg.com/@spike.land/esm@0.1.48/dist/react-is.mjs",
