@@ -88,7 +88,7 @@ export function getHtml({ html, css }) {
 <script crossorigin src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
 <script crossorigin src="https://unpkg.com/react-is@17.0.2/umd/react-is.production.min.js"></script>
 <script crossorigin src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
-<script async src="https://unpkg.com/es-module-shims@1.3.4/dist/es-module-shims.js"></script>
+<script async src="https://unpkg.com/es-module-shims@1.3.5/dist/es-module-shims.js"></script>
 <script type="esms-options">
 {
   "shimMode": true,
@@ -146,7 +146,7 @@ export const getEditorHTML = () =>
   <script crossorigin src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
   <script crossorigin src="https://unpkg.com/react-is@17.0.2/umd/react-is.production.min.js"></script>
   <script crossorigin src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
-  <script async src="https://unpkg.com/es-module-shims@1.3.4/dist/es-module-shims.js"></script>
+  <script async src="https://unpkg.com/es-module-shims@1.3.5/dist/es-module-shims.js"></script>
 <title>Instant React Editor</title>
 </head>
 <body>

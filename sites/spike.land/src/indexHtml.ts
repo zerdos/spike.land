@@ -8,7 +8,7 @@ export const content = `<!DOCTYPE html>
   <link rel="stylesheet" href="https://code.spike.land/assets/app.css" />
   <link rel="stylesheet" href="https://code.spike.land/assets/roboto.css" />
 
-  <script async src="https://unpkg.com/es-module-shims@1.3.4/dist/es-module-shims.js"></script>
+  <script async src="https://unpkg.com/es-module-shims@1.3.5/dist/es-module-shims.js"></script>
   <title>Instant React Editor</title>
   <script type="esms-options">
     {
