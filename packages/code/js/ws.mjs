@@ -280,7 +280,6 @@ export const join = (user, room) => {
 
 export const run = async () =>{
      
-          
   const resp = await fetch(
           "./code",
         );
@@ -296,4 +295,8 @@ export const run = async () =>{
 
   join(user, room);
        
+}
+
+export default function(){
+  join (user, room);
 }

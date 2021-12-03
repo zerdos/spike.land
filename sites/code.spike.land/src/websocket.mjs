@@ -131,3 +131,5 @@ export const handleSession = async (webSocket, ip) => {
   webSocket.addEventListener("close", closeOrErrorHandler);
   webSocket.addEventListener("error", closeOrErrorHandler);
 };
+
+export default ws;

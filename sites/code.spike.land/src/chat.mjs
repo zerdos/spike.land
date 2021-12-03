@@ -64,9 +64,8 @@ async function handleApiRequest(path, request, env) {
 
       let roomObject = env.CODE.get(id);
 
-      let newUrl = new URL(request.url);
+      let newUrl = new URL(`${request.url}?room=${name}`);
       newUrl.pathname = "/" + path.slice(2).join("/");
-
       return roomObject.fetch(newUrl, request);
     }
 

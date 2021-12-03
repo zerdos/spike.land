@@ -19,6 +19,7 @@ export class Code {
   async fetch(request) {
     return await handleErrors(request, async () => {
       let url = new URL(request.url);
+      const codeSpace = url.searchParams.get("room");
       
 
       let path = url.pathname.slice(1).split("/");
@@ -50,8 +51,9 @@ export class Code {
             }
             case "html": {
               const htmlContent = await this.storage.get("html");
+              const css = await this.storage.get("css");
     
-              const html =  HTML.replace(`<div id="zbody"></div>`,`<div id="zbody">${htmlContent}</div>`).replace("$$ROOMNAME", "roomie").replace("$$IMPORTMAP", JSON.stringify({imports: {...importMap.imports, app: `https://code.spike.land/@${version}/dist/dev.mjs`, ws: `https://code.spike.land/@${version}/dist/ws.mjs` }}));
+              const html =  HTML.replace(`<div id="zbody"></div>`,`<style>${css}</style><div id="zbody">${htmlContent}</div>`).replace("$$ROOMNAME", "roomie").replace("$$IMPORTMAP", JSON.stringify({imports: {...importMap.imports, app: `https://code.spike.land/api/room/${codeSpace}/js`, ws: `https://code.spike.land/@${version}/dist/ws.mjs` }}));
   
               return new Response(html, {
                  status: 200, 
@@ -62,9 +64,22 @@ export class Code {
                   }
                });
               }        
+              case "env": {
+
+ 
+                
+                return new Response(codeSpace, {
+                   status: 200, 
+                   headers: {
+                      "Access-Control-Allow-Origin": "*",
+                      "Cache-Control": "no-cache",
+                      "Content-Type": "text/html; charset=UTF-8"
+                    }
+                 });
+                }   
       case "public": {
 
-         const html =  HTML.replace("$$ROOMNAME", "roomie").replace("$$IMPORTMAP", JSON.stringify({imports: {...importMap.imports, app: `https://code.spike.land/@${version}/dist/ws.mjs` }}));
+         const html =  HTML.replace("$$IMPORTMAP", JSON.stringify({imports: {...importMap.imports, app: `https://code.spike.land/@${version}/dist/ws.mjs` }}));
   
             return new Response(html, {
                status: 200, 
