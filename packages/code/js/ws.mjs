@@ -115,7 +115,6 @@ export const join = (user, room) => {
           message.codeDiff = codeDiff;
           message.hashOfCode = hashOfCode;
           message.hashOfStarterCode = prevHash;
-          message.cssDiff = getDiff(mod[prevHash].css, css)
 
           if (prevHash && mod[prevHash]) {
             message.htmlDiff = getDiff(mod[prevHash].html, html);
@@ -131,7 +130,7 @@ export const join = (user, room) => {
           }
 
           window.currentHashOfCode = hashOfCode;
-          
+
           window[hashOfCode] = code;
 
           mod[hashOfCode] = {
