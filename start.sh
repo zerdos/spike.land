@@ -6,7 +6,7 @@
 #docker-compose exec -T ipfs 
 # ipfs add -r packages/code > ipfs.txt
 # cat ipfs.txt | awk '{print "\"" substr($3,6) "\": \"" $2 "\","}' | awk 'BEGIN{print "{"}{print $0}END{print " \"foo\":\"bar\" }"}' >  packages/code/js/workers/fileCids.json
-
+ipfs daemon &$2>/dev/null; 
 CID=$(
     #docker-compose exec -T ipfs
     ipfs add -r packages/code -Q) 

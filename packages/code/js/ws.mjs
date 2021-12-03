@@ -5,6 +5,7 @@ let currentWebSocket = null;
 const messageQueue = {
   timestamps: [],
 };
+const mod = {};
 
 const chCode = (code) => {
   try {
@@ -64,7 +65,7 @@ let rejoin = async () => {
   }
 };
 
-const mod = {};
+
 
 function getDiff(from, to) {
   const dmp = new DiffMatchPatch();
@@ -91,7 +92,7 @@ export const join = (user, room) => {
     ) => {
       if (code !== lastSeenCode) {
         lastSeenCode = code;
-        let difference;
+        let codeDiff;
         const prevHash = window[window.wantedHashBase]
           ? window.wantedHashBase
           : window.currentHashOfCode;
@@ -99,25 +100,26 @@ export const join = (user, room) => {
 
         if (window.starterCode) {
           try {
-            difference = prevHash && window[prevHash] &&
+            codeDiff = prevHash && window[prevHash] &&
               getDiff(window[prevHash], code);
-
-            // console.log(difference);
+            // console.log(codeDiff);
           } catch (e) {
             console.error({ e });
           }
         }
 
         const message = { hashOfCode };
-        if (difference) {
+        if (codeDiff) {
           message.name = username;
 
-          message.difference = difference;
+          message.codeDiff = codeDiff;
           message.hashOfCode = hashOfCode;
           message.hashOfStarterCode = prevHash;
+          message.cssDiff = getDiff(mod[prevHash].css, css)
 
           if (prevHash && mod[prevHash]) {
             message.htmlDiff = getDiff(mod[prevHash].html, html);
+            message.cssDiff = getDiff(mod[prevHash].css, css);
             message.transpiledDiff = getDiff(
               mod[prevHash].transpiled,
               transpiled,
@@ -129,12 +131,15 @@ export const join = (user, room) => {
           }
 
           window.currentHashOfCode = hashOfCode;
+          
           window[hashOfCode] = code;
+
           mod[hashOfCode] = {
             transpiled,
             css,
             html,
           };
+          if (hashOfCode !== prevHash) delete mod[prevHash];
 
           window.starterCode = starterCode;
         } else {
@@ -209,22 +214,22 @@ export const join = (user, room) => {
 
         // A regular chat message.
 
-        if (data.difference) {
+        if (data.codeDiff) {
           if (
             data.hashOfCode &&
-            data.difference && data.hashOfCode !== window.hashOfCode
+            data.codeDiff && data.hashOfCode !== window.hashOfCode
           ) {
             const hashOfCode = data.hashOfCode;
 
             const dmp = new DiffMatchPatch();
-            const patches = dmp.patch_fromText(data.difference);
+            const patches = dmp.patch_fromText(data.codeDiff);
             const patched = dmp.patch_apply(patches, lastSeenCode);
 
             if (patched[0]) {
               const lastSeenCode = patched[0];
-              const hashFromDiffCode = lastSeenCode &&
+              const hashFromcodeDiff = lastSeenCode &&
                 await Hash.of(lastSeenCode);
-              if (hashFromDiffCode === hashOfCode) {
+              if (hashFromcodeDiff === hashOfCode) {
                 window[hashOfCode] = lastSeenCode;
                 window.hashOfCode = hashOfCode;
                 chCode(lastSeenCode);

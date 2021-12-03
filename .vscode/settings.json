@@ -31,7 +31,8 @@
     "esms",
     "ipfs",
     "outfile",
-    "Saionaro"
+    "Saionaro",
+    "Sanyi"
   ],
   "deno.enable": false
 }

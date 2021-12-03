@@ -196,7 +196,7 @@ export class Code {
         // Construct sanitizedlastSeenCode message for storage and broadcast.
        
        
-        const difference = data.difference;
+        const codeDiff = data.codeDiff;
         let code = data.code;
         let html = data.html;
         let css = data.css;
@@ -224,20 +224,20 @@ export class Code {
 
       
 
-        if (difference) {
+        if (codeDiff) {
 
-          const patchedCode = unDiff(previousCode, difference);
+          const patchedCode = unDiff(previousCode, codeDiff);
 
           const hashOfAPatched = await Hash.of(patchedCode);
           if (hashOfCode === hashOfAPatched) {
             data.hashOfCode = hashOfAPatched;
             data.hashOfPreviousCode = hashOfPreviousCode;
-            data.difference = difference;
+            data.codeDiff = codeDiff;
             code = patchedCode;
             try{
-              css = unDiff(await this.storage.get("css"), cssDiff);
-              transpiled = unDiff(await this.storage.get("transpiled"), transpiledDiff);
-              html = unDiff(await this.storage.get("html"), htmlDiff);
+              if (cssDiff) css = unDiff(await this.storage.get("css"), cssDiff);
+              if (transpiledDiff) transpiled = unDiff(await this.storage.get("transpiled"), transpiledDiff);
+              if (htmlDiff) html = unDiff(await this.storage.get("html"), htmlDiff);
             } catch{
               data.errorUnDiff = true;
             }
