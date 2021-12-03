@@ -184,25 +184,24 @@ export const join = (user, room) => {
         if (data.timestamp && !lastSeenTimestamp) {
           lastSeenTimestamp = data.timestamp;
         }
+        if (data.name === username) return;
 
         if (data.hashOfCode) {
           window.wantedHashBase = data.hashOfCode;
         }
-        if (data.name === username) return;
-        if (data.code && data.hashOfCode) {
-          lastSeenCode = data.code;
-          window[data.hashOfCode] = data.code;
-          if (!window.starterCode) window.starterCode = data.code;
-          window.hashOfCode = data.hashOfCode;
-          window.starterCode = lastSeenCode;
-          try {
-            chCode(data.code);
-          } catch (e) {
-            console.error("error in chCode");
-          }
-        }
 
-        if (data.hashOfCode && window[data.hashOfCode]) {
+        if (data.hashOfCode) {
+          if (
+            !window[data.hashOfCode] ||
+            window[data.hashOfCode] !== data.hashOfCode
+          ) {
+            const resp = await fetch(
+              `https://code.spike.land/api/room/${roomName}/code`,
+            );
+            const code = await resp.text();
+            const hash = await Hash.of(hashOfCode);
+            if (hash === data.hashOfCode) window[hash] = code;
+          }
           window.starterCode = window[data.hashOfCode];
           lastSeenCode = window[data.hashOfCode];
           chCode(lastSeenCode);
@@ -210,27 +209,7 @@ export const join = (user, room) => {
 
         // A regular chat message.
 
-        if (data.code && data.hashOfCode) {
-          lastSeenCode = data.code;
-
-          window.hashOfCode = data.hashOfCode;
-          window.starterCode = lastSeenCode;
-          window[data.hashOfCode] = data.code;
-        } else if (data.difference) {
-          if (data.hashOfPreviousCode) {
-            if (window[data.hashOfPreviousCode]) {
-              lastSeenCode = window[data.hashOfPreviousCode];
-            } else {
-              const resp = await fetch(
-                `https://code.spike.land/api/room/${roomName}/code`,
-              );
-              const code = await resp.text();
-              const hashOfCode = await Hash.of(code);
-              window[hashOfCode] = code;
-              chCode(code);
-            }
-          }
-
+        if (data.difference) {
           if (
             data.hashOfCode &&
             data.difference && data.hashOfCode !== window.hashOfCode
@@ -250,9 +229,6 @@ export const join = (user, room) => {
                 window.hashOfCode = hashOfCode;
                 chCode(lastSeenCode);
               }
-
-              // const newLastSeen = window.assemble(lastSeenCode, JSON.stringify(data.difference.c));
-              // console.log("AASSEMBLED", newLastSeen);
             } else {
               console.error("we are out of sync...");
               ws.close(1000, "out of sync");

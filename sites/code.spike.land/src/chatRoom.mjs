@@ -146,7 +146,7 @@ export class Code {
       
       hashOfCode = await Hash.of(code);
       session.blockedMessages.push(
-        JSON.stringify({ hashOfCode, code })
+        JSON.stringify({ hashOfCode })
       );
     }
 
@@ -209,7 +209,7 @@ export class Code {
      
         const previousCode = hashOfPreviousCode && ( await this.storage.get(hashOfPreviousCode) || await this.storage.get("code") || await this.storage.get("lastSeenCode"));
        
-        data = { name: session.name, message: "" || data.message };
+        data = { name: session.name };
 
         // if (code) {
         //   data.code = code;
@@ -274,8 +274,9 @@ export class Code {
           await this.storage.put(hashOfCode, code);
           await this.storage.put("code", code);
          
-
+          
         }
+
         if (html) {
           await this.storage.put("html", html);
         }
@@ -285,6 +286,7 @@ export class Code {
         if (css) {
           await this.storage.put("css", css);
         }
+      
         await this.storage.put("code", code);
         await this.storage.put(key, dataStr)
       } catch (err) {
