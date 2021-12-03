@@ -7,12 +7,44 @@ import importMap from "@spike.land/code/js/importmap.json";
 import { version } from "@spike.land/code/package.json";
 
 export class Code {
-  constructor(controller, env) {
-    this.storage = controller.storage;
+  constructor(state, env) {
+
+    this.state = state;
+
+    this.session = {};
+ 
+    this.state.blockConcurrencyWhile(async () => {
+      
+      let code = await this.state.storage.get("code");
+      
+      if (!code) {this.session = {
+            code: "",
+            transpiled: "",
+            css: "",
+            html: "",
+            lastTimestamp: 0,
+          }
+        
+        return;
+      }
+
+      let css =  await this.state.storage.get("css");
+      let transpiled =  await this.state.storage.get("transpiled");
+      let html = await this.state.storage.get("html");
+      let lastTimestamp = await this.state.storage.get("lastTimestamp");
+      
+      this.session = {
+        code,
+        transpiled,
+        html, 
+        css, 
+        lastTimestamp,
+        hashOfCode: Hash.of(code)
+      }
+    });
 
     this.env = env;
     this.sessions = [];
-    this.lastTimestamp = 0;
   }
 
 
@@ -26,9 +58,7 @@ export class Code {
 
       switch (path[0]) {
         case "code": {
-          const code = await this.storage.get("code");
-
-          return new Response(code, {
+          return new Response(this.session.code, {
              status: 200, 
              headers: {
                 "Access-Control-Allow-Origin": "*",
@@ -37,10 +67,8 @@ export class Code {
               }
            });
           }
-          case "js": {
-            const transpiled = await this.storage.get("transpiled");
-  
-            return new Response(transpiled, {
+          case "js": {  
+            return new Response(this.session.transpiled, {
                status: 200, 
                headers: {
                   "Access-Control-Allow-Origin": "*",
@@ -50,8 +78,8 @@ export class Code {
              });
             }
             case "html": {
-              const htmlContent = await this.storage.get("html");
-              const css = await this.storage.get("css");
+              const htmlContent = this.session.html;
+              const css = await this.session.css;
     
               const html =  HTML.replace(`<div id="zbody"></div>`,`<style>${css}</style><div id="zbody">${htmlContent}</div>`).replace("$$ROOMNAME", "roomie").replace("$$IMPORTMAP", JSON.stringify({imports: {...importMap.imports, app: `https://code.spike.land/api/room/${codeSpace}/js`, ws: `https://code.spike.land/@${version}/dist/ws.mjs` }}));
   
@@ -65,9 +93,6 @@ export class Code {
                });
               }        
               case "env": {
-
- 
-                
                 return new Response(codeSpace, {
                    status: 200, 
                    headers: {
@@ -77,8 +102,17 @@ export class Code {
                     }
                  });
                 }   
+                case "hashOfCode": {
+                  return new Response(await this.session.hashOfCode, {
+                     status: 200, 
+                     headers: {
+                        "Access-Control-Allow-Origin": "*",
+                        "Cache-Control": "no-cache",
+                        "Content-Type": "text/html; charset=UTF-8"
+                      }
+                   });
+                  }  
       case "public": {
-
          const html =  HTML.replace("$$IMPORTMAP", JSON.stringify({imports: {...importMap.imports, app: `https://code.spike.land/@${version}/dist/ws.mjs` }}));
   
             return new Response(html, {
@@ -138,15 +172,10 @@ export class Code {
     // backlog.forEach((value) => {
     //   session.blockedMessages.push(value);
     // });
-
-    let hashOfCode;
-    let code = await this.storage.get("code") || await this.storage.get("lastSeenCode");
     
-    if (code){
-      
-      hashOfCode = await Hash.of(code);
+    if (this.session.code){
       session.blockedMessages.push(
-        JSON.stringify({ hashOfCode })
+        JSON.stringify({ hashOfCode: await this.session.hashOfCode })
       );
     }
 
@@ -197,85 +226,92 @@ export class Code {
        
        
         const codeDiff = data.codeDiff;
+
         let code = data.code;
         let html = data.html;
         let css = data.css;
         let transpiled = data.transpiled;
+
         const transpiledDiff = data.transpiledDiff;
         const htmlDiff = data.htmlDiff;
         const cssDiff = data.cssDiff;
-        const hashOfCode = data.hashOfCode;
-        const hashOfPreviousCode = data.hashOfStarterCode;
      
-        const previousCode = hashOfPreviousCode && ( await this.storage.get(hashOfPreviousCode) || await this.storage.get("code") || await this.storage.get("lastSeenCode"));
-       
+        const previousCode = this.session.code;
+        const hashOfPreviousCode = await this.session.hashOfCode;
+
         data = { name: session.name };
 
-        // if (code) {
-        //   data.code = code;
-        // }
+        let patched = false;
 
-        function unDiff(old, diff ) {
-          const dmp = new DiffMatchPatch();
-          const patches = dmp.patch_fromText((diff));
-          const patchedCode = (dmp.patch_apply(patches, (old))[0]);
-          return patchedCode;
+        if (data.hashOfStarterCode != hashOfPreviousCode){
+          data.code = this.session.code,
+          data.hashOfCode = this.session.hashOfCode
         }
 
+
+        
       
 
-        if (codeDiff) {
+        else if (codeDiff) {
 
-          const patchedCode = unDiff(previousCode, codeDiff);
+          const code = unDiff(previousCode, codeDiff);
 
-          const hashOfAPatched = await Hash.of(patchedCode);
+          const hashOfCode = await Hash.of(patchedCode);
+
+
           if (hashOfCode === hashOfAPatched) {
+            patched = truel
+            this.session.hashOfCode = hashOfAPatched;
+            this.session.code = code;
+          
             data.hashOfCode = hashOfAPatched;
             data.hashOfPreviousCode = hashOfPreviousCode;
             data.codeDiff = codeDiff;
-            code = patchedCode;
-            try{
-              if (cssDiff) css = unDiff(await this.storage.get("css"), cssDiff);
-              if (transpiledDiff) transpiled = unDiff(await this.storage.get("transpiled"), transpiledDiff);
-              if (htmlDiff) html = unDiff(await this.storage.get("html"), htmlDiff);
-            } catch{
-              data.errorUnDiff = true;
-            }
-          } else {
-            data.hashToNeed = hashOfAPatched;
           }
+
+           
+          
         }
         
 
 
-        if (data.code && data.hashOfCode) {
-          const hashOfCode = await Hash.of(data.code);
-          if (data.hashOfCode === hashOfCode) {
-            code = data.code;
-          }
-        }
+        
         // if (data..length > 4096) {
         //   webSocket.send(JSON.stringify({ error: "Message too long." }));
         //   return;
         // }
 
         data.timestamp = Math.max(Date.now(), this.lastTimestamp + 1);
-        this.lastTimestamp = data.timestamp;
+        this.session.lastTimestamp = data.timestamp;
 
         // Broadcast the message to all other WebSockets.
         let dataStr = JSON.stringify(data);
         this.broadcast(dataStr);
 
+          if (patched) {
+              try{
+            if (cssDiff) css = unDiff(this.session.css, cssDiff);
+            if (transpiledDiff) transpiled = unDiff(this.session.transpiled, transpiledDiff);
+            if (htmlDiff) html = unDiff(this.session.html, htmlDiff);
+            this.session.css = css;
+            this.session.html = html;
+            this.session.transpiled = transpiled;
+          } catch{
+            data.errorUnDiff = true;
+          }
+
+        }
         // Save message.
         let key = new Date(data.timestamp).toISOString();
 
-        if (code && previousCode !== code) {
+        if (patched) {
           const hashOfCode = await Hash.of(code);
-          await this.storage.put(hashOfCode, code);
+          // await this.storage.put(hashOfCode, code);
           await this.storage.put("code", code);
          
           
         }
+         
 
         if (html) {
           await this.storage.put("html", html);
@@ -334,3 +370,11 @@ export class Code {
     });
   }
 }
+
+
+        function unDiff(old, diff ) {
+          const dmp = new DiffMatchPatch();
+          const patches = dmp.patch_fromText((diff));
+          const patchedCode = (dmp.patch_apply(patches, (old))[0]);
+          return patchedCode;
+        }

@@ -9,6 +9,7 @@ import ReactDOM from "react-dom";
 import startMonaco from "@spike.land/smart-monaco-editor";
 import { jsx } from "@emotion/react";
 import { ipfsClient } from "./ipfsClient.mjs";
+import Hash from "ipfs-only-hash";
 //import { getUserId } from "./data.mjs";
 // import Hash from "ipfs-only-hash";
 export { DraggableWindow, jsx, render } from "@spike.land/renderer";
@@ -92,6 +93,8 @@ export async function run({mode="window", code, room=""}) {
     session.transpiled = await transpileCode(session.formattedCode);
   }
 
+
+
   if (!code) {
     try {
       const { code, transpiled, html } =
@@ -111,6 +114,10 @@ export async function run({mode="window", code, room=""}) {
       return;
     }
   }
+
+  const currentHashOfCode = await Hash.of(session.code );
+  if (!window.currentHashOfCode) window.currentHashOfCode = currentHashOfCode;
+  window[currentHashOfCode] = session.code;
 
   // const editorContainer = window.document.createElement("div");
   // editorContainer.className= "editor-frame"
