@@ -158,6 +158,10 @@ export class Code {
        
         const difference = data.difference;
         let code = data.code;
+        let html = data.html;
+        let transpiled = data.transpiled;
+        const transpiledDiff = data.transpiledDiff;
+        const htmlDiff = data.htmlDiff;
         const hashOfCode = data.hashOfCode;
         const hashOfPreviousCode = data.hashOfStarterCode;
      
@@ -183,6 +187,8 @@ export class Code {
             data.hashToNeed = hashOfAPatched;
           }
         }
+        
+
 
         if (data.code && data.hashOfCode) {
           const hashOfCode = await Hash.of(data.code);
@@ -209,6 +215,13 @@ export class Code {
           const hashOfCode = await Hash.of(code);
           await this.storage.put(hashOfCode, code);
           await this.storage.put("code", code);
+          if (html) {
+            await this.storage.put("html", html);
+          }
+          if (transpiled) {
+            await this.storage.put("transpiled", transpiled);
+          }
+
         }
         await this.storage.put("code", code);
         await this.storage.put(key, dataStr)
