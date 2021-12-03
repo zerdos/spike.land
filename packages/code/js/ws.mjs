@@ -32,7 +32,7 @@ const chCode = (code) => {
 
 let hostname = "code.spike.land";
 
-let roomName = "roomie";
+let roomName = "main-room";
 let username = "user" + Math.random();
 let lastSeenTimestamp = 0;
 let lastSeenCode = "";
@@ -199,7 +199,7 @@ export const join = (user, room) => {
               `https://code.spike.land/api/room/${roomName}/code`,
             );
             const code = await resp.text();
-            const hash = await Hash.of(hashOfCode);
+            const hash = await Hash.of(code);
             if (hash === data.hashOfCode) window[hash] = code;
           }
           window.starterCode = window[data.hashOfCode];
