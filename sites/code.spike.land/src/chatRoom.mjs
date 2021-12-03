@@ -208,23 +208,39 @@ export class Code {
         const hashOfPreviousCode = data.hashOfStarterCode;
      
         const previousCode = hashOfPreviousCode && ( await this.storage.get(hashOfPreviousCode) || await this.storage.get("code") || await this.storage.get("lastSeenCode"));
-
+       
         data = { name: session.name, message: "" || data.message };
 
         // if (code) {
         //   data.code = code;
         // }
 
-        if (difference) {
+        function unDiff(old, diff ) {
           const dmp = new DiffMatchPatch();
-          const patches = dmp.patch_fromText((difference));
-          const patchedCode = (dmp.patch_apply(patches, (previousCode))[0]);
+          const patches = dmp.patch_fromText((diff));
+          const patchedCode = (dmp.patch_apply(patches, (old))[0]);
+          return patchedCode;
+        }
+
+      
+
+        if (difference) {
+
+          const patchedCode = unDiff(previousCode, difference);
+
           const hashOfAPatched = await Hash.of(patchedCode);
           if (hashOfCode === hashOfAPatched) {
             data.hashOfCode = hashOfAPatched;
             data.hashOfPreviousCode = hashOfPreviousCode;
             data.difference = difference;
             code = patchedCode;
+            try{
+              css = unDiff(await this.storage.get("css"), cssDiff);
+              transpiled = unDiff(await this.storage.get("transpiled"), transpiledDiff);
+              html = unDiff(await this.storage.get("html"), htmlDiff);
+            } catch{
+              data.errorUnDiff = true;
+            }
           } else {
             data.hashToNeed = hashOfAPatched;
           }
@@ -257,16 +273,17 @@ export class Code {
           const hashOfCode = await Hash.of(code);
           await this.storage.put(hashOfCode, code);
           await this.storage.put("code", code);
-          if (html) {
-            await this.storage.put("html", html);
-          }
-          if (transpiled) {
-            await this.storage.put("transpiled", transpiled);
-          }
-          if (css) {
-            await this.storage.put("css", css);
-          }
+         
 
+        }
+        if (html) {
+          await this.storage.put("html", html);
+        }
+        if (transpiled) {
+          await this.storage.put("transpiled", transpiled);
+        }
+        if (css) {
+          await this.storage.put("css", css);
         }
         await this.storage.put("code", code);
         await this.storage.put(key, dataStr)

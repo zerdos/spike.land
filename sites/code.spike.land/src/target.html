@@ -20,9 +20,18 @@
     $$IMPORTMAP
   </script>
   <script type="module">
-    import app from "app";
+    import("app").then(mod=>{
+      if (mod.default) {
+        import("@emotion/react").then(
+          ({jsx}) => ReactDOM.render(jsx(mod.default), document.getElementById("zbody"))
+          );
+      
+     }
+     if (mod.run) {
+       mod.run();
+     }
+    });
 
-    app();
   </script>
 </body>
 </html>

@@ -278,25 +278,19 @@ export const join = (user, room) => {
   });
 };
 
-export const run = async () =>{
-     
+export const run = async () => {
   const resp = await fetch(
-          "./code",
-        );
+    "./code",
+  );
   const code = await resp.text();
   const target = document.getElementById("zbody");
   await restart(code, target);
 
-  window.restartCode = (c)=>restart(c, document.getElementById("zbody"));
-  const user = Math.random()-"html";
+  window.restartCode = (c) => restart(c, document.getElementById("zbody"));
+  const user = Math.random() - "html";
   const room = location.pathname.slice(1).split("/")[2];
 
   console.log(user, room);
 
   join(user, room);
-       
-}
-
-export default function(){
-  join (user, room);
-}
+};

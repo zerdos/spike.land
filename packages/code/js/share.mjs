@@ -1,5 +1,5 @@
 import { sha256, shaDB } from "@spike.land/shadb";
-  import { getHtml, getCss,  getEditorHTML } from"./templates.js"
+import { getCss, getEditorHTML, getHtml } from "./templates.js";
 
 /**
  * @param {{
@@ -9,9 +9,11 @@ import { sha256, shaDB } from "@spike.land/shadb";
  * }} props
  */
 export const shareItAsHtml = async ({ transpiled, code, html }) => {
-
   const allContent = [
-    { path: "/app/index.html", content: getHtml({ html, css: getCss({html}), transpiled }) },
+    {
+      path: "/app/index.html",
+      content: getHtml({ html, css: getCss({ html }), transpiled }),
+    },
     { path: "/app/app.js", content: transpiled },
     { path: "/app/app.tsx", content: code },
     { path: "/app/edit/index.html", content: getEditorHTML() },
