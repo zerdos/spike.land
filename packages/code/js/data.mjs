@@ -1,6 +1,7 @@
 import { sha256, shaDB } from "@spike.land/shadb";
 import v4 from "uuid/v4";
 import Hash from "ipfs-only-hash";
+import { getCss } from"./templates.js"
 
 const sess = {};
 /** @type {string} */
@@ -230,6 +231,7 @@ export const saveCode =
             code: codeNonFormatted,
             transpiled,
             html: opts.html,
+            css: getCss({html}),
             hashOfStarterCode: window.starterCode &&
               await Hash.of(window.starterCode),
             hashOfCode,

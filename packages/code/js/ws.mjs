@@ -87,7 +87,7 @@ export const join = (user, room) => {
     console.log("connected");
     currentWebSocket = ws;
     const broad = (
-      { code, hashOfCode, starterCode, transpiled, html },
+      { code, hashOfCode, starterCode, transpiled, html, css },
     ) => {
       if (code !== lastSeenCode) {
         lastSeenCode = code;
@@ -124,6 +124,7 @@ export const join = (user, room) => {
             );
           } else {
             message.html = html;
+            message.css = css;
             message.transpiled = transpiled;
           }
 
@@ -131,6 +132,7 @@ export const join = (user, room) => {
           window[hashOfCode] = code;
           mod[hashOfCode] = {
             transpiled,
+            css,
             html,
           };
 
@@ -139,6 +141,7 @@ export const join = (user, room) => {
           message.code = code;
           message.name = username;
           message.html = html;
+          message.css = css;
           message.transpiled = transpiled;
           message.hashOfCode = hashOfCode;
         }
