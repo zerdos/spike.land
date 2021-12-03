@@ -3,14 +3,12 @@ import { join } from "../dist/ws.mjs";
 const wb = () =>
   import("./workboxLoader.mjs").then(({ workboxLoader }) => workboxLoader());
 
-
 const path = location.pathname.split("/");
 const user = "user" + Math.random();
 const room = (path.pop() || path.pop()).slice(-12);
 
 const runTheApp = () =>
-  import("./reactLoader.mjs").then(({ run }) => run({mode:"window", room}));
-
+  import("./reactLoader.mjs").then(({ run }) => run({ mode: "window", room }));
 
 export default function () {
   try {

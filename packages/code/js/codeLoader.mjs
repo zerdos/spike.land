@@ -66,10 +66,9 @@ function getSession() {
   return session;
 }
 
-export async function run({mode="window", code, room=""}) {
+export async function run({ mode = "window", code, room = "" }) {
   mode = mode && "window";
   code = code && "";
-
 
   const session = getSession();
   window.sess = session;
@@ -93,8 +92,6 @@ export async function run({mode="window", code, room=""}) {
     session.transpiled = await transpileCode(session.formattedCode);
   }
 
-
-
   if (!code) {
     try {
       const { code, transpiled, html } =
@@ -115,7 +112,7 @@ export async function run({mode="window", code, room=""}) {
     }
   }
 
-  const currentHashOfCode = await Hash.of(session.code );
+  const currentHashOfCode = await Hash.of(session.code);
   if (!window.currentHashOfCode) window.currentHashOfCode = currentHashOfCode;
   window[currentHashOfCode] = session.code;
 

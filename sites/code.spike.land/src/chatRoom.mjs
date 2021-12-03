@@ -2,128 +2,145 @@ import { handleErrors } from "./handleErrors.mjs";
 import { RateLimiterClient } from "./rateLimiterClient.mjs";
 import DiffMatchPatch from "diff-match-patch";
 import Hash from "ipfs-only-hash";
-import HTML from "./target.html"
+import HTML from "./target.html";
 import importMap from "@spike.land/code/js/importmap.json";
 import { version } from "@spike.land/code/package.json";
 
 export class Code {
   constructor(state, env) {
-
     this.state = state;
 
     this.session = {};
- 
+
     this.state.blockConcurrencyWhile(async () => {
-      
       let code = await this.state.storage.get("code");
-      
-      if (!code) {this.session = {
-            code: "",
-            transpiled: "",
-            css: "",
-            html: "",
-            lastTimestamp: 0,
-          }
-        
+
+      if (!code) {
+        this.session = {
+          code: "",
+          transpiled: "",
+          css: "",
+          html: "",
+          lastTimestamp: 0,
+        };
+
         return;
       }
 
-      let css =  await this.state.storage.get("css");
-      let transpiled =  await this.state.storage.get("transpiled");
+      let css = await this.state.storage.get("css");
+      let transpiled = await this.state.storage.get("transpiled");
       let html = await this.state.storage.get("html");
-      let lastTimestamp = await this.state.storage.get("lastTimestamp");
-      
+      let lastTimestamp = Number(await this.state.storage.get("lastTimestamp"));
+
       this.session = {
         code,
         transpiled,
-        html, 
-        css, 
+        html,
+        css,
         lastTimestamp,
-        hashOfCode: Hash.of(code)
-      }
+        hashOfCode: Hash.of(code),
+      };
     });
 
     this.env = env;
     this.sessions = [];
   }
 
-
   async fetch(request) {
     return await handleErrors(request, async () => {
       let url = new URL(request.url);
       const codeSpace = url.searchParams.get("room");
-      
 
       let path = url.pathname.slice(1).split("/");
 
       switch (path[0]) {
         case "code": {
           return new Response(this.session.code, {
-             status: 200, 
-             headers: {
-                "Access-Control-Allow-Origin": "*",
-                "Cache-Control": "no-cache",
-                "Content-Type": "text/html; charset=UTF-8"
-              }
-           });
-          }
-          case "js": {  
-            return new Response(this.session.transpiled, {
-               status: 200, 
-               headers: {
-                  "Access-Control-Allow-Origin": "*",
-                  "Cache-Control": "no-cache",
-                  "Content-Type": "application/javascript; charset=UTF-8"
-                }
-             });
-            }
-            case "html": {
-              const htmlContent = this.session.html;
-              const css = await this.session.css;
-    
-              const html =  HTML.replace(`<div id="zbody"></div>`,`<style>${css}</style><div id="zbody">${htmlContent}</div>`).replace("$$ROOMNAME", "roomie").replace("$$IMPORTMAP", JSON.stringify({imports: {...importMap.imports, app: `https://code.spike.land/api/room/${codeSpace}/js`, ws: `https://code.spike.land/@${version}/dist/ws.mjs` }}));
-  
-              return new Response(html, {
-                 status: 200, 
-                 headers: {
-                    "Access-Control-Allow-Origin": "*",
-                    "Cache-Control": "no-cache",
-                    "Content-Type": "text/html; charset=UTF-8"
-                  }
-               });
-              }        
-              case "env": {
-                return new Response(codeSpace, {
-                   status: 200, 
-                   headers: {
-                      "Access-Control-Allow-Origin": "*",
-                      "Cache-Control": "no-cache",
-                      "Content-Type": "text/html; charset=UTF-8"
-                    }
-                 });
-                }   
-                case "hashOfCode": {
-                  return new Response(await this.session.hashOfCode, {
-                     status: 200, 
-                     headers: {
-                        "Access-Control-Allow-Origin": "*",
-                        "Cache-Control": "no-cache",
-                        "Content-Type": "text/html; charset=UTF-8"
-                      }
-                   });
-                  }  
-      case "public": {
-         const html =  HTML.replace("$$IMPORTMAP", JSON.stringify({imports: {...importMap.imports, app: `https://code.spike.land/@${version}/dist/ws.mjs` }}));
-  
-            return new Response(html, {
-               status: 200, 
-               headers: {
-                  "Access-Control-Allow-Origin": "*",
-                  "Cache-Control": "no-cache",
-                  "Content-Type": "text/html; charset=UTF-8"
-                }
-             });
-            }
+            status: 200,
+            headers: {
+              "Access-Control-Allow-Origin": "*",
+              "Cache-Control": "no-cache",
+              "Content-Type": "text/html; charset=UTF-8",
+            },
+          });
+        }
+        case "js": {
+          return new Response(this.session.transpiled, {
+            status: 200,
+            headers: {
+              "Access-Control-Allow-Origin": "*",
+              "Cache-Control": "no-cache",
+              "Content-Type": "application/javascript; charset=UTF-8",
+            },
+          });
+        }
+        case "html": {
+          const htmlContent = this.session.html;
+          const css = await this.session.css;
+
+          const html = HTML.replace(
+            `<div id="zbody"></div>`,
+            `<style>${css}</style><div id="zbody">${htmlContent}</div>`,
+          ).replace("$$ROOMNAME", "roomie").replace(
+            "$$IMPORTMAP",
+            JSON.stringify({
+              imports: {
+                ...importMap.imports,
+                app: `https://code.spike.land/api/room/${codeSpace}/js`,
+                ws: `https://code.spike.land/@${version}/dist/ws.mjs`,
+              },
+            }),
+          );
+
+          return new Response(html, {
+            status: 200,
+            headers: {
+              "Access-Control-Allow-Origin": "*",
+              "Cache-Control": "no-cache",
+              "Content-Type": "text/html; charset=UTF-8",
+            },
+          });
+        }
+        case "env": {
+          return new Response(codeSpace, {
+            status: 200,
+            headers: {
+              "Access-Control-Allow-Origin": "*",
+              "Cache-Control": "no-cache",
+              "Content-Type": "text/html; charset=UTF-8",
+            },
+          });
+        }
+        case "hashOfCode": {
+          return new Response(await this.session.hashOfCode, {
+            status: 200,
+            headers: {
+              "Access-Control-Allow-Origin": "*",
+              "Cache-Control": "no-cache",
+              "Content-Type": "text/html; charset=UTF-8",
+            },
+          });
+        }
+        case "public": {
+          const html = HTML.replace(
+            "$$IMPORTMAP",
+            JSON.stringify({
+              imports: {
+                ...importMap.imports,
+                app: `https://code.spike.land/@${version}/dist/ws.mjs`,
+              },
+            }),
+          );
+
+          return new Response(html, {
+            status: 200,
+            headers: {
+              "Access-Control-Allow-Origin": "*",
+              "Cache-Control": "no-cache",
+              "Content-Type": "text/html; charset=UTF-8",
+            },
+          });
+        }
 
         case "websocket": {
           if (request.headers.get("Upgrade") != "websocket") {
@@ -172,10 +189,10 @@ export class Code {
     // backlog.forEach((value) => {
     //   session.blockedMessages.push(value);
     // });
-    
-    if (this.session.code){
+
+    if (this.session.code) {
       session.blockedMessages.push(
-        JSON.stringify({ hashOfCode: await this.session.hashOfCode })
+        JSON.stringify({ hashOfCode: await this.session.hashOfCode }),
       );
     }
 
@@ -223,8 +240,7 @@ export class Code {
         }
 
         // Construct sanitizedlastSeenCode message for storage and broadcast.
-       
-       
+
         const codeDiff = data.codeDiff;
 
         let code = data.code;
@@ -235,7 +251,7 @@ export class Code {
         const transpiledDiff = data.transpiledDiff;
         const htmlDiff = data.htmlDiff;
         const cssDiff = data.cssDiff;
-     
+
         const previousCode = this.session.code;
         const hashOfPreviousCode = await this.session.hashOfCode;
 
@@ -243,75 +259,61 @@ export class Code {
 
         let patched = false;
 
-        if (data.hashOfStarterCode != hashOfPreviousCode){
+        if (data.hashOfStarterCode != hashOfPreviousCode) {
           data.code = this.session.code,
-          data.hashOfCode = this.session.hashOfCode
-        }
-
-
-        
-      
-
-        else if (codeDiff) {
-
-          const code = unDiff(previousCode, codeDiff);
+            data.hashOfCode = await this.session.hashOfCode;
+        } else if (codeDiff) {
+          code = unDiff(previousCode, codeDiff);
 
           const hashOfCode = await Hash.of(patchedCode);
 
-
           if (hashOfCode === hashOfAPatched) {
-            patched = truel
+            patched = true;
             this.session.hashOfCode = hashOfAPatched;
             this.session.code = code;
-          
+
             data.hashOfCode = hashOfAPatched;
             data.hashOfPreviousCode = hashOfPreviousCode;
             data.codeDiff = codeDiff;
           }
-
-           
-          
         }
-        
 
-
-        
         // if (data..length > 4096) {
         //   webSocket.send(JSON.stringify({ error: "Message too long." }));
         //   return;
         // }
 
-        data.timestamp = Math.max(Date.now(), this.lastTimestamp + 1);
+        const lastTimestamp = data.timestamp = Math.max(
+          Date.now(),
+          this.session.lastTimestamp + 1,
+        );
         this.session.lastTimestamp = data.timestamp;
 
         // Broadcast the message to all other WebSockets.
         let dataStr = JSON.stringify(data);
         this.broadcast(dataStr);
 
-          if (patched) {
-              try{
+        if (patched) {
+          try {
             if (cssDiff) css = unDiff(this.session.css, cssDiff);
-            if (transpiledDiff) transpiled = unDiff(this.session.transpiled, transpiledDiff);
+            if (transpiledDiff) {
+              transpiled = unDiff(this.session.transpiled, transpiledDiff);
+            }
             if (htmlDiff) html = unDiff(this.session.html, htmlDiff);
             this.session.css = css;
             this.session.html = html;
             this.session.transpiled = transpiled;
-          } catch{
+          } catch {
             data.errorUnDiff = true;
           }
-
         }
         // Save message.
-        let key = new Date(data.timestamp).toISOString();
+        let key = new Date(lastTimestamp).toISOString();
 
-        if (patched) {
-          const hashOfCode = await Hash.of(code);
+        if (patched && code) {
           // await this.storage.put(hashOfCode, code);
           await this.storage.put("code", code);
-         
-          
         }
-         
 
         if (html) {
           await this.storage.put("html", html);
@@ -322,9 +324,8 @@ export class Code {
         if (css) {
           await this.storage.put("css", css);
         }
-      
-        await this.storage.put("code", code);
-        await this.storage.put(key, dataStr)
+
+        await this.storage.put(key, dataStr);
       } catch (err) {
         webSocket.send(JSON.stringify({ error: err.stack }));
       }
@@ -371,10 +372,9 @@ export class Code {
   }
 }
 
-
-        function unDiff(old, diff ) {
-          const dmp = new DiffMatchPatch();
-          const patches = dmp.patch_fromText((diff));
-          const patchedCode = (dmp.patch_apply(patches, (old))[0]);
-          return patchedCode;
-        }
+function unDiff(old, diff) {
+  const dmp = new DiffMatchPatch();
+  const patches = dmp.patch_fromText(diff);
+  const patchedCode = (dmp.patch_apply(patches, old)[0]);
+  return patchedCode;
+}

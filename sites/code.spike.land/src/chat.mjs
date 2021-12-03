@@ -16,7 +16,7 @@ export default {
 
       if (!path[0]) {
         // Serve our HTML at the root path.
-          return getHTMLResp();       
+        return getHTMLResp();
       }
 
       switch (path[0]) {
@@ -39,7 +39,6 @@ async function handleApiRequest(path, request, env) {
 
   switch (path[0]) {
     case "room": {
-
       if (!path[1]) {
         if (request.method === "POST") {
           let id = env.CODE.newUniqueId();
@@ -74,7 +73,7 @@ async function handleApiRequest(path, request, env) {
   }
 }
 
-function getHTMLResp(){
+function getHTMLResp() {
   const html1 = HTML.slice(0, HTML.length - 40) + "*/";
   const html2 = "/*" + HTML.slice(HTML.length - 40);
 
