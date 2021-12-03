@@ -65,8 +65,6 @@ let rejoin = async () => {
   }
 };
 
-
-
 function getDiff(from, to) {
   const dmp = new DiffMatchPatch();
 
