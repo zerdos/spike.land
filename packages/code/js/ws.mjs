@@ -90,6 +90,7 @@ export const join = (user, room) => {
       { code, hashOfCode, starterCode, transpiled, html },
     ) => {
       if (code !== lastSeenCode) {
+        lastSeenCode = code;
         let difference;
         const prevHash = window[window.wantedHashBase]
           ? window.wantedHashBase
@@ -110,7 +111,7 @@ export const join = (user, room) => {
         const message = { hashOfCode };
         if (difference) {
           message.name = username;
-          message.transpiled = transpiled;
+         
           message.difference = difference;
           message.hashOfCode = hashOfCode;
           message.hashOfStarterCode = prevHash;
@@ -121,6 +122,9 @@ export const join = (user, room) => {
               mod[prevHash].transpiled,
               transpiled,
             );
+          } else {
+            message.html = html;
+            message.transpiled = transpiled;
           }
 
           window.currentHashOfCode = hashOfCode;
@@ -132,8 +136,10 @@ export const join = (user, room) => {
 
           window.starterCode = starterCode;
         } else {
-          message.code = code;
+          message.code = code; 
           message.name = username;
+          message.html = html;
+          message.transpiled = transpiled;
           message.hashOfCode = hashOfCode;
         }
 
