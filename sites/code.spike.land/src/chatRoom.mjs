@@ -49,8 +49,10 @@ export class Code {
              });
             }
             case "html": {
-              const html = await this.storage.get("html");
+              const htmlContent = await this.storage.get("html");
     
+              const html =  HTML.replace(`<div id="zbody"></div>`,`<div id="zbody">${htmlContent}</div>`).replace("$$ROOMNAME", "roomie").replace("$$IMPORTMAP", JSON.stringify({imports: {...importMap.imports, app: `https://code.spike.land/@${version}/dist/dev.mjs`, ws: `https://code.spike.land/@${version}/dist/ws.mjs` }}));
+  
               return new Response(html, {
                  status: 200, 
                  headers: {
