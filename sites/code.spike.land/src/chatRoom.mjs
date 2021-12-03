@@ -21,7 +21,7 @@ export class Code {
           transpiled: "",
           css: "",
           html: "",
-          lastTimestamp: 0,
+          lastTimestamp: Date.now(),
         };
 
         return;
@@ -30,7 +30,7 @@ export class Code {
       let css = await this.state.storage.get("css");
       let transpiled = await this.state.storage.get("transpiled");
       let html = await this.state.storage.get("html");
-      let lastTimestamp = Number(await this.state.storage.get("lastTimestamp"));
+      let lastTimestamp = Number(await this.state.storage.get("lastTimestamp") || 0) || Date.now();
 
       this.session = {
         code,
@@ -247,6 +247,7 @@ export class Code {
         let html = data.html;
         let css = data.css;
         let transpiled = data.transpiled;
+        let hashOfStarterCode = data.hashOfStarterCode;
 
         const transpiledDiff = data.transpiledDiff;
         const htmlDiff = data.htmlDiff;
@@ -259,9 +260,9 @@ export class Code {
 
         let patched = false;
 
-        if (data.hashOfStarterCode != hashOfPreviousCode) {
+        if (hashOfStarterCode != hashOfPreviousCode) {
           data.code = this.session.code,
-            data.hashOfCode = await this.session.hashOfCode;
+          data.hashOfCode = await this.session.hashOfCode;
         } else if (codeDiff) {
           code = unDiff(previousCode, codeDiff);
 
@@ -282,8 +283,8 @@ export class Code {
         //   webSocket.send(JSON.stringify({ error: "Message too long." }));
         //   return;
         // }
-
-        const lastTimestamp = data.timestamp = Math.max(
+        
+        data.timestamp = Math.max(
           Date.now(),
           this.session.lastTimestamp + 1,
         );
@@ -308,24 +309,24 @@ export class Code {
           }
         }
         // Save message.
-        let key = new Date(lastTimestamp).toISOString();
+        let key = new Date(this.session.lastTimestamp).toISOString();
 
         if (patched && code) {
-          // await this.storage.put(hashOfCode, code);
-          await this.storage.put("code", code);
+          // await this.state.storage.put(hashOfCode, code);
+          await this.state.storage.put("code", code);
         }
 
         if (html) {
-          await this.storage.put("html", html);
+          await this.state.storage.put("html", html);
         }
         if (transpiled) {
-          await this.storage.put("transpiled", transpiled);
+          await this.state.storage.put("transpiled", transpiled);
         }
         if (css) {
-          await this.storage.put("css", css);
+          await this.state.storage.put("css", css);
         }
 
-        await this.storage.put(key, dataStr);
+        await this.state.storage.put(key, dataStr);
       } catch (err) {
         webSocket.send(JSON.stringify({ error: err.stack }));
       }

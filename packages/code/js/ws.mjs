@@ -136,7 +136,7 @@ export const join = (user, room) => {
             css,
             html,
           };
-          if (hashOfCode !== prevHash) delete mod[prevHash];
+          // if (hashOfCode !== prevHash) delete mod[prevHash];
 
           window.starterCode = starterCode;
         } else {
