@@ -3,7 +3,7 @@ import { openWindows } from "./openWindows.mjs";
 import { getCodeToLoad, getIPFSCodeToLoad, saveCode } from "./data.mjs";
 import { transpileCode } from "./transpile.mjs";
 import { formatter } from "./formatter.mjs";
-import { assemble, diff } from "@spike.land/shadb";
+import { diff } from "@spike.land/shadb";
 import React from "react";
 import ReactDOM from "react-dom";
 import startMonaco from "@spike.land/smart-monaco-editor";
@@ -65,9 +65,10 @@ function getSession() {
   return session;
 }
 
-export async function run(mode = "window", code = "") {
-  window.diff = diff;
-  window.assemble = assemble;
+export async function run({mode="window", code, room=""}) {
+  mode = mode && "window";
+  code = code && "";
+
 
   const session = getSession();
   window.sess = session;
@@ -83,6 +84,7 @@ export async function run(mode = "window", code = "") {
   }
 
   session.mode = mode;
+  session.room = room;
 
   if (code) {
     session.code = code;
@@ -95,7 +97,7 @@ export async function run(mode = "window", code = "") {
       const { code, transpiled, html } =
         (pathname.endsWith("/edit/") || pathname.endsWith("/edit"))
           ? await getIPFSCodeToLoad(undefined)
-          : await getCodeToLoad();
+          : await getCodeToLoad(room);
 
       session.code = code;
       session.formattedCode = await formatter(code);

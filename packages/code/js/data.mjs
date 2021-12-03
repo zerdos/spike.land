@@ -144,8 +144,8 @@ export async function getIPFSCodeToLoad(_rootUrl) {
   return ret;
 }
 
-export async function getCodeToLoad() {
-  const projectName = await getActiveProject();
+export async function getCodeToLoad(room) {
+  const projectName = room || await getActiveProject();
   if (projectName.rootUrl) {
     return getIPFSCodeToLoad(projectName.rootUrl);
   }
@@ -202,7 +202,7 @@ export const saveCode =
    * @param {number} counter
    */
   async (opts, counter) => {
-    const { code, codeNonFormatted, html, transpiled } = opts;
+    const { code, codeNonFormatted, html, transpiled, room } = opts;
     toSave.code = code || await getStarter();
 
     // deno-lint-ignore ban-ts-comment
@@ -261,7 +261,7 @@ export const saveCode =
 
     if (opts.i > counter) return;
     const url = await sharePromise;
-    const projectName = await getActiveProject();
+    const projectName = opts.room || await getActiveProject();
     if (opts.i > counter) return;
     opts.url = url;
     // const prevHash = await shaDB.get(projectName, "string");
