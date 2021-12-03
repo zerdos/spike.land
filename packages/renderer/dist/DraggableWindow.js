@@ -10,6 +10,15 @@ import { QRButton } from "./Qr.js";
 import { css, jsx, motion, React } from "./renderer.js";
 const breakPoints = [640, 1024, 1920];
 const sizes = [10, 25, 50, 75, 100];
+let Sanyi = () => {
+  const [ch, setCh] = React.useState(/* @__PURE__ */ jsx("div", null));
+  React.useEffect(() => {
+    import("https://code.spike.land/api/room/sanyi/js").then((mod) => {
+      setCh(jsx(mod.default));
+    });
+  });
+  return /* @__PURE__ */ jsx("div", null, ch);
+};
 const DraggableWindow = ({ onShare, onRestore, position, session }) => {
   const [isStable, setIsStable] = React.useState(false);
   const [scaleRange, changeScaleRange] = React.useState(75);
@@ -202,7 +211,7 @@ const DraggableWindow = ({ onShare, onRestore, position, session }) => {
     onClick: () => {
       onShare();
     }
-  }, /* @__PURE__ */ jsx(Share, null))))));
+  }, /* @__PURE__ */ jsx(Share, null)), /* @__PURE__ */ jsx(Sanyi, null)))));
 };
 function createMarkup(__html) {
   return { __html };

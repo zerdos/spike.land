@@ -30,6 +30,19 @@ interface DraggableWindowProps {
   position?: string;
 }
 
+let Sanyi = ()=>{
+  const [ch, setCh] = React.useState(<div></div>);
+React.useEffect(()=>{
+  import(`https://code.spike.land/api/room/sanyi/js`).then(mod=>{
+  setCh(jsx(mod.default));
+})
+
+})
+
+return <div>{ch}</div>;
+}
+
+
 export const DraggableWindow: React.FC<DraggableWindowProps> = (
   { onShare, onRestore, position, session },
 ) => {
@@ -319,6 +332,7 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
             >
               <Share />
             </Fab>
+            <Sanyi></Sanyi>
           </div>
         </div>
       </motion.div>
