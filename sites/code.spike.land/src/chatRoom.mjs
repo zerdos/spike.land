@@ -182,9 +182,11 @@ export class Code {
         const difference = data.difference;
         let code = data.code;
         let html = data.html;
+        let css = data.css;
         let transpiled = data.transpiled;
         const transpiledDiff = data.transpiledDiff;
         const htmlDiff = data.htmlDiff;
+        const cssDiff = data.cssDiff;
         const hashOfCode = data.hashOfCode;
         const hashOfPreviousCode = data.hashOfStarterCode;
      
@@ -243,6 +245,9 @@ export class Code {
           }
           if (transpiled) {
             await this.storage.put("transpiled", transpiled);
+          }
+          if (css) {
+            await this.storage.put("css", css);
           }
 
         }
