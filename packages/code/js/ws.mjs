@@ -277,3 +277,23 @@ export const join = (user, room) => {
     rejoin();
   });
 };
+
+export const run = async () =>{
+     
+          
+  const resp = await fetch(
+          "./code",
+        );
+  const code = await resp.text();
+  const target = document.getElementById("zbody");
+  await restart(code, target);
+
+  window.restartCode = (c)=>restart(c, document.getElementById("zbody"));
+  const user = Math.random()-"html";
+  const room = location.pathname.slice(1).split("/")[2];
+
+  console.log(user, room);
+
+  join(user, room);
+       
+}

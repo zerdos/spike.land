@@ -64,7 +64,7 @@ export class Code {
               }        
       case "public": {
 
-         const html =  HTML.replace("$$ROOMNAME", "roomie").replace("$$IMPORTMAP", JSON.stringify({imports: {...importMap.imports, app: `https://code.spike.land/@${version}/dist/dev.mjs`, ws: `https://code.spike.land/@${version}/dist/ws.mjs` }}));
+         const html =  HTML.replace("$$ROOMNAME", "roomie").replace("$$IMPORTMAP", JSON.stringify({imports: {...importMap.imports, app: `https://code.spike.land/@${version}/dist/ws.mjs` }}));
   
             return new Response(html, {
                status: 200, 
