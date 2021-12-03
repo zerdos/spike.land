@@ -111,7 +111,7 @@ export const join = (user, room) => {
         const message = { hashOfCode };
         if (difference) {
           message.name = username;
-         
+
           message.difference = difference;
           message.hashOfCode = hashOfCode;
           message.hashOfStarterCode = prevHash;
@@ -136,7 +136,7 @@ export const join = (user, room) => {
 
           window.starterCode = starterCode;
         } else {
-          message.code = code; 
+          message.code = code;
           message.name = username;
           message.html = html;
           message.transpiled = transpiled;

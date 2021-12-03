@@ -36,7 +36,30 @@ export class Code {
               }
            });
           }
-          
+          case "js": {
+            const transpiled = await this.storage.get("transpiled");
+  
+            return new Response(transpiled, {
+               status: 200, 
+               headers: {
+                  "Access-Control-Allow-Origin": "*",
+                  "Cache-Control": "no-cache",
+                  "Content-Type": "application/javascript; charset=UTF-8"
+                }
+             });
+            }
+            case "html": {
+              const html = await this.storage.get("html");
+    
+              return new Response(html, {
+                 status: 200, 
+                 headers: {
+                    "Access-Control-Allow-Origin": "*",
+                    "Cache-Control": "no-cache",
+                    "Content-Type": "text/html; charset=UTF-8"
+                  }
+               });
+              }        
       case "public": {
 
          const html =  HTML.replace("$$ROOMNAME", "roomie").replace("$$IMPORTMAP", JSON.stringify({imports: {...importMap.imports, app: `https://code.spike.land/@${version}/dist/dev.mjs`, ws: `https://code.spike.land/@${version}/dist/ws.mjs` }}));
@@ -101,7 +124,7 @@ export class Code {
 
     let hashOfCode;
     let code = await this.storage.get("code") || await this.storage.get("lastSeenCode");
-  
+    
     if (code){
       
       hashOfCode = await Hash.of(code);
