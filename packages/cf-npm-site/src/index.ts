@@ -31,9 +31,9 @@ export default function (
         targetPath = `${uri}/index.html`;
       }
 
-      const resp = fetch(`https://unpkg.com/${packageName}${targetPath}`);
+      const resp = await fetch(`https://unpkg.com/${packageName}${targetPath}`);
 
-      myCache.put(request, (await resp).clone());
+      if (resp.status===200) myCache.put(request, resp.clone());
 
       return resp;
     } catch (Error) {
