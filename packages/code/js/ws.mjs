@@ -159,91 +159,66 @@ export const join = (user, room) => {
     ws.send(JSON.stringify({ name: username }));
   });
 
-  ws.addEventListener("message", (event) => {
+  ws.addEventListener("message", async (event) => {
     const data = JSON.parse(event.data);
-    if (data.timestamp) {
-      let timestamp = data.timestamp;
-      while (messageQueue[timestamp]) timestamp++;
 
-      messageQueue[timestamp] = data;
-      messageQueue.timestamps.push(timestamp);
-      messageQueue.timestamps.sort(function (a, b) {
-        return a - b;
-      });
+    if (data.timestamp && !lastSeenTimestamp) {
+      lastSeenTimestamp = data.timestamp;
+    }
+    if (data.name === username) return;
 
-      setTimeout(() => {
-        const timestamp = messageQueue.timestamps.shift();
-        const event = { ...messageQueue[timestamp] };
-        messageQueue[timestamp] = null;
-        process(event);
-      }, 100);
-    } else {
-      process(data);
+    if (data.hashOfCode) {
+      window.wantedHashBase = data.hashOfCode;
     }
 
-    async function process(data) {
-      try {
-        if (data.timestamp && !lastSeenTimestamp) {
-          lastSeenTimestamp = data.timestamp;
-        }
-        if (data.name === username) return;
+    if (data.hashOfCode) {
+      if (
+        !window[data.hashOfCode] ||
+        window[data.hashOfCode] !== data.hashOfCode
+      ) {
+        const resp = await fetch(
+          `https://code.spike.land/api/room/${roomName}/code`,
+        );
+        const code = await resp.text();
+        const hash = await Hash.of(code);
+        if (hash === data.hashOfCode) window[hash] = code;
+      }
+      window.starterCode = window[data.hashOfCode];
+      lastSeenCode = window[data.hashOfCode];
+      chCode(lastSeenCode);
+    }
 
-        if (data.hashOfCode) {
-          window.wantedHashBase = data.hashOfCode;
-        }
+    // A regular chat message.
 
-        if (data.hashOfCode) {
-          if (
-            !window[data.hashOfCode] ||
-            window[data.hashOfCode] !== data.hashOfCode
-          ) {
-            const resp = await fetch(
-              `https://code.spike.land/api/room/${roomName}/code`,
-            );
-            const code = await resp.text();
-            const hash = await Hash.of(code);
-            if (hash === data.hashOfCode) window[hash] = code;
+    if (data.codeDiff) {
+      if (
+        data.hashOfCode &&
+        data.codeDiff && data.hashOfCode !== window.hashOfCode
+      ) {
+        const hashOfCode = data.hashOfCode;
+
+        const dmp = new DiffMatchPatch();
+        const patches = dmp.patch_fromText(data.codeDiff);
+        const patched = dmp.patch_apply(patches, lastSeenCode);
+
+        if (patched[0]) {
+          const lastSeenCode = patched[0];
+          const hashFromCodeDiff = lastSeenCode &&
+            await Hash.of(lastSeenCode);
+          if (hashFromCodeDiff === hashOfCode) {
+            window[hashOfCode] = lastSeenCode;
+            window.hashOfCode = hashOfCode;
+            chCode(lastSeenCode);
           }
-          window.starterCode = window[data.hashOfCode];
-          lastSeenCode = window[data.hashOfCode];
-          chCode(lastSeenCode);
+        } else {
+          console.error("we are out of sync...");
+          ws.close(1000, "out of sync");
+          return;
         }
-
-        // A regular chat message.
-
-        if (data.codeDiff) {
-          if (
-            data.hashOfCode &&
-            data.codeDiff && data.hashOfCode !== window.hashOfCode
-          ) {
-            const hashOfCode = data.hashOfCode;
-
-            const dmp = new DiffMatchPatch();
-            const patches = dmp.patch_fromText(data.codeDiff);
-            const patched = dmp.patch_apply(patches, lastSeenCode);
-
-            if (patched[0]) {
-              const lastSeenCode = patched[0];
-              const hashFromcodeDiff = lastSeenCode &&
-                await Hash.of(lastSeenCode);
-              if (hashFromcodeDiff === hashOfCode) {
-                window[hashOfCode] = lastSeenCode;
-                window.hashOfCode = hashOfCode;
-                chCode(lastSeenCode);
-              }
-            } else {
-              console.error("we are out of sync...");
-              ws.close(1000, "out of sync");
-              return;
-            }
-          }
-        }
-        // addChatMessage(data.name, data.message);
-        lastSeenTimestamp = data.timestamp;
-      } catch (e) {
-        console.error({ e });
       }
     }
+    // addChatMessage(data.name, data.message);
+    lastSeenTimestamp = data.timestamp;
   });
 
   ws.addEventListener("close", (event) => {
