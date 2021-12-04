@@ -15,7 +15,6 @@ export const run = async (mode = "window", code = "") => {
     ]));
   }
 
-
   const { run: runCode } = await import("../dist/dev.mjs");
 
   const { starterCode } = window;
