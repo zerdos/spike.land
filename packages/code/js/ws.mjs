@@ -1,6 +1,6 @@
 // import DiffMatchPatch from "diff-match-patch";
-import createDelta from 'textdiff-create';
-import applyPatch from 'textdiff-patch';
+import createDelta from "textdiff-create";
+import applyPatch from "textdiff-patch";
 
 import Hash from "ipfs-only-hash";
 
@@ -8,7 +8,7 @@ let currentWebSocket = null;
 
 const mod = {};
 
-function createPatch(oldCode, newCode){
+function createPatch(oldCode, newCode) {
   return JSON.stringify(createDelta(oldCode, newCode));
 }
 
@@ -134,11 +134,13 @@ export const join = (user, room) => {
 
           window[hashOfCode] = code;
 
-          if (!mod[hashOfCode]) mod[hashOfCode] = {
-            transpiled,
-            css,
-            html,
-          };
+          if (!mod[hashOfCode]) {
+            mod[hashOfCode] = {
+              transpiled,
+              css,
+              html,
+            };
+          }
           // if (hashOfCode !== prevHash) delete mod[prevHash];
 
           window.starterCode = starterCode;
@@ -203,23 +205,22 @@ export const join = (user, room) => {
         // const dmp = new DiffMatchPatch();
         // const patches = dmp.patch_fromText(data.codeDiff);
         // const patched = dmp.patch_apply(patches, lastSeenCode);
-      
-          lastSeenCode = applyPatch(lastSeenCode,JSON.parse(data.codeDiff));
-          const hashFromCodeDiff = 
-          lastSeenCode &&
-            await Hash.of(lastSeenCode);
-          if (hashFromCodeDiff === hashOfCode) {
-            window[hashOfCode] = lastSeenCode;
-            window.hashOfCode = hashOfCode;
-            chCode(lastSeenCode);
-          }
-        } else {
-          console.error("we are out of sync...");
-          ws.close(1000, "out of sync");
-          return;
+
+        lastSeenCode = applyPatch(lastSeenCode, JSON.parse(data.codeDiff));
+        const hashFromCodeDiff = lastSeenCode &&
+          await Hash.of(lastSeenCode);
+        if (hashFromCodeDiff === hashOfCode) {
+          window[hashOfCode] = lastSeenCode;
+          window.hashOfCode = hashOfCode;
+          chCode(lastSeenCode);
         }
+      } else {
+        console.error("we are out of sync...");
+        ws.close(1000, "out of sync");
+        return;
       }
-    
+    }
+
     // addChatMessage(data.name, data.message);
     lastSeenTimestamp = data.timestamp;
   });
@@ -245,7 +246,7 @@ export const run = async () => {
 
   window.restartCode = (c) => restart(c, document.getElementById("zbody"));
   const user = Math.random() - "html";
-  const room = location.pathname.slice(1).split("/")[2];
+  const room = location.pathname.slice(1).split("/")[2] || "code-main";
 
   console.log(user, room);
 
