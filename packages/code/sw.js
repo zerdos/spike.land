@@ -1,9 +1,9 @@
 
 self.importScripts('https://storage.googleapis.com/workbox-cdn/releases/6.4.2/workbox-sw.js');
 
-
+const workbox = self.workbox;
 self.workbox.setConfig({
-  debug: true,
+  debug: false,
 });
 
 const {registerRoute} = workbox.routing;
