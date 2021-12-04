@@ -38,7 +38,7 @@ const chCode = (code) => {
 
 let hostname = "code.spike.land";
 
-let roomName = "main-room";
+let roomName = "code-main";
 let username = "user" + Math.random();
 let lastSeenTimestamp = 0;
 let lastSeenCode = "";

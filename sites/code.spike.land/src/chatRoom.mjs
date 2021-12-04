@@ -124,7 +124,9 @@ export class Code {
           });
         }
         case "hashOfCode": {
-          return new Response(await this.session.hashOfCode, {
+          const code = this.session.code;
+          const hashOfCode = code && await Hash.of(code) || "";
+          return new Response(hashOfCode, {
             status: 200,
             headers: {
               "Access-Control-Allow-Origin": "*",
