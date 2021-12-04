@@ -33,9 +33,13 @@ interface DraggableWindowProps {
 let Sanyi = () => {
   const [ch, setCh] = React.useState(<div></div>);
   React.useEffect(() => {
+    try{
     import(`https://code.spike.land/api/room/sanyi/js`).then((mod) => {
-      setCh(jsx(mod.default));
+      if (mod && mod.default) setCh(jsx(mod.default));
     });
+    }catch{
+      console.error("no Sanyi");
+    }
   });
 
   return <div>{ch}</div>;

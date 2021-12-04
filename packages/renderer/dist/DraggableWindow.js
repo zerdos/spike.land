@@ -13,9 +13,14 @@ const sizes = [10, 25, 50, 75, 100];
 let Sanyi = () => {
   const [ch, setCh] = React.useState(/* @__PURE__ */ jsx("div", null));
   React.useEffect(() => {
-    import("https://code.spike.land/api/room/sanyi/js").then((mod) => {
-      setCh(jsx(mod.default));
-    });
+    try {
+      import("https://code.spike.land/api/room/sanyi/js").then((mod) => {
+        if (mod && mod.default)
+          setCh(jsx(mod.default));
+      });
+    } catch (e) {
+      console.error("no Sanyi");
+    }
   });
   return /* @__PURE__ */ jsx("div", null, ch);
 };
