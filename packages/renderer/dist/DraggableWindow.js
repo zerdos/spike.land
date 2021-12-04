@@ -8,9 +8,16 @@ import Tv from "./icons/Tv.js";
 import Phone from "./icons/PhoneAndroid.js";
 import { QRButton } from "./Qr.js";
 import { css, jsx, motion, React } from "./renderer.js";
+const { Suspense } = React;
 const breakPoints = [640, 1024, 1920];
 const sizes = [10, 25, 50, 75, 100];
-let Sanyi = () => {
+let Sanyi = React.lazy(() => import("https://code.spike.land/api/room/sanyi/js"));
+function LazySanyi() {
+  return /* @__PURE__ */ jsx("div", null, /* @__PURE__ */ jsx(Suspense, {
+    fallback: /* @__PURE__ */ jsx("div", null, "Sanyi...")
+  }, /* @__PURE__ */ jsx(Sanyi, null)));
+}
+() => {
   const [ch, setCh] = React.useState(/* @__PURE__ */ jsx("div", null));
   React.useEffect(() => {
     try {
@@ -216,7 +223,7 @@ const DraggableWindow = ({ onShare, onRestore, position, session }) => {
     onClick: () => {
       onShare();
     }
-  }, /* @__PURE__ */ jsx(Share, null)), /* @__PURE__ */ jsx(Sanyi, null)))));
+  }, /* @__PURE__ */ jsx(Share, null)), /* @__PURE__ */ jsx(LazySanyi, null)))));
 };
 function createMarkup(__html) {
   return { __html };

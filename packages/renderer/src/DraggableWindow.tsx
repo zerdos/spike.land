@@ -12,6 +12,8 @@ import { QRButton } from "./Qr.js";
 
 import { css, jsx, motion, React } from "./renderer.js";
 
+const {Suspense} = React;
+
 const breakPoints = [640, 1024, 1920];
 
 const sizes = [10, 25, 50, 75, 100];
@@ -30,7 +32,20 @@ interface DraggableWindowProps {
   position?: string;
 }
 
-let Sanyi = () => {
+let Sanyi = React.lazy(() => import(`https://code.spike.land/api/room/sanyi/js`));
+
+
+function LazySanyi() {
+  return (
+    <div>
+      <Suspense fallback={<div>Sanyi...</div>}>
+        <Sanyi />
+      </Suspense>
+    </div>
+  );
+}
+
+() => {
   const [ch, setCh] = React.useState(<div></div>);
   React.useEffect(() => {
     try {
@@ -334,9 +349,9 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
             >
               <Share />
             </Fab>
-            <Sanyi></Sanyi>
+            <LazySanyi/>
           </div>
-        </div>
+        </div>  
       </motion.div>
     </React.Fragment>
   );
