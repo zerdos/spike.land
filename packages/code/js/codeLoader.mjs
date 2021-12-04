@@ -68,7 +68,7 @@ function getSession() {
 export async function run({ mode = "window", code, room = "code-main" }) {
   mode = mode || "window";
   code = code || "";
-  room = room || "code-main"
+  room = room || "code-main";
 
   const session = getSession();
   window.sess = session;
@@ -241,7 +241,7 @@ export async function run({ mode = "window", code, room = "code-main" }) {
 
         const saveErrorCode = async () => {
           const CID = await Hash.of(c);
-  
+
           const url = `/error/${CID}`;
           fetch(`https://code.spike.land${url}`, {
             method: "POST",

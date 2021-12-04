@@ -33,8 +33,10 @@ export const workboxLoader = async () => {
 
     try {
       let url = "./sw.js";
-      if (location.hostname.includes("spike.land")) url="https://code.spike.land/sw.js";
-      
+      if (location.hostname.includes("spike.land")) {
+        url = "https://code.spike.land/sw.js";
+      }
+
       const wb = new Workbox(url);
 
       wb.addEventListener("activated", async (event) => {

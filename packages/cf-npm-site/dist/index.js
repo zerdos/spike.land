@@ -20,8 +20,9 @@ export default function (packageName, version, serveDir = "") {
             else if (pathname.indexOf(".") === -1) {
                 targetPath = `${uri}/index.html`;
             }
-            const resp = fetch(`https://unpkg.com/${packageName}${targetPath}`);
-            myCache.put(request, (await resp).clone());
+            const resp = await fetch(`https://unpkg.com/${packageName}${targetPath}`);
+            if (resp.status === 200)
+                myCache.put(request, resp.clone());
             return resp;
         }
         catch (Error) {

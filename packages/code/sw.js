@@ -1,27 +1,27 @@
-
-self.importScripts('https://storage.googleapis.com/workbox-cdn/releases/6.4.2/workbox-sw.js');
+self.importScripts(
+  "https://storage.googleapis.com/workbox-cdn/releases/6.4.2/workbox-sw.js",
+);
 
 const workbox = self.workbox;
 self.workbox.setConfig({
   debug: false,
 });
 
-const {registerRoute} = workbox.routing;
-const {CacheFirst} = workbox.strategies;
-const {CacheableResponsePlugin} = workbox.cacheableResponse;
-
+const { registerRoute } = workbox.routing;
+const { CacheFirst } = workbox.strategies;
+const { CacheableResponsePlugin } = workbox.cacheableResponse;
 
 // const {CacheFirst} =  self.workbox.strategies;
 
 registerRoute(
-  ({request}) => request.url.includes("unpkg.com") || request.url.includes("/@"),
+  ({ request }) =>
+    request.url.includes("unpkg.com") || request.url.includes("/@"),
   new CacheFirst({
     plugins: [
-      new CacheableResponsePlugin({statuses: [0, 200]})
+      new CacheableResponsePlugin({ statuses: [0, 200] }),
     ],
-  })
+  }),
 );
-
 
 let SW_VERSION = null;
 

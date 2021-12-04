@@ -179,7 +179,7 @@ export async function getCodeToLoad(room) {
       );
       code = await respCode.text();
     } else {
-      code =  await getStarter();
+      code = await getStarter();
     }
 
     const data = {

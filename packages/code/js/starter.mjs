@@ -1,7 +1,7 @@
 import { join } from "../dist/ws.mjs";
 
 // const wb = () =>
-  // import("./workboxLoader.mjs").then(({ workboxLoader }) => workboxLoader());
+// import("./workboxLoader.mjs").then(({ workboxLoader }) => workboxLoader());
 
 const path = location.pathname.split("/");
 const user = "user" + Math.random();
