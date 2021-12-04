@@ -27,6 +27,8 @@ export class Code {
         return;
       }
 
+      let hashOfCodeP = Hash.of(code);
+
       let css = await this.state.storage.get("css");
       let transpiled = await this.state.storage.get("transpiled");
       let html = await this.state.storage.get("html");
@@ -40,8 +42,10 @@ export class Code {
         html,
         css,
         lastTimestamp,
-        hashOfCode: Hash.of(code),
+        hashOfCode: hashOfCodeP,
       };
+      this.hashCache[await hashOfCodeP] = code;
+
     });
 
     this.env = env;
@@ -255,7 +259,8 @@ export class Code {
         const cssDiff = data.cssDiff;
         const hashOfPatched = data.hashOfCode;
 
-        const previousCode = this.session.code;
+
+        let previousCode = this.session.code;
         const hashOfPreviousCode = await this.session.hashOfCode;
 
         data = { name: session.name };
@@ -268,11 +273,15 @@ export class Code {
           this.session.css = css;
           this.session.html = html;
           this.session.transpiled = transpiled;
-          data.hashOfCode = await this.session.hashOfCode;
-        } else if (hashOfStarterCode != hashOfPreviousCode) {
+          data.hashOfCode = await this.session.hashOfCode
+          this.hashCache[data.hashOfCode] = code;
+        }
+
+        else if (hashOfStarterCode != hashOfPreviousCode) {
           data.code = this.session.code,
-            data.hashOfCode = await this.session.hashOfCode;
-        } else if (codeDiff) {
+          data.hashOfCode = await this.session.hashOfCode;
+        }
+         else if (codeDiff) {
           code = unDiff(previousCode, codeDiff);
 
           const hashOfCode = await Hash.of(code);
@@ -325,12 +334,16 @@ export class Code {
         // Save message.
         let key = new Date(this.session.lastTimestamp).toISOString();
 
-        if (code) {
+        setTimeout(async () => {
+          
+        if (code && code === this.session.code) {
           // await this.state.storage.put(hashOfCode, code);
           await this.state.storage.put("code", code);
+        } else {
+          return;
         }
 
-        if (html) {
+        if (html ) {
           await this.state.storage.put("html", html);
         }
         if (transpiled) {
@@ -339,6 +352,7 @@ export class Code {
         if (css) {
           await this.state.storage.put("css", css);
         }
+      }, 1000);
 
         await this.state.storage.put(key, dataStr);
       } catch (err) {
