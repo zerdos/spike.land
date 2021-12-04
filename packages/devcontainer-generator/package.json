@@ -1,6 +1,6 @@
 {
   "name": "@spike.land/devcontainer-generator",
-  "version": "0.1.56",
+  "version": "0.1.82",
   "description": "generates custom devcontainer Dockerfiles",
   "files": [
     "lib/**/*",
