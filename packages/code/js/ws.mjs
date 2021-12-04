@@ -1,11 +1,16 @@
-import DiffMatchPatch from "diff-match-patch";
-import createPatch from 'textdiff-create';
+// import DiffMatchPatch from "diff-match-patch";
+import createDelta from 'textdiff-create';
+import applyPatch from 'textdiff-patch';
 
 import Hash from "ipfs-only-hash";
 
 let currentWebSocket = null;
 
 const mod = {};
+
+function createPatch(oldCode, newCode){
+  return JSON.stringify(createDelta(oldCode, newCode));
+}
 
 const chCode = (code) => {
   try {
@@ -197,13 +202,13 @@ export const join = (user, room) => {
       ) {
         const hashOfCode = data.hashOfCode;
 
-        const dmp = new DiffMatchPatch();
-        const patches = dmp.patch_fromText(data.codeDiff);
-        const patched = dmp.patch_apply(patches, lastSeenCode);
-
-        if (patched[0]) {
-          const lastSeenCode = patched[0];
-          const hashFromCodeDiff = lastSeenCode &&
+        // const dmp = new DiffMatchPatch();
+        // const patches = dmp.patch_fromText(data.codeDiff);
+        // const patched = dmp.patch_apply(patches, lastSeenCode);
+      
+          lastSeenCode = applyPatch(lastSeenCode,JSON.parse(data.codeDiff));
+          const hashFromCodeDiff = 
+          lastSeenCode &&
             await Hash.of(lastSeenCode);
           if (hashFromCodeDiff === hashOfCode) {
             window[hashOfCode] = lastSeenCode;
@@ -216,7 +221,7 @@ export const join = (user, room) => {
           return;
         }
       }
-    }
+    
     // addChatMessage(data.name, data.message);
     lastSeenTimestamp = data.timestamp;
   });

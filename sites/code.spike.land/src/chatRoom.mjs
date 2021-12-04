@@ -4,7 +4,7 @@ import Hash from "ipfs-only-hash";
 import HTML from "./target.html";
 import importMap from "@spike.land/code/js/importmap.json";
 import { version } from "@spike.land/code/package.json";
-import applyPatch from 'textdiff-patch';
+import applyDelta from 'textdiff-patch';
 
 
 
@@ -408,9 +408,6 @@ export class Code {
   }
 }
 
-// function applyPatch(old, diff) {
-//   const dmp = new DiffMatchPatch();
-//   const patches = dmp.patch_fromText(diff);
-//   const patchedCode = (dmp.patch_apply(patches, old)[0]);
-//   return patchedCode;
-// }
+function applyPatch(old, delta) {
+  return applyDelta(old, JSON.parse(delta))
+}
