@@ -164,8 +164,21 @@ export async function getCodeToLoad(room) {
     return data;
   }
   if (projectDesc !== null && projectDesc !== undefined) {
+
+    const resp = await fetch(`https://code.spike.land/api/room/${room}/hashOfCode`);
+    const CID = await resp.text();
+    const codeFromIdb = await shaDB.get(projectDesc.code, "string");
+    const CIDofCodeFromIDB = await Hash.of(codeFromIdb);
+    let code;
+    if (CIDofCodeFromIDB && CID===CIDofCodeFromIDB) {
+      code = codeFromIdb;
+    } else {
+      const respCode = await fetch(`https://code.spike.land/api/room/${room}/code`);
+      code = await respCode.text();
+    }
+
     const data = {
-      code: await shaDB.get(projectDesc.code, "string") || await getStarter(),
+      code: code || await getStarter(),
       transpiled: await shaDB.get(projectDesc.transpiled, "string") || "",
       html: await shaDB.get(projectDesc.html, "string") || "",
     };
