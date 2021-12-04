@@ -1,15 +1,18 @@
 import { handleErrors } from "./handleErrors.mjs";
 import { RateLimiterClient } from "./rateLimiterClient.mjs";
-import DiffMatchPatch from "diff-match-patch";
 import Hash from "ipfs-only-hash";
 import HTML from "./target.html";
 import importMap from "@spike.land/code/js/importmap.json";
 import { version } from "@spike.land/code/package.json";
+import applyPatch from 'textdiff-patch';
+
+
 
 export class Code {
   constructor(state, env) {
     this.state = state;
 
+    this.hashCache = {};
     this.session = {};
 
     this.state.blockConcurrencyWhile(async () => {
@@ -21,7 +24,7 @@ export class Code {
           transpiled: "",
           css: "",
           html: "",
-          lastTimestamp: Date.now(),
+          lastTimestamp: Date.now()
         };
 
         return;
@@ -282,7 +285,7 @@ export class Code {
           data.hashOfCode = await this.session.hashOfCode;
         }
          else if (codeDiff) {
-          code = unDiff(previousCode, codeDiff);
+          code = applyPatch(previousCode, codeDiff);
 
           const hashOfCode = await Hash.of(code);
 
@@ -319,11 +322,11 @@ export class Code {
 
         if (patched) {
           try {
-            if (cssDiff) css = unDiff(this.session.css, cssDiff);
+            if (cssDiff) css = applyPatch(this.session.css, cssDiff);
             if (transpiledDiff) {
-              transpiled = unDiff(this.session.transpiled, transpiledDiff);
+              transpiled = applyPatch(this.session.transpiled, transpiledDiff);
             }
-            if (htmlDiff) html = unDiff(this.session.html, htmlDiff);
+            if (htmlDiff) html = applyPatch(this.session.html, htmlDiff);
             this.session.css = css;
             this.session.html = html;
             this.session.transpiled = transpiled;
@@ -333,13 +336,15 @@ export class Code {
         }
         // Save message.
         let key = new Date(this.session.lastTimestamp).toISOString();
-
+        let _res = null;
+        const pr = new Promise((resolve)=>_res=resolve);
         setTimeout(async () => {
           
         if (code && code === this.session.code) {
           // await this.state.storage.put(hashOfCode, code);
           await this.state.storage.put("code", code);
         } else {
+          _res();
           return;
         }
 
@@ -352,9 +357,11 @@ export class Code {
         if (css) {
           await this.state.storage.put("css", css);
         }
-      }, 1000);
-
         await this.state.storage.put(key, dataStr);
+        _res();
+      }, 1000);
+      await pr;
+       
       } catch (err) {
         webSocket.send(JSON.stringify({ error: err.stack }));
       }
@@ -401,9 +408,9 @@ export class Code {
   }
 }
 
-function unDiff(old, diff) {
-  const dmp = new DiffMatchPatch();
-  const patches = dmp.patch_fromText(diff);
-  const patchedCode = (dmp.patch_apply(patches, old)[0]);
-  return patchedCode;
-}
+// function applyPatch(old, diff) {
+//   const dmp = new DiffMatchPatch();
+//   const patches = dmp.patch_fromText(diff);
+//   const patchedCode = (dmp.patch_apply(patches, old)[0]);
+//   return patchedCode;
+// }

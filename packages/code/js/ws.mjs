@@ -1,4 +1,6 @@
 import DiffMatchPatch from "diff-match-patch";
+import createPatch from 'textdiff-create';
+
 import Hash from "ipfs-only-hash";
 
 let currentWebSocket = null;
@@ -63,12 +65,12 @@ let rejoin = async () => {
   }
 };
 
-function getDiff(from, to) {
-  const dmp = new DiffMatchPatch();
+// function createPatch(from, to) {
+//   const dmp = new DiffMatchPatch();
 
-  const patches = dmp.patch_make(from, to);
-  return dmp.patch_toText(patches);
-}
+//   const patches = dmp.patch_make(from, to);
+//   return dmp.patch_toText(patches);
+// }
 
 export const join = (user, room) => {
   if (user) username = user;
@@ -97,7 +99,7 @@ export const join = (user, room) => {
         if (window.starterCode) {
           try {
             codeDiff = prevHash && window[prevHash] &&
-              getDiff(window[prevHash], code);
+              createPatch(window[prevHash], code);
             // console.log(codeDiff);
           } catch (e) {
             console.error({ e });
@@ -113,9 +115,9 @@ export const join = (user, room) => {
           message.hashOfStarterCode = prevHash;
 
           if (prevHash && mod[prevHash]) {
-            message.htmlDiff = getDiff(mod[prevHash].html, html);
-            message.cssDiff = getDiff(mod[prevHash].css, css);
-            message.transpiledDiff = getDiff(
+            message.htmlDiff = createPatch(mod[prevHash].html, html);
+            message.cssDiff = createPatch(mod[prevHash].css, css);
+            message.transpiledDiff = createPatch(
               mod[prevHash].transpiled,
               transpiled,
             );
