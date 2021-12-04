@@ -1,5 +1,5 @@
 self.importScripts(
-  "https://unpkg.com/workbox-sw@6.4.0/build/workbox-sw.js",
+  "https://unpkg.com/workbox-sw@6.4.2/build/workbox-sw.js",
 );
 
 let SW_VERSION = null;
