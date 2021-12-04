@@ -2,9 +2,7 @@ import DiffMatchPatch from "diff-match-patch";
 import Hash from "ipfs-only-hash";
 
 let currentWebSocket = null;
-const messageQueue = {
-  timestamps: [],
-};
+
 const mod = {};
 
 const chCode = (code) => {
@@ -237,6 +235,7 @@ export const run = async () => {
   );
   const code = await resp.text();
   const target = document.getElementById("zbody");
+  const {restart} = await import(`../js/codeLoader.mjs`);
   await restart(code, target);
 
   window.restartCode = (c) => restart(c, document.getElementById("zbody"));
