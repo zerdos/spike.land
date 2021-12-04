@@ -218,7 +218,7 @@ export const saveCode =
    * @param {number} counter
    */
   async (opts, counter) => {
-    const { code, codeNonFormatted, html, transpiled, room } = opts;
+    const { code, codeNonFormatted, html, transpiled } = opts;
     toSave.code = code || await getStarter();
 
     // deno-lint-ignore ban-ts-comment
