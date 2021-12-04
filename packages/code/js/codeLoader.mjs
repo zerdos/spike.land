@@ -112,9 +112,10 @@ export async function run({ mode = "window", code, room = "" }) {
     }
   }
 
-  const currentHashOfCode = await Hash.of(session.code);
+  const currentCode = session.code;
+  const currentHashOfCode = await Hash.of(currentCode);
   if (!window.currentHashOfCode) window.currentHashOfCode = currentHashOfCode;
-  window[currentHashOfCode] = session.code;
+  window[currentHashOfCode] = currentCode;
 
   // const editorContainer = window.document.createElement("div");
   // editorContainer.className= "editor-frame"
