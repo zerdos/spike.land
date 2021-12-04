@@ -171,17 +171,19 @@ export async function getCodeToLoad(room) {
     const codeFromIdb = await shaDB.get(projectDesc.code, "string");
     const CIDofCodeFromIDB = await Hash.of(codeFromIdb);
     let code;
-    if (CIDofCodeFromIDB && CID === CIDofCodeFromIDB) {
+    if (CIDofCodeFromIDB && CID && CID === CIDofCodeFromIDB) {
       code = codeFromIdb;
-    } else {
+    } else if (CID) {
       const respCode = await fetch(
         `https://code.spike.land/api/room/${room}/code`,
       );
       code = await respCode.text();
+    } else {
+      code =  await getStarter();
     }
 
     const data = {
-      code: code || await getStarter(),
+      code: code,
       transpiled: await shaDB.get(projectDesc.transpiled, "string") || "",
       html: await shaDB.get(projectDesc.html, "string") || "",
     };
