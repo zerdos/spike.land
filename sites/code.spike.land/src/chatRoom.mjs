@@ -266,14 +266,14 @@ export class Code {
         } else if (codeDiff) {
           code = unDiff(previousCode, codeDiff);
 
-          const hashOfCode = await Hash.of(patchedCode);
+          const hashOfCode = await Hash.of( code );
 
-          if (hashOfCode === hashOfAPatched) {
+          if (hashOfCode ===  data.hashOfCode ) {
             patched = true;
-            this.session.hashOfCode = hashOfAPatched;
+            this.session.hashOfCode = hashOfCode;
             this.session.code = code;
 
-            data.hashOfCode = hashOfAPatched;
+            data.hashOfCode = hashOfCode;
             data.hashOfPreviousCode = hashOfPreviousCode;
             data.codeDiff = codeDiff;
           }
@@ -332,7 +332,7 @@ export class Code {
       }
     });
 
-    let closeOrErrorHandler = (evt) => {
+    let closeOrErrorHandler = () => {
       session.quit = true;
       this.sessions = this.sessions.filter((member) => member !== session);
       if (session.name) {
