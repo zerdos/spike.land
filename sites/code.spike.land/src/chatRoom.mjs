@@ -241,7 +241,7 @@ export class Code {
 
         // Construct sanitizedlastSeenCode message for storage and broadcast.
 
-        const codeDiff = data.codeDiff;
+      
 
         let code = data.code;
         let html = data.html;
@@ -249,9 +249,12 @@ export class Code {
         let transpiled = data.transpiled;
         let hashOfStarterCode = data.hashOfStarterCode;
 
+        const codeDiff = data.codeDiff;
         const transpiledDiff = data.transpiledDiff;
         const htmlDiff = data.htmlDiff;
         const cssDiff = data.cssDiff;
+        const hashOfPatched = data.hashOfCode;
+
 
         const previousCode = this.session.code;
         const hashOfPreviousCode = await this.session.hashOfCode;
@@ -260,7 +263,16 @@ export class Code {
 
         let patched = false;
 
-        if (hashOfStarterCode != hashOfPreviousCode) {
+        if (code) {
+          this.session.code = code;
+          this.session.hashOfCode = Hash.of(code);
+          this.session.css = css;
+          this.session.html = html;
+          this.session.transpiled = transpiled;
+          data.hashOfCode = await this.session.hashOfCode
+        }
+
+        else if (hashOfStarterCode != hashOfPreviousCode) {
           data.code = this.session.code,
           data.hashOfCode = await this.session.hashOfCode;
         } else if (codeDiff) {
@@ -268,7 +280,7 @@ export class Code {
 
           const hashOfCode = await Hash.of( code );
 
-          if (hashOfCode ===  data.hashOfCode ) {
+          if (hashOfCode === hashOfPatched ) {
             patched = true;
             this.session.hashOfCode = hashOfCode;
             this.session.code = code;
@@ -276,6 +288,11 @@ export class Code {
             data.hashOfCode = hashOfCode;
             data.hashOfPreviousCode = hashOfPreviousCode;
             data.codeDiff = codeDiff;
+          } else {
+            data.decoded= code;
+            data.gotHash = hashOfCode;
+            data.expected = data.hashOfCode;
+            data.error = "Code mismatch";
           }
         }
 
@@ -311,7 +328,7 @@ export class Code {
         // Save message.
         let key = new Date(this.session.lastTimestamp).toISOString();
 
-        if (patched && code) {
+        if (code) {
           // await this.state.storage.put(hashOfCode, code);
           await this.state.storage.put("code", code);
         }

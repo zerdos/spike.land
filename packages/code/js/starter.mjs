@@ -1,4 +1,4 @@
-import { run } from "../dist/ws.mjs";
+import { join } from "../dist/ws.mjs";
 
 const wb = () =>
   import("./workboxLoader.mjs").then(({ workboxLoader }) => workboxLoader());
@@ -12,7 +12,7 @@ const runTheApp = () =>
 
 export default function () {
   try {
-    run(user, room);
+    join(user, room);
   } catch {
     setTimeout(() => join(user, room), 100);
   }

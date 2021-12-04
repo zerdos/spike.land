@@ -45,6 +45,9 @@
 
 </head>
 <body>
+  <script>
+    window.process = { env: { NODE_ENV: "production" } };
+  </script>
   <script type="importmap-shim" src="./js/importmap.json"></script>
   <script type="module-shim">
     import app from "./js/starter.mjs";
