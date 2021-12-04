@@ -39,15 +39,18 @@ export class Code {
         Number(await this.state.storage.get("lastTimestamp") || 0) ||
         Date.now();
 
+      const hashOfCode = await hashOfCodeP;
+      
       this.session = {
         code,
         transpiled,
         html,
         css,
         lastTimestamp,
-        hashOfCode: hashOfCodeP,
+        hashOfCode: hashOfCodeP
       };
-      this.hashCache[await hashOfCodeP] = code;
+
+      this.hashCache[hashOfCode] = code;
 
     });
 
@@ -90,7 +93,7 @@ export class Code {
           const html = HTML.replace(
             `<div id="zbody"></div>`,
             `<style>${css}</style><div id="zbody">${htmlContent}</div>`,
-          ).replace("$$ROOMNAME", "roomie").replace(
+          ).replace(
             "$$IMPORTMAP",
             JSON.stringify({
               imports: {
@@ -130,6 +133,7 @@ export class Code {
             },
           });
         }
+
         case "public": {
           const html = HTML.replace(
             "$$IMPORTMAP",
@@ -206,6 +210,9 @@ export class Code {
     }
 
     let receivedUserInfo = false;
+
+
+
     webSocket.addEventListener("message", async (msg) => {
       try {
         if (session.quit) {
@@ -221,7 +228,7 @@ export class Code {
         }
 
         let data = JSON.parse(msg.data);
-
+        let patched = false;
         if (!receivedUserInfo) {
           session.name = "" + (data.name || "anonymous");
 
@@ -264,11 +271,11 @@ export class Code {
 
 
         let previousCode = this.session.code;
-        const hashOfPreviousCode = await this.session.hashOfCode;
+        let hashOfPreviousCode = await Hash.of(previousCode);
 
         data = { name: session.name };
 
-        let patched = false;
+      
 
         if (code) {
           this.session.code = code;
@@ -281,10 +288,9 @@ export class Code {
         }
 
         else if (hashOfStarterCode != hashOfPreviousCode) {
-          data.code = this.session.code,
-          data.hashOfCode = await this.session.hashOfCode;
-        }
-         else if (codeDiff) {
+          previousCode = this.hashCache[hashOfStarterCode];
+          hashOfPreviousCode = hashOfStarterCode;
+        } if (codeDiff && previousCode) {
           code = applyPatch(previousCode, codeDiff);
 
           const hashOfCode = await Hash.of(code);
@@ -339,7 +345,6 @@ export class Code {
         let _res = null;
         const pr = new Promise((resolve)=>_res=resolve);
         setTimeout(async () => {
-          
         if (code && code === this.session.code) {
           // await this.state.storage.put(hashOfCode, code);
           await this.state.storage.put("code", code);
@@ -360,6 +365,7 @@ export class Code {
         await this.state.storage.put(key, dataStr);
         _res();
       }, 1000);
+
       await pr;
        
       } catch (err) {

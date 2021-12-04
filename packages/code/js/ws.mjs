@@ -96,9 +96,7 @@ export const join = (user, room) => {
       if (code !== lastSeenCode) {
         lastSeenCode = code;
         let codeDiff;
-        const prevHash = window[window.wantedHashBase]
-          ? window.wantedHashBase
-          : window.currentHashOfCode;
+        const prevHash = window.currentHashOfCode;
         if (code === window[prevHash]) return;
 
         if (window.starterCode) {
@@ -136,7 +134,7 @@ export const join = (user, room) => {
 
           window[hashOfCode] = code;
 
-          mod[hashOfCode] = {
+          if (!mod[hashOfCode]) mod[hashOfCode] = {
             transpiled,
             css,
             html,
@@ -172,9 +170,9 @@ export const join = (user, room) => {
     }
     if (data.name === username) return;
 
-    if (data.hashOfCode) {
-      window.wantedHashBase = data.hashOfCode;
-    }
+    // if (data.hashOfCode) {
+    //   window.wantedHashBase = data.hashOfCode;
+    // }
 
     if (data.hashOfCode) {
       if (
