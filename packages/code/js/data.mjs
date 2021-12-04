@@ -163,7 +163,7 @@ export async function getCodeToLoad(room) {
     };
     return data;
   }
-  if (projectDesc !== null && projectDesc !== undefined) {
+  if (room!=="" || (projectDesc !== null && projectDesc !== undefined)) {
     const resp = await fetch(
       `https://code.spike.land/api/room/${room}/hashOfCode`,
     );
