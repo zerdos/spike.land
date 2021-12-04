@@ -41,6 +41,7 @@ let hostname = "code.spike.land";
 let roomName = "code-main";
 let username = "user" + Math.random();
 let lastSeenTimestamp = 0;
+let lastSeenNow = 0;
 let lastSeenCode = "";
 let ws;
 let startTime;
@@ -77,6 +78,8 @@ let rejoin = async () => {
 //   return dmp.patch_toText(patches);
 // }
 
+let intervalHandler = null;
+
 export const join = (user, room) => {
   if (user) username = user;
   if (room) roomName = room;
@@ -88,6 +91,14 @@ export const join = (user, room) => {
   startTime = Date.now();
 
   ws.addEventListener("open", () => {
+    if (!intervalHandler){
+      intervalHandler =   setInterval(() => {
+        const now = Date.now();
+        const diff = now - lastSeenNow;
+        if (now - lastSeenNow > 30_000)
+        ws.send(JSON.stringify({ name: username, diff }));
+      }, 30_000);
+    }
     console.log("connected");
     currentWebSocket = ws;
     const broad = (
@@ -167,7 +178,8 @@ export const join = (user, room) => {
   ws.addEventListener("message", async (event) => {
     const data = JSON.parse(event.data);
 
-    if (data.timestamp && !lastSeenTimestamp) {
+    if (data.timestamp) {
+      lastSeenNow = Date.now();
       lastSeenTimestamp = data.timestamp;
     }
     if (data.name === username) return;
@@ -251,4 +263,7 @@ export const run = async () => {
   console.log(user, room);
 
   join(user, room);
+
+
+
 };

@@ -79,7 +79,7 @@ function getHTMLResp() {
 
   const rand = Math.random();
   const injection = `
-        console.log(${rand});
+      //  console.log(${rand});
     `;
 
   // Serve our HTML at the root path.
