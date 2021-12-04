@@ -32,7 +32,8 @@ export const workboxLoader = async () => {
     // });
 
     try {
-      const wb = new Workbox(`./js/sw.js`);
+      if (!location.hostname.includes("spike.land")) return;
+      const wb = new Workbox(`https://code.zed.vision/js/sw.js`);
 
       wb.addEventListener("activated", async (event) => {
         if (!event.isUpdate) {
