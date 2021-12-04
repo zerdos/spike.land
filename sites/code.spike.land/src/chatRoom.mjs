@@ -32,7 +32,9 @@ export class Code {
       let css = await this.state.storage.get("css");
       let transpiled = await this.state.storage.get("transpiled");
       let html = await this.state.storage.get("html");
-      let lastTimestamp = Number(await this.state.storage.get("lastTimestamp") || 0) || Date.now();
+      let lastTimestamp =
+        Number(await this.state.storage.get("lastTimestamp") || 0) ||
+        Date.now();
 
       this.session = {
         code,
@@ -245,8 +247,6 @@ export class Code {
 
         // Construct sanitizedlastSeenCode message for storage and broadcast.
 
-      
-
         let code = data.code;
         let html = data.html;
         let css = data.css;
@@ -280,12 +280,13 @@ export class Code {
         else if (hashOfStarterCode != hashOfPreviousCode) {
           data.code = this.session.code,
           data.hashOfCode = await this.session.hashOfCode;
-        } else if (codeDiff) {
+        }
+         else if (codeDiff) {
           code = unDiff(previousCode, codeDiff);
 
-          const hashOfCode = await Hash.of( code );
+          const hashOfCode = await Hash.of(code);
 
-          if (hashOfCode === hashOfPatched ) {
+          if (hashOfCode === hashOfPatched) {
             patched = true;
             this.session.hashOfCode = hashOfCode;
             this.session.code = code;
@@ -294,7 +295,7 @@ export class Code {
             data.hashOfPreviousCode = hashOfPreviousCode;
             data.codeDiff = codeDiff;
           } else {
-            data.decoded= code;
+            data.decoded = code;
             data.gotHash = hashOfCode;
             data.expected = data.hashOfCode;
             data.error = "Code mismatch";
@@ -305,7 +306,7 @@ export class Code {
         //   webSocket.send(JSON.stringify({ error: "Message too long." }));
         //   return;
         // }
-        
+
         data.timestamp = Math.max(
           Date.now(),
           this.session.lastTimestamp + 1,
