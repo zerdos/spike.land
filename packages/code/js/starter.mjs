@@ -1,7 +1,7 @@
 import { join } from "../dist/ws.mjs";
 
-const wb = () =>
-  import("./workboxLoader.mjs").then(({ workboxLoader }) => workboxLoader());
+// const wb = () =>
+  // import("./workboxLoader.mjs").then(({ workboxLoader }) => workboxLoader());
 
 const path = location.pathname.split("/");
 const user = "user" + Math.random();
@@ -17,11 +17,11 @@ export default function () {
     setTimeout(() => join(user, room), 100);
   }
 
-  try {
-    wb();
-  } catch {
-    setTimeout(wb, 100);
-  }
+  // try {
+  //   wb();
+  // } catch {
+  //   setTimeout(wb, 100);
+  // }
 
   try {
     runTheApp();

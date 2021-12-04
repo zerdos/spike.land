@@ -8,7 +8,6 @@ import React from "react";
 import ReactDOM from "react-dom";
 import startMonaco from "@spike.land/smart-monaco-editor";
 import { jsx } from "@emotion/react";
-import { ipfsClient } from "./ipfsClient.mjs";
 import Hash from "ipfs-only-hash";
 //import { getUserId } from "./data.mjs";
 // import Hash from "ipfs-only-hash";
@@ -241,9 +240,8 @@ export async function run({ mode = "window", code, room = "code-main" }) {
         session.errorText = err.message;
 
         const saveErrorCode = async () => {
-          const res = await ipfsClient.add(c, { onlyHash: true });
-          const CID = res.cid.toString();
-
+          const CID = await Hash.of(c);
+  
           const url = `/error/${CID}`;
           fetch(`https://code.spike.land${url}`, {
             method: "POST",

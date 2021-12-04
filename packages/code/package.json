@@ -19,7 +19,7 @@
     "postinstall": "yarn importmap",
     "start": "cd ../.. && yarn stcart",
     "push": "cd ../.. && yarn push",
-    "build": "node --experimental-json-modules esbuild-dev.mjs",
+    "build": "rm -rf dist && node --experimental-json-modules esbuild-dev.mjs",
     "importmap": "node scripts/importmapGenerator.mjs > js/importmap.json"
   },
   "keywords": [

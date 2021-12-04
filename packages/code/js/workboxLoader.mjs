@@ -32,8 +32,10 @@ export const workboxLoader = async () => {
     // });
 
     try {
-      if (!location.hostname.includes("spike.land")) return;
-      const wb = new Workbox(`https://code.spike.land/js/sw.js`);
+      let url = "./sw.js";
+      if (location.hostname.includes("spike.land")) url="https://code.spike.land/sw.js";
+      
+      const wb = new Workbox(url);
 
       wb.addEventListener("activated", async (event) => {
         if (!event.isUpdate) {

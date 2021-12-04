@@ -1,12 +1,33 @@
-self.importScripts(
-  "https://unpkg.com/workbox-sw@6.4.2/build/workbox-sw.js",
+
+self.importScripts('https://storage.googleapis.com/workbox-cdn/releases/6.4.2/workbox-sw.js');
+
+
+self.workbox.setConfig({
+  debug: true,
+});
+
+const {registerRoute} = workbox.routing;
+const {CacheFirst} = workbox.strategies;
+const {CacheableResponsePlugin} = workbox.cacheableResponse;
+
+
+// const {CacheFirst} =  self.workbox.strategies;
+
+registerRoute(
+  ({request}) => request.url.includes("unpkg.com") || request.url.includes("/@"),
+  new CacheFirst({
+    plugins: [
+      new CacheableResponsePlugin({statuses: [0, 200]})
+    ],
+  })
 );
+
 
 let SW_VERSION = null;
 
 addEventListener("message", async (event) => {
   if (event.data.type === "GET_VERSION") {
-    const resp = await fetch("../package.json");
+    const resp = await fetch("./package.json");
 
     const json = await resp.json();
     SW_VERSION = json.version;
