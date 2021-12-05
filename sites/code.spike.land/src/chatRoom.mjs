@@ -221,14 +221,16 @@ export class Code {
           return;
         }
 
-        if (!limiter.checkLimit()) {
+        let data = JSON.parse(msg.data);
+        
+        if ( !(data.type && (data.type === "new-ice-candidate" || data.type ==="chat-offer" || data.type ==="chat-answer")) && !limiter.checkLimit()) {
           webSocket.send(JSON.stringify({
             error: "Your IP is being rate-limited, please try again later.",
           }));
           return;
         }
 
-        let data = JSON.parse(msg.data);
+
         let patched = false;
         if (!receivedUserInfo) {
           session.name = "" + (data.name || "anonymous");
@@ -255,6 +257,11 @@ export class Code {
 
           return;
         }
+
+        if(data.type && (data.type === "new-ice-candidate" || data.type ==="chat-offer" || data.type ==="chat-answer")) {
+          this.user2user(data.target, msg.data);
+          return;
+        } 
 
         // Construct sanitizedlastSeenCode message for storage and broadcast.
 
@@ -384,6 +391,28 @@ export class Code {
     webSocket.addEventListener("close", closeOrErrorHandler);
     webSocket.addEventListener("error", closeOrErrorHandler);
   }
+
+  user2user(to,message) {
+    // Apply JSON if we weren't given a string to start with.
+    if (typeof message !== "string") {
+      message = JSON.stringify(message);
+    }
+
+    // Iterate over all the sessions sending them messages.
+    this.sessions = this.sessions.filter((session) => {
+      if (session.name && session.name===to) {
+        try {
+          session.webSocket.send(message);
+          return true;
+        } catch (err) {
+          // Whoops, this connection is dead. Remove it from the list and arrange to notify
+          // everyone below.
+          console.log("error");
+        }
+      }
+    });
+  }
+
 
   broadcast(message) {
     if (typeof message !== "string") {
