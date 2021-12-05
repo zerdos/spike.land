@@ -161,7 +161,9 @@ const list = [
   // "@mui/styles",
   // "@mui/utils",
   "prop-types",
-  // "diff-match-patch",
+  "textdiff-create",
+  "textdiff-patch",
+  
   "framer-motion",
   // "clsx",
   "framesync",
