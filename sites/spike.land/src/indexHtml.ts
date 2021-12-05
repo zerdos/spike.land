@@ -4,7 +4,7 @@ export const content = `<!DOCTYPE html>
   <meta http-equiv="Content-Type" content="text/html,charset=utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
   <link rel="icon" type="image/png" href="./assets/zed-icon-big.png" />
-  <link rel="stylesheet" href="https://unpkg.com/modern-css-reset/dist/reset.min.css" />
+  <link rel="stylesheet" href="https://unpkg.com/modern-css-reset@1.4.0/dist/reset.min.css" />
   <link rel="stylesheet" href="https://code.spike.land/assets/app.css" />
   <link rel="stylesheet" href="https://code.spike.land/assets/roboto.css" />
 

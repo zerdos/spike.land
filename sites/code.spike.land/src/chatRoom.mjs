@@ -141,7 +141,7 @@ export class Code {
             JSON.stringify({
               imports: {
                 ...importMap.imports,
-                app: `https://code.spike.land/@${version}/js/ws.mjs`,
+                app: `https://unpkg.com/@spike.land/code@${version}/js/ws.mjs`,
               },
             }),
           );

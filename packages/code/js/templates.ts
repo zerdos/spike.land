@@ -83,7 +83,7 @@ export function getHtml({ html, css }) {
 <meta name="Description" content="Generated with spike.land">
 <title>${title}</title>
 <link rel="icon" type="image/png" href="https://code.spike.land/assets/zed-icon-big.png" />
-<link rel="stylesheet" href="https://unpkg.com/modern-css-reset/dist/reset.min.css" />
+<link rel="stylesheet" href="https://unpkg.com/modern-css-reset@1.4.0/dist/reset.min.css" />
 
 <script crossorigin src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
 <script crossorigin src="https://unpkg.com/react-is@17.0.2/umd/react-is.production.min.js"></script>
