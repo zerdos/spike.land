@@ -34,8 +34,10 @@ const exceptions = {
   "ipfs-only-hash":
     `https://unpkg.com/@spike.land/esm@${zedEsmLatestVersion}/dist/ipfs-only-hash.mjs`,
 
-  "diff-match-patch":
-    `https://unpkg.com/@spike.land/esm@${zedEsmLatestVersion}/dist/diff-match-patch.mjs`,
+  "textdiff-create":
+    `https://unpkg.com/@spike.land/esm@${zedEsmLatestVersion}/dist/textdiff-create.mjs`,
+    "textdiff-patch":
+    `https://unpkg.com/@spike.land/esm@${zedEsmLatestVersion}/dist/textdiff-patch.mjs`,
 
   "uuid/": `https://unpkg.com/uuid@${uidVersion}/dist/esm-browser/`,
 };
@@ -159,7 +161,7 @@ const list = [
   // "@mui/styles",
   // "@mui/utils",
   "prop-types",
-  "diff-match-patch",
+  // "diff-match-patch",
   "framer-motion",
   // "clsx",
   "framesync",

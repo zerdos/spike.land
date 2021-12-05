@@ -98,8 +98,7 @@ export class Code {
             JSON.stringify({
               imports: {
                 ...importMap.imports,
-                app: `https://code.spike.land/api/room/${codeSpace}/js`,
-                ws: `https://code.spike.land/@${version}/dist/ws.mjs`,
+                app: `https://code.spike.land/api/room/${codeSpace}/js`
               },
             }),
           );

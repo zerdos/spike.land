@@ -60,7 +60,7 @@ function LazySanyi() {
 
   return <div>{ch}</div>;
 });
- 
+
 export const DraggableWindow: React.FC<DraggableWindowProps> = (
   { onShare, onRestore, position, session },
 ) => {

@@ -1,4 +1,3 @@
-// import DiffMatchPatch from "diff-match-patch";
 import createDelta from "textdiff-create";
 import applyPatch from "textdiff-patch";
 
@@ -96,7 +95,9 @@ export const join = (user, room) => {
         const now = Date.now();
         const diff = now - lastSeenNow;
         if (now - lastSeenNow > 30_000) {
-          ws.send(JSON.stringify({ name: username, time: lastSeenTimestamp+ diff }));
+          ws.send(
+            JSON.stringify({ name: username, time: lastSeenTimestamp + diff }),
+          );
         }
       }, 30_000);
     }
