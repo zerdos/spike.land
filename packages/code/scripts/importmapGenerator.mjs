@@ -14,6 +14,7 @@ const exceptions = {
   "react-transition-group": "https://esm.sh/react-transition-group",
   "hoist-non-react-statics": "https://esm.sh/hoist-non-react-statics",
   "prop-types": "https://esm.sh/prop-types",
+  "@babel/runtime/": "https://esm.sh/@babel/runtime/",
   // "@mui/material": `https://unpkg.com/@mui/material@${muiMateriaVersion}/modern/index.js`,
   // "@mui/material/": `https://unpkg.com/@mui/material@${muiMateriaVersion}/modern/`,
   // "@mui/core": `https://unpkg.com/@mui/core@${muiCoreVersion}/modern/index.js`,
@@ -143,7 +144,7 @@ const getUnpkgLink = async (packageName) => {
 };
 
 const list = [
-  "@babel/runtime",
+  "@babel/runtime/",
   "@emotion/cache",
   "@emotion/hash",
   "@emotion/is-prop-valid",
