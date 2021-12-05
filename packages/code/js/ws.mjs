@@ -255,7 +255,7 @@ export const run = async () => {
   );
   const code = await resp.text();
   const target = document.getElementById("zbody");
-  const { restart } = await import(`../dist/dev.mjs`);
+  const { restart } = await import(`./dev.mjs`);
   await restart(code, target);
 
   window.restartCode = (c) => restart(c, document.getElementById("zbody"));

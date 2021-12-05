@@ -84,7 +84,7 @@ function getHTMLResp() {
 
   // Serve our HTML at the root path.
   const regex = /VERSION/ig;
-  importMap.imports.app = `https://code.spike.land/@${version}/js/starter.mjs`;
+  importMap.imports.app = `https://unpkg.com/@spike.land/code@${version}/js/starter.mjs`;
   return new Response(
     html1.replace("$$IMPORTMAP", JSON.stringify(importMap)).replaceAll(
       regex,
