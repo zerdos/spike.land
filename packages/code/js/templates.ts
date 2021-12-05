@@ -1,6 +1,6 @@
 import importmapJson from "./importmap.json";
 
-export function getCss({ html }) {
+export function getCss({ html }: { html: string }) {
   const bodyClass = String(
     window.document.getElementById("zbody")?.getAttribute("class"),
   );
@@ -11,20 +11,25 @@ export function getCss({ html }) {
   );
   if (cssRules) {
     try {
-      css = Array.from(
-        // deno-lint-ignore ban-ts-comment
-        // @ts-ignore
-        window.document.querySelector("head > style[data-emotion=css]").sheet
-          .cssRules,
-      ).map((x) => x.cssText).filter((cssRule) => {
-        const selector = cssRule.substring(5, 10);
-        const isSelectorBody = bodyClass.indexOf(selector) !== -1;
-        const isInGeneratedHtml = html.indexOf(selector) !== -1;
+      const sheet =
+        (window.document.querySelector(
+          "head > style[data-emotion=css]",
+        ) as HTMLStyleElement).sheet;
+      if (sheet) {
+        css = Array.from(
+          // deno-lint-ignore ban-ts-comment
+          // @ts-ignore
+          sheet.cssRules,
+        ).map((x) => x.cssText).filter((cssRule) => {
+          const selector = cssRule.substring(5, 10);
+          const isSelectorBody = bodyClass.indexOf(selector) !== -1;
+          const isInGeneratedHtml = html.indexOf(selector) !== -1;
 
-        const shouldInclude = isSelectorBody || isInGeneratedHtml;
+          const shouldInclude = isSelectorBody || isInGeneratedHtml;
 
-        return shouldInclude;
-      }).join("\n  ").replace(`#zbody`, "body");
+          return shouldInclude;
+        }).join("\n  ").replace(`#zbody`, "body");
+      }
     } catch (e) {
       console.error({ e });
     }
@@ -36,25 +41,25 @@ export function getCss({ html }) {
 
   if (globalCssRules) {
     try {
-      css += Array.from(
-        // deno-lint-ignore ban-ts-comment
-        // @ts-ignore
-        window.document.querySelector("head > style[data-emotion=css-global]")
-          .sheet
-          .cssRules,
-      ).map((x) => x.cssText)
-        .join("\n  ").replace(`#zbody`, "body");
+      const sheet =
+        (window.document.querySelector(
+          "head > style[data-emotion=css-global]",
+        ) as HTMLStyleElement).sheet;
+      if (sheet) {
+        css += Array.from(
+          sheet
+            .cssRules,
+        ).map((x) => x.cssText)
+          .join("\n  ").replace(`#zbody`, "body");
+      }
     } catch (e) {
       console.error({ e });
     }
   }
   return css;
 }
-/**
- * @param {{html: string, css: string}} opts
- * @returns  {string}
- */
-export function getHtml({ html, css }) {
+
+export function getHtml({ html, css }: { html: string; css: string }) {
   //
   // For some reason, pre-rendering doesn't care about global styles, the site flickers without this patch
   //

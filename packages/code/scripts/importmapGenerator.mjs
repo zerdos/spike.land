@@ -37,7 +37,7 @@ const exceptions = {
 
   "textdiff-create":
     `https://unpkg.com/@spike.land/esm@${zedEsmLatestVersion}/dist/textdiff-create.mjs`,
-    "textdiff-patch":
+  "textdiff-patch":
     `https://unpkg.com/@spike.land/esm@${zedEsmLatestVersion}/dist/textdiff-patch.mjs`,
 
   "uuid/": `https://unpkg.com/uuid@${uidVersion}/dist/esm-browser/`,
@@ -164,7 +164,7 @@ const list = [
   "prop-types",
   "textdiff-create",
   "textdiff-patch",
-  
+
   "framer-motion",
   // "clsx",
   "framesync",

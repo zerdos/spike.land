@@ -4,7 +4,8 @@ import * as importMap from "esbuild-plugin-import-map";
 
 import jsonData from "./js/importmap.json" assert { type: "json" };
 
-const importData = Object.keys(jsonData.imports).filter((name) => !name.includes("@spike.land") || name.includes("@spike.land/esm")
+const importData = Object.keys(jsonData.imports).filter((name) =>
+  !name.includes("@spike.land") || name.includes("@spike.land/esm")
 );
 
 let imports = {};
