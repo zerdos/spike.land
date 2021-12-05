@@ -11,10 +11,9 @@ export function getCss({ html }: { html: string }) {
   );
   if (cssRules) {
     try {
-      const sheet =
-        (window.document.querySelector(
-          "head > style[data-emotion=css]",
-        ) as HTMLStyleElement).sheet;
+      const sheet = (window.document.querySelector(
+        "head > style[data-emotion=css]",
+      ) as HTMLStyleElement).sheet;
       if (sheet) {
         css = Array.from(
           // deno-lint-ignore ban-ts-comment
@@ -41,10 +40,9 @@ export function getCss({ html }: { html: string }) {
 
   if (globalCssRules) {
     try {
-      const sheet =
-        (window.document.querySelector(
-          "head > style[data-emotion=css-global]",
-        ) as HTMLStyleElement).sheet;
+      const sheet = (window.document.querySelector(
+        "head > style[data-emotion=css-global]",
+      ) as HTMLStyleElement).sheet;
       if (sheet) {
         css += Array.from(
           sheet

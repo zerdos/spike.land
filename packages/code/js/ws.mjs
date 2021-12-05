@@ -5,7 +5,6 @@ import Hash from "ipfs-only-hash";
 
 let currentWebSocket = null;
 
-
 const mod = {};
 
 function createPatch(oldCode, newCode) {
@@ -180,38 +179,40 @@ export const join = (user, room) => {
 
   ws.addEventListener("message", async (event) => {
     const data = JSON.parse(event.data);
-    if (data.name && data.name !== username && targetUsername ==null){
+    if (data.name && data.name !== username && targetUsername == null) {
       targetUsername = data.name;
-      try{
+      try {
         await createPeerConnection();
-        const sendChannel = myPeerConnection.createDataChannel('sendDataChannel');
+        const sendChannel = myPeerConnection.createDataChannel(
+          "sendDataChannel",
+        );
         window.sendChannel = sendChannel;
-        sendChannel.onopen = function(event) {
-          sendChannel.send('Hi you!');
-        }
-        sendChannel.onmessage = function(event) {
+        sendChannel.onopen = function () {
+          sendChannel.send("Hi you!");
+        };
+        sendChannel.onmessage = function (event) {
           console.log(event.data);
-        }
+        };
         // sendChannel.on§
         // const offer = await myPeerConnection.createOffer();
         // console.log({offer});
-      } catch(e){
-        console.log({e});
+      } catch (e) {
+        console.log({ e });
         log_error("Error with p2p");
       }
     }
     if (data.type === "new-ice-candidate") {
-     await handleNewICECandidateMsg(data);
-     return;
+      await handleNewICECandidateMsg(data);
+      return;
     }
     if (data.type === "chat-offer") {
-      await handleChatOffer(data)
+      await handleChatOffer(data);
 
       return;
     }
 
     if (data.type === "chat-answer") {
-      await handleChatAnswerMsg(data)
+      await handleChatAnswerMsg(data);
 
       return;
     }
@@ -303,13 +304,11 @@ export const run = async () => {
   join(user, room);
 };
 
-
 // Create the RTCPeerConnection which knows how to talk to our
 // selected STUN/TURN server and then uses getUserMedia() to find
 // our camera and microphone and add that stream to the connection for
 // use in our video call. Then we configure event handlers to get
 // needed notifications on the call.
-
 
 var myHostname = window.location.hostname;
 if (!myHostname) {
@@ -318,9 +317,6 @@ if (!myHostname) {
 log("Hostname: " + myHostname);
 
 // WebSocket chat/signaling channel variables.
-
-var connection = null;
-var clientID = 0;
 
 // The media constraints object describes what sort of stream we want
 // to request from the local A/V hardware (typically a webcam and
@@ -335,17 +331,8 @@ var clientID = 0;
 // https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/getUserMedia
 //
 
-var mediaConstraints = {
-  audio: true,            // We want an audio track
-  video: {
-    aspectRatio: {
-      ideal: 1.333333     // 3:2 aspect is preferred
-    }
-  }
-};
-
-var targetUsername = null;      // To store username of other peer
-var myPeerConnection = null;    // RTCPeerConnection
+var targetUsername = null; // To store username of other peer
+var myPeerConnection = null; // RTCPeerConnection
 // var transceiver = null;         // RTCRtpTransceiver
 // var webcamStream = null;        // MediaStream from webcam
 
@@ -365,84 +352,86 @@ function log_error(text) {
   console.trace("[" + time.toLocaleTimeString() + "] " + text);
 }
 
-
 async function createPeerConnection() {
-log("Setting up a connection...");
+  log("Setting up a connection...");
 
-// Create an RTCPeerConnection which knows to use our chosen
-// STUN server.
+  // Create an RTCPeerConnection which knows to use our chosen
+  // STUN server.
 
-myPeerConnection = new RTCPeerConnection({
-  iceServers: ['stun.l.google.com:19302',
-    // 'stun.linea7.net:3478',
-    // 'stun.linphone.org:3478',
-    // 'stun.lowratevoip.com'
-  ].map((url)=>({urls: `stun:${url}`}))
-});
+  myPeerConnection = new RTCPeerConnection({
+    iceServers: ["stun.l.google.com:19302"// 'stun.linea7.net:3478',
+      // 'stun.linphone.org:3478',
+      // 'stun.lowratevoip.com'
+    ].map((url) => ({ urls: `stun:${url}` })),
+  });
 
-// Set up event handlers for the ICE negotiation process.
+  // Set up event handlers for the ICE negotiation process.
 
-myPeerConnection.onicecandidate = handleICECandidateEvent;
-myPeerConnection.oniceconnectionstatechange = handleICEConnectionStateChangeEvent;
-myPeerConnection.onicegatheringstatechange = handleICEGatheringStateChangeEvent;
-myPeerConnection.onsignalingstatechange = handleSignalingStateChangeEvent;
-myPeerConnection.onnegotiationneeded = handleNegotiationNeededEvent;
-myPeerConnection.ontrack = handleTrackEvent;
+  myPeerConnection.onicecandidate = handleICECandidateEvent;
+  myPeerConnection.oniceconnectionstatechange =
+    handleICEConnectionStateChangeEvent;
+  myPeerConnection.onicegatheringstatechange =
+    handleICEGatheringStateChangeEvent;
+  myPeerConnection.onsignalingstatechange = handleSignalingStateChangeEvent;
+  myPeerConnection.onnegotiationneeded = handleNegotiationNeededEvent;
+  myPeerConnection.ontrack = handleTrackEvent;
 
-myPeerConnection.ondatachannel = function(event) {
-  log("NEW DATA ondatachannel")
-  var channel = event.channel;
-    channel.onopen = function(event) {
-      log("MESSAGE ondatachannel")
+  myPeerConnection.ondatachannel = function (event) {
+    log("NEW DATA ondatachannel");
+    var channel = event.channel;
+    channel.onopen = function () {
+      log("MESSAGE ondatachannel");
 
-    channel.send('Hi back!');
-  }
-  channel.onmessage = function(event) {
-    log("MESSAGE ondatachannel")
-    console.log(event.data);
-  }
-}
-window.myPeerConnection = myPeerConnection;
+      channel.send("Hi back!");
+    };
+    channel.onmessage = function (event) {
+      log("MESSAGE ondatachannel");
+      console.log(event.data);
+    };
+  };
+  window.myPeerConnection = myPeerConnection;
 }
 
 // Called by the WebRTC layer to let us know when it's time to
 // begin, resume, or restart ICE negotiation.
 
 async function handleNegotiationNeededEvent() {
-log("*** Negotiation needed");
+  log("*** Negotiation needed");
 
-try {
-  log("---> Creating offer");
-  const offer = await myPeerConnection.createOffer();
+  try {
+    log("---> Creating offer");
+    const offer = await myPeerConnection.createOffer();
 
-  // If the connection hasn't yet achieved the "stable" state,
-  // return to the caller. Another negotiationneeded event
-  // will be fired when the state stabilizes.
+    // If the connection hasn't yet achieved the "stable" state,
+    // return to the caller. Another negotiationneeded event
+    // will be fired when the state stabilizes.
 
-  if (myPeerConnection.signalingState != "stable") {
-    log("     -- The connection isn't stable yet; postponing...")
-    return;
+    if (myPeerConnection.signalingState != "stable") {
+      log("     -- The connection isn't stable yet; postponing...");
+      return;
+    }
+
+    // Establish the offer as the local peer's current
+    // description.
+
+    log("---> Setting local description to the offer");
+    await myPeerConnection.setLocalDescription(offer);
+
+    // Send the offer to the remote peer.
+
+    log("---> Sending the offer to the remote peer");
+    ws.send(JSON.stringify({
+      name: username,
+      target: targetUsername,
+      type: "chat-offer",
+      sdp: myPeerConnection.localDescription,
+    }));
+  } catch (err) {
+    log(
+      "*** The following error occurred while handling the negotiationneeded event:",
+    );
+    // reportError(err);
   }
-
-  // Establish the offer as the local peer's current
-  // description.
-
-  log("---> Setting local description to the offer");
-  await myPeerConnection.setLocalDescription(offer);
-
-  // Send the offer to the remote peer.
-
-  log("---> Sending the offer to the remote peer");
-  ws.send(JSON.stringify({
-    name: username,
-    target: targetUsername,
-    type: "chat-offer",
-    sdp: myPeerConnection.localDescription
-  }));
-} catch(err) {
-  log("*** The following error occurred while handling the negotiationneeded event:");
-  // reportError(err);
-};
 }
 
 // Called by the WebRTC layer when events occur on the media tracks
@@ -460,9 +449,9 @@ try {
 // it to the <video> element for incoming media.
 
 function handleTrackEvent(event) {
-log("*** Track event");
-document.getElementById("received_video").srcObject = event.streams[0];
-document.getElementById("hangup-button").disabled = false;
+  log("*** Track event");
+  document.getElementById("received_video").srcObject = event.streams[0];
+  document.getElementById("hangup-button").disabled = false;
 }
 
 // Handles |icecandidate| events by forwarding the specified
@@ -470,15 +459,15 @@ document.getElementById("hangup-button").disabled = false;
 // peer through the signaling server.
 
 function handleICECandidateEvent(event) {
-if (event.candidate) {
-  log("*** Outgoing ICE candidate: " + event.candidate.candidate);
+  if (event.candidate) {
+    log("*** Outgoing ICE candidate: " + event.candidate.candidate);
 
-  ws.send(JSON.stringify({
-    type: "new-ice-candidate",
-    target: targetUsername,
-    candidate: event.candidate
-  }));
-}
+    ws.send(JSON.stringify({
+      type: "new-ice-candidate",
+      target: targetUsername,
+      candidate: event.candidate,
+    }));
+  }
 }
 
 // Handle |iceconnectionstatechange| events. This will detect
@@ -486,17 +475,19 @@ if (event.candidate) {
 //
 // This is called when the state of the ICE agent changes.
 
-function handleICEConnectionStateChangeEvent(event) {
-log("*** ICE connection state changed to " + myPeerConnection.iceConnectionState);
+function handleICEConnectionStateChangeEvent() {
+  log(
+    "*** ICE connection state changed to " +
+      myPeerConnection.iceConnectionState,
+  );
 
-switch(myPeerConnection.iceConnectionState) {
-  case "closed":
-  case "failed":
-  case "disconnected":
-    break;
+  switch (myPeerConnection.iceConnectionState) {
+    case "closed":
+    case "failed":
+    case "disconnected":
+      break;
+  }
 }
-}
-
 
 async function handleNewICECandidateMsg(msg) {
   log("*** Adding received ICE candidate: " + JSON.stringify(msg));
@@ -504,8 +495,8 @@ async function handleNewICECandidateMsg(msg) {
 
   log("*** Adding received ICE candidate: " + JSON.stringify(candidate));
   try {
-    await myPeerConnection.addIceCandidate(candidate)
-  } catch(err) {
+    await myPeerConnection.addIceCandidate(candidate);
+  } catch (err) {
     reportError(err);
   }
 }
@@ -517,12 +508,14 @@ async function handleNewICECandidateMsg(msg) {
 // returned in the property RTCPeerConnection.connectionState when
 // browsers catch up with the latest version of the specification!
 
-function handleSignalingStateChangeEvent(event) {
-log("*** WebRTC signaling state changed to: " + myPeerConnection.signalingState);
-switch(myPeerConnection.signalingState) {
-  case "closed":=
-    break;
-}
+function handleSignalingStateChangeEvent() {
+  log(
+    "*** WebRTC signaling state changed to: " + myPeerConnection.signalingState,
+  );
+  switch (myPeerConnection.signalingState) {
+    case "closed":
+      break;
+  }
 }
 
 // Handle the |icegatheringstatechange| event. This lets us know what the
@@ -535,14 +528,15 @@ switch(myPeerConnection.signalingState) {
 // We don't need to do anything when this happens, but we log it to the
 // console so you can see what's going on when playing with the sample.
 
-function handleICEGatheringStateChangeEvent(event) {
-log("*** ICE gathering state changed to: " + myPeerConnection.iceGatheringState);
+function handleICEGatheringStateChangeEvent() {
+  log(
+    "*** ICE gathering state changed to: " + myPeerConnection.iceGatheringState,
+  );
 }
 
 function reportError(errMessage) {
   log_error(`Error ${errMessage.name}: ${errMessage.message}`);
 }
-
 
 async function handleChatOffer(msg) {
   targetUsername = msg.name;
@@ -568,27 +562,28 @@ async function handleChatOffer(msg) {
     // Set the local and remove descriptions for rollback; don't proceed
     // until both return.
     await Promise.all([
-      myPeerConnection.setLocalDescription({type: "rollback"}),
-      myPeerConnection.setRemoteDescription(desc)
+      myPeerConnection.setLocalDescription({ type: "rollback" }),
+      myPeerConnection.setRemoteDescription(desc),
     ]);
     return;
   } else {
-    log ("  - Setting remote description");
+    log("  - Setting remote description");
     await myPeerConnection.setRemoteDescription(desc);
   }
 
   // Get the webcam stream if we don't already have it
 
-
   log("---> Creating and sending answer to caller");
 
-  await myPeerConnection.setLocalDescription(await myPeerConnection.createAnswer());
+  await myPeerConnection.setLocalDescription(
+    await myPeerConnection.createAnswer(),
+  );
 
   ws.send(JSON.stringify({
     name: username,
     target: targetUsername,
     type: "chat-answer",
-    sdp: myPeerConnection.localDescription
+    sdp: myPeerConnection.localDescription,
   }));
 }
 
