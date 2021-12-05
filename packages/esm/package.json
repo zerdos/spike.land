@@ -1,6 +1,6 @@
 {
   "name": "@spike.land/esm",
-  "version": "0.1.82",
+  "version": "0.1.96",
   "description": "esm modules for packages with maintainers from the 2015",
   "main": "dist/react.mjs",
   "files": [
@@ -25,14 +25,14 @@
   "dependencies": {
     "@types/react": "17.0.37",
     "@types/react-dom": "17.0.11",
-    "textdiff-create": "1.0.5",
-    "textdiff-patch": "1.0.5",
     "esbuild": "0.14.2",
     "framer-motion": "5.3.3",
     "ipfs-only-hash": "4.0.0",
     "react": "17.0.2",
     "react-dom": "17.0.2",
-    "react-is": "17.0.2"
+    "react-is": "17.0.2",
+    "textdiff-create": "1.0.5",
+    "textdiff-patch": "1.0.5"
   },
   "publishConfig": {
     "access": "public"
