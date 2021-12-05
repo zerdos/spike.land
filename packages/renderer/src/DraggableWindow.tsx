@@ -12,7 +12,7 @@ import { QRButton } from "./Qr.js";
 
 import { css, jsx, motion, React } from "./renderer.js";
 
-const {Suspense} = React;
+const { Suspense } = React;
 
 const breakPoints = [640, 1024, 1920];
 
@@ -32,8 +32,9 @@ interface DraggableWindowProps {
   position?: string;
 }
 
-let Sanyi = React.lazy(() => import(`https://code.spike.land/api/room/sanyi/js`));
-
+let Sanyi = React.lazy(() =>
+  import(`https://code.spike.land/api/room/sanyi/js`)
+);
 
 function LazySanyi() {
   return (
@@ -45,7 +46,7 @@ function LazySanyi() {
   );
 }
 
-() => {
+(() => {
   const [ch, setCh] = React.useState(<div></div>);
   React.useEffect(() => {
     try {
@@ -58,8 +59,8 @@ function LazySanyi() {
   });
 
   return <div>{ch}</div>;
-};
-
+});
+ 
 export const DraggableWindow: React.FC<DraggableWindowProps> = (
   { onShare, onRestore, position, session },
 ) => {
@@ -349,9 +350,9 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
             >
               <Share />
             </Fab>
-            <LazySanyi/>
+            <LazySanyi />
           </div>
-        </div>  
+        </div>
       </motion.div>
     </React.Fragment>
   );

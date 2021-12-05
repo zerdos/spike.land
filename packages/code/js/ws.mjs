@@ -91,12 +91,13 @@ export const join = (user, room) => {
   startTime = Date.now();
 
   ws.addEventListener("open", () => {
-    if (!intervalHandler){
-      intervalHandler =   setInterval(() => {
+    if (!intervalHandler) {
+      intervalHandler = setInterval(() => {
         const now = Date.now();
         const diff = now - lastSeenNow;
-        if (now - lastSeenNow > 30_000)
-        ws.send(JSON.stringify({ name: username, diff }));
+        if (now - lastSeenNow > 30_000) {
+          ws.send(JSON.stringify({ name: username, diff }));
+        }
       }, 30_000);
     }
     console.log("connected");
@@ -263,7 +264,4 @@ export const run = async () => {
   console.log(user, room);
 
   join(user, room);
-
-
-
 };
