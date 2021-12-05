@@ -96,7 +96,7 @@ export const join = (user, room) => {
         const now = Date.now();
         const diff = now - lastSeenNow;
         if (now - lastSeenNow > 30_000) {
-          ws.send(JSON.stringify({ name: username, diff }));
+          ws.send(JSON.stringify({ name: username, time: lastSeenTimestamp+ diff }));
         }
       }, 30_000);
     }
