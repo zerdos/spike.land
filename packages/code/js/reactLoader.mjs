@@ -1,6 +1,8 @@
 import { importScript } from "./importScript.mjs";
 
 export const run = async (mode = "window", code = "") => {
+  window.process = { env: { NODE_ENV: "production" } };
+  
   if (!window.React) {
     await (Promise.all([
       importScript(
@@ -14,6 +16,7 @@ export const run = async (mode = "window", code = "") => {
       ),
     ]));
   }
+
 
   const { run: runCode } = await import("../dist/dev.mjs");
 
