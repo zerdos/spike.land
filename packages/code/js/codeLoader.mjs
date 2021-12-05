@@ -236,21 +236,21 @@ export async function run({ mode = "window", code, room = "code-main" }) {
 
       monaco.editor.setTheme("vs-dark");
     } catch (err) {
-      if (err.message) {
-        session.errorText = err.message;
+      // if (err.message) {
+      //   session.errorText = err.message;
 
-        const saveErrorCode = async () => {
-          const CID = await Hash.of(c);
+      //   const saveErrorCode = async () => {
+      //     const CID = await Hash.of(c);
 
-          const url = `/error/${CID}`;
-          fetch(`https://code.spike.land${url}`, {
-            method: "POST",
-            body: c,
-          });
-        };
-        saveErrorCode();
-        return;
-      }
+      //     const url = `/error/${CID}`;
+      //     fetch(`https://code.spike.land${url}`, {
+      //       method: "POST",
+      //       body: c,
+      //     });
+      //   };
+      //   saveErrorCode();
+      //   return;
+      // }
 
       monaco.editor.setTheme("vs-light");
       setTimeout(() => {

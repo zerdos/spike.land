@@ -33,7 +33,7 @@
     if ('serviceWorker' in navigator){
       import('https://storage.googleapis.com/workbox-cdn/releases/6.4.2/workbox-window.prod.mjs').then(
         ({Workbox})=> {
-          const wb = new Workbox('./sw.js');
+          const wb = new Workbox('https://code.spike.land/sw.js');
           wb.addEventListener("activated", async (event) => {
              if (!event.isUpdate) {
               console.log("Service worker activated for the first time!");
