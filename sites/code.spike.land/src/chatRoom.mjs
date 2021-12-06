@@ -256,8 +256,6 @@ export class Code {
           return;
         } 
 
-        // Construct sanitizedlastSeenCode message for storage and broadcast.
-
         let code = data.code;
         let html = data.html;
         let css = data.css;

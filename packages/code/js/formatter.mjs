@@ -13,20 +13,21 @@ let loadWebWorkerCounter = 2;
  */
 export async function formatter(code) {
   if (format === null) {
-
-    if (loadWebWorkerCounter--<0){
-    setTimeout(init);
+    if (loadWebWorkerCounter-- < 0) {
+      setTimeout(init);
     }
-    
-  
-    const resp = await fetch("https://x-spike-land.zed-vision.workers.dev/api/prettier", {
-      method: "POST",
-      body: code
-    });
 
-  const formatted = await resp.text();
-  return formatted;
-}
+    const resp = await fetch(
+      "https://x-spike-land.zed-vision.workers.dev/api/prettier",
+      {
+        method: "POST",
+        body: code,
+      },
+    );
+
+    const formatted = await resp.text();
+    return formatted;
+  }
 
   const formatted = await format(
     code,

@@ -10,7 +10,6 @@ const { prettier, prettierPlugins, Comlink } = self;
  * @param {string} code
  */
 function formatter(code) {
-  return code;
   const formatted = prettier.format(code, {
     "arrowParens": "always",
     "bracketSpacing": true,

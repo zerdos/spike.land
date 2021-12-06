@@ -179,9 +179,7 @@ export const join = (user, room) => {
 
   ws.addEventListener("message", async (event) => {
     const data = JSON.parse(event.data);
-    
-    
-    
+
     if (data.name && data.name !== username && targetUsername == null) {
       targetUsername = data.name;
       try {
@@ -362,10 +360,7 @@ async function createPeerConnection() {
   // STUN server.
 
   myPeerConnection = new RTCPeerConnection({
-    iceServers: ["stun.l.google.com:19302"// 'stun.linea7.net:3478',
-      // 'stun.linphone.org:3478',
-      // 'stun.lowratevoip.com'
-    ].map((url) => ({ urls: `stun:${url}` })),
+    iceServers: ["stun.l.google.com:19302"].map((url) => ({ urls: `stun:${url}` })),
   });
 
   // Set up event handlers for the ICE negotiation process.

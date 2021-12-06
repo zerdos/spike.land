@@ -1,6 +1,6 @@
 import { formatter } from "./prettier";
 export default {
-  async fetch(request, env) {
+  async fetch(request: Request, env: string) {
     // We have received an HTTP request! Parse the URL and route the request.
 
     let url = new URL(request.url);
@@ -17,7 +17,7 @@ export default {
   },
 };
 
-async function handleApiRequest(path, request, env) {
+async function handleApiRequest(path: string[], request: Request, env: string) {
   // We've received at API request. Route the request based on the path.
 
   switch (path[0]) {
