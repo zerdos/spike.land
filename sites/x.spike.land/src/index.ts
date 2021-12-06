@@ -1,3 +1,4 @@
+// import { babelTran /sform } from "./babel";
 import { formatter } from "./prettier";
 export default {
   async fetch(request: Request, env: string) {
@@ -45,7 +46,30 @@ async function handleApiRequest(path: string[], request: Request, env: string) {
           },
         });
       }
-
+      case "babel":
+        if (request.method === "POST") {
+          const text = await request.text();
+  
+          // const formatted = babelTransform(text);
+  
+          return new Response(text, {
+            status: 200,
+            headers: {
+              "Access-Control-Allow-Origin": "*",
+              "Cache-Control": "no-cache",
+              "Content-Type": "text/html; charset=UTF-8",
+            },
+          });
+        } else {
+         return  new Response("please post", {
+            status: 200,
+            headers: {
+              "Access-Control-Allow-Origin": "*",
+              "Cache-Control": "no-cache",
+              "Content-Type": "text/html; charset=UTF-8",
+            },
+          });
+        }
     default:
       return new Response(path[0], { status: 404 });
   }
