@@ -1,0 +1,15 @@
+name = "x-spike-land"
+type = "javascript"
+workers_dev = true
+# Add your account ID here
+account_id = "1f98921051196545ebe79a450d3c71ed"
+zone_id = "07e8952f4aa2d9e95f04a2b32a9cf084"
+route = "https://x.spike.land/*"
+compatibility_date = "2021-12-06"
+
+[build]
+command = "yarn bundle"
+
+[build.upload]
+format = "modules"
+main = "./index.mjs"

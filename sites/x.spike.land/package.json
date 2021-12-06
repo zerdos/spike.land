@@ -1,0 +1,23 @@
+{
+  "name": "@spike.land/code-worker",
+  "description": "An edge chat service that runs on Cloudflare Workers using Durable Objects",
+  "version": "0.2.3",
+  "module": "./dist/index.mjs",
+  "scripts": {
+    "deploy": "wrangler publish",
+    "bundle": "esbuild --bundle --format=esm --minify --tree-shaking=true --loader:.html=text --target=esnext src/index.ts --outfile=dist/index.mjs",
+    "postpublish": "yarn bundle"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "3.2.0",
+    "@cloudflare/wrangler": "1.19.5",
+    "@spike.land/cf-npm-site": "^0.2.0",
+    "@spike.land/code": "^0.2.3",
+    "esbuild": "0.14.2"
+  },
+  "private": true,
+  "dependencies": {
+    "@types/websocket": "1.0.4",
+    "textdiff-patch": "^1.0.5"
+  }
+}

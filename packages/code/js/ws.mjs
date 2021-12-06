@@ -179,6 +179,9 @@ export const join = (user, room) => {
 
   ws.addEventListener("message", async (event) => {
     const data = JSON.parse(event.data);
+    
+    
+    
     if (data.name && data.name !== username && targetUsername == null) {
       targetUsername = data.name;
       try {
@@ -376,19 +379,19 @@ async function createPeerConnection() {
   myPeerConnection.onnegotiationneeded = handleNegotiationNeededEvent;
   myPeerConnection.ontrack = handleTrackEvent;
 
-  myPeerConnection.ondatachannel = function (event) {
-    log("NEW DATA ondatachannel");
-    var channel = event.channel;
-    channel.onopen = function () {
-      log("MESSAGE ondatachannel");
+  // myPeerConnection.ondatachannel = function (event) {
+  //   log("NEW DATA ondatachannel");
+  //   var channel = event.channel;
+  //   channel.onopen = function () {
+  //     log("MESSAGE ondatachannel");
 
-      channel.send("Hi back!");
-    };
-    channel.onmessage = function (event) {
-      log("MESSAGE ondatachannel");
-      console.log(event.data);
-    };
-  };
+  //     channel.send("Hi back!");
+  //   };
+  //   channel.onmessage = function (event) {
+  //     log("MESSAGE ondatachannel");
+  //     console.log(event.data);
+  //   };
+  // };
   window.myPeerConnection = myPeerConnection;
 }
 
