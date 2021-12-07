@@ -38,7 +38,7 @@
     "ibm-cos-sdk": "1.11.0",
     "lodash": "4.17.21",
     "md5": "2.3.0",
-    "minio": "7.0.23",
+    "minio": "7.0.25",
     "pm2": "5.1.2",
     "semver": "7.3.5",
     "source-map-support": "0.5.21",
