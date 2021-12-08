@@ -360,7 +360,9 @@ async function createPeerConnection() {
   // STUN server.
 
   myPeerConnection = new RTCPeerConnection({
-    iceServers: ["stun.l.google.com:19302"].map((url) => ({ urls: `stun:${url}` })),
+    iceServers: ["stun.l.google.com:19302"].map((url) => ({
+      urls: `stun:${url}`,
+    })),
   });
 
   // Set up event handlers for the ICE negotiation process.
