@@ -487,7 +487,7 @@ var editor_default = async ({ onChange, code, language, container, options }) =>
       },
       {
         name: "framer-motion",
-        url: "https://unpkg.com/framer-motion@5.4.4/types/index.d.ts",
+        url: "https://unpkg.com/framer-motion@5.4.5/types/index.d.ts",
         depend: ["popmotion"]
       },
       {
