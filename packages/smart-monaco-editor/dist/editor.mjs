@@ -76,7 +76,7 @@ var getMonaco = async () => {
       window.document.head.appendChild(s);
     });
   };
-  const vsPath = `https://unpkg.com/monaco-editor@0.31.0/min/vs`;
+  const vsPath = `https://unpkg.com/monaco-editor@0.30.1/min/vs`;
   const { require: require2 } = await importScript(`${vsPath}/loader.js`);
   require2.config({ paths: { "vs": vsPath }, "vs/css": { disabled: true } });
   exp.monaco = await new Promise((resolve) => require2(["vs/editor/editor.main"], (_m) => resolve(_m)));
@@ -330,7 +330,7 @@ var editor_default = async ({ onChange, code, language, container, options }) =>
     });
   }
   const innerStyle = document.createElement("style");
-  innerStyle.innerText = '@import "https://unpkg.com/monaco-editor@0.31.0/min/vs/editor/editor.main.css";';
+  innerStyle.innerText = '@import "https://unpkg.com/monaco-editor@0.30.1/min/vs/editor/editor.main.css";';
   shadowRoot.appendChild(innerStyle);
   if (!container)
     return;
@@ -491,15 +491,18 @@ var editor_default = async ({ onChange, code, language, container, options }) =>
         depend: ["popmotion"]
       },
       {
+        name: "framer-motion/types/render/dom/motion.d.ts",
+        url: " https://unpkg.com/framer-motion@5.4.5/types/render/dom/motion.d.ts",
+        depend: ["popmotion"]
+      },
+      {
         name: "popmotion",
         url: "https://unpkg.com/popmotion@11.0.0/lib/index.d.ts"
       }
     ];
     const dts = importHelper.map(({ name, url }) => async () => {
       const content = await (await fetch(url)).text();
-      const nameOfLib = name.includes("@") ? `file:///node_modules/${name}` : `file:/
-        //node_modules/@types/${name}/index.d.ts`;
-      console.log(nameOfLib, content);
+      const nameOfLib = name.includes("@") ? `file:///node_modules/${name}` : name.endsWith(".d.ts") ? "file:///node_modules/@types" + name : "file:///node_modules/@types/" + name + "/index.d.ts";
       modules.monaco.languages.typescript.typescriptDefaults.addExtraLib(content, nameOfLib);
     });
     modules.monaco.languages.typescript.typescriptDefaults.setCompilerOptions({

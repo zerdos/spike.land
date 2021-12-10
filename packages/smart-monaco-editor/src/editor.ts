@@ -68,7 +68,7 @@ export default async (
   }
   const innerStyle = document.createElement("style");
   innerStyle.innerText =
-    '@import "https://unpkg.com/monaco-editor@0.31.0/min/vs/editor/editor.main.css";';
+    '@import "https://unpkg.com/monaco-editor@0.30.1/min/vs/editor/editor.main.css";';
   shadowRoot.appendChild(innerStyle);
 
   if (!container) return;
@@ -260,6 +260,10 @@ export default async (
         depend: ["popmotion"],
       },
       {
+        name: "framer-motion/types/render/dom/motion.d.ts",
+        url: " https://unpkg.com/framer-motion@5.4.5/types/render/dom/motion.d.ts",
+        depend: ["popmotion"],
+      }, {
         name: "popmotion",
         url: "https://unpkg.com/popmotion@11.0.0/lib/index.d.ts",
       },
@@ -271,13 +275,10 @@ export default async (
           url,
         )).text();
 
-        const nameOfLib =  name.includes("@")
-        ? `file:///node_modules/${name}`
-        : `file:/
-        //node_modules/@types/${name}/index.d.ts`
+        const nameOfLib =  name.includes("@")? `file:///node_modules/${name}`: (name.endsWith('.d.ts')? "file:///node_modules/@types"+ name : "file:///node_modules/@types/"+ name +"/index.d.ts");
 
 
-        console.log(nameOfLib, content);
+        // console.log(nameOfLib, content);
         modules.monaco.languages.typescript.typescriptDefaults.addExtraLib(content, nameOfLib);
       
       }
