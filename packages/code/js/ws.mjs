@@ -64,6 +64,7 @@ let rejoin = async () => {
     if (timeSinceLastJoin < 10000) {
       // Less than 10 seconds elapsed since last join. Pause a bit.
       await new Promise((resolve) =>
+      
         setTimeout(resolve, 10000 - timeSinceLastJoin)
       );
     }
@@ -169,7 +170,13 @@ export const join = (user, room) => {
           message.hashOfCode = hashOfCode;
         }
 
-        currentWebSocket.send(JSON.stringify(message));
+        const msgStr = JSON.stringify(message);
+
+        if (sendChaxnnel && sendChannel.readyState === "open") 
+           sendChannel.send(msgStr)
+        // else {
+          currentWebSocket.send(msgStr);  
+        // }
       }
     };
 
@@ -180,108 +187,7 @@ export const join = (user, room) => {
     ws.send(JSON.stringify({ name: username }));
   });
 
-  ws.addEventListener("message", async (event) => {
-    const data = JSON.parse(event.data);
-
-    if (data.name && data.hashOfCode && data.name !== username && targetUsername == null) {
-      targetUsername = data.name;
-      window.targetUsername = data.name;
-      try {
-        await createPeerConnection();
-        // const sendChannel = myPeerConnection.createDataChannel(
-        //   "sendDataChannel",
-        // );
-        // window.sendChannel = sendChannel;
-        // sendChannel.onopen = function () {
-        //   sendChannel.send("Hi you!");
-        // };
-        // sendChannel.onmessage = function (event) {
-        //   console.log(event.data);
-        // };
-        // sendChannel.on§
-        // const offer = await myPeerConnection.createOffer();
-        // console.log({offer});
-      } catch (e) {
-        console.log({ e });
-        log_error("Error with p2p");
-      }
-    }
-    if (data.type === "new-ice-candidate") {
-      await handleNewICECandidateMsg(data);
-      return;
-    }
-    if (data.type === "video-offer") {
-      targetUsername = data.name;
-      window.targetUsername = data.name;
-      await handleChatOffer(data);
-
-      return;
-    }
-
-    if (data.type === "video-answer") {
-      await handleChatAnswerMsg(data);
-
-      return;
-    }
-
-    if (data.timestamp) {
-      lastSeenNow = Date.now();
-      lastSeenTimestamp = data.timestamp;
-    }
-    if (data.name === username) return;
-
-    // if (data.hashOfCode) {
-    //   window.wantedHashBase = data.hashOfCode;
-    // }
-
-    if (data.hashOfCode) {
-      if (
-        !window[data.hashOfCode] ||
-        window[data.hashOfCode] !== data.hashOfCode
-      ) {
-        const resp = await fetch(
-          `https://code.spike.land/api/room/${roomName}/code`,
-        );
-        const code = await resp.text();
-        const hash = await Hash.of(code);
-        if (hash === data.hashOfCode) window[hash] = code;
-      }
-      window.starterCode = window[data.hashOfCode];
-      lastSeenCode = window[data.hashOfCode];
-      chCode(lastSeenCode);
-    }
-
-    // A regular chat message.
-
-    if (data.codeDiff) {
-      if (
-        data.hashOfCode &&
-        data.codeDiff && data.hashOfCode !== window.hashOfCode
-      ) {
-        const hashOfCode = data.hashOfCode;
-
-        // const dmp = new DiffMatchPatch();
-        // const patches = dmp.patch_fromText(data.codeDiff);
-        // const patched = dmp.patch_apply(patches, lastSeenCode);
-
-        lastSeenCode = applyPatch(lastSeenCode, JSON.parse(data.codeDiff));
-        const hashFromCodeDiff = lastSeenCode &&
-          await Hash.of(lastSeenCode);
-        if (hashFromCodeDiff === hashOfCode) {
-          window[hashOfCode] = lastSeenCode;
-          window.hashOfCode = hashOfCode;
-          chCode(lastSeenCode);
-        }
-      } else {
-        console.error("we are out of sync...");
-        ws.close(1000, "out of sync");
-        return;
-      }
-    }
-
-    // addChatMessage(data.name, data.message);
-    lastSeenTimestamp = data.timestamp;
-  });
+  ws.addEventListener("message", processWsMessage);
 
   ws.addEventListener("close", (event) => {
     console.log("WebSocket closed, reconnecting:", event.code, event.reason);
@@ -398,7 +304,11 @@ rcpOpts.iceServers =   [  {'urls': 'stun:stun.stunprotocol.org:3478'},
     receiveChannel = event.channel;
     receiveChannel.binaryType = 'arraybuffer';
     receiveChannel.addEventListener('close', onReceiveChannelClosed);
-    receiveChannel.addEventListener('message', onReceiveMessageCallback);
+    receiveChannel.addEventListener('message', (e)=>{
+      const data = JSON.parse(e.data);
+      console.log({data});
+ //     console.log(JSON.parse(e.data))
+    });
   }
 
   function onReceiveChannelClosed() {
@@ -437,12 +347,10 @@ function onReceiveMessageCallback(event) {
   console.log("xxxxxx-  Data Channel Error:", error);
 };
 
-sendChannel.onmessage = (event) => {
-  console.log("xxxxxx- Got Data Channel Message:", event.data);
-};
+sendChannel.onmessage = processWsMessage
 
 sendChannel.onopen = () => {
-  sendChannel.send("xxxxxxx -Hello World!");
+  
 };
 
 sendChannel.onclose = () => {
@@ -626,7 +534,7 @@ async function handleChatOffer(msg) {
       myPeerConnection.setRemoteDescription(desc),
     ]);
     return;
-  } else {
+  } else { 
     log("  - Setting remote description");
     await myPeerConnection.setRemoteDescription(desc);
   }
@@ -654,4 +562,107 @@ async function handleChatAnswerMsg(msg) {
 
   var desc = new RTCSessionDescription(msg.sdp);
   await myPeerConnection.setRemoteDescription(desc).catch(reportError);
+}
+
+async function processWsMessage(event){
+  const data = JSON.parse(event.data);
+
+  if (data.name && data.hashOfCode && data.name !== username && targetUsername == null) {
+    targetUsername = data.name;
+    window.targetUsername = data.name;
+    try {
+      await createPeerConnection();
+      // const sendChannel = myPeerConnection.createDataChannel(
+      //   "sendDataChannel",
+      // );
+      // window.sendChannel = sendChannel;
+      // sendChannel.onopen = function () {
+      //   sendChannel.send("Hi you!");
+      // };
+      // sendChannel.onmessage = function (event) {
+      //   console.log(event.data);
+      // };
+      // sendChannel.on§
+      // const offer = await myPeerConnection.createOffer();
+      // console.log({offer});
+    } catch (e) {
+      console.log({ e });
+      log_error("Error with p2p");
+    }
+  }
+  if (data.type === "new-ice-candidate") {
+    await handleNewICECandidateMsg(data);
+    return;
+  }
+  if (data.type === "video-offer") {
+    targetUsername = data.name;
+    window.targetUsername = data.name;
+    await handleChatOffer(data);
+
+    return;
+  }
+
+  if (data.type === "video-answer") {
+    await handleChatAnswerMsg(data);
+
+    return;
+  }
+
+  if (data.timestamp) {
+    lastSeenNow = Date.now();
+    lastSeenTimestamp = data.timestamp;
+  }
+  if (data.name === username) return;
+
+  // if (data.hashOfCode) {
+  //   window.wantedHashBase = data.hashOfCode;
+  // }
+
+  if (data.hashOfCode) {
+    if (
+      !window[data.hashOfCode] ||
+      window[data.hashOfCode] !== data.hashOfCode
+    ) {
+      const resp = await fetch(
+        `https://code.spike.land/api/room/${roomName}/code`,
+      );
+      const code = await resp.text();
+      const hash = await Hash.of(code);
+      if (hash === data.hashOfCode) window[hash] = code;
+    }
+    window.starterCode = window[data.hashOfCode];
+    lastSeenCode = window[data.hashOfCode];
+    chCode(lastSeenCode);
+  }
+
+  // A regular chat message.
+
+  if (data.codeDiff) {
+    if (
+      data.hashOfCode &&
+      data.codeDiff && data.hashOfCode !== window.hashOfCode
+    ) {
+      const hashOfCode = data.hashOfCode;
+
+      // const dmp = new DiffMatchPatch();
+      // const patches = dmp.patch_fromText(data.codeDiff);
+      // const patched = dmp.patch_apply(patches, lastSeenCode);
+
+      lastSeenCode = applyPatch(lastSeenCode, JSON.parse(data.codeDiff));
+      const hashFromCodeDiff = lastSeenCode &&
+        await Hash.of(lastSeenCode);
+      if (hashFromCodeDiff === hashOfCode) {
+        window[hashOfCode] = lastSeenCode;
+        window.hashOfCode = hashOfCode;
+        chCode(lastSeenCode);
+      }
+    } else {
+      console.error("we are out of sync...");
+      ws.close(1000, "out of sync");
+      return;
+    }
+  }
+
+  // addChatMessage(data.name, data.message);
+  lastSeenTimestamp = data.timestamp;
 }

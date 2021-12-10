@@ -351,6 +351,7 @@ export class Code {
         let key = new Date(this.session.lastTimestamp).toISOString();
         let _res = null;
         const pr = new Promise((resolve)=>_res=resolve);
+        
         setTimeout(async () => {
         if (code && code === this.session.code) {
           // await this.state.storage.put(hashOfCode, code);
