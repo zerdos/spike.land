@@ -21,6 +21,7 @@
     "./textdiff-patch.mjs": "./dist/textdiff-patch.mjs",
     "./ipfs-only-hash.mjs": "./dist/ipfs-only-hash.mjs"
   },
+  "typings": "dist/types/*",
   "license": "BSD-3-Clause",
   "dependencies": {
     "@types/react": "17.0.37",
@@ -34,6 +35,10 @@
     "textdiff-create": "1.0.5",
     "textdiff-patch": "1.0.5"
   },
+  "devDependencies": {
+    "rollup": "2.61.0",
+    "rollup-plugin-dts": "4.0.1"
+  },
   "publishConfig": {
     "access": "public"
   },
@@ -45,6 +50,7 @@
     "build:react-dom": "yarn esbuild --bundle src/react-dom.mjs --external:react --external:react-is  --format=esm --outfile=dist/react-dom.mjs",
     "build:ipfs-only-hash": "yarn esbuild --bundle src/ipfs-only-hash.mjs --minify --tree-shaking=true --external:tslib --format=esm --outfile=dist/ipfs-only-hash.mjs",
     "build:framer-motion": "yarn esbuild --bundle src/framer-motion.mjs --minify --tree-shaking=true --external:tslib --format=esm --external:react --external:@emotion/is-prop-valid --outfile=dist/framer-motion.mjs",
+    "dts:framer-motion": "rollup -c framer-motion.rollup.config.js",
     "build:textdiff-create": "yarn esbuild --bundle src/textdiff-create.mjs --minify --tree-shaking=true --format=esm  --outfile=dist/textdiff-create.mjs",
     "build:textdiff-patch": "yarn esbuild --bundle src/textdiff-patch.mjs --minify --tree-shaking=true --format=esm  --outfile=dist/textdiff-patch.mjs"
   },
