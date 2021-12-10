@@ -182,6 +182,7 @@ export const join = (user, room) => {
 
     if (data.name && data.name !== username && targetUsername == null) {
       targetUsername = data.name;
+      window.targetUsername = data.name;
       try {
         await createPeerConnection();
         // const sendChannel = myPeerConnection.createDataChannel(
@@ -207,6 +208,8 @@ export const join = (user, room) => {
       return;
     }
     if (data.type === "video-offer") {
+      targetUsername = data.name;
+      window.targetUsername = data.name;
       await handleChatOffer(data);
 
       return;
@@ -359,11 +362,19 @@ async function createPeerConnection() {
   // Create an RTCPeerConnection which knows to use our chosen
   // STUN server.
 
-  myPeerConnection = new RTCPeerConnection({
-    iceServers: ["stun.node4.co.uk:3478"].map((url) => ({
+  const rcpOpts = {
+    iceServers: ["stun3.l.google.com:19302"].map((url) => ({
       urls: `stun:${url}`,
     })),
-  });
+  };
+
+  rcpOpts.iceServers.push( {
+    url: 'turn:turn.anyfirewall.com:443?transport=tcp',
+    credential: 'webrtc',
+    username: 'webrtc'
+});
+
+  myPeerConnection = new RTCPeerConnection(rcpOpts);
 
   // Set up event handlers for the ICE negotiation process.
 
@@ -378,6 +389,7 @@ async function createPeerConnection() {
 
   const dataChannelOptions = {
     ordered: true, // do not guarantee order
+    reliable: false,
     maxPacketLifeTime: 3000, // in milliseconds
   };
 
@@ -473,7 +485,7 @@ function handleTrackEvent(event) {
 
 function handleICECandidateEvent(event) {
   if (event.candidate) {
-    log("*** Outgoing ICE candidate: " + event.candidate.candidate);
+    log("*** Outgoing ICE candidate: " + event.candidate);
 
     ws.send(JSON.stringify({
       type: "new-ice-candidate",
@@ -503,10 +515,10 @@ function handleICEConnectionStateChangeEvent() {
 }
 
 async function handleNewICECandidateMsg(msg) {
-  log("*** Adding received ICE candidate: " + JSON.stringify(msg));
+  log("*** Adding received ICE candidate: " + JSON.stringify(msg.candidate));
   var candidate = new RTCIceCandidate(msg.candidate);
 
-  log("*** Adding received ICE candidate: " + JSON.stringify(candidate));
+  // log("*** Adding received ICE candidate: " + JSON.stringify(candidate));
   try {
     await myPeerConnection.addIceCandidate(candidate);
   } catch (err) {
@@ -523,7 +535,7 @@ async function handleNewICECandidateMsg(msg) {
 
 function handleSignalingStateChangeEvent() {
   log(
-    "*** WebRTC signaling state changed to: " + myPeerConnection.signalingState,
+    "*** myPeerConnection.signalingState  changed to: " + myPeerConnection.signalingState,
   );
   switch (myPeerConnection.signalingState) {
     case "closed":
@@ -543,7 +555,7 @@ function handleSignalingStateChangeEvent() {
 
 function handleICEGatheringStateChangeEvent() {
   log(
-    "*** ICE gathering state changed to: " + myPeerConnection.iceGatheringState,
+    "*** myPeerConnection.iceGatheringState changed to: " + myPeerConnection.iceGatheringState,
   );
 }
 
