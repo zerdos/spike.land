@@ -76,7 +76,7 @@ var getMonaco = async () => {
       window.document.head.appendChild(s);
     });
   };
-  const vsPath = `https://unpkg.com/monaco-editor@0.30.1/min/vs`;
+  const vsPath = `https://unpkg.com/monaco-editor@0.31.0/min/vs`;
   const { require: require2 } = await importScript(`${vsPath}/loader.js`);
   require2.config({ paths: { "vs": vsPath }, "vs/css": { disabled: true } });
   exp.monaco = await new Promise((resolve) => require2(["vs/editor/editor.main"], (_m) => resolve(_m)));
@@ -330,7 +330,7 @@ var editor_default = async ({ onChange, code, language, container, options }) =>
     });
   }
   const innerStyle = document.createElement("style");
-  innerStyle.innerText = '@import "https://unpkg.com/monaco-editor@0.30.1/min/vs/editor/editor.main.css";';
+  innerStyle.innerText = '@import "https://unpkg.com/monaco-editor@0.31.0/min/vs/editor/editor.main.css";';
   shadowRoot.appendChild(innerStyle);
   if (!container)
     return;

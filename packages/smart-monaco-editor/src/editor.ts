@@ -68,7 +68,7 @@ export default async (
   }
   const innerStyle = document.createElement("style");
   innerStyle.innerText =
-    '@import "https://unpkg.com/monaco-editor@0.30.1/min/vs/editor/editor.main.css";';
+    '@import "https://unpkg.com/monaco-editor@0.31.0/min/vs/editor/editor.main.css";';
   shadowRoot.appendChild(innerStyle);
 
   if (!container) return;
