@@ -172,11 +172,11 @@ export const join = (user, room) => {
 
         const msgStr = JSON.stringify(message);
 
-        if (sendChannel && sendChannel.readyState === "open") 
-           sendChannel.send(msgStr)
-        // else {
-          currentWebSocket.send(msgStr);  
-        // }
+        if (sendChannel && sendChannel.readyState === "open"){
+          sendChannel.send(msgStr);
+        }
+ 
+       currentWebSocket.send(msgStr);  
       }
     };
 

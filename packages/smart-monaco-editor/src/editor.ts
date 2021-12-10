@@ -265,15 +265,22 @@ export default async (
       },
     ];
     const dts = importHelper.map(({ name, url }) =>
-      async () =>
-        modules.monaco.languages.typescript.typescriptDefaults.addExtraLib(
-          await (await fetch(
-            url,
-          )).text(),
-          name.includes("@")
-            ? `file:///node_modules/${name}`
-            : `file:///node_modules/@types/${name}/index.d.ts`,
-        )
+      async () =>{
+
+        const content =  await (await fetch(
+          url,
+        )).text();
+
+        const nameOfLib =  name.includes("@")
+        ? `file:///node_modules/${name}`
+        : `file:/
+        //node_modules/@types/${name}/index.d.ts`
+
+
+        console.log(nameOfLib, content);
+        modules.monaco.languages.typescript.typescriptDefaults.addExtraLib(content, nameOfLib);
+      
+      }
     );
 
     modules.monaco.languages.typescript.typescriptDefaults.setCompilerOptions(
