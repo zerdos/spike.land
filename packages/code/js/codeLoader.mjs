@@ -142,7 +142,7 @@ export async function run({ mode = "window", code, room = "code-main" }) {
       /**
        * @param {string} code
        */
-      onChange: (code) => runner(code),
+      onChange: (code) => runner(code, changes),
     },
   );
 
@@ -166,10 +166,12 @@ export async function run({ mode = "window", code, room = "code-main" }) {
   const { sendSignalToQrCode } = await import("./sendSignalToQrCode.mjs");
   await sendSignalToQrCode(session);
 
+
   /**
    * @param {string} c
    */
-  async function runner(c) {
+  async function runner(c, changes) {
+    console.log(changes);
     session.errorText = "";
     session.i++;
     const counter = session.i;
