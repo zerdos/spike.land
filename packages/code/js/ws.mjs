@@ -172,7 +172,7 @@ export const join = (user, room) => {
 
         const msgStr = JSON.stringify(message);
 
-        if (sendChaxnnel && sendChannel.readyState === "open") 
+        if (sendChannel && sendChannel.readyState === "open") 
            sendChannel.send(msgStr)
         // else {
           currentWebSocket.send(msgStr);  
