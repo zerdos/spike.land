@@ -187,13 +187,13 @@ export const join = (user, room) => {
         const sendChannel = myPeerConnection.createDataChannel(
           "sendDataChannel",
         );
-        window.sendChannel = sendChannel;
-        sendChannel.onopen = function () {
-          sendChannel.send("Hi you!");
-        };
-        sendChannel.onmessage = function (event) {
-          console.log(event.data);
-        };
+        // window.sendChannel = sendChannel;
+        // sendChannel.onopen = function () {
+        //   sendChannel.send("Hi you!");
+        // };
+        // sendChannel.onmessage = function (event) {
+        //   console.log(event.data);
+        // };
         // sendChannel.on§
         // const offer = await myPeerConnection.createOffer();
         // console.log({offer});
@@ -376,19 +376,19 @@ async function createPeerConnection() {
   myPeerConnection.onnegotiationneeded = handleNegotiationNeededEvent;
   myPeerConnection.ontrack = handleTrackEvent;
 
-  // myPeerConnection.ondatachannel = function (event) {
-  //   log("NEW DATA ondatachannel");
-  //   var channel = event.channel;
-  //   channel.onopen = function () {
-  //     log("MESSAGE ondatachannel");
+  myPeerConnection.ondatachannel = function (event) {
+    log("NEW DATA ondatachannel");
+    var channel = event.channel;
+    channel.onopen = function () {
+      log("MESSAGE ondatachannel");
 
-  //     channel.send("Hi back!");
-  //   };
-  //   channel.onmessage = function (event) {
-  //     log("MESSAGE ondatachannel");
-  //     console.log(event.data);
-  //   };
-  // };
+      channel.send("Hi back!");
+    };
+    channel.onmessage = function (event) {
+      log("MESSAGE ondatachannel");
+      console.log(event.data);
+    };
+  };
   window.myPeerConnection = myPeerConnection;
 }
 

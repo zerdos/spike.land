@@ -67,7 +67,14 @@ export class Code {
 
       switch (path[0]) {
         case "code": {
-          return new Response(this.session.code, );
+          return new Response(this.session.code,{
+            status: 200,
+            headers: {
+              "Access-Control-Allow-Origin": "*",
+              "Cache-Control": "no-cache",
+              "Content-Type": "application/javascript; charset=UTF-8",
+            },
+          } );
         }
         case "js": {
           return new Response(this.session.transpiled, {
