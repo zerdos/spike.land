@@ -212,7 +212,7 @@ export const join = (user, room) => {
       return;
     }
 
-    if (data.type === "chat-answer") {
+    if (data.type === "video-answer") {
       await handleChatAnswerMsg(data);
 
       return;
@@ -595,7 +595,7 @@ async function handleChatOffer(msg) {
   ws.send(JSON.stringify({
     name: username,
     target: targetUsername,
-    type: "chat-answer",
+    type: "video-answer",
     sdp: myPeerConnection.localDescription,
   }));
 }

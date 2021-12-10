@@ -223,7 +223,7 @@ export class Code {
 
         let data = JSON.parse(msg.data);
         
-        if ( !(data.type && (data.type === "new-ice-candidate" || data.type ==="chat-offer" || data.type ==="chat-answer")) && !limiter.checkLimit()) {
+        if ( !(data.type && (data.type === "new-ice-candidate" || data.type ==="chat-offer" || data.type ==="video-answer")) && !limiter.checkLimit()) {
           webSocket.send(JSON.stringify({
             error: "Your IP is being rate-limited, please try again later.",
           }));
@@ -258,7 +258,7 @@ export class Code {
           return;
         }
 
-        if(data.type && (data.type === "new-ice-candidate" || data.type ==="chat-offer" || data.type ==="chat-answer")) {
+        if(data.type && (data.type === "new-ice-candidate" || data.type ==="chat-offer" || data.type ==="video-answer")) {
           this.user2user(data.target, msg.data);
           return;
         } 
