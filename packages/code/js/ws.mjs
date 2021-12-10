@@ -184,9 +184,9 @@ export const join = (user, room) => {
       targetUsername = data.name;
       try {
         await createPeerConnection();
-        const sendChannel = myPeerConnection.createDataChannel(
-          "sendDataChannel",
-        );
+        // const sendChannel = myPeerConnection.createDataChannel(
+        //   "sendDataChannel",
+        // );
         // window.sendChannel = sendChannel;
         // sendChannel.onopen = function () {
         //   sendChannel.send("Hi you!");
