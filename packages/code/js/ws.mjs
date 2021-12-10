@@ -206,7 +206,7 @@ export const join = (user, room) => {
       await handleNewICECandidateMsg(data);
       return;
     }
-    if (data.type === "chat-offer") {
+    if (data.type === "video-offer") {
       await handleChatOffer(data);
 
       return;
@@ -436,7 +436,7 @@ async function handleNegotiationNeededEvent() {
     ws.send(JSON.stringify({
       name: username,
       target: targetUsername,
-      type: "chat-offer",
+      type: "video-offer",
       sdp: myPeerConnection.localDescription,
     }));
   } catch (err) {
