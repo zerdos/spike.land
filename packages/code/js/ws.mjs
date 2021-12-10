@@ -319,17 +319,6 @@ rcpOpts.iceServers =   [  {'urls': 'stun:stun.stunprotocol.org:3478'},
   }
 
 
-function onReceiveMessageCallback(event) {
-  console.log('onReceiveMessageCallback', {event});
-
-  // Workaround for a bug in Chrome which prevents the closing event from being raised by the
-  // remote side. Also a workaround for Firefox which does not send all pending data when closing
-  // // the channel.
-  // if (receiveProgress.value === receiveProgress.max) {
-  //   sendChannel.close();
-  //   receiveChannel.close();
-  // }
-}
 
   
 

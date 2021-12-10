@@ -237,7 +237,6 @@ export const saveCode =
 
       sess.codeNonFormatted = codeNonFormatted;
 
-      // const gotWebrtc = window.sendChanne
 
       setTimeout(
         async () =>
