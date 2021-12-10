@@ -360,7 +360,7 @@ async function createPeerConnection() {
   // STUN server.
 
   myPeerConnection = new RTCPeerConnection({
-    iceServers: ["stun.l.google.com:19302"].map((url) => ({
+    iceServers: ["stun.node4.co.uk:3478"].map((url) => ({
       urls: `stun:${url}`,
     })),
   });
@@ -376,20 +376,33 @@ async function createPeerConnection() {
   myPeerConnection.onnegotiationneeded = handleNegotiationNeededEvent;
   myPeerConnection.ontrack = handleTrackEvent;
 
-  myPeerConnection.ondatachannel = function (event) {
-    log("NEW DATA ondatachannel");
-    var channel = event.channel;
-    channel.onopen = function () {
-      log("MESSAGE ondatachannel");
-
-      channel.send("Hi back!");
-    };
-    channel.onmessage = function (event) {
-      log("MESSAGE ondatachannel");
-      console.log(event.data);
-    };
+  const dataChannelOptions = {
+    ordered: true, // do not guarantee order
+    maxPacketLifeTime: 3000, // in milliseconds
   };
+
+  const dataChannel =
+  myPeerConnection.createDataChannel("myLabel", dataChannelOptions);
+
+  dataChannel.binaryType = 'arraybuffer';
+dataChannel.onerror = (error) => {
+  console.log("xxxxxx-  Data Channel Error:", error);
+};
+
+dataChannel.onmessage = (event) => {
+  console.log("xxxxxx- Got Data Channel Message:", event.data);
+};
+
+dataChannel.onopen = () => {
+  dataChannel.send("xxxxxxx -Hello World!");
+};
+
+dataChannel.onclose = () => {
+  console.log("xxxxxxxx- The Data Channel is Closed");
+};
+
   window.myPeerConnection = myPeerConnection;
+  window.dataChannel = dataChannel;
 }
 
 // Called by the WebRTC layer to let us know when it's time to
