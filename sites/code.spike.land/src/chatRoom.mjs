@@ -259,8 +259,9 @@ export class Code {
         }
 
         if(data.type && (data.type === "new-ice-candidate" || data.type ==="video-offer" || data.type ==="video-answer")) {
-          this.user2user(data.target, msg.data);
+          this.user2user(data.target, {name: session.name, ...data});
           return;
+          
         } 
 
         let code = data.code;
@@ -390,27 +391,14 @@ export class Code {
     webSocket.addEventListener("error", closeOrErrorHandler);
   }
 
-  user2user(to,message) {
+  user2user(to, message) {
     // Apply JSON if we weren't given a string to start with.
     if (typeof message !== "string") {
       message = JSON.stringify(message);
     }
-
-    // Iterate over all the sessions sending them messages.
-    this.sessions = this.sessions.filter((session) => {
-      if (session.name && session.name===to) {
-        try {
-          session.webSocket.send(message);
-          return true;
-        } catch (err) {
-          // Whoops, this connection is dead. Remove it from the list and arrange to notify
-          // everyone below.
-          console.log("error");
-        }
-      }
-    });
+     // Iterate over all the sessions sending them messages.
+    this.sessions.filter((session) => session.name === to).map (s=>  s.webSocket.send(message) );
   }
-
 
   broadcast(message) {
     if (typeof message !== "string") {
@@ -418,7 +406,7 @@ export class Code {
     }
 
     let quitters = [];
-    this.sessions = this.sessions.filter((session) => {
+    this.sessions = this.sessions.filter((session) =>  {
       if (session.name) {
         try {
           session.webSocket.send(message);

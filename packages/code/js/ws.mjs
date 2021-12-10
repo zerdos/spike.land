@@ -5,6 +5,7 @@ import Hash from "ipfs-only-hash";
 
 let currentWebSocket = null;
 
+
 const mod = {};
 
 function createPatch(oldCode, newCode) {
@@ -45,6 +46,8 @@ let lastSeenCode = "";
 let ws;
 let startTime;
 let rejoined = false;
+let sendChannel;
+let receiveChannel;
 
 let rejoin = async () => {
   if (!rejoined) {
@@ -180,7 +183,7 @@ export const join = (user, room) => {
   ws.addEventListener("message", async (event) => {
     const data = JSON.parse(event.data);
 
-    if (data.name && data.name !== username && targetUsername == null) {
+    if (data.name && data.hashOfCode && data.name !== username && targetUsername == null) {
       targetUsername = data.name;
       window.targetUsername = data.name;
       try {
@@ -367,12 +370,13 @@ async function createPeerConnection() {
       urls: `stun:${url}`,
     })),
   };
-
-  rcpOpts.iceServers.push( {
-    url: 'turn:turn.anyfirewall.com:443?transport=tcp',
-    credential: 'webrtc',
-    username: 'webrtc'
-});
+rcpOpts.iceServers =   [  {'urls': 'stun:stun.stunprotocol.org:3478'},
+{'urls': 'stun:stun.l.google.com:19302'}];
+//   rcpOpts.iceServers.push( {
+//     url: 'turn:turn.anyfirewall.com:443?transport=tcp',
+//     credential: 'webrtc',
+//     username: 'webrtc'
+// });
 
   myPeerConnection = new RTCPeerConnection(rcpOpts);
 
@@ -387,34 +391,66 @@ async function createPeerConnection() {
   myPeerConnection.onnegotiationneeded = handleNegotiationNeededEvent;
   myPeerConnection.ontrack = handleTrackEvent;
 
+  myPeerConnection.addEventListener('datachannel', receiveChannelCallback);
+
+  function receiveChannelCallback(event) {
+    console.log('Receive Channel Callback');
+    receiveChannel = event.channel;
+    receiveChannel.binaryType = 'arraybuffer';
+    receiveChannel.addEventListener('close', onReceiveChannelClosed);
+    receiveChannel.addEventListener('message', onReceiveMessageCallback);
+  }
+
+  function onReceiveChannelClosed() {
+    console.log('Receive channel is closed');
+    myPeerConnection.close();
+    myPeerConnection = null;
+    console.log('Closed remote peer connection');
+  }
+
+
+function onReceiveMessageCallback(event) {
+  console.log('onReceiveMessageCallback', {event});
+
+  // Workaround for a bug in Chrome which prevents the closing event from being raised by the
+  // remote side. Also a workaround for Firefox which does not send all pending data when closing
+  // // the channel.
+  // if (receiveProgress.value === receiveProgress.max) {
+  //   sendChannel.close();
+  //   receiveChannel.close();
+  // }
+}
+
+  
+
   const dataChannelOptions = {
     ordered: true, // do not guarantee order
     reliable: false,
     maxPacketLifeTime: 3000, // in milliseconds
   };
 
-  const dataChannel =
+  sendChannel =
   myPeerConnection.createDataChannel("myLabel", dataChannelOptions);
 
-  dataChannel.binaryType = 'arraybuffer';
-dataChannel.onerror = (error) => {
+  sendChannel.binaryType = 'arraybuffer';
+  sendChannel.onerror = (error) => {
   console.log("xxxxxx-  Data Channel Error:", error);
 };
 
-dataChannel.onmessage = (event) => {
+sendChannel.onmessage = (event) => {
   console.log("xxxxxx- Got Data Channel Message:", event.data);
 };
 
-dataChannel.onopen = () => {
-  dataChannel.send("xxxxxxx -Hello World!");
+sendChannel.onopen = () => {
+  sendChannel.send("xxxxxxx -Hello World!");
 };
 
-dataChannel.onclose = () => {
+sendChannel.onclose = () => {
   console.log("xxxxxxxx- The Data Channel is Closed");
 };
 
   window.myPeerConnection = myPeerConnection;
-  window.dataChannel = dataChannel;
+  window.sendChannel = sendChannel;
 }
 
 // Called by the WebRTC layer to let us know when it's time to
@@ -446,7 +482,6 @@ async function handleNegotiationNeededEvent() {
 
     log("---> Sending the offer to the remote peer");
     ws.send(JSON.stringify({
-      name: username,
       target: targetUsername,
       type: "video-offer",
       sdp: myPeerConnection.localDescription,
@@ -605,7 +640,6 @@ async function handleChatOffer(msg) {
   );
 
   ws.send(JSON.stringify({
-    name: username,
     target: targetUsername,
     type: "video-answer",
     sdp: myPeerConnection.localDescription,
