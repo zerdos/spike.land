@@ -5,7 +5,6 @@ import Hash from "ipfs-only-hash";
 
 let currentWebSocket = null;
 
-
 const mod = {};
 
 function createPatch(oldCode, newCode) {
@@ -64,7 +63,6 @@ let rejoin = async () => {
     if (timeSinceLastJoin < 10000) {
       // Less than 10 seconds elapsed since last join. Pause a bit.
       await new Promise((resolve) =>
-      
         setTimeout(resolve, 10000 - timeSinceLastJoin)
       );
     }
@@ -172,11 +170,11 @@ export const join = (user, room) => {
 
         const msgStr = JSON.stringify(message);
 
-        if (sendChannel && sendChannel.readyState === "open"){
+        if (sendChannel && sendChannel.readyState === "open") {
           sendChannel.send(msgStr);
         }
- 
-       currentWebSocket.send(msgStr);  
+
+        currentWebSocket.send(msgStr);
       }
     };
 
@@ -276,13 +274,14 @@ async function createPeerConnection() {
       urls: `stun:${url}`,
     })),
   };
-rcpOpts.iceServers =   [  {'urls': 'stun:stun.stunprotocol.org:3478'},
-{'urls': 'stun:stun.l.google.com:19302'}];
-//   rcpOpts.iceServers.push( {
-//     url: 'turn:turn.anyfirewall.com:443?transport=tcp',
-//     credential: 'webrtc',
-//     username: 'webrtc'
-// });
+  rcpOpts.iceServers = [{ "urls": "stun:stun.stunprotocol.org:3478" }, {
+    "urls": "stun:stun.l.google.com:19302",
+  }];
+  //   rcpOpts.iceServers.push( {
+  //     url: 'turn:turn.anyfirewall.com:443?transport=tcp',
+  //     credential: 'webrtc',
+  //     username: 'webrtc'
+  // });
 
   myPeerConnection = new RTCPeerConnection(rcpOpts);
 
@@ -297,30 +296,26 @@ rcpOpts.iceServers =   [  {'urls': 'stun:stun.stunprotocol.org:3478'},
   myPeerConnection.onnegotiationneeded = handleNegotiationNeededEvent;
   myPeerConnection.ontrack = handleTrackEvent;
 
-  myPeerConnection.addEventListener('datachannel', receiveChannelCallback);
+  myPeerConnection.addEventListener("datachannel", receiveChannelCallback);
 
   function receiveChannelCallback(event) {
-    console.log('Receive Channel Callback');
+    console.log("Receive Channel Callback");
     receiveChannel = event.channel;
-    receiveChannel.binaryType = 'arraybuffer';
-    receiveChannel.addEventListener('close', onReceiveChannelClosed);
-    receiveChannel.addEventListener('message', (e)=>{
+    receiveChannel.binaryType = "arraybuffer";
+    receiveChannel.addEventListener("close", onReceiveChannelClosed);
+    receiveChannel.addEventListener("message", (e) => {
       const data = JSON.parse(e.data);
-      console.log({data});
- //     console.log(JSON.parse(e.data))
+      console.log({ data });
+      //     console.log(JSON.parse(e.data))
     });
   }
 
   function onReceiveChannelClosed() {
-    console.log('Receive channel is closed');
+    console.log("Receive channel is closed");
     myPeerConnection.close();
     myPeerConnection = null;
-    console.log('Closed remote peer connection');
+    console.log("Closed remote peer connection");
   }
-
-
-
-  
 
   const dataChannelOptions = {
     ordered: true, // do not guarantee order
@@ -328,23 +323,24 @@ rcpOpts.iceServers =   [  {'urls': 'stun:stun.stunprotocol.org:3478'},
     maxPacketLifeTime: 3000, // in milliseconds
   };
 
-  sendChannel =
-  myPeerConnection.createDataChannel("myLabel", dataChannelOptions);
+  sendChannel = myPeerConnection.createDataChannel(
+    "myLabel",
+    dataChannelOptions,
+  );
 
-  sendChannel.binaryType = 'arraybuffer';
+  sendChannel.binaryType = "arraybuffer";
   sendChannel.onerror = (error) => {
-  console.log("xxxxxx-  Data Channel Error:", error);
-};
+    console.log("xxxxxx-  Data Channel Error:", error);
+  };
 
-sendChannel.onmessage = processWsMessage
+  sendChannel.onmessage = processWsMessage;
 
-sendChannel.onopen = () => {
-  
-};
+  sendChannel.onopen = () => {
+  };
 
-sendChannel.onclose = () => {
-  console.log("xxxxxxxx- The Data Channel is Closed");
-};
+  sendChannel.onclose = () => {
+    console.log("xxxxxxxx- The Data Channel is Closed");
+  };
 
   window.myPeerConnection = myPeerConnection;
   window.sendChannel = sendChannel;
@@ -467,7 +463,8 @@ async function handleNewICECandidateMsg(msg) {
 
 function handleSignalingStateChangeEvent() {
   log(
-    "*** myPeerConnection.signalingState  changed to: " + myPeerConnection.signalingState,
+    "*** myPeerConnection.signalingState  changed to: " +
+      myPeerConnection.signalingState,
   );
   switch (myPeerConnection.signalingState) {
     case "closed":
@@ -487,7 +484,8 @@ function handleSignalingStateChangeEvent() {
 
 function handleICEGatheringStateChangeEvent() {
   log(
-    "*** myPeerConnection.iceGatheringState changed to: " + myPeerConnection.iceGatheringState,
+    "*** myPeerConnection.iceGatheringState changed to: " +
+      myPeerConnection.iceGatheringState,
   );
 }
 
@@ -523,7 +521,7 @@ async function handleChatOffer(msg) {
       myPeerConnection.setRemoteDescription(desc),
     ]);
     return;
-  } else { 
+  } else {
     log("  - Setting remote description");
     await myPeerConnection.setRemoteDescription(desc);
   }
@@ -553,10 +551,13 @@ async function handleChatAnswerMsg(msg) {
   await myPeerConnection.setRemoteDescription(desc).catch(reportError);
 }
 
-async function processWsMessage(event){
+async function processWsMessage(event) {
   const data = JSON.parse(event.data);
 
-  if (data.name && data.hashOfCode && data.name !== username && targetUsername == null) {
+  if (
+    data.name && data.hashOfCode && data.name !== username &&
+    targetUsername == null
+  ) {
     targetUsername = data.name;
     window.targetUsername = data.name;
     try {

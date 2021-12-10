@@ -261,26 +261,32 @@ export default async (
       },
       {
         name: "framer-motion/types/render/dom/motion.d.ts",
-        url: " https://unpkg.com/framer-motion@5.4.5/types/render/dom/motion.d.ts",
+        url:
+          " https://unpkg.com/framer-motion@5.4.5/types/render/dom/motion.d.ts",
         depend: ["popmotion"],
-      }, {
+      },
+      {
         name: "popmotion",
         url: "https://unpkg.com/popmotion@11.0.0/lib/index.d.ts",
       },
     ];
     const dts = importHelper.map(({ name, url }) =>
-      async () =>{
-
-        const content =  await (await fetch(
+      async () => {
+        const content = await (await fetch(
           url,
         )).text();
 
-        const nameOfLib =  name.includes("@")? `file:///node_modules/${name}`: (name.endsWith('.d.ts')? "file:///node_modules/@types"+ name : "file:///node_modules/@types/"+ name +"/index.d.ts");
-
+        const nameOfLib = name.includes("@")
+          ? `file:///node_modules/${name}`
+          : (name.endsWith(".d.ts")
+            ? "file:///node_modules/@types" + name
+            : "file:///node_modules/@types/" + name + "/index.d.ts");
 
         // console.log(nameOfLib, content);
-        modules.monaco.languages.typescript.typescriptDefaults.addExtraLib(content, nameOfLib);
-      
+        modules.monaco.languages.typescript.typescriptDefaults.addExtraLib(
+          content,
+          nameOfLib,
+        );
       }
     );
 

@@ -237,7 +237,6 @@ export const saveCode =
 
       sess.codeNonFormatted = codeNonFormatted;
 
-
       setTimeout(
         async () =>
           sess.codeNonFormatted === codeNonFormatted &&
