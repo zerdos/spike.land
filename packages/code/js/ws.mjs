@@ -673,6 +673,7 @@ async function processWsMessage(event) {
       window[data.hashOfCode] !== data.hashOfCode
     ) {
       const code = await getCID(data.hashOfCode);
+      if (!window.starterCode) window.starterCode = code;
       const hashOfCode = data.hashOfCode;
       window[hashOfCode] = code;
     }
