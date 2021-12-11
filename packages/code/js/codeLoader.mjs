@@ -90,7 +90,7 @@ export async function run({ mode = "window", code, room = "code-main" }) {
     session.code = code;
     session.formattedCode = await formatter(session.code);
     session.transpiled = await transpileCode(session.formattedCode);
-  }
+  } 
 
   if (!code) {
     try {
@@ -142,7 +142,7 @@ export async function run({ mode = "window", code, room = "code-main" }) {
       /**
        * @param {string} code
        */
-      onChange: (code) => runner(code, changes),
+      onChange: (code, changes) => runner(code, changes),
     },
   );
 
@@ -170,7 +170,16 @@ export async function run({ mode = "window", code, room = "code-main" }) {
   /**
    * @param {string} c
    */
-  async function runner(c, changes) {
+  const editorChanges = [];
+  async function runner(c, changes=null) {
+    editorChanges.push(changes);
+    if (window.sendChannel && window.sendChannel.readyState==="open") {
+      const hashOfCode = await Hash.of(c);
+      if (window.hashOfCode !== hashOfCode ) 
+      window.sendChannel.send(JSON.stringify({changes, hashOfCode}));
+  
+
+    }
     console.log(changes);
     session.errorText = "";
     session.i++;

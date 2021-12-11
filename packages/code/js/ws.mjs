@@ -305,6 +305,10 @@ async function createPeerConnection() {
     receiveChannel.addEventListener("close", onReceiveChannelClosed);
     receiveChannel.addEventListener("message", (e) => {
       const data = JSON.parse(e.data);
+      if (data.changes && data.hashOfCode){
+        window.monaco.editor.getModels()[0].applyEdits(data.changes.changes);
+        window.hashOfCode = data.hashOfCode;
+      }
       console.log({ data });
       //     console.log(JSON.parse(e.data))
     });
@@ -319,7 +323,7 @@ async function createPeerConnection() {
 
   const dataChannelOptions = {
     ordered: true, // do not guarantee order
-    reliable: false,
+    reliable: true,
     maxPacketLifeTime: 3000, // in milliseconds
   };
 
