@@ -555,8 +555,6 @@ async function handleChatAnswerMsg(msg) {
 const cids = {};
 
 async function getCID(CID) {
-  // console.log("GETCID ", CID);
-
   if (cids[CID] && typeof cids[CID] === "string") return cids[CID];
   if (cids[CID] && typeof cids[CID] === "function") return cids[CID]();
 
@@ -618,11 +616,10 @@ async function processWsMessage(event) {
   }
 
   if (data.type === "get-cid" && data.cid) {
+    const CID = data.cid;
+    const content = data[CID];
 
-    if (data[data.cid]) {
-
-      const CID = data.cid;
-      const content = data[CID];
+    if (content) {
 
       const dataCID = await Hash.of(content);
 
@@ -637,13 +634,15 @@ async function processWsMessage(event) {
         }
         return;
       }
+
     }
 
-    const CID = data.cid;
     if (window[CID]) {
       const hash = await Hash.of(window[CID]);
       if (hash === CID) sendChannel.send(JSON.stringify({type:"get-cid", cid: CID, [CID]: window[CID]}));
     }
+
+    return
   }
 
   if (window.sess && data.i <= window.sess.i) {
@@ -752,7 +751,7 @@ async function processWsMessage(event) {
 
           window[data.hashOfCode] = code;
         }
-        if (window[data.hashOfCode]) {
+        if (window[data.hashOfCode] && window.monaco && window.monaco.editor) {
           const code = window[data.hashOfCode];
           window.monaco.editor.getModels()[0].setValue(code);
           window.hashOfCode = hashOfCode;
