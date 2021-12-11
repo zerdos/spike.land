@@ -630,7 +630,7 @@ async function processWsMessage(event) {
 
 
       if (cids[dataCID]) {
-        if (typeof cids.dataCID !== "string") {
+        if (typeof cids.dataCID !== "function") {
           cids[dataCID](content);
           cids[dataCID]=content;
         }

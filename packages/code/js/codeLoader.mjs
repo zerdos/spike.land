@@ -93,7 +93,7 @@ export async function run({ mode = "window", code, room = "code-main" }) {
     session.changes = [];
   } else {
     try {
-      const { code, transpiled, html } =
+      const { code, html } =
         (pathname.endsWith("/edit/") || pathname.endsWith("/edit"))
           ? await getIPFSCodeToLoad(undefined)
           : await getCodeToLoad(room);
@@ -105,7 +105,7 @@ export async function run({ mode = "window", code, room = "code-main" }) {
       }
 
       if (!session.transpiled){
-        session.formattedCode = transpiled ;
+        session.transpiled = await baberTransform(session.code) ;
       }
 
       session.changes = [];
@@ -168,8 +168,8 @@ export async function run({ mode = "window", code, room = "code-main" }) {
     await saveCode(session, session.i);
   }
 
-  const { sendSignalToQrCode } = await import("./sendSignalToQrCode.mjs");
-  await sendSignalToQrCode(session);
+  // const { sendSignalToQrCode } = await import("./sendSignalToQrCode.mjs");
+  // await sendSignalToQrCode(session);
 
   /**
    * @param {string} c
