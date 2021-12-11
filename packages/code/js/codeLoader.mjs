@@ -88,6 +88,7 @@ export async function run({ mode = "window", code, room = "code-main" }) {
   session.room = room;
 
   if (code) {
+    session.code = code;
     session.formattedCode = await formatter(code);
     session.transpiled = await baberTransform(code);
     session.changes = [];
