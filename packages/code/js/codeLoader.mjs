@@ -91,7 +91,7 @@ export async function run({ mode = "window", code, room = "code-main" }) {
     session.code = code;
     session.formattedCode = await formatter(session.code);
     session.transpiled = await transpileCode(session.formattedCode);
-  } 
+  }
 
   if (!code) {
     try {
@@ -167,31 +167,27 @@ export async function run({ mode = "window", code, room = "code-main" }) {
   const { sendSignalToQrCode } = await import("./sendSignalToQrCode.mjs");
   await sendSignalToQrCode(session);
 
-
   /**
    * @param {string} c
    */
 
-  async function runner(c, changes=null) {
-   
-    if (window.sendChannel && window.sendChannel.readyState==="open") {
-      
+  async function runner(c, changes = null) {
+    if (window.sendChannel && window.sendChannel.readyState === "open") {
       const hashOfCode = await Hash.of(c);
+      if (window.hashOfCode === hashOfCode) return;
       window[hashOfCode] = c;
-      const hashOfPrevCode = await Hash.of(session.code)
-      window[hashOfPrevCode] = session.code;
-      if (window.hashOfCode !== hashOfCode ) {
-      window.sendChannel.send(JSON.stringify( {
-        changes, 
-        i: session.i,
-        hashOfCode, 
-        hashOfPrevCode,  
-        codeDiff: createPatch(window[hashOfPrevCode], window[hashOfCode])
-      }));
+      const prevHash = await Hash.of(session.code);
+      window[prevHash] = session.code;
+      if (window.hashOfCode !== hashOfCode) {
+        window.sendChannel.send(JSON.stringify({
+          changes,
+          i: session.i,
+          hashOfCode,
+          prevHash,
+          codeDiff: createPatch(window[prevHash], window[hashOfCode]),
+        }));
+      }
     }
-  }
-  
-    
 
     session.errorText = "";
     session.i++;

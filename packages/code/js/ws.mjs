@@ -11,24 +11,33 @@ function createPatch(oldCode, newCode) {
   return JSON.stringify(createDelta(oldCode, newCode));
 }
 
-const chCode = (code) => {
+const chCode = async (code) => {
   try {
-    window.starterCode = code;
-    if (window.restartCode) window.restartCode(code);
+    if (window.sess && window.monaco) {
+      const hashOfCode = await Hash.of(code);
+      window.hashOfCode = hashOfCode;
+      window[hashOfCode] = code;
 
-    const { monaco } = window;
-    if (!monaco || !monaco.Uri) {
-      return;
-    }
+      const modelUri = window.monaco.Uri.parse(`file:///main.tsx`);
+      window.monaco.editor.getModel(modelUri).setValue(code);
+    } else {
+      window.starterCode = code;
+      if (window.restartCode) window.restartCode(code);
 
-    const modelUri = monaco.Uri.parse(`file:///main.tsx`);
-    const model = monaco.editor.getModel(modelUri);
-    const oldCode = model && model.getValue();
+      const { monaco } = window;
+      if (!monaco || !monaco.Uri) {
+        return;
+      }
 
-    if (oldCode !== code && model && model.setValue) {
-      console.log({ oldCode });
+      const modelUri = monaco.Uri.parse(`file:///main.tsx`);
+      const model = monaco.editor.getModel(modelUri);
+      const oldCode = model && model.getValue();
 
-      model.setValue(code);
+      if (oldCode !== code && model && model.setValue) {
+        console.log({ oldCode });
+
+        model.setValue(code);
+      }
     }
   } catch (e) {
     console.error({ e });
@@ -111,7 +120,8 @@ export const join = (user, room) => {
       if (code !== lastSeenCode) {
         lastSeenCode = code;
         let codeDiff;
-        const prevHash = window.currentHashOfCode;
+        const prevHash = window.hashOfCode;
+        if (hashOfCode === prevHash) return;
         if (code === window[prevHash]) return;
 
         if (window.starterCode) {
@@ -174,7 +184,12 @@ export const join = (user, room) => {
           sendChannel.send(msgStr);
         }
 
-        currentWebSocket.send(msgStr);
+        try {
+          currentWebSocket.send(msgStr);
+        } catch {
+          rejoin();
+          setTimeout(() => currentWebSocket.send(msgStr), 50);
+        }
       }
     };
 
@@ -300,58 +315,11 @@ async function createPeerConnection() {
 
   function receiveChannelCallback(event) {
     console.log("Receive Channel Callback");
-    receiveChannel = event.channel;
-    receiveChannel.binaryType = "arraybuffer";
-    receiveChannel.addEventListener("close", onReceiveChannelClosed);
-    receiveChannel.addEventListener("message", async (e) => {
-      const data = JSON.parse(e.data);
-      if (data.changes && data.hashOfCode){
-        if (data.i <=window.sess.i) return;
-        if (window.hashOfCode === data.hashOfPrevCode) {
-          
-        window.monaco.editor.getModels()[0].applyEdits(data.changes.changes);
-        const hashOfCode = await Hash.of (window.monaco.editor.getModels()[0].getValue())
-        if (hashOfCode === data.hashOfCode) {
-          window.hashOfCode = hashOfCode;
-        } else {
-          const code =  applyPatch(window[data.hashOfPrevCode], JSON.parse(data.codeDiff));
-        
-          const hashOfCode = await Hash.of(code);
-          if (hashOfCode === data.hashOfCode){
+    sendChannel = event.channel;
+    sendChannel.binaryType = "arraybuffer";
+    sendChannel.addEventListener("close", onReceiveChannelClosed);
 
-            window.monaco.editor.getModels()[0].setValue(code);
-            window.hashOfCode = hashOfCode;
-          }
-          else {
-            if (window[data.hashOfCode])
-            {
-              const code = window[data.hashOfCode];
-              window.monaco.editor.getModels()[0].setValue(code);
-              window.hashOfCode = hashOfCode;
-            }
-            
-            const resp = await fetch(
-              `https://code.spike.land/api/room/${roomName}/code`,
-            );
-            const code = await resp.text();
-            const hash = await Hash.of(code);
-            if (hash === data.hashOfCode) window[hash] = code;
-          }
-          if (window[data.hashOfCode])
-          {
-            const code = window[data.hashOfCode];
-            window.monaco.editor.getModels()[0].setValue(code);
-            window.hashOfCode = hashOfCode;
-          }
-
-        }
-      }
-
-        window.hashOfCode = data.hashOfCode;
-      }
-      console.log({ data });
-      //     console.log(JSON.parse(e.data))
-    });
+    sendChannel.addEventListener("message", processWsMessage);
   }
 
   function onReceiveChannelClosed() {
@@ -373,6 +341,9 @@ async function createPeerConnection() {
   );
 
   sendChannel.binaryType = "arraybuffer";
+
+  sendChannel.addEventListener("message", processWsMessage);
+
   sendChannel.onerror = (error) => {
     console.log("xxxxxx-  Data Channel Error:", error);
   };
@@ -635,6 +606,9 @@ async function processWsMessage(event) {
 
     return;
   }
+  if (data.i <= window.sess.i) {
+    return;
+  }
 
   if (data.type === "video-answer") {
     await handleChatAnswerMsg(data);
@@ -670,9 +644,90 @@ async function processWsMessage(event) {
     chCode(lastSeenCode);
   }
 
+  if (data.codeReq) {
+    sendChannel.send(JSON.stringify({
+      hashOfCode: window.hashOfCode,
+      code: window[window.hashOfCode],
+    }));
+  }
+
+  if (data.code && data.hashOfCode) {
+    if (!window[data.hashOfCode]) {
+      window.hashOfCode = data.hashOfCode;
+      const code = data.code;
+      const hashOfCode = await Hash.of(code);
+      window[hashOfCode] = code;
+      if (data.hashOfCode === hashOfCode) chCode(data.code);
+    }
+  }
+
+  if (
+    data.changes && data.hashOfCode && data.prevHash && window[data.prevHash]
+  ) {
+    const prevCode = window[data.prevHash];
+    const prevHash = await Hash.of(prevCode);
+    if (data.prevHash !== prevHash) {
+      sendChannel.send(JSON.stringify({
+        type: "codeReq",
+      }));
+      return;
+    }
+
+    if (data.i <= window.sess.i) return;
+    if (window.hashOfCode === data.prevHash) {
+      let hashOfCode = "";
+      if (window.monaco) {
+        window.monaco.editor.getModels()[0].applyEdits(data.changes.changes);
+        hashOfCode = await Hash.of(
+          window.monaco.editor.getModels()[0].getValue(),
+        );
+      }
+      if (hashOfCode === data.hashOfCode) {
+        window.hashOfCode = hashOfCode;
+      } else {
+        const code = applyPatch(
+          window[data.prevHash],
+          JSON.parse(data.codeDiff),
+        );
+
+        const hashOfCode = await Hash.of(code);
+        if (hashOfCode === data.hashOfCode) {
+          chCode(code);
+          window.hashOfCode = hashOfCode;
+        } else {
+          if (window[data.hashOfCode]) {
+            const code = window[data.hashOfCode];
+            chCode(code);
+            //                window.monaco.editor.getModels()[0].setValue(code);
+            window.hashOfCode = hashOfCode;
+          }
+
+          const resp = await fetch(
+            `https://code.spike.land/api/room/${roomName}/code`,
+          );
+          const code = await resp.text();
+          const hash = await Hash.of(code);
+          if (hash === data.hashOfCode) window[hash] = code;
+        }
+        if (window[data.hashOfCode]) {
+          const code = window[data.hashOfCode];
+          window.monaco.editor.getModels()[0].setValue(code);
+          window.hashOfCode = hashOfCode;
+        } else {
+          sendChannel.send(JSON.stringify({
+            type: "codeReq",
+          }));
+        }
+      }
+    }
+
+    window.hashOfCode = data.hashOfCode;
+  }
   // A regular chat message.
 
-  if (data.codeDiff) {
+  if (
+    data.codeDiff && data.hashOfCode && data.prevHash && window[data.prevHash]
+  ) {
     if (
       data.hashOfCode &&
       data.codeDiff && data.hashOfCode !== window.hashOfCode
@@ -683,14 +738,16 @@ async function processWsMessage(event) {
       // const patches = dmp.patch_fromText(data.codeDiff);
       // const patched = dmp.patch_apply(patches, lastSeenCode);
 
-      lastSeenCode = applyPatch(lastSeenCode, JSON.parse(data.codeDiff));
-      const hashFromCodeDiff = lastSeenCode &&
-        await Hash.of(lastSeenCode);
+      const codeCandidate = applyPatch(
+        window[data.prevHash],
+        JSON.parse(data.codeDiff),
+      );
+      const hashFromCodeDiff = await Hash.of(codeCandidate);
       if (hashFromCodeDiff === hashOfCode) {
-        window[hashOfCode] = lastSeenCode;
+        window[hashOfCode] = codeCandidate;
         window.hashOfCode = hashOfCode;
 
-        chCode(lastSeenCode);
+        chCode(codeCandidate);
       }
     } else {
       console.error("we are out of sync...");
