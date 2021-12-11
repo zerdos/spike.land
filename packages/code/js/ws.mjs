@@ -14,12 +14,13 @@ function createPatch(oldCode, newCode) {
 const chCode = async (code) => {
   if (!code) return;
   try {
-    if (window.sess && window.monaco) {
+    if (window.sess && window.monaco && window.monaco.editor.getModels()) {
       const hashOfCode = await Hash.of(code);
       window.hashOfCode = hashOfCode;
       window[hashOfCode] = code;
 
       window.monaco.editor.getModels()[0].setValue(code);
+
     } else {
       const {run} = await import("../dist/dev.mjs");
       run({window: "window", code, room: roomName });
