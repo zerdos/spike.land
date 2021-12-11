@@ -1,7 +1,7 @@
 import { wrap } from "comlink";
 import { getWorker } from "./workers/getWorker.mjs";
 
-const { workerSrc, forceNormalWorker } = getWorker("transpile.worker.js");
+const { workerSrc, forceNormalWorker } = getWorker("babel.worker.js");
 
 let transform = null;
 
@@ -9,10 +9,10 @@ let transform = null;
  * @param {string} code
  * @returns {Promise<string>}
  */
-export async function transpileCode(code) {
+export async function baberTransform(code) {
   if (transform === null) {
     await init();
-    return transpileCode(code);
+    return baberTransform(code);
   }
 
   const transformed = await transform(

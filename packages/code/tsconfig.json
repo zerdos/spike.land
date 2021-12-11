@@ -12,6 +12,7 @@
       "ES2018.Regexp",
       "ES2018.AsyncIterable",
       "ES2018",
+      "WebWorker.ImportScripts",
       "es2019"
     ], /* Specify library files to be included in the compilation. */
     "allowJs": true, /* Allow javascript files to be compiled. */

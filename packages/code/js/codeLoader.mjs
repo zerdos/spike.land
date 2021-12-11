@@ -2,7 +2,7 @@ import createDelta from "textdiff-create";
 import { renderPreviewWindow } from "./renderPreviewWindow.mjs";
 import { openWindows } from "./openWindows.mjs";
 import { getCodeToLoad, getIPFSCodeToLoad, saveCode } from "./data.mjs";
-import { transpileCode } from "./transpile.mjs";
+import { baberTransform } from "./babel.mjs";
 import { formatter } from "./formatter.mjs";
 import { diff } from "@spike.land/shadb";
 import React from "react";
@@ -71,7 +71,7 @@ export async function run({ mode = "window", code, room = "code-main" }) {
   code = code || "";
   room = room || "code-main";
 
-  const session = getSession();
+  let session = getSession();
   window.sess = session;
 
   let monaco;
@@ -88,12 +88,13 @@ export async function run({ mode = "window", code, room = "code-main" }) {
   session.room = room;
 
   if (code) {
-    session.code = code;
-    session.formattedCode = await formatter(session.code);
-    session.transpiled = await transpileCode(session.formattedCode);
-  }
-
-  if (!code) {
+    session = {...session, 
+    code,
+    changes: [],
+    formattedCode: await formatter(code),
+    transpiled: await baberTransform(code)
+    };
+  } else{
     try {
       const { code, transpiled, html } =
         (pathname.endsWith("/edit/") || pathname.endsWith("/edit"))
@@ -102,7 +103,7 @@ export async function run({ mode = "window", code, room = "code-main" }) {
 
       session.code = code;
       session.formattedCode = await formatter(code);
-      session.transpiled = await transpileCode(
+      session.transpiled = await baberTransform(
         session.formattedCode,
       ) || transpiled;
 
@@ -172,6 +173,8 @@ export async function run({ mode = "window", code, room = "code-main" }) {
    */
 
   async function runner(c, changes = null) {
+    session.changes.push(changes);
+
     if (window.sendChannel && window.sendChannel.readyState === "open") {
       const hashOfCode = await Hash.of(c);
       if (window.hashOfCode === window.hashOfStarterCode && window.hashOfCode === hashOfCode) return;
@@ -196,8 +199,9 @@ export async function run({ mode = "window", code, room = "code-main" }) {
     const counter = session.i;
 
     try {
+
       const cd = await formatter(c);
-      const transpiled = await transpileCode(cd);
+      const transpiled = await baberTransform(cd);
 
       let restartError = false;
       ///yellow
@@ -387,7 +391,7 @@ const session = {
 };
 
 export const restart = async (code, target) => {
-  const transpiled = await transpileCode(code);
+  const transpiled = await baberTransform(code);
   restartX(transpiled, target, session.counter, session);
   return session;
 };
