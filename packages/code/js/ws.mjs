@@ -568,7 +568,7 @@ async function handleChatAnswerMsg(msg) {
 const cids = {};
 
 async function getCID(CID) {
-  console.log("GETCID ", CID);
+  // console.log("GETCID ", CID);
 
   if (cids[CID] && typeof cids[CID] === "string") return cids[CID];
   if (cids[CID] && typeof cids[CID] === "function") return cids[CID]();
