@@ -98,7 +98,7 @@ export async function run({ mode = "window", code, room = "code-main" }) {
           ? await getIPFSCodeToLoad(undefined)
           : await getCodeToLoad(room);
       if (!session.code){
-        
+
         session.code = code;
         session.formattedCode = await formatter(code) ;
 
@@ -191,7 +191,7 @@ export async function run({ mode = "window", code, room = "code-main" }) {
       window[prevHash] = session.code;
 
       if (window.hashOfCode !== hashOfCode) {
-        const starterCode = window[currentHashOfCode];
+        const starterCode = window[window.hashOfCode];
         window.sendChannel.send(JSON.stringify({
           changes,
           i: session.i,
