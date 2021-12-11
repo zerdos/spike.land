@@ -303,10 +303,50 @@ async function createPeerConnection() {
     receiveChannel = event.channel;
     receiveChannel.binaryType = "arraybuffer";
     receiveChannel.addEventListener("close", onReceiveChannelClosed);
-    receiveChannel.addEventListener("message", (e) => {
+    receiveChannel.addEventListener("message", async (e) => {
       const data = JSON.parse(e.data);
       if (data.changes && data.hashOfCode){
+        if (data.i <=window.sess.i) return;
+        if (window.hashOfCode === data.hashOfPrevCode) {
+          
         window.monaco.editor.getModels()[0].applyEdits(data.changes.changes);
+        const hashOfCode = await Hash.of (window.monaco.editor.getModels()[0].getValue())
+        if (hashOfCode === data.hashOfCode) {
+          window.hashOfCode = hashOfCode;
+        } else {
+          const code =  applyPatch(window[data.hashOfPrevCode], JSON.parse(data.codeDiff));
+        
+          const hashOfCode = await Hash.of(code);
+          if (hashOfCode === data.hashOfCode){
+
+            window.monaco.editor.getModels()[0].setValue(code);
+            window.hashOfCode = hashOfCode;
+          }
+          else {
+            if (window[data.hashOfCode])
+            {
+              const code = window[data.hashOfCode];
+              window.monaco.editor.getModels()[0].setValue(code);
+              window.hashOfCode = hashOfCode;
+            }
+            
+            const resp = await fetch(
+              `https://code.spike.land/api/room/${roomName}/code`,
+            );
+            const code = await resp.text();
+            const hash = await Hash.of(code);
+            if (hash === data.hashOfCode) window[hash] = code;
+          }
+          if (window[data.hashOfCode])
+          {
+            const code = window[data.hashOfCode];
+            window.monaco.editor.getModels()[0].setValue(code);
+            window.hashOfCode = hashOfCode;
+          }
+
+        }
+      }
+
         window.hashOfCode = data.hashOfCode;
       }
       console.log({ data });
@@ -624,6 +664,7 @@ async function processWsMessage(event) {
       const hash = await Hash.of(code);
       if (hash === data.hashOfCode) window[hash] = code;
     }
+
     window.starterCode = window[data.hashOfCode];
     lastSeenCode = window[data.hashOfCode];
     chCode(lastSeenCode);
@@ -648,6 +689,7 @@ async function processWsMessage(event) {
       if (hashFromCodeDiff === hashOfCode) {
         window[hashOfCode] = lastSeenCode;
         window.hashOfCode = hashOfCode;
+
         chCode(lastSeenCode);
       }
     } else {

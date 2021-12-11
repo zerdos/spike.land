@@ -1,3 +1,4 @@
+import createDelta from "textdiff-create";
 import { renderPreviewWindow } from "./renderPreviewWindow.mjs";
 import { openWindows } from "./openWindows.mjs";
 import { getCodeToLoad, getIPFSCodeToLoad, saveCode } from "./data.mjs";
@@ -170,17 +171,28 @@ export async function run({ mode = "window", code, room = "code-main" }) {
   /**
    * @param {string} c
    */
-  const editorChanges = [];
-  async function runner(c, changes=null) {
-    editorChanges.push(changes);
-    if (window.sendChannel && window.sendChannel.readyState==="open") {
-      const hashOfCode = await Hash.of(c);
-      if (window.hashOfCode !== hashOfCode ) 
-      window.sendChannel.send(JSON.stringify({changes, hashOfCode}));
-  
 
+  async function runner(c, changes=null) {
+   
+    if (window.sendChannel && window.sendChannel.readyState==="open") {
+      
+      const hashOfCode = await Hash.of(c);
+      window[hashOfCode] = c;
+      const hashOfPrevCode = await Hash.of(session.code)
+      window[hashOfPrevCode] = session.code;
+      if (window.hashOfCode !== hashOfCode ) {
+      window.sendChannel.send(JSON.stringify( {
+        changes, 
+        i: session.i,
+        hashOfCode, 
+        hashOfPrevCode,  
+        codeDiff: createPatch(window[hashOfPrevCode], window[hashOfCode])
+      }));
     }
-    console.log(changes);
+  }
+  
+    
+
     session.errorText = "";
     session.i++;
     const counter = session.i;
@@ -381,3 +393,7 @@ export const restart = async (code, target) => {
   restartX(transpiled, target, session.counter, session);
   return session;
 };
+
+function createPatch(oldCode, newCode) {
+  return JSON.stringify(createDelta(oldCode, newCode));
+}
