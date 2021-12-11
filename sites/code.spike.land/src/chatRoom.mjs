@@ -225,7 +225,7 @@ export class Code {
 
         if (data.type === 'get-cid') {
           const CID = data.cid;
-          if (this.hashCache[CID]) webSocket.send(this.hashCache[CID]);
+          if (this.hashCache[CID]) webSocket.send(JSON.stringify({type: "get-cid", cid: data.cid, [CID]: this.hashCache[CID]}));
           return;
         }
         

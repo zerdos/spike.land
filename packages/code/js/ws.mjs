@@ -642,7 +642,7 @@ async function processWsMessage(event) {
     const CID = data.cid;
     if (window[CID]) {
       const hash = await Hash.of(window[CID]);
-      if (hash === CID) sendChannel.send(window[CID]);
+      if (hash === CID) sendChannel.send(JSON.stringify({type:"get-cid", cid: CID, [CID]: window[CID]}));
     }
   }
 
