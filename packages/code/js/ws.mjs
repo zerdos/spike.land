@@ -18,8 +18,7 @@ const chCode = async (code) => {
       window.hashOfCode = hashOfCode;
       window[hashOfCode] = code;
 
-      const modelUri = window.monaco.Uri.parse(`file:///main.tsx`);
-      window.monaco.editor.getModel(modelUri).setValue(code);
+      window.monaco.editor.getModels()[0].setValue(code);
     } else {
       window.starterCode = code;
       if (window.restartCode) window.restartCode(code);
