@@ -22,9 +22,10 @@ const chCode = async (code) => {
       window.monaco.editor.getModels()[0].setValue(code);
 
     } else {
-      const {run} = await import("../dist/dev.mjs");
+      const {run} = await import("./reactLoader.mjs");
+
+      // console.log({window: "window", code, room: roomName });
       run({window: "window", code, room: roomName });
-      window.starterCode = code;
 
     }
   } catch (e) {

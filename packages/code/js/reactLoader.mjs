@@ -1,6 +1,7 @@
 import { importScript } from "./importScript.mjs";
 
-export const run = async (mode = "window", code = "") => {
+export const run = async ({mode, code, room}) => {
+  mode = mode || "window";
   window.process = { env: { NODE_ENV: "production" } };
 
   if (!window.React) {
@@ -19,7 +20,5 @@ export const run = async (mode = "window", code = "") => {
 
   const { run: runCode } = await import("../dist/dev.mjs");
 
-  const { starterCode } = window;
-
-  return runCode(mode, starterCode || code);
-};
+return runCode({mode,  code, room});
+};  
