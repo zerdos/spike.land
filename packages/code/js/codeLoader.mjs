@@ -71,7 +71,7 @@ export async function run({ mode = "window", code, room = "code-main" }) {
   code = code || "";
   room = room || "code-main";
 
-  let session = getSession();
+  const session = getSession();
   window.sess = session;
 
   let monaco;
@@ -88,26 +88,27 @@ export async function run({ mode = "window", code, room = "code-main" }) {
   session.room = room;
 
   if (code) {
-    session = {
-      ...session,
-      code,
-      changes: [],
-      formattedCode: await formatter(code),
-      transpiled: await baberTransform(code),
-    };
+    session.formattedCode = await formatter(code);
+    session.transpiled = await baberTransform(code);
+    session.changes = [];
   } else {
     try {
       const { code, transpiled, html } =
         (pathname.endsWith("/edit/") || pathname.endsWith("/edit"))
           ? await getIPFSCodeToLoad(undefined)
           : await getCodeToLoad(room);
+      if (!session.code){
+        
+        session.code = code;
+        session.formattedCode = await formatter(code) ;
 
-      session.code = code;
+      }
+
+      if (!session.transpiled){
+        session.formattedCode = transpiled ;
+      }
+
       session.changes = [];
-      session.formattedCode = await formatter(code);
-      session.transpiled = await baberTransform(
-        session.formattedCode,
-      ) || transpiled;
 
       session.div.innerHTML = html;
     } catch (e) {
@@ -116,10 +117,10 @@ export async function run({ mode = "window", code, room = "code-main" }) {
     }
   }
 
-  const currentCode = session.code;
-  const currentHashOfCode = await Hash.of(currentCode);
-  if (!window.currentHashOfCode) window.currentHashOfCode = currentHashOfCode;
-  window[currentHashOfCode] = currentCode;
+  const hashOfCode = await Hash.of(code);
+
+  window[hashOfCode] = code;
+  session.hashOfCode = hashOfCode;
 
   // const editorContainer = window.document.createElement("div");
   // editorContainer.className= "editor-frame"

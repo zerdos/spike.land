@@ -78,7 +78,7 @@ let rejoin = async () => {
 
 let intervalHandler = null;
 
-export const join = (user, room) => {
+export const join = (user, room) => {   
   if (user) username = user;
   if (room) roomName = room;
 
