@@ -88,13 +88,14 @@ export async function run({ mode = "window", code, room = "code-main" }) {
   session.room = room;
 
   if (code) {
-    session = {...session, 
-    code,
-    changes: [],
-    formattedCode: await formatter(code),
-    transpiled: await baberTransform(code)
+    session = {
+      ...session,
+      code,
+      changes: [],
+      formattedCode: await formatter(code),
+      transpiled: await baberTransform(code),
     };
-  } else{
+  } else {
     try {
       const { code, transpiled, html } =
         (pathname.endsWith("/edit/") || pathname.endsWith("/edit"))
@@ -178,11 +179,16 @@ export async function run({ mode = "window", code, room = "code-main" }) {
 
     if (window.sendChannel && window.sendChannel.readyState === "open") {
       const hashOfCode = await Hash.of(c);
-      if (window.hashOfCode === window.hashOfStarterCode && window.hashOfCode === hashOfCode) return;
+      if (
+        window.hashOfCode === window.hashOfStarterCode &&
+        window.hashOfCode === hashOfCode
+      ) {
+        return;
+      }
       window[hashOfCode] = c;
       const prevHash = await Hash.of(session.code);
       window[prevHash] = session.code;
-  
+
       if (window.hashOfCode !== hashOfCode) {
         const starterCode = window[currentHashOfCode];
         window.sendChannel.send(JSON.stringify({
@@ -200,7 +206,6 @@ export async function run({ mode = "window", code, room = "code-main" }) {
     const counter = session.i;
 
     try {
-
       const cd = await formatter(c);
       const transpiled = await baberTransform(cd);
 

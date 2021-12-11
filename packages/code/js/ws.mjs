@@ -567,45 +567,38 @@ async function handleChatAnswerMsg(msg) {
 
 const cids = {};
 
-
-
-async function getCID(CID){
-
+async function getCID(CID) {
   console.log("GETCID ", CID);
 
   if (cids[CID] && typeof cids[CID] === "string") return cids[CID];
   if (cids[CID] && typeof cids[CID] === "function") return cids[CID]();
 
-  const requestSrt =  JSON.stringify({
-    type: 'get-cid', 
-    cid: CID
+  const requestSrt = JSON.stringify({
+    type: "get-cid",
+    cid: CID,
   });
-  if (sendChannel && sendChannel.readyState ==="open")
-sendChannel.send(requestSrt);
-else {
-  ws.send(requestSrt);
-}
-  return new Promise(((resolve)=> {
+  if (sendChannel && sendChannel.readyState === "open") {
+    sendChannel.send(requestSrt);
+  } else {
+    ws.send(requestSrt);
+  }
+  return new Promise((resolve) => {
     cids[CID] = resolve;
-  }));
- 
+  });
 }
 
 async function processWsMessage(event) {
   const dataCID = await Hash.of(event.data);
 
-  if (cids[dataCID]){
+  if (cids[dataCID]) {
     if (typeof cids.dataCID !== "string") {
-    cids[dataCID](event.data);  
-    cids[dataCID] = event.data;
+      cids[dataCID](event.data);
+      cids[dataCID] = event.data;
+    }
+    return;
   }
-  return;
-}
-
 
   const data = JSON.parse(event.data);
-
-
 
   if (
     data.name && data.hashOfCode && data.name !== username &&
@@ -650,10 +643,10 @@ async function processWsMessage(event) {
     if (window[CID]) {
       const hash = await Hash.of(window[CID]);
       if (hash === CID) sendChannel.send(window[CID]);
-    } 
+    }
   }
 
-  if ( window.sess && data.i <= window.sess.i) {
+  if (window.sess && data.i <= window.sess.i) {
     return;
   }
 
@@ -679,10 +672,9 @@ async function processWsMessage(event) {
       !window[data.hashOfCode] ||
       window[data.hashOfCode] !== data.hashOfCode
     ) {
-     
-      const code = await getCID(data.hashOfCode)
+      const code = await getCID(data.hashOfCode);
       const hashOfCode = data.hashOfCode;
-     window[hashOfCode] = code;
+      window[hashOfCode] = code;
     }
 
     window.starterCode = window[data.hashOfCode];
