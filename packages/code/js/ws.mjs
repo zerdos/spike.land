@@ -21,23 +21,10 @@ const chCode = async (code) => {
 
       window.monaco.editor.getModels()[0].setValue(code);
     } else {
+      const {run} = await import("../dist/dev.mjs");
+      run({window: "window", code, room: roomName });
       window.starterCode = code;
-      if (window.restartCode) window.restartCode(code);
 
-      const { monaco } = window;
-      if (!monaco || !monaco.Uri) {
-        return;
-      }
-
-      const modelUri = monaco.Uri.parse(`file:///main.tsx`);
-      const model = monaco.editor.getModel(modelUri);
-      const oldCode = model && model.getValue();
-
-      if (oldCode !== code && model && model.setValue) {
-        console.log({ oldCode });
-
-        model.setValue(code);
-      }
     }
   } catch (e) {
     console.error({ e });
@@ -588,15 +575,7 @@ async function getCID(CID) {
 }
 
 async function processWsMessage(event) {
-  const dataCID = await Hash.of(event.data);
-
-  if (cids[dataCID]) {
-    if (typeof cids.dataCID !== "string") {
-      cids[dataCID](event.data);
-      cids[dataCID] = event.data;
-    }
-    return;
-  }
+ 
 
   const data = JSON.parse(event.data);
 
@@ -639,6 +618,27 @@ async function processWsMessage(event) {
   }
 
   if (data.type === "get-cid" && data.cid) {
+
+    if (data[data.cid]) {
+
+      const CID = data.cid;
+      const content = data[CID];
+
+      const dataCID = await Hash.of(content);
+
+      if (dataCID !== CID) console.error("get-cid ERROR!!!! ???? !!!");
+
+
+
+      if (cids[dataCID]) {
+        if (typeof cids.dataCID !== "string") {
+          cids[dataCID](content);
+          cids[dataCID]=content;
+        }
+        return;
+      }
+    }
+
     const CID = data.cid;
     if (window[CID]) {
       const hash = await Hash.of(window[CID]);
@@ -672,7 +672,10 @@ async function processWsMessage(event) {
       !window[data.hashOfCode] ||
       window[data.hashOfCode] !== data.hashOfCode
     ) {
+      console.log("What is the Content for CID: "+ data.hashOfCode + "???");
+        
       const code = await getCID(data.hashOfCode);
+      console.log({code});
       if (!window.starterCode) chCode(code);
       const hashOfCode = data.hashOfCode;
       window[hashOfCode] = code;
@@ -742,7 +745,11 @@ async function processWsMessage(event) {
           }
 
 
+          console.log("What is the Content for CID: "+ data.hashOfCode + "???");
           const code = await getCID(data.hashOfCode);
+
+           console.log({code});
+
           window[data.hashOfCode] = code;
         }
         if (window[data.hashOfCode]) {
