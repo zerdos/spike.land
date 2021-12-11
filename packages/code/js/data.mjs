@@ -244,6 +244,7 @@ export const saveCode =
             starterCode: window.starterCode,
             code: codeNonFormatted,
             transpiled,
+            i: opts.i,
             html: opts.html,
             css: getCss({ html }),
             hashOfStarterCode: window.starterCode &&

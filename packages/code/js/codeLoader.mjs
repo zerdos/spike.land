@@ -221,6 +221,7 @@ export async function run({ mode = "window", code, room = "code-main" }) {
       }
     }
 
+
     session.errorText = "";
     session.i++;
     const counter = session.i;

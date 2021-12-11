@@ -1,5 +1,6 @@
 import createDelta from "textdiff-create";
 import applyPatch from "textdiff-patch";
+import { formatter } from "./formatter.mjs";
 
 import Hash from "ipfs-only-hash";
 
@@ -75,7 +76,6 @@ let rejoin = async () => {
 //   const patches = dmp.patch_make(from, to);
 //   return dmp.patch_toText(patches);
 // }
-
 let intervalHandler = null;
 
 export const join = (user, room) => {   
@@ -102,10 +102,15 @@ export const join = (user, room) => {
     }
     console.log("connected");
     currentWebSocket = ws;
-    const broad = (
-      { code, hashOfCode, starterCode, transpiled, html, css },
+    const broad = async (
+      { code, hashOfCode, starterCode, transpiled, html, css, i },
     ) => {
-      if (code !== lastSeenCode) {
+
+      if (i!=window.sess.i) return;
+      const formattedCode = await formatter(code);
+      const hashOfFormattedCode = await Hash.of(formattedCode);
+
+      if (code !== lastSeenCode && formattedCode!==lastSeenCode && hashOfFormattedCode !== window.hashOfCode) {
         lastSeenCode = code;
         let codeDiff;
         const prevHash = window.currentHashOfCode;
@@ -699,7 +704,7 @@ async function processWsMessage(event) {
   }
 
   if (
-    data.changes && data.hashOfCode && data.prevHash && window[data.prevHash]
+    data.changes && data.i && data.hashOfCode && data.prevHash && window[data.prevHash]
   ) {
     const prevCode = window[data.prevHash];
     const prevHash = await Hash.of(prevCode);
