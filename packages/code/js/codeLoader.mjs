@@ -75,7 +75,7 @@ export async function run({ mode = "window", code, room = "code-main" }) {
  
 
   const session = getSession();
-  if (window.sess && window.sess.code ){
+  if (window.sess){
     console.log("We are running...");
     return;
   }
@@ -154,6 +154,7 @@ export async function run({ mode = "window", code, room = "code-main" }) {
 
   if (container === null) return "No editor window";
 
+  console.log("STARTING startMonaco");
   const editorPromise = startMonaco(
     /**
      * @param {any} code
