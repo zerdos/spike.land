@@ -12,6 +12,7 @@ function createPatch(oldCode, newCode) {
 }
 
 const chCode = async (code) => {
+  if (!code) return;
   try {
     if (window.sess && window.monaco) {
       const hashOfCode = await Hash.of(code);
@@ -54,7 +55,6 @@ let ws;
 let startTime;
 let rejoined = false;
 let sendChannel;
-let receiveChannel;
 
 let rejoin = async () => {
   if (!rejoined) {

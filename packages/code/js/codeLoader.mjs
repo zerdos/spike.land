@@ -174,17 +174,19 @@ export async function run({ mode = "window", code, room = "code-main" }) {
   async function runner(c, changes = null) {
     if (window.sendChannel && window.sendChannel.readyState === "open") {
       const hashOfCode = await Hash.of(c);
-      if (window.hashOfCode === hashOfCode) return;
+      if (window.hashOfCode === window.hashOfStarterCode && window.hashOfCode === hashOfCode) return;
       window[hashOfCode] = c;
       const prevHash = await Hash.of(session.code);
       window[prevHash] = session.code;
+  
       if (window.hashOfCode !== hashOfCode) {
+        const starterCode = window.starterCode;
         window.sendChannel.send(JSON.stringify({
           changes,
           i: session.i,
           hashOfCode,
-          prevHash,
-          codeDiff: createPatch(window[prevHash], window[hashOfCode]),
+          prevHash: window.hashOfStarterCode,
+          codeDiff: createPatch(starterCode, code),
         }));
       }
     }
