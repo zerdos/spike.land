@@ -191,7 +191,7 @@ export async function run({ mode = "window", code, room = "code-main" }) {
       window[prevHash] = session.code;
 
       if (window.hashOfCode !== hashOfCode) {
-        const starterCode = window[window.hashOfCode];
+        const starterCode = c;
         window.sendChannel.send(JSON.stringify({
           changes,
           i: session.i,
