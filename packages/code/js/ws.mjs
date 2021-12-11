@@ -605,7 +605,7 @@ async function processWsMessage(event) {
 
     return;
   }
-  if (data.i <= window.sess.i) {
+  if ( window.sess && data.i <= window.sess.i) {
     return;
   }
 
