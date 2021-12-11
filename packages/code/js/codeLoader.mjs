@@ -71,6 +71,12 @@ export async function run({ mode = "window", code, room = "code-main" }) {
   code = code || "";
   room = room || "code-main";
 
+
+  if (window.sess.code ){
+    console.log("We are running...");
+    return;
+  }
+
   const session = getSession();
   window.sess = session;
 
