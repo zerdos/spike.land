@@ -14,7 +14,7 @@ function createPatch(oldCode, newCode) {
 const chCode = async (code) => {
   if (!code) return;
   try {
-    if (window.sess && window.monaco && window.monaco.editor.getModels()) {
+    if (window.sess && window.monaco && window.monaco.editor.getModels().length) {
       const hashOfCode = await Hash.of(code);
       window.hashOfCode = hashOfCode;
       window[hashOfCode] = code;
