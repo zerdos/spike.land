@@ -118,7 +118,12 @@ export async function run({ mode = "window", code, room = "code-main" }) {
     }
   }
 
-  const hashOfCode = await Hash.of(code);
+  if (!session.code) {
+    console.log("No code - aborting");
+    return;
+  }
+
+  const hashOfCode = await Hash.of(session.code);
 
   window[hashOfCode] = code;
   session.hashOfCode = hashOfCode;
