@@ -72,13 +72,19 @@ export async function run({ mode = "window", code, room = "code-main" }) {
   room = room || "code-main";
 
 
+ 
+
+  const session = getSession();
   if (window.sess && window.sess.code ){
     console.log("We are running...");
     return;
   }
-
-  const session = getSession();
   window.sess = session;
+
+  if (session !== window.sess) {
+    console.log("bye!");
+    return;
+  }
 
   let monaco;
 
