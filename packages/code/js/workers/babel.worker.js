@@ -3,25 +3,23 @@ self.importScripts(
   "https://unpkg.com/@babel/standalone@7.16.4/babel.min.js",
 );
 
-
 const { Comlink, Babel } = self;
 const { transform } = Babel;
 const { expose } = Comlink;
 
-
 const babelTransform = (code) =>
-transform(
-  code,
-  {
-    compact: false,
-    comments: false,
-    presets: [
-      "react",
-      "es2017",
-      ["typescript", { isTSX: true, allExtensions: true }],
-    ],
-  },
-).code
+  transform(
+    code,
+    {
+      compact: false,
+      comments: false,
+      presets: [
+        "react",
+        "es2017",
+        ["typescript", { isTSX: true, allExtensions: true }],
+      ],
+    },
+  ).code;
 
 addEventListener(
   "connect",

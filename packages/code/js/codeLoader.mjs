@@ -71,11 +71,8 @@ export async function run({ mode = "window", code, room = "code-main" }) {
   code = code || "";
   room = room || "code-main";
 
-
- 
-
   const session = getSession();
-  if (window.sess){
+  if (window.sess) {
     console.log("We are running...");
     return;
   }
@@ -110,15 +107,13 @@ export async function run({ mode = "window", code, room = "code-main" }) {
         (pathname.endsWith("/edit/") || pathname.endsWith("/edit"))
           ? await getIPFSCodeToLoad(undefined)
           : await getCodeToLoad(room);
-      if (!session.code){
-
+      if (!session.code) {
         session.code = code;
-        session.formattedCode = await formatter(code) ;
-
+        session.formattedCode = await formatter(code);
       }
 
-      if (!session.transpiled){
-        session.transpiled = await baberTransform(session.code) ;
+      if (!session.transpiled) {
+        session.transpiled = await baberTransform(session.code);
       }
 
       session.changes = [];
@@ -220,7 +215,6 @@ export async function run({ mode = "window", code, room = "code-main" }) {
         }));
       }
     }
-
 
     session.errorText = "";
     session.i++;

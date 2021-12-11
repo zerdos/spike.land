@@ -15,19 +15,19 @@ function createPatch(oldCode, newCode) {
 const chCode = async (code) => {
   if (!code) return;
   try {
-    if (window.sess && window.monaco && window.monaco.editor.getModels().length) {
+    if (
+      window.sess && window.monaco && window.monaco.editor.getModels().length
+    ) {
       const hashOfCode = await Hash.of(code);
       window.hashOfCode = hashOfCode;
       window[hashOfCode] = code;
 
       window.monaco.editor.getModels()[0].setValue(code);
-
     } else {
-      const {run} = await import("./reactLoader.mjs");
+      const { run } = await import("./reactLoader.mjs");
 
       // console.log({window: "window", code, room: roomName });
-      run({window: "window", code, room: roomName });
-
+      run({ window: "window", code, room: roomName });
     }
   } catch (e) {
     console.error({ e });
@@ -78,7 +78,7 @@ let rejoin = async () => {
 // }
 let intervalHandler = null;
 
-export const join = (user, room) => {   
+export const join = (user, room) => {
   if (user) username = user;
   if (room) roomName = room;
 
@@ -105,12 +105,14 @@ export const join = (user, room) => {
     const broad = async (
       { code, hashOfCode, starterCode, transpiled, html, css, i },
     ) => {
-
-      if (i!=window.sess.i) return;
+      if (i != window.sess.i) return;
       const formattedCode = await formatter(code);
       const hashOfFormattedCode = await Hash.of(formattedCode);
 
-      if (code !== lastSeenCode && formattedCode!==lastSeenCode && hashOfFormattedCode !== window.hashOfCode) {
+      if (
+        code !== lastSeenCode && formattedCode !== lastSeenCode &&
+        hashOfFormattedCode !== window.hashOfCode
+      ) {
         lastSeenCode = code;
         let codeDiff;
         const prevHash = window.currentHashOfCode;
@@ -580,8 +582,6 @@ async function getCID(CID) {
 }
 
 async function processWsMessage(event) {
- 
-
   const data = JSON.parse(event.data);
 
   if (
@@ -627,29 +627,29 @@ async function processWsMessage(event) {
     const content = data[CID];
 
     if (content) {
-
       const dataCID = await Hash.of(content);
 
       if (dataCID !== CID) console.error("get-cid ERROR!!!! ???? !!!");
 
-
-
       if (cids[dataCID]) {
         if (typeof cids.dataCID !== "function") {
           cids[dataCID](content);
-          cids[dataCID]=content;
+          cids[dataCID] = content;
         }
         return;
       }
-
     }
 
     if (window[CID]) {
       const hash = await Hash.of(window[CID]);
-      if (hash === CID) sendChannel.send(JSON.stringify({type:"get-cid", cid: CID, [CID]: window[CID]}));
+      if (hash === CID) {
+        sendChannel.send(
+          JSON.stringify({ type: "get-cid", cid: CID, [CID]: window[CID] }),
+        );
+      }
     }
 
-    return
+    return;
   }
 
   if (window.sess && data.i <= window.sess.i) {
@@ -677,7 +677,7 @@ async function processWsMessage(event) {
     if (
       !window[data.hashOfCode] ||
       window[data.hashOfCode] !== data.hashOfCode
-    ) {        
+    ) {
       window[data.hashOfCode] = await getCID(data.hashOfCode);
     }
 
@@ -704,7 +704,8 @@ async function processWsMessage(event) {
   }
 
   if (
-    data.changes && data.i && data.hashOfCode && data.prevHash && window[data.prevHash]
+    data.changes && data.i && data.hashOfCode && data.prevHash &&
+    window[data.prevHash]
   ) {
     const prevCode = window[data.prevHash];
     const prevHash = await Hash.of(prevCode);
@@ -744,11 +745,12 @@ async function processWsMessage(event) {
             window.hashOfCode = hashOfCode;
           }
 
-
-          console.log("What is the Content for CID: "+ data.hashOfCode + "???");
+          console.log(
+            "What is the Content for CID: " + data.hashOfCode + "???",
+          );
           const code = await getCID(data.hashOfCode);
 
-           console.log({code});
+          console.log({ code });
 
           window[data.hashOfCode] = code;
         }
