@@ -670,14 +670,8 @@ async function processWsMessage(event) {
     if (
       !window[data.hashOfCode] ||
       window[data.hashOfCode] !== data.hashOfCode
-    ) {
-      console.log("What is the Content for CID: "+ data.hashOfCode + "???");
-        
-      const code = await getCID(data.hashOfCode);
-      console.log({code});
-      if (!window.starterCode) chCode(code);
-      const hashOfCode = data.hashOfCode;
-      window[hashOfCode] = code;
+    ) {        
+      window[data.hashOfCode] = await getCID(data.hashOfCode);
     }
 
     window.starterCode = window[data.hashOfCode];
