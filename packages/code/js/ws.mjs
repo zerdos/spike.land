@@ -741,12 +741,9 @@ async function processWsMessage(event) {
             window.hashOfCode = hashOfCode;
           }
 
-          const resp = await fetch(
-            `https://code.spike.land/api/room/${roomName}/code`,
-          );
-          const code = await resp.text();
-          const hash = await Hash.of(code);
-          if (hash === data.hashOfCode) window[hash] = code;
+
+          const code = await getCID(data.hashOfCode);
+          window[data.hashOfCode] = code;
         }
         if (window[data.hashOfCode]) {
           const code = window[data.hashOfCode];
