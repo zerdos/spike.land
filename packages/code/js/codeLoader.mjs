@@ -72,7 +72,7 @@ export async function run({ mode = "window", code, room = "code-main" }) {
   room = room || "code-main";
 
 
-  if (window.sess.code ){
+  if (window.sess && window.sess.code ){
     console.log("We are running...");
     return;
   }
