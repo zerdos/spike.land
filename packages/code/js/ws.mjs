@@ -119,7 +119,7 @@ export const join = (user, room) => {
       if (code !== lastSeenCode) {
         lastSeenCode = code;
         let codeDiff;
-        const prevHash = window.hashOfCode;
+        const prevHash = window.currentHashOfCode;
         if (hashOfCode === prevHash) return;
         if (code === window[prevHash]) return;
 
@@ -565,8 +565,47 @@ async function handleChatAnswerMsg(msg) {
   await myPeerConnection.setRemoteDescription(desc).catch(reportError);
 }
 
+const cids = {};
+
+
+
+async function getCID(CID){
+
+  console.log("GETCID ", CID);
+
+  if (cids[CID] && typeof cids[CID] === "string") return cids[CID];
+  if (cids[CID] && typeof cids[CID] === "function") return cids[CID]();
+
+  const requestSrt =  JSON.stringify({
+    type: 'get-cid', 
+    cid: CID
+  });
+  if (sendChannel && sendChannel.readyState ==="open")
+sendChannel.send(requestSrt);
+else {
+  ws.send(requestSrt);
+}
+  return new Promise(((resolve)=> {
+    cids[CID] = resolve;
+  }));
+ 
+}
+
 async function processWsMessage(event) {
+  const dataCID = await Hash.of(event.data);
+
+  if (cids[dataCID]){
+    if (typeof cids.dataCID !== "string") {
+    cids[dataCID](event.data);  
+    cids[dataCID] = event.data;
+  }
+  return;
+}
+
+
   const data = JSON.parse(event.data);
+
+
 
   if (
     data.name && data.hashOfCode && data.name !== username &&
@@ -598,13 +637,22 @@ async function processWsMessage(event) {
     await handleNewICECandidateMsg(data);
     return;
   }
+
   if (data.type === "video-offer") {
     targetUsername = data.name;
     window.targetUsername = data.name;
     await handleChatOffer(data);
-
     return;
   }
+
+  if (data.type === "get-cid" && data.cid) {
+    const CID = data.cid;
+    if (window[CID]) {
+      const hash = await Hash.of(window[CID]);
+      if (hash === CID) sendChannel.send(window[CID]);
+    } 
+  }
+
   if ( window.sess && data.i <= window.sess.i) {
     return;
   }
@@ -619,6 +667,7 @@ async function processWsMessage(event) {
     lastSeenNow = Date.now();
     lastSeenTimestamp = data.timestamp;
   }
+
   if (data.name === username) return;
 
   // if (data.hashOfCode) {
@@ -630,12 +679,10 @@ async function processWsMessage(event) {
       !window[data.hashOfCode] ||
       window[data.hashOfCode] !== data.hashOfCode
     ) {
-      const resp = await fetch(
-        `https://code.spike.land/api/room/${roomName}/code`,
-      );
-      const code = await resp.text();
-      const hash = await Hash.of(code);
-      if (hash === data.hashOfCode) window[hash] = code;
+     
+      const code = await getCID(data.hashOfCode)
+      const hashOfCode = data.hashOfCode;
+     window[hashOfCode] = code;
     }
 
     window.starterCode = window[data.hashOfCode];

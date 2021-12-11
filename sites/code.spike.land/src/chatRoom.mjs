@@ -222,6 +222,12 @@ export class Code {
         }
 
         let data = JSON.parse(msg.data);
+
+        if (data.type === 'get-cid') {
+          const CID = data.cid;
+          if (this.hashCache[CID]) webSocket.send(this.hashCache[CID]);
+          return;
+        }
         
         if ( !(data.type && (data.type === "new-ice-candidate" || data.type ==="video-offer" || data.type ==="video-answer")) && !limiter.checkLimit()) {
           webSocket.send(JSON.stringify({

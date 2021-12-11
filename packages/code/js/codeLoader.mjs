@@ -102,6 +102,7 @@ export async function run({ mode = "window", code, room = "code-main" }) {
           : await getCodeToLoad(room);
 
       session.code = code;
+      session.changes = [];
       session.formattedCode = await formatter(code);
       session.transpiled = await baberTransform(
         session.formattedCode,
@@ -183,7 +184,7 @@ export async function run({ mode = "window", code, room = "code-main" }) {
       window[prevHash] = session.code;
   
       if (window.hashOfCode !== hashOfCode) {
-        const starterCode = window.starterCode;
+        const starterCode = window[currentHashOfCode];
         window.sendChannel.send(JSON.stringify({
           changes,
           i: session.i,
