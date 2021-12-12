@@ -27,7 +27,7 @@
     "react/jsx-runtime": "https://esm.sh/react/jsx-runtime",
     "@spike.land/renderer": "https://unpkg.com/@spike.land/renderer@0.2.7/dist/renderer.js",
     "style-value-types": "https://unpkg.com/style-value-types@5.1.0/dist/es/index.mjs",
-    "stylis": "https://unpkg.com/stylis@4.0.12/dist/stylis.mjs",
+    "stylis": "https://unpkg.com/stylis@4.0.13/dist/stylis.mjs",
     "@spike.land/qrious": "https://unpkg.com/@spike.land/qrious@0.2.7/dist/QRious.mjs",
     "tslib": "https://unpkg.com/tslib@2.3.1/tslib.es6.js",
     "ipfs-only-hash": "https://unpkg.com/@spike.land/esm@0.2.15/dist/ipfs-only-hash.mjs",
