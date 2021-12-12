@@ -5,7 +5,9 @@ import { baberTransform } from "./babel.mjs";
 import { jsx } from "@emotion/react";
 
 export const restart = async (code, target) => {
-  const session = window.sess || {};
+  const session = window.sess || {
+    setChild: () => {},
+  };
   window.sess = session;
   const transpiled = await baberTransform(code);
   return await restartX(transpiled, target, session.counter, session);
