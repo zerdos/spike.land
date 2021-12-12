@@ -5,48 +5,9 @@ import { getCodeToLoad, getIPFSCodeToLoad, saveCode } from "./data.mjs";
 import { formatter } from "./formatter.mjs";
 import { diff } from "@spike.land/shadb";
 import { restart } from "./restartCode.mjs";
-
 import { baberTransform } from "./babel.mjs";
-
 import startMonaco from "@spike.land/smart-monaco-editor";
-
 import Hash from "ipfs-only-hash";
-//import { getUserId } from "./data.mjs";
-// import Hash from "ipfs-only-hash";
-
-// const charWidthSpan = document.createElement('span');
-
-// charWidthSpan.innerHTML = "a";
-
-// charWidthSpan.style.fontFamily = `"Droid Sans Mono", monospace, monospace, "Droid Sans Fallback"`;
-// charWidthSpan.style.fontSize = '14px';
-// charWidthSpan.style.visibility = 'hidden';
-// charWidthSpan.style.top = '-100px';
-
-// charWidthSpan.style.position = 'absolute';
-
-// document.body.appendChild(charWidthSpan);
-
-// const rect = charWidthSpan.getBoundingClientRect();
-
-// const monacoCharWidth = rect.width;
-// console.log({monacoCharWidth});
-// charWidthSpan.remove();
-// const { importMap } = globalThis;
-// console.log(importMap);
-
-// Object.keys(importMap)
-//     .map(x => {
-//       const url = `https://unpkg.com/${x}`;
-//       if (importMap[x].indexOf(url)!==0) return {};
-
-//       return fetch(url)
-//               .then(y => {
-//                 const uri = y.url.slice(url.length );
-//                 const version = uri.slice(0,uri.indexOf("/"));
-//                 if (importMap[x].indexOf(version)===-1)console.log({x,version,current:importMap[x]});
-//               } );
-//             })
 
 function getSession() {
   const session = {
