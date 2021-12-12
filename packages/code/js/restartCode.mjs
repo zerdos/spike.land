@@ -4,33 +4,27 @@ import ReactDOM from "react-dom";
 import { baberTransform } from "./babel.mjs";
 import { jsx } from "@emotion/react";
 
-
 export const restart = async (code, target) => {
-    const session = window.sess || {};
-    window.sess = session
-    const transpiled = await baberTransform(code);
-    return await restartX(transpiled, target, session.counter, session);
-  
-  
-    
-  
-
+  const session = window.sess || {};
+  window.sess = session;
+  const transpiled = await baberTransform(code);
+  return await restartX(transpiled, target, session.counter, session);
 
   async function getReactChild(transpiled, mode = "window") {
     const codeToHydrate = mode === "window"
       ? transpiled.replace("body{", "#zbody{")
       : transpiled;
-  
+
     const objUrl = createJsBlob(
       codeToHydrate,
     );
-  
+
     const mod = (await import(objUrl));
     URL.revokeObjectURL(objUrl);
-  
+
     return jsx(mod.default);
   }
-  
+
   async function restartX(transpiled, target, counter, session) {
     if (session.i > counter) return false;
 
@@ -76,13 +70,12 @@ export const restart = async (code, target) => {
     }
     return !zbody.innerHTML;
   }
-
 };
 
 /**
  * @param {BlobPart} code
  */
- function createJsBlob(code) {
+function createJsBlob(code) {
   const blob = new Blob([code], { type: "application/javascript" });
 
   return URL.createObjectURL(blob);

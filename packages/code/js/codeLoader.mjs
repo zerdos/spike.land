@@ -4,16 +4,15 @@ import { openWindows } from "./openWindows.mjs";
 import { getCodeToLoad, getIPFSCodeToLoad, saveCode } from "./data.mjs";
 import { formatter } from "./formatter.mjs";
 import { diff } from "@spike.land/shadb";
-import {restart } from "./restartCode.mjs";
+import { restart } from "./restartCode.mjs";
 
-import { baberTransform } from "./babel.mjs"
+import { baberTransform } from "./babel.mjs";
 
 import startMonaco from "@spike.land/smart-monaco-editor";
 
 import Hash from "ipfs-only-hash";
 //import { getUserId } from "./data.mjs";
 // import Hash from "ipfs-only-hash";
-export { DraggableWindow, jsx, render } from "@spike.land/renderer";
 
 // const charWidthSpan = document.createElement('span');
 
@@ -329,9 +328,6 @@ export async function run({ mode = "window", code, room = "code-main" }) {
     ];
   }
 }
-
-
-
 
 function createPatch(oldCode, newCode) {
   return JSON.stringify(createDelta(oldCode, newCode));
