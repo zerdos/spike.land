@@ -23,11 +23,15 @@ const chCode = async (code) => {
       window[hashOfCode] = code;
 
       window.monaco.editor.getModels()[0].setValue(code);
-    } else {
+    } else  {
+      if (location.url.endsWith("/public")){
+        restartCode(code);
+        return;
+      } 
       const { run } = await import("./reactLoader.mjs");
 
       // console.log({window: "window", code, room: roomName });
-      run({ window: "window", code, room: roomName });
+      run({ mode: "window", code, room: roomName });
     }
   } catch (e) {
     console.error({ e });
@@ -207,6 +211,7 @@ export const join = (user, room) => {
   });
 };
 
+const restartCode = (c) => restart(c, document.getElementById("zbody"));
 export const run = async () => {
   const resp = await fetch(
     "./code",
@@ -216,7 +221,6 @@ export const run = async () => {
   const { restart } = await import(`../dist/dev.mjs`);
   await restart(code, target);
 
-  window.restartCode = (c) => restart(c, document.getElementById("zbody"));
   const user = Math.random() - "html";
   const room = location.pathname.slice(1).split("/")[2] || "code-main";
 
