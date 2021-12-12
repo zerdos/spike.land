@@ -639,7 +639,7 @@ async function processWsMessage(event) {
       if (dataCID !== CID) console.error("get-cid ERROR!!!! ???? !!!");
 
       if (cids[dataCID]) {
-        if (typeof cids.dataCID !== "function") {
+        if (typeof cids[dataCID] === "function") {
           cids[dataCID](content);
           cids[dataCID] = content;
         }
