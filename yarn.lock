@@ -16981,9 +16981,9 @@ stylehacks@^5.0.1:
     postcss-selector-parser "^6.0.4"
 
 stylis@^4.0.10, stylis@^4.0.3:
-  version "4.0.12"
-  resolved "https://registry.yarnpkg.com/stylis/-/stylis-4.0.12.tgz#cad79b30964de9a7e3ca92687a0e73718cbf0e17"
-  integrity sha512-eVXQEZqRRFRvl8Aor1kNWN7ViNss9tYhphVBFNxyCJWKdK+FO5sOVKEHk7Dg/vLAr1xYQBpUb+7weU4AlDUm8g==
+  version "4.0.13"
+  resolved "https://registry.yarnpkg.com/stylis/-/stylis-4.0.13.tgz#f5db332e376d13cc84ecfe5dace9a2a51d954c91"
+  integrity sha512-xGPXiFVl4YED9Jh7Euv2V220mriG9u4B2TA6Ybjc1catrstKD2PpIdU3U0RKpkVBC2EhmL/F0sPCr9vrFTNRag==
 
 subscriptions-transport-ws@^0.9.18:
   version "0.9.19"
@@ -18306,9 +18306,9 @@ wcwidth@^1.0.0:
     defaults "^1.0.3"
 
 weak-lru-cache@^1.0.0:
-  version "1.1.3"
-  resolved "https://registry.yarnpkg.com/weak-lru-cache/-/weak-lru-cache-1.1.3.tgz#8a691884501b611d2b5aeac1ee5a011b2a97d9a8"
-  integrity sha512-5LDIv+sr6uzT94Hhcq7Qv7gt3jxol4iMWUqOgJSLYbB5oO7bTSMqIBtKsytm8N2BufYOdJw86/qu+SDfbo/wKQ==
+  version "1.1.4"
+  resolved "https://registry.yarnpkg.com/weak-lru-cache/-/weak-lru-cache-1.1.4.tgz#c0b2d5257dcbf4f6989d44f13764698234eb9f78"
+  integrity sha512-oD0vx3PpnwnGkr3QYn0nGvepmeZPvrM2m9Rq4Hu4IMCGAS3PO1qnCioaJR6ajVK58oABbm76zSh3Kai3Z6BGyw==
 
 web-encoding@^1.1.5:
   version "1.1.5"
