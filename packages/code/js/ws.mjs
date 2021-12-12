@@ -2,6 +2,7 @@ import createDelta from "textdiff-create";
 import applyPatch from "textdiff-patch";
 import { formatter } from "./formatter.mjs";
 
+
 import Hash from "ipfs-only-hash";
 
 let currentWebSocket = null;
@@ -25,7 +26,7 @@ const chCode = async (code) => {
       window.monaco.editor.getModels()[0].setValue(code);
     } else  {
       if (location.url.endsWith("/public")){
-        restartCode(code);
+        await restartCode(code);
         return;
       } 
       const { run } = await import("./reactLoader.mjs");
@@ -211,15 +212,18 @@ export const join = (user, room) => {
   });
 };
 
-const restartCode = (c) => restart(c, document.getElementById("zbody"));
+const restartCode = async (c) => {
+  const { restart } = await import("./restartCode.mjs");
+  restart(c, document.getElementById("zbody"));
+}
+
 export const run = async () => {
   const resp = await fetch(
     "./code",
   );
   const code = await resp.text();
-  const target = document.getElementById("zbody");
-  const { restart } = await import(`../dist/dev.mjs`);
-  await restart(code, target);
+ 
+  await restartCode(code);
 
   const user = Math.random() - "html";
   const room = location.pathname.slice(1).split("/")[2] || "code-main";

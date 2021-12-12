@@ -2,13 +2,14 @@ import createDelta from "textdiff-create";
 import { renderPreviewWindow } from "./renderPreviewWindow.mjs";
 import { openWindows } from "./openWindows.mjs";
 import { getCodeToLoad, getIPFSCodeToLoad, saveCode } from "./data.mjs";
-import { baberTransform } from "./babel.mjs";
 import { formatter } from "./formatter.mjs";
 import { diff } from "@spike.land/shadb";
-import React from "react";
-import ReactDOM from "react-dom";
+import {restart } from "./restartCode.mjs";
+
+import { baberTransform } from "./babel.mjs"
+
 import startMonaco from "@spike.land/smart-monaco-editor";
-import { jsx } from "@emotion/react";
+
 import Hash from "ipfs-only-hash";
 //import { getUserId } from "./data.mjs";
 // import Hash from "ipfs-only-hash";
@@ -54,7 +55,7 @@ function getSession() {
     unmount: () => {},
     errorText: "",
     lastErrors: 0,
-    children: React.Fragment,
+    children: null,
     setChild: () => {},
     div: document.createElement("div"),
     html: "",
@@ -165,7 +166,7 @@ export async function run({ mode = "window", code, room = "code-main" }) {
     },
   );
 
-  await restartCode(session.transpiled, session.code, session.i);
+  await restart(session.code);
 
   await editorPromise;
 
@@ -228,7 +229,7 @@ export async function run({ mode = "window", code, room = "code-main" }) {
       ///yellow
       if (transpiled.length && session.lastErrors < 2) {
         if (counter < session.i) return;
-        restartError = await restartCode(transpiled, c, counter);
+        restartError = await restart(c);
       }
       if (session.i > counter) return;
       const err = await getErrors(cd);
@@ -243,7 +244,7 @@ export async function run({ mode = "window", code, room = "code-main" }) {
       if (err.length) console.log({ err });
 
       if (session.lastErrors && err.length === 0) {
-        restartCode(transpiled, c, counter);
+        restart(c);
       }
       session.lastErrors = err.length;
       if (err.length === 0 && transpiled.length) {
@@ -327,95 +328,10 @@ export async function run({ mode = "window", code, room = "code-main" }) {
       ...fastError,
     ];
   }
-
-  function restartCode(transpiled, code, counter) {
-    restartX(transpiled, null, counter, session);
-  }
 }
 
-async function getReactChild(transpiled, mode = "window") {
-  const codeToHydrate = mode === "window"
-    ? transpiled.replace("body{", "#zbody{")
-    : transpiled;
 
-  const objUrl = createJsBlob(
-    codeToHydrate,
-  );
 
-  const mod = (await import(objUrl));
-  URL.revokeObjectURL(objUrl);
-
-  return jsx(mod.default);
-}
-/**
- * @param {string} transpiled
- * @param {number} counter
- */
-async function restartX(transpiled, target, counter, session) {
-  if (session.i > counter) return false;
-
-  if (session.actualT === transpiled) return false;
-  session.actualT = transpiled;
-
-  // const codeHash = await Hash.of(code);
-
-  session.html = "";
-  session.transpiled = "";
-  let hadError = false;
-  if (typeof transpiled !== "string" || transpiled === "") {
-    // console.log(transpiled.error);
-    hadError = true;
-    return hadError;
-  }
-
-  let children;
-  try {
-    children = await getReactChild(transpiled);
-  } catch (error) {
-    console.error({ error, message: "error in rendering" });
-    return false;
-  }
-
-  // session.unmount = render(Element(), root);
-  const zbody = target || document.createElement("div");
-  // if (!zbody) {
-  //   zbody = document.createElement('div');
-  //   document.body.appendChild(zbody);
-
-  // }
-
-  ReactDOM.render(children, zbody);
-
-  // zbody && zbody.children[0].replaceWith(root);
-  session.div = zbody;
-  if (zbody.innerHTML) {
-    session.transpiled = transpiled;
-    session.html = zbody.innerHTML;
-    session.children = children;
-    session.setChild((c) => [...c, session.children]);
-  }
-  return !zbody.innerHTML;
-}
-
-/**
- * @param {BlobPart} code
- */
-function createJsBlob(code) {
-  const blob = new Blob([code], { type: "application/javascript" });
-
-  return URL.createObjectURL(blob);
-}
-const session = {
-  i: 0,
-  setChild: () => {},
-  counter: 0,
-};
-
-export const restart = async (code, target) => {
-  const transpiled = await baberTransform(code);
-  restartX(transpiled, target, session.counter, session);
-  return session;
-};
 
 function createPatch(oldCode, newCode) {
   return JSON.stringify(createDelta(oldCode, newCode));
