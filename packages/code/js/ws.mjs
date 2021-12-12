@@ -24,7 +24,7 @@ const chCode = async (code) => {
 
       window.monaco.editor.getModels()[0].setValue(code);
     } else {
-      if (location.url.endsWith("/public")) {
+      if (location.href.endsWith("/public")) {
         await restartCode(code);
         return;
       }
