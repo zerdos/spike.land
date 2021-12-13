@@ -356,7 +356,18 @@ var editor_default = async ({ onChange, code, language, container, options }) =>
     language: "typescript",
     theme: "vs-dark",
     codeLens: true,
-    suggest: {},
+    suggest: {
+      showStatusBar: true,
+      preview: true
+    },
+    smoothScrolling: true,
+    selectionHighlight: true,
+    selectOnLineNumbers: true,
+    cursorSmoothCaretAnimation: true,
+    cursorBlinking: "smooth",
+    hideCursorInOverviewRuler: true,
+    cursorSurroundingLinesStyle: "all",
+    cursorSurroundingLines: 8,
     formatOnPaste: true,
     formatOnType: true,
     useShadowDOM: true
