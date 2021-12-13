@@ -1,11 +1,11 @@
 import { getMonaco } from "./monaco.js";
-import type * as Monaco from "monaco-editor";
-// import monaco from "monaco-editor"
+
+import type {editor, languages} from "monaco-editor"
 
 import pAll from "p-all";
 
 interface StartMonacoProps {
-  onChange: (code: string, e: Monaco.editor.IModelContentChangedEvent) => void;
+  onChange: (code: string, e: editor.IModelContentChangedEvent) => void;
   code: string;
   container: HTMLElement;
   language: "html" | "javascript" | "typescript";
@@ -58,6 +58,7 @@ export default async (
       innerContainer.style.height = `${height}px`;
     });
   }
+  
   const innerStyle = document.createElement("style");
   innerStyle.innerText =
     '@import "https://unpkg.com/monaco-editor@0.30.1/min/vs/editor/editor.main.css";';
@@ -97,6 +98,8 @@ export default async (
       noSyntaxValidation: true,
     });
 
+  
+
   const { Uri } = monaco;
   const editor = monaco.editor.create(innerContainer, {
     model: monaco.editor.createModel(code, "typescript", Uri.file("/index.ts")),
@@ -105,8 +108,9 @@ export default async (
     theme: "vs-dark",
     codeLens: true,
     suggest: {},
+
+    formatOnPaste: true,
     formatOnType: true,
-    autoIndent: "full",
 
     useShadowDOM: true,
   });
@@ -191,13 +195,18 @@ export default async (
     e,
   ) => onChange(editor.getValue(), e));
 
-  setTimeout(() => loadExtraLibs(monaco), 100);
+  setTimeout(() => loadExtraLibs(
+    (content: string, filePath: string)=>monaco.languages.typescript.typescriptDefaults.addExtraLib(content, filePath),
+  (opts)=>monaco.languages.typescript.typescriptDefaults.setDiagnosticsOptions(opts)), 100);
 
   // return modules;
   return () => editor;
 };
 
-async function loadExtraLibs(monaco) {
+type IAddExtraLib = typeof languages.typescript.typescriptDefaults.addExtraLib;
+type ISetDiagnosticsOptions = typeof languages.typescript.typescriptDefaults.setDiagnosticsOptions;
+
+async function loadExtraLibs(addExtraLib: IAddExtraLib, setDiagnosticsOptions: ISetDiagnosticsOptions ) {
   const importHelper = [
     {
       name: "react",
@@ -324,7 +333,7 @@ async function loadExtraLibs(monaco) {
       // console.log({customWorker})
       // monaco.languages.typescript.typescriptDefaults.setWorkerOptions(customWorker);
       // console.log(nameOfLib, content);
-      monaco.languages.typescript.typescriptDefaults.addExtraLib(
+      addExtraLib(
         content,
         nameOfLib,
       );
@@ -351,8 +360,7 @@ async function loadExtraLibs(monaco) {
 
   await pAll(dts, { concurrency: 2 });
 
-  monaco.languages.typescript.typescriptDefaults
-    .setDiagnosticsOptions({
+  setDiagnosticsOptions({
       noSuggestionDiagnostics: false,
       noSemanticValidation: false,
       noSyntaxValidation: false,

@@ -1,16 +1,18 @@
-import type * as monaco from "monaco-editor";
+import type {editor, Uri, languages} from "monaco-editor";
+
 
 declare module "./monaco.js" {
+ 
   const getMonaco: () => {
     editor: {
-      create: typeof monaco.editor.create;
-      createModel: typeof monaco.editor.createModel;
+      create: typeof editor.create;
+      createModel: typeof editor.createModel;
     };
-    Uri: typeof monaco.Uri;
+    Uri: typeof Uri;
     languages: {
       typescript: {
-        typescriptDefaults: monaco.languages.typescript.LanguageServiceDefaults;
-        JsxEmit: monaco.languages.typescript.JsxEmit;
+        typescriptDefaults: languages.typescript.LanguageServiceDefaults;
+        JsxEmit: languages.typescript.JsxEmit;
       };
     };
   };

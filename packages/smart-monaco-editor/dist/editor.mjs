@@ -354,8 +354,8 @@ var editor_default = async ({ onChange, code, language, container, options }) =>
     theme: "vs-dark",
     codeLens: true,
     suggest: {},
+    formatOnPaste: true,
     formatOnType: true,
-    autoIndent: "full",
     useShadowDOM: true
   });
   function getDefaultComplierOpts() {
@@ -365,10 +365,10 @@ var editor_default = async ({ onChange, code, language, container, options }) =>
     editor.layout();
   });
   editor.onDidChangeModelContent((e) => onChange(editor.getValue(), e));
-  setTimeout(() => loadExtraLibs(monaco), 100);
+  setTimeout(() => loadExtraLibs((content, filePath) => monaco.languages.typescript.typescriptDefaults.addExtraLib(content, filePath), (opts) => monaco.languages.typescript.typescriptDefaults.setDiagnosticsOptions(opts)), 100);
   return () => editor;
 };
-async function loadExtraLibs(monaco) {
+async function loadExtraLibs(addExtraLib, setDiagnosticsOptions) {
   const importHelper = [
     {
       name: "react",
@@ -481,10 +481,10 @@ async function loadExtraLibs(monaco) {
   const dts = importHelper.map(({ name, url }) => async () => {
     const content = await (await fetch(url)).text();
     const nameOfLib = name.includes("@") ? `/node_modules/${name}` : name.endsWith(".d.ts") ? "/node_modules/@types" + name : "/node_modules/@types/" + name + "/index.d.ts";
-    monaco.languages.typescript.typescriptDefaults.addExtraLib(content, nameOfLib);
+    addExtraLib(content, nameOfLib);
   });
   await pAll(dts, { concurrency: 2 });
-  monaco.languages.typescript.typescriptDefaults.setDiagnosticsOptions({
+  setDiagnosticsOptions({
     noSuggestionDiagnostics: false,
     noSemanticValidation: false,
     noSyntaxValidation: false
