@@ -39,7 +39,7 @@ export const CodeBox: React.FC<{
                 //@ts-ignore
                 const { monaco } = window;
 
-                monaco.editor.getModel("file:///main.tsx").setValue(
+                monaco.editor.getModel("/index.ts").setValue(
                   starterCode,
                 );
               }}

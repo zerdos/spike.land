@@ -111,7 +111,7 @@ export async function run({ mode = "window", code, room = "code-main" }) {
   if (container === null) return "No editor window";
 
   console.log("STARTING startMonaco");
-  const editorPromise = startMonaco(
+  const editorPromise= startMonaco(
     /**
      * @param {any} code
      */
@@ -125,18 +125,34 @@ export async function run({ mode = "window", code, room = "code-main" }) {
       onChange: (code, changes) => runner(code, changes),
     },
   );
+  
+  const dtsLoader = async (editor) =>{
 
+  const model = editor.getModel()
+  console.log({model});
+  const {monaco} = window;
+
+  const worker = await monaco.languages.typescript.getTypeScriptWorker()
+ console.log({worker})
+  const thisWorker = await worker(model.uri)
+  const dts = await thisWorker.getDTSEmitForFile(model.uri.toString())
+  console.log(dts)
+}
+
+  const {editor} = await editorPromise;
+  await dtsLoader(editor);
   await restart(session.code);
 
-  await editorPromise;
 
+ 
   monaco = window.monaco;
+  // dts();
 
-  monaco.editor.createModel(
-    "define module './hash.js';",
-    "typescript",
-    monaco.Uri.parse("file:///refs.d.ts"),
-  );
+  // monaco.editor.createModel(
+  //   "define module './hash.js';",
+  //   "typescript",
+  //   monaco.Uri.parse("file:///refs.d.ts"),
+  // );
 
   if (!session.url) {
     session.codeNonFormatted = null;
@@ -271,7 +287,7 @@ export async function run({ mode = "window", code, room = "code-main" }) {
       return [{ messageText: "Error with the error checking. Try to reload!" }];
     }
 
-    const filename = `file:///main.tsx`;
+    const filename = `/index.ts`;
     const uri = monaco.Uri.parse(filename);
     const model = monaco.editor.getModel(uri);
     const worker = await monaco.languages.typescript.getTypeScriptWorker();

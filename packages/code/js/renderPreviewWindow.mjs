@@ -34,7 +34,7 @@ export async function renderPreviewWindow(
       session,
       onRestore: () => {
         const { monaco } = window;
-        const modelUri = monaco.Uri.parse(`file:///main.tsx`);
+        const modelUri = monaco.Uri.parse(`/index.ts`);
         const model = monaco.editor.getModel(modelUri);
         model.setValue(session.code);
       },
