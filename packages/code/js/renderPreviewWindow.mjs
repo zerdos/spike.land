@@ -1,6 +1,8 @@
 export async function renderPreviewWindow(
-  session,
+ session
 ) {
+  const {code, transpiled, html, editor, mode}  = session;
+
   const {
     DraggableWindow,
     jsx,
@@ -12,9 +14,9 @@ export async function renderPreviewWindow(
   const onShare = async () => {
     const { shareItAsHtml } = await import("./share.mjs");
     const link = await shareItAsHtml({
-      code: session.code,
-      transpiled: session.transpiled,
-      html: session.html,
+      code,
+      transpiled,
+      html
     });
 
     open(link + "/");
@@ -33,22 +35,11 @@ export async function renderPreviewWindow(
       onShare,
       session,
       onRestore: () => {
-        const { monaco } = window;
-        const modelUri = monaco.Uri.parse(`/index.ts`);
-        const model = monaco.editor.getModel(modelUri);
-        model.setValue(session.code);
+        const model = editor.getModel();
+        model.setValue(code);
       },
-      position: session.mode === "window" ? "fixed" : "absolute",
+      position: mode === "window" ? "fixed" : "absolute",
     }),
     preview,
   );
-
-  // const zbody = window.document.getElementById("zbody");
-  // if (zbody !== null) {
-  // zbody.appendChild(session.div);
-  // }
-
-  // if (session.html) {
-  // session.div.innerHTML = session.html;
-  // }
 }

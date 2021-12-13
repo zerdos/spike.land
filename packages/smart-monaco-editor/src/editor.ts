@@ -1,10 +1,11 @@
 import { getMonaco } from "./monaco.js";
-import type * as monaco from "monaco-editor";
+import type * as Monaco from "monaco-editor";
+// import monaco from "monaco-editor"
 
 import pAll from "p-all";
 
 interface StartMonacoProps {
-  onChange: (code: string, e: monaco.editor.IModelContentChangedEvent) => void;
+  onChange: (code: string, e: Monaco.editor.IModelContentChangedEvent) => void;
   code: string;
   container: HTMLElement;
   language: "html" | "javascript" | "typescript";
@@ -25,7 +26,8 @@ export default async (
   { onChange, code, language, container, options }: StartMonacoProps,
 ) => {
   const monaco = await monacoProm;
-  // const modelUri = monaco.Uri.parse(
+  // const {monaco} = window as unknown as {monaco: typeof m}
+    // const modelUri = monaco.Uri.parse(
   //   language === "typescript" ? "/index.ts" : "/main.html",
   // );
 
@@ -40,7 +42,7 @@ export default async (
     
   
 
- 
+
 
   const shadowRoot = container.attachShadow({
     mode: "closed",
@@ -65,11 +67,10 @@ export default async (
     '@import "https://unpkg.com/monaco-editor@0.30.1/min/vs/editor/editor.main.css";';
   shadowRoot.appendChild(innerStyle);
 
-  if (!container) return;
 
 
-  const customWorker = { customWorkerPath: window.location.href + "js/workers/custom-worker.js" };
-  monaco.languages.typescript.typescriptDefaults.setWorkerOptions(customWorker);
+  // const customWorker = { customWorkerPath: window.location.href + "js/workers/custom-worker.js" };
+  // monaco.languages.typescript.typescriptDefaults.setWorkerOptions(customWorker);
   
 	monaco.languages.typescript.typescriptDefaults.setCompilerOptions({ target: 99, jsx: 1, allowNonTsExtensions: true, declaration: true, noLibCheck: true })
 
@@ -81,12 +82,12 @@ export default async (
     });
 
   
-    //@ts-ignore
+    const {Uri} = monaco;
     const editor = monaco.editor.create(innerContainer, {
-      value: code,
-      language: 'typescript',
+      model: monaco.editor.createModel(code, "typescript", Uri.file("/index.ts") ),
       lightbulb: { enabled: true },
-      theme: "vs-dark"
+      theme: "vs-dark",
+      useShadowDOM: true
     })
     
     

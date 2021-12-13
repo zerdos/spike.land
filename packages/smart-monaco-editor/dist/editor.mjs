@@ -60,21 +60,18 @@ var editor_default = async ({ onChange, code, language, container, options }) =>
   const innerStyle = document.createElement("style");
   innerStyle.innerText = '@import "https://unpkg.com/monaco-editor@0.30.1/min/vs/editor/editor.main.css";';
   shadowRoot.appendChild(innerStyle);
-  if (!container)
-    return;
-  const customWorker = { customWorkerPath: window.location.href + "js/workers/custom-worker.js" };
-  monaco.languages.typescript.typescriptDefaults.setWorkerOptions(customWorker);
   monaco.languages.typescript.typescriptDefaults.setCompilerOptions({ target: 99, jsx: 1, allowNonTsExtensions: true, declaration: true, noLibCheck: true });
   monaco.languages.typescript.typescriptDefaults.setDiagnosticsOptions({
     noSuggestionDiagnostics: true,
     noSemanticValidation: true,
     noSyntaxValidation: true
   });
+  const { Uri } = monaco;
   const editor = monaco.editor.create(innerContainer, {
-    value: code,
-    language: "typescript",
+    model: monaco.editor.createModel(code, "typescript", Uri.file("/index.ts")),
     lightbulb: { enabled: true },
-    theme: "vs-dark"
+    theme: "vs-dark",
+    useShadowDOM: true
   });
   function getDefaultComplierOpts() {
     return { target: 99, jsx: 1, allowNonTsExtensions: true };

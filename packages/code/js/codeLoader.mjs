@@ -17,7 +17,6 @@ function getSession() {
     lastErrors: 0,
     children: null,
     setChild: () => {},
-    div: document.createElement("div"),
     html: "",
     url: "",
     transpiled: "",
@@ -58,7 +57,7 @@ export async function run({ mode = "window", code, room = "code-main" }) {
   session.room = room;
 
   if (code) {
-    session.code = code;
+    session.code =  await formatter(code);
     session.formattedCode = await formatter(code);
     session.transpiled = await baberTransform(code);
     session.changes = [];
@@ -68,18 +67,15 @@ export async function run({ mode = "window", code, room = "code-main" }) {
         (pathname.endsWith("/edit/") || pathname.endsWith("/edit"))
           ? await getIPFSCodeToLoad(undefined)
           : await getCodeToLoad(room);
-      if (!session.code) {
-        session.code = code;
-        session.formattedCode = await formatter(code);
-      }
 
-      if (!session.transpiled) {
+        
+        session.code =  await formatter(code);
+        session.formattedCode = session.code
         session.transpiled = await baberTransform(session.code);
-      }
+        session.html = html;
+        session.changes = [];
 
-      session.changes = [];
-
-      session.div.innerHTML = html;
+      
     } catch (e) {
       console.error({ e, message: "couldn't start" });
       return;
@@ -91,33 +87,25 @@ export async function run({ mode = "window", code, room = "code-main" }) {
     return;
   }
 
-  const hashOfCode = await Hash.of(session.code);
+  code = session.code;
+  const hashOfCode = await Hash.of(code);
 
   window[hashOfCode] = code;
   session.hashOfCode = hashOfCode;
 
-  // const editorContainer = window.document.createElement("div");
-  // editorContainer.className= "editor-frame"
-  // editorContainer.innerHTML = `<div id="editor"></div>`;
-  // document.body.appendChild(editorContainer);
 
-  // session.children = await getReactChild(session.transpiled);
   await renderPreviewWindow(
     session,
   );
 
-  const container = document.getElementById("editor");
 
-  if (container === null) return "No editor window";
-
-  console.log("STARTING startMonaco");
   const editorPromise= startMonaco(
     /**
      * @param {any} code
      */
     {
       language: "typescript",
-      container: container,
+      container: document.getElementById("editor"),
       code: session.formattedCode,
       /**
        * @param {string} code
@@ -126,22 +114,23 @@ export async function run({ mode = "window", code, room = "code-main" }) {
     },
   );
   
-  const dtsLoader = async (editor) =>{
+//   const dtsLoader = async ({editor}) =>{
 
-  const model = editor.getModel()
-  console.log({model});
-  const {monaco} = window;
+//   const model = editor.getModel()
+//   console.log({model});
+//   const {monaco} = window;
 
-  const worker = await monaco.languages.typescript.getTypeScriptWorker()
- console.log({worker})
-  const thisWorker = await worker(model.uri)
-  const dts = await thisWorker.getDTSEmitForFile(model.uri.toString())
-  console.log(dts)
-}
+//   const worker = await monaco.languages.typescript.getTypeScriptWorker()
+//   console.log({worker})
+//   const thisWorker = await worker(model.uri)
+//   const dts = await thisWorker.getDTSEmitForFile(model.uri.toString())
+//   console.log(dts)
+// }
 
   const {editor} = await editorPromise;
-  await dtsLoader(editor);
+  session.editor = editor;
   await restart(session.code);
+  // await dtsLoader(session);
 
 
  
@@ -251,7 +240,6 @@ export async function run({ mode = "window", code, room = "code-main" }) {
         if (err && err[0] && err[0].messageText) {
           console.error(err[0].messageText.toString());
         }
-        // errorDiv.innerHTML = err[0].messageText.toString();
 
         return;
       }
@@ -289,7 +277,7 @@ export async function run({ mode = "window", code, room = "code-main" }) {
 
     const filename = `/index.ts`;
     const uri = monaco.Uri.parse(filename);
-    const model = monaco.editor.getModel(uri);
+    const model = editor.getModel(uri);
     const worker = await monaco.languages.typescript.getTypeScriptWorker();
     const client = await worker(model.uri);
 
