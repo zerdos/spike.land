@@ -1,3 +1,5 @@
+import { version } from "monaco-editor/package.json";
+
 const exp = {
   monaco: null,
 };
@@ -27,7 +29,7 @@ export const getMonaco = async () => {
       });
   };
 
-  const vsPath = `https://unpkg.com/monaco-editor@0.31.0/min/vs`;
+  const vsPath = `https://unpkg.com/monaco-editor@${version}/min/vs`;
 
   const { require } = await importScript(
     `${vsPath}/loader.js`,

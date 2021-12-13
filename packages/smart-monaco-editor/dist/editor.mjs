@@ -49,6 +49,9 @@ var require_os = __commonJS({
   }
 });
 
+// ../../node_modules/monaco-editor/package.json
+var version = "0.31.0";
+
 // src/monaco.js
 var exp = {
   monaco: null
@@ -76,7 +79,7 @@ var getMonaco = async () => {
       window.document.head.appendChild(s);
     });
   };
-  const vsPath = `https://unpkg.com/monaco-editor@0.31.0/min/vs`;
+  const vsPath = `https://unpkg.com/monaco-editor@${version}/min/vs`;
   const { require: require2 } = await importScript(`${vsPath}/loader.js`);
   require2.config({ paths: { "vs": vsPath }, "vs/css": { disabled: true } });
   exp.monaco = await new Promise((resolve) => require2(["vs/editor/editor.main"], (_m) => resolve(_m)));
