@@ -91,7 +91,7 @@ export async function run({ mode = "window", code, room = "code-main" }) {
   session.hashOfCode = hashOfCode;
 
   await renderPreviewWindow(
-    session
+    session,
   );
 
   const editorPromise = startMonaco(
@@ -269,8 +269,6 @@ export async function run({ mode = "window", code, room = "code-main" }) {
       return [{ messageText: "Error with the error checking. Try to reload!" }];
     }
 
-
-
     const model = session.editor.getModel();
     const worker = await monaco.languages.typescript.getTypeScriptWorker();
     const client = await worker(model);
@@ -282,9 +280,8 @@ export async function run({ mode = "window", code, room = "code-main" }) {
     const fastError = await Promise.race([diag, comp, syntax]);
 
     // model.dispose();
-    console.log(fastError)
-    return [
-    ];
+    console.log(fastError);
+    return [];
   }
 }
 

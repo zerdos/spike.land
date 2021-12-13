@@ -10,9 +10,8 @@ interface StartMonacoProps {
   container: HTMLElement;
   language: "html" | "javascript" | "typescript";
   lightbulb: { enabled: true };
-  
-  options: {
 
+  options: {
     gylph: boolean;
   };
 }
@@ -69,18 +68,20 @@ export default async (
 
   monaco.languages.typescript.typescriptDefaults.setCompilerOptions({
     target: 99,
-    lib: ["DOM",
-    "DOM.Iterable",
-    "ES2018.Regexp",
-    "ES2018.AsyncIterable",
-    "ES2018",
-    "ES2019"],
+    lib: [
+      "DOM",
+      "DOM.Iterable",
+      "ES2018.Regexp",
+      "ES2018.AsyncIterable",
+      "ES2018",
+      "ES2019",
+    ],
     allowNonTsExtensions: true,
     moduleResolution: 2,
     declaration: true,
     noEmit: true,
     noEmitOnError: true,
-    
+
     jsx: 5,
     skipLibCheck: true,
     esModuleInterop: true,
@@ -190,15 +191,13 @@ export default async (
     e,
   ) => onChange(editor.getValue(), e));
 
-  setTimeout(()=>loadExtraLibs(monaco), 100);
+  setTimeout(() => loadExtraLibs(monaco), 100);
 
   // return modules;
-  return ()=>editor
-  
+  return () => editor;
 };
 
-async function loadExtraLibs(monaco){
-
+async function loadExtraLibs(monaco) {
   const importHelper = [
     {
       name: "react",
@@ -310,7 +309,7 @@ async function loadExtraLibs(monaco){
       url: "https://unpkg.com/popmotion@11.0.0/lib/index.d.ts",
     },
   ];
-   const dts = importHelper.map(({ name, url }) =>
+  const dts = importHelper.map(({ name, url }) =>
     async () => {
       const content = await (await fetch(
         url,
@@ -318,9 +317,8 @@ async function loadExtraLibs(monaco){
 
       const nameOfLib = name.includes("@")
         ? `/node_modules/${name}`
-        : (name.endsWith(".d.ts")
-          ? "/node_modules/@types" + name
-          : "/node_modules/@types/" + name + "/index.d.ts");
+        : (name.endsWith(".d.ts") ? "/node_modules/@types" + name
+        : "/node_modules/@types/" + name + "/index.d.ts");
 
       // const customWorker = { customWorkerPath: window.location.href + "js/custom-worker.js" };
       // console.log({customWorker})
@@ -332,7 +330,6 @@ async function loadExtraLibs(monaco){
       );
     }
   );
-
 
   // modules.monaco.languages.typescript.typescriptDefaults.setCompilerOptions({
   //     target: 99,
@@ -356,7 +353,6 @@ async function loadExtraLibs(monaco){
 
   monaco.languages.typescript.typescriptDefaults
     .setDiagnosticsOptions({
-      
       noSuggestionDiagnostics: false,
       noSemanticValidation: false,
       noSyntaxValidation: false,
