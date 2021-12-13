@@ -168,7 +168,7 @@ export default async (
   });
 
   editor.onDidChangeModelContent((
-    e: monaco.editor.IModelContentChangedEvent,
+    e
   ) => onChange(editor.getValue(), e));
 
 
