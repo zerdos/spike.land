@@ -48,8 +48,9 @@ export const restart = async (code, target) => {
     try {
       children = await getReactChild(transpiled);
     } catch (error) {
+      session.errorText = error.message;
       console.error({ error, message: "error in rendering" });
-      return false;
+      return true;
     }
 
     // session.unmount = render(Element(), root);

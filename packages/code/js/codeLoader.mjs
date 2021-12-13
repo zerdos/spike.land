@@ -91,7 +91,7 @@ export async function run({ mode = "window", code, room = "code-main" }) {
   session.hashOfCode = hashOfCode;
 
   await renderPreviewWindow(
-    session,
+    session
   );
 
   const editorPromise = startMonaco(
@@ -122,13 +122,13 @@ export async function run({ mode = "window", code, room = "code-main" }) {
   //   console.log(dts)
   // }
 
-  const { editor } = await editorPromise;
-  session.editor = editor;
+  const getEditor = await editorPromise;
+  session.editor = getEditor();
+
   await restart(session.code);
   // await dtsLoader(session);
 
   monaco = window.monaco;
-  // dts();
 
   // monaco.editor.createModel(
   //   "define module './hash.js';",
@@ -259,7 +259,8 @@ export async function run({ mode = "window", code, room = "code-main" }) {
       setTimeout(() => {
         monaco.editor.setTheme("hc-black");
       }, 50);
-      console.error(err);
+      session.errorText = err.message;
+      console.error(err.message);
     }
   }
 
@@ -268,21 +269,21 @@ export async function run({ mode = "window", code, room = "code-main" }) {
       return [{ messageText: "Error with the error checking. Try to reload!" }];
     }
 
-    const filename = `/index.ts`;
-    const uri = monaco.Uri.parse(filename);
-    const model = editor.getModel(uri);
-    const worker = await monaco.languages.typescript.getTypeScriptWorker();
-    const client = await worker(model.uri);
 
+
+    const model = session.editor.getModel();
+    const worker = await monaco.languages.typescript.getTypeScriptWorker();
+    const client = await worker(model);
+
+    const filename = model.uri.toString();
     const diag = client.getSemanticDiagnostics(filename);
     const comp = client.getCompilerOptionsDiagnostics(filename);
     const syntax = client.getSyntacticDiagnostics(filename);
     const fastError = await Promise.race([diag, comp, syntax]);
 
     // model.dispose();
-
+    console.log(fastError)
     return [
-      ...fastError,
     ];
   }
 }

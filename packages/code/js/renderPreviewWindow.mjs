@@ -1,7 +1,7 @@
 export async function renderPreviewWindow(
   session,
 ) {
-  const { code, transpiled, html, editor, mode } = session;
+ 
 
   const {
     DraggableWindow,
@@ -13,11 +13,7 @@ export async function renderPreviewWindow(
 
   const onShare = async () => {
     const { shareItAsHtml } = await import("./share.mjs");
-    const link = await shareItAsHtml({
-      code,
-      transpiled,
-      html,
-    });
+    const link = await shareItAsHtml(session);
 
     open(link + "/");
   };
@@ -35,10 +31,10 @@ export async function renderPreviewWindow(
       onShare,
       session,
       onRestore: () => {
-        const model = editor.getModel();
-        model.setValue(code);
+        const model = session.editor.getModel();
+        model.setValue(session.code);
       },
-      position: mode === "window" ? "fixed" : "absolute",
+      position: session.mode === "window" ? "fixed" : "absolute",
     }),
     preview,
   );

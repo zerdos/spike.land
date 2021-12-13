@@ -10,7 +10,9 @@ interface StartMonacoProps {
   container: HTMLElement;
   language: "html" | "javascript" | "typescript";
   lightbulb: { enabled: true };
+  
   options: {
+
     gylph: boolean;
   };
 }
@@ -67,9 +69,23 @@ export default async (
 
   monaco.languages.typescript.typescriptDefaults.setCompilerOptions({
     target: 99,
-    jsx: 1,
+    lib: ["DOM",
+    "DOM.Iterable",
+    "ES2018.Regexp",
+    "ES2018.AsyncIterable",
+    "ES2018",
+    "ES2019"],
     allowNonTsExtensions: true,
+    moduleResolution: 2,
     declaration: true,
+    noEmit: true,
+    noEmitOnError: true,
+    
+    jsx: 5,
+    skipLibCheck: true,
+    esModuleInterop: true,
+    allowSyntheticDefaultImports: true,
+    allowUmdGlobalAccess: true,
     noLibCheck: true,
   });
 
@@ -84,7 +100,13 @@ export default async (
   const editor = monaco.editor.create(innerContainer, {
     model: monaco.editor.createModel(code, "typescript", Uri.file("/index.ts")),
     lightbulb: { enabled: true },
+    language: "typescript",
     theme: "vs-dark",
+    codeLens: true,
+    suggest: {},
+    formatOnType: true,
+    autoIndent: "full",
+
     useShadowDOM: true,
   });
 
@@ -168,140 +190,149 @@ export default async (
     e,
   ) => onChange(editor.getValue(), e));
 
-  // if (language === "typescript") {
-  // const importHelper = [
-  //   {
-  //     name: "react",
-  //     url: "https://unpkg.com/@types/react@17.0.37/index.d.ts",
-  //     depend: ["global", "csstype", "react-dom", "prop-types"],
-  //   },
-  //   {
-  //     name: "react/jsx-dev-runtime",
-  //     url: "https://unpkg.com/@types/react@17.0.37/jsx-dev-runtime.d.ts",
-  //     depend: ["global", "csstype", "react-dom", "prop-types"],
-  //   },
-  //   {
-  //     name: "react-exp",
-  //     url: "https://unpkg.com/@types/react@17.0.37/experimental.d.ts",
-  //     depend: [],
-  //   },
-  //   {
-  //     name: "global",
-  //     url: "https://unpkg.com/@types/react@17.0.37/global.d.ts",
-  //     depend: [],
-  //   },
-  //   {
-  //     name: "prop-types",
-  //     url: "https://unpkg.com/@types/prop-types@15.7.2/index.d.ts",
-  //     depend: [],
-  //   },
-  //   {
-  //     name: "react-dom",
-  //     url: "https://unpkg.com/@types/react-dom@17.0.11/index.d.ts",
-  //     depend: [],
-  //   },
-  //   {
-  //     name: "csstype",
-  //     url: "https://unpkg.com/csstype@3.0.9/index.d.ts",
-  //     depend: [],
-  //   },
-  //   {
-  //     name: "@emotion/styled/base.d.ts",
-  //     url: "https://unpkg.com/@emotion/styled@11.6.0/types/base.d.ts",
-  //     depend: [
-  //       "@emotion/react",
-  //       "@emotion/serialize",
-  //       "react",
-  //     ],
-  //   },
-  //   {
-  //     name: "@emotion/styled/index.d.ts",
-  //     url: "https://unpkg.com/@emotion/styled@11.6.0/types/index.d.ts",
-  //     depend: [
-  //       "@emotion/react",
-  //       "@emotion/serialize",
-  //       "react",
-  //     ],
-  //   },
-  //   {
-  //     name: "@emotion/cache/index.d.ts",
-  //     url: "https://unpkg.com/@emotion/cache@11.6.0/types/index.d.ts",
-  //     depend: ["@emotion/utils"],
-  //   },
-  //   {
-  //     name: "@emotion/react/index.d.ts",
-  //     url: "https://unpkg.com/@emotion/react@11.7.0/types/index.d.ts",
-  //     depend: ["@emotion/cache"],
-  //   },
-  //   {
-  //     name: "@emotion/react/jsx-namespace.d.ts",
-  //     url: "https://unpkg.com/@emotion/react@11.7.0/types/jsx-namespace.d.ts",
-  //     depend: ["@emotion/utils", "csstype"],
-  //   },
-  //   {
-  //     name: "@emotion/react/css-prop.d.ts",
-  //     url: "https://unpkg.com/@emotion/react@11.7.0/types/css-prop.d.ts",
-  //     depend: ["@emotion/utils", "csstype"],
-  //   },
-  //   {
-  //     name: "@emotion/react/helper.d.ts",
-  //     url: "https://unpkg.com/@emotion/react@11.7.0/types/helper.d.ts",
-  //     depend: ["@emotion/utils", "csstype"],
-  //   },
-  //   {
-  //     name: "@emotion/react/theming.d.ts",
-  //     url: "https://unpkg.com/@emotion/react@11.7.0/types/theming.d.ts",
-  //     depend: ["@emotion/utils", "csstype"],
-  //   },
-  //   {
-  //     name: "@emotion/serialize/index.d.ts",
-  //     url: "https://unpkg.com/@emotion/serialize@1.0.2/types/index.d.ts",
+  setTimeout(()=>loadExtraLibs(monaco), 100);
 
-  //     depend: ["@emotion/utils", "csstype"],
-  //   },
-  //   {
-  //     name: "@emotion/utils/index.d.ts",
-  //     url: "https://unpkg.com/@emotion/utils@1.0.0/types/index.d.ts",
-  //     depend: [],
-  //   },
-  //   {
-  //     name: "framer-motion",
-  //     url: "https://unpkg.com/framer-motion@5.4.5/types/index.d.ts",
-  //     depend: ["popmotion"],
-  //   },
-  //   {
-  //     name: "framer-motion/types/render/dom/motion.d.ts",
-  //     url:
-  //       " https://unpkg.com/framer-motion@5.4.5/types/render/dom/motion.d.ts",
-  //     depend: ["popmotion"],
-  //   },
-  //   {
-  //     name: "popmotion",
-  //     url: "https://unpkg.com/popmotion@11.0.0/lib/index.d.ts",
-  //   },
-  // ];
-  // const dts = importHelper.map(({ name, url }) =>
-  //   async () => {
-  //     const content = await (await fetch(
-  //       url,
-  //     )).text();
+  // return modules;
+  return ()=>editor
+  
+};
 
-  //     const nameOfLib = name.includes("@")
-  //       ? `/node_modules/${name}`
-  //       : (name.endsWith(".d.ts")
-  //         ? "/node_modules/@types" + name
-  //         : "/node_modules/@types/" + name + "/index.d.ts");
+async function loadExtraLibs(monaco){
 
-  //     const customWorker = { customWorkerPath: window.location.href + "js/custom-worker.js" };
-  //     console.log({customWorker})
-  //     monaco.languages.typescript.typescriptDefaults.setWorkerOptions(customWorker);
-  //     // console.log(nameOfLib, content);
-  //     modules.monaco.languages.typescript.typescriptDefaults.addExtraLib(
-  //       content,
-  //       nameOfLib,
-  //     );
-  //   }
-  // );
+  const importHelper = [
+    {
+      name: "react",
+      url: "https://unpkg.com/@types/react@17.0.37/index.d.ts",
+      depend: ["global", "csstype", "react-dom", "prop-types"],
+    },
+    {
+      name: "react/jsx-dev-runtime",
+      url: "https://unpkg.com/@types/react@17.0.37/jsx-dev-runtime.d.ts",
+      depend: ["global", "csstype", "react-dom", "prop-types"],
+    },
+    {
+      name: "react-exp",
+      url: "https://unpkg.com/@types/react@17.0.37/experimental.d.ts",
+      depend: [],
+    },
+    {
+      name: "global",
+      url: "https://unpkg.com/@types/react@17.0.37/global.d.ts",
+      depend: [],
+    },
+    {
+      name: "prop-types",
+      url: "https://unpkg.com/@types/prop-types@15.7.2/index.d.ts",
+      depend: [],
+    },
+    {
+      name: "react-dom",
+      url: "https://unpkg.com/@types/react-dom@17.0.11/index.d.ts",
+      depend: [],
+    },
+    {
+      name: "csstype",
+      url: "https://unpkg.com/csstype@3.0.9/index.d.ts",
+      depend: [],
+    },
+    {
+      name: "@emotion/styled/base.d.ts",
+      url: "https://unpkg.com/@emotion/styled@11.6.0/types/base.d.ts",
+      depend: [
+        "@emotion/react",
+        "@emotion/serialize",
+        "react",
+      ],
+    },
+    {
+      name: "@emotion/styled/index.d.ts",
+      url: "https://unpkg.com/@emotion/styled@11.6.0/types/index.d.ts",
+      depend: [
+        "@emotion/react",
+        "@emotion/serialize",
+        "react",
+      ],
+    },
+    {
+      name: "@emotion/cache/index.d.ts",
+      url: "https://unpkg.com/@emotion/cache@11.6.0/types/index.d.ts",
+      depend: ["@emotion/utils"],
+    },
+    {
+      name: "@emotion/react/index.d.ts",
+      url: "https://unpkg.com/@emotion/react@11.7.0/types/index.d.ts",
+      depend: ["@emotion/cache"],
+    },
+    {
+      name: "@emotion/react/jsx-namespace.d.ts",
+      url: "https://unpkg.com/@emotion/react@11.7.0/types/jsx-namespace.d.ts",
+      depend: ["@emotion/utils", "csstype"],
+    },
+    {
+      name: "@emotion/react/css-prop.d.ts",
+      url: "https://unpkg.com/@emotion/react@11.7.0/types/css-prop.d.ts",
+      depend: ["@emotion/utils", "csstype"],
+    },
+    {
+      name: "@emotion/react/helper.d.ts",
+      url: "https://unpkg.com/@emotion/react@11.7.0/types/helper.d.ts",
+      depend: ["@emotion/utils", "csstype"],
+    },
+    {
+      name: "@emotion/react/theming.d.ts",
+      url: "https://unpkg.com/@emotion/react@11.7.0/types/theming.d.ts",
+      depend: ["@emotion/utils", "csstype"],
+    },
+    {
+      name: "@emotion/serialize/index.d.ts",
+      url: "https://unpkg.com/@emotion/serialize@1.0.2/types/index.d.ts",
+
+      depend: ["@emotion/utils", "csstype"],
+    },
+    {
+      name: "@emotion/utils/index.d.ts",
+      url: "https://unpkg.com/@emotion/utils@1.0.0/types/index.d.ts",
+      depend: [],
+    },
+    {
+      name: "framer-motion",
+      url: "https://unpkg.com/framer-motion@5.4.5/types/index.d.ts",
+      depend: ["popmotion"],
+    },
+    {
+      name: "framer-motion/types/render/dom/motion.d.ts",
+      url:
+        " https://unpkg.com/framer-motion@5.4.5/types/render/dom/motion.d.ts",
+      depend: ["popmotion"],
+    },
+    {
+      name: "popmotion",
+      url: "https://unpkg.com/popmotion@11.0.0/lib/index.d.ts",
+    },
+  ];
+   const dts = importHelper.map(({ name, url }) =>
+    async () => {
+      const content = await (await fetch(
+        url,
+      )).text();
+
+      const nameOfLib = name.includes("@")
+        ? `/node_modules/${name}`
+        : (name.endsWith(".d.ts")
+          ? "/node_modules/@types" + name
+          : "/node_modules/@types/" + name + "/index.d.ts");
+
+      // const customWorker = { customWorkerPath: window.location.href + "js/custom-worker.js" };
+      // console.log({customWorker})
+      // monaco.languages.typescript.typescriptDefaults.setWorkerOptions(customWorker);
+      // console.log(nameOfLib, content);
+      monaco.languages.typescript.typescriptDefaults.addExtraLib(
+        content,
+        nameOfLib,
+      );
+    }
+  );
+
 
   // modules.monaco.languages.typescript.typescriptDefaults.setCompilerOptions({
   //     target: 99,
@@ -321,20 +352,16 @@ export default async (
   //   });
   // );
 
-  // await pAll(dts, { concurrency: 2 });
+  await pAll(dts, { concurrency: 2 });
 
-  // monaco.languages.typescript.typescriptDefaults
-  //   .setDiagnosticsOptions({
-  //     noSuggestionDiagnostics: false,
-  //     noSemanticValidation: false,
-  //     noSyntaxValidation: false,
-  //   });
-  // return modules;
-  return {
-    monaco,
-    editor,
-  };
-};
+  monaco.languages.typescript.typescriptDefaults
+    .setDiagnosticsOptions({
+      
+      noSuggestionDiagnostics: false,
+      noSemanticValidation: false,
+      noSyntaxValidation: false,
+    });
+}
 
 function isMobile() {
   if (typeof window === "undefined") {

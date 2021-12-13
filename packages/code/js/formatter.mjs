@@ -16,7 +16,7 @@ export async function formatter(code) {
     if (loadWebWorkerCounter-- < 0) {
       setTimeout(init);
     }
-
+try{
     const resp = await fetch(
       "https://x-spike-land.zed-vision.workers.dev/api/prettier",
       {
@@ -27,6 +27,13 @@ export async function formatter(code) {
 
     const formatted = await resp.text();
     return formatted;
+} catch {
+  format = await init();
+  const formatted = await format(
+    code,
+  );
+  return formatted;
+}
   }
 
   const formatted = await format(
