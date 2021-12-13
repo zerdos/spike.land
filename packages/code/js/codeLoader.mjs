@@ -57,7 +57,7 @@ export async function run({ mode = "window", code, room = "code-main" }) {
   session.room = room;
 
   if (code) {
-    session.code =  await formatter(code);
+    session.code = await formatter(code);
     session.formattedCode = await formatter(code);
     session.transpiled = await baberTransform(code);
     session.changes = [];
@@ -68,14 +68,11 @@ export async function run({ mode = "window", code, room = "code-main" }) {
           ? await getIPFSCodeToLoad(undefined)
           : await getCodeToLoad(room);
 
-        
-        session.code =  await formatter(code);
-        session.formattedCode = session.code
-        session.transpiled = await baberTransform(session.code);
-        session.html = html;
-        session.changes = [];
-
-      
+      session.code = await formatter(code);
+      session.formattedCode = session.code;
+      session.transpiled = await baberTransform(session.code);
+      session.html = html;
+      session.changes = [];
     } catch (e) {
       console.error({ e, message: "couldn't start" });
       return;
@@ -93,13 +90,11 @@ export async function run({ mode = "window", code, room = "code-main" }) {
   window[hashOfCode] = code;
   session.hashOfCode = hashOfCode;
 
-
   await renderPreviewWindow(
     session,
   );
 
-
-  const editorPromise= startMonaco(
+  const editorPromise = startMonaco(
     /**
      * @param {any} code
      */
@@ -113,27 +108,25 @@ export async function run({ mode = "window", code, room = "code-main" }) {
       onChange: (code, changes) => runner(code, changes),
     },
   );
-  
-//   const dtsLoader = async ({editor}) =>{
 
-//   const model = editor.getModel()
-//   console.log({model});
-//   const {monaco} = window;
+  //   const dtsLoader = async ({editor}) =>{
 
-//   const worker = await monaco.languages.typescript.getTypeScriptWorker()
-//   console.log({worker})
-//   const thisWorker = await worker(model.uri)
-//   const dts = await thisWorker.getDTSEmitForFile(model.uri.toString())
-//   console.log(dts)
-// }
+  //   const model = editor.getModel()
+  //   console.log({model});
+  //   const {monaco} = window;
 
-  const {editor} = await editorPromise;
+  //   const worker = await monaco.languages.typescript.getTypeScriptWorker()
+  //   console.log({worker})
+  //   const thisWorker = await worker(model.uri)
+  //   const dts = await thisWorker.getDTSEmitForFile(model.uri.toString())
+  //   console.log(dts)
+  // }
+
+  const { editor } = await editorPromise;
   session.editor = editor;
   await restart(session.code);
   // await dtsLoader(session);
 
-
- 
   monaco = window.monaco;
   // dts();
 

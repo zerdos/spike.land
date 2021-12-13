@@ -1,7 +1,7 @@
 export async function renderPreviewWindow(
- session
+  session,
 ) {
-  const {code, transpiled, html, editor, mode}  = session;
+  const { code, transpiled, html, editor, mode } = session;
 
   const {
     DraggableWindow,
@@ -16,7 +16,7 @@ export async function renderPreviewWindow(
     const link = await shareItAsHtml({
       code,
       transpiled,
-      html
+      html,
     });
 
     open(link + "/");

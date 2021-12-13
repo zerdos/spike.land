@@ -60,7 +60,13 @@ var editor_default = async ({ onChange, code, language, container, options }) =>
   const innerStyle = document.createElement("style");
   innerStyle.innerText = '@import "https://unpkg.com/monaco-editor@0.30.1/min/vs/editor/editor.main.css";';
   shadowRoot.appendChild(innerStyle);
-  monaco.languages.typescript.typescriptDefaults.setCompilerOptions({ target: 99, jsx: 1, allowNonTsExtensions: true, declaration: true, noLibCheck: true });
+  monaco.languages.typescript.typescriptDefaults.setCompilerOptions({
+    target: 99,
+    jsx: 1,
+    allowNonTsExtensions: true,
+    declaration: true,
+    noLibCheck: true
+  });
   monaco.languages.typescript.typescriptDefaults.setDiagnosticsOptions({
     noSuggestionDiagnostics: true,
     noSemanticValidation: true,
