@@ -1,6 +1,6 @@
 import { getMonaco } from "./monaco.js";
 
-import type {editor, languages} from "monaco-editor"
+import type { editor, languages } from "monaco-editor";
 
 import pAll from "p-all";
 
@@ -58,7 +58,7 @@ export default async (
       innerContainer.style.height = `${height}px`;
     });
   }
-  
+
   const innerStyle = document.createElement("style");
   innerStyle.innerText =
     '@import "https://unpkg.com/monaco-editor@0.30.1/min/vs/editor/editor.main.css";';
@@ -97,8 +97,6 @@ export default async (
       noSemanticValidation: true,
       noSyntaxValidation: true,
     });
-
-  
 
   const { Uri } = monaco;
   const editor = monaco.editor.create(innerContainer, {
@@ -195,18 +193,31 @@ export default async (
     e,
   ) => onChange(editor.getValue(), e));
 
-  setTimeout(() => loadExtraLibs(
-    (content: string, filePath: string)=>monaco.languages.typescript.typescriptDefaults.addExtraLib(content, filePath),
-  (opts)=>monaco.languages.typescript.typescriptDefaults.setDiagnosticsOptions(opts)), 100);
+  setTimeout(() =>
+    loadExtraLibs(
+      (content: string, filePath: string) =>
+        monaco.languages.typescript.typescriptDefaults.addExtraLib(
+          content,
+          filePath,
+        ),
+      (opts) =>
+        monaco.languages.typescript.typescriptDefaults.setDiagnosticsOptions(
+          opts,
+        ),
+    ), 100);
 
   // return modules;
   return () => editor;
 };
 
 type IAddExtraLib = typeof languages.typescript.typescriptDefaults.addExtraLib;
-type ISetDiagnosticsOptions = typeof languages.typescript.typescriptDefaults.setDiagnosticsOptions;
+type ISetDiagnosticsOptions =
+  typeof languages.typescript.typescriptDefaults.setDiagnosticsOptions;
 
-async function loadExtraLibs(addExtraLib: IAddExtraLib, setDiagnosticsOptions: ISetDiagnosticsOptions ) {
+async function loadExtraLibs(
+  addExtraLib: IAddExtraLib,
+  setDiagnosticsOptions: ISetDiagnosticsOptions,
+) {
   const importHelper = [
     {
       name: "react",
@@ -361,10 +372,10 @@ async function loadExtraLibs(addExtraLib: IAddExtraLib, setDiagnosticsOptions: I
   await pAll(dts, { concurrency: 2 });
 
   setDiagnosticsOptions({
-      noSuggestionDiagnostics: false,
-      noSemanticValidation: false,
-      noSyntaxValidation: false,
-    });
+    noSuggestionDiagnostics: false,
+    noSemanticValidation: false,
+    noSyntaxValidation: false,
+  });
 }
 
 function isMobile() {

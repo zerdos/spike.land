@@ -130,27 +130,21 @@ export async function run({ mode = "window", code, room = "code-main" }) {
 
   monaco = window.monaco;
 
-  monaco.languages.registerOnTypeFormattingEditProvider('typescript', {
-    autoFormatTriggerCharacters: ["}", "{", ")","(", ";"],
+  monaco.languages.registerOnTypeFormattingEditProvider("typescript", {
+    autoFormatTriggerCharacters: ["}", "{", ")", "(", ";"],
 
     async provideOnTypeFormattingEdits(model) {
-  
       const text = await formatter(model.getValue());
-  
+
       return [
-  
         {
-  
           range: model.getFullModelRange(),
-          
-          text
-  
-        }
-  
-      ]
-  
-    }
-   });
+
+          text,
+        },
+      ];
+    },
+  });
 
   // monaco.editor.createModel(
   //   "define module './hash.js';",
@@ -276,9 +270,6 @@ export async function run({ mode = "window", code, room = "code-main" }) {
       //   saveErrorCode();
       //   return;
       // }
-
-      
-       
 
       monaco.editor.setTheme("vs-light");
       setTimeout(() => {
