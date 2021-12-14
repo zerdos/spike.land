@@ -36,6 +36,13 @@ let Sanyi = React.lazy(() =>
   import(`https://code.spike.land/api/room/sanyi/js`)
 );
 
+
+let Tibi = React.lazy(() =>
+  import(`https://code.spike.land/api/room/sanyi/js`)
+);
+
+
+
 function LazySanyi() {
   return (
     <div>
@@ -106,36 +113,6 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
 
   return (
     <React.Fragment>
-      <div
-        css={css`
-            margin: 20px;
-            background-color:rgba(152 ,92, 92, 0.5);
-            backdrop-filter: blur(10px);           
-            padding: 0px 0px 0px 16px;
-            box-sizing: border-box;
-            border-radius: 16px;
-            padding: 20px;
-            width: 100%;
-            width: 680px;
-            white-space: normal;
-          `}
-        // dragConstraints={{
-        //   left: 0,
-        //   right: width - 20 - width/6,
-        //   top: -height +100,
-        //   bottom: innerHeight -100,
-        // }}
-      >
-        <div
-          css={css`
-                          height: 80vh;
-                          border-radius: 16px;
-                          width: 640px;
-                        `}
-        >
-          <div id="editor" />
-        </div>
-      </div>
       <motion.div
         ref={ref}
         css={css`

@@ -1,6 +1,5 @@
 import createDelta from "textdiff-create";
 import { renderPreviewWindow } from "./renderPreviewWindow.mjs";
-import { openWindows } from "./openWindows.mjs";
 import { getCodeToLoad, getIPFSCodeToLoad, saveCode } from "./data.mjs";
 import { formatter } from "./formatter.mjs";
 import { diff } from "@spike.land/shadb";
@@ -51,9 +50,6 @@ export async function run(
 
   const { pathname } = new URL(window.location.href);
 
-  if (mode === "window") {
-    await openWindows();
-  }
 
   session.mode = mode;
   session.room = room;

@@ -182,6 +182,7 @@ export const join = (room, user) => {
           message.css = css;
           message.transpiled = transpiled;
           message.i = i;
+        
           message.hashOfCode = hashOfCode;
         }
 
@@ -592,6 +593,8 @@ async function processWsMessage(event) {
   if (data.code && !window.sess) {
     const session = {
       code: data.code,
+      errorText: "",
+      changes: [],
       setChild: () => {},
       transpiled: data.transpiled,
       html: data.html,
@@ -601,6 +604,7 @@ async function processWsMessage(event) {
     const quickStart = (await import("./quickStart.mjs")).quickStart;
     console.log("quick start", session);
     quickStart(session);
+    return
   }
 
   if (

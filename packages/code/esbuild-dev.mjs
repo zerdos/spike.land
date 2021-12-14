@@ -30,6 +30,19 @@ esbuild.build({
   outfile: "dist/dev.mjs",
 }).catch(() => process.exit(1));
 
+esbuild.build({
+  entryPoints: ["js/starter.mjs"],
+  bundle: true,
+  format: "esm",
+  minify: false,
+  treeShaking: false,
+  sourcemap: true,
+  resolveExtensions: [".tsx", ".ts", ".jsx", ".js", ".css", ".json", ".mjs"],
+  target: ["es2018"],
+  plugins: [importMap.plugin()],
+  outfile: "js/starter.b.mjs",
+}).catch(() => process.exit(1));
+
 // esbuild.build({
 //   entryPoints: ["js/ws.mjs"],
 //   bundle: true,

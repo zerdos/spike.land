@@ -17,8 +17,4 @@ export const run = async ({ mode, code, room }) => {
       ),
     ]));
   }
-
-  const { run: runCode } = await import("../dist/dev.mjs");
-
-  return runCode({ mode, code, room });
 };

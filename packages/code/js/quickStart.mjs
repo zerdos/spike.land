@@ -3,16 +3,22 @@ import ReactDOM from "react-dom";
 import startMonaco from "@spike.land/smart-monaco-editor";
 
 import { renderPreviewWindow } from "./renderPreviewWindow.mjs";
+import { restart } from "./restartCode.mjs";
 
 export async function startMonacoWithSession(session) {
-  const { editor } = await startMonaco(
+  
+
+
+ const shadDom = document.getElementById("edizzoo");
+  
+  const getEditor  = await startMonaco(
     /**
      * @param {any} code
      */
     {
       language: "typescript",
-      container: document.getElementById("editor"),
-      code: session.formattedCode,
+      container: shadDom,
+      code: session.code,
       /**
        * @param {string} code
        */
@@ -20,10 +26,11 @@ export async function startMonacoWithSession(session) {
     },
   );
 
-  session.editor = editor;
+  session.editor = getEditor();
   const monaco = window.monaco;
+  window.sess= session;
 
-  async function getErrors() {
+  async function getErrors(session) {
     if (!monaco) {
       return [{ messageText: "Error with the error checking. Try to reload!" }];
     }
@@ -96,7 +103,7 @@ export async function startMonacoWithSession(session) {
         restartError = await restart(c);
       }
       if (session.i > counter) return;
-      const err = await getErrors(cd);
+      const err = await getErrors(session);
       if (session.i > counter) return;
 
       if (restartError) {
@@ -175,15 +182,17 @@ export async function startMonacoWithSession(session) {
 }
 
 export async function quickStart(session) {
-  renderPreviewWindow(session);
+  
 
-  await restartX(
-    session.transpiled,
-    document.getElementById("zbody"),
-    session.i + 1,
-    session,
-  );
-  startMonacoWithSession(session);
+  await renderPreviewWindow(session);
+
+    
+  await startMonacoWithSession(session);
+
+  await restartX(session.transpiled, document.getElementById("zbody"), session.i+1, session);
+  
+
+
 }
 
 export async function restartX(transpiled, target, counter, session) {
