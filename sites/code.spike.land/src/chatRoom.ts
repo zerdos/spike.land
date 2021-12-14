@@ -8,6 +8,8 @@ import applyDelta from 'textdiff-patch';
 import { CodeEnv } from "./env";
 
 
+
+
 interface IState extends DurableObjectState{
   session: ISession,
   hashOfCode: string,
@@ -33,6 +35,7 @@ interface WebsocketSession {
 type ResolveFn = (value: unknown) => void;
 
 let code = ""
+let patched = false;
 
 export class Code {
   state: IState
@@ -230,7 +233,7 @@ export class Code {
     this.sessions.forEach((otherSession) => {
       if (otherSession.name) {
         session.blockedMessages.push(
-          JSON.stringify({ joined: otherSession.name }),
+          JSON.stringify({ joined: otherSession.name,  i: this.state.session.i ,hashOfCode: this.state.hashOfCode }),
         );
       }
     });
@@ -280,7 +283,7 @@ export class Code {
         }
 
 
-        let patched = false;
+
         if (!receivedUserInfo) {
           session.name = "" + (data.name || "anonymous");
 
@@ -290,6 +293,8 @@ export class Code {
             return;
           }
 
+
+
           // Deliver all the messages we queued up since the user connected.
           session.blockedMessages.forEach((queued) => {
             webSocket.send(queued);
@@ -297,18 +302,21 @@ export class Code {
 
 
           session.blockedMessages=[];
-          if (this.state.session.code){
-            session.blockedMessages.push(JSON.stringify({
-              code: this.state.session.code,
-              hashOfCode: this.state.hashOfCode,
-              i: this.state.session.i
-            }));
-          }
+        
 
           // Broadcast to all other connections that this user has joined.
           this.broadcast({ joined: session.name });
 
-          webSocket.send(JSON.stringify({ ready: true }));
+
+
+          webSocket.send(JSON.stringify({ 
+              ready: true,
+              code: this.state.session.code,
+              hashOfCode: this.state.hashOfCode,
+              transpiled: this.state.session.transpiled,
+              css: this.state.session.css,
+              html: this.state.session.html,
+              i: this.state.session.i }));
 
           // Note that we've now received the user info message.
           receivedUserInfo = true;
@@ -392,7 +400,7 @@ export class Code {
         this.state.session.lastTimestamp = data.timestamp;
 
         // Broadcast the message to all other WebSockets.
-        let dataStr = JSON.stringify(data);
+        let dataStr = JSON.stringify({...data});
         this.broadcast(dataStr);
 
         if (patched) {
