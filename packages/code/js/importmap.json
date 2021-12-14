@@ -1,6 +1,6 @@
 {
   "imports": {
-    "@babel/runtime/": "https://esm.sh/@babel/runtime/",
+    "@babel/runtime/": "https://cdn.skypack.dev/@babel/runtime/",
     "@emotion/cache": "https://unpkg.com/@emotion/cache@11.7.1/dist/emotion-cache.browser.esm.js",
     "@emotion/hash": "https://unpkg.com/@emotion/hash@0.8.0/dist/hash.browser.esm.js",
     "@emotion/is-prop-valid": "https://unpkg.com/@emotion/is-prop-valid@1.1.1/dist/emotion-is-prop-valid.browser.esm.js",

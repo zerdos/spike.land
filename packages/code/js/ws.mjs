@@ -1,6 +1,9 @@
 import createDelta from "textdiff-create";
 import applyPatch from "textdiff-patch";
 import { formatter } from "./formatter.mjs";
+import v4 from "uuid/v4";
+
+
 
 import Hash from "ipfs-only-hash";
 
@@ -224,7 +227,7 @@ export const run = async () => {
 
   await restartCode(code);
 
-  const user = Math.random() - "html";
+  const user = v4();
   const room = location.pathname.slice(1).split("/")[2] || "code-main";
 
   console.log(user, room);

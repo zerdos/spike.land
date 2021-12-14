@@ -26,12 +26,12 @@ function getSession() {
   return session;
 }
 
-export async function run({ mode = "window", code, room = "code-main" }) {
+export async function run({ mode = "window", code, room = "code-main", sess = null }) {
   mode = mode || "window";
   code = code || "";
   room = room || "code-main";
 
-  const session = getSession();
+  const session = sess || getSession();
   if (window.sess) {
     console.log("We are running...");
     return;

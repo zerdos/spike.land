@@ -14,7 +14,7 @@ const exceptions = {
   "react-transition-group": "https://esm.sh/react-transition-group",
   "hoist-non-react-statics": "https://esm.sh/hoist-non-react-statics",
   "prop-types": "https://esm.sh/prop-types",
-  "@babel/runtime/": "https://esm.sh/@babel/runtime/",
+  "@babel/runtime/": "https://cdn.skypack.dev/@babel/runtime/",
   // "@mui/material": `https://unpkg.com/@mui/material@${muiMateriaVersion}/modern/index.js`,
   // "@mui/material/": `https://unpkg.com/@mui/material@${muiMateriaVersion}/modern/`,
   // "@mui/core": `https://unpkg.com/@mui/core@${muiCoreVersion}/modern/index.js`,
