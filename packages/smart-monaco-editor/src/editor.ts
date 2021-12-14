@@ -107,8 +107,8 @@ export default async (
     codeLens: true,
     suggest: {
       showStatusBar: true,
-      preview: true
-    },   
+      preview: true,
+    },
     smoothScrolling: true,
     selectionHighlight: true,
     selectOnLineNumbers: true,
@@ -116,7 +116,7 @@ export default async (
     cursorBlinking: "smooth",
     hideCursorInOverviewRuler: true,
     cursorSurroundingLinesStyle: "all",
-    cursorSurroundingLines:8,
+    cursorSurroundingLines: 8,
 
     formatOnPaste: true,
     formatOnType: true,
