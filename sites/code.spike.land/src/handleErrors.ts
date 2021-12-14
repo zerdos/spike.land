@@ -23,7 +23,7 @@ export async function handleErrors(
       pair[1].close(1011, "Uncaught exception during session setup");
       return new Response(null, { status: 101, webSocket: pair[0] });
     } else {
-      let stack = "We have noooo idea what happpened";
+      let stack = "We have no idea what happened";
 
       if (err instanceof Error) {
         stack = err.stack || stack;

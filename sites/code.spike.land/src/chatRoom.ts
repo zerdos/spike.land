@@ -1,25 +1,59 @@
-import { handleErrors } from "./handleErrors.mjs";
-import { RateLimiterClient } from "./rateLimiterClient.mjs";
+import { handleErrors } from "./handleErrors";
+import { RateLimiterClient } from "./rateLimiterClient";
 import Hash from "ipfs-only-hash";
 import HTML from "./target.html";
 import importMap from "@spike.land/code/js/importmap.json";
 import { version } from "@spike.land/code/package.json";
 import applyDelta from 'textdiff-patch';
+import { CodeEnv } from "./env";
 
 
+interface IState extends DurableObjectState{
+  session: ISession,
+  hashOfCode: string,
+  hashCache: {[key:string]: string}
+}
+
+interface ISession{
+  i: number;
+  code: string;
+  transpiled: string,
+  css: string,
+  html: string,
+  lastTimestamp: number
+}
+
+interface WebsocketSession {
+  name?: string,
+  webSocket: WebSocket,
+  quit?: boolean,
+  blockedMessages: string[]
+}
+
+type ResolveFn = (value: unknown) => void;
+
+let code = ""
 
 export class Code {
-  constructor(state, env) {
+  state: IState
+  
+  sessions: WebsocketSession[]
+  constructor(state: IState, private env: CodeEnv) {
     this.state = state;
+    this.sessions = []
+    
 
-    this.hashCache = {};
-    this.session = {};
+    
+   
 
     this.state.blockConcurrencyWhile(async () => {
-      let code = await this.state.storage.get("code");
+      this.state.hashCache = {};
+      code = await this.state.storage.get<string>("code") || "";
 
+      
       if (!code) {
-        this.session = {
+        this.state.session = {
+          i: 0,
           code: "",
           transpiled: "",
           css: "",
@@ -32,25 +66,28 @@ export class Code {
 
       let hashOfCodeP = Hash.of(code);
 
-      let css = await this.state.storage.get("css");
-      let transpiled = await this.state.storage.get("transpiled");
-      let html = await this.state.storage.get("html");
+      let i = await this.state.storage.get<number>("i") || 0;
+      
+      let css = await this.state.storage.get<string>("css") || "";
+      let transpiled = await this.state.storage.get<string>("transpiled") || "";
+      let html = await this.state.storage.get<string>("html") || "";
       let lastTimestamp =
-        Number(await this.state.storage.get("lastTimestamp") || 0) ||
+        Number(await this.state.storage.get<string>("lastTimestamp") || 0) ||
         Date.now();
 
       const hashOfCode = await hashOfCodeP;
       
-      this.session = {
+      this.state.session = {
+        i,
         code,
         transpiled,
         html,
         css,
-        lastTimestamp,
-        hashOfCode: hashOfCodeP
+        lastTimestamp
       };
 
-      this.hashCache[hashOfCode] = code;
+      this.state.hashOfCode = hashOfCode;
+      this.state.hashCache[hashOfCode] = code;
 
     });
 
@@ -58,8 +95,10 @@ export class Code {
     this.sessions = [];
   }
 
-  async fetch(request) {
+  async fetch(request: Request) {
     return await handleErrors(request, async () => {
+
+      
       let url = new URL(request.url);
       const codeSpace = url.searchParams.get("room");
 
@@ -67,7 +106,7 @@ export class Code {
 
       switch (path[0]) {
         case "code": {
-          return new Response(this.session.code,{
+          return new Response(this.state.session.code,{
             status: 200,
             headers: {
               "Access-Control-Allow-Origin": "*",
@@ -77,7 +116,7 @@ export class Code {
           } );
         }
         case "js": {
-          return new Response(this.session.transpiled, {
+          return new Response(this.state.session.transpiled, {
             status: 200,
             headers: {
               "Access-Control-Allow-Origin": "*",
@@ -87,8 +126,8 @@ export class Code {
           });
         }
         case "html": {
-          const htmlContent = this.session.html;
-          const css = await this.session.css;
+          const htmlContent = this.state.session.html;
+          const css = await this.state.session.css;
 
           const html = HTML.replace(
             `<div id="zbody"></div>`,
@@ -123,7 +162,7 @@ export class Code {
           });
         }
         case "hashOfCode": {
-          const code = this.session.code;
+          code = this.state.session.code;
           const hashOfCode = code && await Hash.of(code) || "";
           return new Response(hashOfCode, {
             status: 200,
@@ -161,7 +200,7 @@ export class Code {
             return new Response("expected websocket", { status: 400 });
           }
 
-          let ip = request.headers.get("CF-Connecting-IP");
+          let ip = request.headers.get("CF-Connecting-IP") || "192.100.123.1";
           // eslint-disable-next-line no-undef
           let pair = new WebSocketPair();
 
@@ -176,16 +215,16 @@ export class Code {
     });
   }
 
-  async handleSession(webSocket, ip) {
+  async handleSession(webSocket: WebSocket, ip: string) {
     webSocket.accept();
 
     let limiterId = this.env.LIMITERS.idFromName(ip);
     let limiter = new RateLimiterClient(
       () => this.env.LIMITERS.get(limiterId),
-      (err) => webSocket.close(1011, err.stack),
+      (err: Error) => webSocket.close(1011, err.stack),
     );
 
-    let session = { webSocket, blockedMessages: [] };
+    let session = { webSocket, blockedMessages: [] as string[] } as WebsocketSession;
     this.sessions.push(session);
 
     this.sessions.forEach((otherSession) => {
@@ -204,11 +243,12 @@ export class Code {
     //   session.blockedMessages.push(value);
     // });
 
-    if (this.session.code) {
-      session.blockedMessages.push(
-        JSON.stringify({ hashOfCode: await this.session.hashOfCode }),
-      );
-    }
+
+    // if (this.state.session.code && this.state.hashOfCode !== null) {
+    //   const hashOfCode = this.state.hashOfCode;
+    //   session.blockedMessages.push(JSON.stringify({ hashOfCode }),
+    //   );
+    // }
 
     let receivedUserInfo = false;
 
@@ -219,13 +259,16 @@ export class Code {
         if (session.quit) {
           webSocket.close(1011, "WebSocket broken.");
           return;
+
         }
+
+        if (typeof msg.data !== "string") return;
 
         let data = JSON.parse(msg.data);
 
         if (data.type === 'get-cid') {
           const CID = data.cid;
-          if (this.hashCache[CID]) webSocket.send(JSON.stringify({type: "get-cid", cid: data.cid, [CID]: this.hashCache[CID]}));
+          if (this.state.hashCache[CID]) webSocket.send(JSON.stringify({type: "get-cid", cid: data.cid, [CID]: this.state.hashCache[CID]}));
           return;
         }
         
@@ -251,7 +294,9 @@ export class Code {
           session.blockedMessages.forEach((queued) => {
             webSocket.send(queued);
           });
-          delete session.blockedMessages;
+
+
+          session.blockedMessages=[];
 
           // Broadcast to all other connections that this user has joined.
           this.broadcast({ joined: session.name });
@@ -270,7 +315,7 @@ export class Code {
           
         } 
 
-        let code = data.code;
+        code = data.code;
         let html = data.html;
         let css = data.css;
         let transpiled = data.transpiled;
@@ -283,7 +328,7 @@ export class Code {
         const hashOfPatched = data.hashOfCode;
 
 
-        let previousCode = this.session.code;
+        let previousCode = this.state.session.code;
         let hashOfPreviousCode = await Hash.of(previousCode);
 
         data = { name: session.name };
@@ -291,17 +336,21 @@ export class Code {
       
 
         if (code) {
-          this.session.code = code;
-          this.session.hashOfCode = Hash.of(code);
-          this.session.css = css;
-          this.session.html = html;
-          this.session.transpiled = transpiled;
-          data.hashOfCode = await this.session.hashOfCode
-          this.hashCache[data.hashOfCode] = code;
+          this.state.session.code = code;
+          const hashOfCode = await Hash.of(code);
+          this.state.session.css = css;
+          this.state.session.html = html;
+          this.state.session.transpiled = transpiled;
+          if (hashOfCode === data.hashOfCode) {
+            this.state.hashOfCode = hashOfCode;
+            this.state.hashCache[hashOfCode] = code;
+          } else {
+            return;
+          }
         }
 
         else if (hashOfStarterCode != hashOfPreviousCode) {
-          previousCode = this.hashCache[hashOfStarterCode];
+          previousCode = this.state.hashCache[hashOfStarterCode];
           hashOfPreviousCode = hashOfStarterCode;
         } if (codeDiff && previousCode) {
           code = applyPatch(previousCode, codeDiff);
@@ -310,8 +359,8 @@ export class Code {
 
           if (hashOfCode === hashOfPatched) {
             patched = true;
-            this.session.hashOfCode = hashOfCode;
-            this.session.code = code;
+            this.state.hashOfCode = hashOfCode;
+            this.state.session.code = code;
 
             data.hashOfCode = hashOfCode;
             data.hashOfPreviousCode = hashOfPreviousCode;
@@ -331,9 +380,9 @@ export class Code {
 
         data.timestamp = Math.max(
           Date.now(),
-          this.session.lastTimestamp + 1,
+          this.state.session.lastTimestamp + 1,
         );
-        this.session.lastTimestamp = data.timestamp;
+        this.state.session.lastTimestamp = data.timestamp;
 
         // Broadcast the message to all other WebSockets.
         let dataStr = JSON.stringify(data);
@@ -341,29 +390,35 @@ export class Code {
 
         if (patched) {
           try {
-            if (cssDiff) css = applyPatch(this.session.css, cssDiff);
+            if (cssDiff) css = applyPatch(this.state.session.css, cssDiff);
             if (transpiledDiff) {
-              transpiled = applyPatch(this.session.transpiled, transpiledDiff);
+              transpiled = applyPatch(this.state.session.transpiled, transpiledDiff);
             }
-            if (htmlDiff) html = applyPatch(this.session.html, htmlDiff);
-            this.session.css = css;
-            this.session.html = html;
-            this.session.transpiled = transpiled;
+            if (htmlDiff) html = applyPatch(this.state.session.html, htmlDiff);
+            this.state.session.css = css;
+            this.state.session.html = html;
+            this.state.session.transpiled = transpiled;
           } catch {
             data.errorUnDiff = true;
           }
         }
         // Save message.
-        let key = new Date(this.session.lastTimestamp).toISOString();
-        let _res = null;
+        let key = new Date(this.state.session.lastTimestamp).toISOString();
+        
+        let _res: ResolveFn = ()=>Promise.resolve({});
+
         const pr = new Promise((resolve)=>_res=resolve);
+
+
         
         setTimeout(async () => {
-        if (code && code === this.session.code) {
+        if (code && code === this.state.session.code) {
           // await this.state.storage.put(hashOfCode, code);
           await this.state.storage.put("code", code);
         } else {
-          _res();
+
+          
+          _res(true);
           return;
         }
 
@@ -377,13 +432,14 @@ export class Code {
           await this.state.storage.put("css", css);
         }
         await this.state.storage.put(key, dataStr);
-        _res();
       }, 1000);
 
       await pr;
+
        
-      } catch (err) {
-        webSocket.send(JSON.stringify({ error: err.stack }));
+      } catch (err: any) {
+
+        webSocket.send(JSON.stringify({ error: err.stack || "unknown error" }));
       }
     });
 
@@ -398,21 +454,17 @@ export class Code {
     webSocket.addEventListener("error", closeOrErrorHandler);
   }
 
-  user2user(to, message) {
-    // Apply JSON if we weren't given a string to start with.
-    if (typeof message !== "string") {
-      message = JSON.stringify(message);
-    }
+  user2user(to: string, msg: Object | string) {
+    const message = (typeof msg !== "string")? JSON.stringify(msg): msg;
+  
      // Iterate over all the sessions sending them messages.
     this.sessions.filter((session) => session.name === to).map (s=>  s.webSocket.send(message) );
   }
 
-  broadcast(message) {
-    if (typeof message !== "string") {
-      message = JSON.stringify(message);
-    }
-
-    let quitters = [];
+  broadcast(msg: Object | string) {
+    const message = (typeof msg !== "string")? JSON.stringify(msg): msg;
+    
+    let quitters: WebsocketSession[] = [];
     this.sessions = this.sessions.filter((session) =>  {
       if (session.name) {
         try {
@@ -437,6 +489,6 @@ export class Code {
   }
 }
 
-function applyPatch(old, delta) {
+function applyPatch(old: string, delta: string) {
   return applyDelta(old, JSON.parse(delta))
 }

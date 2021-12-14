@@ -4,7 +4,7 @@ import importMap from "@spike.land/code/js/importmap.json";
 import HTML from "./index.html";
 
 import { default as npmAns } from "@spike.land/cf-npm-site";
-import { handleErrors } from "./handleErrors.mjs";
+import { handleErrors } from "./handleErrors";
 import { request } from "websocket";
 import { CodeEnv } from "./env";
 
