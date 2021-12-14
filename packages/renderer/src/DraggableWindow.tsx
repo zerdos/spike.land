@@ -36,12 +36,9 @@ let Sanyi = React.lazy(() =>
   import(`https://code.spike.land/api/room/sanyi/js`)
 );
 
-
 let Tibi = React.lazy(() =>
   import(`https://code.spike.land/api/room/sanyi/js`)
 );
-
-
 
 function LazySanyi() {
   return (

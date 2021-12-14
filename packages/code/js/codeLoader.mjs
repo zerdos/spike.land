@@ -50,7 +50,6 @@ export async function run(
 
   const { pathname } = new URL(window.location.href);
 
-
   session.mode = mode;
   session.room = room;
 

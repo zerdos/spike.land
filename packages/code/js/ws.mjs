@@ -182,7 +182,7 @@ export const join = (room, user) => {
           message.css = css;
           message.transpiled = transpiled;
           message.i = i;
-        
+
           message.hashOfCode = hashOfCode;
         }
 
@@ -601,10 +601,11 @@ async function processWsMessage(event) {
       i: data.i,
       css: data.css,
     };
-    const quickStart = (await import("./quickerStart.bundle.mjs")).quickStart;
+    const quickStart =
+      (await import("../dist/quickerStart.bundle.mjs")).quickStart;
     console.log("quick start", session);
     quickStart(session);
-    return
+    return;
   }
 
   if (

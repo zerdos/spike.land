@@ -5,12 +5,9 @@ import startMonaco from "@spike.land/smart-monaco-editor";
 import { renderPreviewWindow } from "./renderPreviewWindow.mjs";
 
 export async function startMonacoWithSession(session) {
-  
+  const shadDom = document.getElementById("edizzoo");
 
-
- const shadDom = document.getElementById("edizzoo");
-  
-  const getEditor  = await startMonaco(
+  const getEditor = await startMonaco(
     /**
      * @param {any} code
      */
@@ -27,7 +24,7 @@ export async function startMonacoWithSession(session) {
 
   session.editor = getEditor();
   const monaco = window.monaco;
-  window.sess= session;
+  window.sess = session;
 
   async function getErrors(session) {
     if (!monaco) {
@@ -181,17 +178,16 @@ export async function startMonacoWithSession(session) {
 }
 
 export async function quickStart(session) {
-  
-
   await renderPreviewWindow(session);
 
-    
   await startMonacoWithSession(session);
 
-  await restartX(session.transpiled, document.getElementById("zbody"), session.i+1, session);
-  
-
-
+  await restartX(
+    session.transpiled,
+    document.getElementById("zbody"),
+    session.i + 1,
+    session,
+  );
 }
 
 export async function restartX(transpiled, target, counter, session) {

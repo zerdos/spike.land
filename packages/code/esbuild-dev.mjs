@@ -40,7 +40,7 @@ esbuild.build({
   resolveExtensions: [".tsx", ".ts", ".jsx", ".js", ".css", ".json", ".mjs"],
   target: ["es2018"],
   plugins: [importMap.plugin()],
-  outfile: "js/quickerStart.bundle.mjs",
+  outfile: "dist/quickerStart.bundle.mjs",
 }).catch(() => process.exit(1));
 
 // esbuild.build({
