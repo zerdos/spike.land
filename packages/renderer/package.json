@@ -6,12 +6,12 @@
     "access": "public"
   },
   "source": "./src/renderer.ts",
-  "exports": "./dist/renderer.js",
-  "main": "./dist/renderer.js",
+  "exports": "./dist/renderer.mjs",
+  "main": "./dist/renderer.mjs",
   "sideEffects": false,
   "scripts": {
     "clean": "rm -rf dist && mkdir dist && deno fmt src",
-    "build": "esbuild src/DraggableWindow.tsx src/icons/PhoneAndroid.tsx src/icons/QrCode.tsx src/icons/Share.tsx src/icons/TabletAndroid.tsx src/icons/Tv.tsx src/Qr.tsx src/renderer.ts --format=esm --outdir=dist"
+    "build": "esbuild --bundle src/renderer.ts --external:react --external:react-dom --external:framer-motion --format=esm --tree-shaking=true --minify --outfile=dist/renderer.mjs"
   },
   "dependencies": {
     "@emotion/react": "11.7.1",
