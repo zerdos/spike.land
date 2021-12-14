@@ -1,6 +1,6 @@
 {
   "name": "@spike.land/ipfs",
-  "version": "0.2.49",
+  "version": "0.2.51",
   "sideEffects": false,
   "files": [
     "*/*"
