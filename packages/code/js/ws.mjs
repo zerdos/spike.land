@@ -44,7 +44,7 @@ const chCode = async (code) => {
 let hostname = "code.spike.land";
 
 let roomName = "code-main";
-let username = "user" + Math.random();
+let username = v4();
 let lastSeenTimestamp = 0;
 let lastSeenNow = 0;
 let lastSeenCode = "";
