@@ -1,9 +1,6 @@
 import createDelta from "textdiff-create";
 import applyPatch from "textdiff-patch";
 import { formatter } from "./formatter.mjs";
-import v4 from "uuid/v4";
-
-
 
 import Hash from "ipfs-only-hash";
 
@@ -43,8 +40,8 @@ const chCode = async (code) => {
 
 let hostname = "code.spike.land";
 
-let roomName = "code-main";
-let username = v4();
+let roomName = "";
+let username = "";
 let lastSeenTimestamp = 0;
 let lastSeenNow = 0;
 let lastSeenCode = "";
@@ -85,9 +82,9 @@ let rejoin = async () => {
 // }
 let intervalHandler = null;
 
-export const join = (user, room) => {
-  if (user) username = user;
+export const join = (room, user) => {
   if (room) roomName = room;
+  if (user) username = user;
 
   ws = new WebSocket(
     "wss://" + hostname + "/api/room/" + roomName + "/websocket",
@@ -220,19 +217,9 @@ const restartCode = async (c) => {
 };
 
 export const run = async () => {
-  const resp = await fetch(
-    "./code",
-  );
-  const code = await resp.text();
-
-  await restartCode(code);
-
-  const user = v4();
   const room = location.pathname.slice(1).split("/")[2] || "code-main";
 
-  console.log(user, room);
-
-  join(user, room);
+  join(room);
 };
 
 // Create the RTCPeerConnection which knows how to talk to our
@@ -593,6 +580,19 @@ async function getCID(CID) {
 
 async function processWsMessage(event) {
   const data = JSON.parse(event.data);
+
+  if (data.code && !window.sess) {
+    const session = {
+      code: data.code,
+      setChild: () => {},
+      transpiled: data.transpiled,
+      html: data.html,
+      css: data.css,
+    };
+    const quickStart = (await import("./quickStart.mjs")).quickStart;
+    console.log("quick start", session)
+    quickStart(session);
+  }
 
   if (
     data.name && data.hashOfCode && data.name !== username &&
