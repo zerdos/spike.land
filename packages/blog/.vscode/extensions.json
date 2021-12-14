@@ -8,10 +8,7 @@
     "pflannery.vscode-versionlens",
     "silvenon.mdx",
     "xyc.vscode-mdx-preview",
-    "coenraads.bracket-pair-colorizer",
     "jpoissonnier.vscode-styled-components",
-    "miclo.sort-typescript-imports"
-  ],
-  // List of extensions recommended by VS Code that should not be recommended for users of this workspace.
-  "unwantedRecommendations": ["dbaeumer.vscode-eslint"]
+    "dbaeumer.vscode-eslint"
+  ]
 }
