@@ -8,8 +8,6 @@ import applyDelta from 'textdiff-patch';
 import { CodeEnv } from "./env";
 
 
-
-
 interface IState extends DurableObjectState{
   session: ISession,
   hashOfCode: string,
@@ -222,11 +220,13 @@ export class Code {
     webSocket.accept();
 
     let limiterId = this.env.LIMITERS.idFromName(ip);
+
     let limiter = new RateLimiterClient(
-      () => this.env.LIMITERS.get(limiterId),
+      () =>this.env.LIMITERS.get(limiterId),
       (err: Error) => webSocket.close(1011, err.stack),
     );
 
+    
     let session = { webSocket, blockedMessages: [] as string[] } as WebsocketSession;
     this.sessions.push(session);
 
