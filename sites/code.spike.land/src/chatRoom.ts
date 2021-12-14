@@ -297,6 +297,13 @@ export class Code {
 
 
           session.blockedMessages=[];
+          if (this.state.session.code){
+            session.blockedMessages.push(JSON.stringify({
+              code: this.state.session.code,
+              hashOfCode: this.state.hashOfCode,
+              i: this.state.session.i
+            }));
+          }
 
           // Broadcast to all other connections that this user has joined.
           this.broadcast({ joined: session.name });
