@@ -185,6 +185,7 @@ const list = [
   "@zedvision/swm",
   "uuid/",
   "@spike.land/code",
+  "@spike.land/smart-monaco-editor",
   "comlink",
   "@spike.land/ipfs",
   "workbox-window",
@@ -199,6 +200,8 @@ const bigMap = await Promise.all(
 const importMap = { "imports": {} };
 const flat = bigMap.flatMap((v) => v);
 flat.map((i) => Object.assign(importMap.imports, i));
+
+importMap.imports.dev = "./js/starter.mjs";
 console.log(JSON.stringify(importMap, undefined, 2));
 
 // console.log(Object.keys(list))

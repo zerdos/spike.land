@@ -26,7 +26,9 @@ function getSession() {
   return session;
 }
 
-export async function run({ mode = "window", code, room = "code-main", sess = null }) {
+export async function run(
+  { mode = "window", code, room = "code-main", sess = null },
+) {
   mode = mode || "window";
   code = code || "";
   room = room || "code-main";

@@ -5,7 +5,7 @@ import { formatter } from "./formatter.mjs";
 import Hash from "ipfs-only-hash";
 
 let currentWebSocket = null;
-
+let sess = false;
 const mod = {};
 
 function createPatch(oldCode, newCode) {
@@ -86,6 +86,12 @@ export const join = (room, user) => {
   if (room) roomName = room;
   if (user) username = user;
 
+  if (sess) return;
+  sess = true;
+  setTimeout(() => {
+    sess = false;
+  }, 10_000);
+
   ws = new WebSocket(
     "wss://" + hostname + "/api/room/" + roomName + "/websocket",
   );
@@ -139,6 +145,7 @@ export const join = (room, user) => {
 
           message.codeDiff = codeDiff;
           message.hashOfCode = hashOfCode;
+          message.i = i;
           message.hashOfStarterCode = prevHash;
 
           if (prevHash && mod[prevHash]) {
@@ -174,6 +181,7 @@ export const join = (room, user) => {
           message.html = html;
           message.css = css;
           message.transpiled = transpiled;
+          message.i = i;
           message.hashOfCode = hashOfCode;
         }
 
@@ -587,10 +595,11 @@ async function processWsMessage(event) {
       setChild: () => {},
       transpiled: data.transpiled,
       html: data.html,
+      i: data.i,
       css: data.css,
     };
     const quickStart = (await import("./quickStart.mjs")).quickStart;
-    console.log("quick start", session)
+    console.log("quick start", session);
     quickStart(session);
   }
 
