@@ -3,7 +3,6 @@ import ReactDOM from "react-dom";
 import startMonaco from "@spike.land/smart-monaco-editor";
 
 import { renderPreviewWindow } from "./renderPreviewWindow.mjs";
-import { restart } from "./restartCode.mjs";
 
 export async function startMonacoWithSession(session) {
   

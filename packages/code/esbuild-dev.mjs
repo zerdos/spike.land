@@ -31,16 +31,16 @@ esbuild.build({
 }).catch(() => process.exit(1));
 
 esbuild.build({
-  entryPoints: ["js/starter.mjs"],
+  entryPoints: ["js/quickStart.mjs"],
   bundle: true,
   format: "esm",
-  minify: false,
-  treeShaking: false,
-  sourcemap: true,
+  minify: true,
+  treeShaking: true,
+  sourcemap: false,
   resolveExtensions: [".tsx", ".ts", ".jsx", ".js", ".css", ".json", ".mjs"],
   target: ["es2018"],
   plugins: [importMap.plugin()],
-  outfile: "js/starter.b.mjs",
+  outfile: "js/quickerStart.bundle.mjs",
 }).catch(() => process.exit(1));
 
 // esbuild.build({
