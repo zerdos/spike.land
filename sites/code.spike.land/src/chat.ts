@@ -5,9 +5,11 @@ import HTML from "./index.html";
 
 import { default as npmAns } from "@spike.land/cf-npm-site";
 import { handleErrors } from "./handleErrors.mjs";
+import { request } from "websocket";
+import { CodeEnv } from "./env";
 
 export default {
-  async fetch(request, env) {
+  async fetch(request: Request, env: CodeEnv) {
     return await handleErrors(request, async () => {
       // We have received an HTTP request! Parse the URL and route the request.
 
@@ -34,7 +36,7 @@ export default {
   },
 };
 
-async function handleApiRequest(path, request, env) {
+async function handleApiRequest(path: string[], request: Request, env:CodeEnv) {
   // We've received at API request. Route the request based on the path.
 
   switch (path[0]) {
@@ -65,7 +67,8 @@ async function handleApiRequest(path, request, env) {
 
       let newUrl = new URL(`${request.url}?room=${name}`);
       newUrl.pathname = "/" + path.slice(2).join("/");
-      return roomObject.fetch(newUrl, request);
+
+      return roomObject.fetch(newUrl.pathname, request);
     }
 
     default:
@@ -84,9 +87,13 @@ function getHTMLResp() {
 
   // Serve our HTML at the root path.
   const regex = /VERSION/ig;
-  importMap.imports.app = `https://unpkg.com/@spike.land/code@${version}/js/starter.mjs`;
+  const impMap: {imports: {[key: string]: string}} = {
+    imports: {
+      ...(importMap.imports), 
+      "app": `https://unpkg.com/@spike.land/code@${version}/js/starter.mjs`
+}};
   return new Response(
-    html1.replace("$$IMPORTMAP", JSON.stringify(importMap)).replaceAll(
+    html1.replace("$$IMPORTMAP", JSON.stringify(impMap)).replaceAll(
       regex,
       version,
     ) + injection + html2,

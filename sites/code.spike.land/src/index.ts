@@ -1,4 +1,4 @@
-import chat from "./chat.mjs";
+import chat from "./chat";
 export { Code } from "./chatRoom.mjs";
 export { CodeRateLimiter } from "./rateLimiter.mjs";
 

@@ -1,9 +1,9 @@
 {
   "compilerOptions": {
     "allowJs": true,
-    "target": "esnext",
+    "target": "es2021",
     "module": "esnext",
-    "lib": ["es2020"],
+    "lib": ["ES2021"],
     "alwaysStrict": true,
     "strict": true,
     "noEmit": true,
