@@ -3,7 +3,7 @@
   "version": "0.2.51",
   "description": "Monaco Editor with auto type downloads mostly for React",
   "sideEffects": false,
-  "main": "./dist/editor.mjs",
+  "main": "dist/editor.mjs",
   "typings": "src/editor.d.ts",
   "scripts": {
     "build": "esbuild --bundle src/editor.ts --format=esm --target=es2018 --outfile=dist/editor.mjs",
