@@ -1,29 +1,19 @@
 
 
-// const wb = () =>
-// import("./workboxLoader.mjs").then(({ workboxLoader }) => workboxLoader());
+import {join} from "./ws.mjs"
+import v4 from "uuid/v4";
+
+
 const path = location.pathname.split("/");
 const room = (path.pop() || path.pop()).slice(-12);
-
-
-const wsStart = async () =>{
-  const join  = (await import("./ws.mjs")).join;
-  const v4 = (await import( "uuid/v4")).default
-
-
-const user = v4();
-
-join(room, user);
-
-}
-
+const user = v4().substring(0,8);
 
 const runTheApp = () =>
   import("./reactLoader.mjs").then(({ run }) => run({ mode: "window", room }));
 
 export default function () {
-  wsStart();
-  setTimeout(() => window.sess ||wsStart(), 1000);
+  join(room, user);
+  setTimeout(() => window.sess || join(room, user), 1000);
   setTimeout(() => window.sess || runTheApp(), 1500);
 }
 
