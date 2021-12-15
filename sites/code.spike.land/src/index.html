@@ -29,6 +29,11 @@
     ></script>
     <title>Instant React Editor</title>
     <style>
+      html {
+  background-color: red;
+  overflow: hidden;
+  width: 100%;
+}
       body {
         overscroll-behavior-y: contain;
         background-image: url(https://unpkg.com/@spike.land/code@VERSION/assets/synthwave.webp);
@@ -37,6 +42,16 @@
         padding: 0;
         border: 0;
         height: 100vh;
+        min-height: -webkit-fill-available;
+        height: 100%;
+        position: fixed;
+        /* prevent overscroll bounce*/
+        background-color: lightgreen;
+        overflow-y: scroll;
+        -webkit-overflow-scrolling: touch;
+        padding-bottom: 0 !important;
+
+        /* iOS velocity scrolling */
       }
       @font-face {
     font-family: 'codicon';
