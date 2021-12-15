@@ -50,7 +50,7 @@ var require_os = __commonJS({
 });
 
 // ../../node_modules/monaco-editor/package.json
-var version = "0.31.0";
+var version = "0.31.1";
 
 // src/monaco.js
 var exp = {
@@ -479,12 +479,12 @@ async function loadExtraLibs(addExtraLib, setDiagnosticsOptions) {
     },
     {
       name: "framer-motion",
-      url: "https://unpkg.com/framer-motion@5.4.5/types/index.d.ts",
+      url: "https://unpkg.com/framer-motion@5.5.1/types/index.d.ts",
       depend: ["popmotion"]
     },
     {
       name: "framer-motion/types/render/dom/motion.d.ts",
-      url: " https://unpkg.com/framer-motion@5.4.5/types/render/dom/motion.d.ts",
+      url: " https://unpkg.com/framer-motion@5.5.1/types/render/dom/motion.d.ts",
       depend: ["popmotion"]
     },
     {
