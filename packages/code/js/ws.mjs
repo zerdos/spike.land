@@ -590,8 +590,7 @@ async function getCID(CID) {
 async function processWsMessage(event) {
   const data = JSON.parse(event.data);
 
-  if (data.code && !window.sess && !window.location.href.endsWith("/public");) {
-    _
+  if (data.code && !window.sess && !window.location.href.endsWith("/public")) {
     const session = {
       code: data.code,
       errorText: "",
