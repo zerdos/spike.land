@@ -479,12 +479,12 @@ async function loadExtraLibs(addExtraLib, setDiagnosticsOptions) {
     },
     {
       name: "framer-motion",
-      url: "https://unpkg.com/framer-motion@5.5.1/types/index.d.ts",
+      url: "https://unpkg.com/framer-motion@5.5.3/types/index.d.ts",
       depend: ["popmotion"]
     },
     {
       name: "framer-motion/types/render/dom/motion.d.ts",
-      url: " https://unpkg.com/framer-motion@5.5.1/types/render/dom/motion.d.ts",
+      url: " https://unpkg.com/framer-motion@5.5.3/types/render/dom/motion.d.ts",
       depend: ["popmotion"]
     },
     {

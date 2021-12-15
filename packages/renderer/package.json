@@ -21,7 +21,7 @@
     "@types/react": "17.0.37",
     "@types/react-dom": "17.0.11",
     "esbuild": "0.14.5",
-    "framer-motion": "5.5.1",
+    "framer-motion": "5.5.3",
     "react": "17.0.2",
     "react-dom": "17.0.2",
     "tslib": "2.3.1",
