@@ -13,25 +13,33 @@
   <script crossorigin src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
   <script async src="https://ga.jspm.io/npm:es-module-shims@1.4.0/dist/es-module-shims.js"></script>
   <title>Instant React Editor</title>
-  <style>
-    body{
-      background-image: url(./assets/synthwave.webp);
-    }
+   <style>
+      body {
+        overscroll-behavior-y: contain;
+        background-image: url(https://unpkg.com/@spike.land/code@VERSION/assets/synthwave.webp);
+        width: 100%;
+        margin: 0;
+        padding: 0;
+        border: 0;
+        height: 100vh;
+      }
 
-    #edizzoo{
-      display: block;
-      width: 700px;
-      height: 700px;
-    }
+      #edizzoo {
+        position: absolute;
+        top: 0;
+        left: 0;
+        display: block;
+        width: 100%;
+        height: 100vh;
+      }
 
-
-    /* We must define the font face outside the shadowroot */
-    @font-face {
+      @font-face {
     font-family: 'codicon';
-      src: url('https://unpkg.com/monaco-editor@0.30.1/min/vs/base/browser/ui/codicons/codicon/codicon.ttf')
+      src: url('https://unpkg.com/monaco-editor@0.31.1/min/vs/base/browser/ui/codicons/codicon/codicon.ttf')
         format('truetype');
     }
-		
+
+    </style>	
 
 </style>
 
