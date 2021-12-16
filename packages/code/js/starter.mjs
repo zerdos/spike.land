@@ -8,8 +8,7 @@ const room = (path.pop() || path.pop()).slice(-12);
 const runTheApp = () =>
   import("./reactLoader.mjs").then(({ run }) => run({ mode: "window", room }));
 
-export default function (injectedRoom='') {
-
+export default function (injectedRoom = "") {
   const path = location.pathname.split("/");
   const room = (path.pop() || path.pop()).slice(-12);
   const user = v4().substring(0, 8);
