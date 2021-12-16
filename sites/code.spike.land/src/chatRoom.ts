@@ -4,104 +4,87 @@ import Hash from "ipfs-only-hash";
 import HTML from "./target.html";
 import importMap from "@spike.land/code/importmap.json";
 import { version } from "@spike.land/code/package.json";
-import applyDelta from 'textdiff-patch';
+import applyDelta from "textdiff-patch";
 import { CodeEnv } from "./env";
 
-
-interface IState extends DurableObjectState{
-  session: ISession,
-  hashOfCode: string,
-  hashCache: {[key:string]: string}
+interface IState extends DurableObjectState {
+  session: ISession;
+  hashOfCode: string;
 }
 
-interface ISession{
+interface ISession {
   i: number;
   code: string;
-  transpiled: string,
-  css: string,
-  html: string,
-  lastTimestamp: number
+  transpiled: string;
+  css: string;
+  html: string;
+  lastTimestamp: number;
 }
 
 interface WebsocketSession {
-  name?: string,
-  webSocket: WebSocket,
-  quit?: boolean,
-  blockedMessages: string[]
+  name?: string;
+  webSocket: WebSocket;
+  quit?: boolean;
+  blockedMessages: string[];
 }
 
 type ResolveFn = (value: unknown) => void;
 
-let code = ""
-let patched = false;
-
 export class Code {
-  state: IState
-  
-  sessions: WebsocketSession[]
+  state: IState;
+  kv: DurableObjectStorage;
+  hashCache: { [key: string]: string } = {};
+  sessions: WebsocketSession[];
   constructor(state: IState, private env: CodeEnv) {
+    this.kv = state.storage;
     this.state = state;
-    this.sessions = []
-    
-
-    
-   
+    this.sessions = [];
+    this.env = env;
+    this.sessions = [];
 
     this.state.blockConcurrencyWhile(async () => {
-      this.state.hashCache = {};
-      code = await this.state.storage.get<string>("code") || "";
+      const code = await this.kv.get<string>("code") || "";
 
-      
       if (!code) {
+        const codeMainId = env.CODE.idFromName("code-main");
+        const defaultRoomObject = env.CODE.get(codeMainId);
 
-      const id =   env.CODE.idFromName("code-main");
-      const defaultRoomObject  = env.CODE.get(id);
-      const resp = await  defaultRoomObject.fetch("session");
-      const defaultClone: ISession = await resp.json();
+        const resp = await defaultRoomObject.fetch("session");
+        const defaultClone: ISession = await resp.json();
 
-        this.state.session = {...defaultClone,
-          i: 0,
-          lastTimestamp: Date.now()
-        };
-
-        return;
+        this.state.hashOfCode = await Hash.of(defaultClone.code);
+        this.hashCache[this.state.hashOfCode] = defaultClone.code;
       }
 
-      let hashOfCodeP = Hash.of(code);
+      let hashOfCode = await Hash.of(code);
 
-      let i = await this.state.storage.get<number>("i") || 0;
-      
-      let css = await this.state.storage.get<string>("css") || "";
-      let transpiled = await this.state.storage.get<string>("transpiled") || "";
-      let html = await this.state.storage.get<string>("html") || "";
+      let i = await this.kv.get<number>("i") || 0;
+
+      let css = await this.kv.get<string>("css") || "";
+      let transpiled = await this.kv.get<string>("transpiled") || "";
+      let html = await this.kv.get<string>("html") || "";
       let lastTimestamp =
-        Number(await this.state.storage.get<string>("lastTimestamp") || 0) ||
-        Date.now();
+        Number(await this.kv.get<string>("lastTimestamp") || 0) || Date.now();
 
-      const hashOfCode = await hashOfCodeP;
-      
       this.state.session = {
         i,
         code,
         transpiled,
         html,
         css,
-        lastTimestamp
+        lastTimestamp,
       };
 
       this.state.hashOfCode = hashOfCode;
-      this.state.hashCache[hashOfCode] = code;
-
+      this.hashCache[hashOfCode] = code;
     });
-
-    this.env = env;
-    this.sessions = [];
   }
 
   async fetch(request: Request) {
     return await handleErrors(request, async () => {
+      let code = "";
+      let patched = false;
 
-      
       let url = new URL(request.url);
       const codeSpace = url.searchParams.get("room");
 
@@ -109,25 +92,25 @@ export class Code {
 
       switch (path[0]) {
         case "code": {
-          return new Response(this.state.session.code,{
+          return new Response(this.state.session.code, {
             status: 200,
             headers: {
               "Access-Control-Allow-Origin": "*",
               "Cache-Control": "no-cache",
               "Content-Type": "application/javascript; charset=UTF-8",
             },
-          } );
+          });
         }
-        case "session": 
-        return new Response(JSON.stringify(this.state.session),{
-          status: 200,
-          headers: {
-            "Access-Control-Allow-Origin": "*",
-            "Cache-Control": "no-cache",
-            "Content-Type": "application/json; charset=UTF-8",
-          },
-        });
-        
+        case "session":
+          return new Response(JSON.stringify(this.state.session), {
+            status: 200,
+            headers: {
+              "Access-Control-Allow-Origin": "*",
+              "Cache-Control": "no-cache",
+              "Content-Type": "application/json; charset=UTF-8",
+            },
+          });
+
         case "js": {
           return new Response(this.state.session.transpiled, {
             status: 200,
@@ -150,7 +133,7 @@ export class Code {
             JSON.stringify({
               imports: {
                 ...importMap.imports,
-                app: `https://code.spike.land/api/room/${codeSpace}/js`
+                app: `https://code.spike.land/api/room/${codeSpace}/js`,
               },
             }),
           );
@@ -234,69 +217,65 @@ export class Code {
     let limiterId = this.env.LIMITERS.idFromName(ip);
 
     let limiter = new RateLimiterClient(
-      () =>this.env.LIMITERS.get(limiterId),
+      () => this.env.LIMITERS.get(limiterId),
       (err: Error) => webSocket.close(1011, err.stack),
     );
 
-    
-    let session = { webSocket, blockedMessages: [] as string[] } as WebsocketSession;
+    let session = {
+      webSocket,
+      blockedMessages: [] as string[],
+    } as WebsocketSession;
     this.sessions.push(session);
 
     this.sessions.forEach((otherSession) => {
       if (otherSession.name) {
         session.blockedMessages.push(
-          JSON.stringify({ joined: otherSession.name,  i: this.state.session.i ,hashOfCode: this.state.hashOfCode }),
+          JSON.stringify({
+            joined: otherSession.name,
+            i: this.state.session.i,
+            hashOfCode: this.state.hashOfCode,
+          }),
         );
       }
     });
-
-    // let storage = await this.storage.list({ reverse: true, limit: 100 });
-    // let backlog = [...storage.values()];
-
-    // backlog.reverse();
-    // backlog.forEach((value) => {
-    //   session.blockedMessages.push(value);
-    // });
-
-
-    // if (this.state.session.code && this.state.hashOfCode !== null) {
-    //   const hashOfCode = this.state.hashOfCode;
-    //   session.blockedMessages.push(JSON.stringify({ hashOfCode }),
-    //   );
-    // }
-
-    let receivedUserInfo = false;
-
-
 
     webSocket.addEventListener("message", async (msg) => {
       try {
         if (session.quit) {
           webSocket.close(1011, "WebSocket broken.");
           return;
-
         }
 
         if (typeof msg.data !== "string") return;
 
         let data = JSON.parse(msg.data);
 
-        if (data.type === 'get-cid') {
+        if (data.type === "get-cid") {
           const CID = data.cid;
-          if (this.state.hashCache[CID]) webSocket.send(JSON.stringify({type: "get-cid", cid: data.cid, [CID]: this.state.hashCache[CID]}));
+          if (this.hashCache[CID]) {
+            webSocket.send(
+              JSON.stringify({
+                type: "get-cid",
+                cid: data.cid,
+                [CID]: this.hashCache[CID],
+              }),
+            );
+          }
           return;
         }
-        
-        if ( !(data.type && (data.type === "new-ice-candidate" || data.type ==="video-offer" || data.type ==="video-answer")) && !limiter.checkLimit()) {
+
+        if (
+          !(data.type &&
+            (data.type === "new-ice-candidate" || data.type === "video-offer" ||
+              data.type === "video-answer")) && !limiter.checkLimit()
+        ) {
           webSocket.send(JSON.stringify({
             error: "Your IP is being rate-limited, please try again later.",
           }));
           return;
         }
 
-
-
-        if (!receivedUserInfo) {
+        if (!session.name && data.name) {
           session.name = "" + (data.name || "anonymous");
 
           if (session.name.length > 32) {
@@ -305,168 +284,167 @@ export class Code {
             return;
           }
 
-
-
           // Deliver all the messages we queued up since the user connected.
-          session.blockedMessages.forEach((queued) => {
-            webSocket.send(queued);
-          });
+          // session.blockedMessages.forEach((queued) => {
+          //   webSocket.send(queued);
+          // });
 
-
-          session.blockedMessages=[];
-        
+          session.blockedMessages = [];
 
           // Broadcast to all other connections that this user has joined.
-          this.broadcast({ joined: session.name });
+          // this.broadcast({ joined: session.name });
 
-
-
-          webSocket.send(JSON.stringify({ 
-              ready: true,
-              code: this.state.session.code,
-              hashOfCode: this.state.hashOfCode,
-              transpiled: this.state.session.transpiled,
-              css: this.state.session.css,
-              html: this.state.session.html,
-              i: this.state.session.i }));
+          webSocket.send(JSON.stringify({
+            ready: true,
+            code: this.state.session.code,
+            hashOfCode: this.state.hashOfCode,
+            transpiled: this.state.session.transpiled,
+            css: this.state.session.css,
+            html: this.state.session.html,
+            i: this.state.session.i,
+          }));
 
           // Note that we've now received the user info message.
-          receivedUserInfo = true;
 
           return;
         }
 
-        if(data.type && (data.type === "new-ice-candidate" || data.type ==="video-offer" || data.type ==="video-answer")) {
-          this.user2user(data.target, {name: session.name, ...data});
+        if (
+          data.type &&
+          (data.type === "new-ice-candidate" || data.type === "video-offer" ||
+            data.type === "video-answer")
+        ) {
+          this.user2user(data.target, { name: session.name, ...data });
           return;
-          
-        } 
-
-        code = data.code;
-        let html = data.html;
-        let css = data.css;
-        let transpiled = data.transpiled;
-        let hashOfStarterCode = data.hashOfStarterCode;
-
-        const codeDiff = data.codeDiff;
-        const transpiledDiff = data.transpiledDiff;
-        const htmlDiff = data.htmlDiff;
-        const cssDiff = data.cssDiff;
-        const hashOfPatched = data.hashOfCode;
-
-
-        let previousCode = this.state.session.code;
-        let hashOfPreviousCode = await Hash.of(previousCode);
-
-        data = { name: session.name };
-
-      
-
-        if (code) {
-          this.state.session.code = code;
-          const hashOfCode = await Hash.of(code);
-          this.state.session.css = css;
-          this.state.session.html = html;
-          this.state.session.transpiled = transpiled;
-          if (hashOfCode === data.hashOfCode) {
-            this.state.hashOfCode = hashOfCode;
-            this.state.hashCache[hashOfCode] = code;
-          } else {
-            return;
-          }
         }
 
-        else if (hashOfStarterCode != hashOfPreviousCode) {
-          previousCode = this.state.hashCache[hashOfStarterCode];
-          hashOfPreviousCode = hashOfStarterCode;
-        } if (codeDiff && previousCode) {
-          code = applyPatch(previousCode, codeDiff);
+        if (data.i) {
+          session.webSocket.send(JSON.stringify({ msg: "parsed - i" }));
 
-          const hashOfCode = await Hash.of(code);
+          let patched = false;
+          let code = data.code;
+          let html = data.html;
+          let css = data.css;
+          let i = data.i;
+          let transpiled = data.transpiled;
+          const hashOfStarterCode = data.hashOfStarterCode;
 
-          if (hashOfCode === hashOfPatched) {
-            patched = true;
-            this.state.hashOfCode = hashOfCode;
+          const codeDiff = data.codeDiff;
+          const transpiledDiff = data.transpiledDiff;
+          const htmlDiff = data.htmlDiff;
+          const cssDiff = data.cssDiff;
+          const hashOfPatched = data.hashOfCode;
+
+          let previousCode = this.state.session.code;
+          let hashOfPreviousCode = this.state.hashOfCode;
+
+          data = { name: session.name };
+
+          this.sessions;
+
+          if (code) {
             this.state.session.code = code;
-
-            data.hashOfCode = hashOfCode;
-            data.hashOfPreviousCode = hashOfPreviousCode;
-            data.codeDiff = codeDiff;
-          } else {
-            data.decoded = code;
-            data.gotHash = hashOfCode;
-            data.expected = data.hashOfCode;
-            data.error = "Code mismatch";
-          }
-        }
-
-        // if (data..length > 4096) {
-        //   webSocket.send(JSON.stringify({ error: "Message too long." }));
-        //   return;
-        // }
-
-        data.timestamp = Math.max(
-          Date.now(),
-          this.state.session.lastTimestamp + 1,
-        );
-        this.state.session.lastTimestamp = data.timestamp;
-
-        // Broadcast the message to all other WebSockets.
-        let dataStr = JSON.stringify({...data});
-        this.broadcast(dataStr);
-
-        if (patched) {
-          try {
-            if (cssDiff) css = applyPatch(this.state.session.css, cssDiff);
-            if (transpiledDiff) {
-              transpiled = applyPatch(this.state.session.transpiled, transpiledDiff);
-            }
-            if (htmlDiff) html = applyPatch(this.state.session.html, htmlDiff);
+            const hashOfCode = await Hash.of(code);
             this.state.session.css = css;
             this.state.session.html = html;
             this.state.session.transpiled = transpiled;
-          } catch {
-            data.errorUnDiff = true;
+            if (hashOfCode === data.hashOfCode) {
+              this.state.hashOfCode = hashOfCode;
+              this.hashCache[hashOfCode] = code;
+            } else {
+              return;
+            }
+          } else if (hashOfStarterCode != hashOfPreviousCode) {
+            previousCode = this.hashCache[hashOfStarterCode];
+            hashOfPreviousCode = hashOfStarterCode;
           }
-        }
-        // Save message.
-        let key = new Date(this.state.session.lastTimestamp).toISOString();
-        
-        let _res: ResolveFn = ()=>Promise.resolve({});
+          if (codeDiff && previousCode) {
+            code = applyPatch(previousCode, codeDiff);
 
-        const pr = new Promise((resolve)=>_res=resolve);
+            const hashOfCode = await Hash.of(code);
 
+            if (hashOfCode === hashOfPatched) {
+              patched = true;
+              this.state.hashOfCode = hashOfCode;
+              this.state.session.code = code;
 
-        
-        setTimeout(async () => {
-        if (code && code === this.state.session.code) {
-          // await this.state.storage.put(hashOfCode, code);
-          await this.state.storage.put("code", code);
-        } else {
+              data.hashOfCode = hashOfCode;
+              data.hashOfPreviousCode = hashOfPreviousCode;
+              data.codeDiff = codeDiff;
+            } else {
+              data.decoded = code;
+              data.gotHash = hashOfCode;
+              data.expected = data.hashOfCode;
+              data.error = "Code mismatch";
+            }
+          }
 
-          
-          _res(true);
+          // if (data..length > 4096) {
+          //   webSocket.send(JSON.stringify({ error: "Message too long." }));
+          //   return;
+          // }
+
+          data.timestamp = Math.max(
+            Date.now(),
+            this.state.session.lastTimestamp + 1,
+          );
+          this.state.session.lastTimestamp = data.timestamp;
+
+          // Broadcast the message to all other WebSockets.
+          let dataStr = JSON.stringify({
+            ...data,
+            i: data.i,
+            hashOfCode: data.hashOfCode,
+          });
+          this.broadcast(dataStr);
+
+          if (patched) {
+            try {
+              if (cssDiff) css = applyPatch(this.state.session.css, cssDiff);
+              if (transpiledDiff) {
+                transpiled = applyPatch(
+                  this.state.session.transpiled,
+                  transpiledDiff,
+                );
+              }
+              if (htmlDiff) {
+                html = applyPatch(this.state.session.html, htmlDiff);
+              }
+              this.state.session.css = css;
+              this.state.session.html = html;
+              this.state.session.transpiled = transpiled;
+            } catch {
+              data.errorUnDiff = true;
+            }
+          }
+          // Save message.
+          if (code && code === this.state.session.code) {
+            // await this.kv.put(hashOfCode, code);
+            await this.kv.put("code", code);
+          } else {
+            return;
+          }
+
+          if (html) {
+            await this.kv.put("html", html);
+          }
+          if (transpiled) {
+            await this.kv.put("transpiled", transpiled);
+          }
+          if (css) {
+            await this.kv.put("css", css);
+          }
+
+          let key = new Date(this.state.session.lastTimestamp).toISOString();
+          await this.kv.put(key, dataStr);
+
+          webSocket.send(JSON.stringify({ msg: "end of fn" }));
           return;
         }
-
-        if (html ) {
-          await this.state.storage.put("html", html);
-        }
-        if (transpiled) {
-          await this.state.storage.put("transpiled", transpiled);
-        }
-        if (css) {
-          await this.state.storage.put("css", css);
-        }
-        await this.state.storage.put(key, dataStr);
-      }, 1000);
-
-      await pr;
-
-       
       } catch (err: any) {
-
-        webSocket.send(JSON.stringify({ error: err.stack || "unknown error" }));
+        webSocket.send(
+          JSON.stringify({ error: (err && err.stack) || "unknown error" }),
+        );
       }
     });
 
@@ -482,17 +460,19 @@ export class Code {
   }
 
   user2user(to: string, msg: Object | string) {
-    const message = (typeof msg !== "string")? JSON.stringify(msg): msg;
-  
-     // Iterate over all the sessions sending them messages.
-    this.sessions.filter((session) => session.name === to).map (s=>  s.webSocket.send(message) );
+    const message = (typeof msg !== "string") ? JSON.stringify(msg) : msg;
+
+    // Iterate over all the sessions sending them messages.
+    this.sessions.filter((session) => session.name === to).map((s) =>
+      s.webSocket.send(message)
+    );
   }
 
   broadcast(msg: Object | string) {
-    const message = (typeof msg !== "string")? JSON.stringify(msg): msg;
-    
+    const message = (typeof msg !== "string") ? JSON.stringify(msg) : msg;
+
     let quitters: WebsocketSession[] = [];
-    this.sessions = this.sessions.filter((session) =>  {
+    this.sessions = this.sessions.filter((session) => {
       if (session.name) {
         try {
           session.webSocket.send(message);
@@ -517,5 +497,5 @@ export class Code {
 }
 
 function applyPatch(old: string, delta: string) {
-  return applyDelta(old, JSON.parse(delta))
+  return applyDelta(old, JSON.parse(delta));
 }

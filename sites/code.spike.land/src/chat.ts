@@ -35,7 +35,11 @@ export default {
   },
 };
 
-async function handleApiRequest(path: string[], request: Request, env:CodeEnv) {
+async function handleApiRequest(
+  path: string[],
+  request: Request,
+  env: CodeEnv,
+) {
   // We've received at API request. Route the request based on the path.
 
   switch (path[0]) {
@@ -86,11 +90,12 @@ function getHTMLResp() {
 
   // Serve our HTML at the root path.
   const regex = /VERSION/ig;
-  const impMap: {imports: {[key: string]: string}} = {
+  const impMap: { imports: { [key: string]: string } } = {
     imports: {
-      ...(importMap.imports), 
-      "app": `https://unpkg.com/@spike.land/code@${version}/js/starter.mjs`
-}};
+      ...(importMap.imports),
+      "app": `https://unpkg.com/@spike.land/code@${version}/js/starter.mjs`,
+    },
+  };
   return new Response(
     html1.replace("$$IMPORTMAP", JSON.stringify(impMap)).replaceAll(
       regex,

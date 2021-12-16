@@ -11,7 +11,7 @@ import { handleErrors } from "./handleErrors";
 // global, i.e. they apply across all chat rooms, so if a user spams one chat room, they will find
 // themselves rate limited in all other chat rooms simultaneously.
 export class CodeRateLimiter {
-  nextAllowedTime: number
+  nextAllowedTime: number;
   constructor(state: DurableObjectState, env: CodeEnv) {
     // Timestamp at which this IP will next be allowed to send a message. Start in the distant
     // past, i.e. the IP can send a message now.
