@@ -6,8 +6,7 @@
     "access": "public"
   },
   "source": "./src/renderer.ts",
-  "exports": "./dist/renderer.mjs",
-  "main": "./dist/renderer.mjs",
+  "main": "dist/renderer.mjs",
   "sideEffects": false,
   "scripts": {
     "clean": "rm -rf dist && mkdir dist && deno fmt src",
