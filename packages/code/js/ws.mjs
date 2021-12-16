@@ -83,7 +83,7 @@ let rejoin = async () => {
 let intervalHandler = null;
 
 export const join = (room, user) => {
-  if (room) roomName = room || "code-main";
+  roomName = room || "code-main";
   if (user) username = user;
 
   if (sess) return;
