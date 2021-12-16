@@ -1,5 +1,5 @@
 import { version } from "@spike.land/code/package.json";
-import importMap from "@spike.land/code/js/importmap.json";
+import importMap from "@spike.land/code/importmap.json";
 
 import HTML from "./index.html";
 
