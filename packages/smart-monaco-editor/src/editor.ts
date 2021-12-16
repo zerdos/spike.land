@@ -53,7 +53,7 @@ export default async (
     innerContainer.style.height = `${height}px`;
 
     window.addEventListener("resize", (ev) => {
-      const { width, height } = parent.getClientRects()[0];
+      const { width, height } = container.getClientRects()[0];
       innerContainer.style.width = `${Math.min(window.innerWidth, width)}px`;
       innerContainer.style.height = `${height}px`;
     });

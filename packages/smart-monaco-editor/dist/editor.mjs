@@ -314,7 +314,7 @@ var editor_default = async ({ onChange, code, language, container, options }) =>
     innerContainer.style.width = `${Math.min(window.innerWidth, width)}px`;
     innerContainer.style.height = `${height}px`;
     window.addEventListener("resize", (ev) => {
-      const { width: width2, height: height2 } = parent.getClientRects()[0];
+      const { width: width2, height: height2 } = container.getClientRects()[0];
       innerContainer.style.width = `${Math.min(window.innerWidth, width2)}px`;
       innerContainer.style.height = `${height2}px`;
     });
