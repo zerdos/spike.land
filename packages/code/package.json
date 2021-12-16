@@ -12,7 +12,7 @@
     ".": "./js/reactLoader.mjs",
     "./dist/dev.mjs": "./dist/dev.mjs",
     "./dist/ws.mjs": "./dist/ws.mjs",
-    "./js/importmap.json": "./js/importmap.json"
+    "./importmap.json": "./importmap.json"
   },
   "scripts": {
     "clean": "rm -rf .tsBuildInfo && deno fmt .",
