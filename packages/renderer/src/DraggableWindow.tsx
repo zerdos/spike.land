@@ -109,7 +109,6 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
   const scale = scaleRange / 100;
 
   return (
-    <React.Fragment>
       <motion.div
         ref={ref}
         css={css`
@@ -328,7 +327,6 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
           </div>
         </div>
       </motion.div>
-    </React.Fragment>
   );
 };
 
