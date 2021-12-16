@@ -4915,7 +4915,9 @@ var rl,
             }, {
               _createArray: function (c) {
                 var s, u = [];
-                for (s = 0; s < c; s++) u[s] = 0;
+                for (s = 0; s < c; s++) {
+                  u[s] = 0;
+                }
                 return u;
               },
               _getMaskBit: function (c, s) {
@@ -4928,7 +4930,9 @@ var rl,
                   u;
               },
               _modN: function (c) {
-                for (; c >= 255;) c -= 255, c = (c >> 8) + (c & 255);
+                for (; c >= 255;) {
+                  c -= 255, c = (c >> 8) + (c & 255);
+                }
                 return c;
               },
               N1: 3,
@@ -7754,7 +7758,9 @@ var rl,
           v = (g, b) => {
             !s || s(
               g,
-              h === b ? null : b,
+              h === b
+                ? null
+                : b,
             );
           };
         return Ih(
@@ -8149,10 +8155,11 @@ var rl,
                   }
               `,
                   },
-                  f ? T("div", { dangerouslySetInnerHTML: sm(n.html) })
-                  : T($.Suspense, {
-                    fallback: T("div", null, "Error fallback"),
-                  }, T("div", { id: "zbody", key: n.i, ref: b }, x)),
+                  f
+                    ? T("div", { dangerouslySetInnerHTML: sm(n.html) })
+                    : T($.Suspense, {
+                      fallback: T("div", null, "Error fallback"),
+                    }, T("div", { id: "zbody", key: n.i, ref: b }, x)),
                 ),
               ),
               T(
@@ -9974,9 +9981,13 @@ var Mm,
             if (r.isString(l)) {
               if (r.Long) {
                 l = r.Long.fromString(l);
-              } else return n.fromNumber(parseInt(l, 10));
+              } else {
+                return n.fromNumber(parseInt(l, 10));
+              }
             }
-            return l.low || l.high ? new n(l.low >>> 0, l.high >>> 0) : o;
+            return l.low || l.high
+              ? new n(l.low >>> 0, l.high >>> 0)
+              : o;
           },
           n.prototype.toNumber = function (l) {
             if (!l && this.hi >>> 31) {
@@ -10396,7 +10407,9 @@ var Mm,
                   if (a.copy) {
                     a.copy(l, c, 0, a.length);
                   } else {
-                    for (var s = 0; s < a.length;) l[c++] = a[s++];
+                    for (var s = 0; s < a.length;) {
+                      l[c++] = a[s++];
+                    }
                   }
                 };
         },
@@ -10439,7 +10452,9 @@ var Mm,
               throw Error("illegal buffer");
             }
             : function (d) {
-              if (Array.isArray(d)) return new l(d);
+              if (Array.isArray(d)) {
+                return new l(d);
+              }
               throw Error("illegal buffer");
             },
           s = function () {
@@ -10684,9 +10699,13 @@ var Mm,
             this.responseDelimited = Boolean(a);
         }
         n.prototype.rpcCall = function o(i, a, l, c, s) {
-          if (!c) throw TypeError("request must be specified");
+          if (!c) {
+            throw TypeError("request must be specified");
+          }
           var u = this;
-          if (!s) return r.asPromise(o, u, i, a, l, c);
+          if (!s) {
+            return r.asPromise(o, u, i, a, l, c);
+          }
           if (!u.rpcImpl) {
             setTimeout(function () {
               s(Error("already ended"));
@@ -10696,9 +10715,15 @@ var Mm,
           try {
             return u.rpcImpl(
               i,
-              a[u.requestDelimited ? "encodeDelimited" : "encode"](c).finish(),
+              a[
+                u.requestDelimited
+                  ? "encodeDelimited"
+                  : "encode"
+              ](c).finish(),
               function (p, h) {
-                if (p) return u.emit("error", p, i), s(p);
+                if (p) {
+                  return u.emit("error", p, i), s(p);
+                }
                 if (h === null) {
                   u.end(!0);
                   return;
@@ -11842,34 +11867,33 @@ if (cid) {
                   _.Long
               ) {
                 var o = new _.Long(0, 0, !0);
-                n.filesize = r.longs === String ? o.toString()
-                : r.longs === Number
+                n.filesize = r.longs === String
+                  ? o.toString()
+                  : r.longs === Number
                   ? o.toNumber()
                   : o;
               } else {
-                n.filesize = r.longs === String ? "0" : 0;
+                n.filesize = r.longs === String
+                  ? "0"
+                  : 0;
               }
               if (_.Long) {
                 var o = new _.Long(0, 0, !0);
-                n.hashType = r.longs === String
-                  ? o.toString()
-                  : r.longs === Number
-                  ? o.toNumber()
-                  : o;
+                n.hashType = r.longs === String ? o.toString()
+                : r.longs === Number ? o.toNumber() : o;
               } else n.hashType = r.longs === String ? "0" : 0;
               if (_.Long) {
                 var o = new _.Long(0, 0, !0);
-                n.fanout = r.longs === String
-                  ? o.toString()
-                  : r.longs === Number
-                  ? o.toNumber()
-                  : o;
+                n.fanout = r.longs === String ? o.toString()
+                : r.longs === Number ? o.toNumber() : o;
               } else n.fanout = r.longs === String ? "0" : 0;
               n.mode = 0, n.mtime = null;
             }
             if (
               t.Type != null && t.hasOwnProperty("Type") &&
-              (n.Type = r.enums === String ? q.Data.DataType[t.Type] : t.Type),
+              (n.Type = r.enums === String
+                ? q.Data.DataType[t.Type]
+                : t.Type),
                 t.Data != null && t.hasOwnProperty("Data") &&
                 (n.Data = r.bytes === String
                   ? _.base64.encode(t.Data, 0, t.Data.length)
@@ -12022,7 +12046,9 @@ if (cid) {
               if (_.Long) {
                 var o = new _.Long(0, 0, !1);
                 n.Seconds = r.longs === String ? o.toString()
-                : r.longs === Number ? o.toNumber() : o;
+                : r.longs === Number
+                  ? o.toNumber()
+                  : o;
               } else n.Seconds = r.longs === String ? "0" : 0;
               n.FractionalNanoseconds = 0;
             }

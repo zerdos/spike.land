@@ -3509,10 +3509,15 @@
     "@types/node" "*"
     form-data "^3.0.0"
 
-"@types/node@*", "@types/node@16.11.13", "@types/node@>=10.0.0", "@types/node@>=13.7.0":
+"@types/node@*", "@types/node@>=10.0.0", "@types/node@>=13.7.0":
   version "16.11.13"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-16.11.13.tgz#6b71641b81a98c6a538d89892440c06f147edddc"
   integrity sha512-eUXZzHLHoZqj1frtUetNkUetYoJ6X55UmrVnFD4DMhVeAmwLjniZhtBmsRiemQh4uq4G3vUra/Ws/hs9vEvL3Q==
+
+"@types/node@17.0.0":
+  version "17.0.0"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-17.0.0.tgz#62797cee3b8b497f6547503b2312254d4fe3c2bb"
+  integrity sha512-eMhwJXc931Ihh4tkU+Y7GiLzT/y/DBNpNtr4yU9O2w3SYBsr9NaOPhQlLKRmoWtI54uNwuo0IOUFQjVOTZYRvw==
 
 "@types/node@^14.14.31":
   version "14.18.0"
@@ -7304,10 +7309,10 @@ es-module-lexer@^0.9.0:
   resolved "https://registry.yarnpkg.com/es-module-lexer/-/es-module-lexer-0.9.3.tgz#6f13db00cc38417137daf74366f535c8eb438f19"
   integrity sha512-1HQ2M2sPtxwnvOvT1ZClHyQDiggdNjURWpY2we6aMKCQiUVxTmVs2UYPLIrD84sS+kMdUwfBSylbJPwNnBrnHQ==
 
-es-module-shims@1.4.0:
-  version "1.4.0"
-  resolved "https://registry.yarnpkg.com/es-module-shims/-/es-module-shims-1.4.0.tgz#dd7aa3bc9e9c5b9f021f005f214cf2b6862b3b38"
-  integrity sha512-+wXUrm3o3R1I4T5DmQGxPO/k9JFb+OgTw+PUqOS8EFUVXY7XWQY6hf56JgDqzMJeOcyDAJs8Krni/2xdo+rh+w==
+es-module-shims@1.4.1:
+  version "1.4.1"
+  resolved "https://registry.yarnpkg.com/es-module-shims/-/es-module-shims-1.4.1.tgz#a23542126487e283f1b09096bd0d4a35c16afa1b"
+  integrity sha512-W2vx+64vuuBhiRR1uMTireQgDAvhnkGdPEWO5Fdplp/wxYnn31oarG0IA/eM01YVQ7eGglgBdWTGe6tYRY1q9A==
 
 es-to-primitive@^1.2.1:
   version "1.2.1"
@@ -10255,43 +10260,43 @@ ipaddr.js@^2.0.1:
   resolved "https://registry.yarnpkg.com/ipaddr.js/-/ipaddr.js-2.0.1.tgz#eca256a7a877e917aeb368b0a7497ddf42ef81c0"
   integrity sha512-1qTgH9NG+IIJ4yfKs2e6Pp1bZg8wbDbKHT21HrLIeYBTRLgMYKnMTPAuI3Lcs61nfx5h1xlXnbJtH1kX5/d/ng==
 
-ipfs-core-types@^0.8.4:
-  version "0.8.4"
-  resolved "https://registry.yarnpkg.com/ipfs-core-types/-/ipfs-core-types-0.8.4.tgz#4d483dc6035714ea48a0b02e3f82b6c6d55c8525"
-  integrity sha512-sbRZA1QX3xJ6ywTiVQZMOxhlhp4osAZX2SXx3azOLxAtxmGWDMkHYt722VV4nZ2GyJy8qyk5GHQIZ0uvQnpaTg==
+ipfs-core-types@^0.9.0:
+  version "0.9.0"
+  resolved "https://registry.yarnpkg.com/ipfs-core-types/-/ipfs-core-types-0.9.0.tgz#cb201ff7a9470651ba14c4e7fae56661a55bf37e"
+  integrity sha512-VJ8vJSHvI1Zm7/SxsZo03T+zzpsg8pkgiIi5hfwSJlsrJ1E2v68QPlnLshGHUSYw89Oxq0IbETYl2pGTFHTWfg==
   dependencies:
     interface-datastore "^6.0.2"
     multiaddr "^10.0.0"
     multiformats "^9.4.13"
 
-ipfs-message-port-client@0.10.2:
-  version "0.10.2"
-  resolved "https://registry.yarnpkg.com/ipfs-message-port-client/-/ipfs-message-port-client-0.10.2.tgz#936b1421f21105c551eae2f081fda0eda34b7fae"
-  integrity sha512-DZrCDD9I2QT5l/+NSjkwzZ2w6tOLTDqcLMTlr7HQw1vvRM0HUGue9bSUWgoZmZVm2pNcld1/oPZ+KaVwoP9bAQ==
+ipfs-message-port-client@0.10.3:
+  version "0.10.3"
+  resolved "https://registry.yarnpkg.com/ipfs-message-port-client/-/ipfs-message-port-client-0.10.3.tgz#e7e5815c7278c1c72bbc04d2266d2e16e62a2095"
+  integrity sha512-lAdIdU8fpZBGUg1dG22X55Qnm3N6BxEVf4d3tYu8ITaIxhrZ2nm2HmkNzlc5fYeIZKTICThIDYiqzqMTrx67aw==
   dependencies:
     browser-readablestream-to-it "^1.0.1"
     err-code "^3.0.1"
-    ipfs-core-types "^0.8.4"
-    ipfs-message-port-protocol "^0.10.4"
+    ipfs-core-types "^0.9.0"
+    ipfs-message-port-protocol "^0.10.5"
     ipfs-unixfs "^6.0.3"
     it-peekable "^1.0.2"
     multiformats "^9.4.13"
 
-ipfs-message-port-protocol@0.10.4, ipfs-message-port-protocol@^0.10.4:
-  version "0.10.4"
-  resolved "https://registry.yarnpkg.com/ipfs-message-port-protocol/-/ipfs-message-port-protocol-0.10.4.tgz#a72988a627cf59423407795a67fcd0fcd4f3db05"
-  integrity sha512-zr5qfyCQpStE+E6y7is5WrG6PiiCgtjBlNsSpEAzllYC8NA1iKsm9GJJX924B+cuY6k4lBaSotozgnjbrIBpAA==
+ipfs-message-port-protocol@0.10.5, ipfs-message-port-protocol@^0.10.5:
+  version "0.10.5"
+  resolved "https://registry.yarnpkg.com/ipfs-message-port-protocol/-/ipfs-message-port-protocol-0.10.5.tgz#2ae75b446a35119a47b841b839400266edfada36"
+  integrity sha512-dHq+N0Epur5k7ZnQTSOepp5/Gmvtrg8SCD65t2okthkP8c4xIVxxaMpXZbHgi/2x0ix7HoQt4QiQa0StMkoj7A==
   dependencies:
-    ipfs-core-types "^0.8.4"
+    ipfs-core-types "^0.9.0"
     multiformats "^9.4.13"
 
-ipfs-message-port-server@0.10.4:
-  version "0.10.4"
-  resolved "https://registry.yarnpkg.com/ipfs-message-port-server/-/ipfs-message-port-server-0.10.4.tgz#bc026bf6142b6befd32213c6bf9a8432e8c11319"
-  integrity sha512-80hP+/u4EQfyeHkp1/Mp1rk3Dyn/3w/VHg9pSfgVnFu8+L9sfTiLLYys/AymcYGjgQJAxEf9dl6zJ8+OvhUJFQ==
+ipfs-message-port-server@0.10.5:
+  version "0.10.5"
+  resolved "https://registry.yarnpkg.com/ipfs-message-port-server/-/ipfs-message-port-server-0.10.5.tgz#83c0c7a663a5e5bef1934025c5b445016e7a04e3"
+  integrity sha512-vPCqfv8h29VWYGFEL4arbVp+Yp0uR/xmdvmSHpB0F8e8QUGsl4gowA7k8jefhQUMWc5J7q66g18NmFafhKhLaQ==
   dependencies:
-    ipfs-core-types "^0.8.4"
-    ipfs-message-port-protocol "^0.10.4"
+    ipfs-core-types "^0.9.0"
+    ipfs-message-port-protocol "^0.10.5"
     it-all "^1.0.4"
     multiformats "^9.4.13"
 
