@@ -158,9 +158,7 @@ export class Code {
           });
         }
         case "hashOfCode": {
-          code = this.state.session.code;
-          const hashOfCode = code && await Hash.of(code) || "";
-          return new Response(hashOfCode, {
+          return new Response( this.state.hashOfCode, {
             status: 200,
             headers: {
               "Access-Control-Allow-Origin": "*",
@@ -319,8 +317,13 @@ export class Code {
         }
 
         if (data.i) {
-          session.webSocket.send(JSON.stringify({ msg: "parsed - i" }));
+          webSocket.send(JSON.stringify({ msg: "parsed - i" }));
 
+          if (data.code){
+            const hash = await Hash.of(data.code);
+            this.kv.put("code", data.code);
+            this.broadcast(JSON.stringify({hashOfCode: hash, i: data.i}));
+          }
           let patched = false;
           let code = data.code;
           let html = data.html;
@@ -441,9 +444,11 @@ export class Code {
           webSocket.send(JSON.stringify({ msg: "end of fn" }));
           return;
         }
-      } catch (err: any) {
+      } catch {
         webSocket.send(
-          JSON.stringify({ error: (err && err.stack) || "unknown error" }),
+          JSON.stringify({
+            error: "unknown error",
+          }),
         );
       }
     });
