@@ -1,5 +1,5 @@
 import { wait } from "axax/esnext/wait";
-import importMap from "@spike.land/code/js/importmap.json";
+import importMap from "@spike.land/code/importmap.json";
 
 // [{
 //     defer: "true",

@@ -2,7 +2,7 @@ import * as React from "react";
 import { graphql, useStaticQuery } from "gatsby";
 import { Helmet } from "react-helmet";
 
-const importMap = require("@spike.land/code/js/importmap.json");
+const importMap = require("@spike.land/code/importmap.json");
 /**
  * SEO component that queries for data with
  *  Gatsby's useStaticQuery React hook

@@ -19,7 +19,7 @@ export const content = `<!DOCTYPE html>
     </script>
 </head>
 <body>
-  <script type="importmap-shim" src="https://code.spike.land/js/importmap.json"></script>
+  <script type="importmap-shim" src="https://code.spike.land/importmap.json"></script>
   <script type="module-shim" src="https://code.spike.land/js/starter.js"></script>
 </body>
 </html>`;

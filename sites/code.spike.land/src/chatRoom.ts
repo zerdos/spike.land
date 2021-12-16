@@ -2,7 +2,7 @@ import { handleErrors } from "./handleErrors";
 import { RateLimiterClient } from "./rateLimiterClient";
 import Hash from "ipfs-only-hash";
 import HTML from "./target.html";
-import importMap from "@spike.land/code/js/importmap.json";
+import importMap from "@spike.land/code/importmap.json";
 import { version } from "@spike.land/code/package.json";
 import applyDelta from 'textdiff-patch';
 import { CodeEnv } from "./env";
