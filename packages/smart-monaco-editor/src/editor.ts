@@ -326,13 +326,13 @@ async function loadExtraLibs(
     },
     {
       name: "framer-motion",
-      url: "https://unpkg.com/framer-motion@5.5.3/types/index.d.ts",
+      url: "https://unpkg.com/framer-motion@5.5.4/types/index.d.ts",
       depend: ["popmotion"],
     },
     {
       name: "framer-motion/types/render/dom/motion.d.ts",
       url:
-        " https://unpkg.com/framer-motion@5.5.3/types/render/dom/motion.d.ts",
+        " https://unpkg.com/framer-motion@5.5.4/types/render/dom/motion.d.ts",
       depend: ["popmotion"],
     },
     {
