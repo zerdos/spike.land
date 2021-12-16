@@ -53,12 +53,14 @@ export class Code {
 
       
       if (!code) {
-        this.state.session = {
+
+      const id =   env.CODE.idFromName("code-main");
+      const defaultRoomObject  = env.CODE.get(id);
+      const resp = await  defaultRoomObject.fetch("session");
+      const defaultClone: ISession = await resp.json();
+
+        this.state.session = {...defaultClone,
           i: 0,
-          code: "",
-          transpiled: "",
-          css: "",
-          html: "",
           lastTimestamp: Date.now()
         };
 
@@ -116,6 +118,16 @@ export class Code {
             },
           } );
         }
+        case "session": 
+        return new Response(JSON.stringify(this.state.session),{
+          status: 200,
+          headers: {
+            "Access-Control-Allow-Origin": "*",
+            "Cache-Control": "no-cache",
+            "Content-Type": "application/json; charset=UTF-8",
+          },
+        });
+        
         case "js": {
           return new Response(this.state.session.transpiled, {
             status: 200,
