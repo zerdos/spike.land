@@ -16,12 +16,23 @@
    <style>
       body {
         overscroll-behavior-y: contain;
-        background-image: url(https://unpkg.com/@spike.land/code@VERSION/assets/synthwave.webp);
+        background-image: url(./assets/synthwave.webp);
         width: 100%;
         margin: 0;
         padding: 0;
         border: 0;
         height: 100vh;
+        min-height: -webkit-fill-available;
+        height: 100%;
+        position: fixed;
+        /* prevent overscroll bounce*/
+        background-color: rgb(150, 48, 145);
+        overflow-y: scroll;
+        --webkit-overflow-scrolling: touch;
+        padding-bottom: 0 !important;
+        overflow: hidden;
+        overflow-x: hidden;
+        overflow-y: hidden;
       }
 
       #edizzoo {
@@ -29,8 +40,9 @@
         top: 0;
         left: 0;
         display: block;
+        max-width: 600px;
         width: 100%;
-        height: 100vh;
+        height: 100vh; 
       }
 
       @font-face {

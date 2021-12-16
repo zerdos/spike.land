@@ -310,7 +310,7 @@ var editor_default = async ({ onChange, code, language, container, options }) =>
   shadowRoot.appendChild(innerContainer);
   const parent = container.parentElement;
   if (parent) {
-    const { width, height } = parent.getClientRects()[0];
+    const { width, height } = container.getClientRects()[0];
     innerContainer.style.width = `${Math.min(window.innerWidth, width)}px`;
     innerContainer.style.height = `${height}px`;
     window.addEventListener("resize", (ev) => {

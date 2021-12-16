@@ -201,7 +201,7 @@ const importMap = { "imports": {} };
 const flat = bigMap.flatMap((v) => v);
 flat.map((i) => Object.assign(importMap.imports, i));
 
-importMap.imports.dev = "./starter.mjs";
+importMap.imports.dev = "./js/starter.mjs";
 console.log(JSON.stringify(importMap, undefined, 2));
 
 // console.log(Object.keys(list))
