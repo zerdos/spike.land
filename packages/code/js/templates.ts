@@ -1,4 +1,4 @@
-import importmapJson from "./importmap.json";
+import importmapJson from "../importmap.json";
 
 export function getCss({ html }: { html: string }) {
   const bodyClass = String(

@@ -8,13 +8,14 @@ const room = (path.pop() || path.pop()).slice(-12);
 const runTheApp = () =>
   import("./reactLoader.mjs").then(({ run }) => run({ mode: "window", room }));
 
-export default function () {
-  // const path = location.pathname.split("/");
-  const room = "zoli"; ///(path.pop() || path.pop()).slice(-12);
+export default function (injectedRoom='') {
+
+  const path = location.pathname.split("/");
+  const room = (path.pop() || path.pop()).slice(-12);
   const user = v4().substring(0, 8);
 
-  console.log({ room }, { user });
-  join(room, user);
+  // console.log({ room }, { user });
+  join(injectedRoom || room, user);
   setTimeout(() => window.sess || join(room, user), 500);
   setTimeout(() => window.sess || runTheApp(), 1500);
 }

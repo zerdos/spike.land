@@ -59,10 +59,10 @@
 </head>
 <body>
   <div id="edizzoo"></div>
-  <script type="importmap-shim" src="./js/importmap.json"></script>
+  <script type="importmap-shim" src="./importmap.json"></script>
   <script type="module-shim">
     import app from "dev";
-    app();
+    app("zoli");
   </script>
   <script>
     if ('serviceWorker' in navigator){
