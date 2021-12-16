@@ -11,11 +11,11 @@
   "authors": [
     "Zoltan Erdos <zolika84@gmail.com>"
   ],
-  "main": "./dist/ipfs.client.mjs",
-  "exports": "./dist/ipfs.client.mjs",
-  "types": "./dist/ipfs.client.d.ts",
+  "type": "module",
+  "main": "dist/ipfs.client.mjs",
+  "types": "dist/ipfs.client.d.ts",
   "scripts": {
-    "clean": "rm -rf dist && deno fmt . && mkdir dist && tsc -d",
+    "clean": "rm -rf dist && deno fmt . && mkdir dist && tsc -d && yarn build",
     "build": "esbuild  src/ipfs.client.ts --bundle --platform=browser --minify --format=esm --target=es2018 --outfile=dist/ipfs.client.mjs"
   },
   "license": "MIT",

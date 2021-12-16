@@ -182,7 +182,6 @@ const list = [
   "@spike.land/qrious",
   "tslib",
   "ipfs-only-hash",
-  "@zedvision/swm",
   "uuid/",
   "@spike.land/code",
   "@spike.land/smart-monaco-editor",

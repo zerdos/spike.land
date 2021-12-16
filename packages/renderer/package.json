@@ -5,8 +5,10 @@
   "publishConfig": {
     "access": "public"
   },
-  "source": "./src/renderer.ts",
+  "source": "src/renderer.ts",
   "main": "dist/renderer.mjs",
+  "type": "module",
+  "files": ["**/*"],
   "sideEffects": false,
   "scripts": {
     "clean": "rm -rf dist && mkdir dist && deno fmt src",
