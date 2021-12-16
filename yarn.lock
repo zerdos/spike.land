@@ -7304,10 +7304,10 @@ es-module-lexer@^0.9.0:
   resolved "https://registry.yarnpkg.com/es-module-lexer/-/es-module-lexer-0.9.3.tgz#6f13db00cc38417137daf74366f535c8eb438f19"
   integrity sha512-1HQ2M2sPtxwnvOvT1ZClHyQDiggdNjURWpY2we6aMKCQiUVxTmVs2UYPLIrD84sS+kMdUwfBSylbJPwNnBrnHQ==
 
-es-module-shims@1.4.0:
-  version "1.4.0"
-  resolved "https://registry.yarnpkg.com/es-module-shims/-/es-module-shims-1.4.0.tgz#dd7aa3bc9e9c5b9f021f005f214cf2b6862b3b38"
-  integrity sha512-+wXUrm3o3R1I4T5DmQGxPO/k9JFb+OgTw+PUqOS8EFUVXY7XWQY6hf56JgDqzMJeOcyDAJs8Krni/2xdo+rh+w==
+es-module-shims@1.4.1:
+  version "1.4.1"
+  resolved "https://registry.yarnpkg.com/es-module-shims/-/es-module-shims-1.4.1.tgz#a23542126487e283f1b09096bd0d4a35c16afa1b"
+  integrity sha512-W2vx+64vuuBhiRR1uMTireQgDAvhnkGdPEWO5Fdplp/wxYnn31oarG0IA/eM01YVQ7eGglgBdWTGe6tYRY1q9A==
 
 es-to-primitive@^1.2.1:
   version "1.2.1"
