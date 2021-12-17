@@ -48,8 +48,16 @@ const exceptions = {
   "react-dom": `https://ga.jspm.io/npm:react-dom@17.0.2/index.js`,
   "react-is": `https://ga.jspm.io/npm:react-is@17.0.2/index.js`,
 
-  "framer-motion":
-    `https://unpkg.com/@spike.land/esm@${zedEsmLatestVersion}/dist/framer-motion.mjs`,
+  "framer-motion":{
+    "framesync": "https://ga.jspm.io/npm:framesync@6.0.1/dist/es/index.mjs",
+    "hey-listen": "https://ga.jspm.io/npm:hey-listen@1.0.8/dist/index.js",
+    "object-assign": "https://ga.jspm.io/npm:object-assign@4.1.1/index.js",
+    "popmotion": "https://ga.jspm.io/npm:popmotion@11.0.3/dist/es/index.mjs",
+    "react": "https://ga.jspm.io/npm:react@17.0.2/index.js",
+    "style-value-types": "https://ga.jspm.io/npm:style-value-types@5.0.0/dist/es/index.mjs",
+    "tslib": "https://ga.jspm.io/npm:tslib@2.3.1/tslib.es6.js",
+    "framer-motion": "https://ga.jspm.io/npm:framer-motion@5.5.5/dist/es/index.mjs",
+  },
 
   "ipfs-only-hash":
     `https://unpkg.com/@spike.land/esm@${zedEsmLatestVersion}/dist/ipfs-only-hash.mjs`,
@@ -180,7 +188,7 @@ const list = [
   // "@mui/system",
   // "@mui/styles",
   // "@mui/utils",
-  "prop-types",
+  // "prop-types",
   "textdiff-create",
   "textdiff-patch",
 
