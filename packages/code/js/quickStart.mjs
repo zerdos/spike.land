@@ -5,7 +5,7 @@ import startMonaco from "@spike.land/smart-monaco-editor";
 import { renderPreviewWindow } from "./renderPreviewWindow.mjs";
 
 export async function startMonacoWithSession(session) {
-  const shadDom = document.getElementById("edizzoo");
+  const shadDom = document.getElementById("shadowEditor");
 
   const getEditor = await startMonaco(
     /**
