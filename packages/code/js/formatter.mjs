@@ -5,7 +5,6 @@ const { workerSrc, forceNormalWorker } = getWorker("prettierWorker.js");
 
 let format = null;
 
-let loadWebWorkerCounter = 2;
 
 /**
  * @param {string} code
@@ -13,28 +12,13 @@ let loadWebWorkerCounter = 2;
  */
 export async function formatter(code) {
   if (format === null) {
-    if (loadWebWorkerCounter-- < 0) {
-      setTimeout(init);
-    }
-    try {
-      const resp = await fetch(
-        "https://x-spike-land.zed-vision.workers.dev/api/prettier",
-        {
-          method: "POST",
-          body: code,
-        },
-      );
-
-      const formatted = await resp.text();
-      return formatted;
-    } catch {
       format = await init();
       const formatted = await format(
         code,
       );
       return formatted;
     }
-  }
+  
 
   const formatted = await format(
     code,

@@ -43,6 +43,14 @@ export class Code {
     this.sessions = [];
 
     this.state.blockConcurrencyWhile(async () => {
+      const session = await this.kv.get<ISession>("session");
+      if (session && session.code) {
+        let hashOfCode = await Hash.of(session.code);
+        this.state.hashOfCode = hashOfCode;
+        this.hashCache[hashOfCode] = session.code;;
+        return this.state.session = session; 
+      }
+
       const code = await this.kv.get<string>("code") || "";
 
       if (!code) {
@@ -317,12 +325,23 @@ export class Code {
         }
 
         if (data.i) {
-          webSocket.send(JSON.stringify({ msg: "parsed - i" }));
+          this.broadcast(JSON.stringify({ msg: "parsed - i" }));
 
-          if (data.code) {
+          if (data.code && data.i > this.state.session.i) {
             const hash = await Hash.of(data.code);
-            this.kv.put("code", data.code);
-            this.broadcast(JSON.stringify({ hashOfCode: hash, i: data.i }));
+           
+            if (data.hashOfCode === hash){
+              this.state.session.i = data.i;
+              this.state.session.code = data.code;
+              this.state.session.html = data.html;
+              this.state.session.css = data.css;
+              this.state.session.transpiled = data.transpiled;
+
+              this.broadcast(msg.data);
+              await this.kv.put("session", this.state.session);
+              return;
+          }
+
           }
           let patched = false;
           let code = data.code;
