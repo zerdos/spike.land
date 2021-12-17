@@ -196,7 +196,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends unzip \
   && rm -rf /var/lib/apt/lists/* 
 
 USER ${USER}
-RUN curl -fsSL https://deno.land/x/install/install.sh | sh -s v1.16.4 \
+RUN curl -fsSL https://deno.land/x/install/install.sh | sh -s v1.17.0 \
   && echo "export DENO_INSTALL=\"\${HOME}/.deno\"" >> ${HOME}/.zshrc \
   && echo "export DENO_INSTALL=\"\${HOME}/.deno\"" >> ${HOME}/.bashrc \
   && echo "export PATH=\"\$DENO_INSTALL/bin:\$PATH\"" >> ${HOME}/.bashrc \
