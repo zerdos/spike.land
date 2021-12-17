@@ -1,5 +1,4 @@
-import {transform} from "@babel/standalone"
-
+import { transform } from "@babel/standalone";
 
 if (!String.prototype.replaceAll) {
   String.prototype.replaceAll = function (str, newStr) {

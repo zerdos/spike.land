@@ -33,7 +33,7 @@ export default function (
 
       const resp = await fetch(`https://unpkg.com/${packageName}${targetPath}`);
 
-      if (resp.status===200) myCache.put(request, resp.clone());
+      if (resp.status === 200) myCache.put(request, resp.clone());
 
       return resp;
     } catch (Error) {

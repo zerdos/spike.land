@@ -44,7 +44,8 @@
   },
   "sideEffects": false,
   "scripts": {
-    "build": "yarn build:react && yarn build:react-is && yarn build:react-dom && yarn build:framer-motion && yarn build:ipfs-only-hash && yarn build:textdiff-create && yarn build:textdiff-patch && yarn dts:framer-motion",
+    "clean": "rm -rf dist",
+    "build": "yarn build:framer-motion && yarn build:ipfs-only-hash && yarn build:textdiff-create && yarn build:textdiff-patch",
     "build:react": "yarn esbuild --bundle src/react.mjs --format=esm --outfile=dist/react.mjs",
     "build:react-is": "yarn esbuild --bundle src/react-is.mjs --format=esm --outfile=dist/react-is.mjs",
     "build:react-dom": "yarn esbuild --bundle src/react-dom.mjs --external:react --external:react-is  --format=esm --outfile=dist/react-dom.mjs",

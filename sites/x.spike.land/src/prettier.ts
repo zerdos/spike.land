@@ -3,7 +3,7 @@ import parserBabel from "prettier/parser-babel";
 import parserHtml from "prettier/parser-html";
 
 export function formatter(code: string) {
-    // return code;
+  // return code;
   const formatted = prettier.format(code, {
     "arrowParens": "always",
     "bracketSpacing": true,

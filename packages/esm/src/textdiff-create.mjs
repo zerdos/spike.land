@@ -1,2 +1,2 @@
-import create from 'textdiff-create';
+import create from "textdiff-create";
 export default create;

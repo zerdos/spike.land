@@ -1,2 +1,2 @@
-import apply from 'textdiff-patch';
+import apply from "textdiff-patch";
 export default apply;

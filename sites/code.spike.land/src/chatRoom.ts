@@ -158,7 +158,7 @@ export class Code {
           });
         }
         case "hashOfCode": {
-          return new Response( this.state.hashOfCode, {
+          return new Response(this.state.hashOfCode, {
             status: 200,
             headers: {
               "Access-Control-Allow-Origin": "*",
@@ -319,10 +319,10 @@ export class Code {
         if (data.i) {
           webSocket.send(JSON.stringify({ msg: "parsed - i" }));
 
-          if (data.code){
+          if (data.code) {
             const hash = await Hash.of(data.code);
             this.kv.put("code", data.code);
-            this.broadcast(JSON.stringify({hashOfCode: hash, i: data.i}));
+            this.broadcast(JSON.stringify({ hashOfCode: hash, i: data.i }));
           }
           let patched = false;
           let code = data.code;
