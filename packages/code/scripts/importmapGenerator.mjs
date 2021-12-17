@@ -24,13 +24,10 @@ const exceptions = {
   "react/jsx-runtime": "https://esm.sh/react/jsx-runtime",
   "object-assign": "https://ga.jspm.io/npm:object-assign@4.1.1/index.js",
   "scheduler": "https://ga.jspm.io/npm:scheduler@0.20.2/index.js",
-      
-  "react":
-    `https://ga.jspm.io/npm:react@17.0.2/index.js`,
-  "react-dom":
-    `https://ga.jspm.io/npm:react-dom@17.0.2/index.js`,
-  "react-is":
-    `https://ga.jspm.io/npm:react-is@17.0.2/index.js`,
+
+  "react": `https://ga.jspm.io/npm:react@17.0.2/index.js`,
+  "react-dom": `https://ga.jspm.io/npm:react-dom@17.0.2/index.js`,
+  "react-is": `https://ga.jspm.io/npm:react-is@17.0.2/index.js`,
 
   "framer-motion":
     `https://unpkg.com/@spike.land/esm@${zedEsmLatestVersion}/dist/framer-motion.mjs`,
@@ -42,8 +39,7 @@ const exceptions = {
     `https://unpkg.com/@spike.land/esm@${zedEsmLatestVersion}/dist/textdiff-create.mjs`,
   "textdiff-patch":
     `https://unpkg.com/@spike.land/esm@${zedEsmLatestVersion}/dist/textdiff-patch.mjs`,
-
-  "uuid/": `https://unpkg.com/uuid@${uidVersion}/dist/esm-browser/`,
+  "uuid": `https://unpkg.com/uuid@${uidVersion}/dist/esm-browser/index.js`,
 };
 
 const getUnpkgLink = async (packageName) => {
@@ -188,7 +184,7 @@ const list = [
   "@spike.land/qrious",
   "tslib",
   "ipfs-only-hash",
-  "uuid/",
+  "uuid",
   "@spike.land/code",
   "@spike.land/smart-monaco-editor",
   "comlink",

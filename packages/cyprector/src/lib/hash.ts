@@ -1,6 +1,6 @@
 import { PlatformData } from "@sorry-cypress/common";
 import md5 from "md5";
-import uuid from "uuid/v4";
+import {v4 as uuid} from "uuid";
 
 export const generateRunIdHash = (
   ciBuildId: string,

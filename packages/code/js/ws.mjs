@@ -24,7 +24,7 @@ const chCode = async (code) => {
 
       window.monaco.editor.getModels()[0].setValue(code);
     } else {
-        await restartCode(code);
+      await restartCode(code);
     }
   } catch (e) {
     console.error({ e });
