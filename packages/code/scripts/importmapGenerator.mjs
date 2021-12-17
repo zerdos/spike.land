@@ -121,37 +121,37 @@ const getUnpkgLink = async (packageName) => {
   if (!exp) return packageJson.data;
   const ret = [];
 
-  const list = Object.keys(exp).map((p) => {
-    if (Array.isArray(exp[p])) {
-      if (exp[p][0].import) {
-        ret.push({
-          [path.join(packageName, p)]: new URL(
-            path.join(
-              `${packageName}@${latestPackageVersion}`,
-              exp[p][0].import,
-            ),
-            `https://unpkg.com/`,
-          ).href,
-        });
+  // Object.keys(exp).map((p) => {
+  //   if (Array.isArray(exp[p])) {
+  //     if (exp[p][0].import) {
+  //       ret.push({
+  //         [path.join(packageName, p)]: new URL(
+  //           path.join(
+  //             `${packageName}@${latestPackageVersion}`,
+  //             exp[p][0].import,
+  //           ),
+  //           `https://unpkg.com/`,
+  //         ).href,
+  //       });
 
-        ret.push({
-          [
-            path.join(
-              packageName,
-              path.parse(exp[p][0].import).dir,
-              path.parse(exp[p][0].import).name,
-            )
-          ]: new URL(
-            path.join(
-              `${packageName}@${latestPackageVersion}`,
-              exp[p][0].import,
-            ),
-            `https://unpkg.com/`,
-          ).href,
-        });
-      }
-    }
-  });
+  //       ret.push({
+  //         [
+  //           path.join(
+  //             packageName,
+  //             path.parse(exp[p][0].import).dir,
+  //             path.parse(exp[p][0].import).name,
+  //           )
+  //         ]: new URL(
+  //           path.join(
+  //             `${packageName}@${latestPackageVersion}`,
+  //             exp[p][0].import,
+  //           ),
+  //           `https://unpkg.com/`,
+  //         ).href,
+  //       });
+  //     }
+  //   }
+  // });
 
   return ret;
 
