@@ -24,14 +24,7 @@ const chCode = async (code) => {
 
       window.monaco.editor.getModels()[0].setValue(code);
     } else {
-      if (location.href.endsWith("/public")) {
         await restartCode(code);
-        return;
-      }
-      const { run } = await import("./reactLoader.mjs");
-
-      // console.log({window: "window", code, room: roomName });
-      run({ mode: "window", code, room: roomName });
     }
   } catch (e) {
     console.error({ e });

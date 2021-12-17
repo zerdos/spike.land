@@ -2,16 +2,15 @@
   "name": "@spike.land/code",
   "version": "0.2.70",
   "description": "spike.land",
-  "main": "./js/reactLoader.mjs",
+  "main": "./js/quickerStart.mjs",
   "files": [
     "**/*"
   ],
-  "source": "./js/codeLoader.mjs",
+  "source": "./js/quickStart.mjs",
   "exports": {
+    "./dist/quickerStart.bundle.mjs": "./dist/quickerStart.bundle.mjs",
     "./package.json": "./package.json",
-    ".": "./js/reactLoader.mjs",
     "./dist/dev.mjs": "./dist/dev.mjs",
-    "./dist/ws.mjs": "./dist/ws.mjs",
     "./importmap.json": "./importmap.json"
   },
   "scripts": {

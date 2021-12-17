@@ -22,12 +22,15 @@ const exceptions = {
 
   // "@mui/core/": `https://unpkg.com/@mui/material@${muiMateriaVersion}/modern/`,
   "react/jsx-runtime": "https://esm.sh/react/jsx-runtime",
+  "object-assign": "https://ga.jspm.io/npm:object-assign@4.1.1/index.js",
+  "scheduler": "https://ga.jspm.io/npm:scheduler@0.20.2/index.js",
+      
   "react":
-    `https://unpkg.com/@spike.land/esm@${zedEsmLatestVersion}/dist/react.mjs`,
+    `https://ga.jspm.io/npm:react@17.0.2/index.js`,
   "react-dom":
-    `https://unpkg.com/@spike.land/esm@${zedEsmLatestVersion}/dist/react-dom.mjs`,
+    `https://ga.jspm.io/npm:react-dom@17.0.2/index.js`,
   "react-is":
-    `https://unpkg.com/@spike.land/esm@${zedEsmLatestVersion}/dist/react-is.mjs`,
+    `https://ga.jspm.io/npm:react-is@17.0.2/index.js`,
 
   "framer-motion":
     `https://unpkg.com/@spike.land/esm@${zedEsmLatestVersion}/dist/framer-motion.mjs`,
@@ -167,7 +170,10 @@ const list = [
 
   "framer-motion",
   // "clsx",
+
   "framesync",
+  "scheduler",
+  "object-assign",
   "hey-listen",
   "hoist-non-react-statics",
   "popmotion",
