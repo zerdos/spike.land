@@ -18,6 +18,7 @@
     "start": "yarn build:editor && yarn build:renderer && yarn build:code && sh start.sh",
     "deploy:worker": "lerna run deploy",
     "deploy": "yarn lerna run deploy",
+    "importmap": "cd packages/code && yarn importmap",
     "push": "yarn && yarn build:editor && yarn build:renderer && yarn build:code && git add . && git commit -m pre-release && git push && git pull",
     "release": "lerna publish patch --yes && yarn push",
     "clean": "yarn lerna run clean --parallel --since main",

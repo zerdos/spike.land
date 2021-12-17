@@ -16,7 +16,7 @@
   "scripts": {
     "clean": "rm -rf .tsBuildInfo && deno fmt .",
     "postinstall": "yarn importmap",
-    "start": "cd ../.. && yarn stcart",
+    "start": "cd ../.. && yarn start",
     "push": "cd ../.. && yarn push",
     "build": "rm -rf dist && node --experimental-json-modules esbuild-dev.mjs",
     "importmap": "node scripts/importmapGenerator.mjs > ./importmap.json"
