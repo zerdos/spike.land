@@ -3,7 +3,7 @@ import axios from "axios";
 import path from "path";
 // import { LoggerAdaptToConsole } from "console-log-json";
 // LoggerAdaptToConsole();
-
+async function runAsync(){
 const zedEsmLatestVersion = await latestVersion("@spike.land/esm");
 const uidVersion = await latestVersion("uuid");
 // const muiMateriaVersion = await latestVersion("@mui/material");
@@ -229,6 +229,9 @@ Object.keys(importMap.imports).map(key=> typeof importMap.imports[key] !=="strin
 
 importMap.imports.dev = "./js/starter.mjs";
 console.log(JSON.stringify(importMap, undefined, 2));
+}
+
+runAsync();
 
 // console.log(Object.keys(list))
 // await Promise.all(Object.keys(list).map(async (packageName) => {
