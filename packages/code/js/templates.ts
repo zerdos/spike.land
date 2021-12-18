@@ -143,9 +143,6 @@ export const getEditorHTML = () =>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <link rel="icon" type="image/png" href="https://code.spike.land/assets/zed-icon-big.png" />
   
-  <script crossorigin src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
-  <script crossorigin src="https://unpkg.com/react-is@17.0.2/umd/react-is.production.min.js"></script>
-  <script crossorigin src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
   <script async src="https://ga.jspm.io/npm:es-module-shims@1.4.1/dist/es-module-shims.js"></script>
 <title>Instant React Editor</title>
 </head>
