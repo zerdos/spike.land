@@ -1,5 +1,5 @@
 import { sha256, shaDB } from "@spike.land/shadb";
-import { getCss, getEditorHTML, getHtml } from "./templates.GEN.mjs";
+import { getCss, getEditorHTML, getHtml } from "../dist/templates.mjs";
 
 /**
  * @param {{
