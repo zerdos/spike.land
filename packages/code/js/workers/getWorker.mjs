@@ -27,7 +27,7 @@ export const getWorker = (file) => {
 
 const wrapped = {};
 export const getWrapped = (file) => {
-  if (wrapped[file] ) return wrapped[file];
+  if (wrapped[file]) return wrapped[file];
 
   let workerSrc;
   let forceNormalWorker = false;
@@ -47,27 +47,27 @@ export const getWrapped = (file) => {
     workerSrc = `https://code.spike.land/js/workers/${file}`;
   }
 
-  wrapped[file] = wrapped[workerSrc] = wrapped[workerSrc] || init(workerSrc, forceNormalWorker);
+  wrapped[file] = wrapped[workerSrc] = wrapped[workerSrc] ||
+    init(workerSrc, forceNormalWorker);
 
   return wrapped[workerSrc];
 };
 
-
 function init(workerSrc, forceNormalWorker) {
-    if (forceNormalWorker || typeof SharedWorker === "undefined") {
-      const worker = new Worker(workerSrc);
-      const { port1, port2 } = new MessageChannel();
-      const msg = {
-        comlinkInit: true,
-        port: port1,
-      };
+  if (forceNormalWorker || typeof SharedWorker === "undefined") {
+    const worker = new Worker(workerSrc);
+    const { port1, port2 } = new MessageChannel();
+    const msg = {
+      comlinkInit: true,
+      port: port1,
+    };
 
-      worker.postMessage(msg, [port1]);
+    worker.postMessage(msg, [port1]);
 
-      return wrap(port2);
-    }
-    const worker = new SharedWorker(workerSrc);
-    worker.port.start();
+    return wrap(port2);
+  }
+  const worker = new SharedWorker(workerSrc);
+  worker.port.start();
 
-    return wrap(worker.port);
+  return wrap(worker.port);
 }
