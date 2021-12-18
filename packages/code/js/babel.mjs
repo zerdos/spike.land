@@ -1,45 +1,12 @@
-import { wrap } from "comlink";
-import { getWorker } from "./workers/getWorker.mjs";
+import { getWrapped } from "./workers/getWorker.mjs";
 
-const { workerSrc, forceNormalWorker } = getWorker("babel.worker.js");
-
-let transform = null;
-
-/**
- * @param {string} code
- * @returns {Promise<string>}
- */
 export async function baberTransform(code) {
-  if (transform === null) {
-    await init();
-    return baberTransform(code);
-  }
+  console.log("babel req");
+  const transform = await getWrapped("babel.worker.js");
 
   const transformed = await transform(
     code,
   );
+  console.log("Babel resp");
   return transformed;
-}
-
-async function init() {
-  if (forceNormalWorker || typeof SharedWorker === "undefined") {
-    const worker = new Worker(workerSrc);
-    const { port1, port2 } = new MessageChannel();
-    const msg = {
-      comlinkInit: true,
-      port: port1,
-    };
-
-    worker.postMessage(msg, [port1]);
-
-    transform = await wrap(port2);
-    return transform;
-  }
-
-  const worker = new SharedWorker(workerSrc);
-  worker.port.start();
-
-  transform = await wrap(worker.port);
-
-  return transform;
 }

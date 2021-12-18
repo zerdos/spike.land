@@ -94,7 +94,7 @@ export async function startMonacoWithSession(session) {
 
       let restartError = false;
       ///yellow
-      if (transpiled.length && session.lastErrors < 2) {
+      if (transpiled.length) {
         if (counter < session.i) return;
         restartError = await restart(c);
       }

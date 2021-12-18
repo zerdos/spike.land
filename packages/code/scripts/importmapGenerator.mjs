@@ -232,6 +232,7 @@ async function runAsync() {
     "ipfs-only-hash",
     "uuid",
     "@spike.land/code",
+    "@spike.land/shadb",
     "@spike.land/smart-monaco-editor",
     "comlink",
     "@spike.land/ipfs",
