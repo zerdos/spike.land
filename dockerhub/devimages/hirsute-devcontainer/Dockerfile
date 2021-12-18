@@ -71,7 +71,7 @@ RUN apt-get update && \
 && apt-get autoremove -y \
 && apt-get clean -y \
 && rm -rf /tmp/* /var/lib/apt/lists/* /usr/src/*
-ENV NODE_VERSION 17.2.0
+ENV NODE_VERSION 17.3.0
 RUN ARCH= && dpkgArch="$(dpkg --print-architecture)" \
   && case "${dpkgArch##*-}" in \
     amd64) ARCH='x64';; \
