@@ -5,20 +5,18 @@ const { workerSrc, forceNormalWorker } = getWorker("prettierWorker.js");
 
 let format = null;
 
-
 /**
  * @param {string} code
  * @returns {Promise<string>}
  */
 export async function formatter(code) {
   if (format === null) {
-      format = await init();
-      const formatted = await format(
-        code,
-      );
-      return formatted;
-    }
-  
+    format = await init();
+    const formatted = await format(
+      code,
+    );
+    return formatted;
+  }
 
   const formatted = await format(
     code,
