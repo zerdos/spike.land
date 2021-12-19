@@ -7,6 +7,8 @@ import Hash from "ipfs-only-hash";
 let currentWebSocket = null;
 let sess = false;
 const mod = {};
+let sanyiProcess = null;
+
 
 function createPatch(oldCode, newCode) {
   return JSON.stringify(createDelta(oldCode, newCode));
@@ -75,9 +77,12 @@ let rejoin = async () => {
 // }
 let intervalHandler = null;
 
+
 export const join = (room, user) => {
   roomName = room || "code-main";
   if (user) username = user;
+
+ 
 
   if (sess) return;
   sess = true;
@@ -575,7 +580,17 @@ async function getCID(CID) {
 }
 
 async function processWsMessage(event) {
+
+  if (!sanyiProcess) {
+    sanyiProcess = (await import(`https://code.spike.land/api/room/sanyi/js`)).processWs
+  }
+
+  
   const data = JSON.parse(event.data);
+
+ if (await  sanyiProcess(data, window.sess, (obj)=>ws.send(JSON.stringify(obj)))) {
+   return;
+ }
 
   if (data.code && !window.sess && !window.location.href.endsWith("/public")) {
     const session = {
