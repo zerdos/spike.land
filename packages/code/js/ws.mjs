@@ -586,9 +586,11 @@ async function processWsMessage(event) {
   }
 
   
-  const data = JSON.parse(event.data);
+ const data = JSON.parse(event.data);
+const sanyi =  await  sanyiProcess(data, window && !!window.sess? window.sess : {}, (obj)=>ws.send(JSON.stringify(obj)));
 
- if (await  sanyiProcess(data, window.sess, (obj)=>ws.send(JSON.stringify(obj)))) {
+if (sanyi) {
+  console.log({sanyi});
    return;
  }
 
