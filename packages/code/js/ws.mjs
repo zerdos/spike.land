@@ -9,7 +9,6 @@ let sess = false;
 const mod = {};
 let sanyiProcess = null;
 
-
 function createPatch(oldCode, newCode) {
   return JSON.stringify(createDelta(oldCode, newCode));
 }
@@ -77,12 +76,9 @@ let rejoin = async () => {
 // }
 let intervalHandler = null;
 
-
 export const join = (room, user) => {
   roomName = room || "code-main";
   if (user) username = user;
-
- 
 
   if (sess) return;
   sess = true;
@@ -580,19 +576,22 @@ async function getCID(CID) {
 }
 
 async function processWsMessage(event) {
-
   if (!sanyiProcess) {
-    sanyiProcess = (await import(`https://code.spike.land/api/room/sanyi/js`)).processWs
+    sanyiProcess =
+      (await import(`https://code.spike.land/api/room/sanyi/js`)).processWs;
   }
 
-  
- const data = JSON.parse(event.data);
-const sanyi =  await  sanyiProcess(data, window && !!window.sess? window.sess : {}, (obj)=>ws.send(JSON.stringify(obj)));
+  const data = JSON.parse(event.data);
+  const sanyi = await sanyiProcess(
+    data,
+    window && !!window.sess ? window.sess : {},
+    (obj) => ws.send(JSON.stringify(obj)),
+  );
 
-if (sanyi) {
-  console.log({sanyi});
-   return;
- }
+  if (sanyi) {
+    console.log({ sanyi });
+    return;
+  }
 
   if (data.code && !window.sess && !window.location.href.endsWith("/public")) {
     const session = {
