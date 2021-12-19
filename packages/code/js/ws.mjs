@@ -218,12 +218,6 @@ const restartCode = async (c) => {
   restart(c, document.getElementById("zbody"));
 };
 
-export const run = async () => {
-  const room = location.pathname.slice(1).split("/")[2] || "code-main";
-
-  join(room);
-};
-
 // Create the RTCPeerConnection which knows how to talk to our
 // selected STUN/TURN server and then uses getUserMedia() to find
 // our camera and microphone and add that stream to the connection for

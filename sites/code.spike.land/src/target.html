@@ -19,17 +19,21 @@
   </script>
   <script type="module">
     import("app").then(mod=>{
-      if (mod.default) {
+      if (mod.default && !mod.run) {
         console.log("starting with default.")
         import("@emotion/react").then(
           ({jsx}) => ReactDOM.render(jsx(mod.default), document.getElementById("zbody"))
           );
       
      }
-     if (mod.run) {
+     else{
       console.log("starting with RUN!")
   
+      if (mod.run)
        mod.run();
+      if (mod.default){
+        mod.default();
+      }
      }
     });
 
