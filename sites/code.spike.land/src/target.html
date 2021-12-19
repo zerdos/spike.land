@@ -18,13 +18,13 @@
     $$IMPORTMAP
   </script>
   <script type="module">
-    import("app").then(mod=>{
+    import("app").then(async (mod)=>{
       if (mod.default && !mod.run) {
         console.log("starting with default.")
-        import("@emotion/react").then(
-          ({jsx}) => ReactDOM.render(jsx(mod.default), document.getElementById("zbody"))
-          );
-      
+        const {render} = await import("react-dom"); 
+        const {jsx} =await import("@emotion/react");
+        
+        render(jsx(mod.default), document.getElementById("zbody"));      
      }
      else{
       console.log("starting with RUN!")

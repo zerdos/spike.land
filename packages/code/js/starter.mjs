@@ -2,15 +2,17 @@ import { join } from "./ws.mjs";
 import { v4 } from "uuid";
 
 export default function (injectedRoom = "") {
-run (injectedRoom);
+  run(injectedRoom);
 }
-export const run = (injectedRoom = "")=> {
+export const run = (injectedRoom = "") => {
   const path = location.pathname.split("/");
 
-  const room = injectedRoom || (path[1]==="api" && path[2]==="room")?  path[3] : (path.pop() || path.pop()).slice(-12);
+  const room = injectedRoom || (path[1] === "api" && path[2] === "room")
+    ? path[3]
+    : (path.pop() || path.pop()).slice(-12);
   const user = v4().substring(0, 8);
 
   // console.log({ room }, { user });
   join(room, user);
   setTimeout(() => window.sess || join(room, user), 500);
-}
+};
