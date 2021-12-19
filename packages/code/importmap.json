@@ -24,7 +24,7 @@
     "tslib": "https://ga.jspm.io/npm:tslib@2.3.1/tslib.es6.js",
     "ipfs-only-hash": "https://unpkg.com/@spike.land/esm@0.2.72/dist/ipfs-only-hash.mjs",
     "uuid": "https://ga.jspm.io/npm:uuid@8.3.2/dist/esm-browser/index.js",
-    "@spike.land/code": "https://unpkg.com/@spike.land/code@0.2.77/js/quickerStart.mjs",
+    "@spike.land/code": "https://unpkg.com/@spike.land/code@0.2.78/js/quickerStart.mjs",
     "@spike.land/shadb": "https://unpkg.com/@spike.land/shadb@0.2.58/dist/shaDB.mjs",
     "@spike.land/smart-monaco-editor": "https://unpkg.com/@spike.land/smart-monaco-editor@0.2.70/dist/editor.mjs",
     "comlink": "https://unpkg.com/comlink@4.3.1/dist/esm/comlink.mjs",
