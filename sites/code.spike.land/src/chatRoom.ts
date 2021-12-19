@@ -43,12 +43,16 @@ export class Code {
     this.sessions = [];
 
     this.state.blockConcurrencyWhile(async () => {
-      const session = await this.kv.get<ISession>("session");
-      if (session && session.code) {
+      const sessionStr = await this.kv.get<string>("session");
+      if (sessionStr) {
+        const session = (typeof sessionStr ==="string")?JSON.parse(sessionStr):sessionStr;
+       if (session.code){
         let hashOfCode = await Hash.of(session.code);
+        this.state.session = session;
         this.state.hashOfCode = hashOfCode;
         this.hashCache[hashOfCode] = session.code;;
         return this.state.session = session; 
+       }
       }
 
       const code = await this.kv.get<string>("code") || "";
@@ -325,7 +329,7 @@ export class Code {
         }
 
         if (data.i) {
-          this.broadcast(JSON.stringify({ msg: "parsed - i" }));
+
 
           if (data.code && data.i > this.state.session.i) {
             const hash = await Hash.of(data.code);
@@ -336,6 +340,8 @@ export class Code {
               this.state.session.html = data.html;
               this.state.session.css = data.css;
               this.state.session.transpiled = data.transpiled;
+              this.state.hashOfCode = hash;
+              this.hashCache[hash] = data.code;
 
               this.broadcast(msg.data);
               await this.kv.put("session", this.state.session);
