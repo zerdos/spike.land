@@ -13,6 +13,7 @@ function createPatch(oldCode, newCode) {
   return JSON.stringify(createDelta(oldCode, newCode));
 }
 
+const webrtcArray= [];
 const chCode = async (code) => {
   if (!code) return;
   try {
@@ -326,16 +327,13 @@ async function createPeerConnection(targetUsername) {
   sendChannel.onmessage = processWsMessage;
 
   sendChannel.onopen = () => {
+    webrtcArray.push(sendChannel);
     connections[targetUsername].sendChannel = sendChannel;
 
-    const oldObj = {};
-    if (window.sendChannel) {
-      oldObj.sendChannel = window.sendChannel;
-    }
+
     window.sendChannel = {
       message: (d) => {
-        sendChannel.message(d);
-        if (oldObj.sendChannel) oldObj.sendChannel.message(d);
+        webrtcArray.map(ch=> ch.readyState==="open"  &&  ch.send(d));
       },
     };
   };
