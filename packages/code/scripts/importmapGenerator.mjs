@@ -10,7 +10,8 @@ async function runAsync() {
   // const muiCoreVersion = await latestVersion("@mui/core");
 
   const exceptions = {
-    "react-dom/server": "https://ga.jspm.io/npm:react-dom@17.0.2/server.browser.js",
+    "react-dom/server":
+      "https://ga.jspm.io/npm:react-dom@17.0.2/server.browser.js",
     "scheduler/": "https://esm.sh/scheduler/",
     "react-transition-group": "https://esm.sh/react-transition-group",
     "hoist-non-react-statics": "https://esm.sh/hoist-non-react-statics",
@@ -85,29 +86,59 @@ async function runAsync() {
       `https://unpkg.com/@spike.land/esm@${zedEsmLatestVersion}/dist/textdiff-patch.mjs`,
     "uuid":
       `https://ga.jspm.io/npm:uuid@${uidVersion}/dist/esm-browser/index.js`,
-    "@emotion/server/create-instance": {
-      "buffer": "https://ga.jspm.io/npm:@jspm/core@2.0.0-beta.13/nodelibs/browser/buffer.js",
+    "@emotion/server": {
+      "@emotion/cache":
+        "https://ga.jspm.io/npm:@emotion/cache@11.7.1/dist/emotion-cache.browser.esm.js",
+      "@emotion/css":
+        "https://ga.jspm.io/npm:@emotion/css@11.7.1/dist/emotion-css.esm.js",
+      "@emotion/hash":
+        "https://ga.jspm.io/npm:@emotion/hash@0.8.0/dist/hash.browser.esm.js",
+      "@emotion/memoize":
+        "https://ga.jspm.io/npm:@emotion/memoize@0.7.5/dist/emotion-memoize.browser.esm.js",
+      "@emotion/serialize":
+        "https://ga.jspm.io/npm:@emotion/serialize@1.0.2/dist/emotion-serialize.browser.esm.js",
+      "@emotion/sheet":
+        "https://ga.jspm.io/npm:@emotion/sheet@1.1.0/dist/emotion-sheet.browser.esm.js",
+      "@emotion/unitless":
+        "https://ga.jspm.io/npm:@emotion/unitless@0.7.5/dist/unitless.browser.esm.js",
+      "@emotion/utils":
+        "https://ga.jspm.io/npm:@emotion/utils@1.0.0/dist/emotion-utils.browser.esm.js",
+      "@emotion/weak-memoize":
+        "https://ga.jspm.io/npm:@emotion/weak-memoize@0.2.5/dist/weak-memoize.browser.esm.js",
+      "buffer":
+        "https://ga.jspm.io/npm:@jspm/core@2.0.0-beta.13/nodelibs/browser/buffer.js",
       "buffer-from": "https://ga.jspm.io/npm:buffer-from@0.1.2/index.js",
       "core-util-is": "https://ga.jspm.io/npm:core-util-is@1.0.3/lib/util.js",
       "duplexer2": "https://ga.jspm.io/npm:duplexer2@0.1.4/index.js",
-      "events": "https://ga.jspm.io/npm:@jspm/core@2.0.0-beta.13/nodelibs/browser/events.js",
+      "events":
+        "https://ga.jspm.io/npm:@jspm/core@2.0.0-beta.13/nodelibs/browser/events.js",
       "html-tokenize": "https://ga.jspm.io/npm:html-tokenize@2.0.1/index.js",
       "inherits": "https://ga.jspm.io/npm:inherits@2.0.4/inherits_browser.js",
-      "isarray": "https://ga.jspm.io/npm:isarray@1.0.0/index.js",
-       "multipipe": "https://ga.jspm.io/npm:multipipe@1.0.2/index.js",
+      "isarray": "https://ga.jspm.io/npm:isarray@0.0.1/index.js",
+      "multipipe": "https://ga.jspm.io/npm:multipipe@1.0.2/index.js",
       "object-assign": "https://ga.jspm.io/npm:object-assign@4.1.1/index.js",
-      "process": "https://ga.jspm.io/npm:@jspm/core@2.0.0-beta.13/nodelibs/browser/process-production.js",
-      "process-nextick-args": "https://ga.jspm.io/npm:process-nextick-args@2.0.1/index.js",
-      "readable-stream": "https://ga.jspm.io/npm:readable-stream@2.3.7/readable-browser.js",
-      "readable-stream/lib/internal/streams/stream.js": "https://ga.jspm.io/npm:readable-stream@2.3.7/lib/internal/streams/stream-browser.js",
+      "process":
+        "https://ga.jspm.io/npm:@jspm/core@2.0.0-beta.13/nodelibs/browser/process-production.js",
+      "process-nextick-args":
+        "https://ga.jspm.io/npm:process-nextick-args@2.0.1/index.js",
+      "readable-stream":
+        "https://ga.jspm.io/npm:readable-stream@1.0.34/readable.js",
+      "readable-stream/lib/internal/streams/stream.js":
+        "https://ga.jspm.io/npm:readable-stream@2.3.7/lib/internal/streams/stream-browser.js",
       "safe-buffer": "https://ga.jspm.io/npm:safe-buffer@5.1.2/index.js",
-      "stream": "https://ga.jspm.io/npm:@jspm/core@2.0.0-beta.13/nodelibs/browser/stream.js",
-      "string_decoder": "https://ga.jspm.io/npm:@jspm/core@2.0.0-beta.13/nodelibs/browser/string_decoder.js",
+      "stream":
+        "https://ga.jspm.io/npm:@jspm/core@2.0.0-beta.13/nodelibs/browser/stream.js",
+      "string_decoder":
+        "https://ga.jspm.io/npm:@jspm/core@2.0.0-beta.13/nodelibs/browser/string_decoder.js",
+      "stylis": "https://ga.jspm.io/npm:stylis@4.0.13/index.js",
       "through": "https://ga.jspm.io/npm:through@2.3.8/index.js",
-      "util": "https://ga.jspm.io/npm:@jspm/core@2.0.0-beta.13/nodelibs/browser/util.js",
-      "util-deprecate": "https://ga.jspm.io/npm:util-deprecate@1.0.2/browser.js",
-      "@emotion/server/create-instance": "https://ga.jspm.io/npm:@emotion/server@11.4.0/create-instance/dist/emotion-server-create-instance.cjs.js"
-    }
+      "util":
+        "https://ga.jspm.io/npm:@jspm/core@2.0.0-beta.13/nodelibs/browser/util.js",
+      "util-deprecate":
+        "https://ga.jspm.io/npm:util-deprecate@1.0.2/browser.js",
+      "@emotion/server":
+        "https://ga.jspm.io/npm:@emotion/server@11.4.0/dist/emotion-server.browser.cjs.js",
+    },
   };
 
   const getUnpkgLink = async (packageName) => {

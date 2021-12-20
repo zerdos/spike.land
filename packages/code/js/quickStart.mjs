@@ -199,7 +199,7 @@ export async function restartX(transpiled, target, counter, session) {
 
   // const codeHash = await Hash.of(code);
 
-//  session.html = "";
+  //  session.html = "";
   session.transpiled = "";
   let hadError = false;
   if (typeof transpiled !== "string" || transpiled === "") {
@@ -225,30 +225,25 @@ export async function restartX(transpiled, target, counter, session) {
   //   zbody = document.createElement('div');
   //   document.body.appendChild(zbody);
 
+  const { getHtmlAndCss } = await import("./renderToString.mjs");
 
-  const {getHtmlAndCss}  = await import("./renderToString.mjs");
-
-  const {html, css} = getHtmlAndCss(App);
-
+  const { html, css } = getHtmlAndCss(App);
 
   if (html) {
+    // }
 
+    // ReactDOM.render(children, zbody);
 
-  // }
-
-  // ReactDOM.render(children, zbody);
-
-  // zbody && zbody.children[0].replaceWith(root);
-  // session.div = zbody;
-  // if (zbody.innerHTML) {
+    // zbody && zbody.children[0].replaceWith(root);
+    // session.div = zbody;
+    // if (zbody.innerHTML) {
     session.transpiled = transpiled;
     session.html = html;
     session.css = css;
     // session.html = zbody.innerHTML;
     session.children = children;
     session.setChild((c) => [...c, session.children]);
-  }
-  else return !html;
+  } else return !html;
   // }
   // return !zbody.innerHTML;
 }
@@ -283,7 +278,6 @@ async function getApp(transpiled, mode = "window") {
 
   return App;
 }
-
 
 /**
  * @param {BlobPart} code
