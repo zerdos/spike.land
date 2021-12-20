@@ -160,7 +160,7 @@ export class Code {
           });
         }
         case "env": {
-          return new Response(codeSpace, {
+          return new Response(request.url, {
             status: 200,
             headers: {
               "Access-Control-Allow-Origin": "*",
