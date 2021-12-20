@@ -19,7 +19,7 @@
   "dependencies": {
     "@emotion/react": "11.7.1",
     "@emotion/styled": "11.6.0",
-    "@mui/material": "5.2.4",
+    "@mui/material": "5.2.5",
     "@spike.land/qrious": "^0.2.86",
     "@types/react": "17.0.37",
     "@types/react-dom": "17.0.11",
