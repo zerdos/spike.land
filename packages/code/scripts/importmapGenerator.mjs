@@ -10,6 +10,7 @@ async function runAsync() {
   // const muiCoreVersion = await latestVersion("@mui/core");
 
   const exceptions = {
+    "react-dom/server": "https://ga.jspm.io/npm:react-dom@17.0.2/server.browser.js",
     "scheduler/": "https://esm.sh/scheduler/",
     "react-transition-group": "https://esm.sh/react-transition-group",
     "hoist-non-react-statics": "https://esm.sh/hoist-non-react-statics",
@@ -84,6 +85,29 @@ async function runAsync() {
       `https://unpkg.com/@spike.land/esm@${zedEsmLatestVersion}/dist/textdiff-patch.mjs`,
     "uuid":
       `https://ga.jspm.io/npm:uuid@${uidVersion}/dist/esm-browser/index.js`,
+    "@emotion/server/create-instance": {
+      "buffer": "https://ga.jspm.io/npm:@jspm/core@2.0.0-beta.13/nodelibs/browser/buffer.js",
+      "buffer-from": "https://ga.jspm.io/npm:buffer-from@0.1.2/index.js",
+      "core-util-is": "https://ga.jspm.io/npm:core-util-is@1.0.3/lib/util.js",
+      "duplexer2": "https://ga.jspm.io/npm:duplexer2@0.1.4/index.js",
+      "events": "https://ga.jspm.io/npm:@jspm/core@2.0.0-beta.13/nodelibs/browser/events.js",
+      "html-tokenize": "https://ga.jspm.io/npm:html-tokenize@2.0.1/index.js",
+      "inherits": "https://ga.jspm.io/npm:inherits@2.0.4/inherits_browser.js",
+      "isarray": "https://ga.jspm.io/npm:isarray@1.0.0/index.js",
+       "multipipe": "https://ga.jspm.io/npm:multipipe@1.0.2/index.js",
+      "object-assign": "https://ga.jspm.io/npm:object-assign@4.1.1/index.js",
+      "process": "https://ga.jspm.io/npm:@jspm/core@2.0.0-beta.13/nodelibs/browser/process-production.js",
+      "process-nextick-args": "https://ga.jspm.io/npm:process-nextick-args@2.0.1/index.js",
+      "readable-stream": "https://ga.jspm.io/npm:readable-stream@2.3.7/readable-browser.js",
+      "readable-stream/lib/internal/streams/stream.js": "https://ga.jspm.io/npm:readable-stream@2.3.7/lib/internal/streams/stream-browser.js",
+      "safe-buffer": "https://ga.jspm.io/npm:safe-buffer@5.1.2/index.js",
+      "stream": "https://ga.jspm.io/npm:@jspm/core@2.0.0-beta.13/nodelibs/browser/stream.js",
+      "string_decoder": "https://ga.jspm.io/npm:@jspm/core@2.0.0-beta.13/nodelibs/browser/string_decoder.js",
+      "through": "https://ga.jspm.io/npm:through@2.3.8/index.js",
+      "util": "https://ga.jspm.io/npm:@jspm/core@2.0.0-beta.13/nodelibs/browser/util.js",
+      "util-deprecate": "https://ga.jspm.io/npm:util-deprecate@1.0.2/browser.js",
+      "@emotion/server/create-instance": "https://ga.jspm.io/npm:@emotion/server@11.4.0/create-instance/dist/emotion-server-create-instance.cjs.js"
+    }
   };
 
   const getUnpkgLink = async (packageName) => {
@@ -212,7 +236,8 @@ async function runAsync() {
 
     "framer-motion",
     // "clsx",
-
+    "@emotion/server/create-instance",
+    "react-dom/server",
     "framesync",
     "scheduler",
     "object-assign",

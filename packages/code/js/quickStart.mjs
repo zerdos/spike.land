@@ -1,5 +1,4 @@
 import { jsx } from "@emotion/react";
-import ReactDOM from "react-dom";
 import startMonaco from "@spike.land/smart-monaco-editor";
 
 import { renderPreviewWindow } from "./renderPreviewWindow.mjs";
@@ -219,24 +218,37 @@ export async function restartX(transpiled, target, counter, session) {
   }
 
   // session.unmount = render(Element(), root);
-  const zbody = target || document.createElement("div");
+  // const zbody = target || document.createElement("div");
   // if (!zbody) {
   //   zbody = document.createElement('div');
   //   document.body.appendChild(zbody);
 
+
+  const {getHtmlAndCss}  = await import("./renderToString.mjs");
+
+  const {html, css} = getHtmlAndCss(children);
+
+
+  if (html) {
+
+
   // }
 
-  ReactDOM.render(children, zbody);
+  // ReactDOM.render(children, zbody);
 
   // zbody && zbody.children[0].replaceWith(root);
-  session.div = zbody;
-  if (zbody.innerHTML) {
+  // session.div = zbody;
+  // if (zbody.innerHTML) {
     session.transpiled = transpiled;
-    session.html = zbody.innerHTML;
+    session.html = html;
+    session.css = css;
+    // session.html = zbody.innerHTML;
     session.children = children;
     session.setChild((c) => [...c, session.children]);
   }
-  return !zbody.innerHTML;
+  else return !html;
+  // }
+  // return !zbody.innerHTML;
 }
 
 async function getReactChild(transpiled, mode = "window") {

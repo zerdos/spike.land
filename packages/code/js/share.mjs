@@ -1,5 +1,5 @@
 import { sha256, shaDB } from "@spike.land/shadb";
-import { getCss, getEditorHTML, getHtml } from "../dist/templates.mjs";
+import { getEditorHTML, getHtml } from "../dist/templates.mjs";
 
 /**
  * @param {{
@@ -8,11 +8,11 @@ import { getCss, getEditorHTML, getHtml } from "../dist/templates.mjs";
  * transpiled: string
  * }} props
  */
-export const shareItAsHtml = async ({ transpiled, code, html }) => {
+export const shareItAsHtml = async ({ transpiled, code, css, html }) => {
   const allContent = [
     {
       path: "/app/index.html",
-      content: getHtml({ html, css: getCss({ html }), transpiled }),
+      content: getHtml({ html, css, transpiled }),
     },
     { path: "/app/app.js", content: transpiled },
     { path: "/app/app.tsx", content: code },
@@ -84,7 +84,6 @@ async function addAll(files) {
     //   res.push({ path, CID });
     // }
 
-    // console.log(`REES: `, res);
     return res.map((r) => {
       const CID = r.cid.toString();
 
