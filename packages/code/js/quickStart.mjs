@@ -178,6 +178,8 @@ export async function startMonacoWithSession(session) {
 }
 
 export async function quickStart(session) {
+  session.children = await getReactChild(session.transpiled);
+
   await renderPreviewWindow(session);
 
   await startMonacoWithSession(session);
