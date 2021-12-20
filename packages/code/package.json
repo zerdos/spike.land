@@ -50,6 +50,7 @@
   },
   "dependencies": {
     "@spike.land/renderer": "^0.2.86",
+    "@emotion/server": "11.4.0",
     "comlink": "4.3.1",
     "es-module-shims": "1.4.1",
     "esbuild-plugin-import-map": "^2.1.0",

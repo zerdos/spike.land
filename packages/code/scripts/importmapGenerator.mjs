@@ -4,8 +4,14 @@ import path from "path";
 // import { LoggerAdaptToConsole } from "console-log-json";
 // LoggerAdaptToConsole();
 async function runAsync() {
+
+
+
   const zedEsmLatestVersion = await latestVersion("@spike.land/esm");
   const uidVersion = await latestVersion("uuid");
+
+
+
   // const muiMateriaVersion = await latestVersion("@mui/material");
   // const muiCoreVersion = await latestVersion("@mui/core");
 
@@ -141,6 +147,9 @@ async function runAsync() {
     },
   };
 
+
+
+
   const getUnpkgLink = async (packageName) => {
     if (exceptions[packageName]) {
       return [{ [packageName]: exceptions[packageName] }];
@@ -150,9 +159,11 @@ async function runAsync() {
     // console.log(
     //   `https://unpkg.com/${packageName}@${latestPackageVersion}/package.json`,
     // );
+  
     const packageJson = await axios.get(
       `https://unpkg.com/${packageName}@${latestPackageVersion}/package.json`,
     );
+
 
     const browserPath = packageJson.data.browser;
 
@@ -267,7 +278,7 @@ async function runAsync() {
 
     "framer-motion",
     // "clsx",
-    "@emotion/server/create-instance",
+    "@emotion/server",
     "react-dom/server",
     "framesync",
     "scheduler",
