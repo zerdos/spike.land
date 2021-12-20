@@ -9,6 +9,8 @@ export function getCss({ html }: { html: string }) {
   const cssRules = window.document.querySelector(
     "head > style[data-emotion=css]",
   );
+
+
   if (cssRules) {
     try {
       const sheet = (window.document.querySelector(
@@ -23,8 +25,9 @@ export function getCss({ html }: { html: string }) {
           const selector = cssRule.substring(5, 10);
           const isSelectorBody = bodyClass.indexOf(selector) !== -1;
           const isInGeneratedHtml = html.indexOf(selector) !== -1;
+          const isNotMui = cssRule.indexOf("Mui") === -1;
 
-          const shouldInclude = isSelectorBody || isInGeneratedHtml;
+          const shouldInclude = isNotMui || isSelectorBody || isInGeneratedHtml;
 
           return shouldInclude;
         }).join("\n  ").replace(`#zbody`, "body");
