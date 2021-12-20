@@ -288,7 +288,7 @@ async function createPeerConnection(targetUsername) {
   //     username: 'webrtc'
   // });
 
-  const myPeerConnection = connections[targetUsername] = new RTCPeerConnection(
+  const myPeerConnection = connections[targetUsername] ||  new RTCPeerConnection(
     rcpOpts,
   );
 
@@ -495,7 +495,8 @@ async function handleNewICECandidateMsg(msg, userName) {
   var candidate = new RTCIceCandidate(msg.candidate);
 
   // lo
-  const myPeerConnection = connections[userName];
+  const myPeerConnection =  connections[userName];
+  console.log(myPeerConnection);
   await myPeerConnection.addIceCandidate(candidate);
 }
 
@@ -510,11 +511,10 @@ async function handleChatAnswerMsg(msg, userName) {
   await myPeerConnection.setRemoteDescription(desc).catch(console.error);
 }
 
-async function handleChatOffer(msg) {
+async function handleChatOffer(msg, username) {
   const targetUsername = msg.name;
-  const myPeerConnection = connections[targetUsername] ||
-    await createPeerConnection(targetUsername);
-
+  const myPeerConnection = connections[targetUsername] || await createPeerConnection(targetUsername);
+  connections[targetUsername] = myPeerConnection;
   // If we're not already connected, create an RTCPeerConnection
   // to be linked to the caller.
 
@@ -551,6 +551,7 @@ async function handleChatOffer(msg) {
 
   ws.send(JSON.stringify({
     target: targetUsername,
+    user: username,
     type: "video-answer",
     sdp: myPeerConnection.localDescription,
   }));
@@ -681,7 +682,7 @@ async function processWsMessage(event) {
   }
 
   if (data.type === "video-answer") {
-    await handleChatAnswerMsg(data);
+    await handleChatAnswerMsg(data, data.name);
 
     return;
   }
