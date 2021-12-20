@@ -346,7 +346,7 @@ async function createPeerConnection(targetUsername) {
 
   function receiveChannelCallback(event) {
     console.log("Receive Channel Callback");
-   const rtc = event.channel;
+    const rtc = event.channel;
     rtc.binaryType = "arraybuffer";
     rtc.addEventListener("close", onReceiveChannelClosed);
 
