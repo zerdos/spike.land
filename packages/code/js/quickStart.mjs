@@ -199,7 +199,7 @@ export async function restartX(transpiled, target, counter, session) {
 
   // const codeHash = await Hash.of(code);
 
-  session.html = "";
+//  session.html = "";
   session.transpiled = "";
   let hadError = false;
   if (typeof transpiled !== "string" || transpiled === "") {
@@ -209,8 +209,10 @@ export async function restartX(transpiled, target, counter, session) {
   }
 
   let children;
+  let App;
   try {
     children = await getReactChild(transpiled);
+    App = await getApp(transpiled);
   } catch (error) {
     session.errorText = error.message;
     console.error({ error, message: "error in rendering" });
@@ -226,7 +228,7 @@ export async function restartX(transpiled, target, counter, session) {
 
   const {getHtmlAndCss}  = await import("./renderToString.mjs");
 
-  const {html, css} = getHtmlAndCss(children);
+  const {html, css} = getHtmlAndCss(App);
 
 
   if (html) {
@@ -265,6 +267,23 @@ async function getReactChild(transpiled, mode = "window") {
 
   return jsx(mod.default);
 }
+
+async function getApp(transpiled, mode = "window") {
+  const codeToHydrate = mode === "window"
+    ? transpiled.replace("body{", "#zbody{")
+    : transpiled;
+
+  const objUrl = createJsBlob(
+    codeToHydrate,
+  );
+
+  const App = (await import(objUrl)).default;
+
+  URL.revokeObjectURL(objUrl);
+
+  return App;
+}
+
 
 /**
  * @param {BlobPart} code

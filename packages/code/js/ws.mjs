@@ -78,6 +78,7 @@ let intervalHandler = null;
 
 export const join = (room, user) => {
   roomName = room || "code-main";
+  window.room = room;
   if (user) username = user;
 
   if (sess) return;

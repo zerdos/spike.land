@@ -1,25 +1,27 @@
 import { CacheProvider } from '@emotion/react'
+import React from "react"
 import { renderToString } from 'react-dom/server'
 import CRI from '@emotion/server/create-instance'
 import createCache from '@emotion/cache'
-import {jsx} from "@emotion/react"
-import {v4} from "uuid";
 
 export function getHtmlAndCss(App){
-const key = v4();
+
+const key = "yoo";
 const cache = createCache({ key })
 
 const createEmotionServer = CRI.default;
+const { extractCritical } = createEmotionServer(cache)
 
-const { extractCriticalToChunks, constructStyleTagsFromChunks } = createEmotionServer(cache)
+const element = React.createElement(
+  CacheProvider,
+  { value: cache },
+  React.createElement(App, null)
+);
 
-const html = renderToString(
-  jsx(CacheProvider, {value: cache, children: App})
-)
 
-const chunks = extractCriticalToChunks(html);
-const styles = constructStyleTagsFromChunks(chunks);
+const { html, css, ids } = extractCritical(renderToString(element))
 
-return {html, css: styles};
+return {html, css: `<style data-emotion="${key} ${ids.join(' ')}">${css}</style>`};
 
 }
+
