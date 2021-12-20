@@ -10,7 +10,6 @@ export function getCss({ html }: { html: string }) {
     "head > style[data-emotion=css]",
   );
 
-
   if (cssRules) {
     try {
       const sheet = (window.document.querySelector(
