@@ -193,8 +193,8 @@ export async function quickStart(session) {
 export async function restartX(transpiled, target, counter, session) {
   if (session.i > counter) return false;
 
-  if (session.actualT === transpiled) return false;
-  session.actualT = transpiled;
+  if (session.transpiled === transpiled) return false;
+  session.transpiled = transpiled;
 
   // const codeHash = await Hash.of(code);
 
