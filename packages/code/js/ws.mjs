@@ -246,7 +246,7 @@ log("Hostname: " + myHostname);
 // https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/getUserMedia
 //
 
-const connections= {}; // To st/ RTCPeerConnection
+const connections = {}; // To st/ RTCPeerConnection
 // var transceiver = null;         // RTCRtpTransceiver
 // var webcamStream = null;        // MediaStream from webcam
 
@@ -286,7 +286,9 @@ async function createPeerConnection(targetUsername) {
   //     username: 'webrtc'
   // });
 
- const myPeerConnection = connections[targetUsername] = new RTCPeerConnection(rcpOpts);
+  const myPeerConnection = connections[targetUsername] = new RTCPeerConnection(
+    rcpOpts,
+  );
 
   // Set up event handlers for the ICE negotiation process.
 
@@ -300,8 +302,6 @@ async function createPeerConnection(targetUsername) {
   myPeerConnection.ontrack = handleTrackEvent;
 
   myPeerConnection.addEventListener("datachannel", receiveChannelCallback);
-
-
 
   const dataChannelOptions = {
     ordered: true, // do not guarantee order
@@ -328,22 +328,21 @@ async function createPeerConnection(targetUsername) {
     connections[targetUsername].sendChannel = sendChannel;
 
     const oldObj = {};
-    if ( window.sendChannel )  {
+    if (window.sendChannel) {
       oldObj.sendChannel = window.sendChannel;
     }
-    window.sendChannel =  {
-      message: (d)=>{
+    window.sendChannel = {
+      message: (d) => {
         sendChannel.message(d);
         if (oldObj.sendChannel) oldObj.sendChannel.message(d);
-      }
-    }
+      },
+    };
   };
 
   sendChannel.onclose = () => {
     console.log("xxxxxxxx- The Data Channel is Closed");
   };
 
-  
   return myPeerConnection;
 
   function receiveChannelCallback(event) {
@@ -363,28 +362,28 @@ async function createPeerConnection(targetUsername) {
   }
   async function handleNegotiationNeededEvent() {
     log("*** Negotiation needed");
-  
+
     try {
       log("---> Creating offer");
       const offer = await myPeerConnection.createOffer();
-  
+
       // If the connection hasn't yet achieved the "stable" state,
       // return to the caller. Another negotiationneeded event
       // will be fired when the state stabilizes.
-  
+
       if (myPeerConnection.signalingState != "stable") {
         log("     -- The connection isn't stable yet; postponing...");
         return;
       }
-  
+
       // Establish the offer as the local peer's current
       // description.
-  
+
       log("---> Setting local description to the offer");
       await myPeerConnection.setLocalDescription(offer);
-  
+
       // Send the offer to the remote peer.
-  
+
       log("---> Sending the offer to the remote peer");
       ws.send(JSON.stringify({
         target: targetUsername,
@@ -398,7 +397,7 @@ async function createPeerConnection(targetUsername) {
       // reportError(err);
     }
   }
-  
+
   // Called by the WebRTC layer when events occur on the media tracks
   // on our WebRTC call. This includes when streams are added to and
   // removed from the call.
@@ -412,21 +411,21 @@ async function createPeerConnection(targetUsername) {
   //
   // In our case, we're just taking the first stream found and attaching
   // it to the <video> element for incoming media.
-  
+
   function handleTrackEvent(event) {
     log("*** Track event");
     document.getElementById("received_video").srcObject = event.streams[0];
     document.getElementById("hangup-button").disabled = false;
   }
-  
+
   // Handles |icecandidate| events by forwarding the specified
   // ICE candidate (created by our local ICE agent) to the other
   // peer through the signaling server.
-  
+
   function handleICECandidateEvent(event) {
     if (event.candidate) {
       log("*** Outgoing ICE candidate: " + event.candidate);
-  
+
       ws.send(JSON.stringify({
         type: "new-ice-candidate",
         target: targetUsername,
@@ -434,18 +433,18 @@ async function createPeerConnection(targetUsername) {
       }));
     }
   }
-  
+
   // Handle |iceconnectionstatechange| events. This will detect
   // when the ICE connection is closed, failed, or disconnected.
   //
   // This is called when the state of the ICE agent changes.
-  
+
   function handleICEConnectionStateChangeEvent() {
     log(
       "*** ICE connection state changed to " +
         myPeerConnection.iceConnectionState,
     );
-  
+
     switch (myPeerConnection.iceConnectionState) {
       case "closed":
       case "failed":
@@ -453,15 +452,14 @@ async function createPeerConnection(targetUsername) {
         break;
     }
   }
-  
-  
+
   // Set up a |signalingstatechange| event handler. This will detect when
   // the signaling connection is closed.
   //
   // NOTE: This will actually move to the new RTCPeerConnectionState enum
   // returned in the property RTCPeerConnection.connectionState when
   // browsers catch up with the latest version of the specification!
-  
+
   function handleSignalingStateChangeEvent() {
     log(
       "*** myPeerConnection.signalingState  changed to: " +
@@ -472,7 +470,7 @@ async function createPeerConnection(targetUsername) {
         break;
     }
   }
-  
+
   // Handle the |icegatheringstatechange| event. This lets us know what the
   // ICE engine is currently working on: "new" means no networking has happened
   // yet, "gathering" means the ICE engine is currently gathering candidates,
@@ -482,25 +480,14 @@ async function createPeerConnection(targetUsername) {
   //
   // We don't need to do anything when this happens, but we log it to the
   // console so you can see what's going on when playing with the sample.
-  
+
   function handleICEGatheringStateChangeEvent() {
     log(
       "*** myPeerConnection.iceGatheringState changed to: " +
         myPeerConnection.iceGatheringState,
     );
   }
-  
-
-
-
-  
-
-
-  
- 
 }
-
-
 
 async function handleNewICECandidateMsg(msg, userName) {
   log("*** Adding received ICE candidate: " + JSON.stringify(msg.candidate));
@@ -509,9 +496,7 @@ async function handleNewICECandidateMsg(msg, userName) {
   // lo
   const myPeerConnection = connections[userName];
   await myPeerConnection.addIceCandidate(candidate);
-
 }
-
 
 async function handleChatAnswerMsg(msg, userName) {
   log("*** Call recipient has accepted our call");
@@ -524,17 +509,16 @@ async function handleChatAnswerMsg(msg, userName) {
   await myPeerConnection.setRemoteDescription(desc).catch(console.error);
 }
 
-
-
 async function handleChatOffer(msg) {
   const targetUsername = msg.name;
-  const myPeerConnection = connections[targetUsername] || await createPeerConnection(targetUsername);
+  const myPeerConnection = connections[targetUsername] ||
+    await createPeerConnection(targetUsername);
 
   // If we're not already connected, create an RTCPeerConnection
   // to be linked to the caller.
 
   // log("Received chat offer from " + targetUsername);
-//ed to set the remote description to the received SDP offer
+  //ed to set the remote description to the received SDP offer
   // so that our local WebRTC layer knows how to talk to the caller.
 
   var desc = new RTCSessionDescription(msg.sdp);
@@ -571,8 +555,6 @@ async function handleChatOffer(msg) {
   }));
 }
 
-
-
 const cids = {};
 async function getCID(CID) {
   if (cids[CID] && typeof cids[CID] === "string") return cids[CID];
@@ -594,8 +576,6 @@ async function getCID(CID) {
 
 // Called by the WebRTC layer to let us know when it's time to
 // begin, resume, or restart ICE negotiation.
-
-
 
 async function processWsMessage(event) {
   if (!sanyiProcess) {
@@ -632,7 +612,8 @@ async function processWsMessage(event) {
   }
 
   if (
-    data.name && data.hashOfCode && data.name !== username &&   !connections[data.name] 
+    data.name && data.hashOfCode && data.name !== username &&
+    !connections[data.name]
   ) {
     try {
       await createPeerConnection(data.name);
