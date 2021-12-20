@@ -184,7 +184,7 @@ export const join = (room, user) => {
 
         const msgStr = JSON.stringify(message);
 
-        if (sendChannel && sendChannel.readyState === "open") {
+        if (sendChannel) {
           sendChannel.send(msgStr);
         }
 
@@ -311,33 +311,34 @@ async function createPeerConnection(targetUsername) {
     maxPacketLifeTime: 3000, // in milliseconds
   };
 
-  sendChannel = myPeerConnection.createDataChannel(
+  const rtc = myPeerConnection.createDataChannel(
     "myLabel",
     dataChannelOptions,
   );
 
-  sendChannel.binaryType = "arraybuffer";
+  rtc.binaryType = "arraybuffer";
 
-  sendChannel.addEventListener("message", processWsMessage);
+  rtc.addEventListener("message", processWsMessage);
 
-  sendChannel.onerror = (error) => {
+  rtc.onerror = (error) => {
     console.log("xxxxxx-  Data Channel Error:", error);
   };
 
-  sendChannel.onmessage = processWsMessage;
+  rtc.onmessage = processWsMessage;
 
-  sendChannel.onopen = () => {
-    webrtcArray.push(sendChannel);
-    connections[targetUsername].sendChannel = sendChannel;
+  rtc.onopen = () => {
+    webrtcArray.push(rtc);
+    connections[targetUsername].sendChannel = rtc;
 
-    window.sendChannel = {
+    window.sendChannel = sendChannel = {
       message: (d) => {
         webrtcArray.map((ch) => ch.readyState === "open" && ch.send(d));
       },
     };
   };
 
-  sendChannel.onclose = () => {
+  rtc.onclose = () => {
+    rtc.readyState = "closed";
     console.log("xxxxxxxx- The Data Channel is Closed");
   };
 
@@ -345,11 +346,12 @@ async function createPeerConnection(targetUsername) {
 
   function receiveChannelCallback(event) {
     console.log("Receive Channel Callback");
-    sendChannel = event.channel;
-    sendChannel.binaryType = "arraybuffer";
-    sendChannel.addEventListener("close", onReceiveChannelClosed);
+   const rtc = event.channel;
+    rtc.binaryType = "arraybuffer";
+    rtc.addEventListener("close", onReceiveChannelClosed);
 
-    sendChannel.addEventListener("message", processWsMessage);
+    rtc.addEventListener("message", processWsMessage);
+    webrtcArray.push(rtc);
   }
 
   function onReceiveChannelClosed() {
@@ -427,6 +429,7 @@ async function createPeerConnection(targetUsername) {
       ws.send(JSON.stringify({
         type: "new-ice-candidate",
         target: targetUsername,
+        name: username,
         candidate: event.candidate,
       }));
     }
@@ -562,7 +565,7 @@ async function getCID(CID) {
     type: "get-cid",
     cid: CID,
   });
-  if (sendChannel && sendChannel.readyState === "open") {
+  if (sendChannel) {
     sendChannel.send(requestSrt);
   } else {
     ws.send(requestSrt);

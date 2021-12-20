@@ -54,7 +54,7 @@ export async function startMonacoWithSession(session) {
   async function runner(c, changes = null) {
     session.changes.push(changes);
 
-    if (window.sendChannel && window.sendChannel.readyState === "open") {
+    if (window.sendChannel) {
       const Hash = (await import("ipfs-only-hash")).default;
       const hashOfCode = await Hash.of(c);
       if (
