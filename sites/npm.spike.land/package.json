@@ -9,7 +9,7 @@
     "build": "esbuild --bundle --format=esm --target=esnext src/index.ts --outfile=dist/index.mjs"
   },
   "devDependencies": {
-    "@cloudflare/workers-types": "3.2.0",
+    "@cloudflare/workers-types": "3.3.0",
     "@cloudflare/wrangler": "1.19.6",
     "@spike.land/blog-artifacts": "^0.2.92",
     "@spike.land/cf-npm-site": "^0.2.72",
