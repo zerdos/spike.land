@@ -1,6 +1,6 @@
 {
   "name": "@spike.land/code",
-  "version": "0.2.88",
+  "version": "0.2.89",
   "description": "spike.land",
   "main": "./js/quickerStart.mjs",
   "files": [
@@ -50,7 +50,7 @@
   },
   "dependencies": {
     "@emotion/server": "11.4.0",
-    "@spike.land/renderer": "^0.2.88",
+    "@spike.land/renderer": "^0.2.89",
     "comlink": "4.3.1",
     "es-module-shims": "1.4.1",
     "esbuild-plugin-import-map": "^2.1.0",
