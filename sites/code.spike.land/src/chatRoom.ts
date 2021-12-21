@@ -186,6 +186,7 @@ export class Code {
             JSON.stringify({
               imports: {
                 ...importMap.imports,
+                starterApp:  `https://code.spike.land/api/room/${codeSpace}/js`,
                 app: `https://unpkg.com/@spike.land/code@${version}/js/starter.mjs`,
               },
             }),

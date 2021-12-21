@@ -1,5 +1,6 @@
 /** @jsx jsx */
 
+import * as  React from "react";
 import Fab from "@mui/material/Fab";
 import Button from "@mui/material/Button";
 import ToggleButton from "@mui/material/ToggleButton";
@@ -10,9 +11,12 @@ import Tv from "./icons/Tv.js";
 import Phone from "./icons/PhoneAndroid.js";
 import { QRButton } from "./Qr.js";
 
-import { css, jsx, motion, React } from "./renderer.js";
+import {jsx, css} from "@emotion/react"
+import {motion} from "framer-motion";
 
-const { Suspense } = React;
+
+// const {motion} = Motion;
+const {Suspense } = React; 
 
 const breakPoints = [640, 1024, 1920];
 
@@ -26,44 +30,26 @@ interface DraggableWindowProps {
     url: string;
     html: string;
     errorText: string;
-    children: React.FC;
-    setChild: React.Dispatch<React.SetStateAction<React.FC[]>>;
+    children: any;
+    room: string;
+    setChild: any
   };
   position?: string;
 }
 
-let Sanyi = React.lazy(() =>
-  import(`https://code.spike.land/api/room/sanyi/js`)
-);
 
-let Tibi = React.lazy(() =>
-  import(`https://code.spike.land/api/room/sanyi/js`)
-);
-
-function LazySanyi() {
+const LazySpikeLandComponent: React.FC<{name: string}> = ({name}) => {
+  const Sanyi = React.lazy(()=>generator(name));
   return (
-    <div>
-      <Suspense fallback={<div>Sanyi...</div>}>
-        <Sanyi />
-      </Suspense>
-    </div>
+      <React.Suspense fallback={<div>Loading...</div>}>
+      <Sanyi />
+      </React.Suspense>
   );
-}
 
-(() => {
-  const [ch, setCh] = React.useState(<div></div>);
-  React.useEffect(() => {
-    try {
-      import(`https://code.spike.land/api/room/sanyi/js`).then((mod) => {
-        if (mod && mod.default) setCh(jsx(mod.default));
-      });
-    } catch {
-      console.error("no Sanyi");
-    }
-  });
+function generator(name: string){
+return import(`https://code.spike.land/api/room/${name}/js`);
+}};
 
-  return <div>{ch}</div>;
-});
 
 export const DraggableWindow: React.FC<DraggableWindowProps> = (
   { onShare, onRestore, position, session },
@@ -71,7 +57,8 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
   const [isStable, setIsStable] = React.useState(false);
   const [scaleRange, changeScaleRange] = React.useState(75);
   const [height, changeHeight] = React.useState(innerHeight);
-  const [childArray, setChild] = React.useState([session.children]);
+  const [childArray, setChild] = React.useState(session.children?[session.children]:[<LazySpikeLandComponent name={session.room} />]);
+  
   session.setChild = setChild;
 
   const [qrUrl, setQRUrl] = React.useState(session.url);
@@ -81,7 +68,7 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
   const ref = React.useRef<HTMLDivElement>(null);
   const zbody = React.useRef<HTMLDivElement>(null);
 
-  const child = childArray[childArray.length - 1];
+  const child = childArray[childArray.length - 1] || <div><h1>eyyy ha</h1></div>
 
   React.useEffect(() => {
     window.addEventListener("resize", () => changeHeight(window.innerHeight));
@@ -246,7 +233,7 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
                       key={session.i}
                       ref={zbody}
                     >
-                      {child}
+                      {child} 
                     </div>
                   </React.Suspense>
                 )}
@@ -322,7 +309,7 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
           >
             <Share />
           </Fab>
-          <LazySanyi />
+          <LazySpikeLandComponent name="sanyi" />
         </div>
       </div>
     </motion.div>

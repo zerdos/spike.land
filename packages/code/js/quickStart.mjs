@@ -189,8 +189,8 @@ export const startFromCode = async ({ code }) => {
 };
 
 export async function quickStart(session) {
-  session.children = await getReactChild(session.transpiled);
-
+  // session.children = await getReactChild(session.transpiled);
+  session.children = null;
   await renderPreviewWindow(session);
 
   await startMonacoWithSession(session);

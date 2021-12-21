@@ -69,6 +69,9 @@
 <body>
   <div id="shadowEditor"></div>
   <script type="importmap-shim" src="./importmap.json"></script>
+  <script>
+  window.process = { env: { NODE_ENV: "production" } };
+</script>
   <script type="module-shim">
     import app from "dev";
     app("zoli");

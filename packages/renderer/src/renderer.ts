@@ -1,5 +1,5 @@
 import * as Motion from "framer-motion";
-import React, { Fragment } from "react";
+import * as React from "react";
 import * as ReactDOM from "react-dom";
 import { css, Global, jsx } from "@emotion/react";
 
@@ -7,7 +7,7 @@ import { DraggableWindow } from "./DraggableWindow.js";
 
 export { DraggableWindow };
 export { React };
-export { Fragment };
+export const{ Fragment } = React;;
 export { Motion };
 
 export const { motion } = Motion;

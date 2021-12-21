@@ -613,6 +613,7 @@ async function processWsMessage(event) {
       html: data.html,
       i: data.i,
       css: data.css,
+      room: roomName
     };
     const { quickStart } = await import("../dist/quickerStart.bundle.mjs");
     quickStart(session);
