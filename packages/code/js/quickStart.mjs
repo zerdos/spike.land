@@ -51,129 +51,143 @@ export async function startMonacoWithSession(session) {
     return restartCode(c);
   }
 
-  async function runner(c, changes = null) {
-    session.changes.push(changes);
 
-    if (window.sendChannel) {
-      const Hash = (await import("ipfs-only-hash")).default;
-      const hashOfCode = await Hash.of(c);
-      if (
-        window.hashOfCode === window.hashOfStarterCode &&
-        window.hashOfCode === hashOfCode
-      ) {
-        return;
-      }
-      window[hashOfCode] = c;
-      const prevHash = await Hash.of(session.code);
-      window[prevHash] = session.code;
+}
 
-      if (window.hashOfCode !== hashOfCode) {
-        const starterCode = c;
-        const createDelta = (await import("textdiff-create")).default;
+async function runner(c, changes = null, sess) {
+  if (sess) session = sess;
+  session.changes.push(changes);
 
-        window.sendChannel.send({
-          changes,
-          i: session.i,
-          hashOfCode,
-          prevHash: window.hashOfStarterCode,
-          codeDiff: createPatch(starterCode, c, createDelta),
-        });
-      }
+  if (window.sendChannel) {
+    const Hash = (await import("ipfs-only-hash")).default;
+    const hashOfCode = await Hash.of(c);
+    if (
+      window.hashOfCode === window.hashOfStarterCode &&
+      window.hashOfCode === hashOfCode
+    ) {
+      return;
     }
+    window[hashOfCode] = c;
+    const prevHash = await Hash.of(session.code);
+    window[prevHash] = session.code;
 
-    session.errorText = "";
-    session.i++;
-    const counter = session.i;
+    if (window.hashOfCode !== hashOfCode) {
+      const starterCode = c;
+      const createDelta = (await import("textdiff-create")).default;
 
-    try {
-      const formatter = (await import("./formatter.mjs")).formatter;
-      const cd = await formatter(c);
-      const baberTransform = (await import("./babel.mjs")).baberTransform;
-      const transpiled = await baberTransform(cd);
-
-      let restartError = false;
-      ///yellow
-      if (transpiled.length) {
-        if (counter < session.i) return;
-        restartError = await restart(c);
-      }
-      if (session.i > counter) return;
-      const err = await getErrors(session);
-      if (session.i > counter) return;
-
-      if (restartError) {
-        err.push(
-          { messageText: "Error while starting the app. Check the console!" },
-        );
-      }
-
-      if (err.length) console.log({ err });
-
-      if (session.lastErrors && err.length === 0) {
-        restart(c);
-      }
-      session.lastErrors = err.length;
-      if (err.length === 0 && transpiled.length) {
-        if (session.i > counter) return;
-        session.code = cd;
-        session.codeNonFormatted = c;
-        const saveCode = (await import("./data.mjs")).saveCode;
-        saveCode(session, counter);
-      } else {
-        console.log({ code: c, transpiled });
-        if (session.i > counter) return;
-
-        if (cd.length < 1000 && session.code.length < 1000) {
-          const diff = (await import("@spike.land/shadb")).diff;
-
-          const slices = await diff(session.code, cd);
-
-          if (slices.c.length <= 3) {
-            session.lastErrors = 0;
-
-            return;
-          }
-
-          if (slices.c.length == 4) {
-            session.lastErrors = 0;
-            monaco.editor.setTheme("hc-black");
-
-            return;
-          }
-        }
-        if (err && err[0] && err[0].messageText) {
-          console.error(err[0].messageText.toString());
-        }
-
-        return;
-      }
-
-      monaco.editor.setTheme("vs-dark");
-    } catch (err) {
-      // if (err.message) {
-      //   session.errorText = err.message;
-
-      //   const saveErrorCode = async () => {
-      //     const CID = await Hash.of(c);
-
-      //     const url = `/error/${CID}`;
-      //     fetch(`https://code.spike.land${url}`, {
-      //       method: "POST",
-      //       body: c,
-      //     });
-      //   };
-      //   saveErrorCode();
-      //   return;
-      // }
-
-      monaco.editor.setTheme("vs-light");
-      setTimeout(() => {
-        monaco.editor.setTheme("hc-black");
-      }, 50);
-      session.errorText = err.message;
-      console.error(err.message);
+      window.sendChannel.send({
+        changes,
+        i: session.i,
+        hashOfCode,
+        prevHash: window.hashOfStarterCode,
+        codeDiff: createPatch(starterCode, c, createDelta),
+      });
     }
   }
+
+  session.errorText = "";
+  session.i++;
+  const counter = session.i;
+
+  try {
+    const {formatter} = (await import("./formatter.mjs"));
+    const cd = await formatter(c);
+    const {baberTransform} = (await import("./babel.mjs"));
+    const transpiled = await baberTransform(cd);
+
+    let restartError = false;
+    ///yellow
+    if (transpiled.length) {
+      if (counter < session.i) return;
+      restartError = await restart(c);
+    }
+    if (session.i > counter) return;
+    const err = await getErrors(session);
+    if (session.i > counter) return;
+
+    if (restartError) {
+      err.push(
+        { messageText: "Error while starting the app. Check the console!" },
+      );
+    }
+
+    if (err.length) console.log({ err });
+
+    if (session.lastErrors && err.length === 0) {
+      restart(c);
+    }
+    session.lastErrors = err.length;
+    if (err.length === 0 && transpiled.length) {
+      if (session.i > counter) return;
+      session.code = cd;
+      session.codeNonFormatted = c;
+      const saveCode = (await import("./data.mjs")).saveCode;
+      saveCode(session, counter);
+    } else {
+      console.log({ code: c, transpiled });
+      if (session.i > counter) return;
+
+      if (cd.length < 1000 && session.code.length < 1000) {
+        const diff = (await import("@spike.land/shadb")).diff;
+
+        const slices = await diff(session.code, cd);
+
+        if (slices.c.length <= 3) {
+          session.lastErrors = 0;
+
+          return;
+        }
+
+        if (slices.c.length == 4) {
+          session.lastErrors = 0;
+          monaco.editor.setTheme("hc-black");
+
+          return;
+        }
+      }
+      if (err && err[0] && err[0].messageText) {
+        console.error(err[0].messageText.toString());
+      }
+
+      return;
+    }
+
+    monaco.editor.setTheme("vs-dark");
+  } catch (err) {
+    // if (err.message) {
+    //   session.errorText = err.message;
+
+    //   const saveErrorCode = async () => {
+    //     const CID = await Hash.of(c);
+
+    //     const url = `/error/${CID}`;
+    //     fetch(`https://code.spike.land${url}`, {
+    //       method: "POST",
+    //       body: c,
+    //     });
+    //   };
+    //   saveErrorCode();
+    //   return;
+    // }
+
+    monaco.editor.setTheme("vs-light");
+    setTimeout(() => {
+      monaco.editor.setTheme("hc-black");
+    }, 50);
+    session.errorText = err.message;
+    console.error(err.message);
+  }
+}
+
+export const startFromCode = async ({code})=>{
+  let session = {
+    code,
+    i: 0,
+    setChild: ()=>{}
+  };
+  await runner(code, null, session);
+  await quickStart(session);
+
 }
 
 export async function quickStart(session) {
