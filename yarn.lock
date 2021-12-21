@@ -17624,7 +17624,7 @@ textdiff-create@^1.0.5:
   dependencies:
     fast-diff "^1.2.0"
 
-textdiff-patch@^1.0.5:
+textdiff-patch@1.0.5:
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/textdiff-patch/-/textdiff-patch-1.0.5.tgz#029bf13edbbb93db15f32d2845bfa2f397d1886d"
   integrity sha512-u3layF6wNxQwOZjJy9vNNcuiCcw5YzKpFW+kYxot7UbEiGNdQdsPxM7HFe6fmXH65vt9u4W5O4g+Nam1yCKk5w==
