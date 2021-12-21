@@ -19,7 +19,7 @@
     "bundle:starter": "deno bundle --import-map importmap.json js/starter.mjs dist/starter.bundle.mjs",
     "minify:bundle": "esbuild dist/starter.bundle.mjs --format=esm --target=es2018 --minify --tree-shaking=true --outfile=dist/bundle.mjs",
     "postinstall": "yarn importmap",
-    "prepublishOnly": "yarn bundle:starter && yarn minify:bundle",
+    "xxprepublishOnly": "yarn bundle:starter && yarn minify:bundle",
     "start": "cd ../.. && yarn start",
     "push": "cd ../.. && yarn push",
     "build": "rm -rf dist && yarn esbuild --bundle --format=esm js/templates.ts --outfile=dist/templates.mjs && node --experimental-json-modules esbuild-dev.mjs",
