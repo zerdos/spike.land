@@ -32,16 +32,24 @@ importMap.load({ imports });
 // }).catch(() => process.exit(1));
 
 esbuild.build({
-  entryPoints: ["js/quickStart.mjs"],
+  entryPoints: [
+    "js/quickStart.mjs",
+    "js/ws.mjs",
+    "js/renderPreviewWindow.mjs",
+    "js/renderToString.mjs",
+    "js/starter.mjs",
+  ],
+  "outExtension": { ".js": ".mjs" },
   bundle: true,
   format: "esm",
   minify: true,
+  splitting: true,
   treeShaking: true,
   sourcemap: false,
   resolveExtensions: [".tsx", ".ts", ".jsx", ".js", ".css", ".json", ".mjs"],
   target: ["es2018"],
   plugins: [importMap.plugin()],
-  outfile: "dist/quickerStart.bundle.mjs",
+  outdir: "dist",
 }).catch(() => process.exit(1));
 
 // esbuild.build({

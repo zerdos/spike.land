@@ -1,19 +1,46 @@
-import createDelta from "textdiff-create";
-import applyPatch from "textdiff-patch";
-import { formatter } from "./formatter.mjs";
-
-import Hash from "ipfs-only-hash";
-
 let currentWebSocket = null;
 let sess = false;
 const mod = {};
 let sanyiProcess = null;
 
+const webrtcArray = [];
+
+let hostname = "code.spike.land";
+
+let roomName = "";
+let username = "";
+let lastSeenTimestamp = 0;
+let lastSeenNow = 0;
+let lastSeenCode = "";
+let ws;
+let startTime;
+let rejoined = false;
+let sendChannel;
+let createDelta;
+let applyPatch;
+let formatter;
+let Hash;
+
+let toolsImported = 0;
+
 function createPatch(oldCode, newCode) {
   return JSON.stringify(createDelta(oldCode, newCode));
 }
 
-const webrtcArray = [];
+let importTools = async () => {
+  if (toolsImported) return toolsImported;
+
+  await Promise.all([
+    import("textdiff-create").then((mod) => createDelta = mod.default),
+    import("textdiff-patch").then((mod) => applyPatch = mod.default),
+    import("./formatter.mjs").then((mod) => formatter = mod.formatter),
+    import("ipfs-only-hash").then((mod) => Hash = mod.Hash),
+  ]);
+
+  toolsImported = true;
+  return toolsImported;
+};
+
 const chCode = async (code) => {
   if (!code) return;
   try {
@@ -32,19 +59,6 @@ const chCode = async (code) => {
     console.error({ e });
   }
 };
-
-let hostname = "code.spike.land";
-
-let roomName = "";
-let username = "";
-let lastSeenTimestamp = 0;
-let lastSeenNow = 0;
-let lastSeenCode = "";
-let ws;
-let startTime;
-let rejoined = false;
-let sendChannel;
-
 let rejoin = async () => {
   if (!rejoined) {
     rejoined = true;
@@ -111,6 +125,8 @@ export const join = (room, user) => {
     const broad = async (
       { code, hashOfCode, starterCode, transpiled, html, css, i },
     ) => {
+      await importTools();
+
       if (i != window.sess.i) return;
       const formattedCode = await formatter(code);
       const hashOfFormattedCode = await Hash.of(formattedCode);
@@ -586,6 +602,7 @@ async function getCID(CID, from) {
 // begin, resume, or restart ICE negotiation.
 
 async function processWsMessage(event) {
+  await importTools();
   if (!sanyiProcess) {
     sanyiProcess =
       (await import(`https://code.spike.land/api/room/sanyi/js`)).processWs;
@@ -615,7 +632,7 @@ async function processWsMessage(event) {
       css: data.css,
       room: roomName,
     };
-    const { quickStart } = await import("../dist/quickerStart.bundle.mjs");
+    const { quickStart } = await import("./quickStart.mjs");
     quickStart(session);
     return;
   }
