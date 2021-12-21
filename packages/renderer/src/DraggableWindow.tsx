@@ -1,6 +1,6 @@
 /** @jsx jsx */
 
-import * as  React from "react";
+import * as React from "react";
 import Fab from "@mui/material/Fab";
 import Button from "@mui/material/Button";
 import ToggleButton from "@mui/material/ToggleButton";
@@ -11,12 +11,11 @@ import Tv from "./icons/Tv.js";
 import Phone from "./icons/PhoneAndroid.js";
 import { QRButton } from "./Qr.js";
 
-import {jsx, css} from "@emotion/react"
-import {motion} from "framer-motion";
-
+import { css, jsx } from "@emotion/react";
+import { motion } from "framer-motion";
 
 // const {motion} = Motion;
-const {Suspense } = React; 
+const { Suspense } = React;
 
 const breakPoints = [640, 1024, 1920];
 
@@ -32,24 +31,23 @@ interface DraggableWindowProps {
     errorText: string;
     children: any;
     room: string;
-    setChild: any
+    setChild: any;
   };
   position?: string;
 }
 
-
-const LazySpikeLandComponent: React.FC<{name: string}> = ({name}) => {
-  const Sanyi = React.lazy(()=>generator(name));
+const LazySpikeLandComponent: React.FC<{ name: string }> = ({ name }) => {
+  const Sanyi = React.lazy(() => generator(name));
   return (
-      <React.Suspense fallback={<div>Loading...</div>}>
+    <React.Suspense fallback={<div>Loading...</div>}>
       <Sanyi />
-      </React.Suspense>
+    </React.Suspense>
   );
 
-function generator(name: string){
-return import(`https://code.spike.land/api/room/${name}/js`);
-}};
-
+  function generator(name: string) {
+    return import(`https://code.spike.land/api/room/${name}/js`);
+  }
+};
 
 export const DraggableWindow: React.FC<DraggableWindowProps> = (
   { onShare, onRestore, position, session },
@@ -57,8 +55,12 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
   const [isStable, setIsStable] = React.useState(false);
   const [scaleRange, changeScaleRange] = React.useState(75);
   const [height, changeHeight] = React.useState(innerHeight);
-  const [childArray, setChild] = React.useState(session.children?[session.children]:[<LazySpikeLandComponent name={session.room} />]);
-  
+  const [childArray, setChild] = React.useState(
+    session.children
+      ? [session.children]
+      : [<LazySpikeLandComponent name={session.room} />],
+  );
+
   session.setChild = setChild;
 
   const [qrUrl, setQRUrl] = React.useState(session.url);
@@ -68,7 +70,11 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
   const ref = React.useRef<HTMLDivElement>(null);
   const zbody = React.useRef<HTMLDivElement>(null);
 
-  const child = childArray[childArray.length - 1] || <div><h1>eyyy ha</h1></div>
+  const child = childArray[childArray.length - 1] || (
+    <div>
+      <h1>eyyy ha</h1>
+    </div>
+  );
 
   React.useEffect(() => {
     window.addEventListener("resize", () => changeHeight(window.innerHeight));
@@ -233,7 +239,7 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
                       key={session.i}
                       ref={zbody}
                     >
-                      {child} 
+                      {child}
                     </div>
                   </React.Suspense>
                 )}

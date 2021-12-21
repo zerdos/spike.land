@@ -64,7 +64,8 @@ async function runAsync() {
     "react": `https://ga.jspm.io/npm:react@17.0.2/index.js`,
     "react-dom": `https://ga.jspm.io/npm:react-dom@17.0.2/index.js`,
     "react-is": `https://ga.jspm.io/npm:react-is@17.0.2/index.js`,
-"framer-motion": "https://unpkg.com/@spike.land/esm@0.2.86/dist/framer-motion.mjs",
+    "framer-motion":
+      "https://unpkg.com/@spike.land/esm@0.2.86/dist/framer-motion.mjs",
     // "framer-motion": {
     //   "framesync": "https://ga.jspm.io/npm:framesync@6.0.1/dist/es/index.mjs",
     //   "hey-listen": "https://ga.jspm.io/npm:hey-listen@1.0.8/dist/index.js",

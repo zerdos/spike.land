@@ -7,7 +7,7 @@ import { DraggableWindow } from "./DraggableWindow.js";
 
 export { DraggableWindow };
 export { React };
-export const{ Fragment } = React;;
+export const { Fragment } = React;
 export { Motion };
 
 export const { motion } = Motion;

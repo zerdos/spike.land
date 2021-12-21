@@ -613,7 +613,7 @@ async function processWsMessage(event) {
       html: data.html,
       i: data.i,
       css: data.css,
-      room: roomName
+      room: roomName,
     };
     const { quickStart } = await import("../dist/quickerStart.bundle.mjs");
     quickStart(session);
@@ -675,14 +675,12 @@ async function processWsMessage(event) {
     if (window[CID]) {
       const hash = await Hash.of(window[CID]);
       if (hash === CID) {
-        sendChannel.send(
-          JSON.stringify({
-            type: "get-cid",
-            target: data.name,
-            cid: CID,
-            [CID]: window[CID],
-          }),
-        );
+        sendChannel.send({
+          type: "get-cid",
+          target: data.name,
+          cid: CID,
+          [CID]: window[CID],
+        });
       }
     }
 

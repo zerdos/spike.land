@@ -14,7 +14,7 @@ const importData = Object.keys(jsonData.imports).filter((name) =>
 let imports = {};
 importData.map((d) => (Object.assign(imports, { [d]: jsonData.imports[d] })));
 
-importMap.load({imports});
+importMap.load({ imports });
 
 // console.log(imports);
 
