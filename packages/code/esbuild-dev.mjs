@@ -17,18 +17,18 @@ importMap.load({
 
 console.log(imports);
 
-esbuild.build({
-  entryPoints: ["js/codeLoader.mjs"],
-  bundle: true,
-  format: "esm",
-  minify: false,
-  treeShaking: false,
-  sourcemap: true,
-  resolveExtensions: [".tsx", ".ts", ".jsx", ".js", ".css", ".json", ".mjs"],
-  target: ["es2018"],
-  plugins: [importMap.plugin()],
-  outfile: "dist/dev.mjs",
-}).catch(() => process.exit(1));
+// esbuild.build({
+//   entryPoints: ["js/codeLoader.mjs"],
+//   bundle: true,
+//   format: "esm",
+//   minify: false,
+//   treeShaking: false,
+//   sourcemap: true,
+//   resolveExtensions: [".tsx", ".ts", ".jsx", ".js", ".css", ".json", ".mjs"],
+//   target: ["es2018"],
+//   plugins: [importMap.plugin()],
+//   outfile: "dist/dev.mjs",
+// }).catch(() => process.exit(1));
 
 esbuild.build({
   entryPoints: ["js/quickStart.mjs"],

@@ -17,45 +17,42 @@ export async function startMonacoWithSession(session) {
       /**
        * @param {string} code
        */
-      onChange: (code, changes) => runner(code, changes),
+      onChange: (code, changes) => runner(code, changes, session),
     },
   );
 
   session.editor = getEditor();
-  const monaco = window.monaco;
   window.sess = session;
-
-  async function getErrors(session) {
-    if (!monaco) {
-      return [{ messageText: "Error with the error checking. Try to reload!" }];
-    }
-
-    const model = session.editor.getModel();
-    const worker = await monaco.languages.typescript.getTypeScriptWorker();
-    const client = await worker(model);
-
-    const filename = model.uri.toString();
-    const diag = client.getSemanticDiagnostics(filename);
-    const comp = client.getCompilerOptionsDiagnostics(filename);
-    const syntax = client.getSyntacticDiagnostics(filename);
-    const fastError = await Promise.race([diag, comp, syntax]);
-
-    // model.dispose();
-    console.log(fastError);
-    return [];
-  }
-
-  async function restart(c) {
-    const restartCode = (await import("./restartCode.mjs")).restart;
-
-    return restartCode(c);
-  }
-
-
+  session.monaco = window.monaco;
 }
 
-async function runner(c, changes = null, sess) {
-  if (sess) session = sess;
+async function getErrors({ monaco, editor }) {
+  if (!monaco) {
+    return [{ messageText: "Error with the error checking. Try to reload!" }];
+  }
+
+  const model = editor.getModel();
+  const worker = await monaco.languages.typescript.getTypeScriptWorker();
+  const client = await worker(model);
+
+  const filename = model.uri.toString();
+  const diag = client.getSemanticDiagnostics(filename);
+  const comp = client.getCompilerOptionsDiagnostics(filename);
+  const syntax = client.getSyntacticDiagnostics(filename);
+  const fastError = await Promise.race([diag, comp, syntax]);
+
+  // model.dispose();
+  console.log(fastError);
+  return [];
+}
+
+async function restart(c) {
+  const restartCode = (await import("./restartCode.mjs")).restart;
+
+  return restartCode(c);
+}
+
+async function runner(c, changes = null, session) {
   session.changes.push(changes);
 
   if (window.sendChannel) {
@@ -89,10 +86,12 @@ async function runner(c, changes = null, sess) {
   session.i++;
   const counter = session.i;
 
+  const { monaco } = session;
+
   try {
-    const {formatter} = (await import("./formatter.mjs"));
+    const { formatter } = (await import("./formatter.mjs"));
     const cd = await formatter(c);
-    const {baberTransform} = (await import("./babel.mjs"));
+    const { baberTransform } = (await import("./babel.mjs"));
     const transpiled = await baberTransform(cd);
 
     let restartError = false;
@@ -179,16 +178,15 @@ async function runner(c, changes = null, sess) {
   }
 }
 
-export const startFromCode = async ({code})=>{
+export const startFromCode = async ({ code }) => {
   let session = {
     code,
     i: 0,
-    setChild: ()=>{}
+    setChild: () => {},
   };
   await runner(code, null, session);
   await quickStart(session);
-
-}
+};
 
 export async function quickStart(session) {
   session.children = await getReactChild(session.transpiled);
