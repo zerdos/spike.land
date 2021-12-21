@@ -46,7 +46,7 @@ const LazySpikeLandComponent: React.FC<{ name: string }> = ({ name }) => {
 
   function generator(name: string) {
     // return import("./Qr")
-   return import(`https://code.spike.land/api/room/${name}/js`);
+    return import(`https://code.spike.land/api/room/${name}/js`);
   }
 };
 

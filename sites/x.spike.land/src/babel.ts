@@ -22,20 +22,6 @@ if (!String.prototype.replaceAll) {
 
 export const babelTransfo = (code: string) => {
   const safeCode = code;
-  // .replaceAll(
-  //   searchRegExp,
-  //   replaceWith,
-  // ).replaceAll(
-  //   searchRegExpMotion,
-  //   replaceWith,
-  // ).replaceAll(searchRegExp2, replace2);
-
-  // let rendererSrc = `https://code.spike.land/modules/renderer.mjs`;
-
-  // if (self.location.hostname.indexOf("0.0") !== -1) {
-  //   const cid = self.location.pathname.slice(6, 52);
-  //   rendererSrc = `http://127.0.0.1:8080/ipfs/${cid}/modules/renderer.mjs`;xxxxx`
-  // }
 
   const transformed = transform(
     safeCode,

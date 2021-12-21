@@ -1,6 +1,6 @@
 /** @jsx jsx */
 
-import Fab  from "@mui/material/Fab";
+import Fab from "@mui/material/Fab";
 import { css, jsx } from "@emotion/react";
 import { motion } from "framer-motion";
 import React from "react";

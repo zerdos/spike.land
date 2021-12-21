@@ -5,7 +5,7 @@ const generator = new Generator({
   defaultProvider: "jspm", // this is the default defaultProvider
   // Always ensure to define your target environment to get a working map
   // it is advisable to pass the "module" condition as supported by Webpack
-  env: ["development", "browser", "module"],
+  env: ["production", "browser", "module"],
 });
 
 // Install a new package into the import map
@@ -19,6 +19,7 @@ await generator.install("@emotion/styled");
 await generator.install("framer-motion");
 
 await generator.install("comlink");
+// await generator.install("comlink");
 
 await generator.install("workbox-window");
 await generator.install("@spike.land/ipfs");
@@ -26,6 +27,7 @@ await generator.install("@spike.land/smart-monaco-editor");
 await generator.install("@mui/material/Fab");
 await generator.install("@mui/material/Button");
 await generator.install("@mui/material/ToggleButton");
+await generator.install("@mui/material/utils/createSvgIcon");
 
 await generator.install("@mui/material/ToggleButtonGroup");
 

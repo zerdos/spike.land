@@ -1,12 +1,11 @@
 /** @jsx jsx */
 
 import React from "react";
-import {render} from "react-dom";
-import {jsx} from "@emotion/react"
-import {DraggableWindow} from "./DraggableWindow"
+import { render } from "react-dom";
+import { jsx } from "@emotion/react";
+import { DraggableWindow } from "./DraggableWindow";
 
-export const  renderPreviewWindow = async  (session) =>{
- 
+export const renderPreviewWindow = async (session) => {
   let target = document.createElement("div");
 
   render(
@@ -27,6 +26,5 @@ export const  renderPreviewWindow = async  (session) =>{
     target,
   );
 
-
   document.body.appendChild(target);
-}
+};
