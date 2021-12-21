@@ -13,9 +13,8 @@ async function runAsync() {
   const exceptions = {
     "react-dom/server":
       "https://ga.jspm.io/npm:react-dom@17.0.2/server.browser.js",
-    "scheduler/": "https://esm.sh/scheduler/",
     "react-transition-group": "https://esm.sh/react-transition-group",
-    "hoist-non-react-statics": "https://esm.sh/hoist-non-react-statics",
+    "hoist-react-transition-group": "https://esm.sh/hoist-non-react-statics",
     "prop-types": "https://esm.sh/prop-types",
     "@babel/runtime/helpers/esm/extends":
       "https://ga.jspm.io/npm:@babel/runtime@7.16.5/helpers/esm/extends.js",
@@ -57,7 +56,7 @@ async function runAsync() {
     // "@mui/core/": `https://unpkg.com/@mui/core@${muiCoreVersion}/modern/`,
 
     // "@mui/core/": `https://unpkg.com/@mui/material@${muiMateriaVersion}/modern/`,
-    "react/jsx-runtime": "https://esm.sh/react/jsx-runtime",
+    "react/jsx-runtime": "https://ga.jspm.io/npm:react@17.0.2/jsx-runtime.js",
     "object-assign": "https://ga.jspm.io/npm:object-assign@4.1.1/index.js",
     "scheduler": "https://ga.jspm.io/npm:scheduler@0.20.2/index.js",
 
@@ -276,15 +275,15 @@ async function runAsync() {
     "scheduler",
     "object-assign",
     "hey-listen",
-    "hoist-non-react-statics",
+    //"hoist-non-react-statics",
     "popmotion",
     "react",
     "react-dom",
     "react-is",
-    "react-transition-group",
+    //"react-transition-group",
     "react/jsx-runtime",
     "@spike.land/renderer",
-    "style-value-types",
+    //"style-value-types",
     "stylis",
     "@spike.land/qrious",
     "tslib",

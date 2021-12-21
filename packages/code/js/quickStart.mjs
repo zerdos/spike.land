@@ -1,7 +1,7 @@
 import { jsx } from "@emotion/react";
 import startMonaco from "@spike.land/smart-monaco-editor";
 
-import { renderPreviewWindow } from "./renderPreviewWindow.mjs";
+import { renderPreviewWindow } from "./renderPreviewWindow.tsx";
 
 export async function startMonacoWithSession(session) {
   const shadDom = document.getElementById("shadowEditor");

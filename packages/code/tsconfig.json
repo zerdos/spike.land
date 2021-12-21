@@ -70,7 +70,8 @@
   "include": [
     "js/**/*.js",
     "js/**/*.mjs",
-    "sw.js"
+    "sw.js",
+    "js/renderPreviewWindow.tsx"
   ],
   "exclude": ["js/bundle.min.js"]
 }

@@ -1,15 +1,15 @@
 /** @jsx jsx */
 
-import * as React from "react";
+import React from "react";
 import Fab from "@mui/material/Fab";
 import Button from "@mui/material/Button";
 import ToggleButton from "@mui/material/ToggleButton";
 import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
-import Share from "./icons/Share.js";
-import Tablet from "./icons/TabletAndroid.js";
-import Tv from "./icons/Tv.js";
-import Phone from "./icons/PhoneAndroid.js";
-import { QRButton } from "./Qr.js";
+import Share from "./icons/Share.jsx";
+import Tablet from "./icons/TabletAndroid.jsx";
+import Tv from "./icons/Tv.jsx";
+import Phone from "./icons/PhoneAndroid.jsx";
+import { QRButton } from "./Qr.jsx";
 
 import { css, jsx } from "@emotion/react";
 import { motion } from "framer-motion";
@@ -45,7 +45,8 @@ const LazySpikeLandComponent: React.FC<{ name: string }> = ({ name }) => {
   );
 
   function generator(name: string) {
-    return import(`https://code.spike.land/api/room/${name}/js`);
+    // return import("./Qr")
+   return import(`https://code.spike.land/api/room/${name}/js`);
   }
 };
 

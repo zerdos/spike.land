@@ -95,7 +95,7 @@ function getHTMLResp() {
   const impMap: { imports: { [key: string]: string } } = {
     imports: {
       ...(importMap.imports),
-      "app": `https://unpkg.com/@spike.land/code@${version}/js/starter.mjs`,
+      "app": `https://unpkg.com/@spike.land/code@${version}/dist/starter.mjs`,
     },
   };
   return new Response(
