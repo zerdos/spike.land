@@ -1,7 +1,7 @@
 {
   "private": false,
   "name": "@spike.land/spike-land-counter",
-  "version": "0.2.93",
+  "version": "0.3.0",
   "publishConfig": {
     "access": "public"
   },
