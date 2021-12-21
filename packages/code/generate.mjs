@@ -13,7 +13,7 @@ const generator = new Generator({
   ignore: ["framer-motion", "ipfs-only-hash"],
   //]//ne your target environment to get a working map
   // it is advisable to pass the "module" condition as supported by Webpack
-  env: ["development", "browser", "module"],
+  env: ["production", "browser", "module"],
 });
 
 // Install a new package into the import map

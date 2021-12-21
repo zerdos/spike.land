@@ -43,7 +43,7 @@ esbuild.build({
   "outExtension": { ".js": ".mjs" },
   bundle: true,
   format: "esm",
-  minify: false,
+  minify: true,
   splitting: true,
   treeShaking: true,
   sourcemap: false,
