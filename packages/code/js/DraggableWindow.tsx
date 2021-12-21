@@ -1,10 +1,7 @@
 /** @jsx jsx */
 
 import React from "react";
-import Fab from "@mui/material/Fab";
-import Button from "@mui/material/Button";
-import ToggleButton from "@mui/material/ToggleButton";
-import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
+import {Fab, Button, ToggleButton, ToggleButtonGroup} from "./mui";
 import Share from "./icons/Share.jsx";
 import Tablet from "./icons/TabletAndroid.jsx";
 import Tv from "./icons/Tv.jsx";

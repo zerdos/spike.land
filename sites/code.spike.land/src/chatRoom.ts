@@ -142,7 +142,7 @@ export class Code {
             `<style>${css}</style><div id="zbody">${htmlContent}</div>`,
           ).replace(
             "$$IMPORTMAP",
-            JSON.stringify({
+            JSON.stringify({...importMap,
               imports: {
                 ...importMap.imports,
                 app: `https://code.spike.land/api/room/${codeSpace}/js`,
@@ -183,7 +183,7 @@ export class Code {
         case "public": {
           const html = HTML.replace(
             "$$IMPORTMAP",
-            JSON.stringify({
+            JSON.stringify({...importMap,
               imports: {
                 ...importMap.imports,
                 starterApp:  `https://code.spike.land/api/room/${codeSpace}/js`,

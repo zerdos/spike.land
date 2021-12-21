@@ -24,12 +24,12 @@ await generator.install("comlink");
 await generator.install("workbox-window");
 await generator.install("@spike.land/ipfs");
 await generator.install("@spike.land/smart-monaco-editor");
-await generator.install("@mui/material/Fab");
-await generator.install("@mui/material/Button");
-await generator.install("@mui/material/ToggleButton");
-await generator.install("@mui/material/utils/createSvgIcon");
+// await generator.install("@mui/material/Fab");
+// await generator.install("@mui/material/Button");
+// await generator.install("@mui/material/ToggleButton");
+// await generator.install("@mui/material/utils/createSvgIcon");
 
-await generator.install("@mui/material/ToggleButtonGroup");
+// await generator.install("@mui/material/ToggleButtonGroup");
 
 await generator.install("react/jsx-runtime");
 

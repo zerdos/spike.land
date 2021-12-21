@@ -92,8 +92,7 @@ function getHTMLResp() {
 
   // Serve our HTML at the root path.
   const regex = /VERSION/ig;
-  const impMap: { imports: { [key: string]: string } } = {
-    imports: {
+  const impMap  = {...importMap, imports: {
       ...(importMap.imports),
       "app": `https://unpkg.com/@spike.land/code@${version}/dist/starter.mjs`,
     },

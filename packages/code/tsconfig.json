@@ -71,7 +71,7 @@
     "js/**/*.js",
     "js/**/*.mjs",
     "sw.js",
-    "js/renderPreviewWindow.tsx"
+    "js/renderPreviewWindow.ts"
   ],
   "exclude": ["js/bundle.min.js"]
 }
