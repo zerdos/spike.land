@@ -555,16 +555,18 @@ async function handleChatOffer(msg, target) {
 }
 
 const cids = {};
-async function getCID(CID) {
+async function getCID(CID, from) {
+  
   if (cids[CID] && typeof cids[CID] === "string") return cids[CID];
   if (cids[CID] && typeof cids[CID] === "function") return cids[CID]();
 
   const requestSrt = JSON.stringify({
     type: "get-cid",
+    target: from,
     cid: CID,
   });
-  if (sendChannel) {
-    sendChannel.send(requestSrt);
+  if (window.sendChannel) {
+    window.sendChannel.send(requestSrt);
   } else {
     ws.send(requestSrt);
   }
@@ -666,7 +668,7 @@ async function processWsMessage(event) {
       const hash = await Hash.of(window[CID]);
       if (hash === CID) {
         sendChannel.send(
-          JSON.stringify({ type: "get-cid", cid: CID, [CID]: window[CID] }),
+          JSON.stringify({ type: "get-cid", target: data.name, cid: CID, [CID]: window[CID] }),
         );
       }
     }
