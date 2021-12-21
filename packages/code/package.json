@@ -45,7 +45,7 @@
     "esbuild": "0.14.6",
     "typescript": "4.5.4"
   },
-  "gitHead": "751276fa8ae6f26072cdc7007bc2098545c388fe",
+  "gitHead": "85a0b3a41e4834872fa65570436bb43ba006a80d",
   "author": "Zoltan Erdos <zolika84@gmail.com>",
   "license": "BSD-3-Clause",
   "publishConfig": {
