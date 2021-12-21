@@ -1,6 +1,6 @@
 // import React from "react";
 
-import { baberTransform } from "./babel.mjs";
+import { babelTransform } from "./babel.mjs";
 import { restartX } from "./quickStart.mjs";
 
 export const restart = async (code, target) => {
@@ -8,6 +8,6 @@ export const restart = async (code, target) => {
     setChild: () => {},
   };
   window.sess = session;
-  const transpiled = await baberTransform(code);
+  const transpiled = await babelTransform(code);
   return await restartX(transpiled, target, session.counter, session);
 };

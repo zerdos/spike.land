@@ -39,7 +39,7 @@ interface DraggableWindowProps {
 const LazySpikeLandComponent: React.FC<{ name: string }> = ({ name }) => {
   const Sanyi = React.lazy(() => generator(name));
   return (
-    <React.Suspense fallback={<div>Loading...</div>}>
+    <React.Suspense fallback={<div></div>}>
       <Sanyi />
     </React.Suspense>
   );

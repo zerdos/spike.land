@@ -46,14 +46,20 @@ async function getErrors({ monaco, editor }) {
   return [];
 }
 
-async function restart(c) {
-  const restartCode = (await import("./restartCode.mjs")).restart;
-
-  return restartCode(c);
-}
+let getHtmlAndCss;
+let formatter;
+let saveCode;
+let babelTransform;
 
 async function runner(c, changes = null, session) {
   session.changes.push(changes);
+
+  saveCode = saveCode || (await import("./data.mjs")).saveCode;
+  getHtmlAndCss = getHtmlAndCss ||
+    (await import(`./${"renderToString"}.mjs`)).getHtmlAndCss;
+  formatter = formatter || (await import(`./${"formatter"}.mjs`)).formatter;
+  babelTransform = babelTransform ||
+    (await import(`./babel.mjs`)).babelTransform;
 
   if (window.sendChannel) {
     const Hash = (await import("ipfs-only-hash")).default;
@@ -89,16 +95,38 @@ async function runner(c, changes = null, session) {
   const { monaco } = session;
 
   try {
-    const { formatter } = (await import("./formatter.mjs"));
     const cd = await formatter(c);
-    const { baberTransform } = (await import("./babel.mjs"));
-    const transpiled = await baberTransform(cd);
+
+    const transpiled = await babelTransform(cd);
 
     let restartError = false;
     ///yellow
     if (transpiled.length) {
       if (counter < session.i) return;
-      restartError = await restart(c);
+
+      try {
+        const App = await getApp(transpiled);
+
+        const { html, css } = getHtmlAndCss(App);
+
+        session.transpiled = transpiled;
+        session.html = html;
+        session.css = css;
+
+        const children = await getReactChild(transpiled);
+
+        // session.html = zbody.innerHTML;
+
+        session.setChild((c) => [...c, children]);
+        session.children = children;
+        restartError = !html;
+
+        await saveCode(session);
+        return;
+      } catch {
+        restartError = true;
+        console.error({ restartError });
+      }
     }
     if (session.i > counter) return;
     const err = await getErrors(session);
@@ -112,15 +140,11 @@ async function runner(c, changes = null, session) {
 
     if (err.length) console.log({ err });
 
-    if (session.lastErrors && err.length === 0) {
-      restart(c);
-    }
-    session.lastErrors = err.length;
     if (err.length === 0 && transpiled.length) {
       if (session.i > counter) return;
       session.code = cd;
       session.codeNonFormatted = c;
-      const saveCode = (await import("./data.mjs")).saveCode;
+
       saveCode(session, counter);
     } else {
       console.log({ code: c, transpiled });
@@ -191,16 +215,17 @@ export const startFromCode = async ({ code }) => {
 export async function quickStart(session) {
   // session.children = await getReactChild(session.transpiled);
   session.children = null;
+
   await renderPreviewWindow(session);
 
   await startMonacoWithSession(session);
 
-  await restartX(
-    session.transpiled,
-    document.getElementById("zbody"),
-    session.i + 1,
-    session,
-  );
+  // await restartX(
+  //   session.transpiled,
+  //   document.getElementById("zbody"),
+  //   session.i + 1,
+  //   session,
+  // );
 }
 
 export async function restartX(transpiled, target, counter, session) {
