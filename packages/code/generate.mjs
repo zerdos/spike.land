@@ -5,22 +5,25 @@ const generator = new Generator({
   defaultProvider: "jspm", // this is the default defaultProvider
   // Always ensure to defi  inputMap: {
   imports: {
-        "ipfs-only-hash": "https://unpkg.com/@spike.land/esm@0.2.86/dist/ipfs-only-hash.mjs",
-        "framer-motion": "https://unpkg.com/@spike.land/esm@0.2.86/dist/framer-motion.mjs",
-        
-    },
-ignore: ["framer-motion", "ipfs-only-hash"],
-//]//ne your target environment to get a working map
+    "ipfs-only-hash":
+      "https://unpkg.com/@spike.land/esm@0.2.86/dist/ipfs-only-hash.mjs",
+    "framer-motion":
+      "https://unpkg.com/@spike.land/esm@0.2.86/dist/framer-motion.mjs",
+  },
+  ignore: ["framer-motion", "ipfs-only-hash"],
+  //]//ne your target environment to get a working map
   // it is advisable to pass the "module" condition as supported by Webpack
   env: ["development", "browser", "module"],
-
 });
 
 // Install a new package into the import map
 
 // await generator.install("react-dom");
 await generator.install("react-dom");
-await generator.install({target: "ipfs-only-hash", url: "https://unpkg.com/@spike.land/esm@0.2.86/dist/ipfs-only-hash.mjs"});
+await generator.install({
+  target: "ipfs-only-hash",
+  url: "https://unpkg.com/@spike.land/esm@0.2.86/dist/ipfs-only-hash.mjs",
+});
 
 await generator.install("react"); // await generator.install("react");
 await generator.install("react-dom/server");
