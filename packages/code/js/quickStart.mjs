@@ -71,13 +71,13 @@ export async function startMonacoWithSession(session) {
         const starterCode = c;
         const createDelta = (await import("textdiff-create")).default;
 
-        window.sendChannel.send(JSON.stringify({
+        window.sendChannel.send({
           changes,
           i: session.i,
           hashOfCode,
           prevHash: window.hashOfStarterCode,
           codeDiff: createPatch(starterCode, c, createDelta),
-        }));
+        });
       }
     }
 

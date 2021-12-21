@@ -184,8 +184,8 @@ export const join = (room, user) => {
 
         const msgStr = JSON.stringify(message);
 
-        if (window.sendChannel) {
-          window.sendChannel.send(msgStr);
+        if (sendChannel) {
+          sendChannel.send(message);
         } else {
           currentWebSocket.send(msgStr);
           return;
@@ -310,7 +310,7 @@ async function createPeerConnection(target) {
   };
 
   const rtc = connections[target].createDataChannel(
-    "myLabel",
+    target,
     dataChannelOptions,
   );
 
@@ -325,13 +325,20 @@ async function createPeerConnection(target) {
   rtc.onmessage = processWsMessage;
 
   rtc.onopen = () => {
+    rtc.target = target;
     webrtcArray.push(rtc);
     connections[target].sendChannel = rtc;
 
     window.sendChannel = sendChannel = {
-      send: (d) => {
-        webrtcArray.map((ch) => ch.readyState === "open" && ch.send(d));
-      },
+      send: ((data) => {
+        const target = data.target;
+        data.name = data.name || username;
+        const msgStr = JSON.stringify(data);
+        webrtcArray.map((ch) =>
+          ch.readyState === "open" &&
+          (!target || target && ch.target === target) && ch.send(msgStr)
+        );
+      }),
     };
   };
 
@@ -556,19 +563,19 @@ async function handleChatOffer(msg, target) {
 
 const cids = {};
 async function getCID(CID, from) {
-  
   if (cids[CID] && typeof cids[CID] === "string") return cids[CID];
   if (cids[CID] && typeof cids[CID] === "function") return cids[CID]();
 
-  const requestSrt = JSON.stringify({
+  const msg = {
     type: "get-cid",
     target: from,
+    name: username,
     cid: CID,
-  });
-  if (window.sendChannel) {
-    window.sendChannel.send(requestSrt);
+  };
+  if (sendChannel) {
+    sendChannel.send(msg);
   } else {
-    ws.send(requestSrt);
+    ws.send(JSON.stringify(msg));
   }
   return new Promise((resolve) => {
     cids[CID] = resolve;
@@ -668,7 +675,12 @@ async function processWsMessage(event) {
       const hash = await Hash.of(window[CID]);
       if (hash === CID) {
         sendChannel.send(
-          JSON.stringify({ type: "get-cid", target: data.name, cid: CID, [CID]: window[CID] }),
+          JSON.stringify({
+            type: "get-cid",
+            target: data.name,
+            cid: CID,
+            [CID]: window[CID],
+          }),
         );
       }
     }
@@ -711,10 +723,11 @@ async function processWsMessage(event) {
   }
 
   if (data.codeReq) {
-    sendChannel.send(JSON.stringify({
+    sendChannel.send({
       hashOfCode: window.hashOfCode,
+      i: window.sess.i,
       code: window[window.hashOfCode],
-    }));
+    });
   }
 
   if (data.code && data.hashOfCode) {
@@ -734,9 +747,9 @@ async function processWsMessage(event) {
     const prevCode = window[data.prevHash];
     const prevHash = await Hash.of(prevCode);
     if (data.prevHash !== prevHash) {
-      sendChannel.send(JSON.stringify({
+      sendChannel.send({
         type: "codeReq",
-      }));
+      });
       return;
     }
 
@@ -783,9 +796,9 @@ async function processWsMessage(event) {
           window.monaco.editor.getModels()[0].setValue(code);
           window.hashOfCode = hashOfCode;
         } else {
-          sendChannel.send(JSON.stringify({
+          sendChannel.send({
             type: "codeReq",
-          }));
+          });
         }
       }
     }
