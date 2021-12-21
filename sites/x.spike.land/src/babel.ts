@@ -44,7 +44,7 @@ export const babelTransfo = (code: string) => {
       comments: false,
       presets: [
         "react",
-        "es2017",
+        "es2018",
         ["typescript", { isTSX: true, allExtensions: true }],
       ],
     },

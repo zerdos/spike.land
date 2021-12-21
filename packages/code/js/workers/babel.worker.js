@@ -15,7 +15,6 @@ const babelTransform = (code) =>
       comments: false,
       presets: [
         "react",
-        "es2017",
         ["typescript", { isTSX: true, allExtensions: true }],
       ],
     },
