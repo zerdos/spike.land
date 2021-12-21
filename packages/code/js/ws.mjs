@@ -34,7 +34,7 @@ let importTools = async () => {
     import("textdiff-create").then((mod) => createDelta = mod.default),
     import("textdiff-patch").then((mod) => applyPatch = mod.default),
     import("./formatter.mjs").then((mod) => formatter = mod.formatter),
-    import("ipfs-only-hash").then((mod) => Hash = mod.Hash),
+    import("ipfs-only-hash").then((mod) => Hash = mod.default),
   ]);
 
   toolsImported = true;
@@ -125,8 +125,9 @@ export const join = (room, user) => {
     const broad = async (
       { code, hashOfCode, starterCode, transpiled, html, css, i },
     ) => {
-      await importTools();
-
+      console.log("BROAD");
+     await importTools();
+     console.log("hmmmm,..");
       if (i != window.sess.i) return;
       const formattedCode = await formatter(code);
       const hashOfFormattedCode = await Hash.of(formattedCode);
@@ -211,8 +212,8 @@ export const join = (room, user) => {
       }
     };
 
-    window.broad = broad;
-    window.chCode = chCode;
+    globalThis.broad = broad;
+    globalThis.chCode = chCode;
 
     // Send user info message.
     ws.send(JSON.stringify({ name: username }));

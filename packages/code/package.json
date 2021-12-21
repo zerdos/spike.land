@@ -53,6 +53,7 @@
   },
   "dependencies": {
     "@emotion/server": "^11.4.0",
+    "@emotion/css": "11.7.1",
     "@emotion/styled": "^11.6.0",
     "@jspm/generator": "^1.0.0-beta.20",
     "@mui/material": "5.2.5",
@@ -64,6 +65,7 @@
     "esbuild": "0.14.6",
     "esbuild-plugin-import-map": "^2.1.0",
     "framer-motion": "5.5.5",
+    "stream": "0.0.2",
     "react-dom": "^17.0.2",
     "textdiff-create": "^1.0.5"
   }

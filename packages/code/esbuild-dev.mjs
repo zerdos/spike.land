@@ -36,9 +36,9 @@ esbuild.build({
     "js/quickStart.mjs",
     "js/ws.mjs",
     "js/formatter.mjs",
-    "js/renderToString.mjs",
     "js/starter.mjs",
-    "js/mui.ts"
+    "js/mui.ts",
+    "js/renderToString.tsx",
   ],
   "outExtension": { ".js": ".mjs" },
   bundle: true,

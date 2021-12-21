@@ -199,6 +199,7 @@ export async function getCodeToLoad(room) {
 const saved = {
   code: "",
   html: null,
+  css: "",
   transpiled: null,
   url: null,
 };
@@ -215,24 +216,17 @@ export const saveCode =
    * @param {number} counter
    */
   async (opts, counter) => {
-    const { code, codeNonFormatted, html, transpiled } = opts;
-    toSave.code = code || (await getStarter());
+    const { code, codeNonFormatted, html, css, transpiled, i } = opts;
+    toSave.code = code;
 
     // deno-lint-ignore ban-ts-comment
     //@ts-ignore
 
-    if (opts.i > counter) return;
+    console.log("savecode");
 
-    if (opts.code !== toSave.code) {
-      return null;
-    }
-    if (toSave.code === saved.code && saved.url !== null) {
-      return saved.url;
-    }
+    if (window.sess.i > counter) return;
 
-    toSave.code = opts.code;
-
-    if (window.broad && codeNonFormatted) {
+    if (globalThis.broad && codeNonFormatted) {
       const hashOfCode = await Hash.of(codeNonFormatted);
 
       sess.codeNonFormatted = codeNonFormatted;
@@ -240,7 +234,7 @@ export const saveCode =
       setTimeout(
         async () =>
           sess.codeNonFormatted === codeNonFormatted &&
-          window.broad({
+          globalThis.broad({
             starterCode: window.starterCode,
             code: codeNonFormatted,
             transpiled,
@@ -254,6 +248,7 @@ export const saveCode =
           }),
         500,
       );
+      return;
     }
     // const saveCode = async () => {
     //   const res = await ipfsClient.add(code, { onlyHash: true });

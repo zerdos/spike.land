@@ -2,6 +2,8 @@ import { jsx } from "@emotion/react";
 import startMonaco from "@spike.land/smart-monaco-editor";
 
 import { renderPreviewWindow } from "./renderPreviewWindow.tsx";
+// //
+// import {getHtmlAndCss} from "./renderToString.tsx"
 
 export async function startMonacoWithSession(session) {
   const shadDom = document.getElementById("shadowEditor");
@@ -46,7 +48,7 @@ async function getErrors({ monaco, editor }) {
   return [];
 }
 
-let getHtmlAndCss;
+// let getHtmlAndCss;
 let formatter;
 let saveCode;
 let babelTransform;
@@ -55,8 +57,8 @@ async function runner(c, changes = null, session) {
   session.changes.push(changes);
 
   saveCode = saveCode || (await import("./data.mjs")).saveCode;
-  getHtmlAndCss = getHtmlAndCss ||
-    (await import(`./${"renderToString"}.mjs`)).getHtmlAndCss;
+  // getHtmlAndCss = getHtmlAndCss ||
+  //   (await import("./renderToString")).getHtmlAndCss;
   formatter = formatter || (await import(`./${"formatter"}.mjs`)).formatter;
   babelTransform = babelTransform ||
     (await import(`./babel.mjs`)).babelTransform;
@@ -107,11 +109,11 @@ async function runner(c, changes = null, session) {
       try {
         const App = await getApp(transpiled);
 
-        const { html, css } = getHtmlAndCss(App);
+        const { getHtmlAndCss } = await import("./renderToString");
+        const { html } = getHtmlAndCss(App);
 
         session.transpiled = transpiled;
         session.html = html;
-        session.css = css;
 
         const children = await getReactChild(transpiled);
 
@@ -120,10 +122,13 @@ async function runner(c, changes = null, session) {
         session.setChild((c) => [...c, children]);
         session.children = children;
         restartError = !html;
+        session.codeNonFormatted = c;
+        session.i++;
 
-        await saveCode(session);
+        await saveCode(session, session.i);
         return;
-      } catch {
+      } catch (e) {
+        console.log({ e });
         restartError = true;
         console.error({ restartError });
       }
@@ -262,9 +267,9 @@ export async function restartX(transpiled, target, counter, session) {
   //   zbody = document.createElement('div');
   //   document.body.appendChild(zbody);
 
-  const { getHtmlAndCss } = await import("./renderToString.mjs");
+  const { getHtmlAndCss } = await import("./renderToString");
 
-  const { html, css } = getHtmlAndCss(App);
+  const { html } = getHtmlAndCss(App);
 
   if (html) {
     // }
