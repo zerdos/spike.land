@@ -1,6 +1,6 @@
 {
   "name": "@spike.land/renderer",
-  "version": "0.2.98",
+  "version": "0.2.100",
   "license": "MIT",
   "publishConfig": {
     "access": "public"
