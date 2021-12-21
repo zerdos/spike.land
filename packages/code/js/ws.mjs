@@ -614,7 +614,7 @@ async function processWsMessage(event) {
       i: data.i,
       css: data.css,
     };
-    const { quickStart } = await import("./quickStart.mjs");
+    const { quickStart } = await import("../dist/quickerStart.bundle.mjs");
     quickStart(session);
     return;
   }

@@ -4,6 +4,9 @@ import * as importMap from "esbuild-plugin-import-map";
 
 import jsonData from "./importmap.json" assert { type: "json" };
 
+const impData = jsonData.imports;
+console.log(jsonData.imports);
+
 const importData = Object.keys(jsonData.imports).filter((name) =>
   !name.includes("@spike.land") || name.includes("@spike.land/esm")
 );
@@ -11,9 +14,8 @@ const importData = Object.keys(jsonData.imports).filter((name) =>
 let imports = {};
 importData.map((d) => (Object.assign(imports, { [d]: jsonData.imports[d] })));
 
-importMap.load({
-  imports,
-});
+
+importMap.load(  jsonData );
 
 console.log(imports);
 
