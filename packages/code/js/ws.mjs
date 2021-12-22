@@ -747,10 +747,11 @@ async function processWsMessage(event) {
     chCode(lastSeenCode);
   }
 
-  if (data.codeReq) {
+  if (data.type === "codeReq") {
     sendChannel.send({
       hashOfCode: window.hashOfCode,
       i: window.sess.i,
+      target: data.name,
       code: window[window.hashOfCode],
     });
   }
@@ -774,6 +775,8 @@ async function processWsMessage(event) {
     if (data.prevHash !== prevHash) {
       sendChannel.send({
         type: "codeReq",
+        target: data.name,
+        name: username,
       });
       return;
     }
@@ -823,6 +826,8 @@ async function processWsMessage(event) {
         } else {
           sendChannel.send({
             type: "codeReq",
+            target: data.name,
+            name: username,
           });
         }
       }
