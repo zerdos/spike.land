@@ -6,6 +6,7 @@ import importMap from "@spike.land/code/importmap.json";
 import { version } from "@spike.land/code/package.json";
 import applyDelta from "textdiff-patch";
 import { CodeEnv } from "./env";
+import SANYI from './sanyi.html'
 
 interface IState extends DurableObjectState {
   session: ISession;
@@ -124,7 +125,12 @@ export class Code {
           });
 
         case "js": {
-          return new Response(this.state.session.transpiled, {
+
+          // if (codeSpace==="sanyi") {
+          //   'export default function(){};'
+          // }
+
+          return new Response(codeSpace==="sanyi"?SANYI:this.state.session.transpiled, {
             status: 200,
             headers: {
               "Access-Control-Allow-Origin": "*",
@@ -133,13 +139,13 @@ export class Code {
             },
           });
         }
-        case "html": {
+        case "hydrated": {
           const htmlContent = this.state.session.html;
           const css = await this.state.session.css;
 
           const html = HTML.replace(
             `<div id="zbody"></div>`,
-            `<style>${css}</style><div id="zbody">${htmlContent}</div>`,
+            `<div id ="root"><style>${css}</style><div id="zbody">${htmlContent}</div></div>`,
           ).replace(
             "$$IMPORTMAP",
             JSON.stringify({...importMap,
@@ -181,7 +187,13 @@ export class Code {
         }
 
         case "public": {
+          const htmlContent = this.state.session.html;
+          const css = await this.state.session.css;
+
           const html = HTML.replace(
+            `<div id="zbody"></div>`,
+            `<div id ="root"><style>${css}</style><div id="zbody">${htmlContent}</div></div>`,
+          ).replace(
             "$$IMPORTMAP",
             JSON.stringify({...importMap,
               imports: {
