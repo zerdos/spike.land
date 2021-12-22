@@ -23,24 +23,24 @@ export const shareItAsHtml = async ({ transpiled, code, css, html, room }) => {
   // let rootUrl = await shaDB.get(sha, "string");
 
   // if (rootUrl === null) {
-    // const res = await addAll(
-    //   allContent,
-    // );
+  // const res = await addAll(
+  //   allContent,
+  // );
 
-    // const appDir = res.find(
-    //   (x) => x.path === "app",
-    // );
-    // if (typeof appDir === "undefined") return null;
+  // const appDir = res.find(
+  //   (x) => x.path === "app",
+  // );
+  // if (typeof appDir === "undefined") return null;
 
-    // rootUrl = `https://ipfs.io/ipfs/${appDir.CID}`;
+  // rootUrl = `https://ipfs.io/ipfs/${appDir.CID}`;
 
-    // const { pathname } = new URL(window.location.href);
+  // const { pathname } = new URL(window.location.href);
 
-    // if (pathname.endsWith("/edit/") || pathname.endsWith("/edit")) {
-    //   history.pushState({}, "", `/ipfs/${appDir.CID}/edit/`);
-    // }
+  // if (pathname.endsWith("/edit/") || pathname.endsWith("/edit")) {
+  //   history.pushState({}, "", `/ipfs/${appDir.CID}/edit/`);
+  // }
 
-    // await shaDB.put(sha, rootUrl);
+  // await shaDB.put(sha, rootUrl);
   // }
 
   // const preLoad = async (retry = 3) => {

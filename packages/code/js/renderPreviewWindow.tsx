@@ -7,11 +7,11 @@ import { DraggableWindow } from "./DraggableWindow";
 export const renderPreviewWindow = async (session) => {
   const target = document.createElement("div");
   const root = createRoot(target);
-  const {room} = session;
+  const { room } = session;
 
   root.render(
     <DraggableWindow
-      onShare={ () =>open(`https://code.spike.land/api/room/${room}/public`)}
+      onShare={() => open(`https://code.spike.land/api/room/${room}/public`)}
       onRestore={() => {
         const model = session.editor.getModel();
         model.setValue(session.code);

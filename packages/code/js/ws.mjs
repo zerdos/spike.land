@@ -620,7 +620,7 @@ async function processWsMessage(event) {
   //   return;
   // }
 
-  if (data.code && !window.sess ) {
+  if (data.code && !window.sess) {
     const session = {
       code: data.code,
       errorText: "",
@@ -633,11 +633,11 @@ async function processWsMessage(event) {
       room: roomName,
     };
     if (!window.location.href.endsWith("/public")) {
-    const { quickStart } = await import("./quickStart.mjs");
-    quickStart(session);
-   } else {
-     window.sess= session;
-   }
+      const { quickStart } = await import("./quickStart.mjs");
+      quickStart(session);
+    } else {
+      window.sess = session;
+    }
     return;
   }
 
