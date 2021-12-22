@@ -4,7 +4,6 @@ import startMonaco from "@spike.land/smart-monaco-editor";
 import { renderPreviewWindow } from "../dist/renderPreviewWindow.mjs";
 import { getCss } from "../dist/templates.mjs";
 // //
-// import {getHtmlAndCss} from "./renderToString.tsx"
 
 export async function startMonacoWithSession(session) {
   const shadDom = document.getElementById("shadowEditor");
@@ -110,7 +109,7 @@ async function runner(c, changes = null, session, counter) {
 
       try {
         getHtmlAndCss = getHtmlAndCss ||
-          (await import("./renderToString")).getHtmlAndCss;
+          (await import("../dist/renderToString.mjs")).getHtmlAndCss;
 
         if (counter < session.i) return;
 
