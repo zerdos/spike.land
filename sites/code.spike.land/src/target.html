@@ -21,10 +21,12 @@
     import("app").then(async (mod)=>{
       if (mod.default && !mod.run) {
         console.log("starting with default.")
-        const {render} = await import("react-dom"); 
+        const {createRoot} = await import("react-dom"); 
         const {jsx} =await import("@emotion/react");
         
-        render(jsx(mod.default), document.getElementById("zbody"));      
+        const target = createRoot(document.getElementById("zbody"));
+
+        root.render(jsx(mod.default));      
      }
      else{
       console.log("starting with RUN!")

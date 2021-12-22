@@ -127,9 +127,10 @@ ${JSON.stringify({ imports: { ...importmapJson.imports, "app": "./app.js" } })}
 <script type="module-shim">
   import App from 'app';
   import {jsx} from "@emotion/react"
-  import ReactDOM from "react-dom"
+  import {createRoot} from "react-dom"
 
-  ReactDOM.render(jsx(App),document.getElementById('zbody'));
+  const root = createRoot(document.getElementById('zbody'))
+  root.render(jsx(App));
 </script>
 </body>
 </html>
