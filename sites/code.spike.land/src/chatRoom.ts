@@ -195,7 +195,7 @@ export class Code {
               imports: {
                 ...importMap.imports,
                 starterApp:  `https://code.spike.land/api/room/${codeSpace}/js`,
-                app: `https://unpkg.com/@spike.land/code@${version}/dist/starter.mjs`,
+                app: `https://unpkg.com/@spike.land/code@${version}/js/starter.mjs`,
               },
             }),
           );

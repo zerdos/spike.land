@@ -1,8 +1,8 @@
 import { jsx } from "@emotion/react";
 import startMonaco from "@spike.land/smart-monaco-editor";
 
-import { renderPreviewWindow } from "./renderPreviewWindow.tsx";
-import { getCss } from "./templates";
+import { renderPreviewWindow } from "../dist/renderPreviewWindow.mjs";
+import { getCss } from "../dist/templates.mjs";
 // //
 // import {getHtmlAndCss} from "./renderToString.tsx"
 
@@ -316,12 +316,11 @@ function createPatch(oldCode, newCode, createDelta) {
 /**
  * @param {BlobPart} code
  */
- function createJsBlob(code) {
+function createJsBlob(code) {
   const blob = new Blob([code], { type: "application/javascript" });
 
   return URL.createObjectURL(blob);
 }
-
 
 async function getApp(transpiled, mode = "window") {
   const codeToHydrate = mode === "window"
@@ -338,4 +337,3 @@ async function getApp(transpiled, mode = "window") {
 
   return App;
 }
-

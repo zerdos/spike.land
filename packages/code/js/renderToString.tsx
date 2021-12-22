@@ -10,6 +10,5 @@ export function getHtmlAndCss(App: FC) {
   //   renderToString(<App />),
   // );
   const html = renderToString(<App />);
-  console.log({ html });
   return { html };
 }

@@ -4,17 +4,17 @@ import * as importMap from "esbuild-plugin-import-map";
 
 import jsonData from "./importmap.json" assert { type: "json" };
 
-const impData = jsonData.imports;
-console.log(jsonData.imports);
+// const impData = jsonData.imports;
+// console.log(jsonData.imports);
 
-const importData = Object.keys(jsonData.imports).filter((name) =>
-  !name.includes("@spike.land") || name.includes("@spike.land/esm")
-);
+// const importData = Object.keys(jsonData.imports).filter((name) =>
+//   !name.includes("@spike.land") || name.includes("@spike.land/esm")
+// );
 
-let imports = {};
-importData.map((d) => (Object.assign(imports, { [d]: jsonData.imports[d] })));
+// let imports = {};
+// importData.map((d) => (Object.assign(imports, { [d]: jsonData.imports[d] })));
 
-importMap.load({ imports });
+importMap.load(jsonData);
 
 // console.log(imports);
 
@@ -33,16 +33,20 @@ importMap.load({ imports });
 
 esbuild.build({
   entryPoints: [
-    "js/quickStart.mjs",
-    "js/starter.mjs",
+    "js/templates.ts",
+    "js/renderPreviewWindow.tsx",
+    "js/renderToString.tsx",
+    // "js/starter.mjs",
   ],
   "outExtension": { ".js": ".mjs" },
   bundle: true,
   format: "esm",
-  minify: true,
+  minify: false,
+
   splitting: true,
-  treeShaking: true,
-  sourcemap: false,
+  treeShaking: false,
+  platform: "browser",
+  sourcemap: true,
   resolveExtensions: [".tsx", ".ts", ".jsx", ".js", ".css", ".json", ".mjs"],
   target: ["es2018"],
   plugins: [importMap.plugin()],

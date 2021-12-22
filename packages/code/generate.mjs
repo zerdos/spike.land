@@ -28,7 +28,7 @@ await generator.install({
 await generator.install("react@18"); // await generator.install("react");
 await generator.install("react-dom@18/server");
 
-await generator.install("@emotion/server");
+// await generator.install("@emotion/server");
 // await generator.install("@emotion/server");
 await generator.install("@emotion/react");
 await generator.install("@emotion/styled");
@@ -36,7 +36,9 @@ await generator.install("@emotion/styled");
 await generator.install("framer-motion");
 
 await generator.install("comlink");
-// await generator.install("comlink");
+await generator.install("tslib");
+
+await generator.install("uuid");
 
 await generator.install("workbox-window");
 await generator.install("@spike.land/ipfs");
@@ -51,7 +53,21 @@ await generator.install("@spike.land/smart-monaco-editor");
 await generator.install("react@18/jsx-runtime");
 
 const importMap = { ...generator.getMap() };
-importMap.imports.dev = "./dist/starter.mjs";
-importMap.imports["framer-motion"] = "https://unpkg.com/@spike.land/esm@0.2.86/dist/framer-motion.mjs",
+importMap.imports.dev = "./js/starter.mjs";
+importMap.imports["framer-motion"] =
+  "https://unpkg.com/@spike.land/esm@0.2.86/dist/framer-motion.mjs";
+
+importMap.imports["textdiff-create"] =
+  "https://unpkg.com/@spike.land/esm@0.2.86/dist/textdiff-create.mjs";
+
+importMap.imports["textdiff-patch"] =
+  "https://unpkg.com/@spike.land/esm@0.2.86/dist/textdiff-patch.mjs";
+
+importMap.imports["ipfs-only-hash"] =
+  "https://unpkg.com/@spike.land/esm@0.2.86/dist/ipfs-only-hash.mjs";
+
+importMap.imports.tslib =
+  "https://cdnjs.cloudflare.com/ajax/libs/tslib/2.3.1/tslib.es6.min.js";
+
 console.log(JSON.stringify(importMap, null, 2));
 //console.log(JSON.stringify(generator.getMap(), null, 2));

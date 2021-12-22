@@ -382,7 +382,7 @@ async function createPeerConnection(target) {
     connections[target] = null;
     console.log("Closed remote peer connection");
   }
-  
+
   async function handleNegotiationNeededEvent() {
     log("*** Negotiation needed");
 

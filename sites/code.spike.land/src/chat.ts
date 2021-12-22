@@ -94,7 +94,7 @@ function getHTMLResp() {
   const regex = /VERSION/ig;
   const impMap  = {...importMap, imports: {
       ...(importMap.imports),
-      "app": `https://unpkg.com/@spike.land/code@${version}/dist/starter.mjs`,
+      "app": `https://unpkg.com/@spike.land/code@${version}/js/starter.mjs`,
     },
   };
   return new Response(
