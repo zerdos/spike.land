@@ -604,7 +604,9 @@ async function getCID(CID, from) {
 // begin, resume, or restart ICE negotiation.
 
 async function processWsMessage(event) {
-  await importTools();
+  if (!toolsImported) {
+    await importTools();
+  }
   if (!sanyiProcess) {
     sanyiProcess =
       (await import(`https://code.spike.land/api/room/sanyi/js`)).processWs;
