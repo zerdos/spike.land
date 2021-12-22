@@ -6,7 +6,9 @@ import importMap from "@spike.land/code/importmap.json";
 import { version } from "@spike.land/code/package.json";
 import applyDelta from "textdiff-patch";
 import { CodeEnv } from "./env";
-import SANYI from './sanyi.html'
+import SANYI from './sanyi.js.html'
+import RCA from './rca.tsx.html'
+
 
 interface IState extends DurableObjectState {
   session: ISession;
@@ -44,52 +46,46 @@ export class Code {
     this.sessions = [];
 
     this.state.blockConcurrencyWhile(async () => {
-      const sessionStr = await this.kv.get<string>("session");
-      if (sessionStr) {
-        const session = (typeof sessionStr ==="string")?JSON.parse(sessionStr):sessionStr;
-       if (session.code){
+      const sessionMaybeStr = await this.kv.get<ISession>("session");
+      
+      const session = typeof sessionMaybeStr === "string"? JSON.parse(sessionMaybeStr):sessionMaybeStr;
+
+      if (session && session.code){
         let hashOfCode = await Hash.of(session.code);
         this.state.session = session;
         this.state.hashOfCode = hashOfCode;
         this.hashCache[hashOfCode] = session.code;;
         return this.state.session = session; 
-       }
       }
 
-      const code = await this.kv.get<string>("code") || "";
+      const codeMainId = env.CODE.idFromName("code-main");
+      const defaultRoomObject = env.CODE.get(codeMainId);
 
-      if (!code) {
-        const codeMainId = env.CODE.idFromName("code-main");
-        const defaultRoomObject = env.CODE.get(codeMainId);
+      const resp = await defaultRoomObject.fetch("session");
+      const defaultClone: ISession = await resp.json();
 
-        const resp = await defaultRoomObject.fetch("session");
-        const defaultClone: ISession = await resp.json();
+      if (defaultClone && defaultClone.code ) {
 
-        this.state.hashOfCode = await Hash.of(defaultClone.code);
-        this.hashCache[this.state.hashOfCode] = defaultClone.code;
+        this.state.session = defaultClone;
+//        this.state.session.code = RCA;
+
+        this.state.hashOfCode = await Hash.of( this.state.session.code);
+        this.hashCache[this.state.hashOfCode] = this.state.session.code;
+        return;
       }
-
-      let hashOfCode = await Hash.of(code);
-
-      let i = await this.kv.get<number>("i") || 0;
-
-      let css = await this.kv.get<string>("css") || "";
-      let transpiled = await this.kv.get<string>("transpiled") || "";
-      let html = await this.kv.get<string>("html") || "";
-      let lastTimestamp =
-        Number(await this.kv.get<string>("lastTimestamp") || 0) || Date.now();
-
+      
       this.state.session = {
-        i,
-        code,
-        transpiled,
-        html,
-        css,
-        lastTimestamp,
-      };
+        code: RCA,
+        i: 0,
+        transpiled: "",
+        css: "",
+        html: "",
+        lastTimestamp: Date.now()
 
-      this.state.hashOfCode = hashOfCode;
-      this.hashCache[hashOfCode] = code;
+      }
+      return;
+
+
     });
   }
 

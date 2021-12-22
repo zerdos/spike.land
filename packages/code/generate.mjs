@@ -52,5 +52,6 @@ await generator.install("react@18/jsx-runtime");
 
 const importMap = { ...generator.getMap() };
 importMap.imports.dev = "./dist/starter.mjs";
+importMap.imports["framer-motion"] = "https://unpkg.com/@spike.land/esm@0.2.86/dist/framer-motion.mjs",
 console.log(JSON.stringify(importMap, null, 2));
 //console.log(JSON.stringify(generator.getMap(), null, 2));
