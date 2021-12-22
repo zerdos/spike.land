@@ -3,7 +3,7 @@
   "scripts": {
     "develop": "gatsby develop --https",
     "xclean": "gatsby clean && rm -rf .cache && rm -rf public",
-    "prepublish": "gatsby build"
+    "xprepublish": "gatsby build"
   },
   "files": [
     "public/**/*",

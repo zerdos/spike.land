@@ -42,7 +42,7 @@ export const processWs = async (msg, session, send) => {
     return {msg: "already processed"};
   }
 
-  if (data.transpiled && data.css && data.html && globalThis.reactRoot) {
+  if (window.sess && data.transpiled && data.css && data.html && location.pathname.endsWith("public")) {
     const App = await getApp(data.transpiled);
     if (window.sess.i>data.i) return {msg: "already processsed"};
 
@@ -59,6 +59,16 @@ export const processWs = async (msg, session, send) => {
     document.getElementById('root').replaceWith(rootEl);
     rootEl.setAttribute("id", "root");
     rootEl.id = "root";
+    window.sess = {
+      ...window.sess,
+      code: data.code,
+      transpiled: data.transpiled,
+      css: data.css,
+      i: data.i,
+      html: data.html,
+      hashOfCode: data.hashOfCode
+    }
+    window[data.hashOfCode] = data.code;
 
     const newRoot = ReactDOM.hydrateRoot(target, jsx(App, null));
 
