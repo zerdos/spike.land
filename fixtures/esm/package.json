@@ -29,9 +29,6 @@
     "esbuild": "0.14.7",
     "framer-motion": "5.5.5",
     "ipfs-only-hash": "4.0.0",
-    "react": "17.0.2",
-    "react-dom": "17.0.2",
-    "react-is": "17.0.2",
     "textdiff-create": "1.0.5",
     "textdiff-patch": "1.0.5"
   },

@@ -1,14 +1,14 @@
 /** @jsx jsx */
-
-import React from "react";
-import { render } from "react-dom";
 import { jsx } from "@emotion/react";
+import {} from "react-dom/next";
+import { createRoot } from "react-dom";
 import { DraggableWindow } from "./DraggableWindow";
 
 export const renderPreviewWindow = async (session) => {
-  let target = document.createElement("div");
+  const target = document.createElement("div");
+  const root = createRoot(target);
 
-  render(
+  root.render(
     <DraggableWindow
       onShare={async () => {
         const { shareItAsHtml } = await import("./share.mjs");
@@ -23,7 +23,6 @@ export const renderPreviewWindow = async (session) => {
       position={session.mode === "window" ? "fixed" : "absolute"}
       session={session}
     />,
-    target,
   );
 
   document.body.appendChild(target);

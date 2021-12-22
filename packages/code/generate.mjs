@@ -19,14 +19,14 @@ const generator = new Generator({
 // Install a new package into the import map
 
 // await generator.install("react-dom");
-await generator.install("react-dom");
+await generator.install("react-dom@18");
 await generator.install({
   target: "ipfs-only-hash",
   url: "https://unpkg.com/@spike.land/esm@0.2.86/dist/ipfs-only-hash.mjs",
 });
 
-await generator.install("react"); // await generator.install("react");
-await generator.install("react-dom/server");
+await generator.install("react@18"); // await generator.install("react");
+await generator.install("react-dom@18/server");
 
 await generator.install("@emotion/server");
 // await generator.install("@emotion/server");
@@ -48,7 +48,7 @@ await generator.install("@spike.land/smart-monaco-editor");
 
 // await generator.install("@mui/material/ToggleButtonGroup");
 
-await generator.install("react/jsx-runtime");
+await generator.install("react@18/jsx-runtime");
 
 const importMap = { ...generator.getMap() };
 importMap.imports.dev = "./dist/starter.mjs";

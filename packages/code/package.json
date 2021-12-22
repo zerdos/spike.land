@@ -65,7 +65,8 @@
     "esbuild": "0.14.7",
     "esbuild-plugin-import-map": "^2.1.0",
     "framer-motion": "5.5.5",
-    "react-dom": "^17.0.2",
+    "react-dom": "18.0.0-rc.0-next-f2a59df48-20211208",
+    "react": "18.0.0-rc.0-next-f2a59df48-20211208",
     "stream": "0.0.2",
     "textdiff-create": "^1.0.5"
   }
