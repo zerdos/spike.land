@@ -360,7 +360,6 @@ async function createPeerConnection(target) {
   };
 
   rtc.onclose = () => {
-    rtc.readyState = "closed";
     console.log("xxxxxxxx- The Data Channel is Closed");
   };
 

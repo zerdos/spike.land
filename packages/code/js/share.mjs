@@ -8,7 +8,7 @@ import { getEditorHTML, getHtml } from "../dist/templates.mjs";
  * transpiled: string
  * }} props
  */
-export const shareItAsHtml = async ({ transpiled, code, css, html }) => {
+export const shareItAsHtml = async ({ transpiled, code, css, html, room }) => {
   const allContent = [
     {
       path: "/app/index.html",
@@ -23,24 +23,24 @@ export const shareItAsHtml = async ({ transpiled, code, css, html }) => {
   let rootUrl = await shaDB.get(sha, "string");
 
   if (rootUrl === null) {
-    const res = await addAll(
-      allContent,
-    );
+    // const res = await addAll(
+    //   allContent,
+    // );
 
-    const appDir = res.find(
-      (x) => x.path === "app",
-    );
-    if (typeof appDir === "undefined") return null;
+    // const appDir = res.find(
+    //   (x) => x.path === "app",
+    // );
+    // if (typeof appDir === "undefined") return null;
 
-    rootUrl = `https://ipfs.io/ipfs/${appDir.CID}`;
+    // rootUrl = `https://ipfs.io/ipfs/${appDir.CID}`;
 
-    const { pathname } = new URL(window.location.href);
+    // const { pathname } = new URL(window.location.href);
 
-    if (pathname.endsWith("/edit/") || pathname.endsWith("/edit")) {
-      history.pushState({}, "", `/ipfs/${appDir.CID}/edit/`);
-    }
+    // if (pathname.endsWith("/edit/") || pathname.endsWith("/edit")) {
+    //   history.pushState({}, "", `/ipfs/${appDir.CID}/edit/`);
+    // }
 
-    await shaDB.put(sha, rootUrl);
+    // await shaDB.put(sha, rootUrl);
   }
 
   // const preLoad = async (retry = 3) => {
@@ -59,39 +59,39 @@ export const shareItAsHtml = async ({ transpiled, code, css, html }) => {
   //   getHtml({ HTML, css, link: linkToCode }),
   // );
 
-  return rootUrl;
+  return `https://code.spike.land/api/room/${room}/public`;
 };
 
 /**
  * @param {{ path: string; content: any; }[]} files
  */
-async function addAll(files) {
-  const { all, ipfsClient } = await import("./ipfsClient.mjs");
+// async function addAll(files) {
+//   // const { all, ipfsClient } = await import("./ipfsClient.mjs");
 
-  // const res = [];
+//   // const res = [];
 
-  // for await (const result of ipfsClient.addAll(files)) {
-  //   const { path, cid } = result;
-  //   const CID = cid.toString();
-  //   res.push({ path, CID });
-  // }
-  try {
-    const res = await all(ipfsClient.addAll(files));
+//   // for await (const result of ipfsClient.addAll(files)) {
+//   //   const { path, cid } = result;
+//   //   const CID = cid.toString();
+//   //   res.push({ path, CID });
+//   // }
+//   try {
+//     // const res = await all(ipfsClient.addAll(files));
 
-    // for await (const result of ) {
-    //   const { path, cid } = result;
-    //   const CID = cid.toString();
-    //   res.push({ path, CID });
-    // }
+//     // for await (const result of ) {
+//     //   const { path, cid } = result;
+//     //   const CID = cid.toString();
+//     //   res.push({ path, CID });
+//     // }
 
-    return res.map((r) => {
-      const CID = r.cid.toString();
+//     return res.map((r) => {
+//       const CID = r.cid.toString();
 
-      return { path: r.path, CID };
-    });
-  } catch (e) {
-    console.error({ error: e });
-  }
+//       return { path: r.path, CID };
+//     });
+//   } catch (e) {
+//     console.error({ error: e });
+//   }
 
-  // return res;
-}
+//   // return res;
+// }

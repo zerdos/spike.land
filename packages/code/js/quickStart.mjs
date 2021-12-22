@@ -20,7 +20,7 @@ export async function startMonacoWithSession(session) {
       /**
        * @param {string} code
        */
-      onChange: (code, changes) => runner(code, changes, session),
+      onChange: (code, changes) => runner(code, changes, session, ++session.i),
     },
   );
 
@@ -55,7 +55,7 @@ let saveCode;
 let babelTransform;
 let getHtmlAndCss;
 
-async function runner(c, changes = null, session) {
+async function runner(c, changes = null, session, counter) {
   session.changes.push(changes);
 
   saveCode = saveCode || (await import("./data.mjs")).saveCode;
@@ -79,22 +79,22 @@ async function runner(c, changes = null, session) {
     window[prevHash] = session.code;
 
     if (window.hashOfCode !== hashOfCode) {
-      const starterCode = c;
+      const starterCode = session.code;
       const createDelta = (await import("textdiff-create")).default;
+      const codeDiff = createPatch(starterCode, c, createDelta);
 
+      if (counter < session.i) return;
       window.sendChannel.send({
         changes,
         i: session.i,
         hashOfCode,
-        prevHash: window.hashOfStarterCode,
-        codeDiff: createPatch(starterCode, c, createDelta),
+        prevHash,
+        codeDiff,
       });
     }
   }
 
   session.errorText = "";
-  session.i++;
-  const counter = session.i;
 
   const { monaco } = session;
 
@@ -128,7 +128,6 @@ async function runner(c, changes = null, session) {
         session.children = children;
         restartError = !html;
         session.codeNonFormatted = c;
-        session.i++;
         getCss(session);
         await saveCode(session, session.i);
         return;
