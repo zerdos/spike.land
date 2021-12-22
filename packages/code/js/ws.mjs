@@ -610,16 +610,16 @@ async function processWsMessage(event) {
   }
 
   const data = JSON.parse(event.data);
-  // const sanyi = await sanyiProcess(
-  //   data,
-  //   window && !!window.sess ? window.sess : {},
-  //   (obj) => ws.send(JSON.stringify(obj)),
-  // );
+  const sanyi = await sanyiProcess(
+    data,
+    window && !!window.sess ? window.sess : {},
+    (obj) => ws.send(JSON.stringify(obj)),
+  );
 
-  // if (sanyi) {
-  //   console.log({ sanyi });
-  //   return;
-  // }
+  if (sanyi) {
+    console.log({ sanyi });
+    return;
+  }
 
   if (data.code && !window.sess) {
     const session = {
