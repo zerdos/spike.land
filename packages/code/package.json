@@ -9,7 +9,7 @@
   "source": "./js/quickStart.mjs",
   "exports": {
     "./dist/bundle.mjs": "./dist/starter.bundle.mjs",
-    "./dist/quickerStart.bundle.mjs": "./dist/quickerStart.bundle.mjs",
+    "./dist/quickStart.mjs": "./dist/quickStart.mjs",
     "./dist/templates.mjs": "./dist/templates.mjs",
     "./package.json": "./package.json",
     "./importmap.json": "./importmap.json"
