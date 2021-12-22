@@ -110,14 +110,18 @@ export const join = (room, user) => {
   startTime = Date.now();
 
   ws.addEventListener("open", () => {
-    if (!intervalHandler) {
+    if (intervalHandler)  {clearInterval(intervalHandler)}
+    else {
       intervalHandler = setInterval(() => {
         const now = Date.now();
         const diff = now - lastSeenNow;
         if (now - lastSeenNow > 30_000) {
-          ws.send(
+          try{ws.send(
             JSON.stringify({ name: username, time: lastSeenTimestamp + diff }),
           );
+          }catch{
+            rejoin();
+          }
         }
       }, 30_000);
     }
@@ -827,7 +831,6 @@ async function processWsMessage(event) {
           sendChannel.send({
             type: "codeReq",
             target: data.name,
-            name: username,
           });
         }
       }
