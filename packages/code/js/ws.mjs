@@ -699,6 +699,7 @@ async function processWsMessage(event) {
         sendChannel.send({
           type: "get-cid",
           target: data.name,
+          name: username,
           cid: CID,
           [CID]: window[CID],
         });
@@ -734,7 +735,7 @@ async function processWsMessage(event) {
       !window[data.hashOfCode] ||
       window[data.hashOfCode] !== data.hashOfCode
     ) {
-      window[data.hashOfCode] = await getCID(data.hashOfCode);
+      window[data.hashOfCode] = await getCID(data.hashOfCode, data.name);
     }
 
     window.starterCode = window[data.hashOfCode];
