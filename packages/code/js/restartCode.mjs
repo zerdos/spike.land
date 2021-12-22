@@ -9,5 +9,7 @@ export const restart = async (room, target) => {
 
   const root = createRoot(target);
 
+  globalThis.reactRoot = root;
+
   root.render(jsx(App, {}));
 };

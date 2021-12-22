@@ -309,6 +309,20 @@ async function getReactChild(transpiled, mode = "window") {
   return jsx(mod.default);
 }
 
+function createPatch(oldCode, newCode, createDelta) {
+  return JSON.stringify(createDelta(oldCode, newCode));
+}
+
+/**
+ * @param {BlobPart} code
+ */
+ function createJsBlob(code) {
+  const blob = new Blob([code], { type: "application/javascript" });
+
+  return URL.createObjectURL(blob);
+}
+
+
 async function getApp(transpiled, mode = "window") {
   const codeToHydrate = mode === "window"
     ? transpiled.replace("body{", "#zbody{")
@@ -325,14 +339,3 @@ async function getApp(transpiled, mode = "window") {
   return App;
 }
 
-/**
- * @param {BlobPart} code
- */
-function createJsBlob(code) {
-  const blob = new Blob([code], { type: "application/javascript" });
-
-  return URL.createObjectURL(blob);
-}
-function createPatch(oldCode, newCode, createDelta) {
-  return JSON.stringify(createDelta(oldCode, newCode));
-}
