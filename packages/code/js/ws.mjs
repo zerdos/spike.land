@@ -92,7 +92,7 @@ let rejoin = async () => {
 let intervalHandler = null;
 
 export const join = (room, user) => {
-  roomName = room || "code-main";
+  roomName = room || "sanyi";
   window.room = room;
   if (user) username = user;
 
@@ -571,7 +571,7 @@ async function handleChatOffer(msg, target) {
 
   ws.send(JSON.stringify({
     target: target,
-    user: username,
+    name: username,
     type: "video-answer",
     sdp: connections[target].localDescription,
   }));
@@ -609,18 +609,18 @@ async function processWsMessage(event) {
   }
 
   const data = JSON.parse(event.data);
-  const sanyi = await sanyiProcess(
-    data,
-    window && !!window.sess ? window.sess : {},
-    (obj) => ws.send(JSON.stringify(obj)),
-  );
+  // const sanyi = await sanyiProcess(
+  //   data,
+  //   window && !!window.sess ? window.sess : {},
+  //   (obj) => ws.send(JSON.stringify(obj)),
+  // );
 
-  if (sanyi) {
-    console.log({ sanyi });
-    return;
-  }
+  // if (sanyi) {
+  //   console.log({ sanyi });
+  //   return;
+  // }
 
-  if (data.code && !window.sess && !window.location.href.endsWith("/public")) {
+  if (data.code && !window.sess ) {
     const session = {
       code: data.code,
       errorText: "",
@@ -632,8 +632,12 @@ async function processWsMessage(event) {
       css: data.css,
       room: roomName,
     };
+    if (!window.location.href.endsWith("/public")) {
     const { quickStart } = await import("./quickStart.mjs");
     quickStart(session);
+   } else {
+     window.sess= session;
+   }
     return;
   }
 
