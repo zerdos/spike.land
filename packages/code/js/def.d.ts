@@ -1,2 +1,2 @@
-declare module "https://code.spike.land/modules/QRious.mjs";
+/// <reference types="@emotion/react/types/css-prop" />
 declare module "https://code.spike.land/api/room/sanyi/js";

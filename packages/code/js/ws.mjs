@@ -53,7 +53,7 @@ const chCode = async (code) => {
 
       window.monaco.editor.getModels()[0].setValue(code);
     } else {
-      await restartCode(code);
+      await restartCode(roomName);
     }
   } catch (e) {
     console.error({ e });
@@ -231,9 +231,9 @@ export const join = (room, user) => {
   });
 };
 
-const restartCode = async (c) => {
+const restartCode = async (room) => {
   const { restart } = await import("./restartCode.mjs");
-  restart(c, document.getElementById("zbody"));
+  restart(room, document.getElementById("zbody"));
 };
 
 // Create the RTCPeerConnection which knows how to talk to our

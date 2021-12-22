@@ -1,6 +1,8 @@
 /** @jsx jsx */
 
-import React from "react";
+import { css, jsx } from "@emotion/react";
+
+import { lazy, Suspense, useEffect, useRef, useState } from "react";
 import { Button, Fab, ToggleButton, ToggleButtonGroup } from "./mui";
 import Share from "./icons/Share.jsx";
 import Tablet from "./icons/TabletAndroid.jsx";
@@ -8,11 +10,9 @@ import Tv from "./icons/Tv.jsx";
 import Phone from "./icons/PhoneAndroid.jsx";
 import { QRButton } from "./Qr.jsx";
 
-import { css, jsx } from "@emotion/react";
 import { motion } from "framer-motion";
 
 // const {motion} = Motion;
-const { Suspense } = React;
 
 const breakPoints = [640, 1024, 1920];
 
@@ -34,11 +34,11 @@ interface DraggableWindowProps {
 }
 
 const LazySpikeLandComponent: React.FC<{ name: string }> = ({ name }) => {
-  const Sanyi = React.lazy(() => generator(name));
+  const Sanyi = lazy(() => generator(name));
   return (
-    <React.Suspense fallback={<div></div>}>
+    <Suspense fallback={<div></div>}>
       <Sanyi />
-    </React.Suspense>
+    </Suspense>
   );
 
   function generator(name: string) {
@@ -50,10 +50,10 @@ const LazySpikeLandComponent: React.FC<{ name: string }> = ({ name }) => {
 export const DraggableWindow: React.FC<DraggableWindowProps> = (
   { onShare, onRestore, position, session },
 ) => {
-  const [isStable, setIsStable] = React.useState(false);
-  const [scaleRange, changeScaleRange] = React.useState(75);
-  const [height, changeHeight] = React.useState(innerHeight);
-  const [childArray, setChild] = React.useState(
+  const [isStable, setIsStable] = useState(false);
+  const [scaleRange, changeScaleRange] = useState(75);
+  const [height, changeHeight] = useState(innerHeight);
+  const [childArray, setChild] = useState(
     session.children
       ? [session.children]
       : [<LazySpikeLandComponent name={session.room} />],
@@ -61,12 +61,12 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
 
   session.setChild = setChild;
 
-  const [qrUrl, setQRUrl] = React.useState(session.url);
-  const [errorText, setErrorText] = React.useState(" ");
+  const [qrUrl, setQRUrl] = useState(session.url);
+  const [errorText, setErrorText] = useState(" ");
 
-  const [width, setWidth] = React.useState(breakPoints[1]);
-  const ref = React.useRef<HTMLDivElement>(null);
-  const zbody = React.useRef<HTMLDivElement>(null);
+  const [width, setWidth] = useState(breakPoints[1]);
+  const ref = useRef<HTMLDivElement>(null);
+  const zbody = useRef<HTMLDivElement>(null);
 
   const child = childArray[childArray.length - 1] || (
     <div>
@@ -74,11 +74,11 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
     </div>
   );
 
-  React.useEffect(() => {
+  useEffect(() => {
     window.addEventListener("resize", () => changeHeight(window.innerHeight));
   });
 
-  React.useEffect(() => {
+  useEffect(() => {
     const handler = setInterval(() => {
       if (errorText !== session.errorText) {
         const newErr = session.errorText;
@@ -231,7 +231,7 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
               {errorText
                 ? <div dangerouslySetInnerHTML={createMarkup(session.html)} />
                 : (
-                  <React.Suspense fallback={<div>Error fallback</div>}>
+                  <Suspense fallback={<div>Error fallback</div>}>
                     <div
                       id="zbody"
                       key={session.i}
@@ -239,7 +239,7 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
                     >
                       {child}
                     </div>
-                  </React.Suspense>
+                  </Suspense>
                 )}
             </motion.div>
           </motion.div>

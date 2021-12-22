@@ -337,7 +337,7 @@ var editor_default = async ({ onChange, code, language, container, options }) =>
     declaration: true,
     noEmit: true,
     noEmitOnError: true,
-    jsx: 5,
+    jsx: 4,
     skipLibCheck: true,
     esModuleInterop: true,
     allowSyntheticDefaultImports: true,

@@ -1,4 +1,6 @@
-import React from "react";
+/** @jsx jsx */
+import { jsx } from "@emotion/react";
+
 import { createSvgIcon } from "../mui";
 
 export default createSvgIcon(

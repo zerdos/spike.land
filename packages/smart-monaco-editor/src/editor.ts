@@ -83,7 +83,7 @@ export default async (
     noEmit: true,
     noEmitOnError: true,
 
-    jsx: 5,
+    jsx: 4, // as monaco.languages.typescript.JsxEmit,
     skipLibCheck: true,
     esModuleInterop: true,
     allowSyntheticDefaultImports: true,

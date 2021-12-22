@@ -1,63 +1,65 @@
 import importmapJson from "../importmap.json";
 
-// export function getCss({ html }: { html: string }) {
-//   const bodyClass = String(
-//     window.document.getElementById("zbody")?.getAttribute("class"),
-//   );
+export function getCss(session: { html: string; css: string }) {
+  const { html } = session;
 
-//   let css = "";
-//   const cssRules = window.document.querySelector(
-//     "head > style[data-emotion=css]",
-//   );
+  const bodyClass = String(
+    window.document.getElementById("zbody")?.getAttribute("class"),
+  );
 
-//   if (cssRules) {
-//     try {
-//       const sheet = (window.document.querySelector(
-//         "head > style[data-emotion=css]",
-//       ) as HTMLStyleElement).sheet;
-//       if (sheet) {
-//         css = Array.from(
-//           // deno-lint-ignore ban-ts-comment
-//           // @ts-ignore
-//           sheet.cssRules,
-//         ).map((x) => x.cssText).filter((cssRule) => {
-//           const selector = cssRule.substring(5, 10);
-//           const isSelectorBody = bodyClass.indexOf(selector) !== -1;
-//           const isInGeneratedHtml = html.indexOf(selector) !== -1;
-//           const isNotMui = cssRule.indexOf("Mui") === -1;
+  let css = "";
+  const cssRules = window.document.querySelector(
+    "head > style[data-emotion=css]",
+  );
 
-//           const shouldInclude = isNotMui || isSelectorBody || isInGeneratedHtml;
+  if (cssRules) {
+    try {
+      const sheet = (window.document.querySelector(
+        "head > style[data-emotion=css]",
+      ) as HTMLStyleElement).sheet;
+      if (sheet) {
+        css = Array.from(
+          // deno-lint-ignore ban-ts-comment
+          // @ts-ignore
+          sheet.cssRules,
+        ).map((x) => x.cssText).filter((cssText) => {
+          const selector = cssText.substring(5, 10);
+          const isSelectorBody = bodyClass.indexOf(selector) !== -1;
+          const isInGeneratedHtml = html.indexOf(selector) !== -1;
+          const isNotMui = cssText.indexOf("Mui") === -1;
 
-//           return shouldInclude;
-//         }).join("\n  ").replace(`#zbody`, "body");
-//       }
-//     } catch (e) {
-//       console.error({ e });
-//     }
-//   }
+          const shouldInclude = isSelectorBody || isInGeneratedHtml;
 
-//   const globalCssRules = window.document.querySelector(
-//     "head > style[data-emotion=css-global]",
-//   );
+          return shouldInclude;
+        }).join("\n  ").replace(`#zbody`, "body");
+      }
+    } catch (e) {
+      console.error({ e });
+    }
+  }
 
-//   if (globalCssRules) {
-//     try {
-//       const sheet = (window.document.querySelector(
-//         "head > style[data-emotion=css-global]",
-//       ) as HTMLStyleElement).sheet;
-//       if (sheet) {
-//         css += Array.from(
-//           sheet
-//             .cssRules,
-//         ).map((x) => x.cssText)
-//           .join("\n  ").replace(`#zbody`, "body");
-//       }
-//     } catch (e) {
-//       console.error({ e });
-//     }
-//   }
-//   return css;
-// }
+  const globalCssRules = window.document.querySelector(
+    "head > style[data-emotion=css-global]",
+  );
+
+  if (globalCssRules) {
+    try {
+      const sheet = (window.document.querySelector(
+        "head > style[data-emotion=css-global]",
+      ) as HTMLStyleElement).sheet;
+      if (sheet) {
+        css += Array.from(
+          sheet
+            .cssRules,
+        ).map((x) => x.cssText)
+          .join("\n  ").replace(`#zbody`, "body");
+      }
+    } catch (e) {
+      console.error({ e });
+    }
+  }
+  session.css = css;
+}
 
 export function getHtml({ html, css }: { html: string; css: string }) {
   //

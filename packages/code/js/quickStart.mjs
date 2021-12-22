@@ -2,6 +2,7 @@ import { jsx } from "@emotion/react";
 import startMonaco from "@spike.land/smart-monaco-editor";
 
 import { renderPreviewWindow } from "./renderPreviewWindow.tsx";
+import { getCss } from "./templates";
 // //
 // import {getHtmlAndCss} from "./renderToString.tsx"
 
@@ -52,6 +53,7 @@ async function getErrors({ monaco, editor }) {
 let formatter;
 let saveCode;
 let babelTransform;
+let getHtmlAndCss;
 
 async function runner(c, changes = null, session) {
   session.changes.push(changes);
@@ -107,9 +109,12 @@ async function runner(c, changes = null, session) {
       if (counter < session.i) return;
 
       try {
-        const App = await getApp(transpiled);
+        getHtmlAndCss = getHtmlAndCss ||
+          (await import("./renderToString")).getHtmlAndCss;
 
-        const { getHtmlAndCss } = await import("./renderToString");
+        if (counter < session.i) return;
+
+        const App = await getApp(transpiled);
         const { html } = getHtmlAndCss(App);
 
         session.transpiled = transpiled;
@@ -124,7 +129,7 @@ async function runner(c, changes = null, session) {
         restartError = !html;
         session.codeNonFormatted = c;
         session.i++;
-
+        getCss(session);
         await saveCode(session, session.i);
         return;
       } catch (e) {
@@ -233,62 +238,62 @@ export async function quickStart(session) {
   // );
 }
 
-export async function restartX(transpiled, target, counter, session) {
-  if (session.i > counter) return false;
+// export async function restartX(transpiled, target, counter, session) {
+//   if (session.i > counter) return false;
 
-  if (session.transpiled === transpiled) return false;
-  session.transpiled = transpiled;
+//   if (session.transpiled === transpiled) return false;
+//   session.transpiled = transpiled;
 
-  // const codeHash = await Hash.of(code);
+//   // const codeHash = await Hash.of(code);
 
-  //  session.html = "";
-  session.transpiled = "";
-  let hadError = false;
-  if (typeof transpiled !== "string" || transpiled === "") {
-    // console.log(transpiled.error);
-    hadError = true;
-    return hadError;
-  }
+//   //  session.html = "";
+//   session.transpiled = "";
+//   let hadError = false;
+//   if (typeof transpiled !== "string" || transpiled === "") {
+//     // console.log(transpiled.error);
+//     hadError = true;
+//     return hadError;
+//   }
 
-  let children;
-  let App;
-  try {
-    children = await getReactChild(transpiled);
-    App = await getApp(transpiled);
-  } catch (error) {
-    session.errorText = error.message;
-    console.error({ error, message: "error in rendering" });
-    return true;
-  }
+//   let children;
+//   let App;
+//   try {
+//     children = await getReactChild(transpiled);
+//     App = await getApp(transpiled);
+//   } catch (error) {
+//     session.errorText = error.message;
+//     console.error({ error, message: "error in rendering" });
+//     return true;
+//   }
 
-  // session.unmount = render(Element(), root);
-  // const zbody = target || document.createElement("div");
-  // if (!zbody) {
-  //   zbody = document.createElement('div');
-  //   document.body.appendChild(zbody);
+//   // session.unmount = render(Element(), root);
+//   // const zbody = target || document.createElement("div");
+//   // if (!zbody) {
+//   //   zbody = document.createElement('div');
+//   //   document.body.appendChild(zbody);
 
-  const { getHtmlAndCss } = await import("./renderToString");
+//   const { getHtmlAndCss } = await import("./renderToString");
 
-  const { html } = getHtmlAndCss(App);
+//   const { html } = getHtmlAndCss(App);
 
-  if (html) {
-    // }
+//   if (html) {
+//     // }
 
-    // ReactDOM.render(children, zbody);
+//     // ReactDOM.render(children, zbody);
 
-    // zbody && zbody.children[0].replaceWith(root);
-    // session.div = zbody;
-    // if (zbody.innerHTML) {
-    session.transpiled = transpiled;
-    session.html = html;
-    session.css = css;
-    // session.html = zbody.innerHTML;
-    session.children = children;
-    session.setChild((c) => [...c, session.children]);
-  } else return !html;
-  // }
-  // return !zbody.innerHTML;
-}
+//     // zbody && zbody.children[0].replaceWith(root);
+//     // session.div = zbody;
+//     // if (zbody.innerHTML) {
+//     session.transpiled = transpiled;
+//     session.html = html;
+//     session.css = css;
+//     // session.html = zbody.innerHTML;
+//     session.children = children;
+//     session.setChild((c) => [...c, session.children]);
+//   } else return !html;
+//   // }
+//   // return !zbody.innerHTML;
+// }
 
 async function getReactChild(transpiled, mode = "window") {
   const codeToHydrate = mode === "window"
