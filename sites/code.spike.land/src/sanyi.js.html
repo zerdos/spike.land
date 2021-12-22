@@ -5,7 +5,7 @@ import { useState } from 'react';
 
 //import {} from "react-dom/next";
 
-import {createRoot} from 'react-dom';
+import ReactDOM from 'react-dom';
 
 
 export default (() => {
@@ -41,19 +41,24 @@ export const processWs = async (msg, session, send) => {
   if (data.transpiled && data.css && data.html && globalThis.reactRoot) {
     const App = await getApp(data.transpiled);
     globalThis.reactRoot.unmount();
-   
-    const rootEl = document.getElementById('root');
-    rootEl.innerHTML = "";
+    globalThis.reactRoot = null;
 
-    setTimeout(()=>{
-    
-    rootEl.innerHTML = '<style>' + data.css + '</style><div id="zbody">'+ data.html+'</div>';
-    
-    const root = createRoot(document.getElementById('zbody'));
-    root.render(jsx(App, null));
-    globalThis.reactRoot = root;
-    }, 200);
-    return;
+    const rootEl = document.createElement('div');
+    rootEl.innerHTML =  '<style>' + data.css + '</style>';
+    const target = document.createElement("div");
+    target.innerHTML = data.html;
+    target.id = "zbody"
+    target.setAttribute("id", "zbody");
+    rootEl.appendChild(target);
+    document.getElementById('root').replaceWith(rootEl);
+    rootEl.setAttribute("id", "root");
+    rootEl.id = "root";
+
+    const newRoot = ReactDOM.hydrateRoot(target, jsx(App, null));
+
+    globalThis.newRoot = newRoot;
+
+    return {msg: "rendered"};
   }
 
   if (data.code && !window.sess) {
@@ -71,7 +76,10 @@ export const processWs = async (msg, session, send) => {
       room
     };
 
-    if (!window.location.href.endsWith('/public')) {} else {
+    if (!window.location.href.endsWith('/public')) {
+        globalThis.chCode= ()=>{}
+
+    } else {
       window.sess = sess;
       console.log(globalThis.chCode);
       globalThis.chCode && globalThis.chCode(sess.code);
