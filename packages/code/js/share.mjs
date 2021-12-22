@@ -9,20 +9,20 @@ import { getEditorHTML, getHtml } from "../dist/templates.mjs";
  * }} props
  */
 export const shareItAsHtml = async ({ transpiled, code, css, html, room }) => {
-  const allContent = [
-    {
-      path: "/app/index.html",
-      content: getHtml({ html, css, transpiled }),
-    },
-    { path: "/app/app.js", content: transpiled },
-    { path: "/app/app.tsx", content: code },
-    { path: "/app/edit/index.html", content: getEditorHTML() },
-  ];
+  // const allContent = [
+  //   {
+  //     path: "/app/index.html",
+  //     content: getHtml({ html, css, transpiled }),
+  //   },
+  //   { path: "/app/app.js", content: transpiled },
+  //   { path: "/app/app.tsx", content: code },
+  //   { path: "/app/edit/index.html", content: getEditorHTML() },
+  // ];
 
-  const sha = await sha256(JSON.stringify(allContent));
-  let rootUrl = await shaDB.get(sha, "string");
+  // const sha = await sha256(JSON.stringify(allContent));
+  // let rootUrl = await shaDB.get(sha, "string");
 
-  if (rootUrl === null) {
+  // if (rootUrl === null) {
     // const res = await addAll(
     //   allContent,
     // );
@@ -41,7 +41,7 @@ export const shareItAsHtml = async ({ transpiled, code, css, html, room }) => {
     // }
 
     // await shaDB.put(sha, rootUrl);
-  }
+  // }
 
   // const preLoad = async (retry = 3) => {
   //   try {
