@@ -338,7 +338,11 @@ export class Code {
         }
 
         if (data.i) {
-
+          
+          if (data.i<=this.state.session.i){
+            this.user2user(data.user, {...this.state.session})
+            return;
+          }
 
           if (data.code && data.i > this.state.session.i) {
             const hash = await Hash.of(data.code);
