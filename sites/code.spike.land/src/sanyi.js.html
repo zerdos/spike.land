@@ -44,7 +44,9 @@ export const processWs = async (msg, session, send) => {
 
   if (data.transpiled && data.css && data.html && globalThis.reactRoot) {
     const App = await getApp(data.transpiled);
-    globalThis.reactRoot.unmount();
+    if (window.sess.i>data.i) return {msg: "already processsed"};
+
+    globalThis.reactRoot &&  globalThis.reactRoot.unmount();
     globalThis.reactRoot = null;
 
     const rootEl = document.createElement('div');
