@@ -13,6 +13,7 @@ let lastSeenTimestamp = 0;
 let lastSeenNow = 0;
 let lastSeenCode = "";
 let ws;
+let chCode;
 let startTime;
 let rejoined = false;
 let sendChannel;
@@ -41,7 +42,7 @@ let importTools = async () => {
   return toolsImported;
 };
 
-const chCode = async (code) => {
+chCode = globalThis.chCode = async (code) => {
   if (!code) return;
   try {
     if (
