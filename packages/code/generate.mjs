@@ -23,10 +23,10 @@ const generator = new Generator({
 
 // await generator.install("react-dom");
 await generator.install("react-dom@18");
-await generator.install({
-  target: "ipfs-only-hash",
-  url: "https://unpkg.com/@spike.land/esm@0.2.86/dist/ipfs-only-hash.mjs",
-});
+// await generator.install({
+//   target: "ipfs-only-hash",
+//   url: "https://unpkg.com/@spike.land/esm@0.2.86/dist/ipfs-only-hash.mjs",
+// });
 
 await generator.install("react@18");
 await generator.install("react@18/jsx-runtime"); // await generator.install("react");
