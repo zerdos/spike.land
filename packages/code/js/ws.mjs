@@ -212,37 +212,33 @@ export const join = (room, user) => {
         const msgStr = JSON.stringify(message);
         lastMsg = msgStr;
 
-        const retry = (msg) => setTimeout(() => {
-          if (msg !== lastMsg) return;
+        const retry = (msg) =>
+          setTimeout(() => {
+            if (msg !== lastMsg) return;
 
-          try{
-          if (currentWebSocket === null) {
-            rejoin();
-            retry(msg);
+            try {
+              if (currentWebSocket === null) {
+                rejoin();
+                retry(msg);
+              }
+
+              currentWebSocket.send(msg);
+            } catch {
+              retry(msg);
+            }
+          }, 500);
+
+        try {
+          if (sendChannel) {
+            sendChannel.send(message);
+          } else if (currentWebSocket) {
+            currentWebSocket.send(msgStr);
+            return;
           }
-          
-          currentWebSocket.send(msg)
-          } catch{
-            retry(msg);
-          }
-        
-        }, 500);
-
-        try{
-        if (sendChannel) {
-          sendChannel.send(message);
-
-        } else if (currentWebSocket) {
-          
-          currentWebSocket.send(msgStr);
-          return;
+        } catch {
+          retry(msgStr);
         }
-
-     
-      } catch{
-        retry(msgStr)
-      }}
-        
+      }
     };
 
     globalThis.broad = broad;
