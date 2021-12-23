@@ -406,7 +406,7 @@ async function loadExtraLibs(addExtraLib, setDiagnosticsOptions) {
     },
     {
       name: "prop-types",
-      url: "https://unpkg.com/@types/prop-types@15.8.0/index.d.ts",
+      url: "https://unpkg.com/@types/prop-types@15.7.4/index.d.ts",
       depend: []
     },
     {
