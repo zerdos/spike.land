@@ -8,8 +8,8 @@
   ],
   "source": "./js/quickStart.mjs",
   "exports": {
-    "./session": "./src/session.ts",
-    "./dist/session.mjs": "./dist/session.mjs",
+    "./session": "./js/session.ts",
+    "./js/session": "./js/session.ts",
     "./dist/bundle.mjs": "./dist/starter.bundle.mjs",
     "./dist/quickStart.mjs": "./dist/quickStart.mjs",
     "./dist/templates.mjs": "./dist/templates.mjs",
