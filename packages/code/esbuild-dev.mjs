@@ -50,6 +50,7 @@ const build = (entryPoints) =>
 await build([
   "js/renderPreviewWindow.tsx",
   "js/templates.ts",
+  "js/renderToString.tsx",
   "js/startMonaco.ts",
 ]);
 

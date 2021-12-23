@@ -108,7 +108,7 @@ async function runner(c, changes = null, session, counter) {
 
       try {
         getHtmlAndCss = getHtmlAndCss ||
-          (await import("../js/renderToString.mjs")).getHtmlAndCss;
+          (await import("../dist/renderToString.mjs")).getHtmlAndCss;
 
         if (counter < session.i) return;
 
