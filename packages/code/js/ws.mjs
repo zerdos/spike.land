@@ -9,7 +9,7 @@ const webrtcArray = [];
 let hostname = "code.spike.land";
 
 let roomName = "";
-let username = "";
+let username = sessionStorage.getItem("username") || "";
 let lastSeenTimestamp = 0;
 let lastSeenNow = 0;
 let lastSeenCode = "";
@@ -640,9 +640,10 @@ async function processWsMessage(event, source) {
 
   if (!mySession) {
     mySession = sessionTools.initSession({
-      name: username,
+      name: "username",
       room: roomName,
-      events: [data],
+      state: { code: "", i: 0, transpiled: "", html: "", css: "" },
+      events: [],
     });
     globalThis.mySession = mySession;
   }
