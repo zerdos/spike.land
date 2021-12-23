@@ -241,7 +241,7 @@ export const join = (room, user) => {
      
       } catch{
         retry(msgStr)
-      }
+      }}
         
     };
 
