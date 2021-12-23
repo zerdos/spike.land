@@ -8,6 +8,8 @@ import applyDelta from "textdiff-patch";
 import { CodeEnv } from "./env";
 import SANYI from "./sanyi.js.html";
 import RCA from "./rca.tsx.html";
+import type {IUser} from "@spike.land/code/session"
+import {initSession} from "@spike.land/code/session"
 
 interface IState extends DurableObjectState {
   session: ISession;
@@ -35,10 +37,12 @@ type ResolveFn = (value: unknown) => void;
 export class Code {
   state: IState;
   kv: DurableObjectStorage;
+  mySession: IUser;
   hashCache: { [key: string]: string } = {};
   sessions: WebsocketSession[];
   constructor(state: IState, private env: CodeEnv) {
     this.kv = state.storage;
+    this.mySession = null;
     this.state = state;
     this.sessions = [];
     this.env = env;
@@ -46,6 +50,7 @@ export class Code {
 
     this.state.blockConcurrencyWhile(async () => {
       const sessionMaybeStr = await this.kv.get<ISession>("session");
+
 
       const session = typeof sessionMaybeStr === "string"
         ? JSON.parse(sessionMaybeStr)
@@ -58,6 +63,11 @@ export class Code {
         this.hashCache[hashOfCode] = session.code;
         return this.state.session = session;
       }
+
+      this.mySession = initSession({name: "cf", 
+            state: session,
+      events: []    
+    });
 
       const codeMainId = env.CODE.idFromName("code-main");
       const defaultRoomObject = env.CODE.get(codeMainId);
