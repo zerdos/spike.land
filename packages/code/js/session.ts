@@ -3,17 +3,16 @@ import { fromJS, isKeyed } from "immutable";
 
 type IUsername = string;
 
-interface ICodeSession {
+export interface ICodeSession {
   code: string;
   i: number;
-  error: boolean;
   errorDiff: string;
   transpiled: string;
   html: string;
   css: string;
 }
 
-interface IEvent {
+export interface IEvent {
   name: IUsername;
   target: IUsername | "broadcast";
   type: "start" | "open" | "quit" | "get-cid" | "provide-cid";
@@ -24,7 +23,11 @@ export interface IUser {
   room: string;
   state: ICodeSession;
   users: {};
-  events: IEvent;
+  events: IEvent[];
+}
+
+export interface TheInMutableSession {
+  toJs: () => ICodeSession;
 }
 
 export default {
@@ -32,5 +35,5 @@ export default {
     fromJS(user, function (key, value, path) {
       console.log(key, value, path);
       return isKeyed(value) ? value.toOrderedMap() : value.toList();
-    }),
+    }) as unknown as TheInMutableSession,
 };

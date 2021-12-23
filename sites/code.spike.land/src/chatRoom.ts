@@ -8,8 +8,11 @@ import applyDelta from "textdiff-patch";
 import { CodeEnv } from "./env";
 import SANYI from "./sanyi.js.html";
 import RCA from "./rca.tsx.html";
-import type {IUser} from "@spike.land/code/session"
-import {initSession} from "@spike.land/code/session"
+import type {IUser, IEvent, ICodeSession, TheInMutableSession} from "@spike.land/code/js/session"
+import CodeSession from "@spike.land/code/js/session"
+
+
+
 
 interface IState extends DurableObjectState {
   session: ISession;
@@ -34,15 +37,19 @@ interface WebsocketSession {
 
 type ResolveFn = (value: unknown) => void;
 
+
+
+
 export class Code {
   state: IState;
   kv: DurableObjectStorage;
-  mySession: IUser;
+  mySession: TheInMutableSession;
   hashCache: { [key: string]: string } = {};
   sessions: WebsocketSession[];
   constructor(state: IState, private env: CodeEnv) {
     this.kv = state.storage;
-    this.mySession = null;
+
+
     this.state = state;
     this.sessions = [];
     this.env = env;
@@ -52,11 +59,24 @@ export class Code {
       const sessionMaybeStr = await this.kv.get<ISession>("session");
 
 
-      const session = typeof sessionMaybeStr === "string"
+
+      const session: ISession = typeof sessionMaybeStr === "string"
         ? JSON.parse(sessionMaybeStr)
         : sessionMaybeStr;
 
+      
+      
       if (session && session.code) {
+           
+      const {initSession} = CodeSession;
+      this.mySession = initSession({
+            name: "cloudflare", 
+            room: '',
+            users: [],
+            state: {...session, errorDiff: ""},
+            events: []    
+    });
+
         let hashOfCode = await Hash.of(session.code);
         this.state.session = session;
         this.state.hashOfCode = hashOfCode;
@@ -64,11 +84,9 @@ export class Code {
         return this.state.session = session;
       }
 
-      this.mySession = initSession({name: "cf", 
-            state: session,
-      events: []    
-    });
+   
 
+    
       const codeMainId = env.CODE.idFromName("code-main");
       const defaultRoomObject = env.CODE.get(codeMainId);
 
@@ -126,6 +144,16 @@ export class Code {
               "Content-Type": "application/json; charset=UTF-8",
             },
           });
+
+          case "mySession":
+            return new Response(JSON.stringify(this.mySession.toJs()), {
+              status: 200,
+              headers: {
+                "Access-Control-Allow-Origin": "*",
+                "Cache-Control": "no-cache",
+                "Content-Type": "application/json; charset=UTF-8",
+              },
+            });
 
         case "js": {
           // if (codeSpace==="sanyi") {
