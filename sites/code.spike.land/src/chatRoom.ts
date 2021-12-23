@@ -54,6 +54,8 @@ export class Code {
     this.sessions = [];
     this.env = env;
     this.sessions = [];
+             
+    const {initSession} = CodeSession;
 
     this.state.blockConcurrencyWhile(async () => {
       const sessionMaybeStr = await this.kv.get<ISession>("session");
@@ -67,8 +69,7 @@ export class Code {
       
       
       if (session && session.code) {
-           
-      const {initSession} = CodeSession;
+  
       this.mySession = initSession({
             name: "cloudflare", 
             room: '',
@@ -99,8 +100,17 @@ export class Code {
 
         this.state.hashOfCode = await Hash.of(this.state.session.code);
         this.hashCache[this.state.hashOfCode] = this.state.session.code;
+
+        this.mySession = initSession({
+          name: "cloudflare2", 
+          room: '',
+          users: [],
+          state: {...this.state.session, errorDiff: ""},
+          events: []    
+  });
         return;
       }
+
 
       this.state.session = {
         code: RCA,
@@ -110,6 +120,15 @@ export class Code {
         html: "",
         lastTimestamp: Date.now(),
       };
+
+      this.mySession = initSession({
+        name: "cloudflare3", 
+        room: '',
+        users: [],
+        state: {...this.state.session, errorDiff: ""},
+        events: []    
+});
+
       return;
     });
   }
