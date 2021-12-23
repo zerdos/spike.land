@@ -12,9 +12,9 @@ import type {
   IUser,
   IEvent,
   ICodeSession,
-  TheInMutableSession,
 } from "@spike.land/code/js/session";
 import CodeSession from "@spike.land/code/js/session";
+import { Record } from "immutable";
 
 interface IState extends DurableObjectState {
   session: ISession;
@@ -42,7 +42,7 @@ type ResolveFn = (value: unknown) => void;
 export class Code {
   state: IState;
   kv: DurableObjectStorage;
-  mySession: TheInMutableSession;
+  mySession: Record.Factory<IUser>;
   hashCache: { [key: string]: string } = {};
   sessions: WebsocketSession[];
   constructor(state: IState, private env: CodeEnv) {
@@ -55,6 +55,8 @@ export class Code {
     
 
     const { initSession } = CodeSession;
+
+
     this.mySession = initSession({
       name: "cloudflare4",
       room: "",
@@ -123,7 +125,7 @@ export class Code {
         name: "cloudflare3",
         room: "",
         users: [],
-        state: { ...this.state.session, errorDiff: "" },
+        state: { ...this.state.session, errorDiff: "" } ,
         events: [],
       });
 
@@ -163,7 +165,10 @@ export class Code {
           });
 
         case "mySession":
-          return new Response(JSON.stringify(this.mySession.toJS()), {
+       const  mySess =  this.mySession().toJSON();
+       const myState = mySess.state().toJSON()
+
+          return new Response(JSON.stringify({...mySess, state: myState}), {
             status: 200,
             headers: {
               "Access-Control-Allow-Origin": "*",

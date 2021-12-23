@@ -1,4 +1,4 @@
-import { fromJS, isKeyed } from "immutable";
+import { fromJS, isKeyed, Record } from "immutable";
 // import * as Immutable from "immutable"
 
 type IUsername = string;
@@ -18,7 +18,7 @@ export interface IEvent {
   type: "start" | "open" | "quit" | "get-cid" | "provide-cid";
 }
 
-export interface IUser {
+export interface IUserJSON {
   name: IUsername;
   room: string;
   state: ICodeSession;
@@ -26,14 +26,18 @@ export interface IUser {
   events: IEvent[];
 }
 
-export interface TheInMutableSession {
-  toJS: () => ICodeSession;
+export interface IUser {
+  name: IUsername;
+  room: string;
+  state: Record.Factory<ICodeSession>;
+  users: {};
+  events: IEvent[];
 }
 
 export default {
-  initSession: (user: IUser) =>
-    fromJS(user, function (key, value, path) {
-      console.log(key, value, path);
-      return isKeyed(value) ? value.toOrderedMap() : value.toList();
-    }) as unknown as TheInMutableSession,
+  initSession: (user: IUserJSON) =>
+    Record({
+      ...user,
+      state: Record(user.state),
+    }),
 };
