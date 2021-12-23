@@ -1,3 +1,3 @@
-import StartEditor from "@spike.land/smart-monaco-editor"
+import StartEditor from "@spike.land/smart-monaco-editor";
 
 export default StartEditor;

@@ -1,6 +1,5 @@
 import { jsx } from "@emotion/react";
 
-
 // //
 
 export async function startMonacoWithSession(session) {
@@ -127,7 +126,7 @@ async function runner(c, changes = null, session, counter) {
         session.children = children;
         restartError = !html;
         session.codeNonFormatted = c;
-        getCss  = getCss ||  (await import("../dist/templates.mjs")).getCss;
+        getCss = getCss || (await import("../dist/templates.mjs")).getCss;
         getCss(session);
         await saveCode(session, session.i);
         return;
@@ -224,7 +223,9 @@ export const startFromCode = async ({ code }) => {
 export async function quickStart(session) {
   // session.children = await getReactChild(session.transpiled);
   session.children = null;
-  const { renderPreviewWindow } = await import("../dist/renderPreviewWindow.mjs");
+  const { renderPreviewWindow } = await import(
+    "../dist/renderPreviewWindow.mjs"
+  );
   await renderPreviewWindow(session);
 
   await startMonacoWithSession(session);
