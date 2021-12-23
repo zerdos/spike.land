@@ -3,11 +3,17 @@
 import { css, jsx } from "@emotion/react";
 
 import { lazy, Suspense, useEffect, useRef, useState } from "react";
-import { Button, Fab, ToggleButton, ToggleButtonGroup } from "./mui";
-import Share from "./icons/Share.jsx";
-import Tablet from "./icons/TabletAndroid.jsx";
-import Tv from "./icons/Tv.jsx";
-import Phone from "./icons/PhoneAndroid.jsx";
+import {
+  Button,
+  Fab,
+  Phone,
+  Share,
+  Tablet,
+  ToggleButton,
+  ToggleButtonGroup,
+  Tv,
+} from "./mui";
+
 import { QRButton } from "./Qr.jsx";
 
 import { motion } from "framer-motion";
