@@ -728,6 +728,7 @@ async function processWsMessage(event) {
     if (window[CID]) {
       const hash = await Hash.of(window[CID]);
       if (hash === CID) {
+        console.log("sending the requested cid");
         sendChannel.send({
           type: "get-cid",
           target: data.name,

@@ -1,5 +1,11 @@
 import { jsx } from "@emotion/react";
 
+let formatter;
+let saveCode;
+let babelTransform;
+let getHtmlAndCss;
+let getCss;
+
 // //
 
 export async function startMonacoWithSession(session) {
@@ -22,6 +28,25 @@ export async function startMonacoWithSession(session) {
   );
 
   session.editor = getEditor();
+
+  const monaco = window.monaco;
+
+  monaco.languages.registerOnTypeFormattingEditProvider("typescript", {
+    autoFormatTriggerCharacters: ["}", "{", ")", "(", ";"],
+
+    async provideOnTypeFormattingEdits(model) {
+      const text = await formatter(model.getValue());
+
+      return [
+        {
+          range: model.getFullModelRange(),
+
+          text,
+        },
+      ];
+    },
+  });
+
   window.sess = session;
   session.monaco = window.monaco;
 }
@@ -47,11 +72,6 @@ async function getErrors({ monaco, editor }) {
 }
 
 // let getHtmlAndCss;
-let formatter;
-let saveCode;
-let babelTransform;
-let getHtmlAndCss;
-let getCss;
 
 async function runner(c, changes = null, session, counter) {
   session.changes.push(changes);
@@ -129,6 +149,7 @@ async function runner(c, changes = null, session, counter) {
         getCss = getCss || (await import("../dist/templates.mjs")).getCss;
         getCss(session);
         await saveCode(session, session.i);
+        monaco.editor.setTheme("vs-dark");
         return;
       } catch (e) {
         console.log({ e });
