@@ -58,7 +58,7 @@
     "@jspm/generator": "^1.0.0-beta.20",
     "@mui/material": "5.2.5",
     "@spike.land/qrious": "^0.3.6",
-    "@types/react": "17.0.37",
+    "@types/react": "17.0.38",
     "@types/react-dom": "17.0.11",
     "comlink": "4.3.1",
     "es-module-shims": "1.4.1",
