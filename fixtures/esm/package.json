@@ -24,9 +24,9 @@
   "typings": "dist/types/*",
   "license": "BSD-3-Clause",
   "dependencies": {
-    "@types/react": "17.0.37",
+    "@types/react": "17.0.38",
     "@types/react-dom": "17.0.11",
-    "esbuild": "0.14.7",
+    "esbuild": "0.14.8",
     "framer-motion": "5.5.5",
     "ipfs-only-hash": "4.0.0",
     "textdiff-create": "1.0.5",

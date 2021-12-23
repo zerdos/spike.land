@@ -110,16 +110,20 @@ export const join = (room, user) => {
   startTime = Date.now();
 
   ws.addEventListener("open", () => {
-    if (intervalHandler)  {clearInterval(intervalHandler)}
+    if (intervalHandler) clearInterval(intervalHandler);
     else {
       intervalHandler = setInterval(() => {
         const now = Date.now();
         const diff = now - lastSeenNow;
         if (now - lastSeenNow > 30_000) {
-          try{ws.send(
-            JSON.stringify({ name: username, time: lastSeenTimestamp + diff }),
-          );
-          }catch{
+          try {
+            ws.send(
+              JSON.stringify({
+                name: username,
+                time: lastSeenTimestamp + diff,
+              }),
+            );
+          } catch {
             rejoin();
           }
         }
