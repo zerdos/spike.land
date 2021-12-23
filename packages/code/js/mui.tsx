@@ -9,7 +9,7 @@ import createSvgIcon from "@mui/material/utils/createSvgIcon";
 import type { FC, MouseEvent } from "react";
 
 // const MyToggleButtonGroup: FC<{
-//   value: any, 
+//   value: any,
 //   onChangeD: ( _e: MouseEvent, value: any)=>void}> = ({value, onChangeD, children}) => <ToggleButtonGroup
 // value={value}
 // size="small"
@@ -18,13 +18,11 @@ import type { FC, MouseEvent } from "react";
 //   console.log("clicked");
 //   onChangeD(_e, value);
 // }}>{children}</ToggleButtonGroup>
-         
 
 // const MyToggleButton: FC<{key: any, value: any}>=({key, value, children}) => <ToggleButton
 // key={key}
 // value={value}
 // >{children}</ToggleButton>
-
 
 const Phone = createSvgIcon(
   <path
@@ -74,7 +72,7 @@ const MyFsb: FC<{ onClick: () => void }> = ({ onClick, children }) => (
   </Fab>
 );
 
-const QrCode= createSvgIcon(
+const QrCode = createSvgIcon(
   <path
     key="12"
     d="M3 11h8V3H3v8zm2-6h4v4H5V5zM3 21h8v-8H3v8zm2-6h4v4H5v-4zm8-12v8h8V3h-8zm6 6h-4V5h4v4zm0 10h2v2h-2zm-6-6h2v2h-2zm2 2h2v2h-2zm-2 2h2v2h-2zm2 2h2v2h-2zm2-2h2v2h-2zm0-4h2v2h-2zm2 2h2v2h-2z"
@@ -82,15 +80,14 @@ const QrCode= createSvgIcon(
   "QrCode",
 );
 
-
 export {
   MyButton as Button,
   MyFsb as Fab,
   Phone,
+  QrCode,
   Share,
   Tablet,
-  QrCode,
-   ToggleButtonGroup,
- ToggleButton,
+  ToggleButton,
+  ToggleButtonGroup,
   Tv,
 };
