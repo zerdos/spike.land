@@ -61,7 +61,7 @@ async function runner(c, changes = null, session, counter) {
   //   (await import("./renderToString")).getHtmlAndCss;
   formatter = formatter || (await import(`../js/formatter.mjs`)).formatter;
   babelTransform = babelTransform ||
-    (await import(`./babel.mjs`)).babelTransform;
+    (await import(`../js/babel.mjs`)).babelTransform;
 
   if (window.sendChannel) {
     const Hash = (await import("ipfs-only-hash")).default;

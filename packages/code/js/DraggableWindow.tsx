@@ -11,10 +11,11 @@ import {
   Phone,
   Share,
   Tablet,
+  QrCode,
   ToggleButton,
   ToggleButtonGroup,
   Tv,
-} from "./mui";
+} from "./mui.tsx";
 
 import { QRButton } from "./Qr.jsx";
 
@@ -205,12 +206,10 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
                         `}
                     >
                       <Button
-                        variant="contained"
                         onClick={() => {
                           onRestore();
                           setErrorText("");
                         }}
-                        color="primary"
                       >
                         Restore
                       </Button>
@@ -313,8 +312,6 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
           <QRButton url={qrUrl} />
 
           <Fab
-            variant="extended"
-            color="primary"
             onClick={() => {
               onShare();
             }}

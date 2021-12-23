@@ -48,6 +48,10 @@ const build = (entryPoints) =>
   }).catch(() => process.exit(1));
 
 await build([
+  "js/mui.tsx",
+]);
+
+await build([
   "js/renderPreviewWindow.tsx",
   "js/templates.ts",
   "js/renderToString.tsx",
