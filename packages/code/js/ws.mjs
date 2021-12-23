@@ -22,6 +22,8 @@ let createDelta;
 let applyPatch;
 let formatter;
 let Hash;
+let mySession = null;
+let sessionTools = null
 
 let toolsImported = 0;
 
@@ -37,6 +39,7 @@ let importTools = async () => {
     import("textdiff-patch").then((mod) => applyPatch = mod.default),
     import("./formatter.mjs").then((mod) => formatter = mod.formatter),
     import("ipfs-only-hash").then((mod) => Hash = mod.default),
+    import("../dist/session.mjs").then(mod=> sessionTools = mod.default)
   ]);
 
   toolsImported = true;
@@ -54,8 +57,6 @@ chCode = globalThis.chCode = async (code) => {
       window[hashOfCode] = code;
 
       window.monaco.editor.getModels()[0].setValue(code);
-    } else {
-      await restartCode(roomName);
     }
   } catch (e) {
     console.error({ e });
@@ -260,10 +261,7 @@ export const join = (room, user) => {
   });
 };
 
-const restartCode = async (room) => {
-  const { restart } = await import("./restartCode.mjs");
-  restart(room, document.getElementById("zbody"));
-};
+
 
 // Create the RTCPeerConnection which knows how to talk to our
 // selected STUN/TURN server and then uses getUserMedia() to find
@@ -641,6 +639,16 @@ async function processWsMessage(event, source) {
   }
 
   const data = JSON.parse(event.data);
+
+  if (!mySession) {
+    mySession = sessionTools.initSession({
+      name: username,
+      room: roomName,
+      events: [data]
+    })
+    globalThis.mySession = mySession;
+  }
+
   const sanyi = await sanyiProcess(
     data,
     window && !!window.sess ? window.sess : {},

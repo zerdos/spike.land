@@ -48,6 +48,7 @@ const build = (entryPoints) =>
   }).catch(() => process.exit(1));
 
 await build([
+  "js/session.ts",
   "js/mui.tsx",
 ]);
 

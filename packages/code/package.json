@@ -8,6 +8,7 @@
   ],
   "source": "./js/quickStart.mjs",
   "exports": {
+    "./dist/session.mjs": "./dist/session.mjs",
     "./dist/bundle.mjs": "./dist/starter.bundle.mjs",
     "./dist/quickStart.mjs": "./dist/quickStart.mjs",
     "./dist/templates.mjs": "./dist/templates.mjs",
@@ -65,6 +66,7 @@
     "esbuild": "0.14.8",
     "esbuild-plugin-import-map": "^2.1.0",
     "framer-motion": "5.5.5",
+    "immutable": "^4.0.0",
     "react": "18.0.0-rc.0-next-f2a59df48-20211208",
     "react-dom": "18.0.0-rc.0-next-f2a59df48-20211208",
     "stream": "0.0.2",

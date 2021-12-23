@@ -6,6 +6,7 @@
     "@spike.land/qrious": "https://ga.jspm.io/npm:@spike.land/qrious@0.3.25/dist/QRious.mjs",
     "@spike.land/shadb": "https://ga.jspm.io/npm:@spike.land/shadb@0.3.25/dist/shaDB.mjs",
     "comlink": "https://ga.jspm.io/npm:comlink@4.3.1/dist/umd/comlink.js",
+    "immutable": "https://ga.jspm.io/npm:immutable@4.0.0/dist/immutable.es.js",
     "prop-types": "https://ga.jspm.io/npm:prop-types@15.8.0/index.js",
     "react": "https://ga.jspm.io/npm:react@18.0.0-rc.0-next-f2a59df48-20211208/index.js",
     "react-dom": "https://ga.jspm.io/npm:react-dom@18.0.0-rc.0-next-f2a59df48-20211208/index.js",
