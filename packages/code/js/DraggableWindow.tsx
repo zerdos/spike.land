@@ -1,5 +1,7 @@
 /** @jsx jsx */
 
+/// <reference types="@emotion/react/types/css-prop" />
+
 import { css, jsx } from "@emotion/react";
 
 import { lazy, Suspense, useEffect, useRef, useState } from "react";

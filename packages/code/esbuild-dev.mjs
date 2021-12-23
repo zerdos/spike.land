@@ -45,7 +45,7 @@ esbuild.build({
   platform: "browser",
   sourcemap: true,
   resolveExtensions: [".tsx", ".ts", ".jsx", ".js", ".css", ".json", ".mjs"],
-  target: ["es2018"],
+  target: ["es2020"],
   plugins: [importMap.plugin()],
   outdir: "dist",
 }).catch(() => process.exit(1));
