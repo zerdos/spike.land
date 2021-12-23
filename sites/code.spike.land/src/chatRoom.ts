@@ -6,9 +6,8 @@ import importMap from "@spike.land/code/importmap.json";
 import { version } from "@spike.land/code/package.json";
 import applyDelta from "textdiff-patch";
 import { CodeEnv } from "./env";
-import SANYI from './sanyi.js.html'
-import RCA from './rca.tsx.html'
-
+import SANYI from "./sanyi.js.html";
+import RCA from "./rca.tsx.html";
 
 interface IState extends DurableObjectState {
   session: ISession;
@@ -47,15 +46,17 @@ export class Code {
 
     this.state.blockConcurrencyWhile(async () => {
       const sessionMaybeStr = await this.kv.get<ISession>("session");
-      
-      const session = typeof sessionMaybeStr === "string"? JSON.parse(sessionMaybeStr):sessionMaybeStr;
 
-      if (session && session.code){
+      const session = typeof sessionMaybeStr === "string"
+        ? JSON.parse(sessionMaybeStr)
+        : sessionMaybeStr;
+
+      if (session && session.code) {
         let hashOfCode = await Hash.of(session.code);
         this.state.session = session;
         this.state.hashOfCode = hashOfCode;
-        this.hashCache[hashOfCode] = session.code;;
-        return this.state.session = session; 
+        this.hashCache[hashOfCode] = session.code;
+        return this.state.session = session;
       }
 
       const codeMainId = env.CODE.idFromName("code-main");
@@ -64,28 +65,24 @@ export class Code {
       const resp = await defaultRoomObject.fetch("session");
       const defaultClone: ISession = await resp.json();
 
-      if (defaultClone && defaultClone.code ) {
-
+      if (defaultClone && defaultClone.code) {
         this.state.session = defaultClone;
-//        this.state.session.code = RCA;
+        //        this.state.session.code = RCA;
 
-        this.state.hashOfCode = await Hash.of( this.state.session.code);
+        this.state.hashOfCode = await Hash.of(this.state.session.code);
         this.hashCache[this.state.hashOfCode] = this.state.session.code;
         return;
       }
-      
+
       this.state.session = {
         code: RCA,
         i: 0,
         transpiled: "",
         css: "",
         html: "",
-        lastTimestamp: Date.now()
-
-      }
+        lastTimestamp: Date.now(),
+      };
       return;
-
-
     });
   }
 
@@ -121,19 +118,21 @@ export class Code {
           });
 
         case "js": {
-
           // if (codeSpace==="sanyi") {
           //   'export default function(){};'
           // }
 
-          return new Response(codeSpace==="sanyi"?SANYI:this.state.session.transpiled, {
-            status: 200,
-            headers: {
-              "Access-Control-Allow-Origin": "*",
-              "Cache-Control": "no-cache",
-              "Content-Type": "application/javascript; charset=UTF-8",
+          return new Response(
+            codeSpace === "sanyi" ? SANYI : this.state.session.transpiled,
+            {
+              status: 200,
+              headers: {
+                "Access-Control-Allow-Origin": "*",
+                "Cache-Control": "no-cache",
+                "Content-Type": "application/javascript; charset=UTF-8",
+              },
             },
-          });
+          );
         }
         case "hydrated": {
           const htmlContent = this.state.session.html;
@@ -144,7 +143,8 @@ export class Code {
             `<div id ="root"><style>${css}</style><div id="zbody">${htmlContent}</div></div>`,
           ).replace(
             "$$IMPORTMAP",
-            JSON.stringify({...importMap,
+            JSON.stringify({
+              ...importMap,
               imports: {
                 ...importMap.imports,
                 app: `https://code.spike.land/api/room/${codeSpace}/js`,
@@ -191,11 +191,13 @@ export class Code {
             `<div id ="root"><style>${css}</style><div id="zbody">${htmlContent}</div></div>`,
           ).replace(
             "$$IMPORTMAP",
-            JSON.stringify({...importMap,
+            JSON.stringify({
+              ...importMap,
               imports: {
                 ...importMap.imports,
-                starterApp:  `https://code.spike.land/api/room/${codeSpace}/js`,
-                app: `https://unpkg.com/@spike.land/code@${version}/js/starter.mjs`,
+                starterApp: `https://code.spike.land/api/room/${codeSpace}/js`,
+                app:
+                  `https://unpkg.com/@spike.land/code@${version}/js/starter.mjs`,
               },
             }),
           );
@@ -338,16 +340,15 @@ export class Code {
         }
 
         if (data.i) {
-          
-          if (data.i<=this.state.session.i){
-            this.user2user(data.user, {...this.state.session})
+          if (data.i <= this.state.session.i) {
+            this.user2user(data.user, { ...this.state.session });
             return;
           }
 
           if (data.code && data.i > this.state.session.i) {
             const hash = await Hash.of(data.code);
-           
-            if (data.hashOfCode === hash){
+
+            if (data.hashOfCode === hash) {
               this.state.session.i = data.i;
               this.state.session.code = data.code;
               this.state.session.html = data.html;
@@ -359,8 +360,7 @@ export class Code {
               this.broadcast(msg.data);
               await this.kv.put("session", this.state.session);
               return;
-          }
-
+            }
           }
           let patched = false;
           let code = data.code;

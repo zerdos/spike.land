@@ -69,11 +69,11 @@ async function handleApiRequest(
       let roomObject = env.CODE.get(id);
 
       let newUrl = new URL(request.url);
- 
+
       newUrl.pathname = "/" + path.slice(2).join("/");
       newUrl.searchParams.append("room", name);
 
-      return roomObject.fetch( newUrl.toString(), request);
+      return roomObject.fetch(newUrl.toString(), request);
     }
 
     default:
@@ -92,7 +92,9 @@ function getHTMLResp() {
 
   // Serve our HTML at the root path.
   const regex = /VERSION/ig;
-  const impMap  = {...importMap, imports: {
+  const impMap = {
+    ...importMap,
+    imports: {
       ...(importMap.imports),
       "app": `https://unpkg.com/@spike.land/code@${version}/js/starter.mjs`,
     },

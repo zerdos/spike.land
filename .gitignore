@@ -1,6 +1,6 @@
 # ignore haters
 haters/
-**/dist
+**dist
 client_id
 videos/
 screenshots/
