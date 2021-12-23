@@ -340,7 +340,7 @@ export class Code {
         }
 
         if (data.i) {
-          if (data.i <= this.state.session.i) {
+          if (data.i <= this.state.session.i ) {
             this.user2user(data.name, { ...this.state.session });
             return;
           }

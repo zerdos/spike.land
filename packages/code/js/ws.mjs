@@ -248,7 +248,7 @@ export const join = (room, user) => {
     ws.send(JSON.stringify({ name: username }));
   });
 
-  ws.addEventListener("message", processWsMessage);
+  ws.addEventListener("message", (msg) => processWsMessage(msg, "ws"));
 
   ws.addEventListener("close", (event) => {
     console.log("WebSocket closed, reconnecting:", event.code, event.reason);
@@ -362,13 +362,13 @@ async function createPeerConnection(target) {
 
   rtc.binaryType = "arraybuffer";
 
-  rtc.addEventListener("message", processWsMessage);
+  rtc.addEventListener("message", (msg) => processWsMessage(msg, "rtc"));
 
   rtc.onerror = (error) => {
     console.log("xxxxxx-  Data Channel Error:", error);
   };
 
-  rtc.onmessage = processWsMessage;
+  // rtc.onmessage =()=> processWsMessage;
 
   rtc.onopen = () => {
     rtc.target = target;
@@ -400,7 +400,7 @@ async function createPeerConnection(target) {
     rtc.binaryType = "arraybuffer";
     rtc.addEventListener("close", onReceiveChannelClosed);
 
-    rtc.addEventListener("message", processWsMessage);
+    rtc.addEventListener("message", (msg) => processWsMessage(msg, rtc));
     webrtcArray.push(rtc);
   }
 
@@ -631,7 +631,7 @@ async function getCID(CID, from) {
 // Called by the WebRTC layer to let us know when it's time to
 // begin, resume, or restart ICE negotiation.
 
-async function processWsMessage(event) {
+async function processWsMessage(event, source) {
   if (!toolsImported) {
     await importTools();
   }
@@ -743,6 +743,13 @@ async function processWsMessage(event) {
   }
 
   if (window.sess && data.i && data.i <= window.sess.i) {
+    if (source === "rtc") {
+      sendChannel.send({ target: data.name, ...window.sess });
+    }
+    ws.send(JSON.stringify({
+      name: username,
+      i: window.sess.i,
+    }));
     return;
   }
 
