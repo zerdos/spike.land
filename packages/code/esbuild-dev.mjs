@@ -30,12 +30,8 @@ importMap.load(jsonData);
 //   plugins: [importMap.plugin()],
 //   outfile: "dist/dev.mjs",
 // }).catch(() => process.exit(1));
-
-esbuild.build({
-  entryPoints: [
-    "js/renderPreviewWindow.tsx",
-    "js/quickStart.mjs",
-  ],
+const build = (entryPoints) => esbuild.build({
+  entryPoints,
   "outExtension": { ".js": ".mjs" },
   bundle: true,
   format: "esm",
@@ -49,6 +45,16 @@ esbuild.build({
   plugins: [importMap.plugin()],
   outdir: "dist",
 }).catch(() => process.exit(1));
+
+await build( [
+  "js/renderPreviewWindow.tsx",
+  "js/templates.ts",
+  "js/startMonaco.ts"
+]);
+
+await await build( [
+  "js/quickStart.mjs",
+]);
 
 // esbuild.build({
 //   entryPoints: [

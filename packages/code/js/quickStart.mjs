@@ -1,12 +1,12 @@
 import { jsx } from "@emotion/react";
 
-import { getCss } from "../dist/templates.mjs";
+
 // //
 
 export async function startMonacoWithSession(session) {
   const shadDom = document.getElementById("shadowEditor");
 
-  const startMonaco = (await import("@spike.land/smart-monaco-editor")).default;
+  const startMonaco = (await import("../dist/startMonaco.mjs")).default;
   const getEditor = await startMonaco(
     /**
      * @param {any} code
@@ -52,14 +52,15 @@ let formatter;
 let saveCode;
 let babelTransform;
 let getHtmlAndCss;
+let getCss;
 
 async function runner(c, changes = null, session, counter) {
   session.changes.push(changes);
 
-  saveCode = saveCode || (await import("./data.mjs")).saveCode;
+  saveCode = saveCode || (await import("../js/data.mjs")).saveCode;
   // getHtmlAndCss = getHtmlAndCss ||
   //   (await import("./renderToString")).getHtmlAndCss;
-  formatter = formatter || (await import(`./${"formatter"}.mjs`)).formatter;
+  formatter = formatter || (await import(`../js/formatter.mjs`)).formatter;
   babelTransform = babelTransform ||
     (await import(`./babel.mjs`)).babelTransform;
 
@@ -108,7 +109,7 @@ async function runner(c, changes = null, session, counter) {
 
       try {
         getHtmlAndCss = getHtmlAndCss ||
-          (await import("../dist/renderToString.mjs")).getHtmlAndCss;
+          (await import("../js/renderToString.mjs")).getHtmlAndCss;
 
         if (counter < session.i) return;
 
@@ -126,6 +127,7 @@ async function runner(c, changes = null, session, counter) {
         session.children = children;
         restartError = !html;
         session.codeNonFormatted = c;
+        getCss  = getCss ||  (await import("../dist/templates.mjs")).getCss;
         getCss(session);
         await saveCode(session, session.i);
         return;
@@ -222,7 +224,7 @@ export const startFromCode = async ({ code }) => {
 export async function quickStart(session) {
   // session.children = await getReactChild(session.transpiled);
   session.children = null;
-  const { renderPreviewWindow } = await import("./renderPreviewWindow");
+  const { renderPreviewWindow } = await import("../dist/renderPreviewWindow.mjs");
   await renderPreviewWindow(session);
 
   await startMonacoWithSession(session);
