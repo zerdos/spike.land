@@ -1,13 +1,14 @@
 import { jsx } from "@emotion/react";
-import startMonaco from "@spike.land/smart-monaco-editor";
 
-import { renderPreviewWindow } from "../dist/renderPreviewWindow.mjs";
+
+
 import { getCss } from "../dist/templates.mjs";
 // //
 
 export async function startMonacoWithSession(session) {
   const shadDom = document.getElementById("shadowEditor");
 
+  const startMonaco = (await import( "@spike.land/smart-monaco-editor")).default;
   const getEditor = await startMonaco(
     /**
      * @param {any} code
@@ -223,7 +224,7 @@ export const startFromCode = async ({ code }) => {
 export async function quickStart(session) {
   // session.children = await getReactChild(session.transpiled);
   session.children = null;
-
+  const { renderPreviewWindow } = await import("./renderPreviewWindow");
   await renderPreviewWindow(session);
 
   await startMonacoWithSession(session);

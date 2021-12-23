@@ -645,7 +645,7 @@ async function processWsMessage(event) {
       room: roomName,
     };
     if (!window.location.href.endsWith("/public")) {
-      const { quickStart } = await import("./quickStart.mjs");
+      const { quickStart } = await import("../dist/quickStart.mjs");
       quickStart(session);
     } else {
       window.sess = session;

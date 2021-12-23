@@ -33,18 +33,15 @@ importMap.load(jsonData);
 
 esbuild.build({
   entryPoints: [
-    "js/templates.ts",
     "js/renderPreviewWindow.tsx",
-    "js/renderToString.tsx",
-    // "js/starter.mjs",
+    "js/quickStart.mjs"
   ],
   "outExtension": { ".js": ".mjs" },
   bundle: true,
   format: "esm",
   minify: false,
-
   splitting: true,
-  treeShaking: false,
+  treeShaking: true,
   platform: "browser",
   sourcemap: true,
   resolveExtensions: [".tsx", ".ts", ".jsx", ".js", ".css", ".json", ".mjs"],
@@ -52,6 +49,25 @@ esbuild.build({
   plugins: [importMap.plugin()],
   outdir: "dist",
 }).catch(() => process.exit(1));
+
+// esbuild.build({
+//   entryPoints: [
+//     "js/mui.ts",
+//   ],
+//   "outExtension": { ".js": ".mjs" },
+//   bundle: true,
+//   format: "esm",
+//   minify: true,
+
+//   splitting: true,
+//   treeShaking: true,
+//   platform: "browser",
+//   sourcemap: false,
+//   resolveExtensions: [".tsx", ".ts", ".jsx", ".js", ".css", ".json", ".mjs"],
+//   target: ["es2020"],
+//   plugins: [importMap.plugin()],
+//   outdir: "dist",
+// }).catch(() => process.exit(1));
 
 // esbuild.build({
 //   entryPoints: ["js/ws.mjs"],

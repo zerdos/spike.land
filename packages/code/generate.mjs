@@ -1,4 +1,7 @@
-import { Generator } from "@jspm/generator";
+import { clearCache, Generator } from "@jspm/generator";
+
+// import { clearCache } from '@jspm/generator';
+clearCache();
 
 const generator = new Generator({
   mapUrl: import.meta.url,
@@ -25,8 +28,11 @@ await generator.install({
   url: "https://unpkg.com/@spike.land/esm@0.2.86/dist/ipfs-only-hash.mjs",
 });
 
-await generator.install("react@18"); // await generator.install("react");
+await generator.install("react@18"); 
+await generator.install("react@18/jsx-runtime"); // await generator.install("react");
 await generator.install("react-dom@18/server");
+await generator.install("prop-types");
+await generator.install("react-is");
 
 // await generator.install("@emotion/server");
 // await generator.install("@emotion/server");
@@ -44,8 +50,7 @@ await generator.install("workbox-window");
 await generator.install("@spike.land/ipfs");
 await generator.install("@spike.land/shadb");
 await generator.install("@spike.land/qrious");
-
-await generator.install("@spike.land/smart-monaco-editor");
+// await generator.install("@spike.land/smart-monaco-editor");
 // await generator.install("@mui/material/Fab");
 // await generator.install("@mui/material/Button");
 // await generator.install("@mui/material/ToggleButton");
@@ -54,6 +59,7 @@ await generator.install("@spike.land/smart-monaco-editor");
 // await generator.install("@mui/material/ToggleButtonGroup");
 
 await generator.install("react@18/jsx-runtime");
+await generator.install("react-transition-group");
 
 const importMap = { ...generator.getMap() };
 importMap.imports.dev = "./js/starter.mjs";
