@@ -8,11 +8,13 @@ import applyDelta from "textdiff-patch";
 import { CodeEnv } from "./env";
 import SANYI from "./sanyi.js.html";
 import RCA from "./rca.tsx.html";
-import type {IUser, IEvent, ICodeSession, TheInMutableSession} from "@spike.land/code/js/session"
-import CodeSession from "@spike.land/code/js/session"
-
-
-
+import type {
+  IUser,
+  IEvent,
+  ICodeSession,
+  TheInMutableSession,
+} from "@spike.land/code/js/session";
+import CodeSession from "@spike.land/code/js/session";
 
 interface IState extends DurableObjectState {
   session: ISession;
@@ -37,9 +39,6 @@ interface WebsocketSession {
 
 type ResolveFn = (value: unknown) => void;
 
-
-
-
 export class Code {
   state: IState;
   kv: DurableObjectStorage;
@@ -49,45 +48,45 @@ export class Code {
   constructor(state: IState, private env: CodeEnv) {
     this.kv = state.storage;
 
-
     this.state = state;
     this.sessions = [];
     this.env = env;
     this.sessions = [];
-             
-    const {initSession} = CodeSession;
+    
+
+    const { initSession } = CodeSession;
+    this.mySession = initSession({
+      name: "cloudflare4",
+      room: "",
+      users: [],
+      state: { code:"", i:0, transpiled: "", html: "", css: "", errorDiff: "" },
+      events: [],
+    })
 
     this.state.blockConcurrencyWhile(async () => {
       const sessionMaybeStr = await this.kv.get<ISession>("session");
 
+      const session: ISession =
+        typeof sessionMaybeStr === "string"
+          ? JSON.parse(sessionMaybeStr)
+          : sessionMaybeStr;
 
-
-      const session: ISession = typeof sessionMaybeStr === "string"
-        ? JSON.parse(sessionMaybeStr)
-        : sessionMaybeStr;
-
-      
-      
       if (session && session.code) {
-  
-      this.mySession = initSession({
-            name: "cloudflare", 
-            room: '',
-            users: [],
-            state: {...session, errorDiff: ""},
-            events: []    
-    });
+        this.mySession = initSession({
+          name: "cloudflare",
+          room: "",
+          users: [],
+          state: { ...session, errorDiff: "" },
+          events: [],
+        });
 
         let hashOfCode = await Hash.of(session.code);
         this.state.session = session;
         this.state.hashOfCode = hashOfCode;
         this.hashCache[hashOfCode] = session.code;
-        return this.state.session = session;
+        return (this.state.session = session);
       }
 
-   
-
-    
       const codeMainId = env.CODE.idFromName("code-main");
       const defaultRoomObject = env.CODE.get(codeMainId);
 
@@ -102,15 +101,14 @@ export class Code {
         this.hashCache[this.state.hashOfCode] = this.state.session.code;
 
         this.mySession = initSession({
-          name: "cloudflare2", 
-          room: '',
+          name: "cloudflare2",
+          room: "",
           users: [],
-          state: {...this.state.session, errorDiff: ""},
-          events: []    
-  });
+          state: { ...this.state.session, errorDiff: "" },
+          events: [],
+        });
         return;
       }
-
 
       this.state.session = {
         code: RCA,
@@ -122,12 +120,12 @@ export class Code {
       };
 
       this.mySession = initSession({
-        name: "cloudflare3", 
-        room: '',
+        name: "cloudflare3",
+        room: "",
         users: [],
-        state: {...this.state.session, errorDiff: ""},
-        events: []    
-});
+        state: { ...this.state.session, errorDiff: "" },
+        events: [],
+      });
 
       return;
     });
@@ -164,15 +162,15 @@ export class Code {
             },
           });
 
-          case "mySession":
-            return new Response(JSON.stringify(this.mySession.toJs()), {
-              status: 200,
-              headers: {
-                "Access-Control-Allow-Origin": "*",
-                "Cache-Control": "no-cache",
-                "Content-Type": "application/json; charset=UTF-8",
-              },
-            });
+        case "mySession":
+          return new Response(JSON.stringify(this.mySession.toJS()), {
+            status: 200,
+            headers: {
+              "Access-Control-Allow-Origin": "*",
+              "Cache-Control": "no-cache",
+              "Content-Type": "application/json; charset=UTF-8",
+            },
+          });
 
         case "js": {
           // if (codeSpace==="sanyi") {
@@ -188,7 +186,7 @@ export class Code {
                 "Cache-Control": "no-cache",
                 "Content-Type": "application/javascript; charset=UTF-8",
               },
-            },
+            }
           );
         }
         case "hydrated": {
@@ -197,7 +195,7 @@ export class Code {
 
           const html = HTML.replace(
             `<div id="zbody"></div>`,
-            `<div id ="root"><style>${css}</style><div id="zbody">${htmlContent}</div></div>`,
+            `<div id ="root"><style>${css}</style><div id="zbody">${htmlContent}</div></div>`
           ).replace(
             "$$IMPORTMAP",
             JSON.stringify({
@@ -206,7 +204,7 @@ export class Code {
                 ...importMap.imports,
                 app: `https://code.spike.land/api/room/${codeSpace}/js`,
               },
-            }),
+            })
           );
 
           return new Response(html, {
@@ -245,7 +243,7 @@ export class Code {
 
           const html = HTML.replace(
             `<div id="zbody"></div>`,
-            `<div id ="root"><style>${css}</style><div id="zbody">${htmlContent}</div></div>`,
+            `<div id ="root"><style>${css}</style><div id="zbody">${htmlContent}</div></div>`
           ).replace(
             "$$IMPORTMAP",
             JSON.stringify({
@@ -253,10 +251,9 @@ export class Code {
               imports: {
                 ...importMap.imports,
                 starterApp: `https://code.spike.land/api/room/${codeSpace}/js`,
-                app:
-                  `https://unpkg.com/@spike.land/code@${version}/js/starter.mjs`,
+                app: `https://unpkg.com/@spike.land/code@${version}/js/starter.mjs`,
               },
-            }),
+            })
           );
 
           return new Response(html, {
@@ -296,7 +293,7 @@ export class Code {
 
     let limiter = new RateLimiterClient(
       () => this.env.LIMITERS.get(limiterId),
-      (err: Error) => webSocket.close(1011, err.stack),
+      (err: Error) => webSocket.close(1011, err.stack)
     );
 
     let session = {
@@ -312,7 +309,7 @@ export class Code {
             joined: otherSession.name,
             i: this.state.session.i,
             hashOfCode: this.state.hashOfCode,
-          }),
+          })
         );
       }
     });
@@ -336,20 +333,26 @@ export class Code {
                 type: "get-cid",
                 cid: data.cid,
                 [CID]: this.hashCache[CID],
-              }),
+              })
             );
           }
           return;
         }
 
         if (
-          !(data.type &&
-            (data.type === "new-ice-candidate" || data.type === "video-offer" ||
-              data.type === "video-answer")) && !limiter.checkLimit()
+          !(
+            data.type &&
+            (data.type === "new-ice-candidate" ||
+              data.type === "video-offer" ||
+              data.type === "video-answer")
+          ) &&
+          !limiter.checkLimit()
         ) {
-          webSocket.send(JSON.stringify({
-            error: "Your IP is being rate-limited, please try again later.",
-          }));
+          webSocket.send(
+            JSON.stringify({
+              error: "Your IP is being rate-limited, please try again later.",
+            })
+          );
           return;
         }
 
@@ -372,15 +375,17 @@ export class Code {
           // Broadcast to all other connections that this user has joined.
           // this.broadcast({ joined: session.name });
 
-          webSocket.send(JSON.stringify({
-            ready: true,
-            code: this.state.session.code,
-            hashOfCode: this.state.hashOfCode,
-            transpiled: this.state.session.transpiled,
-            css: this.state.session.css,
-            html: this.state.session.html,
-            i: this.state.session.i,
-          }));
+          webSocket.send(
+            JSON.stringify({
+              ready: true,
+              code: this.state.session.code,
+              hashOfCode: this.state.hashOfCode,
+              transpiled: this.state.session.transpiled,
+              css: this.state.session.css,
+              html: this.state.session.html,
+              i: this.state.session.i,
+            })
+          );
 
           // Note that we've now received the user info message.
 
@@ -389,7 +394,8 @@ export class Code {
 
         if (
           data.type &&
-          (data.type === "new-ice-candidate" || data.type === "video-offer" ||
+          (data.type === "new-ice-candidate" ||
+            data.type === "video-offer" ||
             data.type === "video-answer")
         ) {
           this.user2user(data.target, { name: session.name, ...data });
@@ -397,7 +403,7 @@ export class Code {
         }
 
         if (data.i) {
-          if (data.i <= this.state.session.i ) {
+          if (data.i <= this.state.session.i) {
             this.user2user(data.name, { ...this.state.session });
             return;
           }
@@ -484,7 +490,7 @@ export class Code {
 
           data.timestamp = Math.max(
             Date.now(),
-            this.state.session.lastTimestamp + 1,
+            this.state.session.lastTimestamp + 1
           );
           this.state.session.lastTimestamp = data.timestamp;
 
@@ -502,7 +508,7 @@ export class Code {
               if (transpiledDiff) {
                 transpiled = applyPatch(
                   this.state.session.transpiled,
-                  transpiledDiff,
+                  transpiledDiff
                 );
               }
               if (htmlDiff) {
@@ -543,7 +549,7 @@ export class Code {
         webSocket.send(
           JSON.stringify({
             error: "unknown error",
-          }),
+          })
         );
       }
     });
@@ -560,16 +566,16 @@ export class Code {
   }
 
   user2user(to: string, msg: Object | string) {
-    const message = (typeof msg !== "string") ? JSON.stringify(msg) : msg;
+    const message = typeof msg !== "string" ? JSON.stringify(msg) : msg;
 
     // Iterate over all the sessions sending them messages.
-    this.sessions.filter((session) => session.name === to).map((s) =>
-      s.webSocket.send(message)
-    );
+    this.sessions
+      .filter((session) => session.name === to)
+      .map((s) => s.webSocket.send(message));
   }
 
   broadcast(msg: Object | string) {
-    const message = (typeof msg !== "string") ? JSON.stringify(msg) : msg;
+    const message = typeof msg !== "string" ? JSON.stringify(msg) : msg;
 
     let quitters: WebsocketSession[] = [];
     this.sessions = this.sessions.filter((session) => {

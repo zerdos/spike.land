@@ -27,7 +27,7 @@ export interface IUser {
 }
 
 export interface TheInMutableSession {
-  toJs: () => ICodeSession;
+  toJS: () => ICodeSession;
 }
 
 export default {
