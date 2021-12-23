@@ -4,7 +4,7 @@
     "@emotion/styled": "https://ga.jspm.io/npm:@emotion/styled@11.6.0/dist/emotion-styled.browser.esm.js",
     "@spike.land/ipfs": "https://ga.jspm.io/npm:@spike.land/ipfs@0.3.6/dist/ipfs.client.mjs",
     "@spike.land/shadb": "https://ga.jspm.io/npm:@spike.land/shadb@0.3.6/dist/shaDB.mjs",
-    "@spike.land/smart-monaco-editor": "https://ga.jspm.io/npm:@spike.land/smart-monaco-editor@0.3.6/dist/editor.mjs",
+    "@spike.land/smart-monaco-editor": "https://ga.jspm.io/npm:@spike.land/smart-monaco-editor@0.3.20/dist/editor.mjs",
     "comlink": "https://ga.jspm.io/npm:comlink@4.3.1/dist/umd/comlink.js",
     "react": "https://ga.jspm.io/npm:react@18.0.0-rc.0-next-f2a59df48-20211208/index.js",
     "react-dom": "https://ga.jspm.io/npm:react-dom@18.0.0-rc.0-next-f2a59df48-20211208/index.js",
