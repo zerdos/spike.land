@@ -9,7 +9,7 @@ import { CodeEnv } from "./env";
 
 export default {
   async fetch(request: Request, env: CodeEnv) {
-    return await handleErrors(request, async () => {
+    return handleErrors(request, async () => {
       // We have received an HTTP request! Parse the URL and route the request.
 
       let url = new URL(request.url);
@@ -21,6 +21,13 @@ export default {
       }
 
       switch (path[0]) {
+        case "ping": 
+          return new Response("ping" + Math.random(),  {
+            headers: {
+              "Content-Type": "text/html;charset=UTF-8",
+              "Cache-Control": "no-cache",
+            },
+          },)
         case "api":
           // This is a request for `/api/...`, call the API handler.
           return handleApiRequest(path.slice(1), request, env);

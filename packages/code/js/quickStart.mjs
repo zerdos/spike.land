@@ -1,14 +1,12 @@
 import { jsx } from "@emotion/react";
 
-
-
 import { getCss } from "../dist/templates.mjs";
 // //
 
 export async function startMonacoWithSession(session) {
   const shadDom = document.getElementById("shadowEditor");
 
-  const startMonaco = (await import( "@spike.land/smart-monaco-editor")).default;
+  const startMonaco = (await import("@spike.land/smart-monaco-editor")).default;
   const getEditor = await startMonaco(
     /**
      * @param {any} code

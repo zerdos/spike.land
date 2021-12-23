@@ -34,7 +34,7 @@ importMap.load(jsonData);
 esbuild.build({
   entryPoints: [
     "js/renderPreviewWindow.tsx",
-    "js/quickStart.mjs"
+    "js/quickStart.mjs",
   ],
   "outExtension": { ".js": ".mjs" },
   bundle: true,

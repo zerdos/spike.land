@@ -28,7 +28,7 @@ await generator.install({
   url: "https://unpkg.com/@spike.land/esm@0.2.86/dist/ipfs-only-hash.mjs",
 });
 
-await generator.install("react@18"); 
+await generator.install("react@18");
 await generator.install("react@18/jsx-runtime"); // await generator.install("react");
 await generator.install("react-dom@18/server");
 await generator.install("prop-types");
