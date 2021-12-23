@@ -1,4 +1,5 @@
 let currentWebSocket = null;
+let lastMsg = null;
 let sess = false;
 const mod = {};
 let sanyiProcess = null;
@@ -209,16 +210,39 @@ export const join = (room, user) => {
         }
 
         const msgStr = JSON.stringify(message);
+        lastMsg = msgStr;
 
+        const retry = (msg) => setTimeout(() => {
+          if (msg !== lastMsg) return;
+
+          try{
+          if (currentWebSocket === null) {
+            rejoin();
+            retry(msg);
+          }
+          
+          currentWebSocket.send(msg)
+          } catch{
+            retry(msg);
+          }
+        
+        }, 500);
+
+        try{
         if (sendChannel) {
           sendChannel.send(message);
-        } else {
+
+        } else if (currentWebSocket) {
+          
           currentWebSocket.send(msgStr);
           return;
         }
 
-        setTimeout(() => currentWebSocket.send(msgStr), 500);
+     
+      } catch{
+        retry(msgStr)
       }
+        
     };
 
     globalThis.broad = broad;
