@@ -23,7 +23,8 @@ import { motion } from "framer-motion";
 
 // const {motion} = Motion;
 
-const breakPoints = [640, 1024, 1920];
+const breakPoints = [640, 768, 1920];
+const breakPointHeights = [1137, 1024, 1080];
 
 const sizes = [10, 25, 50, 75, 100];
 
@@ -61,7 +62,7 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
 ) => {
   const [isStable, setIsStable] = useState(false);
   const [scaleRange, changeScaleRange] = useState(75);
-  const [height, changeHeight] = useState(innerHeight);
+  // const [height, changeHeight] = useState(innerHeight);
   const [childArray, setChild] = useState(
     session.children
       ? [session.children]
@@ -74,6 +75,7 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
   const [errorText, setErrorText] = useState(" ");
 
   const [width, setWidth] = useState(breakPoints[1]);
+  const [height, setHeight] = useState(breakPointHeights[1]);
   const ref = useRef<HTMLDivElement>(null);
   const zbody = useRef<HTMLDivElement>(null);
 
@@ -83,9 +85,9 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
     </div>
   );
 
-  useEffect(() => {
-    window.addEventListener("resize", () => changeHeight(window.innerHeight));
-  });
+  // useEffect(() => {
+  // window.addEventListener("resize", () => changeHeight(window.innerHeight));
+  // });
 
   useEffect(() => {
     const handler = setInterval(() => {
@@ -125,7 +127,6 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
       dragConstraints={{
         left: 0,
         right: width - 20 - width / 6,
-        top: -height + 100,
         bottom: innerHeight - 100,
       }}
       dragMomentum={false}
@@ -172,13 +173,15 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
           <motion.div
             animate={{
               width: width * scale / devicePixelRatio,
-              height: height * scale,
+              height: height * scale / devicePixelRatio,
+              maxHeight: height * scale / devicePixelRatio,
             }}
             css={css`
               display: block;
               overflow: hidden;
               border-radius: 8px;
               opacity: 0.9;
+              background-color: white;
            `}
           >
             {errorText.trim() !== "" && (
@@ -222,7 +225,6 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
               animate={{
                 transformOrigin: "0px 0px",
                 width: width / devicePixelRatio,
-                height: height,
                 scale,
               }}
               css={css`
@@ -254,7 +256,12 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
             value={width}
             size="small"
             exclusive
-            onChange={(_e, newSize) => newSize && setWidth(newSize)}
+            onChange={(_e, newSize) => {
+              if (newSize) {
+                setHeight(breakPointHeights[breakPoints.indexOf(newSize)]);
+                setWidth(newSize);
+              }
+            }}
           >
             {breakPoints.map((size) => (
               <ToggleButton
@@ -273,12 +280,12 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
                         `}
                     />
                   )
-                  : size === 1024
+                  : size === 768
                   ? (
                     <Tablet
                       css={css`
                         color: ${
-                        width === 1024
+                        width === 768
                           ? "rgba(255,255,255,.8)"
                           : "rgba(0,0,0,.3)"
                       };
