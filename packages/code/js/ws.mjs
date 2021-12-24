@@ -23,7 +23,7 @@ let applyPatch;
 let formatter;
 let Hash;
 let mySession = null;
-let sessionTools = null;
+let initSession = null;
 
 let toolsImported = 0;
 
@@ -39,7 +39,7 @@ let importTools = async () => {
     import("textdiff-patch").then((mod) => applyPatch = mod.default),
     import("./formatter.mjs").then((mod) => formatter = mod.formatter),
     import("ipfs-only-hash").then((mod) => Hash = mod.default),
-    import("../dist/session.mjs").then((mod) => sessionTools = mod.default),
+    import("../dist/session.mjs").then((mod) => initSession = mod.default),
   ]);
 
   toolsImported = true;
@@ -639,14 +639,16 @@ async function processWsMessage(event, source) {
   const data = JSON.parse(event.data);
 
   if (!mySession) {
-    mySession = sessionTools.initSession({
-      name: "username",
+    mySession = initSession({
+      name: username,
       room: roomName,
       state: { code: "", i: 0, transpiled: "", html: "", css: "" },
       events: [],
     });
     globalThis.mySession = mySession;
   }
+  
+  mySession.addEvent(data);
 
   const sanyi = await sanyiProcess(
     data,

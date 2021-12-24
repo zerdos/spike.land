@@ -9,11 +9,9 @@ import { CodeEnv } from "./env";
 import SANYI from "./sanyi.js.html";
 import RCA from "./rca.tsx.html";
 import type {
-  IUser,
-  IEvent,
-  ICodeSession,
+  ICodeSess,
 } from "@spike.land/code/js/session";
-import CodeSession from "@spike.land/code/js/session";
+import startSession from "@spike.land/code/js/session";
 import { Record } from "immutable";
 
 interface IState extends DurableObjectState {
@@ -42,7 +40,7 @@ type ResolveFn = (value: unknown) => void;
 export class Code {
   state: IState;
   kv: DurableObjectStorage;
-  mySession: Record.Factory<IUser>;
+  mySession: ICodeSess;
   hashCache: { [key: string]: string } = {};
   sessions: WebsocketSession[];
   constructor(state: IState, private env: CodeEnv) {
@@ -54,10 +52,9 @@ export class Code {
     this.sessions = [];
     
 
-    const { initSession } = CodeSession;
 
 
-    this.mySession = initSession({
+    this.mySession = startSession({
       name: "cloudflare4",
       room: "",
       users: [],
@@ -74,7 +71,7 @@ export class Code {
           : sessionMaybeStr;
 
       if (session && session.code) {
-        this.mySession = initSession({
+        this.mySession = startSession({
           name: "cloudflare",
           room: "",
           users: [],
@@ -102,7 +99,7 @@ export class Code {
         this.state.hashOfCode = await Hash.of(this.state.session.code);
         this.hashCache[this.state.hashOfCode] = this.state.session.code;
 
-        this.mySession = initSession({
+        this.mySession = startSession({
           name: "cloudflare2",
           room: "",
           users: [],
@@ -121,7 +118,7 @@ export class Code {
         lastTimestamp: Date.now(),
       };
 
-      this.mySession = initSession({
+      this.mySession = startSession({
         name: "cloudflare3",
         room: "",
         users: [],
@@ -165,10 +162,9 @@ export class Code {
           });
 
         case "mySession":
-       const  mySess =  this.mySession().toJSON();
-       const myState = mySess.state().toJSON()
 
-          return new Response(JSON.stringify({...mySess, state: myState}), {
+
+          return new Response(JSON.stringify(this.mySession.json()), {
             status: 200,
             headers: {
               "Access-Control-Allow-Origin": "*",
