@@ -13,9 +13,8 @@ export const run = (injectedRoom = "") => {
 
   const user =
     (storageAvailable(sessionStorage) && sessionStorage.getItem("username")) ||
-    (self.crypto.randomUUID()(
-      self && self.crypto && self.crypto.randomUUID && self.crypto.randomUUID(),
-    ) || uuid()).substring(0, 8);
+    ((self && self.crypto && self.crypto.randomUUID &&
+      self.crypto.randomUUID()) || uuid()).substring(0, 8);
 
   storageAvailable(sessionStorage) && sessionStorage.setItem("username", user);
 
