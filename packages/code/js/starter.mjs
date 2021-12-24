@@ -1,4 +1,5 @@
 import { join } from "./ws.mjs";
+import uuid from "uuid/v4";
 
 export default function (injectedRoom = "") {
   run(injectedRoom);
@@ -12,7 +13,9 @@ export const run = (injectedRoom = "") => {
 
   const user =
     (storageAvailable(sessionStorage) && sessionStorage.getItem("username")) ||
-    self.crypto.randomUUID().substring(0, 8);
+    (self.crypto.randomUUID()(
+      self && self.crypto && self.crypto.randomUUID && self.crypto.randomUUID(),
+    ) || uuid()).substring(0, 8);
 
   storageAvailable(sessionStorage) && sessionStorage.setItem("username", user);
 

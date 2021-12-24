@@ -1,5 +1,6 @@
 import { PlatformData } from "@sorry-cypress/common";
 import md5 from "md5";
+import uuid from "uuid/v4"
 
 export const generateRunIdHash = (
   ciBuildId: string,
@@ -15,4 +16,4 @@ export const generateGroupId = (
   ciBuildId: string,
 ): string => `${ciBuildId}`;
 
-export const generateUUID = () => self.crypto.randomUUID();
+export const generateUUID = () =>  (self && self.crypto && self.crypto.randomUUID && self.crypto.randomUUID()) || uuid();;

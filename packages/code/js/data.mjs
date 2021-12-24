@@ -1,13 +1,14 @@
 import { sha256, shaDB } from "@spike.land/shadb";
 import Hash from "ipfs-only-hash";
+import uuid from "uuid/v4";
 // import { getCss } from "../dist/templates.mjs";
 
 const sess = {};
 /** @type {string} */
-let uuid;
+let userId;
 export const getProjects = async () => {
-  uuid = await getUserId();
-  const userData = await shaDB.get(uuid, "json");
+  userId = await getUserId();
+  const userData = await shaDB.get(userId, "json");
 
   let appHash = null;
   if (userData && userData.signal) {
@@ -17,10 +18,11 @@ export const getProjects = async () => {
   }
 
   if (typeof userData === "string" || userData === null || !userData.list) {
-    const projectId = self.crypto.randomUUID();
+    const projectId = (self && self.crypto && self.crypto.randomUUID &&
+      self.crypto.randomUUID()) || uuid();
 
     await shaDB.put(
-      uuid,
+      userId,
       JSON.stringify({
         ...userData,
         list: [projectId],
@@ -39,9 +41,10 @@ export const getProjects = async () => {
 };
 
 async function addNewProject(projectName, hash) {
-  uuid = await getUserId();
-  const userData = (await shaDB.get(uuid, "json")) || { list: [] };
-  const projectId = self.crypto.randomUUID();
+  userId = await getUserId();
+  const userData = (await shaDB.get(userId, "json")) || { list: [] };
+  const projectId = (self && self.crypto && self.crypto.randomUUID &&
+    self.crypto.randomUUID()) || uuid();
   const updated = {
     ...userData,
     projects: {
@@ -57,21 +60,21 @@ async function addNewProject(projectName, hash) {
     list: [projectId, ...userData.list],
   };
 
-  await shaDB.put(uuid, JSON.stringify(updated));
+  await shaDB.put(userId, JSON.stringify(updated));
 
   await shaDB.put(projectId, hash);
 }
 
 export async function getUserId() {
-  if (uuid) return uuid;
+  if (userId) return userId;
 
   const newID = await shaDB.get("uuid", "string");
 
   if (!newID) {
     const resp = await fetch("https://spike.land/register");
     const data = await resp.json();
-    if (uuid) return uuid;
-    uuid = data.uuid;
+    if (userId) return userId;
+    userId = data.uuid;
     await shaDB.put("uuid", data.uuid);
     return data.uuid;
   }
