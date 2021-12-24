@@ -1,6 +1,6 @@
 import { sha256, shaDB } from "@spike.land/shadb";
 import Hash from "ipfs-only-hash";
-import uuid from "uuid/v4";
+import { v4 as uuid } from "uuid";
 // import { getCss } from "../dist/templates.mjs";
 
 const sess = {};

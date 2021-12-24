@@ -2,7 +2,7 @@ import { getDbObj } from "@spike.land/shadb";
 import { json, text } from "./utils/handleOptions";
 import { sha256 } from "@spike.land/shadb";
 import { log } from "./log";
-import v4 from "uuid/v4"
+import {v4 as uuid} from "uuid";
 
 var API_KEY: string;
 
