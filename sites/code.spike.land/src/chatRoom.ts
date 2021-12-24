@@ -9,7 +9,7 @@ import { CodeEnv } from "./env";
 import SANYI from "./sanyi.js.html";
 import RCA from "./rca.tsx.html";
 import type {
-  ICodeSess,
+  ICodeSess, IEvent,
 } from "@spike.land/code/js/session";
 import startSession from "@spike.land/code/js/session";
 import { Record } from "immutable";
@@ -316,6 +316,7 @@ export class Code {
     });
 
     webSocket.addEventListener("message", async (msg) => {
+
       try {
         if (session.quit) {
           webSocket.close(1011, "WebSocket broken.");
@@ -325,6 +326,7 @@ export class Code {
         if (typeof msg.data !== "string") return;
 
         let data = JSON.parse(msg.data);
+        this.mySession.addEvent(data as unknown as IEvent);
 
         if (data.type === "get-cid") {
           const CID = data.cid;
@@ -333,7 +335,7 @@ export class Code {
               JSON.stringify({
                 type: "get-cid",
                 cid: data.cid,
-                [CID]: this.hashCache[CID],
+                [CID]: this.hashCache[CID]
               })
             );
           }
