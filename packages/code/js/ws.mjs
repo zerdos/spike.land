@@ -9,7 +9,7 @@ const webrtcArray = [];
 let hostname = "code.spike.land";
 
 let roomName = "";
-let username = sessionStorage.getItem("username") || "";
+let username = "";
 let lastSeenTimestamp = 0;
 let lastSeenNow = 0;
 let lastSeenCode = "";

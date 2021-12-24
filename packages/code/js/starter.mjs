@@ -9,11 +9,27 @@ export const run = (injectedRoom = "") => {
   const room = injectedRoom || (path[1] === "api" && path[2] === "room")
     ? path[3]
     : (path.pop() || path.pop()).slice(-12);
-  const user = sessionStorage.getItem("username") ||
+
+
+  const user =(storageAvailable(sessionStorage) && sessionStorage.getItem("username")) ||
     self.crypto.randomUUID().substring(0, 8);
-  sessionStorage.setItem("username", user);
+
+ storageAvailable(sessionStorage) &&  sessionStorage.setItem("username", user);
 
   // console.log({ room }, { user });
   join(room, user);
   setTimeout(() => window.sess || join(room, user), 500);
 };
+
+function storageAvailable(type) {
+  try {
+      var storage = window[type];
+      var x = '__storage_test__';
+      storage.setItem(x, x);
+      storage.removeItem(x);
+      return true;
+  }
+  catch(e) {
+      return false;
+  }
+}
