@@ -15,7 +15,6 @@
     "react-transition-group": "https://ga.jspm.io/npm:react-transition-group@4.4.2/esm/index.js",
     "react/jsx-runtime": "https://ga.jspm.io/npm:react@18.0.0-rc.0-next-f2a59df48-20211208/jsx-runtime.js",
     "tslib": "https://cdnjs.cloudflare.com/ajax/libs/tslib/2.3.1/tslib.es6.min.js",
-    "uuid": "https://ga.jspm.io/npm:uuid@8.3.2/dist/esm-browser/index.js",
     "workbox-window": "https://ga.jspm.io/npm:workbox-window@6.4.2/build/workbox-window.prod.es5.mjs",
     "dev": "./js/starter.mjs",
     "framer-motion": "https://unpkg.com/@spike.land/esm@0.2.86/dist/framer-motion.mjs",

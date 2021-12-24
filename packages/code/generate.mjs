@@ -45,8 +45,6 @@ await generator.install("framer-motion");
 await generator.install("comlink");
 await generator.install("tslib");
 
-await generator.install("uuid");
-
 await generator.install("workbox-window");
 await generator.install("@spike.land/ipfs");
 await generator.install("@spike.land/shadb");

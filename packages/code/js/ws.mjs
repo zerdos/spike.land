@@ -647,7 +647,7 @@ async function processWsMessage(event, source) {
     });
     globalThis.mySession = mySession;
   }
-  
+
   mySession.addEvent(data);
 
   const sanyi = await sanyiProcess(

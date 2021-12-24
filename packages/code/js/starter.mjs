@@ -1,5 +1,4 @@
 import { join } from "./ws.mjs";
-import { v4 } from "uuid";
 
 export default function (injectedRoom = "") {
   run(injectedRoom);
@@ -10,7 +9,8 @@ export const run = (injectedRoom = "") => {
   const room = injectedRoom || (path[1] === "api" && path[2] === "room")
     ? path[3]
     : (path.pop() || path.pop()).slice(-12);
-  const user = sessionStorage.getItem("username") || v4().substring(0, 8);
+  const user = sessionStorage.getItem("username") ||
+    self.crypto.randomUUID().substring(0, 8);
   sessionStorage.setItem("username", user);
 
   // console.log({ room }, { user });

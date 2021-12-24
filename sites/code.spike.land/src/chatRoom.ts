@@ -29,6 +29,7 @@ interface ISession {
 }
 
 interface WebsocketSession {
+  uuid: string,
   name?: string;
   webSocket: WebSocket;
   quit?: boolean;
@@ -58,7 +59,7 @@ export class Code {
       name: "cloudflare4",
       room: "",
       users: [],
-      state: { code:"", i:0, transpiled: "", html: "", css: "", errorDiff: "" },
+      state: {  code:"", i:0, transpiled: "", html: "", css: "", errorDiff: "" },
       events: [],
     })
 
@@ -115,7 +116,7 @@ export class Code {
         transpiled: "",
         css: "",
         html: "",
-        lastTimestamp: Date.now(),
+        lastTimestamp: Date.now()
       };
 
       this.mySession = startSession({
@@ -162,8 +163,6 @@ export class Code {
           });
 
         case "mySession":
-
-
           return new Response(JSON.stringify(this.mySession.json()), {
             status: 200,
             headers: {
@@ -296,8 +295,16 @@ export class Code {
       () => this.env.LIMITERS.get(limiterId),
       (err: Error) => webSocket.close(1011, err.stack)
     );
+    const uuid = self.crypto.randomUUID();
 
+
+    this.mySession.addEvent({
+      uuid,
+      timestamp: Date.now()
+    });
+  
     let session = {
+      uuid,
       webSocket,
       blockedMessages: [] as string[],
     } as WebsocketSession;
@@ -319,6 +326,15 @@ export class Code {
 
       try {
         if (session.quit) {
+
+          if (session.name && typeof session.name === "string") {
+          this.mySession.addEvent({
+            type: "quit",
+            uuid: self.crypto.randomUUID(),
+            name: session.name,
+            timestamp: Date.now()
+          });
+        }
           webSocket.close(1011, "WebSocket broken.");
           return;
         }
@@ -326,7 +342,8 @@ export class Code {
         if (typeof msg.data !== "string") return;
 
         let data = JSON.parse(msg.data);
-        this.mySession.addEvent(data as unknown as IEvent);
+
+        this.mySession.addEvent({...data, uuid: session.uuid} as unknown as IEvent);
 
         if (data.type === "get-cid") {
           const CID = data.cid;

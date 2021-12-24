@@ -1,6 +1,5 @@
 import { getDbObj } from "@spike.land/shadb";
 import { json, text } from "./utils/handleOptions";
-import { v4 } from "uuid";
 import { sha256 } from "@spike.land/shadb";
 import { log } from "./log";
 
@@ -131,7 +130,7 @@ export async function handleCloudRequest(request: Request): Promise<Response> {
       // }
 
       if (pathname === "/register") {
-        const uuid = v4();
+        const uuid = self.crypto.randomUUID();
 
         const uuidHash = await sha256(uuid);
         await USERS.put(
@@ -145,7 +144,7 @@ export async function handleCloudRequest(request: Request): Promise<Response> {
         return json({ uuid });
       }
       if (pathname === "/token") {
-        const uuid = v4();
+        const uuid = self.crypto.randomUUID();
         const uuidHash = await sha256(uuid);
         await USERS.put(
           uuid,
@@ -159,7 +158,7 @@ export async function handleCloudRequest(request: Request): Promise<Response> {
 
       if (pathname === "/create-project") {
         const uuidHash = request.headers.get("TOKEN");
-        const uuid = v4();
+        const uuid = self.crypto.randomUUID();
         await USERS.put(
           uuid,
           JSON.stringify({ uuid, registered: Date.now(), country, colo }),

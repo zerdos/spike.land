@@ -1,5 +1,4 @@
 import { sha256, shaDB } from "@spike.land/shadb";
-import { v4 } from "uuid";
 import Hash from "ipfs-only-hash";
 // import { getCss } from "../dist/templates.mjs";
 
@@ -18,7 +17,7 @@ export const getProjects = async () => {
   }
 
   if (typeof userData === "string" || userData === null || !userData.list) {
-    const projectId = v4();
+    const projectId = self.crypto.randomUUID();
 
     await shaDB.put(
       uuid,
@@ -42,7 +41,7 @@ export const getProjects = async () => {
 async function addNewProject(projectName, hash) {
   uuid = await getUserId();
   const userData = (await shaDB.get(uuid, "json")) || { list: [] };
-  const projectId = v4();
+  const projectId = self.crypto.randomUUID();
   const updated = {
     ...userData,
     projects: {

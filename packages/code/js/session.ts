@@ -12,11 +12,18 @@ export interface ICodeSession {
   css: string;
 }
 
-export interface IEvent {
+type NewWSConnection = {
+  uuid: string;
+  timestamp: number;
+};
+
+export type IEvent = NewWSConnection | {
   name: IUsername;
+  uuid: string;
   target: IUsername | "broadcast";
-  type: "start" | "open" | "quit" | "get-cid" | "provide-cid";
-}
+  type: "start" | "open" | "quit" | "get-cid" | "provide-cid" | "new-ws";
+  timestamp: number;
+};
 
 export interface IUserJSON {
   name: IUsername;
@@ -26,43 +33,41 @@ export interface IUserJSON {
   events: IEvent[];
 }
 
-export interface IUser extends Record.Factory<{
-  name: IUsername;
-  room: string;
-  state: Record.Factory<ICodeSession>;
-  users: {};
-  events: IEvent[];
-}>{
-
+export interface IUser extends
+  Record.Factory<{
+    name: IUsername;
+    room: string;
+    state: Record.Factory<ICodeSession>;
+    users: {};
+    events: IEvent[];
+  }> {
 }
 
-function initSession(u: IUserJSON){
-  return Record({...u,
-      state: Record(u.state)
-    });
-  }
+function initSession(u: IUserJSON) {
+  return Record({ ...u, state: Record(u.state) });
+}
 
 export interface ICodeSess {
-  addEvent: (e: IEvent) => void,
-  json: ()=>IUserJSON
+  addEvent: (e: IEvent) => void;
+  json: () => IUserJSON;
 }
 
-export class CodeSession implements ICodeSess{
+export class CodeSession implements ICodeSess {
   session: IUser;
-  constructor(user: IUserJSON){
-    this.session = initSession(user)
+  created: string = new Date().toISOString();
+  constructor(user: IUserJSON) {
+    this.session = initSession({ ...user });
   }
-  public addEvent(e: IEvent){
+  public addEvent(e: IEvent) {
     this.session().get("events").push(e);
-  } 
-  public json(){
+  }
+  public json() {
     const user = this.session().toJSON();
     const state = user.state().toJSON();
-    return {...user, state}
+    return { ...user, state };
   }
-
 }
 
 let session: CodeSession | null = null;
 
-export default (u:IUserJSON): ICodeSess => session || new CodeSession(u)
+export default (u: IUserJSON): ICodeSess => session || new CodeSession(u);
