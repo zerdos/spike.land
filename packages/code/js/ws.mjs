@@ -66,6 +66,9 @@ let rejoin = async () => {
   if (!rejoined) {
     rejoined = true;
     currentWebSocket = null;
+    mySession.addEvent({
+      type: "j"
+    })
 
     // Clear the roster.
     //  while (roster.firstChild) {

@@ -15,6 +15,7 @@ export interface ICodeSession {
 interface NewWSConnection {
   uuid: string;
   timestamp: number;
+  hashCode: number;
   type: "new-ws-connection";
 }
 
@@ -128,6 +129,7 @@ export class CodeSession implements ICodeSess {
     this.session.get("events").push({
       ...e,
     });
+    setTimeout(()=>this.processEvents);
   }
 
   public hashCode() {
@@ -135,6 +137,7 @@ export class CodeSession implements ICodeSess {
   }
 
   processEvents() {
+    
     const events = this.session.get("events");
     const event = events.shift();
 
@@ -159,9 +162,9 @@ export class CodeSession implements ICodeSess {
           if (storageAvailable("localStorage")) {
             localStorage.setItem(cacheKey, JSON.stringify(sess));
           }
+          this.session.set("events", events);
       }
     }
-    // this.session.set(records)
   }
 
   public json() {

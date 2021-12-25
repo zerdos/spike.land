@@ -285,17 +285,18 @@ export class Code {
     );
     const uuid = self.crypto.randomUUID();
 
-    webSocket.send(JSON.stringify({
-      uuid,
-      hashCode: this.mySession.hashCode()
-    }));
 
-
-    this.mySession.addEvent({
+    const newConnEvent = {
       uuid,
+      hashCode:  this.mySession.hashCode(),
       type: "new-ws-connection",
       timestamp: Date.now()
-    });
+    };
+
+    webSocket.send(JSON.stringify(newConnEvent));
+
+
+    this.mySession.addEvent(newConnEvent);
   
     let session = {
       uuid,
