@@ -178,7 +178,7 @@ export default (u: IUserJSON): ICodeSess => session || new CodeSession(u);
 function storageAvailable(type: string) {
   try {
     if (window.hasOwnProperty(type) === false) return;
-    var storage = window[type];
+    var storage = window[type as keyof Window];
     var x = "__storage_test__";
     storage.setItem(x, x);
     storage.removeItem(x);
