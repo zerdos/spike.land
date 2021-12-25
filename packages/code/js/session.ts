@@ -28,6 +28,7 @@ export type IEvent = NewWSConnection | {
 interface ICapabilities {
   prettier: boolean;
   babel: boolean;
+  sessionStorage?: boolean;
   webRRT: boolean;
   prerender: boolean;
   IPFS: boolean;
@@ -75,7 +76,7 @@ export class CodeSession implements ICodeSess {
   hashCodeSession: Number;
   created: string = new Date().toISOString();
   constructor(user: IUserJSON) {
-    this.session = initSession({ ...user })();
+    this.session = initSession({ ...user, capabilities: {...user.capabilities, sessionStorage: storageAvailable("sessionStorage")} })();
     this.hashCodeSession = this.session.get("state").hashCode();
   }
 
@@ -97,3 +98,15 @@ export class CodeSession implements ICodeSess {
 let session: CodeSession | null = null;
 
 export default (u: IUserJSON): ICodeSess => session || new CodeSession(u);
+
+function storageAvailable(type: string) {
+  try {
+    var storage = window[type];
+    var x = "__storage_test__";
+    storage.setItem(x, x);
+    storage.removeItem(x);
+    return true;
+  } catch (e) {
+    return false;
+  }
+}
