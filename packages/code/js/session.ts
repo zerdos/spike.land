@@ -92,20 +92,28 @@ export class CodeSession implements ICodeSess {
   public room: string = "";
   created: string = new Date().toISOString();
   constructor(user: IUserJSON) {
-    let savedState = null;
+    let savedState: ICodeSession | null = null;
     if (user.state.code === "" && user.room) {
       const cacheKey = `state-${user.room}`;
 
       if (storageAvailable("localStorage")) {
-        const savedState = localStorage.getItem(cacheKey);
-        if (savedState) JSON.parse(savedState);
-        else {
-          //...
+        const savedStateStr = localStorage.getItem(cacheKey);
+        if (savedStateStr) {
+          savedState = JSON.parse(savedStateStr);
+        } else {
+          fetch(`https://code.spike.land/api/room/${room}/mySession`).then(
+            (resp) => resp.json()
+          ).then((state: ICodeSession) => {
+            localStorage.setItem(cacheKey, JSON.stringify(state));
+            this.session.set("state", Record(state)());
+          });
         }
       }
     }
+
     this.session = initSession({
       ...user,
+      state: savedState ? savedState : user.state,
       capabilities: {
         ...user.capabilities,
         sessionStorage: storageAvailable("sessionStorage"),
