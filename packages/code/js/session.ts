@@ -93,7 +93,9 @@ export class CodeSession implements ICodeSess {
   created: string = new Date().toISOString();
   constructor(user: IUserJSON) {
     let savedState: ICodeSession | null = null;
+    this.room = user.room;
     if (user.state.code === "" && user.room) {
+      this.room = user.room;
       const cacheKey = `state-${user.room}`;
 
       if (storageAvailable("localStorage")) {
@@ -101,11 +103,11 @@ export class CodeSession implements ICodeSess {
         if (savedStateStr) {
           savedState = JSON.parse(savedStateStr);
         } else {
-          fetch(`https://code.spike.land/api/room/${room}/mySession`).then(
-            (resp) => resp.json()
-          ).then((state: ICodeSession) => {
-            localStorage.setItem(cacheKey, JSON.stringify(state));
-            this.session.set("state", Record(state)());
+          fetch(`https://code.spike.land/api/room/${user.room}/mySession`).then(
+            (resp) => resp.json(),
+          ).then((session: IUserJSON) => {
+            localStorage.setItem(cacheKey, JSON.stringify(session));
+            this.session.set("state", Record(session.state)());
           });
         }
       }
