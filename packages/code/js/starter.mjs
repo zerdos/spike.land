@@ -11,8 +11,8 @@ export const run = (injectedRoom = "") => {
     ? path[3]
     : (path.pop() || path.pop()).slice(-12);
 
-  const user =((self && self.crypto && self.crypto.randomUUID &&
-      self.crypto.randomUUID()) || uuid()).substring(0, 8);
+  const user = ((self && self.crypto && self.crypto.randomUUID &&
+    self.crypto.randomUUID()) || uuid()).substring(0, 8);
 
   // console.log({ room }, { user });
   join(room, user);

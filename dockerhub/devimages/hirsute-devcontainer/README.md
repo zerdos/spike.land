@@ -7,5 +7,5 @@
 - With google-chrome
 - With Vscode- docker preinstalled
 - Zsh + Oh my zsh!
-- Deno: 1.17.0
+- Deno: 1.17.1
 - github: https://github.com/spike-land/monorepo

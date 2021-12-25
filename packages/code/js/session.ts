@@ -12,18 +12,31 @@ export interface ICodeSession {
   css: string;
 }
 
-type NewWSConnection = {
+interface NewWSConnection {
   uuid: string;
   timestamp: number;
-};
+  type: "new-ws-connection";
+}
 
-export type IEvent = NewWSConnection | {
+interface ICodeInitEvent extends ICodeSession {
+  name: IUsername;
+  uuid: string;
+  type: "code-init";
+  hashOfCode: string;
+}
+
+interface OtherEvent {
   name: IUsername;
   uuid: string;
   target: IUsername | "broadcast";
   type: "start" | "open" | "quit" | "get-cid" | "provide-cid" | "new-ws";
   timestamp: number;
-};
+}
+
+export type IEvent =
+  | NewWSConnection
+  | OtherEvent
+  | ICodeInitEvent;
 
 interface ICapabilities {
   prettier: boolean;
@@ -66,6 +79,7 @@ function initSession(u: IUserJSON) {
 }
 
 export interface ICodeSess {
+  room: string;
   addEvent: (e: IEvent) => void;
   json: () => IUserJSON;
   processEvents: () => void;
@@ -74,9 +88,28 @@ export interface ICodeSess {
 export class CodeSession implements ICodeSess {
   session: IUser;
   hashCodeSession: Number;
+  public room: string = "";
   created: string = new Date().toISOString();
   constructor(user: IUserJSON) {
-    this.session = initSession({ ...user, capabilities: {...user.capabilities, sessionStorage: storageAvailable("sessionStorage")} })();
+    let savedState = null;
+    if (user.state.code === "" && user.room) {
+      const cacheKey = `state-${user.room}`;
+
+      if (storageAvailable("localStorage")) {
+        const savedState = localStorage.getItem(cacheKey);
+        if (savedState) JSON.parse(savedState);
+        else {
+          //...
+        }
+      }
+    }
+    this.session = initSession({
+      ...user,
+      capabilities: {
+        ...user.capabilities,
+        sessionStorage: storageAvailable("sessionStorage"),
+      },
+    })();
     this.hashCodeSession = this.session.get("state").hashCode();
   }
 
@@ -85,7 +118,33 @@ export class CodeSession implements ICodeSess {
   }
 
   processEvents() {
-    const event = this.session.get("events").shift();
+    const events = this.session.get("events");
+    const event = events.shift();
+
+    if (event) {
+      switch (event.type) {
+        case "code-init":
+          const { code, transpiled, i, css, errorDiff, html } = event;
+          const sess: ICodeSession = {
+            code,
+            transpiled,
+            i,
+            css,
+            errorDiff,
+            html,
+          };
+
+          this.session.set("events", events);
+          this.session.set("state", Record(sess)());
+
+          const cacheKey = `state-${this.session.get("room")}`;
+
+          if (storageAvailable("localStorage")) {
+            localStorage.setItem(cacheKey, JSON.stringify(sess));
+          }
+      }
+    }
+    // this.session.set(records)
   }
 
   public json() {
@@ -101,7 +160,6 @@ export default (u: IUserJSON): ICodeSess => session || new CodeSession(u);
 
 function storageAvailable(type: string) {
   try {
-
     if (window.hasOwnProperty(type) === false) return;
     var storage = window[type];
     var x = "__storage_test__";

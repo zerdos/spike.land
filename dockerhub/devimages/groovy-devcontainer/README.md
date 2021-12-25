@@ -6,5 +6,5 @@
 - With noVNC - XFCE trough noVNC (http://localhost:6080)
 - With google-chrome
 - Zsh + Oh my zsh!
-- Deno: 1.17.0
+- Deno: 1.17.1
 - github: https://github.com/spike-land/monorepo

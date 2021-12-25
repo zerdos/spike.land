@@ -76,7 +76,6 @@ export class Code {
 
       if (session && session.code) {
        
-
         let hashOfCode = await Hash.of(session.code);
         this.state.session = session;
         this.state.hashOfCode = hashOfCode;
@@ -123,6 +122,8 @@ export class Code {
 
       let url = new URL(request.url);
       const codeSpace = url.searchParams.get("room");
+      if (codeSpace && this.mySession.room ==="") this.mySession.room = codeSpace;
+
 
       let path = url.pathname.slice(1).split("/");
 
@@ -285,6 +286,7 @@ export class Code {
 
     this.mySession.addEvent({
       uuid,
+      type: "new-ws-connection",
       timestamp: Date.now()
     });
   
@@ -315,6 +317,7 @@ export class Code {
           if (session.name && typeof session.name === "string") {
           this.mySession.addEvent({
             type: "quit",
+            target: "broadcast",
             uuid: self.crypto.randomUUID(),
             name: session.name,
             timestamp: Date.now()
