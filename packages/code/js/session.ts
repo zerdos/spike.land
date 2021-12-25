@@ -66,6 +66,7 @@ interface IQTaskEvent {
 export interface IUser extends
   Record<{
     name: IUsername;
+    room: string;
     state: Record<ICodeSession>;
     capabilities: ICapabilities;
     users: {};
@@ -81,6 +82,7 @@ export interface ICodeSess {
   room: string;
   hashCode: () => number;
   addEvent: (e: IEvent) => void;
+  setRoom: (room: string)=>void;
   json: () => IUserJSON;
   processEvents: () => void;
 }
@@ -114,6 +116,7 @@ export class CodeSession implements ICodeSess {
 
     this.session = initSession({
       ...user,
+      room: room,
       state: savedState ? savedState : user.state,
       capabilities: {
         ...user.capabilities,
@@ -169,6 +172,10 @@ export class CodeSession implements ICodeSess {
     const user = this.session.toJSON();
     const state = user.state.toJSON();
     return { ...user, state };
+  }
+  public setRoom(room: string) {
+    const user = this.session.set("room", room);
+    this.session = user;
   }
 }
 
