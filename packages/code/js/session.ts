@@ -114,7 +114,10 @@ export class CodeSession implements ICodeSess {
   }
 
   public addEvent(e: IEvent) {
-    this.session.get("events").push(e);
+    this.session.get("events").push({
+      ...e,
+      uuid: uuid,
+    });
   }
 
   processEvents() {

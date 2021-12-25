@@ -275,6 +275,10 @@ export class Code {
   async handleSession(webSocket: WebSocket, ip: string) {
     webSocket.accept();
 
+    webSocket.send(JSON.stringify({
+      hello: this.mySession.room;
+    }));
+
     let limiterId = this.env.LIMITERS.idFromName(ip);
 
     let limiter = new RateLimiterClient(
@@ -383,16 +387,16 @@ export class Code {
           // Broadcast to all other connections that this user has joined.
           // this.broadcast({ joined: session.name });
 
+          const messageEv = {
+            ready: true,
+            type: "code-init",
+            hashOfCode: this.state.hashOfCode,
+            ...this.state.session,
+            uuid: data.uuid
+          }
+      
           webSocket.send(
-            JSON.stringify({
-              ready: true,
-              code: this.state.session.code,
-              hashOfCode: this.state.hashOfCode,
-              transpiled: this.state.session.transpiled,
-              css: this.state.session.css,
-              html: this.state.session.html,
-              i: this.state.session.i,
-            })
+            JSON.stringify(messageEv)
           );
 
           // Note that we've now received the user info message.
