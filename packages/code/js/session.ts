@@ -106,7 +106,7 @@ export class CodeSession implements ICodeSess {
           fetch(`https://code.spike.land/api/room/${user.room}/mySession`).then(
             (resp) => resp.json(),
           ).then((session: IUserJSON) => {
-            localStorage.setItem(cacheKey, JSON.stringify(session));
+            localStorage.setItem(cacheKey, JSON.stringify(session.state));
             this.session.set("state", Record(session.state)());
           });
         }

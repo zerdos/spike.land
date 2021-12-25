@@ -131,14 +131,11 @@ export const join = (room, user) => {
         }
       }, 30_000);
     }
-    console.log("connected");
     currentWebSocket = ws;
     const broad = async (
       { code, hashOfCode, starterCode, transpiled, html, css, i },
     ) => {
-      console.log("BROAD");
       await importTools();
-      console.log("hmmmm,..");
       if (i != window.sess.i) return;
       const formattedCode = await formatter(code);
       const hashOfFormattedCode = await Hash.of(formattedCode);
