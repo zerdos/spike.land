@@ -52,13 +52,17 @@ export class Code {
     this.env = env;
     this.sessions = [];
     
-
-
-
     this.mySession = startSession({
       name: "cloudflare4",
-      room: "",
+      room: JSON.stringify(env),
       users: [],
+      capabilities: {
+        prettier: false,
+        babel: false,
+        webRRT: false,
+        prerender:false,
+        IPFS: false
+      },
       state: {  code:"", i:0, transpiled: "", html: "", css: "", errorDiff: "" },
       events: [],
     })
@@ -72,20 +76,14 @@ export class Code {
           : sessionMaybeStr;
 
       if (session && session.code) {
-        this.mySession = startSession({
-          name: "cloudflare",
-          room: "",
-          users: [],
-          state: { ...session, errorDiff: "" },
-          events: [],
-        });
+       
 
         let hashOfCode = await Hash.of(session.code);
         this.state.session = session;
         this.state.hashOfCode = hashOfCode;
         this.hashCache[hashOfCode] = session.code;
-        return (this.state.session = session);
       }
+      else {
 
       const codeMainId = env.CODE.idFromName("code-main");
       const defaultRoomObject = env.CODE.get(codeMainId);
@@ -93,42 +91,31 @@ export class Code {
       const resp = await defaultRoomObject.fetch("session");
       const defaultClone: ISession = await resp.json();
 
-      if (defaultClone && defaultClone.code) {
         this.state.session = defaultClone;
         //        this.state.session.code = RCA;
 
         this.state.hashOfCode = await Hash.of(this.state.session.code);
         this.hashCache[this.state.hashOfCode] = this.state.session.code;
+    }
 
-        this.mySession = startSession({
-          name: "cloudflare2",
-          room: "",
-          users: [],
-          state: { ...this.state.session, errorDiff: "" },
-          events: [],
-        });
-        return;
-      }
-
-      this.state.session = {
-        code: RCA,
-        i: 0,
-        transpiled: "",
-        css: "",
-        html: "",
-        lastTimestamp: Date.now()
-      };
-
-      this.mySession = startSession({
-        name: "cloudflare3",
-        room: "",
-        users: [],
-        state: { ...this.state.session, errorDiff: "" } ,
-        events: [],
-      });
+    this.mySession = startSession({
+      name: "cloudflare",
+      room: "",
+      capabilities: {
+        prettier: false,
+        babel: false,
+        webRRT: false,
+        prerender:false,
+        IPFS: false
+      },
+      users: [],
+      state: { ...session, errorDiff: "" },
+      events: [],
+    });
 
       return;
     });
+    
   }
 
   async fetch(request: Request) {

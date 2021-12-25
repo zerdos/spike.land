@@ -25,45 +25,71 @@ export type IEvent = NewWSConnection | {
   timestamp: number;
 };
 
+interface ICapabilities {
+  prettier: boolean;
+  babel: boolean;
+  webRRT: boolean;
+  prerender: boolean;
+  IPFS: boolean;
+}
+
 export interface IUserJSON {
   name: IUsername;
+  capabilities: ICapabilities;
   room: string;
   state: ICodeSession;
   users: {};
   events: IEvent[];
 }
 
+interface IQTaskEvent {
+  uuid: string;
+  name: string;
+  operation: string;
+  data: string;
+}
+
 export interface IUser extends
-  Record.Factory<{
+  Record<{
     name: IUsername;
     room: string;
-    state: Record.Factory<ICodeSession>;
+    state: Record<ICodeSession>;
+    capabilities: ICapabilities;
     users: {};
     events: IEvent[];
   }> {
 }
 
 function initSession(u: IUserJSON) {
-  return Record({ ...u, state: Record(u.state) });
+  return Record({ ...u, state: Record(u.state)() });
 }
 
 export interface ICodeSess {
   addEvent: (e: IEvent) => void;
   json: () => IUserJSON;
+  processEvents: () => void;
 }
 
 export class CodeSession implements ICodeSess {
   session: IUser;
+  hashCodeSession: Number;
   created: string = new Date().toISOString();
   constructor(user: IUserJSON) {
-    this.session = initSession({ ...user });
+    this.session = initSession({ ...user })();
+    this.hashCodeSession = this.session.get("state").hashCode();
   }
+
   public addEvent(e: IEvent) {
-    this.session().get("events").push(e);
+    this.session.get("events").push(e);
   }
+
+  processEvents() {
+    const event = this.session.get("events").shift();
+  }
+
   public json() {
-    const user = this.session().toJSON();
-    const state = user.state().toJSON();
+    const user = this.session.toJSON();
+    const state = user.state.toJSON();
     return { ...user, state };
   }
 }
