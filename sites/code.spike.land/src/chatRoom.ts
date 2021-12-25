@@ -7,7 +7,6 @@ import { version } from "@spike.land/code/package.json";
 import applyDelta from "textdiff-patch";
 import { CodeEnv } from "./env";
 import SANYI from "./sanyi.js.html";
-import RCA from "./rca.tsx.html";
 import type {
   ICodeSess, IEvent,
 } from "@spike.land/code/js/session";
@@ -53,8 +52,8 @@ export class Code {
     this.sessions = [];
     
     this.mySession = startSession({
-      name: "cloudflare4",
-      room: JSON.stringify(env),
+      name:  self.crypto.randomUUID().substring(0,8),
+      room: "",
       users: [],
       capabilities: {
         prettier: false,
@@ -99,7 +98,7 @@ export class Code {
     }
 
     this.mySession = startSession({
-      name: "cloudflare",
+      name: self.crypto.randomUUID().substring(0,8),
       room: "",
       capabilities: {
         prettier: false,
@@ -115,7 +114,6 @@ export class Code {
 
       return;
     });
-    
   }
 
   async fetch(request: Request) {
