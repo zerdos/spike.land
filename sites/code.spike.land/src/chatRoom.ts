@@ -50,9 +50,11 @@ export class Code {
     this.sessions = [];
     this.env = env;
     this.sessions = [];
+
+    const username =  self.crypto.randomUUID().substring(0,8);
     
     this.mySession = startSession({
-      name:  self.crypto.randomUUID().substring(0,8),
+      name:  username,
       room: "",
       users: [],
       capabilities: {
@@ -97,7 +99,7 @@ export class Code {
     }
 
     this.mySession = startSession({
-      name: self.crypto.randomUUID().substring(0,8),
+      name: username,
       room: "",
       capabilities: {
         prettier: false,
