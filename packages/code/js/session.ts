@@ -74,19 +74,18 @@ export interface IUser extends
   }> {
 }
 
-function initSession(u: IUserJSON) {
-  return Record({ ...u, state: Record(u.state)() });
+function initSession(room: string, u: IUserJSON) {
+  return Record({ ...u, room, state: Record(u.state)() });
 }
 
 export interface ICodeSess {
   room: string;
   hashCode: () => number;
   addEvent: (e: IEvent) => void;
-  setRoom: (room: string)=>void;
+  setRoom: (room: string) => void;
   json: () => IUserJSON;
   processEvents: () => void;
 }
-
 
 export class CodeSession implements ICodeSess {
   session: IUser;
@@ -114,10 +113,10 @@ export class CodeSession implements ICodeSess {
       }
     }
 
-    this.session = initSession({
+    this.session = initSession(room, {
       ...user,
-      room: room,
       state: savedState ? savedState : user.state,
+
       capabilities: {
         ...user.capabilities,
         sessionStorage: storageAvailable("sessionStorage"),
@@ -130,7 +129,7 @@ export class CodeSession implements ICodeSess {
     this.session.get("events").push({
       ...e,
     });
-    setTimeout(()=>this.processEvents);
+    setTimeout(() => this.processEvents);
   }
 
   public hashCode() {
@@ -138,7 +137,6 @@ export class CodeSession implements ICodeSess {
   }
 
   processEvents() {
-    
     const events = this.session.get("events");
     const event = events.shift();
 
@@ -181,7 +179,8 @@ export class CodeSession implements ICodeSess {
 
 let session: CodeSession | null = null;
 
-export default (room: string, u: IUserJSON): ICodeSess => session || new CodeSession(room, u);
+export default (room: string, u: IUserJSON): ICodeSess =>
+  session || new CodeSession(room, u);
 
 function storageAvailable(type: string) {
   try {

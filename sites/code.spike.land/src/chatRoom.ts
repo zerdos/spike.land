@@ -122,7 +122,7 @@ export class Code {
 
       let url = new URL(request.url);
       const codeSpace = url.searchParams.get("room");
-      if (codeSpace && this.mySession.room ==="") this.mySession. codeSpace;
+      if (codeSpace && this.mySession.room ==="") this.mySession.codeSpace;
 
 
       let path = url.pathname.slice(1).split("/");
