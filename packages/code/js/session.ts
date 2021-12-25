@@ -80,6 +80,7 @@ function initSession(u: IUserJSON) {
 
 export interface ICodeSess {
   room: string;
+  hashCode: () => number;
   addEvent: (e: IEvent) => void;
   json: () => IUserJSON;
   processEvents: () => void;
@@ -116,8 +117,11 @@ export class CodeSession implements ICodeSess {
   public addEvent(e: IEvent) {
     this.session.get("events").push({
       ...e,
-      uuid: uuid,
     });
+  }
+
+  public hashCode() {
+    return this.session.get("state").hashCode();
   }
 
   processEvents() {

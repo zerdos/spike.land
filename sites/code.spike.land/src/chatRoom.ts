@@ -275,10 +275,6 @@ export class Code {
   async handleSession(webSocket: WebSocket, ip: string) {
     webSocket.accept();
 
-    webSocket.send(JSON.stringify({
-      hello: this.mySession.room;
-    }));
-
     let limiterId = this.env.LIMITERS.idFromName(ip);
 
     let limiter = new RateLimiterClient(
@@ -286,6 +282,11 @@ export class Code {
       (err: Error) => webSocket.close(1011, err.stack)
     );
     const uuid = self.crypto.randomUUID();
+
+    webSocket.send(JSON.stringify({
+      uuid,
+      hashCode: this.mySession.hashCode()
+    }));
 
 
     this.mySession.addEvent({
