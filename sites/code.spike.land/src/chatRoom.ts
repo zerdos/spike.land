@@ -8,7 +8,7 @@ import applyDelta from "textdiff-patch";
 import { CodeEnv } from "./env";
 import SANYI from "./sanyi.js.html";
 import type {
-  ICodeSess, IEvent,
+  ICodeSess, IEvent, INewWSConnection,
 } from "@spike.land/code/js/session";
 import startSession from "@spike.land/code/js/session";
 import { Record } from "immutable";
@@ -53,9 +53,8 @@ export class Code {
 
     const username =  self.crypto.randomUUID().substring(0,8);
     
-    this.mySession = startSession({
-      name:  username,
-      room: "",
+    this.mySession = startSession("",{
+      name: username,
       users: [],
       capabilities: {
         prettier: false,
@@ -98,9 +97,8 @@ export class Code {
         this.hashCache[this.state.hashOfCode] = this.state.session.code;
     }
 
-    this.mySession = startSession({
+    this.mySession = startSession("",{
       name: username,
-      room: "",
       capabilities: {
         prettier: false,
         babel: false,
@@ -286,7 +284,7 @@ export class Code {
     const uuid = self.crypto.randomUUID();
 
 
-    const newConnEvent = {
+    const newConnEvent: INewWSConnection = {
       uuid,
       hashCode:  this.mySession.hashCode(),
       type: "new-ws-connection",

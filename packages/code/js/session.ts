@@ -12,7 +12,7 @@ export interface ICodeSession {
   css: string;
 }
 
-interface NewWSConnection {
+export interface INewWSConnection {
   uuid: string;
   timestamp: number;
   hashCode: number;
@@ -35,7 +35,7 @@ interface OtherEvent {
 }
 
 export type IEvent =
-  | NewWSConnection
+  | INewWSConnection
   | OtherEvent
   | ICodeInitEvent;
 
@@ -51,7 +51,6 @@ interface ICapabilities {
 export interface IUserJSON {
   name: IUsername;
   capabilities: ICapabilities;
-  room: string;
   state: ICodeSession;
   users: {};
   events: IEvent[];
@@ -67,7 +66,6 @@ interface IQTaskEvent {
 export interface IUser extends
   Record<{
     name: IUsername;
-    room: string;
     state: Record<ICodeSession>;
     capabilities: ICapabilities;
     users: {};
@@ -87,24 +85,24 @@ export interface ICodeSess {
   processEvents: () => void;
 }
 
+
 export class CodeSession implements ICodeSess {
   session: IUser;
   hashCodeSession: Number;
   public room: string = "";
   created: string = new Date().toISOString();
-  constructor(user: IUserJSON) {
+  constructor(room: string, user: IUserJSON) {
     let savedState: ICodeSession | null = null;
-    this.room = user.room;
-    if (user.state.code === "" && user.room) {
-      this.room = user.room;
-      const cacheKey = `state-${user.room}`;
+    this.room = room;
+    if (user.state.code === "" && room) {
+      const cacheKey = `state-${room}`;
 
       if (storageAvailable("localStorage")) {
         const savedStateStr = localStorage.getItem(cacheKey);
         if (savedStateStr) {
           savedState = JSON.parse(savedStateStr);
         } else {
-          fetch(`https://code.spike.land/api/room/${user.room}/mySession`).then(
+          fetch(`https://code.spike.land/api/room/${room}/mySession`).then(
             (resp) => resp.json(),
           ).then((session: IUserJSON) => {
             localStorage.setItem(cacheKey, JSON.stringify(session.state));
@@ -157,7 +155,7 @@ export class CodeSession implements ICodeSess {
           this.session.set("events", events);
           this.session.set("state", Record(sess)());
 
-          const cacheKey = `state-${this.session.get("room")}`;
+          const cacheKey = `state-${this.room}`;
 
           if (storageAvailable("localStorage")) {
             localStorage.setItem(cacheKey, JSON.stringify(sess));
@@ -176,7 +174,7 @@ export class CodeSession implements ICodeSess {
 
 let session: CodeSession | null = null;
 
-export default (u: IUserJSON): ICodeSess => session || new CodeSession(u);
+export default (room: string, u: IUserJSON): ICodeSess => session || new CodeSession(room, u);
 
 function storageAvailable(type: string) {
   try {
