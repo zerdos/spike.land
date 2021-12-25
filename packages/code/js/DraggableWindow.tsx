@@ -225,6 +225,7 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
               animate={{
                 transformOrigin: "0px 0px",
                 width: width / devicePixelRatio,
+                height: height / devicePixelRatio,
                 scale,
               }}
               css={css`
@@ -245,6 +246,9 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
                       id="zbody"
                       key={session.i}
                       ref={zbody}
+                      css={css`
+                        height: 100%;
+                      `}
                     >
                       {child}
                     </div>
