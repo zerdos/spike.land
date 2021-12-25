@@ -33,7 +33,7 @@
     "textdiff-patch": "1.0.5"
   },
   "devDependencies": {
-    "rollup": "2.61.1",
+    "rollup": "2.62.0",
     "rollup-plugin-dts": "4.0.1"
   },
   "publishConfig": {
