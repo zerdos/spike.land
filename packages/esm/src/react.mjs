@@ -43,7 +43,7 @@ export const { createFactory } = React;
 export const { createRef } = React;
 export const { Fragment } = React;
 export const { Component } = React;
-
+export const { Suspense} = React;
 export const { isValidElement } = React;
 export const { memo } = React;
 export const { useImperativeHandle } = React;
