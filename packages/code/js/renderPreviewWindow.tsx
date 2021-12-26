@@ -52,5 +52,5 @@ export const renderPreviewWindow = async (session) => {
     editor.style.opacity = "1";
 
     document.getElementById("root")?.remove();
-  }, 400);
+  }, 500);
 };

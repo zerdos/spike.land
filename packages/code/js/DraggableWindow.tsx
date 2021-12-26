@@ -77,14 +77,6 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
 
   useEffect(() => {
     setTimeout(() => {
-      session.setChild(
-        [
-          ...childArray,
-          session.children
-            ? session.children
-            : <LazySpikeLandComponent name={session.room} />,
-        ],
-      );
       setWidth(breakPoints[1]);
       setHeight(breakPointHeights[1]);
       changeScaleRange(75);
@@ -92,8 +84,7 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
     }, 1600);
   }, []);
 
-  session.setChild = (ch) =>
-    setTimeout(() => setChild(ch), childArray.length == 1 ? 1600 : 0);
+  session.setChild = setChild;
 
   const [qrUrl, setQRUrl] = useState(session.url);
   const [errorText, setErrorText] = useState("");

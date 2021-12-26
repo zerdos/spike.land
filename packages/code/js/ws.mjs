@@ -140,6 +140,12 @@ export const join = (room, user) => {
     ) => {
       await importTools();
       if (i != window.sess.i) return;
+
+      localStorage.setItem(
+        `state-${roomName}`,
+        JSON.stringify({ code, transpiled, html, css, i }),
+      );
+
       const formattedCode = await formatter(code);
       const hashOfFormattedCode = await Hash.of(formattedCode);
 
