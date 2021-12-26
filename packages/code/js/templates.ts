@@ -114,6 +114,10 @@ export function getHtml({ html, css }: { html: string; css: string }) {
   top: 0;
 }
 ${css}</style>
+<script crossorigin src="https://unpkg.com/react@18.0.0-rc.0-next-f2a59df48-20211208/umd/react.production.min.js"></script>
+<script crossorigin src="https://unpkg.com/react-is@18.0.0-rc.0-next-f2a59df48-20211208/umd/react-is.production.min.js"></script>
+<script crossorigin src="https://unpkg.com/react-dom@18.0.0-rc.0-next-f2a59df48-20211208/umd/react-dom.production.min.js"></script>
+<script crossorigin src="https://unpkg.com/@emotion/react@11.7.1/dist/emotion-react.umd.min.js"></script>
 </head>
 <body>
 <a class="skip-link" href="#zbody">Jump to the page</a>
@@ -153,6 +157,10 @@ export const getEditorHTML = () =>
 </head>
 <body>
 <script>window.process = {env: {NODE_ENV:"production" }}</script>
+<script crossorigin src="https://unpkg.com/react@18.0.0-rc.0-next-f2a59df48-20211208/umd/react.production.min.js"></script>
+<script crossorigin src="https://unpkg.com/react-is@18.0.0-rc.0-next-f2a59df48-20211208/umd/react-is.production.min.js"></script>
+<script crossorigin src="https://unpkg.com/react-dom@18.0.0-rc.0-next-f2a59df48-20211208/umd/react-dom.production.min.js"></script>
+<script crossorigin src="https://unpkg.com/@emotion/react@11.7.1/dist/emotion-react.umd.min.js"></script>
 <script type="importmap">
 ${
     JSON.stringify({
