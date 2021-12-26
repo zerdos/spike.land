@@ -1,6 +1,6 @@
 {
   "name": "@spike.land/esm",
-  "version": "0.3.71",
+  "version": "0.3.72",
   "description": "esm modules for packages with maintainers from the 2015",
   "main": "dist/react.mjs",
   "files": [
