@@ -9,13 +9,14 @@ export const renderPreviewWindow = async (session) => {
   const target = document.getElementById("root")!;
   const { room } = session;
 
-  const Element = () =>
+  const Element = () => (
     <DraggableWindow
       onShare={() => open(`https://code.spike.land/api/room/${room}/public`)}
       onRestore={() => {}}
       position={session.mode === "window" ? "fixed" : "absolute"}
       session={session}
-    />;
+    />
+  );
 
   // const {html} = getHtmlAndCss( <Element></Element> as any );
 

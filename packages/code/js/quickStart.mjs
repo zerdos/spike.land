@@ -248,6 +248,8 @@ export async function quickStart(session) {
   document.getElementById("root").innerHTML = `<style>${session.css}</style>
   ${session.html}
   `;
+
+  window.document.body.style.backgroundImage = "url(./assets/synthwave.webp)";
   // session.children = await getReactChild(session.transpiled);
   session.children = null;
   const { renderPreviewWindow } = await import(
