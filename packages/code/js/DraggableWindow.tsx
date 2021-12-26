@@ -3,6 +3,8 @@
 /// <reference types="@emotion/react/types/css-prop" />
 
 import { css, jsx } from "@emotion/react";
+import { wait } from "axax/esnext/wait";
+
 
 import { Fragment, lazy, Suspense, useEffect, useRef, useState } from "react";
 import {
@@ -75,21 +77,14 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
     </div>,
   ]);
 
-  useEffect(() => {
-    setTimeout(() => {
-      setWidth(breakPoints[1]);
-      setHeight(breakPointHeights[1]);
-      changeScaleRange(75);
-      setPositions({ bottom: 20, right: 20 });
-    }, 1600);
-  }, []);
+  const startPositions = { bottom: -40, right: -88 };
+
 
   session.setChild = setChild;
 
   const [qrUrl, setQRUrl] = useState(session.url);
   const [errorText, setErrorText] = useState("");
 
-  const startPositions = { bottom: -40, right: -88 };
   const [{ bottom, right }, setPositions] = useState(startPositions);
   const [width, setWidth] = useState(window.innerWidth * devicePixelRatio);
   const [height, setHeight] = useState(window.innerHeight * devicePixelRatio);
@@ -122,6 +117,47 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
   }, [setErrorText, setQRUrl, errorText, qrUrl]);
 
   const scale = scaleRange / 100;
+
+
+  useEffect(() => { 
+    const reveal = async() => {
+      const {bottom, right} = startPositions;
+    await wait(500);
+     const root =  document.getElementById("root");
+     if (root && root.remove) root.remove();
+      // if (window.sess.monaco) {
+
+        changeScaleRange(75);
+        if (!window.sess.monaco) await wait(250);
+        setPositions({ bottom: 20, right: 20 }); 
+        if (!window.sess.monaco) await wait(250);
+        setWidth(width =>width-800);
+        if (!window.sess.monaco) await wait(250);
+        setHeight(height=> height*1.2 -100)
+        await wait(2500)
+
+        if (width-800<300) {
+          changeScaleRange(50);
+          if (!window.sess.monaco) await wait(250);
+          setHeight(breakPointHeights[1]);
+        }
+
+        else if (width-800<609) {
+          setHeight(breakPointHeights[1]);
+          if (!window.sess.monaco) await wait(250);
+          changeScaleRange(75);
+        }
+
+        else if (width-800<1000) {
+          setHeight(breakPointHeights[2]);
+          if (!window.sess.monaco) await wait(250);
+          changeScaleRange(100);
+        }
+
+    };
+    reveal();
+  }, []);
+
 
   return (
     <motion.div
@@ -185,7 +221,8 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
               </ToggleButton>
             ))}
           </ToggleButtonGroup>
-
+          <span>{width}*{height}</span>
+        
           <motion.div
             // initial={{
             //   width: window.innerWidth,

@@ -23,7 +23,7 @@ export default {
           return new Response("ping" + Math.random(),  {
             headers: {
               "Content-Type": "text/html;charset=UTF-8",
-              "Cache-Control": "max-age=604800, stale-while-revalidate=86400"
+              "Cache-Control": "no-cache"
             },
           },)
         case "api":
@@ -100,7 +100,7 @@ const {html, css} = await resp.json();
     {
       headers: {
         "Content-Type": "text/html;charset=UTF-8",
-        "Cache-Control": "",
+        "Cache-Control": "no-cache",
       },
     },
   );

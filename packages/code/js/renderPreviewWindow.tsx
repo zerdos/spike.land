@@ -51,6 +51,6 @@ export const renderPreviewWindow = async (session) => {
     target.style.opacity = "1";
     editor.style.opacity = "1";
 
-    document.getElementById("root")?.remove();
+    document.getElementById("root").remove();
   }, 500);
 };
