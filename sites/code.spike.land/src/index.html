@@ -1,33 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head profile="http://www.w3.org/2005/10/profile">
-    <meta charset="utf-8" />
-    <meta name="viewport" content="initial-scale=1, maximum-scale=1" />
-    <link
-      rel="icon"
-      type="image/png"
-      href="https://unpkg.com/@spike.land/code@VERSION/assets/zed-icon-big.png"
-    />
-    <link
-      rel="stylesheet"
-      href="https://unpkg.com/@spike.land/code@VERSION/assets/app.css"
-    />
-    <script crossorigin src="https://unpkg.com/react@18.0.0-rc.0-next-f2a59df48-20211208/umd/react.production.min.js"></script>
+<head profile="http://www.w3.org/2005/10/profile">
+  <meta http-equiv="Content-Type" content="text/html,charset=utf-8" />
+  <meta name="viewport" content="width=device-width" />
+  
+  <link rel="icon" type="image/png" href="./assets/zed-icon-big.png" />
+
+  <link rel="stylesheet" href="./assets/app.css" />
+
+  <script crossorigin src="https://unpkg.com/react@18.0.0-rc.0-next-f2a59df48-20211208/umd/react.production.min.js"></script>
     <script crossorigin src="https://unpkg.com/react-is@18.0.0-rc.0-next-f2a59df48-20211208/umd/react-is.production.min.js"></script>
-    <script crossorigin src="https://unpkg.com/react-dom@18.0.0-rc.0-next-f2a59df48-20211208/umd/react-dom.production.min.js"></script>
-    <script crossorigin src="https://unpkg.com/@emotion/react@11.7.1/dist/emotion-react.umd.min.js"></script>
-    <script>
-      window.esmsInitOptions = {
-          shimMode: true,
-          noLoadEventRetriggers: true,
-          skip: "/^https?:\/\/(cdn\.skypack\.dev|jspm\.dev)\//`"
-      } 
-      window.process = { env: { NODE_ENV: "production" } };
-</script>
-    <script async src="https://ga.jspm.io/npm:es-module-shims@1.4.1/dist/es-module-shims.wasm.js"></script>
-    <title>Instant React Editor</title>
-    <style>
-  body {
+  <script crossorigin src="https://unpkg.com/react-dom@18.0.0-rc.0-next-f2a59df48-20211208/umd/react-dom.production.min.js"></script>
+
+  <script crossorigin src="https://unpkg.com/@emotion/react@11.7.1/dist/emotion-react.umd.min.js"></script>
+  <script>
+    window.esmsInitOptions = {
+  shimMode: true,
+  noLoadEventRetriggers: true,
+  skip: "/^https?:\/\/(cdn\.skypack\.dev|jspm\.dev)\//`"
+     } </script>
+  <script async src="https://ga.jspm.io/npm:es-module-shims@1.4.1/dist/es-module-shims.wasm.js"></script>
+  <title>Instant React Editor</title>
+   <style>
+      body {
         overscroll-behavior-y: contain;
         background-image: url(./assets/synthwave.webp);
         width: 100%;
@@ -63,29 +58,47 @@
       src: url('https://unpkg.com/monaco-editor@0.31.1/min/vs/base/browser/ui/codicons/codicon/codicon.ttf')
         format('truetype');
     }
-    </style>
-  </head>
-  <body>
-   <div id="shadowEditor"></div>
-   <script type="importmap-shim" src="https://unpkg.com/@spike.land/code@VERSION/importmap.json"></script>
-   <script type="module-shim">
-      import app from "dev";
-      app();
-    </script>
-     <script>
-      if ("serviceWorker" in navigator) {
-        import(
-          "https://storage.googleapis.com/workbox-cdn/releases/6.4.2/workbox-window.prod.mjs"
-        ).then(({ Workbox }) => {
-          const wb = new Workbox("https://code.spike.land/sw.js");
+
+    </style>	
+
+</style>
+
+		<link
+			data-name="vs/editor/editor.main"
+			rel="stylesheet"
+			href="https://unpkg.com/monaco-editor@0.30.1/min/vs/editor/editor.main.css"
+		/>
+
+
+</head>
+<body>
+  <div id="shadowEditor"></div>
+  <script type="importmap-shim" src="./importmap.json"></script>
+  <script>
+  window.process = { env: { NODE_ENV: "production" } };
+</script>
+  <script type="module-shim">
+    import app from "dev";
+    app("");
+  </script>
+  <script>
+    if ('serviceWorker' in navigator){
+      import('https://storage.googleapis.com/workbox-cdn/releases/6.4.2/workbox-window.prod.mjs').then(
+        ({Workbox})=> {
+          const wb = new Workbox('./sw.js');
           wb.addEventListener("activated", async (event) => {
-            if (!event.isUpdate) {
+             if (!event.isUpdate) {
               console.log("Service worker activated for the first time!");
-            }
+             }
           });
           wb.register();
         });
       }
+    window.process = { env: { NODE_ENV: "production" } };
     </script>
-  </body>
+  <script type="text/javascript">
+    let currentWebSocket = null;
+
+</script>
+</body>
 </html>

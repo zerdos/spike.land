@@ -16,7 +16,7 @@ const { CacheableResponsePlugin } = workbox.cacheableResponse;
 registerRoute(
   ({ request }) =>
     (request.url.includes("unpkg.com") && request.url.includes("@")) ||
-    (request.url.includes("unpkg.com") && request.url.includes("@")) ||
+    (request.url.includes("jspm.io") && request.url.includes("@")) ||
     (request.url.includes("esm.sh") && request.url.includes("@")),
   new CacheFirst({
     plugins: [

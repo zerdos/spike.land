@@ -1,6 +1,4 @@
 import { version } from "@spike.land/code/package.json";
-import importMap from "@spike.land/code/importmap.json";
-
 import HTML from "./index.html";
 
 import { default as npmAns } from "@spike.land/cf-npm-site";
@@ -25,7 +23,7 @@ export default {
           return new Response("ping" + Math.random(),  {
             headers: {
               "Content-Type": "text/html;charset=UTF-8",
-              "Cache-Control": "no-cache",
+              "Cache-Control": "max-age=604800, stale-while-revalidate=86400"
             },
           },)
         case "api":
@@ -89,26 +87,13 @@ async function handleApiRequest(
 }
 
 function getHTMLResp() {
-  const html1 = HTML.slice(0, HTML.length - 40) + "*/";
-  const html2 = "/*" + HTML.slice(HTML.length - 40);
-
-  const rand = Math.random();
-  const injection = `
-      //  console.log(${rand});
-    `;
-
-  // Serve our HTML at the root path.
-  const regex = /VERSION/ig;
-
+  
   return new Response(
-    HTML.replaceAll(
-      regex,
-      version,
-    ),
+    HTML,
     {
       headers: {
         "Content-Type": "text/html;charset=UTF-8",
-        "Cache-Control": "no-cache",
+        "Cache-Control": "",
       },
     },
   );
