@@ -51,8 +51,6 @@ export default async (
     const { width, height } = container.getClientRects()[0];
     innerContainer.style.width = `${Math.min(window.innerWidth, width)}px`;
     innerContainer.style.height = `${height}px`;
-
- 
   }
 
   const innerStyle = document.createElement("style");
@@ -113,9 +111,6 @@ export default async (
       horizontal: "auto",
       vertical: "auto",
       useShadows: true,
-    
-
-
     },
     selectionHighlight: true,
     selectOnLineNumbers: true,
@@ -207,7 +202,7 @@ export default async (
     const { width, height } = container.getClientRects()[0];
     innerContainer.style.width = `${Math.min(window.innerWidth, width)}px`;
     innerContainer.style.height = `${height}px`;
-    
+
     editor.layout();
   });
 

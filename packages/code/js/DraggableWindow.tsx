@@ -5,7 +5,6 @@
 import { css, jsx } from "@emotion/react";
 import { wait } from "axax/esnext/wait";
 
-
 import { Fragment, lazy, Suspense, useEffect, useRef, useState } from "react";
 import {
   Button,
@@ -79,7 +78,6 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
 
   const startPositions = { bottom: -40, right: -88 };
 
-
   session.setChild = setChild;
 
   const [qrUrl, setQRUrl] = useState(session.url);
@@ -118,43 +116,38 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
 
   const scale = scaleRange / 100;
 
+  useEffect(() => {
+    const reveal = async () => {
+      const { bottom, right } = startPositions;
+      await wait(500);
+      const root = document.getElementById("root");
+      if (root && root.remove) root.remove();
+      if (!window.sess.monaco) await wait(1000);
+      changeScaleRange(90);
+      setPositions({ bottom: 20, right: 20 });
+      changeScaleRange(75);
+      // setHeight(height=> height)
 
-  useEffect(() => { 
-    const reveal = async() => {
-      const {bottom, right} = startPositions;
-    await wait(500);
-     const root =  document.getElementById("root");
-     if (root && root.remove) root.remove();
-      if (!window.sess.monaco) { await wait(1000)}
-        changeScaleRange(90);
-        setPositions({ bottom: 20, right: 20 }); 
-        changeScaleRange(75);
-        // setHeight(height=> height)
-
-        if (window.innerWidth<600) {
-          changeScaleRange(50);
-          setWidth(window.innerWidth* devicePixelRatio)
-          setHeight(window.innerHeight* devicePixelRatio);
-        } else if (window.innerWidth<1800) {
-          setHeight(breakPointHeights[1]);
-          changeScaleRange(50);
-
-        } else if (window.innerWidth<2500) {
-          setHeight(breakPointHeights[2]* devicePixelRatio);
-          setHeight(window.innerHeight * 0.6);
-          changeScaleRange(50);
-          
-        } else if (window.innerWidth>2500) {
-          // setWidth(window* devicePixelRatio)
-          setHeight(window.innerHeight * 0.7);
-          setHeight(breakPointHeights[2]*2 * devicePixelRatio);
-          changeScaleRange(100);
-        }
-
+      if (window.innerWidth < 600) {
+        changeScaleRange(50);
+        setWidth(window.innerWidth * devicePixelRatio);
+        setHeight(window.innerHeight * devicePixelRatio);
+      } else if (window.innerWidth < 1800) {
+        setHeight(breakPointHeights[1] * devicePixelRatio);
+        changeScaleRange(50);
+      } else if (window.innerWidth < 2500) {
+        setHeight(breakPointHeights[2] * devicePixelRatio);
+        setHeight(window.innerHeight * devicePixelRatio * 0.6);
+        changeScaleRange(50);
+      } else if (window.innerWidth > 2500) {
+        // setWidth(window* devicePixelRatio)
+        setHeight(window.innerHeight * devicePixelRatio * 0.7);
+        setHeight(breakPointHeights[2] * 2 * devicePixelRatio);
+        changeScaleRange(100);
+      }
     };
     reveal();
   }, []);
-
 
   return (
     <motion.div
@@ -219,7 +212,7 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
             ))}
           </ToggleButtonGroup>
           {/* <span>{width}*{height}</span> */}
-        
+
           <motion.div
             // initial={{
             //   width: window.innerWidth,
