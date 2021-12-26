@@ -24,7 +24,7 @@ import { motion } from "framer-motion";
 
 // const {motion} = Motion;
 
-const breakPoints = [640, 768, 1920];
+const breakPoints = [680, 768, 1920];
 const breakPointHeights = [1137, 1024, 1080];
 
 const sizes = [10, 25, 50, 75, 100];
@@ -340,12 +340,12 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
                 key={size}
                 value={size}
               >
-                {size === 640
+                {size === 680
                   ? (
                     <Phone
                       css={css`
                         color: ${
-                        width === 640
+                        width === 680
                           ? "rgba(255,255,255,.8)"
                           : "rgba(0,0,0,.3)"
                       };

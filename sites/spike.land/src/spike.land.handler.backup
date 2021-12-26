@@ -276,7 +276,7 @@ async function handleRequest(request: Request): Promise<Response> {
           "Access-Control-Allow-Origin": "*",
           "Cache-Control": "no-cache",
           "Access-Control-Allow-Methods": "GET,HEAD,POST,OPTIONS",
-          "Access-Control-Max-Age": "86400",
+          "Access-Control-Max-Age": "86800",
           "Content-Type": "application/javascript;charset=UTF-8",
         },
       });
@@ -287,7 +287,7 @@ async function handleRequest(request: Request): Promise<Response> {
           "Access-Control-Allow-Origin": "*",
           "Cache-Control": "no-cache",
           "Access-Control-Allow-Methods": "GET,HEAD,POST,OPTIONS",
-          "Access-Control-Max-Age": "86400",
+          "Access-Control-Max-Age": "86800",
           "Content-Type": "application/javascript;charset=UTF-8",
         },
       });

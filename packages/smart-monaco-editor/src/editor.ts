@@ -52,11 +52,7 @@ export default async (
     innerContainer.style.width = `${Math.min(window.innerWidth, width)}px`;
     innerContainer.style.height = `${height}px`;
 
-    window.addEventListener("resize", (ev) => {
-      const { width, height } = container.getClientRects()[0];
-      innerContainer.style.width = `${Math.min(window.innerWidth, width)}px`;
-      innerContainer.style.height = `${height}px`;
-    });
+ 
   }
 
   const innerStyle = document.createElement("style");
@@ -101,22 +97,33 @@ export default async (
   const { Uri } = monaco;
   const editor = monaco.editor.create(innerContainer, {
     model: monaco.editor.createModel(code, "typescript", Uri.file("/index.ts")),
-    lightbulb: { enabled: true },
+    lightbulb: { enabled: false },
     language: "typescript",
     theme: "vs-dark",
-    codeLens: true,
+    codeLens: false,
     suggest: {
-      showStatusBar: true,
-      preview: true,
+      showStatusBar: false,
+      preview: false,
     },
     smoothScrolling: true,
+    scrollPredominantAxis: true,
+    scrollbar: {
+      handleMouseWheel: true,
+      alwaysConsumeMouseWheel: false,
+      horizontal: "auto",
+      vertical: "auto",
+      useShadows: true,
+    
+
+
+    },
     selectionHighlight: true,
     selectOnLineNumbers: true,
     cursorSmoothCaretAnimation: true,
     cursorBlinking: "smooth",
     hideCursorInOverviewRuler: true,
     cursorSurroundingLinesStyle: "all",
-    cursorSurroundingLines: 8,
+    cursorSurroundingLines: 4,
 
     formatOnPaste: true,
     formatOnType: true,
@@ -197,6 +204,10 @@ export default async (
   }
 
   window.addEventListener("resize", () => {
+    const { width, height } = container.getClientRects()[0];
+    innerContainer.style.width = `${Math.min(window.innerWidth, width)}px`;
+    innerContainer.style.height = `${height}px`;
+    
     editor.layout();
   });
 

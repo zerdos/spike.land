@@ -26,7 +26,7 @@ export async function handleCloudRequest(request: Request): Promise<Response> {
         const key = searchParams.get("key") || "";
 
         if (cid.length === 46 && signal.length === 8) {
-          await SIGNALS.put(signal, cid, { expirationTtl: 86400 * 7 });
+          await SIGNALS.put(signal, cid, { expirationTtl: 86800 * 7 });
           return json({ success: true });
         } else if (signal.length === 8) {
           const msg = await SIGNALS.get(signal);

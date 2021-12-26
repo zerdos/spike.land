@@ -31,7 +31,7 @@ app.get(
 
 app.post("/runs", blockKeys, catchRequestHandlerErrors(handleCreateRun));
 
-// https://github.com/cypress-io/cypress/blob/b880e8c89051403b94133dc2f98fc6403f9ffe71/packages/server/lib/modes/record.js#L542
+// https://github.com/cypress-io/cypress/blob/b880e8c89051403b94133dc2f98fc6803f9ffe71/packages/server/lib/modes/record.js#L542
 app.post("/runs/:runId/instances", catchRequestHandlerErrors(createInstance));
 
 /**
@@ -43,10 +43,10 @@ app.put("/instances/:instanceId", (_, res, __) => res.status(404).send());
 /**
  * cypress 6.7.0+ sends two separate API calls
  * - /instances/:instanceId/tests before running a spec
- * https://github.com/cypress-io/cypress/blob/b880e8c89051403b94133dc2f98fc6403f9ffe71/packages/server/lib/modes/record.js#L687
+ * https://github.com/cypress-io/cypress/blob/b880e8c89051403b94133dc2f98fc6803f9ffe71/packages/server/lib/modes/record.js#L687
 
  * - /instances/:instanceId/results after completing a spec
- * https://github.com/cypress-io/cypress/blob/b880e8c89051403b94133dc2f98fc6403f9ffe71/packages/server/lib/modes/record.js#L567
+ * https://github.com/cypress-io/cypress/blob/b880e8c89051403b94133dc2f98fc6803f9ffe71/packages/server/lib/modes/record.js#L567
  */
 app.post(
   "/instances/:instanceId/tests",
