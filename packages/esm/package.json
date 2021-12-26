@@ -28,26 +28,28 @@
     "@types/react-dom": "17.0.11",
     "esbuild": "0.14.8",
     "framer-motion": "5.5.5",
+    "react": "18.0.0-rc.0-next-f2a59df48-20211208",
     "ipfs-only-hash": "4.0.0",
     "textdiff-create": "1.0.5",
     "textdiff-patch": "1.0.5"
   },
   "devDependencies": {
-    "rollup": "2.61.1",
-    "rollup-plugin-dts": "4.0.1"
+    "rollup": "2.62.0",
+    "rollup-plugin-dts": "4.1.0"
   },
   "publishConfig": {
     "access": "public"
   },
   "sideEffects": false,
   "scripts": {
-    "xclean": "rm -rf dist",
-    "xbuild": "yarn build:framer-motion && yarn build:ipfs-only-hash && yarn build:textdiff-create && yarn build:textdiff-patch",
+    "clean": "rm -rf dist",
+    "build": "yarn build:framer-motion && yarn build:ipfs-only-hash && yarn build:textdiff-create && yarn build:textdiff-patch",
     "build:react": "yarn esbuild --bundle src/react.mjs --format=esm --outfile=dist/react.mjs",
     "build:react-is": "yarn esbuild --bundle src/react-is.mjs --format=esm --outfile=dist/react-is.mjs",
     "build:react-dom": "yarn esbuild --bundle src/react-dom.mjs --external:react --external:react-is  --format=esm --outfile=dist/react-dom.mjs",
-    "build:ipfs-only-hash": "yarn esbuild --bundle src/ipfs-only-hash.mjs --minify --tree-shaking=true --external:tslib --format=esm --outfile=dist/ipfs-only-hash.mjs",
-    "build:framer-motion": "yarn esbuild --bundle src/framer-motion.mjs --minify --tree-shaking=true --external:tslib --format=esm --external:react --external:@emotion/is-prop-valid --outfile=dist/framer-motion.mjs",
+    "build:ipfs-only-hash": "yarn esbuild --bundle src/ipfs-only-hash.mjs  --minify --tree-shaking=true --platform=browser --target=esnext  --format=esm --outfile=dist/ipfs-only-hash.mjs",
+    "build:framer-motion": "yarn esbuild --bundle src/framer-motion.mjs  --minify --tree-shaking=true --format=esm --external:react --external:@emotion/is-prop-valid --outfile=dist/framer-motion.mjs",
+    "xbuild:framer-motion": "yarn esbuild --bundle src/framer-motion.mjs --minify --tree-shaking=true --external:tslib --format=esm --external:react --external:@emotion/is-prop-valid --outfile=dist/framer-motion.mjs",
     "dts:framer-motion": "rollup -c framer-motion.rollup.config.js",
     "build:textdiff-create": "yarn esbuild --bundle src/textdiff-create.mjs --minify --tree-shaking=true --format=esm  --outfile=dist/textdiff-create.mjs",
     "build:textdiff-patch": "yarn esbuild --bundle src/textdiff-patch.mjs --minify --tree-shaking=true --format=esm  --outfile=dist/textdiff-patch.mjs"

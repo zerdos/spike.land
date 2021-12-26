@@ -1,6 +1,5 @@
 import { sha256, shaDB } from "@spike.land/shadb";
 import Hash from "ipfs-only-hash";
-import { v4 as uuid } from "uuid";
 // import { getCss } from "../dist/templates.mjs";
 
 const sess = {};
@@ -19,7 +18,7 @@ export const getProjects = async () => {
 
   if (typeof userData === "string" || userData === null || !userData.list) {
     const projectId = (self && self.crypto && self.crypto.randomUUID &&
-      self.crypto.randomUUID()) || uuid();
+      self.crypto.randomUUID()) || (await import("uuid")).v4();
 
     await shaDB.put(
       userId,
@@ -44,7 +43,7 @@ async function addNewProject(projectName, hash) {
   userId = await getUserId();
   const userData = (await shaDB.get(userId, "json")) || { list: [] };
   const projectId = (self && self.crypto && self.crypto.randomUUID &&
-    self.crypto.randomUUID()) || uuid();
+    self.crypto.randomUUID()) || (await import("uuid")).v4();
   const updated = {
     ...userData,
     projects: {
@@ -140,63 +139,63 @@ export async function getIPFSCodeToLoad(_rootUrl) {
   return ret;
 }
 
-export async function getCodeToLoad(room) {
-  let code;
+// export async function getCodeToLoad(room) {
+//   let code;
 
-  const projectName = room || (await getActiveProject());
-  if (projectName.rootUrl) {
-    return getIPFSCodeToLoad(projectName.rootUrl);
-  }
-  const keyToLoad = await shaDB.get(projectName, "string");
+//   const projectName = room || (await getActiveProject());
+//   if (projectName.rootUrl) {
+//     return getIPFSCodeToLoad(projectName.rootUrl);
+//   }
+//   const keyToLoad = await shaDB.get(projectName, "string");
 
-  const projectDesc = await shaDB.get(keyToLoad, "json");
+//   const projectDesc = await shaDB.get(keyToLoad, "json");
 
-  if (room !== "") {
-    const resp = await fetch(
-      `https://code.spike.land/api/room/${room}/hashOfCode`,
-    );
-    const CID = await resp.text();
-    if (CID === "" && projectDesc === null) {
-      code = await getStarter();
-    } else if (projectDesc && projectDesc.code && CID) {
-      const codeFromIdb = await shaDB.get(projectDesc.code, "string");
-      const CIDofCodeFromIDB = await Hash.of(codeFromIdb);
+//   if (room !== "") {
+//     const resp = await fetch(
+//       `https://code.spike.land/api/room/${room}/hashOfCode`,
+//     );
+//     const CID = await resp.text();
+//     if (CID === "" && projectDesc === null) {
+//       code = await getStarter();
+//     } else if (projectDesc && projectDesc.code && CID) {
+//       const codeFromIdb = await shaDB.get(projectDesc.code, "string");
+//       const CIDofCodeFromIDB = await Hash.of(codeFromIdb);
 
-      if (CIDofCodeFromIDB && CID === CIDofCodeFromIDB) {
-        code = codeFromIdb;
-      }
-    }
+//       if (CIDofCodeFromIDB && CID === CIDofCodeFromIDB) {
+//         code = codeFromIdb;
+//       }
+//     }
 
-    if (!code) {
-      if (CID) {
-        const respCode = await fetch(
-          `https://code.spike.land/api/room/${room}/code`,
-        );
-        code = await respCode.text();
-      } else {
-        code = await getStarter();
-      }
-    }
+//     if (!code) {
+//       if (CID) {
+//         const respCode = await fetch(
+//           `https://code.spike.land/api/room/${room}/code`,
+//         );
+//         code = await respCode.text();
+//       } else {
+//         code = await getStarter();
+//       }
+//     }
 
-    const data = {
-      code: code,
-      transpiled:
-        (projectDesc && (await shaDB.get(projectDesc.transpiled, "string"))) ||
-        "",
-      html: (projectDesc && (await shaDB.get(projectDesc.html, "string"))) ||
-        "",
-    };
+//     const data = {
+//       code: code,
+//       transpiled:
+//         (projectDesc && (await shaDB.get(projectDesc.transpiled, "string"))) ||
+//         "",
+//       html: (projectDesc && (await shaDB.get(projectDesc.html, "string"))) ||
+//         "",
+//     };
 
-    return data;
-  }
+//     return data;
+//   }
 
-  const data = {
-    code: (await shaDB.get(projectDesc, "string")) || (await getStarter()),
-    transpiled: null,
-    html: null,
-  };
-  return data;
-}
+//   const data = {
+//     code: (await shaDB.get(projectDesc, "string")) || (await getStarter()),
+//     transpiled: null,
+//     html: null,
+//   };
+//   return data;
+// }
 
 const saved = {
   code: "",
@@ -218,13 +217,8 @@ export const saveCode =
    * @param {number} counter
    */
   async (opts, counter) => {
-    const { code, codeNonFormatted, html, css, transpiled, i } = opts;
+    const { code, codeNonFormatted, html,  transpiled, } = opts;
     toSave.code = code;
-
-    // deno-lint-ignore ban-ts-comment
-    //@ts-ignore
-
-    console.log("savecode");
 
     if (window.sess.i > counter) return;
 
@@ -268,7 +262,7 @@ export const saveCode =
     // };
     // saveCode();
     const { shareItAsHtml } = await import("./share.mjs");
-    const sharePromise = shareItAsHtml({ code, html, transpiled });
+    const sharePromise = shareItAsHtml(opts);
 
     if (opts.i > counter) return;
     const url = await sharePromise;
@@ -302,8 +296,8 @@ export const saveCode =
     return saved;
   };
 
-function getStarter() {
-  return fetch(`https://code.spike.land/js/examples/rca.tsx`).then((res) =>
-    res.text()
-  );
-}
+// function getStarter() {
+//   return fetch(`https://code.spike.land/js/examples/rca.tsx`).then((res) =>
+//     res.text()
+//   );
+// }
