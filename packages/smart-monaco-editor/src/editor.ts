@@ -41,7 +41,7 @@ export default async (
   // const model = modules.editor.getModel("/index.ts") || createModel();
 
   const shadowRoot = container.attachShadow({
-    mode: "closed",
+    mode: "open",
   });
 
   const innerContainer = document.createElement("div");
