@@ -1,4 +1,4 @@
-const emotionReact = Window.emotionReact;
+const emotionReact = window.emotionReact;
 
 export const {CacheProvider} = emotionReact;
 export const {ClassNames} = emotionReact;
