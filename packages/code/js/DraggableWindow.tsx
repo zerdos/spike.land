@@ -9,13 +9,12 @@ import {
   Button,
   Fab,
   Phone,
-  QrCode,
   Share,
   Tablet,
   ToggleButton,
   ToggleButtonGroup,
   Tv,
-} from "./mui.tsx";
+} from "../dist/mui.mjs";
 
 import { QRButton } from "./Qr.jsx";
 
