@@ -38,6 +38,7 @@ const build = (entryPoints) =>
     format: "esm",
     minify: true,
     splitting: true,
+    allowOverwrite: true,
     treeShaking: true,
     platform: "browser",
     sourcemap: true,
