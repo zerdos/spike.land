@@ -37,6 +37,7 @@ interface DraggableWindowProps {
     html: string;
     errorText: string;
     children: any;
+    css: string;
     room: string;
     setChild: any;
   };
@@ -239,7 +240,12 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
               `}
             >
               {errorText
-                ? <div dangerouslySetInnerHTML={createMarkup(session.html)} />
+                ? (
+                  <div
+                    css={`${session.css}`}
+                    dangerouslySetInnerHTML={createMarkup(session.html)}
+                  />
+                )
                 : (
                   <Suspense fallback={<div>Error fallback</div>}>
                     <div
