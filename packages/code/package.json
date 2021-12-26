@@ -1,6 +1,6 @@
 {
   "name": "@spike.land/code",
-  "version": "0.3.72",
+  "version": "0.3.73",
   "description": "spike.land",
   "main": "./js/quickerStart.mjs",
   "files": [
