@@ -43,19 +43,19 @@ interface DraggableWindowProps {
   position?: string;
 }
 
-const LazySpikeLandComponent: React.FC<{ name: string }> = ({ name }) => {
-  const Sanyi = lazy(() => generator(name));
-  return (
-    <Suspense fallback={<div></div>}>
-      <Sanyi />
-    </Suspense>
-  );
+// const LazySpikeLandComponent: React.FC<{ name: string }> = ({ name }) => {
+//   const Sanyi = lazy(() => generator(name));
+//   return (
+//     <Suspense fallback={<div></div>}>
+//       <Sanyi />
+//     </Suspense>
+//   );
 
-  function generator(name: string) {
-    // return import("./Qr")
-    return import(`https://code.spike.land/api/room/${name}/js`);
-  }
-};
+//   function generator(name: string) {
+//     // return import("./Qr")
+//     return import(`https://code.spike.land/api/room/${name}/js`);
+//   }
+// };
 
 export const DraggableWindow: React.FC<DraggableWindowProps> = (
   { onShare, onRestore, position, session },
@@ -329,7 +329,7 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
           >
             <Share />
           </Fab>
-          <LazySpikeLandComponent name="sanyi" />
+          {/* <LazySpikeLandComponent name="sanyi" /> */}
         </div>
       </div>
     </motion.div>

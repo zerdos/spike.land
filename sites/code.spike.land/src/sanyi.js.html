@@ -5,7 +5,7 @@ import { useState } from 'react';
 
 //import {} from "react-dom/next";
 
-import ReactDOM from 'react-dom';
+import {createRoot} from 'react-dom';
 
 
 export default (() => {
@@ -70,7 +70,7 @@ export const processWs = async (msg, session, send) => {
     }
     window[data.hashOfCode] = data.code;
 
-    const newRoot = ReactDOM.hydrateRoot(target, jsx(App, null));
+    const newRoot = hydrateRoot(target, jsx(App, null));
 
     globalThis.newRoot = newRoot;
 
