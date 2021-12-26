@@ -217,7 +217,7 @@ export const saveCode =
    * @param {number} counter
    */
   async (opts, counter) => {
-    const { code, codeNonFormatted, html,  transpiled, } = opts;
+    const { code, codeNonFormatted, html, transpiled } = opts;
     toSave.code = code;
 
     if (window.sess.i > counter) return;

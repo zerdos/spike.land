@@ -23,7 +23,7 @@ await generator.install("react-dom@18");
 //   url: "https://unpkg.com/@spike.land/esm@0.2.86/dist/ipfs-only-hash.mjs",
 // });
 
- await generator.install("react@18");
+await generator.install("react@18");
 await generator.install("react@18/jsx-runtime"); // await generator.install("react");
 await generator.install("react-dom@18/server");
 await generator.install("prop-types");
@@ -68,11 +68,11 @@ importMap.imports["textdiff-patch"] =
 
 importMap.imports["ipfs-only-hash"] =
   "https://unpkg.com/@spike.land/esm@0.3.61/dist/ipfs-only-hash.mjs";
-  importMap.imports["react"] =
+importMap.imports["react"] =
   "https://unpkg.com/@spike.land/esm@0.3.62/dist/react.mjs";
-  importMap.imports["react-dom"] =
+importMap.imports["react-dom"] =
   "https://unpkg.com/@spike.land/esm@0.3.62/dist/react-dom.mjs";
-  importMap.imports["react-is"] =
+importMap.imports["react-is"] =
   "https://unpkg.com/@spike.land/esm@0.3.62/dist/react-is.mjs";
 
 // importMap.imports.tslib =
