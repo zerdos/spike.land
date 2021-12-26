@@ -13,7 +13,13 @@
   <script crossorigin src="https://unpkg.com/react-dom@18.0.0-rc.0-next-f2a59df48-20211208/umd/react-dom.production.min.js"></script>
 
   <script crossorigin src="https://unpkg.com/@emotion/react@11.7.1/dist/emotion-react.umd.min.js"></script>
-  <script async src="https://ga.jspm.io/npm:es-module-shims@1.4.1/dist/es-module-shims.js"></script>
+  <script>
+    window.esmsInitOptions = {
+  shimMode: true,
+  noLoadEventRetriggers: true,
+  skip: "/^https?:\/\/(cdn\.skypack\.dev|jspm\.dev)\//`"
+     } </script>
+  <script async src="https://ga.jspm.io/npm:es-module-shims@1.4.1/dist/es-module-shims.wasm.js"></script>
   <title>Instant React Editor</title>
    <style>
       body {
@@ -62,13 +68,7 @@
 			rel="stylesheet"
 			href="https://unpkg.com/monaco-editor@0.30.1/min/vs/editor/editor.main.css"
 		/>
-  <script type="esms-options">
-    {
-      "shimMode": true,
-      "polyfillEnable": ["css-modules", "json-modules"],
-      "nonce": "n0nce"
-    }
-    </script>
+
 
 </head>
 <body>

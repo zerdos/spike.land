@@ -16,6 +16,15 @@
     <script crossorigin src="https://unpkg.com/react-is@18.0.0-rc.0-next-f2a59df48-20211208/umd/react-is.production.min.js"></script>
     <script crossorigin src="https://unpkg.com/react-dom@18.0.0-rc.0-next-f2a59df48-20211208/umd/react-dom.production.min.js"></script>
     <script crossorigin src="https://unpkg.com/@emotion/react@11.7.1/dist/emotion-react.umd.min.js"></script>
+    <script>
+      window.esmsInitOptions = {
+          shimMode: true,
+          noLoadEventRetriggers: true,
+          skip: "/^https?:\/\/(cdn\.skypack\.dev|jspm\.dev)\//`"
+      } 
+      window.process = { env: { NODE_ENV: "production" } };
+</script>
+    <script async src="https://ga.jspm.io/npm:es-module-shims@1.4.1/dist/es-module-shims.wasm.js"></script>
     <title>Instant React Editor</title>
     <style>
   body {
@@ -57,16 +66,10 @@
     </style>
   </head>
   <body>
-    <div id="shadowEditor"></div>
-    <script>
-      window.process = { env: { NODE_ENV: "production" } };
-    </script>
-    <script type="importmap">
-      $$IMPORTMAP
-    </script>
-   <script async src="https://ga.jspm.io/npm:es-module-shims@1.4.1/dist/es-module-shims.js" crossorigin="anonymous"></script>
-   <script type="module">
-      import app from "app";
+   <div id="shadowEditor"></div>
+   <script type="importmap-shim" src="https://unpkg.com/@spike.land/code@VERSION/importmap.json"></script>
+   <script type="module-shim">
+      import app from "dev";
       app();
     </script>
      <script>
@@ -83,10 +86,6 @@
           wb.register();
         });
       }
-      window.process = { env: { NODE_ENV: "production" } };
-    </script>
-    <script type="text/javascript">
-      /**************/
     </script>
   </body>
 </html>

@@ -99,18 +99,12 @@ function getHTMLResp() {
 
   // Serve our HTML at the root path.
   const regex = /VERSION/ig;
-  const impMap = {
-    ...importMap,
-    imports: {
-      ...(importMap.imports),
-      "app": `https://unpkg.com/@spike.land/code@${version}/js/starter.mjs`,
-    },
-  };
+
   return new Response(
-    html1.replace("$$IMPORTMAP", JSON.stringify(impMap)).replaceAll(
+    HTML.replaceAll(
       regex,
       version,
-    ) + injection + html2,
+    ),
     {
       headers: {
         "Content-Type": "text/html;charset=UTF-8",
