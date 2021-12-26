@@ -245,15 +245,19 @@ export const startFromCode = async ({ code }) => {
 };
 
 export async function quickStart(session) {
+  document.getElementById("root").innerHTML = `<style>${session.css}</style>
+  ${session.html}
+  `;
   // session.children = await getReactChild(session.transpiled);
   session.children = null;
   const { renderPreviewWindow } = await import(
     "../dist/renderPreviewWindow.mjs"
   );
+
   await renderPreviewWindow(session);
+  // document.getElementById("root").remove();
 
   await startMonacoWithSession(session);
-
   // await restartX(
   //   session.transpiled,
   //   document.getElementById("zbody"),

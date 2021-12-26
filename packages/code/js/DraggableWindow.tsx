@@ -4,7 +4,7 @@
 
 import { css, jsx } from "@emotion/react";
 
-import { lazy, Suspense, useEffect, useRef, useState } from "react";
+import { Fragment, lazy, Suspense, useEffect, useRef, useState } from "react";
 import {
   Button,
   Fab,
@@ -29,7 +29,7 @@ const sizes = [10, 25, 50, 75, 100];
 
 interface DraggableWindowProps {
   onShare: () => void;
-  onRestore: () => void;
+  onRestore: (() => void) | null;
   session: {
     i: number;
     url: string;
@@ -61,29 +61,46 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
   { onShare, onRestore, position, session },
 ) => {
   const [isStable, setIsStable] = useState(false);
-  const [scaleRange, changeScaleRange] = useState(75);
+  const [scaleRange, changeScaleRange] = useState(100);
   // const [height, changeHeight] = useState(innerHeight);
-  const [childArray, setChild] = useState(
-    session.children
-      ? [session.children]
-      : [<LazySpikeLandComponent name={session.room} />],
-  );
+  const [childArray, setChild] = useState([
+    <div
+      css={css`
+    height: 100%;
+    ${session.css}
+    `}
+      dangerouslySetInnerHTML={{ __html: session.html }}
+    >
+    </div>,
+  ]);
+
+  useEffect(() => {
+    setTimeout(() => {
+      session.setChild(
+        session.children
+          ? [session.children]
+          : [<LazySpikeLandComponent name={session.room} />],
+      );
+      setWidth(breakPoints[1]);
+      setHeight(breakPointHeights[1]);
+      changeScaleRange(75);
+      setPositions({ bottom: 20, right: 20 });
+    }, 1600);
+  }, []);
 
   session.setChild = setChild;
 
   const [qrUrl, setQRUrl] = useState(session.url);
-  const [errorText, setErrorText] = useState(" ");
+  const [errorText, setErrorText] = useState("");
 
-  const [width, setWidth] = useState(breakPoints[1]);
-  const [height, setHeight] = useState(breakPointHeights[1]);
+  const startPositions = { bottom: -40, right: -88 };
+  const [{ bottom, right }, setPositions] = useState(startPositions);
+  const [width, setWidth] = useState(window.innerWidth * devicePixelRatio);
+  const [height, setHeight] = useState(window.innerHeight * devicePixelRatio);
   const ref = useRef<HTMLDivElement>(null);
   const zbody = useRef<HTMLDivElement>(null);
 
-  const child = childArray[childArray.length - 1] || (
-    <div>
-      <h1>eyyy ha</h1>
-    </div>
-  );
+  const child = childArray[childArray.length - 1];
 
   // useEffect(() => {
   // window.addEventListener("resize", () => changeHeight(window.innerHeight));
@@ -113,11 +130,14 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
   return (
     <motion.div
       ref={ref}
+      initial={{ bottom: startPositions.bottom, right: startPositions.right }}
+      animate={{
+        bottom,
+        right,
+      }}
       css={css`
-            right: 20px;
             background-color:rgba(92 ,92, 152, 0.8);
             backdrop-filter: blur(10px);
-            bottom: 20px;
             padding: 0px 0px 0px 16px;
             border-radius: 16px;
             white-space: normal;
@@ -171,14 +191,23 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
           </ToggleButtonGroup>
 
           <motion.div
+            // initial={{
+            //   width: window.innerWidth,
+            //   height: window.innerHeight
+            // }}
+            // transition={
+            //   {duration: 2000}
+            // }
             animate={{
               width: width * scale / devicePixelRatio,
               height: height * scale / devicePixelRatio,
               maxHeight: height * scale / devicePixelRatio,
             }}
             css={css`
-              display: block;
-              overflow: hidden;
+             width: ${width * scale / devicePixelRatio};
+             height: ${height * scale / devicePixelRatio};
+                display: block;
+             overflow: hidden;
               border-radius: 8px;
               opacity: 0.9;
               background-color: white;
@@ -222,11 +251,17 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
             )}
 
             <motion.div
+              initial={{
+                transformOrigin: "0px 0px",
+                width: window.innerWidth / devicePixelRatio,
+                height: window.innerHeight / devicePixelRatio,
+                scale: scaleRange / 100,
+              }}
               animate={{
                 transformOrigin: "0px 0px",
                 width: width / devicePixelRatio,
                 height: height / devicePixelRatio,
-                scale,
+                scale: scaleRange / 100,
               }}
               css={css`
                   overflow:overlay;

@@ -36,7 +36,7 @@
         const {createRoot} = await import("react-dom"); 
         const {jsx} =await import("@emotion/react");
         
-        const target = createRoot(document.getElementById("zbody"));
+        const root = createRoot(document.getElementById("zbody"));
 
         root.render(jsx(mod.default));      
      }

@@ -3,6 +3,7 @@
 <head profile="http://www.w3.org/2005/10/profile">
   <meta http-equiv="Content-Type" content="text/html,charset=utf-8" />
   <meta name="viewport" content="width=device-width" />
+  <base href="https://code.spike.land/">
   
   <link rel="icon" type="image/png" href="./assets/zed-icon-big.png" />
 
@@ -43,6 +44,10 @@
         overflow-y: hidden;
       }
 
+      #root {
+        height: 100%;
+      }
+
       #shadowEditor {
         position: absolute;
         top: 0;
@@ -73,6 +78,7 @@
 </head>
 <body>
   <div id="shadowEditor"></div>
+  <div id="root"></div>
   <script type="importmap-shim" src="./importmap.json"></script>
   <script>
   window.process = { env: { NODE_ENV: "production" } };

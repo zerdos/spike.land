@@ -43,6 +43,10 @@
         overflow-y: hidden;
       }
 
+      #root {
+        height: 100%;
+      }
+
       #shadowEditor {
         position: absolute;
         top: 0;
@@ -73,6 +77,7 @@
 </head>
 <body>
   <div id="shadowEditor"></div>
+  <div id="root"></div>
   <script type="importmap-shim" src="./importmap.json"></script>
   <script>
   window.process = { env: { NODE_ENV: "production" } };
