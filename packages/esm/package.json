@@ -47,7 +47,7 @@
     "clean": "rm -rf dist",
     "build": "yarn build:framer-motion && yarn build:react && yarn build:emotion-react &&  yarn build:react-dom && yarn build:react-is && yarn build:ipfs-only-hash && yarn build:textdiff-create && yarn build:textdiff-patch",
     "build:react": "yarn esbuild --bundle --minify --tree-shaking=true src/react.mjs --format=esm --outfile=dist/react.mjs",
-    "build:emotion-react": "yarn esbuild --bundle --minify --tree-shaking=true src/react.mjs --format=esm --outfile=dist/emotion-react.mjs",
+    "build:emotion-react": "yarn esbuild --bundle --minify --tree-shaking=true src/emotion-react.mjs --format=esm --outfile=dist/emotion-react.mjs",
     "build:react-is": "yarn esbuild --bundle --minify --tree-shaking=true  src/react-is.mjs --format=esm --outfile=dist/react-is.mjs",
     "xdeno:react-dom": " deno bundle https://ga.jspm.io/npm:react-dom@18.0.0-rc.0-next-f2a59df48-20211208/index.js --import-map ../code/importmap.json dist/react-dom-deno.js",
     "build:react-dom": "yarn esbuild --bundle src/react-dom.mjs --minify --tree-shaking=true --external:react --external:react-is  --format=esm --outfile=dist/react-dom.mjs",
