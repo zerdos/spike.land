@@ -105,7 +105,8 @@ export class CodeSession implements ICodeSess {
 
           const preRenderContainer = document &&
             document.getElementById("root");
-          if (preRenderContainer && savedState) {
+          if (preRenderContainer && savedState && preRenderContainer.innerHTML.length <10) {
+
             preRenderContainer.innerHTML = `<style>${savedState.css}</style>
             ${savedState.html}
             `;
