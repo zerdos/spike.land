@@ -53,6 +53,7 @@ export const { Children } = React;
 
 export const { lazy } = React;
 export const { isLazy} = React;
+export const { useMemo } = React;
 
 export const { cloneElement } = React;
 
