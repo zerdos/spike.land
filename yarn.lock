@@ -15215,6 +15215,11 @@ react-helmet@6.1.0:
     react-fast-compare "^3.1.1"
     react-side-effect "^2.1.0"
 
+react-is@18.0.0-rc.0-next-f2a59df48-20211208:
+  version "18.0.0-rc.0-next-f2a59df48-20211208"
+  resolved "https://registry.yarnpkg.com/react-is/-/react-is-18.0.0-rc.0-next-f2a59df48-20211208.tgz#c50b7b764bf181c5ffe78a091ec56bd5d7303154"
+  integrity sha512-241AowbvmjjFzohG6KLOwClqbNc9xEksYPiox+W+hE8RFiNSJ/6YNroYhz5QzLKcI6SluH4tKW3TQUNcr/wzzQ==
+
 react-is@^16.13.1, react-is@^16.7.0:
   version "16.13.1"
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.13.1.tgz#789729a4dc36de2999dc156dd6c1d9c18cea56a4"

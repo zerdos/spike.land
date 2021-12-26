@@ -639,7 +639,7 @@ async function processWsMessage(event, source) {
   const data = JSON.parse(event.data);
 
   if (!mySession) {
-    mySession = initSession({
+    mySession = initSession(roomName,{
       name: username,
       room: roomName,
       state: { code: "", i: 0, transpiled: "", html: "", css: "" },

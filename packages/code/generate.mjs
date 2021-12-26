@@ -7,12 +7,6 @@ const generator = new Generator({
   mapUrl: import.meta.url,
   defaultProvider: "jspm", // this is the default defaultProvider
   // Always ensure to defi  inputMap: {
-  imports: {
-    "ipfs-only-hash":
-      "https://unpkg.com/@spike.land/esm@0.2.86/dist/ipfs-only-hash.mjs",
-    "framer-motion":
-      "https://unpkg.com/@spike.land/esm@0.2.86/dist/framer-motion.mjs",
-  },
   ignore: ["framer-motion", "ipfs-only-hash"],
   //]//ne your target environment to get a working map
   // it is advisable to pass the "module" condition as supported by Webpack
@@ -63,19 +57,19 @@ await generator.install("react-transition-group");
 const importMap = { ...generator.getMap() };
 importMap.imports.dev = "./js/starter.mjs";
 importMap.imports["framer-motion"] =
-  "https://unpkg.com/@spike.land/esm@0.2.86/dist/framer-motion.mjs";
+  "https://unpkg.com/@spike.land/esm@0.3.61/dist/framer-motion.mjs";
 
 importMap.imports["textdiff-create"] =
-  "https://unpkg.com/@spike.land/esm@0.2.86/dist/textdiff-create.mjs";
+  "https://unpkg.com/@spike.land/esm@0.3.61/dist/textdiff-create.mjs";
 
 importMap.imports["textdiff-patch"] =
-  "https://unpkg.com/@spike.land/esm@0.2.86/dist/textdiff-patch.mjs";
+  "https://unpkg.com/@spike.land/esm@0.3.61/dist/textdiff-patch.mjs";
 
 importMap.imports["ipfs-only-hash"] =
-  "https://unpkg.com/@spike.land/esm@0.2.86/dist/ipfs-only-hash.mjs";
+  "https://unpkg.com/@spike.land/esm@0.3.61/dist/ipfs-only-hash.mjs";
 
-importMap.imports.tslib =
-  "https://cdnjs.cloudflare.com/ajax/libs/tslib/2.3.1/tslib.es6.min.js";
+// importMap.imports.tslib =
+//   "https://cdnjs.cloudflare.com/ajax/libs/tslib/2.3.1/tslib.es6.min.js";
 
 console.log(JSON.stringify(importMap, null, 2));
 //console.log(JSON.stringify(generator.getMap(), null, 2));

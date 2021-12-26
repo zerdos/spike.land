@@ -1,7 +1,7 @@
 const { ReactIs } = window;
 export default ReactIs;
 
-export const {
+export {
   ContextConsumer,
   ContextProvider,
   Element,
@@ -30,4 +30,4 @@ export const {
   isSuspenseList,
   isValidElementType,
   typeOf,
-} = ReactIs;
+} from "react-is/umd/react-is.production.min.js"
