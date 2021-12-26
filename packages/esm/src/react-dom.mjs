@@ -1,4 +1,4 @@
-import ReactDOM from "react-dom/umd/react-dom.production.min.js";
+const ReactDOm = window.ReactDOM;
 
 export const { createRoot } = ReactDOM;
 export const { hydrateRoot } = ReactDOM;

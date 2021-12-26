@@ -1,4 +1,7 @@
 import { jsx } from "@emotion/react";
+import React from "react";
+
+window.React = React;
 
 let formatter;
 let saveCode;

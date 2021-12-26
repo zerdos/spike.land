@@ -1,4 +1,6 @@
-import ReactIs from "react-is/umd/react-is.production.min.js"
+
+const ReactIs = window.ReactIs;
+
 
 export const {   ContextConsumer} = ReactIs;
 export const {   ContextProvider} = ReactIs;

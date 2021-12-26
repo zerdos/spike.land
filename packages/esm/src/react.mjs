@@ -1,4 +1,4 @@
-import React from "react/umd/react.production.min.js"
+const React = window.React
 
 // export { createContext}
 // export {     useDebugValue}
