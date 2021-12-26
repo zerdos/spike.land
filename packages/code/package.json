@@ -1,6 +1,6 @@
 {
   "name": "@spike.land/code",
-  "version": "0.3.60",
+  "version": "0.3.61",
   "description": "spike.land",
   "main": "./js/quickerStart.mjs",
   "files": [
@@ -59,7 +59,7 @@
     "@emotion/styled": "^11.6.0",
     "@jspm/generator": "^1.0.0-beta.20",
     "@mui/material": "5.2.5",
-    "@spike.land/qrious": "^0.3.25",
+    "@spike.land/qrious": "^0.3.61",
     "@types/react": "17.0.38",
     "@types/react-dom": "17.0.11",
     "comlink": "4.3.1",

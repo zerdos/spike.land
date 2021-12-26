@@ -1,6 +1,6 @@
 {
   "name": "@spike.land/esm",
-  "version": "0.2.86",
+  "version": "0.3.61",
   "description": "esm modules for packages with maintainers from the 2015",
   "main": "dist/react.mjs",
   "files": [
@@ -28,8 +28,8 @@
     "@types/react-dom": "17.0.11",
     "esbuild": "0.14.8",
     "framer-motion": "5.5.5",
-    "react": "18.0.0-rc.0-next-f2a59df48-20211208",
     "ipfs-only-hash": "4.0.0",
+    "react": "18.0.0-rc.0-next-f2a59df48-20211208",
     "textdiff-create": "1.0.5",
     "textdiff-patch": "1.0.5"
   },
