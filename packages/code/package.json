@@ -54,8 +54,6 @@
     "access": "public"
   },
   "dependencies": {
-    "@emotion/css": "11.7.1",
-    "@emotion/server": "^11.4.0",
     "@emotion/styled": "^11.6.0",
     "@jspm/generator": "^1.0.0-beta.20",
     "@mui/material": "5.2.5",
@@ -70,7 +68,6 @@
     "immutable": "^4.0.0",
     "react": "18.0.0-rc.0-next-f2a59df48-20211208",
     "react-dom": "18.0.0-rc.0-next-f2a59df48-20211208",
-    "stream": "0.0.2",
-    "textdiff-create": "^1.0.5"
+    "textdiff-create": "1.0.5"
   }
 }
