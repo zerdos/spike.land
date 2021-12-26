@@ -29,7 +29,7 @@ const sizes = [10, 25, 50, 75, 100];
 
 interface DraggableWindowProps {
   onShare: () => void;
-  onRestore: (() => void) | null;
+  onRestore: (() => void);
   session: {
     i: number;
     url: string;
