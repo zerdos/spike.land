@@ -85,7 +85,7 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
       setHeight(breakPointHeights[1]);
       changeScaleRange(75);
       setPositions({ bottom: 20, right: 20 });
-    }, 1600);
+    }, 16000);
   }, []);
 
   session.setChild = setChild;

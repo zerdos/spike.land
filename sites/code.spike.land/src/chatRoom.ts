@@ -177,7 +177,7 @@ export class Code {
         }
         case "hydrated": {
           const htmlContent = this.state.session.html;
-          const css = await this.state.session.css;
+          const css = this.state.session.css;
 
           const html = HTML.replace(
             `<div id="zbody"></div>`,

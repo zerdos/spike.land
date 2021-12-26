@@ -15,7 +15,7 @@ export default {
 
       if (!path[0]) {
         // Serve our HTML at the root path.
-        return getHTMLResp();
+        return getHTMLResp(env, "code-main");
       }
 
       switch (path[0]) {
@@ -31,7 +31,7 @@ export default {
           return handleApiRequest(path.slice(1), request, env);
 
         case "live":
-          return getHTMLResp();
+          return getHTMLResp(env, path[1]);
 
         default:
           return npmAns("@spike.land/code", version)(request, env);
@@ -72,7 +72,6 @@ async function handleApiRequest(
       }
 
       let roomObject = env.CODE.get(id);
-
       let newUrl = new URL(request.url);
 
       newUrl.pathname = "/" + path.slice(2).join("/");
@@ -86,10 +85,18 @@ async function handleApiRequest(
   }
 }
 
-function getHTMLResp() {
+async function getHTMLResp(env, room) {
   
+  const id =  env.CODE.idFromName(room);
+  let roomObject = env.CODE.get(id);
+const resp =  await roomObject.fetch("session")
+const {html, css} = await resp.json();
+
   return new Response(
-    HTML,
+    HTML.replace(
+      `<div id="root"></div>`,
+      `<div id ="root"><style>${css}</style>${html}</div>`
+    ),
     {
       headers: {
         "Content-Type": "text/html;charset=UTF-8",
