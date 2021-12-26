@@ -252,9 +252,17 @@ export async function quickStart(session) {
   );
 
   await renderPreviewWindow(session);
+
+  if (localStorage && session) {
+    localStorage.setItem(
+      `state-${session.room}`,
+      JSON.stringify({ session }),
+    );
+  }
   // document.getElementById("root").remove();
 
   await startMonacoWithSession(session);
+
   // await restartX(
   //   session.transpiled,
   //   document.getElementById("zbody"),
