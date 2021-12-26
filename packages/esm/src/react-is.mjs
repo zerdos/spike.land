@@ -1,33 +1,33 @@
-const { ReactIs } = window;
+import ReactIs from "react-is/umd/react-is.production.min.js"
+
+export const {   ContextConsumer} = ReactIs;
+export const {   ContextProvider} = ReactIs;
+export const {   Element} = ReactIs;
+export const {   ForwardRef} = ReactIs;
+export const {   Fragment} = ReactIs;
+export const {   Lazy} = ReactIs;
+export const {   Memo} = ReactIs;
+export const {   Portal} = ReactIs;
+export const {   Profiler} = ReactIs;
+export const {   StrictMode} = ReactIs;
+export const {   Suspense} = ReactIs;
+export const {   SuspenseList} = ReactIs;
+export const {   isAsyncMode} = ReactIs;
+export const {   isConcurrentMode} = ReactIs;
+export const {   isContextConsumer} = ReactIs;
+export const {   isContextProvider} = ReactIs;
+export const {   isElement} = ReactIs;
+export const {   isForwardRef} = ReactIs;
+export const {   isFragment} = ReactIs;
+export const {   isLazy} = ReactIs;
+export const {   isMemo} = ReactIs;
+export const {   isPortal} = ReactIs;
+export const {   isProfiler} = ReactIs;
+export const {   isStrictMode} = ReactIs;
+export const {   isSuspense} = ReactIs;
+export const {   isSuspenseList} = ReactIs;
+export const {   isValidElementType} = ReactIs;
+export const {   typeOf} = ReactIs;
+ 
 export default ReactIs;
 
-export {
-  ContextConsumer,
-  ContextProvider,
-  Element,
-  ForwardRef,
-  Fragment,
-  Lazy,
-  Memo,
-  Portal,
-  Profiler,
-  StrictMode,
-  Suspense,
-  SuspenseList,
-  isAsyncMode,
-  isConcurrentMode,
-  isContextConsumer,
-  isContextProvider,
-  isElement,
-  isForwardRef,
-  isFragment,
-  isLazy,
-  isMemo,
-  isPortal,
-  isProfiler,
-  isStrictMode,
-  isSuspense,
-  isSuspenseList,
-  isValidElementType,
-  typeOf,
-} from "react-is/umd/react-is.production.min.js"
