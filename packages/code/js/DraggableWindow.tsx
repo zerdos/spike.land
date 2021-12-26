@@ -141,11 +141,12 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
 
         } else if (window.innerWidth<2500) {
           setHeight(breakPointHeights[2]* devicePixelRatio);
+          setHeight(window.innerHeight * 0.6);
           changeScaleRange(50);
           
         } else if (window.innerWidth>2500) {
           // setWidth(window* devicePixelRatio)
-            
+          setHeight(window.innerHeight * 0.7);
           setHeight(breakPointHeights[2]*2 * devicePixelRatio);
           changeScaleRange(100);
         }
