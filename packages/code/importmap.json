@@ -1,6 +1,6 @@
 {
   "imports": {
-    "@emotion/react": "https://unpkg.com/@spike.land/esm@0.3.70/dist/emotion-react.mjs",
+    "@emotion/react": "https://unpkg.com/@spike.land/esm@0.3.73/dist/emotion-react.mjs",
     "@emotion/styled": "https://ga.jspm.io/npm:@emotion/styled@11.6.0/dist/emotion-styled.browser.esm.js",
     "@spike.land/ipfs": "https://ga.jspm.io/npm:@spike.land/ipfs@0.3.61/dist/ipfs.client.mjs",
     "@spike.land/qrious": "https://ga.jspm.io/npm:@spike.land/qrious@0.3.61/dist/QRious.mjs",
@@ -8,20 +8,20 @@
     "comlink": "https://ga.jspm.io/npm:comlink@4.3.1/dist/umd/comlink.js",
     "immutable": "https://ga.jspm.io/npm:immutable@4.0.0/dist/immutable.es.js",
     "prop-types": "https://ga.jspm.io/npm:prop-types@15.8.0/index.js",
-    "react": "https://unpkg.com/@spike.land/esm@0.3.70/dist/react.mjs",
-    "react-dom": "https://unpkg.com/@spike.land/esm@0.3.70/dist/react-dom.mjs",
+    "react": "https://unpkg.com/@spike.land/esm@0.3.73/dist/react.mjs",
+    "react-dom": "https://unpkg.com/@spike.land/esm@0.3.73/dist/react-dom.mjs",
     "react-dom/server": "https://ga.jspm.io/npm:react-dom@18.0.0-rc.0-next-f2a59df48-20211208/server.browser.js",
-    "react-is": "https://unpkg.com/@spike.land/esm@0.3.70/dist/react-is.mjs",
+    "react-is": "https://unpkg.com/@spike.land/esm@0.3.73/dist/react-is.mjs",
     "react-transition-group": "https://ga.jspm.io/npm:react-transition-group@4.4.2/esm/index.js",
     "react/jsx-runtime": "https://ga.jspm.io/npm:react@18.0.0-rc.0-next-f2a59df48-20211208/jsx-runtime.js",
     "tslib": "https://ga.jspm.io/npm:tslib@2.3.1/tslib.es6.js",
     "uuid": "https://ga.jspm.io/npm:uuid@8.3.2/dist/esm-browser/index.js",
     "workbox-window": "https://ga.jspm.io/npm:workbox-window@6.4.2/build/workbox-window.prod.es5.mjs",
     "dev": "./js/starter.mjs",
-    "framer-motion": "https://unpkg.com/@spike.land/esm@0.3.70/dist/framer-motion.mjs",
-    "textdiff-create": "https://unpkg.com/@spike.land/esm@0.3.70/dist/textdiff-create.mjs",
-    "textdiff-patch": "https://unpkg.com/@spike.land/esm@0.3.70/dist/textdiff-patch.mjs",
-    "ipfs-only-hash": "https://unpkg.com/@spike.land/esm@0.3.70/dist/ipfs-only-hash.mjs"
+    "framer-motion": "https://unpkg.com/@spike.land/esm@0.3.73/dist/framer-motion.mjs",
+    "textdiff-create": "https://unpkg.com/@spike.land/esm@0.3.73/dist/textdiff-create.mjs",
+    "textdiff-patch": "https://unpkg.com/@spike.land/esm@0.3.73/dist/textdiff-patch.mjs",
+    "ipfs-only-hash": "https://unpkg.com/@spike.land/esm@0.3.73/dist/ipfs-only-hash.mjs"
   },
   "scopes": {
     "https://ga.jspm.io/": {
