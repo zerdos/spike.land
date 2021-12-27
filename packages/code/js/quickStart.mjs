@@ -160,7 +160,7 @@ async function runner(c, changes = null, session, counter) {
         session.children = children;
         restartError = !html;
         session.codeNonFormatted = c;
-        getCss = getCss || (await import("../dist/templates.mjs")).getCss;
+        getCss = getCss || (await import("./templates.ts")).getCss;
         getCss(session);
         await saveCode(session, session.i);
         monaco.editor.setTheme("vs-dark");
