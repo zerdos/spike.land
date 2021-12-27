@@ -12,11 +12,11 @@ export const getWorker = (file) => {
     forceNormalWorker = true;
     workerSrc = window.URL.createObjectURL(
       new Blob([
-        `self.importScripts("https://code.spike.land/js/workers/${file}");`,
+        `self.importScripts("https://code.spike.land/workers/${file}");`,
       ]),
     );
   } else {
-    workerSrc = `https://code.spike.land/js/workers/${file}`;
+    workerSrc = `https://code.spike.land/workers/${file}`;
   }
 
   return {
@@ -40,11 +40,11 @@ export const getWrapped = (file) => {
     forceNormalWorker = true;
     workerSrc = window.URL.createObjectURL(
       new Blob([
-        `self.importScripts("https://code.spike.land/js/workers/${file}");`,
+        `self.importScripts("https://code.spike.land/workers/${file}");`,
       ]),
     );
   } else {
-    workerSrc = `https://code.spike.land/js/workers/${file}`;
+    workerSrc = `https://code.spike.land/workers/${file}`;
   }
 
   wrapped[file] = wrapped[workerSrc] = wrapped[workerSrc] ||

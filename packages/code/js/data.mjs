@@ -297,7 +297,7 @@ export const saveCode =
   };
 
 // function getStarter() {
-//   return fetch(`https://code.spike.land/js/examples/rca.tsx`).then((res) =>
+//   return fetch(`https://code.spike.land/examples/rca.tsx`).then((res) =>
 //     res.text()
 //   );
 // }

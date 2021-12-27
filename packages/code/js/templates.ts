@@ -169,7 +169,7 @@ ${
   }
 </script>
 <script type="module">
-import {edit} from "https://code.spike.land/js/data.mjs"
+import {edit} from "https://code.spike.land/data.mjs"
 try{
   edit(location.pathname.slice(42, 52));
 }catch(error){
