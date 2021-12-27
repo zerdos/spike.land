@@ -15,7 +15,7 @@ let getCss;
 export async function startMonacoWithSession(session) {
   const shadDom = document.getElementById("shadowEditor");
 
-  const startMonaco = (await import("./startMonaco.ts")).default;
+  const startMonaco = (await import("./dist/startMonaco.mjs")).default;
   const getEditor = await startMonaco(
     /**
      * @param {any} code
@@ -272,72 +272,7 @@ export async function quickStart(session) {
   }
   // document.getElementById("root").remove();
 
-  await startMonacoWithSession(session);
-
-  // await restartX(
-  //   session.transpiled,
-  //   document.getElementById("zbody"),
-  //   session.i + 1,
-  //   session,
-  // );
-}
-
-// export async function restartX(transpiled, target, counter, session) {
-//   if (session.i > counter) return false;
-
-//   if (session.transpiled === transpiled) return false;
-//   session.transpiled = transpiled;
-
-//   // const codeHash = await Hash.of(code);
-
-//   //  session.html = "";
-//   session.transpiled = "";
-//   let hadError = false;
-//   if (typeof transpiled !== "string" || transpiled === "") {
-//     // console.log(transpiled.error);
-//     hadError = true;
-//     return hadError;
-//   }
-
-//   let children;
-//   let App;
-//   try {
-//     children = await getReactChild(transpiled);
-//     App = await getApp(transpiled);
-//   } catch (error) {
-//     session.errorText = error.message;
-//     console.error({ error, message: "error in rendering" });
-//     return true;
-//   }
-
-//   // session.unmount = render(Element(), root);
-//   // const zbody = target || document.createElement("div");
-//   // if (!zbody) {
-//   //   zbody = document.createElement('div');
-//   //   document.body.appendChild(zbody);
-
-//   const { getHtmlAndCss } = await import("./renderToString");
-
-//   const { html } = getHtmlAndCss(App);
-
-//   if (html) {
-//     // }
-
-//     // ReactDOM.render(children, zbody);
-
-//     // zbody && zbody.children[0].replaceWith(root);
-//     // session.div = zbody;
-//     // if (zbody.innerHTML) {
-//     session.transpiled = transpiled;
-//     session.html = html;
-//     session.css = css;
-//     // session.html = zbody.innerHTML;
-//     session.children = children;
-//     session.setChild((c) => [...c, session.children]);
-//   } else return !html;
-//   // }
-//   // return !zbody.innerHTML;
-// }
+  await startMonacoWithSession(session);}
 
 async function getReactChild(transpiled, mode = "window") {
   const codeToHydrate = mode === "window"

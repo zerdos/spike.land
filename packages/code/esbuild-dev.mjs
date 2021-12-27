@@ -52,14 +52,15 @@ const build = (entryPoints) =>
 await build([
   "js/session.tsx",
   "js/mui.tsx",
-]);
-
-await build([
-  //   "js/renderPreviewWindow.tsx",
-  //   "js/templates.ts",
-  //   "js/renderToString.tsx",
   "js/startMonaco.ts",
 ]);
+
+// await build([
+//   //   "js/renderPreviewWindow.tsx",
+//   //   "js/templates.ts",
+//   //   "js/renderToString.tsx",
+
+// ]);
 
 await await build([
   "js/quickStart.mjs",
