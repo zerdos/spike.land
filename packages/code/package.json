@@ -17,7 +17,7 @@
     "./importmap.json": "./js/importmap.json"
   },
   "scripts": {
-    "clean": "rm -rf .tsBuildInfo dist && mkdir dist && deno fmt .",
+    "clean": "rm -rf .tsBuildInfo js/dist && mkdir js/dist && deno fmt .",
     "bundle:starter": "deno bundle --import-map importmap.json js/starter.mjs dist/starter.bundle.mjs",
     "minify:bundle": "esbuild dist/starter.bundle.mjs --format=esm --target=es2018 --minify --tree-shaking=true --outfile=dist/bundle.mjs",
     "postinstall": "yarn importmap",
@@ -58,6 +58,7 @@
     "@jspm/generator": "^1.0.0-beta.20",
     "@mui/material": "5.2.5",
     "@spike.land/qrious": "^0.4.0",
+    "@spike.land/smart-monaco-editor": "^0.4.0",
     "@types/react": "17.0.38",
     "@types/react-dom": "17.0.11",
     "axax": "0.2.2",
