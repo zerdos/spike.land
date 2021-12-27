@@ -1,3 +1,6 @@
+import {formatter} from "./formatter.mjs"
+import initSession from "./session.tsx"
+
 let currentWebSocket = null;
 let lastMsg = null;
 let sess = false;
@@ -5,7 +8,6 @@ const mod = {};
 let sanyiProcess = null;
 
 const webrtcArray = [];
-
 let hostname = "code.spike.land";
 
 let roomName = "";
@@ -20,10 +22,8 @@ let rejoined = false;
 let sendChannel;
 let createDelta;
 let applyPatch;
-let formatter;
 let Hash;
 let mySession = null;
-let initSession = null;
 
 let toolsImported = 0;
 
@@ -34,14 +34,10 @@ function createPatch(oldCode, newCode) {
 let importTools = async () => {
   if (toolsImported) return toolsImported;
 
-  await Promise.all([
-    import("textdiff-create").then((mod) => createDelta = mod.default),
-    import("textdiff-patch").then((mod) => applyPatch = mod.default),
-    import("./formatter.mjs").then((mod) => formatter = mod.formatter),
-    import("ipfs-only-hash").then((mod) => Hash = mod.default),
-    import("../dist/session.mjs").then((mod) => initSession = mod.default),
-  ]);
-
+  import("textdiff-create").then((mod) => createDelta = mod.default);
+  import("textdiff-patch").then((mod) => applyPatch = mod.default);
+ 
+  import("ipfs-only-hash").then((mod) => Hash = mod.default);
   toolsImported = true;
   return toolsImported;
 };
@@ -66,9 +62,9 @@ let rejoin = async () => {
   if (!rejoined) {
     rejoined = true;
     currentWebSocket = null;
-    mySession.addEvent({
-      type: "j",
-    });
+    // mySession.addEvent({
+    //   type: "joined"
+    // });
 
     // Clear the roster.
     //  while (roster.firstChild) {
@@ -704,7 +700,7 @@ async function processWsMessage(event, source) {
       // sendChannel.onmessage = function (event) {
       //   console.log(event.data);
       // };
-      // sendChannel.on§
+      // sendChannel.on
       // const offer = await connections[target].createOffer();
       // console.log({offer});
     } catch (e) {

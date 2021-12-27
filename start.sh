@@ -10,7 +10,7 @@
 CID=$(
     #docker-compose exec -T ipfs
     ipfs add -r packages/code --ignore **node_modules -Q) 
-URL="http://127.0.0.1:8080/ipfs/$CID/"
+URL="http://127.0.0.1:8080/ipfs/$CID/js/"
 
 #  curl -X GET "https://api.cloudflare.com/client/v4/zones/ec8e903035c7b0fcd3e95f1e483ab68c/dns_records/?type=TXT" \
 #      -H "Authorization: Bearer $BBTOKEN" \

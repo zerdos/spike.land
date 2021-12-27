@@ -3,7 +3,8 @@
 /// <reference types="@emotion/react/types/css-prop" />
 
 import { css, jsx } from "@emotion/react";
-import { wait } from "axax/esnext/wait";
+// import { wait } from "axax/esnext/wait";
+import type {FC} from "react"
 
 import { Fragment, lazy, Suspense, useEffect, useRef, useState } from "react";
 import {
@@ -17,9 +18,19 @@ import {
   Tv,
 } from "../dist/mui.mjs";
 
-import { QRButton } from "./Qr.jsx";
+import { QRButton } from "./Qr.tsx";
 
 import { motion } from "framer-motion";
+
+
+function wait(delay: number): Promise<void> {
+  return new Promise(resolve => {
+    setTimeout(() => {
+      resolve();
+    }, delay);
+  });
+}
+
 
 // const {motion} = Motion;
 
@@ -44,7 +55,7 @@ interface DraggableWindowProps {
   position?: string;
 }
 
-const LazySpikeLandComponent: React.FC<{ name: string }> = ({ name }) => {
+const LazySpikeLandComponent: FC<{ name: string }> = ({ name }) => {
   const Sanyi = lazy(() => generator(name));
   return (
     <Suspense fallback={<div></div>}>
@@ -58,7 +69,7 @@ const LazySpikeLandComponent: React.FC<{ name: string }> = ({ name }) => {
   }
 };
 
-export const DraggableWindow: React.FC<DraggableWindowProps> = (
+export const DraggableWindow: FC<DraggableWindowProps> = (
   { onShare, onRestore, position, session },
 ) => {
   const [isStable, setIsStable] = useState(false);

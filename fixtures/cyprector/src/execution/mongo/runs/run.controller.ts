@@ -33,7 +33,7 @@ import {
   getSpecsForGroup,
 } from "../../utils";
 import { createInstance } from "../instances/instance.controller";
-import { createProject, getProjectById } from "./../projects/project.model";
+import { createProject, getProjectById } from "../projects/project.model";
 import {
   addNewGroupToRun,
   createRun as storageCreateRun,

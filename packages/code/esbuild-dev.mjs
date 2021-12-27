@@ -2,7 +2,7 @@ import esbuild from "esbuild";
 
 import * as importMap from "esbuild-plugin-import-map";
 
-import jsonData from "./importmap.json" assert { type: "json" };
+import jsonData from "./js/importmap.json" assert { type: "json" };
 
 // const impData = jsonData.imports;
 // console.log(jsonData.imports);
@@ -41,6 +41,7 @@ const build = (entryPoints) =>
     allowOverwrite: true,
     treeShaking: true,
     platform: "browser",
+    outbase: "./js/",
     sourcemap: true,
     resolveExtensions: [".tsx", ".ts", ".jsx", ".js", ".css", ".json", ".mjs"],
     target: ["esnext"],
@@ -49,14 +50,14 @@ const build = (entryPoints) =>
   }).catch(() => process.exit(1));
 
 await build([
-  "js/session.ts",
+  "js/session.tsx",
   "js/mui.tsx",
 ]);
 
 await build([
-  "js/renderPreviewWindow.tsx",
-  "js/templates.ts",
-  "js/renderToString.tsx",
+//   "js/renderPreviewWindow.tsx",
+//   "js/templates.ts",
+//   "js/renderToString.tsx",
   "js/startMonaco.ts",
 ]);
 

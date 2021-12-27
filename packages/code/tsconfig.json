@@ -64,12 +64,15 @@
 
     /* Advanced Options */
     "skipLibCheck": true, /* Skip type checking of declaration files. */
-    "forceConsistentCasingInFileNames": true /* Disallow inconsistently-cased references to the same file. */
+    "forceConsistentCasingInFileNames": true, /* Disallow inconsistently-cased references to the same file. */
+    "paths": {
+      "./js": ["./js"]
+    }
   },
   "include": [
     "./js",
-    "./sw.js",
-    "js/renderPreviewWindow.ts"
+    "js/sw.js",
+    "./js/renderPreviewWindow.tsx"
   ],
   "exclude": ["js/bundle.min.js"]
 }

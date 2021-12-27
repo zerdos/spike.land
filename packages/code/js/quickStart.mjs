@@ -15,7 +15,7 @@ let getCss;
 export async function startMonacoWithSession(session) {
   const shadDom = document.getElementById("shadowEditor");
 
-  const startMonaco = (await import("../dist/startMonaco.mjs")).default;
+  const startMonaco = (await import("./startMonaco.ts")).default;
   const getEditor = await startMonaco(
     /**
      * @param {any} code
@@ -80,10 +80,10 @@ async function getErrors({ monaco, editor }) {
 async function runner(c, changes = null, session, counter) {
   session.changes.push(changes);
 
-  saveCode = saveCode || (await import("../js/data.mjs")).saveCode;
+  saveCode = saveCode || (await import("./data.mjs")).saveCode;
   // getHtmlAndCss = getHtmlAndCss ||
   //   (await import("./renderToString")).getHtmlAndCss;
-  formatter = formatter || (await import(`../js/formatter.mjs`)).formatter;
+  formatter = formatter || (await import(`./formatter.mjs`)).formatter;
   esbuildEsmTransform = esbuildEsmTransform ||
     (await import(`./esbuildEsm.mjs`)).transform;
 
@@ -142,7 +142,7 @@ async function runner(c, changes = null, session, counter) {
 
       try {
         getHtmlAndCss = getHtmlAndCss ||
-          (await import("../dist/renderToString.mjs")).getHtmlAndCss;
+          (await import("./renderToString.tsx")).getHtmlAndCss;
 
         if (counter < session.i) return;
 
@@ -259,7 +259,7 @@ export async function quickStart(session) {
   // session.children = await getReactChild(session.transpiled);
   session.children = null;
   const { renderPreviewWindow } = await import(
-    "../dist/renderPreviewWindow.mjs"
+    "./renderPreviewWindow.tsx"
   );
 
   await renderPreviewWindow(session);

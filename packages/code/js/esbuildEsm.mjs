@@ -7,6 +7,7 @@ const init = esbuild.initialize({
 let initFinished = false;
 
 export const transform = async (code) => {
+
   var startTime = performance.now();
 
   if (!initFinished) {
@@ -14,7 +15,7 @@ export const transform = async (code) => {
     initFinished = true;
   }
 
-  const result = await esbuild.transform(code, { loader: "tsx" });
+  const result = await esbuild.transform(code, { loader: "tsx", target: "es2018" });
 
   var endTime = performance.now();
 

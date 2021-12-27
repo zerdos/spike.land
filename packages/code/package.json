@@ -8,13 +8,13 @@
   ],
   "source": "./js/quickStart.mjs",
   "exports": {
-    "./session": "./js/session.ts",
-    "./js/session": "./js/session.ts",
+    "./session": "./js/session.tsx",
+    "./js/session": "./js/session.tsx",
     "./dist/bundle.mjs": "./dist/starter.bundle.mjs",
     "./dist/quickStart.mjs": "./dist/quickStart.mjs",
     "./dist/templates.mjs": "./dist/templates.mjs",
     "./package.json": "./package.json",
-    "./importmap.json": "./importmap.json"
+    "./importmap.json": "./js/importmap.json"
   },
   "scripts": {
     "clean": "rm -rf .tsBuildInfo dist && mkdir dist && deno fmt .",
@@ -25,7 +25,7 @@
     "start": "cd ../.. && yarn start",
     "push": "cd ../.. && yarn push",
     "build": "rm -rf dist && yarn esbuild --bundle --format=esm js/templates.ts --outfile=dist/templates.mjs && node --experimental-json-modules esbuild-dev.mjs",
-    "importmap": "node generate.mjs > ./importmap.json"
+    "importmap": "node generate.mjs > ./js/importmap.json"
   },
   "keywords": [
     "monaco",
@@ -54,6 +54,7 @@
     "access": "public"
   },
   "dependencies": {
+    "axax": "0.2.2",
     "@emotion/styled": "^11.6.0",
     "@jspm/generator": "^1.0.0-beta.20",
     "@mui/material": "5.2.5",

@@ -2,7 +2,7 @@
 import { jsx } from "@emotion/react";
 import { Suspense } from "react";
 import {} from "react-dom/next";
-import { DraggableWindow } from "./DraggableWindow";
+import { DraggableWindow } from "./DraggableWindow.tsx";
 // import { getHtmlAndCss
 //  } from "./renderToString";
 

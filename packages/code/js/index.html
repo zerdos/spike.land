@@ -3,6 +3,7 @@
 <head profile="http://www.w3.org/2005/10/profile">
   <meta http-equiv="Content-Type" content="text/html,charset=utf-8" />
   <meta name="viewport" content="width=device-width" />
+  <base href="./">
   
   <link rel="icon" type="image/png" href="./assets/zed-icon-big.png" />
 
@@ -18,17 +19,41 @@
     window.esmsInitOptions = {
   shimMode: true,
   polyfillEnable: ['css-modules', 'json-modules'],
+  onerror: error => console.log(error), // defaults to `((e) => { throw e; })`
   fetch: async function (url, options) {
+    if (url.indexOf("spike.land") !==-1 || url.indexOf("127.0.0.1") !==-1) {
+
+      console.log(url);
+
+      transpile = transpile || (await import("./esbuildEsm.mjs")).transform;
       const res = await fetch(url, options);
+
       if (!res.ok)
         return res;
-      if (res.url.endsWith('.tsx')) {
-        transpile = transpile || (await import("./js/esbuildEsm.mjs")).transpile;
-        const source = await res.body();
+
+      const urlEnd = res.url.substr(-3);
+      if (["tsx", ".ts", "mjs"].indexOf(urlEnd)!==-1) {      
+        const source = await res.text();
         const transformed = await transpile(source);
         return new Response(new Blob([transformed], { type: 'application/javascript' }));
       }
-      return res;
+      return fetch(url, options);
+      // if ([".js","jsx"].indexOf(urlEnd)!==-1) {
+      //   const respCloned = res.clone();
+
+      
+      // // respCloned.headers.set("Content-Type","application/javascript");
+      // // const respBlob = await respCloned.blob();
+      // console.log(res.url );
+      // const text = await respCloned.text();
+
+    
+      // }
+      // return res;
+    }
+     
+  return fetch(url, options);
+
   },
   noLoadEventRetriggers: true,
   skip: "/^https?:\/\/(cdn\.skypack\.dev|jspm\.dev)\//`"
@@ -95,7 +120,7 @@
   window.process = { env: { NODE_ENV: "production" } };
 </script>
   <script type="module-shim">
-    import app from "dev";
+    import app from "./starter.mjs";
     app("zoli");
   </script>
   <script>

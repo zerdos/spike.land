@@ -1,4 +1,4 @@
-import importmapJson from "../importmap.json";
+import importmapJson from "./importmap.json" assert {type: "json"}
 
 export function getCss(session: { html: string; css: string }) {
   const { html } = session;
