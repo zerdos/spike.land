@@ -36,10 +36,12 @@ export default function (
       if (resp.status === 200) myCache.put(request, resp.clone());
       const cloned = resp.clone();
 
-      cloned.headers.set( "Cache-Control", "no-cache");
-
-
-      return cloned;
+      return new Response(cloned.body, {
+        headers: {
+          ...cloned.headers,
+          "Cache-Control": "no-cache"
+        }
+      })
     } catch (Error) {
       return new Response(`Yayy... ${Object.prototype.toString.call(Error)}`);
     }
