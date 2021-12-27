@@ -10,7 +10,7 @@ import SANYI from "./sanyi.js.html";
 import type {
   ICodeSess, IEvent, INewWSConnection,
 } from "@spike.land/code/js/session";
-import startSession from "@spike.land/code/js/session";
+import startSession from "@spike.land/code/js/session.tsx";
 import { Record } from "immutable";
 
 interface IState extends DurableObjectState {
