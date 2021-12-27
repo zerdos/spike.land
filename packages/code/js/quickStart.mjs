@@ -272,7 +272,8 @@ export async function quickStart(session) {
   }
   // document.getElementById("root").remove();
 
-  await startMonacoWithSession(session);}
+  await startMonacoWithSession(session);
+}
 
 async function getReactChild(transpiled, mode = "window") {
   const codeToHydrate = mode === "window"
