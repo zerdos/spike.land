@@ -1,9 +1,7 @@
 import { getWrapped } from "./workers/getWorker.mjs";
 
 export async function babelTransform(code) {
-  var startTime = performance.now()
-
-  
+  var startTime = performance.now();
 
   const transform = await getWrapped("babel.worker.js");
 
@@ -11,9 +9,9 @@ export async function babelTransform(code) {
     code,
   );
 
-  var endTime = performance.now()
+  var endTime = performance.now();
 
-  console.log(`babelTransform: took ${endTime - startTime} milliseconds`)
+  console.log(`babelTransform: took ${endTime - startTime} milliseconds`);
 
   return transformed;
 }

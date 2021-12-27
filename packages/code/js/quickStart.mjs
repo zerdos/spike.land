@@ -87,15 +87,14 @@ async function runner(c, changes = null, session, counter) {
   // esbuildEsmTransform = esbuildEsmTransform ||
   //   (await import(`./esbuildEsm.mjs`)).transform;
 
-    esbuildTransform = esbuildTransform ||
+  esbuildTransform = esbuildTransform ||
     (await import(`./esbuild.mjs`)).transform;
- 
 
-    // babelTransform = babelTransform ||
-    // (await import(`./babel.mjs`)).babelTransform;
+  // babelTransform = babelTransform ||
+  // (await import(`./babel.mjs`)).babelTransform;
 
   // transform =transform || ((code) => Promise.any([babelTransform(code),esbuildEsmTransform(code), esbuildTransform(code)]))
-  
+
   transform = esbuildTransform;
 
   if (window.sendChannel) {
