@@ -50,7 +50,6 @@ const build = (entryPoints) =>
   }).catch(() => process.exit(1));
 
 await build([
-  "js/session.tsx",
   "js/mui.tsx",
   "js/startMonaco.ts",
 ]);
@@ -62,7 +61,7 @@ await build([
 
 // ]);
 
-await await build([
+await build([
   "js/quickStart.mjs",
 ]);
 

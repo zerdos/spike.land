@@ -8,14 +8,9 @@
   ],
   "source": "./js/quickStart.mjs",
   "exports": {
-    "./dist/mui.mjs": "./js/dist/mui.mjs",
-    "./session": "./js/session.tsx",
-    "./js/session": "./js/session.tsx",
-    "./dist/bundle.mjs": "./js/dist/starter.bundle.mjs",
-    "./dist/quickStart.mjs": "./js/dist/quickStart.mjs",
-    "./dist/templates.mjs": "./js/dist/templates.mjs",
-    "./package.json": "./package.json",
-    "./importmap.json": "./js/importmap.json"
+    "./js/dist/mui.mjs": "./js/dist/mui.mjs",
+    "./js/dist/startMonaco.mjs": "./js/dist/startMonaco.mjs",
+    "./js/importmap.json": "./js/importmap.json"
   },
   "scripts": {
     "clean": "rm -rf .tsBuildInfo js/dist && mkdir js/dist && deno fmt .",
