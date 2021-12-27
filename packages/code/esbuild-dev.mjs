@@ -55,9 +55,9 @@ await build([
 ]);
 
 await build([
-//   "js/renderPreviewWindow.tsx",
-//   "js/templates.ts",
-//   "js/renderToString.tsx",
+  //   "js/renderPreviewWindow.tsx",
+  //   "js/templates.ts",
+  //   "js/renderToString.tsx",
   "js/startMonaco.ts",
 ]);
 

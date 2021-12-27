@@ -1,5 +1,5 @@
 import { join } from "./ws.mjs";
-import uuid  from "./uidV4.mjs"
+import uuid from "./uidV4.mjs";
 
 export default function (injectedRoom = "") {
   run(injectedRoom);

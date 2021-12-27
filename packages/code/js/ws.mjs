@@ -1,5 +1,5 @@
-import {formatter} from "./formatter.mjs"
-import initSession from "./session.tsx"
+import { formatter } from "./formatter.mjs";
+import initSession from "./session.tsx";
 
 let currentWebSocket = null;
 let lastMsg = null;
@@ -36,7 +36,7 @@ let importTools = async () => {
 
   import("textdiff-create").then((mod) => createDelta = mod.default);
   import("textdiff-patch").then((mod) => applyPatch = mod.default);
- 
+
   import("ipfs-only-hash").then((mod) => Hash = mod.default);
   toolsImported = true;
   return toolsImported;

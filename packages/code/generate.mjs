@@ -29,7 +29,7 @@ await generator.install("react-dom@18/server");
 // await generator.install("prop-types");
 await generator.install("react-is@18");
 await generator.install("immutable");
-await generator.install("@spike.land/smart-monaco-editor")
+await generator.install("@spike.land/smart-monaco-editor");
 
 // await generator.install("@emotion/server");
 // await generator.install("@emotion/server");
@@ -56,7 +56,6 @@ await generator.install("react@18/jsx-runtime");
 await generator.install("react-transition-group");
 
 const importMap = { ...generator.getMap() };
-importMap.imports.dev = "./js/starter.mjs";
 importMap.imports["framer-motion"] =
   "https://unpkg.com/@spike.land/esm@0.3.75/dist/framer-motion.mjs";
 
@@ -77,7 +76,6 @@ importMap.imports["react-is"] =
 
 importMap.imports["@emotion/react"] =
   "https://unpkg.com/@spike.land/esm@0.3.75/dist/emotion-react.mjs";
-  importMap.imports["axax/esnext/wait"]  = "https://raw.githubusercontent.com/jamiemccrindle/axax/master/src/wait.ts"
 // importMap.imports.tslib =
 //   "https://cdnjs.cloudflare.com/ajax/libs/tslib/2.3.1/tslib.es6.min.js";
 

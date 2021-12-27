@@ -4,7 +4,7 @@
 
 import { css, jsx } from "@emotion/react";
 // import { wait } from "axax/esnext/wait";
-import type {FC} from "react"
+import type { FC } from "react";
 
 import { Fragment, lazy, Suspense, useEffect, useRef, useState } from "react";
 import {
@@ -22,15 +22,13 @@ import { QRButton } from "./Qr.tsx";
 
 import { motion } from "framer-motion";
 
-
 function wait(delay: number): Promise<void> {
-  return new Promise(resolve => {
+  return new Promise((resolve) => {
     setTimeout(() => {
       resolve();
     }, delay);
   });
 }
-
 
 // const {motion} = Motion;
 
