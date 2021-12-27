@@ -20,7 +20,7 @@
     "xxprepublishOnly": "yarn bundle:starter && yarn minify:bundle",
     "start": "cd ../.. && yarn start",
     "push": "cd ../.. && yarn push",
-    "build": "rm -rf dist && yarn esbuild --bundle --format=esm js/templates.ts --outfile=dist/templates.mjs && node --experimental-json-modules esbuild-dev.mjs",
+    "build": "yarn clean && node --experimental-json-modules esbuild-dev.mjs",
     "importmap": "node generate.mjs > ./js/importmap.json"
   },
   "keywords": [
