@@ -10,6 +10,7 @@
   "exports": {
     "./js/dist/mui.mjs": "./js/dist/mui.mjs",
     "./js/dist/startMonaco.mjs": "./js/dist/startMonaco.mjs",
+    "./js/session.tsx": "./js/session.tsx",
     "./js/importmap.json": "./js/importmap.json"
   },
   "scripts": {
