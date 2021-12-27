@@ -26,10 +26,9 @@
   <div id="zbody"></div>
   
   <script async src="https://ga.jspm.io/npm:es-module-shims@1.4.1/dist/es-module-shims.js"></script>
-  <script type="importmap">
-    $$IMPORTMAP
+  <script type="importmap-shim" src="./js/importmap.json">
   </script>
-  <script type="module">
+  <script type="module-shim">
     import("app").then(async (mod)=>{
       if (mod.default && !mod.run) {
         console.log("starting with default.")

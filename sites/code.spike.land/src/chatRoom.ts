@@ -2,14 +2,13 @@ import { handleErrors } from "./handleErrors";
 import { RateLimiterClient } from "./rateLimiterClient";
 import Hash from "ipfs-only-hash";
 import HTML from "./target.html";
-import importMap from "@spike.land/code/importmap.json";
 import { version } from "@spike.land/code/package.json";
 import applyDelta from "textdiff-patch";
 import { CodeEnv } from "./env";
 import SANYI from "./sanyi.js.html";
 import type {
   ICodeSess, IEvent, INewWSConnection,
-} from "@spike.land/code/js/session";
+} from "@spike.land/code/js/session.tsx";
 import startSession from "@spike.land/code/js/session.tsx";
 import { Record } from "immutable";
 
@@ -183,14 +182,7 @@ export class Code {
             `<div id="zbody"></div>`,
             `<div id ="root"><style>${css}</style><div id="zbody">${htmlContent}</div></div>`
           ).replace(
-            "$$IMPORTMAP",
-            JSON.stringify({
-              ...importMap,
-              imports: {
-                ...importMap.imports,
-                app: `https://code.spike.land/api/room/${codeSpace}/js`,
-              },
-            })
+            `"app"`,`"https://code.spike.land/api/room/${codeSpace}/js"`
           );
 
           return new Response(html, {

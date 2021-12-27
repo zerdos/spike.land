@@ -2,13 +2,14 @@
   "name": "@spike.land/code",
   "version": "0.4.13",
   "description": "spike.land",
-  "main": "./js/quickerStart.mjs",
+  "main": "./js/dist/quickStart.mjs",
   "files": [
     "**/*"
   ],
   "source": "./js/quickStart.mjs",
   "exports": {
     "./package.json": "./package.json",
+    "./js/dist/quickStart.mjs": "./js/dist.quickStart.mjs",
     "./js/dist/mui.mjs": "./js/dist/mui.mjs",
     "./js/dist/startMonaco.mjs": "./js/dist/startMonaco.mjs",
     "./js/session.tsx": "./js/session.tsx",
@@ -16,10 +17,7 @@
   },
   "scripts": {
     "clean": "rm -rf .tsBuildInfo js/dist && mkdir js/dist && deno fmt .",
-    "bundle:starter": "deno bundle --import-map importmap.json js/starter.mjs dist/starter.bundle.mjs",
-    "minify:bundle": "esbuild dist/starter.bundle.mjs --format=esm --target=es2018 --minify --tree-shaking=true --outfile=dist/bundle.mjs",
     "postinstall": "yarn importmap",
-    "xxprepublishOnly": "yarn bundle:starter && yarn minify:bundle",
     "start": "cd ../.. && yarn start",
     "push": "cd ../.. && yarn push",
     "build": "yarn clean && node --experimental-json-modules esbuild-dev.mjs",
