@@ -8,6 +8,7 @@
   ],
   "source": "./js/quickStart.mjs",
   "exports": {
+    "./package.json": "./package.json",
     "./js/dist/mui.mjs": "./js/dist/mui.mjs",
     "./js/dist/startMonaco.mjs": "./js/dist/startMonaco.mjs",
     "./js/session.tsx": "./js/session.tsx",
