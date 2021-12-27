@@ -4,8 +4,8 @@ let formatter;
 let saveCode;
 let transform;
 
-// let esbuildEsmTransform;
-let esbuildTransform;
+let esbuildEsmTransform;
+// let esbuildTransform;
 // let babelTransform;
 let getHtmlAndCss;
 let getCss;
@@ -84,18 +84,18 @@ async function runner(c, changes = null, session, counter) {
   // getHtmlAndCss = getHtmlAndCss ||
   //   (await import("./renderToString")).getHtmlAndCss;
   formatter = formatter || (await import(`../js/formatter.mjs`)).formatter;
-  // esbuildEsmTransform = esbuildEsmTransform ||
-  //   (await import(`./esbuildEsm.mjs`)).transform;
+  esbuildEsmTransform = esbuildEsmTransform ||
+    (await import(`./esbuildEsm.mjs`)).transform;
 
-  esbuildTransform = esbuildTransform ||
-    (await import(`./esbuild.mjs`)).transform;
+  // esbuildTransform = esbuildTransform ||
+  //   (await import(`./esbuild.mjs`)).transform;
 
   // babelTransform = babelTransform ||
   // (await import(`./babel.mjs`)).babelTransform;
 
   // transform =transform || ((code) => Promise.any([babelTransform(code),esbuildEsmTransform(code), esbuildTransform(code)]))
 
-  transform = esbuildTransform;
+  transform = esbuildEsmTransform;
 
   if (window.sendChannel) {
     const Hash = (await import("ipfs-only-hash")).default;
