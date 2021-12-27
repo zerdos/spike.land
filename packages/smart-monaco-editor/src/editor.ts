@@ -41,7 +41,7 @@ export default async (
   // const model = modules.editor.getModel("/index.ts") || createModel();
 
   const shadowRoot = container.attachShadow({
-    mode: "open"
+    mode: "open",
   });
 
   const innerContainer = document.createElement("div");
@@ -201,7 +201,7 @@ export default async (
   window.addEventListener("resize", () => {
     const { width, height } = container.getClientRects()[0];
     innerContainer.style.width = `${Math.min(window.innerWidth, width)}px`;
-    innerContainer.style.height =  `${Math.min(window.innerHeight, height)}px`;;
+    innerContainer.style.height = `${Math.min(window.innerHeight, height)}px`;
 
     editor.layout();
   });
