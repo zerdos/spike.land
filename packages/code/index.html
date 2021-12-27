@@ -14,8 +14,22 @@
 
   <script crossorigin src="https://unpkg.com/@emotion/react@11.7.1/dist/emotion-react.umd.min.js"></script>
   <script>
+     let transpile = null;
     window.esmsInitOptions = {
   shimMode: true,
+  polyfillEnable: ['css-modules', 'json-modules'],
+  fetch: async function (url, options) {
+      const res = await fetch(url, options);
+      if (!res.ok)
+        return res;
+      if (res.url.endsWith('.tsx')) {
+        transpile = transpile || (await import("./js/esbuildEsm.mjs")).transpile;
+        const source = await res.body();
+        const transformed = await transpile(source);
+        return new Response(new Blob([transformed], { type: 'application/javascript' }));
+      }
+      return res;
+  },
   noLoadEventRetriggers: true,
   skip: "/^https?:\/\/(cdn\.skypack\.dev|jspm\.dev)\//`"
      } </script>
