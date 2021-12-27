@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["../renderToString.tsx"],
+  "sourcesContent": ["/** @jsx jsx */\nimport { jsx } from \"@emotion/react\";\nimport type { FC } from \"react\";\n// import { CacheProvider } from '@emotion/react'\nimport { renderToString } from \"react-dom/server\";\n// import { renderStylesToString } from \"@emotion/server\";\n// import {css} from \"@emotion/css\"\nexport function getHtmlAndCss(App: FC) {\n  // const { html, css, ids } = extractCritical(\n  //   renderToString(<App />),\n  // );\n  const html = renderToString(<App />);\n  return { html };\n}\n"],
+  "mappings": "AACA,sFAGA,wHAGO,WAAuB,EAAS,CAKrC,MAAO,CAAE,KADI,EAAe,EAAC,EAAD",
+  "names": []
+}
