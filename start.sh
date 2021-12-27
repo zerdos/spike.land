@@ -9,8 +9,7 @@
 #ipfs daemon & $2 > /dev/null; 
 CID=$(
     #docker-compose exec -T ipfs
-    ipfs add -r packages/code --ignore **node_modules -Q) 
-URL="http://127.0.0.1:8080/ipfs/$CID/js/"
+    ipfs add -r packages/code --ignore **node_modules -Q --pin=true )  && URL="http://127.0.0.1:8080/ipfs/$CID/js/"  &&echo $URL && (xdg-open $URL || open $URL)&
 
 #  curl -X GET "https://api.cloudflare.com/client/v4/zones/ec8e903035c7b0fcd3e95f1e483ab68c/dns_records/?type=TXT" \
 #      -H "Authorization: Bearer $BBTOKEN" \
@@ -24,9 +23,9 @@ URL="http://127.0.0.1:8080/ipfs/$CID/js/"
 
 #yarn jsipfs daemon &
 
-echo $URL
 
-(xdg-open $URL || open $URL)&
+
+
 
 # rm -rf cids/code
 # mkdir -p cids
