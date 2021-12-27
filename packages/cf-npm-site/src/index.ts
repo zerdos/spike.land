@@ -34,8 +34,12 @@ export default function (
       const resp =await fetch(`https://unpkg.com/${packageName}${targetPath}`);
 
       if (resp.status === 200) myCache.put(request, resp.clone());
-      resp.headers.append( "Cache-Control", "no-cache");
-      return resp;
+      const cloned = resp.clone();
+
+      cloned.headers.set( "Cache-Control", "no-cache");
+
+
+      return cloned;
     } catch (Error) {
       return new Response(`Yayy... ${Object.prototype.toString.call(Error)}`);
     }
