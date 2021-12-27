@@ -12641,7 +12641,7 @@ var require_textdiff_patch = __commonJS({
 });
 
 // ../../packages/code/package.json
-var version = "0.4.15";
+var version = "0.4.16";
 
 // src/index.html
 var src_default = `<!DOCTYPE html>
