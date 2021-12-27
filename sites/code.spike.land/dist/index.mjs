@@ -12641,7 +12641,7 @@ var require_textdiff_patch = __commonJS({
 });
 
 // ../../packages/code/package.json
-var version = "0.4.16";
+var version = "0.4.18";
 
 // src/index.html
 var src_default = `<!DOCTYPE html>
@@ -12974,11 +12974,6 @@ var RateLimiterClient = class {
 
 // src/chatRoom.ts
 var import_ipfs_only_hash = __toESM(require_ipfs_only_hash());
-
-// src/target.html
-var target_default = '<!DOCTYPE html>\n<html lang="en">\n<head profile="http://www.w3.org/2005/10/profile">\n  <meta http-equiv="Content-Type" content="text/html,charset=utf-8" />\n  <meta name="viewport" content="width=device-width">\n  <link rel="stylesheet" href="https://unpkg.com/modern-css-reset@1.4.0/dist/reset.min.css" />\n  \n  <title>Instant React Editor</title>\n  <script crossorigin src="https://unpkg.com/react@18.0.0-rc.0-next-f2a59df48-20211208/umd/react.production.min.js"><\/script>\n  <script crossorigin src="https://unpkg.com/react-is@18.0.0-rc.0-next-f2a59df48-20211208/umd/react-is.production.min.js"><\/script>\n  <script crossorigin src="https://unpkg.com/react-dom@18.0.0-rc.0-next-f2a59df48-20211208/umd/react-dom.production.min.js"><\/script>\n  <script crossorigin src="https://unpkg.com/@emotion/react@11.7.1/dist/emotion-react.umd.min.js"><\/script>\n  <script>\n    window.process = {env: {NODE_ENV:"production" }};\n  <\/script>\n  <style>\n  html, body{\n    height: 100%;\n  }\n  #zbody, #root{\n    height: 100%;\n  }\n  </style>  \n<body>\n  <div id="shadowEditor"></div>\n  <div id="zbody"></div>\n  \n  <script async src="https://ga.jspm.io/npm:es-module-shims@1.4.1/dist/es-module-shims.js"><\/script>\n  <script type="importmap-shim" src="./js/importmap.json">\n  <\/script>\n  <script type="module-shim">\n    import("app").then(async (mod)=>{\n      if (mod.default && !mod.run) {\n        console.log("starting with default.")\n        const {createRoot} = await import("react-dom"); \n        const {jsx} =await import("@emotion/react");\n        \n        const root = createRoot(document.getElementById("zbody"));\n\n        root.render(jsx(mod.default));      \n     }\n     else{\n      console.log("starting with RUN!")\n  \n      if (mod.run)\n       mod.run();\n      if (mod.default){\n        mod.default();\n      }\n     }\n    });\n\n  <\/script>\n</body>\n</html>\n';
-
-// src/chatRoom.ts
 var import_textdiff_patch = __toESM(require_textdiff_patch());
 
 // src/sanyi.js.html
@@ -17553,7 +17548,7 @@ var Code = class {
         case "hydrated": {
           const htmlContent = this.state.session.html;
           const css = this.state.session.css;
-          const html = target_default.replace(`<div id="zbody"></div>`, `<div id ="root"><style>${css}</style><div id="zbody">${htmlContent}</div></div>`).replace(`"app"`, `"https://code.spike.land/api/room/${codeSpace}/js"`);
+          const html = src_default.replace(`<div id="zbody"></div>`, `<div id ="root"><style>${css}</style><div id="zbody">${htmlContent}</div></div>`).replace(`"app"`, `"https://code.spike.land/api/room/${codeSpace}/js"`);
           return new Response(html, {
             status: 200,
             headers: {
@@ -17586,14 +17581,7 @@ var Code = class {
         case "public": {
           const htmlContent = this.state.session.html;
           const css = await this.state.session.css;
-          const html = target_default.replace(`<div id="zbody"></div>`, `<div id ="root"><style>${css}</style><div id="zbody">${htmlContent}</div></div>`).replace("$$IMPORTMAP", JSON.stringify({
-            ...importMap,
-            imports: {
-              ...importMap.imports,
-              starterApp: `https://code.spike.land/api/room/${codeSpace}/js`,
-              app: `https://unpkg.com/@spike.land/code@${version}/js/starter.mjs`
-            }
-          }));
+          const html = src_default.replace(`<div id="zbody"></div>`, `<div id ="root"><style>${css}</style><div id="zbody">${htmlContent}</div></div>`).replace(`"app"`, `"https://unpkg.com/@spike.land/code@${version}/js/starter.mjs"`);
           return new Response(html, {
             status: 200,
             headers: {

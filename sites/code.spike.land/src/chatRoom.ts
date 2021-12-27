@@ -1,7 +1,7 @@
 import { handleErrors } from "./handleErrors";
 import { RateLimiterClient } from "./rateLimiterClient";
 import Hash from "ipfs-only-hash";
-import HTML from "./target.html";
+import HTML from "./index.html";
 import { version } from "@spike.land/code/package.json";
 import applyDelta from "textdiff-patch";
 import { CodeEnv } from "./env";
@@ -222,17 +222,7 @@ export class Code {
           const html = HTML.replace(
             `<div id="zbody"></div>`,
             `<div id ="root"><style>${css}</style><div id="zbody">${htmlContent}</div></div>`
-          ).replace(
-            "$$IMPORTMAP",
-            JSON.stringify({
-              ...importMap,
-              imports: {
-                ...importMap.imports,
-                starterApp: `https://code.spike.land/api/room/${codeSpace}/js`,
-                app: `https://unpkg.com/@spike.land/code@${version}/js/starter.mjs`,
-              },
-            })
-          );
+          ).replace(               `"app"`, `"https://unpkg.com/@spike.land/code@${version}/js/starter.mjs"`     );
 
           return new Response(html, {
             status: 200,
