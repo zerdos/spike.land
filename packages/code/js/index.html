@@ -14,7 +14,7 @@
   <script crossorigin src="https://unpkg.com/react-dom@18.0.0-rc.0-next-f2a59df48-20211208/umd/react-dom.production.min.js"></script>
 
   <script crossorigin src="https://unpkg.com/@emotion/react@11.7.1/dist/emotion-react.umd.min.js"></script>
-  <script>
+<script>
      let transform = null;
     window.esmsInitOptions = {
   shimMode: true,
@@ -23,14 +23,9 @@
   fetch: async function (url, options) {
     const urlEnd = url.substr(-3);
     if (["tsx", ".ts"].indexOf(urlEnd)!==-1) {   
-
       const res = await fetch(url, options);
+     if (!res.ok) return res;
 
-      if (!res.ok)
-        return res;
-
-      
-    
         const source = await res.text();
         
         transform = transform || (await import("./esbuildEsm.mjs")).transform;

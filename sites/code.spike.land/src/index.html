@@ -15,43 +15,23 @@
 
   <script crossorigin src="https://unpkg.com/@emotion/react@11.7.1/dist/emotion-react.umd.min.js"></script>
   <script>
-    let transpile = null;
+    let transform = null;
    window.esmsInitOptions = {
  shimMode: true,
  polyfillEnable: ['css-modules', 'json-modules'],
  onerror: error => console.log(error), // defaults to `((e) => { throw e; })`
  fetch: async function (url, options) {
-   if (url.indexOf("spike.land") !==-1 || url.indexOf("127.0.0.1") !==-1) {
-
-     console.log(url);
-
-     transpile = transpile || (await import("./esbuildEsm.mjs")).transform;
+   const urlEnd = url.substr(-3);
+   if (["tsx", ".ts"].indexOf(urlEnd)!==-1) {   
      const res = await fetch(url, options);
+    if (!res.ok) return res;
 
-     if (!res.ok)
-       return res;
-
-     const urlEnd = res.url.substr(-3);
-     if (["tsx", ".ts"].indexOf(urlEnd)!==-1) {      
        const source = await res.text();
-       const transformed = await transpile(source);
+       
+       transform = transform || (await import("./esbuildEsm.mjs")).transform;
+       const transformed = await transform(source);
        return new Response(new Blob([transformed], { type: 'application/javascript' }));
-     }
-     return fetch(url, options);
-     // if ([".js","jsx"].indexOf(urlEnd)!==-1) {
-     //   const respCloned = res.clone();
-
-     
-     // // respCloned.headers.set("Content-Type","application/javascript");
-     // // const respBlob = await respCloned.blob();
-     // console.log(res.url );
-     // const text = await respCloned.text();
-
-   
-     // }
-     // return res;
    }
-    
  return fetch(url, options);
 
  },
