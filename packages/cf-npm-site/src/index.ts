@@ -41,6 +41,8 @@ export default function (
 
       const origResp =await fetch(newReq);
 
+      lf (!origResp.ok) {return origResp;}
+
 
       const cloned = origResp.clone();
 
