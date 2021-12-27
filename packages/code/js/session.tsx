@@ -114,7 +114,7 @@ export class CodeSession implements ICodeSess {
             `;
 
             window.document.body.style.backgroundImage =
-              "url('../assets/synthwave.webp')";
+              "url('https://unpkg.com/@spike.land/code@0.4.0/assets/synthwave.webp')";
           }
         } else {
           fetch(`https://code.spike.land/api/room/${room}/mySession`).then(

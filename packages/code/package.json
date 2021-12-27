@@ -10,9 +10,9 @@
   "exports": {
     "./session": "./js/session.tsx",
     "./js/session": "./js/session.tsx",
-    "./dist/bundle.mjs": "./dist/starter.bundle.mjs",
-    "./dist/quickStart.mjs": "./dist/quickStart.mjs",
-    "./dist/templates.mjs": "./dist/templates.mjs",
+    "./dist/bundle.mjs": "./js/dist/starter.bundle.mjs",
+    "./dist/quickStart.mjs": "./js/dist/quickStart.mjs",
+    "./dist/templates.mjs": "./js/dist/templates.mjs",
     "./package.json": "./package.json",
     "./importmap.json": "./js/importmap.json"
   },
