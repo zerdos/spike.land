@@ -122,7 +122,7 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
       await wait(500);
       const root = document.getElementById("root");
       if (root && root.remove) root.remove();
-      if (!window.sess.monaco) await wait(1000);
+      if (!window.sess || !window.sess.monaco) await wait(1000);
       changeScaleRange(90);
       setPositions({ bottom: 20, right: 20 });
       changeScaleRange(75);
