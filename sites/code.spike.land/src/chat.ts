@@ -34,7 +34,7 @@ export default {
           return getHTMLResp(env, path[1]);
 
         default:
-          return npmAns("@spike.land/code", version)(request, env);
+          return npmAns("@spike.land/code", version, "js/")(request, env);
       }
     });
   },

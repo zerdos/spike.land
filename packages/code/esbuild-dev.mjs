@@ -46,7 +46,7 @@ const build = (entryPoints) =>
     resolveExtensions: [".tsx", ".ts", ".jsx", ".js", ".css", ".json", ".mjs"],
     target: ["esnext"],
     plugins: [importMap.plugin()],
-    outdir: "dist",
+    outdir: "js/dist",
   }).catch(() => process.exit(1));
 
 await build([

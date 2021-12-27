@@ -16,7 +16,7 @@ import {
   ToggleButton,
   ToggleButtonGroup,
   Tv,
-} from "../dist/mui.mjs";
+} from "./dist/mui.mjs";
 
 import { QRButton } from "./Qr.tsx";
 
