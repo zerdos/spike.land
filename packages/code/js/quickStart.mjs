@@ -2,6 +2,10 @@ import { jsx } from "@emotion/react";
 
 let formatter;
 let saveCode;
+let transform;
+
+let esbuildEsmTransform;
+let esbuildTransform;
 let babelTransform;
 let getHtmlAndCss;
 let getCss;
@@ -80,8 +84,19 @@ async function runner(c, changes = null, session, counter) {
   // getHtmlAndCss = getHtmlAndCss ||
   //   (await import("./renderToString")).getHtmlAndCss;
   formatter = formatter || (await import(`../js/formatter.mjs`)).formatter;
-  babelTransform = babelTransform ||
-    (await import(`../js/babel.mjs`)).babelTransform;
+  // esbuildEsmTransform = esbuildEsmTransform ||
+  //   (await import(`./esbuildEsm.mjs`)).transform;
+
+    esbuildTransform = esbuildTransform ||
+    (await import(`./esbuild.mjs`)).transform;
+ 
+
+    // babelTransform = babelTransform ||
+    // (await import(`./babel.mjs`)).babelTransform;
+
+  // transform =transform || ((code) => Promise.any([babelTransform(code),esbuildEsmTransform(code), esbuildTransform(code)]))
+  
+  transform = esbuildTransform;
 
   if (window.sendChannel) {
     const Hash = (await import("ipfs-only-hash")).default;
@@ -119,7 +134,7 @@ async function runner(c, changes = null, session, counter) {
   try {
     const cd = await formatter(c);
 
-    const transpiled = await babelTransform(cd);
+    const transpiled = await transform(cd);
 
     let restartError = false;
     ///yellow
