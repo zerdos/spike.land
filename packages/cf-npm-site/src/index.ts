@@ -30,8 +30,16 @@ export default function (
       } else if (pathname.indexOf(".") === -1) {
         targetPath = `${uri}/index.html`;
       }
+      
+      const reqCloned = request.clone()
 
-      const resp =await fetch(`https://unpkg.com/${packageName}${targetPath}`);
+      const newReq = new Request(`https://unpkg.com/${packageName}${targetPath}`, {
+        headers: {
+          ...reqCloned.headers
+        }
+      })
+
+      const resp =await fetch(newReq);
 
       if (resp.status === 200) myCache.put(request, resp.clone());
       const cloned = resp.clone();
