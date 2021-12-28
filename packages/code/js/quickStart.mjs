@@ -110,7 +110,7 @@ async function runner(c, changes = null, session, counter) {
   transform = esbuildEsmTransform;
 
   if (window.sendChannel) {
-    // const Hash = (await import("ipfs-only-hash")).default;
+    // const Hash = (aait import("ipfs-only-hash")).default;
     // const hashOfCode = await Hash.of(c);
     // if (
     //   window.hashOfCode === window.hashOfStarterCode &&

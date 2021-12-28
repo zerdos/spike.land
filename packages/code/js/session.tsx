@@ -198,7 +198,7 @@ export class CodeSession implements ICodeSess {
     }
 
     const oldState = JSON.stringify(this.session.get("state").toJS());
-    const newState = JSON.parse(applyPatch(oldState, patch));
+    const newState = JSON.parse(applyPatch(oldState, JSON.parse(patch)));
 
     this.session = this.session.set("state", Record<ICodeSession>(newState)());
     const newHashCheck = this.session.get("state").hashCode();
