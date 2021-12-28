@@ -54,10 +54,23 @@ interface DraggableWindowProps {
   position?: string;
 }
 
-const LazySpikeLandComponent: FC<{ name: string }> = ({ name }) => {
+const LazySpikeLandComponent: FC<
+  { name: string; html: string; cssText: string }
+> = ({ name, cssText, html }) => {
   const Sanyi = lazy(() => generator(name));
   return (
-    <Suspense fallback={<div></div>}>
+    <Suspense
+      fallback={
+        <div
+          css={css`
+      height: 100%;
+      ${cssText}
+    `}
+          dangerouslySetInnerHTML={{ __html: html }}
+        >
+        </div>
+      }
+    >
       <Sanyi />
     </Suspense>
   );
@@ -76,14 +89,11 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
   // const [height, changeHeight] = useState(innerHeight);
 
   const [childArray, setChild] = useState([
-    <div
-      css={css`
-      height: 100%;
-      ${session.css}
-    `}
-      dangerouslySetInnerHTML={{ __html: session.html }}
-    >
-    </div>,
+    <LazySpikeLandComponent
+      name={session.room}
+      cssText={session.css}
+      html={session.html}
+    />,
   ]);
 
   const startPositions = { bottom: -40, right: -88 };
@@ -129,7 +139,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
   useEffect(() => {
     const reveal = async () => {
       const { bottom, right } = startPositions;
-      // await wait(500);
+      await wait(800);
       // const root = document.getElementById("root");
       // if (root && root.remove) root.remove();
       if (!window.sess || !window.sess.monaco) await wait(10);
@@ -316,18 +326,16 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
                     />
                   )
                   : (
-                    <Suspense fallback={<div>Error fallback</div>}>
-                      <div
-                        id="zbody"
-                        key={session.i}
-                        ref={zbody}
-                        css={css`
+                    <div
+                      id="zbody"
+                      key={session.i}
+                      ref={zbody}
+                      css={css`
                         height: 100%;
                       `}
-                      >
-                        {child}
-                      </div>
-                    </Suspense>
+                    >
+                      {child}
+                    </div>
                   )}
               </motion.div>
             </motion.div>
@@ -404,7 +412,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
             >
               <Share />
             </Fab>
-            <LazySpikeLandComponent name="sanyi" />
+            <LazySpikeLandComponent name="sanyi" cssText="" html="" />
           </div>
         </div>
       </motion.div>

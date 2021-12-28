@@ -12668,7 +12668,7 @@ var src_default = `<!DOCTYPE html>
  onerror: error => console.log(error), // defaults to \`((e) => { throw e; })\`
  fetch: async function (url, options) {
    const urlEnd = url.substr(-3);
-   if (url.indexOf("monaco") === -1 && ["tsx", ".ts"].indexOf(urlEnd)!==-1) {   
+   if ((url.indexOf("monaco") === -1) && (["tsx", ".ts"].indexOf(urlEnd)!==-1)) {   
      console.log(url);
      const res = await fetch(url, options);
     if (!res.ok) return res;
