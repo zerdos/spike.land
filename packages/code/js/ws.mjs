@@ -96,27 +96,6 @@ export const join = (room, user) => {
   window.room = room;
   if (user) username = user;
 
-  const cacheKey = `state-${room}`;
-  const savedStateStr = localStorage.getItem(cacheKey);
-  if (!sess && savedStateStr) {
-    window.document.body.style.backgroundImage =
-      "url('https://unpkg.com/@spike.land/code@0.4.0/assets/synthwave.webp')";
-    const savedState = JSON.parse(savedStateStr);
-    const preRenderContainer = document &&
-      document.getElementById("root");
-    console.log(preRenderContainer?.innerHTML.length, savedState);
-    if (
-      preRenderContainer && savedState &&
-      preRenderContainer.innerHTML.length < 10
-    ) {
-      preRenderContainer.innerHTML = `<style>${savedState.css}</style>
-  ${savedState.html}
-  `;
-      console.log(`<style>${savedState.css}</style>
-  ${savedState.html}
-  `);
-    }
-  }
   if (sess) return;
   sess = true;
   setTimeout(() => {

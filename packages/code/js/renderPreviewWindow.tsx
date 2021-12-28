@@ -54,8 +54,7 @@ export const renderPreviewWindow = async (session) => {
   target.style.display = "block";
   target.style.opacity = "1";
   document.getElementById("root")!.remove();
-  console.log("switched");
-  console.log("rendered");
+  window.document.body.style.backgroundImage = `url("/assets/synthwave.webp")`;
 
   editor.style.opacity = "1";
   editor.style.display = "block";

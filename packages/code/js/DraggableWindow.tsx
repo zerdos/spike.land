@@ -113,7 +113,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
         const newErr = session.errorText;
         setErrorText(newErr);
         setIsStable(false);
-        await wait(2000);
+        await wait(1500);
         if (session.errorText === newErr) {
           setIsStable(true);
         }
@@ -126,6 +126,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
   }, [setErrorText, setQRUrl, errorText, qrUrl]);
 
   const scale = scaleRange / 100;
+  const [isFullScreen, setFullScreen] = useState(true);
 
   useEffect(() => {
     const reveal = async () => {
@@ -134,9 +135,10 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
       // const root = document.getElementById("root");
       // if (root && root.remove) root.remove();
       if (!window.sess || !window.sess.monaco) await wait(10);
-      changeScaleRange(90);
+      await wait(600);
+      setFullScreen(false);
       setPositions({ bottom: 20, right: 20 });
-      changeScaleRange(75);
+      // changeScaleRange(75);
       // setHeight(height=> height)
 
       if (window.innerWidth < 600) {
@@ -189,6 +191,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
         <div
           css={css` 
               display: flex;
+              
                 `}
         >
           <div
@@ -240,14 +243,14 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
                 maxHeight: height * scale / devicePixelRatio,
               }}
               css={css`
-             width: ${width * scale / devicePixelRatio};
-             height: ${height * scale / devicePixelRatio};
+                width: ${width * scale / devicePixelRatio};
+                height: ${height * scale / devicePixelRatio};
                 display: block;
-             overflow: hidden;
-              border-radius: 8px;
-              opacity: 0.9;
-              background-color: white;
-           `}
+                overflow: hidden;
+                border-radius: ${isFullScreen ? 0 : 8}px;
+                opacity: ${isFullScreen ? 1 : 0.9};
+                background-color: white;
+            `}
             >
               {errorText.trim() !== "" && (
                 <pre
