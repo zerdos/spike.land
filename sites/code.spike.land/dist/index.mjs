@@ -18055,7 +18055,7 @@ var Code = class {
           });
         }
         case "session":
-          return new Response(JSON.stringify(this.mySession.session.state.toJSON()), {
+          return new Response(JSON.stringify(this.mySession.session.state.toJS()), {
             status: 200,
             headers: {
               "Access-Control-Allow-Origin": "*",
@@ -18232,7 +18232,7 @@ var Code = class {
         if (data.patch) {
           this.mySession.applyPatch(data);
           this.broadcast(data);
-          await this.state.storage.put("session", this.mySession.state.session.toJS());
+          await this.state.storage.put("session", this.mySession.session.state.toJS());
           return;
         }
         if (data.i) {

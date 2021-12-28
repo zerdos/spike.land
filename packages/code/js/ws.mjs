@@ -1,7 +1,7 @@
 import state from "https://code.spike.land/api/room/code-main/session" assert {
   type: "json",
 };
-import { initSession, quickStart } from "./dist/quickStart.mjs";
+import { initSession, quickStart } from "./quickStart.mjs";
 
 let currentWebSocket = null;
 let lastMsg = null;
@@ -110,6 +110,8 @@ export const join = async (room, user) => {
   const session = {
     ...mySession.session.state.toJS(),
     setChild: (c) => {},
+    changes: [],
+
     children: [null],
     errorText: "",
   };
@@ -161,7 +163,7 @@ export const join = async (room, user) => {
       updatedState.i = i;
       const message = mySession.updateState(updatedState);
 
-      const msgStr = JSON.stringify(message);
+      const msgStr = JSON.stringify({ ...message, name: username });
       lastMsg = msgStr;
 
       const retry = (msg) =>
