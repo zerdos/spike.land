@@ -13180,7 +13180,7 @@ var require_textdiff_create = __commonJS({
 });
 
 // ../../packages/code/package.json
-var version = "0.4.51";
+var version = "0.4.52";
 
 // src/index.html
 var src_default = `<!DOCTYPE html>
@@ -17936,7 +17936,7 @@ var CodeSession = class {
       return;
     }
     const oldState = JSON.stringify(this.session.get("state").toJS());
-    const newState = JSON.parse((0, import_textdiff_patch.default)(oldState, patch));
+    const newState = JSON.parse((0, import_textdiff_patch.default)(oldState, JSON.parse(patch)));
     this.session = this.session.set("state", Record(newState)());
     const newHashCheck = this.session.get("state").hashCode();
     if (newHashCheck !== newHash) {

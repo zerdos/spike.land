@@ -16,7 +16,7 @@ export const getWorker = (file) => {
       ]),
     );
   } else {
-    workerSrc = `https://code.spike.land/workers/${file}`;
+    workerSrc = `/workers/${file}`;
   }
 
   return {
