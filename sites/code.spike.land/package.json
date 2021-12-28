@@ -6,7 +6,7 @@
   "scripts": {
     "deploy": "wrangler publish",
     "bundle": "esbuild --bundle --format=esm --loader:.html=text --target=esnext src/index.ts --outfile=dist/index.mjs",
-    "postpublish": "yarn bundle"
+    "postpublish": "yarn && yarn bundle"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "3.3.0",
