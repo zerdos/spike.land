@@ -1,2 +1,0 @@
-import"./chunk-UPO26O35.mjs";import*as s from"https://unpkg.com/esbuild-wasm@0.14.8/esm/browser.min.js";var a=s.initialize({wasmURL:"https://unpkg.com/esbuild-wasm@0.14.8/esbuild.wasm"}),e=!1,n=async i=>{var t=performance.now();e||(await a,e=!0);let o=await s.transform(i,{loader:"tsx",target:"es2018"});var r=performance.now();return console.log(`esbuildEsmTransform: took ${r-t} milliseconds`),o.code};export{n as transform};
-//# sourceMappingURL=esbuildEsm-QWG4C45E.mjs.map

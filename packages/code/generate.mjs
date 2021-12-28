@@ -57,25 +57,25 @@ await generator.install("react-transition-group");
 
 const importMap = { ...generator.getMap() };
 importMap.imports["framer-motion"] =
-  "https://unpkg.com/@spike.land/esm@0.3.75/dist/framer-motion.mjs";
+  "https://unpkg.com/@spike.land/esm@0.4.33/dist/framer-motion.mjs";
 
 importMap.imports["textdiff-create"] =
-  "https://unpkg.com/@spike.land/esm@0.3.75/dist/textdiff-create.mjs";
+  "https://unpkg.com/@spike.land/esm@0.4.33/dist/textdiff-create.mjs";
 
 importMap.imports["textdiff-patch"] =
-  "https://unpkg.com/@spike.land/esm@0.3.75/dist/textdiff-patch.mjs";
+  "https://unpkg.com/@spike.land/esm@0.4.33/dist/textdiff-patch.mjs";
 
 importMap.imports["ipfs-only-hash"] =
-  "https://unpkg.com/@spike.land/esm@0.3.75/dist/ipfs-only-hash.mjs";
+  "https://unpkg.com/@spike.land/esm@0.4.33/dist/ipfs-only-hash.mjs";
 importMap.imports["react"] =
-  "https://unpkg.com/@spike.land/esm@0.3.75/dist/react.mjs";
+  "https://unpkg.com/@spike.land/esm@0.4.33/dist/react.mjs";
 importMap.imports["react-dom"] =
-  "https://unpkg.com/@spike.land/esm@0.3.75/dist/react-dom.mjs";
+  "https://unpkg.com/@spike.land/esm@0.4.33/dist/react-dom.mjs";
 importMap.imports["react-is"] =
-  "https://unpkg.com/@spike.land/esm@0.3.75/dist/react-is.mjs";
+  "https://unpkg.com/@spike.land/esm@0.4.33/dist/react-is.mjs";
 
 importMap.imports["@emotion/react"] =
-  "https://unpkg.com/@spike.land/esm@0.3.75/dist/emotion-react.mjs";
+  "https://unpkg.com/@spike.land/esm@0.4.33/dist/emotion-react.mjs";
 // importMap.imports.tslib =
 //   "https://cdnjs.cloudflare.com/ajax/libs/tslib/2.3.1/tslib.es6.min.js";
 
