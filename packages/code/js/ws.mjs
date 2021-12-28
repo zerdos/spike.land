@@ -168,37 +168,41 @@ export const join = async (room, user) => {
       updatedState.css = css;
       updatedState.transpiled = transpiled;
       updatedState.i = i;
-      const message = mySession.updateState(updatedState);
 
-      const msgStr = JSON.stringify({ ...message, name: username });
-      lastMsg = msgStr;
+      setTimeout(() => {
+        if (window.sess.i !== updatedState.i) return;
+        const message = mySession.updateState(updatedState);
 
-      const retry = (msg) =>
-        setTimeout(() => {
-          if (msg !== lastMsg) return;
+        const msgStr = JSON.stringify({ ...message, name: username });
+        lastMsg = msgStr;
 
-          try {
-            if (currentWebSocket === null) {
-              rejoin();
+        const retry = (msg) =>
+          setTimeout(() => {
+            if (msg !== lastMsg) return;
+
+            try {
+              if (currentWebSocket === null) {
+                rejoin();
+                retry(msg);
+              }
+
+              currentWebSocket.send(msg);
+            } catch {
               retry(msg);
             }
+          }, 500);
 
-            currentWebSocket.send(msg);
-          } catch {
-            retry(msg);
+        try {
+          if (sendChannel) {
+            sendChannel.send(message);
+          } else if (currentWebSocket) {
+            currentWebSocket.send(msgStr);
+            return;
           }
-        }, 500);
-
-      try {
-        if (sendChannel) {
-          sendChannel.send(message);
-        } else if (currentWebSocket) {
-          currentWebSocket.send(msgStr);
-          return;
+        } catch {
+          retry(msgStr);
         }
-      } catch {
-        retry(msgStr);
-      }
+      }, 300);
     };
 
     globalThis.broad = broad;
