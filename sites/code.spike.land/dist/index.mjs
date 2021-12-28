@@ -13180,7 +13180,7 @@ var require_textdiff_create = __commonJS({
 });
 
 // ../../packages/code/package.json
-var version = "0.4.52";
+var version = "0.4.53";
 
 // src/index.html
 var src_default = `<!DOCTYPE html>
@@ -18232,7 +18232,7 @@ var Code = class {
         if (data.patch) {
           this.mySession.applyPatch(data);
           this.broadcast(data);
-          await this.state.storage.put("session", this.mySession.session.state.toJS());
+          await this.kv.put("session", this.mySession.session.state.toJS());
           return;
         }
         if (data.i) {
