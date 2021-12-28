@@ -12641,7 +12641,7 @@ var require_textdiff_patch = __commonJS({
 });
 
 // ../../packages/code/package.json
-var version = "0.4.22";
+var version = "0.4.23";
 
 // src/index.html
 var src_default = `<!DOCTYPE html>
@@ -17351,13 +17351,6 @@ var CodeSession = class {
         const savedStateStr = localStorage.getItem(cacheKey);
         if (savedStateStr) {
           savedState = JSON.parse(savedStateStr);
-          const preRenderContainer = document && document.getElementById("root");
-          if (preRenderContainer && savedState && preRenderContainer.innerHTML.length < 10) {
-            preRenderContainer.innerHTML = `<style>${savedState.css}</style>
-            ${savedState.html}
-            `;
-            window.document.body.style.backgroundImage = "url('https://unpkg.com/@spike.land/code@0.4.0/assets/synthwave.webp')";
-          }
         } else {
           fetch(`https://code.spike.land/api/room/${room}/mySession`).then((resp) => resp.json()).then((session2) => {
             localStorage.setItem(cacheKey, JSON.stringify(session2.state));
