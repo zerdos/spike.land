@@ -106,6 +106,7 @@ export const join = (room, user) => {
     state,
     events: [],
   });
+  window.mySession = mySession;
 
   if (sess) return;
   sess = true;
