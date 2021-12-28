@@ -12641,7 +12641,7 @@ var require_textdiff_patch = __commonJS({
 });
 
 // ../../packages/code/package.json
-var version = "0.4.37";
+var version = "0.4.38";
 
 // src/index.html
 var src_default = `<!DOCTYPE html>
@@ -12750,7 +12750,8 @@ var src_default = `<!DOCTYPE html>
   window.process = { env: { NODE_ENV: "production" } };
 <\/script>
   <script type="module-shim">
-    import app from "./starter.mjs";app("");
+    import app from "https://unpkg.com/@spike.land/code@{VERSION}/js/starter.mjs";
+    app()
   <\/script>
   <script>
     if ('serviceWorker' in navigator){
@@ -12924,7 +12925,7 @@ async function getHTMLResp(env, room) {
   let roomObject = env.CODE.get(id);
   const resp = await roomObject.fetch("session");
   const { html, css } = await resp.json();
-  return new Response(src_default.replace(`<div id="root"></div>`, `<div id ="root"><style>${css}</style>${html}</div>`), {
+  return new Response(src_default.replace(`<div id="root"></div>`, `<div id ="root"><style>${css}</style>${html}</div>`).replace("{VERSION}", version), {
     headers: {
       "Content-Type": "text/html;charset=UTF-8",
       "Cache-Control": "no-cache"
@@ -17478,7 +17479,7 @@ var Code = class {
           });
         }
         case "session":
-          return new Response(JSON.stringify(this.state.session), {
+          return new Response(JSON.stringify(this.mySession.session.state.toJSON()), {
             status: 200,
             headers: {
               "Access-Control-Allow-Origin": "*",
@@ -17487,7 +17488,7 @@ var Code = class {
             }
           });
         case "hashCodeSession":
-          return new Response(this.mySession.hashCode(), {
+          return new Response(this.mySession.session.state.hashCode(), {
             status: 200,
             headers: {
               "Access-Control-Allow-Origin": "*",
@@ -17517,12 +17518,7 @@ var Code = class {
         case "hydrated": {
           const htmlContent = this.state.session.html;
           const css = this.state.session.css;
-          const html = src_default.replace(`<div id="root"></div>`, `<div id="root"><style>${css}</style><div id="zbody">${htmlContent}</div></div>`).replace(`import app from "./starter.mjs";app("");`, `
-            import App from "https://code.spike.land/api/room/${codeSpace}/js";
-            import { jsx } from "@emotion/react";
-           
-           ReactDOM.hydrate(jsx(App), document.getElementById("zbody"));
-            `);
+          const html = src_default.replace(`<div id="root"></div>`, `<div id="root"><style>${css}</style><div id="zbody">${htmlContent}</div></div>`).replace("{VERSION}", version);
           return new Response(html, {
             status: 200,
             headers: {
@@ -17555,7 +17551,7 @@ var Code = class {
         case "public": {
           const htmlContent = this.state.session.html;
           const css = this.state.session.css;
-          const html = src_default.replace(`<div id="root"></div>`, `<div id="root"><style>${css}</style><div id="zbody">${htmlContent}</div></div>`);
+          const html = src_default.replace(`<div id="root"></div>`, `<div id="root"><style>${css}</style><div id="zbody">${htmlContent}</div></div>`).replace("{VERSION}", version);
           return new Response(html, {
             status: 200,
             headers: {

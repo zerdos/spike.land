@@ -5,6 +5,17 @@ export default function (injectedRoom = "") {
   run(injectedRoom);
 }
 export const run = (injectedRoom) => {
+  if (location.pathname.endsWith("hydrated")) {
+    const { ReactDOM } = window;
+
+    import("https://code.spike.land/api/room/${codeSpace}/js").then((App) =>
+      import("@emotion/react").then(({ jsx }) =>
+        ReactDOM.hydrate(jsx(App), document.getElementById("zbody"))
+      )
+    );
+    return;
+  }
+
   const path = location.pathname.split("/");
 
   const room = injectedRoom ||

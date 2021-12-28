@@ -96,7 +96,7 @@ async function getHTMLResp(env, room) {
     HTML.replace(
       `<div id="root"></div>`,
       `<div id ="root"><style>${css}</style>${html}</div>`
-    ),
+    ).replace("{VERSION}",version),
     {
       headers: {
         "Content-Type": "text/html;charset=UTF-8",

@@ -138,7 +138,7 @@ export class Code {
           });
         }
         case "session":
-          return new Response(JSON.stringify(this.state.session), {
+          return new Response(JSON.stringify(this.mySession.session.state.toJSON()) , {
             status: 200,
             headers: {
               "Access-Control-Allow-Origin": "*",
@@ -147,7 +147,7 @@ export class Code {
             },
           });
         case "hashCodeSession":
-          return new Response(this.mySession.hashCode(), {
+          return new Response(this.mySession.session.state.hashCode(), {
             status: 200,
             headers: {
               "Access-Control-Allow-Origin": "*",
@@ -189,14 +189,7 @@ export class Code {
           const html = HTML.replace(
             `<div id="root"></div>`,
             `<div id="root"><style>${css}</style><div id="zbody">${htmlContent}</div></div>`
-          ).replace(  
-           `import app from "./starter.mjs";app("");`,`
-            import App from "https://code.spike.land/api/room/${codeSpace}/js";
-            import { jsx } from "@emotion/react";
-           
-           ReactDOM.hydrate(jsx(App), document.getElementById("zbody"));
-            `
-          );
+          ).replace("{VERSION}", version);
           return new Response(html, {
             status: 200,
             headers: {
@@ -234,7 +227,7 @@ export class Code {
           const html = HTML.replace(
             `<div id="root"></div>`,
             `<div id="root"><style>${css}</style><div id="zbody">${htmlContent}</div></div>`
-          );
+          ).replace("{VERSION}", version);
           return new Response(html, {
             status: 200,
             headers: {
