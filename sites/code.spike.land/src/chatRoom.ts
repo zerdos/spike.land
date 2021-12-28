@@ -223,8 +223,11 @@ export class Code {
           const htmlContent = this.state.session.html;
           const css = this.state.session.css;
 
-          const html = HTML
-          return new Response(HTML, {
+          const html = HTML.replace(
+            `<div id="root"></div>`,
+            `<div id="root"><style>${css}</style><div id="zbody">${htmlContent}</div></div>`
+          );
+          return new Response(html, {
             status: 200,
             headers: {
               "Access-Control-Allow-Origin": "*",

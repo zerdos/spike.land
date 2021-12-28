@@ -12641,7 +12641,7 @@ var require_textdiff_patch = __commonJS({
 });
 
 // ../../packages/code/package.json
-var version = "0.4.34";
+var version = "0.4.35";
 
 // src/index.html
 var src_default = `<!DOCTYPE html>
@@ -13021,31 +13021,6 @@ export const processWs = async (msg, session, send) => {
 
   if (data.i<=session.i) {
     return {msg: "already processed"};
-  }
-
-  if (window.sess && data.transpiled && data.css && data.html && location.pathname.endsWith("public")) {
-    const App = await getApp(data.transpiled);
-    if (window.sess.i>data.i) return {msg: "already processsed"};
-
-    globalThis.reactRoot &&  globalThis.reactRoot.unmount();
-    globalThis.reactRoot = null;
-
-    window.sess = {
-      ...window.sess,
-      code: data.code,
-      transpiled: data.transpiled,
-      css: data.css,
-      i: data.i,
-      html: data.html,
-      hashOfCode: data.hashOfCode
-    }
-    window[data.hashOfCode] = data.code;
-
-    const newRoot = hydrateRoot(target, jsx(App, null));
-
-    globalThis.newRoot = newRoot;
-
-    return {msg: "rendered"};
   }
 
   if (data.code && !window.sess) {
@@ -17571,8 +17546,8 @@ var Code = class {
         case "public": {
           const htmlContent = this.state.session.html;
           const css = this.state.session.css;
-          const html = src_default.replace(`<div id="root"></div>`, `<div id ="root"><style>${css}</style><div id="zbody">${htmlContent}</div></div>`).replace(`"app"`, `"https://unpkg.com/@spike.land/code@${version}/js/starter.mjs"`);
-          return new Response(html, {
+          const html = src_default;
+          return new Response(src_default, {
             status: 200,
             headers: {
               "Access-Control-Allow-Origin": "*",

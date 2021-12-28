@@ -89,8 +89,8 @@ async function getHTMLResp(env, room) {
   
   const id =  env.CODE.idFromName(room);
   let roomObject = env.CODE.get(id);
-const resp =  await roomObject.fetch("session")
-const {html, css} = await resp.json();
+  const resp =  await roomObject.fetch("session")
+  const {html, css} = await resp.json();
 
   return new Response(
     HTML.replace(
