@@ -57,6 +57,7 @@ await build([
 
 await build([
   "js/renderPreviewWindow.tsx",
+  "js/renderToString.tsx",
 ]);
 // await build([
 //   //   "js/renderPreviewWindow.tsx",

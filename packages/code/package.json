@@ -20,6 +20,8 @@
   "scripts": {
     "clean": "rm -rf .tsBuildInfo js/dist && mkdir js/dist && deno fmt .",
     "postinstall": "yarn importmap",
+    "mui:deno": "deno bundle --import-map ./js/importmap.json https://code.spike.land/dist/mui.mjs ./js/vendor/mui.mjs",
+    "renderToString:deno": "deno bundle --import-map ./js/importmap.json ./js/renderToString.tsx ./js/vendor/renderToString.mjs --no-check",
     "start": "cd ../.. && yarn start",
     "push": "cd ../.. && yarn push",
     "build": "yarn clean && node --experimental-json-modules esbuild-dev.mjs",

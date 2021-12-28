@@ -2,6 +2,6 @@
   "version": 3,
   "sources": ["../esbuildEsm.mjs"],
   "sourcesContent": ["import * as esbuild from \"https://unpkg.com/esbuild-wasm@0.14.8/esm/browser.min.js\";\n\nconst init = esbuild.initialize({\n  wasmURL: \"https://unpkg.com/esbuild-wasm@0.14.8/esbuild.wasm\",\n});\n\nlet initFinished = false;\n\nexport const transform = async (code) => {\n  var startTime = performance.now();\n\n  if (!initFinished) {\n    await init;\n    initFinished = true;\n  }\n\n  const result = await esbuild.transform(code, {\n    loader: \"tsx\",\n    target: \"es2018\",\n  });\n\n  var endTime = performance.now();\n\n  console.log(`esbuildEsmTransform: took ${endTime - startTime} milliseconds`);\n\n  return result.code;\n};\n"],
-  "mappings": "AAAA,2EAEA,GAAM,GAAO,AAAQ,aAAW,CAC9B,QAAS,uDAGP,EAAe,GAEN,EAAY,KAAO,IAAS,CACvC,GAAI,GAAY,YAAY,MAE5B,AAAK,GACH,MAAM,GACN,EAAe,IAGjB,GAAM,GAAS,KAAM,AAAQ,aAAU,EAAM,CAC3C,OAAQ,MACR,OAAQ,WAGV,GAAI,GAAU,YAAY,MAE1B,eAAQ,IAAI,6BAA6B,EAAU,kBAE5C,EAAO",
+  "mappings": "6BAAA,2EAEA,GAAM,GAAO,AAAQ,aAAW,CAC9B,QAAS,uDAGP,EAAe,GAEN,EAAY,KAAO,IAAS,CACvC,GAAI,GAAY,YAAY,MAE5B,AAAK,GACH,MAAM,GACN,EAAe,IAGjB,GAAM,GAAS,KAAM,AAAQ,aAAU,EAAM,CAC3C,OAAQ,MACR,OAAQ,WAGV,GAAI,GAAU,YAAY,MAE1B,eAAQ,IAAI,6BAA6B,EAAU,kBAE5C,EAAO",
   "names": []
 }
