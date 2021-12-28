@@ -14,6 +14,7 @@ export const run = async (injectedRoom) => {
     self.crypto.randomUUID()) || (await import("./uidV4.mjs")).default())
     .substring(0, 8);
 
+  /// For local dev
   if (document.getElementById("root").innerHTML.length === 0) {
     const cacheKey = `state-${room}`;
     const savedStateStr = localStorage.getItem(cacheKey);

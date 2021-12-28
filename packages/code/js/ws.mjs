@@ -1,3 +1,8 @@
+import state from "https://code.spike.land/api/room/code-main/session" assert {
+  type: "json",
+};
+import startSession from "./dist/session.mjs";
+
 let currentWebSocket = null;
 let lastMsg = null;
 let sess = false;
@@ -20,7 +25,6 @@ let sendChannel;
 let createDelta;
 let applyPatch;
 let Hash;
-let initSess = null;
 let mySession = null;
 
 let toolsImported = 0;
@@ -92,9 +96,16 @@ let rejoin = async () => {
 let intervalHandler = null;
 
 export const join = (room, user) => {
-  roomName = room || "code-main";
+  roomName = roomName || room || "code-main";
   window.room = room;
   if (user) username = user;
+
+  mySession = mySession || startSession(roomName, {
+    name: username,
+    room: roomName,
+    state,
+    events: [],
+  });
 
   if (sess) return;
   sess = true;
@@ -639,18 +650,6 @@ async function processWsMessage(event, source) {
   }
 
   const data = JSON.parse(event.data);
-
-  if (!mySession) {
-    const { initSession } = await import("./dist/quickStart.mjs");
-
-    mySession = await initSession(roomName, {
-      name: username,
-      room: roomName,
-      state: { code: "", i: 0, transpiled: "", html: "", css: "" },
-      events: [],
-    });
-    globalThis.mySession = mySession;
-  }
 
   mySession.addEvent(data);
 
