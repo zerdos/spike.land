@@ -3,9 +3,9 @@
  * @param {*} res
  */
 export const importScript = (src, res = []) => {
-  return window.document.head.querySelector(`script[src="${src}"]`) ||
+  return document.head.querySelector(`script[src="${src}"]`) ||
     new Promise(function (resolve, reject) {
-      const s = window.document.createElement("script");
+      const s = document.createElement("script");
       s.src = src;
       // s.async = "async";
       // s.type = "application/javascript";
@@ -24,7 +24,7 @@ export const importScript = (src, res = []) => {
       };
 
       s.onerror = reject;
-      window.document.head.appendChild(s);
+      document.head.appendChild(s);
     });
   // }
 };
@@ -34,9 +34,9 @@ export const importScript = (src, res = []) => {
  * @param {string} cssId
  */
 export const importCss = (src, cssId) => {
-  if (!window.document.getElementById(cssId)) {
-    const head = window.document.getElementsByTagName("head")[0];
-    const link = window.document.createElement("link");
+  if (!document.getElementById(cssId)) {
+    const head = document.getElementsByTagName("head")[0];
+    const link = document.createElement("link");
     link.id = cssId;
     link.rel = "stylesheet";
     link.type = "text/css";

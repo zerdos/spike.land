@@ -4,17 +4,17 @@ export function getCss(session: { html: string; css: string }) {
   const { html } = session;
 
   const bodyClass = String(
-    window.document.getElementById("zbody")?.getAttribute("class"),
+    document.getElementById("zbody")?.getAttribute("class"),
   );
 
   let css = "";
-  const cssRules = window.document.querySelector(
+  const cssRules = document.querySelector(
     "head > style[data-emotion=css]",
   );
 
   if (cssRules) {
     try {
-      const sheet = (window.document.querySelector(
+      const sheet = (document.querySelector(
         "head > style[data-emotion=css]",
       ) as HTMLStyleElement).sheet;
       if (sheet) {
@@ -38,13 +38,13 @@ export function getCss(session: { html: string; css: string }) {
     }
   }
 
-  const globalCssRules = window.document.querySelector(
+  const globalCssRules = document.querySelector(
     "head > style[data-emotion=css-global]",
   );
 
   if (globalCssRules) {
     try {
-      const sheet = (window.document.querySelector(
+      const sheet = (document.querySelector(
         "head > style[data-emotion=css-global]",
       ) as HTMLStyleElement).sheet;
       if (sheet) {

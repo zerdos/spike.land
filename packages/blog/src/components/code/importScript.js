@@ -23,9 +23,9 @@ export const importScript = (src, res = []) => {
   if (typeof window === "undefined") return {};
   const prefix = src.slice(0, 8);
   if (prefix === "https://") {
-    return window.document.head.querySelector(`script[src="${src}"]`) ||
+    return document.head.querySelector(`script[src="${src}"]`) ||
       new Promise(function (resolve, reject) {
-        const s = window.document.createElement("script");
+        const s = document.createElement("script");
         s.src = src;
         s.async = "async";
         s.type = "application/javascript";
@@ -39,7 +39,7 @@ export const importScript = (src, res = []) => {
         };
 
         s.onerror = reject;
-        window.document.head.appendChild(s);
+        document.head.appendChild(s);
       });
   } else if (prefix === "@zedvisi") {
     // if (!cache[src]) cache[src] = import(`https://unpkg.com/${src}`);

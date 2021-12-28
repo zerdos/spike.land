@@ -8,10 +8,10 @@ export const getMonaco = async () => {
   if (exp.monaco) return exp.monaco;
   const importScript = (src, res = []) => {
     if (typeof window === "undefined") return {};
-    return (window.document.head.querySelector(`script[src="${src}"]`) &&
+    return (document.head.querySelector(`script[src="${src}"]`) &&
       window) ||
       new Promise(function (resolve, reject) {
-        const s = window.document.createElement("script");
+        const s = document.createElement("script");
         s.src = src;
         s.async = "async";
         s.type = "application/javascript";
@@ -25,7 +25,7 @@ export const getMonaco = async () => {
         };
 
         s.onerror = reject;
-        window.document.head.appendChild(s);
+        document.head.appendChild(s);
       });
   };
 

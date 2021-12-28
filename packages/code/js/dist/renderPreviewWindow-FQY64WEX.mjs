@@ -138,7 +138,7 @@ import{jsx as io}from"https://unpkg.com/@spike.land/esm@0.3.75/dist/emotion-reac
               align-items: center;          
               flex-direction: column;
               padding: 16px;
-              `},C(cs,{url:s}),C(Ir,{onClick:()=>{e()}},C(ns,null)),C(Lr,{name:"sanyi",cssText:"",html:""})))))};function ms(e){return{__html:e}}var Ks=async e=>{let t=document.createElement("div"),r=document.getElementById("shadowEditor");r.style.opacity="0";let{room:o}=e,{createRoot:n}=await import("https://unpkg.com/@spike.land/esm@0.3.75/dist/react-dom.mjs");n(t,{}).render(io(us,{onShare:()=>open(`https://code.spike.land/api/room/${o}/public`),onRestore:()=>{e.editor.getModel().setValue(e.code)},position:e.mode==="window"?"fixed":"absolute",session:e})),t.style.opacity="0",document.body.appendChild(t),await he(300),t.style.display="block",t.style.opacity="1",document.getElementById("root").remove(),window.document.body.style.backgroundImage='url("/assets/synthwave.webp")',r.style.opacity="1",r.style.display="block"};export{Ks as renderPreviewWindow};
+              `},C(cs,{url:s}),C(Ir,{onClick:()=>{e()}},C(ns,null)),C(Lr,{name:"sanyi",cssText:"",html:""})))))};function ms(e){return{__html:e}}var Ks=async(e,t)=>{let r=document.createElement("div"),o=document.getElementById("shadowEditor");o.style.opacity="0";let{createRoot:n}=await import("https://unpkg.com/@spike.land/esm@0.3.75/dist/react-dom.mjs");n(r,{}).render(io(us,{onShare:()=>open(`https://code.spike.land/api/room/${t}/public`),onRestore:()=>{e.editor.getModel().setValue(e.code)},position:e.mode==="window"?"fixed":"absolute",session:e})),r.style.opacity="0",document.body.appendChild(r),await he(300),r.style.display="block",r.style.opacity="1",document.getElementById("root").remove(),document.body.style.backgroundImage='url("/assets/synthwave.webp")',o.style.opacity="1",o.style.display="block"};export{Ks as renderPreviewWindow};
 /** @license MUI v5.0.0-alpha.62
  *
  * This source code is licensed under the MIT license found in the
@@ -154,4 +154,4 @@ import{jsx as io}from"https://unpkg.com/@spike.land/esm@0.3.75/dist/emotion-reac
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  */
-//# sourceMappingURL=renderPreviewWindow-OBDCJZO4.mjs.map
+//# sourceMappingURL=renderPreviewWindow-FQY64WEX.mjs.map

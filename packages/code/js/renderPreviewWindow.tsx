@@ -1,19 +1,22 @@
 /** @jsx jsx */
 import { jsx } from "@emotion/react";
-import { Suspense } from "react";
 import {} from "react-dom/next";
+// @ts-expect-error
 import { DraggableWindow } from "./DraggableWindow.tsx";
+// @ts-expect-error
 import { wait } from "./wait.ts";
+import type { ICodeSession } from "./session";
 // import { getHtmlAndCss
 //  } from "./renderToString";
 
-export const renderPreviewWindow = async (session) => {
+export const renderPreviewWindow = async (
+  session: ICodeSession,
+  room: string,
+) => {
   const target = document.createElement("div");
   const editor = document.getElementById("shadowEditor")!;
   // target.style.display = "none";
   editor.style.opacity = "0";
-
-  const { room } = session;
 
   // const Element = () => (
   //   <DraggableWindow
@@ -46,6 +49,7 @@ export const renderPreviewWindow = async (session) => {
       session={session}
     />,
   );
+
   target.style.opacity = "0";
   document.body.appendChild(target);
 
@@ -54,7 +58,7 @@ export const renderPreviewWindow = async (session) => {
   target.style.display = "block";
   target.style.opacity = "1";
   document.getElementById("root")!.remove();
-  window.document.body.style.backgroundImage = `url("/assets/synthwave.webp")`;
+  document.body.style.backgroundImage = `url("/assets/synthwave.webp")`;
 
   editor.style.opacity = "1";
   editor.style.display = "block";

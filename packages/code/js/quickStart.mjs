@@ -274,7 +274,7 @@ export async function quickStart(session) {
     "./dist/renderPreviewWindow.mjs"
   );
 
-  await renderPreviewWindow(session);
+  await renderPreviewWindow(session, session.room);
 
   if (localStorage && session) {
     const { code, transpiled, html, css, i } = session;
