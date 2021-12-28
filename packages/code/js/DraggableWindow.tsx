@@ -4,7 +4,7 @@
 
 import { css, jsx } from "@emotion/react";
 import React from "react";
-// import { wait } from "axax/esnext/wait";
+import { wait } from "./wait.ts";
 import type { FC } from "react";
 
 import { Fragment, lazy, Suspense, useEffect, useRef, useState } from "react";
@@ -130,9 +130,9 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
     const reveal = async () => {
       const { bottom, right } = startPositions;
       // await wait(500);
-      const root = document.getElementById("root");
-      if (root && root.remove) root.remove();
-      while (!window.sess || !window.sess.monaco) await wait(100);
+      // const root = document.getElementById("root");
+      // if (root && root.remove) root.remove();
+      if (!window.sess || !window.sess.monaco) await wait(10);
       changeScaleRange(90);
       setPositions({ bottom: 20, right: 20 });
       changeScaleRange(75);

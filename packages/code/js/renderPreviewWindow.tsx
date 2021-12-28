@@ -3,13 +3,14 @@ import { jsx } from "@emotion/react";
 import { Suspense } from "react";
 import {} from "react-dom/next";
 import { DraggableWindow } from "./DraggableWindow.tsx";
+import { wait } from "./wait.ts";
 // import { getHtmlAndCss
 //  } from "./renderToString";
 
 export const renderPreviewWindow = async (session) => {
   const target = document.createElement("div");
   const editor = document.getElementById("shadowEditor")!;
-  target.style.opacity = "0";
+  // target.style.display = "none";
   editor.style.opacity = "0";
 
   const { room } = session;
@@ -45,10 +46,17 @@ export const renderPreviewWindow = async (session) => {
       session={session}
     />,
   );
+  target.style.opacity = "0";
   document.body.appendChild(target);
 
-  target.style.opacity = "1";
-  editor.style.opacity = "1";
+  await wait(300);
 
+  target.style.display = "block";
+  target.style.opacity = "1";
   document.getElementById("root")!.remove();
+  console.log("switched");
+  console.log("rendered");
+
+  editor.style.opacity = "1";
+  editor.style.display = "block";
 };

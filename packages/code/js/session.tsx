@@ -102,20 +102,6 @@ export class CodeSession implements ICodeSess {
         const savedStateStr = localStorage.getItem(cacheKey);
         if (savedStateStr) {
           savedState = JSON.parse(savedStateStr);
-
-          const preRenderContainer = document &&
-            document.getElementById("root");
-          if (
-            preRenderContainer && savedState &&
-            preRenderContainer.innerHTML.length < 10
-          ) {
-            preRenderContainer.innerHTML = `<style>${savedState.css}</style>
-            ${savedState.html}
-            `;
-
-            window.document.body.style.backgroundImage =
-              "url('https://unpkg.com/@spike.land/code@0.4.0/assets/synthwave.webp')";
-          }
         } else {
           fetch(`https://code.spike.land/api/room/${room}/mySession`).then(
             (resp) => resp.json(),

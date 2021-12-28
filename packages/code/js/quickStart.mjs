@@ -265,9 +265,10 @@ export async function quickStart(session) {
   await renderPreviewWindow(session);
 
   if (localStorage && session) {
+    const { code, transpiled, html, css, i } = session;
     localStorage.setItem(
       `state-${session.room}`,
-      JSON.stringify({ session }),
+      JSON.stringify({ code, transpiled, html, css, i }),
     );
   }
   // document.getElementById("root").remove();
