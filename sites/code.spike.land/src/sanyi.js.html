@@ -49,16 +49,6 @@ export const processWs = async (msg, session, send) => {
     globalThis.reactRoot &&  globalThis.reactRoot.unmount();
     globalThis.reactRoot = null;
 
-    const rootEl = document.createElement('div');
-    rootEl.innerHTML =  '<style>' + data.css + '</style>';
-    const target = document.createElement("div");
-    target.innerHTML = data.html;
-    target.id = "zbody"
-    target.setAttribute("id", "zbody");
-    rootEl.appendChild(target);
-    document.getElementById('root').replaceWith(rootEl);
-    rootEl.setAttribute("id", "root");
-    rootEl.id = "root";
     window.sess = {
       ...window.sess,
       code: data.code,

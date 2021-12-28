@@ -24,7 +24,7 @@ export const run = (injectedRoom) => {
     console.log(preRenderContainer?.innerHTML.length, savedState);
     if (
       preRenderContainer && savedState &&
-      preRenderContainer.innerHTML === 0
+      preRenderContainer.innerHTML.length === 0
     ) {
       preRenderContainer.innerHTML = `<style>${savedState.css}</style>
     ${savedState.html}

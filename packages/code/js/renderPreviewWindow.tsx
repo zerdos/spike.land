@@ -40,7 +40,7 @@ export const renderPreviewWindow = async (
 
   root.render(
     <DraggableWindow
-      onShare={() => open(`https://code.spike.land/api/room/${room}/public/`)}
+      onShare={() => open(`https://code.spike.land/api/room/${room}/public`)}
       onRestore={() => {
         const model = session.editor.getModel();
         model.setValue(session.code);
