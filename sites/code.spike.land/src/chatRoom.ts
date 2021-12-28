@@ -10,7 +10,6 @@ import type {
   ICodeSess, IEvent, INewWSConnection,ICodeSession
 } from "@spike.land/code/js/session.tsx";
 import startSession from "@spike.land/code/js/session.tsx";
-import { Record } from "immutable";
 
 interface IState extends DurableObjectState {
   session: ISession;

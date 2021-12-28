@@ -594,7 +594,7 @@ async function processWsMessage(event, source) {
 
   const data = JSON.parse(event.data);
 
-  mySession.addEvent(data);
+  // mySession.addEvent(data);
 
   if (data.patch) {
     mySession.applyPatch(data);
@@ -635,40 +635,40 @@ async function processWsMessage(event, source) {
     return;
   }
 
-  if (data.type === "get-cid" && data.cid) {
-    const CID = data.cid;
-    const content = data[CID];
+  // if (data.type === "get-cid" && data.cid) {
+  //   const CID = data.cid;
+  //   const content = data[CID];
 
-    if (content) {
-      const dataCID = await Hash.of(content);
+  //   if (content) {
+  //     const dataCID = await Hash.of(content);
 
-      if (dataCID !== CID) console.error("get-cid ERROR!!!! ???? !!!");
+  //     if (dataCID !== CID) console.error("get-cid ERROR!!!! ???? !!!");
 
-      if (cids[dataCID]) {
-        if (typeof cids[dataCID] === "function") {
-          cids[dataCID](content);
-          cids[dataCID] = content;
-        }
-        return;
-      }
-    }
+  //     if (cids[dataCID]) {
+  //       if (typeof cids[dataCID] === "function") {
+  //         cids[dataCID](content);
+  //         cids[dataCID] = content;
+  //       }
+  //       return;
+  //     }
+  //   }
 
-    if (window[CID]) {
-      const hash = await Hash.of(window[CID]);
-      if (hash === CID) {
-        console.log("sending the requested cid");
-        sendChannel.send({
-          type: "get-cid",
-          target: data.name,
-          name: username,
-          cid: CID,
-          [CID]: window[CID],
-        });
-      }
-    }
+  // if (window[CID]) {
+  //   const hash = await Hash.of(window[CID]);
+  //   if (hash === CID) {
+  //     console.log("sending the requested cid");
+  //     sendChannel.send({
+  //       type: "get-cid",
+  //       target: data.name,
+  //       name: username,
+  //       cid: CID,
+  //       [CID]: window[CID],
+  //     });
+  //   }
+  // }
 
-    return;
-  }
+  //   return;
+  // }
 
   // if (window.sess && data.i && data.i <= window.sess.i) {
   //   if (source === "rtc") {
@@ -698,18 +698,18 @@ async function processWsMessage(event, source) {
   //   window.wantedHashBase = data.hashOfCode;
   // }
 
-  if (data.hashOfCode) {
-    if (
-      !window[data.hashOfCode] ||
-      window[data.hashOfCode] !== data.hashOfCode
-    ) {
-      window[data.hashOfCode] = await getCID(data.hashOfCode, data.name);
-    }
+  // if (data.hashOfCode) {
+  //   if (
+  //     !window[data.hashOfCode] ||
+  //     window[data.hashOfCode] !== data.hashOfCode
+  //   ) {
+  //     window[data.hashOfCode] = await getCID(data.hashOfCode, data.name);
+  //   }
 
-    window.starterCode = window[data.hashOfCode];
-    lastSeenCode = window[data.hashOfCode];
-    chCode(lastSeenCode);
-  }
+  //   window.starterCode = window[data.hashOfCode];
+  //   lastSeenCode = window[data.hashOfCode];
+  //   chCode(lastSeenCode);
+  // }
 
   // if (data.type === "codeReq") {
   //   sendChannel.send({
@@ -720,116 +720,116 @@ async function processWsMessage(event, source) {
   //   });
   // }
 
-  if (data.code && data.hashOfCode) {
-    if (!window[data.hashOfCode]) {
-      window.hashOfCode = data.hashOfCode;
-      const code = data.code;
-      const hashOfCode = await Hash.of(code);
-      window[hashOfCode] = code;
-      if (data.hashOfCode === hashOfCode) chCode(data.code);
-    }
-  }
+  // if (data.code && data.hashOfCode) {
+  //   if (!window[data.hashOfCode]) {
+  //     window.hashOfCode = data.hashOfCode;
+  //     const code = data.code;
+  //     const hashOfCode = await Hash.of(code);
+  //     window[hashOfCode] = code;
+  //     if (data.hashOfCode === hashOfCode) chCode(data.code);
+  //   }
+  // }
 
-  if (
-    data.changes && data.i && data.hashOfCode && data.prevHash &&
-    window[data.prevHash]
-  ) {
-    const prevCode = window[data.prevHash];
-    const prevHash = await Hash.of(prevCode);
-    if (data.prevHash !== prevHash) {
-      sendChannel.send({
-        type: "codeReq",
-        target: data.name,
-        name: username,
-      });
-      return;
-    }
+  // if (
+  //   data.changes && data.i && data.hashOfCode && data.prevHash &&
+  //   window[data.prevHash]
+  // ) {
+  //   const prevCode = window[data.prevHash];
+  //   const prevHash = await Hash.of(prevCode);
+  //   if (data.prevHash !== prevHash) {
+  //     sendChannel.send({
+  //       type: "codeReq",
+  //       target: data.name,
+  //       name: username,
+  //     });
+  //     return;
+  //   }
 
-    if (data.i <= window.sess.i) return;
-    if (window.hashOfCode === data.prevHash) {
-      let hashOfCode = "";
-      if (window.monaco) {
-        window.monaco.editor.getModels()[0].applyEdits(data.changes.changes);
-        hashOfCode = await Hash.of(
-          window.monaco.editor.getModels()[0].getValue(),
-        );
-      }
-      if (hashOfCode === data.hashOfCode) {
-        window.hashOfCode = hashOfCode;
-      } else {
-        const code = applyPatch(
-          window[data.prevHash],
-          JSON.parse(data.codeDiff),
-        );
+  //   if (data.i <= window.sess.i) return;
+  //   if (window.hashOfCode === data.prevHash) {
+  //     let hashOfCode = "";
+  //     if (window.monaco) {
+  //       window.monaco.editor.getModels()[0].applyEdits(data.changes.changes);
+  //       hashOfCode = await Hash.of(
+  //         window.monaco.editor.getModels()[0].getValue(),
+  //       );
+  //     }
+  //     if (hashOfCode === data.hashOfCode) {
+  //       window.hashOfCode = hashOfCode;
+  //     } else {
+  //       const code = applyPatch(
+  //         window[data.prevHash],
+  //         JSON.parse(data.codeDiff),
+  //       );
 
-        const hashOfCode = await Hash.of(code);
-        if (hashOfCode === data.hashOfCode) {
-          chCode(code);
-          window.hashOfCode = hashOfCode;
-        } else {
-          if (window[data.hashOfCode]) {
-            const code = window[data.hashOfCode];
-            chCode(code);
-            //                window.monaco.editor.getModels()[0].setValue(code);
-            window.hashOfCode = hashOfCode;
-          }
+  //       const hashOfCode = await Hash.of(code);
+  //       if (hashOfCode === data.hashOfCode) {
+  //         chCode(code);
+  //         window.hashOfCode = hashOfCode;
+  //       } else {
+  //         if (window[data.hashOfCode]) {
+  //           const code = window[data.hashOfCode];
+  //           chCode(code);
+  //           //                window.monaco.editor.getModels()[0].setValue(code);
+  //           window.hashOfCode = hashOfCode;
+  //         }
 
-          console.log(
-            "What is the Content for CID: " + data.hashOfCode + "???",
-          );
-          const code = await getCID(data.hashOfCode);
+  //         console.log(
+  //           "What is the Content for CID: " + data.hashOfCode + "???",
+  //         );
+  //         const code = await getCID(data.hashOfCode);
 
-          console.log({ code });
+  //         console.log({ code });
 
-          window[data.hashOfCode] = code;
-        }
-        if (window[data.hashOfCode] && window.monaco && window.monaco.editor) {
-          const code = window[data.hashOfCode];
-          window.monaco.editor.getModels()[0].setValue(code);
-          window.hashOfCode = hashOfCode;
-        } else {
-          sendChannel.send({
-            type: "codeReq",
-            target: data.name,
-          });
-        }
-      }
-    }
+  //         window[data.hashOfCode] = code;
+  //       }
+  //       if (window[data.hashOfCode] && window.monaco && window.monaco.editor) {
+  //         const code = window[data.hashOfCode];
+  //         window.monaco.editor.getModels()[0].setValue(code);
+  //         window.hashOfCode = hashOfCode;
+  //       } else {
+  //         sendChannel.send({
+  //           type: "codeReq",
+  //           target: data.name,
+  //         });
+  //       }
+  //     }
+  //   }
 
-    window.hashOfCode = data.hashOfCode;
-  }
-  // A regular chat message.
+  //   window.hashOfCode = data.hashOfCode;
+  // }
+  // // A regular chat message.
 
-  if (
-    data.codeDiff && data.hashOfCode && data.prevHash && window[data.prevHash]
-  ) {
-    if (
-      data.hashOfCode &&
-      data.codeDiff && data.hashOfCode !== window.hashOfCode
-    ) {
-      const hashOfCode = data.hashOfCode;
+  // if (
+  //   data.codeDiff && data.hashOfCode && data.prevHash && window[data.prevHash]
+  // ) {
+  //   if (
+  //     data.hashOfCode &&
+  //     data.codeDiff && data.hashOfCode !== window.hashOfCode
+  //   ) {
+  //     const hashOfCode = data.hashOfCode;
 
-      // const dmp = new DiffMatchPatch();
-      // const patches = dmp.patch_fromText(data.codeDiff);
-      // const patched = dmp.patch_apply(patches, lastSeenCode);
+  //     // const dmp = new DiffMatchPatch();
+  //     // const patches = dmp.patch_fromText(data.codeDiff);
+  //     // const patched = dmp.patch_apply(patches, lastSeenCode);
 
-      const codeCandidate = applyPatch(
-        window[data.prevHash],
-        JSON.parse(data.codeDiff),
-      );
-      const hashFromCodeDiff = await Hash.of(codeCandidate);
-      if (hashFromCodeDiff === hashOfCode) {
-        window[hashOfCode] = codeCandidate;
-        window.hashOfCode = hashOfCode;
+  //     const codeCandidate = applyPatch(
+  //       window[data.prevHash],
+  //       JSON.parse(data.codeDiff),
+  //     );
+  //     const hashFromCodeDiff = await Hash.of(codeCandidate);
+  //     if (hashFromCodeDiff === hashOfCode) {
+  //       window[hashOfCode] = codeCandidate;
+  //       window.hashOfCode = hashOfCode;
 
-        chCode(codeCandidate);
-      }
-    } else {
-      console.error("we are out of sync...");
-      ws.close(1000, "out of sync");
-      return;
-    }
-  }
+  //       chCode(codeCandidate);
+  //     }
+  //   } else {
+  //     console.error("we are out of sync...");
+  //     ws.close(1000, "out of sync");
+  //     return;
+  //   }
+  // }
 
   // addChatMessage(data.name, data.message);
   lastSeenTimestamp = data.timestamp;
