@@ -17,6 +17,7 @@
     "start": "yarn build:editor && yarn build:code && sh start.sh",
     "deploy:worker": "lerna run deploy",
     "deploy": "cd sites/code.spike.land && yarn deploy",
+    "push:prod": "yarn re:build && yarn push && yarn lerna publish patch --yes && yarn deploy",
     "importmap": "cd packages/code && yarn importmap",
     "push": "yarn && yarn build:editor && yarn build:code && git add . && (git commit -m pre-release || echo nothing) && git push && git pull",
     "release": "lerna publish patch --yes && yarn push",
