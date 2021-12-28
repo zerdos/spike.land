@@ -78,8 +78,8 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
   const [childArray, setChild] = useState([
     <div
       css={css`
-    height: 100%;
-    ${session.css}
+      height: 100%;
+      ${session.css}
     `}
       dangerouslySetInnerHTML={{ __html: session.html }}
     >
@@ -129,10 +129,10 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
   useEffect(() => {
     const reveal = async () => {
       const { bottom, right } = startPositions;
-      await wait(500);
+      // await wait(500);
       const root = document.getElementById("root");
       if (root && root.remove) root.remove();
-      if (!window.sess || !window.sess.monaco) await wait(1000);
+      while (!window.sess || !window.sess.monaco) await wait(100);
       changeScaleRange(90);
       setPositions({ bottom: 20, right: 20 });
       changeScaleRange(75);

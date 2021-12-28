@@ -47,10 +47,8 @@ export const renderPreviewWindow = async (session) => {
   );
   document.body.appendChild(target);
 
-  setTimeout(() => {
-    target.style.opacity = "1";
-    editor.style.opacity = "1";
+  target.style.opacity = "1";
+  editor.style.opacity = "1";
 
-    document.getElementById("root").remove();
-  }, 500);
+  document.getElementById("root")!.remove();
 };
