@@ -46,16 +46,18 @@ export const run = async (injectedRoom) => {
   }
 
   if (location.pathname.endsWith("hydrated")) {
+    const { App } = await import(
+      "https://code.spike.land/api/room/" + room + "/js"
+    );
+    const { jsx } = await import("@emotion/react");
     const { ReactDOM } = window;
 
-    import("https://code.spike.land/api/room/" + room + "/js").then((App) =>
-      import("@emotion/react").then(({ jsx }) =>
-        ReactDOM.hydrate(jsx(App), document.getElementById("zbody"))
-      )
-    );
+    ReactDOM.hydrate(jsx(App), document.getElementById("zbody"));
+
     return;
   }
 
-  import("./ws.mjs").then(({ join }) => join(room, user));
+  const { join } = await import("./ws.mjs");
+  join(room, user);
   // console.log({ r
 };
