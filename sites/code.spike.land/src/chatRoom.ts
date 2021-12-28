@@ -280,7 +280,7 @@ export class Code {
     webSocket.send(JSON.stringify(newConnEvent));
 
 
-    this.mySession.addEvent(newConnEvent);
+    // this.mySession.addEvent(newConnEvent);
   
     let session = {
       uuid,

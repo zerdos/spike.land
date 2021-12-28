@@ -253,7 +253,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
                 background-color: white;
             `}
             >
-              {errorText.trim() !== "" && (
+              {errorText && errorText.trim() !== "" && (
                 <pre
                   css={css`
                     position: absolute;
@@ -269,8 +269,8 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
                     white-space: pre-wrap;
                 `}
                 >
-                  {isStable && errorText.trim()}
-                  {isStable && errorText.trim() !== "" &&
+                  {isStable && errorText && errorText.trim()}
+                  {isStable && errorText && errorText.trim() !== "" &&
                     (
                       <div
                         css={css`

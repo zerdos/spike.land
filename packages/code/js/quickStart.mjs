@@ -110,32 +110,32 @@ async function runner(c, changes = null, session, counter) {
   transform = esbuildEsmTransform;
 
   if (window.sendChannel) {
-    const Hash = (await import("ipfs-only-hash")).default;
-    const hashOfCode = await Hash.of(c);
-    if (
-      window.hashOfCode === window.hashOfStarterCode &&
-      window.hashOfCode === hashOfCode
-    ) {
-      return;
-    }
-    window[hashOfCode] = c;
-    const prevHash = await Hash.of(session.code);
-    window[prevHash] = session.code;
+    // const Hash = (await import("ipfs-only-hash")).default;
+    // const hashOfCode = await Hash.of(c);
+    // if (
+    //   window.hashOfCode === window.hashOfStarterCode &&
+    //   window.hashOfCode === hashOfCode
+    // ) {
+    //   return;
+    // }
+    // window[hashOfCode] = c;
+    // const prevHash = await Hash.of(session.code);
+    // window[prevHash] = session.code;
 
-    if (window.hashOfCode !== hashOfCode) {
-      const starterCode = session.code;
-      const createDelta = (await import("textdiff-create")).default;
-      const codeDiff = createPatch(starterCode, c, createDelta);
+    // if (window.hashOfCode !== hashOfCode) {
+    //   const starterCode = session.code;
+    //   const createDelta = (await import("textdiff-create")).default;
+    //   const codeDiff = createPatch(starterCode, c, createDelta);
 
-      if (counter < session.i) return;
-      window.sendChannel.send({
-        changes,
-        i: session.i,
-        hashOfCode,
-        prevHash,
-        codeDiff,
-      });
-    }
+    //   if (counter < session.i) return;
+    //   window.sendChannel.send({
+    //     changes,
+    //     i: session.i,
+    //     hashOfCode,
+    //     prevHash,
+    //     codeDiff,
+    //   });
+    // }
   }
 
   session.errorText = "";

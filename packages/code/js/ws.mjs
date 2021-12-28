@@ -1,7 +1,7 @@
 import state from "https://code.spike.land/api/room/code-main/session" assert {
   type: "json",
 };
-import startSession from "./dist/session.mjs";
+import { initSession, quickStart } from "./dist/quickStart.mjs";
 
 let currentWebSocket = null;
 let lastMsg = null;
@@ -95,21 +95,33 @@ let rejoin = async () => {
 // }
 let intervalHandler = null;
 
-export const join = (room, user) => {
+export const join = async (room, user) => {
   roomName = roomName || room || "code-main";
   window.room = room;
   if (user) username = user;
 
-  mySession = mySession || startSession(roomName, {
+  mySession = mySession || await initSession(roomName, {
     name: username,
     room: roomName,
     state,
     events: [],
   });
   window.mySession = mySession;
+  const session = {
+    ...mySession.state.session.getJS(),
+    setChild: (c) => {},
+    children: [null],
+    errorText: "",
+  };
+  quickStart(
+    session,
+    roomName,
+    false,
+  );
 
   if (sess) return;
   sess = true;
+
   setTimeout(() => {
     sess = false;
   }, 10_000);
