@@ -108,16 +108,15 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
   // });
 
   useEffect(() => {
-    const handler = setInterval(() => {
+    const handler = setInterval(async () => {
       if (errorText !== session.errorText) {
         const newErr = session.errorText;
         setErrorText(newErr);
         setIsStable(false);
-        setTimeout(() => {
-          if (session.errorText === newErr) {
-            setIsStable(true);
-          }
-        }, 2000);
+        await wait(2000);
+        if (session.errorText === newErr) {
+          setIsStable(true);
+        }
       }
       if (qrUrl !== session.url) setQRUrl(session.url);
       // setChild(session.children);
