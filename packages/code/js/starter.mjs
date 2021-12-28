@@ -1,10 +1,8 @@
-import { join } from "./ws.mjs";
-import uuid from "./uidV4.mjs";
-
 export default function (injectedRoom = "") {
   run(injectedRoom);
 }
-export const run = (injectedRoom) => {
+
+export const run = async (injectedRoom) => {
   if (location.pathname.endsWith("hydrated")) {
     const { ReactDOM } = window;
 
@@ -24,7 +22,8 @@ export const run = (injectedRoom) => {
       : (path.pop() || path.pop()).slice(-12));
 
   const user = ((self && self.crypto && self.crypto.randomUUID &&
-    self.crypto.randomUUID()) || uuid()).substring(0, 8);
+    self.crypto.randomUUID()) || (await import("./uidV4.mjs")).default())
+    .substring(0, 8);
 
   const cacheKey = `state-${room}`;
   const savedStateStr = localStorage.getItem(cacheKey);
@@ -46,7 +45,17 @@ export const run = (injectedRoom) => {
     }
   }
 
-  // console.log({ room }, { user });
-  join(room, user);
-  setTimeout(() => window.sess || join(room, user), 500);
+  if (location.pathname.endsWith("hydrated")) {
+    const { ReactDOM } = window;
+
+    import("https://code.spike.land/api/room/" + room + "/js").then((App) =>
+      import("@emotion/react").then(({ jsx }) =>
+        ReactDOM.hydrate(jsx(App), document.getElementById("zbody"))
+      )
+    );
+    return;
+  }
+
+  import("./ws.mjs").then(({ join }) => join(room, user));
+  // console.log({ r
 };

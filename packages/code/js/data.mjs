@@ -17,7 +17,7 @@ export const getProjects = async () => {
 
   if (typeof userData === "string" || userData === null || !userData.list) {
     const projectId = (self && self.crypto && self.crypto.randomUUID &&
-      self.crypto.randomUUID()) || (await import("./uidV4.mjs")).default;
+      self.crypto.randomUUID()) || (await import("./uidV4.mjs")).default();
 
     await shaDB.put(
       userId,
@@ -42,7 +42,7 @@ async function addNewProject(projectName, hash) {
   userId = await getUserId();
   const userData = (await shaDB.get(userId, "json")) || { list: [] };
   const projectId = (self && self.crypto && self.crypto.randomUUID &&
-    self.crypto.randomUUID()) || (await import("./uidV4.mjs")).default;
+    self.crypto.randomUUID()) || (await import("./uidV4.mjs")).default();
   const updated = {
     ...userData,
     projects: {
