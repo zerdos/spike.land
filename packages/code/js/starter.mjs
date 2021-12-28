@@ -46,9 +46,9 @@ export const run = async (injectedRoom) => {
   }
 
   if (location.pathname.endsWith("hydrated")) {
-    const { App } = await import(
+    const App = (await import(
       "https://code.spike.land/api/room/" + room + "/js"
-    );
+    )).default;
     const { jsx } = await import("@emotion/react");
     const { ReactDOM } = window;
 
