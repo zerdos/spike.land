@@ -18231,8 +18231,8 @@ var Code = class {
         }
         if (data.patch) {
           this.mySession.applyPatch(data);
-          this.state.storage.se;
           this.broadcast(data);
+          await this.state.storage.put("session", this.mySession.state.session.toJS());
           return;
         }
         if (data.i) {

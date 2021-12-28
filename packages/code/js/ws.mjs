@@ -108,7 +108,7 @@ export const join = async (room, user) => {
   });
   window.mySession = mySession;
   const session = {
-    ...mySession.state.session.getJS(),
+    ...mySession.session.state.toJS(),
     setChild: (c) => {},
     children: [null],
     errorText: "",

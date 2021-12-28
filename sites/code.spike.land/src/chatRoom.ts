@@ -7,7 +7,7 @@ import applyDelta from "textdiff-patch";
 import { CodeEnv } from "./env";
 import SANYI from "./sanyi.js.html";
 import type {
-  ICodeSess, IEvent, INewWSConnection,
+  ICodeSess, IEvent, INewWSConnection,ICodeSession
 } from "@spike.land/code/js/session.tsx";
 import startSession from "@spike.land/code/js/session.tsx";
 import { Record } from "immutable";
@@ -138,7 +138,7 @@ export class Code {
           });
         }
         case "session":
-          return new Response(JSON.stringify(this.mySession.session.state.toJSON()) , {
+          return new Response(JSON.stringify(this.mySession.session.state.toJS()) , {
             status: 200,
             headers: {
               "Access-Control-Allow-Origin": "*",
@@ -405,7 +405,7 @@ export class Code {
         if (data.patch) {
           this.mySession.applyPatch(data);
           this.broadcast(data);
-          await this.state.storage.put<ISession>("session", this.mySession.state.session.toJS());
+          await this.state.storage.put<ICodeSession>("session", (this.mySession.session.state.toJS());
           return;
         }
 
