@@ -261,6 +261,7 @@ export const startFromCode = async ({ code }) => {
   let session = {
     code,
     i: 0,
+    changes: [],
     setChild: () => {},
   };
   await runner(code, null, session);
