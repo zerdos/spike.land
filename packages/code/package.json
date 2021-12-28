@@ -12,6 +12,8 @@
     "./js/dist/quickStart.mjs": "./js/dist.quickStart.mjs",
     "./js/dist/mui.mjs": "./js/dist/mui.mjs",
     "./js/dist/startMonaco.mjs": "./js/dist/startMonaco.mjs",
+    "./js/dist/session.mjs": "./js/dist/session.mjs",
+    "./js/dist/renderPreviewWindow.mjs": "./js/dist/renderPreviewWindow.mjs",
     "./js/session.tsx": "./js/session.tsx",
     "./js/importmap.json": "./js/importmap.json"
   },
