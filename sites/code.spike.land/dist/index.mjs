@@ -17546,8 +17546,8 @@ var Code = class {
         case "public": {
           const htmlContent = this.state.session.html;
           const css = this.state.session.css;
-          const html = src_default;
-          return new Response(src_default, {
+          const html = src_default.replace(`<div id="root"></div>`, `<div id="root"><style>${css}</style><div id="zbody">${htmlContent}</div></div>`);
+          return new Response(html, {
             status: 200,
             headers: {
               "Access-Control-Allow-Origin": "*",

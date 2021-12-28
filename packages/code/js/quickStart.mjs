@@ -285,7 +285,7 @@ export async function quickStart(session, room, keepFullScreen) {
   }
   // document.getElementById("root").remove();
 
-  await startMonacoWithSession(session);
+  if (!keepFullScreen) await startMonacoWithSession(session);
 }
 
 async function getReactChild(transpiled, mode = "window") {
