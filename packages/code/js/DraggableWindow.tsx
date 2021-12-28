@@ -3,6 +3,7 @@
 /// <reference types="@emotion/react/types/css-prop" />
 
 import { css, jsx } from "@emotion/react";
+import React from "react";
 // import { wait } from "axax/esnext/wait";
 import type { FC } from "react";
 
@@ -159,14 +160,15 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
   }, []);
 
   return (
-    <motion.div
-      ref={ref}
-      initial={{ bottom: startPositions.bottom, right: startPositions.right }}
-      animate={{
-        bottom,
-        right,
-      }}
-      css={css`
+    <React.StrictMode>
+      <motion.div
+        ref={ref}
+        initial={{ bottom: startPositions.bottom, right: startPositions.right }}
+        animate={{
+          bottom,
+          right,
+        }}
+        css={css`
             background-color:rgba(92 ,92, 152, 0.8);
             backdrop-filter: blur(10px);
             padding: 0px 0px 0px 16px;
@@ -174,68 +176,69 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
             white-space: normal;
             position: ${position ? position : "fixed"};
           `}
-      dragElastic={0.5}
-      dragConstraints={{
-        left: 0,
-        right: width - 20 - width / 6,
-        bottom: innerHeight - 100,
-      }}
-      dragMomentum={false}
-      drag={true}
-    >
-      <div
-        css={css` 
-              display: flex;
-                `}
+        dragElastic={0.5}
+        dragConstraints={{
+          left: 0,
+          right: width - 20 - width / 6,
+          bottom: innerHeight - 100,
+        }}
+        dragMomentum={false}
+        drag={true}
       >
         <div
-          css={css`
+          css={css` 
+              display: flex;
+                `}
+        >
+          <div
+            css={css`
             display: flex;
             flex-direction: column;
             align-items: center;
           `}
-        >
-          <ToggleButtonGroup
-            value={scaleRange}
-            size="small"
-            exclusive
-            onChange={(_e, newScale) => newScale && changeScaleRange(newScale)}
           >
-            {sizes.map((size) => (
-              <ToggleButton
-                key={size}
-                value={size}
-              >
-                <span
-                  css={css`
-                       color: ${
-                    size === scaleRange
-                      ? "rgba(255,255,255,.8)"
-                      : "rgba(0,0,0,.3)"
-                  };
-                       `}
+            <ToggleButtonGroup
+              value={scaleRange}
+              size="small"
+              exclusive
+              onChange={(_e, newScale) =>
+                newScale && changeScaleRange(newScale)}
+            >
+              {sizes.map((size) => (
+                <ToggleButton
+                  key={size}
+                  value={size}
                 >
-                  {size}%
-                </span>
-              </ToggleButton>
-            ))}
-          </ToggleButtonGroup>
-          {/* <span>{width}*{height}</span> */}
+                  <span
+                    css={css`
+                       color: ${
+                      size === scaleRange
+                        ? "rgba(255,255,255,.8)"
+                        : "rgba(0,0,0,.3)"
+                    };
+                       `}
+                  >
+                    {size}%
+                  </span>
+                </ToggleButton>
+              ))}
+            </ToggleButtonGroup>
+            {/* <span>{width}*{height}</span> */}
 
-          <motion.div
-            // initial={{
-            //   width: window.innerWidth,
-            //   height: window.innerHeight
-            // }}
-            // transition={
-            //   {duration: 2000}
-            // }
-            animate={{
-              width: width * scale / devicePixelRatio,
-              height: height * scale / devicePixelRatio,
-              maxHeight: height * scale / devicePixelRatio,
-            }}
-            css={css`
+            <motion.div
+              // initial={{
+              //   width: window.innerWidth,
+              //   height: window.innerHeight
+              // }}
+              // transition={
+              //   {duration: 2000}
+              // }
+              animate={{
+                width: width * scale / devicePixelRatio,
+                height: height * scale / devicePixelRatio,
+                maxHeight: height * scale / devicePixelRatio,
+              }}
+              css={css`
              width: ${width * scale / devicePixelRatio};
              height: ${height * scale / devicePixelRatio};
                 display: block;
@@ -244,10 +247,10 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
               opacity: 0.9;
               background-color: white;
            `}
-          >
-            {errorText.trim() !== "" && (
-              <pre
-                css={css`
+            >
+              {errorText.trim() !== "" && (
+                <pre
+                  css={css`
                     position: absolute;
                     z-index:3;
                     color: rgb(255, 240, 240);
@@ -260,42 +263,42 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
                     font-family: monospace;
                     white-space: pre-wrap;
                 `}
-              >
-                {isStable && errorText.trim()}
-                {isStable && errorText.trim() !== "" &&
-                  (
-                    <div
-                      css={css`
+                >
+                  {isStable && errorText.trim()}
+                  {isStable && errorText.trim() !== "" &&
+                    (
+                      <div
+                        css={css`
                           text-align: right;
                         `}
-                    >
-                      <Button
-                        onClick={() => {
-                          onRestore();
-                          setErrorText("");
-                        }}
                       >
-                        Restore
-                      </Button>
-                    </div>
-                  )}
-              </pre>
-            )}
+                        <Button
+                          onClick={() => {
+                            onRestore();
+                            setErrorText("");
+                          }}
+                        >
+                          Restore
+                        </Button>
+                      </div>
+                    )}
+                </pre>
+              )}
 
-            <motion.div
-              initial={{
-                transformOrigin: "0px 0px",
-                width: window.innerWidth / devicePixelRatio,
-                height: window.innerHeight / devicePixelRatio,
-                scale: scaleRange / 100,
-              }}
-              animate={{
-                transformOrigin: "0px 0px",
-                width: width / devicePixelRatio,
-                height: height / devicePixelRatio,
-                scale: scaleRange / 100,
-              }}
-              css={css`
+              <motion.div
+                initial={{
+                  transformOrigin: "0px 0px",
+                  width: window.innerWidth / devicePixelRatio,
+                  height: window.innerHeight / devicePixelRatio,
+                  scale: scaleRange / 100,
+                }}
+                animate={{
+                  transformOrigin: "0px 0px",
+                  width: width / devicePixelRatio,
+                  height: height / devicePixelRatio,
+                  scale: scaleRange / 100,
+                }}
+                css={css`
                   overflow:overlay;
                   >div{
                     width:100%;
@@ -304,107 +307,108 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
                     background: white;
                   }
               `}
-            >
-              {errorText
-                ? (
-                  <div
-                    css={`${session.css}`}
-                    dangerouslySetInnerHTML={createMarkup(session.html)}
-                  />
-                )
-                : (
-                  <Suspense fallback={<div>Error fallback</div>}>
-                    <div
-                      id="zbody"
-                      key={session.i}
-                      ref={zbody}
-                      css={css`
-                        height: 100%;
-                      `}
-                    >
-                      {child}
-                    </div>
-                  </Suspense>
-                )}
-            </motion.div>
-          </motion.div>
-          <ToggleButtonGroup
-            value={width}
-            size="small"
-            exclusive
-            onChange={(_e, newSize) => {
-              if (newSize) {
-                setHeight(breakPointHeights[breakPoints.indexOf(newSize)]);
-                setWidth(newSize);
-              }
-            }}
-          >
-            {breakPoints.map((size) => (
-              <ToggleButton
-                key={size}
-                value={size}
               >
-                {size === 680
+                {errorText
                   ? (
-                    <Phone
-                      css={css`
-                        color: ${
-                        width === 680
-                          ? "rgba(255,255,255,.8)"
-                          : "rgba(0,0,0,.3)"
-                      };
-                        `}
-                    />
-                  )
-                  : size === 768
-                  ? (
-                    <Tablet
-                      css={css`
-                        color: ${
-                        width === 768
-                          ? "rgba(255,255,255,.8)"
-                          : "rgba(0,0,0,.3)"
-                      };
-                        `}
+                    <div
+                      css={`${session.css}`}
+                      dangerouslySetInnerHTML={createMarkup(session.html)}
                     />
                   )
                   : (
-                    <Tv
-                      css={css`
-                        color: ${
-                        width === 1920
-                          ? "rgba(255,255,255,.8)"
-                          : "rgba(0,0,0,.3)"
-                      };
+                    <Suspense fallback={<div>Error fallback</div>}>
+                      <div
+                        id="zbody"
+                        key={session.i}
+                        ref={zbody}
+                        css={css`
+                        height: 100%;
                       `}
-                    />
+                      >
+                        {child}
+                      </div>
+                    </Suspense>
                   )}
-              </ToggleButton>
-            ))}
-          </ToggleButtonGroup>
-        </div>
+              </motion.div>
+            </motion.div>
+            <ToggleButtonGroup
+              value={width}
+              size="small"
+              exclusive
+              onChange={(_e, newSize) => {
+                if (newSize) {
+                  setHeight(breakPointHeights[breakPoints.indexOf(newSize)]);
+                  setWidth(newSize);
+                }
+              }}
+            >
+              {breakPoints.map((size) => (
+                <ToggleButton
+                  key={size}
+                  value={size}
+                >
+                  {size === 680
+                    ? (
+                      <Phone
+                        css={css`
+                        color: ${
+                          width === 680
+                            ? "rgba(255,255,255,.8)"
+                            : "rgba(0,0,0,.3)"
+                        };
+                        `}
+                      />
+                    )
+                    : size === 768
+                    ? (
+                      <Tablet
+                        css={css`
+                        color: ${
+                          width === 768
+                            ? "rgba(255,255,255,.8)"
+                            : "rgba(0,0,0,.3)"
+                        };
+                        `}
+                      />
+                    )
+                    : (
+                      <Tv
+                        css={css`
+                        color: ${
+                          width === 1920
+                            ? "rgba(255,255,255,.8)"
+                            : "rgba(0,0,0,.3)"
+                        };
+                      `}
+                      />
+                    )}
+                </ToggleButton>
+              ))}
+            </ToggleButtonGroup>
+          </div>
 
-        <div
-          css={css`
+          <div
+            css={css`
               display: flex;
               align-items: center;          
               flex-direction: column;
               padding: 16px;
               `}
-        >
-          <QRButton url={qrUrl} />
-
-          <Fab
-            onClick={() => {
-              onShare();
-            }}
           >
-            <Share />
-          </Fab>
-          <LazySpikeLandComponent name="sanyi" />
+            <QRButton url={qrUrl} />
+
+            <Fab
+              onClick={() => {
+                onShare();
+              }}
+            >
+              <Share />
+            </Fab>
+            <LazySpikeLandComponent name="sanyi" />
+          </div>
         </div>
-      </div>
-    </motion.div>
+      </motion.div>
+    </React.StrictMode>
   );
 };
 

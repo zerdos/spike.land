@@ -6,6 +6,7 @@ account_id = "1f98921051196545ebe79a450d3c71ed"
 zone_id = "07e8952f4aa2d9e95f04a2b32a9cf084"
 route = "https://x.spike.land/*"
 compatibility_date = "2021-12-06"
+wasm_modules = { ESBUILDWASM = "./something.wasm" }
 
 [build]
 command = "yarn bundle"
@@ -13,3 +14,7 @@ command = "yarn bundle"
 [build.upload]
 format = "modules"
 main = "./index.mjs"
+
+[[build.upload.rules]]
+type = "CompiledWasm"
+globs = ["esbuild.wasm"]

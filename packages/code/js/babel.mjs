@@ -1,17 +1,27 @@
-import { getWrapped } from "./workers/getWorker.mjs";
+import * as esbuild from "esbuild-wasm/esm/browser";
 
-export async function babelTransform(code) {
+const init = esbuild.initialize({
+  wasmURL: "esbuild-wasm@0.14.8/esbuild-wasm",
+});
+
+let initFinished = false;
+
+export const transform = async (code) => {
   var startTime = performance.now();
 
-  const transform = await getWrapped("babel.worker.js");
+  if (!initFinished) {
+    await init;
+    initFinished = true;
+  }
 
-  const transformed = await transform(
-    code,
-  );
+  const result = await esbuild.transform(code, {
+    loader: "tsx",
+    target: "es2018",
+  });
 
   var endTime = performance.now();
 
-  console.log(`babelTransform: took ${endTime - startTime} milliseconds`);
+  console.log(`esbuildEsmTransform: took ${endTime - startTime} milliseconds`);
 
-  return transformed;
-}
+  return result.code;
+};

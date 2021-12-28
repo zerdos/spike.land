@@ -1,39 +1,26 @@
-import { transform } from "@babel/standalone";
+// import * as esbuild from "esbuild-wasm/esm/browser";
 
-if (!String.prototype.replaceAll) {
-  String.prototype.replaceAll = function (str, newStr) {
-    if (
-      Object.prototype.toString.call(str).toLowerCase() === "[object regexp]"
-    ) {
-      return this.replace(str, newStr);
-    }
+// // const instance = new WebAssembly.Instance(MYWASMBINDINGNAME);
 
-    return this.replace(new RegExp(str, "g"), newStr);
-  };
-}
+// const init = esbuild.initialize({
+//   wasmURL: "https://unpkg.com/esbuild-wasm@0.14.8/esbuild.wasm",
+//   worker: false
+// });
 
-// const searchRegExp2 = /import.*from '/gi;
-// const replace2 = "import Fab from 'https://cdn.skypack.dev/";
+// let initFinished = false;
 
-// const searchRegExp = /import.*react';/gi;
-// const searchRegExpMotion = /import.*framer-motion';/gi;
+// export const transform = async (code) => {
+  
+//   if (!initFinished) {
+//     await init;
+//     initFinished = true;
+//   }
 
-// const replaceWith = "\n\n";
+//   const result = await esbuild.transform(code, {
+//     loader: "tsx",
+//     target: "es2018",
+//   });
 
-export const babelTransfo = (code: string) => {
-  const safeCode = code;
-
-  const transformed = transform(
-    safeCode,
-    {
-      compact: false,
-      comments: false,
-      presets: [
-        "react",
-        ["typescript", { isTSX: true, allExtensions: true }],
-      ],
-    },
-  ).code;
-
-  return transformed;
-};
+  
+//   return result.code;
+// };

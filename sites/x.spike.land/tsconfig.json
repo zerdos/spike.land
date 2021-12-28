@@ -3,7 +3,7 @@
     "allowJs": true,
     "target": "esnext",
     "module": "esnext",
-    "lib": ["es2020", "es2021"],
+    "lib": ["es2020", "es2021", "we"],
     "alwaysStrict": true,
     "strict": true,
     "noEmit": true,
