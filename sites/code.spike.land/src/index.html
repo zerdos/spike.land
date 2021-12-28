@@ -42,13 +42,15 @@
   <script async src="https://ga.jspm.io/npm:es-module-shims@1.4.1/dist/es-module-shims.wasm.js"></script>
   <title>Instant React Editor</title>
    <style>
+     html{
+       height: 100%;
+     }
       body {
         overscroll-behavior-y: contain;
         width: 100%;
         margin: 0;
         padding: 0;
         border: 0;
-        height: 100vh;
         min-height: -webkit-fill-available;
         height: 100%;
         position: fixed;
@@ -61,7 +63,7 @@
         overflow-y: hidden;
       }
 
-      #root {
+      #root, #zbody {
         height: 100%;
       }
 

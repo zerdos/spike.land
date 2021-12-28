@@ -12688,13 +12688,15 @@ var src_default = `<!DOCTYPE html>
   <script async src="https://ga.jspm.io/npm:es-module-shims@1.4.1/dist/es-module-shims.wasm.js"><\/script>
   <title>Instant React Editor</title>
    <style>
+     html{
+       height: 100%;
+     }
       body {
         overscroll-behavior-y: contain;
         width: 100%;
         margin: 0;
         padding: 0;
         border: 0;
-        height: 100vh;
         min-height: -webkit-fill-available;
         height: 100%;
         position: fixed;
@@ -12707,7 +12709,7 @@ var src_default = `<!DOCTYPE html>
         overflow-y: hidden;
       }
 
-      #root {
+      #root, #zbody {
         height: 100%;
       }
 
@@ -17532,7 +17534,7 @@ var Code = class {
         case "hydrated": {
           const htmlContent = this.state.session.html;
           const css = this.state.session.css;
-          const html = src_default.replace(`<div id="zbody"></div>`, `<div id ="root"><style>${css}</style><div id="zbody">${htmlContent}</div></div>`).replace(`"app"`, `"https://code.spike.land/api/room/${codeSpace}/js"`);
+          const html = src_default.replace(`<div id="root"></div>`, `<div id ="root"><style>${css}</style><div id="zbody">${htmlContent}</div></div>`).replace(`"app"`, `"https://code.spike.land/api/room/${codeSpace}/js"`);
           return new Response(html, {
             status: 200,
             headers: {
@@ -17564,8 +17566,8 @@ var Code = class {
         }
         case "public": {
           const htmlContent = this.state.session.html;
-          const css = await this.state.session.css;
-          const html = src_default.replace(`<div id="zbody"></div>`, `<div id ="root"><style>${css}</style><div id="zbody">${htmlContent}</div></div>`).replace(`"app"`, `"https://unpkg.com/@spike.land/code@${version}/js/starter.mjs"`);
+          const css = this.state.session.css;
+          const html = src_default.replace(`<div id="root"></div>`, `<div id ="root"><style>${css}</style><div id="zbody">${htmlContent}</div></div>`).replace(`"app"`, `"https://unpkg.com/@spike.land/code@${version}/js/starter.mjs"`);
           return new Response(html, {
             status: 200,
             headers: {

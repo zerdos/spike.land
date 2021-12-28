@@ -179,7 +179,7 @@ export class Code {
           const css = this.state.session.css;
 
           const html = HTML.replace(
-            `<div id="zbody"></div>`,
+            `<div id="root"></div>`,
             `<div id ="root"><style>${css}</style><div id="zbody">${htmlContent}</div></div>`
           ).replace(
             `"app"`,`"https://code.spike.land/api/room/${codeSpace}/js"`
@@ -217,12 +217,12 @@ export class Code {
 
         case "public": {
           const htmlContent = this.state.session.html;
-          const css = await this.state.session.css;
+          const css = this.state.session.css;
 
           const html = HTML.replace(
-            `<div id="zbody"></div>`,
+            `<div id="root"></div>`,
             `<div id ="root"><style>${css}</style><div id="zbody">${htmlContent}</div></div>`
-          ).replace(               `"app"`, `"https://unpkg.com/@spike.land/code@${version}/js/starter.mjs"`     );
+          ).replace( `"app"`, `"https://unpkg.com/@spike.land/code@${version}/js/starter.mjs"`);
 
           return new Response(html, {
             status: 200,
