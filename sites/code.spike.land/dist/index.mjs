@@ -12641,7 +12641,7 @@ var require_textdiff_patch = __commonJS({
 });
 
 // ../../packages/code/package.json
-var version = "0.4.30";
+var version = "0.4.31";
 
 // src/index.html
 var src_default = `<!DOCTYPE html>
@@ -12712,14 +12712,15 @@ var src_default = `<!DOCTYPE html>
       }
 
       #shadowEditor {
-        position: absolute;
+        position: relative;
         top: 0;
         left: 0;
-        display: block;
+        display: none;
         max-width: 680px;
         width: 100%;
         height: 100vh; 
       }
+
 
       @font-face {
     font-family: 'codicon';
@@ -13028,16 +13029,6 @@ export const processWs = async (msg, session, send) => {
     globalThis.reactRoot &&  globalThis.reactRoot.unmount();
     globalThis.reactRoot = null;
 
-    const rootEl = document.createElement('div');
-    rootEl.innerHTML =  '<style>' + data.css + '</style>';
-    const target = document.createElement("div");
-    target.innerHTML = data.html;
-    target.id = "zbody"
-    target.setAttribute("id", "zbody");
-    rootEl.appendChild(target);
-    document.getElementById('root').replaceWith(rootEl);
-    rootEl.setAttribute("id", "root");
-    rootEl.id = "root";
     window.sess = {
       ...window.sess,
       code: data.code,
