@@ -134,8 +134,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
       await wait(800);
       // const root = document.getElementById("root");
       // if (root && root.remove) root.remove();
-      if (!window.sess || !window.sess.monaco) await wait(10);
-      await wait(600);
+      while (!window || !window.monaco) await wait(300);
       setFullScreen(false);
       setPositions({ bottom: 20, right: 20 });
       // changeScaleRange(75);
