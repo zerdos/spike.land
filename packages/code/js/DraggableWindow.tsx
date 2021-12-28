@@ -30,22 +30,6 @@ const breakPointHeights = [1137, 1024, 1080];
 
 const sizes = [10, 25, 50, 75, 100];
 
-interface DraggableWindowProps {
-  onShare: () => void;
-  onRestore: (() => void);
-  session: {
-    i: number;
-    url: string;
-    html: string;
-    errorText: string;
-    children: any;
-    css: string;
-    room: string;
-    setChild: any;
-  };
-  position?: string;
-}
-
 const LazySpikeLandComponent: FC<
   { name: string; html: string; cssText: string }
 > = ({ name, cssText, html }) => {
@@ -73,8 +57,25 @@ const LazySpikeLandComponent: FC<
   }
 };
 
+interface DraggableWindowProps {
+  onShare: () => void;
+  onRestore: (() => void);
+  session: {
+    i: number;
+    url: string;
+    html: string;
+    errorText: string;
+    children: any;
+    css: string;
+    room: string;
+    setChild: any;
+  };
+  keepFullScreen: boolean;
+  position?: string;
+}
+
 export const DraggableWindow: FC<DraggableWindowProps> = (
-  { onShare, onRestore, position, session },
+  { onShare, onRestore, position, session, keepFullScreen },
 ) => {
   const [isStable, setIsStable] = useState(false);
   const [scaleRange, changeScaleRange] = useState(100);
@@ -131,6 +132,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
   useEffect(() => {
     const reveal = async () => {
       const { bottom, right } = startPositions;
+      if (keepFullScreen) return;
       await wait(800);
       // const root = document.getElementById("root");
       // if (root && root.remove) root.remove();

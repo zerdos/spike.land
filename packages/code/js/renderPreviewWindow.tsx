@@ -12,6 +12,7 @@ import type { ICodeSession } from "./session";
 export const renderPreviewWindow = async (
   session: ICodeSession,
   room: string,
+  keepFullScreen: boolean,
 ) => {
   const target = document.createElement("div");
   const editor = document.getElementById("shadowEditor")!;
@@ -47,6 +48,7 @@ export const renderPreviewWindow = async (
       }}
       position={session.mode === "window" ? "fixed" : "absolute"}
       session={session}
+      keepFullScreen={keepFullScreen}
     />,
   );
 

@@ -677,12 +677,11 @@ async function processWsMessage(event, source) {
       css: data.css,
       room: roomName,
     };
-    if (!window.location.href.endsWith("/public")) {
-      const { quickStart } = await import("./dist/quickStart.mjs");
-      quickStart(session);
-    } else {
-      window.sess = session;
-    }
+
+    const keepFullScreen = window.location.href.endsWith("/public");
+    const { quickStart } = await import("./quickStart.mjs");
+    quickStart(session, roomName, keepFullScreen);
+
     return;
   }
 

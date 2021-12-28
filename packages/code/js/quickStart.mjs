@@ -267,14 +267,14 @@ export const startFromCode = async ({ code }) => {
   await quickStart(session);
 };
 
-export async function quickStart(session) {
+export async function quickStart(session, room, keepFullScreen) {
   // session.children = await getReactChild(session.transpiled);
   session.children = null;
   const { renderPreviewWindow } = await import(
     "./dist/renderPreviewWindow.mjs"
   );
 
-  await renderPreviewWindow(session, session.room);
+  await renderPreviewWindow(session, room, keepFullScreen);
 
   if (localStorage && session) {
     const { code, transpiled, html, css, i } = session;

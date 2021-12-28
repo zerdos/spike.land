@@ -12641,7 +12641,7 @@ var require_textdiff_patch = __commonJS({
 });
 
 // ../../packages/code/package.json
-var version = "0.4.31";
+var version = "0.4.34";
 
 // src/index.html
 var src_default = `<!DOCTYPE html>
@@ -12750,8 +12750,7 @@ var src_default = `<!DOCTYPE html>
   window.process = { env: { NODE_ENV: "production" } };
 <\/script>
   <script type="module-shim">
-    import app from "./starter.mjs";
-    app("");
+    import app from "./starter.mjs";app("");
   <\/script>
   <script>
     if ('serviceWorker' in navigator){
@@ -17534,7 +17533,12 @@ var Code = class {
         case "hydrated": {
           const htmlContent = this.state.session.html;
           const css = this.state.session.css;
-          const html = src_default.replace(`<div id="root"></div>`, `<div id ="root"><style>${css}</style><div id="zbody">${htmlContent}</div></div>`).replace(`"app"`, `"https://code.spike.land/api/room/${codeSpace}/js"`);
+          const html = src_default.replace(`<div id="root"></div>`, `<div id="root"><style>${css}</style><div id="zbody">${htmlContent}</div></div>`).replace(`import app from "./starter.mjs";app("");`, `
+            import App from "https://code.spike.land/api/room/${codeSpace}/js";
+            import { jsx } from "@emotion/react";
+           
+           ReactDOM.hydrate(jsx(App), document.getElementById("zbody"));
+            `);
           return new Response(html, {
             status: 200,
             headers: {

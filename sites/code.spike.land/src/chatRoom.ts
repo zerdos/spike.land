@@ -180,11 +180,15 @@ export class Code {
 
           const html = HTML.replace(
             `<div id="root"></div>`,
-            `<div id ="root"><style>${css}</style><div id="zbody">${htmlContent}</div></div>`
-          ).replace(
-            `"app"`,`"https://code.spike.land/api/room/${codeSpace}/js"`
+            `<div id="root"><style>${css}</style><div id="zbody">${htmlContent}</div></div>`
+          ).replace(  
+           `import app from "./starter.mjs";app("");`,`
+            import App from "https://code.spike.land/api/room/${codeSpace}/js";
+            import { jsx } from "@emotion/react";
+           
+           ReactDOM.hydrate(jsx(App), document.getElementById("zbody"));
+            `
           );
-
           return new Response(html, {
             status: 200,
             headers: {
@@ -219,12 +223,8 @@ export class Code {
           const htmlContent = this.state.session.html;
           const css = this.state.session.css;
 
-          const html = HTML.replace(
-            `<div id="root"></div>`,
-            `<div id ="root"><style>${css}</style><div id="zbody">${htmlContent}</div></div>`
-          ).replace( `"app"`, `"https://unpkg.com/@spike.land/code@${version}/js/starter.mjs"`);
-
-          return new Response(html, {
+          const html = HTML
+          return new Response(HTML, {
             status: 200,
             headers: {
               "Access-Control-Allow-Origin": "*",
