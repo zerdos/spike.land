@@ -1,4 +1,7 @@
 import { fromJS, isKeyed, Record } from "immutable";
+// @ts-expect-error
+import createDelta from "textdiff-create";
+import applyPatch from "textdiff-patch";
 // import * as Immutable from "immutable"
 
 type IUsername = string;
@@ -167,6 +170,44 @@ export class CodeSession implements ICodeSess {
       }
     }
   }
+  public updateState(state: ICodeSession) {
+    const oldState = JSON.stringify(this.session.get("state").toJS());
+    const oldHash = this.session.get("state").hashCode();
+
+    this.session = this.session.set("state", Record<ICodeSession>(state)());
+    const newState = JSON.stringify(this.session.get("state").toJS());
+    const newHash = this.session.get("state").hashCode();
+    const patch = createPatch(oldState, newState);
+    return {
+      oldHash,
+      newHash,
+      patch,
+    };
+  }
+
+  public applyPatch({
+    oldHash,
+    newHash,
+    patch,
+  }: { oldHash: number; newHash: number; patch: string }) {
+    const oldHashCheck = this.session.get("state").hashCode();
+
+    if (oldHashCheck !== oldHash) {
+      console.error("Cant update");
+      return;
+    }
+
+    const oldState = JSON.stringify(this.session.get("state").toJS());
+    const newState = JSON.parse(applyPatch(oldState, patch));
+
+    this.session = this.session.set("state", Record<ICodeSession>(newState)());
+    const newHashCheck = this.session.get("state").hashCode();
+
+    if (newHashCheck !== newHash) {
+      console.error("WRONG update");
+      return;
+    }
+  }
 
   public json() {
     const user = this.session.toJSON();
@@ -195,4 +236,8 @@ function storageAvailable(type: string) {
   } catch (e) {
     return false;
   }
+}
+
+function createPatch(oldCode: string, newCode: string) {
+  return JSON.stringify(createDelta(oldCode, newCode));
 }

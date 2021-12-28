@@ -402,6 +402,12 @@ export class Code {
           return;
         }
 
+        if (data.patch) {
+          this.mySession.applyPatch(data);
+          this.broadcast(data);
+          return;
+        }
+
         if (data.i) {
           if (data.i <= this.state.session.i) {
             this.user2user(data.name, { ...this.state.session });

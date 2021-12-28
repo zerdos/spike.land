@@ -144,115 +144,39 @@ export const join = (room, user) => {
     const broad = async (
       { code, hashOfCode, starterCode, transpiled, html, css, i },
     ) => {
-      await importTools();
-      if (i != window.sess.i) return;
+      const updatedState = mySession.session.state.toJS();
+      updatedState.code = code;
+      updatedState.i = i;
+      const message = mySession.updateState(updatedState);
 
-      localStorage.setItem(
-        `state-${roomName}`,
-        JSON.stringify({ code, transpiled, html, css, i }),
-      );
+      const msgStr = JSON.stringify(message);
+      lastMsg = msgStr;
 
-      const { prettier } = await import("./dist/quickStart.mjs");
+      const retry = (msg) =>
+        setTimeout(() => {
+          if (msg !== lastMsg) return;
 
-      const formattedCode = await prettier(code);
-      const hashOfFormattedCode = await Hash.of(formattedCode);
-
-      if (
-        code !== lastSeenCode && formattedCode !== lastSeenCode &&
-        hashOfFormattedCode !== window.hashOfCode
-      ) {
-        lastSeenCode = code;
-        let codeDiff;
-        const prevHash = window.currentHashOfCode;
-        if (hashOfCode === prevHash) return;
-        if (code === window[prevHash]) return;
-
-        if (window.starterCode) {
           try {
-            codeDiff = prevHash && window[prevHash] &&
-              createPatch(window[prevHash], code);
-            // console.log(codeDiff);
-          } catch (e) {
-            console.error({ e });
-          }
-        }
-
-        const message = { hashOfCode };
-        if (codeDiff) {
-          message.name = username;
-
-          message.codeDiff = codeDiff;
-          message.hashOfCode = hashOfCode;
-          message.i = i;
-          message.hashOfStarterCode = prevHash;
-
-          if (prevHash && mod[prevHash]) {
-            message.htmlDiff = createPatch(mod[prevHash].html, html);
-            message.cssDiff = createPatch(mod[prevHash].css, css);
-            message.transpiledDiff = createPatch(
-              mod[prevHash].transpiled,
-              transpiled,
-            );
-          } else {
-            message.html = html;
-            message.css = css;
-            message.transpiled = transpiled;
-          }
-
-          window.currentHashOfCode = hashOfCode;
-
-          window[hashOfCode] = code;
-
-          if (!mod[hashOfCode]) {
-            mod[hashOfCode] = {
-              transpiled,
-              css,
-              html,
-            };
-          }
-          // if (hashOfCode !== prevHash) delete mod[prevHash];
-
-          window.starterCode = starterCode;
-        } else {
-          message.code = code;
-          message.name = username;
-          message.html = html;
-          message.css = css;
-          message.transpiled = transpiled;
-          message.i = i;
-
-          message.hashOfCode = hashOfCode;
-        }
-
-        const msgStr = JSON.stringify(message);
-        lastMsg = msgStr;
-
-        const retry = (msg) =>
-          setTimeout(() => {
-            if (msg !== lastMsg) return;
-
-            try {
-              if (currentWebSocket === null) {
-                rejoin();
-                retry(msg);
-              }
-
-              currentWebSocket.send(msg);
-            } catch {
+            if (currentWebSocket === null) {
+              rejoin();
               retry(msg);
             }
-          }, 500);
 
-        try {
-          if (sendChannel) {
-            sendChannel.send(message);
-          } else if (currentWebSocket) {
-            currentWebSocket.send(msgStr);
-            return;
+            currentWebSocket.send(msg);
+          } catch {
+            retry(msg);
           }
-        } catch {
-          retry(msgStr);
+        }, 500);
+
+      try {
+        if (sendChannel) {
+          sendChannel.send(message);
+        } else if (currentWebSocket) {
+          currentWebSocket.send(msgStr);
+          return;
         }
+      } catch {
+        retry(msgStr);
       }
     };
 
@@ -654,34 +578,8 @@ async function processWsMessage(event, source) {
 
   mySession.addEvent(data);
 
-  const sanyi = await sanyiProcess(
-    data,
-    window && !!window.sess ? window.sess : {},
-    (obj) => ws.send(JSON.stringify(obj)),
-  );
-
-  if (sanyi) {
-    console.log({ sanyi });
-    return;
-  }
-
-  if (data.code && !window.sess) {
-    const session = {
-      code: data.code,
-      errorText: "",
-      changes: [],
-      setChild: () => {},
-      transpiled: data.transpiled,
-      html: data.html,
-      i: data.i,
-      css: data.css,
-      room: roomName,
-    };
-
-    const keepFullScreen = window.location.href.endsWith("/public");
-    const { quickStart } = await import("./quickStart.mjs");
-    quickStart(session, roomName, keepFullScreen);
-
+  if (data.patch) {
+    mySession.applyPatch(data);
     return;
   }
 
