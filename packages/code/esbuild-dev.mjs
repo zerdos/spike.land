@@ -52,6 +52,7 @@ const build = (entryPoints) =>
 await build([
   "js/mui.tsx",
   "js/startMonaco.ts",
+  "js/session.tsx",
 ]);
 
 // await build([

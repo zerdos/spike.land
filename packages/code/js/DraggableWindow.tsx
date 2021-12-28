@@ -23,14 +23,6 @@ import { QRButton } from "./Qr.tsx";
 
 import { motion } from "framer-motion";
 
-function wait(delay: number): Promise<void> {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve();
-    }, delay);
-  });
-}
-
 // const {motion} = Motion;
 
 const breakPoints = [680, 768, 1920];

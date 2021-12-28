@@ -9,6 +9,18 @@ let esbuildEsmTransform;
 // let babelTransform;
 let getHtmlAndCss;
 let getCss;
+let initSess;
+
+export const initSession = async (room, initData) => {
+  initSess = initSess || (await import(`./dist/session.mjs`)).default;
+
+  return initSess(room, initData);
+};
+
+export const prettier = async (code) => {
+  formatter = formatter || (await import(`./formatter.mjs`)).formatter;
+  return await formatter(code);
+};
 
 // //
 

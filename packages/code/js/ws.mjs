@@ -1,6 +1,3 @@
-import { formatter } from "./formatter.mjs";
-import initSession from "./session.tsx";
-
 let currentWebSocket = null;
 let lastMsg = null;
 let sess = false;
@@ -23,6 +20,7 @@ let sendChannel;
 let createDelta;
 let applyPatch;
 let Hash;
+let initSess = null;
 let mySession = null;
 
 let toolsImported = 0;
@@ -163,7 +161,9 @@ export const join = (room, user) => {
         JSON.stringify({ code, transpiled, html, css, i }),
       );
 
-      const formattedCode = await formatter(code);
+      const { prettier } = await import("./dist/quickStart.mjs");
+
+      const formattedCode = await prettier(code);
       const hashOfFormattedCode = await Hash.of(formattedCode);
 
       if (
@@ -662,7 +662,9 @@ async function processWsMessage(event, source) {
   const data = JSON.parse(event.data);
 
   if (!mySession) {
-    mySession = initSession(roomName, {
+    const { initSession } = await import("./dist/quickStart.mjs");
+
+    mySession = await initSession(roomName, {
       name: username,
       room: roomName,
       state: { code: "", i: 0, transpiled: "", html: "", css: "" },
@@ -697,7 +699,7 @@ async function processWsMessage(event, source) {
       room: roomName,
     };
     if (!window.location.href.endsWith("/public")) {
-      const { quickStart } = await import("./quickStart.mjs");
+      const { quickStart } = await import("./dist/quickStart.mjs");
       quickStart(session);
     } else {
       window.sess = session;
