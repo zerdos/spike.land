@@ -307,13 +307,13 @@ export class Code {
         if (session.quit) {
 
           if (session.name && typeof session.name === "string") {
-          this.mySession.addEvent({
-            type: "quit",
-            target: "broadcast",
-            uuid: self.crypto.randomUUID(),
-            name: session.name,
-            timestamp: Date.now()
-          });
+          // this.mySession.addEvent({
+          //   type: "quit",
+          //   target: "broadcast",
+          //   uuid: self.crypto.randomUUID(),
+          //   name: session.name,
+          //   timestamp: Date.now()
+          // });
         }
           webSocket.close(1011, "WebSocket broken.");
           return;
