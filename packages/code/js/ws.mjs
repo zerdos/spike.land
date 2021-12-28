@@ -570,11 +570,11 @@ async function getCID(CID, from) {
     name: username,
     cid: CID,
   };
-  if (sendChannel) {
-    sendChannel.send(msg);
-  } else {
-    ws.send(JSON.stringify(msg));
-  }
+  // if (sendChannel) {
+  //   sendChannel.send(msg);
+  // } else {
+  //   ws.send(JSON.stringify(msg));
+  // }
   return new Promise((resolve) => {
     cids[CID] = resolve;
   });
@@ -670,16 +670,16 @@ async function processWsMessage(event, source) {
     return;
   }
 
-  if (window.sess && data.i && data.i <= window.sess.i) {
-    if (source === "rtc") {
-      sendChannel.send({ target: data.name, ...window.sess });
-    }
-    ws.send(JSON.stringify({
-      name: username,
-      i: window.sess.i,
-    }));
-    return;
-  }
+  // if (window.sess && data.i && data.i <= window.sess.i) {
+  //   if (source === "rtc") {
+  //     sendChannel.send({ target: data.name, ...window.sess });
+  //   }
+  //   ws.send(JSON.stringify({
+  //     name: username,
+  //     i: window.sess.i,
+  //   }));
+  //   return;
+  // }
 
   if (data.type === "video-answer") {
     await handleChatAnswerMsg(data, data.name);
@@ -711,14 +711,14 @@ async function processWsMessage(event, source) {
     chCode(lastSeenCode);
   }
 
-  if (data.type === "codeReq") {
-    sendChannel.send({
-      hashOfCode: window.hashOfCode,
-      i: window.sess.i,
-      target: data.name,
-      code: window[window.hashOfCode],
-    });
-  }
+  // if (data.type === "codeReq") {
+  //   sendChannel.send({
+  //     hashOfCode: window.hashOfCode,
+  //     i: window.sess.i,
+  //     target: data.name,
+  //     code: window[window.hashOfCode],
+  //   });
+  // }
 
   if (data.code && data.hashOfCode) {
     if (!window[data.hashOfCode]) {
