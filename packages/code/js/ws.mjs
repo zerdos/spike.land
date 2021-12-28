@@ -164,6 +164,8 @@ export const join = async (room, user) => {
     ) => {
       const updatedState = mySession.session.state.toJS();
       updatedState.code = code;
+      updatedState.css = css;
+      updatedState.transpiled = transpiled;
       updatedState.i = i;
       const message = mySession.updateState(updatedState);
 

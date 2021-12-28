@@ -404,7 +404,8 @@ export class Code {
         if (data.patch) {
           this.mySession.applyPatch(data);
           this.broadcast(data);
-          await this.kv.put<ICodeSession>("session", this.mySession.session.state.toJS());
+          this.state.session = this.mySession.session.state.toJS();
+          await this.kv.put<ICodeSession>("session", this.state.session);
           return;
         }
 
