@@ -106,20 +106,24 @@ export const join = async (room, user) => {
     state,
     events: [],
   });
-  window.mySession = mySession;
-  const session = {
-    ...mySession.session.state.toJS(),
-    setChild: (c) => {},
-    changes: [],
 
-    children: [null],
-    errorText: "",
-  };
-  quickStart(
-    session,
-    roomName,
-    false,
-  );
+  window.mySession = mySession;
+  if (!window.sess) {
+    const session = {
+      ...mySession.session.state.toJS(),
+      setChild: (c) => {},
+      changes: [],
+
+      children: [null],
+      errorText: "",
+    };
+    quickStart(
+      session,
+      roomName,
+      false,
+    );
+    window.sess = session;
+  }
 
   if (sess) return;
   sess = true;
