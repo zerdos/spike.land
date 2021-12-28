@@ -80,6 +80,7 @@ function initSession(room: string, u: IUserJSON) {
 
 export interface ICodeSess {
   room: string;
+  hashCodeSession: number;
   hashCode: () => number;
   addEvent: (e: IEvent) => void;
   setRoom: (room: string) => void;
@@ -89,7 +90,7 @@ export interface ICodeSess {
 
 export class CodeSession implements ICodeSess {
   session: IUser;
-  hashCodeSession: Number;
+  hashCodeSession: number;
   public room: string = "";
   created: string = new Date().toISOString();
   constructor(room: string, user: IUserJSON) {
@@ -122,6 +123,7 @@ export class CodeSession implements ICodeSess {
         sessionStorage: storageAvailable("sessionStorage"),
       },
     })();
+
     this.hashCodeSession = this.session.get("state").hashCode();
   }
 

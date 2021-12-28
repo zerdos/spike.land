@@ -146,7 +146,15 @@ export class Code {
               "Content-Type": "application/json; charset=UTF-8",
             },
           });
-
+        case "hashCodeSession":
+          return new Response(this.mySession.hashCode(), {
+            status: 200,
+            headers: {
+              "Access-Control-Allow-Origin": "*",
+              "Cache-Control": "no-cache",
+              "Content-Type": "application/json; charset=UTF-8",
+            },
+          });
         case "mySession":
           return new Response(JSON.stringify(this.mySession.json()), {
             status: 200,

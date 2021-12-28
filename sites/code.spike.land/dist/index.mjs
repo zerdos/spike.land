@@ -12641,7 +12641,7 @@ var require_textdiff_patch = __commonJS({
 });
 
 // ../../packages/code/package.json
-var version = "0.4.35";
+var version = "0.4.37";
 
 // src/index.html
 var src_default = `<!DOCTYPE html>
@@ -17479,6 +17479,15 @@ var Code = class {
         }
         case "session":
           return new Response(JSON.stringify(this.state.session), {
+            status: 200,
+            headers: {
+              "Access-Control-Allow-Origin": "*",
+              "Cache-Control": "no-cache",
+              "Content-Type": "application/json; charset=UTF-8"
+            }
+          });
+        case "hashCodeSession":
+          return new Response(this.mySession.hashCode(), {
             status: 200,
             headers: {
               "Access-Control-Allow-Origin": "*",
