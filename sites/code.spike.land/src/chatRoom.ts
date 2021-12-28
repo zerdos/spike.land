@@ -405,6 +405,7 @@ export class Code {
         if (data.patch) {
           this.mySession.applyPatch(data);
           this.broadcast(data);
+          await this.state.storage.put<ISession>("session", this.mySession.state.session.toJS());
           return;
         }
 

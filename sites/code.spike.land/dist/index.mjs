@@ -13180,7 +13180,7 @@ var require_textdiff_create = __commonJS({
 });
 
 // ../../packages/code/package.json
-var version = "0.4.46";
+var version = "0.4.47";
 
 // src/index.html
 var src_default = `<!DOCTYPE html>
@@ -18163,7 +18163,6 @@ var Code = class {
       timestamp: Date.now()
     };
     webSocket.send(JSON.stringify(newConnEvent));
-    this.mySession.addEvent(newConnEvent);
     let session2 = {
       uuid,
       webSocket,
@@ -18183,13 +18182,6 @@ var Code = class {
       try {
         if (session2.quit) {
           if (session2.name && typeof session2.name === "string") {
-            this.mySession.addEvent({
-              type: "quit",
-              target: "broadcast",
-              uuid: self.crypto.randomUUID(),
-              name: session2.name,
-              timestamp: Date.now()
-            });
           }
           webSocket.close(1011, "WebSocket broken.");
           return;
@@ -18239,6 +18231,7 @@ var Code = class {
         }
         if (data.patch) {
           this.mySession.applyPatch(data);
+          this.state.storage.se;
           this.broadcast(data);
           return;
         }
