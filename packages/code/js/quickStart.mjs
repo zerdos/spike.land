@@ -271,7 +271,7 @@ export async function quickStart(session) {
   // session.children = await getReactChild(session.transpiled);
   session.children = null;
   const { renderPreviewWindow } = await import(
-    "./renderPreviewWindow.tsx"
+    "./dist/renderPreviewWindow.mjs"
   );
 
   await renderPreviewWindow(session);

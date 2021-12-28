@@ -55,6 +55,9 @@ await build([
   "js/session.tsx",
 ]);
 
+await build([
+  "js/renderPreviewWindow.tsx",
+]);
 // await build([
 //   //   "js/renderPreviewWindow.tsx",
 //   //   "js/templates.ts",

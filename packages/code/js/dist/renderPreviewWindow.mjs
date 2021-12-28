@@ -153,4 +153,4 @@ import{jsx as ms}from"https://unpkg.com/@spike.land/esm@0.3.75/dist/emotion-reac
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  */
-//# sourceMappingURL=renderPreviewWindow-ZYI7GX3Y.mjs.map
+//# sourceMappingURL=renderPreviewWindow.mjs.map
