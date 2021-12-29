@@ -581,7 +581,7 @@ var require_textdiff_create = __commonJS({
 });
 
 // ../../packages/code/package.json
-var version = "0.4.78";
+var version = "0.4.79";
 
 // src/index.html
 var src_default = `<!DOCTYPE html>

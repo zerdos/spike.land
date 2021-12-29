@@ -647,6 +647,12 @@ async function processWsMessage(event, source) {
     return;
   }
 
+  if (data.type === "video-answer") {
+    await handleChatAnswerMsg(data, data.name);
+
+    return;
+  }
+
   if (data.patch && source === "ws" || data.name !== username) {
     if (data.newHash === mySession.hashCode()) return;
 
@@ -711,12 +717,6 @@ async function processWsMessage(event, source) {
   //   }));
   //   return;
   // }
-
-  if (data.type === "video-answer") {
-    await handleChatAnswerMsg(data, data.name);
-
-    return;
-  }
 
   if (data.timestamp) {
     lastSeenNow = Date.now();
