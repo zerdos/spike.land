@@ -159,10 +159,11 @@ export const join = async (room, user) => {
       children: [null],
       errorText: "",
     };
+    const stayFullscreen = location.url.endsWith("public");
     quickStart(
       session,
       roomName,
-      false,
+      stayFullscreen,
       broad,
     );
     window.sess = session;
