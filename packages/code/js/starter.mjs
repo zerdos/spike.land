@@ -15,24 +15,24 @@ export const run = async (injectedRoom) => {
     .substring(0, 8);
 
   /// For local dev
-  if (document.getElementById("root").innerHTML.length === 0) {
-    const cacheKey = `state-${room}`;
-    const savedStateStr = localStorage.getItem(cacheKey);
-    if (!savedStateStr) {
-      const savedState = JSON.parse(savedStateStr);
-      const preRenderContainer = document.getElementById("root");
-      if (
-        preRenderContainer && savedState &&
-        preRenderContainer.innerHTML.length === 0
-      ) {
-        preRenderContainer.innerHTML = `<style>${savedState.css}</style>
-          <div id="zbody">${savedState.html}</div>`;
-        console.log(`<style>${savedState.css}</style>
-        ${savedState.html}
-        `);
-      }
-    }
-  }
+  // if (document.getElementById("root").innerHTML.length === 0) {
+  //   const cacheKey = `state-${room}`;
+  //   const savedStateStr = localStorage.getItem(cacheKey);
+  //   if (!savedStateStr) {
+  //     const savedState = JSON.parse(savedStateStr);
+  //     const preRenderContainer = document.getElementById("root");
+  //     if (
+  //       preRenderContainer && savedState &&
+  //       preRenderContainer.innerHTML.length === 0
+  //     ) {
+  //       preRenderContainer.innerHTML = `<style>${savedState.css}</style>
+  //         <div id="zbody">${savedState.html}</div>`;
+  //       console.log(`<style>${savedState.css}</style>
+  //       ${savedState.html}
+  //       `);
+  //     }
+  //   }
+  // }
 
   if (location.pathname.endsWith("hydrated")) {
     const App = (await import(

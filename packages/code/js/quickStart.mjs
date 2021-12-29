@@ -277,14 +277,14 @@ export async function quickStart(session, room, keepFullScreen) {
 
   await renderPreviewWindow(session, room, keepFullScreen);
 
-  if (localStorage && session) {
-    const { code, transpiled, html, css, i } = session;
-    localStorage.setItem(
-      `state-${session.room}`,
-      JSON.stringify({ code, transpiled, html, css, i }),
-    );
-  }
-  // document.getElementById("root").remove();
+  // if (localStorage && session) {
+  //   const { code, transpiled, html, css, i } = session;
+  //   localStorage.setItem(
+  //     `state-${session.room}`,
+  //     JSON.stringify({ code, transpiled, html, css, i }),
+  //   );
+  // }
+  // // document.getElementById("root").remove();
 
   if (!keepFullScreen) await startMonacoWithSession(session);
 }

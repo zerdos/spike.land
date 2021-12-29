@@ -43,7 +43,6 @@ export class Code {
   sessions: WebsocketSession[];
   constructor(state: IState, private env: CodeEnv) {
     this.kv = state.storage;
-
     this.state = state;
     this.sessions = [];
     this.env = env;
@@ -51,49 +50,23 @@ export class Code {
 
     const username =  self.crypto.randomUUID().substring(0,8);
     
-    this.mySession = startSession("",{
-      name: username,
-      users: [],
-      capabilities: {
-        prettier: false,
-        babel: false,
-        webRRT: false,
-        prerender:false,
-        IPFS: false
-      },
-      state: {  code:"", i:0, transpiled: "", html: "", css: "", errorDiff: "" },
-      events: [],
-    })
+ 
 
     this.state.blockConcurrencyWhile(async () => {
       const sessionMaybeStr = await this.kv.get<ISession>("session");
 
-      const session: ISession =
+      let session: ISession =
         typeof sessionMaybeStr === "string"
           ? JSON.parse(sessionMaybeStr)
           : sessionMaybeStr;
 
-      if (session && session.code) {
-       
-        let hashOfCode = await Hash.of(session.code);
-        this.state.session = session;
-        this.state.hashOfCode = hashOfCode;
-        this.hashCache[hashOfCode] = session.code;
-      }
-      else {
-
+      if (!session) {      
       const codeMainId = env.CODE.idFromName("code-main");
       const defaultRoomObject = env.CODE.get(codeMainId);
 
       const resp = await defaultRoomObject.fetch("session");
-      const defaultClone: ISession = await resp.json();
-
-        this.state.session = defaultClone;
-        //        this.state.session.code = RCA;
-
-        this.state.hashOfCode = await Hash.of(this.state.session.code);
-        this.hashCache[this.state.hashOfCode] = this.state.session.code;
-    }
+      session  = await resp.json();
+      }
 
     this.mySession = startSession("",{
       name: username,
@@ -127,7 +100,7 @@ export class Code {
 
       switch (path[0]) {
         case "code": {
-          return new Response(this.state.session.code, {
+          return new Response(this.mySession.session.state.code, {
             status: 200,
             headers: {
               "Access-Control-Allow-Origin": "*",
@@ -169,9 +142,7 @@ export class Code {
           //   'export default function(){};'
           // }
 
-          return new Response(
-            codeSpace === "sanyi" ? SANYI : this.state.session.transpiled,
-            {
+          return new Response(this.mySession.session.state.transpiled,{
               status: 200,
               headers: {
                 "Access-Control-Allow-Origin": "*",
@@ -182,8 +153,8 @@ export class Code {
           );
         }
         case "hydrated": {
-          const htmlContent = this.state.session.html;
-          const css = this.state.session.css;
+          const htmlContent = this.mySession.session.state.html;
+          const css = this.mySession.session.state.css;
 
           const html = HTML.replace(
             `<div id="root"></div>`,
@@ -208,20 +179,10 @@ export class Code {
             },
           });
         }
-        case "hashOfCode": {
-          return new Response(this.state.hashOfCode, {
-            status: 200,
-            headers: {
-              "Access-Control-Allow-Origin": "*",
-              "Cache-Control": "no-cache",
-              "Content-Type": "text/html; charset=UTF-8",
-            },
-          });
-        }
 
         case "public": {
-          const htmlContent = this.state.session.html;
-          const css = this.state.session.css;
+          const htmlContent = this.mySession.session.state.html;
+          const css = this.mySession.session.state.css;
 
           const html = HTML.replace(
             `<div id="root"></div>`,
@@ -293,8 +254,8 @@ export class Code {
         session.blockedMessages.push(
           JSON.stringify({
             joined: otherSession.name,
-            i: this.state.session.i,
-            hashOfCode: this.state.hashOfCode,
+            i: this.mySession.session.state.i,
+            hashCode: this.mySession.session.state.hashCode()
           })
         );
       }
@@ -375,11 +336,8 @@ export class Code {
           // this.broadcast({ joined: session.name });
 
           const messageEv = {
-            ready: true,
             type: "code-init",
-            hashOfCode: this.state.hashOfCode,
-            ...this.state.session,
-            uuid: data.uuid
+            hashCode: this.mySession.session.state.hashCode,
           }
       
           webSocket.send(
@@ -403,155 +361,156 @@ export class Code {
 
         if (data.patch) {
           this.mySession.applyPatch(data);
-          this.broadcast(data);
-          this.state.session = this.mySession.session.state.toJS();
-          await this.kv.put<ICodeSession>("session", this.state.session);
+          if(data.newHashCode===this.mySession.session.state.hashCode()) this.broadcast(data);
+   
+          const session = this.mySession.session.state.toJS();
+          await this.kv.put<ICodeSession>("session", session);
           return;
         }
 
-        if (data.i) {
-          if (data.i <= this.state.session.i) {
-            this.user2user(data.name, { ...this.state.session });
-            return;
-          }
+        // if (data.i) {
+        //   if (data.i <= this.state.session.i) {
+        //     this.user2user(data.name, { ...this.state.session });
+        //     return;
+        //   }
 
-          if (data.code && data.i > this.state.session.i) {
-            const hash = await Hash.of(data.code);
+        //   if (data.code && data.i > this.state.session.i) {
+        //     const hash = await Hash.of(data.code);
 
-            if (data.hashOfCode === hash) {
-              this.state.session.i = data.i;
-              this.state.session.code = data.code;
-              this.state.session.html = data.html;
-              this.state.session.css = data.css;
-              this.state.session.transpiled = data.transpiled;
-              this.state.hashOfCode = hash;
-              this.hashCache[hash] = data.code;
+        //     if (data.hashOfCode === hash) {
+        //       this.state.session.i = data.i;
+        //       this.state.session.code = data.code;
+        //       this.state.session.html = data.html;
+        //       this.state.session.css = data.css;
+        //       this.state.session.transpiled = data.transpiled;
+        //       this.state.hashOfCode = hash;
+        //       this.hashCache[hash] = data.code;
 
-              this.broadcast(msg.data);
-              await this.kv.put("session", this.state.session);
-              return;
-            }
-          }
-          let patched = false;
-          let code = data.code;
-          let html = data.html;
-          let css = data.css;
-          let i = data.i;
-          let transpiled = data.transpiled;
-          const hashOfStarterCode = data.hashOfStarterCode;
+        //       this.broadcast(msg.data);
+        //       await this.kv.put("session", this.state.session);
+        //       return;
+        //     }
+        //   }
+        //   let patched = false;
+        //   let code = data.code;
+        //   let html = data.html;
+        //   let css = data.css;
+        //   let i = data.i;
+        //   let transpiled = data.transpiled;
+        //   const hashOfStarterCode = data.hashOfStarterCode;
 
-          const codeDiff = data.codeDiff;
-          const transpiledDiff = data.transpiledDiff;
-          const htmlDiff = data.htmlDiff;
-          const cssDiff = data.cssDiff;
-          const hashOfPatched = data.hashOfCode;
+        //   const codeDiff = data.codeDiff;
+        //   const transpiledDiff = data.transpiledDiff;
+        //   const htmlDiff = data.htmlDiff;
+        //   const cssDiff = data.cssDiff;
+        //   const hashOfPatched = data.hashOfCode;
 
-          let previousCode = this.state.session.code;
-          let hashOfPreviousCode = this.state.hashOfCode;
+        //   let previousCode = this.state.session.code;
+        //   let hashOfPreviousCode = this.state.hashOfCode;
 
-          data = { name: session.name };
+        //   data = { name: session.name };
 
-          this.sessions;
+        //   this.sessions;
 
-          if (code) {
-            this.state.session.code = code;
-            const hashOfCode = await Hash.of(code);
-            this.state.session.css = css;
-            this.state.session.html = html;
-            this.state.session.transpiled = transpiled;
-            if (hashOfCode === data.hashOfCode) {
-              this.state.hashOfCode = hashOfCode;
-              this.hashCache[hashOfCode] = code;
-            } else {
-              return;
-            }
-          } else if (hashOfStarterCode != hashOfPreviousCode) {
-            previousCode = this.hashCache[hashOfStarterCode];
-            hashOfPreviousCode = hashOfStarterCode;
-          }
-          if (codeDiff && previousCode) {
-            code = applyPatch(previousCode, codeDiff);
+        //   if (code) {
+        //     this.state.session.code = code;
+        //     const hashOfCode = await Hash.of(code);
+        //     this.state.session.css = css;
+        //     this.state.session.html = html;
+        //     this.state.session.transpiled = transpiled;
+        //     if (hashOfCode === data.hashOfCode) {
+        //       this.state.hashOfCode = hashOfCode;
+        //       this.hashCache[hashOfCode] = code;
+        //     } else {
+        //       return;
+        //     }
+        //   } else if (hashOfStarterCode != hashOfPreviousCode) {
+        //     previousCode = this.hashCache[hashOfStarterCode];
+        //     hashOfPreviousCode = hashOfStarterCode;
+        //   }
+        //   if (codeDiff && previousCode) {
+        //     code = applyPatch(previousCode, codeDiff);
 
-            const hashOfCode = await Hash.of(code);
+        //     const hashOfCode = await Hash.of(code);
 
-            if (hashOfCode === hashOfPatched) {
-              patched = true;
-              this.state.hashOfCode = hashOfCode;
-              this.state.session.code = code;
+        //     if (hashOfCode === hashOfPatched) {
+        //       patched = true;
+        //       this.state.hashOfCode = hashOfCode;
+        //       this.state.session.code = code;
 
-              data.hashOfCode = hashOfCode;
-              data.hashOfPreviousCode = hashOfPreviousCode;
-              data.codeDiff = codeDiff;
-            } else {
-              data.decoded = code;
-              data.gotHash = hashOfCode;
-              data.expected = data.hashOfCode;
-              data.error = "Code mismatch";
-            }
-          }
+        //       data.hashOfCode = hashOfCode;
+        //       data.hashOfPreviousCode = hashOfPreviousCode;
+        //       data.codeDiff = codeDiff;
+        //     } else {
+        //       data.decoded = code;
+        //       data.gotHash = hashOfCode;
+        //       data.expected = data.hashOfCode;
+        //       data.error = "Code mismatch";
+        //     }
+        //   }
 
-          // if (data..length > 4096) {
-          //   webSocket.send(JSON.stringify({ error: "Message too long." }));
-          //   return;
-          // }
+        //   // if (data..length > 4096) {
+        //   //   webSocket.send(JSON.stringify({ error: "Message too long." }));
+        //   //   return;
+        //   // }
 
-          data.timestamp = Math.max(
-            Date.now(),
-            this.state.session.lastTimestamp + 1
-          );
-          this.state.session.lastTimestamp = data.timestamp;
+        //   data.timestamp = Math.max(
+        //     Date.now(),
+        //     this.state.session.lastTimestamp + 1
+        //   );
+        //   this.state.session.lastTimestamp = data.timestamp;
 
-          // Broadcast the message to all other WebSockets.
-          let dataStr = JSON.stringify({
-            ...data,
-            i: data.i,
-            hashOfCode: data.hashOfCode,
-          });
-          this.broadcast(dataStr);
+        //   // Broadcast the message to all other WebSockets.
+        //   let dataStr = JSON.stringify({
+        //     ...data,
+        //     i: data.i,
+        //     hashOfCode: data.hashOfCode,
+        //   });
+        //   this.broadcast(dataStr);
 
-          if (patched) {
-            try {
-              if (cssDiff) css = applyPatch(this.state.session.css, cssDiff);
-              if (transpiledDiff) {
-                transpiled = applyPatch(
-                  this.state.session.transpiled,
-                  transpiledDiff
-                );
-              }
-              if (htmlDiff) {
-                html = applyPatch(this.state.session.html, htmlDiff);
-              }
-              this.state.session.css = css;
-              this.state.session.html = html;
-              this.state.session.transpiled = transpiled;
-            } catch {
-              data.errorUnDiff = true;
-            }
-          }
-          // Save message.
-          if (code && code === this.state.session.code) {
-            // await this.kv.put(hashOfCode, code);
-            await this.kv.put("code", code);
-          } else {
-            return;
-          }
+        //   if (patched) {
+        //     try {
+        //       if (cssDiff) css = applyPatch(this.state.session.css, cssDiff);
+        //       if (transpiledDiff) {
+        //         transpiled = applyPatch(
+        //           this.state.session.transpiled,
+        //           transpiledDiff
+        //         );
+        //       }
+        //       if (htmlDiff) {
+        //         html = applyPatch(this.state.session.html, htmlDiff);
+        //       }
+        //       this.state.session.css = css;
+        //       this.state.session.html = html;
+        //       this.state.session.transpiled = transpiled;
+        //     } catch {
+        //       data.errorUnDiff = true;
+        //     }
+        //   }
+        //   // Save message.
+        //   if (code && code === this.state.session.code) {
+        //     // await this.kv.put(hashOfCode, code);
+        //     await this.kv.put("code", code);
+        //   } else {
+        //     return;
+        //   }
 
-          if (html) {
-            await this.kv.put("html", html);
-          }
-          if (transpiled) {
-            await this.kv.put("transpiled", transpiled);
-          }
-          if (css) {
-            await this.kv.put("css", css);
-          }
+        //   if (html) {
+        //     await this.kv.put("html", html);
+        //   }
+        //   if (transpiled) {
+        //     await this.kv.put("transpiled", transpiled);
+        //   }
+        //   if (css) {
+        //     await this.kv.put("css", css);
+        //   }
 
-          let key = new Date(this.state.session.lastTimestamp).toISOString();
-          await this.kv.put(key, dataStr);
+        //   let key = new Date(this.state.session.lastTimestamp).toISOString();
+        //   await this.kv.put(key, dataStr);
 
-          webSocket.send(JSON.stringify({ msg: "end of fn" }));
-          return;
-        }
+        //   webSocket.send(JSON.stringify({ msg: "end of fn" }));
+        //   return;
+        // }
       } catch {
         webSocket.send(
           JSON.stringify({

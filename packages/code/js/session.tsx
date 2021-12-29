@@ -99,23 +99,23 @@ export class CodeSession implements ICodeSess {
   constructor(room: string, user: IUserJSON) {
     let savedState: ICodeSession | null = null;
     this.room = room;
-    if (user.state.code === "" && room) {
-      const cacheKey = `state-${room}`;
+    // if (user.state.code === "" && room) {
+    // const cacheKey = `state-${room}`;
 
-      if (storageAvailable("localStorage")) {
-        const savedStateStr = localStorage.getItem(cacheKey);
-        if (savedStateStr) {
-          savedState = JSON.parse(savedStateStr);
-        } else {
-          fetch(`https://code.spike.land/api/room/${room}/mySession`).then(
-            (resp) => resp.json(),
-          ).then((session: IUserJSON) => {
-            localStorage.setItem(cacheKey, JSON.stringify(session.state));
-            this.session.set("state", Record(session.state)());
-          });
-        }
-      }
-    }
+    // if (storageAvailable("localStorage")) {
+    //   const savedStateStr = localStorage.getItem(cacheKey);
+    //   if (savedStateStr) {
+    //     savedState = JSON.parse(savedStateStr);
+    //   } else {
+    //     fetch(`https://code.spike.land/api/room/${room}/mySession`).then(
+    //       (resp) => resp.json(),
+    //     ).then((session: IUserJSON) => {
+    //       localStorage.setItem(cacheKey, JSON.stringify(session.state));
+    //       this.session.set("state", Record(session.state)());
+    //     });
+    //   }
+    // }
+    // }
 
     this.session = initSession(room, {
       ...user,
@@ -161,12 +161,12 @@ export class CodeSession implements ICodeSess {
           this.session.set("events", events);
           this.session.set("state", Record(sess)());
 
-          const cacheKey = `state-${this.room}`;
+          // const cacheKey = `state-${this.room}`;
 
-          if (storageAvailable("localStorage")) {
-            localStorage.setItem(cacheKey, JSON.stringify(sess));
-          }
-          this.session.set("events", events);
+          // if (storageAvailable("localStorage")) {
+          //   localStorage.setItem(cacheKey, JSON.stringify(sess));
+          // }
+          // this.session.set("events", events);
       }
     }
   }
