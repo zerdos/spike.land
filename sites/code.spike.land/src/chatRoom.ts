@@ -361,9 +361,15 @@ export class Code {
 
         if (data.patch) {
           this.mySession.applyPatch(data);
-          if(data.newHashCode===this.mySession.session.state.hashCode()) this.broadcast(data);
-   
           const session = this.mySession.session.state.toJS();
+          if(data.newHashCheck===this.mySession.session.state.hashCode()) {
+            this.broadcast(data);
+          } else {
+              this.user2user(data.name, {hashCode: this.mySession.session.state.hashCode()})
+          }
+             
+          
+     
           await this.kv.put<ICodeSession>("session", session);
           return;
         }
