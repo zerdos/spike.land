@@ -67,11 +67,11 @@ interface DraggableWindowProps {
     errorText: string;
     children: any;
     css: string;
-    room: string;
     setChild: any;
   };
   keepFullScreen: boolean;
   position?: string;
+  room: string;
 }
 
 export const DraggableWindow: FC<DraggableWindowProps> = (
@@ -83,7 +83,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
 
   const [childArray, setChild] = useState([
     <LazySpikeLandComponent
-      name={session.room}
+      name={room}
       cssText={session.css}
       html={session.html}
     />,

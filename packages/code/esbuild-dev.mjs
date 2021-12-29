@@ -53,7 +53,6 @@ await build([
   "js/mui.tsx",
   "js/startMonaco.ts",
   "js/session.tsx",
-  "js/getSession.tsx",
 ]);
 
 await build([

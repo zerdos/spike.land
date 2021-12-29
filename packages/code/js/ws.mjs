@@ -2,9 +2,9 @@
 
 /*eslint-enable */
 
-import initSession from "./dist/session.mjs";
+// import initSession from "./dist/session.mjs";
 
-import { quickStart } from "./quickStart.mjs";
+import { initSession, quickStart } from "./quickStart.mjs";
 
 let currentWebSocket = null;
 let sess = false;

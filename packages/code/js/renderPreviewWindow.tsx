@@ -49,6 +49,7 @@ export const renderPreviewWindow = async (
       position={session.mode === "window" ? "fixed" : "absolute"}
       session={session}
       keepFullScreen={keepFullScreen}
+      room={room}
     />,
   );
 
