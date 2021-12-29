@@ -92,6 +92,7 @@ export interface ICodeSess {
   processEvents: () => void;
 }
 
+const hashStore: { [key: number]: Record<ICodeSession> } = {};
 export class CodeSession implements ICodeSess {
   session: IUser;
   hashCodeSession: number;
@@ -129,6 +130,7 @@ export class CodeSession implements ICodeSess {
     })();
 
     this.hashCodeSession = this.session.get("state").hashCode();
+    hashStore[this.session.get("state").hashCode()] = this.session.get("state");
   }
 
   public addEvent(e: IEvent) {
@@ -171,6 +173,26 @@ export class CodeSession implements ICodeSess {
       }
     }
   }
+
+  public createPatchFromHashCode(oldHash: number, state: ICodeSession) {
+    if (hashStore[oldHash]) {
+      const oldRec = hashStore[oldHash];
+      const oldState = JSON.stringify(oldRec.toJSON());
+
+      const newRec = oldRec.merge(state);
+      const newHash = newRec.hashCode();
+      hashStore[newHash] = newRec;
+
+      const newState = JSON.stringify(newRec.toJSON());
+      const patch = createPatch(oldState, newState);
+      return {
+        oldHash,
+        newHash,
+        patch,
+      };
+    }
+  }
+
   public createPatch(state: ICodeSession) {
     if (state.code === this.session.get("state").get("code")) {
       return {
@@ -182,10 +204,13 @@ export class CodeSession implements ICodeSess {
     const oldState = JSON.stringify(this.session.get("state").toJSON());
 
     const oldHash = this.session.get("state").hashCode();
-
+    hashStore[oldHash] = this.session.get("state");
     const oldRec = this.session.get("state");
+
     const newRec = oldRec.merge(state);
     const newHash = newRec.hashCode();
+
+    hashStore[newHash] = newRec;
 
     const newState = JSON.stringify(newRec.toJSON());
     const patch = createPatch(oldState, newState);

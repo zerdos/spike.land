@@ -14,6 +14,8 @@ const webrtcArray = [];
 let hostname = "code.spike.land";
 const mod = {};
 
+let WSHASH = "";
+let RTCHASH = "";
 let roomName = "";
 let username = "";
 let lastSeenTimestamp = 0;
@@ -116,8 +118,10 @@ async function broad(
     updatedState.transpiled = transpiled;
     updatedState.code = code;
     updatedState.i = i;
-    const message = mySession.createPatch(updatedState);
-    if (message.patch !== "") {
+    const message = RTCHASH
+      ? mySession.createPatchFromHashCode(RTCHASH, updatedState)
+      : mySession.createPatch(updatedState);
+    if (message && message.patch !== "") {
       sendChannel.send(message);
     }
   }
@@ -141,11 +145,15 @@ async function broad(
     updatedState.transpiled = transpiled;
     updatedState.code = code;
     updatedState.i = i;
-    const message = mySession.createPatch(updatedState);
+    const message = WSHASH
+      ? mySession.createPatchFromHashCode(WSHASH, updatedState)
+      : mySession.createPatch(updatedState);
 
     // console.log("APPLY");
     // mySession.applyPatch(message);
     // console.log(mySession.hashCode());
+
+    if (!message) return;
 
     const msgStr = JSON.stringify({ ...message, name: username });
     if (message.patch !== "") currentWebSocket.send(msgStr);
@@ -341,7 +349,18 @@ async function createPeerConnection(target) {
 
   rtc.binaryType = "arraybuffer";
 
-  rtc.addEventListener("message", (msg) => processWsMessage(msg, "rtc"));
+  rtc.addEventListener("message", (msg) => {
+    console.log("***********RTC***", { msg });
+
+    const data = JSON.parse(msg.data);
+    if (data && data.hashCode) {
+      RTCHASH = data.hashCode;
+    }
+    if (data && data.newHash) {
+      RTCHASH = data.newHash;
+    }
+    return processWsMessage(msg, "rtc");
+  });
 
   rtc.onerror = (error) => {
     console.log("xxxxxx-  Data Channel Error:", error);
@@ -610,7 +629,6 @@ async function handleChatOffer(msg, target) {
 
 // Called by the WebRTC layer to let us know when it's time to
 // begin, resume, or restart ICE negotiation.
-
 async function processWsMessage(event, source) {
   // if (!toolsImported) {
   //   await importTools();
@@ -653,16 +671,21 @@ async function processWsMessage(event, source) {
     return;
   }
 
+  if (source === ws && data.hashCode) {
+    WSHASH = data.hashCode;
+  }
+
   if (data.patch && source === "ws" || data.name !== username) {
     if (data.newHash === mySession.hashCode()) return;
 
     if (data.oldHash === mySession.hashCode()) {
-      console.log("******** APPLY PATCH ******");
+      // console.log("******** APPLY PATCH ******");
       mySession.applyPatch(data);
       chCode(
         mySession.session.get("state").code,
         mySession.session.get("state").i,
       );
+      if (sendChannel) sendChannel.send({ hashCode: data.newHash });
     }
 
     if (data.newHash === mySession.hashCode()) return;
