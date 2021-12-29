@@ -95,7 +95,7 @@ async function getHTMLResp(env, room) {
   return new Response(
     HTML.replace(
       `<div id="root"></div>`,
-      `<div id ="root"><style>${css}</style>${html}</div>`
+      `<div id="root"><style>${css}</style><div id="zbody>${html}</div></div>`
     ).replace("{VERSION}",version),
     {
       headers: {

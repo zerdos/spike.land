@@ -581,7 +581,7 @@ var require_textdiff_create = __commonJS({
 });
 
 // ../../packages/code/package.json
-var version = "0.4.72";
+var version = "0.4.73";
 
 // src/index.html
 var src_default = `<!DOCTYPE html>
@@ -865,7 +865,7 @@ async function getHTMLResp(env, room) {
   let roomObject = env.CODE.get(id);
   const resp = await roomObject.fetch("session");
   const { html, css } = await resp.json();
-  return new Response(src_default.replace(`<div id="root"></div>`, `<div id ="root"><style>${css}</style>${html}</div>`).replace("{VERSION}", version), {
+  return new Response(src_default.replace(`<div id="root"></div>`, `<div id="root"><style>${css}</style><div id="zbody>${html}</div></div>`).replace("{VERSION}", version), {
     headers: {
       "Content-Type": "text/html;charset=UTF-8",
       "Cache-Control": "no-cache"
