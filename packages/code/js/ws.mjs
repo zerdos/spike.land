@@ -694,7 +694,7 @@ async function processWsMessage(event, source) {
 
     if (data.code && data.transpiled) {
       const messageData = mySession.createPatch(data);
-      mySession.patch(messageData);
+      mySession.applyPatch(messageData);
       chCode(data.code);
       if (sendChannel) sendChannel.send({ hashCode: messageData.newHash });
       return;
