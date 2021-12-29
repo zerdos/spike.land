@@ -581,7 +581,7 @@ var require_textdiff_create = __commonJS({
 });
 
 // ../../packages/code/package.json
-var version = "0.4.63";
+var version = "0.4.64";
 
 // src/index.html
 var src_default = `<!DOCTYPE html>
@@ -5202,10 +5202,10 @@ var CodeSession = class {
     }
   }
   updateState(state) {
-    const oldState = JSON.stringify(this.session.get("state").toJS());
+    const oldState = JSON.stringify(this.session.get("state").toJSON());
     const oldHash = this.session.get("state").hashCode();
     this.session = this.session.set("state", Record(state)());
-    const newState = JSON.stringify(this.session.get("state").toJS());
+    const newState = JSON.stringify(this.session.get("state").toJSON());
     const newHash = this.session.get("state").hashCode();
     const patch = createPatch(oldState, newState);
     return {
@@ -5224,7 +5224,7 @@ var CodeSession = class {
       console.error("Cant update");
       return;
     }
-    const oldState = JSON.stringify(this.session.get("state").toJS());
+    const oldState = JSON.stringify(this.session.get("state").toJSON());
     const newState = JSON.parse((0, import_textdiff_patch.default)(oldState, JSON.parse(patch)));
     this.session = this.session.set("state", Record(newState)());
     const newHashCheck = this.session.get("state").hashCode();
@@ -5322,7 +5322,7 @@ var Code = class {
           });
         }
         case "session":
-          return new Response(JSON.stringify(mST().toJS()), {
+          return new Response(JSON.stringify(mST().toJSON()), {
             status: 200,
             headers: {
               "Access-Control-Allow-Origin": "*",
@@ -5331,7 +5331,7 @@ var Code = class {
             }
           });
         case "hashCodeSession":
-          return new Response(mST().hashCode(), {
+          return new Response(this.state.mySession.hashCode(), {
             status: 200,
             headers: {
               "Access-Control-Allow-Origin": "*",
@@ -5432,7 +5432,7 @@ var Code = class {
         session2.blockedMessages.push(JSON.stringify({
           joined: otherSession.name,
           i: mST().i,
-          hashCode: mST().hashCode()
+          hashCode: this.state.mySession.hashCode()
         }));
       }
     });
@@ -5464,7 +5464,7 @@ var Code = class {
           session2.blockedMessages = [];
           const messageEv = {
             type: "code-init",
-            hashCode: mST().hashCode()
+            hashCode: this.state.mySession.hashCode()
           };
           webSocket.send(JSON.stringify(messageEv));
           return;
@@ -5473,21 +5473,21 @@ var Code = class {
           this.user2user(data.target, { name: session2.name, ...data });
           return;
         }
-        if (data.patch && data.oldHash === mST().hashCode()) {
+        if (data.patch && data.oldHash === this.state.mySession.hashCode()) {
           const newHash = data.newHash;
           const oldHash = data.oldHash;
           const patch = data.patch;
           this.state.mySession.applyPatch(data);
-          if (newHash === mST().hashCode()) {
+          if (newHash === this.state.mySession.hashCode()) {
             this.broadcast(msg.data);
-            const session3 = mST().toJS();
+            const session3 = mST().toJSON();
             await this.kv.put("session", session3);
             await this.kv.put(String(newHash), {
               oldHash,
               patch
             });
           } else {
-            this.user2user(data.name, { hashCode: mST().hashCode() });
+            this.user2user(data.name, { hashCode: this.state.mySession.hashCode() });
           }
           return;
         }

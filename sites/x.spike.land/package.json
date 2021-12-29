@@ -13,12 +13,12 @@
     "@cloudflare/wrangler": "1.19.6",
     "@spike.land/cf-npm-site": "^0.4.62",
     "@spike.land/code": "^0.4.64",
-    "esbuild": "0.14.8"
+    "esbuild": "0.14.9"
   },
   "private": true,
   "dependencies": {
     "@types/websocket": "1.0.4",
-    "esbuild-wasm": "^0.14.8",
+    "esbuild-wasm": "^0.14.9",
     "textdiff-patch": "1.0.5"
   }
 }

@@ -30,7 +30,7 @@
   "gitHead": "9a6c323d30cdcb35a077b26f0c6ae6e68e923229",
   "dependencies": {
     "diff": "5.0.0",
-    "esbuild": "0.14.8",
+    "esbuild": "0.14.9",
     "idb": "7.0.0",
     "ipfs-only-hash": "4.0.0"
   },

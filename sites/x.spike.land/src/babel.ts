@@ -3,7 +3,7 @@
 // // const instance = new WebAssembly.Instance(MYWASMBINDINGNAME);
 
 // const init = esbuild.initialize({
-//   wasmURL: "https://unpkg.com/esbuild-wasm@0.14.8/esbuild.wasm",
+//   wasmURL: "https://unpkg.com/esbuild-wasm@0.14.9/esbuild.wasm",
 //   worker: false
 // });
 
