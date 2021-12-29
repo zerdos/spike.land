@@ -262,7 +262,7 @@ export async function quickStart(session, room, keepFullScreen, saveCode) {
 
   if (!keepFullScreen) await startMonacoWithSession(session);
   session.update = (c) => runner(c, null, session);
-  session.update(session.code);
+  runner(session.code, null, session, -1);
 }
 
 async function getReactChild(transpiled, mode = "window") {

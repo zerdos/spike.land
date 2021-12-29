@@ -581,7 +581,7 @@ var require_textdiff_create = __commonJS({
 });
 
 // ../../packages/code/package.json
-var version = "0.4.83";
+var version = "0.4.84";
 
 // ../../packages/cf-npm-site/dist/index.mjs
 function src_default(packageName, version2, serveDir = "") {
@@ -5504,6 +5504,11 @@ var Code = class {
             error: "Your IP is being rate-limited, please try again later."
           }));
           return;
+        }
+        if (data.type = "lost") {
+          webSocket.send(JSON.stringify({
+            ...mST().toJSON()
+          }));
         }
         if (!session2.name && data.name) {
           session2.name = "" + (data.name || "anonymous");
