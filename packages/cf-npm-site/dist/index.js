@@ -62,7 +62,7 @@ export default function (packageName, version, serveDir = "") {
             return resp;
         }
         catch (Error) {
-            return new Response(`Yayy... ${Object.prototype.toString.call(Error)}`);
+            return new Response(`No... ${Object.prototype.toString.call(Error)}`);
         }
     };
 }

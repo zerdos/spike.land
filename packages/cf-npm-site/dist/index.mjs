@@ -52,7 +52,7 @@ function src_default(packageName, version, serveDir = "") {
         myCache.put(request, resp.clone());
       return resp;
     } catch (Error) {
-      return new Response(`Yayy... ${Object.prototype.toString.call(Error)}`);
+      return new Response(`No... ${Object.prototype.toString.call(Error)}`);
     }
   };
 }

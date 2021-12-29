@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["../getSession.tsx"],
+  "sourcesContent": ["import state from \"https://code.spike.land/api/room/code-main/session\" assert {\n  type: \"json\",\n};\n// @ts-expect-error\nimport type { ISession } from \"./session.tsx\" assert {\n  type: \"json\",\n};\n\nexport const session: ISession = state;\n"],
+  "mappings": "AAAA,wEACE,KAAM,QAOD,GAAM,GAAoB",
+  "names": []
+}

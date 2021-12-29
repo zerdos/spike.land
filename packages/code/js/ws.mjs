@@ -1,22 +1,24 @@
-/import state from "https://code.spike.land/api/room/code-main/session" assert {
-  type: "json",
-};
+/*eslint-disable */
+
+import { state } from "./dist/getSession.mjs";
+
+/*eslint-enable */
+
 import { initSession, quickStart } from "./quickStart.mjs";
 
 let currentWebSocket = null;
 let lastMsg = null;
 let sess = false;
-const mod = {};
 let sanyiProcess = null;
 
 const webrtcArray = [];
 let hostname = "code.spike.land";
+const mod = {};
 
 let roomName = "";
 let username = "";
 let lastSeenTimestamp = 0;
 let lastSeenNow = 0;
-let lastSeenCode = "";
 let ws;
 let chCode;
 let startTime;
@@ -24,10 +26,8 @@ let rejoined = false;
 let sendChannel;
 // let createDelta;
 // let applyPatch;
-let Hash;
 let mySession = null;
-
-let toolsImported = 0;
+let intervalHandler = null;
 
 // function createPatch(oldCode, newCode) {
 //   return JSON.stringify(createDelta(oldCode, newCode));
@@ -47,9 +47,7 @@ let toolsImported = 0;
 chCode = globalThis.chCode = async (code) => {
   if (!code) return;
   try {
-    if (
-      window.sess && window.monaco && window.monaco.editor.getModels().length
-    ) {
+    if (window.monaco && window.monaco.editor.getModels().length) {
       //     const hashOfCode = await Hash.of(code);
       //   window.hashOfCode = hashOfCode;
       // window[hashOfCode] = code;
@@ -93,7 +91,6 @@ let rejoin = async () => {
 //   const patches = dmp.patch_make(from, to);
 //   return dmp.patch_toText(patches);
 // }
-let intervalHandler = null;
 
 export const join = async (room, user) => {
   roomName = roomName || room || "code-main";
@@ -144,6 +141,7 @@ export const join = async (room, user) => {
       intervalHandler = setInterval(() => {
         const now = Date.now();
         const diff = now - lastSeenNow;
+
         if (now - lastSeenNow > 30_000) {
           try {
             ws.send(
@@ -160,49 +158,38 @@ export const join = async (room, user) => {
     }
     currentWebSocket = ws;
     const broad = async (
-      { code, hashOfCode, starterCode, transpiled, html, css, i },
+      { code, transpiled, html, css, i },
     ) => {
+      const now = Date.now();
+      mod.i = i;
+      if (mod.lastUpdate) {
+        const diff = now - mod.lastUpdate;
+        if (diff < 300) {
+          await wait(300 - diff);
+          if (i !== mod.i) return;
+        }
+      }
+
+      mod.lastUpdate = Date.now();
       const updatedState = mySession.session.state.toJS();
+
       updatedState.code = code;
       updatedState.html = html;
       updatedState.css = css;
       updatedState.transpiled = transpiled;
       updatedState.i = i;
+      const message = mySession.updateState(updatedState);
 
-      setTimeout(() => {
-        if (window.sess.i !== updatedState.i) return;
-        const message = mySession.updateState(updatedState);
+      const msgStr = JSON.stringify({ ...message, name: username });
+      lastMsg = msgStr;
 
-        const msgStr = JSON.stringify({ ...message, name: username });
-        lastMsg = msgStr;
+      if (sendChannel) {
+        sendChannel.send(message);
+      }
 
-        const retry = (msg) =>
-          setTimeout(() => {
-            if (msg !== lastMsg) return;
-
-            try {
-              if (currentWebSocket === null) {
-                rejoin();
-                retry(msg);
-              }
-
-              currentWebSocket.send(msg);
-            } catch {
-              retry(msg);
-            }
-          }, 500);
-
-        try {
-          if (sendChannel) {
-            sendChannel.send(message);
-          } else if (currentWebSocket) {
-            currentWebSocket.send(msgStr);
-            return;
-          }
-        } catch {
-          retry(msgStr);
-        }
-      }, 300);
+      if (currentWebSocket) {
+        currentWebSocket.send(msgStr);
+      }
     };
 
     globalThis.broad = broad;
@@ -848,4 +835,11 @@ async function processWsMessage(event, source) {
 
   // addChatMessage(data.name, data.message);
   lastSeenTimestamp = data.timestamp;
+}
+function wait(delay) {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve();
+    }, delay);
+  });
 }
