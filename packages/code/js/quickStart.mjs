@@ -88,53 +88,14 @@ async function getErrors({ monaco, editor }) {
 // let getHtmlAndCss;
 
 async function runner(c, changes = null, session, counter) {
-  session.changes.push(changes);
+  // if (!esbuildEsmTransform || !formatter ) session.broad({...session, code: c, errorText: "PRE" })
 
-  // saveCode = saveCode || (await import("./data.mjs")).saveCode;
-  // getHtmlAndCss = getHtmlAndCss ||
-  //   (await import("./renderToString")).getHtmlAndCss;
+  session.changes.push(changes);
   formatter = formatter || (await import(`./formatter.mjs`)).formatter;
   esbuildEsmTransform = esbuildEsmTransform ||
     (await import(`./esbuildEsm.mjs`)).transform;
 
-  // esbuildTransform = esbuildTransform ||
-  //   (await import(`./esbuild.mjs`)).transform;
-
-  // babelTransform = babelTransform ||
-  // (await import(`./babel.mjs`)).babelTransform;
-
-  // transform =transform || ((code) => Promise.any([babelTransform(code),esbuildEsmTransform(code), esbuildTransform(code)]))
-
   transform = esbuildEsmTransform;
-
-  if (window.sendChannel) {
-    // const Hash = (aait import("ipfs-only-hash")).default;
-    // const hashOfCode = await Hash.of(c);
-    // if (
-    //   window.hashOfCode === window.hashOfStarterCode &&
-    //   window.hashOfCode === hashOfCode
-    // ) {
-    //   return;
-    // }
-    // window[hashOfCode] = c;
-    // const prevHash = await Hash.of(session.code);
-    // window[prevHash] = session.code;
-
-    // if (window.hashOfCode !== hashOfCode) {
-    //   const starterCode = session.code;
-    //   const createDelta = (await import("textdiff-create")).default;
-    //   const codeDiff = createPatch(starterCode, c, createDelta);
-
-    //   if (counter < session.i) return;
-    //   window.sendChannel.send({
-    //     changes,
-    //     i: session.i,
-    //     hashOfCode,
-    //     prevHash,
-    //     codeDiff,
-    //   });
-    // }
-  }
 
   session.errorText = "";
 
@@ -301,6 +262,7 @@ export async function quickStart(session, room, keepFullScreen, saveCode) {
 
   if (!keepFullScreen) await startMonacoWithSession(session);
   session.update = (c) => runner(c, null, session);
+  session.update(session.code);
 }
 
 async function getReactChild(transpiled, mode = "window") {
