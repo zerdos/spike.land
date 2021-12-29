@@ -48,7 +48,7 @@ let intervalHandler = null;
 chCode = globalThis.chCode = async (code, i) => {
   if (!code) return;
   if (i < window.sess.i) return;
-  if (code === window.sess.codeNonFormatted) return;
+  if (code === window.sess.code) return;
   try {
     if (window.monaco && window.monaco.editor.getModels().length) {
       //     const hashOfCode = await Hash.of(code);

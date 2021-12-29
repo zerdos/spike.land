@@ -169,6 +169,7 @@ async function runner(c, changes = null, session, counter) {
         session.setChild((c) => [...c, children]);
         session.children = children;
         restartError = !html;
+        session.code = cd;
         session.codeNonFormatted = c;
         // getCss = getCss || (await import("./templates.ts")).getCss;
         // setTimeout(async () => {

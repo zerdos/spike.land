@@ -172,6 +172,13 @@ export class CodeSession implements ICodeSess {
     }
   }
   public createPatch(state: ICodeSession) {
+    if (state.code === this.session.get("state").code) {
+      return {
+        oldHash: this.session.get("state").hashCode(),
+        newHash: this.session.get("state").hashCode(),
+        patch: "",
+      };
+    }
     const oldState = JSON.stringify(this.session.get("state").toJSON());
 
     const oldHash = this.session.get("state").hashCode();
