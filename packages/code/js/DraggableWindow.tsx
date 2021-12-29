@@ -207,7 +207,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
           bottom: innerHeight - 100,
         }}
         dragMomentum={false}
-        drag={true}
+        drag={!isFullScreen}
       >
         <div
           css={css` 

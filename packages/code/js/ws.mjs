@@ -97,37 +97,45 @@ let rejoin = async () => {
 async function broad(
   { code, transpiled, html, css, i },
 ) {
-  const now = Date.now();
-  mod.i = i;
-  if (mod.lastUpdate) {
-    const diff = now - mod.lastUpdate;
-    if (diff < 300) {
-      await wait(300 - diff);
-      if (i !== mod.i) return;
-    }
-  }
-
-  mod.lastUpdate = Date.now();
-  const updatedState = mST().toJSON();
-
-  updatedState.html = html;
-  updatedState.css = css;
-  updatedState.transpiled = transpiled;
-  updatedState.code = code;
-  updatedState.i = i;
-  const message = mySession.createPatch(updatedState);
-
-  // console.log("APPLY");
-  // mySession.applyPatch(message);
-  // console.log(mySession.hashCode());
-
-  const msgStr = JSON.stringify({ ...message, name: username });
-
   if (sendChannel) {
+    const updatedState = mST().toJSON();
+
+    updatedState.html = html;
+    updatedState.css = css;
+    updatedState.transpiled = transpiled;
+    updatedState.code = code;
+    updatedState.i = i;
+    const message = mySession.createPatch(updatedState);
     sendChannel.send(message);
   }
 
   if (currentWebSocket) {
+    const now = Date.now();
+    mod.i = i;
+    if (mod.lastUpdate) {
+      const diff = now - mod.lastUpdate;
+      if (diff < 1000) {
+        await wait(1000 - diff);
+        if (i !== mod.i) return;
+      }
+    }
+
+    mod.lastUpdate = Date.now();
+    const updatedState = mST().toJSON();
+
+    updatedState.html = html;
+    updatedState.css = css;
+    updatedState.transpiled = transpiled;
+    updatedState.code = code;
+    updatedState.i = i;
+    const message = mySession.createPatch(updatedState);
+
+    // console.log("APPLY");
+    // mySession.applyPatch(message);
+    // console.log(mySession.hashCode());
+
+    const msgStr = JSON.stringify({ ...message, name: username });
+
     currentWebSocket.send(msgStr);
   }
 }
@@ -603,16 +611,16 @@ async function processWsMessage(event) {
 
   // mySession.addEvent(data);
 
-  // if (
-  //   data.name && data.name !== username && !connections[data.name]
-  // ) {
-  //   try {
-  //     await createPeerConnection(data.name);
-  //   } catch (e) {
-  //     console.log({ e });
-  //     log_error("Error with p2p");
-  //   }
-  // }
+  if (
+    data.name && data.name !== username && !connections[data.name]
+  ) {
+    try {
+      await createPeerConnection(data.name);
+    } catch (e) {
+      console.log({ e });
+      log_error("Error with p2p");
+    }
+  }
 
   if (data.patch) {
     if (data.newHash === mySession.hashCode()) return;

@@ -116,7 +116,7 @@ export class Code {
             status: 200,
             headers: {
               "Access-Control-Allow-Origin": "*",
-              "Cache-Control": "no-cache",
+            "Cache-Control": "no-cache",
               "Content-Type": "application/json; charset=UTF-8",
             },
           });
@@ -181,6 +181,26 @@ export class Code {
             },
           });
         }
+        case "hashCode": {
+
+          const hashCode = String(Number(path[1]));
+          const patch = await this.kv.get<{patch: string, oldHash: number}>(hashCode);
+
+
+          
+
+
+
+          return new Response(JSON.stringify(patch || {}), {
+            status: 200,
+            headers: {
+              "Access-Control-Allow-Origin": "*",
+              "Cache-Control": "no-cache",
+              "Content-Type": "application/javascript; charset=UTF-8",
+            },
+          });
+        }
+
 
         case "public": {
           const htmlContent = mST().html;

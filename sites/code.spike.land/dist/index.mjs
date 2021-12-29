@@ -581,7 +581,7 @@ var require_textdiff_create = __commonJS({
 });
 
 // ../../packages/code/package.json
-var version = "0.4.75";
+var version = "0.4.76";
 
 // src/index.html
 var src_default = `<!DOCTYPE html>
@@ -5390,6 +5390,18 @@ var Code = class {
               "Access-Control-Allow-Origin": "*",
               "Cache-Control": "no-cache",
               "Content-Type": "text/html; charset=UTF-8"
+            }
+          });
+        }
+        case "hashCode": {
+          const hashCode3 = String(Number(path[1]));
+          const patch = await this.kv.get(hashCode3);
+          return new Response(JSON.stringify(patch || {}), {
+            status: 200,
+            headers: {
+              "Access-Control-Allow-Origin": "*",
+              "Cache-Control": "no-cache",
+              "Content-Type": "application/javascript; charset=UTF-8"
             }
           });
         }
