@@ -89,7 +89,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
     />,
   ]);
 
-  const startPositions = { bottom: -40, right: -88 };
+  const startPositions = { bottom: -40, right: -132 };
 
   session.setChild = setChild;
 
@@ -133,7 +133,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
     const reveal = async () => {
       const { bottom, right } = startPositions;
       if (keepFullScreen) return;
-      await wait(800);
+      await wait(1200);
       // const root = document.getElementById("root");
       // if (root && root.remove) root.remove();
       while (!window || !window.monaco) await wait(300);

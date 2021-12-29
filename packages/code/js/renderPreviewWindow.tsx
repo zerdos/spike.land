@@ -56,7 +56,7 @@ export const renderPreviewWindow = async (
   target.style.opacity = "0";
   document.body.appendChild(target);
 
-  await wait(300);
+  await wait(400);
 
   target.style.display = "block";
   target.style.opacity = "1";
