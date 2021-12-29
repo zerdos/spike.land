@@ -5224,11 +5224,13 @@ var CodeSession = class {
       console.error("Cant update");
       return;
     }
+    const oldST = this.session.get("state");
     const oldState = JSON.stringify(this.session.get("state").toJSON());
     const newState = JSON.parse((0, import_textdiff_patch.default)(oldState, JSON.parse(patch)));
     this.session = this.session.set("state", Record(newState)());
     const newHashCheck = this.session.get("state").hashCode();
     if (newHashCheck !== newHash) {
+      this.session.set("state", oldST);
       console.error("WRONG update");
       return;
     }

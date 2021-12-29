@@ -1,7 +1,5 @@
 /*eslint-disable */
 
-import { state } from "./dist/getSession.mjs";
-
 /*eslint-enable */
 
 import { initSession, quickStart } from "./quickStart.mjs";
@@ -130,6 +128,11 @@ export const join = async (room, user) => {
   roomName = roomName || room || "code-main";
   window.room = room;
   if (user) username = user;
+
+  const resp = await fetch(
+    `https://code.spike.land/api/room/${roomName}/session`,
+  );
+  const state = await resp.json();
 
   mySession = mySession || await initSession(roomName, {
     name: username,
