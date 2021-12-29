@@ -1,7 +1,7 @@
 {
   "version": 3,
   "sources": ["../renderToString.tsx"],
-  "sourcesContent": ["/** @jsx jsx */\nimport { jsx } from \"@emotion/react\";\n// import { CacheProvider } from '@emotion/react'\nimport { renderToString } from \"react-dom/server\";\n// import { renderStylesToString } from \"@emotion/server\";\n// import {css} from \"@emotion/css\"\nexport function getHtmlAndCss(App: () => JSX.Element) {\n  // const { html, css, ids } = extractCritical(\n  //   renderToString(<App />),\n  // );\n  const html = renderToString(<App />);\n  return { html };\n}\n"],
-  "mappings": "AACA,sFAEA,wHAGO,WAAuB,EAAwB,CAKpD,MAAO,CAAE,KADI,EAAe,EAAC,EAAD",
+  "sourcesContent": ["/** @jsx jsx */\nimport { jsx } from \"@emotion/react\";\nimport createCache from \"@emotion/cache\";\nimport { CacheProvider } from \"@emotion/react\";\nimport { renderToStaticMarkup } from \"react-dom/server\";\n\nexport const getHtmlAndCss = (MyComponent: () => JSX.Element) => {\n  const key = \"foo\";\n  const cache = createCache({ key });\n  let cssText = \"\";\n  cache.sheet.insert = (rule) => {\n    cssText += rule;\n  };\n\n  const markup = renderToStaticMarkup(\n    <CacheProvider value={cache}>\n      <MyComponent />\n    </CacheProvider>,\n  );\n\n  const html = `\n  <!DOCTYPE html>\n  <html>\n    <head>\n        <meta charset=\"UTF-8\">\n        <style>${cssText}</style>\n    </head>\n    <body>\n        <div>${markup}</div>\n    </body>\n  </html>\n`;\n\n  return {\n    html: html,\n    css: cssText,\n  };\n};\n"],
+  "mappings": "AACA,sFACA,8FACA,gGACA,8HAEO,GAAM,GAAgB,AAAC,GAAmC,CAE/D,GAAM,GAAQ,EAAY,CAAE,IADhB,QAER,EAAU,GACd,EAAM,MAAM,OAAS,AAAC,GAAS,CAC7B,GAAW,GAGb,GAAM,GAAS,EACb,EAAC,EAAD,CAAe,MAAO,GACpB,EAAC,EAAD,QAiBJ,MAAO,CACL,KAdW;AAAA;AAAA;AAAA;AAAA;AAAA,iBAKE;AAAA;AAAA;AAAA,eAGF;AAAA;AAAA;AAAA,EAOX,IAAK",
   "names": []
 }

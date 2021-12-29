@@ -158,7 +158,7 @@ async function runner(c, changes = null, session, counter) {
         if (counter < session.i) return;
 
         const App = await getApp(transpiled);
-        const { html } = getHtmlAndCss(App);
+        const { html, css } = getHtmlAndCss(App);
 
         session.transpiled = transpiled;
         session.html = html;
@@ -171,13 +171,18 @@ async function runner(c, changes = null, session, counter) {
         session.children = children;
         restartError = !html;
         session.codeNonFormatted = c;
-        getCss = getCss || (await import("./templates.ts")).getCss;
-        const css = getCss(session);
+        // getCss = getCss || (await import("./templates.ts")).getCss;
+        // setTimeout(async () => {
+        //     session.html = document.getElementById("zbody").innerHTML;
+        // const css = getCss(session);
         const code = cd;
+        session.css = css;
         if (session.i !== counter) return;
         session.saveCode &&
           await session.saveCode({ transpiled, code, i: counter, css, html });
         monaco.editor.setTheme("vs-dark");
+        // }, 10);
+
         return;
       } catch (e) {
         console.error("EXCEPTION");

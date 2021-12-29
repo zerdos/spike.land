@@ -1,6 +1,6 @@
 import importmapJson from "./importmap.json" assert { type: "json" };
 
-export function getCss(session: { html: string; css: string }) {
+export function getCss(session: { html: string }) {
   const { html } = session;
 
   const bodyClass = String(

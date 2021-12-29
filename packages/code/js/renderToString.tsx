@@ -1,13 +1,38 @@
 /** @jsx jsx */
 import { jsx } from "@emotion/react";
-// import { CacheProvider } from '@emotion/react'
-import { renderToString } from "react-dom/server";
-// import { renderStylesToString } from "@emotion/server";
-// import {css} from "@emotion/css"
-export function getHtmlAndCss(App: () => JSX.Element) {
-  // const { html, css, ids } = extractCritical(
-  //   renderToString(<App />),
-  // );
-  const html = renderToString(<App />);
-  return { html };
-}
+import createCache from "@emotion/cache";
+import { CacheProvider } from "@emotion/react";
+import { renderToStaticMarkup } from "react-dom/server";
+
+export const getHtmlAndCss = (MyComponent: () => JSX.Element) => {
+  const key = "foo";
+  const cache = createCache({ key });
+  let cssText = "";
+  cache.sheet.insert = (rule) => {
+    cssText += rule;
+  };
+
+  const markup = renderToStaticMarkup(
+    <CacheProvider value={cache}>
+      <MyComponent />
+    </CacheProvider>,
+  );
+
+  const html = `
+  <!DOCTYPE html>
+  <html>
+    <head>
+        <meta charset="UTF-8">
+        <style>${cssText}</style>
+    </head>
+    <body>
+        <div>${markup}</div>
+    </body>
+  </html>
+`;
+
+  return {
+    html: html,
+    css: cssText,
+  };
+};

@@ -33,7 +33,7 @@ await generator.install("immutable");
 
 // await generator.install("@emotion/server");
 // await generator.install("@emotion/server");
-// await generator.install("@emotion/react");
+await generator.install("@emotion/cache");
 // await generator.install("@emotion/styled");
 // await generator.install("@emotion/styled");
 // await generator.install("framer-motion");
