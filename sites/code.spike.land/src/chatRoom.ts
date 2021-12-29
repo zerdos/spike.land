@@ -343,6 +343,12 @@ export class Code {
           return;
         }
 
+        if(data.type="lost"){
+          webSocket.send(JSON.stringify({
+            ...mST().toJSON()
+          }))
+        }
+
         if (!session.name && data.name) {
           session.name = "" + (data.name || "anonymous");
 
