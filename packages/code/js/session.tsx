@@ -197,7 +197,7 @@ export class CodeSession implements ICodeSess {
       console.error("Cant update");
       return;
     }
-
+    const oldST = this.session.get("state");
     const oldState = JSON.stringify(this.session.get("state").toJSON());
     const newState = JSON.parse(applyPatch(oldState, JSON.parse(patch)));
 
@@ -205,6 +205,7 @@ export class CodeSession implements ICodeSess {
     const newHashCheck = this.session.get("state").hashCode();
 
     if (newHashCheck !== newHash) {
+      this.session.set("state", oldST);
       console.error("WRONG update");
       return;
     }

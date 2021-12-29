@@ -363,7 +363,7 @@ export class Code {
         if (data.patch && data.oldHash===this.state.mySession.hashCode()) {
           const newHash: number= data.newHash ;
           const oldHash: number= data.oldHash ;
-            const patch: string= data.patch;
+          const patch: string= data.patch;
           
           this.state.mySession.applyPatch(data);
           if(newHash===this.state.mySession.hashCode()) {
