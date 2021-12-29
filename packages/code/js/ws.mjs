@@ -98,6 +98,17 @@ async function broad(
   { code, transpiled, html, css, i },
 ) {
   if (sendChannel) {
+    const now = Date.now();
+    mod.i = i;
+    if (mod.lastRtcUpdate) {
+      const diff = now - mod.lastUpdate;
+      if (diff < 1000) {
+        await wait(200 - diff);
+        if (i !== mod.i) return;
+      }
+    }
+
+    mod.lastRtcUpdate = Date.now();
     const updatedState = mST().toJSON();
 
     updatedState.html = html;
@@ -106,7 +117,9 @@ async function broad(
     updatedState.code = code;
     updatedState.i = i;
     const message = mySession.createPatch(updatedState);
-    sendChannel.send(message);
+    if (message.patch !== "") {
+      sendChannel.send(message);
+    }
   }
 
   if (currentWebSocket) {
@@ -135,8 +148,7 @@ async function broad(
     // console.log(mySession.hashCode());
 
     const msgStr = JSON.stringify({ ...message, name: username });
-
-    currentWebSocket.send(msgStr);
+    if (message.patch !== "") currentWebSocket.send(msgStr);
   }
 }
 
@@ -335,9 +347,10 @@ async function createPeerConnection(target) {
     console.log("xxxxxx-  Data Channel Error:", error);
   };
 
-  // rtc.onmessage =()=> processWsMessage;
+  // rtc.onmessage = (msg) => processWsMessage(msg, "rtc");
 
   rtc.onopen = () => {
+    console.log("@@@@@@@@RTC IS OPEN&&&&&&&&");
     rtc.target = target;
     webrtcArray.push(rtc);
     connections[target].sendChannel = rtc;
@@ -367,7 +380,7 @@ async function createPeerConnection(target) {
     rtc.binaryType = "arraybuffer";
     rtc.addEventListener("close", onReceiveChannelClosed);
 
-    rtc.addEventListener("message", (msg) => processWsMessage(msg, rtc));
+    rtc.addEventListener("message", (msg) => processWsMessage(msg, "rtc"));
     webrtcArray.push(rtc);
   }
 
@@ -598,7 +611,7 @@ async function handleChatOffer(msg, target) {
 // Called by the WebRTC layer to let us know when it's time to
 // begin, resume, or restart ICE negotiation.
 
-async function processWsMessage(event) {
+async function processWsMessage(event, source) {
   // if (!toolsImported) {
   //   await importTools();
   // }
@@ -622,7 +635,19 @@ async function processWsMessage(event) {
     }
   }
 
-  if (data.patch) {
+  console.log(source, data.name);
+
+  if (data.type === "new-ice-candidate") {
+    await handleNewICECandidateMsg(data, data.name);
+    return;
+  }
+
+  if (data.type === "video-offer") {
+    await handleChatOffer(data, data.name);
+    return;
+  }
+
+  if (data.patch && source === "ws" || data.name !== username) {
     if (data.newHash === mySession.hashCode()) return;
 
     if (data.oldHash === mySession.hashCode()) {
@@ -638,16 +663,6 @@ async function processWsMessage(event) {
 
     console.log("Maybe we are out of sync");
 
-    return;
-  }
-
-  if (data.type === "new-ice-candidate") {
-    await handleNewICECandidateMsg(data, data.name);
-    return;
-  }
-
-  if (data.type === "video-offer") {
-    await handleChatOffer(data, data.name);
     return;
   }
 

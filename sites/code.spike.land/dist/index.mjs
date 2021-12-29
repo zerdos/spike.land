@@ -581,7 +581,7 @@ var require_textdiff_create = __commonJS({
 });
 
 // ../../packages/code/package.json
-var version = "0.4.77";
+var version = "0.4.78";
 
 // src/index.html
 var src_default = `<!DOCTYPE html>
@@ -5202,6 +5202,13 @@ var CodeSession = class {
     }
   }
   createPatch(state) {
+    if (state.code === this.session.get("state").get("code")) {
+      return {
+        oldHash: this.session.get("state").hashCode(),
+        newHash: this.session.get("state").hashCode(),
+        patch: ""
+      };
+    }
     const oldState = JSON.stringify(this.session.get("state").toJSON());
     const oldHash = this.session.get("state").hashCode();
     const oldRec = this.session.get("state");
@@ -5227,11 +5234,15 @@ var CodeSession = class {
     }
     const oldST = this.session.get("state").toJSON();
     const oldState = JSON.stringify(oldST);
+    const oldCode = oldST.code;
     const newState = JSON.parse((0, import_textdiff_patch.default)(oldState, JSON.parse(patch)));
     const newRec = Record(newState)();
     console.log({ newState });
     console.log(newRec.hashCode());
     const newRecord = this.session.get("state").merge(newRec);
+    const newCode = newRecord.get("code");
+    if (oldCode === newCode)
+      return;
     console.log(newRecord.hashCode());
     const newHashCheck = newRecord.hashCode();
     if (newHashCheck === newHash) {
