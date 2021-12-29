@@ -44,7 +44,7 @@
   "homepage": "https://code.spike.land",
   "repository": "https://github.com/spike-land/monorepo",
   "devDependencies": {
-    "esbuild": "0.14.8",
+    "esbuild": "0.14.9",
     "typescript": "4.5.4"
   },
   "gitHead": "85a0b3a41e4834872fa65570436bb43ba006a80d",
@@ -64,7 +64,7 @@
     "axax": "0.2.2",
     "comlink": "4.3.1",
     "es-module-shims": "1.4.1",
-    "esbuild": "0.14.8",
+    "esbuild": "0.14.9",
     "esbuild-plugin-import-map": "^2.1.0",
     "framer-motion": "5.5.5",
     "immutable": "^4.0.0",
