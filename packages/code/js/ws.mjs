@@ -602,6 +602,17 @@ async function processWsMessage(event) {
 
   // mySession.addEvent(data);
 
+  // if (
+  //   data.name && data.name !== username && !connections[data.name]
+  // ) {
+  //   try {
+  //     await createPeerConnection(data.name);
+  //   } catch (e) {
+  //     console.log({ e });
+  //     log_error("Error with p2p");
+  //   }
+  // }
+
   if (data.patch) {
     if (data.newHash === mySession.hashCode()) return;
 
@@ -621,29 +632,6 @@ async function processWsMessage(event) {
     return;
   }
 
-  if (
-    data.name && data.name !== username && !connections[data.name]
-  ) {
-    try {
-      await createPeerConnection(data.name);
-      // const sendChannel = connections[target].createDataChannel(
-      //   "sendDataChannel",
-      // );
-      // window.sendChannel = sendChannel;
-      // sendChannel.onopen = function () {
-      //   sendChannel.send("Hi you!");
-      // };
-      // sendChannel.onmessage = function (event) {
-      //   console.log(event.data);
-      // };
-      // sendChannel.on
-      // const offer = await connections[target].createOffer();
-      // console.log({offer});
-    } catch (e) {
-      console.log({ e });
-      log_error("Error with p2p");
-    }
-  }
   if (data.type === "new-ice-candidate") {
     await handleNewICECandidateMsg(data, data.name);
     return;
