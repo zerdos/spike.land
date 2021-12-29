@@ -85,23 +85,9 @@ async function handleApiRequest(
   }
 }
 
-async function getHTMLResp(env, room) {
-  
+async function getHTMLResp(env:CodeEnv, room: string) {
   const id =  env.CODE.idFromName(room);
   let roomObject = env.CODE.get(id);
-  const resp =  await roomObject.fetch("session")
-  const {html, css} = await resp.json();
 
-  return new Response(
-    HTML.replace(
-      `<div id="root"></div>`,
-      `<div id="root"><style>${css}</style><div id="zbody>${html}</div></div>`
-    ).replace("{VERSION}",version),
-    {
-      headers: {
-        "Content-Type": "text/html;charset=UTF-8",
-        "Cache-Control": "no-cache",
-      },
-    },
-  );
+  return  roomObject.fetch("public") 
 }

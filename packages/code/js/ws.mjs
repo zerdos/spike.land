@@ -58,6 +58,8 @@ chCode = globalThis.chCode = async (code, i) => {
       // window[hashOfCode] = code;
 
       window.monaco.editor.getModels()[0].setValue(code);
+    } else {
+      window.sess.update(code);
     }
   } catch (e) {
     console.error({ e });

@@ -581,10 +581,203 @@ var require_textdiff_create = __commonJS({
 });
 
 // ../../packages/code/package.json
-var version = "0.4.80";
+var version = "0.4.81";
+
+// ../../packages/cf-npm-site/dist/index.mjs
+function src_default(packageName, version2, serveDir = "") {
+  return async function(request, env) {
+    try {
+      const url = new URL(request.url);
+      const { pathname } = url;
+      const uri = pathname.startsWith("/@") ? pathname.substring(1) : `@${version2}${serveDir ? `/${serveDir}` : ``}${pathname}`;
+      let myCache = await caches.open(`blog-npm:${version2}-${serveDir}`);
+      const cachedResp = await myCache.match(request, {});
+      if (cachedResp) {
+        return cachedResp;
+      }
+      let targetPath = uri;
+      if (uri.endsWith("/")) {
+        targetPath = `${uri}index.html`;
+      } else if (pathname.indexOf(".") === -1) {
+        targetPath = `${uri}/index.html`;
+      }
+      const reqCloned = request.clone();
+      const newReq = new Request(`https://unpkg.com/${packageName}${targetPath}`, {
+        headers: {
+          ...reqCloned.headers
+        }
+      });
+      const origResp = await fetch(newReq);
+      if (!origResp.ok) {
+        return origResp;
+      }
+      const cloned = origResp.clone();
+      const resp = new Response(cloned.body, {
+        headers: {
+          ...cloned.headers,
+          "Cache-Control": "no-cache"
+        }
+      });
+      if (pathname.endsWith(".mjs") || pathname.endsWith(".js") || pathname.endsWith(".ts") || pathname.endsWith(".tsx")) {
+        resp.headers.delete("content-type");
+        resp.headers.set("content-type", "text/javascript;charset=UTF-8");
+      } else if (pathname.endsWith(".css")) {
+        resp.headers.delete("content-type");
+        resp.headers.set("content-type", "text/css;charset=UTF-8");
+      } else if (pathname.endsWith(".json")) {
+        resp.headers.delete("content-type");
+        resp.headers.set("content-type", "application/json;charset=UTF-8");
+      } else if (pathname.endsWith(".jpg")) {
+        resp.headers.delete("content-type");
+        resp.headers.set("content-type", "image/jpeg");
+      } else if (pathname.indexOf(".") === -1 || pathname.endsWith(".html")) {
+        resp.headers.delete("content-type"), resp.headers.set("content-type", "text/html;charset=UTF-8");
+      }
+      if (origResp.status === 200)
+        myCache.put(request, resp.clone());
+      return resp;
+    } catch (Error2) {
+      return new Response(`No... ${Object.prototype.toString.call(Error2)}`);
+    }
+  };
+}
+
+// src/handleErrors.ts
+async function handleErrors(request, func) {
+  try {
+    return await func();
+  } catch (err) {
+    if (request.headers.get("Upgrade") === "websocket") {
+      let stack = null;
+      if (err instanceof Error) {
+        stack = err.stack;
+        console.log({ error: err.stack, message: err.message });
+      }
+      let pair = new WebSocketPair();
+      pair[1].accept();
+      pair[1].send(JSON.stringify({ error: stack }));
+      pair[1].close(1011, "Uncaught exception during session setup");
+      return new Response(null, { status: 101, webSocket: pair[0] });
+    } else {
+      let stack = "We have no idea what happened";
+      if (err instanceof Error) {
+        stack = err.stack || stack;
+        console.log({ error: err.stack, message: err.message });
+      }
+      return new Response(stack, { status: 500 });
+    }
+  }
+}
+
+// src/chat.ts
+var chat_default = {
+  async fetch(request, env) {
+    return handleErrors(request, async () => {
+      let url = new URL(request.url);
+      let path = url.pathname.slice(1).split("/");
+      if (!path[0]) {
+        return getHTMLResp(env, "code-main");
+      }
+      switch (path[0]) {
+        case "ping":
+          return new Response("ping" + Math.random(), {
+            headers: {
+              "Content-Type": "text/html;charset=UTF-8",
+              "Cache-Control": "no-cache"
+            }
+          });
+        case "api":
+          return handleApiRequest(path.slice(1), request, env);
+        case "live":
+          return getHTMLResp(env, path[1]);
+        default:
+          return src_default("@spike.land/code", version, "js/")(request, env);
+      }
+    });
+  }
+};
+async function handleApiRequest(path, request, env) {
+  switch (path[0]) {
+    case "room": {
+      if (!path[1]) {
+        if (request.method === "POST") {
+          let id2 = env.CODE.newUniqueId();
+          return new Response(id2.toString(), {
+            headers: { "Access-Control-Allow-Origin": "*" }
+          });
+        } else {
+          return new Response("Method not allowed", { status: 405 });
+        }
+      }
+      let name = path[1];
+      let id;
+      if (name.match(/^[0-9a-f]{64}$/)) {
+        id = env.CODE.idFromString(name);
+      } else if (name.length <= 32) {
+        id = env.CODE.idFromName(name);
+      } else {
+        return new Response("Name too long", { status: 404 });
+      }
+      let roomObject = env.CODE.get(id);
+      let newUrl = new URL(request.url);
+      newUrl.pathname = "/" + path.slice(2).join("/");
+      newUrl.searchParams.append("room", name);
+      return roomObject.fetch(newUrl.toString(), request);
+    }
+    default:
+      return new Response("Not found", { status: 404 });
+  }
+}
+async function getHTMLResp(env, room) {
+  const id = env.CODE.idFromName(room);
+  let roomObject = env.CODE.get(id);
+  return roomObject.fetch("public");
+}
+
+// src/rateLimiterClient.ts
+var RateLimiterClient = class {
+  constructor(getLimiterStub, reportError) {
+    this.getLimiterStub = getLimiterStub;
+    this.reportError = reportError;
+    this.getLimiterStub = getLimiterStub;
+    this.reportError = reportError;
+    this.limiter = getLimiterStub();
+    this.inCoolDown = false;
+  }
+  limiter;
+  inCoolDown;
+  checkLimit() {
+    if (this.inCoolDown) {
+      return false;
+    }
+    this.inCoolDown = true;
+    this.callLimiter();
+    return true;
+  }
+  async callLimiter() {
+    try {
+      let response;
+      try {
+        response = await this.limiter.fetch(new Request("https://dummy-url", {
+          method: "POST"
+        }));
+      } catch (err) {
+        this.limiter = this.getLimiterStub();
+        response = await this.limiter.fetch(new Request("https://dummy-url", {
+          method: "POST"
+        }));
+      }
+      let coolDown = +await response.text();
+      await new Promise((resolve) => setTimeout(resolve, coolDown * 100));
+      this.inCoolDown = false;
+    } catch (err) {
+      this.reportError(err);
+    }
+  }
+};
 
 // src/index.html
-var src_default = `<!DOCTYPE html>
+var src_default2 = `<!DOCTYPE html>
 <html lang="en">
 <head profile="http://www.w3.org/2005/10/profile">
   <meta http-equiv="Content-Type" content="text/html,charset=utf-8" />
@@ -714,206 +907,6 @@ var src_default = `<!DOCTYPE html>
 <\/script>
 </body>
 </html>`;
-
-// ../../packages/cf-npm-site/dist/index.mjs
-function src_default2(packageName, version2, serveDir = "") {
-  return async function(request, env) {
-    try {
-      const url = new URL(request.url);
-      const { pathname } = url;
-      const uri = pathname.startsWith("/@") ? pathname.substring(1) : `@${version2}${serveDir ? `/${serveDir}` : ``}${pathname}`;
-      let myCache = await caches.open(`blog-npm:${version2}-${serveDir}`);
-      const cachedResp = await myCache.match(request, {});
-      if (cachedResp) {
-        return cachedResp;
-      }
-      let targetPath = uri;
-      if (uri.endsWith("/")) {
-        targetPath = `${uri}index.html`;
-      } else if (pathname.indexOf(".") === -1) {
-        targetPath = `${uri}/index.html`;
-      }
-      const reqCloned = request.clone();
-      const newReq = new Request(`https://unpkg.com/${packageName}${targetPath}`, {
-        headers: {
-          ...reqCloned.headers
-        }
-      });
-      const origResp = await fetch(newReq);
-      if (!origResp.ok) {
-        return origResp;
-      }
-      const cloned = origResp.clone();
-      const resp = new Response(cloned.body, {
-        headers: {
-          ...cloned.headers,
-          "Cache-Control": "no-cache"
-        }
-      });
-      if (pathname.endsWith(".mjs") || pathname.endsWith(".js") || pathname.endsWith(".ts") || pathname.endsWith(".tsx")) {
-        resp.headers.delete("content-type");
-        resp.headers.set("content-type", "text/javascript;charset=UTF-8");
-      } else if (pathname.endsWith(".css")) {
-        resp.headers.delete("content-type");
-        resp.headers.set("content-type", "text/css;charset=UTF-8");
-      } else if (pathname.endsWith(".json")) {
-        resp.headers.delete("content-type");
-        resp.headers.set("content-type", "application/json;charset=UTF-8");
-      } else if (pathname.endsWith(".jpg")) {
-        resp.headers.delete("content-type");
-        resp.headers.set("content-type", "image/jpeg");
-      } else if (pathname.indexOf(".") === -1 || pathname.endsWith(".html")) {
-        resp.headers.delete("content-type"), resp.headers.set("content-type", "text/html;charset=UTF-8");
-      }
-      if (origResp.status === 200)
-        myCache.put(request, resp.clone());
-      return resp;
-    } catch (Error2) {
-      return new Response(`No... ${Object.prototype.toString.call(Error2)}`);
-    }
-  };
-}
-
-// src/handleErrors.ts
-async function handleErrors(request, func) {
-  try {
-    return await func();
-  } catch (err) {
-    if (request.headers.get("Upgrade") === "websocket") {
-      let stack = null;
-      if (err instanceof Error) {
-        stack = err.stack;
-        console.log({ error: err.stack, message: err.message });
-      }
-      let pair = new WebSocketPair();
-      pair[1].accept();
-      pair[1].send(JSON.stringify({ error: stack }));
-      pair[1].close(1011, "Uncaught exception during session setup");
-      return new Response(null, { status: 101, webSocket: pair[0] });
-    } else {
-      let stack = "We have no idea what happened";
-      if (err instanceof Error) {
-        stack = err.stack || stack;
-        console.log({ error: err.stack, message: err.message });
-      }
-      return new Response(stack, { status: 500 });
-    }
-  }
-}
-
-// src/chat.ts
-var chat_default = {
-  async fetch(request, env) {
-    return handleErrors(request, async () => {
-      let url = new URL(request.url);
-      let path = url.pathname.slice(1).split("/");
-      if (!path[0]) {
-        return getHTMLResp(env, "code-main");
-      }
-      switch (path[0]) {
-        case "ping":
-          return new Response("ping" + Math.random(), {
-            headers: {
-              "Content-Type": "text/html;charset=UTF-8",
-              "Cache-Control": "no-cache"
-            }
-          });
-        case "api":
-          return handleApiRequest(path.slice(1), request, env);
-        case "live":
-          return getHTMLResp(env, path[1]);
-        default:
-          return src_default2("@spike.land/code", version, "js/")(request, env);
-      }
-    });
-  }
-};
-async function handleApiRequest(path, request, env) {
-  switch (path[0]) {
-    case "room": {
-      if (!path[1]) {
-        if (request.method === "POST") {
-          let id2 = env.CODE.newUniqueId();
-          return new Response(id2.toString(), {
-            headers: { "Access-Control-Allow-Origin": "*" }
-          });
-        } else {
-          return new Response("Method not allowed", { status: 405 });
-        }
-      }
-      let name = path[1];
-      let id;
-      if (name.match(/^[0-9a-f]{64}$/)) {
-        id = env.CODE.idFromString(name);
-      } else if (name.length <= 32) {
-        id = env.CODE.idFromName(name);
-      } else {
-        return new Response("Name too long", { status: 404 });
-      }
-      let roomObject = env.CODE.get(id);
-      let newUrl = new URL(request.url);
-      newUrl.pathname = "/" + path.slice(2).join("/");
-      newUrl.searchParams.append("room", name);
-      return roomObject.fetch(newUrl.toString(), request);
-    }
-    default:
-      return new Response("Not found", { status: 404 });
-  }
-}
-async function getHTMLResp(env, room) {
-  const id = env.CODE.idFromName(room);
-  let roomObject = env.CODE.get(id);
-  const resp = await roomObject.fetch("session");
-  const { html, css } = await resp.json();
-  return new Response(src_default.replace(`<div id="root"></div>`, `<div id="root"><style>${css}</style><div id="zbody>${html}</div></div>`).replace("{VERSION}", version), {
-    headers: {
-      "Content-Type": "text/html;charset=UTF-8",
-      "Cache-Control": "no-cache"
-    }
-  });
-}
-
-// src/rateLimiterClient.ts
-var RateLimiterClient = class {
-  constructor(getLimiterStub, reportError) {
-    this.getLimiterStub = getLimiterStub;
-    this.reportError = reportError;
-    this.getLimiterStub = getLimiterStub;
-    this.reportError = reportError;
-    this.limiter = getLimiterStub();
-    this.inCoolDown = false;
-  }
-  limiter;
-  inCoolDown;
-  checkLimit() {
-    if (this.inCoolDown) {
-      return false;
-    }
-    this.inCoolDown = true;
-    this.callLimiter();
-    return true;
-  }
-  async callLimiter() {
-    try {
-      let response;
-      try {
-        response = await this.limiter.fetch(new Request("https://dummy-url", {
-          method: "POST"
-        }));
-      } catch (err) {
-        this.limiter = this.getLimiterStub();
-        response = await this.limiter.fetch(new Request("https://dummy-url", {
-          method: "POST"
-        }));
-      }
-      let coolDown = +await response.text();
-      await new Promise((resolve) => setTimeout(resolve, coolDown * 100));
-      this.inCoolDown = false;
-    } catch (err) {
-      this.reportError(err);
-    }
-  }
-};
 
 // src/chatRoom.ts
 var import_textdiff_patch2 = __toESM(require_textdiff_patch());
@@ -5154,6 +5147,7 @@ var import_textdiff_patch = __toESM(require_textdiff_patch());
 function initSession(room, u) {
   return Record({ ...u, room, state: Record(u.state)() });
 }
+var hashStore = {};
 var CodeSession = class {
   session;
   hashCodeSession;
@@ -5171,6 +5165,7 @@ var CodeSession = class {
       }
     })();
     this.hashCodeSession = this.session.get("state").hashCode();
+    hashStore[this.session.get("state").hashCode()] = this.session.get("state");
   }
   addEvent(e) {
     this.session.get("events").push({
@@ -5201,6 +5196,22 @@ var CodeSession = class {
       }
     }
   }
+  createPatchFromHashCode(oldHash, state) {
+    if (hashStore[oldHash]) {
+      const oldRec = hashStore[oldHash];
+      const oldState = JSON.stringify(oldRec.toJSON());
+      const newRec = oldRec.merge(state);
+      const newHash = newRec.hashCode();
+      hashStore[newHash] = newRec;
+      const newState = JSON.stringify(newRec.toJSON());
+      const patch = createPatch(oldState, newState);
+      return {
+        oldHash,
+        newHash,
+        patch
+      };
+    }
+  }
   createPatch(state) {
     if (state.code === this.session.get("state").get("code")) {
       return {
@@ -5211,9 +5222,11 @@ var CodeSession = class {
     }
     const oldState = JSON.stringify(this.session.get("state").toJSON());
     const oldHash = this.session.get("state").hashCode();
+    hashStore[oldHash] = this.session.get("state");
     const oldRec = this.session.get("state");
     const newRec = oldRec.merge(state);
     const newHash = newRec.hashCode();
+    hashStore[newHash] = newRec;
     const newState = JSON.stringify(newRec.toJSON());
     const patch = createPatch(oldState, newState);
     return {
@@ -5384,7 +5397,7 @@ var Code = class {
         case "hydrated": {
           const htmlContent = mST().html;
           const css = mST().css;
-          const html = src_default.replace(`<div id="root"></div>`, `<div id="root"><style>${css}</style><div id="zbody">${htmlContent}</div></div>`).replace("{VERSION}", version);
+          const html = src_default2.replace(`<div id="root"></div>`, `<div id="root"><style>${css}</style><div id="zbody">${htmlContent}</div></div>`).replace("{VERSION}", version);
           return new Response(html, {
             status: 200,
             headers: {
@@ -5419,7 +5432,7 @@ var Code = class {
         case "public": {
           const htmlContent = mST().html;
           const css = mST().css;
-          const html = src_default.replace(`<div id="root"></div>`, `<div id="root"><style>${css}</style><div id="zbody">${htmlContent}</div></div>`).replace("{VERSION}", version);
+          const html = src_default2.replace(`<div id="root"></div>`, `<div id="root"><style>${css}</style><div id="zbody">${htmlContent}</div></div>`).replace("{VERSION}", version);
           return new Response(html, {
             status: 200,
             headers: {
