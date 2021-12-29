@@ -2,7 +2,9 @@
 
 /*eslint-enable */
 
-import { initSession, quickStart } from "./quickStart.mjs";
+import initSession from "./dist/session.mjs";
+
+import { quickStart } from "./quickStart.mjs";
 
 let currentWebSocket = null;
 let sess = false;
@@ -106,12 +108,16 @@ async function broad(
   mod.lastUpdate = Date.now();
   const updatedState = mST().toJSON();
 
-  updatedState.code = code;
   updatedState.html = html;
   updatedState.css = css;
   updatedState.transpiled = transpiled;
+  updatedState.code = code;
   updatedState.i = i;
-  const message = mySession.updateState(updatedState);
+  const message = mySession.createPatch(updatedState);
+
+  console.log("APPLY");
+  mySession.applyPatch(message);
+  console.log(mySession.hashCode());
 
   const msgStr = JSON.stringify({ ...message, name: username });
 

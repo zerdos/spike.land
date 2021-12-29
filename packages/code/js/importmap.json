@@ -1,8 +1,8 @@
 {
   "imports": {
     "@spike.land/ipfs": "https://ga.jspm.io/npm:@spike.land/ipfs@0.3.61/dist/ipfs.client.mjs",
-    "@spike.land/qrious": "https://ga.jspm.io/npm:@spike.land/qrious@0.4.15/dist/QRious.mjs",
-    "@spike.land/shadb": "https://ga.jspm.io/npm:@spike.land/shadb@0.4.15/dist/shaDB.mjs",
+    "@spike.land/qrious": "https://ga.jspm.io/npm:@spike.land/qrious@0.4.65/dist/QRious.mjs",
+    "@spike.land/shadb": "https://ga.jspm.io/npm:@spike.land/shadb@0.4.65/dist/shaDB.mjs",
     "comlink": "https://ga.jspm.io/npm:comlink@4.3.1/dist/umd/comlink.js",
     "immutable": "https://ga.jspm.io/npm:immutable@4.0.0/dist/immutable.es.js",
     "react": "https://unpkg.com/@spike.land/esm@0.4.33/dist/react.mjs",

@@ -581,7 +581,7 @@ var require_textdiff_create = __commonJS({
 });
 
 // ../../packages/code/package.json
-var version = "0.4.64";
+var version = "0.4.65";
 
 // src/index.html
 var src_default = `<!DOCTYPE html>
@@ -5201,12 +5201,13 @@ var CodeSession = class {
       }
     }
   }
-  updateState(state) {
+  createPatch(state) {
     const oldState = JSON.stringify(this.session.get("state").toJSON());
     const oldHash = this.session.get("state").hashCode();
-    this.session = this.session.set("state", Record(state)());
-    const newState = JSON.stringify(this.session.get("state").toJSON());
-    const newHash = this.session.get("state").hashCode();
+    const oldRec = this.session.get("state");
+    const newRec = oldRec.merge(state);
+    const newHash = newRec.hashCode();
+    const newState = JSON.stringify(newRec.toJSON());
     const patch = createPatch(oldState, newState);
     return {
       oldHash,
@@ -5224,15 +5225,23 @@ var CodeSession = class {
       console.error("Cant update");
       return;
     }
-    const oldST = this.session.get("state");
-    const oldState = JSON.stringify(this.session.get("state").toJSON());
+    const oldST = this.session.get("state").toJSON();
+    const oldState = JSON.stringify(oldST);
     const newState = JSON.parse((0, import_textdiff_patch.default)(oldState, JSON.parse(patch)));
-    this.session = this.session.set("state", Record(newState)());
-    const newHashCheck = this.session.get("state").hashCode();
-    if (newHashCheck !== newHash) {
-      this.session.set("state", oldST);
-      console.error("WRONG update");
+    const newRec = Record(newState)();
+    console.log({ newState });
+    console.log(newRec.hashCode());
+    const newRecord = this.session.get("state").merge(newRec);
+    console.log(newRecord.hashCode());
+    const newHashCheck = newRecord.hashCode();
+    if (newHashCheck === newHash) {
+      this.session = this.session.set("state", newRecord);
       return;
+    } else {
+      console.log("WRONG");
+      console.log({
+        newState
+      });
     }
   }
   json() {
@@ -5282,6 +5291,7 @@ var Code = class {
         const defaultRoomObject = env.CODE.get(codeMainId);
         const resp = await defaultRoomObject.fetch("session");
         session2 = await resp.json();
+        await this.kv.put("session", session2);
       }
       this.state.mySession = session_default("", {
         name: username,

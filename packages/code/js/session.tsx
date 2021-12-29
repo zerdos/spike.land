@@ -171,13 +171,16 @@ export class CodeSession implements ICodeSess {
       }
     }
   }
-  public updateState(state: ICodeSession) {
+  public createPatch(state: ICodeSession) {
     const oldState = JSON.stringify(this.session.get("state").toJSON());
+
     const oldHash = this.session.get("state").hashCode();
 
-    this.session = this.session.set("state", Record<ICodeSession>(state)());
-    const newState = JSON.stringify(this.session.get("state").toJSON());
-    const newHash = this.session.get("state").hashCode();
+    const oldRec = this.session.get("state");
+    const newRec = oldRec.merge(state);
+    const newHash = newRec.hashCode();
+
+    const newState = JSON.stringify(newRec.toJSON());
     const patch = createPatch(oldState, newState);
     return {
       oldHash,
@@ -197,17 +200,28 @@ export class CodeSession implements ICodeSess {
       console.error("Cant update");
       return;
     }
-    const oldST = this.session.get("state");
-    const oldState = JSON.stringify(this.session.get("state").toJSON());
+
+    const oldST = this.session.get("state").toJSON();
+    const oldState = JSON.stringify(oldST);
     const newState = JSON.parse(applyPatch(oldState, JSON.parse(patch)));
+    const newRec: Record<ICodeSession> = Record<ICodeSession>(newState)();
 
-    this.session = this.session.set("state", Record<ICodeSession>(newState)());
-    const newHashCheck = this.session.get("state").hashCode();
+    console.log({ newState });
+    console.log(newRec.hashCode());
 
-    if (newHashCheck !== newHash) {
-      this.session.set("state", oldST);
-      console.error("WRONG update");
+    const newRecord = this.session.get("state").merge(newRec);
+    console.log(newRecord.hashCode());
+    const newHashCheck = newRecord.hashCode();
+
+    if (newHashCheck === newHash) {
+      this.session = this.session.set("state", newRecord);
+      //  console.error("WRONG update");
       return;
+    } else {
+      console.log("WRONG");
+      console.log({
+        newState,
+      });
     }
   }
 

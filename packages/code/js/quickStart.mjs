@@ -180,6 +180,7 @@ async function runner(c, changes = null, session, counter) {
         monaco.editor.setTheme("vs-dark");
         return;
       } catch (e) {
+        console.error("EXCEPTION");
         console.log({ e });
         restartError = true;
         console.error({ restartError });

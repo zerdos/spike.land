@@ -64,7 +64,9 @@ export class Code {
       const defaultRoomObject = env.CODE.get(codeMainId);
 
       const resp = await defaultRoomObject.fetch("session");
+
       session  = await resp.json();
+      await this.kv.put<ISession>("session", session);
       }
 
     this.state.mySession  = startSession("",{
