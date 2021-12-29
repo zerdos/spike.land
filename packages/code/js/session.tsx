@@ -1,6 +1,7 @@
 import { fromJS, isKeyed, Record } from "immutable";
 // @ts-expect-error
 import createDelta from "textdiff-create";
+// @ts-expect-error
 import applyPatch from "textdiff-patch";
 // import * as Immutable from "immutable"
 

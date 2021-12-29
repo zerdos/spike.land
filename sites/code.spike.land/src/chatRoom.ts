@@ -1,14 +1,15 @@
 import { handleErrors } from "./handleErrors";
 import { RateLimiterClient } from "./rateLimiterClient";
-import Hash from "ipfs-only-hash";
 import HTML from "./index.html";
 import { version } from "@spike.land/code/package.json";
 import applyDelta from "textdiff-patch";
 import { CodeEnv } from "./env";
-import SANYI from "./sanyi.js.html";
 import type {
   ICodeSess, IEvent, INewWSConnection,ICodeSession
+// @ts-expect-error
 } from "@spike.land/code/js/session.tsx";
+// @ts-expect-error
+
 import startSession from "@spike.land/code/js/session.tsx";
 
 interface IState extends DurableObjectState {
@@ -285,19 +286,19 @@ export class Code {
 
         this.mySession.addEvent({...data, uuid: session.uuid} as unknown as IEvent);
 
-        if (data.type === "get-cid") {
-          const CID = data.cid;
-          if (this.hashCache[CID]) {
-            webSocket.send(
-              JSON.stringify({
-                type: "get-cid",
-                cid: data.cid,
-                [CID]: this.hashCache[CID]
-              })
-            );
-          }
-          return;
-        }
+        // if (data.type === "get-cid") {
+        //   const CID = data.cid;
+        //   if (this.hashCache[CID]) {
+        //     webSocket.send(
+        //       JSON.stringify({
+        //         type: "get-cid",
+        //         cid: data.cid,
+        //         [CID]: this.hashCache[CID]
+        //       })
+        //     );
+        //   }
+        //   return;
+        // }
 
         if (
           !(
@@ -359,18 +360,27 @@ export class Code {
           return;
         }
 
-        if (data.patch) {
+        if (data.patch && data.oldHash===this.mySession.session.state.hashCode()) {
+          const newHash: number= data.newHash ;
+          const oldHash: number= data.oldHash ;
+            const patch: string= data.patch;
+          
           this.mySession.applyPatch(data);
-          const session = this.mySession.session.state.toJS();
-          if(data.newHashCheck===this.mySession.session.state.hashCode()) {
-            this.broadcast(data);
+          if(newHash===this.mySession.session.state.hashCode()) {
+       
+            this.broadcast(msg);
+            const session = this.mySession.session.state.toJS();
+            await this.kv.put<ICodeSession>("session", session);
+            
+            await this.kv.put(String(newHash),{oldHash, 
+              patch
+            });
           } else {
               this.user2user(data.name, {hashCode: this.mySession.session.state.hashCode()})
           }
              
           
      
-          await this.kv.put<ICodeSession>("session", session);
           return;
         }
 

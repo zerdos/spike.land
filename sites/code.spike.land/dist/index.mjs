@@ -5448,17 +5448,6 @@ var Code = class {
           return;
         let data = JSON.parse(msg.data);
         this.mySession.addEvent({ ...data, uuid: session2.uuid });
-        if (data.type === "get-cid") {
-          const CID = data.cid;
-          if (this.hashCache[CID]) {
-            webSocket.send(JSON.stringify({
-              type: "get-cid",
-              cid: data.cid,
-              [CID]: this.hashCache[CID]
-            }));
-          }
-          return;
-        }
         if (!(data.type && (data.type === "new-ice-candidate" || data.type === "video-offer" || data.type === "video-answer")) && !limiter.checkLimit()) {
           webSocket.send(JSON.stringify({
             error: "Your IP is being rate-limited, please try again later."
@@ -5484,12 +5473,22 @@ var Code = class {
           this.user2user(data.target, { name: session2.name, ...data });
           return;
         }
-        if (data.patch) {
+        if (data.patch && data.oldHash === this.mySession.session.state.hashCode()) {
+          const newHash = data.newHash;
+          const oldHash = data.oldHash;
+          const patch = data.patch;
           this.mySession.applyPatch(data);
-          if (data.newHashCode === this.mySession.session.state.hashCode())
-            this.broadcast(data);
-          const session3 = this.mySession.session.state.toJS();
-          await this.kv.put("session", session3);
+          if (newHash === this.mySession.session.state.hashCode()) {
+            this.broadcast(msg);
+            const session3 = this.mySession.session.state.toJS();
+            await this.kv.put("session", session3);
+            await this.kv.put(String(newHash), {
+              oldHash,
+              patch
+            });
+          } else {
+            this.user2user(data.name, { hashCode: this.mySession.session.state.hashCode() });
+          }
           return;
         }
       } catch {

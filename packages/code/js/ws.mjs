@@ -1,4 +1,4 @@
-import state from "https://code.spike.land/api/room/code-main/session" assert {
+/import state from "https://code.spike.land/api/room/code-main/session" assert {
   type: "json",
 };
 import { initSession, quickStart } from "./quickStart.mjs";
@@ -22,27 +22,27 @@ let chCode;
 let startTime;
 let rejoined = false;
 let sendChannel;
-let createDelta;
-let applyPatch;
+// let createDelta;
+// let applyPatch;
 let Hash;
 let mySession = null;
 
 let toolsImported = 0;
 
-function createPatch(oldCode, newCode) {
-  return JSON.stringify(createDelta(oldCode, newCode));
-}
+// function createPatch(oldCode, newCode) {
+//   return JSON.stringify(createDelta(oldCode, newCode));
+// }
 
-let importTools = async () => {
-  if (toolsImported) return toolsImported;
+// let importTools = async () => {
+// if (toolsImported) return toolsImported;
 
-  import("textdiff-create").then((mod) => createDelta = mod.default);
-  import("textdiff-patch").then((mod) => applyPatch = mod.default);
+// import("textdiff-create").then((mod) => createDelta = mod.default);
+// import("textdiff-patch").then((mod) => applyPatch = mod.default);
 
-  import("ipfs-only-hash").then((mod) => Hash = mod.default);
-  toolsImported = true;
-  return toolsImported;
-};
+// import("ipfs-only-hash").then((mod) => Hash = mod.default);
+// toolsImported = true;
+// return toolsImported;
+// };
 
 chCode = globalThis.chCode = async (code) => {
   if (!code) return;
@@ -50,9 +50,9 @@ chCode = globalThis.chCode = async (code) => {
     if (
       window.sess && window.monaco && window.monaco.editor.getModels().length
     ) {
-      const hashOfCode = await Hash.of(code);
-      window.hashOfCode = hashOfCode;
-      window[hashOfCode] = code;
+      //     const hashOfCode = await Hash.of(code);
+      //   window.hashOfCode = hashOfCode;
+      // window[hashOfCode] = code;
 
       window.monaco.editor.getModels()[0].setValue(code);
     }
@@ -604,13 +604,21 @@ async function processWsMessage(event, source) {
   // mySession.addEvent(data);
 
   if (data.patch) {
-    mySession.applyPatch(data);
+    if (data.newHash === mySession.session.state.hashCode()) return;
+
+    if (data.patch.oldHash === mySession.session.state.hashCode()) {
+      mySession.applyPatch(data);
+    }
+
+    if (data.newHash === mySession.session.state.hashCode()) return;
+
+    console.log("Maybe we are out of sync");
+
     return;
   }
 
   if (
-    data.name && data.hashOfCode && data.name !== username &&
-    !connections[data.name]
+    data.name && data.name !== username && !connections[data.name]
   ) {
     try {
       await createPeerConnection(data.name);
