@@ -90,6 +90,39 @@ let rejoin = async () => {
 //   const patches = dmp.patch_make(from, to);
 //   return dmp.patch_toText(patches);
 // }
+async function broad(
+  { code, transpiled, html, css, i },
+) {
+  const now = Date.now();
+  mod.i = i;
+  if (mod.lastUpdate) {
+    const diff = now - mod.lastUpdate;
+    if (diff < 300) {
+      await wait(300 - diff);
+      if (i !== mod.i) return;
+    }
+  }
+
+  mod.lastUpdate = Date.now();
+  const updatedState = mySession.session.state.toJS();
+
+  updatedState.code = code;
+  updatedState.html = html;
+  updatedState.css = css;
+  updatedState.transpiled = transpiled;
+  updatedState.i = i;
+  const message = mySession.updateState(updatedState);
+
+  const msgStr = JSON.stringify({ ...message, name: username });
+
+  if (sendChannel) {
+    sendChannel.send(message);
+  }
+
+  if (currentWebSocket) {
+    currentWebSocket.send(msgStr);
+  }
+}
 
 export const join = async (room, user) => {
   roomName = roomName || room || "code-main";
@@ -117,6 +150,7 @@ export const join = async (room, user) => {
       session,
       roomName,
       false,
+      broad,
     );
     window.sess = session;
   }
@@ -156,39 +190,6 @@ export const join = async (room, user) => {
       }, 30_000);
     }
     currentWebSocket = ws;
-    const broad = async (
-      { code, transpiled, html, css, i },
-    ) => {
-      const now = Date.now();
-      mod.i = i;
-      if (mod.lastUpdate) {
-        const diff = now - mod.lastUpdate;
-        if (diff < 300) {
-          await wait(300 - diff);
-          if (i !== mod.i) return;
-        }
-      }
-
-      mod.lastUpdate = Date.now();
-      const updatedState = mySession.session.state.toJS();
-
-      updatedState.code = code;
-      updatedState.html = html;
-      updatedState.css = css;
-      updatedState.transpiled = transpiled;
-      updatedState.i = i;
-      const message = mySession.updateState(updatedState);
-
-      const msgStr = JSON.stringify({ ...message, name: username });
-
-      if (sendChannel) {
-        sendChannel.send(message);
-      }
-
-      if (currentWebSocket) {
-        currentWebSocket.send(msgStr);
-      }
-    };
 
     globalThis.broad = broad;
     globalThis.chCode = chCode;

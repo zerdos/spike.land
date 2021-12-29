@@ -1,7 +1,6 @@
 import { jsx } from "@emotion/react";
 
 let formatter;
-let saveCode;
 let transform;
 
 let esbuildEsmTransform;
@@ -92,7 +91,7 @@ async function getErrors({ monaco, editor }) {
 async function runner(c, changes = null, session, counter) {
   session.changes.push(changes);
 
-  saveCode = saveCode || (await import("./data.mjs")).saveCode;
+  // saveCode = saveCode || (await import("./data.mjs")).saveCode;
   // getHtmlAndCss = getHtmlAndCss ||
   //   (await import("./renderToString")).getHtmlAndCss;
   formatter = formatter || (await import(`./formatter.mjs`)).formatter;
@@ -173,8 +172,11 @@ async function runner(c, changes = null, session, counter) {
         restartError = !html;
         session.codeNonFormatted = c;
         getCss = getCss || (await import("./templates.ts")).getCss;
-        getCss(session);
-        await saveCode(session, session.i);
+        const css = getCss(session);
+        const code = cd;
+        if (session.i !== counter) return;
+        session.saveCode &&
+          await session.saveCode({ transpiled, code, i: counter, css, html });
         monaco.editor.setTheme("vs-dark");
         return;
       } catch (e) {
@@ -262,13 +264,15 @@ export const startFromCode = async ({ code }) => {
     code,
     i: 0,
     changes: [],
+    saveCode: () => {},
     setChild: () => {},
   };
   await runner(code, null, session);
   await quickStart(session);
 };
 
-export async function quickStart(session, room, keepFullScreen) {
+export async function quickStart(session, room, keepFullScreen, saveCode) {
+  session.saveCode = saveCode;
   // session.children = await getReactChild(session.transpiled);
   session.children = null;
   const { renderPreviewWindow } = await import(

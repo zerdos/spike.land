@@ -338,7 +338,7 @@ export class Code {
 
           const messageEv = {
             type: "code-init",
-            hashCode: this.mySession.session.state.hashCode,
+            hashCode: this.mySession.session.state.hashCode(),
           }
       
           webSocket.send(
@@ -368,7 +368,7 @@ export class Code {
           this.mySession.applyPatch(data);
           if(newHash===this.mySession.session.state.hashCode()) {
        
-            this.broadcast(msg);
+            this.broadcast(msg.data);
             const session = this.mySession.session.state.toJS();
             await this.kv.put<ICodeSession>("session", session);
             

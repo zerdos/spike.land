@@ -581,7 +581,7 @@ var require_textdiff_create = __commonJS({
 });
 
 // ../../packages/code/package.json
-var version = "0.4.60";
+var version = "0.4.62";
 
 // src/index.html
 var src_default = `<!DOCTYPE html>
@@ -769,7 +769,7 @@ function src_default2(packageName, version2, serveDir = "") {
         myCache.put(request, resp.clone());
       return resp;
     } catch (Error2) {
-      return new Response(`Yayy... ${Object.prototype.toString.call(Error2)}`);
+      return new Response(`No... ${Object.prototype.toString.call(Error2)}`);
     }
   };
 }
@@ -5479,7 +5479,7 @@ var Code = class {
           const patch = data.patch;
           this.mySession.applyPatch(data);
           if (newHash === this.mySession.session.state.hashCode()) {
-            this.broadcast(msg);
+            this.broadcast(msg.data);
             const session3 = this.mySession.session.state.toJS();
             await this.kv.put("session", session3);
             await this.kv.put(String(newHash), {
