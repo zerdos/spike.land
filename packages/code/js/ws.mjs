@@ -45,8 +45,10 @@ let intervalHandler = null;
 // return toolsImported;
 // };
 
-chCode = globalThis.chCode = async (code) => {
+chCode = globalThis.chCode = async (code, i) => {
   if (!code) return;
+  if (i < window.sess.i) return;
+  if (code === window.sess.codeNonFormatted) return;
   try {
     if (window.monaco && window.monaco.editor.getModels().length) {
       //     const hashOfCode = await Hash.of(code);
@@ -115,9 +117,9 @@ async function broad(
   updatedState.i = i;
   const message = mySession.createPatch(updatedState);
 
-  console.log("APPLY");
-  mySession.applyPatch(message);
-  console.log(mySession.hashCode());
+  // console.log("APPLY");
+  // mySession.applyPatch(message);
+  // console.log(mySession.hashCode());
 
   const msgStr = JSON.stringify({ ...message, name: username });
 
@@ -603,8 +605,13 @@ async function processWsMessage(event) {
   if (data.patch) {
     if (data.newHash === mySession.hashCode()) return;
 
-    if (data.patch.oldHash === mySession.hashCode()) {
+    if (data.oldHash === mySession.hashCode()) {
+      console.log("******** APPLY PATCH ******");
       mySession.applyPatch(data);
+      chCode(
+        mySession.session.get("state").code,
+        mySession.session.get("state").i,
+      );
     }
 
     if (data.newHash === mySession.hashCode()) return;

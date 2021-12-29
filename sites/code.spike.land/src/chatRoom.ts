@@ -266,6 +266,10 @@ export class Code {
 
     webSocket.addEventListener("message", async (msg) => {
 
+      session.webSocket.send(JSON.stringify({
+        hashCode: this.state.mySession.hashCode()
+      }));
+
       try {
         if (session.quit) {
 

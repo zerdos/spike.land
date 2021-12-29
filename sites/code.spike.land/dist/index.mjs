@@ -581,7 +581,7 @@ var require_textdiff_create = __commonJS({
 });
 
 // ../../packages/code/package.json
-var version = "0.4.66";
+var version = "0.4.67";
 
 // src/index.html
 var src_default = `<!DOCTYPE html>
@@ -5449,6 +5449,9 @@ var Code = class {
       }
     });
     webSocket.addEventListener("message", async (msg) => {
+      session2.webSocket.send(JSON.stringify({
+        hashCode: this.state.mySession.hashCode()
+      }));
       try {
         if (session2.quit) {
           if (session2.name && typeof session2.name === "string") {
