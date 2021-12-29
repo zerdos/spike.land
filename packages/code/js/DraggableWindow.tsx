@@ -75,7 +75,7 @@ interface DraggableWindowProps {
 }
 
 export const DraggableWindow: FC<DraggableWindowProps> = (
-  { onShare, onRestore, position, session, keepFullScreen },
+  { onShare, onRestore, position, session, keepFullScreen, room },
 ) => {
   const [isStable, setIsStable] = useState(false);
   const [scaleRange, changeScaleRange] = useState(100);
@@ -172,6 +172,16 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
     };
     reveal();
   }, []);
+
+  // if (isFullScreen) {
+  //   return (
+  //     <LazySpikeLandComponent
+  //       name={room}
+  //       cssText={session.css}
+  //       html={session.html}
+  //     />
+  //   );
+  // }
 
   return (
     <React.StrictMode>

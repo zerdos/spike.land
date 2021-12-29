@@ -7,7 +7,6 @@ let esbuildEsmTransform;
 // let esbuildTransform;
 // let babelTransform;
 let getHtmlAndCss;
-let getCss;
 let initSess;
 
 export const initSession = async (room, initData) => {
