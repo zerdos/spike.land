@@ -581,7 +581,7 @@ var require_textdiff_create = __commonJS({
 });
 
 // ../../packages/code/package.json
-var version = "0.4.62";
+var version = "0.4.63";
 
 // src/index.html
 var src_default = `<!DOCTYPE html>
@@ -5281,7 +5281,7 @@ var Code = class {
         const resp = await defaultRoomObject.fetch("session");
         session2 = await resp.json();
       }
-      this.mySession = session_default("", {
+      this.state.mySession = session_default("", {
         name: username,
         capabilities: {
           prettier: false,
@@ -5299,21 +5299,20 @@ var Code = class {
   }
   state;
   kv;
-  mySession;
-  hashCache = {};
   sessions;
   async fetch(request) {
+    const mST = () => this.state.mySession.session.get("state");
     return await handleErrors(request, async () => {
       let code = "";
       let patched = false;
       let url = new URL(request.url);
       const codeSpace = url.searchParams.get("room");
-      if (codeSpace && this.mySession.room === "")
-        this.mySession.setRoom(codeSpace);
+      if (codeSpace && this.state.mySession.room === "")
+        this.state.mySession.setRoom(codeSpace);
       let path = url.pathname.slice(1).split("/");
       switch (path[0]) {
         case "code": {
-          return new Response(this.mySession.session.state.code, {
+          return new Response(mST().code, {
             status: 200,
             headers: {
               "Access-Control-Allow-Origin": "*",
@@ -5323,7 +5322,7 @@ var Code = class {
           });
         }
         case "session":
-          return new Response(JSON.stringify(this.mySession.session.state.toJS()), {
+          return new Response(JSON.stringify(mST().toJS()), {
             status: 200,
             headers: {
               "Access-Control-Allow-Origin": "*",
@@ -5332,7 +5331,7 @@ var Code = class {
             }
           });
         case "hashCodeSession":
-          return new Response(this.mySession.session.state.hashCode(), {
+          return new Response(mST().hashCode(), {
             status: 200,
             headers: {
               "Access-Control-Allow-Origin": "*",
@@ -5341,7 +5340,7 @@ var Code = class {
             }
           });
         case "mySession":
-          return new Response(JSON.stringify(this.mySession.json()), {
+          return new Response(JSON.stringify(this.state.mySession.json()), {
             status: 200,
             headers: {
               "Access-Control-Allow-Origin": "*",
@@ -5350,7 +5349,7 @@ var Code = class {
             }
           });
         case "js": {
-          return new Response(this.mySession.session.state.transpiled, {
+          return new Response(mST().transpiled, {
             status: 200,
             headers: {
               "Access-Control-Allow-Origin": "*",
@@ -5360,8 +5359,8 @@ var Code = class {
           });
         }
         case "hydrated": {
-          const htmlContent = this.mySession.session.state.html;
-          const css = this.mySession.session.state.css;
+          const htmlContent = mST().html;
+          const css = mST().css;
           const html = src_default.replace(`<div id="root"></div>`, `<div id="root"><style>${css}</style><div id="zbody">${htmlContent}</div></div>`).replace("{VERSION}", version);
           return new Response(html, {
             status: 200,
@@ -5383,8 +5382,8 @@ var Code = class {
           });
         }
         case "public": {
-          const htmlContent = this.mySession.session.state.html;
-          const css = this.mySession.session.state.css;
+          const htmlContent = mST().html;
+          const css = mST().css;
           const html = src_default.replace(`<div id="root"></div>`, `<div id="root"><style>${css}</style><div id="zbody">${htmlContent}</div></div>`).replace("{VERSION}", version);
           return new Response(html, {
             status: 200,
@@ -5410,13 +5409,14 @@ var Code = class {
     });
   }
   async handleSession(webSocket, ip) {
+    const mST = () => this.state.mySession.session.get("state");
     webSocket.accept();
     let limiterId = this.env.LIMITERS.idFromName(ip);
     let limiter = new RateLimiterClient(() => this.env.LIMITERS.get(limiterId), (err) => webSocket.close(1011, err.stack));
     const uuid = self.crypto.randomUUID();
     const newConnEvent = {
       uuid,
-      hashCode: this.mySession.hashCode(),
+      hashCode: this.state.mySession.hashCode(),
       type: "new-ws-connection",
       timestamp: Date.now()
     };
@@ -5431,8 +5431,8 @@ var Code = class {
       if (otherSession.name) {
         session2.blockedMessages.push(JSON.stringify({
           joined: otherSession.name,
-          i: this.mySession.session.state.i,
-          hashCode: this.mySession.session.state.hashCode()
+          i: mST().i,
+          hashCode: mST().hashCode()
         }));
       }
     });
@@ -5447,7 +5447,7 @@ var Code = class {
         if (typeof msg.data !== "string")
           return;
         let data = JSON.parse(msg.data);
-        this.mySession.addEvent({ ...data, uuid: session2.uuid });
+        this.state.mySession.addEvent({ ...data, uuid: session2.uuid });
         if (!(data.type && (data.type === "new-ice-candidate" || data.type === "video-offer" || data.type === "video-answer")) && !limiter.checkLimit()) {
           webSocket.send(JSON.stringify({
             error: "Your IP is being rate-limited, please try again later."
@@ -5464,7 +5464,7 @@ var Code = class {
           session2.blockedMessages = [];
           const messageEv = {
             type: "code-init",
-            hashCode: this.mySession.session.state.hashCode
+            hashCode: mST().hashCode()
           };
           webSocket.send(JSON.stringify(messageEv));
           return;
@@ -5473,21 +5473,21 @@ var Code = class {
           this.user2user(data.target, { name: session2.name, ...data });
           return;
         }
-        if (data.patch && data.oldHash === this.mySession.session.state.hashCode()) {
+        if (data.patch && data.oldHash === mST().hashCode()) {
           const newHash = data.newHash;
           const oldHash = data.oldHash;
           const patch = data.patch;
-          this.mySession.applyPatch(data);
-          if (newHash === this.mySession.session.state.hashCode()) {
+          this.state.mySession.applyPatch(data);
+          if (newHash === mST().hashCode()) {
             this.broadcast(msg.data);
-            const session3 = this.mySession.session.state.toJS();
+            const session3 = mST().toJS();
             await this.kv.put("session", session3);
             await this.kv.put(String(newHash), {
               oldHash,
               patch
             });
           } else {
-            this.user2user(data.name, { hashCode: this.mySession.session.state.hashCode() });
+            this.user2user(data.name, { hashCode: mST().hashCode() });
           }
           return;
         }

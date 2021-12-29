@@ -197,40 +197,43 @@ async function runner(c, changes = null, session, counter) {
 
     if (err.length) console.log({ err });
 
-    if (err.length === 0 && transpiled.length) {
-      if (session.i > counter) return;
-      session.code = cd;
-      session.codeNonFormatted = c;
+    // if (err.length === 0 && transpiled.length) {
+    //   if (session.i > counter) return;
+    //   session.code = cd;
+    //   session.codeNonFormatted = c;
 
-      saveCode(session, counter);
-    } else {
-      console.log({ code: c, transpiled });
-      if (session.i > counter) return;
+    //   const code = cd;
+    //   const i = session.i;
 
-      if (cd.length < 1000 && session.code.length < 1000) {
-        const diff = (await import("@spike.land/shadb")).diff;
+    //   saveCode(session, counter);
+    // } else {
+    //   console.log({ code: c, transpiled });
+    //   if (session.i > counter) return;
 
-        const slices = await diff(session.code, cd);
+    //   if (cd.length < 1000 && session.code.length < 1000) {
+    //     const diff = (await import("@spike.land/shadb")).diff;
 
-        if (slices.c.length <= 3) {
-          session.lastErrors = 0;
+    //     const slices = await diff(session.code, cd);
 
-          return;
-        }
+    //     if (slices.c.length <= 3) {
+    //       session.lastErrors = 0;
 
-        if (slices.c.length == 4) {
-          session.lastErrors = 0;
-          monaco.editor.setTheme("hc-black");
+    //       return;
+    //     }
 
-          return;
-        }
-      }
-      if (err && err[0] && err[0].messageText) {
-        console.error(err[0].messageText.toString());
-      }
+    //     if (slices.c.length == 4) {
+    //       session.lastErrors = 0;
+    //       monaco.editor.setTheme("hc-black");
 
-      return;
-    }
+    //       return;
+    //     }
+    //   }
+    //   if (err && err[0] && err[0].messageText) {
+    //     console.error(err[0].messageText.toString());
+    //   }
+
+    //   return;
+    // }
 
     monaco.editor.setTheme("vs-dark");
   } catch (err) {
@@ -308,9 +311,9 @@ async function getReactChild(transpiled, mode = "window") {
   return jsx(mod.default);
 }
 
-function createPatch(oldCode, newCode, createDelta) {
-  return JSON.stringify(createDelta(oldCode, newCode));
-}
+// function createPatch(oldCode, newCode, createDelta) {
+//   return JSON.stringify(createDelta(oldCode, newCode));
+// }
 
 /**
  * @param {BlobPart} code

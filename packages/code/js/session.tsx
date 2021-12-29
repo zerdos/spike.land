@@ -172,11 +172,11 @@ export class CodeSession implements ICodeSess {
     }
   }
   public updateState(state: ICodeSession) {
-    const oldState = JSON.stringify(this.session.get("state").toJS());
+    const oldState = JSON.stringify(this.session.get("state").toJSON());
     const oldHash = this.session.get("state").hashCode();
 
     this.session = this.session.set("state", Record<ICodeSession>(state)());
-    const newState = JSON.stringify(this.session.get("state").toJS());
+    const newState = JSON.stringify(this.session.get("state").toJSON());
     const newHash = this.session.get("state").hashCode();
     const patch = createPatch(oldState, newState);
     return {
@@ -198,7 +198,7 @@ export class CodeSession implements ICodeSess {
       return;
     }
 
-    const oldState = JSON.stringify(this.session.get("state").toJS());
+    const oldState = JSON.stringify(this.session.get("state").toJSON());
     const newState = JSON.parse(applyPatch(oldState, JSON.parse(patch)));
 
     this.session = this.session.set("state", Record<ICodeSession>(newState)());

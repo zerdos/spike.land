@@ -26,6 +26,8 @@ let sendChannel;
 // let createDelta;
 // let applyPatch;
 let mySession = null;
+const mST = () => mySession.session.get("state");
+
 let intervalHandler = null;
 
 // function createPatch(oldCode, newCode) {
@@ -104,7 +106,7 @@ async function broad(
   }
 
   mod.lastUpdate = Date.now();
-  const updatedState = mySession.session.state.toJS();
+  const updatedState = mST().toJSON();
 
   updatedState.code = code;
   updatedState.html = html;
@@ -139,7 +141,7 @@ export const join = async (room, user) => {
   window.mySession = mySession;
   if (!window.sess) {
     const session = {
-      ...mySession.session.state.toJS(),
+      ...mST().toJSON(),
       setChild: () => {},
       changes: [],
 
@@ -590,13 +592,13 @@ async function processWsMessage(event) {
   // mySession.addEvent(data);
 
   if (data.patch) {
-    if (data.newHash === mySession.session.state.hashCode()) return;
+    if (data.newHash === mySession.hashCode()) return;
 
-    if (data.patch.oldHash === mySession.session.state.hashCode()) {
+    if (data.patch.oldHash === mySession.hashCode()) {
       mySession.applyPatch(data);
     }
 
-    if (data.newHash === mySession.session.state.hashCode()) return;
+    if (data.newHash === mySession.hashCode()) return;
 
     console.log("Maybe we are out of sync");
 

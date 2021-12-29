@@ -13,7 +13,7 @@ import type {
 import startSession from "@spike.land/code/js/session.tsx";
 
 interface IState extends DurableObjectState {
-  session: ISession;
+  mySession: ICodeSess;
   hashOfCode: string;
 }
 
@@ -39,8 +39,6 @@ type ResolveFn = (value: unknown) => void;
 export class Code {
   state: IState;
   kv: DurableObjectStorage;
-  mySession: ICodeSess;
-  hashCache: { [key: string]: string } = {};
   sessions: WebsocketSession[];
   constructor(state: IState, private env: CodeEnv) {
     this.kv = state.storage;
@@ -69,7 +67,7 @@ export class Code {
       session  = await resp.json();
       }
 
-    this.mySession = startSession("",{
+    this.state.mySession  = startSession("",{
       name: username,
       capabilities: {
         prettier: false,
@@ -88,20 +86,21 @@ export class Code {
   }
 
   async fetch(request: Request) {
+    const mST =() => this.state.mySession.session.get("state");
     return await handleErrors(request, async () => {
       let code = "";
       let patched = false;
 
       let url = new URL(request.url);
       const codeSpace = url.searchParams.get("room");
-      if (codeSpace && this.mySession.room ==="") this.mySession.setRoom(codeSpace);
+      if (codeSpace && this.state.mySession.room ==="") this.state.mySession.setRoom(codeSpace);
 
 
       let path = url.pathname.slice(1).split("/");
 
       switch (path[0]) {
         case "code": {
-          return new Response(this.mySession.session.state.code, {
+          return new Response(mST().code, {
             status: 200,
             headers: {
               "Access-Control-Allow-Origin": "*",
@@ -111,7 +110,7 @@ export class Code {
           });
         }
         case "session":
-          return new Response(JSON.stringify(this.mySession.session.state.toJS()) , {
+          return new Response(JSON.stringify(mST().toJSON()) , {
             status: 200,
             headers: {
               "Access-Control-Allow-Origin": "*",
@@ -120,7 +119,7 @@ export class Code {
             },
           });
         case "hashCodeSession":
-          return new Response(this.mySession.session.state.hashCode(), {
+          return new Response(this.state.mySession.hashCode(), {
             status: 200,
             headers: {
               "Access-Control-Allow-Origin": "*",
@@ -129,7 +128,7 @@ export class Code {
             },
           });
         case "mySession":
-          return new Response(JSON.stringify(this.mySession.json()), {
+          return new Response(JSON.stringify(this.state.mySession.json()), {
             status: 200,
             headers: {
               "Access-Control-Allow-Origin": "*",
@@ -143,7 +142,7 @@ export class Code {
           //   'export default function(){};'
           // }
 
-          return new Response(this.mySession.session.state.transpiled,{
+          return new Response(mST().transpiled,{
               status: 200,
               headers: {
                 "Access-Control-Allow-Origin": "*",
@@ -154,8 +153,8 @@ export class Code {
           );
         }
         case "hydrated": {
-          const htmlContent = this.mySession.session.state.html;
-          const css = this.mySession.session.state.css;
+          const htmlContent = mST().html;
+          const css = mST().css;
 
           const html = HTML.replace(
             `<div id="root"></div>`,
@@ -182,8 +181,8 @@ export class Code {
         }
 
         case "public": {
-          const htmlContent = this.mySession.session.state.html;
-          const css = this.mySession.session.state.css;
+          const htmlContent = mST().html;
+          const css = mST().css;
 
           const html = HTML.replace(
             `<div id="root"></div>`,
@@ -220,6 +219,7 @@ export class Code {
   }
 
   async handleSession(webSocket: WebSocket, ip: string) {
+    const mST =() => this.state.mySession.session.get("state");
     webSocket.accept();
 
     let limiterId = this.env.LIMITERS.idFromName(ip);
@@ -233,7 +233,7 @@ export class Code {
 
     const newConnEvent: INewWSConnection = {
       uuid,
-      hashCode:  this.mySession.hashCode(),
+      hashCode:  this.state.mySession.hashCode(),
       type: "new-ws-connection",
       timestamp: Date.now()
     };
@@ -241,7 +241,7 @@ export class Code {
     webSocket.send(JSON.stringify(newConnEvent));
 
 
-    // this.mySession.addEvent(newConnEvent);
+    // this.state.mySession.addEvent(newConnEvent);
   
     let session = {
       uuid,
@@ -255,8 +255,8 @@ export class Code {
         session.blockedMessages.push(
           JSON.stringify({
             joined: otherSession.name,
-            i: this.mySession.session.state.i,
-            hashCode: this.mySession.session.state.hashCode()
+            i: mST().i,
+            hashCode: this.state.mySession.hashCode()
           })
         );
       }
@@ -268,7 +268,7 @@ export class Code {
         if (session.quit) {
 
           if (session.name && typeof session.name === "string") {
-          // this.mySession.addEvent({
+          // this.state.mySession.addEvent({
           //   type: "quit",
           //   target: "broadcast",
           //   uuid: self.crypto.randomUUID(),
@@ -284,7 +284,7 @@ export class Code {
 
         let data = JSON.parse(msg.data);
 
-        this.mySession.addEvent({...data, uuid: session.uuid} as unknown as IEvent);
+        this.state.mySession.addEvent({...data, uuid: session.uuid} as unknown as IEvent);
 
         // if (data.type === "get-cid") {
         //   const CID = data.cid;
@@ -338,7 +338,7 @@ export class Code {
 
           const messageEv = {
             type: "code-init",
-            hashCode: this.mySession.session.state.hashCode(),
+            hashCode: this.state.mySession.hashCode(),
           }
       
           webSocket.send(
@@ -360,23 +360,23 @@ export class Code {
           return;
         }
 
-        if (data.patch && data.oldHash===this.mySession.session.state.hashCode()) {
+        if (data.patch && data.oldHash===this.state.mySession.hashCode()) {
           const newHash: number= data.newHash ;
           const oldHash: number= data.oldHash ;
             const patch: string= data.patch;
           
-          this.mySession.applyPatch(data);
-          if(newHash===this.mySession.session.state.hashCode()) {
+          this.state.mySession.applyPatch(data);
+          if(newHash===this.state.mySession.hashCode()) {
        
             this.broadcast(msg.data);
-            const session = this.mySession.session.state.toJS();
+            const session = mST().toJSON();
             await this.kv.put<ICodeSession>("session", session);
             
             await this.kv.put(String(newHash),{oldHash, 
               patch
             });
           } else {
-              this.user2user(data.name, {hashCode: this.mySession.session.state.hashCode()})
+              this.user2user(data.name, {hashCode: this.state.mySession.hashCode()})
           }
              
           
