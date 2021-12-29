@@ -5097,7 +5097,7 @@ const getHtmlAndCss = (MyComponent) => {
   const markup = _e1(a(o, {
     value: cache,
   }, a(MyComponent, null)));
-  const html = `
+  `
   <!DOCTYPE html>
   <html>
     <head>
@@ -5110,7 +5110,7 @@ const getHtmlAndCss = (MyComponent) => {
   </html>
 `;
   return {
-    html: html,
+    html: markup,
     css: cssText,
   };
 };

@@ -32,7 +32,7 @@ export const getHtmlAndCss = (MyComponent: () => JSX.Element) => {
 `;
 
   return {
-    html: html,
+    html: markup,
     css: cssText,
   };
 };
