@@ -138,7 +138,12 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
       // if (root && root.remove) root.remove();
       while (!window || !window.monaco) await wait(300);
       setFullScreen(false);
-      setPositions({ bottom: 20, right: 20 });
+      changeScaleRange(50);
+
+      setPositions({
+        bottom: window.innerHeight * 0.20,
+        right: window.innerWidth * 0.20,
+      });
       // changeScaleRange(75);
       // setHeight(height=> height)
 
@@ -151,14 +156,19 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
         changeScaleRange(50);
       } else if (window.innerWidth < 2500) {
         setHeight(breakPointHeights[2] * devicePixelRatio);
-        setHeight(window.innerHeight * devicePixelRatio * 0.6);
+        setWidth(window.innerWidth * devicePixelRatio * 0.6);
         changeScaleRange(50);
       } else if (window.innerWidth > 2500) {
         // setWidth(window* devicePixelRatio)
-        setHeight(window.innerHeight * devicePixelRatio * 0.7);
-        setHeight(breakPointHeights[2] * 2 * devicePixelRatio);
+        setWidth(window.innerWidth * devicePixelRatio * 0.7);
+        setHeight(breakPointHeights[2] * devicePixelRatio);
         changeScaleRange(100);
       }
+      await wait(200);
+      setPositions({
+        bottom: 20,
+        right: 20,
+      });
     };
     reveal();
   }, []);
@@ -242,14 +252,16 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
                 width: width * scale / devicePixelRatio,
                 height: height * scale / devicePixelRatio,
                 maxHeight: height * scale / devicePixelRatio,
+                borderRadius: isFullScreen ? 0 : 8,
+                opacity: isFullScreen ? 1 : 0.7,
               }}
               css={css`
                 width: ${width * scale / devicePixelRatio};
                 height: ${height * scale / devicePixelRatio};
                 display: block;
                 overflow: hidden;
-                border-radius: ${isFullScreen ? 0 : 8}px;
-                opacity: ${isFullScreen ? 1 : 0.9};
+
+
                 background-color: white;
             `}
             >
