@@ -7,9 +7,8 @@ import { state } from "./dist/getSession.mjs";
 import { initSession, quickStart } from "./quickStart.mjs";
 
 let currentWebSocket = null;
-let lastMsg = null;
 let sess = false;
-let sanyiProcess = null;
+// let sanyiProcess = null;
 
 const webrtcArray = [];
 let hostname = "code.spike.land";
@@ -108,7 +107,7 @@ export const join = async (room, user) => {
   if (!window.sess) {
     const session = {
       ...mySession.session.state.toJS(),
-      setChild: (c) => {},
+      setChild: () => {},
       changes: [],
 
       children: [null],
@@ -181,7 +180,6 @@ export const join = async (room, user) => {
       const message = mySession.updateState(updatedState);
 
       const msgStr = JSON.stringify({ ...message, name: username });
-      lastMsg = msgStr;
 
       if (sendChannel) {
         sendChannel.send(message);
@@ -553,38 +551,38 @@ async function handleChatOffer(msg, target) {
   }));
 }
 
-const cids = {};
-async function getCID(CID, from) {
-  if (cids[CID] && typeof cids[CID] === "string") return cids[CID];
-  if (cids[CID] && typeof cids[CID] === "function") return cids[CID]();
+// const cids = {};
+// async function getCID(CID, from) {
+//   if (cids[CID] && typeof cids[CID] === "string") return cids[CID];
+//   if (cids[CID] && typeof cids[CID] === "function") return cids[CID]();
 
-  const msg = {
-    type: "get-cid",
-    target: from,
-    name: username,
-    cid: CID,
-  };
-  // if (sendChannel) {
-  //   sendChannel.send(msg);
-  // } else {
-  //   ws.send(JSON.stringify(msg));
-  // }
-  return new Promise((resolve) => {
-    cids[CID] = resolve;
-  });
-}
+//   const msg = {
+//     type: "get-cid",
+//     target: from,
+//     name: username,
+//     cid: CID,
+//   };
+//   // if (sendChannel) {
+//   //   sendChannel.send(msg);
+//   // } else {
+//   //   ws.send(JSON.stringify(msg));
+//   // }
+//   return new Promise((resolve) => {
+//     cids[CID] = resolve;
+//   });
+// }
 
 // Called by the WebRTC layer to let us know when it's time to
 // begin, resume, or restart ICE negotiation.
 
-async function processWsMessage(event, source) {
-  if (!toolsImported) {
-    await importTools();
-  }
-  if (!sanyiProcess) {
-    sanyiProcess =
-      (await import(`https://code.spike.land/api/room/sanyi/js`)).processWs;
-  }
+async function processWsMessage(event) {
+  // if (!toolsImported) {
+  //   await importTools();
+  // }
+  // if (!sanyiProcess) {
+  //   sanyiProcess =
+  //     (await import(`https://code.spike.land/api/room/sanyi/js`)).processWs;
+  // }
 
   const data = JSON.parse(event.data);
 
