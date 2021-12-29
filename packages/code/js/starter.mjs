@@ -8,7 +8,8 @@ export const run = async (injectedRoom) => {
   const room = injectedRoom ||
     ((path[1] === "api" && path[2] === "room")
       ? path[3]
-      : (path.pop() || path.pop()).slice(-12));
+      : (path.pop() || path.pop()).slice(-12)) ||
+    "|code-main";
 
   const user = ((self && self.crypto && self.crypto.randomUUID &&
     self.crypto.randomUUID()) || (await import("./uidV4.mjs")).default())
