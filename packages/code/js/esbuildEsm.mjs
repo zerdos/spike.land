@@ -13,7 +13,7 @@ export const transform = async (code) => {
 
   await mutex.waitForUnlock();
 
-  if (!initFinished || await init) {
+  if (initFinished || await init) {
     initFinished = true;
   }
 

@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["../esbuildEsm.mjs"],
+  "sourcesContent": ["import { Mutex } from \"async-mutex\";\nimport * as esbuild from \"https://unpkg.com/esbuild-wasm@0.14.9/esm/browser.min.js\";\n\nconst init = esbuild.initialize({\n  wasmURL: \"https://unpkg.com/esbuild-wasm@0.14.9/esbuild.wasm\",\n});\n\nlet initFinished = false;\nconst mutex = new Mutex();\n\nexport const transform = async (code) => {\n  var startTime = performance.now();\n\n  await mutex.waitForUnlock();\n\n  if (initFinished || await init) {\n    initFinished = true;\n  }\n\n  const result = await esbuild.transform(code, {\n    loader: \"tsx\",\n    // minify: true,\n    // treeShaking: true,\n    target: \"es2018\",\n  });\n\n  var endTime = performance.now();\n\n  console.log(`esbuildEsmTransform: took ${endTime - startTime} milliseconds`);\n  return result.code;\n};\n"],
+  "mappings": ";AAAA;AACA;AAEA,IAAM,OAAO,AAAQ,mBAAW;AAAA,EAC9B,SAAS;AAAA;AAGX,IAAI,eAAe;AACnB,IAAM,QAAQ,IAAI;AAEX,IAAM,aAAY,OAAO,SAAS;AACvC,MAAI,YAAY,YAAY;AAE5B,QAAM,MAAM;AAEZ,MAAI,gBAAgB,MAAM,MAAM;AAC9B,mBAAe;AAAA;AAGjB,QAAM,SAAS,MAAM,AAAQ,kBAAU,MAAM;AAAA,IAC3C,QAAQ;AAAA,IAGR,QAAQ;AAAA;AAGV,MAAI,UAAU,YAAY;AAE1B,UAAQ,IAAI,6BAA6B,UAAU;AACnD,SAAO,OAAO;AAAA;",
+  "names": []
+}

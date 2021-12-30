@@ -9,7 +9,7 @@ var mutex = new Mutex();
 var transform2 = async (code) => {
   var startTime = performance.now();
   await mutex.waitForUnlock();
-  if (!initFinished || await init) {
+  if (initFinished || await init) {
     initFinished = true;
   }
   const result = await esbuild.transform(code, {
@@ -23,4 +23,4 @@ var transform2 = async (code) => {
 export {
   transform2 as transform
 };
-//# sourceMappingURL=esbuildEsm-TQLZJYI6.mjs.map
+//# sourceMappingURL=esbuildEsm-VL522JNZ.mjs.map
