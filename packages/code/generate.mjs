@@ -52,7 +52,7 @@ await generator.install("comlink");
 
 // await generator.install("@mui/material/ToggleButtonGroup");
 
-// await generator.install("react@18/jsx-runtime");
+await generator.install("react@18/jsx-runtime");
 // await generator.install("react-transition-group");
 
 const importMap = { ...generator.getMap() };
