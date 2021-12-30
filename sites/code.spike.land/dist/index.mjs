@@ -581,7 +581,7 @@ var require_textdiff_create = __commonJS({
 });
 
 // ../../packages/code/package.json
-var version = "0.4.87";
+var version = "0.4.88";
 
 // ../../packages/cf-npm-site/dist/index.mjs
 function src_default(packageName, version2, serveDir = "") {
@@ -825,21 +825,21 @@ var src_default2 = `<!DOCTYPE html>
        height: 100%;
      }
       body {
-        overscroll-behavior-y: contain;
+        /* overscroll-behavior-y: contain; */
         width: 100%;
         margin: 0;
         padding: 0;
-        border: 0;
-        min-height: -webkit-fill-available;
+        /* border: 0; */
+        /* min-height: -webkit-fill-available; */
         height: 100%;
-        position: fixed;
+        /* position: fixed; */
         /* prevent overscroll bounce*/
-        overflow-y: scroll;
+        /* overflow-y: scroll; */
         --webkit-overflow-scrolling: touch;
-        padding-bottom: 0 !important;
-        overflow: hidden;
+        /* padding-bottom: 0 !important; */
+        /* overflow: hidden;
         overflow-x: hidden;
-        overflow-y: hidden;
+        overflow-y: hidden; */
       }
 
       #root, #zbody {
@@ -847,13 +847,10 @@ var src_default2 = `<!DOCTYPE html>
       }
 
       #shadowEditor {
-        position: relative;
-        top: 0;
-        left: 0;
-        display: none;
-        max-width: 680px;
         width: 100%;
-        height: 100vh; 
+        min-width: 640px;
+        min-height:800px;
+        max-height: 100vh;
       }
 
 
@@ -878,7 +875,7 @@ var src_default2 = `<!DOCTYPE html>
 <body>
   <div id="shadowEditor"></div>
   <div id="root"></div>
-  <script type="importmap-shim" src="./importmap.json"><\/script>
+<script type="importmap-shim" src="./importmap.json"><\/script>
   <script>
   window.process = { env: { NODE_ENV: "production" } };
 <\/script>
