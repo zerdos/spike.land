@@ -78,6 +78,8 @@
     "multihash",
     "nocheck",
     "novnc",
+    "outbase",
+    "outdir",
     "outfile",
     "overtype",
     "Parens",

@@ -1,3 +1,5 @@
+const { React } = window;
+const { Suspense } = React;
 interface ILaztCom {
   name: string;
   html: string;
@@ -5,7 +7,7 @@ interface ILaztCom {
   hash: number;
 }
 
-export const LazySpikeLandComponent = (
+const LazySpikeLandComponent = (
   { name, html, hash, transpiled }: ILaztCom,
 ) => {
   const [hashCode, setHash] = React.useState(hash);
@@ -31,39 +33,42 @@ export const LazySpikeLandComponent = (
       );
       const { html, css, transpiled } = await resp.json();
       setHtmlCss({
-        html:
+        htmlContent:
           `<div id="root"><style>${css}</style><div id="zbody">${html}</div></div>`,
         LazyComponent: await getApp(transpiled),
       });
     })();
   }, [hashCode]);
 
-  const LazyStarter = () =>
-    transpiled ? React.lazy(() => getApp(transpiled)) : <div></div>;
+  // const LazyStarter = () => React.lazy(() => getApp(transpiled)) : <div></div>;
 
-  const [fallCont, setHtmlCss] = React.useState({
-    html,
-    LazyComponent: LazyStarter, // transpiled?  ,
+  const LazyComponentInit = React.lazy(() => import(createJsBlob(transpiled)));
+
+  const [{ htmlContent, LazyComponent }, setHtmlCss] = React.useState({
+    htmlContent: html,
+    LazyComponent: LazyComponentInit, // transpiled?  ,
   });
 
-  const { LazyComponent } = fallCont;
+  // const { LazyComponent } = fallCont;
+
+  // const LazyComponentInit = React.lazy(()=>import(createJsBlob(transpiled)))
 
   return (
-    <React.Suspense
+    <Suspense
       key={hashCode}
-      fallback={<div dangerouslySetInnerHTML={{ __html: fallCont.html }}></div>}
+      fallback={<div dangerouslySetInnerHTML={{ __html: htmlContent }}></div>}
     >
-      <LazyComponent key={hashCode} />
-    </React.Suspense>
+      <LazyComponent key={hash} />
+    </Suspense>
   );
 
-  function createJsBlob(code) {
+  function createJsBlob(code: string) {
     const blob = new Blob([code], { type: "application/javascript" });
 
     return URL.createObjectURL(blob);
   }
 
-  async function getApp(transpiled) {
+  async function getApp(transpiled: string) {
     const objUrl = createJsBlob(transpiled);
 
     const App = (await import(objUrl)).default;
@@ -73,6 +78,7 @@ export const LazySpikeLandComponent = (
     return App;
   }
 };
-export default (props: { transpiled: string; hash: number; html: string }) => (
-  <LazySpikeLandComponent {...props}></LazySpikeLandComponent>
-);
+
+export default (
+  props: { transpiled: string; hash: number; html: string; name: string },
+) => <LazySpikeLandComponent {...props}></LazySpikeLandComponent>;

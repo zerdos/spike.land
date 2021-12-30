@@ -126,7 +126,7 @@ export class Code {
           const {html, css, transpiled} = mST().toJSON();
           const hash = this.state.mySession.hashCode();
 
-           return new Response(LAZY.replace("{...n}",JSON.stringify({name: codeSpace, transpiled, html: `<div id="root"><style>${css}</style><div id="zbody">${html}</div></div>`, hash})),{
+           return new Response(LAZY.replace("{...o}",JSON.stringify({name: codeSpace, transpiled, html: `<div id="root"><style>${css}</style><div id="zbody">${html}</div></div>`, hash})),{
               status: 200,
               headers: {
                 "Access-Control-Allow-Origin": "*",
