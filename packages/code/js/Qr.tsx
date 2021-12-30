@@ -4,13 +4,13 @@ import { css, jsx } from "@emotion/react";
 import { motion } from "framer-motion";
 import React from "react";
 import { Fab, QrCode } from "./vendor/mui.mjs";
+import { QRious } from "@spike.land/qrious";
 
 const QR: React.FC<{ url: string }> = ({ url }) => {
   const canvasRef = React.useRef<HTMLCanvasElement>(null);
 
   React.useEffect(() => {
-    const load = async () => {
-      const { QRious } = await import("@spike.land/qrious");
+    const load = () => {
       const options = {
         size: 200,
         element: canvasRef.current,

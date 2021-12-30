@@ -1,6 +1,7 @@
-import "./chunk-FWO6N4QW.mjs";
+import "./chunk-42U43NKG.mjs";
+import "./chunk-42U43NKG.mjs";
 
-// ../smart-monaco-editor/dist/editor.mjs
+// js/dist/startMonaco.mjs
 var __create = Object.create;
 var __defProp = Object.defineProperty;
 var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
@@ -444,10 +445,8 @@ async function loadExtraLibs(addExtraLib, setDiagnosticsOptions) {
     noSyntaxValidation: false
   });
 }
-
-// js/startMonaco.ts
 var startMonaco_default = editor_default;
 export {
   startMonaco_default as default
 };
-//# sourceMappingURL=startMonaco.mjs.map
+//# sourceMappingURL=startMonaco-IYB2NKQI.mjs.map
