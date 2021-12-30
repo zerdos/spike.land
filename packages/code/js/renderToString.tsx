@@ -2,7 +2,7 @@
 import { jsx } from "@emotion/react";
 import createCache from "@emotion/cache";
 import { CacheProvider } from "@emotion/react";
-import { renderToStaticMarkup } from "react-dom/server";
+import { renderToString } from "react-dom/server";
 
 export const getHtmlAndCss = (MyComponent: () => JSX.Element) => {
   const key = "foo";

@@ -32,8 +32,8 @@ await generator.install("immutable");
 // await generator.install("@spike.land/smart-monaco-editor");
 
 // await generator.install("@emotion/server");
-// await generator.install("@emotion/react");
-// await generator.install("@emotion/cache");
+await generator.install("@emotion/react");
+await generator.install("@emotion/cache");
 // await generator.install("@emotion/styled");
 // await generator.install("@emotion/styled");
 // await generator.install("framer-motion");
@@ -45,12 +45,12 @@ await generator.install("comlink");
 // await generator.install("@spike.land/shadb");
 // await generator.install("@spike.land/qrious");
 // await generator.install("@spike.land/smart-monaco-editor");
-// await generator.install("@mui/material/Fab");
-// await generator.install("@mui/material/Button");
-// await generator.install("@mui/material/ToggleButton");
-// await generator.install("@mui/material/utils/createSvgIcon");
+await generator.install("@mui/material/Fab");
+await generator.install("@mui/material/Button");
+await generator.install("@mui/material/ToggleButton");
+await generator.install("@mui/material/utils/createSvgIcon");
 
-// await generator.install("@mui/material/ToggleButtonGroup");
+await generator.install("@mui/material/ToggleButtonGroup");
 
 await generator.install("react@18/jsx-runtime");
 // await generator.install("react-transition-group");

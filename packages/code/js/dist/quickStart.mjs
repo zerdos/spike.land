@@ -69,7 +69,7 @@ async function runner(c, changes = null, session, counter) {
       if (counter < session.i)
         return;
       try {
-        getHtmlAndCss = getHtmlAndCss || (await import("./renderToString-AGK4NMDT.mjs")).getHtmlAndCss;
+        getHtmlAndCss = getHtmlAndCss || (await import("./renderToString-YDN3DAT3.mjs")).getHtmlAndCss;
         if (counter < session.i)
           return;
         const App = await getApp(transpiled);
