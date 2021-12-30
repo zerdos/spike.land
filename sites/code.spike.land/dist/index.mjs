@@ -825,21 +825,21 @@ var src_default2 = `<!DOCTYPE html>
        height: 100%;
      }
       body {
-        /* overscroll-behavior-y: contain; */
+        overscroll-behavior-y: contain;
         width: 100%;
         margin: 0;
         padding: 0;
-        /* border: 0; */
-        /* min-height: -webkit-fill-available; */
+        border: 0;
+        min-height: -webkit-fill-available;
         height: 100%;
-        /* position: fixed; */
+        position: fixed;
         /* prevent overscroll bounce*/
-        /* overflow-y: scroll; */
+        overflow-y: scroll;
         --webkit-overflow-scrolling: touch;
-        /* padding-bottom: 0 !important; */
-        /* overflow: hidden;
+        padding-bottom: 0 !important;
+        overflow: hidden;
         overflow-x: hidden;
-        overflow-y: hidden; */
+        overflow-y: hidden;
       }
 
       #root, #zbody {
@@ -873,9 +873,10 @@ var src_default2 = `<!DOCTYPE html>
 
 </head>
 <body>
-  <div id="shadowEditor"></div>
+
   <div id="root"></div>
-<script type="importmap-shim" src="./importmap.json"><\/script>
+  <div id="shadowEditor"></div>
+  <script type="importmap-shim" src="./importmap.json"><\/script>
   <script>
   window.process = { env: { NODE_ENV: "production" } };
 <\/script>

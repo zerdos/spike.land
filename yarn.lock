@@ -1555,9 +1555,9 @@
     multiformats "^9.5.4"
 
 "@jspm/core@^2.0.0-beta.8":
-  version "2.0.0-beta.13"
-  resolved "https://registry.yarnpkg.com/@jspm/core/-/core-2.0.0-beta.13.tgz#014d848c5eb7138baf97c033ee67ad2c2707da2c"
-  integrity sha512-BXFHvsKsVeeQ+lp2ZilLTZcU6QWV/m1dHOQDq8FGXbFRrlr8uehjxqWtGsaj9ckOhvnL9mrSUteoEPXTtxZwPA==
+  version "2.0.0-beta.14"
+  resolved "https://registry.yarnpkg.com/@jspm/core/-/core-2.0.0-beta.14.tgz#c8b253de9b0cd2f42f26e2acd8fd1ec4aa939a14"
+  integrity sha512-OOtcxGbiRqWfENs+inJljomQEv4CHAuo6XKN8bZ12WA3nbYbPZasFeKTKCDX7ypuBYD/WtoWxK3Nfzz0isZYEA==
 
 "@jspm/generator@^1.0.0-beta.20":
   version "1.0.0-beta.20"
@@ -4936,13 +4936,13 @@ conventional-changelog-preset-loader@^2.3.4:
   integrity sha512-GEKRWkrSAZeTq5+YjUZOYxdHq+ci4dNwHvpaBC3+ENalzFWuCWa9EZXSuZBpkr72sMdKB+1fyDV4takK1Lf58g==
 
 conventional-changelog-writer@^5.0.0:
-  version "5.0.0"
-  resolved "https://registry.yarnpkg.com/conventional-changelog-writer/-/conventional-changelog-writer-5.0.0.tgz#c4042f3f1542f2f41d7d2e0d6cad23aba8df8eec"
-  integrity sha512-HnDh9QHLNWfL6E1uHz6krZEQOgm8hN7z/m7tT16xwd802fwgMN0Wqd7AQYVkhpsjDUx/99oo+nGgvKF657XP5g==
+  version "5.0.1"
+  resolved "https://registry.yarnpkg.com/conventional-changelog-writer/-/conventional-changelog-writer-5.0.1.tgz#e0757072f045fe03d91da6343c843029e702f359"
+  integrity sha512-5WsuKUfxW7suLblAbFnxAcrvf6r+0b7GvNaWUwUIk0bXMnENP/PEieGKVUQrjPqwPT4o3EPAASBXiY6iHooLOQ==
   dependencies:
     conventional-commits-filter "^2.0.7"
     dateformat "^3.0.0"
-    handlebars "^4.7.6"
+    handlebars "^4.7.7"
     json-stringify-safe "^5.0.1"
     lodash "^4.17.15"
     meow "^8.0.0"
@@ -8082,7 +8082,7 @@ hamt-sharding@^2.0.0:
     sparse-array "^1.3.1"
     uint8arrays "^3.0.0"
 
-handlebars@^4.7.6:
+handlebars@^4.7.7:
   version "4.7.7"
   resolved "https://registry.yarnpkg.com/handlebars/-/handlebars-4.7.7.tgz#9ce33416aad02dbd6c8fafa8240d5d98004945a1"
   integrity sha512-aAcXm5OAfE/8IXkcZvCepKU3VzW1/39Fb5ZuqMtgI/hT8X2YgoMvBY5dLhq/cpOvw7Lk1nK/UF71aLG/ZnVYRA==

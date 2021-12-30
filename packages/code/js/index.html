@@ -41,53 +41,7 @@
      } </script>
   <script async src="https://unpkg.com/@spike.land/code@0.4.42/js/vendor/es-module-shims.wasm.js"></script>
   <title>Instant React Editor</title>
-   <style>
-      body {
-        overscroll-behavior-y: contain;
-        width: 100%;
-        margin: 0;
-        padding: 0;
-        border: 0;
-        height: 100vh;
-        min-height: -webkit-fill-available;
-        height: 100%;
-        position: fixed;
-        /* prevent overscroll bounce*/
-        overflow-y: scroll;
-        --webkit-overflow-scrolling: touch;
-        padding-bottom: 0 !important;
-        overflow: hidden;
-        overflow-x: hidden;
-        overflow-y: hidden;
-      }
-
-      #root {
-        height: 100%;
-      }
-
-      #shadowEditor {
-        /* position: relative;
-        top: 0;
-        left: 0; */
-        /* display: none; */
-        /* mi-width: 680px; */
-        width: 100%;
-        min-width: 640px;
-        min-height:800px;
-        max-height: 100vh;
-        /* height: 100vh;  */
-      }
-
-      @font-face {
-    font-family: 'codicon';
-      src: url('https://unpkg.com/monaco-editor@0.31.1/min/vs/base/browser/ui/codicons/codicon/codicon.ttf')
-        format('truetype');
-    }
-
-    </style>	
-
-</style>
-
+  
 		<link
 			data-name="vs/editor/editor.main"
 			rel="stylesheet"

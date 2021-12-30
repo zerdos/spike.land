@@ -22,13 +22,14 @@ import {
 import { QRButton } from "./Qr.tsx";
 
 import { motion } from "framer-motion";
+import { breakpoints } from "@mui/system";
 
 // const {motion} = Motion;
 
 const breakPoints = [680, 768, 1920];
 const breakPointHeights = [1137, 1024, 1080];
 
-const sizes = [10, 25, 50, 75, 100];
+const sizes = [10, 25, 50, 75, 100, 150];
 
 const LazySpikeLandComponent: FC<
   { name: string; html: string; cssText: string }
@@ -149,20 +150,36 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
 
       if (window.innerWidth < 600) {
         changeScaleRange(50);
-        setWidth(window.innerWidth * devicePixelRatio);
-        setHeight(window.innerHeight * devicePixelRatio);
+        setWidth(breakPoints[0]);
+        setHeight(breakPointHeights[0]);
+
+        // setHeight(window.innerHeight * devicePixelRatio);
+      }
+      if (window.innerWidth < 1200) {
+        changeScaleRange(75);
+        setWidth(breakPoints[1]);
+        setHeight(breakPointHeights[1]);
+
+        // setHeight(window.innerHeight * devicePixelRatio);
       } else if (window.innerWidth < 1800) {
-        setHeight(breakPointHeights[1] * devicePixelRatio);
-        changeScaleRange(50);
+        // setHeight(breakPoints[1]);
+        setWidth(breakPoints[1]);
+        setHeight(breakPointHeights[1]);
+
+        changeScaleRange(100);
       } else if (window.innerWidth < 2500) {
-        setHeight(breakPointHeights[2] * devicePixelRatio);
-        setWidth(window.innerWidth * devicePixelRatio * 0.6);
-        changeScaleRange(50);
+        // setHeight(breakPointHeights[2] * devicePixelRatio);
+        setWidth(breakPoints[2]);
+        setHeight(breakPointHeights[2]);
+
+        changeScaleRange(100);
       } else if (window.innerWidth > 2500) {
         // setWidth(window* devicePixelRatio)
-        setWidth(window.innerWidth * devicePixelRatio * 0.7);
-        setHeight(breakPointHeights[2] * devicePixelRatio);
-        changeScaleRange(100);
+        setWidth(breakPoints[1]);
+        setHeight(breakPointHeights[1]);
+
+        // setHeight(breakPoints[0]);
+        changeScaleRange(150);
       }
       await wait(200);
       setPositions({
@@ -193,8 +210,8 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
           right,
         }}
         css={css`
-            background-color:rgba(92 ,92, 152, 0.8);
-            backdrop-filter: blur(10px);
+            background-color:rgba(192 ,192, 192, 0.3);
+            backdrop-filter: blur(15px);
             padding: 0px 0px 0px 16px;
             border-radius: 16px;
             white-space: normal;
@@ -263,7 +280,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
                 height: height * scale / devicePixelRatio,
                 maxHeight: height * scale / devicePixelRatio,
                 borderRadius: isFullScreen ? 0 : 8,
-                opacity: isFullScreen ? 1 : 0.7,
+                // opacity: isFullScreen ? 1 : 0.7,
               }}
               css={css`
                 width: ${width * scale / devicePixelRatio};
@@ -272,7 +289,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
                 overflow: hidden;
 
 
-                background-color: white;
+                /* background-color: red; */
             `}
             >
               {errorText && errorText.trim() !== "" && (

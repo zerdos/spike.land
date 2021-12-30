@@ -30,7 +30,7 @@
       "dom-helpers/addClass": "https://ga.jspm.io/npm:dom-helpers@5.2.0/esm/addClass.js",
       "dom-helpers/removeClass": "https://ga.jspm.io/npm:dom-helpers@5.2.0/esm/removeClass.js",
       "object-assign": "https://ga.jspm.io/npm:object-assign@4.1.1/index.js",
-      "process": "https://ga.jspm.io/npm:@jspm/core@2.0.0-beta.13/nodelibs/browser/process-production.js",
+      "process": "https://ga.jspm.io/npm:@jspm/core@2.0.0-beta.14/nodelibs/browser/process-production.js",
       "prop-types": "https://ga.jspm.io/npm:prop-types@15.8.0/index.js",
       "scheduler": "https://ga.jspm.io/npm:scheduler@0.21.0-rc.0-next-f2a59df48-20211208/index.js",
       "stylis": "https://ga.jspm.io/npm:stylis@4.0.13/index.js"
