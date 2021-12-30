@@ -343,7 +343,7 @@ export class Code {
           return;
         }
 
-        if(data.type="lost"){
+        if(data.type==="lost"){
           webSocket.send(JSON.stringify({
             ...mST().toJSON()
           }))

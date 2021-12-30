@@ -14,8 +14,8 @@ const webrtcArray = [];
 let hostname = "code.spike.land";
 const mod = {};
 
-let WSHASH = "";
-let RTCHASH = "";
+let wsLastHashCode = "";
+let webRTCLastSeenHashCode = "";
 let roomName = "";
 let username = "";
 let lastSeenTimestamp = 0;
@@ -46,6 +46,13 @@ let intervalHandler = null;
 // toolsImported = true;
 // return toolsImported;
 // };
+setInterval(() => {
+  if (Date.now() - lastSeenNow > 40_000) {
+    rejoin();
+  } else {
+    console.log("no_need_to_rejoin");
+  }
+}, 30_000);
 
 chCode = globalThis.chCode = async (code, i) => {
   if (!code) return;
@@ -65,7 +72,7 @@ chCode = globalThis.chCode = async (code, i) => {
     console.error({ e });
   }
 };
-let rejoin = async () => {
+async function rejoin() {
   if (!rejoined) {
     rejoined = true;
     currentWebSocket = null;
@@ -90,7 +97,7 @@ let rejoin = async () => {
     // OK, reconnect now!
     join();
   }
-};
+}
 
 // function createPatch(from, to) {
 //   const dmp = new DiffMatchPatch();
@@ -120,8 +127,8 @@ async function broad(
     updatedState.transpiled = transpiled;
     updatedState.code = code;
     updatedState.i = i;
-    const message = RTCHASH
-      ? mySession.createPatchFromHashCode(RTCHASH, updatedState)
+    const message = webRTCLastSeenHashCode
+      ? mySession.createPatchFromHashCode(webRTCLastSeenHashCode, updatedState)
       : mySession.createPatch(updatedState);
     if (message && message.patch !== "") {
       sendChannel.send(message);
@@ -147,8 +154,8 @@ async function broad(
     updatedState.transpiled = transpiled;
     updatedState.code = code;
     updatedState.i = i;
-    const message = WSHASH
-      ? mySession.createPatchFromHashCode(WSHASH, updatedState)
+    const message = wsLastHashCode
+      ? mySession.createPatchFromHashCode(wsLastHashCode, updatedState)
       : mySession.createPatch(updatedState);
 
     // console.log("APPLY");
@@ -356,10 +363,10 @@ async function createPeerConnection(target) {
 
     const data = JSON.parse(msg.data);
     if (data && data.hashCode) {
-      RTCHASH = data.hashCode;
+      webRTCLastSeenHashCode = data.hashCode;
     }
     if (data && data.newHash) {
-      RTCHASH = data.newHash;
+      webRTCLastSeenHashCode = data.newHash;
     }
     return processWsMessage(msg, "rtc");
   });
@@ -632,6 +639,7 @@ async function handleChatOffer(msg, target) {
 // Called by the WebRTC layer to let us know when it's time to
 // begin, resume, or restart ICE negotiation.
 async function processWsMessage(event, source) {
+  lastSeenNow = Date.now();
   // if (!toolsImported) {
   //   await importTools();
   // }
@@ -674,7 +682,7 @@ async function processWsMessage(event, source) {
   }
 
   if (source === ws && data.hashCode) {
-    WSHASH = data.hashCode;
+    wsLastHashCode = data.hashCode;
   }
 
   if (data.patch && source === "ws" || data.name !== username) {
@@ -688,6 +696,7 @@ async function processWsMessage(event, source) {
         mySession.session.get("state").i,
       );
       if (sendChannel) sendChannel.send({ hashCode: data.newHash });
+      return;
     }
 
     if (data.newHash === mySession.hashCode()) return;
