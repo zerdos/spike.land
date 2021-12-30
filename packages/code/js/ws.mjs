@@ -60,10 +60,6 @@ chCode = globalThis.chCode = async (code, i) => {
   if (code === window.sess.code) return;
   try {
     if (window.monaco && window.monaco.editor.getModels().length) {
-      //     const hashOfCode = await Hash.of(code);
-      //   window.hashOfCode = hashOfCode;
-      // window[hashOfCode] = code;
-
       window.monaco.editor.getModels()[0].setValue(code);
     } else {
       window.sess.update(code);
@@ -99,12 +95,6 @@ async function rejoin() {
   }
 }
 
-// function createPatch(from, to) {
-//   const dmp = new DiffMatchPatch();
-
-//   const patches = dmp.patch_make(from, to);
-//   return dmp.patch_toText(patches);
-// }
 async function broad(
   { code, transpiled, html, css, i },
 ) {
@@ -615,38 +605,10 @@ async function handleChatOffer(msg, target) {
   }));
 }
 
-// const cids = {};
-// async function getCID(CID, from) {
-//   if (cids[CID] && typeof cids[CID] === "string") return cids[CID];
-//   if (cids[CID] && typeof cids[CID] === "function") return cids[CID]();
-
-//   const msg = {
-//     type: "get-cid",
-//     target: from,
-//     name: username,
-//     cid: CID,
-//   };
-//   // if (sendChannel) {
-//   //   sendChannel.send(msg);
-//   // } else {
-//   //   ws.send(JSON.stringify(msg));
-//   // }
-//   return new Promise((resolve) => {
-//     cids[CID] = resolve;
-//   });
-// }
-
 // Called by the WebRTC layer to let us know when it's time to
 // begin, resume, or restart ICE negotiation.
 async function processWsMessage(event, source) {
   lastSeenNow = Date.now();
-  // if (!toolsImported) {
-  //   await importTools();
-  // }
-  // if (!sanyiProcess) {
-  //   sanyiProcess =
-  //     (await import(`https://code.spike.land/api/room/sanyi/js`)).processWs;
-  // }
 
   const data = JSON.parse(event.data);
 
@@ -712,52 +674,6 @@ async function processWsMessage(event, source) {
     return;
   }
 
-  // if (data.type === "get-cid" && data.cid) {
-  //   const CID = data.cid;
-  //   const content = data[CID];
-
-  //   if (content) {
-  //     const dataCID = await Hash.of(content);
-
-  //     if (dataCID !== CID) console.error("get-cid ERROR!!!! ???? !!!");
-
-  //     if (cids[dataCID]) {
-  //       if (typeof cids[dataCID] === "function") {
-  //         cids[dataCID](content);
-  //         cids[dataCID] = content;
-  //       }
-  //       return;
-  //     }
-  //   }
-
-  // if (window[CID]) {
-  //   const hash = await Hash.of(window[CID]);
-  //   if (hash === CID) {
-  //     console.log("sending the requested cid");
-  //     sendChannel.send({
-  //       type: "get-cid",
-  //       target: data.name,
-  //       name: username,
-  //       cid: CID,
-  //       [CID]: window[CID],
-  //     });
-  //   }
-  // }
-
-  //   return;
-  // }
-
-  // if (window.sess && data.i && data.i <= window.sess.i) {
-  //   if (source === "rtc") {
-  //     sendChannel.send({ target: data.name, ...window.sess });
-  //   }
-  //   ws.send(JSON.stringify({
-  //     name: username,
-  //     i: window.sess.i,
-  //   }));
-  //   return;
-  // }
-
   if (data.timestamp) {
     lastSeenNow = Date.now();
     lastSeenTimestamp = data.timestamp;
@@ -765,144 +681,6 @@ async function processWsMessage(event, source) {
 
   if (data.name === username) return;
 
-  // if (data.hashOfCode) {
-  //   window.wantedHashBase = data.hashOfCode;
-  // }
-
-  // if (data.hashOfCode) {
-  //   if (
-  //     !window[data.hashOfCode] ||
-  //     window[data.hashOfCode] !== data.hashOfCode
-  //   ) {
-  //     window[data.hashOfCode] = await getCID(data.hashOfCode, data.name);
-  //   }
-
-  //   window.starterCode = window[data.hashOfCode];
-  //   lastSeenCode = window[data.hashOfCode];
-  //   chCode(lastSeenCode);
-  // }
-
-  // if (data.type === "codeReq") {
-  //   sendChannel.send({
-  //     hashOfCode: window.hashOfCode,
-  //     i: window.sess.i,
-  //     target: data.name,
-  //     code: window[window.hashOfCode],
-  //   });
-  // }
-
-  // if (data.code && data.hashOfCode) {
-  //   if (!window[data.hashOfCode]) {
-  //     window.hashOfCode = data.hashOfCode;
-  //     const code = data.code;
-  //     const hashOfCode = await Hash.of(code);
-  //     window[hashOfCode] = code;
-  //     if (data.hashOfCode === hashOfCode) chCode(data.code);
-  //   }
-  // }
-
-  // if (
-  //   data.changes && data.i && data.hashOfCode && data.prevHash &&
-  //   window[data.prevHash]
-  // ) {
-  //   const prevCode = window[data.prevHash];
-  //   const prevHash = await Hash.of(prevCode);
-  //   if (data.prevHash !== prevHash) {
-  //     sendChannel.send({
-  //       type: "codeReq",
-  //       target: data.name,
-  //       name: username,
-  //     });
-  //     return;
-  //   }
-
-  //   if (data.i <= window.sess.i) return;
-  //   if (window.hashOfCode === data.prevHash) {
-  //     let hashOfCode = "";
-  //     if (window.monaco) {
-  //       window.monaco.editor.getModels()[0].applyEdits(data.changes.changes);
-  //       hashOfCode = await Hash.of(
-  //         window.monaco.editor.getModels()[0].getValue(),
-  //       );
-  //     }
-  //     if (hashOfCode === data.hashOfCode) {
-  //       window.hashOfCode = hashOfCode;
-  //     } else {
-  //       const code = applyPatch(
-  //         window[data.prevHash],
-  //         JSON.parse(data.codeDiff),
-  //       );
-
-  //       const hashOfCode = await Hash.of(code);
-  //       if (hashOfCode === data.hashOfCode) {
-  //         chCode(code);
-  //         window.hashOfCode = hashOfCode;
-  //       } else {
-  //         if (window[data.hashOfCode]) {
-  //           const code = window[data.hashOfCode];
-  //           chCode(code);
-  //           //                window.monaco.editor.getModels()[0].setValue(code);
-  //           window.hashOfCode = hashOfCode;
-  //         }
-
-  //         console.log(
-  //           "What is the Content for CID: " + data.hashOfCode + "???",
-  //         );
-  //         const code = await getCID(data.hashOfCode);
-
-  //         console.log({ code });
-
-  //         window[data.hashOfCode] = code;
-  //       }
-  //       if (window[data.hashOfCode] && window.monaco && window.monaco.editor) {
-  //         const code = window[data.hashOfCode];
-  //         window.monaco.editor.getModels()[0].setValue(code);
-  //         window.hashOfCode = hashOfCode;
-  //       } else {
-  //         sendChannel.send({
-  //           type: "codeReq",
-  //           target: data.name,
-  //         });
-  //       }
-  //     }
-  //   }
-
-  //   window.hashOfCode = data.hashOfCode;
-  // }
-  // // A regular chat message.
-
-  // if (
-  //   data.codeDiff && data.hashOfCode && data.prevHash && window[data.prevHash]
-  // ) {
-  //   if (
-  //     data.hashOfCode &&
-  //     data.codeDiff && data.hashOfCode !== window.hashOfCode
-  //   ) {
-  //     const hashOfCode = data.hashOfCode;
-
-  //     // const dmp = new DiffMatchPatch();
-  //     // const patches = dmp.patch_fromText(data.codeDiff);
-  //     // const patched = dmp.patch_apply(patches, lastSeenCode);
-
-  //     const codeCandidate = applyPatch(
-  //       window[data.prevHash],
-  //       JSON.parse(data.codeDiff),
-  //     );
-  //     const hashFromCodeDiff = await Hash.of(codeCandidate);
-  //     if (hashFromCodeDiff === hashOfCode) {
-  //       window[hashOfCode] = codeCandidate;
-  //       window.hashOfCode = hashOfCode;
-
-  //       chCode(codeCandidate);
-  //     }
-  //   } else {
-  //     console.error("we are out of sync...");
-  //     ws.close(1000, "out of sync");
-  //     return;
-  //   }
-  // }
-
-  // addChatMessage(data.name, data.message);
   lastSeenTimestamp = data.timestamp;
 }
 function wait(delay) {
