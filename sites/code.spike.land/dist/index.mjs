@@ -581,7 +581,7 @@ var require_textdiff_create = __commonJS({
 });
 
 // ../../packages/code/package.json
-var version = "0.4.88";
+var version = "0.4.90";
 
 // ../../packages/cf-npm-site/dist/index.mjs
 function src_default(packageName, version2, serveDir = "") {
@@ -820,47 +820,6 @@ var src_default2 = `<!DOCTYPE html>
     } <\/script>
   <script async src="https://ga.jspm.io/npm:es-module-shims@1.4.1/dist/es-module-shims.wasm.js"><\/script>
   <title>Instant React Editor</title>
-   <style>
-     html{
-       height: 100%;
-     }
-      body {
-        overscroll-behavior-y: contain;
-        width: 100%;
-        margin: 0;
-        padding: 0;
-        border: 0;
-        min-height: -webkit-fill-available;
-        height: 100%;
-        position: fixed;
-        /* prevent overscroll bounce*/
-        overflow-y: scroll;
-        --webkit-overflow-scrolling: touch;
-        padding-bottom: 0 !important;
-        overflow: hidden;
-        overflow-x: hidden;
-        overflow-y: hidden;
-      }
-
-      #root, #zbody {
-        height: 100%;
-      }
-
-      #shadowEditor {
-        width: 100%;
-        min-width: 640px;
-        min-height:800px;
-        max-height: 100vh;
-      }
-
-
-      @font-face {
-    font-family: 'codicon';
-      src: url('https://unpkg.com/monaco-editor@0.31.1/min/vs/base/browser/ui/codicons/codicon/codicon.ttf')
-        format('truetype');
-    }
-
-    </style>	
 
 </style>
 
