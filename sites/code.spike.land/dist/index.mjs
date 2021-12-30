@@ -581,7 +581,7 @@ var require_textdiff_create = __commonJS({
 });
 
 // ../../packages/code/package.json
-var version = "0.4.92";
+var version = "0.4.93";
 
 // ../../packages/cf-npm-site/dist/index.mjs
 function src_default(packageName, version2, serveDir = "") {
@@ -5323,6 +5323,19 @@ var Code = class {
               "Content-Type": "application/json; charset=UTF-8"
             }
           });
+        case "lazy":
+          const { html, css } = mST().toJSON();
+          const hash2 = this.state.mySession.hashCode();
+          return new Response(`
+              import { LazySpikeLandComponent } from 'https://code.spike.land/api/room/lasy/js';
+              export default () => React.createElement(LazySpikeLandComponent, {${JSON.stringify({ name: codeSpace, html, cssText: css, hash: hash2 })}}, null);`, {
+            status: 200,
+            headers: {
+              "Access-Control-Allow-Origin": "*",
+              "Cache-Control": "no-cache",
+              "Content-Type": "application/javascript; charset=UTF-8"
+            }
+          });
         case "hashCodeSession":
           return new Response(this.state.mySession.hashCode(), {
             status: 200,
@@ -5353,9 +5366,9 @@ var Code = class {
         }
         case "hydrated": {
           const htmlContent = mST().html;
-          const css = mST().css;
-          const html = src_default2.replace(`<div id="root"></div>`, `<div id="root"><style>${css}</style><div id="zbody">${htmlContent}</div></div>`).replace("{VERSION}", version);
-          return new Response(html, {
+          const css2 = mST().css;
+          const html2 = src_default2.replace(`<div id="root"></div>`, `<div id="root"><style>${css2}</style><div id="zbody">${htmlContent}</div></div>`).replace("{VERSION}", version);
+          return new Response(html2, {
             status: 200,
             headers: {
               "Access-Control-Allow-Origin": "*",
@@ -5388,9 +5401,9 @@ var Code = class {
         }
         case "public": {
           const htmlContent = mST().html;
-          const css = mST().css;
-          const html = src_default2.replace(`<div id="root"></div>`, `<div id="root"><style>${css}</style><div id="zbody">${htmlContent}</div></div>`).replace("{VERSION}", version);
-          return new Response(html, {
+          const css2 = mST().css;
+          const html2 = src_default2.replace(`<div id="root"></div>`, `<div id="root"><style>${css2}</style><div id="zbody">${htmlContent}</div></div>`).replace("{VERSION}", version);
+          return new Response(html2, {
             status: 200,
             headers: {
               "Access-Control-Allow-Origin": "*",

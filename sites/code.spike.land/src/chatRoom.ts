@@ -120,19 +120,22 @@ export class Code {
               "Content-Type": "application/json; charset=UTF-8",
             },
           });
-        case "lazy":
-          const {js, transpiled, html, css} = mST().toJSON();
+        case "lazy": 
+        
+          const {html, css} = mST().toJSON();
+          const hash = this.state.mySession.hashCode();
 
-            return new Response(
-              extport const Lazy =
-            ), {
+           return new Response(`
+              import { LazySpikeLandComponent } from 'https://code.spike.land/api/room/lasy/js';
+              export default () => React.createElement(LazySpikeLandComponent, {${JSON.stringify({name: codeSpace, html, cssText: css, hash})}}, null);`,{
               status: 200,
               headers: {
                 "Access-Control-Allow-Origin": "*",
-              "Cache-Control": "no-cache",
-                "Content-Type": "application/json; charset=UTF-8",
+                "Cache-Control": "no-cache",
+                "Content-Type": "application/javascript; charset=UTF-8",
               },
             });
+        
         case "hashCodeSession":
           return new Response(this.state.mySession.hashCode(), {
             status: 200,
