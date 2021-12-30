@@ -1,9 +1,10 @@
 import {
   __commonJS,
   __toESM
-} from "./chunk-2QGOD74H.mjs";
+} from "./chunk-F23SJYNG.mjs";
 
-// ../../node_modules/fast-diff/diff.js
+// js/dist/session.mjs
+import { Record } from "https://ga.jspm.io/npm:immutable@4.0.0/dist/immutable.es.js";
 var require_diff = __commonJS({
   "../../node_modules/fast-diff/diff.js"(exports, module) {
     var DIFF_DELETE = -1;
@@ -523,8 +524,6 @@ var require_diff = __commonJS({
     module.exports = diff;
   }
 });
-
-// ../../node_modules/textdiff-create/index.js
 var require_textdiff_create = __commonJS({
   "../../node_modules/textdiff-create/index.js"(exports, module) {
     "use strict";
@@ -541,8 +540,6 @@ var require_textdiff_create = __commonJS({
     };
   }
 });
-
-// ../../node_modules/textdiff-patch/index.js
 var require_textdiff_patch = __commonJS({
   "../../node_modules/textdiff-patch/index.js"(exports, module) {
     "use strict";
@@ -562,11 +559,8 @@ var require_textdiff_patch = __commonJS({
     };
   }
 });
-
-// js/session.tsx
 var import_textdiff_create = __toESM(require_textdiff_create());
 var import_textdiff_patch = __toESM(require_textdiff_patch());
-import { Record } from "https://ga.jspm.io/npm:immutable@4.0.0/dist/immutable.es.js";
 function initSession(room, u) {
   return Record({ ...u, room, state: Record(u.state)() });
 }
@@ -723,4 +717,4 @@ export {
   CodeSession,
   session_default as default
 };
-//# sourceMappingURL=session.mjs.map
+//# sourceMappingURL=session-2W424DEX.mjs.map
