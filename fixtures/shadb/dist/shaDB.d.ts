@@ -9,9 +9,9 @@ export namespace shaDB {
     function get(key: string, type: "string" | "json"): Promise<any>;
     function put(key: string, value: string): Promise<any>;
 }
-import { sha256 } from "./sha256.js";
-import { diff } from "./diff.js";
-import { assemble } from "./diff.js";
-import { getDbObj } from "./getDbObj.js";
+import { sha256 } from "../src/sha256.js";
+import { diff } from "../src/diff.js";
+import { assemble } from "../src/diff.js";
+import { getDbObj } from "../src/getDbObj.js";
 export { sha256, diff, assemble, getDbObj };
 //# sourceMappingURL=shaDB.d.ts.map

@@ -164,62 +164,8 @@ async function runner(c, changes = null, session, counter) {
 
     if (err.length) console.log({ err });
 
-    // if (err.length === 0 && transpiled.length) {
-    //   if (session.i > counter) return;
-    //   session.code = cd;
-    //   session.codeNonFormatted = c;
-
-    //   const code = cd;
-    //   const i = session.i;
-
-    //   saveCode(session, counter);
-    // } else {
-    //   console.log({ code: c, transpiled });
-    //   if (session.i > counter) return;
-
-    //   if (cd.length < 1000 && session.code.length < 1000) {
-    //     const diff = (await import("@spike.land/shadb")).diff;
-
-    //     const slices = await diff(session.code, cd);
-
-    //     if (slices.c.length <= 3) {
-    //       session.lastErrors = 0;
-
-    //       return;
-    //     }
-
-    //     if (slices.c.length == 4) {
-    //       session.lastErrors = 0;
-    //       monaco.editor.setTheme("hc-black");
-
-    //       return;
-    //     }
-    //   }
-    //   if (err && err[0] && err[0].messageText) {
-    //     console.error(err[0].messageText.toString());
-    //   }
-
-    //   return;
-    // }
-
     monaco.editor.setTheme("vs-dark");
   } catch (err) {
-    // if (err.message) {
-    //   session.errorText = err.message;
-
-    //   const saveErrorCode = async () => {
-    //     const CID = await Hash.of(c);
-
-    //     const url = `/error/${CID}`;
-    //     fetch(`https://code.spike.land${url}`, {
-    //       method: "POST",
-    //       body: c,
-    //     });
-    //   };
-    //   saveErrorCode();
-    //   return;
-    // }
-
     monaco.editor.setTheme("vs-light");
     setTimeout(() => {
       monaco.editor.setTheme("hc-black");

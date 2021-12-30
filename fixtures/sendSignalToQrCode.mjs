@@ -1,4 +1,4 @@
-import { getUserId, saveCode } from "./data.mjs";
+import { getUserId, saveCode } from "@spike.land/code/js/data";
 import { sha256 } from "@spike.land/shadb";
 
 /**
