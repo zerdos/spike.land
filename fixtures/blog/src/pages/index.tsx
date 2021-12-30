@@ -7,9 +7,9 @@ import { graphql, Link } from "gatsby";
 import { Bio } from "../components/bio";
 import { Layout } from "../components/layout";
 import { SEO } from "../components/seo";
-import { getUserId } from "../components/code/getUser";
+// import { getUserId } from "../components/code/getUser";
 import { rhythm } from "../components/utils/typography";
-import { Qr } from "../components/code/Qr";
+// import { Qr } from "../components/code/Qr";
 
 import forkMe from "../../assets/forkMe.png";
 
@@ -50,27 +50,20 @@ interface Props {
 const BlogIndex: React.FC<Props> = ({ data }) => {
   const edges = data.allMdx.edges;
 
-  React.useEffect(() => {
-    if (typeof window !== "undefined") {
-      const install = async () => {
-        console.log(await getUserId());
-      };
-      install();
+  // React.useEffect(() => {
+  //   if (typeof window !== "undefined") {
+  //     const install = async () => {
+  //       console.log(await getUserId());
+  //     };
+  //     install();
 
-      // registerSW();
-    }
-  }, []);
+  //     // registerSW();
+  //   }
+  // }, []);
 
   return (
     <Layout>
       <SEO title="This is Zed." />
-      {isMobile() === false
-        ? (
-          <h1>
-            Open the code editor here: <Qr />
-          </h1>
-        )
-        : <h1>This is my blog.</h1>}
       <a href="https://github.com/spike-land/monorepo">
         <img
           loading="lazy"
