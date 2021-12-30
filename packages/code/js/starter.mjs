@@ -43,9 +43,9 @@ export const run = async (injectedRoom) => {
     const { jsx } = await import("@emotion/react");
     const { ReactDOM } = window;
 
-    // const root = ReactDOM.createRoot(document.getElementById("zbody"));
+    const container = document.getElementById("zbody");
 
-    ReactDOM.hydrate(jsx(App), document.getElementById("zbody"));
+    ReactDOM.hydrateRoot(container, jsx(App));
 
     return;
   }
