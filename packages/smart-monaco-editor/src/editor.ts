@@ -40,23 +40,23 @@ export default async (
 
   // const model = modules.editor.getModel("/index.ts") || createModel();
 
-  const shadowRoot = container.attachShadow({
-    mode: "open",
-  });
+  // const shadowRoot = container.attachShadow({
+  //   mode: "open",
+  // });
 
-  const innerContainer = document.createElement("div");
-  shadowRoot.appendChild(innerContainer);
-  const parent = container.parentElement;
-  if (parent) {
-    const { width, height } = container.getClientRects()[0];
-    innerContainer.style.width = `${Math.min(window.innerWidth, width)}px`;
-    innerContainer.style.height = `${height}px`;
-  }
+  // const innerContainer = document.createElement("div");
+  // shadowRoot.appendChild(innerContainer);
+  // const parent = container.parentElement;
+  // if (parent) {
+  //   const { width, height } = container.getClientRects()[0];
+  //   innerContainer.style.width = `${Math.min(window.innerWidth, width)}px`;
+  //   innerContainer.style.height = `${height}px`;
+  // }
 
-  const innerStyle = document.createElement("style");
-  innerStyle.innerText =
-    '@import "https://unpkg.com/monaco-editor@0.30.1/min/vs/editor/editor.main.css";';
-  shadowRoot.appendChild(innerStyle);
+  // const innerStyle = document.createElement("style");
+  // innerStyle.innerText =
+  //   '@import "https://unpkg.com/monaco-editor@0.30.1/min/vs/editor/editor.main.css";';
+  // shadowRoot.appendChild(innerStyle);
 
   // const customWorker = { customWorkerPath: window.location.href + "js/workers/custom-worker.js" };
   // monaco.languages.typescript.typescriptDefaults.setWorkerOptions(customWorker);
@@ -93,37 +93,37 @@ export default async (
     });
 
   const { Uri } = monaco;
-  const editor = monaco.editor.create(innerContainer, {
+  const editor = monaco.editor.create(container, {
     model: monaco.editor.createModel(code, "typescript", Uri.file("/index.ts")),
-    lightbulb: { enabled: false },
+    // lightbulb: { enabled: false },
     language: "typescript",
     theme: "vs-dark",
-    codeLens: false,
-    suggest: {
-      showStatusBar: false,
-      preview: false,
-    },
-    smoothScrolling: true,
-    scrollPredominantAxis: true,
-    scrollbar: {
-      handleMouseWheel: true,
-      alwaysConsumeMouseWheel: false,
-      horizontal: "auto",
-      vertical: "auto",
-      useShadows: true,
-    },
-    selectionHighlight: true,
-    selectOnLineNumbers: true,
-    cursorSmoothCaretAnimation: true,
-    cursorBlinking: "smooth",
-    hideCursorInOverviewRuler: true,
-    cursorSurroundingLinesStyle: "all",
-    cursorSurroundingLines: 4,
+    // codeLens: false,
+    // suggest: {
+    //   showStatusBar: false,
+    //   preview: false,
+    // },
+    // smoothScrolling: true,
+    // scrollPredominantAxis: true,
+    // scrollbar: {
+    //   handleMouseWheel: true,
+    //   alwaysConsumeMouseWheel: false,
+    //   horizontal: "auto",
+    //   vertical: "auto",
+    //   useShadows: true,
+    // },
+    // selectionHighlight: true,
+    // selectOnLineNumbers: true,
+    // cursorSmoothCaretAnimation: true,
+    // cursorBlinking: "smooth",
+    // hideCursorInOverviewRuler: true,
+    // cursorSurroundingLinesStyle: "all",
+    // cursorSurroundingLines: 4,
 
-    formatOnPaste: true,
-    formatOnType: true,
+    // formatOnPaste: true,
+    // formatOnType: true,
 
-    useShadowDOM: true,
+    // useShadowDOM: true,
   });
 
   // monaco.editor.create(
@@ -199,9 +199,9 @@ export default async (
   }
 
   window.addEventListener("resize", () => {
-    const { width, height } = container.getClientRects()[0];
-    innerContainer.style.width = `${Math.min(window.innerWidth, width)}px`;
-    innerContainer.style.height = `${Math.min(window.innerHeight, height)}px`;
+    // const { width, height } = container.getClientRects()[0];
+    // innerContainer.style.width = `${Math.min(window.innerWidth, width)}px`;
+    // innerContainer.style.height = `${Math.min(window.innerHeight, height)}px`;
 
     editor.layout();
   });
