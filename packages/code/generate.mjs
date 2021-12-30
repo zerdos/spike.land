@@ -29,6 +29,8 @@ await generator.install("react-dom@18/server");
 // await generator.install("prop-types");
 // await generator.install("react-is@18");
 await generator.install("immutable");
+
+await generator.install("async-mutex");
 // await generator.install("@spike.land/smart-monaco-editor");
 
 // await generator.install("@emotion/server");

@@ -7,6 +7,7 @@
     "@mui/material/ToggleButton": "https://ga.jspm.io/npm:@mui/material@5.2.5/ToggleButton/index.js",
     "@mui/material/ToggleButtonGroup": "https://ga.jspm.io/npm:@mui/material@5.2.5/ToggleButtonGroup/index.js",
     "@mui/material/utils/createSvgIcon": "https://ga.jspm.io/npm:@mui/material@5.2.5/utils/createSvgIcon.js",
+    "async-mutex": "https://ga.jspm.io/npm:async-mutex@0.3.2/index.mjs",
     "comlink": "https://ga.jspm.io/npm:comlink@4.3.1/dist/umd/comlink.js",
     "immutable": "https://ga.jspm.io/npm:immutable@4.0.0/dist/immutable.es.js",
     "react": "https://unpkg.com/@spike.land/esm@0.4.33/dist/react.mjs",
