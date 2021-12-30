@@ -16,6 +16,8 @@ export const transform = async (code) => {
 
   const result = await esbuild.transform(code, {
     loader: "tsx",
+    minify: true,
+    treeShaking: true,
     target: "es2018",
   });
 

@@ -120,6 +120,19 @@ export class Code {
               "Content-Type": "application/json; charset=UTF-8",
             },
           });
+        case "lazy":
+          const {js, transpiled, html, css} = mST().toJSON();
+
+            return new Response(
+              extport const Lazy =
+            ), {
+              status: 200,
+              headers: {
+                "Access-Control-Allow-Origin": "*",
+              "Cache-Control": "no-cache",
+                "Content-Type": "application/json; charset=UTF-8",
+              },
+            });
         case "hashCodeSession":
           return new Response(this.state.mySession.hashCode(), {
             status: 200,
