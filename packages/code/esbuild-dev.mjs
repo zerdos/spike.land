@@ -36,7 +36,7 @@ const build = (entryPoints) =>
     "outExtension": { ".js": ".mjs" },
     bundle: true,
     format: "esm",
-    minify: false,
+    minify: true,
     splitting: true,
     allowOverwrite: true,
     treeShaking: true,
