@@ -68,6 +68,7 @@ await build([
 
 await build([
   "js/quickStart.mjs",
+  "js/LazyLoadedComponent.tsx",
 ]);
 
 // esbuild.build({

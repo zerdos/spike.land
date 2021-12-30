@@ -865,6 +865,9 @@ var src_default2 = `<!DOCTYPE html>
 </body>
 </html>`;
 
+// src/lazy.html
+var lazy_default = 'export default n=>React.createElement(LazySpikeLandComponent,{...n});export const LazySpikeLandComponent=({name:n,html:i,hash:l,transpiled:o})=>{const[s,p]=React.useState(l);React.useEffect(()=>{const t=setInterval(async()=>{const a=await(await fetch(`https://code.spike.land/api/room/${n}/hashCodeSession`)).text();p(Number(a))},69e3);return()=>{console.log("INTERVAL CLEARED"),clearInterval(t)}},[]),React.useEffect(()=>{(async()=>{const t=await fetch(`https://code.spike.land/api/room/${n}/session`),{html:e,css:a,transpiled:L}=await t.json();m({html:`<div id="root"><style>${a}</style><div id="zbody">${e}</div></div>`,LazyComponent:await r(L)})})()},[s]);const d=()=>o?React.lazy(()=>r(o)):React.createElement("div",null),[c,m]=React.useState({html:i,LazyComponent:d}),{LazyComponent:u}=c;return React.createElement(React.Suspense,{key:s,fallback:React.createElement("div",{dangerouslySetInnerHTML:{__html:c.html}})},React.createElement(u,{key:s}));function y(t){const e=new Blob([t],{type:"application/javascript"});return URL.createObjectURL(e)}async function r(t){const e=y(t),a=(await import(e)).default;return URL.revokeObjectURL(e),a}};';
+
 // src/chatRoom.ts
 var import_textdiff_patch2 = __toESM(require_textdiff_patch());
 
@@ -5324,11 +5327,9 @@ var Code = class {
             }
           });
         case "lazy":
-          const { html, css } = mST().toJSON();
+          const { html, css, transpiled } = mST().toJSON();
           const hash2 = this.state.mySession.hashCode();
-          return new Response(`
-              import { LazySpikeLandComponent } from 'https://code.spike.land/api/room/lasy/js';
-              export default () => React.createElement(LazySpikeLandComponent, {${JSON.stringify({ name: codeSpace, html, cssText: css, hash: hash2 })}}, null);`, {
+          return new Response(lazy_default.replace("{...n}", JSON.stringify({ name: codeSpace, transpiled, html: `<div id="root"><style>${css}</style><div id="zbody">${html}</div></div>`, hash: hash2 })), {
             status: 200,
             headers: {
               "Access-Control-Allow-Origin": "*",

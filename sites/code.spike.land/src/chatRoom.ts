@@ -1,6 +1,7 @@
 import { handleErrors } from "./handleErrors";
 import { RateLimiterClient } from "./rateLimiterClient";
 import HTML from "./index.html";
+import LAZY from "./lazy.html";
 import { version } from "@spike.land/code/package.json";
 import applyDelta from "textdiff-patch";
 import { CodeEnv } from "./env";
@@ -122,12 +123,10 @@ export class Code {
           });
         case "lazy": 
         
-          const {html, css} = mST().toJSON();
+          const {html, css, transpiled} = mST().toJSON();
           const hash = this.state.mySession.hashCode();
 
-           return new Response(`
-              import { LazySpikeLandComponent } from 'https://code.spike.land/api/room/lasy/js';
-              export default () => React.createElement(LazySpikeLandComponent, {${JSON.stringify({name: codeSpace, html, cssText: css, hash})}}, null);`,{
+           return new Response(LAZY.replace("{...n}",JSON.stringify({name: codeSpace, transpiled, html: `<div id="root"><style>${css}</style><div id="zbody">${html}</div></div>`, hash})),{
               status: 200,
               headers: {
                 "Access-Control-Allow-Origin": "*",
