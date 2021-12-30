@@ -1,3 +1,5 @@
+import { renderToString } from "react-dom/server";
+
 var e = window.emotionReact,
   { CacheProvider: o } = e,
   { ClassNames: t } = e,
@@ -957,7 +959,7 @@ const getHtmlAndCss = (MyComponent) => {
   cache.sheet.insert = (rule) => {
     cssText += rule;
   };
-  const markup = renderToStaticMarkup(a(o, {
+  const markup = renderToString(a(o, {
     value: cache,
   }, a(MyComponent, null)));
   `

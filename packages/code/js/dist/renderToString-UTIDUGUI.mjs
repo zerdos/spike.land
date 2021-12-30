@@ -1,4 +1,5 @@
 // js/vendor/renderToString.mjs
+import { renderToString } from "https://ga.jspm.io/npm:react-dom@18.0.0-rc.0-next-f2a59df48-20211208/server.browser.js";
 var e = window.emotionReact;
 var { CacheProvider: o } = e;
 var { jsx: a } = e;
@@ -795,7 +796,7 @@ var getHtmlAndCss = (MyComponent) => {
   cache.sheet.insert = (rule) => {
     cssText += rule;
   };
-  const markup = renderToStaticMarkup(a(o, {
+  const markup = renderToString(a(o, {
     value: cache
   }, a(MyComponent, null)));
   `
@@ -818,4 +819,4 @@ var getHtmlAndCss = (MyComponent) => {
 export {
   getHtmlAndCss
 };
-//# sourceMappingURL=renderToString-YDN3DAT3.mjs.map
+//# sourceMappingURL=renderToString-UTIDUGUI.mjs.map

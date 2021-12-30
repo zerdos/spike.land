@@ -12,7 +12,7 @@ export const getHtmlAndCss = (MyComponent: () => JSX.Element) => {
     cssText += rule;
   };
 
-  const markup = renderToStaticMarkup(
+  const markup = renderToString(
     <CacheProvider value={cache}>
       <MyComponent />
     </CacheProvider>,
