@@ -1,0 +1,1 @@
+import{b as t}from"./q-841a0fc0.js";import{d as o,u as a}from"./q-4baf3ac8.js";const e=o((({todos:o},e)=>{const s=a(),r=s.target.value;e.text=r,"Enter"===s.key&&r&&(t(o,e.text),e.text="")}));export{e as Header_onRender_on_keyup};

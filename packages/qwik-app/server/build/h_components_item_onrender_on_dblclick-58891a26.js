@@ -1,0 +1,1 @@
+"use strict";var e=require("./core-8fd37695.js");const t=e.qHook((async(t,n)=>{n.editing=!0;const o=e.useHostElement();await e.qNotifyRender(o);const s=o.querySelector("input.edit");s.focus(),s.selectionStart=s.selectionEnd=s.value.length}));exports.Item_onRender_on_dblclick=t;

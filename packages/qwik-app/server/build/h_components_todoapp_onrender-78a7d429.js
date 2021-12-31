@@ -1,0 +1,1 @@
+"use strict";var o=require("./components-dde49043.js"),e=require("./core-8fd37695.js");const s=e.qHook((({todos:s})=>(console.log("on:qRender => <ToDoApp/>"),e.h("section",{class:"todoapp"},e.h(o.Header,{todos:s}),e.h(o.Main,{todos:s}),e.h(o.Footer,{todos:s})))));exports.ToDoApp_onRender=s;

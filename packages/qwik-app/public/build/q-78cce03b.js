@@ -1,0 +1,1 @@
+import{F as o,M as s,H as t}from"./q-1f93f798.js";import{d as a,h as d}from"./q-4baf3ac8.js";const p=a((({todos:a})=>(console.log("on:qRender => <ToDoApp/>"),d("section",{class:"todoapp"},d(t,{todos:a}),d(s,{todos:a}),d(o,{todos:a})))));export{p as ToDoApp_onRender};
