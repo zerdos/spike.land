@@ -1,7 +1,7 @@
 import * as esbuild from "esbuild-wasm/esm/browser";
 
 const init = esbuild.initialize({
-  wasmURL: "esbuild-wasm@0.14.9/esbuild-wasm",
+  wasmURL: "esbuild-wasm@0.14.10/esbuild-wasm",
 });
 
 let initFinished = false;

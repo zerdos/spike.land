@@ -1,8 +1,8 @@
 import { Mutex } from "async-mutex";
-import * as esbuild from "https://unpkg.com/esbuild-wasm@0.14.9/esm/browser.min.js";
+import * as esbuild from "https://unpkg.com/esbuild-wasm@0.14.10/esm/browser.min.js";
 
 const init = esbuild.initialize({
-  wasmURL: "https://unpkg.com/esbuild-wasm@0.14.9/esbuild.wasm",
+  wasmURL: "https://unpkg.com/esbuild-wasm@0.14.10/esbuild.wasm",
 });
 
 let initFinished = false;

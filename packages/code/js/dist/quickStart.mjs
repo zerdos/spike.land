@@ -57,7 +57,7 @@ async function getErrors({ monaco, editor }) {
 async function runner(c, changes = null, session, counter) {
   session.changes.push(changes);
   formatter = formatter || (await import("./formatter-KE3TOZTF.mjs")).formatter;
-  esbuildEsmTransform = esbuildEsmTransform || (await import("./esbuildEsm-VL522JNZ.mjs")).transform;
+  esbuildEsmTransform = esbuildEsmTransform || (await import("./esbuildEsm-WQ72VJ57.mjs")).transform;
   transform = esbuildEsmTransform;
   session.errorText = "";
   const { monaco } = session;
@@ -132,7 +132,7 @@ var startFromCode = async ({ code }) => {
 async function quickStart(session, room, keepFullScreen, saveCode) {
   session.saveCode = saveCode;
   session.children = null;
-  const { renderPreviewWindow } = await import("./renderPreviewWindow-CYRD3NWS.mjs");
+  const { renderPreviewWindow } = await import("./renderPreviewWindow-W67IJDS2.mjs");
   await renderPreviewWindow(session, room, keepFullScreen);
   if (!keepFullScreen)
     await startMonacoWithSession(session);
