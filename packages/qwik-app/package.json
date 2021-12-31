@@ -1,6 +1,6 @@
 {
   "name": "qwik-app",
-  "version": "0.5.2",
+  "version": "0.5.3",
   "description": "Classic Todo MVC app",
   "scripts": {
     "build": "npm run clean && npm run build.client && npm run build.server",
