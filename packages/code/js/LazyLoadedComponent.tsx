@@ -7,7 +7,7 @@ interface ILaztCom {
   hash: number;
 }
 
-const LazySpikeLandComponent = (
+export const LazySpikeLandComponent = (
   { name, html, hash, transpiled }: ILaztCom,
 ) => {
   const [hashCode, setHash] = React.useState(hash);

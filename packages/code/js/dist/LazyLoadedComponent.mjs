@@ -52,6 +52,7 @@ var LazyLoadedComponent_default = (props) => /* @__PURE__ */ React.createElement
   ...props
 });
 export {
+  LazySpikeLandComponent,
   LazyLoadedComponent_default as default
 };
 //# sourceMappingURL=LazyLoadedComponent.mjs.map

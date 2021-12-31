@@ -1,16 +1,18 @@
 /** @jsx jsx */
-
-/// <reference types="@emotion/react/types/css-prop" />
-
+//@ts-expect-error
 import { css, jsx } from "@emotion/react";
 import React from "react";
+//@ts-expect-error
 import { wait } from "./wait.ts";
+//@ts-expect-error
+import { LazySpikeLandComponent } from "./LazyLoadedComponent.tsx";
 import type { FC } from "react";
 
 import { Fragment, lazy, Suspense, useEffect, useRef, useState } from "react";
 import {
   Button,
   Fab,
+  FullscreenIcon,
   Phone,
   Share,
   Tablet,
@@ -19,6 +21,7 @@ import {
   Tv,
 } from "./vendor/mui.mjs";
 
+//@ts-expect-error
 import { QRButton } from "./Qr.tsx";
 
 import { motion } from "framer-motion";
@@ -31,33 +34,6 @@ const breakPointHeights = [1137, 1024, 1080];
 
 const sizes = [10, 25, 50, 75, 100, 150];
 
-const LazySpikeLandComponent: FC<
-  { name: string; html: string; cssText: string }
-> = ({ name, cssText, html }) => {
-  const Sanyi = lazy(() => generator(name));
-  return (
-    <Suspense
-      fallback={
-        <div
-          css={css`
-      height: 100%;
-      ${cssText}
-    `}
-          dangerouslySetInnerHTML={{ __html: html }}
-        >
-        </div>
-      }
-    >
-      <Sanyi />
-    </Suspense>
-  );
-
-  function generator(name: string) {
-    // return import("./Qr")
-    return import(`https://code.spike.land/api/room/${name}/js`);
-  }
-};
-
 interface DraggableWindowProps {
   onShare: () => void;
   onRestore: (() => void);
@@ -65,6 +41,7 @@ interface DraggableWindowProps {
     i: number;
     url: string;
     html: string;
+    transpiled: string;
     errorText: string;
     children: any;
     css: string;
@@ -85,7 +62,8 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
   const [childArray, setChild] = useState([
     <LazySpikeLandComponent
       name={room}
-      cssText={session.css}
+      transpiled={session.transpiled}
+      htmlContent={`<div id="root"><style>${session.css}</style><div id="zbody">${session.html}</div></div>`}
       html={session.html}
     />,
   ]);
@@ -437,6 +415,14 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
               padding: 16px;
               `}
           >
+            <Fab
+              onClick={() => {
+                setFullScreen(true);
+              }}
+            >
+              <FullscreenIcon />
+            </Fab>
+
             <QRButton url={qrUrl} />
 
             <Fab
@@ -446,7 +432,6 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
             >
               <Share />
             </Fab>
-            <LazySpikeLandComponent name="sanyi" cssText="" html="" />
           </div>
         </div>
       </motion.div>

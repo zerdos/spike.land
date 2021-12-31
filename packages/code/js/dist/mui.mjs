@@ -1,5 +1,3 @@
-import "./chunk-2QGOD74H.mjs";
-
 // js/mui.tsx
 import { jsx } from "https://unpkg.com/@spike.land/esm@0.4.33/dist/emotion-react.mjs";
 import Fab from "https://ga.jspm.io/npm:@mui/material@5.2.5/Fab/index.js";
@@ -7,6 +5,9 @@ import Button from "https://ga.jspm.io/npm:@mui/material@5.2.5/Button/index.js";
 import ToggleButton from "https://ga.jspm.io/npm:@mui/material@5.2.5/ToggleButton/index.js";
 import ToggleButtonGroup from "https://ga.jspm.io/npm:@mui/material@5.2.5/ToggleButtonGroup/index.js";
 import createSvgIcon from "https://ga.jspm.io/npm:@mui/material@5.2.5/utils/createSvgIcon.js";
+var FullscreenIcon = createSvgIcon(/* @__PURE__ */ jsx("path", {
+  d: "M17 4h5v5h-2V6h-3V4zM4 9V6h3V4H2v5h2zm16 6v3h-3v2h5v-5h-2zM7 18H4v-3H2v5h5v-2zM18 8H6v8h12V8z"
+}), "Fullscreen");
 var Phone = createSvgIcon(/* @__PURE__ */ jsx("path", {
   key: "12",
   d: "M16 1H8C6.34 1 5 2.34 5 4v16c0 1.66 1.34 3 3 3h8c1.66 0 3-1.34 3-3V4c0-1.66-1.34-3-3-3zm-2 20h-4v-1h4v1zm3.25-3H6.75V4h10.5v14z"
@@ -40,6 +41,7 @@ var QrCode = createSvgIcon(/* @__PURE__ */ jsx("path", {
 export {
   MyButton as Button,
   MyFsb as Fab,
+  FullscreenIcon,
   Phone,
   QrCode,
   Share,
