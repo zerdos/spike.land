@@ -12550,7 +12550,7 @@ var DraggableWindow = ({ onShare, onRestore, position, session, keepFullScreen, 
       html: session.html
     })
   ]);
-  const startPositions = { bottom: -40, right: -132 };
+  const startPositions = { bottom: -40, right: -90 };
   session.setChild = setChild;
   const [qrUrl, setQRUrl] = useState(session.url);
   const [errorText, setErrorText] = useState("");

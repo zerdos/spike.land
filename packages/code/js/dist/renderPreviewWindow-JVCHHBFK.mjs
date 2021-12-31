@@ -12532,7 +12532,7 @@ var DraggableWindow = ({ onShare, onRestore, position, session, keepFullScreen, 
       html: session.html
     })
   ]);
-  const startPositions = { bottom: -40, right: -132 };
+  const startPositions = { bottom: -40, right: -90 };
   session.setChild = setChild;
   const [qrUrl, setQRUrl] = useState(session.url);
   const [errorText, setErrorText] = useState("");
@@ -12798,4 +12798,4 @@ var renderPreviewWindow = async (session, room, keepFullScreen) => {
 export {
   renderPreviewWindow
 };
-//# sourceMappingURL=renderPreviewWindow-W67IJDS2.mjs.map
+//# sourceMappingURL=renderPreviewWindow-JVCHHBFK.mjs.map

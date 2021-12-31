@@ -68,7 +68,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
     />,
   ]);
 
-  const startPositions = { bottom: -40, right: -132 };
+  const startPositions = { bottom: -40, right: -90 };
 
   session.setChild = setChild;
 
