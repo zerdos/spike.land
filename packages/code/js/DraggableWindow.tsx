@@ -1,5 +1,5 @@
 /** @jsx jsx */
-//@ts-expect-error
+
 import { css, jsx } from "@emotion/react";
 import React from "react";
 //@ts-expect-error
@@ -25,7 +25,7 @@ import {
 import { QRButton } from "./Qr.tsx";
 
 import { motion } from "framer-motion";
-import { breakpoints } from "@mui/system";
+// import { breakpoints } from "@mui/system";
 
 // const {motion} = Motion;
 

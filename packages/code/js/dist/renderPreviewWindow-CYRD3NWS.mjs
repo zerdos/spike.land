@@ -12798,4 +12798,4 @@ var renderPreviewWindow = async (session, room, keepFullScreen) => {
 export {
   renderPreviewWindow
 };
-//# sourceMappingURL=renderPreviewWindow-YNCDNNFW.mjs.map
+//# sourceMappingURL=renderPreviewWindow-CYRD3NWS.mjs.map

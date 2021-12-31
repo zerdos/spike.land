@@ -9,7 +9,8 @@
   "source": "./js/quickStart.mjs",
   "exports": {
     "./package.json": "./package.json",
-    "./js/dist/quickStart.mjs": "./js/dist.quickStart.mjs",
+    "./js/dist/quickStart.mjs": "./js/dist/quickStart.mjs",
+    "./js/dist/quickStart.bundle.mjs": "./js/dist/quickStart.bundle.mjs",
     "./js/dist/mui.mjs": "./js/dist/mui.mjs",
     "./js/dist/startMonaco.mjs": "./js/dist/startMonaco.mjs",
     "./js/dist/session.mjs": "./js/dist/session.mjs",
@@ -21,7 +22,7 @@
     "clean": "rm -rf .tsBuildInfo js/dist && mkdir js/dist && deno fmt .",
     "xpostinstall": "yarn importmap",
     "mui:deno": "deno bundle --import-map ./js/importmap.json ./js/dist/mui.mjs ./js/vendor/mui.mjs",
-    "renderToString:deno": "deno bundle --import-map ./js/importmap.json ./js/renderToString.tsx ./js/vendor/renderToString.mjs --no-check",
+    "quickStart:deno": "deno bundle --import-map ./js/importmap.json ./js/dist/quickStart.mjs ./js/dist/quickStart.bundle.mjs --no-check",
     "start": "cd ../.. && yarn start",
     "push": "cd ../.. && yarn push",
     "build": "yarn clean && node --experimental-json-modules esbuild-dev.mjs",
@@ -55,6 +56,7 @@
   },
   "dependencies": {
     "@emotion/cache": "^11.7.1",
+    "@emotion/react": "^11.7.1",
     "@emotion/styled": "^11.6.0",
     "@spike.land/qrious": "^0.5.0",
     "@spike.land/smart-monaco-editor": "^0.5.0",
