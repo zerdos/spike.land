@@ -11,6 +11,21 @@ export const run = async (injectedRoom) => {
       : (path.pop() || path.pop()).slice(-12)) ||
     "code-main";
 
+  if (location.pathname.endsWith("hydrated")) {
+    const App = (await import(
+      `https://code.spike.land/api/room/${room}/js`
+    )).default;
+
+    const { jsx } = await import("@emotion/react");
+    const { ReactDOM } = window;
+
+    const container = document.getElementById("zbody");
+
+    ReactDOM.hydrateRoot(container, jsx(App));
+
+    return;
+  }
+
   const user = ((self && self.crypto && self.crypto.randomUUID &&
     self.crypto.randomUUID()) || (await import("./uidV4.mjs")).default())
     .substring(0, 8);
@@ -34,21 +49,6 @@ export const run = async (injectedRoom) => {
   //     }
   //   }
   // }
-
-  if (location.pathname.endsWith("hydrated")) {
-    const App = (await import(
-      `https://code.spike.land/api/room/${room}/js`
-    )).default;
-
-    const { jsx } = await import("@emotion/react");
-    const { ReactDOM } = window;
-
-    const container = document.getElementById("zbody");
-
-    ReactDOM.hydrateRoot(container, jsx(App));
-
-    return;
-  }
 
   const { join } = await import("./ws.mjs");
   join(room, user);

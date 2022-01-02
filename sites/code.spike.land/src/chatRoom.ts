@@ -2,6 +2,8 @@ import { handleErrors } from "./handleErrors";
 import { RateLimiterClient } from "./rateLimiterClient";
 import HTML from "./index.html";
 import LAZY from "./lazy.html";
+import HYDRATED from "./HYDRATED.html";
+
 import { version } from "@spike.land/code/package.json";
 import applyDelta from "textdiff-patch";
 import { CodeEnv } from "./env";
@@ -173,7 +175,7 @@ export class Code {
           const htmlContent = mST().html;
           const css = mST().css;
 
-          const html = HTML.replace(
+          const html = HYDRATED.replace(
             `<div id="root"></div>`,
             `<div id="root"><style>${css}</style><div id="zbody">${htmlContent}</div></div>`
           ).replace("{VERSION}", version);

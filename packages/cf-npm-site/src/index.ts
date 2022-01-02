@@ -53,6 +53,8 @@ export default function (
         }});
 
 
+        // ich
+
       if (pathname.endsWith(".mjs") || pathname.endsWith(".js") || pathname.endsWith(".ts") || pathname.endsWith(".tsx")){
         resp.headers.delete("content-type");
         resp.headers.set(

@@ -37,6 +37,7 @@ export default function (packageName, version, serveDir = "") {
                     "Cache-Control": "no-cache"
                 }
             });
+            // ich
             if (pathname.endsWith(".mjs") || pathname.endsWith(".js") || pathname.endsWith(".ts") || pathname.endsWith(".tsx")) {
                 resp.headers.delete("content-type");
                 resp.headers.set("content-type", "text/javascript;charset=UTF-8");
