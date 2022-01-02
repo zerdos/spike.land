@@ -9704,9 +9704,7 @@ var OrbitDB = function (e) {
         for (var u = [], f = 0; f < n; f++) {
           var h = n - f,
             l = i[
-              h - (f % 4
-                ? 0
-                : 4)
+              h - (f % 4 ? 0 : 4)
             ];
           u[f] = f < 4 || h <= 4 ? l : c.INV_SUB_MIX[0][c.SBOX[l >>> 24]] ^
             c.INV_SUB_MIX[1][c.SBOX[l >>> 16 & 255]] ^
@@ -10924,8 +10922,9 @@ var OrbitDB = function (e) {
         this._wnafT4 = new Array(4),
         this._bitLength = this.n ? this.n.bitLength() : 0;
       var r = this.n && this.p.div(this.n);
-      !r || r.cmpn(100) > 0 ? this.redN = null
-      : (this._maxwellTrick = !0, this.redN = this.n.toRed(this.red));
+      !r || r.cmpn(100) > 0
+        ? this.redN = null
+        : (this._maxwellTrick = !0, this.redN = this.n.toRed(this.red));
     }
     function u(e, t) {
       this.curve = e, this.type = t, this.precomputed = null;
@@ -10957,8 +10956,9 @@ var OrbitDB = function (e) {
           d--
         ) {
           for (s = 0; s < u.length; s++) {
-            (c = u[s]) === d ? l = l.mixedAdd(r.points[s])
-            : c === -d && (l = l.mixedAdd(r.points[s].neg()));
+            (c = u[s]) === d
+              ? l = l.mixedAdd(r.points[s])
+              : c === -d && (l = l.mixedAdd(r.points[s].neg()));
           }
           h = h.add(l);
         }
@@ -10980,8 +10980,9 @@ var OrbitDB = function (e) {
           var h = s[u];
           a(0 !== h),
             c = "affine" === e.type
-              ? h > 0 ? c.mixedAdd(i[h - 1 >> 1])
-              : c.mixedAdd(i[-h - 1 >> 1].neg())
+              ? h > 0
+                ? c.mixedAdd(i[h - 1 >> 1])
+                : c.mixedAdd(i[-h - 1 >> 1].neg())
               : h > 0
               ? c.add(i[h - 1 >> 1])
               : c.add(i[-h - 1 >> 1].neg());
@@ -11044,7 +11045,9 @@ var OrbitDB = function (e) {
               (C > 0
                 ? u = h[c][C - 1 >> 1]
                 : C < 0 && (u = h[c][-C - 1 >> 1].neg()),
-                S = "affine" === u.type ? S.mixedAdd(u) : S.add(u));
+                S = "affine" === u.type
+                  ? S.mixedAdd(u)
+                  : S.add(u));
           }
         }
         for (a = 0; a < n; a++) h[a] = null;
@@ -20783,7 +20786,9 @@ var OrbitDB = function (e) {
                 } else if (n.util.isArray(s)) {
                   var a = s;
                   s = n.util.createBuffer();
-                  for (var c = 0; c < a.length; ++c) s.putByte(a[c]);
+                  for (var c = 0; c < a.length; ++c) {
+                    s.putByte(a[c]);
+                  }
                 }
                 var u = s.length();
                 u > t.blockLength &&
@@ -20824,7 +20829,9 @@ var OrbitDB = function (e) {
           throw new Error("Missing callback");
         }
         o.digest(e, t, r, (e, o) => {
-          if (e) return i(e);
+          if (e) {
+            return i(e);
+          }
           i(null, n.encode(o, t, r));
         });
       }
@@ -20888,7 +20895,9 @@ var OrbitDB = function (e) {
         "use strict";
         var s = "input is invalid type",
           a = "object" == typeof window,
-          c = a ? window : {};
+          c = a
+            ? window
+            : {};
         c.JS_SHA3_NO_WINDOW && (a = !1);
         var u = !a && "object" == typeof self;
         !c.JS_SHA3_NO_NODE_JS && "object" == typeof n && n.versions &&
@@ -21787,16 +21796,16 @@ var OrbitDB = function (e) {
           return this._createEncoderBuffer(t);
         }
         return "numstr" === t
-          ? this._isNumstr(e)
+          ? this._isNumstr(e) ? this._createEncoderBuffer(e)
+          : this.reporter.error(
+            "Encoding of string type: numstr supports only digits and space",
+          )
+          : "printstr" === t
+          ? this._isPrintstr(e)
             ? this._createEncoderBuffer(e)
             : this.reporter.error(
-              "Encoding of string type: numstr supports only digits and space",
+              "Encoding of string type: printstr supports only latin upper and lower case letters, digits, space, apostrophe, left and rigth parenthesis, plus sign, comma, hyphen, dot, slash, colon, equal sign, question mark",
             )
-          : "printstr" === t
-          ? this._isPrintstr(e) ? this._createEncoderBuffer(e)
-          : this.reporter.error(
-            "Encoding of string type: printstr supports only latin upper and lower case letters, digits, space, apostrophe, left and rigth parenthesis, plus sign, comma, hyphen, dot, slash, colon, equal sign, question mark",
-          )
           : /str$/.test(t) || "objDesc" === t
           ? this._createEncoderBuffer(e)
           : this.reporter.error(
@@ -22007,11 +22016,10 @@ var OrbitDB = function (e) {
             e,
             'Failed to skip indefinite length body: "' + this.tag + '"',
           );
-        return e.isError(s)
-          ? s
-          : (i = e.offset - o.offset,
-            e.restore(o),
-            e.skip(i, 'Failed to match body of: "' + t + '"'));
+        return e.isError(s) ? s
+        : (i = e.offset - o.offset,
+          e.restore(o),
+          e.skip(i, 'Failed to match body of: "' + t + '"'));
       },
       u.prototype._skipUntilEnd = function (e, t) {
         for (;;) {
@@ -46871,7 +46879,9 @@ object-assign
         var t;
         if (this.curve.zeroA || this.curve.threeA) {
           var r = this;
-          for (t = 0; t < e; t++) r = r.dbl();
+          for (t = 0; t < e; t++) {
+            r = r.dbl();
+          }
           return r;
         }
         var n = this.curve.a,
@@ -46897,7 +46907,9 @@ object-assign
         return this.curve.jpoint(o, u.redMul(i), a);
       },
       f.prototype.dbl = function () {
-        return this.isInfinity() ? this : this.curve.zeroA
+        return this.isInfinity()
+          ? this
+          : this.curve.zeroA
           ? this._zeroDbl()
           : this.curve.threeA
           ? this._threeDbl()
