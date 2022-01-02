@@ -12539,6 +12539,7 @@ import { motion as motion2 } from "https://unpkg.com/@spike.land/esm@0.4.33/dist
 var breakPoints = [680, 768, 1920];
 var breakPointHeights = [1137, 1024, 1080];
 var sizes = [10, 25, 50, 75, 100, 150];
+var bg = `rgba(${Math.random() * 128 + 64}, ${Math.random() * 128 + 64}, ${Math.random() * 128 + 64}, ${navigator.userAgent.indexOf("Firefox") === -1 ? 0.3 : 0.7})`;
 var DraggableWindow = ({ onShare, onRestore, position, session, keepFullScreen, room }) => {
   const [isStable, setIsStable] = useState(false);
   const [scaleRange, changeScaleRange] = useState(100);
@@ -12630,7 +12631,7 @@ var DraggableWindow = ({ onShare, onRestore, position, session, keepFullScreen, 
       right
     },
     css: css2`
-            background-color:rgba(${Math.random() * 255}, ${Math.random() * 255}, ${Math.random() * 255}, ${navigator.userAgent.indexOf("Firefox") === -1 ? 0.3 : 0.7});
+            background-color:${bg};
             backdrop-filter: blur(15px);
             padding: 0px 0px 0px 16px;
             border-radius: 16px;

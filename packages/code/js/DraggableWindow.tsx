@@ -34,6 +34,10 @@ const breakPointHeights = [1137, 1024, 1080];
 
 const sizes = [10, 25, 50, 75, 100, 150];
 
+const bg = `rgba(${Math.random() * 128 + 64}, ${Math.random() * 128 + 64}, ${
+  Math.random() * 128 + 64
+}, ${navigator.userAgent.indexOf("Firefox") === -1 ? 0.3 : 0.7})`;
+
 interface DraggableWindowProps {
   onShare: () => void;
   onRestore: (() => void);
@@ -188,11 +192,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
           right,
         }}
         css={css`
-            background-color:rgba(${Math.random() * 255}, ${
-          Math.random() * 255
-        }, ${Math.random() * 255}, ${
-          navigator.userAgent.indexOf("Firefox") === -1 ? 0.3 : 0.7
-        });
+            background-color:${bg};
             backdrop-filter: blur(15px);
             padding: 0px 0px 0px 16px;
             border-radius: 16px;

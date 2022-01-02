@@ -132,7 +132,7 @@ var startFromCode = async ({ code }) => {
 async function quickStart(session, room, keepFullScreen, saveCode) {
   session.saveCode = saveCode;
   session.children = null;
-  const { renderPreviewWindow } = await import("./renderPreviewWindow-J2ZUB6U3.mjs");
+  const { renderPreviewWindow } = await import("./renderPreviewWindow-3X2IWH7N.mjs");
   await renderPreviewWindow(session, room, keepFullScreen);
   if (!keepFullScreen)
     await startMonacoWithSession(session);
