@@ -12592,27 +12592,27 @@ var DraggableWindow = ({ onShare, onRestore, position, session, keepFullScreen, 
         bottom: window.innerHeight * 0.2,
         right: window.innerWidth * 0.2
       });
-      if (window.innerWidth < 600) {
+      if (window.innerWidth / devicePixelRatio < 600) {
         changeScaleRange(50);
         setWidth(breakPoints[0]);
         setHeight(breakPointHeights[0]);
       }
-      if (window.innerWidth < 1200) {
+      if (window.innerWidth / devicePixelRatio < 1200) {
         changeScaleRange(75);
+        setWidth(breakPoints[0]);
+        setHeight(breakPointHeights[0]);
+      } else if (window.innerWidth / devicePixelRatio < 1800) {
         setWidth(breakPoints[1]);
         setHeight(breakPointHeights[1]);
-      } else if (window.innerWidth < 1800) {
+        changeScaleRange(50);
+      } else if (window.innerWidth / devicePixelRatio < 2500) {
+        setWidth(breakPoints[1]);
+        setHeight(breakPointHeights[1]);
+        changeScaleRange(75);
+      } else if (window.innerWidth / devicePixelRatio > 2500) {
         setWidth(breakPoints[1]);
         setHeight(breakPointHeights[1]);
         changeScaleRange(100);
-      } else if (window.innerWidth < 2500) {
-        setWidth(breakPoints[2]);
-        setHeight(breakPointHeights[2]);
-        changeScaleRange(100);
-      } else if (window.innerWidth > 2500) {
-        setWidth(breakPoints[1]);
-        setHeight(breakPointHeights[1]);
-        changeScaleRange(150);
       }
       await wait(200);
       setPositions({

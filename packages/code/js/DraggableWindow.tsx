@@ -126,38 +126,38 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
       // changeScaleRange(75);
       // setHeight(height=> height)
 
-      if (window.innerWidth < 600) {
+      if (window.innerWidth / devicePixelRatio < 600) {
         changeScaleRange(50);
         setWidth(breakPoints[0]);
         setHeight(breakPointHeights[0]);
 
         // setHeight(window.innerHeight * devicePixelRatio);
       }
-      if (window.innerWidth < 1200) {
+      if (window.innerWidth / devicePixelRatio < 1200) {
         changeScaleRange(75);
-        setWidth(breakPoints[1]);
-        setHeight(breakPointHeights[1]);
+        setWidth(breakPoints[0]);
+        setHeight(breakPointHeights[0]);
 
         // setHeight(window.innerHeight * devicePixelRatio);
-      } else if (window.innerWidth < 1800) {
+      } else if (window.innerWidth / devicePixelRatio < 1800) {
         // setHeight(breakPoints[1]);
         setWidth(breakPoints[1]);
         setHeight(breakPointHeights[1]);
 
-        changeScaleRange(100);
-      } else if (window.innerWidth < 2500) {
+        changeScaleRange(50);
+      } else if (window.innerWidth / devicePixelRatio < 2500) {
         // setHeight(breakPointHeights[2] * devicePixelRatio);
-        setWidth(breakPoints[2]);
-        setHeight(breakPointHeights[2]);
+        setWidth(breakPoints[1]);
+        setHeight(breakPointHeights[1]);
 
-        changeScaleRange(100);
-      } else if (window.innerWidth > 2500) {
+        changeScaleRange(75);
+      } else if (window.innerWidth / devicePixelRatio > 2500) {
         // setWidth(window* devicePixelRatio)
         setWidth(breakPoints[1]);
         setHeight(breakPointHeights[1]);
 
         // setHeight(breakPoints[0]);
-        changeScaleRange(150);
+        changeScaleRange(100);
       }
       await wait(200);
       setPositions({
