@@ -12792,11 +12792,11 @@ var renderPreviewWindow = async (session, room, keepFullScreen) => {
   target.style.display = "block";
   target.style.opacity = "1";
   document.getElementById("root").remove();
-  document.body.style.backgroundImage = `url("/assets/synthwave.webp")`;
+  document.body.style.backgroundImage = `url("./assets/synthwave.webp")`;
   editor.style.opacity = "1";
   editor.style.display = "block";
 };
 export {
   renderPreviewWindow
 };
-//# sourceMappingURL=renderPreviewWindow-3X2IWH7N.mjs.map
+//# sourceMappingURL=renderPreviewWindow-ZH6IK4I6.mjs.map

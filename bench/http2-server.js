@@ -7,8 +7,8 @@ import { ThrottleGroup } from 'speed-limiter';
 const base = new URL('../', import.meta.url);
 
 const server = createSecureServer({
-  key: readFileSync(new URL('./key.pem', import.meta.url)),
-  cert: readFileSync(new URL('./cert.pem', import.meta.url))
+  key: readFileSync(new URL('./localhost-key.pem', import.meta.url)),
+  cert: readFileSync(new URL('./localhost.pem', import.meta.url))
 });
 
 server.on('error', err => console.error(err));
