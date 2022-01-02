@@ -581,7 +581,7 @@ var require_textdiff_create = __commonJS({
 });
 
 // ../../packages/code/package.json
-var version = "0.5.7";
+var version = "0.5.10";
 
 // ../../packages/cf-npm-site/dist/index.mjs
 function src_default(packageName, version2, serveDir = "") {
@@ -867,6 +867,169 @@ var src_default2 = `<!DOCTYPE html>
 
 // src/lazy.html
 var lazy_default = 'var{React:t}=window,{Suspense:C}=t,b=({name:o,html:c,hash:a,transpiled:l})=>{let[i,p]=t.useState(a);t.useEffect(()=>{let n=setInterval(async()=>{let s=await(await fetch(`https://code.spike.land/api/room/${o}/hashCodeSession`)).text();p(Number(s))},69e3);return()=>{console.log("INTERVAL CLEARED"),clearInterval(n)}},[]),t.useEffect(()=>{(async()=>{let n=await fetch(`https://code.spike.land/api/room/${o}/session`),{html:e,css:s,transpiled:L}=await n.json();u({htmlContent:`<div id="root"><style>${s}</style><div id="zbody">${e}</div></div>`,LazyComponent:await y(L)})})()},[i]);let d=t.lazy(()=>import(r(l))),[{htmlContent:m,LazyComponent:h},u]=t.useState({htmlContent:c,LazyComponent:d});return t.createElement(C,{key:i,fallback:t.createElement("div",{dangerouslySetInnerHTML:{__html:m}})},t.createElement(h,{key:a}));function r(n){let e=new Blob([n],{type:"application/javascript"});return URL.createObjectURL(e)}async function y(n){let e=r(n),s=(await import(e)).default;return URL.revokeObjectURL(e),s}},f=o=>t.createElement(b,{...o});export{f as default};\n';
+
+// src/hydrated.html
+var hydrated_default = `<!DOCTYPE html>
+<html lang="en">
+<head profile="http://www.w3.org/2005/10/profile">
+  <meta http-equiv="Content-Type" content="text/html,charset=utf-8" />
+  <meta name="viewport" content="width=device-width" />
+
+  <base href="https://code.spike.land/">
+  
+  <link rel="icon" type="image/png" href="./assets/zed-icon-big.png" />
+
+  <link rel="stylesheet" href="./assets/app.css" />
+
+  <script crossorigin src="https://unpkg.com/react@18.0.0-rc.0-next-f2a59df48-20211208/umd/react.production.min.js"><\/script>
+    <!-- <script crossorigin src="https://unpkg.com/react-is@18.0.0-rc.0-next-f2a59df48-20211208/umd/react-is.production.min.js"><\/script> -->
+  <script crossorigin src="https://unpkg.com/react-dom@18.0.0-rc.0-next-f2a59df48-20211208/umd/react-dom.production.min.js"><\/script>
+
+  <script crossorigin src="https://unpkg.com/@emotion/react@11.7.1/dist/emotion-react.umd.min.js"><\/script>
+<script>
+     let transform = null;
+    window.esmsInitOptions = {
+  shimMode: true,
+  polyfillEnable: ['css-modules', 'json-modules'],
+  onerror: error => console.log(error), // defaults to \`((e) => { throw e; })\`
+  fetch: async function (url, options) {
+    const urlEnd = url.substr(-3);
+    if (url.indexOf("monaco")===-1 && ["tsx", ".ts"].indexOf(urlEnd)!==-1) {   
+      console.log(url);
+      const res = await fetch(url, options);
+     if (!res.ok) return res;
+
+        const source = await res.text();
+        
+        transform = transform || (await import("./esbuildEsm.mjs")).transform;
+        const transformed = await transform(source);
+        return new Response(new Blob([transformed], { type: 'application/javascript' }));
+    }
+  return fetch(url, options);
+
+  },
+  noLoadEventRetriggers: true,
+  skip: "/^https?:\\/\\/(cdn\\.skypack\\.dev|jspm\\.dev)\\//\`"
+     } <\/script>
+  <script async src="https://unpkg.com/@spike.land/code@0.4.42/js/vendor/es-module-shims.wasm.js"><\/script>
+  <title>Instant React Editor</title>
+  
+
+</head>
+<body>
+    <div id="root"></div>
+ 
+  <script type="importmap-shim" src="./importmap.json"><\/script>
+  <script>
+  window.process = { env: { NODE_ENV: "production" } };
+<\/script>
+<script type="module-shim">
+   
+    import app from "./starter.mjs";
+    app("zoli");
+
+  <\/script>
+ 
+</body>
+</html>`;
+
+// ../../packages/code/js/importmap.json
+var imports = {
+  "@emotion/cache": "https://ga.jspm.io/npm:@emotion/cache@11.7.1/dist/emotion-cache.browser.esm.js",
+  "@emotion/react": "https://unpkg.com/@spike.land/esm@0.4.33/dist/emotion-react.mjs",
+  "@mui/material/Button": "https://ga.jspm.io/npm:@mui/material@5.2.5/Button/index.js",
+  "@mui/material/Fab": "https://ga.jspm.io/npm:@mui/material@5.2.5/Fab/index.js",
+  "@mui/material/ToggleButton": "https://ga.jspm.io/npm:@mui/material@5.2.5/ToggleButton/index.js",
+  "@mui/material/ToggleButtonGroup": "https://ga.jspm.io/npm:@mui/material@5.2.5/ToggleButtonGroup/index.js",
+  "@mui/material/utils/createSvgIcon": "https://ga.jspm.io/npm:@mui/material@5.2.5/utils/createSvgIcon.js",
+  "async-mutex": "https://ga.jspm.io/npm:async-mutex@0.3.2/index.mjs",
+  comlink: "https://ga.jspm.io/npm:comlink@4.3.1/dist/umd/comlink.js",
+  immutable: "https://ga.jspm.io/npm:immutable@4.0.0/dist/immutable.es.js",
+  react: "https://unpkg.com/@spike.land/esm@0.4.33/dist/react.mjs",
+  "react-dom": "https://unpkg.com/@spike.land/esm@0.4.33/dist/react-dom.mjs",
+  "react-dom/server": "https://ga.jspm.io/npm:react-dom@18.0.0-rc.0-next-f2a59df48-20211208/server.browser.js",
+  "react/jsx-runtime": "https://ga.jspm.io/npm:react@18.0.0-rc.0-next-f2a59df48-20211208/jsx-runtime.js",
+  "framer-motion": "https://unpkg.com/@spike.land/esm@0.4.33/dist/framer-motion.mjs"
+};
+var scopes = {
+  "https://ga.jspm.io/": {
+    "#FormControlUnstyled": "https://ga.jspm.io/npm:@mui/base@5.0.0-alpha.61/FormControlUnstyled/index.js",
+    "#GlobalStyles": "https://ga.jspm.io/npm:@mui/styled-engine@5.2.6/GlobalStyles/index.js",
+    "#StyledEngineProvider": "https://ga.jspm.io/npm:@mui/styled-engine@5.2.6/StyledEngineProvider/index.js",
+    "#TabPanelUnstyled": "https://ga.jspm.io/npm:@mui/base@5.0.0-alpha.61/TabPanelUnstyled/index.js",
+    "#generateUtilityClasses": "https://ga.jspm.io/npm:@mui/base@5.0.0-alpha.61/generateUtilityClasses/index.js",
+    "#utils": "https://ga.jspm.io/npm:@mui/base@5.0.0-alpha.61/utils/index.js",
+    "@babel/runtime/helpers/esm/assertThisInitialized": "https://ga.jspm.io/npm:@babel/runtime@7.16.7/helpers/esm/assertThisInitialized.js",
+    "@babel/runtime/helpers/esm/extends": "https://ga.jspm.io/npm:@babel/runtime@7.16.7/helpers/esm/extends.js",
+    "@babel/runtime/helpers/esm/inheritsLoose": "https://ga.jspm.io/npm:@babel/runtime@7.16.7/helpers/esm/inheritsLoose.js",
+    "@babel/runtime/helpers/esm/objectWithoutPropertiesLoose": "https://ga.jspm.io/npm:@babel/runtime@7.16.7/helpers/esm/objectWithoutPropertiesLoose.js",
+    "@babel/runtime/helpers/extends": "https://ga.jspm.io/npm:@babel/runtime@7.16.7/helpers/esm/extends.js",
+    "@emotion/hash": "https://ga.jspm.io/npm:@emotion/hash@0.8.0/dist/hash.browser.esm.js",
+    "@emotion/is-prop-valid": "https://ga.jspm.io/npm:@emotion/is-prop-valid@1.1.1/dist/emotion-is-prop-valid.browser.esm.js",
+    "@emotion/memoize": "https://ga.jspm.io/npm:@emotion/memoize@0.7.5/dist/emotion-memoize.browser.esm.js",
+    "@emotion/serialize": "https://ga.jspm.io/npm:@emotion/serialize@1.0.2/dist/emotion-serialize.browser.esm.js",
+    "@emotion/sheet": "https://ga.jspm.io/npm:@emotion/sheet@1.1.0/dist/emotion-sheet.browser.esm.js",
+    "@emotion/styled": "https://ga.jspm.io/npm:@emotion/styled@11.6.0/dist/emotion-styled.browser.esm.js",
+    "@emotion/unitless": "https://ga.jspm.io/npm:@emotion/unitless@0.7.5/dist/unitless.browser.esm.js",
+    "@emotion/utils": "https://ga.jspm.io/npm:@emotion/utils@1.0.0/dist/emotion-utils.browser.esm.js",
+    "@emotion/weak-memoize": "https://ga.jspm.io/npm:@emotion/weak-memoize@0.2.5/dist/weak-memoize.browser.esm.js",
+    "@mui/base": "https://ga.jspm.io/npm:@mui/base@5.0.0-alpha.61/index.js",
+    "@mui/base/AutocompleteUnstyled": "https://ga.jspm.io/npm:@mui/base@5.0.0-alpha.61/AutocompleteUnstyled/index.js",
+    "@mui/base/BackdropUnstyled": "https://ga.jspm.io/npm:@mui/base@5.0.0-alpha.61/BackdropUnstyled/index.js",
+    "@mui/base/BadgeUnstyled": "https://ga.jspm.io/npm:@mui/base@5.0.0-alpha.61/BadgeUnstyled/index.js",
+    "@mui/base/ButtonUnstyled": "https://ga.jspm.io/npm:@mui/base@5.0.0-alpha.61/ButtonUnstyled/index.js",
+    "@mui/base/ClickAwayListener": "https://ga.jspm.io/npm:@mui/base@5.0.0-alpha.61/ClickAwayListener/index.js",
+    "@mui/base/InputUnstyled": "https://ga.jspm.io/npm:@mui/base@5.0.0-alpha.61/InputUnstyled/index.js",
+    "@mui/base/ModalUnstyled": "https://ga.jspm.io/npm:@mui/base@5.0.0-alpha.61/ModalUnstyled/index.js",
+    "@mui/base/NoSsr": "https://ga.jspm.io/npm:@mui/base@5.0.0-alpha.61/NoSsr/index.js",
+    "@mui/base/PopperUnstyled": "https://ga.jspm.io/npm:@mui/base@5.0.0-alpha.61/PopperUnstyled/index.js",
+    "@mui/base/Portal": "https://ga.jspm.io/npm:@mui/base@5.0.0-alpha.61/Portal/index.js",
+    "@mui/base/SliderUnstyled": "https://ga.jspm.io/npm:@mui/base@5.0.0-alpha.61/SliderUnstyled/index.js",
+    "@mui/base/SwitchUnstyled": "https://ga.jspm.io/npm:@mui/base@5.0.0-alpha.61/SwitchUnstyled/index.js",
+    "@mui/base/TabUnstyled": "https://ga.jspm.io/npm:@mui/base@5.0.0-alpha.61/TabUnstyled/index.js",
+    "@mui/base/TabsListUnstyled": "https://ga.jspm.io/npm:@mui/base@5.0.0-alpha.61/TabsListUnstyled/index.js",
+    "@mui/base/TabsUnstyled": "https://ga.jspm.io/npm:@mui/base@5.0.0-alpha.61/TabsUnstyled/index.js",
+    "@mui/base/TextareaAutosize": "https://ga.jspm.io/npm:@mui/base@5.0.0-alpha.61/TextareaAutosize/index.js",
+    "@mui/base/Unstable_TrapFocus": "https://ga.jspm.io/npm:@mui/base@5.0.0-alpha.61/Unstable_TrapFocus/index.js",
+    "@mui/base/composeClasses": "https://ga.jspm.io/npm:@mui/base@5.0.0-alpha.61/composeClasses/index.js",
+    "@mui/base/generateUtilityClass": "https://ga.jspm.io/npm:@mui/base@5.0.0-alpha.61/generateUtilityClass/index.js",
+    "@mui/material/ButtonBase": "https://ga.jspm.io/npm:@mui/material@5.2.5/ButtonBase/index.js",
+    "@mui/material/SvgIcon": "https://ga.jspm.io/npm:@mui/material@5.2.5/SvgIcon/index.js",
+    "@mui/material/styles": "https://ga.jspm.io/npm:@mui/material@5.2.5/styles/index.js",
+    "@mui/private-theming": "https://ga.jspm.io/npm:@mui/private-theming@5.2.3/index.js",
+    "@mui/private-theming/ThemeProvider": "https://ga.jspm.io/npm:@mui/private-theming@5.2.3/ThemeProvider/index.js",
+    "@mui/private-theming/useTheme": "https://ga.jspm.io/npm:@mui/private-theming@5.2.3/useTheme/index.js",
+    "@mui/styled-engine": "https://ga.jspm.io/npm:@mui/styled-engine@5.2.6/index.js",
+    "@mui/system": "https://ga.jspm.io/npm:@mui/system@5.2.6/esm/index.js",
+    "@mui/utils": "https://ga.jspm.io/npm:@mui/utils@5.2.3/esm/index.js",
+    "@popperjs/core": "https://ga.jspm.io/npm:@popperjs/core@2.11.0/lib/index.js",
+    clsx: "https://ga.jspm.io/npm:clsx@1.1.1/dist/clsx.m.js",
+    "dom-helpers/addClass": "https://ga.jspm.io/npm:dom-helpers@5.2.0/esm/addClass.js",
+    "dom-helpers/removeClass": "https://ga.jspm.io/npm:dom-helpers@5.2.0/esm/removeClass.js",
+    "hoist-non-react-statics": "https://ga.jspm.io/npm:hoist-non-react-statics@3.3.2/dist/hoist-non-react-statics.cjs.js",
+    "object-assign": "https://ga.jspm.io/npm:object-assign@4.1.1/index.js",
+    process: "https://ga.jspm.io/npm:@jspm/core@2.0.0-beta.14/nodelibs/browser/process-production.js",
+    "prop-types": "https://ga.jspm.io/npm:prop-types@15.8.0/index.js",
+    "react-is": "https://ga.jspm.io/npm:react-is@16.13.1/index.js",
+    "react-transition-group": "https://ga.jspm.io/npm:react-transition-group@4.4.2/esm/index.js",
+    "react/jsx-runtime": "https://ga.jspm.io/npm:react@17.0.2/jsx-runtime.js",
+    scheduler: "https://ga.jspm.io/npm:scheduler@0.21.0-rc.0-next-f2a59df48-20211208/index.js",
+    stylis: "https://ga.jspm.io/npm:stylis@4.0.13/index.js"
+  },
+  "https://ga.jspm.io/npm:@mui/base@5.0.0-alpha.61/": {
+    "react-is": "https://ga.jspm.io/npm:react-is@17.0.2/index.js"
+  },
+  "https://ga.jspm.io/npm:@mui/material@5.2.5/": {
+    "react-is": "https://ga.jspm.io/npm:react-is@17.0.2/index.js"
+  },
+  "https://ga.jspm.io/npm:@mui/utils@5.2.3/": {
+    "react-is": "https://ga.jspm.io/npm:react-is@17.0.2/index.js"
+  }
+};
+var importmap_default = {
+  imports,
+  scopes
+};
 
 // src/chatRoom.ts
 var import_textdiff_patch2 = __toESM(require_textdiff_patch());
@@ -5368,7 +5531,7 @@ var Code = class {
         case "hydrated": {
           const htmlContent = mST().html;
           const css2 = mST().css;
-          const html2 = src_default2.replace(`<div id="root"></div>`, `<div id="root"><style>${css2}</style><div id="zbody">${htmlContent}</div></div>`).replace("{VERSION}", version);
+          const html2 = hydrated_default.replace(`<div id="root"></div>`, `<div id="root"><style>${css2}</style><div id="zbody">${htmlContent}</div></div>`).replace("{VERSION}", version).replace(`<script type="importmap-shim" src="./importmap.json"><\/script>`, `<script type="importmap-shim">${JSON.stringify(importmap_default)}<\/script>`);
           return new Response(html2, {
             status: 200,
             headers: {

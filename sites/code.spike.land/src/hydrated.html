@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head profile="http://www.w3.org/2005/10/profile">
+  <meta http-equiv="Content-Type" content="text/html,charset=utf-8" />
+  <meta name="viewport" content="width=device-width" />
+
+  <base href="https://code.spike.land/">
+  
+  <link rel="icon" type="image/png" href="./assets/zed-icon-big.png" />
+
+  <link rel="stylesheet" href="./assets/app.css" />
+
+  <script crossorigin src="https://unpkg.com/react@18.0.0-rc.0-next-f2a59df48-20211208/umd/react.production.min.js"></script>
+    <!-- <script crossorigin src="https://unpkg.com/react-is@18.0.0-rc.0-next-f2a59df48-20211208/umd/react-is.production.min.js"></script> -->
+  <script crossorigin src="https://unpkg.com/react-dom@18.0.0-rc.0-next-f2a59df48-20211208/umd/react-dom.production.min.js"></script>
+
+  <script crossorigin src="https://unpkg.com/@emotion/react@11.7.1/dist/emotion-react.umd.min.js"></script>
+<script>
+     let transform = null;
+    window.esmsInitOptions = {
+  shimMode: true,
+  polyfillEnable: ['css-modules', 'json-modules'],
+  onerror: error => console.log(error), // defaults to `((e) => { throw e; })`
+  fetch: async function (url, options) {
+    const urlEnd = url.substr(-3);
+    if (url.indexOf("monaco")===-1 && ["tsx", ".ts"].indexOf(urlEnd)!==-1) {   
+      console.log(url);
+      const res = await fetch(url, options);
+     if (!res.ok) return res;
+
+        const source = await res.text();
+        
+        transform = transform || (await import("./esbuildEsm.mjs")).transform;
+        const transformed = await transform(source);
+        return new Response(new Blob([transformed], { type: 'application/javascript' }));
+    }
+  return fetch(url, options);
+
+  },
+  noLoadEventRetriggers: true,
+  skip: "/^https?:\/\/(cdn\.skypack\.dev|jspm\.dev)\//`"
+     } </script>
+  <script async src="https://unpkg.com/@spike.land/code@0.4.42/js/vendor/es-module-shims.wasm.js"></script>
+  <title>Instant React Editor</title>
+  
+
+</head>
+<body>
+    <div id="root"></div>
+ 
+  <script type="importmap-shim" src="./importmap.json"></script>
+  <script>
+  window.process = { env: { NODE_ENV: "production" } };
+</script>
+<script type="module-shim">
+   
+    import app from "./starter.mjs";
+    app("zoli");
+
+  </script>
+ 
+</body>
+</html>

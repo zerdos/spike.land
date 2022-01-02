@@ -2,9 +2,10 @@ import { handleErrors } from "./handleErrors";
 import { RateLimiterClient } from "./rateLimiterClient";
 import HTML from "./index.html";
 import LAZY from "./lazy.html";
-import HYDRATED from "./HYDRATED.html";
+import HYDRATED from "./hydrated.html";
 
 import { version } from "@spike.land/code/package.json";
+import imap from "@spike.land/code/js/importmap.json";
 import applyDelta from "textdiff-patch";
 import { CodeEnv } from "./env";
 import type {
@@ -178,7 +179,7 @@ export class Code {
           const html = HYDRATED.replace(
             `<div id="root"></div>`,
             `<div id="root"><style>${css}</style><div id="zbody">${htmlContent}</div></div>`
-          ).replace("{VERSION}", version);
+          ).replace("{VERSION}", version).replace(`<script type="importmap-shim" src="./importmap.json"></script>`, `<script type="importmap-shim">${JSON.stringify(imap)}</script>`);
           return new Response(html, {
             status: 200,
             headers: {
