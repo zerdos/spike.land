@@ -12630,7 +12630,7 @@ var DraggableWindow = ({ onShare, onRestore, position, session, keepFullScreen, 
       right
     },
     css: css2`
-            background-color:rgba(192 ,192, 192, 0.3);
+            background-color:rgba(${Math.random() * 255}, ${Math.random() * 255}, ${Math.random() * 255}, ${navigator.userAgent.indexOf("Firefox") === -1 ? 0.3 : 0.7});
             backdrop-filter: blur(15px);
             padding: 0px 0px 0px 16px;
             border-radius: 16px;

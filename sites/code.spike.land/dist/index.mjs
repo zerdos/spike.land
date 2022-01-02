@@ -581,7 +581,7 @@ var require_textdiff_create = __commonJS({
 });
 
 // ../../packages/code/package.json
-var version = "0.5.1";
+var version = "0.5.6";
 
 // ../../packages/cf-npm-site/dist/index.mjs
 function src_default(packageName, version2, serveDir = "") {
@@ -1519,7 +1519,7 @@ var weakMap;
 if (usingWeakMap) {
   weakMap = /* @__PURE__ */ new WeakMap();
 }
-var symbolMap = Object.create(null);
+var symbolMap = /* @__PURE__ */ Object.create(null);
 var _objHashUID = 0;
 var UID_HASH_KEY = "__immutablehash__";
 if (typeof Symbol === "function") {
