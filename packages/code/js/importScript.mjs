@@ -2,32 +2,30 @@
  * @param {string} src
  * @param {*} res
  */
-export const importScript = (src, res = []) => {
-  return document.head.querySelector(`script[src="${src}"]`) ||
-    new Promise(function (resolve, reject) {
-      const s = document.createElement("script");
-      s.src = src;
-      // s.async = "async";
-      // s.type = "application/javascript";
-      s.onload = () => {
-        if (res.length === 0) {
-          resolve(window);
-        }
-        const ret = {};
+export const importScript = (src, res = []) =>
+  document.head.querySelector(`script[src="${src}"]`) ||
+  new Promise((resolve, reject) => {
+    const s = document.createElement("script");
+    s.src = src;
+    // S.async = "async";
+    // s.type = "application/javascript";
+    s.addEventListener("load", () => {
+      if (res.length === 0) {
+        resolve(window);
+      }
 
-        res.forEach(
-          // deno-lint-ignore ban-ts-comment
-          //@ts-ignore
-          (x) => Object.assign(ret, window[x]),
-        );
-        resolve(ret);
-      };
+      const returnValue = {};
 
-      s.onerror = reject;
-      document.head.appendChild(s);
+      for (const x of res) {
+        Object.assign(returnValue, window[x]);
+      }
+
+      resolve(returnValue);
     });
-  // }
-};
+
+    s.addEventListener("error", reject);
+    document.head.append(s);
+  }); // }
 
 /**
  * @param {string} src
@@ -35,14 +33,15 @@ export const importScript = (src, res = []) => {
  */
 export const importCss = (src, cssId) => {
   if (!document.getElementById(cssId)) {
-    const head = document.getElementsByTagName("head")[0];
+    const head = document.querySelectorAll("head")[0];
     const link = document.createElement("link");
     link.id = cssId;
     link.rel = "stylesheet";
     link.type = "text/css";
     link.href = src;
     link.media = "all";
-    head.appendChild(link);
+    head.append(link);
   }
+
   return true;
 };

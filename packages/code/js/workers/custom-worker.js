@@ -9,9 +9,9 @@ self.importScripts(
 /** @type { import("@typescript/vfs") } */
 const tsvfs = globalThis.tsvfs;
 
-/** @type {import("../src/tsWorker").CustomTSWebWorkerFactory }*/
-const worker = (TypeScriptWorker, ts, libFileMap) => {
-  return class MonacoTSWorker extends TypeScriptWorker {
+/** @type {import("../src/tsWorker").CustomTSWebWorkerFactory } */
+const worker = (TypeScriptWorker, ts, libFileMap) =>
+  class MonacoTSWorker extends TypeScriptWorker {
     // Adds a custom function to the webworker
     async getDTSEmitForFile(fileName) {
       const result = await this.getEmitOutput(fileName);
@@ -45,17 +45,20 @@ const worker = (TypeScriptWorker, ts, libFileMap) => {
       let miniAST = "SourceFile";
 
       const recurse = (parent, depth) => {
-        if (depth > 5) return;
+        if (depth > 5) {
+          return;
+        }
+
         ts.forEachChild(parent, (node) => {
           const spaces = "  ".repeat(depth + 1);
           miniAST += `\n${spaces}${ts.SyntaxKind[node.kind]}`;
           recurse(node, depth + 1);
         });
       };
+
       recurse(mainSrcFile, 0);
       return miniAST;
     }
   };
-};
 
 self.customTSWorkerFactory = worker;

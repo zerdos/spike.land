@@ -1,4 +1,4 @@
-import * as esbuild from "esbuild-wasm/esm/browser";
+import * as esbuild from "esbuild-wasm/esm/browser.js";
 
 const init = esbuild.initialize({
   wasmURL: "esbuild-wasm@0.14.10/esbuild-wasm",
@@ -7,7 +7,7 @@ const init = esbuild.initialize({
 let initFinished = false;
 
 export const transform = async (code) => {
-  var startTime = performance.now();
+  const startTime = performance.now();
 
   if (!initFinished) {
     await init;
@@ -19,7 +19,7 @@ export const transform = async (code) => {
     target: "es2018",
   });
 
-  var endTime = performance.now();
+  const endTime = performance.now();
 
   console.log(`esbuildEsmTransform: took ${endTime - startTime} milliseconds`);
 

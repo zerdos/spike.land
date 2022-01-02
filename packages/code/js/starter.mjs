@@ -11,7 +11,7 @@ export const run = async (injectedRoom) => {
       : (path.pop() || path.pop()).slice(-12)) ||
     "code-main";
 
-  if (location.pathname.indexOf("hydrate") !== -1) {
+  if (location.pathname.includes("hydrate")) {
     const App = (await import(
       `https://code.spike.land/api/room/${room}/js`
     )).default;
@@ -19,7 +19,7 @@ export const run = async (injectedRoom) => {
     const { jsx } = await import("@emotion/react");
     const { ReactDOM } = window;
 
-    const container = document.getElementById("zbody");
+    const container = document.querySelector("#zbody");
 
     ReactDOM.hydrateRoot(container, jsx(App));
 
@@ -27,8 +27,10 @@ export const run = async (injectedRoom) => {
   }
 
   const user = ((self && self.crypto && self.crypto.randomUUID &&
-    self.crypto.randomUUID()) || (await import("./uidV4.mjs")).default())
-    .substring(0, 8);
+    self.crypto.randomUUID()) || (await import("./uidV4.mjs")).default()).slice(
+      0,
+      8,
+    );
 
   /// For local dev
   // if (document.getElementById("root").innerHTML.length === 0) {
@@ -52,5 +54,5 @@ export const run = async (injectedRoom) => {
 
   const { join } = await import("./ws.mjs");
   join(room, user);
-  // console.log({ r
+  // Console.log({ r
 };

@@ -577,7 +577,7 @@ var CodeSession = class {
   room = "";
   created = new Date().toISOString();
   constructor(room, user) {
-    let savedState = null;
+    const savedState = null;
     this.room = room;
     this.session = initSession(room, {
       ...user,
@@ -677,13 +677,13 @@ var CodeSession = class {
     console.log(newRec.hashCode());
     const newRecord = this.session.get("state").merge(newRec);
     const newCode = newRecord.get("code");
-    if (oldCode === newCode)
+    if (oldCode === newCode) {
       return;
+    }
     console.log(newRecord.hashCode());
     const newHashCheck = newRecord.hashCode();
     if (newHashCheck === newHash) {
       this.session = this.session.set("state", newRecord);
-      return;
     } else {
       console.log("WRONG");
       console.log({
@@ -705,14 +705,15 @@ var session = null;
 var session_default = (room, u) => session || new CodeSession(room, u);
 function storageAvailable(type) {
   try {
-    if (window.hasOwnProperty(type) === false)
+    if (!window.hasOwnProperty(type)) {
       return;
-    var storage = window[type];
-    var x = "__storage_test__";
+    }
+    const storage = window[type];
+    const x = "__storage_test__";
     storage.setItem(x, x);
     storage.removeItem(x);
     return true;
-  } catch (e) {
+  } catch {
     return false;
   }
 }

@@ -2,13 +2,12 @@
 import { jsx } from "@emotion/react";
 import Fab from "@mui/material/Fab";
 import Button from "@mui/material/Button";
-import ToggleButton from "@mui/material/ToggleButton";
-import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
+
 import createSvgIcon from "@mui/material/utils/createSvgIcon";
 
 import type { FC, MouseEvent } from "react";
 
-// const MyToggleButtonGroup: FC<{
+// Const MyToggleButtonGroup: FC<{
 //   value: any,
 //   onChangeD: ( _e: MouseEvent, value: any)=>void}> = ({value, onChangeD, children}) => <ToggleButtonGroup
 // value={value}
@@ -51,7 +50,7 @@ const Share = createSvgIcon(
   "Share",
 );
 
-// const FullScr = createSvgIcon(
+// Const FullScr = createSvgIcon(
 //   <path
 //     key="12"
 //     d="M19 4H5a2 2 0 00-2 2v12a2 2 0 002 2h4v-2H5V8h14v10h-4v2h4c1.1 0 2-.9 2-2V6a2 2 0 00-2-2zm-7 6l-4 4h3v6h2v-6h3l-4-4z"
@@ -106,7 +105,8 @@ export {
   QrCode,
   Share,
   Tablet,
-  ToggleButton,
-  ToggleButtonGroup,
   Tv,
 };
+
+export { default as ToggleButton } from "@mui/material/ToggleButton";
+export { default as ToggleButtonGroup } from "@mui/material/ToggleButtonGroup";

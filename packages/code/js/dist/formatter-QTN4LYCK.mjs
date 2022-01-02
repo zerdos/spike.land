@@ -2,12 +2,13 @@
 import { wrap } from "https://ga.jspm.io/npm:comlink@4.3.1/dist/umd/comlink.js";
 var wrapped = {};
 var getWrapped = (file) => {
-  if (wrapped[file])
+  if (wrapped[file]) {
     return wrapped[file];
+  }
   let workerSrc;
   let forceNormalWorker = false;
   const { pathname } = window.location;
-  if (pathname.indexOf("/ipfs/") !== -1) {
+  if (pathname.includes("/ipfs/")) {
     const cid = pathname.slice(6, 52);
     forceNormalWorker = true;
     workerSrc = `/ipfs/${cid}/js/workers/${file}`;
@@ -26,11 +27,11 @@ function init(workerSrc, forceNormalWorker) {
   if (forceNormalWorker || typeof SharedWorker === "undefined") {
     const worker2 = new Worker(workerSrc);
     const { port1, port2 } = new MessageChannel();
-    const msg = {
+    const message = {
       comlinkInit: true,
       port: port1
     };
-    worker2.postMessage(msg, [port1]);
+    worker2.postMessage(message, [port1]);
     return wrap(port2);
   }
   const worker = new SharedWorker(workerSrc);
@@ -47,4 +48,4 @@ async function formatter(code) {
 export {
   formatter
 };
-//# sourceMappingURL=formatter-KE3TOZTF.mjs.map
+//# sourceMappingURL=formatter-QTN4LYCK.mjs.map

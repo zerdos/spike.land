@@ -43,6 +43,7 @@ export const workboxLoader = async () => {
         if (!event.isUpdate) {
           console.log("Service worker activated for the first time!");
         }
+
         const swVersion = await wb.messageSW({ type: "GET_VERSION" });
         console.log(`version: ${swVersion}`);
       });
@@ -50,12 +51,12 @@ export const workboxLoader = async () => {
       window.wb = wb;
       wb.register();
 
-      // console.log('Service Worker version:', swVersion);
+      // Console.log('Service Worker version:', swVersion);
 
       // const packageJson = await wb.messageSW({type: 'GET_PACKAGE_JSON'});
       // console.log(packageJson);
-    } catch (e) {
-      console.error(e);
+    } catch (error) {
+      console.error(error);
     }
   }
 };

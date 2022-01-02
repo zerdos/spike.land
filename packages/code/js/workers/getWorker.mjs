@@ -4,7 +4,7 @@ export const getWorker = (file) => {
   let workerSrc;
   let forceNormalWorker = false;
   const { pathname } = window.location;
-  if (pathname.indexOf("/ipfs/") !== -1) {
+  if (pathname.includes("/ipfs/")) {
     const cid = pathname.slice(6, 52);
     forceNormalWorker = true;
     workerSrc = `/ipfs/${cid}/js/workers/${file}`;
@@ -27,12 +27,14 @@ export const getWorker = (file) => {
 
 const wrapped = {};
 export const getWrapped = (file) => {
-  if (wrapped[file]) return wrapped[file];
+  if (wrapped[file]) {
+    return wrapped[file];
+  }
 
   let workerSrc;
   let forceNormalWorker = false;
   const { pathname } = window.location;
-  if (pathname.indexOf("/ipfs/") !== -1) {
+  if (pathname.includes("/ipfs/")) {
     const cid = pathname.slice(6, 52);
     forceNormalWorker = true;
     workerSrc = `/ipfs/${cid}/js/workers/${file}`;
@@ -57,15 +59,16 @@ function init(workerSrc, forceNormalWorker) {
   if (forceNormalWorker || typeof SharedWorker === "undefined") {
     const worker = new Worker(workerSrc);
     const { port1, port2 } = new MessageChannel();
-    const msg = {
+    const message = {
       comlinkInit: true,
       port: port1,
     };
 
-    worker.postMessage(msg, [port1]);
+    worker.postMessage(message, [port1]);
 
     return wrap(port2);
   }
+
   const worker = new SharedWorker(workerSrc);
   worker.port.start();
 

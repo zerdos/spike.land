@@ -4,7 +4,7 @@ export function getCss(session: { html: string }) {
   const { html } = session;
 
   const bodyClass = String(
-    document.getElementById("zbody")?.getAttribute("class"),
+    document.querySelector("#zbody")?.getAttribute("class"),
   );
 
   let css = "";
@@ -16,25 +16,25 @@ export function getCss(session: { html: string }) {
     try {
       const sheet = (document.querySelector(
         "head > style[data-emotion=css]",
-      ) as HTMLStyleElement).sheet;
+      )!).sheet;
       if (sheet) {
         css = Array.from(
-          // deno-lint-ignore ban-ts-comment
-          // @ts-ignore
+          // Deno-lint-ignore ban-ts-comment
+          // @ts-expect-error
           sheet.cssRules,
         ).map((x) => x.cssText).filter((cssText) => {
-          const selector = cssText.substring(5, 10);
-          const isSelectorBody = bodyClass.indexOf(selector) !== -1;
-          const isInGeneratedHtml = html.indexOf(selector) !== -1;
-          const isNotMui = cssText.indexOf("Mui") === -1;
+          const selector = cssText.slice(5, 10);
+          const isSelectorBody = bodyClass.includes(selector);
+          const isInGeneratedHtml = html.includes(selector);
+          const isNotMui = !cssText.includes("Mui");
 
           const shouldInclude = isSelectorBody || isInGeneratedHtml;
 
           return shouldInclude;
-        }).join("\n  ").replace(`#zbody`, "body");
+        }).join("\n  ").replace("#zbody", "body");
       }
-    } catch (e) {
-      console.error({ e });
+    } catch (error) {
+      console.error({ e: error });
     }
   }
 
@@ -46,18 +46,19 @@ export function getCss(session: { html: string }) {
     try {
       const sheet = (document.querySelector(
         "head > style[data-emotion=css-global]",
-      ) as HTMLStyleElement).sheet;
+      )!).sheet;
       if (sheet) {
         css += Array.from(
           sheet
             .cssRules,
         ).map((x) => x.cssText)
-          .join("\n  ").replace(`#zbody`, "body");
+          .join("\n  ").replace("#zbody", "body");
       }
-    } catch (e) {
-      console.error({ e });
+    } catch (error) {
+      console.error({ e: error });
     }
   }
+
   session.css = css;
 }
 
@@ -126,7 +127,7 @@ ${css}</style>
 </main>
 <script>window.process = {env: {NODE_ENV:"production" }}</script>
 <script type="importmap-shim">
-${JSON.stringify({ imports: { ...importmapJson.imports, "app": "./app.js" } })}
+${JSON.stringify({ imports: { ...importmapJson.imports, app: "./app.js" } })}
 </script>
 <script type="module-shim">
   import App from 'app';
@@ -164,7 +165,7 @@ export const getEditorHTML = () =>
 <script type="importmap">
 ${
     JSON.stringify({
-      imports: { ...importmapJson.imports, "app": ["./app.js"] },
+      imports: { ...importmapJson.imports, app: ["./app.js"] },
     })
   }
 </script>

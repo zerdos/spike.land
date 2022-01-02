@@ -11,7 +11,7 @@ const { registerRoute } = workbox.routing;
 const { CacheFirst } = workbox.strategies;
 const { CacheableResponsePlugin } = workbox.cacheableResponse;
 
-// const {CacheFirst} =  self.workbox.strategies;
+// Const {CacheFirst} =  self.workbox.strategies;
 
 registerRoute(
   ({ request }) =>
@@ -37,7 +37,7 @@ addEventListener("message", async (event) => {
     event.ports[0].postMessage(SW_VERSION);
   }
 
-  // if (event.data.type === 'GET_PACKAGE_JSON') {
+  // If (event.data.type === 'GET_PACKAGE_JSON') {
 
   //   const resp = await fetch("https://code.spike.land/package.json");
 

@@ -40,16 +40,18 @@ export const LazySpikeLandComponent = (
     })();
   }, [hashCode]);
 
-  // const LazyStarter = () => React.lazy(() => getApp(transpiled)) : <div></div>;
+  // Const LazyStarter = () => React.lazy(() => getApp(transpiled)) : <div></div>;
 
-  const LazyComponentInit = React.lazy(() => import(createJsBlob(transpiled)));
+  const LazyComponentInit = React.lazy(async () =>
+    import(createJsBlob(transpiled))
+  );
 
   const [{ htmlContent, LazyComponent }, setHtmlCss] = React.useState({
     htmlContent: html,
-    LazyComponent: LazyComponentInit, // transpiled?  ,
+    LazyComponent: LazyComponentInit, // Transpiled?  ,
   });
 
-  // const { LazyComponent } = fallCont;
+  // Const { LazyComponent } = fallCont;
 
   // const LazyComponentInit = React.lazy(()=>import(createJsBlob(transpiled)))
 
@@ -69,11 +71,11 @@ export const LazySpikeLandComponent = (
   }
 
   async function getApp(transpiled: string) {
-    const objUrl = createJsBlob(transpiled);
+    const objectUrl = createJsBlob(transpiled);
 
-    const App = (await import(objUrl)).default;
+    const App = (await import(objectUrl)).default;
 
-    URL.revokeObjectURL(objUrl);
+    URL.revokeObjectURL(objectUrl);
 
     return App;
   }

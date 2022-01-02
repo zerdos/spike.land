@@ -4,10 +4,10 @@ self.importScripts(
 );
 
 const { Comlink, esbuild } = self;
-// const { transform } = Babel;
+// Const { transform } = Babel;
 const { expose } = Comlink;
 
-let initializedEsbuild = null;
+const initializedEsbuild = null;
 
 const init = () =>
   esbuild.initialize({

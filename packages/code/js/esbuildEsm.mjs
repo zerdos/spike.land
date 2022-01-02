@@ -9,7 +9,7 @@ let initFinished = false;
 const mutex = new Mutex();
 
 export const transform = async (code) => {
-  var startTime = performance.now();
+  const startTime = performance.now();
 
   await mutex.waitForUnlock();
 
@@ -19,12 +19,10 @@ export const transform = async (code) => {
 
   const result = await esbuild.transform(code, {
     loader: "tsx",
-    // minify: true,
-    // treeShaking: true,
     target: "es2018",
   });
 
-  var endTime = performance.now();
+  const endTime = performance.now();
 
   console.log(`esbuildEsmTransform: took ${endTime - startTime} milliseconds`);
   return result.code;

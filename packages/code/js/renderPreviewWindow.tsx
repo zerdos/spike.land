@@ -6,7 +6,7 @@ import { DraggableWindow } from "./DraggableWindow.tsx";
 // @ts-expect-error
 import { wait } from "./wait.ts";
 import type { ICodeSession } from "./session";
-// import { getHtmlAndCss
+// Import { getHtmlAndCss
 //  } from "./renderToString";
 
 export const renderPreviewWindow = async (
@@ -15,11 +15,11 @@ export const renderPreviewWindow = async (
   keepFullScreen: boolean,
 ) => {
   const target = document.createElement("div");
-  const editor = document.getElementById("shadowEditor")!;
-  // target.style.display = "none";
+  const editor = document.querySelector("#shadowEditor")!;
+  // Target.style.display = "none";
   editor.style.opacity = "0";
 
-  // const Element = () => (
+  // Const Element = () => (
   //   <DraggableWindow
   //     onShare={() => open(`https://code.spike.land/api/room/${room}/public`)}
   //     onRestore={() => {}}
@@ -34,10 +34,10 @@ export const renderPreviewWindow = async (
 
   const { createRoot } = await import("react-dom");
 
-  // target  .innerHTML = html;
+  // Target  .innerHTML = html;
 
   const root = createRoot(target, {});
-  // root.render(<Element></Element> as any);
+  // Root.render(<Element></Element> as any);
 
   root.render(
     <DraggableWindow
@@ -54,14 +54,14 @@ export const renderPreviewWindow = async (
   );
 
   target.style.opacity = "0";
-  document.body.appendChild(target);
+  document.body.append(target);
 
   await wait(400);
 
   target.style.display = "block";
   target.style.opacity = "1";
-  document.getElementById("root")!.remove();
-  document.body.style.backgroundImage = `url("./assets/synthwave.webp")`;
+  document.querySelector("#root")!.remove();
+  document.body.style.backgroundImage = 'url("./assets/synthwave.webp")';
 
   editor.style.opacity = "1";
   editor.style.display = "block";

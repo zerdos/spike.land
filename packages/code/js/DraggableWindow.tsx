@@ -1,14 +1,21 @@
 /** @jsx jsx */
 
 import { css, jsx } from "@emotion/react";
-import React from "react";
-//@ts-expect-error
-import { wait } from "./wait.ts";
-//@ts-expect-error
-import { LazySpikeLandComponent } from "./LazyLoadedComponent.tsx";
+import React, {
+  Fragment,
+  lazy,
+  Suspense,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
+// @ts-expect-error
 import type { FC } from "react";
+import { motion } from "framer-motion";
+import { wait } from "./wait.ts";
+// @ts-expect-error
+import { LazySpikeLandComponent } from "./LazyLoadedComponent.tsx";
 
-import { Fragment, lazy, Suspense, useEffect, useRef, useState } from "react";
 import {
   Button,
   Fab,
@@ -21,11 +28,10 @@ import {
   Tv,
 } from "./vendor/mui.mjs";
 
-//@ts-expect-error
+// @ts-expect-error
 import { QRButton } from "./Qr.tsx";
 
-import { motion } from "framer-motion";
-// import { breakpoints } from "@mui/system";
+// Import { breakpoints } from "@mui/system";
 
 // const {motion} = Motion;
 
@@ -36,7 +42,7 @@ const sizes = [10, 25, 50, 75, 100, 150];
 
 const bg = `rgba(${Math.random() * 128 + 64}, ${Math.random() * 128 + 64}, ${
   Math.random() * 128 + 64
-}, ${navigator.userAgent.indexOf("Firefox") === -1 ? 0.3 : 0.7})`;
+}, ${!navigator.userAgent.includes("Firefox") ? 0.3 : 0.7})`;
 
 interface DraggableWindowProps {
   onShare: () => void;
@@ -61,7 +67,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
 ) => {
   const [isStable, setIsStable] = useState(false);
   const [scaleRange, changeScaleRange] = useState(100);
-  // const [height, changeHeight] = useState(innerHeight);
+  // Const [height, changeHeight] = useState(innerHeight);
 
   const [childArray, setChild] = useState([
     <LazySpikeLandComponent
@@ -87,26 +93,31 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
 
   const child = childArray[childArray.length - 1];
 
-  // useEffect(() => {
+  // UseEffect(() => {
   // window.addEventListener("resize", () => changeHeight(window.innerHeight));
   // });
 
   useEffect(() => {
     const handler = setInterval(async () => {
       if (errorText !== session.errorText) {
-        const newErr = session.errorText;
-        setErrorText(newErr);
+        const newError = session.errorText;
+        setErrorText(newError);
         setIsStable(false);
         await wait(1500);
-        if (session.errorText === newErr) {
+        if (session.errorText === newError) {
           setIsStable(true);
         }
       }
-      if (qrUrl !== session.url) setQRUrl(session.url);
-      // setChild(session.children);
+
+      if (qrUrl !== session.url) {
+        setQRUrl(session.url);
+      }
+      // SetChild(session.children);
     }, 200);
 
-    return () => clearInterval(handler);
+    return () => {
+      clearInterval(handler);
+    };
   }, [setErrorText, setQRUrl, errorText, qrUrl]);
 
   const scale = scaleRange / 100;
@@ -115,19 +126,25 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
   useEffect(() => {
     const reveal = async () => {
       const { bottom, right } = startPositions;
-      if (keepFullScreen) return;
+      if (keepFullScreen) {
+        return;
+      }
+
       await wait(1200);
-      // const root = document.getElementById("root");
+      // Const root = document.getElementById("root");
       // if (root && root.remove) root.remove();
-      while (!window || !window.monaco) await wait(300);
+      while (!window || !window.monaco) {
+        await wait(300);
+      }
+
       setFullScreen(false);
       changeScaleRange(50);
 
       setPositions({
-        bottom: window.innerHeight * 0.20,
-        right: window.innerWidth * 0.20,
+        bottom: window.innerHeight * 0.2,
+        right: window.innerWidth * 0.2,
       });
-      // changeScaleRange(75);
+      // ChangeScaleRange(75);
       // setHeight(height=> height)
 
       if (window.innerWidth / devicePixelRatio < 600) {
@@ -135,44 +152,47 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
         setWidth(breakPoints[0]);
         setHeight(breakPointHeights[0]);
 
-        // setHeight(window.innerHeight * devicePixelRatio);
+        // SetHeight(window.innerHeight * devicePixelRatio);
       }
+
       if (window.innerWidth / devicePixelRatio < 1200) {
         changeScaleRange(75);
         setWidth(breakPoints[0]);
         setHeight(breakPointHeights[0]);
 
-        // setHeight(window.innerHeight * devicePixelRatio);
+        // SetHeight(window.innerHeight * devicePixelRatio);
       } else if (window.innerWidth / devicePixelRatio < 1800) {
-        // setHeight(breakPoints[1]);
+        // SetHeight(breakPoints[1]);
         setWidth(breakPoints[1]);
         setHeight(breakPointHeights[1]);
 
         changeScaleRange(50);
       } else if (window.innerWidth / devicePixelRatio < 2500) {
-        // setHeight(breakPointHeights[2] * devicePixelRatio);
+        // SetHeight(breakPointHeights[2] * devicePixelRatio);
         setWidth(breakPoints[1]);
         setHeight(breakPointHeights[1]);
 
         changeScaleRange(75);
       } else if (window.innerWidth / devicePixelRatio > 2500) {
-        // setWidth(window* devicePixelRatio)
+        // SetWidth(window* devicePixelRatio)
         setWidth(breakPoints[1]);
         setHeight(breakPointHeights[1]);
 
-        // setHeight(breakPoints[0]);
+        // SetHeight(breakPoints[0]);
         changeScaleRange(100);
       }
+
       await wait(200);
       setPositions({
         bottom: 20,
         right: 20,
       });
     };
+
     reveal();
   }, []);
 
-  // if (isFullScreen) {
+  // If (isFullScreen) {
   //   return (
   //     <LazySpikeLandComponent
   //       name={room}
@@ -225,8 +245,9 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
               value={scaleRange}
               size="small"
               exclusive
-              onChange={(_e, newScale) =>
-                newScale && changeScaleRange(newScale)}
+              onChange={(_e, newScale) => {
+                newScale && changeScaleRange(newScale);
+              }}
             >
               {sizes.map((size) => (
                 <ToggleButton
@@ -250,7 +271,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
             {/* <span>{width}*{height}</span> */}
 
             <motion.div
-              // initial={{
+              // Initial={{
               //   width: window.innerWidth,
               //   height: window.innerHeight
               // }}
@@ -262,7 +283,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
                 height: height * scale / devicePixelRatio,
                 maxHeight: height * scale / devicePixelRatio,
                 borderRadius: isFullScreen ? 0 : 8,
-                // opacity: isFullScreen ? 1 : 0.7,
+                // Opacity: isFullScreen ? 1 : 0.7,
               }}
               css={css`
                 width: ${width * scale / devicePixelRatio};
@@ -383,29 +404,29 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
                         `}
                       />
                     )
-                    : size === 768
-                    ? (
-                      <Tablet
-                        css={css`
+                    : (size === 768
+                      ? (
+                        <Tablet
+                          css={css`
                         color: ${
-                          width === 768
-                            ? "rgba(255,255,255,.8)"
-                            : "rgba(0,0,0,.3)"
-                        };
+                            width === 768
+                              ? "rgba(255,255,255,.8)"
+                              : "rgba(0,0,0,.3)"
+                          };
                         `}
-                      />
-                    )
-                    : (
-                      <Tv
-                        css={css`
+                        />
+                      )
+                      : (
+                        <Tv
+                          css={css`
                         color: ${
-                          width === 1920
-                            ? "rgba(255,255,255,.8)"
-                            : "rgba(0,0,0,.3)"
-                        };
+                            width === 1920
+                              ? "rgba(255,255,255,.8)"
+                              : "rgba(0,0,0,.3)"
+                          };
                       `}
-                      />
-                    )}
+                        />
+                      ))}
                 </ToggleButton>
               ))}
             </ToggleButtonGroup>

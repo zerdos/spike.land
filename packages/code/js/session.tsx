@@ -3,7 +3,7 @@ import { fromJS, isKeyed, Record } from "immutable";
 import createDelta from "textdiff-create";
 // @ts-expect-error
 import applyPatch from "textdiff-patch";
-// import * as Immutable from "immutable"
+// Import * as Immutable from "immutable"
 
 type IUsername = string;
 
@@ -56,7 +56,7 @@ export interface IUserJSON {
   name: IUsername;
   capabilities: ICapabilities;
   state: ICodeSession;
-  users: {};
+  users: Record<string, unknown>;
   events: IEvent[];
 }
 
@@ -73,7 +73,7 @@ export interface IUser extends
     room: string;
     state: Record<ICodeSession>;
     capabilities: ICapabilities;
-    users: {};
+    users: Record<string, unknown>;
     events: IEvent[];
   }> {
 }
@@ -92,16 +92,16 @@ export interface ICodeSess {
   processEvents: () => void;
 }
 
-const hashStore: { [key: number]: Record<ICodeSession> } = {};
+const hashStore: Record<number, Record<ICodeSession>> = {};
 export class CodeSession implements ICodeSess {
   session: IUser;
   hashCodeSession: number;
-  public room: string = "";
+  public room = "";
   created: string = new Date().toISOString();
   constructor(room: string, user: IUserJSON) {
-    let savedState: ICodeSession | null = null;
+    const savedState: ICodeSession | null = null;
     this.room = room;
-    // if (user.state.code === "" && room) {
+    // If (user.state.code === "" && room) {
     // const cacheKey = `state-${room}`;
 
     // if (storageAvailable("localStorage")) {
@@ -164,7 +164,7 @@ export class CodeSession implements ICodeSess {
           this.session.set("events", events);
           this.session.set("state", Record(sess)());
 
-          // const cacheKey = `state-${this.room}`;
+          // Const cacheKey = `state-${this.room}`;
 
           // if (storageAvailable("localStorage")) {
           //   localStorage.setItem(cacheKey, JSON.stringify(sess));
@@ -201,6 +201,7 @@ export class CodeSession implements ICodeSess {
         patch: "",
       };
     }
+
     const oldState = JSON.stringify(this.session.get("state").toJSON());
 
     const oldHash = this.session.get("state").hashCode();
@@ -244,14 +245,16 @@ export class CodeSession implements ICodeSess {
 
     const newRecord = this.session.get("state").merge(newRec);
     const newCode = newRecord.get("code");
-    if (oldCode === newCode) return;
+    if (oldCode === newCode) {
+      return;
+    }
+
     console.log(newRecord.hashCode());
     const newHashCheck = newRecord.hashCode();
 
     if (newHashCheck === newHash) {
       this.session = this.session.set("state", newRecord);
-      //  console.error("WRONG update");
-      return;
+      //  Console.error("WRONG update");
     } else {
       console.log("WRONG");
       console.log({
@@ -265,26 +268,30 @@ export class CodeSession implements ICodeSess {
     const state = user.state.toJSON();
     return { ...user, state };
   }
+
   public setRoom(room: string) {
     const user = this.session.set("room", room);
     this.session = user;
   }
 }
 
-let session: CodeSession | null = null;
+const session: CodeSession | null = null;
 
 export default (room: string, u: IUserJSON): ICodeSess =>
   session || new CodeSession(room, u);
 
 function storageAvailable(type: string) {
   try {
-    if (window.hasOwnProperty(type) === false) return;
-    var storage = window[type as keyof Window];
-    var x = "__storage_test__";
+    if (!window.hasOwnProperty(type)) {
+      return;
+    }
+
+    const storage = window[type as keyof Window];
+    const x = "__storage_test__";
     storage.setItem(x, x);
     storage.removeItem(x);
     return true;
-  } catch (e) {
+  } catch {
     return false;
   }
 }

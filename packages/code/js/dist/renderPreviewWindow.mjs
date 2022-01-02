@@ -3,10 +3,15 @@ import { jsx as jsx3 } from "https://unpkg.com/@spike.land/esm@0.4.33/dist/emoti
 
 // js/DraggableWindow.tsx
 import { css as css2, jsx as jsx2 } from "https://unpkg.com/@spike.land/esm@0.4.33/dist/emotion-react.mjs";
-import React3 from "https://unpkg.com/@spike.land/esm@0.4.33/dist/react.mjs";
+import React3, {
+  useEffect,
+  useRef,
+  useState
+} from "https://unpkg.com/@spike.land/esm@0.4.33/dist/react.mjs";
+import { motion as motion2 } from "https://unpkg.com/@spike.land/esm@0.4.33/dist/framer-motion.mjs";
 
 // js/wait.ts
-function wait(delay) {
+async function wait(delay) {
   return new Promise((resolve) => {
     setTimeout(() => {
       resolve();
@@ -40,7 +45,7 @@ var LazySpikeLandComponent = ({ name, html, hash: hash2, transpiled }) => {
       });
     })();
   }, [hashCode]);
-  const LazyComponentInit = React.lazy(() => import(createJsBlob(transpiled)));
+  const LazyComponentInit = React.lazy(async () => import(createJsBlob(transpiled)));
   const [{ htmlContent, LazyComponent }, setHtmlCss] = React.useState({
     htmlContent: html,
     LazyComponent: LazyComponentInit
@@ -58,15 +63,12 @@ var LazySpikeLandComponent = ({ name, html, hash: hash2, transpiled }) => {
     return URL.createObjectURL(blob);
   }
   async function getApp(transpiled2) {
-    const objUrl = createJsBlob(transpiled2);
-    const App = (await import(objUrl)).default;
-    URL.revokeObjectURL(objUrl);
+    const objectUrl = createJsBlob(transpiled2);
+    const App = (await import(objectUrl)).default;
+    URL.revokeObjectURL(objectUrl);
     return App;
   }
 };
-
-// js/DraggableWindow.tsx
-import { useEffect, useRef, useState } from "https://unpkg.com/@spike.land/esm@0.4.33/dist/react.mjs";
 
 // js/vendor/mui.mjs
 var e = window.emotionReact;
@@ -12535,11 +12537,10 @@ var QRButton = ({ url }) => {
 };
 
 // js/DraggableWindow.tsx
-import { motion as motion2 } from "https://unpkg.com/@spike.land/esm@0.4.33/dist/framer-motion.mjs";
 var breakPoints = [680, 768, 1920];
 var breakPointHeights = [1137, 1024, 1080];
 var sizes = [10, 25, 50, 75, 100, 150];
-var bg = `rgba(${Math.random() * 128 + 64}, ${Math.random() * 128 + 64}, ${Math.random() * 128 + 64}, ${navigator.userAgent.indexOf("Firefox") === -1 ? 0.3 : 0.7})`;
+var bg = `rgba(${Math.random() * 128 + 64}, ${Math.random() * 128 + 64}, ${Math.random() * 128 + 64}, ${!navigator.userAgent.includes("Firefox") ? 0.3 : 0.7})`;
 var DraggableWindow = ({ onShare, onRestore, position, session, keepFullScreen, room }) => {
   const [isStable, setIsStable] = useState(false);
   const [scaleRange, changeScaleRange] = useState(100);
@@ -12564,29 +12565,34 @@ var DraggableWindow = ({ onShare, onRestore, position, session, keepFullScreen, 
   useEffect(() => {
     const handler = setInterval(async () => {
       if (errorText !== session.errorText) {
-        const newErr = session.errorText;
-        setErrorText(newErr);
+        const newError = session.errorText;
+        setErrorText(newError);
         setIsStable(false);
         await wait(1500);
-        if (session.errorText === newErr) {
+        if (session.errorText === newError) {
           setIsStable(true);
         }
       }
-      if (qrUrl !== session.url)
+      if (qrUrl !== session.url) {
         setQRUrl(session.url);
+      }
     }, 200);
-    return () => clearInterval(handler);
+    return () => {
+      clearInterval(handler);
+    };
   }, [setErrorText, setQRUrl, errorText, qrUrl]);
   const scale = scaleRange / 100;
   const [isFullScreen, setFullScreen] = useState(true);
   useEffect(() => {
     const reveal = async () => {
       const { bottom: bottom2, right: right2 } = startPositions;
-      if (keepFullScreen)
+      if (keepFullScreen) {
         return;
+      }
       await wait(1200);
-      while (!window || !window.monaco)
+      while (!window || !window.monaco) {
         await wait(300);
+      }
       setFullScreen(false);
       changeScaleRange(50);
       setPositions({
@@ -12661,7 +12667,9 @@ var DraggableWindow = ({ onShare, onRestore, position, session, keepFullScreen, 
     value: scaleRange,
     size: "small",
     exclusive: true,
-    onChange: (_e2, newScale) => newScale && changeScaleRange(newScale)
+    onChange: (_e2, newScale) => {
+      newScale && changeScaleRange(newScale);
+    }
   }, sizes.map((size) => /* @__PURE__ */ jsx2(y13, {
     key: size,
     value: size
@@ -12791,7 +12799,7 @@ function createMarkup(__html) {
 // js/renderPreviewWindow.tsx
 var renderPreviewWindow = async (session, room, keepFullScreen) => {
   const target = document.createElement("div");
-  const editor = document.getElementById("shadowEditor");
+  const editor = document.querySelector("#shadowEditor");
   editor.style.opacity = "0";
   const { createRoot } = await import("https://unpkg.com/@spike.land/esm@0.4.33/dist/react-dom.mjs");
   const root = createRoot(target, {});
@@ -12807,12 +12815,12 @@ var renderPreviewWindow = async (session, room, keepFullScreen) => {
     room
   }));
   target.style.opacity = "0";
-  document.body.appendChild(target);
+  document.body.append(target);
   await wait(400);
   target.style.display = "block";
   target.style.opacity = "1";
-  document.getElementById("root").remove();
-  document.body.style.backgroundImage = `url("./assets/synthwave.webp")`;
+  document.querySelector("#root").remove();
+  document.body.style.backgroundImage = 'url("./assets/synthwave.webp")';
   editor.style.opacity = "1";
   editor.style.display = "block";
 };

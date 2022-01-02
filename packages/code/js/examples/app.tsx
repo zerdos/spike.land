@@ -19,7 +19,9 @@ const Hello = () => {
               margin: 12px;
             `}
           value={color}
-          onChange={(e) => setColor(e.target.value)}
+          onChange={(e) => {
+            setColor(e.target.value);
+          }}
         />
       </label>
     </div>

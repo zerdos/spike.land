@@ -6,16 +6,16 @@ var esbuildEsmTransform;
 var getHtmlAndCss;
 var initSess;
 var initSession = async (room, initData) => {
-  initSess = initSess || (await import("./session-2W424DEX.mjs")).default;
+  initSess = initSess || (await import("./session-FOMMVGEN.mjs")).default;
   return initSess(room, initData);
 };
 var prettier = async (code) => {
-  formatter = formatter || (await import("./formatter-KE3TOZTF.mjs")).formatter;
+  formatter = formatter || (await import("./formatter-QTN4LYCK.mjs")).formatter;
   return await formatter(code);
 };
 async function startMonacoWithSession(session) {
-  const shadDom = document.getElementById("shadowEditor");
-  const startMonaco = (await import("./startMonaco-ABNCIZVG.mjs")).default;
+  const shadDom = document.querySelector("#shadowEditor");
+  const startMonaco = (await import("./startMonaco-PKPWTS55.mjs")).default;
   const getEditor = await startMonaco({
     language: "typescript",
     container: shadDom,
@@ -56,8 +56,8 @@ async function getErrors({ monaco, editor }) {
 }
 async function runner(c, changes = null, session, counter) {
   session.changes.push(changes);
-  formatter = formatter || (await import("./formatter-KE3TOZTF.mjs")).formatter;
-  esbuildEsmTransform = esbuildEsmTransform || (await import("./esbuildEsm-WQ72VJ57.mjs")).transform;
+  formatter = formatter || (await import("./formatter-QTN4LYCK.mjs")).formatter;
+  esbuildEsmTransform = esbuildEsmTransform || (await import("./esbuildEsm-GJGLR2JG.mjs")).transform;
   transform = esbuildEsmTransform;
   session.errorText = "";
   const { monaco } = session;
@@ -65,13 +65,15 @@ async function runner(c, changes = null, session, counter) {
     const cd = await formatter(c);
     const transpiled = await transform(cd);
     let restartError = false;
-    if (transpiled.length) {
-      if (counter < session.i)
+    if (transpiled.length > 0) {
+      if (counter < session.i) {
         return;
+      }
       try {
         getHtmlAndCss = getHtmlAndCss || (await import("./renderToString-EXC25SSN.mjs")).getHtmlAndCss;
-        if (counter < session.i)
+        if (counter < session.i) {
           return;
+        }
         const App = await getApp(transpiled);
         const { html, css } = getHtmlAndCss(App);
         session.transpiled = transpiled;
@@ -84,40 +86,44 @@ async function runner(c, changes = null, session, counter) {
         session.codeNonFormatted = c;
         const code = cd;
         session.css = css;
-        if (session.i !== counter)
+        if (session.i !== counter) {
           return;
+        }
         session.saveCode && await session.saveCode({ transpiled, code, i: counter, css, html });
         monaco.editor.setTheme("vs-dark");
         return;
-      } catch (e) {
+      } catch (error2) {
         console.error("EXCEPTION");
-        console.log({ e });
+        console.log({ e: error2 });
         restartError = true;
         console.error({ restartError });
       }
     }
-    if (session.i > counter)
+    if (session.i > counter) {
       return;
-    const err = await getErrors(session);
-    if (session.i > counter)
-      return;
-    if (restartError) {
-      err.push({ messageText: "Error while starting the app. Check the console!" });
     }
-    if (err.length)
-      console.log({ err });
+    const error = await getErrors(session);
+    if (session.i > counter) {
+      return;
+    }
+    if (restartError) {
+      error.push({ messageText: "Error while starting the app. Check the console!" });
+    }
+    if (error.length > 0) {
+      console.log({ err: error });
+    }
     monaco.editor.setTheme("vs-dark");
-  } catch (err) {
+  } catch (error) {
     monaco.editor.setTheme("vs-light");
     setTimeout(() => {
       monaco.editor.setTheme("hc-black");
     }, 50);
-    session.errorText = err.message;
-    console.error(err.message);
+    session.errorText = error.message;
+    console.error(error.message);
   }
 }
 var startFromCode = async ({ code }) => {
-  let session = {
+  const session = {
     code,
     i: 0,
     changes: [],
@@ -132,18 +138,19 @@ var startFromCode = async ({ code }) => {
 async function quickStart(session, room, keepFullScreen, saveCode) {
   session.saveCode = saveCode;
   session.children = null;
-  const { renderPreviewWindow } = await import("./renderPreviewWindow-ZH6IK4I6.mjs");
+  const { renderPreviewWindow } = await import("./renderPreviewWindow-KYBODOAT.mjs");
   await renderPreviewWindow(session, room, keepFullScreen);
-  if (!keepFullScreen)
+  if (!keepFullScreen) {
     await startMonacoWithSession(session);
+  }
   session.update = (c) => runner(c, null, session);
   runner(session.code, null, session, -1);
 }
 async function getReactChild(transpiled, mode = "window") {
   const codeToHydrate = mode === "window" ? transpiled.replace("body{", "#zbody{") : transpiled;
-  const objUrl = createJsBlob(codeToHydrate);
-  const mod = await import(objUrl);
-  URL.revokeObjectURL(objUrl);
+  const objectUrl = createJsBlob(codeToHydrate);
+  const mod = await import(objectUrl);
+  URL.revokeObjectURL(objectUrl);
   return jsx(mod.default);
 }
 function createJsBlob(code) {
@@ -152,9 +159,9 @@ function createJsBlob(code) {
 }
 async function getApp(transpiled, mode = "window") {
   const codeToHydrate = mode === "window" ? transpiled.replace("body{", "#zbody{") : transpiled;
-  const objUrl = createJsBlob(codeToHydrate);
-  const App = (await import(objUrl)).default;
-  URL.revokeObjectURL(objUrl);
+  const objectUrl = createJsBlob(codeToHydrate);
+  const App = (await import(objectUrl)).default;
+  URL.revokeObjectURL(objectUrl);
   return App;
 }
 export {

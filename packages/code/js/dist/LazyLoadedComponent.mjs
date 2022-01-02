@@ -24,7 +24,7 @@ var LazySpikeLandComponent = ({ name, html, hash, transpiled }) => {
       });
     })();
   }, [hashCode]);
-  const LazyComponentInit = React.lazy(() => import(createJsBlob(transpiled)));
+  const LazyComponentInit = React.lazy(async () => import(createJsBlob(transpiled)));
   const [{ htmlContent, LazyComponent }, setHtmlCss] = React.useState({
     htmlContent: html,
     LazyComponent: LazyComponentInit
@@ -42,9 +42,9 @@ var LazySpikeLandComponent = ({ name, html, hash, transpiled }) => {
     return URL.createObjectURL(blob);
   }
   async function getApp(transpiled2) {
-    const objUrl = createJsBlob(transpiled2);
-    const App = (await import(objUrl)).default;
-    URL.revokeObjectURL(objUrl);
+    const objectUrl = createJsBlob(transpiled2);
+    const App = (await import(objectUrl)).default;
+    URL.revokeObjectURL(objectUrl);
     return App;
   }
 };

@@ -7,7 +7,7 @@ var init = esbuild.initialize({
 var initFinished = false;
 var mutex = new Mutex();
 var transform2 = async (code) => {
-  var startTime = performance.now();
+  const startTime = performance.now();
   await mutex.waitForUnlock();
   if (initFinished || await init) {
     initFinished = true;
@@ -16,11 +16,11 @@ var transform2 = async (code) => {
     loader: "tsx",
     target: "es2018"
   });
-  var endTime = performance.now();
+  const endTime = performance.now();
   console.log(`esbuildEsmTransform: took ${endTime - startTime} milliseconds`);
   return result.code;
 };
 export {
   transform2 as transform
 };
-//# sourceMappingURL=esbuildEsm-WQ72VJ57.mjs.map
+//# sourceMappingURL=esbuildEsm-GJGLR2JG.mjs.map

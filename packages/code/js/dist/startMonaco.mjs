@@ -444,10 +444,7 @@ async function loadExtraLibs(addExtraLib, setDiagnosticsOptions) {
     noSyntaxValidation: false
   });
 }
-
-// js/startMonaco.ts
-var startMonaco_default = editor_default;
 export {
-  startMonaco_default as default
+  editor_default as default
 };
 //# sourceMappingURL=startMonaco.mjs.map

@@ -1,6 +1,6 @@
 /*eslint-disable */
 
-/*eslint-enable */
+/* eslint-enable */
 
 // import initSession from "./dist/session.mjs";
 
@@ -8,10 +8,10 @@ import { initSession, quickStart } from "./dist/quickStart.mjs";
 
 let currentWebSocket = null;
 let sess = false;
-// let sanyiProcess = null;
+// Let sanyiProcess = null;
 
 const webrtcArray = [];
-let hostname = "code.spike.land";
+const hostname = "code.spike.land";
 const mod = {};
 
 let wsLastHashCode = "";
@@ -25,14 +25,14 @@ let chCode;
 let startTime;
 let rejoined = false;
 let sendChannel;
-// let createDelta;
+// Let createDelta;
 // let applyPatch;
 let mySession = null;
 const mST = () => mySession.session.get("state");
 
 let intervalHandler = null;
 
-// function createPatch(oldCode, newCode) {
+// Function createPatch(oldCode, newCode) {
 //   return JSON.stringify(createDelta(oldCode, newCode));
 // }
 
@@ -55,24 +55,34 @@ setInterval(() => {
 }, 30_000);
 
 chCode = globalThis.chCode = async (code, i) => {
-  if (!code) return;
-  if (i < window.sess.i) return;
-  if (code === window.sess.code) return;
+  if (!code) {
+    return;
+  }
+
+  if (i < window.sess.i) {
+    return;
+  }
+
+  if (code === window.sess.code) {
+    return;
+  }
+
   try {
-    if (window.monaco && window.monaco.editor.getModels().length) {
+    if (window.monaco && window.monaco.editor.getModels().length > 0) {
       window.monaco.editor.getModels()[0].setValue(code);
     } else {
       window.sess.update(code);
     }
-  } catch (e) {
-    console.error({ e });
+  } catch (error) {
+    console.error({ e: error });
   }
 };
+
 async function rejoin() {
   if (!rejoined) {
     rejoined = true;
     currentWebSocket = null;
-    // mySession.addEvent({
+    // MySession.addEvent({
     //   type: "joined"
     // });
 
@@ -82,11 +92,11 @@ async function rejoin() {
     //    }
 
     // Don't try to reconnect too rapidly.
-    let timeSinceLastJoin = Date.now() - startTime;
-    if (timeSinceLastJoin < 10000) {
+    const timeSinceLastJoin = Date.now() - startTime;
+    if (timeSinceLastJoin < 10_000) {
       // Less than 10 seconds elapsed since last join. Pause a bit.
       await new Promise((resolve) =>
-        setTimeout(resolve, 10000 - timeSinceLastJoin)
+        setTimeout(resolve, 10_000 - timeSinceLastJoin)
       );
     }
 
@@ -105,7 +115,9 @@ async function broad(
       const diff = now - mod.lastUpdate;
       if (diff < 1000) {
         await wait(200 - diff);
-        if (i !== mod.i) return;
+        if (i !== mod.i) {
+          return;
+        }
       }
     }
 
@@ -132,7 +144,9 @@ async function broad(
       const diff = now - mod.lastUpdate;
       if (diff < 1000) {
         await wait(1000 - diff);
-        if (i !== mod.i) return;
+        if (i !== mod.i) {
+          return;
+        }
       }
     }
 
@@ -148,21 +162,27 @@ async function broad(
       ? mySession.createPatchFromHashCode(wsLastHashCode, updatedState)
       : mySession.createPatch(updatedState);
 
-    // console.log("APPLY");
+    // Console.log("APPLY");
     // mySession.applyPatch(message);
     // console.log(mySession.hashCode());
 
-    if (!message) return;
+    if (!message) {
+      return;
+    }
 
-    const msgStr = JSON.stringify({ ...message, name: username });
-    if (message.patch !== "") currentWebSocket.send(msgStr);
+    const messageString = JSON.stringify({ ...message, name: username });
+    if (message.patch !== "") {
+      currentWebSocket.send(messageString);
+    }
   }
 }
 
 export const join = async (room, user) => {
   roomName = roomName || room || "code-main";
   window.room = room;
-  if (user) username = user;
+  if (user) {
+    username = user;
+  }
 
   const resp = await fetch(
     `https://code.spike.land/api/room/${roomName}/session`,
@@ -196,7 +216,10 @@ export const join = async (room, user) => {
     window.sess = session;
   }
 
-  if (sess) return;
+  if (sess) {
+    return;
+  }
+
   sess = true;
 
   setTimeout(() => {
@@ -210,8 +233,9 @@ export const join = async (room, user) => {
   startTime = Date.now();
 
   ws.addEventListener("open", () => {
-    if (intervalHandler) clearInterval(intervalHandler);
-    else {
+    if (intervalHandler) {
+      clearInterval(intervalHandler);
+    } else {
       intervalHandler = setInterval(() => {
         const now = Date.now();
         const diff = now - lastSeenNow;
@@ -230,6 +254,7 @@ export const join = async (room, user) => {
         }
       }, 30_000);
     }
+
     currentWebSocket = ws;
 
     globalThis.broad = broad;
@@ -239,7 +264,7 @@ export const join = async (room, user) => {
     ws.send(JSON.stringify({ name: username }));
   });
 
-  ws.addEventListener("message", (msg) => processWsMessage(msg, "ws"));
+  ws.addEventListener("message", (message) => processWsMessage(message, "ws"));
 
   ws.addEventListener("close", (event) => {
     console.log("WebSocket closed, reconnecting:", event.code, event.reason);
@@ -257,10 +282,11 @@ export const join = async (room, user) => {
 // use in our video call. Then we configure event handlers to get
 // needed notifications on the call.
 
-var myHostname = window.location.hostname;
+let myHostname = window.location.hostname;
 if (!myHostname) {
   myHostname = "localhost";
 }
+
 log("Hostname: " + myHostname);
 
 // WebSocket chat/signaling channel variables.
@@ -285,7 +311,7 @@ const connections = {}; // To st/ RTCPeerConnection
 // Output logging information to console.
 globalThis.connections = connections;
 function log(text) {
-  var time = new Date();
+  const time = new Date();
 
   console.log("[" + time.toLocaleTimeString() + "] " + text);
 }
@@ -293,7 +319,7 @@ function log(text) {
 // Output an error message to console.
 
 function log_error(text) {
-  var time = new Date();
+  const time = new Date();
 
   console.trace("[" + time.toLocaleTimeString() + "] " + text);
 }
@@ -304,22 +330,22 @@ async function createPeerConnection(target) {
   // Create an RTCPeerConnection which knows to use our chosen
   // STUN server.
 
-  const rcpOpts = {
+  const rcpOptions = {
     iceServers: ["stun3.l.google.com:19302"].map((url) => ({
       urls: `stun:${url}`,
     })),
   };
-  rcpOpts.iceServers = [{ "urls": "stun:stun.stunprotocol.org:3478" }, {
-    "urls": "stun:stun.l.google.com:19302",
+  rcpOptions.iceServers = [{ urls: "stun:stun.stunprotocol.org:3478" }, {
+    urls: "stun:stun.l.google.com:19302",
   }];
-  //   rcpOpts.iceServers.push( {
+  //   RcpOpts.iceServers.push( {
   //     url: 'turn:turn.anyfirewall.com:443?transport=tcp',
   //     credential: 'webrtc',
   //     username: 'webrtc'
   // });
 
   connections[target] = connections[target] || new RTCPeerConnection(
-    rcpOpts,
+    rcpOptions,
   );
 
   // Set up event handlers for the ICE negotiation process.
@@ -336,9 +362,9 @@ async function createPeerConnection(target) {
   connections[target].addEventListener("datachannel", receiveChannelCallback);
 
   const dataChannelOptions = {
-    ordered: true, // do not guarantee order
+    ordered: true, // Do not guarantee order
     reliable: true,
-    maxPacketLifeTime: 3000, // in milliseconds
+    maxPacketLifeTime: 3000, // In milliseconds
   };
 
   const rtc = connections[target].createDataChannel(
@@ -348,26 +374,28 @@ async function createPeerConnection(target) {
 
   rtc.binaryType = "arraybuffer";
 
-  rtc.addEventListener("message", (msg) => {
-    console.log("***********RTC***", { msg });
+  rtc.addEventListener("message", (message) => {
+    console.log("***********RTC***", { msg: message });
 
-    const data = JSON.parse(msg.data);
+    const data = JSON.parse(message.data);
     if (data && data.hashCode) {
       webRTCLastSeenHashCode = data.hashCode;
     }
+
     if (data && data.newHash) {
       webRTCLastSeenHashCode = data.newHash;
     }
-    return processWsMessage(msg, "rtc");
+
+    return processWsMessage(message, "rtc");
   });
 
-  rtc.onerror = (error) => {
+  rtc.addEventListener("error", (error) => {
     console.log("xxxxxx-  Data Channel Error:", error);
-  };
+  });
 
-  // rtc.onmessage = (msg) => processWsMessage(msg, "rtc");
+  // Rtc.onmessage = (msg) => processWsMessage(msg, "rtc");
 
-  rtc.onopen = () => {
+  rtc.addEventListener("open", () => {
     console.log("@@@@@@@@RTC IS OPEN&&&&&&&&");
     rtc.target = target;
     webrtcArray.push(rtc);
@@ -377,18 +405,18 @@ async function createPeerConnection(target) {
       send: ((data) => {
         const target = data.target;
         data.name = data.name || username;
-        const msgStr = JSON.stringify(data);
+        const messageString = JSON.stringify(data);
         webrtcArray.map((ch) =>
           ch.readyState === "open" &&
-          (!target || target && ch.target === target) && ch.send(msgStr)
+          (!target || target && ch.target === target) && ch.send(messageString)
         );
       }),
     };
-  };
+  });
 
-  rtc.onclose = () => {
+  rtc.addEventListener("close", () => {
     console.log("xxxxxxxx- The Data Channel is Closed");
-  };
+  });
 
   return connections[target];
 
@@ -398,7 +426,10 @@ async function createPeerConnection(target) {
     rtc.binaryType = "arraybuffer";
     rtc.addEventListener("close", onReceiveChannelClosed);
 
-    rtc.addEventListener("message", (msg) => processWsMessage(msg, "rtc"));
+    rtc.addEventListener(
+      "message",
+      (message) => processWsMessage(message, "rtc"),
+    );
     webrtcArray.push(rtc);
   }
 
@@ -435,16 +466,16 @@ async function createPeerConnection(target) {
 
       log("---> Sending the offer to the remote peer");
       ws.send(JSON.stringify({
-        target: target,
+        target,
         name: username,
         type: "video-offer",
         sdp: connections[target].localDescription,
       }));
-    } catch (err) {
+    } catch {
       log(
         "*** The following error occurred while handling the negotiationneeded event:",
       );
-      // reportError(err);
+      // ReportError(err);
     }
   }
 
@@ -464,8 +495,8 @@ async function createPeerConnection(target) {
 
   function handleTrackEvent(event) {
     log("*** Track event");
-    document.getElementById("received_video").srcObject = event.streams[0];
-    document.getElementById("hangup-button").disabled = false;
+    document.querySelector("#received_video").srcObject = event.streams[0];
+    document.querySelector("#hangup-button").disabled = false;
   }
 
   // Handles |icecandidate| events by forwarding the specified
@@ -478,7 +509,7 @@ async function createPeerConnection(target) {
 
       ws.send(JSON.stringify({
         type: "new-ice-candidate",
-        target: target,
+        target,
         name: username,
         candidate: event.candidate,
       }));
@@ -540,37 +571,39 @@ async function createPeerConnection(target) {
   }
 }
 
-async function handleNewICECandidateMsg(msg, target) {
-  log("*** Adding received ICE candidate: " + JSON.stringify(msg.candidate));
-  var candidate = new RTCIceCandidate(msg.candidate);
+async function handleNewICECandidateMessage(message, target) {
+  log(
+    "*** Adding received ICE candidate: " + JSON.stringify(message.candidate),
+  );
+  const candidate = new RTCIceCandidate(message.candidate);
 
-  // lo
+  // Lo
   console.log(connections[target]);
   await connections[target].addIceCandidate(candidate);
 }
 
-async function handleChatAnswerMsg(msg, target) {
+async function handleChatAnswerMessage(message, target) {
   log("*** Call recipient has accepted our call");
 
   // Configure the remote description, which is the SDP payload
   // in our "video-answer" message.
 
-  var desc = new RTCSessionDescription(msg.sdp);
+  const desc = new RTCSessionDescription(message.sdp);
 
   await connections[target].setRemoteDescription(desc).catch(console.error);
 }
 
-async function handleChatOffer(msg, target) {
+async function handleChatOffer(message, target) {
   connections[target] || await createPeerConnection(target);
 
   // If we're not already connected, create an RTCPeerConnection
   // to be linked to the caller.
 
   // log("Received chat offer from " + target);
-  //ed to set the remote description to the received SDP offer
+  // ed to set the remote description to the received SDP offer
   // so that our local WebRTC layer knows how to talk to the caller.
 
-  var desc = new RTCSessionDescription(msg.sdp);
+  const desc = new RTCSessionDescription(message.sdp);
 
   // If the connection isn't stable yet, wait for it...
 
@@ -584,10 +617,10 @@ async function handleChatOffer(msg, target) {
       connections[target].setRemoteDescription(desc),
     ]);
     return;
-  } else {
-    log("  - Setting remote description");
-    await connections[target].setRemoteDescription(desc);
   }
+
+  log("  - Setting remote description");
+  await connections[target].setRemoteDescription(desc);
 
   // Get the webcam stream if we don't already have it
 
@@ -598,7 +631,7 @@ async function handleChatOffer(msg, target) {
   );
 
   ws.send(JSON.stringify({
-    target: target,
+    target,
     name: username,
     type: "video-answer",
     sdp: connections[target].localDescription,
@@ -612,15 +645,15 @@ async function processWsMessage(event, source) {
 
   const data = JSON.parse(event.data);
 
-  // mySession.addEvent(data);
+  // MySession.addEvent(data);
 
   if (
     data.name && data.name !== username && !connections[data.name]
   ) {
     try {
       await createPeerConnection(data.name);
-    } catch (e) {
-      console.log({ e });
+    } catch (error) {
+      console.log({ e: error });
       log_error("Error with p2p");
     }
   }
@@ -628,7 +661,7 @@ async function processWsMessage(event, source) {
   console.log(source, data.name);
 
   if (data.type === "new-ice-candidate") {
-    await handleNewICECandidateMsg(data, data.name);
+    await handleNewICECandidateMessage(data, data.name);
     return;
   }
 
@@ -638,7 +671,7 @@ async function processWsMessage(event, source) {
   }
 
   if (data.type === "video-answer") {
-    await handleChatAnswerMsg(data, data.name);
+    await handleChatAnswerMessage(data, data.name);
 
     return;
   }
@@ -648,26 +681,36 @@ async function processWsMessage(event, source) {
   }
 
   if (data.patch && source === "ws" || data.name !== username) {
-    if (data.newHash === mySession.hashCode()) return;
+    if (data.newHash === mySession.hashCode()) {
+      return;
+    }
 
     if (data.oldHash === mySession.hashCode()) {
-      // console.log("******** APPLY PATCH ******");
+      // Console.log("******** APPLY PATCH ******");
       mySession.applyPatch(data);
       chCode(
         mySession.session.get("state").code,
         mySession.session.get("state").i,
       );
-      if (sendChannel) sendChannel.send({ hashCode: data.newHash });
+      if (sendChannel) {
+        sendChannel.send({ hashCode: data.newHash });
+      }
+
       return;
     }
 
-    if (data.newHash === mySession.hashCode()) return;
+    if (data.newHash === mySession.hashCode()) {
+      return;
+    }
 
     if (data.code && data.transpiled) {
       const messageData = mySession.createPatch(data);
       mySession.applyPatch(messageData);
       chCode(data.code);
-      if (sendChannel) sendChannel.send({ hashCode: messageData.newHash });
+      if (sendChannel) {
+        sendChannel.send({ hashCode: messageData.newHash });
+      }
+
       return;
     }
 
@@ -679,10 +722,13 @@ async function processWsMessage(event, source) {
     lastSeenTimestamp = data.timestamp;
   }
 
-  if (data.name === username) return;
+  if (data.name === username) {
+    return;
+  }
 
   lastSeenTimestamp = data.timestamp;
 }
+
 function wait(delay) {
   return new Promise((resolve) => {
     setTimeout(() => {
