@@ -11,7 +11,7 @@ export const run = async (injectedRoom) => {
       : (path.pop() || path.pop()).slice(-12)) ||
     "code-main";
 
-  if (location.pathname.endsWith("hydrated")) {
+  if (location.pathname.indexOf("hydrate") !== -1) {
     const App = (await import(
       `https://code.spike.land/api/room/${room}/js`
     )).default;

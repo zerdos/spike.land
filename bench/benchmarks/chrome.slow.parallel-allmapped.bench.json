@@ -1,0 +1,79 @@
+        {
+          "$schema": "https://raw.githubusercontent.com/Polymer/tachometer/master/config.schema.json",
+          "sampleSize": 20,
+          "timeout": 0,
+          "autoSampleConditions": ["0%"],
+          "benchmarks": [
+            {
+              "name": "chrome.slow.parallel-allmapped-10",
+              "url": "runner.html?type=parallel-allmapped&n=10&port=8002",
+              "browser": {
+                "name": "chrome"
+              }
+            },
+            {
+              "name": "chrome.slow.parallel-allmapped-20",
+              "url": "runner.html?type=parallel-allmapped&n=20&port=8002",
+              "browser": {
+                "name": "chrome"
+              }
+            },
+            {
+              "name": "chrome.slow.parallel-allmapped-30",
+              "url": "runner.html?type=parallel-allmapped&n=30&port=8002",
+              "browser": {
+                "name": "chrome"
+              }
+            },
+            {
+              "name": "chrome.slow.parallel-allmapped-40",
+              "url": "runner.html?type=parallel-allmapped&n=40&port=8002",
+              "browser": {
+                "name": "chrome"
+              }
+            },
+            {
+              "name": "chrome.slow.parallel-allmapped-50",
+              "url": "runner.html?type=parallel-allmapped&n=50&port=8002",
+              "browser": {
+                "name": "chrome"
+              }
+            },
+            {
+              "name": "chrome.slow.parallel-allmapped-60",
+              "url": "runner.html?type=parallel-allmapped&n=60&port=8002",
+              "browser": {
+                "name": "chrome"
+              }
+            },
+            {
+              "name": "chrome.slow.parallel-allmapped-70",
+              "url": "runner.html?type=parallel-allmapped&n=70&port=8002",
+              "browser": {
+                "name": "chrome"
+              }
+            },
+            {
+              "name": "chrome.slow.parallel-allmapped-80",
+              "url": "runner.html?type=parallel-allmapped&n=80&port=8002",
+              "browser": {
+                "name": "chrome"
+              }
+            },
+            {
+              "name": "chrome.slow.parallel-allmapped-90",
+              "url": "runner.html?type=parallel-allmapped&n=90&port=8002",
+              "browser": {
+                "name": "chrome"
+              }
+            },
+            {
+              "name": "chrome.slow.parallel-allmapped-100",
+              "url": "runner.html?type=parallel-allmapped&n=100&port=8002",
+              "browser": {
+                "name": "chrome"
+              }
+            }
+          ]
+        }
+        

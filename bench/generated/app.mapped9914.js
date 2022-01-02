@@ -1,0 +1,11 @@
+  import { h, Component, render } from 'lib/preact.js?n=9914';
+
+  export class App extends Component {
+    render() {
+      return h('h1', null, 'Hello, world 9914!');
+    }
+  }
+
+  const el = document.createElement('div');
+  render(h(App), el);
+  

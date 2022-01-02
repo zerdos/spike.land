@@ -1,0 +1,86 @@
+        {
+          "$schema": "https://raw.githubusercontent.com/Polymer/tachometer/master/config.schema.json",
+          "sampleSize": 20,
+          "timeout": 0,
+          "autoSampleConditions": ["0%"],
+          "benchmarks": [
+            {
+              "name": "safari.fastest.parallel-allmapped-esms-10",
+              "url": "runner.html?type=parallel-allmapped-esms&n=10&port=8000",
+              "browser": {
+                "name": "safari"
+              }
+            },
+            {
+              "name": "safari.fastest.parallel-allmapped-esms-20",
+              "url": "runner.html?type=parallel-allmapped-esms&n=20&port=8000",
+              "browser": {
+                "name": "safari"
+              }
+            },
+            {
+              "name": "safari.fastest.parallel-allmapped-esms-30",
+              "url": "runner.html?type=parallel-allmapped-esms&n=30&port=8000",
+              "browser": {
+                "name": "safari"
+              }
+            },
+            {
+              "name": "safari.fastest.parallel-allmapped-esms-40",
+              "url": "runner.html?type=parallel-allmapped-esms&n=40&port=8000",
+              "browser": {
+                "name": "safari"
+              }
+            },
+            {
+              "name": "safari.fastest.parallel-allmapped-esms-50",
+              "url": "runner.html?type=parallel-allmapped-esms&n=50&port=8000",
+              "browser": {
+                "name": "safari"
+              }
+            },
+            {
+              "name": "safari.fastest.parallel-allmapped-esms-60",
+              "url": "runner.html?type=parallel-allmapped-esms&n=60&port=8000",
+              "browser": {
+                "name": "safari"
+              }
+            },
+            {
+              "name": "safari.fastest.parallel-allmapped-esms-70",
+              "url": "runner.html?type=parallel-allmapped-esms&n=70&port=8000",
+              "browser": {
+                "name": "safari"
+              }
+            },
+            {
+              "name": "safari.fastest.parallel-allmapped-esms-80",
+              "url": "runner.html?type=parallel-allmapped-esms&n=80&port=8000",
+              "browser": {
+                "name": "safari"
+              }
+            },
+            {
+              "name": "safari.fastest.parallel-allmapped-esms-90",
+              "url": "runner.html?type=parallel-allmapped-esms&n=90&port=8000",
+              "browser": {
+                "name": "safari"
+              }
+            },
+            {
+              "name": "safari.fastest.parallel-allmapped-esms-100",
+              "url": "runner.html?type=parallel-allmapped-esms&n=100&port=8000",
+              "browser": {
+                "name": "safari"
+              }
+            },
+            {
+              "name": "safari.fastest.parallel-allmapped-esms-1000",
+              "url": "runner.html?type=parallel-allmapped-esms&n=1000&port=8000",
+              "browser": {
+                "name": "safari"
+              }
+            }
+          ]
+        }
+        
