@@ -1,7 +1,7 @@
 {
   "private": false,
   "name": "@spike.land/spike-land-counter",
-  "version": "0.5.12",
+  "version": "0.5.14",
   "publishConfig": {
     "access": "public"
   },
@@ -13,8 +13,6 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "license": "MIT",
-  "devDependencies": {
-  },
   "dependencies": {
     "axax": "0.2.2"
   },
