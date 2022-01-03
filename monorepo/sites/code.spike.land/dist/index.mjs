@@ -917,7 +917,7 @@ var hydrated_default = `<!DOCTYPE html>
 <script type="module-shim">
    
     import app from "./starter.mjs";
-    app("zoli");
+    app();
 
   <\/script>
  
