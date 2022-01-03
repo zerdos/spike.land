@@ -12815,7 +12815,6 @@ var renderPreviewWindow = async (session, room, keepFullScreen) => {
     keepFullScreen,
     room
   }));
-  console.log({ diffy });
   document.body.append(target);
   target.style.display = "block";
   target.style.opacity = "1";
@@ -12826,4 +12825,4 @@ var renderPreviewWindow = async (session, room, keepFullScreen) => {
 export {
   renderPreviewWindow
 };
-//# sourceMappingURL=renderPreviewWindow-IJUSEQPR.mjs.map
+//# sourceMappingURL=renderPreviewWindow-D2RHJNFC.mjs.map

@@ -12833,7 +12833,6 @@ var renderPreviewWindow = async (session, room, keepFullScreen) => {
     keepFullScreen,
     room
   }));
-  console.log({ diffy });
   document.body.append(target);
   target.style.display = "block";
   target.style.opacity = "1";
