@@ -17,16 +17,14 @@
     "build:editor": "cd packages/smart-monaco-editor && yarn build",
     "deploy:worker": "lerna run deploy",
     "deploy": "cd sites/code.spike.land && yarn deploy",
-    "push:prod": "yarn re:build && yarn push && lerna publish patch --yes && yarn deploy && git add . && (git commit -m pre-release || echo nothing) && git push",
+    "push:prod": "yarn push && lerna publish patch --yes && yarn deploy && git add . && (git commit -m pre-release || echo nothing) && git push",
     "importmap": "cd packages/code && yarn importmap",
-    "push": "yarn && yarn build:editor && yarn build:code && cd .. && git add . && (git commit -m pre-release || echo nothing) && git push && git pull",
+    "push": "yarn build:editor && yarn build:code && cd .. && git add . && (git commit -m pre-release || echo nothing) && git push && git pull",
     "release": "lerna publish patch --yes && yarn push",
     "clean": "lerna run clean --parallel",
     "build": "lerna run build --parallel --since main --no-bail",
     "re:build": "yarn clean && yarn build"
   },
-  "dependencies": {
-  },
-  "devDependencies": {
-  }
+  "dependencies": {},
+  "devDependencies": {}
 }
