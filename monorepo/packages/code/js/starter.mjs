@@ -4,7 +4,7 @@ export default function (injectedRoom = "") {
 
 export const run = async (injectedRoom) => {
   const path = location.pathname.split("/");
-  window.aniStart = Date.now();
+  window.aniStart = Date.now() + 50000;
 
   const room = injectedRoom ||
     ((path[1] === "api" && path[2] === "room")
@@ -58,9 +58,9 @@ export const run = async (injectedRoom) => {
     //       8,
     //     );
 
-    //   const { join } = await import("./ws.mjs");
-    //   join(room, user, deltas);
-
+    const { join } = await import("./ws.mjs");
+    join(room, user, deltas);
+    return;
     //   //s
 
     //   // console.log(deltaStr);
@@ -177,7 +177,7 @@ export const run = async (injectedRoom) => {
           //    document.removeChild(container);
           // console.log(next);
           // zbod
-        }, animationLength);
+        }, 100 * animationLength);
         //  document.appendChild(container);
       } else {
         const App = (await import(
