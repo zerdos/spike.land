@@ -1,6 +1,6 @@
 {
   "name": "@spike.land/code",
-  "version": "0.5.11",
+  "version": "0.5.12",
   "description": "spike.land",
   "main": "./js/dist/quickStart.mjs",
   "files": [
@@ -57,15 +57,14 @@
     "@emotion/cache": "^11.7.1",
     "@emotion/react": "^11.7.1",
     "@emotion/styled": "^11.6.0",
-    "@spike.land/qrious": "^0.5.3",
-    "@spike.land/smart-monaco-editor": "^0.5.3",
+    "@spike.land/qrious": "^0.5.12",
+    "@spike.land/smart-monaco-editor": "^0.5.12",
     "@types/react": "17.0.38",
     "@types/react-dom": "17.0.11",
     "async-mutex": "^0.3.2",
     "axax": "0.2.2",
     "comlink": "4.3.1",
     "es-module-shims": "1.4.1",
-
     "esbuild-plugin-import-map": "^2.1.0",
     "framer-motion": "5.5.5",
     "immutable": "^4.0.0",

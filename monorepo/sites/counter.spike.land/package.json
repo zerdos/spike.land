@@ -1,7 +1,7 @@
 {
   "private": false,
   "name": "@spike.land/spike-land-counter",
-  "version": "0.5.3",
+  "version": "0.5.12",
   "publishConfig": {
     "access": "public"
   },
@@ -19,7 +19,6 @@
   },
   "dependencies": {
     "axax": "0.2.2",
-  
     "is-even": "1.0.0"
   },
   "gitHead": "9a6c323d30cdcb35a077b26f0c6ae6e68e923229"
