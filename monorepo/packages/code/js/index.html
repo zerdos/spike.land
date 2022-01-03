@@ -60,9 +60,11 @@
   </script>
   
 <script type="module-shim">
-    import app from "./starter.mjs";
+     import app from "./starter.mjs"; 
     import {upgradeElement} from 'https://unpkg.com/@ampproject/worker-dom@0.32.1/dist/main.mjs';
   
+
+ 
     app("zoli");
     upgradeElement(document.getElementById('upgrade-me'), 'https://unpkg.com/@ampproject/worker-dom@0.32.1/dist/worker/worker.mjs');
 

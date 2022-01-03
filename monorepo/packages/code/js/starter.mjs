@@ -26,16 +26,19 @@ export const run = async (injectedRoom) => {
 
     const container = document.querySelector("#zbody");
 
-    const root = ReactDOM.hydrateRoot(container, jsx(App));
+    const AppJsx = jsx(App);
 
+    const root = ReactDOM.hydrateRoot(container, AppJsx);
+
+    const { renderToString } = await import("./vendor/renderToString.mjs");
     // const outers = [];
     const deltas = [];
 
-    let first = document.getElementById("zbody").innerHTML;
-    const html = first;
+    const html = JSON.stringify(renderToString(AppJsx));
 
     const interV = setInterval(() => {
-      const el = container.innerHTML;
+      const el = JSON.stringify(renderToString(AppJsx));
+
       deltas.push(createDelta(first, el));
 
       first = el;
