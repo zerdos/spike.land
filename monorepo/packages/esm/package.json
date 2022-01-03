@@ -33,8 +33,6 @@
     "textdiff-patch": "1.0.5"
   },
   "devDependencies": {
-    "rollup": "2.62.0",
-    "rollup-plugin-dts": "4.1.0"
   },
   "publishConfig": {
     "access": "public"

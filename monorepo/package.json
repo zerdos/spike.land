@@ -26,12 +26,7 @@
     "re:build": "yarn clean && yarn build"
   },
   "dependencies": {
-
-    "workbox-window": "6.4.2"
   },
   "devDependencies": {
-    "csstype": "3.0.10",
-    "eslint-plugin-react": "7.28.0",
-    "typescript": "4.5.4"
   }
 }

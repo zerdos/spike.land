@@ -9,8 +9,6 @@
     "postpublish": "yarn && yarn bundle"
   },
   "devDependencies": {
-    "@cloudflare/workers-types": "3.3.0",
-    "@cloudflare/wrangler": "1.19.6",
     "@spike.land/cf-npm-site": "^0.5.12",
     "@spike.land/code": "^0.5.12"
  

@@ -14,8 +14,6 @@
   },
   "license": "MIT",
   "devDependencies": {
-    "@cloudflare/workers-types": "3.3.0",
-    "@cloudflare/wrangler": "1.19.6"
   },
   "dependencies": {
     "axax": "0.2.2"
