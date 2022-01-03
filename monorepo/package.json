@@ -18,7 +18,7 @@
     "start": "node bench/http2-server.js & FAST_SERVE_PID=$! && yarn build:editor && yarn build:code && open-cli https://localhost:8000/packages/code/js/index.html --wait && kill $FAST_SERVE_PID",
     "deploy:worker": "lerna run deploy",
     "deploy": "cd sites/code.spike.land && yarn deploy",
-    "push:prod": "yarn re:build && yarn push && lerna publish patch --yes && yarn deploy",
+    "push:prod": "yarn re:build && yarn push && lerna publish patch --yes && yarn deploy && git add . && (git commit -m pre-release || echo nothing) && git push",
     "importmap": "cd packages/code && yarn importmap",
     "push": "yarn && yarn build:editor && yarn build:code && cd .. && git add . && (git commit -m pre-release || echo nothing) && git push && git pull",
     "release": "lerna publish patch --yes && yarn push",
