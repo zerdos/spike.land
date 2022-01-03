@@ -30,14 +30,14 @@ export const run = async (injectedRoom) => {
 
     const root = ReactDOM.hydrateRoot(container, AppJsx);
 
-    const { renderToString } = await import("./vendor/renderToString.mjs");
+    const { getHtmlAndCss } = await import("./vendor/renderToString.mjs");
     // const outers = [];
     const deltas = [];
 
-    const html = JSON.stringify(renderToString(AppJsx));
+    const html = JSON.stringify(getHtmlAndCss(AppJsx));
 
     const interV = setInterval(() => {
-      const el = JSON.stringify(renderToString(AppJsx));
+      const el = JSON.stringify(getHtmlAndCss(AppJsx));
 
       deltas.push(createDelta(first, el));
 
