@@ -4,6 +4,7 @@ export default function (injectedRoom = "") {
 
 export const run = async (injectedRoom) => {
   const path = location.pathname.split("/");
+  window.aniStart = Date.now();
 
   const room = injectedRoom ||
     ((path[1] === "api" && path[2] === "room")
@@ -26,6 +27,7 @@ export const run = async (injectedRoom) => {
 
     const container = document.querySelector("#zbody");
 
+    window.aniStart = Date.now();
     const root = ReactDOM.hydrateRoot(container, jsx(App));
 
     // const outers = [];
