@@ -62,9 +62,7 @@
 </script>
   <script type="module-shim">
     import app from "https://unpkg.com/@spike.land/code@{VERSION}/js/starter.mjs";
-    app()
-  </script>
-  <script>
+    app();
     if ('serviceWorker' in navigator){
       const {Workbox} = await import('workbox-window')
         const wb = new Workbox('./sw.js');
@@ -75,11 +73,6 @@
           });
           wb.register();
       }
-    window.process = { env: { NODE_ENV: "production" } };
     </script>
-  <script type="text/javascript">
-    let currentWebSocket = null;
-
-</script>
 </body>
 </html>

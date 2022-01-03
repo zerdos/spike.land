@@ -60,21 +60,17 @@
   <script type="module-shim">
     import app from "./starter.mjs";
     app("zoli");
-  </script>
-  <script>
+
     if ('serviceWorker' in navigator){
-      import('https://storage.googleapis.com/workbox-cdn/releases/6.4.2/workbox-window.prod.mjs').then(
-        ({Workbox})=> {
-          const wb = new Workbox('./sw.js');
+      const {Workbox} = await import('workbox-window')
+        const wb = new Workbox('./sw.js');
           wb.addEventListener("activated", async (event) => {
              if (!event.isUpdate) {
               console.log("Service worker activated for the first time!");
              }
           });
           wb.register();
-        });
       }
-    window.process = { env: { NODE_ENV: "production" } };
     </script>
   <script type="text/javascript">
     let currentWebSocket = null;

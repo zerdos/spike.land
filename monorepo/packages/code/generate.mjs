@@ -38,7 +38,7 @@ await generator.install("@emotion/cache");
 
 await generator.install("comlink");
 // await generator.install("tslib");
-// await generator.install("workbox-window");
+await generator.install("workbox-window");
 // await generator.install("@spike.land/ipfs");
 // await generator.install("@spike.land/shadb");
 // await generator.install("@spike.land/qrious");
