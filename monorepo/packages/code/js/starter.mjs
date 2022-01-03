@@ -122,6 +122,7 @@ export const run = async (injectedRoom) => {
         container = document.getElementById("root");
         root.innerHTML =
           `<style>${session.css}</style><div id="zbody">${session.html}</div>`;
+        container = document.getElementById("zbody");
       }
       window.aniStart = Date.now();
       if (deltas && deltas.length) {
@@ -168,7 +169,7 @@ export const run = async (injectedRoom) => {
 
           // newDiv.innerHTML = `<div>${next}</div>`;
 
-          document.getElementById("zbody").innerHTML = next;
+          container.innerHTML = next;
 
           // console.log(next);
           //    document.removeChild(container);
