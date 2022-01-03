@@ -581,7 +581,7 @@ var require_textdiff_create = __commonJS({
 });
 
 // ../../packages/code/package.json
-var version = "0.5.23";
+var version = "0.5.24";
 
 // ../../packages/cf-npm-site/dist/index.mjs
 function src_default(packageName, version2, serveDir = "") {
@@ -828,11 +828,8 @@ var src_default2 = `<!DOCTYPE html>
 			rel="stylesheet"
 			href="https://unpkg.com/monaco-editor@0.30.1/min/vs/editor/editor.main.css"
 		/>
-
-
 </head>
 <body>
-
   <div id="root"></div>
   <div id="shadowEditor"></div>
   <script type="importmap-shim" src="./importmap.json"><\/script>
@@ -843,7 +840,6 @@ var src_default2 = `<!DOCTYPE html>
     import app from "https://unpkg.com/@spike.land/code@{VERSION}/js/starter.mjs";
     app();
 
-    
     if ('serviceWorker' in navigator){
       const {Workbox} = await import('workbox-window')
         const wb = new Workbox('./sw.js');
