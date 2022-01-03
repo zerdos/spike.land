@@ -125,6 +125,10 @@ export const run = async (injectedRoom) => {
           `<style>${session.css}</style><div id="zbody">${session.html}</div>`;
       }
 
+
+      window.aniStart = Date.now();
+      if(deltas && deltas.length){
+
       //   const st = document.createElement("style");
       //   st.innerHTML = session.css;
 
@@ -147,7 +151,6 @@ export const run = async (injectedRoom) => {
       let last = html;
       const deltasLength = deltas.length;
 
-      window.aniStart = Date.now();
       const clInt = setInterval(() => {
         if (i > deltas.length) {
           clearInterval(clInt);
@@ -169,6 +172,7 @@ export const run = async (injectedRoom) => {
         // newDiv.innerHTML = `<div>${next}</div>`;
 
         document.getElementById("zbody").innerHTML = next;
+        
         // console.log(next);
         //    document.removeChild(container);
         // console.log(next);
