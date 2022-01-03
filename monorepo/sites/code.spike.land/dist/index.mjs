@@ -5573,6 +5573,29 @@ var Code = class {
             }
           });
         }
+        case "stream": {
+          const deltaS = await this.kv.get("delta");
+          let deltaDiffs2;
+          if (!deltaS || deltaS.hashCode !== this.state.mySession.hashCode()) {
+            deltaDiffs2 = [];
+            url.pathname = "/hydrated";
+            const req = new Request(url.toString());
+            return this.fetch(req);
+          } else {
+            deltaDiffs2 = deltaS.delta;
+          }
+          const htmlContent = mST().html;
+          const css2 = mST().css;
+          const html2 = src_default2.replace(`window.process = { env: { NODE_ENV: "production" } };`, `window.deltas = ${JSON.stringify(deltaDiffs2)};`).replace(`<div id="root"></div>`, `<div id="root"><style>${css2}</style><div id="zbody">${htmlContent}</div></div>`).replace("{VERSION}", version);
+          return new Response(html2, {
+            status: 200,
+            headers: {
+              "Access-Control-Allow-Origin": "*",
+              "Cache-Control": "no-cache",
+              "Content-Type": "text/html; charset=UTF-8"
+            }
+          });
+        }
         case "public": {
           const htmlContent = mST().html;
           const css2 = mST().css;

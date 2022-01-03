@@ -12822,6 +12822,7 @@ var renderPreviewWindow = async (session, room, keepFullScreen) => {
   editor.style.opacity = "0";
   const { createRoot } = await import("https://unpkg.com/@spike.land/esm@0.5.14/dist/react-dom.mjs");
   const root = createRoot(target, {});
+  await wait(2e3 - diffy);
   root.render(/* @__PURE__ */ jsx3(DraggableWindow, {
     onShare: () => open(`https://code.spike.land/api/room/${room}/public`),
     onRestore: () => {
@@ -12838,7 +12839,6 @@ var renderPreviewWindow = async (session, room, keepFullScreen) => {
   target.style.opacity = "0";
   document.body.append(target);
   console.log("wait....: " + String(2e3 - diffy));
-  await wait(2e3 - diffy);
   target.style.display = "block";
   target.style.opacity = "1";
   document.querySelector("#root").remove();

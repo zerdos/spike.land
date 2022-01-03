@@ -47,46 +47,46 @@ export const run = async (injectedRoom) => {
 
     // const compressed = compress(JSON.stringify(deltas));
 
-    // setTimeout(async () => {
-    //   clearInterval(interV);
+    setTimeout(async () => {
+      clearInterval(interV);
 
-    //   // const deltaStr = JSON.stringify(deltas);
-    //   const user = ((self && self.crypto && self.crypto.randomUUID &&
-    //     self.crypto.randomUUID()) || (await import("./uidV4.mjs")).default())
-    //     .slice(
-    //       0,
-    //       8,
-    //     );
+      // const deltaStr = JSON.stringify(deltas);
+      const user = ((self && self.crypto && self.crypto.randomUUID &&
+        self.crypto.randomUUID()) || (await import("./uidV4.mjs")).default())
+        .slice(
+          0,
+          8,
+        );
 
-    const { join } = await import("./ws.mjs");
-    join(room, user, deltas);
-    return;
-    //   //s
+      const { join } = await import("./ws.mjs");
+      join(room, user, deltas);
+      return;
+      //   //s
 
-    //   // console.log(deltaStr);
-    //   // root.unmount();
-    //   // // const compressed = compress(JSON.stringify(deltas));
-    //   // console.log(
-    //   //   JSON.stringify(deltas).length,
-    //   //   // JSON.stringify(compressed).length,
-    //   // );
+      //   // console.log(deltaStr);
+      //   // root.unmount();
+      //   // // const compressed = compress(JSON.stringify(deltas));
+      //   // console.log(
+      //   //   JSON.stringify(deltas).length,
+      //   //   // JSON.stringify(compressed).length,
+      //   // );
 
-    //   // let i = 0;
-    //   // const deltasLength = deltas.length;
-    //   // let last = html;
+      //   // let i = 0;
+      //   // const deltasLength = deltas.length;
+      //   // let last = html;
 
-    //   // setInterval(() => {
-    //   //   const index = i % deltasLength;
-    //   //   if (index === 0) last = html;
+      //   // setInterval(() => {
+      //   //   const index = i % deltasLength;
+      //   //   if (index === 0) last = html;
 
-    //   //   i++;
-    //   //   const delta = deltas[index];
-    //   //   if (!delta) return;
-    //   //   const next = applyDelta(last, delta);
-    //   //   last = next;
-    //   //   container.innerHTML = next;
-    //   // }, 1000 / 60);
-    // }, 2000);
+      //   //   i++;
+      //   //   const delta = deltas[index];
+      //   //   if (!delta) return;
+      //   //   const next = applyDelta(last, delta);
+      //   //   last = next;
+      //   //   container.innerHTML = next;
+      //   // }, 1000 / 60);
+    }, 2000);
 
     return;
   } else {

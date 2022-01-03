@@ -16,6 +16,8 @@ import type {
 
 import startSession from "@spike.land/code/js/session.tsx";
 
+type Diff = [-1 | 0 | 1, string];
+ 
 interface IState extends DurableObjectState {
   mySession: ICodeSess;
   hashOfCode: string;
@@ -127,8 +129,6 @@ export class Code {
 
 
         case "delta":
-          type Diff = [-1 | 0 | 1, string];
- 
           const delta = await this.kv.get<{
             hashCode: number
             delta: Diff[][]}>("delta");
@@ -244,6 +244,44 @@ export class Code {
           });
         }
 
+        case "stream": {
+          const deltaS = await this.kv.get<{
+            hashCode: number
+            delta: Diff[][]}>("delta");
+        
+          let deltaDiffs: Diff[][]
+
+          if (!deltaS || deltaS.hashCode !==  this.state.mySession.hashCode()) {
+            deltaDiffs = [];
+
+             url.pathname="/hydrated";
+            const req = new Request(url.toString());
+            return this.fetch(req);
+          } else {
+            deltaDiffs = deltaS.delta;
+          }
+
+
+          const htmlContent = mST().html;
+          const css = mST().css;
+
+
+          const html = HTML.replace(
+            `window.process = { env: { NODE_ENV: "production" } };`,
+            `window.deltas = ${JSON.stringify(deltaDiffs)};`
+          ).replace(
+            `<div id="root"></div>`,
+            `<div id="root"><style>${css}</style><div id="zbody">${htmlContent}</div></div>`
+          ).replace("{VERSION}", version);
+          return new Response(html, {
+            status: 200,
+            headers: {
+              "Access-Control-Allow-Origin": "*",
+              "Cache-Control": "no-cache",
+              "Content-Type": "text/html; charset=UTF-8",
+            },
+          });
+        }
 
         case "public": {
           const htmlContent = mST().html;
