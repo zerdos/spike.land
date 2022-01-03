@@ -42,7 +42,6 @@ let intervalHandler = null;
 // import("textdiff-create").then((mod) => createDelta = mod.default);
 // import("textdiff-patch").then((mod) => applyPatch = mod.default);
 
-// import("ipfs-only-hash").then((mod) => Hash = mod.default);
 // toolsImported = true;
 // return toolsImported;
 // };

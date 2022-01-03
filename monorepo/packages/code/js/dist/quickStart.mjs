@@ -15,7 +15,7 @@ var prettier = async (code) => {
 };
 async function startMonacoWithSession(session) {
   const shadDom = document.querySelector("#shadowEditor");
-  const startMonaco = (await import("./startMonaco-PBEUXK3Y.mjs")).default;
+  const startMonaco = (await import("./startMonaco-AIGTF5QZ.mjs")).default;
   const getEditor = await startMonaco({
     language: "typescript",
     container: shadDom,

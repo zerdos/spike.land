@@ -447,4 +447,4 @@ async function loadExtraLibs(addExtraLib, setDiagnosticsOptions) {
 export {
   editor_default as default
 };
-//# sourceMappingURL=startMonaco-PBEUXK3Y.mjs.map
+//# sourceMappingURL=startMonaco-AIGTF5QZ.mjs.map

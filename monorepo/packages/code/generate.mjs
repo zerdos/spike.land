@@ -7,7 +7,7 @@ const generator = new Generator({
   mapUrl: import.meta.url,
   defaultProvider: "jspm", // this is the default defaultProvider
   // Always ensure to defi  inputMap: {
-  ignore: ["framer-motion", "ipfs-only-hash"],
+  ignore: ["framer-motion"],
   //]//ne your target environment to get a working map
   // it is advisable to pass the "module" condition as supported by Webpack
   env: ["production", "browser", "module"],
@@ -18,10 +18,6 @@ const generator = new Generator({
 // await generator.install("react-dom");
 
 await generator.install("react-dom@18");
-// await generator.install({
-//   target: "ipfs-only-hash",
-//   url: "https://unpkg.com/@spike.land/esm@0.2.86/dist/ipfs-only-hash.mjs",
-// });
 
 await generator.install("react@18");
 // await generator.install("react@18/jsix-runtime"); // await generator.install("react");
@@ -66,9 +62,6 @@ importMap.imports["framer-motion"] =
 
 // importMap.imports["textdiff-patch"] =
 //   "https://unpkg.com/@spike.land/esm@0.4.33/dist/textdiff-patch.mjs";
-
-// importMap.imports["ipfs-only-hash"] =
-//   "https://unpkg.com/@spike.land/esm@0.4.33/dist/ipfs-only-hash.mjs";
 importMap.imports["react"] =
   "https://unpkg.com/@spike.land/esm@0.4.33/dist/react.mjs";
 importMap.imports["react-dom"] =
