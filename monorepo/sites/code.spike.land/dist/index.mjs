@@ -581,7 +581,7 @@ var require_textdiff_create = __commonJS({
 });
 
 // ../../packages/code/package.json
-var version = "0.5.19";
+var version = "0.5.20";
 
 // ../../packages/cf-npm-site/dist/index.mjs
 function src_default(packageName, version2, serveDir = "") {
@@ -842,6 +842,8 @@ var src_default2 = `<!DOCTYPE html>
   <script type="module-shim">
     import app from "https://unpkg.com/@spike.land/code@{VERSION}/js/starter.mjs";
     app();
+
+    
     if ('serviceWorker' in navigator){
       const {Workbox} = await import('workbox-window')
         const wb = new Workbox('./sw.js');
