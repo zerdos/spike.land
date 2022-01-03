@@ -5485,7 +5485,13 @@ var Code = class {
           });
         case "delta":
           const delta = await this.kv.get("delta");
-          return new Response(JSON.stringify(delta || {}), {
+          let deltaDiffs;
+          if (!delta || delta.hashCode !== this.state.mySession.hashCode()) {
+            deltaDiffs = [];
+          } else {
+            deltaDiffs = delta.delta;
+          }
+          return new Response(JSON.stringify(deltaDiffs || []), {
             status: 200,
             headers: {
               "Access-Control-Allow-Origin": "*",
@@ -5669,7 +5675,7 @@ var Code = class {
         }
         if (data.type && data.type === "delta") {
           const delta = data.delta;
-          await this.kv.put("delta", delta);
+          await this.kv.put("delta", { delta, hashCode: this.state.mySession.hashCode() });
           return;
         }
         if (data.patch && data.oldHash === this.state.mySession.hashCode()) {
