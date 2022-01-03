@@ -146,7 +146,8 @@ export const run = async (injectedRoom) => {
 
       let i = 0;
       let last = html;
-      // const deltasLength = deltas.length;
+
+      const deltasLength = window.deltas.length;
       // const animationLength = (2000 - (Date.now() - window.aniStart)) /
       //   deltas.length;
       // console.log({ animationLength });
