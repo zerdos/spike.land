@@ -60,7 +60,6 @@ export const renderPreviewWindow = async (
   target.style.opacity = "0";
   // await wait(2000);
   document.body.append(target);
-  await wait(20000);
 
   console.log("wait....: " + String(2000 - diffy));
 
