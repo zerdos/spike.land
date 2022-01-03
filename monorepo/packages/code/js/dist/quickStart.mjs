@@ -1,5 +1,5 @@
 // js/quickStart.mjs
-import { jsx } from "https://unpkg.com/@spike.land/esm@0.4.33/dist/emotion-react.mjs";
+import { jsx } from "https://unpkg.com/@spike.land/esm@0.5.14/dist/emotion-react.mjs";
 var formatter;
 var transform;
 var esbuildEsmTransform;
@@ -138,7 +138,7 @@ var startFromCode = async ({ code }) => {
 async function quickStart(session, room, keepFullScreen, saveCode) {
   session.saveCode = saveCode;
   session.children = null;
-  const { renderPreviewWindow } = await import("./renderPreviewWindow-V6ZKZNUU.mjs");
+  const { renderPreviewWindow } = await import("./renderPreviewWindow-DFSPNDEY.mjs");
   await renderPreviewWindow(session, room, keepFullScreen);
   if (!keepFullScreen) {
     await startMonacoWithSession(session);

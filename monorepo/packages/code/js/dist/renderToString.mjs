@@ -1,7 +1,7 @@
 // js/renderToString.tsx
-import { jsx } from "https://unpkg.com/@spike.land/esm@0.4.33/dist/emotion-react.mjs";
+import { jsx } from "https://unpkg.com/@spike.land/esm@0.5.14/dist/emotion-react.mjs";
 import createCache from "https://ga.jspm.io/npm:@emotion/cache@11.7.1/dist/emotion-cache.browser.esm.js";
-import { CacheProvider } from "https://unpkg.com/@spike.land/esm@0.4.33/dist/emotion-react.mjs";
+import { CacheProvider } from "https://unpkg.com/@spike.land/esm@0.5.14/dist/emotion-react.mjs";
 import { renderToString } from "https://ga.jspm.io/npm:react-dom@18.0.0-rc.0-next-f2a59df48-20211208/server.browser.js";
 var getHtmlAndCss = (MyComponent) => {
   const key = "foo";
