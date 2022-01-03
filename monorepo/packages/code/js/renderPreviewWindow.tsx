@@ -54,7 +54,7 @@ export const renderPreviewWindow = async (
     />,
   );
 
-  console.log({ diffy });
+  // console.log({ diffy });
 
   // target.style.opacity = "0";
   // await wait(2000);
