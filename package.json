@@ -1,47 +1,24 @@
 {
-  "name": "github.com-spike.land",
-  "description": "our monorepo",
-  "repository": "git@github.com:spike-land/monorepo.git",
-  "author": "Zoltan Erdos <zoliika84@gmail.com>",
-  "license": "MIT",
-  "private": true,
-  "workspaces": [
-    "dockerhub/devimages/*",
-    "packages/*",
-    "sites/*"
-  ],
-  "type": "module",
-  "scripts": {
-    "screenshot": "rm -rf spike.land-1920x1080.png && npx pageres-cli https://code.spike.land 1920x1080 --delay=5 --scale=1",
-    "build:code": "cd packages/code && yarn build",
-    "build:editor": "cd packages/smart-monaco-editor && yarn build",
-    "start": "node bench/http2-server.js & FAST_SERVE_PID=$! && yarn build:editor && yarn build:code && open-cli https://localhost:8000/packages/code/js/index.html --wait && kill $FAST_SERVE_PID",
-    "deploy:worker": "lerna run deploy",
-    "deploy": "cd sites/code.spike.land && yarn deploy",
-    "push:prod": "yarn re:build && yarn push && yarn lerna publish patch --yes && yarn deploy",
-    "importmap": "cd packages/code && yarn importmap",
-    "push": "yarn && yarn build:editor && yarn build:code && git add . && (git commit -m pre-release || echo nothing) && git push && git pull",
-    "release": "lerna publish patch --yes && yarn push",
-    "clean": "yarn lerna run clean --parallel --since main",
-    "pre:build": "yarn lerna run prebuild --parallel --since main",
-    "build": "yarn pre:build && yarn lerna run build --parallel --since main --no-bail",
-    "re:build": "yarn lerna run clean --parallel && yarn build"
-  },
-  "dependencies": {
-    "@jspm/generator": "1.0.0-beta.20",
-    "esbuild": "0.14.10",
-    "latest-version": "6.0.0",
-    "path": "0.12.7",
-    "speed-limiter": "^1.0.2",
-    "workbox-window": "6.4.2"
-  },
+  "name": "z",
+  "version": "1.0.0",
+  "description": "[Real time React page editor, in typescript! ![Screenshot](./spike.land-1920x1080.png)](https://code.spike.land)",
+  "main": "index.js",
   "devDependencies": {
-    "axios": "0.24.0",
-    "console-log-json": "2.8.0",
-    "csstype": "3.0.10",
-    "eslint-plugin-react": "7.28.0",
     "lerna": "4.0.0",
-    "open-cli": "^7.0.1",
-    "typescript": "4.5.4"
-  }
+    "esbuild": "0.14.10",
+    "@jspm/generator": "^1.0.0-beta.21"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/spike-land/monorepo.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/spike-land/monorepo/issues"
+  },
+  "homepage": "https://github.com/spike-land/monorepo#readme"
 }
