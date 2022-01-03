@@ -101,7 +101,7 @@ export const run = async (injectedRoom) => {
     // const resp = await fetch(
     //   `https://code.spike.land/api/room/${room}/delta`,
     //      );
-    const deltas = window.deltas = await resp.json();
+    const deltas = window.deltas;
 
     //   const { jsx } = emotionReact;
 

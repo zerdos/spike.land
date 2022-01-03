@@ -33,7 +33,7 @@ export const renderPreviewWindow = async (
   // target  .innerHTML = html;
 
   const { createRoot } = await import("react-dom");
-  const diffy = window.diffy = Date.now() - window.aniStart;
+  // const diffy = window.diffy = Date.now() - window.aniStart;
 
   // Target  .innerHTML = html;
 
@@ -56,15 +56,15 @@ export const renderPreviewWindow = async (
 
   console.log({ diffy });
 
-  target.style.opacity = "0";
+  // target.style.opacity = "0";
   // await wait(2000);
   document.body.append(target);
-  await wait(2000 - diffy);
-  console.log("wait....: " + String(2000 - diffy));
+  // await wait(2000 - diffy);
+  // console.log("wait....: " + String(2000 - diffy));
 
   target.style.display = "block";
   target.style.opacity = "1";
-  document.querySelector("#root")!.remove();
+  // document.querySelector("#root")!.remove();
   document.body.style.backgroundImage = 'url("./assets/synthwave.webp")';
 
   editor.style.opacity = "1";

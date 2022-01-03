@@ -12821,7 +12821,6 @@ var renderPreviewWindow = async (session, room, keepFullScreen) => {
   const editor = document.querySelector("#shadowEditor");
   editor.style.opacity = "0";
   const { createRoot } = await import("https://unpkg.com/@spike.land/esm@0.5.14/dist/react-dom.mjs");
-  const diffy = window.diffy = Date.now() - window.aniStart;
   const root = createRoot(target, {});
   root.render(/* @__PURE__ */ jsx3(DraggableWindow, {
     onShare: () => open(`https://code.spike.land/api/room/${room}/public`),
@@ -12835,13 +12834,9 @@ var renderPreviewWindow = async (session, room, keepFullScreen) => {
     room
   }));
   console.log({ diffy });
-  target.style.opacity = "0";
   document.body.append(target);
-  await wait(2e3 - diffy);
-  console.log("wait....: " + String(2e3 - diffy));
   target.style.display = "block";
   target.style.opacity = "1";
-  document.querySelector("#root").remove();
   document.body.style.backgroundImage = 'url("./assets/synthwave.webp")';
   editor.style.opacity = "1";
   editor.style.display = "block";
