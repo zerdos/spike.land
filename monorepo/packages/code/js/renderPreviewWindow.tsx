@@ -53,10 +53,15 @@ export const renderPreviewWindow = async (
     />,
   );
 
+  const diffy = window.diffy = Date.now() - window.aniStart;
+
+  console.log({ diffy });
+
   target.style.opacity = "0";
   document.body.append(target);
 
-  await wait(400);
+  console.log("wait....: " + String(2000 - diffy));
+  await wait(2000 - diffy);
 
   target.style.display = "block";
   target.style.opacity = "1";

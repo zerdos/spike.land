@@ -369,7 +369,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
                       id="zbody"
                       key={session.i}
                       ref={zbody}
-                      css={css`
+                      css={css`q
                         height: 100%;
                       `}
                     >

@@ -12763,7 +12763,7 @@ var DraggableWindow = ({ onShare, onRestore, position, session, keepFullScreen, 
     id: "zbody",
     key: session.i,
     ref: zbody,
-    css: css2`
+    css: css2`q
                         height: 100%;
                       `
   }, child), " ")), /* @__PURE__ */ jsx2(b16, {
@@ -12832,9 +12832,12 @@ var renderPreviewWindow = async (session, room, keepFullScreen) => {
     keepFullScreen,
     room
   }));
+  const diffy = window.diffy = Date.now() - window.aniStart;
+  console.log({ diffy });
   target.style.opacity = "0";
   document.body.append(target);
-  await wait(400);
+  console.log("wait....: " + String(2e3 - diffy));
+  await wait(2e3 - diffy);
   target.style.display = "block";
   target.style.opacity = "1";
   document.querySelector("#root").remove();
