@@ -178,6 +178,8 @@ export const run = async (injectedRoom) => {
         // console.log(next);
         // zbod
       }, 1000 / 60);
+
+      return;
       //  document.appendChild(container);
     } else {
     }
