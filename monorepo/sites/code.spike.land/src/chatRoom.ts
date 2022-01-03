@@ -127,15 +127,21 @@ export class Code {
 
 
         case "delta":
-          const delta = await this.kv.get("delta");
+          type Diff = [-1 | 0 | 1, string];
+ 
+          const delta = await this.kv.get<{
+            hashCode: number
+            delta: Diff[][]}>("delta");
+        
+          let deltaDiffs: Diff[][]
 
           if (!delta || delta.hashCode !==  this.state.mySession.hashCode()) {
-            delta = [];
+            deltaDiffs = [];
           } else {
-            delta = delta.delta;
+            deltaDiffs = delta.delta;
           }
 
-          return new Response(JSON.stringify(delta || {}) , {
+          return new Response(JSON.stringify(deltaDiffs || []) , {
               status: 200,
               headers: {
                 "Access-Control-Allow-Origin": "*",
