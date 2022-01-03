@@ -57,7 +57,7 @@ async function getErrors({ monaco, editor }) {
 async function runner(c, changes = null, session, counter) {
   session.changes.push(changes);
   formatter = formatter || (await import("./formatter-QTN4LYCK.mjs")).formatter;
-  esbuildEsmTransform = esbuildEsmTransform || (await import("./esbuildEsm-GJGLR2JG.mjs")).transform;
+  esbuildEsmTransform = esbuildEsmTransform || (await import("./esbuildEsm-6EB32IPU.mjs")).transform;
   transform = esbuildEsmTransform;
   session.errorText = "";
   const { monaco } = session;
