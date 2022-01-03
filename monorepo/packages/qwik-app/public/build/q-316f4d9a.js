@@ -1,0 +1,1 @@
+import{d as o,h as s,H as a}from"./q-325a728a.js";import{I as t}from"./q-5ffc7168.js";import{g as m}from"./q-3d1b806b.js";const r=o((({todos:o})=>(console.log("on:qRender => <Main/>"),s(a,{class:"main"},s("ul",{class:"todo-list"},m(o).map((a=>s(t,{item:a,todos:o}))))))));export{r as Main_onRender};

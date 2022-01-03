@@ -1,0 +1,1 @@
+"use strict";var e=require("./core-67a6ca69.js"),o=require("./components-7ea0a565.js"),s=require("./state-184c5a3e.js");const t=e.qHook((({todos:t})=>(console.log("on:qRender => <Main/>"),e.h(e.Host,{class:"main"},e.h("ul",{class:"todo-list"},s.getFilteredItems(t).map((s=>e.h(o.Item,{item:s,todos:t}))))))));exports.Main_onRender=t;

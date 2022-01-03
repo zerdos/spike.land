@@ -13,7 +13,7 @@
     "@cloudflare/wrangler": "1.19.6",
     "@spike.land/blog-artifacts": "0.4.105",
     "@spike.land/cf-npm-site": "0.4.62",
-    "esbuild": "0.14.10"
+ 
   },
   "private": true
 }

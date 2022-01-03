@@ -1,0 +1,20 @@
+{
+  "mapping": {
+    "ToDoApp_onRender": "q-9fb4b746.js",
+    "Header_onMount": "q-77f718e4.js",
+    "Header_onRender_on_keyup": "q-60537fac.js",
+    "Header_onRender": "q-857d0697.js",
+    "Main_onRender": "q-316f4d9a.js",
+    "Item_onMount": "q-de4b674d.js",
+    "Item_onRender_on_click": "q-4ef5fb14.js",
+    "Item_onRender_on_dblclick": "q-4c8f5d0a.js",
+    "Item_onRender_on_click9": "q-1300344e.js",
+    "Item_onRender_on_blur": "q-a9d27d39.js",
+    "Item_onRender_on_keyup": "q-b71e65d4.js",
+    "Item_onRender": "q-c9586777.js",
+    "Footer_onRender_Filter_on_click": "q-c796cbf6.js",
+    "Footer_onRender_on_click": "q-10e95e1c.js",
+    "Footer_onRender": "q-0dc0690e.js"
+  },
+  "version": "1"
+}

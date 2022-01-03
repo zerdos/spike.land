@@ -34,7 +34,6 @@
   },
   "gitHead": "9a6c323d30cdcb35a077b26f0c6ae6e68e923229",
   "dependencies": {
-    "esbuild": "^0.14.10",
     "monaco-editor": "0.31.1",
     "p-all": "4.0.0"
   }
