@@ -125,72 +125,76 @@ export const run = async (injectedRoom) => {
           `<style>${session.css}</style><div id="zbody">${session.html}</div>`;
       }
 
-      
-      if(deltas && deltas.length){
+      if (deltas && deltas.length) {
+        //   const st = document.createElement("style");
+        //   st.innerHTML = session.css;
 
-      //   const st = document.createElement("style");
-      //   st.innerHTML = session.css;
+        const html = session.html;
 
-      const html = session.html;
+        //   const applied = applyDelta(html, deltas[0]);
+        //   container.innerHTML = session.html;
+        // `<style>${session.css}</style><div>${session.html}</div>`;
 
-      //   const applied = applyDelta(html, deltas[0]);
-      //   container.innerHTML = session.html;
-      // `<style>${session.css}</style><div>${session.html}</div>`;
+        //  const root = ReactDOM.createRoot(target);
 
-      //  const root = ReactDOM.createRoot(target);
+        //   root.render(jsx(App));
 
-      //   root.render(jsx(App));
+        //   document.body.appendChild(st);
 
-      //   document.body.appendChild(st);
+        //  document.body.appendChild(container);
 
-      //  document.body.appendChild(container);
+        //   const zBody = container;
 
-      //   const zBody = container;
+        let i = 0;
+        let last = html;
+        const deltasLength = deltas.length;
 
-      let i = 0;
-      let last = html;
-      const deltasLength = deltas.length;
+        const clInt = setInterval(() => {
+          if (i > deltas.length) {
+            clearInterval(clInt);
+            return;
+          }
+          const index = i % deltasLength;
+          if (index === 0) last = html;
+          //
+          i++;
+          const delta = deltas[index];
+          if (!delta) return;
+          const next = applyDelta(last, delta);
+          last = next;
 
-      const clInt = setInterval(() => {
-        if (i > deltas.length) {
-          clearInterval(clInt);
-          return;
+          // const newDiv = document.createElement("div");
+          // newDiv.id = "zbodyw";
+          // newDiv.setAttribute("id", "zbodyw");
+
+          // newDiv.innerHTML = `<div>${next}</div>`;
+
+          document.getElementById("zbody").innerHTML = next;
+
+          // console.log(next);
+          //    document.removeChild(container);
+          // console.log(next);
+          // zbod
+        }, 1000 / 60);
+        //  document.appendChild(container);
+      } else {
+        const App = (await import(
+          `https://code.spike.land/api/room/${room}/js`
+        )).default;
+
+        const { jsx } = await import("@emotion/react");
+
+        let container = document.querySelector("#zbody");
+
+        if (!container) {
+          container = document.getElementById("root");
+          root.innerHTML =
+            `<style>${session.css}</style><div id="zbody">${session.html}</div>`;
+          let container = document.querySelector("#zbody");
         }
-        const index = i % deltasLength;
-        if (index === 0) last = html;
-        //
-        i++;
-        const delta = deltas[index];
-        if (!delta) return;
-        const next = applyDelta(last, delta);
-        last = next;
 
-        // const newDiv = document.createElement("div");
-        // newDiv.id = "zbodyw";
-        // newDiv.setAttribute("id", "zbodyw");
-
-        // newDiv.innerHTML = `<div>${next}</div>`;
-
-        document.getElementById("zbody").innerHTML = next;
-        
-        // console.log(next);
-        //    document.removeChild(container);
-        // console.log(next);
-        // zbod
-      }, 1000 / 60);
-      //  document.appendChild(container);
-    } else {
-
-      const App = (await import(
-        `https://code.spike.land/api/room/${room}/js`
-      )).default;
-  
-      const { jsx } = await import("@emotion/react");
-
-      const container = document.querySelector("#zbody");
-
-      const root = ReactDOM.hydrateRoot(container, jsx(App));
-      
+        const root = ReactDOM.hydrateRoot(container, jsx(App));
+      }
     })();
   }
 
