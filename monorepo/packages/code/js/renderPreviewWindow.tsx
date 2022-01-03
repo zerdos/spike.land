@@ -58,7 +58,7 @@ export const renderPreviewWindow = async (
   console.log({ diffy });
 
   target.style.opacity = "0";
-  await wait(20000);
+  // await wait(20000);
 
   document.body.append(target);
 

@@ -12836,7 +12836,6 @@ var renderPreviewWindow = async (session, room, keepFullScreen) => {
   const diffy = window.diffy = Date.now() - window.aniStart;
   console.log({ diffy });
   target.style.opacity = "0";
-  await wait(2e4);
   document.body.append(target);
   console.log("wait....: " + String(2e3 - diffy));
   await wait(2e3 - diffy);
