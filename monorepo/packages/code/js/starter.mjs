@@ -120,7 +120,7 @@ export const run = async (injectedRoom) => {
 
       if (!container) {
         container = document.getElementById("root");
-        root.innerHTML =
+        container.innerHTML =
           `<style>${session.css}</style><div id="zbody">${session.html}</div>`;
         container = document.getElementById("zbody");
       }
@@ -188,12 +188,12 @@ export const run = async (injectedRoom) => {
 
         if (!container) {
           container = document.getElementById("root");
-          root.innerHTML =
+          container.innerHTML =
             `<style>${session.css}</style><div id="zbody">${session.html}</div>`;
           let container = document.querySelector("#zbody");
         }
 
-        const root = ReactDOM.hydrateRoot(container, jsx(App));
+        ReactDOM.hydrateRoot(container, jsx(App));
       }
     })();
   }
