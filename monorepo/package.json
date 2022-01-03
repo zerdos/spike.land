@@ -15,7 +15,7 @@
     "screenshot": "rm -rf spike.land-1920x1080.png && npx pageres-cli https://code.spike.land 1920x1080 --delay=5 --scale=1",
     "build:code": "cd packages/code && yarn build",
     "build:editor": "cd packages/smart-monaco-editor && yarn build",
-    "start": "node bench/http2-server.js & FAST_SERVE_PID=$! && yarn build:editor && yarn build:code && open-cli https://localhost:8000/packages/code/js/index.html --wait && kill $FAST_SERVE_PID",
+    "start": "node http2-server/http2-server.js & FAST_SERVE_PID=$! && yarn build:editor && yarn build:code && open-cli https://localhost:8000/packages/code/js/index.html --wait -- 'google chrome' --incognito && kill $FAST_SERVE_PID",
     "deploy:worker": "lerna run deploy",
     "deploy": "cd sites/code.spike.land && yarn deploy",
     "push:prod": "yarn re:build && yarn push && lerna publish patch --yes && yarn deploy && git add . && (git commit -m pre-release || echo nothing) && git push",
