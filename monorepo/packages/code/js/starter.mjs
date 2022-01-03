@@ -4,7 +4,7 @@ export default function (injectedRoom = "") {
 
 export const run = async (injectedRoom) => {
   const path = location.pathname.split("/");
-  window.aniStart = Date.now() + 50000;
+  window.aniStart = Date.now();
 
   const room = injectedRoom ||
     ((path[1] === "api" && path[2] === "room")
@@ -148,11 +148,11 @@ export const run = async (injectedRoom) => {
         let i = 0;
         let last = html;
         const deltasLength = deltas.length;
-        const animationLength = 1000 / 60 * 1000 /
-          (1000 - (Date.now() - window.aniStart)) / 2;
+        const animationLength = (2000 - (Date.now() - window.aniStart)) /
+          deltas.length;
         console.log({ animationLength });
         const clInt = setInterval(() => {
-          if (i > deltas.length) {
+          if (i >= deltas.length) {
             clearInterval(clInt);
             return;
           }
@@ -177,7 +177,7 @@ export const run = async (injectedRoom) => {
           //    document.removeChild(container);
           // console.log(next);
           // zbod
-        }, 100 * animationLength);
+        }, animationLength);
         //  document.appendChild(container);
       } else {
         const App = (await import(
