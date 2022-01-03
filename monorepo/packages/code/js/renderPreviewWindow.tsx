@@ -39,7 +39,7 @@ export const renderPreviewWindow = async (
 
   const root = createRoot(target, {});
   // Root.render(<Element></Element> as any);
-  await wait(2000 - diffy);
+
   root.render(
     <DraggableWindow
       onShare={() => open(`https://code.spike.land/api/room/${room}/public`)}
@@ -59,7 +59,7 @@ export const renderPreviewWindow = async (
   target.style.opacity = "0";
   // await wait(2000);
   document.body.append(target);
-
+  await wait(2000 - diffy);
   console.log("wait....: " + String(2000 - diffy));
 
   target.style.display = "block";

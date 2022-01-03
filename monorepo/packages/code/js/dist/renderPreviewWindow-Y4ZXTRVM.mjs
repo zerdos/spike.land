@@ -12805,7 +12805,6 @@ var renderPreviewWindow = async (session, room, keepFullScreen) => {
   const { createRoot } = await import("https://unpkg.com/@spike.land/esm@0.5.14/dist/react-dom.mjs");
   const diffy = window.diffy = Date.now() - window.aniStart;
   const root = createRoot(target, {});
-  await wait(2e3 - diffy);
   root.render(/* @__PURE__ */ jsx3(DraggableWindow, {
     onShare: () => open(`https://code.spike.land/api/room/${room}/public`),
     onRestore: () => {
@@ -12820,6 +12819,7 @@ var renderPreviewWindow = async (session, room, keepFullScreen) => {
   console.log({ diffy });
   target.style.opacity = "0";
   document.body.append(target);
+  await wait(2e3 - diffy);
   console.log("wait....: " + String(2e3 - diffy));
   target.style.display = "block";
   target.style.opacity = "1";
@@ -12831,4 +12831,4 @@ var renderPreviewWindow = async (session, room, keepFullScreen) => {
 export {
   renderPreviewWindow
 };
-//# sourceMappingURL=renderPreviewWindow-BMHUAHHI.mjs.map
+//# sourceMappingURL=renderPreviewWindow-Y4ZXTRVM.mjs.map
