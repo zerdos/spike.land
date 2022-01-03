@@ -4,11 +4,20 @@
   "description": "[Real time React page editor, in typescript! ![Screenshot](./spike.land-1920x1080.png)](https://code.spike.land)",
   "main": "index.js",
   "devDependencies": {
-    "lerna": "4.0.0",
+    "@jspm/generator": "^1.0.0-beta.21",
     "esbuild": "0.14.10",
-    "@jspm/generator": "^1.0.0-beta.21"
+    "lerna": "4.0.0",
+    "yarn": "^1.22.17"
   },
+  "type": "module",
   "scripts": {
+    "start": "npm run-script ws:run start",
+    "clean": "npm run-script ws:run clean",
+    "push": "npm run-script ws:run push",
+    "re:build": "npm run-script ws:run re:build",
+    "postinstall": "npm run-script ws:run install",
+    "ws:run": "yarn --cwd monorepo ",
+    "lerna": "lerna",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
