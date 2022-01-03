@@ -27,8 +27,6 @@
     "re:build": "yarn clean && yarn build"
   },
   "dependencies": {
-  
-    "latest-version": "6.0.0",
     "path": "0.12.7",
     "speed-limiter": "^1.0.2",
     "workbox-window": "6.4.2"
