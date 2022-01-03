@@ -20,8 +20,6 @@ export const run = async (injectedRoom) => {
     const createDelta = (await import("textdiff-create")).default;
     // const applyDelta = (await import("textdiff-patch")).default;
 
-    const { compress, decompress } = await import("simple-text-compress");
-
     const { jsx } = await import("@emotion/react");
     const { ReactDOM } = window;
 
@@ -48,47 +46,47 @@ export const run = async (injectedRoom) => {
     window.deltas = deltas;
 
     // const compressed = compress(JSON.stringify(deltas));
-    window.aniStart = Date.now()-window.aniStart
-    setTimeout(async () => {
-      clearInterval(interV);
 
-      // const deltaStr = JSON.stringify(deltas);
-      const user = ((self && self.crypto && self.crypto.randomUUID &&
-        self.crypto.randomUUID()) || (await import("./uidV4.mjs")).default())
-        .slice(
-          0,
-          8,
-        );
+    // setTimeout(async () => {
+    //   clearInterval(interV);
 
-      const { join } = await import("./ws.mjs");
-      join(room, user, deltas);
+    //   // const deltaStr = JSON.stringify(deltas);
+    //   const user = ((self && self.crypto && self.crypto.randomUUID &&
+    //     self.crypto.randomUUID()) || (await import("./uidV4.mjs")).default())
+    //     .slice(
+    //       0,
+    //       8,
+    //     );
 
-      //s
+    //   const { join } = await import("./ws.mjs");
+    //   join(room, user, deltas);
 
-      // console.log(deltaStr);
-      // root.unmount();
-      // // const compressed = compress(JSON.stringify(deltas));
-      // console.log(
-      //   JSON.stringify(deltas).length,
-      //   // JSON.stringify(compressed).length,
-      // );
+    //   //s
 
-      // let i = 0;
-      // const deltasLength = deltas.length;
-      // let last = html;
+    //   // console.log(deltaStr);
+    //   // root.unmount();
+    //   // // const compressed = compress(JSON.stringify(deltas));
+    //   // console.log(
+    //   //   JSON.stringify(deltas).length,
+    //   //   // JSON.stringify(compressed).length,
+    //   // );
 
-      // setInterval(() => {
-      //   const index = i % deltasLength;
-      //   if (index === 0) last = html;
+    //   // let i = 0;
+    //   // const deltasLength = deltas.length;
+    //   // let last = html;
 
-      //   i++;
-      //   const delta = deltas[index];
-      //   if (!delta) return;
-      //   const next = applyDelta(last, delta);
-      //   last = next;
-      //   container.innerHTML = next;
-      // }, 1000 / 60);
-    }, 2000);
+    //   // setInterval(() => {
+    //   //   const index = i % deltasLength;
+    //   //   if (index === 0) last = html;
+
+    //   //   i++;
+    //   //   const delta = deltas[index];
+    //   //   if (!delta) return;
+    //   //   const next = applyDelta(last, delta);
+    //   //   last = next;
+    //   //   container.innerHTML = next;
+    //   // }, 1000 / 60);
+    // }, 2000);
 
     return;
   } else {
@@ -100,11 +98,6 @@ export const run = async (injectedRoom) => {
       const applyDelta = (await import(
         "https://unpkg.com/@spike.land/esm@0.4.33/dist/textdiff-patch.mjs"
       )).default;
-
-      const respS = await fetch(
-        `https://code.spike.land/api/room/${room}/session`,
-      );
-      const session = await respS.json();
 
       const resp = await fetch(
         `https://code.spike.land/api/room/${room}/delta`,
@@ -122,17 +115,21 @@ export const run = async (injectedRoom) => {
       let container = document.getElementById("zbody");
 
       if (!container) {
+        const respS = await fetch(
+          `https://code.spike.land/api/room/${room}/session`,
+        );
+        const session = await respS.json();
         container = document.getElementById("root");
         container.innerHTML =
           `<style>${session.css}</style><div id="zbody">${session.html}</div>`;
         container = document.getElementById("zbody");
       }
-      window.aniStart = Date.now();
+
       if (deltas && deltas.length) {
         //   const st = document.createElement("style");
         //   st.innerHTML = session.css;
 
-        const html = session.html;
+        const html = container.innerHTML;
 
         //   const applied = applyDelta(html, deltas[0]);
         //   container.innerHTML = session.html;
@@ -151,7 +148,9 @@ export const run = async (injectedRoom) => {
         let i = 0;
         let last = html;
         const deltasLength = deltas.length;
-
+        const animationLength = 1000 / 60 * 1000 /
+          (1000 - (Date.now() - window.aniStart)) / 2;
+        console.log({ animationLength });
         const clInt = setInterval(() => {
           if (i > deltas.length) {
             clearInterval(clInt);
@@ -178,7 +177,7 @@ export const run = async (injectedRoom) => {
           //    document.removeChild(container);
           // console.log(next);
           // zbod
-        }, 1000 / 60);
+        }, animationLength);
         //  document.appendChild(container);
       } else {
         const App = (await import(
