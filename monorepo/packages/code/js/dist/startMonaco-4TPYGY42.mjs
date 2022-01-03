@@ -1,5 +1,3 @@
-import "./chunk-F23SJYNG.mjs";
-
 // js/dist/startMonaco.mjs
 var __create = Object.create;
 var __defProp = Object.defineProperty;
@@ -447,4 +445,4 @@ async function loadExtraLibs(addExtraLib, setDiagnosticsOptions) {
 export {
   editor_default as default
 };
-//# sourceMappingURL=startMonaco-AIGTF5QZ.mjs.map
+//# sourceMappingURL=startMonaco-4TPYGY42.mjs.map

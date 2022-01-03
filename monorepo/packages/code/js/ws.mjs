@@ -25,6 +25,7 @@ let chCode;
 let startTime;
 let rejoined = false;
 let sendChannel;
+let deltaSent = "";
 // Let createDelta;
 // let applyPatch;
 let mySession = null;
@@ -176,7 +177,7 @@ async function broad(
   }
 }
 
-export const join = async (room, user) => {
+export const join = async (room, user, delta) => {
   roomName = roomName || room || "code-main";
   window.room = room;
   if (user) {
@@ -196,23 +197,25 @@ export const join = async (room, user) => {
   });
 
   window.mySession = mySession;
-  if (!window.sess) {
-    const session = {
-      ...mST().toJSON(),
-      setChild: () => {},
-      changes: [],
+  if (!delta) {
+    if (!window.sess) {
+      const session = {
+        ...mST().toJSON(),
+        setChild: () => {},
+        changes: [],
 
-      children: [null],
-      errorText: "",
-    };
-    const stayFullscreen = location.pathname.endsWith("public");
-    quickStart(
-      session,
-      roomName,
-      stayFullscreen,
-      broad,
-    );
-    window.sess = session;
+        children: [null],
+        errorText: "",
+      };
+      const stayFullscreen = location.pathname.endsWith("public");
+      quickStart(
+        session,
+        roomName,
+        stayFullscreen,
+        broad,
+      );
+      window.sess = session;
+    }
   }
 
   if (sess) {
@@ -232,6 +235,16 @@ export const join = async (room, user) => {
   startTime = Date.now();
 
   ws.addEventListener("open", () => {
+    if (delta) {
+      if (delta !== deltaSent) {
+        deltaSent = delta;
+        ws.send(JSON.stringify({
+          type: "delta",
+          delta,
+        }));
+      }
+      return;
+    }
     if (intervalHandler) {
       clearInterval(intervalHandler);
     } else {

@@ -14,8 +14,11 @@
     "react-dom": "https://unpkg.com/@spike.land/esm@0.5.14/dist/react-dom.mjs",
     "react-dom/server": "https://ga.jspm.io/npm:react-dom@18.0.0-rc.0-next-f2a59df48-20211208/server.browser.js",
     "react/jsx-runtime": "https://ga.jspm.io/npm:react@18.0.0-rc.0-next-f2a59df48-20211208/jsx-runtime.js",
+    "simple-text-compress": "https://ga.jspm.io/npm:simple-text-compress@0.1.1/src/index.js",
     "workbox-window": "https://ga.jspm.io/npm:workbox-window@6.4.2/build/workbox-window.prod.es5.mjs",
-    "framer-motion": "https://unpkg.com/@spike.land/esm@0.5.14/dist/framer-motion.mjs"
+    "framer-motion": "https://unpkg.com/@spike.land/esm@0.5.14/dist/framer-motion.mjs",
+    "textdiff-create": "https://unpkg.com/@spike.land/esm@0.4.33/dist/textdiff-create.mjs",
+    "textdiff-patch": "https://unpkg.com/@spike.land/esm@0.4.33/dist/textdiff-patch.mjs"
   },
   "scopes": {
     "https://ga.jspm.io/": {

@@ -12748,6 +12748,7 @@ var DraggableWindow = ({ onShare, onRestore, position, session, keepFullScreen, 
     },
     css: css2`
                   overflow:overlay;
+                  overflow-y: hidden;
                   >div{
                     width:100%;
                     height:100%;
@@ -12765,7 +12766,7 @@ var DraggableWindow = ({ onShare, onRestore, position, session, keepFullScreen, 
     css: css2`
                         height: 100%;
                       `
-  }, child))), /* @__PURE__ */ jsx2(b16, {
+  }, child), " ")), /* @__PURE__ */ jsx2(b16, {
     value: width,
     size: "small",
     exclusive: true,

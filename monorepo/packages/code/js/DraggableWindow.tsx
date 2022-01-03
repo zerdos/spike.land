@@ -341,12 +341,14 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
                 }}
                 animate={{
                   transformOrigin: "0px 0px",
+
                   width: width / devicePixelRatio,
                   height: height / devicePixelRatio,
                   scale: scaleRange / 100,
                 }}
                 css={css`
                   overflow:overlay;
+                  overflow-y: hidden;
                   >div{
                     width:100%;
                     height:100%;
@@ -373,7 +375,22 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
                     >
                       {child}
                     </div>
-                  )}
+                  )} {
+                  /*  </div>
+                   // {/* </div>
+                    <iframe
+                      frameborder="0"
+                      scrolling="no"
+                      css={css`
+                      height: 100%;
+                    `}
+                      onLoad={(e) => {
+                        console.log(e.target);
+                        console.log(e.target.document);
+                      }}
+                      src={`https://code.spike.land/api/room/${room}/hydrated`}
+                    /> */
+                }
               </motion.div>
             </motion.div>
             <ToggleButtonGroup
@@ -466,4 +483,9 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
 
 function createMarkup(__html: string) {
   return { __html };
+}
+
+function resizeIframe(obj) {
+  obj.style.height = obj.contentWindow.document.documentElement.scrollHeight +
+    "px";
 }

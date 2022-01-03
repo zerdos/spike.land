@@ -32,7 +32,7 @@ await generator.install("async-mutex");
 // await generator.install("@emotion/server");
 await generator.install("@emotion/react");
 await generator.install("@emotion/cache");
-// await generator.install("@emotion/styled");
+// await generator.install("simple-text-compress");
 // await generator.install("@emotion/styled");
 // await generator.install("framer-motion");
 
@@ -57,11 +57,11 @@ const importMap = { ...generator.getMap() };
 importMap.imports["framer-motion"] =
   "https://unpkg.com/@spike.land/esm@0.5.14/dist/framer-motion.mjs";
 
-// importMap.imports["textdiff-create"] =
-//   "https://unpkg.com/@spike.land/esm@0.4.33/dist/textdiff-create.mjs";
+importMap.imports["textdiff-create"] =
+  "https://unpkg.com/@spike.land/esm@0.4.33/dist/textdiff-create.mjs";
 
-// importMap.imports["textdiff-patch"] =
-//   "https://unpkg.com/@spike.land/esm@0.4.33/dist/textdiff-patch.mjs";
+importMap.imports["textdiff-patch"] =
+  "https://unpkg.com/@spike.land/esm@0.4.33/dist/textdiff-patch.mjs";
 importMap.imports["react"] =
   "https://unpkg.com/@spike.land/esm@0.5.14/dist/react.mjs";
 importMap.imports["react-dom"] =

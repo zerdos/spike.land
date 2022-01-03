@@ -16,12 +16,77 @@ export const run = async (injectedRoom) => {
       `https://code.spike.land/api/room/${room}/js`
     )).default;
 
+    const createDelta = (await import("textdiff-create")).default;
+    const applyDelta = (await import("textdiff-patch")).default;
+
+    const { compress, decompress } = await import("simple-text-compress");
+
     const { jsx } = await import("@emotion/react");
     const { ReactDOM } = window;
 
     const container = document.querySelector("#zbody");
 
-    ReactDOM.hydrateRoot(container, jsx(App));
+    const root = ReactDOM.hydrateRoot(container, jsx(App));
+
+    // const outers = [];
+    const deltas = [];
+
+    let first = document.getElementById("zbody").innerHTML;
+    const html = first;
+
+    const interV = setInterval(() => {
+      const el = container.innerHTML;
+      deltas.push(createDelta(first, el));
+
+      first = el;
+      //      deltas.push()
+      // outers.push(el);
+    }, 1000 / 60);
+
+    window.deltas = deltas;
+
+    // const compressed = compress(JSON.stringify(deltas));
+
+    setTimeout(async () => {
+      clearInterval(interV);
+
+      // const deltaStr = JSON.stringify(deltas);
+      const user = ((self && self.crypto && self.crypto.randomUUID &&
+        self.crypto.randomUUID()) || (await import("./uidV4.mjs")).default())
+        .slice(
+          0,
+          8,
+        );
+
+      const { join } = await import("./ws.mjs");
+      join(room, user, deltas);
+
+      //s
+
+      // console.log(deltaStr);
+      // root.unmount();
+      // // const compressed = compress(JSON.stringify(deltas));
+      // console.log(
+      //   JSON.stringify(deltas).length,
+      //   // JSON.stringify(compressed).length,
+      // );
+
+      // let i = 0;
+      // const deltasLength = deltas.length;
+      // let last = html;
+
+      // setInterval(() => {
+      //   const index = i % deltasLength;
+      //   if (index === 0) last = html;
+
+      //   i++;
+      //   const delta = deltas[index];
+      //   if (!delta) return;
+      //   const next = applyDelta(last, delta);
+      //   last = next;
+      //   container.innerHTML = next;
+      // }, 1000 / 60);
+    }, 2000);
 
     return;
   }

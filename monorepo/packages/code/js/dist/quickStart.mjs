@@ -6,7 +6,7 @@ var esbuildEsmTransform;
 var getHtmlAndCss;
 var initSess;
 var initSession = async (room, initData) => {
-  initSess = initSess || (await import("./session-FOMMVGEN.mjs")).default;
+  initSess = initSess || (await import("./session-G5YXK4BZ.mjs")).default;
   return initSess(room, initData);
 };
 var prettier = async (code) => {
@@ -15,7 +15,7 @@ var prettier = async (code) => {
 };
 async function startMonacoWithSession(session) {
   const shadDom = document.querySelector("#shadowEditor");
-  const startMonaco = (await import("./startMonaco-AIGTF5QZ.mjs")).default;
+  const startMonaco = (await import("./startMonaco-4TPYGY42.mjs")).default;
   const getEditor = await startMonaco({
     language: "typescript",
     container: shadDom,
@@ -138,7 +138,7 @@ var startFromCode = async ({ code }) => {
 async function quickStart(session, room, keepFullScreen, saveCode) {
   session.saveCode = saveCode;
   session.children = null;
-  const { renderPreviewWindow } = await import("./renderPreviewWindow-DFSPNDEY.mjs");
+  const { renderPreviewWindow } = await import("./renderPreviewWindow-ESMH7O2X.mjs");
   await renderPreviewWindow(session, room, keepFullScreen);
   if (!keepFullScreen) {
     await startMonacoWithSession(session);

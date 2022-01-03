@@ -1,5 +1,3 @@
-import "./chunk-2QGOD74H.mjs";
-
 // ../smart-monaco-editor/dist/editor.mjs
 var __create = Object.create;
 var __defProp = Object.defineProperty;

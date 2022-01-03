@@ -40,6 +40,7 @@
   skip: "/^https?:\/\/(cdn\.skypack\.dev|jspm\.dev)\//`"
      } </script>
   <script async src="https://unpkg.com/@spike.land/code@0.4.42/js/vendor/es-module-shims.wasm.js"></script>
+  <script type="importmap-shim" src="./importmap.json"></script>
   <title>Instant React Editor</title>
   
 		<link
@@ -51,15 +52,19 @@
 
 </head>
 <body>
+  <div src="hello-world.js" id="upgrade-me"></div>
   <div id="root"></div>
   <div id="shadowEditor"></div>
-  <script type="importmap-shim" src="./importmap.json"></script>
   <script>
   window.process = { env: { NODE_ENV: "production" } };
-</script>
-  <script type="module-shim">
+  </script>
+  
+<script type="module-shim">
     import app from "./starter.mjs";
+    import {upgradeElement} from 'https://unpkg.com/@ampproject/worker-dom@0.32.1/dist/main.mjs';
+  
     app("zoli");
+    upgradeElement(document.getElementById('upgrade-me'), 'https://unpkg.com/@ampproject/worker-dom@0.32.1/dist/worker/worker.mjs');
 
     if ('serviceWorker' in navigator){
       const {Workbox} = await import('workbox-window')
@@ -72,13 +77,6 @@
           wb.register();
       }
     </script>
-  <script type="text/javascript">
-    let currentWebSocket = null;
 
-
-  /************
- * 
-   */ 
-</script>
 </body>
 </html>

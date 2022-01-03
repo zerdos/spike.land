@@ -124,6 +124,19 @@ export class Code {
               "Content-Type": "application/json; charset=UTF-8",
             },
           });
+
+
+        case "delta":
+          const delta = await this.kv.get("delta");
+
+          return new Response(JSON.stringify(delta || {}) , {
+              status: 200,
+              headers: {
+                "Access-Control-Allow-Origin": "*",
+              "Cache-Control": "no-cache",
+                "Content-Type": "application/json; charset=UTF-8",
+              },
+            });
         case "lazy": 
         
           const {html, css, transpiled} = mST().toJSON();
@@ -407,6 +420,17 @@ export class Code {
             data.type === "video-answer")
         ) {
           this.user2user(data.target, { name: session.name, ...data });
+          return;
+        }
+
+
+        if (
+          data.type &&
+          (data.type === "delta")
+        ) {
+          const delta = data.delta;
+          await this.kv.put("delta", delta);
+          // this.user2user(data.target, { name: session.name, ...data });
           return;
         }
 

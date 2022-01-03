@@ -1,4 +1,4 @@
-// js/session.tsx
+// js/dist/session.mjs
 import { Record } from "https://ga.jspm.io/npm:immutable@4.0.0/dist/immutable.es.js";
 import createDelta from "https://unpkg.com/@spike.land/esm@0.4.33/dist/textdiff-create.mjs";
 import applyPatch from "https://unpkg.com/@spike.land/esm@0.4.33/dist/textdiff-patch.mjs";
@@ -159,4 +159,4 @@ export {
   CodeSession,
   session_default as default
 };
-//# sourceMappingURL=session.mjs.map
+//# sourceMappingURL=session-G5YXK4BZ.mjs.map

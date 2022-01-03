@@ -940,8 +940,11 @@ var imports = {
   "react-dom": "https://unpkg.com/@spike.land/esm@0.5.14/dist/react-dom.mjs",
   "react-dom/server": "https://ga.jspm.io/npm:react-dom@18.0.0-rc.0-next-f2a59df48-20211208/server.browser.js",
   "react/jsx-runtime": "https://ga.jspm.io/npm:react@18.0.0-rc.0-next-f2a59df48-20211208/jsx-runtime.js",
+  "simple-text-compress": "https://ga.jspm.io/npm:simple-text-compress@0.1.1/src/index.js",
   "workbox-window": "https://ga.jspm.io/npm:workbox-window@6.4.2/build/workbox-window.prod.es5.mjs",
-  "framer-motion": "https://unpkg.com/@spike.land/esm@0.5.14/dist/framer-motion.mjs"
+  "framer-motion": "https://unpkg.com/@spike.land/esm@0.5.14/dist/framer-motion.mjs",
+  "textdiff-create": "https://unpkg.com/@spike.land/esm@0.4.33/dist/textdiff-create.mjs",
+  "textdiff-patch": "https://unpkg.com/@spike.land/esm@0.4.33/dist/textdiff-patch.mjs"
 };
 var scopes = {
   "https://ga.jspm.io/": {
@@ -5482,6 +5485,16 @@ var Code = class {
               "Content-Type": "application/json; charset=UTF-8"
             }
           });
+        case "delta":
+          const delta = await this.kv.get("delta");
+          return new Response(JSON.stringify(delta || {}), {
+            status: 200,
+            headers: {
+              "Access-Control-Allow-Origin": "*",
+              "Cache-Control": "no-cache",
+              "Content-Type": "application/json; charset=UTF-8"
+            }
+          });
         case "lazy":
           const { html, css, transpiled } = mST().toJSON();
           const hash2 = this.state.mySession.hashCode();
@@ -5654,6 +5667,11 @@ var Code = class {
         }
         if (data.type && (data.type === "new-ice-candidate" || data.type === "video-offer" || data.type === "video-answer")) {
           this.user2user(data.target, { name: session2.name, ...data });
+          return;
+        }
+        if (data.type && data.type === "delta") {
+          const delta = data.delta;
+          await this.kv.put("delta", delta);
           return;
         }
         if (data.patch && data.oldHash === this.state.mySession.hashCode()) {
