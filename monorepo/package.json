@@ -22,10 +22,9 @@
     "importmap": "cd packages/code && yarn importmap",
     "push": "yarn && yarn build:editor && yarn build:code && cd .. && git add . && (git commit -m pre-release || echo nothing) && git push && git pull",
     "release": "lerna publish patch --yes && yarn push",
-    "clean": "lerna run clean --parallel --since main",
-    "pre:build": "lerna run prebuild --parallel --since main",
-    "build": "yarn pre:build && lerna run build --parallel --since main --no-bail",
-    "re:build": "lerna run clean --parallel && yarn build"
+    "clean": "lerna run clean --parallel",
+    "build": "lerna run build --parallel --since main --no-bail",
+    "re:build": "yarn clean && yarn build"
   },
   "dependencies": {
   
@@ -35,8 +34,6 @@
     "workbox-window": "6.4.2"
   },
   "devDependencies": {
-    "axios": "0.24.0",
-    "console-log-json": "2.8.0",
     "csstype": "3.0.10",
     "eslint-plugin-react": "7.28.0",
     "open-cli": "^7.0.1",
