@@ -48,6 +48,7 @@ export const run = async (injectedRoom) => {
     window.deltas = deltas;
 
     // const compressed = compress(JSON.stringify(deltas));
+    window.aniStart = Date.now()-window.aniStart
     setTimeout(async () => {
       clearInterval(interV);
 
