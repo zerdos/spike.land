@@ -16,8 +16,8 @@ export const run = async (injectedRoom) => {
       `https://code.spike.land/api/room/${room}/js`
     )).default;
 
-    //    const createDelta = (await import("textdiff-create")).default;
-    const applyDelta = (await import("textdiff-patch")).default;
+    const createDelta = (await import("textdiff-create")).default;
+    // const applyDelta = (await import("textdiff-patch")).default;
 
     const { compress, decompress } = await import("simple-text-compress");
 
@@ -46,7 +46,6 @@ export const run = async (injectedRoom) => {
     window.deltas = deltas;
 
     // const compressed = compress(JSON.stringify(deltas));
-
     setTimeout(async () => {
       clearInterval(interV);
 
@@ -124,7 +123,7 @@ export const run = async (injectedRoom) => {
         root.innerHTML =
           `<style>${session.css}</style><div id="zbody">${session.html}</div>`;
       }
-
+      window.aniStart = Date.now();
       if (deltas && deltas.length) {
         //   const st = document.createElement("style");
         //   st.innerHTML = session.css;
