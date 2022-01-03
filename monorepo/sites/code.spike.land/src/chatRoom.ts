@@ -129,6 +129,12 @@ export class Code {
         case "delta":
           const delta = await this.kv.get("delta");
 
+          if (!delta || delta.hashCode !==  this.state.mySession.hashCode()) {
+            delta = [];
+          } else {
+            delta = delta.delta;
+          }
+
           return new Response(JSON.stringify(delta || {}) , {
               status: 200,
               headers: {
@@ -429,7 +435,7 @@ export class Code {
           (data.type === "delta")
         ) {
           const delta = data.delta;
-          await this.kv.put("delta", delta);
+          await this.kv.put("delta", {delta, hashCode: this.state.mySession.hashCode()});
           // this.user2user(data.target, { name: session.name, ...data });
           return;
         }
