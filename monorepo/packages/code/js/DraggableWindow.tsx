@@ -360,6 +360,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
                 {errorText
                   ? (
                     <div
+                      id="zbody"
                       css={`${session.css}`}
                       dangerouslySetInnerHTML={createMarkup(session.html)}
                     />

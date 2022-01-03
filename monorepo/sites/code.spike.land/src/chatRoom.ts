@@ -133,7 +133,7 @@ export class Code {
               status: 200,
               headers: {
                 "Access-Control-Allow-Origin": "*",
-              "Cache-Control": "no-cache",
+                 "Cache-Control": "no-cache",
                 "Content-Type": "application/json; charset=UTF-8",
               },
             });

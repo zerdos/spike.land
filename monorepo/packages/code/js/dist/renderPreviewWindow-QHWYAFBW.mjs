@@ -12741,6 +12741,7 @@ var DraggableWindow = ({ onShare, onRestore, position, session, keepFullScreen, 
                   }
               `
   }, errorText ? /* @__PURE__ */ jsx2("div", {
+    id: "zbody",
     css: `${session.css}`,
     dangerouslySetInnerHTML: createMarkup(session.html)
   }) : /* @__PURE__ */ jsx2("div", {
@@ -12830,4 +12831,4 @@ var renderPreviewWindow = async (session, room, keepFullScreen) => {
 export {
   renderPreviewWindow
 };
-//# sourceMappingURL=renderPreviewWindow-YXBUE5K6.mjs.map
+//# sourceMappingURL=renderPreviewWindow-QHWYAFBW.mjs.map

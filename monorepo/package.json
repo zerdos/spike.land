@@ -22,7 +22,7 @@
     "push": "yarn build:editor && yarn build:code && cd .. && git add . && (git commit -m pre-release || echo nothing) && git push && git pull",
     "release": "lerna publish patch --yes && yarn push",
     "clean": "lerna run clean --parallel",
-    "build": "lerna run build --parallel --no-bail",
+    "build": "lerna run build --parallel --since main --no-bail",
     "re:build": "yarn clean && yarn build"
   },
   "dependencies": {},

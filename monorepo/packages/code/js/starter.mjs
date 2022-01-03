@@ -16,7 +16,7 @@ export const run = async (injectedRoom) => {
       `https://code.spike.land/api/room/${room}/js`
     )).default;
 
-    const createDelta = (await import("textdiff-create")).default;
+    //    const createDelta = (await import("textdiff-create")).default;
     const applyDelta = (await import("textdiff-patch")).default;
 
     const { compress, decompress } = await import("simple-text-compress");
@@ -123,7 +123,6 @@ export const run = async (injectedRoom) => {
         container = document.getElementById("root");
         root.innerHTML =
           `<style>${session.css}</style><div id="zbody">${session.html}</div>`;
-        container = document.getElementById("zbody");
       }
 
       //   const st = document.createElement("style");
@@ -169,12 +168,11 @@ export const run = async (injectedRoom) => {
 
         // newDiv.innerHTML = `<div>${next}</div>`;
 
-        // document.getElementById("zbodyw").replaceWith(newDiv);
+        document.getElementById("zbody").innerHTML = next;
         // console.log(next);
         //    document.removeChild(container);
         // console.log(next);
-        container.innerHTML =
-          `<style>${session.css}</style><div id="zbody">${next}</div>`;
+        // zbod
       }, 1000 / 60);
       //  document.appendChild(container);
     })();
