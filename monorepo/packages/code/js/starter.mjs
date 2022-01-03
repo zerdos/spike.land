@@ -125,14 +125,14 @@ export const run = async (injectedRoom) => {
           `<style>${session.css}</style><div id="zbody">${session.html}</div>`;
       }
 
-
-      window.aniStart = Date.now();
+      
       if(deltas && deltas.length){
 
       //   const st = document.createElement("style");
       //   st.innerHTML = session.css;
 
       const html = session.html;
+
       //   const applied = applyDelta(html, deltas[0]);
       //   container.innerHTML = session.html;
       // `<style>${session.css}</style><div>${session.html}</div>`;
@@ -179,6 +179,18 @@ export const run = async (injectedRoom) => {
         // zbod
       }, 1000 / 60);
       //  document.appendChild(container);
+    } else {
+
+      const App = (await import(
+        `https://code.spike.land/api/room/${room}/js`
+      )).default;
+  
+      const { jsx } = await import("@emotion/react");
+
+      const container = document.querySelector("#zbody");
+
+      const root = ReactDOM.hydrateRoot(container, jsx(App));
+      
     })();
   }
 
