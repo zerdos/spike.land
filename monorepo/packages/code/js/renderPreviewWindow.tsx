@@ -33,6 +33,7 @@ export const renderPreviewWindow = async (
   // target  .innerHTML = html;
 
   const { createRoot } = await import("react-dom");
+  const diffy = window.diffy = Date.now() - window.aniStart;
 
   // Target  .innerHTML = html;
 
@@ -52,8 +53,6 @@ export const renderPreviewWindow = async (
       room={room}
     />,
   );
-
-  const diffy = window.diffy = Date.now() - window.aniStart;
 
   console.log({ diffy });
 

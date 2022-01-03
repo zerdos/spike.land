@@ -12821,6 +12821,7 @@ var renderPreviewWindow = async (session, room, keepFullScreen) => {
   const editor = document.querySelector("#shadowEditor");
   editor.style.opacity = "0";
   const { createRoot } = await import("https://unpkg.com/@spike.land/esm@0.5.14/dist/react-dom.mjs");
+  const diffy = window.diffy = Date.now() - window.aniStart;
   const root = createRoot(target, {});
   await wait(2e3 - diffy);
   root.render(/* @__PURE__ */ jsx3(DraggableWindow, {
@@ -12834,7 +12835,6 @@ var renderPreviewWindow = async (session, room, keepFullScreen) => {
     keepFullScreen,
     room
   }));
-  const diffy = window.diffy = Date.now() - window.aniStart;
   console.log({ diffy });
   target.style.opacity = "0";
   document.body.append(target);
