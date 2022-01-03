@@ -79,7 +79,13 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
 
   const startPositions = { bottom: -40, right: -90 };
 
-  session.setChild = setChild;
+  session.setChild = (ch) => {
+    zbody && zbody.current && zbody.current.contentWindow &&
+      zbody.current.contentWindow.postMessage(
+        session.transpiled,
+      );
+    setChild(ch);
+  };
 
   const [qrUrl, setQRUrl] = useState(session.url);
   const [errorText, setErrorText] = useState("");
@@ -88,7 +94,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
   const [width, setWidth] = useState(window.innerWidth * devicePixelRatio);
   const [height, setHeight] = useState(window.innerHeight * devicePixelRatio);
   const ref = useRef<HTMLDivElement>(null);
-  const zbody = useRef<HTMLDivElement>(null);
+  const zbody = useRef<HTMLIFrameElement>(null);
 
   const child = childArray[childArray.length - 1];
 
@@ -365,32 +371,19 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
                     />
                   )
                   : (
-                    <div
-                      id="zbody"
-                      key={session.i}
-                      ref={zbody}
-                      css={css`q
-                        height: 100%;
-                      `}
-                    >
-                      {child}
-                    </div>
-                  )} {
-                  /*  </div>
-                   // {/* </div>
                     <iframe
+                      ref={zbody}
                       frameborder="0"
                       scrolling="no"
                       css={css`
-                      height: 100%;
-                    `}
+                    height: 100%;
+                    width: 100%;
+                  `}
                       onLoad={(e) => {
-                        console.log(e.target);
-                        console.log(e.target.document);
                       }}
                       src={`https://code.spike.land/api/room/${room}/hydrated`}
-                    /> */
-                }
+                    />
+                  )}
               </motion.div>
             </motion.div>
             <ToggleButtonGroup

@@ -12554,7 +12554,10 @@ var DraggableWindow = ({ onShare, onRestore, position, session, keepFullScreen, 
     })
   ]);
   const startPositions = { bottom: -40, right: -90 };
-  session.setChild = setChild;
+  session.setChild = (ch) => {
+    zbody && zbody.current && zbody.current.contentWindow && zbody.current.contentWindow.postMessage(session.transpiled);
+    setChild(ch);
+  };
   const [qrUrl, setQRUrl] = useState(session.url);
   const [errorText, setErrorText] = useState("");
   const [{ bottom, right }, setPositions] = useState(startPositions);
@@ -12744,14 +12747,18 @@ var DraggableWindow = ({ onShare, onRestore, position, session, keepFullScreen, 
     id: "zbody",
     css: `${session.css}`,
     dangerouslySetInnerHTML: createMarkup(session.html)
-  }) : /* @__PURE__ */ jsx2("div", {
-    id: "zbody",
-    key: session.i,
+  }) : /* @__PURE__ */ jsx2("iframe", {
     ref: zbody,
-    css: css2`q
-                        height: 100%;
-                      `
-  }, child), " ")), /* @__PURE__ */ jsx2(b16, {
+    frameborder: "0",
+    scrolling: "no",
+    css: css2`
+                    height: 100%;
+                    width: 100%;
+                  `,
+    onLoad: (e5) => {
+    },
+    src: `https://code.spike.land/api/room/${room}/hydrated`
+  }))), /* @__PURE__ */ jsx2(b16, {
     value: width,
     size: "small",
     exclusive: true,
@@ -12825,4 +12832,4 @@ var renderPreviewWindow = async (session, room, keepFullScreen) => {
 export {
   renderPreviewWindow
 };
-//# sourceMappingURL=renderPreviewWindow-D2RHJNFC.mjs.map
+//# sourceMappingURL=renderPreviewWindow-VPUYEEK3.mjs.map

@@ -39,7 +39,44 @@
   },
   noLoadEventRetriggers: true,
   skip: "/^https?:\/\/(cdn\.skypack\.dev|jspm\.dev)\//`"
-     } </script>
+     }
+     
+
+     window.addEventListener("message", (event) => {
+  if (event.origin !== "http://code.spike.land")
+    return;
+    const AppJsx = jsx(getApp(event.data));
+    
+    ReactDOM.hydrateRoot(document.getElementById("zbody", AppJsx));
+    console.log(k);
+
+
+    function createJsBlob(code) {
+  const blob = new Blob([code], { type: "application/javascript" });
+
+  return URL.createObjectURL(blob);
+}
+
+async function getApp(transpiled, mode = "window") {
+  const codeToHydrate = mode === "window"
+    ? transpiled.replace("body{", "#zbody{")
+    : transpiled;
+
+  const objectUrl = createJsBlob(
+    codeToHydrate,
+  );
+
+  const App = (await import(objectUrl)).default;
+
+  URL.revokeObjectURL(objectUrl);
+
+  return App;
+}
+
+  // ...
+}, false);
+     
+     </script>
   <script async src="./vendor/es-module-shims.wasm.js"></script>
   <title>Instant React Editor</title>
   
