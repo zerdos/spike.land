@@ -10,13 +10,6 @@ import { motion as motion2 } from "https://unpkg.com/@spike.land/esm@0.5.14/dist
 import { css, jsx } from "https://unpkg.com/@spike.land/esm@0.5.14/dist/emotion-react.mjs";
 import { motion } from "https://unpkg.com/@spike.land/esm@0.5.14/dist/framer-motion.mjs";
 import React2 from "https://unpkg.com/@spike.land/esm@0.5.14/dist/react.mjs";
-async function wait(delay) {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve();
-    }, delay);
-  });
-}
 var { React } = window;
 var { Suspense } = React;
 var LazySpikeLandComponent = ({ name, html, hash: hash2, transpiled }) => {
@@ -12538,6 +12531,13 @@ var QRButton = ({ url }) => {
     }
   }, /* @__PURE__ */ jsx(QrCode, null)));
 };
+async function wait(delay) {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve();
+    }, delay);
+  });
+}
 var breakPoints = [680, 768, 1920];
 var breakPointHeights = [1137, 1024, 1080];
 var sizes = [10, 25, 50, 75, 100, 150];
@@ -12831,4 +12831,4 @@ var renderPreviewWindow = async (session, room, keepFullScreen) => {
 export {
   renderPreviewWindow
 };
-//# sourceMappingURL=renderPreviewWindow-LQU6EUBQ.mjs.map
+//# sourceMappingURL=renderPreviewWindow-MTVFCTMM.mjs.map

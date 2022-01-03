@@ -10,15 +10,6 @@ import React3, {
 } from "https://unpkg.com/@spike.land/esm@0.5.14/dist/react.mjs";
 import { motion as motion2 } from "https://unpkg.com/@spike.land/esm@0.5.14/dist/framer-motion.mjs";
 
-// js/wait.ts
-async function wait(delay) {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve();
-    }, delay);
-  });
-}
-
 // js/LazyLoadedComponent.tsx
 var { React } = window;
 var { Suspense } = React;
@@ -12552,6 +12543,15 @@ var QRButton = ({ url }) => {
     }
   }, /* @__PURE__ */ jsx(QrCode, null)));
 };
+
+// js/wait.ts
+async function wait(delay) {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve();
+    }, delay);
+  });
+}
 
 // js/DraggableWindow.tsx
 var breakPoints = [680, 768, 1920];

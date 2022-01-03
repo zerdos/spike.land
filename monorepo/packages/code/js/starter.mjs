@@ -89,115 +89,97 @@ export const run = async (injectedRoom) => {
     }, 2000);
 
     return;
-  } else {
-    (async () => {
-      // const App = (await import(
-      //   `https://code.spike.land/api/room/zoli/js`,
-      // )).default;
+  } else if (location.pathname.endsWith("stream")) {
+    // const App = (await import(
+    //   `https://code.spike.land/api/room/zoli/js`,
+    // )).default;
 
-      const applyDelta = (await import(
-        "https://unpkg.com/@spike.land/esm@0.4.33/dist/textdiff-patch.mjs"
-      )).default;
+    const applyDelta = (await import(
+      "https://unpkg.com/@spike.land/esm@0.4.33/dist/textdiff-patch.mjs"
+    )).default;
 
-      const resp = await fetch(
-        `https://code.spike.land/api/room/${room}/delta`,
+    // const resp = await fetch(
+    //   `https://code.spike.land/api/room/${room}/delta`,
+    //      );
+    const deltas = window.deltas = await resp.json();
+
+    //   const { jsx } = emotionReact;
+
+    //   const { ReactDOM } = window;
+
+    //  const container = document.createElement("div");
+    //  container.id = "upgrade-me";
+    // document.body.appendChild(container);
+
+    let container = document.getElementById("zbody");
+
+    if (!container) {
+      const respS = await fetch(
+        `https://code.spike.land/api/room/${room}/session`,
       );
-      const deltas = await resp.json();
+      const session = await respS.json();
+      container = document.getElementById("root");
+      container.innerHTML =
+        `<style>${session.css}</style><div id="zbody">${session.html}</div>`;
+      container = document.getElementById("zbody");
+    }
 
-      //   const { jsx } = emotionReact;
+    if (deltas && deltas.length) {
+      //   const st = document.createElement("style");
+      //   st.innerHTML = session.css;
 
-      //   const { ReactDOM } = window;
+      const html = container.innerHTML;
 
-      //  const container = document.createElement("div");
-      //  container.id = "upgrade-me";
-      // document.body.appendChild(container);
+      //   const applied = applyDelta(html, deltas[0]);
+      //   container.innerHTML = session.html;
+      // `<style>${session.css}</style><div>${session.html}</div>`;
 
-      let container = document.getElementById("zbody");
+      //  const root = ReactDOM.createRoot(target);
 
-      if (!container) {
-        const respS = await fetch(
-          `https://code.spike.land/api/room/${room}/session`,
-        );
-        const session = await respS.json();
-        container = document.getElementById("root");
-        container.innerHTML =
-          `<style>${session.css}</style><div id="zbody">${session.html}</div>`;
-        container = document.getElementById("zbody");
-      }
+      //   root.render(jsx(App));
 
-      if (deltas && deltas.length) {
-        //   const st = document.createElement("style");
-        //   st.innerHTML = session.css;
+      //   document.body.appendChild(st);
 
-        const html = container.innerHTML;
+      //  document.body.appendChild(container);
 
-        //   const applied = applyDelta(html, deltas[0]);
-        //   container.innerHTML = session.html;
-        // `<style>${session.css}</style><div>${session.html}</div>`;
+      //   const zBody = container;
 
-        //  const root = ReactDOM.createRoot(target);
-
-        //   root.render(jsx(App));
-
-        //   document.body.appendChild(st);
-
-        //  document.body.appendChild(container);
-
-        //   const zBody = container;
-
-        let i = 0;
-        let last = html;
-        const deltasLength = deltas.length;
-        const animationLength = (2000 - (Date.now() - window.aniStart)) /
-          deltas.length;
-        console.log({ animationLength });
-        const clInt = setInterval(() => {
-          if (i >= deltas.length) {
-            clearInterval(clInt);
-            return;
-          }
-          const index = i % deltasLength;
-          if (index === 0) last = html;
-          //
-          i++;
-          const delta = deltas[index];
-          if (!delta) return;
-          const next = applyDelta(last, delta);
-          last = next;
-
-          // const newDiv = document.createElement("div");
-          // newDiv.id = "zbodyw";
-          // newDiv.setAttribute("id", "zbodyw");
-
-          // newDiv.innerHTML = `<div>${next}</div>`;
-
-          container.innerHTML = next;
-
-          // console.log(next);
-          //    document.removeChild(container);
-          // console.log(next);
-          // zbod
-        }, animationLength);
-        //  document.appendChild(container);
-      } else {
-        const App = (await import(
-          `https://code.spike.land/api/room/${room}/js`
-        )).default;
-
-        const { jsx } = await import("@emotion/react");
-
-        let container = document.querySelector("#zbody");
-
-        if (!container) {
-          container = document.getElementById("root");
-          container.innerHTML =
-            `<style>${session.css}</style><div id="zbody">${session.html}</div>`;
-          let container = document.querySelector("#zbody");
+      let i = 0;
+      let last = html;
+      // const deltasLength = deltas.length;
+      // const animationLength = (2000 - (Date.now() - window.aniStart)) /
+      //   deltas.length;
+      // console.log({ animationLength });
+      const clInt = setInterval(() => {
+        if (i >= deltas.length) {
+          clearInterval(clInt);
+          return;
         }
+        const index = i % deltasLength;
+        if (index === 0) last = html;
+        //
+        i++;
+        const delta = deltas[index];
+        if (!delta) return;
+        const next = applyDelta(last, delta);
+        last = next;
 
-        ReactDOM.hydrateRoot(container, jsx(App));
-      }
-    })();
+        // const newDiv = document.createElement("div");
+        // newDiv.id = "zbodyw";
+        // newDiv.setAttribute("id", "zbodyw");
+
+        // newDiv.innerHTML = `<div>${next}</div>`;
+
+        container.innerHTML = next;
+
+        // console.log(next);
+        //    document.removeChild(container);
+        // console.log(next);
+        // zbod
+      }, 1000 / 60);
+      //  document.appendChild(container);
+    } else {
+    }
   }
 
   const user = ((self && self.crypto && self.crypto.randomUUID &&

@@ -9,10 +9,8 @@ import React, {
   useRef,
   useState,
 } from "react";
-// @ts-expect-error
 import type { FC } from "react";
 import { motion } from "framer-motion";
-import { wait } from "./wait.ts";
 // @ts-expect-error
 import { LazySpikeLandComponent } from "./LazyLoadedComponent.tsx";
 
@@ -30,6 +28,7 @@ import {
 
 // @ts-expect-error
 import { QRButton } from "./Qr.tsx";
+import { wait } from "./wait";
 
 // Import { breakpoints } from "@mui/system";
 
