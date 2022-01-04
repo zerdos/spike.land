@@ -1,10 +1,10 @@
-import { renderApp } from './index.server';
-import { getAssetFromKV } from '@cloudflare/kv-asset-handler';
-import symbols from '../server/build/q-symbols.json';
+import { renderApp } from "./index.server";
+import { getAssetFromKV } from "@cloudflare/kv-asset-handler";
+import symbols from "../server/build/q-symbols.json";
 
 const CACHING = true;
 
-addEventListener('fetch', (event: any) => {
+addEventListener("fetch", (event: any) => {
   event.respondWith(handleRequest(event));
 });
 
@@ -22,7 +22,7 @@ async function handleRequest(event: any) {
 }
 
 async function handleQwik(event: any, request: Request) {
-  const cache = await caches.open('custom:qwik');
+  const cache = await caches.open("custom:qwik");
   if (CACHING) {
     const cachedResponse = await cache.match(request);
     if (cachedResponse) {
@@ -37,8 +37,8 @@ async function handleQwik(event: any, request: Request) {
 
   const response = new Response(ssrResult.html, {
     headers: {
-      'Content-Type': 'text/html; charset=utf-8',
-      'Cache-Control': `max-age=${60}`,
+      "Content-Type": "text/html; charset=utf-8",
+      "Cache-Control": `max-age=${60}`,
     },
   });
   if (CACHING) {
@@ -52,22 +52,22 @@ async function handleStaticAssets(event: any, url: URL) {
     // Server static file
     const options = CACHING
       ? {
-          cacheControl(req: Request) {
-            const inmmutable = /\/q-\w+\.\w+$/.test(req.url);
-            if (inmmutable) {
-              return {
-                browserTTL: 31536000,
-                edgeTTL: 31536000,
-                bypassCache: false,
-              };
-            }
+        cacheControl(req: Request) {
+          const inmmutable = /\/q-\w+\.\w+$/.test(req.url);
+          if (inmmutable) {
             return {
-              browserTTL: 60 * 60,
-              edgeTTL: 60,
+              browserTTL: 31536000,
+              edgeTTL: 31536000,
               bypassCache: false,
             };
-          },
-        }
+          }
+          return {
+            browserTTL: 60 * 60,
+            edgeTTL: 60,
+            bypassCache: false,
+          };
+        },
+      }
       : undefined;
 
     const staticResponse = await getAssetFromKV(event, options);
@@ -76,7 +76,7 @@ async function handleStaticAssets(event: any, url: URL) {
     // Handle 404
     return new Response(`"${url.pathname}" not found`, {
       status: 404,
-      statusText: 'not found',
+      statusText: "not found",
     });
   }
 }

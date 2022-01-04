@@ -1,4 +1,4 @@
-import { qObject } from '@builder.io/qwik';
+import { qObject } from "@builder.io/qwik";
 
 ////////////////////////////////////////////////////////////////////////
 // Todo Application State Interfaces
@@ -41,8 +41,8 @@ export function clearCompleted(todos: Todos) {
 // Todo Application State Filter Functions
 ////////////////////////////////////////////////////////////////////////
 
-export type FilterStates = 'all' | 'active' | 'completed';
-export const FilterStates: FilterStates[] = ['all', 'active', 'completed'];
+export type FilterStates = "all" | "active" | "completed";
+export const FilterStates: FilterStates[] = ["all", "active", "completed"];
 export const FILTERS = {
   all: () => true,
   active: (i: TodoItem) => i.completed == false,

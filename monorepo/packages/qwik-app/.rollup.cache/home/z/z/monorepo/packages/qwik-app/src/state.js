@@ -1,4 +1,4 @@
-import { qObject } from '@builder.io/qwik';
+import { qObject } from "@builder.io/qwik";
 ////////////////////////////////////////////////////////////////////////
 // Todo Application State Mutation Functions
 ////////////////////////////////////////////////////////////////////////
@@ -18,7 +18,7 @@ export function clearCompleted(todos) {
     todos.items = todos.items.filter(FILTERS.active);
     updateFilter(todos);
 }
-export const FilterStates = ['all', 'active', 'completed'];
+export const FilterStates = ["all", "active", "completed"];
 export const FILTERS = {
     all: () => true,
     active: (i) => i.completed == false,

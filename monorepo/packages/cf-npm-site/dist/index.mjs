@@ -23,9 +23,8 @@ function src_default(packageName, version, serveDir = "") {
         }
       });
       const origResp = await fetch(newReq);
-      if (!origResp.ok) {
+      if (!origResp.ok)
         return origResp;
-      }
       const cloned = origResp.clone();
       const resp = new Response(cloned.body, {
         headers: {

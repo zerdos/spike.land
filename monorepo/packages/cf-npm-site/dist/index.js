@@ -23,22 +23,22 @@ export default function (packageName, version, serveDir = "") {
             const reqCloned = request.clone();
             const newReq = new Request(`https://unpkg.com/${packageName}${targetPath}`, {
                 headers: {
-                    ...reqCloned.headers
-                }
+                    ...reqCloned.headers,
+                },
             });
             const origResp = await fetch(newReq);
-            if (!origResp.ok) {
+            if (!origResp.ok)
                 return origResp;
-            }
             const cloned = origResp.clone();
             const resp = new Response(cloned.body, {
                 headers: {
                     ...cloned.headers,
-                    "Cache-Control": "no-cache"
-                }
+                    "Cache-Control": "no-cache",
+                },
             });
             // ich
-            if (pathname.endsWith(".mjs") || pathname.endsWith(".js") || pathname.endsWith(".ts") || pathname.endsWith(".tsx")) {
+            if (pathname.endsWith(".mjs") || pathname.endsWith(".js") ||
+                pathname.endsWith(".ts") || pathname.endsWith(".tsx")) {
                 resp.headers.delete("content-type");
                 resp.headers.set("content-type", "text/javascript;charset=UTF-8");
             }

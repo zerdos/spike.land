@@ -15,5 +15,5 @@ export declare function fetchSignal(signal: string, _retry: number): any;
  * @param {string} data
  */
 export declare function sendSignal(signal: string, data: Object): Promise<{
-    success: boolean;
+  success: boolean;
 }>;

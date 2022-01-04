@@ -30,32 +30,37 @@ export default function (
       } else if (pathname.indexOf(".") === -1) {
         targetPath = `${uri}/index.html`;
       }
-      
-      const reqCloned = request.clone()
 
-      const newReq = new Request(`https://unpkg.com/${packageName}${targetPath}`, {
-        headers: {
-          ...reqCloned.headers
-        }
-      })
+      const reqCloned = request.clone();
 
-      const origResp =await fetch(newReq);
+      const newReq = new Request(
+        `https://unpkg.com/${packageName}${targetPath}`,
+        {
+          headers: {
+            ...reqCloned.headers,
+          },
+        },
+      );
 
-      if (!origResp.ok) {return origResp;}
+      const origResp = await fetch(newReq);
 
+      if (!origResp.ok) return origResp;
 
       const cloned = origResp.clone();
 
-      const resp =  new Response(cloned.body, {
+      const resp = new Response(cloned.body, {
         headers: {
           ...cloned.headers,
-          "Cache-Control": "no-cache"
-        }});
+          "Cache-Control": "no-cache",
+        },
+      });
 
+      // ich
 
-        // ich
-
-      if (pathname.endsWith(".mjs") || pathname.endsWith(".js") || pathname.endsWith(".ts") || pathname.endsWith(".tsx")){
+      if (
+        pathname.endsWith(".mjs") || pathname.endsWith(".js") ||
+        pathname.endsWith(".ts") || pathname.endsWith(".tsx")
+      ) {
         resp.headers.delete("content-type");
         resp.headers.set(
           "content-type",

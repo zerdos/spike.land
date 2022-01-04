@@ -10,7 +10,7 @@
 // let initFinished = false;
 
 // export const transform = async (code) => {
-  
+
 //   if (!initFinished) {
 //     await init;
 //     initFinished = true;
@@ -21,6 +21,5 @@
 //     target: "es2018",
 //   });
 
-  
 //   return result.code;
 // };

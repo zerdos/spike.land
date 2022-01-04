@@ -25,29 +25,29 @@ import ElementService from "qrious-core/src/service/element/ElementService";
  * @extends ElementService
  */
 var BrowserElementService = ElementService.extend({
-    /**
-     * @override
-     */
-    createCanvas: function () {
-        return document.createElement("canvas");
-    },
-    /**
-     * @override
-     */
-    createImage: function () {
-        return document.createElement("img");
-    },
-    /**
-     * @override
-     */
-    isCanvas: function (element) {
-        return element instanceof HTMLCanvasElement;
-    },
-    /**
-     * @override
-     */
-    isImage: function (element) {
-        return element instanceof HTMLImageElement;
-    },
+  /**
+   * @override
+   */
+  createCanvas: function () {
+    return document.createElement("canvas");
+  },
+  /**
+   * @override
+   */
+  createImage: function () {
+    return document.createElement("img");
+  },
+  /**
+   * @override
+   */
+  isCanvas: function (element) {
+    return element instanceof HTMLCanvasElement;
+  },
+  /**
+   * @override
+   */
+  isImage: function (element) {
+    return element instanceof HTMLImageElement;
+  },
 });
 export default BrowserElementService;

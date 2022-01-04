@@ -11733,50 +11733,50 @@ THE SOFTWARE.
  */
 
 const ToDoApp = /*#__PURE__*/ qComponent({
-    tagName: 'todo',
+    tagName: "todo",
     onRender: qHook(()=>Promise.resolve().then(function () { return entry_hooks; })
     , "ToDoApp_onRender")
 });
 const Header = /*#__PURE__*/ qComponent({
-    tagName: 'header',
+    tagName: "header",
     onMount: qHook(()=>Promise.resolve().then(function () { return entry_hooks; })
     , "Header_onMount"),
     onRender: qHook(()=>Promise.resolve().then(function () { return entry_hooks; })
     , "Header_onRender")
 });
 const Main = /*#__PURE__*/ qComponent({
-    tagName: 'main',
+    tagName: "main",
     onRender: qHook(()=>Promise.resolve().then(function () { return entry_hooks; })
     , "Main_onRender")
 });
 const Item = /*#__PURE__*/ qComponent({
-    tagName: 'li',
+    tagName: "li",
     onMount: qHook(()=>Promise.resolve().then(function () { return entry_hooks; })
     , "Item_onMount"),
     onRender: qHook(()=>Promise.resolve().then(function () { return entry_hooks; })
     , "Item_onRender")
 });
 const Footer = /*#__PURE__*/ qComponent({
-    tagName: 'footer',
+    tagName: "footer",
     onRender: qHook(()=>Promise.resolve().then(function () { return entry_hooks; })
     , "Footer_onRender")
 });
 
 function renderApp(opts) {
     const todos = {
-        filter: 'all',
+        filter: "all",
         items: [
             {
                 completed: false,
-                title: 'Read Qwik docs'
+                title: "Read Qwik docs"
             },
             {
                 completed: false,
-                title: 'Build HelloWorld'
+                title: "Build HelloWorld"
             },
             {
                 completed: false,
-                title: 'Profit'
+                title: "Profit"
             }, 
         ]
     };
@@ -12200,21 +12200,21 @@ exports.getAssetFromKV = getAssetFromKV;
 }(dist));
 
 var mapping = {
-	ToDoApp_onRender: "q-9fb4b746.js",
-	Header_onMount: "q-77f718e4.js",
-	Header_onRender_on_keyup: "q-60537fac.js",
-	Header_onRender: "q-857d0697.js",
-	Main_onRender: "q-316f4d9a.js",
+	ToDoApp_onRender: "q-142c900a.js",
+	Header_onMount: "q-bf7959e9.js",
+	Header_onRender_on_keyup: "q-ed22ffa0.js",
+	Header_onRender: "q-815cf312.js",
+	Main_onRender: "q-ab1c9963.js",
 	Item_onMount: "q-de4b674d.js",
-	Item_onRender_on_click: "q-4ef5fb14.js",
-	Item_onRender_on_dblclick: "q-4c8f5d0a.js",
-	Item_onRender_on_click9: "q-1300344e.js",
+	Item_onRender_on_click: "q-977bec94.js",
+	Item_onRender_on_dblclick: "q-4f6ed4aa.js",
+	Item_onRender_on_click9: "q-f85f5899.js",
 	Item_onRender_on_blur: "q-a9d27d39.js",
-	Item_onRender_on_keyup: "q-b71e65d4.js",
-	Item_onRender: "q-c9586777.js",
-	Footer_onRender_Filter_on_click: "q-c796cbf6.js",
-	Footer_onRender_on_click: "q-10e95e1c.js",
-	Footer_onRender: "q-0dc0690e.js"
+	Item_onRender_on_keyup: "q-073bc247.js",
+	Item_onRender: "q-b55c4899.js",
+	Footer_onRender_Filter_on_click: "q-ee2c36da.js",
+	Footer_onRender_on_click: "q-89db8224.js",
+	Footer_onRender: "q-0e6e3265.js"
 };
 var version = "1";
 var symbols = {
@@ -12223,7 +12223,7 @@ var symbols = {
 };
 
 const CACHING = true;
-addEventListener('fetch', (event)=>{
+addEventListener("fetch", (event)=>{
     event.respondWith(handleRequest(event));
 });
 async function handleRequest(event) {
@@ -12235,7 +12235,7 @@ async function handleRequest(event) {
     return handleQwik(event, request);
 }
 async function handleQwik(event, request) {
-    const cache = await caches.open('custom:qwik');
+    const cache = await caches.open("custom:qwik");
     {
         const cachedResponse = await cache.match(request);
         if (cachedResponse) return cachedResponse;
@@ -12246,8 +12246,8 @@ async function handleQwik(event, request) {
     });
     const response = new Response(ssrResult.html, {
         headers: {
-            'Content-Type': 'text/html; charset=utf-8',
-            'Cache-Control': `max-age=${60}`
+            "Content-Type": "text/html; charset=utf-8",
+            "Cache-Control": `max-age=${60}`
         }
     });
     event.waitUntil(cache.put(request, response.clone()));
@@ -12277,13 +12277,13 @@ async function handleStaticAssets(event, url) {
         // Handle 404
         return new Response(`"${url.pathname}" not found`, {
             status: 404,
-            statusText: 'not found'
+            statusText: "not found"
         });
     }
 }
 
 const ToDoApp_onRender = /*#__PURE__*/ qHook(({ todos  })=>{
-    console.log('on:qRender => <ToDoApp/>');
+    console.log("on:qRender => <ToDoApp/>");
     return h("section", {
         class: "todoapp"
     }, h(Header, {
@@ -12296,7 +12296,7 @@ const ToDoApp_onRender = /*#__PURE__*/ qHook(({ todos  })=>{
 });
 
 const Header_onMount = /*#__PURE__*/ qHook(()=>({
-        text: ''
+        text: ""
     })
 );
 
@@ -12321,9 +12321,9 @@ function clearCompleted(todos) {
     updateFilter(todos);
 }
 const FilterStates = [
-    'all',
-    'active',
-    'completed'
+    "all",
+    "active",
+    "completed"
 ];
 const FILTERS = {
     all: ()=>true
@@ -12346,14 +12346,14 @@ const Header_onRender_on_keyup = /*#__PURE__*/ qHook(({ todos  }, state)=>{
     const event = useEvent();
     const inputValue = (event.target).value;
     state.text = inputValue;
-    if (event.key === 'Enter' && inputValue) {
+    if (event.key === "Enter" && inputValue) {
         addItem(todos, state.text);
-        state.text = '';
+        state.text = "";
     }
 });
 
 const Header_onRender = /*#__PURE__*/ qHook((_, { text  })=>{
-    console.log('on:qRender => <Header/>');
+    console.log("on:qRender => <Header/>");
     return h(Fragment, null, h("h1", null, "todos"), h("input", {
         class: "new-todo",
         placeholder: "What needs to be done?",
@@ -12365,7 +12365,7 @@ const Header_onRender = /*#__PURE__*/ qHook((_, { text  })=>{
 });
 
 const Main_onRender = /*#__PURE__*/ qHook(({ todos  })=>{
-    console.log('on:qRender => <Main/>');
+    console.log("on:qRender => <Main/>");
     return h(Host, {
         class: "main"
     }, h("ul", {
@@ -12389,7 +12389,7 @@ const Item_onRender_on_dblclick = /*#__PURE__*/ qHook(async (props, state)=>{
     state.editing = true;
     const hostElement = useHostElement();
     await qNotifyRender(hostElement);
-    const inputEl = hostElement.querySelector('input.edit');
+    const inputEl = hostElement.querySelector("input.edit");
     inputEl.focus();
     inputEl.selectionStart = inputEl.selectionEnd = inputEl.value.length;
 });
@@ -12404,13 +12404,13 @@ const Item_onRender_on_keyup = /*#__PURE__*/ qHook(({ item  }, state)=>{
     const event = useEvent();
     const inputValue = (event.target).value;
     item.title = inputValue;
-    if (event.key === 'Enter') {
+    if (event.key === "Enter") {
         state.editing = false;
     }
 });
 
 const Item_onRender = /*#__PURE__*/ qHook(({ item  }, { editing  })=>{
-    console.log('on:qRender => <Item item="' + JSON.stringify(item, (key, value)=>(key.startsWith('__') ? undefined : value)
+    console.log('on:qRender => <Item item="' + JSON.stringify(item, (key, value)=>(key.startsWith("__") ? undefined : value)
     ) + '"/>');
     return h(Host, {
         class: {
@@ -12449,7 +12449,7 @@ const Footer_onRender_on_click = /*#__PURE__*/ qHook(({ todos  })=>clearComplete
 );
 
 const Footer_onRender = /*#__PURE__*/ qHook(({ todos  })=>{
-    console.log('on:qRender => <Footer/>');
+    console.log("on:qRender => <Footer/>");
     function Filter({ filter  }) {
         const lMode = filter.toLowerCase();
         return h("li", null, h("a", {
@@ -12467,7 +12467,7 @@ const Footer_onRender = /*#__PURE__*/ qHook(({ todos  })=>{
         class: "footer"
     }, todos.items.length > 0 ? h(Fragment, null, h("span", {
         class: "todo-count"
-    }, h("strong", null, remaining), remaining == 1 ? ' item' : ' items', " left"), h("ul", {
+    }, h("strong", null, remaining), remaining == 1 ? " item" : " items", " left"), h("ul", {
         class: "filters"
     }, FilterStates.map((f)=>h(Filter, {
             filter: f

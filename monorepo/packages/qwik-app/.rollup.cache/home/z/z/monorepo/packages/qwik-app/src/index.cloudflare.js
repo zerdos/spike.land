@@ -1,8 +1,8 @@
-import { renderApp } from './index.server';
-import { getAssetFromKV } from '@cloudflare/kv-asset-handler';
-import symbols from '../server/build/q-symbols.json';
+import { renderApp } from "./index.server";
+import { getAssetFromKV } from "@cloudflare/kv-asset-handler";
+import symbols from "../server/build/q-symbols.json";
 const CACHING = true;
-addEventListener('fetch', (event) => {
+addEventListener("fetch", (event) => {
     event.respondWith(handleRequest(event));
 });
 async function handleRequest(event) {
@@ -18,7 +18,7 @@ async function handleRequest(event) {
     }
 }
 async function handleQwik(event, request) {
-    const cache = await caches.open('custom:qwik');
+    const cache = await caches.open("custom:qwik");
     if (CACHING) {
         const cachedResponse = await cache.match(request);
         if (cachedResponse) {
@@ -31,8 +31,8 @@ async function handleQwik(event, request) {
     });
     const response = new Response(ssrResult.html, {
         headers: {
-            'Content-Type': 'text/html; charset=utf-8',
-            'Cache-Control': `max-age=${60}`,
+            "Content-Type": "text/html; charset=utf-8",
+            "Cache-Control": `max-age=${60}`,
         },
     });
     if (CACHING) {
@@ -69,7 +69,7 @@ async function handleStaticAssets(event, url) {
         // Handle 404
         return new Response(`"${url.pathname}" not found`, {
             status: 404,
-            statusText: 'not found',
+            statusText: "not found",
         });
     }
 }

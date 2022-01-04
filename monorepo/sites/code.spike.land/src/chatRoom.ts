@@ -9,8 +9,11 @@ import imap from "@spike.land/code/js/importmap.json";
 import applyDelta from "textdiff-patch";
 import { CodeEnv } from "./env";
 import type {
-  ICodeSess, IEvent, INewWSConnection,ICodeSession
-// @ts-expect-error
+  ICodeSess,
+  ICodeSession,
+  IEvent,
+  INewWSConnection,
+  // @ts-expect-error
 } from "@spike.land/code/js/session.tsx";
 // @ts-expect-error
 
@@ -31,7 +34,7 @@ interface ISession {
 }
 
 interface WebsocketSession {
-  uuid: string,
+  uuid: string;
   name?: string;
   webSocket: WebSocket;
   quit?: boolean;
@@ -51,56 +54,54 @@ export class Code {
     this.env = env;
     this.sessions = [];
 
-    const username =  self.crypto.randomUUID().substring(0,8);
-    
- 
+    const username = self.crypto.randomUUID().substring(0, 8);
 
     this.state.blockConcurrencyWhile(async () => {
       const sessionMaybeStr = await this.kv.get<ISession>("session");
 
-      let session: ISession =
-        typeof sessionMaybeStr === "string"
-          ? JSON.parse(sessionMaybeStr)
-          : sessionMaybeStr;
+      let session: ISession = typeof sessionMaybeStr === "string"
+        ? JSON.parse(sessionMaybeStr)
+        : sessionMaybeStr;
 
-      if (!session) {      
-      const codeMainId = env.CODE.idFromName("code-main");
-      const defaultRoomObject = env.CODE.get(codeMainId);
+      if (!session) {
+        const codeMainId = env.CODE.idFromName("code-main");
+        const defaultRoomObject = env.CODE.get(codeMainId);
 
-      const resp = await defaultRoomObject.fetch("session");
+        const resp = await defaultRoomObject.fetch("session");
 
-      session  = await resp.json();
-      await this.kv.put<ISession>("session", session);
+        session = await resp.json();
+        await this.kv.put<ISession>("session", session);
       }
 
-    this.state.mySession  = startSession("",{
-      name: username,
-      capabilities: {
-        prettier: false,
-        babel: false,
-        webRRT: false,
-        prerender:false,
-        IPFS: false
-      },
-      users: [],
-      state: { ...session, errorDiff: "" },
-      events: [],
-    });
+      this.state.mySession = startSession("", {
+        name: username,
+        capabilities: {
+          prettier: false,
+          babel: false,
+          webRRT: false,
+          prerender: false,
+          IPFS: false,
+        },
+        users: [],
+        state: { ...session, errorDiff: "" },
+        events: [],
+      });
 
       return;
     });
   }
 
   async fetch(request: Request) {
-    const mST =() => this.state.mySession.session.get("state");
+    const mST = () => this.state.mySession.session.get("state");
     return await handleErrors(request, async () => {
       let code = "";
       let patched = false;
 
       let url = new URL(request.url);
       const codeSpace = url.searchParams.get("room");
-      if (codeSpace && this.state.mySession.room ==="") this.state.mySession.setRoom(codeSpace);
-
+      if (codeSpace && this.state.mySession.room === "") {
+        this.state.mySession.setRoom(codeSpace);
+      }
 
       let path = url.pathname.slice(1).split("/");
 
@@ -116,53 +117,64 @@ export class Code {
           });
         }
         case "session":
-          return new Response(JSON.stringify(mST().toJSON()) , {
+          return new Response(JSON.stringify(mST().toJSON()), {
             status: 200,
             headers: {
               "Access-Control-Allow-Origin": "*",
-            "Cache-Control": "no-cache",
+              "Cache-Control": "no-cache",
               "Content-Type": "application/json; charset=UTF-8",
             },
           });
 
-
         case "delta":
           type Diff = [-1 | 0 | 1, string];
- 
-          const delta = await this.kv.get<{
-            hashCode: number
-            delta: Diff[][]}>("delta");
-        
-          let deltaDiffs: Diff[][]
 
-          if (!delta || delta.hashCode !==  this.state.mySession.hashCode()) {
+          const delta = await this.kv.get<{
+            hashCode: number;
+            delta: Diff[][];
+          }>("delta");
+
+          let deltaDiffs: Diff[][];
+
+          if (!delta || delta.hashCode !== this.state.mySession.hashCode()) {
             deltaDiffs = [];
           } else {
             deltaDiffs = delta.delta;
           }
 
-          return new Response(JSON.stringify(deltaDiffs || []) , {
-              status: 200,
-              headers: {
-                "Access-Control-Allow-Origin": "*",
-                 "Cache-Control": "no-cache",
-                "Content-Type": "application/json; charset=UTF-8",
-              },
-            });
-        case "lazy": 
-        
-          const {html, css, transpiled} = mST().toJSON();
+          return new Response(JSON.stringify(deltaDiffs || []), {
+            status: 200,
+            headers: {
+              "Access-Control-Allow-Origin": "*",
+              "Cache-Control": "no-cache",
+              "Content-Type": "application/json; charset=UTF-8",
+            },
+          });
+        case "lazy":
+          const { html, css, transpiled } = mST().toJSON();
           const hash = this.state.mySession.hashCode();
 
-           return new Response(LAZY.replace("{...o}",JSON.stringify({name: codeSpace, transpiled, html: `<div id="root"><style>${css}</style><div id="zbody">${html}</div></div>`, hash})),{
+          return new Response(
+            LAZY.replace(
+              "{...o}",
+              JSON.stringify({
+                name: codeSpace,
+                transpiled,
+                html:
+                  `<div id="root"><style>${css}</style><div id="zbody">${html}</div></div>`,
+                hash,
+              }),
+            ),
+            {
               status: 200,
               headers: {
                 "Access-Control-Allow-Origin": "*",
                 "Cache-Control": "no-cache",
                 "Content-Type": "application/javascript; charset=UTF-8",
               },
-            });
-        
+            },
+          );
+
         case "hashCodeSession":
           return new Response(this.state.mySession.hashCode(), {
             status: 200,
@@ -187,15 +199,14 @@ export class Code {
           //   'export default function(){};'
           // }
 
-          return new Response(mST().transpiled,{
-              status: 200,
-              headers: {
-                "Access-Control-Allow-Origin": "*",
-                "Cache-Control": "no-cache",
-                "Content-Type": "application/javascript; charset=UTF-8",
-              },
-            }
-          );
+          return new Response(mST().transpiled, {
+            status: 200,
+            headers: {
+              "Access-Control-Allow-Origin": "*",
+              "Cache-Control": "no-cache",
+              "Content-Type": "application/javascript; charset=UTF-8",
+            },
+          });
         }
         case "hydrated": {
           const htmlContent = mST().html;
@@ -203,8 +214,11 @@ export class Code {
 
           const html = HYDRATED.replace(
             `<div id="root"></div>`,
-            `<div id="root"><style>${css}</style><div id="zbody">${htmlContent}</div></div>`
-          ).replace("{VERSION}", version).replace(`<script type="importmap-shim" src="./importmap.json"></script>`, `<script type="importmap-shim">${JSON.stringify(imap)}</script>`);
+            `<div id="root"><style>${css}</style><div id="zbody">${htmlContent}</div></div>`,
+          ).replace("{VERSION}", version).replace(
+            `<script type="importmap-shim" src="./importmap.json"></script>`,
+            `<script type="importmap-shim">${JSON.stringify(imap)}</script>`,
+          );
           return new Response(html, {
             status: 200,
             headers: {
@@ -225,14 +239,10 @@ export class Code {
           });
         }
         case "hashCode": {
-
           const hashCode = String(Number(path[1]));
-          const patch = await this.kv.get<{patch: string, oldHash: number}>(hashCode);
-
-
-          
-
-
+          const patch = await this.kv.get<{ patch: string; oldHash: number }>(
+            hashCode,
+          );
 
           return new Response(JSON.stringify(patch || {}), {
             status: 200,
@@ -244,14 +254,13 @@ export class Code {
           });
         }
 
-
         case "public": {
           const htmlContent = mST().html;
           const css = mST().css;
 
           const html = HTML.replace(
             `<div id="root"></div>`,
-            `<div id="root"><style>${css}</style><div id="zbody">${htmlContent}</div></div>`
+            `<div id="root"><style>${css}</style><div id="zbody">${htmlContent}</div></div>`,
           ).replace("{VERSION}", version);
           return new Response(html, {
             status: 200,
@@ -284,30 +293,28 @@ export class Code {
   }
 
   async handleSession(webSocket: WebSocket, ip: string) {
-    const mST =() => this.state.mySession.session.get("state");
+    const mST = () => this.state.mySession.session.get("state");
     webSocket.accept();
 
     let limiterId = this.env.LIMITERS.idFromName(ip);
 
     let limiter = new RateLimiterClient(
       () => this.env.LIMITERS.get(limiterId),
-      (err: Error) => webSocket.close(1011, err.stack)
+      (err: Error) => webSocket.close(1011, err.stack),
     );
     const uuid = self.crypto.randomUUID();
 
-
     const newConnEvent: INewWSConnection = {
       uuid,
-      hashCode:  this.state.mySession.hashCode(),
+      hashCode: this.state.mySession.hashCode(),
       type: "new-ws-connection",
-      timestamp: Date.now()
+      timestamp: Date.now(),
     };
 
     webSocket.send(JSON.stringify(newConnEvent));
 
-
     // this.state.mySession.addEvent(newConnEvent);
-  
+
     let session = {
       uuid,
       webSocket,
@@ -321,30 +328,28 @@ export class Code {
           JSON.stringify({
             joined: otherSession.name,
             i: mST().i,
-            hashCode: this.state.mySession.hashCode()
-          })
+            hashCode: this.state.mySession.hashCode(),
+          }),
         );
       }
     });
 
     webSocket.addEventListener("message", async (msg) => {
-
       session.webSocket.send(JSON.stringify({
-        hashCode: this.state.mySession.hashCode()
+        hashCode: this.state.mySession.hashCode(),
       }));
 
       try {
         if (session.quit) {
-
           if (session.name && typeof session.name === "string") {
-          // this.state.mySession.addEvent({
-          //   type: "quit",
-          //   target: "broadcast",
-          //   uuid: self.crypto.randomUUID(),
-          //   name: session.name,
-          //   timestamp: Date.now()
-          // });
-        }
+            // this.state.mySession.addEvent({
+            //   type: "quit",
+            //   target: "broadcast",
+            //   uuid: self.crypto.randomUUID(),
+            //   name: session.name,
+            //   timestamp: Date.now()
+            // });
+          }
           webSocket.close(1011, "WebSocket broken.");
           return;
         }
@@ -353,7 +358,9 @@ export class Code {
 
         let data = JSON.parse(msg.data);
 
-        this.state.mySession.addEvent({...data, uuid: session.uuid} as unknown as IEvent);
+        this.state.mySession.addEvent(
+          { ...data, uuid: session.uuid } as unknown as IEvent,
+        );
 
         // if (data.type === "get-cid") {
         //   const CID = data.cid;
@@ -381,15 +388,15 @@ export class Code {
           webSocket.send(
             JSON.stringify({
               error: "Your IP is being rate-limited, please try again later.",
-            })
+            }),
           );
           return;
         }
 
-        if(data.type==="lost"){
+        if (data.type === "lost") {
           webSocket.send(JSON.stringify({
-            ...mST().toJSON()
-          }))
+            ...mST().toJSON(),
+          }));
         }
 
         if (!session.name && data.name) {
@@ -414,10 +421,10 @@ export class Code {
           const messageEv = {
             type: "code-init",
             hashCode: this.state.mySession.hashCode(),
-          }
-      
+          };
+
           webSocket.send(
-            JSON.stringify(messageEv)
+            JSON.stringify(messageEv),
           );
 
           // Note that we've now received the user info message.
@@ -435,38 +442,37 @@ export class Code {
           return;
         }
 
-
         if (
           data.type &&
           (data.type === "delta")
         ) {
           const delta = data.delta;
-          await this.kv.put("delta", {delta, hashCode: this.state.mySession.hashCode()});
+          await this.kv.put("delta", {
+            delta,
+            hashCode: this.state.mySession.hashCode(),
+          });
           // this.user2user(data.target, { name: session.name, ...data });
           return;
         }
 
-        if (data.patch && data.oldHash===this.state.mySession.hashCode()) {
-          const newHash: number= data.newHash ;
-          const oldHash: number= data.oldHash ;
-          const patch: string= data.patch;
-          
+        if (data.patch && data.oldHash === this.state.mySession.hashCode()) {
+          const newHash: number = data.newHash;
+          const oldHash: number = data.oldHash;
+          const patch: string = data.patch;
+
           this.state.mySession.applyPatch(data);
-          if(newHash===this.state.mySession.hashCode()) {
-       
+          if (newHash === this.state.mySession.hashCode()) {
             this.broadcast(msg.data);
             const session = mST().toJSON();
             await this.kv.put<ICodeSession>("session", session);
-            
-            await this.kv.put(String(newHash),{oldHash, 
-              patch
-            });
+
+            await this.kv.put(String(newHash), { oldHash, patch });
           } else {
-              this.user2user(data.name, {hashCode: this.state.mySession.hashCode()})
+            this.user2user(data.name, {
+              hashCode: this.state.mySession.hashCode(),
+            });
           }
-             
-          
-     
+
           return;
         }
 
@@ -617,7 +623,7 @@ export class Code {
         webSocket.send(
           JSON.stringify({
             error: "unknown error",
-          })
+          }),
         );
       }
     });

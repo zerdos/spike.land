@@ -6,10 +6,14 @@
  * found in the LICENSE file at https://github.com/BuilderIO/qwik/blob/main/LICENSE
  */
 
-import { h } from '@builder.io/qwik';
-import { renderToString, RenderToStringOptions, QwikLoader } from '@builder.io/qwik/server';
-import { ToDoApp } from './components';
-import type { Todos } from './state';
+import { h } from "@builder.io/qwik";
+import {
+  QwikLoader,
+  renderToString,
+  RenderToStringOptions,
+} from "@builder.io/qwik/server";
+import { ToDoApp } from "./components";
+import type { Todos } from "./state";
 
 /**
  * Entry point for server-side pre-rendering.
@@ -18,11 +22,11 @@ import type { Todos } from './state';
  */
 export function renderApp(opts: RenderToStringOptions) {
   const todos: Todos = {
-    filter: 'all',
+    filter: "all",
     items: [
-      { completed: false, title: 'Read Qwik docs' },
-      { completed: false, title: 'Build HelloWorld' },
-      { completed: false, title: 'Profit' },
+      { completed: false, title: "Read Qwik docs" },
+      { completed: false, title: "Build HelloWorld" },
+      { completed: false, title: "Profit" },
     ],
   };
 
@@ -38,6 +42,6 @@ export function renderApp(opts: RenderToStringOptions) {
         <QwikLoader debug={opts.debug} />
       </body>
     </html>,
-    opts
+    opts,
   );
 }
