@@ -23,8 +23,10 @@
     "release": "lerna publish patch --yes && yarn push",
     "clean": "lerna run clean --parallel",
     "build": "lerna run build --parallel --since main --no-bail",
-    "re:build": "yarn clean && yarn build"
+    "re:build": "yarn clean && yarn build",
+    "lerna:init": "lerna init"
   },
-  "dependencies": {},
-  "devDependencies": {}
+  "devDependencies": {
+    "lerna": "^4.0.0"
+  }
 }

@@ -36,7 +36,7 @@
     "push:prod": "npm run-script ws:yarn push:prod",
     "re:build": "npm run-script ws:yarn re:build",
     "build": "npm run-script ws:yarn build",
-    "postinstall": "npm run-script ws:yarn install && npm run-script ws:yarn lerna init",
+    "postinstall": "npm run-script ws:yarn install && npm run-script ws:yarn lerna:init",
     "ws:yarn": "yarn --cwd monorepo ",
     "lerna": "lerna",
     "open-cli": "open-cli",
