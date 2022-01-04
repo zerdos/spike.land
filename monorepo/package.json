@@ -24,7 +24,8 @@
     "clean": "lerna run clean --parallel",
     "lerna:publish": "lerna publish",
     "build": "lerna run build --parallel --since main --no-bail",
-    "re:build": "yarn clean && yarn build"
+    "re:build": "yarn clean && yarn build",
+    "docker:build":  "lerna run docker:build"
   },
   "devDependencies": {
   }

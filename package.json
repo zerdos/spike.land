@@ -36,6 +36,8 @@
     "push:prod": "npm run-script ws:yarn push:prod",
     "re:build": "npm run-script ws:yarn re:build",
     "build": "npm run-script ws:yarn build",
+    "docker:build": "npm run-script ws:yarn docker:build",
+
     "postinstall": "npm run-script ws:yarn install && npm run-script ws:yarn importmap",
     "ws:yarn": "yarn --cwd monorepo ",
     "lerna": "lerna",
