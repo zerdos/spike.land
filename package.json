@@ -10,7 +10,7 @@
     "open-cli": "7.0.1",
     "speed-limiter": "1.0.2",
     "yarn": "1.22.17",
-    "rollup": "2.62.0",
+    "rollup": "2.63.0",
     "@builder.io/qwik": "0.0.16-2",
     "@cloudflare/kv-asset-handler": "0.2.0",
     "@cloudflare/workers-types": "3.3.0",
@@ -37,8 +37,7 @@
     "re:build": "npm run-script ws:yarn re:build",
     "build": "npm run-script ws:yarn build",
     "docker:build": "npm run-script ws:yarn docker:build",
-
-    "postinstall": "npm run-script ws:yarn install && npm run-script ws:yarn importmap",
+    "postinstall": "cd monorepo && yarn",
     "ws:yarn": "yarn --cwd monorepo ",
     "lerna": "lerna",
     "open-cli": "open-cli",

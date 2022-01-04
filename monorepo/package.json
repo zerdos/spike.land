@@ -27,6 +27,5 @@
     "re:build": "yarn clean && yarn build",
     "docker:build": "lerna run docker:build"
   },
-  "devDependencies": {
-  }
+  "devDependencies": {}
 }
