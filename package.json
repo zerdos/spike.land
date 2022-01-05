@@ -7,7 +7,7 @@
     "@builder.io/qwik": "0.0.16-2",
     "@cloudflare/kv-asset-handler": "0.2.0",
     "@cloudflare/workers-types": "3.3.0",
-    "@cloudflare/wrangler": "1.19.6",
+    "@cloudflare/wrangler": "1.19.7",
     "@jspm/generator": "1.0.0-beta.21",
     "@rollup/plugin-commonjs": "21.0.1",
     "@rollup/plugin-json": "4.1.0",

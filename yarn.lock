@@ -277,10 +277,10 @@
   resolved "https://registry.yarnpkg.com/@cloudflare/workers-types/-/workers-types-3.3.0.tgz#a05cf8e27bf007a93c6437bf22daa616b1b5fc42"
   integrity sha512-3v3bm/hOuzNtHgDqPowrRE63H0GEn40LfhLMVpzS5yeg5tlE5nEQ0qobmGOJBCvJJ1LhgRRHZTJszXHs1DXQWg==
 
-"@cloudflare/wrangler@1.19.6":
-  version "1.19.6"
-  resolved "https://registry.yarnpkg.com/@cloudflare/wrangler/-/wrangler-1.19.6.tgz#9e31d27d6404946ef8d7b28515ff8736015e7c2a"
-  integrity sha512-fD0trhm9p5aSQBAtntxL7vePNn/ENzRV9LoF3s48MPbR28rQEu2bG9K7mgui5LagJ4EfJzG9AiN7tQSmK3W6Lg==
+"@cloudflare/wrangler@1.19.7":
+  version "1.19.7"
+  resolved "https://registry.yarnpkg.com/@cloudflare/wrangler/-/wrangler-1.19.7.tgz#264391e159302cf45336369f2c1672879e17bec2"
+  integrity sha512-za2r33ccJVTOtnnMl36VbiGw2Hw4QuQPxuzUfTwB6IgU1XdlBHvAS+OpXbDed5WE3sMs2ORGTQQfmilB9t7S1A==
   dependencies:
     axios "^0.21.1"
     rimraf "^3.0.2"
@@ -1381,9 +1381,9 @@
   integrity sha512-jhuKLIRrhvCPLqwPcx6INqmKeiA5EWrsCOPhrlFSrbrmU4ZMPjj5Ul/oLCMDO98XRUIwVm78xICz4EPCektzeQ==
 
 "@types/node@*", "@types/node@>=13.7.0":
-  version "17.0.7"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-17.0.7.tgz#4a53d8332bb65a45470a2f9e2611f1ced637a5cb"
-  integrity sha512-1QUk+WAUD4t8iR+Oj+UgI8oJa6yyxaB8a8pHaC8uqM6RrS1qbL7bf3Pwl5rHv0psm2CuDErgho6v5N+G+5fwtQ==
+  version "17.0.8"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-17.0.8.tgz#50d680c8a8a78fe30abe6906453b21ad8ab0ad7b"
+  integrity sha512-YofkM6fGv4gDJq78g4j0mMuGMkZVxZDgtU0JRdx6FgiJDG+0fY0GKVolOV8WqVmEhLCXkQRjwDdKyPxJp/uucg==
 
 "@types/normalize-package-data@^2.4.0":
   version "2.4.1"
@@ -2324,9 +2324,9 @@ electron-fetch@^1.7.2:
     encoding "^0.1.13"
 
 electron-to-chromium@^1.4.17:
-  version "1.4.34"
-  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.4.34.tgz#7d87dc0e95c2c65cbd0687ae23146a662506d1ef"
-  integrity sha512-B7g6Y9No9XMYk1VNrQ8KAmSEo1Iltrz/5EjOGxl1DffQAb3z/XbpHRCfYKwV8D+CPXm4Q7Xg1sceSt9osNwRIA==
+  version "1.4.35"
+  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.4.35.tgz#69aabb73d7030733e71c1e970ec16f5ceefbaea4"
+  integrity sha512-wzTOMh6HGFWeALMI3bif0mzgRrVGyP1BdFRx7IvWukFrSC5QVQELENuy+Fm2dCrAdQH9T3nuqr07n94nPDFBWA==
 
 emoji-regex@^8.0.0:
   version "8.0.0"
@@ -2896,9 +2896,9 @@ globby@^11.0.1, globby@^11.0.2:
     slash "^3.0.0"
 
 graceful-fs@^4.1.11, graceful-fs@^4.1.15, graceful-fs@^4.1.2, graceful-fs@^4.1.6, graceful-fs@^4.2.0, graceful-fs@^4.2.2, graceful-fs@^4.2.3, graceful-fs@^4.2.4:
-  version "4.2.8"
-  resolved "https://registry.yarnpkg.com/graceful-fs/-/graceful-fs-4.2.8.tgz#e412b8d33f5e006593cbd3cee6df9f2cebbe802a"
-  integrity sha512-qkIilPUYcNhJpd33n0GBXTB1MMPp14TxEsEs0pTrsSVucApsYzW5V+Q8Qxhik6KU3evy+qkAAowTByymK0avdg==
+  version "4.2.9"
+  resolved "https://registry.yarnpkg.com/graceful-fs/-/graceful-fs-4.2.9.tgz#041b05df45755e587a24942279b9d113146e1c96"
+  integrity sha512-NtNxqUcXgpW2iMrfqSfR73Glt39K+BLwWsPs94yR63v45T0Wbej7eRmL5cWfwEgqXnmjQp3zaJTshdRW/qC2ZQ==
 
 handlebars@^4.7.7:
   version "4.7.7"
