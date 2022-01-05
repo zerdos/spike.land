@@ -28,8 +28,9 @@
   },
   "type": "module",
   "scripts": {
-    "start": "killall node && node http2-server/http2-server.js & FAST_SERVE_PID=$! && (yarn build:editor && yarn build:code && open-cli https://localhost:8000/monorepo/packages/code/js/index.html --wait -- 'google chrome' --incognito)",
+    "start": "yarn build:editor && yarn build:code && open-cli https://localhost:8000/monorepo/packages/code/js/index.html",
     "clean": "yarn ws:yarn clean",
+    "serve": "nodemon ./http2-server/http2-server.js",
     "push": "yarn ws:yarn push",
     "build:editor": "yarn ws:yarn build:editor",
     "build:code": "yarn ws:yarn build:code",
@@ -54,5 +55,8 @@
   "bugs": {
     "url": "https://github.com/spike-land/monorepo/issues"
   },
-  "homepage": "https://github.com/spike-land/monorepo#readme"
+  "homepage": "https://github.com/spike-land/monorepo#readme",
+  "dependencies": {
+    "nodemon": "^2.0.15"
+  }
 }
