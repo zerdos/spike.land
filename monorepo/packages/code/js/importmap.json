@@ -70,7 +70,7 @@
       "@mui/styled-engine": "https://ga.jspm.io/npm:@mui/styled-engine@5.2.6/index.js",
       "@mui/system": "https://ga.jspm.io/npm:@mui/system@5.2.6/esm/index.js",
       "@mui/utils": "https://ga.jspm.io/npm:@mui/utils@5.2.3/esm/index.js",
-      "@popperjs/core": "https://ga.jspm.io/npm:@popperjs/core@2.11.0/lib/index.js",
+      "@popperjs/core": "https://ga.jspm.io/npm:@popperjs/core@2.11.2/lib/index.js",
       "clsx": "https://ga.jspm.io/npm:clsx@1.1.1/dist/clsx.m.js",
       "dom-helpers/addClass": "https://ga.jspm.io/npm:dom-helpers@5.2.0/esm/addClass.js",
       "dom-helpers/removeClass": "https://ga.jspm.io/npm:dom-helpers@5.2.0/esm/removeClass.js",
