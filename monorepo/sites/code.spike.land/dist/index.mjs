@@ -581,7 +581,7 @@ var require_textdiff_create = __commonJS({
 });
 
 // ../../packages/code/package.json
-var version = "0.6.1";
+var version = "0.6.4";
 
 // ../../packages/cf-npm-site/dist/index.mjs
 function src_default(packageName, version2, serveDir = "") {
@@ -933,6 +933,7 @@ var imports = {
   "async-mutex": "https://ga.jspm.io/npm:async-mutex@0.3.2/index.mjs",
   comlink: "https://ga.jspm.io/npm:comlink@4.3.1/dist/umd/comlink.js",
   immutable: "https://ga.jspm.io/npm:immutable@4.0.0/dist/immutable.es.js",
+  "lodash/throttle": "https://ga.jspm.io/npm:lodash@4.17.21/throttle.js",
   react: "https://unpkg.com/@spike.land/esm@0.5.14/dist/react.mjs",
   "react-dom": "https://unpkg.com/@spike.land/esm@0.5.14/dist/react-dom.mjs",
   "react-dom/server": "https://ga.jspm.io/npm:react-dom@18.0.0-rc.0-next-f2a59df48-20211208/server.browser.js",
