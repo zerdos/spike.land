@@ -9,10 +9,8 @@ const init = esbuild.initialize({
 let initFinished = false;
 const mutex = new Mutex();
 
-export const transform = async (code) => {
+export const transform = async (code, retry = 4) => {
   const startTime = performance.now();
-
-  await mutex.waitForUnlock();
 
   if (initFinished || await init) {
     initFinished = true;
@@ -20,43 +18,17 @@ export const transform = async (code) => {
 
   let result;
   try {
+    await mutex.waitForUnlock();
     result = await esbuild.transform(code, {
       loader: "tsx",
       target: "es2018",
     });
-  } catch {
-    await wait(10);
-
-    try {
-      result = await esbuild.transform(code, {
-        loader: "tsx",
-        target: "es2018",
-      });
-    } catch {
-      await wait(10);
-      try {
-        result = await esbuild.transform(code, {
-          loader: "tsx",
-          target: "es2018",
-        });
-      } catch {
-        await wait(10);
-        try {
-          result = await esbuild.transform(code, {
-            loader: "tsx",
-            target: "es2018",
-          });
-        } catch (e) {
-          const endTime = performance.now();
-
-          console.log(
-            `esbuildEsmTransform: took ${endTime - startTime} milliseconds`,
-          );
-
-          throw e;
-        }
-      }
+  } catch (e) {
+    if (retry > 0) {
+      await wait(100);
+      return transform(code, retry - 1);
     }
+    throw e;
   }
 
   const endTime = performance.now();

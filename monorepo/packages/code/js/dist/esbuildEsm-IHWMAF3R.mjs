@@ -17,46 +17,24 @@ var init = esbuild.initialize({
 });
 var initFinished = false;
 var mutex = new Mutex();
-var transform2 = async (code) => {
+var transform2 = async (code, retry = 4) => {
   const startTime = performance.now();
-  await mutex.waitForUnlock();
   if (initFinished || await init) {
     initFinished = true;
   }
   let result;
   try {
+    await mutex.waitForUnlock();
     result = await esbuild.transform(code, {
       loader: "tsx",
       target: "es2018"
     });
-  } catch {
-    await wait(10);
-    try {
-      result = await esbuild.transform(code, {
-        loader: "tsx",
-        target: "es2018"
-      });
-    } catch {
-      await wait(10);
-      try {
-        result = await esbuild.transform(code, {
-          loader: "tsx",
-          target: "es2018"
-        });
-      } catch {
-        await wait(10);
-        try {
-          result = await esbuild.transform(code, {
-            loader: "tsx",
-            target: "es2018"
-          });
-        } catch (e) {
-          const endTime2 = performance.now();
-          console.log(`esbuildEsmTransform: took ${endTime2 - startTime} milliseconds`);
-          throw e;
-        }
-      }
+  } catch (e) {
+    if (retry > 0) {
+      await wait(100);
+      return transform2(code, retry - 1);
     }
+    throw e;
   }
   const endTime = performance.now();
   console.log(`esbuildEsmTransform: took ${endTime - startTime} milliseconds`);
@@ -65,4 +43,4 @@ var transform2 = async (code) => {
 export {
   transform2 as transform
 };
-//# sourceMappingURL=esbuildEsm-6EB32IPU.mjs.map
+//# sourceMappingURL=esbuildEsm-IHWMAF3R.mjs.map

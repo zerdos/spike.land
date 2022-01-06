@@ -76,6 +76,7 @@
     "monokai",
     "monospace",
     "multihash",
+    "Mutex",
     "nocheck",
     "novnc",
     "outbase",
