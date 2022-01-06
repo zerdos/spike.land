@@ -34,7 +34,8 @@
     "outfile",
     "Saionaro",
     "Sanyi",
-    "shadowroot"
+    "shadowroot",
+    "stunprotocol"
   ],
   "deno.enable": false
 }

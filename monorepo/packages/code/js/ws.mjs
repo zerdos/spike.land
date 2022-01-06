@@ -10,7 +10,7 @@ let currentWebSocket = null;
 let sess = false;
 // Let sanyiProcess = null;
 
-const webrtcArray = [];
+const webRtcArray = [];
 const hostname = "code.spike.land";
 const mod = {};
 
@@ -349,14 +349,10 @@ async function createPeerConnection(target) {
       urls: `stun:${url}`,
     })),
   };
+
   rcpOptions.iceServers = [{ urls: "stun:stun.stunprotocol.org:3478" }, {
     urls: "stun:stun.l.google.com:19302",
   }];
-  //   RcpOpts.iceServers.push( {
-  //     url: 'turn:turn.anyfirewall.com:443?transport=tcp',
-  //     credential: 'webrtc',
-  //     username: 'webrtc'
-  // });
 
   connections[target] = connections[target] || new RTCPeerConnection(
     rcpOptions,
@@ -412,7 +408,7 @@ async function createPeerConnection(target) {
   rtc.addEventListener("open", () => {
     console.log("@@@@@@@@RTC IS OPEN&&&&&&&&");
     rtc.target = target;
-    webrtcArray.push(rtc);
+    webRtcArray.push(rtc);
     connections[target].sendChannel = rtc;
 
     window.sendChannel = sendChannel = {
@@ -420,7 +416,7 @@ async function createPeerConnection(target) {
         const target = data.target;
         data.name = data.name || username;
         const messageString = JSON.stringify(data);
-        webrtcArray.map((ch) =>
+        webRtcArray.map((ch) =>
           ch.readyState === "open" &&
           (!target || target && ch.target === target) && ch.send(messageString)
         );
@@ -444,7 +440,7 @@ async function createPeerConnection(target) {
       "message",
       (message) => processWsMessage(message, "rtc"),
     );
-    webrtcArray.push(rtc);
+    webRtcArray.push(rtc);
   }
 
   function onReceiveChannelClosed() {
