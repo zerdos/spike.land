@@ -32,6 +32,7 @@ await generator.install("async-mutex");
 // await generator.install("@emotion/server");
 await generator.install("@emotion/react");
 await generator.install("@emotion/cache");
+await generator.install("lodash/throttle");
 // await generator.install("simple-text-compress");
 // await generator.install("@emotion/styled");
 // await generator.install("framer-motion");

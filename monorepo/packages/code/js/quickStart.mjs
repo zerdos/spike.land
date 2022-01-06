@@ -26,6 +26,9 @@ export async function startMonacoWithSession(session) {
   const shadDom = document.querySelector("#shadowEditor");
 
   const startMonaco = (await import("./dist/startMonaco.mjs")).default;
+  const throttle = (await import("lodash/throttle")).default;
+  const onchangeCode = (code, changes) =>
+    runner(code, changes, session, ++session.i);
   const getEditor = await startMonaco(
     /**
      * @param {any} code
@@ -37,7 +40,7 @@ export async function startMonacoWithSession(session) {
       /**
        * @param {string} code
        */
-      onChange: (code, changes) => runner(code, changes, session, ++session.i),
+      onChange: throttle(onchangeCode, 100),
     },
   );
 
