@@ -72,8 +72,9 @@ var N = {
     return n[e] = t, !0;
   },
   has(n, e) {
-    return n instanceof IDBTransaction && (e === "done" || e === "store") ? !0
-    : e in n;
+    return n instanceof IDBTransaction && (e === "done" || e === "store")
+      ? !0
+      : e in n;
   },
 };
 function R(n) {
@@ -167,10 +168,12 @@ w.prototype = {
       p = f + a,
       d = [{ newPos: -1, components: [] }],
       v = this.extractCommon(d[0], t, e, 0);
-    if (d[0].newPos + 1 >= f && v + 1 >= a) {return o([{
+    if (d[0].newPos + 1 >= f && v + 1 >= a) {
+      return o([{
         value: this.join(t),
         count: t.length,
-      }]);}
+      }]);
+    }
     function g() {
       for (var u = -1 * l; u <= l; u += 2) {
         var h = void 0, y = d[u - 1], m = d[u + 1], b = (m ? m.newPos : 0) - u;
@@ -223,8 +226,10 @@ w.prototype = {
     return l && e.components.push({ count: l }), e.newPos = f, a;
   },
   equals: function (e, t) {
-    return this.options.comparator ? this.options.comparator(e, t)
-    : e === t || this.options.ignoreCase && e.toLowerCase() === t.toLowerCase();
+    return this.options.comparator
+      ? this.options.comparator(e, t)
+      : e === t ||
+        this.options.ignoreCase && e.toLowerCase() === t.toLowerCase();
   },
   removeEmpty: function (e) {
     for (var t = [], r = 0; r < e.length; r++) e[r] && t.push(e[r]);
@@ -356,7 +361,9 @@ function A(n, e, t, r, i) {
   var o;
   if (ce.call(n) === "[object Array]") {
     for (
-      e.push(n), o = new Array(n.length), t.push(o), s = 0; s < n.length; s += 1
+      e.push(n), o = new Array(n.length), t.push(o), s = 0;
+      s < n.length;
+      s += 1
     ) {
       o[s] = A(n[s], e, t, r, i);
     }

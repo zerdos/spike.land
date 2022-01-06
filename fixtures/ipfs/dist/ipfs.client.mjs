@@ -23,9 +23,7 @@ var m = (r, e) => () => (e || r((e = { exports: {} }).exports, e), e.exports),
   re = (r, e) =>
     xn(
       wn(Se(
-        r != null
-          ? dn(gn(r))
-          : {},
+        r != null ? dn(gn(r)) : {},
         "default",
         !e && r && r.__esModule
           ? { get: () => r.default, enumerable: !0 }
@@ -102,7 +100,8 @@ var er = m((Qi, Yt) => {
           if (i = !1, u) a(u);
           else {
             for (
-              var w = new Array(arguments.length - 1), T = 0; T < w.length;
+              var w = new Array(arguments.length - 1), T = 0;
+              T < w.length;
             ) {
               w[T++] = arguments[T];
             }
@@ -204,9 +203,7 @@ var sr = m((Zi, ir) => {
     else if (t === void 0) this._listeners[e] = [];
     else {
       for (var n = this._listeners[e], o = 0; o < n.length;) {
-        n[o].fn === t
-          ? n.splice(o, 1)
-          : ++o;
+        n[o].fn === t ? n.splice(o, 1) : ++o;
       }
     }
     return this;
@@ -451,9 +448,8 @@ var mr = m((yr) => {
           : a > 191 && a < 224
           ? s[c++] = (a & 31) << 6 | e[t++] & 63
           : a > 239 && a < 365
-          ? (a =
-            ((a & 7) << 18 | (e[t++] & 63) << 12 | (e[t++] & 63) << 6 |
-              e[t++] & 63) - 65536,
+          ? (a = ((a & 7) << 18 | (e[t++] & 63) << 12 | (e[t++] & 63) << 6 |
+            e[t++] & 63) - 65536,
             s[c++] = 55296 + (a >> 10),
             s[c++] = 56320 + (a & 1023))
           : s[c++] = (a & 15) << 12 | (e[t++] & 63) << 6 | e[t++] & 63,
@@ -551,14 +547,12 @@ var xr = m((ts, wr) => {
   };
   var G = String.prototype.charCodeAt;
   x.fromHash = function (e) {
-    return e === go
-      ? Y
-      : new x(
-        (G.call(e, 0) | G.call(e, 1) << 8 | G.call(e, 2) << 16 |
-          G.call(e, 3) << 24) >>> 0,
-        (G.call(e, 4) | G.call(e, 5) << 8 | G.call(e, 6) << 16 |
-          G.call(e, 7) << 24) >>> 0,
-      );
+    return e === go ? Y : new x(
+      (G.call(e, 0) | G.call(e, 1) << 8 | G.call(e, 2) << 16 |
+        G.call(e, 3) << 24) >>> 0,
+      (G.call(e, 4) | G.call(e, 5) << 8 | G.call(e, 6) << 16 |
+        G.call(e, 7) << 24) >>> 0,
+    );
   };
   x.prototype.toHash = function () {
     return String.fromCharCode(
@@ -893,7 +887,8 @@ var rt = m((ns, Tr) => {
   };
   p.prototype.finish = function () {
     for (
-      var e = this.head.next, t = this.constructor.alloc(this.len), n = 0; e;
+      var e = this.head.next, t = this.constructor.alloc(this.len), n = 0;
+      e;
     ) {
       e.fn(e.val, t, n), n += e.len, e = e.next;
     }
@@ -1456,7 +1451,13 @@ var Cn = Math.pow(2, 7),
   Mn = Math.pow(2, 56),
   jn = Math.pow(2, 63),
   Fn = function (r) {
-    return r < Cn ? 1 : r < An ? 2 : r < Bn ? 3 : r < zn
+    return r < Cn
+      ? 1
+      : r < An
+      ? 2
+      : r < Bn
+      ? 3
+      : r < zn
       ? 4
       : r < In
       ? 5
@@ -1534,7 +1535,8 @@ function Rn(r, e) {
     u = Math.log(256) / Math.log(c);
   function w(y) {
     if (
-      y instanceof Uint8Array || (ArrayBuffer.isView(y)
+      y instanceof Uint8Array ||
+      (ArrayBuffer.isView(y)
         ? y = new Uint8Array(y.buffer, y.byteOffset, y.byteLength)
         : Array.isArray(y) && (y = Uint8Array.from(y))),
         !(y instanceof Uint8Array)
@@ -1547,7 +1549,9 @@ function Rn(r, e) {
     }
     for (var N = (L - C) * u + 1 >>> 0, _ = new Uint8Array(N); C !== L;) {
       for (
-        var M = y[C], J = 0, A = N - 1; (M !== 0 || J < Z) && A !== -1; A--, J++
+        var M = y[C], J = 0, A = N - 1;
+        (M !== 0 || J < Z) && A !== -1;
+        A--, J++
       ) {
         M += 256 * _[A] >>> 0, _[A] = M % c >>> 0, M = M / c >>> 0;
       }
@@ -2235,7 +2239,8 @@ var $ = re(Qr(), 1),
       r.decode = function (t, n) {
         t instanceof fe || (t = fe.create(t));
         for (
-          var o = n === void 0 ? t.len : t.pos + n, i = new S.Data(); t.pos < o;
+          var o = n === void 0 ? t.len : t.pos + n, i = new S.Data();
+          t.pos < o;
         ) {
           var s = t.uint32();
           switch (s >>> 3) {
@@ -2277,10 +2282,12 @@ var $ = re(Qr(), 1),
               break;
           }
         }
-        if (!i.hasOwnProperty("Type")) {throw h.ProtocolError(
+        if (!i.hasOwnProperty("Type")) {
+          throw h.ProtocolError(
             "missing required 'Type'",
             { instance: i },
-          );}
+          );
+        }
         return i;
       },
       r.fromObject = function (t) {
@@ -2320,7 +2327,8 @@ var $ = re(Qr(), 1),
               0,
             )
             : t.Data.length && (n.Data = t.Data)),
-            t.filesize != null && (h.Long
+            t.filesize != null &&
+            (h.Long
               ? (n.filesize = h.Long.fromValue(t.filesize)).unsigned = !0
               : typeof t.filesize == "string"
               ? n.filesize = parseInt(t.filesize, 10)
@@ -2340,7 +2348,8 @@ var $ = re(Qr(), 1),
           for (var o = 0; o < t.blocksizes.length; ++o) {
             h.Long
               ? (n.blocksizes[o] = h.Long.fromValue(t.blocksizes[o])).unsigned =
-                !0 : typeof t.blocksizes[o] == "string"
+                !0
+              : typeof t.blocksizes[o] == "string"
               ? n.blocksizes[o] = parseInt(t.blocksizes[o], 10)
               : typeof t.blocksizes[o] == "number"
               ? n.blocksizes[o] = t.blocksizes[o]
@@ -2397,12 +2406,15 @@ var $ = re(Qr(), 1),
               h.Long
           ) {
             var i = new h.Long(0, 0, !0);
-            o.filesize = n.longs === String ? i.toString()
-            : n.longs === Number ? i.toNumber() : i;
+            o.filesize = n.longs === String ? i.toString() : n.longs === Number
+              ? i.toNumber()
+              : i;
           } else o.filesize = n.longs === String ? "0" : 0;
           if (h.Long) {
             var i = new h.Long(0, 0, !0);
-            o.hashType = n.longs === String ? i.toString() : n.longs === Number
+            o.hashType = n.longs === String
+              ? i.toString()
+              : n.longs === Number
               ? i.toNumber()
               : i;
           } else o.hashType = n.longs === String ? "0" : 0;
@@ -2496,7 +2508,9 @@ var $ = re(Qr(), 1),
     function r(e) {
       if (e) {
         for (
-          var t = Object.keys(e), n = 0; n < t.length; ++n
+          var t = Object.keys(e), n = 0;
+          n < t.length;
+          ++n
         ) {
           e[t[n]] != null && (this[t[n]] = e[t[n]]);
         }
@@ -2561,16 +2575,17 @@ var $ = re(Qr(), 1),
         if (n.defaults) {
           if (h.Long) {
             var i = new h.Long(0, 0, !1);
-            o.Seconds = n.longs === String ? i.toString()
-            : n.longs === Number ? i.toNumber() : i;
+            o.Seconds = n.longs === String
+              ? i.toString()
+              : n.longs === Number
+              ? i.toNumber()
+              : i;
           } else o.Seconds = n.longs === String ? "0" : 0;
           o.FractionalNanoseconds = 0;
         }
         return t.Seconds != null && t.hasOwnProperty("Seconds") &&
           (typeof t.Seconds == "number"
-            ? o.Seconds = n.longs === String
-              ? String(t.Seconds)
-              : t.Seconds
+            ? o.Seconds = n.longs === String ? String(t.Seconds) : t.Seconds
             : o.Seconds = n.longs === String
               ? h.Long.prototype.toString.call(t.Seconds)
               : n.longs === Number
@@ -2591,7 +2606,9 @@ var $ = re(Qr(), 1),
     function r(e) {
       if (e) {
         for (
-          var t = Object.keys(e), n = 0; n < t.length; ++n
+          var t = Object.keys(e), n = 0;
+          n < t.length;
+          ++n
         ) {
           e[t[n]] != null && (this[t[n]] = e[t[n]]);
         }

@@ -236,7 +236,8 @@ function qe(e, t, r) {
     a && e.push(`--legal-comments=${a}`),
       d !== void 0 && e.push(`--source-root=${d}`),
       c !== void 0 && e.push(`--sources-content=${c}`),
-      s && (Array.isArray(s)
+      s &&
+      (Array.isArray(s)
         ? e.push(`--target=${Array.from(s).map(We).join(",")}`)
         : e.push(`--target=${We(s)}`)),
       b && e.push(`--format=${b}`),
@@ -615,18 +616,16 @@ function pt(e) {
                     K != null && (z.kind = K),
                     j != null && (z.pluginData = f.store(j)),
                     E(N, z, (re, X) => {
-                      re !== null
-                        ? W(new Error(re))
-                        : H({
-                          errors: ue(X.errors, f),
-                          warnings: ue(X.warnings, f),
-                          path: X.path,
-                          external: X.external,
-                          sideEffects: X.sideEffects,
-                          namespace: X.namespace,
-                          suffix: X.suffix,
-                          pluginData: f.load(X.pluginData),
-                        });
+                      re !== null ? W(new Error(re)) : H({
+                        errors: ue(X.errors, f),
+                        warnings: ue(X.warnings, f),
+                        path: X.path,
+                        external: X.external,
+                        sideEffects: X.sideEffects,
+                        namespace: X.namespace,
+                        suffix: X.suffix,
+                        pluginData: f.load(X.pluginData),
+                      });
                     });
                 });
             },
@@ -1159,9 +1158,11 @@ function pt(e) {
         let O = Ye(),
           D = (T) => {
             try {
-              if (typeof o != "string") {throw new Error(
+              if (typeof o != "string") {
+                throw new Error(
                   'The input to "transform" must be a string',
-                );}
+                );
+              }
               let y = gt(h, f, N, ce);
               E(u, {
                 command: "transform",
@@ -1181,15 +1182,11 @@ function pt(e) {
                 }
                 k.codeFS && (S++,
                   R.readFile(k.code, (l, v) => {
-                    l !== null
-                      ? _(l, null)
-                      : (k.code = v, m());
+                    l !== null ? _(l, null) : (k.code = v, m());
                   })),
                   k.mapFS && (S++,
                     R.readFile(k.map, (l, v) => {
-                      l !== null
-                        ? _(l, null)
-                        : (k.map = v, m());
+                      l !== null ? _(l, null) : (k.map = v, m());
                     })),
                   m();
               });
@@ -1330,9 +1327,7 @@ function He(e, t, r) {
             }
             let i = b.split(/\r\n|\r|\n|\u2028|\u2029/)[+s[2] - 1] || "",
               x = +s[3] - 1,
-              P = i.slice(x, x + r.length) === r
-                ? r.length
-                : 0;
+              P = i.slice(x, x + r.length) === r ? r.length : 0;
             return {
               file: s[1],
               namespace: "file",
@@ -1388,16 +1383,15 @@ function Ke(e, t) {
     b = n(e, r, "length", pe),
     i = n(e, r, "lineText", p),
     x = n(e, r, "suggestion", p);
-  return q(e, r, t),
-    {
-      file: a || "",
-      namespace: d || "",
-      line: c || 0,
-      column: s || 0,
-      length: b || 0,
-      lineText: i || "",
-      suggestion: x || "",
-    };
+  return q(e, r, t), {
+    file: a || "",
+    namespace: d || "",
+    line: c || 0,
+    column: s || 0,
+    length: b || 0,
+    lineText: i || "",
+    suggestion: x || "",
+  };
 }
 function de(e, t, r, a) {
   let d = [], c = 0;
@@ -1474,7 +1468,8 @@ var wt = "0.14.8",
     throw ye
       ? new Error(
         'You need to wait for the promise returned from "initialize" to be resolved before calling this',
-      ) : new Error('You need to call "initialize" before calling this');
+      )
+      : new Error('You need to call "initialize" before calling this');
   },
   Ae = (e) => {
     e = dt(e || {});
@@ -2286,9 +2281,10 @@ var Tt = Ae({
     worker: !1,
   }),
   Xe = !1,
-  Qe =
-    async (e) => (Xe || (await Tt, Xe = !0),
-      (await Re(e, { loader: "tsx", target: "es2018" })).code);
+  Qe = async (
+    e,
+  ) => (Xe || (await Tt, Xe = !0),
+    (await Re(e, { loader: "tsx", target: "es2018" })).code);
 var Dt = {
   async fetch(e, t) {
     let a = new URL(e.url).pathname.slice(1).split("/");
