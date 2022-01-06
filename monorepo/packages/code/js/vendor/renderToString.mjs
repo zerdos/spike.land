@@ -1985,8 +1985,7 @@ function Ub(e40) {
         e40 = e40._init;
         try {
           return Ub(e40(r23));
-        } catch (e) {
-        }
+        } catch (e) {}
     }
   }
   return null;
@@ -2065,8 +2064,7 @@ var st = {
       r31,
     ];
   },
-  enqueueForceUpdate: function () {
-  },
+  enqueueForceUpdate: function () {},
 };
 function bc(e50, r32, a16, o10) {
   var i7 = void 0 !== e50.state ? e50.state : null;
@@ -2289,8 +2287,7 @@ function qc(e57, r38, a20) {
 function sc() {
   throw Error(l2(394));
 }
-function tc() {
-}
+function tc() {}
 var Et = {
     readContext: function (e58) {
       return e58._currentValue;
@@ -2316,8 +2313,7 @@ var Et = {
       return pc(oc, e61);
     },
     useInsertionEffect: tc,
-    useLayoutEffect: function () {
-    },
+    useLayoutEffect: function () {},
     useCallback: function (e62, r40) {
       return rc(function () {
         return e62;
@@ -2364,8 +2360,7 @@ var Et = {
 function xc(e66) {
   console.error(e66);
 }
-function yc() {
-}
+function yc() {}
 function zc(e67, r43, a23, o14, i10, c, u7) {
   var s3 = [], d2 = new Set();
   r43 = {
@@ -3079,12 +3074,11 @@ i2.renderToReadableStream = function (e89, r68) {
         }
       }
     },
-    cancel: function () {
-    },
+    cancel: function () {},
   });
   return i24;
 };
-i2.version = "18.0.0-rc.0-f2a59df48-20211208";
+i2.version = "18.0.0-rc.0-fe419346d-20220105";
 i2.renderToReadableStream, i2.version;
 var a5 = "default" in mod ? mod.default : mod;
 var o3 = "default" in mod1 ? mod1.default : mod1;
@@ -3929,8 +3923,7 @@ function Ra(e37) {
         e37 = e37._init;
         try {
           return Ra(e37(n23));
-        } catch (e) {
-        }
+        } catch (e) {}
     }
   }
   return null;
@@ -4009,8 +4002,7 @@ var ie1 = {
       n31,
     ];
   },
-  enqueueForceUpdate: function () {
-  },
+  enqueueForceUpdate: function () {},
 };
 function Za(e47, n32, r15, a9) {
   var o6 = void 0 !== e47.state ? e47.state : null;
@@ -4233,8 +4225,7 @@ function mb(e54, n38, r19) {
 function ob() {
   throw Error(m3(394));
 }
-function T1() {
-}
+function T1() {}
 var ke1 = {
     readContext: function (e55) {
       return e55._currentValue2;
@@ -4260,8 +4251,7 @@ var ke1 = {
       return lb(kb, e58);
     },
     useInsertionEffect: T1,
-    useLayoutEffect: function () {
-    },
+    useLayoutEffect: function () {},
     useCallback: function (e59, n40) {
       return nb(function () {
         return e59;
@@ -4308,8 +4298,7 @@ var ke1 = {
 function rb1(e63) {
   console.error(e63);
 }
-function sb1() {
-}
+function sb1() {}
 function tb(e64, n43, r22, a13, o9, l, i6) {
   var u31 = [], s31 = new Set();
   n43 = {
@@ -5010,8 +4999,7 @@ function Kb(e86) {
     W1(e86, n69), X1(e86, n69);
   }
 }
-function Lb() {
-}
+function Lb() {}
 function Mb(e87, n70, r39) {
   var a29 = !1,
     o23 = null,
@@ -5068,7 +5056,7 @@ l24.renderToStaticNodeStream = function () {
 l24.renderToString = function (e91, n73) {
   return Mb(e91, n73, !1);
 };
-l24.version = "18.0.0-rc.0-f2a59df48-20211208";
+l24.version = "18.0.0-rc.0-fe419346d-20220105";
 var Ee1 = {};
 var qe1, Fe1;
 qe1 = l24;
