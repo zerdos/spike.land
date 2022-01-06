@@ -207,12 +207,14 @@ export const join = async (room, user, delta) => {
         children: [null],
         errorText: "",
       };
+      const throttle = (await import("lodash/throttle")).default;
+
       const stayFullscreen = location.pathname.endsWith("public");
       quickStart(
         session,
         roomName,
         stayFullscreen,
-        broad,
+        throttle(broad, 100),
       );
       window.sess = session;
     }
