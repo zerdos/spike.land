@@ -5482,7 +5482,7 @@ var Code = class {
         this.state.mySession.setRoom(codeSpace);
       }
       let path = url.pathname.slice(1).split("/");
-      const vReg = new RegExp("{VERSION}");
+      const vReg = /{VERSION}/ig;
       switch (path[0]) {
         case "code": {
           return new Response(mST().code, {
