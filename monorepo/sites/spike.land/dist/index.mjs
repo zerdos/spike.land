@@ -5570,7 +5570,7 @@ var Code = class {
         case "hydrated": {
           const htmlContent = mST().html;
           const css2 = mST().css;
-          const html2 = hydrated_default.replace(`<div id="root"></div>`, `<div id="root"><style>${css2}</style><div id="zbody">${htmlContent}</div></div>`).replaceAll(vReg, version).replace(`<script type="importmap-shim" src="./importmap.json"><\/script>`, `<script type="importmap-shim">${JSON.stringify(importmap_default)}<\/script>`);
+          const html2 = hydrated_default.replace(`<script type="importmap-shim" src="https://unpkg.com/@spike.land/code@{VERSION}/js/importmap.json"><\/script>`, `<script type="importmap">${JSON.stringify(importmap_default)}}<\/script>`).replace(`<div id="root"></div>`, `<div id="root"><style>${css2}</style><div id="zbody">${htmlContent}</div></div>`).replaceAll(vReg, version).replace(`<script type="importmap-shim" src="./importmap.json"><\/script>`, `<script type="importmap">${JSON.stringify(importmap_default)}<\/script>`);
           return new Response(html2, {
             status: 200,
             headers: {
