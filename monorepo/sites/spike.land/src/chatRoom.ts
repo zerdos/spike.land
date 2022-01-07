@@ -2,6 +2,7 @@ import { handleErrors } from "./handleErrors";
 import { RateLimiterClient } from "./rateLimiterClient";
 import HTML from "./index.html";
 import LAZY from "./lazy.html";
+import RCA from "./rca.tsx.html";
 import HYDRATED from "./hydrated.html";
 
 import { version } from "@spike.land/code/package.json";
@@ -70,6 +71,16 @@ export class Code {
         const resp = await defaultRoomObject.fetch("session");
 
         session = await resp.json();
+        if (!session) {
+          session = {
+            code: RCA,
+            transpiled: RCA,
+            html: "",
+            css: "",
+            lastTimestamp: 0,
+            i: 0
+          }
+        }
         await this.kv.put<ISession>("session", session);
       }
 
