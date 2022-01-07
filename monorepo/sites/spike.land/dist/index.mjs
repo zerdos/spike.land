@@ -581,7 +581,7 @@ var require_textdiff_create = __commonJS({
 });
 
 // ../../packages/code/package.json
-var version = "0.6.10";
+var version = "0.6.11";
 
 // ../../packages/cf-npm-site/dist/index.mjs
 function src_default(packageName, version2, serveDir = "") {
@@ -781,7 +781,7 @@ var src_default2 = `<!DOCTYPE html>
 <head profile="http://www.w3.org/2005/10/profile">
   <meta http-equiv="Content-Type" content="text/html,charset=utf-8" />
   <meta name="viewport" content="width=device-width" />
-  <base href="https://code.spike.land/">
+  <base href="https://spike.land/">
   
   <link rel="icon" type="image/png" href="./assets/zed-icon-big.png" />
 
@@ -854,7 +854,7 @@ var src_default2 = `<!DOCTYPE html>
 </html>`;
 
 // src/lazy.html
-var lazy_default = 'var{React:t}=window,{Suspense:C}=t,b=({name:o,html:c,hash:a,transpiled:l})=>{let[i,p]=t.useState(a);t.useEffect(()=>{let n=setInterval(async()=>{let s=await(await fetch(`https://code.spike.land/api/room/${o}/hashCodeSession`)).text();p(Number(s))},69e3);return()=>{console.log("INTERVAL CLEARED"),clearInterval(n)}},[]),t.useEffect(()=>{(async()=>{let n=await fetch(`https://code.spike.land/api/room/${o}/session`),{html:e,css:s,transpiled:L}=await n.json();u({htmlContent:`<div id="root"><style>${s}</style><div id="zbody">${e}</div></div>`,LazyComponent:await y(L)})})()},[i]);let d=t.lazy(()=>import(r(l))),[{htmlContent:m,LazyComponent:h},u]=t.useState({htmlContent:c,LazyComponent:d});return t.createElement(C,{key:i,fallback:t.createElement("div",{dangerouslySetInnerHTML:{__html:m}})},t.createElement(h,{key:a}));function r(n){let e=new Blob([n],{type:"application/javascript"});return URL.createObjectURL(e)}async function y(n){let e=r(n),s=(await import(e)).default;return URL.revokeObjectURL(e),s}},f=o=>t.createElement(b,{...o});export{f as default};\n';
+var lazy_default = 'var{React:t}=window,{Suspense:C}=t,b=({name:o,html:c,hash:a,transpiled:l})=>{let[i,p]=t.useState(a);t.useEffect(()=>{let n=setInterval(async()=>{let s=await(await fetch(`https://spike.land/api/room/${o}/hashCodeSession`)).text();p(Number(s))},69e3);return()=>{console.log("INTERVAL CLEARED"),clearInterval(n)}},[]),t.useEffect(()=>{(async()=>{let n=await fetch(`https://spike.land/api/room/${o}/session`),{html:e,css:s,transpiled:L}=await n.json();u({htmlContent:`<div id="root"><style>${s}</style><div id="zbody">${e}</div></div>`,LazyComponent:await y(L)})})()},[i]);let d=t.lazy(()=>import(r(l))),[{htmlContent:m,LazyComponent:h},u]=t.useState({htmlContent:c,LazyComponent:d});return t.createElement(C,{key:i,fallback:t.createElement("div",{dangerouslySetInnerHTML:{__html:m}})},t.createElement(h,{key:a}));function r(n){let e=new Blob([n],{type:"application/javascript"});return URL.createObjectURL(e)}async function y(n){let e=r(n),s=(await import(e)).default;return URL.revokeObjectURL(e),s}},f=o=>t.createElement(b,{...o});export{f as default};\n';
 
 // src/hydrated.html
 var hydrated_default = `<!DOCTYPE html>
@@ -863,7 +863,7 @@ var hydrated_default = `<!DOCTYPE html>
   <meta http-equiv="Content-Type" content="text/html,charset=utf-8" />
   <meta name="viewport" content="width=device-width" />
 
-  <base href="https://code.spike.land/">
+  <base href="https://spike.land/">
   
   <link rel="icon" type="image/png" href="./assets/zed-icon-big.png" />
 
