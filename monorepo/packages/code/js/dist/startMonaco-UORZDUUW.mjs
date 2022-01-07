@@ -417,12 +417,12 @@ async function loadExtraLibs(addExtraLib, setDiagnosticsOptions) {
     },
     {
       name: "framer-motion",
-      url: "https://unpkg.com/framer-motion@5.5.5/types/index.d.ts",
+      url: "https://unpkg.com/framer-motion@5.5.6/types/index.d.ts",
       depend: ["popmotion"]
     },
     {
       name: "framer-motion/types/render/dom/motion.d.ts",
-      url: " https://unpkg.com/framer-motion@5.5.5/types/render/dom/motion.d.ts",
+      url: " https://unpkg.com/framer-motion@5.5.6/types/render/dom/motion.d.ts",
       depend: ["popmotion"]
     },
     {
@@ -445,4 +445,4 @@ async function loadExtraLibs(addExtraLib, setDiagnosticsOptions) {
 export {
   editor_default as default
 };
-//# sourceMappingURL=startMonaco-4TPYGY42.mjs.map
+//# sourceMappingURL=startMonaco-UORZDUUW.mjs.map
