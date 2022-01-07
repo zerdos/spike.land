@@ -1,4 +1,4 @@
-name = "code-spike-land"
+name = "spike-land"
 type = "javascript"
 workers_dev = true
 # Add your account ID here
