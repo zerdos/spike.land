@@ -1,14 +1,14 @@
 // js/renderPreviewWindow.tsx
-import { jsx as jsx3 } from "https://unpkg.com/@spike.land/esm@0.5.14/dist/emotion-react.mjs";
+import { jsx as jsx3 } from "https://unpkg.com/@spike.land/esm@0.6.9/dist/emotion-react.mjs";
 
 // js/DraggableWindow.tsx
-import { css as css2, jsx as jsx2 } from "https://unpkg.com/@spike.land/esm@0.5.14/dist/emotion-react.mjs";
+import { css as css2, jsx as jsx2 } from "https://unpkg.com/@spike.land/esm@0.6.9/dist/emotion-react.mjs";
 import React3, {
   useEffect,
   useRef,
   useState
-} from "https://unpkg.com/@spike.land/esm@0.5.14/dist/react.mjs";
-import { motion as motion2 } from "https://unpkg.com/@spike.land/esm@0.5.14/dist/framer-motion.mjs";
+} from "https://unpkg.com/@spike.land/esm@0.6.9/dist/react.mjs";
+import { motion as motion2 } from "https://unpkg.com/@spike.land/esm@0.6.9/dist/framer-motion.mjs";
 
 // js/wait.ts
 async function wait(delay) {
@@ -11998,9 +11998,9 @@ var QrCode = createSvgIcon(a("path", {
 }), "QrCode");
 
 // js/Qr.tsx
-import { css, jsx } from "https://unpkg.com/@spike.land/esm@0.5.14/dist/emotion-react.mjs";
-import { motion } from "https://unpkg.com/@spike.land/esm@0.5.14/dist/framer-motion.mjs";
-import React2 from "https://unpkg.com/@spike.land/esm@0.5.14/dist/react.mjs";
+import { css, jsx } from "https://unpkg.com/@spike.land/esm@0.6.9/dist/emotion-react.mjs";
+import { motion } from "https://unpkg.com/@spike.land/esm@0.6.9/dist/framer-motion.mjs";
+import React2 from "https://unpkg.com/@spike.land/esm@0.6.9/dist/react.mjs";
 
 // ../qrious/dist/QRious.mjs
 var ve2 = Object.create;
@@ -12838,7 +12838,7 @@ var renderPreviewWindow = async (session, room, keepFullScreen) => {
   const target = document.createElement("div");
   const editor = document.querySelector("#shadowEditor");
   editor.style.opacity = "0";
-  const { createRoot } = await import("https://unpkg.com/@spike.land/esm@0.5.14/dist/react-dom.mjs");
+  const { createRoot } = await import("https://unpkg.com/@spike.land/esm@0.6.9/dist/react-dom.mjs");
   const root = createRoot(target, {});
   root.render(/* @__PURE__ */ jsx3(DraggableWindow, {
     onShare: () => open(`https://code.spike.land/api/room/${room}/public`),
