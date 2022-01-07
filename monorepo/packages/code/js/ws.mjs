@@ -11,7 +11,7 @@ let sess = false;
 // Let sanyiProcess = null;
 
 const webRtcArray = [];
-const hostname = "code.spike.land";
+const hostname = "spike.land";
 const mod = {};
 
 let wsLastHashCode = "";
@@ -185,7 +185,7 @@ export const join = async (room, user, delta) => {
   }
 
   const resp = await fetch(
-    `https://code.spike.land/api/room/${roomName}/session`,
+    `https://spike.land/api/room/${roomName}/session`,
   );
   const state = await resp.json();
 

@@ -1,5 +1,5 @@
 fetch(
-  "https://code.spike.land/ipfs/QmRX68ncYxZcPT9kzKUZotU6NDr92toosBcMCKHyywPony",
+  "https://spike.land/ipfs/QmRX68ncYxZcPT9kzKUZotU6NDr92toosBcMCKHyywPony",
 )
   .then((data) => data.text())
   .then(async (text) => {

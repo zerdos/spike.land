@@ -39,7 +39,7 @@ addEventListener("message", async (event) => {
 
   // If (event.data.type === 'GET_PACKAGE_JSON') {
 
-  //   const resp = await fetch("https://code.spike.land/package.json");
+  //   const resp = await fetch("https://spike.land/package.json");
 
   //   const json = await resp.json();
 
@@ -158,12 +158,12 @@ addEventListener("message", async (event) => {
 
 //         const urlList = [
 //           new URL(
-//             `https://code.spike.land/ipfs/${currentCid}/${fileName}`,
+//             `https://spike.land/ipfs/${currentCid}/${fileName}`,
 //           ),
 //         ];
 //         if (fileCid) {
 //           urlList.push(
-//             new URL(`https://code.spike.land/ipfs/${fileCid}`),
+//             new URL(`https://spike.land/ipfs/${fileCid}`),
 //             new URL(`https://cf-ipfs.com/ipfs/${fileCid}`),
 //           );
 //         }

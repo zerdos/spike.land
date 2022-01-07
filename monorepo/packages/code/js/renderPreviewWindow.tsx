@@ -21,7 +21,7 @@ export const renderPreviewWindow = async (
 
   // Const Element = () => (
   //   <DraggableWindow
-  //     onShare={() => open(`https://code.spike.land/api/room/${room}/public`)}
+  //     onShare={() => open(`https://spike.land/api/room/${room}/public`)}
   //     onRestore={() => {}}
   //     position={session.mode === "window" ? "fixed" : "absolute"}
   //     session={session}
@@ -41,7 +41,7 @@ export const renderPreviewWindow = async (
 
   root.render(
     <DraggableWindow
-      onShare={() => open(`https://code.spike.land/api/room/${room}/public`)}
+      onShare={() => open(`https://spike.land/api/room/${room}/public`)}
       onRestore={() => {
         const model = session.editor.getModel();
         model.setValue(session.code);

@@ -12,7 +12,7 @@ export const CodeBox: React.FC<{
   React.useEffect(() => {
     async function start() {
       const { startFromCode } = await dynamicImport(
-        "https://code.spike.land/dist/quickerStart.bundle.mjs",
+        "https://spike.land/dist/quickerStart.bundle.mjs",
       );
       startFromCode({ mode: "embedded", code: starterCode });
     }

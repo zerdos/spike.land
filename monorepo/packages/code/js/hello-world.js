@@ -1,6 +1,6 @@
 (async () => {
   // const App = (await import(
-  //   `https://code.spike.land/api/room/zoli/js`,
+  //   `https://spike.land/api/room/zoli/js`,
   // )).default;
 
   const applyDelta = (await import(
@@ -8,12 +8,12 @@
   )).default;
 
   const respS = await fetch(
-    `https://code.spike.land/api/room/zoli/session`,
+    `https://spike.land/api/room/zoli/session`,
   );
   const session = await respS.json();
 
   const resp = await fetch(
-    `https://code.spike.land/api/room/zoli/delta`,
+    `https://spike.land/api/room/zoli/delta`,
   );
   const deltas = await resp.json();
 

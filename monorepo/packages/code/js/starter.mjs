@@ -14,7 +14,7 @@ export const run = async (injectedRoom) => {
 
   if (location.pathname.includes("hydrate")) {
     const App = (await import(
-      `https://code.spike.land/api/room/${room}/js`
+      `https://spike.land/api/room/${room}/js`
     )).default;
 
     const createDelta = (await import("textdiff-create")).default;
@@ -92,7 +92,7 @@ export const run = async (injectedRoom) => {
   } else {
     (async () => {
       // const App = (await import(
-      //   `https://code.spike.land/api/room/zoli/js`,
+      //   `https://spike.land/api/room/zoli/js`,
       // )).default;
 
       const applyDelta = (await import(
@@ -100,7 +100,7 @@ export const run = async (injectedRoom) => {
       )).default;
 
       const resp = await fetch(
-        `https://code.spike.land/api/room/${room}/delta`,
+        `https://spike.land/api/room/${room}/delta`,
       );
       const deltas = await resp.json();
 
@@ -116,7 +116,7 @@ export const run = async (injectedRoom) => {
 
       if (!container) {
         const respS = await fetch(
-          `https://code.spike.land/api/room/${room}/session`,
+          `https://spike.land/api/room/${room}/session`,
         );
         const session = await respS.json();
         container = document.getElementById("root");
@@ -181,7 +181,7 @@ export const run = async (injectedRoom) => {
         //  document.appendChild(container);
       } else {
         const App = (await import(
-          `https://code.spike.land/api/room/${room}/js`
+          `https://spike.land/api/room/${room}/js`
         )).default;
 
         const { jsx } = await import("@emotion/react");

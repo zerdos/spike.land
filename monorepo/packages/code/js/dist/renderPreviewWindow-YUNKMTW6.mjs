@@ -1,7 +1,5 @@
-// js/renderPreviewWindow.tsx
+// js/dist/renderPreviewWindow.mjs
 import { jsx as jsx3 } from "https://unpkg.com/@spike.land/esm@0.6.9/dist/emotion-react.mjs";
-
-// js/DraggableWindow.tsx
 import { css as css2, jsx as jsx2 } from "https://unpkg.com/@spike.land/esm@0.6.9/dist/emotion-react.mjs";
 import React3, {
   useEffect,
@@ -9,8 +7,9 @@ import React3, {
   useState
 } from "https://unpkg.com/@spike.land/esm@0.6.9/dist/react.mjs";
 import { motion as motion2 } from "https://unpkg.com/@spike.land/esm@0.6.9/dist/framer-motion.mjs";
-
-// js/wait.ts
+import { css, jsx } from "https://unpkg.com/@spike.land/esm@0.6.9/dist/emotion-react.mjs";
+import { motion } from "https://unpkg.com/@spike.land/esm@0.6.9/dist/framer-motion.mjs";
+import React2 from "https://unpkg.com/@spike.land/esm@0.6.9/dist/react.mjs";
 async function wait(delay) {
   return new Promise((resolve) => {
     setTimeout(() => {
@@ -18,8 +17,6 @@ async function wait(delay) {
     }, delay);
   });
 }
-
-// js/LazyLoadedComponent.tsx
 var { React } = window;
 var { Suspense } = React;
 var LazySpikeLandComponent = ({ name, html, hash: hash2, transpiled }) => {
@@ -69,8 +66,6 @@ var LazySpikeLandComponent = ({ name, html, hash: hash2, transpiled }) => {
     return App;
   }
 };
-
-// js/vendor/mui.mjs
 var e = window.emotionReact;
 var { CacheProvider: o } = e;
 var { Global: s } = e;
@@ -169,7 +164,7 @@ function emptyFunctionWithReset() {
 }
 emptyFunctionWithReset.resetWarningCache = emptyFunction;
 t2 = function() {
-  function shim(e5, t, n8, r, s5, m15) {
+  function shim(e5, t, n8, r, s52, m15) {
     if (m15 !== i2) {
       var o11 = new Error("Calling PropTypes validators directly is not supported by the `prop-types` package. Use PropTypes.checkPropTypes() to call them. Read more at http://fb.me/use-check-prop-types");
       o11.name = "Invariant Violation";
@@ -572,7 +567,7 @@ function useId(e30) {
 }
 function useControlled({ controlled: e32, default: t22, name: n15, state: o10 = "value" }) {
   const { current: i72 } = c1(e32 !== void 0);
-  const [u62, s5] = s1(t22);
+  const [u62, s52] = s1(t22);
   const l31 = i72 ? e32 : u62;
   if (true) {
     p1(() => {
@@ -598,7 +593,7 @@ function useControlled({ controlled: e32, default: t22, name: n15, state: o10 = 
     ]);
   }
   const c21 = u((e33) => {
-    i72 || s5(e33);
+    i72 || s52(e33);
   }, []);
   return [
     l31,
@@ -1542,8 +1537,8 @@ var f5 = l1(function FormControlUnstyled(t119, i111) {
     state: "value"
   });
   const q42 = hasValue(x10);
-  const [E9, P] = s1(false);
-  v16 && E9 && P(false);
+  const [E9, P4] = s1(false);
+  v16 && E9 && P4(false);
   const T7 = F5 === void 0 || v16 ? E9 : F5;
   const R8 = _extends({}, t119, {
     disabled: v16,
@@ -1577,11 +1572,11 @@ var f5 = l1(function FormControlUnstyled(t119, i111) {
     filled: q42,
     focused: T7,
     onBlur: () => {
-      P(false);
+      P4(false);
     },
     onChange: handleChange,
     onFocus: () => {
-      P(true);
+      P4(true);
     },
     registerEffect,
     required: N8,
@@ -1807,7 +1802,7 @@ var v2 = l1(function InputUnstyled(n72, r43) {
     error: B7,
     id: E11,
     maxRows: T9,
-    minRows: P,
+    minRows: P4,
     multiline: V7 = false,
     name: D5,
     onClick: j8,
@@ -1878,7 +1873,7 @@ var v2 = l1(function InputUnstyled(n72, r43) {
     var ue2, ie;
     const o72 = isHostComponent((ue2 = I5.Textarea) != null ? ue2 : "textarea");
     if (L4) {
-      (P || T9) && console.warn("MUI: You can not use the `minRows` or `maxRows` props when the input `rows` prop is set.");
+      (P4 || T9) && console.warn("MUI: You can not use the `minRows` or `maxRows` props when the input `rows` prop is set.");
       se2 = _extends({
         type: void 0,
         minRows: o72 ? void 0 : L4,
@@ -1888,7 +1883,7 @@ var v2 = l1(function InputUnstyled(n72, r43) {
       se2 = _extends({
         type: void 0,
         maxRows: o72 ? void 0 : T9,
-        minRows: o72 ? void 0 : P
+        minRows: o72 ? void 0 : P4
       }, se2);
     }
     ae = (ie = I5.Textarea) != null ? ie : "textarea";
@@ -2386,7 +2381,7 @@ var C2 = l1(function ModalUnstyled(t82, i25) {
     componentsProps: T11 = {},
     container: w12,
     disableAutoFocus: M7 = false,
-    disableEnforceFocus: P = false,
+    disableEnforceFocus: P4 = false,
     disableEscapeKeyDown: S6 = false,
     disablePortal: F8 = false,
     disableRestoreFocus: H3 = false,
@@ -2455,7 +2450,7 @@ var C2 = l1(function ModalUnstyled(t82, i25) {
     classes: f115,
     closeAfterTransition: y111,
     disableAutoFocus: M7,
-    disableEnforceFocus: P,
+    disableEnforceFocus: P4,
     disableEscapeKeyDown: S6,
     disablePortal: F8,
     disableRestoreFocus: H3,
@@ -2517,7 +2512,7 @@ var C2 = l1(function ModalUnstyled(t82, i25) {
           onClick: handleBackdropClick
         }, u112)) : null,
         p4(Unstable_TrapFocus, {
-          disableEnforceFocus: P,
+          disableEnforceFocus: P4,
           disableAutoFocus: M7,
           disableRestoreFocus: H3,
           isEnabled: Q3,
@@ -3001,7 +2996,7 @@ function computeOffsets(f35) {
 }
 function detectOverflow(v19, g24) {
   g24 === void 0 && (g24 = {});
-  var b24 = g24, y21 = b24.placement, O6 = y21 === void 0 ? v19.placement : y21, x14 = b24.boundary, _10 = x14 === void 0 ? i6 : x14, w13 = b24.rootBoundary, h26 = w13 === void 0 ? f6 : w13, P = b24.elementContext, S7 = P === void 0 ? p6 : P, B9 = b24.altBoundary, C8 = B9 !== void 0 && B9, D7 = b24.padding, E13 = D7 === void 0 ? 0 : D7;
+  var b24 = g24, y21 = b24.placement, O6 = y21 === void 0 ? v19.placement : y21, x14 = b24.boundary, _10 = x14 === void 0 ? i6 : x14, w13 = b24.rootBoundary, h26 = w13 === void 0 ? f6 : w13, P4 = b24.elementContext, S7 = P4 === void 0 ? p6 : P4, B9 = b24.altBoundary, C8 = B9 !== void 0 && B9, D7 = b24.padding, E13 = D7 === void 0 ? 0 : D7;
   var N13 = mergePaddingObject(typeof E13 !== "number" ? E13 : expandToHashMap(E13, n6));
   var R5 = S7 === p6 ? u4 : p6;
   var W5 = v19.rects.popper;
@@ -3059,7 +3054,7 @@ function computeAutoPlacement(m26, n46) {
       'Use "auto-start" instead.'
     ].join(" "));
   }
-  var P = w14.reduce(function(t216, o211) {
+  var P4 = w14.reduce(function(t216, o211) {
     t216[o211] = detectOverflow(m26, {
       placement: o211,
       boundary: d26,
@@ -3068,16 +3063,16 @@ function computeAutoPlacement(m26, n46) {
     })[getBasePlacement(o211)];
     return t216;
   }, {});
-  return Object.keys(P).sort(function(t, o10) {
-    return P[t] - P[o10];
+  return Object.keys(P4).sort(function(t, o10) {
+    return P4[t] - P4[o10];
   });
 }
 function applyStyles(s119) {
   var r38 = s119.state;
-  Object.keys(r38.elements).forEach(function(s5) {
-    var a31 = r38.styles[s5] || {};
-    var o39 = r38.attributes[s5] || {};
-    var n47 = r38.elements[s5];
+  Object.keys(r38.elements).forEach(function(s52) {
+    var a31 = r38.styles[s52] || {};
+    var o39 = r38.attributes[s52] || {};
+    var n47 = r38.elements[s52];
     if (isHTMLElement(n47) && getNodeName(n47)) {
       Object.assign(n47.style, a31);
       Object.keys(o39).forEach(function(e127) {
@@ -3140,7 +3135,7 @@ var u5 = function toPaddingObject(e128, r123) {
 };
 function arrow(t128) {
   var i117;
-  var n114 = t128.state, m9 = t128.name, d113 = t128.options;
+  var n114 = t128.state, m92 = t128.name, d113 = t128.options;
   var v110 = n114.elements.arrow;
   var j11 = n114.modifiersData.popperOffsets;
   var g26 = getBasePlacement(n114.placement);
@@ -3156,16 +3151,16 @@ function arrow(t128) {
     var b17 = w15 === "y" ? r6 : v4;
     var N5 = w15 === "y" ? a9 : e6;
     var _11 = n114.rects.reference[h] + n114.rects.reference[w15] - j11[w15] - n114.rects.popper[h];
-    var P = j11[w15] - n114.rects.reference[w15];
+    var P4 = j11[w15] - n114.rects.reference[w15];
     var D8 = getOffsetParent(v110);
     var x15 = D8 ? w15 === "y" ? D8.clientHeight || 0 : D8.clientWidth || 0 : 0;
-    var S8 = _11 / 2 - P / 2;
+    var S8 = _11 / 2 - P4 / 2;
     var V10 = y22[b17];
     var q8 = x15 - E14[h] - y22[N5];
     var H4 = x15 / 2 - E14[h] / 2 + S8;
     var L6 = within(V10, H4, q8);
     var M5 = w15;
-    n114.modifiersData[m9] = (i117 = {}, i117[M5] = L6, i117.centerOffset = L6 - H4, i117);
+    n114.modifiersData[m92] = (i117 = {}, i117[M5] = L6, i117.centerOffset = L6 - H4, i117);
   }
 }
 function effect1(e216) {
@@ -3220,15 +3215,15 @@ function mapToStyles(f116) {
   var l113;
   var m110 = f116.popper, c116 = f116.popperRect, u29 = f116.placement, v22 = f116.variation, y23 = f116.offsets, g27 = f116.position, h27 = f116.gpuAcceleration, x16 = f116.adaptive, O8 = f116.roundOffsets, w16 = f116.isFixed;
   var b25 = y23.x, j12 = b25 === void 0 ? 0 : b25, S9 = y23.y, D9 = S9 === void 0 ? 0 : S9;
-  var P = typeof O8 === "function" ? O8({
+  var P4 = typeof O8 === "function" ? O8({
     x: j12,
     y: D9
   }) : {
     x: j12,
     y: D9
   };
-  j12 = P.x;
-  D9 = P.y;
+  j12 = P4.x;
+  D9 = P4.y;
   var R12 = y23.hasOwnProperty("x");
   var C14 = y23.hasOwnProperty("y");
   var N14 = v4;
@@ -3373,9 +3368,9 @@ function getExpandedFallbackPlacements(o118) {
   ];
 }
 function flip(r126) {
-  var d115 = r126.state, c29 = r126.options, f10 = r126.name;
-  if (!d115.modifiersData[f10]._skip) {
-    var v24 = c29.mainAxis, j13 = v24 === void 0 || v24, g28 = c29.altAxis, P = g28 === void 0 || g28, b26 = c29.fallbackPlacements, y24 = c29.padding, _13 = c29.boundary, k10 = c29.rootBoundary, w17 = c29.altBoundary, x17 = c29.flipVariations, h28 = x17 === void 0 || x17, B11 = c29.allowedAutoPlacements;
+  var d115 = r126.state, c29 = r126.options, f102 = r126.name;
+  if (!d115.modifiersData[f102]._skip) {
+    var v24 = c29.mainAxis, j13 = v24 === void 0 || v24, g28 = c29.altAxis, P4 = g28 === void 0 || g28, b26 = c29.fallbackPlacements, y24 = c29.padding, _13 = c29.boundary, k10 = c29.rootBoundary, w17 = c29.altBoundary, x17 = c29.flipVariations, h28 = x17 === void 0 || x17, B11 = c29.allowedAutoPlacements;
     var A8 = d115.options.placement;
     var O9 = getBasePlacement(A8);
     var S10 = O9 === A8;
@@ -3420,7 +3415,7 @@ function flip(r126) {
       var J3 = getOppositePlacement(H6);
       var K4 = [];
       j13 && K4.push(G5[q9] <= 0);
-      P && K4.push(G5[H6] <= 0, G5[J3] <= 0);
+      P4 && K4.push(G5[H6] <= 0, G5[J3] <= 0);
       if (K4.every(function(t218) {
         return t218;
       })) {
@@ -3453,7 +3448,7 @@ function flip(r126) {
       }
     }
     if (d115.placement !== W7) {
-      d115.modifiersData[f10]._skip = true;
+      d115.modifiersData[f102]._skip = true;
       d115.placement = W7;
       d115.reset = true;
     }
@@ -3577,8 +3572,8 @@ var i7 = {
   fn: offset
 };
 function popperOffsets(t133) {
-  var r45 = t133.state, s5 = t133.name;
-  r45.modifiersData[s5] = computeOffsets({
+  var r45 = t133.state, s52 = t133.name;
+  r45.modifiersData[s52] = computeOffsets({
     reference: r45.rects.reference,
     element: r45.rects.popper,
     strategy: "absolute",
@@ -3597,7 +3592,7 @@ function getAltAxis(r128) {
 }
 function preventOverflow(j12) {
   var g29 = j12.state, x18 = j12.options, w10 = j12.name;
-  var y25 = x18.mainAxis, A9 = y25 === void 0 || y25, h29 = x18.altAxis, O10 = h29 !== void 0 && h29, D11 = x18.boundary, _14 = x18.rootBoundary, b27 = x18.altBoundary, B12 = x18.padding, P = x18.tether, S11 = P === void 0 || P, R14 = x18.tetherOffset, N16 = R14 === void 0 ? 0 : R14;
+  var y25 = x18.mainAxis, A9 = y25 === void 0 || y25, h29 = x18.altAxis, O10 = h29 !== void 0 && h29, D11 = x18.boundary, _14 = x18.rootBoundary, b27 = x18.altBoundary, B12 = x18.padding, P4 = x18.tether, S11 = P4 === void 0 || P4, R14 = x18.tetherOffset, N16 = R14 === void 0 ? 0 : R14;
   var W8 = detectOverflow(g29, {
     boundary: D11,
     rootBoundary: _14,
@@ -4115,12 +4110,12 @@ var b6 = l1(function PopperTooltip(r131, i123) {
   const g32 = c1(null);
   const R15 = useForkRef(g32, i123);
   const T15 = c1(null);
-  const P = useForkRef(T15, y27);
-  const j15 = c1(P);
+  const P4 = useForkRef(T15, y27);
+  const j15 = c1(P4);
   d2(() => {
-    j15.current = P;
+    j15.current = P4;
   }, [
-    P
+    P4
   ]);
   w(y27, () => T15.current, []);
   const M11 = flipPlacement(b111, l115);
@@ -4211,7 +4206,7 @@ var E2 = l1(function PopperUnstyled(o214, n212) {
     popperRef: g33,
     style: R16,
     transition: T16 = false
-  } = o214, P = _objectWithoutPropertiesLoose(o214, m7);
+  } = o214, P4 = _objectWithoutPropertiesLoose(o214, m7);
   const [j16, M12] = s1(true);
   const handleEnter = () => {
     M12(false);
@@ -4235,7 +4230,7 @@ var E2 = l1(function PopperUnstyled(o214, n212) {
       placement: v27,
       popperOptions: O12,
       popperRef: g33
-    }, P, {
+    }, P4, {
       style: _extends({
         position: "fixed",
         top: 0,
@@ -4626,7 +4621,7 @@ var S1 = l1(function SliderUnstyled(n8, d117) {
     onChange: M13,
     onChangeCommitted: F13,
     onMouseDown: D12,
-    orientation: P = "horizontal",
+    orientation: P4 = "horizontal",
     scale: U11 = Identity,
     step: $7 = 1,
     tabIndex: j17,
@@ -4734,8 +4729,8 @@ var S1 = l1(function SliderUnstyled(n8, d117) {
     F13 && F13(e29, l35);
   };
   const xe1 = c1();
-  let Le = P;
-  _15 && P !== "vertical" && (Le += "-reverse");
+  let Le = P4;
+  _15 && P4 !== "vertical" && (Le += "-reverse");
   const getFingerNewValue = ({ finger: e35, move: t20 = false, values: a152 }) => {
     const { current: n11 } = pe2;
     const { width: r47, height: l41, bottom: s310, left: o311 } = n11.getBoundingClientRect();
@@ -4909,7 +4904,7 @@ var S1 = l1(function SliderUnstyled(n8, d117) {
     marked: ie.length > 0 && ie.some((e46) => e46.label),
     max: I10,
     min: O13,
-    orientation: P,
+    orientation: P4,
     scale: U11,
     step: $7,
     track: z10,
@@ -4939,7 +4934,7 @@ var S1 = l1(function SliderUnstyled(n8, d117) {
       })),
       ie.map((t25, n15) => {
         const l51 = valueToPercent(t25.value, O13, I10);
-        const s5 = k1[Le].offset(l51);
+        const s52 = k1[Le].offset(l51);
         let o46;
         o46 = z10 === false ? oe2.indexOf(t25.value) !== -1 : z10 === "normal" && (se2 ? t25.value >= oe2[0] && t25.value <= oe2[oe2.length - 1] : t25.value <= oe2[0]) || z10 === "inverted" && (se2 ? t25.value <= oe2[0] || t25.value >= oe2[oe2.length - 1] : t25.value >= oe2[0]);
         return y3(i1, {
@@ -4950,7 +4945,7 @@ var S1 = l1(function SliderUnstyled(n8, d117) {
               ownerState: _extends({}, Be, ze.ownerState),
               markActive: o46
             }, {
-              style: _extends({}, s5, ze.style),
+              style: _extends({}, s52, ze.style),
               className: clsx_m(_e2.mark, ze.className, o46 && _e2.markActive)
             })),
             t25.label != null ? p4(Ye, _extends({
@@ -4960,7 +4955,7 @@ var S1 = l1(function SliderUnstyled(n8, d117) {
               ownerState: _extends({}, Be, qe.ownerState)
             }, {
               markLabelActive: o46,
-              style: _extends({}, s5, qe.style),
+              style: _extends({}, s52, qe.style),
               className: clsx_m(_e2.markLabel, qe.className, o46 && _e2.markLabelActive),
               children: t25.label
             })) : null
@@ -5001,7 +4996,7 @@ var S1 = l1(function SliderUnstyled(n8, d117) {
                 "data-index": l61,
                 "aria-label": V14 ? V14(l61) : v112,
                 "aria-labelledby": p115,
-                "aria-orientation": P,
+                "aria-orientation": P4,
                 "aria-valuemax": U11(I10),
                 "aria-valuemin": U11(O13),
                 "aria-valuenow": U11(t26),
@@ -5215,7 +5210,7 @@ var h6 = l1(function SwitchUnstyled(n118, s214) {
     onFocusVisible: B14,
     readOnly: w20
   } = n118, S13 = _objectWithoutPropertiesLoose(n118, f7);
-  const P = {
+  const P4 = {
     checked: y30,
     defaultChecked: F15,
     disabled: O15,
@@ -5231,7 +5226,7 @@ var h6 = l1(function SwitchUnstyled(n118, s214) {
     disabled: x21,
     focusVisible: R18,
     readOnly: q12
-  } = useSwitch(P);
+  } = useSwitch(P4);
   const E22 = _extends({}, n118, {
     checked: j18,
     disabled: x21,
@@ -5394,9 +5389,9 @@ var b7 = l1((t413, n214) => {
     direction: p29
   });
   const v30 = useUtilityClasses5(h31);
-  const P = (l212 = b113 != null ? b113 : C20.Root) != null ? l212 : "div";
-  const N21 = appendOwnerState(P, _extends({}, g36, T19.root), h31);
-  return p4(P, _extends({}, y31(), N21, {
+  const P4 = (l212 = b113 != null ? b113 : C20.Root) != null ? l212 : "div";
+  const N21 = appendOwnerState(P4, _extends({}, g36, T19.root), h31);
+  return p4(P4, _extends({}, y31(), N21, {
     ref: n214,
     className: clsx_m(v30.root, (i216 = T19.root) == null ? void 0 : i216.className, c120),
     children: p4(d8.Provider, {
@@ -5491,12 +5486,12 @@ var f9 = l1(function TabPanelUnstyled(t317, n215) {
     component: u118
   } = t317, f122 = _objectWithoutPropertiesLoose(t317, b8);
   const { hidden: y32, getRootProps: h32 } = useTabPanel(t317);
-  const P = _extends({}, t317, {
+  const P4 = _extends({}, t317, {
     hidden: y32
   });
-  const T20 = useUtilityClasses6(P);
+  const T20 = useUtilityClasses6(P4);
   const U13 = (l119 = u118 != null ? u118 : c121.Root) != null ? l119 : "div";
-  const v31 = appendOwnerState(U13, _extends({}, f122, p118.root), P);
+  const v31 = appendOwnerState(U13, _extends({}, f122, p118.root), P4);
   return p4(U13, _extends({}, h32(), {
     ref: n215,
     role: "tabpanel"
@@ -5668,7 +5663,7 @@ var useUtilityClasses7 = (t74) => {
   return composeClasses(o55, getTabsListUnstyledUtilityClass, {});
 };
 var v6 = l1((o62, r53) => {
-  var s5, l36;
+  var s52, l36;
   const {
     className: a213,
     component: c211,
@@ -5688,7 +5683,7 @@ var v6 = l1((o62, r53) => {
     orientation: f211
   });
   const C21 = useUtilityClasses7(g38);
-  const w21 = (s5 = c211 != null ? c211 : p119.Root) != null ? s5 : "div";
+  const w21 = (s52 = c211 != null ? c211 : p119.Root) != null ? s52 : "div";
   const E23 = appendOwnerState(w21, _extends({}, u119, m116.root), g38);
   const U14 = y34();
   return p4(w21, _extends({}, v210(), E23, {
@@ -5800,7 +5795,7 @@ var h8 = l1(function TabUnstyled(s312, r217) {
     active: v32,
     focusVisible: R19,
     setFocusVisible: N22,
-    selected: P,
+    selected: P4,
     getRootProps: F16
   } = useTab(_extends({}, s312, {
     ref: U15
@@ -5817,7 +5812,7 @@ var h8 = l1(function TabUnstyled(s312, r217) {
     active: v32,
     focusVisible: R19,
     disabled: d121,
-    selected: P
+    selected: P4
   });
   const j19 = useUtilityClasses8(V16);
   const x23 = (i218 = b210 != null ? b210 : y113.Root) != null ? i218 : "button";
@@ -6373,9 +6368,9 @@ var _3 = function createStyled1(t230, d123) {
     else {
       w110[0][0] === void 0 && console.error(v8);
       E25.push(w110[0][0]);
-      var P = w110.length;
+      var P4 = w110.length;
       var S15 = 1;
-      for (; S15 < P; S15++) {
+      for (; S15 < P4; S15++) {
         w110[0][S15] === void 0 && console.error(v8);
         E25.push(w110[S15], w110[0][S15]);
       }
@@ -6396,10 +6391,10 @@ var _3 = function createStyled1(t230, d123) {
       t15(a216, w23, typeof d210 === "string");
       u213 += a216.key + "-" + w23.name;
       b116 !== void 0 && (u213 += " " + b116);
-      var P4 = N24 && y36 === void 0 ? m10(d210) : g40;
+      var P42 = N24 && y36 === void 0 ? m10(d210) : g40;
       var S16 = {};
       for (var O17 in t321) {
-        N24 && O17 === "as" || P4(O17) && (S16[O17] = t321[O17]);
+        N24 && O17 === "as" || P42(O17) && (S16[O17] = t321[O17]);
       }
       S16.className = u213;
       S16.ref = n125;
@@ -7091,14 +7086,14 @@ function stringify(e32, r, a92, s45) {
 function middleware(e33) {
   var r19 = sizeof(e33);
   return function(a102, c71, t513, n414) {
-    var s5 = "";
+    var s52 = "";
     for (var i37 = 0; i37 < r19; i37++) {
-      s5 += e33[i37](a102, c71, t513, n414) || "";
+      s52 += e33[i37](a102, c71, t513, n414) || "";
     }
-    return s5;
+    return s52;
   };
 }
-function prefixer(c81, s5, i13, u32) {
+function prefixer(c81, s52, i13, u32) {
   if (c81.length > -1 && !c81.return) {
     switch (c81.type) {
       case n7:
@@ -7151,13 +7146,13 @@ function prefixer(c81, s5, i13, u32) {
 var y9 = function last(e150) {
   return e150.length ? e150[e150.length - 1] : null;
 };
-var g7 = function identifierWithPointTracking(e235, i133, s5) {
+var g7 = function identifierWithPointTracking(e235, i133, s52) {
   var u125 = 0;
   var l125 = 0;
   while (true) {
     u125 = l125;
     l125 = peek();
-    u125 === 38 && l125 === 12 && (i133[s5] = 1);
+    u125 === 38 && l125 === 12 && (i133[s52] = 1);
     if (token(l125))
       break;
     next();
@@ -7428,8 +7423,8 @@ function handleBreakpoints(e237, n220, r144) {
   const t152 = e237.theme || {};
   if (Array.isArray(n220)) {
     const e5 = t152.breakpoints || i10;
-    return n220.reduce((t234, o10, s5) => {
-      t234[e5.up(e5.keys[s5])] = r144(n220[s5]);
+    return n220.reduce((t234, o10, s52) => {
+      t234[e5.up(e5.keys[s52])] = r144(n220[s52]);
       return t234;
     }, {});
   }
@@ -7437,8 +7432,8 @@ function handleBreakpoints(e237, n220, r144) {
     const e327 = t152.breakpoints || i10;
     return Object.keys(n220).reduce((t325, o224) => {
       if (Object.keys(e327.values || s10).indexOf(o224) !== -1) {
-        const s5 = e327.up(o224);
-        t325[s5] = r144(n220[o224], o224);
+        const s52 = e327.up(o224);
+        t325[s52] = r144(n220[o224], o224);
       } else {
         const e5 = o224;
         t325[e5] = n220[e5];
@@ -8129,15 +8124,15 @@ var splitProps = (o23) => {
 };
 function extendSxProp(o24) {
   const { sx: r19 } = o24, e84 = _objectWithoutPropertiesLoose(o24, zo);
-  const { systemProps: s5, otherProps: t326 } = splitProps(e84);
+  const { systemProps: s52, otherProps: t326 } = splitProps(e84);
   let p41;
   p41 = Array.isArray(r19) ? [
-    s5,
+    s52,
     ...r19
   ] : typeof r19 === "function" ? (...o25) => {
     const e93 = r19(...o25);
-    return isPlainObject(e93) ? _extends({}, s5, e93) : s5;
-  } : _extends({}, s5, r19);
+    return isPlainObject(e93) ? _extends({}, s52, e93) : s52;
+  } : _extends({}, s52, r19);
   return _extends({}, t326, {
     sx: p41
   });
@@ -9606,7 +9601,7 @@ var d15 = function(n135) {
   _inheritsLoose(CSSTransition, n135);
   function CSSTransition() {
     var e335;
-    for (var s5 = arguments.length, r154 = new Array(s5), t241 = 0; t241 < s5; t241++) {
+    for (var s52 = arguments.length, r154 = new Array(s52), t241 = 0; t241 < s52; t241++) {
       r154[t241] = arguments[t241];
     }
     e335 = n135.call.apply(n135, [
@@ -9689,9 +9684,9 @@ var d15 = function(n135) {
       l12(e429, n9);
     }
   };
-  t165.removeClasses = function removeClasses(e527, s5) {
-    var r1113 = this.appliedClasses[s5], n10 = r1113.base, t811 = r1113.active, o610 = r1113.done;
-    this.appliedClasses[s5] = {};
+  t165.removeClasses = function removeClasses(e527, s52) {
+    var r1113 = this.appliedClasses[s52], n10 = r1113.base, t811 = r1113.active, o610 = r1113.done;
+    this.appliedClasses[s52] = {};
     n10 && m12(e527, n10);
     t811 && m12(e527, t811);
     o610 && m12(e527, o610);
@@ -10089,7 +10084,7 @@ var f20 = function(n75) {
     };
   };
   s145.render = function render() {
-    var e913 = this.props, n10 = e913.children, s5 = e913.mode, u131 = this.state, c39 = u131.status, l132 = u131.current;
+    var e913 = this.props, n10 = e913.children, s52 = e913.mode, u131 = this.state, c39 = u131.status, l132 = u131.current;
     var p126 = {
       children: n10,
       current: l132,
@@ -10099,10 +10094,10 @@ var f20 = function(n75) {
     var f129;
     switch (c39) {
       case c13:
-        f129 = d17[s5](p126);
+        f129 = d17[s52](p126);
         break;
       case d14:
-        f129 = m13[s5](p126);
+        f129 = m13[s52](p126);
         break;
       case f19:
         f129 = l132;
@@ -11996,13 +11991,6 @@ var QrCode = createSvgIcon(a("path", {
   key: "12",
   d: "M3 11h8V3H3v8zm2-6h4v4H5V5zM3 21h8v-8H3v8zm2-6h4v4H5v-4zm8-12v8h8V3h-8zm6 6h-4V5h4v4zm0 10h2v2h-2zm-6-6h2v2h-2zm2 2h2v2h-2zm-2 2h2v2h-2zm2 2h2v2h-2zm2-2h2v2h-2zm0-4h2v2h-2zm2 2h2v2h-2z"
 }), "QrCode");
-
-// js/Qr.tsx
-import { css, jsx } from "https://unpkg.com/@spike.land/esm@0.6.9/dist/emotion-react.mjs";
-import { motion } from "https://unpkg.com/@spike.land/esm@0.6.9/dist/framer-motion.mjs";
-import React2 from "https://unpkg.com/@spike.land/esm@0.6.9/dist/react.mjs";
-
-// ../qrious/dist/QRious.mjs
 var ve2 = Object.create;
 var w9 = Object.defineProperty;
 var _e = Object.getOwnPropertyDescriptor;
@@ -12034,8 +12022,8 @@ var E8 = o4((c0, A3) => {
   }
   function y15(t, e5, i13) {
     i13 = Be.call(arguments, 2);
-    for (var r, x, s5 = 0, a18 = i13.length; s5 < a18; s5++) {
-      x = i13[s5];
+    for (var r, x, s52 = 0, a18 = i13.length; s52 < a18; s52++) {
+      x = i13[s52];
       for (r in x)
         (!t || we.call(x, r)) && (e5[r] = x[r]);
     }
@@ -12082,10 +12070,10 @@ var M4 = o4((d0, R5) => {
 var j6 = o4((l0, T4) => {
   "use strict";
   var Ae = M4(), Ee = Ae.extend({ draw: function(t) {
-    var e5, i13, r = this.qrious, x = this.getModuleSize(t), s5 = this.getOffset(t), a18 = this.element.getContext("2d");
+    var e5, i13, r = this.qrious, x = this.getModuleSize(t), s52 = this.getOffset(t), a18 = this.element.getContext("2d");
     for (a18.fillStyle = r.foreground, a18.globalAlpha = r.foregroundAlpha, e5 = 0; e5 < t.width; e5++)
       for (i13 = 0; i13 < t.width; i13++)
-        t.buffer[i13 * t.width + e5] && a18.fillRect(x * e5 + s5, x * i13 + s5, x, x);
+        t.buffer[i13 * t.width + e5] && a18.fillRect(x * e5 + s52, x * i13 + s52, x, x);
   }, reset: function() {
     var t = this.qrious, e5 = this.element.getContext("2d"), i13 = t.size;
     e5.lineWidth = 1, e5.clearRect(0, 0, i13, i13), e5.fillStyle = t.background, e5.globalAlpha = t.backgroundAlpha, e5.fillRect(0, 0, i13, i13);
@@ -12100,10 +12088,10 @@ var I3 = o4((v0, z5) => {
   var Se = u19(), Ce2 = Se.extend(null, { BLOCK: [0, 11, 15, 19, 23, 27, 31, 16, 18, 20, 22, 24, 26, 28, 20, 22, 24, 24, 26, 28, 28, 22, 24, 24, 26, 26, 28, 28, 24, 24, 26, 26, 26, 28, 28, 24, 26, 26, 26, 28, 28] });
   z5.exports = Ce2;
 });
-var V4 = o4((_0, P) => {
+var V4 = o4((_0, P4) => {
   "use strict";
   var Le = u19(), Re = Le.extend(null, { BLOCKS: [1, 0, 19, 7, 1, 0, 16, 10, 1, 0, 13, 13, 1, 0, 9, 17, 1, 0, 34, 10, 1, 0, 28, 16, 1, 0, 22, 22, 1, 0, 16, 28, 1, 0, 55, 15, 1, 0, 44, 26, 2, 0, 17, 18, 2, 0, 13, 22, 1, 0, 80, 20, 2, 0, 32, 18, 2, 0, 24, 26, 4, 0, 9, 16, 1, 0, 108, 26, 2, 0, 43, 24, 2, 2, 15, 18, 2, 2, 11, 22, 2, 0, 68, 18, 4, 0, 27, 16, 4, 0, 19, 24, 4, 0, 15, 28, 2, 0, 78, 20, 4, 0, 31, 18, 2, 4, 14, 18, 4, 1, 13, 26, 2, 0, 97, 24, 2, 2, 38, 22, 4, 2, 18, 22, 4, 2, 14, 26, 2, 0, 116, 30, 3, 2, 36, 22, 4, 4, 16, 20, 4, 4, 12, 24, 2, 2, 68, 18, 4, 1, 43, 26, 6, 2, 19, 24, 6, 2, 15, 28, 4, 0, 81, 20, 1, 4, 50, 30, 4, 4, 22, 28, 3, 8, 12, 24, 2, 2, 92, 24, 6, 2, 36, 22, 4, 6, 20, 26, 7, 4, 14, 28, 4, 0, 107, 26, 8, 1, 37, 22, 8, 4, 20, 24, 12, 4, 11, 22, 3, 1, 115, 30, 4, 5, 40, 24, 11, 5, 16, 20, 11, 5, 12, 24, 5, 1, 87, 22, 5, 5, 41, 24, 5, 7, 24, 30, 11, 7, 12, 24, 5, 1, 98, 24, 7, 3, 45, 28, 15, 2, 19, 24, 3, 13, 15, 30, 1, 5, 107, 28, 10, 1, 46, 28, 1, 15, 22, 28, 2, 17, 14, 28, 5, 1, 120, 30, 9, 4, 43, 26, 17, 1, 22, 28, 2, 19, 14, 28, 3, 4, 113, 28, 3, 11, 44, 26, 17, 4, 21, 26, 9, 16, 13, 26, 3, 5, 107, 28, 3, 13, 41, 26, 15, 5, 24, 30, 15, 10, 15, 28, 4, 4, 116, 28, 17, 0, 42, 26, 17, 6, 22, 28, 19, 6, 16, 30, 2, 7, 111, 28, 17, 0, 46, 28, 7, 16, 24, 30, 34, 0, 13, 24, 4, 5, 121, 30, 4, 14, 47, 28, 11, 14, 24, 30, 16, 14, 15, 30, 6, 4, 117, 30, 6, 14, 45, 28, 11, 16, 24, 30, 30, 2, 16, 30, 8, 4, 106, 26, 8, 13, 47, 28, 7, 22, 24, 30, 22, 13, 15, 30, 10, 2, 114, 28, 19, 4, 46, 28, 28, 6, 22, 28, 33, 4, 16, 30, 8, 4, 122, 30, 22, 3, 45, 28, 8, 26, 23, 30, 12, 28, 15, 30, 3, 10, 117, 30, 3, 23, 45, 28, 4, 31, 24, 30, 11, 31, 15, 30, 7, 7, 116, 30, 21, 7, 45, 28, 1, 37, 23, 30, 19, 26, 15, 30, 5, 10, 115, 30, 19, 10, 47, 28, 15, 25, 24, 30, 23, 25, 15, 30, 13, 3, 115, 30, 2, 29, 46, 28, 42, 1, 24, 30, 23, 28, 15, 30, 17, 0, 115, 30, 10, 23, 46, 28, 10, 35, 24, 30, 19, 35, 15, 30, 17, 1, 115, 30, 14, 21, 46, 28, 29, 19, 24, 30, 11, 46, 15, 30, 13, 6, 115, 30, 14, 23, 46, 28, 44, 7, 24, 30, 59, 1, 16, 30, 12, 7, 121, 30, 12, 26, 47, 28, 39, 14, 24, 30, 22, 41, 15, 30, 6, 14, 121, 30, 6, 34, 47, 28, 46, 10, 24, 30, 2, 64, 15, 30, 17, 4, 122, 30, 29, 14, 46, 28, 49, 10, 24, 30, 24, 46, 15, 30, 4, 18, 122, 30, 13, 32, 46, 28, 48, 14, 24, 30, 42, 32, 15, 30, 20, 4, 117, 30, 40, 7, 47, 28, 43, 22, 24, 30, 10, 67, 15, 30, 19, 6, 118, 30, 18, 31, 47, 28, 34, 34, 24, 30, 20, 61, 15, 30], FINAL_FORMAT: [30660, 29427, 32170, 30877, 26159, 25368, 27713, 26998, 21522, 20773, 24188, 23371, 17913, 16590, 20375, 19104, 13663, 12392, 16177, 14854, 9396, 8579, 11994, 11245, 5769, 5054, 7399, 6608, 1890, 597, 3340, 2107], LEVELS: { L: 1, M: 2, Q: 3, H: 4 } });
-  P.exports = Re;
+  P4.exports = Re;
 });
 var K2 = o4((b0, G2) => {
   "use strict";
@@ -12118,12 +12106,12 @@ var D4 = o4((m0, U2) => {
 var Q2 = o4((p0, F3) => {
   "use strict";
   var Pe = u19(), Ve = I3(), _7 = V4(), l = K2(), Ge = D4(), c = Pe.extend(function(t) {
-    var e5, i13, r, x, s5, a18 = t.value.length;
-    for (this._badness = [], this._level = _7.LEVELS[t.level], this._polynomial = [], this._value = t.value, this._version = 0, this._stringBuffer = []; this._version < 40 && (this._version++, r = (this._level - 1) * 4 + (this._version - 1) * 16, x = _7.BLOCKS[r++], s5 = _7.BLOCKS[r++], e5 = _7.BLOCKS[r++], i13 = _7.BLOCKS[r], r = e5 * (x + s5) + s5 - 3 + (this._version <= 9), !(a18 <= r)); )
+    var e5, i13, r, x, s52, a18 = t.value.length;
+    for (this._badness = [], this._level = _7.LEVELS[t.level], this._polynomial = [], this._value = t.value, this._version = 0, this._stringBuffer = []; this._version < 40 && (this._version++, r = (this._level - 1) * 4 + (this._version - 1) * 16, x = _7.BLOCKS[r++], s52 = _7.BLOCKS[r++], e5 = _7.BLOCKS[r++], i13 = _7.BLOCKS[r], r = e5 * (x + s52) + s52 - 3 + (this._version <= 9), !(a18 <= r)); )
       ;
-    this._dataBlock = e5, this._eccBlock = i13, this._neccBlock1 = x, this._neccBlock2 = s5;
+    this._dataBlock = e5, this._eccBlock = i13, this._neccBlock1 = x, this._neccBlock2 = s52;
     var n8 = this.width = 17 + 4 * this._version;
-    this.buffer = c._createArray(n8 * n8), this._ecc = c._createArray(e5 + (e5 + i13) * (x + s5) + s5), this._mask = c._createArray((n8 * (n8 + 1) + 1) / 2), this._insertFinders(), this._insertAlignments(), this.buffer[8 + n8 * (n8 - 8)] = 1, this._insertTimingGap(), this._reverseMask(), this._insertTimingRowAndColumn(), this._insertVersion(), this._syncMask(), this._convertBitStream(a18), this._calculatePolynomial(), this._appendEccToData(), this._interleaveBlocks(), this._pack(), this._finish();
+    this.buffer = c._createArray(n8 * n8), this._ecc = c._createArray(e5 + (e5 + i13) * (x + s52) + s52), this._mask = c._createArray((n8 * (n8 + 1) + 1) / 2), this._insertFinders(), this._insertAlignments(), this.buffer[8 + n8 * (n8 - 8)] = 1, this._insertTimingGap(), this._reverseMask(), this._insertTimingRowAndColumn(), this._insertVersion(), this._syncMask(), this._convertBitStream(a18), this._calculatePolynomial(), this._appendEccToData(), this._interleaveBlocks(), this._pack(), this._finish();
   }, { _addAlignment: function(t, e5) {
     var i13, r = this.buffer, x = this.width;
     for (r[t + x * e5] = 1, i13 = -2; i13 < 2; i13++)
@@ -12131,17 +12119,17 @@ var Q2 = o4((p0, F3) => {
     for (i13 = 0; i13 < 2; i13++)
       this._setMask(t - 1, e5 + i13), this._setMask(t + 1, e5 - i13), this._setMask(t - i13, e5 - 1), this._setMask(t + i13, e5 + 1);
   }, _appendData: function(t, e5, i13, r) {
-    var x, s5, a18, n8 = this._polynomial, f10 = this._stringBuffer;
-    for (s5 = 0; s5 < r; s5++)
-      f10[i13 + s5] = 0;
-    for (s5 = 0; s5 < e5; s5++) {
-      if (x = l.LOG[f10[t + s5] ^ f10[i13]], x !== 255)
+    var x, s52, a18, n8 = this._polynomial, f102 = this._stringBuffer;
+    for (s52 = 0; s52 < r; s52++)
+      f102[i13 + s52] = 0;
+    for (s52 = 0; s52 < e5; s52++) {
+      if (x = l.LOG[f102[t + s52] ^ f102[i13]], x !== 255)
         for (a18 = 1; a18 < r; a18++)
-          f10[i13 + a18 - 1] = f10[i13 + a18] ^ l.EXPONENT[c._modN(x + n8[r - a18])];
+          f102[i13 + a18 - 1] = f102[i13 + a18] ^ l.EXPONENT[c._modN(x + n8[r - a18])];
       else
         for (a18 = i13; a18 < i13 + r; a18++)
-          f10[a18] = f10[a18 + 1];
-      f10[i13 + r - 1] = x === 255 ? 0 : l.EXPONENT[c._modN(x + n8[0])];
+          f102[a18] = f102[a18 + 1];
+      f102[i13 + r - 1] = x === 255 ? 0 : l.EXPONENT[c._modN(x + n8[0])];
     }
   }, _appendEccToData: function() {
     var t, e5 = 0, i13 = this._dataBlock, r = this._calculateMaxLength(), x = this._eccBlock;
@@ -12150,47 +12138,47 @@ var Q2 = o4((p0, F3) => {
     for (t = 0; t < this._neccBlock2; t++)
       this._appendData(e5, i13 + 1, r, x), e5 += i13 + 1, r += x;
   }, _applyMask: function(t) {
-    var e5, i13, r, x, s5 = this.buffer, a18 = this.width;
+    var e5, i13, r, x, s52 = this.buffer, a18 = this.width;
     switch (t) {
       case 0:
         for (x = 0; x < a18; x++)
           for (r = 0; r < a18; r++)
-            !(r + x & 1) && !this._isMasked(r, x) && (s5[r + x * a18] ^= 1);
+            !(r + x & 1) && !this._isMasked(r, x) && (s52[r + x * a18] ^= 1);
         break;
       case 1:
         for (x = 0; x < a18; x++)
           for (r = 0; r < a18; r++)
-            !(x & 1) && !this._isMasked(r, x) && (s5[r + x * a18] ^= 1);
+            !(x & 1) && !this._isMasked(r, x) && (s52[r + x * a18] ^= 1);
         break;
       case 2:
         for (x = 0; x < a18; x++)
           for (e5 = 0, r = 0; r < a18; r++, e5++)
-            e5 === 3 && (e5 = 0), !e5 && !this._isMasked(r, x) && (s5[r + x * a18] ^= 1);
+            e5 === 3 && (e5 = 0), !e5 && !this._isMasked(r, x) && (s52[r + x * a18] ^= 1);
         break;
       case 3:
         for (i13 = 0, x = 0; x < a18; x++, i13++)
           for (i13 === 3 && (i13 = 0), e5 = i13, r = 0; r < a18; r++, e5++)
-            e5 === 3 && (e5 = 0), !e5 && !this._isMasked(r, x) && (s5[r + x * a18] ^= 1);
+            e5 === 3 && (e5 = 0), !e5 && !this._isMasked(r, x) && (s52[r + x * a18] ^= 1);
         break;
       case 4:
         for (x = 0; x < a18; x++)
           for (e5 = 0, i13 = x >> 1 & 1, r = 0; r < a18; r++, e5++)
-            e5 === 3 && (e5 = 0, i13 = !i13), !i13 && !this._isMasked(r, x) && (s5[r + x * a18] ^= 1);
+            e5 === 3 && (e5 = 0, i13 = !i13), !i13 && !this._isMasked(r, x) && (s52[r + x * a18] ^= 1);
         break;
       case 5:
         for (i13 = 0, x = 0; x < a18; x++, i13++)
           for (i13 === 3 && (i13 = 0), e5 = 0, r = 0; r < a18; r++, e5++)
-            e5 === 3 && (e5 = 0), !((r & x & 1) + !(!e5 | !i13)) && !this._isMasked(r, x) && (s5[r + x * a18] ^= 1);
+            e5 === 3 && (e5 = 0), !((r & x & 1) + !(!e5 | !i13)) && !this._isMasked(r, x) && (s52[r + x * a18] ^= 1);
         break;
       case 6:
         for (i13 = 0, x = 0; x < a18; x++, i13++)
           for (i13 === 3 && (i13 = 0), e5 = 0, r = 0; r < a18; r++, e5++)
-            e5 === 3 && (e5 = 0), !((r & x & 1) + (e5 && e5 === i13) & 1) && !this._isMasked(r, x) && (s5[r + x * a18] ^= 1);
+            e5 === 3 && (e5 = 0), !((r & x & 1) + (e5 && e5 === i13) & 1) && !this._isMasked(r, x) && (s52[r + x * a18] ^= 1);
         break;
       case 7:
         for (i13 = 0, x = 0; x < a18; x++, i13++)
           for (i13 === 3 && (i13 = 0), e5 = 0, r = 0; r < a18; r++, e5++)
-            e5 === 3 && (e5 = 0), !((e5 && e5 === i13) + (r + x & 1) & 1) && !this._isMasked(r, x) && (s5[r + x * a18] ^= 1);
+            e5 === 3 && (e5 = 0), !((e5 && e5 === i13) + (r + x & 1) & 1) && !this._isMasked(r, x) && (s52[r + x * a18] ^= 1);
         break;
     }
   }, _calculateMaxLength: function() {
@@ -12205,44 +12193,44 @@ var Q2 = o4((p0, F3) => {
     for (t = 0; t <= i13; t++)
       r[t] = l.LOG[r[t]];
   }, _checkBadness: function() {
-    var t, e5, i13, r, x, s5 = 0, a18 = this._badness, n8 = this.buffer, f10 = this.width;
-    for (x = 0; x < f10 - 1; x++)
-      for (r = 0; r < f10 - 1; r++)
-        (n8[r + f10 * x] && n8[r + 1 + f10 * x] && n8[r + f10 * (x + 1)] && n8[r + 1 + f10 * (x + 1)] || !(n8[r + f10 * x] || n8[r + 1 + f10 * x] || n8[r + f10 * (x + 1)] || n8[r + 1 + f10 * (x + 1)])) && (s5 += c.N2);
+    var t, e5, i13, r, x, s52 = 0, a18 = this._badness, n8 = this.buffer, f102 = this.width;
+    for (x = 0; x < f102 - 1; x++)
+      for (r = 0; r < f102 - 1; r++)
+        (n8[r + f102 * x] && n8[r + 1 + f102 * x] && n8[r + f102 * (x + 1)] && n8[r + 1 + f102 * (x + 1)] || !(n8[r + f102 * x] || n8[r + 1 + f102 * x] || n8[r + f102 * (x + 1)] || n8[r + 1 + f102 * (x + 1)])) && (s52 += c.N2);
     var h = 0;
-    for (x = 0; x < f10; x++) {
-      for (i13 = 0, a18[0] = 0, t = 0, r = 0; r < f10; r++)
-        e5 = n8[r + f10 * x], t === e5 ? a18[i13]++ : a18[++i13] = 1, t = e5, h += t ? 1 : -1;
-      s5 += this._getBadness(i13);
+    for (x = 0; x < f102; x++) {
+      for (i13 = 0, a18[0] = 0, t = 0, r = 0; r < f102; r++)
+        e5 = n8[r + f102 * x], t === e5 ? a18[i13]++ : a18[++i13] = 1, t = e5, h += t ? 1 : -1;
+      s52 += this._getBadness(i13);
     }
     h < 0 && (h = -h);
     var O3 = 0, b17 = h;
-    for (b17 += b17 << 2, b17 <<= 1; b17 > f10 * f10; )
-      b17 -= f10 * f10, O3++;
-    for (s5 += O3 * c.N4, r = 0; r < f10; r++) {
-      for (i13 = 0, a18[0] = 0, t = 0, x = 0; x < f10; x++)
-        e5 = n8[r + f10 * x], t === e5 ? a18[i13]++ : a18[++i13] = 1, t = e5;
-      s5 += this._getBadness(i13);
+    for (b17 += b17 << 2, b17 <<= 1; b17 > f102 * f102; )
+      b17 -= f102 * f102, O3++;
+    for (s52 += O3 * c.N4, r = 0; r < f102; r++) {
+      for (i13 = 0, a18[0] = 0, t = 0, x = 0; x < f102; x++)
+        e5 = n8[r + f102 * x], t === e5 ? a18[i13]++ : a18[++i13] = 1, t = e5;
+      s52 += this._getBadness(i13);
     }
-    return s5;
+    return s52;
   }, _convertBitStream: function(t) {
     var e5, i13, r = this._ecc, x = this._version;
     for (i13 = 0; i13 < t; i13++)
       r[i13] = this._value.charCodeAt(i13);
-    var s5 = this._stringBuffer = r.slice(), a18 = this._calculateMaxLength();
+    var s52 = this._stringBuffer = r.slice(), a18 = this._calculateMaxLength();
     t >= a18 - 2 && (t = a18 - 2, x > 9 && t--);
     var n8 = t;
     if (x > 9) {
-      for (s5[n8 + 2] = 0, s5[n8 + 3] = 0; n8--; )
-        e5 = s5[n8], s5[n8 + 3] |= 255 & e5 << 4, s5[n8 + 2] = e5 >> 4;
-      s5[2] |= 255 & t << 4, s5[1] = t >> 4, s5[0] = 64 | t >> 12;
+      for (s52[n8 + 2] = 0, s52[n8 + 3] = 0; n8--; )
+        e5 = s52[n8], s52[n8 + 3] |= 255 & e5 << 4, s52[n8 + 2] = e5 >> 4;
+      s52[2] |= 255 & t << 4, s52[1] = t >> 4, s52[0] = 64 | t >> 12;
     } else {
-      for (s5[n8 + 1] = 0, s5[n8 + 2] = 0; n8--; )
-        e5 = s5[n8], s5[n8 + 2] |= 255 & e5 << 4, s5[n8 + 1] = e5 >> 4;
-      s5[1] |= 255 & t << 4, s5[0] = 64 | t >> 4;
+      for (s52[n8 + 1] = 0, s52[n8 + 2] = 0; n8--; )
+        e5 = s52[n8], s52[n8 + 2] |= 255 & e5 << 4, s52[n8 + 1] = e5 >> 4;
+      s52[1] |= 255 & t << 4, s52[0] = 64 | t >> 4;
     }
     for (n8 = t + 3 - (x < 10); n8 < a18; )
-      s5[n8++] = 236, s5[n8++] = 17;
+      s52[n8++] = 236, s52[n8++] = 17;
   }, _getBadness: function(t) {
     var e5, i13 = 0, r = this._badness;
     for (e5 = 0; e5 <= t; e5++)
@@ -12256,24 +12244,24 @@ var Q2 = o4((p0, F3) => {
     for (e5 = 0; e5 < 8 && (this._applyMask(e5), t = this._checkBadness(), t < r && (r = t, i13 = e5), i13 !== 7); e5++)
       this.buffer = this._stringBuffer.slice();
     i13 !== e5 && this._applyMask(i13), r = _7.FINAL_FORMAT[i13 + (this._level - 1 << 3)];
-    var x = this.buffer, s5 = this.width;
+    var x = this.buffer, s52 = this.width;
     for (e5 = 0; e5 < 8; e5++, r >>= 1)
-      r & 1 && (x[s5 - 1 - e5 + s5 * 8] = 1, e5 < 6 ? x[8 + s5 * e5] = 1 : x[8 + s5 * (e5 + 1)] = 1);
+      r & 1 && (x[s52 - 1 - e5 + s52 * 8] = 1, e5 < 6 ? x[8 + s52 * e5] = 1 : x[8 + s52 * (e5 + 1)] = 1);
     for (e5 = 0; e5 < 7; e5++, r >>= 1)
-      r & 1 && (x[8 + s5 * (s5 - 7 + e5)] = 1, e5 ? x[6 - e5 + s5 * 8] = 1 : x[7 + s5 * 8] = 1);
+      r & 1 && (x[8 + s52 * (s52 - 7 + e5)] = 1, e5 ? x[6 - e5 + s52 * 8] = 1 : x[7 + s52 * 8] = 1);
   }, _interleaveBlocks: function() {
-    var t, e5, i13 = this._dataBlock, r = this._ecc, x = this._eccBlock, s5 = 0, a18 = this._calculateMaxLength(), n8 = this._neccBlock1, f10 = this._neccBlock2, h = this._stringBuffer;
+    var t, e5, i13 = this._dataBlock, r = this._ecc, x = this._eccBlock, s52 = 0, a18 = this._calculateMaxLength(), n8 = this._neccBlock1, f102 = this._neccBlock2, h = this._stringBuffer;
     for (t = 0; t < i13; t++) {
       for (e5 = 0; e5 < n8; e5++)
-        r[s5++] = h[t + e5 * i13];
-      for (e5 = 0; e5 < f10; e5++)
-        r[s5++] = h[n8 * i13 + t + e5 * (i13 + 1)];
+        r[s52++] = h[t + e5 * i13];
+      for (e5 = 0; e5 < f102; e5++)
+        r[s52++] = h[n8 * i13 + t + e5 * (i13 + 1)];
     }
-    for (e5 = 0; e5 < f10; e5++)
-      r[s5++] = h[n8 * i13 + t + e5 * (i13 + 1)];
+    for (e5 = 0; e5 < f102; e5++)
+      r[s52++] = h[n8 * i13 + t + e5 * (i13 + 1)];
     for (t = 0; t < x; t++)
-      for (e5 = 0; e5 < n8 + f10; e5++)
-        r[s5++] = h[a18 + t + e5 * x];
+      for (e5 = 0; e5 < n8 + f102; e5++)
+        r[s52++] = h[a18 + t + e5 * x];
     this._stringBuffer = r;
   }, _insertAlignments: function() {
     var t, e5, i13, r = this._version, x = this.width;
@@ -12286,14 +12274,14 @@ var Q2 = o4((p0, F3) => {
         i13 -= t, this._addAlignment(6, i13), this._addAlignment(i13, 6);
       }
   }, _insertFinders: function() {
-    var t, e5, i13, r, x = this.buffer, s5 = this.width;
+    var t, e5, i13, r, x = this.buffer, s52 = this.width;
     for (t = 0; t < 3; t++) {
-      for (e5 = 0, r = 0, t === 1 && (e5 = s5 - 7), t === 2 && (r = s5 - 7), x[r + 3 + s5 * (e5 + 3)] = 1, i13 = 0; i13 < 6; i13++)
-        x[r + i13 + s5 * e5] = 1, x[r + s5 * (e5 + i13 + 1)] = 1, x[r + 6 + s5 * (e5 + i13)] = 1, x[r + i13 + 1 + s5 * (e5 + 6)] = 1;
+      for (e5 = 0, r = 0, t === 1 && (e5 = s52 - 7), t === 2 && (r = s52 - 7), x[r + 3 + s52 * (e5 + 3)] = 1, i13 = 0; i13 < 6; i13++)
+        x[r + i13 + s52 * e5] = 1, x[r + s52 * (e5 + i13 + 1)] = 1, x[r + 6 + s52 * (e5 + i13)] = 1, x[r + i13 + 1 + s52 * (e5 + 6)] = 1;
       for (i13 = 1; i13 < 5; i13++)
         this._setMask(r + i13, e5 + 1), this._setMask(r + 1, e5 + i13 + 1), this._setMask(r + 5, e5 + i13), this._setMask(r + i13 + 1, e5 + 5);
       for (i13 = 2; i13 < 4; i13++)
-        x[r + i13 + s5 * (e5 + 2)] = 1, x[r + 2 + s5 * (e5 + i13 + 1)] = 1, x[r + 4 + s5 * (e5 + i13)] = 1, x[r + i13 + 1 + s5 * (e5 + 4)] = 1;
+        x[r + i13 + s52 * (e5 + 2)] = 1, x[r + 2 + s52 * (e5 + i13 + 1)] = 1, x[r + 4 + s52 * (e5 + i13)] = 1, x[r + i13 + 1 + s52 * (e5 + 4)] = 1;
     }
   }, _insertTimingGap: function() {
     var t, e5, i13 = this.width;
@@ -12306,21 +12294,21 @@ var Q2 = o4((p0, F3) => {
     for (t = 0; t < i13 - 14; t++)
       t & 1 ? (this._setMask(8 + t, 6), this._setMask(6, 8 + t)) : (e5[8 + t + i13 * 6] = 1, e5[6 + i13 * (8 + t)] = 1);
   }, _insertVersion: function() {
-    var t, e5, i13, r, x = this.buffer, s5 = this._version, a18 = this.width;
-    if (s5 > 6)
-      for (t = Ge.BLOCK[s5 - 7], e5 = 17, i13 = 0; i13 < 6; i13++)
+    var t, e5, i13, r, x = this.buffer, s52 = this._version, a18 = this.width;
+    if (s52 > 6)
+      for (t = Ge.BLOCK[s52 - 7], e5 = 17, i13 = 0; i13 < 6; i13++)
         for (r = 0; r < 3; r++, e5--)
-          1 & (e5 > 11 ? s5 >> e5 - 12 : t >> e5) ? (x[5 - i13 + a18 * (2 - r + a18 - 11)] = 1, x[2 - r + a18 - 11 + a18 * (5 - i13)] = 1) : (this._setMask(5 - i13, 2 - r + a18 - 11), this._setMask(2 - r + a18 - 11, 5 - i13));
+          1 & (e5 > 11 ? s52 >> e5 - 12 : t >> e5) ? (x[5 - i13 + a18 * (2 - r + a18 - 11)] = 1, x[2 - r + a18 - 11 + a18 * (5 - i13)] = 1) : (this._setMask(5 - i13, 2 - r + a18 - 11), this._setMask(2 - r + a18 - 11, 5 - i13));
   }, _isMasked: function(t, e5) {
     var i13 = c._getMaskBit(t, e5);
     return this._mask[i13] === 1;
   }, _pack: function() {
-    var t, e5, i13, r = 1, x = 1, s5 = this.width, a18 = s5 - 1, n8 = s5 - 1, f10 = (this._dataBlock + this._eccBlock) * (this._neccBlock1 + this._neccBlock2) + this._neccBlock2;
-    for (e5 = 0; e5 < f10; e5++)
+    var t, e5, i13, r = 1, x = 1, s52 = this.width, a18 = s52 - 1, n8 = s52 - 1, f102 = (this._dataBlock + this._eccBlock) * (this._neccBlock1 + this._neccBlock2) + this._neccBlock2;
+    for (e5 = 0; e5 < f102; e5++)
       for (t = this._stringBuffer[e5], i13 = 0; i13 < 8; i13++, t <<= 1) {
-        128 & t && (this.buffer[a18 + s5 * n8] = 1);
+        128 & t && (this.buffer[a18 + s52 * n8] = 1);
         do
-          x ? a18-- : (a18++, r ? n8 !== 0 ? n8-- : (a18 -= 2, r = !r, a18 === 6 && (a18--, n8 = 9)) : n8 !== s5 - 1 ? n8++ : (a18 -= 2, r = !r, a18 === 6 && (a18--, n8 -= 8))), x = !x;
+          x ? a18-- : (a18++, r ? n8 !== 0 ? n8-- : (a18 -= 2, r = !r, a18 === 6 && (a18--, n8 = 9)) : n8 !== s52 - 1 ? n8++ : (a18 -= 2, r = !r, a18 === 6 && (a18--, n8 -= 8))), x = !x;
         while (this._isMasked(a18, n8));
       }
   }, _reverseMask: function() {
@@ -12390,24 +12378,24 @@ var q4 = o4((w0, Y2) => {
 });
 var $4 = o4((B0, Z2) => {
   "use strict";
-  var He = u19(), k6 = q4(), v7 = He.extend(function(t) {
+  var He = u19(), k6 = q4(), v72 = He.extend(function(t) {
     this.options = {}, t.forEach(function(e5) {
       this.options[e5.name] = e5;
     }, this);
   }, { exists: function(t) {
     return this.options[t] != null;
   }, get: function(t, e5) {
-    return v7._get(this.options[t], e5);
+    return v72._get(this.options[t], e5);
   }, getAll: function(t) {
     var e5, i13 = this.options, r = {};
     for (e5 in i13)
-      k6.hasOwn(i13, e5) && (r[e5] = v7._get(i13[e5], t));
+      k6.hasOwn(i13, e5) && (r[e5] = v72._get(i13[e5], t));
     return r;
   }, init: function(t, e5, i13) {
     typeof i13 != "function" && (i13 = k6.noop);
     var r, x;
     for (r in this.options)
-      k6.hasOwn(this.options, r) && (x = this.options[r], v7._set(x, x.defaultValue, e5), v7._createAccessor(x, e5, i13));
+      k6.hasOwn(this.options, r) && (x = this.options[r], v72._set(x, x.defaultValue, e5), v72._createAccessor(x, e5, i13));
     this._setAll(t, e5, true);
   }, set: function(t, e5, i13) {
     return this._set(t, e5, i13);
@@ -12419,7 +12407,7 @@ var $4 = o4((B0, Z2) => {
       throw new Error("Invalid option: " + t);
     if (!x.modifiable && !r)
       throw new Error("Option cannot be modified: " + t);
-    return v7._set(x, e5, i13);
+    return v72._set(x, e5, i13);
   }, _setAll: function(t, e5, i13) {
     if (!t)
       return false;
@@ -12429,18 +12417,18 @@ var $4 = o4((B0, Z2) => {
     return x;
   } }, { _createAccessor: function(t, e5, i13) {
     var r = { get: function() {
-      return v7._get(t, e5);
+      return v72._get(t, e5);
     } };
     t.modifiable && (r.set = function(x) {
-      v7._set(t, x, e5) && i13(x, t);
+      v72._set(t, x, e5) && i13(x, t);
     }), Object.defineProperty(e5, t.name, r);
   }, _get: function(t, e5) {
     return e5["_" + t.name];
   }, _set: function(t, e5, i13) {
-    var r = "_" + t.name, x = i13[r], s5 = t.transform(e5 != null ? e5 : t.defaultValue);
-    return i13[r] = s5, s5 !== x;
+    var r = "_" + t.name, x = i13[r], s52 = t.transform(e5 != null ? e5 : t.defaultValue);
+    return i13[r] = s52, s52 !== x;
   } });
-  Z2.exports = v7;
+  Z2.exports = v72;
 });
 var te2 = o4((M0, ee2) => {
   "use strict";
@@ -12460,7 +12448,7 @@ var te2 = o4((M0, ee2) => {
 });
 var se = o4((q0, xe2) => {
   "use strict";
-  var Ye = u19(), Ze = j6(), $e = Q2(), e0 = H2(), d10 = J2(), t0 = $4(), i0 = te2(), m9 = q4(), g13 = new t0([new d10("background", true, "white"), new d10("backgroundAlpha", true, 1, m9.abs), new d10("element"), new d10("foreground", true, "black"), new d10("foregroundAlpha", true, 1, m9.abs), new d10("level", true, "L", m9.toUpperCase), new d10("mime", true, "image/png"), new d10("padding", true, null, m9.abs), new d10("size", true, 100, m9.abs), new d10("value", true, "")]), ie = new i0(), re = Ye.extend(function(t) {
+  var Ye = u19(), Ze = j6(), $e = Q2(), e0 = H2(), d102 = J2(), t0 = $4(), i0 = te2(), m92 = q4(), g13 = new t0([new d102("background", true, "white"), new d102("backgroundAlpha", true, 1, m92.abs), new d102("element"), new d102("foreground", true, "black"), new d102("foregroundAlpha", true, 1, m92.abs), new d102("level", true, "L", m92.toUpperCase), new d102("mime", true, "image/png"), new d102("padding", true, null, m92.abs), new d102("size", true, 100, m92.abs), new d102("value", true, "")]), ie = new i0(), re = Ye.extend(function(t) {
     g13.init(t, this, this.update.bind(this));
     var e5 = g13.get("element", this), i13 = ie.getService("element"), r = e5 && i13.isCanvas(e5) ? e5 : i13.createCanvas(), x = e5 && i13.isImage(e5) ? e5 : i13.createImage();
     this._canvasRenderer = new Ze(this, r, true), this._imageRenderer = new e0(this, x, x === e5), this.update();
@@ -12518,8 +12506,6 @@ var n0 = he.default.extend({ createCanvas: function() {
 var de = n0;
 var f0 = le.default;
 f0.use(new de());
-
-// js/Qr.tsx
 var QR = ({ url }) => {
   const canvasRef = React2.useRef(null);
   React2.useEffect(() => {
@@ -12570,8 +12556,6 @@ var QRButton = ({ url }) => {
     }
   }, /* @__PURE__ */ jsx(QrCode, null)));
 };
-
-// js/DraggableWindow.tsx
 var breakPoints = [680, 768, 1920];
 var breakPointHeights = [1137, 1024, 1080];
 var sizes = [10, 25, 50, 75, 100, 150];
@@ -12832,8 +12816,6 @@ var DraggableWindow = ({ onShare, onRestore, position, session, keepFullScreen, 
 function createMarkup(__html) {
   return { __html };
 }
-
-// js/renderPreviewWindow.tsx
 var renderPreviewWindow = async (session, room, keepFullScreen) => {
   const target = document.createElement("div");
   const editor = document.querySelector("#shadowEditor");
@@ -12867,4 +12849,4 @@ var renderPreviewWindow = async (session, room, keepFullScreen) => {
 export {
   renderPreviewWindow
 };
-//# sourceMappingURL=renderPreviewWindow.mjs.map
+//# sourceMappingURL=renderPreviewWindow-YUNKMTW6.mjs.map

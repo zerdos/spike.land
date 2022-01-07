@@ -389,7 +389,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
                         console.log(e.target);
                         console.log(e.target.document);
                       }}
-                      src={`https://code.spike.land/api/room/${room}/hydrated`}
+                      src={`https://spike.land/api/room/${room}/hydrated`}
                     /> */
                 }
               </motion.div>

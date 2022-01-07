@@ -113,7 +113,7 @@
 
 //   console.log("done");
 
-//   location.href = "https://code.spike.land";
+//   location.href = "https://spike.land";
 // }
 
 // /**
@@ -151,7 +151,7 @@
 
 // //   if (room !== "") {
 // //     const resp = await fetch(
-// //       `https://code.spike.land/api/room/${room}/hashOfCode`,
+// //       `https://spike.land/api/room/${room}/hashOfCode`,
 // //     );
 // //     const CID = await resp.text();
 // //     if (CID === "" && projectDesc === null) {
@@ -168,7 +168,7 @@
 // //     if (!code) {
 // //       if (CID) {
 // //         const respCode = await fetch(
-// //           `https://code.spike.land/api/room/${room}/code`,
+// //           `https://spike.land/api/room/${room}/code`,
 // //         );
 // //         code = await respCode.text();
 // //       } else {
@@ -251,7 +251,7 @@
 //     //   // const UID = await getUserId();
 
 //     //   // const url = `/add/${CID}`;
-//     //   // fetch(`https://code.spike.land${url}`, {
+//     //   // fetch(`https://spike.land${url}`, {
 //     //   //   method: "POST",
 //     //   //   headers: {
 //     //   //     UID: UID,
@@ -296,7 +296,7 @@
 //   };
 
 // // function getStarter() {
-// //   return fetch(`https://code.spike.land/examples/rca.tsx`).then((res) =>
+// //   return fetch(`https://spike.land/examples/rca.tsx`).then((res) =>
 // //     res.text()
 // //   );
 // // }

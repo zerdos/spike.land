@@ -6,11 +6,11 @@ var esbuildEsmTransform;
 var getHtmlAndCss;
 var initSess;
 var initSession = async (room, initData) => {
-  initSess = initSess || (await import("./session-TGBSAGLT.mjs")).default;
+  initSess = initSess || (await import("./session-YO64C2AN.mjs")).default;
   return initSess(room, initData);
 };
 var prettier = async (code) => {
-  formatter = formatter || (await import("./formatter-QTN4LYCK.mjs")).formatter;
+  formatter = formatter || (await import("./formatter-U4GMQGVN.mjs")).formatter;
   return await formatter(code);
 };
 async function startMonacoWithSession(session) {
@@ -58,7 +58,7 @@ async function getErrors({ monaco, editor }) {
 }
 async function runner(c, changes = null, session, counter) {
   session.changes.push(changes);
-  formatter = formatter || (await import("./formatter-QTN4LYCK.mjs")).formatter;
+  formatter = formatter || (await import("./formatter-U4GMQGVN.mjs")).formatter;
   esbuildEsmTransform = esbuildEsmTransform || (await import("./esbuildEsm-IHWMAF3R.mjs")).transform;
   transform = esbuildEsmTransform;
   session.errorText = "";
@@ -140,7 +140,7 @@ var startFromCode = async ({ code }) => {
 async function quickStart(session, room, keepFullScreen, saveCode) {
   session.saveCode = saveCode;
   session.children = null;
-  const { renderPreviewWindow } = await import("./renderPreviewWindow-IEGHGS4H.mjs");
+  const { renderPreviewWindow } = await import("./renderPreviewWindow-YUNKMTW6.mjs");
   await renderPreviewWindow(session, room, keepFullScreen);
   if (!keepFullScreen) {
     await startMonacoWithSession(session);

@@ -109,7 +109,7 @@ export class CodeSession implements ICodeSess {
     //   if (savedStateStr) {
     //     savedState = JSON.parse(savedStateStr);
     //   } else {
-    //     fetch(`https://code.spike.land/api/room/${room}/mySession`).then(
+    //     fetch(`https://spike.land/api/room/${room}/mySession`).then(
     //       (resp) => resp.json(),
     //     ).then((session: IUserJSON) => {
     //       localStorage.setItem(cacheKey, JSON.stringify(session.state));

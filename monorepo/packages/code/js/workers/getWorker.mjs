@@ -8,11 +8,11 @@ export const getWorker = (file) => {
     const cid = pathname.slice(6, 52);
     forceNormalWorker = true;
     workerSrc = `/ipfs/${cid}/js/workers/${file}`;
-  } else if (location.origin !== "https://code.spike.land") {
+  } else if (location.origin !== "https://spike.land") {
     forceNormalWorker = true;
     workerSrc = window.URL.createObjectURL(
       new Blob([
-        `self.importScripts("https://code.spike.land/workers/${file}");`,
+        `self.importScripts("https://spike.land/workers/${file}");`,
       ]),
     );
   } else {
@@ -38,15 +38,15 @@ export const getWrapped = (file) => {
     const cid = pathname.slice(6, 52);
     forceNormalWorker = true;
     workerSrc = `/ipfs/${cid}/js/workers/${file}`;
-  } else if (location.origin !== "https://code.spike.land") {
+  } else if (location.origin !== "https://spike.land") {
     forceNormalWorker = true;
     workerSrc = window.URL.createObjectURL(
       new Blob([
-        `self.importScripts("https://code.spike.land/workers/${file}");`,
+        `self.importScripts("https://spike.land/workers/${file}");`,
       ]),
     );
   } else {
-    workerSrc = `https://code.spike.land/workers/${file}`;
+    workerSrc = `https://spike.land/workers/${file}`;
   }
 
   wrapped[file] = wrapped[workerSrc] = wrapped[workerSrc] ||

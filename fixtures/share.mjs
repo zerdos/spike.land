@@ -59,7 +59,7 @@ export const shareItAsHtml = async ({ room }) => {
   //   getHtml({ HTML, css, link: linkToCode }),
   // );
 
-  return `https://code.spike.land/api/room/${room}/public`;
+  return `https://spike.land/api/room/${room}/public`;
 };
 
 /**

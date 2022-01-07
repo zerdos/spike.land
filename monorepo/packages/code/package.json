@@ -43,7 +43,7 @@
   "bugs": {
     "url": "https://github.com/spike-land/monorepo"
   },
-  "homepage": "https://code.spike.land",
+  "homepage": "https://spike.land",
   "repository": "https://github.com/spike-land/monorepo",
   "devDependencies": {
     "typescript": "4.5.4"

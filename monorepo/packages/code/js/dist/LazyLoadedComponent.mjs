@@ -5,7 +5,7 @@ var LazySpikeLandComponent = ({ name, html, hash, transpiled }) => {
   const [hashCode, setHash] = React.useState(hash);
   React.useEffect(() => {
     const intervalHandler = setInterval(async () => {
-      const resp = await fetch(`https://code.spike.land/api/room/${name}/hashCodeSession`);
+      const resp = await fetch(`https://spike.land/api/room/${name}/hashCodeSession`);
       const text = await resp.text();
       setHash(Number(text));
     }, 69e3);
@@ -16,7 +16,7 @@ var LazySpikeLandComponent = ({ name, html, hash, transpiled }) => {
   }, []);
   React.useEffect(() => {
     (async () => {
-      const resp = await fetch(`https://code.spike.land/api/room/${name}/session`);
+      const resp = await fetch(`https://spike.land/api/room/${name}/session`);
       const { html: html2, css, transpiled: transpiled2 } = await resp.json();
       setHtmlCss({
         htmlContent: `<div id="root"><style>${css}</style><div id="zbody">${html2}</div></div>`,

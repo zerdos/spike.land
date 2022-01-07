@@ -173,21 +173,21 @@ export async function handleCloudRequest(request: Request): Promise<Response> {
           ).length === 0 && maybeRoute.length === 8;
       if (maybeRoute && isKey) {
         return Response.redirect(
-          `https://code.spike.land/?signalToQr=${maybeRoute}`,
+          `https://spike.land/?signalToQr=${maybeRoute}`,
           307,
         );
       }
 
       if (pathname === "/") {
         return Response.redirect(
-          "https://code.spike.land/ipfs/QmZHkLVcsmBrrEuYjNUNDSmcNjZcjZPnkyLwLjk5oa9wF5/",
+          "https://spike.land/ipfs/QmZHkLVcsmBrrEuYjNUNDSmcNjZcjZPnkyLwLjk5oa9wF5/",
           302,
         );
       }
 
       if (pathname === "/code" || pathname === "/code/") {
         return Response.redirect(
-          `https://code.spike.land`,
+          `https://spike.land`,
           302,
         );
       }

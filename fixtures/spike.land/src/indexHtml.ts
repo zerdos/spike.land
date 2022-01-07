@@ -5,8 +5,8 @@ export const content = `<!DOCTYPE html>
   <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
   <link rel="icon" type="image/png" href="./assets/zed-icon-big.png" />
   <link rel="stylesheet" href="https://unpkg.com/modern-css-reset@1.4.0/dist/reset.min.css" />
-  <link rel="stylesheet" href="https://code.spike.land/assets/app.css" />
-  <link rel="stylesheet" href="https://code.spike.land/assets/roboto.css" />
+  <link rel="stylesheet" href="https://spike.land/assets/app.css" />
+  <link rel="stylesheet" href="https://spike.land/assets/roboto.css" />
 
   <script async src="https://ga.jspm.io/npm:es-module-shims@1.4.1/dist/es-module-shims.js"></script>
   <title>Instant React Editor</title>
@@ -19,7 +19,7 @@ export const content = `<!DOCTYPE html>
     </script>
 </head>
 <body>
-  <script type="importmap-shim" src="https://code.spike.land/importmap.json"></script>
-  <script type="module-shim" src="https://code.spike.land/starter.js"></script>
+  <script type="importmap-shim" src="https://spike.land/importmap.json"></script>
+  <script type="module-shim" src="https://spike.land/starter.js"></script>
 </body>
 </html>`;

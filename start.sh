@@ -46,7 +46,7 @@ CID=$(
 #      -H "Content-Type: application/json" \
 #      --data  $(CID=$CID node -pe 'JSON.stringify({"type":"TXT","name":"_dnslink.ipfs","content": "dnslink=/ipfs/"+process.env["CID"],"ttl":1,"proxied":false})')
 
-# echo "----  https://code.spike.land -------" 
+# echo "----  https://spike.land -------" 
 # echo "-------------------------------------------------------------" 
 # echo "-------------------------------------------------------------" 
 
