@@ -831,7 +831,7 @@ var src_default2 = `<!DOCTYPE html>
 <body>
   <div id="root"></div>
   <div id="shadowEditor"></div>
-  <script type="importmap-shim" src="https://unpkg.com/@spike.land/code@{VERSION}/ks/importmap.json"><\/script>
+  <script type="importmap-shim" src="https://unpkg.com/@spike.land/code@{VERSION}/js/importmap.json"><\/script>
   <script>
   window.process = { env: { NODE_ENV: "production" } };
 <\/script>
