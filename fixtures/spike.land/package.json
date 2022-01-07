@@ -15,7 +15,7 @@
   "dependencies": {
     "@cloudflare/workers-types": "3.3.0",
     "@cloudflare/wrangler": "1.19.7",
-    "@spike.land/code": "^0.5.0",
+    "@spike.land/code": "^0.6.0",
     "@spike.land/ipfs": "^0.3.61",
 
     "ipfs-message-port-protocol": "0.10.5",
