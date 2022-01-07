@@ -67,7 +67,7 @@
     "comlink": "4.3.1",
     "es-module-shims": "1.4.1",
     "esbuild-plugin-import-map": "^2.1.0",
-    "framer-motion": "5.5.5",
+    "framer-motion": "5.5.6",
     "immutable": "^4.0.0",
     "lodash": "^4.17.21",
     "react": "18.0.0-rc.0-next-fe419346d-20220105",
