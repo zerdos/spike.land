@@ -841,7 +841,7 @@ var src_default2 = `<!DOCTYPE html>
 
     if ('serviceWorker' in navigator){
       const {Workbox} = await import('workbox-window')
-        const wb = new Workbox('https://unpkg.com/@spike.land/code@{VERSION}/js/sw.js');
+        const wb = new Workbox('/sw.js');
           wb.addEventListener("activated", async (event) => {
              if (!event.isUpdate) {
               console.log("Service worker activated for the first time!");
