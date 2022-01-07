@@ -918,9 +918,8 @@ body,
 
 </head>
 <body>
-    <div id="root"></div>
- 
-  <script type="importmap-shim" src="./importmap.json"><\/script>
+  <div id="root"></div>
+  <script type="importmap-shim" src="https://unpkg.com/@spike.land/code@{VERSION}/js/importmap.json"><\/script>
   <script>
   window.process = { env: { NODE_ENV: "production" } };
 <\/script>
@@ -5570,7 +5569,7 @@ var Code = class {
         case "hydrated": {
           const htmlContent = mST().html;
           const css2 = mST().css;
-          const html2 = hydrated_default.replace(`<script type="importmap-shim" src="https://unpkg.com/@spike.land/code@{VERSION}/js/importmap.json"><\/script>`, `<script type="importmap">${JSON.stringify(importmap_default)}}<\/script>`).replace(`<div id="root"></div>`, `<div id="root"><style>${css2}</style><div id="zbody">${htmlContent}</div></div>`).replaceAll(vReg, version).replace(`<script type="importmap-shim" src="./importmap.json"><\/script>`, `<script type="importmap">${JSON.stringify(importmap_default)}<\/script>`);
+          const html2 = hydrated_default.replace(`<script type="importmap-shim" src="https://unpkg.com/@spike.land/code@{VERSION}/js/importmap.json"><\/script>`, `<script type="importmap-shim">${JSON.stringify(importmap_default)}}<\/script>`).replace(`<div id="root"></div>`, `<div id="root"><style>${css2}</style><div id="zbody">${htmlContent}</div></div>`).replaceAll(vReg, version);
           return new Response(html2, {
             status: 200,
             headers: {
@@ -5605,7 +5604,7 @@ var Code = class {
         case "public": {
           const htmlContent = mST().html;
           const css2 = mST().css;
-          const html2 = src_default2.replace(`<div id="root"></div>`, `<div id="root"><style>${css2}</style><div id="zbody">${htmlContent}</div></div>`).replaceAll(vReg, version);
+          const html2 = src_default2.replace(`<script type="importmap-shim" src="https://unpkg.com/@spike.land/code@{VERSION}/js/importmap.json"><\/script>`, `<script type="importmap-shim">${JSON.stringify(importmap_default)}}<\/script>`).replace(`<div id="root"></div>`, `<div id="root"><style>${css2}</style><div id="zbody">${htmlContent}</div></div>`).replaceAll(vReg, version);
           return new Response(html2, {
             status: 200,
             headers: {
