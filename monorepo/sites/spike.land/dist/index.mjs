@@ -856,6 +856,9 @@ var src_default2 = `<!DOCTYPE html>
 // src/lazy.html
 var lazy_default = 'var{React:t}=window,{Suspense:C}=t,b=({name:o,html:c,hash:a,transpiled:l})=>{let[i,p]=t.useState(a);t.useEffect(()=>{let n=setInterval(async()=>{let s=await(await fetch(`https://spike.land/api/room/${o}/hashCodeSession`)).text();p(Number(s))},69e3);return()=>{console.log("INTERVAL CLEARED"),clearInterval(n)}},[]),t.useEffect(()=>{(async()=>{let n=await fetch(`https://spike.land/api/room/${o}/session`),{html:e,css:s,transpiled:L}=await n.json();u({htmlContent:`<div id="root"><style>${s}</style><div id="zbody">${e}</div></div>`,LazyComponent:await y(L)})})()},[i]);let d=t.lazy(()=>import(r(l))),[{htmlContent:m,LazyComponent:h},u]=t.useState({htmlContent:c,LazyComponent:d});return t.createElement(C,{key:i,fallback:t.createElement("div",{dangerouslySetInnerHTML:{__html:m}})},t.createElement(h,{key:a}));function r(n){let e=new Blob([n],{type:"application/javascript"});return URL.createObjectURL(e)}async function y(n){let e=r(n),s=(await import(e)).default;return URL.revokeObjectURL(e),s}},f=o=>t.createElement(b,{...o});export{f as default};\n';
 
+// src/rca.tsx.html
+var rca_tsx_default = '/** @jsx jsx */\nimport { css, jsx } from "@emotion/react";\n\nimport { motion } from "framer-motion";\n\nexport default () => (\n  <header\n    css={css`\n      background-color: #282c34;\n      min-height: 100vh;\n      display: flex;\n      flex-direction: column;\n      justify-content: center;\n      font-size: calc(10px + 2vmin);\n      color: white;\n      text-align: center;\n      overflow: hidden;\n    `}\n  >\n    <motion.div\n      animate={{ rotate: 360 }}\n      transition={{\n        repeat: 0,\n        duration: 2,\n        repeatType: "loop",\n      }}\n    >\n      <div css="font-size: calc(10px + 20vmin)">|\u{1F525}|</div>\n      -------------------\n    </motion.div>\n    <p>\n      Hey! Try to modify <code>this</code> page.\n    </p>\n\n    <a css="color: #61dafb;" href="./edit/">\n      Open the editor.\n    </a>\n  </header>\n);\n';
+
 // src/hydrated.html
 var hydrated_default = `<!DOCTYPE html>
 <html lang="en">
@@ -5437,6 +5440,16 @@ var Code = class {
         const defaultRoomObject = env.CODE.get(codeMainId);
         const resp = await defaultRoomObject.fetch("session");
         session2 = await resp.json();
+        if (!session2) {
+          session2 = {
+            code: rca_tsx_default,
+            transpiled: rca_tsx_default,
+            html: "",
+            css: "",
+            lastTimestamp: 0,
+            i: 0
+          };
+        }
         await this.kv.put("session", session2);
       }
       this.state.mySession = session_default("", {
