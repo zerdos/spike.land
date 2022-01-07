@@ -104,6 +104,7 @@ export class Code {
       }
 
       let path = url.pathname.slice(1).split("/");
+      const vReg = new RegExp('\{VERSION}');
 
       switch (path[0]) {
         case "code": {
@@ -212,10 +213,12 @@ export class Code {
           const htmlContent = mST().html;
           const css = mST().css;
 
+
+
           const html = HYDRATED.replace(
             `<div id="root"></div>`,
             `<div id="root"><style>${css}</style><div id="zbody">${htmlContent}</div></div>`,
-          ).replace("{VERSION}", version).replace(
+          ).replaceAll(vReg, version).replace(
             `<script type="importmap-shim" src="./importmap.json"></script>`,
             `<script type="importmap-shim">${JSON.stringify(imap)}</script>`,
           );
@@ -261,7 +264,7 @@ export class Code {
           const html = HTML.replace(
             `<div id="root"></div>`,
             `<div id="root"><style>${css}</style><div id="zbody">${htmlContent}</div></div>`,
-          ).replace("{VERSION}", version);
+          ).replaceAll(vReg, version);
           return new Response(html, {
             status: 200,
             headers: {
