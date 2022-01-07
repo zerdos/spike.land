@@ -5463,6 +5463,7 @@ var Code = class {
         this.state.mySession.setRoom(codeSpace);
       }
       let path = url.pathname.slice(1).split("/");
+      const vReg = new RegExp("{VERSION}");
       switch (path[0]) {
         case "code": {
           return new Response(mST().code, {
@@ -5546,7 +5547,7 @@ var Code = class {
         case "hydrated": {
           const htmlContent = mST().html;
           const css2 = mST().css;
-          const html2 = hydrated_default.replace(`<div id="root"></div>`, `<div id="root"><style>${css2}</style><div id="zbody">${htmlContent}</div></div>`).replace("{VERSION}", version).replace(`<script type="importmap-shim" src="./importmap.json"><\/script>`, `<script type="importmap-shim">${JSON.stringify(importmap_default)}<\/script>`);
+          const html2 = hydrated_default.replace(`<div id="root"></div>`, `<div id="root"><style>${css2}</style><div id="zbody">${htmlContent}</div></div>`).replaceAll(vReg, version).replace(`<script type="importmap-shim" src="./importmap.json"><\/script>`, `<script type="importmap-shim">${JSON.stringify(importmap_default)}<\/script>`);
           return new Response(html2, {
             status: 200,
             headers: {
@@ -5581,7 +5582,7 @@ var Code = class {
         case "public": {
           const htmlContent = mST().html;
           const css2 = mST().css;
-          const html2 = src_default2.replace(`<div id="root"></div>`, `<div id="root"><style>${css2}</style><div id="zbody">${htmlContent}</div></div>`).replace("{VERSION}", version);
+          const html2 = src_default2.replace(`<div id="root"></div>`, `<div id="root"><style>${css2}</style><div id="zbody">${htmlContent}</div></div>`).replaceAll(vReg, version);
           return new Response(html2, {
             status: 200,
             headers: {

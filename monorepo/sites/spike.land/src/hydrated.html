@@ -5,10 +5,6 @@
   <meta name="viewport" content="width=device-width" />
 
   <base href="https://spike.land/">
-  
-  <link rel="icon" type="image/png" href="./assets/zed-icon-big.png" />
-
-  <link rel="stylesheet" href="./assets/app.css" />
 
   <script crossorigin src="https://unpkg.com/react@18.0.0-rc.0-next-fe419346d-20220105/umd/react.production.min.js"></script>
     <!-- <script crossorigin src="https://unpkg.com/react-is@18.0.0-rc.0-next-fe419346d-20220105/umd/react-is.production.min.js"></script> -->
@@ -40,6 +36,16 @@
   noLoadEventRetriggers: true,
   skip: "/^https?:\/\/(cdn\.skypack\.dev|jspm\.dev)\//`"
      } </script>
+     <style>
+       html,
+body,
+#root,
+#zbody {
+  width: 100%;
+  height: 100%;
+}
+
+     </style>
   <script async src="https://unpkg.com/@spike.land/code@0.4.42/js/vendor/es-module-shims.wasm.js"></script>
   <title>Instant React Editor</title>
   
