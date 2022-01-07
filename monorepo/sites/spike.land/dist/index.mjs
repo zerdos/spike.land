@@ -783,9 +783,9 @@ var src_default2 = `<!DOCTYPE html>
   <meta name="viewport" content="width=device-width" />
   <base href="https://spike.land/">
   
-  <link rel="icon" type="image/png" href="./assets/zed-icon-big.png" />
+  <link rel="icon" type="image/png" href="https://unpkg.com/@spike.land/code@{VERSION}/js/assets/zed-icon-big.png" />
 
-  <link rel="stylesheet" href="https://unpkg.com/@spike.land/code/js/assets/app.css" />
+  <link rel="stylesheet" href="https://unpkg.com/@spike.land/code@{VERSION}/js/assets/app.css" />
 
   <script crossorigin src="https://unpkg.com/react@18.0.0-rc.0-next-fe419346d-20220105/umd/react.production.min.js"><\/script>
   <script crossorigin src="https://unpkg.com/react-is@18.0.0-rc.0-next-fe419346d-20220105/umd/react-is.production.min.js"><\/script>
@@ -807,7 +807,7 @@ var src_default2 = `<!DOCTYPE html>
 
        const source = await res.text();
        
-       transform = transform || (await import("./esbuildEsm.mjs")).transform;
+       transform = transform || (await import("https://unpkg.com/@spike.land/code@{VERSION}/js/esbuildEsm.mjs")).transform;
        const transformed = await transform(source);
        return new Response(new Blob([transformed], { type: 'application/javascript' }));
    }
@@ -831,7 +831,7 @@ var src_default2 = `<!DOCTYPE html>
 <body>
   <div id="root"></div>
   <div id="shadowEditor"></div>
-  <script type="importmap-shim" src="./importmap.json"><\/script>
+  <script type="importmap-shim" src="https://unpkg.com/@spike.land/code@{VERSION}/ks/importmap.json"><\/script>
   <script>
   window.process = { env: { NODE_ENV: "production" } };
 <\/script>
@@ -841,7 +841,7 @@ var src_default2 = `<!DOCTYPE html>
 
     if ('serviceWorker' in navigator){
       const {Workbox} = await import('workbox-window')
-        const wb = new Workbox('./sw.js');
+        const wb = new Workbox('https://unpkg.com/@spike.land/code@{VERSION}/js/sw.js');
           wb.addEventListener("activated", async (event) => {
              if (!event.isUpdate) {
               console.log("Service worker activated for the first time!");
@@ -864,10 +864,6 @@ var hydrated_default = `<!DOCTYPE html>
   <meta name="viewport" content="width=device-width" />
 
   <base href="https://spike.land/">
-  
-  <link rel="icon" type="image/png" href="./assets/zed-icon-big.png" />
-
-  <link rel="stylesheet" href="./assets/app.css" />
 
   <script crossorigin src="https://unpkg.com/react@18.0.0-rc.0-next-fe419346d-20220105/umd/react.production.min.js"><\/script>
     <!-- <script crossorigin src="https://unpkg.com/react-is@18.0.0-rc.0-next-fe419346d-20220105/umd/react-is.production.min.js"><\/script> -->
@@ -899,6 +895,16 @@ var hydrated_default = `<!DOCTYPE html>
   noLoadEventRetriggers: true,
   skip: "/^https?:\\/\\/(cdn\\.skypack\\.dev|jspm\\.dev)\\//\`"
      } <\/script>
+     <style>
+       html,
+body,
+#root,
+#zbody {
+  width: 100%;
+  height: 100%;
+}
+
+     </style>
   <script async src="https://unpkg.com/@spike.land/code@0.4.42/js/vendor/es-module-shims.wasm.js"><\/script>
   <title>Instant React Editor</title>
   
