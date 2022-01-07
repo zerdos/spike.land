@@ -228,13 +228,10 @@ export class Code {
 
           const html = HYDRATED.replace(
             `<script type="importmap-shim" src="https://unpkg.com/@spike.land/code@{VERSION}/js/importmap.json"></script>`,
-            `<script type="importmap">${JSON.stringify(imap)}}</script>`)
+            `<script type="importmap-shim">${JSON.stringify(imap)}}</script>`)
             .replace(`<div id="root"></div>`,
             `<div id="root"><style>${css}</style><div id="zbody">${htmlContent}</div></div>`,
-          ).replaceAll(vReg, version).replace(
-            `<script type="importmap-shim" src="./importmap.json"></script>`,
-            `<script type="importmap">${JSON.stringify(imap)}</script>`,
-          );
+          ).replaceAll(vReg, version);
           return new Response(html, {
             status: 200,
             headers: {
@@ -275,6 +272,8 @@ export class Code {
           const css = mST().css;
 
           const html = HTML.replace(
+            `<script type="importmap-shim" src="https://unpkg.com/@spike.land/code@{VERSION}/js/importmap.json"></script>`,
+            `<script type="importmap-shim">${JSON.stringify(imap)}}</script>`).replace(
             `<div id="root"></div>`,
             `<div id="root"><style>${css}</style><div id="zbody">${htmlContent}</div></div>`,
           ).replaceAll(vReg, version);
