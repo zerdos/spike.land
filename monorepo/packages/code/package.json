@@ -70,8 +70,8 @@
     "framer-motion": "5.5.6",
     "immutable": "^4.0.0",
     "lodash": "^4.17.21",
-    "react": "18.0.0-rc.0-next-fe419346d-20220105",
-    "react-dom": "18.0.0-rc.0-next-fe419346d-20220105",
+    "react": "18.0.0-rc.0-next-fe905f152-20220107",
+    "react-dom": "18.0.0-rc.0-next-fe905f152-20220107",
     "textdiff-create": "1.0.5"
   }
 }
