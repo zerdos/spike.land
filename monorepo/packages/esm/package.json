@@ -26,9 +26,9 @@
     "@types/react": "17.0.38",
     "@types/react-dom": "17.0.11",
     "framer-motion": "5.5.6",
-    "react": "18.0.0-rc.0-next-fe419346d-20220105",
-    "react-dom": "18.0.0-rc.0-next-fe419346d-20220105",
-    "react-is": "18.0.0-rc.0-next-fe419346d-20220105",
+    "react": "18.0.0-rc.0-next-fe905f152-20220107",
+    "react-dom": "18.0.0-rc.0-next-fe905f152-20220107",
+    "react-is": "18.0.0-rc.0-next-fe905f152-20220107",
     "textdiff-create": "1.0.5",
     "textdiff-patch": "1.0.5"
   },
