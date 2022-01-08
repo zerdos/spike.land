@@ -57,6 +57,6 @@
   },
   "homepage": "https://github.com/spike-land/monorepo#readme",
   "dependencies": {
-    "nodemon": "^2.0.15"
+    "nodemon": "2.0.15"
   }
 }
