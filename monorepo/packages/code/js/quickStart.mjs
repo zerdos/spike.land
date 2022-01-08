@@ -153,7 +153,6 @@ async function runner(c, changes = null, session, counter) {
           await session.saveCode({ transpiled, code, i: counter, css, html });
         monaco.editor.setTheme("vs-dark");
         // }, 10);
-
         return;
       } catch (error) {
         console.error("EXCEPTION");

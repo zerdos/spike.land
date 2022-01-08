@@ -2,7 +2,6 @@
   "name": "z",
   "version": "1.0.0",
   "description": "[Real time React page editor, in typescript! ![Screenshot](./spike.land-1920x1080.png)](https://spike.land)",
-  "main": "index.js",
   "devDependencies": {
     "@builder.io/qwik": "0.0.16-2",
     "@cloudflare/kv-asset-handler": "0.2.0",

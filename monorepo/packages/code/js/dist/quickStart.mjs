@@ -6,7 +6,7 @@ var esbuildEsmTransform;
 var getHtmlAndCss;
 var initSess;
 var initSession = async (room, initData) => {
-  initSess = initSess || (await import("./session-YO64C2AN.mjs")).default;
+  initSess = initSess || (await import("./session-W7AHAWP6.mjs")).default;
   return initSess(room, initData);
 };
 var prettier = async (code) => {

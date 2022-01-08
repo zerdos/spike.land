@@ -276,7 +276,6 @@ export class CodeSession implements ICodeSess {
 }
 
 const session: CodeSession | null = null;
-
 export default (room: string, u: IUserJSON): ICodeSess =>
   session || new CodeSession(room, u);
 
