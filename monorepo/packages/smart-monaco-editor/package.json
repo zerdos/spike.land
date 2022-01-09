@@ -34,7 +34,7 @@
   },
   "gitHead": "9a6c323d30cdcb35a077b26f0c6ae6e68e923229",
   "dependencies": {
-    "monaco-editor": "next",
+    "@spike.land/monaco-editor-auto-typings": "^0.1.1",
     "p-all": "4.0.0"
   }
 }

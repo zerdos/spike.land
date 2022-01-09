@@ -1,5 +1,6 @@
-import { version } from "monaco-editor/package.json";
+// import { version } from "monaco-editor/package.json";
 
+const version = "0.31.1";
 const exp = {
   monaco: null,
 };

@@ -1,4 +1,4 @@
-// ../smart-monaco-editor/dist/editor.mjs
+// js/dist/startMonaco.mjs
 var __create = Object.create;
 var __defProp = Object.defineProperty;
 var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
@@ -2487,4 +2487,4 @@ async function loadExtraLibs(addExtraLib, setDiagnosticsOptions) {
 export {
   editor_default as default
 };
-//# sourceMappingURL=startMonaco.mjs.map
+//# sourceMappingURL=startMonaco-SZKUOX3P.mjs.map
