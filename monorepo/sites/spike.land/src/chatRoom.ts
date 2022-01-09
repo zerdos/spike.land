@@ -1,7 +1,7 @@
 import { handleErrors } from "./handleErrors";
 import { RateLimiterClient } from "./rateLimiterClient";
-import HTML from "./index.html";
 import LAZY from "./lazy.html";
+import HTML from "./index.html";
 import RCA from "./rca.tsx.html";
 import HYDRATED from "./hydrated.html";
 

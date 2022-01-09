@@ -1,5 +1,4 @@
 import { version } from "@spike.land/code/package.json";
-import HTML from "./index.html";
 
 import { default as npmAns } from "@spike.land/cf-npm-site";
 import { handleErrors } from "./handleErrors";
