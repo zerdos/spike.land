@@ -1,6 +1,6 @@
 {
   "name": "@spike.land/smart-monaco-editor",
-  "version": "0.6.30",
+  "version": "0.6.31",
   "description": "Monaco Editor with auto type downloads mostly for React",
   "sideEffects": false,
   "main": "dist/editor.mjs",
@@ -34,7 +34,7 @@
   },
   "gitHead": "f19ed65bbe1e6fa6921e9d4a07d42a6cc4003eac",
   "dependencies": {
-    "@spike.land/monaco-editor-auto-typings": "^0.6.30",
+    "@spike.land/monaco-editor-auto-typings": "^0.6.31",
     "p-all": "4.0.0"
   }
 }
