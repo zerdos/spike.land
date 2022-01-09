@@ -2062,7 +2062,7 @@ var require_lib = __commonJS({
     __exportStar(require_UnpkgSourceResolver(), exports);
   }
 });
-var version = "0.28.1";
+var version = "0.27.0";
 var exp = {
   monaco: null
 };
@@ -2148,4 +2148,4 @@ var editor_default = async ({ onChange, code, language, container, options }) =>
 export {
   editor_default as default
 };
-//# sourceMappingURL=startMonaco-RTBACFMN.mjs.map
+//# sourceMappingURL=startMonaco-336S74YG.mjs.map

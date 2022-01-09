@@ -8,7 +8,7 @@
   "scripts": {
     "build": "esbuild --bundle src/editor.ts --format=esm --target=es2018 --outfile=dist/editor.mjs",
     "clean": "rm -rf dist tsconfig.tsbuildinfo && yarn format && mkdir dist && yarn build",
-    "format": "deno fmt ."
+    "format": "deno fmt src"
   },
   "keywords": [
     "monaco",

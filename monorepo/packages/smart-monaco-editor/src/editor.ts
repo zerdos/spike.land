@@ -2,7 +2,6 @@ import { getMonaco } from "./monaco.js";
 
 // import type { editor, languages } from "./monaco-editor";
 
-
 import pAll from "p-all";
 
 interface StartMonacoProps {
@@ -128,8 +127,9 @@ export default async (
     // useShadowDOM: true,
   });
 
-  const  { AutoTypings, LocalStorageCache } = await import( "@spike.land/monaco-editor-auto-typings");
-
+  const { AutoTypings, LocalStorageCache } = await import(
+    "@spike.land/monaco-editor-auto-typings"
+  );
 
   const autoTypings = AutoTypings.create(editor, monaco.languages, {
     sourceCache: new LocalStorageCache(), // Cache loaded sources in localStorage. May be omitted

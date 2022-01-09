@@ -2062,7 +2062,7 @@ var require_lib = __commonJS({
     __exportStar(require_UnpkgSourceResolver(), exports);
   }
 });
-var version = "0.28.1";
+var version = "0.27.0";
 var exp = {
   monaco: null
 };
