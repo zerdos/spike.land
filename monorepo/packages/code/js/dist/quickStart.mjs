@@ -1,12 +1,12 @@
 // js/quickStart.mjs
-import { jsx } from "https://unpkg.com/@spike.land/esm@0.6.9/dist/emotion-react.mjs";
+import { jsx } from "https://unpkg.com/@spike.land/esm@0.6.24/dist/emotion-react.mjs";
 var formatter;
 var transform;
 var esbuildEsmTransform;
 var getHtmlAndCss;
 var initSess;
 var initSession = async (room, initData) => {
-  initSess = initSess || (await import("./session-W7AHAWP6.mjs")).default;
+  initSess = initSess || (await import("./session-TJDSVFG5.mjs")).default;
   return initSess(room, initData);
 };
 var prettier = async (code) => {
@@ -140,7 +140,7 @@ var startFromCode = async ({ code }) => {
 async function quickStart(session, room, keepFullScreen, saveCode) {
   session.saveCode = saveCode;
   session.children = null;
-  const { renderPreviewWindow } = await import("./renderPreviewWindow-5PRTYJKW.mjs");
+  const { renderPreviewWindow } = await import("./renderPreviewWindow-NMFLZOVR.mjs");
   await renderPreviewWindow(session, room, keepFullScreen);
   if (!keepFullScreen) {
     await startMonacoWithSession(session);

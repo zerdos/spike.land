@@ -1,7 +1,7 @@
 // js/dist/session.mjs
 import { Record } from "https://ga.jspm.io/npm:immutable@4.0.0/dist/immutable.es.js";
-import createDelta from "https://unpkg.com/@spike.land/esm@0.6.9/dist/textdiff-create.mjs";
-import applyPatch from "https://unpkg.com/@spike.land/esm@0.6.9/dist/textdiff-patch.mjs";
+import createDelta from "https://unpkg.com/@spike.land/esm@0.6.24/dist/textdiff-create.mjs";
+import applyPatch from "https://unpkg.com/@spike.land/esm@0.6.24/dist/textdiff-patch.mjs";
 function initSession(room, u) {
   return Record({ ...u, room, state: Record(u.state)() });
 }
@@ -159,4 +159,4 @@ export {
   CodeSession,
   session_default as default
 };
-//# sourceMappingURL=session-W7AHAWP6.mjs.map
+//# sourceMappingURL=session-TJDSVFG5.mjs.map

@@ -27,7 +27,7 @@
     "start": "cd ../.. && yarn start",
     "push": "cd ../.. && yarn push",
     "build": "yarn clean && node --experimental-json-modules esbuild-dev.mjs",
-    "importmap": "node generate.mjs > ./js/importmap.json"
+    "importmap": "node --experimental-json-modules generate.mjs > ./js/importmap.json"
   },
   "keywords": [
     "monaco",

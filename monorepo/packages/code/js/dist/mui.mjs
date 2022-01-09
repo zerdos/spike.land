@@ -1,5 +1,5 @@
 // js/mui.tsx
-import { jsx } from "https://unpkg.com/@spike.land/esm@0.6.9/dist/emotion-react.mjs";
+import { jsx } from "https://unpkg.com/@spike.land/esm@0.6.24/dist/emotion-react.mjs";
 import Fab from "https://ga.jspm.io/npm:@mui/material@5.2.7/Fab/index.js";
 import Button from "https://ga.jspm.io/npm:@mui/material@5.2.7/Button/index.js";
 import createSvgIcon from "https://ga.jspm.io/npm:@mui/material@5.2.7/utils/createSvgIcon.js";

@@ -1,7 +1,8 @@
 import { clearCache, Generator } from "@jspm/generator";
-import { version } from "@spike.land/esm";
+import packageJson from "@spike.land/esm/package.json" assert { type: "json" };
 // import { clearCache } from '@jspm/generator';
 clearCache();
+const { version } = packageJson;
 
 const generator = new Generator({
   mapUrl: import.meta.url,

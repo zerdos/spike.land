@@ -1,15 +1,15 @@
 // js/dist/renderPreviewWindow.mjs
-import { jsx as jsx3 } from "https://unpkg.com/@spike.land/esm@0.6.9/dist/emotion-react.mjs";
-import { css as css2, jsx as jsx2 } from "https://unpkg.com/@spike.land/esm@0.6.9/dist/emotion-react.mjs";
+import { jsx as jsx3 } from "https://unpkg.com/@spike.land/esm@0.6.24/dist/emotion-react.mjs";
+import { css as css2, jsx as jsx2 } from "https://unpkg.com/@spike.land/esm@0.6.24/dist/emotion-react.mjs";
 import React3, {
   useEffect,
   useRef,
   useState
-} from "https://unpkg.com/@spike.land/esm@0.6.9/dist/react.mjs";
-import { motion as motion2 } from "https://unpkg.com/@spike.land/esm@0.6.9/dist/framer-motion.mjs";
-import { css, jsx } from "https://unpkg.com/@spike.land/esm@0.6.9/dist/emotion-react.mjs";
-import { motion } from "https://unpkg.com/@spike.land/esm@0.6.9/dist/framer-motion.mjs";
-import React2 from "https://unpkg.com/@spike.land/esm@0.6.9/dist/react.mjs";
+} from "https://unpkg.com/@spike.land/esm@0.6.24/dist/react.mjs";
+import { motion as motion2 } from "https://unpkg.com/@spike.land/esm@0.6.24/dist/framer-motion.mjs";
+import { css, jsx } from "https://unpkg.com/@spike.land/esm@0.6.24/dist/emotion-react.mjs";
+import { motion } from "https://unpkg.com/@spike.land/esm@0.6.24/dist/framer-motion.mjs";
+import React2 from "https://unpkg.com/@spike.land/esm@0.6.24/dist/react.mjs";
 async function wait(delay) {
   return new Promise((resolve) => {
     setTimeout(() => {
@@ -12820,7 +12820,7 @@ var renderPreviewWindow = async (session, room, keepFullScreen) => {
   const target = document.createElement("div");
   const editor = document.querySelector("#shadowEditor");
   editor.style.opacity = "0";
-  const { createRoot } = await import("https://unpkg.com/@spike.land/esm@0.6.9/dist/react-dom.mjs");
+  const { createRoot } = await import("https://unpkg.com/@spike.land/esm@0.6.24/dist/react-dom.mjs");
   const root = createRoot(target, {});
   root.render(/* @__PURE__ */ jsx3(DraggableWindow, {
     onShare: () => open(`https://spike.land/api/room/${room}/public`),
@@ -12849,4 +12849,4 @@ var renderPreviewWindow = async (session, room, keepFullScreen) => {
 export {
   renderPreviewWindow
 };
-//# sourceMappingURL=renderPreviewWindow-5PRTYJKW.mjs.map
+//# sourceMappingURL=renderPreviewWindow-NMFLZOVR.mjs.map
