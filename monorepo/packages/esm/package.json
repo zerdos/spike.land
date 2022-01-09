@@ -2,7 +2,6 @@
   "name": "@spike.land/esm",
   "version": "0.6.23",
   "description": "esm modules for packages with maintainers from the 2015",
-  "main": "dist/react.mjs",
   "files": [
     "**/*"
   ],
@@ -12,6 +11,7 @@
   "bugs": {
     "url": "https://github.com/spike-land/monorepo"
   },
+  "type": "module",
   "exports": {
     "./package.json": "./package.json",
     "./react.mjs": "./dist/react.mjs",
