@@ -9,10 +9,9 @@ import React, {
   useRef,
   useState,
 } from "react";
-// @ts-expect-error
 import type { FC } from "react";
 import { motion } from "framer-motion";
-import { wait } from "./wait.ts";
+import { wait } from "./wait";
 // @ts-expect-error
 import { LazySpikeLandComponent } from "./LazyLoadedComponent.tsx";
 
@@ -133,7 +132,9 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
       await wait(1200);
       // Const root = document.getElementById("root");
       // if (root && root.remove) root.remove();
-      while (!window || !window.monaco) {
+      while (
+        !window || !Object.prototype.hasOwnProperty.apply(window, ["monaco"])
+      ) {
         await wait(300);
       }
 
@@ -241,6 +242,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
             align-items: center;
           `}
           >
+            {/* // @ts-nocheck */}
             <ToggleButtonGroup
               value={scaleRange}
               size="small"

@@ -2733,7 +2733,7 @@ i2.renderToReadableStream = function(e89, r68) {
   });
   return i24;
 };
-i2.version = "18.0.0-rc.0-fe419346d-20220105";
+i2.version = "18.0.0-rc.0-fe905f152-20220107";
 i2.renderToReadableStream, i2.version;
 var a5 = "default" in mod ? mod.default : mod;
 var o3 = "default" in mod1 ? mod1.default : mod1;
@@ -4515,7 +4515,7 @@ l24.renderToStaticNodeStream = function() {
 l24.renderToString = function(e91, n73) {
   return Mb(e91, n73, false);
 };
-l24.version = "18.0.0-rc.0-fe419346d-20220105";
+l24.version = "18.0.0-rc.0-fe905f152-20220107";
 var Ee1 = {};
 var qe1;
 var Fe1;
@@ -4565,4 +4565,4 @@ var getHtmlAndCss = (MyComponent) => {
 export {
   getHtmlAndCss
 };
-//# sourceMappingURL=renderToString-XEBCEKH6.mjs.map
+//# sourceMappingURL=renderToString-I5RTQNVG.mjs.map

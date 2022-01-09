@@ -12609,7 +12609,7 @@ var DraggableWindow = ({ onShare, onRestore, position, session, keepFullScreen, 
         return;
       }
       await wait(1200);
-      while (!window || !window.monaco) {
+      while (!window || !Object.prototype.hasOwnProperty.apply(window, ["monaco"])) {
         await wait(300);
       }
       setFullScreen(false);
@@ -12849,4 +12849,4 @@ var renderPreviewWindow = async (session, room, keepFullScreen) => {
 export {
   renderPreviewWindow
 };
-//# sourceMappingURL=renderPreviewWindow-NMFLZOVR.mjs.map
+//# sourceMappingURL=renderPreviewWindow-6MK62E5P.mjs.map

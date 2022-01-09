@@ -47,7 +47,7 @@ var require_os = __commonJS({
   "(disabled):os"() {
   }
 });
-var version = "0.31.1";
+var version = "0.32.0-dev.20220106";
 var exp = {
   monaco: null
 };

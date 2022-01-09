@@ -470,10 +470,10 @@ loose-envify@^1.1.0:
   dependencies:
     js-tokens "^3.0.0 || ^4.0.0"
 
-monaco-editor@0.31.1:
-  version "0.31.1"
-  resolved "https://registry.yarnpkg.com/monaco-editor/-/monaco-editor-0.31.1.tgz#67f597b3e45679d1f551237e12a3a42c4438b97b"
-  integrity sha512-FYPwxGZAeP6mRRyrr5XTGHD9gRXVjy7GUzF4IPChnyt3fS5WrNxIkS8DNujWf6EQy0Zlzpxw8oTVE+mWI2/D1Q==
+monaco-editor@next:
+  version "0.32.0-dev.20220106"
+  resolved "https://registry.yarnpkg.com/monaco-editor/-/monaco-editor-0.32.0-dev.20220106.tgz#20c87d5ee488746bee2bde6b53dd6da304f5bce3"
+  integrity sha512-Nc8k0rjMUNI/JDZoejPY3JfAd/pw+sjGifYcDL4TwRS0S79orx6DW7c1lLRNNB/JSHGV2z4vFEFrhG6Y/NE33Q==
 
 nevis@^0.5.0:
   version "0.5.0"
