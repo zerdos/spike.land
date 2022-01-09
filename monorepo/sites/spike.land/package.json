@@ -1,14 +1,14 @@
 {
   "name": "@spike.land/code-worker",
   "description": "An edge chat service that runs on Cloudflare Workers using Durable Objects",
-  "version": "0.6.27",
+  "version": "0.6.28",
   "scripts": {
     "deploy": "echo nope",
     "xdeploy": "wrangler publish src/index.ts"
   },
   "devDependencies": {
     "@spike.land/cf-npm-site": "^0.6.1",
-    "@spike.land/code": "^0.6.27"
+    "@spike.land/code": "^0.6.28"
   },
   "private": true,
   "dependencies": {
