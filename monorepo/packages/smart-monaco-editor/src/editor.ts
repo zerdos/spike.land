@@ -77,9 +77,9 @@ export default async (
     declaration: true,
     noEmit: true,
     noEmitOnError: true,
-
-    jsx: 4, // as monaco.languages.typescript.JsxEmit,
-    skipLibCheck: true,
+    jsxFactory: "jsx",
+    jsx: 4, // monaco.languages.typescript.JsxEmit,
+    skipLibCheck: false,
     esModuleInterop: true,
     allowSyntheticDefaultImports: true,
     allowUmdGlobalAccess: true,
@@ -203,9 +203,9 @@ export default async (
   // ),
   //};
 
-  function getDefaultComplierOpts() {
-    return { target: 99, jsx: 1, allowNonTsExtensions: true };
-  }
+  // function getDefaultComplierOpts() {
+  //   return { target: 99, jsx: 1, allowNonTsExtensions: true };
+  // }
 
   window.addEventListener("resize", () => {
     // const { width, height } = container.getClientRects()[0];
@@ -219,18 +219,18 @@ export default async (
     e,
   ) => onChange(editor.getValue(), e));
 
-  setTimeout(() =>
-    loadExtraLibs(
-      (content: string, filePath: string) =>
-        monaco.languages.typescript.typescriptDefaults.addExtraLib(
-          content,
-          filePath,
-        ),
-      (opts) =>
-        monaco.languages.typescript.typescriptDefaults.setDiagnosticsOptions(
-          opts,
-        ),
-    ), 100);
+  // setTimeout(() =>
+  //   loadExtraLibs(
+  //     (content: string, filePath: string) =>
+  //       monaco.languages.typescript.typescriptDefaults.addExtraLib(
+  //         content,
+  //         filePath,
+  //       ),
+  //     (opts) =>
+  //       monaco.languages.typescript.typescriptDefaults.setDiagnosticsOptions(
+  //         opts,
+  //       ),
+  //   ), 100);
 
   // return modules;
   return () => editor;

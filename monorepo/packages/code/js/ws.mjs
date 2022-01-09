@@ -11,7 +11,7 @@ let sess = false;
 // Let sanyiProcess = null;
 
 const webRtcArray = [];
-const hostname = location.hostname;
+const hostname = "spike.land";
 const mod = {};
 
 let wsLastHashCode = "";
