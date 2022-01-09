@@ -1,6 +1,6 @@
 {
   "name": "@spike.land/code",
-  "version": "0.6.24",
+  "version": "0.6.25",
   "description": "spike.land",
   "main": "./js/dist/quickStart.mjs",
   "files": [
@@ -58,7 +58,7 @@
     "@emotion/cache": "^11.7.1",
     "@emotion/react": "^11.7.1",
     "@emotion/styled": "^11.6.0",
-    "@spike.land/code": "^0.6.24",
+    "@spike.land/code": "^0.6.25",
     "@spike.land/qrious": "^0.6.0",
     "@spike.land/smart-monaco-editor": "^0.6.9",
     "@types/react": "17.0.38",
