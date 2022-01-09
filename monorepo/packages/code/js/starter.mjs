@@ -11,6 +11,11 @@ export const run = async (injectedRoom) => {
       ? path[3]
       : (path.pop() || path.pop()).slice(-12)) ||
     "code-main";
+  const user = ((self && self.crypto && self.crypto.randomUUID &&
+    self.crypto.randomUUID()) || (await import("./uidV4.mjs")).default()).slice(
+      0,
+      8,
+    );
 
   if (location.pathname.includes("hydrate")) {
     const App = (await import(
@@ -199,12 +204,6 @@ export const run = async (injectedRoom) => {
       }
     })();
   }
-
-  const user = ((self && self.crypto && self.crypto.randomUUID &&
-    self.crypto.randomUUID()) || (await import("./uidV4.mjs")).default()).slice(
-      0,
-      8,
-    );
 
   /// For local dev
   // if (document.getElementById("root").innerHTML.length === 0) {
