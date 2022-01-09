@@ -581,7 +581,7 @@ var require_textdiff_create = __commonJS({
 });
 
 // ../../packages/code/package.json
-var version = "0.6.24";
+var version = "0.6.25";
 
 // ../../packages/cf-npm-site/dist/index.mjs
 function src_default(packageName, version2, serveDir = "") {
@@ -936,7 +936,7 @@ body,
 // ../../packages/code/js/importmap.json
 var imports = {
   "@emotion/cache": "https://ga.jspm.io/npm:@emotion/cache@11.7.1/dist/emotion-cache.browser.esm.js",
-  "@emotion/react": "https://unpkg.com/@spike.land/esm@0.6.9/dist/emotion-react.mjs",
+  "@emotion/react": "https://unpkg.com/@spike.land/esm@0.6.24/dist/emotion-react.mjs",
   "@mui/material/Button": "https://ga.jspm.io/npm:@mui/material@5.2.7/Button/index.js",
   "@mui/material/Fab": "https://ga.jspm.io/npm:@mui/material@5.2.7/Fab/index.js",
   "@mui/material/ToggleButton": "https://ga.jspm.io/npm:@mui/material@5.2.7/ToggleButton/index.js",
@@ -946,14 +946,14 @@ var imports = {
   comlink: "https://ga.jspm.io/npm:comlink@4.3.1/dist/umd/comlink.js",
   immutable: "https://ga.jspm.io/npm:immutable@4.0.0/dist/immutable.es.js",
   "lodash/throttle": "https://ga.jspm.io/npm:lodash@4.17.21/throttle.js",
-  react: "https://unpkg.com/@spike.land/esm@0.6.9/dist/react.mjs",
-  "react-dom": "https://unpkg.com/@spike.land/esm@0.6.9/dist/react-dom.mjs",
-  "react-dom/server": "https://ga.jspm.io/npm:react-dom@18.0.0-rc.0-next-fe419346d-20220105/server.browser.js",
-  "react/jsx-runtime": "https://ga.jspm.io/npm:react@18.0.0-rc.0-next-fe419346d-20220105/jsx-runtime.js",
+  react: "https://unpkg.com/@spike.land/esm@0.6.24/dist/react.mjs",
+  "react-dom": "https://unpkg.com/@spike.land/esm@0.6.24/dist/react-dom.mjs",
+  "react-dom/server": "https://ga.jspm.io/npm:react-dom@18.0.0-rc.0-next-fe905f152-20220107/server.browser.js",
+  "react/jsx-runtime": "https://ga.jspm.io/npm:react@18.0.0-rc.0-next-fe905f152-20220107/jsx-runtime.js",
   "workbox-window": "https://ga.jspm.io/npm:workbox-window@6.4.2/build/workbox-window.prod.es5.mjs",
-  "framer-motion": "https://unpkg.com/@spike.land/esm@0.6.9/dist/framer-motion.mjs",
-  "textdiff-create": "https://unpkg.com/@spike.land/esm@0.6.9/dist/textdiff-create.mjs",
-  "textdiff-patch": "https://unpkg.com/@spike.land/esm@0.6.9/dist/textdiff-patch.mjs"
+  "framer-motion": "https://unpkg.com/@spike.land/esm@0.6.24/dist/framer-motion.mjs",
+  "textdiff-create": "https://unpkg.com/@spike.land/esm@0.6.24/dist/textdiff-create.mjs",
+  "textdiff-patch": "https://unpkg.com/@spike.land/esm@0.6.24/dist/textdiff-patch.mjs"
 };
 var scopes = {
   "https://ga.jspm.io/": {
@@ -1017,7 +1017,7 @@ var scopes = {
     "react-is": "https://ga.jspm.io/npm:react-is@16.13.1/index.js",
     "react-transition-group": "https://ga.jspm.io/npm:react-transition-group@4.4.2/esm/index.js",
     "react/jsx-runtime": "https://ga.jspm.io/npm:react@17.0.2/jsx-runtime.js",
-    scheduler: "https://ga.jspm.io/npm:scheduler@0.21.0-rc.0-next-fe419346d-20220105/index.js",
+    scheduler: "https://ga.jspm.io/npm:scheduler@0.21.0-rc.0-next-fe905f152-20220107/index.js",
     stylis: "https://ga.jspm.io/npm:stylis@4.0.13/index.js"
   },
   "https://ga.jspm.io/npm:@mui/base@5.0.0-alpha.63/": {
