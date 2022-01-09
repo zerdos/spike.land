@@ -53,5 +53,5 @@
     "build:textdiff-patch": "yarn esbuild --bundle src/textdiff-patch.mjs --minify --tree-shaking=true --format=esm  --outfile=dist/textdiff-patch.mjs"
   },
   "private": false,
-  "gitHead": "fa5861e9f08ea403ece080657618ef985cc30fa5"
+  "gitHead": "f19ed65bbe1e6fa6921e9d4a07d42a6cc4003eac"
 }

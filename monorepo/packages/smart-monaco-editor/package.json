@@ -32,7 +32,7 @@
   "publishConfig": {
     "access": "public"
   },
-  "gitHead": "9a6c323d30cdcb35a077b26f0c6ae6e68e923229",
+  "gitHead": "f19ed65bbe1e6fa6921e9d4a07d42a6cc4003eac",
   "dependencies": {
     "@spike.land/monaco-editor-auto-typings": "^0.6.30",
     "p-all": "4.0.0"

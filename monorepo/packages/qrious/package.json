@@ -39,5 +39,5 @@
     "build": "esbuild --loader:.css=text --bundle --minify  --target=es2018 --format=esm --platform=browser --outfile=dist/QRious.mjs  src/QRious.ts",
     "clean": "rm -rf dist && yarn tsc && yarn build"
   },
-  "gitHead": "9a6c323d30cdcb35a077b26f0c6ae6e68e923229"
+  "gitHead": "f19ed65bbe1e6fa6921e9d4a07d42a6cc4003eac"
 }
