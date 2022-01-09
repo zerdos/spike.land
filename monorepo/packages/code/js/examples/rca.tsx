@@ -1,4 +1,3 @@
-/** @jsx jsx */
 import { css, jsx } from "@emotion/react";
 
 import { motion } from "framer-motion";

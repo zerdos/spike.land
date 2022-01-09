@@ -74,16 +74,17 @@ export default async (
     ],
     allowNonTsExtensions: true,
     moduleResolution: 2,
+    module: 99,
     declaration: true,
     noEmit: true,
     noEmitOnError: true,
     jsxFactory: "jsx",
     jsx: 4, // monaco.languages.typescript.JsxEmit,
     skipLibCheck: false,
-    esModuleInterop: true,
-    allowSyntheticDefaultImports: true,
+    // esModuleInterop: true,
+    // allowSyntheticDefaultImports: true,
     allowUmdGlobalAccess: true,
-    noLibCheck: true,
+    // noLibCheck: t,
   });
 
   monaco.languages.typescript.typescriptDefaults

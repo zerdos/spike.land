@@ -2062,7 +2062,7 @@ var require_lib = __commonJS({
     __exportStar(require_UnpkgSourceResolver(), exports);
   }
 });
-var version = "0.31.1";
+var version = "0.28.1";
 var exp = {
   monaco: null
 };
@@ -2115,16 +2115,14 @@ var editor_default = async ({ onChange, code, language, container, options }) =>
     ],
     allowNonTsExtensions: true,
     moduleResolution: 2,
+    module: 99,
     declaration: true,
     noEmit: true,
     noEmitOnError: true,
     jsxFactory: "jsx",
     jsx: 4,
     skipLibCheck: false,
-    esModuleInterop: true,
-    allowSyntheticDefaultImports: true,
-    allowUmdGlobalAccess: true,
-    noLibCheck: true
+    allowUmdGlobalAccess: true
   });
   monaco2.languages.typescript.typescriptDefaults.setDiagnosticsOptions({
     noSuggestionDiagnostics: true,
@@ -2150,4 +2148,4 @@ var editor_default = async ({ onChange, code, language, container, options }) =>
 export {
   editor_default as default
 };
-//# sourceMappingURL=startMonaco-5FH7JDCC.mjs.map
+//# sourceMappingURL=startMonaco-RTBACFMN.mjs.map
