@@ -24,8 +24,8 @@ async function startMonacoWithSession(session) {
     code: session.code,
     onChange: throttle(onchangeCode, 100)
   });
-  session.editor = getEditor();
   const monaco = window.monaco;
+  session.editor = monaco.editor;
   monaco.languages.registerOnTypeFormattingEditProvider("typescript", {
     autoFormatTriggerCharacters: ["}", "{", ")", "(", ";"],
     async provideOnTypeFormattingEdits(model) {
@@ -45,7 +45,7 @@ async function getErrors({ monaco, editor }) {
   if (!monaco) {
     return [{ messageText: "Error with the error checking. Try to reload!" }];
   }
-  const model = editor.getModel();
+  const model = editor.getModels()[0];
   const worker = await monaco.languages.typescript.getTypeScriptWorker();
   const client = await worker(model);
   const filename = model.uri.toString();
