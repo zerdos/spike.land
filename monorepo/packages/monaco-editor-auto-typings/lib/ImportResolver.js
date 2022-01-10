@@ -96,7 +96,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.ImportResolver = void 0;
 var DependencyParser_1 = require("./DependencyParser");
 var ImportResourcePath_1 = require("./ImportResourcePath");
-var path = __importStar(require("path-browserify"));
+var path = __importStar(require("path"));
 var invokeUpdate_1 = require("./invokeUpdate");
 var RecursionDepth_1 = require("./RecursionDepth");
 // @ts-expect-error

@@ -11,7 +11,7 @@ import {
   importResourcePathToString,
 } from './ImportResourcePath';
 import { SourceResolver } from './SourceResolver';
-import * as path from 'path-browserify';
+import * as path from 'path';
 import { invokeUpdate } from './invokeUpdate';
 import { RecursionDepth } from './RecursionDepth';
 

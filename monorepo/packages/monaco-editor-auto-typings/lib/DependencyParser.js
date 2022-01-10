@@ -45,7 +45,7 @@ var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.DependencyParser = void 0;
-var path = __importStar(require("path-browserify"));
+var path = __importStar(require("path"));
 var DependencyParser = /** @class */ (function () {
     function DependencyParser() {
         this.REGEX_CLEAN = /[\n|\r]/g;

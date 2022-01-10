@@ -68,7 +68,7 @@ var __values = (this && this.__values) || function(o) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.FileSystemCache = void 0;
 var fs = __importStar(require("fs"));
-var path = __importStar(require("path-browserify"));
+var path = __importStar(require("path"));
 var FileSystemCache = /** @class */ (function () {
     function FileSystemCache(basePath) {
         this.basePath = basePath;

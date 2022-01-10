@@ -1,6 +1,5 @@
 import { getMonaco } from "./monaco.js";
 
-// import type { editor, languages } from "./monaco-editor";
 
 import pAll from "p-all";
 
@@ -10,7 +9,7 @@ interface StartMonacoProps {
   container: HTMLElement;
   language: "html" | "javascript" | "typescript";
   lightbulb: { enabled: true };
-
+  
   options: {
     gylph: boolean;
   };
@@ -27,6 +26,8 @@ export default async (
   { onChange, code, language, container, options }: StartMonacoProps,
 ) => {
   const monaco = await monacoProm;
+  
+ const { editor:  Editor, languages } = monaco;
   // const {monaco} = window as unknown as {monaco: typeof m}
   // const modelUri = monaco.Uri.parse(
   //   language === "typescript" ? "/index.ts" : "/main.html",
@@ -75,6 +76,7 @@ export default async (
     moduleResolution: 2,
     module: 99,
     declaration: true,
+    "inlineSources": true,
     noEmit: true,
     noEmitOnError: true,
     jsxFactory: "jsx",
@@ -95,7 +97,7 @@ export default async (
 
   const { Uri } = monaco;
   const editor = monaco.editor.create(container, {
-    model: monaco.editor.createModel(code, "typescript", Uri.file("/index.ts")),
+    model: monaco.editor.createModel(code, "typescript", Uri.parse("file:///index.ts")),
     // lightbulb: { enabled: false },
     language: "typescript",
     theme: "vs-dark",
@@ -127,14 +129,14 @@ export default async (
     // useShadowDOM: true,
   });
 
-  const { AutoTypings, LocalStorageCache } = await import(
-    "@spike.land/monaco-editor-auto-typings"
-  );
+  // const { AutoTypings, LocalStorageCache } = await import(
+  //   "@spike.land/monaco-editor-auto-typings"
+  // );
 
-  const autoTypings = AutoTypings.create(editor, monaco.languages, {
-    sourceCache: new LocalStorageCache(), // Cache loaded sources in localStorage. May be omitted
-    // Other options...
-  });
+  // const autoTypings = AutoTypings.create(editor, monaco.languages, {
+  //   sourceCache: new LocalStorageCache(), // Cache loaded sources in localStorage. May be omitted
+  //   // Other options...
+  // });
 
   // monaco.editor.create(
   //   innerContainer,
@@ -220,24 +222,21 @@ export default async (
     e,
   ) => onChange(editor.getValue(), e));
 
-  // setTimeout(() =>
-  //   loadExtraLibs(
-  //     (content: string, filePath: string) =>
-  //       monaco.languages.typescript.typescriptDefaults.addExtraLib(
-  //         content,
-  //         filePath,
-  //       ),
-  //     (opts) =>
-  //       monaco.languages.typescript.typescriptDefaults.setDiagnosticsOptions(
-  //         opts,
-  //       ),
-  //   ), 100);
+  setTimeout(() =>
+    loadExtraLibs(
+      (content: string, filePath: string) =>
+        window.monaco.languages.typescript.typescriptDefaults.addExtraLib(
+          content,
+          filePath,
+        ),
+      (opts) =>
+        window.monaco.languages.typescript.typescriptDefaults.setDiagnosticsOptions(
+          opts,
+        ),
+    ), 100);
 
-  // return modules;
-  return () => editor;
-};
 
-type IAddExtraLib = typeof languages.typescript.typescriptDefaults.addExtraLib;
+    type IAddExtraLib = typeof languages.typescript.typescriptDefaults.addExtraLib;
 type ISetDiagnosticsOptions =
   typeof languages.typescript.typescriptDefaults.setDiagnosticsOptions;
 
@@ -356,27 +355,42 @@ async function loadExtraLibs(
       url: "https://unpkg.com/popmotion@11.0.0/lib/index.d.ts",
     },
   ];
+
   const dts = importHelper.map(({ name, url }) =>
     async () => {
       const content = await (await fetch(
         url,
       )).text();
 
-      const nameOfLib = name.includes("@")
+      const nameOfLib = Uri.parse( name.includes("@")
         ? `/node_modules/${name}`
-        : (name.endsWith(".d.ts") ? "/node_modules/@types" + name
-        : "/node_modules/@types/" + name + "/index.d.ts");
+        : (name.endsWith(".d.ts") ? "/node_modules/@types/" + name
+        : "/node_modules/@types/" + name + "/index.d.ts")).fsPath;
 
       // const customWorker = { customWorkerPath: window.location.href + "js/custom-worker.js" };
       // console.log({customWorker})
       // monaco.languages.typescript.typescriptDefaults.setWorkerOptions(customWorker);
       // console.log(nameOfLib, content);
-      addExtraLib(
+      languages.typescript.typescriptDefaults.addExtraLib(
         content,
-        nameOfLib,
+        nameOfLib
       );
     }
   );
+
+
+   pAll(dts, { concurrency: 2 });
+
+  languages.typescript.typescriptDefaults.setDiagnosticsOptions({
+    noSuggestionDiagnostics: false,
+    noSemanticValidation: false,
+    noSyntaxValidation: false,
+  });
+  // return modules;
+  return () => editor;
+};
+
+
 
   // modules.monaco.languages.typescript.typescriptDefaults.setCompilerOptions({
   //     target: 99,
@@ -396,13 +410,6 @@ async function loadExtraLibs(
   //   });
   // );
 
-  await pAll(dts, { concurrency: 2 });
-
-  setDiagnosticsOptions({
-    noSuggestionDiagnostics: false,
-    noSemanticValidation: false,
-    noSyntaxValidation: false,
-  });
 }
 
 function isMobile() {

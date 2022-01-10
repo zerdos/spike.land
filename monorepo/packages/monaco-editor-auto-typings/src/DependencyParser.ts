@@ -1,5 +1,5 @@
 import { ImportResourcePath } from "./ImportResourcePath";
-import * as path from "path-browserify";
+import * as path from "path";
 
 export class DependencyParser {
   private REGEX_CLEAN = /[\n|\r]/g;

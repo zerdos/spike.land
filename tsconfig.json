@@ -6,7 +6,7 @@
     "noEmit": true,
     "target": "esnext",
     "module": "esnext",
-    "lib": ["WebWorker", "dom", "dom.iterable", "ESNext"],
+    "lib": [ "dom", "dom.iterable", "ESNext"],
     "resolveJsonModule": true,
     "moduleResolution": "node",
     "strict": true

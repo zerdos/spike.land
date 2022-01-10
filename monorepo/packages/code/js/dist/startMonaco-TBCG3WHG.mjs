@@ -1,4 +1,4 @@
-// ../smart-monaco-editor/dist/editor.mjs
+// js/dist/startMonaco.mjs
 var __create = Object.create;
 var __defProp = Object.defineProperty;
 var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
@@ -444,4 +444,4 @@ var editor_default = async ({ onChange, code, language, container, options }) =>
 export {
   editor_default as default
 };
-//# sourceMappingURL=startMonaco.mjs.map
+//# sourceMappingURL=startMonaco-TBCG3WHG.mjs.map

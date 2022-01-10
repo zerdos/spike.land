@@ -1,4 +1,4 @@
-import path from "path-browserify";
+import path from "path";
 
 export interface ImportResourcePathPackage {
   kind: "package";

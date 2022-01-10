@@ -1,6 +1,6 @@
 import { SourceCache } from "./SourceCache";
 import * as fs from "fs";
-import * as path from "path-browserify";
+import * as path from "path";
 
 export class FileSystemCache implements SourceCache {
   constructor(private basePath: string) {}

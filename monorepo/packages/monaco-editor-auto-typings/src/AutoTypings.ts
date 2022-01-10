@@ -4,7 +4,7 @@ import { Options } from "./Options";
 import { DummySourceCache } from "./DummySourceCache";
 import { UnpkgSourceResolver } from "./UnpkgSourceResolver";
 import { ImportResolver } from "./ImportResolver";
-import * as path from "path-browserify";
+import * as path from "path";
 import type * as Monaco from "monaco-editor";
 import { invokeUpdate } from "./invokeUpdate";
 import { RecursionDepth } from "./RecursionDepth";
