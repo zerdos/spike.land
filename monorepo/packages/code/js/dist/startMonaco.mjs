@@ -439,7 +439,6 @@ var editor_default = async ({ onChange, code, language, container, options }) =>
     });
     return () => editor;
   }
-  ;
 };
 export {
   editor_default as default

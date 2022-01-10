@@ -1,6 +1,5 @@
 import { getMonaco } from "./monaco.js";
 
-
 import pAll from "p-all";
 
 interface StartMonacoProps {
@@ -9,7 +8,7 @@ interface StartMonacoProps {
   container: HTMLElement;
   language: "html" | "javascript" | "typescript";
   lightbulb: { enabled: true };
-  
+
   options: {
     gylph: boolean;
   };
@@ -26,8 +25,8 @@ export default async (
   { onChange, code, language, container, options }: StartMonacoProps,
 ) => {
   const monaco = await monacoProm;
-  
- const { editor:  Editor, languages } = monaco;
+
+  const { editor: Editor, languages } = monaco;
   // const {monaco} = window as unknown as {monaco: typeof m}
   // const modelUri = monaco.Uri.parse(
   //   language === "typescript" ? "/index.ts" : "/main.html",
@@ -97,7 +96,11 @@ export default async (
 
   const { Uri } = monaco;
   const editor = monaco.editor.create(container, {
-    model: monaco.editor.createModel(code, "typescript", Uri.parse("file:///index.ts")),
+    model: monaco.editor.createModel(
+      code,
+      "typescript",
+      Uri.parse("file:///index.ts"),
+    ),
     // lightbulb: { enabled: false },
     language: "typescript",
     theme: "vs-dark",
@@ -230,167 +233,168 @@ export default async (
           filePath,
         ),
       (opts) =>
-        window.monaco.languages.typescript.typescriptDefaults.setDiagnosticsOptions(
-          opts,
-        ),
+        window.monaco.languages.typescript.typescriptDefaults
+          .setDiagnosticsOptions(
+            opts,
+          ),
     ), 100);
 
+  type IAddExtraLib =
+    typeof languages.typescript.typescriptDefaults.addExtraLib;
+  type ISetDiagnosticsOptions =
+    typeof languages.typescript.typescriptDefaults.setDiagnosticsOptions;
 
-    type IAddExtraLib = typeof languages.typescript.typescriptDefaults.addExtraLib;
-type ISetDiagnosticsOptions =
-  typeof languages.typescript.typescriptDefaults.setDiagnosticsOptions;
+  async function loadExtraLibs(
+    addExtraLib: IAddExtraLib,
+    setDiagnosticsOptions: ISetDiagnosticsOptions,
+  ) {
+    const importHelper = [
+      {
+        name: "react",
+        url: "https://unpkg.com/@types/react@17.0.38/index.d.ts",
+        depend: ["global", "csstype", "react-dom", "prop-types"],
+      },
+      {
+        name: "react/jsx-dev-runtime",
+        url: "https://unpkg.com/@types/react@17.0.38/jsx-dev-runtime.d.ts",
+        depend: ["global", "csstype", "react-dom", "prop-types"],
+      },
+      {
+        name: "react-exp",
+        url: "https://unpkg.com/@types/react@17.0.38/experimental.d.ts",
+        depend: [],
+      },
+      {
+        name: "global",
+        url: "https://unpkg.com/@types/react@17.0.38/global.d.ts",
+        depend: [],
+      },
+      {
+        name: "prop-types",
+        url: "https://unpkg.com/@types/prop-types@15.7.4/index.d.ts",
+        depend: [],
+      },
+      {
+        name: "react-dom",
+        url: "https://unpkg.com/@types/react-dom@17.0.11/index.d.ts",
+        depend: [],
+      },
+      {
+        name: "csstype",
+        url: "https://unpkg.com/csstype@3.0.9/index.d.ts",
+        depend: [],
+      },
+      {
+        name: "@emotion/styled/base.d.ts",
+        url: "https://unpkg.com/@emotion/styled@11.6.0/types/base.d.ts",
+        depend: [
+          "@emotion/react",
+          "@emotion/serialize",
+          "react",
+        ],
+      },
+      {
+        name: "@emotion/styled/index.d.ts",
+        url: "https://unpkg.com/@emotion/styled@11.6.0/types/index.d.ts",
+        depend: [
+          "@emotion/react",
+          "@emotion/serialize",
+          "react",
+        ],
+      },
+      {
+        name: "@emotion/cache/index.d.ts",
+        url: "https://unpkg.com/@emotion/cache@11.6.0/types/index.d.ts",
+        depend: ["@emotion/utils"],
+      },
+      {
+        name: "@emotion/react/index.d.ts",
+        url: "https://unpkg.com/@emotion/react@11.7.0/types/index.d.ts",
+        depend: ["@emotion/cache"],
+      },
+      {
+        name: "@emotion/react/jsx-namespace.d.ts",
+        url: "https://unpkg.com/@emotion/react@11.7.0/types/jsx-namespace.d.ts",
+        depend: ["@emotion/utils", "csstype"],
+      },
+      {
+        name: "@emotion/react/css-prop.d.ts",
+        url: "https://unpkg.com/@emotion/react@11.7.0/types/css-prop.d.ts",
+        depend: ["@emotion/utils", "csstype"],
+      },
+      {
+        name: "@emotion/react/helper.d.ts",
+        url: "https://unpkg.com/@emotion/react@11.7.0/types/helper.d.ts",
+        depend: ["@emotion/utils", "csstype"],
+      },
+      {
+        name: "@emotion/react/theming.d.ts",
+        url: "https://unpkg.com/@emotion/react@11.7.0/types/theming.d.ts",
+        depend: ["@emotion/utils", "csstype"],
+      },
+      {
+        name: "@emotion/serialize/index.d.ts",
+        url: "https://unpkg.com/@emotion/serialize@1.0.2/types/index.d.ts",
 
-async function loadExtraLibs(
-  addExtraLib: IAddExtraLib,
-  setDiagnosticsOptions: ISetDiagnosticsOptions,
-) {
-  const importHelper = [
-    {
-      name: "react",
-      url: "https://unpkg.com/@types/react@17.0.38/index.d.ts",
-      depend: ["global", "csstype", "react-dom", "prop-types"],
-    },
-    {
-      name: "react/jsx-dev-runtime",
-      url: "https://unpkg.com/@types/react@17.0.38/jsx-dev-runtime.d.ts",
-      depend: ["global", "csstype", "react-dom", "prop-types"],
-    },
-    {
-      name: "react-exp",
-      url: "https://unpkg.com/@types/react@17.0.38/experimental.d.ts",
-      depend: [],
-    },
-    {
-      name: "global",
-      url: "https://unpkg.com/@types/react@17.0.38/global.d.ts",
-      depend: [],
-    },
-    {
-      name: "prop-types",
-      url: "https://unpkg.com/@types/prop-types@15.7.4/index.d.ts",
-      depend: [],
-    },
-    {
-      name: "react-dom",
-      url: "https://unpkg.com/@types/react-dom@17.0.11/index.d.ts",
-      depend: [],
-    },
-    {
-      name: "csstype",
-      url: "https://unpkg.com/csstype@3.0.9/index.d.ts",
-      depend: [],
-    },
-    {
-      name: "@emotion/styled/base.d.ts",
-      url: "https://unpkg.com/@emotion/styled@11.6.0/types/base.d.ts",
-      depend: [
-        "@emotion/react",
-        "@emotion/serialize",
-        "react",
-      ],
-    },
-    {
-      name: "@emotion/styled/index.d.ts",
-      url: "https://unpkg.com/@emotion/styled@11.6.0/types/index.d.ts",
-      depend: [
-        "@emotion/react",
-        "@emotion/serialize",
-        "react",
-      ],
-    },
-    {
-      name: "@emotion/cache/index.d.ts",
-      url: "https://unpkg.com/@emotion/cache@11.6.0/types/index.d.ts",
-      depend: ["@emotion/utils"],
-    },
-    {
-      name: "@emotion/react/index.d.ts",
-      url: "https://unpkg.com/@emotion/react@11.7.0/types/index.d.ts",
-      depend: ["@emotion/cache"],
-    },
-    {
-      name: "@emotion/react/jsx-namespace.d.ts",
-      url: "https://unpkg.com/@emotion/react@11.7.0/types/jsx-namespace.d.ts",
-      depend: ["@emotion/utils", "csstype"],
-    },
-    {
-      name: "@emotion/react/css-prop.d.ts",
-      url: "https://unpkg.com/@emotion/react@11.7.0/types/css-prop.d.ts",
-      depend: ["@emotion/utils", "csstype"],
-    },
-    {
-      name: "@emotion/react/helper.d.ts",
-      url: "https://unpkg.com/@emotion/react@11.7.0/types/helper.d.ts",
-      depend: ["@emotion/utils", "csstype"],
-    },
-    {
-      name: "@emotion/react/theming.d.ts",
-      url: "https://unpkg.com/@emotion/react@11.7.0/types/theming.d.ts",
-      depend: ["@emotion/utils", "csstype"],
-    },
-    {
-      name: "@emotion/serialize/index.d.ts",
-      url: "https://unpkg.com/@emotion/serialize@1.0.2/types/index.d.ts",
+        depend: ["@emotion/utils", "csstype"],
+      },
+      {
+        name: "@emotion/utils/index.d.ts",
+        url: "https://unpkg.com/@emotion/utils@1.0.0/types/index.d.ts",
+        depend: [],
+      },
+      {
+        name: "framer-motion",
+        url: "https://unpkg.com/framer-motion@5.5.6/types/index.d.ts",
+        depend: ["popmotion"],
+      },
+      {
+        name: "framer-motion/types/render/dom/motion.d.ts",
+        url:
+          " https://unpkg.com/framer-motion@5.5.6/types/render/dom/motion.d.ts",
+        depend: ["popmotion"],
+      },
+      {
+        name: "popmotion",
+        url: "https://unpkg.com/popmotion@11.0.0/lib/index.d.ts",
+      },
+    ];
 
-      depend: ["@emotion/utils", "csstype"],
-    },
-    {
-      name: "@emotion/utils/index.d.ts",
-      url: "https://unpkg.com/@emotion/utils@1.0.0/types/index.d.ts",
-      depend: [],
-    },
-    {
-      name: "framer-motion",
-      url: "https://unpkg.com/framer-motion@5.5.6/types/index.d.ts",
-      depend: ["popmotion"],
-    },
-    {
-      name: "framer-motion/types/render/dom/motion.d.ts",
-      url:
-        " https://unpkg.com/framer-motion@5.5.6/types/render/dom/motion.d.ts",
-      depend: ["popmotion"],
-    },
-    {
-      name: "popmotion",
-      url: "https://unpkg.com/popmotion@11.0.0/lib/index.d.ts",
-    },
-  ];
+    const dts = importHelper.map(({ name, url }) =>
+      async () => {
+        const content = await (await fetch(
+          url,
+        )).text();
 
-  const dts = importHelper.map(({ name, url }) =>
-    async () => {
-      const content = await (await fetch(
-        url,
-      )).text();
+        const nameOfLib = Uri.parse(
+          name.includes("@")
+            ? `/node_modules/${name}`
+            : (name.endsWith(".d.ts")
+              ? "/node_modules/@types/" + name
+              : "/node_modules/@types/" + name + "/index.d.ts"),
+        ).fsPath;
 
-      const nameOfLib = Uri.parse( name.includes("@")
-        ? `/node_modules/${name}`
-        : (name.endsWith(".d.ts") ? "/node_modules/@types/" + name
-        : "/node_modules/@types/" + name + "/index.d.ts")).fsPath;
+        // const customWorker = { customWorkerPath: window.location.href + "js/custom-worker.js" };
+        // console.log({customWorker})
+        // monaco.languages.typescript.typescriptDefaults.setWorkerOptions(customWorker);
+        // console.log(nameOfLib, content);
+        languages.typescript.typescriptDefaults.addExtraLib(
+          content,
+          nameOfLib,
+        );
+      }
+    );
 
-      // const customWorker = { customWorkerPath: window.location.href + "js/custom-worker.js" };
-      // console.log({customWorker})
-      // monaco.languages.typescript.typescriptDefaults.setWorkerOptions(customWorker);
-      // console.log(nameOfLib, content);
-      languages.typescript.typescriptDefaults.addExtraLib(
-        content,
-        nameOfLib
-      );
-    }
-  );
+    pAll(dts, { concurrency: 2 });
 
-
-   pAll(dts, { concurrency: 2 });
-
-  languages.typescript.typescriptDefaults.setDiagnosticsOptions({
-    noSuggestionDiagnostics: false,
-    noSemanticValidation: false,
-    noSyntaxValidation: false,
-  });
-  // return modules;
-  return () => editor;
-};
-
-
+    languages.typescript.typescriptDefaults.setDiagnosticsOptions({
+      noSuggestionDiagnostics: false,
+      noSemanticValidation: false,
+      noSyntaxValidation: false,
+    });
+    // return modules;
+    return () => editor;
+  }
 
   // modules.monaco.languages.typescript.typescriptDefaults.setCompilerOptions({
   //     target: 99,
@@ -409,8 +413,7 @@ async function loadExtraLibs(
   //     esModuleInterop: true,
   //   });
   // );
-
-}
+};
 
 function isMobile() {
   if (typeof window === "undefined") {

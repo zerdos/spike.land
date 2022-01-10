@@ -6,7 +6,6 @@
     "@builder.io/qwik": "0.0.16-2",
     "@cloudflare/kv-asset-handler": "0.2.0",
     "@cloudflare/workers-types": "3.3.0",
-    "wrangler": "beta",
     "@jspm/generator": "1.0.0-beta.22",
     "@rollup/plugin-commonjs": "21.0.1",
     "@rollup/plugin-json": "4.1.0",
@@ -22,6 +21,7 @@
     "speed-limiter": "1.0.2",
     "typescript": "4.5.4",
     "wait-on": "6.0.0",
+    "wrangler": "beta",
     "yarn": "1.22.17"
   },
   "type": "module",
