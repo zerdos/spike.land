@@ -1,6 +1,6 @@
 {
   "name": "@spike.land/esm",
-  "version": "0.6.31",
+  "version": "0.6.35",
   "description": "esm modules for packages with maintainers from the 2015",
   "files": [
     "**/*"
