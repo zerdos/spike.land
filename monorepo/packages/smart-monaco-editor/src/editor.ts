@@ -369,9 +369,8 @@ export default async (
         const nameOfLib = Uri.parse(
           name.includes("@")
             ? `/node_modules/${name}`
-            : (name.endsWith(".d.ts")
-              ? "/node_modules/@types/" + name
-              : "/node_modules/@types/" + name + "/index.d.ts"),
+            : (name.endsWith(".d.ts") ? "/node_modules/@types/" + name
+            : "/node_modules/@types/" + name + "/index.d.ts"),
         ).fsPath;
 
         // const customWorker = { customWorkerPath: window.location.href + "js/custom-worker.js" };
