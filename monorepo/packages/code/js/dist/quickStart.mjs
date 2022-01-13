@@ -1,12 +1,12 @@
 // js/quickStart.mjs
-import { jsx } from "https://unpkg.com/@spike.land/esm@0.6.24/dist/emotion-react.mjs";
+import { jsx } from "https://unpkg.com/@spike.land/esm@0.6.38/dist/emotion-react.mjs";
 var formatter;
 var transform;
 var esbuildEsmTransform;
 var getHtmlAndCss;
 var initSess;
 var initSession = async (room, initData) => {
-  initSess = initSess || (await import("./session-TJDSVFG5.mjs")).default;
+  initSess = initSess || (await import("./session-GUB2RX2C.mjs")).default;
   return initSess(room, initData);
 };
 var prettier = async (code) => {
@@ -72,7 +72,7 @@ async function runner(c, changes = null, session, counter) {
         return;
       }
       try {
-        getHtmlAndCss = getHtmlAndCss || (await import("./renderToString-I5RTQNVG.mjs")).getHtmlAndCss;
+        getHtmlAndCss = getHtmlAndCss || (await import("./renderToString-W4XCJNIT.mjs")).getHtmlAndCss;
         if (counter < session.i) {
           return;
         }
@@ -140,7 +140,7 @@ var startFromCode = async ({ code }) => {
 async function quickStart(session, room, keepFullScreen, saveCode) {
   session.saveCode = saveCode;
   session.children = null;
-  const { renderPreviewWindow } = await import("./renderPreviewWindow-6MK62E5P.mjs");
+  const { renderPreviewWindow } = await import("./renderPreviewWindow-IYSMHUFJ.mjs");
   await renderPreviewWindow(session, room, keepFullScreen);
   if (!keepFullScreen) {
     await startMonacoWithSession(session);
