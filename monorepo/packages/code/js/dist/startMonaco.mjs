@@ -167,7 +167,7 @@ var AggregateError = class extends Error {
     return __privateGet(this, _errors).slice();
   }
 };
-_errors = /* @__PURE__ */ new WeakMap();
+_errors = new WeakMap();
 async function pMap(iterable, mapper, {
   concurrency = Number.POSITIVE_INFINITY,
   stopOnError = true

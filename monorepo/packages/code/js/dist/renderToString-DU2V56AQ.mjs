@@ -625,7 +625,7 @@ var b4 = function toRules(e32, o12) {
 var w1 = function getRules(e42, r12) {
   return dealloc(b4(alloc(e42), r12));
 };
-var E = /* @__PURE__ */ new WeakMap();
+var E = new WeakMap();
 var k1 = function compat(e5) {
   if (e5.type === "rule" && e5.parent && !(e5.length < 1)) {
     var r22 = e5.value, t12 = e5.parent;
@@ -4565,4 +4565,4 @@ var getHtmlAndCss = (MyComponent) => {
 export {
   getHtmlAndCss
 };
-//# sourceMappingURL=renderToString-W4XCJNIT.mjs.map
+//# sourceMappingURL=renderToString-DU2V56AQ.mjs.map

@@ -1,6 +1,9 @@
 // js/esbuildEsm.mjs
 import { Mutex } from "https://ga.jspm.io/npm:async-mutex@0.3.2/index.mjs";
-import * as esbuild from "https://unpkg.com/esbuild-wasm@0.14.10/esm/browser.min.js";
+import {
+  initialize,
+  transform
+} from "https://unpkg.com/esbuild-wasm@0.14.10/esm/browser.min.js";
 
 // js/wait.ts
 async function wait(delay) {
@@ -12,7 +15,7 @@ async function wait(delay) {
 }
 
 // js/esbuildEsm.mjs
-var init = esbuild.initialize({
+var init = initialize({
   wasmURL: "https://unpkg.com/esbuild-wasm@0.14.10/esbuild.wasm"
 });
 var initFinished = false;
@@ -25,7 +28,7 @@ var transform2 = async (code, retry = 4) => {
   let result;
   try {
     await mutex.waitForUnlock();
-    result = await esbuild.transform(code, {
+    result = await transform(code, {
       loader: "tsx",
       target: "es2018"
     });
@@ -43,4 +46,4 @@ var transform2 = async (code, retry = 4) => {
 export {
   transform2 as transform
 };
-//# sourceMappingURL=esbuildEsm-IHWMAF3R.mjs.map
+//# sourceMappingURL=esbuildEsm-5B6BW3M2.mjs.map

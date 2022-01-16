@@ -15,7 +15,7 @@ var prettier = async (code) => {
 };
 async function startMonacoWithSession(session) {
   const shadDom = document.querySelector("#shadowEditor");
-  const startMonaco = (await import("./startMonaco-DVUBVLZL.mjs")).default;
+  const startMonaco = (await import("./startMonaco-UBI4FC6C.mjs")).default;
   const throttle = (await import("https://ga.jspm.io/npm:lodash@4.17.21/throttle.js")).default;
   const onchangeCode = (code, changes) => runner(code, changes, session, ++session.i);
   const getEditor = await startMonaco({
@@ -59,7 +59,7 @@ async function getErrors({ monaco, editor }) {
 async function runner(c, changes = null, session, counter) {
   session.changes.push(changes);
   formatter = formatter || (await import("./formatter-U4GMQGVN.mjs")).formatter;
-  esbuildEsmTransform = esbuildEsmTransform || (await import("./esbuildEsm-IHWMAF3R.mjs")).transform;
+  esbuildEsmTransform = esbuildEsmTransform || (await import("./esbuildEsm-5B6BW3M2.mjs")).transform;
   transform = esbuildEsmTransform;
   session.errorText = "";
   const { monaco } = session;
@@ -72,7 +72,7 @@ async function runner(c, changes = null, session, counter) {
         return;
       }
       try {
-        getHtmlAndCss = getHtmlAndCss || (await import("./renderToString-W4XCJNIT.mjs")).getHtmlAndCss;
+        getHtmlAndCss = getHtmlAndCss || (await import("./renderToString-DU2V56AQ.mjs")).getHtmlAndCss;
         if (counter < session.i) {
           return;
         }
@@ -140,7 +140,7 @@ var startFromCode = async ({ code }) => {
 async function quickStart(session, room, keepFullScreen, saveCode) {
   session.saveCode = saveCode;
   session.children = null;
-  const { renderPreviewWindow } = await import("./renderPreviewWindow-IYSMHUFJ.mjs");
+  const { renderPreviewWindow } = await import("./renderPreviewWindow-GZF37UVI.mjs");
   await renderPreviewWindow(session, room, keepFullScreen);
   if (!keepFullScreen) {
     await startMonacoWithSession(session);

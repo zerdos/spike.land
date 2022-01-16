@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head profile="http://www.w3.org/2005/10/profile">
+  <meta http-equiv="Content-Type" content="text/html,charset=utf-8" />
+  <meta name="viewport" content="width=device-width" />
+  <base href="https://spike.land/">
+  
+  <link rel="icon" type="image/png" href="https://unpkg.com/@spike.land/code@{VERSION}/js/assets/zed-icon-big.png" />
+
+  <link rel="stylesheet" href="https://unpkg.com/@spike.land/code@{VERSION}/js/assets/app.css" />
+
+  <script crossorigin src="https://unpkg.com/react@18.0.0-rc.0-next-fe419346d-20220105/umd/react.production.min.js"></script>
+  <script crossorigin src="https://unpkg.com/react-is@18.0.0-rc.0-next-fe419346d-20220105/umd/react-is.production.min.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18.0.0-rc.0-next-fe419346d-20220105/umd/react-dom.production.min.js"></script>
+
+  <script crossorigin src="https://unpkg.com/@emotion/react@11.7.1/dist/emotion-react.umd.min.js"></script>
+  <script>
+    let transform = null;
+   window.esmsInitOptions = {
+ shimMode: true,
+ polyfillEnable: ['css-modules', 'json-modules'],
+ onerror: error => console.log(error), // defaults to `((e) => { throw e; })`
+ fetch: async function (url, options) {
+   const urlEnd = url.substr(-3);
+   if ((url.indexOf("monaco") === -1) && (["tsx", ".ts"].indexOf(urlEnd)!==-1)) {   
+     console.log(url);
+     const res = await fetch(url, options);
+    if (!res.ok) return res;
+
+       const source = await res.text();
+       
+       transform = transform || (await import("https://unpkg.com/@spike.land/code@{VERSION}/js/esbuildEsm.mjs")).transform;
+       const transformed = await transform(source);
+       return new Response(new Blob([transformed], { type: 'application/javascript' }));
+   }
+ return fetch(url, options);
+
+ },
+ noLoadEventRetriggers: true,
+ skip: "/^https?:\/\/(cdn\.skypack\.dev|jspm\.dev)\//`"
+    } </script>
+  <script async src="https://ga.jspm.io/npm:es-module-shims@1.4.1/dist/es-module-shims.wasm.js"></script>
+  <title>Instant React Editor</title>
+
+</style>
+
+		<link
+			data-name="vs/editor/editor.main"
+			rel="stylesheet"
+			href="https://unpkg.com/monaco-editor@0.30.1/min/vs/editor/editor.main.css"
+		/>
+</head>
+<body>
+  <div id="root"></div>
+  <div id="shadowEditor"></div>
+  <script type="importmap-shim" src="https://unpkg.com/@spike.land/code@{VERSION}/js/importmap.json"></script>
+  <script>
+  window.codeVersion = "{VERSION}";
+  window.process = { env: { NODE_ENV: "production" } };
+</script>
+  <script type="module-shim">
+    import app from "https://unpkg.com/@spike.land/code@{VERSION}/js/starter.mjs";
+    app();
+
+    if ('serviceWorker' in navigator){
+      const {Workbox} = await import('workbox-window')
+        const wb = new Workbox('/sw.js');
+          wb.addEventListener("activated", async (event) => {
+             if (!event.isUpdate) {
+              console.log("Service worker activated for the first time!");
+             }
+          });
+          wb.register();
+      }
+    </script>
+</body>
+</html>
