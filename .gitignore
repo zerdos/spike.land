@@ -5,6 +5,7 @@ videos/
 screenshots/
 .eslintcache
 ipfs_data
+importmap_NEW.json
 ### Node ###
 # Logs
 logs
