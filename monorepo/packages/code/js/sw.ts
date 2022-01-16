@@ -1,4 +1,7 @@
 import { precacheAndRoute } from "workbox-precaching";
+import { registerRoute } from "workbox-routing";
+import { CacheFirst } from "workbox-strategies";
+import { CacheableResponsePlugin } from "workbox-cacheable-response";
 
 declare const self: ServiceWorkerGlobalScope;
 
@@ -13,17 +16,17 @@ precacheAndRoute(self.__WB_MANIFEST);
 
 // // Const {CacheFirst} =  self.workbox.strategies;
 
-// registerRoute(
-//   ({ request }) =>
-//     (request.url.includes("unpkg.com") && request.url.includes("@")) ||
-//     (request.url.includes("jspm.io") && request.url.includes("@")) ||
-//     (request.url.includes("esm.sh") && request.url.includes("@")),
-//   new CacheFirst({
-//     plugins: [
-//       new CacheableResponsePlugin({ statuses: [0, 200] }),
-//     ],
-//   }),
-// );
+registerRoute(
+  ({ request }) =>
+    (request.url.includes("unpkg.com") && request.url.includes("@")) ||
+    (request.url.includes("jspm.io") && request.url.includes("@")) ||
+    (request.url.includes("esm.sh") && request.url.includes("@")),
+  new CacheFirst({
+    plugins: [
+      new CacheableResponsePlugin({ statuses: [0, 200] }),
+    ],
+  }),
+);
 
 // let SW_VERSION = null;
 
