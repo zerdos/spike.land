@@ -6887,7 +6887,7 @@ wordwrap@^1.0.0:
   resolved "https://registry.yarnpkg.com/wordwrap/-/wordwrap-1.0.0.tgz#27584810891456a4171c8d0226441ade90cbcaeb"
   integrity sha1-J1hIEIkUVqQXHI0CJkQa3pDLyus=
 
-wrangler@0.0.8:
+wrangler@next:
   version "0.0.8"
   resolved "https://registry.yarnpkg.com/wrangler/-/wrangler-0.0.8.tgz#49b193befc01dac8f4e3a2c566542dd88eb6e85e"
   integrity sha512-llGitIdAFOEXHz3mRJxd4TNGa+4LhIcHV19VGc1p/ALaNAQdWsanLgYV65jYKNPn0Xp+BSyTnBIcg/7NTB8vSA==
