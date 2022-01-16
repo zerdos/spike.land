@@ -72,7 +72,7 @@
   },
   "include": [
     "./js",
-    "js/sw.js",
+    "js/sw.ts",
     "./js/renderPreviewWindow.tsx",
     "../../fixtures/share.mjs",
     "../../fixtures/data.mjs"
