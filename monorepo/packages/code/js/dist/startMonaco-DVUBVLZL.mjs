@@ -443,4 +443,4 @@ var editor_default = async ({ onChange, code, language, container, options }) =>
 export {
   editor_default as default
 };
-//# sourceMappingURL=startMonaco-PIYHIV5W.mjs.map
+//# sourceMappingURL=startMonaco-DVUBVLZL.mjs.map

@@ -21,7 +21,7 @@
   "scripts": {
     "clean": "rm -rf .tsBuildInfo js/dist && mkdir js/dist && deno fmt .",
     "xpostinstall": "yarn importmap",
-    "build:sw": "yarn esbuild --outfile=./js/sw.js --bundle js/sw.ts",
+    "build:sw": "yarn sw && yarn esbuild --outfile=./js/sw.js --bundle js/sw2.ts",
     "mui:deno": "deno bundle --import-map ./js/importmap.json ./js/dist/mui.mjs ./js/vendor/mui.mjs",
     "quickStart:deno": "deno bundle --import-map ./js/importmap.json ./js/dist/quickStart.mjs ./js/dist/quickStart.bundle.mjs --no-check",
     "renderToString:deno": "deno bundle --import-map ./js/importmap.json ./js/renderToString.tsx ./js/vendor/renderToString.mjs --no-check",
@@ -29,7 +29,8 @@
     "push": "cd ../.. && yarn push",
     "build": "yarn clean && node --experimental-json-modules esbuild-dev.mjs",
     "importmap": "node --experimental-json-modules generate.mjs > ./js/importmap_NEW.json && mv importmap_NEW.json importmap.json",
-    "workbox-cli": "workbox-cli"
+    "workbox-cli": "workbox-cli",
+    "sw": "yarn workbox injectManifest workbox-config.js"
   },
   "keywords": [
     "monaco",
@@ -75,6 +76,7 @@
     "react": "next",
     "react-dom": "next",
     "workbox-precaching": "6.4.2",
-    "workbox-sw": "6.4.2"
+    "workbox-sw": "6.4.2",
+    "workbox-cli": "6.4.2"
   }
 }
