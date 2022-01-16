@@ -27,7 +27,7 @@
     "renderToString:deno": "deno bundle --import-map ./js/importmap.json ./js/renderToString.tsx ./js/vendor/renderToString.mjs --no-check",
     "start": "cd ../.. && yarn start",
     "push": "cd ../.. && yarn push",
-    "build": "yarn clean && node --experimental-json-modules esbuild-dev.mjs",
+    "build": "yarn clean &&  node --experimental-json-modules esbuild-dev.mjs && yarn build:sw",
     "importmap": "node --experimental-json-modules generate.mjs > ./js/importmap_NEW.json && mv importmap_NEW.json importmap.json",
     "workbox-cli": "workbox-cli",
     "sw": "yarn workbox injectManifest workbox-config.js"

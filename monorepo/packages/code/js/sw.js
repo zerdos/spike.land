@@ -11,9 +11,7 @@
       if (!paramName || !validValueDescription) {
         throw new Error(`Unexpected input to 'invalid-value' error.`);
       }
-      return `The '${paramName}' parameter was given a value with an unexpected value. ${validValueDescription} Received a value of ${
-        JSON.stringify(value)
-      }.`;
+      return `The '${paramName}' parameter was given a value with an unexpected value. ${validValueDescription} Received a value of ${JSON.stringify(value)}.`;
     },
     "not-an-array": ({ moduleName, className, funcName, paramName }) => {
       if (!moduleName || !className || !funcName || !paramName) {
@@ -21,25 +19,14 @@
       }
       return `The parameter '${paramName}' passed into '${moduleName}.${className}.${funcName}()' must be an array.`;
     },
-    "incorrect-type": (
-      { expectedType, paramName, moduleName, className, funcName },
-    ) => {
+    "incorrect-type": ({ expectedType, paramName, moduleName, className, funcName }) => {
       if (!expectedType || !paramName || !moduleName || !funcName) {
         throw new Error(`Unexpected input to 'incorrect-type' error.`);
       }
       const classNameStr = className ? `${className}.` : "";
       return `The parameter '${paramName}' passed into '${moduleName}.${classNameStr}${funcName}()' must be of type ${expectedType}.`;
     },
-    "incorrect-class": (
-      {
-        expectedClassName,
-        paramName,
-        moduleName,
-        className,
-        funcName,
-        isReturnValueProblem,
-      },
-    ) => {
+    "incorrect-class": ({ expectedClassName, paramName, moduleName, className, funcName, isReturnValueProblem }) => {
       if (!expectedClassName || !moduleName || !funcName) {
         throw new Error(`Unexpected input to 'incorrect-class' error.`);
       }
@@ -49,52 +36,36 @@
       }
       return `The parameter '${paramName}' passed into '${moduleName}.${classNameStr}${funcName}()' must be an instance of class ${expectedClassName}.`;
     },
-    "missing-a-method": (
-      { expectedMethod, paramName, moduleName, className, funcName },
-    ) => {
-      if (
-        !expectedMethod || !paramName || !moduleName || !className || !funcName
-      ) {
+    "missing-a-method": ({ expectedMethod, paramName, moduleName, className, funcName }) => {
+      if (!expectedMethod || !paramName || !moduleName || !className || !funcName) {
         throw new Error(`Unexpected input to 'missing-a-method' error.`);
       }
       return `${moduleName}.${className}.${funcName}() expected the '${paramName}' parameter to expose a '${expectedMethod}' method.`;
     },
     "add-to-cache-list-unexpected-type": ({ entry }) => {
-      return `An unexpected entry was passed to 'workbox-precaching.PrecacheController.addToCacheList()' The entry '${
-        JSON.stringify(entry)
-      }' isn't supported. You must supply an array of strings with one or more characters, objects with a url property or Request objects.`;
+      return `An unexpected entry was passed to 'workbox-precaching.PrecacheController.addToCacheList()' The entry '${JSON.stringify(entry)}' isn't supported. You must supply an array of strings with one or more characters, objects with a url property or Request objects.`;
     },
     "add-to-cache-list-conflicting-entries": ({ firstEntry, secondEntry }) => {
       if (!firstEntry || !secondEntry) {
-        throw new Error(
-          `Unexpected input to 'add-to-cache-list-duplicate-entries' error.`,
-        );
+        throw new Error(`Unexpected input to 'add-to-cache-list-duplicate-entries' error.`);
       }
       return `Two of the entries passed to 'workbox-precaching.PrecacheController.addToCacheList()' had the URL ${firstEntry} but different revision details. Workbox is unable to cache and version the asset correctly. Please remove one of the entries.`;
     },
     "plugin-error-request-will-fetch": ({ thrownErrorMessage }) => {
       if (!thrownErrorMessage) {
-        throw new Error(
-          `Unexpected input to 'plugin-error-request-will-fetch', error.`,
-        );
+        throw new Error(`Unexpected input to 'plugin-error-request-will-fetch', error.`);
       }
       return `An error was thrown by a plugins 'requestWillFetch()' method. The thrown error message was: '${thrownErrorMessage}'.`;
     },
     "invalid-cache-name": ({ cacheNameId, value }) => {
       if (!cacheNameId) {
-        throw new Error(
-          `Expected a 'cacheNameId' for error 'invalid-cache-name'`,
-        );
+        throw new Error(`Expected a 'cacheNameId' for error 'invalid-cache-name'`);
       }
-      return `You must provide a name containing at least one character for setCacheDetails({${cacheNameId}: '...'}). Received a value of '${
-        JSON.stringify(value)
-      }'`;
+      return `You must provide a name containing at least one character for setCacheDetails({${cacheNameId}: '...'}). Received a value of '${JSON.stringify(value)}'`;
     },
     "unregister-route-but-not-found-with-method": ({ method }) => {
       if (!method) {
-        throw new Error(
-          `Unexpected input to 'unregister-route-but-not-found-with-method' error.`,
-        );
+        throw new Error(`Unexpected input to 'unregister-route-but-not-found-with-method' error.`);
       }
       return `The route you're trying to unregister was not  previously registered for the method type '${method}'.`;
     },
@@ -110,17 +81,11 @@
     "expired-test-without-max-age": ({ methodName, paramName }) => {
       return `The '${methodName}()' method can only be used when the '${paramName}' is used in the constructor.`;
     },
-    "unsupported-route-type": (
-      { moduleName, className, funcName, paramName },
-    ) => {
+    "unsupported-route-type": ({ moduleName, className, funcName, paramName }) => {
       return `The supplied '${paramName}' parameter was an unsupported type. Please check the docs for ${moduleName}.${className}.${funcName} for valid input types.`;
     },
-    "not-array-of-class": (
-      { value, expectedClass, moduleName, className, funcName, paramName },
-    ) => {
-      return `The supplied '${paramName}' parameter must be an array of '${expectedClass}' objects. Received '${
-        JSON.stringify(value)
-      },'. Please check the call to ${moduleName}.${className}.${funcName}() to fix the issue.`;
+    "not-array-of-class": ({ value, expectedClass, moduleName, className, funcName, paramName }) => {
+      return `The supplied '${paramName}' parameter must be an array of '${expectedClass}' objects. Received '${JSON.stringify(value)},'. Please check the call to ${moduleName}.${className}.${funcName}() to fix the issue.`;
     },
     "max-entries-or-age-required": ({ moduleName, className, funcName }) => {
       return `You must define either config.maxEntries or config.maxAgeSecondsin ${moduleName}.${className}.${funcName}`;
@@ -181,8 +146,7 @@
       return message;
     },
     "bad-precaching-response": ({ url, status }) => {
-      return `The precaching request for '${url}' failed` +
-        (status ? ` with an HTTP status of ${status}.` : `.`);
+      return `The precaching request for '${url}' failed` + (status ? ` with an HTTP status of ${status}.` : `.`);
     },
     "non-precached-url": ({ url }) => {
       return `createHandlerBoundToURL('${url}') was called, but that URL is not precached. Please pass in a URL that is precached instead.`;
@@ -195,7 +159,7 @@
     },
     "cross-origin-copy-response": ({ origin }) => {
       return `workbox-core.copyResponse() can only be used with same-origin responses. It was passed a response with origin ${origin}.`;
-    },
+    }
   };
 
   // ../../node_modules/workbox-core/models/messages/messageGenerator.js
@@ -245,9 +209,7 @@
   };
   var isOneOf = (value, validValues, details) => {
     if (!validValues.includes(value)) {
-      details["validValueDescription"] = `Valid values are ${
-        JSON.stringify(validValues)
-      }.`;
+      details["validValueDescription"] = `Valid values are ${JSON.stringify(validValues)}.`;
       throw new WorkboxError("invalid-value", details);
     }
   };
@@ -268,7 +230,7 @@
     isInstance,
     isOneOf,
     isType,
-    isArrayOfClass,
+    isArrayOfClass
   };
 
   // ../../node_modules/workbox-core/_private/cacheNames.js
@@ -277,11 +239,10 @@
     precache: "precache-v2",
     prefix: "workbox",
     runtime: "runtime",
-    suffix: typeof registration !== "undefined" ? registration.scope : "",
+    suffix: typeof registration !== "undefined" ? registration.scope : ""
   };
   var _createCacheName = (cacheName) => {
-    return [_cacheNameDetails.prefix, cacheName, _cacheNameDetails.suffix]
-      .filter((value) => value && value.length > 0).join("-");
+    return [_cacheNameDetails.prefix, cacheName, _cacheNameDetails.suffix].filter((value) => value && value.length > 0).join("-");
   };
   var eachCacheNameDetail = (fn) => {
     for (const key of Object.keys(_cacheNameDetails)) {
@@ -297,8 +258,7 @@
       });
     },
     getGoogleAnalyticsName: (userCacheName) => {
-      return userCacheName ||
-        _createCacheName(_cacheNameDetails.googleAnalytics);
+      return userCacheName || _createCacheName(_cacheNameDetails.googleAnalytics);
     },
     getPrecacheName: (userCacheName) => {
       return userCacheName || _createCacheName(_cacheNameDetails.precache);
@@ -311,7 +271,7 @@
     },
     getSuffix: () => {
       return _cacheNameDetails.suffix;
-    },
+    }
   };
 
   // ../../node_modules/workbox-core/_private/logger.js
@@ -326,9 +286,9 @@
       warn: `#f39c12`,
       error: `#c0392b`,
       groupCollapsed: `#3498db`,
-      groupEnd: null,
+      groupEnd: null
     };
-    const print = function (method, args) {
+    const print = function(method, args) {
       if (self.__WB_DISABLE_DEV_LOGS) {
         return;
       }
@@ -343,7 +303,7 @@
         `border-radius: 0.5em`,
         `color: white`,
         `font-weight: bold`,
-        `padding: 2px 0.5em`,
+        `padding: 2px 0.5em`
       ];
       const logPrefix = inGroup ? [] : ["%cworkbox", styles.join(";")];
       console[method](...logPrefix, ...args);
@@ -388,7 +348,7 @@
       const urlObject = new URL(entry, location.href);
       return {
         cacheKey: urlObject.href,
-        url: urlObject.href,
+        url: urlObject.href
       };
     }
     const { revision, url } = entry;
@@ -399,7 +359,7 @@
       const urlObject = new URL(url, location.href);
       return {
         cacheKey: urlObject.href,
-        url: urlObject.href,
+        url: urlObject.href
       };
     }
     const cacheKeyURL = new URL(url, location.href);
@@ -407,7 +367,7 @@
     cacheKeyURL.searchParams.set(REVISION_SEARCH_PARAM, revision);
     return {
       cacheKey: cacheKeyURL.href,
-      url: originalURL.href,
+      url: originalURL.href
     };
   }
 
@@ -421,14 +381,9 @@
           state.originalRequest = request;
         }
       };
-      this.cachedResponseWillBeUsed = async (
-        { event, state, cachedResponse },
-      ) => {
+      this.cachedResponseWillBeUsed = async ({ event, state, cachedResponse }) => {
         if (event.type === "install") {
-          if (
-            state && state.originalRequest &&
-            state.originalRequest instanceof Request
-          ) {
+          if (state && state.originalRequest && state.originalRequest instanceof Request) {
             const url = state.originalRequest.url;
             if (cachedResponse) {
               this.notUpdatedURLs.push(url);
@@ -446,12 +401,8 @@
   var PrecacheCacheKeyPlugin = class {
     constructor({ precacheController: precacheController2 }) {
       this.cacheKeyWillBeUsed = async ({ request, params }) => {
-        const cacheKey =
-          (params === null || params === void 0 ? void 0 : params.cacheKey) ||
-          this._precacheController.getCacheKeyForURL(request.url);
-        return cacheKey
-          ? new Request(cacheKey, { headers: request.headers })
-          : request;
+        const cacheKey = (params === null || params === void 0 ? void 0 : params.cacheKey) || this._precacheController.getCacheKeyForURL(request.url);
+        return cacheKey ? new Request(cacheKey, { headers: request.headers }) : request;
       };
       this._precacheController = precacheController2;
     }
@@ -468,11 +419,7 @@
   function printCleanupDetails(deletedURLs) {
     const deletionCount = deletedURLs.length;
     if (deletionCount > 0) {
-      logger.groupCollapsed(
-        `During precaching cleanup, ${deletionCount} cached request${
-          deletionCount === 1 ? " was" : "s were"
-        } deleted.`,
-      );
+      logger.groupCollapsed(`During precaching cleanup, ${deletionCount} cached request${deletionCount === 1 ? " was" : "s were"} deleted.`);
       logGroup("Deleted Cache Requests", deletedURLs);
       logger.groupEnd();
     }
@@ -493,13 +440,9 @@
     const precachedCount = urlsToPrecache.length;
     const alreadyPrecachedCount = urlsAlreadyPrecached.length;
     if (precachedCount || alreadyPrecachedCount) {
-      let message = `Precaching ${precachedCount} file${
-        precachedCount === 1 ? "" : "s"
-      }.`;
+      let message = `Precaching ${precachedCount} file${precachedCount === 1 ? "" : "s"}.`;
       if (alreadyPrecachedCount > 0) {
-        message += ` ${alreadyPrecachedCount} file${
-          alreadyPrecachedCount === 1 ? " is" : "s are"
-        } already cached.`;
+        message += ` ${alreadyPrecachedCount} file${alreadyPrecachedCount === 1 ? " is" : "s are"} already cached.`;
       }
       logger.groupCollapsed(message);
       _nestedGroup(`View newly precached URLs.`, urlsToPrecache);
@@ -540,14 +483,10 @@
     const responseInit = {
       headers: new Headers(clonedResponse.headers),
       status: clonedResponse.status,
-      statusText: clonedResponse.statusText,
+      statusText: clonedResponse.statusText
     };
-    const modifiedResponseInit = modifier
-      ? modifier(responseInit)
-      : responseInit;
-    const body = canConstructResponseFromBodyStream()
-      ? clonedResponse.body
-      : await clonedResponse.blob();
+    const modifiedResponseInit = modifier ? modifier(responseInit) : responseInit;
+    const body = canConstructResponseFromBodyStream() ? clonedResponse.body : await clonedResponse.blob();
     return new Response(body, modifiedResponseInit);
   }
 
@@ -565,19 +504,12 @@
     }
     return strippedURL.href;
   }
-  async function cacheMatchIgnoreParams(
-    cache,
-    request,
-    ignoreParams,
-    matchOptions,
-  ) {
+  async function cacheMatchIgnoreParams(cache, request, ignoreParams, matchOptions) {
     const strippedRequestURL = stripParams(request.url, ignoreParams);
     if (request.url === strippedRequestURL) {
       return cache.match(request, matchOptions);
     }
-    const keysOptions = Object.assign(Object.assign({}, matchOptions), {
-      ignoreSearch: true,
-    });
+    const keysOptions = Object.assign(Object.assign({}, matchOptions), { ignoreSearch: true });
     const cacheKeys = await cache.keys(request, keysOptions);
     for (const cacheKey of cacheKeys) {
       const strippedCacheKeyURL = stripParams(cacheKey.url, ignoreParams);
@@ -604,9 +536,7 @@
   // ../../node_modules/workbox-core/_private/executeQuotaErrorCallbacks.js
   async function executeQuotaErrorCallbacks() {
     if (true) {
-      logger.log(
-        `About to run ${quotaErrorCallbacks.size} callbacks to clean up caches.`,
-      );
+      logger.log(`About to run ${quotaErrorCallbacks.size} callbacks to clean up caches.`);
     }
     for (const callback of quotaErrorCallbacks) {
       await callback();
@@ -642,7 +572,7 @@
           moduleName: "workbox-strategies",
           className: "StrategyHandler",
           funcName: "constructor",
-          paramName: "options.event",
+          paramName: "options.event"
         });
       }
       Object.assign(this, options);
@@ -660,25 +590,16 @@
     async fetch(input) {
       const { event } = this;
       let request = toRequest(input);
-      if (
-        request.mode === "navigate" && event instanceof FetchEvent &&
-        event.preloadResponse
-      ) {
+      if (request.mode === "navigate" && event instanceof FetchEvent && event.preloadResponse) {
         const possiblePreloadResponse = await event.preloadResponse;
         if (possiblePreloadResponse) {
           if (true) {
-            logger.log(
-              `Using a preloaded navigation response for '${
-                getFriendlyURL(request.url)
-              }'`,
-            );
+            logger.log(`Using a preloaded navigation response for '${getFriendlyURL(request.url)}'`);
           }
           return possiblePreloadResponse;
         }
       }
-      const originalRequest = this.hasCallback("fetchDidFail")
-        ? request.clone()
-        : null;
+      const originalRequest = this.hasCallback("fetchDidFail") ? request.clone() : null;
       try {
         for (const cb of this.iterateCallbacks("requestWillFetch")) {
           request = await cb({ request: request.clone(), event });
@@ -686,47 +607,35 @@
       } catch (err) {
         if (err instanceof Error) {
           throw new WorkboxError("plugin-error-request-will-fetch", {
-            thrownErrorMessage: err.message,
+            thrownErrorMessage: err.message
           });
         }
       }
       const pluginFilteredRequest = request.clone();
       try {
         let fetchResponse;
-        fetchResponse = await fetch(
-          request,
-          request.mode === "navigate" ? void 0 : this._strategy.fetchOptions,
-        );
+        fetchResponse = await fetch(request, request.mode === "navigate" ? void 0 : this._strategy.fetchOptions);
         if (true) {
-          logger.debug(
-            `Network request for '${
-              getFriendlyURL(request.url)
-            }' returned a response with status '${fetchResponse.status}'.`,
-          );
+          logger.debug(`Network request for '${getFriendlyURL(request.url)}' returned a response with status '${fetchResponse.status}'.`);
         }
         for (const callback of this.iterateCallbacks("fetchDidSucceed")) {
           fetchResponse = await callback({
             event,
             request: pluginFilteredRequest,
-            response: fetchResponse,
+            response: fetchResponse
           });
         }
         return fetchResponse;
       } catch (error) {
         if (true) {
-          logger.log(
-            `Network request for '${
-              getFriendlyURL(request.url)
-            }' threw an error.`,
-            error,
-          );
+          logger.log(`Network request for '${getFriendlyURL(request.url)}' threw an error.`, error);
         }
         if (originalRequest) {
           await this.runCallbacks("fetchDidFail", {
             error,
             event,
             originalRequest: originalRequest.clone(),
-            request: pluginFilteredRequest.clone(),
+            request: pluginFilteredRequest.clone()
           });
         }
         throw error;
@@ -743,9 +652,7 @@
       let cachedResponse;
       const { cacheName, matchOptions } = this._strategy;
       const effectiveRequest = await this.getCacheKey(request, "read");
-      const multiMatchOptions = Object.assign(Object.assign({}, matchOptions), {
-        cacheName,
-      });
+      const multiMatchOptions = Object.assign(Object.assign({}, matchOptions), { cacheName });
       cachedResponse = await caches.match(effectiveRequest, multiMatchOptions);
       if (true) {
         if (cachedResponse) {
@@ -754,15 +661,13 @@
           logger.debug(`No cached response found in '${cacheName}'.`);
         }
       }
-      for (
-        const callback of this.iterateCallbacks("cachedResponseWillBeUsed")
-      ) {
+      for (const callback of this.iterateCallbacks("cachedResponseWillBeUsed")) {
         cachedResponse = await callback({
           cacheName,
           matchOptions,
           cachedResponse,
           request: effectiveRequest,
-          event: this.event,
+          event: this.event
         }) || void 0;
       }
       return cachedResponse;
@@ -775,62 +680,38 @@
         if (effectiveRequest.method && effectiveRequest.method !== "GET") {
           throw new WorkboxError("attempt-to-cache-non-get-request", {
             url: getFriendlyURL(effectiveRequest.url),
-            method: effectiveRequest.method,
+            method: effectiveRequest.method
           });
         }
         const vary = response.headers.get("Vary");
         if (vary) {
-          logger.debug(
-            `The response for ${
-              getFriendlyURL(effectiveRequest.url)
-            } has a 'Vary: ${vary}' header. Consider setting the {ignoreVary: true} option on your strategy to ensure cache matching and deletion works as expected.`,
-          );
+          logger.debug(`The response for ${getFriendlyURL(effectiveRequest.url)} has a 'Vary: ${vary}' header. Consider setting the {ignoreVary: true} option on your strategy to ensure cache matching and deletion works as expected.`);
         }
       }
       if (!response) {
         if (true) {
-          logger.error(
-            `Cannot cache non-existent response for '${
-              getFriendlyURL(effectiveRequest.url)
-            }'.`,
-          );
+          logger.error(`Cannot cache non-existent response for '${getFriendlyURL(effectiveRequest.url)}'.`);
         }
         throw new WorkboxError("cache-put-with-no-response", {
-          url: getFriendlyURL(effectiveRequest.url),
+          url: getFriendlyURL(effectiveRequest.url)
         });
       }
       const responseToCache = await this._ensureResponseSafeToCache(response);
       if (!responseToCache) {
         if (true) {
-          logger.debug(
-            `Response '${
-              getFriendlyURL(effectiveRequest.url)
-            }' will not be cached.`,
-            responseToCache,
-          );
+          logger.debug(`Response '${getFriendlyURL(effectiveRequest.url)}' will not be cached.`, responseToCache);
         }
         return false;
       }
       const { cacheName, matchOptions } = this._strategy;
       const cache = await self.caches.open(cacheName);
       const hasCacheUpdateCallback = this.hasCallback("cacheDidUpdate");
-      const oldResponse = hasCacheUpdateCallback
-        ? await cacheMatchIgnoreParams(cache, effectiveRequest.clone(), [
-          "__WB_REVISION__",
-        ], matchOptions)
-        : null;
+      const oldResponse = hasCacheUpdateCallback ? await cacheMatchIgnoreParams(cache, effectiveRequest.clone(), ["__WB_REVISION__"], matchOptions) : null;
       if (true) {
-        logger.debug(
-          `Updating the '${cacheName}' cache with a new Response for ${
-            getFriendlyURL(effectiveRequest.url)
-          }.`,
-        );
+        logger.debug(`Updating the '${cacheName}' cache with a new Response for ${getFriendlyURL(effectiveRequest.url)}.`);
       }
       try {
-        await cache.put(
-          effectiveRequest,
-          hasCacheUpdateCallback ? responseToCache.clone() : responseToCache,
-        );
+        await cache.put(effectiveRequest, hasCacheUpdateCallback ? responseToCache.clone() : responseToCache);
       } catch (error) {
         if (error instanceof Error) {
           if (error.name === "QuotaExceededError") {
@@ -845,7 +726,7 @@
           oldResponse,
           newResponse: responseToCache.clone(),
           request: effectiveRequest,
-          event: this.event,
+          event: this.event
         });
       }
       return true;
@@ -855,14 +736,12 @@
       if (!this._cacheKeys[key]) {
         let effectiveRequest = request;
         for (const callback of this.iterateCallbacks("cacheKeyWillBeUsed")) {
-          effectiveRequest = toRequest(
-            await callback({
-              mode,
-              request: effectiveRequest,
-              event: this.event,
-              params: this.params,
-            }),
-          );
+          effectiveRequest = toRequest(await callback({
+            mode,
+            request: effectiveRequest,
+            event: this.event,
+            params: this.params
+          }));
         }
         this._cacheKeys[key] = effectiveRequest;
       }
@@ -886,9 +765,7 @@
         if (typeof plugin[name] === "function") {
           const state = this._pluginStateMap.get(plugin);
           const statefulCallback = (param) => {
-            const statefulParam = Object.assign(Object.assign({}, param), {
-              state,
-            });
+            const statefulParam = Object.assign(Object.assign({}, param), { state });
             return plugin[name](statefulParam);
           };
           yield statefulCallback;
@@ -915,7 +792,7 @@
         responseToCache = await callback({
           request: this.request,
           response: responseToCache,
-          event: this.event,
+          event: this.event
         }) || void 0;
         pluginsUsed = true;
         if (!responseToCache) {
@@ -930,13 +807,9 @@
           if (responseToCache) {
             if (responseToCache.status !== 200) {
               if (responseToCache.status === 0) {
-                logger.warn(
-                  `The response for '${this.request.url}' is an opaque response. The caching strategy that you're using will not cache opaque responses by default.`,
-                );
+                logger.warn(`The response for '${this.request.url}' is an opaque response. The caching strategy that you're using will not cache opaque responses by default.`);
               } else {
-                logger.debug(
-                  `The response for '${this.request.url}' returned a status code of '${response.status}' and won't be cached as a result.`,
-                );
+                logger.debug(`The response for '${this.request.url}' returned a status code of '${response.status}' and won't be cached as a result.`);
               }
             }
           }
@@ -962,22 +835,15 @@
       if (options instanceof FetchEvent) {
         options = {
           event: options,
-          request: options.request,
+          request: options.request
         };
       }
       const event = options.event;
-      const request = typeof options.request === "string"
-        ? new Request(options.request)
-        : options.request;
+      const request = typeof options.request === "string" ? new Request(options.request) : options.request;
       const params = "params" in options ? options.params : void 0;
       const handler = new StrategyHandler(this, { event, request, params });
       const responseDone = this._getResponse(handler, request, event);
-      const handlerDone = this._awaitComplete(
-        responseDone,
-        handler,
-        request,
-        event,
-      );
+      const handlerDone = this._awaitComplete(responseDone, handler, request, event);
       return [responseDone, handlerDone];
     }
     async _getResponse(handler, request, event) {
@@ -1000,11 +866,7 @@
         if (!response) {
           throw error;
         } else if (true) {
-          logger.log(
-            `While responding to '${getFriendlyURL(request.url)}', an ${
-              error instanceof Error ? error.toString() : ""
-            } error occurred. Using a fallback response provided by a handlerDidError plugin.`,
-          );
+          logger.log(`While responding to '${getFriendlyURL(request.url)}', an ${error instanceof Error ? error.toString() : ""} error occurred. Using a fallback response provided by a handlerDidError plugin.`);
         }
       }
       for (const callback of handler.iterateCallbacks("handlerWillRespond")) {
@@ -1023,7 +885,7 @@
         await handler.runCallbacks("handlerDidRespond", {
           event,
           request,
-          response,
+          response
         });
         await handler.doneWaiting();
       } catch (waitUntilError) {
@@ -1035,7 +897,7 @@
         event,
         request,
         response,
-        error,
+        error
       });
       handler.destroy();
       if (error) {
@@ -1049,12 +911,8 @@
     constructor(options = {}) {
       options.cacheName = cacheNames.getPrecacheName(options.cacheName);
       super(options);
-      this._fallbackToNetwork = options.fallbackToNetwork === false
-        ? false
-        : true;
-      this.plugins.push(
-        PrecacheStrategy.copyRedirectedCacheableResponsesPlugin,
-      );
+      this._fallbackToNetwork = options.fallbackToNetwork === false ? false : true;
+      this.plugins.push(PrecacheStrategy.copyRedirectedCacheableResponsesPlugin);
     }
     async _handle(request, handler) {
       const response = await handler.cacheMatch(request);
@@ -1071,53 +929,33 @@
       const params = handler.params || {};
       if (this._fallbackToNetwork) {
         if (true) {
-          logger.warn(
-            `The precached response for ${
-              getFriendlyURL(request.url)
-            } in ${this.cacheName} was not found. Falling back to the network.`,
-          );
+          logger.warn(`The precached response for ${getFriendlyURL(request.url)} in ${this.cacheName} was not found. Falling back to the network.`);
         }
         const integrityInManifest = params.integrity;
         const integrityInRequest = request.integrity;
-        const noIntegrityConflict = !integrityInRequest ||
-          integrityInRequest === integrityInManifest;
-        response = await handler.fetch(
-          new Request(request, {
-            integrity: integrityInRequest || integrityInManifest,
-          }),
-        );
+        const noIntegrityConflict = !integrityInRequest || integrityInRequest === integrityInManifest;
+        response = await handler.fetch(new Request(request, {
+          integrity: integrityInRequest || integrityInManifest
+        }));
         if (integrityInManifest && noIntegrityConflict) {
           this._useDefaultCacheabilityPluginIfNeeded();
           const wasCached = await handler.cachePut(request, response.clone());
           if (true) {
             if (wasCached) {
-              logger.log(
-                `A response for ${
-                  getFriendlyURL(request.url)
-                } was used to "repair" the precache.`,
-              );
+              logger.log(`A response for ${getFriendlyURL(request.url)} was used to "repair" the precache.`);
             }
           }
         }
       } else {
         throw new WorkboxError("missing-precache-entry", {
           cacheName: this.cacheName,
-          url: request.url,
+          url: request.url
         });
       }
       if (true) {
-        const cacheKey = params.cacheKey ||
-          await handler.getCacheKey(request, "read");
-        logger.groupCollapsed(
-          `Precaching is responding to: ` + getFriendlyURL(request.url),
-        );
-        logger.log(
-          `Serving the precached url: ${
-            getFriendlyURL(
-              cacheKey instanceof Request ? cacheKey.url : cacheKey,
-            )
-          }`,
-        );
+        const cacheKey = params.cacheKey || await handler.getCacheKey(request, "read");
+        logger.groupCollapsed(`Precaching is responding to: ` + getFriendlyURL(request.url));
+        logger.log(`Serving the precached url: ${getFriendlyURL(cacheKey instanceof Request ? cacheKey.url : cacheKey)}`);
         logger.groupCollapsed(`View request details here.`);
         logger.log(request);
         logger.groupEnd();
@@ -1135,7 +973,7 @@
       if (!wasCached) {
         throw new WorkboxError("bad-precaching-response", {
           url: request.url,
-          status: response.status,
+          status: response.status
         });
       }
       return response;
@@ -1144,9 +982,7 @@
       let defaultPluginIndex = null;
       let cacheWillUpdatePluginCount = 0;
       for (const [index, plugin] of this.plugins.entries()) {
-        if (
-          plugin === PrecacheStrategy.copyRedirectedCacheableResponsesPlugin
-        ) {
+        if (plugin === PrecacheStrategy.copyRedirectedCacheableResponsesPlugin) {
           continue;
         }
         if (plugin === PrecacheStrategy.defaultPrecacheCacheabilityPlugin) {
@@ -1158,9 +994,7 @@
       }
       if (cacheWillUpdatePluginCount === 0) {
         this.plugins.push(PrecacheStrategy.defaultPrecacheCacheabilityPlugin);
-      } else if (
-        cacheWillUpdatePluginCount > 1 && defaultPluginIndex !== null
-      ) {
+      } else if (cacheWillUpdatePluginCount > 1 && defaultPluginIndex !== null) {
         this.plugins.splice(defaultPluginIndex, 1);
       }
     }
@@ -1171,12 +1005,12 @@
         return null;
       }
       return response;
-    },
+    }
   };
   PrecacheStrategy.copyRedirectedCacheableResponsesPlugin = {
     async cacheWillUpdate({ response }) {
       return response.redirected ? await copyResponse(response) : response;
-    },
+    }
   };
 
   // ../../node_modules/workbox-precaching/PrecacheController.js
@@ -1189,9 +1023,9 @@
         cacheName: cacheNames.getPrecacheName(cacheName),
         plugins: [
           ...plugins,
-          new PrecacheCacheKeyPlugin({ precacheController: this }),
+          new PrecacheCacheKeyPlugin({ precacheController: this })
         ],
-        fallbackToNetwork,
+        fallbackToNetwork
       });
       this.install = this.install.bind(this);
       this.activate = this.activate.bind(this);
@@ -1213,7 +1047,7 @@
           moduleName: "workbox-precaching",
           className: "PrecacheController",
           funcName: "addToCacheList",
-          paramName: "entries",
+          paramName: "entries"
         });
       }
       const urlsToWarnAbout = [];
@@ -1224,39 +1058,25 @@
           urlsToWarnAbout.push(entry.url);
         }
         const { cacheKey, url } = createCacheKey(entry);
-        const cacheMode = typeof entry !== "string" && entry.revision
-          ? "reload"
-          : "default";
-        if (
-          this._urlsToCacheKeys.has(url) &&
-          this._urlsToCacheKeys.get(url) !== cacheKey
-        ) {
+        const cacheMode = typeof entry !== "string" && entry.revision ? "reload" : "default";
+        if (this._urlsToCacheKeys.has(url) && this._urlsToCacheKeys.get(url) !== cacheKey) {
           throw new WorkboxError("add-to-cache-list-conflicting-entries", {
             firstEntry: this._urlsToCacheKeys.get(url),
-            secondEntry: cacheKey,
+            secondEntry: cacheKey
           });
         }
         if (typeof entry !== "string" && entry.integrity) {
-          if (
-            this._cacheKeysToIntegrities.has(cacheKey) &&
-            this._cacheKeysToIntegrities.get(cacheKey) !== entry.integrity
-          ) {
-            throw new WorkboxError(
-              "add-to-cache-list-conflicting-integrities",
-              {
-                url,
-              },
-            );
+          if (this._cacheKeysToIntegrities.has(cacheKey) && this._cacheKeysToIntegrities.get(cacheKey) !== entry.integrity) {
+            throw new WorkboxError("add-to-cache-list-conflicting-integrities", {
+              url
+            });
           }
           this._cacheKeysToIntegrities.set(cacheKey, entry.integrity);
         }
         this._urlsToCacheKeys.set(url, cacheKey);
         this._urlsToCacheModes.set(url, cacheMode);
         if (urlsToWarnAbout.length > 0) {
-          const warningMessage =
-            `Workbox is precaching URLs without revision info: ${
-              urlsToWarnAbout.join(", ")
-            }
+          const warningMessage = `Workbox is precaching URLs without revision info: ${urlsToWarnAbout.join(", ")}
 This is generally NOT safe. Learn more at https://bit.ly/wb-precache`;
           if (false) {
             console.warn(warningMessage);
@@ -1276,12 +1096,12 @@ This is generally NOT safe. Learn more at https://bit.ly/wb-precache`;
           const request = new Request(url, {
             integrity,
             cache: cacheMode,
-            credentials: "same-origin",
+            credentials: "same-origin"
           });
           await Promise.all(this.strategy.handleAll({
             params: { cacheKey },
             request,
-            event,
+            event
           }));
         }
         const { updatedURLs, notUpdatedURLs } = installReportPlugin;
@@ -1367,7 +1187,7 @@ This is generally NOT safe. Learn more at https://bit.ly/wb-precache`;
     "HEAD",
     "PATCH",
     "POST",
-    "PUT",
+    "PUT"
   ];
 
   // ../../node_modules/workbox-routing/utils/normalizeHandler.js
@@ -1378,7 +1198,7 @@ This is generally NOT safe. Learn more at https://bit.ly/wb-precache`;
           moduleName: "workbox-routing",
           className: "Route",
           funcName: "constructor",
-          paramName: "handler",
+          paramName: "handler"
         });
       }
       return handler;
@@ -1388,7 +1208,7 @@ This is generally NOT safe. Learn more at https://bit.ly/wb-precache`;
           moduleName: "workbox-routing",
           className: "Route",
           funcName: "constructor",
-          paramName: "handler",
+          paramName: "handler"
         });
       }
       return { handle: handler };
@@ -1403,12 +1223,10 @@ This is generally NOT safe. Learn more at https://bit.ly/wb-precache`;
           moduleName: "workbox-routing",
           className: "Route",
           funcName: "constructor",
-          paramName: "match",
+          paramName: "match"
         });
         if (method) {
-          finalAssertExports.isOneOf(method, validMethods, {
-            paramName: "method",
-          });
+          finalAssertExports.isOneOf(method, validMethods, { paramName: "method" });
         }
       }
       this.handler = normalizeHandler(handler);
@@ -1428,7 +1246,7 @@ This is generally NOT safe. Learn more at https://bit.ly/wb-precache`;
           moduleName: "workbox-routing",
           className: "RegExpRoute",
           funcName: "constructor",
-          paramName: "pattern",
+          paramName: "pattern"
         });
       }
       const match = ({ url }) => {
@@ -1438,9 +1256,7 @@ This is generally NOT safe. Learn more at https://bit.ly/wb-precache`;
         }
         if (url.origin !== location.origin && result.index !== 0) {
           if (true) {
-            logger.debug(
-              `The regular expression '${regExp.toString()}' only partially matched against the cross-origin URL '${url.toString()}'. RegExpRoute's will only handle cross-origin requests if they match the entire URL.`,
-            );
+            logger.debug(`The regular expression '${regExp.toString()}' only partially matched against the cross-origin URL '${url.toString()}'. RegExpRoute's will only handle cross-origin requests if they match the entire URL.`);
           }
           return;
         }
@@ -1475,15 +1291,13 @@ This is generally NOT safe. Learn more at https://bit.ly/wb-precache`;
           if (true) {
             logger.debug(`Caching URLs from the window`, payload.urlsToCache);
           }
-          const requestPromises = Promise.all(
-            payload.urlsToCache.map((entry) => {
-              if (typeof entry === "string") {
-                entry = [entry];
-              }
-              const request = new Request(...entry);
-              return this.handleRequest({ request, event });
-            }),
-          );
+          const requestPromises = Promise.all(payload.urlsToCache.map((entry) => {
+            if (typeof entry === "string") {
+              entry = [entry];
+            }
+            const request = new Request(...entry);
+            return this.handleRequest({ request, event });
+          }));
           event.waitUntil(requestPromises);
           if (event.ports && event.ports[0]) {
             void requestPromises.then(() => event.ports[0].postMessage(true));
@@ -1497,15 +1311,13 @@ This is generally NOT safe. Learn more at https://bit.ly/wb-precache`;
           moduleName: "workbox-routing",
           className: "Router",
           funcName: "handleRequest",
-          paramName: "options.request",
+          paramName: "options.request"
         });
       }
       const url = new URL(request.url, location.href);
       if (!url.protocol.startsWith("http")) {
         if (true) {
-          logger.debug(
-            `Workbox Router only supports URLs that start with 'http'.`,
-          );
+          logger.debug(`Workbox Router only supports URLs that start with 'http'.`);
         }
         return;
       }
@@ -1514,7 +1326,7 @@ This is generally NOT safe. Learn more at https://bit.ly/wb-precache`;
         event,
         request,
         sameOrigin,
-        url,
+        url
       });
       let handler = route && route.handler;
       const debugMessages = [];
@@ -1524,7 +1336,7 @@ This is generally NOT safe. Learn more at https://bit.ly/wb-precache`;
           if (params) {
             debugMessages.push([
               `Passing the following params to the route's handler:`,
-              params,
+              params
             ]);
           }
         }
@@ -1532,9 +1344,7 @@ This is generally NOT safe. Learn more at https://bit.ly/wb-precache`;
       const method = request.method;
       if (!handler && this._defaultHandlerMap.has(method)) {
         if (true) {
-          debugMessages.push(
-            `Failed to find a matching route. Falling back to the default handler for ${method}.`,
-          );
+          debugMessages.push(`Failed to find a matching route. Falling back to the default handler for ${method}.`);
         }
         handler = this._defaultHandlerMap.get(method);
       }
@@ -1545,9 +1355,7 @@ This is generally NOT safe. Learn more at https://bit.ly/wb-precache`;
         return;
       }
       if (true) {
-        logger.groupCollapsed(
-          `Router is responding to: ${getFriendlyURL(url)}`,
-        );
+        logger.groupCollapsed(`Router is responding to: ${getFriendlyURL(url)}`);
         debugMessages.forEach((msg) => {
           if (Array.isArray(msg)) {
             logger.log(...msg);
@@ -1564,18 +1372,11 @@ This is generally NOT safe. Learn more at https://bit.ly/wb-precache`;
         responsePromise = Promise.reject(err);
       }
       const catchHandler = route && route.catchHandler;
-      if (
-        responsePromise instanceof Promise &&
-        (this._catchHandler || catchHandler)
-      ) {
+      if (responsePromise instanceof Promise && (this._catchHandler || catchHandler)) {
         responsePromise = responsePromise.catch(async (err) => {
           if (catchHandler) {
             if (true) {
-              logger.groupCollapsed(
-                `Error thrown when responding to:  ${
-                  getFriendlyURL(url)
-                }. Falling back to route's Catch Handler.`,
-              );
+              logger.groupCollapsed(`Error thrown when responding to:  ${getFriendlyURL(url)}. Falling back to route's Catch Handler.`);
               logger.error(`Error thrown by:`, route);
               logger.error(err);
               logger.groupEnd();
@@ -1590,11 +1391,7 @@ This is generally NOT safe. Learn more at https://bit.ly/wb-precache`;
           }
           if (this._catchHandler) {
             if (true) {
-              logger.groupCollapsed(
-                `Error thrown when responding to:  ${
-                  getFriendlyURL(url)
-                }. Falling back to global Catch Handler.`,
-              );
+              logger.groupCollapsed(`Error thrown when responding to:  ${getFriendlyURL(url)}. Falling back to global Catch Handler.`);
               logger.error(`Error thrown by:`, route);
               logger.error(err);
               logger.groupEnd();
@@ -1614,21 +1411,13 @@ This is generally NOT safe. Learn more at https://bit.ly/wb-precache`;
         if (matchResult) {
           if (true) {
             if (matchResult instanceof Promise) {
-              logger.warn(
-                `While routing ${
-                  getFriendlyURL(url)
-                }, an async matchCallback function was used. Please convert the following route to use a synchronous matchCallback function:`,
-                route,
-              );
+              logger.warn(`While routing ${getFriendlyURL(url)}, an async matchCallback function was used. Please convert the following route to use a synchronous matchCallback function:`, route);
             }
           }
           params = matchResult;
           if (Array.isArray(params) && params.length === 0) {
             params = void 0;
-          } else if (
-            matchResult.constructor === Object &&
-            Object.keys(matchResult).length === 0
-          ) {
+          } else if (matchResult.constructor === Object && Object.keys(matchResult).length === 0) {
             params = void 0;
           } else if (typeof matchResult === "boolean") {
             params = void 0;
@@ -1650,31 +1439,31 @@ This is generally NOT safe. Learn more at https://bit.ly/wb-precache`;
           moduleName: "workbox-routing",
           className: "Router",
           funcName: "registerRoute",
-          paramName: "route",
+          paramName: "route"
         });
         finalAssertExports.hasMethod(route, "match", {
           moduleName: "workbox-routing",
           className: "Router",
           funcName: "registerRoute",
-          paramName: "route",
+          paramName: "route"
         });
         finalAssertExports.isType(route.handler, "object", {
           moduleName: "workbox-routing",
           className: "Router",
           funcName: "registerRoute",
-          paramName: "route",
+          paramName: "route"
         });
         finalAssertExports.hasMethod(route.handler, "handle", {
           moduleName: "workbox-routing",
           className: "Router",
           funcName: "registerRoute",
-          paramName: "route.handler",
+          paramName: "route.handler"
         });
         finalAssertExports.isType(route.method, "string", {
           moduleName: "workbox-routing",
           className: "Router",
           funcName: "registerRoute",
-          paramName: "route.method",
+          paramName: "route.method"
         });
       }
       if (!this._routes.has(route.method)) {
@@ -1685,7 +1474,7 @@ This is generally NOT safe. Learn more at https://bit.ly/wb-precache`;
     unregisterRoute(route) {
       if (!this._routes.has(route.method)) {
         throw new WorkboxError("unregister-route-but-not-found-with-method", {
-          method: route.method,
+          method: route.method
         });
       }
       const routeIndex = this._routes.get(route.method).indexOf(route);
@@ -1718,28 +1507,19 @@ This is generally NOT safe. Learn more at https://bit.ly/wb-precache`;
           throw new WorkboxError("invalid-string", {
             moduleName: "workbox-routing",
             funcName: "registerRoute",
-            paramName: "capture",
+            paramName: "capture"
           });
         }
-        const valueToCheck = capture.startsWith("http")
-          ? captureUrl.pathname
-          : capture;
+        const valueToCheck = capture.startsWith("http") ? captureUrl.pathname : capture;
         const wildcards = "[*:?+]";
         if (new RegExp(`${wildcards}`).exec(valueToCheck)) {
-          logger.debug(
-            `The '$capture' parameter contains an Express-style wildcard character (${wildcards}). Strings are now always interpreted as exact matches; use a RegExp for partial or wildcard matches.`,
-          );
+          logger.debug(`The '$capture' parameter contains an Express-style wildcard character (${wildcards}). Strings are now always interpreted as exact matches; use a RegExp for partial or wildcard matches.`);
         }
       }
       const matchCallback = ({ url }) => {
         if (true) {
-          if (
-            url.pathname === captureUrl.pathname &&
-            url.origin !== captureUrl.origin
-          ) {
-            logger.debug(
-              `${capture} only partially matches the cross-origin URL ${url.toString()}. This route will only handle cross-origin requests if they match the entire URL.`,
-            );
+          if (url.pathname === captureUrl.pathname && url.origin !== captureUrl.origin) {
+            logger.debug(`${capture} only partially matches the cross-origin URL ${url.toString()}. This route will only handle cross-origin requests if they match the entire URL.`);
           }
         }
         return url.href === captureUrl.href;
@@ -1755,7 +1535,7 @@ This is generally NOT safe. Learn more at https://bit.ly/wb-precache`;
       throw new WorkboxError("unsupported-route-type", {
         moduleName: "workbox-routing",
         funcName: "registerRoute",
-        paramName: "capture",
+        paramName: "capture"
       });
     }
     const defaultRouter2 = getOrCreateDefaultRouter();
@@ -1764,14 +1544,9 @@ This is generally NOT safe. Learn more at https://bit.ly/wb-precache`;
   }
 
   // ../../node_modules/workbox-precaching/utils/removeIgnoredSearchParams.js
-  function removeIgnoredSearchParams(
-    urlObject,
-    ignoreURLParametersMatching = [],
-  ) {
+  function removeIgnoredSearchParams(urlObject, ignoreURLParametersMatching = []) {
     for (const paramName of [...urlObject.searchParams.keys()]) {
-      if (
-        ignoreURLParametersMatching.some((regExp) => regExp.test(paramName))
-      ) {
+      if (ignoreURLParametersMatching.some((regExp) => regExp.test(paramName))) {
         urlObject.searchParams.delete(paramName);
       }
     }
@@ -1779,22 +1554,11 @@ This is generally NOT safe. Learn more at https://bit.ly/wb-precache`;
   }
 
   // ../../node_modules/workbox-precaching/utils/generateURLVariations.js
-  function* generateURLVariations(
-    url,
-    {
-      ignoreURLParametersMatching = [/^utm_/, /^fbclid$/],
-      directoryIndex = "index.html",
-      cleanURLs = true,
-      urlManipulation,
-    } = {},
-  ) {
+  function* generateURLVariations(url, { ignoreURLParametersMatching = [/^utm_/, /^fbclid$/], directoryIndex = "index.html", cleanURLs = true, urlManipulation } = {}) {
     const urlObject = new URL(url, location.href);
     urlObject.hash = "";
     yield urlObject.href;
-    const urlWithoutIgnoredParams = removeIgnoredSearchParams(
-      urlObject,
-      ignoreURLParametersMatching,
-    );
+    const urlWithoutIgnoredParams = removeIgnoredSearchParams(urlObject, ignoreURLParametersMatching);
     yield urlWithoutIgnoredParams.href;
     if (directoryIndex && urlWithoutIgnoredParams.pathname.endsWith("/")) {
       const directoryURL = new URL(urlWithoutIgnoredParams.href);
@@ -1822,17 +1586,12 @@ This is generally NOT safe. Learn more at https://bit.ly/wb-precache`;
         for (const possibleURL of generateURLVariations(request.url, options)) {
           const cacheKey = urlsToCacheKeys.get(possibleURL);
           if (cacheKey) {
-            const integrity = precacheController2.getIntegrityForCacheKey(
-              cacheKey,
-            );
+            const integrity = precacheController2.getIntegrityForCacheKey(cacheKey);
             return { cacheKey, integrity };
           }
         }
         if (true) {
-          logger.debug(
-            `Precaching did not find a match for ` +
-              getFriendlyURL(request.url),
-          );
+          logger.debug(`Precaching did not find a match for ` + getFriendlyURL(request.url));
         }
         return;
       };
@@ -1860,147 +1619,5 @@ This is generally NOT safe. Learn more at https://bit.ly/wb-precache`;
   }
 
   // js/sw2.ts
-  precacheAndRoute([
-    { "revision": "048e85eb3a57bcd153f60249d9bae22c", "url": "assets/app.css" },
-    {
-      "revision": "8c608256fb0273e3a36e6b603f71f213",
-      "url": "assets/fonts/KFOlCnqEu92Fr1MmEU9fBBc9.ttf",
-    },
-    {
-      "revision": "806854d4422d0bd79e0f8c87c329a568",
-      "url": "assets/fonts/KFOlCnqEu92Fr1MmSU5fBBc9.ttf",
-    },
-    {
-      "revision": "96559ffb5be917f1ce9f748bf4f34732",
-      "url": "assets/fonts/KFOlCnqEu92Fr1MmWUlfBBc9.ttf",
-    },
-    {
-      "revision": "329ae1c377b1fb667f5be6abd50327fc",
-      "url": "assets/fonts/KFOmCnqEu92Fr1Mu4mxP.ttf",
-    },
-    {
-      "revision": "bc73ad379628323dd8b59587bc5494aa",
-      "url": "assets/roboto.css",
-    },
-    {
-      "revision": "17e5d7f3a6a57b5c42f1e60a6bc3a658",
-      "url": "assets/synthwave.webp",
-    },
-    {
-      "revision": "9004e8a7889a9f9cfd1721e1430fcf8a",
-      "url": "assets/triangle-geometry.png",
-    },
-    {
-      "revision": "d71147f38c8eba4b5184eeb97a7a58d4",
-      "url": "assets/zed-icon-big.png",
-    },
-    { "revision": "28f1dfbfc07e6095dde3876b81bdfacc", "url": "babel.mjs" },
-    { "revision": "4e7c0823170d06aba032222c0caede2a", "url": "dev.html" },
-    {
-      "revision": "a7db92b6763ae44754e32223aecf862b",
-      "url": "dist/esbuildEsm-IHWMAF3R.mjs",
-    },
-    {
-      "revision": "0e97ec64f9a037a036133562e17338c5",
-      "url": "dist/formatter-U4GMQGVN.mjs",
-    },
-    {
-      "revision": "e349b939207b959b4412670a2dd8d012",
-      "url": "dist/LazyLoadedComponent.mjs",
-    },
-    { "revision": "5ce83e8cda9239bc199f8ae8b65669a1", "url": "dist/mui.mjs" },
-    {
-      "revision": "fa08416a6877be1b3d47a00b39e28891",
-      "url": "dist/quickStart.mjs",
-    },
-    {
-      "revision": "2be8e47158d62eeb58168cf05623cf58",
-      "url": "dist/renderPreviewWindow-IYSMHUFJ.mjs",
-    },
-    {
-      "revision": "b48e0a0a68477dd4db146feb08f92120",
-      "url": "dist/renderPreviewWindow.mjs",
-    },
-    {
-      "revision": "9f6fba3d4b70ddcf8f0245843c670fa2",
-      "url": "dist/renderToString-W4XCJNIT.mjs",
-    },
-    {
-      "revision": "316cd6f2254c533127e538a566f1329b",
-      "url": "dist/renderToString.mjs",
-    },
-    {
-      "revision": "b07f3105f13c24e073ea57cae64ab294",
-      "url": "dist/session-GUB2RX2C.mjs",
-    },
-    {
-      "revision": "d8f017448b33ab453d03a57543d26215",
-      "url": "dist/session.mjs",
-    },
-    {
-      "revision": "c5ef3dccd5259e13dbdf46ea343938c9",
-      "url": "dist/startMonaco-PIYHIV5W.mjs",
-    },
-    {
-      "revision": "14c8560ff231b5b663ecb200f250f29f",
-      "url": "dist/startMonaco.mjs",
-    },
-    { "revision": "2ef1befbba33cdc5681a15b3130a0b40", "url": "esbuildEsm.mjs" },
-    {
-      "revision": "bd7afef2da12f2e71a35302f6faa1115",
-      "url": "examples/starter_framer.js",
-    },
-    { "revision": "7693b53464fbcae8df2b27653087c784", "url": "formatter.mjs" },
-    { "revision": "d59d4e06002a5b8549c042ca4ce104da", "url": "hello-world.js" },
-    { "revision": "a7e571491dd213b1da54b41ee40efe7f", "url": "hydrated.html" },
-    {
-      "revision": "67f1283438414100d102e84587635d77",
-      "url": "hydrateRoot.html",
-    },
-    { "revision": "83cbb9bee226ee0b110488b276dd7871", "url": "importmap.json" },
-    {
-      "revision": "0688f6760164c8d5f9a1f48a33d1207e",
-      "url": "importScript.mjs",
-    },
-    { "revision": "95af8277cf17d8941af3fad936c93488", "url": "index.html" },
-    { "revision": "8dec863344f5838c9f884075f05774c1", "url": "quickStart.mjs" },
-    { "revision": "69c1e05731d438a473f92f68d66895db", "url": "starter.mjs" },
-    { "revision": "3f8a6c8abf9d21a3da6b85a87a78f078", "url": "sw.js" },
-    { "revision": "2651f864dacad7cdc0b4e20133be55a1", "url": "test.mjs" },
-    { "revision": "c6fdf2a908f7ea613ea537a2666f6fb5", "url": "uidV4.mjs" },
-    {
-      "revision": "6ba299d0e7eaffb2eda029c34f78bf00",
-      "url": "vendor/es-module-shims.wasm.js",
-    },
-    { "revision": "96d584c8cfd78ac84b0094980cfba4fc", "url": "vendor/mui.mjs" },
-    {
-      "revision": "b6c117011092b63d7dc8b9b0232fee1e",
-      "url": "vendor/renderToString.mjs",
-    },
-    {
-      "revision": "891b54222faeb2953dde97191c7b07c5",
-      "url": "workboxLoader.mjs",
-    },
-    {
-      "revision": "790d468074d3632321fe6cc8d6abca7d",
-      "url": "workers/babel.worker.js",
-    },
-    {
-      "revision": "77b74e9ad2affbe5f91ae61872e272b9",
-      "url": "workers/custom-worker.js",
-    },
-    {
-      "revision": "c6279715ced465ed2728e78659b2270e",
-      "url": "workers/esbuild.worker.js",
-    },
-    {
-      "revision": "8030ca2f2db7baef85b29a59825c8b23",
-      "url": "workers/getWorker.mjs",
-    },
-    {
-      "revision": "d45eca244dd39209adf18e4d157ec501",
-      "url": "workers/prettierWorker.js",
-    },
-    { "revision": "cc61d874f9dabe79a8b5a46f07fabe37", "url": "ws.mjs" },
-  ]);
+  precacheAndRoute([{ "revision": "048e85eb3a57bcd153f60249d9bae22c", "url": "assets/app.css" }, { "revision": "8c608256fb0273e3a36e6b603f71f213", "url": "assets/fonts/KFOlCnqEu92Fr1MmEU9fBBc9.ttf" }, { "revision": "806854d4422d0bd79e0f8c87c329a568", "url": "assets/fonts/KFOlCnqEu92Fr1MmSU5fBBc9.ttf" }, { "revision": "96559ffb5be917f1ce9f748bf4f34732", "url": "assets/fonts/KFOlCnqEu92Fr1MmWUlfBBc9.ttf" }, { "revision": "329ae1c377b1fb667f5be6abd50327fc", "url": "assets/fonts/KFOmCnqEu92Fr1Mu4mxP.ttf" }, { "revision": "bc73ad379628323dd8b59587bc5494aa", "url": "assets/roboto.css" }, { "revision": "17e5d7f3a6a57b5c42f1e60a6bc3a658", "url": "assets/synthwave.webp" }, { "revision": "9004e8a7889a9f9cfd1721e1430fcf8a", "url": "assets/triangle-geometry.png" }, { "revision": "d71147f38c8eba4b5184eeb97a7a58d4", "url": "assets/zed-icon-big.png" }, { "revision": "28f1dfbfc07e6095dde3876b81bdfacc", "url": "babel.mjs" }, { "revision": "4e7c0823170d06aba032222c0caede2a", "url": "dev.html" }, { "revision": "a7db92b6763ae44754e32223aecf862b", "url": "dist/esbuildEsm-IHWMAF3R.mjs" }, { "revision": "0e97ec64f9a037a036133562e17338c5", "url": "dist/formatter-U4GMQGVN.mjs" }, { "revision": "e349b939207b959b4412670a2dd8d012", "url": "dist/LazyLoadedComponent.mjs" }, { "revision": "5ce83e8cda9239bc199f8ae8b65669a1", "url": "dist/mui.mjs" }, { "revision": "af2fbd29ed449874d7a3009932ee2464", "url": "dist/quickStart.mjs" }, { "revision": "2be8e47158d62eeb58168cf05623cf58", "url": "dist/renderPreviewWindow-IYSMHUFJ.mjs" }, { "revision": "b48e0a0a68477dd4db146feb08f92120", "url": "dist/renderPreviewWindow.mjs" }, { "revision": "9f6fba3d4b70ddcf8f0245843c670fa2", "url": "dist/renderToString-W4XCJNIT.mjs" }, { "revision": "316cd6f2254c533127e538a566f1329b", "url": "dist/renderToString.mjs" }, { "revision": "b07f3105f13c24e073ea57cae64ab294", "url": "dist/session-GUB2RX2C.mjs" }, { "revision": "d8f017448b33ab453d03a57543d26215", "url": "dist/session.mjs" }, { "revision": "837798e5e5591a0bcd6fdee843e4a6b7", "url": "dist/startMonaco-DVUBVLZL.mjs" }, { "revision": "14c8560ff231b5b663ecb200f250f29f", "url": "dist/startMonaco.mjs" }, { "revision": "2ef1befbba33cdc5681a15b3130a0b40", "url": "esbuildEsm.mjs" }, { "revision": "bd7afef2da12f2e71a35302f6faa1115", "url": "examples/starter_framer.js" }, { "revision": "7693b53464fbcae8df2b27653087c784", "url": "formatter.mjs" }, { "revision": "d59d4e06002a5b8549c042ca4ce104da", "url": "hello-world.js" }, { "revision": "a7e571491dd213b1da54b41ee40efe7f", "url": "hydrated.html" }, { "revision": "67f1283438414100d102e84587635d77", "url": "hydrateRoot.html" }, { "revision": "83cbb9bee226ee0b110488b276dd7871", "url": "importmap.json" }, { "revision": "0688f6760164c8d5f9a1f48a33d1207e", "url": "importScript.mjs" }, { "revision": "95af8277cf17d8941af3fad936c93488", "url": "index.html" }, { "revision": "8dec863344f5838c9f884075f05774c1", "url": "quickStart.mjs" }, { "revision": "69c1e05731d438a473f92f68d66895db", "url": "starter.mjs" }, { "revision": "0188992ef66a1bc1ab5494c812bf3eb3", "url": "sw.js" }, { "revision": "2651f864dacad7cdc0b4e20133be55a1", "url": "test.mjs" }, { "revision": "c6fdf2a908f7ea613ea537a2666f6fb5", "url": "uidV4.mjs" }, { "revision": "6ba299d0e7eaffb2eda029c34f78bf00", "url": "vendor/es-module-shims.wasm.js" }, { "revision": "96d584c8cfd78ac84b0094980cfba4fc", "url": "vendor/mui.mjs" }, { "revision": "b6c117011092b63d7dc8b9b0232fee1e", "url": "vendor/renderToString.mjs" }, { "revision": "891b54222faeb2953dde97191c7b07c5", "url": "workboxLoader.mjs" }, { "revision": "790d468074d3632321fe6cc8d6abca7d", "url": "workers/babel.worker.js" }, { "revision": "77b74e9ad2affbe5f91ae61872e272b9", "url": "workers/custom-worker.js" }, { "revision": "c6279715ced465ed2728e78659b2270e", "url": "workers/esbuild.worker.js" }, { "revision": "8030ca2f2db7baef85b29a59825c8b23", "url": "workers/getWorker.mjs" }, { "revision": "d45eca244dd39209adf18e4d157ec501", "url": "workers/prettierWorker.js" }, { "revision": "cc61d874f9dabe79a8b5a46f07fabe37", "url": "ws.mjs" }]);
 })();
