@@ -56,7 +56,7 @@ export interface IUserJSON {
   name: IUsername;
   capabilities: ICapabilities;
   state: ICodeSession;
-  users: Record<string, unknown>;
+  users: Record<object>;
   events: IEvent[];
 }
 
@@ -73,7 +73,7 @@ export interface IUser extends
     room: string;
     state: Record<ICodeSession>;
     capabilities: ICapabilities;
-    users: Record<string, unknown>;
+    users: Record<object>;
     events: IEvent[];
   }> {
 }
@@ -92,7 +92,7 @@ export interface ICodeSess {
   processEvents: () => void;
 }
 
-const hashStore: Record<number, Record<ICodeSession>> = {};
+const hashStore: { [key: number]: Record<ICodeSession> } = {};
 export class CodeSession implements ICodeSess {
   session: IUser;
   hashCodeSession: number;

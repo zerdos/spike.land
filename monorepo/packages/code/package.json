@@ -21,7 +21,7 @@
   "scripts": {
     "clean": "rm -rf .tsBuildInfo js/dist && mkdir js/dist && deno fmt .",
     "xpostinstall": "yarn importmap",
-    "build:sw": "yarn sw && yarn esbuild --outfile=./js/sw.js --bundle js/sw2.ts",
+    "build:sw": "yarn esbuild --outfile=./js/sw.js --bundle js/sw.ts && yarn sw",
     "mui:deno": "deno bundle --import-map ./js/importmap.json ./js/dist/mui.mjs ./js/vendor/mui.mjs",
     "quickStart:deno": "deno bundle --import-map ./js/importmap.json ./js/dist/quickStart.mjs ./js/dist/quickStart.bundle.mjs --no-check",
     "renderToString:deno": "deno bundle --import-map ./js/importmap.json ./js/renderToString.tsx ./js/vendor/renderToString.mjs --no-check",
