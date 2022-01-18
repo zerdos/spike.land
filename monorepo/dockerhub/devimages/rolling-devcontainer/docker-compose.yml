@@ -13,7 +13,7 @@ services:
   #     - ipns:/ipns
 
   devcontainer: 
-    image: devimages/hirsute-devcontainer:latest
+    build: .
     # build:
     #   context: .
     #   args:
@@ -21,8 +21,6 @@ services:
     tmpfs:
       - /home/$USER/tmpfs:exec
     privileged: true
-    shm_size: 4gb
-    network_mode: "host"
     volumes:
       # - $HOME:/home/$USER/host:delegated
       - /var/run/docker.sock:/var/run/docker.sock
