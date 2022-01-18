@@ -1,10 +1,10 @@
 // js/mui.tsx
 import { jsx } from "https://unpkg.com/@spike.land/esm@0.6.38/dist/emotion-react.mjs";
-import Fab from "https://ga.jspm.io/npm:@mui/material@5.2.8/Fab/index.js";
-import Button from "https://ga.jspm.io/npm:@mui/material@5.2.8/Button/index.js";
-import createSvgIcon from "https://ga.jspm.io/npm:@mui/material@5.2.8/utils/createSvgIcon.js";
-import { default as default2 } from "https://ga.jspm.io/npm:@mui/material@5.2.8/ToggleButton/index.js";
-import { default as default3 } from "https://ga.jspm.io/npm:@mui/material@5.2.8/ToggleButtonGroup/index.js";
+import Fab from "https://ga.jspm.io/npm:@mui/material@5.3.0/Fab/index.js";
+import Button from "https://ga.jspm.io/npm:@mui/material@5.3.0/Button/index.js";
+import createSvgIcon from "https://ga.jspm.io/npm:@mui/material@5.3.0/utils/createSvgIcon.js";
+import { default as default2 } from "https://ga.jspm.io/npm:@mui/material@5.3.0/ToggleButton/index.js";
+import { default as default3 } from "https://ga.jspm.io/npm:@mui/material@5.3.0/ToggleButtonGroup/index.js";
 var FullscreenIcon = createSvgIcon(/* @__PURE__ */ jsx("path", {
   d: "M17 4h5v5h-2V6h-3V4zM4 9V6h3V4H2v5h2zm16 6v3h-3v2h5v-5h-2zM7 18H4v-3H2v5h5v-2zM18 8H6v8h12V8z"
 }), "Fullscreen");
