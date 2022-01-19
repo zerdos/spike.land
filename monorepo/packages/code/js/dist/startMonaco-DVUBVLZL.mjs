@@ -167,7 +167,7 @@ var AggregateError = class extends Error {
     return __privateGet(this, _errors).slice();
   }
 };
-_errors = new WeakMap();
+_errors = /* @__PURE__ */ new WeakMap();
 async function pMap(iterable, mapper, {
   concurrency = Number.POSITIVE_INFINITY,
   stopOnError = true
@@ -443,4 +443,4 @@ var editor_default = async ({ onChange, code, language, container, options }) =>
 export {
   editor_default as default
 };
-//# sourceMappingURL=startMonaco-UBI4FC6C.mjs.map
+//# sourceMappingURL=startMonaco-DVUBVLZL.mjs.map

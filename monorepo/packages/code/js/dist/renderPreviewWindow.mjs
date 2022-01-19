@@ -6063,7 +6063,7 @@ true ? m8.propTypes = {
   ])
 } : void 0;
 function memoize(e60) {
-  var t60 = Object.create(null);
+  var t60 = /* @__PURE__ */ Object.create(null);
   return function(n58) {
     t60[n58] === void 0 && (t60[n58] = e60(n58));
     return t60[n58];
@@ -7247,7 +7247,7 @@ var b12 = function toRules(e325, o133) {
 var w5 = function getRules(e422, r143) {
   return dealloc(b12(alloc(e422), r143));
 };
-var E4 = new WeakMap();
+var E4 = /* @__PURE__ */ new WeakMap();
 var k4 = function compat(e520) {
   if (e520.type === "rule" && e520.parent && !(e520.length < 1)) {
     var r221 = e520.value, t149 = e520.parent;
@@ -9783,7 +9783,7 @@ function getChildMapping(e168, t166) {
   var n136 = function mapper(e248) {
     return t166 && C(e248) ? t166(e248) : e248;
   };
-  var r155 = Object.create(null);
+  var r155 = /* @__PURE__ */ Object.create(null);
   e168 && b.map(e168, function(e335) {
     return e335;
   }).forEach(function(e428) {
@@ -9797,7 +9797,7 @@ function mergeChildMappings(e527, t243) {
   function getValueForKey(n321) {
     return n321 in t243 ? t243[n321] : e527[n321];
   }
-  var n226 = Object.create(null);
+  var n226 = /* @__PURE__ */ Object.create(null);
   var r229 = [];
   for (var i141 in e527) {
     if (i141 in t243) {

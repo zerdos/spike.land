@@ -9,8 +9,7 @@
   },
   "devDependencies": {
     "@spike.land/cf-npm-site": "^0.6.31",
-    "@spike.land/code": "^0.6.49",
-    "wrangler": "beta"
+    "@spike.land/code": "^0.6.49"
   },
   "dependencies": {
     "@types/websocket": "1.0.4",
