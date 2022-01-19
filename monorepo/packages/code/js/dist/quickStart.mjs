@@ -72,7 +72,7 @@ async function runner(c, changes = null, session, counter) {
         return;
       }
       try {
-        getHtmlAndCss = getHtmlAndCss || (await import("./renderToString-W4XCJNIT.mjs")).getHtmlAndCss;
+        getHtmlAndCss = getHtmlAndCss || (await import("./renderToString-D5D5XE7M.mjs")).getHtmlAndCss;
         if (counter < session.i) {
           return;
         }
@@ -140,7 +140,7 @@ var startFromCode = async ({ code }) => {
 async function quickStart(session, room, keepFullScreen, saveCode) {
   session.saveCode = saveCode;
   session.children = null;
-  const { renderPreviewWindow } = await import("./renderPreviewWindow-IYSMHUFJ.mjs");
+  const { renderPreviewWindow } = await import("./renderPreviewWindow-2PQSSRXN.mjs");
   await renderPreviewWindow(session, room, keepFullScreen);
   if (!keepFullScreen) {
     await startMonacoWithSession(session);
