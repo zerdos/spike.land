@@ -476,9 +476,7 @@ function HTMLElementType(e17, t12, n8, o5, r41) {
   if ("production" === process.env.NODE_ENV) return null;
   const i31 = e17[t12];
   const u3 = r41 || t12;
-  return null == i31
-    ? null
-    : i31 && 1 !== i31.nodeType
+  return null == i31 ? null : i31 && 1 !== i31.nodeType
     ? new Error(
       `Invalid ${o5} \`${u3}\` supplied to \`${n8}\`. Expected an HTMLElement.`,
     )
@@ -2917,9 +2915,8 @@ function getDocumentElement(t46) {
 function getParentNode(n37) {
   return "html" === getNodeName(n37)
     ? n37
-    : n37.assignedSlot || n37.parentNode || (isShadowRoot(n37)
-      ? n37.host
-      : null) || getDocumentElement(n37);
+    : n37.assignedSlot || n37.parentNode ||
+      (isShadowRoot(n37) ? n37.host : null) || getDocumentElement(n37);
 }
 function isTableElement(e123) {
   return [
@@ -4349,7 +4346,9 @@ var m5 = {
 };
 function areValidElements() {
   for (
-    var e20 = arguments.length, r11 = new Array(e20), n10 = 0; n10 < e20; n10++
+    var e20 = arguments.length, r11 = new Array(e20), n10 = 0;
+    n10 < e20;
+    n10++
   ) {
     r11[n10] = arguments[n10];
   }
@@ -7400,7 +7399,8 @@ var _3 = function createStyled1(t231, d123) {
       ? h116
       : "Styled(" + ("string" === typeof _18
         ? _18
-        : _18.displayName || _18.name || "Component") + ")";
+        : _18.displayName || _18.name || "Component") +
+        ")";
     O1.defaultProps = t231.defaultProps;
     O1.__emotion_real = O1;
     O1.__emotion_base = _18;
@@ -8818,15 +8818,16 @@ function createUnaryUnit(e21, n15, r12, t1310) {
   if (Array.isArray(o11)) {
     return (e23) => {
       if ("string" === typeof e23) return e23;
-      "production" !== process.env.NODE_ENV && (Number.isInteger(e23)
-        ? e23 > o11.length - 1 && console.error([
-          `MUI: The value provided (${e23}) overflows.`,
-          `The supported values are: ${JSON.stringify(o11)}.`,
-          `${e23} > ${o11.length - 1}, you need to add the missing values.`,
-        ].join("\n"))
-        : console.error([
-          `MUI: The \`theme.${n15}\` array type cannot be combined with non integer values.You should either use an integer value that can be used as index, or define the \`theme.${n15}\` as a number.`,
-        ].join("\n")));
+      "production" !== process.env.NODE_ENV &&
+        (Number.isInteger(e23)
+          ? e23 > o11.length - 1 && console.error([
+            `MUI: The value provided (${e23}) overflows.`,
+            `The supported values are: ${JSON.stringify(o11)}.`,
+            `${e23} > ${o11.length - 1}, you need to add the missing values.`,
+          ].join("\n"))
+          : console.error([
+            `MUI: The \`theme.${n15}\` array type cannot be combined with non integer values.You should either use an integer value that can be used as index, or define the \`theme.${n15}\` as a number.`,
+          ].join("\n")));
       return o11[e23];
     };
   }
@@ -10300,9 +10301,7 @@ function createPalette(a138) {
       throw new Error(
         "production" !== process.env.NODE_ENV
           ? `MUI: The color${
-            o228
-              ? ` (${o228})`
-              : ""
+            o228 ? ` (${o228})` : ""
           } provided to augmentColor(color) is invalid.\nThe color object needs to have a \`main\` property or a \`${a221}\` property.`
           : formatMuiErrorMessage(11, o228 ? ` (${o228})` : "", a221),
       );
@@ -10311,9 +10310,7 @@ function createPalette(a138) {
       throw new Error(
         "production" !== process.env.NODE_ENV
           ? `MUI: The color${
-            o228
-              ? ` (${o228})`
-              : ""
+            o228 ? ` (${o228})` : ""
           } provided to augmentColor(color) is invalid.\n\`color.main\` should be a string, but \`${
             JSON.stringify(t329.main)
           }\` was provided instead.\n\nDid you intend to use one of the following approaches?\n\nimport { green } from "@mui/material/colors";\n\nconst theme1 = createTheme({ palette: {\n  primary: green,\n} });\n\nconst theme2 = createTheme({ palette: {\n  primary: { main: green[500] },\n} });`
@@ -11012,9 +11009,7 @@ E6.propTypes = "production" !== process.env.NODE_ENV
       for (
         var n10 = arguments.length,
           i81 = new Array(
-            n10 > 1
-              ? n10 - 1
-              : 0,
+            n10 > 1 ? n10 - 1 : 0,
           ),
           o414 = 1;
         o414 < n10;
@@ -11059,12 +11054,10 @@ E6.ENTERING = c13;
 E6.ENTERED = f19;
 E6.EXITING = d14;
 function hasClass(s57, a48) {
-  return s57.classList
-    ? !!a48 && s57.classList.contains(a48)
-    : -1 !==
-      (" " + (s57.className.baseVal || s57.className) + " ").indexOf(
-        " " + a48 + " ",
-      );
+  return s57.classList ? !!a48 && s57.classList.contains(a48) : -1 !==
+    (" " + (s57.className.baseVal || s57.className) + " ").indexOf(
+      " " + a48 + " ",
+    );
 }
 function addClass(a49, l45) {
   a49.classList
@@ -12047,17 +12040,13 @@ const D4 = l1(function TouchRipple(n229, r232) {
     } else {
       const e1212 = 2 * Math.max(
             Math.abs(
-              (i45
-                ? i45.clientWidth
-                : 0) - u37,
+              (i45 ? i45.clientWidth : 0) - u37,
             ),
             u37,
           ) + 2;
       const t522 = 2 * Math.max(
             Math.abs(
-              (i45
-                ? i45.clientHeight
-                : 0) - a314,
+              (i45 ? i45.clientHeight : 0) - a314,
             ),
             a314,
           ) + 2;

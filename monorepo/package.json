@@ -14,12 +14,11 @@
   "scripts": {
     "screenshot": "rm -rf spike.land-1920x1080.png && npx pageres-cli https://spike.land 1920x1080 --delay=5 --scale=1",
     "build:code": "cd packages/code && yarn build",
-    "build:editor": "cd packages/smart-monaco-editor && yarn build",
     "deploy:worker": "lerna run deploy",
     "deploy": "cd sites/spike.land && yarn deploy",
     "push:prod": "yarn push && lerna publish patch --yes && yarn deploy && git add . && (git commit -m pre-release || echo nothing) && git push",
     "importmap": "cd packages/code && yarn importmap",
-    "push": "yarn build:editor && yarn build:code && cd .. && git add . && (git commit -m pre-release || echo nothing) && git push && git pull",
+    "push": "yarn build:code && cd .. && git add . && (git commit -m pre-release || echo nothing) && git push && git pull",
     "release": "lerna publish patch --yes && yarn push",
     "clean": "lerna run clean --parallel",
     "lerna:publish": "lerna publish",

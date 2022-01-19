@@ -4,6 +4,33 @@ import * as importMap from "esbuild-plugin-import-map";
 
 import jsonData from "./js/importmap.json" assert { type: "json" };
 
+const workerEntryPoints = [
+  "vs/language/json/json.worker.js",
+  "vs/language/css/css.worker.js",
+  "vs/language/html/html.worker.js",
+  "vs/language/typescript/ts.worker.js",
+  "vs/editor/editor.worker.js",
+];
+
+await esbuild.build({
+  entryPoints: workerEntryPoints.map((entry) =>
+    `../../node_modules/monaco-editor/esm/${entry}`
+  ),
+  bundle: true,
+  format: "iife",
+  outdir: "js/vendor/workers/",
+});
+
+// await esbuild.build({
+//   entryPoints: [""],
+//   bundle: false,
+//   format: "esm",
+//   outfile: "js/dist/editor.mjs",
+//   loader: {
+//     ".ttf": "file",
+//   },
+// });
+
 // const impData = jsonData.imports;
 // console.log(jsonData.imports);
 
@@ -46,19 +73,17 @@ const build = (entryPoints) =>
     resolveExtensions: [".tsx", ".ts", ".jsx", ".js", ".css", ".json", ".mjs"],
     target: ["esnext"],
     plugins: [importMap.plugin()],
+    loader: {
+      ".ttf": "file",
+    },
     outdir: "js/dist",
   }).catch(() => process.exit(1));
-
-await build([
-  "js/mui.tsx",
-  "js/startMonaco.ts",
-  "js/session.tsx",
-]);
 
 await build([
   "js/renderPreviewWindow.tsx",
   "js/renderToString.tsx",
   "js/mui.tsx",
+  "js/session.tsx",
 ]);
 // await build([
 //   //   "js/renderPreviewWindow.tsx",

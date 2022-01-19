@@ -1,3 +1,5 @@
+import "./chunk-L7N3FHV6.mjs";
+
 // js/LazyLoadedComponent.tsx
 var { React } = window;
 var { Suspense } = React;

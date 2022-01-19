@@ -1,3 +1,5 @@
+import "./chunk-L7N3FHV6.mjs";
+
 // js/quickStart.mjs
 import { jsx } from "https://unpkg.com/@spike.land/esm@0.6.38/dist/emotion-react.mjs";
 var formatter;
@@ -6,26 +8,26 @@ var esbuildEsmTransform;
 var getHtmlAndCss;
 var initSess;
 var initSession = async (room, initData) => {
-  initSess = initSess || (await import("./session-OBOBYWPJ.mjs")).default;
+  initSess = initSess || (await import("./session-P2JYF5LZ.mjs")).default;
   return initSess(room, initData);
 };
 var prettier = async (code) => {
-  formatter = formatter || (await import("./formatter-U4GMQGVN.mjs")).formatter;
+  formatter = formatter || (await import("./formatter-HIAWICAV.mjs")).formatter;
   return await formatter(code);
 };
 async function startMonacoWithSession(session) {
   const shadDom = document.querySelector("#shadowEditor");
-  const startMonaco = (await import("./startMonaco-DVUBVLZL.mjs")).default;
+  const { startMonaco } = await import("./editor-34VA2ST6.mjs");
   const throttle = (await import("https://ga.jspm.io/npm:lodash@4.17.21/throttle.js")).default;
   const onchangeCode = (code, changes) => runner(code, changes, session, ++session.i);
-  const getEditor = await startMonaco({
+  const { editor, monaco } = await startMonaco({
     language: "typescript",
     container: shadDom,
-    code: session.code,
-    onChange: throttle(onchangeCode, 100)
+    code: session.code
   });
-  const monaco = window.monaco;
-  session.editor = monaco.editor;
+  editor.onDidChangeModelContent(throttle(onchangeCode, 100));
+  window.monaco = monaco;
+  session.editor = editor;
   monaco.languages.registerOnTypeFormattingEditProvider("typescript", {
     autoFormatTriggerCharacters: ["}", "{", ")", "(", ";"],
     async provideOnTypeFormattingEdits(model) {
@@ -39,7 +41,6 @@ async function startMonacoWithSession(session) {
     }
   });
   window.sess = session;
-  session.monaco = window.monaco;
 }
 async function getErrors({ monaco, editor }) {
   if (!monaco) {
@@ -58,8 +59,8 @@ async function getErrors({ monaco, editor }) {
 }
 async function runner(c, changes = null, session, counter) {
   session.changes.push(changes);
-  formatter = formatter || (await import("./formatter-U4GMQGVN.mjs")).formatter;
-  esbuildEsmTransform = esbuildEsmTransform || (await import("./esbuildEsm-IHWMAF3R.mjs")).transform;
+  formatter = formatter || (await import("./formatter-HIAWICAV.mjs")).formatter;
+  esbuildEsmTransform = esbuildEsmTransform || (await import("./esbuildEsm-X2BJGHY5.mjs")).transform;
   transform = esbuildEsmTransform;
   session.errorText = "";
   const { monaco } = session;
@@ -72,7 +73,7 @@ async function runner(c, changes = null, session, counter) {
         return;
       }
       try {
-        getHtmlAndCss = getHtmlAndCss || (await import("./renderToString-D5D5XE7M.mjs")).getHtmlAndCss;
+        getHtmlAndCss = getHtmlAndCss || (await import("./renderToString-CDYX3F2X.mjs")).getHtmlAndCss;
         if (counter < session.i) {
           return;
         }
@@ -140,7 +141,7 @@ var startFromCode = async ({ code }) => {
 async function quickStart(session, room, keepFullScreen, saveCode) {
   session.saveCode = saveCode;
   session.children = null;
-  const { renderPreviewWindow } = await import("./renderPreviewWindow-2PQSSRXN.mjs");
+  const { renderPreviewWindow } = await import("./renderPreviewWindow-ODIBFCNT.mjs");
   await renderPreviewWindow(session, room, keepFullScreen);
   if (!keepFullScreen) {
     await startMonacoWithSession(session);

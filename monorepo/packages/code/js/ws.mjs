@@ -68,8 +68,8 @@ chCode = globalThis.chCode = async (code, i) => {
   }
 
   try {
-    if (window.monaco && window.monaco.editor.getModels().length > 0) {
-      window.monaco.editor.getModels()[0].setValue(code);
+    if (window.sess && window.sess.editor) {
+      window.sess.editor.getModel().setValue(code);
     } else {
       window.sess.update(code);
     }

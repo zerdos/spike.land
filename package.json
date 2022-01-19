@@ -26,12 +26,11 @@
   },
   "type": "module",
   "scripts": {
-    "start": "yarn build:editor && yarn build:code && yarn open && yarn serve",
+    "start": "yarn build:code && yarn open && yarn serve",
     "open": "open-cli https://localhost:8000/monorepo/packages/code/js/index.html",
     "clean": "yarn ws:yarn clean",
     "serve": "nodemon ./http2-server/http2-server.js",
     "push": "yarn ws:yarn push",
-    "build:editor": "yarn ws:yarn build:editor",
     "build:code": "yarn ws:yarn build:code",
     "deploy": "yarn ws:yarn deploy",
     "lerna:publish": "yarn ws:yarn lerna:publish",

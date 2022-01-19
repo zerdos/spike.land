@@ -25,11 +25,11 @@ export const prettier = async (code) => {
 export async function startMonacoWithSession(session) {
   const shadDom = document.querySelector("#shadowEditor");
 
-  const startMonaco = (await import("./dist/startMonaco.mjs")).default;
+  const { startMonaco } = await import("./editor.ts");
   const throttle = (await import("lodash/throttle")).default;
   const onchangeCode = (code, changes) =>
     runner(code, changes, session, ++session.i);
-  const getEditor = await startMonaco(
+  const { editor, monaco } = await startMonaco(
     /**
      * @param {any} code
      */
@@ -40,12 +40,13 @@ export async function startMonacoWithSession(session) {
       /**
        * @param {string} code
        */
-      onChange: throttle(onchangeCode, 100),
     },
   );
 
-  const monaco = window.monaco;
-  session.editor = monaco.editor;
+  editor.onDidChangeModelContent(throttle(onchangeCode, 100));
+
+  window.monaco = monaco;
+  session.editor = editor;
 
   monaco.languages.registerOnTypeFormattingEditProvider("typescript", {
     autoFormatTriggerCharacters: ["}", "{", ")", "(", ";"],
@@ -64,7 +65,6 @@ export async function startMonacoWithSession(session) {
   });
 
   window.sess = session;
-  session.monaco = window.monaco;
 }
 
 async function getErrors({ monaco, editor }) {

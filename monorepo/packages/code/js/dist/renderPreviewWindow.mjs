@@ -12777,9 +12777,7 @@ var DraggableWindow = ({ onShare, onRestore, position, session, keepFullScreen, 
         return;
       }
       await wait(1200);
-      while (!window || !Object.prototype.hasOwnProperty.apply(window, ["monaco"])) {
-        await wait(300);
-      }
+      await wait(300);
       setFullScreen(false);
       changeScaleRange(50);
       setPositions({
