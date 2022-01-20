@@ -74,11 +74,12 @@ export const startMonaco = async (
     noEmit: true,
     noEmitOnError: true,
     jsxFactory: "jsx",
-    jsx: 4, // monaco.languages.typescript.JsxEmit,
+    jsx: monaco.languages.typescript.JsxEmit,
+    // jsx: 4, // monaco.languages.typescript.JsxEmit,
     skipLibCheck: false,
-    // esModuleInterop: true,
-    // allowSyntheticDefaultImports: true,
-    allowUmdGlobalAccess: true,
+    esModuleInterop: true,
+    allowSyntheticDefaultImports: true,
+    // allowUmdGlobalAccess : true,
     // noLibCheck: t,
   });
 
@@ -215,7 +216,7 @@ export const startMonaco = async (
     editor.layout();
   });
 
-  setTimeout(() => {
+  setTimeout(async () => {
     const importHelper = [
       {
         name: "react",
@@ -350,10 +351,11 @@ export const startMonaco = async (
           content,
           nameOfLib,
         );
+        return true;
       }
     );
 
-    pAll(dts, { concurrency: 2 });
+    await pAll(dts, { concurrency: 2 });
 
     monaco.languages.typescript.typescriptDefaults.setDiagnosticsOptions({
       noSuggestionDiagnostics: false,

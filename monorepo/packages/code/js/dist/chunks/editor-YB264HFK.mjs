@@ -43427,9 +43427,10 @@ var startMonaco = async ({ code, container }) => {
     noEmit: true,
     noEmitOnError: true,
     jsxFactory: "jsx",
-    jsx: 4,
+    jsx: languages.typescript.JsxEmit,
     skipLibCheck: false,
-    allowUmdGlobalAccess: true
+    esModuleInterop: true,
+    allowSyntheticDefaultImports: true
   });
   languages.typescript.typescriptDefaults.setDiagnosticsOptions({
     noSuggestionDiagnostics: true,
@@ -43444,7 +43445,7 @@ var startMonaco = async ({ code, container }) => {
   window.addEventListener("resize", () => {
     editor2.layout();
   });
-  setTimeout(() => {
+  setTimeout(async () => {
     const importHelper = [
       {
         name: "react",
@@ -43558,8 +43559,9 @@ var startMonaco = async ({ code, container }) => {
       const content = await (await fetch(url)).text();
       const nameOfLib = Uri.parse(name.includes("@") ? `/node_modules/${name}` : name.endsWith(".d.ts") ? "/node_modules/@types/" + name : "/node_modules/@types/" + name + "/index.d.ts").fsPath;
       languages.typescript.typescriptDefaults.addExtraLib(content, nameOfLib);
+      return true;
     });
-    pAll(dts, { concurrency: 2 });
+    await pAll(dts, { concurrency: 2 });
     languages.typescript.typescriptDefaults.setDiagnosticsOptions({
       noSuggestionDiagnostics: false,
       noSemanticValidation: false,
@@ -43578,4 +43580,4 @@ export {
  * Released under the MIT license
  * https://github.com/microsoft/monaco-editor/blob/main/LICENSE.txt
  *-----------------------------------------------------------------------------*/
-//# sourceMappingURL=editor-UR2WMDJY.mjs.map
+//# sourceMappingURL=editor-YB264HFK.mjs.map
