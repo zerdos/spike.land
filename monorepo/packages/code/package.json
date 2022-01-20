@@ -43,7 +43,7 @@
   "homepage": "https://spike.land",
   "repository": "https://github.com/spike-land/monorepo",
   "devDependencies": {
-    "typescript": "4.5.4"
+    "typescript": "4.5.5"
   },
   "gitHead": "f3d54206eba35bbaa187a8c7425680b9770d1354",
   "author": "Zoltan Erdos <zolika84@gmail.com>",
