@@ -70,6 +70,7 @@ const build = (entryPoints) =>
     allowOverwrite: true,
     treeShaking: true,
     platform: "browser",
+    chunkNames: "chunks/[name]-[hash]",
     sourcemap: true,
     resolveExtensions: [".tsx", ".ts", ".jsx", ".js", ".css", ".json", ".mjs"],
     target: ["esnext"],

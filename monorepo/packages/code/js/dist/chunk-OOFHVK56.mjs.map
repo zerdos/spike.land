@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": ["../wait.ts"],
-  "sourcesContent": ["export async function wait(delay: number): Promise<void> {\n  return new Promise((resolve) => {\n    setTimeout(() => {\n      resolve();\n    }, delay);\n  });\n}\n"],
-  "mappings": ";AAAA,oBAA2B,OAA8B;AACvD,SAAO,IAAI,QAAQ,CAAC,YAAY;AAC9B,eAAW,MAAM;AACf;AAAA,OACC;AAAA;AAAA;",
-  "names": []
-}

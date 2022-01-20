@@ -1,4 +1,4 @@
-import "./chunk-L7N3FHV6.mjs";
+import "./chunks/chunk-4IQSHU34.mjs";
 
 // js/starter.mjs
 function starter_default(injectedRoom = "") {
@@ -8,7 +8,7 @@ var run = async (injectedRoom) => {
   const path = location.pathname.split("/");
   window.aniStart = Date.now();
   const room = injectedRoom || (path[1] === "api" && path[2] === "room" ? path[3] : (path.pop() || path.pop()).slice(-12)) || "code-main";
-  const user = (self && self.crypto && self.crypto.randomUUID && self.crypto.randomUUID() || (await import("./uidV4-JKG6FMAF.mjs")).default()).slice(0, 8);
+  const user = (self && self.crypto && self.crypto.randomUUID && self.crypto.randomUUID() || (await import("./chunks/uidV4-Q36FWZ2C.mjs")).default()).slice(0, 8);
   if (location.pathname.includes("hydrate")) {
     const App = (await import(`https://spike.land/api/room/${room}/js`)).default;
     const createDelta = (await import("https://unpkg.com/@spike.land/esm@0.6.38/dist/textdiff-create.mjs")).default;
@@ -26,7 +26,7 @@ var run = async (injectedRoom) => {
       first = el;
     }, 1e3 / 60);
     window.deltas = deltas;
-    const { join: join2 } = await import("./ws-VDVSJRVT.mjs");
+    const { join: join2 } = await import("./chunks/ws-5GCB6L6V.mjs");
     join2(room, user, deltas);
     return;
     return;
@@ -79,7 +79,7 @@ var run = async (injectedRoom) => {
       }
     })();
   }
-  const { join } = await import("./ws-VDVSJRVT.mjs");
+  const { join } = await import("./chunks/ws-5GCB6L6V.mjs");
   join(room, user);
 };
 export {

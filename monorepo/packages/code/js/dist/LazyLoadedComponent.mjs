@@ -1,8 +1,8 @@
 import {
   LazyLoadedComponent_default,
   LazySpikeLandComponent
-} from "./chunk-5FDDCQJQ.mjs";
-import "./chunk-L7N3FHV6.mjs";
+} from "./chunks/chunk-SZGP6JU2.mjs";
+import "./chunks/chunk-4IQSHU34.mjs";
 export {
   LazySpikeLandComponent,
   LazyLoadedComponent_default as default

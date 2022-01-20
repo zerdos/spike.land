@@ -8,20 +8,22 @@ export default function (
       const url = new URL(request.url);
       const { pathname } = url;
 
-      const uri = (pathname.startsWith("/@")
-        ? pathname.substring(1)
-        : `@${version}${
-          serveDir
-            ? `/${serveDir}`
-            : ``
-        }${pathname}`);
+     
+      
 
-      let myCache = await caches.open(`blog-npm:${version}-${serveDir}`);
+      let myCache = await caches.open( pathname.indexOf("/chunks")!==-1?`${packageName}-chunks` :`blog-npm:${version}-${serveDir}`);
       const cachedResp = await myCache.match(request, {});
-
       if (cachedResp) {
         return cachedResp;
       }
+      
+      const uri = (pathname.startsWith("/@")
+      ? pathname.substring(1)
+      : `@${version}${
+        serveDir
+          ? `/${serveDir}`
+          : ``
+      }${pathname}`);
 
       let targetPath = uri;
 
