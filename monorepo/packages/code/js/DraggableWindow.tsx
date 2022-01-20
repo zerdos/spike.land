@@ -25,7 +25,7 @@ import {
   ToggleButton,
   ToggleButtonGroup,
   Tv,
-} from "./vendor/mui.mjs";
+} from "./mui";
 
 // @ts-expect-error
 import { QRButton } from "./Qr.tsx";

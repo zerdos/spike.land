@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": ["../renderToString.tsx"],
-  "sourcesContent": ["/** @jsx jsx */\nimport { jsx } from \"@emotion/react\";\nimport createCache from \"@emotion/cache\";\nimport { CacheProvider } from \"@emotion/react\";\nimport { renderToString } from \"react-dom/server\";\n\nexport const getHtmlAndCss = (MyComponent: () => JSX.Element) => {\n  const key = \"foo\";\n  const cache = createCache({ key });\n  let cssText = \"\";\n  cache.sheet.insert = (rule) => {\n    cssText += rule;\n  };\n\n  const markup = renderToString(\n    <CacheProvider value={cache}>\n      <MyComponent />\n    </CacheProvider>,\n  );\n\n  const html = `\n  <!DOCTYPE html>\n  <html>\n    <head>\n        <meta charset=\"UTF-8\">\n        <style>${cssText}</style>\n    </head>\n    <body>\n        <div>${markup}</div>\n    </body>\n  </html>\n`;\n\n  return {\n    html: markup,\n    css: cssText,\n  };\n};\n"],
-  "mappings": ";AACA;AACA;AACA;AACA;AAEO,IAAM,gBAAgB,CAAC,gBAAmC;AAC/D,QAAM,MAAM;AACZ,QAAM,QAAQ,YAAY,EAAE;AAC5B,MAAI,UAAU;AACd,QAAM,MAAM,SAAS,CAAC,SAAS;AAC7B,eAAW;AAAA;AAGb,QAAM,SAAS,eACb,oBAAC,eAAD;AAAA,IAAe,OAAO;AAAA,KACpB,oBAAC,aAAD;AAIJ,QAAM,OAAO;AAAA;AAAA;AAAA;AAAA;AAAA,iBAKE;AAAA;AAAA;AAAA,eAGF;AAAA;AAAA;AAAA;AAKb,SAAO;AAAA,IACL,MAAM;AAAA,IACN,KAAK;AAAA;AAAA;",
-  "names": []
-}

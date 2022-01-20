@@ -32,6 +32,12 @@
     }
     return void 0;
   }
+  function onUnexpectedExternalError(e) {
+    if (!isPromiseCanceledError(e)) {
+      errorHandler.onUnexpectedExternalError(e);
+    }
+    return void 0;
+  }
   function transformErrorForSerialization(error) {
     if (error instanceof Error) {
       let { name, message } = error;
@@ -49,6 +55,33 @@
   function isPromiseCanceledError(error) {
     return error instanceof Error && error.name === canceledName && error.message === canceledName;
   }
+  function canceled() {
+    const error = new Error(canceledName);
+    error.name = error.message;
+    return error;
+  }
+  function illegalArgument(name) {
+    if (name) {
+      return new Error(`Illegal argument: ${name}`);
+    } else {
+      return new Error("Illegal argument");
+    }
+  }
+  function illegalState(name) {
+    if (name) {
+      return new Error(`Illegal state: ${name}`);
+    } else {
+      return new Error("Illegal state");
+    }
+  }
+  var NotSupportedError = class extends Error {
+    constructor(message) {
+      super("NotSupported");
+      if (message) {
+        this.message = message;
+      }
+    }
+  };
 
   // ../../node_modules/monaco-editor/esm/vs/base/common/functional.js
   function once(fn) {
@@ -182,7 +215,7 @@
       } }];
     }
     Iterable2.consume = consume;
-    function equals2(a, b, comparator = (at, bt) => at === bt) {
+    function equals3(a, b, comparator = (at, bt) => at === bt) {
       const ai = a[Symbol.iterator]();
       const bi = b[Symbol.iterator]();
       while (true) {
@@ -197,7 +230,7 @@
         }
       }
     }
-    Iterable2.equals = equals2;
+    Iterable2.equals = equals3;
   })(Iterable || (Iterable = {}));
 
   // ../../node_modules/monaco-editor/esm/vs/base/common/lifecycle.js
@@ -255,12 +288,19 @@
       disposableTracker.setParent(child, parent);
     }
   }
+  function markAsSingleton(singleton) {
+    disposableTracker === null || disposableTracker === void 0 ? void 0 : disposableTracker.markAsSingleton(singleton);
+    return singleton;
+  }
   var MultiDisposeError = class extends Error {
     constructor(errors) {
       super(`Encountered errors while disposing of store. Errors: [${errors.join(", ")}]`);
       this.errors = errors;
     }
   };
+  function isDisposable(thing) {
+    return typeof thing.dispose === "function" && thing.dispose.length === 0;
+  }
   function dispose(arg) {
     if (Iterable.is(arg)) {
       let errors = [];
@@ -357,6 +397,51 @@
   };
   Disposable.None = Object.freeze({ dispose() {
   } });
+  var MutableDisposable = class {
+    constructor() {
+      this._isDisposed = false;
+      trackDisposable(this);
+    }
+    get value() {
+      return this._isDisposed ? void 0 : this._value;
+    }
+    set value(value) {
+      var _a2;
+      if (this._isDisposed || value === this._value) {
+        return;
+      }
+      (_a2 = this._value) === null || _a2 === void 0 ? void 0 : _a2.dispose();
+      if (value) {
+        setParentOfDisposable(value, this);
+      }
+      this._value = value;
+    }
+    clear() {
+      this.value = void 0;
+    }
+    dispose() {
+      var _a2;
+      this._isDisposed = true;
+      markAsDisposed(this);
+      (_a2 = this._value) === null || _a2 === void 0 ? void 0 : _a2.dispose();
+      this._value = void 0;
+    }
+    clearAndLeak() {
+      const oldValue = this._value;
+      this._value = void 0;
+      if (oldValue) {
+        setParentOfDisposable(oldValue, null);
+      }
+      return oldValue;
+    }
+  };
+  var ImmortalReference = class {
+    constructor(object) {
+      this.object = object;
+    }
+    dispose() {
+    }
+  };
 
   // ../../node_modules/monaco-editor/esm/vs/base/common/linkedList.js
   var Node = class {
@@ -532,6 +617,11 @@
   }
   var isWindows = _isWindows;
   var isMacintosh = _isMacintosh;
+  var isLinux = _isLinux;
+  var isNative = _isNative;
+  var isWeb = _isWeb;
+  var isIOS = _isIOS;
+  var userAgent = _userAgent;
   var language = _language;
   var locale = _locale;
   var setTimeout0 = (() => {
@@ -574,6 +664,20 @@
     const _promise = Promise.resolve();
     return (callback) => _promise.then(callback);
   }();
+  var OS = _isMacintosh || _isIOS ? 2 : _isWindows ? 1 : 3;
+  var _isLittleEndian = true;
+  var _isLittleEndianComputed = false;
+  function isLittleEndian() {
+    if (!_isLittleEndianComputed) {
+      _isLittleEndianComputed = true;
+      const test = new Uint8Array(2);
+      test[0] = 1;
+      test[1] = 2;
+      const view = new Uint16Array(test.buffer);
+      _isLittleEndian = view[0] === (2 << 8) + 1;
+    }
+    return _isLittleEndian;
+  }
 
   // ../../node_modules/monaco-editor/esm/vs/base/common/stopwatch.js
   var hasPerformanceNow = globals.performance && typeof globals.performance.now === "function";
@@ -702,11 +806,11 @@
       return emitter.event;
     }
     Event2.debounce = debounce;
-    function latch(event, equals2 = (a, b) => a === b) {
+    function latch(event, equals3 = (a, b) => a === b) {
       let firstCall = true;
       let cache;
       return filter(event, (value) => {
-        const shouldEmit = firstCall || !equals2(value, cache);
+        const shouldEmit = firstCall || !equals3(value, cache);
         firstCall = false;
         cache = value;
         return shouldEmit;
@@ -969,8 +1073,177 @@
       }
     }
   };
+  var PauseableEmitter = class extends Emitter {
+    constructor(options) {
+      super(options);
+      this._isPaused = 0;
+      this._eventQueue = new LinkedList();
+      this._mergeFn = options === null || options === void 0 ? void 0 : options.merge;
+    }
+    pause() {
+      this._isPaused++;
+    }
+    resume() {
+      if (this._isPaused !== 0 && --this._isPaused === 0) {
+        if (this._mergeFn) {
+          const events = Array.from(this._eventQueue);
+          this._eventQueue.clear();
+          super.fire(this._mergeFn(events));
+        } else {
+          while (!this._isPaused && this._eventQueue.size !== 0) {
+            super.fire(this._eventQueue.shift());
+          }
+        }
+      }
+    }
+    fire(event) {
+      if (this._listeners) {
+        if (this._isPaused !== 0) {
+          this._eventQueue.push(event);
+        } else {
+          super.fire(event);
+        }
+      }
+    }
+  };
+  var DebounceEmitter = class extends PauseableEmitter {
+    constructor(options) {
+      var _a2;
+      super(options);
+      this._delay = (_a2 = options.delay) !== null && _a2 !== void 0 ? _a2 : 100;
+    }
+    fire(event) {
+      if (!this._handle) {
+        this.pause();
+        this._handle = setTimeout(() => {
+          this._handle = void 0;
+          this.resume();
+        }, this._delay);
+      }
+      super.fire(event);
+    }
+  };
+  var EventBufferer = class {
+    constructor() {
+      this.buffers = [];
+    }
+    wrapEvent(event) {
+      return (listener, thisArgs, disposables) => {
+        return event((i) => {
+          const buffer = this.buffers[this.buffers.length - 1];
+          if (buffer) {
+            buffer.push(() => listener.call(thisArgs, i));
+          } else {
+            listener.call(thisArgs, i);
+          }
+        }, void 0, disposables);
+      };
+    }
+    bufferEvents(fn) {
+      const buffer = [];
+      this.buffers.push(buffer);
+      const r = fn();
+      this.buffers.pop();
+      buffer.forEach((flush) => flush());
+      return r;
+    }
+  };
+  var Relay = class {
+    constructor() {
+      this.listening = false;
+      this.inputEvent = Event.None;
+      this.inputEventListener = Disposable.None;
+      this.emitter = new Emitter({
+        onFirstListenerDidAdd: () => {
+          this.listening = true;
+          this.inputEventListener = this.inputEvent(this.emitter.fire, this.emitter);
+        },
+        onLastListenerRemove: () => {
+          this.listening = false;
+          this.inputEventListener.dispose();
+        }
+      });
+      this.event = this.emitter.event;
+    }
+    set input(event) {
+      this.inputEvent = event;
+      if (this.listening) {
+        this.inputEventListener.dispose();
+        this.inputEventListener = event(this.emitter.fire, this.emitter);
+      }
+    }
+    dispose() {
+      this.inputEventListener.dispose();
+      this.emitter.dispose();
+    }
+  };
 
   // ../../node_modules/monaco-editor/esm/vs/base/common/types.js
+  function isArray(array) {
+    return Array.isArray(array);
+  }
+  function isString(str) {
+    return typeof str === "string";
+  }
+  function isObject(obj) {
+    return typeof obj === "object" && obj !== null && !Array.isArray(obj) && !(obj instanceof RegExp) && !(obj instanceof Date);
+  }
+  function isNumber(obj) {
+    return typeof obj === "number" && !isNaN(obj);
+  }
+  function isBoolean(obj) {
+    return obj === true || obj === false;
+  }
+  function isUndefined(obj) {
+    return typeof obj === "undefined";
+  }
+  function isDefined(arg) {
+    return !isUndefinedOrNull(arg);
+  }
+  function isUndefinedOrNull(obj) {
+    return isUndefined(obj) || obj === null;
+  }
+  function assertType(condition, type) {
+    if (!condition) {
+      throw new Error(type ? `Unexpected type, expected '${type}'` : "Unexpected type");
+    }
+  }
+  function assertIsDefined(arg) {
+    if (isUndefinedOrNull(arg)) {
+      throw new Error("Assertion Failed: argument is undefined or null");
+    }
+    return arg;
+  }
+  function isFunction(obj) {
+    return typeof obj === "function";
+  }
+  function validateConstraints(args, constraints) {
+    const len = Math.min(args.length, constraints.length);
+    for (let i = 0; i < len; i++) {
+      validateConstraint(args[i], constraints[i]);
+    }
+  }
+  function validateConstraint(arg, constraint) {
+    if (isString(constraint)) {
+      if (typeof arg !== constraint) {
+        throw new Error(`argument does not match constraint: typeof ${constraint}`);
+      }
+    } else if (isFunction(constraint)) {
+      try {
+        if (arg instanceof constraint) {
+          return;
+        }
+      } catch (_a2) {
+      }
+      if (!isUndefinedOrNull(arg) && arg.constructor === constraint) {
+        return;
+      }
+      if (constraint.length === 1 && constraint.call(void 0, arg) === true) {
+        return;
+      }
+      throw new Error(`argument does not match one of these constraints: arg instanceof constraint, arg.constructor === constraint, nor constraint(arg) === true`);
+    }
+  }
   function getAllPropertyNames(obj) {
     let res = [];
     let proto = Object.getPrototypeOf(obj);
@@ -1002,13 +1275,131 @@
     }
     return result;
   }
+  function withNullAsUndefined(x) {
+    return x === null ? void 0 : x;
+  }
   function assertNever(value, message = "Unreachable") {
     throw new Error(message);
   }
 
   // ../../node_modules/monaco-editor/esm/vs/base/common/strings.js
+  function isFalsyOrWhitespace(str) {
+    if (!str || typeof str !== "string") {
+      return true;
+    }
+    return str.trim().length === 0;
+  }
+  var _formatRegexp = /{(\d+)}/g;
+  function format(value, ...args) {
+    if (args.length === 0) {
+      return value;
+    }
+    return value.replace(_formatRegexp, function(match, group) {
+      const idx = parseInt(group, 10);
+      return isNaN(idx) || idx < 0 || idx >= args.length ? match : args[idx];
+    });
+  }
+  function escape(html) {
+    return html.replace(/[<>&]/g, function(match) {
+      switch (match) {
+        case "<":
+          return "&lt;";
+        case ">":
+          return "&gt;";
+        case "&":
+          return "&amp;";
+        default:
+          return match;
+      }
+    });
+  }
   function escapeRegExpCharacters(value) {
     return value.replace(/[\\\{\}\*\+\?\|\^\$\.\[\]\(\)]/g, "\\$&");
+  }
+  function trim(haystack, needle = " ") {
+    const trimmed = ltrim(haystack, needle);
+    return rtrim(trimmed, needle);
+  }
+  function ltrim(haystack, needle) {
+    if (!haystack || !needle) {
+      return haystack;
+    }
+    const needleLen = needle.length;
+    if (needleLen === 0 || haystack.length === 0) {
+      return haystack;
+    }
+    let offset = 0;
+    while (haystack.indexOf(needle, offset) === offset) {
+      offset = offset + needleLen;
+    }
+    return haystack.substring(offset);
+  }
+  function rtrim(haystack, needle) {
+    if (!haystack || !needle) {
+      return haystack;
+    }
+    const needleLen = needle.length, haystackLen = haystack.length;
+    if (needleLen === 0 || haystackLen === 0) {
+      return haystack;
+    }
+    let offset = haystackLen, idx = -1;
+    while (true) {
+      idx = haystack.lastIndexOf(needle, offset - 1);
+      if (idx === -1 || idx + needleLen !== offset) {
+        break;
+      }
+      if (idx === 0) {
+        return "";
+      }
+      offset = idx;
+    }
+    return haystack.substring(0, offset);
+  }
+  function convertSimple2RegExpPattern(pattern) {
+    return pattern.replace(/[\-\\\{\}\+\?\|\^\$\.\,\[\]\(\)\#\s]/g, "\\$&").replace(/[\*]/g, ".*");
+  }
+  function stripWildcards(pattern) {
+    return pattern.replace(/\*/g, "");
+  }
+  function createRegExp(searchString, isRegex, options = {}) {
+    if (!searchString) {
+      throw new Error("Cannot create regex from empty string");
+    }
+    if (!isRegex) {
+      searchString = escapeRegExpCharacters(searchString);
+    }
+    if (options.wholeWord) {
+      if (!/\B/.test(searchString.charAt(0))) {
+        searchString = "\\b" + searchString;
+      }
+      if (!/\B/.test(searchString.charAt(searchString.length - 1))) {
+        searchString = searchString + "\\b";
+      }
+    }
+    let modifiers = "";
+    if (options.global) {
+      modifiers += "g";
+    }
+    if (!options.matchCase) {
+      modifiers += "i";
+    }
+    if (options.multiline) {
+      modifiers += "m";
+    }
+    if (options.unicode) {
+      modifiers += "u";
+    }
+    return new RegExp(searchString, modifiers);
+  }
+  function regExpLeadsToEndlessLoop(regexp) {
+    if (regexp.source === "^" || regexp.source === "^$" || regexp.source === "$" || regexp.source === "^\\s*$") {
+      return false;
+    }
+    const match = regexp.exec("");
+    return !!(match && regexp.lastIndex === 0);
+  }
+  function regExpFlags(regexp) {
+    return (regexp.global ? "g" : "") + (regexp.ignoreCase ? "i" : "") + (regexp.multiline ? "m" : "") + (regexp.unicode ? "u" : "");
   }
   function splitLines(str) {
     return str.split(/\r\n|\r|\n/);
@@ -1022,6 +1413,15 @@
     }
     return -1;
   }
+  function getLeadingWhitespace(str, start = 0, end = str.length) {
+    for (let i = start; i < end; i++) {
+      const chCode = str.charCodeAt(i);
+      if (chCode !== 32 && chCode !== 9) {
+        return str.substring(start, i);
+      }
+    }
+    return str.substring(start, end);
+  }
   function lastNonWhitespaceIndex(str, startIndex = str.length - 1) {
     for (let i = startIndex; i >= 0; i--) {
       const chCode = str.charCodeAt(i);
@@ -1031,8 +1431,103 @@
     }
     return -1;
   }
+  function compare(a, b) {
+    if (a < b) {
+      return -1;
+    } else if (a > b) {
+      return 1;
+    } else {
+      return 0;
+    }
+  }
+  function compareSubstring(a, b, aStart = 0, aEnd = a.length, bStart = 0, bEnd = b.length) {
+    for (; aStart < aEnd && bStart < bEnd; aStart++, bStart++) {
+      let codeA = a.charCodeAt(aStart);
+      let codeB = b.charCodeAt(bStart);
+      if (codeA < codeB) {
+        return -1;
+      } else if (codeA > codeB) {
+        return 1;
+      }
+    }
+    const aLen = aEnd - aStart;
+    const bLen = bEnd - bStart;
+    if (aLen < bLen) {
+      return -1;
+    } else if (aLen > bLen) {
+      return 1;
+    }
+    return 0;
+  }
+  function compareIgnoreCase(a, b) {
+    return compareSubstringIgnoreCase(a, b, 0, a.length, 0, b.length);
+  }
+  function compareSubstringIgnoreCase(a, b, aStart = 0, aEnd = a.length, bStart = 0, bEnd = b.length) {
+    for (; aStart < aEnd && bStart < bEnd; aStart++, bStart++) {
+      let codeA = a.charCodeAt(aStart);
+      let codeB = b.charCodeAt(bStart);
+      if (codeA === codeB) {
+        continue;
+      }
+      if (codeA >= 128 || codeB >= 128) {
+        return compareSubstring(a.toLowerCase(), b.toLowerCase(), aStart, aEnd, bStart, bEnd);
+      }
+      if (isLowerAsciiLetter(codeA)) {
+        codeA -= 32;
+      }
+      if (isLowerAsciiLetter(codeB)) {
+        codeB -= 32;
+      }
+      const diff = codeA - codeB;
+      if (diff === 0) {
+        continue;
+      }
+      return diff;
+    }
+    const aLen = aEnd - aStart;
+    const bLen = bEnd - bStart;
+    if (aLen < bLen) {
+      return -1;
+    } else if (aLen > bLen) {
+      return 1;
+    }
+    return 0;
+  }
+  function isLowerAsciiLetter(code) {
+    return code >= 97 && code <= 122;
+  }
   function isUpperAsciiLetter(code) {
     return code >= 65 && code <= 90;
+  }
+  function equalsIgnoreCase(a, b) {
+    return a.length === b.length && compareSubstringIgnoreCase(a, b) === 0;
+  }
+  function startsWithIgnoreCase(str, candidate) {
+    const candidateLength = candidate.length;
+    if (candidate.length > str.length) {
+      return false;
+    }
+    return compareSubstringIgnoreCase(str, candidate, 0, candidateLength) === 0;
+  }
+  function commonPrefixLength(a, b) {
+    let i, len = Math.min(a.length, b.length);
+    for (i = 0; i < len; i++) {
+      if (a.charCodeAt(i) !== b.charCodeAt(i)) {
+        return i;
+      }
+    }
+    return len;
+  }
+  function commonSuffixLength(a, b) {
+    let i, len = Math.min(a.length, b.length);
+    const aLastIndex = a.length - 1;
+    const bLastIndex = b.length - 1;
+    for (i = 0; i < len; i++) {
+      if (a.charCodeAt(aLastIndex - i) !== b.charCodeAt(bLastIndex - i)) {
+        return i;
+      }
+    }
+    return len;
   }
   function isHighSurrogate(charCode) {
     return 55296 <= charCode && charCode <= 56319;
@@ -1053,7 +1548,153 @@
     }
     return charCode;
   }
+  function getPrevCodePoint(str, offset) {
+    const charCode = str.charCodeAt(offset - 1);
+    if (isLowSurrogate(charCode) && offset > 1) {
+      const prevCharCode = str.charCodeAt(offset - 2);
+      if (isHighSurrogate(prevCharCode)) {
+        return computeCodePoint(prevCharCode, charCode);
+      }
+    }
+    return charCode;
+  }
+  function nextCharLength(str, offset) {
+    const graphemeBreakTree = GraphemeBreakTree.getInstance();
+    const initialOffset = offset;
+    const len = str.length;
+    const initialCodePoint = getNextCodePoint(str, len, offset);
+    offset += initialCodePoint >= 65536 ? 2 : 1;
+    let graphemeBreakType = graphemeBreakTree.getGraphemeBreakType(initialCodePoint);
+    while (offset < len) {
+      const nextCodePoint = getNextCodePoint(str, len, offset);
+      const nextGraphemeBreakType = graphemeBreakTree.getGraphemeBreakType(nextCodePoint);
+      if (breakBetweenGraphemeBreakType(graphemeBreakType, nextGraphemeBreakType)) {
+        break;
+      }
+      offset += nextCodePoint >= 65536 ? 2 : 1;
+      graphemeBreakType = nextGraphemeBreakType;
+    }
+    return offset - initialOffset;
+  }
+  function prevCharLength(str, offset) {
+    const graphemeBreakTree = GraphemeBreakTree.getInstance();
+    const initialOffset = offset;
+    const initialCodePoint = getPrevCodePoint(str, offset);
+    offset -= initialCodePoint >= 65536 ? 2 : 1;
+    let graphemeBreakType = graphemeBreakTree.getGraphemeBreakType(initialCodePoint);
+    while (offset > 0) {
+      const prevCodePoint = getPrevCodePoint(str, offset);
+      const prevGraphemeBreakType = graphemeBreakTree.getGraphemeBreakType(prevCodePoint);
+      if (breakBetweenGraphemeBreakType(prevGraphemeBreakType, graphemeBreakType)) {
+        break;
+      }
+      offset -= prevCodePoint >= 65536 ? 2 : 1;
+      graphemeBreakType = prevGraphemeBreakType;
+    }
+    return initialOffset - offset;
+  }
+  var CONTAINS_RTL = /(?:[\u05BE\u05C0\u05C3\u05C6\u05D0-\u05F4\u0608\u060B\u060D\u061B-\u064A\u066D-\u066F\u0671-\u06D5\u06E5\u06E6\u06EE\u06EF\u06FA-\u0710\u0712-\u072F\u074D-\u07A5\u07B1-\u07EA\u07F4\u07F5\u07FA\u07FE-\u0815\u081A\u0824\u0828\u0830-\u0858\u085E-\u088E\u08A0-\u08C9\u200F\uFB1D\uFB1F-\uFB28\uFB2A-\uFD3D\uFD50-\uFDC7\uFDF0-\uFDFC\uFE70-\uFEFC]|\uD802[\uDC00-\uDD1B\uDD20-\uDE00\uDE10-\uDE35\uDE40-\uDEE4\uDEEB-\uDF35\uDF40-\uDFFF]|\uD803[\uDC00-\uDD23\uDE80-\uDEA9\uDEAD-\uDF45\uDF51-\uDF81\uDF86-\uDFF6]|\uD83A[\uDC00-\uDCCF\uDD00-\uDD43\uDD4B-\uDFFF]|\uD83B[\uDC00-\uDEBB])/;
+  function containsRTL(str) {
+    return CONTAINS_RTL.test(str);
+  }
+  var CONTAINS_EMOJI = /(?:[\u231A\u231B\u23F0\u23F3\u2600-\u27BF\u2B50\u2B55]|\uD83C[\uDDE6-\uDDFF\uDF00-\uDFFF]|\uD83D[\uDC00-\uDE4F\uDE80-\uDEFC\uDFE0-\uDFF0]|\uD83E[\uDD00-\uDDFF\uDE70-\uDEF6])/;
+  function containsEmoji(str) {
+    return CONTAINS_EMOJI.test(str);
+  }
+  var IS_BASIC_ASCII = /^[\t\n\r\x20-\x7E]*$/;
+  function isBasicASCII(str) {
+    return IS_BASIC_ASCII.test(str);
+  }
+  var UNUSUAL_LINE_TERMINATORS = /[\u2028\u2029]/;
+  function containsUnusualLineTerminators(str) {
+    return UNUSUAL_LINE_TERMINATORS.test(str);
+  }
+  function containsFullWidthCharacter(str) {
+    for (let i = 0, len = str.length; i < len; i++) {
+      if (isFullWidthCharacter(str.charCodeAt(i))) {
+        return true;
+      }
+    }
+    return false;
+  }
+  function isFullWidthCharacter(charCode) {
+    return charCode >= 11904 && charCode <= 55215 || charCode >= 63744 && charCode <= 64255 || charCode >= 65281 && charCode <= 65374;
+  }
+  function isEmojiImprecise(x) {
+    return x >= 127462 && x <= 127487 || x === 8986 || x === 8987 || x === 9200 || x === 9203 || x >= 9728 && x <= 10175 || x === 11088 || x === 11093 || x >= 127744 && x <= 128591 || x >= 128640 && x <= 128764 || x >= 128992 && x <= 129008 || x >= 129280 && x <= 129535 || x >= 129648 && x <= 129782;
+  }
   var UTF8_BOM_CHARACTER = String.fromCharCode(65279);
+  function startsWithUTF8BOM(str) {
+    return !!(str && str.length > 0 && str.charCodeAt(0) === 65279);
+  }
+  function containsUppercaseCharacter(target, ignoreEscapedChars = false) {
+    if (!target) {
+      return false;
+    }
+    if (ignoreEscapedChars) {
+      target = target.replace(/\\./g, "");
+    }
+    return target.toLowerCase() !== target;
+  }
+  function singleLetterHash(n) {
+    const LETTERS_CNT = 90 - 65 + 1;
+    n = n % (2 * LETTERS_CNT);
+    if (n < LETTERS_CNT) {
+      return String.fromCharCode(97 + n);
+    }
+    return String.fromCharCode(65 + n - LETTERS_CNT);
+  }
+  function getGraphemeBreakType(codePoint) {
+    const graphemeBreakTree = GraphemeBreakTree.getInstance();
+    return graphemeBreakTree.getGraphemeBreakType(codePoint);
+  }
+  function breakBetweenGraphemeBreakType(breakTypeA, breakTypeB) {
+    if (breakTypeA === 0) {
+      return breakTypeB !== 5 && breakTypeB !== 7;
+    }
+    if (breakTypeA === 2) {
+      if (breakTypeB === 3) {
+        return false;
+      }
+    }
+    if (breakTypeA === 4 || breakTypeA === 2 || breakTypeA === 3) {
+      return true;
+    }
+    if (breakTypeB === 4 || breakTypeB === 2 || breakTypeB === 3) {
+      return true;
+    }
+    if (breakTypeA === 8) {
+      if (breakTypeB === 8 || breakTypeB === 9 || breakTypeB === 11 || breakTypeB === 12) {
+        return false;
+      }
+    }
+    if (breakTypeA === 11 || breakTypeA === 9) {
+      if (breakTypeB === 9 || breakTypeB === 10) {
+        return false;
+      }
+    }
+    if (breakTypeA === 12 || breakTypeA === 10) {
+      if (breakTypeB === 10) {
+        return false;
+      }
+    }
+    if (breakTypeB === 5 || breakTypeB === 13) {
+      return false;
+    }
+    if (breakTypeB === 7) {
+      return false;
+    }
+    if (breakTypeA === 1) {
+      return false;
+    }
+    if (breakTypeA === 13 && breakTypeB === 14) {
+      return false;
+    }
+    if (breakTypeA === 6 && breakTypeB === 6) {
+      return false;
+    }
+    return true;
+  }
   var GraphemeBreakTree = class {
     constructor() {
       this._data = getGraphemeBreakRawData();
@@ -1096,6 +1737,46 @@
   function getGraphemeBreakRawData() {
     return JSON.parse("[0,0,0,51229,51255,12,44061,44087,12,127462,127487,6,7083,7085,5,47645,47671,12,54813,54839,12,128678,128678,14,3270,3270,5,9919,9923,14,45853,45879,12,49437,49463,12,53021,53047,12,71216,71218,7,128398,128399,14,129360,129374,14,2519,2519,5,4448,4519,9,9742,9742,14,12336,12336,14,44957,44983,12,46749,46775,12,48541,48567,12,50333,50359,12,52125,52151,12,53917,53943,12,69888,69890,5,73018,73018,5,127990,127990,14,128558,128559,14,128759,128760,14,129653,129655,14,2027,2035,5,2891,2892,7,3761,3761,5,6683,6683,5,8293,8293,4,9825,9826,14,9999,9999,14,43452,43453,5,44509,44535,12,45405,45431,12,46301,46327,12,47197,47223,12,48093,48119,12,48989,49015,12,49885,49911,12,50781,50807,12,51677,51703,12,52573,52599,12,53469,53495,12,54365,54391,12,65279,65279,4,70471,70472,7,72145,72147,7,119173,119179,5,127799,127818,14,128240,128244,14,128512,128512,14,128652,128652,14,128721,128722,14,129292,129292,14,129445,129450,14,129734,129743,14,1476,1477,5,2366,2368,7,2750,2752,7,3076,3076,5,3415,3415,5,4141,4144,5,6109,6109,5,6964,6964,5,7394,7400,5,9197,9198,14,9770,9770,14,9877,9877,14,9968,9969,14,10084,10084,14,43052,43052,5,43713,43713,5,44285,44311,12,44733,44759,12,45181,45207,12,45629,45655,12,46077,46103,12,46525,46551,12,46973,46999,12,47421,47447,12,47869,47895,12,48317,48343,12,48765,48791,12,49213,49239,12,49661,49687,12,50109,50135,12,50557,50583,12,51005,51031,12,51453,51479,12,51901,51927,12,52349,52375,12,52797,52823,12,53245,53271,12,53693,53719,12,54141,54167,12,54589,54615,12,55037,55063,12,69506,69509,5,70191,70193,5,70841,70841,7,71463,71467,5,72330,72342,5,94031,94031,5,123628,123631,5,127763,127765,14,127941,127941,14,128043,128062,14,128302,128317,14,128465,128467,14,128539,128539,14,128640,128640,14,128662,128662,14,128703,128703,14,128745,128745,14,129004,129007,14,129329,129330,14,129402,129402,14,129483,129483,14,129686,129704,14,130048,131069,14,173,173,4,1757,1757,1,2200,2207,5,2434,2435,7,2631,2632,5,2817,2817,5,3008,3008,5,3201,3201,5,3387,3388,5,3542,3542,5,3902,3903,7,4190,4192,5,6002,6003,5,6439,6440,5,6765,6770,7,7019,7027,5,7154,7155,7,8205,8205,13,8505,8505,14,9654,9654,14,9757,9757,14,9792,9792,14,9852,9853,14,9890,9894,14,9937,9937,14,9981,9981,14,10035,10036,14,11035,11036,14,42654,42655,5,43346,43347,7,43587,43587,5,44006,44007,7,44173,44199,12,44397,44423,12,44621,44647,12,44845,44871,12,45069,45095,12,45293,45319,12,45517,45543,12,45741,45767,12,45965,45991,12,46189,46215,12,46413,46439,12,46637,46663,12,46861,46887,12,47085,47111,12,47309,47335,12,47533,47559,12,47757,47783,12,47981,48007,12,48205,48231,12,48429,48455,12,48653,48679,12,48877,48903,12,49101,49127,12,49325,49351,12,49549,49575,12,49773,49799,12,49997,50023,12,50221,50247,12,50445,50471,12,50669,50695,12,50893,50919,12,51117,51143,12,51341,51367,12,51565,51591,12,51789,51815,12,52013,52039,12,52237,52263,12,52461,52487,12,52685,52711,12,52909,52935,12,53133,53159,12,53357,53383,12,53581,53607,12,53805,53831,12,54029,54055,12,54253,54279,12,54477,54503,12,54701,54727,12,54925,54951,12,55149,55175,12,68101,68102,5,69762,69762,7,70067,70069,7,70371,70378,5,70720,70721,7,71087,71087,5,71341,71341,5,71995,71996,5,72249,72249,7,72850,72871,5,73109,73109,5,118576,118598,5,121505,121519,5,127245,127247,14,127568,127569,14,127777,127777,14,127872,127891,14,127956,127967,14,128015,128016,14,128110,128172,14,128259,128259,14,128367,128368,14,128424,128424,14,128488,128488,14,128530,128532,14,128550,128551,14,128566,128566,14,128647,128647,14,128656,128656,14,128667,128673,14,128691,128693,14,128715,128715,14,128728,128732,14,128752,128752,14,128765,128767,14,129096,129103,14,129311,129311,14,129344,129349,14,129394,129394,14,129413,129425,14,129466,129471,14,129511,129535,14,129664,129666,14,129719,129722,14,129760,129767,14,917536,917631,5,13,13,2,1160,1161,5,1564,1564,4,1807,1807,1,2085,2087,5,2307,2307,7,2382,2383,7,2497,2500,5,2563,2563,7,2677,2677,5,2763,2764,7,2879,2879,5,2914,2915,5,3021,3021,5,3142,3144,5,3263,3263,5,3285,3286,5,3398,3400,7,3530,3530,5,3633,3633,5,3864,3865,5,3974,3975,5,4155,4156,7,4229,4230,5,5909,5909,7,6078,6085,7,6277,6278,5,6451,6456,7,6744,6750,5,6846,6846,5,6972,6972,5,7074,7077,5,7146,7148,7,7222,7223,5,7416,7417,5,8234,8238,4,8417,8417,5,9000,9000,14,9203,9203,14,9730,9731,14,9748,9749,14,9762,9763,14,9776,9783,14,9800,9811,14,9831,9831,14,9872,9873,14,9882,9882,14,9900,9903,14,9929,9933,14,9941,9960,14,9974,9974,14,9989,9989,14,10006,10006,14,10062,10062,14,10160,10160,14,11647,11647,5,12953,12953,14,43019,43019,5,43232,43249,5,43443,43443,5,43567,43568,7,43696,43696,5,43765,43765,7,44013,44013,5,44117,44143,12,44229,44255,12,44341,44367,12,44453,44479,12,44565,44591,12,44677,44703,12,44789,44815,12,44901,44927,12,45013,45039,12,45125,45151,12,45237,45263,12,45349,45375,12,45461,45487,12,45573,45599,12,45685,45711,12,45797,45823,12,45909,45935,12,46021,46047,12,46133,46159,12,46245,46271,12,46357,46383,12,46469,46495,12,46581,46607,12,46693,46719,12,46805,46831,12,46917,46943,12,47029,47055,12,47141,47167,12,47253,47279,12,47365,47391,12,47477,47503,12,47589,47615,12,47701,47727,12,47813,47839,12,47925,47951,12,48037,48063,12,48149,48175,12,48261,48287,12,48373,48399,12,48485,48511,12,48597,48623,12,48709,48735,12,48821,48847,12,48933,48959,12,49045,49071,12,49157,49183,12,49269,49295,12,49381,49407,12,49493,49519,12,49605,49631,12,49717,49743,12,49829,49855,12,49941,49967,12,50053,50079,12,50165,50191,12,50277,50303,12,50389,50415,12,50501,50527,12,50613,50639,12,50725,50751,12,50837,50863,12,50949,50975,12,51061,51087,12,51173,51199,12,51285,51311,12,51397,51423,12,51509,51535,12,51621,51647,12,51733,51759,12,51845,51871,12,51957,51983,12,52069,52095,12,52181,52207,12,52293,52319,12,52405,52431,12,52517,52543,12,52629,52655,12,52741,52767,12,52853,52879,12,52965,52991,12,53077,53103,12,53189,53215,12,53301,53327,12,53413,53439,12,53525,53551,12,53637,53663,12,53749,53775,12,53861,53887,12,53973,53999,12,54085,54111,12,54197,54223,12,54309,54335,12,54421,54447,12,54533,54559,12,54645,54671,12,54757,54783,12,54869,54895,12,54981,55007,12,55093,55119,12,55243,55291,10,66045,66045,5,68325,68326,5,69688,69702,5,69817,69818,5,69957,69958,7,70089,70092,5,70198,70199,5,70462,70462,5,70502,70508,5,70750,70750,5,70846,70846,7,71100,71101,5,71230,71230,7,71351,71351,5,71737,71738,5,72000,72000,7,72160,72160,5,72273,72278,5,72752,72758,5,72882,72883,5,73031,73031,5,73461,73462,7,94192,94193,7,119149,119149,7,121403,121452,5,122915,122916,5,126980,126980,14,127358,127359,14,127535,127535,14,127759,127759,14,127771,127771,14,127792,127793,14,127825,127867,14,127897,127899,14,127945,127945,14,127985,127986,14,128000,128007,14,128021,128021,14,128066,128100,14,128184,128235,14,128249,128252,14,128266,128276,14,128335,128335,14,128379,128390,14,128407,128419,14,128444,128444,14,128481,128481,14,128499,128499,14,128526,128526,14,128536,128536,14,128543,128543,14,128556,128556,14,128564,128564,14,128577,128580,14,128643,128645,14,128649,128649,14,128654,128654,14,128660,128660,14,128664,128664,14,128675,128675,14,128686,128689,14,128695,128696,14,128705,128709,14,128717,128719,14,128725,128725,14,128736,128741,14,128747,128748,14,128755,128755,14,128762,128762,14,128981,128991,14,129009,129023,14,129160,129167,14,129296,129304,14,129320,129327,14,129340,129342,14,129356,129356,14,129388,129392,14,129399,129400,14,129404,129407,14,129432,129442,14,129454,129455,14,129473,129474,14,129485,129487,14,129648,129651,14,129659,129660,14,129671,129679,14,129709,129711,14,129728,129730,14,129751,129753,14,129776,129782,14,917505,917505,4,917760,917999,5,10,10,3,127,159,4,768,879,5,1471,1471,5,1536,1541,1,1648,1648,5,1767,1768,5,1840,1866,5,2070,2073,5,2137,2139,5,2274,2274,1,2363,2363,7,2377,2380,7,2402,2403,5,2494,2494,5,2507,2508,7,2558,2558,5,2622,2624,7,2641,2641,5,2691,2691,7,2759,2760,5,2786,2787,5,2876,2876,5,2881,2884,5,2901,2902,5,3006,3006,5,3014,3016,7,3072,3072,5,3134,3136,5,3157,3158,5,3260,3260,5,3266,3266,5,3274,3275,7,3328,3329,5,3391,3392,7,3405,3405,5,3457,3457,5,3536,3537,7,3551,3551,5,3636,3642,5,3764,3772,5,3895,3895,5,3967,3967,7,3993,4028,5,4146,4151,5,4182,4183,7,4226,4226,5,4253,4253,5,4957,4959,5,5940,5940,7,6070,6070,7,6087,6088,7,6158,6158,4,6432,6434,5,6448,6449,7,6679,6680,5,6742,6742,5,6754,6754,5,6783,6783,5,6912,6915,5,6966,6970,5,6978,6978,5,7042,7042,7,7080,7081,5,7143,7143,7,7150,7150,7,7212,7219,5,7380,7392,5,7412,7412,5,8203,8203,4,8232,8232,4,8265,8265,14,8400,8412,5,8421,8432,5,8617,8618,14,9167,9167,14,9200,9200,14,9410,9410,14,9723,9726,14,9733,9733,14,9745,9745,14,9752,9752,14,9760,9760,14,9766,9766,14,9774,9774,14,9786,9786,14,9794,9794,14,9823,9823,14,9828,9828,14,9833,9850,14,9855,9855,14,9875,9875,14,9880,9880,14,9885,9887,14,9896,9897,14,9906,9916,14,9926,9927,14,9935,9935,14,9939,9939,14,9962,9962,14,9972,9972,14,9978,9978,14,9986,9986,14,9997,9997,14,10002,10002,14,10017,10017,14,10055,10055,14,10071,10071,14,10133,10135,14,10548,10549,14,11093,11093,14,12330,12333,5,12441,12442,5,42608,42610,5,43010,43010,5,43045,43046,5,43188,43203,7,43302,43309,5,43392,43394,5,43446,43449,5,43493,43493,5,43571,43572,7,43597,43597,7,43703,43704,5,43756,43757,5,44003,44004,7,44009,44010,7,44033,44059,12,44089,44115,12,44145,44171,12,44201,44227,12,44257,44283,12,44313,44339,12,44369,44395,12,44425,44451,12,44481,44507,12,44537,44563,12,44593,44619,12,44649,44675,12,44705,44731,12,44761,44787,12,44817,44843,12,44873,44899,12,44929,44955,12,44985,45011,12,45041,45067,12,45097,45123,12,45153,45179,12,45209,45235,12,45265,45291,12,45321,45347,12,45377,45403,12,45433,45459,12,45489,45515,12,45545,45571,12,45601,45627,12,45657,45683,12,45713,45739,12,45769,45795,12,45825,45851,12,45881,45907,12,45937,45963,12,45993,46019,12,46049,46075,12,46105,46131,12,46161,46187,12,46217,46243,12,46273,46299,12,46329,46355,12,46385,46411,12,46441,46467,12,46497,46523,12,46553,46579,12,46609,46635,12,46665,46691,12,46721,46747,12,46777,46803,12,46833,46859,12,46889,46915,12,46945,46971,12,47001,47027,12,47057,47083,12,47113,47139,12,47169,47195,12,47225,47251,12,47281,47307,12,47337,47363,12,47393,47419,12,47449,47475,12,47505,47531,12,47561,47587,12,47617,47643,12,47673,47699,12,47729,47755,12,47785,47811,12,47841,47867,12,47897,47923,12,47953,47979,12,48009,48035,12,48065,48091,12,48121,48147,12,48177,48203,12,48233,48259,12,48289,48315,12,48345,48371,12,48401,48427,12,48457,48483,12,48513,48539,12,48569,48595,12,48625,48651,12,48681,48707,12,48737,48763,12,48793,48819,12,48849,48875,12,48905,48931,12,48961,48987,12,49017,49043,12,49073,49099,12,49129,49155,12,49185,49211,12,49241,49267,12,49297,49323,12,49353,49379,12,49409,49435,12,49465,49491,12,49521,49547,12,49577,49603,12,49633,49659,12,49689,49715,12,49745,49771,12,49801,49827,12,49857,49883,12,49913,49939,12,49969,49995,12,50025,50051,12,50081,50107,12,50137,50163,12,50193,50219,12,50249,50275,12,50305,50331,12,50361,50387,12,50417,50443,12,50473,50499,12,50529,50555,12,50585,50611,12,50641,50667,12,50697,50723,12,50753,50779,12,50809,50835,12,50865,50891,12,50921,50947,12,50977,51003,12,51033,51059,12,51089,51115,12,51145,51171,12,51201,51227,12,51257,51283,12,51313,51339,12,51369,51395,12,51425,51451,12,51481,51507,12,51537,51563,12,51593,51619,12,51649,51675,12,51705,51731,12,51761,51787,12,51817,51843,12,51873,51899,12,51929,51955,12,51985,52011,12,52041,52067,12,52097,52123,12,52153,52179,12,52209,52235,12,52265,52291,12,52321,52347,12,52377,52403,12,52433,52459,12,52489,52515,12,52545,52571,12,52601,52627,12,52657,52683,12,52713,52739,12,52769,52795,12,52825,52851,12,52881,52907,12,52937,52963,12,52993,53019,12,53049,53075,12,53105,53131,12,53161,53187,12,53217,53243,12,53273,53299,12,53329,53355,12,53385,53411,12,53441,53467,12,53497,53523,12,53553,53579,12,53609,53635,12,53665,53691,12,53721,53747,12,53777,53803,12,53833,53859,12,53889,53915,12,53945,53971,12,54001,54027,12,54057,54083,12,54113,54139,12,54169,54195,12,54225,54251,12,54281,54307,12,54337,54363,12,54393,54419,12,54449,54475,12,54505,54531,12,54561,54587,12,54617,54643,12,54673,54699,12,54729,54755,12,54785,54811,12,54841,54867,12,54897,54923,12,54953,54979,12,55009,55035,12,55065,55091,12,55121,55147,12,55177,55203,12,65024,65039,5,65520,65528,4,66422,66426,5,68152,68154,5,69291,69292,5,69633,69633,5,69747,69748,5,69811,69814,5,69826,69826,5,69932,69932,7,70016,70017,5,70079,70080,7,70095,70095,5,70196,70196,5,70367,70367,5,70402,70403,7,70464,70464,5,70487,70487,5,70709,70711,7,70725,70725,7,70833,70834,7,70843,70844,7,70849,70849,7,71090,71093,5,71103,71104,5,71227,71228,7,71339,71339,5,71344,71349,5,71458,71461,5,71727,71735,5,71985,71989,7,71998,71998,5,72002,72002,7,72154,72155,5,72193,72202,5,72251,72254,5,72281,72283,5,72344,72345,5,72766,72766,7,72874,72880,5,72885,72886,5,73023,73029,5,73104,73105,5,73111,73111,5,92912,92916,5,94095,94098,5,113824,113827,4,119142,119142,7,119155,119162,4,119362,119364,5,121476,121476,5,122888,122904,5,123184,123190,5,125252,125258,5,127183,127183,14,127340,127343,14,127377,127386,14,127491,127503,14,127548,127551,14,127744,127756,14,127761,127761,14,127769,127769,14,127773,127774,14,127780,127788,14,127796,127797,14,127820,127823,14,127869,127869,14,127894,127895,14,127902,127903,14,127943,127943,14,127947,127950,14,127972,127972,14,127988,127988,14,127992,127994,14,128009,128011,14,128019,128019,14,128023,128041,14,128064,128064,14,128102,128107,14,128174,128181,14,128238,128238,14,128246,128247,14,128254,128254,14,128264,128264,14,128278,128299,14,128329,128330,14,128348,128359,14,128371,128377,14,128392,128393,14,128401,128404,14,128421,128421,14,128433,128434,14,128450,128452,14,128476,128478,14,128483,128483,14,128495,128495,14,128506,128506,14,128519,128520,14,128528,128528,14,128534,128534,14,128538,128538,14,128540,128542,14,128544,128549,14,128552,128555,14,128557,128557,14,128560,128563,14,128565,128565,14,128567,128576,14,128581,128591,14,128641,128642,14,128646,128646,14,128648,128648,14,128650,128651,14,128653,128653,14,128655,128655,14,128657,128659,14,128661,128661,14,128663,128663,14,128665,128666,14,128674,128674,14,128676,128677,14,128679,128685,14,128690,128690,14,128694,128694,14,128697,128702,14,128704,128704,14,128710,128714,14,128716,128716,14,128720,128720,14,128723,128724,14,128726,128727,14,128733,128735,14,128742,128744,14,128746,128746,14,128749,128751,14,128753,128754,14,128756,128758,14,128761,128761,14,128763,128764,14,128884,128895,14,128992,129003,14,129008,129008,14,129036,129039,14,129114,129119,14,129198,129279,14,129293,129295,14,129305,129310,14,129312,129319,14,129328,129328,14,129331,129338,14,129343,129343,14,129351,129355,14,129357,129359,14,129375,129387,14,129393,129393,14,129395,129398,14,129401,129401,14,129403,129403,14,129408,129412,14,129426,129431,14,129443,129444,14,129451,129453,14,129456,129465,14,129472,129472,14,129475,129482,14,129484,129484,14,129488,129510,14,129536,129647,14,129652,129652,14,129656,129658,14,129661,129663,14,129667,129670,14,129680,129685,14,129705,129708,14,129712,129718,14,129723,129727,14,129731,129733,14,129744,129750,14,129754,129759,14,129768,129775,14,129783,129791,14,917504,917504,4,917506,917535,4,917632,917759,4,918000,921599,4,0,9,4,11,12,4,14,31,4,169,169,14,174,174,14,1155,1159,5,1425,1469,5,1473,1474,5,1479,1479,5,1552,1562,5,1611,1631,5,1750,1756,5,1759,1764,5,1770,1773,5,1809,1809,5,1958,1968,5,2045,2045,5,2075,2083,5,2089,2093,5,2192,2193,1,2250,2273,5,2275,2306,5,2362,2362,5,2364,2364,5,2369,2376,5,2381,2381,5,2385,2391,5,2433,2433,5,2492,2492,5,2495,2496,7,2503,2504,7,2509,2509,5,2530,2531,5,2561,2562,5,2620,2620,5,2625,2626,5,2635,2637,5,2672,2673,5,2689,2690,5,2748,2748,5,2753,2757,5,2761,2761,7,2765,2765,5,2810,2815,5,2818,2819,7,2878,2878,5,2880,2880,7,2887,2888,7,2893,2893,5,2903,2903,5,2946,2946,5,3007,3007,7,3009,3010,7,3018,3020,7,3031,3031,5,3073,3075,7,3132,3132,5,3137,3140,7,3146,3149,5,3170,3171,5,3202,3203,7,3262,3262,7,3264,3265,7,3267,3268,7,3271,3272,7,3276,3277,5,3298,3299,5,3330,3331,7,3390,3390,5,3393,3396,5,3402,3404,7,3406,3406,1,3426,3427,5,3458,3459,7,3535,3535,5,3538,3540,5,3544,3550,7,3570,3571,7,3635,3635,7,3655,3662,5,3763,3763,7,3784,3789,5,3893,3893,5,3897,3897,5,3953,3966,5,3968,3972,5,3981,3991,5,4038,4038,5,4145,4145,7,4153,4154,5,4157,4158,5,4184,4185,5,4209,4212,5,4228,4228,7,4237,4237,5,4352,4447,8,4520,4607,10,5906,5908,5,5938,5939,5,5970,5971,5,6068,6069,5,6071,6077,5,6086,6086,5,6089,6099,5,6155,6157,5,6159,6159,5,6313,6313,5,6435,6438,7,6441,6443,7,6450,6450,5,6457,6459,5,6681,6682,7,6741,6741,7,6743,6743,7,6752,6752,5,6757,6764,5,6771,6780,5,6832,6845,5,6847,6862,5,6916,6916,7,6965,6965,5,6971,6971,7,6973,6977,7,6979,6980,7,7040,7041,5,7073,7073,7,7078,7079,7,7082,7082,7,7142,7142,5,7144,7145,5,7149,7149,5,7151,7153,5,7204,7211,7,7220,7221,7,7376,7378,5,7393,7393,7,7405,7405,5,7415,7415,7,7616,7679,5,8204,8204,5,8206,8207,4,8233,8233,4,8252,8252,14,8288,8292,4,8294,8303,4,8413,8416,5,8418,8420,5,8482,8482,14,8596,8601,14,8986,8987,14,9096,9096,14,9193,9196,14,9199,9199,14,9201,9202,14,9208,9210,14,9642,9643,14,9664,9664,14,9728,9729,14,9732,9732,14,9735,9741,14,9743,9744,14,9746,9746,14,9750,9751,14,9753,9756,14,9758,9759,14,9761,9761,14,9764,9765,14,9767,9769,14,9771,9773,14,9775,9775,14,9784,9785,14,9787,9791,14,9793,9793,14,9795,9799,14,9812,9822,14,9824,9824,14,9827,9827,14,9829,9830,14,9832,9832,14,9851,9851,14,9854,9854,14,9856,9861,14,9874,9874,14,9876,9876,14,9878,9879,14,9881,9881,14,9883,9884,14,9888,9889,14,9895,9895,14,9898,9899,14,9904,9905,14,9917,9918,14,9924,9925,14,9928,9928,14,9934,9934,14,9936,9936,14,9938,9938,14,9940,9940,14,9961,9961,14,9963,9967,14,9970,9971,14,9973,9973,14,9975,9977,14,9979,9980,14,9982,9985,14,9987,9988,14,9992,9996,14,9998,9998,14,10000,10001,14,10004,10004,14,10013,10013,14,10024,10024,14,10052,10052,14,10060,10060,14,10067,10069,14,10083,10083,14,10085,10087,14,10145,10145,14,10175,10175,14,11013,11015,14,11088,11088,14,11503,11505,5,11744,11775,5,12334,12335,5,12349,12349,14,12951,12951,14,42607,42607,5,42612,42621,5,42736,42737,5,43014,43014,5,43043,43044,7,43047,43047,7,43136,43137,7,43204,43205,5,43263,43263,5,43335,43345,5,43360,43388,8,43395,43395,7,43444,43445,7,43450,43451,7,43454,43456,7,43561,43566,5,43569,43570,5,43573,43574,5,43596,43596,5,43644,43644,5,43698,43700,5,43710,43711,5,43755,43755,7,43758,43759,7,43766,43766,5,44005,44005,5,44008,44008,5,44012,44012,7,44032,44032,11,44060,44060,11,44088,44088,11,44116,44116,11,44144,44144,11,44172,44172,11,44200,44200,11,44228,44228,11,44256,44256,11,44284,44284,11,44312,44312,11,44340,44340,11,44368,44368,11,44396,44396,11,44424,44424,11,44452,44452,11,44480,44480,11,44508,44508,11,44536,44536,11,44564,44564,11,44592,44592,11,44620,44620,11,44648,44648,11,44676,44676,11,44704,44704,11,44732,44732,11,44760,44760,11,44788,44788,11,44816,44816,11,44844,44844,11,44872,44872,11,44900,44900,11,44928,44928,11,44956,44956,11,44984,44984,11,45012,45012,11,45040,45040,11,45068,45068,11,45096,45096,11,45124,45124,11,45152,45152,11,45180,45180,11,45208,45208,11,45236,45236,11,45264,45264,11,45292,45292,11,45320,45320,11,45348,45348,11,45376,45376,11,45404,45404,11,45432,45432,11,45460,45460,11,45488,45488,11,45516,45516,11,45544,45544,11,45572,45572,11,45600,45600,11,45628,45628,11,45656,45656,11,45684,45684,11,45712,45712,11,45740,45740,11,45768,45768,11,45796,45796,11,45824,45824,11,45852,45852,11,45880,45880,11,45908,45908,11,45936,45936,11,45964,45964,11,45992,45992,11,46020,46020,11,46048,46048,11,46076,46076,11,46104,46104,11,46132,46132,11,46160,46160,11,46188,46188,11,46216,46216,11,46244,46244,11,46272,46272,11,46300,46300,11,46328,46328,11,46356,46356,11,46384,46384,11,46412,46412,11,46440,46440,11,46468,46468,11,46496,46496,11,46524,46524,11,46552,46552,11,46580,46580,11,46608,46608,11,46636,46636,11,46664,46664,11,46692,46692,11,46720,46720,11,46748,46748,11,46776,46776,11,46804,46804,11,46832,46832,11,46860,46860,11,46888,46888,11,46916,46916,11,46944,46944,11,46972,46972,11,47000,47000,11,47028,47028,11,47056,47056,11,47084,47084,11,47112,47112,11,47140,47140,11,47168,47168,11,47196,47196,11,47224,47224,11,47252,47252,11,47280,47280,11,47308,47308,11,47336,47336,11,47364,47364,11,47392,47392,11,47420,47420,11,47448,47448,11,47476,47476,11,47504,47504,11,47532,47532,11,47560,47560,11,47588,47588,11,47616,47616,11,47644,47644,11,47672,47672,11,47700,47700,11,47728,47728,11,47756,47756,11,47784,47784,11,47812,47812,11,47840,47840,11,47868,47868,11,47896,47896,11,47924,47924,11,47952,47952,11,47980,47980,11,48008,48008,11,48036,48036,11,48064,48064,11,48092,48092,11,48120,48120,11,48148,48148,11,48176,48176,11,48204,48204,11,48232,48232,11,48260,48260,11,48288,48288,11,48316,48316,11,48344,48344,11,48372,48372,11,48400,48400,11,48428,48428,11,48456,48456,11,48484,48484,11,48512,48512,11,48540,48540,11,48568,48568,11,48596,48596,11,48624,48624,11,48652,48652,11,48680,48680,11,48708,48708,11,48736,48736,11,48764,48764,11,48792,48792,11,48820,48820,11,48848,48848,11,48876,48876,11,48904,48904,11,48932,48932,11,48960,48960,11,48988,48988,11,49016,49016,11,49044,49044,11,49072,49072,11,49100,49100,11,49128,49128,11,49156,49156,11,49184,49184,11,49212,49212,11,49240,49240,11,49268,49268,11,49296,49296,11,49324,49324,11,49352,49352,11,49380,49380,11,49408,49408,11,49436,49436,11,49464,49464,11,49492,49492,11,49520,49520,11,49548,49548,11,49576,49576,11,49604,49604,11,49632,49632,11,49660,49660,11,49688,49688,11,49716,49716,11,49744,49744,11,49772,49772,11,49800,49800,11,49828,49828,11,49856,49856,11,49884,49884,11,49912,49912,11,49940,49940,11,49968,49968,11,49996,49996,11,50024,50024,11,50052,50052,11,50080,50080,11,50108,50108,11,50136,50136,11,50164,50164,11,50192,50192,11,50220,50220,11,50248,50248,11,50276,50276,11,50304,50304,11,50332,50332,11,50360,50360,11,50388,50388,11,50416,50416,11,50444,50444,11,50472,50472,11,50500,50500,11,50528,50528,11,50556,50556,11,50584,50584,11,50612,50612,11,50640,50640,11,50668,50668,11,50696,50696,11,50724,50724,11,50752,50752,11,50780,50780,11,50808,50808,11,50836,50836,11,50864,50864,11,50892,50892,11,50920,50920,11,50948,50948,11,50976,50976,11,51004,51004,11,51032,51032,11,51060,51060,11,51088,51088,11,51116,51116,11,51144,51144,11,51172,51172,11,51200,51200,11,51228,51228,11,51256,51256,11,51284,51284,11,51312,51312,11,51340,51340,11,51368,51368,11,51396,51396,11,51424,51424,11,51452,51452,11,51480,51480,11,51508,51508,11,51536,51536,11,51564,51564,11,51592,51592,11,51620,51620,11,51648,51648,11,51676,51676,11,51704,51704,11,51732,51732,11,51760,51760,11,51788,51788,11,51816,51816,11,51844,51844,11,51872,51872,11,51900,51900,11,51928,51928,11,51956,51956,11,51984,51984,11,52012,52012,11,52040,52040,11,52068,52068,11,52096,52096,11,52124,52124,11,52152,52152,11,52180,52180,11,52208,52208,11,52236,52236,11,52264,52264,11,52292,52292,11,52320,52320,11,52348,52348,11,52376,52376,11,52404,52404,11,52432,52432,11,52460,52460,11,52488,52488,11,52516,52516,11,52544,52544,11,52572,52572,11,52600,52600,11,52628,52628,11,52656,52656,11,52684,52684,11,52712,52712,11,52740,52740,11,52768,52768,11,52796,52796,11,52824,52824,11,52852,52852,11,52880,52880,11,52908,52908,11,52936,52936,11,52964,52964,11,52992,52992,11,53020,53020,11,53048,53048,11,53076,53076,11,53104,53104,11,53132,53132,11,53160,53160,11,53188,53188,11,53216,53216,11,53244,53244,11,53272,53272,11,53300,53300,11,53328,53328,11,53356,53356,11,53384,53384,11,53412,53412,11,53440,53440,11,53468,53468,11,53496,53496,11,53524,53524,11,53552,53552,11,53580,53580,11,53608,53608,11,53636,53636,11,53664,53664,11,53692,53692,11,53720,53720,11,53748,53748,11,53776,53776,11,53804,53804,11,53832,53832,11,53860,53860,11,53888,53888,11,53916,53916,11,53944,53944,11,53972,53972,11,54000,54000,11,54028,54028,11,54056,54056,11,54084,54084,11,54112,54112,11,54140,54140,11,54168,54168,11,54196,54196,11,54224,54224,11,54252,54252,11,54280,54280,11,54308,54308,11,54336,54336,11,54364,54364,11,54392,54392,11,54420,54420,11,54448,54448,11,54476,54476,11,54504,54504,11,54532,54532,11,54560,54560,11,54588,54588,11,54616,54616,11,54644,54644,11,54672,54672,11,54700,54700,11,54728,54728,11,54756,54756,11,54784,54784,11,54812,54812,11,54840,54840,11,54868,54868,11,54896,54896,11,54924,54924,11,54952,54952,11,54980,54980,11,55008,55008,11,55036,55036,11,55064,55064,11,55092,55092,11,55120,55120,11,55148,55148,11,55176,55176,11,55216,55238,9,64286,64286,5,65056,65071,5,65438,65439,5,65529,65531,4,66272,66272,5,68097,68099,5,68108,68111,5,68159,68159,5,68900,68903,5,69446,69456,5,69632,69632,7,69634,69634,7,69744,69744,5,69759,69761,5,69808,69810,7,69815,69816,7,69821,69821,1,69837,69837,1,69927,69931,5,69933,69940,5,70003,70003,5,70018,70018,7,70070,70078,5,70082,70083,1,70094,70094,7,70188,70190,7,70194,70195,7,70197,70197,7,70206,70206,5,70368,70370,7,70400,70401,5,70459,70460,5,70463,70463,7,70465,70468,7,70475,70477,7,70498,70499,7,70512,70516,5,70712,70719,5,70722,70724,5,70726,70726,5,70832,70832,5,70835,70840,5,70842,70842,5,70845,70845,5,70847,70848,5,70850,70851,5,71088,71089,7,71096,71099,7,71102,71102,7,71132,71133,5,71219,71226,5,71229,71229,5,71231,71232,5,71340,71340,7,71342,71343,7,71350,71350,7,71453,71455,5,71462,71462,7,71724,71726,7,71736,71736,7,71984,71984,5,71991,71992,7,71997,71997,7,71999,71999,1,72001,72001,1,72003,72003,5,72148,72151,5,72156,72159,7,72164,72164,7,72243,72248,5,72250,72250,1,72263,72263,5,72279,72280,7,72324,72329,1,72343,72343,7,72751,72751,7,72760,72765,5,72767,72767,5,72873,72873,7,72881,72881,7,72884,72884,7,73009,73014,5,73020,73021,5,73030,73030,1,73098,73102,7,73107,73108,7,73110,73110,7,73459,73460,5,78896,78904,4,92976,92982,5,94033,94087,7,94180,94180,5,113821,113822,5,118528,118573,5,119141,119141,5,119143,119145,5,119150,119154,5,119163,119170,5,119210,119213,5,121344,121398,5,121461,121461,5,121499,121503,5,122880,122886,5,122907,122913,5,122918,122922,5,123566,123566,5,125136,125142,5,126976,126979,14,126981,127182,14,127184,127231,14,127279,127279,14,127344,127345,14,127374,127374,14,127405,127461,14,127489,127490,14,127514,127514,14,127538,127546,14,127561,127567,14,127570,127743,14,127757,127758,14,127760,127760,14,127762,127762,14,127766,127768,14,127770,127770,14,127772,127772,14,127775,127776,14,127778,127779,14,127789,127791,14,127794,127795,14,127798,127798,14,127819,127819,14,127824,127824,14,127868,127868,14,127870,127871,14,127892,127893,14,127896,127896,14,127900,127901,14,127904,127940,14,127942,127942,14,127944,127944,14,127946,127946,14,127951,127955,14,127968,127971,14,127973,127984,14,127987,127987,14,127989,127989,14,127991,127991,14,127995,127999,5,128008,128008,14,128012,128014,14,128017,128018,14,128020,128020,14,128022,128022,14,128042,128042,14,128063,128063,14,128065,128065,14,128101,128101,14,128108,128109,14,128173,128173,14,128182,128183,14,128236,128237,14,128239,128239,14,128245,128245,14,128248,128248,14,128253,128253,14,128255,128258,14,128260,128263,14,128265,128265,14,128277,128277,14,128300,128301,14,128326,128328,14,128331,128334,14,128336,128347,14,128360,128366,14,128369,128370,14,128378,128378,14,128391,128391,14,128394,128397,14,128400,128400,14,128405,128406,14,128420,128420,14,128422,128423,14,128425,128432,14,128435,128443,14,128445,128449,14,128453,128464,14,128468,128475,14,128479,128480,14,128482,128482,14,128484,128487,14,128489,128494,14,128496,128498,14,128500,128505,14,128507,128511,14,128513,128518,14,128521,128525,14,128527,128527,14,128529,128529,14,128533,128533,14,128535,128535,14,128537,128537,14]");
   }
+  function getLeftDeleteOffset(offset, str) {
+    if (offset === 0) {
+      return 0;
+    }
+    const emojiOffset = getOffsetBeforeLastEmojiComponent(offset, str);
+    if (emojiOffset !== void 0) {
+      return emojiOffset;
+    }
+    const codePoint = getPrevCodePoint(str, offset);
+    offset -= getUTF16Length(codePoint);
+    return offset;
+  }
+  function getOffsetBeforeLastEmojiComponent(offset, str) {
+    let codePoint = getPrevCodePoint(str, offset);
+    offset -= getUTF16Length(codePoint);
+    while (isEmojiModifier(codePoint) || codePoint === 65039 || codePoint === 8419) {
+      if (offset === 0) {
+        return void 0;
+      }
+      codePoint = getPrevCodePoint(str, offset);
+      offset -= getUTF16Length(codePoint);
+    }
+    if (!isEmojiImprecise(codePoint)) {
+      return void 0;
+    }
+    if (offset >= 0) {
+      const optionalZwjCodePoint = getPrevCodePoint(str, offset);
+      if (optionalZwjCodePoint === 8205) {
+        offset -= getUTF16Length(optionalZwjCodePoint);
+      }
+    }
+    return offset;
+  }
+  function getUTF16Length(codePoint) {
+    return codePoint >= 65536 ? 2 : 1;
+  }
+  function isEmojiModifier(codePoint) {
+    return 127995 <= codePoint && codePoint <= 127999;
+  }
+  var noBreakWhitespace = "\xA0";
   var AmbiguousCharacters = class {
     static getData() {
       return JSON.parse('{"_common":[8232,32,8233,32,5760,32,8192,32,8193,32,8194,32,8195,32,8196,32,8197,32,8198,32,8200,32,8201,32,8202,32,8287,32,8199,32,8239,32,2042,95,65101,95,65102,95,65103,95,8208,45,8209,45,8210,45,65112,45,1748,45,8259,45,727,45,8722,45,10134,45,11450,45,1549,44,1643,44,8218,44,184,44,42233,44,894,59,2307,58,2691,58,1417,58,1795,58,1796,58,5868,58,65072,58,6147,58,6153,58,8282,58,1475,58,760,58,42889,58,8758,58,720,58,42237,58,451,33,11601,33,660,63,577,63,2429,63,5038,63,42731,63,119149,46,8228,46,1793,46,1794,46,42510,46,68176,46,1632,46,1776,46,42232,46,1373,96,65287,96,8219,96,8242,96,1370,96,1523,96,8175,96,65344,96,900,96,8189,96,8125,96,8127,96,8190,96,697,96,884,96,712,96,714,96,715,96,756,96,699,96,701,96,700,96,702,96,42892,96,1497,96,2036,96,2037,96,5194,96,5836,96,94033,96,94034,96,65339,40,10088,40,10098,40,12308,40,64830,40,65341,41,10089,41,10099,41,12309,41,64831,41,10100,123,119060,123,10101,125,8270,42,1645,42,8727,42,66335,42,5941,47,8257,47,8725,47,8260,47,9585,47,10187,47,10744,47,119354,47,12755,47,12339,47,11462,47,20031,47,12035,47,65340,92,65128,92,8726,92,10189,92,10741,92,10745,92,119311,92,119355,92,12756,92,20022,92,12034,92,42872,38,708,94,710,94,5869,43,10133,43,66203,43,8249,60,10094,60,706,60,119350,60,5176,60,5810,60,5120,61,11840,61,12448,61,42239,61,8250,62,10095,62,707,62,119351,62,5171,62,94015,62,8275,126,732,126,8128,126,8764,126,120784,50,120794,50,120804,50,120814,50,120824,50,130034,50,42842,50,423,50,1000,50,42564,50,5311,50,42735,50,119302,51,120785,51,120795,51,120805,51,120815,51,120825,51,130035,51,42923,51,540,51,439,51,42858,51,11468,51,1248,51,94011,51,71882,51,120786,52,120796,52,120806,52,120816,52,120826,52,130036,52,5070,52,71855,52,120787,53,120797,53,120807,53,120817,53,120827,53,130037,53,444,53,71867,53,120788,54,120798,54,120808,54,120818,54,120828,54,130038,54,11474,54,5102,54,71893,54,119314,55,120789,55,120799,55,120809,55,120819,55,120829,55,130039,55,66770,55,71878,55,2819,56,2538,56,2666,56,125131,56,120790,56,120800,56,120810,56,120820,56,120830,56,130040,56,547,56,546,56,66330,56,2663,57,2920,57,2541,57,3437,57,120791,57,120801,57,120811,57,120821,57,120831,57,130041,57,42862,57,11466,57,71884,57,71852,57,71894,57,9082,97,65345,97,119834,97,119886,97,119938,97,119990,97,120042,97,120094,97,120146,97,120198,97,120250,97,120302,97,120354,97,120406,97,120458,97,593,97,945,97,120514,97,120572,97,120630,97,120688,97,120746,97,65313,65,119808,65,119860,65,119912,65,119964,65,120016,65,120068,65,120120,65,120172,65,120224,65,120276,65,120328,65,120380,65,120432,65,913,65,120488,65,120546,65,120604,65,120662,65,120720,65,5034,65,5573,65,42222,65,94016,65,66208,65,119835,98,119887,98,119939,98,119991,98,120043,98,120095,98,120147,98,120199,98,120251,98,120303,98,120355,98,120407,98,120459,98,388,98,5071,98,5234,98,5551,98,65314,66,8492,66,119809,66,119861,66,119913,66,120017,66,120069,66,120121,66,120173,66,120225,66,120277,66,120329,66,120381,66,120433,66,42932,66,914,66,120489,66,120547,66,120605,66,120663,66,120721,66,5108,66,5623,66,42192,66,66178,66,66209,66,66305,66,65347,99,8573,99,119836,99,119888,99,119940,99,119992,99,120044,99,120096,99,120148,99,120200,99,120252,99,120304,99,120356,99,120408,99,120460,99,7428,99,1010,99,11429,99,43951,99,66621,99,128844,67,71922,67,71913,67,65315,67,8557,67,8450,67,8493,67,119810,67,119862,67,119914,67,119966,67,120018,67,120174,67,120226,67,120278,67,120330,67,120382,67,120434,67,1017,67,11428,67,5087,67,42202,67,66210,67,66306,67,66581,67,66844,67,8574,100,8518,100,119837,100,119889,100,119941,100,119993,100,120045,100,120097,100,120149,100,120201,100,120253,100,120305,100,120357,100,120409,100,120461,100,1281,100,5095,100,5231,100,42194,100,8558,68,8517,68,119811,68,119863,68,119915,68,119967,68,120019,68,120071,68,120123,68,120175,68,120227,68,120279,68,120331,68,120383,68,120435,68,5024,68,5598,68,5610,68,42195,68,8494,101,65349,101,8495,101,8519,101,119838,101,119890,101,119942,101,120046,101,120098,101,120150,101,120202,101,120254,101,120306,101,120358,101,120410,101,120462,101,43826,101,1213,101,8959,69,65317,69,8496,69,119812,69,119864,69,119916,69,120020,69,120072,69,120124,69,120176,69,120228,69,120280,69,120332,69,120384,69,120436,69,917,69,120492,69,120550,69,120608,69,120666,69,120724,69,11577,69,5036,69,42224,69,71846,69,71854,69,66182,69,119839,102,119891,102,119943,102,119995,102,120047,102,120099,102,120151,102,120203,102,120255,102,120307,102,120359,102,120411,102,120463,102,43829,102,42905,102,383,102,7837,102,1412,102,119315,70,8497,70,119813,70,119865,70,119917,70,120021,70,120073,70,120125,70,120177,70,120229,70,120281,70,120333,70,120385,70,120437,70,42904,70,988,70,120778,70,5556,70,42205,70,71874,70,71842,70,66183,70,66213,70,66853,70,65351,103,8458,103,119840,103,119892,103,119944,103,120048,103,120100,103,120152,103,120204,103,120256,103,120308,103,120360,103,120412,103,120464,103,609,103,7555,103,397,103,1409,103,119814,71,119866,71,119918,71,119970,71,120022,71,120074,71,120126,71,120178,71,120230,71,120282,71,120334,71,120386,71,120438,71,1292,71,5056,71,5107,71,42198,71,65352,104,8462,104,119841,104,119945,104,119997,104,120049,104,120101,104,120153,104,120205,104,120257,104,120309,104,120361,104,120413,104,120465,104,1211,104,1392,104,5058,104,65320,72,8459,72,8460,72,8461,72,119815,72,119867,72,119919,72,120023,72,120179,72,120231,72,120283,72,120335,72,120387,72,120439,72,919,72,120494,72,120552,72,120610,72,120668,72,120726,72,11406,72,5051,72,5500,72,42215,72,66255,72,731,105,9075,105,65353,105,8560,105,8505,105,8520,105,119842,105,119894,105,119946,105,119998,105,120050,105,120102,105,120154,105,120206,105,120258,105,120310,105,120362,105,120414,105,120466,105,120484,105,618,105,617,105,953,105,8126,105,890,105,120522,105,120580,105,120638,105,120696,105,120754,105,1110,105,42567,105,1231,105,43893,105,5029,105,71875,105,65354,106,8521,106,119843,106,119895,106,119947,106,119999,106,120051,106,120103,106,120155,106,120207,106,120259,106,120311,106,120363,106,120415,106,120467,106,1011,106,1112,106,65322,74,119817,74,119869,74,119921,74,119973,74,120025,74,120077,74,120129,74,120181,74,120233,74,120285,74,120337,74,120389,74,120441,74,42930,74,895,74,1032,74,5035,74,5261,74,42201,74,119844,107,119896,107,119948,107,120000,107,120052,107,120104,107,120156,107,120208,107,120260,107,120312,107,120364,107,120416,107,120468,107,8490,75,65323,75,119818,75,119870,75,119922,75,119974,75,120026,75,120078,75,120130,75,120182,75,120234,75,120286,75,120338,75,120390,75,120442,75,922,75,120497,75,120555,75,120613,75,120671,75,120729,75,11412,75,5094,75,5845,75,42199,75,66840,75,1472,124,8739,124,9213,124,65512,124,1633,124,1777,124,66336,124,125127,124,120783,124,120793,124,120803,124,120813,124,120823,124,130033,124,65321,124,8544,124,8464,124,8465,124,119816,124,119868,124,119920,124,120024,124,120128,124,120180,124,120232,124,120284,124,120336,124,120388,124,120440,124,406,124,65356,124,8572,124,8467,124,119845,124,119897,124,119949,124,120001,124,120053,124,120105,124,120157,124,120209,124,120261,124,120313,124,120365,124,120417,124,120469,124,448,124,120496,124,120554,124,120612,124,120670,124,120728,124,11410,124,1030,124,1216,124,1493,124,1503,124,1575,124,126464,124,126592,124,65166,124,65165,124,1994,124,11599,124,5825,124,42226,124,93992,124,66186,124,66313,124,119338,76,8556,76,8466,76,119819,76,119871,76,119923,76,120027,76,120079,76,120131,76,120183,76,120235,76,120287,76,120339,76,120391,76,120443,76,11472,76,5086,76,5290,76,42209,76,93974,76,71843,76,71858,76,66587,76,66854,76,65325,77,8559,77,8499,77,119820,77,119872,77,119924,77,120028,77,120080,77,120132,77,120184,77,120236,77,120288,77,120340,77,120392,77,120444,77,924,77,120499,77,120557,77,120615,77,120673,77,120731,77,1018,77,11416,77,5047,77,5616,77,5846,77,42207,77,66224,77,66321,77,119847,110,119899,110,119951,110,120003,110,120055,110,120107,110,120159,110,120211,110,120263,110,120315,110,120367,110,120419,110,120471,110,1400,110,1404,110,65326,78,8469,78,119821,78,119873,78,119925,78,119977,78,120029,78,120081,78,120185,78,120237,78,120289,78,120341,78,120393,78,120445,78,925,78,120500,78,120558,78,120616,78,120674,78,120732,78,11418,78,42208,78,66835,78,3074,111,3202,111,3330,111,3458,111,2406,111,2662,111,2790,111,3046,111,3174,111,3302,111,3430,111,3664,111,3792,111,4160,111,1637,111,1781,111,65359,111,8500,111,119848,111,119900,111,119952,111,120056,111,120108,111,120160,111,120212,111,120264,111,120316,111,120368,111,120420,111,120472,111,7439,111,7441,111,43837,111,959,111,120528,111,120586,111,120644,111,120702,111,120760,111,963,111,120532,111,120590,111,120648,111,120706,111,120764,111,11423,111,4351,111,1413,111,1505,111,1607,111,126500,111,126564,111,126596,111,65259,111,65260,111,65258,111,65257,111,1726,111,64428,111,64429,111,64427,111,64426,111,1729,111,64424,111,64425,111,64423,111,64422,111,1749,111,3360,111,4125,111,66794,111,71880,111,71895,111,66604,111,1984,79,2534,79,2918,79,12295,79,70864,79,71904,79,120782,79,120792,79,120802,79,120812,79,120822,79,130032,79,65327,79,119822,79,119874,79,119926,79,119978,79,120030,79,120082,79,120134,79,120186,79,120238,79,120290,79,120342,79,120394,79,120446,79,927,79,120502,79,120560,79,120618,79,120676,79,120734,79,11422,79,1365,79,11604,79,4816,79,2848,79,66754,79,42227,79,71861,79,66194,79,66219,79,66564,79,66838,79,9076,112,65360,112,119849,112,119901,112,119953,112,120005,112,120057,112,120109,112,120161,112,120213,112,120265,112,120317,112,120369,112,120421,112,120473,112,961,112,120530,112,120544,112,120588,112,120602,112,120646,112,120660,112,120704,112,120718,112,120762,112,120776,112,11427,112,65328,80,8473,80,119823,80,119875,80,119927,80,119979,80,120031,80,120083,80,120187,80,120239,80,120291,80,120343,80,120395,80,120447,80,929,80,120504,80,120562,80,120620,80,120678,80,120736,80,11426,80,5090,80,5229,80,42193,80,66197,80,119850,113,119902,113,119954,113,120006,113,120058,113,120110,113,120162,113,120214,113,120266,113,120318,113,120370,113,120422,113,120474,113,1307,113,1379,113,1382,113,8474,81,119824,81,119876,81,119928,81,119980,81,120032,81,120084,81,120188,81,120240,81,120292,81,120344,81,120396,81,120448,81,11605,81,119851,114,119903,114,119955,114,120007,114,120059,114,120111,114,120163,114,120215,114,120267,114,120319,114,120371,114,120423,114,120475,114,43847,114,43848,114,7462,114,11397,114,43905,114,119318,82,8475,82,8476,82,8477,82,119825,82,119877,82,119929,82,120033,82,120189,82,120241,82,120293,82,120345,82,120397,82,120449,82,422,82,5025,82,5074,82,66740,82,5511,82,42211,82,94005,82,65363,115,119852,115,119904,115,119956,115,120008,115,120060,115,120112,115,120164,115,120216,115,120268,115,120320,115,120372,115,120424,115,120476,115,42801,115,445,115,1109,115,43946,115,71873,115,66632,115,65331,83,119826,83,119878,83,119930,83,119982,83,120034,83,120086,83,120138,83,120190,83,120242,83,120294,83,120346,83,120398,83,120450,83,1029,83,1359,83,5077,83,5082,83,42210,83,94010,83,66198,83,66592,83,119853,116,119905,116,119957,116,120009,116,120061,116,120113,116,120165,116,120217,116,120269,116,120321,116,120373,116,120425,116,120477,116,8868,84,10201,84,128872,84,65332,84,119827,84,119879,84,119931,84,119983,84,120035,84,120087,84,120139,84,120191,84,120243,84,120295,84,120347,84,120399,84,120451,84,932,84,120507,84,120565,84,120623,84,120681,84,120739,84,11430,84,5026,84,42196,84,93962,84,71868,84,66199,84,66225,84,66325,84,119854,117,119906,117,119958,117,120010,117,120062,117,120114,117,120166,117,120218,117,120270,117,120322,117,120374,117,120426,117,120478,117,42911,117,7452,117,43854,117,43858,117,651,117,965,117,120534,117,120592,117,120650,117,120708,117,120766,117,1405,117,66806,117,71896,117,8746,85,8899,85,119828,85,119880,85,119932,85,119984,85,120036,85,120088,85,120140,85,120192,85,120244,85,120296,85,120348,85,120400,85,120452,85,1357,85,4608,85,66766,85,5196,85,42228,85,94018,85,71864,85,8744,118,8897,118,65366,118,8564,118,119855,118,119907,118,119959,118,120011,118,120063,118,120115,118,120167,118,120219,118,120271,118,120323,118,120375,118,120427,118,120479,118,7456,118,957,118,120526,118,120584,118,120642,118,120700,118,120758,118,1141,118,1496,118,71430,118,43945,118,71872,118,119309,86,1639,86,1783,86,8548,86,119829,86,119881,86,119933,86,119985,86,120037,86,120089,86,120141,86,120193,86,120245,86,120297,86,120349,86,120401,86,120453,86,1140,86,11576,86,5081,86,5167,86,42719,86,42214,86,93960,86,71840,86,66845,86,623,119,119856,119,119908,119,119960,119,120012,119,120064,119,120116,119,120168,119,120220,119,120272,119,120324,119,120376,119,120428,119,120480,119,7457,119,1121,119,1309,119,1377,119,71434,119,71438,119,71439,119,43907,119,71919,87,71910,87,119830,87,119882,87,119934,87,119986,87,120038,87,120090,87,120142,87,120194,87,120246,87,120298,87,120350,87,120402,87,120454,87,1308,87,5043,87,5076,87,42218,87,5742,120,10539,120,10540,120,10799,120,65368,120,8569,120,119857,120,119909,120,119961,120,120013,120,120065,120,120117,120,120169,120,120221,120,120273,120,120325,120,120377,120,120429,120,120481,120,5441,120,5501,120,5741,88,9587,88,66338,88,71916,88,65336,88,8553,88,119831,88,119883,88,119935,88,119987,88,120039,88,120091,88,120143,88,120195,88,120247,88,120299,88,120351,88,120403,88,120455,88,42931,88,935,88,120510,88,120568,88,120626,88,120684,88,120742,88,11436,88,11613,88,5815,88,42219,88,66192,88,66228,88,66327,88,66855,88,611,121,7564,121,65369,121,119858,121,119910,121,119962,121,120014,121,120066,121,120118,121,120170,121,120222,121,120274,121,120326,121,120378,121,120430,121,120482,121,655,121,7935,121,43866,121,947,121,8509,121,120516,121,120574,121,120632,121,120690,121,120748,121,1199,121,4327,121,71900,121,65337,89,119832,89,119884,89,119936,89,119988,89,120040,89,120092,89,120144,89,120196,89,120248,89,120300,89,120352,89,120404,89,120456,89,933,89,978,89,120508,89,120566,89,120624,89,120682,89,120740,89,11432,89,1198,89,5033,89,5053,89,42220,89,94019,89,71844,89,66226,89,119859,122,119911,122,119963,122,120015,122,120067,122,120119,122,120171,122,120223,122,120275,122,120327,122,120379,122,120431,122,120483,122,7458,122,43923,122,71876,122,66293,90,71909,90,65338,90,8484,90,8488,90,119833,90,119885,90,119937,90,119989,90,120041,90,120197,90,120249,90,120301,90,120353,90,120405,90,120457,90,918,90,120493,90,120551,90,120609,90,120667,90,120725,90,5059,90,42204,90,71849,90],"_default":[160,32,8211,45,65306,58,65281,33,8216,96,8217,96,8245,96,180,96,12494,47,1047,51,1073,54,1072,97,1040,65,1068,98,1042,66,1089,99,1057,67,1077,101,1045,69,1053,72,305,105,1050,75,921,124,1052,77,1086,111,1054,79,1009,112,1088,112,1056,80,1075,114,1058,84,215,120,1093,120,1061,88,1091,121,1059,89],"cs":[65306,58,65281,33,8216,96,8217,96,8245,96,180,96,12494,47,1047,51,1073,54,1072,97,1040,65,1068,98,1042,66,1089,99,1057,67,1077,101,1045,69,1053,72,305,105,1050,75,921,124,1052,77,1086,111,1054,79,1009,112,1088,112,1056,80,1075,114,1058,84,1093,120,1061,88,1091,121,1059,89],"de":[65306,58,65281,33,8216,96,8217,96,8245,96,180,96,12494,47,1047,51,1073,54,1072,97,1040,65,1068,98,1042,66,1089,99,1057,67,1077,101,1045,69,1053,72,305,105,1050,75,921,124,1052,77,1086,111,1054,79,1009,112,1088,112,1056,80,1075,114,1058,84,1093,120,1061,88,1091,121,1059,89],"es":[8211,45,65306,58,65281,33,8245,96,180,96,12494,47,1047,51,1073,54,1072,97,1040,65,1068,98,1042,66,1089,99,1057,67,1077,101,1045,69,1053,72,305,105,1050,75,1052,77,1086,111,1054,79,1009,112,1088,112,1056,80,1075,114,1058,84,215,120,1093,120,1061,88,1091,121,1059,89],"fr":[65306,58,65281,33,8216,96,8245,96,12494,47,1047,51,1073,54,1072,97,1040,65,1068,98,1042,66,1089,99,1057,67,1077,101,1045,69,1053,72,305,105,1050,75,921,124,1052,77,1086,111,1054,79,1009,112,1088,112,1056,80,1075,114,1058,84,215,120,1093,120,1061,88,1091,121,1059,89],"it":[160,32,8211,45,65306,58,65281,33,8216,96,8245,96,180,96,12494,47,1047,51,1073,54,1072,97,1040,65,1068,98,1042,66,1089,99,1057,67,1077,101,1045,69,1053,72,305,105,1050,75,921,124,1052,77,1086,111,1054,79,1009,112,1088,112,1056,80,1075,114,1058,84,215,120,1093,120,1061,88,1091,121,1059,89],"ja":[8211,45,65306,58,65281,33,8216,96,8217,96,8245,96,180,96,1047,51,1073,54,1072,97,1040,65,1068,98,1042,66,1089,99,1057,67,1077,101,1045,69,1053,72,305,105,1050,75,921,124,1052,77,1086,111,1054,79,1009,112,1088,112,1056,80,1075,114,1058,84,215,120,1093,120,1061,88,1091,121,1059,89],"ko":[8211,45,65306,58,65281,33,8245,96,180,96,12494,47,1047,51,1073,54,1072,97,1040,65,1068,98,1042,66,1089,99,1057,67,1077,101,1045,69,1053,72,305,105,1050,75,921,124,1052,77,1086,111,1054,79,1009,112,1088,112,1056,80,1075,114,1058,84,215,120,1093,120,1061,88,1091,121,1059,89],"pl":[65306,58,65281,33,8216,96,8217,96,8245,96,180,96,12494,47,1047,51,1073,54,1072,97,1040,65,1068,98,1042,66,1089,99,1057,67,1077,101,1045,69,1053,72,305,105,1050,75,921,124,1052,77,1086,111,1054,79,1009,112,1088,112,1056,80,1075,114,1058,84,215,120,1093,120,1061,88,1091,121,1059,89],"pt-BR":[65306,58,65281,33,8216,96,8217,96,8245,96,180,96,12494,47,1047,51,1073,54,1072,97,1040,65,1068,98,1042,66,1089,99,1057,67,1077,101,1045,69,1053,72,305,105,1050,75,921,124,1052,77,1086,111,1054,79,1009,112,1088,112,1056,80,1075,114,1058,84,215,120,1093,120,1061,88,1091,121,1059,89],"qps-ploc":[160,32,8211,45,65306,58,65281,33,8216,96,8217,96,8245,96,180,96,12494,47,1047,51,1073,54,1072,97,1040,65,1068,98,1042,66,1089,99,1057,67,1077,101,1045,69,1053,72,305,105,1050,75,921,124,1052,77,1086,111,1054,79,1088,112,1056,80,1075,114,1058,84,215,120,1093,120,1061,88,1091,121,1059,89],"ru":[65306,58,65281,33,8216,96,8217,96,8245,96,180,96,12494,47,305,105,921,124,1009,112,215,120],"tr":[160,32,8211,45,65306,58,65281,33,8245,96,180,96,12494,47,1047,51,1073,54,1072,97,1040,65,1068,98,1042,66,1089,99,1057,67,1077,101,1045,69,1053,72,1050,75,921,124,1052,77,1086,111,1054,79,1009,112,1088,112,1056,80,1075,114,1058,84,215,120,1093,120,1061,88,1091,121,1059,89],"zh-hans":[65306,58,65281,33,8245,96,180,96,12494,47,1047,51,1073,54,1072,97,1040,65,1068,98,1042,66,1089,99,1057,67,1077,101,1045,69,1053,72,305,105,1050,75,921,124,1052,77,1086,111,1054,79,1009,112,1088,112,1056,80,1075,114,1058,84,215,120,1093,120,1061,88,1091,121,1059,89],"zh-hant":[8211,45,180,96,12494,47,1047,51,1073,54,1072,97,1040,65,1068,98,1042,66,1089,99,1057,67,1077,101,1045,69,1053,72,305,105,1050,75,921,124,1052,77,1086,111,1054,79,1009,112,1088,112,1056,80,1075,114,1058,84,215,120,1093,120,1061,88,1091,121,1059,89]}');
@@ -1157,6 +1838,17 @@
 
   // ../../node_modules/monaco-editor/esm/vs/base/common/worker/simpleWorker.js
   var INITIALIZE = "$initialize";
+  var webWorkerWarningLogged = false;
+  function logOnceWebWorkerWarning(err) {
+    if (!isWeb) {
+      return;
+    }
+    if (!webWorkerWarningLogged) {
+      webWorkerWarningLogged = true;
+      console.warn("Could not create web worker(s). Falling back to loading web worker code in main thread, which might cause UI freezes. Please see https://github.com/microsoft/monaco-editor#faq");
+    }
+    console.warn(err.message);
+  }
   var RequestMessage = class {
     constructor(vsWorker, req, method, args) {
       this.vsWorker = vsWorker;
@@ -1330,6 +2022,94 @@
       this._handler.sendMessage(msg, transfer);
     }
   };
+  var SimpleWorkerClient = class extends Disposable {
+    constructor(workerFactory, moduleId, host) {
+      super();
+      let lazyProxyReject = null;
+      this._worker = this._register(workerFactory.create("vs/base/common/worker/simpleWorker", (msg) => {
+        this._protocol.handleMessage(msg);
+      }, (err) => {
+        if (lazyProxyReject) {
+          lazyProxyReject(err);
+        }
+      }));
+      this._protocol = new SimpleWorkerProtocol({
+        sendMessage: (msg, transfer) => {
+          this._worker.postMessage(msg, transfer);
+        },
+        handleMessage: (method, args) => {
+          if (typeof host[method] !== "function") {
+            return Promise.reject(new Error("Missing method " + method + " on main thread host."));
+          }
+          try {
+            return Promise.resolve(host[method].apply(host, args));
+          } catch (e) {
+            return Promise.reject(e);
+          }
+        },
+        handleEvent: (eventName, arg) => {
+          if (propertyIsDynamicEvent(eventName)) {
+            const event = host[eventName].call(host, arg);
+            if (typeof event !== "function") {
+              throw new Error(`Missing dynamic event ${eventName} on main thread host.`);
+            }
+            return event;
+          }
+          if (propertyIsEvent(eventName)) {
+            const event = host[eventName];
+            if (typeof event !== "function") {
+              throw new Error(`Missing event ${eventName} on main thread host.`);
+            }
+            return event;
+          }
+          throw new Error(`Malformed event name ${eventName}`);
+        }
+      });
+      this._protocol.setWorkerId(this._worker.getId());
+      let loaderConfiguration = null;
+      if (typeof globals.require !== "undefined" && typeof globals.require.getConfig === "function") {
+        loaderConfiguration = globals.require.getConfig();
+      } else if (typeof globals.requirejs !== "undefined") {
+        loaderConfiguration = globals.requirejs.s.contexts._.config;
+      }
+      const hostMethods = getAllMethodNames(host);
+      this._onModuleLoaded = this._protocol.sendMessage(INITIALIZE, [
+        this._worker.getId(),
+        JSON.parse(JSON.stringify(loaderConfiguration)),
+        moduleId,
+        hostMethods
+      ]);
+      const proxyMethodRequest = (method, args) => {
+        return this._request(method, args);
+      };
+      const proxyListen = (eventName, arg) => {
+        return this._protocol.listen(eventName, arg);
+      };
+      this._lazyProxy = new Promise((resolve2, reject) => {
+        lazyProxyReject = reject;
+        this._onModuleLoaded.then((availableMethods) => {
+          resolve2(createProxyObject2(availableMethods, proxyMethodRequest, proxyListen));
+        }, (e) => {
+          reject(e);
+          this._onError("Worker failed to load " + moduleId, e);
+        });
+      });
+    }
+    getProxyObject() {
+      return this._lazyProxy;
+    }
+    _request(method, args) {
+      return new Promise((resolve2, reject) => {
+        this._onModuleLoaded.then(() => {
+          this._protocol.sendMessage(method, args).then(resolve2, reject);
+        }, reject);
+      });
+    }
+    _onError(message, error) {
+      console.error(message);
+      console.info(error);
+    }
+  };
   function propertyIsEvent(name) {
     return name[0] === "o" && name[1] === "n" && isUpperAsciiLetter(name.charCodeAt(2));
   }
@@ -1451,6 +2231,9 @@
       });
     }
   };
+  function create(postMessage) {
+    return new SimpleWorkerServer(postMessage, null);
+  }
 
   // ../../node_modules/monaco-editor/esm/vs/base/common/diff/diffChange.js
   var DiffChange = class {
@@ -1469,8 +2252,35 @@
   };
 
   // ../../node_modules/monaco-editor/esm/vs/base/common/hash.js
+  function hash(obj) {
+    return doHash(obj, 0);
+  }
+  function doHash(obj, hashVal) {
+    switch (typeof obj) {
+      case "object":
+        if (obj === null) {
+          return numberHash(349, hashVal);
+        } else if (Array.isArray(obj)) {
+          return arrayHash(obj, hashVal);
+        }
+        return objectHash(obj, hashVal);
+      case "string":
+        return stringHash(obj, hashVal);
+      case "boolean":
+        return booleanHash(obj, hashVal);
+      case "number":
+        return numberHash(obj, hashVal);
+      case "undefined":
+        return numberHash(937, hashVal);
+      default:
+        return numberHash(617, hashVal);
+    }
+  }
   function numberHash(val, initialHashVal) {
     return (initialHashVal << 5) - initialHashVal + val | 0;
+  }
+  function booleanHash(b, initialHashVal) {
+    return numberHash(b ? 433 : 863, initialHashVal);
   }
   function stringHash(s, hashVal) {
     hashVal = numberHash(149417, hashVal);
@@ -1478,6 +2288,17 @@
       hashVal = numberHash(s.charCodeAt(i), hashVal);
     }
     return hashVal;
+  }
+  function arrayHash(arr, initialHashVal) {
+    initialHashVal = numberHash(104579, initialHashVal);
+    return arr.reduce((hashVal, item) => doHash(item, hashVal), initialHashVal);
+  }
+  function objectHash(obj, initialHashVal) {
+    initialHashVal = numberHash(181387, initialHashVal);
+    return Object.keys(obj).sort().reduce((hashVal, key) => {
+      hashVal = stringHash(key, hashVal);
+      return doHash(obj[key], hashVal);
+    }, initialHashVal);
   }
   function leftRotate(value, bits, totalBits = 32) {
     const delta = totalBits - bits;
@@ -2597,17 +3418,17 @@
           rootEnd = 3;
         }
       }
-      let tail = rootEnd < len ? normalizeString(path.slice(rootEnd), !isAbsolute, "\\", isPathSeparator) : "";
-      if (tail.length === 0 && !isAbsolute) {
-        tail = ".";
+      let tail3 = rootEnd < len ? normalizeString(path.slice(rootEnd), !isAbsolute, "\\", isPathSeparator) : "";
+      if (tail3.length === 0 && !isAbsolute) {
+        tail3 = ".";
       }
-      if (tail.length > 0 && isPathSeparator(path.charCodeAt(len - 1))) {
-        tail += "\\";
+      if (tail3.length > 0 && isPathSeparator(path.charCodeAt(len - 1))) {
+        tail3 += "\\";
       }
       if (device === void 0) {
-        return isAbsolute ? `\\${tail}` : tail;
+        return isAbsolute ? `\\${tail3}` : tail3;
       }
-      return isAbsolute ? `${device}\\${tail}` : `${device}${tail}`;
+      return isAbsolute ? `${device}\\${tail3}` : `${device}${tail3}`;
     },
     isAbsolute(path) {
       validateString(path, "path");
@@ -3847,74 +4668,74 @@
     isEmpty() {
       return Range.isEmpty(this);
     }
-    static isEmpty(range) {
-      return range.startLineNumber === range.endLineNumber && range.startColumn === range.endColumn;
+    static isEmpty(range2) {
+      return range2.startLineNumber === range2.endLineNumber && range2.startColumn === range2.endColumn;
     }
     containsPosition(position) {
       return Range.containsPosition(this, position);
     }
-    static containsPosition(range, position) {
-      if (position.lineNumber < range.startLineNumber || position.lineNumber > range.endLineNumber) {
+    static containsPosition(range2, position) {
+      if (position.lineNumber < range2.startLineNumber || position.lineNumber > range2.endLineNumber) {
         return false;
       }
-      if (position.lineNumber === range.startLineNumber && position.column < range.startColumn) {
+      if (position.lineNumber === range2.startLineNumber && position.column < range2.startColumn) {
         return false;
       }
-      if (position.lineNumber === range.endLineNumber && position.column > range.endColumn) {
-        return false;
-      }
-      return true;
-    }
-    static strictContainsPosition(range, position) {
-      if (position.lineNumber < range.startLineNumber || position.lineNumber > range.endLineNumber) {
-        return false;
-      }
-      if (position.lineNumber === range.startLineNumber && position.column <= range.startColumn) {
-        return false;
-      }
-      if (position.lineNumber === range.endLineNumber && position.column >= range.endColumn) {
+      if (position.lineNumber === range2.endLineNumber && position.column > range2.endColumn) {
         return false;
       }
       return true;
     }
-    containsRange(range) {
-      return Range.containsRange(this, range);
-    }
-    static containsRange(range, otherRange) {
-      if (otherRange.startLineNumber < range.startLineNumber || otherRange.endLineNumber < range.startLineNumber) {
+    static strictContainsPosition(range2, position) {
+      if (position.lineNumber < range2.startLineNumber || position.lineNumber > range2.endLineNumber) {
         return false;
       }
-      if (otherRange.startLineNumber > range.endLineNumber || otherRange.endLineNumber > range.endLineNumber) {
+      if (position.lineNumber === range2.startLineNumber && position.column <= range2.startColumn) {
         return false;
       }
-      if (otherRange.startLineNumber === range.startLineNumber && otherRange.startColumn < range.startColumn) {
-        return false;
-      }
-      if (otherRange.endLineNumber === range.endLineNumber && otherRange.endColumn > range.endColumn) {
+      if (position.lineNumber === range2.endLineNumber && position.column >= range2.endColumn) {
         return false;
       }
       return true;
     }
-    strictContainsRange(range) {
-      return Range.strictContainsRange(this, range);
+    containsRange(range2) {
+      return Range.containsRange(this, range2);
     }
-    static strictContainsRange(range, otherRange) {
-      if (otherRange.startLineNumber < range.startLineNumber || otherRange.endLineNumber < range.startLineNumber) {
+    static containsRange(range2, otherRange) {
+      if (otherRange.startLineNumber < range2.startLineNumber || otherRange.endLineNumber < range2.startLineNumber) {
         return false;
       }
-      if (otherRange.startLineNumber > range.endLineNumber || otherRange.endLineNumber > range.endLineNumber) {
+      if (otherRange.startLineNumber > range2.endLineNumber || otherRange.endLineNumber > range2.endLineNumber) {
         return false;
       }
-      if (otherRange.startLineNumber === range.startLineNumber && otherRange.startColumn <= range.startColumn) {
+      if (otherRange.startLineNumber === range2.startLineNumber && otherRange.startColumn < range2.startColumn) {
         return false;
       }
-      if (otherRange.endLineNumber === range.endLineNumber && otherRange.endColumn >= range.endColumn) {
+      if (otherRange.endLineNumber === range2.endLineNumber && otherRange.endColumn > range2.endColumn) {
         return false;
       }
       return true;
     }
-    plusRange(range) {
-      return Range.plusRange(this, range);
+    strictContainsRange(range2) {
+      return Range.strictContainsRange(this, range2);
+    }
+    static strictContainsRange(range2, otherRange) {
+      if (otherRange.startLineNumber < range2.startLineNumber || otherRange.endLineNumber < range2.startLineNumber) {
+        return false;
+      }
+      if (otherRange.startLineNumber > range2.endLineNumber || otherRange.endLineNumber > range2.endLineNumber) {
+        return false;
+      }
+      if (otherRange.startLineNumber === range2.startLineNumber && otherRange.startColumn <= range2.startColumn) {
+        return false;
+      }
+      if (otherRange.endLineNumber === range2.endLineNumber && otherRange.endColumn >= range2.endColumn) {
+        return false;
+      }
+      return true;
+    }
+    plusRange(range2) {
+      return Range.plusRange(this, range2);
     }
     static plusRange(a, b) {
       let startLineNumber;
@@ -3943,8 +4764,8 @@
       }
       return new Range(startLineNumber, startColumn, endLineNumber, endColumn);
     }
-    intersectRanges(range) {
-      return Range.intersectRanges(this, range);
+    intersectRanges(range2) {
+      return Range.intersectRanges(this, range2);
     }
     static intersectRanges(a, b) {
       let resultStartLineNumber = a.startLineNumber;
@@ -3984,14 +4805,14 @@
     getEndPosition() {
       return Range.getEndPosition(this);
     }
-    static getEndPosition(range) {
-      return new Position(range.endLineNumber, range.endColumn);
+    static getEndPosition(range2) {
+      return new Position(range2.endLineNumber, range2.endColumn);
     }
     getStartPosition() {
       return Range.getStartPosition(this);
     }
-    static getStartPosition(range) {
-      return new Position(range.startLineNumber, range.startColumn);
+    static getStartPosition(range2) {
+      return new Position(range2.startLineNumber, range2.startColumn);
     }
     toString() {
       return "[" + this.startLineNumber + "," + this.startColumn + " -> " + this.endLineNumber + "," + this.endColumn + "]";
@@ -4005,17 +4826,17 @@
     collapseToStart() {
       return Range.collapseToStart(this);
     }
-    static collapseToStart(range) {
-      return new Range(range.startLineNumber, range.startColumn, range.startLineNumber, range.startColumn);
+    static collapseToStart(range2) {
+      return new Range(range2.startLineNumber, range2.startColumn, range2.startLineNumber, range2.startColumn);
     }
     static fromPositions(start, end = start) {
       return new Range(start.lineNumber, start.column, end.lineNumber, end.column);
     }
-    static lift(range) {
-      if (!range) {
+    static lift(range2) {
+      if (!range2) {
         return null;
       }
-      return new Range(range.startLineNumber, range.startColumn, range.endLineNumber, range.endColumn);
+      return new Range(range2.startLineNumber, range2.startColumn, range2.endLineNumber, range2.endColumn);
     }
     static isIRange(obj) {
       return obj && typeof obj.startLineNumber === "number" && typeof obj.startColumn === "number" && typeof obj.endLineNumber === "number" && typeof obj.endColumn === "number";
@@ -4075,8 +4896,8 @@
       }
       return a.endLineNumber - b.endLineNumber;
     }
-    static spansMultipleLines(range) {
-      return range.endLineNumber > range.startLineNumber;
+    static spansMultipleLines(range2) {
+      return range2.endLineNumber > range2.startLineNumber;
     }
   };
 
@@ -4453,6 +5274,247 @@
     };
   }
 
+  // ../../node_modules/monaco-editor/esm/vs/base/common/arrays.js
+  function tail(array, n = 0) {
+    return array[array.length - (1 + n)];
+  }
+  function tail2(arr) {
+    if (arr.length === 0) {
+      throw new Error("Invalid tail call");
+    }
+    return [arr.slice(0, arr.length - 1), arr[arr.length - 1]];
+  }
+  function equals(one, other, itemEquals = (a, b) => a === b) {
+    if (one === other) {
+      return true;
+    }
+    if (!one || !other) {
+      return false;
+    }
+    if (one.length !== other.length) {
+      return false;
+    }
+    for (let i = 0, len = one.length; i < len; i++) {
+      if (!itemEquals(one[i], other[i])) {
+        return false;
+      }
+    }
+    return true;
+  }
+  function binarySearch(array, key, comparator) {
+    let low = 0, high = array.length - 1;
+    while (low <= high) {
+      const mid = (low + high) / 2 | 0;
+      const comp = comparator(array[mid], key);
+      if (comp < 0) {
+        low = mid + 1;
+      } else if (comp > 0) {
+        high = mid - 1;
+      } else {
+        return mid;
+      }
+    }
+    return -(low + 1);
+  }
+  function findFirstInSorted(array, p) {
+    let low = 0, high = array.length;
+    if (high === 0) {
+      return 0;
+    }
+    while (low < high) {
+      const mid = Math.floor((low + high) / 2);
+      if (p(array[mid])) {
+        high = mid;
+      } else {
+        low = mid + 1;
+      }
+    }
+    return low;
+  }
+  function quickSelect(nth, data, compare2) {
+    nth = nth | 0;
+    if (nth >= data.length) {
+      throw new TypeError("invalid index");
+    }
+    let pivotValue = data[Math.floor(data.length * Math.random())];
+    let lower = [];
+    let higher = [];
+    let pivots = [];
+    for (let value of data) {
+      const val = compare2(value, pivotValue);
+      if (val < 0) {
+        lower.push(value);
+      } else if (val > 0) {
+        higher.push(value);
+      } else {
+        pivots.push(value);
+      }
+    }
+    if (nth < lower.length) {
+      return quickSelect(nth, lower, compare2);
+    } else if (nth < lower.length + pivots.length) {
+      return pivots[0];
+    } else {
+      return quickSelect(nth - (lower.length + pivots.length), higher, compare2);
+    }
+  }
+  function groupBy(data, compare2) {
+    const result = [];
+    let currentGroup = void 0;
+    for (const element of data.slice(0).sort(compare2)) {
+      if (!currentGroup || compare2(currentGroup[0], element) !== 0) {
+        currentGroup = [element];
+        result.push(currentGroup);
+      } else {
+        currentGroup.push(element);
+      }
+    }
+    return result;
+  }
+  function coalesce(array) {
+    return array.filter((e) => !!e);
+  }
+  function isFalsyOrEmpty(obj) {
+    return !Array.isArray(obj) || obj.length === 0;
+  }
+  function isNonEmptyArray(obj) {
+    return Array.isArray(obj) && obj.length > 0;
+  }
+  function distinct(array, keyFn = (value) => value) {
+    const seen = /* @__PURE__ */ new Set();
+    return array.filter((element) => {
+      const key = keyFn(element);
+      if (seen.has(key)) {
+        return false;
+      }
+      seen.add(key);
+      return true;
+    });
+  }
+  function findLast(arr, predicate) {
+    const idx = lastIndex(arr, predicate);
+    if (idx === -1) {
+      return void 0;
+    }
+    return arr[idx];
+  }
+  function lastIndex(array, fn) {
+    for (let i = array.length - 1; i >= 0; i--) {
+      const element = array[i];
+      if (fn(element)) {
+        return i;
+      }
+    }
+    return -1;
+  }
+  function firstOrDefault(array, notFoundValue) {
+    return array.length > 0 ? array[0] : notFoundValue;
+  }
+  function flatten(arr) {
+    return [].concat(...arr);
+  }
+  function range(arg, to) {
+    let from = typeof to === "number" ? arg : 0;
+    if (typeof to === "number") {
+      from = arg;
+    } else {
+      from = 0;
+      to = arg;
+    }
+    const result = [];
+    if (from <= to) {
+      for (let i = from; i < to; i++) {
+        result.push(i);
+      }
+    } else {
+      for (let i = from; i > to; i--) {
+        result.push(i);
+      }
+    }
+    return result;
+  }
+  function arrayInsert(target, insertIndex, insertArr) {
+    const before = target.slice(0, insertIndex);
+    const after = target.slice(insertIndex);
+    return before.concat(insertArr, after);
+  }
+  function pushToStart(arr, value) {
+    const index = arr.indexOf(value);
+    if (index > -1) {
+      arr.splice(index, 1);
+      arr.unshift(value);
+    }
+  }
+  function pushToEnd(arr, value) {
+    const index = arr.indexOf(value);
+    if (index > -1) {
+      arr.splice(index, 1);
+      arr.push(value);
+    }
+  }
+  function asArray(x) {
+    return Array.isArray(x) ? x : [x];
+  }
+  function insertInto(array, start, newItems) {
+    const startIdx = getActualStartIndex(array, start);
+    const originalLength = array.length;
+    const newItemsLength = newItems.length;
+    array.length = originalLength + newItemsLength;
+    for (let i = originalLength - 1; i >= startIdx; i--) {
+      array[i + newItemsLength] = array[i];
+    }
+    for (let i = 0; i < newItemsLength; i++) {
+      array[i + startIdx] = newItems[i];
+    }
+  }
+  function splice(array, start, deleteCount, newItems) {
+    const index = getActualStartIndex(array, start);
+    const result = array.splice(index, deleteCount);
+    insertInto(array, index, newItems);
+    return result;
+  }
+  function getActualStartIndex(array, start) {
+    return start < 0 ? Math.max(start + array.length, 0) : Math.min(start, array.length);
+  }
+  var ArrayQueue = class {
+    constructor(items) {
+      this.items = items;
+      this.firstIdx = 0;
+      this.lastIdx = this.items.length - 1;
+    }
+    takeWhile(predicate) {
+      let startIdx = this.firstIdx;
+      while (startIdx < this.items.length && predicate(this.items[startIdx])) {
+        startIdx++;
+      }
+      const result = startIdx === this.firstIdx ? null : this.items.slice(this.firstIdx, startIdx);
+      this.firstIdx = startIdx;
+      return result;
+    }
+    takeFromEndWhile(predicate) {
+      let endIdx = this.lastIdx;
+      while (endIdx >= 0 && predicate(this.items[endIdx])) {
+        endIdx--;
+      }
+      const result = endIdx === this.lastIdx ? null : this.items.slice(endIdx + 1, this.lastIdx + 1);
+      this.lastIdx = endIdx;
+      return result;
+    }
+    peek() {
+      return this.items[this.firstIdx];
+    }
+    dequeue() {
+      const result = this.items[this.firstIdx];
+      this.firstIdx++;
+      return result;
+    }
+    takeCount(count) {
+      const result = this.items.slice(this.firstIdx, this.firstIdx + count);
+      this.firstIdx += count;
+      return result;
+    }
+  };
+
   // ../../node_modules/monaco-editor/esm/vs/base/common/uint.js
   function toUint8(v) {
     if (v < 0) {
@@ -4595,6 +5657,68 @@
       return new PrefixSumIndexOfResult(mid, sum - midStart);
     }
   };
+  var ConstantTimePrefixSumComputer = class {
+    constructor(values) {
+      this._values = values;
+      this._isValid = false;
+      this._validEndIndex = -1;
+      this._prefixSum = [];
+      this._indexBySum = [];
+    }
+    getTotalSum() {
+      this._ensureValid();
+      return this._indexBySum.length;
+    }
+    getPrefixSum(count) {
+      this._ensureValid();
+      if (count === 0) {
+        return 0;
+      }
+      return this._prefixSum[count - 1];
+    }
+    getIndexOf(sum) {
+      this._ensureValid();
+      const idx = this._indexBySum[sum];
+      const viewLinesAbove = idx > 0 ? this._prefixSum[idx - 1] : 0;
+      return new PrefixSumIndexOfResult(idx, sum - viewLinesAbove);
+    }
+    removeValues(start, deleteCount) {
+      this._values.splice(start, deleteCount);
+      this._invalidate(start);
+    }
+    insertValues(insertIndex, insertArr) {
+      this._values = arrayInsert(this._values, insertIndex, insertArr);
+      this._invalidate(insertIndex);
+    }
+    _invalidate(index) {
+      this._isValid = false;
+      this._validEndIndex = Math.min(this._validEndIndex, index - 1);
+    }
+    _ensureValid() {
+      if (this._isValid) {
+        return;
+      }
+      for (let i = this._validEndIndex + 1, len = this._values.length; i < len; i++) {
+        const value = this._values[i];
+        const sumAbove = i > 0 ? this._prefixSum[i - 1] : 0;
+        this._prefixSum[i] = sumAbove + value;
+        for (let j = 0; j < value; j++) {
+          this._indexBySum[sumAbove + j] = i;
+        }
+      }
+      this._prefixSum.length = this._values.length;
+      this._indexBySum.length = this._prefixSum[this._prefixSum.length - 1];
+      this._isValid = true;
+      this._validEndIndex = this._values.length - 1;
+    }
+    setValue(index, value) {
+      if (this._values[index] === value) {
+        return;
+      }
+      this._values[index] = value;
+      this._invalidate(index);
+    }
+  };
   var PrefixSumIndexOfResult = class {
     constructor(index, remainder) {
       this.index = index;
@@ -4657,18 +5781,18 @@
         this._lineStarts.setValue(lineIndex, this._lines[lineIndex].length + this._eol.length);
       }
     }
-    _acceptDeleteRange(range) {
-      if (range.startLineNumber === range.endLineNumber) {
-        if (range.startColumn === range.endColumn) {
+    _acceptDeleteRange(range2) {
+      if (range2.startLineNumber === range2.endLineNumber) {
+        if (range2.startColumn === range2.endColumn) {
           return;
         }
-        this._setLineText(range.startLineNumber - 1, this._lines[range.startLineNumber - 1].substring(0, range.startColumn - 1) + this._lines[range.startLineNumber - 1].substring(range.endColumn - 1));
+        this._setLineText(range2.startLineNumber - 1, this._lines[range2.startLineNumber - 1].substring(0, range2.startColumn - 1) + this._lines[range2.startLineNumber - 1].substring(range2.endColumn - 1));
         return;
       }
-      this._setLineText(range.startLineNumber - 1, this._lines[range.startLineNumber - 1].substring(0, range.startColumn - 1) + this._lines[range.endLineNumber - 1].substring(range.endColumn - 1));
-      this._lines.splice(range.startLineNumber, range.endLineNumber - range.startLineNumber);
+      this._setLineText(range2.startLineNumber - 1, this._lines[range2.startLineNumber - 1].substring(0, range2.startColumn - 1) + this._lines[range2.endLineNumber - 1].substring(range2.endColumn - 1));
+      this._lines.splice(range2.startLineNumber, range2.endLineNumber - range2.startLineNumber);
       if (this._lineStarts) {
-        this._lineStarts.removeValues(range.startLineNumber, range.endLineNumber - range.startLineNumber);
+        this._lineStarts.removeValues(range2.startLineNumber, range2.endLineNumber - range2.startLineNumber);
       }
     }
     _acceptInsertText(position, insertText) {
@@ -4818,6 +5942,17 @@
       } else {
         return this._map.get(charCode) || this._defaultValue;
       }
+    }
+  };
+  var CharacterSet = class {
+    constructor() {
+      this._actual = new CharacterClassifier(0);
+    }
+    add(charCode) {
+      this._actual.set(charCode, 1);
+    }
+    has(charCode) {
+      return this._actual.get(charCode) === 1;
     }
   };
 
@@ -5624,11 +6759,11 @@
     static fromPositions(start, end = start) {
       return new Selection(start.lineNumber, start.column, end.lineNumber, end.column);
     }
-    static fromRange(range, direction) {
+    static fromRange(range2, direction) {
       if (direction === 0) {
-        return new Selection(range.startLineNumber, range.startColumn, range.endLineNumber, range.endColumn);
+        return new Selection(range2.startLineNumber, range2.startColumn, range2.endLineNumber, range2.endColumn);
       } else {
-        return new Selection(range.endLineNumber, range.endColumn, range.startLineNumber, range.startColumn);
+        return new Selection(range2.endLineNumber, range2.endColumn, range2.startLineNumber, range2.startColumn);
       }
     }
     static liftSelection(sel) {
@@ -5672,6 +6807,20 @@
     }
     toString() {
       return "(" + this.offset + ", " + this.type + ")";
+    }
+  };
+  var TokenizationResult = class {
+    constructor(tokens, endState) {
+      this._tokenizationResultBrand = void 0;
+      this.tokens = tokens;
+      this.endState = endState;
+    }
+  };
+  var TokenizationResult2 = class {
+    constructor(tokens, endState) {
+      this._tokenizationResult2Brand = void 0;
+      this.tokens = tokens;
+      this.endState = endState;
     }
   };
 
@@ -6258,6 +7407,153 @@
   }
   var getMapForWordSeparators = once2((input) => new WordCharacterClassifier(input));
 
+  // ../../node_modules/monaco-editor/esm/vs/base/common/objects.js
+  function deepClone(obj) {
+    if (!obj || typeof obj !== "object") {
+      return obj;
+    }
+    if (obj instanceof RegExp) {
+      return obj;
+    }
+    const result = Array.isArray(obj) ? [] : {};
+    Object.keys(obj).forEach((key) => {
+      if (obj[key] && typeof obj[key] === "object") {
+        result[key] = deepClone(obj[key]);
+      } else {
+        result[key] = obj[key];
+      }
+    });
+    return result;
+  }
+  function deepFreeze(obj) {
+    if (!obj || typeof obj !== "object") {
+      return obj;
+    }
+    const stack = [obj];
+    while (stack.length > 0) {
+      const obj2 = stack.shift();
+      Object.freeze(obj2);
+      for (const key in obj2) {
+        if (_hasOwnProperty.call(obj2, key)) {
+          const prop = obj2[key];
+          if (typeof prop === "object" && !Object.isFrozen(prop)) {
+            stack.push(prop);
+          }
+        }
+      }
+    }
+    return obj;
+  }
+  var _hasOwnProperty = Object.prototype.hasOwnProperty;
+  function cloneAndChange(obj, changer) {
+    return _cloneAndChange(obj, changer, /* @__PURE__ */ new Set());
+  }
+  function _cloneAndChange(obj, changer, seen) {
+    if (isUndefinedOrNull(obj)) {
+      return obj;
+    }
+    const changed = changer(obj);
+    if (typeof changed !== "undefined") {
+      return changed;
+    }
+    if (isArray(obj)) {
+      const r1 = [];
+      for (const e of obj) {
+        r1.push(_cloneAndChange(e, changer, seen));
+      }
+      return r1;
+    }
+    if (isObject(obj)) {
+      if (seen.has(obj)) {
+        throw new Error("Cannot clone recursive data-structure");
+      }
+      seen.add(obj);
+      const r2 = {};
+      for (let i2 in obj) {
+        if (_hasOwnProperty.call(obj, i2)) {
+          r2[i2] = _cloneAndChange(obj[i2], changer, seen);
+        }
+      }
+      seen.delete(obj);
+      return r2;
+    }
+    return obj;
+  }
+  function mixin(destination, source, overwrite = true) {
+    if (!isObject(destination)) {
+      return source;
+    }
+    if (isObject(source)) {
+      Object.keys(source).forEach((key) => {
+        if (key in destination) {
+          if (overwrite) {
+            if (isObject(destination[key]) && isObject(source[key])) {
+              mixin(destination[key], source[key], overwrite);
+            } else {
+              destination[key] = source[key];
+            }
+          }
+        } else {
+          destination[key] = source[key];
+        }
+      });
+    }
+    return destination;
+  }
+  function equals2(one, other) {
+    if (one === other) {
+      return true;
+    }
+    if (one === null || one === void 0 || other === null || other === void 0) {
+      return false;
+    }
+    if (typeof one !== typeof other) {
+      return false;
+    }
+    if (typeof one !== "object") {
+      return false;
+    }
+    if (Array.isArray(one) !== Array.isArray(other)) {
+      return false;
+    }
+    let i;
+    let key;
+    if (Array.isArray(one)) {
+      if (one.length !== other.length) {
+        return false;
+      }
+      for (i = 0; i < one.length; i++) {
+        if (!equals2(one[i], other[i])) {
+          return false;
+        }
+      }
+    } else {
+      const oneKeys = [];
+      for (key in one) {
+        oneKeys.push(key);
+      }
+      oneKeys.sort();
+      const otherKeys = [];
+      for (key in other) {
+        otherKeys.push(key);
+      }
+      otherKeys.sort();
+      if (!equals2(oneKeys, otherKeys)) {
+        return false;
+      }
+      for (i = 0; i < oneKeys.length; i++) {
+        if (!equals2(one[oneKeys[i]], other[oneKeys[i]])) {
+          return false;
+        }
+      }
+    }
+    return true;
+  }
+  function getOrDefault(obj, fn, defaultValue) {
+    const result = fn(obj);
+    return typeof result === "undefined" ? defaultValue : result;
+  }
+
   // ../../node_modules/monaco-editor/esm/vs/editor/common/model.js
   var OverviewRulerLane2;
   (function(OverviewRulerLane3) {
@@ -6271,14 +7567,387 @@
     MinimapPosition3[MinimapPosition3["Inline"] = 1] = "Inline";
     MinimapPosition3[MinimapPosition3["Gutter"] = 2] = "Gutter";
   })(MinimapPosition2 || (MinimapPosition2 = {}));
+  var TextModelResolvedOptions = class {
+    constructor(src) {
+      this._textModelResolvedOptionsBrand = void 0;
+      this.tabSize = Math.max(1, src.tabSize | 0);
+      this.indentSize = src.tabSize | 0;
+      this.insertSpaces = Boolean(src.insertSpaces);
+      this.defaultEOL = src.defaultEOL | 0;
+      this.trimAutoWhitespace = Boolean(src.trimAutoWhitespace);
+      this.bracketPairColorizationOptions = src.bracketPairColorizationOptions;
+    }
+    equals(other) {
+      return this.tabSize === other.tabSize && this.indentSize === other.indentSize && this.insertSpaces === other.insertSpaces && this.defaultEOL === other.defaultEOL && this.trimAutoWhitespace === other.trimAutoWhitespace && equals2(this.bracketPairColorizationOptions, other.bracketPairColorizationOptions);
+    }
+    createChangeEvent(newOpts) {
+      return {
+        tabSize: this.tabSize !== newOpts.tabSize,
+        indentSize: this.indentSize !== newOpts.indentSize,
+        insertSpaces: this.insertSpaces !== newOpts.insertSpaces,
+        trimAutoWhitespace: this.trimAutoWhitespace !== newOpts.trimAutoWhitespace
+      };
+    }
+  };
+  var FindMatch = class {
+    constructor(range2, matches) {
+      this._findMatchBrand = void 0;
+      this.range = range2;
+      this.matches = matches;
+    }
+  };
   var HorizontalGuidesState;
   (function(HorizontalGuidesState2) {
     HorizontalGuidesState2[HorizontalGuidesState2["Disabled"] = 0] = "Disabled";
     HorizontalGuidesState2[HorizontalGuidesState2["EnabledForActive"] = 1] = "EnabledForActive";
     HorizontalGuidesState2[HorizontalGuidesState2["Enabled"] = 2] = "Enabled";
   })(HorizontalGuidesState || (HorizontalGuidesState = {}));
+  var IndentGuide = class {
+    constructor(visibleColumn, className, horizontalLine) {
+      this.visibleColumn = visibleColumn;
+      this.className = className;
+      this.horizontalLine = horizontalLine;
+    }
+  };
+  var IndentGuideHorizontalLine = class {
+    constructor(top, endColumn) {
+      this.top = top;
+      this.endColumn = endColumn;
+    }
+  };
+  var ValidAnnotatedEditOperation = class {
+    constructor(identifier, range2, text, forceMoveMarkers, isAutoWhitespaceEdit, _isTracked) {
+      this.identifier = identifier;
+      this.range = range2;
+      this.text = text;
+      this.forceMoveMarkers = forceMoveMarkers;
+      this.isAutoWhitespaceEdit = isAutoWhitespaceEdit;
+      this._isTracked = _isTracked;
+    }
+  };
+  var ApplyEditsResult = class {
+    constructor(reverseEdits, changes, trimAutoWhitespaceLineNumbers) {
+      this.reverseEdits = reverseEdits;
+      this.changes = changes;
+      this.trimAutoWhitespaceLineNumbers = trimAutoWhitespaceLineNumbers;
+    }
+  };
 
   // ../../node_modules/monaco-editor/esm/vs/editor/common/model/textModelSearch.js
+  var LIMIT_FIND_COUNT = 999;
+  var SearchParams = class {
+    constructor(searchString, isRegex, matchCase, wordSeparators) {
+      this.searchString = searchString;
+      this.isRegex = isRegex;
+      this.matchCase = matchCase;
+      this.wordSeparators = wordSeparators;
+    }
+    parseSearchRequest() {
+      if (this.searchString === "") {
+        return null;
+      }
+      let multiline;
+      if (this.isRegex) {
+        multiline = isMultilineRegexSource(this.searchString);
+      } else {
+        multiline = this.searchString.indexOf("\n") >= 0;
+      }
+      let regex = null;
+      try {
+        regex = createRegExp(this.searchString, this.isRegex, {
+          matchCase: this.matchCase,
+          wholeWord: false,
+          multiline,
+          global: true,
+          unicode: true
+        });
+      } catch (err) {
+        return null;
+      }
+      if (!regex) {
+        return null;
+      }
+      let canUseSimpleSearch = !this.isRegex && !multiline;
+      if (canUseSimpleSearch && this.searchString.toLowerCase() !== this.searchString.toUpperCase()) {
+        canUseSimpleSearch = this.matchCase;
+      }
+      return new SearchData(regex, this.wordSeparators ? getMapForWordSeparators(this.wordSeparators) : null, canUseSimpleSearch ? this.searchString : null);
+    }
+  };
+  function isMultilineRegexSource(searchString) {
+    if (!searchString || searchString.length === 0) {
+      return false;
+    }
+    for (let i = 0, len = searchString.length; i < len; i++) {
+      const chCode = searchString.charCodeAt(i);
+      if (chCode === 92) {
+        i++;
+        if (i >= len) {
+          break;
+        }
+        const nextChCode = searchString.charCodeAt(i);
+        if (nextChCode === 110 || nextChCode === 114 || nextChCode === 87) {
+          return true;
+        }
+      }
+    }
+    return false;
+  }
+  var SearchData = class {
+    constructor(regex, wordSeparators, simpleSearch) {
+      this.regex = regex;
+      this.wordSeparators = wordSeparators;
+      this.simpleSearch = simpleSearch;
+    }
+  };
+  function createFindMatch(range2, rawMatches, captureMatches) {
+    if (!captureMatches) {
+      return new FindMatch(range2, null);
+    }
+    let matches = [];
+    for (let i = 0, len = rawMatches.length; i < len; i++) {
+      matches[i] = rawMatches[i];
+    }
+    return new FindMatch(range2, matches);
+  }
+  var LineFeedCounter = class {
+    constructor(text) {
+      let lineFeedsOffsets = [];
+      let lineFeedsOffsetsLen = 0;
+      for (let i = 0, textLen = text.length; i < textLen; i++) {
+        if (text.charCodeAt(i) === 10) {
+          lineFeedsOffsets[lineFeedsOffsetsLen++] = i;
+        }
+      }
+      this._lineFeedsOffsets = lineFeedsOffsets;
+    }
+    findLineFeedCountBeforeOffset(offset) {
+      const lineFeedsOffsets = this._lineFeedsOffsets;
+      let min = 0;
+      let max = lineFeedsOffsets.length - 1;
+      if (max === -1) {
+        return 0;
+      }
+      if (offset <= lineFeedsOffsets[0]) {
+        return 0;
+      }
+      while (min < max) {
+        const mid = min + ((max - min) / 2 >> 0);
+        if (lineFeedsOffsets[mid] >= offset) {
+          max = mid - 1;
+        } else {
+          if (lineFeedsOffsets[mid + 1] >= offset) {
+            min = mid;
+            max = mid;
+          } else {
+            min = mid + 1;
+          }
+        }
+      }
+      return min + 1;
+    }
+  };
+  var TextModelSearch = class {
+    static findMatches(model, searchParams, searchRange, captureMatches, limitResultCount) {
+      const searchData = searchParams.parseSearchRequest();
+      if (!searchData) {
+        return [];
+      }
+      if (searchData.regex.multiline) {
+        return this._doFindMatchesMultiline(model, searchRange, new Searcher(searchData.wordSeparators, searchData.regex), captureMatches, limitResultCount);
+      }
+      return this._doFindMatchesLineByLine(model, searchRange, searchData, captureMatches, limitResultCount);
+    }
+    static _getMultilineMatchRange(model, deltaOffset, text, lfCounter, matchIndex, match0) {
+      let startOffset;
+      let lineFeedCountBeforeMatch = 0;
+      if (lfCounter) {
+        lineFeedCountBeforeMatch = lfCounter.findLineFeedCountBeforeOffset(matchIndex);
+        startOffset = deltaOffset + matchIndex + lineFeedCountBeforeMatch;
+      } else {
+        startOffset = deltaOffset + matchIndex;
+      }
+      let endOffset;
+      if (lfCounter) {
+        let lineFeedCountBeforeEndOfMatch = lfCounter.findLineFeedCountBeforeOffset(matchIndex + match0.length);
+        let lineFeedCountInMatch = lineFeedCountBeforeEndOfMatch - lineFeedCountBeforeMatch;
+        endOffset = startOffset + match0.length + lineFeedCountInMatch;
+      } else {
+        endOffset = startOffset + match0.length;
+      }
+      const startPosition = model.getPositionAt(startOffset);
+      const endPosition = model.getPositionAt(endOffset);
+      return new Range(startPosition.lineNumber, startPosition.column, endPosition.lineNumber, endPosition.column);
+    }
+    static _doFindMatchesMultiline(model, searchRange, searcher, captureMatches, limitResultCount) {
+      const deltaOffset = model.getOffsetAt(searchRange.getStartPosition());
+      const text = model.getValueInRange(searchRange, 1);
+      const lfCounter = model.getEOL() === "\r\n" ? new LineFeedCounter(text) : null;
+      const result = [];
+      let counter = 0;
+      let m;
+      searcher.reset(0);
+      while (m = searcher.next(text)) {
+        result[counter++] = createFindMatch(this._getMultilineMatchRange(model, deltaOffset, text, lfCounter, m.index, m[0]), m, captureMatches);
+        if (counter >= limitResultCount) {
+          return result;
+        }
+      }
+      return result;
+    }
+    static _doFindMatchesLineByLine(model, searchRange, searchData, captureMatches, limitResultCount) {
+      const result = [];
+      let resultLen = 0;
+      if (searchRange.startLineNumber === searchRange.endLineNumber) {
+        const text2 = model.getLineContent(searchRange.startLineNumber).substring(searchRange.startColumn - 1, searchRange.endColumn - 1);
+        resultLen = this._findMatchesInLine(searchData, text2, searchRange.startLineNumber, searchRange.startColumn - 1, resultLen, result, captureMatches, limitResultCount);
+        return result;
+      }
+      const text = model.getLineContent(searchRange.startLineNumber).substring(searchRange.startColumn - 1);
+      resultLen = this._findMatchesInLine(searchData, text, searchRange.startLineNumber, searchRange.startColumn - 1, resultLen, result, captureMatches, limitResultCount);
+      for (let lineNumber = searchRange.startLineNumber + 1; lineNumber < searchRange.endLineNumber && resultLen < limitResultCount; lineNumber++) {
+        resultLen = this._findMatchesInLine(searchData, model.getLineContent(lineNumber), lineNumber, 0, resultLen, result, captureMatches, limitResultCount);
+      }
+      if (resultLen < limitResultCount) {
+        const text2 = model.getLineContent(searchRange.endLineNumber).substring(0, searchRange.endColumn - 1);
+        resultLen = this._findMatchesInLine(searchData, text2, searchRange.endLineNumber, 0, resultLen, result, captureMatches, limitResultCount);
+      }
+      return result;
+    }
+    static _findMatchesInLine(searchData, text, lineNumber, deltaOffset, resultLen, result, captureMatches, limitResultCount) {
+      const wordSeparators = searchData.wordSeparators;
+      if (!captureMatches && searchData.simpleSearch) {
+        const searchString = searchData.simpleSearch;
+        const searchStringLen = searchString.length;
+        const textLength = text.length;
+        let lastMatchIndex = -searchStringLen;
+        while ((lastMatchIndex = text.indexOf(searchString, lastMatchIndex + searchStringLen)) !== -1) {
+          if (!wordSeparators || isValidMatch(wordSeparators, text, textLength, lastMatchIndex, searchStringLen)) {
+            result[resultLen++] = new FindMatch(new Range(lineNumber, lastMatchIndex + 1 + deltaOffset, lineNumber, lastMatchIndex + 1 + searchStringLen + deltaOffset), null);
+            if (resultLen >= limitResultCount) {
+              return resultLen;
+            }
+          }
+        }
+        return resultLen;
+      }
+      const searcher = new Searcher(searchData.wordSeparators, searchData.regex);
+      let m;
+      searcher.reset(0);
+      do {
+        m = searcher.next(text);
+        if (m) {
+          result[resultLen++] = createFindMatch(new Range(lineNumber, m.index + 1 + deltaOffset, lineNumber, m.index + 1 + m[0].length + deltaOffset), m, captureMatches);
+          if (resultLen >= limitResultCount) {
+            return resultLen;
+          }
+        }
+      } while (m);
+      return resultLen;
+    }
+    static findNextMatch(model, searchParams, searchStart, captureMatches) {
+      const searchData = searchParams.parseSearchRequest();
+      if (!searchData) {
+        return null;
+      }
+      const searcher = new Searcher(searchData.wordSeparators, searchData.regex);
+      if (searchData.regex.multiline) {
+        return this._doFindNextMatchMultiline(model, searchStart, searcher, captureMatches);
+      }
+      return this._doFindNextMatchLineByLine(model, searchStart, searcher, captureMatches);
+    }
+    static _doFindNextMatchMultiline(model, searchStart, searcher, captureMatches) {
+      const searchTextStart = new Position(searchStart.lineNumber, 1);
+      const deltaOffset = model.getOffsetAt(searchTextStart);
+      const lineCount = model.getLineCount();
+      const text = model.getValueInRange(new Range(searchTextStart.lineNumber, searchTextStart.column, lineCount, model.getLineMaxColumn(lineCount)), 1);
+      const lfCounter = model.getEOL() === "\r\n" ? new LineFeedCounter(text) : null;
+      searcher.reset(searchStart.column - 1);
+      let m = searcher.next(text);
+      if (m) {
+        return createFindMatch(this._getMultilineMatchRange(model, deltaOffset, text, lfCounter, m.index, m[0]), m, captureMatches);
+      }
+      if (searchStart.lineNumber !== 1 || searchStart.column !== 1) {
+        return this._doFindNextMatchMultiline(model, new Position(1, 1), searcher, captureMatches);
+      }
+      return null;
+    }
+    static _doFindNextMatchLineByLine(model, searchStart, searcher, captureMatches) {
+      const lineCount = model.getLineCount();
+      const startLineNumber = searchStart.lineNumber;
+      const text = model.getLineContent(startLineNumber);
+      const r = this._findFirstMatchInLine(searcher, text, startLineNumber, searchStart.column, captureMatches);
+      if (r) {
+        return r;
+      }
+      for (let i = 1; i <= lineCount; i++) {
+        const lineIndex = (startLineNumber + i - 1) % lineCount;
+        const text2 = model.getLineContent(lineIndex + 1);
+        const r2 = this._findFirstMatchInLine(searcher, text2, lineIndex + 1, 1, captureMatches);
+        if (r2) {
+          return r2;
+        }
+      }
+      return null;
+    }
+    static _findFirstMatchInLine(searcher, text, lineNumber, fromColumn, captureMatches) {
+      searcher.reset(fromColumn - 1);
+      const m = searcher.next(text);
+      if (m) {
+        return createFindMatch(new Range(lineNumber, m.index + 1, lineNumber, m.index + 1 + m[0].length), m, captureMatches);
+      }
+      return null;
+    }
+    static findPreviousMatch(model, searchParams, searchStart, captureMatches) {
+      const searchData = searchParams.parseSearchRequest();
+      if (!searchData) {
+        return null;
+      }
+      const searcher = new Searcher(searchData.wordSeparators, searchData.regex);
+      if (searchData.regex.multiline) {
+        return this._doFindPreviousMatchMultiline(model, searchStart, searcher, captureMatches);
+      }
+      return this._doFindPreviousMatchLineByLine(model, searchStart, searcher, captureMatches);
+    }
+    static _doFindPreviousMatchMultiline(model, searchStart, searcher, captureMatches) {
+      const matches = this._doFindMatchesMultiline(model, new Range(1, 1, searchStart.lineNumber, searchStart.column), searcher, captureMatches, 10 * LIMIT_FIND_COUNT);
+      if (matches.length > 0) {
+        return matches[matches.length - 1];
+      }
+      const lineCount = model.getLineCount();
+      if (searchStart.lineNumber !== lineCount || searchStart.column !== model.getLineMaxColumn(lineCount)) {
+        return this._doFindPreviousMatchMultiline(model, new Position(lineCount, model.getLineMaxColumn(lineCount)), searcher, captureMatches);
+      }
+      return null;
+    }
+    static _doFindPreviousMatchLineByLine(model, searchStart, searcher, captureMatches) {
+      const lineCount = model.getLineCount();
+      const startLineNumber = searchStart.lineNumber;
+      const text = model.getLineContent(startLineNumber).substring(0, searchStart.column - 1);
+      const r = this._findLastMatchInLine(searcher, text, startLineNumber, captureMatches);
+      if (r) {
+        return r;
+      }
+      for (let i = 1; i <= lineCount; i++) {
+        const lineIndex = (lineCount + startLineNumber - i - 1) % lineCount;
+        const text2 = model.getLineContent(lineIndex + 1);
+        const r2 = this._findLastMatchInLine(searcher, text2, lineIndex + 1, captureMatches);
+        if (r2) {
+          return r2;
+        }
+      }
+      return null;
+    }
+    static _findLastMatchInLine(searcher, text, lineNumber, captureMatches) {
+      let bestResult = null;
+      let m;
+      searcher.reset(0);
+      while (m = searcher.next(text)) {
+        bestResult = createFindMatch(new Range(lineNumber, m.index + 1, lineNumber, m.index + 1 + m[0].length), m, captureMatches);
+      }
+      return bestResult;
+    }
+  };
   function leftIsWordBounday(wordSeparators, text, textLength, matchStartIndex, matchLength) {
     if (matchStartIndex === 0) {
       return true;
@@ -6327,8 +7996,8 @@
       this._prevMatchStartIndex = -1;
       this._prevMatchLength = 0;
     }
-    reset(lastIndex) {
-      this._searchRegex.lastIndex = lastIndex;
+    reset(lastIndex2) {
+      this._searchRegex.lastIndex = lastIndex2;
       this._prevMatchStartIndex = -1;
       this._prevMatchLength = 0;
     }
@@ -6368,9 +8037,9 @@
 
   // ../../node_modules/monaco-editor/esm/vs/editor/common/modes/unicodeTextModelHighlighter.js
   var UnicodeTextModelHighlighter = class {
-    static computeUnicodeHighlights(model, options, range) {
-      const startLine = range ? range.startLineNumber : 1;
-      const endLine = range ? range.endLineNumber : model.getLineCount();
+    static computeUnicodeHighlights(model, options, range2) {
+      const startLine = range2 ? range2.startLineNumber : 1;
+      const endLine = range2 ? range2.endLineNumber : model.getLineCount();
       const codePointHighlighter = new CodePointHighlighter(options);
       const candidates = codePointHighlighter.getCandidateCodePoints();
       let regex;
@@ -6592,11 +8261,11 @@
       let content = this._lines[lineNumber - 1];
       let ranges = this._wordenize(content, wordDefinition);
       let words = [];
-      for (const range of ranges) {
+      for (const range2 of ranges) {
         words.push({
-          word: content.substring(range.start, range.end),
-          startColumn: range.start + 1,
-          endColumn: range.end + 1
+          word: content.substring(range2.start, range2.end),
+          startColumn: range2.start + 1,
+          endColumn: range2.end + 1
         });
       }
       return words;
@@ -6613,20 +8282,20 @@
       }
       return result;
     }
-    getValueInRange(range) {
-      range = this._validateRange(range);
-      if (range.startLineNumber === range.endLineNumber) {
-        return this._lines[range.startLineNumber - 1].substring(range.startColumn - 1, range.endColumn - 1);
+    getValueInRange(range2) {
+      range2 = this._validateRange(range2);
+      if (range2.startLineNumber === range2.endLineNumber) {
+        return this._lines[range2.startLineNumber - 1].substring(range2.startColumn - 1, range2.endColumn - 1);
       }
       let lineEnding = this._eol;
-      let startLineIndex = range.startLineNumber - 1;
-      let endLineIndex = range.endLineNumber - 1;
+      let startLineIndex = range2.startLineNumber - 1;
+      let endLineIndex = range2.endLineNumber - 1;
       let resultLines = [];
-      resultLines.push(this._lines[startLineIndex].substring(range.startColumn - 1));
+      resultLines.push(this._lines[startLineIndex].substring(range2.startColumn - 1));
       for (let i = startLineIndex + 1; i < endLineIndex; i++) {
         resultLines.push(this._lines[i]);
       }
-      resultLines.push(this._lines[endLineIndex].substring(0, range.endColumn - 1));
+      resultLines.push(this._lines[endLineIndex].substring(0, range2.endColumn - 1));
       return resultLines.join(lineEnding);
     }
     offsetAt(position) {
@@ -6645,10 +8314,10 @@
         column: 1 + Math.min(out.remainder, lineLength)
       };
     }
-    _validateRange(range) {
-      const start = this._validatePosition({ lineNumber: range.startLineNumber, column: range.startColumn });
-      const end = this._validatePosition({ lineNumber: range.endLineNumber, column: range.endColumn });
-      if (start.lineNumber !== range.startLineNumber || start.column !== range.startColumn || end.lineNumber !== range.endLineNumber || end.column !== range.endColumn) {
+    _validateRange(range2) {
+      const start = this._validatePosition({ lineNumber: range2.startLineNumber, column: range2.startColumn });
+      const end = this._validatePosition({ lineNumber: range2.endLineNumber, column: range2.endColumn });
+      if (start.lineNumber !== range2.startLineNumber || start.column !== range2.startColumn || end.lineNumber !== range2.endLineNumber || end.column !== range2.endColumn) {
         return {
           startLineNumber: start.lineNumber,
           startColumn: start.column,
@@ -6656,7 +8325,7 @@
           endColumn: end.column
         };
       }
-      return range;
+      return range2;
     }
     _validatePosition(position) {
       if (!Position.isIPosition(position)) {
@@ -6723,13 +8392,13 @@
       }
       delete this._models[strURL];
     }
-    computeUnicodeHighlights(url, options, range) {
+    computeUnicodeHighlights(url, options, range2) {
       return __awaiter(this, void 0, void 0, function* () {
         const model = this._getModel(url);
         if (!model) {
           return { ranges: [], hasMore: false, ambiguousCharacterCount: 0, invisibleCharacterCount: 0, nonBasicAsciiCharacterCount: 0 };
         }
-        return UnicodeTextModelHighlighter.computeUnicodeHighlights(model, options, range);
+        return UnicodeTextModelHighlighter.computeUnicodeHighlights(model, options, range2);
       });
     }
     computeDiff(originalUrl, modifiedUrl, ignoreTrimWhitespace, maxComputationTime) {
@@ -6788,24 +8457,24 @@
           let bRng = b.range ? 0 : 1;
           return aRng - bRng;
         });
-        for (let { range, text, eol } of edits) {
+        for (let { range: range2, text, eol } of edits) {
           if (typeof eol === "number") {
             lastEol = eol;
           }
-          if (Range.isEmpty(range) && !text) {
+          if (Range.isEmpty(range2) && !text) {
             continue;
           }
-          const original = model.getValueInRange(range);
+          const original = model.getValueInRange(range2);
           text = text.replace(/\r\n|\n|\r/g, model.eol);
           if (original === text) {
             continue;
           }
           if (Math.max(text.length, original.length) > EditorSimpleWorker._diffLimit) {
-            result.push({ range, text });
+            result.push({ range: range2, text });
             continue;
           }
           const changes = stringDiff(original, text, false);
-          const editOffset = model.offsetAt(Range.lift(range).getStartPosition());
+          const editOffset = model.offsetAt(Range.lift(range2).getStartPosition());
           for (const change of changes) {
             const start = model.positionAt(editOffset + change.originalStart);
             const end = model.positionAt(editOffset + change.originalStart + change.originalLength);
@@ -6857,7 +8526,7 @@
         return { words: Array.from(seen), duration: sw.elapsed() };
       });
     }
-    computeWordRanges(modelUrl, range, wordDef, wordDefFlags) {
+    computeWordRanges(modelUrl, range2, wordDef, wordDefFlags) {
       return __awaiter(this, void 0, void 0, function* () {
         let model = this._getModel(modelUrl);
         if (!model) {
@@ -6865,7 +8534,7 @@
         }
         const wordDefRegExp = new RegExp(wordDef, wordDefFlags);
         const result = /* @__PURE__ */ Object.create(null);
-        for (let line = range.startLineNumber; line < range.endLineNumber; line++) {
+        for (let line = range2.startLineNumber; line < range2.endLineNumber; line++) {
           let words = model.getLineWords(line, wordDefRegExp);
           for (const word of words) {
             if (!isNaN(Number(word.word))) {
@@ -6887,28 +8556,28 @@
         return result;
       });
     }
-    navigateValueSet(modelUrl, range, up, wordDef, wordDefFlags) {
+    navigateValueSet(modelUrl, range2, up, wordDef, wordDefFlags) {
       return __awaiter(this, void 0, void 0, function* () {
         let model = this._getModel(modelUrl);
         if (!model) {
           return null;
         }
         let wordDefRegExp = new RegExp(wordDef, wordDefFlags);
-        if (range.startColumn === range.endColumn) {
-          range = {
-            startLineNumber: range.startLineNumber,
-            startColumn: range.startColumn,
-            endLineNumber: range.endLineNumber,
-            endColumn: range.endColumn + 1
+        if (range2.startColumn === range2.endColumn) {
+          range2 = {
+            startLineNumber: range2.startLineNumber,
+            startColumn: range2.startColumn,
+            endLineNumber: range2.endLineNumber,
+            endColumn: range2.endColumn + 1
           };
         }
-        let selectionText = model.getValueInRange(range);
-        let wordRange = model.getWordAtPosition({ lineNumber: range.startLineNumber, column: range.startColumn }, wordDefRegExp);
+        let selectionText = model.getValueInRange(range2);
+        let wordRange = model.getWordAtPosition({ lineNumber: range2.startLineNumber, column: range2.startColumn }, wordDefRegExp);
         if (!wordRange) {
           return null;
         }
         let word = model.getValueInRange(wordRange);
-        let result = BasicInplaceReplace.INSTANCE.navigateValueSet(range, selectionText, wordRange, word, up);
+        let result = BasicInplaceReplace.INSTANCE.navigateValueSet(range2, selectionText, wordRange, word, up);
         return result;
       });
     }
@@ -6942,6 +8611,9 @@
   };
   EditorSimpleWorker._diffLimit = 1e5;
   EditorSimpleWorker._suggestionsLimit = 1e4;
+  function create2(host) {
+    return new EditorSimpleWorker(host, null);
+  }
   if (typeof importScripts === "function") {
     globals.monaco = createMonacoBaseAPI();
   }

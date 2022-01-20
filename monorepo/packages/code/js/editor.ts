@@ -3,15 +3,15 @@ import pAll from "p-all";
 
 self.MonacoEnvironment = {
   getWorkerUrl: function (moduleId, label) {
-    if (label === "json") {
-      return "./vendor/language/json/json.worker.js";
-    }
-    if (label === "css" || label === "scss" || label === "less") {
-      return "./vendor/language/css/css.worker.js";
-    }
-    if (label === "html" || label === "handlebars" || label === "razor") {
-      return "./vendor/vendor/language/html/html.worker.js";
-    }
+    // if (label === "json") {
+    //   return "./vendor/language/json/json.worker.js";
+    // }
+    // if (label === "css" || label === "scss" || label === "less") {
+    //   return "./vendor/language/css/css.worker.js";
+    // }
+    // if (label === "html" || label === "handlebars" || label === "razor") {
+    //   return "./vendor/vendor/language/html/html.worker.js";
+    // }
     if (label === "typescript" || label === "javascript") {
       return "./vendor/workers/language/typescript/ts.worker.js";
     }

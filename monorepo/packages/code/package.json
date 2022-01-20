@@ -10,19 +10,14 @@
   "exports": {
     "./package.json": "./package.json",
     "./js/dist/quickStart.mjs": "./js/dist/quickStart.mjs",
-    "./js/dist/quickStart.bundle.mjs": "./js/dist/quickStart.bundle.mjs",
-    "./js/dist/mui.mjs": "./js/dist/mui.mjs",
-    "./js/dist/startMonaco.mjs": "./js/dist/startMonaco.mjs",
-    "./js/dist/session.mjs": "./js/dist/session.mjs",
-    "./js/dist/renderPreviewWindow.mjs": "./js/dist/renderPreviewWindow.mjs",
     "./js/session.tsx": "./js/session.tsx",
     "./js/importmap.json": "./js/importmap.json"
   },
   "scripts": {
-    "clean": "rm -rf .tsBuildInfo js/dist && mkdir js/dist && deno fmt .",
+    "clean": "rm -rf .tsBuildInfo js/vendor js/dist && mkdir js/dist && deno fmt .",
     "xpostinstall": "yarn importmap",
     "build:sw": "yarn esbuild --outfile=./js/sw.js --bundle js/sw.ts && yarn sw",
-    "mui:deno": "deno bundle --import-map ./js/importmap.json ./js/dist/mui.mjs ./js/vendor/mui.mjs",
+    "mui:deno": "deno bundle --import-map ./js/importmap.json --no-check ./js/mui.tsx ./js/vendors/mui.mjs ",
     "quickStart:deno": "deno bundle --import-map ./js/importmap.json ./js/dist/quickStart.mjs ./js/dist/quickStart.bundle.mjs --no-check",
     "renderToString:deno": "deno bundle --import-map ./js/importmap.json ./js/renderToString.tsx ./js/vendor/renderToString.mjs --no-check",
     "start": "cd ../.. && yarn start",

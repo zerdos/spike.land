@@ -10,7 +10,7 @@ let getHtmlAndCss;
 let initSess;
 
 export const initSession = async (room, initData) => {
-  initSess = initSess || (await import("./dist/session.mjs")).default;
+  initSess = initSess || (await import("./session")).default;
 
   return initSess(room, initData);
 };
@@ -117,7 +117,7 @@ async function runner(c, changes = null, session, counter) {
 
       try {
         getHtmlAndCss = getHtmlAndCss ||
-          (await import("./vendor/renderToString.mjs")).getHtmlAndCss;
+          (await import("./renderToString")).getHtmlAndCss;
 
         if (counter < session.i) {
           return;
@@ -208,7 +208,7 @@ export async function quickStart(session, room, keepFullScreen, saveCode) {
   // Session.children = await getReactChild(session.transpiled);
   session.children = null;
   const { renderPreviewWindow } = await import(
-    "./dist/renderPreviewWindow.mjs"
+    "./renderPreviewWindow"
   );
 
   await renderPreviewWindow(session, room, keepFullScreen);

@@ -1,9 +1,6 @@
-import "./chunk-L7N3FHV6.mjs";
-
-// js/LazyLoadedComponent.tsx
-var { React } = window;
-var { Suspense } = React;
-var LazySpikeLandComponent = ({ name, html, hash, transpiled }) => {
+const { React } = window;
+const { Suspense } = React;
+const LazySpikeLandComponent = ({ name, html, hash, transpiled }) => {
   const [hashCode, setHash] = React.useState(hash);
   React.useEffect(() => {
     const intervalHandler = setInterval(async () => {
