@@ -30,7 +30,7 @@
   },
   "devDependencies": {
     "qrious-core": "4.0.0",
-    "typescript": "4.5.4"
+    "typescript": "4.5.5"
   },
   "typings": "dist/QRious.d.ts",
   "source": "src/QRious.tsx",
