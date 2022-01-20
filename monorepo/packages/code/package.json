@@ -2,14 +2,14 @@
   "name": "@spike.land/code",
   "version": "0.6.55",
   "description": "spike.land",
-  "main": "./js/dist/quickStart.mjs",
+  "main": "./js/dist/starter.mjs",
   "files": [
     "**/*"
   ],
   "source": "./js/quickStart.mjs",
   "exports": {
     "./package.json": "./package.json",
-    "./js/dist/quickStart.mjs": "./js/dist/quickStart.mjs",
+    "./js/dist/starter.mjs": "./js/dist/starter.mjs",
     "./js/session.tsx": "./js/session.tsx",
     "./js/importmap.json": "./js/importmap.json"
   },
