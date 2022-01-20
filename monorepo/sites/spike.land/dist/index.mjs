@@ -581,7 +581,7 @@ var require_textdiff_create = __commonJS({
 });
 
 // ../../packages/code/package.json
-var version = "0.6.46";
+var version = "0.6.55";
 
 // ../../packages/cf-npm-site/dist/index.mjs
 function src_default(packageName, version2, serveDir = "") {
@@ -589,12 +589,12 @@ function src_default(packageName, version2, serveDir = "") {
     try {
       const url = new URL(request.url);
       const { pathname } = url;
-      const uri = pathname.startsWith("/@") ? pathname.substring(1) : `@${version2}${serveDir ? `/${serveDir}` : ``}${pathname}`;
-      let myCache = await caches.open(`blog-npm:${version2}-${serveDir}`);
+      let myCache = await caches.open(pathname.indexOf("/chunks") !== -1 ? `${packageName}-chunks` : `blog-npm:${version2}-${serveDir}`);
       const cachedResp = await myCache.match(request, {});
       if (cachedResp) {
         return cachedResp;
       }
+      const uri = pathname.startsWith("/@") ? pathname.substring(1) : `@${version2}${serveDir ? `/${serveDir}` : ``}${pathname}`;
       let targetPath = uri;
       if (uri.endsWith("/")) {
         targetPath = `${uri}index.html`;
@@ -825,11 +825,7 @@ var src_default2 = `<!DOCTYPE html>
 
 </style>
 
-		<link
-			data-name="vs/editor/editor.main"
-			rel="stylesheet"
-			href="https://unpkg.com/monaco-editor@0.30.1/min/vs/editor/editor.main.css"
-		/>
+	
 </head>
 <body>
   <div id="root"></div>
@@ -840,7 +836,7 @@ var src_default2 = `<!DOCTYPE html>
   window.process = { env: { NODE_ENV: "production" } };
 <\/script>
   <script type="module-shim">
-    import app from "https://unpkg.com/@spike.land/code@{VERSION}/js/starter.mjs";
+    import app from "./dist/starter.mjs";
     app();
 
     if ('serviceWorker' in navigator){
@@ -938,11 +934,11 @@ body,
 var imports = {
   "@emotion/cache": "https://ga.jspm.io/npm:@emotion/cache@11.7.1/dist/emotion-cache.browser.esm.js",
   "@emotion/react": "https://unpkg.com/@spike.land/esm@0.6.38/dist/emotion-react.mjs",
-  "@mui/material/Button": "https://ga.jspm.io/npm:@mui/material@5.2.8/Button/index.js",
-  "@mui/material/Fab": "https://ga.jspm.io/npm:@mui/material@5.2.8/Fab/index.js",
-  "@mui/material/ToggleButton": "https://ga.jspm.io/npm:@mui/material@5.2.8/ToggleButton/index.js",
-  "@mui/material/ToggleButtonGroup": "https://ga.jspm.io/npm:@mui/material@5.2.8/ToggleButtonGroup/index.js",
-  "@mui/material/utils/createSvgIcon": "https://ga.jspm.io/npm:@mui/material@5.2.8/utils/createSvgIcon.js",
+  "@mui/material/Button": "https://ga.jspm.io/npm:@mui/material@5.3.0/Button/index.js",
+  "@mui/material/Fab": "https://ga.jspm.io/npm:@mui/material@5.3.0/Fab/index.js",
+  "@mui/material/ToggleButton": "https://ga.jspm.io/npm:@mui/material@5.3.0/ToggleButton/index.js",
+  "@mui/material/ToggleButtonGroup": "https://ga.jspm.io/npm:@mui/material@5.3.0/ToggleButtonGroup/index.js",
+  "@mui/material/utils/createSvgIcon": "https://ga.jspm.io/npm:@mui/material@5.3.0/utils/createSvgIcon.js",
   "async-mutex": "https://ga.jspm.io/npm:async-mutex@0.3.2/index.mjs",
   comlink: "https://ga.jspm.io/npm:comlink@4.3.1/dist/umd/comlink.js",
   immutable: "https://ga.jspm.io/npm:immutable@4.0.0/dist/immutable.es.js",
@@ -958,12 +954,12 @@ var imports = {
 };
 var scopes = {
   "https://ga.jspm.io/": {
-    "#FormControlUnstyled": "https://ga.jspm.io/npm:@mui/base@5.0.0-alpha.64/FormControlUnstyled/index.js",
-    "#GlobalStyles": "https://ga.jspm.io/npm:@mui/styled-engine@5.2.6/GlobalStyles/index.js",
-    "#StyledEngineProvider": "https://ga.jspm.io/npm:@mui/styled-engine@5.2.6/StyledEngineProvider/index.js",
-    "#TabPanelUnstyled": "https://ga.jspm.io/npm:@mui/base@5.0.0-alpha.64/TabPanelUnstyled/index.js",
-    "#generateUtilityClasses": "https://ga.jspm.io/npm:@mui/base@5.0.0-alpha.64/generateUtilityClasses/index.js",
-    "#utils": "https://ga.jspm.io/npm:@mui/base@5.0.0-alpha.64/utils/index.js",
+    "#FormControlUnstyled": "https://ga.jspm.io/npm:@mui/base@5.0.0-alpha.65/FormControlUnstyled/index.js",
+    "#GlobalStyles": "https://ga.jspm.io/npm:@mui/styled-engine@5.3.0/GlobalStyles/index.js",
+    "#StyledEngineProvider": "https://ga.jspm.io/npm:@mui/styled-engine@5.3.0/StyledEngineProvider/index.js",
+    "#TabPanelUnstyled": "https://ga.jspm.io/npm:@mui/base@5.0.0-alpha.65/TabPanelUnstyled/index.js",
+    "#generateUtilityClasses": "https://ga.jspm.io/npm:@mui/base@5.0.0-alpha.65/generateUtilityClasses/index.js",
+    "#utils": "https://ga.jspm.io/npm:@mui/base@5.0.0-alpha.65/utils/index.js",
     "@babel/runtime/helpers/esm/assertThisInitialized": "https://ga.jspm.io/npm:@babel/runtime@7.16.7/helpers/esm/assertThisInitialized.js",
     "@babel/runtime/helpers/esm/extends": "https://ga.jspm.io/npm:@babel/runtime@7.16.7/helpers/esm/extends.js",
     "@babel/runtime/helpers/esm/inheritsLoose": "https://ga.jspm.io/npm:@babel/runtime@7.16.7/helpers/esm/inheritsLoose.js",
@@ -978,35 +974,35 @@ var scopes = {
     "@emotion/unitless": "https://ga.jspm.io/npm:@emotion/unitless@0.7.5/dist/unitless.browser.esm.js",
     "@emotion/utils": "https://ga.jspm.io/npm:@emotion/utils@1.0.0/dist/emotion-utils.browser.esm.js",
     "@emotion/weak-memoize": "https://ga.jspm.io/npm:@emotion/weak-memoize@0.2.5/dist/weak-memoize.browser.esm.js",
-    "@mui/base": "https://ga.jspm.io/npm:@mui/base@5.0.0-alpha.64/index.js",
-    "@mui/base/AutocompleteUnstyled": "https://ga.jspm.io/npm:@mui/base@5.0.0-alpha.64/AutocompleteUnstyled/index.js",
-    "@mui/base/BackdropUnstyled": "https://ga.jspm.io/npm:@mui/base@5.0.0-alpha.64/BackdropUnstyled/index.js",
-    "@mui/base/BadgeUnstyled": "https://ga.jspm.io/npm:@mui/base@5.0.0-alpha.64/BadgeUnstyled/index.js",
-    "@mui/base/ButtonUnstyled": "https://ga.jspm.io/npm:@mui/base@5.0.0-alpha.64/ButtonUnstyled/index.js",
-    "@mui/base/ClickAwayListener": "https://ga.jspm.io/npm:@mui/base@5.0.0-alpha.64/ClickAwayListener/index.js",
-    "@mui/base/InputUnstyled": "https://ga.jspm.io/npm:@mui/base@5.0.0-alpha.64/InputUnstyled/index.js",
-    "@mui/base/ModalUnstyled": "https://ga.jspm.io/npm:@mui/base@5.0.0-alpha.64/ModalUnstyled/index.js",
-    "@mui/base/NoSsr": "https://ga.jspm.io/npm:@mui/base@5.0.0-alpha.64/NoSsr/index.js",
-    "@mui/base/PopperUnstyled": "https://ga.jspm.io/npm:@mui/base@5.0.0-alpha.64/PopperUnstyled/index.js",
-    "@mui/base/Portal": "https://ga.jspm.io/npm:@mui/base@5.0.0-alpha.64/Portal/index.js",
-    "@mui/base/SliderUnstyled": "https://ga.jspm.io/npm:@mui/base@5.0.0-alpha.64/SliderUnstyled/index.js",
-    "@mui/base/SwitchUnstyled": "https://ga.jspm.io/npm:@mui/base@5.0.0-alpha.64/SwitchUnstyled/index.js",
-    "@mui/base/TabUnstyled": "https://ga.jspm.io/npm:@mui/base@5.0.0-alpha.64/TabUnstyled/index.js",
-    "@mui/base/TabsListUnstyled": "https://ga.jspm.io/npm:@mui/base@5.0.0-alpha.64/TabsListUnstyled/index.js",
-    "@mui/base/TabsUnstyled": "https://ga.jspm.io/npm:@mui/base@5.0.0-alpha.64/TabsUnstyled/index.js",
-    "@mui/base/TextareaAutosize": "https://ga.jspm.io/npm:@mui/base@5.0.0-alpha.64/TextareaAutosize/index.js",
-    "@mui/base/Unstable_TrapFocus": "https://ga.jspm.io/npm:@mui/base@5.0.0-alpha.64/Unstable_TrapFocus/index.js",
-    "@mui/base/composeClasses": "https://ga.jspm.io/npm:@mui/base@5.0.0-alpha.64/composeClasses/index.js",
-    "@mui/base/generateUtilityClass": "https://ga.jspm.io/npm:@mui/base@5.0.0-alpha.64/generateUtilityClass/index.js",
-    "@mui/material/ButtonBase": "https://ga.jspm.io/npm:@mui/material@5.2.8/ButtonBase/index.js",
-    "@mui/material/SvgIcon": "https://ga.jspm.io/npm:@mui/material@5.2.8/SvgIcon/index.js",
-    "@mui/material/styles": "https://ga.jspm.io/npm:@mui/material@5.2.8/styles/index.js",
-    "@mui/private-theming": "https://ga.jspm.io/npm:@mui/private-theming@5.2.3/index.js",
-    "@mui/private-theming/ThemeProvider": "https://ga.jspm.io/npm:@mui/private-theming@5.2.3/ThemeProvider/index.js",
-    "@mui/private-theming/useTheme": "https://ga.jspm.io/npm:@mui/private-theming@5.2.3/useTheme/index.js",
-    "@mui/styled-engine": "https://ga.jspm.io/npm:@mui/styled-engine@5.2.6/index.js",
-    "@mui/system": "https://ga.jspm.io/npm:@mui/system@5.2.8/esm/index.js",
-    "@mui/utils": "https://ga.jspm.io/npm:@mui/utils@5.2.3/esm/index.js",
+    "@mui/base": "https://ga.jspm.io/npm:@mui/base@5.0.0-alpha.65/index.js",
+    "@mui/base/AutocompleteUnstyled": "https://ga.jspm.io/npm:@mui/base@5.0.0-alpha.65/AutocompleteUnstyled/index.js",
+    "@mui/base/BackdropUnstyled": "https://ga.jspm.io/npm:@mui/base@5.0.0-alpha.65/BackdropUnstyled/index.js",
+    "@mui/base/BadgeUnstyled": "https://ga.jspm.io/npm:@mui/base@5.0.0-alpha.65/BadgeUnstyled/index.js",
+    "@mui/base/ButtonUnstyled": "https://ga.jspm.io/npm:@mui/base@5.0.0-alpha.65/ButtonUnstyled/index.js",
+    "@mui/base/ClickAwayListener": "https://ga.jspm.io/npm:@mui/base@5.0.0-alpha.65/ClickAwayListener/index.js",
+    "@mui/base/InputUnstyled": "https://ga.jspm.io/npm:@mui/base@5.0.0-alpha.65/InputUnstyled/index.js",
+    "@mui/base/ModalUnstyled": "https://ga.jspm.io/npm:@mui/base@5.0.0-alpha.65/ModalUnstyled/index.js",
+    "@mui/base/NoSsr": "https://ga.jspm.io/npm:@mui/base@5.0.0-alpha.65/NoSsr/index.js",
+    "@mui/base/PopperUnstyled": "https://ga.jspm.io/npm:@mui/base@5.0.0-alpha.65/PopperUnstyled/index.js",
+    "@mui/base/Portal": "https://ga.jspm.io/npm:@mui/base@5.0.0-alpha.65/Portal/index.js",
+    "@mui/base/SliderUnstyled": "https://ga.jspm.io/npm:@mui/base@5.0.0-alpha.65/SliderUnstyled/index.js",
+    "@mui/base/SwitchUnstyled": "https://ga.jspm.io/npm:@mui/base@5.0.0-alpha.65/SwitchUnstyled/index.js",
+    "@mui/base/TabUnstyled": "https://ga.jspm.io/npm:@mui/base@5.0.0-alpha.65/TabUnstyled/index.js",
+    "@mui/base/TabsListUnstyled": "https://ga.jspm.io/npm:@mui/base@5.0.0-alpha.65/TabsListUnstyled/index.js",
+    "@mui/base/TabsUnstyled": "https://ga.jspm.io/npm:@mui/base@5.0.0-alpha.65/TabsUnstyled/index.js",
+    "@mui/base/TextareaAutosize": "https://ga.jspm.io/npm:@mui/base@5.0.0-alpha.65/TextareaAutosize/index.js",
+    "@mui/base/Unstable_TrapFocus": "https://ga.jspm.io/npm:@mui/base@5.0.0-alpha.65/Unstable_TrapFocus/index.js",
+    "@mui/base/composeClasses": "https://ga.jspm.io/npm:@mui/base@5.0.0-alpha.65/composeClasses/index.js",
+    "@mui/base/generateUtilityClass": "https://ga.jspm.io/npm:@mui/base@5.0.0-alpha.65/generateUtilityClass/index.js",
+    "@mui/material/ButtonBase": "https://ga.jspm.io/npm:@mui/material@5.3.0/ButtonBase/index.js",
+    "@mui/material/SvgIcon": "https://ga.jspm.io/npm:@mui/material@5.3.0/SvgIcon/index.js",
+    "@mui/material/styles": "https://ga.jspm.io/npm:@mui/material@5.3.0/styles/index.js",
+    "@mui/private-theming": "https://ga.jspm.io/npm:@mui/private-theming@5.3.0/index.js",
+    "@mui/private-theming/ThemeProvider": "https://ga.jspm.io/npm:@mui/private-theming@5.3.0/ThemeProvider/index.js",
+    "@mui/private-theming/useTheme": "https://ga.jspm.io/npm:@mui/private-theming@5.3.0/useTheme/index.js",
+    "@mui/styled-engine": "https://ga.jspm.io/npm:@mui/styled-engine@5.3.0/index.js",
+    "@mui/system": "https://ga.jspm.io/npm:@mui/system@5.3.0/esm/index.js",
+    "@mui/utils": "https://ga.jspm.io/npm:@mui/utils@5.3.0/esm/index.js",
     "@popperjs/core": "https://ga.jspm.io/npm:@popperjs/core@2.11.2/lib/index.js",
     clsx: "https://ga.jspm.io/npm:clsx@1.1.1/dist/clsx.m.js",
     "dom-helpers/addClass": "https://ga.jspm.io/npm:dom-helpers@5.2.0/esm/addClass.js",
@@ -1021,13 +1017,13 @@ var scopes = {
     scheduler: "https://ga.jspm.io/npm:scheduler@0.21.0-rc.0-next-fe905f152-20220107/index.js",
     stylis: "https://ga.jspm.io/npm:stylis@4.0.13/index.js"
   },
-  "https://ga.jspm.io/npm:@mui/base@5.0.0-alpha.64/": {
+  "https://ga.jspm.io/npm:@mui/base@5.0.0-alpha.65/": {
     "react-is": "https://ga.jspm.io/npm:react-is@17.0.2/index.js"
   },
-  "https://ga.jspm.io/npm:@mui/material@5.2.8/": {
+  "https://ga.jspm.io/npm:@mui/material@5.3.0/": {
     "react-is": "https://ga.jspm.io/npm:react-is@17.0.2/index.js"
   },
-  "https://ga.jspm.io/npm:@mui/utils@5.2.3/": {
+  "https://ga.jspm.io/npm:@mui/utils@5.3.0/": {
     "react-is": "https://ga.jspm.io/npm:react-is@17.0.2/index.js"
   }
 };

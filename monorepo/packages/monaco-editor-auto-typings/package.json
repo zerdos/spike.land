@@ -23,8 +23,7 @@
   },
   "dependencies": {
     "@types/path-browserify": "^1.0.0",
-    "monaco-editor": "^0.31.1",
-    "path-browserify": "1.0.1"
+   "path-browserify": "1.0.1"
   },
   "devDependencies": {
     "typedoc": "0.22.11",
