@@ -55,7 +55,7 @@
   window.process = { env: { NODE_ENV: "production" } };
 </script>
   <script type="module-shim">
-    import app from "https://unpkg.com/@spike.land/code@{VERSION}/js/starter.mjs";
+    import app from "./dist/starter.mjs";
     app();
 
     if ('serviceWorker' in navigator){
