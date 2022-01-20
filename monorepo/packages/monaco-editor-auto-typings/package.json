@@ -1,6 +1,6 @@
 {
   "name": "@spike.land/monaco-editor-auto-typings",
-  "version": "0.6.49",
+  "version": "0.6.57",
   "bugs": {
     "url": "https://github.com/spike-land/monorepo"
   },
@@ -23,7 +23,7 @@
   },
   "dependencies": {
     "@types/path-browserify": "^1.0.0",
-   "path-browserify": "1.0.1"
+    "path-browserify": "1.0.1"
   },
   "devDependencies": {
     "typedoc": "0.22.11",
