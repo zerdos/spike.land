@@ -15,6 +15,7 @@ import { wait } from "./wait";
 // @ts-expect-error
 import { LazySpikeLandComponent } from "./LazyLoadedComponent.tsx";
 
+// @ts-expect-error
 import {
   Button,
   Fab,
@@ -25,7 +26,7 @@ import {
   ToggleButton,
   ToggleButtonGroup,
   Tv,
-} from "./mui";
+} from "./mui.tsx";
 
 // @ts-expect-error
 import { QRButton } from "./Qr.tsx";

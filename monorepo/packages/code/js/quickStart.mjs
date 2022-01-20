@@ -10,7 +10,7 @@ let getHtmlAndCss;
 let initSess;
 
 export const initSession = async (room, initData) => {
-  initSess = initSess || (await import("./session")).default;
+  initSess = initSess || (await import("./session.tsx")).default;
 
   return initSess(room, initData);
 };
@@ -117,7 +117,7 @@ async function runner(c, changes = null, session, counter) {
 
       try {
         getHtmlAndCss = getHtmlAndCss ||
-          (await import("./renderToString")).getHtmlAndCss;
+          (await import("./renderToString.tsx")).getHtmlAndCss;
 
         if (counter < session.i) {
           return;

@@ -124,7 +124,7 @@ async function runner(c, changes = null, session, counter) {
 async function quickStart(session, room, keepFullScreen, saveCode) {
   session.saveCode = saveCode;
   session.children = null;
-  const { renderPreviewWindow } = await import("./renderPreviewWindow-KRMQBGGP.mjs");
+  const { renderPreviewWindow } = await import("./renderPreviewWindow-5BDQZ2M7.mjs");
   await renderPreviewWindow(session, room, keepFullScreen);
   if (!keepFullScreen) {
     await startMonacoWithSession(session);
@@ -598,4 +598,4 @@ function wait(delay) {
 export {
   join
 };
-//# sourceMappingURL=ws-RVP3XZQH.mjs.map
+//# sourceMappingURL=ws-VDVSJRVT.mjs.map

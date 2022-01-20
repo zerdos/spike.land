@@ -5,7 +5,8 @@ import {} from "react-dom/next";
 import { DraggableWindow } from "./DraggableWindow.tsx";
 // @ts-expect-error
 import { wait } from "./wait.ts";
-import type { ICodeSession } from "./session";
+// @ts-expect-error
+import type { ICodeSession } from "./session.tsx";
 // Import { getHtmlAndCss
 //  } from "./renderToString";
 
