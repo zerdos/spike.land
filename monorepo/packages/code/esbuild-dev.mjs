@@ -17,8 +17,8 @@ await esbuild.build({
     `../../node_modules/monaco-editor/esm/${entry}`
   ),
   bundle: true,
-  minify: false,
-  treeShaking: false,
+  minify: true,
+  treeShaking: true,
   format: "iife",
   outdir: "js/vendor/workers/",
 });
@@ -48,7 +48,7 @@ importMap.load(jsonData);
 // console.log(imports);
 
 // esbuild.build({
-//   entryPoints: ["js/codeLoader.mjs"],πeπe
+//   entryPoints: ["js/codeLoader.mjs"],
 //   bundle: true,
 //   format: "esm",
 //   minify: false,
@@ -63,14 +63,13 @@ const build = (entryPoints) =>
   esbuild.build({
     entryPoints,
     "outExtension": { ".js": ".mjs" },
-    bundle: false,
+    bundle: true,
     format: "esm",
     minify: false,
     splitting: true,
     allowOverwrite: true,
     treeShaking: true,
     platform: "browser",
-    outbase: "./js/",
     sourcemap: true,
     resolveExtensions: [".tsx", ".ts", ".jsx", ".js", ".css", ".json", ".mjs"],
     target: ["esnext"],

@@ -1,15 +1,18 @@
+import "./chunk-L7N3FHV6.mjs";
+
+// js/starter.mjs
 function starter_default(injectedRoom = "") {
   run(injectedRoom);
 }
-const run = async (injectedRoom) => {
+var run = async (injectedRoom) => {
   const path = location.pathname.split("/");
   window.aniStart = Date.now();
   const room = injectedRoom || (path[1] === "api" && path[2] === "room" ? path[3] : (path.pop() || path.pop()).slice(-12)) || "code-main";
-  const user = (self && self.crypto && self.crypto.randomUUID && self.crypto.randomUUID() || (await import("./uidV4.mjs")).default()).slice(0, 8);
+  const user = (self && self.crypto && self.crypto.randomUUID && self.crypto.randomUUID() || (await import("./uidV4-JKG6FMAF.mjs")).default()).slice(0, 8);
   if (location.pathname.includes("hydrate")) {
     const App = (await import(`https://spike.land/api/room/${room}/js`)).default;
-    const createDelta = (await import("textdiff-create")).default;
-    const { jsx } = await import("@emotion/react");
+    const createDelta = (await import("https://unpkg.com/@spike.land/esm@0.6.38/dist/textdiff-create.mjs")).default;
+    const { jsx } = await import("https://unpkg.com/@spike.land/esm@0.6.38/dist/emotion-react.mjs");
     const { ReactDOM: ReactDOM2 } = window;
     const container = document.querySelector("#zbody");
     window.aniStart = Date.now();
@@ -23,7 +26,7 @@ const run = async (injectedRoom) => {
       first = el;
     }, 1e3 / 60);
     window.deltas = deltas;
-    const { join: join2 } = await import("./ws.mjs");
+    const { join: join2 } = await import("./ws-RVP3XZQH.mjs");
     join2(room, user, deltas);
     return;
     return;
@@ -65,7 +68,7 @@ const run = async (injectedRoom) => {
         }, animationLength);
       } else {
         const App = (await import(`https://spike.land/api/room/${room}/js`)).default;
-        const { jsx } = await import("@emotion/react");
+        const { jsx } = await import("https://unpkg.com/@spike.land/esm@0.6.38/dist/emotion-react.mjs");
         let container2 = document.querySelector("#zbody");
         if (!container2) {
           container3 = document.getElementById("root");
@@ -76,7 +79,7 @@ const run = async (injectedRoom) => {
       }
     })();
   }
-  const { join } = await import("./ws.mjs");
+  const { join } = await import("./ws-RVP3XZQH.mjs");
   join(room, user);
 };
 export {
