@@ -99,6 +99,7 @@ export const startMonaco = async (
     ),
     // lightbulb: { enabled: false },
     language: "typescript",
+
     theme: "vs-dark",
     // codeLens: false,
     // suggest: {
@@ -125,7 +126,7 @@ export const startMonaco = async (
     // formatOnPaste: true,
     // formatOnType: true,
 
-    // useShadowDOM: true,
+    useShadowDOM: true,
   });
 
   // const { AutoTypings, LocalStorageCache } = await import(

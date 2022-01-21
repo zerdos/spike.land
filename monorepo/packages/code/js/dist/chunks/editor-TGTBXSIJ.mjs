@@ -43439,7 +43439,8 @@ var startMonaco = async ({ code, container }) => {
   const editor2 = editor.create(container, {
     model: editor.createModel(code, "typescript", Uri.parse("file:///index.ts")),
     language: "typescript",
-    theme: "vs-dark"
+    theme: "vs-dark",
+    useShadowDOM: true
   });
   window.addEventListener("resize", () => {
     editor2.layout();
@@ -43579,4 +43580,4 @@ export {
  * Released under the MIT license
  * https://github.com/microsoft/monaco-editor/blob/main/LICENSE.txt
  *-----------------------------------------------------------------------------*/
-//# sourceMappingURL=editor-PNGC67R2.mjs.map
+//# sourceMappingURL=editor-TGTBXSIJ.mjs.map

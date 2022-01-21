@@ -13,9 +13,9 @@ var initSession = async (room, initData) => {
 };
 async function startMonacoWithSession(session) {
   const shadDom = document.querySelector("#shadowEditor");
-  const { startMonaco } = await import("./editor-PNGC67R2.mjs");
+  const { startMonaco } = await import("./editor-TGTBXSIJ.mjs");
   const throttle = (await import("https://ga.jspm.io/npm:lodash@4.17.21/throttle.js")).default;
-  const onchangeCode = (code, changes) => runner(code, changes, session, ++session.i);
+  const onchangeCode = (ev) => runner(editor.getModel().getValue(), ev.changes, session, ++session.i);
   const { editor, monaco } = await startMonaco({
     language: "typescript",
     container: shadDom,
@@ -42,7 +42,7 @@ async function getErrors({ monaco, editor }) {
   if (!monaco) {
     return [{ messageText: "Error with the error checking. Try to reload!" }];
   }
-  const model = editor.getModels()[0];
+  const model = editor.getModel();
   const worker = await monaco.languages.typescript.getTypeScriptWorker();
   const client = await worker(model);
   const filename = model.uri.toString();
@@ -591,4 +591,4 @@ function wait(delay) {
 export {
   join
 };
-//# sourceMappingURL=ws-7QXEMQ6J.mjs.map
+//# sourceMappingURL=ws-TWGT6YBO.mjs.map

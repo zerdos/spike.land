@@ -27,8 +27,8 @@ export async function startMonacoWithSession(session) {
 
   const { startMonaco } = await import("./editor.ts");
   const throttle = (await import("lodash/throttle")).default;
-  const onchangeCode = (code, changes) =>
-    runner(code, changes, session, ++session.i);
+  const onchangeCode = (ev) =>
+    runner(editor.getModel().getValue(), ev.changes, session, ++session.i);
   const { editor, monaco } = await startMonaco(
     /**
      * @param {any} code
@@ -72,7 +72,7 @@ async function getErrors({ monaco, editor }) {
     return [{ messageText: "Error with the error checking. Try to reload!" }];
   }
 
-  const model = editor.getModels()[0];
+  const model = editor.getModel();
   const worker = await monaco.languages.typescript.getTypeScriptWorker();
   const client = await worker(model);
 
