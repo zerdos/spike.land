@@ -5,9 +5,7 @@ import { CacheableResponsePlugin } from "workbox-cacheable-response";
 
 declare const self: ServiceWorkerGlobalScope;
 
-// workbox.setConfig({
-//   debug: false,
-// });
+self["__WB_DISABLE_DEV_LOGS"] = false;
 
 precacheAndRoute(self.__WB_MANIFEST);
 // const { registerRoute } = workbox.routing;
