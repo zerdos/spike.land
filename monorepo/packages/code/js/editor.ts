@@ -66,6 +66,7 @@ export const startMonaco = async (
       "ES2018",
       "ES2019",
     ],
+
     allowNonTsExtensions: true,
     moduleResolution: 2,
     module: 99,
@@ -74,11 +75,11 @@ export const startMonaco = async (
     noEmit: true,
     noEmitOnError: true,
     jsxFactory: "jsx",
-    jsx: monaco.languages.typescript.JsxEmit,
-    // jsx: 4, // monaco.languages.typescript.JsxEmit,
+    jsx: 4, // monaco.languages.typescript.JsxEmit,
     skipLibCheck: false,
-    esModuleInterop: true,
-    allowSyntheticDefaultImports: true,
+    // esModuleInterop: true,
+    // allowSyntheticDefaultImports: true,
+    allowUmdGlobalAccess: true,
     // allowUmdGlobalAccess : true,
     // noLibCheck: t,
   });

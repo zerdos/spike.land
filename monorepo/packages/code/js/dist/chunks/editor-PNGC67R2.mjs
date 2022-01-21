@@ -43427,10 +43427,9 @@ var startMonaco = async ({ code, container }) => {
     noEmit: true,
     noEmitOnError: true,
     jsxFactory: "jsx",
-    jsx: languages.typescript.JsxEmit,
+    jsx: 4,
     skipLibCheck: false,
-    esModuleInterop: true,
-    allowSyntheticDefaultImports: true
+    allowUmdGlobalAccess: true
   });
   languages.typescript.typescriptDefaults.setDiagnosticsOptions({
     noSuggestionDiagnostics: true,
@@ -43580,4 +43579,4 @@ export {
  * Released under the MIT license
  * https://github.com/microsoft/monaco-editor/blob/main/LICENSE.txt
  *-----------------------------------------------------------------------------*/
-//# sourceMappingURL=editor-YB264HFK.mjs.map
+//# sourceMappingURL=editor-PNGC67R2.mjs.map
