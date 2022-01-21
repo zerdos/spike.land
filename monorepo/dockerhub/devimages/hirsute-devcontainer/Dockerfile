@@ -250,10 +250,22 @@ RUN  curl -sSL https://packages.microsoft.com/keys/microsoft.asc | apt-key add -
   && rm -rf /var/lib/apt/lists/* \
   && sed -i -e 's/\/usr\/bin\/code/\/usr\/share\/code\/code --user-data-dir /g' /usr/share/applications/code.desktop 
 # docker.Dockerfile
-RUN curl -fsSL https://download.docker.com/linux/debian/gpg | apt-key add - \
+RUN ARCH= && dpkgArch="$(dpkg --print-architecture)" \
+  && case "${dpkgArch##*-}" in \
+    amd64) ARCH='amd64';; \
+    ppc64el) ARCH='ppc64le';; \
+    s390x) ARCH='s390x';; \
+    arm64) ARCH='arm64';; \
+    armhf) ARCH='armv7l';; \
+    i386) ARCH='x86';; \
+    *) echo "unsupported architecture"; exit 1 ;; \
+  esac \
+  # gpg keys listed at https://github.com/nodejs/node#release-keys
+  && set -ex \
+   && curl -fsSL https://download.docker.com/linux/debian/gpg | apt-key add - \
     && add-apt-repository \
-         "deb [arch=amd64] https://download.docker.com/linux/ubuntu groovy stable" \
-    && apt-get install --no-install-recommends -y \
+         "deb [arch=$ARCH] https://download.docker.com/linux/ubuntu groovy stable" \
+       && apt-get install --no-install-recommends -y \
         docker-ce \
         docker-ce-cli \
     && curl -L  \
