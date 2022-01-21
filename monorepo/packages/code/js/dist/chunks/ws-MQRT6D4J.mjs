@@ -59,7 +59,6 @@ async function runner(c, changes = null, session, counter) {
   esbuildEsmTransform = esbuildEsmTransform || (await import("./esbuildEsm-YVSGEE4H.mjs")).transform;
   transform = esbuildEsmTransform;
   session.errorText = "";
-  const { monaco } = session;
   try {
     const cd = await formatter(c);
     const transpiled = await transform(cd);
@@ -89,7 +88,6 @@ async function runner(c, changes = null, session, counter) {
           return;
         }
         session.saveCode && await session.saveCode({ transpiled, code, i: counter, css, html });
-        monaco.editor.setTheme("vs-dark");
         return;
       } catch (error2) {
         console.error("EXCEPTION");
@@ -111,12 +109,7 @@ async function runner(c, changes = null, session, counter) {
     if (error.length > 0) {
       console.log({ err: error });
     }
-    monaco.editor.setTheme("vs-dark");
   } catch (error) {
-    monaco.editor.setTheme("vs-light");
-    setTimeout(() => {
-      monaco.editor.setTheme("hc-black");
-    }, 50);
     session.errorText = error.message;
     console.error(error.message);
   }
@@ -598,4 +591,4 @@ function wait(delay) {
 export {
   join
 };
-//# sourceMappingURL=ws-3JN5QZ6Z.mjs.map
+//# sourceMappingURL=ws-MQRT6D4J.mjs.map

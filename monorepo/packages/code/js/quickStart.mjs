@@ -101,8 +101,6 @@ async function runner(c, changes = null, session, counter) {
 
   session.errorText = "";
 
-  const { monaco } = session;
-
   try {
     const cd = await formatter(c);
 
@@ -150,7 +148,6 @@ async function runner(c, changes = null, session, counter) {
 
         session.saveCode &&
           await session.saveCode({ transpiled, code, i: counter, css, html });
-        monaco.editor.setTheme("vs-dark");
         // }, 10);
         return;
       } catch (error) {
@@ -179,13 +176,7 @@ async function runner(c, changes = null, session, counter) {
     if (error.length > 0) {
       console.log({ err: error });
     }
-
-    monaco.editor.setTheme("vs-dark");
   } catch (error) {
-    monaco.editor.setTheme("vs-light");
-    setTimeout(() => {
-      monaco.editor.setTheme("hc-black");
-    }, 50);
     session.errorText = error.message;
     console.error(error.message);
   }
@@ -208,7 +199,7 @@ export async function quickStart(session, room, keepFullScreen, saveCode) {
   // Session.children = await getReactChild(session.transpiled);
   session.children = null;
   const { renderPreviewWindow } = await import(
-    "./renderPreviewWindow"
+    "./renderPreviewWindow.tsx"
   );
 
   await renderPreviewWindow(session, room, keepFullScreen);
