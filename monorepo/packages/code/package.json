@@ -1,6 +1,6 @@
 {
   "name": "@spike.land/code",
-  "version": "0.6.58",
+  "version": "0.6.59",
   "description": "spike.land",
   "main": "./js/dist/starter.mjs",
   "files": [
@@ -55,8 +55,8 @@
     "@emotion/cache": "^11.7.1",
     "@emotion/react": "^11.7.1",
     "@emotion/styled": "^11.6.0",
-    "@spike.land/code": "^0.6.58",
-    "@spike.land/qrious": "^0.6.31",
+    "@spike.land/code": "^0.6.59",
+    "@spike.land/qrious": "^0.6.59",
     "@types/react": "17.0.38",
     "@types/react-dom": "17.0.11",
     "async-mutex": "^0.3.2",
