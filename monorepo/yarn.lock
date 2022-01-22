@@ -1731,10 +1731,10 @@ esbuild-plugin-import-map@2.1.0:
   resolved "https://registry.yarnpkg.com/esbuild-plugin-import-map/-/esbuild-plugin-import-map-2.1.0.tgz#3c3d2a350d6109f3e4b4a97dd6fae9eeaeca61d5"
   integrity sha512-rlI9H8f1saIqYEUNHxDmIMGZZFroANyD6q3Aht6aXyOq/aOdO6jp5VFF1+n3o9AUe+wAtQcn93Wv1Vuj9na0hg==
 
-esbuild-wasm@0.14.12:
-  version "0.14.12"
-  resolved "https://registry.yarnpkg.com/esbuild-wasm/-/esbuild-wasm-0.14.12.tgz#047e5cef57e290cf1798299c590e07a26265f635"
-  integrity sha512-5MH2mK5Imvry00hOBHjQy7NUTvwgwCKJIq69LGkHP15GtiP8tmEKwPmcdqyn1Pyc3On//GuTvt7PuuDZeSsK6Q==
+esbuild-wasm@0.14.13:
+  version "0.14.13"
+  resolved "https://registry.yarnpkg.com/esbuild-wasm/-/esbuild-wasm-0.14.13.tgz#7850d9ccbe589a3fe9f0ac3bd5fd2095de0cbc65"
+  integrity sha512-niRkHnjbCSscizzSCtYfc0shAjrK4OXT9COaBdUFuWebx5+2gjXU4YbZohVGLvEf89hh6/U3z+JGMTAF4PajZg==
 
 escalade@^3.1.1:
   version "3.1.1"
