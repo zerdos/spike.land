@@ -115,9 +115,9 @@ export function getHtml({ html, css }: { html: string; css: string }) {
   top: 0;
 }
 ${css}</style>
-<script crossorigin src="https://unpkg.com/react@18.0.0-rc.0-next-fe419346d-20220105/umd/react.production.min.js"></script>
-<script crossorigin src="https://unpkg.com/react-is@18.0.0-rc.0-next-fe419346d-20220105/umd/react-is.production.min.js"></script>
-<script crossorigin src="https://unpkg.com/react-dom@18.0.0-rc.0-next-fe419346d-20220105/umd/react-dom.production.min.js"></script>
+<script crossorigin src="https://unpkg.com/react@18.0.0-rc.0-next-13036bfbc-20220121/umd/react.production.min.js"></script>
+<script crossorigin src="https://unpkg.com/react-is@18.0.0-rc.0-next-13036bfbc-20220121/umd/react-is.production.min.js"></script>
+<script crossorigin src="https://unpkg.com/react-dom@18.0.0-rc.0-next-13036bfbc-20220121/umd/react-dom.production.min.js"></script>
 <script crossorigin src="https://unpkg.com/@emotion/react@11.7.1/dist/emotion-react.umd.min.js"></script>
 </head>
 <body>
@@ -158,9 +158,9 @@ export const getEditorHTML = () =>
 </head>
 <body>
 <script>window.process = {env: {NODE_ENV:"production" }}</script>
-<script crossorigin src="https://unpkg.com/react@18.0.0-rc.0-next-fe419346d-20220105/umd/react.production.min.js"></script>
-<script crossorigin src="https://unpkg.com/react-is@18.0.0-rc.0-next-fe419346d-20220105/umd/react-is.production.min.js"></script>
-<script crossorigin src="https://unpkg.com/react-dom@18.0.0-rc.0-next-fe419346d-20220105/umd/react-dom.production.min.js"></script>
+<script crossorigin src="https://unpkg.com/react@18.0.0-rc.0-next-13036bfbc-20220121/umd/react.production.min.js"></script>
+<script crossorigin src="https://unpkg.com/react-is@18.0.0-rc.0-next-13036bfbc-20220121/umd/react-is.production.min.js"></script>
+<script crossorigin src="https://unpkg.com/react-dom@18.0.0-rc.0-next-13036bfbc-20220121/umd/react-dom.production.min.js"></script>
 <script crossorigin src="https://unpkg.com/@emotion/react@11.7.1/dist/emotion-react.umd.min.js"></script>
 <script type="importmap">
 ${
