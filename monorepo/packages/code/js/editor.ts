@@ -316,18 +316,18 @@ export const startMonaco = async (
       },
       {
         name: "framer-motion",
-        url: "https://unpkg.com/framer-motion@5.5.6/types/index.d.ts",
+        url: "https://unpkg.com/framer-motion@6.2.1/types/index.d.ts",
         depend: ["popmotion"],
       },
       {
         name: "framer-motion/types/render/dom/motion.d.ts",
         url:
-          " https://unpkg.com/framer-motion@5.5.6/types/render/dom/motion.d.ts",
+          " https://unpkg.com/framer-motion@6.2.1/types/render/dom/motion.d.ts",
         depend: ["popmotion"],
       },
       {
         name: "popmotion",
-        url: "https://unpkg.com/popmotion@11.0.0/lib/index.d.ts",
+        url: "https://unpkg.com/popmotion@11.0.3/lib/index.d.ts",
       },
     ];
 

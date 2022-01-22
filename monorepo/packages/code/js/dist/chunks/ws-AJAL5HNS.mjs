@@ -13,7 +13,7 @@ var initSession = async (room, initData) => {
 };
 async function startMonacoWithSession(session) {
   const shadDom = document.querySelector("#shadowEditor");
-  const { startMonaco } = await import("./editor-TGTBXSIJ.mjs");
+  const { startMonaco } = await import("./editor-7URA35TK.mjs");
   const throttle = (await import("https://ga.jspm.io/npm:lodash@4.17.21/throttle.js")).default;
   const onchangeCode = (ev) => runner(editor.getModel().getValue(), ev.changes, session, ++session.i);
   const { editor, monaco } = await startMonaco({
@@ -591,4 +591,4 @@ function wait(delay) {
 export {
   join
 };
-//# sourceMappingURL=ws-T2PGZYQ3.mjs.map
+//# sourceMappingURL=ws-AJAL5HNS.mjs.map
