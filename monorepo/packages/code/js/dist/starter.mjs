@@ -11,8 +11,8 @@ var run = async (injectedRoom) => {
   const user = (self && self.crypto && self.crypto.randomUUID && self.crypto.randomUUID() || (await import("./chunks/uidV4-Q36FWZ2C.mjs")).default()).slice(0, 8);
   if (location.pathname.includes("hydrate")) {
     const App = (await import(`https://spike.land/api/room/${room}/js`)).default;
-    const createDelta = (await import("https://unpkg.com/@spike.land/esm@0.6.62/dist/textdiff-create.mjs")).default;
-    const { jsx } = await import("https://unpkg.com/@spike.land/esm@0.6.62/dist/emotion-react.mjs");
+    const createDelta = (await import("https://unpkg.com/@spike.land/esm@0.6.68/dist/textdiff-create.mjs")).default;
+    const { jsx } = await import("https://unpkg.com/@spike.land/esm@0.6.68/dist/emotion-react.mjs");
     const { ReactDOM: ReactDOM2 } = window;
     const container = document.querySelector("#zbody");
     window.aniStart = Date.now();
@@ -26,7 +26,7 @@ var run = async (injectedRoom) => {
       first = el;
     }, 1e3 / 60);
     window.deltas = deltas;
-    const { join: join2 } = await import("./chunks/ws-AJAL5HNS.mjs");
+    const { join: join2 } = await import("./chunks/ws-CCH6KAWZ.mjs");
     join2(room, user, deltas);
     return;
     return;
@@ -68,7 +68,7 @@ var run = async (injectedRoom) => {
         }, animationLength);
       } else {
         const App = (await import(`https://spike.land/api/room/${room}/js`)).default;
-        const { jsx } = await import("https://unpkg.com/@spike.land/esm@0.6.62/dist/emotion-react.mjs");
+        const { jsx } = await import("https://unpkg.com/@spike.land/esm@0.6.68/dist/emotion-react.mjs");
         let container2 = document.querySelector("#zbody");
         if (!container2) {
           container3 = document.getElementById("root");
@@ -79,7 +79,7 @@ var run = async (injectedRoom) => {
       }
     })();
   }
-  const { join } = await import("./chunks/ws-AJAL5HNS.mjs");
+  const { join } = await import("./chunks/ws-CCH6KAWZ.mjs");
   join(room, user);
 };
 export {

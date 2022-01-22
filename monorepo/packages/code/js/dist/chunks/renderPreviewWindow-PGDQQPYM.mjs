@@ -7,19 +7,19 @@ import {
 import "./chunk-4IQSHU34.mjs";
 
 // js/renderPreviewWindow.tsx
-import { jsx as jsx4 } from "https://unpkg.com/@spike.land/esm@0.6.62/dist/emotion-react.mjs";
+import { jsx as jsx4 } from "https://unpkg.com/@spike.land/esm@0.6.68/dist/emotion-react.mjs";
 
 // js/DraggableWindow.tsx
-import { css as css2, jsx as jsx3 } from "https://unpkg.com/@spike.land/esm@0.6.62/dist/emotion-react.mjs";
+import { css as css2, jsx as jsx3 } from "https://unpkg.com/@spike.land/esm@0.6.68/dist/emotion-react.mjs";
 import React2, {
   useEffect,
   useRef,
   useState
-} from "https://unpkg.com/@spike.land/esm@0.6.62/dist/react.mjs";
-import { motion as motion2 } from "https://unpkg.com/@spike.land/esm@0.6.62/dist/framer-motion.mjs";
+} from "https://unpkg.com/@spike.land/esm@0.6.68/dist/react.mjs";
+import { motion as motion2 } from "https://unpkg.com/@spike.land/esm@0.6.68/dist/framer-motion.mjs";
 
 // js/mui.tsx
-import { jsx } from "https://unpkg.com/@spike.land/esm@0.6.62/dist/emotion-react.mjs";
+import { jsx } from "https://unpkg.com/@spike.land/esm@0.6.68/dist/emotion-react.mjs";
 import Fab from "https://ga.jspm.io/npm:@mui/material@5.3.0/Fab/index.js";
 import Button from "https://ga.jspm.io/npm:@mui/material@5.3.0/Button/index.js";
 import createSvgIcon from "https://ga.jspm.io/npm:@mui/material@5.3.0/utils/createSvgIcon.js";
@@ -60,9 +60,9 @@ var QrCode = createSvgIcon(/* @__PURE__ */ jsx("path", {
 }), "QrCode");
 
 // js/Qr.tsx
-import { css, jsx as jsx2 } from "https://unpkg.com/@spike.land/esm@0.6.62/dist/emotion-react.mjs";
-import { motion } from "https://unpkg.com/@spike.land/esm@0.6.62/dist/framer-motion.mjs";
-import React from "https://unpkg.com/@spike.land/esm@0.6.62/dist/react.mjs";
+import { css, jsx as jsx2 } from "https://unpkg.com/@spike.land/esm@0.6.68/dist/emotion-react.mjs";
+import { motion } from "https://unpkg.com/@spike.land/esm@0.6.68/dist/framer-motion.mjs";
+import React from "https://unpkg.com/@spike.land/esm@0.6.68/dist/react.mjs";
 
 // ../qrious/dist/QRious.mjs
 var ve = Object.create;
@@ -898,7 +898,7 @@ var renderPreviewWindow = async (session, room, keepFullScreen) => {
   const target = document.createElement("div");
   const editor = document.querySelector("#shadowEditor");
   editor.style.opacity = "0";
-  const { createRoot } = await import("https://unpkg.com/@spike.land/esm@0.6.62/dist/react-dom.mjs");
+  const { createRoot } = await import("https://unpkg.com/@spike.land/esm@0.6.68/dist/react-dom.mjs");
   const root = createRoot(target, {});
   root.render(/* @__PURE__ */ jsx4(DraggableWindow, {
     onShare: () => open(`https://spike.land/api/room/${room}/public`),
@@ -927,4 +927,4 @@ var renderPreviewWindow = async (session, room, keepFullScreen) => {
 export {
   renderPreviewWindow
 };
-//# sourceMappingURL=renderPreviewWindow-SMPMASEU.mjs.map
+//# sourceMappingURL=renderPreviewWindow-PGDQQPYM.mjs.map
