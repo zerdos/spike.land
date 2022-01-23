@@ -15,10 +15,8 @@ const workerEntryPoints = [
 await esbuild.build({
   entryPoints: [...workerEntryPoints, "./js/workers/prettier.worker.js"],
   bundle: true,
-  minify: true,
-  target: "es",
+  target: "es2018",
   sourcemap: false,
-  treeShaking: true,
   format: "iife",
   outdir: "js/dist/workers/",
 });
@@ -26,9 +24,7 @@ await esbuild.build({
 await esbuild.build({
   entryPoints: ["js/monacoTs.ts"],
   bundle: true,
-  minify: true,
-  treeShaking: true,
-  target: "esnext",
+  target: "es2018",
   sourcemap: false,
   format: "esm",
   platform: "browser",
@@ -89,7 +85,7 @@ const build = (entryPoints) =>
     platform: "browser",
     chunkNames: "chunks/[name]-[hash]",
     resolveExtensions: [".tsx", ".ts", ".jsx", ".js", ".css", ".json", ".mjs"],
-    target: ["esnext"],
+    target: ["es2018"],
     plugins: [importMap.plugin()],
     loader: {
       ".ttf": "file",
