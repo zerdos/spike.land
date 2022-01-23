@@ -8,8 +8,10 @@ export default function (
       const url = new URL(request.url);
       const { pathname } = url;
 
+      const isChunk =  pathname.indexOf("/chunks") !== -1;
+
       let myCache = await caches.open(
-        pathname.indexOf("/chunks") !== -1
+        isChunk
           ? `${packageName}-chunks`
           : `blog-npm:${version}-${serveDir}`,
       );
@@ -54,7 +56,7 @@ export default function (
       const resp = new Response(cloned.body, {
         headers: {
           ...cloned.headers,
-          "Cache-Control": "no-cache",
+          "Cache-Control": isChunk? "public, max-age=604800, immutable" : "no-cache",
         },
       });
 
