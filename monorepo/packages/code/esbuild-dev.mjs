@@ -10,9 +10,7 @@ const workerEntryPoints = [
   // "vs/language/html/html.worker.js",
   "vs/language/typescript/ts.worker.js",
   "vs/editor/editor.worker.js",
-].map((entry) =>
-`monaco-editor/esm/${entry}`
-);
+].map((entry) => `monaco-editor/esm/${entry}`);
 
 await esbuild.build({
   entryPoints: [...workerEntryPoints, "./js/workers/prettier.worker.js"],
@@ -34,7 +32,7 @@ await esbuild.build({
   platform: "browser",
   loader: {
     ".ttf": "file",
-    ".css": "file"
+    ".css": "file",
   },
   outdir: "js/vendor/monaco",
 });
@@ -95,7 +93,7 @@ const build = (entryPoints) =>
     loader: {
       ".ttf": "file",
       ".worker.js": "text",
-      ".wasm": "binary"
+      ".wasm": "binary",
     },
     outdir: "js/dist",
   }).catch(() => process.exit(1));

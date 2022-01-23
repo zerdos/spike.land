@@ -4,9 +4,7 @@ export default function (packageName, version, serveDir = "") {
             const url = new URL(request.url);
             const { pathname } = url;
             const isChunk = pathname.indexOf("/chunks") !== -1;
-            let myCache = await caches.open(isChunk
-                ? `${packageName}-chunks`
-                : `blog-npm:${version}-${serveDir}`);
+            let myCache = await caches.open(isChunk ? `${packageName}-chunks` : `blog-npm:${version}-${serveDir}`);
             const cachedResp = await myCache.match(request, {});
             if (cachedResp) {
                 return cachedResp;
@@ -36,7 +34,9 @@ export default function (packageName, version, serveDir = "") {
             const resp = new Response(cloned.body, {
                 headers: {
                     ...cloned.headers,
-                    "Cache-Control": isChunk ? "public, max-age=604800, immutable" : "no-cache",
+                    "Cache-Control": isChunk
+                        ? "public, max-age=604800, immutable"
+                        : "no-cache",
                 },
             });
             // ich
