@@ -95,7 +95,7 @@ async function runner(c, changes = null, session, counter) {
   session.changes.push(changes);
   formatter = formatter || (await import("./formatter.mjs")).formatter;
   esbuildEsmTransform = esbuildEsmTransform ||
-    (await import("./esbuildEsm.mjs")).transform;
+    (await import("./esbuildEsm.ts")).transform;
 
   transform = esbuildEsmTransform;
 
