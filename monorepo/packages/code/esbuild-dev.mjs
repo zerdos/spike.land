@@ -16,7 +16,7 @@ await esbuild.build({
   entryPoints: [...workerEntryPoints, "./js/workers/prettier.worker.js"],
   bundle: true,
   minify: true,
-  target: "esnext",
+  target: "es",
   sourcemap: false,
   treeShaking: true,
   format: "iife",
