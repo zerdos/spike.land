@@ -153,46 +153,24 @@ RUN apt-get update \
 
     
 ### chromium.Dockerfile
-RUN  apt-get update && apt-get install -y --no-install-recommends \  
+RUN  curl -sSL  https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - \
+    && echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list \
+    && apt-get update && apt-get install -y --no-install-recommends \  
     ## firefox 
-    chromium-browser \
+    google-chrome-stable \
      && apt-get autoremove -y \
   && apt-get clean -y \
-  && rm -rf /var/lib/apt/lists/* 
+  && rm -rf /var/lib/apt/lists/* \
+  && mv /usr/bin/google-chrome /usr/bin/google-chrome-bin \
+  && mv /usr/bin/google-chrome-stable /usr/bin/google-chrome-stable-bin \
+  && echo "/usr/bin/google-chrome-bin --no-sandbox" > /usr/bin/google-chrome \
+  && echo "/usr/bin/google-chrome-stable-bin --no-sandbox" > /usr/bin/google-chrome-stable \
+  && chmod +x /usr/bin/google-chrome \
+  && chmod +x /usr/bin/google-chrome-stable  
   
 ENV QT_X11_NO_MITSHM=1
 ENV _X11_NO_MITSHM=1
 ENV _MITSHM=0
-# docker.Dockerfile
-RUN ARCH= && dpkgArch="$(dpkg --print-architecture)" \
-  && case "${dpkgArch##*-}" in \
-    amd64) ARCH='x64';; \
-    ppc64el) ARCH='ppc64le';; \
-    s390x) ARCH='s390x';; \
-    arm64) ARCH='arm64';; \
-    armhf) ARCH='armv7l';; \
-    i386) ARCH='x86';; \
-    *) echo "unsupported architecture"; exit 1 ;; \
-  esac \
-  # gpg keys listed at https://github.com/nodejs/node#release-keys
-  && set -ex \
-   && curl -fsSL https://download.docker.com/linux/debian/gpg | apt-key add - \
-    && add-apt-repository \
-         "deb [arch=$ARCH] https://download.docker.com/linux/ubuntu groovy stable" \
-    && apt-get install --no-install-recommends -y \
-        docker-ce \
-        docker-ce-cli \
-    && curl -L  \
-        https://github.com/docker/compose/releases/download/v2.0.1/docker-compose-`uname -s`-`uname -m` \
-        -o /usr/local/bin/docker-compose \
-    && chmod +x /usr/local/bin/docker-compose \
-    && usermod -G docker -a ${USER} \
-    && apt-get autoremove -y \
-    && apt-get clean -y \
-    && rm -rf /var/lib/apt/lists/* 
-
-ENV COMPOSE_DOCKER_CLI_BUILD=1
-ENV DOCKER_BUILDKIT=1
 ### zsh.Dockerfie
 
 RUN apt-get update && apt-get install -y --no-install-recommends zsh \

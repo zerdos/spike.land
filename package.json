@@ -37,6 +37,7 @@
     "lerna:publish": "yarn ws:yarn lerna:publish",
     "push:prod": "yarn ws:yarn push:prod",
     "re:build": "yarn ws:yarn re:build",
+    "build:all": "yarn ws:yarn re:build",
     "build": "yarn ws:yarn build",
     "docker:build": "yarn ws:yarn docker:build",
     "postinstall": "cd monorepo && yarn",
