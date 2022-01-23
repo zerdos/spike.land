@@ -12,7 +12,7 @@ self.MonacoEnvironment = {
     //   return "./vendor/language/css/css.worker.js";
     // }
     // if (label === "html" || label === "handlebars" || label === "razor") {
-    //   return "./vendor/vendor/language/html/html.worker.js";
+      // return "./vendor/vendor/language/html/html.worker.js";
     // }
 
     return tsWorkerUrl;
