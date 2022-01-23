@@ -40,6 +40,7 @@
     "build:all": "yarn ws:yarn re:build",
     "build": "yarn ws:yarn build",
     "docker:build": "yarn ws:yarn docker:build",
+    "docker:push": "yarn ws:yarn docker:push",
     "postinstall": "cd monorepo && yarn",
     "ws:yarn": "yarn --cwd monorepo ",
     "lerna": "lerna",

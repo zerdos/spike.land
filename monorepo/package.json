@@ -25,7 +25,8 @@
     "build": "lerna run build --parallel --since main --no-bail",
     "build:all": "lerna run build --parallel --since main --no-bail",
     "re:build": "yarn clean && yarn build",
-    "docker:build": "lerna run docker:build"
+    "docker:build": "lerna run docker:build",
+    "docker:push": "lerna run docker:push"
   },
   "devDependencies": {}
 }
