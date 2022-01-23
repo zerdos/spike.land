@@ -11,7 +11,8 @@ import React, {
 } from "react";
 import type { FC } from "react";
 import { motion } from "framer-motion";
-import { wait } from "./wait";
+import { QRButton } from "./Qr.tsx";
+import { wait } from "./wait.ts";
 // @ts-expect-error
 import { LazySpikeLandComponent } from "./LazyLoadedComponent.tsx";
 
@@ -27,9 +28,6 @@ import {
   ToggleButtonGroup,
   Tv,
 } from "./mui.tsx";
-
-// @ts-expect-error
-import { QRButton } from "./Qr.tsx";
 
 // Import { breakpoints } from "@mui/system";
 

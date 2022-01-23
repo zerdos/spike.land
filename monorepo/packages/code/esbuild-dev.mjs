@@ -24,6 +24,7 @@ await esbuild.build({
 await esbuild.build({
   entryPoints: ["js/monacoTs.ts"],
   bundle: true,
+
   target: "es2018",
   sourcemap: false,
   format: "esm",
@@ -109,6 +110,7 @@ const build = (entryPoints) =>
 
 await build([
   "js/starter.mjs",
+  "js/appStarter.ts",
   "js/LazyLoadedComponent.tsx",
 ]);
 

@@ -1,7 +1,7 @@
 import { Mutex } from "async-mutex";
 import * as esbuild from "esbuild-wasm";
 import wasmURL from "esbuild-wasm/esbuild.wasm";
-import { wait } from "./wait";
+import { wait } from "./wait.ts";
 
 function createWasmBlob(wasm: string) {
   const blob = new Blob([wasm], { type: "application/wasm" });
@@ -16,7 +16,7 @@ const init = esbuild.initialize({
 let initFinished = false;
 const mutex = new Mutex();
 
-export const transform = async (code, retry = 4) => {
+export const transform = async (code: string, retry = 4) => {
   const startTime = performance.now();
 
   if (initFinished || await init) {

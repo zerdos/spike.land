@@ -1,33 +1,3 @@
-export default function (injectedRoom = "") {
-  run(injectedRoom);
-}
-
-let transform = null;
-window.esmsInitOptions = {
-  shimMode: true,
-  polyfillEnable: ["css-modules", "json-modules"],
-  onerror: (error) => console.log(error), // defaults to `((e) => { throw e; })`
-  fetch: async function (url, options) {
-    const urlEnd = url.substr(-3);
-    if (url.indexOf("monaco") === -1 && ["tsx", ".ts"].indexOf(urlEnd) !== -1) {
-      console.log(url);
-      const res = await fetch(url, options);
-      if (!res.ok) return res;
-
-      const source = await res.text();
-
-      transform = transform || (await import("./esbuildEsm.ts")).transform;
-      const transformed = await transform(source);
-      return new Response(
-        new Blob([transformed], { type: "application/javascript" }),
-      );
-    }
-    return fetch(url, options);
-  },
-  noLoadEventRetriggers: true,
-  skip: "/^https?:\/\/(cdn\.skypack\.dev|jspm\.dev)\//`",
-};
-
 export const run = async (injectedRoom) => {
   const path = location.pathname.split("/");
   window.aniStart = Date.now();

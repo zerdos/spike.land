@@ -43,7 +43,7 @@ await generator.install("comlink");
 await generator.install("workbox-window");
 // await generator.install("@spike.land/ipfs");
 // await generator.install("@spike.land/shadb");
-// await generator.install("@spike.land/qrious");
+await generator.install("@spike.land/qrious");
 // await generator.install("@spike.land/smart-monaco-editor");
 await generator.install("@mui/material/Fab");
 await generator.install("@mui/material/Button");
