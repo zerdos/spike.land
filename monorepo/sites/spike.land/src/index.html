@@ -20,36 +20,17 @@
 
   <script crossorigin src="https://unpkg.com/@emotion/react@11.7.1/dist/emotion-react.umd.min.js"></script>
 
-  <script async src="https://unpkg.com/@spike.land/code@0.4.42/js/vendor/es-module-shims.wasm.js"></script>
   <script type="importmap-shim" src="./importmap.json"></script>
   <title>Instant React Editor</title>
-  
-
-
 </head>
 <body>
   <div id="root"></div>
   <div id="monacoEditor"></div>
   
-  <script>
-  window.process = { env: { NODE_ENV: "production" } };
-  </script>
-  
-<script type="module-shim">
-    import app from "./dist/starter.mjs"; 
-    app();
-
-    if ('serviceWorker' in navigator){
-      const {Workbox} = await import('workbox-window')
-        const wb = new Workbox('/sw.js');
-          wb.addEventListener("activated", async (event) => {
-             if (!event.isUpdate) {
-              console.log("Service worker activated for the first time!");
-             }
-          });
-          wb.register();
-      }
-    </script>
+<script type="module">
+  import app from "./dist/appStarter.mjs"; 
+  app("code-main");
+</script>
 
 </body>
 </html>
