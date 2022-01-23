@@ -78,8 +78,8 @@ export class Code {
             html: "",
             css: "",
             lastTimestamp: 0,
-            i: 0
-          }
+            i: 0,
+          };
         }
         await this.kv.put<ISession>("session", session);
       }
@@ -115,7 +115,7 @@ export class Code {
       }
 
       let path = url.pathname.slice(1).split("/");
-      const vReg =  /{VERSION}/ig;
+      const vReg = /{VERSION}/ig;
 
       switch (path[0]) {
         case "code": {
@@ -224,14 +224,14 @@ export class Code {
           const htmlContent = mST().html;
           const css = mST().css;
 
-
-
           const html = HYDRATED.replace(
             `<script type="importmap-shim" src="https://unpkg.com/@spike.land/code@{VERSION}/js/importmap.json"></script>`,
-            `<script type="importmap-shim">${JSON.stringify(imap)}</script>`)
-            .replace(`<div id="root"></div>`,
-            `<div id="root"><style>${css}</style><div id="zbody">${htmlContent}</div></div>`,
-          ).replaceAll(vReg, version);
+            `<script type="importmap-shim">${JSON.stringify(imap)}</script>`,
+          )
+            .replace(
+              `<div id="root"></div>`,
+              `<div id="root"><style>${css}</style><div id="zbody">${htmlContent}</div></div>`,
+            ).replaceAll(vReg, version);
           return new Response(html, {
             status: 200,
             headers: {
@@ -273,7 +273,8 @@ export class Code {
 
           const html = HTML.replace(
             `<script type="importmap-shim" src="https://unpkg.com/@spike.land/code@{VERSION}/js/importmap.json"></script>`,
-            `<script type="importmap-shim">${JSON.stringify(imap)}</script>`).replace(
+            `<script type="importmap-shim">${JSON.stringify(imap)}</script>`,
+          ).replace(
             `<div id="root"></div>`,
             `<div id="root"><style>${css}</style><div id="zbody">${htmlContent}</div></div>`,
           ).replaceAll(vReg, version);

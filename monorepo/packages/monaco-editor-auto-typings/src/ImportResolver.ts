@@ -1,22 +1,22 @@
-import { Options } from './Options';
-import { SourceCache } from './SourceCache';
-import type { Uri as MonacoUri } from 'monaco-editor';
-import { DummySourceCache } from './DummySourceCache';
-import { UnpkgSourceResolver } from './UnpkgSourceResolver';
-import { DependencyParser } from './DependencyParser';
+import { Options } from "./Options";
+import { SourceCache } from "./SourceCache";
+import type { Uri as MonacoUri } from "monaco-editor";
+import { DummySourceCache } from "./DummySourceCache";
+import { UnpkgSourceResolver } from "./UnpkgSourceResolver";
+import { DependencyParser } from "./DependencyParser";
 import {
   ImportResourcePath,
   ImportResourcePathPackage,
   ImportResourcePathRelativeInPackage,
   importResourcePathToString,
-} from './ImportResourcePath';
-import { SourceResolver } from './SourceResolver';
-import * as path from 'path';
-import { invokeUpdate } from './invokeUpdate';
-import { RecursionDepth } from './RecursionDepth';
+} from "./ImportResourcePath";
+import { SourceResolver } from "./SourceResolver";
+import * as path from "path";
+import { invokeUpdate } from "./invokeUpdate";
+import { RecursionDepth } from "./RecursionDepth";
 
 // @ts-expect-error
-const Uri: MonacoUri = window.monaco.Uri
+const Uri: MonacoUri = window.monaco.Uri;
 
 export class ImportResolver {
   private loadedFiles: string[];
@@ -37,12 +37,12 @@ export class ImportResolver {
       for (const [packageName, version] of Object.entries(options.versions)) {
         this.resolveImport(
           {
-            kind: 'package',
+            kind: "package",
             packageName: packageName,
-            importPath: '',
+            importPath: "",
           },
-          new RecursionDepth(this.options)
-        ).catch(e => {
+          new RecursionDepth(this.options),
+        ).catch((e) => {
           console.error(e);
         });
       }
@@ -57,7 +57,11 @@ export class ImportResolver {
     this.newImportsResolved = false;
   }
 
-  public async resolveImportsInFile(source: string, parent: string | ImportResourcePath, depth: RecursionDepth) {
+  public async resolveImportsInFile(
+    source: string,
+    parent: string | ImportResourcePath,
+    depth: RecursionDepth,
+  ) {
     if (depth.shouldStop()) {
       return;
     }
@@ -72,7 +76,10 @@ export class ImportResolver {
     }
   }
 
-  private async resolveImport(importResource: ImportResourcePath, depth: RecursionDepth) {
+  private async resolveImport(
+    importResource: ImportResourcePath,
+    depth: RecursionDepth,
+  ) {
     const hash = this.hashImportResourcePath(importResource);
     if (this.loadedFiles.includes(hash)) {
       return;
@@ -81,66 +88,88 @@ export class ImportResolver {
     this.loadedFiles.push(hash);
 
     switch (importResource.kind) {
-      case 'package':
-        const packageRelativeImport = await this.resolveImportFromPackageRoot(importResource);
+      case "package":
+        const packageRelativeImport = await this.resolveImportFromPackageRoot(
+          importResource,
+        );
         if (packageRelativeImport) {
-          return await this.resolveImportInPackage(packageRelativeImport, depth.nextPackage().nextFile());
+          return await this.resolveImportInPackage(
+            packageRelativeImport,
+            depth.nextPackage().nextFile(),
+          );
         }
         break;
-      case 'relative':
-        throw Error('Not implemented yet');
-      case 'relative-in-package':
-        return await this.resolveImportInPackage(importResource, depth.nextFile());
+      case "relative":
+        throw Error("Not implemented yet");
+      case "relative-in-package":
+        return await this.resolveImportInPackage(
+          importResource,
+          depth.nextFile(),
+        );
     }
   }
 
-  private async resolveImportInPackage(importResource: ImportResourcePathRelativeInPackage, depth: RecursionDepth) {
+  private async resolveImportInPackage(
+    importResource: ImportResourcePathRelativeInPackage,
+    depth: RecursionDepth,
+  ) {
     const { source, at } = await this.loadSourceFileContents(importResource);
     this.createModel(
       source,
       // @ts-expect-error
-      Uri.parse(this.options.fileRootPath + path.join(`node_modules/${importResource.packageName}`, at))
+      Uri.parse(
+        this.options.fileRootPath +
+          path.join(`node_modules/${importResource.packageName}`, at),
+      ),
     );
     await this.resolveImportsInFile(
       source,
       {
-        kind: 'relative-in-package',
+        kind: "relative-in-package",
         packageName: importResource.packageName,
         sourcePath: path.dirname(at),
-        importPath: '',
+        importPath: "",
       },
-      depth
+      depth,
     );
   }
 
   private async resolveImportFromPackageRoot(
-    importResource: ImportResourcePathPackage
+    importResource: ImportResourcePathPackage,
   ): Promise<ImportResourcePathRelativeInPackage | undefined> {
     const failedProgressUpdate = {
-      type: 'LookedUpPackage',
+      type: "LookedUpPackage",
       package: importResource.packageName,
       definitelyTyped: false,
       success: false,
     } as const;
 
     if (this.options.onlySpecifiedPackages) {
-      if (!this.versions?.[importResource.packageName] && !this.versions?.['@types/' + importResource.packageName]) {
+      if (
+        !this.versions?.[importResource.packageName] &&
+        !this.versions?.["@types/" + importResource.packageName]
+      ) {
         invokeUpdate(failedProgressUpdate, this.options);
         return;
       }
     }
 
     const doesPkgJsonHasSubpath = importResource.importPath?.length ?? 0 > 0;
-    let pkgJsonSubpath = doesPkgJsonHasSubpath ? `/${importResource.importPath}` : '';
+    let pkgJsonSubpath = doesPkgJsonHasSubpath
+      ? `/${importResource.importPath}`
+      : "";
     let pkgJson = await this.resolvePackageJson(
       importResource.packageName,
       this.versions?.[importResource.packageName],
-      doesPkgJsonHasSubpath ? importResource.importPath : undefined
+      doesPkgJsonHasSubpath ? importResource.importPath : undefined,
     );
 
     if (!pkgJson && doesPkgJsonHasSubpath) {
-      pkgJson = await this.resolvePackageJson(importResource.packageName, this.versions?.[importResource.packageName]);
-      pkgJsonSubpath = '';
+      pkgJson = await this.resolvePackageJson(
+        importResource.packageName,
+        this.versions?.[importResource.packageName],
+      );
+      pkgJsonSubpath = "";
     }
 
     if (pkgJson) {
@@ -151,32 +180,38 @@ export class ImportResolver {
           pkgJson,
           //@ts-expect-error
           Uri.parse(
-            `${this.options.fileRootPath}node_modules/${importResource.packageName}${pkgJsonSubpath}/package.json`
-          )
+            `${this.options.fileRootPath}node_modules/${importResource.packageName}${pkgJsonSubpath}/package.json`,
+          ),
         );
         invokeUpdate(
           {
-            type: 'LookedUpPackage',
+            type: "LookedUpPackage",
             package: importResource.packageName,
             definitelyTyped: false,
             success: true,
           },
-          this.options
+          this.options,
         );
         this.setVersion(importResource.packageName, pkg.version);
         return {
-          kind: 'relative-in-package',
+          kind: "relative-in-package",
           packageName: importResource.packageName,
-          sourcePath: '',
-          importPath: path.join(importResource.importPath ?? '', typings.startsWith('./') ? typings.slice(2) : typings),
+          sourcePath: "",
+          importPath: path.join(
+            importResource.importPath ?? "",
+            typings.startsWith("./") ? typings.slice(2) : typings,
+          ),
         };
       } else {
         const typingPackageName = `@types/${
-          importResource.packageName.startsWith('@')
-            ? importResource.packageName.slice(1).replace(/\//, '__')
+          importResource.packageName.startsWith("@")
+            ? importResource.packageName.slice(1).replace(/\//, "__")
             : importResource.packageName
         }`;
-        const pkgJsonTypings = await this.resolvePackageJson(typingPackageName, this.versions?.[typingPackageName]);
+        const pkgJsonTypings = await this.resolvePackageJson(
+          typingPackageName,
+          this.versions?.[typingPackageName],
+        );
         if (pkgJsonTypings) {
           const pkg = JSON.parse(pkgJsonTypings);
           if (pkg.typings || pkg.types) {
@@ -184,25 +219,27 @@ export class ImportResolver {
             this.createModel(
               pkgJsonTypings,
               // @ts-expect-error
-              Uri.parse(`${this.options.fileRootPath}node_modules/${typingPackageName}/package.json`)
+              Uri.parse(
+                `${this.options.fileRootPath}node_modules/${typingPackageName}/package.json`,
+              ),
             );
             invokeUpdate(
               {
-                type: 'LookedUpPackage',
+                type: "LookedUpPackage",
                 package: typingPackageName,
                 definitelyTyped: true,
                 success: true,
               },
-              this.options
+              this.options,
             );
             this.setVersion(typingPackageName, pkg.version);
             return {
-              kind: 'relative-in-package',
+              kind: "relative-in-package",
               packageName: typingPackageName,
-              sourcePath: '',
+              sourcePath: "",
               importPath: path.join(
-                importResource.importPath ?? '',
-                typings.startsWith('./') ? typings.slice(2) : typings
+                importResource.importPath ?? "",
+                typings.startsWith("./") ? typings.slice(2) : typings,
               ),
             };
           } else {
@@ -218,16 +255,16 @@ export class ImportResolver {
   }
 
   private async loadSourceFileContents(
-    importResource: ImportResourcePathRelativeInPackage
+    importResource: ImportResourcePathRelativeInPackage,
   ): Promise<{ source: string; at: string }> {
     const progressUpdatePath = path.join(
       importResource.packageName,
       importResource.sourcePath,
-      importResource.importPath
+      importResource.importPath,
     );
 
     const failedProgressUpdate = {
-      type: 'LookedUpTypeFile',
+      type: "LookedUpTypeFile",
       path: progressUpdatePath,
       definitelyTyped: false,
       success: false,
@@ -236,37 +273,52 @@ export class ImportResolver {
     const pkgName = importResource.packageName;
     const version = this.getVersion(importResource.packageName);
 
-    let appends = ['.d.ts', '/index.d.ts', '.ts', '.tsx', '/index.ts', '/index.tsx'];
+    let appends = [
+      ".d.ts",
+      "/index.d.ts",
+      ".ts",
+      ".tsx",
+      "/index.ts",
+      "/index.tsx",
+    ];
 
-    if (appends.map(append => importResource.importPath.endsWith(append)).reduce((a, b) => a || b, false)) {
+    if (
+      appends.map((append) => importResource.importPath.endsWith(append))
+        .reduce((a, b) => a || b, false)
+    ) {
       const source = await this.resolveSourceFile(
         pkgName,
         version,
-        path.join(importResource.sourcePath, importResource.importPath)
+        path.join(importResource.sourcePath, importResource.importPath),
       );
       if (source) {
-        return { source, at: path.join(importResource.sourcePath, importResource.importPath) };
+        return {
+          source,
+          at: path.join(importResource.sourcePath, importResource.importPath),
+        };
       }
     } else {
       for (const append of appends) {
-        const fullPath = path.join(importResource.sourcePath, importResource.importPath) + append;
+        const fullPath =
+          path.join(importResource.sourcePath, importResource.importPath) +
+          append;
         const source = await this.resolveSourceFile(pkgName, version, fullPath);
         invokeUpdate(
           {
-            type: 'AttemptedLookUpFile',
+            type: "AttemptedLookUpFile",
             path: path.join(pkgName, fullPath),
             success: !!source,
           },
-          this.options
+          this.options,
         );
         if (source) {
           invokeUpdate(
             {
-              type: 'LookedUpTypeFile',
+              type: "LookedUpTypeFile",
               path: path.join(pkgName, fullPath),
               success: true,
             },
-            this.options
+            this.options,
           );
           return { source, at: fullPath };
         }
@@ -276,22 +328,26 @@ export class ImportResolver {
     const pkgJson = await this.resolvePackageJson(
       pkgName,
       version,
-      path.join(importResource.sourcePath, importResource.importPath)
+      path.join(importResource.sourcePath, importResource.importPath),
     );
 
     if (pkgJson) {
       const { types } = JSON.parse(pkgJson);
       if (types) {
-        const fullPath = path.join(importResource.sourcePath, importResource.importPath, types);
+        const fullPath = path.join(
+          importResource.sourcePath,
+          importResource.importPath,
+          types,
+        );
         const source = await this.resolveSourceFile(pkgName, version, fullPath);
         if (source) {
           invokeUpdate(
             {
-              type: 'LookedUpTypeFile',
+              type: "LookedUpTypeFile",
               path: path.join(pkgName, fullPath),
               success: true,
             },
-            this.options
+            this.options,
           );
           return { source, at: fullPath };
         }
@@ -300,7 +356,7 @@ export class ImportResolver {
 
     invokeUpdate(failedProgressUpdate, this.options);
     throw Error(
-      `Could not resolve ${importResource.packageName}/${importResource.sourcePath}${importResource.importPath}`
+      `Could not resolve ${importResource.packageName}/${importResource.sourcePath}${importResource.importPath}`,
     );
   }
 
@@ -322,11 +378,11 @@ export class ImportResolver {
   }
 
   private createModel(source: string, uri: typeof Uri) {
-    uri = uri.with({ path: uri.path.replace('@types/', '') });
-  // @ts-expect-error
+    uri = uri.with({ path: uri.path.replace("@types/", "") });
+    // @ts-expect-error
     if (!monaco.editor.getModel(uri)) {
-  // @ts-expect-error
-      monaco.editor.createModel(source, 'typescript', uri);
+      // @ts-expect-error
+      monaco.editor.createModel(source, "typescript", uri);
       this.newImportsResolved = true;
     }
   }
@@ -338,9 +394,13 @@ export class ImportResolver {
   private async resolvePackageJson(
     packageName: string,
     version?: string,
-    subPath?: string
+    subPath?: string,
   ): Promise<string | undefined> {
-    const uri = path.join(packageName + (version ? `@${version}` : ''), subPath ?? '', 'package.json');
+    const uri = path.join(
+      packageName + (version ? `@${version}` : ""),
+      subPath ?? "",
+      "package.json",
+    );
     let isAvailable = false;
     let content: string | undefined = undefined;
 
@@ -354,7 +414,11 @@ export class ImportResolver {
     if (isAvailable) {
       return content ?? (await this.cache.getFile(uri));
     } else {
-      content = await this.sourceResolver.resolvePackageJson(packageName, version, subPath);
+      content = await this.sourceResolver.resolvePackageJson(
+        packageName,
+        version,
+        subPath,
+      );
       if (content) {
         this.cache.storeFile(uri, content);
       }
@@ -365,9 +429,12 @@ export class ImportResolver {
   private async resolveSourceFile(
     packageName: string,
     version: string | undefined,
-    filePath: string
+    filePath: string,
   ): Promise<string | undefined> {
-    const uri = path.join(packageName + (version ? `@${version}` : ''), filePath);
+    const uri = path.join(
+      packageName + (version ? `@${version}` : ""),
+      filePath,
+    );
     let isAvailable = false;
     let content: string | undefined = undefined;
 
@@ -381,21 +448,25 @@ export class ImportResolver {
     if (isAvailable) {
       invokeUpdate(
         {
-          type: 'LoadedFromCache',
+          type: "LoadedFromCache",
           importPath: uri,
         },
-        this.options
+        this.options,
       );
       return content ?? (await this.cache.getFile(uri));
     } else {
-      content = await this.sourceResolver.resolveSourceFile(packageName, version, filePath);
+      content = await this.sourceResolver.resolveSourceFile(
+        packageName,
+        version,
+        filePath,
+      );
       if (content) {
         invokeUpdate(
           {
-            type: 'StoredToCache',
+            type: "StoredToCache",
             importPath: uri,
           },
-          this.options
+          this.options,
         );
         this.cache.storeFile(uri, content);
       }

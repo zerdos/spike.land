@@ -1,0 +1,1 @@
+import{d as e,h as o,F as n}from"./q-325a728a.js";const a=e(((a,{text:t})=>(console.log("on:qRender => <Header/>"),o(n,null,o("h1",null,"todos"),o("input",{class:"new-todo",placeholder:"What needs to be done?",autoFocus:!0,value:t,"on:keyup":e((()=>import("./q-ed22ffa0.js")),"Header_onRender_on_keyup")})))));export{a as Header_onRender};

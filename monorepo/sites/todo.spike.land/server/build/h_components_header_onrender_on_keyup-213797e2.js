@@ -1,0 +1,1 @@
+"use strict";var e=require("./state-df88ba18.js"),t=require("./core-67a6ca69.js");const r=t.qHook((({todos:r},o)=>{const s=t.useEvent(),a=s.target.value;o.text=a,"Enter"===s.key&&a&&(e.addItem(r,o.text),o.text="")}));exports.Header_onRender_on_keyup=r;

@@ -581,7 +581,7 @@ var require_textdiff_create = __commonJS({
 });
 
 // ../../packages/code/package.json
-var version = "0.6.65";
+var version = "0.6.69";
 
 // ../../packages/cf-npm-site/dist/index.mjs
 function src_default(packageName, version2, serveDir = "") {
@@ -933,7 +933,7 @@ body,
 // ../../packages/code/js/importmap.json
 var imports = {
   "@emotion/cache": "https://ga.jspm.io/npm:@emotion/cache@11.7.1/dist/emotion-cache.browser.esm.js",
-  "@emotion/react": "https://unpkg.com/@spike.land/esm@0.6.62/dist/emotion-react.mjs",
+  "@emotion/react": "https://unpkg.com/@spike.land/esm@0.6.68/dist/emotion-react.mjs",
   "@mui/material/Button": "https://ga.jspm.io/npm:@mui/material@5.3.0/Button/index.js",
   "@mui/material/Fab": "https://ga.jspm.io/npm:@mui/material@5.3.0/Fab/index.js",
   "@mui/material/ToggleButton": "https://ga.jspm.io/npm:@mui/material@5.3.0/ToggleButton/index.js",
@@ -943,14 +943,14 @@ var imports = {
   comlink: "https://ga.jspm.io/npm:comlink@4.3.1/dist/umd/comlink.js",
   immutable: "https://ga.jspm.io/npm:immutable@4.0.0/dist/immutable.es.js",
   "lodash/throttle": "https://ga.jspm.io/npm:lodash@4.17.21/throttle.js",
-  react: "https://unpkg.com/@spike.land/esm@0.6.62/dist/react.mjs",
-  "react-dom": "https://unpkg.com/@spike.land/esm@0.6.62/dist/react-dom.mjs",
+  react: "https://unpkg.com/@spike.land/esm@0.6.68/dist/react.mjs",
+  "react-dom": "https://unpkg.com/@spike.land/esm@0.6.68/dist/react-dom.mjs",
   "react-dom/server": "https://ga.jspm.io/npm:react-dom@18.0.0-rc.0-next-fe905f152-20220107/server.browser.js",
   "react/jsx-runtime": "https://ga.jspm.io/npm:react@18.0.0-rc.0-next-fe905f152-20220107/jsx-runtime.js",
   "workbox-window": "https://ga.jspm.io/npm:workbox-window@6.4.2/build/workbox-window.prod.es5.mjs",
-  "framer-motion": "https://unpkg.com/@spike.land/esm@0.6.62/dist/framer-motion.mjs",
-  "textdiff-create": "https://unpkg.com/@spike.land/esm@0.6.62/dist/textdiff-create.mjs",
-  "textdiff-patch": "https://unpkg.com/@spike.land/esm@0.6.62/dist/textdiff-patch.mjs"
+  "framer-motion": "https://unpkg.com/@spike.land/esm@0.6.68/dist/framer-motion.mjs",
+  "textdiff-create": "https://unpkg.com/@spike.land/esm@0.6.68/dist/textdiff-create.mjs",
+  "textdiff-patch": "https://unpkg.com/@spike.land/esm@0.6.68/dist/textdiff-patch.mjs"
 };
 var scopes = {
   "https://ga.jspm.io/": {

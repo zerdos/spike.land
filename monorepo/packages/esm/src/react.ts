@@ -1,6 +1,6 @@
-import * as React from "react"
+import * as React from "react";
 
-    const react = ( window as unknown as {React: unknown}).React;
+const react = (window as unknown as { React: unknown }).React;
 
 // export { createContext}
 // export {     useDebugValue}
@@ -26,9 +26,13 @@ import * as React from "react"
 // export {lazy}
 // export {isLazy}
 
-export const { createContext } = react as {createContext: typeof React.createContext};
-export const { useDebugValue } = react as {useDebugValue: typeof React.useDebugValue};
-export const { useState } = react  as {useState: typeof React.useState};
+export const { createContext } = react as {
+  createContext: typeof React.createContext;
+};
+export const { useDebugValue } = react as {
+  useDebugValue: typeof React.useDebugValue;
+};
+export const { useState } = react as { useState: typeof React.useState };
 export const { useId } = react;
 export const { useRef } = react;
 export const { useContext } = react;
@@ -42,7 +46,7 @@ export const { createElement } = react;
 export const { createFactory } = react;
 export const { createRef } = react;
 export const { Fragment } = react;
-export const { Component } =react;
+export const { Component } = react;
 export const { Suspense } = react;
 export const { isValidElement } = react;
 export const { memo } = react;
@@ -59,4 +63,3 @@ export const { cloneElement } = react;
 export default react;
 
 // export default React;
- 
