@@ -31,6 +31,7 @@
     "clean": "yarn ws:yarn clean",
     "serve": "nodemon ./http2-server/http2-server.js",
     "push": "yarn ws:yarn push",
+    "importmap": "yarn ws:yarn importmap",
     "build:code": "yarn ws:yarn build:code",
     "deploy": "yarn ws:yarn deploy",
     "lerna:publish": "yarn ws:yarn lerna:publish",
