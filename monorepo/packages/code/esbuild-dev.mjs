@@ -10,18 +10,18 @@ const workerEntryPoints = [
   // "vs/language/html/html.worker.js",
   "vs/language/typescript/ts.worker.js",
   "vs/editor/editor.worker.js",
-];
+].map((entry) =>
+`monaco-editor/esm/${entry}`
+);
 
 await esbuild.build({
-  entryPoints: workerEntryPoints.map((entry) =>
-    `../../node_modules/monaco-editor/esm/${entry}`
-  ),
+  entryPoints: [...workerEntryPoints, "./js/workers/prettier.worker.js"],
   bundle: true,
-  minify: false,
+  minify: true,
   sourcemap: false,
   treeShaking: true,
   format: "iife",
-  outdir: "js/vendor/workers/",
+  outdir: "js/dist/workers/",
 });
 
 await esbuild.build({
@@ -94,6 +94,7 @@ const build = (entryPoints) =>
     plugins: [importMap.plugin()],
     loader: {
       ".ttf": "file",
+      ".worker.js": "text",
       ".wasm": "binary"
     },
     outdir: "js/dist",
