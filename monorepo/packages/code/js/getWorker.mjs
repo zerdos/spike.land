@@ -1,9 +1,9 @@
 import { wrap } from "comlink";
 
-export const getWrappedFromWorkerSrc = (src) => {
-  const url = URL.createObjectURL(
-    new Blob([src], { type: "application/javascript" }),
-  );
+export const getWrappedFromWorkerSrc = (url) => {
+  // const url = URL.createObjectURL(
+  //   new Blob([src], { type: "application/javascript" }),
+  // );
 
   const worker = new Worker(url);
   const { port1, port2 } = new MessageChannel();

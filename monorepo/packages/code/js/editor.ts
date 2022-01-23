@@ -1,6 +1,7 @@
 import { monaco as monacoTs } from "./vendor/monaco/monacoTs.js";
 import type * as Monaco from "monaco-editor";
 import pAll from "p-all";
+import tsWorkerUrl from "./dist/workers/monaco-editor/esm/vs/language/typescript/ts.worker.js";
 
 self.MonacoEnvironment = {
   getWorkerUrl: function (moduleId: string, label: string) {
@@ -13,10 +14,8 @@ self.MonacoEnvironment = {
     // if (label === "html" || label === "handlebars" || label === "razor") {
     //   return "./vendor/vendor/language/html/html.worker.js";
     // }
-    if (label === "typescript" || label === "javascript") {
-      return "./dist/workers/monaco-editor/esm/vs/language/typescript/ts.worker.js";
-    }
-    return "./dist/workers/monaco-editor/esm/vs/editor/editor.worker.js";
+
+    return tsWorkerUrl;
   },
 } as Monaco.Environment;
 
