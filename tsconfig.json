@@ -9,6 +9,7 @@
     "lib": [ "dom", "dom.iterable", "ESNext"],
     "resolveJsonModule": true,
     "moduleResolution": "node",
+    "isolatedModules": true,
     "strict": true
   },
   "exclude": [

@@ -48,21 +48,21 @@ export async function startMonacoWithSession(session) {
   window.monaco = monaco;
   session.editor = editor;
 
-  monaco.languages.registerOnTypeFormattingEditProvider("typescript", {
-    autoFormatTriggerCharacters: ["}", "{", ")", "(", ";"],
+  // monaco.languages.registerOnTypeFormattingEditProvider("typescript", {
+  //   autoFormatTriggerCharacters: ["}", "{", ")", "(", ";"],
 
-    async provideOnTypeFormattingEdits(model) {
-      const text = await formatter(model.getValue());
+  //   async provideOnTypeFormattingEdits(model) {
+  //     const text = await formatter(model.getValue());
 
-      return [
-        {
-          range: model.getFullModelRange(),
+  //     return [
+  //       {
+  //         range: model.getFullModelRange(),
 
-          text,
-        },
-      ];
-    },
-  });
+  //         text,
+  //       },
+  //     ];
+  //   },
+  // });
 
   window.sess = session;
 }

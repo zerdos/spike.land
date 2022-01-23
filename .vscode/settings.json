@@ -4,7 +4,6 @@
     "**/.git": true,
     "**/.svn": true,
     "**/.hg": true,
-    "**/dist": true,
     "**/CVS": true,
     "**/.DS_Store": true
   },

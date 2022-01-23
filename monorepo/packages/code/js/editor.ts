@@ -1,4 +1,4 @@
-import * as monaco from "monaco-editor/esm/vs/editor/editor.main.js";
+import { monaco } from "./vendor/monaco/monacoTs.js";
 import pAll from "p-all";
 
 self.MonacoEnvironment = {

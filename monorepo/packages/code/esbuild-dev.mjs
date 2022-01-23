@@ -17,10 +17,26 @@ await esbuild.build({
     `../../node_modules/monaco-editor/esm/${entry}`
   ),
   bundle: true,
-  minify: true,
+  minify: false,
+  sourcemap: false,
   treeShaking: true,
   format: "iife",
   outdir: "js/vendor/workers/",
+});
+
+await esbuild.build({
+  entryPoints: ["js/monacoTs.ts"],
+  bundle: true,
+  minify: false,
+  treeShaking: false,
+  sourcemap: false,
+  format: "esm",
+  platform: "browser",
+  loader: {
+    ".ttf": "file",
+    ".css": "file"
+  },
+  outdir: "js/vendor/monaco",
 });
 
 // await esbuild.build({
@@ -67,6 +83,7 @@ const build = (entryPoints) =>
     format: "esm",
     minify: false,
     splitting: true,
+    sourcemap: "inline",
     allowOverwrite: true,
     treeShaking: true,
     platform: "browser",
