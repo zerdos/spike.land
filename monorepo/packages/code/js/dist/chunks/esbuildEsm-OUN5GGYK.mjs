@@ -5,9 +5,9 @@ import "./chunk-4IQSHU34.mjs";
 
 // js/esbuildEsm.mjs
 import { Mutex } from "https://ga.jspm.io/npm:async-mutex@0.3.2/index.mjs";
-import * as esbuild from "https://unpkg.com/esbuild-wasm@0.14.10/esm/browser.min.js";
+import * as esbuild from "https://unpkg.com/esbuild-wasm@0.14.13/esm/browser.min.js";
 var init = esbuild.initialize({
-  wasmURL: "https://unpkg.com/esbuild-wasm@0.14.10/esbuild.wasm"
+  wasmURL: "https://unpkg.com/esbuild-wasm@0.14.13/esbuild.wasm"
 });
 var initFinished = false;
 var mutex = new Mutex();
@@ -37,4 +37,4 @@ var transform2 = async (code, retry = 4) => {
 export {
   transform2 as transform
 };
-//# sourceMappingURL=esbuildEsm-YVSGEE4H.mjs.map
+//# sourceMappingURL=esbuildEsm-OUN5GGYK.mjs.map

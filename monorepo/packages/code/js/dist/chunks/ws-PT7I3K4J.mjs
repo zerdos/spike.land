@@ -56,7 +56,7 @@ async function getErrors({ monaco, editor }) {
 async function runner(c, changes = null, session, counter) {
   session.changes.push(changes);
   formatter = formatter || (await import("./formatter-MPIDKEWK.mjs")).formatter;
-  esbuildEsmTransform = esbuildEsmTransform || (await import("./esbuildEsm-YVSGEE4H.mjs")).transform;
+  esbuildEsmTransform = esbuildEsmTransform || (await import("./esbuildEsm-OUN5GGYK.mjs")).transform;
   transform = esbuildEsmTransform;
   session.errorText = "";
   try {
@@ -591,4 +591,4 @@ function wait(delay) {
 export {
   join
 };
-//# sourceMappingURL=ws-ACWT32RS.mjs.map
+//# sourceMappingURL=ws-PT7I3K4J.mjs.map
