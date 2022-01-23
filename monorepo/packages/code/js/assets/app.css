@@ -32,7 +32,7 @@ body {
   overflow-y: hidden;
 }
 
-#shadowEditor {
+#monacoEditor {
   max-width: 640px;
   height: 100vh;
   max-height: 100vh;

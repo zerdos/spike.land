@@ -23,7 +23,7 @@ export const prettier = async (code) => {
 // //
 
 export async function startMonacoWithSession(session) {
-  const shadDom = document.querySelector("#shadowEditor");
+  const monacoEditorDom = document.querySelector("#monacoEditor");
 
   const { startMonaco } = await import("./editor.ts");
   const throttle = (await import("lodash/throttle")).default;
@@ -35,7 +35,7 @@ export async function startMonacoWithSession(session) {
      */
     {
       language: "typescript",
-      container: shadDom,
+      container: monacoEditorDom,
       code: session.code,
       /**
        * @param {string} code

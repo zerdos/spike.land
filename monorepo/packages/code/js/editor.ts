@@ -1,8 +1,9 @@
-import { monaco } from "./vendor/monaco/monacoTs.js";
+import { monaco as monacoTs } from "./vendor/monaco/monacoTs.js";
+import type * as Monaco from "monaco-editor";
 import pAll from "p-all";
 
 self.MonacoEnvironment = {
-  getWorkerUrl: function (moduleId, label) {
+  getWorkerUrl: function (moduleId: string, label: string) {
     // if (label === "json") {
     //   return "./vendor/language/json/json.worker.js";
     // }
@@ -17,17 +18,27 @@ self.MonacoEnvironment = {
     }
     return "./vendor/workers/editor/editor.worker.js";
   },
+} as Monaco.Environment;
+
+const monaco = {
+  editor: monacoTs.editor as typeof Monaco.editor,
+  Uri: monacoTs.Uri as unknown as typeof Monaco.Uri,
+
+  languages: {
+    typescript: monacoTs.languages
+      .typescript as typeof Monaco.languages.typescript,
+  },
 };
 
 export const startMonaco = async (
   { code, container }: { code: string; container: HTMLDivElement },
 ) => {
   // const {monaco} = window as unknown as {monaco: typeof m}
-  // const modelUri = monaco.Uri.parse(
+  // const modelUri = monacoTs.Uri.parse(
   //   language === "typescript" ? "/index.ts" : "/main.html",
   // );
 
-  // const model = monaco.editor.createModel(
+  // const model = monacoTs.editor.createModel(
   //     code,
   //     language,
   //     modelUri,
@@ -54,28 +65,25 @@ export const startMonaco = async (
   // shadowRoot.appendChild(innerStyle);
 
   // const customWorker = { customWorkerPath: window.location.href + "js/workers/custom-worker.js" };
-  // monaco.languages.typescript.typescriptDefaults.setWorkerOptions(customWorker);
-
+  // monacoTs.languages.typescript.typescriptDefaults.setWorkerOptions(customWorker);
+  monaco.editor.createModel("declare ");
   monaco.languages.typescript.typescriptDefaults.setCompilerOptions({
     target: 99,
     lib: [
       "DOM",
-      "DOM.Iterable",
-      "ES2018.Regexp",
-      "ES2018.AsyncIterable",
       "ES2018",
-      "ES2019",
     ],
 
     allowNonTsExtensions: true,
-    moduleResolution: 2,
-    module: 99,
-    declaration: true,
-    "inlineSources": true,
+    moduleResolution: monaco.languages.typescript.ModuleResolutionKind.NodeJs,
+    declaration: false,
     noEmit: true,
     noEmitOnError: true,
-    jsxFactory: "jsx",
-    jsx: 4, // monaco.languages.typescript.JsxEmit,
+    // jsxFactory: "jsx",
+    allowJs: true,
+    maxNodeModuleJsDepth: 10,
+    jsxImportSource: "@emotion/react",
+    jsx: monaco.languages.typescript.JsxEmit.ReactJSX,
     skipLibCheck: false,
     // esModuleInterop: true,
     // allowSyntheticDefaultImports: true,
@@ -95,7 +103,7 @@ export const startMonaco = async (
     model: monaco.editor.createModel(
       code,
       "typescript",
-      monaco.Uri.parse("file:///index.ts"),
+      monaco.Uri.parse("file:///app/index.tsx"),
     ),
     // lightbulb: { enabled: false },
     language: "typescript",
@@ -126,19 +134,19 @@ export const startMonaco = async (
     // formatOnPaste: true,
     // formatOnType: true,
 
-    useShadowDOM: true,
+    useShadowDOM: false,
   });
 
   // const { AutoTypings, LocalStorageCache } = await import(
   //   "@spike.land/monaco-editor-auto-typings"
   // );
 
-  // const autoTypings = AutoTypings.create(editor, monaco.languages, {
+  // const autoTypings = AutoTypings.create(editor, monacoTs.languages, {
   //   sourceCache: new LocalStorageCache(), // Cache loaded sources in localStorage. May be omitted
   //   // Other options...
   // });
 
-  // monaco.editor.create(
+  // monacoTs.editor.create(
   //   innerContainer,
   //   {
   //     formatOnType: false,
@@ -218,6 +226,63 @@ export const startMonaco = async (
     editor.layout();
   });
 
+  monaco.languages.typescript.typescriptDefaults.addExtraLib(
+    `export interface RegisteredCache {
+      [key: string]: string
+    }
+    
+    export interface StyleSheet {
+      container: HTMLElement
+      nonce?: string
+      key: string
+      insert(rule: string): void
+      flush(): void
+      tags: Array<HTMLStyleElement>
+    }
+    
+    export interface EmotionCache {
+      inserted: {
+        [key: string]: string | true
+      }
+      registered: RegisteredCache
+      sheet: StyleSheet
+      key: string
+      compat?: true
+      nonce?: string
+      insert(
+        selector: string,
+        serialized: SerializedStyles,
+        sheet: StyleSheet,
+        shouldCache: boolean
+      ): string | void
+    }
+    
+    export interface SerializedStyles {
+      name: string
+      styles: string
+      map?: string
+      next?: SerializedStyles
+    }
+    
+    export const isBrowser: boolean
+    export function getRegisteredStyles(
+      registered: RegisteredCache,
+      registeredStyles: Array<string>,
+      classNames: string
+    ): string
+    export function insertStyles(
+      cache: EmotionCache,
+      serialized: SerializedStyles,
+      isStringTag: boolean
+    ): string | void`,
+    "/app/types/emotionu/index.d.ts",
+  );
+
+  monaco.languages.typescript.typescriptDefaults.addExtraLib(
+    `export const i: number;`,
+    "file:///node_modules/@types/zozi/index.d.ts",
+  );
+
   setTimeout(async () => {
     const importHelper = [
       {
@@ -256,7 +321,7 @@ export const startMonaco = async (
         depend: [],
       },
       {
-        name: "@emotion/styled/base.d.ts",
+        name: "@emotion/base",
         url: "https://unpkg.com/@emotion/styled@11.6.0/types/base.d.ts",
         depend: [
           "@emotion/react",
@@ -265,7 +330,7 @@ export const startMonaco = async (
         ],
       },
       {
-        name: "@emotion/styled/index.d.ts",
+        name: "@emotion/styled",
         url: "https://unpkg.com/@emotion/styled@11.6.0/types/index.d.ts",
         depend: [
           "@emotion/react",
@@ -274,43 +339,49 @@ export const startMonaco = async (
         ],
       },
       {
-        name: "@emotion/cache/index.d.ts",
+        name: "@emotion/cache",
         url: "https://unpkg.com/@emotion/cache@11.6.0/types/index.d.ts",
         depend: ["@emotion/utils"],
       },
       {
-        name: "@emotion/react/index.d.ts",
+        name: "@emotion/react",
         url: "https://unpkg.com/@emotion/react@11.7.0/types/index.d.ts",
         depend: ["@emotion/cache"],
       },
       {
-        name: "@emotion/react/jsx-namespace.d.ts",
-        url: "https://unpkg.com/@emotion/react@11.7.0/types/jsx-namespace.d.ts",
-        depend: ["@emotion/utils", "csstype"],
+        name: "@emotion/react/jsx-runtime",
+        url:
+          "https://unpkg.com/@emotion/react@11.7.1/types/jsx-dev-runtime.d.ts",
+        depend: ["@emotion/cache"],
       },
       {
-        name: "@emotion/react/css-prop.d.ts",
+        name: "@emotion/react/jsx-namespace",
+        url: "https://unpkg.com/@emotion/react@11.7.1/types/jsx-namespace.d.ts",
+        depend: ["@emotion/utils", "type"],
+      },
+      {
+        name: "@emotion/react/css-prop",
         url: "https://unpkg.com/@emotion/react@11.7.0/types/css-prop.d.ts",
         depend: ["@emotion/utils", "csstype"],
       },
       {
-        name: "@emotion/react/helper.d.ts",
+        name: "@emotion/react/helper",
         url: "https://unpkg.com/@emotion/react@11.7.0/types/helper.d.ts",
         depend: ["@emotion/utils", "csstype"],
       },
       {
-        name: "@emotion/react/theming.d.ts",
+        name: "@emotion/theming",
         url: "https://unpkg.com/@emotion/react@11.7.0/types/theming.d.ts",
         depend: ["@emotion/utils", "csstype"],
       },
       {
-        name: "@emotion/serialize/index.d.ts",
+        name: "@emotion/serialize",
         url: "https://unpkg.com/@emotion/serialize@1.0.2/types/index.d.ts",
 
         depend: ["@emotion/utils", "csstype"],
       },
       {
-        name: "@emotion/utils/index.d.ts",
+        name: "@emotion/utils",
         url: "https://unpkg.com/@emotion/utils@1.0.0/types/index.d.ts",
         depend: [],
       },
@@ -320,7 +391,7 @@ export const startMonaco = async (
         depend: ["popmotion"],
       },
       {
-        name: "framer-motion/types/render/dom/motion.d.ts",
+        name: "framer-motion/types/render/dom/motion",
         url:
           " https://unpkg.com/framer-motion@6.2.1/types/render/dom/motion.d.ts",
         depend: ["popmotion"],
@@ -332,33 +403,18 @@ export const startMonaco = async (
     ];
 
     const dts = importHelper.map(({ name, url }) =>
-      async () => {
-        const content = await (await fetch(
-          url,
-        )).text();
-
-        const nameOfLib = monaco.Uri.parse(
-          name.includes("@")
-            ? `/node_modules/${name}`
-            : (name.endsWith(".d.ts")
-              ? "/node_modules/@types/" + name
-              : "/node_modules/@types/" + name + "/index.d.ts"),
-        ).fsPath;
-
-        // const customWorker = { customWorkerPath: window.location.href + "js/custom-worker.js" };
-        // console.log({customWorker})
-        // monaco.languages.typescript.typescriptDefaults.setWorkerOptions(customWorker);
-        // console.log(nameOfLib, content);
+      async () =>
         monaco.languages.typescript.typescriptDefaults.addExtraLib(
-          content,
-          nameOfLib,
-        );
-        return true;
-      }
+          await (await fetch(
+            url,
+          )).text(),
+          `file:///node_modules/${name}/index.d.ts`,
+        )
     );
 
     await pAll(dts, { concurrency: 2 });
 
+    monaco.languages.typescript.typescriptDefaults.setEagerModelSync(true);
     monaco.languages.typescript.typescriptDefaults.setDiagnosticsOptions({
       noSuggestionDiagnostics: false,
       noSemanticValidation: false,
@@ -370,7 +426,7 @@ export const startMonaco = async (
   return { editor, monaco };
 };
 
-// modules.monaco.languages.typescript.typescriptDefaults.setCompilerOptions({
+// modules.monacoTs.languages.typescript.typescriptDefaults.setCompilerOptions({
 //     target: 99,
 //     allowNonTsExtensions: true,
 //     allowUmdGlobalAccess: true,
@@ -383,7 +439,7 @@ export const startMonaco = async (
 //     noEmit: true,
 
 //     typeRoots: ["node_modules/@types"],
-//     jsx: 5,
+// jsx: 3,
 //     esModuleInterop: true,
 //   });
 // );

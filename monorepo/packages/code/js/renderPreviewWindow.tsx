@@ -16,7 +16,7 @@ export const renderPreviewWindow = async (
   keepFullScreen: boolean,
 ) => {
   const target = document.createElement("div");
-  const editor = document.querySelector("#shadowEditor")!;
+  const editor = document.querySelector("#monacoEditor")!;
   // Target.style.display = "none";
   editor.style.opacity = "0";
 
