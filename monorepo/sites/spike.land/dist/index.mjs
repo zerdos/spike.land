@@ -581,7 +581,7 @@ var require_textdiff_create = __commonJS({
 });
 
 // ../../packages/code/package.json
-var version = "0.6.73";
+var version = "0.6.80";
 
 // ../../packages/cf-npm-site/dist/index.mjs
 function src_default(packageName, version2, serveDir = "") {
@@ -589,7 +589,8 @@ function src_default(packageName, version2, serveDir = "") {
     try {
       const url = new URL(request.url);
       const { pathname } = url;
-      let myCache = await caches.open(pathname.indexOf("/chunks") !== -1 ? `${packageName}-chunks` : `blog-npm:${version2}-${serveDir}`);
+      const isChunk = pathname.indexOf("/chunks") !== -1;
+      let myCache = await caches.open(isChunk ? `${packageName}-chunks` : `blog-npm:${version2}-${serveDir}`);
       const cachedResp = await myCache.match(request, {});
       if (cachedResp) {
         return cachedResp;
@@ -614,7 +615,7 @@ function src_default(packageName, version2, serveDir = "") {
       const resp = new Response(cloned.body, {
         headers: {
           ...cloned.headers,
-          "Cache-Control": "no-cache"
+          "Cache-Control": isChunk ? "public, max-age=604800, immutable" : "no-cache"
         }
       });
       if (pathname.endsWith(".mjs") || pathname.endsWith(".js") || pathname.endsWith(".ts") || pathname.endsWith(".tsx")) {
@@ -829,7 +830,7 @@ var src_default2 = `<!DOCTYPE html>
 </head>
 <body>
   <div id="root"></div>
-  <div id="shadowEditor"></div>
+  <div id="monacoEditor"></div>
   <script type="importmap-shim" src="https://unpkg.com/@spike.land/code@{VERSION}/js/importmap.json"><\/script>
   <script>
   window.codeVersion = "{VERSION}";
@@ -933,7 +934,7 @@ body,
 // ../../packages/code/js/importmap.json
 var imports = {
   "@emotion/cache": "https://ga.jspm.io/npm:@emotion/cache@11.7.1/dist/emotion-cache.browser.esm.js",
-  "@emotion/react": "https://unpkg.com/@spike.land/esm@0.6.70/dist/emotion-react.mjs",
+  "@emotion/react": "https://unpkg.com/@spike.land/esm@0.6.71/dist/emotion-react.mjs",
   "@mui/material/Button": "https://ga.jspm.io/npm:@mui/material@5.3.0/Button/index.js",
   "@mui/material/Fab": "https://ga.jspm.io/npm:@mui/material@5.3.0/Fab/index.js",
   "@mui/material/ToggleButton": "https://ga.jspm.io/npm:@mui/material@5.3.0/ToggleButton/index.js",
@@ -943,14 +944,14 @@ var imports = {
   comlink: "https://ga.jspm.io/npm:comlink@4.3.1/dist/umd/comlink.js",
   immutable: "https://ga.jspm.io/npm:immutable@4.0.0/dist/immutable.es.js",
   "lodash/throttle": "https://ga.jspm.io/npm:lodash@4.17.21/throttle.js",
-  react: "https://unpkg.com/@spike.land/esm@0.6.70/dist/react.mjs",
-  "react-dom": "https://unpkg.com/@spike.land/esm@0.6.70/dist/react-dom.mjs",
+  react: "https://unpkg.com/@spike.land/esm@0.6.71/dist/react.mjs",
+  "react-dom": "https://unpkg.com/@spike.land/esm@0.6.71/dist/react-dom.mjs",
   "react-dom/server": "https://ga.jspm.io/npm:react-dom@18.0.0-rc.0-next-fe905f152-20220107/server.browser.js",
   "react/jsx-runtime": "https://ga.jspm.io/npm:react@18.0.0-rc.0-next-fe905f152-20220107/jsx-runtime.js",
   "workbox-window": "https://ga.jspm.io/npm:workbox-window@6.4.2/build/workbox-window.prod.es5.mjs",
-  "framer-motion": "https://unpkg.com/@spike.land/esm@0.6.70/dist/framer-motion.mjs",
-  "textdiff-create": "https://unpkg.com/@spike.land/esm@0.6.70/dist/textdiff-create.mjs",
-  "textdiff-patch": "https://unpkg.com/@spike.land/esm@0.6.70/dist/textdiff-patch.mjs"
+  "framer-motion": "https://unpkg.com/@spike.land/esm@0.6.71/dist/framer-motion.mjs",
+  "textdiff-create": "https://unpkg.com/@spike.land/esm@0.6.71/dist/textdiff-create.mjs",
+  "textdiff-patch": "https://unpkg.com/@spike.land/esm@0.6.71/dist/textdiff-patch.mjs"
 };
 var scopes = {
   "https://ga.jspm.io/": {

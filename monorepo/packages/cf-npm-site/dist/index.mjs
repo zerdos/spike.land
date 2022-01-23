@@ -4,7 +4,8 @@ function src_default(packageName, version, serveDir = "") {
     try {
       const url = new URL(request.url);
       const { pathname } = url;
-      let myCache = await caches.open(pathname.indexOf("/chunks") !== -1 ? `${packageName}-chunks` : `blog-npm:${version}-${serveDir}`);
+      const isChunk = pathname.indexOf("/chunks") !== -1;
+      let myCache = await caches.open(isChunk ? `${packageName}-chunks` : `blog-npm:${version}-${serveDir}`);
       const cachedResp = await myCache.match(request, {});
       if (cachedResp) {
         return cachedResp;
@@ -29,7 +30,7 @@ function src_default(packageName, version, serveDir = "") {
       const resp = new Response(cloned.body, {
         headers: {
           ...cloned.headers,
-          "Cache-Control": "no-cache"
+          "Cache-Control": isChunk ? "public, max-age=604800, immutable" : "no-cache"
         }
       });
       if (pathname.endsWith(".mjs") || pathname.endsWith(".js") || pathname.endsWith(".ts") || pathname.endsWith(".tsx")) {
