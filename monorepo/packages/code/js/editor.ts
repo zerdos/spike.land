@@ -1,28 +1,7 @@
 import { monaco as monacoTs } from "./vendor/monaco/monacoTs.js";
+
 import type * as Monaco from "monaco-editor";
 import pAll from "p-all";
-import tsWorkerUrl from "./dist/workers/monaco-editor/esm/vs/language/typescript/ts.worker.js";
-import editorWorkerUrl from "./dist/workers/monaco-editor/esm/vs/editor/editor.worker.js";
-
-self.MonacoEnvironment = {
-  getWorkerUrl: function (moduleId: string, label: string) {
-    // if (label === "json") {
-    //   return "./vendor/language/json/json.worker.js";
-    // }
-    // if (label === "css" || label === "scss" || label === "less") {
-    //   return "./vendor/language/css/css.worker.js";
-    // }
-    // if (label === "html" || label === "handlebars" || label === "razor") {
-    // return "./vendor/vendor/language/html/html.worker.js";
-    // }
-
-    if (label === "typescript" || label === "javascript") {
-      return tsWorkerUrl;
-    }
-
-    return editorWorkerUrl;
-  },
-} as Monaco.Environment;
 
 const monaco = {
   editor: monacoTs.editor as typeof Monaco.editor,
@@ -37,6 +16,8 @@ const monaco = {
 export const startMonaco = async (
   { code, container }: { code: string; container: HTMLDivElement },
 ) => {
+  const { init } = await import("./monacoEnv.ts");
+  init();
   // const {monaco} = window as unknown as {monaco: typeof m}
   // const modelUri = monacoTs.Uri.parse(
   //   language === "typescript" ? "/index.ts" : "/main.html",

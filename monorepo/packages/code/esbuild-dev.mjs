@@ -94,7 +94,7 @@ const build = (entryPoints) =>
     loader: {
       ".ttf": "file",
       ".worker.js": "dataurl",
-      ".wasm": "binary",
+      ".wasm": "dataurl",
     },
     outdir: "js/dist",
   }).catch(() => process.exit(1));
