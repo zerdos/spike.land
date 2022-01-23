@@ -13,16 +13,16 @@
     "./js/importmap.json": "./js/importmap.json"
   },
   "scripts": {
-    "clean": "rm -rf .tsBuildInfo js/vendor js/dist && mkdir js/dist && deno fmt js",
+    "clean": "rm -rf .tsBuildInfo js/vendor js/dist && mkdir js/dist js/vendor && deno fmt js",
     "xpostinstall": "yarn importmap",
     "build:sw": "yarn esbuild --outfile=./js/sw.js --bundle js/sw.ts && yarn sw",
     "cp:esbuild-wasm": "cp ../../node_modules/esbuild-wasm/esbuild.wasm js/vendor/",
-    "mui:deno": "deno bundle --import-map ./js/importmap.json --no-check ./js/mui.tsx ./js/vendors/mui.mjs ",
+    "mui:deno": "deno bundle --import-map ./js/importmap.json --no-check ./js/mui.tsx ./js/vendor/mui.mjs ",
     "quickStart:deno": "deno bundle --import-map ./js/importmap.json ./js/dist/quickStart.mjs ./js/dist/quickStart.bundle.mjs --no-check",
     "renderToString:deno": "deno bundle --import-map ./js/importmap.json ./js/renderToString.tsx ./js/vendor/renderToString.mjs --no-check",
     "start": "cd ../../.. && yarn start",
     "push": "cd ../../.. && yarn push",
-    "build": "yarn clean &&  node --experimental-json-modules esbuild-dev.mjs && yarn cp:esbuild-wasm  && yarn build:sw",
+    "build": "yarn clean && yarn cp:esbuild-wasm &&  node --experimental-json-modules esbuild-dev.mjs   && yarn build:sw",
     "importmap": "node --experimental-json-modules generate.mjs > ./importmap_NEW.json && mv importmap_NEW.json js/importmap.json",
     "workbox-cli": "workbox-cli",
     "sw": "yarn workbox injectManifest workbox-config.js"

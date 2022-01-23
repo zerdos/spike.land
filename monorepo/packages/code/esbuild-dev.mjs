@@ -77,6 +77,7 @@ const build = (entryPoints) =>
     plugins: [importMap.plugin()],
     loader: {
       ".ttf": "file",
+      ".wasm": "file"
     },
     outdir: "js/dist",
   }).catch(() => process.exit(1));
