@@ -13,11 +13,13 @@ const workerEntryPoints = [
 ].map((entry) => `monaco-editor/esm/${entry}`);
 
 await esbuild.build({
-  entryPoints: [...workerEntryPoints, "./js/workers/prettier.worker.js"],
+  entryPoints: [...workerEntryPoints, "./js/workers/prettier.worker.js", "./js/appStarter.ts"
+],
   bundle: true,
   target: "es2018",
   sourcemap: false,
   format: "iife",
+  // loader: {   ".wasm": "dataurl"}
   outdir: "js/dist/workers/",
 });
 
@@ -110,7 +112,7 @@ const build = (entryPoints) =>
 
 await build([
   "js/starter.mjs",
-  "js/appStarter.ts",
+  "js/esbuildEsm.ts",
   "js/LazyLoadedComponent.tsx",
 ]);
 

@@ -1,4 +1,12 @@
-export default async (injectedRoom = "") => {
+import React from "react";
+import ReactDOM from "react-dom";
+import * as emotionReact from "@emotion/react";
+
+(async (injectedRoom = "") => {
+  window.React = React;
+  window.ReactDOM = ReactDOM;
+  window.emotionReact = emotionReact;
+
   window.esmsInitOptions = {
     shimMode: true,
     polyfillEnable: ["css-modules", "json-modules"],
@@ -13,12 +21,12 @@ export default async (injectedRoom = "") => {
         if (!res.ok) return res;
 
         const source = await res.text();
+        return source;
 
-        const { transform } = await import("./esbuildEsm.ts");
-        const transformed = await transform(source);
-        return new Response(
-          new Blob([transformed], { type: "application/javascript" }),
-        );
+        // const transformed = await transform(source);
+        // return new Response(
+        //   new Blob([transformed], { type: "application/javascript" }),
+        // );§
       }
       return fetch(url, options);
     },
@@ -43,4 +51,4 @@ export default async (injectedRoom = "") => {
     }
   });
   wb.register();
-};
+})();
