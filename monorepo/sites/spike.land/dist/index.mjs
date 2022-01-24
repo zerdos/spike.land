@@ -581,7 +581,7 @@ var require_textdiff_create = __commonJS({
 });
 
 // ../../packages/code/package.json
-var version = "0.6.80";
+var version = "0.6.92";
 
 // ../../packages/cf-npm-site/dist/index.mjs
 function src_default(packageName, version2, serveDir = "") {
@@ -780,79 +780,7 @@ var RateLimiterClient = class {
 var lazy_default = 'var{React:t}=window,{Suspense:C}=t,b=({name:o,html:c,hash:a,transpiled:l})=>{let[i,p]=t.useState(a);t.useEffect(()=>{let n=setInterval(async()=>{let s=await(await fetch(`https://spike.land/api/room/${o}/hashCodeSession`)).text();p(Number(s))},69e3);return()=>{console.log("INTERVAL CLEARED"),clearInterval(n)}},[]),t.useEffect(()=>{(async()=>{let n=await fetch(`https://spike.land/api/room/${o}/session`),{html:e,css:s,transpiled:L}=await n.json();u({htmlContent:`<div id="root"><style>${s}</style><div id="zbody">${e}</div></div>`,LazyComponent:await y(L)})})()},[i]);let d=t.lazy(()=>import(r(l))),[{htmlContent:m,LazyComponent:h},u]=t.useState({htmlContent:c,LazyComponent:d});return t.createElement(C,{key:i,fallback:t.createElement("div",{dangerouslySetInnerHTML:{__html:m}})},t.createElement(h,{key:a}));function r(n){let e=new Blob([n],{type:"application/javascript"});return URL.createObjectURL(e)}async function y(n){let e=r(n),s=(await import(e)).default;return URL.revokeObjectURL(e),s}},f=o=>t.createElement(b,{...o});export{f as default};\n';
 
 // src/index.html
-var src_default2 = `<!DOCTYPE html>
-<html lang="en">
-<head profile="http://www.w3.org/2005/10/profile">
-  <meta http-equiv="Content-Type" content="text/html,charset=utf-8" />
-  <meta name="viewport" content="width=device-width" />
-  <base href="https://spike.land/">
-  
-  <link rel="icon" type="image/png" href="https://unpkg.com/@spike.land/code@{VERSION}/js/assets/zed-icon-big.png" />
-
-  <link rel="stylesheet" href="https://unpkg.com/@spike.land/code@{VERSION}/js/assets/app.css" />
-
-  <script crossorigin src="https://unpkg.com/react@18.0.0-rc.0-next-13036bfbc-20220121/umd/react.production.min.js"><\/script>
-  <script crossorigin src="https://unpkg.com/react-is@18.0.0-rc.0-next-13036bfbc-20220121/umd/react-is.production.min.js"><\/script>
-  <script crossorigin src="https://unpkg.com/react-dom@18.0.0-rc.0-next-13036bfbc-20220121/umd/react-dom.production.min.js"><\/script>
-
-  <script crossorigin src="https://unpkg.com/@emotion/react@11.7.1/dist/emotion-react.umd.min.js"><\/script>
-  <script>
-    let transform = null;
-   window.esmsInitOptions = {
- shimMode: true,
- polyfillEnable: ['css-modules', 'json-modules'],
- onerror: error => console.log(error), // defaults to \`((e) => { throw e; })\`
- fetch: async function (url, options) {
-   const urlEnd = url.substr(-3);
-   if ((url.indexOf("monaco") === -1) && (["tsx", ".ts"].indexOf(urlEnd)!==-1)) {   
-     console.log(url);
-     const res = await fetch(url, options);
-    if (!res.ok) return res;
-
-       const source = await res.text();
-       
-       transform = transform || (await import("https://unpkg.com/@spike.land/code@{VERSION}/js/esbuildEsm.mjs")).transform;
-       const transformed = await transform(source);
-       return new Response(new Blob([transformed], { type: 'application/javascript' }));
-   }
- return fetch(url, options);
-
- },
- noLoadEventRetriggers: true,
- skip: "/^https?:\\/\\/(cdn\\.skypack\\.dev|jspm\\.dev)\\//\`"
-    } <\/script>
-  <script async src="https://ga.jspm.io/npm:es-module-shims@1.4.1/dist/es-module-shims.wasm.js"><\/script>
-  <title>Instant React Editor</title>
-
-</style>
-
-	
-</head>
-<body>
-  <div id="root"></div>
-  <div id="monacoEditor"></div>
-  <script type="importmap-shim" src="https://unpkg.com/@spike.land/code@{VERSION}/js/importmap.json"><\/script>
-  <script>
-  window.codeVersion = "{VERSION}";
-  window.process = { env: { NODE_ENV: "production" } };
-<\/script>
-  <script type="module-shim">
-    import app from "./dist/starter.mjs";
-    app();
-
-    if ('serviceWorker' in navigator){
-      const {Workbox} = await import('workbox-window')
-        const wb = new Workbox('/sw.js');
-          wb.addEventListener("activated", async (event) => {
-             if (!event.isUpdate) {
-              console.log("Service worker activated for the first time!");
-             }
-          });
-          wb.register();
-      }
-    <\/script>
-</body>
-</html>`;
+var src_default2 = '<!DOCTYPE html>\n<html lang="en">\n<head profile="http://www.w3.org/2005/10/profile">\n  <meta http-equiv="Content-Type" content="text/html,charset=utf-8" />\n  <meta name="viewport" content="width=device-width" />\n  <base href="https://spike.land/">\n  \n  <link rel="icon" type="image/png" href="./assets/zed-icon-big.png" />\n\n  <link rel="stylesheet" href="./assets/app.css" />\n\n  <link\n  data-name="vs/editor/editor.main"\n  rel="stylesheet"\n  href="https://unpkg.com/monaco-editor@0.31.1/min/vs/editor/editor.main.css"\n/>\n \n  <script type="importmap-shim" src="./importmap.json"><\/script>\n  <title>Instant React Editor</title>\n</head>\n<body>\n  <div id="root"></div>\n  <div id="monacoEditor"></div>\n  \n<script async src="./dist/workers/js/appStarter.js"><\/script>\n\n</body>\n</html>';
 
 // src/rca.tsx.html
 var rca_tsx_default = '/** @jsx jsx */\nimport { css, jsx } from "@emotion/react";\n\nimport { motion } from "framer-motion";\n\nexport default () => (\n  <header\n    css={css`\n      background-color: #282c34;\n      min-height: 100vh;\n      display: flex;\n      flex-direction: column;\n      justify-content: center;\n      font-size: calc(10px + 2vmin);\n      color: white;\n      text-align: center;\n      overflow: hidden;\n    `}\n  >\n    <motion.div\n      animate={{ rotate: 360 }}\n      transition={{\n        repeat: 0,\n        duration: 2,\n        repeatType: "loop",\n      }}\n    >\n      <div css="font-size: calc(10px + 20vmin)">|\u{1F525}|</div>\n      -------------------\n    </motion.div>\n    <p>\n      Hey! Try to modify <code>this</code> page.\n    </p>\n\n    <a css="color: #61dafb;" href="./edit/">\n      Open the editor.\n    </a>\n  </header>\n);\n';
@@ -940,6 +868,7 @@ var imports = {
   "@mui/material/ToggleButton": "https://ga.jspm.io/npm:@mui/material@5.3.0/ToggleButton/index.js",
   "@mui/material/ToggleButtonGroup": "https://ga.jspm.io/npm:@mui/material@5.3.0/ToggleButtonGroup/index.js",
   "@mui/material/utils/createSvgIcon": "https://ga.jspm.io/npm:@mui/material@5.3.0/utils/createSvgIcon.js",
+  "@spike.land/qrious": "https://ga.jspm.io/npm:@spike.land/qrious@0.6.59/dist/QRious.mjs",
   "async-mutex": "https://ga.jspm.io/npm:async-mutex@0.3.2/index.mjs",
   comlink: "https://ga.jspm.io/npm:comlink@4.3.1/dist/umd/comlink.js",
   immutable: "https://ga.jspm.io/npm:immutable@4.0.0/dist/immutable.es.js",

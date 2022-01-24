@@ -5,7 +5,7 @@ import { CacheProvider } from "@emotion/react";
 import { renderToString } from "react-dom/server";
 
 export const getHtmlAndCss = (MyComponent: () => JSX.Element) => {
-  const key = "foo";
+  const key = "css";
   const cache = createCache({ key });
   let cssText = "";
   cache.sheet.insert = (rule) => {

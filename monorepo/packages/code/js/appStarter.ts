@@ -1,6 +1,12 @@
+import importMap from "./importmap.json";
 import React from "react";
 import ReactDOM from "react-dom";
 import * as emotionReact from "@emotion/react";
+
+document.body.appendChild(Object.assign(document.createElement("script"), {
+  type: "importmap-shim",
+  innerHTML: JSON.stringify(importMap),
+}));
 
 (async (injectedRoom = "") => {
   window.React = React;

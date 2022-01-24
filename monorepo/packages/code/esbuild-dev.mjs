@@ -18,6 +18,9 @@ await esbuild.build({
   bundle: true,
   target: "es2018",
   sourcemap: false,
+  define: {
+    "process.env.NODE_ENV": `"production"`
+  },
   format: "iife",
   // loader: {   ".wasm": "dataurl"}
   outdir: "js/dist/workers/",
@@ -26,6 +29,10 @@ await esbuild.build({
 await esbuild.build({
   entryPoints: ["js/monacoTs.ts"],
   bundle: true,
+
+  define: {
+    "process.env.NODE_ENV": `"production"`,
+  },
 
   target: "es2018",
   sourcemap: false,
@@ -89,6 +96,9 @@ const build = (entryPoints) =>
     chunkNames: "chunks/[name]-[hash]",
     resolveExtensions: [".tsx", ".ts", ".jsx", ".js", ".css", ".json", ".mjs"],
     target: ["es2018"],
+    define: {
+      "process.env.NODE_ENV": `"production"`,
+    },
     plugins: [importMap.plugin()],
     loader: {
       ".ttf": "file",

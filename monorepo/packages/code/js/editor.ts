@@ -18,40 +18,7 @@ export const startMonaco = async (
 ) => {
   const { init } = await import("./monacoEnv.ts");
   init();
-  // const {monaco} = window as unknown as {monaco: typeof m}
-  // const modelUri = monacoTs.Uri.parse(
-  //   language === "typescript" ? "/index.ts" : "/main.html",
-  // );
 
-  // const model = monacoTs.editor.createModel(
-  //     code,
-  //     language,
-  //     modelUri,
-  //   );
-
-  // const model = modules.editor.getModel("/index.ts") || createModel();
-
-  // const shadowRoot = container.attachShadow({
-  //   mode: "open",
-  // });
-
-  // const innerContainer = document.createElement("div");
-  // shadowRoot.appendChild(innerContainer);
-  // const parent = container.parentElement;
-  // if (parent) {
-  //   const { width, height } = container.getClientRects()[0];
-  //   innerContainer.style.width = `${Math.min(window.innerWidth, width)}px`;
-  //   innerContainer.style.height = `${height}px`;
-  // }
-
-  // const innerStyle = document.createElement("style");
-  // innerStyle.innerText =
-  //   '@import "https://unpkg.com/monaco-editor@0.30.1/min/vs/editor/editor.main.css";';
-  // shadowRoot.appendChild(innerStyle);
-
-  // const customWorker = { customWorkerPath: window.location.href + "js/workers/custom-worker.js" };
-  // monacoTs.languages.typescript.typescriptDefaults.setWorkerOptions(customWorker);
-  monaco.editor.createModel("declare ");
   monaco.languages.typescript.typescriptDefaults.setCompilerOptions({
     target: 99,
     lib: [
@@ -118,8 +85,6 @@ export const startMonaco = async (
 
     // formatOnPaste: true,
     // formatOnType: true,
-
-    useShadowDOM: false,
   });
 
   // const { AutoTypings, LocalStorageCache } = await import(
@@ -211,64 +176,64 @@ export const startMonaco = async (
     editor.layout();
   });
 
-  monaco.languages.typescript.typescriptDefaults.addExtraLib(
-    `export interface RegisteredCache {
-      [key: string]: string
-    }
-    
-    export interface StyleSheet {
-      container: HTMLElement
-      nonce?: string
-      key: string
-      insert(rule: string): void
-      flush(): void
-      tags: Array<HTMLStyleElement>
-    }
-    
-    export interface EmotionCache {
-      inserted: {
-        [key: string]: string | true
-      }
-      registered: RegisteredCache
-      sheet: StyleSheet
-      key: string
-      compat?: true
-      nonce?: string
-      insert(
-        selector: string,
-        serialized: SerializedStyles,
-        sheet: StyleSheet,
-        shouldCache: boolean
-      ): string | void
-    }
-    
-    export interface SerializedStyles {
-      name: string
-      styles: string
-      map?: string
-      next?: SerializedStyles
-    }
-    
-    export const isBrowser: boolean
-    export function getRegisteredStyles(
-      registered: RegisteredCache,
-      registeredStyles: Array<string>,
-      classNames: string
-    ): string
-    export function insertStyles(
-      cache: EmotionCache,
-      serialized: SerializedStyles,
-      isStringTag: boolean
-    ): string | void`,
-    "/app/types/emotionu/index.d.ts",
-  );
+  // monaco.languages.typescript.typescriptDefaults.addExtraLib(
+  //   `export interface RegisteredCache {
+  //     [key: string]: string
+  //   }
 
-  monaco.languages.typescript.typescriptDefaults.addExtraLib(
-    `export const i: number;`,
-    "file:///node_modules/@types/zozi/index.d.ts",
-  );
+  //   export interface StyleSheet {
+  //     container: HTMLElement
+  //     nonce?: string
+  //     key: string
+  //     insert(rule: string): void
+  //     flush(): void
+  //     tags: Array<HTMLStyleElement>
+  //   }
 
-  setTimeout(async () => {
+  //   export interface EmotionCache {
+  //     inserted: {
+  //       [key: string]: string | true
+  //     }
+  //     registered: RegisteredCache
+  //     sheet: StyleSheet
+  //     key: string
+  //     compat?: true
+  //     nonce?: string
+  //     insert(
+  //       selector: string,
+  //       serialized: SerializedStyles,
+  //       sheet: StyleSheet,
+  //       shouldCache: boolean
+  //     ): string | void
+  //   }
+
+  //   export interface SerializedStyles {
+  //     name: string
+  //     styles: string
+  //     map?: string
+  //     next?: SerializedStyles
+  //   }
+
+  //   export const isBrowser: boolean
+  //   export function getRegisteredStyles(
+  //     registered: RegisteredCache,
+  //     registeredStyles: Array<string>,
+  //     classNames: string
+  //   ): string
+  //   export function insertStyles(
+  //     cache: EmotionCache,
+  //     serialized: SerializedStyles,
+  //     isStringTag: boolean
+  //   ): string | void`,
+  //   "/app/types/emotionu/index.d.ts",
+  // );
+
+  // monaco.languages.typescript.typescriptDefaults.addExtraLib(
+  //   `export const i: number;`,
+  //   "file:///node_modules/@types/zozi/index.d.ts",
+  // );
+
+  (async () => {
     const importHelper = [
       {
         name: "react",
@@ -405,7 +370,7 @@ export const startMonaco = async (
       noSemanticValidation: false,
       noSyntaxValidation: false,
     });
-  }, 100);
+  })();
 
   // return modules;
   return { editor, monaco };

@@ -404,7 +404,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
             >
               {breakPoints.map((size) => (
                 <ToggleButton
-                  key={size}
+                  key={`size-${size}`}
                   value={size}
                 >
                   {size === 680
