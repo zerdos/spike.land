@@ -18,6 +18,12 @@ await esbuild.build({
   bundle: true,
   target: "es2018",
   sourcemap: false,
+  minify: true,
+  minifyWhitespace: true,
+  minifyIdentifiers: true,
+  minifySyntax: true,
+  treeShaking: true,
+  platform: "browser",
   define: {
     "process.env.NODE_ENV": `"production"`
   },
@@ -37,6 +43,8 @@ await esbuild.build({
   target: "es2018",
   sourcemap: false,
   format: "esm",
+  treeShaking: true, 
+  minify: true,
   platform: "browser",
   loader: {
     ".ttf": "file",
@@ -87,9 +95,9 @@ const build = (entryPoints) =>
     "outExtension": { ".js": ".mjs" },
     bundle: true,
     format: "esm",
-    minify: false,
+    minify: true,
     splitting: true,
-    sourcemap: "inline",
+    sourcemap: false,
     allowOverwrite: true,
     treeShaking: true,
     platform: "browser",
@@ -123,8 +131,7 @@ const build = (entryPoints) =>
 
 await build([
   "js/starter.mjs",
-  "js/esbuildEsm.ts",
-  "js/LazyLoadedComponent.tsx",
+  "js/esbuildEsm.ts"
 ]);
 
 // esbuild.build({
