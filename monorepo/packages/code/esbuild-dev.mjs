@@ -22,6 +22,7 @@ await esbuild.build({
   minifyWhitespace: true,
   minifyIdentifiers: true,
   minifySyntax: true,
+  legalComments: "external",
   treeShaking: true,
   platform: "browser",
   define: {
