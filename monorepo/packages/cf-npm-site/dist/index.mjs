@@ -5,8 +5,9 @@ function src_default(packageName, version, serveDir = "") {
       const url = new URL(request.url);
       const { pathname } = url;
       const isChunk = pathname.indexOf("/chunks") !== -1;
-      let myCache = await caches.open(isChunk ? `${packageName}-chunks` : `blog-npm:${version}-${serveDir}`);
-      const cachedResp = await myCache.match(request, {});
+      const cacheKey = new Request(url.toString(), request);
+      const cache = caches.default;
+      const cachedResp = await cache.match(cacheKey);
       if (cachedResp) {
         return cachedResp;
       }
@@ -49,7 +50,7 @@ function src_default(packageName, version, serveDir = "") {
         resp.headers.delete("content-type"), resp.headers.set("content-type", "text/html;charset=UTF-8");
       }
       if (origResp.status === 200)
-        myCache.put(request, resp.clone());
+        await cache.put(cacheKey, resp.clone());
       return resp;
     } catch (Error) {
       return new Response(`No... ${Object.prototype.toString.call(Error)}`);

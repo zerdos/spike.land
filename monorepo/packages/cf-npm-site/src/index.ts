@@ -10,10 +10,12 @@ export default function (
 
       const isChunk = pathname.indexOf("/chunks") !== -1;
 
-      let myCache = await caches.open(
-        isChunk ? `${packageName}-chunks` : `blog-npm:${version}-${serveDir}`,
-      );
-      const cachedResp = await myCache.match(request, {});
+      const cacheKey = new Request(url.toString(), request);
+      const cache = caches.default
+
+      const cachedResp = await cache.match(cacheKey)
+
+
       if (cachedResp) {
         return cachedResp;
       }
@@ -94,7 +96,7 @@ export default function (
           );
       }
 
-      if (origResp.status === 200) myCache.put(request, resp.clone());
+      if (origResp.status === 200) await cache.put(cacheKey, resp.clone());
 
       return resp;
     } catch (Error) {

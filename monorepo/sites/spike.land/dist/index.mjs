@@ -581,7 +581,7 @@ var require_textdiff_create = __commonJS({
 });
 
 // ../../packages/code/package.json
-var version = "0.6.92";
+var version = "0.6.100";
 
 // ../../packages/cf-npm-site/dist/index.mjs
 function src_default(packageName, version2, serveDir = "") {
@@ -590,8 +590,9 @@ function src_default(packageName, version2, serveDir = "") {
       const url = new URL(request.url);
       const { pathname } = url;
       const isChunk = pathname.indexOf("/chunks") !== -1;
-      let myCache = await caches.open(isChunk ? `${packageName}-chunks` : `blog-npm:${version2}-${serveDir}`);
-      const cachedResp = await myCache.match(request, {});
+      const cacheKey = new Request(url.toString(), request);
+      const cache = caches.default;
+      const cachedResp = await cache.match(cacheKey);
       if (cachedResp) {
         return cachedResp;
       }
@@ -634,7 +635,7 @@ function src_default(packageName, version2, serveDir = "") {
         resp.headers.delete("content-type"), resp.headers.set("content-type", "text/html;charset=UTF-8");
       }
       if (origResp.status === 200)
-        myCache.put(request, resp.clone());
+        await cache.put(cacheKey, resp.clone());
       return resp;
     } catch (Error2) {
       return new Response(`No... ${Object.prototype.toString.call(Error2)}`);
@@ -780,7 +781,28 @@ var RateLimiterClient = class {
 var lazy_default = 'var{React:t}=window,{Suspense:C}=t,b=({name:o,html:c,hash:a,transpiled:l})=>{let[i,p]=t.useState(a);t.useEffect(()=>{let n=setInterval(async()=>{let s=await(await fetch(`https://spike.land/api/room/${o}/hashCodeSession`)).text();p(Number(s))},69e3);return()=>{console.log("INTERVAL CLEARED"),clearInterval(n)}},[]),t.useEffect(()=>{(async()=>{let n=await fetch(`https://spike.land/api/room/${o}/session`),{html:e,css:s,transpiled:L}=await n.json();u({htmlContent:`<div id="root"><style>${s}</style><div id="zbody">${e}</div></div>`,LazyComponent:await y(L)})})()},[i]);let d=t.lazy(()=>import(r(l))),[{htmlContent:m,LazyComponent:h},u]=t.useState({htmlContent:c,LazyComponent:d});return t.createElement(C,{key:i,fallback:t.createElement("div",{dangerouslySetInnerHTML:{__html:m}})},t.createElement(h,{key:a}));function r(n){let e=new Blob([n],{type:"application/javascript"});return URL.createObjectURL(e)}async function y(n){let e=r(n),s=(await import(e)).default;return URL.revokeObjectURL(e),s}},f=o=>t.createElement(b,{...o});export{f as default};\n';
 
 // src/index.html
-var src_default2 = '<!DOCTYPE html>\n<html lang="en">\n<head profile="http://www.w3.org/2005/10/profile">\n  <meta http-equiv="Content-Type" content="text/html,charset=utf-8" />\n  <meta name="viewport" content="width=device-width" />\n  <base href="https://spike.land/">\n  \n  <link rel="icon" type="image/png" href="./assets/zed-icon-big.png" />\n\n  <link rel="stylesheet" href="./assets/app.css" />\n\n  <link\n  data-name="vs/editor/editor.main"\n  rel="stylesheet"\n  href="https://unpkg.com/monaco-editor@0.31.1/min/vs/editor/editor.main.css"\n/>\n \n  <script type="importmap-shim" src="./importmap.json"><\/script>\n  <title>Instant React Editor</title>\n</head>\n<body>\n  <div id="root"></div>\n  <div id="monacoEditor"></div>\n  \n<script async src="./dist/workers/js/appStarter.js"><\/script>\n\n</body>\n</html>';
+var src_default2 = `<!DOCTYPE html>
+<html lang="en">
+<head profile="http://www.w3.org/2005/10/profile">
+  <meta http-equiv="Content-Type" content="text/html,charset=utf-8" />
+  <meta name="viewport" content="width=device-width" />
+  <base href="https://spike.land/">
+  
+  <link rel="icon" type="image/png" href="./assets/zed-icon-big.png" />
+
+  <link rel="stylesheet" href="./assets/app.css" />
+
+  <title>Instant React Editor</title>
+</head>
+<body>
+  <div id="root"></div>
+  <div id="monacoEditor"></div>
+  
+<script async src="./dist/workers/js/appStarter.js"><\/script>
+
+<!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "cc7e2ceaa75d4111b26b0ec989795375"}'><\/script><!-- End Cloudflare Web Analytics -->
+</body>
+</html>`;
 
 // src/rca.tsx.html
 var rca_tsx_default = '/** @jsx jsx */\nimport { css, jsx } from "@emotion/react";\n\nimport { motion } from "framer-motion";\n\nexport default () => (\n  <header\n    css={css`\n      background-color: #282c34;\n      min-height: 100vh;\n      display: flex;\n      flex-direction: column;\n      justify-content: center;\n      font-size: calc(10px + 2vmin);\n      color: white;\n      text-align: center;\n      overflow: hidden;\n    `}\n  >\n    <motion.div\n      animate={{ rotate: 360 }}\n      transition={{\n        repeat: 0,\n        duration: 2,\n        repeatType: "loop",\n      }}\n    >\n      <div css="font-size: calc(10px + 20vmin)">|\u{1F525}|</div>\n      -------------------\n    </motion.div>\n    <p>\n      Hey! Try to modify <code>this</code> page.\n    </p>\n\n    <a css="color: #61dafb;" href="./edit/">\n      Open the editor.\n    </a>\n  </header>\n);\n';
@@ -791,71 +813,26 @@ var hydrated_default = `<!DOCTYPE html>
 <head profile="http://www.w3.org/2005/10/profile">
   <meta http-equiv="Content-Type" content="text/html,charset=utf-8" />
   <meta name="viewport" content="width=device-width" />
-
   <base href="https://spike.land/">
 
-  <script crossorigin src="https://unpkg.com/react@18.0.0-rc.0-next-13036bfbc-20220121/umd/react.production.min.js"><\/script>
-    <!-- <script crossorigin src="https://unpkg.com/react-is@18.0.0-rc.0-next-13036bfbc-20220121/umd/react-is.production.min.js"><\/script> -->
-  <script crossorigin src="https://unpkg.com/react-dom@18.0.0-rc.0-next-13036bfbc-20220121/umd/react-dom.production.min.js"><\/script>
-
-  <script crossorigin src="https://unpkg.com/@emotion/react@11.7.1/dist/emotion-react.umd.min.js"><\/script>
-<script>
-     let transform = null;
-    window.esmsInitOptions = {
-  shimMode: true,
-  polyfillEnable: ['css-modules', 'json-modules'],
-  onerror: error => console.log(error), // defaults to \`((e) => { throw e; })\`
-  fetch: async function (url, options) {
-    const urlEnd = url.substr(-3);
-    if (url.indexOf("monaco")===-1 && ["tsx", ".ts"].indexOf(urlEnd)!==-1) {   
-      console.log(url);
-      const res = await fetch(url, options);
-     if (!res.ok) return res;
-
-        const source = await res.text();
-        
-        transform = transform || (await import("./esbuildEsm.mjs")).transform;
-        const transformed = await transform(source);
-        return new Response(new Blob([transformed], { type: 'application/javascript' }));
-    }
-  return fetch(url, options);
-
-  },
-  noLoadEventRetriggers: true,
-  skip: "/^https?:\\/\\/(cdn\\.skypack\\.dev|jspm\\.dev)\\//\`"
-     } <\/script>
      <style>
-       html,
-body,
-#root,
-#zbody {
-  width: 100%;
-  height: 100%;
-  border: 0;
-  padding: 0;
-  margin: 0;
+       html, body,
+        #root,
+        #zbody {
+          width: 100%;
+          height: 100%;
+          border: 0;
+          padding: 0;
+          margin: 0;
 
-}
-
+        }
      </style>
-  <script async src="https://unpkg.com/@spike.land/code@0.4.42/js/vendor/es-module-shims.wasm.js"><\/script>
   <title>Instant React Editor</title>
-  
-
 </head>
 <body>
   <div id="root"></div>
-  <script type="importmap-shim" src="https://unpkg.com/@spike.land/code@{VERSION}/js/importmap.json"><\/script>
-  <script>
-  window.process = { env: { NODE_ENV: "production" } };
-<\/script>
-<script type="module-shim">
-   
-    import app from "./starter.mjs";
-    app();
-
-  <\/script>
- 
+  <script async src="./dist/workers/js/appStarter.js"><\/script>
+  <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "cc7e2ceaa75d4111b26b0ec989795375"}'><\/script><!-- End Cloudflare Web Analytics -->
 </body>
 </html>`;
 
@@ -868,19 +845,10 @@ var imports = {
   "@mui/material/ToggleButton": "https://ga.jspm.io/npm:@mui/material@5.3.0/ToggleButton/index.js",
   "@mui/material/ToggleButtonGroup": "https://ga.jspm.io/npm:@mui/material@5.3.0/ToggleButtonGroup/index.js",
   "@mui/material/utils/createSvgIcon": "https://ga.jspm.io/npm:@mui/material@5.3.0/utils/createSvgIcon.js",
-  "@spike.land/qrious": "https://ga.jspm.io/npm:@spike.land/qrious@0.6.59/dist/QRious.mjs",
-  "async-mutex": "https://ga.jspm.io/npm:async-mutex@0.3.2/index.mjs",
-  comlink: "https://ga.jspm.io/npm:comlink@4.3.1/dist/umd/comlink.js",
-  immutable: "https://ga.jspm.io/npm:immutable@4.0.0/dist/immutable.es.js",
-  "lodash/throttle": "https://ga.jspm.io/npm:lodash@4.17.21/throttle.js",
   react: "https://unpkg.com/@spike.land/esm@0.6.71/dist/react.mjs",
   "react-dom": "https://unpkg.com/@spike.land/esm@0.6.71/dist/react-dom.mjs",
   "react-dom/server": "https://ga.jspm.io/npm:react-dom@18.0.0-rc.0-next-fe905f152-20220107/server.browser.js",
-  "react/jsx-runtime": "https://ga.jspm.io/npm:react@18.0.0-rc.0-next-fe905f152-20220107/jsx-runtime.js",
-  "workbox-window": "https://ga.jspm.io/npm:workbox-window@6.4.2/build/workbox-window.prod.es5.mjs",
-  "framer-motion": "https://unpkg.com/@spike.land/esm@0.6.71/dist/framer-motion.mjs",
-  "textdiff-create": "https://unpkg.com/@spike.land/esm@0.6.71/dist/textdiff-create.mjs",
-  "textdiff-patch": "https://unpkg.com/@spike.land/esm@0.6.71/dist/textdiff-patch.mjs"
+  "framer-motion": "https://unpkg.com/@spike.land/esm@0.6.71/dist/framer-motion.mjs"
 };
 var scopes = {
   "https://ga.jspm.io/": {
