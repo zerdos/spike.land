@@ -1,4 +1,4 @@
-FROM devimages/groovy-devcontainer:latest as devimage
+FROM devimages/focal-devcontainer:latest as devimage
 
 USER 0
 
