@@ -32,7 +32,7 @@ jobs:
         uses: Saionaro/extract-package-version@v1.1.1
         id: extract_version
         with:
-          path: dockerhub/devimages/${{ matrix.image-name }}
+          path: monorepo/dockerhub/devimages/${{ matrix.image-name }}
 
       - name: Build and push
         uses: docker/build-push-action@v2
