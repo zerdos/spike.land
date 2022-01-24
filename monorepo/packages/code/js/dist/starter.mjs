@@ -23,7 +23,7 @@ var run = async (injectedRoom) => {
       first = el;
     }, 1e3 / 60);
     window.deltas = deltas;
-    const { join: join2 } = await import("./chunks/ws-KD7HMCRK.mjs");
+    const { join: join2 } = await import("./chunks/ws-5GDKCBCX.mjs");
     join2(room, user, deltas);
     return;
     return;
@@ -76,7 +76,7 @@ var run = async (injectedRoom) => {
       }
     })();
   }
-  const { join } = await import("./chunks/ws-KD7HMCRK.mjs");
+  const { join } = await import("./chunks/ws-5GDKCBCX.mjs");
   join(room, user);
 };
 export {

@@ -1,4 +1,5 @@
 import { monaco as monacoTs } from "./vendor/monaco/monacoTs.js";
+import css from "monaco-editor/min/vs/editor/editor.main.css";
 
 import type * as Monaco from "monaco-editor";
 import pAll from "p-all";
@@ -50,6 +51,12 @@ export const startMonaco = async (
       noSemanticValidation: true,
       noSyntaxValidation: true,
     });
+
+  document.head.appendChild(Object.assign(document.createElement("link"), {
+    "data-name": "vs/editor/editor.main",
+    "rel": "stylesheet",
+    "href": "./dist/css/" + css,
+  }));
 
   const editor = monaco.editor.create(container, {
     model: monaco.editor.createModel(
