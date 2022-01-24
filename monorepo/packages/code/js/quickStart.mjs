@@ -114,8 +114,7 @@ async function runner(c, changes = null, session, counter) {
       }
 
       try {
-        getHtmlAndCss = getHtmlAndCss ||
-          (await import("./renderToString.tsx")).getHtmlAndCss;
+        const { getHtmlAndCss } = await import("./vendor/renderToString.mjs");
 
         if (counter < session.i) {
           return;

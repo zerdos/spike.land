@@ -27,7 +27,7 @@ import {
   ToggleButton,
   ToggleButtonGroup,
   Tv,
-} from "./mui.tsx";
+} from "./vendor/mui.mjs";
 
 // Import { breakpoints } from "@mui/system";
 

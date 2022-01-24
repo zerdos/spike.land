@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import React from "react";
 import { QRious } from "@spike.land/qrious";
 // @ts-expect-error
-import { Fab, QrCode } from "./mui.tsx";
+import { Fab, QrCode } from "./vendor/mui.mjs";
 
 const QR: React.FC<{ url: string }> = ({ url }) => {
   const canvasRef = React.useRef<HTMLCanvasElement>(null);

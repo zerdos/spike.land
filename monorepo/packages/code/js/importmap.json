@@ -7,19 +7,10 @@
     "@mui/material/ToggleButton": "https://ga.jspm.io/npm:@mui/material@5.3.0/ToggleButton/index.js",
     "@mui/material/ToggleButtonGroup": "https://ga.jspm.io/npm:@mui/material@5.3.0/ToggleButtonGroup/index.js",
     "@mui/material/utils/createSvgIcon": "https://ga.jspm.io/npm:@mui/material@5.3.0/utils/createSvgIcon.js",
-    "@spike.land/qrious": "https://ga.jspm.io/npm:@spike.land/qrious@0.6.59/dist/QRious.mjs",
-    "async-mutex": "https://ga.jspm.io/npm:async-mutex@0.3.2/index.mjs",
-    "comlink": "https://ga.jspm.io/npm:comlink@4.3.1/dist/umd/comlink.js",
-    "immutable": "https://ga.jspm.io/npm:immutable@4.0.0/dist/immutable.es.js",
-    "lodash/throttle": "https://ga.jspm.io/npm:lodash@4.17.21/throttle.js",
     "react": "https://unpkg.com/@spike.land/esm@0.6.71/dist/react.mjs",
     "react-dom": "https://unpkg.com/@spike.land/esm@0.6.71/dist/react-dom.mjs",
     "react-dom/server": "https://ga.jspm.io/npm:react-dom@18.0.0-rc.0-next-fe905f152-20220107/server.browser.js",
-    "react/jsx-runtime": "https://ga.jspm.io/npm:react@18.0.0-rc.0-next-fe905f152-20220107/jsx-runtime.js",
-    "workbox-window": "https://ga.jspm.io/npm:workbox-window@6.4.2/build/workbox-window.prod.es5.mjs",
-    "framer-motion": "https://unpkg.com/@spike.land/esm@0.6.71/dist/framer-motion.mjs",
-    "textdiff-create": "https://unpkg.com/@spike.land/esm@0.6.71/dist/textdiff-create.mjs",
-    "textdiff-patch": "https://unpkg.com/@spike.land/esm@0.6.71/dist/textdiff-patch.mjs"
+    "framer-motion": "https://unpkg.com/@spike.land/esm@0.6.71/dist/framer-motion.mjs"
   },
   "scopes": {
     "https://ga.jspm.io/": {
