@@ -5,8 +5,6 @@ import { CacheableResponsePlugin } from "workbox-cacheable-response";
 
 declare const self: ServiceWorkerGlobalScope;
 
-self["__WB_DISABLE_DEV_LOGS"] = false;
-
 precacheAndRoute(self.__WB_MANIFEST);
 // const { registerRoute } = workbox.routing;
 // const { CacheFirst } = workbox.strategies;
@@ -18,6 +16,7 @@ registerRoute(
   ({ request }) =>
     (request.url.includes("unpkg.com") && request.url.includes("@")) ||
     (request.url.includes("jspm.io") && request.url.includes("@")) ||
+    (request.url.includes("/chunks")) ||
     (request.url.includes("esm.sh") && request.url.includes("@")),
   new CacheFirst({
     plugins: [
