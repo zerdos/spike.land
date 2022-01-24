@@ -38,7 +38,7 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           context: ./
-          file: ./dockerhub/devimages/${{ matrix.image-name }}/Dockerfile
+          file: ./monorepo/dockerhub/devimages/${{ matrix.image-name }}/Dockerfile
           push: true
           tags: devimages/${{ matrix.image-name }}:${{ steps.extract_version.outputs.version }},devimages/${{ matrix.image-name }}:latest
           cache-from: type=registry,ref=devimages/${{ matrix.image-name }}:buildcache
