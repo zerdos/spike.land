@@ -5,7 +5,7 @@
   "main": "src/index.ts",
   "scripts": {
     "deploy": "wrangler publish src/index.ts",
-    "build": "esbuild --bundle --format=esm --loader:.html=text --target=esnext src/index.ts --outfile=dist/index.mjs"
+    "xbuild": "esbuild --bundle --format=esm --loader:.html=text --target=esnext src/index.ts --outfile=dist/index.mjs"
   },
   "devDependencies": {
     "@spike.land/cf-npm-site": "^0.6.103",
