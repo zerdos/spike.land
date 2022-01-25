@@ -3,6 +3,7 @@
   "version": "0.6.104",
   "description": "spike.land",
   "main": "./js/dist/starter.mjs",
+  "type": "module",
   "files": [
     "**/*"
   ],
@@ -24,7 +25,7 @@
     "build": "yarn clean && NODE_ENV=production  node --experimental-json-modules esbuild-dev.mjs  && yarn build:sw",
     "importmap": "node --experimental-json-modules generate.mjs > ./importmap_NEW.json && mv importmap_NEW.json js/importmap.json",
     "workbox-cli": "workbox-cli",
-    "sw": "yarn workbox injectManifest workbox-config.js"
+    "sw": "yarn workbox injectManifest workbox-config.json"
   },
   "keywords": [
     "monaco",
@@ -61,7 +62,7 @@
     "@types/react-dom": "17.0.11",
     "async-mutex": "^0.3.2",
     "comlink": "4.3.1",
-    "es-module-shims": "1.4.2",
+    "es-module-shims": "^1.4.2",
     "esbuild-plugin-import-map": "2.1.0",
     "esbuild-wasm": "^0.14.13",
     "framer-motion": "6.2.1",

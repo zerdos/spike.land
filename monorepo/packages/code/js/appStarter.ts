@@ -1,4 +1,3 @@
-import { Workbox } from "workbox-window";
 import importMap from "./importmap.json";
 import React from "react";
 import ReactDOM from "react-dom";
@@ -50,6 +49,7 @@ document.body.appendChild(Object.assign(document.createElement("script"), {
   const { run } = await importShim("./dist/starter.mjs");
   run(injectedRoom);
 
+  const { Workbox } = await importShim("workbox-window");
   const wb = new Workbox("./sw.js");
   wb.addEventListener("activated", async (event) => {
     if (!event.isUpdate) {

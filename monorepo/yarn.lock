@@ -1712,7 +1712,7 @@ es-abstract@^1.19.1:
     string.prototype.trimstart "^1.0.4"
     unbox-primitive "^1.0.1"
 
-es-module-shims@1.4.2:
+es-module-shims@^1.4.2:
   version "1.4.2"
   resolved "https://registry.yarnpkg.com/es-module-shims/-/es-module-shims-1.4.2.tgz#fb30044f4f21951e03a948fb0a80b399063b4aff"
   integrity sha512-vxn5RnV1zwohTmVgt59PbuDTJSPiPE8o7NzJhoNutHWUCnf4SElPldFlaw/6ZkvQ2q+SyeppvLoQXWBW3P0EPg==

@@ -11,12 +11,10 @@ import React, {
 } from "react";
 import type { FC } from "react";
 import { motion } from "framer-motion";
-import { QRButton } from "./Qr.tsx";
-import { wait } from "./wait.ts";
-// @ts-expect-error
-import { LazySpikeLandComponent } from "./LazyLoadedComponent.tsx";
+import { QRButton } from "./Qr";
+import { wait } from "./wait";
+import { LazySpikeLandComponent } from "./LazyLoadedComponent";
 
-// @ts-expect-error
 import {
   Button,
   Fab,
