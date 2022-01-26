@@ -6892,10 +6892,10 @@ wordwrap@^1.0.0:
   resolved "https://registry.yarnpkg.com/wordwrap/-/wordwrap-1.0.0.tgz#27584810891456a4171c8d0226441ade90cbcaeb"
   integrity sha1-J1hIEIkUVqQXHI0CJkQa3pDLyus=
 
-wrangler@0.0.12:
-  version "0.0.12"
-  resolved "https://registry.yarnpkg.com/wrangler/-/wrangler-0.0.12.tgz#236daae283d1dac1f53708df05824faa5403fb36"
-  integrity sha512-wXWgXaHDHMWhlnEJVZZdZa2pynSqhEXsyWrL3IfZZdROcqDRiipsGVWbIoYw+6sWbxDuLDi5iWFzjpuPT62k3w==
+wrangler@0.0.13:
+  version "0.0.13"
+  resolved "https://registry.yarnpkg.com/wrangler/-/wrangler-0.0.13.tgz#16945dbd4d824b42071d82c2f8447bb1230857ab"
+  integrity sha512-PCOZ6YUY0mz5khL555Wydy6OSPkfYl3Hga8tvMsELKuBJmov+VRG4Z0HnT6chCBrrPyXeyu9aqVAiWxrwAdMhg==
   dependencies:
     esbuild "0.14.1"
     miniflare "2.2.0"
