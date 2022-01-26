@@ -58,7 +58,7 @@
   },
   "homepage": "https://github.com/spike-land/monorepo#readme",
   "dependencies": {
-    "esbuild-wasm": "0.14.13",
+    "esbuild-wasm": "0.14.14",
     "nodemon": "2.0.15"
   }
 }
