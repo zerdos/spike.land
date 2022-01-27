@@ -12,7 +12,7 @@
     "@spike.land/code": "^0.6.96"
   },
   "dependencies": {
-    "@types/websocket": "1.0.4",
+    "@types/websocket": "1.0.5",
     "textdiff-patch": "1.0.6"
   },
   "publishConfig": {
