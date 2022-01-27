@@ -30,7 +30,7 @@
     "react": "next",
     "react-dom": "next",
     "react-is": "next",
-    "textdiff-create": "1.0.5",
+    "textdiff-create": "1.0.7",
     "textdiff-patch": "1.0.5"
   },
   "publishConfig": {

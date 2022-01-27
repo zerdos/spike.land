@@ -3334,10 +3334,10 @@ terser@^5.0.0:
     source-map "~0.7.2"
     source-map-support "~0.5.20"
 
-textdiff-create@1.0.5:
-  version "1.0.5"
-  resolved "https://registry.yarnpkg.com/textdiff-create/-/textdiff-create-1.0.5.tgz#24afcbcc59dc7bb4fa204a7fd9a17269ab63e5cc"
-  integrity sha512-i0ATAlCLz/V+rTA1mpdGIhefU71NHTr91KlErpbia/oWovouM6VYzoHAz0it42hzMCYnLw3UTvSxIjb6e+uzOA==
+textdiff-create@1.0.7:
+  version "1.0.7"
+  resolved "https://registry.yarnpkg.com/textdiff-create/-/textdiff-create-1.0.7.tgz#2bc1c6d476b8616baf7e76b189d5629a6316912c"
+  integrity sha512-jwJSYpCHTbU//M6F5Q0qzFu2kG+nUfKU+4PWv9wYcv8say2sMDW9zKo+WABkjHoEDcn3LRhOisSd/dDQq0oJpQ==
   dependencies:
     fast-diff "^1.2.0"
 
