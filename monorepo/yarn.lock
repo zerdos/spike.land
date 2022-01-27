@@ -3341,10 +3341,10 @@ textdiff-create@1.0.7:
   dependencies:
     fast-diff "^1.2.0"
 
-textdiff-patch@1.0.5:
-  version "1.0.5"
-  resolved "https://registry.yarnpkg.com/textdiff-patch/-/textdiff-patch-1.0.5.tgz#029bf13edbbb93db15f32d2845bfa2f397d1886d"
-  integrity sha512-u3layF6wNxQwOZjJy9vNNcuiCcw5YzKpFW+kYxot7UbEiGNdQdsPxM7HFe6fmXH65vt9u4W5O4g+Nam1yCKk5w==
+textdiff-patch@1.0.6:
+  version "1.0.6"
+  resolved "https://registry.yarnpkg.com/textdiff-patch/-/textdiff-patch-1.0.6.tgz#e847561fe39385165a02606d9ef55257fbb40e17"
+  integrity sha512-jobVJkbddSfKn/uuk1JJcwtfh8hsGyybqHcwEBMtf5BsWM2NonsZsFepSSGwWEJbehJKi9ZXN4hUyS5Ic6VCwg==
 
 through@^2.3.6:
   version "2.3.8"
