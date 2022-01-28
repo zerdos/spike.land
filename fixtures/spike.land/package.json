@@ -18,7 +18,7 @@
     "@spike.land/code": "^0.6.0",
     "@spike.land/ipfs": "^0.3.61",
 
-    "ipfs-message-port-protocol": "0.10.5",
+    "ipfs-message-port-protocol": "0.11.0",
     "ipfs-message-port-server": "0.10.5",
     "ipfs-only-hash": "4.0.0"
   },
