@@ -260,10 +260,10 @@
     "@babel/helper-validator-identifier" "^7.16.7"
     to-fast-properties "^2.0.0"
 
-"@builder.io/qwik@0.0.16-5":
-  version "0.0.16-5"
-  resolved "https://registry.yarnpkg.com/@builder.io/qwik/-/qwik-0.0.16-5.tgz#cf8d104fad71ccb51238bc37673c6658512aea55"
-  integrity sha512-9+um076FyVP48OfnGuzeufanx0q9ACydi5tbJ/+/cOrWXZkp4iM0TctfYjCge8YOHKXWmHVvz/aMj+QwvlJELQ==
+"@builder.io/qwik@0.0.16-7":
+  version "0.0.16-7"
+  resolved "https://registry.yarnpkg.com/@builder.io/qwik/-/qwik-0.0.16-7.tgz#b93d1c1cf222c5197a5dd1efcc9d80cf3178f99a"
+  integrity sha512-BWhZbvJAku8vyknR4TQwLh2U4okGcdKHpjLEyV1VAZOE3y86Nl2n+eEa0sCRdSk2OaiwZsF53YJ+nffALw6KDg==
 
 "@cloudflare/kv-asset-handler@0.2.0":
   version "0.2.0"
