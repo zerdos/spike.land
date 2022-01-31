@@ -47,7 +47,7 @@ RUN (addgroup --gid 1000 ${USER}  \
   && chmod +x /usr/bin/startx /usr/bin/startWithBash \
   && echo "(sudo sysctl fs.inotify.max_user_watches=524288 fs.inotify.max_user_instances=524288 net.core.somaxconn=524288 fscache.object_max_active=524288 || echo failed) && (sudo sysctl -p || echo failed) && (sudo chown ${USER}:${USER} /home/${USER}/tmpfs)" >> /usr/bin/startx \
   && echo "bash /usr/bin/startx" >> /usr/bin/startWithBash && chmod +x /usr/bin/startWithBash 
-ENV NODE_VERSION 17.3.0
+ENV NODE_VERSION 17.4.0
 RUN ARCH= && dpkgArch="$(dpkg --print-architecture)" \
   && case "${dpkgArch##*-}" in \
     amd64) ARCH='x64';; \
@@ -196,7 +196,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends unzip \
   && rm -rf /var/lib/apt/lists/* 
 
 USER ${USER}
-RUN curl -fsSL https://deno.land/x/install/install.sh | sh -s v1.17.1 \
+RUN curl -fsSL https://deno.land/x/install/install.sh | sh -s v1.18.1 \
   && echo "export DENO_INSTALL=\"\${HOME}/.deno\"" >> ${HOME}/.zshrc \
   && echo "export DENO_INSTALL=\"\${HOME}/.deno\"" >> ${HOME}/.bashrc \
   && echo "export PATH=\"\$DENO_INSTALL/bin:\$PATH\"" >> ${HOME}/.bashrc \
