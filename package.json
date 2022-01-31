@@ -24,7 +24,6 @@
     "wrangler": "0.0.15",
     "yarn": "1.22.17"
   },
-  "type": "module",
   "scripts": {
     "start": "yarn build:code && yarn open && yarn serve",
     "open": "open-cli https://localhost:8000/monorepo/packages/code/js/index.html",
