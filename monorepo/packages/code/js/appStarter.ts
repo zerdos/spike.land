@@ -10,6 +10,8 @@ document.body.appendChild(Object.assign(document.createElement("script"), {
 }));
 
 (async (injectedRoom = "") => {
+  // const esbuild = import("./esbuildEsm.ts");
+
   window.React = React;
   window.ReactDOM = ReactDOM;
   window.emotionReact = emotionReact;
@@ -30,10 +32,14 @@ document.body.appendChild(Object.assign(document.createElement("script"), {
         const source = await res.text();
         return source;
 
-        // const transformed = await transform(source);
+        //https://localhost:8000/monorepo/packages/code/js/editor.ts
+       // const { transform } = await importShim("./dist/esbuildEsm.mjs");
+
+        //const transformed = await transform(source);
+
         // return new Response(
         //   new Blob([transformed], { type: "application/javascript" }),
-        // );§
+        // );
       }
       return fetch(url, options);
     },
