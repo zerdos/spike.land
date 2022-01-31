@@ -19,6 +19,10 @@ registerRoute(
     (request.url.includes("/chunks")) ||
     (request.url.includes("esm.sh") && request.url.includes("@")),
   new StaleWhileRevalidate({
+    matchOptions: {
+      ignoreVary: true,
+      ignoreSearch: true,
+    },
     plugins: [
       new CacheableResponsePlugin({ statuses: [0, 200] }),
     ],
