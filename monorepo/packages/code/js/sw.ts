@@ -1,6 +1,6 @@
 import { precacheAndRoute } from "workbox-precaching";
 import { registerRoute } from "workbox-routing";
-import { CacheFirst } from "workbox-strategies";
+import { StaleWhileRevalidate } from "workbox-strategies";
 import { CacheableResponsePlugin } from "workbox-cacheable-response";
 
 declare const self: ServiceWorkerGlobalScope;
@@ -18,7 +18,7 @@ registerRoute(
     (request.url.includes("jspm.io") && request.url.includes("@")) ||
     (request.url.includes("/chunks")) ||
     (request.url.includes("esm.sh") && request.url.includes("@")),
-  new CacheFirst({
+  new StaleWhileRevalidate({
     plugins: [
       new CacheableResponsePlugin({ statuses: [0, 200] }),
     ],

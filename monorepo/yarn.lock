@@ -1663,9 +1663,9 @@ ejs@^3.1.6:
     jake "^10.6.1"
 
 electron-to-chromium@^1.4.17:
-  version "1.4.57"
-  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.4.57.tgz#2b2766df76ac8dbc0a1d41249bc5684a31849892"
-  integrity sha512-FNC+P5K1n6pF+M0zIK+gFCoXcJhhzDViL3DRIGy2Fv5PohuSES1JHR7T+GlwxSxlzx4yYbsuzCZvHxcBSRCIOw==
+  version "1.4.58"
+  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.4.58.tgz#cd980b08338210b591c25492857a518fe286b1d4"
+  integrity sha512-7LXwnKyqcEaMFVXOer+2JPfFs1D+ej7yRRrfZoIH1YlLQZ81OvBNwSCBBLtExVkoMQQgOWwO0FbZVge6U/8rhQ==
 
 emoji-regex@^8.0.0:
   version "8.0.0"
@@ -2851,13 +2851,13 @@ rc@^1.2.8:
     strip-json-comments "~2.0.1"
 
 react-dom@next:
-  version "18.0.0-rc.0-next-2ed58eb88-20220126"
-  resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-18.0.0-rc.0-next-2ed58eb88-20220126.tgz#077cabf5f522ca4f83bd85a6a560861b84c62034"
-  integrity sha512-taXKmIE04pKxaPzzYTxG60SonzHZrAnhgfEoA9n0OFRp4qSnkxYAYePAmcJOWx2yHH9JFW8LIfQPKH+9ESt3AA==
+  version "18.0.0-rc.0-next-fa816be7f-20220128"
+  resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-18.0.0-rc.0-next-fa816be7f-20220128.tgz#23f56de9d5e1233daaab4560df83d791d9c774ec"
+  integrity sha512-aCF2dL/G6cQtAStXOzTvkCuypbmOHphPKT8W2Xu+ycN8mK8IwcBKWC0Wi2A0XbkT5te1bKeqEsJv9XO1X4rhxQ==
   dependencies:
     loose-envify "^1.1.0"
     object-assign "^4.1.1"
-    scheduler "0.21.0-rc.0-next-2ed58eb88-20220126"
+    scheduler "0.21.0-rc.0-next-fa816be7f-20220128"
 
 react-is@^16.7.0:
   version "16.13.1"
@@ -2865,14 +2865,14 @@ react-is@^16.7.0:
   integrity sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==
 
 react-is@next:
-  version "18.0.0-rc.0-next-2ed58eb88-20220126"
-  resolved "https://registry.yarnpkg.com/react-is/-/react-is-18.0.0-rc.0-next-2ed58eb88-20220126.tgz#ae67a348299f99de4d0ea2c2b37a3b2c8a246166"
-  integrity sha512-q1njpSDZaN8g8/icg6GvFszlrK+VNXn5mDfHAAdpzEJuq17NkKFDbWr3GpYlaDOsKsI9KQ6O6WYQWt5zyF44TQ==
+  version "18.0.0-rc.0-next-fa816be7f-20220128"
+  resolved "https://registry.yarnpkg.com/react-is/-/react-is-18.0.0-rc.0-next-fa816be7f-20220128.tgz#aceedb61d1b8082668b91bac716df20abb23e1f7"
+  integrity sha512-jrQCabwbG1sI3kFL8at136bbAR2ySV4ghHK2129XnCegTgGQ+mcRE2ErcrfKkWMvPi9/WCVI6DR/UYY4s+dCIg==
 
 react@next:
-  version "18.0.0-rc.0-next-2ed58eb88-20220126"
-  resolved "https://registry.yarnpkg.com/react/-/react-18.0.0-rc.0-next-2ed58eb88-20220126.tgz#3a453ceffa92b380fca0d4ce78bfe5e08bd18524"
-  integrity sha512-ybPE442m/lNNrzys16qNkWhaMcvFz8v7RooQ5cKeE7xWKIUjqInMad+TXUluKvFYzevfBrjwar/kF8ynkZLqBg==
+  version "18.0.0-rc.0-next-fa816be7f-20220128"
+  resolved "https://registry.yarnpkg.com/react/-/react-18.0.0-rc.0-next-fa816be7f-20220128.tgz#746d104f3501c2c81cea58a0190f12dbfd1f3b02"
+  integrity sha512-cZ1QXK3W2esmbgofdgiqRy6eQ0zrP7NTniaCFXi7GgXFdsm8ZEdKuU4kec0FT+p9cZ2syO0rKPh6rGtnZLMXrA==
   dependencies:
     loose-envify "^1.1.0"
     object-assign "^4.1.1"
@@ -3068,10 +3068,10 @@ safe-buffer@~5.1.1:
   resolved "https://registry.yarnpkg.com/safer-buffer/-/safer-buffer-2.1.2.tgz#44fa161b0187b9549dd84bb91802f9bd8385cd6a"
   integrity sha512-YZo3K82SD7Riyi0E1EQPojLz7kpepnSQI9IyPbHHg1XXXevb5dJI7tpyN2ADxGcQbHG7vcyRHk0cbwqcQriUtg==
 
-scheduler@0.21.0-rc.0-next-2ed58eb88-20220126:
-  version "0.21.0-rc.0-next-2ed58eb88-20220126"
-  resolved "https://registry.yarnpkg.com/scheduler/-/scheduler-0.21.0-rc.0-next-2ed58eb88-20220126.tgz#c033b6e7e13c6d3452b0e43a98f73c1ad3c933e5"
-  integrity sha512-/0uWHNOf62C5G2zeOC0hRpWbBnsyyFRIJRNtHVtDBmN0OZipzv/uBp8yBC4SZwTrNAJfwqj+FaEDqjukBrMi5w==
+scheduler@0.21.0-rc.0-next-fa816be7f-20220128:
+  version "0.21.0-rc.0-next-fa816be7f-20220128"
+  resolved "https://registry.yarnpkg.com/scheduler/-/scheduler-0.21.0-rc.0-next-fa816be7f-20220128.tgz#05b018b9e896a2e54a8035f0ae4dcda95502e34e"
+  integrity sha512-14G2WMjXw04hylZRZlL1aRbudOU+dVNkYMjjicngSiScfQ+7mLGxbDb96Zy5zPt3oFFPDhPf0+szumqqytBzng==
   dependencies:
     loose-envify "^1.1.0"
     object-assign "^4.1.1"

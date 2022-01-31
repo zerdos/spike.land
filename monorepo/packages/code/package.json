@@ -3,7 +3,6 @@
   "version": "0.6.111",
   "description": "spike.land",
   "main": "./js/dist/starter.mjs",
-  "type": "module",
   "files": [
     "**/*"
   ],
@@ -22,7 +21,7 @@
     "renderToString:deno": "deno bundle --import-map ./js/importmap.json ./js/renderToString.tsx ./js/vendor/renderToString.mjs --no-check",
     "start": "cd ../../.. && yarn start",
     "push": "cd ../../.. && yarn push",
-    "build": "yarn clean && NODE_ENV=production  node --experimental-json-modules esbuild-dev.mjs  && yarn build:sw",
+    "build": "yarn clean && NODE_ENV=production node --experimental-json-modules esbuild-dev.mjs  && yarn build:sw",
     "importmap": "node --experimental-json-modules generate.mjs > ./importmap_NEW.json && mv importmap_NEW.json js/importmap.json",
     "workbox-cli": "workbox-cli",
     "sw": "yarn workbox injectManifest workbox-config.json"
