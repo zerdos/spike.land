@@ -59,6 +59,8 @@
     "@types/react-dom": "17.0.11",
     "async-mutex": "^0.3.2",
     "comlink": "4.3.1",
+    "textdiff-create": "1.0.7",
+    "textdiff-patch": "1.0.6",
     "es-module-shims": "1.4.3",
     "esbuild-plugin-import-map": "2.1.0",
     "esbuild-wasm": "^0.14.16",

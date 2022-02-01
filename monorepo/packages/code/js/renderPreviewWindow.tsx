@@ -1,15 +1,9 @@
-/** @jsx jsx */
-import { jsx } from "@emotion/react";
 import {} from "react-dom/next";
-// @ts-expect-error
-import { DraggableWindow } from "./DraggableWindow.tsx";
-// @ts-expect-error
-import { wait } from "./wait.ts";
-// @ts-expect-error
-import type { ICodeSession } from "./session.tsx";
-// Import { getHtmlAndCss
-//  } from "./renderToString";
-import mySession from "./session.tsx";
+import { DraggableWindow } from "./DraggableWindow";
+import { wait } from "./wait";
+import type { ICodeSession } from "./session";
+
+import { hashCode } from "./session";
 
 export const renderPreviewWindow = async (
   session: ICodeSession,
@@ -50,7 +44,7 @@ export const renderPreviewWindow = async (
       }}
       position={session.mode === "window" ? "fixed" : "absolute"}
       session={session}
-      hashCode={mySession.hashCode}
+      hashCode={hashCode()}
       keepFullScreen={keepFullScreen}
       room={room}
     />,

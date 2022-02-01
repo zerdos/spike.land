@@ -68,8 +68,8 @@
     "baseUrl": "js"
   },
   "include": [
-    "./js/starter.mjs",
-    "./js/DraggableWindow.tsx"
+    "./js/*.ts",
+    "./js/*.tsx"
   ],
   "exclude": ["./js/vendor/**", "./js/dist/**"],
   "paths": {

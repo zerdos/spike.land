@@ -270,6 +270,8 @@ export class CodeSession implements ICodeSess {
   }
 }
 
+export const hashCode = () => session?.hashCode() || 0;
+
 const session: CodeSession | null = null;
 export default (room: string, u: IUserJSON): ICodeSess =>
   session || new CodeSession(room, u);
