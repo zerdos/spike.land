@@ -1,3 +1,4 @@
+import "es-module-shims";
 import { Workbox } from "workbox-window";
 import importMap from "./importmap.json";
 import React from "react";
@@ -18,41 +19,46 @@ document.body.appendChild(Object.assign(document.createElement("script"), {
 
   window.esmsInitOptions = {
     shimMode: true,
+    revokeBlobURLs: true,
+    fetch: myFetch,
+
+    resolve: (id: string, parentUrl: string) => {
+      return parentUrl + id;
+    },
     polyfillEnable: ["css-modules", "json-modules"],
     onerror: (error) => console.log(error), // defaults to `((e) => { throw e; })`
-    fetch: async function (url, options) {
-      const urlEnd = url.substr(-3);
-      if (
-        url.indexOf("monaco") === -1 && ["tsx", ".ts"].indexOf(urlEnd) !== -1
-      ) {
-        console.log(url);
-        const res = await fetch(url, options);
-        if (!res.ok) return res;
-
-        const source = await res.text();
-        return source;
-
-        //https://localhost:8000/monorepo/packages/code/js/editor.ts
-        // const { transform } = await importShim("./dist/esbuildEsm.mjs");
-
-        //const transformed = await transform(source);
-
-        // return new Response(
-        //   new Blob([transformed], { type: "application/javascript" }),
-        // );
-      }
-      return fetch(url, options);
-    },
     noLoadEventRetriggers: true,
     skip: /^https?:\/\/(cdn\.skypack\.dev|jspm\.dev)\//,
   };
 
-  window.process = { env: { NODE_ENV: "production" } };
+  async function myFetch(input: RequestInfo, init?: RequestInit) {
+    const url = input.toString();
 
-  await import(
-    "es-module-shims/wasm"
-  );
-  const { importShim } = self;
+    const urlEnd = url.substring(-3);
+    if (
+      url.indexOf("monaco") === -1 && ["tsx", ".ts"].indexOf(urlEnd) !== -1
+    ) {
+      console.log(url);
+      const res = await fetch(url, init);
+      if (!res.ok) return res;
+
+      const source = await res.text();
+      return new Response(source, init);
+
+      //https://localhost:8000/monorepo/packages/code/js/editor.ts
+      // const { transform } = await importShim("./dist/esbuildEsm.mjs");
+
+      //const transformed = await transform(source);
+
+      // return new Response(
+      //   new Blob([transformed], { type: "application/javascript" }),
+      // );
+    }
+    return fetch(url, init);
+  }
+
+  // window.process = { env: { NODE_ENV: "production" } };
+
   const { run } = await importShim("./dist/starter.mjs");
   run(injectedRoom);
 

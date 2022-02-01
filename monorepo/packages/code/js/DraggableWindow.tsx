@@ -15,18 +15,28 @@ import { QRButton } from "./Qr";
 import { wait } from "./wait";
 import { LazySpikeLandComponent } from "./LazyLoadedComponent";
 
+/// <reference path="./mui.tsx" />
 import {
-  Button,
+  Button as muiButton,
   Fab,
   FullscreenIcon,
   Phone,
   Share,
   Tablet,
-  ToggleButton,
-  ToggleButtonGroup,
+  ToggleButton as muiToggleButton,
+  ToggleButtonGroup as muiToggleButtonGroup,
   Tv,
 } from "./vendor/mui.mjs";
 
+import type {
+  Button as MuiButton,
+  ToggleButton as MuiToggleButton,
+  ToggleButtonGroup as MuiToggleButtonGroup,
+} from "./mui";
+
+const Button = muiButton as typeof MuiButton;
+const ToggleButtonGroup = muiToggleButtonGroup as typeof MuiToggleButtonGroup;
+const ToggleButton = muiToggleButton as typeof MuiToggleButton;
 // Import { breakpoints } from "@mui/system";
 
 // const {motion} = Motion;
@@ -237,12 +247,11 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
             align-items: center;
           `}
           >
-            {/* // @ts-nocheck */}
             <ToggleButtonGroup
               value={scaleRange}
               size="small"
               exclusive
-              onChange={(_e, newScale) => {
+              onChange={(_e: unknown, newScale: number) => {
                 newScale && changeScaleRange(newScale);
               }}
             >
@@ -395,7 +404,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
               value={width}
               size="small"
               exclusive
-              onChange={(_e, newSize) => {
+              onChange={(_e: unknown, newSize: number) => {
                 if (newSize) {
                   setHeight(breakPointHeights[breakPoints.indexOf(newSize)]);
                   setWidth(newSize);
@@ -483,7 +492,7 @@ function createMarkup(__html: string) {
   return { __html };
 }
 
-function resizeIframe(obj) {
-  obj.style.height = obj.contentWindow.document.documentElement.scrollHeight +
-    "px";
-}
+// function resizeIframe(obj) {
+//   obj.style.height = obj.contentWindow.document.documentElement.scrollHeight +
+//     "px";
+// }``

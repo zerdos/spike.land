@@ -1,7 +1,6 @@
-import { fromJS, isKeyed, Record } from "immutable";
-// @ts-expect-error
+import { Record } from "immutable";
+
 import createDelta from "textdiff-create";
-// @ts-expect-error
 import applyPatch from "textdiff-patch";
 // Import * as Immutable from "immutable"
 
@@ -56,7 +55,7 @@ export interface IUserJSON {
   name: IUsername;
   capabilities: ICapabilities;
   state: ICodeSession;
-  users: Record<object>;
+  users: Record<string[]>;
   events: IEvent[];
 }
 
@@ -67,16 +66,12 @@ interface IQTaskEvent {
   data: string;
 }
 
-export interface IUser extends
-  Record<{
-    name: IUsername;
+export type IUser = Record<
+  IUserJSON & {
     room: string;
     state: Record<ICodeSession>;
-    capabilities: ICapabilities;
-    users: Record<object>;
-    events: IEvent[];
-  }> {
-}
+  }
+>;
 
 function initSession(room: string, u: IUserJSON) {
   return Record({ ...u, room, state: Record(u.state)() });
@@ -150,7 +145,7 @@ export class CodeSession implements ICodeSess {
 
     if (event) {
       switch (event.type) {
-        case "code-init":
+        case "code-init": {
           const { code, transpiled, i, css, errorDiff, html } = event;
           const sess: ICodeSession = {
             code,
@@ -163,7 +158,7 @@ export class CodeSession implements ICodeSess {
 
           this.session.set("events", events);
           this.session.set("state", Record(sess)());
-
+        }
           // Const cacheKey = `state-${this.room}`;
 
           // if (storageAvailable("localStorage")) {
@@ -281,7 +276,7 @@ export default (room: string, u: IUserJSON): ICodeSess =>
 
 function storageAvailable(type: string) {
   try {
-    if (!window.hasOwnProperty(type)) {
+    if (!Object.prototype.hasOwnProperty.call(window, type)) {
       return;
     }
 
