@@ -71,6 +71,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
       backdropFilter: "blur(15px)",
       paddingTop: 0,
       paddingRight: 0,
+      borderRadius: "16px",
       paddingLeft: "16px",
       backgroundColor: bg,
       whiteSpace: "normal",
