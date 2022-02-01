@@ -1,6 +1,6 @@
 {
   "name": "@spike.land/code",
-  "version": "0.6.120",
+  "version": "0.6.121",
   "description": "spike.land",
   "main": "./js/dist/starter.mjs",
   "files": [
@@ -59,8 +59,6 @@
     "@types/react-dom": "17.0.11",
     "async-mutex": "^0.3.2",
     "comlink": "4.3.1",
-    "textdiff-create": "1.0.7",
-    "textdiff-patch": "1.0.6",
     "es-module-shims": "1.4.3",
     "esbuild-plugin-import-map": "2.1.0",
     "esbuild-wasm": "^0.14.16",
@@ -72,6 +70,8 @@
     "prettier": "^2.5.1",
     "react": "next",
     "react-dom": "next",
+    "textdiff-create": "1.0.7",
+    "textdiff-patch": "1.0.6",
     "workbox-cacheable-response": "6.4.2",
     "workbox-cli": "6.4.2",
     "workbox-precaching": "6.4.2",
