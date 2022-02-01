@@ -14,7 +14,7 @@ import { motion } from "framer-motion";
 import { QRButton } from "./Qr";
 import { wait } from "./wait";
 import { LazySpikeLandComponent } from "./LazyLoadedComponent";
-
+import { makeStyles } from "@griffel/react";
 import {
   Button,
   Fab,
@@ -63,6 +63,21 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
 ) => {
   const [isStable, setIsStable] = useState(false);
   const [scaleRange, changeScaleRange] = useState(100);
+
+  const useClasses = makeStyles({
+    button: { color: "red" },
+    icon: { paddingLeft: "5px" },
+    bg: {
+      backdropFilter: "blur(15px)",
+      paddingTop: 0,
+      paddingRight: 0,
+      paddingLeft: "16px",
+      backgroundColor: bg,
+      whiteSpace: "normal",
+      position: "fixed",
+    },
+  });
+  const classes = useClasses();
   // Const [height, changeHeight] = useState(innerHeight);
 
   const [childArray, setChild] = useState([
@@ -205,12 +220,9 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
           bottom,
           right,
         }}
+        className={classes.bg}
         css={css`
-            background-color:${bg};
-            backdrop-filter: blur(15px);
-            padding: 0px 0px 0px 16px;
-            border-radius: 16px;
-            white-space: normal;
+
             position: ${position ? position : "fixed"};
           `}
         dragElastic={0.5}
