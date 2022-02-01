@@ -9,6 +9,7 @@ import { wait } from "./wait.ts";
 import type { ICodeSession } from "./session.tsx";
 // Import { getHtmlAndCss
 //  } from "./renderToString";
+import mySession from "./session.tsx";
 
 export const renderPreviewWindow = async (
   session: ICodeSession,
@@ -49,6 +50,7 @@ export const renderPreviewWindow = async (
       }}
       position={session.mode === "window" ? "fixed" : "absolute"}
       session={session}
+      hashCode={mySession.hashCode}
       keepFullScreen={keepFullScreen}
       room={room}
     />,

@@ -14,7 +14,7 @@ import { motion } from "framer-motion";
 import { QRButton } from "./Qr";
 import { wait } from "./wait";
 import { LazySpikeLandComponent } from "./LazyLoadedComponent";
-import { makeStyles } from "@griffel/react";
+
 import {
   Button,
   Fab,
@@ -43,10 +43,12 @@ const bg = `rgba(${Math.random() * 128 + 64}, ${Math.random() * 128 + 64}, ${
 interface DraggableWindowProps {
   onShare: () => void;
   onRestore: (() => void);
+  hashCode: number;
   session: {
     i: number;
     url: string;
     html: string;
+
     transpiled: string;
     errorText: string;
     children: any;
@@ -59,34 +61,18 @@ interface DraggableWindowProps {
 }
 
 export const DraggableWindow: FC<DraggableWindowProps> = (
-  { onShare, onRestore, position, session, keepFullScreen, room },
+  { onShare, onRestore, position, session, keepFullScreen, room, hashCode },
 ) => {
   const [isStable, setIsStable] = useState(false);
   const [scaleRange, changeScaleRange] = useState(100);
-
-  const useClasses = makeStyles({
-    button: { color: "red" },
-    icon: { paddingLeft: "5px" },
-    bg: {
-      backdropFilter: "blur(15px)",
-      paddingTop: 0,
-      paddingRight: 0,
-      borderRadius: "16px",
-      paddingLeft: "16px",
-      backgroundColor: bg,
-      whiteSpace: "normal",
-      position: "fixed",
-    },
-  });
-  const classes = useClasses();
   // Const [height, changeHeight] = useState(innerHeight);
 
   const [childArray, setChild] = useState([
     <LazySpikeLandComponent
       name={room}
+      hash={hashCode}
       transpiled={session.transpiled}
-      htmlContent={`<div id="root"><style>${session.css}</style><div id="zbody">${session.html}</div></div>`}
-      html={session.html}
+      html={`<div id="root"><style>${session.css}</style><div id="zbody">${session.html}</div></div>`}
     />,
   ]);
 
@@ -221,9 +207,12 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
           bottom,
           right,
         }}
-        className={classes.bg}
         css={css`
-
+            background-color:${bg};
+            backdrop-filter: blur(15px);
+            padding: 0px 0px 0px 16px;
+            border-radius: 16px;
+            white-space: normal;
             position: ${position ? position : "fixed"};
           `}
         dragElastic={0.5}
