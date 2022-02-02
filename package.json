@@ -16,7 +16,7 @@
     "lerna": "4.0.0",
     "open-cli": "7.0.1",
     "rimraf": "3.0.2",
-    "rollup": "2.66.1",
+    "rollup": "2.67.0",
     "rollup-plugin-terser": "7.0.2",
     "speed-limiter": "1.0.2",
     "typescript": "4.5.5",
