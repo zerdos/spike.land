@@ -1,3 +1,5 @@
+import { join } from "./ws.mjs";
+
 export const run = async (injectedRoom) => {
   const path = location.pathname.split("/");
   window.aniStart = Date.now();
@@ -59,7 +61,6 @@ export const run = async (injectedRoom) => {
     //       8,
     //     );
 
-    const { join } = await import("./ws.mjs");
     join(room, user, deltas);
     return;
     //   //s
@@ -221,7 +222,6 @@ export const run = async (injectedRoom) => {
   //   }
   // }
 
-  const { join } = await import("./ws.mjs");
   join(room, user);
   // Console.log({ r
 };

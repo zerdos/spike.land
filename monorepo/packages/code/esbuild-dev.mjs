@@ -6,6 +6,11 @@ import jsonData from "./js/importmap.json" assert { type: "json" };
 import esbuild from "esbuild";
 import * as importMap from "esbuild-plugin-import-map";
 
+const environment = process.env.NODE_ENV == "production"
+  ? "production"
+  : "development";
+    const isDevelopment = environment === "development";
+
 let httpPlugin = {
   name: "http",
   setup(build) {
@@ -57,9 +62,12 @@ let httpPlugin = {
   },
 };
 
-const environment = process.env.NODE_ENV == "production"
-  ? "production"
-  : "development";
+
+
+console.log(`
+-------------------------------------------------
+--------------${environment}---------------------
+-------------------------------------------------`);
 
 const workerEntryPoints = [
   // "vs/language/json/json.worker.js",
@@ -77,13 +85,13 @@ await esbuild.build({
   ],
   bundle: true,
   target: "es2018",
-  sourcemap: false,
-  minify: true,
-  minifyWhitespace: true,
-  minifyIdentifiers: true,
-  minifySyntax: true,
+  sourcemap: isDevelopment,
+  minify: !isDevelopment,
+  minifyWhitespace: !isDevelopment,
+  minifyIdentifiers: !isDevelopment,
+  minifySyntax: !isDevelopment,
   legalComments: "external",
-  treeShaking: true,
+  treeShaking: !isDevelopment,
   platform: "browser",
   define: {
     "process.env.NODE_ENV": `"${environment}"`,
@@ -103,10 +111,10 @@ await esbuild.build({
   },
 
   target: "es2018",
-  sourcemap: false,
+  sourcemap: isDevelopment,
   format: "esm",
-  treeShaking: true,
-  minify: true,
+  treeShaking: !isDevelopment,
+  minify: !isDevelopment,
   platform: "browser",
   loader: {
     ".ttf": "file",
@@ -157,11 +165,11 @@ const build = (entryPoints) =>
     "outExtension": { ".js": ".mjs" },
     bundle: true,
     format: "esm",
-    minify: true,
-    splitting: true,
-    sourcemap: false,
+    minify: !isDevelopment,
+    splitting: !isDevelopment,
+    sourcemap: isDevelopment,
     allowOverwrite: true,
-    treeShaking: true,
+    treeShaking: !isDevelopment,
     platform: "browser",
     chunkNames: "chunks/[name]-[hash]",
     resolveExtensions: [".tsx", ".ts", ".jsx", ".js", ".css", ".json", ".mjs"],

@@ -46,7 +46,7 @@
     "xdeno:react-dom": " deno bundle https://ga.jspm.io/npm:react-dom@18.0.0-rc.0-next-13036bfbc-20220121/index.js --import-map ../code/importmap.json dist/react-dom-deno.js",
     "build:react-dom": "yarn esbuild --bundle src/react-dom.mjs --minify --tree-shaking=true --external:react --external:react-is  --format=esm --outfile=dist/react-dom.mjs",
     "xbuild:react-dom": "yarn esbuild --bundle dist/react-dom-deno.js --external:react --external:react-is  --format=esm --outfile=dist/react-dom.mjs",
-    "build:framer-motion": "yarn esbuild --bundle src/framer-motion.mjs  --minify --tree-shaking=true --format=esm --external:react --external:@emotion/is-prop-valid --outfile=dist/framer-motion.mjs",
+    "build:framer-motion": "yarn esbuild --bundle src/framer-motion.mjs  --define:\"process.env.NODE_ENV\"=\\\"$NODE_ENV\\\" --minify --tree-shaking=true --format=esm --external:react --external:@emotion/is-prop-valid --outfile=dist/framer-motion.mjs",
     "xbuild:framer-motion": "yarn esbuild --bundle src/framer-motion.mjs --minify --tree-shaking=true --external:tslib --format=esm --external:react --external:@emotion/is-prop-valid --outfile=dist/framer-motion.mjs",
     "dts:framer-motion": "rollup -c framer-motion.rollup.config.js",
     "build:textdiff-create": "yarn esbuild --bundle src/textdiff-create.mjs --minify --tree-shaking=true --format=esm  --outfile=dist/textdiff-create.mjs",

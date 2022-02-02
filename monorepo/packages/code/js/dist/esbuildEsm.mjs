@@ -1,11 +1,1740 @@
-import{a as it}from"./chunks/chunk-3XDVH4IX.mjs";import{a as Lt,b as Bt}from"./chunks/chunk-XOF3GJEG.mjs";var ct=Lt((Kt,He)=>{(se=>{var _=Object.defineProperty,L=Object.defineProperties,Y=Object.getOwnPropertyDescriptor,pe=Object.getOwnPropertyDescriptors,te=Object.getOwnPropertyNames,ie=Object.getOwnPropertySymbols,Se=Object.prototype.hasOwnProperty,Ne=Object.prototype.propertyIsEnumerable,fe=(e,t,r)=>t in e?_(e,t,{enumerable:!0,configurable:!0,writable:!0,value:r}):e[t]=r,H=(e,t)=>{for(var r in t||(t={}))Se.call(t,r)&&fe(e,r,t[r]);if(ie)for(var r of ie(t))Ne.call(t,r)&&fe(e,r,t[r]);return e},de=(e,t)=>L(e,pe(t)),ft=e=>_(e,"__esModule",{value:!0}),dt=(e,t)=>{for(var r in t)_(e,r,{get:t[r],enumerable:!0})},ht=(e,t,r,a)=>{if(t&&typeof t=="object"||typeof t=="function")for(let u of te(t))!Se.call(e,u)&&(r||u!=="default")&&_(e,u,{get:()=>t[u],enumerable:!(a=Y(t,u))||a.enumerable});return e},pt=(e=>(t,r)=>e&&e.get(t)||(r=ht(ft({}),t,1),e&&e.set(t,r),r))(typeof WeakMap!="undefined"?new WeakMap:0),$e=(e,t,r)=>new Promise((a,u)=>{var c=l=>{try{b(r.next(l))}catch(v){u(v)}},i=l=>{try{b(r.throw(l))}catch(v){u(v)}},b=l=>l.done?a(l.value):Promise.resolve(l.value).then(c,i);b((r=r.apply(e,t)).next())}),We={};dt(We,{analyzeMetafile:()=>Dt,analyzeMetafileSync:()=>It,build:()=>Ot,buildSync:()=>Rt,formatMessages:()=>jt,formatMessagesSync:()=>Nt,initialize:()=>Ct,serve:()=>Pt,transform:()=>Tt,transformSync:()=>At,version:()=>$t});function Ke(e){let t=a=>{if(a===null)r.write8(0);else if(typeof a=="boolean")r.write8(1),r.write8(+a);else if(typeof a=="number")r.write8(2),r.write32(a|0);else if(typeof a=="string")r.write8(3),r.write(xe(a));else if(a instanceof Uint8Array)r.write8(4),r.write(a);else if(a instanceof Array){r.write8(5),r.write32(a.length);for(let u of a)t(u)}else{let u=Object.keys(a);r.write8(6),r.write32(u.length);for(let c of u)r.write(xe(c)),t(a[c])}},r=new Xe;return r.write32(0),r.write32(e.id<<1|+!e.isRequest),t(e.value),ze(r.buf,r.len-4,0),r.buf.subarray(0,r.len)}function mt(e){let t=()=>{switch(r.read8()){case 0:return null;case 1:return!!r.read8();case 2:return r.read32();case 3:return Oe(r.read());case 4:return r.read();case 5:{let i=r.read32(),b=[];for(let l=0;l<i;l++)b.push(t());return b}case 6:{let i=r.read32(),b={};for(let l=0;l<i;l++)b[Oe(r.read())]=t();return b}default:throw new Error("Invalid packet")}},r=new Xe(e),a=r.read32(),u=(a&1)===0;a>>>=1;let c=t();if(r.ptr!==e.length)throw new Error("Invalid packet");return{id:a,isRequest:u,value:c}}var Xe=class{constructor(e=new Uint8Array(1024)){this.buf=e,this.len=0,this.ptr=0}_write(e){if(this.len+e>this.buf.length){let t=new Uint8Array((this.len+e)*2);t.set(this.buf),this.buf=t}return this.len+=e,this.len-e}write8(e){let t=this._write(1);this.buf[t]=e}write32(e){let t=this._write(4);ze(this.buf,e,t)}write(e){let t=this._write(4+e.length);ze(this.buf,e.length,t),this.buf.set(e,t+4)}_read(e){if(this.ptr+e>this.buf.length)throw new Error("Invalid packet");return this.ptr+=e,this.ptr-e}read8(){return this.buf[this._read(1)]}read32(){return Qe(this.buf,this._read(4))}read(){let e=this.read32(),t=new Uint8Array(e),r=this._read(t.length);return t.set(this.buf.subarray(r,r+e)),t}},xe,Oe;if(typeof TextEncoder!="undefined"&&typeof TextDecoder!="undefined"){let e=new TextEncoder,t=new TextDecoder;xe=r=>e.encode(r),Oe=r=>t.decode(r)}else if(typeof Buffer!="undefined")xe=e=>{let t=Buffer.from(e);return t instanceof Uint8Array||(t=new Uint8Array(t)),t},Oe=e=>{let{buffer:t,byteOffset:r,byteLength:a}=e;return Buffer.from(t,r,a).toString()};else throw new Error("No UTF-8 codec found");function Qe(e,t){return e[t++]|e[t++]<<8|e[t++]<<16|e[t++]<<24}function ze(e,t,r){e[r++]=t,e[r++]=t>>8,e[r++]=t>>16,e[r++]=t>>24}function Ze(e){if(e+="",e.indexOf(",")>=0)throw new Error(`Invalid target: ${e}`);return e}var Ce=()=>null,B=e=>typeof e=="boolean"?null:"a boolean",gt=e=>typeof e=="boolean"||typeof e=="object"&&!Array.isArray(e)?null:"a boolean or an object",h=e=>typeof e=="string"?null:"a string",Ue=e=>e instanceof RegExp?null:"a RegExp object",Pe=e=>typeof e=="number"&&e===(e|0)?null:"an integer",qe=e=>typeof e=="function"?null:"a function",J=e=>Array.isArray(e)?null:"an array",Te=e=>typeof e=="object"&&e!==null&&!Array.isArray(e)?null:"an object",wt=e=>typeof e=="object"&&e!==null?null:"an array or an object",et=e=>typeof e=="object"&&!Array.isArray(e)?null:"an object or null",tt=e=>typeof e=="string"||typeof e=="boolean"?null:"a string or a boolean",bt=e=>typeof e=="string"||typeof e=="object"&&e!==null&&!Array.isArray(e)?null:"a string or an object",yt=e=>typeof e=="string"||Array.isArray(e)?null:"a string or an array",vt=e=>typeof e=="string"||e instanceof Uint8Array?null:"a string or a Uint8Array";function n(e,t,r,a){let u=e[r];if(t[r+""]=!0,u===void 0)return;let c=a(u);if(c!==null)throw new Error(`"${r}" must be ${c}`);return u}function K(e,t,r){for(let a in e)if(!(a in t))throw new Error(`Invalid option ${r}: "${a}"`)}function kt(e){let t=Object.create(null),r=n(e,t,"wasmURL",h),a=n(e,t,"worker",B);return K(e,t,"in startService() call"),{wasmURL:r,worker:a}}function Fe(e,t,r,a,u){let c=n(t,r,"color",B),i=n(t,r,"logLevel",h),b=n(t,r,"logLimit",Pe);c!==void 0?e.push(`--color=${c}`):a&&e.push("--color=true"),e.push(`--log-level=${i||u}`),e.push(`--log-limit=${b||0}`)}function rt(e,t,r){let a=n(t,r,"legalComments",h),u=n(t,r,"sourceRoot",h),c=n(t,r,"sourcesContent",B),i=n(t,r,"target",yt),b=n(t,r,"format",h),l=n(t,r,"globalName",h),v=n(t,r,"mangleProps",Ue),R=n(t,r,"reserveProps",Ue),M=n(t,r,"minify",B),E=n(t,r,"minifySyntax",B),P=n(t,r,"minifyWhitespace",B),ce=n(t,r,"minifyIdentifiers",B),ue=n(t,r,"drop",J),he=n(t,r,"charset",h),be=n(t,r,"treeShaking",B),ye=n(t,r,"ignoreAnnotations",B),ve=n(t,r,"jsx",h),ke=n(t,r,"jsxFactory",h),Ee=n(t,r,"jsxFragment",h),me=n(t,r,"define",Te),Ae=n(t,r,"pure",J),Ie=n(t,r,"keepNames",B);if(a&&e.push(`--legal-comments=${a}`),u!==void 0&&e.push(`--source-root=${u}`),c!==void 0&&e.push(`--sources-content=${c}`),i&&(Array.isArray(i)?e.push(`--target=${Array.from(i).map(Ze).join(",")}`):e.push(`--target=${Ze(i)}`)),b&&e.push(`--format=${b}`),l&&e.push(`--global-name=${l}`),M&&e.push("--minify"),E&&e.push("--minify-syntax"),P&&e.push("--minify-whitespace"),ce&&e.push("--minify-identifiers"),he&&e.push(`--charset=${he}`),be!==void 0&&e.push(`--tree-shaking=${be}`),ye&&e.push("--ignore-annotations"),ue)for(let ae of ue)e.push(`--drop:${ae}`);if(v&&e.push(`--mangle-props=${v.source}`),R&&e.push(`--reserve-props=${R.source}`),ve&&e.push(`--jsx=${ve}`),ke&&e.push(`--jsx-factory=${ke}`),Ee&&e.push(`--jsx-fragment=${Ee}`),me)for(let ae in me){if(ae.indexOf("=")>=0)throw new Error(`Invalid define: ${ae}`);e.push(`--define:${ae}=${me[ae]}`)}if(Ae)for(let ae of Ae)e.push(`--pure:${ae}`);Ie&&e.push("--keep-names")}function xt(e,t,r,a,u){var c;let i=[],b=[],l=Object.create(null),v=null,R=null,M=null;Fe(i,t,l,r,a),rt(i,t,l);let E=n(t,l,"sourcemap",tt),P=n(t,l,"bundle",B),ce=n(t,l,"watch",gt),ue=n(t,l,"splitting",B),he=n(t,l,"preserveSymlinks",B),be=n(t,l,"metafile",B),ye=n(t,l,"outfile",h),ve=n(t,l,"outdir",h),ke=n(t,l,"outbase",h),Ee=n(t,l,"platform",h),me=n(t,l,"tsconfig",h),Ae=n(t,l,"resolveExtensions",J),Ie=n(t,l,"nodePaths",J),ae=n(t,l,"mainFields",J),p=n(t,l,"conditions",J),f=n(t,l,"external",J),o=n(t,l,"loader",Te),d=n(t,l,"outExtension",Te),U=n(t,l,"publicPath",h),N=n(t,l,"entryNames",h),T=n(t,l,"chunkNames",h),$=n(t,l,"assetNames",h),I=n(t,l,"inject",J),j=n(t,l,"banner",Te),k=n(t,l,"footer",Te),F=n(t,l,"entryPoints",wt),C=n(t,l,"absWorkingDir",h),x=n(t,l,"stdin",Te),oe=(c=n(t,l,"write",B))!=null?c:u,ne=n(t,l,"allowOverwrite",B),S=n(t,l,"incremental",B)===!0;if(l.plugins=!0,K(t,l,`in ${e}() call`),E&&i.push(`--sourcemap${E===!0?"":`=${E}`}`),P&&i.push("--bundle"),ne&&i.push("--allow-overwrite"),ce)if(i.push("--watch"),typeof ce=="boolean")M={};else{let s=Object.create(null),y=n(ce,s,"onRebuild",qe);K(ce,s,`on "watch" in ${e}() call`),M={onRebuild:y}}if(ue&&i.push("--splitting"),he&&i.push("--preserve-symlinks"),be&&i.push("--metafile"),ye&&i.push(`--outfile=${ye}`),ve&&i.push(`--outdir=${ve}`),ke&&i.push(`--outbase=${ke}`),Ee&&i.push(`--platform=${Ee}`),me&&i.push(`--tsconfig=${me}`),Ae){let s=[];for(let y of Ae){if(y+="",y.indexOf(",")>=0)throw new Error(`Invalid resolve extension: ${y}`);s.push(y)}i.push(`--resolve-extensions=${s.join(",")}`)}if(U&&i.push(`--public-path=${U}`),N&&i.push(`--entry-names=${N}`),T&&i.push(`--chunk-names=${T}`),$&&i.push(`--asset-names=${$}`),ae){let s=[];for(let y of ae){if(y+="",y.indexOf(",")>=0)throw new Error(`Invalid main field: ${y}`);s.push(y)}i.push(`--main-fields=${s.join(",")}`)}if(p){let s=[];for(let y of p){if(y+="",y.indexOf(",")>=0)throw new Error(`Invalid condition: ${y}`);s.push(y)}i.push(`--conditions=${s.join(",")}`)}if(f)for(let s of f)i.push(`--external:${s}`);if(j)for(let s in j){if(s.indexOf("=")>=0)throw new Error(`Invalid banner file type: ${s}`);i.push(`--banner:${s}=${j[s]}`)}if(k)for(let s in k){if(s.indexOf("=")>=0)throw new Error(`Invalid footer file type: ${s}`);i.push(`--footer:${s}=${k[s]}`)}if(I)for(let s of I)i.push(`--inject:${s}`);if(o)for(let s in o){if(s.indexOf("=")>=0)throw new Error(`Invalid loader extension: ${s}`);i.push(`--loader:${s}=${o[s]}`)}if(d)for(let s in d){if(s.indexOf("=")>=0)throw new Error(`Invalid out extension: ${s}`);i.push(`--out-extension:${s}=${d[s]}`)}if(F)if(Array.isArray(F))for(let s of F)b.push(["",s+""]);else for(let[s,y]of Object.entries(F))b.push([s+"",y+""]);if(x){let s=Object.create(null),y=n(x,s,"contents",h),W=n(x,s,"resolveDir",h),z=n(x,s,"sourcefile",h),g=n(x,s,"loader",h);K(x,s,'in "stdin" object'),z&&i.push(`--sourcefile=${z}`),g&&i.push(`--loader=${g}`),W&&(R=W+""),v=y?y+"":""}let w=[];if(Ie)for(let s of Ie)s+="",w.push(s);return{entries:b,flags:i,write:oe,stdinContents:v,stdinResolveDir:R,absWorkingDir:C,incremental:S,nodePaths:w,watch:M}}function _t(e,t,r,a){let u=[],c=Object.create(null);Fe(u,t,c,r,a),rt(u,t,c);let i=n(t,c,"sourcemap",tt),b=n(t,c,"tsconfigRaw",bt),l=n(t,c,"sourcefile",h),v=n(t,c,"loader",h),R=n(t,c,"banner",h),M=n(t,c,"footer",h);return K(t,c,`in ${e}() call`),i&&u.push(`--sourcemap=${i===!0?"external":i}`),b&&u.push(`--tsconfig-raw=${typeof b=="string"?b:JSON.stringify(b)}`),l&&u.push(`--sourcefile=${l}`),v&&u.push(`--loader=${v}`),R&&u.push(`--banner=${R}`),M&&u.push(`--footer=${M}`),u}function Et(e){let t=new Map,r=new Map,a=new Map,u=new Map,c=!1,i=0,b=0,l=new Uint8Array(16*1024),v=0,R=p=>{let f=v+p.length;if(f>l.length){let d=new Uint8Array(f*2);d.set(l),l=d}l.set(p,v),v+=p.length;let o=0;for(;o+4<=v;){let d=Qe(l,o);if(o+4+d>v)break;o+=4,he(l.subarray(o,o+d)),o+=d}o>0&&(l.copyWithin(0,o,v),v-=o)},M=()=>{c=!0;for(let p of t.values())p("The service was stopped",null);t.clear();for(let p of u.values())p.onWait("The service was stopped");u.clear();for(let p of a.values())try{p(new Error("The service was stopped"),null)}catch(f){console.error(f)}a.clear()},E=(p,f,o)=>{if(c)return o("The service is no longer running",null);let d=i++;t.set(d,(U,N)=>{try{o(U,N)}finally{p&&p.unref()}}),p&&p.ref(),e.writeToStdin(Ke({id:d,isRequest:!0,value:f}))},P=(p,f)=>{if(c)throw new Error("The service is no longer running");e.writeToStdin(Ke({id:p,isRequest:!1,value:f}))},ce=(p,f)=>$e(this,null,function*(){try{switch(f.command){case"ping":{P(p,{});break}case"on-start":{let o=r.get(f.key);o?P(p,yield o(f)):P(p,{});break}case"on-resolve":{let o=r.get(f.key);o?P(p,yield o(f)):P(p,{});break}case"on-load":{let o=r.get(f.key);o?P(p,yield o(f)):P(p,{});break}case"serve-request":{let o=u.get(f.key);o&&o.onRequest&&o.onRequest(f.args),P(p,{});break}case"serve-wait":{let o=u.get(f.key);o&&o.onWait(f.error),P(p,{});break}case"watch-rebuild":{let o=a.get(f.key);try{o&&o(null,f.args)}catch(d){console.error(d)}P(p,{});break}default:throw new Error("Invalid command: "+f.command)}}catch(o){P(p,{errors:[je(o,e,null,void 0,"")]})}}),ue=!0,he=p=>{if(ue){ue=!1;let o=String.fromCharCode(...p);if(o!=="0.14.17")throw new Error(`Cannot start service: Host version "0.14.17" does not match binary version ${JSON.stringify(o)}`);return}let f=mt(p);if(f.isRequest)ce(f.id,f.value);else{let o=t.get(f.id);t.delete(f.id),f.value.error?o(f.value.error,{}):o(null,f.value)}},be=(p,f,o,d,U)=>$e(this,null,function*(){let N=[],T=[],$={},I={},j=0,k=0,F=[],C=!1;f=[...f];for(let S of f){let w={};if(typeof S!="object")throw new Error(`Plugin at index ${k} must be an object`);let s=n(S,w,"name",h);if(typeof s!="string"||s==="")throw new Error(`Plugin at index ${k} is missing a name`);try{let y=n(S,w,"setup",qe);if(typeof y!="function")throw new Error("Plugin is missing a setup function");K(S,w,`on plugin ${JSON.stringify(s)}`);let W={name:s,onResolve:[],onLoad:[]};k++;let g=y({initialOptions:p,resolve:(m,A={})=>{if(!C)throw new Error('Cannot call "resolve" before plugin setup has completed');if(typeof m!="string")throw new Error("The path to resolve must be a string");let O=Object.create(null),X=n(A,O,"pluginName",h),V=n(A,O,"importer",h),Z=n(A,O,"namespace",h),re=n(A,O,"resolveDir",h),D=n(A,O,"kind",h),Q=n(A,O,"pluginData",Ce);return K(A,O,"in resolve() call"),new Promise((G,le)=>{let ee={command:"resolve",path:m,key:o,pluginName:s};X!=null&&(ee.pluginName=X),V!=null&&(ee.importer=V),Z!=null&&(ee.namespace=Z),re!=null&&(ee.resolveDir=re),D!=null&&(ee.kind=D),Q!=null&&(ee.pluginData=d.store(Q)),E(U,ee,(ge,q)=>{ge!==null?le(new Error(ge)):G({errors:we(q.errors,d),warnings:we(q.warnings,d),path:q.path,external:q.external,sideEffects:q.sideEffects,namespace:q.namespace,suffix:q.suffix,pluginData:d.load(q.pluginData)})})})},onStart(m){let A='This error came from the "onStart" callback registered here:',O=Me(new Error(A),e,"onStart");N.push({name:s,callback:m,note:O})},onEnd(m){let A='This error came from the "onEnd" callback registered here:',O=Me(new Error(A),e,"onEnd");T.push({name:s,callback:m,note:O})},onResolve(m,A){let O='This error came from the "onResolve" callback registered here:',X=Me(new Error(O),e,"onResolve"),V={},Z=n(m,V,"filter",Ue),re=n(m,V,"namespace",h);if(K(m,V,`in onResolve() call for plugin ${JSON.stringify(s)}`),Z==null)throw new Error("onResolve() call is missing a filter");let D=j++;$[D]={name:s,callback:A,note:X},W.onResolve.push({id:D,filter:Z.source,namespace:re||""})},onLoad(m,A){let O='This error came from the "onLoad" callback registered here:',X=Me(new Error(O),e,"onLoad"),V={},Z=n(m,V,"filter",Ue),re=n(m,V,"namespace",h);if(K(m,V,`in onLoad() call for plugin ${JSON.stringify(s)}`),Z==null)throw new Error("onLoad() call is missing a filter");let D=j++;I[D]={name:s,callback:A,note:X},W.onLoad.push({id:D,filter:Z.source,namespace:re||""})},esbuild:e.esbuild});g&&(yield g),F.push(W)}catch(y){return{ok:!1,error:y,pluginName:s}}}let x=S=>$e(this,null,function*(){switch(S.command){case"on-start":{let w={errors:[],warnings:[]};return yield Promise.all(N.map(s=>$e(this,[s],function*({name:y,callback:W,note:z}){try{let g=yield W();if(g!=null){if(typeof g!="object")throw new Error(`Expected onStart() callback in plugin ${JSON.stringify(y)} to return an object`);let m={},A=n(g,m,"errors",J),O=n(g,m,"warnings",J);K(g,m,`from onStart() callback in plugin ${JSON.stringify(y)}`),A!=null&&w.errors.push(..._e(A,"errors",d,y)),O!=null&&w.warnings.push(..._e(O,"warnings",d,y))}}catch(g){w.errors.push(je(g,e,d,z&&z(),y))}}))),w}case"on-resolve":{let w={},s="",y,W;for(let z of S.ids)try{({name:s,callback:y,note:W}=$[z]);let g=yield y({path:S.path,importer:S.importer,namespace:S.namespace,resolveDir:S.resolveDir,kind:S.kind,pluginData:d.load(S.pluginData)});if(g!=null){if(typeof g!="object")throw new Error(`Expected onResolve() callback in plugin ${JSON.stringify(s)} to return an object`);let m={},A=n(g,m,"pluginName",h),O=n(g,m,"path",h),X=n(g,m,"namespace",h),V=n(g,m,"suffix",h),Z=n(g,m,"external",B),re=n(g,m,"sideEffects",B),D=n(g,m,"pluginData",Ce),Q=n(g,m,"errors",J),G=n(g,m,"warnings",J),le=n(g,m,"watchFiles",J),ee=n(g,m,"watchDirs",J);K(g,m,`from onResolve() callback in plugin ${JSON.stringify(s)}`),w.id=z,A!=null&&(w.pluginName=A),O!=null&&(w.path=O),X!=null&&(w.namespace=X),V!=null&&(w.suffix=V),Z!=null&&(w.external=Z),re!=null&&(w.sideEffects=re),D!=null&&(w.pluginData=d.store(D)),Q!=null&&(w.errors=_e(Q,"errors",d,s)),G!=null&&(w.warnings=_e(G,"warnings",d,s)),le!=null&&(w.watchFiles=Le(le,"watchFiles")),ee!=null&&(w.watchDirs=Le(ee,"watchDirs"));break}}catch(g){return{id:z,errors:[je(g,e,d,W&&W(),s)]}}return w}case"on-load":{let w={},s="",y,W;for(let z of S.ids)try{({name:s,callback:y,note:W}=I[z]);let g=yield y({path:S.path,namespace:S.namespace,suffix:S.suffix,pluginData:d.load(S.pluginData)});if(g!=null){if(typeof g!="object")throw new Error(`Expected onLoad() callback in plugin ${JSON.stringify(s)} to return an object`);let m={},A=n(g,m,"pluginName",h),O=n(g,m,"contents",vt),X=n(g,m,"resolveDir",h),V=n(g,m,"pluginData",Ce),Z=n(g,m,"loader",h),re=n(g,m,"errors",J),D=n(g,m,"warnings",J),Q=n(g,m,"watchFiles",J),G=n(g,m,"watchDirs",J);K(g,m,`from onLoad() callback in plugin ${JSON.stringify(s)}`),w.id=z,A!=null&&(w.pluginName=A),O instanceof Uint8Array?w.contents=O:O!=null&&(w.contents=xe(O)),X!=null&&(w.resolveDir=X),V!=null&&(w.pluginData=d.store(V)),Z!=null&&(w.loader=Z),re!=null&&(w.errors=_e(re,"errors",d,s)),D!=null&&(w.warnings=_e(D,"warnings",d,s)),Q!=null&&(w.watchFiles=Le(Q,"watchFiles")),G!=null&&(w.watchDirs=Le(G,"watchDirs"));break}}catch(g){return{id:z,errors:[je(g,e,d,W&&W(),s)]}}return w}default:throw new Error("Invalid command: "+S.command)}}),oe=(S,w,s)=>s();T.length>0&&(oe=(S,w,s)=>{(()=>$e(this,null,function*(){for(let{name:y,callback:W,note:z}of T)try{yield W(S)}catch(g){S.errors.push(yield new Promise(m=>w(g,y,z&&z(),m)))}}))().then(s)}),C=!0;let ne=0;return{ok:!0,requestPlugins:F,runOnEndCallbacks:oe,pluginRefs:{ref(){++ne===1&&r.set(o,x)},unref(){--ne===0&&r.delete(o)}}}}),ye=(p,f,o,d)=>{let U={},N=n(f,U,"port",Pe),T=n(f,U,"host",h),$=n(f,U,"servedir",h),I=n(f,U,"onRequest",qe),j,k=new Promise((F,C)=>{j=x=>{u.delete(d),x!==null?C(new Error(x)):F()}});return o.serve={},K(f,U,"in serve() call"),N!==void 0&&(o.serve.port=N),T!==void 0&&(o.serve.host=T),$!==void 0&&(o.serve.servedir=$),u.set(d,{onRequest:I,onWait:j}),{wait:k,stop(){E(p,{command:"serve-stop",key:d},()=>{})}}},ve="warning",ke="silent",Ee=p=>{let f=b++,o=nt(),d,{refs:U,options:N,isTTY:T,callback:$}=p;if(typeof N=="object"){let k=N.plugins;if(k!==void 0){if(!Array.isArray(k))throw new Error('"plugins" must be an array');d=k}}let I=(k,F,C,x)=>{let oe=[];try{Fe(oe,N,{},T,ve)}catch(S){}let ne=je(k,e,o,C,F);E(U,{command:"error",flags:oe,error:ne},()=>{ne.detail=o.load(ne.detail),x(ne)})},j=(k,F)=>{I(k,F,void 0,C=>{$(De("Build failed",[C],[]),null)})};if(d&&d.length>0){if(e.isSync)return j(new Error("Cannot use plugins in synchronous API calls"),"");be(N,d,f,o,U).then(k=>{if(!k.ok)j(k.error,k.pluginName);else try{me(de(H({},p),{key:f,details:o,logPluginError:I,requestPlugins:k.requestPlugins,runOnEndCallbacks:k.runOnEndCallbacks,pluginRefs:k.pluginRefs}))}catch(F){j(F,"")}},k=>j(k,""))}else try{me(de(H({},p),{key:f,details:o,logPluginError:I,requestPlugins:null,runOnEndCallbacks:(k,F,C)=>C(),pluginRefs:null}))}catch(k){j(k,"")}},me=({callName:p,refs:f,serveOptions:o,options:d,isTTY:U,defaultWD:N,callback:T,key:$,details:I,logPluginError:j,requestPlugins:k,runOnEndCallbacks:F,pluginRefs:C})=>{let x={ref(){C&&C.ref(),f&&f.ref()},unref(){C&&C.unref(),f&&f.unref()}},oe=!e.isBrowser,{entries:ne,flags:S,write:w,stdinContents:s,stdinResolveDir:y,absWorkingDir:W,incremental:z,nodePaths:g,watch:m}=xt(p,d,U,ve,oe),A={command:"build",key:$,entries:ne,flags:S,write:w,stdinContents:s,stdinResolveDir:y,absWorkingDir:W||N,incremental:z,nodePaths:g};k&&(A.plugins=k);let O=o&&ye(x,o,A,$),X,V,Z=(D,Q)=>{D.outputFiles&&(Q.outputFiles=D.outputFiles.map(St)),D.metafile&&(Q.metafile=JSON.parse(D.metafile)),D.writeToStdout!==void 0&&console.log(Oe(D.writeToStdout).replace(/\n$/,""))},re=(D,Q)=>{let G={errors:we(D.errors,I),warnings:we(D.warnings,I)};Z(D,G),F(G,j,()=>{if(G.errors.length>0)return Q(De("Build failed",G.errors,G.warnings),null);if(D.rebuild){if(!X){let le=!1;X=()=>new Promise((ee,ge)=>{if(le||c)throw new Error("Cannot rebuild");E(x,{command:"rebuild",key:$},(q,Ft)=>{if(q)return Q(De("Build failed",[{pluginName:"",text:q,location:null,notes:[],detail:void 0}],[]),null);re(Ft,(Ge,Mt)=>{Ge?ge(Ge):ee(Mt)})})}),x.ref(),X.dispose=()=>{le||(le=!0,E(x,{command:"rebuild-dispose",key:$},()=>{}),x.unref())}}G.rebuild=X}if(D.watch){if(!V){let le=!1;x.ref(),V=()=>{le||(le=!0,a.delete($),E(x,{command:"watch-stop",key:$},()=>{}),x.unref())},m&&a.set($,(ee,ge)=>{if(ee){m.onRebuild&&m.onRebuild(ee,null);return}let q={errors:we(ge.errors,I),warnings:we(ge.warnings,I)};Z(ge,q),F(q,j,()=>{if(q.errors.length>0){m.onRebuild&&m.onRebuild(De("Build failed",q.errors,q.warnings),null);return}ge.rebuildID!==void 0&&(q.rebuild=X),q.stop=V,m.onRebuild&&m.onRebuild(null,q)})})}G.stop=V}Q(null,G)})};if(w&&e.isBrowser)throw new Error('Cannot enable "write" in the browser');if(z&&e.isSync)throw new Error('Cannot use "incremental" with a synchronous build');if(m&&e.isSync)throw new Error('Cannot use "watch" with a synchronous build');E(x,A,(D,Q)=>{if(D)return T(new Error(D),null);if(O){let G=Q,le=!1;x.ref();let ee={port:G.port,host:G.host,wait:O.wait,stop(){le||(le=!0,O.stop(),x.unref())}};return x.ref(),O.wait.then(x.unref,x.unref),T(null,ee)}return re(Q,T)})};return{readFromStdout:R,afterClose:M,service:{buildOrServe:Ee,transform:({callName:p,refs:f,input:o,options:d,isTTY:U,fs:N,callback:T})=>{let $=nt(),I=j=>{try{if(typeof o!="string")throw new Error('The input to "transform" must be a string');let k=_t(p,d,U,ke);E(f,{command:"transform",flags:k,inputFS:j!==null,input:j!==null?j:o},(C,x)=>{if(C)return T(new Error(C),null);let oe=we(x.errors,$),ne=we(x.warnings,$),S=1,w=()=>--S===0&&T(null,{warnings:ne,code:x.code,map:x.map});if(oe.length>0)return T(De("Transform failed",oe,ne),null);x.codeFS&&(S++,N.readFile(x.code,(s,y)=>{s!==null?T(s,null):(x.code=y,w())})),x.mapFS&&(S++,N.readFile(x.map,(s,y)=>{s!==null?T(s,null):(x.map=y,w())})),w()})}catch(k){let F=[];try{Fe(F,d,{},U,ke)}catch(x){}let C=je(k,e,$,void 0,"");E(f,{command:"error",flags:F,error:C},()=>{C.detail=$.load(C.detail),T(De("Transform failed",[C],[]),null)})}};if(typeof o=="string"&&o.length>1024*1024){let j=I;I=()=>N.writeFile(o,j)}I(null)},formatMessages:({callName:p,refs:f,messages:o,options:d,callback:U})=>{let N=_e(o,"messages",null,"");if(!d)throw new Error(`Missing second argument in ${p}() call`);let T={},$=n(d,T,"kind",h),I=n(d,T,"color",B),j=n(d,T,"terminalWidth",Pe);if(K(d,T,`in ${p}() call`),$===void 0)throw new Error(`Missing "kind" in ${p}() call`);if($!=="error"&&$!=="warning")throw new Error(`Expected "kind" to be "error" or "warning" in ${p}() call`);let k={command:"format-msgs",messages:N,isWarning:$==="warning"};I!==void 0&&(k.color=I),j!==void 0&&(k.terminalWidth=j),E(f,k,(F,C)=>{if(F)return U(new Error(F),null);U(null,C.messages)})},analyzeMetafile:({callName:p,refs:f,metafile:o,options:d,callback:U})=>{d===void 0&&(d={});let N={},T=n(d,N,"color",B),$=n(d,N,"verbose",B);K(d,N,`in ${p}() call`);let I={command:"analyze-metafile",metafile:o};T!==void 0&&(I.color=T),$!==void 0&&(I.verbose=$),E(f,I,(j,k)=>{if(j)return U(new Error(j),null);U(null,k.result)})}}}}function nt(){let e=new Map,t=0;return{load(r){return e.get(r)},store(r){if(r===void 0)return-1;let a=t++;return e.set(a,r),a}}}function Me(e,t,r){let a,u=!1;return()=>{if(u)return a;u=!0;try{let c=(e.stack+"").split(`
-`);c.splice(1,1);let i=lt(t,c,r);if(i)return a={text:e.message,location:i},a}catch(c){}}}function je(e,t,r,a,u){let c="Internal error",i=null;try{c=(e&&e.message||e)+""}catch(b){}try{i=lt(t,(e.stack+"").split(`
-`),"")}catch(b){}return{pluginName:u,text:c,location:i,notes:a?[a]:[],detail:r?r.store(e):-1}}function lt(e,t,r){let a="    at ";if(e.readFileSync&&!t[0].startsWith(a)&&t[1].startsWith(a))for(let u=1;u<t.length;u++){let c=t[u];if(!!c.startsWith(a))for(c=c.slice(a.length);;){let i=/^(?:new |async )?\S+ \((.*)\)$/.exec(c);if(i){c=i[1];continue}if(i=/^eval at \S+ \((.*)\)(?:, \S+:\d+:\d+)?$/.exec(c),i){c=i[1];continue}if(i=/^(\S+):(\d+):(\d+)$/.exec(c),i){let b;try{b=e.readFileSync(i[1],"utf8")}catch(M){break}let l=b.split(/\r\n|\r|\n|\u2028|\u2029/)[+i[2]-1]||"",v=+i[3]-1,R=l.slice(v,v+r.length)===r?r.length:0;return{file:i[1],namespace:"file",line:+i[2],column:xe(l.slice(0,v)).length,length:xe(l.slice(v,v+R)).length,lineText:l+`
-`+t.slice(1).join(`
-`),suggestion:""}}break}}return null}function De(e,t,r){let a=5,u=t.length<1?"":` with ${t.length} error${t.length<2?"":"s"}:`+t.slice(0,a+1).map((i,b)=>{if(b===a)return`
-...`;if(!i.location)return`
-error: ${i.text}`;let{file:l,line:v,column:R}=i.location,M=i.pluginName?`[plugin: ${i.pluginName}] `:"";return`
-${l}:${v}:${R}: ERROR: ${M}${i.text}`}).join(""),c=new Error(`${e}${u}`);return c.errors=t,c.warnings=r,c}function we(e,t){for(let r of e)r.detail=t.load(r.detail);return e}function st(e,t){if(e==null)return null;let r={},a=n(e,r,"file",h),u=n(e,r,"namespace",h),c=n(e,r,"line",Pe),i=n(e,r,"column",Pe),b=n(e,r,"length",Pe),l=n(e,r,"lineText",h),v=n(e,r,"suggestion",h);return K(e,r,t),{file:a||"",namespace:u||"",line:c||0,column:i||0,length:b||0,lineText:l||"",suggestion:v||""}}function _e(e,t,r,a){let u=[],c=0;for(let i of e){let b={},l=n(i,b,"pluginName",h),v=n(i,b,"text",h),R=n(i,b,"location",et),M=n(i,b,"notes",J),E=n(i,b,"detail",Ce),P=`in element ${c} of "${t}"`;K(i,b,P);let ce=[];if(M)for(let ue of M){let he={},be=n(ue,he,"text",h),ye=n(ue,he,"location",et);K(ue,he,P),ce.push({text:be||"",location:st(ye,P)})}u.push({pluginName:l||a,text:v||"",location:st(R,P),notes:ce,detail:r?r.store(E):-1}),c++}return u}function Le(e,t){let r=[];for(let a of e){if(typeof a!="string")throw new Error(`${JSON.stringify(t)} must be an array of strings`);r.push(a)}return r}function St({path:e,contents:t}){let r=null;return{path:e,contents:t,get text(){return r===null&&(r=Oe(t)),r}}}var $t="0.14.17",Ot=e=>Be().build(e),Pt=()=>{throw new Error('The "serve" API only works in node')},Tt=(e,t)=>Be().transform(e,t),jt=(e,t)=>Be().formatMessages(e,t),Dt=(e,t)=>Be().analyzeMetafile(e,t),Rt=()=>{throw new Error('The "buildSync" API only works in node')},At=()=>{throw new Error('The "transformSync" API only works in node')},Nt=()=>{throw new Error('The "formatMessagesSync" API only works in node')},It=()=>{throw new Error('The "analyzeMetafileSync" API only works in node')},Re,Je,Be=()=>{if(Je)return Je;throw Re?new Error('You need to wait for the promise returned from "initialize" to be resolved before calling this'):new Error('You need to call "initialize" before calling this')},Ct=e=>{e=kt(e||{});let t=e.wasmURL,r=e.worker!==!1;if(!t)throw new Error('Must provide the "wasmURL" option');if(t+="",Re)throw new Error('Cannot call "initialize" more than once');return Re=Ut(t,r),Re.catch(()=>{Re=void 0}),Re},Ut=(e,t)=>$e(void 0,null,function*(){let r=yield fetch(e);if(!r.ok)throw new Error(`Failed to download ${JSON.stringify(e)}`);let a=yield r.arrayBuffer(),u=`{let global={};for(let o=self;o;o=Object.getPrototypeOf(o))for(let k of Object.getOwnPropertyNames(o))if(!(k in global))Object.defineProperty(global,k,{get:()=>self[k]});// Copyright 2018 The Go Authors. All rights reserved.
+var __create = Object.create;
+var __defProp = Object.defineProperty;
+var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
+var __getOwnPropNames = Object.getOwnPropertyNames;
+var __getProtoOf = Object.getPrototypeOf;
+var __hasOwnProp = Object.prototype.hasOwnProperty;
+var __markAsModule = (target) => __defProp(target, "__esModule", { value: true });
+var __commonJS = (cb, mod) => function __require() {
+  return mod || (0, cb[__getOwnPropNames(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
+};
+var __reExport = (target, module, copyDefault, desc) => {
+  if (module && typeof module === "object" || typeof module === "function") {
+    for (let key of __getOwnPropNames(module))
+      if (!__hasOwnProp.call(target, key) && (copyDefault || key !== "default"))
+        __defProp(target, key, { get: () => module[key], enumerable: !(desc = __getOwnPropDesc(module, key)) || desc.enumerable });
+  }
+  return target;
+};
+var __toESM = (module, isNodeMode) => {
+  return __reExport(__markAsModule(__defProp(module != null ? __create(__getProtoOf(module)) : {}, "default", !isNodeMode && module && module.__esModule ? { get: () => module.default, enumerable: true } : { value: module, enumerable: true })), module);
+};
+
+// ../../node_modules/esbuild-wasm/lib/browser.js
+var require_browser = __commonJS({
+  "../../node_modules/esbuild-wasm/lib/browser.js"(exports, module) {
+    ((module2) => {
+      var __defProp2 = Object.defineProperty;
+      var __defProps = Object.defineProperties;
+      var __getOwnPropDesc2 = Object.getOwnPropertyDescriptor;
+      var __getOwnPropDescs = Object.getOwnPropertyDescriptors;
+      var __getOwnPropNames2 = Object.getOwnPropertyNames;
+      var __getOwnPropSymbols = Object.getOwnPropertySymbols;
+      var __hasOwnProp2 = Object.prototype.hasOwnProperty;
+      var __propIsEnum = Object.prototype.propertyIsEnumerable;
+      var __defNormalProp = (obj, key, value) => key in obj ? __defProp2(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
+      var __spreadValues = (a, b) => {
+        for (var prop in b || (b = {}))
+          if (__hasOwnProp2.call(b, prop))
+            __defNormalProp(a, prop, b[prop]);
+        if (__getOwnPropSymbols)
+          for (var prop of __getOwnPropSymbols(b)) {
+            if (__propIsEnum.call(b, prop))
+              __defNormalProp(a, prop, b[prop]);
+          }
+        return a;
+      };
+      var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
+      var __markAsModule2 = (target) => __defProp2(target, "__esModule", { value: true });
+      var __export = (target, all) => {
+        for (var name in all)
+          __defProp2(target, name, { get: all[name], enumerable: true });
+      };
+      var __reExport2 = (target, module22, copyDefault, desc) => {
+        if (module22 && typeof module22 === "object" || typeof module22 === "function") {
+          for (let key of __getOwnPropNames2(module22))
+            if (!__hasOwnProp2.call(target, key) && (copyDefault || key !== "default"))
+              __defProp2(target, key, { get: () => module22[key], enumerable: !(desc = __getOwnPropDesc2(module22, key)) || desc.enumerable });
+        }
+        return target;
+      };
+      var __toCommonJS = /* @__PURE__ */ ((cache) => {
+        return (module22, temp) => {
+          return cache && cache.get(module22) || (temp = __reExport2(__markAsModule2({}), module22, 1), cache && cache.set(module22, temp), temp);
+        };
+      })(typeof WeakMap !== "undefined" ? /* @__PURE__ */ new WeakMap() : 0);
+      var __async = (__this, __arguments, generator) => {
+        return new Promise((resolve, reject) => {
+          var fulfilled = (value) => {
+            try {
+              step(generator.next(value));
+            } catch (e) {
+              reject(e);
+            }
+          };
+          var rejected = (value) => {
+            try {
+              step(generator.throw(value));
+            } catch (e) {
+              reject(e);
+            }
+          };
+          var step = (x) => x.done ? resolve(x.value) : Promise.resolve(x.value).then(fulfilled, rejected);
+          step((generator = generator.apply(__this, __arguments)).next());
+        });
+      };
+      var browser_exports = {};
+      __export(browser_exports, {
+        analyzeMetafile: () => analyzeMetafile,
+        analyzeMetafileSync: () => analyzeMetafileSync,
+        build: () => build,
+        buildSync: () => buildSync,
+        formatMessages: () => formatMessages,
+        formatMessagesSync: () => formatMessagesSync,
+        initialize: () => initialize2,
+        serve: () => serve,
+        transform: () => transform3,
+        transformSync: () => transformSync,
+        version: () => version
+      });
+      function encodePacket(packet) {
+        let visit = (value) => {
+          if (value === null) {
+            bb.write8(0);
+          } else if (typeof value === "boolean") {
+            bb.write8(1);
+            bb.write8(+value);
+          } else if (typeof value === "number") {
+            bb.write8(2);
+            bb.write32(value | 0);
+          } else if (typeof value === "string") {
+            bb.write8(3);
+            bb.write(encodeUTF8(value));
+          } else if (value instanceof Uint8Array) {
+            bb.write8(4);
+            bb.write(value);
+          } else if (value instanceof Array) {
+            bb.write8(5);
+            bb.write32(value.length);
+            for (let item of value) {
+              visit(item);
+            }
+          } else {
+            let keys = Object.keys(value);
+            bb.write8(6);
+            bb.write32(keys.length);
+            for (let key of keys) {
+              bb.write(encodeUTF8(key));
+              visit(value[key]);
+            }
+          }
+        };
+        let bb = new ByteBuffer();
+        bb.write32(0);
+        bb.write32(packet.id << 1 | +!packet.isRequest);
+        visit(packet.value);
+        writeUInt32LE(bb.buf, bb.len - 4, 0);
+        return bb.buf.subarray(0, bb.len);
+      }
+      function decodePacket(bytes) {
+        let visit = () => {
+          switch (bb.read8()) {
+            case 0:
+              return null;
+            case 1:
+              return !!bb.read8();
+            case 2:
+              return bb.read32();
+            case 3:
+              return decodeUTF8(bb.read());
+            case 4:
+              return bb.read();
+            case 5: {
+              let count = bb.read32();
+              let value2 = [];
+              for (let i = 0; i < count; i++) {
+                value2.push(visit());
+              }
+              return value2;
+            }
+            case 6: {
+              let count = bb.read32();
+              let value2 = {};
+              for (let i = 0; i < count; i++) {
+                value2[decodeUTF8(bb.read())] = visit();
+              }
+              return value2;
+            }
+            default:
+              throw new Error("Invalid packet");
+          }
+        };
+        let bb = new ByteBuffer(bytes);
+        let id = bb.read32();
+        let isRequest = (id & 1) === 0;
+        id >>>= 1;
+        let value = visit();
+        if (bb.ptr !== bytes.length) {
+          throw new Error("Invalid packet");
+        }
+        return { id, isRequest, value };
+      }
+      var ByteBuffer = class {
+        constructor(buf = new Uint8Array(1024)) {
+          this.buf = buf;
+          this.len = 0;
+          this.ptr = 0;
+        }
+        _write(delta) {
+          if (this.len + delta > this.buf.length) {
+            let clone = new Uint8Array((this.len + delta) * 2);
+            clone.set(this.buf);
+            this.buf = clone;
+          }
+          this.len += delta;
+          return this.len - delta;
+        }
+        write8(value) {
+          let offset = this._write(1);
+          this.buf[offset] = value;
+        }
+        write32(value) {
+          let offset = this._write(4);
+          writeUInt32LE(this.buf, value, offset);
+        }
+        write(bytes) {
+          let offset = this._write(4 + bytes.length);
+          writeUInt32LE(this.buf, bytes.length, offset);
+          this.buf.set(bytes, offset + 4);
+        }
+        _read(delta) {
+          if (this.ptr + delta > this.buf.length) {
+            throw new Error("Invalid packet");
+          }
+          this.ptr += delta;
+          return this.ptr - delta;
+        }
+        read8() {
+          return this.buf[this._read(1)];
+        }
+        read32() {
+          return readUInt32LE(this.buf, this._read(4));
+        }
+        read() {
+          let length = this.read32();
+          let bytes = new Uint8Array(length);
+          let ptr = this._read(bytes.length);
+          bytes.set(this.buf.subarray(ptr, ptr + length));
+          return bytes;
+        }
+      };
+      var encodeUTF8;
+      var decodeUTF8;
+      if (typeof TextEncoder !== "undefined" && typeof TextDecoder !== "undefined") {
+        let encoder = new TextEncoder();
+        let decoder = new TextDecoder();
+        encodeUTF8 = (text) => encoder.encode(text);
+        decodeUTF8 = (bytes) => decoder.decode(bytes);
+      } else if (typeof Buffer !== "undefined") {
+        encodeUTF8 = (text) => {
+          let buffer = Buffer.from(text);
+          if (!(buffer instanceof Uint8Array)) {
+            buffer = new Uint8Array(buffer);
+          }
+          return buffer;
+        };
+        decodeUTF8 = (bytes) => {
+          let { buffer, byteOffset, byteLength } = bytes;
+          return Buffer.from(buffer, byteOffset, byteLength).toString();
+        };
+      } else {
+        throw new Error("No UTF-8 codec found");
+      }
+      function readUInt32LE(buffer, offset) {
+        return buffer[offset++] | buffer[offset++] << 8 | buffer[offset++] << 16 | buffer[offset++] << 24;
+      }
+      function writeUInt32LE(buffer, value, offset) {
+        buffer[offset++] = value;
+        buffer[offset++] = value >> 8;
+        buffer[offset++] = value >> 16;
+        buffer[offset++] = value >> 24;
+      }
+      function validateTarget(target) {
+        target += "";
+        if (target.indexOf(",") >= 0)
+          throw new Error(`Invalid target: ${target}`);
+        return target;
+      }
+      var canBeAnything = () => null;
+      var mustBeBoolean = (value) => typeof value === "boolean" ? null : "a boolean";
+      var mustBeBooleanOrObject = (value) => typeof value === "boolean" || typeof value === "object" && !Array.isArray(value) ? null : "a boolean or an object";
+      var mustBeString = (value) => typeof value === "string" ? null : "a string";
+      var mustBeRegExp = (value) => value instanceof RegExp ? null : "a RegExp object";
+      var mustBeInteger = (value) => typeof value === "number" && value === (value | 0) ? null : "an integer";
+      var mustBeFunction = (value) => typeof value === "function" ? null : "a function";
+      var mustBeArray = (value) => Array.isArray(value) ? null : "an array";
+      var mustBeObject = (value) => typeof value === "object" && value !== null && !Array.isArray(value) ? null : "an object";
+      var mustBeArrayOrRecord = (value) => typeof value === "object" && value !== null ? null : "an array or an object";
+      var mustBeObjectOrNull = (value) => typeof value === "object" && !Array.isArray(value) ? null : "an object or null";
+      var mustBeStringOrBoolean = (value) => typeof value === "string" || typeof value === "boolean" ? null : "a string or a boolean";
+      var mustBeStringOrObject = (value) => typeof value === "string" || typeof value === "object" && value !== null && !Array.isArray(value) ? null : "a string or an object";
+      var mustBeStringOrArray = (value) => typeof value === "string" || Array.isArray(value) ? null : "a string or an array";
+      var mustBeStringOrUint8Array = (value) => typeof value === "string" || value instanceof Uint8Array ? null : "a string or a Uint8Array";
+      function getFlag(object, keys, key, mustBeFn) {
+        let value = object[key];
+        keys[key + ""] = true;
+        if (value === void 0)
+          return void 0;
+        let mustBe = mustBeFn(value);
+        if (mustBe !== null)
+          throw new Error(`"${key}" must be ${mustBe}`);
+        return value;
+      }
+      function checkForInvalidFlags(object, keys, where) {
+        for (let key in object) {
+          if (!(key in keys)) {
+            throw new Error(`Invalid option ${where}: "${key}"`);
+          }
+        }
+      }
+      function validateInitializeOptions(options) {
+        let keys = /* @__PURE__ */ Object.create(null);
+        let wasmURL = getFlag(options, keys, "wasmURL", mustBeString);
+        let worker = getFlag(options, keys, "worker", mustBeBoolean);
+        checkForInvalidFlags(options, keys, "in startService() call");
+        return {
+          wasmURL,
+          worker
+        };
+      }
+      function pushLogFlags(flags, options, keys, isTTY, logLevelDefault) {
+        let color = getFlag(options, keys, "color", mustBeBoolean);
+        let logLevel = getFlag(options, keys, "logLevel", mustBeString);
+        let logLimit = getFlag(options, keys, "logLimit", mustBeInteger);
+        if (color !== void 0)
+          flags.push(`--color=${color}`);
+        else if (isTTY)
+          flags.push(`--color=true`);
+        flags.push(`--log-level=${logLevel || logLevelDefault}`);
+        flags.push(`--log-limit=${logLimit || 0}`);
+      }
+      function pushCommonFlags(flags, options, keys) {
+        let legalComments = getFlag(options, keys, "legalComments", mustBeString);
+        let sourceRoot = getFlag(options, keys, "sourceRoot", mustBeString);
+        let sourcesContent = getFlag(options, keys, "sourcesContent", mustBeBoolean);
+        let target = getFlag(options, keys, "target", mustBeStringOrArray);
+        let format = getFlag(options, keys, "format", mustBeString);
+        let globalName = getFlag(options, keys, "globalName", mustBeString);
+        let mangleProps = getFlag(options, keys, "mangleProps", mustBeRegExp);
+        let reserveProps = getFlag(options, keys, "reserveProps", mustBeRegExp);
+        let minify = getFlag(options, keys, "minify", mustBeBoolean);
+        let minifySyntax = getFlag(options, keys, "minifySyntax", mustBeBoolean);
+        let minifyWhitespace = getFlag(options, keys, "minifyWhitespace", mustBeBoolean);
+        let minifyIdentifiers = getFlag(options, keys, "minifyIdentifiers", mustBeBoolean);
+        let drop = getFlag(options, keys, "drop", mustBeArray);
+        let charset = getFlag(options, keys, "charset", mustBeString);
+        let treeShaking = getFlag(options, keys, "treeShaking", mustBeBoolean);
+        let ignoreAnnotations = getFlag(options, keys, "ignoreAnnotations", mustBeBoolean);
+        let jsx = getFlag(options, keys, "jsx", mustBeString);
+        let jsxFactory = getFlag(options, keys, "jsxFactory", mustBeString);
+        let jsxFragment = getFlag(options, keys, "jsxFragment", mustBeString);
+        let define = getFlag(options, keys, "define", mustBeObject);
+        let pure = getFlag(options, keys, "pure", mustBeArray);
+        let keepNames = getFlag(options, keys, "keepNames", mustBeBoolean);
+        if (legalComments)
+          flags.push(`--legal-comments=${legalComments}`);
+        if (sourceRoot !== void 0)
+          flags.push(`--source-root=${sourceRoot}`);
+        if (sourcesContent !== void 0)
+          flags.push(`--sources-content=${sourcesContent}`);
+        if (target) {
+          if (Array.isArray(target))
+            flags.push(`--target=${Array.from(target).map(validateTarget).join(",")}`);
+          else
+            flags.push(`--target=${validateTarget(target)}`);
+        }
+        if (format)
+          flags.push(`--format=${format}`);
+        if (globalName)
+          flags.push(`--global-name=${globalName}`);
+        if (minify)
+          flags.push("--minify");
+        if (minifySyntax)
+          flags.push("--minify-syntax");
+        if (minifyWhitespace)
+          flags.push("--minify-whitespace");
+        if (minifyIdentifiers)
+          flags.push("--minify-identifiers");
+        if (charset)
+          flags.push(`--charset=${charset}`);
+        if (treeShaking !== void 0)
+          flags.push(`--tree-shaking=${treeShaking}`);
+        if (ignoreAnnotations)
+          flags.push(`--ignore-annotations`);
+        if (drop)
+          for (let what of drop)
+            flags.push(`--drop:${what}`);
+        if (mangleProps)
+          flags.push(`--mangle-props=${mangleProps.source}`);
+        if (reserveProps)
+          flags.push(`--reserve-props=${reserveProps.source}`);
+        if (jsx)
+          flags.push(`--jsx=${jsx}`);
+        if (jsxFactory)
+          flags.push(`--jsx-factory=${jsxFactory}`);
+        if (jsxFragment)
+          flags.push(`--jsx-fragment=${jsxFragment}`);
+        if (define) {
+          for (let key in define) {
+            if (key.indexOf("=") >= 0)
+              throw new Error(`Invalid define: ${key}`);
+            flags.push(`--define:${key}=${define[key]}`);
+          }
+        }
+        if (pure)
+          for (let fn of pure)
+            flags.push(`--pure:${fn}`);
+        if (keepNames)
+          flags.push(`--keep-names`);
+      }
+      function flagsForBuildOptions(callName, options, isTTY, logLevelDefault, writeDefault) {
+        var _a;
+        let flags = [];
+        let entries = [];
+        let keys = /* @__PURE__ */ Object.create(null);
+        let stdinContents = null;
+        let stdinResolveDir = null;
+        let watchMode = null;
+        pushLogFlags(flags, options, keys, isTTY, logLevelDefault);
+        pushCommonFlags(flags, options, keys);
+        let sourcemap = getFlag(options, keys, "sourcemap", mustBeStringOrBoolean);
+        let bundle = getFlag(options, keys, "bundle", mustBeBoolean);
+        let watch = getFlag(options, keys, "watch", mustBeBooleanOrObject);
+        let splitting = getFlag(options, keys, "splitting", mustBeBoolean);
+        let preserveSymlinks = getFlag(options, keys, "preserveSymlinks", mustBeBoolean);
+        let metafile = getFlag(options, keys, "metafile", mustBeBoolean);
+        let outfile = getFlag(options, keys, "outfile", mustBeString);
+        let outdir = getFlag(options, keys, "outdir", mustBeString);
+        let outbase = getFlag(options, keys, "outbase", mustBeString);
+        let platform = getFlag(options, keys, "platform", mustBeString);
+        let tsconfig = getFlag(options, keys, "tsconfig", mustBeString);
+        let resolveExtensions = getFlag(options, keys, "resolveExtensions", mustBeArray);
+        let nodePathsInput = getFlag(options, keys, "nodePaths", mustBeArray);
+        let mainFields = getFlag(options, keys, "mainFields", mustBeArray);
+        let conditions = getFlag(options, keys, "conditions", mustBeArray);
+        let external = getFlag(options, keys, "external", mustBeArray);
+        let loader = getFlag(options, keys, "loader", mustBeObject);
+        let outExtension = getFlag(options, keys, "outExtension", mustBeObject);
+        let publicPath = getFlag(options, keys, "publicPath", mustBeString);
+        let entryNames = getFlag(options, keys, "entryNames", mustBeString);
+        let chunkNames = getFlag(options, keys, "chunkNames", mustBeString);
+        let assetNames = getFlag(options, keys, "assetNames", mustBeString);
+        let inject = getFlag(options, keys, "inject", mustBeArray);
+        let banner = getFlag(options, keys, "banner", mustBeObject);
+        let footer = getFlag(options, keys, "footer", mustBeObject);
+        let entryPoints = getFlag(options, keys, "entryPoints", mustBeArrayOrRecord);
+        let absWorkingDir = getFlag(options, keys, "absWorkingDir", mustBeString);
+        let stdin = getFlag(options, keys, "stdin", mustBeObject);
+        let write = (_a = getFlag(options, keys, "write", mustBeBoolean)) != null ? _a : writeDefault;
+        let allowOverwrite = getFlag(options, keys, "allowOverwrite", mustBeBoolean);
+        let incremental = getFlag(options, keys, "incremental", mustBeBoolean) === true;
+        keys.plugins = true;
+        checkForInvalidFlags(options, keys, `in ${callName}() call`);
+        if (sourcemap)
+          flags.push(`--sourcemap${sourcemap === true ? "" : `=${sourcemap}`}`);
+        if (bundle)
+          flags.push("--bundle");
+        if (allowOverwrite)
+          flags.push("--allow-overwrite");
+        if (watch) {
+          flags.push("--watch");
+          if (typeof watch === "boolean") {
+            watchMode = {};
+          } else {
+            let watchKeys = /* @__PURE__ */ Object.create(null);
+            let onRebuild = getFlag(watch, watchKeys, "onRebuild", mustBeFunction);
+            checkForInvalidFlags(watch, watchKeys, `on "watch" in ${callName}() call`);
+            watchMode = { onRebuild };
+          }
+        }
+        if (splitting)
+          flags.push("--splitting");
+        if (preserveSymlinks)
+          flags.push("--preserve-symlinks");
+        if (metafile)
+          flags.push(`--metafile`);
+        if (outfile)
+          flags.push(`--outfile=${outfile}`);
+        if (outdir)
+          flags.push(`--outdir=${outdir}`);
+        if (outbase)
+          flags.push(`--outbase=${outbase}`);
+        if (platform)
+          flags.push(`--platform=${platform}`);
+        if (tsconfig)
+          flags.push(`--tsconfig=${tsconfig}`);
+        if (resolveExtensions) {
+          let values = [];
+          for (let value of resolveExtensions) {
+            value += "";
+            if (value.indexOf(",") >= 0)
+              throw new Error(`Invalid resolve extension: ${value}`);
+            values.push(value);
+          }
+          flags.push(`--resolve-extensions=${values.join(",")}`);
+        }
+        if (publicPath)
+          flags.push(`--public-path=${publicPath}`);
+        if (entryNames)
+          flags.push(`--entry-names=${entryNames}`);
+        if (chunkNames)
+          flags.push(`--chunk-names=${chunkNames}`);
+        if (assetNames)
+          flags.push(`--asset-names=${assetNames}`);
+        if (mainFields) {
+          let values = [];
+          for (let value of mainFields) {
+            value += "";
+            if (value.indexOf(",") >= 0)
+              throw new Error(`Invalid main field: ${value}`);
+            values.push(value);
+          }
+          flags.push(`--main-fields=${values.join(",")}`);
+        }
+        if (conditions) {
+          let values = [];
+          for (let value of conditions) {
+            value += "";
+            if (value.indexOf(",") >= 0)
+              throw new Error(`Invalid condition: ${value}`);
+            values.push(value);
+          }
+          flags.push(`--conditions=${values.join(",")}`);
+        }
+        if (external)
+          for (let name of external)
+            flags.push(`--external:${name}`);
+        if (banner) {
+          for (let type in banner) {
+            if (type.indexOf("=") >= 0)
+              throw new Error(`Invalid banner file type: ${type}`);
+            flags.push(`--banner:${type}=${banner[type]}`);
+          }
+        }
+        if (footer) {
+          for (let type in footer) {
+            if (type.indexOf("=") >= 0)
+              throw new Error(`Invalid footer file type: ${type}`);
+            flags.push(`--footer:${type}=${footer[type]}`);
+          }
+        }
+        if (inject)
+          for (let path of inject)
+            flags.push(`--inject:${path}`);
+        if (loader) {
+          for (let ext in loader) {
+            if (ext.indexOf("=") >= 0)
+              throw new Error(`Invalid loader extension: ${ext}`);
+            flags.push(`--loader:${ext}=${loader[ext]}`);
+          }
+        }
+        if (outExtension) {
+          for (let ext in outExtension) {
+            if (ext.indexOf("=") >= 0)
+              throw new Error(`Invalid out extension: ${ext}`);
+            flags.push(`--out-extension:${ext}=${outExtension[ext]}`);
+          }
+        }
+        if (entryPoints) {
+          if (Array.isArray(entryPoints)) {
+            for (let entryPoint of entryPoints) {
+              entries.push(["", entryPoint + ""]);
+            }
+          } else {
+            for (let [key, value] of Object.entries(entryPoints)) {
+              entries.push([key + "", value + ""]);
+            }
+          }
+        }
+        if (stdin) {
+          let stdinKeys = /* @__PURE__ */ Object.create(null);
+          let contents = getFlag(stdin, stdinKeys, "contents", mustBeString);
+          let resolveDir = getFlag(stdin, stdinKeys, "resolveDir", mustBeString);
+          let sourcefile = getFlag(stdin, stdinKeys, "sourcefile", mustBeString);
+          let loader2 = getFlag(stdin, stdinKeys, "loader", mustBeString);
+          checkForInvalidFlags(stdin, stdinKeys, 'in "stdin" object');
+          if (sourcefile)
+            flags.push(`--sourcefile=${sourcefile}`);
+          if (loader2)
+            flags.push(`--loader=${loader2}`);
+          if (resolveDir)
+            stdinResolveDir = resolveDir + "";
+          stdinContents = contents ? contents + "" : "";
+        }
+        let nodePaths = [];
+        if (nodePathsInput) {
+          for (let value of nodePathsInput) {
+            value += "";
+            nodePaths.push(value);
+          }
+        }
+        return {
+          entries,
+          flags,
+          write,
+          stdinContents,
+          stdinResolveDir,
+          absWorkingDir,
+          incremental,
+          nodePaths,
+          watch: watchMode
+        };
+      }
+      function flagsForTransformOptions(callName, options, isTTY, logLevelDefault) {
+        let flags = [];
+        let keys = /* @__PURE__ */ Object.create(null);
+        pushLogFlags(flags, options, keys, isTTY, logLevelDefault);
+        pushCommonFlags(flags, options, keys);
+        let sourcemap = getFlag(options, keys, "sourcemap", mustBeStringOrBoolean);
+        let tsconfigRaw = getFlag(options, keys, "tsconfigRaw", mustBeStringOrObject);
+        let sourcefile = getFlag(options, keys, "sourcefile", mustBeString);
+        let loader = getFlag(options, keys, "loader", mustBeString);
+        let banner = getFlag(options, keys, "banner", mustBeString);
+        let footer = getFlag(options, keys, "footer", mustBeString);
+        checkForInvalidFlags(options, keys, `in ${callName}() call`);
+        if (sourcemap)
+          flags.push(`--sourcemap=${sourcemap === true ? "external" : sourcemap}`);
+        if (tsconfigRaw)
+          flags.push(`--tsconfig-raw=${typeof tsconfigRaw === "string" ? tsconfigRaw : JSON.stringify(tsconfigRaw)}`);
+        if (sourcefile)
+          flags.push(`--sourcefile=${sourcefile}`);
+        if (loader)
+          flags.push(`--loader=${loader}`);
+        if (banner)
+          flags.push(`--banner=${banner}`);
+        if (footer)
+          flags.push(`--footer=${footer}`);
+        return flags;
+      }
+      function createChannel(streamIn) {
+        let responseCallbacks = /* @__PURE__ */ new Map();
+        let pluginCallbacks = /* @__PURE__ */ new Map();
+        let watchCallbacks = /* @__PURE__ */ new Map();
+        let serveCallbacks = /* @__PURE__ */ new Map();
+        let isClosed = false;
+        let nextRequestID = 0;
+        let nextBuildKey = 0;
+        let stdout = new Uint8Array(16 * 1024);
+        let stdoutUsed = 0;
+        let readFromStdout = (chunk) => {
+          let limit = stdoutUsed + chunk.length;
+          if (limit > stdout.length) {
+            let swap = new Uint8Array(limit * 2);
+            swap.set(stdout);
+            stdout = swap;
+          }
+          stdout.set(chunk, stdoutUsed);
+          stdoutUsed += chunk.length;
+          let offset = 0;
+          while (offset + 4 <= stdoutUsed) {
+            let length = readUInt32LE(stdout, offset);
+            if (offset + 4 + length > stdoutUsed) {
+              break;
+            }
+            offset += 4;
+            handleIncomingPacket(stdout.subarray(offset, offset + length));
+            offset += length;
+          }
+          if (offset > 0) {
+            stdout.copyWithin(0, offset, stdoutUsed);
+            stdoutUsed -= offset;
+          }
+        };
+        let afterClose = () => {
+          isClosed = true;
+          for (let callback of responseCallbacks.values()) {
+            callback("The service was stopped", null);
+          }
+          responseCallbacks.clear();
+          for (let callbacks of serveCallbacks.values()) {
+            callbacks.onWait("The service was stopped");
+          }
+          serveCallbacks.clear();
+          for (let callback of watchCallbacks.values()) {
+            try {
+              callback(new Error("The service was stopped"), null);
+            } catch (e) {
+              console.error(e);
+            }
+          }
+          watchCallbacks.clear();
+        };
+        let sendRequest = (refs, value, callback) => {
+          if (isClosed)
+            return callback("The service is no longer running", null);
+          let id = nextRequestID++;
+          responseCallbacks.set(id, (error, response) => {
+            try {
+              callback(error, response);
+            } finally {
+              if (refs)
+                refs.unref();
+            }
+          });
+          if (refs)
+            refs.ref();
+          streamIn.writeToStdin(encodePacket({ id, isRequest: true, value }));
+        };
+        let sendResponse = (id, value) => {
+          if (isClosed)
+            throw new Error("The service is no longer running");
+          streamIn.writeToStdin(encodePacket({ id, isRequest: false, value }));
+        };
+        let handleRequest = (id, request) => __async(this, null, function* () {
+          try {
+            switch (request.command) {
+              case "ping": {
+                sendResponse(id, {});
+                break;
+              }
+              case "on-start": {
+                let callback = pluginCallbacks.get(request.key);
+                if (!callback)
+                  sendResponse(id, {});
+                else
+                  sendResponse(id, yield callback(request));
+                break;
+              }
+              case "on-resolve": {
+                let callback = pluginCallbacks.get(request.key);
+                if (!callback)
+                  sendResponse(id, {});
+                else
+                  sendResponse(id, yield callback(request));
+                break;
+              }
+              case "on-load": {
+                let callback = pluginCallbacks.get(request.key);
+                if (!callback)
+                  sendResponse(id, {});
+                else
+                  sendResponse(id, yield callback(request));
+                break;
+              }
+              case "serve-request": {
+                let callbacks = serveCallbacks.get(request.key);
+                if (callbacks && callbacks.onRequest)
+                  callbacks.onRequest(request.args);
+                sendResponse(id, {});
+                break;
+              }
+              case "serve-wait": {
+                let callbacks = serveCallbacks.get(request.key);
+                if (callbacks)
+                  callbacks.onWait(request.error);
+                sendResponse(id, {});
+                break;
+              }
+              case "watch-rebuild": {
+                let callback = watchCallbacks.get(request.key);
+                try {
+                  if (callback)
+                    callback(null, request.args);
+                } catch (err) {
+                  console.error(err);
+                }
+                sendResponse(id, {});
+                break;
+              }
+              default:
+                throw new Error(`Invalid command: ` + request.command);
+            }
+          } catch (e) {
+            sendResponse(id, { errors: [extractErrorMessageV8(e, streamIn, null, void 0, "")] });
+          }
+        });
+        let isFirstPacket = true;
+        let handleIncomingPacket = (bytes) => {
+          if (isFirstPacket) {
+            isFirstPacket = false;
+            let binaryVersion = String.fromCharCode(...bytes);
+            if (binaryVersion !== "0.14.17") {
+              throw new Error(`Cannot start service: Host version "${"0.14.17"}" does not match binary version ${JSON.stringify(binaryVersion)}`);
+            }
+            return;
+          }
+          let packet = decodePacket(bytes);
+          if (packet.isRequest) {
+            handleRequest(packet.id, packet.value);
+          } else {
+            let callback = responseCallbacks.get(packet.id);
+            responseCallbacks.delete(packet.id);
+            if (packet.value.error)
+              callback(packet.value.error, {});
+            else
+              callback(null, packet.value);
+          }
+        };
+        let handlePlugins = (initialOptions, plugins, buildKey, stash, refs) => __async(this, null, function* () {
+          let onStartCallbacks = [];
+          let onEndCallbacks = [];
+          let onResolveCallbacks = {};
+          let onLoadCallbacks = {};
+          let nextCallbackID = 0;
+          let i = 0;
+          let requestPlugins = [];
+          let isSetupDone = false;
+          plugins = [...plugins];
+          for (let item of plugins) {
+            let keys = {};
+            if (typeof item !== "object")
+              throw new Error(`Plugin at index ${i} must be an object`);
+            const name = getFlag(item, keys, "name", mustBeString);
+            if (typeof name !== "string" || name === "")
+              throw new Error(`Plugin at index ${i} is missing a name`);
+            try {
+              let setup = getFlag(item, keys, "setup", mustBeFunction);
+              if (typeof setup !== "function")
+                throw new Error(`Plugin is missing a setup function`);
+              checkForInvalidFlags(item, keys, `on plugin ${JSON.stringify(name)}`);
+              let plugin = {
+                name,
+                onResolve: [],
+                onLoad: []
+              };
+              i++;
+              let resolve = (path, options = {}) => {
+                if (!isSetupDone)
+                  throw new Error('Cannot call "resolve" before plugin setup has completed');
+                if (typeof path !== "string")
+                  throw new Error(`The path to resolve must be a string`);
+                let keys2 = /* @__PURE__ */ Object.create(null);
+                let pluginName = getFlag(options, keys2, "pluginName", mustBeString);
+                let importer = getFlag(options, keys2, "importer", mustBeString);
+                let namespace = getFlag(options, keys2, "namespace", mustBeString);
+                let resolveDir = getFlag(options, keys2, "resolveDir", mustBeString);
+                let kind = getFlag(options, keys2, "kind", mustBeString);
+                let pluginData = getFlag(options, keys2, "pluginData", canBeAnything);
+                checkForInvalidFlags(options, keys2, "in resolve() call");
+                return new Promise((resolve2, reject) => {
+                  const request = {
+                    command: "resolve",
+                    path,
+                    key: buildKey,
+                    pluginName: name
+                  };
+                  if (pluginName != null)
+                    request.pluginName = pluginName;
+                  if (importer != null)
+                    request.importer = importer;
+                  if (namespace != null)
+                    request.namespace = namespace;
+                  if (resolveDir != null)
+                    request.resolveDir = resolveDir;
+                  if (kind != null)
+                    request.kind = kind;
+                  if (pluginData != null)
+                    request.pluginData = stash.store(pluginData);
+                  sendRequest(refs, request, (error, response) => {
+                    if (error !== null)
+                      reject(new Error(error));
+                    else
+                      resolve2({
+                        errors: replaceDetailsInMessages(response.errors, stash),
+                        warnings: replaceDetailsInMessages(response.warnings, stash),
+                        path: response.path,
+                        external: response.external,
+                        sideEffects: response.sideEffects,
+                        namespace: response.namespace,
+                        suffix: response.suffix,
+                        pluginData: stash.load(response.pluginData)
+                      });
+                  });
+                });
+              };
+              let promise = setup({
+                initialOptions,
+                resolve,
+                onStart(callback2) {
+                  let registeredText = `This error came from the "onStart" callback registered here:`;
+                  let registeredNote = extractCallerV8(new Error(registeredText), streamIn, "onStart");
+                  onStartCallbacks.push({ name, callback: callback2, note: registeredNote });
+                },
+                onEnd(callback2) {
+                  let registeredText = `This error came from the "onEnd" callback registered here:`;
+                  let registeredNote = extractCallerV8(new Error(registeredText), streamIn, "onEnd");
+                  onEndCallbacks.push({ name, callback: callback2, note: registeredNote });
+                },
+                onResolve(options, callback2) {
+                  let registeredText = `This error came from the "onResolve" callback registered here:`;
+                  let registeredNote = extractCallerV8(new Error(registeredText), streamIn, "onResolve");
+                  let keys2 = {};
+                  let filter = getFlag(options, keys2, "filter", mustBeRegExp);
+                  let namespace = getFlag(options, keys2, "namespace", mustBeString);
+                  checkForInvalidFlags(options, keys2, `in onResolve() call for plugin ${JSON.stringify(name)}`);
+                  if (filter == null)
+                    throw new Error(`onResolve() call is missing a filter`);
+                  let id = nextCallbackID++;
+                  onResolveCallbacks[id] = { name, callback: callback2, note: registeredNote };
+                  plugin.onResolve.push({ id, filter: filter.source, namespace: namespace || "" });
+                },
+                onLoad(options, callback2) {
+                  let registeredText = `This error came from the "onLoad" callback registered here:`;
+                  let registeredNote = extractCallerV8(new Error(registeredText), streamIn, "onLoad");
+                  let keys2 = {};
+                  let filter = getFlag(options, keys2, "filter", mustBeRegExp);
+                  let namespace = getFlag(options, keys2, "namespace", mustBeString);
+                  checkForInvalidFlags(options, keys2, `in onLoad() call for plugin ${JSON.stringify(name)}`);
+                  if (filter == null)
+                    throw new Error(`onLoad() call is missing a filter`);
+                  let id = nextCallbackID++;
+                  onLoadCallbacks[id] = { name, callback: callback2, note: registeredNote };
+                  plugin.onLoad.push({ id, filter: filter.source, namespace: namespace || "" });
+                },
+                esbuild: streamIn.esbuild
+              });
+              if (promise)
+                yield promise;
+              requestPlugins.push(plugin);
+            } catch (e) {
+              return { ok: false, error: e, pluginName: name };
+            }
+          }
+          const callback = (request) => __async(this, null, function* () {
+            switch (request.command) {
+              case "on-start": {
+                let response = { errors: [], warnings: [] };
+                yield Promise.all(onStartCallbacks.map((_0) => __async(this, [_0], function* ({ name, callback: callback2, note }) {
+                  try {
+                    let result = yield callback2();
+                    if (result != null) {
+                      if (typeof result !== "object")
+                        throw new Error(`Expected onStart() callback in plugin ${JSON.stringify(name)} to return an object`);
+                      let keys = {};
+                      let errors = getFlag(result, keys, "errors", mustBeArray);
+                      let warnings = getFlag(result, keys, "warnings", mustBeArray);
+                      checkForInvalidFlags(result, keys, `from onStart() callback in plugin ${JSON.stringify(name)}`);
+                      if (errors != null)
+                        response.errors.push(...sanitizeMessages(errors, "errors", stash, name));
+                      if (warnings != null)
+                        response.warnings.push(...sanitizeMessages(warnings, "warnings", stash, name));
+                    }
+                  } catch (e) {
+                    response.errors.push(extractErrorMessageV8(e, streamIn, stash, note && note(), name));
+                  }
+                })));
+                return response;
+              }
+              case "on-resolve": {
+                let response = {}, name = "", callback2, note;
+                for (let id of request.ids) {
+                  try {
+                    ({ name, callback: callback2, note } = onResolveCallbacks[id]);
+                    let result = yield callback2({
+                      path: request.path,
+                      importer: request.importer,
+                      namespace: request.namespace,
+                      resolveDir: request.resolveDir,
+                      kind: request.kind,
+                      pluginData: stash.load(request.pluginData)
+                    });
+                    if (result != null) {
+                      if (typeof result !== "object")
+                        throw new Error(`Expected onResolve() callback in plugin ${JSON.stringify(name)} to return an object`);
+                      let keys = {};
+                      let pluginName = getFlag(result, keys, "pluginName", mustBeString);
+                      let path = getFlag(result, keys, "path", mustBeString);
+                      let namespace = getFlag(result, keys, "namespace", mustBeString);
+                      let suffix = getFlag(result, keys, "suffix", mustBeString);
+                      let external = getFlag(result, keys, "external", mustBeBoolean);
+                      let sideEffects = getFlag(result, keys, "sideEffects", mustBeBoolean);
+                      let pluginData = getFlag(result, keys, "pluginData", canBeAnything);
+                      let errors = getFlag(result, keys, "errors", mustBeArray);
+                      let warnings = getFlag(result, keys, "warnings", mustBeArray);
+                      let watchFiles = getFlag(result, keys, "watchFiles", mustBeArray);
+                      let watchDirs = getFlag(result, keys, "watchDirs", mustBeArray);
+                      checkForInvalidFlags(result, keys, `from onResolve() callback in plugin ${JSON.stringify(name)}`);
+                      response.id = id;
+                      if (pluginName != null)
+                        response.pluginName = pluginName;
+                      if (path != null)
+                        response.path = path;
+                      if (namespace != null)
+                        response.namespace = namespace;
+                      if (suffix != null)
+                        response.suffix = suffix;
+                      if (external != null)
+                        response.external = external;
+                      if (sideEffects != null)
+                        response.sideEffects = sideEffects;
+                      if (pluginData != null)
+                        response.pluginData = stash.store(pluginData);
+                      if (errors != null)
+                        response.errors = sanitizeMessages(errors, "errors", stash, name);
+                      if (warnings != null)
+                        response.warnings = sanitizeMessages(warnings, "warnings", stash, name);
+                      if (watchFiles != null)
+                        response.watchFiles = sanitizeStringArray(watchFiles, "watchFiles");
+                      if (watchDirs != null)
+                        response.watchDirs = sanitizeStringArray(watchDirs, "watchDirs");
+                      break;
+                    }
+                  } catch (e) {
+                    return { id, errors: [extractErrorMessageV8(e, streamIn, stash, note && note(), name)] };
+                  }
+                }
+                return response;
+              }
+              case "on-load": {
+                let response = {}, name = "", callback2, note;
+                for (let id of request.ids) {
+                  try {
+                    ({ name, callback: callback2, note } = onLoadCallbacks[id]);
+                    let result = yield callback2({
+                      path: request.path,
+                      namespace: request.namespace,
+                      suffix: request.suffix,
+                      pluginData: stash.load(request.pluginData)
+                    });
+                    if (result != null) {
+                      if (typeof result !== "object")
+                        throw new Error(`Expected onLoad() callback in plugin ${JSON.stringify(name)} to return an object`);
+                      let keys = {};
+                      let pluginName = getFlag(result, keys, "pluginName", mustBeString);
+                      let contents = getFlag(result, keys, "contents", mustBeStringOrUint8Array);
+                      let resolveDir = getFlag(result, keys, "resolveDir", mustBeString);
+                      let pluginData = getFlag(result, keys, "pluginData", canBeAnything);
+                      let loader = getFlag(result, keys, "loader", mustBeString);
+                      let errors = getFlag(result, keys, "errors", mustBeArray);
+                      let warnings = getFlag(result, keys, "warnings", mustBeArray);
+                      let watchFiles = getFlag(result, keys, "watchFiles", mustBeArray);
+                      let watchDirs = getFlag(result, keys, "watchDirs", mustBeArray);
+                      checkForInvalidFlags(result, keys, `from onLoad() callback in plugin ${JSON.stringify(name)}`);
+                      response.id = id;
+                      if (pluginName != null)
+                        response.pluginName = pluginName;
+                      if (contents instanceof Uint8Array)
+                        response.contents = contents;
+                      else if (contents != null)
+                        response.contents = encodeUTF8(contents);
+                      if (resolveDir != null)
+                        response.resolveDir = resolveDir;
+                      if (pluginData != null)
+                        response.pluginData = stash.store(pluginData);
+                      if (loader != null)
+                        response.loader = loader;
+                      if (errors != null)
+                        response.errors = sanitizeMessages(errors, "errors", stash, name);
+                      if (warnings != null)
+                        response.warnings = sanitizeMessages(warnings, "warnings", stash, name);
+                      if (watchFiles != null)
+                        response.watchFiles = sanitizeStringArray(watchFiles, "watchFiles");
+                      if (watchDirs != null)
+                        response.watchDirs = sanitizeStringArray(watchDirs, "watchDirs");
+                      break;
+                    }
+                  } catch (e) {
+                    return { id, errors: [extractErrorMessageV8(e, streamIn, stash, note && note(), name)] };
+                  }
+                }
+                return response;
+              }
+              default:
+                throw new Error(`Invalid command: ` + request.command);
+            }
+          });
+          let runOnEndCallbacks = (result, logPluginError, done) => done();
+          if (onEndCallbacks.length > 0) {
+            runOnEndCallbacks = (result, logPluginError, done) => {
+              (() => __async(this, null, function* () {
+                for (const { name, callback: callback2, note } of onEndCallbacks) {
+                  try {
+                    yield callback2(result);
+                  } catch (e) {
+                    result.errors.push(yield new Promise((resolve) => logPluginError(e, name, note && note(), resolve)));
+                  }
+                }
+              }))().then(done);
+            };
+          }
+          isSetupDone = true;
+          let refCount = 0;
+          return {
+            ok: true,
+            requestPlugins,
+            runOnEndCallbacks,
+            pluginRefs: {
+              ref() {
+                if (++refCount === 1)
+                  pluginCallbacks.set(buildKey, callback);
+              },
+              unref() {
+                if (--refCount === 0)
+                  pluginCallbacks.delete(buildKey);
+              }
+            }
+          };
+        });
+        let buildServeData = (refs, options, request, key) => {
+          let keys = {};
+          let port = getFlag(options, keys, "port", mustBeInteger);
+          let host = getFlag(options, keys, "host", mustBeString);
+          let servedir = getFlag(options, keys, "servedir", mustBeString);
+          let onRequest = getFlag(options, keys, "onRequest", mustBeFunction);
+          let onWait;
+          let wait2 = new Promise((resolve, reject) => {
+            onWait = (error) => {
+              serveCallbacks.delete(key);
+              if (error !== null)
+                reject(new Error(error));
+              else
+                resolve();
+            };
+          });
+          request.serve = {};
+          checkForInvalidFlags(options, keys, `in serve() call`);
+          if (port !== void 0)
+            request.serve.port = port;
+          if (host !== void 0)
+            request.serve.host = host;
+          if (servedir !== void 0)
+            request.serve.servedir = servedir;
+          serveCallbacks.set(key, {
+            onRequest,
+            onWait
+          });
+          return {
+            wait: wait2,
+            stop() {
+              sendRequest(refs, { command: "serve-stop", key }, () => {
+              });
+            }
+          };
+        };
+        const buildLogLevelDefault = "warning";
+        const transformLogLevelDefault = "silent";
+        let buildOrServe = (args) => {
+          let key = nextBuildKey++;
+          const details = createObjectStash();
+          let plugins;
+          let { refs, options, isTTY, callback } = args;
+          if (typeof options === "object") {
+            let value = options.plugins;
+            if (value !== void 0) {
+              if (!Array.isArray(value))
+                throw new Error(`"plugins" must be an array`);
+              plugins = value;
+            }
+          }
+          let logPluginError = (e, pluginName, note, done) => {
+            let flags = [];
+            try {
+              pushLogFlags(flags, options, {}, isTTY, buildLogLevelDefault);
+            } catch (e2) {
+            }
+            const message = extractErrorMessageV8(e, streamIn, details, note, pluginName);
+            sendRequest(refs, { command: "error", flags, error: message }, () => {
+              message.detail = details.load(message.detail);
+              done(message);
+            });
+          };
+          let handleError = (e, pluginName) => {
+            logPluginError(e, pluginName, void 0, (error) => {
+              callback(failureErrorWithLog("Build failed", [error], []), null);
+            });
+          };
+          if (plugins && plugins.length > 0) {
+            if (streamIn.isSync)
+              return handleError(new Error("Cannot use plugins in synchronous API calls"), "");
+            handlePlugins(options, plugins, key, details, refs).then((result) => {
+              if (!result.ok) {
+                handleError(result.error, result.pluginName);
+              } else {
+                try {
+                  buildOrServeContinue(__spreadProps(__spreadValues({}, args), {
+                    key,
+                    details,
+                    logPluginError,
+                    requestPlugins: result.requestPlugins,
+                    runOnEndCallbacks: result.runOnEndCallbacks,
+                    pluginRefs: result.pluginRefs
+                  }));
+                } catch (e) {
+                  handleError(e, "");
+                }
+              }
+            }, (e) => handleError(e, ""));
+          } else {
+            try {
+              buildOrServeContinue(__spreadProps(__spreadValues({}, args), {
+                key,
+                details,
+                logPluginError,
+                requestPlugins: null,
+                runOnEndCallbacks: (result, logPluginError2, done) => done(),
+                pluginRefs: null
+              }));
+            } catch (e) {
+              handleError(e, "");
+            }
+          }
+        };
+        let buildOrServeContinue = ({
+          callName,
+          refs: callerRefs,
+          serveOptions,
+          options,
+          isTTY,
+          defaultWD,
+          callback,
+          key,
+          details,
+          logPluginError,
+          requestPlugins,
+          runOnEndCallbacks,
+          pluginRefs
+        }) => {
+          const refs = {
+            ref() {
+              if (pluginRefs)
+                pluginRefs.ref();
+              if (callerRefs)
+                callerRefs.ref();
+            },
+            unref() {
+              if (pluginRefs)
+                pluginRefs.unref();
+              if (callerRefs)
+                callerRefs.unref();
+            }
+          };
+          let writeDefault = !streamIn.isBrowser;
+          let {
+            entries,
+            flags,
+            write,
+            stdinContents,
+            stdinResolveDir,
+            absWorkingDir,
+            incremental,
+            nodePaths,
+            watch
+          } = flagsForBuildOptions(callName, options, isTTY, buildLogLevelDefault, writeDefault);
+          let request = {
+            command: "build",
+            key,
+            entries,
+            flags,
+            write,
+            stdinContents,
+            stdinResolveDir,
+            absWorkingDir: absWorkingDir || defaultWD,
+            incremental,
+            nodePaths
+          };
+          if (requestPlugins)
+            request.plugins = requestPlugins;
+          let serve2 = serveOptions && buildServeData(refs, serveOptions, request, key);
+          let rebuild;
+          let stop;
+          let copyResponseToResult = (response, result) => {
+            if (response.outputFiles)
+              result.outputFiles = response.outputFiles.map(convertOutputFiles);
+            if (response.metafile)
+              result.metafile = JSON.parse(response.metafile);
+            if (response.writeToStdout !== void 0)
+              console.log(decodeUTF8(response.writeToStdout).replace(/\n$/, ""));
+          };
+          let buildResponseToResult = (response, callback2) => {
+            let result = {
+              errors: replaceDetailsInMessages(response.errors, details),
+              warnings: replaceDetailsInMessages(response.warnings, details)
+            };
+            copyResponseToResult(response, result);
+            runOnEndCallbacks(result, logPluginError, () => {
+              if (result.errors.length > 0) {
+                return callback2(failureErrorWithLog("Build failed", result.errors, result.warnings), null);
+              }
+              if (response.rebuild) {
+                if (!rebuild) {
+                  let isDisposed = false;
+                  rebuild = () => new Promise((resolve, reject) => {
+                    if (isDisposed || isClosed)
+                      throw new Error("Cannot rebuild");
+                    sendRequest(refs, { command: "rebuild", key }, (error2, response2) => {
+                      if (error2) {
+                        const message = { pluginName: "", text: error2, location: null, notes: [], detail: void 0 };
+                        return callback2(failureErrorWithLog("Build failed", [message], []), null);
+                      }
+                      buildResponseToResult(response2, (error3, result3) => {
+                        if (error3)
+                          reject(error3);
+                        else
+                          resolve(result3);
+                      });
+                    });
+                  });
+                  refs.ref();
+                  rebuild.dispose = () => {
+                    if (isDisposed)
+                      return;
+                    isDisposed = true;
+                    sendRequest(refs, { command: "rebuild-dispose", key }, () => {
+                    });
+                    refs.unref();
+                  };
+                }
+                result.rebuild = rebuild;
+              }
+              if (response.watch) {
+                if (!stop) {
+                  let isStopped = false;
+                  refs.ref();
+                  stop = () => {
+                    if (isStopped)
+                      return;
+                    isStopped = true;
+                    watchCallbacks.delete(key);
+                    sendRequest(refs, { command: "watch-stop", key }, () => {
+                    });
+                    refs.unref();
+                  };
+                  if (watch) {
+                    watchCallbacks.set(key, (serviceStopError, watchResponse) => {
+                      if (serviceStopError) {
+                        if (watch.onRebuild)
+                          watch.onRebuild(serviceStopError, null);
+                        return;
+                      }
+                      let result2 = {
+                        errors: replaceDetailsInMessages(watchResponse.errors, details),
+                        warnings: replaceDetailsInMessages(watchResponse.warnings, details)
+                      };
+                      copyResponseToResult(watchResponse, result2);
+                      runOnEndCallbacks(result2, logPluginError, () => {
+                        if (result2.errors.length > 0) {
+                          if (watch.onRebuild)
+                            watch.onRebuild(failureErrorWithLog("Build failed", result2.errors, result2.warnings), null);
+                          return;
+                        }
+                        if (watchResponse.rebuildID !== void 0)
+                          result2.rebuild = rebuild;
+                        result2.stop = stop;
+                        if (watch.onRebuild)
+                          watch.onRebuild(null, result2);
+                      });
+                    });
+                  }
+                }
+                result.stop = stop;
+              }
+              callback2(null, result);
+            });
+          };
+          if (write && streamIn.isBrowser)
+            throw new Error(`Cannot enable "write" in the browser`);
+          if (incremental && streamIn.isSync)
+            throw new Error(`Cannot use "incremental" with a synchronous build`);
+          if (watch && streamIn.isSync)
+            throw new Error(`Cannot use "watch" with a synchronous build`);
+          sendRequest(refs, request, (error, response) => {
+            if (error)
+              return callback(new Error(error), null);
+            if (serve2) {
+              let serveResponse = response;
+              let isStopped = false;
+              refs.ref();
+              let result = {
+                port: serveResponse.port,
+                host: serveResponse.host,
+                wait: serve2.wait,
+                stop() {
+                  if (isStopped)
+                    return;
+                  isStopped = true;
+                  serve2.stop();
+                  refs.unref();
+                }
+              };
+              refs.ref();
+              serve2.wait.then(refs.unref, refs.unref);
+              return callback(null, result);
+            }
+            return buildResponseToResult(response, callback);
+          });
+        };
+        let transform22 = ({ callName, refs, input, options, isTTY, fs, callback }) => {
+          const details = createObjectStash();
+          let start = (inputPath) => {
+            try {
+              if (typeof input !== "string")
+                throw new Error('The input to "transform" must be a string');
+              let flags = flagsForTransformOptions(callName, options, isTTY, transformLogLevelDefault);
+              let request = {
+                command: "transform",
+                flags,
+                inputFS: inputPath !== null,
+                input: inputPath !== null ? inputPath : input
+              };
+              sendRequest(refs, request, (error, response) => {
+                if (error)
+                  return callback(new Error(error), null);
+                let errors = replaceDetailsInMessages(response.errors, details);
+                let warnings = replaceDetailsInMessages(response.warnings, details);
+                let outstanding = 1;
+                let next = () => --outstanding === 0 && callback(null, { warnings, code: response.code, map: response.map });
+                if (errors.length > 0)
+                  return callback(failureErrorWithLog("Transform failed", errors, warnings), null);
+                if (response.codeFS) {
+                  outstanding++;
+                  fs.readFile(response.code, (err, contents) => {
+                    if (err !== null) {
+                      callback(err, null);
+                    } else {
+                      response.code = contents;
+                      next();
+                    }
+                  });
+                }
+                if (response.mapFS) {
+                  outstanding++;
+                  fs.readFile(response.map, (err, contents) => {
+                    if (err !== null) {
+                      callback(err, null);
+                    } else {
+                      response.map = contents;
+                      next();
+                    }
+                  });
+                }
+                next();
+              });
+            } catch (e) {
+              let flags = [];
+              try {
+                pushLogFlags(flags, options, {}, isTTY, transformLogLevelDefault);
+              } catch (e2) {
+              }
+              const error = extractErrorMessageV8(e, streamIn, details, void 0, "");
+              sendRequest(refs, { command: "error", flags, error }, () => {
+                error.detail = details.load(error.detail);
+                callback(failureErrorWithLog("Transform failed", [error], []), null);
+              });
+            }
+          };
+          if (typeof input === "string" && input.length > 1024 * 1024) {
+            let next = start;
+            start = () => fs.writeFile(input, next);
+          }
+          start(null);
+        };
+        let formatMessages2 = ({ callName, refs, messages, options, callback }) => {
+          let result = sanitizeMessages(messages, "messages", null, "");
+          if (!options)
+            throw new Error(`Missing second argument in ${callName}() call`);
+          let keys = {};
+          let kind = getFlag(options, keys, "kind", mustBeString);
+          let color = getFlag(options, keys, "color", mustBeBoolean);
+          let terminalWidth = getFlag(options, keys, "terminalWidth", mustBeInteger);
+          checkForInvalidFlags(options, keys, `in ${callName}() call`);
+          if (kind === void 0)
+            throw new Error(`Missing "kind" in ${callName}() call`);
+          if (kind !== "error" && kind !== "warning")
+            throw new Error(`Expected "kind" to be "error" or "warning" in ${callName}() call`);
+          let request = {
+            command: "format-msgs",
+            messages: result,
+            isWarning: kind === "warning"
+          };
+          if (color !== void 0)
+            request.color = color;
+          if (terminalWidth !== void 0)
+            request.terminalWidth = terminalWidth;
+          sendRequest(refs, request, (error, response) => {
+            if (error)
+              return callback(new Error(error), null);
+            callback(null, response.messages);
+          });
+        };
+        let analyzeMetafile2 = ({ callName, refs, metafile, options, callback }) => {
+          if (options === void 0)
+            options = {};
+          let keys = {};
+          let color = getFlag(options, keys, "color", mustBeBoolean);
+          let verbose = getFlag(options, keys, "verbose", mustBeBoolean);
+          checkForInvalidFlags(options, keys, `in ${callName}() call`);
+          let request = {
+            command: "analyze-metafile",
+            metafile
+          };
+          if (color !== void 0)
+            request.color = color;
+          if (verbose !== void 0)
+            request.verbose = verbose;
+          sendRequest(refs, request, (error, response) => {
+            if (error)
+              return callback(new Error(error), null);
+            callback(null, response.result);
+          });
+        };
+        return {
+          readFromStdout,
+          afterClose,
+          service: {
+            buildOrServe,
+            transform: transform22,
+            formatMessages: formatMessages2,
+            analyzeMetafile: analyzeMetafile2
+          }
+        };
+      }
+      function createObjectStash() {
+        const map = /* @__PURE__ */ new Map();
+        let nextID = 0;
+        return {
+          load(id) {
+            return map.get(id);
+          },
+          store(value) {
+            if (value === void 0)
+              return -1;
+            const id = nextID++;
+            map.set(id, value);
+            return id;
+          }
+        };
+      }
+      function extractCallerV8(e, streamIn, ident) {
+        let note;
+        let tried = false;
+        return () => {
+          if (tried)
+            return note;
+          tried = true;
+          try {
+            let lines = (e.stack + "").split("\n");
+            lines.splice(1, 1);
+            let location = parseStackLinesV8(streamIn, lines, ident);
+            if (location) {
+              note = { text: e.message, location };
+              return note;
+            }
+          } catch (e2) {
+          }
+        };
+      }
+      function extractErrorMessageV8(e, streamIn, stash, note, pluginName) {
+        let text = "Internal error";
+        let location = null;
+        try {
+          text = (e && e.message || e) + "";
+        } catch (e2) {
+        }
+        try {
+          location = parseStackLinesV8(streamIn, (e.stack + "").split("\n"), "");
+        } catch (e2) {
+        }
+        return { pluginName, text, location, notes: note ? [note] : [], detail: stash ? stash.store(e) : -1 };
+      }
+      function parseStackLinesV8(streamIn, lines, ident) {
+        let at = "    at ";
+        if (streamIn.readFileSync && !lines[0].startsWith(at) && lines[1].startsWith(at)) {
+          for (let i = 1; i < lines.length; i++) {
+            let line = lines[i];
+            if (!line.startsWith(at))
+              continue;
+            line = line.slice(at.length);
+            while (true) {
+              let match = /^(?:new |async )?\S+ \((.*)\)$/.exec(line);
+              if (match) {
+                line = match[1];
+                continue;
+              }
+              match = /^eval at \S+ \((.*)\)(?:, \S+:\d+:\d+)?$/.exec(line);
+              if (match) {
+                line = match[1];
+                continue;
+              }
+              match = /^(\S+):(\d+):(\d+)$/.exec(line);
+              if (match) {
+                let contents;
+                try {
+                  contents = streamIn.readFileSync(match[1], "utf8");
+                } catch (e) {
+                  break;
+                }
+                let lineText = contents.split(/\r\n|\r|\n|\u2028|\u2029/)[+match[2] - 1] || "";
+                let column = +match[3] - 1;
+                let length = lineText.slice(column, column + ident.length) === ident ? ident.length : 0;
+                return {
+                  file: match[1],
+                  namespace: "file",
+                  line: +match[2],
+                  column: encodeUTF8(lineText.slice(0, column)).length,
+                  length: encodeUTF8(lineText.slice(column, column + length)).length,
+                  lineText: lineText + "\n" + lines.slice(1).join("\n"),
+                  suggestion: ""
+                };
+              }
+              break;
+            }
+          }
+        }
+        return null;
+      }
+      function failureErrorWithLog(text, errors, warnings) {
+        let limit = 5;
+        let summary = errors.length < 1 ? "" : ` with ${errors.length} error${errors.length < 2 ? "" : "s"}:` + errors.slice(0, limit + 1).map((e, i) => {
+          if (i === limit)
+            return "\n...";
+          if (!e.location)
+            return `
+error: ${e.text}`;
+          let { file, line, column } = e.location;
+          let pluginText = e.pluginName ? `[plugin: ${e.pluginName}] ` : "";
+          return `
+${file}:${line}:${column}: ERROR: ${pluginText}${e.text}`;
+        }).join("");
+        let error = new Error(`${text}${summary}`);
+        error.errors = errors;
+        error.warnings = warnings;
+        return error;
+      }
+      function replaceDetailsInMessages(messages, stash) {
+        for (const message of messages) {
+          message.detail = stash.load(message.detail);
+        }
+        return messages;
+      }
+      function sanitizeLocation(location, where) {
+        if (location == null)
+          return null;
+        let keys = {};
+        let file = getFlag(location, keys, "file", mustBeString);
+        let namespace = getFlag(location, keys, "namespace", mustBeString);
+        let line = getFlag(location, keys, "line", mustBeInteger);
+        let column = getFlag(location, keys, "column", mustBeInteger);
+        let length = getFlag(location, keys, "length", mustBeInteger);
+        let lineText = getFlag(location, keys, "lineText", mustBeString);
+        let suggestion = getFlag(location, keys, "suggestion", mustBeString);
+        checkForInvalidFlags(location, keys, where);
+        return {
+          file: file || "",
+          namespace: namespace || "",
+          line: line || 0,
+          column: column || 0,
+          length: length || 0,
+          lineText: lineText || "",
+          suggestion: suggestion || ""
+        };
+      }
+      function sanitizeMessages(messages, property, stash, fallbackPluginName) {
+        let messagesClone = [];
+        let index = 0;
+        for (const message of messages) {
+          let keys = {};
+          let pluginName = getFlag(message, keys, "pluginName", mustBeString);
+          let text = getFlag(message, keys, "text", mustBeString);
+          let location = getFlag(message, keys, "location", mustBeObjectOrNull);
+          let notes = getFlag(message, keys, "notes", mustBeArray);
+          let detail = getFlag(message, keys, "detail", canBeAnything);
+          let where = `in element ${index} of "${property}"`;
+          checkForInvalidFlags(message, keys, where);
+          let notesClone = [];
+          if (notes) {
+            for (const note of notes) {
+              let noteKeys = {};
+              let noteText = getFlag(note, noteKeys, "text", mustBeString);
+              let noteLocation = getFlag(note, noteKeys, "location", mustBeObjectOrNull);
+              checkForInvalidFlags(note, noteKeys, where);
+              notesClone.push({
+                text: noteText || "",
+                location: sanitizeLocation(noteLocation, where)
+              });
+            }
+          }
+          messagesClone.push({
+            pluginName: pluginName || fallbackPluginName,
+            text: text || "",
+            location: sanitizeLocation(location, where),
+            notes: notesClone,
+            detail: stash ? stash.store(detail) : -1
+          });
+          index++;
+        }
+        return messagesClone;
+      }
+      function sanitizeStringArray(values, property) {
+        const result = [];
+        for (const value of values) {
+          if (typeof value !== "string")
+            throw new Error(`${JSON.stringify(property)} must be an array of strings`);
+          result.push(value);
+        }
+        return result;
+      }
+      function convertOutputFiles({ path, contents }) {
+        let text = null;
+        return {
+          path,
+          contents,
+          get text() {
+            if (text === null)
+              text = decodeUTF8(contents);
+            return text;
+          }
+        };
+      }
+      var version = "0.14.17";
+      var build = (options) => ensureServiceIsRunning().build(options);
+      var serve = () => {
+        throw new Error(`The "serve" API only works in node`);
+      };
+      var transform3 = (input, options) => ensureServiceIsRunning().transform(input, options);
+      var formatMessages = (messages, options) => ensureServiceIsRunning().formatMessages(messages, options);
+      var analyzeMetafile = (metafile, options) => ensureServiceIsRunning().analyzeMetafile(metafile, options);
+      var buildSync = () => {
+        throw new Error(`The "buildSync" API only works in node`);
+      };
+      var transformSync = () => {
+        throw new Error(`The "transformSync" API only works in node`);
+      };
+      var formatMessagesSync = () => {
+        throw new Error(`The "formatMessagesSync" API only works in node`);
+      };
+      var analyzeMetafileSync = () => {
+        throw new Error(`The "analyzeMetafileSync" API only works in node`);
+      };
+      var initializePromise;
+      var longLivedService;
+      var ensureServiceIsRunning = () => {
+        if (longLivedService)
+          return longLivedService;
+        if (initializePromise)
+          throw new Error('You need to wait for the promise returned from "initialize" to be resolved before calling this');
+        throw new Error('You need to call "initialize" before calling this');
+      };
+      var initialize2 = (options) => {
+        options = validateInitializeOptions(options || {});
+        let wasmURL = options.wasmURL;
+        let useWorker = options.worker !== false;
+        if (!wasmURL)
+          throw new Error('Must provide the "wasmURL" option');
+        wasmURL += "";
+        if (initializePromise)
+          throw new Error('Cannot call "initialize" more than once');
+        initializePromise = startRunningService(wasmURL, useWorker);
+        initializePromise.catch(() => {
+          initializePromise = void 0;
+        });
+        return initializePromise;
+      };
+      var startRunningService = (wasmURL, useWorker) => __async(void 0, null, function* () {
+        let res = yield fetch(wasmURL);
+        if (!res.ok)
+          throw new Error(`Failed to download ${JSON.stringify(wasmURL)}`);
+        let wasm = yield res.arrayBuffer();
+        let code = `{let global={};for(let o=self;o;o=Object.getPrototypeOf(o))for(let k of Object.getOwnPropertyNames(o))if(!(k in global))Object.defineProperty(global,k,{get:()=>self[k]});// Copyright 2018 The Go Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
@@ -715,4 +2444,364 @@ onmessage = ({ data: wasm }) => {
   let go = new global.Go();
   go.argv = ["", \`--service=\${"0.14.17"}\`];
   WebAssembly.instantiate(wasm, go.importObject).then(({ instance }) => go.run(instance));
-};}`,c;if(t){let l=new Blob([u],{type:"text/javascript"});c=new Worker(URL.createObjectURL(l))}else{let v=new Function("postMessage",u+"var onmessage; return m => onmessage(m)")(R=>c.onmessage({data:R}));c={onmessage:null,postMessage:R=>v({data:R}),terminate(){}}}c.postMessage(a),c.onmessage=({data:l})=>i(l);let{readFromStdout:i,service:b}=Et({writeToStdin(l){c.postMessage(l)},isSync:!1,isBrowser:!0,esbuild:We});Je={build:l=>new Promise((v,R)=>b.buildOrServe({callName:"build",refs:null,serveOptions:null,options:l,isTTY:!1,defaultWD:"/",callback:(M,E)=>M?R(M):v(E)})),transform:(l,v)=>new Promise((R,M)=>b.transform({callName:"transform",refs:null,input:l,options:v||{},isTTY:!1,fs:{readFile(E,P){P(new Error("Internal error"),null)},writeFile(E,P){P(null)}},callback:(E,P)=>E?M(E):R(P)})),formatMessages:(l,v)=>new Promise((R,M)=>b.formatMessages({callName:"formatMessages",refs:null,messages:l,options:v,callback:(E,P)=>E?M(E):R(P)})),analyzeMetafile:(l,v)=>new Promise((R,M)=>b.analyzeMetafile({callName:"analyzeMetafile",refs:null,metafile:typeof l=="string"?l:JSON.stringify(l),options:v,callback:(E,P)=>E?M(E):R(P)}))}});se.exports=pt(We)})(typeof He=="object"?He:{set exports(se){(typeof self!="undefined"?self:this).esbuild=se}})});var Gt=new Error("timeout while waiting for mutex to become available"),Yt=new Error("mutex already locked"),Vt=new Error("request for lock canceled"),at=function(se,_,L,Y){function pe(te){return te instanceof L?te:new L(function(ie){ie(te)})}return new(L||(L=Promise))(function(te,ie){function Se(H){try{fe(Y.next(H))}catch(de){ie(de)}}function Ne(H){try{fe(Y.throw(H))}catch(de){ie(de)}}function fe(H){H.done?te(H.value):pe(H.value).then(Se,Ne)}fe((Y=Y.apply(se,_||[])).next())})},ot=class{constructor(_,L=Vt){if(this._maxConcurrency=_,this._cancelError=L,this._queue=[],this._waiters=[],_<=0)throw new Error("semaphore must be initialized to a positive value");this._value=_}acquire(){let _=this.isLocked(),L=new Promise((Y,pe)=>this._queue.push({resolve:Y,reject:pe}));return _||this._dispatch(),L}runExclusive(_){return at(this,void 0,void 0,function*(){let[L,Y]=yield this.acquire();try{return yield _(L)}finally{Y()}})}waitForUnlock(){return at(this,void 0,void 0,function*(){return this.isLocked()?new Promise(L=>this._waiters.push({resolve:L})):Promise.resolve()})}isLocked(){return this._value<=0}release(){if(this._maxConcurrency>1)throw new Error("this method is unavailable on semaphores with concurrency > 1; use the scoped release returned by acquire instead");if(this._currentReleaser){let _=this._currentReleaser;this._currentReleaser=void 0,_()}}cancel(){this._queue.forEach(_=>_.reject(this._cancelError)),this._queue=[]}_dispatch(){let _=this._queue.shift();if(!_)return;let L=!1;this._currentReleaser=()=>{L||(L=!0,this._value++,this._resolveWaiters(),this._dispatch())},_.resolve([this._value--,this._currentReleaser])}_resolveWaiters(){this._waiters.forEach(_=>_.resolve()),this._waiters=[]}},Wt=function(se,_,L,Y){function pe(te){return te instanceof L?te:new L(function(ie){ie(te)})}return new(L||(L=Promise))(function(te,ie){function Se(H){try{fe(Y.next(H))}catch(de){ie(de)}}function Ne(H){try{fe(Y.throw(H))}catch(de){ie(de)}}function fe(H){H.done?te(H.value):pe(H.value).then(Se,Ne)}fe((Y=Y.apply(se,_||[])).next())})},Ye=class{constructor(_){this._semaphore=new ot(1,_)}acquire(){return Wt(this,void 0,void 0,function*(){let[,_]=yield this._semaphore.acquire();return _})}runExclusive(_){return this._semaphore.runExclusive(()=>_())}isLocked(){return this._semaphore.isLocked()}waitForUnlock(){return this._semaphore.waitForUnlock()}release(){this._semaphore.release()}cancel(){return this._semaphore.cancel()}};var Ve=Bt(ct());var zt=Ve.initialize({wasmURL:"./vendor/esbuild.wasm"}),ut=!1,qt=new Ye,Jt=async(se,_=4)=>{let L=performance.now();(ut||await zt)&&(ut=!0);let Y;try{await qt.waitForUnlock(),Y=await Ve.transform(se,{loader:"tsx",target:"es2018"})}catch(te){if(_>0)return await it(100),Jt(se,_-1);throw te}let pe=performance.now();return console.log(`esbuildEsmTransform: took ${pe-L} milliseconds`),Y.code};export{Jt as transform};
+};}`;
+        let worker;
+        if (useWorker) {
+          let blob = new Blob([code], { type: "text/javascript" });
+          worker = new Worker(URL.createObjectURL(blob));
+        } else {
+          let fn = new Function("postMessage", code + `var onmessage; return m => onmessage(m)`);
+          let onmessage = fn((data) => worker.onmessage({ data }));
+          worker = {
+            onmessage: null,
+            postMessage: (data) => onmessage({ data }),
+            terminate() {
+            }
+          };
+        }
+        worker.postMessage(wasm);
+        worker.onmessage = ({ data }) => readFromStdout(data);
+        let { readFromStdout, service } = createChannel({
+          writeToStdin(bytes) {
+            worker.postMessage(bytes);
+          },
+          isSync: false,
+          isBrowser: true,
+          esbuild: browser_exports
+        });
+        longLivedService = {
+          build: (options) => new Promise((resolve, reject) => service.buildOrServe({
+            callName: "build",
+            refs: null,
+            serveOptions: null,
+            options,
+            isTTY: false,
+            defaultWD: "/",
+            callback: (err, res2) => err ? reject(err) : resolve(res2)
+          })),
+          transform: (input, options) => new Promise((resolve, reject) => service.transform({
+            callName: "transform",
+            refs: null,
+            input,
+            options: options || {},
+            isTTY: false,
+            fs: {
+              readFile(_, callback) {
+                callback(new Error("Internal error"), null);
+              },
+              writeFile(_, callback) {
+                callback(null);
+              }
+            },
+            callback: (err, res2) => err ? reject(err) : resolve(res2)
+          })),
+          formatMessages: (messages, options) => new Promise((resolve, reject) => service.formatMessages({
+            callName: "formatMessages",
+            refs: null,
+            messages,
+            options,
+            callback: (err, res2) => err ? reject(err) : resolve(res2)
+          })),
+          analyzeMetafile: (metafile, options) => new Promise((resolve, reject) => service.analyzeMetafile({
+            callName: "analyzeMetafile",
+            refs: null,
+            metafile: typeof metafile === "string" ? metafile : JSON.stringify(metafile),
+            options,
+            callback: (err, res2) => err ? reject(err) : resolve(res2)
+          }))
+        };
+      });
+      module2.exports = __toCommonJS(browser_exports);
+    })(typeof module === "object" ? module : { set exports(x) {
+      (typeof self !== "undefined" ? self : this).esbuild = x;
+    } });
+  }
+});
+
+// ../../node_modules/async-mutex/index.mjs
+var E_TIMEOUT = new Error("timeout while waiting for mutex to become available");
+var E_ALREADY_LOCKED = new Error("mutex already locked");
+var E_CANCELED = new Error("request for lock canceled");
+var __awaiter$2 = function(thisArg, _arguments, P, generator) {
+  function adopt(value) {
+    return value instanceof P ? value : new P(function(resolve) {
+      resolve(value);
+    });
+  }
+  return new (P || (P = Promise))(function(resolve, reject) {
+    function fulfilled(value) {
+      try {
+        step(generator.next(value));
+      } catch (e) {
+        reject(e);
+      }
+    }
+    function rejected(value) {
+      try {
+        step(generator["throw"](value));
+      } catch (e) {
+        reject(e);
+      }
+    }
+    function step(result) {
+      result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
+    }
+    step((generator = generator.apply(thisArg, _arguments || [])).next());
+  });
+};
+var Semaphore = class {
+  constructor(_maxConcurrency, _cancelError = E_CANCELED) {
+    this._maxConcurrency = _maxConcurrency;
+    this._cancelError = _cancelError;
+    this._queue = [];
+    this._waiters = [];
+    if (_maxConcurrency <= 0) {
+      throw new Error("semaphore must be initialized to a positive value");
+    }
+    this._value = _maxConcurrency;
+  }
+  acquire() {
+    const locked = this.isLocked();
+    const ticketPromise = new Promise((resolve, reject) => this._queue.push({ resolve, reject }));
+    if (!locked)
+      this._dispatch();
+    return ticketPromise;
+  }
+  runExclusive(callback) {
+    return __awaiter$2(this, void 0, void 0, function* () {
+      const [value, release] = yield this.acquire();
+      try {
+        return yield callback(value);
+      } finally {
+        release();
+      }
+    });
+  }
+  waitForUnlock() {
+    return __awaiter$2(this, void 0, void 0, function* () {
+      if (!this.isLocked()) {
+        return Promise.resolve();
+      }
+      const waitPromise = new Promise((resolve) => this._waiters.push({ resolve }));
+      return waitPromise;
+    });
+  }
+  isLocked() {
+    return this._value <= 0;
+  }
+  release() {
+    if (this._maxConcurrency > 1) {
+      throw new Error("this method is unavailable on semaphores with concurrency > 1; use the scoped release returned by acquire instead");
+    }
+    if (this._currentReleaser) {
+      const releaser = this._currentReleaser;
+      this._currentReleaser = void 0;
+      releaser();
+    }
+  }
+  cancel() {
+    this._queue.forEach((ticket) => ticket.reject(this._cancelError));
+    this._queue = [];
+  }
+  _dispatch() {
+    const nextTicket = this._queue.shift();
+    if (!nextTicket)
+      return;
+    let released = false;
+    this._currentReleaser = () => {
+      if (released)
+        return;
+      released = true;
+      this._value++;
+      this._resolveWaiters();
+      this._dispatch();
+    };
+    nextTicket.resolve([this._value--, this._currentReleaser]);
+  }
+  _resolveWaiters() {
+    this._waiters.forEach((waiter) => waiter.resolve());
+    this._waiters = [];
+  }
+};
+var __awaiter$1 = function(thisArg, _arguments, P, generator) {
+  function adopt(value) {
+    return value instanceof P ? value : new P(function(resolve) {
+      resolve(value);
+    });
+  }
+  return new (P || (P = Promise))(function(resolve, reject) {
+    function fulfilled(value) {
+      try {
+        step(generator.next(value));
+      } catch (e) {
+        reject(e);
+      }
+    }
+    function rejected(value) {
+      try {
+        step(generator["throw"](value));
+      } catch (e) {
+        reject(e);
+      }
+    }
+    function step(result) {
+      result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
+    }
+    step((generator = generator.apply(thisArg, _arguments || [])).next());
+  });
+};
+var Mutex = class {
+  constructor(cancelError) {
+    this._semaphore = new Semaphore(1, cancelError);
+  }
+  acquire() {
+    return __awaiter$1(this, void 0, void 0, function* () {
+      const [, releaser] = yield this._semaphore.acquire();
+      return releaser;
+    });
+  }
+  runExclusive(callback) {
+    return this._semaphore.runExclusive(() => callback());
+  }
+  isLocked() {
+    return this._semaphore.isLocked();
+  }
+  waitForUnlock() {
+    return this._semaphore.waitForUnlock();
+  }
+  release() {
+    this._semaphore.release();
+  }
+  cancel() {
+    return this._semaphore.cancel();
+  }
+};
+var __awaiter = function(thisArg, _arguments, P, generator) {
+  function adopt(value) {
+    return value instanceof P ? value : new P(function(resolve) {
+      resolve(value);
+    });
+  }
+  return new (P || (P = Promise))(function(resolve, reject) {
+    function fulfilled(value) {
+      try {
+        step(generator.next(value));
+      } catch (e) {
+        reject(e);
+      }
+    }
+    function rejected(value) {
+      try {
+        step(generator["throw"](value));
+      } catch (e) {
+        reject(e);
+      }
+    }
+    function step(result) {
+      result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
+    }
+    step((generator = generator.apply(thisArg, _arguments || [])).next());
+  });
+};
+function withTimeout(sync, timeout, timeoutError = E_TIMEOUT) {
+  return {
+    acquire: () => new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
+      let isTimeout = false;
+      const handle = setTimeout(() => {
+        isTimeout = true;
+        reject(timeoutError);
+      }, timeout);
+      try {
+        const ticket = yield sync.acquire();
+        if (isTimeout) {
+          const release = Array.isArray(ticket) ? ticket[1] : ticket;
+          release();
+        } else {
+          clearTimeout(handle);
+          resolve(ticket);
+        }
+      } catch (e) {
+        if (!isTimeout) {
+          clearTimeout(handle);
+          reject(e);
+        }
+      }
+    })),
+    runExclusive(callback) {
+      return __awaiter(this, void 0, void 0, function* () {
+        let release = () => void 0;
+        try {
+          const ticket = yield this.acquire();
+          if (Array.isArray(ticket)) {
+            release = ticket[1];
+            return yield callback(ticket[0]);
+          } else {
+            release = ticket;
+            return yield callback();
+          }
+        } finally {
+          release();
+        }
+      });
+    },
+    release() {
+      sync.release();
+    },
+    cancel() {
+      return sync.cancel();
+    },
+    waitForUnlock: () => sync.waitForUnlock(),
+    isLocked: () => sync.isLocked()
+  };
+}
+function tryAcquire(sync, alreadyAcquiredError = E_ALREADY_LOCKED) {
+  return withTimeout(sync, 0, alreadyAcquiredError);
+}
+
+// js/wait.ts
+async function wait(delay) {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve();
+    }, delay);
+  });
+}
+
+// js/esbuildEsm.ts
+var esbuild = __toESM(require_browser());
+function createWasmBlob(wasm) {
+  const blob = new Blob([wasm], { type: "application/wasm" });
+  return URL.createObjectURL(blob);
+}
+var init = esbuild.initialize({
+  wasmURL: "./vendor/esbuild.wasm"
+});
+var initFinished = false;
+var mutex = new Mutex();
+var transform = async (code, retry = 4) => {
+  const startTime = performance.now();
+  if (initFinished || await init) {
+    initFinished = true;
+  }
+  let result;
+  try {
+    await mutex.waitForUnlock();
+    result = await esbuild.transform(code, {
+      loader: "tsx",
+      target: "es2018"
+    });
+  } catch (e) {
+    if (retry > 0) {
+      await wait(100);
+      return transform(code, retry - 1);
+    }
+    throw e;
+  }
+  const endTime = performance.now();
+  console.log(`esbuildEsmTransform: took ${endTime - startTime} milliseconds`);
+  return result.code;
+};
+export {
+  transform
+};
+//# sourceMappingURL=esbuildEsm.mjs.map
