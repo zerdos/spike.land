@@ -8,10 +8,13 @@ const generator = new Generator({
   mapUrl: import.meta.url,
   defaultProvider: "jspm", // this is the default defaultProvider
   // Always ensure to defi  inputMap: {
-  ignore: ["framer-motion"],
   //]//ne your target environment to get a working map
   // it is advisable to pass the "module" condition as supported by Webpack
-  env: ["production", "browser", "module"],
+  env: [
+    process.env.NODE_ENV === "production" ? "production" : "development",
+    "browser",
+    "module",
+  ],
 });
 
 // Install a new package into the import map

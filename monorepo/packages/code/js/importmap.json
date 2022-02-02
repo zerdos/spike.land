@@ -1,16 +1,16 @@
 {
   "imports": {
     "@emotion/cache": "https://ga.jspm.io/npm:@emotion/cache@11.7.1/dist/emotion-cache.browser.esm.js",
-    "@emotion/react": "https://unpkg.com/@spike.land/esm@0.6.110/dist/emotion-react.mjs",
+    "@emotion/react": "https://unpkg.com/@spike.land/esm@0.6.117/dist/emotion-react.mjs",
     "@mui/material/Button": "https://ga.jspm.io/npm:@mui/material@5.3.1/Button/index.js",
     "@mui/material/Fab": "https://ga.jspm.io/npm:@mui/material@5.3.1/Fab/index.js",
     "@mui/material/ToggleButton": "https://ga.jspm.io/npm:@mui/material@5.3.1/ToggleButton/index.js",
     "@mui/material/ToggleButtonGroup": "https://ga.jspm.io/npm:@mui/material@5.3.1/ToggleButtonGroup/index.js",
     "@mui/material/utils/createSvgIcon": "https://ga.jspm.io/npm:@mui/material@5.3.1/utils/createSvgIcon.js",
-    "react": "https://unpkg.com/@spike.land/esm@0.6.110/dist/react.mjs",
-    "react-dom": "https://unpkg.com/@spike.land/esm@0.6.110/dist/react-dom.mjs",
+    "react": "https://unpkg.com/@spike.land/esm@0.6.117/dist/react.mjs",
+    "react-dom": "https://unpkg.com/@spike.land/esm@0.6.117/dist/react-dom.mjs",
     "react-dom/server": "https://ga.jspm.io/npm:react-dom@18.0.0-rc.0-next-fe905f152-20220107/server.browser.js",
-    "framer-motion": "https://unpkg.com/@spike.land/esm@0.6.110/dist/framer-motion.mjs"
+    "framer-motion": "https://unpkg.com/@spike.land/esm@0.6.117/dist/framer-motion.mjs"
   },
   "scopes": {
     "https://ga.jspm.io/": {
@@ -61,7 +61,7 @@
       "@mui/private-theming/ThemeProvider": "https://ga.jspm.io/npm:@mui/private-theming@5.3.0/ThemeProvider/index.js",
       "@mui/private-theming/useTheme": "https://ga.jspm.io/npm:@mui/private-theming@5.3.0/useTheme/index.js",
       "@mui/styled-engine": "https://ga.jspm.io/npm:@mui/styled-engine@5.3.0/index.js",
-      "@mui/system": "https://ga.jspm.io/npm:@mui/system@5.3.0/esm/index.js",
+      "@mui/system": "https://ga.jspm.io/npm:@mui/system@5.4.0/esm/index.js",
       "@mui/utils": "https://ga.jspm.io/npm:@mui/utils@5.3.0/esm/index.js",
       "@popperjs/core": "https://ga.jspm.io/npm:@popperjs/core@2.11.2/lib/index.js",
       "clsx": "https://ga.jspm.io/npm:clsx@1.1.1/dist/clsx.m.js",
@@ -69,7 +69,7 @@
       "dom-helpers/removeClass": "https://ga.jspm.io/npm:dom-helpers@5.2.0/esm/removeClass.js",
       "hoist-non-react-statics": "https://ga.jspm.io/npm:hoist-non-react-statics@3.3.2/dist/hoist-non-react-statics.cjs.js",
       "object-assign": "https://ga.jspm.io/npm:object-assign@4.1.1/index.js",
-      "process": "https://ga.jspm.io/npm:@jspm/core@2.0.0-beta.16/nodelibs/browser/process-production.js",
+      "process": "https://ga.jspm.io/npm:@jspm/core@2.0.0-beta.17/nodelibs/browser/process.js",
       "prop-types": "https://ga.jspm.io/npm:prop-types@15.8.0/index.js",
       "react-is": "https://ga.jspm.io/npm:react-is@16.13.1/index.js",
       "react-transition-group": "https://ga.jspm.io/npm:react-transition-group@4.4.2/esm/index.js",

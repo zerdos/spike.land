@@ -1,4 +1,4 @@
- {
+{
   "globDirectory": "js/",
   "globPatterns": [
     "**/*.{css,ttf,webp,png,mjs,html,js,json}"

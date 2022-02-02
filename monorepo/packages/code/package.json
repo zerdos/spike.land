@@ -13,7 +13,7 @@
     "./js/importmap.json": "./js/importmap.json"
   },
   "scripts": {
-    "clean": "rm -rf .tsBuildInfo js/vendor js/dist && mkdir js/dist js/vendor && deno fmt js && yarn mui:deno && yarn renderToString:deno ",
+    "clean": "rm -rf .tsBuildInfo js/vendor js/dist && mkdir js/dist js/vendor && deno fmt js && yarn mui:deno && yarn renderToString:deno && cd ..&& yarn esbuild:cp",
     "xpostinstall": "yarn importmap",
     "build:sw": "NODE_ENV=production yarn esbuild --outfile=./js/sw.js --bundle js/sw.ts && yarn sw",
     "mui:deno": "deno bundle  --unstable  --import-map ./js/importmap.json --no-check ./js/mui.tsx ./js/vendor/mui.mjs ",

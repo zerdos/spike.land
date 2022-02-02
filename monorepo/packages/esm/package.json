@@ -39,7 +39,7 @@
   "sideEffects": false,
   "scripts": {
     "clean": "rm -rf dist",
-    "build": "yarn build:framer-motion && yarn build:react && yarn build:emotion-react &&  yarn build:react-dom && yarn build:react-is &&  yarn build:textdiff-create && yarn build:textdiff-patch",
+    "build": "yarn build:framer-motion & yarn build:react & yarn build:emotion-react &  yarn build:react-dom & yarn build:react-is & yarn build:textdiff-create & yarn build:textdiff-patch",
     "build:react": "yarn esbuild --bundle --minify --tree-shaking=true src/react.ts --format=esm --outfile=dist/react.mjs",
     "build:emotion-react": "yarn esbuild --bundle --minify --tree-shaking=true src/emotion-react.mjs --format=esm --outfile=dist/emotion-react.mjs",
     "build:react-is": "yarn esbuild --bundle --minify --tree-shaking=true  src/react-is.mjs --format=esm --outfile=dist/react-is.mjs",
