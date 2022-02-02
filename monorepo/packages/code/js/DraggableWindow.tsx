@@ -465,6 +465,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
               `}
           >
             <Fab
+              key="fullscreen"
               onClick={() => {
                 setFullScreen(true);
               }}
@@ -472,9 +473,10 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
               <FullscreenIcon />
             </Fab>
 
-            <QRButton url={qrUrl} />
+            <QRButton url={qrUrl} key="QRButton" />
 
             <Fab
+              key="Share"
               onClick={() => {
                 onShare();
               }}
