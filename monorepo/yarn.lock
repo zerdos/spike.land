@@ -1731,7 +1731,12 @@ esbuild-plugin-import-map@2.1.0:
   resolved "https://registry.yarnpkg.com/esbuild-plugin-import-map/-/esbuild-plugin-import-map-2.1.0.tgz#3c3d2a350d6109f3e4b4a97dd6fae9eeaeca61d5"
   integrity sha512-rlI9H8f1saIqYEUNHxDmIMGZZFroANyD6q3Aht6aXyOq/aOdO6jp5VFF1+n3o9AUe+wAtQcn93Wv1Vuj9na0hg==
 
-esbuild-wasm@0.14.17, esbuild-wasm@^0.14.16:
+esbuild-wasm@0.14.18:
+  version "0.14.18"
+  resolved "https://registry.yarnpkg.com/esbuild-wasm/-/esbuild-wasm-0.14.18.tgz#e84d3b067abbf207f26c824ff7cd48a2f29db59a"
+  integrity sha512-HbL23n3Bg04XFGz+79xiEAJKit64unkATrLI7pFI8CElbXAUM4VsVnMZzJk1Uhcf324vOzYlSm9yUARVZ9BkJg==
+
+esbuild-wasm@^0.14.16:
   version "0.14.17"
   resolved "https://registry.yarnpkg.com/esbuild-wasm/-/esbuild-wasm-0.14.17.tgz#c51d01b31b06126c834aa998de8741f6bba0f2ec"
   integrity sha512-82sE81izIfV3lOodn45XChrZY5jIROQXsKwZkjvv2oNA2xGK3kD5DqO4XlFPr1DLREGCZpEbbfJLgUQLNPGugg==

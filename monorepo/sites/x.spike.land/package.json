@@ -15,7 +15,7 @@
   "private": true,
   "dependencies": {
     "@types/websocket": "1.0.5",
-    "esbuild-wasm": "0.14.17",
+    "esbuild-wasm": "0.14.18",
     "textdiff-patch": "1.0.6"
   }
 }
