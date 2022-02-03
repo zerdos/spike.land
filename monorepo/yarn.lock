@@ -1742,10 +1742,10 @@ es-abstract@^1.19.1:
     string.prototype.trimstart "^1.0.4"
     unbox-primitive "^1.0.1"
 
-es-module-shims@1.4.3:
-  version "1.4.3"
-  resolved "https://registry.yarnpkg.com/es-module-shims/-/es-module-shims-1.4.3.tgz#4ac9b0699e19d19908f5f2a203d2873e894e3054"
-  integrity sha512-qMUb+8lrpqZ6jW/kelQU7XD1hR71hmxKhIDmmVwsQNQaAYh0fzErnKSj9Xi80L0ubEjnzCDD5ha7oZehkwFApg==
+es-module-shims@1.4.4:
+  version "1.4.4"
+  resolved "https://registry.yarnpkg.com/es-module-shims/-/es-module-shims-1.4.4.tgz#ebc4b05089dfd98a915c40d855504faa727b47c9"
+  integrity sha512-XwztY36cT8bHLBexATddxqmmuZWQ97hY2QmneE6SHSqobdQMk40Q4Rvy5wmmthnCc8M1D1du7O6ncXcmsRU/Cg==
 
 es-to-primitive@^1.2.1:
   version "1.2.1"
