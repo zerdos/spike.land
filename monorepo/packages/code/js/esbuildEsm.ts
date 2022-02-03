@@ -2,6 +2,8 @@ import { Mutex } from "async-mutex";
 import * as esbuild from "esbuild-wasm";
 import { wait } from "./wait.ts";
 
+esbuild.version;
+
 function createWasmBlob(wasm: string) {
   const blob = new Blob([wasm], { type: "application/wasm" });
 
@@ -9,7 +11,7 @@ function createWasmBlob(wasm: string) {
 }
 
 const init = esbuild.initialize({
-  wasmURL: "./vendor/esbuild.wasm",
+  wasmURL: `https://unpkg.com/esbuild-wasm@${esbuild.version}/esbuild.wasm`,
 });
 
 let initFinished = false;

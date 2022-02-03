@@ -11,7 +11,6 @@
     "sites/*"
   ],
   "scripts": {
-    "esbuild:cp": " cp -f ./node_modules/esbuild-wasm/esbuild.wasm ./packages/code/js/vendor/",
     "screenshot": "rm -rf spike.land-1920x1080.png && npx pageres-cli https://spike.land 1920x1080 --delay=5 --scale=1",
     "build:code": "cd packages/code && yarn build",
     "deploy:worker": "lerna run deploy",
@@ -20,7 +19,7 @@
     "importmap": "cd packages/code && yarn importmap",
     "push": "yarn build:code && cd .. && git add . && (git commit -m pre-release || echo nothing) && git push && git pull",
     "release": "lerna publish patch --yes && yarn push",
-    "clean": "lerna run clean --parallel && yarn esbuild:cp",
+    "clean": "lerna run clean --parallel",
     "lerna:publish": "lerna publish",
     "build": "lerna run build --parallel --since main",
     "build:all": "lerna run build --parallel --since main --no-bail",
