@@ -1,7 +1,7 @@
 {
   "globDirectory": "js/",
   "globPatterns": [
-    "**/*.{css,ttf,webp,png,mjs,html,js,json}"
+    "**/*.{css,ttf,webp,png,mjs,html,js,json,wasm}"
   ],
   "globIgnores": ["**/chunks/**"],
   "swDest": "js/sw.js",
