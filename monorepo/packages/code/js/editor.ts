@@ -1,25 +1,27 @@
-import { monaco as monacoTs } from "./vendor/monaco/monacoTs.js";
+import * as monaco from "monaco-editor/esm/vs/editor/editor.main.js";
 import css from "monaco-editor/min/vs/editor/editor.main.css";
 
-import type * as Monaco from "monaco-editor";
-import pAll from "p-all";
-
-const monaco = {
-  editor: monacoTs.editor as typeof Monaco.editor,
-  Uri: monacoTs.Uri as unknown as typeof Monaco.Uri,
-
-  languages: {
-    typescript: monacoTs.languages
-      .typescript as typeof Monaco.languages.typescript,
+self.MonacoEnvironment = {
+  getWorkerUrl: function (moduleId, label) {
+    if (label === "json") {
+      return "./dist/workers/monaco-editor/esm/vs/language/json/json.worker.js";
+    }
+    if (label === "css" || label === "scss" || label === "less") {
+      return "./dist/workers/monaco-editor/esm/vs/language/css/css.worker.js";
+    }
+    if (label === "html" || label === "handlebars" || label === "razor") {
+      return "./dist/workers/monaco-editor/esm/vs/language/html/html.worker.js";
+    }
+    if (label === "typescript" || label === "javascript") {
+      return "./dist/workers/monaco-editor/esm/vs/language/typescript/ts.worker.js";
+    }
+    return "./dist/workers/monaco-editor/esm/vs/editor/editor.worker.js";
   },
 };
 
 export const startMonaco = async (
   { code, container }: { code: string; container: HTMLDivElement },
 ) => {
-  const { init } = await import("./monacoEnv.ts");
-  init();
-
   monaco.languages.typescript.typescriptDefaults.setCompilerOptions({
     target: 99,
     lib: [
