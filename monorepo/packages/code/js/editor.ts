@@ -4,15 +4,15 @@ import pAll from "p-all";
 
 self.MonacoEnvironment = {
   getWorkerUrl: function (moduleId, label) {
-    if (label === "json") {
-      return "./dist/workers/monaco-editor/esm/vs/language/json/json.worker.js";
-    }
-    if (label === "css" || label === "scss" || label === "less") {
-      return "./dist/workers/monaco-editor/esm/vs/language/css/css.worker.js";
-    }
-    if (label === "html" || label === "handlebars" || label === "razor") {
-      return "./dist/workers/monaco-editor/esm/vs/language/html/html.worker.js";
-    }
+    // if (label === "json") {
+    //   return "./dist/workers/monaco-editor/esm/vs/language/json/json.worker.js";
+    // }
+    // if (label === "css" || label === "scss" || label === "less") {
+    //   return "./dist/workers/monaco-editor/esm/vs/language/css/css.worker.js";
+    // }
+    // if (label === "html" || label === "handlebars" || label === "razor") {
+    //   return "./dist/workers/monaco-editor/esm/vs/language/html/html.worker.js";
+    // }
     if (label === "typescript" || label === "javascript") {
       return "./dist/workers/monaco-editor/esm/vs/language/typescript/ts.worker.js";
     }
@@ -71,9 +71,9 @@ export const startMonaco = async (
     language: "typescript",
 
     theme: "vs-dark",
-    codeLens: false,
-    suggest: false,
-    smoothScrolling: true,
+    // codeLens: false,
+    // suggest: false,
+    // smoothScrolling: true,
     // scrollPredominantAxis: true,
     // scrollbar: {
     //   handleMouseWheel: true,
@@ -402,13 +402,13 @@ export const startMonaco = async (
 // );
 //};
 
-function isMobile() {
-  if (typeof window === "undefined") {
-    return false;
-  }
+// function isMobile() {
+//   if (typeof window === "undefined") {
+//     return false;
+//   }
 
-  return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i
-    .test(
-      window.navigator.userAgent,
-    );
-}
+//   return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i
+//     .test(
+//       window.navigator.userAgent,
+//     );
+// }

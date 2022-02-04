@@ -1820,7 +1820,7 @@ esbuild-plugin-import-map@2.1.0:
   resolved "https://registry.yarnpkg.com/esbuild-plugin-import-map/-/esbuild-plugin-import-map-2.1.0.tgz#3c3d2a350d6109f3e4b4a97dd6fae9eeaeca61d5"
   integrity sha512-rlI9H8f1saIqYEUNHxDmIMGZZFroANyD6q3Aht6aXyOq/aOdO6jp5VFF1+n3o9AUe+wAtQcn93Wv1Vuj9na0hg==
 
-esbuild-wasm@0.14.18, esbuild-wasm@^0.14.16:
+esbuild-wasm@0.14.18, esbuild-wasm@^0.14.18:
   version "0.14.18"
   resolved "https://registry.yarnpkg.com/esbuild-wasm/-/esbuild-wasm-0.14.18.tgz#e84d3b067abbf207f26c824ff7cd48a2f29db59a"
   integrity sha512-HbL23n3Bg04XFGz+79xiEAJKit64unkATrLI7pFI8CElbXAUM4VsVnMZzJk1Uhcf324vOzYlSm9yUARVZ9BkJg==
@@ -2722,10 +2722,10 @@ minimisted@^2.0.0:
   dependencies:
     minimist "^1.2.5"
 
-monaco-editor@0.32.0:
-  version "0.32.0"
-  resolved "https://registry.yarnpkg.com/monaco-editor/-/monaco-editor-0.32.0.tgz#653764356aca40a0bf3807d150b01e0f1a604b96"
-  integrity sha512-r3xvo6XMA/fg3SuVJb+NMxf+fXHO8GPIOLoPFRO2LIf7GbqfV9W7FdddqT9ze+bCtnLd+s4IScnOGCgDQDg4BQ==
+monaco-editor@0.31.1:
+  version "0.31.1"
+  resolved "https://registry.yarnpkg.com/monaco-editor/-/monaco-editor-0.31.1.tgz#67f597b3e45679d1f551237e12a3a42c4438b97b"
+  integrity sha512-FYPwxGZAeP6mRRyrr5XTGHD9gRXVjy7GUzF4IPChnyt3fS5WrNxIkS8DNujWf6EQy0Zlzpxw8oTVE+mWI2/D1Q==
 
 ms@2.1.2:
   version "2.1.2"
