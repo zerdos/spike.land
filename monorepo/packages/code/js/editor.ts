@@ -70,7 +70,7 @@ export const startMonaco = async (
     language: "typescript",
 
     theme: "vs-dark",
-    // codeLens: false,
+    codeLens: false,
     // suggest: {
     //   showStatusBar: false,
     //   preview: false,
