@@ -3,7 +3,7 @@ import { jsx } from "@emotion/react";
 let formatter;
 let transform;
 
-let esbuildEsmTransform;
+// let esbuildEsmTransform;
 // Let esbuildTransform;
 let babelTransform;
 let getHtmlAndCss;
@@ -91,14 +91,14 @@ async function getErrors({ monaco, editor }) {
 
 async function runner(c, changes = null, session, counter) {
   session.changes.push(changes);
-  formatter = formatter || (await import("./formatter.mjs")).formatter;
+  formatter = formatter || (await import("./prettierEsm.ts")).formatter;
   babelTransform = babelTransform ||
-    (await import("./babelEsm.ts")).transform;
+    (await import("./babelEsm.ts")).babelTransform;
 
-  esbuildEsmTransform = esbuildEsmTransform ||
-    (await import("./esbuildEsm.ts")).transform;
+  // esbuildEsmTransform = esbuildEsmTransform ||
+  //   (await import("./esbuildEsm.ts")).transform;
 
-  transform = esbuildEsmTransform;
+  transform = babelTransform;
 
   session.errorText = "";
 

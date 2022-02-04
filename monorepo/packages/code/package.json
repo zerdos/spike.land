@@ -57,6 +57,7 @@
     "@emotion/styled": "^11.6.0",
     "@isomorphic-git/lightning-fs": "isomorphic-git/lightning-fs",
     "@spike.land/qrious": "^0.6.59",
+    "@types/babel__standalone": "^7.1.4",
     "@types/isomorphic-git__lightning-fs": "^4.4.2",
     "@types/prettier": "^2.4.3",
     "@types/react": "17.0.39",
