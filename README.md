@@ -1,5 +1,6 @@
 [Real time React page editor, in typescript!
-![Screenshot](./screen-capture.gif)](https://spike.land)
+![Screenshot](![screen-capture](https://user-images.githubusercontent.com/1433047/152510558-c0b763f5-d64d-4884-9fb6-8a82f571062e.gif)
+)](https://spike.land)
 
 # This is a monorepo. [![LastUpdated](https://img.shields.io/github/last-commit/spike-land/monorepo.svg)](https://github.com/spike-land/monorepo/)
 
