@@ -2,6 +2,21 @@ import { precacheAndRoute } from "workbox-precaching";
 import { registerRoute } from "workbox-routing";
 import { StaleWhileRevalidate } from "workbox-strategies";
 import { CacheableResponsePlugin } from "workbox-cacheable-response";
+// import path from "path-browserify";
+// import git from "isomorphic-git";
+// import http from "isomorphic-git/http/web";
+// import LightningFS from "@isomorphic-git/lightning-fs";
+
+// const fs = new LightningFS("fs");
+
+// const dir = "/test-clone";
+// git.clone({
+//   fs,
+//   http,
+//   dir,
+//   url: "https://github.com/spike-land/monorepo",
+//   corsProxy: "https://cors.isomorphic-git.org",
+// }).then(console.log);
 
 declare const self: ServiceWorkerGlobalScope;
 
