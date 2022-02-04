@@ -5,7 +5,7 @@ let transform;
 
 let esbuildEsmTransform;
 // Let esbuildTransform;
-// let babelTransform;
+let babelTransform;
 let getHtmlAndCss;
 let initSess;
 
@@ -90,10 +90,11 @@ async function getErrors({ monaco, editor }) {
 // Let getHtmlAndCss;
 
 async function runner(c, changes = null, session, counter) {
-  // If (!esbuildEsmTransform || !formatter ) session.broad({...session, code: c, errorText: "PRE" })
-
   session.changes.push(changes);
   formatter = formatter || (await import("./formatter.mjs")).formatter;
+  babelTransform = babelTransform ||
+    (await import("./babelEsm.ts")).transform;
+
   esbuildEsmTransform = esbuildEsmTransform ||
     (await import("./esbuildEsm.ts")).transform;
 

@@ -879,6 +879,11 @@
   dependencies:
     regenerator-runtime "^0.13.4"
 
+"@babel/standalone@^7.17.1":
+  version "7.17.1"
+  resolved "https://registry.yarnpkg.com/@babel/standalone/-/standalone-7.17.1.tgz#fe62491d0ec6f442cba3895e6ec3fa6c61de129c"
+  integrity sha512-rNHDt0ESbXq6BZv89BaSB0nlfymx/X5ASndRM58xOkgOJ6+YuCq8R3//3QP1sLAY2m4exiCg4BFD53vCVFzBKw==
+
 "@babel/template@^7.16.7":
   version "7.16.7"
   resolved "https://registry.yarnpkg.com/@babel/template/-/template-7.16.7.tgz#8d126c8701fde4d66b264b3eba3d96f07666d155"
@@ -1148,6 +1153,11 @@
   resolved "https://registry.yarnpkg.com/@types/path-browserify/-/path-browserify-1.0.0.tgz#294ec6e88b6b0d340a3897b7120e5b393f16690e"
   integrity sha512-XMCcyhSvxcch8b7rZAtFAaierBYdeHXVvg2iYnxOV0MCQHmPuRRmGZPFDRzPayxcGiiSL1Te9UIO+f3cuj0tfw==
 
+"@types/prettier@^2.4.3":
+  version "2.4.3"
+  resolved "https://registry.yarnpkg.com/@types/prettier/-/prettier-2.4.3.tgz#a3c65525b91fca7da00ab1a3ac2b5a2a4afbffbf"
+  integrity sha512-QzSuZMBuG5u8HqYz01qtMdg/Jfctlnvj1z/lYnIDXs/golxw0fxtRAHd9KrzjR7Yxz1qVeI00o0kiO3PmVdJ9w==
+
 "@types/prop-types@*":
   version "15.7.4"
   resolved "https://registry.yarnpkg.com/@types/prop-types/-/prop-types-15.7.4.tgz#fcf7205c25dff795ee79af1e30da2c9790808f11"
@@ -1202,9 +1212,9 @@ aggregate-error@^4.0.0:
     indent-string "^5.0.0"
 
 ajv@^8.6.0:
-  version "8.9.0"
-  resolved "https://registry.yarnpkg.com/ajv/-/ajv-8.9.0.tgz#738019146638824dea25edcf299dcba1b0e7eb18"
-  integrity sha512-qOKJyNj/h+OWx7s5DePL6Zu1KeM9jPZhwBqs+7DzP6bGOvqzVCSf0xueYmVuaC/oQ/VtS2zLMLHdQFbkka+XDQ==
+  version "8.10.0"
+  resolved "https://registry.yarnpkg.com/ajv/-/ajv-8.10.0.tgz#e573f719bd3af069017e3b66538ab968d040e54d"
+  integrity sha512-bzqAEZOjkrUMl2afH8dknrq5KEk2SrwdBROR+vH1EKVQTqaUbJVPdc/gEdggTMM0Se+s+Ja4ju4TlNcStKl2Hw==
   dependencies:
     fast-deep-equal "^3.1.1"
     json-schema-traverse "^1.0.0"
@@ -2999,13 +3009,13 @@ rc@^1.2.8:
     strip-json-comments "~2.0.1"
 
 react-dom@next:
-  version "18.0.0-rc.0-next-5318971f5-20220202"
-  resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-18.0.0-rc.0-next-5318971f5-20220202.tgz#1b0c97856a4f8fb95b6c15ddd4205ce151717b34"
-  integrity sha512-plCN9M/gbSI4U177BqY2wWS995Bl2PMtSJVIhob4VWQU0Q5hoZgbDC759XOsqSK+uPm8mkqayqPqMk5vv8EvzQ==
+  version "18.0.0-rc.0-next-848e802d2-20220204"
+  resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-18.0.0-rc.0-next-848e802d2-20220204.tgz#77f74fa5c499948b6a304a2d78d7589ae67a0f3e"
+  integrity sha512-15gq7G4ItAqLyKIyJnfkxVeCnYnGXAN4kW97o3KCQmg9kYxfsNaNUd3LrBf9T/FN64MO3xY900WvgG3d1448xg==
   dependencies:
     loose-envify "^1.1.0"
     object-assign "^4.1.1"
-    scheduler "0.21.0-rc.0-next-5318971f5-20220202"
+    scheduler "0.21.0-rc.0-next-848e802d2-20220204"
 
 react-is@^16.7.0:
   version "16.13.1"
@@ -3013,14 +3023,14 @@ react-is@^16.7.0:
   integrity sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==
 
 react-is@next:
-  version "18.0.0-rc.0-next-5318971f5-20220202"
-  resolved "https://registry.yarnpkg.com/react-is/-/react-is-18.0.0-rc.0-next-5318971f5-20220202.tgz#50ee607a661f81f0c3ee60098744a707cb8f7ee6"
-  integrity sha512-8fBr2MI+N90bkH2W0o9N57k9A/9a8X063Abd3DD5OGP5DiWMw846HU/nStv89ctW6Z0fk+XG9pRKw6NyD0XhYg==
+  version "18.0.0-rc.0-next-848e802d2-20220204"
+  resolved "https://registry.yarnpkg.com/react-is/-/react-is-18.0.0-rc.0-next-848e802d2-20220204.tgz#1f20b755bd40c0c40abdae7157563e6ca6dfc942"
+  integrity sha512-jFModDs7OIjQh/4/navOvuBcpcubCXEFhuCUtwrB50DckVgmMZ618VuHAr9RpsO9DhOFVJ8ToC4Y0crWR91H7g==
 
 react@next:
-  version "18.0.0-rc.0-next-5318971f5-20220202"
-  resolved "https://registry.yarnpkg.com/react/-/react-18.0.0-rc.0-next-5318971f5-20220202.tgz#719c73289e148c0c3129cd6ac7257407412fa01e"
-  integrity sha512-A+foCyRc2herNZZharmw8mWulRpMvuk2HU84zdeLQ9WKahqLcB7rUtP5eU5c0Eqvai29ZZHFHwrF/1ldXpx+BQ==
+  version "18.0.0-rc.0-next-848e802d2-20220204"
+  resolved "https://registry.yarnpkg.com/react/-/react-18.0.0-rc.0-next-848e802d2-20220204.tgz#1c32af08525234eeb29ad7a3379b31cc8669a27e"
+  integrity sha512-eWUkb42Rg8sF5ePNbQsPHvYMHauF6XWBb3M0jPt3ZD+qVnfxrbbdoLoGAZ22m6+GsKT/LhpoKxYBodWu6AbBDg==
   dependencies:
     loose-envify "^1.1.0"
     object-assign "^4.1.1"
@@ -3216,10 +3226,10 @@ safe-buffer@~5.1.1:
   resolved "https://registry.yarnpkg.com/safer-buffer/-/safer-buffer-2.1.2.tgz#44fa161b0187b9549dd84bb91802f9bd8385cd6a"
   integrity sha512-YZo3K82SD7Riyi0E1EQPojLz7kpepnSQI9IyPbHHg1XXXevb5dJI7tpyN2ADxGcQbHG7vcyRHk0cbwqcQriUtg==
 
-scheduler@0.21.0-rc.0-next-5318971f5-20220202:
-  version "0.21.0-rc.0-next-5318971f5-20220202"
-  resolved "https://registry.yarnpkg.com/scheduler/-/scheduler-0.21.0-rc.0-next-5318971f5-20220202.tgz#2b83ab35ab59a1ff9412d345f1ced855ffb91826"
-  integrity sha512-CH0RSA+nw0FXDFNjQBdYY8I/zxz+5TbKQnEp3YcokmDMVZZdhWnkzHBzk9BZ2pnvEsvWM1hk9zhnj5uGPDizGg==
+scheduler@0.21.0-rc.0-next-848e802d2-20220204:
+  version "0.21.0-rc.0-next-848e802d2-20220204"
+  resolved "https://registry.yarnpkg.com/scheduler/-/scheduler-0.21.0-rc.0-next-848e802d2-20220204.tgz#76da0fc42366e960a04474f60211f3e818a36416"
+  integrity sha512-ddjf4lX+xmoMk6gBao/5wUoJ4keJKL16sT/pxHOC+cnJ/WQVrl/OrKXb9vp6WfCQxh467S5mjGi0+RVTbykwSA==
   dependencies:
     loose-envify "^1.1.0"
     object-assign "^4.1.1"
