@@ -1,9 +1,9 @@
 {
-    "ignore": [
-      ".git",
-      "node_modules/**/node_modules",
-      "dist/**/*",
-      "**/vendor"
-    ],
-    "ext": "js,json,ts,tsx,mjs"
+  "ignore": [
+    ".git",
+    "node_modules/**/node_modules",
+    "dist/**/*",
+    "**/vendor"
+  ],
+  "ext": "js,json,ts,tsx,mjs"
 }

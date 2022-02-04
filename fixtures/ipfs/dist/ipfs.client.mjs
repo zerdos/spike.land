@@ -2361,7 +2361,8 @@ var $ = re(Qr(), 1),
           }
         }
         if (
-          t.hashType != null && (h.Long
+          t.hashType != null &&
+          (h.Long
             ? (n.hashType = h.Long.fromValue(t.hashType)).unsigned = !0
             : typeof t.hashType == "string"
             ? n.hashType = parseInt(t.hashType, 10)
@@ -2372,7 +2373,8 @@ var $ = re(Qr(), 1),
                 t.hashType.low >>> 0,
                 t.hashType.high >>> 0,
               ).toNumber(!0))),
-            t.fanout != null && (h.Long
+            t.fanout != null &&
+            (h.Long
               ? (n.fanout = h.Long.fromValue(t.fanout)).unsigned = !0
               : typeof t.fanout == "string"
               ? n.fanout = parseInt(t.fanout, 10)
@@ -2406,9 +2408,8 @@ var $ = re(Qr(), 1),
               h.Long
           ) {
             var i = new h.Long(0, 0, !0);
-            o.filesize = n.longs === String ? i.toString() : n.longs === Number
-              ? i.toNumber()
-              : i;
+            o.filesize = n.longs === String ? i.toString()
+            : n.longs === Number ? i.toNumber() : i;
           } else o.filesize = n.longs === String ? "0" : 0;
           if (h.Long) {
             var i = new h.Long(0, 0, !0);

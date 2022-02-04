@@ -226,10 +226,8 @@ w.prototype = {
     return l && e.components.push({ count: l }), e.newPos = f, a;
   },
   equals: function (e, t) {
-    return this.options.comparator
-      ? this.options.comparator(e, t)
-      : e === t ||
-        this.options.ignoreCase && e.toLowerCase() === t.toLowerCase();
+    return this.options.comparator ? this.options.comparator(e, t) : e === t ||
+      this.options.ignoreCase && e.toLowerCase() === t.toLowerCase();
   },
   removeEmpty: function (e) {
     for (var t = [], r = 0; r < e.length; r++) e[r] && t.push(e[r]);

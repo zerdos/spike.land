@@ -6,7 +6,7 @@
     "noEmit": true,
     "target": "esnext",
     "module": "esnext",
-    "lib": [ "dom", "dom.iterable", "ESNext"],
+    "lib": ["dom", "dom.iterable", "ESNext"],
     "resolveJsonModule": true,
     "moduleResolution": "node",
     "isolatedModules": true,

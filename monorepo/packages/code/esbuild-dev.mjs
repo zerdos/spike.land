@@ -9,7 +9,7 @@ import * as importMap from "esbuild-plugin-import-map";
 const environment = process.env.NODE_ENV == "production"
   ? "production"
   : "development";
-    const isDevelopment = environment === "development";
+const isDevelopment = environment === "development";
 
 let httpPlugin = {
   name: "http",
@@ -61,8 +61,6 @@ let httpPlugin = {
     });
   },
 };
-
-
 
 console.log(`
 -------------------------------------------------
