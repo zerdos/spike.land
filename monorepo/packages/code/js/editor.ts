@@ -71,11 +71,11 @@ export const startMonaco = async (
 
     theme: "vs-dark",
     codeLens: false,
-    // suggest: {
-    //   showStatusBar: false,
-    //   preview: false,
-    // },
-    // smoothScrolling: true,
+    suggest: {
+      showStatusBar: false,
+      preview: false,
+    },
+    smoothScrolling: true,
     // scrollPredominantAxis: true,
     // scrollbar: {
     //   handleMouseWheel: true,
