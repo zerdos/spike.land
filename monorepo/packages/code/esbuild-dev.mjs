@@ -83,6 +83,7 @@ await esbuild.build({
   ],
   bundle: true,
   target: "es2018",
+  
   sourcemap: isDevelopment,
   minify: !isDevelopment,
   minifyWhitespace: !isDevelopment,
