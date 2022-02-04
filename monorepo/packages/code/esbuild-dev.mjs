@@ -68,9 +68,9 @@ console.log(`
 -------------------------------------------------`);
 
 const workerEntryPoints = [
-  "vs/language/json/json.worker.js",
-  "vs/language/css/css.worker.js",
-  "vs/language/html/html.worker.js",
+  // "vs/language/json/json.worker.js",
+  // "vs/language/css/css.worker.js",
+  // "vs/language/html/html.worker.js",
   "vs/language/typescript/ts.worker.js",
   "vs/editor/editor.worker.js",
 ].map((entry) => `monaco-editor/esm/${entry}`);
@@ -78,7 +78,7 @@ const workerEntryPoints = [
 await esbuild.build({
   entryPoints: [
     ...workerEntryPoints,
-    "./js/workers/prettier.worker.js",
+    // "./js/workers/prettier.worker.js",
     "./js/appStarter.ts",
   ],
   bundle: true,
@@ -199,7 +199,7 @@ const build = (entryPoints) =>
 
 await build([
   "js/starter.mjs",
-  "js/esbuildEsm.ts",
+  // "js/esbuildEsm.ts",
 ]);
 
 // esbuild.build({

@@ -1,4 +1,4 @@
-import src from "./dist/workers/js/workers/prettier.worker.js";
+// import src from "./dist/workers/js/workers/prettier.worker.js";
 import { getWrappedFromWorkerSrc } from "./getWorker.mjs";
 
 /**

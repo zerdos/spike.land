@@ -1,5 +1,6 @@
 import * as monaco from "monaco-editor/esm/vs/editor/editor.main.js";
 import css from "monaco-editor/min/vs/editor/editor.main.css";
+import pAll from "p-all";
 
 self.MonacoEnvironment = {
   getWorkerUrl: function (moduleId, label) {
@@ -71,10 +72,7 @@ export const startMonaco = async (
 
     theme: "vs-dark",
     codeLens: false,
-    suggest: {
-      showStatusBar: false,
-      preview: false,
-    },
+    suggest: false,
     smoothScrolling: true,
     // scrollPredominantAxis: true,
     // scrollbar: {
