@@ -470,7 +470,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
                 setFullScreen(true);
               }}
             >
-              <FullscreenIcon />
+              <FullscreenIcon key="fs" />
             </Fab>
 
             <QRButton url={qrUrl} key="QRButton" />
