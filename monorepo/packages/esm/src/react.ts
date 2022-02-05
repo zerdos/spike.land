@@ -32,13 +32,14 @@ export const { createContext } = react as {
 export const { useDebugValue } = react as {
   useDebugValue: typeof React.useDebugValue;
 };
-export const { useState } = react as { useState: typeof React.useState };
+
+export const { useState } = react 
 export const { useId } = react;
 export const { useRef } = react;
 export const { useContext } = react;
 
 export const { useEffect } = react;
-export const { useLayoutEffect } = react;
+export const  useLayoutEffect = function() {if (globalThis.renderToString)  return ()=>{}; else return react.useLayoutEffect(...arguments)};
 export const { useReducer } = react;
 export const { useCallback } = react;
 export const { forwardRef } = react;
