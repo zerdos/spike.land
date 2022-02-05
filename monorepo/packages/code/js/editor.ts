@@ -38,15 +38,17 @@ export const startMonaco = async (
   shadowRoot.appendChild(innerStyle);
 
   monaco.languages.typescript.typescriptDefaults.setCompilerOptions({
-    target: 99,
+    target: monaco.languages.typescript.ScriptTarget.ESNext,
     lib: [
       "DOM",
-      "ES2018",
+      "DOM.Iterable",
+      "ESNext",
     ],
 
     allowNonTsExtensions: true,
     moduleResolution: monaco.languages.typescript.ModuleResolutionKind.NodeJs,
     declaration: false,
+    module: monaco.languages.typescript.ModuleKind.ESNext,
     noEmit: true,
     noEmitOnError: true,
     // jsxFactory: "jsx",
