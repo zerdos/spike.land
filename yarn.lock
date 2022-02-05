@@ -268,10 +268,10 @@
     "@babel/helper-validator-identifier" "^7.16.7"
     to-fast-properties "^2.0.0"
 
-"@builder.io/qwik@0.0.16-8":
-  version "0.0.16-8"
-  resolved "https://registry.yarnpkg.com/@builder.io/qwik/-/qwik-0.0.16-8.tgz#8c6d37a6ae2512c6ed9a59a52b1ea3f067be18de"
-  integrity sha512-/jZBzAvUzJQXFbSX+hLGgrW+3Z5qmywlSkMozh2qiIGiEJb+vXxFQo1z8iQhoLicpLWPE9XIv3CmPnSjwV7NLg==
+"@builder.io/qwik@0.0.16-10":
+  version "0.0.16-10"
+  resolved "https://registry.yarnpkg.com/@builder.io/qwik/-/qwik-0.0.16-10.tgz#c77bf5e998b11d51b8075b931f8c2f504f366625"
+  integrity sha512-tvmv0TB8pGWn2yr+Q6ES1Zz7nKm3OL+UandGlrYdy9wQzj/MUNTh4+xfgCRIYSnH0vAUViqGcUij27m3Z7ksIA==
 
 "@cloudflare/kv-asset-handler@0.2.0":
   version "0.2.0"
