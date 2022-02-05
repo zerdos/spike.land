@@ -260,22 +260,22 @@ export const startMonaco = async (
     const importHelper = [
       {
         name: "react",
-        url: "https://unpkg.com/@types/react@17.0.38/index.d.ts",
+        url: "https://unpkg.com/@types/react@17.0.39/index.d.ts",
         depend: ["global", "csstype", "react-dom", "prop-types"],
       },
       {
         name: "react/jsx-dev-runtime",
-        url: "https://unpkg.com/@types/react@17.0.38/index.d.ts",
+        url: "https://unpkg.com/@types/react@17.0.39/jsx-dev-runtime.d.ts",
         depend: ["global", "csstype", "react-dom", "prop-types"],
       },
       {
         name: "react-exp",
-        url: "https://unpkg.com/@types/react@17.0.38/experimental.d.ts",
+        url: "https://unpkg.com/@types/react@17.0.39/experimental.d.ts",
         depend: [],
       },
       {
         name: "global",
-        url: "https://unpkg.com/@types/react@17.0.38/global.d.ts",
+        url: "https://unpkg.com/@types/react@17.0.39/global.d.ts",
         depend: [],
       },
       {
@@ -318,7 +318,7 @@ export const startMonaco = async (
       },
       {
         name: "@emotion/react",
-        url: "https://unpkg.com/@emotion/react@11.7.0/types/index.d.ts",
+        url: "https://unpkg.com/@emotion/react@11.7.1/types/index.d.ts",
         depend: ["@emotion/cache"],
       },
       {
@@ -333,17 +333,17 @@ export const startMonaco = async (
       },
       {
         name: "@emotion/react/css-prop",
-        url: "https://unpkg.com/@emotion/react@11.7.0/types/css-prop.d.ts",
+        url: "https://unpkg.com/@emotion/react@11.7.1/types/css-prop.d.ts",
         depend: ["@emotion/utils", "csstype"],
       },
       {
         name: "@emotion/react/helper",
-        url: "https://unpkg.com/@emotion/react@11.7.0/types/helper.d.ts",
+        url: "https://unpkg.com/@emotion/react@11.7.1/types/helper.d.ts",
         depend: ["@emotion/utils", "csstype"],
       },
       {
         name: "@emotion/theming",
-        url: "https://unpkg.com/@emotion/react@11.7.0/types/theming.d.ts",
+        url: "https://unpkg.com/@emotion/react@11.7.1/types/theming.d.ts",
         depend: ["@emotion/utils", "csstype"],
       },
       {
@@ -359,13 +359,13 @@ export const startMonaco = async (
       },
       {
         name: "framer-motion",
-        url: "https://unpkg.com/framer-motion@6.2.1/types/index.d.ts",
+        url: "https://unpkg.com/framer-motion@6.2.4/types/index.d.ts",
         depend: ["popmotion"],
       },
       {
         name: "framer-motion/types/render/dom/motion",
         url:
-          " https://unpkg.com/framer-motion@6.2.1/types/render/dom/motion.d.ts",
+          " https://unpkg.com/framer-motion@6.2.4/types/render/dom/motion.d.ts",
         depend: ["popmotion"],
       },
       {
