@@ -62,6 +62,7 @@ export const startMonaco = async (
     noEmitOnError: true,
     // jsxFactory: "jsx",
     maxNodeModuleJsDepth: 10,
+
     jsxImportSource: "@emotion/react",
     jsx: monaco.languages.typescript.JsxEmit.ReactJSX,
     allowUmdGlobalAccess: true,
@@ -271,6 +272,11 @@ export const startMonaco = async (
         depend: ["global", "csstype", "react-dom", "prop-types"],
       },
       {
+        name: "react/jsx-runtime",
+        url: "https://unpkg.com/@types/react@17.0.39/jsx-runtime.d.ts",
+        depend: ["global", "csstype", "react-dom", "prop-types"],
+      },
+      {
         name: "react/jsx-dev-runtime",
         url: "https://unpkg.com/@types/react@17.0.39/jsx-dev-runtime.d.ts",
         depend: ["global", "csstype", "react-dom", "prop-types"],
@@ -330,12 +336,33 @@ export const startMonaco = async (
       },
       {
         name: "@emotion/react/jsx-runtime",
-        url: "https://unpkg.com/@emotion/react@11.7.1/types/jsx-namespace.d.ts",
+        url: "https://unpkg.com/@emotion/react@11.7.1/types/jsx-runtime.d.ts",
+        depend: ["@emotion/cache"],
+      },
+      {
+        name: "@emotion/react/jsx-dev-runtime",
+        url:
+          "https://unpkg.com/@emotion/react@11.7.1/types/jsx-dev-runtime.d.ts",
         depend: ["@emotion/cache"],
       },
       {
         name: "@emotion/react/jsx-namespace",
         url: "https://unpkg.com/@emotion/react@11.7.1/types/jsx-namespace.d.ts",
+        depend: ["@emotion/utils", "type"],
+      },
+      {
+        name: "@emotion/react/theming",
+        url: "https://unpkg.com/@emotion/react@11.7.1/types/theming.d.ts",
+        depend: ["@emotion/utils", "type"],
+      },
+      {
+        name: "@emotion/react/css-prop",
+        url: "https://unpkg.com/@emotion/react@11.7.1/types/css-prop.d.ts",
+        depend: ["@emotion/utils", "type"],
+      },
+      {
+        name: "@emotion/react/helper",
+        url: "https://unpkg.com/@emotion/react@11.7.1/types/helper.d.ts",
         depend: ["@emotion/utils", "type"],
       },
       {
