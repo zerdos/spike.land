@@ -1,4 +1,4 @@
-import * as monaco from "monaco-editor/esm/vs/editor/editor.main.js";
+import * as monaco from "monaco-editor";
 import { version } from "monaco-editor/package.json";
 
 import pAll from "p-all";
