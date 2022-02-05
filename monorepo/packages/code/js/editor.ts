@@ -1,9 +1,10 @@
 import * as monaco from "monaco-editor/esm/vs/editor/editor.main.js";
-import css from "monaco-editor/min/vs/editor/editor.main.css";
+import { version } from "monaco-editor/package.json";
+
 import pAll from "p-all";
 
 self.MonacoEnvironment = {
-  getWorkerUrl: function (moduleId, label) {
+  getWorkerUrl: function (moduleId: string, label: string) {
     // if (label === "json") {
     //   return "./dist/workers/monaco-editor/esm/vs/language/json/json.worker.js";
     // }
@@ -23,6 +24,19 @@ self.MonacoEnvironment = {
 export const startMonaco = async (
   { code, container }: { code: string; container: HTMLDivElement },
 ) => {
+  const shadowRoot = container.attachShadow({
+    mode: "closed",
+  });
+  const innerContainer = document.createElement("div");
+  shadowRoot.appendChild(innerContainer);
+  innerContainer.style.width = "100%";
+  innerContainer.style.height = "100%";
+
+  const innerStyle = document.createElement("style");
+  innerStyle.innerText =
+    `@import "https://unpkg.com/monaco-editor@${version}/min/vs/editor/editor.main.css";`;
+  shadowRoot.appendChild(innerStyle);
+
   monaco.languages.typescript.typescriptDefaults.setCompilerOptions({
     target: 99,
     lib: [
@@ -55,13 +69,13 @@ export const startMonaco = async (
       noSyntaxValidation: true,
     });
 
-  document.head.appendChild(Object.assign(document.createElement("link"), {
-    "data-name": "vs/editor/editor.main",
-    "rel": "stylesheet",
-    "href": "./dist/css/" + css,
-  }));
+  // document.head.appendChild(Object.assign(document.createElement("link"), {
+  //   "data-name": "vs/editor/editor.main",
+  //   "rel": "stylesheet",
+  //   "href": "./dist/css/" + css,
+  // }));
 
-  const editor = monaco.editor.create(container, {
+  const editor = monaco.editor.create(innerContainer, {
     model: monaco.editor.createModel(
       code,
       "typescript",
@@ -69,7 +83,7 @@ export const startMonaco = async (
     ),
     // lightbulb: { enabled: false },
     language: "typescript",
-
+    useShadowDOM: true,
     theme: "vs-dark",
     // codeLens: false,
     // suggest: false,
