@@ -42,6 +42,7 @@ export const startMonaco = async (
     lib: [
       "DOM",
       "DOM.Iterable",
+      "ES2015",
       "ESNext",
     ],
 
@@ -50,6 +51,7 @@ export const startMonaco = async (
     declaration: false,
     module: monaco.languages.typescript.ModuleKind.ESNext,
     noEmit: true,
+
     noEmitOnError: true,
     // jsxFactory: "jsx",
     allowJs: true,
