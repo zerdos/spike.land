@@ -1,6 +1,6 @@
 {
   "name": "@spike.land/code",
-  "version": "0.6.155",
+  "version": "0.6.156",
   "description": "spike.land",
   "main": "./js/dist/starter.mjs",
   "files": [
