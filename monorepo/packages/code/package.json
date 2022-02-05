@@ -71,7 +71,7 @@
     "immutable": "^4.0.0",
     "isomorphic-git": "^1.11.2",
     "lodash": "^4.17.21",
-    "monaco-editor": "0.31.1",
+    "monaco-editor": "0.32.1",
     "p-all": "4.0.0",
     "prettier": "^2.5.1",
     "react": "next",
