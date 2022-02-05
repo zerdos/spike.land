@@ -1,16 +1,16 @@
 {
   "imports": {
     "@emotion/cache": "https://ga.jspm.io/npm:@emotion/cache@11.7.1/dist/emotion-cache.browser.esm.js",
-    "@emotion/react": "https://unpkg.com/@spike.land/esm@0.6.148/dist/emotion-react.mjs",
+    "@emotion/react": "https://unpkg.com/@spike.land/esm@0.6.150/dist/emotion-react.mjs",
     "@mui/material/Button": "https://ga.jspm.io/npm:@mui/material@5.3.1/Button/index.js",
     "@mui/material/Fab": "https://ga.jspm.io/npm:@mui/material@5.3.1/Fab/index.js",
     "@mui/material/ToggleButton": "https://ga.jspm.io/npm:@mui/material@5.3.1/ToggleButton/index.js",
     "@mui/material/ToggleButtonGroup": "https://ga.jspm.io/npm:@mui/material@5.3.1/ToggleButtonGroup/index.js",
     "@mui/material/utils/createSvgIcon": "https://ga.jspm.io/npm:@mui/material@5.3.1/utils/createSvgIcon.js",
-    "react": "https://unpkg.com/@spike.land/esm@0.6.148/dist/react.mjs",
-    "react-dom": "https://unpkg.com/@spike.land/esm@0.6.148/dist/react-dom.mjs",
+    "react": "https://unpkg.com/@spike.land/esm@0.6.150/dist/react.mjs",
+    "react-dom": "https://unpkg.com/@spike.land/esm@0.6.150/dist/react-dom.mjs",
     "react-dom/server": "https://ga.jspm.io/npm:react-dom@18.0.0-rc.0-next-fe905f152-20220107/server.browser.js",
-    "framer-motion": "https://unpkg.com/@spike.land/esm@0.6.148/dist/framer-motion.mjs"
+    "framer-motion": "https://unpkg.com/@spike.land/esm@0.6.150/dist/framer-motion.mjs"
   },
   "scopes": {
     "https://ga.jspm.io/": {
