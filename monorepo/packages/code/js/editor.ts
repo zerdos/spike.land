@@ -42,7 +42,11 @@ export const startMonaco = async (
     lib: [
       "DOM",
       "DOM.Iterable",
+      "ES2015",
       "ES2016",
+      "ES7",
+      "ES2017",
+      "ES2018",
       "ESNext",
     ],
 
