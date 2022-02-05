@@ -99,11 +99,13 @@ export const startMonaco = async (
     // selectionHighlight: true,
     // selectOnLineNumbers: true,
     // cursorSmoothCaretAnimation: true,
-    // cursorBlinking: "smooth",
+    cursorBlinking: "smooth",
     // hideCursorInOverviewRuler: true,
     // cursorSurroundingLinesStyle: "all",
     // cursorSurroundingLines: 4,
-
+    smoothScrolling: true,
+    scrollBeyondLastColumn: 20,
+    scrollBeyondLastLine: true,
     // formatOnPaste: true,
     // formatOnType: true,
   });
