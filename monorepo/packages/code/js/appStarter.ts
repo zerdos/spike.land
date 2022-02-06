@@ -1,9 +1,6 @@
 import "es-module-shims";
 import { Workbox } from "workbox-window";
 import importMap from "./importmap.json";
-import React from "react";
-import ReactDOM from "react-dom";
-import * as emotionReact from "@emotion/react";
 
 document.body.appendChild(Object.assign(document.createElement("script"), {
   type: "importmap-shim",
@@ -12,10 +9,6 @@ document.body.appendChild(Object.assign(document.createElement("script"), {
 
 (async (injectedRoom = "") => {
   // const esbuild = import("./esbuildEsm.ts");
-
-  window.React = React;
-  window.ReactDOM = ReactDOM;
-  window.emotionReact = emotionReact;
 
   window.esmsInitOptions = {
     shimMode: true,
@@ -58,6 +51,8 @@ document.body.appendChild(Object.assign(document.createElement("script"), {
   }
 
   // window.process = { env: { NODE_ENV: "production" } };
+  const { React } = await importShim("react");
+  window.React = React;
 
   const { run } = await importShim("./dist/starter.mjs");
   run(injectedRoom);
