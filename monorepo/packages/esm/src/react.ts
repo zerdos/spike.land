@@ -53,11 +53,9 @@ export const { Suspense } = react;
 export const { isValidElement } = react;
 export const { memo } = react;
 export const { useImperativeHandle } = react;
-reac
 export const { Children } = react;
 
 export const { lazy } = react;
-export const { isLazy } = react;
 export const { useMemo } = react;
 
 export const { cloneElement } = react;
