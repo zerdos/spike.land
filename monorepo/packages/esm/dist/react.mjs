@@ -811,6 +811,8 @@ var { Children } = react;
 var { lazy } = react;
 var { useMemo } = react;
 var { cloneElement } = react;
+var { render } = react;
+var { hydrate } = react;
 var react_default = React;
 export {
   Children,
@@ -824,9 +826,11 @@ export {
   createRef,
   react_default as default,
   forwardRef,
+  hydrate,
   isValidElement,
   lazy,
   memo,
+  render,
   useCallback,
   useContext,
   useDebugValue,

@@ -60,6 +60,8 @@ export const { lazy } = react;
 export const { useMemo } = react;
 
 export const { cloneElement } = react;
+export const {render} = react;
+export const {hydrate} = react;
 
 export default React;
 

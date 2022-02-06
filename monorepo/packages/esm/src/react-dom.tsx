@@ -1,5 +1,4 @@
-import * as React from 'preact'
-import {render, hydrate, Component} from "preact";
+import {render, hydrate} "./react"
 import { FC } from "preact/compat";
 
 export const createRoot= (container: Element)=>({
