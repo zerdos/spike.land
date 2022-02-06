@@ -779,7 +779,20 @@ var fn = d;
 var compat_module_default = { useState: l2, useReducer: p2, useEffect: y2, useLayoutEffect: h2, useRef: s2, useImperativeHandle: _2, useMemo: d2, useCallback: A2, useContext: F, useDebugValue: T2, version: "17.0.2", Children: k3, render: B2, hydrate: $2, unmountComponentAtNode: un, createPortal: W, createElement: v, createContext: D, createFactory: tn, cloneElement: rn, createRef: p, Fragment: d, isValidElement: en, findDOMNode: on, Component: _, PureComponent: E, memo: g3, forwardRef: x3, flushSync: cn, unstable_batchedUpdates: ln, StrictMode: d, Suspense: L2, SuspenseList: M2, lazy: F2, __SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED: X };
 
 // src/react.ts
-var react = { ...preact_module_exports, ...compat_module_exports };
+var { render } = preact_module_exports;
+var createRoot = (container) => ({
+  render: (App) => render(App, container)
+});
+var hydrateRoot = (container, App) => hydrate(App, container);
+var { useEffect } = preact_module_exports;
+var useLayoutEffect2 = function() {
+  if (globalThis.renderToString)
+    return () => {
+    };
+  else
+    return (void 0)(...arguments);
+};
+var react = { createRoot, hydrateRoot, render, ...preact_module_exports, ...compat_module_exports, useLayoutEffect: useLayoutEffect2, useEffect };
 var React = react;
 var { createContext } = react;
 var { useDebugValue } = react;
@@ -787,14 +800,6 @@ var { useState } = react;
 var { useId } = react;
 var { useRef } = react;
 var { useContext } = react;
-var { useEffect } = react;
-var useLayoutEffect = function() {
-  if (globalThis.renderToString)
-    return () => {
-    };
-  else
-    return react.useLayoutEffect(...arguments);
-};
 var { useReducer } = react;
 var { useCallback } = react;
 var { forwardRef } = react;
@@ -811,11 +816,6 @@ var { Children } = react;
 var { lazy } = react;
 var { useMemo } = react;
 var { cloneElement } = react;
-var { render } = preact_module_exports;
-var createRoot = (container) => ({
-  render: (App) => render(App, container)
-});
-var hydrateRoot = (container, App) => hydrate(App, container);
 var react_default = React;
 export {
   Children,
@@ -835,13 +835,14 @@ export {
   isValidElement,
   lazy,
   memo,
+  render,
   useCallback,
   useContext,
   useDebugValue,
   useEffect,
   useId,
   useImperativeHandle,
-  useLayoutEffect,
+  useLayoutEffect2 as useLayoutEffect,
   useMemo,
   useReducer,
   useRef,
