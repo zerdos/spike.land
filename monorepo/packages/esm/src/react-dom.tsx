@@ -10,4 +10,6 @@ const defaultExport = {
     createRoot, hydrateRoot, render
 };
 
+export {render}
+
 export default defaultExport;

@@ -294,5 +294,6 @@ var react_dom_default = defaultExport;
 export {
   createRoot,
   react_dom_default as default,
-  hydrateRoot
+  hydrateRoot,
+  S as render
 };
