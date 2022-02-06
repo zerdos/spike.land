@@ -2,6 +2,8 @@ import { clearCache, Generator } from "@jspm/generator";
 import packageJson from "@spike.land/esm/package.json" assert { type: "json" };
 // import { clearCache } from '@jspm/generator';
 clearCache();
+const env =  process.env.NODE_ENV === "production" ? "production" : "development";
+const isDev = env === 'development'
 const { version } = packageJson;
 
 const generator = new Generator({
@@ -11,7 +13,7 @@ const generator = new Generator({
   //]//ne your target environment to get a working map
   // it is advisable to pass the "module" condition as supported by Webpack
   env: [
-    process.env.NODE_ENV === "production" ? "production" : "development",
+    env,
     "browser",
     "module",
   ],
@@ -67,7 +69,7 @@ importMap.imports["framer-motion"] =
 
 // importMap.imports["textdiff-patch"] =
 //  `https://unpkg.com/@spike.land/esm@${version}/dist/textdiff-patch.mjs`;
-importMap.imports["react"] =
+importMap.imports["react"] = 
   `https://unpkg.com/@spike.land/esm@${version}/dist/react.mjs`;
 importMap.imports["react-dom"] =
   `https://unpkg.com/@spike.land/esm@${version}/dist/react-dom.mjs`;

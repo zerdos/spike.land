@@ -2951,6 +2951,11 @@ popmotion@11.0.3:
     style-value-types "5.0.0"
     tslib "^2.1.0"
 
+preact@^10.6.5:
+  version "10.6.5"
+  resolved "https://registry.yarnpkg.com/preact/-/preact-10.6.5.tgz#726d8bd12903a0d51cdd17e2e1b90cc539403e0c"
+  integrity sha512-i+LXM6JiVjQXSt2jG2vZZFapGpCuk1fl8o6ii3G84MA3xgj686FKjs4JFDkmUVhtxyq21+4ay74zqPykz9hU6w==
+
 prepend-http@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/prepend-http/-/prepend-http-2.0.0.tgz#e92434bfa5ea8c19f41cdfd401d741a3c819d897"
@@ -3028,6 +3033,11 @@ react-dom@next:
     loose-envify "^1.1.0"
     object-assign "^4.1.1"
     scheduler "0.21.0-rc.0-next-848e802d2-20220204"
+
+"react-dom@npm:@preact/compat", "react@npm:@preact/compat":
+  version "17.0.3"
+  resolved "https://registry.yarnpkg.com/@preact/compat/-/compat-17.0.3.tgz#5e41def12b4b6d00d6f86e6b24ef46b029a99626"
+  integrity sha512-lzkui97aQ00hxzUwfRfZm7jUXE1bjWyOXiqm8DeWYhkD+G9ZaY1wso/itqyg60wGnP9DRlM4PDn2blIOnh1yeg==
 
 react-is@^16.7.0:
   version "16.13.1"

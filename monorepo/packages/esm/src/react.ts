@@ -1,6 +1,7 @@
-import * as React from "react";
+import * as preact from "preact";
+import * as preactCompat from "preact/compat";
 
-const react = (window as unknown as { React: unknown }).React;
+const react = {...preact, ...preactCompat};
 
 // export { createContext}
 // export {     useDebugValue}
@@ -52,7 +53,7 @@ export const { Suspense } = react;
 export const { isValidElement } = react;
 export const { memo } = react;
 export const { useImperativeHandle } = react;
-
+reac
 export const { Children } = react;
 
 export const { lazy } = react;

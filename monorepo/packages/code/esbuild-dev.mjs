@@ -11,6 +11,10 @@ const environment = process.env.NODE_ENV == "production"
   : "development";
 const isDevelopment = environment === "development";
 
+importMap.load(jsonData);
+const importMapPlugin = importMap.plugin()
+
+
 let httpPlugin = {
   name: "http",
   setup(build) {
@@ -90,6 +94,7 @@ await esbuild.build({
   minifySyntax: !isDevelopment,
   legalComments: "external",
   treeShaking: !isDevelopment,
+  plugins: [importMapPlugin],
   platform: "browser",
   define: {
     "process.env.NODE_ENV": `"${environment}"`,
@@ -141,7 +146,6 @@ await esbuild.build({
 // let imports = {};
 // importData.map((d) => (Object.assign(imports, { [d]: jsonData.imports[d] })));
 
-importMap.load(jsonData);
 
 // console.log(imports);
 
@@ -175,7 +179,7 @@ const build = (entryPoints) =>
     define: {
       "process.env.NODE_ENV": `"${environment}"`,
     },
-    plugins: [importMap.plugin()],
+    plugins: [importMapPlugin],
     loader: {
       ".ttf": "file",
       ".css": "file",
