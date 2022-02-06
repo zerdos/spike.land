@@ -1,7 +1,9 @@
 import * as preact from "preact";
 import { render } from "preact";
-import { render, useLayoutEffect as ulf } from "preact/compat";
+import {  useLayoutEffect as ulf } from "preact/hooks";
 import * as preactCompat from "preact/compat";
+import * as hooks from "preact/hooks";
+
 
 export { render };
 
@@ -22,6 +24,7 @@ const react = {
   hydrateRoot,
   ...preact,
   ...preactCompat,
+  ...hooks,
   useLayoutEffect,
   useEffect,
   render,

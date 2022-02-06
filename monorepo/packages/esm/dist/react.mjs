@@ -334,34 +334,9 @@ n = c.slice, l = { __e: function(n2, l3) {
   this.__v && (this.__e = true, n2 && this.__h.push(n2), m(this));
 }, _.prototype.render = d, t = [], r = typeof Promise == "function" ? Promise.prototype.then.bind(Promise.resolve()) : setTimeout, g.__r = 0, f = 0;
 
-// ../../node_modules/preact/compat/dist/compat.module.js
-var compat_module_exports = {};
-__export(compat_module_exports, {
-  Children: () => k3,
-  Component: () => _,
-  Fragment: () => d,
-  PureComponent: () => E,
-  StrictMode: () => fn,
-  Suspense: () => L2,
-  SuspenseList: () => M2,
-  __SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED: () => X,
-  cloneElement: () => rn,
-  createContext: () => D,
-  createElement: () => v,
-  createFactory: () => tn,
-  createPortal: () => W,
-  createRef: () => p,
-  default: () => compat_module_default,
-  findDOMNode: () => on,
-  flushSync: () => cn,
-  forwardRef: () => x3,
-  hydrate: () => $2,
-  isValidElement: () => en,
-  lazy: () => F2,
-  memo: () => g3,
-  render: () => B2,
-  unmountComponentAtNode: () => un,
-  unstable_batchedUpdates: () => ln,
+// ../../node_modules/preact/hooks/dist/hooks.module.js
+var hooks_module_exports = {};
+__export(hooks_module_exports, {
   useCallback: () => A2,
   useContext: () => F,
   useDebugValue: () => T2,
@@ -372,11 +347,8 @@ __export(compat_module_exports, {
   useMemo: () => d2,
   useReducer: () => p2,
   useRef: () => s2,
-  useState: () => l2,
-  version: () => nn
+  useState: () => l2
 });
-
-// ../../node_modules/preact/hooks/dist/hooks.module.js
 var t2;
 var u2;
 var r2;
@@ -510,6 +482,46 @@ function w2(n2, t3) {
 }
 
 // ../../node_modules/preact/compat/dist/compat.module.js
+var compat_module_exports = {};
+__export(compat_module_exports, {
+  Children: () => k3,
+  Component: () => _,
+  Fragment: () => d,
+  PureComponent: () => E,
+  StrictMode: () => fn,
+  Suspense: () => L2,
+  SuspenseList: () => M2,
+  __SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED: () => X,
+  cloneElement: () => rn,
+  createContext: () => D,
+  createElement: () => v,
+  createFactory: () => tn,
+  createPortal: () => W,
+  createRef: () => p,
+  default: () => compat_module_default,
+  findDOMNode: () => on,
+  flushSync: () => cn,
+  forwardRef: () => x3,
+  hydrate: () => $2,
+  isValidElement: () => en,
+  lazy: () => F2,
+  memo: () => g3,
+  render: () => B2,
+  unmountComponentAtNode: () => un,
+  unstable_batchedUpdates: () => ln,
+  useCallback: () => A2,
+  useContext: () => F,
+  useDebugValue: () => T2,
+  useEffect: () => y2,
+  useErrorBoundary: () => q2,
+  useImperativeHandle: () => _2,
+  useLayoutEffect: () => h2,
+  useMemo: () => d2,
+  useReducer: () => p2,
+  useRef: () => s2,
+  useState: () => l2,
+  version: () => nn
+});
 function C2(n2, t3) {
   for (var e3 in t3)
     n2[e3] = t3[e3];
@@ -780,7 +792,7 @@ var compat_module_default = { useState: l2, useReducer: p2, useEffect: y2, useLa
 
 // src/react.ts
 var createRoot = (container) => ({
-  render: (App) => B2(App, container)
+  render: (App) => S(App, container)
 });
 var hydrateRoot = (container, App) => hydrate(App, container);
 var { useEffect } = preact_module_exports;
@@ -796,9 +808,10 @@ var react = {
   hydrateRoot,
   ...preact_module_exports,
   ...compat_module_exports,
+  ...hooks_module_exports,
   useLayoutEffect,
   useEffect,
-  render: B2
+  render: S
 };
 var React = react;
 var { createContext } = react;
@@ -842,7 +855,7 @@ export {
   isValidElement,
   lazy,
   memo,
-  B2 as render,
+  S as render,
   useCallback,
   useContext,
   useDebugValue,
