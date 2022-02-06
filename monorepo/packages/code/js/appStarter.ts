@@ -51,8 +51,6 @@ document.body.appendChild(Object.assign(document.createElement("script"), {
   }
 
   // window.process = { env: { NODE_ENV: "production" } };
-  const { React } = await importShim("react");
-  window.React = React;
 
   const { run } = await importShim("./dist/starter.mjs");
   run(injectedRoom);
