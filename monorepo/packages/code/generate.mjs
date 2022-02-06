@@ -41,7 +41,7 @@ await generator.install("preact/compat");
 
 // await generator.install("@emotion/server");
 await generator.install("@emotion/react");
-//await generator.install("@emotion/cache");
+await generator.install("@emotion/cache");
 // await generator.install("lodash/throttle");
 // await generator.install("simple-text-compress");
 // await generator.install("@emotion/styled");
