@@ -1,4 +1,5 @@
 import { join } from "./ws.mjs";
+import { render } from "preact";
 
 export const run = async (injectedRoom) => {
   const path = location.pathname.split("/");
@@ -92,18 +93,18 @@ export const run = async (injectedRoom) => {
     return;
   } else {
     (async () => {
-      // const App = (await import(
-      //   `https://spike.land/api/room/zoli/js`,
-      // )).default;
-
-      const applyDelta = (await import(
-        "https://unpkg.com/@spike.land/esm@0.4.33/dist/textdiff-patch.mjs"
+      const App = (await import(
+        `https://spike.land/api/room/zoli/js`
       )).default;
 
-      const resp = await fetch(
-        `https://spike.land/api/room/${room}/delta`,
-      );
-      const deltas = await resp.json();
+      // const applyDelta = (await import(
+      //   "https://unpkg.com/@spike.land/esm@0.4.33/dist/textdiff-patch.mjs"
+      // )).default;
+
+      // const resp = await fetch(
+      //   `https://spike.land/api/room/${room}/delta`,
+      // );
+      // const deltas = await resp.json();
 
       //   const { jsx } = emotionReact;
 
@@ -114,6 +115,7 @@ export const run = async (injectedRoom) => {
       // document.body.appendChild(container);
 
       let container = document.getElementById("zbody");
+      render(App, container);
 
       if (!container) {
         const respS = await fetch(
