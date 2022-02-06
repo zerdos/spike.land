@@ -1,5 +1,4 @@
-const { React } = window;
-const { Suspense } = React;
+import { FC, lazy, Suspense, useEffect, useState } from "react";
 interface ILaztCom {
   name: string;
   html: string;
@@ -7,12 +6,12 @@ interface ILaztCom {
   hash: number;
 }
 
-export const LazySpikeLandComponent = (
-  { name, html, hash, transpiled }: ILaztCom,
+export const LazySpikeLandComponent: FC<ILaztCom> = (
+  { name, html, hash, transpiled },
 ) => {
-  const [hashCode, setHash] = React.useState(hash);
+  const [hashCode, setHash] = useState(hash);
 
-  React.useEffect(() => {
+  useEffect(() => {
     const intervalHandler = setInterval(async () => {
       const resp = await fetch(
         `https://spike.land/api/room/${name}/hashCodeSession`,
@@ -26,7 +25,7 @@ export const LazySpikeLandComponent = (
     };
   }, []);
 
-  React.useEffect(() => {
+  useEffect(() => {
     (async () => {
       const resp = await fetch(
         `https://spike.land/api/room/${name}/session`,
@@ -42,11 +41,9 @@ export const LazySpikeLandComponent = (
 
   // Const LazyStarter = () => React.lazy(() => getApp(transpiled)) : <div></div>;
 
-  const LazyComponentInit = React.lazy(async () =>
-    import(createJsBlob(transpiled))
-  );
+  const LazyComponentInit = lazy(async () => import(createJsBlob(transpiled)));
 
-  const [{ htmlContent, LazyComponent }, setHtmlCss] = React.useState({
+  const [{ htmlContent, LazyComponent }, setHtmlCss] = useState({
     htmlContent: html,
     LazyComponent: LazyComponentInit, // Transpiled?  ,
   });

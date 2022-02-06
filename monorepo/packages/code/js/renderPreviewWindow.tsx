@@ -1,3 +1,4 @@
+import React from "react";
 import {} from "react-dom/next";
 import { DraggableWindow } from "./DraggableWindow";
 import { wait } from "./wait";

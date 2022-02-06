@@ -24,12 +24,11 @@ export const run = async (injectedRoom) => {
     // const applyDelta = (await import("textdiff-patch")).default;
 
     const { jsx } = await import("@emotion/react");
-    const { ReactDOM } = window;
-
+    const { hydrateRoot } = await import("react-dom");
     const container = document.querySelector("#zbody");
 
     window.aniStart = Date.now();
-    const root = ReactDOM.hydrateRoot(container, jsx(App));
+    const root = hydrateRoot(container, jsx(App));
 
     // const outers = [];
     const deltas = [];
@@ -192,12 +191,24 @@ export const run = async (injectedRoom) => {
 
         if (!container) {
           container = document.getElementById("root");
+          if (!container) throw new Error();
+
+          const respS = await fetch(
+            `https://spike.land/api/room/${room}/session`,
+          );
+
+          const session = await respS.json();
+
           container.innerHTML =
             `<style>${session.css}</style><div id="zbody">${session.html}</div>`;
-          let container = document.querySelector("#zbody");
+          container = document.querySelector("#zbody");
         }
 
-        ReactDOM.hydrateRoot(container, jsx(App));
+        if (!container) throw new Error();
+
+        const { hydrateRoot } = await import("react-dom");
+
+        hydrateRoot(container, App);
       }
     })();
   }
