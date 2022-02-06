@@ -1,5 +1,5 @@
 import * as emotionReact from "@emotion/react"
-import createCache, {EmotionCache} from "./emotion-cache"
+import createCache, {EmotionCache} from "@emotion/cache"
 
 export const { CacheProvider } = emotionReact;
 export const { ClassNames } = emotionReact;
