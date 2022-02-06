@@ -1,28 +1,28 @@
 /** @jsx jsx */
 
-import React from "react";
+import {useRef, useState} from "react";
 import { css, jsx } from "@emotion/react";
 import { dynamicImport } from "../../dynamicImport";
 import { sha256 } from "../utils/sha256/sha256";
 
 export const Qr = () => {
-  const side1 = React.useRef<HTMLCanvasElement>(null);
-  const side2 = React.useRef<HTMLCanvasElement>(null);
-  const side3 = React.useRef<HTMLCanvasElement>(null);
-  const side4 = React.useRef<HTMLCanvasElement>(null);
-  const side5 = React.useRef<HTMLCanvasElement>(null);
-  const side6 = React.useRef<HTMLCanvasElement>(null);
+  const side1 = useRef<HTMLCanvasElement>(null);
+  const side2 = useRef<HTMLCanvasElement>(null);
+  const side3 = useRef<HTMLCanvasElement>(null);
+  const side4 = useRef<HTMLCanvasElement>(null);
+  const side5 = useRef<HTMLCanvasElement>(null);
+  const side6 = useRef<HTMLCanvasElement>(null);
 
-  const [retry, setRetry] = React.useState(100);
-  // const [secrets, setSecrets] = React.useState({})
-  const [urls, setUrl] = React.useState({ current: "", last: "" });
+  const [retry, setRetry] = useState(100);
+  // const [secrets, setSecrets] = useState({})
+  const [urls, setUrl] = useState({ current: "", last: "" });
 
   interface IDummyQR {
     get: () => { value: string };
     value: string;
   }
 
-  const [cubeSides, setQrCube] = React.useState<{
+  const [cubeSides, setQrCube] = useState<{
     [key: string]: IDummyQR;
   }>({});
 
@@ -128,7 +128,7 @@ export const Qr = () => {
     if (typeof window !== "undefined" && retry > 0) setSignals();
   }, [urls]);
 
-  const [cubeState, setCubeState] = React.useState(1);
+  const [cubeState, setCubeState] = useState(1);
 
   return (
     <div

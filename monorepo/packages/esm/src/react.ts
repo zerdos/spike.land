@@ -62,6 +62,7 @@ export const { useMemo } = react;
 export const { cloneElement } = react;
 export const {render} = react;
 export const {hydrate} = react;
+export const React = react;
 
 export default React;
 
