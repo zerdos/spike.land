@@ -1,8 +1,8 @@
 {
   "imports": {
-    "react": "https://unpkg.com/@spike.land/esm@0.6.199/dist/react.mjs",
-    "framer-motion": "https://unpkg.com/@spike.land/esm@0.6.199/dist/framer-motion.mjs",
-    "@emotion/react": "https://unpkg.com/@spike.land/esm@0.6.199/dist/emotion-react.mjs"
+    "react": "https://unpkg.com/@spike.land/esm@0.6.200/dist/react.mjs",
+    "framer-motion": "https://unpkg.com/@spike.land/esm@0.6.200/dist/framer-motion.mjs",
+    "@emotion/react": "https://unpkg.com/@spike.land/esm@0.6.200/dist/emotion-react.mjs"
   },
   "scopes": {
     "https://ga.jspm.io/": {
