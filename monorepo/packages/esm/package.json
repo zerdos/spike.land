@@ -1,6 +1,6 @@
 {
   "name": "@spike.land/esm",
-  "version": "0.6.206",
+  "version": "0.6.207",
   "description": "esm modules for packages with maintainers from the 2015",
   "files": [
     "**/*"
@@ -23,17 +23,17 @@
   "typings": "dist/types/*",
   "license": "BSD-3-Clause",
   "dependencies": {
-    "@types/react": "17.0.39",
-    "framer-motion": "6.2.4",
-    "hoist-non-react-statics": "^3.3.2",
-    "preact": "^10.6.5",
-    "react-is": "^17.0.2",
     "@babel/runtime": "^7.17.0",
     "@emotion/cache": "^11.7.1",
     "@emotion/serialize": "^1.0.2",
     "@emotion/sheet": "^1.1.0",
     "@emotion/utils": "^1.0.0",
-    "@emotion/weak-memoize": "^0.2.5"
+    "@emotion/weak-memoize": "^0.2.5",
+    "@types/react": "17.0.39",
+    "framer-motion": "6.2.4",
+    "hoist-non-react-statics": "^3.3.2",
+    "preact": "^10.6.5",
+    "react-is": "^17.0.2"
   },
   "publishConfig": {
     "access": "public"
