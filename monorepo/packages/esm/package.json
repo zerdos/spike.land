@@ -15,7 +15,6 @@
   "exports": {
     "./package.json": "./package.json",
     "./react.mjs": "./dist/react.mjs",
-    "./react-dom.mjs": "./dist/react-dom.mjs",
     "./react-is.mjs": "./dist/react-is.mjs",
     "./framer-motion.mjs": "./dist/framer-motion.mjs",
     "./textdiff-create.mjs": "./dist/textdiff-create.mjs",
@@ -41,9 +40,6 @@
     "build": "yarn build:framer-motion & yarn build:react & yarn build:emotion-react &  yarn build:react-dom ",
     "build:react": "yarn esbuild --bundle src/react.ts --format=esm --outfile=dist/react.mjs",
     "build:emotion-react": "yarn esbuild --bundle  src/emotion-react.ts  --external:react  --tree-shaking=true  --format=esm --outfile=dist/emotion-react.mjs",
-    "xdeno:react-dom": " deno bundle https://ga.jspm.io/npm:react-dom@18.0.0-rc.0-next-13036bfbc-20220121/index.js --import-map ../code/importmap.json dist/react-dom-deno.js",
-    "build:react-dom": "yarn esbuild --bundle src/react-dom.tsx --external:react-is  --format=esm --outfile=dist/react-dom.mjs",
-    "xbuild:react-dom": "yarn esbuild --bundle dist/react-dom-deno.js --external:react --external:react-is  --format=esm --outfile=dist/react-dom.mjs",
     "build:framer-motion": "yarn esbuild --bundle src/framer-motion.mjs --format=esm --external:react --external:@emotion/is-prop-valid --outfile=dist/framer-motion.mjs",
     "xbuild:framer-motion": "yarn esbuild --bundle src/framer-motion.mjs --minify --tree-shaking=true --external:tslib --format=esm --external:react --external:@emotion/is-prop-valid --outfile=dist/framer-motion.mjs",
     "dts:framer-motion": "rollup -c framer-motion.rollup.config.js",

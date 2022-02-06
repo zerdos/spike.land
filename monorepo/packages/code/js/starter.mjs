@@ -1,6 +1,5 @@
 import { join } from "./ws.mjs";
 import React, { render } from "react";
-// import { render } from "react-dom";
 import { jsx } from "@emotion/react";
 
 window.React = React;
