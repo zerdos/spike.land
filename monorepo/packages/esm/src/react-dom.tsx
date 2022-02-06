@@ -1,5 +1,4 @@
-/**@jsx JSX */
-import {JSX} from 'preact'
+import React from 'preact'
 import {render, hydrate, Component} from "preact";
 import { FC } from "preact/compat";
 
