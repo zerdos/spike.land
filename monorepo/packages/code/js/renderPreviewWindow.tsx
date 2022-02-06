@@ -1,4 +1,5 @@
-import React from "react";
+/** @jsx jsx */
+import { jsx } from "@emotion/react";
 import {} from "react-dom/next";
 import { DraggableWindow } from "./DraggableWindow";
 import { wait } from "./wait";
@@ -29,14 +30,11 @@ export const renderPreviewWindow = async (
 
   // target  .innerHTML = html;
 
-  const { createRoot } = await import("react-dom");
+  const { render } = await import("preact");
 
   // Target  .innerHTML = html;
 
-  const root = createRoot(target, {});
-  // Root.render(<Element></Element> as any);
-
-  root.render(
+  render(
     <DraggableWindow
       onShare={() => open(`https://spike.land/api/room/${room}/public`)}
       onRestore={() => {
@@ -49,6 +47,7 @@ export const renderPreviewWindow = async (
       keepFullScreen={keepFullScreen}
       room={room}
     />,
+    target,
   );
 
   const diffy = window.diffy = Date.now() - window.aniStart;
