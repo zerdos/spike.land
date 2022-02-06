@@ -18,7 +18,6 @@ export const getHtmlAndCss = (MyComponent: () => JSX.Element) => {
       <MyComponent />
     </CacheProvider>,
   );
-
   globalThis.renderToString = false;
 
   const html = `
