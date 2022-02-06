@@ -1,1 +1,1 @@
-export * from "framer-motion/dist/es"
+export * from "framer-motion"
