@@ -2,7 +2,7 @@ import * as preact from "preact";
 import * as preactCompat from "preact/compat";
 
 const react = {...preact, ...preactCompat};
-const React = react;
+export const React = react;
 
 // export { createContext}
 // export {     useDebugValue}
@@ -62,7 +62,6 @@ export const { useMemo } = react;
 export const { cloneElement } = react;
 export const {render} = react;
 export const {hydrate} = react;
-export const React = react;
 
 export default React;
 
