@@ -891,21 +891,301 @@ This is generally NOT safe. Learn more at https://bit.ly/wb-precache`;
       "url": "base/browser/ui/codicons/codicon/codicon.ttf",
     },
     {
-      "revision": "4e21ca9ecbc4c577bb0d486efbd70ed9",
+      "revision": "f2c79b306e583e148517f2e830e1ea63",
+      "url": "dist/accessibilityHelp-PG6TOI2S.css",
+    },
+    {
+      "revision": "a28c0360a648f2475a44245fe28fc289",
+      "url": "dist/actionbar-L4NYGCZP.css",
+    },
+    {
+      "revision": "9ed580e0787ec33a382b27336852113a",
+      "url": "dist/anchorSelect-CTCDZKBW.css",
+    },
+    {
+      "revision": "9fbc4af260eca56689c737437a719980",
+      "url": "dist/aria-5EMUABRE.css",
+    },
+    {
+      "revision": "992673efe63cc717d6e32a228e9082d2",
+      "url": "dist/bannerController-J25VRWFF.css",
+    },
+    {
+      "revision": "11afbfbdb0cdf523942f58f9db22f4d8",
+      "url": "dist/bracketMatching-DATCVEIP.css",
+    },
+    {
+      "revision": "962ec34010ec5168f2d1f02f7d20d492",
+      "url": "dist/button-XDT6WTH6.css",
+    },
+    {
+      "revision": "86edd15fa4f86d0a56eb0aa7ca14e655",
+      "url": "dist/checkbox-7BMS7OPT.css",
+    },
+    {
+      "revision": "3adc595f44a5353c091171cb04bc0095",
+      "url": "dist/codelensWidget-M6ZHRXHA.css",
+    },
+    {
+      "revision": "780125b4d61dd71d9c3185d9e4119b14",
+      "url": "dist/codicon-modifiers-KSITNNB5.css",
+    },
+    {
+      "revision": "521ceb853faf881b2520208c5ce4b897",
+      "url": "dist/codicon-ZKNVO6Q5.css",
+    },
+    {
+      "revision": "fabdf8240da628527ff1482ea2924d67",
+      "url": "dist/colorPicker-JYYRFXXC.css",
+    },
+    {
+      "revision": "edca5b2a681b2a021ee80c1a9f9f5a6e",
+      "url": "dist/contextMenuHandler-TFWPN63J.css",
+    },
+    {
+      "revision": "b2c5cede00fed2f7e88b9f5cba727024",
+      "url": "dist/contextview-VDR65SGN.css",
+    },
+    {
+      "revision": "db9f8470840dc8f8617a778b01f45c71",
+      "url": "dist/countBadge-UFWPMAE4.css",
+    },
+    {
+      "revision": "6f536abc091fbc1453f61240ed1b8b7a",
+      "url": "dist/currentLineHighlight-3ZTXY3HX.css",
+    },
+    {
+      "revision": "9ba48dc8163943d38fe163e11fc8c563",
+      "url": "dist/decorations-N3E4XSXU.css",
+    },
+    {
+      "revision": "e06bbbc38a7f72ca8d69dae58ed014ca",
+      "url": "dist/diffEditor-EWA5ZLSP.css",
+    },
+    {
+      "revision": "f55621d040a82960789312c829a614cd",
+      "url": "dist/diffReview-6SDZZL6K.css",
+    },
+    {
+      "revision": "2aea9afbcd51bd4274d061244c68244f",
+      "url": "dist/dnd-6D2HPKHI.css",
+    },
+    {
+      "revision": "0bd50573c62053cc8e2785b2ab011637",
+      "url": "dist/dropdown-LKF6HJ6Z.css",
+    },
+    {
+      "revision": "77e5f697db3114f0f2f0c2353cd1b734",
+      "url": "dist/editor-CIPHAZHB.css",
+    },
+    {
+      "revision": "5c87f2388172dd4a281be43387a11051",
+      "url": "dist/findInput-UMMLS4ZH.css",
+    },
+    {
+      "revision": "58bf95383e6259ddde7814b100326428",
+      "url": "dist/findWidget-M4UVPJEK.css",
+    },
+    {
+      "revision": "96d44b5e7cd51b5aa2335068f516df83",
+      "url": "dist/folding-2IDKOJAO.css",
+    },
+    {
+      "revision": "93677c0ae81502b93a91e5732668fcb9",
+      "url": "dist/ghostText-UDDDZY7X.css",
+    },
+    {
+      "revision": "0c820b0751ce5fd5c8bb4ec7d3f87054",
+      "url": "dist/glyphMargin-IKUUJQ7W.css",
+    },
+    {
+      "revision": "83f1331fb75bb92481ebdda6a9898ef1",
+      "url": "dist/goToDefinitionAtPosition-QROXXDE7.css",
+    },
+    {
+      "revision": "825b9bc94ff5f2dd41bb7883fac6b052",
+      "url": "dist/gotoErrorWidget-U3VUGX7B.css",
+    },
+    {
+      "revision": "253d42277fbe882ded655b4b418b70c8",
+      "url": "dist/hover-YG2H2PSU.css",
+    },
+    {
+      "revision": "5fdde43894132750b581f99db9ea59cf",
+      "url": "dist/iconlabel-RBCSBDZE.css",
+    },
+    {
+      "revision": "b6abcb0677fccff6b5f70984454d3432",
+      "url": "dist/indentGuides-SZ37W43C.css",
+    },
+    {
+      "revision": "ae9bd1915c4bc307af43b7a508730bda",
+      "url": "dist/inputBox-QYGAZVDT.css",
+    },
+    {
+      "revision": "fa7b64fdbfbd6e4198911c2e0454c5f9",
+      "url": "dist/inspectTokens-XUKSDXSD.css",
+    },
+    {
+      "revision": "1b2f0d31d52627447cc58f2f08f7f71d",
+      "url": "dist/iPadShowKeyboard-7BOA7JKG.css",
+    },
+    {
+      "revision": "9f28cf61696866d96e5368eaa95fd6a1",
+      "url": "dist/keybindingLabel-3YW2L7JW.css",
+    },
+    {
+      "revision": "6c82cbefe200200c49da7c6e2a6661ce",
+      "url": "dist/lightBulbWidget-UIVLCPAT.css",
+    },
+    {
+      "revision": "454b3347c64d515643cde810051f8f31",
+      "url": "dist/lineNumbers-NFSLS3GF.css",
+    },
+    {
+      "revision": "507827d00ffaf68aaa23fb0a9a1fd827",
+      "url": "dist/linesDecorations-AH2OP76R.css",
+    },
+    {
+      "revision": "6aa0767b9df36e5fc4e412c6c44d8767",
+      "url": "dist/links-RHFHA572.css",
+    },
+    {
+      "revision": "7d557efc813c5a7a894dc0091299e047",
+      "url": "dist/list-XQBT5VIW.css",
+    },
+    {
+      "revision": "ed32459d79e3b78c3b8b4d9b64401233",
+      "url": "dist/marginDecorations-QOV3DOXG.css",
+    },
+    {
+      "revision": "88a5c546a8d3e89d70b118e3bdcff220",
+      "url": "dist/menuEntryActionViewItem-XBVBO6RQ.css",
+    },
+    {
+      "revision": "db002a44fae5305dcdcf6ea6cd82ae69",
+      "url": "dist/messageController-QAHOTMRL.css",
+    },
+    {
+      "revision": "27933fd1c43603cd68276d16f541fa6f",
+      "url": "dist/minimap-4TQ727V7.css",
+    },
+    {
+      "revision": "c919c6fbfc30ad2c6d6ae408010288a4",
+      "url": "dist/mouseCursor-WHL437V3.css",
+    },
+    {
+      "revision": "d4f6cf410a65de10398e7c31ac0fc7ee",
+      "url": "dist/overlayWidgets-SGB272XQ.css",
+    },
+    {
+      "revision": "81ee2cdb58fd78370e55f5f892b77ddd",
+      "url": "dist/parameterHints-L2KBT6VA.css",
+    },
+    {
+      "revision": "057d71b8ed2c39afc96849735c65f1d8",
+      "url": "dist/peekViewWidget-VG5A4WCV.css",
+    },
+    {
+      "revision": "59e6dfaea805fae9ef02fc70f42bf5c0",
+      "url": "dist/progressbar-WCSM436J.css",
+    },
+    {
+      "revision": "6b99c9b75cf58f7b66aac803f9a4897e",
+      "url": "dist/quickInput-3YQR5BLJ.css",
+    },
+    {
+      "revision": "f95d8cc894db4c258a907d1d8f2b5520",
+      "url": "dist/referencesWidget-ATHXGA5Q.css",
+    },
+    {
+      "revision": "c1036fd90abc16247381572beee3e25b",
+      "url": "dist/renameInputField-5V5QXGLP.css",
+    },
+    {
+      "revision": "608ade6bc852071efd1c3319ec816390",
+      "url": "dist/rulers-OFFLPBAH.css",
+    },
+    {
+      "revision": "d475cdbf7be7bdcbc5026a050096d49e",
+      "url": "dist/sash-C7DXAFEA.css",
+    },
+    {
+      "revision": "5f3dd0868f57ba62b1b78420d5f4a5a4",
+      "url": "dist/scrollbars-RH7ZZDZZ.css",
+    },
+    {
+      "revision": "92b2b575363ade40790d8020b4beb4ce",
+      "url": "dist/scrollDecoration-LLU2DLBR.css",
+    },
+    {
+      "revision": "ffc3077875aa839c4b30b522e770d7ce",
+      "url": "dist/selections-EU46GZZY.css",
+    },
+    {
+      "revision": "01c70c3314eb8a568fe1a8a0112d2d8f",
+      "url": "dist/snippetSession-3I77VDXA.css",
+    },
+    {
+      "revision": "8f870a48ffd23f8a7c419d25e6ad1fdf",
+      "url": "dist/splitview-JPBMP6YN.css",
+    },
+    {
+      "revision": "c14eacd368cbfbb79778cd7b53c05cd7",
+      "url": "dist/standalone-tokens-7U7MAPRC.css",
+    },
+    {
+      "revision": "8d6cb4231f2911da7e4ecdda104ecf71",
+      "url": "dist/standaloneQuickInput-SEXAMX5Y.css",
+    },
+    {
+      "revision": "de09447e8ab52cdd52977c9405161f5d",
       "url": "dist/starter.mjs",
     },
     {
-      "revision": "1470c84d18df22bb3621017afa0ed2e5",
+      "revision": "4760bc86fc4737a0525c4017d158e716",
+      "url": "dist/suggest-KH4WGZVM.css",
+    },
+    {
+      "revision": "b19c73ace5a1a28d37a38091a824a1be",
+      "url": "dist/table-K4BG6PNE.css",
+    },
+    {
+      "revision": "1552186dd6981433b016bf1f6009d05f",
+      "url": "dist/textAreaHandler-XNYHMNVS.css",
+    },
+    {
+      "revision": "14abc09f2023493c8c7780c32584f5fd",
+      "url": "dist/tree-CUENM644.css",
+    },
+    {
+      "revision": "70bc882954db5456c03d8b302c394463",
+      "url": "dist/unicodeHighlighter-W3I6EK5H.css",
+    },
+    {
+      "revision": "a9b32c47793a137143af574b538d2044",
+      "url": "dist/viewCursors-FFTIC4OU.css",
+    },
+    {
+      "revision": "c0e7ee4583a806d7f558b3227126bcae",
+      "url": "dist/viewLines-HXHUJLXB.css",
+    },
+    {
+      "revision": "7261d04d181c02ce6cd1b5856303fc61",
       "url": "dist/workers/js/appStarter.js",
     },
     {
-      "revision": "5b94d87f55d1fb2c0972fa997f0f0f86",
+      "revision": "ac8f5940d475567ef8a68aa2d06a00ba",
       "url": "dist/workers/monaco-editor/esm/vs/editor/editor.worker.js",
     },
     {
-      "revision": "f145d723e741d4d8d4ea57e5b09fcb40",
+      "revision": "f188a5e8d8f119d71533ee5fe790f9ee",
       "url":
         "dist/workers/monaco-editor/esm/vs/language/typescript/ts.worker.js",
+    },
+    {
+      "revision": "bd3ee47e04fde76fbf3113d6a2b0d05e",
+      "url": "dist/zoneWidget-S5A6TWI5.css",
     },
     {
       "revision": "bd7afef2da12f2e71a35302f6faa1115",
@@ -919,7 +1199,7 @@ This is generally NOT safe. Learn more at https://bit.ly/wb-precache`;
       "revision": "babff72d0edfed8758754b1e36b8e0cb",
       "url": "hydrateRoot.html",
     },
-    { "revision": "8f064d9c8fb89dcdaf90cc50e8b2f67a", "url": "importmap.json" },
+    { "revision": "c109d03db301c451e03d26e630e6a1c5", "url": "importmap.json" },
     {
       "revision": "0688f6760164c8d5f9a1f48a33d1207e",
       "url": "importScript.mjs",
@@ -930,12 +1210,180 @@ This is generally NOT safe. Learn more at https://bit.ly/wb-precache`;
     { "revision": "2651f864dacad7cdc0b4e20133be55a1", "url": "test.mjs" },
     { "revision": "c6fdf2a908f7ea613ea537a2666f6fb5", "url": "uidV4.mjs" },
     {
-      "revision": "b116971952ec839892c4ba47144591cf",
+      "revision": "f2c79b306e583e148517f2e830e1ea63",
+      "url": "vendor/monaco/accessibilityHelp-PG6TOI2S.css",
+    },
+    {
+      "revision": "a28c0360a648f2475a44245fe28fc289",
+      "url": "vendor/monaco/actionbar-L4NYGCZP.css",
+    },
+    {
+      "revision": "9fbc4af260eca56689c737437a719980",
+      "url": "vendor/monaco/aria-5EMUABRE.css",
+    },
+    {
+      "revision": "962ec34010ec5168f2d1f02f7d20d492",
+      "url": "vendor/monaco/button-XDT6WTH6.css",
+    },
+    {
+      "revision": "780125b4d61dd71d9c3185d9e4119b14",
+      "url": "vendor/monaco/codicon-modifiers-KSITNNB5.css",
+    },
+    {
+      "revision": "521ceb853faf881b2520208c5ce4b897",
+      "url": "vendor/monaco/codicon-ZKNVO6Q5.css",
+    },
+    {
+      "revision": "edca5b2a681b2a021ee80c1a9f9f5a6e",
+      "url": "vendor/monaco/contextMenuHandler-TFWPN63J.css",
+    },
+    {
+      "revision": "b2c5cede00fed2f7e88b9f5cba727024",
+      "url": "vendor/monaco/contextview-VDR65SGN.css",
+    },
+    {
+      "revision": "db9f8470840dc8f8617a778b01f45c71",
+      "url": "vendor/monaco/countBadge-UFWPMAE4.css",
+    },
+    {
+      "revision": "6f536abc091fbc1453f61240ed1b8b7a",
+      "url": "vendor/monaco/currentLineHighlight-3ZTXY3HX.css",
+    },
+    {
+      "revision": "9ba48dc8163943d38fe163e11fc8c563",
+      "url": "vendor/monaco/decorations-N3E4XSXU.css",
+    },
+    {
+      "revision": "e06bbbc38a7f72ca8d69dae58ed014ca",
+      "url": "vendor/monaco/diffEditor-EWA5ZLSP.css",
+    },
+    {
+      "revision": "f55621d040a82960789312c829a614cd",
+      "url": "vendor/monaco/diffReview-6SDZZL6K.css",
+    },
+    {
+      "revision": "77e5f697db3114f0f2f0c2353cd1b734",
+      "url": "vendor/monaco/editor-CIPHAZHB.css",
+    },
+    {
+      "revision": "0c820b0751ce5fd5c8bb4ec7d3f87054",
+      "url": "vendor/monaco/glyphMargin-IKUUJQ7W.css",
+    },
+    {
+      "revision": "5fdde43894132750b581f99db9ea59cf",
+      "url": "vendor/monaco/iconlabel-RBCSBDZE.css",
+    },
+    {
+      "revision": "b6abcb0677fccff6b5f70984454d3432",
+      "url": "vendor/monaco/indentGuides-SZ37W43C.css",
+    },
+    {
+      "revision": "ae9bd1915c4bc307af43b7a508730bda",
+      "url": "vendor/monaco/inputBox-QYGAZVDT.css",
+    },
+    {
+      "revision": "fa7b64fdbfbd6e4198911c2e0454c5f9",
+      "url": "vendor/monaco/inspectTokens-XUKSDXSD.css",
+    },
+    {
+      "revision": "9f28cf61696866d96e5368eaa95fd6a1",
+      "url": "vendor/monaco/keybindingLabel-3YW2L7JW.css",
+    },
+    {
+      "revision": "454b3347c64d515643cde810051f8f31",
+      "url": "vendor/monaco/lineNumbers-NFSLS3GF.css",
+    },
+    {
+      "revision": "507827d00ffaf68aaa23fb0a9a1fd827",
+      "url": "vendor/monaco/linesDecorations-AH2OP76R.css",
+    },
+    {
+      "revision": "7d557efc813c5a7a894dc0091299e047",
+      "url": "vendor/monaco/list-XQBT5VIW.css",
+    },
+    {
+      "revision": "ed32459d79e3b78c3b8b4d9b64401233",
+      "url": "vendor/monaco/marginDecorations-QOV3DOXG.css",
+    },
+    {
+      "revision": "27933fd1c43603cd68276d16f541fa6f",
+      "url": "vendor/monaco/minimap-4TQ727V7.css",
+    },
+    {
+      "revision": "94d7999895876e1cf9065b3b4b94de86",
       "url": "vendor/monaco/monacoTs.js",
     },
-    { "revision": "a6a9f1ed7c485a3bacc0c383143e910a", "url": "vendor/mui.mjs" },
     {
-      "revision": "74cd7e9224e0bf3ce10179f5216b54ae",
+      "revision": "c919c6fbfc30ad2c6d6ae408010288a4",
+      "url": "vendor/monaco/mouseCursor-WHL437V3.css",
+    },
+    {
+      "revision": "d4f6cf410a65de10398e7c31ac0fc7ee",
+      "url": "vendor/monaco/overlayWidgets-SGB272XQ.css",
+    },
+    {
+      "revision": "59e6dfaea805fae9ef02fc70f42bf5c0",
+      "url": "vendor/monaco/progressbar-WCSM436J.css",
+    },
+    {
+      "revision": "6b99c9b75cf58f7b66aac803f9a4897e",
+      "url": "vendor/monaco/quickInput-3YQR5BLJ.css",
+    },
+    {
+      "revision": "608ade6bc852071efd1c3319ec816390",
+      "url": "vendor/monaco/rulers-OFFLPBAH.css",
+    },
+    {
+      "revision": "d475cdbf7be7bdcbc5026a050096d49e",
+      "url": "vendor/monaco/sash-C7DXAFEA.css",
+    },
+    {
+      "revision": "5f3dd0868f57ba62b1b78420d5f4a5a4",
+      "url": "vendor/monaco/scrollbars-RH7ZZDZZ.css",
+    },
+    {
+      "revision": "92b2b575363ade40790d8020b4beb4ce",
+      "url": "vendor/monaco/scrollDecoration-LLU2DLBR.css",
+    },
+    {
+      "revision": "ffc3077875aa839c4b30b522e770d7ce",
+      "url": "vendor/monaco/selections-EU46GZZY.css",
+    },
+    {
+      "revision": "8f870a48ffd23f8a7c419d25e6ad1fdf",
+      "url": "vendor/monaco/splitview-JPBMP6YN.css",
+    },
+    {
+      "revision": "c14eacd368cbfbb79778cd7b53c05cd7",
+      "url": "vendor/monaco/standalone-tokens-7U7MAPRC.css",
+    },
+    {
+      "revision": "8d6cb4231f2911da7e4ecdda104ecf71",
+      "url": "vendor/monaco/standaloneQuickInput-SEXAMX5Y.css",
+    },
+    {
+      "revision": "b19c73ace5a1a28d37a38091a824a1be",
+      "url": "vendor/monaco/table-K4BG6PNE.css",
+    },
+    {
+      "revision": "1552186dd6981433b016bf1f6009d05f",
+      "url": "vendor/monaco/textAreaHandler-XNYHMNVS.css",
+    },
+    {
+      "revision": "14abc09f2023493c8c7780c32584f5fd",
+      "url": "vendor/monaco/tree-CUENM644.css",
+    },
+    {
+      "revision": "a9b32c47793a137143af574b538d2044",
+      "url": "vendor/monaco/viewCursors-FFTIC4OU.css",
+    },
+    {
+      "revision": "c0e7ee4583a806d7f558b3227126bcae",
+      "url": "vendor/monaco/viewLines-HXHUJLXB.css",
+    },
+    { "revision": "8fb0456decede05b425ba2f70653180f", "url": "vendor/mui.mjs" },
+    {
+      "revision": "722d3bbd9fafaf55423ccf806f818be5",
       "url": "vendor/renderToString.mjs",
     },
     {
