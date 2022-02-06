@@ -37,7 +37,7 @@
   "sideEffects": false,
   "scripts": {
     "clean": "rm -rf dist",
-    "build": "yarn build:framer-motion & yarn build:react & yarn build:emotion-react &  yarn build:react-dom ",
+    "build": "yarn build:framer-motion & yarn build:react & yarn build:emotion-react",
     "build:react": "yarn esbuild --bundle src/react.ts --format=esm --outfile=dist/react.mjs",
     "build:emotion-react": "yarn esbuild --bundle  src/emotion-react.ts  --external:react  --tree-shaking=true  --format=esm --outfile=dist/emotion-react.mjs",
     "build:framer-motion": "yarn esbuild --bundle src/framer-motion.mjs --format=esm --external:react --external:@emotion/is-prop-valid --outfile=dist/framer-motion.mjs",
