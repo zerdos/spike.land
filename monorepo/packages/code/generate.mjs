@@ -21,13 +21,13 @@ const generator = new Generator({
 
 // Install a new package into the import map
 
-// await generator.install("react-dom");
+await generator.install("react");
 
-await generator.install("react-dom@18");
+await generator.install("react-dom");
 
-await generator.install("react@18");
-await generator.install("preact");
-await generator.install("preact/compat");
+// await generator.install("react@18");
+// await generator.install("preact");
+// await generator.install("preact/compat");
 
 
 // await generator.install("react@18/jsix-runtime"); // await generator.install("react");
@@ -65,8 +65,7 @@ await generator.install("preact/compat");
 // await generator.install("react-transition-group");
 
 const importMap = { ...generator.getMap() };
-importMap.imports["framer-motion"] =
-  `https://unpkg.com/@spike.land/esm@${version}/dist/framer-motion.mjs`;
+importMap.imports["framer-motion"] = `https://unpkg.com/@spike.land/esm@${version}/dist/framer-motion.mjs`;
 
 // importMap.imports["textdiff-create"] =
 //   `https://unpkg.com/@spike.land/esm@${version}/dist/textdiff-create.mjs`;
