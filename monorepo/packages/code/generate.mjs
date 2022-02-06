@@ -75,7 +75,7 @@ importMap.imports["framer-motion"] = `https://unpkg.com/@spike.land/esm@${versio
 importMap.imports["react"] = 
   `https://unpkg.com/@spike.land/esm@${version}/dist/react.mjs`;
 importMap.imports["react-dom"] =
-  `https://unpkg.com/@spike.land/esm@${version}/dist/react-dom.mjs`;
+  `https://unpkg.com/@spike.land/esm@${version}/dist/react.mjs`;
   // importMap.imports["react-is"] =
   // `https://unpkg.com/@spike.land/esm@${version}/dist/react-is.mjs`;
 

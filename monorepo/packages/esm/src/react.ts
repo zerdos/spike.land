@@ -61,6 +61,17 @@ export const { useMemo } = react;
 
 export const { cloneElement } = react;
 
+const {render} = preact;
+
+export const createRoot= (container: Element)=>({
+  render: (App: FC)=>render(App, container)
+})
+export const  hydrateRoot = (container: Element, App: FC)=>hydrate(App,container)
+
+const defaultExport = {
+  createRoot, hydrateRoot, render
+};
+
 export default React;
 
 // export default React;

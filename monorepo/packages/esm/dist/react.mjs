@@ -811,6 +811,11 @@ var { Children } = react;
 var { lazy } = react;
 var { useMemo } = react;
 var { cloneElement } = react;
+var { render } = preact_module_exports;
+var createRoot = (container) => ({
+  render: (App) => render(App, container)
+});
+var hydrateRoot = (container, App) => hydrate(App, container);
 var react_default = React;
 export {
   Children,
@@ -823,8 +828,10 @@ export {
   createElement,
   createFactory,
   createRef,
+  createRoot,
   react_default as default,
   forwardRef,
+  hydrateRoot,
   isValidElement,
   lazy,
   memo,
