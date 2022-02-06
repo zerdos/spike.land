@@ -25,7 +25,7 @@
     "yarn": "1.22.17"
   },
   "scripts": {
-    "start": "yarn importmap && yarn re:build && yarn open && yarn serve",
+    "start": "yarn ws:yarn build && yarn open && yarn serve",
     "open": "open-cli https://localhost:8000/monorepo/packages/code/js/index.html",
     "clean": "yarn ws:yarn clean",
     "serve": "nodemon ./http2-server/http2-server.mjs",
