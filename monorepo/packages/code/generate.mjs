@@ -26,8 +26,8 @@ const generator = new Generator({
 await generator.install("react");
 
 // await generator.install("react@18");
-// await generator.install("preact");
-// await generator.install("preact/compat");
+await generator.install("preact");
+await generator.install("preact/compat");
 
 // await generator.install("react@18/jsix-runtime"); // await generator.install("react");
 //await generator.install("react-dom@18/server");
@@ -72,10 +72,9 @@ importMap.imports["framer-motion"] =
 
 // importMap.imports["textdiff-patch"] =
 //  `https://unpkg.com/@spike.land/esm@${version}/dist/textdiff-patch.mjs`;
-importMap.imports["react"] =
-  `https://unpkg.com/@spike.land/esm@${version}/dist/react.mjs`;
+importMap.imports["react"] = isDev?"https://localhost:8000/monorepo/packages/code/js/react.mjs":"https://spike.land/react.mjs" ;
 importMap.imports["react-dom"] =
-  `https://unpkg.com/@spike.land/esm@${version}/dist/react.mjs`;
+ isDev?"https://localhost:8000/monorepo/packages/code/js/react.mjs":"https://spike.land/react.mjs" ;
 
 // importMap.imports["react-is"] =
 // `https://unpkg.com/@spike.land/esm@${version}/dist/react-is.mjs`;

@@ -1,13 +1,16 @@
 {
   "imports": {
-    "react": "https://unpkg.com/@spike.land/esm@0.6.218/dist/react.mjs",
+    "preact": "https://ga.jspm.io/npm:preact@10.6.5/dist/preact.module.js",
+    "preact/compat": "https://ga.jspm.io/npm:preact@10.6.5/compat/dist/compat.module.js",
+    "react": "https://spike.land/react.mjs",
     "framer-motion": "https://unpkg.com/@spike.land/esm@0.6.218/dist/framer-motion.mjs",
-    "react-dom": "https://unpkg.com/@spike.land/esm@0.6.218/dist/react.mjs",
+    "react-dom": "https://spike.land/react.mjs",
     "@emotion/react": "https://unpkg.com/@spike.land/esm@0.6.218/dist/emotion-react.mjs"
   },
   "scopes": {
     "https://ga.jspm.io/": {
-      "object-assign": "https://ga.jspm.io/npm:object-assign@4.1.1/index.js"
+      "object-assign": "https://ga.jspm.io/npm:object-assign@4.1.1/index.js",
+      "preact/hooks": "https://ga.jspm.io/npm:preact@10.6.5/hooks/dist/hooks.module.js"
     }
   }
 }
