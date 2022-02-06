@@ -2,7 +2,6 @@ import { Mutex } from "async-mutex";
 import * as esbuild from "esbuild-wasm";
 import { wait } from "./wait";
 
-
 const init = esbuild.initialize({
   wasmURL: `https://unpkg.com/esbuild-wasm@${esbuild.version}/esbuild.wasm`,
 });
@@ -11,7 +10,6 @@ let initFinished = false;
 const mutex = new Mutex();
 
 export const transform = async (code: string, retry = 4): Promise<string> => {
-
   if (initFinished || await init) {
     initFinished = true;
   }

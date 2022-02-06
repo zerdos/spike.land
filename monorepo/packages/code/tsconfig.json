@@ -11,7 +11,7 @@
     "lib": [
       "DOM",
       "DOM.Iterable",
-       "ESNext",
+      "ESNext",
 
       "WebWorker.ImportScripts"
     ], /* Specify library files to be included in the compilation. */

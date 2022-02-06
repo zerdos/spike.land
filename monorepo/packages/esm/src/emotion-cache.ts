@@ -1,3 +1,3 @@
-import createCache, {EmotionCache} from "@emotion/cache"
-export {EmotionCache}
+import createCache, { EmotionCache } from "@emotion/cache";
+export { EmotionCache };
 export default createCache;

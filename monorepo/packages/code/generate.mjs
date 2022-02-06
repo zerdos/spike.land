@@ -2,8 +2,10 @@ import { clearCache, Generator } from "@jspm/generator";
 import packageJson from "@spike.land/esm/package.json" assert { type: "json" };
 // import { clearCache } from '@jspm/generator';
 clearCache();
-const env =  process.env.NODE_ENV === "production" ? "production" : "development";
-const isDev = env === 'development'
+const env = process.env.NODE_ENV === "production"
+  ? "production"
+  : "development";
+const isDev = env === "development";
 const { version } = packageJson;
 
 const generator = new Generator({
@@ -23,11 +25,9 @@ const generator = new Generator({
 
 await generator.install("react");
 
-
 // await generator.install("react@18");
 // await generator.install("preact");
 // await generator.install("preact/compat");
-
 
 // await generator.install("react@18/jsix-runtime"); // await generator.install("react");
 //await generator.install("react-dom@18/server");
@@ -64,20 +64,21 @@ await generator.install("react");
 // await generator.install("react-transition-group");
 
 const importMap = { ...generator.getMap() };
-importMap.imports["framer-motion"] = `https://unpkg.com/@spike.land/esm@${version}/dist/framer-motion.mjs`;
+importMap.imports["framer-motion"] =
+  `https://unpkg.com/@spike.land/esm@${version}/dist/framer-motion.mjs`;
 
 // importMap.imports["textdiff-create"] =
 //   `https://unpkg.com/@spike.land/esm@${version}/dist/textdiff-create.mjs`;
 
 // importMap.imports["textdiff-patch"] =
 //  `https://unpkg.com/@spike.land/esm@${version}/dist/textdiff-patch.mjs`;
-importMap.imports["react"] = 
+importMap.imports["react"] =
   `https://unpkg.com/@spike.land/esm@${version}/dist/react.mjs`;
-  importMap.imports["react-dom"] = 
+importMap.imports["react-dom"] =
   `https://unpkg.com/@spike.land/esm@${version}/dist/react.mjs`;
 
-  // importMap.imports["react-is"] =
-  // `https://unpkg.com/@spike.land/esm@${version}/dist/react-is.mjs`;
+// importMap.imports["react-is"] =
+// `https://unpkg.com/@spike.land/esm@${version}/dist/react-is.mjs`;
 
 // importMap.imports["react-is"] =
 //   "https://unpkg.com/@spike.land/esm@0.4.33/dist/react-is.mjs";

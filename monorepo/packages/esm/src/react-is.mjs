@@ -1,4 +1,3 @@
-
 const ReactIs = window.ReactIs;
 
 export const { ContextConsumer } = ReactIs;

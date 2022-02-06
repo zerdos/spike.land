@@ -1,26 +1,31 @@
 import * as preact from "preact";
-import {render} from "preact"
-import {render, useLayoutEffect as ulf} from "preact/compat"
+import { render } from "preact";
+import { render, useLayoutEffect as ulf } from "preact/compat";
 import * as preactCompat from "preact/compat";
 
+export { render };
 
-
-export  {render};
-
-export const createRoot= (container: Element)=>({
-  render: (App: FC)=>render(App, container)
-})
-export const  hydrateRoot = (container: Element, App: FC)=>hydrate(App,container)
-
-
-
-
+export const createRoot = (container: Element) => ({
+  render: (App: FC) => render(App, container),
+});
+export const hydrateRoot = (container: Element, App: FC) =>
+  hydrate(App, container);
 
 export const { useEffect } = preact;
-export const  useLayoutEffect = function() {if (globalThis.renderToString)  return ()=>{}; else return ulf(...arguments)};
+export const useLayoutEffect = function () {
+  if (globalThis.renderToString) return () => {};
+  else return ulf(...arguments);
+};
 
-
-const react = { createRoot, hydrateRoot, ...preact, ...preactCompat, useLayoutEffect, useEffect, render };
+const react = {
+  createRoot,
+  hydrateRoot,
+  ...preact,
+  ...preactCompat,
+  useLayoutEffect,
+  useEffect,
+  render,
+};
 export const React = react;
 
 // export { createContext}
@@ -54,7 +59,7 @@ export const { useDebugValue } = react as {
   useDebugValue: typeof React.useDebugValue;
 };
 
-export const { useState } = react 
+export const { useState } = react;
 export const { useId } = react;
 export const { useRef } = react;
 export const { useContext } = react;
@@ -77,9 +82,6 @@ export const { lazy } = react;
 export const { useMemo } = react;
 
 export const { cloneElement } = react;
-
-
-
 
 export default React;
 

@@ -12,8 +12,7 @@ const environment = process.env.NODE_ENV == "production"
 const isDevelopment = environment === "development";
 
 importMap.load(jsonData);
-const importMapPlugin = importMap.plugin()
-
+const importMapPlugin = importMap.plugin();
 
 let httpPlugin = {
   name: "http",
@@ -145,7 +144,6 @@ await esbuild.build({
 
 // let imports = {};
 // importData.map((d) => (Object.assign(imports, { [d]: jsonData.imports[d] })));
-
 
 // console.log(imports);
 
