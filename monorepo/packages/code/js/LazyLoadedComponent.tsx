@@ -1,4 +1,4 @@
-import { FC, lazy, Suspense, useEffect, useState } from "react";
+import React, { FC, lazy, Suspense, useEffect, useState } from "react";
 interface ILaztCom {
   name: string;
   html: string;

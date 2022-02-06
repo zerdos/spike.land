@@ -15,7 +15,6 @@ import { QRButton } from "./Qr";
 import { wait } from "./wait";
 import { LazySpikeLandComponent } from "./LazyLoadedComponent";
 
-/// <reference path="./mui.tsx" />
 import {
   Button as muiButton,
   Fab,
@@ -26,7 +25,7 @@ import {
   ToggleButton as muiToggleButton,
   ToggleButtonGroup as muiToggleButtonGroup,
   Tv,
-} from "./vendor/mui.mjs";
+} from "./mui";
 
 import type {
   Button as MuiButton,
@@ -376,7 +375,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
                       id="zbody"
                       key={session.i}
                       ref={zbody}
-                      css={css`q
+                      css={css`
                         height: 100%;
                       `}
                     >

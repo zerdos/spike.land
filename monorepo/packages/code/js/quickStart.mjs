@@ -115,7 +115,7 @@ async function runner(c, changes = null, session, counter) {
       }
 
       try {
-        const { getHtmlAndCss } = await import("./vendor/renderToString.mjs");
+        const { getHtmlAndCss } = await import("./renderToString");
 
         if (counter < session.i) {
           return;
