@@ -780,18 +780,18 @@ var compat_module_default = { useState: l2, useReducer: p2, useEffect: y2, useLa
 
 // src/react.ts
 var createRoot = (container) => ({
-  render: (App) => S(App, container)
+  render: (App) => B2(App, container)
 });
 var hydrateRoot = (container, App) => hydrate(App, container);
 var { useEffect } = preact_module_exports;
-var useLayoutEffect2 = function() {
+var useLayoutEffect = function() {
   if (globalThis.renderToString)
     return () => {
     };
   else
-    return (void 0)(...arguments);
+    return h2(...arguments);
 };
-var react = { createRoot, hydrateRoot, ...preact_module_exports, ...compat_module_exports, useLayoutEffect: useLayoutEffect2, useEffect, render: S };
+var react = { createRoot, hydrateRoot, ...preact_module_exports, ...compat_module_exports, useLayoutEffect, useEffect, render: B2 };
 var React = react;
 var { createContext } = react;
 var { useDebugValue } = react;
@@ -834,14 +834,14 @@ export {
   isValidElement,
   lazy,
   memo,
-  S as render,
+  B2 as render,
   useCallback,
   useContext,
   useDebugValue,
   useEffect,
   useId,
   useImperativeHandle,
-  useLayoutEffect2 as useLayoutEffect,
+  useLayoutEffect,
   useMemo,
   useReducer,
   useRef,

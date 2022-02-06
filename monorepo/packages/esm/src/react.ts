@@ -1,5 +1,6 @@
 import * as preact from "preact";
 import {render} from "preact"
+import {render, useLayoutEffect as ulf} from "preact/compat"
 import * as preactCompat from "preact/compat";
 
 
@@ -16,7 +17,7 @@ export const  hydrateRoot = (container: Element, App: FC)=>hydrate(App,container
 
 
 export const { useEffect } = preact;
-export const  useLayoutEffect = function() {if (globalThis.renderToString)  return ()=>{}; else return preact.useLayoutEffect(...arguments)};
+export const  useLayoutEffect = function() {if (globalThis.renderToString)  return ()=>{}; else return ulf(...arguments)};
 
 
 const react = { createRoot, hydrateRoot, ...preact, ...preactCompat, useLayoutEffect, useEffect, render };
