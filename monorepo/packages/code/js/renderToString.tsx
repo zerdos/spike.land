@@ -1,5 +1,6 @@
-import createCache from "@emotion/cache";
 import { CacheProvider } from "@emotion/react";
+// @ts-ignore /// cheating
+import { createCache } from "@emotion/react";
 
 import renderToString from "preact-render-to-string";
 

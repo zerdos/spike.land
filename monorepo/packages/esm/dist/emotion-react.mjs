@@ -1933,7 +1933,10 @@ var isJest;
 var globalContext;
 var globalKey;
 
-// src/emotion-react.mjs
+// src/emotion-cache.ts
+var emotion_cache_default = emotion_cache_browser_esm_default;
+
+// src/emotion-react.ts
 var { CacheProvider: CacheProvider2 } = emotion_react_browser_esm_exports;
 var { ClassNames: ClassNames2 } = emotion_react_browser_esm_exports;
 var { Global: Global2 } = emotion_react_browser_esm_exports;
@@ -1951,6 +1954,7 @@ export {
   Global2 as Global,
   ThemeContext2 as ThemeContext,
   ThemeProvider3 as ThemeProvider,
+  emotion_cache_default as createCache,
   css2 as css,
   jsx3 as jsx,
   keyframes3 as keyframes,

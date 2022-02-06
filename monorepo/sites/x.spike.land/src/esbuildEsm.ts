@@ -2,13 +2,6 @@ import { Mutex } from "async-mutex";
 import * as esbuild from "esbuild-wasm";
 import { wait } from "./wait";
 
-esbuild.version;
-
-function createWasmBlob(wasm: string) {
-  const blob = new Blob([wasm], { type: "application/wasm" });
-
-  return URL.createObjectURL(blob);
-}
 
 const init = esbuild.initialize({
   wasmURL: `https://unpkg.com/esbuild-wasm@${esbuild.version}/esbuild.wasm`,
@@ -18,7 +11,6 @@ let initFinished = false;
 const mutex = new Mutex();
 
 export const transform = async (code: string, retry = 4): Promise<string> => {
-  const startTime = performance.now();
 
   if (initFinished || await init) {
     initFinished = true;
@@ -39,8 +31,5 @@ export const transform = async (code: string, retry = 4): Promise<string> => {
     throw e;
   }
 
-  const endTime = performance.now();
-
-  console.log(`esbuildEsmTransform: took ${endTime - startTime} milliseconds`);
   return result.code;
 };

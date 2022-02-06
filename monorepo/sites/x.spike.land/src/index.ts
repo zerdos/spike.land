@@ -1,4 +1,4 @@
-// import { babelTran /sform } from "./babel";
+import { transform } from "./esbuildEsm";
 import { formatter } from "./prettier";
 export default {
   async fetch(request: Request, env: string) {
@@ -46,13 +46,13 @@ async function handleApiRequest(path: string[], request: Request, env: string) {
           },
         });
       }
-    case "babel":
+    case "esbuild":
       if (request.method === "POST") {
         const text = await request.text();
 
-        // const formatted = babelTransform(text);
+        const formatted = await transform(text);
 
-        return new Response(text, {
+        return new Response(formatted, {
           status: 200,
           headers: {
             "Access-Control-Allow-Origin": "*",
