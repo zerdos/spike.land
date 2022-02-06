@@ -1,6 +1,5 @@
 {
   "imports": {
-    "@emotion/cache": "https://ga.jspm.io/npm:@emotion/cache@11.7.1/dist/emotion-cache.browser.esm.js",
     "@emotion/react": "https://unpkg.com/@spike.land/esm@0.6.178/dist/emotion-react.mjs",
     "preact": "https://ga.jspm.io/npm:preact@10.6.5/dist/preact.module.js",
     "preact/compat": "https://ga.jspm.io/npm:preact@10.6.5/compat/dist/compat.module.js",
@@ -12,6 +11,7 @@
     "https://ga.jspm.io/": {
       "@babel/runtime/helpers/esm/extends": "https://ga.jspm.io/npm:@babel/runtime@7.17.0/helpers/esm/extends.js",
       "@babel/runtime/helpers/extends": "https://ga.jspm.io/npm:@babel/runtime@7.17.0/helpers/esm/extends.js",
+      "@emotion/cache": "https://ga.jspm.io/npm:@emotion/cache@11.7.1/dist/emotion-cache.browser.esm.js",
       "@emotion/hash": "https://ga.jspm.io/npm:@emotion/hash@0.8.0/dist/hash.browser.esm.js",
       "@emotion/memoize": "https://ga.jspm.io/npm:@emotion/memoize@0.7.5/dist/emotion-memoize.browser.esm.js",
       "@emotion/serialize": "https://ga.jspm.io/npm:@emotion/serialize@1.0.2/dist/emotion-serialize.browser.esm.js",
