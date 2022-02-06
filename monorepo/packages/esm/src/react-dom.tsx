@@ -1,4 +1,4 @@
-import React from 'preact'
+import * as React from 'preact'
 import {render, hydrate, Component} from "preact";
 import { FC } from "preact/compat";
 
