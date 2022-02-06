@@ -98,6 +98,94 @@ export { render };
 // export const { useMemo } = react;
 
 // export const { cloneElement } = react;
+export function createPortal(
+  vnode: preact.VNode,
+  container: Element
+): preact.VNode<any>;
+
+export function render(
+  vnode: preact.VNode<any>,
+  parent: Element,
+  callback?: () => void
+): Component | null;
+
+export function hydrate(
+  vnode: preact.VNode<any>,
+  parent: Element,
+  callback?: () => void
+): Component | null;
+
+export function unmountComponentAtNode(
+  container: Element | Document | ShadowRoot | DocumentFragment
+): boolean;
+
+export function createFactory(
+  type: preact.VNode<any>['type']
+): (
+  props?: any,
+  ...children: preact.ComponentChildren[]
+) => preact.VNode<any>;
+export function isValidElement(element: any): boolean;
+export function findDOMNode(component: preact.Component): Element | null;
+
+export abstract class PureComponent<P = {}, S = {}> extends preact.Component<
+  P,
+  S
+> {
+  isPureReactComponent: boolean;
+}
+
+export function memo<P = {}>(
+  component: preact.FunctionalComponent<P>,
+  comparer?: (prev: P, next: P) => boolean
+): preact.FunctionComponent<P>;
+export function memo<C extends preact.FunctionalComponent<any>>(
+  component: C,
+  comparer?: (
+    prev: preact.ComponentProps<C>,
+    next: preact.ComponentProps<C>
+  ) => boolean
+): C;
+
+export interface ForwardFn<P = {}, T = any> {
+  (props: P, ref: Ref<T>): preact.ComponentChild;
+  displayName?: string;
+}
+
+export function forwardRef<R, P = {}>(
+  fn: ForwardFn<P, R>
+): preact.FunctionalComponent<Omit<P, 'ref'> & { ref?: preact.Ref<R> }>;
+
+export function unstable_batchedUpdates(
+  callback: (arg?: any) => void,
+  arg?: any
+): void;
+
+export const Children: {
+  map<T extends preact.ComponentChild, R>(
+    children: T | T[],
+    fn: (child: T, i: number) => R
+  ): R[];
+  forEach<T extends preact.ComponentChild>(
+    children: T | T[],
+    fn: (child: T, i: number) => void
+  ): void;
+  count: (children: preact.ComponentChildren) => number;
+  only: (children: preact.ComponentChildren) => preact.ComponentChild;
+  toArray: (children: preact.ComponentChildren) => preact.VNode<{}>[];
+};
+
+// scheduler
+export const unstable_ImmediatePriority: number;
+export const unstable_UserBlockingPriority: number;
+export const unstable_NormalPriority: number;
+export const unstable_LowPriority: number;
+export const unstable_IdlePriority: number;
+export function unstable_runWithPriority(
+  priority: number,
+  callback: () => void
+): void;
+export const unstable_now: () => number;
 
 export default React;
 
