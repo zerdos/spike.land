@@ -1,6 +1,6 @@
 {
   "name": "@spike.land/esm",
-  "version": "0.6.209",
+  "version": "0.6.212",
   "description": "esm modules for packages with maintainers from the 2015",
   "files": [
     "**/*"
@@ -30,11 +30,11 @@
     "@emotion/utils": "^1.0.0",
     "@emotion/weak-memoize": "^0.2.5",
     "@types/react": "17.0.39",
+    "esbuild": "0.14.19",
     "framer-motion": "6.2.4",
     "hoist-non-react-statics": "^3.3.2",
     "preact": "^10.6.5",
-    "react-is": "^17.0.2",
-    "esbuild": "0.14.19"
+    "react-is": "^17.0.2"
   },
   "publishConfig": {
     "access": "public"
