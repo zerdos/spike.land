@@ -39,9 +39,9 @@
     "clean": "rm -rf dist",
     "build": "yarn build:framer-motion & yarn build:react & yarn build:emotion-react",
     "build:react": "yarn esbuild --bundle src/react.ts --format=esm --outfile=dist/react.mjs",
-    "build:emotion-react": "yarn esbuild --bundle  src/emotion-react.ts  --external:react  --format=esm --outfile=dist/emotion-react.mjs",
+    "build:emotion-react": "yarn esbuild --bundle  src/emotion-react.ts  --external:react --target --format=esm --outfile=dist/emotion-react.mjs",
     "build:framer-motion": "yarn esbuild --bundle src/framer-motion.mjs --format=esm --external:react --external:@emotion/is-prop-valid --outfile=dist/framer-motion.mjs"
   },
   "private": false,
-  "gitHead": "f4913f9918da7ff533b63f66efd8bcbdf0f3afc7"
+  "gitHead": "b0d8028d205cc1d050d88daedbd29b6f4dc7d4f0"
 }
