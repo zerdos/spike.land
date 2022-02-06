@@ -77,6 +77,9 @@ importMap.imports["react"] =
   `https://unpkg.com/@spike.land/esm@${version}/dist/react.mjs`;
 importMap.imports["react-dom"] =
   `https://unpkg.com/@spike.land/esm@${version}/dist/react-dom.mjs`;
+  importMap.imports["react-is"] =
+  `https://unpkg.com/@spike.land/esm@${version}/dist/react-is.mjs`;
+
 // importMap.imports["react-is"] =
 //   "https://unpkg.com/@spike.land/esm@0.4.33/dist/react-is.mjs";
 
