@@ -23,6 +23,7 @@ export import useMemo = _compat.useMemo;
 export import useReducer = _compat.useReducer;
 export import useRef = _compat.useRef;
 export import useState = _compat.useState;
+export import forwardRef = _compat.forwardRef;
 
 // Preact Defaults
 // export import Component = preact.Component;
