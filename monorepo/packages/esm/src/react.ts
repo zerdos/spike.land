@@ -1,9 +1,10 @@
 import * as preact from "preact";
+import {render} from "preact"
 import * as preactCompat from "preact/compat";
 
 
 
-export const {render} = preact;
+export  {render};
 
 export const createRoot= (container: Element)=>({
   render: (App: FC)=>render(App, container)
@@ -11,16 +12,14 @@ export const createRoot= (container: Element)=>({
 export const  hydrateRoot = (container: Element, App: FC)=>hydrate(App,container)
 
 
-const defaultExport = {
-  render
-};
+
 
 
 export const { useEffect } = preact;
 export const  useLayoutEffect = function() {if (globalThis.renderToString)  return ()=>{}; else return preact.useLayoutEffect(...arguments)};
 
 
-const react = { createRoot, hydrateRoot, render, ...preact, ...preactCompat, useLayoutEffect, useEffect };
+const react = { createRoot, hydrateRoot, ...preact, ...preactCompat, useLayoutEffect, useEffect, render };
 export const React = react;
 
 // export { createContext}

@@ -779,9 +779,8 @@ var fn = d;
 var compat_module_default = { useState: l2, useReducer: p2, useEffect: y2, useLayoutEffect: h2, useRef: s2, useImperativeHandle: _2, useMemo: d2, useCallback: A2, useContext: F, useDebugValue: T2, version: "17.0.2", Children: k3, render: B2, hydrate: $2, unmountComponentAtNode: un, createPortal: W, createElement: v, createContext: D, createFactory: tn, cloneElement: rn, createRef: p, Fragment: d, isValidElement: en, findDOMNode: on, Component: _, PureComponent: E, memo: g3, forwardRef: x3, flushSync: cn, unstable_batchedUpdates: ln, StrictMode: d, Suspense: L2, SuspenseList: M2, lazy: F2, __SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED: X };
 
 // src/react.ts
-var { render } = preact_module_exports;
 var createRoot = (container) => ({
-  render: (App) => render(App, container)
+  render: (App) => S(App, container)
 });
 var hydrateRoot = (container, App) => hydrate(App, container);
 var { useEffect } = preact_module_exports;
@@ -792,7 +791,7 @@ var useLayoutEffect2 = function() {
   else
     return (void 0)(...arguments);
 };
-var react = { createRoot, hydrateRoot, render, ...preact_module_exports, ...compat_module_exports, useLayoutEffect: useLayoutEffect2, useEffect };
+var react = { createRoot, hydrateRoot, ...preact_module_exports, ...compat_module_exports, useLayoutEffect: useLayoutEffect2, useEffect, render: S };
 var React = react;
 var { createContext } = react;
 var { useDebugValue } = react;
@@ -835,7 +834,7 @@ export {
   isValidElement,
   lazy,
   memo,
-  render,
+  S as render,
   useCallback,
   useContext,
   useDebugValue,
