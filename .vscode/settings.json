@@ -36,5 +36,12 @@
     "shadowroot",
     "stunprotocol"
   ],
+  "files.watcherExclude": {
+    "**/.git/objects/**": true,
+    "**/.git/subtree-cache/**": true,
+    "**/node_modules/*/**": true,
+    "**/.hg/store/**": true
+  },
+  "typescript.tsserver.experimental.enableProjectDiagnostics": true,
   "deno.enable": false
 }
