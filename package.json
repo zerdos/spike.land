@@ -38,7 +38,8 @@
     "build-and-push": "yarn importmap && yarn re:build && yarn ws:yarn push:prod",
     "re:build": "yarn ws:yarn re:build",
     "build:all": "yarn ws:yarn re:build",
-    "build": "yarn ws:yarn build",
+  
+    "build:prod": "NODE_ENV=production yarn ws:yarn build",
     "docker:build": "yarn ws:yarn docker:build",
     "docker:push": "yarn ws:yarn docker:push",
     "postinstall": "cd monorepo && yarn",
