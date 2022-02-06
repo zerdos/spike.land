@@ -1,6 +1,9 @@
 import { join } from "./ws.mjs";
-import { render } from "preact";
+import React from "react";
+import { render } from "react-dom";
+import { jsx } from "@emotion/react";
 
+window.React = React;
 export const run = async (injectedRoom) => {
   const path = location.pathname.split("/");
   window.aniStart = Date.now();
@@ -115,7 +118,7 @@ export const run = async (injectedRoom) => {
       // document.body.appendChild(container);
 
       let container = document.getElementById("zbody");
-      render(App, container);
+      render(jsx(App), container);
 
       if (!container) {
         const respS = await fetch(

@@ -237,16 +237,16 @@ export const join = async (room, user, delta) => {
   startTime = Date.now();
 
   ws.addEventListener("open", () => {
-    if (delta) {
-      if (delta !== deltaSent) {
-        deltaSent = delta;
-        ws.send(JSON.stringify({
-          type: "delta",
-          delta,
-        }));
-      }
-      return;
-    }
+    // if (delta) {
+    //   if (delta !== deltaSent) {
+    //     deltaSent = delta;
+    //     ws.send(JSON.stringify({
+    //       type: "delta",
+    //       delta,
+    //     }));
+    //   }
+    //   return;
+    // }
     if (intervalHandler) {
       clearInterval(intervalHandler);
     } else {
