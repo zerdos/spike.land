@@ -429,7 +429,7 @@ export const startMonaco = async (
   })();
 
   // return modules;
-  return { editor, monaco };
+  return { editor, monaco: { ...monaco } };
 };
 
 // modules.monacoTs.languages.typescript.typescriptDefaults.setCompilerOptions({
