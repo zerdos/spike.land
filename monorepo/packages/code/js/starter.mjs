@@ -28,7 +28,7 @@ export const run = async (injectedRoom) => {
     // const applyDelta = (await import("textdiff-patch")).default;
 
     const { jsx } = await import("@emotion/react");
-    const { hydrateRoot } = await import("react-dom");
+    const { hydrateRoot } = React;
     const container = document.querySelector("#zbody");
 
     window.aniStart = Date.now();
@@ -211,7 +211,7 @@ export const run = async (injectedRoom) => {
 
         if (!container) throw new Error();
 
-        const { hydrateRoot } = await import("react-dom");
+        const { hydrateRoot } = React;
 
         hydrateRoot(container, App);
       }

@@ -132,7 +132,7 @@ ${JSON.stringify({ imports: { ...importmapJson.imports, app: "./app.js" } })}
 <script type="module-shim">
   import App from 'app';
   import {jsx} from "@emotion/react"
-  import {createRoot} from "react-dom"
+  import {createRoot} from "react
 
   const root = createRoot(document.getElementById('zbody'))
   root.render(jsx(App));

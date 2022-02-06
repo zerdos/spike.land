@@ -286,17 +286,17 @@ export const startMonaco = async (
       {
         name: "react",
         url: "https://unpkg.com/@types/react@17.0.39/index.d.ts",
-        depend: ["global", "csstype", "react-dom", "prop-types"],
+        depend: ["global", "csstype", "prop-types"],
       },
       {
         name: "react/jsx-runtime",
         url: "https://unpkg.com/@types/react@17.0.39/jsx-runtime.d.ts",
-        depend: ["global", "csstype", "react-dom", "prop-types"],
+        depend: ["global", "csstype", "prop-types"],
       },
       {
         name: "react/jsx-dev-runtime",
         url: "https://unpkg.com/@types/react@17.0.39/jsx-dev-runtime.d.ts",
-        depend: ["global", "csstype", "react-dom", "prop-types"],
+        depend: ["global", "csstype", "prop-types"],
       },
       {
         name: "react-exp",
@@ -311,11 +311,6 @@ export const startMonaco = async (
       {
         name: "prop-types",
         url: "https://unpkg.com/@types/prop-types@15.7.4/index.d.ts",
-        depend: [],
-      },
-      {
-        name: "react-dom",
-        url: "https://unpkg.com/@types/react-dom@17.0.11/index.d.ts",
         depend: [],
       },
       {

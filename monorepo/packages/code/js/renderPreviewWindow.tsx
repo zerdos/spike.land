@@ -29,8 +29,8 @@ export const renderPreviewWindow = async (
   // const {html} = getHtmlAndCss( <Element></Element> as any );
 
   // target  .innerHTML = html;
-
-  const { render } = await import("react-dom");
+  //@ts-ignore
+  const { render } = React;
 
   // Target  .innerHTML = html;
 
