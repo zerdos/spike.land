@@ -1,25 +1,4 @@
-var __defProp = Object.defineProperty;
-var __export = (target, all) => {
-  for (var name in all)
-    __defProp(target, name, { get: all[name], enumerable: true });
-};
-
 // ../../node_modules/preact/dist/preact.module.js
-var preact_module_exports = {};
-__export(preact_module_exports, {
-  Component: () => _,
-  Fragment: () => d,
-  cloneElement: () => B,
-  createContext: () => D,
-  createElement: () => v,
-  createRef: () => p,
-  h: () => v,
-  hydrate: () => q,
-  isValidElement: () => i,
-  options: () => l,
-  render: () => S,
-  toChildArray: () => A
-});
 var n;
 var l;
 var u;
@@ -94,7 +73,7 @@ function g() {
     });
 }
 function w(n2, l3, u3, i3, t3, r3, o3, f3, s3, a3) {
-  var h3, v3, p3, _3, b3, m3, g4, w4 = i3 && i3.__k || c, A4 = w4.length;
+  var h3, v3, p3, _3, b3, m3, g3, w4 = i3 && i3.__k || c, A4 = w4.length;
   for (u3.__k = [], h3 = 0; h3 < l3.length; h3++)
     if ((_3 = u3.__k[h3] = (_3 = l3[h3]) == null || typeof _3 == "boolean" ? null : typeof _3 == "string" || typeof _3 == "number" || typeof _3 == "bigint" ? y(null, _3, null, null, _3) : Array.isArray(_3) ? y(d, { children: _3 }, null, null, null) : _3.__b > 0 ? y(_3.type, _3.props, _3.key, null, _3.__v) : _3) != null) {
       if (_3.__ = u3, _3.__b = u3.__b + 1, (p3 = w4[h3]) === null || p3 && _3.key == p3.key && _3.type === p3.type)
@@ -107,13 +86,13 @@ function w(n2, l3, u3, i3, t3, r3, o3, f3, s3, a3) {
           }
           p3 = null;
         }
-      j(n2, _3, p3 = p3 || e, t3, r3, o3, f3, s3, a3), b3 = _3.__e, (v3 = _3.ref) && p3.ref != v3 && (g4 || (g4 = []), p3.ref && g4.push(p3.ref, null, _3), g4.push(v3, _3.__c || b3, _3)), b3 != null ? (m3 == null && (m3 = b3), typeof _3.type == "function" && _3.__k === p3.__k ? _3.__d = s3 = x(_3, s3, n2) : s3 = P(n2, _3, p3, w4, b3, s3), typeof u3.type == "function" && (u3.__d = s3)) : s3 && p3.__e == s3 && s3.parentNode != n2 && (s3 = k(p3));
+      j(n2, _3, p3 = p3 || e, t3, r3, o3, f3, s3, a3), b3 = _3.__e, (v3 = _3.ref) && p3.ref != v3 && (g3 || (g3 = []), p3.ref && g3.push(p3.ref, null, _3), g3.push(v3, _3.__c || b3, _3)), b3 != null ? (m3 == null && (m3 = b3), typeof _3.type == "function" && _3.__k === p3.__k ? _3.__d = s3 = x(_3, s3, n2) : s3 = P(n2, _3, p3, w4, b3, s3), typeof u3.type == "function" && (u3.__d = s3)) : s3 && p3.__e == s3 && s3.parentNode != n2 && (s3 = k(p3));
     }
   for (u3.__e = m3, h3 = A4; h3--; )
     w4[h3] != null && (typeof u3.type == "function" && w4[h3].__e != null && w4[h3].__e == u3.__d && (u3.__d = k(i3, h3 + 1)), N(w4[h3], w4[h3]));
-  if (g4)
-    for (h3 = 0; h3 < g4.length; h3++)
-      M(g4[h3], g4[++h3], g4[++h3]);
+  if (g3)
+    for (h3 = 0; h3 < g3.length; h3++)
+      M(g3[h3], g3[++h3], g3[++h3]);
 }
 function x(n2, l3, u3) {
   for (var i3, t3 = n2.__k, r3 = 0; t3 && r3 < t3.length; r3++)
@@ -186,27 +165,27 @@ function T(n2) {
   this.l[n2.type + true](l.event ? l.event(n2) : n2);
 }
 function j(n2, u3, i3, t3, r3, o3, f3, e3, c3) {
-  var s3, h3, v3, y3, p3, k4, b3, m3, g4, x4, A4, P3 = u3.type;
+  var s3, h3, v3, y3, p3, k3, b3, m3, g3, x3, A4, P3 = u3.type;
   if (u3.constructor !== void 0)
     return null;
   i3.__h != null && (c3 = i3.__h, e3 = u3.__e = i3.__e, u3.__h = null, o3 = [e3]), (s3 = l.__b) && s3(u3);
   try {
     n:
       if (typeof P3 == "function") {
-        if (m3 = u3.props, g4 = (s3 = P3.contextType) && t3[s3.__c], x4 = s3 ? g4 ? g4.props.value : s3.__ : t3, i3.__c ? b3 = (h3 = u3.__c = i3.__c).__ = h3.__E : ("prototype" in P3 && P3.prototype.render ? u3.__c = h3 = new P3(m3, x4) : (u3.__c = h3 = new _(m3, x4), h3.constructor = P3, h3.render = O), g4 && g4.sub(h3), h3.props = m3, h3.state || (h3.state = {}), h3.context = x4, h3.__n = t3, v3 = h3.__d = true, h3.__h = []), h3.__s == null && (h3.__s = h3.state), P3.getDerivedStateFromProps != null && (h3.__s == h3.state && (h3.__s = a({}, h3.__s)), a(h3.__s, P3.getDerivedStateFromProps(m3, h3.__s))), y3 = h3.props, p3 = h3.state, v3)
+        if (m3 = u3.props, g3 = (s3 = P3.contextType) && t3[s3.__c], x3 = s3 ? g3 ? g3.props.value : s3.__ : t3, i3.__c ? b3 = (h3 = u3.__c = i3.__c).__ = h3.__E : ("prototype" in P3 && P3.prototype.render ? u3.__c = h3 = new P3(m3, x3) : (u3.__c = h3 = new _(m3, x3), h3.constructor = P3, h3.render = O), g3 && g3.sub(h3), h3.props = m3, h3.state || (h3.state = {}), h3.context = x3, h3.__n = t3, v3 = h3.__d = true, h3.__h = []), h3.__s == null && (h3.__s = h3.state), P3.getDerivedStateFromProps != null && (h3.__s == h3.state && (h3.__s = a({}, h3.__s)), a(h3.__s, P3.getDerivedStateFromProps(m3, h3.__s))), y3 = h3.props, p3 = h3.state, v3)
           P3.getDerivedStateFromProps == null && h3.componentWillMount != null && h3.componentWillMount(), h3.componentDidMount != null && h3.__h.push(h3.componentDidMount);
         else {
-          if (P3.getDerivedStateFromProps == null && m3 !== y3 && h3.componentWillReceiveProps != null && h3.componentWillReceiveProps(m3, x4), !h3.__e && h3.shouldComponentUpdate != null && h3.shouldComponentUpdate(m3, h3.__s, x4) === false || u3.__v === i3.__v) {
+          if (P3.getDerivedStateFromProps == null && m3 !== y3 && h3.componentWillReceiveProps != null && h3.componentWillReceiveProps(m3, x3), !h3.__e && h3.shouldComponentUpdate != null && h3.shouldComponentUpdate(m3, h3.__s, x3) === false || u3.__v === i3.__v) {
             h3.props = m3, h3.state = h3.__s, u3.__v !== i3.__v && (h3.__d = false), h3.__v = u3, u3.__e = i3.__e, u3.__k = i3.__k, u3.__k.forEach(function(n3) {
               n3 && (n3.__ = u3);
             }), h3.__h.length && f3.push(h3);
             break n;
           }
-          h3.componentWillUpdate != null && h3.componentWillUpdate(m3, h3.__s, x4), h3.componentDidUpdate != null && h3.__h.push(function() {
-            h3.componentDidUpdate(y3, p3, k4);
+          h3.componentWillUpdate != null && h3.componentWillUpdate(m3, h3.__s, x3), h3.componentDidUpdate != null && h3.__h.push(function() {
+            h3.componentDidUpdate(y3, p3, k3);
           });
         }
-        h3.context = x4, h3.props = m3, h3.state = h3.__s, (s3 = l.__r) && s3(u3), h3.__d = false, h3.__v = u3, h3.__P = n2, s3 = h3.render(h3.props, h3.state, h3.context), h3.state = h3.__s, h3.getChildContext != null && (t3 = a(a({}, t3), h3.getChildContext())), v3 || h3.getSnapshotBeforeUpdate == null || (k4 = h3.getSnapshotBeforeUpdate(y3, p3)), A4 = s3 != null && s3.type === d && s3.key == null ? s3.props.children : s3, w(n2, Array.isArray(A4) ? A4 : [A4], u3, i3, t3, r3, o3, f3, e3, c3), h3.base = u3.__e, u3.__h = null, h3.__h.length && f3.push(h3), b3 && (h3.__E = h3.__ = null), h3.__e = false;
+        h3.context = x3, h3.props = m3, h3.state = h3.__s, (s3 = l.__r) && s3(u3), h3.__d = false, h3.__v = u3, h3.__P = n2, s3 = h3.render(h3.props, h3.state, h3.context), h3.state = h3.__s, h3.getChildContext != null && (t3 = a(a({}, t3), h3.getChildContext())), v3 || h3.getSnapshotBeforeUpdate == null || (k3 = h3.getSnapshotBeforeUpdate(y3, p3)), A4 = s3 != null && s3.type === d && s3.key == null ? s3.props.children : s3, w(n2, Array.isArray(A4) ? A4 : [A4], u3, i3, t3, r3, o3, f3, e3, c3), h3.base = u3.__e, u3.__h = null, h3.__h.length && f3.push(h3), b3 && (h3.__E = h3.__ = null), h3.__e = false;
       } else
         o3 == null && u3.__v === i3.__v ? (u3.__k = i3.__k, u3.__e = i3.__e) : u3.__e = L(i3.__e, u3, i3, t3, r3, o3, f3, c3);
     (s3 = l.diffed) && s3(u3);
@@ -287,9 +266,6 @@ function S(u3, i3, t3) {
   var r3, o3, f3;
   l.__ && l.__(u3, i3), o3 = (r3 = typeof t3 == "function") ? null : t3 && t3.__k || i3.__k, f3 = [], j(i3, u3 = (!r3 && t3 || i3).__k = v(d, null, [u3]), o3 || e, e, i3.ownerSVGElement !== void 0, !r3 && t3 ? [t3] : o3 ? null : i3.firstChild ? n.call(i3.childNodes) : null, f3, !r3 && t3 ? t3 : o3 ? o3.__e : i3.firstChild, r3), z(f3, u3);
 }
-function q(n2, l3) {
-  S(n2, l3, q);
-}
 function B(l3, u3, i3) {
   var t3, r3, o3, f3 = a({}, l3.props);
   for (o3 in u3)
@@ -335,20 +311,6 @@ n = c.slice, l = { __e: function(n2, l3) {
 }, _.prototype.render = d, t = [], r = typeof Promise == "function" ? Promise.prototype.then.bind(Promise.resolve()) : setTimeout, g.__r = 0, f = 0;
 
 // ../../node_modules/preact/hooks/dist/hooks.module.js
-var hooks_module_exports = {};
-__export(hooks_module_exports, {
-  useCallback: () => A2,
-  useContext: () => F,
-  useDebugValue: () => T2,
-  useEffect: () => y2,
-  useErrorBoundary: () => q2,
-  useImperativeHandle: () => _2,
-  useLayoutEffect: () => h2,
-  useMemo: () => d2,
-  useReducer: () => p2,
-  useRef: () => s2,
-  useState: () => l2
-});
 var t2;
 var u2;
 var r2;
@@ -407,14 +369,6 @@ function F(n2) {
 }
 function T2(t3, u3) {
   l.useDebugValue && l.useDebugValue(u3 ? u3(t3) : t3);
-}
-function q2(n2) {
-  var r3 = m2(t2++, 10), o3 = l2();
-  return r3.__ = n2, u2.componentDidCatch || (u2.componentDidCatch = function(n3) {
-    r3.__ && r3.__(n3), o3[1](n3);
-  }), [o3[0], function() {
-    o3[1](void 0);
-  }];
 }
 function x2() {
   for (var t3; t3 = i2.shift(); )
@@ -482,46 +436,6 @@ function w2(n2, t3) {
 }
 
 // ../../node_modules/preact/compat/dist/compat.module.js
-var compat_module_exports = {};
-__export(compat_module_exports, {
-  Children: () => k3,
-  Component: () => _,
-  Fragment: () => d,
-  PureComponent: () => E,
-  StrictMode: () => fn,
-  Suspense: () => L2,
-  SuspenseList: () => M2,
-  __SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED: () => X,
-  cloneElement: () => rn,
-  createContext: () => D,
-  createElement: () => v,
-  createFactory: () => tn,
-  createPortal: () => W,
-  createRef: () => p,
-  default: () => compat_module_default,
-  findDOMNode: () => on,
-  flushSync: () => cn,
-  forwardRef: () => x3,
-  hydrate: () => $2,
-  isValidElement: () => en,
-  lazy: () => F2,
-  memo: () => g3,
-  render: () => B2,
-  unmountComponentAtNode: () => un,
-  unstable_batchedUpdates: () => ln,
-  useCallback: () => A2,
-  useContext: () => F,
-  useDebugValue: () => T2,
-  useEffect: () => y2,
-  useErrorBoundary: () => q2,
-  useImperativeHandle: () => _2,
-  useLayoutEffect: () => h2,
-  useMemo: () => d2,
-  useReducer: () => p2,
-  useRef: () => s2,
-  useState: () => l2,
-  version: () => nn
-});
 function C2(n2, t3) {
   for (var e3 in t3)
     n2[e3] = t3[e3];
@@ -539,16 +453,6 @@ function S2(n2, t3) {
 function E(n2) {
   this.props = n2;
 }
-function g3(n2, t3) {
-  function e3(n3) {
-    var e4 = this.props.ref, r4 = e4 == n3.ref;
-    return !r4 && e4 && (e4.call ? e4(null) : e4.current = null), t3 ? !t3(this.props, n3) || !r4 : S2(this.props, n3);
-  }
-  function r3(t4) {
-    return this.shouldComponentUpdate = e3, v(n2, t4);
-  }
-  return r3.displayName = "Memo(" + (n2.displayName || n2.name) + ")", r3.prototype.isReactComponent = true, r3.__f = true, r3;
-}
 (E.prototype = new _()).isPureReactComponent = true, E.prototype.shouldComponentUpdate = function(n2, t3) {
   return S2(this.props, n2) || S2(this.state, t3);
 };
@@ -557,24 +461,6 @@ l.__b = function(n2) {
   n2.type && n2.type.__f && n2.ref && (n2.props.ref = n2.ref, n2.ref = null), w3 && w3(n2);
 };
 var R = typeof Symbol != "undefined" && Symbol.for && Symbol.for("react.forward_ref") || 3911;
-function x3(n2) {
-  function t3(t4, e3) {
-    var r3 = C2({}, t4);
-    return delete r3.ref, n2(r3, (e3 = t4.ref || e3) && (typeof e3 != "object" || "current" in e3) ? e3 : null);
-  }
-  return t3.$$typeof = R, t3.render = t3, t3.prototype.isReactComponent = t3.__f = true, t3.displayName = "ForwardRef(" + (n2.displayName || n2.name) + ")", t3;
-}
-var N2 = function(n2, t3) {
-  return n2 == null ? null : A(A(n2).map(t3));
-};
-var k3 = { map: N2, forEach: N2, count: function(n2) {
-  return n2 ? A(n2).length : 0;
-}, only: function(n2) {
-  var t3 = A(n2);
-  if (t3.length !== 1)
-    throw "Children.only";
-  return t3[0];
-}, toArray: A };
 var A3 = l.__e;
 l.__e = function(n2, t3, e3) {
   if (n2.then) {
@@ -665,26 +551,6 @@ var T3 = function(n2, t3, e3) {
       n2.u = e3 = e3[2];
     }
 };
-function D2(n2) {
-  return this.getChildContext = function() {
-    return n2.context;
-  }, n2.children;
-}
-function I2(n2) {
-  var t3 = this, e3 = n2.i;
-  t3.componentWillUnmount = function() {
-    S(null, t3.l), t3.l = null, t3.i = null;
-  }, t3.i && t3.i !== e3 && t3.componentWillUnmount(), n2.__v ? (t3.l || (t3.i = e3, t3.l = { nodeType: 1, parentNode: e3, childNodes: [], appendChild: function(n3) {
-    this.childNodes.push(n3), t3.i.appendChild(n3);
-  }, insertBefore: function(n3, e4) {
-    this.childNodes.push(n3), t3.i.appendChild(n3);
-  }, removeChild: function(n3) {
-    this.childNodes.splice(this.childNodes.indexOf(n3) >>> 1, 1), t3.i.removeChild(n3);
-  } }), S(v(D2, { context: t3.context }, n2.__v), t3.l)) : t3.l && t3.componentWillUnmount();
-}
-function W(n2, t3) {
-  return v(I2, { __v: n2, i: t3 });
-}
 (M2.prototype = new _()).__e = function(n2) {
   var t3 = this, e3 = U(t3.__v), r3 = t3.o.get(n2);
   return r3[0]++, function(u3) {
@@ -712,12 +578,6 @@ var V = typeof document != "undefined";
 var z2 = function(n2) {
   return (typeof Symbol != "undefined" && typeof Symbol() == "symbol" ? /fil|che|rad/i : /fil|che|ra/i).test(n2);
 };
-function B2(n2, t3, e3) {
-  return t3.__k == null && (t3.textContent = ""), S(n2, t3), typeof e3 == "function" && e3(), n2 ? n2.__c : null;
-}
-function $2(n2, t3, e3) {
-  return q(n2, t3), typeof e3 == "function" && e3(), n2 ? n2.__c : null;
-}
 _.prototype.isReactComponent = {}, ["componentWillMount", "componentWillReceiveProps", "componentWillUpdate"].forEach(function(n2) {
   Object.defineProperty(_.prototype, n2, { configurable: true, get: function() {
     return this["UNSAFE_" + n2];
@@ -731,11 +591,11 @@ function Z() {
 function Y() {
   return this.cancelBubble;
 }
-function q3() {
+function q2() {
   return this.defaultPrevented;
 }
 l.event = function(n2) {
-  return H2 && (n2 = H2(n2)), n2.persist = Z, n2.isPropagationStopped = Y, n2.isDefaultPrevented = q3, n2.nativeEvent = n2;
+  return H2 && (n2 = H2(n2)), n2.persist = Z, n2.isPropagationStopped = Y, n2.isDefaultPrevented = q2, n2.nativeEvent = n2;
 };
 var G;
 var J = { configurable: true, get: function() {
@@ -762,105 +622,44 @@ var Q = l.__r;
 l.__r = function(n2) {
   Q && Q(n2), G = n2.__c;
 };
-var X = { ReactCurrentDispatcher: { current: { readContext: function(n2) {
-  return G.__n[n2.__c].props.value;
-} } } };
-var nn = "17.0.2";
-function tn(n2) {
-  return v.bind(null, n2);
-}
-function en(n2) {
-  return !!n2 && n2.$$typeof === j3;
-}
-function rn(n2) {
-  return en(n2) ? B.apply(null, arguments) : n2;
-}
-function un(n2) {
-  return !!n2.__k && (S(null, n2), true);
-}
-function on(n2) {
-  return n2 && (n2.base || n2.nodeType === 1 && n2) || null;
-}
-var ln = function(n2, t3) {
-  return n2(t3);
-};
-var cn = function(n2, t3) {
-  return n2(t3);
-};
-var fn = d;
-var compat_module_default = { useState: l2, useReducer: p2, useEffect: y2, useLayoutEffect: h2, useRef: s2, useImperativeHandle: _2, useMemo: d2, useCallback: A2, useContext: F, useDebugValue: T2, version: "17.0.2", Children: k3, render: B2, hydrate: $2, unmountComponentAtNode: un, createPortal: W, createElement: v, createContext: D, createFactory: tn, cloneElement: rn, createRef: p, Fragment: d, isValidElement: en, findDOMNode: on, Component: _, PureComponent: E, memo: g3, forwardRef: x3, flushSync: cn, unstable_batchedUpdates: ln, StrictMode: d, Suspense: L2, SuspenseList: M2, lazy: F2, __SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED: X };
 
 // src/react.ts
-var createRoot = (container) => ({
-  render: (App) => S(App, container)
-});
-var hydrateRoot = (container, App) => hydrate(App, container);
-var { useEffect } = preact_module_exports;
-var useLayoutEffect = function() {
-  if (globalThis.renderToString)
-    return () => {
-    };
-  else
-    return h2(...arguments);
-};
-var react = {
-  createRoot,
-  hydrateRoot,
-  ...preact_module_exports,
-  ...compat_module_exports,
-  ...hooks_module_exports,
-  useLayoutEffect,
-  useEffect,
-  render: S
-};
-var React = react;
-var { createContext } = react;
-var { useDebugValue } = react;
-var { useState } = react;
-var { useId } = react;
-var { useRef } = react;
-var { useContext } = react;
-var { useReducer } = react;
-var { useCallback } = react;
-var { forwardRef } = react;
-var { createElement } = react;
-var { createFactory } = react;
-var { createRef } = react;
-var { Fragment } = react;
-var { Component } = react;
-var { Suspense } = react;
-var { isValidElement } = react;
-var { memo } = react;
-var { useImperativeHandle } = react;
-var { Children } = react;
-var { lazy } = react;
-var { useMemo } = react;
-var { cloneElement } = react;
+var JSX = JSXInternal;
+var useCallback = A2;
+var useContext = F;
+var useDebugValue = T2;
+var useEffect = y2;
+var useImperativeHandle = _2;
+var useLayoutEffect = h2;
+var useMemo = d2;
+var useReducer = p2;
+var useRef = s2;
+var useState = l2;
+var createContext = D;
+var createRef = p;
+var Fragment = d;
+var createElement = v;
+var cloneElement = B;
+var Suspense = L2;
+var lazy = F2;
+var SuspenseList = M2;
 var react_default = React;
 export {
-  Children,
-  Component,
   Fragment,
-  React,
+  JSX,
   Suspense,
+  SuspenseList,
   cloneElement,
   createContext,
   createElement,
-  createFactory,
   createRef,
-  createRoot,
   react_default as default,
-  forwardRef,
-  hydrateRoot,
-  isValidElement,
   lazy,
-  memo,
   S as render,
   useCallback,
   useContext,
   useDebugValue,
   useEffect,
-  useId,
   useImperativeHandle,
   useLayoutEffect,
   useMemo,
