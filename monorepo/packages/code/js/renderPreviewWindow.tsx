@@ -30,7 +30,7 @@ export const renderPreviewWindow = async (
 
   // target  .innerHTML = html;
 
-  const { render } = await import("preact");
+  const { render } = await import("react-dom");
 
   // Target  .innerHTML = html;
 
