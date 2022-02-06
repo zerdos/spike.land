@@ -1,5 +1,5 @@
 import { join } from "./ws.mjs";
-import React, { render } from "react";
+import React, { hydrateRoot, render } from "react";
 import { jsx } from "@emotion/react";
 
 window.React = React;
@@ -27,28 +27,28 @@ export const run = async (injectedRoom) => {
     // const applyDelta = (await import("textdiff-patch")).default;
 
     const { jsx } = await import("@emotion/react");
-    const { hydrateRoot } = React;
+    // const { hydrateRoot } = React;
     const container = document.querySelector("#zbody");
 
     window.aniStart = Date.now();
     const root = hydrateRoot(container, jsx(App));
 
     // const outers = [];
-    const deltas = [];
+    // const deltas = [];
 
-    let first = document.getElementById("zbody").innerHTML;
-    const html = first;
+    // let first = document.getElementById("zbody").innerHTML;
+    // const html = first;
 
-    const interV = setInterval(() => {
-      const el = container.innerHTML;
-      deltas.push(createDelta(first, el));
+    // const interV = setInterval(() => {
+    // const el = container.innerHTML;
+    // deltas.push(createDelta(first, el));
 
-      first = el;
-      //      deltas.push()
-      // outers.push(el);
-    }, 1000 / 60);
+    // first = el;
+    //      deltas.push()
+    // outers.push(el);
+    // }, 1000 / 60);
 
-    window.deltas = deltas;
+    // window.deltas = deltas;
 
     // const compressed = compress(JSON.stringify(deltas));
 
@@ -96,7 +96,7 @@ export const run = async (injectedRoom) => {
   } else {
     (async () => {
       const App = (await import(
-        `https://spike.land/api/room/zoli/js`
+        `https://spike.land/api/room/${room}/js`
       )).default;
 
       // const applyDelta = (await import(
