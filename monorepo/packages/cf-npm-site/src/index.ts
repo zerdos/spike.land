@@ -8,9 +8,11 @@ export default function (
       const url = new URL(request.url);
       const { pathname } = url;
 
-      const isChunk = pathname.indexOf("/chunks") !== -1;
+    const isChunk = pathname.indexOf("/chunks") !== -1;
 
-      const cacheKey = new Request(url.toString(), request);
+
+    
+      const cacheKey = isChunk? new Request(url.host+pathname.substring( pathname.indexOf("/chunks"+7)) ): new Request(url.toString());
       const cache = caches.default;
 
       const cachedResp = await cache.match(cacheKey);
