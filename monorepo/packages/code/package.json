@@ -1,6 +1,6 @@
 {
   "name": "@spike.land/code",
-  "version": "0.6.237",
+  "version": "0.6.238",
   "description": "spike.land",
   "main": "./js/dist/starter.mjs",
   "files": [
@@ -11,8 +11,6 @@
     "./js/dist/starter.mjs": "./js/dist/starter.mjs",
     "./js/session.tsx": "./js/session.tsx",
     "./js/binary.ts": "./js/binary.ts",
-
-
     "./js/importmap.json": "./js/importmap.json"
   },
   "scripts": {
