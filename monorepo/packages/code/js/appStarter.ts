@@ -1,4 +1,4 @@
-import { Workbox } from "workbox-window";
+// import { Workbox } from "workbox-window";
 import "es-module-shims";
 (async () => {
   // const esbuild = import("./esbuildEsm.ts");
@@ -57,10 +57,4 @@ import "es-module-shims";
   }
 })();
 
-const wb = new Workbox("./sw.js");
-wb.addEventListener("activated", async (event) => {
-  if (!event.isUpdate) {
-    console.log("Service worker activated for the first time!");
-  }
-});
-wb.register();
+document.querySelectorAll(".unregister").forEach((item) => item.click());
