@@ -100,4 +100,3 @@ export const run = async (injectedRoom) => {
 
   join(room, user);
 };
-run();
