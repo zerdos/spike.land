@@ -2,7 +2,7 @@
   "imports": {
     "framer-motion": "https://unpkg.com/@spike.land/esm@0.6.220/dist/framer-motion.mjs",
     "react": "https://spike.land/react.mjs",
-    "react-dom": "https://spike.land/react.mjs",
+    "react-dom": "https://spike.land/dist/react.mjs",
     "@emotion/react": "https://unpkg.com/@spike.land/esm@0.6.220/dist/emotion-react.mjs"
   },
   "scopes": {

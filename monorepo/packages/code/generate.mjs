@@ -74,7 +74,7 @@ importMap.imports["framer-motion"] =
 //  `https://unpkg.com/@spike.land/esm@${version}/dist/textdiff-patch.mjs`;
 importMap.imports["react"] = isDev?"https://localhost:8000/monorepo/packages/code/js/react.mjs":"https://spike.land/react.mjs" ;
 importMap.imports["react-dom"] =
- isDev?"https://localhost:8000/monorepo/packages/code/js/react.mjs":"https://spike.land/react.mjs" ;
+ isDev?"https://localhost:8000/monorepo/packages/code/js/dist/react.mjs":"https://spike.land/dist/react.mjs" ;
 
 // importMap.imports["react-is"] =
 // `https://unpkg.com/@spike.land/esm@${version}/dist/react-is.mjs`;
