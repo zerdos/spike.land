@@ -5,7 +5,6 @@ import { jsx } from "@emotion/react";
 
 window.React = React;
 export const hydrateBinary = async (binary) => {
-  const mod = (await import(objectUrl));
   const App = (await import(createJsBlob(fromBinary(binary)))).default;
   const container = document.querySelector("#zbody");
 
