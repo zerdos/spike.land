@@ -1,5 +1,5 @@
 import { Workbox } from "workbox-window";
-
+import "es-module-shims";
 (async () => {
   // const esbuild = import("./esbuildEsm.ts");
 
@@ -49,8 +49,6 @@ import { Workbox } from "workbox-window";
     const { run } = await import("./dist/starter.mjs");
     run();
   } catch {
-    await import("es-module-shims");
-
     //@ts-ignore
     window.React = await (await importShim("react")).default;
 
