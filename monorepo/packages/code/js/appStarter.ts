@@ -8,7 +8,7 @@ import importMap from "./importmap.json";
 window.esmsInitOptions = {
   shimMode: true,
   revokeBlobURLs: true,
-  fetch: myFetch,
+  fetch: fetch,
 
   resolve: (id: string, parentUrl: string) => {
     return parentUrl + id;
