@@ -1,8 +1,6 @@
 {
   "imports": {
     "framer-motion": "https://unpkg.com/@spike.land/esm@0.6.220/dist/framer-motion.mjs",
-    "preact": "https://ga.jspm.io/npm:preact@10.6.5/dist/preact.module.js",
-    "preact/compat": "https://ga.jspm.io/npm:preact@10.6.5/compat/dist/compat.module.js",
     "react": "https://spike.land/react.mjs",
     "react-dom": "https://spike.land/react.mjs",
     "@emotion/react": "https://unpkg.com/@spike.land/esm@0.6.220/dist/emotion-react.mjs"
@@ -13,7 +11,6 @@
       "hey-listen": "https://ga.jspm.io/npm:hey-listen@1.0.8/dist/index.js",
       "object-assign": "https://ga.jspm.io/npm:object-assign@4.1.1/index.js",
       "popmotion": "https://ga.jspm.io/npm:popmotion@11.0.3/dist/es/index.mjs",
-      "preact/hooks": "https://ga.jspm.io/npm:preact@10.6.5/hooks/dist/hooks.module.js",
       "style-value-types": "https://ga.jspm.io/npm:style-value-types@5.0.0/dist/es/index.mjs",
       "tslib": "https://ga.jspm.io/npm:tslib@2.3.1/tslib.es6.js"
     }
