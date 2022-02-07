@@ -1,77 +1,68 @@
-import { dependencies } from "../package.json";
-import { WorkboxEvent, WorkboxLifecycleEvent } from "workbox-window";
+import { Workbox } from "workbox-window";
 
-import importMap from "./importmap.json";
+(async () => {
+  // const esbuild = import("./esbuildEsm.ts");
 
-// const esbuild = import("./esbuildEsm.ts");
+  window.esmsInitOptions = {
+    shimMode: true,
+    revokeBlobURLs: true,
+    fetch: myFetch,
 
-window.esmsInitOptions = {
-  shimMode: true,
+    resolve: (id: string, parentUrl: string) => {
+      return parentUrl + id;
+    },
+    polyfillEnable: ["css-modules", "json-modules"],
+    onerror: (error) => console.log(error), // defaults to `((e) => { throw e; })`
+    noLoadEventRetriggers: true,
+    skip: /^https?:\/\/(cdn\.skypack\.dev|jspm\.dev)\//,
+  };
 
-  revokeBlobURLs: true,
-  fetch: fetch,
+  async function myFetch(input: RequestInfo, init?: RequestInit) {
+    const url = input.toString();
 
-  resolve: (id: string, parentUrl: string) => {
-    return parentUrl + id;
-  },
-  polyfillEnable: ["css-modules", "json-modules"],
-  onerror: (error) => console.log(error), // defaults to `((e) => { throw e; })`
-  noLoadEventRetriggers: true,
-  skip: /^https?:\/\/(cdn\.skypack\.dev|jspm\.dev)\//,
-};
+    const urlEnd = url.substring(-3);
+    if (
+      url.indexOf("monaco") === -1 && ["tsx", ".ts"].indexOf(urlEnd) !== -1
+    ) {
+      console.log(url);
+      const res = await fetch(url, init);
+      if (!res.ok) return res;
 
-async function myFetch(input: RequestInfo, init?: RequestInit) {
-  const url = input.toString();
+      const source = await res.text();
+      return new Response(source, init);
 
-  const urlEnd = url.substring(-3);
-  if (
-    url.indexOf("monaco") === -1 && ["tsx", ".ts"].indexOf(urlEnd) !== -1
-  ) {
-    console.log(url);
-    const res = await fetch(url, init);
-    if (!res.ok) return res;
+      //https://localhost:8000/monorepo/packages/code/js/editor.ts
+      // const { transform } = await importShim("./dist/esbuildEsm.mjs");
 
-    const source = await res.text();
-    return new Response(source, init);
+      //const transformed = await transform(source);
 
-    //https://localhost:8000/monorepo/packages/code/js/editor.ts
-    // const { transform } = await importShim("./dist/esbuildEsm.mjs");
-
-    //const transformed = await transform(source);
-
-    // return new Response(
-    //   new Blob([transformed], { type: "application/javascript" }),
-    // );
+      // return new Response(
+      //   new Blob([transformed], { type: "application/javascript" }),
+      // );
+    }
+    return fetch(url, init);
   }
-  return fetch(url, init);
-}
 
-document.body.appendChild(Object.assign(document.createElement("script"), {
-  async: true,
-  src: `https://unpkg.com/es-module-shims@${
-    dependencies["es-module-shims"]
-  }/dist/es-module-shims.js`,
-}));
+  try {
+    window.React = await (await import("react")).default;
 
-const script = String(`import {run} from "./dist/starter.mjs";
+    const { run } = await import("./dist/starter.mjs");
+    run();
+  } catch {
+    await import("es-module-shims");
 
-run();
+    //@ts-ignore
+    window.React = await (await importShim("react")).default;
 
-(async()=>{
-const { Workbox } = await import("workbox-window");
+    const { run } = await importShim("./dist/starter.mjs");
+    run();
+  }
+})();
 
 const wb = new Workbox("./sw.js");
-
-wb.addEventListener("activated", async (event: WorkboxLifecycleEvent) => {
+wb.addEventListener("activated", async (event) => {
   if (!event.isUpdate) {
     console.log("Service worker activated for the first time!");
   }
 });
-
 wb.register();
-})();`);
-
-document.body.appendChild(Object.assign(document.createElement("script"), {
-  type: "module",
-  src: "/dist/starter.mjs",
-}));

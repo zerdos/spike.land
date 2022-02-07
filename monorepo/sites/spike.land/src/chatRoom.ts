@@ -281,7 +281,6 @@ export class Code {
               <div id="zbody">${ mST().html}
               </div></div>
               <script type="importmap">${JSON.stringify(imap)}</script>
-              <script defer src=">
               <script type="module">
               import {hydrateBinary}  from "./dist/starter.mjs"; 
               hydrateBinary(atob("${ btoa( toBinary(mST().transpiled))}"));
