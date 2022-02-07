@@ -405,7 +405,7 @@ export const startMonaco = async (
       },
       {
         name: "framer-motion",
-        url: "https://unpkg.com/framer-motion@6.2.4/types/index.d.ts",
+        url: "https://spike.land/types/framer.d.ts",
         depend: ["popmotion"],
       },
       {
