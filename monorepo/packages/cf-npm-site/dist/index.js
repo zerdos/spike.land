@@ -45,6 +45,7 @@ export default function (packageName, version, serveDir = "") {
                 pathname.endsWith(".ts") || pathname.endsWith(".tsx")) {
                 resp.headers.delete("content-type");
                 resp.headers.set("content-type", "text/javascript;charset=UTF-8");
+                resp.headers.set("Access-Control-Allow-Origin", "*");
             }
             else if (pathname.endsWith(".css")) {
                 resp.headers.delete("content-type");

@@ -37,6 +37,7 @@ function src_default(packageName, version, serveDir = "") {
       if (pathname.endsWith(".mjs") || pathname.endsWith(".js") || pathname.endsWith(".ts") || pathname.endsWith(".tsx")) {
         resp.headers.delete("content-type");
         resp.headers.set("content-type", "text/javascript;charset=UTF-8");
+        resp.headers.set("Access-Control-Allow-Origin", "*");
       } else if (pathname.endsWith(".css")) {
         resp.headers.delete("content-type");
         resp.headers.set("content-type", "text/css;charset=UTF-8");

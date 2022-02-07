@@ -72,6 +72,7 @@ export default function (
           "content-type",
           "text/javascript;charset=UTF-8",
         );
+        resp.headers.set("Access-Control-Allow-Origin","*");
       } else if (pathname.endsWith(".css")) {
         resp.headers.delete("content-type");
         resp.headers.set(
