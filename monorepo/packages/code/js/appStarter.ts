@@ -7,6 +7,7 @@ import importMap from "./importmap.json";
 
 window.esmsInitOptions = {
   shimMode: true,
+
   revokeBlobURLs: true,
   fetch: fetch,
 
@@ -79,7 +80,6 @@ wb.register();
 })();`);
 
 document.body.appendChild(Object.assign(document.createElement("script"), {
-  async: true,
-  type: "module-shim",
-  script: script,
+  type: "module",
+  src: "/dist/starter.mjs",
 }));
