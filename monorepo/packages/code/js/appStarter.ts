@@ -45,8 +45,8 @@ import "es-module-shims";
 
   try {
     window.React = await (await import("react")).default;
-
-    const { run } = await import("./dist/starter.mjs");
+    // @ts-ignore
+    const { run } = await import("../../starter.mjs");
     run();
   } catch {
     //@ts-ignore
