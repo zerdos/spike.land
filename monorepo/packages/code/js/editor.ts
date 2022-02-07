@@ -409,12 +409,6 @@ export const startMonaco = async (
         depend: ["popmotion"],
       },
       {
-        name: "framer-motion/types/render/dom/motion",
-        url:
-          " https://unpkg.com/framer-motion@6.2.4/types/render/dom/motion.d.ts",
-        depend: ["popmotion"],
-      },
-      {
         name: "popmotion",
         url: "https://unpkg.com/popmotion@11.0.3/lib/index.d.ts",
       },
