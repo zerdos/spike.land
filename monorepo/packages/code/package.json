@@ -10,6 +10,9 @@
     "./package.json": "./package.json",
     "./js/dist/starter.mjs": "./js/dist/starter.mjs",
     "./js/session.tsx": "./js/session.tsx",
+    "./js/binary.ts": "./js/binary.ts",
+
+
     "./js/importmap.json": "./js/importmap.json"
   },
   "scripts": {

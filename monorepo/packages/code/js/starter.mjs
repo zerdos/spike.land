@@ -1,8 +1,22 @@
 import { join } from "./ws.mjs";
 import React, { hydrateRoot, render } from "react";
+import { fromBinary } from "./binary";
 import { jsx } from "@emotion/react";
 
 window.React = React;
+export const hydrateBinary = async (binary) => {
+  const mod = (await import(objectUrl));
+  const App = (await import(createJsBlob(fromBinary(binary)))).default;
+  const container = document.querySelector("#zbody");
+
+  const root = hydrateRoot(container, jsx(App));
+
+  function createJsBlob(code) {
+    const blob = new Blob([code], { type: "application/javascript" });
+
+    return URL.createObjectURL(blob);
+  }
+};
 export const run = async (injectedRoom) => {
   const path = location.pathname.split("/");
   window.aniStart = Date.now();
@@ -26,7 +40,6 @@ export const run = async (injectedRoom) => {
     const createDelta = (await import("textdiff-create")).default;
     // const applyDelta = (await import("textdiff-patch")).default;
 
-    const { jsx } = await import("@emotion/react");
     // const { hydrateRoot } = React;
     const container = document.querySelector("#zbody");
 
