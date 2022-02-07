@@ -276,17 +276,9 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
             {/* <span>{width}*{height}</span> */}
 
             <motion.div
-              // Initial={{
-              //   width: window.innerWidth,
-              //   height: window.innerHeight
-              // }}
-              // transition={
-              //   {duration: 2000}
-              // }
               animate={{
                 width: width * scale / devicePixelRatio,
                 height: height * scale / devicePixelRatio,
-                maxHeight: height * scale / devicePixelRatio,
                 borderRadius: isFullScreen ? 0 : 8,
                 // Opacity: isFullScreen ? 1 : 0.7,
               }}
