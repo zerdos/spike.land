@@ -24,7 +24,9 @@ export default () => (
         repeatType: "loop",
       }}
     >
-      <div css="font-size: calc(10px + 20vmin)">|🔥|</div>
+      <div css={css`
+      font-size: calc(10px + 20vmin;
+        `}">|🔥|</div>
       -------------------
     </motion.div>
     <p>

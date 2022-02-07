@@ -80,8 +80,6 @@ export const run = async (injectedRoom) => {
 
         if (!container) throw new Error();
 
-        const { hydrateRoot } = React;
-
         hydrateRoot(container, jsx(App));
       }
     })();
