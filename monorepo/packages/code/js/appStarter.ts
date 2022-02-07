@@ -57,10 +57,10 @@ document.body.appendChild(Object.assign(document.createElement("script"), {
   async: true,
   src: `https://unpkg.com/es-module-shims@${
     dependencies["es-module-shims"]
-  }/dist/es-module-shims.wasm.js`,
+  }/dist/es-module-shims.js`,
 }));
 
-const script = `import {run} from "./dist/starter.mjs";
+const script = String(`import {run} from "./dist/starter.mjs";
 
 run();
 
@@ -76,10 +76,10 @@ wb.addEventListener("activated", async (event: WorkboxLifecycleEvent) => {
 });
 
 wb.register();
-})();`;
+})();`);
 
 document.body.appendChild(Object.assign(document.createElement("script"), {
   async: true,
   type: "module-shim",
-  innerHTML: script,
+  script: script,
 }));
