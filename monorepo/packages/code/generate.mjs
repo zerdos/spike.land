@@ -1,12 +1,9 @@
 import { clearCache, Generator } from "@jspm/generator";
-import packageJson from "@spike.land/esm/package.json" assert { type: "json" };
-// import { clearCache } from '@jspm/generator';
 clearCache();
 const env = process.env.NODE_ENV === "production"
   ? "production"
   : "development";
 const isDev = env === "development";
-const { version } = packageJson;
 
 const generator = new Generator({
   mapUrl: import.meta.url,
@@ -63,8 +60,7 @@ await generator.install("framer-motion");
 // await generator.install("react-transition-group");
 
 const importMap = { ...generator.getMap() };
-importMap.imports["framer-motion"] =
-  `https://unpkg.com/@spike.land/esm@${version}/dist/framer-motion.mjs`;
+
 
 // importMap.imports["textdiff-create"] =
 //   `https://unpkg.com/@spike.land/esm@${version}/dist/textdiff-create.mjs`;
@@ -73,6 +69,7 @@ importMap.imports["framer-motion"] =
 //  `https://unpkg.com/@spike.land/esm@${version}/dist/textdiff-patch.mjs`;
 importMap.imports["react"] = isDev?"https://localhost:8000/monorepo/packages/code/js/dist/react.mjs":"https://spike.land/dist/react.mjs" ;  
 importMap.imports["react-dom"] = importMap.imports["react"] 
+importMap.imports["framer-motion"] = isDev?"https://localhost:8000/monorepo/packages/code/js/dist/motion.mjs":"https://spike.land/dist/motion.mjs" ;  
 // importMap.imports["react-is"] =
 // `https://unpkg.com/@spike.land/esm@${version}/dist/react-is.mjs`;
 

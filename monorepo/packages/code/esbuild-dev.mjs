@@ -203,7 +203,7 @@ await build([
   "js/starter.mjs",
   "js/react.mjs",
   "js/emotion.ts",
-  
+  "js/motion.ts"
 ]);
 
 // esbuild.build({
