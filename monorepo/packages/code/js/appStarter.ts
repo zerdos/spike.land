@@ -46,8 +46,11 @@ async function myFetch(input: RequestInfo, init?: RequestInit) {
 }
 
 document.body.appendChild(Object.assign(document.createElement("script"), {
-  type: "importmap-shim",
-  innerHTML: JSON.stringify(importMap),
+  type: "importmap",
+  innerHTML: JSON.stringify({
+    imports: { ...importMap.imports },
+    scopes: { ...importMap.scopes },
+  }),
 }));
 
 document.body.appendChild(Object.assign(document.createElement("script"), {
