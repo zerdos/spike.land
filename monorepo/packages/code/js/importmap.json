@@ -2,7 +2,6 @@
   "imports": {
     "framer-motion": "https://unpkg.com/@spike.land/esm@0.6.220/dist/framer-motion.mjs",
     "react": "https://spike.land/dist/react.mjs",
-    "workbox-window": "https://ga.jspm.io/npm:workbox-window@6.4.2/build/workbox-window.prod.es5.mjs",
     "react-dom": "https://spike.land/dist/react.mjs",
     "@emotion/react": "https://unpkg.com/@spike.land/esm@0.6.220/dist/emotion-react.mjs"
   },
