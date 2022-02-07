@@ -4,6 +4,9 @@ import LAZY from "./lazy.html";
 import HTML from "./index.html";
 import RCA from "./rca.tsx.html";
 import HYDRATED from "./hydrated.html";
+  // @ts-expect-error
+import {toBinary} from "@spike.land/code/js/binary.ts"
+       
 
 import { version } from "@spike.land/code/package.json";
 import imap from "@spike.land/code/js/importmap.json";
@@ -221,30 +224,19 @@ export class Code {
           });
         }
         case "hydrated": {
-          const htmlContent = mST().html;
-          const css = mST().css;
 
-          const js =mST().transpiled;
-
-
-          //@ts-ignore
-        const {toBinary} = await import("@spike.land/code/js/binary.ts")
-         const myB64 = btoa( toBinary(js));
-         
-
-          const html = HYDRATED.replace(
-              `<div id="root"></div>`,
-              `<div id="root">
-              <style>${css}</style>
-              <div id="zbody">${htmlContent}
-              </div></div>
-              <script type="importmap">${JSON.stringify(imap)}</script>
-              <script type="module">
-              import {hydrateBinary}  from "./dist/starter.mjs"; 
-              hydrateBinary(atob("${myB64}"));
-              </script>`,
-            ).replaceAll(vReg, version);
-          return new Response(html, {
+          return new Response( HYDRATED.replace(
+            `<div id="root"></div>`,
+            `<div id="root">
+            <style>${mST().css}</style>
+            <div id="zbody">${ mST().html}
+            </div></div>
+            <script type="importmap">${JSON.stringify(imap)}</script>
+            <script type="module">
+            import {hydrateBinary}  from "./dist/starter.mjs"; 
+            hydrateBinary(atob("${ btoa( toBinary(mST().transpiled))}"));
+            </script>`,
+          ).replaceAll(vReg, version), {
             status: 200,
             headers: {
               "Access-Control-Allow-Origin": "*",
@@ -280,15 +272,20 @@ export class Code {
         }
 
         case "public": {
-          const htmlContent = mST().html;
-          const css = mST().css;
+
 
           const html = HTML.replace(
-            `<script type="importmap-shim" src="https://unpkg.com/@spike.land/code@{VERSION}/js/importmap.json"></script>`,
-            `<script type="importmap-shim">${JSON.stringify(imap)}</script>`,
-          ).replace(
-            `<div id="root"></div>`,
-            `<div id="root"><style>${css}</style><div id="zbody">${htmlContent}</div></div>`,
+              `<div id="root"></div>`,
+              `<div id="root">
+              <style>${mST().css}</style>
+              <div id="zbody">${ mST().html}
+              </div></div>
+              <script type="importmap">${JSON.stringify(imap)}</script>
+              <script defer src=">
+              <script type="module">
+              import {hydrateBinary}  from "./dist/starter.mjs"; 
+              hydrateBinary(atob("${ btoa( toBinary(mST().transpiled))}"));
+              </script>`,
           ).replaceAll(vReg, version);
           return new Response(html, {
             status: 200,
