@@ -229,16 +229,20 @@ export class Code {
 
           //@ts-ignore
         const {toBinary} = await import("@spike.land/code/js/binary.ts")
-         const myB64 = toBinary(js);
+         const myB64 = btoa( toBinary(js));
          
 
           const html = HYDRATED.replace(
-            `<script type="importmap-shim" src="https://unpkg.com/@spike.land/code@{VERSION}/js/importmap.json"></script>`,
-            `<script type="importmap">${JSON.stringify(imap)}</script>`,
-          )
-            .replace(
               `<div id="root"></div>`,
-              `<div id="root"><style>${css}</style><div id="zbody">${htmlContent}</div></div><script type="module">import  const mybin = "${myB64}";</script>`,
+              `<div id="root">
+              <style>${css}</style>
+              <div id="zbody">${htmlContent}
+              </div></div>
+              <script type="importmap">${JSON.stringify(imap)}</script>
+              <script type="module">
+              import {hydrateBinary}  from "./dist/starter.mjs"; 
+              hydrateBinary(atob("${myB64}"));
+              </script>`,
             ).replaceAll(vReg, version);
           return new Response(html, {
             status: 200,
