@@ -1,3 +1,4 @@
+/**@jsx jsx */
 import { css, jsx } from "@emotion/react";
 
 import { motion } from "framer-motion";
@@ -24,16 +25,24 @@ export default () => (
         repeatType: "loop",
       }}
     >
-      <div css={css`
-      font-size: calc(10px + 20vmin;
-        `}">|🔥|</div>
+      <div
+        css={css`
+      font-size: calc(10px + 20vmin);
+        `}
+      >
+        🔥
+      </div>
       -------------------
     </motion.div>
     <p>
-      Hey! Try to modify <code>this</code> page.
+      Hey!Try to modify <code>this</code> page.
     </p>
-
-    <a css="color: #61dafb;" href="./edit/">
+    <a
+      css={css`
+  color: #61dafb;
+  `}
+      href="./edit"
+    >
       Open the editor.
     </a>
   </header>
