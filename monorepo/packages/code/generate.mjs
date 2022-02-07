@@ -24,7 +24,7 @@ const generator = new Generator({
 // Install a new package into the import map
 
 await generator.install("react");
-
+await generator.install("workbox-window");
 // await generator.install("react@18");
 // await generator.install("preact");
 // await generator.install("preact/compat");
