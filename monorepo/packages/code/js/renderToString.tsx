@@ -1,8 +1,10 @@
 /** @jsx jsx */
 import { CacheProvider, jsx } from "@emotion/react";
-import createCache from "@emotion/cache";
+//@ts-ignore
+import { createCache } from "@emotion/react";
 
-import renderToString from "preact-render-to-string";
+//@ts-ignore
+import { renderToString } from "react";
 
 export const getHtmlAndCss = (MyComponent: () => JSX.Element) => {
   const key = "css";

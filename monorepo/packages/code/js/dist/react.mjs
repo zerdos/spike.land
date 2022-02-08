@@ -391,10 +391,10 @@ n.__b = function(n11) {
     f1 && f1(t7);
     var c6 = t7.__c;
     c6 && c6.__H && c6.__H.__h.length && (1 !== o1.push(c6) && r1 === n.requestAnimationFrame || ((r1 = n.requestAnimationFrame) || function(n13) {
-        var t8, u1 = function() {
+        var t8, u2 = function() {
             clearTimeout(e5), E && cancelAnimationFrame(t8), setTimeout(n13);
-        }, e5 = setTimeout(u1, 100);
-        E && (t8 = requestAnimationFrame(u1));
+        }, e5 = setTimeout(u2, 100);
+        E && (t8 = requestAnimationFrame(u2));
     })(x1)), e1 = null;
 }, n.__c = function(t9, e6) {
     e6.some(function(t10) {
@@ -453,10 +453,10 @@ function g2(_4, a3) {
         var c3 = this.props.ref, s2 = c3 == _5.ref;
         return !s2 && c3 && (c3.call ? c3(null) : c3.current = null), a3 ? !a3(this.props, _5) || !s2 : S1(this.props, _5);
     }
-    function r2(a4) {
+    function r3(a4) {
         return this.shouldComponentUpdate = e2, v(_4, a4);
     }
-    return r2.displayName = "Memo(" + (_4.displayName || _4.name) + ")", r2.prototype.isReactComponent = !0, r2.__f = !0, r2;
+    return r3.displayName = "Memo(" + (_4.displayName || _4.name) + ")", r3.prototype.isReactComponent = !0, r3.__f = !0, r3;
 }
 (E1.prototype = new _).isPureReactComponent = !0, E1.prototype.shouldComponentUpdate = function(_6, a5) {
     return S1(this.props, _6) || S1(this.state, a5);
@@ -504,7 +504,7 @@ function U(_13) {
 }
 function F1(_14) {
     var a11, c6, s5;
-    function u2(f2) {
+    function u3(f2) {
         if (a11 || (a11 = _14()).then(function(_15) {
             c6 = _15.default || _15;
         }, function(_16) {
@@ -513,7 +513,7 @@ function F1(_14) {
         if (!c6) throw a11;
         return v(c6, f2);
     }
-    return u2.displayName = "Lazy", u2.__f = !0, u2;
+    return u3.displayName = "Lazy", u3.__f = !0, u3;
 }
 function M1() {
     this.u = null, this.o = null;
@@ -524,17 +524,17 @@ n.unmount = function(_17) {
 }, (L1.prototype = new _).__c = function(_18, a13) {
     var c7 = a13.__c, s6 = this;
     null == s6.t && (s6.t = []), s6.t.push(c7);
-    var f3 = U(s6.__v), p11 = !1, i2 = function() {
-        p11 || (p11 = !0, c7.__R = null, f3 ? f3(l2) : l2());
+    var f3 = U(s6.__v), p11 = !1, i3 = function() {
+        p11 || (p11 = !0, c7.__R = null, f3 ? f3(l3) : l3());
     };
-    c7.__R = i2;
-    var l2 = function() {
+    c7.__R = i3;
+    var l3 = function() {
         if (!--s6.__u) {
             if (s6.state.__e) {
                 var _19 = s6.state.__e;
-                s6.__v.__k[0] = (function n1(_22, a16, c8) {
+                s6.__v.__k[0] = (function n2(_22, a16, c8) {
                     return _22 && (_22.__v = null, _22.__k = _22.__k && _22.__k.map(function(_23) {
-                        return n1(_23, a16, c8);
+                        return n2(_23, a16, c8);
                     }), _22.__c && _22.__c.__P === a16 && (_22.__e && c8.insertBefore(_22.__e, _22.__d), _22.__c.__e = !0, _22.__c.__P = c8)), _22;
                 })(_19, _19.__c.__P, _19.__c.__O);
             }
@@ -546,18 +546,18 @@ n.unmount = function(_17) {
     }, d11 = !0 === a13.__h;
     (s6.__u++) || d11 || s6.setState({
         __e: s6.__b = s6.__v.__k[0]
-    }), _18.then(i2, i2);
+    }), _18.then(i3, i3);
 }, L1.prototype.componentWillUnmount = function() {
     this.t = [];
 }, L1.prototype.render = function(_24, a17) {
     if (this.__b) {
         if (this.__v.__k) {
             var c9 = document.createElement("div"), s7 = this.__v.__k[0].__c;
-            this.__v.__k[0] = (function n2(_25, a18, c12) {
+            this.__v.__k[0] = (function n3(_25, a18, c12) {
                 return _25 && (_25.__c && _25.__c.__H && (_25.__c.__H.__.forEach(function(_26) {
                     "function" == typeof _26.__c && _26.__c();
                 }), _25.__c.__H = null), null != (_25 = C1({}, _25)).__c && (_25.__c.__P === c12 && (_25.__c.__P = a18), _25.__c = null), _25.__k = _25.__k && _25.__k.map(function(_27) {
-                    return n2(_27, a18, c12);
+                    return n3(_27, a18, c12);
                 })), _25;
             })(this.__b, c9, s7.__O = s7.__P);
         }
@@ -611,10 +611,10 @@ function W(_34, a21) {
 (M1.prototype = new _).__e = function(_35) {
     var a22 = this, c15 = U(a22.__v), s8 = a22.o.get(_35);
     return s8[0]++, function(f5) {
-        var o2 = function() {
+        var o3 = function() {
             a22.props.revealOrder ? (s8.push(f5), T2(a22, _35, s8)) : f5();
         };
-        c15 ? c15(o2) : o2();
+        c15 ? c15(o3) : o3();
     };
 }, M1.prototype.render = function(_36) {
     this.u = null, this.o = new Map;
@@ -802,8 +802,156 @@ const mod1 = {
     useRef: s1,
     useState: l1
 };
+var r2 = /acit|ex(?:s|g|n|p|$)|rph|grid|ows|mnc|ntw|ine[ch]|zoo|^ord|^--/i, n1 = /[&<>"]/;
+function o2(e12) {
+    var t12 = String(e12);
+    return n1.test(t12) ? t12.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;") : t12;
+}
+var a2 = function(e2, t2) {
+    return String(e2).replace(/(\n+)/g, "$1" + (t2 || "\t"));
+}, i2 = function(e3, t3, r12) {
+    return String(e3).length > (t3 || 40) || !r12 && -1 !== String(e3).indexOf("\n") || -1 !== String(e3).indexOf("<");
+}, l2 = {};
+function s2(e4) {
+    var t4 = "";
+    for(var n11 in e4){
+        var c13 = e4[n11];
+        null != c13 && "" !== c13 && (t4 && (t4 += " "), t4 += "-" == n11[0] ? n11 : l2[n11] || (l2[n11] = n11.replace(/([A-Z])/g, "-$1").toLowerCase()), t4 += ": ", t4 += c13, "number" == typeof c13 && !1 === r2.test(n11) && (t4 += "px"), t4 += ";");
+    }
+    return t4 || void 0;
+}
+function f2(e5, t5) {
+    for(var r21 in t5)e5[r21] = t5[r21];
+    return e5;
+}
+function u1(e6, t6) {
+    return Array.isArray(t6) ? t6.reduce(u1, e6) : null != t6 && !1 !== t6 && e6.push(t6), e6;
+}
+var c2 = {
+    shallow: !0
+}, p2 = [], _2 = /^(area|base|br|col|embed|hr|img|input|link|meta|param|source|track|wbr)$/, v2 = /[\s\n\\/='"\0<>]/, d2 = function() {};
+m2.render = m2;
+var g3 = function(e7, t7) {
+    return m2(e7, t7, c2);
+}, h2 = [];
+function m2(t8, r3, n2) {
+    r3 = r3 || {}, n2 = n2 || {};
+    var l11 = n.__s;
+    n.__s = !0;
+    var c21 = x3(t8, r3, n2);
+    return n.__c && n.__c(t8, h2), h2.length = 0, n.__s = l11, c21;
+}
+function x3(r4, n3, l21, c3, h11, y2) {
+    if (null == r4 || "boolean" == typeof r4) return "";
+    if ("object" != typeof r4) return o2(r4);
+    var b1 = l21.pretty, S2 = b1 && "string" == typeof b1 ? b1 : "\t";
+    if (Array.isArray(r4)) {
+        for(var w2 = "", k2 = 0; k2 < r4.length; k2++)b1 && k2 > 0 && (w2 += "\n"), w2 += x3(r4[k2], n3, l21, c3, h11, y2);
+        return w2;
+    }
+    var O1, C2 = r4.type, A2 = r4.props, H2 = !1;
+    if ("function" == typeof C2) {
+        if (H2 = !0, !l21.shallow || !c3 && !1 !== l21.renderRootComponent) {
+            if (C2 === d) {
+                var T3 = [];
+                return u1(T3, r4.props.children), x3(T3, n3, l21, !1 !== l21.shallowHighOrder, h11, y2);
+            }
+            var j3, F5 = r4.__c = {
+                __v: r4,
+                context: n3,
+                props: r4.props,
+                setState: d2,
+                forceUpdate: d2,
+                __h: []
+            };
+            if (n.__b && n.__b(r4), n.__r && n.__r(r4), C2.prototype && "function" == typeof C2.prototype.render) {
+                var M2 = C2.contextType, $2 = M2 && n3[M2.__c], L2 = null != M2 ? $2 ? $2.props.value : M2.__ : n3;
+                (F5 = r4.__c = new C2(A2, L2)).__v = r4, F5._dirty = F5.__d = !0, F5.props = A2, null == F5.state && (F5.state = {}), null == F5._nextState && null == F5.__s && (F5._nextState = F5.__s = F5.state), F5.context = L2, C2.getDerivedStateFromProps ? F5.state = f2(f2({}, F5.state), C2.getDerivedStateFromProps(F5.props, F5.state)) : F5.componentWillMount && (F5.componentWillMount(), F5.state = F5._nextState !== F5.state ? F5._nextState : F5.__s !== F5.state ? F5.__s : F5.state), j3 = F5.render(F5.props, F5.state, F5.context);
+            } else {
+                var E5 = C2.contextType, R = E5 && n3[E5.__c];
+                j3 = C2.call(r4.__c, A2, null != E5 ? R ? R.props.value : E5.__ : n3);
+            }
+            return F5.getChildContext && (n3 = f2(f2({}, n3), F5.getChildContext())), n.diffed && n.diffed(r4), x3(j3, n3, l21, !1 !== l21.shallowHighOrder, h11, y2);
+        }
+        C2 = (O1 = C2).displayName || O1 !== Function && O1.name || (function(e8) {
+            var t9 = (Function.prototype.toString.call(e8).match(/^\s*function\s+([^( ]+)/) || "")[1];
+            if (!t9) {
+                for(var r5 = -1, n4 = p2.length; n4--;)if (p2[n4] === e8) {
+                    r5 = n4;
+                    break;
+                }
+                r5 < 0 && (r5 = p2.push(e8) - 1), t9 = "UnnamedComponent" + r5;
+            }
+            return t9;
+        })(O1);
+    }
+    var D2, N2, P1 = "<" + C2;
+    if (A2) {
+        var U4 = Object.keys(A2);
+        l21 && !0 === l21.sortAttributes && U4.sort();
+        for(var W4 = 0; W4 < U4.length; W4++){
+            var q3 = U4[W4], z2 = A2[q3];
+            if ("children" !== q3) {
+                if (!v2.test(q3) && (l21 && l21.allAttributes || "key" !== q3 && "ref" !== q3 && "__self" !== q3 && "__source" !== q3 && "defaultValue" !== q3)) {
+                    if ("className" === q3) {
+                        if (A2.class) continue;
+                        q3 = "class";
+                    } else h11 && q3.match(/^xlink:?./) && (q3 = q3.toLowerCase().replace(/^xlink:?/, "xlink:"));
+                    if ("htmlFor" === q3) {
+                        if (A2.for) continue;
+                        q3 = "for";
+                    }
+                    "style" === q3 && z2 && "object" == typeof z2 && (z2 = s2(z2)), "a" === q3[0] && "r" === q3[1] && "boolean" == typeof z2 && (z2 = String(z2));
+                    var I2 = l21.attributeHook && l21.attributeHook(q3, z2, n3, l21, H2);
+                    if (I2 || "" === I2) P1 += I2;
+                    else if ("dangerouslySetInnerHTML" === q3) N2 = z2 && z2.__html;
+                    else if ("textarea" === C2 && "value" === q3) D2 = z2;
+                    else if ((z2 || 0 === z2 || "" === z2) && "function" != typeof z2) {
+                        if (!(!0 !== z2 && "" !== z2 || (z2 = q3, l21 && l21.xml))) {
+                            P1 += " " + q3;
+                            continue;
+                        }
+                        if ("value" === q3) {
+                            if ("select" === C2) {
+                                y2 = z2;
+                                continue;
+                            }
+                            "option" === C2 && y2 == z2 && (P1 += " selected");
+                        }
+                        P1 += " " + q3 + '="' + o2(z2) + '"';
+                    }
+                }
+            } else D2 = z2;
+        }
+    }
+    if (b1) {
+        var V = P1.replace(/\n\s*/, " ");
+        V === P1 || ~V.indexOf("\n") ? b1 && ~P1.indexOf("\n") && (P1 += "\n") : P1 = V;
+    }
+    if (P1 += ">", v2.test(C2)) throw new Error(C2 + " is not a valid HTML tag name in " + P1);
+    var Z1, B2 = _2.test(C2) || l21.voidElements && l21.voidElements.test(C2), G3 = [];
+    if (N2) b1 && i2(N2) && (N2 = "\n" + S2 + a2(N2, S2)), P1 += N2;
+    else if (null != D2 && u1(Z1 = [], D2).length) {
+        for(var J3 = b1 && ~P1.indexOf("\n"), K3 = !1, Q3 = 0; Q3 < Z1.length; Q3++){
+            var X2 = Z1[Q3];
+            if (null != X2 && !1 !== X2) {
+                var Y1 = x3(X2, n3, l21, !0, "svg" === C2 || "foreignObject" !== C2 && h11, y2);
+                if (b1 && !J3 && i2(Y1) && (J3 = !0), Y1) if (b1) {
+                    var ee1 = Y1.length > 0 && "<" != Y1[0];
+                    K3 && ee1 ? G3[G3.length - 1] += Y1 : G3.push(Y1), K3 = ee1;
+                } else G3.push(Y1);
+            }
+        }
+        if (b1 && J3) for(var te1 = G3.length; te1--;)G3[te1] = "\n" + S2 + a2(G3[te1], S2);
+    }
+    if (G3.length || N2) P1 += G3.join("");
+    else if (l21 && l21.xml) return P1.substring(0, P1.length - 1) + " />";
+    return !B2 || Z1 || N2 ? (b1 && ~P1.indexOf("\n") && (P1 += "\n"), P1 += "</" + C2 + ">") : P1 = P1.replace(/>$/, " />"), P1;
+}
+m2.shallowRender = g3;
 export { B1 as render };
 export { $1 as hydrate };
+export { m2 as renderToString };
 const react = {
     ...mod,
     ...mod1

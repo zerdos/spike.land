@@ -1,10 +1,10 @@
 import * as preact from "preact";
 import * as compat from "preact/compat";
 import { hydrate, render } from "preact/compat";
-
+import renderToString from "preact-render-to-string";
 export { render };
 export { hydrate };
-
+export { renderToString };
 // export const createRoot = (container) => ({
 //   render: (App) => render(App, container),
 // });

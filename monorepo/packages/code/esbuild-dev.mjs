@@ -1,10 +1,18 @@
 import https from "https";
 import http from "http";
 
-import jsonData from "./js/importmap.json" assert { type: "json" };
 
 import esbuild from "esbuild";
 import * as importMap from "esbuild-plugin-import-map";
+
+
+const jsonData = {imports:  {
+  react:  "https://spike.land/dist/react.mjs",
+  "react-dom":  "https://spike.land/dist/react.mjs",
+  "framer-motion": "https://spike.land/dist/motion.mjs",
+  "@emotion/react": "https://spike.land/dist/emotion.mjs"
+}}
+
 
 const environment = process.env.NODE_ENV == "production"
   ? "production"
