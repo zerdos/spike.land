@@ -181,6 +181,7 @@ const build = (entryPoints) =>
     loader: {
       ".ttf": "file",
       ".css": "file",
+      ".tsx": "tsx",
       ".worker.js": "dataurl",
       ".wasm": "dataurl",
     },
