@@ -54,17 +54,12 @@ export const renderPreviewWindow = async (
 
   console.log({ diffy });
 
-  target.style.opacity = "0";
   // await wait(2000);
-  document.body.append(target);
 
   console.log("wait....: " + String(2000 - diffy));
 
   await wait(2000 - diffy);
 
-  target.style.display = "block";
-  target.style.opacity = "1";
-  document.querySelector("#root")!.remove();
   document.body.style.backgroundImage =
     'url("https://unpkg.com/@spike.land/code@0.6.11/js/assets/synthwave.webp")';
 
