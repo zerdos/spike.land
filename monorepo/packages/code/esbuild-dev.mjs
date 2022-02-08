@@ -209,8 +209,10 @@ const build = (entryPoints) =>
 // ]);
 
 await build([
-  "js/starter.mjs"
-  
+  "js/starter.mjs",
+  "js/emotion.ts",
+  "js/react.ts",
+  "js/motion.ts"
 ]);
 
 // esbuild.build({
