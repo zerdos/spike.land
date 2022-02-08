@@ -1,6 +1,4 @@
 /** @jsx jsx */
-import React from "react";
-
 import { css, jsx } from "@emotion/react";
 //@ts-ignore
 import { render } from "react";
@@ -37,8 +35,7 @@ export const renderPreviewWindow = async (
   //@ts-ignore
 
   // Target  .innerHTML = html;
-
-  render(
+  const Comp = () => (
     <DraggableWindow
       onShare={() => open(`https://spike.land/api/room/${room}/public`)}
       onRestore={() => {
@@ -50,7 +47,10 @@ export const renderPreviewWindow = async (
       hashCode={hashCode()}
       keepFullScreen={keepFullScreen}
       room={room}
-    />,
+    />
+  );
+  render(
+    jsx(Comp),
     target,
   );
 
