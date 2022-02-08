@@ -231,7 +231,7 @@ export class Code {
             <style>${mST().css}</style>
             <div id="zbody">${ mST().html}
             </div></div>
-            <script type="importmap">${JSON.stringify({imports: {imap.im}})}</script>
+            <script type="importmap">${JSON.stringify({imports: {...imap.imports, "@emotion/react": "https://spike.land/dist/emotion.mjs"}, scope: {...imap.scopes}})}</script>
             <script type="module">
             import {hydrateBinary}  from "./dist/starter.mjs"; 
             hydrateBinary(atob("${ btoa( toBinary(mST().transpiled))}"));
