@@ -14,7 +14,7 @@ const moduleCache = {
 };
 
 export const LazyMotion: FC<MotionProps> = ({ children, ...props }) => {
-  const [motionDiv, setMotionDiv] = useState(MotionMockDiv);
+  const [motionDiv, setMotionDiv] = useState(null);
 
   useEffect(() => {
     (async () => {
@@ -27,5 +27,9 @@ export const LazyMotion: FC<MotionProps> = ({ children, ...props }) => {
   }, []);
 
   // @ts-ignore
-  return <motionDiv {...props}>{children}</motionDiv>;
+  return (
+    <Suspense fallback={<MotionMockDiv {...props}>{children}</MotionMockDiv>}>
+      <motionDiv {...props}>{children}</motionDiv>
+    </Suspense>
+  );
 };
