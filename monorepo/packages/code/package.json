@@ -1,6 +1,6 @@
 {
   "name": "@spike.land/code",
-  "version": "0.6.256",
+  "version": "0.6.257",
   "description": "spike.land",
   "main": "./js/dist/starter.mjs",
   "files": [
@@ -50,16 +50,15 @@
     "access": "public"
   },
   "dependencies": {
+    "@babel/runtime": "^7.17.0",
     "@babel/standalone": "^7.17.1",
     "@emotion/cache": "^11.7.1",
     "@emotion/react": "^11.7.1",
-    "@emotion/styled": "^11.6.0",
-    "@babel/runtime": "^7.17.0",
     "@emotion/serialize": "^1.0.2",
     "@emotion/sheet": "^1.1.0",
+    "@emotion/styled": "^11.6.0",
     "@emotion/utils": "^1.0.0",
     "@emotion/weak-memoize": "^0.2.5",
-    "hoist-non-react-statics": "^3.3.2",
     "@isomorphic-git/lightning-fs": "isomorphic-git/lightning-fs",
     "@mui/material": "^5.4.0",
     "@spike.land/qrious": "^0.6.59",
@@ -73,6 +72,7 @@
     "esbuild-plugin-import-map": "2.1.0",
     "esbuild-wasm": "^0.14.18",
     "framer-motion": "6.2.4",
+    "hoist-non-react-statics": "^3.3.2",
     "immutable": "^4.0.0",
     "isomorphic-git": "^1.11.2",
     "lodash": "^4.17.21",
