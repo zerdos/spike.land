@@ -1,16 +1,14 @@
-/** @jsx jsx */
-
-import { css, jsx } from "@emotion/react";
+import { css } from "@emotion/react";
 import { motion } from "framer-motion";
-import React from "react";
+import { useEffect, useRef, useState } from "./react.mjs";
 import { QRious } from "@spike.land/qrious";
-// @ts-expect-error
+
 import { Fab, QrCode } from "./mui";
 
 const QR: React.FC<{ url: string }> = ({ url }) => {
-  const canvasRef = React.useRef<HTMLCanvasElement>(null);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
 
-  React.useEffect(() => {
+  useEffect(() => {
     const load = () => {
       const options = {
         size: 200,
@@ -41,7 +39,7 @@ const QR: React.FC<{ url: string }> = ({ url }) => {
 };
 
 export const QRButton: React.FC<{ url: string }> = ({ url }) => {
-  const [showQR, setQR] = React.useState(false);
+  const [showQR, setQR] = useState(false);
   return (
     <motion.div
       animate={{
