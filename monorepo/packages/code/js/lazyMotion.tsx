@@ -30,7 +30,7 @@ export const LazyMotion: FC<MotionProps> = ({ children, ...props }) => {
 
   // @ts-ignore
   return (
-    <Suspense fallback={<div>{ChCont}</div>}>
+    <Suspense fallback={<div {...props}>{ChCont}</div>}>
       <motion.div {...props}>{ChCont}</motion.div>
     </Suspense>
   );
