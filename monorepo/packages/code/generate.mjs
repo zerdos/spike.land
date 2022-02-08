@@ -22,9 +22,9 @@ const generator = new Generator({
 
 await generator.install("react");
 // await generator.install("react@18");
-await generator.install("preact");
+// await generator.install("preact");
 
-await generator.install("preact/compat");
+// await generator.install("preact/compat");
 
 // await generator.install("react@18/jsix-runtime"); // await generator.install("react");
 //await generator.install("react-dom@18/server");
@@ -71,8 +71,8 @@ const importMap = { ...generator.getMap() };
 importMap.imports["react"] = isDev?"https://localhost:8000/monorepo/packages/code/js/dist/react.mjs":"https://spike.land/dist/react.mjs" ;  
 importMap.imports["react-dom"] = importMap.imports["react"] 
 importMap.imports["framer-motion"] = isDev?"https://localhost:8000/monorepo/packages/code/js/dist/motion.mjs":"https://spike.land/dist/motion.mjs" ;  
-importMap.imports["preact"] = isDev?"https://localhost:8000/monorepo/packages/code/js/dist/preact.mjs":"https://spike.land/dist/preact.mjs" ;  
-importMap.imports["preact/compat"] = importMap.imports["preact"];
+// importMap.imports["preact"] = isDev?"https://localhost:8000/monorepo/packages/code/js/dist/preact.mjs":"https://spike.land/dist/preact.mjs" ;  
+// importMap.imports["preact/compat"] = importMap.imports["preact"];
 // importMap.imports["react-is"] =
 // `https://unpkg.com/@spike.land/esm@${version}/dist/react-is.mjs`;
 

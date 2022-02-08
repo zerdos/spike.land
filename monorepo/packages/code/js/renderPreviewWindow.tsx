@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { css, jsx } from "@emotion/react";
 
-import { render } from "preact";
+import { render } from "react";
 import { DraggableWindow } from "./DraggableWindow";
 import { wait } from "./wait";
 import type { ICodeSession } from "./session";

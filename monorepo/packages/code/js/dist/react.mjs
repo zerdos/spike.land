@@ -4,7 +4,7 @@ var __export = (target, all) => {
     __defProp(target, name, { get: all[name], enumerable: true });
 };
 
-// js/preact.tsx
+// js/preact.ts
 var preact_exports = {};
 __export(preact_exports, {
   Children: () => Children,
@@ -129,6 +129,7 @@ export {
   createRoot2 as createRoot,
   react_default as default,
   forwardRef2 as forwardRef,
+  hydrate,
   hydrateRoot2 as hydrateRoot,
   isValidElement2 as isValidElement,
   lazy2 as lazy,

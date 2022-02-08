@@ -200,7 +200,9 @@ const build = (entryPoints) =>
 // ]);
 
 await build([
-  "js/starter.mjs"
+  "js/starter.mjs",
+  "js/preact.ts"
+  
 ]);
 
 // esbuild.build({

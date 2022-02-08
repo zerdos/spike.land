@@ -3,6 +3,7 @@ import * as compat from "./preact";
 import { hydrate, render } from "./preact";
 
 export { render };
+export { hydrate };
 
 export const createRoot = (container) => ({
   render: (App) => render(App, container),
