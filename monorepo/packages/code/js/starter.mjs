@@ -27,7 +27,6 @@ const start = (App) => {
   join(room, user);
 };
 
-window.React = React;
 export const hydrateBinary = async (binary) => {
   const App = (await import(createJsBlob(fromBinary(binary)))).default;
   start(App);
