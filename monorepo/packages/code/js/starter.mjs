@@ -14,10 +14,10 @@ const room =
     : (path.pop() || path.pop()).slice(-12)) ||
   "code-main";
 const user = ((self && self.crypto && self.crypto.randomUUID &&
-  self.crypto.randomUUID()) || (uidV4()).slice(
+  self.crypto.randomUUID()) || (uidV4())).slice(
     0,
     8,
-  ));
+  );
 
 window.React = React;
 export const hydrateBinary = async (binary) => {
