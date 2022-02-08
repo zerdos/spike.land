@@ -3,6 +3,21 @@ import React from "react";
 import { hydrate, render } from "./preact";
 import { fromBinary } from "./binary";
 import { jsx } from "@emotion/react";
+import uidV4 from "./uidV4.mjs";
+
+const path = location.pathname.split("/");
+window.aniStart = Date.now();
+
+const room =
+  ((path[1] === "api" && path[2] === "room")
+    ? path[3]
+    : (path.pop() || path.pop()).slice(-12)) ||
+  "code-main";
+const user = ((self && self.crypto && self.crypto.randomUUID &&
+  self.crypto.randomUUID()) || (uidV4()).slice(
+    0,
+    8,
+  ));
 
 window.React = React;
 export const hydrateBinary = async (binary) => {
@@ -10,96 +25,31 @@ export const hydrateBinary = async (binary) => {
   const container = document.querySelector("#zbody");
 
   hydrate(container, jsx(App));
-
-  function createJsBlob(code) {
-    const blob = new Blob([code], { type: "application/javascript" });
-
-    return URL.createObjectURL(blob);
-  }
+  globalThis.App = App;
 };
-export const run = async (injectedRoom) => {
-  const path = location.pathname.split("/");
-  window.aniStart = Date.now();
 
-  const room = injectedRoom ||
-    ((path[1] === "api" && path[2] === "room")
-      ? path[3]
-      : (path.pop() || path.pop()).slice(-12)) ||
-    "code-main";
-  const user = ((self && self.crypto && self.crypto.randomUUID &&
-    self.crypto.randomUUID()) || (await import("./uidV4.mjs")).default()).slice(
-      0,
-      8,
-    );
+export const run = async () => {
+  if (globalThis.App) join(room, user);
 
-  if (location.pathname.includes("hydrate")) {
-    const App = (await import(
-      `https://spike.land/api/room/${room}/js`
-    )).default;
+  const respS = await fetch(
+    `https://spike.land/api/room/${room}/session`,
+  );
 
-    const createDelta = (await import("textdiff-create")).default;
-    // const applyDelta = (await import("textdiff-patch")).default;
+  const session = await respS.json();
+  const container = document.getElementById("root");
+  container.innerHTML =
+    `<style>${session.css}</style><div id="zbody">${session.html}</div>`;
+  const zbody = document.getElementById("zbody");
+  zbody.innerHTML = "";
+  const App = (await import(createJsBlob(session.transpiled))).default;
 
-    // const { hydrateRoot } = React;
-    const container = document.querySelector("#zbody");
-
-    window.aniStart = Date.now();
-    hydrate(container, jsx(App));
-
-    join(room, user);
-
-    return;
-  } else {
-    (async () => {
-      const App = (await import(
-        `https://spike.land/api/room/${room}/js`
-      )).default;
-
-      let container = document.getElementById("zbody");
-
-      globalThis.App = App;
-
-      render(jsx(App), container);
-
-      if (!container) {
-        const respS = await fetch(
-          `https://spike.land/api/room/${room}/session`,
-        );
-        const session = await respS.json();
-        container = document.getElementById("root");
-        container.innerHTML =
-          `<style>${session.css}</style><div id="zbody">${session.html}</div>`;
-        container = document.getElementById("zbody");
-      } else {
-        const App = (await import(
-          `https://spike.land/api/room/${room}/js`
-        )).default;
-
-        const { jsx } = await import("@emotion/react");
-
-        let container = document.querySelector("#zbody");
-
-        if (!container) {
-          container = document.getElementById("root");
-          if (!container) throw new Error();
-
-          const respS = await fetch(
-            `https://spike.land/api/room/${room}/session`,
-          );
-
-          const session = await respS.json();
-
-          container.innerHTML =
-            `<style>${session.css}</style><div id="zbody">${session.html}</div>`;
-          container = document.querySelector("#zbody");
-        }
-
-        if (!container) throw new Error();
-
-        hydrate(container, jsx(App));
-      }
-    })();
-  }
-
+  hydrate(zbody, App);
+  globalThis.App = App;
   join(room, user);
 };
+
+function createJsBlob(code) {
+  const blob = new Blob([code], { type: "application/javascript" });
+
+  return URL.createObjectURL(blob);
+}
