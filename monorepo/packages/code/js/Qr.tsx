@@ -1,6 +1,6 @@
 import { css } from "@emotion/react";
 import { motion } from "framer-motion";
-import { useEffect, useRef, useState } from "./react.mjs";
+import { useEffect, useRef, useState } from "react";
 import { QRious } from "@spike.land/qrious";
 
 import { Fab, QrCode } from "./mui";

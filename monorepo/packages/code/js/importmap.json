@@ -1,8 +1,8 @@
 {
   "imports": {
     "framer-motion": "https://spike.land/dist/motion.mjs",
-    "react": "https://spike.land/dist/react.mjs",
-    "react-dom": "https://spike.land/dist/react.mjs",
+    "react": "https://spike.land/react.mjs",
+    "react-dom": "https://spike.land/react.mjs",
     "@emotion/react": "https://spike.land/dist/emotion.mjs"
   },
   "scopes": {

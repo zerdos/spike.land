@@ -1,6 +1,6 @@
-import * as preact from "./preact";
-import * as compat from "./preact";
-import { hydrate, render } from "./preact";
+import * as preact from "./dist/preact.mjs";
+import * as compat from "./dist/preact.mjs";
+import { hydrate, render } from "./dist/preact.mjs";
 
 export { render };
 export { hydrate };
