@@ -13,7 +13,7 @@ export const renderPreviewWindow = async (
   room: string,
   keepFullScreen: boolean,
 ) => {
-  const target = document.getElementById("root");
+  const target = document.getElementById("zbody");
   const editor = document.getElementById("monacoEditor")!;
   // Target.style.display = "none";
   editor.style.opacity = "0";
