@@ -1,5 +1,5 @@
 {
-  "version": "0.6.268",
+  "version": "0.6.269",
   "npmClient": "npm",
   "useWorkspaces": true,
   "packages": [
