@@ -23,7 +23,8 @@ const generator = new Generator({
 await generator.install("react");
 // await generator.install("react@18");
 await generator.install("preact");
-// await generator.install("preact/compat");
+
+await generator.install("preact/compat");
 
 // await generator.install("react@18/jsix-runtime"); // await generator.install("react");
 //await generator.install("react-dom@18/server");
