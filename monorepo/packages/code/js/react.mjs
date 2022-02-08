@@ -1,4 +1,4 @@
-const react = window.React;
+import react from "./dist/preact.mjs";
 
 export const { render } = react;
 export const { hydrate } = react;
