@@ -35,22 +35,20 @@ export const renderPreviewWindow = async (
   //@ts-ignore
 
   // Target  .innerHTML = html;
-  const Comp = () => (
+
+  render(
     <DraggableWindow
       onShare={() => open(`https://spike.land/api/room/${room}/public`)}
       onRestore={() => {
-        const model = session.editor.getModel();
-        model.setValue(session.code);
+        // const model = session.getModel();
+        // model.setValue(session.code);
       }}
       position={session.mode === "window" ? "fixed" : "absolute"}
       session={session}
       hashCode={hashCode()}
       keepFullScreen={keepFullScreen}
       room={room}
-    />
-  );
-  render(
-    jsx(Comp),
+    />,
     target,
   );
 

@@ -65,7 +65,7 @@ export const Qr = () => {
     return cubeSides[qr] as IDummyQR;
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     const connect = async () => {
       const secret = Math.random() + "-" + Math.random() + "-" + Math.random();
       const key = (await sha256(secret)).slice(0, 8);
@@ -83,7 +83,7 @@ export const Qr = () => {
     }
   }, [retry]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     const setSignal = async (url: string) => {
       if (cubeState !== 1) return;
 

@@ -33,7 +33,7 @@ const ToggleButton = muiToggleButton as typeof MuiToggleButton;
 // Import { breakpoints } from "@mui/system";
 
 // const {motion} = Motion;
-
+import type { ICodeSession } from "./session";
 const breakPoints = [680, 768, 1920];
 const breakPointHeights = [1137, 1024, 1080];
 
@@ -47,17 +47,7 @@ interface DraggableWindowProps {
   onShare: () => void;
   onRestore: (() => void);
   hashCode: number;
-  session: {
-    i: number;
-    url: string;
-    html: string;
-
-    transpiled: string;
-    errorText: string;
-    children: any;
-    css: string;
-    setChild: any;
-  };
+  session: ICodeSession;
   keepFullScreen: boolean;
   position?: string;
   room: string;
