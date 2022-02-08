@@ -44,15 +44,10 @@ import "es-module-shims";
   }
 
   try {
-    //@ts-ignore
-    window.React = (await import("../../preact.mjs")).default;
     // @ts-ignore
     const { run } = await import("../../starter.mjs");
     run();
   } catch {
-    //@ts-ignore
-    window.React = (await importShim("./dist/preact.mjs")).default;
-
     const { run } = await importShim("./dist/starter.mjs");
     run();
   }
