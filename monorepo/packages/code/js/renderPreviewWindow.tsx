@@ -1,6 +1,7 @@
 /** @jsx jsx */
-import { jsx } from "@emotion/react";
-import {} from "react-dom/next";
+
+import { css, jsx } from "@emotion/react";
+import { render } from "react-dom";
 import { DraggableWindow } from "./DraggableWindow";
 import { wait } from "./wait";
 import type { ICodeSession } from "./session";
@@ -13,7 +14,7 @@ export const renderPreviewWindow = async (
   keepFullScreen: boolean,
 ) => {
   const target = document.createElement("div");
-  const editor = document.querySelector("#monacoEditor")!;
+  const editor = document.getElementById("monacoEditor")!;
   // Target.style.display = "none";
   editor.style.opacity = "0";
 
@@ -30,7 +31,6 @@ export const renderPreviewWindow = async (
 
   // target  .innerHTML = html;
   //@ts-ignore
-  const { render } = React;
 
   // Target  .innerHTML = html;
 
