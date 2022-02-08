@@ -209,7 +209,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
   // }
 
   return (
-    <React.StrictMode>
+    <>
       <LazyMotion
         ref={ref}
         initial={{ bottom: startPositions.bottom, right: startPositions.right }}
@@ -478,7 +478,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
           </div>
         </div>
       </LazyMotion>
-    </React.StrictMode>
+    </>
   );
 };
 
