@@ -51,15 +51,15 @@ export const renderPreviewWindow = async (
     target,
   );
 
-  const diffy = window.diffy = Date.now() - window.aniStart;
+  // const diffy = window.diffy = Date.now() - window.aniStart;
 
-  console.log({ diffy });
+  // console.log({ diffy });
 
   // await wait(2000);
 
-  console.log("wait....: " + String(2000 - diffy));
+  // console.log("wait....: " + String(2000 - diffy));
 
-  await wait(2000 - diffy);
+  // await wait(2000 - diffy);
 
   document.body.style.backgroundImage =
     'url("https://unpkg.com/@spike.land/code@0.6.11/js/assets/synthwave.webp")';

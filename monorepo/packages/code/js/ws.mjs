@@ -204,7 +204,7 @@ export const join = async (room, user, delta) => {
         setChild: () => {},
         changes: [],
 
-        children: [null],
+        children: [globalThis.App],
         errorText: "",
       };
       const throttle = (await import("lodash/throttle")).default;

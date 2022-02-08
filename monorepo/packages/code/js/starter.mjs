@@ -56,6 +56,9 @@ export const run = async (injectedRoom) => {
       )).default;
 
       let container = document.getElementById("zbody");
+
+      globalThis.App = App;
+
       render(jsx(App), container);
 
       if (!container) {
