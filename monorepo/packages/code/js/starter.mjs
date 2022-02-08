@@ -19,13 +19,18 @@ const user = ((self && self.crypto && self.crypto.randomUUID &&
     8,
   );
 
+const start = (App) => {
+  const container = document.querySelector("#zbody");
+  hydrate(container, jsx(App));
+  globalThis.App = App;
+
+  join(room, user);
+};
+
 window.React = React;
 export const hydrateBinary = async (binary) => {
   const App = (await import(createJsBlob(fromBinary(binary)))).default;
-  const container = document.querySelector("#zbody");
-
-  hydrate(container, jsx(App));
-  globalThis.App = App;
+  start(App);
 };
 
 export const run = async () => {
@@ -39,13 +44,10 @@ export const run = async () => {
   const container = document.getElementById("root");
   container.innerHTML =
     `<style>${session.css}</style><div id="zbody">${session.html}</div>`;
-  const zbody = document.getElementById("zbody");
-  zbody.innerHTML = "";
+
   const App = (await import(createJsBlob(session.transpiled))).default;
 
-  hydrate(zbody, App);
-  globalThis.App = App;
-  join(room, user);
+  start(App);
 };
 
 function createJsBlob(code) {
