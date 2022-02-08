@@ -1,4 +1,5 @@
-import { CacheProvider } from "@emotion/react";
+/** @jsx jsx */
+import { CacheProvider, jsx } from "@emotion/react";
 // @ts-ignore /// cheating
 import { createCache } from "@emotion/react";
 

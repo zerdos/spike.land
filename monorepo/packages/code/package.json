@@ -19,7 +19,10 @@
     "build:sw": "yarn esbuild --outfile=./js/sw.js --platform=browser --bundle --minify js/sw.ts && yarn sw",
     "start": "cd ../../.. && yarn start",
     "push": "cd ../../.. && yarn push",
-    "build": "yarn clean && node --experimental-json-modules esbuild-dev.mjs  && yarn build:sw",
+    "build:framer-motion": "yarn esbuild --bundle js/motion.ts  --target=es2018 --format=esm --external:react --external:@emotion/is-prop-valid --outfile=js/dist/motion.mjs",
+    "build:emotion": "yarn esbuild --bundle js/emotion.ts  --target=es2018 --format=esm --external:react --outfile=js/dist/emoton.mjs",
+    "build:react": "yarn esbuild --bundle js/react.mjs  --target=es2018 --format=esm  --outfile=js/dist/react.mjs",
+    "build": "yarn clean && yarn build:framer-motion && yarn build:emotion && yarn build:react && node --experimental-json-modules esbuild-dev.mjs  && yarn build:sw",
     "importmap": "node --experimental-json-modules generate.mjs > ./importmap_NEW.json && mv importmap_NEW.json js/importmap.json",
     "workbox-cli": "workbox-cli",
     "sw": "yarn workbox injectManifest workbox-config.json"
