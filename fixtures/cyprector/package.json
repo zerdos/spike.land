@@ -27,7 +27,7 @@
     "release": "yarn version --no-git-tag-version"
   },
   "dependencies": {
-    "aws-sdk": "2.1070.0",
+    "aws-sdk": "2.1071.0",
     "axios": "0.25.0",
     "clone-deep": "4.0.1",
     "date-fns": "2.28.0",
