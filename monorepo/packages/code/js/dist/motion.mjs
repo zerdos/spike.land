@@ -549,7 +549,7 @@ var warning = function() {
 };
 var invariant = function() {
 };
-if (true) {
+if ($NODE_ENV !== "production") {
   warning = function(check, message) {
     if (!check && typeof console !== "undefined") {
       console.warn(message);
@@ -574,7 +574,7 @@ function useFeatures(props, visualElement2, preloadedFeatures) {
   var lazyContext = useContext(LazyContext);
   if (!visualElement2)
     return null;
-  if (preloadedFeatures && lazyContext.strict) {
+  if ($NODE_ENV !== "production" && preloadedFeatures && lazyContext.strict) {
     invariant(false, "You have rendered a `motion` component within a `LazyMotion` component. This will break tree shaking. Import and render a `m` component instead.");
   }
   for (var i = 0; i < numFeatures; i++) {
@@ -4781,7 +4781,7 @@ function useMissingIntersectionObserver(shouldObserve, state, visualElement2, _a
   useEffect5(function() {
     if (!shouldObserve || !fallback)
       return;
-    if (true) {
+    if ($NODE_ENV !== "production") {
       warnOnce(false, "IntersectionObserver not available on this device. whileInView animations will trigger on mount.");
     }
     requestAnimationFrame(function() {
