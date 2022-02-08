@@ -1,14 +1,7 @@
 /** @jsx jsx */
 import { css, jsx } from "@emotion/react";
 
-import React, {
-  Fragment,
-  lazy,
-  Suspense,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
+import { Fragment, lazy, Suspense, useEffect, useRef, useState } from "react";
 import type { FC } from "react";
 import { motion } from "framer-motion";
 // import { motion.div } from "./lazyMotion";
