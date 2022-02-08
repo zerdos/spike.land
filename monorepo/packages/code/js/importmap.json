@@ -1,8 +1,8 @@
 {
   "imports": {
     "framer-motion": "https://spike.land/dist/motion.mjs",
-    "preact": "https://ga.jspm.io/npm:preact@10.6.5/dist/preact.module.js",
-    "preact/compat": "https://ga.jspm.io/npm:preact@10.6.5/compat/dist/compat.module.js",
+    "preact": "https://spike.land/dist/preact.mjs",
+    "preact/compat": "https://spike.land/dist/preact.mjs",
     "react": "https://spike.land/dist/react.mjs",
     "react-dom": "https://spike.land/dist/react.mjs",
     "@emotion/react": "https://spike.land/dist/emotion.mjs"

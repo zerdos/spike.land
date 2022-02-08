@@ -1,4 +1,6 @@
-import { css } from "@emotion/react";
+/** @jsx jsx */
+import { css, jsx } from "@emotion/react";
+
 import React, {
   Fragment,
   lazy,

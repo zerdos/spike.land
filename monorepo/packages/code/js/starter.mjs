@@ -1,5 +1,6 @@
 import { join } from "./ws.mjs";
-import React, { hydrateRoot, render } from "react";
+import React from "react";
+import { preact } from "./preact";
 import { fromBinary } from "./binary";
 import { jsx } from "@emotion/react";
 
