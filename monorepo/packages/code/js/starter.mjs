@@ -1,6 +1,6 @@
 import { join } from "./ws.mjs";
 import React from "react";
-import { preact } from "./preact";
+import { hydrate } from "./preact";
 import { fromBinary } from "./binary";
 import { jsx } from "@emotion/react";
 
@@ -9,7 +9,7 @@ export const hydrateBinary = async (binary) => {
   const App = (await import(createJsBlob(fromBinary(binary)))).default;
   const container = document.querySelector("#zbody");
 
-  const root = hydrateRoot(container, jsx(App));
+  hydrate(container, jsx(App));
 
   function createJsBlob(code) {
     const blob = new Blob([code], { type: "application/javascript" });
@@ -44,7 +44,7 @@ export const run = async (injectedRoom) => {
     const container = document.querySelector("#zbody");
 
     window.aniStart = Date.now();
-    const root = hydrateRoot(container, jsx(App));
+    hydrate(container, jsx(App));
 
     join(room, user);
 
@@ -93,7 +93,7 @@ export const run = async (injectedRoom) => {
 
         if (!container) throw new Error();
 
-        hydrateRoot(container, jsx(App));
+        hydrate(container, jsx(App));
       }
     })();
   }
