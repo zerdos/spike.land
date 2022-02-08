@@ -80,7 +80,7 @@ importMap.imports["framer-motion"] = isDev?"https://localhost:8000/monorepo/pack
 // importMap.imports["react-is"] =
 //   "https://unpkg.com/@spike.land/esm@0.4.33/dist/react-is.mjs";
 
-importMap.imports["@emotion/react"] =isDev?"https://localhost:8000/monorepo/packages/code/js/dist/emotion.mjs":"https://spike.land/dist/emotion.mjs"
+// importMap.imports["@emotion/react"] =isDev?"https://localhost:8000/monorepo/packages/code/js/dist/emotion.mjs":"https://spike.land/dist/emotion.mjs"
 //importMap.imports.tslib =
 //   "https://cdnjs.cloudflare.com/ajax/libs/tslib/2.3.1/tslib.es6.min.js";
 
