@@ -941,7 +941,7 @@
     "@babel/helper-validator-identifier" "^7.16.7"
     to-fast-properties "^2.0.0"
 
-"@cloudflare/workers-types@^3.3.1":
+"@cloudflare/workers-types@3.3.1":
   version "3.3.1"
   resolved "https://registry.yarnpkg.com/@cloudflare/workers-types/-/workers-types-3.3.1.tgz#8847543bda320472252708c29aaf7bac3374e814"
   integrity sha512-GJFDgWd8ZHlr/m+Q2mp4xUl0/FIPpR6kf0Ix2C78E9HeJyUCW0c0w2EKCvgEDFFKB2rkzIX3eBqZCnLsbsw8zQ==
@@ -1149,7 +1149,7 @@
   resolved "https://registry.yarnpkg.com/@jspm/core/-/core-2.0.0-beta.19.tgz#fd3de3c54ac5ec35086590c956452a45215626df"
   integrity sha512-eFbitkdFBKl10pKdBENW+gCRz/tMfkthFfNP9VYoqaeEmets0Ysb8eFz/SGOogzi5yi50eRjwXVqL3VVAQ6jYA==
 
-"@jspm/generator@^1.0.0-beta.22":
+"@jspm/generator@1.0.0-beta.22":
   version "1.0.0-beta.22"
   resolved "https://registry.yarnpkg.com/@jspm/generator/-/generator-1.0.0-beta.22.tgz#2488c901e034b343e423ee2fe44758085b85e201"
   integrity sha512-llU1PZf+ITjwTrF9R9M6deGaWawuGAmlvLVS39hL08UmmH12ND1Y/uNvQc8XndDtJsYhxrEiKfwa2GwxPkicrg==
@@ -3986,7 +3986,7 @@ esbuild@0.14.14:
     esbuild-windows-64 "0.14.14"
     esbuild-windows-arm64 "0.14.14"
 
-esbuild@0.14.20, esbuild@^0.14.20:
+esbuild@0.14.20:
   version "0.14.20"
   resolved "https://registry.yarnpkg.com/esbuild/-/esbuild-0.14.20.tgz#e83fcb838463f220e864141752bb0f91bfc9c33a"
   integrity sha512-7aRJRnTjHZ6rFEre52tsAYZxatVELSA/QvYGUBf1iOsYKCnSJICE5seugQFFJgV1Gyl0/mngxQPhxBIqgYG2BA==
@@ -5403,7 +5403,7 @@ latest-version@^5.0.0:
   dependencies:
     package-json "^6.3.0"
 
-lerna@^4.0.0:
+lerna@4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/lerna/-/lerna-4.0.0.tgz#b139d685d50ea0ca1be87713a7c2f44a5b678e9e"
   integrity sha512-DD/i1znurfOmNJb0OBw66NmNqiM8kF6uIrzrJ0wGE3VNdzeOhz9ziWLYiRaZDGGwgbcjOo6eIfcx9O5Qynz+kg==
@@ -7970,7 +7970,7 @@ typedoc@0.22.11:
     minimatch "^3.0.4"
     shiki "^0.10.0"
 
-typescript@4.5.5, typescript@^4.3.5, typescript@^4.5.5:
+typescript@4.5.5, typescript@^4.3.5:
   version "4.5.5"
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.5.5.tgz#d8c953832d28924a9e3d37c73d729c846c5896f3"
   integrity sha512-TCTIul70LyWe6IJWT8QSYeA54WQe8EjQFU4wY52Fasj5UKx88LNYKCgBEHcOMOrFF1rKGbD8v/xcNWVUq9SymA==
