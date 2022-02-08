@@ -1,8 +1,9 @@
 import { join } from "./ws.mjs";
-import { hydrate } from "react";
+import React, { hydrate } from "react";
 import { fromBinary } from "./binary";
 import { jsx } from "@emotion/react";
 import uidV4 from "./uidV4.mjs";
+window.React = React;
 
 const path = location.pathname.split("/");
 window.aniStart = Date.now();

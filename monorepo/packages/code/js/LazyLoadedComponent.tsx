@@ -41,7 +41,7 @@ export const LazySpikeLandComponent: FC<ILaztCom> = (
     })();
   }, [hashCode]);
 
-  // Const LazyStarter = () => React.lazy(() => getApp(transpiled)) : <div></div>;
+  // Const LazyStarter = () => lazy(() => getApp(transpiled)) : <div></div>;
 
   const LazyComponentInit = lazy(async () => import(createJsBlob(transpiled)));
 
