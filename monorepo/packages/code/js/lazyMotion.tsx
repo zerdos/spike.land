@@ -28,9 +28,17 @@ export const LazyMotion: FC<MotionProps> = ({ children, ...props }) => {
 
   const ChCont = <Fragment>{children}</Fragment>;
 
+  let strProps = {};
+  Object.keys(props).map((prop) =>
+    strProps = {
+      ...strProps,
+      ...(typeof props[prop] === "string" ? { [prop]: props[prop] } : {}),
+    }
+  );
+
   // @ts-ignore
   return (
-    <Suspense fallback={<div {...props}>{ChCont}</div>}>
+    <Suspense fallback={<div {...strProps}>{ChCont}</div>}>
       <motion.div {...props}>{ChCont}</motion.div>
     </Suspense>
   );
