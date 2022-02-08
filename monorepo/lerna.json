@@ -1,6 +1,6 @@
 {
   "version": "0.6.286",
-  "npmClient": "npm",
+  "npmClient": "yarn",
   "useWorkspaces": true,
   "packages": [
     "dockerhub/devimages/*",
