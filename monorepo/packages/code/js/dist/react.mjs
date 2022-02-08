@@ -780,9 +780,9 @@ var compat_module_default = { useState: l2, useReducer: p2, useEffect: y2, useLa
 
 // js/react.mjs
 var createRoot = (container) => ({
-  render: (App) => S(App, container)
+  render: (App) => B2(App, container)
 });
-var hydrateRoot = (container, App) => q(App, container);
+var hydrateRoot = (container, App) => $2(App, container);
 var react = {
   ...preact_module_exports,
   ...compat_module_exports
@@ -833,7 +833,7 @@ export {
   isValidElement,
   lazy,
   memo,
-  S as render,
+  B2 as render,
   useCallback,
   useContext,
   useDebugValue,

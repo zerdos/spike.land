@@ -1,6 +1,4 @@
-/** @jsx jsx */
-
-import { css, jsx } from "@emotion/react";
+import { css } from "@emotion/react";
 import { render } from "react-dom";
 import { DraggableWindow } from "./DraggableWindow";
 import { wait } from "./wait";

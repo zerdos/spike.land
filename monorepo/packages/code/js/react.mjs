@@ -1,6 +1,6 @@
 import * as preact from "preact";
 import * as compat from "preact/compat";
-import { hydrate, render } from "preact";
+import { hydrate, render } from "preact/compat";
 
 export { render };
 
