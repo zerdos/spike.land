@@ -15,7 +15,7 @@ export const renderPreviewWindow = async (
 ) => {
   console.log("renderPreviewWindow");
 
-  const target = document.createElement("div");
+  const target = document.getElementById("zbody");
   const editor = document.getElementById("monacoEditor")!;
   // Target.style.display = "none";
   editor.style.opacity = "0";
@@ -52,7 +52,7 @@ export const renderPreviewWindow = async (
     target,
   );
 
-  document.getElementById("root")?.replaceWith(target);
+  // document.getElementById("root")?.replaceWith(target);
 
   // const diffy = window.diffy = Date.now() - window.aniStart;
 
