@@ -14,7 +14,7 @@ const moduleCache = {
 };
 
 export const LazyMotion: FC<MotionProps> = ({ children, ...props }) => {
-  const [motionDiv, setMotionDiv] = useState(null);
+  const [motion, setMotionDiv] = useState({ div: null });
 
   useEffect(() => {
     (async () => {
@@ -22,14 +22,16 @@ export const LazyMotion: FC<MotionProps> = ({ children, ...props }) => {
         moduleCache.motion = import("framer-motion");
       }
       const { motion } = await moduleCache.motion;
-      setMotionDiv(motion.div);
+      setMotionDiv(motion);
     })();
   }, []);
 
+  const ChCont = <Fragment>{children}</Fragment>;
+
   // @ts-ignore
   return (
-    <Suspense fallback={<MotionMockDiv {...props}>{children}</MotionMockDiv>}>
-      <motionDiv {...props}>{children}</motionDiv>
+    <Suspense fallback={<div>{ChCont}</div>}>
+      <motion.div {...props}>{ChCont}</motion.div>
     </Suspense>
   );
 };
