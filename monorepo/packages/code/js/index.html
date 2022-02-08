@@ -12,6 +12,8 @@
     {
       "imports": {
         "framer-motion": "https://localhost:8000/monorepo/packages/code/js/dist/motion.mjs",
+        "preact": "https://ga.jspm.io/npm:preact@10.6.5/dist/preact.module.js",
+        "preact/compat": "https://ga.jspm.io/npm:preact@10.6.5/compat/dist/compat.module.js",
         "react": "https://localhost:8000/monorepo/packages/code/js/react.mjs",
         "react-dom": "https://localhost:8000/monorepo/packages/code/js/react.mjs",
         "@emotion/react": "https://localhost:8000/monorepo/packages/code/js/dist/emotion.mjs"
@@ -22,12 +24,20 @@
           "hey-listen": "https://ga.jspm.io/npm:hey-listen@1.0.8/dist/dev.index.js",
           "object-assign": "https://ga.jspm.io/npm:object-assign@4.1.1/index.js",
           "popmotion": "https://ga.jspm.io/npm:popmotion@11.0.3/dist/es/index.mjs",
+          "preact/hooks": "https://ga.jspm.io/npm:preact@10.6.5/hooks/dist/hooks.module.js",
           "style-value-types": "https://ga.jspm.io/npm:style-value-types@5.0.0/dist/es/index.mjs",
           "tslib": "https://ga.jspm.io/npm:tslib@2.3.1/tslib.es6.js"
         }
       }
-    }       
+    }     
   </script>
+  <script>
+      window.process = {
+    env: {
+      "NODE_ENV": "development"
+    },
+  };
+    </script>
 <!-- 
   <link
   data-name="vs/editor/editor.main"

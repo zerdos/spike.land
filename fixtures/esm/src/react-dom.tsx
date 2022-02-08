@@ -1,4 +1,4 @@
-import { hydrate, render } from "preact";
+import { hydrate, render } from "react";
 import type { FC } from "preact/compat";
 
 export const createRoot = (container: Element) => ({

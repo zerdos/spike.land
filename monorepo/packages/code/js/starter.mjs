@@ -1,6 +1,5 @@
 import { join } from "./ws.mjs";
-import React from "react";
-import { hydrate, render } from "./preact";
+import { hydrate } from "react";
 import { fromBinary } from "./binary";
 import { jsx } from "@emotion/react";
 import uidV4 from "./uidV4.mjs";
@@ -21,6 +20,7 @@ const user = ((self && self.crypto && self.crypto.randomUUID &&
 
 const start = (App) => {
   const container = document.querySelector("#zbody");
+
   hydrate(container, jsx(App));
   globalThis.App = App;
 

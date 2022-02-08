@@ -1,20 +1,7 @@
-import * as preact from "./dist/preact.mjs";
-import * as compat from "./dist/preact.mjs";
-import { hydrate, render } from "./dist/preact.mjs";
+const react = window.React;
 
-export { render };
-export { hydrate };
-
-export const createRoot = (container) => ({
-  render: (App) => render(App, container),
-});
-export const hydrateRoot = (container, App) => hydrate(App, container);
-
-const react = {
-  ...preact,
-  ...compat,
-};
-export const React = react;
+export const { render } = react;
+export const { hydrate } = react;
 
 export const { createContext } = react;
 export const { useDebugValue } = react;
@@ -48,6 +35,6 @@ export const { useMemo } = react;
 
 export const { cloneElement } = react;
 
-export default React;
+export default react;
 
 // export default React;

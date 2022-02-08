@@ -10,8 +10,8 @@ import React, {
   useState,
 } from "react";
 import type { FC } from "react";
-// import { motion } from "framer-motion";
-import { LazyMotion } from "./lazyMotion";
+import { motion } from "framer-motion";
+// import { motion.div } from "./lazyMotion";
 import { QRButton } from "./Qr";
 import { wait } from "./wait";
 import { LazySpikeLandComponent } from "./LazyLoadedComponent";
@@ -209,7 +209,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
   // }
 
   return (
-    <LazyMotion
+    <motion.div
       ref={ref}
       initial={{ bottom: startPositions.bottom, right: startPositions.right }}
       animate={{
@@ -275,7 +275,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
           </ToggleButtonGroup>
           {/* <span>{width}*{height}</span> */}
 
-          <LazyMotion
+          <motion.div
             animate={{
               width: width * scale / devicePixelRatio,
               height: height * scale / devicePixelRatio,
@@ -329,7 +329,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
               </pre>
             )}
 
-            <LazyMotion
+            <motion.div
               initial={{
                 transformOrigin: "0px 0px",
                 width: window.innerWidth / devicePixelRatio,
@@ -389,8 +389,8 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
                       src={`https://spike.land/api/room/${room}/hydrated`}
                     /> */
               }
-            </LazyMotion>
-          </LazyMotion>
+            </motion.div>
+          </motion.div>
           <ToggleButtonGroup
             value={width}
             size="small"
@@ -476,7 +476,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
           </Fab>
         </div>
       </div>
-    </LazyMotion>
+    </motion.div>
   );
 };
 
