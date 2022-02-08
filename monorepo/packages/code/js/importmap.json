@@ -1,5 +1,6 @@
 {
   "imports": {
+    "@emotion/cache": "https://ga.jspm.io/npm:@emotion/cache@11.7.1/dist/emotion-cache.browser.esm.js",
     "framer-motion": "https://spike.land/dist/motion.mjs",
     "preact": "https://ga.jspm.io/npm:preact@10.6.5/dist/preact.module.js",
     "preact/compat": "https://ga.jspm.io/npm:preact@10.6.5/compat/dist/compat.module.js",
@@ -9,12 +10,16 @@
   },
   "scopes": {
     "https://ga.jspm.io/": {
+      "@emotion/memoize": "https://ga.jspm.io/npm:@emotion/memoize@0.7.5/dist/emotion-memoize.browser.esm.js",
+      "@emotion/sheet": "https://ga.jspm.io/npm:@emotion/sheet@1.1.0/dist/emotion-sheet.browser.esm.js",
+      "@emotion/weak-memoize": "https://ga.jspm.io/npm:@emotion/weak-memoize@0.2.5/dist/weak-memoize.browser.esm.js",
       "framesync": "https://ga.jspm.io/npm:framesync@6.0.1/dist/es/index.mjs",
       "hey-listen": "https://ga.jspm.io/npm:hey-listen@1.0.8/dist/index.js",
       "object-assign": "https://ga.jspm.io/npm:object-assign@4.1.1/index.js",
       "popmotion": "https://ga.jspm.io/npm:popmotion@11.0.3/dist/es/index.mjs",
       "preact/hooks": "https://ga.jspm.io/npm:preact@10.6.5/hooks/dist/hooks.module.js",
       "style-value-types": "https://ga.jspm.io/npm:style-value-types@5.0.0/dist/es/index.mjs",
+      "stylis": "https://ga.jspm.io/npm:stylis@4.0.13/index.js",
       "tslib": "https://ga.jspm.io/npm:tslib@2.3.1/tslib.es6.js"
     }
   }

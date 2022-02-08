@@ -1,5 +1,5 @@
 import * as emotionReact from "@emotion/react";
-import createCache, { EmotionCache } from "@emotion/cache";
+import createCache from "@emotion/cache";
 
 export const { CacheProvider } = emotionReact;
 export const { ClassNames } = emotionReact;
@@ -7,7 +7,7 @@ export const { Global } = emotionReact;
 export const { ThemeContext } = emotionReact;
 export const { ThemeProvider } = emotionReact;
 // export const { __unsafe_useEmotionCache } = emotionReact;
-export { EmotionCache };
+
 export { createCache };
 export const { css } = emotionReact;
 export const { jsx } = emotionReact;
