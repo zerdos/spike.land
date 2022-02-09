@@ -287,12 +287,17 @@ export class Code {
               <style>${mST().css}</style>
                 <div id="zbody">${ mST().html}</div>
               </div>
-              <script type="importmap">${JSON.stringify({imports:{...imap.imports}, scopes: {...imap.scopes}})}</script>
-              <script type="module">
+              <script type="importmap">${JSON.stringify({imports:{...imap.imports}, scopes: {...imap.scopes}})}</script>`)
+              .replace('<script defer src="./dist/workers/js/appStarter.js"></script>',
+            ` 
+              <script defer type="module">
               import {hydrateBinary}  from "./dist/starter.mjs"; 
-              hydrateBinary(atob("${ btoa( toBinary(mST().transpiled))}"));
-              </script>`,
-          ).replaceAll(vReg, version);
+              try{
+                hydrateBinary(atob("${ btoa( toBinary(mST().transpiled))}"));
+              }
+              </script>
+              <script type="nomodule" defer  src="./dist/workers/js/appStarter.js"></script>`
+                   ).replaceAll(vReg, version);
           return new Response(html, {
             status: 200,
             headers: {
