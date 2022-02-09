@@ -37,8 +37,7 @@ export const renderPreviewWindow = async (
 
   // Target  .innerHTML = html;
 
-  hydrate(
-    target,
+  render(
     <DraggableWindow
       onShare={() => open(`https://spike.land/api/room/${room}/public`)}
       onRestore={() => {
@@ -51,6 +50,7 @@ export const renderPreviewWindow = async (
       keepFullScreen={keepFullScreen}
       room={room}
     />,
+    target,
   );
 
   // d//ocument.getElementById("root")?.replaceWith(target);
