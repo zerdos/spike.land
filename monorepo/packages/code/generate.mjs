@@ -42,7 +42,7 @@ await generator.install("@emotion/cache");
 // await generator.install("lodash/throttle");
 // await generator.install("simple-text-compress");
 // await generator.install("@emotion/styled");
-// await generator.install("framer-motion");
+await generator.install("framer-motion");
 
 //await generator.install("comlink");
 // await generator.install("tslib");
