@@ -1,12 +1,13 @@
 /** @jsx jsx */
 import { css, jsx } from "@emotion/react";
 //@ts-ignore
-import { render } from "react";
+import { hydrate } from "react";
 import { DraggableWindow } from "./DraggableWindow";
 import { wait } from "./wait";
 import type { ICodeSession } from "./session";
 
 import { hashCode } from "./session";
+// import { hydrate } from "preact";
 
 export const renderPreviewWindow = async (
   session: ICodeSession,
@@ -15,7 +16,7 @@ export const renderPreviewWindow = async (
 ) => {
   console.log("renderPreviewWindow");
 
-  const target = document.createElement("div");
+  const target = document.getElementById("zbody");
   const editor = document.getElementById("monacoEditor")!;
   // Target.style.display = "none";
   editor.style.opacity = "0";
@@ -36,7 +37,8 @@ export const renderPreviewWindow = async (
 
   // Target  .innerHTML = html;
 
-  render(
+  hydrate(
+    target,
     <DraggableWindow
       onShare={() => open(`https://spike.land/api/room/${room}/public`)}
       onRestore={() => {
@@ -49,10 +51,9 @@ export const renderPreviewWindow = async (
       keepFullScreen={keepFullScreen}
       room={room}
     />,
-    target,
   );
 
-  document.getElementById("root")?.replaceWith(target);
+  // d//ocument.getElementById("root")?.replaceWith(target);
 
   // const diffy = window.diffy = Date.now() - window.aniStart;
 
