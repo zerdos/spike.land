@@ -110,7 +110,7 @@ export default function (
           await wait(5000 - retry * 1000);
           return tryToResp(request, env, retry - 1)
         }
-        return new Response(`No... ${Object.prototype.toString.call({ Error })}`);
+        throw Error
       }
     }
   };

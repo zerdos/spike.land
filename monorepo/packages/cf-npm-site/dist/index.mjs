@@ -60,7 +60,7 @@ function src_default(packageName, version, serveDir = "") {
           await wait(5e3 - retry * 1e3);
           return tryToResp(request2, env2, retry - 1);
         }
-        return new Response(`No... ${Object.prototype.toString.call({ Error: Error2 })}`);
+        throw Error2;
       }
     }
   };
