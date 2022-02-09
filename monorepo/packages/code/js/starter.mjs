@@ -21,7 +21,7 @@ const user = ((self && self.crypto && self.crypto.randomUUID &&
   );
 
 const start = (App) => {
-  const container = document.querySelector("#zbody");
+  const container = document.querySelector("#root");
 
   hydrate(container, jsx(App));
   globalThis.App = App;
