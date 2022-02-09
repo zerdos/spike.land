@@ -73,7 +73,7 @@
     "async-mutex": "^0.3.2",
     "comlink": "4.3.1",
     "es-module-shims": "1.4.4",
-    "esbuild": "0.14.20",
+    "esbuild": "0.14.21",
     "esbuild-plugin-import-map": "2.1.0",
     "esbuild-wasm": "^0.14.20",
     "framer-motion": "6.2.4",
