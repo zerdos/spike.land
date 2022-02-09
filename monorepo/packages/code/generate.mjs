@@ -38,7 +38,7 @@ await generator.install("preact/compat");
 
 // await generator.install("@emotion/server");
 await generator.install("@emotion/react");
-await generator.install("@emotion/cache");
+// await generator.install("@emotion/cache");
 // await generator.install("lodash/throttle");
 // await generator.install("simple-text-compress");
 // await generator.install("@emotion/styled");
@@ -71,7 +71,7 @@ const importMap = { ...generator.getMap() };
 //  `https://unpkg.com/@spike.land/esm@${version}/dist/textdiff-patch.mjs`;
 importMap.imports["react"] = isDev?"https://localhost:8000/monorepo/packages/code/js/dist/react.mjs":"https://spike.land/dist/react.mjs" ;  
 importMap.imports["react-dom"] = importMap.imports["react"] 
-importMap.imports["framer-motion"] = isDev?"https://localhost:8000/monorepo/packages/code/js/dist/motion.mjs":"https://spike.land/dist/motion.mjs" ;  
+importMap.imports["framer-motion"] = isDev?"https://localhost:8000/monorepo/packages/code/js/dist/motion.mjs":"https://spike.land/dist/framer-motion.mjs" ;  
 // importMap.imports["preact"] = isDev?"https://localhost:8000/monorepo/packages/code/js/dist/preact.mjs":"https://spike.land/dist/preact.mjs" ;  
 // importMap.imports["preact/compat"] = importMap.imports["preact"];
 // importMap.imports["react-is"] =
@@ -80,7 +80,7 @@ importMap.imports["framer-motion"] = isDev?"https://localhost:8000/monorepo/pack
 // importMap.imports["react-is"] =
 //   "https://unpkg.com/@spike.land/esm@0.4.33/dist/react-is.mjs";
 
-// importMap.imports["@emotion/react"] =isDev?"https://localhost:8000/monorepo/packages/code/js/dist/emotion.mjs":"https://spike.land/dist/emotion.mjs"
+importMap.imports["@emotion/react"] =isDev?"https://localhost:8000/monorepo/packages/code/js/dist/emotion.mjs":"https://spike.land/dist/emotion.mjs"
 //importMap.imports.tslib =
 //   "https://cdnjs.cloudflare.com/ajax/libs/tslib/2.3.1/tslib.es6.min.js";
 

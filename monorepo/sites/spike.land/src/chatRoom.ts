@@ -31,7 +31,7 @@ interface IState extends DurableObjectState {
 const imap = {imports:  {
   react:  "https://spike.land/dist/react.mjs",
   "react-dom":  "https://spike.land/dist/react.mjs",
-  "framer-motion": "https://spike.land/dist/motion.mjs",
+  "framer-motion": "https://spike.land/dist/framer-motion.mjs",
   "@emotion/react": "https://spike.land/dist/emotion.mjs"
 }}
 
