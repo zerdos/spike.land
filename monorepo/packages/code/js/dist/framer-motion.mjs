@@ -549,7 +549,7 @@ var warning = function() {
 };
 var invariant = function() {
 };
-if (production !== "production") {
+if (false) {
   warning = function(check, message) {
     if (!check && typeof console !== "undefined") {
       console.warn(message);
@@ -574,7 +574,7 @@ function useFeatures(props, visualElement2, preloadedFeatures) {
   var lazyContext = useContext(LazyContext);
   if (!visualElement2)
     return null;
-  if (production !== "production" && preloadedFeatures && lazyContext.strict) {
+  if (false) {
     invariant(false, "You have rendered a `motion` component within a `LazyMotion` component. This will break tree shaking. Import and render a `m` component instead.");
   }
   for (var i = 0; i < numFeatures; i++) {
@@ -4686,17 +4686,6 @@ function useTapGesture(_a) {
 // ../../node_modules/framer-motion/dist/es/motion/features/viewport/use-viewport.mjs
 import { useRef as useRef4, useEffect as useEffect5 } from "react";
 
-// ../../node_modules/framer-motion/dist/es/utils/warn-once.mjs
-var warned = /* @__PURE__ */ new Set();
-function warnOnce(condition, message, element) {
-  if (condition || warned.has(message))
-    return;
-  console.warn(message);
-  if (element)
-    console.warn(element);
-  warned.add(message);
-}
-
 // ../../node_modules/framer-motion/dist/es/motion/features/viewport/observers.mjs
 var observerCallbacks = /* @__PURE__ */ new WeakMap();
 var observers = /* @__PURE__ */ new WeakMap();
@@ -4781,7 +4770,7 @@ function useMissingIntersectionObserver(shouldObserve, state, visualElement2, _a
   useEffect5(function() {
     if (!shouldObserve || !fallback)
       return;
-    if (production !== "production") {
+    if (false) {
       warnOnce(false, "IntersectionObserver not available on this device. whileInView animations will trigger on mount.");
     }
     requestAnimationFrame(function() {
