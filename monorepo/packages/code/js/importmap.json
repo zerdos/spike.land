@@ -11,8 +11,8 @@
   },
   "scopes": {
     "https://ga.jspm.io/": {
-      "@babel/runtime/helpers/esm/extends": "https://ga.jspm.io/npm:@babel/runtime@7.17.0/helpers/esm/extends.js",
-      "@babel/runtime/helpers/extends": "https://ga.jspm.io/npm:@babel/runtime@7.17.0/helpers/esm/extends.js",
+      "@babel/runtime/helpers/esm/extends": "https://ga.jspm.io/npm:@babel/runtime@7.17.2/helpers/esm/extends.js",
+      "@babel/runtime/helpers/extends": "https://ga.jspm.io/npm:@babel/runtime@7.17.2/helpers/esm/extends.js",
       "@emotion/hash": "https://ga.jspm.io/npm:@emotion/hash@0.8.0/dist/hash.browser.esm.js",
       "@emotion/memoize": "https://ga.jspm.io/npm:@emotion/memoize@0.7.5/dist/emotion-memoize.browser.esm.js",
       "@emotion/serialize": "https://ga.jspm.io/npm:@emotion/serialize@1.0.2/dist/emotion-serialize.browser.esm.js",
