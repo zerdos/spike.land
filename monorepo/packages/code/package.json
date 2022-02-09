@@ -1,6 +1,6 @@
 {
   "name": "@spike.land/code",
-  "version": "0.6.292",
+  "version": "0.7.0",
   "description": "spike.land",
   "main": "./js/dist/starter.mjs",
   "files": [
@@ -19,7 +19,7 @@
     "build:sw": "yarn esbuild --outfile=./js/sw.js --platform=browser --bundle --minify js/sw.ts && yarn sw",
     "start": "cd ../../.. && yarn start",
     "push": "cd ../../.. && yarn push",
-    "build:preact": "deno bundle --importmap js/importmap.json js/preact.ts --unstable > js/dist/react.mjs" ,
+    "build:preact": "deno bundle --importmap js/importmap.json js/preact.ts --unstable > js/dist/react.mjs",
     "build:framer-motion": "yarn esbuild --bundle js/motion.tsx --define:process.env.NODE_ENV=\"'$NODE_ENV'\" --target=es2018 --format=esm --external:react --external:@emotion/is-prop-valid --outfile=js/dist/motion.mjs",
     "build:emotion": "yarn esbuild --bundle js/emotion.ts --define:process.env.NODE_ENV=\"'$NODE_ENV'\"  --target=es2018 --format=esm --external:react --outfile=js/dist/emotion.mjs",
     "build": "yarn clean && yarn build:framer-motion && yarn build:emotion  && yarn build:preact && node --experimental-json-modules esbuild-dev.mjs  && yarn build:sw",
@@ -64,7 +64,7 @@
     "@emotion/weak-memoize": "^0.2.5",
     "@isomorphic-git/lightning-fs": "isomorphic-git/lightning-fs",
     "@mui/material": "^5.4.0",
-    "@spike.land/qrious": "^0.6.289",
+    "@spike.land/qrious": "^0.7.0",
     "@types/babel__standalone": "^7.1.4",
     "@types/isomorphic-git__lightning-fs": "^4.4.2",
     "@types/prettier": "^2.4.3",
