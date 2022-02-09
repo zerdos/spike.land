@@ -192,7 +192,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
   // }
 
   return (
-    <div
+    <motion.div
       ref={ref}
       initial={{ bottom: startPositions.bottom, right: startPositions.right }}
       animate={{
@@ -258,7 +258,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
           </ToggleButtonGroup>
           {/* <span>{width}*{height}</span> */}
 
-          <div
+          <motion.div
             animate={{
               width: width * scale / devicePixelRatio,
               height: height * scale / devicePixelRatio,
@@ -312,7 +312,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
               </pre>
             )}
 
-            <div
+            <motion.div
               initial={{
                 transformOrigin: "0px 0px",
                 width: window.innerWidth / devicePixelRatio,
@@ -372,8 +372,8 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
                       src={`https://spike.land/api/room/${room}/hydrated`}
                     /> */
               }
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
           <ToggleButtonGroup
             value={width}
             size="small"
@@ -459,7 +459,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
           </Fab>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 
