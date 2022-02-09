@@ -294,6 +294,12 @@ export class Code {
               import {hydrateBinary}  from "./dist/starter.mjs"; 
               try{
                 hydrateBinary(atob("${ btoa( toBinary(mST().transpiled))}"));
+              }catch{
+                const s = document.createElement("script");
+                s.async = "async";
+                s.type = "application/javascript";
+                s.src = "./dist/workers/js/appStarter.js";
+                document.head.appendChild(s);=
               }
               </script>
               <script type="nomodule" defer  src="./dist/workers/js/appStarter.js"></script>`
