@@ -299,7 +299,7 @@ export class Code {
                 s.async = "async";
                 s.type = "application/javascript";
                 s.src = "./dist/workers/js/appStarter.js";
-                document.head.appendChild(s);=
+                document.head.appendChild(s);
               }
               </script>
               <script type="nomodule" defer  src="./dist/workers/js/appStarter.js"></script>`
