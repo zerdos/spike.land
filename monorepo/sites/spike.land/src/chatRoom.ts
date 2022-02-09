@@ -28,12 +28,12 @@ interface IState extends DurableObjectState {
   hashOfCode: string;
 }
 
-const imap = {imports:  {
-  react:  "https://spike.land/dist/react.mjs",
-  "react-dom":  "https://spike.land/dist/react.mjs",
-  "framer-motion": "https://spike.land/dist/framer-motion.mjs",
-  "@emotion/react": "https://spike.land/dist/emotion.mjs"
-}}
+// const imap = {imports:  {
+//   react:  "https://spike.land/dist/react.mjs",
+//   "react-dom":  "https://spike.land/dist/react.mjs",
+//   "framer-motion": "https://spike.land/dist/framer-motion.mjs",
+//   "@emotion/react": "https://spike.land/dist/emotion.mjs"
+// }}
 
 interface ISession {
   i: number;
@@ -238,7 +238,7 @@ export class Code {
             <style>${mST().css}</style>
             <div id="zbody">${ mST().html}
             </div></div>
-            <script type="importmap">${JSON.stringify(imap)}</script>
+            <script type="importmap">${JSON.stringify({imports:{...imap.imports}, scopes: {...imap.scopes}})}</script>
             <script type="module">
             import {hydrateBinary}  from "./dist/starter.mjs"; 
             hydrateBinary(atob("${ btoa( toBinary(mST().transpiled))}"));
@@ -285,9 +285,9 @@ export class Code {
               `<div id="root"></div>`,
               `<div id="root">
               <style>${mST().css}</style>
-              <div id="zbody">${ mST().html}
-              </div></div>
-              <script type="importmap">${JSON.stringify(imap)}</script>
+                <div id="zbody">${ mST().html}</div>
+              </div>
+              <script type="importmap">${JSON.stringify({imports:{...imap.imports}, scopes: {...imap.scopes}})}</script>
               <script type="module">
               import {hydrateBinary}  from "./dist/starter.mjs"; 
               hydrateBinary(atob("${ btoa( toBinary(mST().transpiled))}"));

@@ -52,5 +52,3 @@ import "es-module-shims";
     run();
   }
 })();
-
-document.querySelectorAll(".unregister").forEach((item) => item.click());
