@@ -35,7 +35,7 @@ export const hydrateBinary = async (binary) => {
 };
 
 export const run = async () => {
-  if (globalThis.App) join(room, user);
+  if (globalThis.App) return;
 
   const respS = await fetch(
     `https://spike.land/api/room/${room}/session`,
