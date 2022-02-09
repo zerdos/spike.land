@@ -183,6 +183,8 @@ export const join = async (room, user, delta) => {
   if (user) {
     username = user;
   }
+  if (rejoined) return;
+  rejoined = true;
 
   const resp = await fetch(
     `https://spike.land/api/room/${roomName}/session`,
