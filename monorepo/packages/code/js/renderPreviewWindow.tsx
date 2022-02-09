@@ -15,7 +15,7 @@ export const renderPreviewWindow = async (
 ) => {
   console.log("renderPreviewWindow");
 
-  const target = document.getElementById("zbody");
+  const target = document.createElement("div");
   const editor = document.getElementById("monacoEditor")!;
   // Target.style.display = "none";
   editor.style.opacity = "0";
@@ -40,8 +40,8 @@ export const renderPreviewWindow = async (
     <DraggableWindow
       onShare={() => open(`https://spike.land/api/room/${room}/public`)}
       onRestore={() => {
-        // const model = session.getModel();
-        // model.setValue(session.code);
+        const model = session.editor.getModel();
+        model.setValue(session.code);
       }}
       position={session.mode === "window" ? "fixed" : "absolute"}
       session={session}
@@ -52,7 +52,7 @@ export const renderPreviewWindow = async (
     target,
   );
 
-  // document.getElementById("root")?.replaceWith(target);
+  document.getElementById("root")?.replaceWith(target);
 
   // const diffy = window.diffy = Date.now() - window.aniStart;
 
