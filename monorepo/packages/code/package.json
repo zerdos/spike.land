@@ -76,7 +76,7 @@
     "esbuild": "0.14.21",
     "esbuild-plugin-import-map": "2.1.0",
     "esbuild-wasm": "^0.14.20",
-    "framer-motion": "6.2.4",
+    "framer-motion": "6.2.6",
     "hoist-non-react-statics": "^3.3.2",
     "immutable": "^4.0.0",
     "isomorphic-git": "^1.11.2",
