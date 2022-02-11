@@ -18,7 +18,7 @@ export default {
         return getHTMLResp(env, "code-main");
       }
 
-      const version_cookie = "__version"
+      const version_cookie = "__version";
 
       switch (path[0]) {
         case "ping":
@@ -28,22 +28,22 @@ export default {
               "Cache-Control": "no-cache",
             },
           });
-          case "file":
-            const imp = await import(path[1]);
-            return new Response(imp, {
-              headers: {
-                "Content-Type": "text/html;charset=UTF-8",
-                "Cache-Control": "no-cache",
-              },
-            });
+        case "file":
+          const imp = await import(path[1]);
+          return new Response(imp, {
+            headers: {
+              "Content-Type": "text/html;charset=UTF-8",
+              "Cache-Control": "no-cache",
+            },
+          });
         case "version":
-            return new Response("ping" + Math.random(), {
-              headers: {
-                "Set-Cookie":version_cookie+"="+path[1],
-                "Content-Type": "text/html;charset=UTF-8",
-                "Cache-Control": "no-cache",
-              },
-            });
+          return new Response("ping" + Math.random(), {
+            headers: {
+              "Set-Cookie": version_cookie + "=" + path[1],
+              "Content-Type": "text/html;charset=UTF-8",
+              "Cache-Control": "no-cache",
+            },
+          });
         case "api":
           // This is a request for `/api/...`, call the API handler.
           return handleApiRequest(path.slice(1), request, env);
@@ -52,9 +52,12 @@ export default {
           return getHTMLResp(env, path[1]);
 
         default:
-          const cookie = parse(request.headers.get("Cookie") || "")
+          const cookie = parse(request.headers.get("Cookie") || "");
           const cVersion = cookie[version_cookie];
-          return npmAns("@spike.land/code", cVersion || version, "js/")(request, env);
+          return npmAns("@spike.land/code", cVersion || version, "js/")(
+            request,
+            env,
+          );
       }
     });
   },

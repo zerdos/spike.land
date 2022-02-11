@@ -6,7 +6,9 @@ export default function (packageName, version, serveDir = "") {
                 const url = new URL(request.url);
                 const { pathname } = url;
                 const isChunk = pathname.indexOf("/chunks") !== -1;
-                const cacheKey = isChunk ? new Request(url.origin + pathname.substring(pathname.indexOf("/chunks" + 7)), request) : new Request(url.toString(), request);
+                const cacheKey = isChunk
+                    ? new Request(url.origin + pathname.substring(pathname.indexOf("/chunks" + 7)), request)
+                    : new Request(url.toString(), request);
                 const cache = caches.default;
                 const cachedResp = await cache.match(cacheKey);
                 if (cachedResp) {

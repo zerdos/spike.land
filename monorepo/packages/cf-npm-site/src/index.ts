@@ -4,20 +4,25 @@ export default function (
   serveDir: string = "",
 ) {
   return async function (request: Request, env: EventInit) {
-
     return await tryToResp(request, env, 4);
 
-
-    async function tryToResp(request: Request, env: EventInit, retry: number): Promise<Response> {
+    async function tryToResp(
+      request: Request,
+      env: EventInit,
+      retry: number,
+    ): Promise<Response> {
       try {
         const url = new URL(request.url);
         const { pathname } = url;
 
         const isChunk = pathname.indexOf("/chunks") !== -1;
 
-
-
-        const cacheKey = isChunk ? new Request(url.origin + pathname.substring(pathname.indexOf("/chunks" + 7)),request) : new Request(url.toString(), request);
+        const cacheKey = isChunk
+          ? new Request(
+            url.origin + pathname.substring(pathname.indexOf("/chunks" + 7)),
+            request,
+          )
+          : new Request(url.toString(), request);
         const cache = caches.default;
 
         const cachedResp = await cache.match(cacheKey);
@@ -28,9 +33,10 @@ export default function (
 
         const uri = (pathname.startsWith("/@")
           ? pathname.substring(1)
-          : `@${version}${serveDir
-            ? `/${serveDir}`
-            : ``
+          : `@${version}${
+            serveDir
+              ? `/${serveDir}`
+              : ``
           }${pathname}`);
 
         let targetPath = uri;
@@ -108,9 +114,9 @@ export default function (
       } catch (Error) {
         if (retry > 4) {
           await wait(5000 - retry * 1000);
-          return tryToResp(request, env, retry - 1)
+          return tryToResp(request, env, retry - 1);
         }
-        throw Error
+        throw Error;
       }
     }
   };

@@ -1,13 +1,10 @@
 import https from "https";
 import http from "http";
 
-
 import esbuild from "esbuild";
 import * as importMap from "esbuild-plugin-import-map";
 
-import jsonData from "./js/importmap.json"  assert { type: 'json' };
-
-
+import jsonData from "./js/importmap.json" assert { type: "json" };
 
 // const jsonData = {imports:  {
 //   react:  "https://spike.land/dist/react.mjs",
@@ -15,7 +12,6 @@ import jsonData from "./js/importmap.json"  assert { type: 'json' };
 //   "framer-motion": "https://spike.land/dist/framer-motion.mjs",
 //   "@emotion/react": "https://spike.land/dist/emotion.mjs"
 // }}
-
 
 const environment = process.env.NODE_ENV == "production"
   ? "production"
@@ -93,7 +89,6 @@ await esbuild.build({
   entryPoints: [
     ...workerEntryPoints,
     // "./js/workers/prettier.worker.js",
-    
   ],
   bundle: true,
   target: "es2017",
@@ -115,13 +110,10 @@ await esbuild.build({
   outdir: "js/dist/workers/",
 });
 
-
 await esbuild.build({
-  entryPoints: ["./js/appStarter.ts",
-    // "./js/workers/prettier.worker.js",
-    
+  entryPoints: ["./js/appStarter.ts"// "./js/workers/prettier.worker.js",
   ],
-  outfile: './js/dist/appStarter.js',
+  outfile: "./js/dist/appStarter.js",
   bundle: true,
   target: "es2017",
   minify: false,
@@ -137,8 +129,6 @@ await esbuild.build({
 
   format: "iife",
 });
-
-
 
 await esbuild.build({
   entryPoints: ["js/monacoTs.ts"],
@@ -237,7 +227,7 @@ const build = (entryPoints) =>
 // ]);
 
 await build([
-  "js/starter.mjs"
+  "js/starter.mjs",
 ]);
 
 // esbuild.build({

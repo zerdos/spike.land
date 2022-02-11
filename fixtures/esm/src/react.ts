@@ -1,7 +1,6 @@
 import * as preact from "preact";
 import { render } from "preact";
-import * as _compat from 'preact/compat';
-
+import * as _compat from "preact/compat";
 
 export import JSX = JSXInternal;
 
@@ -40,7 +39,6 @@ export import cloneElement = preact.cloneElement;
 export import Suspense = _compat.Suspense;
 export import lazy = _compat.lazy;
 export import SuspenseList = _compat.SuspenseList;
-
 
 export { render };
 
@@ -100,27 +98,27 @@ export { render };
 // export const { cloneElement } = react;
 export function createPortal(
   vnode: preact.VNode,
-  container: Element
+  container: Element,
 ): preact.VNode<any>;
 
 export function render(
   vnode: preact.VNode<any>,
   parent: Element,
-  callback?: () => void
+  callback?: () => void,
 ): Component | null;
 
 export function hydrate(
   vnode: preact.VNode<any>,
   parent: Element,
-  callback?: () => void
+  callback?: () => void,
 ): Component | null;
 
 export function unmountComponentAtNode(
-  container: Element | Document | ShadowRoot | DocumentFragment
+  container: Element | Document | ShadowRoot | DocumentFragment,
 ): boolean;
 
 export function createFactory(
-  type: preact.VNode<any>['type']
+  type: preact.VNode<any>["type"],
 ): (
   props?: any,
   ...children: preact.ComponentChildren[]
@@ -137,14 +135,14 @@ export abstract class PureComponent<P = {}, S = {}> extends preact.Component<
 
 export function memo<P = {}>(
   component: preact.FunctionalComponent<P>,
-  comparer?: (prev: P, next: P) => boolean
+  comparer?: (prev: P, next: P) => boolean,
 ): preact.FunctionComponent<P>;
 export function memo<C extends preact.FunctionalComponent<any>>(
   component: C,
   comparer?: (
     prev: preact.ComponentProps<C>,
-    next: preact.ComponentProps<C>
-  ) => boolean
+    next: preact.ComponentProps<C>,
+  ) => boolean,
 ): C;
 
 export interface ForwardFn<P = {}, T = any> {
@@ -153,22 +151,22 @@ export interface ForwardFn<P = {}, T = any> {
 }
 
 export function forwardRef<R, P = {}>(
-  fn: ForwardFn<P, R>
-): preact.FunctionalComponent<Omit<P, 'ref'> & { ref?: preact.Ref<R> }>;
+  fn: ForwardFn<P, R>,
+): preact.FunctionalComponent<Omit<P, "ref"> & { ref?: preact.Ref<R> }>;
 
 export function unstable_batchedUpdates(
   callback: (arg?: any) => void,
-  arg?: any
+  arg?: any,
 ): void;
 
 export const Children: {
   map<T extends preact.ComponentChild, R>(
     children: T | T[],
-    fn: (child: T, i: number) => R
+    fn: (child: T, i: number) => R,
   ): R[];
   forEach<T extends preact.ComponentChild>(
     children: T | T[],
-    fn: (child: T, i: number) => void
+    fn: (child: T, i: number) => void,
   ): void;
   count: (children: preact.ComponentChildren) => number;
   only: (children: preact.ComponentChildren) => preact.ComponentChild;
@@ -183,7 +181,7 @@ export const unstable_LowPriority: number;
 export const unstable_IdlePriority: number;
 export function unstable_runWithPriority(
   priority: number,
-  callback: () => void
+  callback: () => void,
 ): void;
 export const unstable_now: () => number;
 

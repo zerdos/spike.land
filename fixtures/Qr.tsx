@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { css, jsx } from "@emotion/react";
 
-import {useRef, useState, useEffect} from "react";
+import { useEffect, useRef, useState } from "react";
 import { dynamicImport } from "../../dynamicImport";
 import { sha256 } from "../utils/sha256/sha256";
 

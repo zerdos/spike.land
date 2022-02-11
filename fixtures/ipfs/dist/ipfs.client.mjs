@@ -2374,9 +2374,8 @@ var $ = re(Qr(), 1),
                 t.hashType.high >>> 0,
               ).toNumber(!0))),
             t.fanout != null &&
-            (h.Long
-              ? (n.fanout = h.Long.fromValue(t.fanout)).unsigned = !0
-              : typeof t.fanout == "string"
+            (h.Long ? (n.fanout = h.Long.fromValue(t.fanout)).unsigned = !0
+            : typeof t.fanout == "string"
               ? n.fanout = parseInt(t.fanout, 10)
               : typeof t.fanout == "number"
               ? n.fanout = t.fanout

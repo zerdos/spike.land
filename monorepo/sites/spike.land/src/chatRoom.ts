@@ -4,9 +4,8 @@ import LAZY from "./lazy.html";
 import HTML from "./index.html";
 import RCA from "./rca.tsx.html";
 import HYDRATED from "./hydrated.html";
-  // @ts-expect-error
-import {toBinary} from "@spike.land/code/js/binary.ts"
-       
+// @ts-expect-error
+import { toBinary } from "@spike.land/code/js/binary.ts";
 
 import { version } from "@spike.land/code/package.json";
 import imap from "@spike.land/code/js/importmap.json";
@@ -231,17 +230,24 @@ export class Code {
           });
         }
         case "hydrated": {
-
-          return new Response( HYDRATED.replace(
-            `<div id="root"></div>`,
-            `<div id="root">
+          return new Response(
+            HYDRATED.replace(
+              `<div id="root"></div>`,
+              `<div id="root">
             <style>${mST().css}</style>
-            <div id="zbody">${ mST().html}
+            <div id="zbody">${mST().html}
             </div></div>
-            <script type="importmap">${JSON.stringify({imports:{...imap.imports}, scopes: {...imap.scopes}})}</script>
+            <script type="importmap">${
+                JSON.stringify({
+                  imports: { ...imap.imports },
+                  scopes: { ...imap.scopes },
+                })
+              }</script>
             <script type="module">
         
-              import("./dist/starter.mjs").then(( {hydrateBinary}  )=> hydrateBinary(atob("${ btoa( toBinary(mST().transpiled))}"))).catch(()=>{
+              import("./dist/starter.mjs").then(( {hydrateBinary}  )=> hydrateBinary(atob("${
+                btoa(toBinary(mST().transpiled))
+              }"))).catch(()=>{
                 const s = document.createElement("script");
                 s.async = "async";
                 s.type = "application/javascript";
@@ -250,14 +256,16 @@ export class Code {
                 
               });
             </script>`,
-          ).replaceAll(vReg, version), {
-            status: 200,
-            headers: {
-              "Access-Control-Allow-Origin": "*",
-              "Cache-Control": "no-cache",
-              "Content-Type": "text/html; charset=UTF-8",
+            ).replaceAll(vReg, version),
+            {
+              status: 200,
+              headers: {
+                "Access-Control-Allow-Origin": "*",
+                "Cache-Control": "no-cache",
+                "Content-Type": "text/html; charset=UTF-8",
+              },
             },
-          });
+          );
         }
         case "env": {
           return new Response(request.url, {
@@ -286,20 +294,27 @@ export class Code {
         }
 
         case "public": {
-
-
           const html = HTML.replace(
-              `<div id="root"></div>`,
-              `<div id="root">
+            `<div id="root"></div>`,
+            `<div id="root">
               <style>${mST().css}</style>
-                <div id="zbody">${ mST().html}</div>
+                <div id="zbody">${mST().html}</div>
               </div>
-              <script type="importmap">${JSON.stringify({imports:{...imap.imports}, scopes: {...imap.scopes}})}</script>`)
-              .replace('<script defer src="https://spike.land/dist/appStarter.js"></script>',
-            ` 
+              <script type="importmap">${
+              JSON.stringify({
+                imports: { ...imap.imports },
+                scopes: { ...imap.scopes },
+              })
+            }</script>`,
+          )
+            .replace(
+              '<script defer src="https://spike.land/dist/appStarter.js"></script>',
+              ` 
               <script defer type="module">
               
-              import("./dist/starter.mjs").then(( {hydrateBinary}  )=> hydrateBinary(atob("${ btoa( toBinary(mST().transpiled))}"))).catch(()=>{
+              import("./dist/starter.mjs").then(( {hydrateBinary}  )=> hydrateBinary(atob("${
+                btoa(toBinary(mST().transpiled))
+              }"))).catch(()=>{
                 const s = document.createElement("script");
                 s.async = "async";
                 s.type = "application/javascript";
@@ -307,8 +322,8 @@ export class Code {
                 document.head.appendChild(s);
               }); 
               </script>
-              <script type="nomodule" defer  src="https://spike.land/dist/appStarter.js"></script>`
-                   ).replaceAll(vReg, version);
+              <script type="nomodule" defer  src="https://spike.land/dist/appStarter.js"></script>`,
+            ).replaceAll(vReg, version);
           return new Response(html, {
             status: 200,
             headers: {
