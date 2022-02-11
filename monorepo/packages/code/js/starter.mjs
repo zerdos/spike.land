@@ -22,8 +22,8 @@ const start = async (App) => {
 
   hydrate(container, jsx(App));
   globalThis.App = App;
-  const {join} = await import ("./ws.mjs");
-  await wait(2000)
+  const { join } = await import("./ws.mjs");
+  await wait(2000);
   join(room, user);
 };
 
