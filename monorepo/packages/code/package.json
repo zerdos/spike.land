@@ -11,7 +11,9 @@
     "./js/dist/starter.mjs": "./js/dist/starter.mjs",
     "./js/session.tsx": "./js/session.tsx",
     "./js/binary.ts": "./js/binary.ts",
-    "./js/importmap.json": "./js/importmap.json"
+    "./js/importmap.json": "./js/importmap.json",
+    "./js/dist/react.mjs": "./js/dist/react.mjs",
+    "./shasums": "./shasums.ts"
   },
   "scripts": {
     "clean": "rm -rf .tsBuildInfo js/vendor js/dist && mkdir js/dist js/vendor && deno fmt js && yarn build:framer-motion && yarn build:emotion  && yarn build:preact",

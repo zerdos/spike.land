@@ -1,15 +1,15 @@
 # alias ipfs="ipfs || (docker-compose exec -T ipfs ipfs)"
 # rm -rf packages/code/js/workers/shaSums.json  packages/code/js/workers/fileCids.json
-# find ./packages/code -type f -exec sha256sum {} \; | grep -v node_modules | awk '{print "\"" substr($2,17) "\": \"" $1 "\","}' |  awk 'BEGIN{print "export const shasums = {"}{print $0}END{print " \"food\":\"bar\" }"}' > sites/spike.land/src/shasums.ts;
+find monorepo/packages/code/js -type f -exec sha256sum {} \; | grep -v node_modules | awk '{print "\"" substr($2,17) "\": \"" $1 "\","}' |  awk 'BEGIN{print "export const shasums = {"}{print $0}END{print " \"food\":\"bar\" }"}' > shasums.ts;
 # deno fmt packages/code/js/workers/shaSums.json sites/spike.land/src/shasums.ts;
 
 #docker-compose exec -T ipfs 
 # ipfs add -r packages/code > ipfs.txt
 # cat ipfs.txt | awk '{print "\"" substr($3,6) "\": \"" $2 "\","}' | awk 'BEGIN{print "{"}{print $0}END{print " \"foo\":\"bar\" }"}' >  packages/code/js/workers/fileCids.json
 #ipfs daemon & $2 > /dev/null; 
-CID=$(
+# CID=$(
     #docker-compose exec -T ipfs
-    ipfs add -r packages/code/js --ignore **node_modules -Q --pin=true --upgrade-cidv0-in-output )  && URL="http://$CID.ipfs.localhost:8080/index.html"  &&echo $URL && (xdg-open $URL || open $URL)&
+    # ipfs add -r packages/code/js --ignore **node_modules -Q --pin=true --upgrade-cidv0-in-output )  && URL="http://$CID.ipfs.localhost:8080/index.html"  &&echo $URL && (xdg-open $URL || open $URL)&
 
 #  curl -X GET "https://api.cloudflare.com/client/v4/zones/ec8e903035c7b0fcd3e95f1e483ab68c/dns_records/?type=TXT" \
 #      -H "Authorization: Bearer $BBTOKEN" \
