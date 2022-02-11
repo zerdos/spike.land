@@ -240,8 +240,15 @@ export class Code {
             </div></div>
             <script type="importmap">${JSON.stringify({imports:{...imap.imports}, scopes: {...imap.scopes}})}</script>
             <script type="module">
-            import {hydrateBinary}  from "./dist/starter.mjs"; 
-            hydrateBinary(atob("${ btoa( toBinary(mST().transpiled))}"));
+        
+              import("./dist/starter.mjs").then(( {hydrateBinary}  )=> hydrateBinary(atob("${ btoa( toBinary(mST().transpiled))}"))).catch(()=>{
+                const s = document.createElement("script");
+                s.async = "async";
+                s.type = "application/javascript";
+                s.src = "./dist/workers/js/appStarter.js";
+                document.head.appendChild(s);
+                
+              });
             </script>`,
           ).replaceAll(vReg, version), {
             status: 200,
@@ -291,16 +298,14 @@ export class Code {
               .replace('<script defer src="./dist/workers/js/appStarter.js"></script>',
             ` 
               <script defer type="module">
-              import {hydrateBinary}  from "./dist/starter.mjs"; 
-              try{
-                hydrateBinary(atob("${ btoa( toBinary(mST().transpiled))}"));
-              }catch{
+              
+              import("./dist/starter.mjs").then(( {hydrateBinary}  )=> hydrateBinary(atob("${ btoa( toBinary(mST().transpiled))}"))).catch(()=>{
                 const s = document.createElement("script");
                 s.async = "async";
                 s.type = "application/javascript";
                 s.src = "./dist/workers/js/appStarter.js";
                 document.head.appendChild(s);
-              }
+              }); 
               </script>
               <script type="nomodule" defer  src="./dist/workers/js/appStarter.js"></script>`
                    ).replaceAll(vReg, version);
