@@ -20,7 +20,7 @@
     "rollup-plugin-terser": "7.0.2",
     "speed-limiter": "1.0.2",
     "typescript": "4.5.5",
-    "wait-on": "6.0.0",
+    "wait-on": "6.0.1",
     "wrangler": "0.0.16",
     "yarn": "1.22.17"
   },
