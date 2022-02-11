@@ -30,8 +30,6 @@ export const renderPreviewWindow = async (
   //   />
   // );
   document.getElementById("root")!.style.height = "0";
-  target.style.height = "0";
-
   // const {html} = getHtmlAndCss( <Element></Element> as any );
 
   // target  .innerHTML = html;
