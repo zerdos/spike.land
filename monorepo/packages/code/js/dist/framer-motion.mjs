@@ -4804,12 +4804,23 @@ import { useEffect as useEffect7, useContext as useContext10 } from "react";
 
 // ../../node_modules/framer-motion/dist/es/components/AnimatePresence/use-presence.mjs
 import { useContext as useContext9, useEffect as useEffect6 } from "react";
+
+// ../../node_modules/framer-motion/dist/es/utils/use-id.mjs
+var counter = 0;
+var incrementId = function() {
+  return counter++;
+};
+var useId = function() {
+  return useConstant(incrementId);
+};
+
+// ../../node_modules/framer-motion/dist/es/components/AnimatePresence/use-presence.mjs
 function usePresence() {
   var context = useContext9(PresenceContext);
   if (context === null)
     return [true, null];
   var isPresent = context.isPresent, onExitComplete = context.onExitComplete, register = context.register;
-  var id2 = useUniqueId();
+  var id2 = useId();
   useEffect6(function() {
     return register(id2);
   }, []);
@@ -4818,13 +4829,6 @@ function usePresence() {
   };
   return !isPresent && onExitComplete ? [false, safeToRemove] : [true];
 }
-var counter = 0;
-var incrementId = function() {
-  return counter++;
-};
-var useUniqueId = function() {
-  return useConstant(incrementId);
-};
 
 // ../../node_modules/framer-motion/dist/es/utils/shallow-compare.mjs
 function shallowCompare(next, prev) {
@@ -6031,6 +6035,9 @@ var visualElement = function(_a) {
         if (isVariantNode && parent && !isControllingVariants) {
           removeFromVariantTree = parent === null || parent === void 0 ? void 0 : parent.addVariantChild(element);
         }
+        values.forEach(function(value2, key2) {
+          return bindToMotionValue(key2, value2);
+        });
         parent === null || parent === void 0 ? void 0 : parent.children.add(element);
         element.setProps(props);
       },
