@@ -2468,7 +2468,7 @@
   // js/appStarter.ts
   (async () => {
     window.esmsInitOptions = {
-      shimMode: true,
+      shimMode: false,
       revokeBlobURLs: true,
       resolve: (id, parentUrl) => {
         return parentUrl + id;

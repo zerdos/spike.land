@@ -4,7 +4,7 @@ import "es-module-shims";
   // const esbuild = import("./esbuildEsm.ts");
 
   window.esmsInitOptions = {
-    shimMode: true,
+    shimMode: false,
     revokeBlobURLs: true,
 
     resolve: (id: string, parentUrl: string) => {
