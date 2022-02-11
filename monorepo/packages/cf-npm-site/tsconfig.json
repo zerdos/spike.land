@@ -1,10 +1,11 @@
 {
   "compilerOptions": {
     "allowJs": true,
-    "target": "esnext",
-    "module": "esnext",
-    "lib": ["es2020"],
+    "target": "ESNext",
+    "module": "ESNext",
+    "lib": ["ESNext", "ESNext.Promise","ES2015", "ES2018.Promise"],
     "alwaysStrict": true,
+    "isolatedModules": true,
     "strict": true,
     "noEmit": false,
     "outDir": "dist",

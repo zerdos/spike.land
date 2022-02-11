@@ -4,7 +4,7 @@ export default function (packageName, version, serveDir = "") {
         async function tryToResp(request, env, retry) {
             try {
                 const url = new URL(request.url);
-                const { pathname } = url;
+                const pathname = String(url.pathname);
                 const isChunk = pathname.indexOf("/chunks") !== -1;
                 const cacheKey = isChunk
                     ? new Request(url.origin + pathname.substring(pathname.indexOf("/chunks" + 7)), request)

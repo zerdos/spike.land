@@ -5,7 +5,7 @@ function src_default(packageName, version, serveDir = "") {
     async function tryToResp(request2, env2, retry) {
       try {
         const url = new URL(request2.url);
-        const { pathname } = url;
+        const pathname = String(url.pathname);
         const isChunk = pathname.indexOf("/chunks") !== -1;
         const cacheKey = isChunk ? new Request(url.origin + pathname.substring(pathname.indexOf("/chunks" + 7)), request2) : new Request(url.toString(), request2);
         const cache = caches.default;

@@ -13,7 +13,7 @@ export default function (
     ): Promise<Response> {
       try {
         const url = new URL(request.url);
-        const { pathname } = url;
+        const pathname  = String(url.pathname);
 
         const isChunk = pathname.indexOf("/chunks") !== -1;
 
