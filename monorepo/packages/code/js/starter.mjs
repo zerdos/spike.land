@@ -3,8 +3,6 @@ import { fromBinary } from "./binary";
 import { jsx } from "@emotion/react";
 import uidV4 from "./uidV4.mjs";
 
-window.React = React;
-
 const path = location.pathname.split("/");
 window.aniStart = Date.now();
 
@@ -55,4 +53,12 @@ function createJsBlob(code) {
   const blob = new Blob([code], { type: "application/javascript" });
 
   return URL.createObjectURL(blob);
+}
+
+async function wait(delay) {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve();
+    }, delay);
+  });
 }
