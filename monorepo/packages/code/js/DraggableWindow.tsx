@@ -32,8 +32,10 @@ const ToggleButtonGroup = muiToggleButtonGroup as typeof MuiToggleButtonGroup;
 const ToggleButton = muiToggleButton as typeof MuiToggleButton;
 // Import { breakpoints } from "@mui/system";
 
+import type { JSX as EmotionJSX } from "@emotion/react/jsx-dev-runtime";
 // const {motion} = Motion;
 import type { ICodeSession } from "./session";
+import type { Dispatch } from "react";
 const breakPoints = [680, 768, 1920];
 const breakPointHeights = [1137, 1024, 1080];
 
@@ -47,7 +49,11 @@ interface DraggableWindowProps {
   onShare: () => void;
   onRestore: (() => void);
   hashCode: number;
-  session: ICodeSession;
+  session: ICodeSession & {
+    setChild: Dispatch<React.SetStateAction<EmotionJSX.Element[]>>;
+    url: string;
+    errorText: string;
+  };
   keepFullScreen: boolean;
   position?: string;
   room: string;
