@@ -15,9 +15,9 @@ self.MonacoEnvironment = {
     //   return "./dist/workers/monaco-editor/esm/vs/language/html/html.worker.js";
     // }
     if (label === "typescript" || label === "javascript") {
-      return "./dist/workers/monaco-editor/esm/vs/language/typescript/ts.worker.js";
+      return "./dist/workers/language/typescript/ts.worker.js";
     }
-    return "./dist/workers/monaco-editor/esm/vs/editor/editor.worker.js";
+    return "./dist/workers/editor/editor.worker.js";
   },
 };
 
