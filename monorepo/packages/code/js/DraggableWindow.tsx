@@ -191,6 +191,8 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
   //   );
   // }
 
+  if (isFullScreen) return child;
+
   return (
     <motion.div
       ref={ref}
