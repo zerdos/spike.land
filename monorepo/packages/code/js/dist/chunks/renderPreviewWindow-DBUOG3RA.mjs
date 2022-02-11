@@ -81,6 +81,7 @@ import{b as Jo}from"./chunk-7B3HGY2G.mjs";import{c as Qo,e as hs}from"./chunk-UT
             backdrop-filter: blur(15px);
             padding: 0px 0px 0px 16px;
             border-radius: 16px;
+            z-index: 10;
             white-space: normal;
             position: ${o||"fixed"};
           `,dragElastic:.5,dragConstraints:{left:0,right:P-20-P/6,bottom:innerHeight-100},dragMomentum:!1,drag:!G},B("div",{css:te` 
