@@ -1,4 +1,3 @@
-import { join } from "./ws.mjs";
 import React, { hydrate } from "react";
 import { fromBinary } from "./binary";
 import { jsx } from "@emotion/react";
@@ -20,12 +19,13 @@ const user = ((self && self.crypto && self.crypto.randomUUID &&
     8,
   );
 
-const start = (App) => {
+const start = async (App) => {
   const container = document.querySelector("#root");
 
   hydrate(container, jsx(App));
   globalThis.App = App;
-
+  const {join} = await import ("./ws.mjs");
+  await wait(2000)
   join(room, user);
 };
 
