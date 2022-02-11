@@ -199,7 +199,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
           height: 100%;
   `}
       >
-        child
+        {child}
       </div>
     );
   }
