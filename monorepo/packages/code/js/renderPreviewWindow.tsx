@@ -16,7 +16,7 @@ export const renderPreviewWindow = async (
 ) => {
   console.log("renderPreviewWindow");
 
-  const target = document.getElementById("root")!;
+  const target = document.getElementById("zbody")!;
   const editor = document.getElementById("monacoEditor")!;
   // Target.style.display = "none";
   editor.style.opacity = "0";
@@ -29,7 +29,7 @@ export const renderPreviewWindow = async (
   //     session={session}
   //   />
   // );
-
+  document.getElementById("root")!.style.height = "0";
   target.style.height = "0";
 
   // const {html} = getHtmlAndCss( <Element></Element> as any );
