@@ -14,7 +14,7 @@
     "./js/importmap.json": "./js/importmap.json"
   },
   "scripts": {
-    "clean": "rm -rf .tsBuildInfo js/vendor js/dist && mkdir js/dist js/vendor && deno fmt js",
+    "clean": "rm -rf .tsBuildInfo js/vendor js/dist && mkdir js/dist js/vendor && deno fmt js && yarn build:framer-motion && yarn build:emotion  && yarn build:preact",
     "xpostinstall": "yarn importmap",
     "build:sw": "yarn esbuild --outfile=./js/sw.js --platform=browser --bundle --minify js/sw.ts && yarn sw",
     "start": "cd ../../.. && yarn start",
@@ -22,7 +22,7 @@
     "build:preact": "deno bundle --importmap js/importmap.json js/preact.ts --unstable > js/dist/react.mjs",
     "build:framer-motion": "yarn esbuild --bundle js/motion.tsx  --target=es2018 --format=esm  --platform=browser  --define:process.env.NODE_ENV=\\\"production\\\" --external:react --external:@emotion/is-prop-valid --outfile=js/dist/framer-motion.mjs",
     "build:emotion": "yarn esbuild --bundle js/emotion.tsx  --target=es2018 --format=esm --external:react --platform=browser --define:process.env.NODE_ENV=\\\"production\\\" --outfile=js/dist/emotion.mjs",
-    "build": "yarn clean && yarn build:framer-motion && yarn build:emotion  && yarn build:preact && node --experimental-json-modules esbuild-dev.mjs  && yarn build:sw",
+    "build": "node --experimental-json-modules esbuild-dev.mjs  && yarn build:sw",
     "importmap": "node --experimental-json-modules generate.mjs > ./importmap_NEW.json && mv importmap_NEW.json js/importmap.json",
     "workbox-cli": "workbox-cli",
     "sw": "yarn workbox injectManifest workbox-config.json"

@@ -75,7 +75,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
     />,
   ]);
 
-  const startPositions = { bottom: -40, right: -90 };
+  const startPositions = { bottom: 0, right: 0 };
 
   session.setChild = setChild;
 
@@ -127,13 +127,12 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
         return;
       }
 
-      await wait(1200);
+      await wait(2000);
       // Const root = document.getElementById("root");
       // if (root && root.remove) root.remove();
-      await wait(300);
 
-      setFullScreen(false);
-      changeScaleRange(50);
+      // await wait(2000);
+      // changeScaleRange(50);
 
       setPositions({
         bottom: window.innerHeight * 0.2,
@@ -177,11 +176,12 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
         changeScaleRange(100);
       }
 
-      await wait(200);
       setPositions({
         bottom: 20,
         right: 20,
       });
+      setFullScreen(false);
+      document.getElementById("root")!.style.height = "0";
     };
 
     reveal();
@@ -211,86 +211,61 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
     );
   }
 
-  return (
-    <motion.div
-      ref={ref}
-      initial={{ bottom: startPositions.bottom, right: startPositions.right }}
-      animate={{
-        bottom,
-        right,
-      }}
-      css={css`
-            background-color:${bg};
-            backdrop-filter: blur(15px);
-            padding: 0px 0px 0px 16px;
-            border-radius: 16px;
-            z-index: 10;
-            white-space: normal;
-            position: ${position ? position : "fixed"};
-          `}
-      dragElastic={0.5}
-      dragConstraints={{
-        left: 0,
-        right: width - 20 - width / 6,
-        bottom: innerHeight - 100,
-      }}
-      dragMomentum={false}
-      drag={!isFullScreen}
-    >
-      <div
-        css={css` 
+  const internal = (
+    <div
+      css={css` 
               display: flex;
               
                 `}
-      >
-        <div
-          css={css`
+    >
+      <div
+        css={css`
             display: flex;
             flex-direction: column;
             align-items: center;
           `}
+      >
+        <ToggleButtonGroup
+          value={scaleRange}
+          size="small"
+          exclusive
+          onChange={(_e: unknown, newScale: number) => {
+            newScale && changeScaleRange(newScale);
+          }}
         >
-          <ToggleButtonGroup
-            value={scaleRange}
-            size="small"
-            exclusive
-            onChange={(_e: unknown, newScale: number) => {
-              newScale && changeScaleRange(newScale);
-            }}
-          >
-            {sizes.map((size) => (
-              <ToggleButton
-                key={size}
-                value={size}
-              >
-                <span
-                  css={css`
+          {sizes.map((size) => (
+            <ToggleButton
+              key={size}
+              value={size}
+            >
+              <span
+                css={css`
                        color: ${
-                    size === scaleRange
-                      ? "rgba(255,255,255,.8)"
-                      : "rgba(0,0,0,.3)"
-                  };
+                  size === scaleRange
+                    ? "rgba(255,255,255,.8)"
+                    : "rgba(0,0,0,.3)"
+                };
                        `}
-                >
-                  {size}%
-                </span>
-              </ToggleButton>
-            ))}
-          </ToggleButtonGroup>
-          {/* <span>{width}*{height}</span> */}
+              >
+                {size}%
+              </span>
+            </ToggleButton>
+          ))}
+        </ToggleButtonGroup>
+        {/* <span>{width}*{height}</span> */}
 
-          <motion.div
-            initial={{
-              width: window.innerWidth * scale / devicePixelRatio,
-              height: window.innerHeight * scale / devicePixelRatio,
-            }}
-            animate={{
-              width: width * scale / devicePixelRatio,
-              height: height * scale / devicePixelRatio,
-              borderRadius: isFullScreen ? 0 : 8,
-              // Opacity: isFullScreen ? 1 : 0.7,
-            }}
-            css={css`
+        <motion.div
+          initial={{
+            width: window.innerWidth,
+            height: window.innerHeight,
+          }}
+          animate={{
+            width: width * scale / devicePixelRatio,
+            height: height * scale / devicePixelRatio,
+            borderRadius: isFullScreen ? 0 : 8,
+            // Opacity: isFullScreen ? 1 : 0.7,
+          }}
+          css={css`
                 width: ${width * scale / devicePixelRatio};
                 height: ${height * scale / devicePixelRatio};
                 display: block;
@@ -299,10 +274,10 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
 
                 /* background-color: red; */
             `}
-          >
-            {errorText && errorText.trim() !== "" && (
-              <pre
-                css={css`
+        >
+          {errorText && errorText.trim() !== "" && (
+            <pre
+              css={css`
                     position: absolute;
                     z-index:3;
                     color: rgb(255, 240, 240);
@@ -315,43 +290,43 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
                     font-family: monospace;
                     white-space: pre-wrap;
                 `}
-              >
-                {isStable && errorText && errorText.trim()}
-                {isStable && errorText && errorText.trim() !== "" &&
-                  (
-                    <div
-                      css={css`
+            >
+              {isStable && errorText && errorText.trim()}
+              {isStable && errorText && errorText.trim() !== "" &&
+                (
+                  <div
+                    css={css`
                           text-align: right;
                         `}
+                  >
+                    <Button
+                      onClick={() => {
+                        onRestore();
+                        setErrorText("");
+                      }}
                     >
-                      <Button
-                        onClick={() => {
-                          onRestore();
-                          setErrorText("");
-                        }}
-                      >
-                        Restore
-                      </Button>
-                    </div>
-                  )}
-              </pre>
-            )}
+                      Restore
+                    </Button>
+                  </div>
+                )}
+            </pre>
+          )}
 
-            <motion.div
-              initial={{
-                transformOrigin: "0px 0px",
-                width: window.innerWidth / devicePixelRatio,
-                height: window.innerHeight / devicePixelRatio,
-                scale: scaleRange / 100,
-              }}
-              animate={{
-                transformOrigin: "0px 0px",
+          <motion.div
+            initial={{
+              transformOrigin: "0px 0px",
+              width: window.innerWidth / devicePixelRatio,
+              height: window.innerHeight / devicePixelRatio,
+              scale: scaleRange / 100,
+            }}
+            animate={{
+              transformOrigin: "0px 0px",
 
-                width: width / devicePixelRatio,
-                height: height / devicePixelRatio,
-                scale: scaleRange / 100,
-              }}
-              css={css`
+              width: width / devicePixelRatio,
+              height: height / devicePixelRatio,
+              scale: scaleRange / 100,
+            }}
+            css={css`
                   overflow:overlay;
                   overflow-y: hidden;
                   >div{
@@ -361,28 +336,28 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
                     background: white;
                   }
               `}
-            >
-              {errorText
-                ? (
-                  <div
-                    id="zbody"
-                    css={`${session.css}`}
-                    dangerouslySetInnerHTML={createMarkup(session.html)}
-                  />
-                )
-                : (
-                  <div
-                    id="zbody"
-                    key={session.i}
-                    ref={zbody}
-                    css={css`
+          >
+            {errorText
+              ? (
+                <div
+                  id="zbody"
+                  css={`${session.css}`}
+                  dangerouslySetInnerHTML={createMarkup(session.html)}
+                />
+              )
+              : (
+                <div
+                  id="zbody"
+                  key={session.i}
+                  ref={zbody}
+                  css={css`
                         height: 100%;
                       `}
-                  >
-                    {child}
-                  </div>
-                )} {
-                /*  </div>
+                >
+                  {child}
+                </div>
+              )} {
+              /*  </div>
                    // {/* </div>
                     <iframe
                       frameborder="0"
@@ -396,94 +371,122 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
                       }}
                       src={`https://spike.land/api/room/${room}/hydrated`}
                     /> */
-              }
-            </motion.div>
+            }
           </motion.div>
-          <ToggleButtonGroup
-            value={width}
-            size="small"
-            exclusive
-            onChange={(_e: unknown, newSize: number) => {
-              if (newSize) {
-                setHeight(breakPointHeights[breakPoints.indexOf(newSize)]);
-                setWidth(newSize);
-              }
-            }}
-          >
-            {breakPoints.map((size) => (
-              <ToggleButton
-                key={`size-${size}`}
-                value={size}
-              >
-                {size === 680
+        </motion.div>
+        <ToggleButtonGroup
+          value={width}
+          size="small"
+          exclusive
+          onChange={(_e: unknown, newSize: number) => {
+            if (newSize) {
+              setHeight(breakPointHeights[breakPoints.indexOf(newSize)]);
+              setWidth(newSize);
+            }
+          }}
+        >
+          {breakPoints.map((size) => (
+            <ToggleButton
+              key={`size-${size}`}
+              value={size}
+            >
+              {size === 680
+                ? (
+                  <Phone
+                    css={css`
+                        color: ${
+                      width === 680
+                        ? "rgba(255,255,255,.8)"
+                        : "rgba(0,0,0,.3)"
+                    };
+                        `}
+                  />
+                )
+                : (size === 768
                   ? (
-                    <Phone
+                    <Tablet
                       css={css`
                         color: ${
-                        width === 680
+                        width === 768
                           ? "rgba(255,255,255,.8)"
                           : "rgba(0,0,0,.3)"
                       };
                         `}
                     />
                   )
-                  : (size === 768
-                    ? (
-                      <Tablet
-                        css={css`
+                  : (
+                    <Tv
+                      css={css`
                         color: ${
-                          width === 768
-                            ? "rgba(255,255,255,.8)"
-                            : "rgba(0,0,0,.3)"
-                        };
-                        `}
-                      />
-                    )
-                    : (
-                      <Tv
-                        css={css`
-                        color: ${
-                          width === 1920
-                            ? "rgba(255,255,255,.8)"
-                            : "rgba(0,0,0,.3)"
-                        };
+                        width === 1920 ? "rgba(255,255,255,.8)"
+                        : "rgba(0,0,0,.3)"
+                      };
                       `}
-                      />
-                    ))}
-              </ToggleButton>
-            ))}
-          </ToggleButtonGroup>
-        </div>
+                    />
+                  ))}
+            </ToggleButton>
+          ))}
+        </ToggleButtonGroup>
+      </div>
 
-        <div
-          css={css`
+      <div
+        css={css`
               display: flex;
               align-items: center;          
               flex-direction: column;
               padding: 16px;
               `}
+      >
+        <Fab
+          key="fullscreen"
+          onClick={() => {
+            setFullScreen(true);
+          }}
         >
-          <Fab
-            key="fullscreen"
-            onClick={() => {
-              setFullScreen(true);
-            }}
-          >
-            <FullscreenIcon key="fs" />
-          </Fab>
+          <FullscreenIcon key="fs" />
+        </Fab>
 
-          <QRButton url={qrUrl} key="QRButton" />
+        <QRButton url={qrUrl} key="QRButton" />
 
-          <Fab
-            key="Share"
-            onClick={() => {
-              onShare();
-            }}
-          >
-            <Share />
-          </Fab>
-        </div>
+        <Fab
+          key="Share"
+          onClick={() => {
+            onShare();
+          }}
+        >
+          <Share />
+        </Fab>
       </div>
+    </div>
+  );
+
+  return (
+    <motion.div
+      ref={ref}
+      initial={{ paddingRight: 0, bottom: 0, right: 0 }}
+      animate={{
+        bottom,
+        paddingRight: 16,
+        right,
+      }}
+      css={css`
+            background-color:${bg};
+            backdrop-filter: blur(15px);
+            border-radius: 16px;
+            z-index: 10;
+            white-space: normal;
+            position: fixed;
+          `}
+      dragElastic={0.5}
+      dragConstraints={{
+        left: 0,
+        right: width - 20 - width / 6,
+        bottom: innerHeight,
+      }}
+      dragMomentum={false}
+      drag={!isFullScreen}
+    >
+      {internal}
     </motion.div>
   );
 };
