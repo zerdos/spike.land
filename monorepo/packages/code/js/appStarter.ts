@@ -43,6 +43,6 @@ import "es-module-shims";
     return fetch(url, init);
   }
 
-  const { run } = await import("https://spike.land/dist/starter.mjs");
+  const { run } = await importShim("/dist/starter.mjs", "https://spike.land");
   run();
 })();
