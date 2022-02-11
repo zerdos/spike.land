@@ -29,7 +29,7 @@ export const renderPreviewWindow = async (
   //     session={session}
   //   />
   // );
-  document.getElementById("root")!.style.height = "0";
+  // document.getElementById("root")!.style.height = "0";
   // const {html} = getHtmlAndCss( <Element></Element> as any );
 
   // target  .innerHTML = html;

@@ -196,6 +196,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
       <div
         css={css`
           z-index: 10;
+          width: 100%;
           height: 100%;
   `}
       >
