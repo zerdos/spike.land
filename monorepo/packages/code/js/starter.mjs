@@ -21,6 +21,7 @@ const start = async (App) => {
   const container = document.querySelector("#root");
 
   hydrate(container, jsx(App));
+  console.log("HYDRATED");
   globalThis.App = App;
   const { join } = await import("./ws.mjs");
   await wait(2000);
