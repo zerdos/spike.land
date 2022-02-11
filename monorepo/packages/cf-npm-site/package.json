@@ -8,8 +8,10 @@
     "clean": "rm -rf dist && yarn build",
     "build": "yarn tsc && esbuild --bundle --format=esm --target=esnext src/index.ts --outfile=dist/index.mjs"
   },
+
+  "author": "Zoltan Erdos <zolika84@gmail.com>",
+  "license": "BSD-3-Clause",
   "typings": "dist/index.d.ts",
   "main": "dist/index.mjs",
-  "license": "MIT",
   "gitHead": "f4913f9918da7ff533b63f66efd8bcbdf0f3afc7"
 }
