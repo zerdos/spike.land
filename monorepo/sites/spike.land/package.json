@@ -3,6 +3,7 @@
   "description": "An edge chat service that runs on Cloudflare Workers using Durable Objects",
   "version": "0.7.34",
   "main": "src/index.ts",
+  "private": true,
   "scripts": {
     "deploy": "wrangler publish src/index.ts",
     "xbuild": "esbuild --bundle --format=esm --loader:.html=text --target=esnext src/index.ts --outfile=dist/index.mjs"
@@ -19,5 +20,5 @@
   "publishConfig": {
     "access": "public"
   },
-  "gitHead": "51db6a9b467077d572ef837008662b060ecf0cf5"
+  "gitHead": "db8e23b83d2dd82efc101eca9d1b5ec76d122df4"
 }
