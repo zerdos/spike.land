@@ -4,9 +4,15 @@ import { jsx } from "@emotion/react";
 import Fab from "@mui/material/Fab";
 import Button from "@mui/material/Button";
 
+import Box from "@mui/material/Box";
+import Slider from "@mui/material/Slider";
+
 import createSvgIcon from "@mui/material/utils/createSvgIcon";
 
 import type { FC, MouseEvent } from "react";
+
+export { Box };
+export { Slider };
 
 // Const MyToggleButtonGroup: FC<{
 //   value: any,

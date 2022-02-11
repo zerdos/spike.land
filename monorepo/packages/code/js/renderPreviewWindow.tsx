@@ -31,11 +31,12 @@ export const renderPreviewWindow = async (
   // );
   // document.getElementById("root")!.style.height = "0";
   // const {html} = getHtmlAndCss( <Element></Element> as any );
-
   // target  .innerHTML = html;
   //@ts-ignore
 
   // Target  .innerHTML = html;
+
+  const { App } = globalThis;
 
   render(
     <DraggableWindow
@@ -49,7 +50,9 @@ export const renderPreviewWindow = async (
       hashCode={hashCode()}
       keepFullScreen={keepFullScreen}
       room={room}
-    />,
+    >
+      <App />
+    </DraggableWindow>,
     target,
   );
 

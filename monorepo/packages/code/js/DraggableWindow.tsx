@@ -3,11 +3,12 @@ import { css, jsx } from "@emotion/react";
 
 import { Fragment, lazy, Suspense, useEffect, useRef, useState } from "react";
 import type { FC } from "react";
-import { motion } from "framer-motion";
+import { motion, useForceUpdate } from "framer-motion";
 // import { div } from "./lazyMotion";
 import { QRButton } from "./Qr";
 import { wait } from "./wait";
-import { LazySpikeLandComponent } from "./LazyLoadedComponent";
+import { Box, Slider } from "./mui";
+// import { LazySpikeLandComponent } from "./LazyLoadedComponent";
 
 import {
   Button as muiButton,
@@ -60,20 +61,29 @@ interface DraggableWindowProps {
 }
 
 export const DraggableWindow: FC<DraggableWindowProps> = (
-  { onShare, onRestore, position, session, keepFullScreen, room, hashCode },
+  {
+    onShare,
+    onRestore,
+    position,
+    session,
+    keepFullScreen,
+    room,
+    hashCode,
+    children,
+  },
 ) => {
   const [isStable, setIsStable] = useState(false);
   const [scaleRange, changeScaleRange] = useState(100);
   // Const [height, changeHeight] = useState(innerHeight);
 
-  const [childArray, setChild] = useState([
-    <LazySpikeLandComponent
-      name={room}
-      hash={hashCode}
-      transpiled={session.transpiled}
-      html={`<div id="root"><style>${session.css}</style><div id="zbody">${session.html}</div></div>`}
-    />,
-  ]);
+  const [childArray, setChild] = useState([children]);
+  //   <LazySpikeLandComponent
+  //     name={room}
+  //     hash={hashCode}
+  //     transpiled={session.transpiled}
+  //     html={`<div id="root"><style>${session.css}</style><div id="zbody">${session.html}</div></div>`}
+  //   />,
+  // ]);
 
   const startPositions = { bottom: 0, right: 0 };
 
@@ -88,7 +98,9 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
   const ref = useRef<HTMLDivElement>(null);
   const zbody = useRef<HTMLDivElement>(null);
 
-  const child = childArray[childArray.length - 1];
+  const [forcedIndie, setForcedIndie] = useState(0);
+
+  const child = childArray[childArray.length - 1 - forcedIndie];
 
   // UseEffect(() => {
   // window.addEventListener("resize", () => changeHeight(window.innerHeight));
@@ -119,6 +131,14 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
 
   const scale = scaleRange / 100;
   const [isFullScreen, setFullScreen] = useState(true);
+
+  useEffect(() => {
+    if (forcedIndie > 0) {
+      setTimeout(() => {
+        setForcedIndie((f) => f - 1);
+      }, 100);
+    }
+  }, [forcedIndie, childArray]);
 
   useEffect(() => {
     const reveal = async () => {
@@ -456,6 +476,29 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
         >
           <Share />
         </Fab>
+        <Box
+          css={css`
+          max-height: 400px;
+          min-height: 200px;
+          margin-top: 20px;
+        `}
+        >
+          <Slider
+            sx={{
+              '& input[type="range"]': {
+                WebkitAppearance: "slider-vertical",
+              },
+            }}
+            max={0}
+            min={0 - childArray.length}
+            orientation="vertical"
+            defaultValue={0 - forcedIndie}
+            value={0 - forcedIndie}
+            onChange={(_, v) => setForcedIndie(0 - v)}
+            aria-label="Temperature"
+            onKeyDown={() => {}}
+          />
+        </Box>
       </div>
     </div>
   );

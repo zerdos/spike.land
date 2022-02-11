@@ -132,6 +132,8 @@ async function runner(c, changes = null, session, counter) {
         // Session.html = zbody.innerHTML;
 
         session.setChild((c) => [...c, children]);
+        ``;
+        globalThis.App = children;
         session.children = children;
         restartError = !html;
         session.code = cd;
