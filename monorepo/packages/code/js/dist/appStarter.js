@@ -2518,7 +2518,7 @@
       skip: /^https?:\/\/(cdn\.skypack\.dev|jspm\.dev)\//
     };
     document.body.appendChild(Object.assign(document.createElement("script"), {
-      type: "importmap-shims",
+      type: "importmap-shim",
       innerHTML: JSON.stringify(importmap_default)
     }));
     const { run } = await importShim("./dist/starter.mjs");

@@ -44,7 +44,7 @@ import imap from "./importmap.json";
   // }
 
   document.body.appendChild(Object.assign(document.createElement("script"), {
-    type: "importmap-shims",
+    type: "importmap-shim",
     innerHTML: JSON.stringify(imap),
   }));
 
