@@ -2201,14 +2201,14 @@
       seen[load.u] = 0;
       for (const dep of load.d)
         resolveDeps(dep, seen);
-      const [imports] = load.a;
+      const [imports2] = load.a;
       const source = load.S;
       let resolvedSource = edge && lastLoad ? `import '${lastLoad}';` : "";
-      if (!imports.length) {
+      if (!imports2.length) {
         resolvedSource += source;
       } else {
         let lastIndex = 0, depIndex = 0;
-        for (const { s: start, e: end, se: statementEnd, d: dynamicImportIndex } of imports) {
+        for (const { s: start, e: end, se: statementEnd, d: dynamicImportIndex } of imports2) {
           if (dynamicImportIndex === -1) {
             const depLoad = load.d[depIndex++];
             let blobUrl = depLoad.b;
@@ -2465,6 +2465,45 @@
     }
   })();
 
+  // js/importmap.json
+  var imports = {
+    "@emotion/cache": "https://ga.jspm.io/npm:@emotion/cache@11.7.1/dist/emotion-cache.browser.esm.js",
+    "@emotion/react": "https://spike.land/dist/emotion.mjs",
+    "framer-motion": "https://spike.land/dist/framer-motion.mjs",
+    preact: "https://ga.jspm.io/npm:preact@10.6.5/dist/preact.module.js",
+    "preact-render-to-string": "https://ga.jspm.io/npm:preact-render-to-string@5.1.19/dist/index.mjs",
+    "preact/compat": "https://ga.jspm.io/npm:preact@10.6.5/compat/dist/compat.module.js",
+    react: "https://spike.land/dist/react.mjs",
+    "react-dom": "https://spike.land/dist/react.mjs"
+  };
+  var scopes = {
+    "https://ga.jspm.io/": {
+      "@babel/runtime/helpers/esm/extends": "https://ga.jspm.io/npm:@babel/runtime@7.17.2/helpers/esm/extends.js",
+      "@babel/runtime/helpers/extends": "https://ga.jspm.io/npm:@babel/runtime@7.17.2/helpers/esm/extends.js",
+      "@emotion/hash": "https://ga.jspm.io/npm:@emotion/hash@0.8.0/dist/hash.browser.esm.js",
+      "@emotion/memoize": "https://ga.jspm.io/npm:@emotion/memoize@0.7.5/dist/emotion-memoize.browser.esm.js",
+      "@emotion/serialize": "https://ga.jspm.io/npm:@emotion/serialize@1.0.2/dist/emotion-serialize.browser.esm.js",
+      "@emotion/sheet": "https://ga.jspm.io/npm:@emotion/sheet@1.1.0/dist/emotion-sheet.browser.esm.js",
+      "@emotion/unitless": "https://ga.jspm.io/npm:@emotion/unitless@0.7.5/dist/unitless.browser.esm.js",
+      "@emotion/utils": "https://ga.jspm.io/npm:@emotion/utils@1.0.0/dist/emotion-utils.browser.esm.js",
+      "@emotion/weak-memoize": "https://ga.jspm.io/npm:@emotion/weak-memoize@0.2.5/dist/weak-memoize.browser.esm.js",
+      framesync: "https://ga.jspm.io/npm:framesync@6.0.1/dist/es/index.mjs",
+      "hey-listen": "https://ga.jspm.io/npm:hey-listen@1.0.8/dist/index.js",
+      "hoist-non-react-statics": "https://ga.jspm.io/npm:hoist-non-react-statics@3.3.2/dist/hoist-non-react-statics.cjs.js",
+      "object-assign": "https://ga.jspm.io/npm:object-assign@4.1.1/index.js",
+      popmotion: "https://ga.jspm.io/npm:popmotion@11.0.3/dist/es/index.mjs",
+      "preact/hooks": "https://ga.jspm.io/npm:preact@10.6.5/hooks/dist/hooks.module.js",
+      "react-is": "https://ga.jspm.io/npm:react-is@16.13.1/index.js",
+      "style-value-types": "https://ga.jspm.io/npm:style-value-types@5.0.0/dist/es/index.mjs",
+      stylis: "https://ga.jspm.io/npm:stylis@4.0.13/index.js",
+      tslib: "https://ga.jspm.io/npm:tslib@2.3.1/tslib.es6.js"
+    }
+  };
+  var importmap_default = {
+    imports,
+    scopes
+  };
+
   // js/appStarter.ts
   (async () => {
     window.esmsInitOptions = {
@@ -2478,6 +2517,10 @@
       noLoadEventRetriggers: true,
       skip: /^https?:\/\/(cdn\.skypack\.dev|jspm\.dev)\//
     };
+    document.body.appendChild(Object.assign(document.createElement("script"), {
+      type: "importmap-shims",
+      innerHTML: JSON.stringify(importmap_default)
+    }));
     const { run } = await importShim("./starter.mjs");
     run();
   })();

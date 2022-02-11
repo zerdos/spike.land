@@ -1,5 +1,6 @@
 // import { Workbox } from "workbox-window";
 import "es-module-shims";
+import imap from "./importmap.json";
 (async () => {
   // const esbuild = import("./esbuildEsm.ts");
 
@@ -41,6 +42,11 @@ import "es-module-shims";
   //   }
   //   return fetch(url, init);
   // }
+
+  document.body.appendChild(Object.assign(document.createElement("script"), {
+    type: "importmap-shims",
+    innerHTML: JSON.stringify(imap),
+  }));
 
   const { run } = await importShim(
     "./starter.mjs",
