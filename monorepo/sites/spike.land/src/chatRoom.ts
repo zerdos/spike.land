@@ -245,7 +245,7 @@ export class Code {
                 const s = document.createElement("script");
                 s.async = "async";
                 s.type = "application/javascript";
-                s.src = "./dist/workers/js/appStarter.js";
+                s.src = "./dist/appStarter.js";
                 document.head.appendChild(s);
                 
               });
@@ -295,7 +295,7 @@ export class Code {
                 <div id="zbody">${ mST().html}</div>
               </div>
               <script type="importmap">${JSON.stringify({imports:{...imap.imports}, scopes: {...imap.scopes}})}</script>`)
-              .replace('<script defer src="./dist/workers/js/appStarter.js"></script>',
+              .replace('<script defer src="./dist/appStarter.js"></script>',
             ` 
               <script defer type="module">
               
@@ -303,11 +303,11 @@ export class Code {
                 const s = document.createElement("script");
                 s.async = "async";
                 s.type = "application/javascript";
-                s.src = "./dist/workers/js/appStarter.js";
+                s.src = "./dist/appStarter.js";
                 document.head.appendChild(s);
               }); 
               </script>
-              <script type="nomodule" defer  src="./dist/workers/js/appStarter.js"></script>`
+              <script type="nomodule" defer  src="./dist/appStarter.js"></script>`
                    ).replaceAll(vReg, version);
           return new Response(html, {
             status: 200,

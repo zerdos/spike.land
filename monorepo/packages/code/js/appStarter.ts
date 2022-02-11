@@ -43,7 +43,7 @@ import "es-module-shims";
   // }
 
   const { run } = await importShim(
-    "https://spike.land/dist/starter.mjs",
+    "./starter.mjs",
   );
   run();
 })();

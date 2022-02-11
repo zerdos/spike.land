@@ -93,7 +93,7 @@ await esbuild.build({
   entryPoints: [
     ...workerEntryPoints,
     // "./js/workers/prettier.worker.js",
-    "./js/appStarter.ts",
+    
   ],
   bundle: true,
   target: "es2018",
@@ -114,6 +114,31 @@ await esbuild.build({
   // loader: {   ".worker.js": "dataurl"},
   outdir: "js/dist/workers/",
 });
+
+
+await esbuild.build({
+  entryPoints: ["./js/appStarter.ts",
+    // "./js/workers/prettier.worker.js",
+    
+  ],
+  outfile: './js/dist/appStarter.js',
+  bundle: true,
+  target: "es2018",
+  minify: false,
+  minifyWhitespace: false,
+  minifyIdentifiers: false,
+  minifySyntax: false,
+  legalComments: "external",
+
+  platform: "browser",
+  define: {
+    "process.env.NODE_ENV": `"${environment}"`,
+  },
+
+  format: "iife",
+});
+
+
 
 await esbuild.build({
   entryPoints: ["js/monacoTs.ts"],
