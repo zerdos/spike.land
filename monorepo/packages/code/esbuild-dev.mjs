@@ -96,7 +96,7 @@ await esbuild.build({
     
   ],
   bundle: true,
-  target: "es2018",
+  target: "es2017",
   sourcemap: isDevelopment,
   minify: !isDevelopment,
   minifyWhitespace: !isDevelopment,
@@ -123,7 +123,7 @@ await esbuild.build({
   ],
   outfile: './js/dist/appStarter.js',
   bundle: true,
-  target: "es2018",
+  target: "es2017",
   minify: false,
   minifyWhitespace: false,
   minifyIdentifiers: false,
@@ -148,7 +148,7 @@ await esbuild.build({
     "process.env.NODE_ENV": `"${environment}"`,
   },
 
-  target: "es2018",
+  target: "es2017",
   sourcemap: isDevelopment,
   format: "esm",
   treeShaking: !isDevelopment,
@@ -191,7 +191,7 @@ await esbuild.build({
 //   treeShaking: false,
 //   sourcemap: true,
 //   resolveExtensions: [".tsx", ".ts", ".jsx", ".js", ".css", ".json", ".mjs"],
-//   target: ["es2018"],
+//   target: ["es2017"],
 //   plugins: [importMap.plugin()],
 //   outfile: "dist/dev.mjs",
 // }).catch(() => process.exit(1));
@@ -209,7 +209,7 @@ const build = (entryPoints) =>
     platform: "browser",
     chunkNames: "chunks/[name]-[hash]",
     resolveExtensions: [".tsx", ".ts", ".jsx", ".js", ".css", ".json", ".mjs"],
-    target: ["es2018"],
+    target: ["es2017"],
     define: {
       "process.env.NODE_ENV": `"${environment}"`,
     },
@@ -267,7 +267,7 @@ await build([
 //   treeShaking: false,
 //   sourcemap: true,
 //   resolveExtensions: [".tsx", ".ts", ".jsx", ".js", ".css", ".json", ".mjs"],
-//   target: ["es2018"],
+//   target: ["es2017"],
 //   plugins: [importMap.plugin()],
 //   outfile: "dist/ws.mjs",
 // }).catch(() => process.exit(1));

@@ -36,7 +36,7 @@
   "source": "src/QRious.tsx",
   "main": "dist/QRious.mjs",
   "scripts": {
-    "build": "esbuild --loader:.css=text --bundle --minify  --target=es2018 --format=esm --platform=browser --outfile=dist/QRious.mjs  src/QRious.ts",
+    "build": "esbuild --loader:.css=text --bundle --minify  --target=es2017 --format=esm --platform=browser --outfile=dist/QRious.mjs  src/QRious.ts",
     "clean": "rm -rf dist && yarn tsc && yarn build"
   },
   "gitHead": "f19ed65bbe1e6fa6921e9d4a07d42a6cc4003eac",

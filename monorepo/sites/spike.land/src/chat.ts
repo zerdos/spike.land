@@ -1,5 +1,5 @@
 import { version } from "@spike.land/code/package.json";
-import { parse } from "cookie"
+import { parse } from "cookie";
 
 import { default as npmAns } from "@spike.land/cf-npm-site";
 import { handleErrors } from "./handleErrors";
@@ -28,6 +28,14 @@ export default {
               "Cache-Control": "no-cache",
             },
           });
+          case "file":
+            const imp = await import(path[1]);
+            return new Response(imp, {
+              headers: {
+                "Content-Type": "text/html;charset=UTF-8",
+                "Cache-Control": "no-cache",
+              },
+            });
         case "version":
             return new Response("ping" + Math.random(), {
               headers: {

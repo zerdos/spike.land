@@ -8,6 +8,8 @@ route = "https://spike.land/*"
 compatibility_date = "2021-10-16"
 usage_model = "bundled"
 
+include = ["../../packages/code/js"] 
+
 [durable_objects]
 bindings = [
     { name = "CODE", class_name = "Code" },

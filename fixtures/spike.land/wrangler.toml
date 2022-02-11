@@ -14,6 +14,7 @@ kv_namespaces = [
   { binding = "SIGNALS",  id = "19214ae7063d4c9badf84b0f04ad60c7", preview_id="19214ae7063d4c9badf84b0f04ad60c7" },
   { binding = "IPFS",     id = "cd2dc5442bd94cd0af31291ebb238cf3", preview_id="cd2dc5442bd94cd0af31291ebb238cf3" }
 ]
+include = ["included_dir"] 
 [dev]
 port=9000
 local_protocol="https"

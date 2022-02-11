@@ -36,7 +36,7 @@ const transformAsync = async (src: string) => {
     src,
     {
       loader: "tsx",
-      target: "es2018",
+      target: "es2017",
     },
   );
   console.log("...transform.");

@@ -18,7 +18,7 @@
 
 //   const result = await esbuild.transform(code, {
 //     loader: "tsx",
-//     target: "es2018",
+//     target: "es2017",
 //   });
 
 //   return result.code;
