@@ -46,7 +46,7 @@
   "devDependencies": {
     "typescript": "4.5.5"
   },
-  "gitHead": "d0a0900f93473b9b959d0e4d242e95f99be8bb0b",
+  "gitHead": "85461175968dd06e9ae8c8318194142447447ed1",
   "author": "Zoltan Erdos <zolika84@gmail.com>",
   "license": "BSD-3-Clause",
   "publishConfig": {
