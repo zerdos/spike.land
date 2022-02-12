@@ -7,6 +7,7 @@ import { wait } from "./wait";
 import type { ICodeSession } from "./session";
 
 import { hashCode } from "./session";
+import bg from "./assets/synthwave.webp";
 // import { hydrate } from "preact";
 
 export const renderPreviewWindow = async (
@@ -68,7 +69,7 @@ export const renderPreviewWindow = async (
 
   // await wait(2000 - diffy);
 
-  document.body.style.backgroundImage = 'url("/assets/synthwave.webp")';
+  document.body.style.backgroundImage = `url("./dist/${bg}")`;
 
   editor.style.opacity = "1";
   editor.style.display = "block";
