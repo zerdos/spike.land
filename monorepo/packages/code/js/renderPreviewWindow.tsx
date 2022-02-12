@@ -1,6 +1,5 @@
 /** @jsx jsx */
 import { css, jsx } from "@emotion/react";
-import { join } from "path-browserify";
 //@ts-ignore
 import { render } from "react";
 import { DraggableWindow } from "./DraggableWindow";
@@ -70,7 +69,8 @@ export const renderPreviewWindow = async (
 
   // await wait(2000 - diffy);
 
-  document.body.style.backgroundImage = `url("${join(import.meta.url, bg)}")`;
+  document.body.style.backgroundImage =
+    `url("https://spike.land/dist/chunks/${bg}")`;
 
   editor.style.opacity = "1";
   editor.style.display = "block";
