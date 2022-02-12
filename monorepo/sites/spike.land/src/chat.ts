@@ -8,6 +8,7 @@ import { CodeEnv } from "./env";
 export default {
   async fetch(request: Request, env: CodeEnv) {
     return handleErrors(request, async () => {
+      console.log("handling request")
       // We have received an HTTP request! Parse the URL and route the request.
 
       let url = new URL(request.url);
