@@ -18,7 +18,7 @@
   "dependencies": {
     "@types/websocket": "1.0.5",
     "cookie": "0.4.2",
-    "miniflare": "^2.3.0",
+    "miniflare": "2.3.0",
     "textdiff-patch": "1.0.6"
   },
   "publishConfig": {
