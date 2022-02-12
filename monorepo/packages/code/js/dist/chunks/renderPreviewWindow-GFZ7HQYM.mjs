@@ -144,7 +144,7 @@ import{b as tn}from"./chunk-YCBSXGWT.mjs";import{e as en,g as Qs}from"./chunk-AH
             z-index: 10;
             white-space: normal;
             position: fixed;
-          `,dragElastic:.5,dragConstraints:{left:0,right:E-20-E/6,bottom:innerHeight},dragMomentum:!1,drag:!Q},re)};function ru(e){return{__html:e}}var Ks="../synthwave-O2OHLPRX.webp";var Ix=async(e,t,o)=>{console.log("renderPreviewWindow");let r=document.getElementById("zbody"),n=document.getElementById("monacoEditor");n.style.opacity="0";let{App:i}=globalThis;su(Ys(Gs,{onShare:()=>open(`https://spike.land/api/room/${t}/public`),onRestore:()=>{e.editor.getModel().setValue(e.code)},position:e.mode==="window"?"fixed":"absolute",session:e,hashCode:tn(),keepFullScreen:o,room:t},Ys(i,null)),r),document.body.style.backgroundImage=`url("/dist/${Ks}")`,n.style.opacity="1",n.style.display="block"};export{Ix as renderPreviewWindow};
+          `,dragElastic:.5,dragConstraints:{left:0,right:E-20-E/6,bottom:innerHeight},dragMomentum:!1,drag:!Q},re)};function ru(e){return{__html:e}}var Ks="../synthwave-O2OHLPRX.webp";var Ix=async(e,t,o)=>{console.log("renderPreviewWindow");let r=document.getElementById("zbody"),n=document.getElementById("monacoEditor");n.style.opacity="0";let{App:i}=globalThis;su(Ys(Gs,{onShare:()=>open(`https://spike.land/api/room/${t}/public`),onRestore:()=>{e.editor.getModel().setValue(e.code)},position:e.mode==="window"?"fixed":"absolute",session:e,hashCode:tn(),keepFullScreen:o,room:t},Ys(i,null)),r),document.body.style.backgroundImage=`url("https://spike.land/dist/${Ks}")`,n.style.opacity="1",n.style.display="block"};export{Ix as renderPreviewWindow};
 /** @license MUI v5.0.0-alpha.68
  *
  * This source code is licensed under the MIT license found in the
