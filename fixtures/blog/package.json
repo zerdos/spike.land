@@ -48,7 +48,7 @@
     "@types/react-helmet": "6.1.5",
     "axax": "0.2.2",
     "cypress": "9.4.1",
-    "eslint": "8.8.0",
+    "eslint": "8.9.0",
     "eslint-plugin-react": "7.28.0",
     "gatsby-plugin-emotion": "7.7.0",
     "gatsby-plugin-manifest": "4.7.0",
