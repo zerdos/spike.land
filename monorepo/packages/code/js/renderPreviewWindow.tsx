@@ -69,7 +69,8 @@ export const renderPreviewWindow = async (
 
   // await wait(2000 - diffy);
 
-  document.body.style.backgroundImage = `url("https://spike.land/dist/${bg}")`;
+  document.body.style.backgroundImage =
+    `url("https://spike.land/dist/chunks/${bg}")`;
 
   editor.style.opacity = "1";
   editor.style.display = "block";
