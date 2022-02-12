@@ -725,8 +725,16 @@ function src_default(packageName, version2, serveDir = "") {
           }
         });
         const origResp = await Promise.any([
-          fetch(newReq),
-          fetch(`https://raw.githubusercontent.com/spike-land/monorepo/v${version2}/monorepo/packages/code/${targetPath}`)
+          fetch(newReq).then((req) => {
+            if (!req.ok)
+              throw req.status;
+            return req;
+          }),
+          fetch(`https://raw.githubusercontent.com/spike-land/monorepo/v${version2}/monorepo/packages/code/${targetPath}`).then((req) => {
+            if (!req.ok)
+              throw req.status;
+            return req;
+          })
         ]);
         if (!origResp.ok)
           throw new Error("not ok");
