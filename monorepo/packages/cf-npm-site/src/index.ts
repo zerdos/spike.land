@@ -58,7 +58,11 @@ export default function (
           },
         );
 
-        const origResp = await fetch(newReq);
+
+        const origResp = await Promise.any([fetch(newReq),         
+          fetch(`https://raw.githubusercontent.com/spike-land/monorepo/v${version}/monorepo/packages/code/${targetPath}`)]);
+
+    
 
         if (!origResp.ok) throw new Error("not ok");
 
