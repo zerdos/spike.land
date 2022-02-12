@@ -71,7 +71,7 @@ export const renderPreviewWindow = async (
   // await wait(2000 - diffy);
 
   document.body.style.backgroundImage = `url("${
-    path.parse(import.meta.url, bg)
+    path.join(import.meta.url, bg)
   }")`;
 
   editor.style.opacity = "1";
