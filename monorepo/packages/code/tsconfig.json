@@ -50,6 +50,7 @@
     "esModuleInterop": true, /* Enables emit interoperability between CommonJS and ES Modules via creation of namespace objects for all imports. Implies 'allowSyntheticDefaultImports'. */
     "resolveJsonModule": true,
     "moduleResolution": "node",
+    
     // "preserveSymlinks": true,              /* Do not resolve the real path of symlinks. */
     // "allowUmdGlobalAccess": true,          /* Allow accessing UMD globals from modules. */
 
@@ -74,6 +75,7 @@
   ],
   "exclude": ["./js/vendor/**", "./js/dist/**"],
   "paths": {
+    "path": ["path-browserify"],
     "*.ts": ["*"],
     "*.tsx": ["*"]
   }
