@@ -70,7 +70,9 @@ export const renderPreviewWindow = async (
 
   // await wait(2000 - diffy);
 
-  document.body.style.backgroundImage = `url("${path(__dirname, bg)}")`;
+  document.body.style.backgroundImage = `url("${
+    path.parse(import.meta.url, bg)
+  }")`;
 
   editor.style.opacity = "1";
   editor.style.display = "block";
