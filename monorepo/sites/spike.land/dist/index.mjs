@@ -691,7 +691,7 @@ var require_textdiff_create = __commonJS({
 });
 
 // ../../packages/code/package.json
-var version = "0.7.62";
+var version = "0.7.67";
 
 // src/chat.ts
 var import_cookie = __toESM(require_cookie(), 1);
@@ -724,9 +724,11 @@ function src_default(packageName, version2, serveDir = "") {
             ...reqCloned.headers
           }
         });
-        const origResp = await fetch(newReq);
-        if (!origResp.ok)
-          throw new Error("not ok");
+        const origResp = await Promise.any([
+          fetch(newReq).then(resp=>? resp: |  new Error(resp.statusText)),
+          fetch(`https://raw.githubusercontent.com/spike-land/monorepo/v${version2}/monorepo/packages/code/${targetPath}`).then(resp=>res.ok? resp:  new Error(resp.statusText))
+        ]);
+       
         const cloned = origResp.clone();
         const resp = new Response(cloned.body, {
           headers: {
@@ -802,6 +804,7 @@ async function handleErrors(request, func) {
 var chat_default = {
   async fetch(request, env) {
     return handleErrors(request, async () => {
+      console.log("handling request");
       let url = new URL(request.url);
       let path = url.pathname.slice(1).split("/");
       if (!path[0]) {

@@ -8,7 +8,7 @@
   "private": true,
   "scripts": {
     "dev": "miniflare -m --wrangler-config wrangler.toml --https --host dev.spike.land --port 8080",
-    "deploy": "wrangler publish src/index.ts",
+    "deploy": "yarn xbuild && wrangler publish src/index.ts",
     "xbuild": "esbuild --bundle --format=esm --loader:.html=text --target=esnext src/index.ts --outfile=dist/index.mjs"
   },
   "devDependencies": {
