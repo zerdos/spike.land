@@ -32,8 +32,10 @@ export default function (packageName, version, serveDir = "") {
                         ...reqCloned.headers,
                     },
                 });
-                const origResp = await Promise.any([fetch(newReq),
-                    fetch(`https://raw.githubusercontent.com/spike-land/monorepo/v${version}/monorepo/packages/code/${targetPath}`)]);
+                const origResp = await Promise.any([fetch(newReq).then(req => { if (!req.ok)
+                        throw req.status; return req; }),
+                    fetch(`https://raw.githubusercontent.com/spike-land/monorepo/v${version}/monorepo/packages/code/${targetPath}`).then(req => { if (!req.ok)
+                        throw req.status; return req; })]);
                 if (!origResp.ok)
                     throw new Error("not ok");
                 const cloned = origResp.clone();
