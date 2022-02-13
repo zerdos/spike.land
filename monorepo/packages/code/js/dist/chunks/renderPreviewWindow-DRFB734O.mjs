@@ -137,7 +137,7 @@ import{b as tn}from"./chunk-YCBSXGWT.mjs";import{e as en,g as Qs}from"./chunk-AH
           max-height: 400px;
           min-height: 200px;
           margin-top: 20px;
-        `},U(Uo,{sx:{'& input[type="range"]':{WebkitAppearance:"slider-vertical"}},max:0,min:0-u.length,orientation:"vertical",defaultValue:0-z,value:0-z,onChange:(J,ne)=>K(0-ne),"aria-label":"Temperature",onKeyDown:()=>{}}))));return U(Zr.div,{ref:B,initial:{paddingRight:0,bottom:0,right:0},animate:{bottom:P,paddingRight:16,right:k},css:he`
+        `},U(Uo,{sx:{'& input[type="range"]':{WebkitAppearance:"slider-vertical"}},max:0,min:0-u.length,orientation:"vertical",defaultValue:0-z,value:0-z,onChange:(J,ne)=>K(0-ne),"aria-label":"Temperature",onKeyDown:()=>{}}))));return U(Zr.div,{ref:B,initial:{padding:0,bottom:0,right:0},animate:{bottom:P,padding:8,right:k},css:he`
             background-color:${ou};
             backdrop-filter: blur(15px);
             border-radius: 16px;

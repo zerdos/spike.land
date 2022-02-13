@@ -506,10 +506,10 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
   return (
     <motion.div
       ref={ref}
-      initial={{ paddingRight: 0, bottom: 0, right: 0 }}
+      initial={{ padding: 0, bottom: 0, right: 0 }}
       animate={{
         bottom,
-        paddingRight: 16,
+        padding: 8,
         right,
       }}
       css={css`
