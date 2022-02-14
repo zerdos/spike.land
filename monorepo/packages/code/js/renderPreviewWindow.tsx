@@ -37,9 +37,7 @@ export const renderPreviewWindow = async (
 
   // Target  .innerHTML = html;
   const { App } = globalThis;
-
-  hydrate(
-    target,
+  const Rendered = (
     <DraggableWindow
       onShare={() => open(`https://spike.land/api/room/${room}/public`)}
       onRestore={() => {
@@ -53,7 +51,12 @@ export const renderPreviewWindow = async (
       room={room}
     >
       <App />
-    </DraggableWindow>,
+    </DraggableWindow>
+  );
+
+  hydrate(
+    target,
+    jsx(Rendered),
   );
 
   // d//ocument.getElementById("root")?.replaceWith(target);
