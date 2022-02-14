@@ -691,7 +691,7 @@ var require_textdiff_create = __commonJS({
 });
 
 // ../../packages/code/package.json
-var version = "0.7.107";
+var version = "0.7.108";
 
 // src/chat.ts
 var import_cookie = __toESM(require_cookie(), 1);
@@ -1065,7 +1065,7 @@ var imports = {
   "@emotion/cache": "https://ga.jspm.io/npm:@emotion/cache@11.7.1/dist/emotion-cache.browser.esm.js",
   "@emotion/react": "https://spike.land/dist/emotion.mjs",
   "framer-motion": "https://spike.land/dist/framer-motion.mjs",
-  preact: "https://spike.land/dist/react.mjs",
+  preact: "https://ga.jspm.io/npm:preact@10.6.5/dist/preact.module.js",
   "preact-render-to-string": "https://ga.jspm.io/npm:preact-render-to-string@5.1.19/dist/index.mjs",
   "preact/compat": "https://ga.jspm.io/npm:preact@10.6.5/compat/dist/compat.module.js",
   react: "https://spike.land/dist/react.mjs",
@@ -5480,7 +5480,7 @@ function storageAvailable(type) {
     const storage = window[type];
     const x = "__storage_test__";
     storage.setItem(x, x);
-    storage.removeItem(x);
+    storage.removeItem && storage.removeItem(x);
     return true;
   } catch {
     return false;
