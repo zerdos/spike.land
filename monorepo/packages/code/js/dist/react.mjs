@@ -934,6 +934,7 @@ function x3(r4, n3, l2, c3, h11, y2) {
 }
 m2.shallowRender = g3;
 export { B1 as render };
+export { W as createPortal };
 export { $1 as hydrate };
 export { m2 as renderToString };
 const { createContext  } = mod;

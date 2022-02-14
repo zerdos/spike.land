@@ -1,8 +1,10 @@
 // import * as preact from "preact";
 import * as react from "preact/compat";
-import { hydrate, render } from "preact/compat";
+import { createPortal, hydrate, render } from "preact/compat";
 import renderToString from "preact-render-to-string";
 export { render };
+
+export { createPortal };
 export { hydrate };
 export { renderToString };
 // export const createRoot = (container) => ({
