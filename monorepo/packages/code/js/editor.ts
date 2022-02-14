@@ -21,9 +21,13 @@ self.MonacoEnvironment = {
   },
 };
 
+let started = false;
+
 export const startMonaco = async (
   { code, container }: { code: string; container: HTMLDivElement },
 ) => {
+  if (!started) started = true;
+  else return;
   const shadowRoot = container.attachShadow({
     mode: "closed",
   });
