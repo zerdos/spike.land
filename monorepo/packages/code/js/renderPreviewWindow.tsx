@@ -1,13 +1,15 @@
 /** @jsx jsx */
 import { css, jsx } from "@emotion/react";
 //@ts-ignore
-import { hydrate, render } from "react";
+import { createPortal, hydrate, render } from "react";
 import { DraggableWindow } from "./DraggableWindow";
 import { wait } from "./wait";
+import type { FC } from "react";
 import type { ICodeSession } from "./session";
 
 import { hashCode } from "./session";
 import bg from "./assets/synthwave.webp";
+// import { createPortal } from "preact/compat";
 // import { hydrate } from "preact";
 
 export const renderPreviewWindow = async (
@@ -17,7 +19,7 @@ export const renderPreviewWindow = async (
 ) => {
   console.log("renderPreviewWindow");
 
-  const target = document.getElementById("root")!;
+  const target = document.createElement("div")!;
   const editor = document.getElementById("monacoEditor")!;
   // Target.style.display = "none";
   editor.style.opacity = "0";
@@ -36,7 +38,9 @@ export const renderPreviewWindow = async (
   //@ts-ignore
 
   // Target  .innerHTML = html;
-  const { App } = globalThis;
+  // const { App } = globalThis;
+  const App: FC = ({ children }) =>
+    createPortal(child, document.getElementById("zbody"));
   const Rendered = () => (
     <DraggableWindow
       onShare={() => open(`https://spike.land/api/room/${room}/public`)}
@@ -58,6 +62,7 @@ export const renderPreviewWindow = async (
     jsx(Rendered),
     target,
   );
+  document.body.appendChild(target);
 
   // d//ocument.getElementById("root")?.replaceWith(target);
 
