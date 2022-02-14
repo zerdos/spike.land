@@ -15,7 +15,7 @@ const QR: React.FC<{ url: string }> = ({ url }) => {
     const load = () => {
       const options = {
         size: 200,
-        element: canvasRef.current,
+        element: canvasRef.current!,
         foregroundAlpha: 0.9,
         foreground: "white",
         backgroundAlpha: 1,
@@ -58,8 +58,6 @@ export const QRButton: React.FC<{ url: string }> = ({ url }) => {
     >
       {showQR ? <QR key={url} url={url + "/edit/"} /> : (
         <Fab
-          variant="extended"
-          color="secondary"
           onClick={() => {
             setQR(!showQR);
           }}
