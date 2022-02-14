@@ -7,7 +7,7 @@ function src_default(packageName, version, serveDir = "") {
         const url = new URL(request2.url);
         const pathname = String(url.pathname);
         const isChunk = pathname.indexOf("/chunks") !== -1;
-        const cacheKey = isChunk ? new Request(url.origin + pathname.substring(pathname.indexOf("/chunks" + 7)), request2) : new Request(url.toString(), request2);
+        const cacheKey = isChunk ? new Request(url.origin + pathname.substring(pathname.indexOf("/chunks" + 7)), { method: "GET" }) : new Request(url.toString(), { method: "GET" });
         const cache = caches.default;
         const cachedResp = await cache.match(cacheKey);
         if (cachedResp) {

@@ -20,9 +20,9 @@ export default function (
         const cacheKey = isChunk
           ? new Request(
             url.origin + pathname.substring(pathname.indexOf("/chunks" + 7)),
-            request,
+            {method: "GET"},
           )
-          : new Request(url.toString(), request);
+          : new Request(url.toString(),  {method: "GET"});
         const cache = caches.default;
 
         const cachedResp = await cache.match(cacheKey);
