@@ -2480,11 +2480,11 @@
     "@emotion/react": "https://spike.land/dist/emotion.mjs",
     "framer-motion": "https://spike.land/dist/framer-motion.mjs",
     preact: "https://unpkg.com/preact@10.6.6/dist/preact.mjs",
-    "preact-render-to-string": "https://ga.jspm.io/npm:preact-render-to-string@5.1.19/dist/index.mjs",
+    "preact-render-to-string": "https://unpkg.com/preact-render-to-string@5.1.19/dist/index.mjs",
     "preact/compat": "https://unpkg.com/preact@10.6.6/compat/dist/compat.mjs",
-    "preact/hooks": "https://unpkg.com/preact@10.6.6/hooks/dist/hooks.mjs",
     react: "https://spike.land/dist/react.mjs",
-    "react-dom": "https://spike.land/dist/react.mjs"
+    "react-dom": "https://spike.land/dist/react.mjs",
+    "preact/hooks": "https://unpkg.com/preact@10.6.6/hooks/dist/hooks.mjs"
   };
   var scopes = {
     "https://ga.jspm.io/": {

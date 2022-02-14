@@ -799,8 +799,8 @@ var a2 = function(e2, t2) {
 function s2(e4) {
     var t4 = "";
     for(var n11 in e4){
-        var c12 = e4[n11];
-        null != c12 && "" !== c12 && (t4 && (t4 += " "), t4 += "-" == n11[0] ? n11 : l2[n11] || (l2[n11] = n11.replace(/([A-Z])/g, "-$1").toLowerCase()), t4 += ": ", t4 += c12, "number" == typeof c12 && !1 === r2.test(n11) && (t4 += "px"), t4 += ";");
+        var o13 = e4[n11];
+        null != o13 && "" !== o13 && (t4 && (t4 += " "), t4 += "-" == n11[0] ? n11 : l2[n11] || (l2[n11] = n11.replace(/([A-Z])/g, "-$1").toLowerCase()), t4 += ": ", t4 += o13, "number" == typeof o13 && !1 === r2.test(n11) && (t4 += "px"), t4 += ";");
     }
     return t4 || void 0;
 }
@@ -820,27 +820,27 @@ var g3 = function(e7, t7) {
 }, h2 = [];
 function m2(t8, r3, n2) {
     r3 = r3 || {}, n2 = n2 || {};
-    var l12 = l.__s;
+    var o21 = l.__s;
     l.__s = !0;
-    var c21 = x3(t8, r3, n2);
-    return l.__c && l.__c(t8, h2), h2.length = 0, l.__s = l12, c21;
+    var a11 = x3(t8, r3, n2);
+    return l.__c && l.__c(t8, h2), h2.length = 0, l.__s = o21, a11;
 }
-function x3(r4, n3, l21, c3, h11, y2) {
+function x3(r4, n3, l12, c12, g11, h11) {
     if (null == r4 || "boolean" == typeof r4) return "";
     if ("object" != typeof r4) return o2(r4);
-    var b2 = l21.pretty, S2 = b2 && "string" == typeof b2 ? b2 : "\t";
+    var m11 = l12.pretty, y2 = m11 && "string" == typeof m11 ? m11 : "\t";
     if (Array.isArray(r4)) {
-        for(var w3 = "", k3 = 0; k3 < r4.length; k3++)b2 && k3 > 0 && (w3 += "\n"), w3 += x3(r4[k3], n3, l21, c3, h11, y2);
-        return w3;
+        for(var b2 = "", S2 = 0; S2 < r4.length; S2++)m11 && S2 > 0 && (b2 += "\n"), b2 += x3(r4[S2], n3, l12, c12, g11, h11);
+        return b2;
     }
-    var O2, C2 = r4.type, A3 = r4.props, H2 = !1;
-    if ("function" == typeof C2) {
-        if (H2 = !0, !l21.shallow || !c3 && !1 !== l21.renderRootComponent) {
-            if (C2 === d) {
-                var T3 = [];
-                return u2(T3, r4.props.children), x3(T3, n3, l21, !1 !== l21.shallowHighOrder, h11, y2);
+    var w3, k3 = r4.type, O2 = r4.props, C2 = !1;
+    if ("function" == typeof k3) {
+        if (C2 = !0, !l12.shallow || !c12 && !1 !== l12.renderRootComponent) {
+            if (k3 === d) {
+                var A3 = [];
+                return u2(A3, r4.props.children), x3(A3, n3, l12, !1 !== l12.shallowHighOrder, g11, h11);
             }
-            var j3, F2 = r4.__c = {
+            var H2, j3 = r4.__c = {
                 __v: r4,
                 context: n3,
                 props: r4.props,
@@ -848,16 +848,16 @@ function x3(r4, n3, l21, c3, h11, y2) {
                 forceUpdate: d2,
                 __h: []
             };
-            if (l.__b && l.__b(r4), l.__r && l.__r(r4), C2.prototype && "function" == typeof C2.prototype.render) {
-                var M2 = C2.contextType, $2 = M2 && n3[M2.__c], L2 = null != M2 ? $2 ? $2.props.value : M2.__ : n3;
-                (F2 = r4.__c = new C2(A3, L2)).__v = r4, F2._dirty = F2.__d = !0, F2.props = A3, null == F2.state && (F2.state = {}), null == F2._nextState && null == F2.__s && (F2._nextState = F2.__s = F2.state), F2.context = L2, C2.getDerivedStateFromProps ? F2.state = f2(f2({}, F2.state), C2.getDerivedStateFromProps(F2.props, F2.state)) : F2.componentWillMount && (F2.componentWillMount(), F2.state = F2._nextState !== F2.state ? F2._nextState : F2.__s !== F2.state ? F2.__s : F2.state), j3 = F2.render(F2.props, F2.state, F2.context);
+            if (l.__b && l.__b(r4), l.__r && l.__r(r4), k3.prototype && "function" == typeof k3.prototype.render) {
+                var F2 = k3.contextType, M2 = F2 && n3[F2.__c], T3 = null != F2 ? M2 ? M2.props.value : F2.__ : n3;
+                (j3 = r4.__c = new k3(O2, T3)).__v = r4, j3._dirty = j3.__d = !0, j3.props = O2, null == j3.state && (j3.state = {}), null == j3._nextState && null == j3.__s && (j3._nextState = j3.__s = j3.state), j3.context = T3, k3.getDerivedStateFromProps ? j3.state = f2(f2({}, j3.state), k3.getDerivedStateFromProps(j3.props, j3.state)) : j3.componentWillMount && (j3.componentWillMount(), j3.state = j3._nextState !== j3.state ? j3._nextState : j3.__s !== j3.state ? j3.__s : j3.state), H2 = j3.render(j3.props, j3.state, j3.context);
             } else {
-                var E1 = C2.contextType, R1 = E1 && n3[E1.__c];
-                j3 = C2.call(r4.__c, A3, null != E1 ? R1 ? R1.props.value : E1.__ : n3);
+                var $2 = k3.contextType, L2 = $2 && n3[$2.__c];
+                H2 = k3.call(r4.__c, O2, null != $2 ? L2 ? L2.props.value : $2.__ : n3);
             }
-            return F2.getChildContext && (n3 = f2(f2({}, n3), F2.getChildContext())), l.diffed && l.diffed(r4), x3(j3, n3, l21, !1 !== l21.shallowHighOrder, h11, y2);
+            return j3.getChildContext && (n3 = f2(f2({}, n3), j3.getChildContext())), l.diffed && l.diffed(r4), x3(H2, n3, l12, !1 !== l12.shallowHighOrder, g11, h11);
         }
-        C2 = (O2 = C2).displayName || O2 !== Function && O2.name || (function(e8) {
+        k3 = (w3 = k3).displayName || w3 !== Function && w3.name || (function(e8) {
             var t9 = (Function.prototype.toString.call(e8).match(/^\s*function\s+([^( ]+)/) || "")[1];
             if (!t9) {
                 for(var r5 = -1, n4 = p2.length; n4--;)if (p2[n4] === e8) {
@@ -867,70 +867,70 @@ function x3(r4, n3, l21, c3, h11, y2) {
                 r5 < 0 && (r5 = p2.push(e8) - 1), t9 = "UnnamedComponent" + r5;
             }
             return t9;
-        })(O2);
+        })(w3);
     }
-    var D2, N2, P2 = "<" + C2;
-    if (A3) {
-        var U1 = Object.keys(A3);
-        l21 && !0 === l21.sortAttributes && U1.sort();
-        for(var W1 = 0; W1 < U1.length; W1++){
-            var q3 = U1[W1], z2 = A3[q3];
-            if ("children" !== q3) {
-                if (!v2.test(q3) && (l21 && l21.allAttributes || "key" !== q3 && "ref" !== q3 && "__self" !== q3 && "__source" !== q3 && "defaultValue" !== q3)) {
-                    if ("className" === q3) {
-                        if (A3.class) continue;
-                        q3 = "class";
-                    } else h11 && q3.match(/^xlink:?./) && (q3 = q3.toLowerCase().replace(/^xlink:?/, "xlink:"));
-                    if ("htmlFor" === q3) {
-                        if (A3.for) continue;
-                        q3 = "for";
+    var E1, D2, N2 = "<" + k3;
+    if (O2) {
+        var P2 = Object.keys(O2);
+        l12 && !0 === l12.sortAttributes && P2.sort();
+        for(var R1 = 0; R1 < P2.length; R1++){
+            var U1 = P2[R1], W1 = O2[U1];
+            if ("children" !== U1) {
+                if (!v2.test(U1) && (l12 && l12.allAttributes || "key" !== U1 && "ref" !== U1 && "__self" !== U1 && "__source" !== U1 && "defaultValue" !== U1)) {
+                    if ("className" === U1) {
+                        if (O2.class) continue;
+                        U1 = "class";
+                    } else g11 && U1.match(/^xlink:?./) && (U1 = U1.toLowerCase().replace(/^xlink:?/, "xlink:"));
+                    if ("htmlFor" === U1) {
+                        if (O2.for) continue;
+                        U1 = "for";
                     }
-                    "style" === q3 && z2 && "object" == typeof z2 && (z2 = s2(z2)), "a" === q3[0] && "r" === q3[1] && "boolean" == typeof z2 && (z2 = String(z2));
-                    var I2 = l21.attributeHook && l21.attributeHook(q3, z2, n3, l21, H2);
-                    if (I2 || "" === I2) P2 += I2;
-                    else if ("dangerouslySetInnerHTML" === q3) N2 = z2 && z2.__html;
-                    else if ("textarea" === C2 && "value" === q3) D2 = z2;
-                    else if ((z2 || 0 === z2 || "" === z2) && "function" != typeof z2) {
-                        if (!(!0 !== z2 && "" !== z2 || (z2 = q3, l21 && l21.xml))) {
-                            P2 += " " + q3;
+                    "style" === U1 && W1 && "object" == typeof W1 && (W1 = s2(W1)), "a" === U1[0] && "r" === U1[1] && "boolean" == typeof W1 && (W1 = String(W1));
+                    var q3 = l12.attributeHook && l12.attributeHook(U1, W1, n3, l12, C2);
+                    if (q3 || "" === q3) N2 += q3;
+                    else if ("dangerouslySetInnerHTML" === U1) D2 = W1 && W1.__html;
+                    else if ("textarea" === k3 && "value" === U1) E1 = W1;
+                    else if ((W1 || 0 === W1 || "" === W1) && "function" != typeof W1) {
+                        if (!(!0 !== W1 && "" !== W1 || (W1 = U1, l12 && l12.xml))) {
+                            N2 += " " + U1;
                             continue;
                         }
-                        if ("value" === q3) {
-                            if ("select" === C2) {
-                                y2 = z2;
+                        if ("value" === U1) {
+                            if ("select" === k3) {
+                                h11 = W1;
                                 continue;
                             }
-                            "option" === C2 && y2 == z2 && (P2 += " selected");
+                            "option" === k3 && h11 == W1 && (N2 += " selected");
                         }
-                        P2 += " " + q3 + '="' + o2(z2) + '"';
+                        N2 += " " + U1 + '="' + o2(W1) + '"';
                     }
                 }
-            } else D2 = z2;
+            } else E1 = W1;
         }
     }
-    if (b2) {
-        var V1 = P2.replace(/\n\s*/, " ");
-        V1 === P2 || ~V1.indexOf("\n") ? b2 && ~P2.indexOf("\n") && (P2 += "\n") : P2 = V1;
+    if (m11) {
+        var z2 = N2.replace(/\n\s*/, " ");
+        z2 === N2 || ~z2.indexOf("\n") ? m11 && ~N2.indexOf("\n") && (N2 += "\n") : N2 = z2;
     }
-    if (P2 += ">", v2.test(C2)) throw new Error(C2 + " is not a valid HTML tag name in " + P2);
-    var Z1, B2 = _2.test(C2) || l21.voidElements && l21.voidElements.test(C2), G1 = [];
-    if (N2) b2 && i1(N2) && (N2 = "\n" + S2 + a2(N2, S2)), P2 += N2;
-    else if (null != D2 && u2(Z1 = [], D2).length) {
-        for(var J1 = b2 && ~P2.indexOf("\n"), K1 = !1, Q1 = 0; Q1 < Z1.length; Q1++){
-            var X1 = Z1[Q1];
-            if (null != X1 && !1 !== X1) {
-                var Y1 = x3(X1, n3, l21, !0, "svg" === C2 || "foreignObject" !== C2 && h11, y2);
-                if (b2 && !J1 && i1(Y1) && (J1 = !0), Y1) if (b2) {
-                    var ee = Y1.length > 0 && "<" != Y1[0];
-                    K1 && ee ? G1[G1.length - 1] += Y1 : G1.push(Y1), K1 = ee;
-                } else G1.push(Y1);
+    if (N2 += ">", v2.test(k3)) throw new Error(k3 + " is not a valid HTML tag name in " + N2);
+    var I2, V1 = _2.test(k3) || l12.voidElements && l12.voidElements.test(k3), Z1 = [];
+    if (D2) m11 && i1(D2) && (D2 = "\n" + y2 + a2(D2, y2)), N2 += D2;
+    else if (null != E1 && u2(I2 = [], E1).length) {
+        for(var B2 = m11 && ~N2.indexOf("\n"), G1 = !1, J1 = 0; J1 < I2.length; J1++){
+            var K1 = I2[J1];
+            if (null != K1 && !1 !== K1) {
+                var Q1 = x3(K1, n3, l12, !0, "svg" === k3 || "foreignObject" !== k3 && g11, h11);
+                if (m11 && !B2 && i1(Q1) && (B2 = !0), Q1) if (m11) {
+                    var X1 = Q1.length > 0 && "<" != Q1[0];
+                    G1 && X1 ? Z1[Z1.length - 1] += Q1 : Z1.push(Q1), G1 = X1;
+                } else Z1.push(Q1);
             }
         }
-        if (b2 && J1) for(var te = G1.length; te--;)G1[te] = "\n" + S2 + a2(G1[te], S2);
+        if (m11 && B2) for(var Y1 = Z1.length; Y1--;)Z1[Y1] = "\n" + y2 + a2(Z1[Y1], y2);
     }
-    if (G1.length || N2) P2 += G1.join("");
-    else if (l21 && l21.xml) return P2.substring(0, P2.length - 1) + " />";
-    return !B2 || Z1 || N2 ? (b2 && ~P2.indexOf("\n") && (P2 += "\n"), P2 += "</" + C2 + ">") : P2 = P2.replace(/>$/, " />"), P2;
+    if (Z1.length || D2) N2 += Z1.join("");
+    else if (l12 && l12.xml) return N2.substring(0, N2.length - 1) + " />";
+    return !V1 || I2 || D2 ? (m11 && ~N2.indexOf("\n") && (N2 += "\n"), N2 += "</" + k3 + ">") : N2 = N2.replace(/>$/, " />"), N2;
 }
 m2.shallowRender = g3;
 export { B1 as render };
