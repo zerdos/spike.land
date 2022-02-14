@@ -71,7 +71,7 @@
   },
   "include": [
     "js"
-   ],
+, "../../../fixtures/monacoEnv.ts"   ],
   "exclude": ["./js/vendor/**", "./js/dist/**"],
   "paths": {
     "path": ["path-browserify"],

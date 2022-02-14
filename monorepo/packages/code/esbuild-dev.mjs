@@ -130,26 +130,26 @@ await esbuild.build({
   format: "iife",
 });
 
-await esbuild.build({
-  entryPoints: ["js/monacoTs.ts"],
-  bundle: true,
+// await esbuild.build({
+//   entryPoints: ["js/monacoTs.ts"],
+//   bundle: true,
 
-  define: {
-    "process.env.NODE_ENV": `"${environment}"`,
-  },
+//   define: {
+//     "process.env.NODE_ENV": `"${environment}"`,
+//   },
 
-  target: "es2017",
-  sourcemap: isDevelopment,
-  format: "esm",
-  treeShaking: !isDevelopment,
-  minify: !isDevelopment,
-  platform: "browser",
-  loader: {
-    ".ttf": "file",
-    ".css": "file",
-  },
-  outdir: "js/vendor/monaco",
-});
+//   target: "es2017",
+//   sourcemap: isDevelopment,
+//   format: "esm",
+//   treeShaking: !isDevelopment,
+//   minify: !isDevelopment,
+//   platform: "browser",
+//   loader: {
+//     ".ttf": "file",
+//     ".css": "file",
+//   },
+//   outdir: "js/vendor/monaco",
+// });
 
 // await esbuild.build({
 //   entryPoints: [""],
