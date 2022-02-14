@@ -15,7 +15,7 @@ const moduleCache: {
   motion: null,
 };
 
-export const LazyMotion: FC<MotionProps> = ({ children, ...props }) => {
+export const motion: FC<MotionProps> = ({ children, ...props }) => {
   const [m, setMotionDiv] = useState<typeof motion | { div: null }>({
     div: null,
   });
