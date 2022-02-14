@@ -127,6 +127,7 @@ export class Code {
       const vReg = /{VERSION}/ig;
 
       switch (path[0]) {
+      
         case "code": {
           return new Response(mST().code, {
             status: 200,
@@ -138,6 +139,19 @@ export class Code {
           });
         }
         case "session":
+          if (path[1]) {
+            const session = await this.kv.get(path[1])
+            if (session) {
+              new Response(JSON.stringify(session), {
+                status: 200,
+                headers: {
+                  "Access-Control-Allow-Origin": "*",
+                  "Cache-Control": "no-cache",
+                  "Content-Type": "application/json; charset=UTF-8",
+                },
+              });
+            }
+          }
           return new Response(JSON.stringify(mST().toJSON()), {
             status: 200,
             headers: {
@@ -234,9 +248,13 @@ export class Code {
             HYDRATED.replace(
               `<div id="root"></div>`,
               `<div id="root">
-            <style>${mST().css}</style>
-            <div id="zbody">${mST().html}
-            </div></div>
+                <style>
+                  ${mST().css}
+                </style>
+                <div id="zbody">
+                    ${mST().html}
+                </div>
+              </div>
             <script type="importmap">${
                 JSON.stringify({
                   imports: { ...imap.imports },
@@ -244,17 +262,19 @@ export class Code {
                 })
               }</script>
             <script type="module">
-        
-              import("./dist/starter.mjs").then(( {hydrateBinary}  )=> hydrateBinary(atob("${
-                btoa(toBinary(mST().transpiled))
-              }"))).catch(()=>{
-                const s = document.createElement("script");
-                s.async = "async";
-                s.type = "application/javascript";
-                s.src = "https://spike.land/dist/appStarter.js";
-                document.head.appendChild(s);
-                
-              });
+              import("./dist/starter.mjs")
+                .then(
+                  ({hydrateBinary})=> hydrateBinary(
+                    atob("${btoa(toBinary(mST().transpiled))}")
+                    )
+                  )
+                .catch(()=>{
+                  const s = document.createElement("script");
+                  s.async = "async";
+                  s.type = "application/javascript";
+                  s.src = "https://spike.land/dist/appStarter.js";
+                  document.head.appendChild(s);   
+                });
             </script>`,
             ).replaceAll(vReg, version),
             {
@@ -535,152 +555,8 @@ export class Code {
             });
           }
 
-          return;
-        }
+          return;        }
 
-        // if (data.i) {
-        //   if (data.i <= this.state.session.i) {
-        //     this.user2user(data.name, { ...this.state.session });
-        //     return;
-        //   }
-
-        //   if (data.code && data.i > this.state.session.i) {
-        //     const hash = await Hash.of(data.code);
-
-        //     if (data.hashOfCode === hash) {
-        //       this.state.session.i = data.i;
-        //       this.state.session.code = data.code;
-        //       this.state.session.html = data.html;
-        //       this.state.session.css = data.css;
-        //       this.state.session.transpiled = data.transpiled;
-        //       this.state.hashOfCode = hash;
-        //       this.hashCache[hash] = data.code;
-
-        //       this.broadcast(msg.data);
-        //       await this.kv.put("session", this.state.session);
-        //       return;
-        //     }
-        //   }
-        //   let patched = false;
-        //   let code = data.code;
-        //   let html = data.html;
-        //   let css = data.css;
-        //   let i = data.i;
-        //   let transpiled = data.transpiled;
-        //   const hashOfStarterCode = data.hashOfStarterCode;
-
-        //   const codeDiff = data.codeDiff;
-        //   const transpiledDiff = data.transpiledDiff;
-        //   const htmlDiff = data.htmlDiff;
-        //   const cssDiff = data.cssDiff;
-        //   const hashOfPatched = data.hashOfCode;
-
-        //   let previousCode = this.state.session.code;
-        //   let hashOfPreviousCode = this.state.hashOfCode;
-
-        //   data = { name: session.name };
-
-        //   this.sessions;
-
-        //   if (code) {
-        //     this.state.session.code = code;
-        //     const hashOfCode = await Hash.of(code);
-        //     this.state.session.css = css;
-        //     this.state.session.html = html;
-        //     this.state.session.transpiled = transpiled;
-        //     if (hashOfCode === data.hashOfCode) {
-        //       this.state.hashOfCode = hashOfCode;
-        //       this.hashCache[hashOfCode] = code;
-        //     } else {
-        //       return;
-        //     }
-        //   } else if (hashOfStarterCode != hashOfPreviousCode) {
-        //     previousCode = this.hashCache[hashOfStarterCode];
-        //     hashOfPreviousCode = hashOfStarterCode;
-        //   }
-        //   if (codeDiff && previousCode) {
-        //     code = applyPatch(previousCode, codeDiff);
-
-        //     const hashOfCode = await Hash.of(code);
-
-        //     if (hashOfCode === hashOfPatched) {
-        //       patched = true;
-        //       this.state.hashOfCode = hashOfCode;
-        //       this.state.session.code = code;
-
-        //       data.hashOfCode = hashOfCode;
-        //       data.hashOfPreviousCode = hashOfPreviousCode;
-        //       data.codeDiff = codeDiff;
-        //     } else {
-        //       data.decoded = code;
-        //       data.gotHash = hashOfCode;
-        //       data.expected = data.hashOfCode;
-        //       data.error = "Code mismatch";
-        //     }
-        //   }
-
-        //   // if (data..length > 4096) {
-        //   //   webSocket.send(JSON.stringify({ error: "Message too long." }));
-        //   //   return;
-        //   // }
-
-        //   data.timestamp = Math.max(
-        //     Date.now(),
-        //     this.state.session.lastTimestamp + 1
-        //   );
-        //   this.state.session.lastTimestamp = data.timestamp;
-
-        //   // Broadcast the message to all other WebSockets.
-        //   let dataStr = JSON.stringify({
-        //     ...data,
-        //     i: data.i,
-        //     hashOfCode: data.hashOfCode,
-        //   });
-        //   this.broadcast(dataStr);
-
-        //   if (patched) {
-        //     try {
-        //       if (cssDiff) css = applyPatch(this.state.session.css, cssDiff);
-        //       if (transpiledDiff) {
-        //         transpiled = applyPatch(
-        //           this.state.session.transpiled,
-        //           transpiledDiff
-        //         );
-        //       }
-        //       if (htmlDiff) {
-        //         html = applyPatch(this.state.session.html, htmlDiff);
-        //       }
-        //       this.state.session.css = css;
-        //       this.state.session.html = html;
-        //       this.state.session.transpiled = transpiled;
-        //     } catch {
-        //       data.errorUnDiff = true;
-        //     }
-        //   }
-        //   // Save message.
-        //   if (code && code === this.state.session.code) {
-        //     // await this.kv.put(hashOfCode, code);
-        //     await this.kv.put("code", code);
-        //   } else {
-        //     return;
-        //   }
-
-        //   if (html) {
-        //     await this.kv.put("html", html);
-        //   }
-        //   if (transpiled) {
-        //     await this.kv.put("transpiled", transpiled);
-        //   }
-        //   if (css) {
-        //     await this.kv.put("css", css);
-        //   }
-
-        //   let key = new Date(this.state.session.lastTimestamp).toISOString();
-        //   await this.kv.put(key, dataStr);
-
-        //   webSocket.send(JSON.stringify({ msg: "end of fn" }));
-        //   return;
-        // }
       } catch {
         webSocket.send(
           JSON.stringify({

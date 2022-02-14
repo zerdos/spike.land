@@ -5564,6 +5564,19 @@ var Code = class {
           });
         }
         case "session":
+          if (path[1]) {
+            const session2 = await this.kv.get(path[1]);
+            if (session2) {
+              new Response(JSON.stringify(session2), {
+                status: 200,
+                headers: {
+                  "Access-Control-Allow-Origin": "*",
+                  "Cache-Control": "no-cache",
+                  "Content-Type": "application/json; charset=UTF-8"
+                }
+              });
+            }
+          }
           return new Response(JSON.stringify(mST().toJSON()), {
             status: 200,
             headers: {
