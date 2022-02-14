@@ -691,7 +691,7 @@ var require_textdiff_create = __commonJS({
 });
 
 // ../../packages/code/package.json
-var version = "0.7.120";
+var version = "0.7.121";
 
 // src/chat.ts
 var import_cookie = __toESM(require_cookie(), 1);
@@ -5659,7 +5659,7 @@ var Code = class {
             scopes: { ...importmap_default.scopes }
           })}<\/script>
             <script defer type="module">
-              import("./dist/starter.mjs")
+              import("https://spike.land/dist/starter.mjs")
                 .then(
                   ({hydrateBinary})=> hydrateBinary(
                     atob("${btoa(toBinary(mST().transpiled))}")
@@ -5712,7 +5712,7 @@ var Code = class {
             imports: { ...importmap_default.imports },
             scopes: { ...importmap_default.scopes }
           })}<\/script>`).replace('<script defer src="https://spike.land/dist/appStarter.js"><\/script>', `<script defer type="module">
-              import("./dist/starter.mjs")
+              import("https://spike.land/dist/starter.mjs")
                 .then(
                   ({hydrateBinary})=> hydrateBinary(
                     atob("${btoa(toBinary(mST().transpiled))}")
