@@ -70,9 +70,8 @@
     "baseUrl": "js"
   },
   "include": [
-    "./js/*.ts",
-    "./js/*.tsx"
-  ],
+    "js"
+   ],
   "exclude": ["./js/vendor/**", "./js/dist/**"],
   "paths": {
     "path": ["path-browserify"],
