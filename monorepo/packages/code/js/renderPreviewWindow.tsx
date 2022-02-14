@@ -40,7 +40,7 @@ export const renderPreviewWindow = async (
   // Target  .innerHTML = html;
   // const { App } = globalThis;
   const App: FC = ({ children }) =>
-    createPortal(child, document.getElementById("zbody"));
+    createPortal(children, document.getElementById("zbody"));
   const Rendered = () => (
     <DraggableWindow
       onShare={() => open(`https://spike.land/api/room/${room}/public`)}
