@@ -3,7 +3,7 @@
     "allowJs": true,
     "target": "es2021",
     "module": "esnext",
-    "lib": ["ES2021", "DOM","DOM.Iterable", "ESNext.String", "ES5"],
+    "lib": ["ES2021", "ESNext.String", "ES5", "ES2015"],
     "alwaysStrict": true,
     "strict": true,
     "noEmit": false,
@@ -14,6 +14,9 @@
     "resolveJsonModule": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
-    "types": ["@cloudflare/workers-types", "@types/websocket"]
-  }
+    "types": ["@cloudflare/workers-types"]
+  }, 
+  "include": [
+    "js"
+, "../../../fixtures/monacoEnv.ts"   ]
 }
