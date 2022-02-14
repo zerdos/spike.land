@@ -54,9 +54,9 @@ export const renderPreviewWindow = async (
     </DraggableWindow>
   );
 
-  hydrate(
-    target,
+  render(
     jsx(Rendered),
+    target,
   );
 
   // d//ocument.getElementById("root")?.replaceWith(target);
