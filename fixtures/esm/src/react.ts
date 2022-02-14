@@ -1,5 +1,5 @@
-import * as preact from "preact";
-import { render, hydrate, createPortal } from "preact";
+import * as preact from "preact/compat";
+import { render, hydrate, createPortal } from "preact/compat";
 import * as _compat from "preact/compat";
 
 export import JSX = JSXInternal;
