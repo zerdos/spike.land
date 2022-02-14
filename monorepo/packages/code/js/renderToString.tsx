@@ -15,9 +15,13 @@ export const getHtmlAndCss = (MyComponent: () => JSX.Element) => {
   };
 
   const markup = renderToString(
-    <CacheProvider value={cache}>
-      <MyComponent />
-    </CacheProvider>,
+    <div>
+      <CacheProvider value={cache}>
+        <div>
+          <MyComponent />
+        </div>
+      </CacheProvider>
+    </div>,
   );
 
   const html = `
