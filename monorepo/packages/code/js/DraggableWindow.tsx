@@ -3,8 +3,8 @@ import { css, jsx } from "@emotion/react";
 
 import { Fragment, lazy, Suspense, useEffect, useRef, useState } from "react";
 import type { FC } from "react";
-// import { motion, useForceUpdate } from "framer-motion";
-import { motion } from "./lazyMotion";
+import { motion, useForceUpdate } from "framer-motion";
+// import { motion } from "./lazyMotion";
 import { QRButton } from "./Qr";
 import { wait } from "./wait";
 import { Box, Slider } from "./mui";
