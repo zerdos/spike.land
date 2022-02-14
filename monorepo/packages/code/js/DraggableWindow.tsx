@@ -201,7 +201,9 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
         right: 20,
       });
       setFullScreen(false);
-      document.getElementById("root")!.display = "none";
+      requestAnimationFrame(() =>
+        document.getElementById("root")!.style.display = "none"
+      );
     };
 
     reveal();
