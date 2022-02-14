@@ -1,4 +1,4 @@
-import React, { hydrate } from "react";
+import R { hydrate } from "react";
 import { fromBinary } from "./binary.ts";
 import { jsx } from "@emotion/react";
 import uidV4 from "./uidV4.mjs";
@@ -21,7 +21,9 @@ const start = async (App) => {
   const container = document.querySelector("#root");
 
   hydrate(container, jsx(App));
+
   console.log("HYDRATED");
+  if (location.href.endsWith("hydrated")) return;
   globalThis.App = App;
   const { join } = await import("./ws.mjs");
   await wait(2000);
