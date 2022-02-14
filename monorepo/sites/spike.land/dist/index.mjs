@@ -1067,7 +1067,7 @@ var imports = {
   "framer-motion": "https://spike.land/dist/framer-motion.mjs",
   preact: "https://ga.jspm.io/npm:preact@10.6.5/dist/preact.module.js",
   "preact-render-to-string": "https://ga.jspm.io/npm:preact-render-to-string@5.1.19/dist/index.mjs",
-  "preact/compat": "https://ga.jspm.io/npm:preact@10.6.5/compat/dist/compat.module.js",
+  "preact/compat": "https://ga.jspm.io/npm:preact@10.6.6/compat/dist/compat.module.js",
   react: "https://spike.land/dist/react.mjs",
   "react-dom": "https://spike.land/dist/react.mjs"
 };
