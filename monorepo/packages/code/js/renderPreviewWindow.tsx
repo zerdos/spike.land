@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { css, jsx } from "@emotion/react";
 //@ts-ignore
-import { render } from "react";
+import { hydrate, render } from "react";
 import { DraggableWindow } from "./DraggableWindow";
 import { wait } from "./wait";
 import type { ICodeSession } from "./session";
@@ -38,7 +38,8 @@ export const renderPreviewWindow = async (
   // Target  .innerHTML = html;
   const { App } = globalThis;
 
-  render(
+  hydrate(
+    target,
     <DraggableWindow
       onShare={() => open(`https://spike.land/api/room/${room}/public`)}
       onRestore={() => {
@@ -53,7 +54,6 @@ export const renderPreviewWindow = async (
     >
       <App />
     </DraggableWindow>,
-    target,
   );
 
   // d//ocument.getElementById("root")?.replaceWith(target);
