@@ -37,7 +37,7 @@ export const renderPreviewWindow = async (
 
   // Target  .innerHTML = html;
   const { App } = globalThis;
-  const Rendered = (
+  const Rendered = () => (
     <DraggableWindow
       onShare={() => open(`https://spike.land/api/room/${room}/public`)}
       onRestore={() => {
