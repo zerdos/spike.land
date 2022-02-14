@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { css, jsx } from "@emotion/react";
-import type { motion, MotionProps } from "framer-motion";
+import type { motionT, MotionProps } from "framer-motion";
 import { Fragment, lazy, Suspense, useEffect, useState } from "react";
 import type { FC, HTMLAttributes } from "react";
 
@@ -10,13 +10,13 @@ const MotionMockDiv: FC<MotionProps & HTMLAttributes<HTMLDivElement>> = ({
 }) => <div {...props}>{children}</div>;
 
 const moduleCache: {
-  motion: null | typeof motion;
+  motion: null | typeof motionT;
 } = {
   motion: null,
 };
 
 export const motion: FC<MotionProps> = ({ children, ...props }) => {
-  const [m, setMotionDiv] = useState<typeof motion | { div: null }>({
+  const [m, setMotionDiv] = useState<typeof motionT | { div: null }>({
     div: null,
   });
 
