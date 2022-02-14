@@ -1,0 +1,1 @@
+import"./chunk-AH6KKUH7.mjs";import{CacheProvider as s,jsx as t}from"https://spike.land/dist/emotion.mjs";import{createCache as m}from"https://spike.land/dist/emotion.mjs";import{renderToString as n}from"https://spike.land/dist/react.mjs";var d=o=>{let e=m({key:"css"}),r="";return e.sheet.insert=c=>{r+=c},{html:n(t(s,{value:e},t(o,null))),css:r}};export{d as getHtmlAndCss};
