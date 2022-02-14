@@ -2532,7 +2532,7 @@
       type: "importmap-shim",
       innerHTML: JSON.stringify(importmap_default)
     }));
-    const { run } = await importShim("./dist/starter.mjs");
+    const { run } = await importShim("/dist/starter.mjs");
     run();
   })();
 })();

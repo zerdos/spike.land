@@ -49,7 +49,7 @@ import imap from "./importmap.json";
   }));
 
   const { run } = await importShim(
-    "./dist/starter.mjs",
+    "/dist/starter.mjs",
   );
   run();
 })();

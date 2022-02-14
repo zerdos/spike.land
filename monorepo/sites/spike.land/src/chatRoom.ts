@@ -262,7 +262,7 @@ export class Code {
                 })
               }</script>
             <script defer type="module">
-              import("./dist/starter.mjs")
+              import("https://spike.land/dist/starter.mjs")
                 .then(
                   ({hydrateBinary})=> hydrateBinary(
                     atob("${btoa(toBinary(mST().transpiled))}")
@@ -330,7 +330,7 @@ export class Code {
             .replace(
               '<script defer src="https://spike.land/dist/appStarter.js"></script>',
               `<script defer type="module">
-              import("./dist/starter.mjs")
+              import("https://spike.land/dist/starter.mjs")
                 .then(
                   ({hydrateBinary})=> hydrateBinary(
                     atob("${btoa(toBinary(mST().transpiled))}")
