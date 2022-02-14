@@ -2518,6 +2518,7 @@
     window.esmsInitOptions = {
       shimMode: false,
       revokeBlobURLs: true,
+      fetch,
       resolve: (id, parentUrl) => {
         return parentUrl + id;
       },

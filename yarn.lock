@@ -2322,9 +2322,9 @@ camelcase@^6.2.0, camelcase@^6.3.0:
   integrity sha512-Gmy6FhYlCY7uOElZUSbxo2UCDH8owEk996gkbrpsgGtrJLM3J7jGxl9Ic7Qwwj4ivOE5AWZWRMecDdF7hqGjFA==
 
 caniuse-lite@^1.0.30001286:
-  version "1.0.30001311"
-  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001311.tgz#682ef3f4e617f1a177ad943de59775ed3032e511"
-  integrity sha512-mleTFtFKfykEeW34EyfhGIFjGCqzhh38Y0LhdQ9aWF+HorZTtdgKV/1hEE0NlFkG2ubvisPV6l400tlbPys98A==
+  version "1.0.30001312"
+  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001312.tgz#e11eba4b87e24d22697dae05455d5aea28550d5f"
+  integrity sha512-Wiz1Psk2MEK0pX3rUzWaunLTZzqS2JYZFzNKqAiJGiuxIjRPLgV6+VDPOg6lQOUxmDwhTlh198JsTTi8Hzw6aQ==
 
 capital-case@^1.0.4:
   version "1.0.4"
@@ -5093,9 +5093,9 @@ minimatch@3.0.4:
     brace-expansion "^1.1.7"
 
 minimatch@^3.0.4:
-  version "3.1.0"
-  resolved "https://registry.yarnpkg.com/minimatch/-/minimatch-3.1.0.tgz#f59168d5cba6b6fde15f6a88f557fe7eaf31d8ea"
-  integrity sha512-vgmUyWyt2qidcJXdF6e+kf4DgJha4vzf3ctWJ0uGjfvqEgoX2V4GXQt0eZwM2FJWKANfS8VmzpvPKbWYibkHZA==
+  version "3.1.1"
+  resolved "https://registry.yarnpkg.com/minimatch/-/minimatch-3.1.1.tgz#879ad447200773912898b46cd516a7abbb5e50b0"
+  integrity sha512-reLxBcKUPNBnc/sVtAbxgRVFSegoGeLaSjmphNhcwcolhYLRgtJscn5mRl6YRZNQv40Y7P6JM2YhSIsbL9OB5A==
   dependencies:
     brace-expansion "^1.1.7"
 
@@ -5246,9 +5246,9 @@ multiaddr@^10.0.0:
     varint "^6.0.0"
 
 multiformats@^9.0.2, multiformats@^9.4.2, multiformats@^9.4.5, multiformats@^9.5.1, multiformats@^9.5.4:
-  version "9.6.3"
-  resolved "https://registry.yarnpkg.com/multiformats/-/multiformats-9.6.3.tgz#9f2aef711ddd0e7b05a1b5f1ad70928544c8c190"
-  integrity sha512-yfXKI66fL0nFzt0nJl26i4wV1qAqbAEIBvfFbkbsne9GrLz6IHvHUoRyxUtlJcdP181ssOgjama6E/VSk4pbrA==
+  version "9.6.4"
+  resolved "https://registry.yarnpkg.com/multiformats/-/multiformats-9.6.4.tgz#5dce1f11a407dbb69aa612cb7e5076069bb759ca"
+  integrity sha512-fCCB6XMrr6CqJiHNjfFNGT0v//dxOBMrOMqUIzpPc/mmITweLEyhvMpY9bF+jZ9z3vaMAau5E8B68DW77QMXkg==
 
 multimatch@^5.0.0:
   version "5.0.0"

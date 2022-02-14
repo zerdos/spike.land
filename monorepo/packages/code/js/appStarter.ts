@@ -7,7 +7,7 @@ import imap from "./importmap.json";
   window.esmsInitOptions = {
     shimMode: false,
     revokeBlobURLs: true,
-
+    fetch: fetch,
     resolve: (id: string, parentUrl: string) => {
       return parentUrl + id;
     },

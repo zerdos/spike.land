@@ -51,7 +51,7 @@ interface DraggableWindowProps {
   onRestore: (() => void);
   hashCode: number;
   session: ICodeSession & {
-    setChild: Dispatch<React.SetStateAction<EmotionJSX.Element[]>>;
+    setChild: Dispatch<React.SetStateAction<React.ReactNode[]>>;
     url: string;
     errorText: string;
   };
@@ -494,7 +494,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
             orientation="vertical"
             defaultValue={0 - forcedIndie}
             value={0 - forcedIndie}
-            onChange={(_, v) => setForcedIndie(0 - v)}
+            onChange={(_, v) => setForcedIndie(0 - Number(v))}
             aria-label="Temperature"
             onKeyDown={() => {}}
           />
