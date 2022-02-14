@@ -1,5 +1,5 @@
 import * as preact from "preact";
-import { render } from "preact";
+import { render, hydrate, createPortal } from "preact";
 import * as _compat from "preact/compat";
 
 export import JSX = JSXInternal;
@@ -41,6 +41,11 @@ export import lazy = _compat.lazy;
 export import SuspenseList = _compat.SuspenseList;
 
 export { render };
+
+export { hydrate };
+
+export { createPortal};
+
 
 // // export { createContext}
 // // export {     useDebugValue}
