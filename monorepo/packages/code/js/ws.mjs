@@ -653,6 +653,8 @@ async function handleChatOffer(message, target) {
 // Called by the WebRTC layer to let us know when it's time to
 // begin, resume, or restart ICE negotiation.
 async function processWsMessage(event, source) {
+  console.log(source, { event });
+
   lastSeenNow = Date.now();
 
   const data = JSON.parse(event.data);
