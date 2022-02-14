@@ -20,116 +20,6 @@ var __toESM = (module, isNodeMode) => {
   return __reExport(__markAsModule(__defProp(module != null ? __create(__getProtoOf(module)) : {}, "default", !isNodeMode && module && module.__esModule ? { get: () => module.default, enumerable: true } : { value: module, enumerable: true })), module);
 };
 
-// ../../node_modules/cookie/index.js
-var require_cookie = __commonJS({
-  "../../node_modules/cookie/index.js"(exports) {
-    "use strict";
-    exports.parse = parse2;
-    exports.serialize = serialize;
-    var decode = decodeURIComponent;
-    var encode = encodeURIComponent;
-    var fieldContentRegExp = /^[\u0009\u0020-\u007e\u0080-\u00ff]+$/;
-    function parse2(str, options) {
-      if (typeof str !== "string") {
-        throw new TypeError("argument str must be a string");
-      }
-      var obj = {};
-      var opt = options || {};
-      var pairs = str.split(";");
-      var dec = opt.decode || decode;
-      for (var i = 0; i < pairs.length; i++) {
-        var pair = pairs[i];
-        var index = pair.indexOf("=");
-        if (index < 0) {
-          continue;
-        }
-        var key = pair.substring(0, index).trim();
-        if (obj[key] == void 0) {
-          var val = pair.substring(index + 1, pair.length).trim();
-          if (val[0] === '"') {
-            val = val.slice(1, -1);
-          }
-          obj[key] = tryDecode(val, dec);
-        }
-      }
-      return obj;
-    }
-    function serialize(name, val, options) {
-      var opt = options || {};
-      var enc = opt.encode || encode;
-      if (typeof enc !== "function") {
-        throw new TypeError("option encode is invalid");
-      }
-      if (!fieldContentRegExp.test(name)) {
-        throw new TypeError("argument name is invalid");
-      }
-      var value = enc(val);
-      if (value && !fieldContentRegExp.test(value)) {
-        throw new TypeError("argument val is invalid");
-      }
-      var str = name + "=" + value;
-      if (opt.maxAge != null) {
-        var maxAge = opt.maxAge - 0;
-        if (isNaN(maxAge) || !isFinite(maxAge)) {
-          throw new TypeError("option maxAge is invalid");
-        }
-        str += "; Max-Age=" + Math.floor(maxAge);
-      }
-      if (opt.domain) {
-        if (!fieldContentRegExp.test(opt.domain)) {
-          throw new TypeError("option domain is invalid");
-        }
-        str += "; Domain=" + opt.domain;
-      }
-      if (opt.path) {
-        if (!fieldContentRegExp.test(opt.path)) {
-          throw new TypeError("option path is invalid");
-        }
-        str += "; Path=" + opt.path;
-      }
-      if (opt.expires) {
-        if (typeof opt.expires.toUTCString !== "function") {
-          throw new TypeError("option expires is invalid");
-        }
-        str += "; Expires=" + opt.expires.toUTCString();
-      }
-      if (opt.httpOnly) {
-        str += "; HttpOnly";
-      }
-      if (opt.secure) {
-        str += "; Secure";
-      }
-      if (opt.sameSite) {
-        var sameSite = typeof opt.sameSite === "string" ? opt.sameSite.toLowerCase() : opt.sameSite;
-        switch (sameSite) {
-          case true:
-            str += "; SameSite=Strict";
-            break;
-          case "lax":
-            str += "; SameSite=Lax";
-            break;
-          case "strict":
-            str += "; SameSite=Strict";
-            break;
-          case "none":
-            str += "; SameSite=None";
-            break;
-          default:
-            throw new TypeError("option sameSite is invalid");
-        }
-      }
-      return str;
-    }
-    function tryDecode(str, decode2) {
-      try {
-        return decode2(str);
-      } catch (e) {
-        return str;
-      }
-    }
-  }
-});
-
 // ../../node_modules/textdiff-patch/index.js
 var require_textdiff_patch = __commonJS({
   "../../node_modules/textdiff-patch/index.js"(exports, module) {
@@ -693,9 +583,6 @@ var require_textdiff_create = __commonJS({
 // ../../packages/code/package.json
 var version = "0.7.122";
 
-// src/chat.ts
-var import_cookie = __toESM(require_cookie(), 1);
-
 // ../../packages/cf-npm-site/dist/index.mjs
 function src_default(packageName, version2, serveDir = "") {
   return async function(request, env) {
@@ -849,9 +736,7 @@ var chat_default = {
         case "live":
           return getHTMLResp(env, path[1]);
         default:
-          const cookie = (0, import_cookie.parse)(request.headers.get("Cookie") || "");
-          const cVersion = cookie[version_cookie];
-          return src_default("@spike.land/code", cVersion || version, "js/")(request, env);
+          return src_default("@spike.land/code", version, "js/")(request, env);
       }
     });
   }
@@ -5920,9 +5805,3 @@ export {
   CodeRateLimiter,
   src_default3 as default
 };
-/*!
- * cookie
- * Copyright(c) 2012-2014 Roman Shtylman
- * Copyright(c) 2015 Douglas Christopher Wilson
- * MIT Licensed
- */

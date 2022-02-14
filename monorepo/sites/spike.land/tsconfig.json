@@ -3,7 +3,7 @@
     "allowJs": true,
     "target": "es2021",
     "module": "esnext",
-    "lib": ["ES2021", "DOM","DOM.Iterable", "ESNext.String"],
+    "lib": ["ES2021", "DOM","DOM.Iterable", "ESNext.String", "ES5"],
     "alwaysStrict": true,
     "strict": true,
     "noEmit": false,
