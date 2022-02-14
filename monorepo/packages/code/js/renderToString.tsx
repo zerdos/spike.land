@@ -24,19 +24,6 @@ export const getHtmlAndCss = (MyComponent: () => JSX.Element) => {
     </div>,
   );
 
-  const html = `
-  <!DOCTYPE html>
-  <html>
-    <head>
-        <meta charset="UTF-8">
-        <style>${cssText}</style>
-    </head>
-    <body>
-        <div>${markup}</div>
-    </body>
-  </html>
-`;
-
   return {
     html: markup,
     css: cssText,
