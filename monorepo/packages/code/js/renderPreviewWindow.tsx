@@ -36,7 +36,6 @@ export const renderPreviewWindow = async (
   //@ts-ignore
 
   // Target  .innerHTML = html;
-
   const { App } = globalThis;
 
   render(
