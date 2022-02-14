@@ -1,5 +1,4 @@
 import { version } from "@spike.land/code/package.json";
-import { parse } from "cookie";
 
 import { default as npmAns } from "@spike.land/cf-npm-site";
 import { handleErrors } from "./handleErrors";
@@ -53,9 +52,7 @@ export default {
           return getHTMLResp(env, path[1]);
 
         default:
-          const cookie = parse(request.headers.get("Cookie") || "");
-          const cVersion = cookie[version_cookie];
-          return npmAns("@spike.land/code", cVersion || version, "js/")(
+          return npmAns("@spike.land/code", version, "js/")(
             request,
             env,
           );
