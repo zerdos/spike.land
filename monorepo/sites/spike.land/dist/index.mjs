@@ -5647,23 +5647,31 @@ var Code = class {
         }
         case "hydrated": {
           return new Response(hydrated_default.replace(`<div id="root"></div>`, `<div id="root">
-            <style>${mST().css}</style>
-            <div id="zbody">${mST().html}
-            </div></div>
+                <style>
+                  ${mST().css}
+                </style>
+                <div id="zbody">
+                    ${mST().html}
+                </div>
+              </div>
             <script type="importmap">${JSON.stringify({
             imports: { ...importmap_default.imports },
             scopes: { ...importmap_default.scopes }
           })}<\/script>
-            <script type="module">
-        
-              import("./dist/starter.mjs").then(( {hydrateBinary}  )=> hydrateBinary(atob("${btoa(toBinary(mST().transpiled))}"))).catch(()=>{
-                const s = document.createElement("script");
-                s.async = "async";
-                s.type = "application/javascript";
-                s.src = "https://spike.land/dist/appStarter.js";
-                document.head.appendChild(s);
-                
-              });
+            <script defer type="module">
+              import("./dist/starter.mjs")
+                .then(
+                  ({hydrateBinary})=> hydrateBinary(
+                    atob("${btoa(toBinary(mST().transpiled))}")
+                    )
+                  )
+                .catch(()=>{
+                  const s = document.createElement("script");
+                  s.async = "async";
+                  s.type = "application/javascript";
+                  s.src = "https://spike.land/dist/appStarter.js";
+                  document.head.appendChild(s);   
+                });
             <\/script>`).replaceAll(vReg, version), {
             status: 200,
             headers: {
@@ -5703,18 +5711,22 @@ var Code = class {
               <script type="importmap">${JSON.stringify({
             imports: { ...importmap_default.imports },
             scopes: { ...importmap_default.scopes }
-          })}<\/script>`).replace('<script defer src="https://spike.land/dist/appStarter.js"><\/script>', ` 
-              <script defer type="module">
-              
-              import("./dist/starter.mjs").then(( {hydrateBinary}  )=> hydrateBinary(atob("${btoa(toBinary(mST().transpiled))}"))).catch(()=>{
-                const s = document.createElement("script");
-                s.async = "async";
-                s.type = "application/javascript";
-                s.src = "https://spike.land/dist/appStarter.js";
-                document.head.appendChild(s);
-              }); 
-              <\/script>
-              <script type="nomodule" defer  src="https://spike.land/dist/appStarter.js"><\/script>`).replaceAll(vReg, version);
+          })}<\/script>`).replace('<script defer src="https://spike.land/dist/appStarter.js"><\/script>', `<script defer type="module">
+              import("./dist/starter.mjs")
+                .then(
+                  ({hydrateBinary})=> hydrateBinary(
+                    atob("${btoa(toBinary(mST().transpiled))}")
+                    )
+                  )
+                .catch(()=>{
+                  const s = document.createElement("script");
+                  s.async = "async";
+                  s.type = "application/javascript";
+                  s.src = "https://spike.land/dist/appStarter.js";
+                  document.head.appendChild(s);   
+                });
+            <\/script>
+            <script type="nomodule" defer  src="https://spike.land/dist/appStarter.js"><\/script>`).replaceAll(vReg, version);
           return new Response(html2, {
             status: 200,
             headers: {
