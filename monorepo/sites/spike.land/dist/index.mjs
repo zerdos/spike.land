@@ -691,7 +691,7 @@ var require_textdiff_create = __commonJS({
 });
 
 // ../../packages/code/package.json
-var version = "0.7.114";
+var version = "0.7.116";
 
 // src/chat.ts
 var import_cookie = __toESM(require_cookie(), 1);
@@ -1065,9 +1065,10 @@ var imports = {
   "@emotion/cache": "https://ga.jspm.io/npm:@emotion/cache@11.7.1/dist/emotion-cache.browser.esm.js",
   "@emotion/react": "https://spike.land/dist/emotion.mjs",
   "framer-motion": "https://spike.land/dist/framer-motion.mjs",
-  preact: "https://ga.jspm.io/npm:preact@10.6.5/dist/preact.module.js",
+  preact: "https://unpkg.com/preact@10.6.6/dist/preact.mjs",
   "preact-render-to-string": "https://ga.jspm.io/npm:preact-render-to-string@5.1.19/dist/index.mjs",
-  "preact/compat": "https://ga.jspm.io/npm:preact@10.6.6/compat/dist/compat.module.js",
+  "preact/compat": "https://unpkg.com/preact@10.6.6/compat/dist/compat.mjs",
+  "preact/hooks": "https://unpkg.com/preact@10.6.6/hooks/dist/hooks.mjs",
   react: "https://spike.land/dist/react.mjs",
   "react-dom": "https://spike.land/dist/react.mjs"
 };
