@@ -1,10 +1,9 @@
 /** @jsx jsx */
 import { CacheProvider, jsx } from "@emotion/react";
-//@ts-ignore
-import { createCache } from "@emotion/react";
 
-//@ts-ignore
-import { renderToString } from "react";
+import createCache from "@emotion/cache";
+
+import { renderToString } from "preact-render-to-string";
 
 export const getHtmlAndCss = (MyComponent: () => JSX.Element) => {
   const key = "css";
@@ -14,14 +13,11 @@ export const getHtmlAndCss = (MyComponent: () => JSX.Element) => {
     cssText += rule;
   };
 
-  globalThis.renderToString = true;
-
   const markup = renderToString(
     <CacheProvider value={cache}>
       <MyComponent />
     </CacheProvider>,
   );
-  globalThis.renderToString = false;
 
   const html = `
   <!DOCTYPE html>

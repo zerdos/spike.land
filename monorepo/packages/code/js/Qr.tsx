@@ -24,7 +24,7 @@ const QR: React.FC<{ url: string }> = ({ url }) => {
         value: url,
       };
 
-      const qr = new QRious(options);
+      new QRious(options);
     };
 
     load();

@@ -10,5 +10,5 @@ declare module "textdiff-create" {
 }
 
 declare module "textdiff-patch" {
-  export default (str: string) => string;
+  export default (str: string, obj: JSON) => string;
 }
