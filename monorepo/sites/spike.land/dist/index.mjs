@@ -691,7 +691,7 @@ var require_textdiff_create = __commonJS({
 });
 
 // ../../packages/code/package.json
-var version = "0.7.88";
+var version = "0.7.89";
 
 // src/chat.ts
 var import_cookie = __toESM(require_cookie(), 1);
