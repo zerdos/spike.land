@@ -1,5 +1,5 @@
-import * as preact from "preact";
-import * as compat from "preact/compat";
+// import * as preact from "preact";
+import * as react from "preact/compat";
 import { hydrate, render } from "preact/compat";
 import renderToString from "preact-render-to-string";
 export { render };
@@ -9,11 +9,6 @@ export { renderToString };
 //   render: (App) => render(App, container),
 // });
 // export const hydrateRoot = (container, App) => hydrate(App, container);
-
-const react = {
-  ...preact,
-  ...compat,
-};
 
 export const { createContext } = react;
 export const { useDebugValue } = react;

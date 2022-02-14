@@ -2,7 +2,7 @@
 // deno-lint-ignore-file
 // This code was bundled using `deno bundle` and it's not recommended to edit it manually
 
-var e, n, t, l, o, r, i, u, s = {}, c = [], f = /acit|ex(?:s|g|n|p|$)|rph|grid|ows|mnc|ntw|ine[ch]|zoo|^ord|itera/i;
+var e, n, t, o, r, i, u, s = {}, c = [], f = /acit|ex(?:s|g|n|p|$)|rph|grid|ows|mnc|ntw|ine[ch]|zoo|^ord|itera/i;
 function a(e1, n1) {
     for(var t1 in n1)e1[t1] = n1[t1];
     return e1;
@@ -280,28 +280,12 @@ e = c.slice, n = {
         }
         throw e39;
     }
-}, t = 0, l = function(e40) {
-    return null != e40 && void 0 === e40.constructor;
-}, _.prototype.setState = function(e41, n24) {
+}, t = 0, _.prototype.setState = function(e41, n24) {
     var t24;
     t24 = null != this.__s && this.__s !== this.state ? this.__s : this.__s = a({}, this.state), "function" == typeof e41 && (e41 = e41(a({}, t24), this.props)), e41 && a(t24, e41), null != e41 && this.__v && (n24 && this.__h.push(n24), m(this));
 }, _.prototype.forceUpdate = function(e42) {
     this.__v && (this.__e = !0, e42 && this.__h.push(e42), m(this));
 }, _.prototype.render = d, o = [], r = "function" == typeof Promise ? Promise.prototype.then.bind(Promise.resolve()) : setTimeout, g.__r = 0, u = 0;
-const mod = {
-    Component: _,
-    Fragment: d,
-    cloneElement: B,
-    createContext: D,
-    createElement: v,
-    createRef: p,
-    h: v,
-    hydrate: q,
-    isValidElement: l,
-    options: n,
-    render: S,
-    toChildArray: A
-};
 var t1, e1, r1, c1 = 0, o1 = [], a1 = n.__b, i1 = n.__r, f1 = n.diffed, v1 = n.__c, H1 = n.unmount;
 function m1(t11, r11) {
     n.__h && n.__h(e1, t11, c1 || r11), c1 = 0;
@@ -311,7 +295,7 @@ function m1(t11, r11) {
     });
     return t11 >= o11.__.length && o11.__.push({}), o11.__[t11];
 }
-function l1(n1) {
+function l(n1) {
     return c1 = 1, p1(w1, n1);
 }
 function p1(n2, r2, c11) {
@@ -364,7 +348,7 @@ function T1(t5, e3) {
     n.useDebugValue && n.useDebugValue(e3 ? e3(t5) : t5);
 }
 function q1(n9) {
-    var r7 = m1(t1++, 10), c5 = l1();
+    var r7 = m1(t1++, 10), c5 = l();
     return r7.__ = n9, e1.componentDidCatch || (e1.componentDidCatch = function(n10) {
         r7.__ && r7.__(n10), c5[1](n10);
     }), [
@@ -525,10 +509,10 @@ n.unmount = function(_17) {
     var c7 = a13.__c, s6 = this;
     null == s6.t && (s6.t = []), s6.t.push(c7);
     var f3 = U(s6.__v), p11 = !1, i3 = function() {
-        p11 || (p11 = !0, c7.__R = null, f3 ? f3(l3) : l3());
+        p11 || (p11 = !0, c7.__R = null, f3 ? f3(l2) : l2());
     };
     c7.__R = i3;
-    var l3 = function() {
+    var l2 = function() {
         if (!--s6.__u) {
             if (s6.state.__e) {
                 var _19 = s6.state.__e;
@@ -727,7 +711,7 @@ var ln = function(_53, a29) {
     return _54(a30);
 }, ae = d;
 var ce = {
-    useState: l1,
+    useState: l,
     useReducer: p1,
     useEffect: y1,
     useLayoutEffect: h1,
@@ -763,7 +747,7 @@ var ce = {
     lazy: F1,
     __SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED: _e
 };
-const mod1 = {
+const mod = {
     Component: _,
     Fragment: d,
     createContext: D,
@@ -800,7 +784,7 @@ const mod1 = {
     useMemo: d1,
     useReducer: p1,
     useRef: s1,
-    useState: l1
+    useState: l
 };
 var r2 = /acit|ex(?:s|g|n|p|$)|rph|grid|ows|mnc|ntw|ine[ch]|zoo|^ord|^--/i, n1 = /[&<>"]/;
 function o2(e12) {
@@ -811,12 +795,12 @@ var a2 = function(e2, t2) {
     return String(e2).replace(/(\n+)/g, "$1" + (t2 || "\t"));
 }, i2 = function(e3, t3, r12) {
     return String(e3).length > (t3 || 40) || !r12 && -1 !== String(e3).indexOf("\n") || -1 !== String(e3).indexOf("<");
-}, l2 = {};
+}, l1 = {};
 function s2(e4) {
     var t4 = "";
     for(var n11 in e4){
         var c13 = e4[n11];
-        null != c13 && "" !== c13 && (t4 && (t4 += " "), t4 += "-" == n11[0] ? n11 : l2[n11] || (l2[n11] = n11.replace(/([A-Z])/g, "-$1").toLowerCase()), t4 += ": ", t4 += c13, "number" == typeof c13 && !1 === r2.test(n11) && (t4 += "px"), t4 += ";");
+        null != c13 && "" !== c13 && (t4 && (t4 += " "), t4 += "-" == n11[0] ? n11 : l1[n11] || (l1[n11] = n11.replace(/([A-Z])/g, "-$1").toLowerCase()), t4 += ": ", t4 += c13, "number" == typeof c13 && !1 === r2.test(n11) && (t4 += "px"), t4 += ";");
     }
     return t4 || void 0;
 }
@@ -841,20 +825,20 @@ function m2(t8, r3, n2) {
     var c21 = x3(t8, r3, n2);
     return n.__c && n.__c(t8, h2), h2.length = 0, n.__s = l11, c21;
 }
-function x3(r4, n3, l21, c3, h11, y2) {
+function x3(r4, n3, l2, c3, h11, y2) {
     if (null == r4 || "boolean" == typeof r4) return "";
     if ("object" != typeof r4) return o2(r4);
-    var b1 = l21.pretty, S2 = b1 && "string" == typeof b1 ? b1 : "\t";
+    var b1 = l2.pretty, S2 = b1 && "string" == typeof b1 ? b1 : "\t";
     if (Array.isArray(r4)) {
-        for(var w2 = "", k2 = 0; k2 < r4.length; k2++)b1 && k2 > 0 && (w2 += "\n"), w2 += x3(r4[k2], n3, l21, c3, h11, y2);
+        for(var w2 = "", k2 = 0; k2 < r4.length; k2++)b1 && k2 > 0 && (w2 += "\n"), w2 += x3(r4[k2], n3, l2, c3, h11, y2);
         return w2;
     }
     var O1, C2 = r4.type, A2 = r4.props, H2 = !1;
     if ("function" == typeof C2) {
-        if (H2 = !0, !l21.shallow || !c3 && !1 !== l21.renderRootComponent) {
+        if (H2 = !0, !l2.shallow || !c3 && !1 !== l2.renderRootComponent) {
             if (C2 === d) {
                 var T3 = [];
-                return u1(T3, r4.props.children), x3(T3, n3, l21, !1 !== l21.shallowHighOrder, h11, y2);
+                return u1(T3, r4.props.children), x3(T3, n3, l2, !1 !== l2.shallowHighOrder, h11, y2);
             }
             var j3, F5 = r4.__c = {
                 __v: r4,
@@ -871,7 +855,7 @@ function x3(r4, n3, l21, c3, h11, y2) {
                 var E5 = C2.contextType, R = E5 && n3[E5.__c];
                 j3 = C2.call(r4.__c, A2, null != E5 ? R ? R.props.value : E5.__ : n3);
             }
-            return F5.getChildContext && (n3 = f2(f2({}, n3), F5.getChildContext())), n.diffed && n.diffed(r4), x3(j3, n3, l21, !1 !== l21.shallowHighOrder, h11, y2);
+            return F5.getChildContext && (n3 = f2(f2({}, n3), F5.getChildContext())), n.diffed && n.diffed(r4), x3(j3, n3, l2, !1 !== l2.shallowHighOrder, h11, y2);
         }
         C2 = (O1 = C2).displayName || O1 !== Function && O1.name || (function(e8) {
             var t9 = (Function.prototype.toString.call(e8).match(/^\s*function\s+([^( ]+)/) || "")[1];
@@ -888,11 +872,11 @@ function x3(r4, n3, l21, c3, h11, y2) {
     var D2, N2, P1 = "<" + C2;
     if (A2) {
         var U4 = Object.keys(A2);
-        l21 && !0 === l21.sortAttributes && U4.sort();
+        l2 && !0 === l2.sortAttributes && U4.sort();
         for(var W4 = 0; W4 < U4.length; W4++){
             var q3 = U4[W4], z2 = A2[q3];
             if ("children" !== q3) {
-                if (!v2.test(q3) && (l21 && l21.allAttributes || "key" !== q3 && "ref" !== q3 && "__self" !== q3 && "__source" !== q3 && "defaultValue" !== q3)) {
+                if (!v2.test(q3) && (l2 && l2.allAttributes || "key" !== q3 && "ref" !== q3 && "__self" !== q3 && "__source" !== q3 && "defaultValue" !== q3)) {
                     if ("className" === q3) {
                         if (A2.class) continue;
                         q3 = "class";
@@ -902,12 +886,12 @@ function x3(r4, n3, l21, c3, h11, y2) {
                         q3 = "for";
                     }
                     "style" === q3 && z2 && "object" == typeof z2 && (z2 = s2(z2)), "a" === q3[0] && "r" === q3[1] && "boolean" == typeof z2 && (z2 = String(z2));
-                    var I2 = l21.attributeHook && l21.attributeHook(q3, z2, n3, l21, H2);
+                    var I2 = l2.attributeHook && l2.attributeHook(q3, z2, n3, l2, H2);
                     if (I2 || "" === I2) P1 += I2;
                     else if ("dangerouslySetInnerHTML" === q3) N2 = z2 && z2.__html;
                     else if ("textarea" === C2 && "value" === q3) D2 = z2;
                     else if ((z2 || 0 === z2 || "" === z2) && "function" != typeof z2) {
-                        if (!(!0 !== z2 && "" !== z2 || (z2 = q3, l21 && l21.xml))) {
+                        if (!(!0 !== z2 && "" !== z2 || (z2 = q3, l2 && l2.xml))) {
                             P1 += " " + q3;
                             continue;
                         }
@@ -929,13 +913,13 @@ function x3(r4, n3, l21, c3, h11, y2) {
         V === P1 || ~V.indexOf("\n") ? b1 && ~P1.indexOf("\n") && (P1 += "\n") : P1 = V;
     }
     if (P1 += ">", v2.test(C2)) throw new Error(C2 + " is not a valid HTML tag name in " + P1);
-    var Z1, B2 = _2.test(C2) || l21.voidElements && l21.voidElements.test(C2), G3 = [];
+    var Z1, B2 = _2.test(C2) || l2.voidElements && l2.voidElements.test(C2), G3 = [];
     if (N2) b1 && i2(N2) && (N2 = "\n" + S2 + a2(N2, S2)), P1 += N2;
     else if (null != D2 && u1(Z1 = [], D2).length) {
         for(var J3 = b1 && ~P1.indexOf("\n"), K3 = !1, Q3 = 0; Q3 < Z1.length; Q3++){
             var X2 = Z1[Q3];
             if (null != X2 && !1 !== X2) {
-                var Y1 = x3(X2, n3, l21, !0, "svg" === C2 || "foreignObject" !== C2 && h11, y2);
+                var Y1 = x3(X2, n3, l2, !0, "svg" === C2 || "foreignObject" !== C2 && h11, y2);
                 if (b1 && !J3 && i2(Y1) && (J3 = !0), Y1) if (b1) {
                     var ee1 = Y1.length > 0 && "<" != Y1[0];
                     K3 && ee1 ? G3[G3.length - 1] += Y1 : G3.push(Y1), K3 = ee1;
@@ -945,40 +929,36 @@ function x3(r4, n3, l21, c3, h11, y2) {
         if (b1 && J3) for(var te1 = G3.length; te1--;)G3[te1] = "\n" + S2 + a2(G3[te1], S2);
     }
     if (G3.length || N2) P1 += G3.join("");
-    else if (l21 && l21.xml) return P1.substring(0, P1.length - 1) + " />";
+    else if (l2 && l2.xml) return P1.substring(0, P1.length - 1) + " />";
     return !B2 || Z1 || N2 ? (b1 && ~P1.indexOf("\n") && (P1 += "\n"), P1 += "</" + C2 + ">") : P1 = P1.replace(/>$/, " />"), P1;
 }
 m2.shallowRender = g3;
 export { B1 as render };
 export { $1 as hydrate };
 export { m2 as renderToString };
-const react = {
-    ...mod,
-    ...mod1
-};
-const { createContext  } = react;
-const { useDebugValue  } = react;
-const { useState  } = react;
-const { useRef  } = react;
-const { useContext  } = react;
-const { useLayoutEffect  } = react;
-const { useEffect  } = react;
-const { useReducer  } = react;
-const { useCallback  } = react;
-const { forwardRef  } = react;
-const { createElement  } = react;
-const { createFactory  } = react;
-const { createRef  } = react;
-const { Fragment  } = react;
-const { Component  } = react;
-const { Suspense  } = react;
-const { isValidElement  } = react;
-const { memo  } = react;
-const { useImperativeHandle  } = react;
-const { Children  } = react;
-const { lazy  } = react;
-const { useMemo  } = react;
-const { cloneElement  } = react;
+const { createContext  } = mod;
+const { useDebugValue  } = mod;
+const { useState  } = mod;
+const { useRef  } = mod;
+const { useContext  } = mod;
+const { useLayoutEffect  } = mod;
+const { useEffect  } = mod;
+const { useReducer  } = mod;
+const { useCallback  } = mod;
+const { forwardRef  } = mod;
+const { createElement  } = mod;
+const { createFactory  } = mod;
+const { createRef  } = mod;
+const { Fragment  } = mod;
+const { Component  } = mod;
+const { Suspense  } = mod;
+const { isValidElement  } = mod;
+const { memo  } = mod;
+const { useImperativeHandle  } = mod;
+const { Children  } = mod;
+const { lazy  } = mod;
+const { useMemo  } = mod;
+const { cloneElement  } = mod;
 export { createContext as createContext };
 export { useDebugValue as useDebugValue };
 export { useState as useState };
@@ -1002,5 +982,5 @@ export { Children as Children };
 export { lazy as lazy };
 export { useMemo as useMemo };
 export { cloneElement as cloneElement };
-export { react as default };
+export { mod as default };
 
