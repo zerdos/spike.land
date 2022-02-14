@@ -3,7 +3,7 @@ import { jsx } from "@emotion/react";
 let formatter;
 let transform;
 
-// let esbuildEsmTransform;
+let startMonaco;
 // Let esbuildTransform;
 let babelTransform;
 let getHtmlAndCss;
@@ -23,9 +23,11 @@ export const prettier = async (code) => {
 // //
 
 export async function startMonacoWithSession(session) {
+  console.log("start monaco with session");
   const monacoEditorDom = document.querySelector("#monacoEditor");
 
-  const { startMonaco } = await import("./editor.ts");
+  startMonaco = startMonaco || (await import("./editor.ts")).startMonaco;
+
   const throttle = (await import("lodash/throttle")).default;
   const onchangeCode = (ev) =>
     runner(editor.getModel().getValue(), ev.changes, session, ++session.i);
