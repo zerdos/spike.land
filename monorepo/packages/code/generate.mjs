@@ -72,11 +72,9 @@ importMap.imports["react"] = isDev
   ? "https://localhost:8000/monorepo/packages/code/js/dist/react.mjs"
   : "https://spike.land/dist/react.mjs";
 importMap.imports["react-dom"] = importMap.imports["react"];
-importMap.imports["preact"] = importMap.imports["react"];
 
 
-// importMap.imports["preact/compat"] = importMap.imports["react"];
-// importMap.imports["react-dom"] = importMap.imports["react"];
+importMap.imports["react-dom"] = importMap.imports["react"];
 
 
 importMap.imports["framer-motion"] = isDev

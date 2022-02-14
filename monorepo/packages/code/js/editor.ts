@@ -27,12 +27,13 @@ export const startMonaco = async (
   const shadowRoot = container.attachShadow({
     mode: "closed",
   });
-  const innerContainer = document.createElement("div");
+  const innerContainer = window && window.document &&
+    window.document.createElement("div");
   shadowRoot.appendChild(innerContainer);
   innerContainer.style.width = "100%";
   innerContainer.style.height = "100%";
 
-  const innerStyle = document.createElement("style");
+  const innerStyle = window.document.createElement("style");
   innerStyle.innerText =
     `@import "https://unpkg.com/monaco-editor@${version}/min/vs/editor/editor.main.css";`;
   shadowRoot.appendChild(innerStyle);

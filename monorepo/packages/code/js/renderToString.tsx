@@ -10,7 +10,7 @@ export const getHtmlAndCss = (MyComponent: () => JSX.Element) => {
   const key = "css";
   const cache = createCache({ key });
   let cssText = "";
-  cache.sheet.insert = (rule) => {
+  cache.sheet.insert = (rule: string) => {
     cssText += rule;
   };
 

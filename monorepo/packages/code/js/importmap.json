@@ -3,7 +3,7 @@
     "@emotion/cache": "https://ga.jspm.io/npm:@emotion/cache@11.7.1/dist/emotion-cache.browser.esm.js",
     "@emotion/react": "https://spike.land/dist/emotion.mjs",
     "framer-motion": "https://spike.land/dist/framer-motion.mjs",
-    "preact": "https://spike.land/dist/react.mjs",
+    "preact": "https://ga.jspm.io/npm:preact@10.6.5/dist/preact.module.js",
     "preact-render-to-string": "https://ga.jspm.io/npm:preact-render-to-string@5.1.19/dist/index.mjs",
     "preact/compat": "https://ga.jspm.io/npm:preact@10.6.5/compat/dist/compat.module.js",
     "react": "https://spike.land/dist/react.mjs",

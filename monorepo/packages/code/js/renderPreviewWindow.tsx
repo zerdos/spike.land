@@ -63,7 +63,7 @@ export const renderPreviewWindow = async (
     jsx(Rendered),
     target,
   );
-  document.body.appendChild(target);
+  window.document.body.appendChild(target);
 
   // d//ocument.getElementById("root")?.replaceWith(target);
 
@@ -77,7 +77,7 @@ export const renderPreviewWindow = async (
 
   // await wait(2000 - diffy);
 
-  document.body.style.backgroundImage =
+  window.document.body.style.backgroundImage =
     `url("https://spike.land/dist/chunks/${bg}")`;
 
   editor.style.opacity = "1";

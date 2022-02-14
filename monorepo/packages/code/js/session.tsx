@@ -285,7 +285,7 @@ function storageAvailable(type: string) {
     const storage = window[type as keyof Window];
     const x = "__storage_test__";
     storage.setItem(x, x);
-    storage.removeItem(x);
+    storage.removeItem && storage.removeItem(x);
     return true;
   } catch {
     return false;

@@ -1,5 +1,5 @@
 import React, { hydrate } from "react";
-import { fromBinary } from "./binary";
+import { fromBinary } from "./binary.ts";
 import { jsx } from "@emotion/react";
 import uidV4 from "./uidV4.mjs";
 
