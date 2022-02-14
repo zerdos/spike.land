@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { css, jsx } from "@emotion/react";
-import type { motionT, MotionProps } from "framer-motion";
+import type { MotionProps, motionT } from "framer-motion";
 import { Fragment, lazy, Suspense, useEffect, useState } from "react";
 import type { FC, HTMLAttributes } from "react";
 
