@@ -201,7 +201,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
         right: 20,
       });
       setFullScreen(false);
-      document.getElementById("root")!.style.height = "0";
+      document.getElementById("root")!.display = "none";
     };
 
     reveal();
