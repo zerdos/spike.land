@@ -68,6 +68,7 @@
     // Not necessary unless you consume a module requiring `react-dom-factories`
     "react-dom-factories": "preact-compat/lib/react-dom-factories",
     "*.ts": ["*"],
-    "*.tsx": ["*"]
+    "*.tsx": ["*"],
+    "js/dist/workers/*.worker.js": ["*.worker.workerJS"]
   }
 }

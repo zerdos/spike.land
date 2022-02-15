@@ -46,7 +46,7 @@ await esbuild.build({
   legalComments: "external",
   ignoreAnnotations: true,
   treeShaking: true,
-  outExtension: {".js": ".workerJs"},
+  outExtension: {".js": ".workerJS"},
   platform: "browser",
   define: {
     "process.env.NODE_ENV": `"${environment}"`,
@@ -99,7 +99,7 @@ const build = (entryPoints) =>
     platform: "browser",
     ignoreAnnotations: true,
     chunkNames: "chunks/[name]-[hash]",
-    resolveExtensions: [".tsx", ".ts", ".jsx", ".js", ".css", ".json", ".mjs", ".ttf", ".workerJs"],
+    resolveExtensions: [".tsx", ".ts", ".jsx", ".js", ".css", ".json", ".mjs", ".ttf", ".workerJS"],
     target: "es2017",
     define: {
       "process.env.NODE_ENV": `"${environment}"`,
@@ -112,7 +112,7 @@ const build = (entryPoints) =>
       ".css": "css",
       ".ts": "ts",
       ".d.ts": "dataurl",
-      ".workerJs": "dataurl",
+      ".workerJS": "dataurl",
       ".wasm": "dataurl",
     },
     outdir: "js/dist",

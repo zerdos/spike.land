@@ -13,7 +13,7 @@ declare module "textdiff-patch" {
   export default (str: string, obj: JSON) => string;
 }
 
-declare module "*.workerJs" {
+export declare module "*.workerJS" {
   const dataUrl: string;
   export default dataUrl;
 }
