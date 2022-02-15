@@ -49,13 +49,12 @@ export const startMonaco = async (
   const shadowRoot = container.attachShadow({
     mode: "open",
   });
-  const innerContainer = window && window.document &&
-    window.document.createElement("div");
+  const innerContainer = document.createElement("div");
   shadowRoot.appendChild(innerContainer);
   innerContainer.style.width = "100%";
   innerContainer.style.height = "100%";
 
-  const outerStyle = window.document.createElement("style");
+  const outerStyle = document.createElement("style");
   outerStyle.innerText = ` @font-face {
     font-family: codicon;
     font-display: block;
@@ -63,7 +62,7 @@ export const startMonaco = async (
 }`;
   document.head.appendChild(outerStyle);
 
-  const innerStyle = window.document.createElement("style");
+  const innerStyle = document.createElement("style");
   innerStyle.innerText = `@import url("dist/starter.css");
   @font-face {
     font-family: codicon;

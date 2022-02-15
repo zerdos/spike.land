@@ -18,7 +18,7 @@ export const renderPreviewWindow = async (
   //@ts-ignore
   const { App } = globalThis;
 
-  const Rendered = () => (
+  render(
     <DraggableWindow
       onShare={() => open(`https://spike.land/api/room/${room}/public`)}
       onRestore={() => {
@@ -37,14 +37,11 @@ export const renderPreviewWindow = async (
       room={room}
     >
       <App />
-    </DraggableWindow>
-  );
-
-  render(
-    jsx(Rendered),
+    </DraggableWindow>,
     target,
   );
-  window.document.body.appendChild(target);
+
+  document.body.appendChild(target);
 
   // d//ocument.getElementById("root")?.replaceWith(target);
 
@@ -58,7 +55,7 @@ export const renderPreviewWindow = async (
 
   // await wait(2000 - diffy);
 
-  window.document.body.style.backgroundImage = `url("assets/synthwave.webp");`;
+  document.body.style.backgroundImage = `url("assets/synthwave.webp");`;
 
   editor.style.opacity = "1";
   editor.style.display = "block";
