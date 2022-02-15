@@ -1,4 +1,4 @@
-import "core-js/stable";
+import "core-js/";
 import "core-js/modules/es.array.iterator";
 import "regenerator-runtime/runtime";
 
