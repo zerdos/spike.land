@@ -1,4 +1,5 @@
 import "core-js/stable";
+import "core-js/modules/es.array.iterator";
 import "regenerator-runtime/runtime";
 
 import { hydrate } from "react";
