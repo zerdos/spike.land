@@ -1,17 +1,16 @@
-self.addEventListener('install', function(e) {
+self.addEventListener("install", function (e) {
   self.skipWaiting();
 });
 
-self.addEventListener('activate', function(e) {
+self.addEventListener("activate", function (e) {
   self.registration.unregister()
-    .then(function() {
+    .then(function () {
       return self.clients.matchAll();
     })
-    .then(function(clients) {
-      clients.forEach(client => client.navigate(client.url))
+    .then(function (clients) {
+      clients.forEach((client) => client.navigate(client.url));
     });
 });
-
 
 //import { precacheAndRoute } from "workbox-precaching";
 //import { registerRoute } from "workbox-routing";
@@ -45,17 +44,17 @@ self.addEventListener('activate', function(e) {
 //registerRoute(
 //  ({ request }) =>
 //    (request.url.includes("unpkg.com") && request.url.includes("@")) ||
- //   (request.url.includes("jspm.io") && request.url.includes("@")) ||
-  //  (request.url.includes("/chunks")) ||
-  //  (request.url.includes("esm.sh") && request.url.includes("@")),
- // new StaleWhileRevalidate({
-   // matchOptions: {
-     // ignoreVary: true,
-      //ignoreSearch: true,
-   // },
-   // plugins: [
-     // new CacheableResponsePlugin({ statuses: [0, 200] }),
-   // ],
+//   (request.url.includes("jspm.io") && request.url.includes("@")) ||
+//  (request.url.includes("/chunks")) ||
+//  (request.url.includes("esm.sh") && request.url.includes("@")),
+// new StaleWhileRevalidate({
+// matchOptions: {
+// ignoreVary: true,
+//ignoreSearch: true,
+// },
+// plugins: [
+// new CacheableResponsePlugin({ statuses: [0, 200] }),
+// ],
 //  }),/
 //);
 

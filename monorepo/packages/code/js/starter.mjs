@@ -2,6 +2,13 @@ import { hydrate } from "react";
 import { fromBinary } from "./binary.ts";
 import { jsx } from "@emotion/react";
 import uidV4 from "./uidV4.mjs";
+import { Workbox } from "workbox-window";
+
+if ("serviceWorker" in navigator) {
+  const wb = new Workbox("/sw.js");
+
+  wb.register();
+}
 
 const path = location.pathname.split("/");
 window.aniStart = Date.now();
