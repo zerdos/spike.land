@@ -197,7 +197,7 @@ const build = (entryPoints) =>
     minifyIdentifiers: true,
     minifyWhitespace: true,
     minifySyntax: true,
-    splitting: !isDevelopment,
+    splitting: false,
     sourcemap: isDevelopment,
     allowOverwrite: true,
     treeShaking: !isDevelopment,
