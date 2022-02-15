@@ -1,5 +1,5 @@
 import * as monaco from "monaco-editor";
-import cssUrl from "monaco-editor/min/vs/editor/editor.main.css";
+import "monaco-editor/min/vs/editor/editor.main.css";
 import { version } from "monaco-editor/package.json";
 import { dtsFiles } from "types.mjs";
 import tsWorker from "./dist/workers/language/typescript/ts.worker.workerJs";
