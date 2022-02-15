@@ -45,10 +45,15 @@ export const renderPreviewWindow = async (
     <DraggableWindow
       onShare={() => open(`https://spike.land/api/room/${room}/public`)}
       onRestore={() => {
+        //@ts-ignore
         const model = session.editor.getModel();
         model.setValue(session.code);
       }}
+      //@ts-ignore
+
       position={session.mode === "window" ? "fixed" : "absolute"}
+      //@ts-ignore
+
       session={session}
       hashCode={hashCode()}
       z

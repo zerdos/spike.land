@@ -9,6 +9,8 @@ import { toBinary } from "@spike.land/code/js/binary.ts";
 
 import { version } from "@spike.land/code/package.json";
 import imap from "@spike.land/code/js/importmap.json";
+
+//@ts-ignore
 import applyDelta from "textdiff-patch";
 import { CodeEnv } from "./env";
 import type {

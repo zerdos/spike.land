@@ -23,7 +23,7 @@ const QR: React.FC<{ url: string }> = ({ url }) => {
         background: "#1e1e1e",
         value: url,
       };
-
+      //@ts-ignore
       new QRious(options);
     };
 
