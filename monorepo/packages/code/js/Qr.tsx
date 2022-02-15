@@ -3,12 +3,12 @@ import { jsx } from "@emotion/react";
 
 import { css } from "@emotion/react";
 import { motion } from "framer-motion";
-import { useEffect, useRef, useState } from "react";
+import { FC, useEffect, useRef, useState } from "react";
 import { QRious } from "@spike.land/qrious";
 
 import { Fab, QrCode } from "./mui";
 
-const QR: React.FC<{ url: string }> = ({ url }) => {
+const QR: FC<{ url: string }> = ({ url }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
@@ -41,7 +41,7 @@ const QR: React.FC<{ url: string }> = ({ url }) => {
   );
 };
 
-export const QRButton: React.FC<{ url: string }> = ({ url }) => {
+export const QRButton: FC<{ url: string }> = ({ url }) => {
   const [showQR, setQR] = useState(false);
   return (
     <motion.div
