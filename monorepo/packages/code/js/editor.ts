@@ -1,6 +1,8 @@
 import * as monaco from "monaco-editor";
 import { version } from "monaco-editor/package.json";
 import tsWorker from "./dist/workers/language/typescript/ts.worker.workerJs";
+import editorWorker from "./dist/workers/editor/editor.worker.workerJs";
+
 import pAll from "p-all";
 
 self.MonacoEnvironment = {
@@ -17,7 +19,7 @@ self.MonacoEnvironment = {
     if (label === "typescript" || label === "javascript") {
       return tsWorker;
     }
-    return "./dist/workers/editor/editor.workerJs";
+    return editorWorker;
   },
 };
 
