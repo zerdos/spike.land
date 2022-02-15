@@ -91,7 +91,7 @@ await esbuild.build({
     // "./js/workers/prettier.worker.js",
   ],
   bundle: true,
-  target: "es2017",
+  target: "es2018",
   sourcemap: isDevelopment,
   minify: !isDevelopment,
   minifyWhitespace: !isDevelopment,
