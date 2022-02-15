@@ -53,6 +53,7 @@ export const startMonaco = async (
   shadowRoot.appendChild(innerContainer);
   innerContainer.style.width = "100%";
   innerContainer.style.height = "100%";
+  innerContainer.className = "editor";
 
   // const innerStyle = window.document.createElement("style");
   // innerStyle.innerText = `@import url(${cssUrl});`;
