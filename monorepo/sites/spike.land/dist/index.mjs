@@ -581,7 +581,7 @@ var require_textdiff_create = __commonJS({
 });
 
 // ../../packages/code/package.json
-var version = "0.7.122";
+var version = "0.7.128";
 
 // ../../packages/cf-npm-site/dist/index.mjs
 function src_default(packageName, version2, serveDir = "") {
@@ -812,8 +812,8 @@ var RateLimiterClient = class {
           method: "POST"
         }));
       }
-      let coolDown = +await response.text();
-      await new Promise((resolve) => setTimeout(resolve, coolDown * 100));
+      let coolDown = +await response.text() * 100;
+      await new Promise((resolve) => setTimeout(() => resolve(true), coolDown));
       this.inCoolDown = false;
     } catch (err) {
       this.reportError(err);
