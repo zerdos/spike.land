@@ -99,6 +99,7 @@ await esbuild.build({
   minifySyntax: !isDevelopment,
   legalComments: "external",
   treeShaking: !isDevelopment,
+  outExtension: {".js": ".workerJs"},
   plugins: [importMapPlugin],
   platform: "browser",
   define: {
@@ -106,6 +107,7 @@ await esbuild.build({
   },
 
   format: "iife",
+
   // loader: {   ".worker.js": "dataurl"},
   outdir: "js/dist/workers/",
 });
@@ -198,7 +200,7 @@ const build = (entryPoints) =>
     treeShaking: !isDevelopment,
     platform: "browser",
     chunkNames: "chunks/[name]-[hash]",
-    resolveExtensions: [".tsx", ".ts", ".jsx", ".js", ".css", ".json", ".mjs"],
+    resolveExtensions: [".tsx", ".ts", ".jsx", ".js", ".css", ".json", ".mjs", ".worker.js"],
     target: ["es2017"],
     define: {
       "process.env.NODE_ENV": `"${environment}"`,
@@ -209,7 +211,7 @@ const build = (entryPoints) =>
       ".css": "dataurl",
       ".webp": "dataurl",
       ".tsx": "tsx",
-      ".worker.js": "dataurl",
+      ".workerJs": "dataurl",
       ".wasm": "dataurl",
     },
     outdir: "js/dist",
