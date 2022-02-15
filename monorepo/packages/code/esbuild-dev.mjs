@@ -53,7 +53,7 @@ await esbuild.build({
   },
   format: "iife",
   loader: { 
-    
+    ".css": "css",
     '.ttf': 'file'
   },
 
@@ -109,7 +109,7 @@ const build = (entryPoints) =>
       ".ttf": "file",
       ".webp": "dataurl",
       ".tsx": "tsx",
-      ".css": "dataurl",
+      ".css": "css",
       ".ts": "ts",
       ".d.ts": "dataurl",
       ".workerJs": "dataurl",
