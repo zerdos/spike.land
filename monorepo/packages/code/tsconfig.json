@@ -12,7 +12,9 @@
     "noFallthroughCasesInSwitch": true,
     "isolatedModules": true,
     "noEmit": true,
-
+    "jsx": "react-jsx",
+    "jsxImportSource": "@emotion/react/jsx-runtime",
+  
     
     // "isolatedModules": true,               /* Transpile each file as a separate module (similar to 'ts.transpileModule'). */
 
