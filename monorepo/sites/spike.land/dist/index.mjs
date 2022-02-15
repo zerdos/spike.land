@@ -581,7 +581,7 @@ var require_textdiff_create = __commonJS({
 });
 
 // ../../packages/code/package.json
-var version = "0.7.128";
+var version = "0.7.129";
 
 // ../../packages/cf-npm-site/dist/index.mjs
 function src_default(packageName, version2, serveDir = "") {
@@ -948,8 +948,8 @@ function toBinary(string) {
 // ../../packages/code/js/importmap.json
 var imports = {
   "@emotion/cache": "https://ga.jspm.io/npm:@emotion/cache@11.7.1/dist/emotion-cache.browser.esm.js",
-  "@emotion/react": "https://spike.land/dist/emotion.mjs",
-  "framer-motion": "https://spike.land/dist/framer-motion.mjs",
+  "@emotion/react": "https://ga.jspm.io/npm:@emotion/react@11.7.1/dist/emotion-react.browser.esm.js",
+  "framer-motion": "https://ga.jspm.io/npm:framer-motion@6.2.6/dist/es/index.mjs",
   preact: "https://unpkg.com/preact@10.6.6/dist/preact.mjs",
   "preact-render-to-string": "https://unpkg.com/preact-render-to-string@5.1.19/dist/index.mjs",
   "preact/compat": "https://unpkg.com/preact@10.6.6/compat/dist/compat.mjs",
