@@ -47,7 +47,7 @@ export const startMonaco = async (
   if (!started) started = true;
   else return;
   const shadowRoot = container.attachShadow({
-    mode: "closed",
+    mode: "open",
   });
   const innerContainer = window && window.document &&
     window.document.createElement("div");
