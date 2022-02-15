@@ -1,6 +1,4 @@
-import "core-js/";
-import "core-js/modules/es.array.iterator";
-import "regenerator-runtime/runtime";
+import "core-js/modules/web.immediate";
 
 import { hydrate } from "react";
 import { fromBinary } from "./binary.ts";
