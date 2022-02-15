@@ -5,7 +5,6 @@ import { createPortal, hydrate, render } from "react";
 import type { ICodeSession } from "./session";
 
 import { hashCode } from "./session";
-import bg from "./assets/synthwave.webp";
 // import { createPortal } from "preact/compat";
 // import { hydrate } from "preact";
 
@@ -80,7 +79,7 @@ export const renderPreviewWindow = async (
 
   // await wait(2000 - diffy);
 
-  window.document.body.style.backgroundImage = `url(${bg})`;
+  window.document.body.style.backgroundImage = `url("assets/synthwave.webp");`;
 
   editor.style.opacity = "1";
   editor.style.display = "block";
