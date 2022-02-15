@@ -211,6 +211,7 @@ const build = (entryPoints) =>
       ".css": "dataurl",
       ".webp": "dataurl",
       ".tsx": "tsx",
+      ".d.ts": "dataurl",
       ".workerJs": "dataurl",
       ".wasm": "dataurl",
     },

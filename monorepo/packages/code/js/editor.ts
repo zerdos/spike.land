@@ -2,6 +2,7 @@ import * as monaco from "monaco-editor";
 import { version } from "monaco-editor/package.json";
 import tsWorker from "./dist/workers/language/typescript/ts.worker.workerJs";
 import editorWorker from "./dist/workers/editor/editor.worker.workerJs";
+import reactDts from "@types/react/index.d.ts";
 
 import pAll from "p-all";
 
@@ -292,7 +293,7 @@ export const startMonaco = async (
     const importHelper = [
       {
         name: "react",
-        url: "https://unpkg.com/@types/react@17.0.39/index.d.ts",
+        url: reactDts,
         depend: ["global", "csstype", "prop-types"],
       },
       {
