@@ -102,6 +102,12 @@ export default function (
             "content-type",
             "application/json;charset=UTF-8",
           );}
+          else if (pathname.endsWith(".ico")) {
+            resp.headers.delete("content-type");
+            resp.headers.set(
+              "content-type",
+              "image/x-icon;charset=UTF-8",
+            );}
           else if (pathname.endsWith(".ttf")) {
             resp.headers.delete("content-type");
             resp.headers.set(
