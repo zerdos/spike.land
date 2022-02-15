@@ -1,7 +1,7 @@
 import { transform } from "@babel/standalone";
 
-export const babelTransform = (code: string) =>
-  transform(
+export const babelTransform = async (code: string) =>
+  (transform(
     `/** @jsx jsX */
     import { jsx as jsX } from "@emotion/react";
     ` + code,
@@ -9,10 +9,10 @@ export const babelTransform = (code: string) =>
       compact: false,
       sourceType: "module",
       comments: false,
+
       presets: [
         "react",
         ["typescript", { isTSX: true, allExtensions: true }],
-        "babel/preset-env",
       ],
     },
-  ).code;
+  )).code;

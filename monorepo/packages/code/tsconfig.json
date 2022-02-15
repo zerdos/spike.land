@@ -75,6 +75,7 @@
   "exclude": ["./js/vendor/**", "./js/dist/**"],
   "paths": {
     "path": ["path-browserify"],
+  
     "*.ts": ["*"],
     "*.tsx": ["*"]
   }
