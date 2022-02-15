@@ -99,7 +99,7 @@ const build = (entryPoints) =>
     platform: "browser",
     ignoreAnnotations: true,
     chunkNames: "chunks/[name]-[hash]",
-    resolveExtensions: [".tsx", ".ts", ".jsx", ".js", ".css", ".json", ".mjs", ".ttf"],
+    resolveExtensions: [".tsx", ".ts", ".jsx", ".js", ".css", ".json", ".mjs", ".ttf", ".workerJs"],
     target: "es2017",
     define: {
       "process.env.NODE_ENV": `"${environment}"`,

@@ -2,8 +2,8 @@ import * as monaco from "monaco-editor";
 import "monaco-editor/min/vs/editor/editor.main.css";
 import { version } from "monaco-editor/package.json";
 import { dtsFiles } from "types.mjs";
-import tsWorker from "./dist/workers/language/typescript/ts.worker.workerJs";
-import editorWorker from "./dist/workers/editor/editor.worker.workerJs";
+import tsWorker from "./dist/workers/language/typescript/ts.worker";
+import editorWorker from "./dist/workers/editor/editor.worker";
 
 import pAll from "p-all";
 
