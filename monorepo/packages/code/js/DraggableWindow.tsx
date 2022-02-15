@@ -1,7 +1,15 @@
 import { css } from "@emotion/react";
 
-import React from "react";
-import { Fragment, lazy, Suspense, useEffect, useRef, useState } from "react";
+import {
+  Fragment,
+  lazy,
+  ReactNode,
+  SetStateAction,
+  Suspense,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import type { FC } from "react";
 import { motion, useForceUpdate } from "framer-motion";
 // import { motion } from "./lazyMotion";
@@ -51,7 +59,7 @@ interface DraggableWindowProps {
   onRestore: (() => void);
   hashCode: number;
   session: ICodeSession & {
-    setChild: Dispatch<React.SetStateAction<React.ReactNode[]>>;
+    setChild: Dispatch<SetStateAction<ReactNode[]>>;
     url: string;
     errorText: string;
   };
