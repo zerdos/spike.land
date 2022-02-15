@@ -9,6 +9,7 @@ import reactExpDts from "@types/react/experimental.d.ts";
 import globalDts from "@types/react/global.d.ts";
 import propTypesDts from "@types/prop-types/index.d.ts";
 import cssTypeDts from "csstype/index.d.ts";
+import framerDts from "./types/framer.d.ts";
 
 import pAll from "p-all";
 
@@ -419,7 +420,7 @@ export const startMonaco = async (
       },
       {
         name: "framer-motion",
-        url: "https://spike.land/types/framer.d.ts",
+        url: framerDts,
         depend: ["popmotion"],
       },
       {
