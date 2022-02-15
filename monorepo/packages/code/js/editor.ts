@@ -4,6 +4,11 @@ import tsWorker from "./dist/workers/language/typescript/ts.worker.workerJs";
 import editorWorker from "./dist/workers/editor/editor.worker.workerJs";
 import reactDts from "@types/react/index.d.ts";
 import jsxRuntimeDts from "@types/react/jsx-runtime.d.ts";
+import jsxDevRuntimeDts from "@types/react/jsx-dev-runtime.d.ts";
+import reactExpDts from "@types/react/experimental.d.ts";
+import globalDts from "@types/react/global.d.ts";
+import propTypesDts from "@types/prop-types/index.d.ts";
+import cssTypeDts from "csstype/index.d.ts";
 
 import pAll from "p-all";
 
@@ -304,27 +309,27 @@ export const startMonaco = async (
       },
       {
         name: "react/jsx-dev-runtime",
-        url: "https://unpkg.com/@types/react@17.0.39/jsx-dev-runtime.d.ts",
+        url: jsxDevRuntimeDts,
         depend: ["global", "csstype", "prop-types"],
       },
       {
         name: "react-exp",
-        url: "https://unpkg.com/@types/react@17.0.39/experimental.d.ts",
+        url: reactExpDts,
         depend: [],
       },
       {
         name: "global",
-        url: "https://unpkg.com/@types/react@17.0.39/global.d.ts",
+        url: globalDts,
         depend: [],
       },
       {
         name: "prop-types",
-        url: "https://unpkg.com/@types/prop-types@15.7.4/index.d.ts",
+        url: propTypesDts,
         depend: [],
       },
       {
         name: "csstype",
-        url: "https://unpkg.com/csstype@3.0.9/index.d.ts",
+        url: cssTypeDts,
         depend: [],
       },
       {
