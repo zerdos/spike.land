@@ -1,3 +1,6 @@
+import "core-js/stable";
+import "regenerator-runtime/runtime";
+
 import { hydrate } from "react";
 import { fromBinary } from "./binary.ts";
 import { jsx } from "@emotion/react";
