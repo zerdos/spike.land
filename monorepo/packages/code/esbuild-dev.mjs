@@ -194,7 +194,7 @@ const build = (entryPoints) =>
     bundle: true,
     format: "esm",
     minify: !isDevelopment,
-    sourcemap: "both",
+    sourcemap: "external",
     minifyIdentifiers: true,
     minifyWhitespace: true,
     minifySyntax: true,
