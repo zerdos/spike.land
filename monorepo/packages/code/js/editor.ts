@@ -56,7 +56,14 @@ export const startMonaco = async (
   innerContainer.style.height = "100%";
 
   const innerStyle = window.document.createElement("style");
-  innerStyle.innerText = `@import url("dist/starter.css");`;
+  innerStyle.innerText = `@import url("dist/starter.css");
+  @font-face {
+    font-family: codicon;
+    font-display: block;
+    src: url(base/browser/ui/codicons/codicon/codicon.ttf) format("truetype");
+}
+  
+  `;
   shadowRoot.appendChild(innerStyle);
 
   monaco.languages.typescript.typescriptDefaults.setCompilerOptions({

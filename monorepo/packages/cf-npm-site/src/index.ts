@@ -106,7 +106,7 @@ export default function (
             resp.headers.delete("content-type");
             resp.headers.set(
               "content-type",
-              "font/truetype;charset=UTF-8;",
+              "font/ttf",
             );
         } else if (pathname.endsWith(".jpg")) {
           resp.headers.delete("content-type");
