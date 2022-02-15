@@ -298,7 +298,7 @@ export const startMonaco = async (
       },
       {
         name: "react/jsx-runtime",
-        url: "https://unpkg.com/@types/react@17.0.39/jsx-runtime.d.ts",
+        url: await import("@types/react/jsx-runtime.d.ts"),
         depend: ["global", "csstype", "prop-types"],
       },
       {
