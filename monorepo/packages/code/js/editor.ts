@@ -3,6 +3,7 @@ import { version } from "monaco-editor/package.json";
 import tsWorker from "./dist/workers/language/typescript/ts.worker.workerJs";
 import editorWorker from "./dist/workers/editor/editor.worker.workerJs";
 import reactDts from "@types/react/index.d.ts";
+import jsxRuntimeDts from "@types/react/jsx-runtime.d.ts";
 
 import pAll from "p-all";
 
@@ -298,7 +299,7 @@ export const startMonaco = async (
       },
       {
         name: "react/jsx-runtime",
-        url: await import("@types/react/jsx-runtime.d.ts"),
+        url: jsxRuntimeDts,
         depend: ["global", "csstype", "prop-types"],
       },
       {
