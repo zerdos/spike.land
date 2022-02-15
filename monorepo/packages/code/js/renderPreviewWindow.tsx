@@ -3,8 +3,6 @@ import { css, jsx } from "@emotion/react";
 //@ts-ignore
 import { createPortal, hydrate, render } from "react";
 import { DraggableWindow } from "./DraggableWindow";
-import { wait } from "./wait";
-import type { FC } from "react";
 import type { ICodeSession } from "./session";
 
 import { hashCode } from "./session";
@@ -81,7 +79,7 @@ export const renderPreviewWindow = async (
 
   // await wait(2000 - diffy);
 
-  window.document.body.style.backgroundImage = bg;
+  window.document.body.style.backgroundImage = `url(${bg})`;
 
   editor.style.opacity = "1";
   editor.style.display = "block";
