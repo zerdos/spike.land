@@ -62,6 +62,10 @@ export default function (packageName, version, serveDir = "") {
                     resp.headers.delete("content-type");
                     resp.headers.set("content-type", "application/json;charset=UTF-8");
                 }
+                else if (pathname.endsWith(".ttf")) {
+                    resp.headers.delete("content-type");
+                    resp.headers.set("content-type", "font/ttf;");
+                }
                 else if (pathname.endsWith(".jpg")) {
                     resp.headers.delete("content-type");
                     resp.headers.set("content-type", "image/jpeg");
