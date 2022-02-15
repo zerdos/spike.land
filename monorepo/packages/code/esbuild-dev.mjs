@@ -205,8 +205,8 @@ const build = (entryPoints) =>
     },
     plugins: [importMapPlugin],
     loader: {
-      ".ttf": "file",
-      ".css": "file",
+      ".ttf": "dataurl",
+      ".css": "dataurl",
       ".webp": "dataurl",
       ".tsx": "tsx",
       ".worker.js": "dataurl",
