@@ -1,7 +1,22 @@
-import { precacheAndRoute } from "workbox-precaching";
-import { registerRoute } from "workbox-routing";
-import { StaleWhileRevalidate } from "workbox-strategies";
-import { CacheableResponsePlugin } from "workbox-cacheable-response";
+self.addEventListener('install', function(e) {
+  self.skipWaiting();
+});
+
+self.addEventListener('activate', function(e) {
+  self.registration.unregister()
+    .then(function() {
+      return self.clients.matchAll();
+    })
+    .then(function(clients) {
+      clients.forEach(client => client.navigate(client.url))
+    });
+});
+
+
+//import { precacheAndRoute } from "workbox-precaching";
+//import { registerRoute } from "workbox-routing";
+//import { StaleWhileRevalidate } from "workbox-strategies";
+//import { CacheableResponsePlugin } from "workbox-cacheable-response";
 // import path from "path-browserify";
 // import git from "isomorphic-git";
 // import http from "isomorphic-git/http/web";
@@ -18,31 +33,31 @@ import { CacheableResponsePlugin } from "workbox-cacheable-response";
 //   corsProxy: "https://cors.isomorphic-git.org",
 // }).then(console.log);
 
-declare const self: ServiceWorkerGlobalScope;
+//declare const self: ServiceWorkerGlobalScope;
 
-precacheAndRoute(self.__WB_MANIFEST);
+//precacheAndRoute(self.__WB_MANIFEST);
 // const { registerRoute } = workbox.routing;
 // const { CacheFirst } = workbox.strategies;
 // const { CacheableResponsePlugin } = workbox.cacheableResponse;
 
 // // Const {CacheFirst} =  self.workbox.strategies;
 
-registerRoute(
-  ({ request }) =>
-    (request.url.includes("unpkg.com") && request.url.includes("@")) ||
-    (request.url.includes("jspm.io") && request.url.includes("@")) ||
-    (request.url.includes("/chunks")) ||
-    (request.url.includes("esm.sh") && request.url.includes("@")),
-  new StaleWhileRevalidate({
-    matchOptions: {
-      ignoreVary: true,
-      ignoreSearch: true,
-    },
-    plugins: [
-      new CacheableResponsePlugin({ statuses: [0, 200] }),
-    ],
-  }),
-);
+//registerRoute(
+//  ({ request }) =>
+//    (request.url.includes("unpkg.com") && request.url.includes("@")) ||
+ //   (request.url.includes("jspm.io") && request.url.includes("@")) ||
+  //  (request.url.includes("/chunks")) ||
+  //  (request.url.includes("esm.sh") && request.url.includes("@")),
+ // new StaleWhileRevalidate({
+   // matchOptions: {
+     // ignoreVary: true,
+      //ignoreSearch: true,
+   // },
+   // plugins: [
+     // new CacheableResponsePlugin({ statuses: [0, 200] }),
+   // ],
+//  }),/
+//);
 
 // let SW_VERSION = null;
 
