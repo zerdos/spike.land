@@ -12,6 +12,7 @@ export const babelTransform = (code: string) =>
       presets: [
         "react",
         ["typescript", { isTSX: true, allExtensions: true }],
+        "babel/preset-env",
       ],
     },
   ).code;
