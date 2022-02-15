@@ -43,6 +43,7 @@ let started = false;
 export const startMonaco = async (
   { code, container }: { code: string; container: HTMLDivElement },
 ) => {
+  console.log("monaco-editor");
   if (!started) started = true;
   else return;
   const shadowRoot = container.attachShadow({
