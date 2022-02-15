@@ -10,9 +10,7 @@
     "./package.json": "./package.json",
     "./js/dist/starter.mjs": "./js/dist/starter.mjs",
     "./js/session.tsx": "./js/session.tsx",
-    "./js/binary.ts": "./js/binary.ts",
     "./js/importmap.json": "./js/importmap.json",
-    "./js/dist/react.mjs": "./js/dist/react.mjs",
     "./shasums": "./shasums.ts"
   },
   "scripts": {
@@ -21,7 +19,7 @@
     "build:sw": "yarn esbuild --outfile=./js/sw.js --platform=browser --bundle --minify js/sw.ts && yarn sw",
     "start": "cd ../../.. && yarn start",
     "push": "cd ../../.. && yarn push",
-    "build:preact": "deno bundle --importmap js/importmap.json js/preact.ts --unstable > js/dist/react.mjs",
+    "build:preact": "deno bundle --importmap js/importmap.json preact.mjs --unstable > js/dist/react.mjs",
     "build:framer-motion": "yarn esbuild --bundle js/motion.tsx  --target=es2017 --format=esm  --platform=browser  --define:process.env.NODE_ENV=\\\"production\\\" --external:react --external:@emotion/is-prop-valid --outfile=js/dist/framer-motion.mjs",
     "build:emotion": "yarn esbuild --bundle js/emotion.tsx  --target=es2017 --format=esm --external:react --platform=browser --define:process.env.NODE_ENV=\\\"production\\\" --outfile=js/dist/emotion.mjs",
     "build": "node --experimental-json-modules esbuild-dev.mjs && rm -rf ./js/dist/workers  && yarn build:sw",
@@ -93,8 +91,7 @@
     "preact": "^10.6.6",
     "preact-render-to-string": "^5.1.19",
     "prettier": "^2.5.1",
-    "react": "npm:@preact/compat@17.0.3",
-    "react-dom": "^17.0.2",
+    "react": "npm:@preact/compat",
     "textdiff-create": "1.0.7",
     "textdiff-patch": "1.0.6",
     "workbox-cacheable-response": "6.4.2",

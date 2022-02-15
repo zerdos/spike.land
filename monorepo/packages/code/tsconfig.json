@@ -3,9 +3,8 @@
     /* Visit https://aka.ms/tsconfig.json to read more about this file */
 
     /* Basic Options */
-    "jsx": "react-jsxdev",
+    "jsx": "react-jsx",
     "jsxImportSource": "@emotion/react",
-    "incremental": true, /* Enable incremental compilation */
     "target": "esnext", /* Specify ECMAScript target version: 'ES3' (default), 'ES5', 'ES2015', 'ES2016', 'ES2017', 'es2017', 'ES2019', 'ES2020', or 'ESNEXT'. */
     "module": "esnext", /* Specify module code generation: 'none', 'commonjs', 'amd', 'system', 'umd', 'es2015', 'es2020', or 'ESNext'. */
     "lib": [
@@ -70,12 +69,16 @@
     "baseUrl": "js"
   },
   "include": [
-    "js"
-, "../../../fixtures/monacoEnv.ts"   ],
+    "js"   ],
   "exclude": ["./js/vendor/**", "./js/dist/**"],
   "paths": {
     "path": ["path-browserify"],
-  
+    "react": "preact-compat",
+    "react-dom":  "preact-compat",
+    // Not necessary unless you consume a module using `createClass`
+    "create-react-class": "preact-compat/lib/create-react-class",
+    // Not necessary unless you consume a module requiring `react-dom-factories`
+    "react-dom-factories": "preact-compat/lib/react-dom-factories",
     "*.ts": ["*"],
     "*.tsx": ["*"]
   }
