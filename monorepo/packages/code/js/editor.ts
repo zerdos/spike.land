@@ -53,10 +53,9 @@ export const startMonaco = async (
   shadowRoot.appendChild(innerContainer);
   innerContainer.style.width = "100%";
   innerContainer.style.height = "100%";
-  innerContainer.className = "editor";
 
   const innerStyle = window.document.createElement("style");
-  innerStyle.innerText = `@import "starter.css";`
+  innerStyle.innerText = `@import "starter.css";`;
   shadowRoot.appendChild(innerStyle);
 
   monaco.languages.typescript.typescriptDefaults.setCompilerOptions({
