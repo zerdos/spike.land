@@ -1,12 +1,7 @@
-/** @jsx jsx */
-import { css, jsx } from "@emotion/react";
-//@ts-ignore
-import { createPortal, hydrate, render } from "react";
+import { render } from "preact";
 import type { ICodeSession } from "./session";
 
 import { hashCode } from "./session";
-// import { createPortal } from "preact/compat";
-// import { hydrate } from "preact";
 
 export const renderPreviewWindow = async (
   session: ICodeSession,
@@ -19,26 +14,10 @@ export const renderPreviewWindow = async (
 
   const target = document.createElement("div")!;
   const editor = document.getElementById("monacoEditor")!;
-  // Target.style.display = "none";
   editor.style.opacity = "0";
-
-  // Const Element = () => (
-  //   <DraggableWindow
-  //     onShare={() => open(`https://spike.land/api/room/${room}/public`)}
-  //     onRestore={() => {}}
-  //     position={session.mode === "window" ? "fixed" : "absolute"}
-  //     session={session}
-  //   />
-  // );
-  // document.getElementById("root")!.style.height = "0";
-  // const {html} = getHtmlAndCss( <Element></Element> as any );
-  // target  .innerHTML = html;
   //@ts-ignore
-
-  // Target  .innerHTML = html;
   const { App } = globalThis;
-  // const App: FC = ({ children }) =>
-  // createPortal(children, document.getElementById("zbody"));
+
   const Rendered = () => (
     <DraggableWindow
       onShare={() => open(`https://spike.land/api/room/${room}/public`)}

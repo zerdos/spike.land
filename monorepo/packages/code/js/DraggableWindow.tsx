@@ -1,4 +1,3 @@
-/** @jsx jsx */
 import { css, jsx } from "@emotion/react";
 
 import { Fragment, lazy, Suspense, useEffect, useRef, useState } from "react";
