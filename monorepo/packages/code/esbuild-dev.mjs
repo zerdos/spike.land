@@ -109,6 +109,7 @@ const build = (entryPoints) =>
       ".ttf": "file",
       ".webp": "dataurl",
       ".tsx": "tsx",
+      ".css": "css",
       ".ts": "ts",
       ".d.ts": "dataurl",
       ".workerJs": "dataurl",
