@@ -128,7 +128,7 @@ export const startMonaco = async (
     ),
     // lightbulb: { enabled: false },
     language: "typescript",
-    useShadowDOM: true,
+    useShadowDOM: false,
     theme: "vs-dark",
     // codeLens: false,
     // suggest: false,
