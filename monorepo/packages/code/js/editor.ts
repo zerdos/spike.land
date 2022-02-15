@@ -60,7 +60,7 @@ export const startMonaco = async (
   @font-face {
     font-family: codicon;
     font-display: block;
-    src: url(base/browser/ui/codicons/codicon/codicon.ttf) format("truetype");
+    src: url(./base/browser/ui/codicons/codicon/codicon.ttf) format("truetype");
 }
   
   `;
