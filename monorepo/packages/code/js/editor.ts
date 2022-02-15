@@ -55,6 +55,14 @@ export const startMonaco = async (
   innerContainer.style.width = "100%";
   innerContainer.style.height = "100%";
 
+  const outerStyle = window.document.createElement("style");
+  outerStyle.innerText = ` @font-face {
+    font-family: codicon;
+    font-display: block;
+    src: url(./base/browser/ui/codicons/codicon/codicon.ttf) format("truetype");
+}`;
+  document.head.appendChild(outerStyle);
+
   const innerStyle = window.document.createElement("style");
   innerStyle.innerText = `@import url("dist/starter.css");
   @font-face {
