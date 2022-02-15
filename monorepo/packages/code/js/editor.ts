@@ -1,4 +1,5 @@
 import * as monaco from "monaco-editor";
+import css from "monaco-editor/min/vs/editor/editor.main.css";
 import { version } from "monaco-editor/package.json";
 import { dtsFiles } from "types.mjs";
 import tsWorker from "./dist/workers/language/typescript/ts.worker.workerJs";
@@ -50,13 +51,12 @@ export const startMonaco = async (
   const innerContainer = window && window.document &&
     window.document.createElement("div");
   shadowRoot.appendChild(innerContainer);
-  innerContainer.style.width = "100%";
-  innerContainer.style.height = "100%";
+  innerContainer.appendChild(css);
+  // innerContainer.style.width = "100%";
+  // innerContainer.style.height = "100%";
 
   // const innerStyle = window.document.createElement("style");
-  // innerStyle.innerText =
-  //   `@import "https://unpkg.com/monaco-editor@${version}/min/vs/editor/editor.main.css";`;
-  // shadowRoot.appendChild(innerStyle);
+  // innerStyle.innerText = css
 
   monaco.languages.typescript.typescriptDefaults.setCompilerOptions({
     target: monaco.languages.typescript.ScriptTarget.ES5,
@@ -101,7 +101,7 @@ export const startMonaco = async (
   // document.head.appendChild(Object.assign(document.createElement("link"), {
   //   "data-name": "vs/editor/editor.main",
   //   "rel": "stylesheet",
-  //   "href": "./dist/css/" + css,
+  //   "href": "./dist/css/" + ],
   // }));
 
   const editor = monaco.editor.create(innerContainer, {
