@@ -55,9 +55,9 @@ export const startMonaco = async (
   innerContainer.style.height = "100%";
   innerContainer.className = "editor";
 
-  // const innerStyle = window.document.createElement("style");
-  // innerStyle.innerText = `@import url(${cssUrl});`;
-  // shadowRoot.appendChild(innerStyle);
+  const innerStyle = window.document.createElement("style");
+  innerStyle.innerText = `@import ./dist/starter.css;`;
+  shadowRoot.appendChild(innerStyle);
 
   monaco.languages.typescript.typescriptDefaults.setCompilerOptions({
     target: monaco.languages.typescript.ScriptTarget.ES5,
