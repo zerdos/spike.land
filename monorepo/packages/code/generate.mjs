@@ -77,9 +77,9 @@ importMap.imports["react-dom"] = importMap.imports["react"];
 importMap.imports["react-dom"] = importMap.imports["react"];
 
 
-importMap.imports["framer-motion"] = isDev
-  ? "https://localhost:8000/monorepo/packages/code/js/dist/framer-motion.mjs"
-  : "https://spike.land/dist/framer-motion.mjs";
+// importMap.imports["framer-motion"] = isDev
+//   ? "https://localhost:8000/monorepo/packages/code/js/dist/framer-motion.mjs"
+//   : "https://spike.land/dist/framer-motion.mjs";
 // importMap.imports["preact"] = isDev?"https://localhost:8000/monorepo/packages/code/js/dist/preact.mjs":"https://spike.land/dist/preact.mjs" ;
 // importMap.imports["preact/compat"] = importMap.imports["preact"];
 // importMap.imports["react-is"] =
@@ -88,15 +88,15 @@ importMap.imports["framer-motion"] = isDev
 // importMap.imports["react-is"] =
 //   "https://unpkg.com/@spike.land/esm@0.4.33/dist/react-is.mjs";
 
-importMap.imports["@emotion/react"] = isDev
-  ? "https://localhost:8000/monorepo/packages/code/js/dist/emotion.mjs"
-  : "https://spike.land/dist/emotion.mjs";
+// importMap.imports["@emotion/react"] = isDev
+//   ? "https://localhost:8000/monorepo/packages/code/js/dist/emotion.mjs"
+//   : "https://spike.land/dist/emotion.mjs";
 //importMap.imports.tslib =
 //   "https://cdnjs.cloudflare.com/ajax/libs/tslib/2.3.1/tslib.es6.min.js";
 
-importMap.imports = {...importMap.imports,    "preact": "https://unpkg.com/preact@10.6.6/dist/preact.mjs",
-"preact-render-to-string": "https://unpkg.com/preact-render-to-string@5.1.19/dist/index.mjs",
-"preact/compat": "https://unpkg.com/preact@10.6.6/compat/dist/compat.mjs",
-"preact/hooks": "https://unpkg.com/preact@10.6.6/hooks/dist/hooks.mjs"}
+// importMap.imports = {...importMap.imports,    "preact": "https://unpkg.com/preact@10.6.6/dist/preact.mjs",
+// "preact-render-to-string": "https://unpkg.com/preact-render-to-string@5.1.19/dist/index.mjs",
+// "preact/compat": "https://unpkg.com/preact@10.6.6/compat/dist/compat.mjs",
+// "preact/hooks": "https://unpkg.com/preact@10.6.6/hooks/dist/hooks.mjs"}
 console.log(JSON.stringify(importMap, null, 2));
 //console.log(JSON.stringify(generator.getMap(), null, 2));
