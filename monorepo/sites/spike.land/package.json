@@ -1,7 +1,7 @@
 {
   "name": "@spike.land/code-worker",
   "description": "An edge chat service that runs on Cloudflare Workers using Durable Objects",
-  "version": "0.7.138",
+  "version": "0.7.139",
   "main": "dist/index.mjs",
   "type": "module",
   "module": "dist/index.mjs",
