@@ -3,11 +3,12 @@
     "@emotion/cache": "https://ga.jspm.io/npm:@emotion/cache@11.7.1/dist/emotion-cache.browser.esm.js",
     "@emotion/react": "https://ga.jspm.io/npm:@emotion/react@11.7.1/dist/emotion-react.browser.esm.js",
     "framer-motion": "https://ga.jspm.io/npm:framer-motion@6.2.6/dist/es/index.mjs",
-    "preact": "https://ga.jspm.io/npm:preact@10.6.5/dist/preact.module.js",
-    "preact-render-to-string": "https://ga.jspm.io/npm:preact-render-to-string@5.1.19/dist/index.mjs",
-    "preact/compat": "https://ga.jspm.io/npm:preact@10.6.5/compat/dist/compat.module.js",
+    "preact": "https://unpkg.com/preact@10.6.6/dist/preact.mjs",
+    "preact-render-to-string": "https://unpkg.com/preact-render-to-string@5.1.19/dist/index.mjs",
+    "preact/compat": "https://unpkg.com/preact@10.6.6/compat/dist/compat.mjs",
     "react": "https://spike.land/dist/react.mjs",
-    "react-dom": "https://spike.land/dist/react.mjs"
+    "react-dom": "https://spike.land/dist/react.mjs",
+    "preact/hooks": "https://unpkg.com/preact@10.6.6/hooks/dist/hooks.mjs"
   },
   "scopes": {
     "https://ga.jspm.io/": {

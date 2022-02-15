@@ -94,9 +94,9 @@ importMap.imports["react-dom"] = importMap.imports["react"];
 //importMap.imports.tslib =
 //   "https://cdnjs.cloudflare.com/ajax/libs/tslib/2.3.1/tslib.es6.min.js";
 
-// importMap.imports = {...importMap.imports,    "preact": "https://unpkg.com/preact@10.6.6/dist/preact.mjs",
-// "preact-render-to-string": "https://unpkg.com/preact-render-to-string@5.1.19/dist/index.mjs",
-// "preact/compat": "https://unpkg.com/preact@10.6.6/compat/dist/compat.mjs",
-// "preact/hooks": "https://unpkg.com/preact@10.6.6/hooks/dist/hooks.mjs"}
+importMap.imports = {...importMap.imports,    "preact": "https://unpkg.com/preact@10.6.6/dist/preact.mjs",
+"preact-render-to-string": "https://unpkg.com/preact-render-to-string@5.1.19/dist/index.mjs",
+"preact/compat": "https://unpkg.com/preact@10.6.6/compat/dist/compat.mjs",
+"preact/hooks": "https://unpkg.com/preact@10.6.6/hooks/dist/hooks.mjs"}
 console.log(JSON.stringify(importMap, null, 2));
 //console.log(JSON.stringify(generator.getMap(), null, 2));
