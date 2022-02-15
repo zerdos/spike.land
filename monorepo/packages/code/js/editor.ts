@@ -2,14 +2,12 @@ import * as monaco from "monaco-editor";
 import "monaco-editor/min/vs/editor/editor.main.css";
 import { version } from "monaco-editor/package.json";
 import { dtsFiles } from "types.mjs";
-import tsWorker from "./dist/workers/language/typescript/ts.worker.js";
-import editorWorker from "./dist/workers/editor/editor.worker.js";
+import tsWorker from "./dist/workers/language/typescript/ts.workerJS";
+import editorWorker from "./dist/workers/editor/editor.workerJS";
 
 import pAll from "p-all";
 
 const {
-  tsWorker,
-  editorWorker,
   reactDts,
   jsxDevRuntimeDts,
   jsxRuntimeDts,
