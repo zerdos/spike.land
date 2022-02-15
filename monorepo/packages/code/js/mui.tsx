@@ -1,12 +1,12 @@
-import Fab from "@mui/material/Fab";
-import Button from "@mui/material/Button";
+import Fab from "@mui/material/Fab/Fab";
+import Button from "@mui/material/Button/Button";
 
 import Box from "@mui/material/Box/Box";
 import Slider from "@mui/material/Slider/Slider";
 
 import createSvgIcon from "@mui/material/utils/createSvgIcon";
 
-import type { FC, MouseEvent } from "react";
+import type { FC } from "react";
 
 export { Box };
 export { Slider };
