@@ -37,8 +37,8 @@ import * as monaco from "monaco-editor/esm/vs/editor/editor.api";
 import { AutoTypings, LocalStorageCache } from "monaco-editor-auto-typings";
 
 const val = `
-import React from 'react';
-seEffect(0); // Type Error!
+import {useEffect} from 'react';
+useEffect(0); // Type Error!
 `;
 
 // Create monaco editor instance

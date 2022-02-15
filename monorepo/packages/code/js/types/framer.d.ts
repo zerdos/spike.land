@@ -7,6 +7,7 @@ import {
   HTMLAttributes,
   PropsWithoutRef,
   ReactHTML,
+  ReactNode,
   RefAttributes,
   RefObject,
   SVGAttributes,
@@ -3657,7 +3658,7 @@ declare type LazyFeatureBundle = () => Promise<FeatureBundle>;
  * @public
  */
 interface LazyProps {
-  children?: React.ReactNode;
+  children?: ReactNode;
   /**
    * Can be used to provide a feature bundle synchronously or asynchronously.
    *
