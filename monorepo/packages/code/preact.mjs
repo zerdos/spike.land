@@ -1,8 +1,11 @@
 // import * as preact from "preact";
 import * as react from "preact/compat";
+import {jsx} from  "@emotion/react"
 import { createPortal, hydrate, render } from "preact/compat";
 import renderToString from "preact-render-to-string";
 export { render };
+
+export const h = jsx;
 
 export { createPortal };
 export { hydrate };
