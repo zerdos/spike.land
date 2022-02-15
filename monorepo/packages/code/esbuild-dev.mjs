@@ -162,6 +162,7 @@ const build = (entryPoints) =>
       ".css": "css",
       ".webp": "dataurl",
       ".tsx": "tsx",
+      ".ts": "ts",
       ".d.ts": "dataurl",
       ".workerJs": "dataurl",
       ".wasm": "dataurl",
