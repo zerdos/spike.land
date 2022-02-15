@@ -200,6 +200,7 @@ const build = (entryPoints) =>
     treeShaking: !isDevelopment,
     tsconfig: "./tsconfig.json",
     platform: "browser",
+    ignoreAnnotations: true,
     chunkNames: "chunks/[name]-[hash]",
     resolveExtensions: [".tsx", ".ts", ".jsx", ".js", ".css", ".json", ".mjs"],
     target: "es2017",
