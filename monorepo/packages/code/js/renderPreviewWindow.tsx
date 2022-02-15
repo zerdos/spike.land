@@ -56,7 +56,7 @@ export const renderPreviewWindow = async (
 
       session={session}
       hashCode={hashCode()}
-      z
+      
       keepFullScreen={keepFullScreen}
       room={room}
     >
@@ -83,7 +83,7 @@ export const renderPreviewWindow = async (
   // await wait(2000 - diffy);
 
   window.document.body.style.backgroundImage =
-    `url(${bg})`;
+    `url(bg)`;
 
   editor.style.opacity = "1";
   editor.style.display = "block";
