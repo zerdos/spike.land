@@ -8,7 +8,6 @@ import HYDRATED from "./hydrated.html";
 import { toBinary } from "@spike.land/code/js/binary.ts";
 
 import { version } from "@spike.land/code/package.json";
-import imap from "@spike.land/code/js/importmap.json";
 
 
 
@@ -27,7 +26,9 @@ import type {
 import startSession from "@spike.land/code/js/session.tsx";
 
 
-const jsonData = {imports:  {
+import imap from "@spike.land/code/js/importmap.json";
+
+const imap = {imports:  {
   react:  "https://spike.land/dist/react.mjs",
   "react-dom":  "https://spike.land/dist/react.mjs",
   "framer-motion": "https://spike.land/dist/framer-motion.mjs",

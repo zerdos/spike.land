@@ -945,46 +945,6 @@ function toBinary(string) {
   return result;
 }
 
-// ../../packages/code/js/importmap.json
-var imports = {
-  "@emotion/cache": "https://ga.jspm.io/npm:@emotion/cache@11.7.1/dist/emotion-cache.browser.esm.js",
-  "@emotion/react": "https://ga.jspm.io/npm:@emotion/react@11.7.1/dist/emotion-react.browser.esm.js",
-  "framer-motion": "https://ga.jspm.io/npm:framer-motion@6.2.6/dist/es/index.mjs",
-  preact: "https://unpkg.com/preact@10.6.6/dist/preact.mjs",
-  "preact-render-to-string": "https://unpkg.com/preact-render-to-string@5.1.19/dist/index.mjs",
-  "preact/compat": "https://unpkg.com/preact@10.6.6/compat/dist/compat.mjs",
-  react: "https://spike.land/dist/react.mjs",
-  "react-dom": "https://spike.land/dist/react.mjs",
-  "preact/hooks": "https://unpkg.com/preact@10.6.6/hooks/dist/hooks.mjs"
-};
-var scopes = {
-  "https://ga.jspm.io/": {
-    "@babel/runtime/helpers/esm/extends": "https://ga.jspm.io/npm:@babel/runtime@7.17.2/helpers/esm/extends.js",
-    "@babel/runtime/helpers/extends": "https://ga.jspm.io/npm:@babel/runtime@7.17.2/helpers/esm/extends.js",
-    "@emotion/hash": "https://ga.jspm.io/npm:@emotion/hash@0.8.0/dist/hash.browser.esm.js",
-    "@emotion/memoize": "https://ga.jspm.io/npm:@emotion/memoize@0.7.5/dist/emotion-memoize.browser.esm.js",
-    "@emotion/serialize": "https://ga.jspm.io/npm:@emotion/serialize@1.0.2/dist/emotion-serialize.browser.esm.js",
-    "@emotion/sheet": "https://ga.jspm.io/npm:@emotion/sheet@1.1.0/dist/emotion-sheet.browser.esm.js",
-    "@emotion/unitless": "https://ga.jspm.io/npm:@emotion/unitless@0.7.5/dist/unitless.browser.esm.js",
-    "@emotion/utils": "https://ga.jspm.io/npm:@emotion/utils@1.0.0/dist/emotion-utils.browser.esm.js",
-    "@emotion/weak-memoize": "https://ga.jspm.io/npm:@emotion/weak-memoize@0.2.5/dist/weak-memoize.browser.esm.js",
-    framesync: "https://ga.jspm.io/npm:framesync@6.0.1/dist/es/index.mjs",
-    "hey-listen": "https://ga.jspm.io/npm:hey-listen@1.0.8/dist/index.js",
-    "hoist-non-react-statics": "https://ga.jspm.io/npm:hoist-non-react-statics@3.3.2/dist/hoist-non-react-statics.cjs.js",
-    "object-assign": "https://ga.jspm.io/npm:object-assign@4.1.1/index.js",
-    popmotion: "https://ga.jspm.io/npm:popmotion@11.0.3/dist/es/index.mjs",
-    "preact/hooks": "https://ga.jspm.io/npm:preact@10.6.5/hooks/dist/hooks.module.js",
-    "react-is": "https://ga.jspm.io/npm:react-is@16.13.1/index.js",
-    "style-value-types": "https://ga.jspm.io/npm:style-value-types@5.0.0/dist/es/index.mjs",
-    stylis: "https://ga.jspm.io/npm:stylis@4.0.13/index.js",
-    tslib: "https://ga.jspm.io/npm:tslib@2.3.1/tslib.es6.js"
-  }
-};
-var importmap_default = {
-  imports,
-  scopes
-};
-
 // src/chatRoom.ts
 var import_textdiff_patch2 = __toESM(require_textdiff_patch(), 1);
 
@@ -5377,6 +5337,12 @@ function createPatch(oldCode, newCode) {
 }
 
 // src/chatRoom.ts
+var imap = { imports: {
+  react: "https://spike.land/dist/react.mjs",
+  "react-dom": "https://spike.land/dist/react.mjs",
+  "framer-motion": "https://spike.land/dist/framer-motion.mjs",
+  "@emotion/react": "https://spike.land/dist/emotion.mjs"
+} };
 var Code = class {
   constructor(state, env) {
     this.env = env;
@@ -5540,8 +5506,8 @@ var Code = class {
                 </div>
               </div>
             <script type="importmap">${JSON.stringify({
-            imports: { ...importmap_default.imports },
-            scopes: { ...importmap_default.scopes }
+            imports: { ...imap.imports },
+            scopes: { ...imap.scopes }
           })}<\/script>
             <script defer type="module">
               import("https://spike.land/dist/starter.mjs")
@@ -5594,8 +5560,8 @@ var Code = class {
                 <div id="zbody">${mST().html}</div>
               </div>
               <script type="importmap">${JSON.stringify({
-            imports: { ...importmap_default.imports },
-            scopes: { ...importmap_default.scopes }
+            imports: { ...imap.imports },
+            scopes: { ...imap.scopes }
           })}<\/script>`).replace('<script defer src="https://spike.land/dist/appStarter.js"><\/script>', `<script defer type="module">
               import("https://spike.land/dist/starter.mjs")
                 .then(
