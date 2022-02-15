@@ -10,6 +10,8 @@ import { toBinary } from "@spike.land/code/js/binary.ts";
 import { version } from "@spike.land/code/package.json";
 import imap from "@spike.land/code/js/importmap.json";
 
+
+
 //@ts-ignore
 import applyDelta from "textdiff-patch";
 import { CodeEnv } from "./env";
@@ -23,6 +25,15 @@ import type {
 // @ts-expect-error
 
 import startSession from "@spike.land/code/js/session.tsx";
+
+
+const jsonData = {imports:  {
+  react:  "https://spike.land/dist/react.mjs",
+  "react-dom":  "https://spike.land/dist/react.mjs",
+  "framer-motion": "https://spike.land/dist/framer-motion.mjs",
+  "@emotion/react": "https://spike.land/dist/emotion.mjs"
+}}
+
 
 interface IState extends DurableObjectState {
   mySession: ICodeSess;
