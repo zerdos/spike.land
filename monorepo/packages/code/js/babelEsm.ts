@@ -7,6 +7,8 @@ export const babelTransform = (code: string) =>
     ` + code,
     {
       compact: false,
+      getModuleId: (str) => `myapp-${str}`,
+
       comments: false,
       presets: [
         "react",
