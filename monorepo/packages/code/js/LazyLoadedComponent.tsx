@@ -52,7 +52,7 @@ export const LazySpikeLandComponent: FC<ILaztCom> = (
 
   // Const { LazyComponent } = fallCont;
 
-  // const LazyComponentInit = React.lazy(()=>import(createJsBlob(transpiled)))
+  // const LazyComponentInit = lazy(()=>import(createJsBlob(transpiled)))
 
   return (
     <Suspense

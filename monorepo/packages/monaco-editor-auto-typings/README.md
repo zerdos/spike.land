@@ -38,7 +38,7 @@ import { AutoTypings, LocalStorageCache } from "monaco-editor-auto-typings";
 
 const val = `
 import React from 'react';
-React.useEffect(0); // Type Error!
+seEffect(0); // Type Error!
 `;
 
 // Create monaco editor instance
