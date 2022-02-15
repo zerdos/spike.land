@@ -2,7 +2,6 @@
 import { css, jsx } from "@emotion/react";
 //@ts-ignore
 import { createPortal, hydrate, render } from "react";
-import { DraggableWindow } from "./DraggableWindow";
 import type { ICodeSession } from "./session";
 
 import { hashCode } from "./session";
@@ -15,6 +14,8 @@ export const renderPreviewWindow = async (
   room: string,
   keepFullScreen: boolean,
 ) => {
+  const { DraggableWindow } = await import("./DraggableWindow");
+
   console.log("renderPreviewWindow");
 
   const target = document.createElement("div")!;
