@@ -198,7 +198,7 @@ const build = (entryPoints) =>
     sourcemap: isDevelopment,
     allowOverwrite: true,
     treeShaking: !isDevelopment,
-  //  tsconfig: "./tsconfig.json",
+    tsconfig: "./tsconfig.json",
     platform: "browser",
     chunkNames: "chunks/[name]-[hash]",
     resolveExtensions: [".tsx", ".ts", ".jsx", ".js", ".css", ".json", ".mjs"],
