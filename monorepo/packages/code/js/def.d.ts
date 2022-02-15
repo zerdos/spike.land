@@ -12,3 +12,8 @@ declare module "textdiff-create" {
 declare module "textdiff-patch" {
   export default (str: string, obj: JSON) => string;
 }
+
+declare module "*.workerJs" {
+  const dataUrl: string;
+  export default dataUrl;
+}

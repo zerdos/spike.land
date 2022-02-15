@@ -113,7 +113,7 @@ await esbuild.build({
 });
 
 await esbuild.build({
-  entryPoints: ["./js/appStarter.ts"// "./js/workers/prettier.worker.js",
+  entryPoints: ["./js/appStarter.ts"
   ],
   outfile: "./js/dist/appStarter.js",
   bundle: true,
@@ -132,61 +132,6 @@ await esbuild.build({
   format: "iife",
 });
 
-// await esbuild.build({
-//   entryPoints: ["js/monacoTs.ts"],
-//   bundle: true,
-
-//   define: {
-//     "process.env.NODE_ENV": `"${environment}"`,
-//   },
-
-//   target: "es2017",
-//   sourcemap: isDevelopment,
-//   format: "esm",
-//   treeShaking: !isDevelopment,
-//   minify: !isDevelopment,
-//   platform: "browser",
-//   loader: {
-//     ".ttf": "file",
-//     ".css": "file",
-//   },
-//   outdir: "js/vendor/monaco",
-// });
-
-// await esbuild.build({
-//   entryPoints: [""],
-//   bundle: false,
-//   format: "esm",
-//   outfile: "js/dist/editor.mjs",
-//   loader: {
-//     ".ttf": "file",
-//   },
-// });
-
-// const impData = jsonData.imports;
-// console.log(jsonData.imports);
-
-// const importData = Object.keys(jsonData.imports).filter((name) =>
-//   !name.includes("@spike.land") || name.includes("@spike.land/esm")
-// );
-
-// let imports = {};
-// importData.map((d) => (Object.assign(imports, { [d]: jsonData.imports[d] })));
-
-// console.log(imports);
-
-// esbuild.build({
-//   entryPoints: ["js/codeLoader.mjs"],
-//   bundle: true,
-//   format: "esm",
-//   minify: false,
-//   treeShaking: false,
-//   sourcemap: true,
-//   resolveExtensions: [".tsx", ".ts", ".jsx", ".js", ".css", ".json", ".mjs"],
-//   target: ["es2017"],
-//   plugins: [importMap.plugin()],
-//   outfile: "dist/dev.mjs",
-// }).catch(() => process.exit(1));
 const build = (entryPoints) =>
   esbuild.build({
     entryPoints,
