@@ -1,3 +1,5 @@
+/**@jsx jsx */
+import { jsx } from "@emotion/react";
 import { render } from "preact";
 import type { ICodeSession } from "./session";
 
