@@ -17,6 +17,5 @@
     "types": ["@cloudflare/workers-types"]
   }, 
   "include": [
-    "js"
-, "../../../fixtures/monacoEnv.ts"   ]
+    "./src/*.ts"  ]
 }
