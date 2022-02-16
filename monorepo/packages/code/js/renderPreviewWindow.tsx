@@ -21,7 +21,7 @@ export const renderPreviewWindow = async (
   //@ts-ignore
   const { App } = globalThis;
 
-  const DbApp = () => (
+  render(
     <DraggableWindow
       onShare={() => open(`https://spike.land/api/room/${room}/public`)}
       onRestore={() => {
@@ -40,10 +40,9 @@ export const renderPreviewWindow = async (
       room={room}
     >
       <App />
-    </DraggableWindow>
+    </DraggableWindow>,
+    target,
   );
-
-  render(jsx(DbApp), target);
 
   document.body.appendChild(target);
 

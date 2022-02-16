@@ -1,6 +1,5 @@
 import "core-js/modules/web.immediate";
 
-import r from "react";
 import { hydrate } from "react";
 import { fromBinary } from "./binary.ts";
 import { jsx } from "@emotion/react";
@@ -12,8 +11,6 @@ if ("serviceWorker" in navigator) {
 
   wb.register();
 }
-
-window.React = r;
 
 const path = location.pathname.split("/");
 window.aniStart = Date.now();
