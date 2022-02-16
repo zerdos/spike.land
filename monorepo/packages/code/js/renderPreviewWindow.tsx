@@ -1,8 +1,9 @@
 /**@jsx jsx */
 import { jsx } from "@emotion/react";
-//@ts-ignore
+
 import bg from "./assets/synthwave.webp";
-import { render } from "react";
+
+import { render } from "react-dom";
 import type { ICodeSession } from "./session";
 
 import { hashCode } from "./session";

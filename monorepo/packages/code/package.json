@@ -12,6 +12,7 @@
     "./js/session.tsx": "./js/session.tsx",
     "./js/binary.ts": "./js/binary.ts",
     "./js/importmap.json": "./js/importmap.json",
+    "./js/mockedMap.json": "./js/mockedMap.json",
     "./shasums": "./shasums.ts"
   },
   "scripts": {

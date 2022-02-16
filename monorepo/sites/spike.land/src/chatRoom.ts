@@ -26,14 +26,8 @@ import type {
 import startSession from "@spike.land/code/js/session.tsx";
 
 
-import imap from "@spike.land/code/js/importmap.json";
+import imap from "@spike.land/code/js/mockedMap.json";
 
-const imap = {imports:  {
-  react:  "https://spike.land/dist/react.mjs",
-  "react-dom":  "https://spike.land/dist/react.mjs",
-  "framer-motion": "https://spike.land/dist/framer-motion.mjs",
-  "@emotion/react": "https://spike.land/dist/emotion.mjs"
-}}
 
 console.log("chatroom");
 
@@ -41,13 +35,6 @@ interface IState extends DurableObjectState {
   mySession: ICodeSess;
   hashOfCode: string;
 }
-
-// const imap = {imports:  {
-//   react:  "https://spike.land/dist/react.mjs",
-//   "react-dom":  "https://spike.land/dist/react.mjs",
-//   "framer-motion": "https://spike.land/dist/framer-motion.mjs",
-//   "@emotion/react": "https://spike.land/dist/emotion.mjs"
-// }}
 
 interface ISession {
   i: number;

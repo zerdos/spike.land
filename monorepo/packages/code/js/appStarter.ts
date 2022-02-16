@@ -1,6 +1,7 @@
 // import { Workbox } from "workbox-window";
 import "es-module-shims";
-import imap from "./importmap.json";
+import imap from "./mockedMap.json";
+
 (async () => {
   // const esbuild = import("./esbuildEsm.ts");
 
