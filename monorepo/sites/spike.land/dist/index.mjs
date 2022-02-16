@@ -41,9 +41,9 @@ var require_textdiff_patch = __commonJS({
   }
 });
 
-// ../../node_modules/fast-diff/diff.js
+// ../../packages/code/node_modules/fast-diff/diff.js
 var require_diff = __commonJS({
-  "../../node_modules/fast-diff/diff.js"(exports, module) {
+  "../../packages/code/node_modules/fast-diff/diff.js"(exports, module) {
     var DIFF_DELETE = -1;
     var DIFF_INSERT = 1;
     var DIFF_EQUAL = 0;
@@ -562,9 +562,9 @@ var require_diff = __commonJS({
   }
 });
 
-// ../../node_modules/textdiff-create/index.js
+// ../../packages/code/node_modules/textdiff-create/index.js
 var require_textdiff_create = __commonJS({
-  "../../node_modules/textdiff-create/index.js"(exports, module) {
+  "../../packages/code/node_modules/textdiff-create/index.js"(exports, module) {
     "use strict";
     var diff = require_diff();
     module.exports = function(original, revision) {
@@ -580,8 +580,29 @@ var require_textdiff_create = __commonJS({
   }
 });
 
+// ../../packages/code/node_modules/textdiff-patch/index.js
+var require_textdiff_patch2 = __commonJS({
+  "../../packages/code/node_modules/textdiff-patch/index.js"(exports, module) {
+    "use strict";
+    module.exports = function(original, delta) {
+      var result = "", index = 0;
+      for (var i = 0; i < delta.length; i++) {
+        var item = delta[i], operation = item[0], value = item[1];
+        if (operation == -1) {
+          index += value;
+        } else if (operation == 0) {
+          result += original.slice(index, index += value);
+        } else {
+          result += value;
+        }
+      }
+      return result;
+    };
+  }
+});
+
 // ../../packages/code/package.json
-var version = "0.7.293";
+var version = "0.7.295";
 
 // ../../packages/cf-npm-site/dist/index.mjs
 function src_default(packageName, version2, serveDir = "") {
@@ -954,7 +975,7 @@ function toBinary(string) {
 // src/chatRoom.ts
 var import_textdiff_patch2 = __toESM(require_textdiff_patch(), 1);
 
-// ../../node_modules/immutable/dist/immutable.es.js
+// ../../packages/code/node_modules/immutable/dist/immutable.es.js
 var DELETE = "delete";
 var SHIFT = 5;
 var SIZE = 1 << SHIFT;
@@ -5186,7 +5207,7 @@ function setProp(prototype, name) {
 
 // ../../packages/code/js/session.tsx
 var import_textdiff_create = __toESM(require_textdiff_create());
-var import_textdiff_patch = __toESM(require_textdiff_patch());
+var import_textdiff_patch = __toESM(require_textdiff_patch2());
 function initSession(room, u) {
   return Record({ ...u, room, state: Record(u.state)() });
 }
