@@ -95,7 +95,7 @@
     "preact": "^10.6.6",
     "preact-render-to-string": "^5.1.19",
     "prettier": "^2.5.1",
-    "react": "npm:preact/compat",
+    "react": "npm:@preact/compat",
     "regenerator-runtime": "^0.13.9",
     "textdiff-create": "1.0.7",
     "textdiff-patch": "1.0.6",
