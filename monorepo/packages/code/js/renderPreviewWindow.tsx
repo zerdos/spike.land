@@ -44,9 +44,8 @@ export const renderPreviewWindow = async (
     target,
   );
 
-  document.body.appendChild(target);
-
   const bg = (await import("./assets/synthwave.webp")).default;
+  document.body.appendChild(target);
 
   // d//ocument.getElementById("root")?.replaceWith(target);
 
