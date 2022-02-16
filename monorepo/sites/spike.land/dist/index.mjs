@@ -581,7 +581,7 @@ var require_textdiff_create = __commonJS({
 });
 
 // ../../packages/code/package.json
-var version = "0.7.268";
+var version = "0.7.269";
 
 // ../../packages/cf-npm-site/dist/index.mjs
 function src_default(packageName, version2, serveDir = "") {
@@ -5349,6 +5349,7 @@ var imap = { imports: {
   "framer-motion": "https://spike.land/dist/framer-motion.mjs",
   "@emotion/react": "https://spike.land/dist/emotion.mjs"
 } };
+console.log("chatroom");
 var Code = class {
   constructor(state, env) {
     this.env = env;
