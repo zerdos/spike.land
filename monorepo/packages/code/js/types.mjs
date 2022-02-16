@@ -1,11 +1,11 @@
-import reactDts from "@types/react/index.d.ts";
-import jsxRuntimeDts from "@types/react/jsx-runtime.d.ts";
-import jsxDevRuntimeDts from "@types/react/jsx-dev-runtime.d.ts";
-import reactExpDts from "@types/react/experimental.d.ts";
-import globalDts from "@types/react/global.d.ts";
-import propTypesDts from "@types/prop-types/index.d.ts";
-import cssTypeDts from "csstype/index.d.ts";
-import framerDts from "./types/framer.d.ts";
+import reactDts from "@types/react/index.d.ts?url";
+import jsxRuntimeDts from "@types/react/jsx-runtime.d.ts?url";
+import jsxDevRuntimeDts from "@types/react/jsx-dev-runtime.d.ts?url";
+import reactExpDts from "@types/react/experimental.d.ts?url";
+import globalDts from "@types/react/global.d.ts?url";
+import propTypesDts from "@types/prop-types/index.d.ts?url";
+import cssTypeDts from "csstype/index.d.ts?url";
+import framerDts from "./types/framer.d.ts?url";
 
 export const dtsFiles = {
   reactDts,
