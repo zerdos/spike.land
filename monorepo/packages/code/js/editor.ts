@@ -18,7 +18,7 @@ const {
 } = dtsFiles;
 
 export const MonacoEnvironment = {
-  getWorkerUrl: function (moduleId: string, label: string) {
+  XXgetWorkerUrl: function (moduleId: string, label: string) {
     // if (label === "json") {
     //   return "./dist/workers/monaco-editor/esm/vs/language/json/json.worker.js";
     // }
