@@ -1,4 +1,4 @@
-import * as monaco from "monaco-editor";
+import * as monaco from "monaco-editor/esm/vs/editor/editor.main";
 import "monaco-editor/min/vs/editor/editor.main.css";
 import { dtsFiles } from "types.mjs";
 // import tsWorker from "./dist/workers/language/typescript/ts.worker.workerJS";
