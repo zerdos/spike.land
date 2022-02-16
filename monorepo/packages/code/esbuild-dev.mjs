@@ -36,7 +36,7 @@ await esbuild.build({
   legalComments: "external",
   ignoreAnnotations: true,
   treeShaking: true,
-  outExtension: {".js": ".workerJS"},
+  // outExtension: {".js": ".workerJS"},
   platform: "browser",
   define: {
     "process.env.NODE_ENV": `"${environment}"`,

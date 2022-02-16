@@ -1,8 +1,6 @@
 import * as monaco from "monaco-editor/esm/vs/editor/editor.main";
 import "monaco-editor/min/vs/editor/editor.main.css";
 import { dtsFiles } from "types.mjs";
-import tsWorker from "./dist/workers/language/typescript/ts.worker.workerJS";
-import editorWorker from "./dist/workers/editor/editor.worker.workerJS";
 
 import pAll from "p-all";
 
@@ -29,9 +27,9 @@ self.MonacoEnvironment = {
     //     //   return "./dist/workers/monaco-editor/esm/vs/language/html/html.worker.js";
     //     // }
     if (label === "typescript" || label === "javascript") {
-      return tsWorker;
+      return "workers/language/typescript/ts.worker.js";
     }
-    return editorWorker;
+    return "workers/editor/editor.worker.js";
     //     return editorWorker;
   },
 };
