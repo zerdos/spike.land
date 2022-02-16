@@ -1,7 +1,7 @@
 import * as monaco from "monaco-editor/esm/vs/editor/editor.main";
 import "monaco-editor/min/vs/editor/editor.main.css";
 import { dtsFiles } from "types.mjs";
-import {version} from "monaco-editor"
+import { version } from "monaco-editor/package.json";
 import { createJsBlob } from "./starter.mjs";
 // import tsWorker from "./dist/workers/language/typescript/ts.worker.workerJS";
 // import editorWorker from "./dist/workers/editor/editor.worker.workerJS";
@@ -31,12 +31,12 @@ self.MonacoEnvironment = {
     //     //   return "./dist/workers/monaco-editor/esm/vs/language/html/html.worker.js";
     //     // }
     if (label === "typescript" || label === "javascript") {
-      return createJsBlob(
-        `self.importScripts("https://unpkg.com/monaco-editor@/min/vs/language/typescript/tsWorker.js")`,
-      );
+      return new Worker(createJsBlob(
+        `importScripts("https://unpkg.com/monaco-editor@${version}/min/vs/language/typescript/tsWorker.js")`,
+      ));
     }
     return createJsBlob(
-      `self.importScripts("https://unpkg.com/monaco-editor@0.32.1/min/vs/editor/editor.main.js")`,
+      `importScripts("https://unpkg.com/monaco-editor@${version}/min/vs/editor/editor.main.js")`,
     );
     //     return editorWorker;
   },
