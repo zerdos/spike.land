@@ -104,7 +104,7 @@ const build = (entryPoints) =>
       ".css": "css",
       ".ts": "ts",
       ".d.ts": "dataurl",
-      ".workerJS": "dataurl",
+      ".workerJS": "file",
       ".wasm": "dataurl",
     },
     outdir: "js/dist",
