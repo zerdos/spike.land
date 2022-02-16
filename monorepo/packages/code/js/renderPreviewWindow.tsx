@@ -1,6 +1,7 @@
 /**@jsx jsx */
 import { jsx } from "@emotion/react";
-import { render } from "preact";
+//@ts-ignore
+import { render } from "react";
 import type { ICodeSession } from "./session";
 
 import { hashCode } from "./session";
@@ -20,7 +21,7 @@ export const renderPreviewWindow = async (
   //@ts-ignore
   const { App } = globalThis;
 
-  render(
+  const DbApp = () => (
     <DraggableWindow
       onShare={() => open(`https://spike.land/api/room/${room}/public`)}
       onRestore={() => {
@@ -39,9 +40,10 @@ export const renderPreviewWindow = async (
       room={room}
     >
       <App />
-    </DraggableWindow>,
-    target,
+    </DraggableWindow>
   );
+
+  render(jsx(DbApp), target);
 
   document.body.appendChild(target);
 
