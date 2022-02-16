@@ -1,6 +1,6 @@
 // import * as preact from "preact";
 import * as react from "preact/compat";
-import {jsx} from  "@emotion/react"
+// import {jsx} from  "@emotion/react"
 import { createPortal, hydrate, render } from "preact/compat";
 import renderToString from "preact-render-to-string";
 export { render };
@@ -29,7 +29,7 @@ export const { useEffect } = react;
 export const { useReducer } = react;
 export const { useCallback } = react;
 export const { forwardRef } = react;
-export const  createElement = (...args)=> jsx(...args);
+export const  {createElement} = react;
 export const { createFactory } = react;
 export const { createRef } = react;
 export const { Fragment } = react;
@@ -45,7 +45,6 @@ export const { useMemo } = react;
 
 export const { cloneElement } = react;
 
-const React = {...react, createElement}
 
-export default React;
+export default react;
 
