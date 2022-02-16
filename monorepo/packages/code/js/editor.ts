@@ -3,7 +3,6 @@ import "monaco-editor/min/vs/editor/editor.main.css";
 import { dtsFiles } from "types.mjs";
 import { version } from "monaco-editor/package.json";
 import { createJsBlob } from "./starter.mjs";
-// import tsWorker from "./dist/workers/language/typescript/ts.worker.workerJS";
 // import editorWorker from "./dist/workers/editor/editor.worker.workerJS";
 
 import pAll from "p-all";
@@ -20,7 +19,7 @@ const {
 } = dtsFiles;
 
 self.MonacoEnvironment = {
-  getWorkerUrl: function (moduleId: string, label: string) {
+  getWorkerUrl: async function (moduleId: string, label: string) {
     //     // if (label === "json") {
     //     //   return "./dist/workers/monaco-editor/esm/vs/language/json/json.worker.js";
     //     // }
@@ -31,13 +30,14 @@ self.MonacoEnvironment = {
     //     //   return "./dist/workers/monaco-editor/esm/vs/language/html/html.worker.js";
     //     // }
     if (label === "typescript" || label === "javascript") {
-      return new Worker(createJsBlob(
-        `importScripts("https://unpkg.com/monaco-editor@${version}/min/vs/language/typescript/tsWorker.js")`,
-      ));
+      const ts =
+        (await import("./dist/workers/language/typescript/ts.worker.workerJS"))
+          .default;
+      return ts;
     }
-    return createJsBlob(
-      `importScripts("https://unpkg.com/monaco-editor@${version}/min/vs/editor/editor.main.js")`,
-    );
+    const edi =
+      (await import("./dist/workers/editor/editor.worker.workerJS")).default;
+    return edi;
     //     return editorWorker;
   },
 };
