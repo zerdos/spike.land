@@ -62,7 +62,7 @@ export const run = async () => {
   start(App);
 };
 
-function createJsBlob(code) {
+export function createJsBlob(code) {
   const blob = new Blob([code], { type: "application/javascript" });
 
   return URL.createObjectURL(blob);

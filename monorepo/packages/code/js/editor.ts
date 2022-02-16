@@ -1,6 +1,7 @@
 import * as monaco from "monaco-editor/esm/vs/editor/editor.main";
 import "monaco-editor/min/vs/editor/editor.main.css";
 import { dtsFiles } from "types.mjs";
+import { createJsBlob } from "./starter.mjs";
 // import tsWorker from "./dist/workers/language/typescript/ts.worker.workerJS";
 // import editorWorker from "./dist/workers/editor/editor.worker.workerJS";
 
@@ -17,22 +18,28 @@ const {
   framerDts,
 } = dtsFiles;
 
-// export const MonacoEnvironment = {
-//   XXgetWorkerUrl: function (moduleId: string, label: string) {
-//     // if (label === "json") {
-//     //   return "./dist/workers/monaco-editor/esm/vs/language/json/json.worker.js";
-//     // }
-//     // if (label === "css" || label === "scss" || label === "less") {
-//     //   return "./dist/workers/monaco-editor/esm/vs/language/css/css.worker.js";
-//     // }
-//     // if (label === "html" || label === "handlebars" || label === "razor") {
-//     //   return "./dist/workers/monaco-editor/esm/vs/language/html/html.worker.js";
-//     // }
-//     if (label === "typescript" || label === "javascript") {
-//       return tsWorker;
-//     }
-//     return editorWorker;
-//   },
+self.MonacoEnvironment = {
+  getWorkerUrl: function (moduleId: string, label: string) {
+    //     // if (label === "json") {
+    //     //   return "./dist/workers/monaco-editor/esm/vs/language/json/json.worker.js";
+    //     // }
+    //     // if (label === "css" || label === "scss" || label === "less") {
+    //     //   return "./dist/workers/monaco-editor/esm/vs/language/css/css.worker.js";
+    //     // }
+    //     // if (label === "html" || label === "handlebars" || label === "razor") {
+    //     //   return "./dist/workers/monaco-editor/esm/vs/language/html/html.worker.js";
+    //     // }
+    if (label === "typescript" || label === "javascript") {
+      return createJsBlob(
+        `self.importScripts("https://unpkg.com/monaco-editor@0.32.1/min/vs/language/typescript/tsWorker.js")`,
+      );
+    }
+    return createJsBlob(
+      `self.importScripts("https://unpkg.com/monaco-editor@0.32.1/min/vs/editor/editor.main.js")`,
+    );
+    //     return editorWorker;
+  },
+};
 // };
 
 // self.MonacoEnvironment = MonacoEnvironment;
