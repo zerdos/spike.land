@@ -1,8 +1,6 @@
 /**@jsx jsx */
 import { jsx } from "@emotion/react";
 
-import bg from "./assets/synthwave.webp";
-
 import { render } from "react-dom";
 import type { ICodeSession } from "./session";
 
@@ -47,6 +45,8 @@ export const renderPreviewWindow = async (
   );
 
   document.body.appendChild(target);
+
+  const bg = (await import("./assets/synthwave.webp")).default;
 
   // d//ocument.getElementById("root")?.replaceWith(target);
 
