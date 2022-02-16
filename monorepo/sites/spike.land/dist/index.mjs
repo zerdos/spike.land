@@ -581,7 +581,7 @@ var require_textdiff_create = __commonJS({
 });
 
 // ../../packages/code/package.json
-var version = "0.7.271";
+var version = "0.7.272";
 
 // ../../packages/cf-npm-site/dist/index.mjs
 function src_default(packageName, version2, serveDir = "") {
@@ -5342,13 +5342,18 @@ function createPatch(oldCode, newCode) {
   return JSON.stringify((0, import_textdiff_create.default)(oldCode, newCode));
 }
 
-// src/chatRoom.ts
-var imap = { imports: {
+// ../../packages/code/js/mockedMap.json
+var imports = {
   react: "https://spike.land/dist/react.mjs",
   "react-dom": "https://spike.land/dist/react.mjs",
   "framer-motion": "https://spike.land/dist/framer-motion.mjs",
   "@emotion/react": "https://spike.land/dist/emotion.mjs"
-} };
+};
+var mockedMap_default = {
+  imports
+};
+
+// src/chatRoom.ts
 console.log("chatroom");
 var Code = class {
   constructor(state, env) {
@@ -5513,8 +5518,8 @@ var Code = class {
                 </div>
               </div>
             <script type="importmap">${JSON.stringify({
-            imports: { ...imap.imports },
-            scopes: { ...imap.scopes }
+            imports: { ...mockedMap_default.imports },
+            scopes: { ...mockedMap_default.scopes }
           })}<\/script>
             <script defer type="module">
               import("https://spike.land/dist/starter.mjs")
@@ -5567,8 +5572,8 @@ var Code = class {
                 <div id="zbody">${mST().html}</div>
               </div>
               <script type="importmap">${JSON.stringify({
-            imports: { ...imap.imports },
-            scopes: { ...imap.scopes }
+            imports: { ...mockedMap_default.imports },
+            scopes: { ...mockedMap_default.scopes }
           })}<\/script>`).replace('<script defer src="https://spike.land/dist/appStarter.js"><\/script>', `<script defer type="module">
               import("https://spike.land/dist/starter.mjs")
                 .then(
