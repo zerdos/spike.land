@@ -1,6 +1,7 @@
 /**@jsx jsx */
 import { jsx } from "@emotion/react";
 //@ts-ignore
+import bg from "./assets/synthwave.webp";
 import { render } from "react";
 import type { ICodeSession } from "./session";
 
@@ -58,7 +59,7 @@ export const renderPreviewWindow = async (
 
   // await wait(2000 - diffy);
 
-  document.body.style.backgroundImage = `url(assets/synthwave.webp);`;
+  document.body.style.backgroundImage = `url(${bg});`;
 
   editor.style.opacity = "1";
   editor.style.display = "block";
