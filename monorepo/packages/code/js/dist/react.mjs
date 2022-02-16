@@ -3291,6 +3291,10 @@ const { Children: Children1  } = mod;
 const { lazy: lazy1  } = mod;
 const { useMemo: useMemo1  } = mod;
 const { cloneElement: cloneElement1  } = mod;
+const React = {
+    ...mod,
+    createElement: mod
+};
 export { M4 as h };
 export { createContext1 as createContext };
 export { useDebugValue1 as useDebugValue };
@@ -3302,7 +3306,7 @@ export { useEffect1 as useEffect };
 export { useReducer1 as useReducer };
 export { useCallback1 as useCallback };
 export { forwardRef1 as forwardRef };
-export { M4 as createElement };
+export { mod as createElement };
 export { createFactory1 as createFactory };
 export { createRef1 as createRef };
 export { Fragment1 as Fragment };
@@ -3315,5 +3319,5 @@ export { Children1 as Children };
 export { lazy1 as lazy };
 export { useMemo1 as useMemo };
 export { cloneElement1 as cloneElement };
-export { mod as default };
+export { React as default };
 

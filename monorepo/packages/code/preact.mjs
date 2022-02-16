@@ -29,7 +29,7 @@ export const { useEffect } = react;
 export const { useReducer } = react;
 export const { useCallback } = react;
 export const { forwardRef } = react;
-export const  createElement  = jsx;
+export const  createElement  = react;
 export const { createFactory } = react;
 export const { createRef } = react;
 export const { Fragment } = react;
@@ -45,4 +45,7 @@ export const { useMemo } = react;
 
 export const { cloneElement } = react;
 
-export default react;
+const React = {...react, createElement}
+
+export default React;
+
