@@ -1,5 +1,5 @@
-import * as monaco from "monaco-editor/dev/vs/editor/editor.main";
-import "monaco-editor/dev/vs/editor/editor.main.css";
+import * as monaco from "monaco-editor/esm/vs/editor/editor.main";
+import "monaco-editor/min/vs/editor/editor.main.css";
 import { dtsFiles } from "types.mjs";
 
 import pAll from "p-all";
