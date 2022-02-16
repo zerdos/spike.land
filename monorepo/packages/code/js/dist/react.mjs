@@ -934,7 +934,6 @@ function x3(r4, n3, l12, c12, g11, h11) {
 }
 m2.shallowRender = g3;
 export { B1 as render };
-const h3 = jsx;
 export { W as createPortal };
 export { $1 as hydrate };
 export { m2 as renderToString };
@@ -961,7 +960,6 @@ const { Children  } = mod;
 const { lazy  } = mod;
 const { useMemo  } = mod;
 const { cloneElement  } = mod;
-export { h3 as h };
 export { createContext as createContext };
 export { useDebugValue as useDebugValue };
 export { useState as useState };

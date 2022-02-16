@@ -5,8 +5,6 @@ import { createPortal, hydrate, render } from "preact/compat";
 import renderToString from "preact-render-to-string";
 export { render };
 
-export const h = jsx;
-
 export { createPortal };
 export { hydrate };
 export { renderToString };
