@@ -203,9 +203,11 @@ export async function quickStart(session, room, keepFullScreen, saveCode) {
   session.saveCode = saveCode;
   // Session.children = await getReactChild(session.transpiled);
   session.children = null;
-  const { renderPreviewWindow } = await import(
-    "./renderPreviewWindow.tsx"
-  );
+  const { renderPreviewWindow } =
+    (globalThis.renderPreviewModule && await globalThis.renderPreviewModule) ||
+    await import(
+      "./renderPreviewWindow.tsx"
+    );
 
   await renderPreviewWindow(session, room, keepFullScreen);
 

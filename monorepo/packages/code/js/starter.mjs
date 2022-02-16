@@ -27,7 +27,8 @@ const user = ((self && self.crypto && self.crypto.randomUUID &&
   );
 
 const start = async (App) => {
-  globalThis.monacoEditorModule = import("./editor.ts");
+  globalThis.monacoEditorModule = import("./editor");
+  globalThis.renderPreviewModule = import("./renderPreviewWindow");
   const container = document.querySelector("#root");
 
   hydrate(container, jsx(App));
@@ -36,7 +37,6 @@ const start = async (App) => {
   if (location.href.endsWith("hydrated")) return;
   globalThis.App = App;
   const { join } = await import("./ws.mjs");
-  await wait(2000);
   join(room, user);
 };
 
