@@ -3293,7 +3293,7 @@ const { useMemo: useMemo1  } = mod;
 const { cloneElement: cloneElement1  } = mod;
 const React = {
     ...mod,
-    createElement: mod
+    createElement: M4
 };
 export { M4 as h };
 export { createContext1 as createContext };
@@ -3306,7 +3306,7 @@ export { useEffect1 as useEffect };
 export { useReducer1 as useReducer };
 export { useCallback1 as useCallback };
 export { forwardRef1 as forwardRef };
-export { mod as createElement };
+export { M4 as createElement };
 export { createFactory1 as createFactory };
 export { createRef1 as createRef };
 export { Fragment1 as Fragment };
