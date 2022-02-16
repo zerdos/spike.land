@@ -47,7 +47,8 @@
   "homepage": "https://spike.land",
   "repository": "https://github.com/spike-land/monorepo",
   "devDependencies": {
-    "typescript": "4.5.5"
+    "typescript": "4.5.5",
+    "vite": "^2.8.3"
   },
   "gitHead": "cf1f5d25e26ea72ce197cf6dc7b5f5d49919373d",
   "author": "Zoltan Erdos <zolika84@gmail.com>",
@@ -94,7 +95,7 @@
     "preact": "^10.6.6",
     "preact-render-to-string": "^5.1.19",
     "prettier": "^2.5.1",
-    "react": "npm:@preact/compat",
+    "react": "17.0.2",
     "regenerator-runtime": "^0.13.9",
     "textdiff-create": "1.0.7",
     "textdiff-patch": "1.0.6",

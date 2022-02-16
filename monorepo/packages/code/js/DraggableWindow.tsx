@@ -2,17 +2,14 @@
 import { css, jsx } from "@emotion/react";
 
 import {
-  Fragment,
-  lazy,
   ReactNode,
   SetStateAction,
-  Suspense,
   useEffect,
   useRef,
   useState,
 } from "react";
 import type { FC } from "react";
-import { motion, useForceUpdate } from "framer-motion";
+import { motion } from "framer-motion";
 // import { motion } from "./lazyMotion";
 import { QRButton } from "./Qr";
 // import { wait } from "./wait";
@@ -40,10 +37,6 @@ import type {
 const Button = muiButton as typeof MuiButton;
 const ToggleButtonGroup = muiToggleButtonGroup as typeof MuiToggleButtonGroup;
 const ToggleButton = muiToggleButton as typeof MuiToggleButton;
-// Import { breakpoints } from "@mui/system";
-
-import type { JSX as EmotionJSX } from "@emotion/react/jsx-dev-runtime";
-// const {motion} = Motion;
 import type { ICodeSession } from "./session";
 import type { Dispatch } from "react";
 const breakPoints = [680, 768, 1920];
@@ -73,11 +66,8 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
   {
     onShare,
     onRestore,
-    position,
     session,
     keepFullScreen,
-    room,
-    hashCode,
     children,
   },
 ) => {
@@ -151,7 +141,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
 
   useEffect(() => {
     const reveal = async () => {
-      const { bottom, right } = startPositions;
+   
       if (keepFullScreen) {
         return;
       }
