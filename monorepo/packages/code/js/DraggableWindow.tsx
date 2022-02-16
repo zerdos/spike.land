@@ -1,13 +1,7 @@
 /**@jsx jsx */
 import { css, jsx } from "@emotion/react";
 
-import {
-  ReactNode,
-  SetStateAction,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
+import { ReactNode, SetStateAction, useEffect, useRef, useState } from "react";
 import type { FC } from "react";
 import { motion } from "framer-motion";
 // import { motion } from "./lazyMotion";
@@ -141,7 +135,6 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
 
   useEffect(() => {
     const reveal = async () => {
-   
       if (keepFullScreen) {
         return;
       }
