@@ -27,6 +27,9 @@ const user = ((self && self.crypto && self.crypto.randomUUID &&
   );
 
 const start = async (App) => {
+  import("./editor.ts").then(({ MonacoEnvironment }) =>
+    console.log({ MonacoEnvironment })
+  );
   const container = document.querySelector("#root");
 
   hydrate(container, jsx(App));

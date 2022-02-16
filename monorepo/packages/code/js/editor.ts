@@ -18,7 +18,7 @@ const {
   framerDts,
 } = dtsFiles;
 
-self.MonacoEnvironment = {
+export const MonacoEnvironment = {
   getWorkerUrl: function (moduleId: string, label: string) {
     // if (label === "json") {
     //   return "./dist/workers/monaco-editor/esm/vs/language/json/json.worker.js";
@@ -35,6 +35,8 @@ self.MonacoEnvironment = {
     return editorWorker;
   },
 };
+
+self.MonacoEnvironment = MonacoEnvironment;
 
 let started = false;
 
