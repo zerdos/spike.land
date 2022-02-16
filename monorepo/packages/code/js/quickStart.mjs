@@ -26,7 +26,9 @@ export async function startMonacoWithSession(session) {
   console.log("start monaco with session");
   const monacoEditorDom = document.querySelector("#monacoEditor");
 
-  startMonaco = startMonaco || (await import("./editor.ts")).startMonaco;
+  startMonaco = startMonaco ||
+    ((globalThis.monacoEditorModule && await globalThis.monacoEditorModule) ||
+      await import("./editor.ts")).startMonaco;
 
   const onchangeCode = (ev) =>
     runner(editor.getModel().getValue(), ev.changes, session, ++session.i);

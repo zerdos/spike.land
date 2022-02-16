@@ -1,8 +1,8 @@
 import * as monaco from "monaco-editor";
 import "monaco-editor/min/vs/editor/editor.main.css";
 import { dtsFiles } from "types.mjs";
-import tsWorker from "./dist/workers/language/typescript/ts.worker.workerJS";
-import editorWorker from "./dist/workers/editor/editor.worker.workerJS";
+// import tsWorker from "./dist/workers/language/typescript/ts.worker.workerJS";
+// import editorWorker from "./dist/workers/editor/editor.worker.workerJS";
 
 import pAll from "p-all";
 
@@ -17,25 +17,25 @@ const {
   framerDts,
 } = dtsFiles;
 
-export const MonacoEnvironment = {
-  XXgetWorkerUrl: function (moduleId: string, label: string) {
-    // if (label === "json") {
-    //   return "./dist/workers/monaco-editor/esm/vs/language/json/json.worker.js";
-    // }
-    // if (label === "css" || label === "scss" || label === "less") {
-    //   return "./dist/workers/monaco-editor/esm/vs/language/css/css.worker.js";
-    // }
-    // if (label === "html" || label === "handlebars" || label === "razor") {
-    //   return "./dist/workers/monaco-editor/esm/vs/language/html/html.worker.js";
-    // }
-    if (label === "typescript" || label === "javascript") {
-      return tsWorker;
-    }
-    return editorWorker;
-  },
-};
+// export const MonacoEnvironment = {
+//   XXgetWorkerUrl: function (moduleId: string, label: string) {
+//     // if (label === "json") {
+//     //   return "./dist/workers/monaco-editor/esm/vs/language/json/json.worker.js";
+//     // }
+//     // if (label === "css" || label === "scss" || label === "less") {
+//     //   return "./dist/workers/monaco-editor/esm/vs/language/css/css.worker.js";
+//     // }
+//     // if (label === "html" || label === "handlebars" || label === "razor") {
+//     //   return "./dist/workers/monaco-editor/esm/vs/language/html/html.worker.js";
+//     // }
+//     if (label === "typescript" || label === "javascript") {
+//       return tsWorker;
+//     }
+//     return editorWorker;
+//   },
+// };
 
-self.MonacoEnvironment = MonacoEnvironment;
+// self.MonacoEnvironment = MonacoEnvironment;
 
 let started = false;
 
