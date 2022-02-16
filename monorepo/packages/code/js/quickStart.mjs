@@ -28,7 +28,6 @@ export async function startMonacoWithSession(session) {
 
   startMonaco = startMonaco || (await import("./editor.ts")).startMonaco;
 
-  const throttle = (await import("lodash/throttle")).default;
   const onchangeCode = (ev) =>
     runner(editor.getModel().getValue(), ev.changes, session, ++session.i);
   const { editor, monaco } = await startMonaco(
@@ -44,7 +43,7 @@ export async function startMonacoWithSession(session) {
        */
     },
   );
-
+  const throttle = (await import("lodash/throttle")).default;
   editor.onDidChangeModelContent(throttle(onchangeCode, 100));
 
   window.monaco = monaco;
