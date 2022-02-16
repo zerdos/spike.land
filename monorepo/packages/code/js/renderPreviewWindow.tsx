@@ -21,6 +21,8 @@ export const renderPreviewWindow = async (
   //@ts-ignore
   const { App } = globalThis;
 
+  const bg = (await import("./assets/synthwave.webp")).default;
+  document.body.style.backgroundImage = `url(${bg})`;
   render(
     <DraggableWindow
       onShare={() => open(`https://spike.land/api/room/${room}/public`)}
@@ -44,7 +46,6 @@ export const renderPreviewWindow = async (
     target,
   );
 
-  const bg = (await import("./assets/synthwave.webp")).default;
   document.body.appendChild(target);
 
   // d//ocument.getElementById("root")?.replaceWith(target);
@@ -58,8 +59,6 @@ export const renderPreviewWindow = async (
   // console.log("wait....: " + String(2000 - diffy));
 
   // await wait(2000 - diffy);
-
-  document.body.style.backgroundImage = `url(${bg})`;
 
   editor.style.opacity = "1";
   editor.style.display = "block";
