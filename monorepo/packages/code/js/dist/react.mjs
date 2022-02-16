@@ -3279,6 +3279,8 @@ const { useEffect: useEffect1  } = mod;
 const { useReducer: useReducer1  } = mod;
 const { useCallback: useCallback1  } = mod;
 const { forwardRef: forwardRef1  } = mod;
+const createElement1 = (...args)=>M4(...args)
+;
 const { createFactory: createFactory1  } = mod;
 const { createRef: createRef1  } = mod;
 const { Fragment: Fragment1  } = mod;
@@ -3293,7 +3295,7 @@ const { useMemo: useMemo1  } = mod;
 const { cloneElement: cloneElement1  } = mod;
 const React = {
     ...mod,
-    createElement: M4
+    createElement: createElement1
 };
 export { M4 as h };
 export { createContext1 as createContext };
@@ -3306,7 +3308,7 @@ export { useEffect1 as useEffect };
 export { useReducer1 as useReducer };
 export { useCallback1 as useCallback };
 export { forwardRef1 as forwardRef };
-export { M4 as createElement };
+export { createElement1 as createElement };
 export { createFactory1 as createFactory };
 export { createRef1 as createRef };
 export { Fragment1 as Fragment };

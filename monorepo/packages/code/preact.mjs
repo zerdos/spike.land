@@ -29,7 +29,7 @@ export const { useEffect } = react;
 export const { useReducer } = react;
 export const { useCallback } = react;
 export const { forwardRef } = react;
-export const  createElement = jsx;
+export const  createElement = (...args)=> jsx(...args);
 export const { createFactory } = react;
 export const { createRef } = react;
 export const { Fragment } = react;
