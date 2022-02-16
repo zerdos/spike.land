@@ -35,6 +35,7 @@ const imap = {imports:  {
   "@emotion/react": "https://spike.land/dist/emotion.mjs"
 }}
 
+console.log("chatroom");
 
 interface IState extends DurableObjectState {
   mySession: ICodeSess;
