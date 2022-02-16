@@ -15,7 +15,7 @@ import type { FC } from "react";
 import { motion, useForceUpdate } from "framer-motion";
 // import { motion } from "./lazyMotion";
 import { QRButton } from "./Qr";
-import { wait } from "./wait";
+// import { wait } from "./wait";
 import { Box, Slider } from "./mui";
 // import { LazySpikeLandComponent } from "./LazyLoadedComponent";
 
@@ -121,7 +121,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
         const newError = session.errorText;
         setErrorText(newError);
         setIsStable(false);
-        await wait(1500);
+        // await wait(1500);
         if (session.errorText === newError) {
           setIsStable(true);
         }
@@ -156,7 +156,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
         return;
       }
 
-      await wait(2000);
+      // await wait(2000);
       // Const root = document.getElementById("root");
       // if (root && root.remove) root.remove();
 
