@@ -32,7 +32,7 @@
     "clone-deep": "4.0.1",
     "date-fns": "2.28.0",
     "dotenv": "16.0.0",
-    "express": "4.17.2",
+    "express": "4.17.3",
     "express-pino-logger": "7.0.0",
     "graphql": "16.3.0",
     "ibm-cos-sdk": "1.11.0",
