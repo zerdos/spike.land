@@ -9,8 +9,6 @@ import { toBinary } from "@spike.land/code/js/binary.ts";
 
 import { version } from "@spike.land/code/package.json";
 
-
-
 //@ts-ignore
 import applyDelta from "textdiff-patch";
 import { CodeEnv } from "./env";
@@ -25,9 +23,7 @@ import type {
 
 import startSession from "@spike.land/code/js/session.tsx";
 
-
 import imap from "@spike.land/code/js/mockedMap.json";
-
 
 console.log("chatroom");
 
@@ -129,7 +125,6 @@ export class Code {
       const vReg = /{VERSION}/ig;
 
       switch (path[0]) {
-      
         case "code": {
           return new Response(mST().code, {
             status: 200,
@@ -142,7 +137,7 @@ export class Code {
         }
         case "session":
           if (path[1]) {
-            const session = await this.kv.get(path[1])
+            const session = await this.kv.get(path[1]);
             if (session) {
               new Response(JSON.stringify(session), {
                 status: 200,
@@ -559,8 +554,8 @@ export class Code {
             });
           }
 
-          return;        }
-
+          return;
+        }
       } catch {
         webSocket.send(
           JSON.stringify({

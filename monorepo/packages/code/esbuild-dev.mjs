@@ -1,6 +1,6 @@
 import esbuild from "esbuild";
 import * as importMap from "esbuild-plugin-import-map";
-import jsonData from "./js/mockedMap.json" assert {type: "json"};
+import jsonData from "./js/mockedMap.json" assert { type: "json" };
 
 const environment = process.env.NODE_ENV == "production"
   ? "production"
@@ -42,17 +42,16 @@ await esbuild.build({
     "process.env.NODE_ENV": `"${environment}"`,
   },
   format: "iife",
-  loader: { 
+  loader: {
     ".css": "css",
-    '.ttf': 'file'
+    ".ttf": "file",
   },
 
   outdir: "js/dist/workers/",
 });
 
 await esbuild.build({
-  entryPoints: ["./js/appStarter.ts"
-  ],
+  entryPoints: ["./js/appStarter.ts"],
   outfile: "./js/dist/appStarter.js",
   bundle: true,
   target: "es2017",
@@ -85,11 +84,21 @@ const build = (entryPoints) =>
     sourcemap: isDevelopment,
     allowOverwrite: true,
     treeShaking: !isDevelopment,
-  //  tsconfig: "./tsconfig.json",
+    //  tsconfig: "./tsconfig.json",
     platform: "browser",
     ignoreAnnotations: true,
     chunkNames: "chunks/[name]-[hash]",
-    resolveExtensions: [".tsx", ".ts", ".jsx", ".js", ".css", ".json", ".mjs", ".ttf", ".workerJS"],
+    resolveExtensions: [
+      ".tsx",
+      ".ts",
+      ".jsx",
+      ".js",
+      ".css",
+      ".json",
+      ".mjs",
+      ".ttf",
+      ".workerJS",
+    ],
     target: "es2017",
     define: {
       "process.env.NODE_ENV": `"${environment}"`,

@@ -1,5 +1,5 @@
 import * as preact from "preact/compat";
-import { render, hydrate, createPortal } from "preact/compat";
+import { createPortal, hydrate, render } from "preact/compat";
 import * as _compat from "preact/compat";
 
 export import JSX = JSXInternal;
@@ -44,8 +44,7 @@ export { render };
 
 export { hydrate };
 
-export { createPortal};
-
+export { createPortal };
 
 // // export { createContext}
 // // export {     useDebugValue}

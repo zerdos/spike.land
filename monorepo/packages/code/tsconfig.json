@@ -6,7 +6,7 @@
     "lib": [
       "dom",
       "dom.iterable",
-      "esnext",
+      "esnext"
     ],
     "allowJs": true,
     "noFallthroughCasesInSwitch": true,
@@ -14,7 +14,7 @@
     "noEmit": true,
     "jsx": "react-jsx",
     "jsxImportSource": "@emotion/react",
-  
+
     "sourceMap": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
@@ -41,7 +41,7 @@
     "resolveJsonModule": true,
     "moduleResolution": "node",
     // "noEmit": true,
-    
+
     // "preserveSymlinks": true,              /* Do not resolve the real path of symlinks. */
     // "allowUmdGlobalAccess": true,          /* Allow accessing UMD globals from modules. */
 
@@ -61,12 +61,13 @@
     "baseUrl": "js"
   },
   "include": [
-    "js"   ],
+    "js"
+  ],
   "exclude": ["./js/vendor/**", "./js/dist/**"],
   "paths": {
     "path": ["path-browserify"],
     "react": "preact-compat",
-    "react-dom":  "preact-compat",
+    "react-dom": "preact-compat",
     // Not necessary unless you consume a module using `createClass`
     "create-react-class": "preact-compat/lib/create-react-class",
     // Not necessary unless you consume a module requiring `react-dom-factories`

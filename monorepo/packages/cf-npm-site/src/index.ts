@@ -13,16 +13,16 @@ export default function (
     ): Promise<Response> {
       try {
         const url = new URL(request.url);
-        const pathname  = String(url.pathname);
+        const pathname = String(url.pathname);
 
         const isChunk = pathname.indexOf("/chunks") !== -1;
 
         const cacheKey = isChunk
           ? new Request(
             url.origin + pathname.substring(pathname.indexOf("/chunks" + 7)),
-            {method: "GET"},
+            { method: "GET" },
           )
-          : new Request(url.toString(),  {method: "GET"});
+          : new Request(url.toString(), { method: "GET" });
         const cache = caches.default;
 
         const cachedResp = await cache.match(cacheKey);
@@ -58,12 +58,20 @@ export default function (
           },
         );
 
-
         const origResp = await Promise.any(
-          [fetch(newReq).then(req=>{if (!req.ok) throw req.status; return req;}),         
-          fetch(`https://raw.githubusercontent.com/spike-land/monorepo/v${version}/monorepo/packages/code/${targetPath}`).then(req=>{if (!req.ok) throw req.status; return req;})]);
-
-    
+          [
+            fetch(newReq).then((req) => {
+              if (!req.ok) throw req.status;
+              return req;
+            }),
+            fetch(
+              `https://raw.githubusercontent.com/spike-land/monorepo/v${version}/monorepo/packages/code/${targetPath}`,
+            ).then((req) => {
+              if (!req.ok) throw req.status;
+              return req;
+            }),
+          ],
+        );
 
         if (!origResp.ok) throw new Error("not ok");
 
@@ -101,19 +109,19 @@ export default function (
           resp.headers.set(
             "content-type",
             "application/json;charset=UTF-8",
-          );}
-          else if (pathname.endsWith(".ico")) {
-            resp.headers.delete("content-type");
-            resp.headers.set(
-              "content-type",
-              "image/x-icon;charset=UTF-8",
-            );}
-          else if (pathname.endsWith(".ttf")) {
-            resp.headers.delete("content-type");
-            resp.headers.set(
-              "content-type",
-              "font/ttf",
-            );
+          );
+        } else if (pathname.endsWith(".ico")) {
+          resp.headers.delete("content-type");
+          resp.headers.set(
+            "content-type",
+            "image/x-icon;charset=UTF-8",
+          );
+        } else if (pathname.endsWith(".ttf")) {
+          resp.headers.delete("content-type");
+          resp.headers.set(
+            "content-type",
+            "font/ttf",
+          );
         } else if (pathname.endsWith(".jpg")) {
           resp.headers.delete("content-type");
           resp.headers.set("content-type", "image/jpeg");

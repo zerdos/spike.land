@@ -4,7 +4,7 @@ import * as react from "preact/compat";
 import { createPortal, hydrate, render } from "preact/compat";
 import renderToString from "preact-render-to-string";
 export { render };
-    
+
 export { createPortal };
 export { hydrate };
 export { renderToString };
@@ -27,7 +27,7 @@ export const { useEffect } = react;
 export const { useReducer } = react;
 export const { useCallback } = react;
 export const { forwardRef } = react;
-export const  {createElement} = react;
+export const { createElement } = react;
 export const { createFactory } = react;
 export const { createRef } = react;
 export const { Fragment } = react;
@@ -43,6 +43,4 @@ export const { useMemo } = react;
 
 export const { cloneElement } = react;
 
-
 export default react;
-

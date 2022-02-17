@@ -113,9 +113,10 @@ export const Item = qComponent({
   onRender: qHook(({ item }, { editing }) => {
     console.log(
       'on:qRender => <Item item="' +
-        JSON.stringify(item, (key, value) => (key.startsWith("__")
-          ? undefined
-          : value)) +
+        JSON.stringify(
+          item,
+          (key, value) => (key.startsWith("__") ? undefined : value),
+        ) +
         '"/>',
     );
     return (h(

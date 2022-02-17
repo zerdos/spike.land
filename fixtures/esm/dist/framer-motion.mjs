@@ -45,9 +45,7 @@ var __reExport = (target, module, copyDefault, desc) => {
 var __toESM = (module, isNodeMode) => {
   return __reExport(
     __markAsModule(__defProp(
-      module != null
-        ? __create(__getProtoOf(module))
-        : {},
+      module != null ? __create(__getProtoOf(module)) : {},
       "default",
       !isNodeMode && module && module.__esModule
         ? { get: () => module.default, enumerable: true }
@@ -162,7 +160,9 @@ var require_tslib = __commonJS({
         }
         if (s != null && typeof Object.getOwnPropertySymbols === "function") {
           for (
-            var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++
+            var i = 0, p = Object.getOwnPropertySymbols(s);
+            i < p.length;
+            i++
           ) {
             if (
               e.indexOf(p[i]) < 0 &&
@@ -278,7 +278,8 @@ var require_tslib = __commonJS({
                     ? y["return"]
                     : op[0]
                     ? y["throw"] || ((t = y["return"]) && t.call(y), 0)
-                    : y.next) && !(t = t.call(y, op[1])).done
+                    : y.next) &&
+                  !(t = t.call(y, op[1])).done
               ) {
                 return t;
               }
@@ -4024,9 +4025,8 @@ function createProjectionNode(_a) {
         ? void 0
         : _a2.notifyLayoutMeasure(
           this.layout.actual,
-          prevLayout === null || prevLayout === void 0
-            ? void 0
-            : prevLayout.actual,
+          prevLayout === null || prevLayout === void 0 ? void 0
+          : prevLayout.actual,
         );
     };
     ProjectionNode.prototype.updateScroll = function () {
@@ -4492,11 +4492,10 @@ function createProjectionNode(_a) {
             ? void 0
             : _a2.transition,
         preserveFollowOpacity:
-          (_c =
-                (_b = node.options.initialPromotionConfig) === null ||
+          (_c = (_b = node.options.initialPromotionConfig) === null ||
                   _b === void 0
-                  ? void 0
-                  : _b.shouldPreserveFollowOpacity) === null || _c === void 0
+                ? void 0
+                : _b.shouldPreserveFollowOpacity) === null || _c === void 0
             ? void 0
             : _c.call(_b, node),
       });
@@ -7258,11 +7257,10 @@ var VisualElementDragControls = function () {
         var current = _this.getAxisMotionValue(axis).get() || 0;
         if (percent.test(current)) {
           var measuredAxis =
-            (_b3 =
-                  (_a3 = _this.visualElement.projection) === null ||
+            (_b3 = (_a3 = _this.visualElement.projection) === null ||
                     _a3 === void 0
-                    ? void 0
-                    : _a3.layout) === null || _b3 === void 0
+                  ? void 0
+                  : _a3.layout) === null || _b3 === void 0
               ? void 0
               : _b3.actual[axis];
           if (measuredAxis) {
@@ -7953,7 +7951,9 @@ var visualElement = function (_a) {
           return sortNodePosition(element.getInstance(), other.getInstance());
         },
         getClosestVariantNode: function () {
-          return isVariantNode ? element : parent === null || parent === void 0
+          return isVariantNode
+            ? element
+            : parent === null || parent === void 0
             ? void 0
             : parent.getClosestVariantNode();
         },
@@ -8390,9 +8390,9 @@ var checkAndConvertChangedValueTypes = function (
       } else if (
         (fromType === null || fromType === void 0
           ? void 0
-          : fromType.transform) && (toType === null || toType === void 0
-            ? void 0
-            : toType.transform) && (from === 0 || to === 0)
+          : fromType.transform) &&
+        (toType === null || toType === void 0 ? void 0 : toType.transform) &&
+        (from === 0 || to === 0)
       ) {
         if (from === 0) {
           value.set(toType.transform(from));
@@ -9124,13 +9124,11 @@ var AnimatePresence = function (_a) {
   });
   childrenToRender = childrenToRender.map(function (child) {
     var key2 = child.key;
-    return exiting.has(key2)
-      ? child
-      : React4.createElement(PresenceChild, {
-        key: getChildKey(child),
-        isPresent: true,
-        presenceAffectsLayout,
-      }, child);
+    return exiting.has(key2) ? child : React4.createElement(PresenceChild, {
+      key: getChildKey(child),
+      isPresent: true,
+      presenceAffectsLayout,
+    }, child);
   });
   presentChildren.current = childrenToRender;
   if (exitBeforeEnter && childrenToRender.length > 1) {
