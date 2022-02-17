@@ -8479,9 +8479,9 @@ verror@1.10.0:
     core-util-is "1.0.2"
     extsprintf "^1.2.0"
 
-vite-plugin-import-maps@^0.1.2:
+vite-plugin-import-maps@0.1.2:
   version "0.1.2"
-  resolved "https://registry.npmjs.org/vite-plugin-import-maps/-/vite-plugin-import-maps-0.1.2.tgz"
+  resolved "https://registry.yarnpkg.com/vite-plugin-import-maps/-/vite-plugin-import-maps-0.1.2.tgz#601527674d7f95362f8f19103dddfe76c98cbadb"
   integrity sha512-FEUMPFrPzXYWNCLYRk8p0GMygsZJ2s9pr6Wrql6qOletelNgmrznui/8GnAebNt9H5dh+BgLRc1+X03SlPwfgg==
   dependencies:
     less "*"
@@ -8501,9 +8501,9 @@ vite@2.6.14:
   optionalDependencies:
     fsevents "~2.3.2"
 
-vite@^2.8.3:
+vite@2.8.3:
   version "2.8.3"
-  resolved "https://registry.npmjs.org/vite/-/vite-2.8.3.tgz"
+  resolved "https://registry.yarnpkg.com/vite/-/vite-2.8.3.tgz#bb9b7f1f1446d2e538e81026f48d2fe9f1926963"
   integrity sha512-967klrEiG7HEsN7fQYYVETs5495Iu6GpI7YyxoO5yVTJCRxjV8HhWgNWKgrbazjoOB9DQuztL53/nUoNqHNsWg==
   dependencies:
     esbuild "^0.14.14"
