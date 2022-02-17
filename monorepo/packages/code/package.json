@@ -48,8 +48,8 @@
   "repository": "https://github.com/spike-land/monorepo",
   "devDependencies": {
     "typescript": "4.5.5",
-    "vite": "^2.8.3",
-    "vite-plugin-import-maps": "^0.1.2"
+    "vite": "2.8.3",
+    "vite-plugin-import-maps": "0.1.2"
   },
   "gitHead": "cf1f5d25e26ea72ce197cf6dc7b5f5d49919373d",
   "author": "Zoltan Erdos <zolika84@gmail.com>",
