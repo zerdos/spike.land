@@ -42,6 +42,6 @@
     "**/node_modules/*/**": true,
     "**/.hg/store/**": true
   },
-  "typescript.tsserver.useSyntaxServer": "always" d,
+  "typescript.tsserver.useSyntaxServer": "always" ,
   "deno.enable": false
 }
