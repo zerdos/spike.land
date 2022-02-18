@@ -1,4 +1,4 @@
-import * as monaco from "monaco-editor/esm/vs/ed";
+import * as monaco from "monaco-editor";
 import "monaco-editor/min/vs/editor/editor.main.css";
 import { dtsFiles } from "./types.mjs";
 
