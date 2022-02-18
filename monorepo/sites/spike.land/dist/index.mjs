@@ -379,10 +379,7 @@ var require_diff = __commonJS({
                   if (previous_equality >= 0) {
                     diffs[previous_equality][1] += text_insert.substring(0, commonlength);
                   } else {
-                    diffs.splice(0, 0, [
-                      DIFF_EQUAL,
-                      text_insert.substring(0, commonlength)
-                    ]);
+                    diffs.splice(0, 0, [DIFF_EQUAL, text_insert.substring(0, commonlength)]);
                     pointer++;
                   }
                   text_insert = text_insert.substring(commonlength);
@@ -406,10 +403,7 @@ var require_diff = __commonJS({
                 diffs.splice(pointer - n, n, [DIFF_DELETE, text_delete]);
                 pointer = pointer - n + 1;
               } else {
-                diffs.splice(pointer - n, n, [DIFF_DELETE, text_delete], [
-                  DIFF_INSERT,
-                  text_insert
-                ]);
+                diffs.splice(pointer - n, n, [DIFF_DELETE, text_delete], [DIFF_INSERT, text_insert]);
                 pointer = pointer - n + 2;
               }
             }
@@ -587,7 +581,7 @@ var require_textdiff_create = __commonJS({
 });
 
 // ../../packages/code/package.json
-var version = "0.7.320";
+var version = "0.7.321";
 
 // ../../packages/cf-npm-site/dist/index.mjs
 function src_default(packageName, version2, serveDir = "") {
@@ -2372,8 +2366,9 @@ function arrCopy(arr, offset) {
   return newArr;
 }
 function invariant(condition, error) {
-  if (!condition)
+  if (!condition) {
     throw new Error(error);
+  }
 }
 function assertNotInfinite(size) {
   invariant(size !== Infinity, "Cannot perform this action with an infinite size.");
