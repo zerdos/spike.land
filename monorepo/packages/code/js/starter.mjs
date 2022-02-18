@@ -36,7 +36,7 @@ const start = async (App) => {
   console.log("HYDRATED");
   if (location.href.endsWith("hydrated")) return;
   globalThis.App = App;
-  const { join } = await import("./ws.mjs");
+  const { join } = await import("./ws");
   join(room, user);
 };
 
