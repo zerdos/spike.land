@@ -581,7 +581,7 @@ var require_textdiff_create = __commonJS({
 });
 
 // ../../packages/code/package.json
-var version = "0.7.331";
+var version = "0.7.332";
 
 // ../../packages/cf-npm-site/dist/index.mjs
 function src_default(packageName, version2, serveDir = "") {
@@ -5323,7 +5323,8 @@ var CodeSession = class {
   }
 };
 var session = null;
-var session_default = (room, u) => session || new CodeSession(room, u);
+var startSession = (room, u) => session || new CodeSession(room, u);
+var session_default = startSession;
 function storageAvailable(type) {
   try {
     if (!Object.prototype.hasOwnProperty.call(window, type)) {
