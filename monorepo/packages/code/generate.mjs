@@ -29,7 +29,6 @@ await generator.install("preact/compat");
 await generator.install("preact/jsx-runtime");
 await generator.install("preact/jsx-dev-runtime");
 
-
 // await generator.install("react@18/jsix-runtime"); // await generator.install("react");
 //await generator.install("react-dom@18/server");
 // await generator.install("prop-types");

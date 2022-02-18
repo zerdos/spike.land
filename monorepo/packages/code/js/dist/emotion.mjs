@@ -254,7 +254,13 @@ __export(emotion_react_browser_esm_exports, {
   withEmotionCache: () => withEmotionCache,
   withTheme: () => withTheme
 });
-import { createElement as createElement2, useContext as useContext2, useRef, useLayoutEffect, Fragment as Fragment2 } from "react";
+import {
+  createElement as createElement2,
+  Fragment as Fragment2,
+  useContext as useContext2,
+  useLayoutEffect,
+  useRef
+} from "react";
 
 // ../../node_modules/@emotion/sheet/dist/emotion-sheet.browser.esm.js
 function sheetForTag(tag) {
@@ -405,24 +411,39 @@ var position = 0;
 var character = 0;
 var characters = "";
 function node(value, root, parent, type, props, children, length2) {
-  return { value, root, parent, type, props, children, line, column, length: length2, return: "" };
+  return {
+    value,
+    root,
+    parent,
+    type,
+    props,
+    children,
+    line,
+    column,
+    length: length2,
+    return: ""
+  };
 }
 function copy(root, props) {
-  return assign(node("", null, null, "", null, null, 0), root, { length: -root.length }, props);
+  return assign(node("", null, null, "", null, null, 0), root, {
+    length: -root.length
+  }, props);
 }
 function char() {
   return character;
 }
 function prev() {
   character = position > 0 ? charat(characters, --position) : 0;
-  if (column--, character === 10)
+  if (column--, character === 10) {
     column = 1, line--;
+  }
   return character;
 }
 function next() {
   character = position < length ? charat(characters, position++) : 0;
-  if (column++, character === 10)
+  if (column++, character === 10) {
     column = 1, line++;
+  }
   return character;
 }
 function peek() {
@@ -476,50 +497,60 @@ function delimit(type) {
   return trim(slice(position - 1, delimiter(type === 91 ? type + 2 : type === 40 ? type + 1 : type)));
 }
 function whitespace(type) {
-  while (character = peek())
-    if (character < 33)
+  while (character = peek()) {
+    if (character < 33) {
       next();
-    else
+    } else {
       break;
+    }
+  }
   return token(type) > 2 || token(character) > 3 ? "" : " ";
 }
 function escaping(index, count) {
-  while (--count && next())
-    if (character < 48 || character > 102 || character > 57 && character < 65 || character > 70 && character < 97)
+  while (--count && next()) {
+    if (character < 48 || character > 102 || character > 57 && character < 65 || character > 70 && character < 97) {
       break;
+    }
+  }
   return slice(index, caret() + (count < 6 && peek() == 32 && next() == 32));
 }
 function delimiter(type) {
-  while (next())
+  while (next()) {
     switch (character) {
       case type:
         return position;
       case 34:
       case 39:
-        if (type !== 34 && type !== 39)
+        if (type !== 34 && type !== 39) {
           delimiter(character);
+        }
         break;
       case 40:
-        if (type === 41)
+        if (type === 41) {
           delimiter(type);
+        }
         break;
       case 92:
         next();
         break;
     }
+  }
   return position;
 }
 function commenter(type, index) {
-  while (next())
-    if (type + character === 47 + 10)
+  while (next()) {
+    if (type + character === 47 + 10) {
       break;
-    else if (type + character === 42 + 42 && peek() === 47)
+    } else if (type + character === 42 + 42 && peek() === 47) {
       break;
+    }
+  }
   return "/*" + slice(index, position - 1) + "*" + from(type === 47 ? type : next());
 }
 function identifier(index) {
-  while (!token(peek()))
+  while (!token(peek())) {
     next();
+  }
   return slice(index, position);
 }
 
@@ -543,12 +574,13 @@ function parse(value, root, parent, rule, rules, rulesets, pseudo, points, decla
   var children = rulesets;
   var reference = rule;
   var characters2 = type;
-  while (scanning)
+  while (scanning) {
     switch (previous = character2, character2 = next()) {
       case 40:
         if (previous != 108 && characters2.charCodeAt(length2 - 1) == 58) {
-          if (indexof(characters2 += replace(delimit(character2), "&", "&\f"), "&\f") != -1)
+          if (indexof(characters2 += replace(delimit(character2), "&", "&\f"), "&\f") != -1) {
             ampersand = -1;
+          }
           break;
         }
       case 34:
@@ -585,17 +617,18 @@ function parse(value, root, parent, rule, rules, rulesets, pseudo, points, decla
           case 125:
             scanning = 0;
           case 59 + offset:
-            if (property > 0 && strlen(characters2) - length2)
+            if (property > 0 && strlen(characters2) - length2) {
               append(property > 32 ? declaration(characters2 + ";", rule, parent, length2 - 1) : declaration(replace(characters2, " ", "") + ";", rule, parent, length2 - 2), declarations);
+            }
             break;
           case 59:
             characters2 += ";";
           default:
             append(reference = ruleset(characters2, root, parent, index, offset, rules, points, type, props = [], children = [], length2), rulesets);
-            if (character2 === 123)
-              if (offset === 0)
+            if (character2 === 123) {
+              if (offset === 0) {
                 parse(characters2, root, reference, reference, props, rulesets, length2, points, children);
-              else
+              } else {
                 switch (atrule) {
                   case 100:
                   case 109:
@@ -605,6 +638,8 @@ function parse(value, root, parent, rule, rules, rulesets, pseudo, points, decla
                   default:
                     parse(characters2, reference, reference, reference, [""], children, 0, points, children);
                 }
+              }
+            }
         }
         index = offset = property = 0, variable = ampersand = 1, type = characters2 = "", length2 = pseudo;
         break;
@@ -612,10 +647,11 @@ function parse(value, root, parent, rule, rules, rulesets, pseudo, points, decla
         length2 = 1 + strlen(characters2), property = previous;
       default:
         if (variable < 1) {
-          if (character2 == 123)
+          if (character2 == 123) {
             --variable;
-          else if (character2 == 125 && variable++ == 0 && prev() == 125)
+          } else if (character2 == 125 && variable++ == 0 && prev() == 125) {
             continue;
+          }
         }
         switch (characters2 += from(character2), character2 * variable) {
           case 38:
@@ -625,25 +661,31 @@ function parse(value, root, parent, rule, rules, rulesets, pseudo, points, decla
             points[index++] = (strlen(characters2) - 1) * ampersand, ampersand = 1;
             break;
           case 64:
-            if (peek() === 45)
+            if (peek() === 45) {
               characters2 += delimit(next());
+            }
             atrule = peek(), offset = length2 = strlen(type = characters2 += identifier(caret())), character2++;
             break;
           case 45:
-            if (previous === 45 && strlen(characters2) == 2)
+            if (previous === 45 && strlen(characters2) == 2) {
               variable = 0;
+            }
         }
     }
+  }
   return rulesets;
 }
 function ruleset(value, root, parent, index, offset, rules, points, type, props, children, length2) {
   var post = offset - 1;
   var rule = offset === 0 ? rules : [""];
   var size = sizeof(rule);
-  for (var i = 0, j = 0, k = 0; i < index; ++i)
-    for (var x = 0, y = substr(value, post + 1, post = abs(j = points[i])), z = value; x < size; ++x)
-      if (z = trim(j > 0 ? rule[x] + " " + y : replace(y, /&\f/g, rule[x])))
+  for (var i = 0, j = 0, k = 0; i < index; ++i) {
+    for (var x = 0, y = substr(value, post + 1, post = abs(j = points[i])), z = value; x < size; ++x) {
+      if (z = trim(j > 0 ? rule[x] + " " + y : replace(y, /&\f/g, rule[x]))) {
         props[k++] = z;
+      }
+    }
+  }
   return node(value, root, parent, offset === 0 ? RULESET : type, props, children, length2);
 }
 function comment(value, root, parent) {
@@ -733,20 +775,23 @@ function prefix(value, length2) {
     case 5789:
     case 5021:
     case 4765:
-      if (strlen(value) - 1 - length2 > 6)
+      if (strlen(value) - 1 - length2 > 6) {
         switch (charat(value, length2 + 1)) {
           case 109:
-            if (charat(value, length2 + 4) !== 45)
+            if (charat(value, length2 + 4) !== 45) {
               break;
+            }
           case 102:
             return replace(value, /(.+:)(.+)-([^]+)/, "$1" + WEBKIT + "$2-$3$1" + MOZ + (charat(value, length2 + 3) == 108 ? "$3" : "$2-$3")) + value;
           case 115:
             return ~indexof(value, "stretch") ? prefix(replace(value, "stretch", "fill-available"), length2) + value : value;
         }
+      }
       break;
     case 4949:
-      if (charat(value, length2 + 1) !== 115)
+      if (charat(value, length2 + 1) !== 115) {
         break;
+      }
     case 6444:
       switch (charat(value, strlen(value) - 3 - (~indexof(value, "!important") && 10))) {
         case 107:
@@ -773,8 +818,9 @@ function prefix(value, length2) {
 function serialize(children, callback) {
   var output = "";
   var length2 = sizeof(children);
-  for (var i = 0; i < length2; i++)
+  for (var i = 0; i < length2; i++) {
     output += callback(children[i], i, children, callback) || "";
+  }
   return output;
 }
 function stringify(element, index, children, callback) {
@@ -797,45 +843,63 @@ function middleware(collection) {
   var length2 = sizeof(collection);
   return function(element, index, children, callback) {
     var output = "";
-    for (var i = 0; i < length2; i++)
+    for (var i = 0; i < length2; i++) {
       output += collection[i](element, index, children, callback) || "";
+    }
     return output;
   };
 }
 function rulesheet(callback) {
   return function(element) {
     if (!element.root) {
-      if (element = element.return)
+      if (element = element.return) {
         callback(element);
+      }
     }
   };
 }
 function prefixer(element, index, children, callback) {
   if (element.length > -1) {
-    if (!element.return)
+    if (!element.return) {
       switch (element.type) {
         case DECLARATION:
           element.return = prefix(element.value, element.length);
           break;
         case KEYFRAMES:
-          return serialize([copy(element, { value: replace(element.value, "@", "@" + WEBKIT) })], callback);
+          return serialize([
+            copy(element, { value: replace(element.value, "@", "@" + WEBKIT) })
+          ], callback);
         case RULESET:
-          if (element.length)
+          if (element.length) {
             return combine(element.props, function(value) {
               switch (match(value, /(::plac\w+|:read-\w+)/)) {
                 case ":read-only":
                 case ":read-write":
-                  return serialize([copy(element, { props: [replace(value, /:(read-\w+)/, ":" + MOZ + "$1")] })], callback);
+                  return serialize([
+                    copy(element, {
+                      props: [replace(value, /:(read-\w+)/, ":" + MOZ + "$1")]
+                    })
+                  ], callback);
                 case "::placeholder":
                   return serialize([
-                    copy(element, { props: [replace(value, /:(plac\w+)/, ":" + WEBKIT + "input-$1")] }),
-                    copy(element, { props: [replace(value, /:(plac\w+)/, ":" + MOZ + "$1")] }),
-                    copy(element, { props: [replace(value, /:(plac\w+)/, MS + "input-$1")] })
+                    copy(element, {
+                      props: [
+                        replace(value, /:(plac\w+)/, ":" + WEBKIT + "input-$1")
+                      ]
+                    }),
+                    copy(element, {
+                      props: [replace(value, /:(plac\w+)/, ":" + MOZ + "$1")]
+                    }),
+                    copy(element, {
+                      props: [replace(value, /:(plac\w+)/, MS + "input-$1")]
+                    })
                   ], callback);
               }
               return "";
             });
+          }
       }
+    }
   }
 }
 
@@ -994,17 +1058,20 @@ var createCache = function createCache2(options) {
   }
   {
     var currentSheet;
-    var finalizingPlugins = [stringify, false ? function(element) {
-      if (!element.root) {
-        if (element["return"]) {
-          currentSheet.insert(element["return"]);
-        } else if (element.value && element.type !== COMMENT) {
-          currentSheet.insert(element.value + "{}");
+    var finalizingPlugins = [
+      stringify,
+      false ? function(element) {
+        if (!element.root) {
+          if (element["return"]) {
+            currentSheet.insert(element["return"]);
+          } else if (element.value && element.type !== COMMENT) {
+            currentSheet.insert(element.value + "{}");
+          }
         }
-      }
-    } : rulesheet(function(rule) {
-      currentSheet.insert(rule);
-    })];
+      } : rulesheet(function(rule) {
+        currentSheet.insert(rule);
+      })
+    ];
     var serializer = middleware(omnipresentPlugins.concat(stylisPlugins, finalizingPlugins));
     var stylis = function stylis2(styles) {
       return serialize(compile(styles), serializer);
@@ -1045,7 +1112,13 @@ var createCache = function createCache2(options) {
 var emotion_cache_browser_esm_default = createCache;
 
 // ../../node_modules/@emotion/react/dist/emotion-element-699e6908.browser.esm.js
-import { createContext, useContext, forwardRef, createElement, Fragment } from "react";
+import {
+  createContext,
+  createElement,
+  forwardRef,
+  Fragment,
+  useContext
+} from "react";
 
 // ../../node_modules/@babel/runtime/helpers/esm/extends.js
 function _extends() {
@@ -1521,7 +1594,10 @@ var Emotion = /* @__PURE__ */ withEmotionCache(function(props, cache, ref) {
   if (false) {
     var labelFromStack = props[labelPropName];
     if (labelFromStack) {
-      serialized = serializeStyles([serialized, "label:" + labelFromStack + ";"]);
+      serialized = serializeStyles([
+        serialized,
+        "label:" + labelFromStack + ";"
+      ]);
     }
   }
   var rules = insertStyles(cache, serialized, typeof type === "string");
