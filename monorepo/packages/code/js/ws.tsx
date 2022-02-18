@@ -187,9 +187,9 @@ export const join = async (room, user, delta) => {
   );
   const state = await resp.json();
 
-  const { initSession } = await import("./session");
+  const { startSession } = await import("./session");
 
-  mySession = mySession || await initSession(roomName, {
+  mySession = mySession || await startSession(roomName, {
     name: username,
     room: roomName,
     state,
