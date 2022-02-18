@@ -4,7 +4,7 @@
 
 // import initSession from "./dist/session.mjs";
 
-import { initSession, quickStart } from "./quickStart.mjs";
+import { initSession, quickStart } from "./quickStart";
 
 let currentWebSocket = null;
 let sess = false;
