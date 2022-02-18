@@ -3295,14 +3295,14 @@ object-assign
 @license MIT
 */
 /*!
-* The buffer module from node.js, for the browser.
-*
-* @author   Feross Aboukhadijeh <feross@feross.org> <http://feross.org>
-* @license  MIT
-*/
+ * The buffer module from node.js, for the browser.
+ *
+ * @author   Feross Aboukhadijeh <feross@feross.org> <http://feross.org>
+ * @license  MIT
+ */
 /*!
-* The buffer module from node.js, for the browser.
-*
-* @author   Feross Aboukhadijeh <https://feross.org>
-* @license  MIT
-*/
+ * The buffer module from node.js, for the browser.
+ *
+ * @author   Feross Aboukhadijeh <https://feross.org>
+ * @license  MIT
+ */
