@@ -82,7 +82,7 @@
     "comlink": "4.3.1",
     "core-js": "^3.21.0",
     "es-module-shims": "1.4.6",
-    "esbuild": "0.14.22",
+    "esbuild": "0.14.23",
     "esbuild-plugin-import-map": "2.1.0",
     "esbuild-wasm": "^0.14.21",
     "framer-motion": "6.2.6",
