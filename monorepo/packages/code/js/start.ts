@@ -1,3 +1,3 @@
-import { run } from "./starter.mjs";
+import { run } from "./dist/starter.mjs";
 
 run();

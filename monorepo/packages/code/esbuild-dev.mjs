@@ -132,7 +132,7 @@ const build = (entryPoints) =>
 // ]);
 
 await build([
-  "js/starter.mjs",
+  "js/starter.tsx",
 ]);
 
 // esbuild.build({
