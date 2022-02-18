@@ -42,6 +42,6 @@
     "**/node_modules/*/**": true,
     "**/.hg/store/**": true
   },
-  "typescript.tsserver.experimental.enableProjectDiagnostics": true,
+  "typescript.tsserver.useSyntaxServer": "always" d,
   "deno.enable": false
 }

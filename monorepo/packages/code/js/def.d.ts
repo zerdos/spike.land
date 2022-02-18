@@ -1,4 +1,6 @@
 declare global {
+  interface MonacoEnvironment {
+  }
   interface Crypto {
     randomUUID: () => string;
   }

@@ -1,5 +1,4 @@
 import * as monaco from "monaco-editor";
-import type {} from "monaco-editor";
 import "monaco-editor/min/vs/editor/editor.main.css";
 import { dtsFiles } from "./types.mjs";
 
@@ -16,7 +15,7 @@ const {
   framerDts,
 } = dtsFiles;
 
-MonacoEnvironment = {
+self.MonacoEnvironment = {
   getWorkerUrl: function (moduleId: string, label: string) {
     //     // if (label === "json") {
     //     //   return "./dist/workers/monaco-editor/esm/vs/language/json/json.worker.js";
