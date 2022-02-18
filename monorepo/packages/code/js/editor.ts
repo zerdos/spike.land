@@ -308,12 +308,12 @@ export const startMonaco = async (
   //     serialized: SerializedStyles,
   //     isStringTag: boolean
   //   ): string | void`,
-  //   "/app/types/emotionu/index.d.ts",
+  //   "/app/types/emotion/index.d.ts",
   // );
 
   // monaco.languages.typescript.typescriptDefaults.addExtraLib(
   //   `export const i: number;`,
-  //   "file:///node_modules/@types/zozi/index.d.ts",
+  //   "file:///node_modules/@types/react/index.d.ts",
   // );
 
   (async () => {
