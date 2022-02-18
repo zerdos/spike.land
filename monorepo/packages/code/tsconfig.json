@@ -63,7 +63,7 @@
   "include": [
     "js"
   ],
-  "exclude": ["./js/vendor/**", "./js/dist/**"],
+  "exclude": ["./js/vendor/**", "js/dist"],
   "paths": {
     "path": ["path-browserify"],
     "react": "preact-compat",
