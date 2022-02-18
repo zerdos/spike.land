@@ -2,10 +2,6 @@
 
 /* eslint-enable */
 
-// import initSession from "./dist/session.mjs";
-
-import { initSession, rt } from "./quickStart";
-
 let currentWebSocket = null;
 let sess = false;
 // Let sanyiProcess = null;
@@ -191,6 +187,8 @@ export const join = async (room, user, delta) => {
   );
   const state = await resp.json();
 
+  const { initSession } = await import("./session");
+
   mySession = mySession || await initSession(roomName, {
     name: username,
     room: roomName,
@@ -212,6 +210,7 @@ export const join = async (room, user, delta) => {
       const throttle = (await import("lodash/throttle")).default;
 
       const stayFullscreen = location.pathname.endsWith("public");
+      const { quickStart } = await import("./quickStart");
       quickStart(
         session,
         roomName,

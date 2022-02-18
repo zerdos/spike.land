@@ -73,7 +73,7 @@ export type IUser = Record<
   }
 >;
 
-function initSession(room: string, u: IUserJSON) {
+export function initSession(room: string, u: IUserJSON) {
   return Record({ ...u, room, state: Record(u.state)() });
 }
 
