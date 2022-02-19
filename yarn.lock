@@ -804,7 +804,7 @@
 "@lerna/diff@4.0.0":
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/@lerna/diff/-/diff-4.0.0.tgz#6d3071817aaa4205a07bf77cfc6e932796d48b92"
-  integrity sha512-jYPKprQVg41+MUMxx6cwtqsNm0Yxx9GDEwdiPLwcUTFx+/qKCEwifKNJ1oGIPBxyEHX2PFCOjkK39lHoj2qiag==
+  integrity sha512-jYPKprQVg41+MUMEmotionSerializeDtscwtqsNm0Yxx9GDEwdiPLwcUTFx+/qKCEwifKNJ1oGIPBxyEHX2PFCOjkK39lHoj2qiag==
   dependencies:
     "@lerna/child-process" "4.0.0"
     "@lerna/command" "4.0.0"
@@ -5998,7 +5998,7 @@ pngjs@6.0.0:
 pngjs@^4.0.1:
   version "4.0.1"
   resolved "https://registry.yarnpkg.com/pngjs/-/pngjs-4.0.1.tgz#f803869bb2fc1bfe1bf99aa4ec21c108117cfdbe"
-  integrity sha512-rf5+2/ioHeQxR6IxuYNYGFytUyG3lma/WW1nsmjeHlWwtb2aByla6dkVc8pmJ9nplzkTA0q2xx7mMWrOTqT4Gg==
+  integrity sha512-rf5+2/ioHeQxR6IxuYNYGFytUyG3lma/WW1nsmjeHlWwtb2aByla6dkVc8pmJ9nplzkTA0q2EmotionUtilsDtsmMWrOTqT4Gg==
 
 preact@10.6.6:
   version "10.6.6"
@@ -7500,7 +7500,7 @@ which@^2.0.1, which@^2.0.2:
 wide-align@^1.1.0:
   version "1.1.5"
   resolved "https://registry.yarnpkg.com/wide-align/-/wide-align-1.1.5.tgz#df1d4c206854369ecf3c9a4898f1b23fbd9d15d3"
-  integrity sha512-eDMORYaPNZ4sQIuuYPDHdQvf4gyCF9rEEV/yPxGfwPkRodwEgiMUUXTx/dex+Me0wxx53S+NgUHaP7y3MGlDmg==
+  integrity sha512-eDMORYaPNZ4sQIuuYPDHdQvf4gyCF9rEEV/yPxGfwPkRodwEgiMUUXTx/dex+Me0wEmotionThemingDts3S+NgUHaP7y3MGlDmg==
   dependencies:
     string-width "^1.0.2 || 2 || 3 || 4"
 

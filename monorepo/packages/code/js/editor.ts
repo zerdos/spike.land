@@ -19,13 +19,11 @@ const {
   EmotionJSXRuntimeDTS,
   EmotionReactDts,
   EmotionThemingTds,
-  xx1,
-  xx2,
-  xx3,
-  xx4,
-  xx5,
-  xx6,
-  xx7,
+  EmotionReactCssPropDts,
+  EmotionReactHelperDts,
+  EmotionThemingDts,
+  EmotionSerializeDts,
+  EmotionUtilsDts,
 } = dtsFiles;
 
 self.MonacoEnvironment = {
@@ -418,38 +416,27 @@ export const startMonaco = async (
         },
         {
           name: "@emotion/react/css-prop",
-          url: xx1,
+          url: EmotionReactCssPropDts,
           depend: ["@emotion/utils", "type"],
         },
         {
           name: "@emotion/react/helper",
-          url: xx2,
+          url: EmotionReactHelperDts,
           depend: ["@emotion/utils", "type"],
-        },
-        {
-          name: "@emotion/react/css-prop",
-          url: xx3,
-          depend: ["@emotion/utils", "csstype"],
-        },
-        {
-          name: "@emotion/react/helper",
-          url: xx4,
-          depend: ["@emotion/utils", "csstype"],
         },
         {
           name: "@emotion/theming",
-          url: xx5,
+          url: EmotionThemingDts,
           depend: ["@emotion/utils", "csstype"],
         },
         {
           name: "@emotion/serialize",
-          url: xx6,
-
+          url: EmotionSerializeDts,
           depend: ["@emotion/utils", "csstype"],
         },
         {
           name: "@emotion/utils",
-          url: xx7,
+          url: EmotionUtilsDts,
           depend: [],
         },
         {

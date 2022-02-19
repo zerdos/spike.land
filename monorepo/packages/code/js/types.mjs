@@ -15,13 +15,11 @@ import EmotionJSXDts from "@emotion/react/types/jsx-runtime.d.ts?url";
 import EmotionJSXRuntimeDTS from "@emotion/react/types/jsx-dev-runtime.d.ts?url";
 import EmotionJSXNameSpaceDTS from "@emotion/react/types/jsx-namespace.d.ts?url";
 import EmotionThemingTds from "@emotion/react/types/theming.d.ts?url";
-import xx1 from "@emotion/react/types/css-prop.d.ts?url";
-import xx2 from "@emotion/react/types/helper.d.ts?url";
-import xx3 from "@emotion/react/types/css-prop.d.ts?url";
-import xx4 from "@emotion/react/types/helper.d.ts?url";
-import xx5 from "@emotion/react/types/theming.d.ts?url";
-import xx6 from "@emotion/serialize/types/index.d.ts?url";
-import xx7 from "@emotion/utils/types/index.d.ts?url";
+import EmotionReactCssPropDts from "@emotion/react/types/css-prop.d.ts?url";
+import EmotionReactHelperDts from "@emotion/react/types/helper.d.ts?url";
+import EmotionThemingDts from "@emotion/react/types/theming.d.ts?url";
+import EmotionSerializeDts from "@emotion/serialize/types/index.d.ts?url";
+import EmotionUtilsDts from "@emotion/utils/types/index.d.ts?url";
 
 export const dtsFiles = {
   reactDts,
@@ -40,11 +38,9 @@ export const dtsFiles = {
   EmotionJSXRuntimeDTS,
   EmotionReactDts,
   EmotionThemingTds,
-  xx1,
-  xx2,
-  xx3,
-  xx4,
-  xx5,
-  xx6,
-  xx7,
+  EmotionReactCssPropDts,
+  EmotionReactHelperDts,
+  EmotionThemingDts,
+  EmotionSerializeDts,
+  EmotionUtilsDts,
 };
