@@ -8,6 +8,7 @@ import cssTypeDts from "csstype/index.d.ts?url";
 import framerDts from "./types/framer.d.ts?url";
 import emotionStyleBase from "@emotion/styled/types/base.d.ts?url";
 import emotionStyled from "@emotion/styled/types/index.d.ts?url";
+import emotionCache from "@emotion/cache/types/index.d.ts?url";
 
 export const dtsFiles = {
   reactDts,
@@ -20,4 +21,5 @@ export const dtsFiles = {
   framerDts,
   emotionStyleBase,
   emotionStyled,
+  emotionCache,
 };

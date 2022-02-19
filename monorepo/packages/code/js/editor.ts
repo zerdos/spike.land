@@ -15,6 +15,7 @@ const {
   framerDts,
   emotionStyleBase,
   emotionStyled,
+  emotionCache,
 } = dtsFiles;
 
 self.MonacoEnvironment = {
@@ -377,7 +378,7 @@ export const startMonaco = async (
         },
         {
           name: "@emotion/cache",
-          url: await import("@emotion/cache/types/index.d.ts?url"),
+          url: emotionCache,
           depend: ["@emotion/utils"],
         },
         {
