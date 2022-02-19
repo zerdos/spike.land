@@ -380,7 +380,7 @@ export const startMonaco = async (
       },
       {
         name: "@emotion/react",
-        url: "https://unpkg.com/@emotion/react@11.7.1/types/index.d.ts",
+        url: await import("@emotion/react@11.7.1/types/index.d.ts",
         depend: ["@emotion/cache"],
       },
       {
