@@ -114,7 +114,7 @@ const build = (entryPoints) =>
       ".ts": "ts",
       ".d.ts": "dataurl",
       ".workerJS": "file",
-      ".wasm": "dataurl",
+    ".wasm": "file",
     },
     outdir: "js/dist",
   }).catch(() => process.exit(1));
