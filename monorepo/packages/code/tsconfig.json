@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "target": "EsNext",
     /* Visit https://aka.ms/tsconfig.json to read more about this file */
 
     /* Basic Options */
@@ -8,6 +9,7 @@
       "dom.iterable",
       "esnext"
     ],
+    "module": "Esnext",
     "allowJs": true,
     "noFallthroughCasesInSwitch": true,
     "isolatedModules": true,
@@ -19,7 +21,6 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noImplicitReturns": true,
-    // "isolatedModules": true,               /* Transpile each file as a separate module (similar to 'ts.transpileModule'). */
 
     /* Strict Type-Checking Options */
 
