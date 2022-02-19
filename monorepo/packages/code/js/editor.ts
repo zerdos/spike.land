@@ -310,12 +310,12 @@ export const startMonaco = async (
   //     serialized: SerializedStyles,
   //     isStringTag: boolean
   //   ): string | void`,
-  //   "/app/types/emotion/index.d.ts",
+  //   "/app/types/emotion/index.d.ts?url"),
   // );
 
   // monaco.languages.typescript.typescriptDefaults.addExtraLib(
   //   `export const i: number;`,
-  //   "file:///node_modules/@types/react/index.d.ts",
+  //   "file:///node_modules/@types/react/index.d.ts?url"),
   // );
 
   (async () => {
@@ -380,74 +380,69 @@ export const startMonaco = async (
       },
       {
         name: "@emotion/react",
-        url: await import("@emotion/react@11.7.1/types/index.d.ts",
+        url: await import("@emotion/react/types/index.d.ts?url"),
         depend: ["@emotion/cache"],
       },
       {
         name: "@emotion/react/jsx-runtime",
-        url: "https://unpkg.com/@emotion/react@11.7.1/types/jsx-runtime.d.ts",
+        url: await import("@emotion/react/types/jsx-runtime.d.ts?url"),
         depend: ["@emotion/cache"],
       },
       {
         name: "@emotion/react/jsx-dev-runtime",
-        url:
-          "https://unpkg.com/@emotion/react@11.7.1/types/jsx-dev-runtime.d.ts",
+        url: await import("@emotion/react/types/jsx-dev-runtime.d.ts?url"),
         depend: ["@emotion/cache"],
       },
       {
         name: "@emotion/react/jsx-namespace",
-        url: "https://unpkg.com/@emotion/react@11.7.1/types/jsx-namespace.d.ts",
+        url: await import("@emotion/react/types/jsx-namespace.d.ts?url"),
         depend: ["@emotion/utils", "type"],
       },
       {
         name: "@emotion/react/theming",
-        url: "https://unpkg.com/@emotion/react@11.7.1/types/theming.d.ts",
+        url: await import("@emotion/react/types/theming.d.ts?url"),
         depend: ["@emotion/utils", "type"],
       },
       {
         name: "@emotion/react/css-prop",
-        url: "https://unpkg.com/@emotion/react@11.7.1/types/css-prop.d.ts",
+        url: await import("@emotion/react/types/css-prop.d.ts?url"),
         depend: ["@emotion/utils", "type"],
       },
       {
         name: "@emotion/react/helper",
-        url: "https://unpkg.com/@emotion/react@11.7.1/types/helper.d.ts",
+        url: await import("@emotion/react/types/helper.d.ts?url"),
         depend: ["@emotion/utils", "type"],
       },
       {
         name: "@emotion/react/css-prop",
-        url: "https://unpkg.com/@emotion/react@11.7.1/types/css-prop.d.ts",
+        url: await import("@emotion/react/types/css-prop.d.ts?url"),
         depend: ["@emotion/utils", "csstype"],
       },
       {
         name: "@emotion/react/helper",
-        url: "https://unpkg.com/@emotion/react@11.7.1/types/helper.d.ts",
+        url: await import("@emotion/react/types/helper.d.ts?url"),
         depend: ["@emotion/utils", "csstype"],
       },
       {
         name: "@emotion/theming",
-        url: "https://unpkg.com/@emotion/react@11.7.1/types/theming.d.ts",
+        url: await import("@emotion/react/types/theming.d.ts?url"),
         depend: ["@emotion/utils", "csstype"],
       },
       {
         name: "@emotion/serialize",
-        url: "https://unpkg.com/@emotion/serialize@1.0.2/types/index.d.ts",
+        url: await import("@emotion/serialize/types/index.d.ts?url"),
 
         depend: ["@emotion/utils", "csstype"],
       },
       {
         name: "@emotion/utils",
-        url: "https://unpkg.com/@emotion/utils@1.0.0/types/index.d.ts",
+        url: await import("@emotion/utils/types/index.d.ts?url"),
         depend: [],
       },
       {
         name: "framer-motion",
         url: framerDts,
         depend: ["popmotion"],
-      },
-      {
-        name: "popmotion",
-        url: "https://unpkg.com/popmotion@11.0.3/lib/index.d.ts",
       },
     ];
 
