@@ -130,7 +130,7 @@ export const startMonaco = async (
     language: "typescript",
     useShadowDOM: false,
     theme: "vs-dark",
-    jd
+
     // codeLens: false,
     // suggest: false,
     // smoothScrolling: true,
@@ -262,210 +262,211 @@ export const startMonaco = async (
     editor.layout();
   });
 
-  // monaco.languages.typescript.typescriptDefaults.addExtraLib(
-  //   `export interface RegisteredCache {
-  //     [key: string]: string
-  //   }
+  monaco.languages.typescript.typescriptDefaults.addExtraLib(
+    `export interface RegisteredCache {
+      [key: string]: string
+    }
 
-  //   export interface StyleSheet {
-  //     container: HTMLElement
-  //     nonce?: string
-  //     key: string
-  //     insert(rule: string): void
-  //     flush(): void
-  //     tags: Array<HTMLStyleElement>
-  //   }
+    export interface StyleSheet {
+      container: HTMLElement
+      nonce?: string
+      key: string
+      insert(rule: string): void
+      flush(): void
+      tags: Array<HTMLStyleElement>
+    }
 
-  //   export interface EmotionCache {
-  //     inserted: {
-  //       [key: string]: string | true
-  //     }
-  //     registered: RegisteredCache
-  //     sheet: StyleSheet
-  //     key: string
-  //     compat?: true
-  //     nonce?: string
-  //     insert(
-  //       selector: string,
-  //       serialized: SerializedStyles,
-  //       sheet: StyleSheet,
-  //       shouldCache: boolean
-  //     ): string | void
-  //   }
+    export interface EmotionCache {
+      inserted: {
+        [key: string]: string | true
+      }
+      registered: RegisteredCache
+      sheet: StyleSheet
+      key: string
+      compat?: true
+      nonce?: string
+      insert(
+        selector: string,
+        serialized: SerializedStyles,
+        sheet: StyleSheet,
+        shouldCache: boolean
+      ): string | void
+    }
 
-  //   export interface SerializedStyles {
-  //     name: string
-  //     styles: string
-  //     map?: string
-  //     next?: SerializedStyles
-  //   }
+    export interface SerializedStyles {
+      name: string
+      styles: string
+      map?: string
+      next?: SerializedStyles
+    }
 
-  //   export const isBrowser: boolean
-  //   export function getRegisteredStyles(
-  //     registered: RegisteredCache,
-  //     registeredStyles: Array<string>,
-  //     classNames: string
-  //   ): string
-  //   export function insertStyles(
-  //     cache: EmotionCache,
-  //     serialized: SerializedStyles,
-  //     isStringTag: boolean
-  //   ): string | void`,
-  //   "/app/types/emotion/index.d.ts?url"),
-  // );
+    export const isBrowser: boolean
+    export function getRegisteredStyles(
+      registered: RegisteredCache,
+      registeredStyles: Array<string>,
+      classNames: string
+    ): string
+    export function insertStyles(
+      cache: EmotionCache,
+      serialized: SerializedStyles,
+      isStringTag: boolean
+    ): string | void`,
+    "/node_modules/types/emotion/index.d.ts",
+  ),
+    // );
 
-  // monaco.languages.typescript.typescriptDefaults.addExtraLib(
-  //   `export const i: number;`,
-  //   "file:///node_modules/@types/react/index.d.ts?url"),
-  // );
+    // monaco.languages.typescript.typescriptDefaults.addExtraLib(
+    //   `export const i: number;`,
+    //   "file:///node_modules/@types/react/index.d.ts?url"),
+    // );
 
-  (async () => {
-    const importHelper = [
-      {
-        name: "react",
-        url: reactDts,
-        depend: ["global", "csstype", "prop-types"],
-      },
-      {
-        name: "react/jsx-runtime",
-        url: jsxRuntimeDts,
-        depend: ["global", "csstype", "prop-types"],
-      },
-      {
-        name: "react/jsx-dev-runtime",
-        url: jsxDevRuntimeDts,
-        depend: ["global", "csstype", "prop-types"],
-      },
-      {
-        name: "react-exp",
-        url: reactExpDts,
-        depend: [],
-      },
-      {
-        name: "global",
-        url: globalDts,
-        depend: [],
-      },
-      {
-        name: "prop-types",
-        url: propTypesDts,
-        depend: [],
-      },
-      {
-        name: "csstype",
-        url: cssTypeDts,
-        depend: [],
-      },
-      {
-        name: "@emotion/base",
-        url: emotionStyleBase,
-        depend: [
-          "@emotion/react",
-          "@emotion/serialize",
-          "react",
-        ],
-      },
-      {
-        name: "@emotion/styled",
-        url: emotionStyled,
-        depend: [
-          "@emotion/react",
-          "@emotion/serialize",
-          "react",
-        ],
-      },
-      {
-        name: "@emotion/cache",
-        url: await import("@emotion/cache/types/index.d.ts?url"),
-        depend: ["@emotion/utils"],
-      },
-      {
-        name: "@emotion/react",
-        url: await import("@emotion/react/types/index.d.ts?url"),
-        depend: ["@emotion/cache"],
-      },
-      {
-        name: "@emotion/react/jsx-runtime",
-        url: await import("@emotion/react/types/jsx-runtime.d.ts?url"),
-        depend: ["@emotion/cache"],
-      },
-      {
-        name: "@emotion/react/jsx-dev-runtime",
-        url: await import("@emotion/react/types/jsx-dev-runtime.d.ts?url"),
-        depend: ["@emotion/cache"],
-      },
-      {
-        name: "@emotion/react/jsx-namespace",
-        url: await import("@emotion/react/types/jsx-namespace.d.ts?url"),
-        depend: ["@emotion/utils", "type"],
-      },
-      {
-        name: "@emotion/react/theming",
-        url: await import("@emotion/react/types/theming.d.ts?url"),
-        depend: ["@emotion/utils", "type"],
-      },
-      {
-        name: "@emotion/react/css-prop",
-        url: await import("@emotion/react/types/css-prop.d.ts?url"),
-        depend: ["@emotion/utils", "type"],
-      },
-      {
-        name: "@emotion/react/helper",
-        url: await import("@emotion/react/types/helper.d.ts?url"),
-        depend: ["@emotion/utils", "type"],
-      },
-      {
-        name: "@emotion/react/css-prop",
-        url: await import("@emotion/react/types/css-prop.d.ts?url"),
-        depend: ["@emotion/utils", "csstype"],
-      },
-      {
-        name: "@emotion/react/helper",
-        url: await import("@emotion/react/types/helper.d.ts?url"),
-        depend: ["@emotion/utils", "csstype"],
-      },
-      {
-        name: "@emotion/theming",
-        url: await import("@emotion/react/types/theming.d.ts?url"),
-        depend: ["@emotion/utils", "csstype"],
-      },
-      {
-        name: "@emotion/serialize",
-        url: await import("@emotion/serialize/types/index.d.ts?url"),
+    (async () => {
+      const importHelper = [
+        {
+          name: "react",
+          url: reactDts,
+          depend: ["global", "csstype", "prop-types"],
+        },
+        {
+          name: "react/jsx-runtime",
+          url: jsxRuntimeDts,
+          depend: ["global", "csstype", "prop-types"],
+        },
+        {
+          name: "react/jsx-dev-runtime",
+          url: jsxDevRuntimeDts,
+          depend: ["global", "csstype", "prop-types"],
+        },
+        {
+          name: "react-exp",
+          url: reactExpDts,
+          depend: [],
+        },
+        {
+          name: "global",
+          url: globalDts,
+          depend: [],
+        },
+        {
+          name: "prop-types",
+          url: propTypesDts,
+          depend: [],
+        },
+        {
+          name: "csstype",
+          url: cssTypeDts,
+          depend: [],
+        },
+        {
+          name: "@emotion/base",
+          url: emotionStyleBase,
+          depend: [
+            "@emotion/react",
+            "@emotion/serialize",
+            "react",
+          ],
+        },
+        {
+          name: "@emotion/styled",
+          url: emotionStyled,
+          depend: [
+            "@emotion/react",
+            "@emotion/serialize",
+            "react",
+          ],
+        },
+        {
+          name: "@emotion/cache",
+          url: await import("@emotion/cache/types/index.d.ts?url"),
+          depend: ["@emotion/utils"],
+        },
+        {
+          name: "@emotion/react",
+          url: await import("@emotion/react/types/index.d.ts?url"),
+          depend: ["@emotion/cache"],
+        },
+        {
+          name: "@emotion/react/jsx-runtime",
+          url: await import("@emotion/react/types/jsx-runtime.d.ts?url"),
+          depend: ["@emotion/cache"],
+        },
+        {
+          name: "@emotion/react/jsx-dev-runtime",
+          url: await import("@emotion/react/types/jsx-dev-runtime.d.ts?url"),
+          depend: ["@emotion/cache"],
+        },
+        {
+          name: "@emotion/react/jsx-namespace",
+          url: await import("@emotion/react/types/jsx-namespace.d.ts?url"),
+          depend: ["@emotion/utils", "type"],
+        },
+        {
+          name: "@emotion/react/theming",
+          url: await import("@emotion/react/types/theming.d.ts?url"),
+          depend: ["@emotion/utils", "type"],
+        },
+        {
+          name: "@emotion/react/css-prop",
+          url: await import("@emotion/react/types/css-prop.d.ts?url"),
+          depend: ["@emotion/utils", "type"],
+        },
+        {
+          name: "@emotion/react/helper",
+          url: await import("@emotion/react/types/helper.d.ts?url"),
+          depend: ["@emotion/utils", "type"],
+        },
+        {
+          name: "@emotion/react/css-prop",
+          url: await import("@emotion/react/types/css-prop.d.ts?url"),
+          depend: ["@emotion/utils", "csstype"],
+        },
+        {
+          name: "@emotion/react/helper",
+          url: await import("@emotion/react/types/helper.d.ts?url"),
+          depend: ["@emotion/utils", "csstype"],
+        },
+        {
+          name: "@emotion/theming",
+          url: await import("@emotion/react/types/theming.d.ts?url"),
+          depend: ["@emotion/utils", "csstype"],
+        },
+        {
+          name: "@emotion/serialize",
+          url: await import("@emotion/serialize/types/index.d.ts?url"),
 
-        depend: ["@emotion/utils", "csstype"],
-      },
-      {
-        name: "@emotion/utils",
-        url: await import("@emotion/utils/types/index.d.ts?url"),
-        depend: [],
-      },
-      {
-        name: "framer-motion",
-        url: framerDts,
-        depend: ["popmotion"],
-      },
-    ];
+          depend: ["@emotion/utils", "csstype"],
+        },
+        {
+          name: "@emotion/utils",
+          url: await import("@emotion/utils/types/index.d.ts?url"),
+          depend: [],
+        },
+        {
+          name: "framer-motion",
+          url: framerDts,
+          depend: ["popmotion"],
+        },
+      ];
 
-    const dts = importHelper.map(({ name, url }) =>
-      async () =>
-        monaco.languages.typescript.typescriptDefaults.addExtraLib(
-          await (await fetch(
-            url,
-          )).text(),
-          `file:///node_modules/${name}/index.d.ts`,
-        )
-    );
+      const dts = importHelper.map(({ name, url }) =>
+        async () =>
+          monaco.languages.typescript.typescriptDefaults.addExtraLib(
+            await (await fetch(
+              url,
+            )).text(),
+            `file:///node_modules/${name}/index.d.ts`,
+          )
+      );
 
-    await pAll(dts, { concurrency: 2 });
+      await pAll(dts, { concurrency: 2 });
 
-    monaco.languages.typescript.typescriptDefaults.setEagerModelSync(true);
-    monaco.languages.typescript.typescriptDefaults.setDiagnosticsOptions({
-      noSuggestionDiagnostics: false,
-      noSemanticValidation: false,
-      noSyntaxValidation: false,
-    });
-  })();
+      monaco.languages.typescript.typescriptDefaults.setEagerModelSync(true);
+      monaco.languages.typescript.typescriptDefaults.setDiagnosticsOptions({
+        noSuggestionDiagnostics: false,
+        noSemanticValidation: false,
+        noSyntaxValidation: false,
+      });
+    })();
 
   // return modules;
   return { editor, monaco: { ...monaco } };
