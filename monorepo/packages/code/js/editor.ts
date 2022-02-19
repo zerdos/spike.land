@@ -302,16 +302,16 @@ export const startMonaco = async (
         url: reactDts,
         depend: ["global", "csstype", "prop-types"],
       },
-      {
-        name: "react/jsx-runtime",
-        url: jsxRuntimeDts,
-        depend: ["global", "csstype", "prop-types"],
-      },
-      {
-        name: "react/jsx-dev-runtime",
-        url: jsxDevRuntimeDts,
-        depend: ["global", "csstype", "prop-types"],
-      },
+      // {
+      //   name: "react/jsx-runtime",
+      //   url: jsxRuntimeDts,
+      //   depend: ["global", "csstype", "prop-types"],
+      // },
+      // {
+      //   name: "react/jsx-dev-runtime",
+      //   url: jsxDevRuntimeDts,
+      //   depend: ["global", "csstype", "prop-types"],
+      // },
       {
         name: "react-exp",
         url: reactExpDts,
