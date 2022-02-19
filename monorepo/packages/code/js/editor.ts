@@ -2,8 +2,6 @@ import * as monaco from "monaco-editor";
 import "monaco-editor/min/vs/editor/editor.main.css";
 import { dtsFiles } from "./types.mjs";
 
-import pAll from "p-all";
-
 const {
   reactDts,
   jsxDevRuntimeDts,
@@ -471,7 +469,7 @@ export const startMonaco = async (
           )
       );
 
-      await pAll(dts, { concurrency: 2 });
+      await Promise.all(dts);
 
       monaco.languages.typescript.typescriptDefaults.setEagerModelSync(true);
       monaco.languages.typescript.typescriptDefaults.setDiagnosticsOptions({
