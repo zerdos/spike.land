@@ -158,7 +158,7 @@ export const startMonaco = async (
     model: monaco.editor.createModel(
       code,
       "typescript",
-      monaco.Uri.parse("file:///index.tsx"),
+      monaco.Uri.file("/index.tsx"),
     ),
     // lightbulb: { enabled: false },
     language: "typescript",
@@ -417,7 +417,7 @@ export const startMonaco = async (
       async () =>
         monaco.languages.typescript.typescriptDefaults.addExtraLib(
           url,
-          `file:///node_modules/${name}/index.d.ts`,
+          `/node_modules/${name}/index.d.ts`,
         )
     );
 
