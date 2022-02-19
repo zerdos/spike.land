@@ -12,8 +12,8 @@
     "xbuild": "esbuild --bundle --format=esm --loader:.html=text --target=esnext src/index.ts --outfile=dist/index.mjs"
   },
   "devDependencies": {
-    "@spike.land/cf-npm-site": "^0.7.305",
-    "@spike.land/code": "^0.7.339",
+    "@spike.land/cf-npm-site": "0.7.305",
+    "@spike.land/code": "0.7.339",
     "tslib": "2.3.1",
     "typescript": "4.5.5"
   },

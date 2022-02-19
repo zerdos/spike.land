@@ -9,8 +9,8 @@
     "postpublish": "yarn bundle"
   },
   "devDependencies": {
-    "@spike.land/cf-npm-site": "^0.7.305",
-    "@spike.land/code": "^0.7.339"
+    "@spike.land/cf-npm-site": "0.7.305",
+    "@spike.land/code": "0.7.339"
   },
   "private": true,
   "dependencies": {
