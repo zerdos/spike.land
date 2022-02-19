@@ -101,7 +101,7 @@ const build = (entryPoints) =>
       ".workerJS",
     ],
     jsxFactory: 'h',
-    jsxFragment: 'Fragment',
+    jsxFragment: 'React.Fragment',
   
     target: "es2017",
     define: {
