@@ -1,8 +1,8 @@
 {
   "imports": {
     "@emotion/cache": "https://ga.jspm.io/npm:@emotion/cache@11.7.1/dist/emotion-cache.browser.esm.js",
-    "@emotion/react": "https://ga.jspm.io/npm:@emotion/react@11.7.1/dist/emotion-react.browser.esm.js",
-    "@emotion/react/jsx-runtime": "https://ga.jspm.io/npm:@emotion/react@11.7.1/jsx-runtime/dist/emotion-react-jsx-runtime.esm.js",
+    "@emotion/react": "https://ga.jspm.io/npm:@emotion/react@11.8.1/dist/emotion-react.browser.esm.js",
+    "@emotion/react/jsx-runtime": "https://ga.jspm.io/npm:@emotion/react@11.8.1/jsx-runtime/dist/emotion-react-jsx-runtime.esm.js",
     "framer-motion": "https://ga.jspm.io/npm:framer-motion@6.2.6/dist/es/index.mjs",
     "preact": "https://unpkg.com/preact@10.6.6/dist/preact.mjs",
     "preact-render-to-string": "https://unpkg.com/preact-render-to-string@5.1.19/dist/index.mjs",
@@ -22,7 +22,7 @@
       "@emotion/serialize": "https://ga.jspm.io/npm:@emotion/serialize@1.0.2/dist/emotion-serialize.browser.esm.js",
       "@emotion/sheet": "https://ga.jspm.io/npm:@emotion/sheet@1.1.0/dist/emotion-sheet.browser.esm.js",
       "@emotion/unitless": "https://ga.jspm.io/npm:@emotion/unitless@0.7.5/dist/unitless.browser.esm.js",
-      "@emotion/utils": "https://ga.jspm.io/npm:@emotion/utils@1.0.0/dist/emotion-utils.browser.esm.js",
+      "@emotion/utils": "https://ga.jspm.io/npm:@emotion/utils@1.1.0/dist/emotion-utils.browser.esm.js",
       "@emotion/weak-memoize": "https://ga.jspm.io/npm:@emotion/weak-memoize@0.2.5/dist/weak-memoize.browser.esm.js",
       "framesync": "https://ga.jspm.io/npm:framesync@6.0.1/dist/es/index.mjs",
       "hey-listen": "https://ga.jspm.io/npm:hey-listen@1.0.8/dist/index.js",
