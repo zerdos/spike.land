@@ -415,9 +415,7 @@ export const startMonaco = async (
     const dts = importHelper.map(({ name, url }) =>
       async () =>
         monaco.languages.typescript.typescriptDefaults.addExtraLib(
-          await (await fetch(
-            url,
-          )).text(),
+          url,
           `file:///node_modules/${name}/index.d.ts`,
         )
     );
