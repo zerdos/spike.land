@@ -22,7 +22,9 @@ export const renderPreviewWindow = async (
   const { App } = globalThis;
 
   const bg = (await import("./assets/synthwave.webp")).default;
-  document.body.style.backgroundImage = `url(${path.join("./dist/", bg)} )`;
+  document.body.style.backgroundImage = `url(${
+    path.join("./dist/chunks/", bg)
+  } )`;
   render(
     <DraggableWindow
       onShare={() => open(`https://spike.land/api/room/${room}/public`)}
