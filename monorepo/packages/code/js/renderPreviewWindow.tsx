@@ -1,6 +1,6 @@
 /**@jsx jsx */
 import { jsx } from "@emotion/react";
-import { dirname } from "path-browserify";
+import path from "path-browserify";
 import { render } from "react-dom";
 import type { ICodeSession } from "./session";
 
@@ -22,7 +22,7 @@ export const renderPreviewWindow = async (
   const { App } = globalThis;
 
   const bg = (await import("./assets/synthwave.webp")).default;
-  document.body.style.backgroundImage = `url(${dirname(bg)})`;
+  document.body.style.backgroundImage = `url(${path.join("./dist/", bg)} )`;
   render(
     <DraggableWindow
       onShare={() => open(`https://spike.land/api/room/${room}/public`)}
