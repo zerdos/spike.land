@@ -375,7 +375,7 @@ export const startMonaco = async (
       },
       {
         name: "@emotion/cache",
-        url: "https://unpkg.com/@emotion/cache@11.6.0/types/index.d.ts",
+        url: "://unpkg.com/@emotion/cache@11.6.0/types/index.d.ts",
         depend: ["@emotion/utils"],
       },
       {
