@@ -375,7 +375,7 @@ export const startMonaco = async (
       },
       {
         name: "@emotion/cache",
-        url: import("@emotion/cache/types/index.d.ts?url"),
+        url: await import("@emotion/cache/types/index.d.ts?url"),
         depend: ["@emotion/utils"],
       },
       {
