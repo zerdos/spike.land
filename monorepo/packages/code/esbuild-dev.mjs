@@ -100,7 +100,7 @@ const build = (entryPoints) =>
       ".ttf",
       ".workerJS",
     ],
-    jsxFactory: 'h',
+    jsxFactory: 'jsx',
     jsxFragment: 'React.Fragment',
   
     target: "es2017",
