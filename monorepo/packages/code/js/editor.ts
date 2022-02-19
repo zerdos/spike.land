@@ -26,6 +26,30 @@ const {
   EmotionUtilsDts,
 } = dtsFiles;
 
+console.log({
+  reactDts,
+  jsxDevRuntimeDts,
+  jsxRuntimeDts,
+  reactExpDts,
+  globalDts,
+  propTypesDts,
+  cssTypeDts,
+  framerDts,
+  emotionStyleBase,
+  emotionStyled,
+  emotionCache,
+  EmotionJSXDts,
+  EmotionJSXNameSpaceDTS,
+  EmotionJSXRuntimeDTS,
+  EmotionReactDts,
+  EmotionThemingTds,
+  EmotionReactCssPropDts,
+  EmotionReactHelperDts,
+  EmotionThemingDts,
+  EmotionSerializeDts,
+  EmotionUtilsDts,
+});
+
 self.MonacoEnvironment = {
   getWorkerUrl: function (moduleId: string, label: string) {
     //     // if (label === "json") {
