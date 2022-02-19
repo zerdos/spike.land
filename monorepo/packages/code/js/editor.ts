@@ -123,6 +123,7 @@ export const startMonaco = async (
     noFallthroughCasesInSwitch: true,
     resolveJsonModule: true,
     isolatedModules: true,
+    typeRoots: ["node_modules/@types"],
     noEmit: true,
 
     allowNonTsExtensions: true,
@@ -157,7 +158,7 @@ export const startMonaco = async (
     model: monaco.editor.createModel(
       code,
       "typescript",
-      monaco.Uri.parse("file:///app/index.tsx"),
+      monaco.Uri.parse("file:///index.tsx"),
     ),
     // lightbulb: { enabled: false },
     language: "typescript",
@@ -416,7 +417,7 @@ export const startMonaco = async (
       async () =>
         monaco.languages.typescript.typescriptDefaults.addExtraLib(
           url,
-          `file:///app/node_modules/${name}/index.d.ts`,
+          `file:///node_modules/${name}/index.d.ts`,
         )
     );
 
