@@ -254,7 +254,8 @@ __export(emotion_react_browser_esm_exports, {
   withEmotionCache: () => withEmotionCache,
   withTheme: () => withTheme
 });
-import { createElement as createElement2, useContext as useContext2, useRef, useLayoutEffect, Fragment as Fragment2 } from "react";
+import * as React2 from "react";
+import { createElement as createElement2, useLayoutEffect, useContext as useContext2, useRef, Fragment as Fragment2 } from "react";
 
 // ../../node_modules/@emotion/sheet/dist/emotion-sheet.browser.esm.js
 function sheetForTag(tag) {
@@ -1044,7 +1045,8 @@ var createCache = function createCache2(options) {
 };
 var emotion_cache_browser_esm_default = createCache;
 
-// ../../node_modules/@emotion/react/dist/emotion-element-699e6908.browser.esm.js
+// ../../node_modules/@emotion/react/dist/emotion-element-cbed451f.browser.esm.js
+import * as React from "react";
 import { createContext, useContext, forwardRef, createElement, Fragment } from "react";
 
 // ../../node_modules/@babel/runtime/helpers/esm/extends.js
@@ -1083,11 +1085,15 @@ function getRegisteredStyles(registered, registeredStyles, classNames) {
   });
   return rawClassName;
 }
-var insertStyles = function insertStyles2(cache, serialized, isStringTag) {
+var registerStyles = function registerStyles2(cache, serialized, isStringTag) {
   var className = cache.key + "-" + serialized.name;
   if ((isStringTag === false || isBrowser === false) && cache.registered[className] === void 0) {
     cache.registered[className] = serialized.styles;
   }
+};
+var insertStyles = function insertStyles2(cache, serialized, isStringTag) {
+  registerStyles(cache, serialized, isStringTag);
+  var className = cache.key + "-" + serialized.name;
   if (cache.inserted[serialized.name] === void 0) {
     var current = serialized;
     do {
@@ -1417,7 +1423,7 @@ var serializeStyles = function serializeStyles2(args, registered, mergedProps) {
   };
 };
 
-// ../../node_modules/@emotion/react/dist/emotion-element-699e6908.browser.esm.js
+// ../../node_modules/@emotion/react/dist/emotion-element-cbed451f.browser.esm.js
 var hasOwnProperty = {}.hasOwnProperty;
 var EmotionCacheContext = /* @__PURE__ */ createContext(typeof HTMLElement !== "undefined" ? /* @__PURE__ */ emotion_cache_browser_esm_default({
   key: "css"
@@ -1482,6 +1488,12 @@ function withTheme(Component) {
   WithTheme.displayName = "WithTheme(" + componentName + ")";
   return emotion_react_isolated_hnrs_browser_esm_default(WithTheme, Component);
 }
+var useInsertionEffect2 = React["useInsertionEffect"] ? React["useInsertionEffect"] : function useInsertionEffect3(create) {
+  create();
+};
+function useInsertionEffectMaybe(create) {
+  useInsertionEffect2(create);
+}
 var typePropName = "__EMOTION_TYPE_PLEASE_DO_NOT_USE__";
 var createEmotionProps = function createEmotionProps2(type, props) {
   if (false) {
@@ -1501,7 +1513,12 @@ var createEmotionProps = function createEmotionProps2(type, props) {
   }
   return newProps;
 };
-var Noop = function Noop2() {
+var Insertion = function Insertion2(_ref) {
+  var cache = _ref.cache, serialized = _ref.serialized, isStringTag = _ref.isStringTag;
+  registerStyles(cache, serialized, isStringTag);
+  var rules = useInsertionEffectMaybe(function() {
+    return insertStyles(cache, serialized, isStringTag);
+  });
   return null;
 };
 var Emotion = /* @__PURE__ */ withEmotionCache(function(props, cache, ref) {
@@ -1509,7 +1526,7 @@ var Emotion = /* @__PURE__ */ withEmotionCache(function(props, cache, ref) {
   if (typeof cssProp === "string" && cache.registered[cssProp] !== void 0) {
     cssProp = cache.registered[cssProp];
   }
-  var type = props[typePropName];
+  var WrappedComponent = props[typePropName];
   var registeredStyles = [cssProp];
   var className = "";
   if (typeof props.className === "string") {
@@ -1524,7 +1541,6 @@ var Emotion = /* @__PURE__ */ withEmotionCache(function(props, cache, ref) {
       serialized = serializeStyles([serialized, "label:" + labelFromStack + ";"]);
     }
   }
-  var rules = insertStyles(cache, serialized, typeof type === "string");
   className += cache.key + "-" + serialized.name;
   var newProps = {};
   for (var key in props) {
@@ -1534,9 +1550,11 @@ var Emotion = /* @__PURE__ */ withEmotionCache(function(props, cache, ref) {
   }
   newProps.ref = ref;
   newProps.className = className;
-  var ele = /* @__PURE__ */ createElement(type, newProps);
-  var possiblyStyleElement = /* @__PURE__ */ createElement(Noop, null);
-  return /* @__PURE__ */ createElement(Fragment, null, possiblyStyleElement, ele);
+  return /* @__PURE__ */ createElement(Fragment, null, /* @__PURE__ */ createElement(Insertion, {
+    cache,
+    serialized,
+    isStringTag: typeof WrappedComponent === "string"
+  }), /* @__PURE__ */ createElement(WrappedComponent, newProps));
 });
 if (false) {
   Emotion.displayName = "EmotionCssPropInternal";
@@ -1558,6 +1576,7 @@ var jsx = function jsx2(type, props) {
   }
   return createElement2.apply(null, createElementArgArray);
 };
+var useInsertionEffect5 = React2["useInsertionEffect"] ? React2["useInsertionEffect"] : useLayoutEffect;
 var Global = /* @__PURE__ */ withEmotionCache(function(props, cache) {
   if (false) {
     console.error("It looks like you're using the css prop on Global, did you mean to use the styles prop instead?");
@@ -1566,7 +1585,7 @@ var Global = /* @__PURE__ */ withEmotionCache(function(props, cache) {
   var styles = props.styles;
   var serialized = serializeStyles([styles], void 0, useContext2(ThemeContext));
   var sheetRef = useRef();
-  useLayoutEffect(function() {
+  useInsertionEffect5(function() {
     var key = cache.key + "-global";
     var sheet = new StyleSheet({
       key,
@@ -1589,7 +1608,7 @@ var Global = /* @__PURE__ */ withEmotionCache(function(props, cache) {
       sheet.flush();
     };
   }, [cache]);
-  useLayoutEffect(function() {
+  useInsertionEffect5(function() {
     var sheetRefCurrent = sheetRef.current;
     var sheet = sheetRefCurrent[0], rehydrating = sheetRefCurrent[1];
     if (rehydrating) {
@@ -1677,11 +1696,18 @@ function merge(registered, css3, className) {
   }
   return rawClassName + css3(registeredStyles);
 }
-var Noop3 = function Noop4() {
+var Insertion3 = function Insertion4(_ref) {
+  var cache = _ref.cache, serializedArr = _ref.serializedArr;
+  var rules = useInsertionEffectMaybe(function() {
+    for (var i = 0; i < serializedArr.length; i++) {
+      var res = insertStyles(cache, serializedArr[i], false);
+    }
+  });
   return null;
 };
 var ClassNames = /* @__PURE__ */ withEmotionCache(function(props, cache) {
   var hasRendered = false;
+  var serializedArr = [];
   var css3 = function css4() {
     if (hasRendered && false) {
       throw new Error("css can only be used during render");
@@ -1690,9 +1716,8 @@ var ClassNames = /* @__PURE__ */ withEmotionCache(function(props, cache) {
       args[_key] = arguments[_key];
     }
     var serialized = serializeStyles(args, cache.registered);
-    {
-      insertStyles(cache, serialized, false);
-    }
+    serializedArr.push(serialized);
+    registerStyles(cache, serialized, false);
     return cache.key + "-" + serialized.name;
   };
   var cx = function cx2() {
@@ -1711,8 +1736,10 @@ var ClassNames = /* @__PURE__ */ withEmotionCache(function(props, cache) {
   };
   var ele = props.children(content);
   hasRendered = true;
-  var possiblyStyleElement = /* @__PURE__ */ createElement2(Noop3, null);
-  return /* @__PURE__ */ createElement2(Fragment2, null, possiblyStyleElement, ele);
+  return /* @__PURE__ */ createElement2(Fragment2, null, /* @__PURE__ */ createElement2(Insertion3, {
+    cache,
+    serializedArr
+  }), ele);
 });
 if (false) {
   ClassNames.displayName = "EmotionClassNames";
