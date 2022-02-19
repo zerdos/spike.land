@@ -130,6 +130,7 @@ export const startMonaco = async (
     language: "typescript",
     useShadowDOM: false,
     theme: "vs-dark",
+    jd
     // codeLens: false,
     // suggest: false,
     // smoothScrolling: true,
