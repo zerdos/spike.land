@@ -16,6 +16,18 @@ const {
   emotionStyleBase,
   emotionStyled,
   emotionCache,
+  EmotionJSXDts,
+  EmotionJSXNameSpaceDTS,
+  EmotionJSXRuntimeDTS,
+  EmotionReactDts,
+  EmotionThemingTds,
+  xx1,
+  xx2,
+  xx3,
+  xx4,
+  xx5,
+  xx6,
+  xx7,
 } = dtsFiles;
 
 self.MonacoEnvironment = {
@@ -383,63 +395,63 @@ export const startMonaco = async (
         },
         {
           name: "@emotion/react",
-          url: await import("@emotion/react/types/index.d.ts?url"),
+          url: EmotionReactDts,
           depend: ["@emotion/cache"],
         },
         {
           name: "@emotion/react/jsx-runtime",
-          url: await import("@emotion/react/types/jsx-runtime.d.ts?url"),
+          url: EmotionJSXRuntimeDTS,
           depend: ["@emotion/cache"],
         },
         {
           name: "@emotion/react/jsx-dev-runtime",
-          url: await import("@emotion/react/types/jsx-dev-runtime.d.ts?url"),
+          url: EmotionJSXRuntimeDTS,
           depend: ["@emotion/cache"],
         },
         {
           name: "@emotion/react/jsx-namespace",
-          url: await import("@emotion/react/types/jsx-namespace.d.ts?url"),
+          url: EmotionJSXNameSpaceDTS,
           depend: ["@emotion/utils", "type"],
         },
         {
           name: "@emotion/react/theming",
-          url: await import("@emotion/react/types/theming.d.ts?url"),
+          url: EmotionThemingTds,
           depend: ["@emotion/utils", "type"],
         },
         {
           name: "@emotion/react/css-prop",
-          url: await import("@emotion/react/types/css-prop.d.ts?url"),
+          url: xx1,
           depend: ["@emotion/utils", "type"],
         },
         {
           name: "@emotion/react/helper",
-          url: await import("@emotion/react/types/helper.d.ts?url"),
+          url: xx2,
           depend: ["@emotion/utils", "type"],
         },
         {
           name: "@emotion/react/css-prop",
-          url: await import("@emotion/react/types/css-prop.d.ts?url"),
+          url: xx3,
           depend: ["@emotion/utils", "csstype"],
         },
         {
           name: "@emotion/react/helper",
-          url: await import("@emotion/react/types/helper.d.ts?url"),
+          url: xx4,
           depend: ["@emotion/utils", "csstype"],
         },
         {
           name: "@emotion/theming",
-          url: await import("@emotion/react/types/theming.d.ts?url"),
+          url: xx5,
           depend: ["@emotion/utils", "csstype"],
         },
         {
           name: "@emotion/serialize",
-          url: await import("@emotion/serialize/types/index.d.ts?url"),
+          url: xx6,
 
           depend: ["@emotion/utils", "csstype"],
         },
         {
           name: "@emotion/utils",
-          url: await import("@emotion/utils/types/index.d.ts?url"),
+          url: xx7,
           depend: [],
         },
         {
