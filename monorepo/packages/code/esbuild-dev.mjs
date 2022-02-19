@@ -106,7 +106,7 @@ const build = (entryPoints) =>
     plugins: [importMapPlugin],
     loader: {
       ".ttf": "file",
-      ".webp": "dataurl",
+      ".webp": "file",
       ".tsx": "tsx",
       ".mjs": "tsx",
       ".ts:": "tsx",
