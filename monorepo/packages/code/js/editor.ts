@@ -108,7 +108,7 @@ export const startMonaco = async (
   shadowRoot.appendChild(innerStyle);
 
   monaco.languages.typescript.typescriptDefaults.setCompilerOptions({
-    target: monaco.languages.typescript.ScriptTarget.ES5,
+    target: monaco.languages.typescript.ScriptTarget.esnext,
     lib: [
       "dom",
       "dom.iterable",
@@ -302,16 +302,16 @@ export const startMonaco = async (
         url: reactDts,
         depend: ["global", "csstype", "prop-types"],
       },
-      // {
-      //   name: "react/jsx-runtime",
-      //   url: jsxRuntimeDts,
-      //   depend: ["global", "csstype", "prop-types"],
-      // },
-      // {
-      //   name: "react/jsx-dev-runtime",
-      //   url: jsxDevRuntimeDts,
-      //   depend: ["global", "csstype", "prop-types"],
-      // },
+      {
+        name: "react/jsx-runtime",
+        url: jsxRuntimeDts,
+        depend: ["global", "csstype", "prop-types"],
+      },
+      {
+        name: "react/jsx-dev-runtime",
+        url: jsxDevRuntimeDts,
+        depend: ["global", "csstype", "prop-types"],
+      },
       {
         name: "react-exp",
         url: reactExpDts,
