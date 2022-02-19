@@ -133,7 +133,7 @@ export const startMonaco = async (
     // jsxFactory: "jsx",
     maxNodeModuleJsDepth: 10,
 
-    jsxImportSource: "@emotion/react",
+    jsxImportSource: "react",
     jsx: monaco.languages.typescript.JsxEmit.ReactJSX,
     allowUmdGlobalAccess: true,
     // allowUmdGlobalAccess : true,
