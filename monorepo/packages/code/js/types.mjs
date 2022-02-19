@@ -6,6 +6,8 @@ import globalDts from "@types/react/global.d.ts?url";
 import propTypesDts from "@types/prop-types/index.d.ts?url";
 import cssTypeDts from "csstype/index.d.ts?url";
 import framerDts from "./types/framer.d.ts?url";
+import emotionStyleBase from "@emotion/styled/types/base.d.ts?url";
+import emotionStyled from "@emotion/styled/types/index.d.ts?url";
 
 export const dtsFiles = {
   reactDts,
@@ -16,4 +18,6 @@ export const dtsFiles = {
   propTypesDts,
   cssTypeDts,
   framerDts,
+  emotionStyleBase,
+  emotionStyled,
 };
