@@ -12,11 +12,11 @@
     "module": "Esnext",
     "allowJs": true,
     "noFallthroughCasesInSwitch": true,
+    "composite": true,
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
     "jsxImportSource": "@emotion/react",
-
     "sourceMap": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,

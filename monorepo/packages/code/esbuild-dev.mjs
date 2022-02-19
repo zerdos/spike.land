@@ -1,7 +1,6 @@
 import esbuild from "esbuild";
 import * as importMap from "esbuild-plugin-import-map";
 import jsonData from "./js/mockedMap.json" assert { type: "json" };
-import jsxImportPlugin from '@chialab/esbuild-plugin-jsx-import';
 
 const environment = process.env.NODE_ENV == "production"
   ? "production"
@@ -100,17 +99,12 @@ const build = (entryPoints) =>
       ".ttf",
       ".workerJS",
     ],
-    jsxFactory: 'jsx',
-    jsxFragment: 'React.Fragment',
-  
+ 
     target: "es2017",
     define: {
       "process.env.NODE_ENV": `"${environment}"`,
     },
-    plugins: [importMapPlugin,jsxImportPlugin({
-      jsxModule: '@emotion/react',
-      jsxExport: 'jsx'
-  })],
+    plugins: [importMapPlugin],
     loader: {
       ".ttf": "file",
       ".webp": "file",
