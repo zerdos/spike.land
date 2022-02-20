@@ -113,7 +113,7 @@ const build = (entryPoints) =>
       ".ts:": "tsx",
       ".css": "css",
       ".ts": "ts",
-      ".d.ts": "text",
+      ".d.ts": "dataurl",
       ".workerJS": "file",
     ".wasm": "file",
     },
