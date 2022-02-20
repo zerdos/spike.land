@@ -355,7 +355,7 @@ export const startMonaco = async (
       },
       {
         name: "@emotion/base",
-        url: "https://unpkg.com/@emotion/styled@11.6.0/types/base.d.ts",
+        url: "https://unpkg.com/@emotion/styled@11.8.1/types/base.d.ts",
         depend: [
           "@emotion/react",
           "@emotion/serialize",
@@ -364,7 +364,7 @@ export const startMonaco = async (
       },
       {
         name: "@emotion/styled",
-        url: "https://unpkg.com/@emotion/styled@11.6.0/types/index.d.ts",
+        url: "https://unpkg.com/@emotion/styled@11.8.1/types/index.d.ts",
         depend: [
           "@emotion/react",
           "@emotion/serialize",
@@ -373,58 +373,43 @@ export const startMonaco = async (
       },
       {
         name: "@emotion/cache",
-        url: "https://unpkg.com/@emotion/cache@11.6.0/types/index.d.ts",
+        url: "https://unpkg.com/@emotion/cache@11.7.1/types/index.d.ts",
         depend: ["@emotion/utils"],
       },
       {
         name: "@emotion/react",
-        url: "https://unpkg.com/@emotion/react@11.7.1/types/index.d.ts",
+        url: "https://unpkg.com/@emotion/react@11.8.1/types/index.d.ts",
         depend: ["@emotion/cache"],
       },
       {
         name: "@emotion/react/jsx-runtime",
-        url: "https://unpkg.com/@emotion/react@11.7.1/types/jsx-runtime.d.ts",
+        url: "https://unpkg.com/@emotion/react@11.8.1/types/jsx-runtime.d.ts",
         depend: ["@emotion/cache"],
       },
       {
         name: "@emotion/react/jsx-dev-runtime",
         url:
-          "https://unpkg.com/@emotion/react@11.7.1/types/jsx-dev-runtime.d.ts",
+          "https://unpkg.com/@emotion/react@11.8.1/types/jsx-dev-runtime.d.ts",
         depend: ["@emotion/cache"],
       },
       {
         name: "@emotion/react/jsx-namespace",
-        url: "https://unpkg.com/@emotion/react@11.7.1/types/jsx-namespace.d.ts",
+        url: "https://unpkg.com/@emotion/react@11.8.1/types/jsx-namespace.d.ts",
         depend: ["@emotion/utils", "type"],
       },
       {
         name: "@emotion/react/theming",
-        url: "https://unpkg.com/@emotion/react@11.7.1/types/theming.d.ts",
+        url: "https://unpkg.com/@emotion/react@11.8.1/types/theming.d.ts",
         depend: ["@emotion/utils", "type"],
       },
       {
         name: "@emotion/react/css-prop",
-        url: "https://unpkg.com/@emotion/react@11.7.1/types/css-prop.d.ts",
-        depend: ["@emotion/utils", "type"],
-      },
-      {
-        name: "@emotion/react/helper",
-        url: "https://unpkg.com/@emotion/react@11.7.1/types/helper.d.ts",
-        depend: ["@emotion/utils", "type"],
-      },
-      {
-        name: "@emotion/react/css-prop",
-        url: "https://unpkg.com/@emotion/react@11.7.1/types/css-prop.d.ts",
+        url: "https://unpkg.com/@emotion/react@11.8.1/types/css-prop.d.ts",
         depend: ["@emotion/utils", "csstype"],
       },
       {
         name: "@emotion/react/helper",
-        url: "https://unpkg.com/@emotion/react@11.7.1/types/helper.d.ts",
-        depend: ["@emotion/utils", "csstype"],
-      },
-      {
-        name: "@emotion/theming",
-        url: "https://unpkg.com/@emotion/react@11.7.1/types/theming.d.ts",
+        url: "https://unpkg.com/@emotion/react@11.8.1/types/helper.d.ts",
         depend: ["@emotion/utils", "csstype"],
       },
       {
@@ -435,7 +420,7 @@ export const startMonaco = async (
       },
       {
         name: "@emotion/utils",
-        url: "https://unpkg.com/@emotion/utils@1.0.0/types/index.d.ts",
+        url: "https://unpkg.com/@emotion/utils@1.1.0/types/index.d.ts",
         depend: [],
       },
       {
