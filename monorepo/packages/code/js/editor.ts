@@ -2,6 +2,8 @@ import * as monaco from "monaco-editor";
 import "monaco-editor/min/vs/editor/editor.main.css";
 import { dtsFiles } from "./types.mjs";
 
+import pAll from "p-all";
+
 const {
   reactDts,
   jsxDevRuntimeDts,
@@ -11,44 +13,7 @@ const {
   propTypesDts,
   cssTypeDts,
   framerDts,
-  emotionStyleBase,
-  emotionStyled,
-  emotionCache,
-  EmotionJSXDts,
-  EmotionJSXNameSpaceDTS,
-  EmotionJSXRuntimeDTS,
-  EmotionReactDts,
-  EmotionThemingTds,
-  EmotionReactCssPropDts,
-  EmotionReactHelperDts,
-  EmotionThemingDts,
-  EmotionSerializeDts,
-  EmotionUtilsDts,
 } = dtsFiles;
-
-console.log({
-  reactDts,
-  jsxDevRuntimeDts,
-  jsxRuntimeDts,
-  reactExpDts,
-  globalDts,
-  propTypesDts,
-  cssTypeDts,
-  framerDts,
-  emotionStyleBase,
-  emotionStyled,
-  emotionCache,
-  EmotionJSXDts,
-  EmotionJSXNameSpaceDTS,
-  EmotionJSXRuntimeDTS,
-  EmotionReactDts,
-  EmotionThemingTds,
-  EmotionReactCssPropDts,
-  EmotionReactHelperDts,
-  EmotionThemingDts,
-  EmotionSerializeDts,
-  EmotionUtilsDts,
-});
 
 self.MonacoEnvironment = {
   getWorkerUrl: function (moduleId: string, label: string) {
@@ -108,7 +73,7 @@ export const startMonaco = async (
   shadowRoot.appendChild(innerStyle);
 
   monaco.languages.typescript.typescriptDefaults.setCompilerOptions({
-    target: monaco.languages.typescript.ScriptTarget.esnext,
+    target: monaco.languages.typescript.ScriptTarget.ES5,
     lib: [
       "dom",
       "dom.iterable",
@@ -123,7 +88,6 @@ export const startMonaco = async (
     noFallthroughCasesInSwitch: true,
     resolveJsonModule: true,
     isolatedModules: true,
-    typeRoots: ["node_modules/@types"],
     noEmit: true,
 
     allowNonTsExtensions: true,
@@ -134,7 +98,7 @@ export const startMonaco = async (
     // jsxFactory: "jsx",
     maxNodeModuleJsDepth: 10,
 
-    jsxImportSource: "react",
+    jsxImportSource: "@emotion/react",
     jsx: monaco.languages.typescript.JsxEmit.ReactJSX,
     allowUmdGlobalAccess: true,
     // allowUmdGlobalAccess : true,
@@ -158,13 +122,12 @@ export const startMonaco = async (
     model: monaco.editor.createModel(
       code,
       "typescript",
-      monaco.Uri.file("/index.tsx"),
+      monaco.Uri.parse("file:///app/index.tsx"),
     ),
     // lightbulb: { enabled: false },
     language: "typescript",
     useShadowDOM: false,
     theme: "vs-dark",
-
     // codeLens: false,
     // suggest: false,
     // smoothScrolling: true,
@@ -296,6 +259,63 @@ export const startMonaco = async (
     editor.layout();
   });
 
+  // monaco.languages.typescript.typescriptDefaults.addExtraLib(
+  //   `export interface RegisteredCache {
+  //     [key: string]: string
+  //   }
+
+  //   export interface StyleSheet {
+  //     container: HTMLElement
+  //     nonce?: string
+  //     key: string
+  //     insert(rule: string): void
+  //     flush(): void
+  //     tags: Array<HTMLStyleElement>
+  //   }
+
+  //   export interface EmotionCache {
+  //     inserted: {
+  //       [key: string]: string | true
+  //     }
+  //     registered: RegisteredCache
+  //     sheet: StyleSheet
+  //     key: string
+  //     compat?: true
+  //     nonce?: string
+  //     insert(
+  //       selector: string,
+  //       serialized: SerializedStyles,
+  //       sheet: StyleSheet,
+  //       shouldCache: boolean
+  //     ): string | void
+  //   }
+
+  //   export interface SerializedStyles {
+  //     name: string
+  //     styles: string
+  //     map?: string
+  //     next?: SerializedStyles
+  //   }
+
+  //   export const isBrowser: boolean
+  //   export function getRegisteredStyles(
+  //     registered: RegisteredCache,
+  //     registeredStyles: Array<string>,
+  //     classNames: string
+  //   ): string
+  //   export function insertStyles(
+  //     cache: EmotionCache,
+  //     serialized: SerializedStyles,
+  //     isStringTag: boolean
+  //   ): string | void`,
+  //   "/app/types/emotionu/index.d.ts",
+  // );
+
+  // monaco.languages.typescript.typescriptDefaults.addExtraLib(
+  //   `export const i: number;`,
+  //   "file:///node_modules/@types/zozi/index.d.ts",
+  // );
+
   (async () => {
     const importHelper = [
       {
@@ -335,7 +355,7 @@ export const startMonaco = async (
       },
       {
         name: "@emotion/base",
-        url: emotionStyleBase,
+        url: "https://unpkg.com/@emotion/styled@11.6.0/types/base.d.ts",
         depend: [
           "@emotion/react",
           "@emotion/serialize",
@@ -344,7 +364,7 @@ export const startMonaco = async (
       },
       {
         name: "@emotion/styled",
-        url: emotionStyled,
+        url: "https://unpkg.com/@emotion/styled@11.6.0/types/index.d.ts",
         depend: [
           "@emotion/react",
           "@emotion/serialize",
@@ -353,57 +373,69 @@ export const startMonaco = async (
       },
       {
         name: "@emotion/cache",
-        url: emotionCache,
+        url: "https://unpkg.com/@emotion/cache@11.6.0/types/index.d.ts",
         depend: ["@emotion/utils"],
       },
       {
         name: "@emotion/react",
-        url: EmotionReactDts,
+        url: "https://unpkg.com/@emotion/react@11.7.1/types/index.d.ts",
         depend: ["@emotion/cache"],
       },
       {
         name: "@emotion/react/jsx-runtime",
-        url: EmotionJSXRuntimeDTS,
+        url: "https://unpkg.com/@emotion/react@11.7.1/types/jsx-runtime.d.ts",
         depend: ["@emotion/cache"],
       },
       {
         name: "@emotion/react/jsx-dev-runtime",
-        url: EmotionJSXRuntimeDTS,
+        url:
+          "https://unpkg.com/@emotion/react@11.7.1/types/jsx-dev-runtime.d.ts",
         depend: ["@emotion/cache"],
       },
       {
         name: "@emotion/react/jsx-namespace",
-        url: EmotionJSXNameSpaceDTS,
+        url: "https://unpkg.com/@emotion/react@11.7.1/types/jsx-namespace.d.ts",
         depend: ["@emotion/utils", "type"],
       },
       {
         name: "@emotion/react/theming",
-        url: EmotionThemingTds,
+        url: "https://unpkg.com/@emotion/react@11.7.1/types/theming.d.ts",
         depend: ["@emotion/utils", "type"],
       },
       {
         name: "@emotion/react/css-prop",
-        url: EmotionReactCssPropDts,
+        url: "https://unpkg.com/@emotion/react@11.7.1/types/css-prop.d.ts",
         depend: ["@emotion/utils", "type"],
       },
       {
         name: "@emotion/react/helper",
-        url: EmotionReactHelperDts,
+        url: "https://unpkg.com/@emotion/react@11.7.1/types/helper.d.ts",
         depend: ["@emotion/utils", "type"],
       },
       {
+        name: "@emotion/react/css-prop",
+        url: "https://unpkg.com/@emotion/react@11.7.1/types/css-prop.d.ts",
+        depend: ["@emotion/utils", "csstype"],
+      },
+      {
+        name: "@emotion/react/helper",
+        url: "https://unpkg.com/@emotion/react@11.7.1/types/helper.d.ts",
+        depend: ["@emotion/utils", "csstype"],
+      },
+      {
         name: "@emotion/theming",
-        url: EmotionThemingDts,
+        url: "https://unpkg.com/@emotion/react@11.7.1/types/theming.d.ts",
         depend: ["@emotion/utils", "csstype"],
       },
       {
         name: "@emotion/serialize",
-        url: EmotionSerializeDts,
+        url: "https://unpkg.com/@emotion/serialize@1.0.2/types/index.d.ts",
+
         depend: ["@emotion/utils", "csstype"],
       },
       {
         name: "@emotion/utils",
-        url: EmotionUtilsDts,
+        url: "https://unpkg.com/@emotion/utils@1.0.0/types/index.d.ts",
         depend: [],
       },
       {
@@ -411,17 +443,23 @@ export const startMonaco = async (
         url: framerDts,
         depend: ["popmotion"],
       },
+      {
+        name: "popmotion",
+        url: "https://unpkg.com/popmotion@11.0.3/lib/index.d.ts",
+      },
     ];
 
     const dts = importHelper.map(({ name, url }) =>
       async () =>
         monaco.languages.typescript.typescriptDefaults.addExtraLib(
-          url,
-          `/node_modules/@types/${name}/index.d.ts`,
+          await (await fetch(
+            url,
+          )).text(),
+          `file:///node_modules/${name}/index.d.ts`,
         )
     );
 
-    await Promise.all(dts);
+    await pAll(dts, { concurrency: 2 });
 
     monaco.languages.typescript.typescriptDefaults.setEagerModelSync(true);
     monaco.languages.typescript.typescriptDefaults.setDiagnosticsOptions({
