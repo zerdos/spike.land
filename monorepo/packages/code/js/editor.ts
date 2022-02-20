@@ -417,7 +417,7 @@ export const startMonaco = async (
       async () =>
         monaco.languages.typescript.typescriptDefaults.addExtraLib(
           url,
-          `/node_modules/${name}/index.d.ts`,
+          `/node_modules/@types/${name}/index.d.ts`,
         )
     );
 
