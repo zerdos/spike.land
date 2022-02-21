@@ -1,4 +1,3 @@
-import { expose } from "comlink";
 import prettier from "prettier/standalone";
 import parserBabel from "prettier/parser-babel";
 import parserHtml from "prettier/parser-html";
@@ -29,14 +28,3 @@ function formatter(code) {
   });
   return formatted;
 }
-
-self.addEventListener(
-  "connect",
-  (e) => expose(formatter, e.ports[0]),
-);
-
-self.addEventListener("message", (event) => {
-  if (event.data.comlinkInit) {
-    expose(formatter, event.data.port);
-  }
-});

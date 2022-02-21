@@ -16,7 +16,7 @@ export const initSession = async (room, initData) => {
 };
 
 export const prettier = async (code) => {
-  formatter = formatter || (await import("./formatter.mjs")).formatter;
+  formatter = formatter || (await import("./prettierEsm.ts")).formatter;
   return await formatter(code);
 };
 
@@ -94,7 +94,6 @@ async function getErrors({ monaco, editor }) {
 
 async function runner(c, changes = null, session, counter) {
   session.changes.push(changes);
-  formatter = formatter || (await import("./prettierEsm.ts")).formatter;
   babelTransform = babelTransform ||
     (await import("./babelEsm.ts")).babelTransform;
 
@@ -106,7 +105,7 @@ async function runner(c, changes = null, session, counter) {
   session.errorText = "";
 
   try {
-    const cd = await formatter(c);
+    const cd = await prettier(c);
 
     const transpiled = await transform(cd);
 
