@@ -250,71 +250,17 @@ export const startMonaco = async (
   // function getDefaultComplierOpts() {
   //   return { target: 99, jsx: 1, allowNonTsExtensions: true };
   // }
+  const throttle = (await import("lodash/throttle")).default;
+  window.addEventListener(
+    "resize",
+    throttle(function () {
+      // const { width, height } = container.getClientRects()[0];
+      // innerContainer.style.width = `${Math.min(window.innerWidth, width)}px`;
+      // innerContainer.style.height = `${Math.min(window.innerHeight, height)}px`;
 
-  window.addEventListener("resize", () => {
-    // const { width, height } = container.getClientRects()[0];
-    // innerContainer.style.width = `${Math.min(window.innerWidth, width)}px`;
-    // innerContainer.style.height = `${Math.min(window.innerHeight, height)}px`;
-
-    editor.layout();
-  });
-
-  // monaco.languages.typescript.typescriptDefaults.addExtraLib(
-  //   `export interface RegisteredCache {
-  //     [key: string]: string
-  //   }
-
-  //   export interface StyleSheet {
-  //     container: HTMLElement
-  //     nonce?: string
-  //     key: string
-  //     insert(rule: string): void
-  //     flush(): void
-  //     tags: Array<HTMLStyleElement>
-  //   }
-
-  //   export interface EmotionCache {
-  //     inserted: {
-  //       [key: string]: string | true
-  //     }
-  //     registered: RegisteredCache
-  //     sheet: StyleSheet
-  //     key: string
-  //     compat?: true
-  //     nonce?: string
-  //     insert(
-  //       selector: string,
-  //       serialized: SerializedStyles,
-  //       sheet: StyleSheet,
-  //       shouldCache: boolean
-  //     ): string | void
-  //   }
-
-  //   export interface SerializedStyles {
-  //     name: string
-  //     styles: string
-  //     map?: string
-  //     next?: SerializedStyles
-  //   }
-
-  //   export const isBrowser: boolean
-  //   export function getRegisteredStyles(
-  //     registered: RegisteredCache,
-  //     registeredStyles: Array<string>,
-  //     classNames: string
-  //   ): string
-  //   export function insertStyles(
-  //     cache: EmotionCache,
-  //     serialized: SerializedStyles,
-  //     isStringTag: boolean
-  //   ): string | void`,
-  //   "/app/types/emotionu/index.d.ts",
-  // );
-
-  // monaco.languages.typescript.typescriptDefaults.addExtraLib(
-  //   `export const i: number;`,
-  //   "file:///node_modules/@types/zozi/index.d.ts",
-  // );
+      editor.layout();
+    }, 200),
+  );
 
   (async () => {
     const importHelper = [
