@@ -8,8 +8,7 @@ const isDev = env === "development";
 
 const generator = new Generator({
   mapUrl: import.meta.url,
-  defaultProvider: "jspm", // this is the default defaultProvider
-  // Always ensure to defi  inputMap: {
+  defaultProvider: "jspm", 
   //]//ne your target environment to get a working map
   // it is advisable to pass the "module" condition as supported by Webpack
   env: [
@@ -29,7 +28,7 @@ await generator.install("preact/compat");
 await generator.install("preact/jsx-runtime");
 await generator.install("preact/jsx-dev-runtime");
 
-// await generator.install("react@18/jsix-runtime"); // await generator.install("react");
+// await generator.install("react@18/jsx-runtime"); // await generator.install("react");
 //await generator.install("react-dom@18/server");
 // await generator.install("prop-types");
 // await generator.install("react-is@18");
