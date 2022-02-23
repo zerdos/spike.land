@@ -5214,7 +5214,11 @@ function createAnimationState(visualElement2) {
       return (_a2 = child.animationState) === null || _a2 === void 0 ? void 0 : _a2.setActive(type, isActive);
     });
     state[type].isActive = isActive;
-    return animateChanges(options, type);
+    var animations2 = animateChanges(options, type);
+    for (var key in state) {
+      state[key].protectedKeys = {};
+    }
+    return animations2;
   }
   return {
     isAnimated,
