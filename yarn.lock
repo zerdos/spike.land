@@ -591,16 +591,16 @@
   resolved "https://registry.yarnpkg.com/@jspm/core/-/core-2.0.0-beta.19.tgz#fd3de3c54ac5ec35086590c956452a45215626df"
   integrity sha512-eFbitkdFBKl10pKdBENW+gCRz/tMfkthFfNP9VYoqaeEmets0Ysb8eFz/SGOogzi5yi50eRjwXVqL3VVAQ6jYA==
 
-"@jspm/generator@1.0.0-beta.22":
-  version "1.0.0-beta.22"
-  resolved "https://registry.yarnpkg.com/@jspm/generator/-/generator-1.0.0-beta.22.tgz#2488c901e034b343e423ee2fe44758085b85e201"
-  integrity sha512-llU1PZf+ITjwTrF9R9M6deGaWawuGAmlvLVS39hL08UmmH12ND1Y/uNvQc8XndDtJsYhxrEiKfwa2GwxPkicrg==
+"@jspm/generator@1.0.0-beta.25":
+  version "1.0.0-beta.25"
+  resolved "https://registry.yarnpkg.com/@jspm/generator/-/generator-1.0.0-beta.25.tgz#51674b65449cf53318e84e1f238266b5120f6195"
+  integrity sha512-Hw3XKAoo2XH70KL0nzbb96P3XNx0frWZC6ocoEG9BrzKoera/Ywk0hkoHAUmkZk+pziZMIdM8eA40JmJF5gPZw==
   dependencies:
     "@babel/core" "^7.15.8"
     "@babel/preset-typescript" "^7.15.0"
     "@jspm/core" "^2.0.0-beta.8"
     "@jspm/import-map" "^0.3.1"
-    es-module-lexer "^0.9.3"
+    es-module-lexer "^0.10.0"
     ipfs-client "^0.7.1"
     make-fetch-happen "^8.0.3"
     sver "^1.8.3"
@@ -3075,10 +3075,10 @@ es-abstract@^1.19.1:
     string.prototype.trimstart "^1.0.4"
     unbox-primitive "^1.0.1"
 
-es-module-lexer@^0.9.3:
-  version "0.9.3"
-  resolved "https://registry.yarnpkg.com/es-module-lexer/-/es-module-lexer-0.9.3.tgz#6f13db00cc38417137daf74366f535c8eb438f19"
-  integrity sha512-1HQ2M2sPtxwnvOvT1ZClHyQDiggdNjURWpY2we6aMKCQiUVxTmVs2UYPLIrD84sS+kMdUwfBSylbJPwNnBrnHQ==
+es-module-lexer@^0.10.0:
+  version "0.10.0"
+  resolved "https://registry.yarnpkg.com/es-module-lexer/-/es-module-lexer-0.10.0.tgz#0f63b13c74de15442f1897d191ee289887bb862a"
+  integrity sha512-0fHYovx7ETE13wPL8zG/V+ElEgSeSwsgRVOvNZ+g/Y/2YyJq75+IEY4ZBr59vUZ3Voci1jBIktwpj8oODaWa+g==
 
 es-to-primitive@^1.2.1:
   version "1.2.1"

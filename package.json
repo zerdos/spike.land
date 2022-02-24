@@ -6,7 +6,7 @@
     "@builder.io/qwik": "0.0.16",
     "@cloudflare/kv-asset-handler": "0.2.0",
     "@cloudflare/workers-types": "3.4.0",
-    "@jspm/generator": "1.0.0-beta.22",
+    "@jspm/generator": "1.0.0-beta.25",
     "@playwright/test": "1.19.1",
     "@rollup/plugin-commonjs": "21.0.2",
     "@rollup/plugin-json": "4.1.0",
