@@ -2346,9 +2346,9 @@ caseless@~0.12.0:
   integrity sha1-G2gcIf+EAzyCZUMJBolCDRhxUdw=
 
 cborg@^1.5.4, cborg@^1.6.0:
-  version "1.7.0"
-  resolved "https://registry.yarnpkg.com/cborg/-/cborg-1.7.0.tgz#ec773be130c3a94b0430a2c448e07c0974a5bbff"
-  integrity sha512-BVounZzg0940FGbK+vgQCjlXBoczu8t4s2GLsi2N9QRRzerMBbisQQbDszHhnBOtSpi8+umU++xpuIDYIs6cIg==
+  version "1.8.0"
+  resolved "https://registry.yarnpkg.com/cborg/-/cborg-1.8.0.tgz#d75be6c5cdaa0f9aab3d24c62b8d2c47ed57ca76"
+  integrity sha512-zT4TJQJJFXLGpd0iMmj1gQCscbcrBxC6X5S0D9bdA8nH34ZbsSdtzJXD0A2ZJzBWP95WI1pKX9CLkwW6UpolwA==
 
 chalk@^2.0.0:
   version "2.4.2"
@@ -2730,9 +2730,9 @@ cosmiconfig@^7.0.0:
     yaml "^1.10.0"
 
 cron-schedule@^3.0.4:
-  version "3.0.4"
-  resolved "https://registry.yarnpkg.com/cron-schedule/-/cron-schedule-3.0.4.tgz#9d3c3b6ed9069a77856b287f70ab47da271c14e3"
-  integrity sha512-wEspID2dNPfWyh7t2ZvE4Izunzk20QacZg8oZcqfTrN1j5kImj0CEYT3ZGZo+KqGQUgRc9tKlEJmY4uFVt4ccA==
+  version "3.0.5"
+  resolved "https://registry.yarnpkg.com/cron-schedule/-/cron-schedule-3.0.5.tgz#8a85ed3016ff2a5479f9c32a6f0e6b0a93a02b6f"
+  integrity sha512-YjtB4jy7RJEX8j9GokHp+y8S/ihCHjrD2Z3E13LSGP/+G0Sdv+MEKsZu5wPLLWwW1HQc4HwpGMFU3GUTStZTaA==
 
 cross-spawn@^7.0.3:
   version "7.0.3"
@@ -2999,9 +2999,9 @@ electron-fetch@^1.7.2:
     encoding "^0.1.13"
 
 electron-to-chromium@^1.4.71:
-  version "1.4.72"
-  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.4.72.tgz#19b871f1da8be8199b2330d694fc84fcdb72ecd9"
-  integrity sha512-9LkRQwjW6/wnSfevR21a3k8sOJ+XWSH7kkzs9/EUenKmuDkndP3W9y1yCZpOxufwGbX3JV8glZZSDb4o95zwXQ==
+  version "1.4.73"
+  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.4.73.tgz#422f6f514315bcace9615903e4a9b6b9fa283137"
+  integrity sha512-RlCffXkE/LliqfA5m29+dVDPB2r72y2D2egMMfIy3Le8ODrxjuZNVo4NIC2yPL01N4xb4nZQLwzi6Z5tGIGLnA==
 
 emoji-regex@^8.0.0:
   version "8.0.0"
