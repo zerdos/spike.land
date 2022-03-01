@@ -941,25 +941,25 @@
     "@babel/helper-validator-identifier" "^7.16.7"
     to-fast-properties "^2.0.0"
 
-"@chialab/esbuild-plugin-jsx-import@^0.14.17":
-  version "0.14.17"
-  resolved "https://registry.yarnpkg.com/@chialab/esbuild-plugin-jsx-import/-/esbuild-plugin-jsx-import-0.14.17.tgz#89324dbdd7634175faa3c7faac43d14fbc47d793"
-  integrity sha512-Njr/geoZGchTvQjDk0jQXIXPHBdOGSjwpumZvGPExIaiSyWJPLnQT5uUB3vQd4vrQdq4WuUtQ61pOkc7MiDRXQ==
+"@chialab/esbuild-plugin-jsx-import@^0.15.0":
+  version "0.15.0"
+  resolved "https://registry.yarnpkg.com/@chialab/esbuild-plugin-jsx-import/-/esbuild-plugin-jsx-import-0.15.0.tgz#43c23a9a1149e60d7d396132f3040bd16107e8c8"
+  integrity sha512-BZyb8NhN0vM5K2ELjz092jt38JyGtKYz4ScW+5YZpuTiOZwk674W47/EUP1AQizs++ug5LcAWcx8SA61gTPSAw==
   dependencies:
-    "@chialab/estransform" "^0.14.17"
-    "@chialab/node-resolve" "^0.14.17"
+    "@chialab/estransform" "^0.15.0"
+    "@chialab/node-resolve" "^0.15.0"
 
-"@chialab/estransform@^0.14.17":
-  version "0.14.17"
-  resolved "https://registry.yarnpkg.com/@chialab/estransform/-/estransform-0.14.17.tgz#70178e08cb90fca025cef295303e7b2a7d62711a"
-  integrity sha512-2cLMdGBLqDGNxZFnBltUo4fRBOgAfWmWpVID0i1DXFWZdNjj4kiIjAjvphj6a5D8cywfjQ7/FbufBy787dnnAQ==
+"@chialab/estransform@^0.15.0":
+  version "0.15.0"
+  resolved "https://registry.yarnpkg.com/@chialab/estransform/-/estransform-0.15.0.tgz#1245cd0dccce6fec6a5e9b12db8b2212922bad04"
+  integrity sha512-sZFPwBLGSA5cD44CZDBBj0Lwii/3g2l4cMFeCDT1xw5IQPAdi5GO6CTitjOJc2v1cBH0o7ISruVOU/4osVz1JA==
   dependencies:
     "@parcel/source-map" "^2.0.0"
 
-"@chialab/node-resolve@^0.14.17":
-  version "0.14.17"
-  resolved "https://registry.yarnpkg.com/@chialab/node-resolve/-/node-resolve-0.14.17.tgz#5244637e9de903699f1c618487c013183e722f1f"
-  integrity sha512-uR4zr3CF69jWYGOtZj6z4eSylETCebfMOzgCIT8zwOy5o1tCn6fbkoAcEIYVuKouL1SH3niZM/EfWWssSQ+sWQ==
+"@chialab/node-resolve@^0.15.0":
+  version "0.15.0"
+  resolved "https://registry.yarnpkg.com/@chialab/node-resolve/-/node-resolve-0.15.0.tgz#28b0a782d3dded560ff3836d794eca6fac829f27"
+  integrity sha512-Z3pDFEIDyfs8ax29oilV5DBB0w+iyhzVX5MEz0UTtIxX+j0252F4Q1BgisD5i6JKiW8EhToQdB6S6vHRDzPPWg==
 
 "@cloudflare/workers-types@3.4.0":
   version "3.4.0"
