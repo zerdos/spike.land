@@ -61,7 +61,7 @@
     "@babel/core": "^7.17.5",
     "@babel/runtime": "7.17.2",
     "@babel/standalone": "7.17.6",
-    "@chialab/esbuild-plugin-jsx-import": "^0.14.17",
+    "@chialab/esbuild-plugin-jsx-import": "^0.15.0",
     "@emotion/babel-plugin": "^11.7.2",
     "@emotion/cache": "^11.7.1",
     "@emotion/react": "^11.8.1",
