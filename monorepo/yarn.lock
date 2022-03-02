@@ -7968,10 +7968,10 @@ textdiff-create@1.0.8:
   dependencies:
     fast-diff "^1.2.0"
 
-textdiff-patch@1.0.6:
-  version "1.0.6"
-  resolved "https://registry.yarnpkg.com/textdiff-patch/-/textdiff-patch-1.0.6.tgz#e847561fe39385165a02606d9ef55257fbb40e17"
-  integrity sha512-jobVJkbddSfKn/uuk1JJcwtfh8hsGyybqHcwEBMtf5BsWM2NonsZsFepSSGwWEJbehJKi9ZXN4hUyS5Ic6VCwg==
+textdiff-patch@1.0.7:
+  version "1.0.7"
+  resolved "https://registry.yarnpkg.com/textdiff-patch/-/textdiff-patch-1.0.7.tgz#c23e300c85e60d5823f1f1bdf411ecb6729e57d2"
+  integrity sha512-wSikzjxuHwkKtrR894VIfA1XsiAeO4O1HusPsfkf4UWqqkrfe6lR54aptsQugX8pO5noMWUP6aMfFWe/kK6pUA==
 
 through2@^2.0.0:
   version "2.0.5"
