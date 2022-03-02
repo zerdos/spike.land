@@ -98,7 +98,7 @@
     "prettier": "^2.5.1",
     "react": "npm:@preact/compat@17.0.3",
     "regenerator-runtime": "0.13.9",
-    "textdiff-create": "1.0.7",
+    "textdiff-create": "1.0.8",
     "textdiff-patch": "1.0.6",
     "workbox-cacheable-response": "6.5.0",
     "workbox-cli": "6.5.0",

@@ -7961,10 +7961,10 @@ text-extensions@^1.0.0:
   resolved "https://registry.yarnpkg.com/text-extensions/-/text-extensions-1.9.0.tgz#1853e45fee39c945ce6f6c36b2d659b5aabc2a26"
   integrity sha512-wiBrwC1EhBelW12Zy26JeOUkQ5mRu+5o8rpsJk5+2t+Y5vE7e842qtZDQ2g1NpX/29HdyFeJ4nSIhI47ENSxlQ==
 
-textdiff-create@1.0.7:
-  version "1.0.7"
-  resolved "https://registry.yarnpkg.com/textdiff-create/-/textdiff-create-1.0.7.tgz#2bc1c6d476b8616baf7e76b189d5629a6316912c"
-  integrity sha512-jwJSYpCHTbU//M6F5Q0qzFu2kG+nUfKU+4PWv9wYcv8say2sMDW9zKo+WABkjHoEDcn3LRhOisSd/dDQq0oJpQ==
+textdiff-create@1.0.8:
+  version "1.0.8"
+  resolved "https://registry.yarnpkg.com/textdiff-create/-/textdiff-create-1.0.8.tgz#a46c9aed60ed596c4546b7e385c1337ca14ac5d2"
+  integrity sha512-/NfOrgWwtSFV389oswc0KB4hvEhTUWEsDbBDzX7trSMGWZO7RsXP2sSdp1FcSdr0m+i71fJgP5eiRaGoyWLsVQ==
   dependencies:
     fast-diff "^1.2.0"
 
