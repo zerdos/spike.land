@@ -4064,11 +4064,6 @@ esbuild-sunos-64@0.14.25:
   resolved "https://registry.yarnpkg.com/esbuild-sunos-64/-/esbuild-sunos-64-0.14.25.tgz#815e4f936d74970292a63ccfd5791fe5e3569f5f"
   integrity sha512-rmWfjUItYIVlqr5EnTH1+GCxXiBOC42WBZ3w++qh7n2cS9Xo0lO5pGSG2N+huOU2fX5L+6YUuJ78/vOYvefeFw==
 
-esbuild-wasm@0.14.24:
-  version "0.14.24"
-  resolved "https://registry.yarnpkg.com/esbuild-wasm/-/esbuild-wasm-0.14.24.tgz#cd20c958cadc5c197faa818824cbfc6c7723c718"
-  integrity sha512-F088VEdfrRgNr1q8zLGV7BIXG0ZZ5BbxH1pnzt1MW2g7/eW95Xu27lxSHr+UnRZHFKB2pvpyEfIc3hly7VMZWg==
-
 esbuild-wasm@0.14.25:
   version "0.14.25"
   resolved "https://registry.yarnpkg.com/esbuild-wasm/-/esbuild-wasm-0.14.25.tgz#819302709e79a8dd935429b5925585c58406e8fe"
