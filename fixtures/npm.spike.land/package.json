@@ -11,7 +11,7 @@
   "devDependencies": {
     "@cloudflare/workers-types": "3.4.0",
     "@spike.land/blog-artifacts": "0.4.105",
-    "@spike.land/cf-npm-site": "0.7.29"
+    "@spike.land/cf-npm-site": "0.7.409"
   },
   "private": true
 }
