@@ -2327,9 +2327,9 @@ camelcase@^6.2.0, camelcase@^6.3.0:
   integrity sha512-Gmy6FhYlCY7uOElZUSbxo2UCDH8owEk996gkbrpsgGtrJLM3J7jGxl9Ic7Qwwj4ivOE5AWZWRMecDdF7hqGjFA==
 
 caniuse-lite@^1.0.30001312:
-  version "1.0.30001312"
-  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001312.tgz#e11eba4b87e24d22697dae05455d5aea28550d5f"
-  integrity sha512-Wiz1Psk2MEK0pX3rUzWaunLTZzqS2JYZFzNKqAiJGiuxIjRPLgV6+VDPOg6lQOUxmDwhTlh198JsTTi8Hzw6aQ==
+  version "1.0.30001313"
+  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001313.tgz#a380b079db91621e1b7120895874e2fd62ed2e2f"
+  integrity sha512-rI1UN0koZUiKINjysQDuRi2VeSCce3bYJNmDcj3PIKREiAmjakugBul1QSkg/fPrlULYl6oWfGg3PbgOSY9X4Q==
 
 capital-case@^1.0.4:
   version "1.0.4"
@@ -3249,10 +3249,10 @@ esbuild-sunos-64@0.14.25:
   resolved "https://registry.yarnpkg.com/esbuild-sunos-64/-/esbuild-sunos-64-0.14.25.tgz#815e4f936d74970292a63ccfd5791fe5e3569f5f"
   integrity sha512-rmWfjUItYIVlqr5EnTH1+GCxXiBOC42WBZ3w++qh7n2cS9Xo0lO5pGSG2N+huOU2fX5L+6YUuJ78/vOYvefeFw==
 
-esbuild-wasm@0.14.24:
-  version "0.14.24"
-  resolved "https://registry.yarnpkg.com/esbuild-wasm/-/esbuild-wasm-0.14.24.tgz#cd20c958cadc5c197faa818824cbfc6c7723c718"
-  integrity sha512-F088VEdfrRgNr1q8zLGV7BIXG0ZZ5BbxH1pnzt1MW2g7/eW95Xu27lxSHr+UnRZHFKB2pvpyEfIc3hly7VMZWg==
+esbuild-wasm@0.14.25:
+  version "0.14.25"
+  resolved "https://registry.yarnpkg.com/esbuild-wasm/-/esbuild-wasm-0.14.25.tgz#819302709e79a8dd935429b5925585c58406e8fe"
+  integrity sha512-QZ8wt4jBN1IGVCp/A+u87BzNYOZeIp87d8TMQznU8w7NvZEvdwEWHVfjrOBZ6qqlOJj2/Y/kOUZLy0nk2n9anw==
 
 esbuild-windows-32@0.14.14:
   version "0.14.14"
