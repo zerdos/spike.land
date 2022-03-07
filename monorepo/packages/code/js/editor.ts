@@ -13,29 +13,17 @@ const {
   propTypesDts,
   cssTypeDts,
   framerDts,
+  emotionStyleBase
 } = dtsFiles;
 
 self.MonacoEnvironment = {
   getWorkerUrl: function (moduleId: string, label: string) {
-    //     // if (label === "json") {
-    //     //   return "./dist/workers/monaco-editor/esm/vs/language/json/json.worker.js";
-    //     // }
-    //     // if (label === "css" || label === "scss" || label === "less") {
-    //     //   return "./dist/workers/monaco-editor/esm/vs/language/css/css.worker.js";
-    //     // }
-    //     // if (label === "html" || label === "handlebars" || label === "razor") {
-    //     //   return "./dist/workers/monaco-editor/esm/vs/language/html/html.worker.js";
-    //     // }
     if (label === "typescript" || label === "javascript") {
       return "dist/workers/language/typescript/ts.worker.js";
     }
     return "dist/workers/editor/editor.worker.js";
-    //     return editorWorker;
   },
 };
-// };
-
-// self.MonacoEnvironment = MonacoEnvironment;
 
 let started = false;
 
@@ -95,14 +83,11 @@ export const startMonaco = async (
     declaration: false,
     module: monaco.languages.typescript.ModuleKind.ESNext,
     noEmitOnError: true,
-    // jsxFactory: "jsx",
     maxNodeModuleJsDepth: 10,
 
     jsxImportSource: "@emotion/react",
     jsx: monaco.languages.typescript.JsxEmit.ReactJSX,
     allowUmdGlobalAccess: true,
-    // allowUmdGlobalAccess : true,
-    // noLibCheck: t,
   });
 
   monaco.languages.typescript.typescriptDefaults
@@ -112,152 +97,22 @@ export const startMonaco = async (
       noSyntaxValidation: true,
     });
 
-  // document.head.appendChild(Object.assign(document.createElement("link"), {
-  //   "data-name": "vs/editor/editor.main",
-  //   "rel": "stylesheet",
-  //   "href": "./dist/css/" + ],
-  // }));
-
   const editor = monaco.editor.create(innerContainer, {
     model: monaco.editor.createModel(
       code,
       "typescript",
       monaco.Uri.parse("file:///app/index.tsx"),
     ),
-    // lightbulb: { enabled: false },
     language: "typescript",
     useShadowDOM: false,
     theme: "vs-dark",
-    // codeLens: false,
-    // suggest: false,
-    // smoothScrolling: true,
-    // scrollPredominantAxis: true,
-    // scrollbar: {
-    //   handleMouseWheel: true,
-    //   alwaysConsumeMouseWheel: false,
-    //   horizontal: "auto",
-    //   vertical: "auto",
-    //   useShadows: true,
-    // },
-    // selectionHighlight: true,
-    // selectOnLineNumbers: true,
-    // cursorSmoothCaretAnimation: true,
-    //  cursorBlinking: "smooth",
-    // hideCursorInOverviewRuler: true,
-    // cursorSurroundingLinesStyle: "all",
-    // cursorSurroundingLines: 4,
-    autoClosingBrackets: "languageDefined",
-    //autoClosingDelete: "auto",
-    //autoClosingOvertype: "auto",
-    // autoClosingQuotes: "always",
-    // autoDetectHighContrast: true,
-    // autoIndent: "full",
-    //   autoSurround: "languageDefined",
-    //  automaticLayout: true,
-    // trimAutoWhitespace: true,
-    // acceptSuggestionOnCommitCharacter: true,
-    // acceptSuggestionOnEnter: "smart",
-    //  cursorSmoothCaretAnimation: true,
-    // smartSelect: {
-    //   selectLeadingAndTrailingWhitespace: false,
-    // },
-    // wordBasedSuggestionsOnlySameLanguage: true,
-
-    // smoothScrolling: true,
-    // scrollBeyondLastColumn: 20,
-    // scrollBeyondLastLine: true,
-    // formatOnPaste: true,
-    // formatOnType: true,
+    autoClosingBrackets: "languageDefined"
   });
 
-  // const { AutoTypings, LocalStorageCache } = await import(
-  //   "@spike.land/monaco-editor-auto-typings"
-  // );
-
-  // const autoTypings = AutoTypings.create(editor, monacoTs.languages, {
-  //   sourceCache: new LocalStorageCache(), // Cache loaded sources in localStorage. May be omitted
-  //   // Other options...
-  // });
-
-  // monacoTs.editor.create(
-  //   innerContainer,
-  //   {
-  //     formatOnType: false,
-
-  //     scrollbar: {
-  //       // Subtle shadows to the left & top. Defaults to true.
-  //       useShadows: false,
-
-  //       // Render vertical arrows. Defaults to false.
-  //       verticalHasArrows: true,
-  //       // Render horizontal arrows. Defaults to false.
-  //       horizontalHasArrows: true,
-
-  //       // Render vertical scrollbar.
-  //       // Accepted values: 'auto', 'visible', 'hidden'.
-  //       // Defaults to 'auto'
-  //       vertical: "visible",
-  //       // Render horizontal scrollbar.
-  //       // Accepted values: 'auto', 'visible', 'hidden'.
-  //       // Defaults to 'auto'
-  //       horizontal: "visible",
-
-  //       verticalScrollbarSize: 17,
-  //       horizontalScrollbarSize: 17,
-  //       arrowSize: 30,
-  //     },
-  //     minimap: {
-  //       enabled: true,
-  //       side: "right",
-  //       size: "fit",
-  //       showSlider: "always",
-  //     },
-  //     folding: true,
-  //     glyphMargin: false,
-  //     wordWrap: "off",
-  //     showUnused: true,
-
-  //     //       glyphMargin: true,
-  //     scrollBeyondLastLine: false,
-  //     autoClosingQuotes: "beforeWhitespace",
-  //     padding: {
-  //       bottom: 300,
-  //     },
-  //     lineNumbers: "on", //isMobile() ? "off" : "on",
-
-  //     autoClosingBrackets: "beforeWhitespace",
-
-  //     smartSelect: {
-  //       selectLeadingAndTrailingWhitespace: true,
-  //     },
-  //     autoClosingOvertype: "auto",
-
-  //     suggest: {},
-  //     codeLens: true,
-  //     autoSurround: "languageDefined",
-  //     // acceptSuggestionOnCommitCharacter: true,
-  //     trimAutoWhitespace: false,
-  //     codeActionsOnSaveTimeout: 100,
-  //     model,
-  //     value: code,
-  //     language: language,
-  //     theme: "vs-dark",
-  //     ...options,
-  //   },
-  // ),
-  //};
-
-  // function getDefaultComplierOpts() {
-  //   return { target: 99, jsx: 1, allowNonTsExtensions: true };
-  // }
   const throttle = (await import("lodash/throttle")).default;
   window.addEventListener(
     "resize",
     throttle(function () {
-      // const { width, height } = container.getClientRects()[0];
-      // innerContainer.style.width = `${Math.min(window.innerWidth, width)}px`;
-      // innerContainer.style.height = `${Math.min(window.innerHeight, height)}px`;
-
       editor.layout();
     }, 200),
   );
