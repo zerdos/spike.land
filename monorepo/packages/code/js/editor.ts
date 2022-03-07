@@ -13,7 +13,7 @@ const {
   propTypesDts,
   cssTypeDts,
   framerDts,
-  emotionStyleBase
+  emotionStyleBase,
 } = dtsFiles;
 
 self.MonacoEnvironment = {
@@ -106,7 +106,7 @@ export const startMonaco = async (
     language: "typescript",
     useShadowDOM: false,
     theme: "vs-dark",
-    autoClosingBrackets: "languageDefined"
+    autoClosingBrackets: "languageDefined",
   });
 
   const throttle = (await import("lodash/throttle")).default;
@@ -156,7 +156,7 @@ export const startMonaco = async (
       },
       {
         name: "@emotion/base",
-        url: "https://unpkg.com/@emotion/styled@11.8.1/types/base.d.ts",
+        url: emotionStyleBase,
         depend: [
           "@emotion/react",
           "@emotion/serialize",
