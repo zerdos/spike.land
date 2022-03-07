@@ -942,24 +942,24 @@
     to-fast-properties "^2.0.0"
 
 "@chialab/esbuild-plugin-jsx-import@^0.15.0":
-  version "0.15.0"
-  resolved "https://registry.yarnpkg.com/@chialab/esbuild-plugin-jsx-import/-/esbuild-plugin-jsx-import-0.15.0.tgz#43c23a9a1149e60d7d396132f3040bd16107e8c8"
-  integrity sha512-BZyb8NhN0vM5K2ELjz092jt38JyGtKYz4ScW+5YZpuTiOZwk674W47/EUP1AQizs++ug5LcAWcx8SA61gTPSAw==
+  version "0.15.3"
+  resolved "https://registry.yarnpkg.com/@chialab/esbuild-plugin-jsx-import/-/esbuild-plugin-jsx-import-0.15.3.tgz#e36888b1d4f7cd53eda81ddad819319c84625cb4"
+  integrity sha512-sou2OaG775RXpiScxpWY7nVkO61F1UV/AIK4Wsk2OhQdvzuNNNBECMGpOQnEA4VHa/qOhDHVEOAqn13ZTsSFzA==
   dependencies:
-    "@chialab/estransform" "^0.15.0"
-    "@chialab/node-resolve" "^0.15.0"
+    "@chialab/estransform" "^0.15.3"
+    "@chialab/node-resolve" "^0.15.3"
 
-"@chialab/estransform@^0.15.0":
-  version "0.15.0"
-  resolved "https://registry.yarnpkg.com/@chialab/estransform/-/estransform-0.15.0.tgz#1245cd0dccce6fec6a5e9b12db8b2212922bad04"
-  integrity sha512-sZFPwBLGSA5cD44CZDBBj0Lwii/3g2l4cMFeCDT1xw5IQPAdi5GO6CTitjOJc2v1cBH0o7ISruVOU/4osVz1JA==
+"@chialab/estransform@^0.15.3":
+  version "0.15.3"
+  resolved "https://registry.yarnpkg.com/@chialab/estransform/-/estransform-0.15.3.tgz#62f29ae99b26181c7fd097f1d33bb677f5b8ba30"
+  integrity sha512-5CxuC4+mgHGNedbxmJ0avDsyHngDRCt5ytlASJNtCGvaeEkcEFhXSKT8SvVBkOJcMOepBBP3Pq0BdBnw50WwLg==
   dependencies:
     "@parcel/source-map" "^2.0.0"
 
-"@chialab/node-resolve@^0.15.0":
-  version "0.15.0"
-  resolved "https://registry.yarnpkg.com/@chialab/node-resolve/-/node-resolve-0.15.0.tgz#28b0a782d3dded560ff3836d794eca6fac829f27"
-  integrity sha512-Z3pDFEIDyfs8ax29oilV5DBB0w+iyhzVX5MEz0UTtIxX+j0252F4Q1BgisD5i6JKiW8EhToQdB6S6vHRDzPPWg==
+"@chialab/node-resolve@^0.15.3":
+  version "0.15.3"
+  resolved "https://registry.yarnpkg.com/@chialab/node-resolve/-/node-resolve-0.15.3.tgz#1da1b9ad6674d7fbcf7523ecbda5672188cb1b44"
+  integrity sha512-KARULjnc5dyLSVyDXSrUbA0ZkMR76hi5oROMwmXsCFz8phutpVtPwkQgTKzHCsYctRKCNWMjq7BR9H1D1BaRwg==
 
 "@cloudflare/workers-types@3.4.0":
   version "3.4.0"
@@ -2894,12 +2894,12 @@ browser-readablestream-to-it@^1.0.1, browser-readablestream-to-it@^1.0.3:
   integrity sha512-+12sHB+Br8HIh6VAMVEG5r3UXCyESIgDW7kzk3BjIXa43DVqVwL7GC5TW3jeh+72dtcH99pPVpw0X8i0jt+/kw==
 
 browserslist@^4.17.5, browserslist@^4.19.1:
-  version "4.19.3"
-  resolved "https://registry.yarnpkg.com/browserslist/-/browserslist-4.19.3.tgz#29b7caad327ecf2859485f696f9604214bedd383"
-  integrity sha512-XK3X4xtKJ+Txj8G5c30B4gsm71s69lqXlkYui4s6EkKxuv49qjYlY6oVd+IFJ73d4YymtM3+djvvt/R/iJwwDg==
+  version "4.20.0"
+  resolved "https://registry.yarnpkg.com/browserslist/-/browserslist-4.20.0.tgz#35951e3541078c125d36df76056e94738a52ebe9"
+  integrity sha512-bnpOoa+DownbciXj0jVGENf8VYQnE2LNWomhYuCsMmmx9Jd9lwq0WXODuwpSsp8AVdKM2/HorrzxAfbKvWTByQ==
   dependencies:
-    caniuse-lite "^1.0.30001312"
-    electron-to-chromium "^1.4.71"
+    caniuse-lite "^1.0.30001313"
+    electron-to-chromium "^1.4.76"
     escalade "^3.1.1"
     node-releases "^2.0.2"
     picocolors "^1.0.0"
@@ -3024,7 +3024,7 @@ camelcase@^5.0.0, camelcase@^5.3.1:
   resolved "https://registry.yarnpkg.com/camelcase/-/camelcase-5.3.1.tgz#e3c9b31569e106811df242f715725a1f4c494320"
   integrity sha512-L28STB170nwWS63UjtlEOE3dldQApaJXZkOI1uMFfzf3rRuPegHaHesyee+YxQ+W6SvRDQV6UrdOdRiR153wJg==
 
-caniuse-lite@^1.0.30001312:
+caniuse-lite@^1.0.30001313:
   version "1.0.30001313"
   resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001313.tgz#a380b079db91621e1b7120895874e2fd62ed2e2f"
   integrity sha512-rI1UN0koZUiKINjysQDuRi2VeSCce3bYJNmDcj3PIKREiAmjakugBul1QSkg/fPrlULYl6oWfGg3PbgOSY9X4Q==
@@ -3733,10 +3733,10 @@ electron-fetch@^1.7.2:
   dependencies:
     encoding "^0.1.13"
 
-electron-to-chromium@^1.4.71:
-  version "1.4.75"
-  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.4.75.tgz#d1ad9bb46f2f1bf432118c2be21d27ffeae82fdd"
-  integrity sha512-LxgUNeu3BVU7sXaKjUDD9xivocQLxFtq6wgERrutdY/yIOps3ODOZExK1jg8DTEg4U8TUCb5MLGeWFOYuxjF3Q==
+electron-to-chromium@^1.4.76:
+  version "1.4.76"
+  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.4.76.tgz#a0494baedaf51094b1c172999919becd9975a934"
+  integrity sha512-3Vftv7cenJtQb+k00McEBZ2vVmZ/x+HEF7pcZONZIkOsESqAqVuACmBxMv0JhzX7u0YltU0vSqRqgBSTAhFUjA==
 
 emoji-regex@^8.0.0:
   version "8.0.0"
@@ -6803,9 +6803,9 @@ popmotion@11.0.3, popmotion@^11.0.3:
     tslib "^2.1.0"
 
 postcss@^8.3.8, postcss@^8.4.6:
-  version "8.4.7"
-  resolved "https://registry.yarnpkg.com/postcss/-/postcss-8.4.7.tgz#f99862069ec4541de386bf57f5660a6c7a0875a8"
-  integrity sha512-L9Ye3r6hkkCeOETQX6iOaWZgjp3LL6Lpqm6EtgbKrgqGGteRMNb9vzBfRL96YOSu8o7x3MfIH9Mo5cPJFGrW6A==
+  version "8.4.8"
+  resolved "https://registry.yarnpkg.com/postcss/-/postcss-8.4.8.tgz#dad963a76e82c081a0657d3a2f3602ce10c2e032"
+  integrity sha512-2tXEqGxrjvAO6U+CJzDL2Fk2kPHTv1jQsYkSoMeOis2SsYaXRO2COxTdQp99cYvif9JTXaAk9lYGc3VhJt7JPQ==
   dependencies:
     nanoid "^3.3.1"
     picocolors "^1.0.0"
@@ -7365,9 +7365,9 @@ rollup-plugin-terser@^7.0.0:
     terser "^5.0.0"
 
 rollup@^2.43.1, rollup@^2.57.0, rollup@^2.59.0:
-  version "2.69.0"
-  resolved "https://registry.yarnpkg.com/rollup/-/rollup-2.69.0.tgz#82aa86682a45e9760146b736c1643bf435506156"
-  integrity sha512-kjER91tHyek8gAkuz7+558vSnTQ+pITEok1P0aNOS45ZXyngaqPsXJmSel4QPQnJo7EJMjXUU1/GErWkWiKORg==
+  version "2.70.0"
+  resolved "https://registry.yarnpkg.com/rollup/-/rollup-2.70.0.tgz#17a92e5938e92a251b962352e904c9f558230ec7"
+  integrity sha512-iEzYw+syFxQ0X9RefVwhr8BA2TNJsTaX8L8dhyeyMECDbmiba+8UQzcu+xZdji0+JQ+s7kouQnw+9Oz5M19XKA==
   optionalDependencies:
     fsevents "~2.3.2"
 
