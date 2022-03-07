@@ -14,6 +14,7 @@ const {
   cssTypeDts,
   framerDts,
   emotionStyleBase,
+  emotionCache,
 } = dtsFiles;
 
 self.MonacoEnvironment = {
@@ -174,7 +175,7 @@ export const startMonaco = async (
       },
       {
         name: "@emotion/cache",
-        url: "https://unpkg.com/@emotion/cache@11.7.1/types/index.d.ts",
+        url: emotionCache,
         depend: ["@emotion/utils"],
       },
       {
