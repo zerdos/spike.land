@@ -70,7 +70,7 @@
     "@emotion/styled": "^11.8.1",
     "@emotion/utils": "^1.1.0",
     "@emotion/weak-memoize": "0.2.5",
-    "@mui/material": "^5.4.4",
+    "@mui/material": "^5.5.0",
     "@spike.land/qrious": "^0.7.409",
     "@types/babel__core": "^7.1.18",
     "@types/babel__standalone": "^7.1.4",
