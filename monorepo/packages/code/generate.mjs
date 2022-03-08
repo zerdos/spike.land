@@ -8,7 +8,7 @@ const isDev = env === "development";
 
 const generator = new Generator({
   mapUrl: import.meta.url,
-  defaultProvider: "jspm", 
+  defaultProvider: "jspm",
   //]//ne your target environment to get a working map
   // it is advisable to pass the "module" condition as supported by Webpack
   env: [

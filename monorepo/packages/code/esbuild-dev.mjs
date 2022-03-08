@@ -99,7 +99,7 @@ const build = (entryPoints) =>
       ".ttf",
       ".workerJS",
     ],
- 
+
     target: "es2017",
     define: {
       "process.env.NODE_ENV": `"${environment}"`,
@@ -115,7 +115,7 @@ const build = (entryPoints) =>
       ".ts": "ts",
       ".d.ts": "dataurl",
       ".workerJS": "file",
-    ".wasm": "file",
+      ".wasm": "file",
     },
     outdir: "js/dist",
   }).catch(() => process.exit(1));
