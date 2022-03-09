@@ -6086,6 +6086,11 @@ monaco-editor@0.33.0-dev.20220309:
   resolved "https://registry.yarnpkg.com/monaco-editor/-/monaco-editor-0.33.0-dev.20220309.tgz#d2583c93b5cfaab573c9bc8b5a43cdcea4f1a4d6"
   integrity sha512-rrZVnay1PYEPTptrPRfS0QAUcsCpm+LrtGV021E81L1lIQAyuAdm59LedloGtsV7GgbqlQqK3CFrRGRasafzEA==
 
+monaco-jsx-highlighter@^2.0.4:
+  version "2.0.4"
+  resolved "https://registry.yarnpkg.com/monaco-jsx-highlighter/-/monaco-jsx-highlighter-2.0.4.tgz#553d3281da7030cccf2c5c4e7a6037a9c71d7de9"
+  integrity sha512-ReHfXj49UtxpTEGKNko3kv0AnqEeuEXhp0DCxJbfSEEEO+0FhFKjffTVuYE+m+4nAHrwzhmMpAWtMbEpxCmEGw==
+
 ms@2.1.2:
   version "2.1.2"
   resolved "https://registry.yarnpkg.com/ms/-/ms-2.1.2.tgz#d09d1f357b443f493382a8eb3ccd183872ae6009"

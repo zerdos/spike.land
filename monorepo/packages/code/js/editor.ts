@@ -1,8 +1,21 @@
-import * as monaco from "monaco-editor";
+import monaco from "monaco-editor";
 import "monaco-editor/min/vs/editor/editor.main.css";
 import { dtsFiles } from "./types.mjs";
+import {parse} from "@babel/parser";
+import traverse from "@babel/traverse";
+import MonacoJSXHighlighter from 'monaco-jsx-highlighter';
+
 
 import pAll from "p-all";
+
+const monacoJSXHighlighter = new MonacoJSXHighlighter(
+  monaco, babel, traverse, aMonacoEditor()
+);
+// Activate highlighting (debounceTime default: 100ms)
+monacoJSXHighlighter.highlightOnDidChangeModelContent(100);
+// Activate JSX commenting
+monacoJSXHighlighter.addJSXCommentCommand();
+
 
 const {
   reactDts,
