@@ -67,6 +67,8 @@
   "exclude": ["./js/vendor/**", "js/dist"],
   "paths": {
     "path": ["path-browserify"],
+    "buffer": ["buffer"],
+    "stream": ["stream-browserify"],
     "react": "preact-compat",
     "react-dom": "preact-compat",
     // Not necessary unless you consume a module using `createClass`
