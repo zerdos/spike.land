@@ -4,6 +4,9 @@ import { dtsFiles } from "./types.mjs";
 import { parse } from "@babel/parser";
 import traverse from "@babel/traverse";
 import MonacoJSXHighlighter from "monaco-jsx-highlighter";
+import Buffer from "buffer";
+
+globalThis.Buffer = Buffer;
 
 import pAll from "p-all";
 
