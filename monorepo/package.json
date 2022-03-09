@@ -32,6 +32,6 @@
     "@jspm/generator": "1.0.0-beta.25",
     "lerna": "4.0.0",
     "typescript": "4.6.2",
-    "wrangler": "0.0.18"
+    "wrangler": "0.0.19"
   }
 }

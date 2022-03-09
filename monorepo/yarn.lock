@@ -8663,10 +8663,10 @@ workbox-window@6.5.1:
     "@types/trusted-types" "^2.0.2"
     workbox-core "6.5.1"
 
-wrangler@0.0.18:
-  version "0.0.18"
-  resolved "https://registry.yarnpkg.com/wrangler/-/wrangler-0.0.18.tgz#b404ee0c92f590eb37930dbf194636c9102e04a1"
-  integrity sha512-Ll3sZtOPlI23wy5Vos3LAqtr1tWfKhWCxfua47O/q6ZoTOfNqkO+bZ0NGKwmyWuuPeUa8zFEpnwAvWaU9HnDfQ==
+wrangler@0.0.19:
+  version "0.0.19"
+  resolved "https://registry.yarnpkg.com/wrangler/-/wrangler-0.0.19.tgz#3c945da75af591b969ff3b31a1976317ff5e9884"
+  integrity sha512-WRfWf4Kbbo1M3GiXPUXDHCXWe2ANoArTtr8lX7oxiEFahAISgkgMtTupD7hFtVZs6F9MdGv2cV0dzBcg/pgRvA==
   dependencies:
     esbuild "0.14.23"
     miniflare "2.3.0"
