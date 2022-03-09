@@ -127,18 +127,18 @@ export const startMonaco = async (
     jsxCommenter: null,
   };
 
-  const monacoJSXHighlighter = new MonacoJSXHighlighter(
-    monaco,
-    parse,
-    traverse,
-    editor,
-    defaultOptions,
-  );
+  // const monacoJSXHighlighter = new MonacoJSXHighlighter(
+  //   monaco,
+  //   parse,
+  //   traverse,
+  //   editor,
+  //   defaultOptions,
+  // );
 
-  // Activate highlighting (debounceTime default: 100ms)
-  monacoJSXHighlighter.highlightOnDidChangeModelContent(100);
-  // Activate JSX commenting
-  monacoJSXHighlighter.addJSXCommentCommand();
+  // // Activate highlighting (debounceTime default: 100ms)
+  // monacoJSXHighlighter.highlightOnDidChangeModelContent(100);
+  // // Activate JSX commenting
+  // monacoJSXHighlighter.addJSXCommentCommand();
 
   const throttle = (await import("lodash/throttle")).default;
   window.addEventListener(
