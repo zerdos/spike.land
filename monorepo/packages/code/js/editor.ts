@@ -7,17 +7,6 @@ import MonacoJSXHighlighter from "monaco-jsx-highlighter";
 
 import pAll from "p-all";
 
-const monacoJSXHighlighter = new MonacoJSXHighlighter(
-  monaco,
-  babel,
-  traverse,
-  aMonacoEditor(),
-);
-// Activate highlighting (debounceTime default: 100ms)
-monacoJSXHighlighter.highlightOnDidChangeModelContent(100);
-// Activate JSX commenting
-monacoJSXHighlighter.addJSXCommentCommand();
-
 const {
   reactDts,
   jsxDevRuntimeDts,
@@ -123,6 +112,30 @@ export const startMonaco = async (
     theme: "vs-dark",
     autoClosingBrackets: "languageDefined",
   });
+
+  const defaultOptions = {
+    parser: "babel", // for reference only, only babel is supported right now
+    isHighlightGlyph: false, // if JSX elements should decorate the line number gutter
+    iShowHover: false, // if JSX types should  tooltip with their type info
+    isUseSeparateElementStyles: false, // if opening elements and closing elements have different styling
+    // you can pass your own custom APIs, check core/ and uitls/ for more details
+    monacoEditorManager: null,
+    decoratorMapper: null,
+    jsxCommenter: null,
+  };
+
+  const monacoJSXHighlighter = new MonacoJSXHighlighter(
+    monaco,
+    parse,
+    traverse,
+    editor,
+    defaultOptions,
+  );
+
+  // Activate highlighting (debounceTime default: 100ms)
+  monacoJSXHighlighter.highlightOnDidChangeModelContent(100);
+  // Activate JSX commenting
+  monacoJSXHighlighter.addJSXCommentCommand();
 
   const throttle = (await import("lodash/throttle")).default;
   window.addEventListener(
