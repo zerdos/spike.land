@@ -1,8 +1,8 @@
 {
   "imports": {
     "@emotion/cache": "https://ga.jspm.io/npm:@emotion/cache@11.7.1/dist/emotion-cache.browser.esm.js",
-    "@emotion/react": "https://ga.jspm.io/npm:@emotion/react@11.8.1/dist/emotion-react.browser.esm.js",
-    "@emotion/react/jsx-runtime": "https://ga.jspm.io/npm:@emotion/react@11.8.1/jsx-runtime/dist/emotion-react-jsx-runtime.esm.js",
+    "@emotion/react": "https://ga.jspm.io/npm:@emotion/react@11.8.2/dist/emotion-react.browser.esm.js",
+    "@emotion/react/jsx-runtime": "https://ga.jspm.io/npm:@emotion/react@11.8.2/jsx-runtime/dist/emotion-react-jsx-runtime.esm.js",
     "framer-motion": "https://ga.jspm.io/npm:framer-motion@6.2.8/dist/es/index.mjs",
     "preact": "https://unpkg.com/preact@10.6.6/dist/preact.mjs",
     "preact-render-to-string": "https://unpkg.com/preact-render-to-string@5.1.19/dist/index.mjs",
