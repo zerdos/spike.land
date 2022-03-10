@@ -29,7 +29,7 @@
     "url": "git+https://github.com/spike-land/monorepo"
   },
   "dependencies": {
-    "@emotion/react": "11.8.1",
+    "@emotion/react": "11.8.2",
     "@spike.land/code": "^0.6.0",
     "gatsby": "4.9.3",
     "prop-types": "15.8.1",
