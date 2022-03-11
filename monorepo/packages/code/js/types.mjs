@@ -19,7 +19,7 @@ import emotionReactHelperDts from "@emotion/react/types/helper.d.ts?text";
 import emotionThemingDts from "@emotion/react/types/theming.d.ts?text";
 import emotionSerializeDts from "@emotion/serialize/types/index.d.ts?text";
 import emotionUtilsDts from "@emotion/utils/types/index.d.ts?text";
-import popmotionDts
+import popmotionDts from "popmotion/lib/index.d.ts?text";
 
 export const dtsFiles = {
   reactDts,
@@ -43,4 +43,5 @@ export const dtsFiles = {
   emotionThemingDts,
   emotionSerializeDts,
   emotionUtilsDts,
+  popmotionDts
 };
