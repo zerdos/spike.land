@@ -9,8 +9,8 @@ import framerDts from "./types/framer.d.ts?text";
 import emotionStyleBase from "@emotion/styled/types/base.d.ts?text";
 import emotionStyled from "@emotion/styled/types/index.d.ts?text";
 import emotionCache from "@emotion/cache/types/index.d.ts?text";
-
 import emotionReactDts from "@emotion/react/types/index.d.ts?text";
+
 import EmotionJSXDts from "@emotion/react/types/jsx-runtime.d.ts?text";
 import EmotionJSXRuntimeDTS from "@emotion/react/types/jsx-runtime.d.ts?text";
 import EmotionJSXNameSpaceDTS from "@emotion/react/types/jsx-namespace.d.ts?text";
