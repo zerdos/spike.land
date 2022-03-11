@@ -19,8 +19,10 @@ const {
   propTypesDts,
   cssTypeDts,
   framerDts,
+  emotionStyled,
   emotionStyleBase,
   emotionCache,
+  emotionReactDts,
 } = dtsFiles;
 
 self.MonacoEnvironment = {
@@ -196,7 +198,7 @@ export const startMonaco = async (
       },
       {
         name: "@emotion/styled",
-        url: "https://unpkg.com/@emotion/styled@11.8.1/types/index.d.ts",
+        url: emotionStyled,
         depend: [
           "@emotion/react",
           "@emotion/serialize",
@@ -210,7 +212,7 @@ export const startMonaco = async (
       },
       {
         name: "@emotion/react",
-        url: "https://unpkg.com/@emotion/react@11.8.1/types/index.d.ts",
+        url: emotionReactDts,
         depend: ["@emotion/cache"],
       },
       {
@@ -286,36 +288,5 @@ export const startMonaco = async (
     });
   })();
 
-  // return modules;
   return { editor, monaco: { ...monaco } };
 };
-
-// modules.monacoTs.languages.typescript.typescriptDefaults.setCompilerOptions({
-//     target: 99,
-//     allowNonTsExtensions: true,
-//     allowUmdGlobalAccess: true,
-//     strict: true,
-//     allowJs: true,
-//     noEmitOnError: true,
-//     allowSyntheticDefaultImports: true,
-//     moduleResolution: 2, //nodeJS
-//     module: 99,
-//     noEmit: true,
-
-//     typeRoots: ["node_modules/@types"],
-// jsx: 3,
-//     esModuleInterop: true,
-//   });
-// );
-//};
-
-// function isMobile() {
-//   if (typeof window === "undefined") {
-//     return false;
-//   }
-
-//   return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i
-//     .test(
-//       window.navigator.userAgent,
-//     );
-// }
