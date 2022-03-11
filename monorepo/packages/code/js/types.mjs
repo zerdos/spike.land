@@ -37,7 +37,6 @@ export const dtsFiles = {
   emotionJSXNameSpaceDTS,
   emotionJSXRuntimeDTS,
   emotionReactDts,
-  emotionThemingTds,
   emotionReactCssPropDts,
   emotionReactHelperDts,
   emotionThemingDts,
