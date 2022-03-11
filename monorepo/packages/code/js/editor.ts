@@ -29,7 +29,7 @@ const {
   emotionReactHelperDts,
   emotionThemingDts,
   emotionSerializeDts,
-  emotionUtilsDts
+  emotionUtilsDts,
 } = dtsFiles;
 
 self.MonacoEnvironment = {
@@ -267,7 +267,7 @@ export const startMonaco = async (
         name: "framer-motion",
         url: framerDts,
         depend: ["popmotion"],
-      }
+      },
     ];
 
     const dts = importHelper.map(({ name, url }) =>

@@ -1587,7 +1587,7 @@ var Global = /* @__PURE__ */ withEmotionCache(function(props, cache) {
   var sheetRef = useRef();
   useInsertionEffect5(function() {
     var key = cache.key + "-global";
-    var sheet = new StyleSheet({
+    var sheet = new cache.sheet.constructor({
       key,
       nonce: cache.sheet.nonce,
       container: cache.sheet.container,
