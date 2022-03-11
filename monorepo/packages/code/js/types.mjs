@@ -11,15 +11,15 @@ import emotionStyled from "@emotion/styled/types/index.d.ts?text";
 import emotionCache from "@emotion/cache/types/index.d.ts?text";
 import emotionReactDts from "@emotion/react/types/index.d.ts?text";
 
-import EmotionJSXDts from "@emotion/react/types/jsx-runtime.d.ts?text";
-import EmotionJSXRuntimeDTS from "@emotion/react/types/jsx-runtime.d.ts?text";
-import EmotionJSXNameSpaceDTS from "@emotion/react/types/jsx-namespace.d.ts?text";
-import EmotionThemingTds from "@emotion/react/types/theming.d.ts?text";
-import EmotionReactCssPropDts from "@emotion/react/types/css-prop.d.ts?text";
-import EmotionReactHelperDts from "@emotion/react/types/helper.d.ts?text";
-import EmotionThemingDts from "@emotion/react/types/theming.d.ts?text";
-import EmotionSerializeDts from "@emotion/serialize/types/index.d.ts?text";
-import EmotionUtilsDts from "@emotion/utils/types/index.d.ts?text";
+import emotionJSXDts from "@emotion/react/types/jsx-runtime.d.ts?text";
+import emotionJSXRuntimeDTS from "@emotion/react/types/jsx-runtime.d.ts?text";
+import emotionJSXNameSpaceDTS from "@emotion/react/types/jsx-namespace.d.ts?text";
+import emotionReactCssPropDts from "@emotion/react/types/css-prop.d.ts?text";
+import emotionReactHelperDts from "@emotion/react/types/helper.d.ts?text";
+import emotionThemingDts from "@emotion/react/types/theming.d.ts?text";
+import emotionSerializeDts from "@emotion/serialize/types/index.d.ts?text";
+import emotionUtilsDts from "@emotion/utils/types/index.d.ts?text";
+import popmotionDts
 
 export const dtsFiles = {
   reactDts,
@@ -33,14 +33,14 @@ export const dtsFiles = {
   emotionStyleBase,
   emotionStyled,
   emotionCache,
-  EmotionJSXDts,
-  EmotionJSXNameSpaceDTS,
-  EmotionJSXRuntimeDTS,
+  emotionJSXDts,
+  emotionJSXNameSpaceDTS,
+  emotionJSXRuntimeDTS,
   emotionReactDts,
-  EmotionThemingTds,
-  EmotionReactCssPropDts,
-  EmotionReactHelperDts,
-  EmotionThemingDts,
-  EmotionSerializeDts,
-  EmotionUtilsDts,
+  emotionThemingTds,
+  emotionReactCssPropDts,
+  emotionReactHelperDts,
+  emotionThemingDts,
+  emotionSerializeDts,
+  emotionUtilsDts,
 };

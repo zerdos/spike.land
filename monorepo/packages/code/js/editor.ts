@@ -22,7 +22,14 @@ const {
   emotionStyled,
   emotionStyleBase,
   emotionCache,
+  emotionJSXNameSpaceDTS,
+  emotionJSXRuntimeDTS,
   emotionReactDts,
+  emotionReactCssPropDts,
+  emotionReactHelperDts,
+  emotionThemingDts,
+  emotionSerializeDts,
+  emotionUtilsDts,
 } = dtsFiles;
 
 self.MonacoEnvironment = {
@@ -217,44 +224,43 @@ export const startMonaco = async (
       },
       {
         name: "@emotion/react/jsx-runtime",
-        url: "https://unpkg.com/@emotion/react@11.8.1/types/jsx-runtime.d.ts",
+        url: emotionJSXRuntimeDTS,
         depend: ["@emotion/cache"],
       },
       {
         name: "@emotion/react/jsx-dev-runtime",
-        url:
-          "https://unpkg.com/@emotion/react@11.8.1/types/jsx-dev-runtime.d.ts",
+        url: emotionJSXRuntimeDTS,
         depend: ["@emotion/cache"],
       },
       {
         name: "@emotion/react/jsx-namespace",
-        url: "https://unpkg.com/@emotion/react@11.8.1/types/jsx-namespace.d.ts",
+        url: emotionJSXNameSpaceDTS,
         depend: ["@emotion/utils", "type"],
       },
       {
         name: "@emotion/react/theming",
-        url: "https://unpkg.com/@emotion/react@11.8.1/types/theming.d.ts",
+        url: emotionThemingDts,
         depend: ["@emotion/utils", "type"],
       },
       {
         name: "@emotion/react/css-prop",
-        url: "https://unpkg.com/@emotion/react@11.8.1/types/css-prop.d.ts",
+        url: emotionReactCssPropDts,
         depend: ["@emotion/utils", "csstype"],
       },
       {
         name: "@emotion/react/helper",
-        url: "https://unpkg.com/@emotion/react@11.8.1/types/helper.d.ts",
+        url: emotionReactHelperDts,
         depend: ["@emotion/utils", "csstype"],
       },
       {
         name: "@emotion/serialize",
-        url: "https://unpkg.com/@emotion/serialize@1.0.2/types/index.d.ts",
+        url: emotionSerializeDts,
 
         depend: ["@emotion/utils", "csstype"],
       },
       {
         name: "@emotion/utils",
-        url: "https://unpkg.com/@emotion/utils@1.1.0/types/index.d.ts",
+        url: emotionUtilsDts,
         depend: [],
       },
       {
