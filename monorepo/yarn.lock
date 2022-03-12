@@ -2502,16 +2502,7 @@
   dependencies:
     "@types/react" "*"
 
-"@types/react@*":
-  version "17.0.39"
-  resolved "https://registry.yarnpkg.com/@types/react/-/react-17.0.39.tgz#d0f4cde092502a6db00a1cded6e6bf2abb7633ce"
-  integrity sha512-UVavlfAxDd/AgAacMa60Azl7ygyQNRwC/DsHZmKgNvPmRR5p70AJ5Q9EAmL2NWOJmeV+vVUI4IAP7GZrN8h8Ug==
-  dependencies:
-    "@types/prop-types" "*"
-    "@types/scheduler" "*"
-    csstype "^3.0.2"
-
-"@types/react@17.0.40":
+"@types/react@*", "@types/react@17.0.40":
   version "17.0.40"
   resolved "https://registry.yarnpkg.com/@types/react/-/react-17.0.40.tgz#dc010cee6254d5239a138083f3799a16638e6bad"
   integrity sha512-UrXhD/JyLH+W70nNSufXqMZNuUD2cXHu6UjCllC6pmOQgBX4SGXOH8fjRka0O0Ee0HrFxapDD8Bwn81Kmiz6jQ==
@@ -3742,9 +3733,9 @@ electron-fetch@^1.7.2:
     encoding "^0.1.13"
 
 electron-to-chromium@^1.4.76:
-  version "1.4.78"
-  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.4.78.tgz#7a1cf853efafde2c4cf6e86facf3e5792d3541a5"
-  integrity sha512-o61+D/Lx7j/E0LIin/efOqeHpXhwi1TaQco9vUcRmr91m25SfZY6L5hWJDv/r+6kNjboFKgBw1LbfM0lbhuK6Q==
+  version "1.4.82"
+  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.4.82.tgz#51e123ca434b1eba8c434ece2b54f095b304a651"
+  integrity sha512-Ks+ANzLoIrFDUOJdjxYMH6CMKB8UQo5modAwvSZTxgF+vEs/U7G5IbWFUp6dS4klPkTDVdxbORuk8xAXXhMsWw==
 
 emoji-regex@^8.0.0:
   version "8.0.0"
@@ -8184,9 +8175,9 @@ typescript@4.6.2, typescript@^4.3.5:
   integrity sha512-HM/hFigTBHZhLXshn9sN37H085+hQGeJHJ/X7LpBWLID/fbc2acUMfU+lGD98X81sKP+pFa9f0DZmCwB9GnbAg==
 
 uglify-js@^3.1.4:
-  version "3.15.2"
-  resolved "https://registry.yarnpkg.com/uglify-js/-/uglify-js-3.15.2.tgz#1ed2c976f448063b1f87adb68c741be79959f951"
-  integrity sha512-peeoTk3hSwYdoc9nrdiEJk+gx1ALCtTjdYuKSXMTDqq7n1W7dHPqWDdSi+BPL0ni2YMeHD7hKUSdbj3TZauY2A==
+  version "3.15.3"
+  resolved "https://registry.yarnpkg.com/uglify-js/-/uglify-js-3.15.3.tgz#9aa82ca22419ba4c0137642ba0df800cb06e0471"
+  integrity sha512-6iCVm2omGJbsu3JWac+p6kUiOpg3wFO2f8lIXjfEb8RrmLjzog1wTPMmwKB7swfzzqxj9YM+sGUM++u1qN4qJg==
 
 uid-number@0.0.6:
   version "0.0.6"
