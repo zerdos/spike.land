@@ -4,7 +4,7 @@
     "pflannery.vscode-versionlens",
     "silvenon.mdx",
     "xyc.vscode-mdx-preview",
-    "jpoissonnier.vscode-styled-components"
+    "styled-components.vscode-styled-components"
   ],
 
   "unwantedRecommendations": []
