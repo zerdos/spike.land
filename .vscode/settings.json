@@ -31,10 +31,13 @@
     "esms",
     "ipfs",
     "outfile",
+    "pflannery",
     "Saionaro",
     "Sanyi",
     "shadowroot",
-    "stunprotocol"
+    "silvenon",
+    "stunprotocol",
+    "versionlens"
   ],
   "files.watcherExclude": {
     "**/.git/objects/**": true,
