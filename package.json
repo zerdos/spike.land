@@ -6,7 +6,7 @@
     "@cloudflare/workers-types": "3.4.0",
     "@jspm/generator": "1.0.0-beta.26",
     "@playwright/test": "1.19.2",
-    "esbuild": "0.14.25",
+    "esbuild": "0.14.26",
     "lerna": "4.0.0",
     "open-cli": "7.0.1",
     "rimraf": "3.0.2",
@@ -51,7 +51,7 @@
   },
   "homepage": "https://github.com/spike-land/monorepo#readme",
   "dependencies": {
-    "esbuild-wasm": "0.14.25",
+    "esbuild-wasm": "0.14.26",
     "nodemon": "2.0.15",
     "preact": "10.6.6"
   }
