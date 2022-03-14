@@ -579,10 +579,10 @@
   resolved "https://registry.yarnpkg.com/@jspm/core/-/core-2.0.0-beta.19.tgz#fd3de3c54ac5ec35086590c956452a45215626df"
   integrity sha512-eFbitkdFBKl10pKdBENW+gCRz/tMfkthFfNP9VYoqaeEmets0Ysb8eFz/SGOogzi5yi50eRjwXVqL3VVAQ6jYA==
 
-"@jspm/generator@1.0.0-beta.26":
-  version "1.0.0-beta.26"
-  resolved "https://registry.yarnpkg.com/@jspm/generator/-/generator-1.0.0-beta.26.tgz#ec7439d07c01cc8f7f7161f10839d362835613a3"
-  integrity sha512-10lorsJpLzgA5ZMzBYOME4MU2z4tlHI43HF4uk54UNb7ZTxPZF7Ezs/+UUgB5v0+Ss6h1yseKVwLSPDWEJuctA==
+"@jspm/generator@1.0.0-beta.28":
+  version "1.0.0-beta.28"
+  resolved "https://registry.yarnpkg.com/@jspm/generator/-/generator-1.0.0-beta.28.tgz#be8269662e6fd32356611a770983fd1d5d31846f"
+  integrity sha512-sfL0k7tpl1218HWGirJKYiBKUodSUKee02q/084YhM1/9ZiSln0fdcxx3FfkjrRSlIk4RMVPd4JLBZNJSk1+rg==
   dependencies:
     "@babel/core" "^7.15.8"
     "@babel/preset-typescript" "^7.15.0"
