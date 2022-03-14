@@ -896,17 +896,24 @@
     "@babel/helper-validator-option" "^7.16.7"
     "@babel/plugin-transform-typescript" "^7.16.7"
 
-"@babel/runtime@7.17.2", "@babel/runtime@^7.11.2", "@babel/runtime@^7.13.10", "@babel/runtime@^7.17.2", "@babel/runtime@^7.5.5", "@babel/runtime@^7.7.2", "@babel/runtime@^7.8.4", "@babel/runtime@^7.8.7":
+"@babel/runtime@7.17.7":
+  version "7.17.7"
+  resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.17.7.tgz#a5f3328dc41ff39d803f311cfe17703418cf9825"
+  integrity sha512-L6rvG9GDxaLgFjg41K+5Yv9OMrU98sWe+Ykmc6FDJW/+vYZMhdOMKkISgzptMaERHvS2Y2lw9MDRm2gHhlQQoA==
+  dependencies:
+    regenerator-runtime "^0.13.4"
+
+"@babel/runtime@^7.11.2", "@babel/runtime@^7.13.10", "@babel/runtime@^7.17.2", "@babel/runtime@^7.5.5", "@babel/runtime@^7.7.2", "@babel/runtime@^7.8.4", "@babel/runtime@^7.8.7":
   version "7.17.2"
   resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.17.2.tgz#66f68591605e59da47523c631416b18508779941"
   integrity sha512-hzeyJyMA1YGdJTuWU0e/j4wKXrU4OMFvY2MSlaI9B7VQb0r5cxTE3EAIS2Q7Tn2RIcDkRvTA/v2JsAEhxe99uw==
   dependencies:
     regenerator-runtime "^0.13.4"
 
-"@babel/standalone@7.17.6":
-  version "7.17.6"
-  resolved "https://registry.yarnpkg.com/@babel/standalone/-/standalone-7.17.6.tgz#cb105f20916ab7e516074b44b71270c615f44499"
-  integrity sha512-rBBC7aZ4Q8UkMV4Wl6cAw8Wcgg7DcIG3pzo2n+W/FwmBRZB/q7yGpzE10VXpOmSj9/KW3L1pbDhPGI1oOrscgA==
+"@babel/standalone@7.17.7":
+  version "7.17.7"
+  resolved "https://registry.yarnpkg.com/@babel/standalone/-/standalone-7.17.7.tgz#293de21553c1dc4157f84f4043d3ea00bdf57430"
+  integrity sha512-461jrYyk7g4bRQoOROABqErtygmZrx1cZXWONIPCQzVTynT5VL83btu1PJIaXNgl4JtHXjzaYT7j3IOlVhnC1Q==
 
 "@babel/template@^7.16.7":
   version "7.16.7"
