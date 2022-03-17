@@ -4,7 +4,7 @@
   "description": "[Real time React page editor, in typescript! ![Screenshot](./spike.land-1920x1080.png)](https://spike.land)",
   "devDependencies": {
     "@cloudflare/workers-types": "3.4.0",
-    "@jspm/generator": "1.0.0-beta.29",
+    "@jspm/generator": "1.0.0-beta.30",
     "@playwright/test": "1.20.0",
     "esbuild": "0.14.27",
     "lerna": "4.0.0",
