@@ -60,8 +60,8 @@
   "dependencies": {
     "@babel/core": "^7.17.5",
     "@babel/parser": "^7.17.3",
-    "@babel/runtime": "7.17.7",
-    "@babel/standalone": "7.17.7",
+    "@babel/runtime": "7.17.8",
+    "@babel/standalone": "7.17.8",
     "@babel/traverse": "^7.17.3",
     "@chialab/esbuild-plugin-jsx-import": "^0.15.3",
     "@emotion/babel-plugin": "^11.7.2",
