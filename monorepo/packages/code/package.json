@@ -84,7 +84,7 @@
     "buffer": "^6.0.3",
     "comlink": "4.3.1",
     "core-js": "^3.21.1",
-    "es-module-shims": "1.4.7",
+    "es-module-shims": "1.5.1",
     "esbuild": "0.14.27",
     "esbuild-plugin-import-map": "2.1.0",
     "esbuild-wasm": "0.14.27",
