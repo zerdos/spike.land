@@ -27,7 +27,7 @@
     "@emotion/sheet": "^1.1.0",
     "@emotion/utils": "^1.0.0",
     "@emotion/weak-memoize": "^0.2.5",
-    "@types/react": "17.0.40",
+    "@types/react": "17.0.42",
     "framer-motion": "6.2.8",
     "hoist-non-react-statics": "^3.3.2"
   },
