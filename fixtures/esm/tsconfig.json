@@ -1,28 +1,27 @@
 {
-    "compilerOptions": {
-      "jsx": "react-jsx",
-      "allowJs": true,
-      "checkJs": true,
-      "declaration": true,
-      "noEmit": true,
-      "target": "esnext",
-      "module": "esnext",
-      "lib": ["dom", "dom.iterable", "ESNext"],
-      "resolveJsonModule": true,
-      
-      "declarationMap": true,
-      "moduleResolution": "node",
-      "isolatedModules": true,
-      "strict": true
-    },
-    "exclude": [
-      "worker/dist",
-      "cloudflare/spike-land/dist",
-      "packages/spike-land-site",
-      "**dist**",
-      "node_modules/**/*",
-      "packages/monaco-editor",
-      "docs"
-    ]
-  }
-  
+  "compilerOptions": {
+    "jsx": "react-jsx",
+    "allowJs": true,
+    "checkJs": true,
+    "declaration": true,
+    "noEmit": true,
+    "target": "esnext",
+    "module": "esnext",
+    "lib": ["dom", "dom.iterable", "ESNext"],
+    "resolveJsonModule": true,
+
+    "declarationMap": true,
+    "moduleResolution": "node",
+    "isolatedModules": true,
+    "strict": true
+  },
+  "exclude": [
+    "worker/dist",
+    "cloudflare/spike-land/dist",
+    "packages/spike-land-site",
+    "**dist**",
+    "node_modules/**/*",
+    "packages/monaco-editor",
+    "docs"
+  ]
+}

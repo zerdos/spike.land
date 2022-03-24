@@ -23,7 +23,7 @@ const getDistro = (b: Base) =>
     ? "debian"
     : "ubuntu";
 
-import * as softwareVersions from "../versions.json" assert {type: "json"};
+import * as softwareVersions from "../versions.json" assert { type: "json" };
 
 export class DevcontainerGenerator {
   private _dockerfile = "";
@@ -359,7 +359,9 @@ export class DevcontainerGenerator {
     extension: "Dockerfile" | "README",
   ) =>
     await fs
-      .readFile(`../../../packages/devcontainer-generator/templates/${filename}.${extension}`)
+      .readFile(
+        `../../../packages/devcontainer-generator/templates/${filename}.${extension}`,
+      )
       .catch((e) => {
         console.error({ e });
         return "";

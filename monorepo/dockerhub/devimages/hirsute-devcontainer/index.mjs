@@ -1,5 +1,5 @@
 import { DevcontainerGenerator } from "@spike.land/devcontainer-generator";
-import {promises} from "fs"
+import { promises } from "fs";
 const { writeFile } = promises;
 
 const run = async () => {

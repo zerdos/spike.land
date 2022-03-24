@@ -24,12 +24,12 @@
 
   // Add the IDs of extensions you want installed when the container is created.
   "extensions": [
-	"xyc.vscode-mdx-preview",
-	"silvenon.mdx",
-	"pflannery.vscode-versionlens",
-	"streetsidesoftware.code-spell-checker",
-	"styled-components.vscode-styled-components"
-]
+    "xyc.vscode-mdx-preview",
+    "silvenon.mdx",
+    "pflannery.vscode-versionlens",
+    "streetsidesoftware.code-spell-checker",
+    "styled-components.vscode-styled-components"
+  ]
   // Use 'forwardPorts' to make a l ist of ports inside the container available locally.
   // "forwardPorts": [],
 
