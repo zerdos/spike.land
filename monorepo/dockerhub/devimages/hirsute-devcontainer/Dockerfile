@@ -58,7 +58,7 @@ RUN apt-get update && \
     libexpat1-dev \
     gettext \
     gpg \
-&& curl -Lo /usr/src/git.tar.gz  https://github.com/git/git/archive/v2.35.0.tar.gz \
+&& curl -Lo /usr/src/git.tar.gz  https://github.com/git/git/archive/v2.35.1.tar.gz \
 && tar -C /usr/src/ -xf /usr/src/git.tar.gz && cd /usr/src/git-* \
 && make prefix=/usr/local all \
 && make prefix=/usr/local install \
@@ -71,7 +71,7 @@ RUN apt-get update && \
 && apt-get autoremove -y \
 && apt-get clean -y \
 && rm -rf /tmp/* /var/lib/apt/lists/* /usr/src/*
-ENV NODE_VERSION 17.4.0
+ENV NODE_VERSION 17.8.0
 RUN ARCH= && dpkgArch="$(dpkg --print-architecture)" \
   && case "${dpkgArch##*-}" in \
     amd64) ARCH='x64';; \
@@ -155,12 +155,12 @@ RUN apt-get update \
         wget \
     && rm -rf /var/lib/apt/lists/*
 
-ENV DOTNET_SDK_VERSION="6.0.100"
+ENV DOTNET_SDK_VERSION="6.0.201"
 
 
 # Install .NET SDK
 RUN curl -SL --output dotnet.tar.gz https://dotnetcli.azureedge.net/dotnet/Sdk/${DOTNET_SDK_VERSION}/dotnet-sdk-${DOTNET_SDK_VERSION}-linux-x64.tar.gz \
-    && echo "cb0d174a79d6294c302261b645dba6a479da8f7cf6c1fe15ae6998bc09c5e0baec810822f9e0104e84b0efd51fdc0333306cb2a0a6fcdbaf515a8ad8cf1af25b  dotnet.tar.gz" | sha512sum -c - \
+    && echo "a4d96b6ca2abb7d71cc2c64282f9bd07cedc52c03d8d6668346ae0cd33a9a670d7185ab0037c8f0ecd6c212141038ed9ea9b19a188d1df2aae10b2683ce818ce  dotnet.tar.gz" | sha512sum -c - \
     && mkdir -p /usr/share/dotnet \
     && tar -zxf dotnet.tar.gz -C /usr/share/dotnet \
     && rm dotnet.tar.gz \
@@ -304,7 +304,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends unzip \
   && rm -rf /var/lib/apt/lists/* 
 
 USER ${USER}
-RUN curl -fsSL https://deno.land/x/install/install.sh | sh -s v1.18.1 \
+RUN curl -fsSL https://deno.land/x/install/install.sh | sh -s v1.20.2 \
   && echo "export DENO_INSTALL=\"\${HOME}/.deno\"" >> ${HOME}/.zshrc \
   && echo "export DENO_INSTALL=\"\${HOME}/.deno\"" >> ${HOME}/.bashrc \
   && echo "export PATH=\"\$DENO_INSTALL/bin:\$PATH\"" >> ${HOME}/.bashrc \

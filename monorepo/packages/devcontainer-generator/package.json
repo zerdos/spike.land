@@ -7,9 +7,9 @@
     "templates/*",
     "versions.json"
   ],
-  "main": "index.js",
+  "exports": "./index.mjs",
   "scripts": {
-    "build": "yarn esbuild --bundle src/index.ts --platform=node --outfile=lib/src/devcontainerGenerator.js",
+    "build": "yarn esbuild --bundle src/index.ts --format=\"esm\" --platform=node --outfile=index.mjs",
     "clean": "rm -rf lib"
   },
   "publishConfig": {
@@ -17,6 +17,7 @@
   },
   "license": "MIT",
   "devDependencies": {
+    "esbuild": "0.14.27",
     "typescript": "4.6.2"
   },
   "gitHead": "f19ed65bbe1e6fa6921e9d4a07d42a6cc4003eac"

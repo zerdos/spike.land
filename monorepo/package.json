@@ -6,8 +6,8 @@
   "license": "MIT",
   "private": true,
   "workspaces": [
-    "dockerhub/devimages/*",
     "packages/*",
+    "dockerhub/devimages/*",
     "sites/*"
   ],
   "scripts": {

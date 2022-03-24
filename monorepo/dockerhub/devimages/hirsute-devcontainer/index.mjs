@@ -1,5 +1,6 @@
-const { DevcontainerGenerator } = require("@spike.land/devcontainer-generator");
-const { writeFile } = require("fs").promises;
+import { DevcontainerGenerator } from "@spike.land/devcontainer-generator";
+import {promises} from "fs"
+const { writeFile } = promises;
 
 const run = async () => {
   const devGenerator = new DevcontainerGenerator("hirsute");
@@ -17,9 +18,9 @@ const run = async () => {
 
   const { Dockerfile, README } = await devGenerator.generate();
 
-  await writeFile(`${__dirname}/Dockerfile`, Dockerfile);
+  await writeFile(`./Dockerfile`, Dockerfile);
 
-  await writeFile(`${__dirname}/README.md`, README);
+  await writeFile(`./README.md`, README);
 };
 
 run();
