@@ -105,12 +105,12 @@
     "stream-browserify": "^3.0.0",
     "textdiff-create": "1.0.8",
     "textdiff-patch": "1.0.7",
-    "workbox-cacheable-response": "6.5.1",
-    "workbox-cli": "6.5.1",
-    "workbox-precaching": "6.5.1",
-    "workbox-routing": "6.5.1",
-    "workbox-strategies": "6.5.1",
-    "workbox-sw": "6.5.1",
-    "workbox-window": "6.5.1"
+    "workbox-cacheable-response": "6.5.2",
+    "workbox-cli": "6.5.2",
+    "workbox-precaching": "6.5.2",
+    "workbox-routing": "6.5.2",
+    "workbox-strategies": "6.5.2",
+    "workbox-sw": "6.5.2",
+    "workbox-window": "6.5.2"
   }
 }
