@@ -15,7 +15,7 @@
     "@spike.land/cf-npm-site": "^0.7.409",
     "@spike.land/code": "^0.7.446",
     "tslib": "2.3.1",
-    "typescript": "4.6.2"
+    "typescript": "4.6.3"
   },
   "dependencies": {
     "@types/websocket": "1.0.5",
