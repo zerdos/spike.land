@@ -53,6 +53,6 @@
   "dependencies": {
     "esbuild-wasm": "0.14.28",
     "nodemon": "2.0.15",
-    "preact": "10.6.6"
+    "preact": "10.7.0"
   }
 }
