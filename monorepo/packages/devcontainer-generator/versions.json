@@ -1,19 +1,19 @@
 {
-  "upgraded": "2022-02-01",
+  "upgraded": "2022-04-01",
   "node": {
     "lts": "16.14.2",
     "current": "17.8.0"
   },
-  "deno": "1.20.2",
+  "deno": "1.20.4",
   "git": "2.35.1",
-  "cypress": "9.5.2",
+  "cypress": "9.5.3",
   "yarn": "1.22.18",
-  "dotnet3": "3.1.414",
+  "dotnet3": "3.1.417",
   "dotnet5": "5.0.406",
   "dotnet6": "6.0.201",
   "sha": {
     "dotnet_sha512": {
-      "3.1.414": "f0a133a2bfbbdb6e3f35ad543bfd8e48f35e2a0e0bd719f712853d686e5f453b89569504813fde33baf8788dfe509bb3bc7ad69026588761f0a07362eac76104",
+      "3.1.417": "8eb1002ad829ddd17638b942d3f8da24ad71ccab268a92a1fa6af6a65d86a4ab7f885f663ea9c68127bb356462bce125222ec4f04dc928005cbbbb1a8658f107",
       "5.0.406": "21f0617d359d5c333a8925af71b359c0e9e371eaa6e4b20faf0f699296cebaacc56cb9660fa310b2ed99ca636f241f2df999698a883cf7899dd670bdf92bdd29",
       "6.0.201": "a4d96b6ca2abb7d71cc2c64282f9bd07cedc52c03d8d6668346ae0cd33a9a670d7185ab0037c8f0ecd6c212141038ed9ea9b19a188d1df2aae10b2683ce818ce"
     }
