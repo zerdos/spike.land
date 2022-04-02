@@ -419,7 +419,7 @@ async function createPeerConnection(target) {
           try {
             if (ch.readyState !== "open") return;
 
-            if (!target || ch.target === target) {
+            if (ch.target === target) {
               ch.send(messageString);
             }
           } catch (e) {
