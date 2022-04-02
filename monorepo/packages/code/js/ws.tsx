@@ -46,6 +46,7 @@ let intervalHandler = null;
 // };
 setInterval(() => {
   if (Date.now() - lastSeenNow > 40_000) {
+    rejoined = false;
     rejoin();
   } else {
     console.log("no_need_to_rejoin");
@@ -78,7 +79,6 @@ chCode = globalThis.chCode = async (code, i) => {
 
 async function rejoin() {
   if (!rejoined) {
-    rejoined = true;
     currentWebSocket = null;
     // MySession.addEvent({
     //   type: "joined"
