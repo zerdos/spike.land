@@ -1,9 +1,8 @@
 import "core-js/modules/web.immediate";
 
-import { hydrate } from "react";
-import { fromBinary } from "./binary.ts";
+import { hydrate } from "react-dom";
+import { fromBinary } from "./binary";
 import { jsx } from "@emotion/react";
-import uidV4 from "./uidV4.mjs";
 import { Workbox } from "workbox-window";
 
 if ("serviceWorker" in navigator) {
@@ -13,23 +12,16 @@ if ("serviceWorker" in navigator) {
 }
 
 const path = location.pathname.split("/");
-window.aniStart = Date.now();
-
 const room =
   ((path[1] === "api" && path[2] === "room")
     ? path[3]
-    : (path.pop() || path.pop()).slice(-12)) ||
+    : (path.pop() || path.pop())!.slice(-12)) ||
   "code-main";
-const user = ((self && self.crypto && self.crypto.randomUUID &&
-  self.crypto.randomUUID()) || (uidV4())).slice(
-    0,
-    8,
-  );
 
 const start = async (App) => {
   globalThis.monacoEditorModule = import("./editor");
   globalThis.renderPreviewModule = import("./renderPreviewWindow");
-  const container = document.querySelector("#root");
+  const container = document.querySelector("#root")!;
 
   hydrate(container, jsx(App));
 
@@ -37,10 +29,10 @@ const start = async (App) => {
   if (location.href.endsWith("hydrated")) return;
   globalThis.App = App;
   const { join } = await import("./ws");
-  join(room, user);
+  join();
 };
 
-export const hydrateBinary = async (binary) => {
+export const hydrateBinary = async (binary: string) => {
   const App = (await import(createJsBlob(fromBinary(binary)))).default;
   start(App);
 };

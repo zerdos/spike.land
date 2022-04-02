@@ -50,18 +50,6 @@ export const renderPreviewWindow = async (
 
   document.body.appendChild(target);
 
-  // d//ocument.getElementById("root")?.replaceWith(target);
-
-  // const diffy = window.diffy = Date.now() - window.aniStart;
-
-  // console.log({ diffy });
-
-  // await wait(2000);
-
-  // console.log("wait....: " + String(2000 - diffy));
-
-  // await wait(2000 - diffy);
-
   editor.style.opacity = "1";
   editor.style.display = "block";
 };

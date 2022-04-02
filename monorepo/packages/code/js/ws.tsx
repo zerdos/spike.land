@@ -1,11 +1,6 @@
 import type { ICodeSess, ICodeSession } from "./session.tsx";
 import throttle from "lodash/throttle";
-/*eslint-disable */
-
-/* eslint-enable */
-
-let sess = false;
-// Let sanyiProcess = null;
+import uidV4 from "./uidV4.mjs";
 
 const webRtcArray = [];
 const hostname = window.location.hostname || "spike.land";
@@ -17,16 +12,15 @@ let username = "";
 let lastSeenTimestamp = 0;
 let lastSeenNow = 0;
 let ws: WebSocket | null = null;
-let startTime;
 let rejoined = false;
+let startTime = Date.now();
 let sendChannel: { send: (msg: Object) => void } | null = null;
-let deltaSent = "";
 // Let createDelta;
 // let applyPatch;
 let mySession: ICodeSess | null = null;
 const mST = () => mySession.session.get("state");
 
-let intervalHandler = null;
+let intervalHandler: number | null = null;
 
 // Function createPatch(oldCode, newCode) {
 //   return JSON.stringify(createDelta(oldCode, newCode));
@@ -55,16 +49,18 @@ const chCode = async (code: string, i: number) => {
     return;
   }
 
-  if (i < window.sess.i) {
+  const sess = mST().toJSON();
+
+  if (i < sess.i) {
     return;
   }
 
-  if (code === window.sess.code) {
+  if (code === sess.code) {
     return;
   }
 
   try {
-    if (window.sess && window.sess.editor) {
+    if (sess && sess.editor) {
       window.sess.editor.getModel().setValue(code);
     } else {
       window.sess.update(code);
@@ -77,25 +73,7 @@ const chCode = async (code: string, i: number) => {
 async function rejoin() {
   if (!rejoined || ws === null) {
     ws = null;
-    // MySession.addEvent({
-    //   type: "joined"
-    // });
 
-    // Clear the roster.
-    //  while (roster.firstChild) {
-    //   roster.removeChild(roster.firstChild);
-    //    }
-
-    // Don't try to reconnect too rapidly.
-    const timeSinceLastJoin = Date.now() - startTime;
-    if (timeSinceLastJoin < 10_000) {
-      // Less than 10 seconds elapsed since last join. Pause a bit.
-      await new Promise((resolve) =>
-        setTimeout(resolve, 10_000 - timeSinceLastJoin)
-      );
-    }
-
-    // OK, reconnect now!
     if (ws) return ws;
 
     ws = await join();
@@ -107,17 +85,11 @@ async function rejoin() {
 export const saveCode = throttle(broadcastCodeChange, 100);
 
 async function broadcastCodeChange(sess: ICodeSession) {
-  const { i, code, transpiled, html, css } = sess;
+  const updatedState = { ...mST().toJSON(), ...sess };
+
   (async () => {
     try {
       if (sendChannel) {
-        const updatedState = mST().toJSON();
-
-        updatedState.html = html;
-        updatedState.css = css;
-        updatedState.transpiled = transpiled;
-        updatedState.code = code;
-        updatedState.i = i;
         const message = webRTCLastSeenHashCode
           ? mySession.createPatchFromHashCode(
             webRTCLastSeenHashCode,
@@ -134,22 +106,9 @@ async function broadcastCodeChange(sess: ICodeSession) {
   })();
 
   if (ws) {
-    const now = Date.now();
-
-    const updatedState = mST().toJSON();
-
-    updatedState.html = html;
-    updatedState.css = css;
-    updatedState.transpiled = transpiled;
-    updatedState.code = code;
-    updatedState.i = i;
     const message = wsLastHashCode
       ? mySession.createPatchFromHashCode(wsLastHashCode, updatedState)
       : mySession.createPatch(updatedState);
-
-    // Console.log("APPLY");
-    // mySession.applyPatch(message);
-    // console.log(mySession.hashCode());
 
     if (!message) {
       return;
@@ -157,7 +116,7 @@ async function broadcastCodeChange(sess: ICodeSession) {
 
     const messageString = JSON.stringify({ ...message, name: username });
     if (message.patch !== "") {
-      currentWebSocket.send(messageString);
+      ws.send(messageString);
     }
   } else {
     rejoined = false;
@@ -165,9 +124,21 @@ async function broadcastCodeChange(sess: ICodeSession) {
   }
 }
 
-export const join = async (room, user, delta) => {
+export const join = async () => {
+  const path = location.pathname.split("/");
+  const room =
+    ((path[1] === "api" && path[2] === "room")
+      ? path[3]
+      : (path.pop() || path.pop())!.slice(-12)) ||
+    "code-main";
+  const user = ((self && self.crypto && self.crypto.randomUUID &&
+    self.crypto.randomUUID()) || (uidV4())).slice(
+      0,
+      8,
+    );
+
   roomName = roomName || room || "code-main";
-  window.room = room;
+
   if (user) {
     username = user;
   }
@@ -184,44 +155,8 @@ export const join = async (room, user, delta) => {
 
   mySession = mySession || await startSession(roomName, {
     name: username,
-    room: roomName,
     state,
-    events: [],
   });
-
-  window.mySession = mySession;
-  if (!delta) {
-    if (!window.sess) {
-      const session = {
-        ...mST().toJSON(),
-        setChild: () => {},
-        changes: [],
-
-        children: [globalThis.App],
-        errorText: "",
-      };
-      const throttle = (await import("lodash/throttle")).default;
-
-      const stayFullscreen = location.pathname.endsWith("public");
-      const { quickStart } = await import("./quickStart");
-      quickStart(
-        session,
-        roomName,
-        stayFullscreen,
-      );
-      window.sess = session;
-    }
-  }
-
-  if (sess) {
-    return;
-  }
-
-  sess = true;
-
-  setTimeout(() => {
-    sess = false;
-  }, 10_000);
 
   const wsConnection = new WebSocket(
     "wss://" + hostname + "/api/room/" + roomName + "/websocket",
@@ -285,6 +220,7 @@ export const join = async (room, user, delta) => {
     rejoined = false;
     rejoin();
   });
+  return wsConnection;
 };
 
 // Create the RTCPeerConnection which knows how to talk to our

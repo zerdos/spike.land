@@ -41,28 +41,9 @@ export type IEvent =
   | OtherEvent
   | ICodeInitEvent;
 
-interface ICapabilities {
-  prettier: boolean;
-  babel: boolean;
-  sessionStorage?: boolean;
-  webRRT: boolean;
-  prerender: boolean;
-  IPFS: boolean;
-}
-
 export interface IUserJSON {
   name: IUsername;
-  capabilities: ICapabilities;
   state: ICodeSession;
-  users: Record<string[]>;
-  events: IEvent[];
-}
-
-interface IQTaskEvent {
-  uuid: string;
-  name: string;
-  operation: string;
-  data: string;
 }
 
 export type IUser = Record<
