@@ -461,8 +461,8 @@ export class Code {
           !(
             data.type &&
             (data.type === "new-ice-candidate" ||
-              data.type === "video-offer" ||
-              data.type === "video-answer")
+              data.type === "offer" ||
+              data.type === "answer")
           ) &&
           !limiter.checkLimit()
         ) {
@@ -516,8 +516,8 @@ export class Code {
         if (
           data.type &&
           (data.type === "new-ice-candidate" ||
-            data.type === "video-offer" ||
-            data.type === "video-answer")
+            data.type === "offer" ||
+            data.type === "answer")
         ) {
           this.user2user(data.target, { name: session.name, ...data });
           return;

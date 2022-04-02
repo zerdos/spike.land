@@ -4,13 +4,11 @@ import throttle from "lodash/throttle";
 
 /* eslint-enable */
 
-let currentWebSocket = null;
 let sess = false;
 // Let sanyiProcess = null;
 
 const webRtcArray = [];
-const hostname = "spike.land";
-const mod = {};
+const hostname = window.location.hostname || "spike.land";
 
 let wsLastHashCode = "";
 let webRTCLastSeenHashCode = "";
@@ -18,7 +16,7 @@ let roomName = "";
 let username = "";
 let lastSeenTimestamp = 0;
 let lastSeenNow = 0;
-let ws;
+let ws: WebSocket | null = null;
 let startTime;
 let rejoined = false;
 let sendChannel: { send: (msg: Object) => void } | null = null;
@@ -77,8 +75,8 @@ const chCode = async (code: string, i: number) => {
 };
 
 async function rejoin() {
-  if (!rejoined) {
-    currentWebSocket = null;
+  if (!rejoined || ws === null) {
+    ws = null;
     // MySession.addEvent({
     //   type: "joined"
     // });
@@ -98,8 +96,13 @@ async function rejoin() {
     }
 
     // OK, reconnect now!
-    join();
+    if (ws) return ws;
+
+    ws = await join();
+
+    return ws;
   }
+  return ws;
 }
 export const saveCode = throttle(broadcastCodeChange, 100);
 
@@ -108,10 +111,6 @@ async function broadcastCodeChange(sess: ICodeSession) {
   (async () => {
     try {
       if (sendChannel) {
-        const now = Date.now();
-        mod.i = i;
-
-        mod.lastRtcUpdate = Date.now();
         const updatedState = mST().toJSON();
 
         updatedState.html = html;
@@ -134,20 +133,9 @@ async function broadcastCodeChange(sess: ICodeSession) {
     }
   })();
 
-  if (currentWebSocket) {
+  if (ws) {
     const now = Date.now();
-    mod.i = i;
-    if (mod.lastUpdate) {
-      const diff = now - mod.lastUpdate;
-      if (diff < 1000) {
-        await wait(1000 - diff);
-        if (i !== mod.i) {
-          return;
-        }
-      }
-    }
 
-    mod.lastUpdate = Date.now();
     const updatedState = mST().toJSON();
 
     updatedState.html = html;
@@ -183,7 +171,8 @@ export const join = async (room, user, delta) => {
   if (user) {
     username = user;
   }
-  if (rejoined) return;
+  if (ws !== null) return ws;
+
   rejoined = true;
 
   const resp = await fetch(
@@ -267,26 +256,28 @@ export const join = async (room, user, delta) => {
               }),
             );
           } catch {
+            rejoined = false;
             rejoin();
           }
         }
       }, 30_000);
     }
 
-    currentWebSocket = ws;
-
     // Send user info message.
     ws.send(JSON.stringify({ name: username }));
+    return ws;
   });
 
   ws.addEventListener("message", (message) => processWsMessage(message, "ws"));
 
   ws.addEventListener("close", (event) => {
     console.log("WebSocket closed, reconnecting:", event.code, event.reason);
+    rejoined = false;
     rejoin();
   });
   ws.addEventListener("error", (event) => {
     console.log("WebSocket error, reconnecting:", event);
+    rejoined = false;
     rejoin();
   });
 };
@@ -319,12 +310,13 @@ log("Hostname: " + myHostname);
 // https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/getUserMedia
 //
 
-const connections = {}; // To st/ RTCPeerConnection
+const connections: {
+  [key: string]: RTCPeerConnection;
+} = {}; // To st/ RTCPeerConnection
 // var transceiver = null;         // RTCRtpTransceiver
 // var webcamStream = null;        // MediaStream from webcam
 
 // Output logging information to console.
-globalThis.connections = connections;
 function log(text: string) {
   const time = new Date();
 
@@ -339,23 +331,27 @@ function log_error(text) {
   console.trace("[" + time.toLocaleTimeString() + "] " + text);
 }
 
+const rcpOptions = {
+  iceServers: ["stun3.l.google.com:19302"].map((url) => ({
+    urls: `stun:${url}`,
+  })),
+};
+
+rcpOptions.iceServers = [{ urls: "stun:stun.stunprotocol.org:3478" }, {
+  urls: "stun:stun.l.google.com:19302",
+}];
+
 async function createPeerConnection(target) {
-  log("Setting up a connection...");
+  log(`Setting up a connection with ${target}`);
+  if (connections[target]) {
+    log(`Aborting, since we have connection with this ${target}`);
+    return;
+  }
 
   // Create an RTCPeerConnection which knows to use our chosen
   // STUN server.
 
-  const rcpOptions = {
-    iceServers: ["stun3.l.google.com:19302"].map((url) => ({
-      urls: `stun:${url}`,
-    })),
-  };
-
-  rcpOptions.iceServers = [{ urls: "stun:stun.stunprotocol.org:3478" }, {
-    urls: "stun:stun.l.google.com:19302",
-  }];
-
-  connections[target] = connections[target] || new RTCPeerConnection(
+  connections[target] = new RTCPeerConnection(
     rcpOptions,
   );
 
@@ -488,7 +484,7 @@ async function createPeerConnection(target) {
       ws.send(JSON.stringify({
         target,
         name: username,
-        type: "video-offer",
+        type: "offer",
         sdp: connections[target].localDescription,
       }));
     } catch {
@@ -602,18 +598,24 @@ async function handleNewICECandidateMessage(message, target) {
   await connections[target].addIceCandidate(candidate);
 }
 
-async function handleChatAnswerMessage(message, target) {
+async function handleChatAnswerMessage(
+  message: RTCLocalSessionDescriptionInit,
+  target: string,
+) {
   log("*** Call recipient has accepted our call");
 
   // Configure the remote description, which is the SDP payload
-  // in our "video-answer" message.
+  // in our "answer" message.
 
-  const desc = new RTCSessionDescription(message.sdp);
+  const desc = new RTCSessionDescription(message.sdp!);
 
   await connections[target].setRemoteDescription(desc).catch(console.error);
 }
 
-async function handleChatOffer(message, target) {
+async function handleChatOffer(
+  message: RTCLocalSessionDescriptionInit,
+  target: keyof typeof connections,
+) {
   if (!connections[target]) await createPeerConnection(target);
 
   // If we're not already connected, create an RTCPeerConnection
@@ -622,6 +624,8 @@ async function handleChatOffer(message, target) {
   // log("Received chat offer from " + target);
   // ed to set the remote description to the received SDP offer
   // so that our local WebRTC layer knows how to talk to the caller.
+
+  if (!message.sdp) return;
 
   const desc = new RTCSessionDescription(message.sdp);
 
@@ -650,10 +654,13 @@ async function handleChatOffer(message, target) {
     await connections[target].createAnswer(),
   );
 
-  ws.send(JSON.stringify({
+  const webSocket = ws || await rejoin();
+  if (webSocket === null) return;
+
+  webSocket.send(JSON.stringify({
     target,
     name: username,
-    type: "video-answer",
+    type: "answer",
     sdp: connections[target].localDescription,
   }));
 }
@@ -688,12 +695,12 @@ async function processWsMessage(event: { data: string }, source: "ws" | "rtc") {
     return;
   }
 
-  if (data.type === "video-offer") {
+  if (data.type === "offer") {
     await handleChatOffer(data, data.name);
     return;
   }
 
-  if (data.type === "video-answer") {
+  if (data.type === "answer") {
     await handleChatAnswerMessage(data, data.name);
 
     return;
@@ -753,5 +760,5 @@ async function processWsMessage(event: { data: string }, source: "ws" | "rtc") {
   lastSeenTimestamp = data.timestamp;
 }
 
-const wait = (timeout?: number) =>
-  new Promise((resolve) => setTimeout(resolve, timeout));
+// const wait = (timeout?: number) =>
+//   new Promise((resolve) => setTimeout(resolve, timeout));

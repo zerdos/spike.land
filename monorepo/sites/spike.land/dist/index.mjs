@@ -5653,7 +5653,7 @@ var Code = class {
           return;
         let data = JSON.parse(msg.data);
         this.state.mySession.addEvent({ ...data, uuid: session2.uuid });
-        if (!(data.type && (data.type === "new-ice-candidate" || data.type === "video-offer" || data.type === "video-answer")) && !limiter.checkLimit()) {
+        if (!(data.type && (data.type === "new-ice-candidate" || data.type === "offer" || data.type === "answer")) && !limiter.checkLimit()) {
           webSocket.send(JSON.stringify({
             error: "Your IP is being rate-limited, please try again later."
           }));
@@ -5679,7 +5679,7 @@ var Code = class {
           webSocket.send(JSON.stringify(messageEv));
           return;
         }
-        if (data.type && (data.type === "new-ice-candidate" || data.type === "video-offer" || data.type === "video-answer")) {
+        if (data.type && (data.type === "new-ice-candidate" || data.type === "offer" || data.type === "answer")) {
           this.user2user(data.target, { name: session2.name, ...data });
           return;
         }
