@@ -21,7 +21,7 @@ const room =
 const start = async (App) => {
   globalThis.monacoEditorModule = import("./editor");
   globalThis.renderPreviewModule = import("./renderPreviewWindow");
-  const container = document.querySelector("#root")!;
+  const container = document.querySelector("#root");
 
   hydrate(container, jsx(App));
 
@@ -32,7 +32,7 @@ const start = async (App) => {
   join();
 };
 
-export const hydrateBinary = async (binary: string) => {
+export const hydrateBinary = async (binary) => {
   const App = (await import(createJsBlob(fromBinary(binary)))).default;
   start(App);
 };

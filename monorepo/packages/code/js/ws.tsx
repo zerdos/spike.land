@@ -184,7 +184,7 @@ export const join = async () => {
 
       if (now - lastSeenNow > 30_000) {
         try {
-          ws.send(
+          wsConnection.send(
             JSON.stringify({
               name: username,
               time: lastSeenTimestamp + diff,
@@ -201,6 +201,26 @@ export const join = async () => {
     wsConnection.send(JSON.stringify({ name: username }));
     return wsConnection;
   });
+
+  if (!window.sess) {
+    const session = {
+      ...mST().toJSON(),
+      setChild: () => {},
+      changes: [],
+
+      children: [globalThis.App],
+      errorText: "",
+    };
+
+    const stayFullscreen = location.pathname.endsWith("public");
+    const { quickStart } = await import("./quickStart");
+    quickStart(
+      session,
+      roomName,
+      stayFullscreen,
+    );
+    window.sess = session;
+  }
 
   wsConnection.addEventListener(
     "message",
