@@ -30,13 +30,13 @@ let sendChannel: { send: (msg: Object) => void } | null = null;
 // let applyPatch;
 
 const resp = await fetch(
-  `https://spike.land/api/room/${roomName}/session`,
+  `https://spike.land/api/room/${room}/session`,
 );
 const state = await resp.json();
 
 const { startSession } = await import("./session");
 
-const mySession = startSession(roomName, {
+const mySession = startSession(room, {
   name: username,
   state,
 });
