@@ -5340,16 +5340,7 @@ var Code = class {
       }
       this.state.mySession = session_default("", {
         name: username,
-        capabilities: {
-          prettier: false,
-          babel: false,
-          webRRT: false,
-          prerender: false,
-          IPFS: false
-        },
-        users: [],
-        state: { ...session2 },
-        events: []
+        state: { ...session2 }
       });
       return;
     });
