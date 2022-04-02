@@ -578,7 +578,7 @@ var require_textdiff_create = __commonJS({
 });
 
 // ../../packages/code/package.json
-var version = "0.7.459";
+var version = "0.7.460";
 
 // ../../packages/cf-npm-site/dist/index.mjs
 function src_default(packageName, version2, serveDir = "") {
@@ -5222,13 +5222,12 @@ var CodeSession = class {
     if (event) {
       switch (event.type) {
         case "code-init": {
-          const { code, transpiled, i, css, errorDiff, html } = event;
+          const { code, transpiled, i, css, html } = event;
           const sess = {
             code,
             transpiled,
             i,
             css,
-            errorDiff,
             html
           };
           this.session.set("events", events);
@@ -5392,7 +5391,7 @@ var Code = class {
           IPFS: false
         },
         users: [],
-        state: { ...session2, errorDiff: "" },
+        state: { ...session2 },
         events: []
       });
       return;
