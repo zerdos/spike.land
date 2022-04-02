@@ -1,5 +1,5 @@
-import type { ICodeSess } from "./session.tsx";
-
+import type { ICodeSess, ICodeSession } from "./session.tsx";
+import throttle from "lodash/throttle";
 /*eslint-disable */
 
 /* eslint-enable */
@@ -19,7 +19,6 @@ let username = "";
 let lastSeenTimestamp = 0;
 let lastSeenNow = 0;
 let ws;
-let chCode: (code: string, i: number) => void | null = null;
 let startTime;
 let rejoined = false;
 let sendChannel: { send: (msg: Object) => void } | null = null;
@@ -53,7 +52,7 @@ setInterval(() => {
   }
 }, 30_000);
 
-chCode = globalThis.chCode = async (code, i) => {
+const chCode = async (code: string, i: number) => {
   if (!code) {
     return;
   }
@@ -102,22 +101,13 @@ async function rejoin() {
     join();
   }
 }
+export const saveCode = throttle(broadcastCodeChange, 100);
 
-async function broad(
-  { code, transpiled, html, css, i },
-) {
+async function broadcastCodeChange(sess: ICodeSession) {
+  const { i, code, transpiled, html, css } = sess;
   if (sendChannel) {
     const now = Date.now();
     mod.i = i;
-    if (mod.lastRtcUpdate) {
-      const diff = now - mod.lastUpdate;
-      if (diff < 1000) {
-        await wait(200 - diff);
-        if (i !== mod.i) {
-          return;
-        }
-      }
-    }
 
     mod.lastRtcUpdate = Date.now();
     const updatedState = mST().toJSON();
@@ -172,6 +162,9 @@ async function broad(
     if (message.patch !== "") {
       currentWebSocket.send(messageString);
     }
+  } else {
+    rejoined = false;
+    await rejoin();
   }
 }
 
@@ -217,7 +210,6 @@ export const join = async (room, user, delta) => {
         session,
         roomName,
         stayFullscreen,
-        throttle(broad, 100),
       );
       window.sess = session;
     }
@@ -273,9 +265,6 @@ export const join = async (room, user, delta) => {
     }
 
     currentWebSocket = ws;
-
-    globalThis.broad = broad;
-    globalThis.chCode = chCode;
 
     // Send user info message.
     ws.send(JSON.stringify({ name: username }));
@@ -414,7 +403,7 @@ async function createPeerConnection(target) {
     webRtcArray.push(rtc);
     connections[target].sendChannel = rtc;
 
-    window.sendChannel = sendChannel = {
+    sendChannel = sendChannel = {
       send: ((data) => {
         const target = data.target;
         data.name = data.name || username;
@@ -708,6 +697,7 @@ async function processWsMessage(event: { data: string }, source: "ws" | "rtc") {
         mySession.session.get("state").code,
         mySession.session.get("state").i,
       );
+
       if (sendChannel) {
         sendChannel.send({ hashCode: data.newHash });
       }

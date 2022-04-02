@@ -101,7 +101,7 @@ export class Code {
           IPFS: false,
         },
         users: [],
-        state: { ...session, errorDiff: "" },
+        state: { ...session},
         events: [],
       });
 

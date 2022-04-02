@@ -9,7 +9,6 @@ type IUsername = string;
 export interface ICodeSession {
   code: string;
   i: number;
-  errorDiff: string;
   transpiled: string;
   html: string;
   css: string;
@@ -146,13 +145,12 @@ export class CodeSession implements ICodeSess {
     if (event) {
       switch (event.type) {
         case "code-init": {
-          const { code, transpiled, i, css, errorDiff, html } = event;
+          const { code, transpiled, i, css, html } = event;
           const sess: ICodeSession = {
             code,
             transpiled,
             i,
             css,
-            errorDiff,
             html,
           };
 

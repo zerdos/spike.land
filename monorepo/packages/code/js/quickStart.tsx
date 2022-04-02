@@ -150,8 +150,9 @@ async function runner(c, changes = null, session, counter) {
           return;
         }
 
-        session.saveCode &&
-          await session.saveCode({ transpiled, code, i: counter, css, html });
+        const { saveCode } = await import("./ws.tsx");
+
+        saveCode({ transpiled, code, i: counter, css, html });
         // }, 10);
         return;
       } catch (error) {
@@ -191,15 +192,13 @@ export const startFromCode = async ({ code }) => {
     code,
     i: 0,
     changes: [],
-    saveCode: () => {},
     setChild: () => {},
   };
   await runner(code, null, session);
   await quickStart(session);
 };
 
-export async function quickStart(session, room, keepFullScreen, saveCode) {
-  session.saveCode = saveCode;
+export async function quickStart(session, room, keepFullScreen) {
   // Session.children = await getReactChild(session.transpiled);
   session.children = null;
   const { renderPreviewWindow } =
