@@ -417,7 +417,7 @@ async function createPeerConnection(target) {
         const target = data.target;
         const messageString = JSON.stringify({
           ...data,
-          name: data.name | username,
+          name: data.name || username,
         });
         webRtcArray.map((ch) => {
           try {
@@ -612,7 +612,7 @@ async function handleChatAnswerMessage(message, target) {
 }
 
 async function handleChatOffer(message, target) {
-  connections[target] | await createPeerConnection(target);
+  if (!connections[target]) await createPeerConnection(target);
 
   // If we're not already connected, create an RTCPeerConnection
   // to be linked to the caller.
