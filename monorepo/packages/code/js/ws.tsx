@@ -325,7 +325,7 @@ const connections = {}; // To st/ RTCPeerConnection
 
 // Output logging information to console.
 globalThis.connections = connections;
-function log(text) {
+function log(text: string) {
   const time = new Date();
 
   console.log("[" + time.toLocaleTimeString() + "] " + text);
@@ -415,12 +415,19 @@ async function createPeerConnection(target) {
     sendChannel = sendChannel = {
       send: ((data) => {
         const target = data.target;
-        data.name = data.name || username;
-        const messageString = JSON.stringify(data);
-        webRtcArray.map((ch) =>
-          ch.readyState === "open" &&
-          (!target || target && ch.target === target) && ch.send(messageString)
-        );
+        const messageString = JSON.stringify({
+          ...data,
+          name: data.name | username,
+        });
+        webRtcArray.map((ch) => {
+          try {
+            ch.readyState === "open" &&
+              (!target || target && ch.target === target) &&
+              ch.send(messageString);
+          } catch (e) {
+            console.error("Error in broadcasting event", { e });
+          }
+        });
       }),
     };
   });
