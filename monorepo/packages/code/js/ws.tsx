@@ -85,17 +85,15 @@ async function rejoin() {
 export const saveCode = throttle(broadcastCodeChange, 100);
 
 async function broadcastCodeChange(sess: ICodeSession) {
-  const updatedState = { ...mST().toJSON(), ...sess };
-
   (async () => {
     try {
       if (sendChannel) {
         const message = webRTCLastSeenHashCode
           ? mySession.createPatchFromHashCode(
             webRTCLastSeenHashCode,
-            updatedState,
+            sess,
           )
-          : mySession.createPatch(updatedState);
+          : mySession.createPatch(sess);
         if (message && message.patch !== "") {
           sendChannel.send(message);
         }
@@ -107,8 +105,8 @@ async function broadcastCodeChange(sess: ICodeSession) {
 
   if (ws) {
     const message = wsLastHashCode
-      ? mySession.createPatchFromHashCode(wsLastHashCode, updatedState)
-      : mySession.createPatch(updatedState);
+      ? mySession.createPatchFromHashCode(wsLastHashCode, sess)
+      : mySession.createPatch(sess);
 
     if (!message) {
       return;
