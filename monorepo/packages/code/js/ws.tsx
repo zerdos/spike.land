@@ -421,9 +421,11 @@ async function createPeerConnection(target) {
         });
         webRtcArray.map((ch) => {
           try {
-            ch.readyState === "open" &&
-              (!target || target && ch.target === target) &&
+            if (ch.readyState !== "open") return;
+
+            if (!target || ch.target === target) {
               ch.send(messageString);
+            }
           } catch (e) {
             console.error("Error in broadcasting event", { e });
           }
