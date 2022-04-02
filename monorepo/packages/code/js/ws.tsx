@@ -1,5 +1,5 @@
 import type { ICodeSess, ICodeSession } from "./session.tsx";
-import throttle from "lodash/throttle";
+import debounce from "lodash/debounce";
 import uidV4 from "./uidV4.mjs";
 
 const webRtcArray = [];
@@ -82,7 +82,8 @@ async function rejoin() {
   }
   return ws;
 }
-export const saveCode = throttle(broadcastCodeChange, 100);
+
+export const saveCode = debounce(broadcastCodeChange, 500);
 
 async function broadcastCodeChange(sess: ICodeSession) {
   (async () => {
@@ -213,7 +214,7 @@ export const join = async () => {
     };
 
     const stayFullscreen = location.pathname.endsWith("public");
-    const { quickStart } = await import("./quickStart");
+    const { quickStart } = await import("./quickStart.tsx");
     quickStart(
       session,
       roomName,
