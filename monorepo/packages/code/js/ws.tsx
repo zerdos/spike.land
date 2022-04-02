@@ -105,25 +105,34 @@ export const saveCode = throttle(broadcastCodeChange, 100);
 
 async function broadcastCodeChange(sess: ICodeSession) {
   const { i, code, transpiled, html, css } = sess;
-  if (sendChannel) {
-    const now = Date.now();
-    mod.i = i;
+  (async () => {
+    try {
+      if (sendChannel) {
+        const now = Date.now();
+        mod.i = i;
 
-    mod.lastRtcUpdate = Date.now();
-    const updatedState = mST().toJSON();
+        mod.lastRtcUpdate = Date.now();
+        const updatedState = mST().toJSON();
 
-    updatedState.html = html;
-    updatedState.css = css;
-    updatedState.transpiled = transpiled;
-    updatedState.code = code;
-    updatedState.i = i;
-    const message = webRTCLastSeenHashCode
-      ? mySession.createPatchFromHashCode(webRTCLastSeenHashCode, updatedState)
-      : mySession.createPatch(updatedState);
-    if (message && message.patch !== "") {
-      sendChannel.send(message);
+        updatedState.html = html;
+        updatedState.css = css;
+        updatedState.transpiled = transpiled;
+        updatedState.code = code;
+        updatedState.i = i;
+        const message = webRTCLastSeenHashCode
+          ? mySession.createPatchFromHashCode(
+            webRTCLastSeenHashCode,
+            updatedState,
+          )
+          : mySession.createPatch(updatedState);
+        if (message && message.patch !== "") {
+          sendChannel.send(message);
+        }
+      }
+    } catch (e) {
+      console.error("Error sending RTC...", { e });
     }
-  }
+  })();
 
   if (currentWebSocket) {
     const now = Date.now();
