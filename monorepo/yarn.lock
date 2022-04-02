@@ -4159,11 +4159,6 @@ esbuild-sunos-64@0.14.30:
   resolved "https://registry.yarnpkg.com/esbuild-sunos-64/-/esbuild-sunos-64-0.14.30.tgz#2306a178dc2362cf32fc182327c21b49b78ca1a3"
   integrity sha512-aQRtRTNKHB4YuG+xXATe5AoRTNY48IJg5vjE8ElxfmjO9+KdX7MHFkTLhlKevCD6rNANtB3qOlSIeAiXTwHNqw==
 
-esbuild-wasm@0.14.29:
-  version "0.14.29"
-  resolved "https://registry.yarnpkg.com/esbuild-wasm/-/esbuild-wasm-0.14.29.tgz#97772bef8752fb695c599595002f55e66461abc9"
-  integrity sha512-Iad4YKwBpjj/gQVryxpMJ+4b/uCbe7ClNkpCY1kX8L9KZtCnd9f5rpJs8Gcau7Fxy+/ksKTcNOYiO0b2aiPpow==
-
 esbuild-wasm@0.14.30:
   version "0.14.30"
   resolved "https://registry.yarnpkg.com/esbuild-wasm/-/esbuild-wasm-0.14.30.tgz#d9d511b1290508c6cbc09f2cc4ad80c81ff123d4"
@@ -4254,32 +4249,6 @@ esbuild@0.14.23:
     esbuild-windows-64 "0.14.23"
     esbuild-windows-arm64 "0.14.23"
 
-esbuild@0.14.29, esbuild@^0.14.27:
-  version "0.14.29"
-  resolved "https://registry.yarnpkg.com/esbuild/-/esbuild-0.14.29.tgz#24ad09c0674cbcb4aa2fe761485524eb1f6b1419"
-  integrity sha512-SQS8cO8xFEqevYlrHt6exIhK853Me4nZ4aMW6ieysInLa0FMAL+AKs87HYNRtR2YWRcEIqoXAHh+Ytt5/66qpg==
-  optionalDependencies:
-    esbuild-android-64 "0.14.29"
-    esbuild-android-arm64 "0.14.29"
-    esbuild-darwin-64 "0.14.29"
-    esbuild-darwin-arm64 "0.14.29"
-    esbuild-freebsd-64 "0.14.29"
-    esbuild-freebsd-arm64 "0.14.29"
-    esbuild-linux-32 "0.14.29"
-    esbuild-linux-64 "0.14.29"
-    esbuild-linux-arm "0.14.29"
-    esbuild-linux-arm64 "0.14.29"
-    esbuild-linux-mips64le "0.14.29"
-    esbuild-linux-ppc64le "0.14.29"
-    esbuild-linux-riscv64 "0.14.29"
-    esbuild-linux-s390x "0.14.29"
-    esbuild-netbsd-64 "0.14.29"
-    esbuild-openbsd-64 "0.14.29"
-    esbuild-sunos-64 "0.14.29"
-    esbuild-windows-32 "0.14.29"
-    esbuild-windows-64 "0.14.29"
-    esbuild-windows-arm64 "0.14.29"
-
 esbuild@0.14.30:
   version "0.14.30"
   resolved "https://registry.yarnpkg.com/esbuild/-/esbuild-0.14.30.tgz#8bf6501a58f71e622e7485aeada79c764c1affe4"
@@ -4328,6 +4297,32 @@ esbuild@^0.13.2:
     esbuild-windows-32 "0.13.15"
     esbuild-windows-64 "0.13.15"
     esbuild-windows-arm64 "0.13.15"
+
+esbuild@^0.14.27:
+  version "0.14.29"
+  resolved "https://registry.yarnpkg.com/esbuild/-/esbuild-0.14.29.tgz#24ad09c0674cbcb4aa2fe761485524eb1f6b1419"
+  integrity sha512-SQS8cO8xFEqevYlrHt6exIhK853Me4nZ4aMW6ieysInLa0FMAL+AKs87HYNRtR2YWRcEIqoXAHh+Ytt5/66qpg==
+  optionalDependencies:
+    esbuild-android-64 "0.14.29"
+    esbuild-android-arm64 "0.14.29"
+    esbuild-darwin-64 "0.14.29"
+    esbuild-darwin-arm64 "0.14.29"
+    esbuild-freebsd-64 "0.14.29"
+    esbuild-freebsd-arm64 "0.14.29"
+    esbuild-linux-32 "0.14.29"
+    esbuild-linux-64 "0.14.29"
+    esbuild-linux-arm "0.14.29"
+    esbuild-linux-arm64 "0.14.29"
+    esbuild-linux-mips64le "0.14.29"
+    esbuild-linux-ppc64le "0.14.29"
+    esbuild-linux-riscv64 "0.14.29"
+    esbuild-linux-s390x "0.14.29"
+    esbuild-netbsd-64 "0.14.29"
+    esbuild-openbsd-64 "0.14.29"
+    esbuild-sunos-64 "0.14.29"
+    esbuild-windows-32 "0.14.29"
+    esbuild-windows-64 "0.14.29"
+    esbuild-windows-arm64 "0.14.29"
 
 escalade@^3.1.1:
   version "3.1.1"
