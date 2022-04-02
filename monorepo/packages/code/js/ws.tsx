@@ -5,6 +5,18 @@ import uidV4 from "./uidV4.mjs";
 const webRtcArray: RTCDataChannel[] = [];
 const hostname = window.location.hostname || "spike.land";
 
+const path = location.pathname.split("/");
+const room =
+  ((path[1] === "api" && path[2] === "room")
+    ? path[3]
+    : (path.pop() || path.pop())!.slice(-12)) ||
+  "code-main";
+const user = ((self && self.crypto && self.crypto.randomUUID &&
+  self.crypto.randomUUID()) || (uidV4())).slice(
+    0,
+    8,
+  );
+
 let wsLastHashCode = 0;
 let webRTCLastSeenHashCode = 0;
 let roomName = "";
@@ -135,18 +147,6 @@ async function broadcastCodeChange(sess: ICodeSession) {
 }
 
 export async function join() {
-  const path = location.pathname.split("/");
-  const room =
-    ((path[1] === "api" && path[2] === "room")
-      ? path[3]
-      : (path.pop() || path.pop())!.slice(-12)) ||
-    "code-main";
-  const user = ((self && self.crypto && self.crypto.randomUUID &&
-    self.crypto.randomUUID()) || (uidV4())).slice(
-      0,
-      8,
-    );
-
   roomName = roomName || room || "code-main";
 
   if (user) {
