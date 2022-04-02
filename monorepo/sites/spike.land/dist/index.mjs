@@ -578,7 +578,7 @@ var require_textdiff_create = __commonJS({
 });
 
 // ../../packages/code/package.json
-var version = "0.7.472";
+var version = "0.7.473";
 
 // ../../packages/cf-npm-site/dist/index.mjs
 function src_default(packageName, version2, serveDir = "") {
@@ -5198,59 +5198,30 @@ var CodeSession = class {
     this.room = room;
     this.session = initSession(room, {
       ...user,
-      state: savedState ? savedState : user.state,
-      capabilities: {
-        ...user.capabilities,
-        sessionStorage: storageAvailable("sessionStorage")
-      }
+      state: savedState ? savedState : user.state
     })();
     this.hashCodeSession = this.session.get("state").hashCode();
     hashStore[this.session.get("state").hashCode()] = this.session.get("state");
   }
-  addEvent(e) {
-    this.session.get("events").push({
-      ...e
-    });
-    setTimeout(() => this.processEvents);
-  }
   hashCode() {
     return this.session.get("state").hashCode();
   }
-  processEvents() {
-    const events = this.session.get("events");
-    const event = events.shift();
-    if (event) {
-      switch (event.type) {
-        case "code-init": {
-          const { code, transpiled, i, css, html } = event;
-          const sess = {
-            code,
-            transpiled,
-            i,
-            css,
-            html
-          };
-          this.session.set("events", events);
-          this.session.set("state", Record(sess)());
-        }
-      }
-    }
-  }
   createPatchFromHashCode(oldHash, state) {
-    if (hashStore[oldHash]) {
-      const oldRec = hashStore[oldHash];
-      const oldState = JSON.stringify(oldRec.toJSON());
-      const newRec = oldRec.merge(state);
-      const newHash = newRec.hashCode();
-      hashStore[newHash] = newRec;
-      const newState = JSON.stringify(newRec.toJSON());
-      const patch = createPatch(oldState, newState);
-      return {
-        oldHash,
-        newHash,
-        patch
-      };
+    if (!hashStore[oldHash]) {
+      throw Error("No oldHash. We need to fetch it first and try again");
     }
+    const oldRec = hashStore[oldHash];
+    const oldState = JSON.stringify(oldRec.toJSON());
+    const newRec = oldRec.merge(state);
+    const newHash = newRec.hashCode();
+    hashStore[newHash] = newRec;
+    const newState = JSON.stringify(newRec.toJSON());
+    const patch = createPatch(oldState, newState);
+    return {
+      oldHash,
+      newHash,
+      patch
+    };
   }
   createPatch(state) {
     if (state.code === this.session.get("state").get("code")) {
@@ -5321,20 +5292,6 @@ var CodeSession = class {
 var session = null;
 var startSession = (room, u) => session || new CodeSession(room, u);
 var session_default = startSession;
-function storageAvailable(type) {
-  try {
-    if (!Object.prototype.hasOwnProperty.call(window, type)) {
-      return;
-    }
-    const storage = window[type];
-    const x = "__storage_test__";
-    storage.setItem(x, x);
-    storage.removeItem && storage.removeItem(x);
-    return true;
-  } catch {
-    return false;
-  }
-}
 function createPatch(oldCode, newCode) {
   return JSON.stringify((0, import_textdiff_create.default)(oldCode, newCode));
 }
