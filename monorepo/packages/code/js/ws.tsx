@@ -1,3 +1,5 @@
+import type {ICodeSess} from "./session.tsx"
+
 /*eslint-disable */
 
 /* eslint-enable */
@@ -17,14 +19,14 @@ let username = "";
 let lastSeenTimestamp = 0;
 let lastSeenNow = 0;
 let ws;
-let chCode;
+let chCode: (code: string)=>void | null = null;
 let startTime;
 let rejoined = false;
-let sendChannel;
+let sendChannel: {send: (msg: Object)=>void} | null = null;
 let deltaSent = "";
 // Let createDelta;
 // let applyPatch;
-let mySession = null;
+let mySession: ICodeSess | null = null;
 const mST = () => mySession.session.get("state");
 
 let intervalHandler = null;
@@ -651,7 +653,7 @@ async function handleChatOffer(message, target) {
 
 // Called by the WebRTC layer to let us know when it's time to
 // begin, resume, or restart ICE negotiation.
-async function processWsMessage(event, source) {
+async function processWsMessage(event: {data: string}, source: "ws" | "rtc") {
   console.log(source, { event });
 
   lastSeenNow = Date.now();
@@ -661,7 +663,7 @@ async function processWsMessage(event, source) {
   // MySession.addEvent(data);
 
   if (
-    data.name && data.name !== username && !connections[data.name]
+    data.name && data.name !== username && !connections[data.name as  keyof typeof connections]
   ) {
     try {
       await createPeerConnection(data.name);
@@ -689,7 +691,7 @@ async function processWsMessage(event, source) {
     return;
   }
 
-  if (source === ws && data.hashCode) {
+  if (source === "ws" && data.hashCode) {
     wsLastHashCode = data.hashCode;
   }
 
@@ -702,8 +704,7 @@ async function processWsMessage(event, source) {
       // Console.log("******** APPLY PATCH ******");
       mySession.applyPatch(data);
       chCode(
-        mySession.session.get("state").code,
-        mySession.session.get("state").i,
+        mySession.session.get("state").code
       );
       if (sendChannel) {
         sendChannel.send({ hashCode: data.newHash });
@@ -742,10 +743,4 @@ async function processWsMessage(event, source) {
   lastSeenTimestamp = data.timestamp;
 }
 
-function wait(delay) {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve();
-    }, delay);
-  });
-}
+const wait= ( timeout?: number) => new Promise(resolve => setTimeout(resolve, timeout));
