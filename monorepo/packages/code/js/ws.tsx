@@ -223,13 +223,14 @@ export const join = async (room, user, delta) => {
     sess = false;
   }, 10_000);
 
-  ws = new WebSocket(
+  const wsConnection = new WebSocket(
     "wss://" + hostname + "/api/room/" + roomName + "/websocket",
   );
   rejoined = false;
   startTime = Date.now();
 
-  ws.addEventListener("open", () => {
+  wsConnection.addEventListener("open", () => {
+    ws = wsConnection;
     // if (delta) {
     //   if (delta !== deltaSent) {
     //     deltaSent = delta;
@@ -242,40 +243,44 @@ export const join = async (room, user, delta) => {
     // }
     if (intervalHandler) {
       clearInterval(intervalHandler);
-    } else {
-      intervalHandler = setInterval(() => {
-        const now = Date.now();
-        const diff = now - lastSeenNow;
-
-        if (now - lastSeenNow > 30_000) {
-          try {
-            ws.send(
-              JSON.stringify({
-                name: username,
-                time: lastSeenTimestamp + diff,
-              }),
-            );
-          } catch {
-            rejoined = false;
-            rejoin();
-          }
-        }
-      }, 30_000);
     }
 
+    intervalHandler = setInterval(() => {
+      const now = Date.now();
+      const diff = now - lastSeenNow;
+
+      if (now - lastSeenNow > 30_000) {
+        try {
+          ws.send(
+            JSON.stringify({
+              name: username,
+              time: lastSeenTimestamp + diff,
+            }),
+          );
+        } catch {
+          rejoined = false;
+          rejoin();
+        }
+      }
+    }, 30_000);
+
     // Send user info message.
-    ws.send(JSON.stringify({ name: username }));
-    return ws;
+    wsConnection.send(JSON.stringify({ name: username }));
+    return wsConnection;
   });
 
-  ws.addEventListener("message", (message) => processWsMessage(message, "ws"));
+  wsConnection.addEventListener(
+    "message",
+    (message) => processWsMessage(message, "ws"),
+  );
 
-  ws.addEventListener("close", (event) => {
+  wsConnection.addEventListener("close", (event) => {
     console.log("WebSocket closed, reconnecting:", event.code, event.reason);
     rejoined = false;
     rejoin();
   });
-  ws.addEventListener("error", (event) => {
+
+  wsConnection.addEventListener("error", (event) => {
     console.log("WebSocket error, reconnecting:", event);
     rejoined = false;
     rejoin();
