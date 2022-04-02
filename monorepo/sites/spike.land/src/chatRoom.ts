@@ -93,16 +93,7 @@ export class Code {
 
       this.state.mySession = startSession("", {
         name: username,
-        capabilities: {
-          prettier: false,
-          babel: false,
-          webRRT: false,
-          prerender: false,
-          IPFS: false,
-        },
-        users: [],
         state: { ...session},
-        events: [],
       });
 
       return;
