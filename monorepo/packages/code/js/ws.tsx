@@ -1,24 +1,35 @@
-import type { ICodeSess, ICodeSession } from "./session.tsx";
+import type { ICodeSession } from "./session";
 import debounce from "lodash/debounce";
 import uidV4 from "./uidV4.mjs";
 
-const webRtcArray = [];
+const webRtcArray: RTCDataChannel[] = [];
 const hostname = window.location.hostname || "spike.land";
 
-let wsLastHashCode = "";
-let webRTCLastSeenHashCode = "";
+let wsLastHashCode = 0;
+let webRTCLastSeenHashCode = 0;
 let roomName = "";
 let username = "";
 let lastSeenTimestamp = 0;
 let lastSeenNow = 0;
 let ws: WebSocket | null = null;
 let rejoined = false;
-let startTime = Date.now();
 let sendChannel: { send: (msg: Object) => void } | null = null;
 // Let createDelta;
 // let applyPatch;
-let mySession: ICodeSess | null = null;
-const mST = () => mySession.session.get("state");
+
+const resp = await fetch(
+  `https://spike.land/api/room/${roomName}/session`,
+);
+const state = await resp.json();
+
+const { startSession } = await import("./session");
+
+const mySession = startSession(roomName, {
+  name: username,
+  state,
+});
+
+const mST = () => mySession.json().state;
 
 let intervalHandler: number | null = null;
 
@@ -49,7 +60,7 @@ const chCode = async (code: string, i: number) => {
     return;
   }
 
-  const sess = mST().toJSON();
+  const sess = mST();
 
   if (i < sess.i) {
     return;
@@ -60,7 +71,7 @@ const chCode = async (code: string, i: number) => {
   }
 
   try {
-    if (sess && sess.editor) {
+    if (sess && window.sess.editor) {
       window.sess.editor.getModel().setValue(code);
     } else {
       window.sess.update(code);
@@ -123,7 +134,7 @@ async function broadcastCodeChange(sess: ICodeSession) {
   }
 }
 
-export const join = async () => {
+export async function join() {
   const path = location.pathname.split("/");
   const room =
     ((path[1] === "api" && path[2] === "room")
@@ -145,23 +156,10 @@ export const join = async () => {
 
   rejoined = true;
 
-  const resp = await fetch(
-    `https://spike.land/api/room/${roomName}/session`,
-  );
-  const state = await resp.json();
-
-  const { startSession } = await import("./session");
-
-  mySession = mySession || await startSession(roomName, {
-    name: username,
-    state,
-  });
-
   const wsConnection = new WebSocket(
     "wss://" + hostname + "/api/room/" + roomName + "/websocket",
   );
   rejoined = false;
-  startTime = Date.now();
 
   wsConnection.addEventListener("open", () => {
     ws = wsConnection;
@@ -205,7 +203,7 @@ export const join = async () => {
 
   if (!window.sess) {
     const session = {
-      ...mST().toJSON(),
+      ...mST(),
       setChild: () => {},
       changes: [],
 
@@ -240,7 +238,7 @@ export const join = async () => {
     rejoin();
   });
   return wsConnection;
-};
+}
 
 // Create the RTCPeerConnection which knows how to talk to our
 // selected STUN/TURN server and then uses getUserMedia() to find

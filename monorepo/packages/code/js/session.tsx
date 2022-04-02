@@ -61,10 +61,8 @@ export interface ICodeSess {
   room: string;
   hashCodeSession: number;
   hashCode: () => number;
-  addEvent: (e: IEvent) => void;
   setRoom: (room: string) => void;
   json: () => IUserJSON;
-  processEvents: () => void;
 }
 
 const hashStore: { [key: number]: Record<ICodeSession> } = {};
@@ -97,74 +95,34 @@ export class CodeSession implements ICodeSess {
     this.session = initSession(room, {
       ...user,
       state: savedState ? savedState : user.state,
-
-      capabilities: {
-        ...user.capabilities,
-        sessionStorage: storageAvailable("sessionStorage"),
-      },
     })();
 
     this.hashCodeSession = this.session.get("state").hashCode();
     hashStore[this.session.get("state").hashCode()] = this.session.get("state");
   }
 
-  public addEvent(e: IEvent) {
-    this.session.get("events").push({
-      ...e,
-    });
-    setTimeout(() => this.processEvents);
-  }
-
   public hashCode() {
     return this.session.get("state").hashCode();
   }
 
-  processEvents() {
-    const events = this.session.get("events");
-    const event = events.shift();
-
-    if (event) {
-      switch (event.type) {
-        case "code-init": {
-          const { code, transpiled, i, css, html } = event;
-          const sess: ICodeSession = {
-            code,
-            transpiled,
-            i,
-            css,
-            html,
-          };
-
-          this.session.set("events", events);
-          this.session.set("state", Record(sess)());
-        }
-          // Const cacheKey = `state-${this.room}`;
-
-          // if (storageAvailable("localStorage")) {
-          //   localStorage.setItem(cacheKey, JSON.stringify(sess));
-          // }
-          // this.session.set("events", events);
-      }
-    }
-  }
-
   public createPatchFromHashCode(oldHash: number, state: ICodeSession) {
-    if (hashStore[oldHash]) {
-      const oldRec = hashStore[oldHash];
-      const oldState = JSON.stringify(oldRec.toJSON());
-
-      const newRec = oldRec.merge(state);
-      const newHash = newRec.hashCode();
-      hashStore[newHash] = newRec;
-
-      const newState = JSON.stringify(newRec.toJSON());
-      const patch = createPatch(oldState, newState);
-      return {
-        oldHash,
-        newHash,
-        patch,
-      };
+    if (!hashStore[oldHash]) {
+      throw Error("No oldHash. We need to fetch it first and try again");
     }
+    const oldRec = hashStore[oldHash];
+    const oldState = JSON.stringify(oldRec.toJSON());
+
+    const newRec = oldRec.merge(state);
+    const newHash = newRec.hashCode();
+    hashStore[newHash] = newRec;
+
+    const newState = JSON.stringify(newRec.toJSON());
+    const patch = createPatch(oldState, newState);
+    return {
+      oldHash,
+      newHash,
+      patch,
+    };
   }
 
   public createPatch(state: ICodeSession) {
@@ -200,7 +158,7 @@ export class CodeSession implements ICodeSess {
     oldHash,
     newHash,
     patch,
-  }: { oldHash: number; newHash: number; patch: string }) {
+  }: { oldHash: number; newHash: number; patch: string }): void {
     const oldHashCheck = this.session.get("state").hashCode();
 
     if (oldHashCheck !== oldHash) {
@@ -252,26 +210,10 @@ export class CodeSession implements ICodeSess {
 export const hashCode = () => session?.hashCode() || 0;
 
 const session: CodeSession | null = null;
-export const startSession = (room: string, u: IUserJSON): ICodeSess =>
+export const startSession = (room: string, u: IUserJSON): CodeSession =>
   session || new CodeSession(room, u);
 
 export default startSession;
-
-function storageAvailable(type: string) {
-  try {
-    if (!Object.prototype.hasOwnProperty.call(window, type)) {
-      return;
-    }
-
-    const storage = window[type as keyof Window];
-    const x = "__storage_test__";
-    storage.setItem(x, x);
-    storage.removeItem && storage.removeItem(x);
-    return true;
-  } catch {
-    return false;
-  }
-}
 
 function createPatch(oldCode: string, newCode: string) {
   return JSON.stringify(createDelta(oldCode, newCode));

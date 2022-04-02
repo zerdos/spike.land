@@ -54,7 +54,7 @@ await esbuild.build({
   entryPoints: ["./js/appStarter.ts"],
   outfile: "./js/dist/appStarter.js",
   bundle: true,
-  target: "es2017",
+  target: "esnext",
   minify: true,
   minifyWhitespace: true,
   minifyIdentifiers: true,
@@ -100,7 +100,7 @@ const build = (entryPoints) =>
       ".workerJS",
     ],
 
-    target: "es2017",
+    target: "esnext",
     define: {
       "process.env.NODE_ENV": `"${environment}"`,
     },

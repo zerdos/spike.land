@@ -29,7 +29,7 @@ export const transform = async (code: string, retry = 4): Promise<string> => {
     await mutex.waitForUnlock();
     result = await esbuild.transform(code, {
       loader: "tsx",
-      target: "es2017",
+      target: "esnext",
     });
   } catch (e) {
     if (retry > 0) {
