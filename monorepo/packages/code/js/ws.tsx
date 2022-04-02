@@ -19,7 +19,7 @@ let username = "";
 let lastSeenTimestamp = 0;
 let lastSeenNow = 0;
 let ws;
-let chCode: (code: string)=>void | null = null;
+let chCode: (code: string, i: number)=>void | null = null;
 let startTime;
 let rejoined = false;
 let sendChannel: {send: (msg: Object)=>void} | null = null;
@@ -704,7 +704,7 @@ async function processWsMessage(event: {data: string}, source: "ws" | "rtc") {
       // Console.log("******** APPLY PATCH ******");
       mySession.applyPatch(data);
       chCode(
-        mySession.session.get("state").code
+        mySession.session.get("state").code,  mySession.session.get("state").i
       );
       if (sendChannel) {
         sendChannel.send({ hashCode: data.newHash });
@@ -720,7 +720,7 @@ async function processWsMessage(event: {data: string}, source: "ws" | "rtc") {
     if (data.code && data.transpiled) {
       const messageData = mySession.createPatch(data);
       mySession.applyPatch(messageData);
-      chCode(data.code);
+      chCode(data.code, data.i);
       if (sendChannel) {
         sendChannel.send({ hashCode: messageData.newHash });
       }
