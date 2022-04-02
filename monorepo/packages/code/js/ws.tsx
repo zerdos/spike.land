@@ -612,7 +612,7 @@ async function handleChatAnswerMessage(message, target) {
 }
 
 async function handleChatOffer(message, target) {
-  connections[target] || await createPeerConnection(target);
+  connections[target] | await createPeerConnection(target);
 
   // If we're not already connected, create an RTCPeerConnection
   // to be linked to the caller.
