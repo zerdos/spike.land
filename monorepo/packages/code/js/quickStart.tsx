@@ -45,8 +45,7 @@ export async function startMonacoWithSession(session) {
        */
     },
   );
-  const throttle = (await import("lodash/throttle")).default;
-  editor.onDidChangeModelContent(throttle(onchangeCode, 100));
+  editor.onDidChangeModelContent(onchangeCode);
 
   window.monaco = monaco;
   session.editor = editor;
