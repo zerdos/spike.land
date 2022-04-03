@@ -9,7 +9,7 @@
       "dom.iterable",
       "esnext"
     ],
-    "module": "Esnext",
+    "module": "esnext",
     "allowJs": true,
     "noFallthroughCasesInSwitch": true,
     "composite": true,
