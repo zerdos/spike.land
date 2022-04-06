@@ -40,7 +40,7 @@
     "md5": "2.3.0",
     "minio": "7.0.26",
     "pm2": "5.2.0",
-    "semver": "7.3.5",
+    "semver": "7.3.6",
     "source-map-support": "0.5.21"
   },
   "devDependencies": {
