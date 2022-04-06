@@ -439,9 +439,9 @@ export class Code {
 
         let data = JSON.parse(msg.data);
 
-        this.state.mySession.addEvent(
-          { ...data, uuid: session.uuid } as unknown as IEvent,
-        );
+        // this.state.mySession.addEvent(
+        //   { ...data, uuid: session.uuid } as unknown as IEvent,
+        // );
 
         // if (data.type === "get-cid") {
         //   const CID = data.cid;
