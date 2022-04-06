@@ -556,10 +556,11 @@ export class Code {
 
           return;
         }
-      } catch {
+      } catch(exp) {
         webSocket.send(
           JSON.stringify({
             error: "unknown error",
+            exp: exp | {}
           }),
         );
       }
