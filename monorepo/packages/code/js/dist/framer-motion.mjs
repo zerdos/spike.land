@@ -490,6 +490,11 @@ import { forwardRef, useContext as useContext7 } from "react";
 import * as React from "react";
 import { useContext } from "react";
 
+// ../../node_modules/framer-motion/dist/es/utils/process.mjs
+var mockProcess = { env: { NODE_ENV: "production" } };
+var safeProcess = typeof process === "undefined" ? mockProcess : process;
+var process$1 = safeProcess;
+
 // ../../node_modules/framer-motion/dist/es/motion/features/definitions.mjs
 var createDefinition = function(propNames) {
   return {
@@ -571,7 +576,7 @@ function useFeatures(props, visualElement2, preloadedFeatures) {
   var lazyContext = useContext(LazyContext);
   if (!visualElement2)
     return null;
-  if (false) {
+  if (process$1.env.NODE_ENV !== "production" && preloadedFeatures && lazyContext.strict) {
     invariant(false, "You have rendered a `motion` component within a `LazyMotion` component. This will break tree shaking. Import and render a `m` component instead.");
   }
   for (var i = 0; i < numFeatures; i++) {
@@ -4683,6 +4688,17 @@ function useTapGesture(_a) {
 // ../../node_modules/framer-motion/dist/es/motion/features/viewport/use-viewport.mjs
 import { useRef as useRef4, useEffect as useEffect5 } from "react";
 
+// ../../node_modules/framer-motion/dist/es/utils/warn-once.mjs
+var warned = /* @__PURE__ */ new Set();
+function warnOnce(condition, message, element) {
+  if (condition || warned.has(message))
+    return;
+  console.warn(message);
+  if (element)
+    console.warn(element);
+  warned.add(message);
+}
+
 // ../../node_modules/framer-motion/dist/es/motion/features/viewport/observers.mjs
 var observerCallbacks = /* @__PURE__ */ new WeakMap();
 var observers = /* @__PURE__ */ new WeakMap();
@@ -4767,7 +4783,7 @@ function useMissingIntersectionObserver(shouldObserve, state, visualElement2, _a
   useEffect5(function() {
     if (!shouldObserve || !fallback)
       return;
-    if (false) {
+    if (process$1.env.NODE_ENV !== "production") {
       warnOnce(false, "IntersectionObserver not available on this device. whileInView animations will trigger on mount.");
     }
     requestAnimationFrame(function() {
