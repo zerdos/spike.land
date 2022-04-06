@@ -5665,9 +5665,10 @@ var Code = class {
           }
           return;
         }
-      } catch {
+      } catch (exp) {
         webSocket.send(JSON.stringify({
-          error: "unknown error"
+          error: "unknown error",
+          exp: exp | {}
         }));
       }
     });
