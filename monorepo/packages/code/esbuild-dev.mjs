@@ -2,7 +2,7 @@ import esbuild from "esbuild";
 import * as importMap from "esbuild-plugin-import-map";
 import jsonData from "./js/mockedMap.json" assert { type: "json" };
 
-const environment = process.env.NODE_ENV == "production"
+const environment = process.env.NODE_ENV === "production"
   ? "production"
   : "development";
 const isDevelopment = environment === "development";
