@@ -1175,7 +1175,7 @@ var unitlessKeys = {
 };
 var unitless_browser_esm_default = unitlessKeys;
 
-// ../../node_modules/@emotion/react/node_modules/@emotion/serialize/dist/emotion-serialize.browser.esm.js
+// ../../node_modules/@emotion/serialize/dist/emotion-serialize.browser.esm.js
 var hyphenateRegex = /[A-Z]|^ms/g;
 var animationRegex = /_EMO_([^_]+?)_([^]*?)_EMO_/g;
 var isCustomProperty = function isCustomProperty2(property) {
