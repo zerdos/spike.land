@@ -1838,16 +1838,6 @@
     npmlog "^4.1.2"
     write-file-atomic "^3.0.3"
 
-"@miniflare/cache@2.3.0":
-  version "2.3.0"
-  resolved "https://registry.yarnpkg.com/@miniflare/cache/-/cache-2.3.0.tgz#664af6ca212241653bef5e2b93b4608dbac103c7"
-  integrity sha512-lOf3WVtrs0ac7KOtsQ+JOGHWR90zsqqJbolE+Wt4hIZuvM2U3t1RD2Ms7U20J301msVIsBAd02IL57H95LXQtQ==
-  dependencies:
-    "@miniflare/core" "2.3.0"
-    "@miniflare/shared" "2.3.0"
-    http-cache-semantics "^4.1.0"
-    undici "4.13.0"
-
 "@miniflare/cache@2.4.0":
   version "2.4.0"
   resolved "https://registry.yarnpkg.com/@miniflare/cache/-/cache-2.4.0.tgz#1b02e0519ef9306af51a366ec0e1c9189c676fd3"
@@ -1858,14 +1848,6 @@
     http-cache-semantics "^4.1.0"
     undici "4.13.0"
 
-"@miniflare/cli-parser@2.3.0":
-  version "2.3.0"
-  resolved "https://registry.yarnpkg.com/@miniflare/cli-parser/-/cli-parser-2.3.0.tgz#536f1d09a6de3c59ce8c9de99abc0dbcac8df37c"
-  integrity sha512-yQzU+OBBvWshr9qVxAe6bWXJLNfpmLYrfkfR3u+rPOo2LYnccWg0f/8jtxrXM1TIyu+tCOJGqCODpO//XtrwWw==
-  dependencies:
-    "@miniflare/shared" "2.3.0"
-    kleur "^4.1.4"
-
 "@miniflare/cli-parser@2.4.0":
   version "2.4.0"
   resolved "https://registry.yarnpkg.com/@miniflare/cli-parser/-/cli-parser-2.4.0.tgz#20e7c71588fe5e62aeeaa804fbb297b503a835c8"
@@ -1873,20 +1855,6 @@
   dependencies:
     "@miniflare/shared" "2.4.0"
     kleur "^4.1.4"
-
-"@miniflare/core@2.3.0":
-  version "2.3.0"
-  resolved "https://registry.yarnpkg.com/@miniflare/core/-/core-2.3.0.tgz#29e5756d2772d09c6cdf77d2c84fc85888e30bf8"
-  integrity sha512-Dltb3p+Uq5Lx53DuInckHYaDoMrBq49HE/p/oUDXmzHmQy7EAM6v+nJGKmiM9Uen4OqyqsmlmPWqntSMjaX7Jg==
-  dependencies:
-    "@iarna/toml" "^2.2.5"
-    "@miniflare/shared" "2.3.0"
-    "@miniflare/watcher" "2.3.0"
-    busboy "^0.3.1"
-    dotenv "^10.0.0"
-    kleur "^4.1.4"
-    set-cookie-parser "^2.4.8"
-    undici "4.13.0"
 
 "@miniflare/core@2.4.0":
   version "2.4.0"
@@ -1902,16 +1870,6 @@
     set-cookie-parser "^2.4.8"
     undici "4.13.0"
 
-"@miniflare/durable-objects@2.3.0":
-  version "2.3.0"
-  resolved "https://registry.yarnpkg.com/@miniflare/durable-objects/-/durable-objects-2.3.0.tgz#7db50fd6071bf5f2e64655e5c1836c829aee43be"
-  integrity sha512-YuzxBBu9xBU3xxD4TzGdeVVMXrE76AWJE4MIqkJR5UmASqayyv//cApGw3+C01NHe07cpbrTM1QTgFo2eBncwQ==
-  dependencies:
-    "@miniflare/core" "2.3.0"
-    "@miniflare/shared" "2.3.0"
-    "@miniflare/storage-memory" "2.3.0"
-    undici "4.13.0"
-
 "@miniflare/durable-objects@2.4.0":
   version "2.4.0"
   resolved "https://registry.yarnpkg.com/@miniflare/durable-objects/-/durable-objects-2.4.0.tgz#5a9e487f4cc6255069f5fcff053d399c501d0e61"
@@ -1920,16 +1878,6 @@
     "@miniflare/core" "2.4.0"
     "@miniflare/shared" "2.4.0"
     "@miniflare/storage-memory" "2.4.0"
-    undici "4.13.0"
-
-"@miniflare/html-rewriter@2.3.0":
-  version "2.3.0"
-  resolved "https://registry.yarnpkg.com/@miniflare/html-rewriter/-/html-rewriter-2.3.0.tgz#5feaf023d19d3542df02a3b0f643c12d9ac45986"
-  integrity sha512-cyWhmQgzhtRlBeg0mxP5FmAq/75ChuLwWQlhokx88XkGnteuh0/DOk3OxIMaveF2oDHKmIlLFgSlzv4NbT1Mng==
-  dependencies:
-    "@miniflare/core" "2.3.0"
-    "@miniflare/shared" "2.3.0"
-    html-rewriter-wasm "^0.4.1"
     undici "4.13.0"
 
 "@miniflare/html-rewriter@2.4.0":
@@ -1941,20 +1889,6 @@
     "@miniflare/shared" "2.4.0"
     html-rewriter-wasm "^0.4.1"
     undici "4.13.0"
-
-"@miniflare/http-server@2.3.0":
-  version "2.3.0"
-  resolved "https://registry.yarnpkg.com/@miniflare/http-server/-/http-server-2.3.0.tgz#78c18468934bc2cbca1fc493a48c3a1e3a830adb"
-  integrity sha512-jTzsRuro3yWVb4T85znBGw1w+ydimgi2PJvHrTuGFKDjFam+R037fGH+HZCAjAgPiBHTroXfkeSXypJLXbQBEg==
-  dependencies:
-    "@miniflare/core" "2.3.0"
-    "@miniflare/shared" "2.3.0"
-    "@miniflare/web-sockets" "2.3.0"
-    kleur "^4.1.4"
-    selfsigned "^2.0.0"
-    undici "4.13.0"
-    ws "^8.2.2"
-    youch "^2.2.2"
 
 "@miniflare/http-server@2.4.0":
   version "2.4.0"
@@ -1970,13 +1904,6 @@
     ws "^8.2.2"
     youch "^2.2.2"
 
-"@miniflare/kv@2.3.0":
-  version "2.3.0"
-  resolved "https://registry.yarnpkg.com/@miniflare/kv/-/kv-2.3.0.tgz#152c58fff3cd2ea1cd82859d46c3b6bc7d8026e7"
-  integrity sha512-m0zu5sRoaFDm+WVTnLRrz8+77b6eVxQN7cLN6ZQiKP3Nd8cAggPdaIIef8dVksWbPvOW9DztoUVZTB1v9EOaLA==
-  dependencies:
-    "@miniflare/shared" "2.3.0"
-
 "@miniflare/kv@2.4.0":
   version "2.4.0"
   resolved "https://registry.yarnpkg.com/@miniflare/kv/-/kv-2.4.0.tgz#d76ebd4f8bac53619058e747fafb1427d3fbda5c"
@@ -1984,28 +1911,12 @@
   dependencies:
     "@miniflare/shared" "2.4.0"
 
-"@miniflare/runner-vm@2.3.0":
-  version "2.3.0"
-  resolved "https://registry.yarnpkg.com/@miniflare/runner-vm/-/runner-vm-2.3.0.tgz#c2881a7f7cb78244c3456be044bf604520743543"
-  integrity sha512-/aB997YodNcRFxtlnvEn4BJSIqKXRw29FexOqCWwWv+b7XQkTTxd4IfSocIFi6du3265gp85icqP/hxsLAQBVg==
-  dependencies:
-    "@miniflare/shared" "2.3.0"
-
 "@miniflare/runner-vm@2.4.0":
   version "2.4.0"
   resolved "https://registry.yarnpkg.com/@miniflare/runner-vm/-/runner-vm-2.4.0.tgz#79d1286dab7e93d3acfec3c1f99a08c0a675a61c"
   integrity sha512-7sdwBYzXQTwYeR3tTvQ+vJfzc7BXwqR8AUPK9l5gvCtg+Geq9sMslr5SikIJpgcvbYqKDjvC9DQEPJ3sqr9cSQ==
   dependencies:
     "@miniflare/shared" "2.4.0"
-
-"@miniflare/scheduler@2.3.0":
-  version "2.3.0"
-  resolved "https://registry.yarnpkg.com/@miniflare/scheduler/-/scheduler-2.3.0.tgz#9feaf76bbdff5924a41157d6b18d998d13b66b59"
-  integrity sha512-Er80srMNXbxqGbYXtiZkD8UlveHsw4cpwcytQgsEJCHG7/48vC/rpmtN0zKOWFEHifaOUvHhURZRJu+S2E4Stg==
-  dependencies:
-    "@miniflare/core" "2.3.0"
-    "@miniflare/shared" "2.3.0"
-    cron-schedule "^3.0.4"
 
 "@miniflare/scheduler@2.4.0":
   version "2.4.0"
@@ -2016,14 +1927,6 @@
     "@miniflare/shared" "2.4.0"
     cron-schedule "^3.0.4"
 
-"@miniflare/shared@2.3.0":
-  version "2.3.0"
-  resolved "https://registry.yarnpkg.com/@miniflare/shared/-/shared-2.3.0.tgz#7ad2f09bc85125872301578848b46b7d8b4a77ce"
-  integrity sha512-TvCSUe1op5AKINx3zHSSdfAbdoV3eSF3MzeVQA4+1NmtuefY8cjujQCdILeAxg3oPbHXaZkc7j1zZ13rYdvwGQ==
-  dependencies:
-    ignore "^5.1.8"
-    kleur "^4.1.4"
-
 "@miniflare/shared@2.4.0":
   version "2.4.0"
   resolved "https://registry.yarnpkg.com/@miniflare/shared/-/shared-2.4.0.tgz#dde0c1fd1c668969720b282901a6fe60cf4e1447"
@@ -2031,15 +1934,6 @@
   dependencies:
     ignore "^5.1.8"
     kleur "^4.1.4"
-
-"@miniflare/sites@2.3.0":
-  version "2.3.0"
-  resolved "https://registry.yarnpkg.com/@miniflare/sites/-/sites-2.3.0.tgz#b8d158b402fa52c35d27c478743e01714f75beb1"
-  integrity sha512-WkRBxQbf6k/eS1D/D1mw30Zs253TFeIkWFh8HQ8Z36Kdt79rNVezT9YmRpahUfvYXmubTquV5JftNOAhvbOJXA==
-  dependencies:
-    "@miniflare/kv" "2.3.0"
-    "@miniflare/shared" "2.3.0"
-    "@miniflare/storage-file" "2.3.0"
 
 "@miniflare/sites@2.4.0":
   version "2.4.0"
@@ -2050,14 +1944,6 @@
     "@miniflare/shared" "2.4.0"
     "@miniflare/storage-file" "2.4.0"
 
-"@miniflare/storage-file@2.3.0":
-  version "2.3.0"
-  resolved "https://registry.yarnpkg.com/@miniflare/storage-file/-/storage-file-2.3.0.tgz#34b6653ef37d3269fef1fdfa680b153f05831e31"
-  integrity sha512-1rda/MC0R8wVC6N7Na2EdSGNAZv6o/yugp7Z+GikJ1vbgi1+9soAczDzFtaq4jrBzAkCFOMT79DgkSKSl59vxg==
-  dependencies:
-    "@miniflare/shared" "2.3.0"
-    "@miniflare/storage-memory" "2.3.0"
-
 "@miniflare/storage-file@2.4.0":
   version "2.4.0"
   resolved "https://registry.yarnpkg.com/@miniflare/storage-file/-/storage-file-2.4.0.tgz#a86c6a866130c4148b2a5e4bbe7e978befa97968"
@@ -2066,13 +1952,6 @@
     "@miniflare/shared" "2.4.0"
     "@miniflare/storage-memory" "2.4.0"
 
-"@miniflare/storage-memory@2.3.0":
-  version "2.3.0"
-  resolved "https://registry.yarnpkg.com/@miniflare/storage-memory/-/storage-memory-2.3.0.tgz#1a6ac118243aefe6b91232c739316a995eb0296f"
-  integrity sha512-cMqQK9neRySchoNUVhQYOmLFrYkAjT5V113Wfxmsz93dladQ1/mXOsndqPrlb+5hhnwbw4Ns67nyzkHUe9sX/g==
-  dependencies:
-    "@miniflare/shared" "2.3.0"
-
 "@miniflare/storage-memory@2.4.0":
   version "2.4.0"
   resolved "https://registry.yarnpkg.com/@miniflare/storage-memory/-/storage-memory-2.4.0.tgz#af3214bd17bc08e93f8f5750bf666c0152f5353e"
@@ -2080,29 +1959,12 @@
   dependencies:
     "@miniflare/shared" "2.4.0"
 
-"@miniflare/watcher@2.3.0":
-  version "2.3.0"
-  resolved "https://registry.yarnpkg.com/@miniflare/watcher/-/watcher-2.3.0.tgz#82c8cba1c37d619f4790bc9b230cdaa45f677fdf"
-  integrity sha512-G0ZE9WHIcdR2TlPXwwQabULDIMZ9LujfC0tn+yXmPXKxgWoJWcWFmUbkhVDcOJzkIz2TAhRlLbW11n8nChUHFQ==
-  dependencies:
-    "@miniflare/shared" "2.3.0"
-
 "@miniflare/watcher@2.4.0":
   version "2.4.0"
   resolved "https://registry.yarnpkg.com/@miniflare/watcher/-/watcher-2.4.0.tgz#3ac422d53461ef7ad0b335d4d58f925c6584a7f2"
   integrity sha512-gDQRUxwOjmctvowyd4Hcdy3fjxz3ERKzirp6TvA3AWUohKZk3IhwGlaA8aCwbdP+ELYQlG5wK44AfLSGi956fg==
   dependencies:
     "@miniflare/shared" "2.4.0"
-
-"@miniflare/web-sockets@2.3.0":
-  version "2.3.0"
-  resolved "https://registry.yarnpkg.com/@miniflare/web-sockets/-/web-sockets-2.3.0.tgz#50c548dffc55cb4f418f270cf41759663bb1141b"
-  integrity sha512-3xcPG1vfiMb2obVC4jNtS5VzUxzM1rdUrWPCG86gpZaHky0xC1U7Tp+eFdxQFTty99HPYrrVKXl1ww2h1LGWRA==
-  dependencies:
-    "@miniflare/core" "2.3.0"
-    "@miniflare/shared" "2.3.0"
-    undici "4.13.0"
-    ws "^8.2.2"
 
 "@miniflare/web-sockets@2.4.0":
   version "2.4.0"
@@ -6066,30 +5928,6 @@ min-indent@^1.0.0:
   resolved "https://registry.yarnpkg.com/min-indent/-/min-indent-1.0.1.tgz#a63f681673b30571fbe8bc25686ae746eefa9869"
   integrity sha512-I9jwMn07Sy/IwOj3zVkVik2JTvgpaykDZEigL6Rx6N9LbMywwUSMtxET+7lVoDLLd3O3IXwJwvuuns8UB/HeAg==
 
-miniflare@2.3.0:
-  version "2.3.0"
-  resolved "https://registry.yarnpkg.com/miniflare/-/miniflare-2.3.0.tgz#ab2308c58d80337c384f2d2ffa1312f98615fea5"
-  integrity sha512-0lK4Df+jfqLDSDDgj4AOJffb1G6sN7XvB5QGUaquEakW+qPdurydyNhFKcFKBgpk4ozN6WTmB2x802iPXQcJJQ==
-  dependencies:
-    "@miniflare/cache" "2.3.0"
-    "@miniflare/cli-parser" "2.3.0"
-    "@miniflare/core" "2.3.0"
-    "@miniflare/durable-objects" "2.3.0"
-    "@miniflare/html-rewriter" "2.3.0"
-    "@miniflare/http-server" "2.3.0"
-    "@miniflare/kv" "2.3.0"
-    "@miniflare/runner-vm" "2.3.0"
-    "@miniflare/scheduler" "2.3.0"
-    "@miniflare/shared" "2.3.0"
-    "@miniflare/sites" "2.3.0"
-    "@miniflare/storage-file" "2.3.0"
-    "@miniflare/storage-memory" "2.3.0"
-    "@miniflare/web-sockets" "2.3.0"
-    kleur "^4.1.4"
-    semiver "^1.1.0"
-    source-map-support "^0.5.20"
-    undici "4.13.0"
-
 miniflare@2.4.0:
   version "2.4.0"
   resolved "https://registry.yarnpkg.com/miniflare/-/miniflare-2.4.0.tgz#e09aa92a7146760943710c69ea94b99b7a15e0fb"
@@ -8196,6 +8034,11 @@ through@2, "through@>=2.2.7 <3", through@^2.3.4, through@^2.3.6:
   resolved "https://registry.yarnpkg.com/through/-/through-2.3.8.tgz#0dd4c9ffaabc357960b1b724115d7e0e86a2e1f5"
   integrity sha1-DdTJ/6q8NXlgsbckEV1+Doai4fU=
 
+timeago.js@^4.0.2:
+  version "4.0.2"
+  resolved "https://registry.yarnpkg.com/timeago.js/-/timeago.js-4.0.2.tgz#724e8c8833e3490676c7bb0a75f5daf20e558028"
+  integrity sha512-a7wPxPdVlQL7lqvitHGGRsofhdwtkoSXPGATFuSOA2i1ZNQEPLrGnj68vOp2sOJTCFAQVXPeNMX/GctBaO9L2w==
+
 timeout-abort-controller@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/timeout-abort-controller/-/timeout-abort-controller-3.0.0.tgz#dd57ffca041652c03769904f8d95afd93fb95595"
@@ -8840,16 +8683,17 @@ workbox-window@6.5.2:
     "@types/trusted-types" "^2.0.2"
     workbox-core "6.5.2"
 
-wrangler@0.0.24:
-  version "0.0.24"
-  resolved "https://registry.yarnpkg.com/wrangler/-/wrangler-0.0.24.tgz#525800c49cb1f0886447b82fe2d36b875d9c64b8"
-  integrity sha512-rvDAy9mz4PJpp38/uUOd9Kcg8lL+1TRPaCiOp8TgN1h9V+NNSog1oCJ0KbXhT5rxuC6FSXUzUl06zirzoC0BXg==
+wrangler@0.0.25:
+  version "0.0.25"
+  resolved "https://registry.yarnpkg.com/wrangler/-/wrangler-0.0.25.tgz#c33e3f875a93ab99805cff534e4eee3e64d79341"
+  integrity sha512-VjbeOnEDwvTEQNg2RIEgUIwgeF3N8l0uRoOBE7uDpb7OhN5G3eDcJoYVQH6Sm9y8Au068TKopbUIlPVXNpuhFw==
   dependencies:
     esbuild "0.14.23"
-    miniflare "2.3.0"
+    miniflare "2.4.0"
     path-to-regexp "^6.2.0"
     selfsigned "^2.0.0"
     semiver "^1.1.0"
+    timeago.js "^4.0.2"
     xxhash-wasm "^1.0.1"
   optionalDependencies:
     fsevents "~2.3.2"
