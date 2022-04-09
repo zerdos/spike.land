@@ -1,6 +1,6 @@
-import importmapJson from "./importmap.json" assert { type: "json" };
+import importmapJson from "./importmap.json";
 
-export function getHtml({ html, css }: { html: string; css: string }) {
+export function getHtml({ html, css }: { html: string; css: string }): string {
   //
   // For some reason, pre-rendering doesn't care about global styles, the site flickers without this patch
   //

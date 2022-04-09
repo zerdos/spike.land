@@ -1,8 +1,9 @@
 import type { ICodeSession } from "./session";
 import debounce from "lodash/debounce";
 import uidV4 from "./uidV4.mjs";
+import * as monaco from "monaco-editor";
 
-const webRtcArray: RTCDataChannel[] = [];
+const webRtcArray: (RTCDataChannel & { target: string })[] = [];
 const hostname = window.location.hostname || "spike.land";
 
 const path = location.pathname.split("/");
@@ -25,7 +26,26 @@ let lastSeenTimestamp = 0;
 let lastSeenNow = 0;
 let ws: WebSocket | null = null;
 let rejoined = false;
-let sendChannel: { send: (msg: Object) => void } | null = null;
+const sendChannel = {
+  send: ((data: any) => {
+    const target = data.target;
+    const messageString = JSON.stringify({
+      ...data,
+      name: data.name || username,
+    });
+    webRtcArray.map((ch) => {
+      try {
+        if (ch.readyState !== "open") return;
+
+        if (ch.target === target) {
+          ch.send(messageString);
+        }
+      } catch (e) {
+        console.error("Error in broadcasting event", { e });
+      }
+    });
+  }),
+};
 // Let createDelta;
 // let applyPatch;
 
@@ -67,6 +87,13 @@ setInterval(() => {
   }
 }, 30_000);
 
+const w = window as unknown as {
+  sess: {
+    editor: typeof monaco.editor;
+    update: (code: string) => void;
+  };
+};
+
 const chCode = async (code: string, i: number) => {
   if (!code) {
     return;
@@ -83,10 +110,17 @@ const chCode = async (code: string, i: number) => {
   }
 
   try {
-    if (sess && window.sess.editor) {
-      window.sess.editor.getModel().setValue(code);
+    const modelUri = monaco.Uri.parse("file:///app/index.tsx");
+    if (
+      w.sess && w.sess.editor && w.sess.editor.getModel &&
+      w.sess.editor.getModel(modelUri)
+    ) {
+      const model = w.sess.editor.getModel(modelUri);
+      if (model) {
+        model.setValue(code);
+      }
     } else {
-      window.sess.update(code);
+      w.sess && w.sess.update && w.sess.update(code);
     }
   } catch (error) {
     console.error({ e: error });
@@ -201,25 +235,25 @@ export async function join() {
     return wsConnection;
   });
 
-  if (!window.sess) {
-    const session = {
-      ...mST(),
-      setChild: () => {},
-      changes: [],
+  // if (!w.sess) {
+  //   const session = {
+  //     ...mST(),
+  //     setChild: () => {},
+  //     changes: [],
 
-      children: [globalThis.App],
-      errorText: "",
-    };
+  //     children: [globalThis.App],
+  //     errorText: "",
+  //   };
 
-    const stayFullscreen = location.pathname.endsWith("public");
-    const { quickStart } = await import("./quickStart.tsx");
-    quickStart(
-      session,
-      roomName,
-      stayFullscreen,
-    );
-    window.sess = session;
-  }
+  //   const stayFullscreen = location.pathname.endsWith("public");
+  //   const { quickStart } = await import("./quickStart");
+  //   quickStart(
+  //     session,
+  //     roomName,
+  //     stayFullscreen,
+  //   );
+
+  // }
 
   wsConnection.addEventListener(
     "message",
@@ -269,7 +303,7 @@ log("Hostname: " + myHostname);
 //
 
 const connections: {
-  [key: string]: RTCPeerConnection;
+  [target: string]: RTCPeerConnection;
 } = {}; // To st/ RTCPeerConnection
 // var transceiver = null;         // RTCRtpTransceiver
 // var webcamStream = null;        // MediaStream from webcam
@@ -283,7 +317,7 @@ function log(text: string) {
 
 // Output an error message to console.
 
-function log_error(text) {
+function log_error(text: string) {
   const time = new Date();
 
   console.trace("[" + time.toLocaleTimeString() + "] " + text);
@@ -299,7 +333,7 @@ rcpOptions.iceServers = [{ urls: "stun:stun.stunprotocol.org:3478" }, {
   urls: "stun:stun.l.google.com:19302",
 }];
 
-async function createPeerConnection(target) {
+async function createPeerConnection(target: string) {
   log(`Setting up a connection with ${target}`);
   if (connections[target]) {
     log(`Aborting, since we have connection with this ${target}`);
@@ -315,16 +349,48 @@ async function createPeerConnection(target) {
 
   // Set up event handlers for the ICE negotiation process.
 
-  connections[target].onicecandidate = handleICECandidateEvent;
+  connections[target].onicecandidate = (event) => {
+    if (event.candidate) {
+      log("*** Outgoing ICE candidate: " + event.candidate);
+
+      ws!.send(JSON.stringify({
+        type: "new-ice-candidate",
+        target,
+        name: username,
+        candidate: event.candidate,
+      }));
+    }
+  };
   connections[target].oniceconnectionstatechange =
     handleICEConnectionStateChangeEvent;
   connections[target].onicegatheringstatechange =
     handleICEGatheringStateChangeEvent;
-  connections[target].onsignalingstatechange = handleSignalingStateChangeEvent;
+  connections[target].onsignalingstatechange = () => {
+    log(
+      "*** connections[target].signalingState  changed to: " +
+        connections[target].signalingState,
+    );
+    switch (connections[target].signalingState) {
+      case "closed":
+        break;
+    }
+  };
   connections[target].onnegotiationneeded = handleNegotiationNeededEvent;
-  connections[target].ontrack = handleTrackEvent;
+  connections[target].ontrack = (ev) => console.log(ev);
 
-  connections[target].addEventListener("datachannel", receiveChannelCallback);
+  connections[target].ondatachannel = (event) => {
+    console.log("Receive Channel Callback");
+    const rtc = event.channel;
+    rtc.binaryType = "arraybuffer";
+    rtc.addEventListener("close", onReceiveChannelClosed);
+
+    rtc.addEventListener(
+      "message",
+      (message) => processWsMessage(message, "rtc"),
+    );
+    const rtcWithTarget = Object.assign(rtc, { target });
+    webRtcArray.push(rtcWithTarget);
+  };
 
   const dataChannelOptions = {
     ordered: true, // Do not guarantee order
@@ -332,9 +398,12 @@ async function createPeerConnection(target) {
     maxPacketLifeTime: 3000, // In milliseconds
   };
 
-  const rtc = connections[target].createDataChannel(
-    target,
-    dataChannelOptions,
+  const rtc = Object.assign(
+    connections[target].createDataChannel(
+      target,
+      dataChannelOptions,
+    ),
+    { target },
   );
 
   rtc.binaryType = "arraybuffer";
@@ -362,30 +431,8 @@ async function createPeerConnection(target) {
 
   rtc.addEventListener("open", () => {
     console.log("@@@@@@@@RTC IS OPEN&&&&&&&&");
-    rtc.target = target;
     webRtcArray.push(rtc);
-    connections[target].sendChannel = rtc;
-
-    sendChannel = sendChannel = {
-      send: ((data) => {
-        const target = data.target;
-        const messageString = JSON.stringify({
-          ...data,
-          name: data.name || username,
-        });
-        webRtcArray.map((ch) => {
-          try {
-            if (ch.readyState !== "open") return;
-
-            if (ch.target === target) {
-              ch.send(messageString);
-            }
-          } catch (e) {
-            console.error("Error in broadcasting event", { e });
-          }
-        });
-      }),
-    };
+    // connections[target].sendChannel = rtc;
   });
 
   rtc.addEventListener("close", () => {
@@ -394,23 +441,10 @@ async function createPeerConnection(target) {
 
   return connections[target];
 
-  function receiveChannelCallback(event) {
-    console.log("Receive Channel Callback");
-    const rtc = event.channel;
-    rtc.binaryType = "arraybuffer";
-    rtc.addEventListener("close", onReceiveChannelClosed);
-
-    rtc.addEventListener(
-      "message",
-      (message) => processWsMessage(message, "rtc"),
-    );
-    webRtcArray.push(rtc);
-  }
-
   function onReceiveChannelClosed() {
     console.log("Receive channel is closed");
     connections[target].close();
-    connections[target] = null;
+    delete connections[target];
     console.log("Closed remote peer connection");
   }
 
@@ -420,10 +454,6 @@ async function createPeerConnection(target) {
     try {
       log("---> Creating offer");
       const offer = await connections[target].createOffer();
-
-      // If the connection hasn't yet achieved the "stable" state,
-      // return to the caller. Another negotiationneeded event
-      // will be fired when the state stabilizes.
 
       if (connections[target].signalingState != "stable") {
         log("     -- The connection isn't stable yet; postponing...");
@@ -439,7 +469,7 @@ async function createPeerConnection(target) {
       // Send the offer to the remote peer.
 
       log("---> Sending the offer to the remote peer");
-      ws.send(JSON.stringify({
+      ws && ws.send(JSON.stringify({
         target,
         name: username,
         type: "offer",
@@ -449,51 +479,8 @@ async function createPeerConnection(target) {
       log(
         "*** The following error occurred while handling the negotiationneeded event:",
       );
-      // ReportError(err);
     }
   }
-
-  // Called by the WebRTC layer when events occur on the media tracks
-  // on our WebRTC call. This includes when streams are added to and
-  // removed from the call.
-  //
-  // track events include the following fields:
-  //
-  // RTCRtpReceiver       receiver
-  // MediaStreamTrack     track
-  // MediaStream[]        streams
-  // RTCRtpTransceiver    transceiver
-  //
-  // In our case, we're just taking the first stream found and attaching
-  // it to the <video> element for incoming media.
-
-  function handleTrackEvent(event) {
-    log("*** Track event");
-    document.querySelector("#received_video").srcObject = event.streams[0];
-    document.querySelector("#hangup-button").disabled = false;
-  }
-
-  // Handles |icecandidate| events by forwarding the specified
-  // ICE candidate (created by our local ICE agent) to the other
-  // peer through the signaling server.
-
-  function handleICECandidateEvent(event) {
-    if (event.candidate) {
-      log("*** Outgoing ICE candidate: " + event.candidate);
-
-      ws.send(JSON.stringify({
-        type: "new-ice-candidate",
-        target,
-        name: username,
-        candidate: event.candidate,
-      }));
-    }
-  }
-
-  // Handle |iceconnectionstatechange| events. This will detect
-  // when the ICE connection is closed, failed, or disconnected.
-  //
-  // This is called when the state of the ICE agent changes.
 
   function handleICEConnectionStateChangeEvent() {
     log(
@@ -509,34 +496,6 @@ async function createPeerConnection(target) {
     }
   }
 
-  // Set up a |signalingstatechange| event handler. This will detect when
-  // the signaling connection is closed.
-  //
-  // NOTE: This will actually move to the new RTCPeerConnectionState enum
-  // returned in the property RTCPeerConnection.connectionState when
-  // browsers catch up with the latest version of the specification!
-
-  function handleSignalingStateChangeEvent() {
-    log(
-      "*** connections[target].signalingState  changed to: " +
-        connections[target].signalingState,
-    );
-    switch (connections[target].signalingState) {
-      case "closed":
-        break;
-    }
-  }
-
-  // Handle the |icegatheringstatechange| event. This lets us know what the
-  // ICE engine is currently working on: "new" means no networking has happened
-  // yet, "gathering" means the ICE engine is currently gathering candidates,
-  // and "complete" means gathering is complete. Note that the engine can
-  // alternate between "gathering" and "complete" repeatedly as needs and
-  // circumstances change.
-  //
-  // We don't need to do anything when this happens, but we log it to the
-  // console so you can see what's going on when playing with the sample.
-
   function handleICEGatheringStateChangeEvent() {
     log(
       "*** connections[target].iceGatheringState changed to: " +
@@ -545,19 +504,22 @@ async function createPeerConnection(target) {
   }
 }
 
-async function handleNewICECandidateMessage(message, target) {
+async function handleNewICECandidateMessage(
+  message: RTCIceCandidateInit,
+  target: string,
+) {
   log(
     "*** Adding received ICE candidate: " + JSON.stringify(message.candidate),
   );
-  const candidate = new RTCIceCandidate(message.candidate);
+  // const candidate = new RTCIceCandidate(message.candidate);
+  const candidate = new RTCIceCandidate(message);
 
-  // Lo
   console.log(connections[target]);
   await connections[target].addIceCandidate(candidate);
 }
 
 async function handleChatAnswerMessage(
-  message: RTCLocalSessionDescriptionInit,
+  message: RTCSessionDescriptionInit,
   target: string,
 ) {
   log("*** Call recipient has accepted our call");
@@ -565,35 +527,25 @@ async function handleChatAnswerMessage(
   // Configure the remote description, which is the SDP payload
   // in our "answer" message.
 
-  const desc = new RTCSessionDescription(message.sdp!);
+  // const desc = new RTCSessionDescription(message.sdp!);
+  const desc = new RTCSessionDescription(message);
 
   await connections[target].setRemoteDescription(desc).catch(console.error);
 }
 
 async function handleChatOffer(
-  message: RTCLocalSessionDescriptionInit,
-  target: keyof typeof connections,
+  message: RTCSessionDescriptionInit,
+  target: string,
 ) {
   if (!connections[target]) await createPeerConnection(target);
 
-  // If we're not already connected, create an RTCPeerConnection
-  // to be linked to the caller.
-
-  // log("Received chat offer from " + target);
-  // ed to set the remote description to the received SDP offer
-  // so that our local WebRTC layer knows how to talk to the caller.
-
   if (!message.sdp) return;
-
-  const desc = new RTCSessionDescription(message.sdp);
-
-  // If the connection isn't stable yet, wait for it...
+  // const desc = new RTCSessionDescription(message.sdp);
+  const desc = new RTCSessionDescription(message);
 
   if (connections[target].signalingState != "stable") {
     log("  - But the signaling state isn't stable, so triggering rollback");
 
-    // Set the local and remove descriptions for rollback; don't proceed
-    // until both return.
     await Promise.all([
       connections[target].setLocalDescription({ type: "rollback" }),
       connections[target].setRemoteDescription(desc),
@@ -603,8 +555,6 @@ async function handleChatOffer(
 
   log("  - Setting remote description");
   await connections[target].setRemoteDescription(desc);
-
-  // Get the webcam stream if we don't already have it
 
   log("---> Creating and sending answer to caller");
 
@@ -623,8 +573,6 @@ async function handleChatOffer(
   }));
 }
 
-// Called by the WebRTC layer to let us know when it's time to
-// begin, resume, or restart ICE negotiation.
 async function processWsMessage(event: { data: string }, source: "ws" | "rtc") {
   console.log(source, { event });
 
@@ -717,6 +665,3 @@ async function processWsMessage(event: { data: string }, source: "ws" | "rtc") {
 
   lastSeenTimestamp = data.timestamp;
 }
-
-// const wait = (timeout?: number) =>
-//   new Promise((resolve) => setTimeout(resolve, timeout));
