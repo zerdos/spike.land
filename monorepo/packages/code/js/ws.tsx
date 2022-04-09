@@ -520,7 +520,7 @@ async function handleNewICECandidateMessage(
 }
 
 async function handleChatAnswerMessage(
-  message: {sdp:RTCSessionDescriptionInit},
+  message: { sdp: RTCSessionDescriptionInit },
   target: string,
 ) {
   log("*** Call recipient has accepted our call");
