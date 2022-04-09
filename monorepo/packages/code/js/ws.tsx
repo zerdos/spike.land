@@ -180,7 +180,7 @@ async function broadcastCodeChange(sess: ICodeSession) {
   }
 }
 
-export async function join() {
+export async function join(App: JSX.Element) {
   roomName = roomName || room || "code-main";
 
   if (user) {
@@ -241,7 +241,7 @@ export async function join() {
       setChild: () => {},
       changes: [],
 
-      children: [globalThis.App],
+      children: [App],
       errorText: "",
     };
 

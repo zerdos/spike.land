@@ -29,7 +29,7 @@ const start = async (App) => {
   if (location.href.endsWith("hydrated")) return;
   globalThis.App = App;
   const { join } = await import("./ws");
-  join();
+  join(App);
 };
 
 export const hydrateBinary = async (binary) => {

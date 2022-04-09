@@ -1,3 +1,3 @@
-import { run } from "./starter.tsx";
+import { run } from "./starter";
 
 run();
