@@ -133,7 +133,7 @@ async function rejoin() {
 
     if (ws) return ws;
 
-    ws = await join(globalThis.App);
+    ws = await join(<></>);
 
     return ws;
   }
