@@ -3158,9 +3158,9 @@ camelcase@^5.0.0, camelcase@^5.3.1:
   integrity sha512-L28STB170nwWS63UjtlEOE3dldQApaJXZkOI1uMFfzf3rRuPegHaHesyee+YxQ+W6SvRDQV6UrdOdRiR153wJg==
 
 caniuse-lite@^1.0.30001317:
-  version "1.0.30001325"
-  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001325.tgz#2b4ad19b77aa36f61f2eaf72e636d7481d55e606"
-  integrity sha512-sB1bZHjseSjDtijV1Hb7PB2Zd58Kyx+n/9EotvZ4Qcz2K3d0lWB8dB4nb8wN/TsOGFq3UuAm0zQZNQ4SoR7TrQ==
+  version "1.0.30001327"
+  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001327.tgz#c1546d7d7bb66506f0ccdad6a7d07fc6d668c858"
+  integrity sha512-1/Cg4jlD9qjZzhbzkzEaAC2JHsP0WrOc8Rd/3a3LuajGzGWR/hD7TVyvq99VqmTy99eVh8Zkmdq213OgvgXx7w==
 
 capital-case@^1.0.4:
   version "1.0.4"
@@ -6986,10 +6986,10 @@ postcss@^8.3.8, postcss@^8.4.12:
     picocolors "^1.0.0"
     source-map-js "^1.0.2"
 
-preact-render-to-string@^5.1.20:
-  version "5.1.20"
-  resolved "https://registry.yarnpkg.com/preact-render-to-string/-/preact-render-to-string-5.1.20.tgz#9e61a478e8514e5c4140282c7c43d9747a6d32a9"
-  integrity sha512-ivh2oOGzth0o7XqbatWUQ81WQGoJwSqDKP5z917SoqTWYCAr7dlBzMv3SAMTAu3Gr5g47BJwrvyO44H2Y10ubg==
+preact-render-to-string@^5.1.21:
+  version "5.1.21"
+  resolved "https://registry.yarnpkg.com/preact-render-to-string/-/preact-render-to-string-5.1.21.tgz#7329a59191d2ca7a40635828c7058f64ffe17639"
+  integrity sha512-wbMtNU4JpfvbE04iCe7BZ1yLYN8i6NRrq+NhR0fUINjPXGu3ZIc4GM5ScOiwdIP1sPXv9SVETuud/tmQGMvdNQ==
   dependencies:
     pretty-format "^3.8.0"
 
