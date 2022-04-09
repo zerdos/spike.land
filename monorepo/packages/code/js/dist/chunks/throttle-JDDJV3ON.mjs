@@ -1,1 +1,0 @@
-import{a as g,b as u}from"./chunk-7PQ4F5JZ.mjs";import{b as l}from"./chunk-URSQB37F.mjs";var v=l((x,a)=>{var d=u(),c=g(),f="Expected a function";function E(n,t,e){var r=!0,i=!0;if(typeof n!="function")throw new TypeError(f);return c(e)&&(r="leading"in e?!!e.leading:r,i="trailing"in e?!!e.trailing:i),d(n,t,{leading:r,maxWait:t,trailing:i})}a.exports=E});export default v();

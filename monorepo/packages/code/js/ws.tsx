@@ -235,25 +235,24 @@ export async function join() {
     return wsConnection;
   });
 
-  // if (!w.sess) {
-  //   const session = {
-  //     ...mST(),
-  //     setChild: () => {},
-  //     changes: [],
+  if (!w.sess) {
+    const session = {
+      ...mST(),
+      setChild: () => {},
+      changes: [],
 
-  //     children: [globalThis.App],
-  //     errorText: "",
-  //   };
+      children: [globalThis.App],
+      errorText: "",
+    };
 
-  //   const stayFullscreen = location.pathname.endsWith("public");
-  //   const { quickStart } = await import("./quickStart");
-  //   quickStart(
-  //     session,
-  //     roomName,
-  //     stayFullscreen,
-  //   );
-
-  // }
+    const stayFullscreen = location.pathname.endsWith("public");
+    const { quickStart } = await import("./quickStart");
+    quickStart(
+      session,
+      roomName,
+      stayFullscreen,
+    );
+  }
 
   wsConnection.addEventListener(
     "message",
