@@ -504,14 +504,16 @@ async function createPeerConnection(target: string) {
 }
 
 async function handleNewICECandidateMessage(
-  message: RTCIceCandidateInit,
+  message: {
+    candidate: RTCIceCandidateInit;
+  },
   target: string,
 ) {
   log(
     "*** Adding received ICE candidate: " + JSON.stringify(message.candidate),
   );
-  // const candidate = new RTCIceCandidate(message.candidate);
-  const candidate = new RTCIceCandidate(message);
+  const candidate = new RTCIceCandidate(message.candidate);
+  // const candidate = new RTCIceCandidate(message);
 
   console.log(connections[target]);
   await connections[target].addIceCandidate(candidate);
