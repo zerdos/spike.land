@@ -101,7 +101,7 @@ export class Code {
           IPFS: false,
         },
         users: [],
-        state: { ...session},
+        state: { ...session },
         events: [],
       });
 
@@ -556,11 +556,11 @@ export class Code {
 
           return;
         }
-      } catch(exp) {
+      } catch (exp) {
         webSocket.send(
           JSON.stringify({
             error: "unknown error",
-            exp: exp | {}
+            exp: exp | {},
           }),
         );
       }

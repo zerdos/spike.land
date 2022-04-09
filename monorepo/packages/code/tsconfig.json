@@ -62,7 +62,8 @@
     "baseUrl": "js"
   },
   "include": [
-    "js", "js/importmap.json"
+    "js",
+    "js/importmap.json"
   ],
   "exclude": ["./js/vendor/**", "js/dist"],
   "paths": {
