@@ -535,14 +535,14 @@ async function handleChatAnswerMessage(
 }
 
 async function handleChatOffer(
-  message: RTCSessionDescriptionInit,
+  message: { sdp: RTCSessionDescriptionInit },
   target: string,
 ) {
   if (!connections[target]) await createPeerConnection(target);
 
   if (!message.sdp) return;
-  // const desc = new RTCSessionDescription(message.sdp);
-  const desc = new RTCSessionDescription(message);
+  const desc = new RTCSessionDescription(message.sdp);
+  // const desc = new RTCSessionDescription(message);
 
   if (connections[target].signalingState != "stable") {
     log("  - But the signaling state isn't stable, so triggering rollback");
