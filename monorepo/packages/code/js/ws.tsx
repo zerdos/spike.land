@@ -520,7 +520,7 @@ async function handleNewICECandidateMessage(
 }
 
 async function handleChatAnswerMessage(
-  message: RTCSessionDescriptionInit,
+  message: {sdp:RTCSessionDescriptionInit},
   target: string,
 ) {
   log("*** Call recipient has accepted our call");
@@ -528,8 +528,8 @@ async function handleChatAnswerMessage(
   // Configure the remote description, which is the SDP payload
   // in our "answer" message.
 
-  // const desc = new RTCSessionDescription(message.sdp!);
-  const desc = new RTCSessionDescription(message);
+  const desc = new RTCSessionDescription(message.sdp);
+  // const desc = new RTCSessionDescription(message);
 
   await connections[target].setRemoteDescription(desc).catch(console.error);
 }
