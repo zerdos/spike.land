@@ -63,7 +63,7 @@ const mySession = startSession(room, {
 
 const mST = () => mySession.json().state;
 
-let intervalHandler: number | null = null;
+let intervalHandler: NodeJS.Timer | null = null;
 
 // Function createPatch(oldCode, newCode) {
 //   return JSON.stringify(createDelta(oldCode, newCode));
