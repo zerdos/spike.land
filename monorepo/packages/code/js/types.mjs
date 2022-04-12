@@ -1,8 +1,7 @@
-import reactDts from "@types/react/index.d.ts?text";
-import jsxRuntimeDts from "@types/react/jsx-runtime.d.ts?text";
-import jsxDevRuntimeDts from "@types/react/jsx-dev-runtime.d.ts?text";
-import reactExpDts from "@types/react/experimental.d.ts?text";
-import globalDts from "@types/react/global.d.ts?text";
+import reactDts from "../../../node_modules/@types/react/index.d.ts?text";
+import jsxRuntimeDts from "../../../node_modules/@types/react/jsx-runtime.d.ts?text";
+// import reactExpDts from "@types/react/experimental.d.ts?text";
+// import globalDts from "@types/react/global.d.ts?text";
 import propTypesDts from "@types/prop-types/index.d.ts?text";
 import cssTypeDts from "csstype/index.d.ts?text";
 import framerDts from "./types/framer.d.ts?text";
@@ -23,10 +22,9 @@ import emotionUtilsDts from "@emotion/utils/types/index.d.ts?text";
 
 export const dtsFiles = {
   reactDts,
-  jsxDevRuntimeDts,
   jsxRuntimeDts,
-  reactExpDts,
-  globalDts,
+  // reactExpDts,
+  // globalDts,
   propTypesDts,
   cssTypeDts,
   framerDts,

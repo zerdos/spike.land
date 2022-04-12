@@ -12,10 +12,10 @@ import pAll from "p-all";
 
 const {
   reactDts,
-  jsxDevRuntimeDts,
+  // jsxDevRuntimeDts,
   jsxRuntimeDts,
-  reactExpDts,
-  globalDts,
+  // reactExpDts,
+  // globalDts,
   propTypesDts,
   cssTypeDts,
   framerDts,
@@ -171,19 +171,19 @@ export const startMonaco = async (
       },
       {
         name: "react/jsx-dev-runtime",
-        url: jsxDevRuntimeDts,
+        url: jsxRuntimeDts,
         depend: ["global", "csstype", "prop-types"],
       },
-      {
-        name: "react-exp",
-        url: reactExpDts,
-        depend: [],
-      },
-      {
-        name: "global",
-        url: globalDts,
-        depend: [],
-      },
+      // {
+      // name: "react-exp",
+      // url: reactExpDts,
+      // depend: [],
+      // },
+      // {
+      // name: "global",
+      // url: globalDts,
+      // depend: [],
+      // },
       {
         name: "prop-types",
         url: propTypesDts,
