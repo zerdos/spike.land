@@ -104,7 +104,7 @@
     "react": "npm:@preact/compat@17.0.3",
     "regenerator-runtime": "0.13.9",
     "stream-browserify": "^3.0.0",
-    "textdiff-create": "1.0.8",
+    "textdiff-create": "1.0.9",
     "textdiff-patch": "1.0.7",
     "workbox-cacheable-response": "6.5.3",
     "workbox-cli": "6.5.3",
