@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "[Real time React page editor, in typescript! ![Screenshot](./spike.land-1920x1080.png)](https://spike.land)",
   "devDependencies": {
-    "@cloudflare/workers-types": "3.4.0",
+    "@cloudflare/workers-types": "3.5.0",
     "@jspm/generator": "1.0.0-beta.30",
     "@playwright/test": "1.21.0",
     "esbuild": "0.14.36",
