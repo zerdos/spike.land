@@ -16,6 +16,6 @@
   "dependencies": {
     "@types/websocket": "1.0.5",
     "esbuild-wasm": "0.14.36",
-    "textdiff-patch": "1.0.7"
+    "textdiff-patch": "1.0.9"
   }
 }
