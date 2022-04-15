@@ -2982,7 +2982,7 @@ function createProjectionNode(_a) {
             return;
           }
           var layoutTransition = (_c = (_b2 = _this.options.transition) !== null && _b2 !== void 0 ? _b2 : visualElement2.getDefaultTransition()) !== null && _c !== void 0 ? _c : defaultLayoutTransition;
-          var onLayoutAnimationComplete = visualElement2.getProps().onLayoutAnimationComplete;
+          var _g = visualElement2.getProps(), onLayoutAnimationStart = _g.onLayoutAnimationStart, onLayoutAnimationComplete = _g.onLayoutAnimationComplete;
           var targetChanged = !_this.targetLayout || !boxEquals(_this.targetLayout, newLayout) || hasRelativeTargetChanged;
           var hasOnlyRelativeTargetChanged = !hasLayoutChanged && hasRelativeTargetChanged;
           if (((_d = _this.resumeFrom) === null || _d === void 0 ? void 0 : _d.instance) || hasOnlyRelativeTargetChanged || hasLayoutChanged && (targetChanged || !_this.currentAnimation)) {
@@ -2991,7 +2991,7 @@ function createProjectionNode(_a) {
               _this.resumingFrom.resumingFrom = void 0;
             }
             _this.setAnimationOrigin(delta, hasOnlyRelativeTargetChanged);
-            var animationOptions = __assign(__assign({}, getValueTransition(layoutTransition, "layout")), { onComplete: onLayoutAnimationComplete });
+            var animationOptions = __assign(__assign({}, getValueTransition(layoutTransition, "layout")), { onPlay: onLayoutAnimationStart, onComplete: onLayoutAnimationComplete });
             if (visualElement2.shouldReduceMotion) {
               animationOptions.delay = 0;
               animationOptions.type = false;
@@ -3386,6 +3386,7 @@ function createProjectionNode(_a) {
     ProjectionNode.prototype.startAnimation = function(options) {
       var _this = this;
       var _a2, _b;
+      this.notifyListeners("animationStart");
       (_a2 = this.currentAnimation) === null || _a2 === void 0 ? void 0 : _a2.stop();
       if (this.resumingFrom) {
         (_b = this.resumingFrom.currentAnimation) === null || _b === void 0 ? void 0 : _b.stop();
@@ -4048,6 +4049,7 @@ var validMotionProps = /* @__PURE__ */ new Set([
   "layout",
   "layoutId",
   "layoutDependency",
+  "onLayoutAnimationStart",
   "onLayoutAnimationComplete",
   "onLayoutMeasure",
   "onBeforeLayoutMeasure",
@@ -5912,6 +5914,7 @@ var names = [
   "AnimationComplete",
   "LayoutAnimationComplete",
   "AnimationStart",
+  "LayoutAnimationStart",
   "SetAxisTarget",
   "Unmount"
 ];
