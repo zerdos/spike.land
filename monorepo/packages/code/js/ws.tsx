@@ -1,7 +1,7 @@
 import type { ICodeSession } from "./session";
 import debounce from "lodash/debounce";
 import uidV4 from "./uidV4.mjs";
-import type * as monaco from "monaco-editor";
+import * as monaco from "monaco-editor";
 
 const webRtcArray: (RTCDataChannel & { target: string })[] = [];
 const hostname = window.location.hostname || "spike.land";

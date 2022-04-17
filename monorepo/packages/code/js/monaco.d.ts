@@ -1,3 +1,4 @@
-declare global {
-  let MonacoEnvironment: Environment | undefined;
+import type * as monaco from "monaco-editor";
+interface globalThis {
+  MonacoEnvironment: monaco.Environment;
 }

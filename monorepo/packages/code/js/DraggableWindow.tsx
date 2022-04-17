@@ -47,13 +47,14 @@ interface DraggableWindowProps {
   onRestore: (() => void);
   hashCode: number;
   session: ICodeSession & {
-    setChild: Dispatch<SetStateAction<ReactNode[]>>;
+    setChild: Dispatch<SetStateAction<JSX.Element[]>>;
     url: string;
     errorText: string;
   };
   keepFullScreen: boolean;
   position?: string;
   room: string;
+  children: JSX.Element;
 }
 
 export const DraggableWindow: FC<DraggableWindowProps> = (
@@ -319,7 +320,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
                         setErrorText("");
                       }}
                     >
-                      Restore
+                      <span>Restore</span>
                     </Button>
                   </div>
                 )}

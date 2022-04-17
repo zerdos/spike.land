@@ -45,7 +45,8 @@ export const run = async () => {
   );
 
   const session = await respS.json();
-  const container = document.getElementById("root");
+  const container = document.getElementById("root") ||
+    document.createElement("div");
   container.innerHTML =
     `<style>${session.css}</style><div id="zbody">${session.html}</div>`;
 
@@ -54,16 +55,8 @@ export const run = async () => {
   start(App);
 };
 
-export function createJsBlob(code) {
+export function createJsBlob(code: string) {
   const blob = new Blob([code], { type: "application/javascript" });
 
   return URL.createObjectURL(blob);
-}
-
-async function wait(delay) {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve();
-    }, delay);
-  });
 }

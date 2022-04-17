@@ -45,7 +45,9 @@ const Phone = createSvgIcon(
   "PhoneAndroid",
 );
 
-const MyButton: FC<{ onClick: () => any }> = ({ onClick, children }) => (
+const MyButton: FC<{ onClick: () => any; children: JSX.Element }> = (
+  { onClick, children },
+) => (
   <Button variant="contained" color="primary" onClick={onClick}>
     {children}
   </Button>
@@ -88,7 +90,9 @@ const Tv = createSvgIcon(
   "Tv",
 );
 
-const MyFsb: FC<{ onClick: () => void }> = ({ onClick, children }) => (
+const MyFsb: FC<{ onClick: () => void; children: JSX.Element }> = (
+  { onClick, children },
+) => (
   <Fab
     variant="extended"
     color="primary"

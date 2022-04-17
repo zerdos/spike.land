@@ -32,7 +32,7 @@ const {
   emotionUtilsDts,
 } = dtsFiles;
 
-MonacoEnvironment = {
+self.MonacoEnvironment = {
   getWorkerUrl: function (_workerId, label) {
     if (label === "typescript" || label === "javascript") {
       return "dist/workers/language/typescript/ts.worker.js";
