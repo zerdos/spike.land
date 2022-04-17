@@ -11,3 +11,7 @@ bindings = [
     { name = "CODE", class_name = "Code" },
     { name = "LIMITERS", class_name = "CodeRateLimiter" }
 ]
+
+[[migrations]]
+tag = "v1" # Should be unique for each entry
+new_classes = ["CodeRateLimiter", "Code"] #
