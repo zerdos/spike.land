@@ -1,14 +1,11 @@
 {
   "cSpell.words": [
-    "Erdos",
-    "Roboto",
-    "SHAKV",
-    "Zkey",
-    "Zoltan",
     "cids",
+    "codicon",
     "comlink",
     "darkred",
     "deno",
+    "Erdos",
     "esbuild",
     "ipfs",
     "js",
@@ -17,11 +14,15 @@
     "nocheck",
     "outfile",
     "prebuild",
+    "Roboto",
     "shadb",
+    "SHAKV",
     "src",
     "transpiled",
     "zbody",
-    "zedvision"
+    "zedvision",
+    "Zkey",
+    "Zoltan"
   ],
   "deno.enable": true,
   "deno.config": "./tsconfig.json",

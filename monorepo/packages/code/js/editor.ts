@@ -1,12 +1,12 @@
 import * as monaco from "monaco-editor";
 import "monaco-editor/min/vs/editor/editor.main.css";
 import { dtsFiles } from "./types.mjs";
-import { parse } from "@babel/parser";
-import traverse from "@babel/traverse";
-import MonacoJSXHighlighter from "monaco-jsx-highlighter";
-import Buffer from "buffer";
+// import { parse } from "@babel/parser";
+// import traverse from "@babel/traverse";
+// import MonacoJSXHighlighter from "monaco-jsx-highlighter";
+// import Buffer from "buffer";
 
-globalThis.Buffer = Buffer;
+// globalThis.Buffer = Buffer;
 
 import pAll from "p-all";
 
@@ -32,8 +32,8 @@ const {
   emotionUtilsDts,
 } = dtsFiles;
 
-self.MonacoEnvironment = {
-  getWorkerUrl: function (moduleId: string, label: string) {
+MonacoEnvironment = {
+  getWorkerUrl: function (_workerId, label) {
     if (label === "typescript" || label === "javascript") {
       return "dist/workers/language/typescript/ts.worker.js";
     }
