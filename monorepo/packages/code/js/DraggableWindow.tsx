@@ -409,9 +409,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
                   <Phone
                     css={css`
                         color: ${
-                      width === 680
-                        ? "rgba(255,255,255,.8)"
-                        : "rgba(0,0,0,.3)"
+                      width === 680 ? "rgba(255,255,255,.8)" : "rgba(0,0,0,.3)"
                     };
                         `}
                   />
@@ -432,8 +430,9 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
                     <Tv
                       css={css`
                         color: ${
-                        width === 1920 ? "rgba(255,255,255,.8)"
-                        : "rgba(0,0,0,.3)"
+                        width === 1920
+                          ? "rgba(255,255,255,.8)"
+                          : "rgba(0,0,0,.3)"
                       };
                       `}
                     />

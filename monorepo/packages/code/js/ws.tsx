@@ -1,7 +1,7 @@
 import type { ICodeSession } from "./session";
 import debounce from "lodash/debounce";
 import uidV4 from "./uidV4.mjs";
-import * as monaco from "monaco-editor";
+import type * as monaco from "monaco-editor";
 
 const webRtcArray: (RTCDataChannel & { target: string })[] = [];
 const hostname = window.location.hostname || "spike.land";
@@ -65,19 +65,6 @@ const mST = () => mySession.json().state;
 
 let intervalHandler: NodeJS.Timer | null = null;
 
-// Function createPatch(oldCode, newCode) {
-//   return JSON.stringify(createDelta(oldCode, newCode));
-// }
-
-// let importTools = async () => {
-// if (toolsImported) return toolsImported;
-
-// import("textdiff-create").then((mod) => createDelta = mod.default);
-// import("textdiff-patch").then((mod) => applyPatch = mod.default);
-
-// toolsImported = true;
-// return toolsImported;
-// };
 setInterval(() => {
   if (Date.now() - lastSeenNow > 40_000) {
     rejoined = false;
