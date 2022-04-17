@@ -58,7 +58,7 @@ RUN apt-get update && \
     libexpat1-dev \
     gettext \
     gpg \
-&& curl -Lo /usr/src/git.tar.gz  https://github.com/git/git/archive/v2.35.1.tar.gz \
+&& curl -Lo /usr/src/git.tar.gz  https://github.com/git/git/archive/v2.35.3.tar.gz \
 && tar -C /usr/src/ -xf /usr/src/git.tar.gz && cd /usr/src/git-* \
 && make prefix=/usr/local all \
 && make prefix=/usr/local install \
@@ -71,7 +71,7 @@ RUN apt-get update && \
 && apt-get autoremove -y \
 && apt-get clean -y \
 && rm -rf /tmp/* /var/lib/apt/lists/* /usr/src/*
-ENV NODE_VERSION 17.8.0
+ENV NODE_VERSION 17.9.0
 
 RUN ARCH= && dpkgArch="$(dpkg --print-architecture)" \
   && case "${dpkgArch##*-}" in \
@@ -286,7 +286,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends unzip \
   && rm -rf /var/lib/apt/lists/* 
 
 USER ${USER}
-RUN curl -fsSL https://deno.land/x/install/install.sh | sh -s v1.20.4 \
+RUN curl -fsSL https://deno.land/x/install/install.sh | sh -s v1.20.6 \
   && echo "export DENO_INSTALL=\"\${HOME}/.deno\"" >> ${HOME}/.zshrc \
   && echo "export DENO_INSTALL=\"\${HOME}/.deno\"" >> ${HOME}/.bashrc \
   && echo "export PATH=\"\$DENO_INSTALL/bin:\$PATH\"" >> ${HOME}/.bashrc \

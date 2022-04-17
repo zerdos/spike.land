@@ -4,11 +4,11 @@ import { promises as fs } from "fs";
 // versions.json
 var node = {
   lts: "16.14.2",
-  current: "17.8.0"
+  current: "17.9.0"
 };
-var deno = "1.20.4";
-var git = "2.35.1";
-var cypress = "9.5.3";
+var deno = "1.20.6";
+var git = "2.35.3";
+var cypress = "9.5.4";
 var yarn = "1.22.18";
 var dotnet3 = "3.1.417";
 var dotnet5 = "5.0.406";
