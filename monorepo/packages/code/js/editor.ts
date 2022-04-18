@@ -32,7 +32,7 @@ const {
   emotionUtilsDts,
 } = dtsFiles;
 
-MonacoEnvironment = {
+let monEnv: typeof MonacoEnvironment = {
   getWorkerUrl: function (_workerId, label) {
     if (label === "typescript" || label === "javascript") {
       return "dist/workers/language/typescript/ts.worker.js";
@@ -41,7 +41,7 @@ MonacoEnvironment = {
   },
 };
 
-Object.assign(globalThis, { MonacoEnvironment });
+Object.assign(globalThis, { MonacoEnvironment: monEnv });
 
 let started = false;
 
