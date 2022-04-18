@@ -32,7 +32,7 @@ const {
   emotionUtilsDts,
 } = dtsFiles;
 
-self.MonacoEnvironment = {
+MonacoEnvironment = {
   getWorkerUrl: function (_workerId, label) {
     if (label === "typescript" || label === "javascript") {
       return "dist/workers/language/typescript/ts.worker.js";
@@ -40,6 +40,8 @@ self.MonacoEnvironment = {
     return "dist/workers/editor/editor.worker.js";
   },
 };
+
+Object.assign(globalThis, { MonacoEnvironment });
 
 let started = false;
 
@@ -125,16 +127,16 @@ export const startMonaco = async (
     autoClosingBrackets: "languageDefined",
   });
 
-  const defaultOptions = {
-    parser: "babel", // for reference only, only babel is supported right now
-    isHighlightGlyph: false, // if JSX elements should decorate the line number gutter
-    iShowHover: false, // if JSX types should  tooltip with their type info
-    isUseSeparateElementStyles: false, // if opening elements and closing elements have different styling
-    // you can pass your own custom APIs, check core/ and utils/ for more details
-    monacoEditorManager: null,
-    decoratorMapper: null,
-    jsxCommenter: null,
-  };
+  // const defaultOptions = {
+  //   parser: "babel", // for reference only, only babel is supported right now
+  //   isHighlightGlyph: false, // if JSX elements should decorate the line number gutter
+  //   iShowHover: false, // if JSX types should  tooltip with their type info
+  //   isUseSeparateElementStyles: false, // if opening elements and closing elements have different styling
+  //   // you can pass your own custom APIs, check core/ and utils/ for more details
+  //   monacoEditorManager: null,
+  //   decoratorMapper: null,
+  //   jsxCommenter: null,
+  // };
 
   // const monacoJSXHighlighter = new MonacoJSXHighlighter(
   //   monaco,
