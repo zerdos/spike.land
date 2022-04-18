@@ -18,21 +18,23 @@ const room =
     : (path.pop() || path.pop())!.slice(-12)) ||
   "code-main";
 
-const start = async (App) => {
-  globalThis.monacoEditorModule = import("./editor");
-  globalThis.renderPreviewModule = import("./renderPreviewWindow");
-  const container = document.querySelector("#root");
+const start = async (App: JSX.Element) => {
+  const e = import("./editor");
+  const p = import("./renderPreviewWindow");
+  const container = document.querySelector("#root") ||
+    document.createElement("div");
 
   hydrate(container, jsx(App));
 
   console.log("HYDRATED");
   if (location.href.endsWith("hydrated")) return;
-  globalThis.App = App;
+  Object.assign(globalThis, { App });
   const { join } = await import("./ws");
   join(App);
+  await (Promise.all([e, p]));
 };
 
-export const hydrateBinary = async (binary) => {
+export const hydrateBinary = async (binary: string) => {
   const App = (await import(createJsBlob(fromBinary(binary)))).default;
   start(App);
 };

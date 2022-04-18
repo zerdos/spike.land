@@ -15,7 +15,7 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
-    "module": "commonjs",
+    "module": "esnext",
     "jsxImportSource": "@emotion/react",
     "sourceMap": true,
     "noUnusedLocals": true,
@@ -63,7 +63,7 @@
  
   },
   "include": [
-    "js/**/*"
+    "js/**/*", "js/**/*.json"
   ],
   "exclude": ["./js/vendor/**", "js/dist"],
   "paths": {
