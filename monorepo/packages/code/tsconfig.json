@@ -13,7 +13,6 @@
     "module": "esnext",
     "allowJs": true,
     "noFallthroughCasesInSwitch": true,
-    "composite": true,
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
@@ -60,11 +59,11 @@
     /* Advanced Options */
     "skipLibCheck": false, /* Skip type checking of declaration files. */
     "forceConsistentCasingInFileNames": true, /* Disallow inconsistently-cased references to the same file. */
-    "baseUrl": "js"
+    "baseUrl": "js",
+ 
   },
   "include": [
-    "js",
-    "js/*.json"
+    "js/**/*"
   ],
   "exclude": ["./js/vendor/**", "js/dist"],
   "paths": {
@@ -77,7 +76,6 @@
     "create-react-class": "preact-compat/lib/create-react-class",
     // Not necessary unless you consume a module requiring `react-dom-factories`
     "react-dom-factories": "preact-compat/lib/react-dom-factories",
-    "*.json": ["*"],
     "*.ts": ["*"],
     "*.tsx": ["*"]
   }

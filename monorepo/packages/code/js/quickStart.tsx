@@ -15,9 +15,7 @@ export async function startMonacoWithSession(session) {
   console.log("start monaco with session");
   const monacoEditorDom = document.querySelector("#monacoEditor");
 
-  startMonaco = startMonaco ||
-    ((globalThis.monacoEditorModule && await globalThis.monacoEditorModule) ||
-      await import("./editor.ts")).startMonaco;
+  const { startMonaco } = await import("./editor");
 
   const onchangeCode = (ev) =>
     runner(editor.getModel().getValue(), ev.changes, session, ++session.i);
@@ -36,7 +34,7 @@ export async function startMonacoWithSession(session) {
   );
   editor.onDidChangeModelContent(onchangeCode);
 
-  window.monaco = monaco;
+  Object.assign(window, { monaco });
   session.editor = editor;
 
   // monaco.languages.registerOnTypeFormattingEditProvider("typescript", {
@@ -189,22 +187,11 @@ export const startFromCode = async ({ code }) => {
 export async function quickStart(session, room, keepFullScreen) {
   // Session.children = await getReactChild(session.transpiled);
   session.children = null;
-  const { renderPreviewWindow } =
-    (globalThis.renderPreviewModule && await globalThis.renderPreviewModule) ||
-    await import(
-      "./renderPreviewWindow.tsx"
-    );
+  const { renderPreviewWindow } = await import(
+    "./renderPreviewWindow"
+  );
 
   await renderPreviewWindow(session, room, keepFullScreen);
-
-  // If (localStorage && session) {
-  //   const { code, transpiled, html, css, i } = session;
-  //   localStorage.setItem(
-  //     `state-${session.room}`,
-  //     JSON.stringify({ code, transpiled, html, css, i }),
-  //   );
-  // }
-  // // document.getElementById("root").remove();
 
   if (!keepFullScreen) {
     await startMonacoWithSession(session);
