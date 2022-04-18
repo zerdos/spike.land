@@ -16,6 +16,7 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
+    "jsxFactory": "EmotionReact.jsx",
     "jsxImportSource": "@emotion/react",
     "sourceMap": true,
     "noUnusedLocals": true,
