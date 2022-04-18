@@ -15,4 +15,4 @@ export const babelTransform = async (code: string) =>
         ["typescript", { isTSX: true, allExtensions: true }],
       ],
     },
-  )).code;
+  )).code || "";

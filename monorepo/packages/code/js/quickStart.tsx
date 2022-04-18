@@ -1,10 +1,5 @@
 import { jsx } from "@emotion/react";
 
-let transform;
-let startMonaco;
-let babelTransform;
-let getHtmlAndCss;
-
 export const initSession = (await import("./session")).default;
 
 export const prettier = (await import("./prettierEsm")).formatter;
@@ -80,13 +75,12 @@ async function getErrors({ monaco, editor }) {
 
 async function runner(c, changes = null, session, counter) {
   session.changes.push(changes);
-  babelTransform = babelTransform ||
-    (await import("./babelEsm.ts")).babelTransform;
+  const { babelTransform } = await import("./babelEsm");
 
   // esbuildEsmTransform = esbuildEsmTransform ||
   //   (await import("./esbuildEsm.ts")).transform;
 
-  transform = babelTransform;
+  const transform = babelTransform;
 
   session.errorText = "";
 
@@ -103,7 +97,7 @@ async function runner(c, changes = null, session, counter) {
       }
 
       try {
-        const { getHtmlAndCss } = await import("./renderToString.tsx");
+        const { getHtmlAndCss } = await import("./renderToString");
 
         if (counter < session.i) {
           return;
@@ -136,7 +130,7 @@ async function runner(c, changes = null, session, counter) {
           return;
         }
 
-        const { saveCode } = await import("./ws.tsx");
+        const { saveCode } = await import("./ws");
 
         saveCode({ transpiled, code, i: counter, css, html });
         // }, 10);
@@ -167,9 +161,9 @@ async function runner(c, changes = null, session, counter) {
     if (error.length > 0) {
       console.log({ err: error });
     }
-  } catch (error) {
-    session.errorText = error.message;
-    console.error(error.message);
+  } catch ({ error }) {
+    session.errorText = error;
+    console.error({ error });
   }
 }
 
