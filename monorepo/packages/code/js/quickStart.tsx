@@ -1,4 +1,5 @@
 import { jsx } from "@emotion/react";
+import { ICodeSession } from "./session";
 
 export const initSession = (await import("./session")).default;
 
@@ -178,9 +179,13 @@ export const startFromCode = async ({ code }) => {
   await quickStart(session);
 };
 
-export async function quickStart(session, room, keepFullScreen) {
+export async function quickStart(
+  session: ICodeSession,
+  room: string,
+  keepFullScreen: boolean,
+) {
   // Session.children = await getReactChild(session.transpiled);
-  session.children = null;
+  // session.children = null;
   const { renderPreviewWindow } = await import(
     "./renderPreviewWindow"
   );
@@ -192,7 +197,7 @@ export async function quickStart(session, room, keepFullScreen) {
   }
 }
 
-async function getReactChild(transpiled, mode = "window") {
+async function getReactChild(transpiled: string, mode = "window") {
   const codeToHydrate = mode === "window"
     ? transpiled.replace("body{", "#zbody{")
     : transpiled;
