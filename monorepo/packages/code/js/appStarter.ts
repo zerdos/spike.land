@@ -1,10 +1,11 @@
 // import { Workbox } from "workbox-window";
 import "es-module-shims";
-import imap from "./mockedMap.json" assert { type: "json" };
+
+import imap from "./mockedMap.json";
 
 // const esbuild = import("./esbuildEsm.ts");
 
-window.esmsInitOptions = {
+const smsInitOptions: ESMSInitOptions = {
   shimMode: false,
   revokeBlobURLs: true,
   fetch: fetch,
@@ -16,6 +17,8 @@ window.esmsInitOptions = {
   noLoadEventRetriggers: true,
   skip: /^https?:\/\/(cdn\.skypack\.dev|jspm\.dev)\//,
 };
+
+Object.assign(window, { smsInitOptions });
 
 // async function myFetch(input: RequestInfo, init?: RequestInit) {
 //   const url = input.toString();

@@ -63,7 +63,7 @@ const mySession = startSession(room, {
 
 const mST = () => mySession.json().state;
 
-let intervalHandler: NodeJS.Timer | null = null;
+let intervalHandler: number | null = null;
 
 setInterval(() => {
   if (Date.now() - lastSeenNow > 40_000) {

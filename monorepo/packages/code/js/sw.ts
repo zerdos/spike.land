@@ -11,6 +11,7 @@ self.addEventListener("activate", function (e) {
       clients.forEach((client) => client.navigate(client.url));
     });
 });
+export {};
 
 //import { precacheAndRoute } from "workbox-precaching";
 //import { registerRoute } from "workbox-routing";

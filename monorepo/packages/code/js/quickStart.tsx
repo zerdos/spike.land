@@ -1,24 +1,13 @@
 import { jsx } from "@emotion/react";
 
-let formatter;
 let transform;
-
 let startMonaco;
-// Let esbuildTransform;
 let babelTransform;
 let getHtmlAndCss;
-let initSess;
 
-export const initSession = async (room, initData) => {
-  initSess = initSess || (await import("./session.tsx")).default;
+export const initSession = (await import("./session")).default;
 
-  return initSess(room, initData);
-};
-
-export const prettier = async (code) => {
-  formatter = formatter || (await import("./prettierEsm.ts")).formatter;
-  return await formatter(code);
-};
+export const prettier = (await import("./prettierEsm")).formatter;
 
 // //
 
