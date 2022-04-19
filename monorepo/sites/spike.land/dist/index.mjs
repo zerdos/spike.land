@@ -577,7 +577,7 @@ var require_textdiff_create = __commonJS({
   }
 });
 
-// ../../packages/code/package.json
+// node_modules/@spike.land/code/package.json
 var version = "0.7.545";
 
 // ../../packages/cf-npm-site/dist/index.mjs
@@ -934,7 +934,7 @@ var hydrated_default = `<!DOCTYPE html>
 </body>
 </html>`;
 
-// ../../packages/code/js/binary.ts
+// node_modules/@spike.land/code/js/binary.ts
 function toBinary(string) {
   const codeUnits = new Uint16Array(string.length);
   for (let i = 0; i < codeUnits.length; i++) {
@@ -5181,7 +5181,7 @@ function setProp(prototype, name) {
   }
 }
 
-// ../../packages/code/js/session.tsx
+// node_modules/@spike.land/code/js/session.tsx
 var import_textdiff_create = __toESM(require_textdiff_create());
 var import_textdiff_patch = __toESM(require_textdiff_patch());
 function initSession(room, u) {
@@ -5296,7 +5296,7 @@ function createPatch(oldCode, newCode) {
   return JSON.stringify((0, import_textdiff_create.default)(oldCode, newCode));
 }
 
-// ../../packages/code/js/mockedMap.json
+// node_modules/@spike.land/code/js/mockedMap.json
 var imports = {
   react: "https://spike.land/dist/react.mjs",
   "react-dom": "https://spike.land/dist/react.mjs",
