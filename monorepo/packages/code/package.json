@@ -74,7 +74,7 @@
     "@emotion/styled": "^11.8.1",
     "@emotion/utils": "^1.1.0",
     "@emotion/weak-memoize": "0.2.5",
-    "@mui/material": "^5.6.1",
+    "@mui/material": "^5.6.2",
     "@spike.land/qrious": "^0.7.510",
     "@types/babel__core": "^7.1.19",
     "@types/babel__standalone": "^7.1.4",
