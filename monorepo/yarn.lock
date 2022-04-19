@@ -6107,10 +6107,10 @@ modify-values@^1.0.0:
   resolved "https://registry.yarnpkg.com/modify-values/-/modify-values-1.0.1.tgz#b3939fa605546474e3e3e3c63d64bd43b4ee6022"
   integrity sha512-xV2bxeN6F7oYjZWTe/YPAy6MN2M+sL4u/Rlm2AHCIVGfo2p1yGmBHQ6vHehl4bRTZBdHu3TSkWdYgkwpYzAGSw==
 
-monaco-editor@0.34.0-dev.20220418:
-  version "0.34.0-dev.20220418"
-  resolved "https://registry.yarnpkg.com/monaco-editor/-/monaco-editor-0.34.0-dev.20220418.tgz#971f3850f9c15ec6cd0a7bb0d814c71d4567ad08"
-  integrity sha512-CjXJhhuowOOK9wU6h7S6nCuwJubpto9CfCkrlM+tromw38POb+0qbUy+dWTLte+FDyoUjpjzT3Wxi7u6oohqig==
+monaco-editor@0.34.0-dev.20220419:
+  version "0.34.0-dev.20220419"
+  resolved "https://registry.yarnpkg.com/monaco-editor/-/monaco-editor-0.34.0-dev.20220419.tgz#e250f4d553d6fc338be92c33b38b63af908ed527"
+  integrity sha512-bZcGm5cu1vqte1EPwsb2U3aAQnD4ch6c67x2Wib12J7Yg1gAOPoKcBTkNZmlDXPRgNrtX0s2dK9BUGgFRyDBTg==
 
 monaco-jsx-highlighter@^2.0.4:
   version "2.0.4"
