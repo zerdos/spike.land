@@ -577,8 +577,8 @@ var require_textdiff_create = __commonJS({
   }
 });
 
-// node_modules/@spike.land/code/package.json
-var version = "0.7.545";
+// ../../packages/code/package.json
+var version = "0.7.548";
 
 // ../../packages/cf-npm-site/dist/index.mjs
 function src_default(packageName, version2, serveDir = "") {
@@ -934,7 +934,7 @@ var hydrated_default = `<!DOCTYPE html>
 </body>
 </html>`;
 
-// node_modules/@spike.land/code/js/binary.ts
+// ../../packages/code/js/binary.ts
 function toBinary(string) {
   const codeUnits = new Uint16Array(string.length);
   for (let i = 0; i < codeUnits.length; i++) {
@@ -5181,7 +5181,7 @@ function setProp(prototype, name) {
   }
 }
 
-// node_modules/@spike.land/code/js/session.tsx
+// ../../packages/code/js/session.tsx
 var import_textdiff_create = __toESM(require_textdiff_create());
 var import_textdiff_patch = __toESM(require_textdiff_patch());
 function initSession(room, u) {
@@ -5296,13 +5296,12 @@ function createPatch(oldCode, newCode) {
   return JSON.stringify((0, import_textdiff_create.default)(oldCode, newCode));
 }
 
-// node_modules/@spike.land/code/js/mockedMap.json
+// ../../packages/code/js/mockedMap.json
 var imports = {
   react: "https://spike.land/dist/react.mjs",
   "react-dom": "https://spike.land/dist/react.mjs",
   "framer-motion": "https://spike.land/dist/framer-motion.mjs",
   "@emotion/react": "https://spike.land/dist/emotion.mjs",
-  "react/jsx-runtime": "https://spike.land/dist/emotion.mjs",
   tslib: "https://ga.jspm.io/npm:tslib@2.3.1/tslib.es6.js"
 };
 var mockedMap_default = {
