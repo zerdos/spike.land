@@ -578,7 +578,7 @@ var require_textdiff_create = __commonJS({
 });
 
 // ../../packages/code/package.json
-var version = "0.7.539";
+var version = "0.7.540";
 
 // ../../packages/cf-npm-site/dist/index.mjs
 function src_default(packageName, version2, serveDir = "") {
@@ -5301,7 +5301,8 @@ var imports = {
   react: "https://spike.land/dist/react.mjs",
   "react-dom": "https://spike.land/dist/react.mjs",
   "framer-motion": "https://spike.land/dist/framer-motion.mjs",
-  "@emotion/react": "https://spike.land/dist/emotion.mjs"
+  "@emotion/react": "https://spike.land/dist/emotion.mjs",
+  tslib: "https://ga.jspm.io/npm:tslib@2.3.1/tslib.es6.js"
 };
 var mockedMap_default = {
   imports
