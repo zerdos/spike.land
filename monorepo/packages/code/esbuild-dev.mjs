@@ -86,7 +86,7 @@ const build = (entryPoints) =>
     sourcemap: isDevelopment,
     allowOverwrite: true,
     treeShaking: !isDevelopment,
-    tsconfig: "./tsconfig.json",
+    external: ["react", "react-dom", "framer-motion", "tslib", "@emotion/react"],
     platform: "browser",
     ignoreAnnotations: true,
     chunkNames: "chunks/[name]-[hash]",
@@ -106,7 +106,7 @@ const build = (entryPoints) =>
     define: {
       "process.env.NODE_ENV": `"${environment}"`,
     },
-    plugins: [importMapPlugin],
+    // plugins: [importMapPlugin],
     loader: {
       ".ttf": "file",
       ".webp": "file",

@@ -1,11 +1,13 @@
-/**@jsx jsx */
-import { css, jsx } from "@emotion/react";
+import { css } from "@emotion/react";
 
 import { ReactNode, SetStateAction, useEffect, useRef, useState } from "react";
-import type { FC } from "react";
+import type { Dispatch, FC } from "react";
+import type { ICodeSession } from "./session";
+
 import { motion } from "framer-motion";
 // import { motion } from "./lazyMotion";
 import { QRButton } from "./Qr";
+
 // import { wait } from "./wait";
 import { Box, Slider } from "./mui";
 // import { LazySpikeLandComponent } from "./LazyLoadedComponent";
@@ -31,8 +33,6 @@ import type {
 const Button = muiButton as typeof MuiButton;
 const ToggleButtonGroup = muiToggleButtonGroup as typeof MuiToggleButtonGroup;
 const ToggleButton = muiToggleButton as typeof MuiToggleButton;
-import type { ICodeSession } from "./session";
-import type { Dispatch } from "react";
 const breakPoints = [680, 768, 1920];
 const breakPointHeights = [1137, 1024, 1080];
 

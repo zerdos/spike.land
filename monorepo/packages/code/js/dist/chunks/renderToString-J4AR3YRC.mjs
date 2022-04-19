@@ -1,0 +1,1 @@
+import"./chunk-6XRSRXUF.mjs";import{CacheProvider as c,jsx as t}from"@emotion/react";import{createCache as m}from"@emotion/react";import{renderToString as n}from"react";var d=o=>{let e=m({key:"css"}),r="";return e.sheet.insert=s=>{r+=s},{html:n(t(c,{value:e},t(o,null))),css:r}};export{d as getHtmlAndCss};
