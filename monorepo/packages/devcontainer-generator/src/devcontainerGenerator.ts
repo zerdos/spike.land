@@ -13,6 +13,7 @@ type Base =
   | "hirsute"
   | "implish"
   | "rolling"
+  | "jammy"
   | "gitpod/workspace-full";
 type nodeVersion = "lts" | "current";
 
