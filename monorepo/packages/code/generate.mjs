@@ -21,6 +21,8 @@ const generator = new Generator({
 // Install a new package into the import map
 
 await generator.install("react");
+await generator.install("tslib");
+
 await generator.install("preact-render-to-string");
 await generator.install("preact");
 

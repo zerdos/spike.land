@@ -1,9 +1,3 @@
-var __create = Object.create;
-var __defProp = Object.defineProperty;
-var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
-var __getOwnPropNames = Object.getOwnPropertyNames;
-var __getProtoOf = Object.getPrototypeOf;
-var __hasOwnProp = Object.prototype.hasOwnProperty;
 var __require = /* @__PURE__ */ ((x) => typeof require !== "undefined" ? require : typeof Proxy !== "undefined" ? new Proxy(x, {
   get: (a2, b2) => (typeof require !== "undefined" ? require : a2)[b2]
 }) : x)(function(x) {
@@ -11,482 +5,17 @@ var __require = /* @__PURE__ */ ((x) => typeof require !== "undefined" ? require
     return require.apply(this, arguments);
   throw new Error('Dynamic require of "' + x + '" is not supported');
 });
-var __commonJS = (cb2, mod) => function __require2() {
-  return mod || (0, cb2[__getOwnPropNames(cb2)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
-};
-var __copyProps = (to, from, except, desc) => {
-  if (from && typeof from === "object" || typeof from === "function") {
-    for (let key of __getOwnPropNames(from))
-      if (!__hasOwnProp.call(to, key) && key !== except)
-        __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
-  }
-  return to;
-};
-var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target, mod));
 
-// ../../node_modules/tslib/tslib.js
-var require_tslib = __commonJS({
-  "../../node_modules/tslib/tslib.js"(exports, module) {
-    var __extends2;
-    var __assign2;
-    var __rest2;
-    var __decorate2;
-    var __param2;
-    var __metadata2;
-    var __awaiter2;
-    var __generator2;
-    var __exportStar2;
-    var __values2;
-    var __read2;
-    var __spread2;
-    var __spreadArrays2;
-    var __spreadArray2;
-    var __await2;
-    var __asyncGenerator2;
-    var __asyncDelegator2;
-    var __asyncValues2;
-    var __makeTemplateObject2;
-    var __importStar2;
-    var __importDefault2;
-    var __classPrivateFieldGet2;
-    var __classPrivateFieldSet2;
-    var __createBinding2;
-    (function(factory) {
-      var root = typeof global === "object" ? global : typeof self === "object" ? self : typeof this === "object" ? this : {};
-      if (typeof define === "function" && define.amd) {
-        define("tslib", ["exports"], function(exports2) {
-          factory(createExporter(root, createExporter(exports2)));
-        });
-      } else if (typeof module === "object" && typeof module.exports === "object") {
-        factory(createExporter(root, createExporter(module.exports)));
-      } else {
-        factory(createExporter(root));
-      }
-      function createExporter(exports2, previous) {
-        if (exports2 !== root) {
-          if (typeof Object.create === "function") {
-            Object.defineProperty(exports2, "__esModule", { value: true });
-          } else {
-            exports2.__esModule = true;
-          }
-        }
-        return function(id2, v) {
-          return exports2[id2] = previous ? previous(id2, v) : v;
-        };
-      }
-    })(function(exporter) {
-      var extendStatics = Object.setPrototypeOf || { __proto__: [] } instanceof Array && function(d, b2) {
-        d.__proto__ = b2;
-      } || function(d, b2) {
-        for (var p in b2)
-          if (Object.prototype.hasOwnProperty.call(b2, p))
-            d[p] = b2[p];
-      };
-      __extends2 = function(d, b2) {
-        if (typeof b2 !== "function" && b2 !== null)
-          throw new TypeError("Class extends value " + String(b2) + " is not a constructor or null");
-        extendStatics(d, b2);
-        function __() {
-          this.constructor = d;
-        }
-        d.prototype = b2 === null ? Object.create(b2) : (__.prototype = b2.prototype, new __());
-      };
-      __assign2 = Object.assign || function(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
-          s = arguments[i];
-          for (var p in s)
-            if (Object.prototype.hasOwnProperty.call(s, p))
-              t[p] = s[p];
-        }
-        return t;
-      };
-      __rest2 = function(s, e) {
-        var t = {};
-        for (var p in s)
-          if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
-            t[p] = s[p];
-        if (s != null && typeof Object.getOwnPropertySymbols === "function")
-          for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) {
-            if (e.indexOf(p[i]) < 0 && Object.prototype.propertyIsEnumerable.call(s, p[i]))
-              t[p[i]] = s[p[i]];
-          }
-        return t;
-      };
-      __decorate2 = function(decorators, target, key, desc) {
-        var c2 = arguments.length, r = c2 < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-        if (typeof Reflect === "object" && typeof Reflect.decorate === "function")
-          r = Reflect.decorate(decorators, target, key, desc);
-        else
-          for (var i = decorators.length - 1; i >= 0; i--)
-            if (d = decorators[i])
-              r = (c2 < 3 ? d(r) : c2 > 3 ? d(target, key, r) : d(target, key)) || r;
-        return c2 > 3 && r && Object.defineProperty(target, key, r), r;
-      };
-      __param2 = function(paramIndex, decorator) {
-        return function(target, key) {
-          decorator(target, key, paramIndex);
-        };
-      };
-      __metadata2 = function(metadataKey, metadataValue) {
-        if (typeof Reflect === "object" && typeof Reflect.metadata === "function")
-          return Reflect.metadata(metadataKey, metadataValue);
-      };
-      __awaiter2 = function(thisArg, _arguments, P, generator) {
-        function adopt(value) {
-          return value instanceof P ? value : new P(function(resolve) {
-            resolve(value);
-          });
-        }
-        return new (P || (P = Promise))(function(resolve, reject) {
-          function fulfilled(value) {
-            try {
-              step(generator.next(value));
-            } catch (e) {
-              reject(e);
-            }
-          }
-          function rejected(value) {
-            try {
-              step(generator["throw"](value));
-            } catch (e) {
-              reject(e);
-            }
-          }
-          function step(result) {
-            result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
-          }
-          step((generator = generator.apply(thisArg, _arguments || [])).next());
-        });
-      };
-      __generator2 = function(thisArg, body) {
-        var _ = { label: 0, sent: function() {
-          if (t[0] & 1)
-            throw t[1];
-          return t[1];
-        }, trys: [], ops: [] }, f, y, t, g;
-        return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() {
-          return this;
-        }), g;
-        function verb(n) {
-          return function(v) {
-            return step([n, v]);
-          };
-        }
-        function step(op) {
-          if (f)
-            throw new TypeError("Generator is already executing.");
-          while (_)
-            try {
-              if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done)
-                return t;
-              if (y = 0, t)
-                op = [op[0] & 2, t.value];
-              switch (op[0]) {
-                case 0:
-                case 1:
-                  t = op;
-                  break;
-                case 4:
-                  _.label++;
-                  return { value: op[1], done: false };
-                case 5:
-                  _.label++;
-                  y = op[1];
-                  op = [0];
-                  continue;
-                case 7:
-                  op = _.ops.pop();
-                  _.trys.pop();
-                  continue;
-                default:
-                  if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) {
-                    _ = 0;
-                    continue;
-                  }
-                  if (op[0] === 3 && (!t || op[1] > t[0] && op[1] < t[3])) {
-                    _.label = op[1];
-                    break;
-                  }
-                  if (op[0] === 6 && _.label < t[1]) {
-                    _.label = t[1];
-                    t = op;
-                    break;
-                  }
-                  if (t && _.label < t[2]) {
-                    _.label = t[2];
-                    _.ops.push(op);
-                    break;
-                  }
-                  if (t[2])
-                    _.ops.pop();
-                  _.trys.pop();
-                  continue;
-              }
-              op = body.call(thisArg, _);
-            } catch (e) {
-              op = [6, e];
-              y = 0;
-            } finally {
-              f = t = 0;
-            }
-          if (op[0] & 5)
-            throw op[1];
-          return { value: op[0] ? op[1] : void 0, done: true };
-        }
-      };
-      __exportStar2 = function(m, o) {
-        for (var p in m)
-          if (p !== "default" && !Object.prototype.hasOwnProperty.call(o, p))
-            __createBinding2(o, m, p);
-      };
-      __createBinding2 = Object.create ? function(o, m, k, k2) {
-        if (k2 === void 0)
-          k2 = k;
-        Object.defineProperty(o, k2, { enumerable: true, get: function() {
-          return m[k];
-        } });
-      } : function(o, m, k, k2) {
-        if (k2 === void 0)
-          k2 = k;
-        o[k2] = m[k];
-      };
-      __values2 = function(o) {
-        var s = typeof Symbol === "function" && Symbol.iterator, m = s && o[s], i = 0;
-        if (m)
-          return m.call(o);
-        if (o && typeof o.length === "number")
-          return {
-            next: function() {
-              if (o && i >= o.length)
-                o = void 0;
-              return { value: o && o[i++], done: !o };
-            }
-          };
-        throw new TypeError(s ? "Object is not iterable." : "Symbol.iterator is not defined.");
-      };
-      __read2 = function(o, n) {
-        var m = typeof Symbol === "function" && o[Symbol.iterator];
-        if (!m)
-          return o;
-        var i = m.call(o), r, ar = [], e;
-        try {
-          while ((n === void 0 || n-- > 0) && !(r = i.next()).done)
-            ar.push(r.value);
-        } catch (error) {
-          e = { error };
-        } finally {
-          try {
-            if (r && !r.done && (m = i["return"]))
-              m.call(i);
-          } finally {
-            if (e)
-              throw e.error;
-          }
-        }
-        return ar;
-      };
-      __spread2 = function() {
-        for (var ar = [], i = 0; i < arguments.length; i++)
-          ar = ar.concat(__read2(arguments[i]));
-        return ar;
-      };
-      __spreadArrays2 = function() {
-        for (var s = 0, i = 0, il = arguments.length; i < il; i++)
-          s += arguments[i].length;
-        for (var r = Array(s), k = 0, i = 0; i < il; i++)
-          for (var a2 = arguments[i], j = 0, jl = a2.length; j < jl; j++, k++)
-            r[k] = a2[j];
-        return r;
-      };
-      __spreadArray2 = function(to, from, pack) {
-        if (pack || arguments.length === 2)
-          for (var i = 0, l = from.length, ar; i < l; i++) {
-            if (ar || !(i in from)) {
-              if (!ar)
-                ar = Array.prototype.slice.call(from, 0, i);
-              ar[i] = from[i];
-            }
-          }
-        return to.concat(ar || Array.prototype.slice.call(from));
-      };
-      __await2 = function(v) {
-        return this instanceof __await2 ? (this.v = v, this) : new __await2(v);
-      };
-      __asyncGenerator2 = function(thisArg, _arguments, generator) {
-        if (!Symbol.asyncIterator)
-          throw new TypeError("Symbol.asyncIterator is not defined.");
-        var g = generator.apply(thisArg, _arguments || []), i, q = [];
-        return i = {}, verb("next"), verb("throw"), verb("return"), i[Symbol.asyncIterator] = function() {
-          return this;
-        }, i;
-        function verb(n) {
-          if (g[n])
-            i[n] = function(v) {
-              return new Promise(function(a2, b2) {
-                q.push([n, v, a2, b2]) > 1 || resume(n, v);
-              });
-            };
-        }
-        function resume(n, v) {
-          try {
-            step(g[n](v));
-          } catch (e) {
-            settle(q[0][3], e);
-          }
-        }
-        function step(r) {
-          r.value instanceof __await2 ? Promise.resolve(r.value.v).then(fulfill, reject) : settle(q[0][2], r);
-        }
-        function fulfill(value) {
-          resume("next", value);
-        }
-        function reject(value) {
-          resume("throw", value);
-        }
-        function settle(f, v) {
-          if (f(v), q.shift(), q.length)
-            resume(q[0][0], q[0][1]);
-        }
-      };
-      __asyncDelegator2 = function(o) {
-        var i, p;
-        return i = {}, verb("next"), verb("throw", function(e) {
-          throw e;
-        }), verb("return"), i[Symbol.iterator] = function() {
-          return this;
-        }, i;
-        function verb(n, f) {
-          i[n] = o[n] ? function(v) {
-            return (p = !p) ? { value: __await2(o[n](v)), done: n === "return" } : f ? f(v) : v;
-          } : f;
-        }
-      };
-      __asyncValues2 = function(o) {
-        if (!Symbol.asyncIterator)
-          throw new TypeError("Symbol.asyncIterator is not defined.");
-        var m = o[Symbol.asyncIterator], i;
-        return m ? m.call(o) : (o = typeof __values2 === "function" ? __values2(o) : o[Symbol.iterator](), i = {}, verb("next"), verb("throw"), verb("return"), i[Symbol.asyncIterator] = function() {
-          return this;
-        }, i);
-        function verb(n) {
-          i[n] = o[n] && function(v) {
-            return new Promise(function(resolve, reject) {
-              v = o[n](v), settle(resolve, reject, v.done, v.value);
-            });
-          };
-        }
-        function settle(resolve, reject, d, v) {
-          Promise.resolve(v).then(function(v2) {
-            resolve({ value: v2, done: d });
-          }, reject);
-        }
-      };
-      __makeTemplateObject2 = function(cooked, raw) {
-        if (Object.defineProperty) {
-          Object.defineProperty(cooked, "raw", { value: raw });
-        } else {
-          cooked.raw = raw;
-        }
-        return cooked;
-      };
-      var __setModuleDefault = Object.create ? function(o, v) {
-        Object.defineProperty(o, "default", { enumerable: true, value: v });
-      } : function(o, v) {
-        o["default"] = v;
-      };
-      __importStar2 = function(mod) {
-        if (mod && mod.__esModule)
-          return mod;
-        var result = {};
-        if (mod != null) {
-          for (var k in mod)
-            if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k))
-              __createBinding2(result, mod, k);
-        }
-        __setModuleDefault(result, mod);
-        return result;
-      };
-      __importDefault2 = function(mod) {
-        return mod && mod.__esModule ? mod : { "default": mod };
-      };
-      __classPrivateFieldGet2 = function(receiver, state, kind, f) {
-        if (kind === "a" && !f)
-          throw new TypeError("Private accessor was defined without a getter");
-        if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver))
-          throw new TypeError("Cannot read private member from an object whose class did not declare it");
-        return kind === "m" ? f : kind === "a" ? f.call(receiver) : f ? f.value : state.get(receiver);
-      };
-      __classPrivateFieldSet2 = function(receiver, state, value, kind, f) {
-        if (kind === "m")
-          throw new TypeError("Private method is not writable");
-        if (kind === "a" && !f)
-          throw new TypeError("Private accessor was defined without a setter");
-        if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver))
-          throw new TypeError("Cannot write private member to an object whose class did not declare it");
-        return kind === "a" ? f.call(receiver, value) : f ? f.value = value : state.set(receiver, value), value;
-      };
-      exporter("__extends", __extends2);
-      exporter("__assign", __assign2);
-      exporter("__rest", __rest2);
-      exporter("__decorate", __decorate2);
-      exporter("__param", __param2);
-      exporter("__metadata", __metadata2);
-      exporter("__awaiter", __awaiter2);
-      exporter("__generator", __generator2);
-      exporter("__exportStar", __exportStar2);
-      exporter("__createBinding", __createBinding2);
-      exporter("__values", __values2);
-      exporter("__read", __read2);
-      exporter("__spread", __spread2);
-      exporter("__spreadArrays", __spreadArrays2);
-      exporter("__spreadArray", __spreadArray2);
-      exporter("__await", __await2);
-      exporter("__asyncGenerator", __asyncGenerator2);
-      exporter("__asyncDelegator", __asyncDelegator2);
-      exporter("__asyncValues", __asyncValues2);
-      exporter("__makeTemplateObject", __makeTemplateObject2);
-      exporter("__importStar", __importStar2);
-      exporter("__importDefault", __importDefault2);
-      exporter("__classPrivateFieldGet", __classPrivateFieldGet2);
-      exporter("__classPrivateFieldSet", __classPrivateFieldSet2);
-    });
-  }
-});
-
-// ../../node_modules/tslib/modules/index.js
-var import_tslib = __toESM(require_tslib(), 1);
-var {
-  __extends,
-  __assign,
-  __rest,
-  __decorate,
-  __param,
-  __metadata,
-  __awaiter,
-  __generator,
-  __exportStar,
-  __createBinding,
-  __values,
-  __read,
-  __spread,
-  __spreadArrays,
-  __spreadArray,
-  __await,
-  __asyncGenerator,
-  __asyncDelegator,
-  __asyncValues,
-  __makeTemplateObject,
-  __importStar,
-  __importDefault,
-  __classPrivateFieldGet,
-  __classPrivateFieldSet
-} = import_tslib.default;
+// ../../node_modules/framer-motion/dist/es/render/dom/motion.mjs
+import { __assign as __assign25 } from "tslib";
 
 // ../../node_modules/framer-motion/dist/es/motion/index.mjs
+import { __assign as __assign7 } from "tslib";
 import * as React2 from "react";
 import { forwardRef, useContext as useContext7 } from "react";
 
 // ../../node_modules/framer-motion/dist/es/motion/features/use-features.mjs
+import { __assign } from "tslib";
 import * as React from "react";
 import { useContext } from "react";
 
@@ -623,6 +152,7 @@ var isBrowser = typeof window !== "undefined";
 var useIsomorphicLayoutEffect = isBrowser ? useLayoutEffect : useEffect;
 
 // ../../node_modules/framer-motion/dist/es/utils/use-reduced-motion.mjs
+import { __read } from "tslib";
 import { useState, useContext as useContext3 } from "react";
 var prefersReducedMotion = { current: null };
 var hasDetected = false;
@@ -807,6 +337,9 @@ function useConstant(init) {
   return ref.current;
 }
 
+// ../../node_modules/framer-motion/dist/es/projection/node/create-projection-node.mjs
+import { __spreadArray as __spreadArray2, __read as __read7, __assign as __assign6 } from "tslib";
+
 // ../../node_modules/framesync/dist/es/on-next-frame.mjs
 var defaultTimestep = 1 / 60 * 1e3;
 var getCurrentTime = typeof performance !== "undefined" ? () => performance.now() : () => Date.now();
@@ -926,6 +459,12 @@ var startLoop = () => {
 };
 var getFrameData = () => frame;
 var es_default = sync;
+
+// ../../node_modules/popmotion/dist/es/animations/index.mjs
+import { __rest as __rest2 } from "tslib";
+
+// ../../node_modules/popmotion/dist/es/animations/generators/spring.mjs
+import { __rest } from "tslib";
 
 // ../../node_modules/popmotion/dist/es/utils/clamp.mjs
 var clamp = (min, max, v) => Math.min(Math.max(v, min), max);
@@ -1626,7 +1165,7 @@ var framesync = (update) => {
 };
 function animate(_a) {
   var _b, _c;
-  var { from, autoplay = true, driver = framesync, elapsed = 0, repeat: repeatMax = 0, repeatType = "loop", repeatDelay = 0, onPlay, onStop, onComplete, onRepeat, onUpdate } = _a, options = __rest(_a, ["from", "autoplay", "driver", "elapsed", "repeat", "repeatType", "repeatDelay", "onPlay", "onStop", "onComplete", "onRepeat", "onUpdate"]);
+  var { from, autoplay = true, driver = framesync, elapsed = 0, repeat: repeatMax = 0, repeatType = "loop", repeatDelay = 0, onPlay, onStop, onComplete, onRepeat, onUpdate } = _a, options = __rest2(_a, ["from", "autoplay", "driver", "elapsed", "repeat", "repeatType", "repeatDelay", "onPlay", "onStop", "onComplete", "onRepeat", "onUpdate"]);
   let { to } = options;
   let driverControls;
   let repeatCount = 0;
@@ -1852,6 +1391,7 @@ function cubicBezier(mX1, mY1, mX2, mY2) {
 }
 
 // ../../node_modules/framer-motion/dist/es/utils/array.mjs
+import { __read as __read2 } from "tslib";
 function addUniqueItem(arr, item) {
   arr.indexOf(item) === -1 && arr.push(item);
 }
@@ -2012,12 +1552,16 @@ var isMotionValue = function(value) {
   return Boolean(value !== null && typeof value === "object" && value.getVelocity);
 };
 
+// ../../node_modules/framer-motion/dist/es/animation/utils/transitions.mjs
+import { __assign as __assign5, __rest as __rest3, __spreadArray, __read as __read4 } from "tslib";
+
 // ../../node_modules/framer-motion/dist/es/utils/time-conversion.mjs
 var secondsToMilliseconds = function(seconds) {
   return seconds * 1e3;
 };
 
 // ../../node_modules/framer-motion/dist/es/animation/utils/easing.mjs
+import { __read as __read3 } from "tslib";
 var easingLookup = {
   linear,
   easeIn,
@@ -2037,7 +1581,7 @@ var easingLookup = {
 var easingDefinitionToFunction = function(definition) {
   if (Array.isArray(definition)) {
     invariant(definition.length === 4, "Cubic bezier arrays must contain four numerical values.");
-    var _a = __read(definition, 4), x1 = _a[0], y1 = _a[1], x2 = _a[2], y2 = _a[3];
+    var _a = __read3(definition, 4), x1 = _a[0], y1 = _a[1], x2 = _a[2], y2 = _a[3];
     return cubicBezier(x1, y1, x2, y2);
   } else if (typeof definition === "string") {
     invariant(easingLookup[definition] !== void 0, "Invalid easing type '".concat(definition, "'"));
@@ -2060,6 +1604,9 @@ var isAnimatable = function(key, value) {
   }
   return false;
 };
+
+// ../../node_modules/framer-motion/dist/es/animation/utils/default-transitions.mjs
+import { __assign as __assign2 } from "tslib";
 
 // ../../node_modules/framer-motion/dist/es/animation/utils/is-keyframes-target.mjs
 var isKeyframesTarget = function(v) {
@@ -2120,11 +1667,15 @@ var getDefaultTransition = function(valueKey, to) {
   } else {
     transitionFactory = defaultTransitions[valueKey] || defaultTransitions.default;
   }
-  return __assign({ to }, transitionFactory(to));
+  return __assign2({ to }, transitionFactory(to));
 };
 
+// ../../node_modules/framer-motion/dist/es/render/dom/value-types/defaults.mjs
+import { __assign as __assign4 } from "tslib";
+
 // ../../node_modules/framer-motion/dist/es/render/dom/value-types/type-int.mjs
-var int = __assign(__assign({}, number), { transform: Math.round });
+import { __assign as __assign3 } from "tslib";
+var int = __assign3(__assign3({}, number), { transform: Math.round });
 
 // ../../node_modules/framer-motion/dist/es/render/dom/value-types/number.mjs
 var numberValueTypes = {
@@ -2189,7 +1740,7 @@ var numberValueTypes = {
 };
 
 // ../../node_modules/framer-motion/dist/es/render/dom/value-types/defaults.mjs
-var defaultValueTypes = __assign(__assign({}, numberValueTypes), {
+var defaultValueTypes = __assign4(__assign4({}, numberValueTypes), {
   color,
   backgroundColor: color,
   outlineColor: color,
@@ -2240,13 +1791,13 @@ function isTransitionDefined(_a) {
   _a.repeatType;
   _a.repeatDelay;
   _a.from;
-  var transition = __rest(_a, ["when", "delay", "delayChildren", "staggerChildren", "staggerDirection", "repeat", "repeatType", "repeatDelay", "from"]);
+  var transition = __rest3(_a, ["when", "delay", "delayChildren", "staggerChildren", "staggerDirection", "repeat", "repeatType", "repeatDelay", "from"]);
   return !!Object.keys(transition).length;
 }
 var legacyRepeatWarning = false;
 function convertTransitionToAnimationOptions(_a) {
-  var ease = _a.ease, times = _a.times, yoyo = _a.yoyo, flip = _a.flip, loop = _a.loop, transition = __rest(_a, ["ease", "times", "yoyo", "flip", "loop"]);
-  var options = __assign({}, transition);
+  var ease = _a.ease, times = _a.times, yoyo = _a.yoyo, flip = _a.flip, loop = _a.loop, transition = __rest3(_a, ["ease", "times", "yoyo", "flip", "loop"]);
+  var options = __assign5({}, transition);
   if (times)
     options["offset"] = times;
   if (transition.duration)
@@ -2281,7 +1832,7 @@ function getDelayFromTransition(transition, key) {
 }
 function hydrateKeyframes(options) {
   if (Array.isArray(options.to) && options.to[0] === null) {
-    options.to = __spreadArray([], __read(options.to), false);
+    options.to = __spreadArray([], __read4(options.to), false);
     options.to[0] = options.from;
   }
   return options;
@@ -2293,9 +1844,9 @@ function getPopmotionAnimationOptions(transition, options, key) {
   }
   hydrateKeyframes(options);
   if (!isTransitionDefined(transition)) {
-    transition = __assign(__assign({}, transition), getDefaultTransition(key, options.to));
+    transition = __assign5(__assign5({}, transition), getDefaultTransition(key, options.to));
   }
-  return __assign(__assign({}, options), convertTransitionToAnimationOptions(transition));
+  return __assign5(__assign5({}, options), convertTransitionToAnimationOptions(transition));
 }
 function getAnimation(key, value, target, transition, onComplete) {
   var _a;
@@ -2321,7 +1872,7 @@ function getAnimation(key, value, target, transition, onComplete) {
         return value.set(v);
       }
     };
-    return valueTransition.type === "inertia" || valueTransition.type === "decay" ? inertia(__assign(__assign({}, options), valueTransition)) : animate(__assign(__assign({}, getPopmotionAnimationOptions(valueTransition, options, key)), { onUpdate: function(v) {
+    return valueTransition.type === "inertia" || valueTransition.type === "decay" ? inertia(__assign5(__assign5({}, options), valueTransition)) : animate(__assign5(__assign5({}, getPopmotionAnimationOptions(valueTransition, options, key)), { onUpdate: function(v) {
       var _a2;
       options.onUpdate(v);
       (_a2 = valueTransition.onUpdate) === null || _a2 === void 0 ? void 0 : _a2.call(valueTransition, v);
@@ -2461,6 +2012,9 @@ function copyBoxInto(box, originBox) {
   copyAxisInto(box.y, originBox.y);
 }
 
+// ../../node_modules/framer-motion/dist/es/projection/geometry/delta-apply.mjs
+import { __read as __read5 } from "tslib";
+
 // ../../node_modules/framer-motion/dist/es/projection/utils/has-transform.mjs
 function isIdentityScale(scale2) {
   return scale2 === void 0 || scale2 === 1;
@@ -2537,7 +2091,7 @@ function translateAxis(axis, distance2) {
   axis.max = axis.max + distance2;
 }
 function transformAxis(axis, transforms, _a) {
-  var _b = __read(_a, 3), key = _b[0], scaleKey = _b[1], originKey = _b[2];
+  var _b = __read5(_a, 3), key = _b[0], scaleKey = _b[1], originKey = _b[2];
   var axisOrigin = transforms[originKey] !== void 0 ? transforms[originKey] : 0.5;
   var originPoint = mix(axis.min, axis.max, axisOrigin);
   applyAxisDelta(axis, transforms[key], transforms[scaleKey], originPoint, transforms.scale);
@@ -2597,6 +2151,7 @@ function calcRelativePosition(target, layout, parent) {
 }
 
 // ../../node_modules/framer-motion/dist/es/projection/geometry/delta-remove.mjs
+import { __read as __read6 } from "tslib";
 function removePointDelta(point, translate, scale2, originPoint, boxScale) {
   point -= translate;
   point = scalePoint(point, 1 / scale2, originPoint);
@@ -2635,7 +2190,7 @@ function removeAxisDelta(axis, translate, scale2, origin, boxScale, originAxis, 
   axis.max = removePointDelta(axis.max, translate, scale2, originPoint, boxScale);
 }
 function removeAxisTransforms(axis, transforms, _a, origin, sourceAxis) {
-  var _b = __read(_a, 3), key = _b[0], scaleKey = _b[1], originKey = _b[2];
+  var _b = __read6(_a, 3), key = _b[0], scaleKey = _b[1], originKey = _b[2];
   removeAxisDelta(axis, transforms[key], transforms[scaleKey], transforms[originKey], transforms.scale, origin, sourceAxis);
 }
 var xKeys2 = ["x", "scaleX", "originX"];
@@ -2904,7 +2459,7 @@ function createProjectionNode(_a) {
       this.id = id2;
       this.latestValues = latestValues;
       this.root = parent ? parent.root || parent : this;
-      this.path = parent ? __spreadArray(__spreadArray([], __read(parent.path), false), [parent], false) : [];
+      this.path = parent ? __spreadArray2(__spreadArray2([], __read7(parent.path), false), [parent], false) : [];
       this.parent = parent;
       this.depth = parent ? parent.depth + 1 : 0;
       id2 && this.root.registerPotentialNode(id2, this);
@@ -2926,7 +2481,7 @@ function createProjectionNode(_a) {
         args[_i - 1] = arguments[_i];
       }
       var subscriptionManager = this.eventHandlers.get(name);
-      subscriptionManager === null || subscriptionManager === void 0 ? void 0 : subscriptionManager.notify.apply(subscriptionManager, __spreadArray([], __read(args), false));
+      subscriptionManager === null || subscriptionManager === void 0 ? void 0 : subscriptionManager.notify.apply(subscriptionManager, __spreadArray2([], __read7(args), false));
     };
     ProjectionNode.prototype.hasListeners = function(name) {
       return this.eventHandlers.has(name);
@@ -2991,7 +2546,7 @@ function createProjectionNode(_a) {
               _this.resumingFrom.resumingFrom = void 0;
             }
             _this.setAnimationOrigin(delta, hasOnlyRelativeTargetChanged);
-            var animationOptions = __assign(__assign({}, getValueTransition(layoutTransition, "layout")), { onPlay: onLayoutAnimationStart, onComplete: onLayoutAnimationComplete });
+            var animationOptions = __assign6(__assign6({}, getValueTransition(layoutTransition, "layout")), { onPlay: onLayoutAnimationStart, onComplete: onLayoutAnimationComplete });
             if (visualElement2.shouldReduceMotion) {
               animationOptions.delay = 0;
               animationOptions.type = false;
@@ -3236,7 +2791,7 @@ function createProjectionNode(_a) {
     };
     ProjectionNode.prototype.setOptions = function(options) {
       var _a2;
-      this.options = __assign(__assign(__assign({}, this.options), options), { crossfade: (_a2 = options.crossfade) !== null && _a2 !== void 0 ? _a2 : true });
+      this.options = __assign6(__assign6(__assign6({}, this.options), options), { crossfade: (_a2 = options.crossfade) !== null && _a2 !== void 0 ? _a2 : true });
     };
     ProjectionNode.prototype.clearMeasurements = function() {
       this.scroll = void 0;
@@ -3354,7 +2909,7 @@ function createProjectionNode(_a) {
       }
       var snapshot = this.snapshot;
       var snapshotLatestValues = (snapshot === null || snapshot === void 0 ? void 0 : snapshot.latestValues) || {};
-      var mixedValues = __assign({}, this.latestValues);
+      var mixedValues = __assign6({}, this.latestValues);
       var targetDelta = createDelta();
       this.relativeTarget = this.relativeTargetOrigin = void 0;
       this.attemptToResolveRelativeTarget = !hasOnlyRelativeTargetChanged;
@@ -3397,7 +2952,7 @@ function createProjectionNode(_a) {
       }
       this.pendingAnimation = es_default.update(function() {
         globalProjectionState.hasAnimatedSinceResize = true;
-        _this.currentAnimation = animate2(0, animationTarget, __assign(__assign({}, options), { onUpdate: function(latest) {
+        _this.currentAnimation = animate2(0, animationTarget, __assign6(__assign6({}, options), { onUpdate: function(latest) {
           var _a3;
           _this.mixTargetDelta(latest);
           (_a3 = options.onUpdate) === null || _a3 === void 0 ? void 0 : _a3.call(options, latest);
@@ -3770,6 +3325,7 @@ function useProjection(projectionId, _a, visualElement2, ProjectionNodeConstruct
 }
 
 // ../../node_modules/framer-motion/dist/es/motion/utils/VisualElementHandler.mjs
+import { __extends } from "tslib";
 import React__default from "react";
 var VisualElementHandler = function(_super) {
   __extends(VisualElementHandler2, _super);
@@ -3799,18 +3355,18 @@ function createMotionComponent(_a) {
   preloadedFeatures && loadFeatures(preloadedFeatures);
   function MotionComponent(props, externalRef) {
     var layoutId = useLayoutId(props);
-    props = __assign(__assign({}, props), { layoutId });
+    props = __assign7(__assign7({}, props), { layoutId });
     var config = useContext7(MotionConfigContext);
     var features = null;
     var context = useCreateMotionContext(props);
     var projectionId = config.isStatic ? void 0 : useProjectionId();
     var visualState = useVisualState(props, config.isStatic);
     if (!config.isStatic && isBrowser) {
-      context.visualElement = useVisualElement(Component, visualState, __assign(__assign({}, config), props), createVisualElement);
+      context.visualElement = useVisualElement(Component, visualState, __assign7(__assign7({}, config), props), createVisualElement);
       useProjection(projectionId, props, context.visualElement, projectionNodeConstructor || featureDefinitions.projectionNodeConstructor);
       features = useFeatures(props, context.visualElement, preloadedFeatures);
     }
-    return React2.createElement(VisualElementHandler, { visualElement: context.visualElement, props: __assign(__assign({}, config), props) }, features, React2.createElement(MotionContext.Provider, { value: context }, useRender(Component, props, projectionId, useMotionRef(visualState, context.visualElement, externalRef), visualState, config.isStatic, context.visualElement)));
+    return React2.createElement(VisualElementHandler, { visualElement: context.visualElement, props: __assign7(__assign7({}, config), props) }, features, React2.createElement(MotionContext.Provider, { value: context }, useRender(Component, props, projectionId, useMotionRef(visualState, context.visualElement, externalRef), visualState, config.isStatic, context.visualElement)));
   }
   return forwardRef(MotionComponent);
 }
@@ -3842,6 +3398,9 @@ function createMotionProxy(createConfig) {
     }
   });
 }
+
+// ../../node_modules/framer-motion/dist/es/render/dom/utils/create-config.mjs
+import { __assign as __assign12 } from "tslib";
 
 // ../../node_modules/framer-motion/dist/es/render/svg/lowercase-elements.mjs
 var lowercaseSVGElements = [
@@ -3883,9 +3442,11 @@ function isSVGComponent(Component) {
 }
 
 // ../../node_modules/framer-motion/dist/es/render/dom/use-render.mjs
+import { __assign as __assign11 } from "tslib";
 import { createElement as createElement3 } from "react";
 
 // ../../node_modules/framer-motion/dist/es/render/html/use-props.mjs
+import { __assign as __assign8 } from "tslib";
 import { useMemo as useMemo2 } from "react";
 
 // ../../node_modules/framer-motion/dist/es/motion/utils/is-forced-motion-value.mjs
@@ -4009,7 +3570,7 @@ function useInitialMotionValues(_a, visualState, isStatic) {
     var state = createHtmlRenderState();
     buildHTMLStyles(state, visualState, { enableHardwareAcceleration: !isStatic }, transformTemplate);
     var vars = state.vars, style = state.style;
-    return __assign(__assign({}, vars), style);
+    return __assign8(__assign8({}, vars), style);
   }, [visualState]);
 }
 function useStyle(props, visualState, isStatic) {
@@ -4123,7 +3684,11 @@ function filterProps(props, isDom, forwardMotionProps) {
 }
 
 // ../../node_modules/framer-motion/dist/es/render/svg/use-props.mjs
+import { __assign as __assign10 } from "tslib";
 import { useMemo as useMemo3 } from "react";
+
+// ../../node_modules/framer-motion/dist/es/render/svg/utils/build-attrs.mjs
+import { __rest as __rest4 } from "tslib";
 
 // ../../node_modules/framer-motion/dist/es/render/svg/utils/transform-origin.mjs
 function calcOrigin(origin, offset, size) {
@@ -4164,7 +3729,7 @@ function buildSVGPath(attrs, length, spacing, offset, useDashCase) {
 
 // ../../node_modules/framer-motion/dist/es/render/svg/utils/build-attrs.mjs
 function buildSVGAttrs(state, _a, options, transformTemplate) {
-  var attrX = _a.attrX, attrY = _a.attrY, originX = _a.originX, originY = _a.originY, pathLength = _a.pathLength, _b = _a.pathSpacing, pathSpacing = _b === void 0 ? 1 : _b, _c = _a.pathOffset, pathOffset = _c === void 0 ? 0 : _c, latest = __rest(_a, ["attrX", "attrY", "originX", "originY", "pathLength", "pathSpacing", "pathOffset"]);
+  var attrX = _a.attrX, attrY = _a.attrY, originX = _a.originX, originY = _a.originY, pathLength = _a.pathLength, _b = _a.pathSpacing, pathSpacing = _b === void 0 ? 1 : _b, _c = _a.pathOffset, pathOffset = _c === void 0 ? 0 : _c, latest = __rest4(_a, ["attrX", "attrY", "originX", "originY", "pathLength", "pathSpacing", "pathOffset"]);
   buildHTMLStyles(state, latest, options, transformTemplate);
   state.attrs = state.style;
   state.style = {};
@@ -4187,8 +3752,9 @@ function buildSVGAttrs(state, _a, options, transformTemplate) {
 }
 
 // ../../node_modules/framer-motion/dist/es/render/svg/utils/create-render-state.mjs
+import { __assign as __assign9 } from "tslib";
 var createSvgRenderState = function() {
-  return __assign(__assign({}, createHtmlRenderState()), { attrs: {} });
+  return __assign9(__assign9({}, createHtmlRenderState()), { attrs: {} });
 };
 
 // ../../node_modules/framer-motion/dist/es/render/svg/use-props.mjs
@@ -4196,12 +3762,12 @@ function useSVGProps(props, visualState) {
   var visualProps = useMemo3(function() {
     var state = createSvgRenderState();
     buildSVGAttrs(state, visualState, { enableHardwareAcceleration: false }, props.transformTemplate);
-    return __assign(__assign({}, state.attrs), { style: __assign({}, state.style) });
+    return __assign10(__assign10({}, state.attrs), { style: __assign10({}, state.style) });
   }, [visualState]);
   if (props.style) {
     var rawStyles = {};
     copyRawValuesOnly(rawStyles, props.style, props);
-    visualProps.style = __assign(__assign({}, rawStyles), visualProps.style);
+    visualProps.style = __assign10(__assign10({}, rawStyles), visualProps.style);
   }
   return visualProps;
 }
@@ -4216,7 +3782,7 @@ function createUseRender(forwardMotionProps) {
     var useVisualProps = isSVGComponent(Component) ? useSVGProps : useHTMLProps;
     var visualProps = useVisualProps(props, latestValues, isStatic);
     var filteredProps = filterProps(props, typeof Component === "string", forwardMotionProps);
-    var elementProps = __assign(__assign(__assign({}, filteredProps), visualProps), { ref });
+    var elementProps = __assign11(__assign11(__assign11({}, filteredProps), visualProps), { ref });
     if (projectionId) {
       elementProps["data-projection-id"] = projectionId;
     }
@@ -4298,6 +3864,7 @@ function scrapeMotionValuesFromProps2(props) {
 }
 
 // ../../node_modules/framer-motion/dist/es/motion/utils/use-visual-state.mjs
+import { __rest as __rest5 } from "tslib";
 import { useContext as useContext8 } from "react";
 
 // ../../node_modules/framer-motion/dist/es/animation/utils/is-animation-controls.mjs
@@ -4352,7 +3919,7 @@ function makeLatestValues(props, context, presenceContext, scrapeMotionValues) {
         return;
       var transitionEnd = resolved.transitionEnd;
       resolved.transition;
-      var target = __rest(resolved, ["transitionEnd", "transition"]);
+      var target = __rest5(resolved, ["transitionEnd", "transition"]);
       for (var key2 in target) {
         var valueTarget = target[key2];
         if (Array.isArray(valueTarget)) {
@@ -4405,7 +3972,7 @@ var htmlMotionConfig = {
 function createDomMotionConfig(Component, _a, preloadedFeatures, createVisualElement, projectionNodeConstructor) {
   var _b = _a.forwardMotionProps, forwardMotionProps = _b === void 0 ? false : _b;
   var baseConfig = isSVGComponent(Component) ? svgMotionConfig : htmlMotionConfig;
-  return __assign(__assign({}, baseConfig), { preloadedFeatures, useRender: createUseRender(forwardMotionProps), createVisualElement, projectionNodeConstructor, Component });
+  return __assign12(__assign12({}, baseConfig), { preloadedFeatures, useRender: createUseRender(forwardMotionProps), createVisualElement, projectionNodeConstructor, Component });
 }
 
 // ../../node_modules/framer-motion/dist/es/render/utils/types.mjs
@@ -4702,6 +4269,7 @@ function warnOnce(condition, message, element) {
 }
 
 // ../../node_modules/framer-motion/dist/es/motion/features/viewport/observers.mjs
+import { __rest as __rest6, __assign as __assign13 } from "tslib";
 var observerCallbacks = /* @__PURE__ */ new WeakMap();
 var observers = /* @__PURE__ */ new WeakMap();
 var fireObserverCallback = function(entry) {
@@ -4712,7 +4280,7 @@ var fireAllObserverCallbacks = function(entries) {
   entries.forEach(fireObserverCallback);
 };
 function initIntersectionObserver(_a) {
-  var root = _a.root, options = __rest(_a, ["root"]);
+  var root = _a.root, options = __rest6(_a, ["root"]);
   var lookupRoot = root || document;
   if (!observers.has(lookupRoot)) {
     observers.set(lookupRoot, {});
@@ -4720,7 +4288,7 @@ function initIntersectionObserver(_a) {
   var rootObservers = observers.get(lookupRoot);
   var key = JSON.stringify(options);
   if (!rootObservers[key]) {
-    rootObservers[key] = new IntersectionObserver(fireAllObserverCallbacks, __assign({ root }, options));
+    rootObservers[key] = new IntersectionObserver(fireAllObserverCallbacks, __assign13({ root }, options));
   }
   return rootObservers[key];
 }
@@ -4815,6 +4383,7 @@ var gestureAnimations = {
 };
 
 // ../../node_modules/framer-motion/dist/es/motion/features/animations.mjs
+import { __read as __read12 } from "tslib";
 import { useEffect as useEffect7, useContext as useContext10 } from "react";
 
 // ../../node_modules/framer-motion/dist/es/components/AnimatePresence/use-presence.mjs
@@ -4845,6 +4414,9 @@ function usePresence() {
   return !isPresent && onExitComplete ? [false, safeToRemove] : [true];
 }
 
+// ../../node_modules/framer-motion/dist/es/render/utils/animation-state.mjs
+import { __spreadArray as __spreadArray5, __read as __read11, __assign as __assign16, __rest as __rest9 } from "tslib";
+
 // ../../node_modules/framer-motion/dist/es/utils/shallow-compare.mjs
 function shallowCompare(next, prev) {
   if (!Array.isArray(prev))
@@ -4859,6 +4431,12 @@ function shallowCompare(next, prev) {
   return true;
 }
 
+// ../../node_modules/framer-motion/dist/es/render/utils/animation.mjs
+import { __read as __read10, __rest as __rest8, __assign as __assign15 } from "tslib";
+
+// ../../node_modules/framer-motion/dist/es/render/utils/setters.mjs
+import { __rest as __rest7, __assign as __assign14, __spreadArray as __spreadArray4, __read as __read9 } from "tslib";
+
 // ../../node_modules/framer-motion/dist/es/utils/is-numerical-string.mjs
 var isNumericalString = function(v) {
   return /^\-?\d*\.?\d+$/.test(v);
@@ -4868,6 +4446,9 @@ var isNumericalString = function(v) {
 var isZeroValueString = function(v) {
   return /^0[^.\s]+$/.test(v);
 };
+
+// ../../node_modules/framer-motion/dist/es/render/dom/value-types/find.mjs
+import { __spreadArray as __spreadArray3, __read as __read8 } from "tslib";
 
 // ../../node_modules/framer-motion/dist/es/render/dom/value-types/test.mjs
 var testValueType = function(v) {
@@ -4893,7 +4474,7 @@ var findDimensionValueType = function(v) {
 };
 
 // ../../node_modules/framer-motion/dist/es/render/dom/value-types/find.mjs
-var valueTypes = __spreadArray(__spreadArray([], __read(dimensionValueTypes), false), [color, complex], false);
+var valueTypes = __spreadArray3(__spreadArray3([], __read8(dimensionValueTypes), false), [color, complex], false);
 var findValueType = function(v) {
   return valueTypes.find(testValueType(v));
 };
@@ -4910,8 +4491,8 @@ function setTarget(visualElement2, definition) {
   var resolved = resolveVariant(visualElement2, definition);
   var _a = resolved ? visualElement2.makeTargetAnimatable(resolved, false) : {}, _b = _a.transitionEnd, transitionEnd = _b === void 0 ? {} : _b;
   _a.transition;
-  var target = __rest(_a, ["transitionEnd", "transition"]);
-  target = __assign(__assign({}, target), transitionEnd);
+  var target = __rest7(_a, ["transitionEnd", "transition"]);
+  target = __assign14(__assign14({}, target), transitionEnd);
   for (var key in target) {
     var value = resolveFinalValueInKeyframes(target[key]);
     setMotionValue(visualElement2, key, value);
@@ -5011,7 +4592,7 @@ function animateVariant(visualElement2, variant, options) {
   };
   var when = transition.when;
   if (when) {
-    var _c = __read(when === "beforeChildren" ? [getAnimation2, getChildAnimations] : [getChildAnimations, getAnimation2], 2), first = _c[0], last = _c[1];
+    var _c = __read10(when === "beforeChildren" ? [getAnimation2, getChildAnimations] : [getChildAnimations, getAnimation2], 2), first = _c[0], last = _c[1];
     return first().then(last);
   } else {
     return Promise.all([getAnimation2(), getChildAnimations(options.delay)]);
@@ -5020,7 +4601,7 @@ function animateVariant(visualElement2, variant, options) {
 function animateTarget(visualElement2, definition, _a) {
   var _b;
   var _c = _a === void 0 ? {} : _a, _d = _c.delay, delay = _d === void 0 ? 0 : _d, transitionOverride = _c.transitionOverride, type = _c.type;
-  var _e = visualElement2.makeTargetAnimatable(definition), _f = _e.transition, transition = _f === void 0 ? visualElement2.getDefaultTransition() : _f, transitionEnd = _e.transitionEnd, target = __rest(_e, ["transition", "transitionEnd"]);
+  var _e = visualElement2.makeTargetAnimatable(definition), _f = _e.transition, transition = _f === void 0 ? visualElement2.getDefaultTransition() : _f, transitionEnd = _e.transitionEnd, target = __rest8(_e, ["transition", "transitionEnd"]);
   if (transitionOverride)
     transition = transitionOverride;
   var animations2 = [];
@@ -5031,9 +4612,9 @@ function animateTarget(visualElement2, definition, _a) {
     if (!value || valueTarget === void 0 || animationTypeState && shouldBlockAnimation(animationTypeState, key)) {
       continue;
     }
-    var valueTransition = __assign({ delay }, transition);
+    var valueTransition = __assign15({ delay }, transition);
     if (visualElement2.shouldReduceMotion && isTransformProp(key)) {
-      valueTransition = __assign(__assign({}, valueTransition), { type: false, delay: 0 });
+      valueTransition = __assign15(__assign15({}, valueTransition), { type: false, delay: 0 });
     }
     var animation = startAnimation(key, value, valueTarget, valueTransition);
     animations2.push(animation);
@@ -5066,7 +4647,7 @@ function animateChildren(visualElement2, variant, delayChildren, staggerChildren
     return maxStaggerDuration - i * staggerChildren;
   };
   Array.from(visualElement2.variantChildren).sort(sortByTreeOrder).forEach(function(child, i) {
-    animations2.push(animateVariant(child, variant, __assign(__assign({}, options), { delay: delayChildren + generateStaggerDuration(i) })).then(function() {
+    animations2.push(animateVariant(child, variant, __assign15(__assign15({}, options), { delay: delayChildren + generateStaggerDuration(i) })).then(function() {
       return child.notifyAnimationComplete(variant);
     }));
   });
@@ -5092,7 +4673,7 @@ var variantPriorityOrder = [
   AnimationType.Drag,
   AnimationType.Exit
 ];
-var reversePriorityOrder = __spreadArray([], __read(variantPriorityOrder), false).reverse();
+var reversePriorityOrder = __spreadArray5([], __read11(variantPriorityOrder), false).reverse();
 var numAnimationTypes = variantPriorityOrder.length;
 function animateList(visualElement2) {
   return function(animations2) {
@@ -5111,8 +4692,8 @@ function createAnimationState(visualElement2) {
     var resolved = resolveVariant(visualElement2, definition);
     if (resolved) {
       resolved.transition;
-      var transitionEnd = resolved.transitionEnd, target = __rest(resolved, ["transition", "transitionEnd"]);
-      acc = __assign(__assign(__assign({}, acc), target), transitionEnd);
+      var transitionEnd = resolved.transitionEnd, target = __rest9(resolved, ["transition", "transitionEnd"]);
+      acc = __assign16(__assign16(__assign16({}, acc), target), transitionEnd);
     }
     return acc;
   };
@@ -5142,7 +4723,7 @@ function createAnimationState(visualElement2) {
       if (isInherited && isInitialRender && visualElement2.manuallyAnimateOnMount) {
         isInherited = false;
       }
-      typeState.protectedKeys = __assign({}, encounteredKeys);
+      typeState.protectedKeys = __assign16({}, encounteredKeys);
       if (!typeState.isActive && activeDelta === null || !prop && !typeState.prevProp || isAnimationControls(prop) || typeof prop === "boolean") {
         return "continue";
       }
@@ -5153,7 +4734,7 @@ function createAnimationState(visualElement2) {
       if (activeDelta === false)
         resolvedValues = {};
       var _b = typeState.prevResolvedValues, prevResolvedValues = _b === void 0 ? {} : _b;
-      var allKeys = __assign(__assign({}, prevResolvedValues), resolvedValues);
+      var allKeys = __assign16(__assign16({}, prevResolvedValues), resolvedValues);
       var markToAnimate = function(key2) {
         shouldAnimateType = true;
         removedKeys.delete(key2);
@@ -5185,16 +4766,16 @@ function createAnimationState(visualElement2) {
       typeState.prevProp = prop;
       typeState.prevResolvedValues = resolvedValues;
       if (typeState.isActive) {
-        encounteredKeys = __assign(__assign({}, encounteredKeys), resolvedValues);
+        encounteredKeys = __assign16(__assign16({}, encounteredKeys), resolvedValues);
       }
       if (isInitialRender && visualElement2.blockInitialAnimation) {
         shouldAnimateType = false;
       }
       if (shouldAnimateType && !isInherited) {
-        animations2.push.apply(animations2, __spreadArray([], __read(definitionList.map(function(animation) {
+        animations2.push.apply(animations2, __spreadArray5([], __read11(definitionList.map(function(animation) {
           return {
             animation,
-            options: __assign({ type }, options)
+            options: __assign16({ type }, options)
           };
         })), false));
       }
@@ -5202,7 +4783,7 @@ function createAnimationState(visualElement2) {
     for (var i = 0; i < numAnimationTypes; i++) {
       _loop_1(i);
     }
-    allAnimatedKeys = __assign({}, encounteredKeys);
+    allAnimatedKeys = __assign16({}, encounteredKeys);
     if (removedKeys.size) {
       var fallbackAnimation_1 = {};
       removedKeys.forEach(function(key) {
@@ -5282,7 +4863,7 @@ var animations = {
   }),
   exit: makeRenderlessComponent(function(props) {
     var custom = props.custom, visualElement2 = props.visualElement;
-    var _a = __read(usePresence(), 2), isPresent = _a[0], safeToRemove = _a[1];
+    var _a = __read12(usePresence(), 2), isPresent = _a[0], safeToRemove = _a[1];
     var presenceContext = useContext10(PresenceContext);
     useEffect7(function() {
       var _a2, _b;
@@ -5296,7 +4877,11 @@ var animations = {
 // ../../node_modules/framer-motion/dist/es/gestures/drag/use-drag.mjs
 import { useEffect as useEffect8 } from "react";
 
+// ../../node_modules/framer-motion/dist/es/gestures/drag/VisualElementDragControls.mjs
+import { __assign as __assign18 } from "tslib";
+
 // ../../node_modules/framer-motion/dist/es/gestures/PanSession.mjs
+import { __assign as __assign17 } from "tslib";
 var PanSession = function() {
   function PanSession2(event, handlers, _a) {
     var _this = this;
@@ -5315,7 +4900,7 @@ var PanSession = function() {
         return;
       var point2 = info2.point;
       var timestamp2 = getFrameData().timestamp;
-      _this.history.push(__assign(__assign({}, point2), { timestamp: timestamp2 }));
+      _this.history.push(__assign17(__assign17({}, point2), { timestamp: timestamp2 }));
       var _a2 = _this.handlers, onStart = _a2.onStart, onMove = _a2.onMove;
       if (!isPanStarted) {
         onStart && onStart(_this.lastMoveEvent, info2);
@@ -5349,7 +4934,7 @@ var PanSession = function() {
     var initialInfo = transformPoint(info, this.transformPagePoint);
     var point = initialInfo.point;
     var timestamp = getFrameData().timestamp;
-    this.history = [__assign(__assign({}, point), { timestamp })];
+    this.history = [__assign17(__assign17({}, point), { timestamp })];
     var onSessionStart = handlers.onSessionStart;
     onSessionStart && onSessionStart(event, getPanInfo(initialInfo, this.history));
     this.removeListeners = pipe(addPointerEvent(window, "pointermove", this.handlePointerMove), addPointerEvent(window, "pointerup", this.handlePointerUp), addPointerEvent(window, "pointercancel", this.handlePointerUp));
@@ -5419,6 +5004,7 @@ function getVelocity2(history, timeDelta) {
 }
 
 // ../../node_modules/framer-motion/dist/es/gestures/drag/utils/constraints.mjs
+import { __read as __read13 } from "tslib";
 function applyConstraints(point, _a, elastic) {
   var min = _a.min, max = _a.max;
   if (min !== void 0 && point < min) {
@@ -5446,7 +5032,7 @@ function calcViewportAxisConstraints(layoutAxis, constraintsAxis) {
   var min = constraintsAxis.min - layoutAxis.min;
   var max = constraintsAxis.max - layoutAxis.max;
   if (constraintsAxis.max - constraintsAxis.min < layoutAxis.max - layoutAxis.min) {
-    _a = __read([max, min], 2), min = _a[0], max = _a[1];
+    _a = __read13([max, min], 2), min = _a[0], max = _a[1];
   }
   return { min, max };
 }
@@ -5720,7 +5306,7 @@ var VisualElementDragControls = function() {
         transition = { min: 0, max: 0 };
       var bounceStiffness = dragElastic ? 200 : 1e6;
       var bounceDamping = dragElastic ? 40 : 1e7;
-      var inertia2 = __assign(__assign({ type: "inertia", velocity: dragMomentum ? velocity[axis] : 0, bounceStiffness, bounceDamping, timeConstant: 750, restDelta: 1, restSpeed: 10 }, dragTransition), transition);
+      var inertia2 = __assign18(__assign18({ type: "inertia", velocity: dragMomentum ? velocity[axis] : 0, bounceStiffness, bounceDamping, timeConstant: 750, restDelta: 1, restSpeed: 10 }, dragTransition), transition);
       return _this.startAxisValueAnimation(axis, inertia2);
     });
     return Promise.all(momentumAnimations).then(onDragTransitionEnd);
@@ -5831,7 +5417,7 @@ var VisualElementDragControls = function() {
   VisualElementDragControls2.prototype.getProps = function() {
     var props = this.visualElement.getProps();
     var _a = props.drag, drag2 = _a === void 0 ? false : _a, _b = props.dragDirectionLock, dragDirectionLock = _b === void 0 ? false : _b, _c = props.dragPropagation, dragPropagation = _c === void 0 ? false : _c, _d = props.dragConstraints, dragConstraints = _d === void 0 ? false : _d, _e = props.dragElastic, dragElastic = _e === void 0 ? defaultElastic : _e, _f = props.dragMomentum, dragMomentum = _f === void 0 ? true : _f;
-    return __assign(__assign({}, props), { drag: drag2, dragDirectionLock, dragPropagation, dragConstraints, dragElastic, dragMomentum });
+    return __assign18(__assign18({}, props), { drag: drag2, dragDirectionLock, dragPropagation, dragConstraints, dragElastic, dragMomentum });
   };
   return VisualElementDragControls2;
 }();
@@ -5903,7 +5489,14 @@ var drag = {
   drag: makeRenderlessComponent(useDrag)
 };
 
+// ../../node_modules/framer-motion/dist/es/render/html/visual-element.mjs
+import { __rest as __rest11, __assign as __assign22 } from "tslib";
+
+// ../../node_modules/framer-motion/dist/es/render/index.mjs
+import { __assign as __assign19, __spreadArray as __spreadArray7, __read as __read15 } from "tslib";
+
 // ../../node_modules/framer-motion/dist/es/render/utils/lifecycles.mjs
+import { __spreadArray as __spreadArray6, __read as __read14 } from "tslib";
 var names = [
   "LayoutMeasure",
   "BeforeLayoutMeasure",
@@ -5950,7 +5543,7 @@ function createLifecycles() {
       for (var _i = 0; _i < arguments.length; _i++) {
         args[_i] = arguments[_i];
       }
-      return manager.notify.apply(manager, __spreadArray([], __read(args), false));
+      return manager.notify.apply(manager, __spreadArray6([], __read14(args), false));
     };
   });
   return lifecycles;
@@ -5997,7 +5590,7 @@ var visualElement = function(_a) {
     var values = /* @__PURE__ */ new Map();
     var valueSubscriptions = /* @__PURE__ */ new Map();
     var prevMotionValues = {};
-    var baseTarget = __assign({}, latestValues);
+    var baseTarget = __assign19({}, latestValues);
     var removeFromVariantTree;
     function render() {
       if (!instance || !isMounted)
@@ -6031,7 +5624,7 @@ var visualElement = function(_a) {
     }
     var isControllingVariants = checkIfControllingVariants(props);
     var isVariantNode = checkIfVariantNode(props);
-    var element = __assign(__assign({
+    var element = __assign19(__assign19({
       treeType,
       current: null,
       depth: parent ? parent.depth + 1 : 0,
@@ -6224,10 +5817,11 @@ var visualElement = function(_a) {
     return element;
   };
 };
-var variantProps = __spreadArray(["initial"], __read(variantPriorityOrder), false);
+var variantProps = __spreadArray7(["initial"], __read15(variantPriorityOrder), false);
 var numVariantProps = variantProps.length;
 
 // ../../node_modules/framer-motion/dist/es/render/dom/utils/css-variables-conversion.mjs
+import { __rest as __rest10, __assign as __assign20, __read as __read16 } from "tslib";
 function isCSSVariable2(value) {
   return typeof value === "string" && value.startsWith("var(--");
 }
@@ -6236,7 +5830,7 @@ function parseCSSVariable(current) {
   var match = cssVariableRegex.exec(current);
   if (!match)
     return [,];
-  var _a = __read(match, 3), token = _a[1], fallback = _a[2];
+  var _a = __read16(match, 3), token = _a[1], fallback = _a[2];
   return [token, fallback];
 }
 var maxDepth = 4;
@@ -6245,7 +5839,7 @@ function getVariableValue(current, element, depth) {
     depth = 1;
   }
   invariant(depth <= maxDepth, 'Max CSS variable fallback depth detected in property "'.concat(current, '". This may indicate a circular fallback dependency.'));
-  var _a = __read(parseCSSVariable(current), 2), token = _a[0], fallback = _a[1];
+  var _a = __read16(parseCSSVariable(current), 2), token = _a[0], fallback = _a[1];
   if (!token)
     return;
   var resolved = window.getComputedStyle(element).getPropertyValue(token);
@@ -6259,12 +5853,12 @@ function getVariableValue(current, element, depth) {
 }
 function resolveCSSVariables(visualElement2, _a, transitionEnd) {
   var _b;
-  var target = __rest(_a, []);
+  var target = __rest10(_a, []);
   var element = visualElement2.getInstance();
   if (!(element instanceof Element))
     return { target, transitionEnd };
   if (transitionEnd) {
-    transitionEnd = __assign({}, transitionEnd);
+    transitionEnd = __assign20({}, transitionEnd);
   }
   visualElement2.forEachValue(function(value) {
     var current2 = value.get();
@@ -6289,6 +5883,7 @@ function resolveCSSVariables(visualElement2, _a, transitionEnd) {
 }
 
 // ../../node_modules/framer-motion/dist/es/render/dom/utils/unit-conversion.mjs
+import { __assign as __assign21, __read as __read17 } from "tslib";
 var positionalKeys = /* @__PURE__ */ new Set([
   "width",
   "height",
@@ -6419,8 +6014,8 @@ var checkAndConvertChangedValueTypes = function(visualElement2, target, origin, 
   if (transitionEnd === void 0) {
     transitionEnd = {};
   }
-  target = __assign({}, target);
-  transitionEnd = __assign({}, transitionEnd);
+  target = __assign21({}, target);
+  transitionEnd = __assign21({}, transitionEnd);
   var targetPositionalKeys = Object.keys(target).filter(isPositionalKey);
   var removedTransformValues = [];
   var hasAttemptedToRemoveTransformValues = false;
@@ -6481,7 +6076,7 @@ var checkAndConvertChangedValueTypes = function(visualElement2, target, origin, 
     var convertedTarget = convertChangedValueTypes(target, visualElement2, changedValueTypeKeys);
     if (removedTransformValues.length) {
       removedTransformValues.forEach(function(_a) {
-        var _b = __read(_a, 2), key = _b[0], value = _b[1];
+        var _b = __read17(_a, 2), key = _b[0], value = _b[1];
         visualElement2.getValue(key).set(value);
       });
     }
@@ -6547,7 +6142,7 @@ var htmlConfig = {
     if (isMounted === void 0) {
       isMounted = true;
     }
-    var transition = _a.transition, transitionEnd = _a.transitionEnd, target = __rest(_a, ["transition", "transitionEnd"]);
+    var transition = _a.transition, transitionEnd = _a.transitionEnd, target = __rest11(_a, ["transition", "transitionEnd"]);
     var origin = getOrigin(target, transition || {}, element);
     if (transformValues) {
       if (transitionEnd)
@@ -6563,7 +6158,7 @@ var htmlConfig = {
       transitionEnd = parsed.transitionEnd;
       target = parsed.target;
     }
-    return __assign({ transition, transitionEnd }, target);
+    return __assign22({ transition, transitionEnd }, target);
   },
   scrapeMotionValuesFromProps,
   build: function(element, renderState, latestValues, options, props) {
@@ -6577,7 +6172,8 @@ var htmlConfig = {
 var htmlVisualElement = visualElement(htmlConfig);
 
 // ../../node_modules/framer-motion/dist/es/render/svg/visual-element.mjs
-var svgVisualElement = visualElement(__assign(__assign({}, htmlConfig), { getBaseTarget: function(props, key) {
+import { __assign as __assign23 } from "tslib";
+var svgVisualElement = visualElement(__assign23(__assign23({}, htmlConfig), { getBaseTarget: function(props, key) {
   return props[key];
 }, readValueFromInstance: function(domElement, key) {
   var _a;
@@ -6596,6 +6192,7 @@ var createDomVisualElement = function(Component, options) {
 };
 
 // ../../node_modules/framer-motion/dist/es/motion/features/layout/MeasureLayout.mjs
+import { __extends as __extends2, __assign as __assign24, __read as __read18 } from "tslib";
 import React__default2, { useContext as useContext12 } from "react";
 
 // ../../node_modules/framer-motion/dist/es/projection/styles/scale-border-radius.mjs
@@ -6664,7 +6261,7 @@ var correctBoxShadow = {
 
 // ../../node_modules/framer-motion/dist/es/motion/features/layout/MeasureLayout.mjs
 var MeasureLayoutWithContext = function(_super) {
-  __extends(MeasureLayoutWithContext2, _super);
+  __extends2(MeasureLayoutWithContext2, _super);
   function MeasureLayoutWithContext2() {
     return _super !== null && _super.apply(this, arguments) || this;
   }
@@ -6683,7 +6280,7 @@ var MeasureLayoutWithContext = function(_super) {
       projection.addEventListener("animationComplete", function() {
         _this.safeToRemove();
       });
-      projection.setOptions(__assign(__assign({}, projection.options), { onExitComplete: function() {
+      projection.setOptions(__assign24(__assign24({}, projection.options), { onExitComplete: function() {
         return _this.safeToRemove();
       } }));
     }
@@ -6745,12 +6342,12 @@ var MeasureLayoutWithContext = function(_super) {
   return MeasureLayoutWithContext2;
 }(React__default2.Component);
 function MeasureLayout(props) {
-  var _a = __read(usePresence(), 2), isPresent = _a[0], safeToRemove = _a[1];
+  var _a = __read18(usePresence(), 2), isPresent = _a[0], safeToRemove = _a[1];
   var layoutGroup = useContext12(LayoutGroupContext);
-  return React__default2.createElement(MeasureLayoutWithContext, __assign({}, props, { layoutGroup, switchLayoutGroup: useContext12(SwitchLayoutGroupContext), isPresent, safeToRemove }));
+  return React__default2.createElement(MeasureLayoutWithContext, __assign24({}, props, { layoutGroup, switchLayoutGroup: useContext12(SwitchLayoutGroupContext), isPresent, safeToRemove }));
 }
 var defaultScaleCorrectors = {
-  borderRadius: __assign(__assign({}, correctBorderRadius), { applyTo: [
+  borderRadius: __assign24(__assign24({}, correctBorderRadius), { applyTo: [
     "borderTopLeftRadius",
     "borderTopRightRadius",
     "borderBottomLeftRadius",
@@ -6810,24 +6407,10 @@ var HTMLProjectionNode = createProjectionNode({
 });
 
 // ../../node_modules/framer-motion/dist/es/render/dom/motion.mjs
-var featureBundle = __assign(__assign(__assign(__assign({}, animations), gestureAnimations), drag), layoutFeatures);
+var featureBundle = __assign25(__assign25(__assign25(__assign25({}, animations), gestureAnimations), drag), layoutFeatures);
 var motion = /* @__PURE__ */ createMotionProxy(function(Component, config) {
   return createDomMotionConfig(Component, config, featureBundle, createDomVisualElement, HTMLProjectionNode);
 });
 export {
   motion
 };
-/*! *****************************************************************************
-Copyright (c) Microsoft Corporation.
-
-Permission to use, copy, modify, and/or distribute this software for any
-purpose with or without fee is hereby granted.
-
-THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH
-REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY
-AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT,
-INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM
-LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR
-OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
-PERFORMANCE OF THIS SOFTWARE.
-***************************************************************************** */

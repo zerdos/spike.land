@@ -3,6 +3,7 @@
     "react": "https://spike.land/dist/react.mjs",
     "react-dom": "https://spike.land/dist/react.mjs",
     "framer-motion": "https://spike.land/dist/framer-motion.mjs",
-    "@emotion/react": "https://spike.land/dist/emotion.mjs"
+    "@emotion/react": "https://spike.land/dist/emotion.mjs",
+    "tslib": "https://ga.jspm.io/npm:tslib@2.3.1/tslib.es6.js"
   }
 }
