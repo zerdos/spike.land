@@ -33,7 +33,7 @@ await esbuild.build({
   minifyWhitespace: !isDevelopment,
   minifyIdentifiers: !isDevelopment,
   minifySyntax: !isDevelopment,
-  legalComments: "external",
+  legalComments: "none",
   ignoreAnnotations: true,
   treeShaking: true,
   // outExtension: {".js": ".workerJS"},
@@ -59,7 +59,8 @@ await esbuild.build({
   minifyWhitespace: true,
   minifyIdentifiers: true,
   minifySyntax: true,
-  legalComments: "external",
+  legalComments: "none",
+
 
   platform: "browser",
   define: {
@@ -80,6 +81,7 @@ const build = (entryPoints) =>
     minifyIdentifiers: true,
     minifyWhitespace: true,
     minifySyntax: true,
+    legalComments: "none",
     splitting: true,
     sourcemap: isDevelopment,
     allowOverwrite: true,
