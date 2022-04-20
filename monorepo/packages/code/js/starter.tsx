@@ -1,3 +1,5 @@
+/** @jsx jsx */
+import { jsx } from "@emotion/react";
 import "core-js/modules/web.immediate";
 
 import { hydrate } from "react-dom";
