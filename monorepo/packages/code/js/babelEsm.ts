@@ -11,7 +11,6 @@ export const babelTransform = async (code: string) =>
       compact: false,
       sourceType: "module",
       comments: false,
-      allExtensions: true,
 
       presets: [
         "react",
