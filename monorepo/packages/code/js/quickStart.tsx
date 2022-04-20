@@ -4,8 +4,6 @@ import { ICodeSession } from "./session";
 
 export const initSession = (await import("./session")).default;
 
-export const prettier = (await import("./prettierEsm")).formatter;
-
 // //
 
 export async function startMonacoWithSession(session) {
@@ -87,7 +85,8 @@ async function runner(c, changes = null, session, counter) {
   session.errorText = "";
 
   try {
-    const cd = await prettier(c);
+    const { prettier } = await import("./prettierEsm");
+    const cd = prettier(c);
 
     const transpiled = await transform(cd);
 

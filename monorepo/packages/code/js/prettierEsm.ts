@@ -2,7 +2,7 @@ import { format } from "prettier/standalone";
 import parserBabel from "prettier/parser-babel";
 import parserHtml from "prettier/parser-html";
 
-export const formatter = (code: string) =>
+export const prettier = (code: string) =>
   format(code, {
     arrowParens: "always",
     bracketSpacing: true,
