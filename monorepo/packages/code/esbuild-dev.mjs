@@ -55,10 +55,10 @@ await esbuild.build({
   outfile: "./js/dist/appStarter.js",
   bundle: true,
   target: "esnext",
-  minify: true,
-  minifyWhitespace: true,
-  minifyIdentifiers: true,
-  minifySyntax: true,
+  // minify: true,
+  // minifyWhitespace: true,
+  // minifyIdentifiers: true,
+  // minifySyntax: true,
   legalComments: "none",
 
 
