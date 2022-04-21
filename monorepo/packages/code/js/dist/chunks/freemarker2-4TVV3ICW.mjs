@@ -1,6 +1,6 @@
 import {
   editor_api_exports
-} from "./chunk-PTIMLFSL.mjs";
+} from "./chunk-ZOVZQRCX.mjs";
 import "./chunk-BZTAI3VG.mjs";
 
 // ../../node_modules/monaco-editor/esm/vs/basic-languages/freemarker2/freemarker2.js

@@ -1,8 +1,8 @@
 import {
   conf,
   language
-} from "./chunk-AKPDQ4WL.mjs";
-import "./chunk-PTIMLFSL.mjs";
+} from "./chunk-MCRENY76.mjs";
+import "./chunk-ZOVZQRCX.mjs";
 import "./chunk-BZTAI3VG.mjs";
 
 // ../../node_modules/monaco-editor/esm/vs/basic-languages/javascript/javascript.js

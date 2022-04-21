@@ -18127,12 +18127,7 @@ var init_brackets = __esm({
         this.languageIdToBracketTokens = /* @__PURE__ */ new Map();
       }
       didLanguageChange(languageId) {
-        const existing = this.languageIdToBracketTokens.get(languageId);
-        if (!existing) {
-          return false;
-        }
-        const newRegExpStr = BracketTokens.createFromLanguage(this.getLanguageConfiguration(languageId), this.denseKeyProvider).getRegExpStr();
-        return existing.getRegExpStr() !== newRegExpStr;
+        return this.languageIdToBracketTokens.has(languageId);
       }
       getSingleLanguageBracketTokens(languageId) {
         let singleLanguageBracketTokens = this.languageIdToBracketTokens.get(languageId);
@@ -89276,7 +89271,7 @@ function score(selector, candidateUri, candidateLanguage, candidateIsSynchronize
     if (notebookType) {
       if (notebookType === candidateNotebookType) {
         ret = 10;
-      } else if (notebookType === "*") {
+      } else if (notebookType === "*" && candidateNotebookType !== void 0) {
         ret = Math.max(ret, 5);
       } else {
         return 0;

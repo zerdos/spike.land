@@ -1,6 +1,6 @@
 import {
   editor_api_exports
-} from "./chunk-PTIMLFSL.mjs";
+} from "./chunk-ZOVZQRCX.mjs";
 
 // ../../node_modules/monaco-editor/esm/vs/language/typescript/monaco.contribution.js
 var __defProp = Object.defineProperty;
@@ -225,7 +225,7 @@ function getMode() {
       __require(["vs/language/typescript/tsMode"], resolve, reject);
     });
   } else {
-    return import("./tsMode-K7FQXIQU.mjs");
+    return import("./tsMode-GG2LEGMX.mjs");
   }
 }
 monaco_editor_core_exports.languages.onLanguage("typescript", () => {

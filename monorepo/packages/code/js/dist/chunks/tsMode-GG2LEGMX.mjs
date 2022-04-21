@@ -1,9 +1,9 @@
 import {
   typescriptDefaults
-} from "./chunk-UTUA6ICF.mjs";
+} from "./chunk-3R4CWXJT.mjs";
 import {
   editor_api_exports
-} from "./chunk-PTIMLFSL.mjs";
+} from "./chunk-ZOVZQRCX.mjs";
 import "./chunk-BZTAI3VG.mjs";
 
 // ../../node_modules/monaco-editor/esm/vs/language/typescript/tsMode.js

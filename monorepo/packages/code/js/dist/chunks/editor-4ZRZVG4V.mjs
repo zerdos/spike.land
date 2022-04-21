@@ -1,12 +1,12 @@
 import {
   editor_main_exports
-} from "./chunk-6RTVJXYX.mjs";
-import "./chunk-UTUA6ICF.mjs";
+} from "./chunk-5BPZS7YA.mjs";
+import "./chunk-3R4CWXJT.mjs";
 import {
   Uri,
   editor,
   languages
-} from "./chunk-PTIMLFSL.mjs";
+} from "./chunk-ZOVZQRCX.mjs";
 import {
   __commonJS,
   __toESM
