@@ -28,7 +28,7 @@
     "docker:push": "lerna run docker:push"
   },
   "dependencies": {
-    "@cloudflare/workers-types": "3.5.1",
+    "@cloudflare/workers-types": "3.6.0",
     "@jspm/generator": "1.0.0-beta.30",
     "lerna": "4.0.0",
     "typescript": "4.6.3",
