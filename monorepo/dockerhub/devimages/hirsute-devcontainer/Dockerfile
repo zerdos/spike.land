@@ -46,7 +46,14 @@ RUN (addgroup --gid 1000 ${USER}  \
   && touch /usr/bin/startx /usr/bin/startWithBash \
   && chmod +x /usr/bin/startx /usr/bin/startWithBash \
   && echo "(sudo sysctl fs.inotify.max_user_watches=524288 fs.inotify.max_user_instances=524288 net.core.somaxconn=524288 fscache.object_max_active=524288 || echo failed) && (sudo sysctl -p || echo failed) && (sudo chown ${USER}:${USER} /home/${USER}/tmpfs)" >> /usr/bin/startx \
-  && echo "bash /usr/bin/startx" >> /usr/bin/startWithBash && chmod +x /usr/bin/startWithBash 
+  && echo "bash /usr/bin/startx" >> /usr/bin/startWithBash && chmod +x /usr/bin/startWithBash  \
+  && curl --silent --location https://deb.nodesource.com/setup_18.x | bash - \
+  && apt-get update \
+  && apt-get install --no-install-recommends -y nodejs build-essential \
+    && apt-get autoremove -y \
+  && apt-get clean -y \
+  && rm -rf /var/lib/apt/lists/* 
+
 ### git.Dockerfile
 
 RUN apt-get update && \ 
