@@ -1,7 +1,7 @@
 ## Devcontainer
 
 - Base image: ubuntu:jammy
-- Node: 17.9.0
+- Node: 16.14.2
 - Yarn: 1.22.18
 - With noVNC - XFCE trough noVNC (http://localhost:6080)
 - Zsh + Oh my zsh!
