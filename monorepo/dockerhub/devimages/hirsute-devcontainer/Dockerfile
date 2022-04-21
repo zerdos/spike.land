@@ -1,4 +1,4 @@
-FROM ubuntu:hirsute
+FROM ubuntu:jammy
 
 ### base.Dockerfile
 ### Generator: https://github.com/spike-land/monorepo/tree/main/dockerhub/devimages
