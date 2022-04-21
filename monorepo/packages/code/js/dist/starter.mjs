@@ -1517,7 +1517,7 @@ if ("serviceWorker" in navigator) {
 var path = location.pathname.split("/");
 var room = (path[1] === "api" && path[2] === "room" ? path[3] : (path.pop() || path.pop()).slice(-12)) || "code-main";
 var start = async (App) => {
-  const e2 = import("./chunks/editor-EQYE35MQ.mjs");
+  const e2 = import("./chunks/editor-HSKCIYTM.mjs");
   const p = import("./chunks/renderPreviewWindow-QOWICLJD.mjs");
   const container = document.querySelector("#root") || document.createElement("div");
   hydrate(container, jsx(App));
@@ -1525,7 +1525,7 @@ var start = async (App) => {
   if (location.href.endsWith("hydrated"))
     return;
   Object.assign(globalThis, { App });
-  const { join } = await import("./chunks/ws-Z6KWEDTH.mjs");
+  const { join } = await import("./chunks/ws-56F7WVXD.mjs");
   join(App);
   await Promise.all([e2, p]);
 };
