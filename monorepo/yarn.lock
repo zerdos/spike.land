@@ -953,10 +953,10 @@
   resolved "https://registry.yarnpkg.com/@chialab/node-resolve/-/node-resolve-0.15.9.tgz#46985d4f8a468bbb8443bc624ba60bcc4c72b9a8"
   integrity sha512-4/2GWaGnMV2CLK4QsG4OyJVb6gcz28XPb/bswYWrH9DmYEx6YXVlNEGDswNJxFeYXvXBCIQ5UGzAzjdEMa075A==
 
-"@cloudflare/workers-types@3.5.1":
-  version "3.5.1"
-  resolved "https://registry.yarnpkg.com/@cloudflare/workers-types/-/workers-types-3.5.1.tgz#651038aced1972010b081ccccc4dd1e63e9fc98e"
-  integrity sha512-3InFTahEqziyJ2DSRL29TmrukGvxsijxwOP+Jb1gdihEuRLhwwtY49hgpExGm21HBu6E6Qr/RxlPUp2+o+qoUg==
+"@cloudflare/workers-types@3.7.1":
+  version "3.7.1"
+  resolved "https://registry.yarnpkg.com/@cloudflare/workers-types/-/workers-types-3.7.1.tgz#d6fbc327f547bf0dc85aa103c6df691999a944b0"
+  integrity sha512-GJU304vzbKI9SvEsdBp/ObYClWe+7Fc0vyKPNia1VWi9Cj2WVsRaH2tXaQPMgAhjsFrQLhI3lBAkMhFPhBVliQ==
 
 "@emotion/babel-plugin@^11.7.1", "@emotion/babel-plugin@^11.9.2":
   version "11.9.2"
@@ -6237,7 +6237,7 @@ modify-values@^1.0.0:
   resolved "https://registry.yarnpkg.com/modify-values/-/modify-values-1.0.1.tgz#b3939fa605546474e3e3e3c63d64bd43b4ee6022"
   integrity sha512-xV2bxeN6F7oYjZWTe/YPAy6MN2M+sL4u/Rlm2AHCIVGfo2p1yGmBHQ6vHehl4bRTZBdHu3TSkWdYgkwpYzAGSw==
 
-monaco-editor@0.34.0-dev.20220423:
+monaco-editor@0.34.0-dev.20220422:
   version "0.34.0-dev.20220422"
   resolved "https://registry.yarnpkg.com/monaco-editor/-/monaco-editor-0.34.0-dev.20220422.tgz#763ba447cfca61217f1fc50ba8db1e0e6a48ee40"
   integrity sha512-uVIQ/cdiVQLIzfZJOeA31hM7szfyBxZJNPiDXKv1KZQDdlT7J3ZXGaxXJI+97je0d/2uUeEFPPLulzHAC6lOYA==
