@@ -449,10 +449,10 @@
     "@babel/helper-validator-identifier" "^7.16.7"
     to-fast-properties "^2.0.0"
 
-"@cloudflare/workers-types@3.5.1":
-  version "3.5.1"
-  resolved "https://registry.yarnpkg.com/@cloudflare/workers-types/-/workers-types-3.5.1.tgz#651038aced1972010b081ccccc4dd1e63e9fc98e"
-  integrity sha512-3InFTahEqziyJ2DSRL29TmrukGvxsijxwOP+Jb1gdihEuRLhwwtY49hgpExGm21HBu6E6Qr/RxlPUp2+o+qoUg==
+"@cloudflare/workers-types@3.7.1":
+  version "3.7.1"
+  resolved "https://registry.yarnpkg.com/@cloudflare/workers-types/-/workers-types-3.7.1.tgz#d6fbc327f547bf0dc85aa103c6df691999a944b0"
+  integrity sha512-GJU304vzbKI9SvEsdBp/ObYClWe+7Fc0vyKPNia1VWi9Cj2WVsRaH2tXaQPMgAhjsFrQLhI3lBAkMhFPhBVliQ==
 
 "@gar/promisify@^1.0.1":
   version "1.1.3"
