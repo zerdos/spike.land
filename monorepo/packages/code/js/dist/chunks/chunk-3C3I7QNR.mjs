@@ -16312,7 +16312,12 @@ var init_editorColorRegistry = __esm({
     registerThemingParticipant((theme, collector) => {
       const background = theme.getColor(editorBackground);
       if (background) {
-        collector.addRule(`.monaco-editor, .monaco-editor-background, .monaco-editor .inputarea.ime-input { background-color: ${background}; }`);
+        collector.addRule(`.monaco-editor, .monaco-editor-background { background-color: ${background}; }`);
+      }
+      const lineHighlight = theme.getColor(editorLineHighlight);
+      const imeBackground = lineHighlight && !lineHighlight.isTransparent() ? lineHighlight : background;
+      if (imeBackground) {
+        collector.addRule(`.monaco-editor .inputarea.ime-input { background-color: ${imeBackground}; }`);
       }
       const foreground2 = theme.getColor(editorForeground);
       if (foreground2) {
@@ -31974,7 +31979,13 @@ var GuideOptions = class extends BaseEditorOption {
         description: localize("editor.guides.indentation", "Controls whether the editor should render indent guides.")
       },
       "editor.guides.highlightActiveIndentation": {
-        type: "boolean",
+        type: ["boolean", "string"],
+        enum: [true, "always", false],
+        enumDescriptions: [
+          localize("editor.guides.highlightActiveIndentation.true", "Highlights the active indent guide."),
+          localize("editor.guides.highlightActiveIndentation.always", "Highlights the active indent guide even if bracket guides are highlighted."),
+          localize("editor.guides.highlightActiveIndentation.false", "Do not highlight the active indent guide.")
+        ],
         default: defaults.highlightActiveIndentation,
         description: localize("editor.guides.highlightActiveIndentation", "Controls whether the editor should highlight the active indent guide.")
       }
@@ -31990,7 +32001,7 @@ var GuideOptions = class extends BaseEditorOption {
       bracketPairsHorizontal: primitiveSet(input.bracketPairsHorizontal, this.defaultValue.bracketPairsHorizontal, [true, false, "active"]),
       highlightActiveBracketPair: boolean(input.highlightActiveBracketPair, this.defaultValue.highlightActiveBracketPair),
       indentation: boolean(input.indentation, this.defaultValue.indentation),
-      highlightActiveIndentation: boolean(input.highlightActiveIndentation, this.defaultValue.highlightActiveIndentation)
+      highlightActiveIndentation: primitiveSet(input.highlightActiveIndentation, this.defaultValue.highlightActiveIndentation, [true, false, "always"])
     };
   }
 };
@@ -51958,7 +51969,7 @@ var IndentGuidesOverlay = class extends DynamicViewOverlay {
     let activeIndentStartLineNumber = 0;
     let activeIndentEndLineNumber = 0;
     let activeIndentLevel = 0;
-    if (this._bracketPairGuideOptions.highlightActiveIndentation && activeCursorPosition) {
+    if (this._bracketPairGuideOptions.highlightActiveIndentation !== false && activeCursorPosition) {
       const activeIndentInfo = this._context.viewModel.getActiveIndentGuide(activeCursorPosition.lineNumber, visibleStartLineNumber, visibleEndLineNumber);
       activeIndentStartLineNumber = activeIndentInfo.startLineNumber;
       activeIndentEndLineNumber = activeIndentInfo.endLineNumber;
@@ -51974,7 +51985,7 @@ var IndentGuidesOverlay = class extends DynamicViewOverlay {
       const indentGuidesInLine = indentGuides ? indentGuides[lineNumber - visibleStartLineNumber] : [];
       for (let indentLvl = 1; indentLvl <= indentGuidesInLine; indentLvl++) {
         const indentGuide = (indentLvl - 1) * indentSize + 1;
-        const isActive = bracketGuidesInLine.length === 0 && activeIndentStartLineNumber <= lineNumber && lineNumber <= activeIndentEndLineNumber && indentLvl === activeIndentLevel;
+        const isActive = (this._bracketPairGuideOptions.highlightActiveIndentation === "always" || bracketGuidesInLine.length === 0) && activeIndentStartLineNumber <= lineNumber && lineNumber <= activeIndentEndLineNumber && indentLvl === activeIndentLevel;
         lineGuides.push(...bracketGuidesInLineQueue.takeWhile((g) => g.visibleColumn < indentGuide) || []);
         const peeked = bracketGuidesInLineQueue.peek();
         if (!peeked || peeked.visibleColumn !== indentGuide || peeked.horizontalLine) {

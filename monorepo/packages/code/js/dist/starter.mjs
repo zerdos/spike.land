@@ -379,10 +379,10 @@ var require_shared = __commonJS({
     (module.exports = function(key, value) {
       return store[key] || (store[key] = value !== void 0 ? value : {});
     })("versions", []).push({
-      version: "3.22.1",
+      version: "3.22.2",
       mode: IS_PURE ? "pure" : "global",
       copyright: "\xA9 2014-2022 Denis Pushkarev (zloirock.ru)",
-      license: "https://github.com/zloirock/core-js/blob/v3.22.1/LICENSE",
+      license: "https://github.com/zloirock/core-js/blob/v3.22.2/LICENSE",
       source: "https://github.com/zloirock/core-js"
     });
   }
@@ -1517,7 +1517,7 @@ if ("serviceWorker" in navigator) {
 var path = location.pathname.split("/");
 var room = (path[1] === "api" && path[2] === "room" ? path[3] : (path.pop() || path.pop()).slice(-12)) || "code-main";
 var start = async (App) => {
-  const e2 = import("./chunks/editor-MB6ZRDWT.mjs");
+  const e2 = import("./chunks/editor-OGOSBTIO.mjs");
   const p = import("./chunks/renderPreviewWindow-QOWICLJD.mjs");
   const container = document.querySelector("#root") || document.createElement("div");
   hydrate(container, jsx(App));
@@ -1525,7 +1525,7 @@ var start = async (App) => {
   if (location.href.endsWith("hydrated"))
     return;
   Object.assign(globalThis, { App });
-  const { join } = await import("./chunks/ws-BF7LKBC5.mjs");
+  const { join } = await import("./chunks/ws-HZRDPAQC.mjs");
   join(App);
   await Promise.all([e2, p]);
 };

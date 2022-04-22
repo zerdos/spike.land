@@ -1,6 +1,6 @@
 import {
   editor_api_exports
-} from "./chunk-ZOVZQRCX.mjs";
+} from "./chunk-3C3I7QNR.mjs";
 import "./chunk-BZTAI3VG.mjs";
 
 // ../../node_modules/monaco-editor/esm/vs/basic-languages/handlebars/handlebars.js
