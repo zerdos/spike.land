@@ -1520,7 +1520,7 @@ var start = async (App) => {
   const e2 = import("./chunks/editor-525ILQXD.mjs");
   const p = import("./chunks/renderPreviewWindow-QOWICLJD.mjs");
   const container = document.querySelector("#root") || document.createElement("div");
-  hydrate(container, jsx(App));
+  hydrate(container, jsx(App, null));
   console.log("HYDRATED");
   if (location.href.endsWith("hydrated"))
     return;
