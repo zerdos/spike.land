@@ -33,7 +33,7 @@ async function getErrors({ monaco, editor }) {
   console.log(fastError);
   return [];
 }
-async function runner(c, changes = null, session, counter) {
+async function runner(c, changes, session, counter) {
   session.changes.push(changes);
   const { babelTransform } = await import("./babelEsm-UINZG35V.mjs");
   const transform = babelTransform;
@@ -69,7 +69,7 @@ async function runner(c, changes = null, session, counter) {
         if (session.i !== counter) {
           return;
         }
-        const { saveCode } = await import("./ws-JZH66O5V.mjs");
+        const { saveCode } = await import("./ws-7YJDA4QA.mjs");
         saveCode({ transpiled, code, i: counter, css, html });
         return;
       } catch (error2) {
@@ -109,7 +109,7 @@ var startFromCode = async ({ code }) => {
   await quickStart(session);
 };
 async function quickStart(session, room, keepFullScreen) {
-  const { renderPreviewWindow } = await import("./renderPreviewWindow-SRWKUCLU.mjs");
+  const { renderPreviewWindow } = await import("./renderPreviewWindow-QOWICLJD.mjs");
   await renderPreviewWindow(session, room, keepFullScreen);
   if (!keepFullScreen) {
     await startMonacoWithSession(session);
@@ -136,6 +136,5 @@ async function getApp(transpiled, mode = "window") {
 export {
   initSession,
   quickStart,
-  startFromCode,
-  startMonacoWithSession
+  startFromCode
 };

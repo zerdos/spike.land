@@ -12,24 +12,22 @@ async function startMonacoWithSession(session: ICodeSession) {
 
   const { startMonaco } = await import("./editor");
 
-
+  const onchangeCode = (ev) =>
+    runner(editor.getModel().getValue(), ev.changes, session, ++session.i);
   const { editor, monaco } = await startMonaco(
     /**
      * @param {any} code
      */
     {
       language: "typescript",
-      container: monacoEditorDom!,
+      container: monacoEditorDom,
       code: session.code,
       /**
        * @param {string} code
        */
     },
   );
-
-  editor.onDidChangeModelContent((ev) =>
-  runner(editor.getModel().getValue(), ev.changes, session, ++session.i);
-);
+  editor.onDidChangeModelContent(onchangeCode);
 
   Object.assign(window, { monaco });
   session.editor = editor;
@@ -75,7 +73,12 @@ async function getErrors({ monaco, editor }) {
 
 // Let getHtmlAndCss;
 
-async function runner(c: string, changes: Object, session: ICodeSession & {changes: Object[]}, counter: number) {
+async function runner(
+  c: string,
+  changes: Object,
+  session: ICodeSession & { changes: Object[] },
+  counter: number,
+) {
   session.changes.push(changes);
   const { babelTransform } = await import("./babelEsm");
 
