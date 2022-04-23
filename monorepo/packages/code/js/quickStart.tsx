@@ -6,28 +6,30 @@ export const initSession = (await import("./session")).default;
 
 // //
 
-export async function startMonacoWithSession(session) {
+async function startMonacoWithSession(session: ICodeSession) {
   console.log("start monaco with session");
   const monacoEditorDom = document.querySelector("#monacoEditor");
 
   const { startMonaco } = await import("./editor");
 
-  const onchangeCode = (ev) =>
-    runner(editor.getModel().getValue(), ev.changes, session, ++session.i);
+
   const { editor, monaco } = await startMonaco(
     /**
      * @param {any} code
      */
     {
       language: "typescript",
-      container: monacoEditorDom,
+      container: monacoEditorDom!,
       code: session.code,
       /**
        * @param {string} code
        */
     },
   );
-  editor.onDidChangeModelContent(onchangeCode);
+
+  editor.onDidChangeModelContent((ev) =>
+  runner(editor.getModel().getValue(), ev.changes, session, ++session.i);
+);
 
   Object.assign(window, { monaco });
   session.editor = editor;
@@ -73,7 +75,7 @@ async function getErrors({ monaco, editor }) {
 
 // Let getHtmlAndCss;
 
-async function runner(c, changes = null, session, counter) {
+async function runner(c: string, changes: Object, session: ICodeSession & {changes: Object[]}, counter: number) {
   session.changes.push(changes);
   const { babelTransform } = await import("./babelEsm");
 
