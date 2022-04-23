@@ -1,11 +1,11 @@
 import {
   require_debounce
 } from "./chunk-GNRJA6OC.mjs";
-import "./chunk-2TEUNQZG.mjs";
-import "./chunk-SUXP66RU.mjs";
+import "./chunk-PY7LQW3L.mjs";
+import "./chunk-OTLKHG24.mjs";
 import {
   Uri
-} from "./chunk-3C3I7QNR.mjs";
+} from "./chunk-DMQU57X5.mjs";
 import {
   __toESM
 } from "./chunk-BZTAI3VG.mjs";
@@ -216,7 +216,7 @@ async function join(App) {
       errorText: ""
     };
     const stayFullscreen = location.pathname.endsWith("public");
-    const { quickStart } = await import("./quickStart-EJ7GYZBX.mjs");
+    const { quickStart } = await import("./quickStart-WEEEM7NI.mjs");
     quickStart(session, roomName, stayFullscreen);
   }
   wsConnection.addEventListener("message", (message) => processWsMessage(message, "ws"));

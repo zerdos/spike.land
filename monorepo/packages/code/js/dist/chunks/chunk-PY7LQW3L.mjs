@@ -604,7 +604,7 @@ import {
   widgetClose,
   widgetShadow,
   withNullAsUndefined
-} from "./chunk-3C3I7QNR.mjs";
+} from "./chunk-DMQU57X5.mjs";
 import {
   __commonJS,
   __esm,
@@ -2575,7 +2575,7 @@ registerLanguage({
         __require(["vs/basic-languages/freemarker2/freemarker2"], resolve, reject);
       }).then((m) => m.TagAngleInterpolationDollar);
     } else {
-      return import("./freemarker2-F45YDDXZ.mjs").then((m) => m.TagAutoInterpolationDollar);
+      return import("./freemarker2-ZYVQQCMB.mjs").then((m) => m.TagAutoInterpolationDollar);
     }
   }
 });
@@ -2588,7 +2588,7 @@ registerLanguage({
         __require(["vs/basic-languages/freemarker2/freemarker2"], resolve, reject);
       }).then((m) => m.TagAngleInterpolationDollar);
     } else {
-      return import("./freemarker2-F45YDDXZ.mjs").then((m) => m.TagAngleInterpolationDollar);
+      return import("./freemarker2-ZYVQQCMB.mjs").then((m) => m.TagAngleInterpolationDollar);
     }
   }
 });
@@ -2601,7 +2601,7 @@ registerLanguage({
         __require(["vs/basic-languages/freemarker2/freemarker2"], resolve, reject);
       }).then((m) => m.TagBracketInterpolationDollar);
     } else {
-      return import("./freemarker2-F45YDDXZ.mjs").then((m) => m.TagBracketInterpolationDollar);
+      return import("./freemarker2-ZYVQQCMB.mjs").then((m) => m.TagBracketInterpolationDollar);
     }
   }
 });
@@ -2614,7 +2614,7 @@ registerLanguage({
         __require(["vs/basic-languages/freemarker2/freemarker2"], resolve, reject);
       }).then((m) => m.TagAngleInterpolationBracket);
     } else {
-      return import("./freemarker2-F45YDDXZ.mjs").then((m) => m.TagAngleInterpolationBracket);
+      return import("./freemarker2-ZYVQQCMB.mjs").then((m) => m.TagAngleInterpolationBracket);
     }
   }
 });
@@ -2627,7 +2627,7 @@ registerLanguage({
         __require(["vs/basic-languages/freemarker2/freemarker2"], resolve, reject);
       }).then((m) => m.TagBracketInterpolationBracket);
     } else {
-      return import("./freemarker2-F45YDDXZ.mjs").then((m) => m.TagBracketInterpolationBracket);
+      return import("./freemarker2-ZYVQQCMB.mjs").then((m) => m.TagBracketInterpolationBracket);
     }
   }
 });
@@ -2640,7 +2640,7 @@ registerLanguage({
         __require(["vs/basic-languages/freemarker2/freemarker2"], resolve, reject);
       }).then((m) => m.TagAutoInterpolationDollar);
     } else {
-      return import("./freemarker2-F45YDDXZ.mjs").then((m) => m.TagAutoInterpolationDollar);
+      return import("./freemarker2-ZYVQQCMB.mjs").then((m) => m.TagAutoInterpolationDollar);
     }
   }
 });
@@ -2653,7 +2653,7 @@ registerLanguage({
         __require(["vs/basic-languages/freemarker2/freemarker2"], resolve, reject);
       }).then((m) => m.TagAutoInterpolationBracket);
     } else {
-      return import("./freemarker2-F45YDDXZ.mjs").then((m) => m.TagAutoInterpolationBracket);
+      return import("./freemarker2-ZYVQQCMB.mjs").then((m) => m.TagAutoInterpolationBracket);
     }
   }
 });
@@ -2703,7 +2703,7 @@ registerLanguage({
         __require(["vs/basic-languages/handlebars/handlebars"], resolve, reject);
       });
     } else {
-      return import("./handlebars-CJNMZO62.mjs");
+      return import("./handlebars-6JMMPP5Y.mjs");
     }
   }
 });
@@ -2736,7 +2736,7 @@ registerLanguage({
         __require(["vs/basic-languages/html/html"], resolve, reject);
       });
     } else {
-      return import("./html-ZMKMR2OY.mjs");
+      return import("./html-PZCKO3EZ.mjs");
     }
   }
 });
@@ -2789,7 +2789,7 @@ registerLanguage({
         __require(["vs/basic-languages/javascript/javascript"], resolve, reject);
       });
     } else {
-      return import("./javascript-CNQTGLIN.mjs");
+      return import("./javascript-3BGC4X2Q.mjs");
     }
   }
 });
@@ -2888,7 +2888,7 @@ registerLanguage({
         __require(["vs/basic-languages/liquid/liquid"], resolve, reject);
       });
     } else {
-      return import("./liquid-X6LLRGL4.mjs");
+      return import("./liquid-PY4B5TQQ.mjs");
     }
   }
 });
@@ -3179,7 +3179,7 @@ registerLanguage({
         __require(["vs/basic-languages/python/python"], resolve, reject);
       });
     } else {
-      return import("./python-IU64SVPL.mjs");
+      return import("./python-QPFMYVJ5.mjs");
     }
   }
 });
@@ -3228,7 +3228,7 @@ registerLanguage({
         __require(["vs/basic-languages/razor/razor"], resolve, reject);
       });
     } else {
-      return import("./razor-5HYZDQLC.mjs");
+      return import("./razor-EUFFUQYF.mjs");
     }
   }
 });
@@ -3568,7 +3568,7 @@ registerLanguage({
         __require(["vs/basic-languages/typescript/typescript"], resolve, reject);
       });
     } else {
-      return import("./typescript-BQ4LI3LC.mjs");
+      return import("./typescript-7TVTIGTE.mjs");
     }
   }
 });
@@ -3616,7 +3616,7 @@ registerLanguage({
         __require(["vs/basic-languages/xml/xml"], resolve, reject);
       });
     } else {
-      return import("./xml-XJA5QI6S.mjs");
+      return import("./xml-RWEPWKAD.mjs");
     }
   }
 });
@@ -3633,7 +3633,7 @@ registerLanguage({
         __require(["vs/basic-languages/yaml/yaml"], resolve, reject);
       });
     } else {
-      return import("./yaml-HD2OMLZK.mjs");
+      return import("./yaml-GO77TCOE.mjs");
     }
   }
 });
@@ -3747,7 +3747,7 @@ function getMode() {
       __require(["vs/language/css/cssMode"], resolve, reject);
     });
   } else {
-    return import("./cssMode-4KEWAZXN.mjs");
+    return import("./cssMode-7EM3JAF6.mjs");
   }
 }
 monaco_editor_core_exports2.languages.onLanguage("less", () => {
@@ -3865,7 +3865,7 @@ function getMode2() {
       __require(["vs/language/html/htmlMode"], resolve, reject);
     });
   } else {
-    return import("./htmlMode-BEE64DZC.mjs");
+    return import("./htmlMode-KNMWLGSM.mjs");
   }
 }
 function registerHTMLLanguageService(languageId, options = optionsDefault2, modeConfiguration = getConfigurationDefault(languageId)) {
@@ -3960,7 +3960,7 @@ function getMode3() {
       __require(["vs/language/json/jsonMode"], resolve, reject);
     });
   } else {
-    return import("./jsonMode-XKEFKTDT.mjs");
+    return import("./jsonMode-O7DE3LPA.mjs");
   }
 }
 monaco_editor_core_exports4.languages.register({

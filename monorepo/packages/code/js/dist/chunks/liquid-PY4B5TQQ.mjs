@@ -1,6 +1,6 @@
 import {
   editor_api_exports
-} from "./chunk-3C3I7QNR.mjs";
+} from "./chunk-DMQU57X5.mjs";
 import "./chunk-BZTAI3VG.mjs";
 
 // ../../node_modules/monaco-editor/esm/vs/basic-languages/liquid/liquid.js
