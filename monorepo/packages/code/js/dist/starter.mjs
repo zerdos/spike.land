@@ -1286,6 +1286,9 @@ var require_web_set_immediate = __commonJS({
   }
 });
 
+// js/starter.tsx
+import { jsx } from "https://spike.land/dist/emotion.mjs";
+
 // ../../node_modules/core-js/modules/web.immediate.js
 require_web_clear_immediate();
 require_web_set_immediate();
@@ -1306,9 +1309,6 @@ function fromBinary(binary) {
   }
   return result;
 }
-
-// js/starter.tsx
-import { jsx } from "https://spike.land/dist/emotion.mjs";
 
 // ../../node_modules/workbox-window/build/workbox-window.prod.es5.mjs
 try {

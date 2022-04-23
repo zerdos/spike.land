@@ -1,7 +1,7 @@
-/**@jsx jsx */
+/** @jsx jsx */
 import { css, jsx } from "@emotion/react";
 
-import { ReactNode, SetStateAction, useEffect, useRef, useState } from "react";
+import { SetStateAction, useEffect, useRef, useState } from "react";
 import type { Dispatch, FC } from "react";
 import type { ICodeSession } from "./session";
 

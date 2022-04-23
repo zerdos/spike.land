@@ -4,11 +4,11 @@ import { wait } from "./wait";
 
 esbuild.version;
 
-function createWasmBlob(wasm: string) {
-  const blob = new Blob([wasm], { type: "application/wasm" });
+// function createWasmBlob(wasm: string) {
+//   const blob = new Blob([wasm], { type: "application/wasm" });
 
-  return URL.createObjectURL(blob);
-}
+//   return URL.createObjectURL(blob);
+// }
 
 const init = esbuild.initialize({
   wasmURL: `https://unpkg.com/esbuild-wasm@${esbuild.version}/esbuild.wasm`,

@@ -6,17 +6,15 @@
     /* Basic Options */
     "lib": [
       "dom",
-      "dom.iterable",
       "esnext",
-      "WebWorker"
     ],
     "allowJs": true,
     "noFallthroughCasesInSwitch": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react-jsx",
+    "jsx": "preserve",
     "module": "esnext",
-    "jsxImportSource": "@emotion/react",
+    // "jsxImportSource": "@emotion/react",
     "sourceMap": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,

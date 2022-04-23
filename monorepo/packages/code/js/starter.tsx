@@ -3,8 +3,7 @@ import { jsx } from "@emotion/react";
 import "core-js/modules/web.immediate";
 
 import { hydrate } from "react-dom";
-import { fromBinary } from "./binary";
-import { jsx } from "@emotion/react";
+import { fromBinary } from "./binary"
 import { Workbox } from "workbox-window";
 
 if ("serviceWorker" in navigator) {

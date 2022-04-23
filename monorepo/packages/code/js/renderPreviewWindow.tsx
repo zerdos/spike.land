@@ -1,7 +1,7 @@
 /**@jsx jsx */
 import { jsx } from "@emotion/react";
 import path from "path-browserify";
-import { render } from "react";
+import { render } from "react-dom";
 import type { ICodeSession } from "./session";
 
 import { hashCode } from "./session";
