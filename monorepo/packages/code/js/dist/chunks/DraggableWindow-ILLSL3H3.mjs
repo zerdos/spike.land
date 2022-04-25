@@ -2332,6 +2332,7 @@ function useInput(props, inputRef) {
 
 // ../../node_modules/@mui/base/InputUnstyled/InputUnstyled.js
 var _excluded4 = ["aria-describedby", "aria-label", "aria-labelledby", "autoComplete", "autoFocus", "className", "component", "components", "componentsProps", "defaultValue", "disabled", "endAdornment", "error", "id", "maxRows", "minRows", "multiline", "name", "onClick", "onChange", "onKeyDown", "onKeyUp", "onFocus", "onBlur", "placeholder", "readOnly", "required", "rows", "type", "startAdornment", "value"];
+var _excluded22 = ["ownerState"];
 var InputUnstyled = React18.forwardRef(function InputUnstyled2(props, ref) {
   var _componentsProps$inpu, _ref, _componentsProps$root, _components$Input, _componentsProps$inpu2;
   const {
@@ -2419,29 +2420,21 @@ var InputUnstyled = React18.forwardRef(function InputUnstyled2(props, ref) {
   }), ownerState);
   if (multiline) {
     var _components$Textarea, _components$Textarea2;
-    const hasHostTexarea = isHostComponent_default((_components$Textarea = components.Textarea) != null ? _components$Textarea : "textarea");
+    const hasHostTextarea = isHostComponent_default((_components$Textarea = components.Textarea) != null ? _components$Textarea : "textarea");
+    const inputPropsWithoutOwnerState = _objectWithoutPropertiesLoose(inputProps, _excluded22);
     if (rows) {
       if (false) {
         if (minRows || maxRows) {
           console.warn("MUI: You can not use the `minRows` or `maxRows` props when the input `rows` prop is set.");
         }
       }
-      inputProps = _extends({
-        type: void 0,
-        minRows: hasHostTexarea ? void 0 : rows,
-        maxRows: hasHostTexarea ? void 0 : rows
-      }, inputProps, hasHostTexarea && {
-        ownerState: void 0
-      });
-    } else {
-      inputProps = _extends({
-        type: void 0,
-        maxRows: hasHostTexarea ? void 0 : maxRows,
-        minRows: hasHostTexarea ? void 0 : minRows
-      }, inputProps, hasHostTexarea && {
-        ownerState: void 0
-      });
     }
+    inputProps = _extends({
+      type: void 0
+    }, !hasHostTextarea && {
+      minRows: rows || minRows,
+      maxRows: rows || maxRows
+    }, hasHostTextarea ? inputPropsWithoutOwnerState : inputProps);
     Input = (_components$Textarea2 = components.Textarea) != null ? _components$Textarea2 : "textarea";
   }
   return e2(Root, _extends({}, rootProps, {
@@ -4694,7 +4687,7 @@ var Portal_default = Portal;
 
 // ../../node_modules/@mui/base/PopperUnstyled/PopperUnstyled.js
 var _excluded5 = ["anchorEl", "children", "direction", "disablePortal", "modifiers", "open", "ownerState", "placement", "popperOptions", "popperRef", "TransitionProps"];
-var _excluded22 = ["anchorEl", "children", "container", "direction", "disablePortal", "keepMounted", "modifiers", "open", "placement", "popperOptions", "popperRef", "style", "transition"];
+var _excluded23 = ["anchorEl", "children", "container", "direction", "disablePortal", "keepMounted", "modifiers", "open", "placement", "popperOptions", "popperRef", "style", "transition"];
 function flipPlacement(placement, direction) {
   if (direction === "ltr") {
     return placement;
@@ -4826,7 +4819,7 @@ var PopperUnstyled = React24.forwardRef(function PopperUnstyled2(props, ref) {
     popperRef,
     style: style3,
     transition = false
-  } = props, other = _objectWithoutPropertiesLoose(props, _excluded22);
+  } = props, other = _objectWithoutPropertiesLoose(props, _excluded23);
   const [exited, setExited] = React24.useState(true);
   const handleEnter = () => {
     setExited(false);
@@ -9973,7 +9966,12 @@ function getPath(obj, path) {
       return val;
     }
   }
-  return path.split(".").reduce((acc, item) => acc && acc[item] ? acc[item] : null, obj);
+  return path.split(".").reduce((acc, item) => {
+    if (acc && acc[item] != null) {
+      return acc[item];
+    }
+    return null;
+  }, obj);
 }
 function getValue(themeMapping, transform2, propValueFinal, userValue = propValueFinal) {
   let value;
@@ -10094,7 +10092,8 @@ var marginKeys = ["m", "mt", "mr", "mb", "ml", "mx", "my", "margin", "marginTop"
 var paddingKeys = ["p", "pt", "pr", "pb", "pl", "px", "py", "padding", "paddingTop", "paddingRight", "paddingBottom", "paddingLeft", "paddingX", "paddingY", "paddingInline", "paddingInlineStart", "paddingInlineEnd", "paddingBlock", "paddingBlockStart", "paddingBlockEnd"];
 var spacingKeys = [...marginKeys, ...paddingKeys];
 function createUnaryUnit(theme, themeKey, defaultValue, propName) {
-  const themeSpacing = getPath(theme, themeKey) || defaultValue;
+  var _getPath;
+  const themeSpacing = (_getPath = getPath(theme, themeKey)) != null ? _getPath : defaultValue;
   if (typeof themeSpacing === "number") {
     return (abs2) => {
       if (typeof abs2 === "string") {
@@ -10700,12 +10699,14 @@ function extendSxProp(props) {
   });
 }
 
-// ../../node_modules/@mui/system/esm/createBox.js
+// ../../node_modules/@mui/system/esm/Box/Box.js
 var import_prop_types33 = __toESM(require_prop_types());
+
+// ../../node_modules/@mui/system/esm/createBox.js
 import * as React57 from "https://spike.land/dist/react.mjs";
 
 // ../../node_modules/@mui/system/esm/createTheme/createBreakpoints.js
-var _excluded23 = ["values", "unit", "step"];
+var _excluded24 = ["values", "unit", "step"];
 var sortBreakpointsValues = (values3) => {
   const breakpointsAsArray = Object.keys(values3).map((key) => ({
     key,
@@ -10729,7 +10730,7 @@ function createBreakpoints(breakpoints) {
     },
     unit = "px",
     step = 5
-  } = breakpoints, other = _objectWithoutPropertiesLoose(breakpoints, _excluded23);
+  } = breakpoints, other = _objectWithoutPropertiesLoose(breakpoints, _excluded24);
   const sortedValues = sortBreakpointsValues(values3);
   const keys = Object.keys(sortedValues);
   function up(key) {
@@ -10803,14 +10804,14 @@ function createSpacing(spacingInput = 8) {
 }
 
 // ../../node_modules/@mui/system/esm/createTheme/createTheme.js
-var _excluded24 = ["breakpoints", "palette", "spacing", "shape"];
+var _excluded25 = ["breakpoints", "palette", "spacing", "shape"];
 function createTheme(options = {}, ...args) {
   const {
     breakpoints: breakpointsInput = {},
     palette: paletteInput = {},
     spacing: spacingInput,
     shape: shapeInput = {}
-  } = options, other = _objectWithoutPropertiesLoose(options, _excluded24);
+  } = options, other = _objectWithoutPropertiesLoose(options, _excluded25);
   const breakpoints = createBreakpoints(breakpointsInput);
   const spacing2 = createSpacing(spacingInput);
   let muiTheme = deepmerge({
@@ -10917,7 +10918,7 @@ function useTheme3(defaultTheme4 = systemDefaultTheme) {
 var useTheme_default = useTheme3;
 
 // ../../node_modules/@mui/system/esm/createBox.js
-var _excluded25 = ["className", "component"];
+var _excluded26 = ["className", "component"];
 function createBox(options = {}) {
   const {
     defaultTheme: defaultTheme4,
@@ -10931,7 +10932,7 @@ function createBox(options = {}) {
     const _extendSxProp = extendSxProp(inProps), {
       className,
       component = "div"
-    } = _extendSxProp, other = _objectWithoutPropertiesLoose(_extendSxProp, _excluded25);
+    } = _extendSxProp, other = _objectWithoutPropertiesLoose(_extendSxProp, _excluded26);
     return e2(BoxRoot, _extends({
       as: component,
       ref,
@@ -10939,26 +10940,26 @@ function createBox(options = {}) {
       theme
     }, other));
   });
-  false ? Box3.propTypes = {
-    children: import_prop_types33.default.node,
-    component: import_prop_types33.default.elementType,
-    sx: import_prop_types33.default.oneOfType([import_prop_types33.default.object, import_prop_types33.default.array, import_prop_types33.default.func])
-  } : void 0;
   return Box3;
 }
 
 // ../../node_modules/@mui/system/esm/Box/Box.js
 var Box = createBox();
+false ? Box.propTypes = {
+  children: import_prop_types33.default.node,
+  component: import_prop_types33.default.elementType,
+  sx: import_prop_types33.default.oneOfType([import_prop_types33.default.arrayOf(import_prop_types33.default.oneOfType([import_prop_types33.default.func, import_prop_types33.default.object, import_prop_types33.default.bool])), import_prop_types33.default.func, import_prop_types33.default.object])
+} : void 0;
 
 // ../../node_modules/@mui/system/esm/propsToClassKey.js
-var _excluded26 = ["variant"];
+var _excluded27 = ["variant"];
 function isEmpty2(string) {
   return string.length === 0;
 }
 function propsToClassKey(props) {
   const {
     variant
-  } = props, other = _objectWithoutPropertiesLoose(props, _excluded26);
+  } = props, other = _objectWithoutPropertiesLoose(props, _excluded27);
   let classKey = variant || "";
   Object.keys(other).sort().forEach((key) => {
     if (key === "color") {
@@ -10971,8 +10972,8 @@ function propsToClassKey(props) {
 }
 
 // ../../node_modules/@mui/system/esm/createStyled.js
-var _excluded27 = ["name", "slot", "skipVariantsResolver", "skipSx", "overridesResolver"];
-var _excluded28 = ["theme"];
+var _excluded28 = ["name", "slot", "skipVariantsResolver", "skipSx", "overridesResolver"];
+var _excluded29 = ["theme"];
 var _excluded32 = ["theme"];
 function isEmpty3(obj) {
   return Object.keys(obj).length === 0;
@@ -11035,7 +11036,7 @@ function createStyled3(input = {}) {
       skipVariantsResolver: inputSkipVariantsResolver,
       skipSx: inputSkipSx,
       overridesResolver
-    } = inputOptions, options = _objectWithoutPropertiesLoose(inputOptions, _excluded27);
+    } = inputOptions, options = _objectWithoutPropertiesLoose(inputOptions, _excluded28);
     const skipVariantsResolver = inputSkipVariantsResolver !== void 0 ? inputSkipVariantsResolver : componentSlot && componentSlot !== "Root" || false;
     const skipSx = inputSkipSx || false;
     let label;
@@ -11059,7 +11060,7 @@ function createStyled3(input = {}) {
         return typeof stylesArg === "function" && stylesArg.__emotion_real !== stylesArg ? (_ref) => {
           let {
             theme: themeInput
-          } = _ref, other = _objectWithoutPropertiesLoose(_ref, _excluded28);
+          } = _ref, other = _objectWithoutPropertiesLoose(_ref, _excluded29);
           return stylesArg(_extends({
             theme: isEmpty3(themeInput) ? defaultTheme4 : themeInput
           }, other));
@@ -11346,7 +11347,7 @@ function ThemeProvider2(props) {
 }
 false ? ThemeProvider2.propTypes = {
   children: import_prop_types34.default.node,
-  theme: import_prop_types34.default.oneOfType([import_prop_types34.default.object, import_prop_types34.default.func]).isRequired
+  theme: import_prop_types34.default.oneOfType([import_prop_types34.default.func, import_prop_types34.default.object]).isRequired
 } : void 0;
 if (false) {
   false ? ThemeProvider2.propTypes = exactProp(ThemeProvider2.propTypes) : void 0;
@@ -11676,7 +11677,7 @@ function createGetCssVar(prefix2 = "") {
 }
 
 // ../../node_modules/@mui/system/esm/cssVars/createCssVarsProvider.js
-var _excluded29 = ["colorSchemes"];
+var _excluded30 = ["colorSchemes"];
 var _excluded210 = ["colorSchemes"];
 var _excluded33 = ["components"];
 var DISABLE_CSS_TRANSITION = "*{-webkit-transition:none!important;-moz-transition:none!important;-o-transition:none!important;-ms-transition:none!important;transition:none!important}";
@@ -11718,7 +11719,7 @@ function createCssVarsProvider(options) {
   }) {
     const {
       colorSchemes: baseColorSchemes = {}
-    } = baseTheme, restBaseTheme = _objectWithoutPropertiesLoose(baseTheme, _excluded29);
+    } = baseTheme, restBaseTheme = _objectWithoutPropertiesLoose(baseTheme, _excluded30);
     const {
       colorSchemes: colorSchemesProp = {}
     } = themeProp, restThemeProp = _objectWithoutPropertiesLoose(themeProp, _excluded210);
@@ -12038,7 +12039,7 @@ var green = {
 var green_default = green;
 
 // ../../node_modules/@mui/material/styles/createPalette.js
-var _excluded30 = ["mode", "contrastThreshold", "tonalOffset"];
+var _excluded31 = ["mode", "contrastThreshold", "tonalOffset"];
 var light = {
   text: {
     primary: "rgba(0, 0, 0, 0.87)",
@@ -12192,7 +12193,7 @@ function createPalette(palette2) {
     mode = "light",
     contrastThreshold = 3,
     tonalOffset = 0.2
-  } = palette2, other = _objectWithoutPropertiesLoose(palette2, _excluded30);
+  } = palette2, other = _objectWithoutPropertiesLoose(palette2, _excluded31);
   const primary = palette2.primary || getDefaultPrimary(mode);
   const secondary = palette2.secondary || getDefaultSecondary(mode);
   const error = palette2.error || getDefaultError(mode);
@@ -12296,7 +12297,7 @@ const theme2 = createTheme({ palette: {
 }
 
 // ../../node_modules/@mui/material/styles/createTypography.js
-var _excluded31 = ["fontFamily", "fontSize", "fontWeightLight", "fontWeightRegular", "fontWeightMedium", "fontWeightBold", "htmlFontSize", "allVariants", "pxToRem"];
+var _excluded34 = ["fontFamily", "fontSize", "fontWeightLight", "fontWeightRegular", "fontWeightMedium", "fontWeightBold", "htmlFontSize", "allVariants", "pxToRem"];
 function round2(value) {
   return Math.round(value * 1e5) / 1e5;
 }
@@ -12315,7 +12316,7 @@ function createTypography(palette2, typography2) {
     htmlFontSize = 16,
     allVariants,
     pxToRem: pxToRem2
-  } = _ref, other = _objectWithoutPropertiesLoose(_ref, _excluded31);
+  } = _ref, other = _objectWithoutPropertiesLoose(_ref, _excluded34);
   if (false) {
     if (typeof fontSize2 !== "number") {
       console.error("MUI: `fontSize` is required to be a number.");
@@ -12374,7 +12375,7 @@ var shadows = ["none", createShadow(0, 2, 1, -1, 0, 1, 1, 0, 0, 1, 3, 0), create
 var shadows_default2 = shadows;
 
 // ../../node_modules/@mui/material/styles/createTransitions.js
-var _excluded34 = ["duration", "easing", "delay"];
+var _excluded35 = ["duration", "easing", "delay"];
 var easing = {
   easeInOut: "cubic-bezier(0.4, 0, 0.2, 1)",
   easeOut: "cubic-bezier(0.0, 0, 0.2, 1)",
@@ -12408,7 +12409,7 @@ function createTransitions(inputTransitions) {
       duration: durationOption = mergedDuration.standard,
       easing: easingOption = mergedEasing.easeInOut,
       delay = 0
-    } = options, other = _objectWithoutPropertiesLoose(options, _excluded34);
+    } = options, other = _objectWithoutPropertiesLoose(options, _excluded35);
     if (false) {
       const isString = (value) => typeof value === "string";
       const isNumber = (value) => !isNaN(parseFloat(value));
@@ -12453,14 +12454,14 @@ var zIndex2 = {
 var zIndex_default = zIndex2;
 
 // ../../node_modules/@mui/material/styles/createTheme.js
-var _excluded35 = ["breakpoints", "mixins", "spacing", "palette", "transitions", "typography", "shape"];
+var _excluded36 = ["breakpoints", "mixins", "spacing", "palette", "transitions", "typography", "shape"];
 function createTheme2(options = {}, ...args) {
   const {
     mixins: mixinsInput = {},
     palette: paletteInput = {},
     transitions: transitionsInput = {},
     typography: typographyInput = {}
-  } = options, other = _objectWithoutPropertiesLoose(options, _excluded35);
+  } = options, other = _objectWithoutPropertiesLoose(options, _excluded36);
   const palette2 = createPalette(paletteInput);
   const systemTheme = createTheme_default(options);
   let muiTheme = deepmerge(systemTheme, {
@@ -13545,7 +13546,7 @@ var touchRippleClasses = generateUtilityClasses("MuiTouchRipple", ["root", "ripp
 var touchRippleClasses_default = touchRippleClasses;
 
 // ../../node_modules/@mui/material/ButtonBase/TouchRipple.js
-var _excluded36 = ["center", "classes", "className"];
+var _excluded37 = ["center", "classes", "className"];
 var _2 = (t2) => t2;
 var _t;
 var _t2;
@@ -13664,7 +13665,7 @@ var TouchRipple = React69.forwardRef(function TouchRipple2(inProps, ref) {
     center: centerProp = false,
     classes = {},
     className
-  } = props, other = _objectWithoutPropertiesLoose(props, _excluded36);
+  } = props, other = _objectWithoutPropertiesLoose(props, _excluded37);
   const [ripples, setRipples] = React69.useState([]);
   const nextKey = React69.useRef(0);
   const rippleCallback = React69.useRef(null);
@@ -13836,7 +13837,7 @@ var buttonBaseClasses = generateUtilityClasses("MuiButtonBase", ["root", "disabl
 var buttonBaseClasses_default = buttonBaseClasses;
 
 // ../../node_modules/@mui/material/ButtonBase/ButtonBase.js
-var _excluded37 = ["action", "centerRipple", "children", "className", "component", "disabled", "disableRipple", "disableTouchRipple", "focusRipple", "focusVisibleClassName", "LinkComponent", "onBlur", "onClick", "onContextMenu", "onDragLeave", "onFocus", "onFocusVisible", "onKeyDown", "onKeyUp", "onMouseDown", "onMouseLeave", "onMouseUp", "onTouchEnd", "onTouchMove", "onTouchStart", "tabIndex", "TouchRippleProps", "touchRippleRef", "type"];
+var _excluded38 = ["action", "centerRipple", "children", "className", "component", "disabled", "disableRipple", "disableTouchRipple", "focusRipple", "focusVisibleClassName", "LinkComponent", "onBlur", "onClick", "onContextMenu", "onDragLeave", "onFocus", "onFocusVisible", "onKeyDown", "onKeyUp", "onMouseDown", "onMouseLeave", "onMouseUp", "onTouchEnd", "onTouchMove", "onTouchStart", "tabIndex", "TouchRippleProps", "touchRippleRef", "type"];
 var useUtilityClasses13 = (ownerState) => {
   const {
     disabled,
@@ -13922,7 +13923,7 @@ var ButtonBase = React70.forwardRef(function ButtonBase2(inProps, ref) {
     TouchRippleProps,
     touchRippleRef,
     type
-  } = props, other = _objectWithoutPropertiesLoose(props, _excluded37);
+  } = props, other = _objectWithoutPropertiesLoose(props, _excluded38);
   const buttonRef = React70.useRef(null);
   const rippleRef = React70.useRef(null);
   const handleRippleRef = useForkRef_default(rippleRef, touchRippleRef);
@@ -14158,7 +14159,7 @@ var fabClasses = generateUtilityClasses("MuiFab", ["root", "primary", "secondary
 var fabClasses_default = fabClasses;
 
 // ../../node_modules/@mui/material/Fab/Fab.js
-var _excluded38 = ["children", "className", "color", "component", "disabled", "disableFocusRipple", "focusVisibleClassName", "size", "variant"];
+var _excluded39 = ["children", "className", "color", "component", "disabled", "disableFocusRipple", "focusVisibleClassName", "size", "variant"];
 var useUtilityClasses14 = (ownerState) => {
   const {
     color: color2,
@@ -14270,7 +14271,7 @@ var Fab = React71.forwardRef(function Fab2(inProps, ref) {
     focusVisibleClassName,
     size = "large",
     variant = "circular"
-  } = props, other = _objectWithoutPropertiesLoose(props, _excluded38);
+  } = props, other = _objectWithoutPropertiesLoose(props, _excluded39);
   const ownerState = _extends({}, props, {
     color: color2,
     component,
@@ -14329,7 +14330,7 @@ if (false) {
 var ButtonGroupContext_default = ButtonGroupContext;
 
 // ../../node_modules/@mui/material/Button/Button.js
-var _excluded39 = ["children", "color", "component", "className", "disabled", "disableElevation", "disableFocusRipple", "endIcon", "focusVisibleClassName", "fullWidth", "size", "startIcon", "type", "variant"];
+var _excluded40 = ["children", "color", "component", "className", "disabled", "disableElevation", "disableFocusRipple", "endIcon", "focusVisibleClassName", "fullWidth", "size", "startIcon", "type", "variant"];
 var useUtilityClasses15 = (ownerState) => {
   const {
     color: color2,
@@ -14546,7 +14547,7 @@ var Button = React73.forwardRef(function Button2(inProps, ref) {
     startIcon: startIconProp,
     type,
     variant = "text"
-  } = props, other = _objectWithoutPropertiesLoose(props, _excluded39);
+  } = props, other = _objectWithoutPropertiesLoose(props, _excluded40);
   const ownerState = _extends({}, props, {
     color: color2,
     component,
@@ -14605,6 +14606,9 @@ false ? Button.propTypes = {
 } : void 0;
 var Button_default = Button;
 
+// ../../node_modules/@mui/material/Box/Box.js
+var import_prop_types47 = __toESM(require_prop_types());
+
 // ../../node_modules/@mui/material/styles/useTheme.js
 import * as React74 from "https://spike.land/dist/react.mjs";
 function useTheme4() {
@@ -14616,7 +14620,7 @@ function useTheme4() {
 }
 
 // ../../node_modules/@mui/material/styles/experimental_extendTheme.js
-var _excluded40 = ["colorSchemes", "opacity"];
+var _excluded41 = ["colorSchemes", "opacity"];
 var _excluded211 = ["palette"];
 var defaultOpacity = {
   active: 0.54,
@@ -14630,7 +14634,7 @@ function createTheme3(options = {}, ...args) {
   const {
     colorSchemes: colorSchemesInput = {},
     opacity: opacityInput = {}
-  } = options, input = _objectWithoutPropertiesLoose(options, _excluded40);
+  } = options, input = _objectWithoutPropertiesLoose(options, _excluded41);
   let _createThemeWithoutVa = createTheme_default2(_extends({}, input, colorSchemesInput.light && {
     palette: (_colorSchemesInput$li = colorSchemesInput.light) == null ? void 0 : _colorSchemesInput$li.palette
   })), {
@@ -14714,10 +14718,15 @@ var Box2 = createBox({
   defaultClassName: "MuiBox-root",
   generateClassName: ClassNameGenerator_default.generate
 });
+false ? Box2.propTypes = {
+  children: import_prop_types47.default.node,
+  component: import_prop_types47.default.elementType,
+  sx: import_prop_types47.default.oneOfType([import_prop_types47.default.arrayOf(import_prop_types47.default.oneOfType([import_prop_types47.default.func, import_prop_types47.default.object, import_prop_types47.default.bool])), import_prop_types47.default.func, import_prop_types47.default.object])
+} : void 0;
 var Box_default2 = Box2;
 
 // ../../node_modules/@mui/material/Slider/Slider.js
-var import_prop_types47 = __toESM(require_prop_types());
+var import_prop_types48 = __toESM(require_prop_types());
 import * as React75 from "https://spike.land/dist/react.mjs";
 
 // ../../node_modules/@mui/material/utils/shouldSpreadAdditionalProps.js
@@ -14727,7 +14736,7 @@ var shouldSpreadAdditionalProps = (Slot) => {
 var shouldSpreadAdditionalProps_default = shouldSpreadAdditionalProps;
 
 // ../../node_modules/@mui/material/Slider/Slider.js
-var _excluded41 = ["component", "components", "componentsProps", "color", "size"];
+var _excluded42 = ["component", "components", "componentsProps", "color", "size"];
 var sliderClasses = _extends({}, sliderUnstyledClasses_default, generateUtilityClasses("MuiSlider", ["colorPrimary", "colorSecondary", "thumbColorPrimary", "thumbColorSecondary", "sizeSmall", "thumbSizeSmall"]));
 var SliderRoot = styled_default2("span", {
   name: "MuiSlider",
@@ -14792,7 +14801,7 @@ var SliderRoot = styled_default2("span", {
   }
 }));
 false ? SliderRoot.propTypes = {
-  children: import_prop_types47.default.node
+  children: import_prop_types48.default.node
 } : void 0;
 var SliderRail = styled_default2("span", {
   name: "MuiSlider",
@@ -14820,7 +14829,7 @@ var SliderRail = styled_default2("span", {
   opacity: 1
 }));
 false ? SliderRail.propTypes = {
-  children: import_prop_types47.default.node
+  children: import_prop_types48.default.node
 } : void 0;
 var SliderTrack = styled_default2("span", {
   name: "MuiSlider",
@@ -14858,7 +14867,7 @@ var SliderTrack = styled_default2("span", {
   });
 });
 false ? SliderTrack.propTypes = {
-  children: import_prop_types47.default.node
+  children: import_prop_types48.default.node
 } : void 0;
 var SliderThumb = styled_default2("span", {
   name: "MuiSlider",
@@ -14932,7 +14941,7 @@ var SliderThumb = styled_default2("span", {
   }
 }));
 false ? SliderThumb.propTypes = {
-  children: import_prop_types47.default.node
+  children: import_prop_types48.default.node
 } : void 0;
 var SliderValueLabel = styled_default2(SliderValueLabelUnstyled_default, {
   name: "MuiSlider",
@@ -14979,7 +14988,7 @@ var SliderValueLabel = styled_default2(SliderValueLabelUnstyled_default, {
   }
 }));
 false ? SliderValueLabel.propTypes = {
-  children: import_prop_types47.default.node
+  children: import_prop_types48.default.node
 } : void 0;
 var SliderMark = styled_default2("span", {
   name: "MuiSlider",
@@ -15007,7 +15016,7 @@ var SliderMark = styled_default2("span", {
   opacity: 0.8
 }));
 false ? SliderMark.propTypes = {
-  children: import_prop_types47.default.node
+  children: import_prop_types48.default.node
 } : void 0;
 var SliderMarkLabel = styled_default2("span", {
   name: "MuiSlider",
@@ -15038,7 +15047,7 @@ var SliderMarkLabel = styled_default2("span", {
   color: theme.palette.text.primary
 }));
 false ? SliderMarkLabel.propTypes = {
-  children: import_prop_types47.default.node
+  children: import_prop_types48.default.node
 } : void 0;
 var extendUtilityClasses = (ownerState) => {
   const {
@@ -15065,7 +15074,7 @@ var Slider = React75.forwardRef(function Slider2(inputProps, ref) {
     componentsProps = {},
     color: color2 = "primary",
     size = "medium"
-  } = props, other = _objectWithoutPropertiesLoose(props, _excluded41);
+  } = props, other = _objectWithoutPropertiesLoose(props, _excluded42);
   const ownerState = _extends({}, props, {
     color: color2,
     size
@@ -15114,77 +15123,77 @@ var Slider = React75.forwardRef(function Slider2(inputProps, ref) {
   }));
 });
 false ? Slider.propTypes = {
-  "aria-label": chainPropTypes(import_prop_types47.default.string, (props) => {
+  "aria-label": chainPropTypes(import_prop_types48.default.string, (props) => {
     const range = Array.isArray(props.value || props.defaultValue);
     if (range && props["aria-label"] != null) {
       return new Error("MUI: You need to use the `getAriaLabel` prop instead of `aria-label` when using a range slider.");
     }
     return null;
   }),
-  "aria-labelledby": import_prop_types47.default.string,
-  "aria-valuetext": chainPropTypes(import_prop_types47.default.string, (props) => {
+  "aria-labelledby": import_prop_types48.default.string,
+  "aria-valuetext": chainPropTypes(import_prop_types48.default.string, (props) => {
     const range = Array.isArray(props.value || props.defaultValue);
     if (range && props["aria-valuetext"] != null) {
       return new Error("MUI: You need to use the `getAriaValueText` prop instead of `aria-valuetext` when using a range slider.");
     }
     return null;
   }),
-  children: import_prop_types47.default.node,
-  classes: import_prop_types47.default.object,
-  color: import_prop_types47.default.oneOfType([import_prop_types47.default.oneOf(["primary", "secondary"]), import_prop_types47.default.string]),
-  components: import_prop_types47.default.shape({
-    Input: import_prop_types47.default.elementType,
-    Mark: import_prop_types47.default.elementType,
-    MarkLabel: import_prop_types47.default.elementType,
-    Rail: import_prop_types47.default.elementType,
-    Root: import_prop_types47.default.elementType,
-    Thumb: import_prop_types47.default.elementType,
-    Track: import_prop_types47.default.elementType,
-    ValueLabel: import_prop_types47.default.elementType
+  children: import_prop_types48.default.node,
+  classes: import_prop_types48.default.object,
+  color: import_prop_types48.default.oneOfType([import_prop_types48.default.oneOf(["primary", "secondary"]), import_prop_types48.default.string]),
+  components: import_prop_types48.default.shape({
+    Input: import_prop_types48.default.elementType,
+    Mark: import_prop_types48.default.elementType,
+    MarkLabel: import_prop_types48.default.elementType,
+    Rail: import_prop_types48.default.elementType,
+    Root: import_prop_types48.default.elementType,
+    Thumb: import_prop_types48.default.elementType,
+    Track: import_prop_types48.default.elementType,
+    ValueLabel: import_prop_types48.default.elementType
   }),
-  componentsProps: import_prop_types47.default.shape({
-    input: import_prop_types47.default.object,
-    mark: import_prop_types47.default.object,
-    markLabel: import_prop_types47.default.object,
-    rail: import_prop_types47.default.object,
-    root: import_prop_types47.default.object,
-    thumb: import_prop_types47.default.object,
-    track: import_prop_types47.default.object,
-    valueLabel: import_prop_types47.default.shape({
-      className: import_prop_types47.default.string,
-      components: import_prop_types47.default.shape({
-        Root: import_prop_types47.default.elementType
+  componentsProps: import_prop_types48.default.shape({
+    input: import_prop_types48.default.object,
+    mark: import_prop_types48.default.object,
+    markLabel: import_prop_types48.default.object,
+    rail: import_prop_types48.default.object,
+    root: import_prop_types48.default.object,
+    thumb: import_prop_types48.default.object,
+    track: import_prop_types48.default.object,
+    valueLabel: import_prop_types48.default.shape({
+      className: import_prop_types48.default.string,
+      components: import_prop_types48.default.shape({
+        Root: import_prop_types48.default.elementType
       }),
-      style: import_prop_types47.default.object,
-      value: import_prop_types47.default.oneOfType([import_prop_types47.default.arrayOf(import_prop_types47.default.number), import_prop_types47.default.number]),
-      valueLabelDisplay: import_prop_types47.default.oneOf(["auto", "off", "on"])
+      style: import_prop_types48.default.object,
+      value: import_prop_types48.default.oneOfType([import_prop_types48.default.arrayOf(import_prop_types48.default.number), import_prop_types48.default.number]),
+      valueLabelDisplay: import_prop_types48.default.oneOf(["auto", "off", "on"])
     })
   }),
-  defaultValue: import_prop_types47.default.oneOfType([import_prop_types47.default.arrayOf(import_prop_types47.default.number), import_prop_types47.default.number]),
-  disabled: import_prop_types47.default.bool,
-  disableSwap: import_prop_types47.default.bool,
-  getAriaLabel: import_prop_types47.default.func,
-  getAriaValueText: import_prop_types47.default.func,
-  isRtl: import_prop_types47.default.bool,
-  marks: import_prop_types47.default.oneOfType([import_prop_types47.default.arrayOf(import_prop_types47.default.shape({
-    label: import_prop_types47.default.node,
-    value: import_prop_types47.default.number.isRequired
-  })), import_prop_types47.default.bool]),
-  max: import_prop_types47.default.number,
-  min: import_prop_types47.default.number,
-  name: import_prop_types47.default.string,
-  onChange: import_prop_types47.default.func,
-  onChangeCommitted: import_prop_types47.default.func,
-  orientation: import_prop_types47.default.oneOf(["horizontal", "vertical"]),
-  scale: import_prop_types47.default.func,
-  size: import_prop_types47.default.oneOfType([import_prop_types47.default.oneOf(["small", "medium"]), import_prop_types47.default.string]),
-  step: import_prop_types47.default.number,
-  sx: import_prop_types47.default.oneOfType([import_prop_types47.default.arrayOf(import_prop_types47.default.oneOfType([import_prop_types47.default.func, import_prop_types47.default.object, import_prop_types47.default.bool])), import_prop_types47.default.func, import_prop_types47.default.object]),
-  tabIndex: import_prop_types47.default.number,
-  track: import_prop_types47.default.oneOf(["inverted", "normal", false]),
-  value: import_prop_types47.default.oneOfType([import_prop_types47.default.arrayOf(import_prop_types47.default.number), import_prop_types47.default.number]),
-  valueLabelDisplay: import_prop_types47.default.oneOf(["auto", "off", "on"]),
-  valueLabelFormat: import_prop_types47.default.oneOfType([import_prop_types47.default.func, import_prop_types47.default.string])
+  defaultValue: import_prop_types48.default.oneOfType([import_prop_types48.default.arrayOf(import_prop_types48.default.number), import_prop_types48.default.number]),
+  disabled: import_prop_types48.default.bool,
+  disableSwap: import_prop_types48.default.bool,
+  getAriaLabel: import_prop_types48.default.func,
+  getAriaValueText: import_prop_types48.default.func,
+  isRtl: import_prop_types48.default.bool,
+  marks: import_prop_types48.default.oneOfType([import_prop_types48.default.arrayOf(import_prop_types48.default.shape({
+    label: import_prop_types48.default.node,
+    value: import_prop_types48.default.number.isRequired
+  })), import_prop_types48.default.bool]),
+  max: import_prop_types48.default.number,
+  min: import_prop_types48.default.number,
+  name: import_prop_types48.default.string,
+  onChange: import_prop_types48.default.func,
+  onChangeCommitted: import_prop_types48.default.func,
+  orientation: import_prop_types48.default.oneOf(["horizontal", "vertical"]),
+  scale: import_prop_types48.default.func,
+  size: import_prop_types48.default.oneOfType([import_prop_types48.default.oneOf(["small", "medium"]), import_prop_types48.default.string]),
+  step: import_prop_types48.default.number,
+  sx: import_prop_types48.default.oneOfType([import_prop_types48.default.arrayOf(import_prop_types48.default.oneOfType([import_prop_types48.default.func, import_prop_types48.default.object, import_prop_types48.default.bool])), import_prop_types48.default.func, import_prop_types48.default.object]),
+  tabIndex: import_prop_types48.default.number,
+  track: import_prop_types48.default.oneOf(["inverted", "normal", false]),
+  value: import_prop_types48.default.oneOfType([import_prop_types48.default.arrayOf(import_prop_types48.default.number), import_prop_types48.default.number]),
+  valueLabelDisplay: import_prop_types48.default.oneOf(["auto", "off", "on"]),
+  valueLabelFormat: import_prop_types48.default.oneOfType([import_prop_types48.default.func, import_prop_types48.default.string])
 } : void 0;
 var Slider_default = Slider;
 
@@ -15192,7 +15201,7 @@ var Slider_default = Slider;
 import * as React77 from "https://spike.land/dist/react.mjs";
 
 // ../../node_modules/@mui/material/SvgIcon/SvgIcon.js
-var import_prop_types48 = __toESM(require_prop_types());
+var import_prop_types49 = __toESM(require_prop_types());
 import * as React76 from "https://spike.land/dist/react.mjs";
 
 // ../../node_modules/@mui/material/SvgIcon/svgIconClasses.js
@@ -15202,7 +15211,7 @@ function getSvgIconUtilityClass(slot) {
 var svgIconClasses = generateUtilityClasses("MuiSvgIcon", ["root", "colorPrimary", "colorSecondary", "colorAction", "colorError", "colorDisabled", "fontSizeInherit", "fontSizeSmall", "fontSizeMedium", "fontSizeLarge"]);
 
 // ../../node_modules/@mui/material/SvgIcon/SvgIcon.js
-var _excluded42 = ["children", "className", "color", "component", "fontSize", "htmlColor", "inheritViewBox", "titleAccess", "viewBox"];
+var _excluded43 = ["children", "className", "color", "component", "fontSize", "htmlColor", "inheritViewBox", "titleAccess", "viewBox"];
 var useUtilityClasses16 = (ownerState) => {
   const {
     color: color2,
@@ -15266,7 +15275,7 @@ var SvgIcon = React76.forwardRef(function SvgIcon2(inProps, ref) {
     inheritViewBox = false,
     titleAccess,
     viewBox = "0 0 24 24"
-  } = props, other = _objectWithoutPropertiesLoose(props, _excluded42);
+  } = props, other = _objectWithoutPropertiesLoose(props, _excluded43);
   const ownerState = _extends({}, props, {
     color: color2,
     component,
@@ -15296,18 +15305,18 @@ var SvgIcon = React76.forwardRef(function SvgIcon2(inProps, ref) {
   }));
 });
 false ? SvgIcon.propTypes = {
-  children: import_prop_types48.default.node,
-  classes: import_prop_types48.default.object,
-  className: import_prop_types48.default.string,
-  color: import_prop_types48.default.oneOfType([import_prop_types48.default.oneOf(["inherit", "action", "disabled", "primary", "secondary", "error", "info", "success", "warning"]), import_prop_types48.default.string]),
-  component: import_prop_types48.default.elementType,
-  fontSize: import_prop_types48.default.oneOfType([import_prop_types48.default.oneOf(["inherit", "large", "medium", "small"]), import_prop_types48.default.string]),
-  htmlColor: import_prop_types48.default.string,
-  inheritViewBox: import_prop_types48.default.bool,
-  shapeRendering: import_prop_types48.default.string,
-  sx: import_prop_types48.default.oneOfType([import_prop_types48.default.arrayOf(import_prop_types48.default.oneOfType([import_prop_types48.default.func, import_prop_types48.default.object, import_prop_types48.default.bool])), import_prop_types48.default.func, import_prop_types48.default.object]),
-  titleAccess: import_prop_types48.default.string,
-  viewBox: import_prop_types48.default.string
+  children: import_prop_types49.default.node,
+  classes: import_prop_types49.default.object,
+  className: import_prop_types49.default.string,
+  color: import_prop_types49.default.oneOfType([import_prop_types49.default.oneOf(["inherit", "action", "disabled", "primary", "secondary", "error", "info", "success", "warning"]), import_prop_types49.default.string]),
+  component: import_prop_types49.default.elementType,
+  fontSize: import_prop_types49.default.oneOfType([import_prop_types49.default.oneOf(["inherit", "large", "medium", "small"]), import_prop_types49.default.string]),
+  htmlColor: import_prop_types49.default.string,
+  inheritViewBox: import_prop_types49.default.bool,
+  shapeRendering: import_prop_types49.default.string,
+  sx: import_prop_types49.default.oneOfType([import_prop_types49.default.arrayOf(import_prop_types49.default.oneOfType([import_prop_types49.default.func, import_prop_types49.default.object, import_prop_types49.default.bool])), import_prop_types49.default.func, import_prop_types49.default.object]),
+  titleAccess: import_prop_types49.default.string,
+  viewBox: import_prop_types49.default.string
 } : void 0;
 SvgIcon.muiName = "SvgIcon";
 var SvgIcon_default = SvgIcon;
@@ -15331,7 +15340,7 @@ function createSvgIcon(path, displayName) {
 import { jsx } from "https://spike.land/dist/emotion.mjs";
 
 // ../../node_modules/@mui/material/ToggleButton/ToggleButton.js
-var import_prop_types49 = __toESM(require_prop_types());
+var import_prop_types50 = __toESM(require_prop_types());
 import * as React78 from "https://spike.land/dist/react.mjs";
 
 // ../../node_modules/@mui/material/ToggleButton/toggleButtonClasses.js
@@ -15342,7 +15351,7 @@ var toggleButtonClasses = generateUtilityClasses("MuiToggleButton", ["root", "di
 var toggleButtonClasses_default = toggleButtonClasses;
 
 // ../../node_modules/@mui/material/ToggleButton/ToggleButton.js
-var _excluded43 = ["children", "className", "color", "disabled", "disableFocusRipple", "fullWidth", "onChange", "onClick", "selected", "size", "value"];
+var _excluded44 = ["children", "className", "color", "disabled", "disableFocusRipple", "fullWidth", "onChange", "onClick", "selected", "size", "value"];
 var useUtilityClasses17 = (ownerState) => {
   const {
     classes,
@@ -15425,7 +15434,7 @@ var ToggleButton = React78.forwardRef(function ToggleButton2(inProps, ref) {
     selected,
     size = "medium",
     value
-  } = props, other = _objectWithoutPropertiesLoose(props, _excluded43);
+  } = props, other = _objectWithoutPropertiesLoose(props, _excluded44);
   const ownerState = _extends({}, props, {
     color: color2,
     disabled,
@@ -15460,26 +15469,26 @@ var ToggleButton = React78.forwardRef(function ToggleButton2(inProps, ref) {
   }));
 });
 false ? ToggleButton.propTypes = {
-  children: import_prop_types49.default.node,
-  classes: import_prop_types49.default.object,
-  className: import_prop_types49.default.string,
-  color: import_prop_types49.default.oneOfType([import_prop_types49.default.oneOf(["standard", "primary", "secondary", "error", "info", "success", "warning"]), import_prop_types49.default.string]),
-  disabled: import_prop_types49.default.bool,
-  disableFocusRipple: import_prop_types49.default.bool,
-  disableRipple: import_prop_types49.default.bool,
-  fullWidth: import_prop_types49.default.bool,
-  onChange: import_prop_types49.default.func,
-  onClick: import_prop_types49.default.func,
-  selected: import_prop_types49.default.bool,
-  size: import_prop_types49.default.oneOfType([import_prop_types49.default.oneOf(["small", "medium", "large"]), import_prop_types49.default.string]),
-  sx: import_prop_types49.default.oneOfType([import_prop_types49.default.arrayOf(import_prop_types49.default.oneOfType([import_prop_types49.default.func, import_prop_types49.default.object, import_prop_types49.default.bool])), import_prop_types49.default.func, import_prop_types49.default.object]),
-  value: import_prop_types49.default.any.isRequired
+  children: import_prop_types50.default.node,
+  classes: import_prop_types50.default.object,
+  className: import_prop_types50.default.string,
+  color: import_prop_types50.default.oneOfType([import_prop_types50.default.oneOf(["standard", "primary", "secondary", "error", "info", "success", "warning"]), import_prop_types50.default.string]),
+  disabled: import_prop_types50.default.bool,
+  disableFocusRipple: import_prop_types50.default.bool,
+  disableRipple: import_prop_types50.default.bool,
+  fullWidth: import_prop_types50.default.bool,
+  onChange: import_prop_types50.default.func,
+  onClick: import_prop_types50.default.func,
+  selected: import_prop_types50.default.bool,
+  size: import_prop_types50.default.oneOfType([import_prop_types50.default.oneOf(["small", "medium", "large"]), import_prop_types50.default.string]),
+  sx: import_prop_types50.default.oneOfType([import_prop_types50.default.arrayOf(import_prop_types50.default.oneOfType([import_prop_types50.default.func, import_prop_types50.default.object, import_prop_types50.default.bool])), import_prop_types50.default.func, import_prop_types50.default.object]),
+  value: import_prop_types50.default.any.isRequired
 } : void 0;
 var ToggleButton_default = ToggleButton;
 
 // ../../node_modules/@mui/material/ToggleButtonGroup/ToggleButtonGroup.js
 var import_react_is3 = __toESM(require_react_is());
-var import_prop_types50 = __toESM(require_prop_types());
+var import_prop_types51 = __toESM(require_prop_types());
 import * as React79 from "https://spike.land/dist/react.mjs";
 
 // ../../node_modules/@mui/material/ToggleButtonGroup/isValueSelected.js
@@ -15501,7 +15510,7 @@ var toggleButtonGroupClasses = generateUtilityClasses("MuiToggleButtonGroup", ["
 var toggleButtonGroupClasses_default = toggleButtonGroupClasses;
 
 // ../../node_modules/@mui/material/ToggleButtonGroup/ToggleButtonGroup.js
-var _excluded44 = ["children", "className", "color", "disabled", "exclusive", "fullWidth", "onChange", "orientation", "size", "value"];
+var _excluded45 = ["children", "className", "color", "disabled", "exclusive", "fullWidth", "onChange", "orientation", "size", "value"];
 var useUtilityClasses18 = (ownerState) => {
   const {
     classes,
@@ -15587,7 +15596,7 @@ var ToggleButtonGroup = React79.forwardRef(function ToggleButtonGroup2(inProps, 
     orientation = "horizontal",
     size = "medium",
     value
-  } = props, other = _objectWithoutPropertiesLoose(props, _excluded44);
+  } = props, other = _objectWithoutPropertiesLoose(props, _excluded45);
   const ownerState = _extends({}, props, {
     disabled,
     fullWidth,
@@ -15643,18 +15652,18 @@ var ToggleButtonGroup = React79.forwardRef(function ToggleButtonGroup2(inProps, 
   }));
 });
 false ? ToggleButtonGroup.propTypes = {
-  children: import_prop_types50.default.node,
-  classes: import_prop_types50.default.object,
-  className: import_prop_types50.default.string,
-  color: import_prop_types50.default.oneOfType([import_prop_types50.default.oneOf(["standard", "primary", "secondary", "error", "info", "success", "warning"]), import_prop_types50.default.string]),
-  disabled: import_prop_types50.default.bool,
-  exclusive: import_prop_types50.default.bool,
-  fullWidth: import_prop_types50.default.bool,
-  onChange: import_prop_types50.default.func,
-  orientation: import_prop_types50.default.oneOf(["horizontal", "vertical"]),
-  size: import_prop_types50.default.oneOfType([import_prop_types50.default.oneOf(["small", "medium", "large"]), import_prop_types50.default.string]),
-  sx: import_prop_types50.default.oneOfType([import_prop_types50.default.arrayOf(import_prop_types50.default.oneOfType([import_prop_types50.default.func, import_prop_types50.default.object, import_prop_types50.default.bool])), import_prop_types50.default.func, import_prop_types50.default.object]),
-  value: import_prop_types50.default.any
+  children: import_prop_types51.default.node,
+  classes: import_prop_types51.default.object,
+  className: import_prop_types51.default.string,
+  color: import_prop_types51.default.oneOfType([import_prop_types51.default.oneOf(["standard", "primary", "secondary", "error", "info", "success", "warning"]), import_prop_types51.default.string]),
+  disabled: import_prop_types51.default.bool,
+  exclusive: import_prop_types51.default.bool,
+  fullWidth: import_prop_types51.default.bool,
+  onChange: import_prop_types51.default.func,
+  orientation: import_prop_types51.default.oneOf(["horizontal", "vertical"]),
+  size: import_prop_types51.default.oneOfType([import_prop_types51.default.oneOf(["small", "medium", "large"]), import_prop_types51.default.string]),
+  sx: import_prop_types51.default.oneOfType([import_prop_types51.default.arrayOf(import_prop_types51.default.oneOfType([import_prop_types51.default.func, import_prop_types51.default.object, import_prop_types51.default.bool])), import_prop_types51.default.func, import_prop_types51.default.object]),
+  value: import_prop_types51.default.any
 } : void 0;
 var ToggleButtonGroup_default = ToggleButtonGroup;
 
