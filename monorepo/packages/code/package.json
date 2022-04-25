@@ -90,7 +90,7 @@
     "esbuild": "0.14.38",
     "esbuild-plugin-import-map": "2.1.0",
     "esbuild-wasm": "0.14.38",
-    "framer-motion": "6.3.1",
+    "framer-motion": "6.3.2",
     "hoist-non-react-statics": "^3.3.2",
     "immutable": "^4.0.0",
     "lodash": "^4.17.21",
