@@ -76,7 +76,7 @@ async function getErrors({ monaco, editor }) {
 async function runner(
   c: string,
   changes: Object,
-  session: ICodeSession & { changes: Object[] },
+  session: ICodeSession & { changes?: Object[] },
   counter: number,
 ) {
   session.changes.push(changes);
@@ -180,7 +180,7 @@ export const startFromCode = async ({ code }) => {
     changes: [],
     setChild: () => {},
   };
-  await runner(code, null, session);
+  await runner(code, null, session, session.i);
   await quickStart(session);
 };
 

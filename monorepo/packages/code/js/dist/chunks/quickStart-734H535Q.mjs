@@ -69,7 +69,7 @@ async function runner(c, changes, session, counter) {
         if (session.i !== counter) {
           return;
         }
-        const { saveCode } = await import("./ws-QTEDNUHF.mjs");
+        const { saveCode } = await import("./ws-66BP2JCR.mjs");
         saveCode({ transpiled, code, i: counter, css, html });
         return;
       } catch (error2) {
@@ -105,7 +105,7 @@ var startFromCode = async ({ code }) => {
     setChild: () => {
     }
   };
-  await runner(code, null, session);
+  await runner(code, null, session, session.i);
   await quickStart(session);
 };
 async function quickStart(session, room, keepFullScreen) {
