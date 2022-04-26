@@ -604,7 +604,7 @@ import {
   widgetClose,
   widgetShadow,
   withNullAsUndefined
-} from "./chunk-DMQU57X5.mjs";
+} from "./chunk-IEYW77FP.mjs";
 import {
   __commonJS,
   __esm,
@@ -2461,7 +2461,7 @@ registerLanguage({
         __require(["vs/basic-languages/css/css"], resolve, reject);
       });
     } else {
-      return import("./css-DG4CRKKO.mjs");
+      return import("./css-LF4W72K7.mjs");
     }
   }
 });
@@ -2575,7 +2575,7 @@ registerLanguage({
         __require(["vs/basic-languages/freemarker2/freemarker2"], resolve, reject);
       }).then((m) => m.TagAngleInterpolationDollar);
     } else {
-      return import("./freemarker2-ZYVQQCMB.mjs").then((m) => m.TagAutoInterpolationDollar);
+      return import("./freemarker2-VALXZTQW.mjs").then((m) => m.TagAutoInterpolationDollar);
     }
   }
 });
@@ -2588,7 +2588,7 @@ registerLanguage({
         __require(["vs/basic-languages/freemarker2/freemarker2"], resolve, reject);
       }).then((m) => m.TagAngleInterpolationDollar);
     } else {
-      return import("./freemarker2-ZYVQQCMB.mjs").then((m) => m.TagAngleInterpolationDollar);
+      return import("./freemarker2-VALXZTQW.mjs").then((m) => m.TagAngleInterpolationDollar);
     }
   }
 });
@@ -2601,7 +2601,7 @@ registerLanguage({
         __require(["vs/basic-languages/freemarker2/freemarker2"], resolve, reject);
       }).then((m) => m.TagBracketInterpolationDollar);
     } else {
-      return import("./freemarker2-ZYVQQCMB.mjs").then((m) => m.TagBracketInterpolationDollar);
+      return import("./freemarker2-VALXZTQW.mjs").then((m) => m.TagBracketInterpolationDollar);
     }
   }
 });
@@ -2614,7 +2614,7 @@ registerLanguage({
         __require(["vs/basic-languages/freemarker2/freemarker2"], resolve, reject);
       }).then((m) => m.TagAngleInterpolationBracket);
     } else {
-      return import("./freemarker2-ZYVQQCMB.mjs").then((m) => m.TagAngleInterpolationBracket);
+      return import("./freemarker2-VALXZTQW.mjs").then((m) => m.TagAngleInterpolationBracket);
     }
   }
 });
@@ -2627,7 +2627,7 @@ registerLanguage({
         __require(["vs/basic-languages/freemarker2/freemarker2"], resolve, reject);
       }).then((m) => m.TagBracketInterpolationBracket);
     } else {
-      return import("./freemarker2-ZYVQQCMB.mjs").then((m) => m.TagBracketInterpolationBracket);
+      return import("./freemarker2-VALXZTQW.mjs").then((m) => m.TagBracketInterpolationBracket);
     }
   }
 });
@@ -2640,7 +2640,7 @@ registerLanguage({
         __require(["vs/basic-languages/freemarker2/freemarker2"], resolve, reject);
       }).then((m) => m.TagAutoInterpolationDollar);
     } else {
-      return import("./freemarker2-ZYVQQCMB.mjs").then((m) => m.TagAutoInterpolationDollar);
+      return import("./freemarker2-VALXZTQW.mjs").then((m) => m.TagAutoInterpolationDollar);
     }
   }
 });
@@ -2653,7 +2653,7 @@ registerLanguage({
         __require(["vs/basic-languages/freemarker2/freemarker2"], resolve, reject);
       }).then((m) => m.TagAutoInterpolationBracket);
     } else {
-      return import("./freemarker2-ZYVQQCMB.mjs").then((m) => m.TagAutoInterpolationBracket);
+      return import("./freemarker2-VALXZTQW.mjs").then((m) => m.TagAutoInterpolationBracket);
     }
   }
 });
@@ -2703,7 +2703,7 @@ registerLanguage({
         __require(["vs/basic-languages/handlebars/handlebars"], resolve, reject);
       });
     } else {
-      return import("./handlebars-6JMMPP5Y.mjs");
+      return import("./handlebars-64UHJGJF.mjs");
     }
   }
 });
@@ -2736,7 +2736,7 @@ registerLanguage({
         __require(["vs/basic-languages/html/html"], resolve, reject);
       });
     } else {
-      return import("./html-PZCKO3EZ.mjs");
+      return import("./html-4OAE4DFM.mjs");
     }
   }
 });
@@ -2789,7 +2789,7 @@ registerLanguage({
         __require(["vs/basic-languages/javascript/javascript"], resolve, reject);
       });
     } else {
-      return import("./javascript-3BGC4X2Q.mjs");
+      return import("./javascript-SUIFW4MZ.mjs");
     }
   }
 });
@@ -2839,7 +2839,7 @@ registerLanguage({
         __require(["vs/basic-languages/less/less"], resolve, reject);
       });
     } else {
-      return import("./less-UXBVEPSM.mjs");
+      return import("./less-EUPE6EKW.mjs");
     }
   }
 });
@@ -2888,7 +2888,7 @@ registerLanguage({
         __require(["vs/basic-languages/liquid/liquid"], resolve, reject);
       });
     } else {
-      return import("./liquid-PY4B5TQQ.mjs");
+      return import("./liquid-MSP7ZTZJ.mjs");
     }
   }
 });
@@ -3179,7 +3179,7 @@ registerLanguage({
         __require(["vs/basic-languages/python/python"], resolve, reject);
       });
     } else {
-      return import("./python-QPFMYVJ5.mjs");
+      return import("./python-5RQRCAWL.mjs");
     }
   }
 });
@@ -3228,7 +3228,7 @@ registerLanguage({
         __require(["vs/basic-languages/razor/razor"], resolve, reject);
       });
     } else {
-      return import("./razor-EUFFUQYF.mjs");
+      return import("./razor-H2PNXMV5.mjs");
     }
   }
 });
@@ -3375,7 +3375,7 @@ registerLanguage({
         __require(["vs/basic-languages/scss/scss"], resolve, reject);
       });
     } else {
-      return import("./scss-234WWMIU.mjs");
+      return import("./scss-HCT6SZ3B.mjs");
     }
   }
 });
@@ -3568,7 +3568,7 @@ registerLanguage({
         __require(["vs/basic-languages/typescript/typescript"], resolve, reject);
       });
     } else {
-      return import("./typescript-7TVTIGTE.mjs");
+      return import("./typescript-BUNSVV2C.mjs");
     }
   }
 });
@@ -3616,7 +3616,7 @@ registerLanguage({
         __require(["vs/basic-languages/xml/xml"], resolve, reject);
       });
     } else {
-      return import("./xml-RWEPWKAD.mjs");
+      return import("./xml-CBTGA24F.mjs");
     }
   }
 });
@@ -3633,7 +3633,7 @@ registerLanguage({
         __require(["vs/basic-languages/yaml/yaml"], resolve, reject);
       });
     } else {
-      return import("./yaml-GO77TCOE.mjs");
+      return import("./yaml-GGHVCK57.mjs");
     }
   }
 });
@@ -3747,7 +3747,7 @@ function getMode() {
       __require(["vs/language/css/cssMode"], resolve, reject);
     });
   } else {
-    return import("./cssMode-7EM3JAF6.mjs");
+    return import("./cssMode-H6PLMTTU.mjs");
   }
 }
 monaco_editor_core_exports2.languages.onLanguage("less", () => {
@@ -3865,7 +3865,7 @@ function getMode2() {
       __require(["vs/language/html/htmlMode"], resolve, reject);
     });
   } else {
-    return import("./htmlMode-KNMWLGSM.mjs");
+    return import("./htmlMode-BI6JFT3X.mjs");
   }
 }
 function registerHTMLLanguageService(languageId, options = optionsDefault2, modeConfiguration = getConfigurationDefault(languageId)) {
@@ -3960,7 +3960,7 @@ function getMode3() {
       __require(["vs/language/json/jsonMode"], resolve, reject);
     });
   } else {
-    return import("./jsonMode-O7DE3LPA.mjs");
+    return import("./jsonMode-ZOKYLT3P.mjs");
   }
 }
 monaco_editor_core_exports4.languages.register({
@@ -28937,7 +28937,6 @@ var SuggestModel = class SuggestModel2 {
     this._configurationService = _configurationService;
     this._languageFeaturesService = _languageFeaturesService;
     this._toDispose = new DisposableStore();
-    this._quickSuggestDelay = 10;
     this._triggerCharacterListener = new DisposableStore();
     this._triggerQuickSuggest = new TimeoutTimer();
     this._state = 0;
@@ -28960,7 +28959,6 @@ var SuggestModel = class SuggestModel2 {
     }));
     this._toDispose.add(this._editor.onDidChangeConfiguration(() => {
       this._updateTriggerCharacters();
-      this._updateQuickSuggest();
     }));
     this._toDispose.add(this._languageFeaturesService.completionProvider.onDidChange(() => {
       this._updateTriggerCharacters();
@@ -28985,7 +28983,6 @@ var SuggestModel = class SuggestModel2 {
       }
     }));
     this._updateTriggerCharacters();
-    this._updateQuickSuggest();
   }
   dispose() {
     dispose(this._triggerCharacterListener);
@@ -28993,12 +28990,6 @@ var SuggestModel = class SuggestModel2 {
     this._toDispose.dispose();
     this._completionDisposables.dispose();
     this.cancel();
-  }
-  _updateQuickSuggest() {
-    this._quickSuggestDelay = this._editor.getOption(80);
-    if (isNaN(this._quickSuggestDelay) || !this._quickSuggestDelay && this._quickSuggestDelay !== 0 || this._quickSuggestDelay < 0) {
-      this._quickSuggestDelay = 10;
-    }
   }
   _updateTriggerCharacters() {
     this._triggerCharacterListener.clear();
@@ -29114,7 +29105,7 @@ var SuggestModel = class SuggestModel2 {
       if (!LineContext2.shouldAutoTrigger(this._editor)) {
         return;
       }
-      if (!this._editor.hasModel()) {
+      if (!this._editor.hasModel() || !this._editor.hasWidgetFocus()) {
         return;
       }
       const model = this._editor.getModel();
@@ -29138,7 +29129,7 @@ var SuggestModel = class SuggestModel2 {
         return;
       }
       this.trigger({ auto: true, shy: false });
-    }, this._quickSuggestDelay);
+    }, this._editor.getOption(80));
   }
   _refilterCompletionItems() {
     Promise.resolve().then(() => {
