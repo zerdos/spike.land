@@ -4053,9 +4053,9 @@ ipfs-http-client@^56.0.3:
     uint8arrays "^3.0.0"
 
 ipfs-unixfs@^6.0.3:
-  version "6.0.6"
-  resolved "https://registry.yarnpkg.com/ipfs-unixfs/-/ipfs-unixfs-6.0.6.tgz#c44881c1bcd6a474c665e67108cbf31e54c63eec"
-  integrity sha512-gTkjYKXuHnqIf6EFfS+ESaYEl3I3aaQQ0UX8MhpNzreMLEuMnuqpoI/uLLllTZa31WRplKixabbpRTSmTYRNwA==
+  version "6.0.7"
+  resolved "https://registry.yarnpkg.com/ipfs-unixfs/-/ipfs-unixfs-6.0.7.tgz#9df35c334c9fad78761419994a0c078e14a1caf4"
+  integrity sha512-5mKbQgvux6n5lQ+upGWWPKcoswXahdOcyGQ2SbIIRV6eBJMzxLprzKsyb0GMsg80tHX2wnNOxBKSCiSGjb+54A==
   dependencies:
     err-code "^3.0.1"
     protobufjs "^6.10.2"
