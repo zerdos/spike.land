@@ -94,7 +94,7 @@
     "hoist-non-react-statics": "^3.3.2",
     "immutable": "^4.0.0",
     "lodash": "^4.17.21",
-    "monaco-editor": "0.34.0-dev.20220426",
+    "monaco-editor": "0.34.0-dev.20220427",
     "monaco-jsx-highlighter": "^2.0.4",
     "p-all": "^4.0.0",
     "path-browserify": "^1.0.1",
