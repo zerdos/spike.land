@@ -31,7 +31,7 @@
       "popmotion": "https://ga.jspm.io/npm:popmotion@11.0.3/dist/es/index.mjs",
       "preact/hooks": "https://ga.jspm.io/npm:preact@10.7.1/hooks/dist/hooks.module.js",
       "react-is": "https://ga.jspm.io/npm:react-is@16.13.1/index.js",
-      "react/jsx-runtime": "https://ga.jspm.io/npm:react@18.0.0/jsx-runtime.js",
+      "react/jsx-runtime": "https://ga.jspm.io/npm:react@18.1.0/jsx-runtime.js",
       "style-value-types": "https://ga.jspm.io/npm:style-value-types@5.0.0/dist/es/index.mjs",
       "stylis": "https://ga.jspm.io/npm:stylis@4.0.13/index.js"
     }
