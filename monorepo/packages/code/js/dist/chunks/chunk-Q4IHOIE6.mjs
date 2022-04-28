@@ -604,7 +604,7 @@ import {
   widgetClose,
   widgetShadow,
   withNullAsUndefined
-} from "./chunk-3TTLUWAB.mjs";
+} from "./chunk-M5EKOKYD.mjs";
 import {
   __commonJS,
   __esm,
@@ -2575,7 +2575,7 @@ registerLanguage({
         __require(["vs/basic-languages/freemarker2/freemarker2"], resolve, reject);
       }).then((m) => m.TagAngleInterpolationDollar);
     } else {
-      return import("./freemarker2-JTELN575.mjs").then((m) => m.TagAutoInterpolationDollar);
+      return import("./freemarker2-SNODBRQN.mjs").then((m) => m.TagAutoInterpolationDollar);
     }
   }
 });
@@ -2588,7 +2588,7 @@ registerLanguage({
         __require(["vs/basic-languages/freemarker2/freemarker2"], resolve, reject);
       }).then((m) => m.TagAngleInterpolationDollar);
     } else {
-      return import("./freemarker2-JTELN575.mjs").then((m) => m.TagAngleInterpolationDollar);
+      return import("./freemarker2-SNODBRQN.mjs").then((m) => m.TagAngleInterpolationDollar);
     }
   }
 });
@@ -2601,7 +2601,7 @@ registerLanguage({
         __require(["vs/basic-languages/freemarker2/freemarker2"], resolve, reject);
       }).then((m) => m.TagBracketInterpolationDollar);
     } else {
-      return import("./freemarker2-JTELN575.mjs").then((m) => m.TagBracketInterpolationDollar);
+      return import("./freemarker2-SNODBRQN.mjs").then((m) => m.TagBracketInterpolationDollar);
     }
   }
 });
@@ -2614,7 +2614,7 @@ registerLanguage({
         __require(["vs/basic-languages/freemarker2/freemarker2"], resolve, reject);
       }).then((m) => m.TagAngleInterpolationBracket);
     } else {
-      return import("./freemarker2-JTELN575.mjs").then((m) => m.TagAngleInterpolationBracket);
+      return import("./freemarker2-SNODBRQN.mjs").then((m) => m.TagAngleInterpolationBracket);
     }
   }
 });
@@ -2627,7 +2627,7 @@ registerLanguage({
         __require(["vs/basic-languages/freemarker2/freemarker2"], resolve, reject);
       }).then((m) => m.TagBracketInterpolationBracket);
     } else {
-      return import("./freemarker2-JTELN575.mjs").then((m) => m.TagBracketInterpolationBracket);
+      return import("./freemarker2-SNODBRQN.mjs").then((m) => m.TagBracketInterpolationBracket);
     }
   }
 });
@@ -2640,7 +2640,7 @@ registerLanguage({
         __require(["vs/basic-languages/freemarker2/freemarker2"], resolve, reject);
       }).then((m) => m.TagAutoInterpolationDollar);
     } else {
-      return import("./freemarker2-JTELN575.mjs").then((m) => m.TagAutoInterpolationDollar);
+      return import("./freemarker2-SNODBRQN.mjs").then((m) => m.TagAutoInterpolationDollar);
     }
   }
 });
@@ -2653,7 +2653,7 @@ registerLanguage({
         __require(["vs/basic-languages/freemarker2/freemarker2"], resolve, reject);
       }).then((m) => m.TagAutoInterpolationBracket);
     } else {
-      return import("./freemarker2-JTELN575.mjs").then((m) => m.TagAutoInterpolationBracket);
+      return import("./freemarker2-SNODBRQN.mjs").then((m) => m.TagAutoInterpolationBracket);
     }
   }
 });
@@ -2703,7 +2703,7 @@ registerLanguage({
         __require(["vs/basic-languages/handlebars/handlebars"], resolve, reject);
       });
     } else {
-      return import("./handlebars-5HO5C2YC.mjs");
+      return import("./handlebars-YRSJ4PMX.mjs");
     }
   }
 });
@@ -2736,7 +2736,7 @@ registerLanguage({
         __require(["vs/basic-languages/html/html"], resolve, reject);
       });
     } else {
-      return import("./html-FUDZU27L.mjs");
+      return import("./html-TZ5UWFAD.mjs");
     }
   }
 });
@@ -2789,7 +2789,7 @@ registerLanguage({
         __require(["vs/basic-languages/javascript/javascript"], resolve, reject);
       });
     } else {
-      return import("./javascript-62TWYUBV.mjs");
+      return import("./javascript-G2WDUK73.mjs");
     }
   }
 });
@@ -2888,7 +2888,7 @@ registerLanguage({
         __require(["vs/basic-languages/liquid/liquid"], resolve, reject);
       });
     } else {
-      return import("./liquid-LGDIPNB4.mjs");
+      return import("./liquid-4JPYWLLL.mjs");
     }
   }
 });
@@ -3179,7 +3179,7 @@ registerLanguage({
         __require(["vs/basic-languages/python/python"], resolve, reject);
       });
     } else {
-      return import("./python-RCZL3GW3.mjs");
+      return import("./python-53A4QR6F.mjs");
     }
   }
 });
@@ -3228,7 +3228,7 @@ registerLanguage({
         __require(["vs/basic-languages/razor/razor"], resolve, reject);
       });
     } else {
-      return import("./razor-RT3PT4Q2.mjs");
+      return import("./razor-56KATVCX.mjs");
     }
   }
 });
@@ -3568,7 +3568,7 @@ registerLanguage({
         __require(["vs/basic-languages/typescript/typescript"], resolve, reject);
       });
     } else {
-      return import("./typescript-FCBD2XZV.mjs");
+      return import("./typescript-TYAHBGRN.mjs");
     }
   }
 });
@@ -3616,7 +3616,7 @@ registerLanguage({
         __require(["vs/basic-languages/xml/xml"], resolve, reject);
       });
     } else {
-      return import("./xml-LEEH2F4U.mjs");
+      return import("./xml-XCDANPXZ.mjs");
     }
   }
 });
@@ -3633,7 +3633,7 @@ registerLanguage({
         __require(["vs/basic-languages/yaml/yaml"], resolve, reject);
       });
     } else {
-      return import("./yaml-BT667JPT.mjs");
+      return import("./yaml-Z7Q4AA6H.mjs");
     }
   }
 });
@@ -3747,7 +3747,7 @@ function getMode() {
       __require(["vs/language/css/cssMode"], resolve, reject);
     });
   } else {
-    return import("./cssMode-CGMZD6HF.mjs");
+    return import("./cssMode-EJJAOGZA.mjs");
   }
 }
 monaco_editor_core_exports2.languages.onLanguage("less", () => {
@@ -3865,7 +3865,7 @@ function getMode2() {
       __require(["vs/language/html/htmlMode"], resolve, reject);
     });
   } else {
-    return import("./htmlMode-6E7PML3U.mjs");
+    return import("./htmlMode-JAN5X6LC.mjs");
   }
 }
 function registerHTMLLanguageService(languageId, options = optionsDefault2, modeConfiguration = getConfigurationDefault(languageId)) {
@@ -3960,7 +3960,7 @@ function getMode3() {
       __require(["vs/language/json/jsonMode"], resolve, reject);
     });
   } else {
-    return import("./jsonMode-MB3W2GJN.mjs");
+    return import("./jsonMode-EI75ALZJ.mjs");
   }
 }
 monaco_editor_core_exports4.languages.register({
@@ -34499,7 +34499,7 @@ var InlayHintsController = class InlayHintsController2 {
     this._sessionDisposables = new DisposableStore();
     this._decorationsMetadata = /* @__PURE__ */ new Map();
     this._ruleFactory = new DynamicCssRules(this._editor);
-    this._styleElement = createStyleSheet(isInShadowDOM(this._editor.getContainerDomNode()) ? this._editor.getContainerDomNode() : void 0);
+    this._activeRenderMode = 0;
     this._debounceInfo = _featureDebounce.for(_languageFeaturesService.inlayHintsProvider, "InlayHint", { min: 25 });
     this._disposables.add(_languageFeaturesService.inlayHintsProvider.onDidChange(() => this._update()));
     this._disposables.add(_editor.onDidChangeModel(() => this._update()));
@@ -34519,7 +34519,6 @@ var InlayHintsController = class InlayHintsController2 {
     this._sessionDisposables.dispose();
     this._removeAllDecorations();
     this._disposables.dispose();
-    this._styleElement.remove();
   }
   _update() {
     this._sessionDisposables.clear();
@@ -34588,27 +34587,32 @@ var InlayHintsController = class InlayHintsController2 {
       const delay = Math.max(scheduler.delay, 1250);
       scheduler.schedule(delay);
     }));
-    if (!options.toggle) {
-      this._editor.getContainerDomNode().style.setProperty(InlayHintsController2._renderModeCssVariable, "inherit");
-    } else {
+    if (options.toggle) {
       let defaultMode;
       let altMode;
       if (options.toggle === "hide") {
-        defaultMode = "inherit";
-        altMode = "none";
+        defaultMode = 0;
+        altMode = 1;
       } else {
-        defaultMode = "none";
-        altMode = "inherit";
+        defaultMode = 1;
+        altMode = 0;
       }
-      this._editor.getContainerDomNode().style.setProperty(InlayHintsController2._renderModeCssVariable, defaultMode);
-      let renderMode = defaultMode;
+      this._activeRenderMode = defaultMode;
       this._sessionDisposables.add(ModifierKeyEmitter.getInstance().event((e) => {
+        if (!this._editor.hasModel()) {
+          return;
+        }
         const newRenderMode = e.altKey && e.ctrlKey ? altMode : defaultMode;
-        if (newRenderMode !== renderMode) {
-          this._editor.getContainerDomNode().style.setProperty(InlayHintsController2._renderModeCssVariable, newRenderMode);
-          renderMode = newRenderMode;
+        if (newRenderMode !== this._activeRenderMode) {
+          this._activeRenderMode = newRenderMode;
+          const ranges = this._getHintsRanges();
+          const copies = this._copyInlayHintsWithCurrentAnchor(this._editor.getModel());
+          this._updateHintsDecorators(ranges, copies);
+          scheduler.schedule(0);
         }
       }));
+    } else {
+      this._activeRenderMode = 0;
     }
     this._sessionDisposables.add(this._installDblClickGesture(() => scheduler.schedule(0)));
     this._sessionDisposables.add(this._installLinkGesture());
@@ -34718,20 +34722,23 @@ var InlayHintsController = class InlayHintsController2 {
     });
   }
   _cacheHintsForFastRestore(model) {
+    const hints = this._copyInlayHintsWithCurrentAnchor(model);
+    this._inlayHintsCache.set(model, hints);
+  }
+  _copyInlayHintsWithCurrentAnchor(model) {
     const items = /* @__PURE__ */ new Map();
     for (const [id, obj] of this._decorationsMetadata) {
       if (items.has(obj.item)) {
         continue;
       }
-      let value = obj.item;
       const range = model.getDecorationRange(id);
       if (range) {
         const anchor = new InlayHintAnchor(range, obj.item.anchor.direction);
-        value = obj.item.with({ anchor });
+        const copy = obj.item.with({ anchor });
+        items.set(obj.item, copy);
       }
-      items.set(obj.item, value);
     }
-    this._inlayHintsCache.set(model, Array.from(items.values()));
+    return Array.from(items.values());
   }
   _getHintsRanges() {
     const extra = 30;
@@ -34769,7 +34776,7 @@ var InlayHintsController = class InlayHintsController2 {
             showIfCollapsed: item.anchor.range.isEmpty(),
             collapseOnReplaceEdit: !item.anchor.range.isEmpty(),
             stickiness: 0,
-            [item.anchor.direction]: opts
+            [item.anchor.direction]: this._activeRenderMode === 0 ? opts : void 0
           }
         }
       });
@@ -34848,11 +34855,6 @@ var InlayHintsController = class InlayHintsController2 {
       const data = newDecorationsData[i];
       this._decorationsMetadata.set(newDecorationIds[i], data);
     }
-    const allClassNames = [];
-    for (let data of this._decorationsMetadata.values()) {
-      allClassNames.push(`.${data.classNameRef.className}`);
-    }
-    this._styleElement.textContent = `${allClassNames.join(", ")} { display: var(${InlayHintsController2._renderModeCssVariable}) !important; }`;
   }
   _fillInColors(props, hint) {
     if (hint.kind === InlayHintKind.Parameter) {
@@ -34886,7 +34888,6 @@ var InlayHintsController = class InlayHintsController2 {
 };
 InlayHintsController.ID = "editor.contrib.InlayHints";
 InlayHintsController._MAX_DECORATORS = 1500;
-InlayHintsController._renderModeCssVariable = "--inlay-hints-render-mode";
 InlayHintsController = __decorate51([
   __param51(1, ILanguageFeaturesService),
   __param51(2, ILanguageFeatureDebounceService),

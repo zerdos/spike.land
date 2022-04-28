@@ -1,6 +1,6 @@
 import {
   editor_api_exports
-} from "./chunk-3TTLUWAB.mjs";
+} from "./chunk-M5EKOKYD.mjs";
 
 // ../../node_modules/monaco-editor/esm/vs/basic-languages/typescript/typescript.js
 var __defProp = Object.defineProperty;

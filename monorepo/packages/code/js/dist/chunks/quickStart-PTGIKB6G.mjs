@@ -6,7 +6,7 @@ var initSession = (await import("./session-UY3XTFH6.mjs")).default;
 async function startMonacoWithSession(session) {
   console.log("start monaco with session");
   const monacoEditorDom = document.querySelector("#monacoEditor");
-  const { startMonaco } = await import("./editor-VKXFDYY3.mjs");
+  const { startMonaco } = await import("./editor-3FQPOSCB.mjs");
   const onchangeCode = (ev) => runner(editor.getModel().getValue(), ev.changes, session, ++session.i);
   const { editor, monaco } = await startMonaco({
     language: "typescript",
@@ -69,7 +69,7 @@ async function runner(c, changes, session, counter) {
         if (session.i !== counter) {
           return;
         }
-        const { saveCode } = await import("./ws-6CP66FJ3.mjs");
+        const { saveCode } = await import("./ws-CP56IX2Y.mjs");
         saveCode({ transpiled, code, i: counter, css, html });
         return;
       } catch (error2) {
