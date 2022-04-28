@@ -99,6 +99,7 @@ var mySession = startSession(room, {
   name: username,
   state
 });
+globalThis.mySession = mySession;
 var mST = () => mySession.json().state;
 var intervalHandler = null;
 setInterval(() => {
@@ -216,7 +217,7 @@ async function join(App) {
       errorText: ""
     };
     const stayFullscreen = location.pathname.endsWith("public");
-    const { quickStart } = await import("./quickStart-7WZKC5AQ.mjs");
+    const { quickStart } = await import("./quickStart-TJLXV7L5.mjs");
     quickStart(session, roomName, stayFullscreen);
   }
   wsConnection.addEventListener("message", (message) => processWsMessage(message, "ws"));
@@ -477,5 +478,6 @@ async function processWsMessage(event, source) {
 }
 export {
   join,
+  mySession,
   saveCode
 };

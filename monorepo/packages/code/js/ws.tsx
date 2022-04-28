@@ -58,11 +58,12 @@ const state = await resp.json();
 
 const { startSession } = await import("./session");
 
-const mySession = startSession(room, {
+export const mySession = startSession(room, {
   name: username,
   state,
 });
 
+globalThis.mySession = mySession;
 const mST = () => mySession.json().state;
 
 let intervalHandler: number | null = null;
