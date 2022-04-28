@@ -216,7 +216,7 @@ async function join(App) {
       errorText: ""
     };
     const stayFullscreen = location.pathname.endsWith("public");
-    const { quickStart } = await import("./quickStart-SA3TQTXS.mjs");
+    const { quickStart } = await import("./quickStart-IDZWQHE2.mjs");
     quickStart(session, roomName, stayFullscreen);
   }
   wsConnection.addEventListener("message", (message) => processWsMessage(message, "ws"));
@@ -408,7 +408,7 @@ async function processWsMessage(event, source) {
   console.log({ data });
   if (data.name && data.name !== username && !connections[data.name]) {
     try {
-      await createPeerConnection(data.name);
+      createPeerConnection(data.name);
     } catch (error) {
       console.log({ e: error });
       log_error("Error with p2p");
@@ -434,9 +434,8 @@ async function processWsMessage(event, source) {
     if (data.newHash === mySession.hashCode()) {
       return;
     }
-    if (data.oldHash === mySession.hashCode()) {
-      console.log("******** APPLY PATCH ******");
-      mySession.applyPatch(data);
+    mySession.applyPatch(data.oldHash, data.newHash, data.patch);
+    if (data.newHash === mySession.hashCode()) {
       chCode(mST().code, mST().i);
       if (sendChannel) {
         sendChannel.send({ hashCode: data.newHash });
@@ -444,6 +443,7 @@ async function processWsMessage(event, source) {
       return;
     }
     if (data.newHash === mySession.hashCode()) {
+      console.log("there is an error. fetch tje state....");
       return;
     }
     if (data.code && data.transpiled) {

@@ -578,7 +578,7 @@ async function processWsMessage(event: { data: string }, source: "ws" | "rtc") {
     !connections[data.name as keyof typeof connections]
   ) {
     try {
-      await createPeerConnection(data.name);
+      createPeerConnection(data.name);
     } catch (error) {
       console.log({ e: error });
       log_error("Error with p2p");
@@ -612,10 +612,8 @@ async function processWsMessage(event: { data: string }, source: "ws" | "rtc") {
       return;
     }
 
-    if (data.oldHash === mySession.hashCode()) {
-      console.log("******** APPLY PATCH ******");
-      mySession.applyPatch(data);
-
+    mySession.applyPatch(data.oldHash, data.newHash, data.patch);
+    if (data.newHash === mySession.hashCode()) {
       chCode(
         mST().code,
         mST().i,
@@ -629,6 +627,7 @@ async function processWsMessage(event: { data: string }, source: "ws" | "rtc") {
     }
 
     if (data.newHash === mySession.hashCode()) {
+      console.log("there is an error. fetch tje state....");
       return;
     }
 
