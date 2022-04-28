@@ -607,7 +607,7 @@ async function processWsMessage(event: { data: string }, source: "ws" | "rtc") {
     wsLastHashCode = data.hashCode;
   }
 
-  if (data.patch && source === "ws" || data.name !== username) {
+  if (data.patch && source === "ws" && data.name !== username) {
     if (data.newHash === mySession.hashCode()) {
       return;
     }

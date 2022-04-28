@@ -1525,7 +1525,7 @@ var start = async (App) => {
   if (location.href.endsWith("hydrated"))
     return;
   Object.assign(globalThis, { App });
-  const { join } = await import("./chunks/ws-YLBTTZDV.mjs");
+  const { join } = await import("./chunks/ws-A2FS6SBV.mjs");
   join(App);
   await Promise.all([e2, p]);
 };
