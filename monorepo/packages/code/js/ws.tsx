@@ -612,7 +612,7 @@ async function processWsMessage(event: { data: string }, source: "ws" | "rtc") {
     }
 
     if (data.oldHash === mySession.hashCode()) {
-      // Console.log("******** APPLY PATCH ******");
+      console.log("******** APPLY PATCH ******");
       mySession.applyPatch(data);
       chCode(
         mySession.session.get("state").code,
@@ -632,6 +632,7 @@ async function processWsMessage(event: { data: string }, source: "ws" | "rtc") {
 
     if (data.code && data.transpiled) {
       const messageData = mySession.createPatch(data);
+      console.log("APPLYING PATCH AGAIN");
       mySession.applyPatch(messageData);
       chCode(data.code, data.i);
       if (sendChannel) {

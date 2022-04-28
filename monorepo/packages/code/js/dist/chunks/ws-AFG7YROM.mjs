@@ -216,7 +216,7 @@ async function join(App) {
       errorText: ""
     };
     const stayFullscreen = location.pathname.endsWith("public");
-    const { quickStart } = await import("./quickStart-PTGIKB6G.mjs");
+    const { quickStart } = await import("./quickStart-EJTHNUV7.mjs");
     quickStart(session, roomName, stayFullscreen);
   }
   wsConnection.addEventListener("message", (message) => processWsMessage(message, "ws"));
@@ -434,6 +434,7 @@ async function processWsMessage(event, source) {
       return;
     }
     if (data.oldHash === mySession.hashCode()) {
+      console.log("******** APPLY PATCH ******");
       mySession.applyPatch(data);
       chCode(mySession.session.get("state").code, mySession.session.get("state").i);
       if (sendChannel) {
@@ -446,6 +447,7 @@ async function processWsMessage(event, source) {
     }
     if (data.code && data.transpiled) {
       const messageData = mySession.createPatch(data);
+      console.log("APPLYING PATCH AGAIN");
       mySession.applyPatch(messageData);
       chCode(data.code, data.i);
       if (sendChannel) {
