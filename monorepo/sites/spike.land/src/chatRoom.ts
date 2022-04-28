@@ -527,7 +527,7 @@ export class Code {
           const oldHash: number = data.oldHash;
           const patch: string = data.patch;
 
-          this.state.mySession.applyPatch(data);
+          await this.state.mySession.applyPatch(data);
           if (newHash === this.state.mySession.hashCode()) {
             this.broadcast(msg.data);
             const session = mST();

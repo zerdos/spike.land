@@ -578,7 +578,7 @@ var require_textdiff_create = __commonJS({
 });
 
 // ../../packages/code/package.json
-var version = "0.7.596";
+var version = "0.7.597";
 
 // ../../packages/cf-npm-site/dist/index.mjs
 function src_default(packageName, version2, serveDir = "") {
@@ -5246,17 +5246,29 @@ var CodeSession = class {
       patch
     };
   }
-  applyPatch({
+  applyPatch = async ({
     oldHash,
     newHash,
     patch
-  }) {
+  }) => {
     const oldHashCheck = this.session.get("state").hashCode();
-    if (oldHashCheck !== oldHash) {
-      console.error("Cant update");
+    hashStore[oldHash] = this.session.get("state");
+    if (hashStore[oldHash] === void 0) {
+      const resp = await fetch(`https://spike.land/api/room/${thid.room}/session`);
+      const recRec = await resp.json();
+      const newRecord2 = this.session.get("state").merge(newRec);
+      const newHashCheck2 = newRecord2.hashCode();
+      if (newHashCheck2 === newHash) {
+        this.session = this.session.set("state", newRecord2);
+      } else {
+        console.log("WRONG");
+        console.log({
+          newState
+        });
+      }
       return;
     }
-    const oldST = this.session.get("state").toJSON();
+    const oldST = hashStore[oldHash].toJSON();
     const oldState = JSON.stringify(oldST);
     const oldCode = oldST.code;
     const newState = JSON.parse((0, import_textdiff_patch.default)(oldState, JSON.parse(patch)));
@@ -5278,7 +5290,7 @@ var CodeSession = class {
         newState
       });
     }
-  }
+  };
   json() {
     const user = this.session.toJSON();
     const state = user.state.toJSON();
