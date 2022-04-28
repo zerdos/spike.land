@@ -5653,7 +5653,7 @@ var Code = class {
           const newHash = data.newHash;
           const oldHash = data.oldHash;
           const patch = data.patch;
-          this.state.mySession.applyPatch(data);
+          await this.state.mySession.applyPatch(data);
           if (newHash === this.state.mySession.hashCode()) {
             this.broadcast(msg.data);
             const session3 = mST();
