@@ -1518,14 +1518,14 @@ var path = location.pathname.split("/");
 var room = (path[1] === "api" && path[2] === "room" ? path[3] : (path.pop() || path.pop()).slice(-12)) || "code-main";
 var start = async (App) => {
   const e2 = import("./chunks/editor-3FQPOSCB.mjs");
-  const p = import("./chunks/renderPreviewWindow-ERNYE2HZ.mjs");
+  const p = import("./chunks/renderPreviewWindow-UPATHWW7.mjs");
   const container = document.querySelector("#root") || document.createElement("div");
   hydrate(container, jsx(App, null));
   console.log("HYDRATED");
   if (location.href.endsWith("hydrated"))
     return;
   Object.assign(globalThis, { App });
-  const { join } = await import("./chunks/ws-AFG7YROM.mjs");
+  const { join } = await import("./chunks/ws-6TW4SJZA.mjs");
   join(App);
   await Promise.all([e2, p]);
 };

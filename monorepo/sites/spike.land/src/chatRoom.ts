@@ -4,8 +4,8 @@ import LAZY from "./lazy.html";
 import HTML from "./index.html";
 import RCA from "./rca.tsx.html";
 import HYDRATED from "./hydrated.html";
-// @ts-expect-error
-import { toBinary } from "@spike.land/code/js/binary.ts";
+
+import { toBinary } from "@spike.land/code/js/binary";
 
 import { version } from "@spike.land/code/package.json";
 
@@ -17,8 +17,7 @@ import type {
   ICodeSession,
   IEvent,
   INewWSConnection,
-  // @ts-expect-error
-} from "@spike.land/code/js/session.tsx";
+} from "@spike.land/code/js/session";
 // @ts-expect-error
 
 import startSession from "@spike.land/code/js/session.tsx";

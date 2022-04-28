@@ -94,7 +94,7 @@ var sendChannel = {
 };
 var resp = await fetch(`https://spike.land/api/room/${room}/session`);
 var state = await resp.json();
-var { startSession } = await import("./session-UY3XTFH6.mjs");
+var { startSession } = await import("./session-3F4BDDFW.mjs");
 var mySession = startSession(room, {
   name: username,
   state
@@ -216,7 +216,7 @@ async function join(App) {
       errorText: ""
     };
     const stayFullscreen = location.pathname.endsWith("public");
-    const { quickStart } = await import("./quickStart-EJTHNUV7.mjs");
+    const { quickStart } = await import("./quickStart-JFB4CPFO.mjs");
     quickStart(session, roomName, stayFullscreen);
   }
   wsConnection.addEventListener("message", (message) => processWsMessage(message, "ws"));

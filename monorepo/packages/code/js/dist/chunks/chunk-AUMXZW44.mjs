@@ -4866,7 +4866,7 @@ var Repeat = function(IndexedSeq2) {
 }(IndexedSeq);
 var EMPTY_REPEAT;
 
-// js/session.tsx
+// js/session.ts
 var import_textdiff_create = __toESM(require_textdiff_create());
 var import_textdiff_patch = __toESM(require_textdiff_patch());
 function initSession(room, u) {
