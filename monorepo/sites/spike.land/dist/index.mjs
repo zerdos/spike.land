@@ -5558,7 +5558,7 @@ var Code = class {
     });
   }
   async handleSession(webSocket, ip) {
-    const mST = () => this.state.mySession.session.get("state");
+    const mST = () => this.state.mySession.json().state;
     webSocket.accept();
     let limiterId = this.env.LIMITERS.idFromName(ip);
     let limiter = new RateLimiterClient(() => this.env.LIMITERS.get(limiterId), (err) => webSocket.close(1011, err.stack));
@@ -5609,6 +5609,7 @@ var Code = class {
           webSocket.send(JSON.stringify({
             ...mST().toJSON()
           }));
+          A;
         }
         if (!session2.name && data.name) {
           session2.name = "" + (data.name || "anonymous");
@@ -5637,14 +5638,14 @@ var Code = class {
           });
           return;
         }
-        if (data.patch && data.oldHash === this.state.mySession.hashCode()) {
+        if (data.patch) {
           const newHash = data.newHash;
           const oldHash = data.oldHash;
           const patch = data.patch;
           this.state.mySession.applyPatch(data);
           if (newHash === this.state.mySession.hashCode()) {
             this.broadcast(msg.data);
-            const session3 = mST().toJSON();
+            const session3 = mST();
             await this.kv.put("session", session3);
             await this.kv.put(String(newHash), { oldHash, patch });
           } else {
