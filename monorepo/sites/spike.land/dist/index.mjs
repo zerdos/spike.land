@@ -578,7 +578,7 @@ var require_textdiff_create = __commonJS({
 });
 
 // ../../packages/code/package.json
-var version = "0.7.586";
+var version = "0.7.591";
 
 // ../../packages/cf-npm-site/dist/index.mjs
 function src_default(packageName, version2, serveDir = "") {
@@ -5181,7 +5181,7 @@ function setProp(prototype, name) {
   }
 }
 
-// ../../packages/code/js/session.tsx
+// ../../packages/code/js/session.ts
 var import_textdiff_create = __toESM(require_textdiff_create());
 var import_textdiff_patch = __toESM(require_textdiff_patch());
 function initSession(room, u) {
@@ -5341,16 +5341,7 @@ var Code = class {
       }
       this.state.mySession = session_default("", {
         name: username,
-        capabilities: {
-          prettier: false,
-          babel: false,
-          webRRT: false,
-          prerender: false,
-          IPFS: false
-        },
-        users: [],
-        state: { ...session2 },
-        events: []
+        state: { ...session2 }
       });
       return;
     });
@@ -5359,7 +5350,7 @@ var Code = class {
   kv;
   sessions;
   async fetch(request) {
-    const mST = () => this.state.mySession.session.get("state");
+    const mST = () => this.state.mySession.json().state;
     return await handleErrors(request, async () => {
       let code = "";
       let patched = false;
@@ -5395,7 +5386,7 @@ var Code = class {
               });
             }
           }
-          return new Response(JSON.stringify(mST().toJSON()), {
+          return new Response(JSON.stringify(mST()), {
             status: 200,
             headers: {
               "Access-Control-Allow-Origin": "*",
@@ -5420,7 +5411,7 @@ var Code = class {
             }
           });
         case "lazy":
-          const { html, css, transpiled } = mST().toJSON();
+          const { html, css, transpiled } = mST();
           const hash2 = this.state.mySession.hashCode();
           return new Response(lazy_default.replace("{...o}", JSON.stringify({
             name: codeSpace,
@@ -5436,7 +5427,7 @@ var Code = class {
             }
           });
         case "hashCodeSession":
-          return new Response(this.state.mySession.hashCode(), {
+          return new Response(this.state.mySession.hashCode().toString(), {
             status: 200,
             headers: {
               "Access-Control-Allow-Origin": "*",
@@ -5473,8 +5464,7 @@ var Code = class {
                 </div>
               </div>
             <script type="importmap">${JSON.stringify({
-            imports: { ...mockedMap_default.imports },
-            scopes: { ...mockedMap_default.scopes }
+            imports: { ...mockedMap_default.imports }
           })}<\/script>
             <script defer type="module">
               import("https://spike.land/dist/starter.mjs")
@@ -5527,8 +5517,7 @@ var Code = class {
                 <div id="zbody">${mST().html}</div>
               </div>
               <script type="importmap">${JSON.stringify({
-            imports: { ...mockedMap_default.imports },
-            scopes: { ...mockedMap_default.scopes }
+            imports: { ...mockedMap_default.imports }
           })}<\/script>`).replace('<script defer src="https://spike.land/dist/appStarter.js"><\/script>', `<script defer type="module">
               import("https://spike.land/dist/starter.mjs")
                 .then(
@@ -5668,7 +5657,7 @@ var Code = class {
       } catch (exp) {
         webSocket.send(JSON.stringify({
           error: "unknown error",
-          exp: exp | {}
+          exp: exp || {}
         }));
       }
     });
