@@ -9,10 +9,10 @@ import { toBinary } from "@spike.land/code/js/binary";
 
 import { version } from "@spike.land/code/package.json";
 
-
 import applyDelta from "textdiff-patch";
 import { CodeEnv } from "./env";
 import type {
+  CodeSession,
   ICodeSess,
   ICodeSession,
   IEvent,
@@ -25,7 +25,7 @@ import imap from "@spike.land/code/js/mockedMap.json";
 console.log("chatroom");
 
 interface IState extends DurableObjectState {
-  mySession: ICodeSess;
+  mySession: CodeSession;
   hashOfCode: string;
 }
 
@@ -90,16 +90,7 @@ export class Code {
 
       this.state.mySession = startSession("", {
         name: username,
-        capabilities: {
-          prettier: false,
-          babel: false,
-          webRRT: false,
-          prerender: false,
-          IPFS: false,
-        },
-        users: [],
-        state: { ...session },
-        events: [],
+        state: { ...session }
       });
 
       return;
@@ -107,7 +98,7 @@ export class Code {
   }
 
   async fetch(request: Request) {
-    const mST = () => this.state.mySession.session.get("state");
+    const mST = () => this.state.mySession.json().state;
     return await handleErrors(request, async () => {
       let code = "";
       let patched = false;
@@ -146,7 +137,7 @@ export class Code {
               });
             }
           }
-          return new Response(JSON.stringify(mST().toJSON()), {
+          return new Response(JSON.stringify(mST()), {
             status: 200,
             headers: {
               "Access-Control-Allow-Origin": "*",
@@ -180,7 +171,7 @@ export class Code {
             },
           });
         case "lazy":
-          const { html, css, transpiled } = mST().toJSON();
+          const { html, css, transpiled } = mST();
           const hash = this.state.mySession.hashCode();
 
           return new Response(
@@ -205,7 +196,7 @@ export class Code {
           );
 
         case "hashCodeSession":
-          return new Response(this.state.mySession.hashCode(), {
+          return new Response(this.state.mySession.hashCode().toString(), {
             status: 200,
             headers: {
               "Access-Control-Allow-Origin": "*",
@@ -251,8 +242,7 @@ export class Code {
               </div>
             <script type="importmap">${
                 JSON.stringify({
-                  imports: { ...imap.imports },
-                  scopes: { ...imap.scopes },
+                  imports: { ...imap.imports }
                 })
               }</script>
             <script defer type="module">
@@ -316,8 +306,7 @@ export class Code {
               </div>
               <script type="importmap">${
               JSON.stringify({
-                imports: { ...imap.imports },
-                scopes: { ...imap.scopes },
+                imports: { ...imap.imports }
               })
             }</script>`,
           )
@@ -557,7 +546,7 @@ export class Code {
         webSocket.send(
           JSON.stringify({
             error: "unknown error",
-            exp: exp | {},
+            exp: exp || {},
           }),
         );
       }
