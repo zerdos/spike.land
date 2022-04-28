@@ -2,8 +2,6 @@ import { Mutex } from "async-mutex";
 import * as esbuild from "esbuild-wasm";
 import { wait } from "./wait";
 
-esbuild.version;
-
 // function createWasmBlob(wasm: string) {
 //   const blob = new Blob([wasm], { type: "application/wasm" });
 
