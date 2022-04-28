@@ -513,6 +513,12 @@ async function handleNewICECandidateMessage(
   await connections[target].addIceCandidate(candidate);
 }
 
+interface RTCSessionDescriptionInit {
+  sdp?: string;
+  type: RTCSdpType;
+}
+
+
 async function handleChatAnswerMessage(
   message: { sdp: RTCSessionDescriptionInit },
   target: string,
