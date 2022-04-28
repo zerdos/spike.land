@@ -1,6 +1,6 @@
 import {
   editor_api_exports
-} from "./chunk-M5EKOKYD.mjs";
+} from "./chunk-3TTLUWAB.mjs";
 import "./chunk-BZTAI3VG.mjs";
 
 // ../../node_modules/monaco-editor/esm/vs/basic-languages/python/python.js
