@@ -61,7 +61,6 @@ export interface ICodeSess {
   room: string;
   hashCodeSession: number;
   hashCode: () => number;
-  setRoom: (room: string) => void;
   json: () => IUserJSON;
 }
 
@@ -69,11 +68,10 @@ const hashStore: { [key: number]: Record<ICodeSession> } = {};
 export class CodeSession implements ICodeSess {
   session: IUser;
   hashCodeSession: number;
-  public room = "";
   created: string = new Date().toISOString();
-  constructor(room: string, user: IUserJSON) {
+  constructor(private room: string, user: IUserJSON) {
     const savedState: ICodeSession | null = null;
-    this.room = room;
+
     // If (user.state.code === "" && room) {
     // const cacheKey = `state-${room}`;
 
@@ -111,7 +109,7 @@ export class CodeSession implements ICodeSess {
   ) => {
     if (!hashStore[oldHash]) {
       const resp = await fetch(
-        `https://spike.land/api/room/${thid.room}/session`,
+        `https://spike.land/api/room/${this.room}/session`,
       );
 
       const recRec = await resp.json();
@@ -170,13 +168,14 @@ export class CodeSession implements ICodeSess {
     patch,
   }: { oldHash: number; newHash: number; patch: string }) => {
     const oldHashCheck = this.session.get("state").hashCode();
-    hashStore[oldHash] = this.session.get("state");
+    hashStore[oldHashCheck] = this.session.get("state");
 
-    if (hashStore[oldHash] === undefined) {
+    if (!hashStore[oldHash]) {
       const resp = await fetch(
-        `https://spike.land/api/room/${thid.room}/session`,
+        `https://spike.land/api/room/${this.room}/session`,
       );
-      const recRec = await resp.json();
+      const newRec = await resp.json();
+
       const newRecord = this.session.get("state").merge(newRec);
       const newHashCheck = newRecord.hashCode();
 

@@ -94,7 +94,7 @@ var sendChannel = {
 };
 var resp = await fetch(`https://spike.land/api/room/${room}/session`);
 var state = await resp.json();
-var { startSession } = await import("./session-3BNGXK5M.mjs");
+var { startSession } = await import("./session-H555T3ZF.mjs");
 var mySession = startSession(room, {
   name: username,
   state
@@ -210,14 +210,13 @@ async function join(App) {
   if (!w.sess) {
     const session = {
       ...mST(),
-      setChild: () => {
-      },
+      setChild: () => null,
       changes: [],
       children: [App],
       errorText: ""
     };
     const stayFullscreen = location.pathname.endsWith("public");
-    const { quickStart } = await import("./quickStart-TJLXV7L5.mjs");
+    const { quickStart } = await import("./quickStart-O2FGY4Y6.mjs");
     quickStart(session, roomName, stayFullscreen);
   }
   wsConnection.addEventListener("message", (message) => processWsMessage(message, "ws"));
@@ -445,7 +444,7 @@ async function processWsMessage(event, source) {
     }
     if (wsLastHashCode !== mySession.hashCode()) {
       console.log("there is an error. fetch tje state....");
-      const resp2 = await fetch(`https://spike.land/api/room/${thid.room}/session`);
+      const resp2 = await fetch(`https://spike.land/api/room/${thi.room}/session`);
       const data2 = await resp2.json();
       const messageData = mySession.createPatch(data2);
       console.log("APPLYING PATCH AGAIN");

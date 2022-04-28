@@ -6,6 +6,7 @@
     /* Basic Options */
     "lib": [
       "dom",
+      "DOM.Iterable",
       "esnext",
     ],
     "allowJs": true,

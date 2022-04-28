@@ -1,8 +1,11 @@
+/// <reference lib="lib.dom.ts" />
+
 import type { ICodeSession } from "./session";
 import debounce from "lodash/debounce";
 import uidV4 from "./uidV4.mjs";
 import * as monaco from "monaco-editor";
 import { jsx } from "@emotion/react";
+import { ReactChild } from "react";
 import { Fragment } from "react";
 
 const webRtcArray: (RTCDataChannel & { target: string })[] = [];
@@ -12,7 +15,7 @@ const path = location.pathname.split("/");
 const room =
   ((path[1] === "api" && path[2] === "room")
     ? path[3]
-    : (path.pop() || path.pop())!.slice(-12)) ||
+    : (path.pop() || path.pop()).slice(-12)) ||
   "code-main";
 const user = ((self && self.crypto && self.crypto.randomUUID &&
   self.crypto.randomUUID()) || (uidV4())).slice(
@@ -80,7 +83,8 @@ setInterval(() => {
 const w = window as unknown as {
   sess: {
     editor: typeof monaco.editor;
-    update: (code: string) => void;
+
+    update: () => void;
   };
 };
 
@@ -170,7 +174,7 @@ async function broadcastCodeChange(sess: ICodeSession) {
   }
 }
 
-export async function join(App: JSX.Element) {
+export async function join(App: ReactChild) {
   roomName = roomName || room || "code-main";
 
   if (user) {
@@ -228,7 +232,7 @@ export async function join(App: JSX.Element) {
   if (!w.sess) {
     const session = {
       ...mST(),
-      setChild: () => {},
+      setChild: () => null,
       changes: [],
 
       children: [App],
@@ -525,7 +529,7 @@ async function handleChatAnswerMessage(
 }
 
 async function handleChatOffer(
-  message: { sdp: RTCSessionDescriptionInit },
+  message: RTCSessionDescriptionInit,
   target: string,
 ) {
   if (!connections[target]) await createPeerConnection(target);
@@ -631,7 +635,7 @@ async function processWsMessage(event: { data: string }, source: "ws" | "rtc") {
       console.log("there is an error. fetch tje state....");
 
       const resp = await fetch(
-        `https://spike.land/api/room/${thid.room}/session`,
+        `https://spike.land/api/room/${this.room}/session`,
       );
       const data = await resp.json();
 

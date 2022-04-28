@@ -13,9 +13,7 @@ import applyDelta from "textdiff-patch";
 import { CodeEnv } from "./env";
 import type {
   CodeSession,
-  ICodeSess,
   ICodeSession,
-  IEvent,
   INewWSConnection,
 } from "@spike.land/code/js/session";
 import {startSession} from "@spike.land/code/js/session";

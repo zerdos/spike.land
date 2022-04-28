@@ -4874,13 +4874,9 @@ function initSession(room, u) {
 }
 var hashStore = {};
 var CodeSession = class {
-  session;
-  hashCodeSession;
-  room = "";
-  created = new Date().toISOString();
   constructor(room, user) {
-    const savedState = null;
     this.room = room;
+    const savedState = null;
     this.session = initSession(room, {
       ...user,
       state: savedState ? savedState : user.state
@@ -4888,12 +4884,15 @@ var CodeSession = class {
     this.hashCodeSession = this.session.get("state").hashCode();
     hashStore[this.session.get("state").hashCode()] = this.session.get("state");
   }
+  session;
+  hashCodeSession;
+  created = new Date().toISOString();
   hashCode() {
     return this.session.get("state").hashCode();
   }
   createPatchFromHashCode = async (oldHash, state) => {
     if (!hashStore[oldHash]) {
-      const resp = await fetch(`https://spike.land/api/room/${thid.room}/session`);
+      const resp = await fetch(`https://spike.land/api/room/${this.room}/session`);
       const recRec = await resp.json();
       hashStore[oldHash] = Record(recRec)();
     }
@@ -4939,11 +4938,11 @@ var CodeSession = class {
     patch
   }) => {
     const oldHashCheck = this.session.get("state").hashCode();
-    hashStore[oldHash] = this.session.get("state");
-    if (hashStore[oldHash] === void 0) {
-      const resp = await fetch(`https://spike.land/api/room/${thid.room}/session`);
-      const recRec = await resp.json();
-      const newRecord2 = this.session.get("state").merge(newRec);
+    hashStore[oldHashCheck] = this.session.get("state");
+    if (!hashStore[oldHash]) {
+      const resp = await fetch(`https://spike.land/api/room/${this.room}/session`);
+      const newRec2 = await resp.json();
+      const newRecord2 = this.session.get("state").merge(newRec2);
       const newHashCheck2 = newRecord2.hashCode();
       if (newHashCheck2 === newHash) {
         this.session = this.session.set("state", newRecord2);
