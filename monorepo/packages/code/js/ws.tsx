@@ -626,9 +626,21 @@ async function processWsMessage(event: { data: string }, source: "ws" | "rtc") {
       return;
     }
 
-    if (data.newHash === mySession.hashCode()) {
+    if (data.newHash !== mySession.hashCode()) {
       console.log("there is an error. fetch tje state....");
-      return;
+
+      const resp = await fetch(
+        `https://spike.land/api/room/${thid.room}/session`,
+      );
+      const data = await resp.json();
+
+      const messageData = mySession.createPatch(data);
+      console.log("APPLYING PATCH AGAIN");
+      await mySession.applyPatch(messageData);
+      chCode(data.code, data.i);
+      if (sendChannel) {
+        sendChannel.send({ hashCode: messageData.newHash });
+      }
     }
 
     if (data.code && data.transpiled) {

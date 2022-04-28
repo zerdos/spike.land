@@ -216,7 +216,7 @@ async function join(App) {
       errorText: ""
     };
     const stayFullscreen = location.pathname.endsWith("public");
-    const { quickStart } = await import("./quickStart-BUIFJZXZ.mjs");
+    const { quickStart } = await import("./quickStart-53QYRXCL.mjs");
     quickStart(session, roomName, stayFullscreen);
   }
   wsConnection.addEventListener("message", (message) => processWsMessage(message, "ws"));
@@ -442,9 +442,17 @@ async function processWsMessage(event, source) {
       }
       return;
     }
-    if (data.newHash === mySession.hashCode()) {
+    if (data.newHash !== mySession.hashCode()) {
       console.log("there is an error. fetch tje state....");
-      return;
+      const resp2 = await fetch(`https://spike.land/api/room/${thid.room}/session`);
+      const data2 = await resp2.json();
+      const messageData = mySession.createPatch(data2);
+      console.log("APPLYING PATCH AGAIN");
+      await mySession.applyPatch(messageData);
+      chCode(data2.code, data2.i);
+      if (sendChannel) {
+        sendChannel.send({ hashCode: messageData.newHash });
+      }
     }
     if (data.code && data.transpiled) {
       const messageData = mySession.createPatch(data);
