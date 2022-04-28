@@ -216,7 +216,7 @@ async function join(App) {
       errorText: ""
     };
     const stayFullscreen = location.pathname.endsWith("public");
-    const { quickStart } = await import("./quickStart-O2FGY4Y6.mjs");
+    const { quickStart } = await import("./quickStart-K3DPKUFI.mjs");
     quickStart(session, roomName, stayFullscreen);
   }
   wsConnection.addEventListener("message", (message) => processWsMessage(message, "ws"));
@@ -444,7 +444,7 @@ async function processWsMessage(event, source) {
     }
     if (wsLastHashCode !== mySession.hashCode()) {
       console.log("there is an error. fetch tje state....");
-      const resp2 = await fetch(`https://spike.land/api/room/${thi.room}/session`);
+      const resp2 = await fetch(`https://spike.land/api/room/${this.room}/session`);
       const data2 = await resp2.json();
       const messageData = mySession.createPatch(data2);
       console.log("APPLYING PATCH AGAIN");

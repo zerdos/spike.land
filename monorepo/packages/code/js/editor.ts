@@ -1,4 +1,5 @@
 import * as monaco from "monaco-editor";
+import type { MonacoEnvironment } from "monaco-editor";
 import "monaco-editor/min/vs/editor/editor.main.css";
 import { dtsFiles } from "./types.mjs";
 // import { parse } from "@babel/parser";
@@ -32,7 +33,7 @@ const {
   emotionUtilsDts,
 } = dtsFiles;
 
-let monEnv: typeof MonacoEnvironment = {
+const monEnv: typeof MonacoEnvironment = {
   getWorkerUrl: function (_workerId, label) {
     if (label === "typescript" || label === "javascript") {
       return "dist/workers/language/typescript/ts.worker.js";

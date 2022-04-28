@@ -497,6 +497,13 @@ async function createPeerConnection(target: string) {
   }
 }
 
+interface RTCIceCandidateInit {
+  candidate?: string;
+  sdpMLineIndex?: number | null;
+  sdpMid?: string | null;
+  usernameFragment?: string | null;
+}
+
 async function handleNewICECandidateMessage(
   message: {
     candidate: RTCIceCandidateInit;
@@ -513,11 +520,12 @@ async function handleNewICECandidateMessage(
   await connections[target].addIceCandidate(candidate);
 }
 
+type RTCSdpType = "answer" | "offer" | "pranswer" | "rollback";
+
 interface RTCSessionDescriptionInit {
   sdp?: string;
   type: RTCSdpType;
 }
-
 
 async function handleChatAnswerMessage(
   message: { sdp: RTCSessionDescriptionInit },
