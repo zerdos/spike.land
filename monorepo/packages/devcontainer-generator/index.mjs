@@ -3,10 +3,10 @@ import { promises as fs } from "fs";
 
 // versions.json
 var node = {
-  current: "16.14.2",
+  current: "16.15.0",
   lts: "18.0.0"
 };
-var deno = "1.20.6";
+var deno = "1.21.0";
 var git = "2.36.0";
 var cypress = "9.5.4";
 var yarn = "1.22.18";

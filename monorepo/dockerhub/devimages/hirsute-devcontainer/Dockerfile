@@ -78,7 +78,7 @@ RUN apt-get update && \
 && apt-get autoremove -y \
 && apt-get clean -y \
 && rm -rf /tmp/* /var/lib/apt/lists/* /usr/src/*
-ENV NODE_VERSION 16.14.2
+ENV NODE_VERSION 16.15.0
 
 RUN ARCH= && dpkgArch="$(dpkg --print-architecture)" \
   && case "${dpkgArch##*-}" in \
@@ -293,7 +293,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends unzip \
   && rm -rf /var/lib/apt/lists/* 
 
 USER ${USER}
-RUN curl -fsSL https://deno.land/x/install/install.sh | sh -s v1.20.6 \
+RUN curl -fsSL https://deno.land/x/install/install.sh | sh -s v1.21.0 \
   && echo "export DENO_INSTALL=\"\${HOME}/.deno\"" >> ${HOME}/.zshrc \
   && echo "export DENO_INSTALL=\"\${HOME}/.deno\"" >> ${HOME}/.bashrc \
   && echo "export PATH=\"\$DENO_INSTALL/bin:\$PATH\"" >> ${HOME}/.bashrc \

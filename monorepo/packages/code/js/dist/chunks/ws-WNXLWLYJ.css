@@ -896,7 +896,7 @@
 @font-face {
   font-family: "codicon";
   font-display: block;
-  src: url(./codicon-IZMIAB53.ttf) format("truetype");
+  src: url(../codicon-IZMIAB53.ttf) format("truetype");
 }
 .codicon[class*=codicon-] {
   font: normal normal normal 16px/1 codicon;
@@ -3639,7 +3639,7 @@
 @font-face {
   font-family: codicon;
   font-display: block;
-  src: url(./codicon-IZMIAB53.ttf) format("truetype");
+  src: url(../codicon-IZMIAB53.ttf) format("truetype");
 }
 .codicon[class*=codicon-] {
   font: normal normal normal 16px/1 codicon;
