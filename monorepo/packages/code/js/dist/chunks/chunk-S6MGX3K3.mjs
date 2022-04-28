@@ -4977,7 +4977,6 @@ var CodeSession = class {
 var hashCode3 = () => session?.hashCode() || 0;
 var session = null;
 var startSession = (room, u) => session || new CodeSession(room, u);
-var session_default = startSession;
 function createPatch(oldCode, newCode) {
   return JSON.stringify((0, import_textdiff_create.default)(oldCode, newCode));
 }
@@ -4986,6 +4985,5 @@ export {
   initSession,
   CodeSession,
   hashCode3 as hashCode,
-  startSession,
-  session_default
+  startSession
 };

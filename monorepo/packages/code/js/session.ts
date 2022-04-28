@@ -213,8 +213,6 @@ const session: CodeSession | null = null;
 export const startSession = (room: string, u: IUserJSON): CodeSession =>
   session || new CodeSession(room, u);
 
-export default startSession;
-
 function createPatch(oldCode: string, newCode: string) {
   return JSON.stringify(createDelta(oldCode, newCode));
 }

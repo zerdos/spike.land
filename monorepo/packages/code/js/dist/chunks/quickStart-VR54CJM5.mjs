@@ -2,7 +2,7 @@ import "./chunk-BZTAI3VG.mjs";
 
 // js/quickStart.tsx
 import { jsx } from "https://spike.land/dist/emotion.mjs";
-var initSession = (await import("./session-3F4BDDFW.mjs")).default;
+var initSession = (await import("./session-GOMRKO4R.mjs")).default;
 async function startMonacoWithSession(session) {
   console.log("start monaco with session");
   const monacoEditorDom = document.querySelector("#monacoEditor");
@@ -69,7 +69,7 @@ async function runner(c, changes, session, counter) {
         if (session.i !== counter) {
           return;
         }
-        const { saveCode } = await import("./ws-U3JIOBV6.mjs");
+        const { saveCode } = await import("./ws-KIUVVDDV.mjs");
         saveCode({ transpiled, code, i: counter, css, html });
         return;
       } catch (error2) {
@@ -109,7 +109,7 @@ var startFromCode = async ({ code }) => {
   await quickStart(session);
 };
 async function quickStart(session, room, keepFullScreen) {
-  const { renderPreviewWindow } = await import("./renderPreviewWindow-UPATHWW7.mjs");
+  const { renderPreviewWindow } = await import("./renderPreviewWindow-2RJJ4UZX.mjs");
   await renderPreviewWindow(session, room, keepFullScreen);
   if (!keepFullScreen) {
     await startMonacoWithSession(session);

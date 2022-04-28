@@ -2,13 +2,11 @@ import {
   CodeSession,
   hashCode,
   initSession,
-  session_default,
   startSession
-} from "./chunk-AUMXZW44.mjs";
+} from "./chunk-S6MGX3K3.mjs";
 import "./chunk-BZTAI3VG.mjs";
 export {
   CodeSession,
-  session_default as default,
   hashCode,
   initSession,
   startSession
