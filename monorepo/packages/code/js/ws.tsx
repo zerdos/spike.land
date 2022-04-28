@@ -626,7 +626,7 @@ async function processWsMessage(event: { data: string }, source: "ws" | "rtc") {
       return;
     }
 
-    if (data.newHash !== mySession.hashCode()) {
+    if (wsLastHashCode !== mySession.hashCode()) {
       console.log("there is an error. fetch tje state....");
 
       const resp = await fetch(
