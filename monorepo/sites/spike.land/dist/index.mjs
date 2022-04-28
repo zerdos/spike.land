@@ -578,7 +578,7 @@ var require_textdiff_create = __commonJS({
 });
 
 // ../../packages/code/package.json
-var version = "0.7.599";
+var version = "0.7.600";
 
 // ../../packages/cf-npm-site/dist/index.mjs
 function src_default(packageName, version2, serveDir = "") {
@@ -5206,9 +5206,11 @@ var CodeSession = class {
   hashCode() {
     return this.session.get("state").hashCode();
   }
-  createPatchFromHashCode(oldHash, state) {
+  createPatchFromHashCode = async (oldHash, state) => {
     if (!hashStore[oldHash]) {
-      throw Error("No oldHash. We need to fetch it first and try again");
+      const resp = await fetch(`https://spike.land/api/room/${thid.room}/session`);
+      const recRec = await resp.json();
+      hashStore[oldHash] = Record(recRec)();
     }
     const oldRec = hashStore[oldHash];
     const oldState = JSON.stringify(oldRec.toJSON());
@@ -5222,7 +5224,7 @@ var CodeSession = class {
       newHash,
       patch
     };
-  }
+  };
   createPatch(state) {
     if (state.code === this.session.get("state").get("code")) {
       return {
