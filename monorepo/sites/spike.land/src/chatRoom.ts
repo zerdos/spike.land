@@ -9,7 +9,7 @@ import { toBinary } from "@spike.land/code/js/binary";
 
 import { version } from "@spike.land/code/package.json";
 
-//@ts-ignore
+
 import applyDelta from "textdiff-patch";
 import { CodeEnv } from "./env";
 import type {
@@ -18,8 +18,6 @@ import type {
   IEvent,
   INewWSConnection,
 } from "@spike.land/code/js/session";
-// @ts-expect-error
-
 import startSession from "@spike.land/code/js/session";
 
 import imap from "@spike.land/code/js/mockedMap.json";
