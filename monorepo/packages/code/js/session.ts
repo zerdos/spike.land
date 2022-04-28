@@ -154,19 +154,36 @@ export class CodeSession implements ICodeSess {
     };
   }
 
-  public applyPatch({
+  async public applyPatch({
     oldHash,
     newHash,
     patch,
   }: { oldHash: number; newHash: number; patch: string }): void {
     const oldHashCheck = this.session.get("state").hashCode();
+    hashStore[oldHash] = this.session.get("state");
 
-    if (oldHashCheck !== oldHash) {
-      console.error("Cant update");
+    if (hashStore[oldHash] === undefined) {
+      const resp = await fetch(
+        `https://spike.land/api/room/${thid.room}/session`,
+      );
+      const recRec = await resp.json();
+      const newRecord = this.session.get("state").merge(newRec);
+      const newHashCheck = newRecord.hashCode();
+
+      if (newHashCheck === newHash) {
+        this.session = this.session.set("state", newRecord);
+        //  Console.error("WRONG update");
+      } else {
+        console.log("WRONG");
+        console.log({
+          newState,
+        });
+      }
       return;
     }
 
-    const oldST = this.session.get("state").toJSON();
+    const oldST = hashStore[oldHash].toJSON();
+
     const oldState = JSON.stringify(oldST);
     const oldCode = oldST.code;
     const newState = JSON.parse(applyPatch(oldState, JSON.parse(patch)));

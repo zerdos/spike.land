@@ -94,7 +94,7 @@ var sendChannel = {
 };
 var resp = await fetch(`https://spike.land/api/room/${room}/session`);
 var state = await resp.json();
-var { startSession } = await import("./session-GOMRKO4R.mjs");
+var { startSession } = await import("./session-YBOKG7EK.mjs");
 var mySession = startSession(room, {
   name: username,
   state
@@ -216,7 +216,7 @@ async function join(App) {
       errorText: ""
     };
     const stayFullscreen = location.pathname.endsWith("public");
-    const { quickStart } = await import("./quickStart-J3IOXZVU.mjs");
+    const { quickStart } = await import("./quickStart-TO2VMRF5.mjs");
     quickStart(session, roomName, stayFullscreen);
   }
   wsConnection.addEventListener("message", (message) => processWsMessage(message, "ws"));
@@ -434,7 +434,7 @@ async function processWsMessage(event, source) {
     if (data.newHash === mySession.hashCode()) {
       return;
     }
-    mySession.applyPatch(data);
+    await mySession.applyPatch(data);
     if (data.newHash === mySession.hashCode()) {
       chCode(mST().code, mST().i);
       if (sendChannel) {
@@ -449,7 +449,7 @@ async function processWsMessage(event, source) {
     if (data.code && data.transpiled) {
       const messageData = mySession.createPatch(data);
       console.log("APPLYING PATCH AGAIN");
-      mySession.applyPatch(messageData);
+      await mySession.applyPatch(messageData);
       chCode(data.code, data.i);
       if (sendChannel) {
         sendChannel.send({ hashCode: messageData.newHash });
