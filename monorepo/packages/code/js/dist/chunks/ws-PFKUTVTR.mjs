@@ -216,7 +216,7 @@ async function join(App) {
       errorText: ""
     };
     const stayFullscreen = location.pathname.endsWith("public");
-    const { quickStart } = await import("./quickStart-VR54CJM5.mjs");
+    const { quickStart } = await import("./quickStart-J3IOXZVU.mjs");
     quickStart(session, roomName, stayFullscreen);
   }
   wsConnection.addEventListener("message", (message) => processWsMessage(message, "ws"));
@@ -434,7 +434,7 @@ async function processWsMessage(event, source) {
     if (data.newHash === mySession.hashCode()) {
       return;
     }
-    mySession.applyPatch(data.oldHash, data.newHash, data.patch);
+    mySession.applyPatch(data);
     if (data.newHash === mySession.hashCode()) {
       chCode(mST().code, mST().i);
       if (sendChannel) {

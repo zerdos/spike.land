@@ -612,7 +612,7 @@ async function processWsMessage(event: { data: string }, source: "ws" | "rtc") {
       return;
     }
 
-    mySession.applyPatch(data.oldHash, data.newHash, data.patch);
+    mySession.applyPatch(data);
     if (data.newHash === mySession.hashCode()) {
       chCode(
         mST().code,
