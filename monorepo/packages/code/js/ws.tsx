@@ -614,9 +614,10 @@ async function processWsMessage(event: { data: string }, source: "ws" | "rtc") {
     if (data.oldHash === mySession.hashCode()) {
       console.log("******** APPLY PATCH ******");
       mySession.applyPatch(data);
+
       chCode(
-        mySession.session.get("state").code,
-        mySession.session.get("state").i,
+        mST().code,
+        mST().i,
       );
 
       if (sendChannel) {
