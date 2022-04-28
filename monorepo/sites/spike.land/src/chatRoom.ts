@@ -360,7 +360,7 @@ export class Code {
   }
 
   async handleSession(webSocket: WebSocket, ip: string) {
-    const mST = () => this.state.mySession.session.get("state");
+    const mST = () => this.state.mySession.json().state;
     webSocket.accept();
 
     let limiterId = this.env.LIMITERS.idFromName(ip);
@@ -463,7 +463,7 @@ export class Code {
         if (data.type === "lost") {
           webSocket.send(JSON.stringify({
             ...mST().toJSON(),
-          }));
+          }));A
         }
 
         if (!session.name && data.name) {
@@ -522,7 +522,7 @@ export class Code {
           return;
         }
 
-        if (data.patch && data.oldHash === this.state.mySession.hashCode()) {
+        if (data.patch) {
           const newHash: number = data.newHash;
           const oldHash: number = data.oldHash;
           const patch: string = data.patch;
@@ -530,7 +530,7 @@ export class Code {
           this.state.mySession.applyPatch(data);
           if (newHash === this.state.mySession.hashCode()) {
             this.broadcast(msg.data);
-            const session = mST().toJSON();
+            const session = mST();
             await this.kv.put<ICodeSession>("session", session);
 
             await this.kv.put(String(newHash), { oldHash, patch });
