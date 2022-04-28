@@ -570,6 +570,7 @@ async function processWsMessage(event: { data: string }, source: "ws" | "rtc") {
 
   const data = JSON.parse(event.data);
 
+  console.log({ data });
   // MySession.addEvent(data);
 
   if (

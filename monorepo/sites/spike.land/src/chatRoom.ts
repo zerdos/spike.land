@@ -20,7 +20,7 @@ import type {
 } from "@spike.land/code/js/session";
 // @ts-expect-error
 
-import startSession from "@spike.land/code/js/session.tsx";
+import startSession from "@spike.land/code/js/session";
 
 import imap from "@spike.land/code/js/mockedMap.json";
 

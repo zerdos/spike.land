@@ -216,7 +216,7 @@ async function join(App) {
       errorText: ""
     };
     const stayFullscreen = location.pathname.endsWith("public");
-    const { quickStart } = await import("./quickStart-GJDZGTAS.mjs");
+    const { quickStart } = await import("./quickStart-SA3TQTXS.mjs");
     quickStart(session, roomName, stayFullscreen);
   }
   wsConnection.addEventListener("message", (message) => processWsMessage(message, "ws"));
@@ -405,6 +405,7 @@ async function processWsMessage(event, source) {
   console.log(source, { event });
   lastSeenNow = Date.now();
   const data = JSON.parse(event.data);
+  console.log({ data });
   if (data.name && data.name !== username && !connections[data.name]) {
     try {
       await createPeerConnection(data.name);
