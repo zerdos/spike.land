@@ -105,10 +105,20 @@ export class CodeSession implements ICodeSess {
     return this.session.get("state").hashCode();
   }
 
-  public createPatchFromHashCode(oldHash: number, state: ICodeSession) {
+  public createPatchFromHashCode = async (
+    oldHash: number,
+    state: ICodeSession,
+  ) => {
     if (!hashStore[oldHash]) {
-      throw Error("No oldHash. We need to fetch it first and try again");
+      const resp = await fetch(
+        `https://spike.land/api/room/${thid.room}/session`,
+      );
+
+      const recRec = await resp.json();
+
+      hashStore[oldHash] = Record<ICodeSession>(recRec)();
     }
+
     const oldRec = hashStore[oldHash];
     const oldState = JSON.stringify(oldRec.toJSON());
 
@@ -123,7 +133,7 @@ export class CodeSession implements ICodeSess {
       newHash,
       patch,
     };
-  }
+  };
 
   public createPatch(state: ICodeSession) {
     if (state.code === this.session.get("state").get("code")) {
