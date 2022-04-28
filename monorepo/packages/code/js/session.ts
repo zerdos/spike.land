@@ -154,11 +154,11 @@ export class CodeSession implements ICodeSess {
     };
   }
 
-  async public applyPatch({
+  public applyPatch = async ({
     oldHash,
     newHash,
     patch,
-  }: { oldHash: number; newHash: number; patch: string }): void {
+  }: { oldHash: number; newHash: number; patch: string }) => {
     const oldHashCheck = this.session.get("state").hashCode();
     hashStore[oldHash] = this.session.get("state");
 
@@ -210,7 +210,7 @@ export class CodeSession implements ICodeSess {
         newState,
       });
     }
-  }
+  };
 
   public json() {
     const user = this.session.toJSON();

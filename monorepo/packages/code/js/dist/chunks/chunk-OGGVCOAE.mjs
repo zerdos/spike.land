@@ -4931,11 +4931,11 @@ var CodeSession = class {
       patch
     };
   }
-  async applyPatch({
+  applyPatch = async ({
     oldHash,
     newHash,
     patch
-  }) {
+  }) => {
     const oldHashCheck = this.session.get("state").hashCode();
     hashStore[oldHash] = this.session.get("state");
     if (hashStore[oldHash] === void 0) {
@@ -4975,7 +4975,7 @@ var CodeSession = class {
         newState
       });
     }
-  }
+  };
   json() {
     const user = this.session.toJSON();
     const state = user.state.toJSON();
