@@ -9,8 +9,8 @@
   "exports": {
     "./package.json": "./package.json",
     "./js/dist/starter.mjs": "./js/dist/starter.mjs",
-    "./js/session.ts": "./js/session.ts",
-    "./js/binary.ts": "./js/binary.ts",
+    "./js/session": "./js/session.ts",
+    "./js/binary": "./js/binary.ts",
     "./js/importmap.json": "./js/importmap.json",
     "./js/mockedMap.json": "./js/mockedMap.json",
     "./shasums": "./shasums.ts"
