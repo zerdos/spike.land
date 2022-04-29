@@ -151,7 +151,7 @@ async function broadcastCodeChange(sess) {
   (async () => {
     try {
       if (sendChannel) {
-        const message = webRTCLastSeenHashCode ? mySession.createPatchFromHashCode(webRTCLastSeenHashCode, sess) : mySession.createPatch(sess);
+        const message = webRTCLastSeenHashCode ? await mySession.createPatchFromHashCode(webRTCLastSeenHashCode, sess) : mySession.createPatch(sess);
         if (message && message.patch !== "") {
           sendChannel.send(message);
         }
@@ -161,7 +161,7 @@ async function broadcastCodeChange(sess) {
     }
   })();
   if (ws) {
-    const message = mySession.createPatchFromHashCode(wsLastHashCode, sess);
+    const message = await mySession.createPatchFromHashCode(wsLastHashCode, sess);
     if (!message) {
       return;
     }
@@ -216,7 +216,7 @@ async function join(App) {
       errorText: ""
     };
     const stayFullscreen = location.pathname.endsWith("public");
-    const { quickStart } = await import("./quickStart-RXF63VQ3.mjs");
+    const { quickStart } = await import("./quickStart-76ZRMGZW.mjs");
     quickStart(session, roomName, stayFullscreen);
   }
   wsConnection.addEventListener("message", (message) => processWsMessage(message, "ws"));

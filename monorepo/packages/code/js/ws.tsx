@@ -141,7 +141,7 @@ async function broadcastCodeChange(sess: ICodeSession) {
     try {
       if (sendChannel) {
         const message = webRTCLastSeenHashCode
-          ? mySession.createPatchFromHashCode(
+          ? await mySession.createPatchFromHashCode(
             webRTCLastSeenHashCode,
             sess,
           )
@@ -156,7 +156,10 @@ async function broadcastCodeChange(sess: ICodeSession) {
   })();
 
   if (ws) {
-    const message = mySession.createPatchFromHashCode(wsLastHashCode, sess);
+    const message = await mySession.createPatchFromHashCode(
+      wsLastHashCode,
+      sess,
+    );
 
     if (!message) {
       return;
