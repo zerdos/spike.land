@@ -161,7 +161,7 @@ async function broadcastCodeChange(sess) {
     }
   })();
   if (ws) {
-    const message = wsLastHashCode ? mySession.createPatchFromHashCode(wsLastHashCode, sess) : mySession.createPatch(sess);
+    const message = mySession.createPatchFromHashCode(wsLastHashCode, sess);
     if (!message) {
       return;
     }
@@ -216,7 +216,7 @@ async function join(App) {
       errorText: ""
     };
     const stayFullscreen = location.pathname.endsWith("public");
-    const { quickStart } = await import("./quickStart-K3DPKUFI.mjs");
+    const { quickStart } = await import("./quickStart-RXF63VQ3.mjs");
     quickStart(session, roomName, stayFullscreen);
   }
   wsConnection.addEventListener("message", (message) => processWsMessage(message, "ws"));
@@ -406,6 +406,9 @@ async function processWsMessage(event, source) {
   lastSeenNow = Date.now();
   const data = JSON.parse(event.data);
   console.log({ data });
+  if (source === "ws" && data.hashCode) {
+    wsLastHashCode = data.hashCode;
+  }
   if (data.name && data.name !== username && !connections[data.name]) {
     try {
       createPeerConnection(data.name);
@@ -426,9 +429,6 @@ async function processWsMessage(event, source) {
   if (data.type === "answer") {
     await handleChatAnswerMessage(data, data.name);
     return;
-  }
-  if (source === "ws" && data.hashCode) {
-    wsLastHashCode = data.hashCode;
   }
   if (data.patch && source === "ws" && data.name !== username) {
     if (data.newHash === mySession.hashCode()) {

@@ -156,9 +156,7 @@ async function broadcastCodeChange(sess: ICodeSession) {
   })();
 
   if (ws) {
-    const message = wsLastHashCode
-      ? mySession.createPatchFromHashCode(wsLastHashCode, sess)
-      : mySession.createPatch(sess);
+    const message = mySession.createPatchFromHashCode(wsLastHashCode, sess);
 
     if (!message) {
       return;
@@ -592,6 +590,10 @@ async function processWsMessage(event: { data: string }, source: "ws" | "rtc") {
   console.log({ data });
   // MySession.addEvent(data);
 
+  if (source === "ws" && data.hashCode) {
+    wsLastHashCode = data.hashCode;
+  }
+
   if (
     data.name && data.name !== username &&
     !connections[data.name as keyof typeof connections]
@@ -620,10 +622,6 @@ async function processWsMessage(event: { data: string }, source: "ws" | "rtc") {
     await handleChatAnswerMessage(data, data.name);
 
     return;
-  }
-
-  if (source === "ws" && data.hashCode) {
-    wsLastHashCode = data.hashCode;
   }
 
   if (data.patch && source === "ws" && data.name !== username) {
