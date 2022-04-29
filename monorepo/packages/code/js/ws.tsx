@@ -197,7 +197,6 @@ export async function join(App: ReactChild) {
     //     deltaSent = delta;
     //     ws.send(JSON.stringify({
     //       type: "delta",
-    //       delta,
     //     }));
     //   }
     //   return;
@@ -593,8 +592,8 @@ async function processWsMessage(event: { data: string }, source: "ws" | "rtc") {
   console.log({ data });
   // MySession.addEvent(data);
 
-  if (source === "ws" && data.hashCode) {
-    wsLastHashCode = data.hashCode;
+  if (source === "ws" && (data.hashCode || data.newHash)) {
+    wsLastHashCode = data.hashCode || data.newHash;
   }
 
   if (

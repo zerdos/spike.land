@@ -216,7 +216,7 @@ async function join(App) {
       errorText: ""
     };
     const stayFullscreen = location.pathname.endsWith("public");
-    const { quickStart } = await import("./quickStart-76ZRMGZW.mjs");
+    const { quickStart } = await import("./quickStart-ETXORFGZ.mjs");
     quickStart(session, roomName, stayFullscreen);
   }
   wsConnection.addEventListener("message", (message) => processWsMessage(message, "ws"));
@@ -406,8 +406,8 @@ async function processWsMessage(event, source) {
   lastSeenNow = Date.now();
   const data = JSON.parse(event.data);
   console.log({ data });
-  if (source === "ws" && data.hashCode) {
-    wsLastHashCode = data.hashCode;
+  if (source === "ws" && (data.hashCode || data.newHash)) {
+    wsLastHashCode = data.hashCode || data.newHash;
   }
   if (data.name && data.name !== username && !connections[data.name]) {
     try {
