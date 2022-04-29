@@ -1,22 +1,18 @@
-/// <reference lib="lib.dom.ts" />
-
 import type { ICodeSession } from "./session";
 import debounce from "lodash/debounce";
 import uidV4 from "./uidV4.mjs";
 import * as monaco from "monaco-editor";
 import { jsx } from "@emotion/react";
-import { ReactChild } from "react";
-import { Fragment } from "react";
+import { Fragment, ReactFragment } from "react";
 
 const webRtcArray: (RTCDataChannel & { target: string })[] = [];
 const hostname = window.location.hostname || "spike.land";
 
 const path = location.pathname.split("/");
-const room =
-  ((path[1] === "api" && path[2] === "room")
-    ? path[3]
-    : (path.pop() || path.pop()).slice(-12)) ||
-  "code-main";
+const [, prefix, selector, room] = path;
+((prefix === "api" && selector === "room")
+  ? room
+  : `${selector}-${room}`.slice(-12)) || "code-main";
 const user = ((self && self.crypto && self.crypto.randomUUID &&
   self.crypto.randomUUID()) || (uidV4())).slice(
     0,
@@ -32,7 +28,7 @@ let lastSeenNow = 0;
 let ws: WebSocket | null = null;
 let rejoined = false;
 const sendChannel = {
-  send: ((data: any) => {
+  send: ((data: { [key: string]: string | number }) => {
     const target = data.target;
     const messageString = JSON.stringify({
       ...data,
@@ -66,7 +62,6 @@ export const mySession = startSession(room, {
   state,
 });
 
-globalThis.mySession = mySession;
 const mST = () => mySession.json().state;
 
 let intervalHandler: number | null = null;
@@ -84,7 +79,8 @@ const w = window as unknown as {
   sess: {
     editor: typeof monaco.editor;
 
-    update: () => void;
+    // eslint-disable-next-line no-unused-vars
+    update: (code: string) => void;
   };
 };
 
@@ -140,6 +136,7 @@ async function broadcastCodeChange(sess: ICodeSession) {
   (async () => {
     try {
       if (sendChannel) {
+        ``;
         const message = webRTCLastSeenHashCode
           ? await mySession.createPatchFromHashCode(
             webRTCLastSeenHashCode,
@@ -175,7 +172,7 @@ async function broadcastCodeChange(sess: ICodeSession) {
   }
 }
 
-export async function join(App: ReactChild) {
+export async function join(App: ReactFragment) {
   roomName = roomName || room || "code-main";
 
   if (user) {
@@ -265,6 +262,345 @@ export async function join(App: ReactChild) {
     rejoin();
   });
   return wsConnection;
+
+  async function processWsMessage(
+    event: { data: string },
+    source: "ws" | "rtc",
+  ) {
+    console.log(source, { event });
+
+    lastSeenNow = Date.now();
+
+    const data = JSON.parse(event.data);
+
+    console.log({ data });
+    // MySession.addEvent(data);
+
+    if (source === "ws" && (data.hashCode || data.newHash)) {
+      wsLastHashCode = data.hashCode || data.newHash;
+    }
+
+    console.log(source, data.name);
+
+    (async () => {
+      try {
+        if (
+          data.name && data.name !== username &&
+          !connections[data.name as keyof typeof connections]
+        ) {
+          await createPeerConnection(data.name);
+          return;
+        }
+
+        if (data.type === "new-ice-candidate") {
+          await handleNewICECandidateMessage(data, data.name);
+          return;
+        }
+
+        if (data.type === "offer") {
+          await handleChatOffer(data, data.name);
+          return;
+        }
+
+        if (data.type === "answer") {
+          await handleChatAnswerMessage(data, data.name);
+
+          return;
+        }
+      } catch (error) {
+        console.log({ e: error });
+        log_error("Error with p2p");
+      }
+    })();
+
+    if (data.patch && data.name !== username) {
+      if (data.newHash === mySession.hashCode()) {
+        return;
+      }
+
+      await mySession.applyPatch(data);
+      if (data.newHash === mySession.hashCode()) {
+        chCode(
+          mST().code,
+          mST().i,
+        );
+
+        if (sendChannel) {
+          sendChannel.send({ hashCode: data.newHash });
+        }
+
+        return;
+      }
+
+      if (wsLastHashCode !== mySession.hashCode()) {
+        console.log("there is an error. fetch tje state....");
+
+        const resp = await fetch(
+          `https://spike.land/api/room/${room}/session`,
+        );
+        const data = await resp.json();
+
+        const messageData = mySession.createPatch(data);
+        console.log("APPLYING PATCH AGAIN");
+        await mySession.applyPatch(messageData);
+        chCode(data.code, data.i);
+        if (sendChannel) {
+          sendChannel.send({ hashCode: messageData.newHash });
+        }
+      }
+
+      if (data.code && data.transpiled) {
+        const messageData = mySession.createPatch(data);
+        console.log("APPLYING PATCH AGAIN");
+        await mySession.applyPatch(messageData);
+        chCode(data.code, data.i);
+        if (sendChannel) {
+          sendChannel.send({ hashCode: messageData.newHash });
+        }
+
+        return;
+      }
+
+      return;
+    }
+
+    if (data.timestamp) {
+      lastSeenNow = Date.now();
+      lastSeenTimestamp = data.timestamp;
+    }
+
+    if (data.name === username) {
+      return;
+    }
+
+    lastSeenTimestamp = data.timestamp;
+
+    async function createPeerConnection(target: string) {
+      log(`Setting up a connection with ${target}`);
+      if (connections[target]) {
+        log(`Aborting, since we have connection with this ${target}`);
+        return;
+      }
+
+      // Create an RTCPeerConnection which knows to use our chosen
+      // STUN server.
+
+      connections[target] = new RTCPeerConnection(
+        rcpOptions,
+      );
+
+      // Set up event handlers for the ICE negotiation process.
+
+      connections[target].onicecandidate = (event) => {
+        if (event.candidate) {
+          log("*** Outgoing ICE candidate: " + event.candidate);
+
+          wsConnection.send(JSON.stringify({
+            type: "new-ice-candidate",
+            target,
+            name: username,
+            candidate: event.candidate,
+          }));
+        }
+      };
+      connections[target].oniceconnectionstatechange =
+        handleICEConnectionStateChangeEvent;
+      connections[target].onicegatheringstatechange =
+        handleICEGatheringStateChangeEvent;
+      connections[target].onsignalingstatechange = () => {
+        log(
+          "*** connections[target].signalingState  changed to: " +
+            connections[target].signalingState,
+        );
+        switch (connections[target].signalingState) {
+          case "closed":
+            break;
+        }
+      };
+      connections[target].onnegotiationneeded = handleNegotiationNeededEvent;
+      connections[target].ontrack = (ev) => console.log(ev);
+
+      connections[target].ondatachannel = (event) => {
+        console.log("Receive Channel Callback");
+        const rtc = event.channel;
+        rtc.binaryType = "arraybuffer";
+        rtc.addEventListener("close", onReceiveChannelClosed);
+
+        rtc.addEventListener(
+          "message",
+          (message) => processWsMessage(message, "rtc"),
+        );
+        const rtcWithTarget = Object.assign(rtc, { target });
+        webRtcArray.push(rtcWithTarget);
+      };
+
+      const dataChannelOptions = {
+        ordered: true, // Do not guarantee order
+        reliable: true,
+        maxPacketLifeTime: 3000, // In milliseconds
+      };
+
+      const rtc = Object.assign(
+        connections[target].createDataChannel(
+          target,
+          dataChannelOptions,
+        ),
+        { target },
+      );
+
+      rtc.binaryType = "arraybuffer";
+
+      rtc.addEventListener("message", (message) => {
+        console.log("***********RTC***", { msg: message });
+
+        const data = JSON.parse(message.data);
+        if (data && data.hashCode) {
+          webRTCLastSeenHashCode = data.hashCode;
+        }
+
+        if (data && data.newHash) {
+          webRTCLastSeenHashCode = data.newHash;
+        }
+
+        return processWsMessage(message, "rtc");
+      });
+
+      rtc.addEventListener("error", (error) => {
+        console.log("xxxxxx-  Data Channel Error:", error);
+      });
+
+      // Rtc.onmessage = (msg) => processWsMessage(msg, "rtc");
+
+      rtc.addEventListener("open", () => {
+        console.log("@@@@@@@@RTC IS OPEN&&&&&&&&");
+        webRtcArray.push(rtc);
+        // connections[target].sendChannel = rtc;
+      });
+
+      rtc.addEventListener("close", () => {
+        console.log("xxxxxxxx- The Data Channel is Closed");
+      });
+
+      return connections[target];
+
+      function onReceiveChannelClosed() {
+        console.log("Receive channel is closed");
+        connections[target].close();
+        delete connections[target];
+        console.log("Closed remote peer connection");
+      }
+
+      async function handleNegotiationNeededEvent() {
+        log("*** Negotiation needed");
+
+        try {
+          log("---> Creating offer");
+          const offer = await connections[target].createOffer();
+
+          if (connections[target].signalingState != "stable") {
+            log("     -- The connection isn't stable yet; postponing...");
+            return;
+          }
+
+          // Establish the offer as the local peer's current
+          // description.
+
+          log("---> Setting local description to the offer");
+          await connections[target].setLocalDescription(offer);
+
+          // Send the offer to the remote peer.
+
+          log("---> Sending the offer to the remote peer");
+          wsConnection.send(JSON.stringify({
+            target,
+            name: username,
+            type: "offer",
+            sdp: connections[target].localDescription,
+          }));
+        } catch {
+          log(
+            "*** The following error occurred while handling the negotiationneeded event:",
+          );
+        }
+      }
+
+      function handleICEConnectionStateChangeEvent() {
+        log(
+          "*** ICE connection state changed to " +
+            connections[target].iceConnectionState,
+        );
+
+        switch (connections[target].iceConnectionState) {
+          case "closed":
+          case "failed":
+          case "disconnected":
+            break;
+        }
+      }
+
+      function handleICEGatheringStateChangeEvent() {
+        log(
+          "*** connections[target].iceGatheringState changed to: " +
+            connections[target].iceGatheringState,
+        );
+      }
+    }
+
+    async function handleChatAnswerMessage(
+      message: RTCSessionDescriptionInit,
+      target: string,
+    ) {
+      log("*** Call recipient has accepted our call");
+
+      // Configure the remote description, which is the SDP payload
+      // in our "answer" message.
+
+      // const desc = new RTCSessionDescription(message.sdp);
+      const desc = new RTCSessionDescription(message);
+
+      await connections[target].setRemoteDescription(desc).catch(console.error);
+    }
+
+    async function handleChatOffer(
+      message: RTCSessionDescriptionInit,
+      target: string,
+    ) {
+      if (!connections[target]) await createPeerConnection(target);
+
+      if (!message.sdp) return;
+      // const desc = new RTCSessionDescription(message.sdp);
+      const desc = new RTCSessionDescription(message);
+
+      if (connections[target].signalingState != "stable") {
+        log("  - But the signaling state isn't stable, so triggering rollback");
+
+        await Promise.all([
+          connections[target].setLocalDescription({ type: "rollback" }),
+          connections[target].setRemoteDescription(desc),
+        ]);
+        return;
+      }
+
+      log("  - Setting remote description");
+      await connections[target].setRemoteDescription(desc);
+
+      log("---> Creating and sending answer to caller");
+
+      await connections[target].setLocalDescription(
+        await connections[target].createAnswer(),
+      );
+
+      const webSocket = ws || await rejoin();
+      if (webSocket === null) return;
+
+      webSocket.send(JSON.stringify({
+        target,
+        name: username,
+        type: "answer",
+        sdp: connections[target].localDescription,
+      }));
+    }
+  }
 }
 
 // Create the RTCPeerConnection which knows how to talk to our
@@ -326,177 +662,6 @@ rcpOptions.iceServers = [{ urls: "stun:stun.stunprotocol.org:3478" }, {
   urls: "stun:stun.l.google.com:19302",
 }];
 
-async function createPeerConnection(target: string) {
-  log(`Setting up a connection with ${target}`);
-  if (connections[target]) {
-    log(`Aborting, since we have connection with this ${target}`);
-    return;
-  }
-
-  // Create an RTCPeerConnection which knows to use our chosen
-  // STUN server.
-
-  connections[target] = new RTCPeerConnection(
-    rcpOptions,
-  );
-
-  // Set up event handlers for the ICE negotiation process.
-
-  connections[target].onicecandidate = (event) => {
-    if (event.candidate) {
-      log("*** Outgoing ICE candidate: " + event.candidate);
-
-      ws!.send(JSON.stringify({
-        type: "new-ice-candidate",
-        target,
-        name: username,
-        candidate: event.candidate,
-      }));
-    }
-  };
-  connections[target].oniceconnectionstatechange =
-    handleICEConnectionStateChangeEvent;
-  connections[target].onicegatheringstatechange =
-    handleICEGatheringStateChangeEvent;
-  connections[target].onsignalingstatechange = () => {
-    log(
-      "*** connections[target].signalingState  changed to: " +
-        connections[target].signalingState,
-    );
-    switch (connections[target].signalingState) {
-      case "closed":
-        break;
-    }
-  };
-  connections[target].onnegotiationneeded = handleNegotiationNeededEvent;
-  connections[target].ontrack = (ev) => console.log(ev);
-
-  connections[target].ondatachannel = (event) => {
-    console.log("Receive Channel Callback");
-    const rtc = event.channel;
-    rtc.binaryType = "arraybuffer";
-    rtc.addEventListener("close", onReceiveChannelClosed);
-
-    rtc.addEventListener(
-      "message",
-      (message) => processWsMessage(message, "rtc"),
-    );
-    const rtcWithTarget = Object.assign(rtc, { target });
-    webRtcArray.push(rtcWithTarget);
-  };
-
-  const dataChannelOptions = {
-    ordered: true, // Do not guarantee order
-    reliable: true,
-    maxPacketLifeTime: 3000, // In milliseconds
-  };
-
-  const rtc = Object.assign(
-    connections[target].createDataChannel(
-      target,
-      dataChannelOptions,
-    ),
-    { target },
-  );
-
-  rtc.binaryType = "arraybuffer";
-
-  rtc.addEventListener("message", (message) => {
-    console.log("***********RTC***", { msg: message });
-
-    const data = JSON.parse(message.data);
-    if (data && data.hashCode) {
-      webRTCLastSeenHashCode = data.hashCode;
-    }
-
-    if (data && data.newHash) {
-      webRTCLastSeenHashCode = data.newHash;
-    }
-
-    return processWsMessage(message, "rtc");
-  });
-
-  rtc.addEventListener("error", (error) => {
-    console.log("xxxxxx-  Data Channel Error:", error);
-  });
-
-  // Rtc.onmessage = (msg) => processWsMessage(msg, "rtc");
-
-  rtc.addEventListener("open", () => {
-    console.log("@@@@@@@@RTC IS OPEN&&&&&&&&");
-    webRtcArray.push(rtc);
-    // connections[target].sendChannel = rtc;
-  });
-
-  rtc.addEventListener("close", () => {
-    console.log("xxxxxxxx- The Data Channel is Closed");
-  });
-
-  return connections[target];
-
-  function onReceiveChannelClosed() {
-    console.log("Receive channel is closed");
-    connections[target].close();
-    delete connections[target];
-    console.log("Closed remote peer connection");
-  }
-
-  async function handleNegotiationNeededEvent() {
-    log("*** Negotiation needed");
-
-    try {
-      log("---> Creating offer");
-      const offer = await connections[target].createOffer();
-
-      if (connections[target].signalingState != "stable") {
-        log("     -- The connection isn't stable yet; postponing...");
-        return;
-      }
-
-      // Establish the offer as the local peer's current
-      // description.
-
-      log("---> Setting local description to the offer");
-      await connections[target].setLocalDescription(offer);
-
-      // Send the offer to the remote peer.
-
-      log("---> Sending the offer to the remote peer");
-      ws && ws.send(JSON.stringify({
-        target,
-        name: username,
-        type: "offer",
-        sdp: connections[target].localDescription,
-      }));
-    } catch {
-      log(
-        "*** The following error occurred while handling the negotiationneeded event:",
-      );
-    }
-  }
-
-  function handleICEConnectionStateChangeEvent() {
-    log(
-      "*** ICE connection state changed to " +
-        connections[target].iceConnectionState,
-    );
-
-    switch (connections[target].iceConnectionState) {
-      case "closed":
-      case "failed":
-      case "disconnected":
-        break;
-    }
-  }
-
-  function handleICEGatheringStateChangeEvent() {
-    log(
-      "*** connections[target].iceGatheringState changed to: " +
-        connections[target].iceGatheringState,
-    );
-  }
-}
-
 interface RTCIceCandidateInit {
   candidate?: string;
   sdpMLineIndex?: number | null;
@@ -525,166 +690,4 @@ type RTCSdpType = "answer" | "offer" | "pranswer" | "rollback";
 interface RTCSessionDescriptionInit {
   sdp?: string;
   type: RTCSdpType;
-}
-
-async function handleChatAnswerMessage(
-  message: { sdp: RTCSessionDescriptionInit },
-  target: string,
-) {
-  log("*** Call recipient has accepted our call");
-
-  // Configure the remote description, which is the SDP payload
-  // in our "answer" message.
-
-  const desc = new RTCSessionDescription(message.sdp);
-  // const desc = new RTCSessionDescription(message);
-
-  await connections[target].setRemoteDescription(desc).catch(console.error);
-}
-
-async function handleChatOffer(
-  message: RTCSessionDescriptionInit,
-  target: string,
-) {
-  if (!connections[target]) await createPeerConnection(target);
-
-  if (!message.sdp) return;
-  const desc = new RTCSessionDescription(message.sdp);
-  // const desc = new RTCSessionDescription(message);
-
-  if (connections[target].signalingState != "stable") {
-    log("  - But the signaling state isn't stable, so triggering rollback");
-
-    await Promise.all([
-      connections[target].setLocalDescription({ type: "rollback" }),
-      connections[target].setRemoteDescription(desc),
-    ]);
-    return;
-  }
-
-  log("  - Setting remote description");
-  await connections[target].setRemoteDescription(desc);
-
-  log("---> Creating and sending answer to caller");
-
-  await connections[target].setLocalDescription(
-    await connections[target].createAnswer(),
-  );
-
-  const webSocket = ws || await rejoin();
-  if (webSocket === null) return;
-
-  webSocket.send(JSON.stringify({
-    target,
-    name: username,
-    type: "answer",
-    sdp: connections[target].localDescription,
-  }));
-}
-
-async function processWsMessage(event: { data: string }, source: "ws" | "rtc") {
-  console.log(source, { event });
-
-  lastSeenNow = Date.now();
-
-  const data = JSON.parse(event.data);
-
-  console.log({ data });
-  // MySession.addEvent(data);
-
-  if (source === "ws" && (data.hashCode || data.newHash)) {
-    wsLastHashCode = data.hashCode || data.newHash;
-  }
-
-  if (
-    data.name && data.name !== username &&
-    !connections[data.name as keyof typeof connections]
-  ) {
-    try {
-      createPeerConnection(data.name);
-    } catch (error) {
-      console.log({ e: error });
-      log_error("Error with p2p");
-    }
-  }
-
-  console.log(source, data.name);
-
-  if (data.type === "new-ice-candidate") {
-    await handleNewICECandidateMessage(data, data.name);
-    return;
-  }
-
-  if (data.type === "offer") {
-    await handleChatOffer(data, data.name);
-    return;
-  }
-
-  if (data.type === "answer") {
-    await handleChatAnswerMessage(data, data.name);
-
-    return;
-  }
-
-  if (data.patch && source === "ws" && data.name !== username) {
-    if (data.newHash === mySession.hashCode()) {
-      return;
-    }
-
-    await mySession.applyPatch(data);
-    if (data.newHash === mySession.hashCode()) {
-      chCode(
-        mST().code,
-        mST().i,
-      );
-
-      if (sendChannel) {
-        sendChannel.send({ hashCode: data.newHash });
-      }
-
-      return;
-    }
-
-    if (wsLastHashCode !== mySession.hashCode()) {
-      console.log("there is an error. fetch tje state....");
-
-      const resp = await fetch(
-        `https://spike.land/api/room/${this.room}/session`,
-      );
-      const data = await resp.json();
-
-      const messageData = mySession.createPatch(data);
-      console.log("APPLYING PATCH AGAIN");
-      await mySession.applyPatch(messageData);
-      chCode(data.code, data.i);
-      if (sendChannel) {
-        sendChannel.send({ hashCode: messageData.newHash });
-      }
-    }
-
-    if (data.code && data.transpiled) {
-      const messageData = mySession.createPatch(data);
-      console.log("APPLYING PATCH AGAIN");
-      await mySession.applyPatch(messageData);
-      chCode(data.code, data.i);
-      if (sendChannel) {
-        sendChannel.send({ hashCode: messageData.newHash });
-      }
-
-      return;
-    }
-
-    return;
-  }
-
-  if (data.timestamp) {
-    lastSeenNow = Date.now();
-    lastSeenTimestamp = data.timestamp;
-  }
-
-  if (data.name === username) {
-    return;
-  }
-
-  lastSeenTimestamp = data.timestamp;
 }
