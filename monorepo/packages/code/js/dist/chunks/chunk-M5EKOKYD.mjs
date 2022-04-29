@@ -42524,6 +42524,10 @@ var ClipboardEventUtils = class {
       } catch (err) {
       }
     }
+    if (text2.length === 0 && metadata === null && clipboardData.files.length > 0) {
+      const files = Array.prototype.slice.call(clipboardData.files, 0);
+      return [files.map((file) => file.name).join("\n"), null];
+    }
     return [text2, metadata];
   }
   static setTextData(clipboardData, text2, html2, metadata) {
