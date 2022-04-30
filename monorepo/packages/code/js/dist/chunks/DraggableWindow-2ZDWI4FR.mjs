@@ -14989,8 +14989,7 @@ var DraggableWindow = ({
     value: 0 - forcedIndie,
     onChange: (_2, v) => setForcedIndie(0 - Number(v)),
     "aria-label": "Temperature",
-    onKeyDown: () => {
-    }
+    onKeyDown: () => null
   }))));
   return jsx3(motion2.div, {
     ref,

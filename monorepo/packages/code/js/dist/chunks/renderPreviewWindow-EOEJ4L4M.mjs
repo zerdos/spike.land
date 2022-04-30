@@ -1,6 +1,6 @@
 import {
   roomName
-} from "./chunk-ZVB2ZX2F.mjs";
+} from "./chunk-WERZUMEC.mjs";
 import "./chunk-GNRJA6OC.mjs";
 import "./chunk-GYPQM6G4.mjs";
 import "./chunk-CGA4QKUS.mjs";
@@ -446,7 +446,7 @@ var synthwave_default = "../synthwave-O2OHLPRX.webp";
 var import_path_browserify = __toESM(require_path_browserify());
 import { render } from "https://spike.land/dist/react.mjs";
 var renderPreviewWindow = async (session, keepFullScreen) => {
-  const { DraggableWindow } = await import("./DraggableWindow-25GY4BX2.mjs");
+  const { DraggableWindow } = await import("./DraggableWindow-2ZDWI4FR.mjs");
   console.log("renderPreviewWindow");
   const target = document.createElement("div");
   const editor = document.getElementById("monacoEditor");

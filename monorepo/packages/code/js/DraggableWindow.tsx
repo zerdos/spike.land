@@ -485,7 +485,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
             value={0 - forcedIndie}
             onChange={(_, v) => setForcedIndie(0 - Number(v))}
             aria-label="Temperature"
-            onKeyDown={() => {}}
+            onKeyDown={() => null}
           />
         </Box>
       </div>
