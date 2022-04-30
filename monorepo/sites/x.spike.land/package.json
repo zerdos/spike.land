@@ -2,7 +2,7 @@
   "name": "@spike.land/webworkers",
   "description": "An edge chat service that runs on Cloudflare Workers using Durable Objects",
   "version": "0.7.641",
-  "module": "./dist/index.mjs",
+  "module": "./public/index.mjs",
   "scripts": {
     "deploy": "wrangler publish",
     "bundle": "esbuild --bundle --format=esm --minify --tree-shaking=true --loader:.html=text --target=esnext src/index.ts --outfile=dist/index.mjs",

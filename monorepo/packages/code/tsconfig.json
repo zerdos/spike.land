@@ -32,7 +32,7 @@
 
     /* Module Resolution Options */
     // "rootDirs": [".", "../../../node_modules"],                        /* List of root folders whose combined content represents the structure of the project at runtime. */
-    // "typeRoots": ["./comlink/dist/esm"],                       /* List of folders to include type definitions from. */
+    // "typeRoots": ["./comlink/public/esm"],                       /* List of folders to include type definitions from. */
     "strict": true,
 
     "typeRoots": ["@types", "@types/monaco-editor", "node",  "@types/react", "@emotion/react", "es-module-shims"],

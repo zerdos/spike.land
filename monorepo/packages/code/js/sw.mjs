@@ -82,12 +82,12 @@ export {};
 // });
 
 // // self.importScripts(
-// //   "https://unpkg.com/ipfs@0.55.3/dist/index.min.js",
+// //   "https://unpkg.com/ipfs@0.55.3/public/index.min.js",
 // // );
 
 // // // self.importScripts(
 // // //   ""
-// // //   // "https://unpkg.com/ipfs-message-port-client@0.6.3/dist/index.min.js"
+// // //   // "https://unpkg.com/ipfs-message-port-client@0.6.3/public/index.min.js"
 // // // )
 
 // // // let port;

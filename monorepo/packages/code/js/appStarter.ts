@@ -33,7 +33,7 @@ self.esmsInitOptions = {
 //     return new Response(source, init);
 
 //     //https://localhost:8000/monorepo/packages/code/js/editor.ts
-//     // const { transform } = await importShim("./dist/esbuildEsm.mjs");
+//     // const { transform } = await importShim("./public/esbuildEsm.mjs");
 
 //     //const transformed = await transform(source);
 
@@ -52,5 +52,5 @@ document.body.appendChild(Object.assign(document.createElement("script"), {
 const { importShim } = self;
 
 importShim<null, { run: () => void }>(
-  "/dist/starter.mjs",
+  "/public/starter.mjs",
 ).then(({ run }) => run());

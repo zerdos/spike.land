@@ -29,9 +29,9 @@ export function getHtml({ html, css }: { html: string; css: string }): string {
 <meta name="Description" content="Generated with spike.land">
 <title>${title}</title>
 <link rel="icon" type="image/png" href="https://spike.land/assets/zed-icon-big.png" />
-<link rel="stylesheet" href="https://unpkg.com/modern-css-reset@1.4.0/dist/reset.min.css" />
+<link rel="stylesheet" href="https://unpkg.com/modern-css-reset@1.4.0/public/reset.min.css" />
 
-<script async src="https://ga.jspm.io/npm:es-module-shims@1.4.1/dist/es-module-shims.js"></script>
+<script async src="https://ga.jspm.io/npm:es-module-shims@1.4.1/public/es-module-shims.js"></script>
 <script type="esms-options">
 {
   "shimMode": true,
@@ -56,7 +56,7 @@ ${css}</style>
 <script crossorigin src="https://unpkg.com/react@18.0.0-rc.0-next-13036bfbc-20220121/umd/react.production.min.js"></script>
 <script crossorigin src="https://unpkg.com/react-is@18.0.0-rc.0-next-13036bfbc-20220121/umd/react-is.production.min.js"></script>
 <script crossorigin src="https://unpkg.com/react-dom@18.0.0-rc.0-next-13036bfbc-20220121/umd/react-dom.production.min.js"></script>
-<script crossorigin src="https://unpkg.com/@emotion/react@11.7.1/dist/emotion-react.umd.min.js"></script>
+<script crossorigin src="https://unpkg.com/@emotion/react@11.7.1/public/emotion-react.umd.min.js"></script>
 </head>
 <body>
 <a class="skip-link" href="#zbody">Jump to the page</a>
@@ -91,7 +91,7 @@ export const getEditorHTML = () =>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <link rel="icon" type="image/png" href="https://spike.land/assets/zed-icon-big.png" />
   
-  <script async src="https://ga.jspm.io/npm:es-module-shims@1.4.1/dist/es-module-shims.js"></script>
+  <script async src="https://ga.jspm.io/npm:es-module-shims@1.4.1/public/es-module-shims.js"></script>
 <title>Instant React Editor</title>
 </head>
 <body>
@@ -99,7 +99,7 @@ export const getEditorHTML = () =>
 <script crossorigin src="https://unpkg.com/react@18.0.0-rc.0-next-13036bfbc-20220121/umd/react.production.min.js"></script>
 <script crossorigin src="https://unpkg.com/react-is@18.0.0-rc.0-next-13036bfbc-20220121/umd/react-is.production.min.js"></script>
 <script crossorigin src="https://unpkg.com/react-dom@18.0.0-rc.0-next-13036bfbc-20220121/umd/react-dom.production.min.js"></script>
-<script crossorigin src="https://unpkg.com/@emotion/react@11.7.1/dist/emotion-react.umd.min.js"></script>
+<script crossorigin src="https://unpkg.com/@emotion/react@11.7.1/public/emotion-react.umd.min.js"></script>
 <script type="importmap">
 ${
     JSON.stringify({

@@ -23,7 +23,7 @@ export const renderPreviewWindow = async (
   if (editor) editor.style.opacity = "0";
 
   document.body.style.backgroundImage = `url(${
-    path.join("./dist/chunks/", bg)
+    path.join("./public/chunks/", bg)
   } )`;
 
   const { App } = globalThis;

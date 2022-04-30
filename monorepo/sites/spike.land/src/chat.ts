@@ -1,4 +1,4 @@
-import { getAssetFromKV } from '@cloudflare/kv-asset-handler'
+import {  getAssetFromKV } from '@cloudflare/kv-asset-handler'
 // import manifestJSON from '__STATIC_CONTENT_MANIFEST'
 // const assetManifest = JSON.parse(manifestJSON)
 
@@ -53,7 +53,7 @@ export default {
           return getHTMLResp(env, path[1]);
 
         default:
-          return  getAssetFromKV(
+          return getAssetFromKV(
             {
               request,
               waitUntil(promise) {
