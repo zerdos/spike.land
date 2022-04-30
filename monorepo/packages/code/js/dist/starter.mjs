@@ -1,14 +1,14 @@
 import {
-  $
-} from "./chunks/chunk-E55CQFNI.mjs";
-import "./chunks/chunk-KWFWVMVK.mjs";
-import {
-  __commonJS
-} from "./chunks/chunk-BZTAI3VG.mjs";
+  $,
+  __commonJS,
+  init_preact,
+  init_react_shim
+} from "./chunks/chunk-D7XGJMVH.mjs";
 
 // ../../node_modules/core-js/internals/global.js
 var require_global = __commonJS({
   "../../node_modules/core-js/internals/global.js"(exports, module) {
+    init_react_shim();
     var check = function(it) {
       return it && it.Math == Math && it;
     };
@@ -21,6 +21,7 @@ var require_global = __commonJS({
 // ../../node_modules/core-js/internals/fails.js
 var require_fails = __commonJS({
   "../../node_modules/core-js/internals/fails.js"(exports, module) {
+    init_react_shim();
     module.exports = function(exec) {
       try {
         return !!exec();
@@ -34,6 +35,7 @@ var require_fails = __commonJS({
 // ../../node_modules/core-js/internals/descriptors.js
 var require_descriptors = __commonJS({
   "../../node_modules/core-js/internals/descriptors.js"(exports, module) {
+    init_react_shim();
     var fails = require_fails();
     module.exports = !fails(function() {
       return Object.defineProperty({}, 1, { get: function() {
@@ -46,6 +48,7 @@ var require_descriptors = __commonJS({
 // ../../node_modules/core-js/internals/function-bind-native.js
 var require_function_bind_native = __commonJS({
   "../../node_modules/core-js/internals/function-bind-native.js"(exports, module) {
+    init_react_shim();
     var fails = require_fails();
     module.exports = !fails(function() {
       var test = function() {
@@ -58,6 +61,7 @@ var require_function_bind_native = __commonJS({
 // ../../node_modules/core-js/internals/function-call.js
 var require_function_call = __commonJS({
   "../../node_modules/core-js/internals/function-call.js"(exports, module) {
+    init_react_shim();
     var NATIVE_BIND = require_function_bind_native();
     var call = Function.prototype.call;
     module.exports = NATIVE_BIND ? call.bind(call) : function() {
@@ -70,6 +74,7 @@ var require_function_call = __commonJS({
 var require_object_property_is_enumerable = __commonJS({
   "../../node_modules/core-js/internals/object-property-is-enumerable.js"(exports) {
     "use strict";
+    init_react_shim();
     var $propertyIsEnumerable = {}.propertyIsEnumerable;
     var getOwnPropertyDescriptor = Object.getOwnPropertyDescriptor;
     var NASHORN_BUG = getOwnPropertyDescriptor && !$propertyIsEnumerable.call({ 1: 2 }, 1);
@@ -83,6 +88,7 @@ var require_object_property_is_enumerable = __commonJS({
 // ../../node_modules/core-js/internals/create-property-descriptor.js
 var require_create_property_descriptor = __commonJS({
   "../../node_modules/core-js/internals/create-property-descriptor.js"(exports, module) {
+    init_react_shim();
     module.exports = function(bitmap, value) {
       return {
         enumerable: !(bitmap & 1),
@@ -97,6 +103,7 @@ var require_create_property_descriptor = __commonJS({
 // ../../node_modules/core-js/internals/function-uncurry-this.js
 var require_function_uncurry_this = __commonJS({
   "../../node_modules/core-js/internals/function-uncurry-this.js"(exports, module) {
+    init_react_shim();
     var NATIVE_BIND = require_function_bind_native();
     var FunctionPrototype = Function.prototype;
     var bind = FunctionPrototype.bind;
@@ -115,6 +122,7 @@ var require_function_uncurry_this = __commonJS({
 // ../../node_modules/core-js/internals/classof-raw.js
 var require_classof_raw = __commonJS({
   "../../node_modules/core-js/internals/classof-raw.js"(exports, module) {
+    init_react_shim();
     var uncurryThis = require_function_uncurry_this();
     var toString = uncurryThis({}.toString);
     var stringSlice = uncurryThis("".slice);
@@ -127,6 +135,7 @@ var require_classof_raw = __commonJS({
 // ../../node_modules/core-js/internals/indexed-object.js
 var require_indexed_object = __commonJS({
   "../../node_modules/core-js/internals/indexed-object.js"(exports, module) {
+    init_react_shim();
     var global2 = require_global();
     var uncurryThis = require_function_uncurry_this();
     var fails = require_fails();
@@ -144,6 +153,7 @@ var require_indexed_object = __commonJS({
 // ../../node_modules/core-js/internals/require-object-coercible.js
 var require_require_object_coercible = __commonJS({
   "../../node_modules/core-js/internals/require-object-coercible.js"(exports, module) {
+    init_react_shim();
     var global2 = require_global();
     var TypeError2 = global2.TypeError;
     module.exports = function(it) {
@@ -157,6 +167,7 @@ var require_require_object_coercible = __commonJS({
 // ../../node_modules/core-js/internals/to-indexed-object.js
 var require_to_indexed_object = __commonJS({
   "../../node_modules/core-js/internals/to-indexed-object.js"(exports, module) {
+    init_react_shim();
     var IndexedObject = require_indexed_object();
     var requireObjectCoercible = require_require_object_coercible();
     module.exports = function(it) {
@@ -168,6 +179,7 @@ var require_to_indexed_object = __commonJS({
 // ../../node_modules/core-js/internals/is-callable.js
 var require_is_callable = __commonJS({
   "../../node_modules/core-js/internals/is-callable.js"(exports, module) {
+    init_react_shim();
     module.exports = function(argument) {
       return typeof argument == "function";
     };
@@ -177,6 +189,7 @@ var require_is_callable = __commonJS({
 // ../../node_modules/core-js/internals/is-object.js
 var require_is_object = __commonJS({
   "../../node_modules/core-js/internals/is-object.js"(exports, module) {
+    init_react_shim();
     var isCallable = require_is_callable();
     module.exports = function(it) {
       return typeof it == "object" ? it !== null : isCallable(it);
@@ -187,6 +200,7 @@ var require_is_object = __commonJS({
 // ../../node_modules/core-js/internals/get-built-in.js
 var require_get_built_in = __commonJS({
   "../../node_modules/core-js/internals/get-built-in.js"(exports, module) {
+    init_react_shim();
     var global2 = require_global();
     var isCallable = require_is_callable();
     var aFunction = function(argument) {
@@ -201,6 +215,7 @@ var require_get_built_in = __commonJS({
 // ../../node_modules/core-js/internals/object-is-prototype-of.js
 var require_object_is_prototype_of = __commonJS({
   "../../node_modules/core-js/internals/object-is-prototype-of.js"(exports, module) {
+    init_react_shim();
     var uncurryThis = require_function_uncurry_this();
     module.exports = uncurryThis({}.isPrototypeOf);
   }
@@ -209,6 +224,7 @@ var require_object_is_prototype_of = __commonJS({
 // ../../node_modules/core-js/internals/engine-user-agent.js
 var require_engine_user_agent = __commonJS({
   "../../node_modules/core-js/internals/engine-user-agent.js"(exports, module) {
+    init_react_shim();
     var getBuiltIn = require_get_built_in();
     module.exports = getBuiltIn("navigator", "userAgent") || "";
   }
@@ -217,6 +233,7 @@ var require_engine_user_agent = __commonJS({
 // ../../node_modules/core-js/internals/engine-v8-version.js
 var require_engine_v8_version = __commonJS({
   "../../node_modules/core-js/internals/engine-v8-version.js"(exports, module) {
+    init_react_shim();
     var global2 = require_global();
     var userAgent = require_engine_user_agent();
     var process = global2.process;
@@ -244,6 +261,7 @@ var require_engine_v8_version = __commonJS({
 // ../../node_modules/core-js/internals/native-symbol.js
 var require_native_symbol = __commonJS({
   "../../node_modules/core-js/internals/native-symbol.js"(exports, module) {
+    init_react_shim();
     var V8_VERSION = require_engine_v8_version();
     var fails = require_fails();
     module.exports = !!Object.getOwnPropertySymbols && !fails(function() {
@@ -256,6 +274,7 @@ var require_native_symbol = __commonJS({
 // ../../node_modules/core-js/internals/use-symbol-as-uid.js
 var require_use_symbol_as_uid = __commonJS({
   "../../node_modules/core-js/internals/use-symbol-as-uid.js"(exports, module) {
+    init_react_shim();
     var NATIVE_SYMBOL = require_native_symbol();
     module.exports = NATIVE_SYMBOL && !Symbol.sham && typeof Symbol.iterator == "symbol";
   }
@@ -264,6 +283,7 @@ var require_use_symbol_as_uid = __commonJS({
 // ../../node_modules/core-js/internals/is-symbol.js
 var require_is_symbol = __commonJS({
   "../../node_modules/core-js/internals/is-symbol.js"(exports, module) {
+    init_react_shim();
     var global2 = require_global();
     var getBuiltIn = require_get_built_in();
     var isCallable = require_is_callable();
@@ -282,6 +302,7 @@ var require_is_symbol = __commonJS({
 // ../../node_modules/core-js/internals/try-to-string.js
 var require_try_to_string = __commonJS({
   "../../node_modules/core-js/internals/try-to-string.js"(exports, module) {
+    init_react_shim();
     var global2 = require_global();
     var String2 = global2.String;
     module.exports = function(argument) {
@@ -297,6 +318,7 @@ var require_try_to_string = __commonJS({
 // ../../node_modules/core-js/internals/a-callable.js
 var require_a_callable = __commonJS({
   "../../node_modules/core-js/internals/a-callable.js"(exports, module) {
+    init_react_shim();
     var global2 = require_global();
     var isCallable = require_is_callable();
     var tryToString = require_try_to_string();
@@ -312,6 +334,7 @@ var require_a_callable = __commonJS({
 // ../../node_modules/core-js/internals/get-method.js
 var require_get_method = __commonJS({
   "../../node_modules/core-js/internals/get-method.js"(exports, module) {
+    init_react_shim();
     var aCallable = require_a_callable();
     module.exports = function(V, P) {
       var func = V[P];
@@ -323,6 +346,7 @@ var require_get_method = __commonJS({
 // ../../node_modules/core-js/internals/ordinary-to-primitive.js
 var require_ordinary_to_primitive = __commonJS({
   "../../node_modules/core-js/internals/ordinary-to-primitive.js"(exports, module) {
+    init_react_shim();
     var global2 = require_global();
     var call = require_function_call();
     var isCallable = require_is_callable();
@@ -344,6 +368,7 @@ var require_ordinary_to_primitive = __commonJS({
 // ../../node_modules/core-js/internals/is-pure.js
 var require_is_pure = __commonJS({
   "../../node_modules/core-js/internals/is-pure.js"(exports, module) {
+    init_react_shim();
     module.exports = false;
   }
 });
@@ -351,6 +376,7 @@ var require_is_pure = __commonJS({
 // ../../node_modules/core-js/internals/set-global.js
 var require_set_global = __commonJS({
   "../../node_modules/core-js/internals/set-global.js"(exports, module) {
+    init_react_shim();
     var global2 = require_global();
     var defineProperty = Object.defineProperty;
     module.exports = function(key, value) {
@@ -367,6 +393,7 @@ var require_set_global = __commonJS({
 // ../../node_modules/core-js/internals/shared-store.js
 var require_shared_store = __commonJS({
   "../../node_modules/core-js/internals/shared-store.js"(exports, module) {
+    init_react_shim();
     var global2 = require_global();
     var setGlobal = require_set_global();
     var SHARED = "__core-js_shared__";
@@ -378,6 +405,7 @@ var require_shared_store = __commonJS({
 // ../../node_modules/core-js/internals/shared.js
 var require_shared = __commonJS({
   "../../node_modules/core-js/internals/shared.js"(exports, module) {
+    init_react_shim();
     var IS_PURE = require_is_pure();
     var store = require_shared_store();
     (module.exports = function(key, value) {
@@ -395,6 +423,7 @@ var require_shared = __commonJS({
 // ../../node_modules/core-js/internals/to-object.js
 var require_to_object = __commonJS({
   "../../node_modules/core-js/internals/to-object.js"(exports, module) {
+    init_react_shim();
     var global2 = require_global();
     var requireObjectCoercible = require_require_object_coercible();
     var Object2 = global2.Object;
@@ -407,6 +436,7 @@ var require_to_object = __commonJS({
 // ../../node_modules/core-js/internals/has-own-property.js
 var require_has_own_property = __commonJS({
   "../../node_modules/core-js/internals/has-own-property.js"(exports, module) {
+    init_react_shim();
     var uncurryThis = require_function_uncurry_this();
     var toObject = require_to_object();
     var hasOwnProperty = uncurryThis({}.hasOwnProperty);
@@ -419,6 +449,7 @@ var require_has_own_property = __commonJS({
 // ../../node_modules/core-js/internals/uid.js
 var require_uid = __commonJS({
   "../../node_modules/core-js/internals/uid.js"(exports, module) {
+    init_react_shim();
     var uncurryThis = require_function_uncurry_this();
     var id = 0;
     var postfix = Math.random();
@@ -432,6 +463,7 @@ var require_uid = __commonJS({
 // ../../node_modules/core-js/internals/well-known-symbol.js
 var require_well_known_symbol = __commonJS({
   "../../node_modules/core-js/internals/well-known-symbol.js"(exports, module) {
+    init_react_shim();
     var global2 = require_global();
     var shared = require_shared();
     var hasOwn = require_has_own_property();
@@ -461,6 +493,7 @@ var require_well_known_symbol = __commonJS({
 // ../../node_modules/core-js/internals/to-primitive.js
 var require_to_primitive = __commonJS({
   "../../node_modules/core-js/internals/to-primitive.js"(exports, module) {
+    init_react_shim();
     var global2 = require_global();
     var call = require_function_call();
     var isObject = require_is_object();
@@ -493,6 +526,7 @@ var require_to_primitive = __commonJS({
 // ../../node_modules/core-js/internals/to-property-key.js
 var require_to_property_key = __commonJS({
   "../../node_modules/core-js/internals/to-property-key.js"(exports, module) {
+    init_react_shim();
     var toPrimitive = require_to_primitive();
     var isSymbol = require_is_symbol();
     module.exports = function(argument) {
@@ -505,6 +539,7 @@ var require_to_property_key = __commonJS({
 // ../../node_modules/core-js/internals/document-create-element.js
 var require_document_create_element = __commonJS({
   "../../node_modules/core-js/internals/document-create-element.js"(exports, module) {
+    init_react_shim();
     var global2 = require_global();
     var isObject = require_is_object();
     var document2 = global2.document;
@@ -518,6 +553,7 @@ var require_document_create_element = __commonJS({
 // ../../node_modules/core-js/internals/ie8-dom-define.js
 var require_ie8_dom_define = __commonJS({
   "../../node_modules/core-js/internals/ie8-dom-define.js"(exports, module) {
+    init_react_shim();
     var DESCRIPTORS = require_descriptors();
     var fails = require_fails();
     var createElement = require_document_create_element();
@@ -534,6 +570,7 @@ var require_ie8_dom_define = __commonJS({
 // ../../node_modules/core-js/internals/object-get-own-property-descriptor.js
 var require_object_get_own_property_descriptor = __commonJS({
   "../../node_modules/core-js/internals/object-get-own-property-descriptor.js"(exports) {
+    init_react_shim();
     var DESCRIPTORS = require_descriptors();
     var call = require_function_call();
     var propertyIsEnumerableModule = require_object_property_is_enumerable();
@@ -560,6 +597,7 @@ var require_object_get_own_property_descriptor = __commonJS({
 // ../../node_modules/core-js/internals/v8-prototype-define-bug.js
 var require_v8_prototype_define_bug = __commonJS({
   "../../node_modules/core-js/internals/v8-prototype-define-bug.js"(exports, module) {
+    init_react_shim();
     var DESCRIPTORS = require_descriptors();
     var fails = require_fails();
     module.exports = DESCRIPTORS && fails(function() {
@@ -575,6 +613,7 @@ var require_v8_prototype_define_bug = __commonJS({
 // ../../node_modules/core-js/internals/an-object.js
 var require_an_object = __commonJS({
   "../../node_modules/core-js/internals/an-object.js"(exports, module) {
+    init_react_shim();
     var global2 = require_global();
     var isObject = require_is_object();
     var String2 = global2.String;
@@ -590,6 +629,7 @@ var require_an_object = __commonJS({
 // ../../node_modules/core-js/internals/object-define-property.js
 var require_object_define_property = __commonJS({
   "../../node_modules/core-js/internals/object-define-property.js"(exports) {
+    init_react_shim();
     var global2 = require_global();
     var DESCRIPTORS = require_descriptors();
     var IE8_DOM_DEFINE = require_ie8_dom_define();
@@ -639,6 +679,7 @@ var require_object_define_property = __commonJS({
 // ../../node_modules/core-js/internals/create-non-enumerable-property.js
 var require_create_non_enumerable_property = __commonJS({
   "../../node_modules/core-js/internals/create-non-enumerable-property.js"(exports, module) {
+    init_react_shim();
     var DESCRIPTORS = require_descriptors();
     var definePropertyModule = require_object_define_property();
     var createPropertyDescriptor = require_create_property_descriptor();
@@ -654,6 +695,7 @@ var require_create_non_enumerable_property = __commonJS({
 // ../../node_modules/core-js/internals/inspect-source.js
 var require_inspect_source = __commonJS({
   "../../node_modules/core-js/internals/inspect-source.js"(exports, module) {
+    init_react_shim();
     var uncurryThis = require_function_uncurry_this();
     var isCallable = require_is_callable();
     var store = require_shared_store();
@@ -670,6 +712,7 @@ var require_inspect_source = __commonJS({
 // ../../node_modules/core-js/internals/native-weak-map.js
 var require_native_weak_map = __commonJS({
   "../../node_modules/core-js/internals/native-weak-map.js"(exports, module) {
+    init_react_shim();
     var global2 = require_global();
     var isCallable = require_is_callable();
     var inspectSource = require_inspect_source();
@@ -681,6 +724,7 @@ var require_native_weak_map = __commonJS({
 // ../../node_modules/core-js/internals/shared-key.js
 var require_shared_key = __commonJS({
   "../../node_modules/core-js/internals/shared-key.js"(exports, module) {
+    init_react_shim();
     var shared = require_shared();
     var uid = require_uid();
     var keys = shared("keys");
@@ -693,6 +737,7 @@ var require_shared_key = __commonJS({
 // ../../node_modules/core-js/internals/hidden-keys.js
 var require_hidden_keys = __commonJS({
   "../../node_modules/core-js/internals/hidden-keys.js"(exports, module) {
+    init_react_shim();
     module.exports = {};
   }
 });
@@ -700,6 +745,7 @@ var require_hidden_keys = __commonJS({
 // ../../node_modules/core-js/internals/internal-state.js
 var require_internal_state = __commonJS({
   "../../node_modules/core-js/internals/internal-state.js"(exports, module) {
+    init_react_shim();
     var NATIVE_WEAK_MAP = require_native_weak_map();
     var global2 = require_global();
     var uncurryThis = require_function_uncurry_this();
@@ -780,6 +826,7 @@ var require_internal_state = __commonJS({
 // ../../node_modules/core-js/internals/function-name.js
 var require_function_name = __commonJS({
   "../../node_modules/core-js/internals/function-name.js"(exports, module) {
+    init_react_shim();
     var DESCRIPTORS = require_descriptors();
     var hasOwn = require_has_own_property();
     var FunctionPrototype = Function.prototype;
@@ -799,6 +846,7 @@ var require_function_name = __commonJS({
 // ../../node_modules/core-js/internals/redefine.js
 var require_redefine = __commonJS({
   "../../node_modules/core-js/internals/redefine.js"(exports, module) {
+    init_react_shim();
     var global2 = require_global();
     var isCallable = require_is_callable();
     var hasOwn = require_has_own_property();
@@ -852,6 +900,7 @@ var require_redefine = __commonJS({
 // ../../node_modules/core-js/internals/to-integer-or-infinity.js
 var require_to_integer_or_infinity = __commonJS({
   "../../node_modules/core-js/internals/to-integer-or-infinity.js"(exports, module) {
+    init_react_shim();
     var ceil = Math.ceil;
     var floor = Math.floor;
     module.exports = function(argument) {
@@ -864,6 +913,7 @@ var require_to_integer_or_infinity = __commonJS({
 // ../../node_modules/core-js/internals/to-absolute-index.js
 var require_to_absolute_index = __commonJS({
   "../../node_modules/core-js/internals/to-absolute-index.js"(exports, module) {
+    init_react_shim();
     var toIntegerOrInfinity = require_to_integer_or_infinity();
     var max = Math.max;
     var min = Math.min;
@@ -877,6 +927,7 @@ var require_to_absolute_index = __commonJS({
 // ../../node_modules/core-js/internals/to-length.js
 var require_to_length = __commonJS({
   "../../node_modules/core-js/internals/to-length.js"(exports, module) {
+    init_react_shim();
     var toIntegerOrInfinity = require_to_integer_or_infinity();
     var min = Math.min;
     module.exports = function(argument) {
@@ -888,6 +939,7 @@ var require_to_length = __commonJS({
 // ../../node_modules/core-js/internals/length-of-array-like.js
 var require_length_of_array_like = __commonJS({
   "../../node_modules/core-js/internals/length-of-array-like.js"(exports, module) {
+    init_react_shim();
     var toLength = require_to_length();
     module.exports = function(obj) {
       return toLength(obj.length);
@@ -898,6 +950,7 @@ var require_length_of_array_like = __commonJS({
 // ../../node_modules/core-js/internals/array-includes.js
 var require_array_includes = __commonJS({
   "../../node_modules/core-js/internals/array-includes.js"(exports, module) {
+    init_react_shim();
     var toIndexedObject = require_to_indexed_object();
     var toAbsoluteIndex = require_to_absolute_index();
     var lengthOfArrayLike = require_length_of_array_like();
@@ -931,6 +984,7 @@ var require_array_includes = __commonJS({
 // ../../node_modules/core-js/internals/object-keys-internal.js
 var require_object_keys_internal = __commonJS({
   "../../node_modules/core-js/internals/object-keys-internal.js"(exports, module) {
+    init_react_shim();
     var uncurryThis = require_function_uncurry_this();
     var hasOwn = require_has_own_property();
     var toIndexedObject = require_to_indexed_object();
@@ -956,6 +1010,7 @@ var require_object_keys_internal = __commonJS({
 // ../../node_modules/core-js/internals/enum-bug-keys.js
 var require_enum_bug_keys = __commonJS({
   "../../node_modules/core-js/internals/enum-bug-keys.js"(exports, module) {
+    init_react_shim();
     module.exports = [
       "constructor",
       "hasOwnProperty",
@@ -971,6 +1026,7 @@ var require_enum_bug_keys = __commonJS({
 // ../../node_modules/core-js/internals/object-get-own-property-names.js
 var require_object_get_own_property_names = __commonJS({
   "../../node_modules/core-js/internals/object-get-own-property-names.js"(exports) {
+    init_react_shim();
     var internalObjectKeys = require_object_keys_internal();
     var enumBugKeys = require_enum_bug_keys();
     var hiddenKeys = enumBugKeys.concat("length", "prototype");
@@ -983,6 +1039,7 @@ var require_object_get_own_property_names = __commonJS({
 // ../../node_modules/core-js/internals/object-get-own-property-symbols.js
 var require_object_get_own_property_symbols = __commonJS({
   "../../node_modules/core-js/internals/object-get-own-property-symbols.js"(exports) {
+    init_react_shim();
     exports.f = Object.getOwnPropertySymbols;
   }
 });
@@ -990,6 +1047,7 @@ var require_object_get_own_property_symbols = __commonJS({
 // ../../node_modules/core-js/internals/own-keys.js
 var require_own_keys = __commonJS({
   "../../node_modules/core-js/internals/own-keys.js"(exports, module) {
+    init_react_shim();
     var getBuiltIn = require_get_built_in();
     var uncurryThis = require_function_uncurry_this();
     var getOwnPropertyNamesModule = require_object_get_own_property_names();
@@ -1007,6 +1065,7 @@ var require_own_keys = __commonJS({
 // ../../node_modules/core-js/internals/copy-constructor-properties.js
 var require_copy_constructor_properties = __commonJS({
   "../../node_modules/core-js/internals/copy-constructor-properties.js"(exports, module) {
+    init_react_shim();
     var hasOwn = require_has_own_property();
     var ownKeys = require_own_keys();
     var getOwnPropertyDescriptorModule = require_object_get_own_property_descriptor();
@@ -1028,6 +1087,7 @@ var require_copy_constructor_properties = __commonJS({
 // ../../node_modules/core-js/internals/is-forced.js
 var require_is_forced = __commonJS({
   "../../node_modules/core-js/internals/is-forced.js"(exports, module) {
+    init_react_shim();
     var fails = require_fails();
     var isCallable = require_is_callable();
     var replacement = /#|\.prototype\./;
@@ -1048,6 +1108,7 @@ var require_is_forced = __commonJS({
 // ../../node_modules/core-js/internals/export.js
 var require_export = __commonJS({
   "../../node_modules/core-js/internals/export.js"(exports, module) {
+    init_react_shim();
     var global2 = require_global();
     var getOwnPropertyDescriptor = require_object_get_own_property_descriptor().f;
     var createNonEnumerableProperty = require_create_non_enumerable_property();
@@ -1093,6 +1154,7 @@ var require_export = __commonJS({
 // ../../node_modules/core-js/internals/function-apply.js
 var require_function_apply = __commonJS({
   "../../node_modules/core-js/internals/function-apply.js"(exports, module) {
+    init_react_shim();
     var NATIVE_BIND = require_function_bind_native();
     var FunctionPrototype = Function.prototype;
     var apply = FunctionPrototype.apply;
@@ -1106,6 +1168,7 @@ var require_function_apply = __commonJS({
 // ../../node_modules/core-js/internals/function-bind-context.js
 var require_function_bind_context = __commonJS({
   "../../node_modules/core-js/internals/function-bind-context.js"(exports, module) {
+    init_react_shim();
     var uncurryThis = require_function_uncurry_this();
     var aCallable = require_a_callable();
     var NATIVE_BIND = require_function_bind_native();
@@ -1122,6 +1185,7 @@ var require_function_bind_context = __commonJS({
 // ../../node_modules/core-js/internals/html.js
 var require_html = __commonJS({
   "../../node_modules/core-js/internals/html.js"(exports, module) {
+    init_react_shim();
     var getBuiltIn = require_get_built_in();
     module.exports = getBuiltIn("document", "documentElement");
   }
@@ -1130,6 +1194,7 @@ var require_html = __commonJS({
 // ../../node_modules/core-js/internals/array-slice.js
 var require_array_slice = __commonJS({
   "../../node_modules/core-js/internals/array-slice.js"(exports, module) {
+    init_react_shim();
     var uncurryThis = require_function_uncurry_this();
     module.exports = uncurryThis([].slice);
   }
@@ -1138,6 +1203,7 @@ var require_array_slice = __commonJS({
 // ../../node_modules/core-js/internals/validate-arguments-length.js
 var require_validate_arguments_length = __commonJS({
   "../../node_modules/core-js/internals/validate-arguments-length.js"(exports, module) {
+    init_react_shim();
     var global2 = require_global();
     var TypeError2 = global2.TypeError;
     module.exports = function(passed, required) {
@@ -1151,6 +1217,7 @@ var require_validate_arguments_length = __commonJS({
 // ../../node_modules/core-js/internals/engine-is-ios.js
 var require_engine_is_ios = __commonJS({
   "../../node_modules/core-js/internals/engine-is-ios.js"(exports, module) {
+    init_react_shim();
     var userAgent = require_engine_user_agent();
     module.exports = /(?:ipad|iphone|ipod).*applewebkit/i.test(userAgent);
   }
@@ -1159,6 +1226,7 @@ var require_engine_is_ios = __commonJS({
 // ../../node_modules/core-js/internals/engine-is-node.js
 var require_engine_is_node = __commonJS({
   "../../node_modules/core-js/internals/engine-is-node.js"(exports, module) {
+    init_react_shim();
     var classof = require_classof_raw();
     var global2 = require_global();
     module.exports = classof(global2.process) == "process";
@@ -1168,6 +1236,7 @@ var require_engine_is_node = __commonJS({
 // ../../node_modules/core-js/internals/task.js
 var require_task = __commonJS({
   "../../node_modules/core-js/internals/task.js"(exports, module) {
+    init_react_shim();
     var global2 = require_global();
     var apply = require_function_apply();
     var bind = require_function_bind_context();
@@ -1269,6 +1338,7 @@ var require_task = __commonJS({
 // ../../node_modules/core-js/modules/web.clear-immediate.js
 var require_web_clear_immediate = __commonJS({
   "../../node_modules/core-js/modules/web.clear-immediate.js"() {
+    init_react_shim();
     var $2 = require_export();
     var global2 = require_global();
     var clearImmediate = require_task().clear;
@@ -1281,6 +1351,7 @@ var require_web_clear_immediate = __commonJS({
 // ../../node_modules/core-js/modules/web.set-immediate.js
 var require_web_set_immediate = __commonJS({
   "../../node_modules/core-js/modules/web.set-immediate.js"() {
+    init_react_shim();
     var $2 = require_export();
     var global2 = require_global();
     var setImmediate = require_task().set;
@@ -1290,11 +1361,19 @@ var require_web_set_immediate = __commonJS({
   }
 });
 
+// js/starter.tsx
+init_react_shim();
+
 // ../../node_modules/core-js/modules/web.immediate.js
+init_react_shim();
 require_web_clear_immediate();
 require_web_set_immediate();
 
+// js/starter.tsx
+init_preact();
+
 // js/binary.ts
+init_react_shim();
 function fromBinary(binary) {
   const bytes = new Uint8Array(binary.length);
   for (let i2 = 0; i2 < bytes.length; i2++) {
@@ -1309,6 +1388,7 @@ function fromBinary(binary) {
 }
 
 // ../../node_modules/workbox-window/build/workbox-window.prod.es5.mjs
+init_react_shim();
 try {
   self["workbox:window:6.5.2"] && _();
 } catch (n2) {
@@ -1513,15 +1593,15 @@ if ("serviceWorker" in navigator) {
   wb.register();
 }
 var start = async (App) => {
-  const e2 = import("./chunks/editor-GFKSOZDU.mjs");
-  const p = import("./chunks/renderPreviewWindow-WI6NL2IX.mjs");
+  const e2 = import("./chunks/editor-QYBZGBD2.mjs");
+  const p = import("./chunks/renderPreviewWindow-YFTI4GPI.mjs");
   const container = document.querySelector("#root") || document.createElement("div");
   $(App, container);
   console.log("HYDRATED");
   if (location.href.endsWith("hydrated"))
     return;
   Object.assign(globalThis, { App });
-  const { join } = await import("./chunks/ws-UCUTQQHF.mjs");
+  const { join } = await import("./chunks/ws-Q2LQCC25.mjs");
   join(App);
   await Promise.all([e2, p]);
 };
@@ -1532,7 +1612,7 @@ var hydrateBinary = async (binary) => {
 var run = async () => {
   if (globalThis.App)
     return;
-  const { roomName } = await import("./chunks/ws-UCUTQQHF.mjs");
+  const { roomName } = await import("./chunks/ws-Q2LQCC25.mjs");
   const respS = await fetch(`https://spike.land/api/room/${roomName}/session`);
   const session = await respS.json();
   const container = document.getElementById("root") || document.createElement("div");

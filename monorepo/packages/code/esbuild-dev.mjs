@@ -82,6 +82,7 @@ const build = (entryPoints) =>
     // minifySyntax: true,
     legalComments: "none",
     splitting: true,
+    inject: ["./js/react-shim.mjs"],
     allowOverwrite: true,
     treeShaking: true,
     // external: ["react", "react-dom", "framer-motion", "tslib", "@emotion/react"],
