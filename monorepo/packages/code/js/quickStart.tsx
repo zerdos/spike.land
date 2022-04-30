@@ -167,7 +167,7 @@ async function runner(
     if (error.length > 0) {
       console.log({ err: error });
     }
-  } catch ({ error }) {
+  } catch (error) {
     session.errorText = error;
     console.error({ error });
   }

@@ -69,7 +69,7 @@ async function runner(c, changes, session, counter) {
         if (session.i !== counter) {
           return;
         }
-        const { saveCode } = await import("./ws-VAM3FFII.mjs");
+        const { saveCode } = await import("./ws-3TCQHWA2.mjs");
         saveCode({ transpiled, code, i: counter, css, html });
         return;
       } catch (error2) {
@@ -92,7 +92,7 @@ async function runner(c, changes, session, counter) {
     if (error.length > 0) {
       console.log({ err: error });
     }
-  } catch ({ error }) {
+  } catch (error) {
     session.errorText = error;
     console.error({ error });
   }
