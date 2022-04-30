@@ -1,7 +1,7 @@
 // export type { Children } from "preact/compat";
 
 import * as react from "preact/compat";
-export {jsx, Fragment} from  "preact-jsx-runtime"
+export { Fragment, jsx } from "preact-jsx-runtime/jsx-runtime";
 import { createPortal, hydrate, render } from "preact/compat";
 import renderToString from "preact-render-to-string";
 export { render };
@@ -31,7 +31,6 @@ export const { forwardRef } = react;
 export const { createElement } = react;
 export const { createFactory } = react;
 export const { createRef } = react;
-export const { Fragment } = react;
 export const { Component } = react;
 export const { Suspense } = react;
 export const { isValidElement } = react;
