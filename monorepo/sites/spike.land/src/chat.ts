@@ -20,7 +20,6 @@ export default {
         return getHTMLResp(env, "code-main");
       }
 
-      const version_cookie = "__version";
 
       switch (path[0]) {
         case "ping":
@@ -30,18 +29,10 @@ export default {
               "Cache-Control": "no-cache",
             },
           });
-        case "file":
-          return new Response(await import(path[1]), {
+        case "files.json":
+          return new Response(manifestJSON, {
             headers: {
-              "Content-Type": "text/html;charset=UTF-8",
-              "Cache-Control": "no-cache",
-            },
-          });
-        case "version":
-          return new Response("ping" + Math.random(), {
-            headers: {
-              "Set-Cookie": version_cookie + "=" + path[1],
-              "Content-Type": "text/html;charset=UTF-8",
+              "Content-Type": "application/json;charset=UTF-8",
               "Cache-Control": "no-cache",
             },
           });

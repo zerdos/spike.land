@@ -1,6 +1,7 @@
 import * as monaco from "monaco-editor";
 import "monaco-editor/min/vs/editor/editor.main.css";
 import { dtsFiles } from "./types.mjs";
+import codicon from "./base/browser/ui/codicons/codicon/codicon.ttf";
 // import { parse } from "@babel/parser";
 // import traverse from "@babel/traverse";
 // import MonacoJSXHighlighter from "monaco-jsx-highlighter";
@@ -68,7 +69,7 @@ export const startMonaco = async (
   outerStyle.innerText = ` @font-face {
     font-family: codicon;
     font-display: block;
-    src: url(./base/browser/ui/codicons/codicon/codicon.ttf) format("truetype");
+    src: url(${codicon}) format("truetype");
 }`;
   document.head.appendChild(outerStyle);
 
@@ -77,7 +78,7 @@ export const startMonaco = async (
   @font-face {
     font-family: codicon;
     font-display: block;
-    src: url(./base/browser/ui/codicons/codicon/codicon.ttf) format("truetype");
+    src: url(${codicon}) format("truetype");
 }
   
   `;
