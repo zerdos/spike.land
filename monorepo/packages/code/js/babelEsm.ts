@@ -3,9 +3,7 @@ import { transform } from "@babel/standalone";
 export const babelTransform = async (code: string) =>
   (transform(
     `
-    import React from 'react';
-    import { jsx } from '@emotion/react';
-    
+    /** @jsxImportSource @emotion/react */
     ` + code,
     {
       compact: false,
