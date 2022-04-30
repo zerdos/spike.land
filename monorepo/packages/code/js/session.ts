@@ -57,8 +57,7 @@ export function initSession(room: string, u: IUserJSON) {
   return Record({ ...u, room, state: Record(u.state)() });
 }
 
-export interface ICodeSess {
-  room: string;
+interface ICodeSess {
   hashCodeSession: number;
   hashCode: () => number;
   json: () => IUserJSON;

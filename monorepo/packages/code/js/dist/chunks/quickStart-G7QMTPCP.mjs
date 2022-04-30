@@ -16,7 +16,6 @@ async function startMonacoWithSession(session) {
   const model = editor.getModel();
   editor.onDidChangeModelContent((ev) => runner(editor?.getModel()?.getValue(), ev.changes, session, ++session.i));
   Object.assign(globalThis, { monaco, editor, model });
-  window.sess = session;
 }
 async function getErrors({ monaco, editor }) {
   if (!monaco) {
@@ -66,7 +65,7 @@ async function runner(c, changes, session, counter) {
         if (session.i !== counter) {
           return;
         }
-        const { saveCode } = await import("./ws-5YQ43BHQ.mjs");
+        const { saveCode } = await import("./ws-RAG6W5PN.mjs");
         saveCode({ transpiled, code, i: counter, css, html });
         return;
       } catch (error2) {

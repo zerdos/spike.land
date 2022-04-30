@@ -5,11 +5,11 @@ import imap from "./mockedMap.json";
 
 // const esbuild = import("./esbuildEsm.ts");
 
-const smsInitOptions: ESMSInitOptions = {
+self.esmsInitOptions = {
   shimMode: false,
   revokeBlobURLs: true,
   fetch: fetch,
-  resolve: (id: string, parentUrl: string) => {
+  resolve: (id, parentUrl) => {
     return parentUrl + id;
   },
   polyfillEnable: ["css-modules", "json-modules"],
@@ -17,8 +17,6 @@ const smsInitOptions: ESMSInitOptions = {
   noLoadEventRetriggers: true,
   skip: /^https?:\/\/(cdn\.skypack\.dev|jspm\.dev)\//,
 };
-
-Object.assign(window, { smsInitOptions });
 
 // async function myFetch(input: RequestInfo, init?: RequestInit) {
 //   const url = input.toString();
@@ -50,6 +48,8 @@ document.body.appendChild(Object.assign(document.createElement("script"), {
   type: "importmap-shim",
   innerHTML: JSON.stringify(imap),
 }));
+
+const { importShim } = self;
 
 importShim<null, { run: () => void }>(
   "/dist/starter.mjs",

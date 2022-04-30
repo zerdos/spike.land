@@ -2386,7 +2386,7 @@
   };
 
   // js/appStarter.ts
-  var smsInitOptions = {
+  self.esmsInitOptions = {
     shimMode: false,
     revokeBlobURLs: true,
     fetch,
@@ -2398,10 +2398,10 @@
     noLoadEventRetriggers: true,
     skip: /^https?:\/\/(cdn\.skypack\.dev|jspm\.dev)\//
   };
-  Object.assign(window, { smsInitOptions });
   document.body.appendChild(Object.assign(document.createElement("script"), {
     type: "importmap-shim",
     innerHTML: JSON.stringify(mockedMap_default)
   }));
+  var { importShim } = self;
   importShim("/dist/starter.mjs").then(({ run }) => run());
 })();

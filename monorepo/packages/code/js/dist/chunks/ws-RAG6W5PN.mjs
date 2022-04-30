@@ -215,7 +215,7 @@ async function join(App) {
       errorText: ""
     };
     const stayFullscreen = location.pathname.endsWith("public");
-    const { quickStart } = await import("./quickStart-DH3NR4OA.mjs");
+    const { quickStart } = await import("./quickStart-G7QMTPCP.mjs");
     quickStart(session, stayFullscreen);
   }
   wsConnection.addEventListener("message", (message) => processWsMessage(message, "ws"));
