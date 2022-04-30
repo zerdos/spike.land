@@ -22,9 +22,7 @@ export const renderPreviewWindow = async (
   const editor = document.getElementById("monacoEditor");
   if (editor) editor.style.opacity = "0";
 
-  document.body.style.backgroundImage = `url(${
-    path.join("./public/chunks/", bg)
-  } )`;
+  document.body.style.backgroundImage = `url(${path.join("./chunks/", bg)} )`;
 
   const { App } = globalThis;
   render(
