@@ -1,6 +1,6 @@
 import {
   roomName
-} from "./chunk-WERZUMEC.mjs";
+} from "./chunk-YRZRW5XF.mjs";
 import "./chunk-GNRJA6OC.mjs";
 import "./chunk-GYPQM6G4.mjs";
 import "./chunk-CGA4QKUS.mjs";
@@ -453,6 +453,7 @@ var renderPreviewWindow = async (session, keepFullScreen) => {
   if (editor)
     editor.style.opacity = "0";
   document.body.style.backgroundImage = `url(${import_path_browserify.default.join("./dist/chunks/", synthwave_default)} )`;
+  const { App } = globalThis;
   render(jsx(DraggableWindow, {
     onShare: () => open(`https://spike.land/api/room/${roomName}/public`),
     onRestore: () => {
@@ -462,7 +463,7 @@ var renderPreviewWindow = async (session, keepFullScreen) => {
     session,
     hashCode: hashCode(),
     keepFullScreen
-  }, children), target);
+  }, jsx(App, null)), target);
   document.body.appendChild(target);
   if (editor) {
     editor.style.opacity = "1";

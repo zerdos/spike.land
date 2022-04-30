@@ -4,6 +4,7 @@ import { jsx } from "@emotion/react";
 import bg from "./assets/synthwave.webp";
 import path from "path-browserify";
 import { render } from "react-dom";
+
 import type { IRunnerSession } from "./quickStart";
 
 import { hashCode } from "./session";
@@ -24,6 +25,8 @@ export const renderPreviewWindow = async (
   document.body.style.backgroundImage = `url(${
     path.join("./dist/chunks/", bg)
   } )`;
+
+  const { App } = globalThis;
   render(
     <DraggableWindow
       onShare={() => open(`https://spike.land/api/room/${roomName}/public`)}
@@ -35,7 +38,7 @@ export const renderPreviewWindow = async (
       hashCode={hashCode()}
       keepFullScreen={keepFullScreen}
     >
-      {children}
+      <App />
     </DraggableWindow>,
     target,
   );
