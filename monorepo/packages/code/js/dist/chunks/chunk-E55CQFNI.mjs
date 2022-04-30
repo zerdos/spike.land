@@ -660,8 +660,10 @@ var { Children } = compat_module_exports;
 var { lazy } = compat_module_exports;
 var { useMemo } = compat_module_exports;
 var { cloneElement } = compat_module_exports;
+var preact_default = compat_module_exports;
 
 export {
   $,
-  dist_default
+  dist_default,
+  preact_default
 };

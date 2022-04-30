@@ -1,8 +1,7 @@
 import { CacheProvider } from "@emotion/react";
 import createCache from "@emotion/cache";
 
-import { renderToString } from "preact";
-import React from "react";
+import React, { renderToString } from "./preact";
 
 export const getHtmlAndCss = (MyComponent: React.FC) => {
   const key = "css";
