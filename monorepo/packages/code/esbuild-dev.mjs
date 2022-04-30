@@ -5,7 +5,6 @@ import jsonData from "./js/mockedMap.json" assert { type: "json" };
 const environment = process.env.NODE_ENV === "production"
   ? "production"
   : "development";
-const isDevelopment = environment === "development";
 
 importMap.load(jsonData);
 const importMapPlugin = importMap.plugin();
@@ -77,13 +76,12 @@ const build = (entryPoints) =>
     bundle: true,
     format: "esm",
     // minify: !isDevelopment,
-    sourcemap: "external",
+    sourcemap: false,
     // minifyIdentifiers: true,
     // minifyWhitespace: true,
     // minifySyntax: true,
     legalComments: "none",
     splitting: true,
-    sourcemap: false,
     allowOverwrite: true,
     treeShaking: true,
     // external: ["react", "react-dom", "framer-motion", "tslib", "@emotion/react"],

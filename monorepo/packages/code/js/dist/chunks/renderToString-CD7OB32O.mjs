@@ -1,7 +1,4 @@
 import {
-  emotion_cache_browser_esm_default
-} from "./chunk-AQGKM5PG.mjs";
-import {
   dist_default
 } from "./chunk-EORBAGMS.mjs";
 import "./chunk-KWFWVMVK.mjs";
@@ -9,10 +6,11 @@ import "./chunk-BZTAI3VG.mjs";
 
 // js/renderToString.tsx
 import { CacheProvider } from "https://spike.land/dist/emotion.mjs";
+import createCache from "https://spike.land/dist/emotion.mjs";
 import React from "https://spike.land/dist/react.mjs";
 var getHtmlAndCss = (MyComponent) => {
   const key = "css";
-  const cache = emotion_cache_browser_esm_default({ key });
+  const cache = createCache({ key });
   let cssText = "";
   cache.sheet.insert = (rule) => {
     cssText += rule;

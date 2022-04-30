@@ -1,7 +1,7 @@
 {
   "imports": {
-    "@emotion/cache": "https://ga.jspm.io/npm:@emotion/cache@11.7.1/dist/emotion-cache.browser.esm.js",
-    "@emotion/react": "https://ga.jspm.io/npm:@emotion/react@11.9.0/dist/emotion-react.browser.esm.js",
+    "@emotion/cache": "https://spike.land/dist/emotion.mjs",
+    "@emotion/react": "https://spike.land/dist/emotion.mjs",
     "@emotion/react/jsx-runtime": "https://ga.jspm.io/npm:@emotion/react@11.9.0/jsx-runtime/dist/emotion-react-jsx-runtime.esm.js",
     "framer-motion": "https://ga.jspm.io/npm:framer-motion@6.3.3/dist/es/index.mjs",
     "react": "https://spike.land/dist/react.mjs",
