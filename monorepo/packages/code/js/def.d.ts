@@ -8,3 +8,5 @@ declare module "textdiff-patch" {
   const applyPatch = (str: string, obj: JSON) => `${str} ${obj}`;
   export default applyPatch;
 }
+
+declare module "@emotion/babel-plugin";

@@ -2,16 +2,20 @@ import { transform } from "@babel/standalone";
 
 export const babelTransform = async (code: string) =>
   (transform(
-    `
-    /** @jsxImportSource @emotion/react */
-    ` + code,
+    code,
     {
       compact: false,
       sourceType: "module",
       comments: false,
 
       presets: [
-        "react",
+        [
+          "@babel/preset-react",
+          {
+            "runtime": "automatic", // defaults to classic,
+            "importSource": "@emotion/react", // defaults to react (only in automatic runtime)
+          },
+        ],
         ["typescript", { isTSX: true, jsxPragma: "jsx", allExtensions: true }],
       ],
     },
