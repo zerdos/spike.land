@@ -1,7 +1,7 @@
 // export type { Children } from "preact/compat";
 
 import * as react from "preact/compat";
-// import {jsx} from  "@emotion/react"
+export {jsx, Fragment} from  "preact-jsx-runtime"
 import { createPortal, hydrate, render } from "preact/compat";
 import renderToString from "preact-render-to-string";
 export { render };
