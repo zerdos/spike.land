@@ -243,5 +243,5 @@ async function getApp(transpiled, mode = "window") {
 
   URL.revokeObjectURL(objectUrl);
 
-  return jsx(App, null);
+  return App;
 }

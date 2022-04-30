@@ -69,7 +69,7 @@ async function runner(c, changes, session, counter) {
         if (session.i !== counter) {
           return;
         }
-        const { saveCode } = await import("./ws-BJDY7YGH.mjs");
+        const { saveCode } = await import("./ws-AJECI373.mjs");
         saveCode({ transpiled, code, i: counter, css, html });
         return;
       } catch (error2) {
@@ -131,7 +131,7 @@ async function getApp(transpiled, mode = "window") {
   const objectUrl = createJsBlob(codeToHydrate);
   const App = (await import(objectUrl)).default;
   URL.revokeObjectURL(objectUrl);
-  return jsx(App, null);
+  return App;
 }
 export {
   initSession,
