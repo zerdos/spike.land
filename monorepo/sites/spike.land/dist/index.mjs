@@ -1189,7 +1189,7 @@ function toBinary(string) {
 }
 
 // ../../packages/code/package.json
-var version = "0.7.639";
+var version = "0.7.641";
 
 // src/chatRoom.ts
 var import_textdiff_patch2 = __toESM(require_textdiff_patch(), 1);
