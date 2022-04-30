@@ -44,6 +44,10 @@ body {
   max-height: 100vh;
 }
 
+.hidden {
+  display: none;
+}
+
 @font-face {
   font-family: "codicon";
   src: url("/assets/fonts/base/browser/ui/codicons/codicon/codicon.ttf")

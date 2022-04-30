@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { css, jsx } from "@emotion/react";
 
-import { SetStateAction, useEffect, useRef, useState } from "react";
+import { ReactNode, SetStateAction, useEffect, useRef, useState } from "react";
 import type { Dispatch, FC } from "react";
 import type { ICodeSession } from "./session";
 
@@ -48,14 +48,14 @@ interface DraggableWindowProps {
   onRestore: (() => void);
   hashCode: number;
   session: ICodeSession & {
-    setChild: Dispatch<SetStateAction<JSX.Element[]>>;
+    setChild: Dispatch<SetStateAction<ReactNode[]>>;
     url: string;
     errorText: string;
   };
   keepFullScreen: boolean;
   position?: string;
   room: string;
-  children: JSX.Element;
+  children: ReactNode;
 }
 
 export const DraggableWindow: FC<DraggableWindowProps> = (
@@ -196,7 +196,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
       });
       setFullScreen(false);
       requestAnimationFrame(() =>
-        document.getElementById("root")!.style.display = "none"
+        document.querySelector("#root")?.classList.add("hidden")
       );
     };
 

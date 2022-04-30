@@ -47,7 +47,7 @@ Object.assign(globalThis, { MonacoEnvironment: monEnv });
 let started = false;
 
 export const startMonaco = async (
-  { code, container }: { code: string; container: HTMLDivElement },
+  { code, container }: { code: string; container: Element },
 ) => {
   console.log("monaco-editor");
   if (!started) started = true;

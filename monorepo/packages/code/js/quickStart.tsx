@@ -1,14 +1,13 @@
-/**@jsx jsx */
-import { jsx } from "@emotion/react";
+import { ReactNode } from "react";
 import { ICodeSession } from "./session";
-
-export const initSession = (await import("./session")).default;
-
-// //
 
 async function startMonacoWithSession(session: ICodeSession) {
   console.log("start monaco with session");
   const monacoEditorDom = document.querySelector("#monacoEditor");
+  if (!monacoEditorDom) {
+    console.log("no monaco dom, exiting");
+    return;
+  }
 
   const { startMonaco } = await import("./editor");
 
@@ -19,12 +18,8 @@ async function startMonacoWithSession(session: ICodeSession) {
      * @param {any} code
      */
     {
-      language: "typescript",
       container: monacoEditorDom,
       code: session.code,
-      /**
-       * @param {string} code
-       */
     },
   );
   editor.onDidChangeModelContent(onchangeCode);
@@ -119,13 +114,11 @@ async function runner(
 
         // Session.html = zbody.innerHTML;
 
-        session.setChild((c) => [...c, children]);
-        ``;
+        session.setChild((c: ReactNode[]) => [...c, children]);
+
         globalThis.App = children;
-        session.children = children;
         restartError = !html;
         session.code = cd;
-        session.codeNonFormatted = c;
         // GetCss = getCss || (await import("./templates.ts")).getCss;
         // setTimeout(async () => {
         //     session.html = document.getElementById("zbody").innerHTML;

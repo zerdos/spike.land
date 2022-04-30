@@ -1,15 +1,16 @@
 import "./chunk-BZTAI3VG.mjs";
 
 // js/quickStart.tsx
-import { jsx } from "https://spike.land/dist/emotion.mjs";
-var initSession = (await import("./session-H555T3ZF.mjs")).default;
 async function startMonacoWithSession(session) {
   console.log("start monaco with session");
   const monacoEditorDom = document.querySelector("#monacoEditor");
+  if (!monacoEditorDom) {
+    console.log("no monaco dom, exiting");
+    return;
+  }
   const { startMonaco } = await import("./editor-2TPV3JDW.mjs");
   const onchangeCode = (ev) => runner(editor.getModel().getValue(), ev.changes, session, ++session.i);
   const { editor, monaco } = await startMonaco({
-    language: "typescript",
     container: monacoEditorDom,
     code: session.code
   });
@@ -58,18 +59,15 @@ async function runner(c, changes, session, counter) {
         session.html = html;
         const children = await getReactChild(transpiled);
         session.setChild((c2) => [...c2, children]);
-        ``;
         globalThis.App = children;
-        session.children = children;
         restartError = !html;
         session.code = cd;
-        session.codeNonFormatted = c;
         const code = cd;
         session.css = css;
         if (session.i !== counter) {
           return;
         }
-        const { saveCode } = await import("./ws-SCBG5MQZ.mjs");
+        const { saveCode } = await import("./ws-RIKJECAY.mjs");
         saveCode({ transpiled, code, i: counter, css, html });
         return;
       } catch (error2) {
@@ -109,7 +107,7 @@ var startFromCode = async ({ code }) => {
   await quickStart(session);
 };
 async function quickStart(session, room, keepFullScreen) {
-  const { renderPreviewWindow } = await import("./renderPreviewWindow-EXWVJXFJ.mjs");
+  const { renderPreviewWindow } = await import("./renderPreviewWindow-6PWVG7U6.mjs");
   await renderPreviewWindow(session, room, keepFullScreen);
   if (!keepFullScreen) {
     await startMonacoWithSession(session);
@@ -134,7 +132,6 @@ async function getApp(transpiled, mode = "window") {
   return App;
 }
 export {
-  initSession,
   quickStart,
   startFromCode
 };

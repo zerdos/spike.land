@@ -434,7 +434,7 @@ var import_path_browserify = __toESM(require_path_browserify());
 import { jsx } from "https://spike.land/dist/emotion.mjs";
 import { render } from "https://spike.land/dist/react.mjs";
 var renderPreviewWindow = async (session, room, keepFullScreen) => {
-  const { DraggableWindow } = await import("./DraggableWindow-XU6G63A6.mjs");
+  const { DraggableWindow } = await import("./DraggableWindow-VDINMO3I.mjs");
   console.log("renderPreviewWindow");
   const target = document.createElement("div");
   const editor = document.getElementById("monacoEditor");
