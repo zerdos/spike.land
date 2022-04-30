@@ -1,6 +1,6 @@
 {
   "name": "@spike.land/code",
-  "version": "0.7.641",
+  "version": "0.7.643",
   "description": "spike.land",
   "main": "./js/public/starter.mjs",
   "files": [
@@ -76,7 +76,7 @@
     "@emotion/utils": "^1.1.0",
     "@emotion/weak-memoize": "0.2.5",
     "@mui/material": "^5.6.2",
-    "@spike.land/qrious": "^0.7.606",
+    "@spike.land/qrious": "^0.7.643",
     "@types/babel__core": "^7.1.19",
     "@types/babel__standalone": "^7.1.4",
     "@types/isomorphic-git__lightning-fs": "^4.4.3",
