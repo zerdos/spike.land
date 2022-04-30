@@ -1,5 +1,6 @@
-/**@jsx jsx */
+/** @jsx jsx */
 import { jsx } from "@emotion/react";
+
 import path from "path-browserify";
 import { render } from "react-dom";
 import type { ICodeSession } from "./session";
@@ -15,11 +16,9 @@ export const renderPreviewWindow = async (
 
   console.log("renderPreviewWindow");
 
-  const target = document.createElement("div")!;
-  const editor = document.getElementById("monacoEditor")!;
-  editor.style.opacity = "0";
-  //@ts-ignore
-  const { App } = globalThis;
+  const target = document.createElement("div");
+  const editor = document.getElementById("monacoEditor");
+  if (editor) editor.style.opacity = "0";
 
   const bg = (await import("./assets/synthwave.webp")).default;
   document.body.style.backgroundImage = `url(${
@@ -29,12 +28,9 @@ export const renderPreviewWindow = async (
     <DraggableWindow
       onShare={() => open(`https://spike.land/api/room/${room}/public`)}
       onRestore={() => {
-        //@ts-ignore
-        const model = session.editor.getModel();
+        const model = globalThis.model;
         model.setValue(session.code);
       }}
-      //@ts-ignore
-
       position={session.mode === "window" ? "fixed" : "absolute"}
       //@ts-ignore
 
@@ -43,7 +39,7 @@ export const renderPreviewWindow = async (
       keepFullScreen={keepFullScreen}
       room={room}
     >
-      <App />
+      {children}
     </DraggableWindow>,
     target,
   );

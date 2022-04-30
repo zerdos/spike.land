@@ -1,4 +1,8 @@
 import {
+  $
+} from "./chunks/chunk-EORBAGMS.mjs";
+import "./chunks/chunk-KWFWVMVK.mjs";
+import {
   __commonJS
 } from "./chunks/chunk-BZTAI3VG.mjs";
 
@@ -1265,10 +1269,10 @@ var require_task = __commonJS({
 // ../../node_modules/core-js/modules/web.clear-immediate.js
 var require_web_clear_immediate = __commonJS({
   "../../node_modules/core-js/modules/web.clear-immediate.js"() {
-    var $ = require_export();
+    var $2 = require_export();
     var global2 = require_global();
     var clearImmediate = require_task().clear;
-    $({ global: true, bind: true, enumerable: true, forced: global2.clearImmediate !== clearImmediate }, {
+    $2({ global: true, bind: true, enumerable: true, forced: global2.clearImmediate !== clearImmediate }, {
       clearImmediate
     });
   }
@@ -1277,24 +1281,18 @@ var require_web_clear_immediate = __commonJS({
 // ../../node_modules/core-js/modules/web.set-immediate.js
 var require_web_set_immediate = __commonJS({
   "../../node_modules/core-js/modules/web.set-immediate.js"() {
-    var $ = require_export();
+    var $2 = require_export();
     var global2 = require_global();
     var setImmediate = require_task().set;
-    $({ global: true, bind: true, enumerable: true, forced: global2.setImmediate !== setImmediate }, {
+    $2({ global: true, bind: true, enumerable: true, forced: global2.setImmediate !== setImmediate }, {
       setImmediate
     });
   }
 });
 
-// js/starter.tsx
-import { jsx } from "https://spike.land/dist/emotion.mjs";
-
 // ../../node_modules/core-js/modules/web.immediate.js
 require_web_clear_immediate();
 require_web_set_immediate();
-
-// js/starter.tsx
-import { hydrate } from "https://spike.land/dist/react.mjs";
 
 // js/binary.ts
 function fromBinary(binary) {
@@ -1514,18 +1512,16 @@ if ("serviceWorker" in navigator) {
   const wb = new v("/sw.js");
   wb.register();
 }
-var path = location.pathname.split("/");
-var room = (path[1] === "api" && path[2] === "room" ? path[3] : (path.pop() || path.pop()).slice(-12)) || "code-main";
 var start = async (App) => {
-  const e2 = import("./chunks/editor-WUIAHQGP.mjs");
-  const p = import("./chunks/renderPreviewWindow-4GB643W5.mjs");
+  const e2 = import("./chunks/editor-GFKSOZDU.mjs");
+  const p = import("./chunks/renderPreviewWindow-YYJEJUUJ.mjs");
   const container = document.querySelector("#root") || document.createElement("div");
-  hydrate(container, jsx(App, null));
+  $(App, container);
   console.log("HYDRATED");
   if (location.href.endsWith("hydrated"))
     return;
   Object.assign(globalThis, { App });
-  const { join } = await import("./chunks/ws-3EWM3YSO.mjs");
+  const { join } = await import("./chunks/ws-5YQ43BHQ.mjs");
   join(App);
   await Promise.all([e2, p]);
 };
@@ -1536,7 +1532,8 @@ var hydrateBinary = async (binary) => {
 var run = async () => {
   if (globalThis.App)
     return;
-  const respS = await fetch(`https://spike.land/api/room/${room}/session`);
+  const { roomName } = await import("./chunks/ws-5YQ43BHQ.mjs");
+  const respS = await fetch(`https://spike.land/api/room/${roomName}/session`);
   const session = await respS.json();
   const container = document.getElementById("root") || document.createElement("div");
   container.innerHTML = `<style>${session.css}</style><div id="zbody">${session.html}</div>`;

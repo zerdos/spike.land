@@ -39510,21 +39510,23 @@ var GlobalPointerMoveMonitor = class {
     this._pointerMoveEventMerger = pointerMoveEventMerger;
     this._pointerMoveCallback = pointerMoveCallback;
     this._onStopCallback = onStopCallback;
+    let eventSource = initialElement;
     try {
       initialElement.setPointerCapture(pointerId);
       this._hooks.add(toDisposable(() => {
         initialElement.releasePointerCapture(pointerId);
       }));
     } catch (err) {
+      eventSource = window;
     }
-    this._hooks.add(addDisposableThrottledListener(initialElement, EventType.POINTER_MOVE, (data) => {
+    this._hooks.add(addDisposableThrottledListener(eventSource, EventType.POINTER_MOVE, (data) => {
       if (data.buttons !== initialButtons) {
         this.stopMonitoring(true);
         return;
       }
       this._pointerMoveCallback(data);
     }, (lastEvent, currentEvent) => this._pointerMoveEventMerger(lastEvent, currentEvent)));
-    this._hooks.add(addDisposableListener(initialElement, EventType.POINTER_UP, (e) => this.stopMonitoring(true)));
+    this._hooks.add(addDisposableListener(eventSource, EventType.POINTER_UP, (e) => this.stopMonitoring(true)));
   }
 };
 

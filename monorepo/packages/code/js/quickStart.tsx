@@ -11,9 +11,7 @@ async function startMonacoWithSession(session: ICodeSession) {
 
   const { startMonaco } = await import("./editor");
 
-  const onchangeCode = (ev) =>
-    runner(editor.getModel().getValue(), ev.changes, session, ++session.i);
-  const { editor } = await startMonaco(
+  const { editor, monaco } = await startMonaco(
     /**
      * @param {any} code
      */
@@ -22,10 +20,19 @@ async function startMonacoWithSession(session: ICodeSession) {
       code: session.code,
     },
   );
-  editor.onDidChangeModelContent(onchangeCode);
 
-  Object.assign(window, { monaco });
-  session.editor = editor;
+  const model = editor.getModel();
+
+  editor.onDidChangeModelContent((ev) =>
+    runner(
+      editor?.getModel()?.getValue() as string,
+      ev.changes,
+      session,
+      ++session.i,
+    )
+  );
+
+  Object.assign(globalThis, { monaco, editor, model });
 
   // monaco.languages.registerOnTypeFormattingEditProvider("typescript", {
   //   autoFormatTriggerCharacters: ["}", "{", ")", "(", ";"],
@@ -70,8 +77,8 @@ async function getErrors({ monaco, editor }) {
 
 async function runner(
   c: string,
-  changes: Object,
-  session: ICodeSession & { changes?: Object[] },
+  changes: unknown[],
+  session: ICodeSession & { changes: unknown[]; errorText: stringr },
   counter: number,
 ) {
   session.changes.push(changes);
@@ -161,25 +168,25 @@ async function runner(
       console.log({ err: error });
     }
   } catch (error) {
-    session.errorText = error;
     console.error({ error });
   }
 }
 
-export const startFromCode = async ({ code }) => {
-  const session = {
-    code,
-    i: 0,
-    changes: [],
-    setChild: () => {},
-  };
-  await runner(code, null, session, session.i);
-  await quickStart(session);
-};
+// export const startFromCode = async ({ code }) => {
+//   const session = {
+//     code,
+//     i: 0,
+//     transpiled: "",
+//     html: "",
+//     changes: [],
+//     setChild: () => null,
+//   };
+//   await runner(code, null, session, session.i);
+//   await quickStart(session, false);
+// };
 
 export async function quickStart(
   session: ICodeSession,
-  room: string,
   keepFullScreen: boolean,
 ) {
   // Session.children = await getReactChild(session.transpiled);

@@ -1,10 +1,10 @@
-/** @jsx jsx */
-import { CacheProvider, jsx } from "@emotion/react";
+import { CacheProvider } from "@emotion/react";
 import createCache from "@emotion/cache";
 
-import { ReactNode, renderToString } from "react";
+import { renderToString } from "./preact";
+import React from "react";
 
-export const getHtmlAndCss = (MyComponent: () => ReactNode) => {
+export const getHtmlAndCss = (MyComponent: React.FC) => {
   const key = "css";
   const cache = createCache({ key });
   let cssText = "";

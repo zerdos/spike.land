@@ -185,7 +185,7 @@ export class CodeSession implements ICodeSess {
       } else {
         console.log("WRONG");
         console.log({
-          newState,
+          newHashCheck,
         });
       }
       return;

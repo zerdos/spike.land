@@ -1,12 +1,12 @@
 import {
   editor_main_exports
-} from "./chunk-64ZTNZEU.mjs";
-import "./chunk-BQTVW3ZB.mjs";
+} from "./chunk-GYPQM6G4.mjs";
+import "./chunk-CGA4QKUS.mjs";
 import {
   Uri,
   editor,
   languages
-} from "./chunk-64SWTKZF.mjs";
+} from "./chunk-M4IFUNGX.mjs";
 import {
   __commonJS,
   __toESM
@@ -393,7 +393,7 @@ var startMonaco = async ({ code, container }) => {
     language: "typescript",
     useShadowDOM: false,
     theme: "vs-dark",
-    autoClosingBrackets: "languageDefined"
+    autoClosingBrackets: "always"
   });
   const throttle = (await import("./throttle-4WCLLGXA.mjs")).default;
   window.addEventListener("resize", throttle(function() {

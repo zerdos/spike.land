@@ -1,4 +1,5 @@
-// import * as preact from "preact";
+// export type { Children } from "preact/compat";
+
 import * as react from "preact/compat";
 // import {jsx} from  "@emotion/react"
 import { createPortal, hydrate, render } from "preact/compat";

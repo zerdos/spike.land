@@ -1,11 +1,11 @@
 import {
   require_debounce
 } from "./chunk-GNRJA6OC.mjs";
-import "./chunk-64ZTNZEU.mjs";
-import "./chunk-BQTVW3ZB.mjs";
+import "./chunk-GYPQM6G4.mjs";
+import "./chunk-CGA4QKUS.mjs";
 import {
   Uri
-} from "./chunk-64SWTKZF.mjs";
+} from "./chunk-M4IFUNGX.mjs";
 import {
   __toESM
 } from "./chunk-BZTAI3VG.mjs";
@@ -95,7 +95,7 @@ var sendChannel = {
 };
 var resp = await fetch(`https://spike.land/api/room/${room}/session`);
 var state = await resp.json();
-var { startSession } = await import("./session-H555T3ZF.mjs");
+var { startSession } = await import("./session-JMWRAMYQ.mjs");
 var mySession = startSession(room, {
   name: username,
   state
@@ -125,9 +125,8 @@ var chCode = async (code, i) => {
   try {
     const modelUri = Uri.parse("file:///app/index.tsx");
     if (w.sess && w.sess.editor && w.sess.editor.getModel && w.sess.editor.getModel(modelUri)) {
-      const model = w.sess.editor.getModel(modelUri);
-      if (model) {
-        model.setValue(code);
+      if (globalThis.model) {
+        globalThis.model.setValue(code);
       }
     } else {
       w.sess && w.sess.update && w.sess.update(code);
@@ -216,8 +215,8 @@ async function join(App) {
       errorText: ""
     };
     const stayFullscreen = location.pathname.endsWith("public");
-    const { quickStart } = await import("./quickStart-7OZQ6L6D.mjs");
-    quickStart(session, roomName, stayFullscreen);
+    const { quickStart } = await import("./quickStart-DH3NR4OA.mjs");
+    quickStart(session, stayFullscreen);
   }
   wsConnection.addEventListener("message", (message) => processWsMessage(message, "ws"));
   wsConnection.addEventListener("close", (event) => {
@@ -481,5 +480,6 @@ async function handleNewICECandidateMessage(message, target) {
 export {
   join,
   mySession,
+  roomName,
   saveCode
 };

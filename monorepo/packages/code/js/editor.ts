@@ -129,7 +129,7 @@ export const startMonaco = async (
     language: "typescript",
     useShadowDOM: false,
     theme: "vs-dark",
-    autoClosingBrackets: "languageDefined",
+    autoClosingBrackets: "always",
   });
 
   // const defaultOptions = {

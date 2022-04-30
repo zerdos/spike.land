@@ -23,12 +23,12 @@ const generator = new Generator({
 await generator.install("react");
 await generator.install("tslib");
 
-await generator.install("preact-render-to-string");
-await generator.install("preact");
+// await generator.install("preact-render-to-string");
+// await generator.install("preact");
 
-await generator.install("preact/compat");
-await generator.install("preact/jsx-runtime");
-await generator.install("preact/jsx-dev-runtime");
+// await generator.install("preact/compat");
+// await generator.install("preact/jsx-runtime");
+// await generator.install("preact/jsx-dev-runtime");
 
 // await generator.install("react@18/jsx-runtime"); // await generator.install("react");
 //await generator.install("react-dom@18/server");
@@ -98,11 +98,11 @@ importMap.imports["react-dom"] = importMap.imports["react"];
 
 importMap.imports = {
   ...importMap.imports,
-  "preact": "https://unpkg.com/preact@10.6.6/dist/preact.mjs",
-  "preact-render-to-string":
-    "https://unpkg.com/preact-render-to-string@5.1.19/dist/index.mjs",
-  "preact/compat": "https://unpkg.com/preact@10.6.6/compat/dist/compat.mjs",
-  "preact/hooks": "https://unpkg.com/preact@10.6.6/hooks/dist/hooks.mjs",
+  // "preact": "https://unpkg.com/preact@10.6.6/dist/preact.mjs",
+  // "preact-render-to-string":
+    // "https://unpkg.com/preact-render-to-string@5.1.19/dist/index.mjs",
+  // "preact/compat": "https://unpkg.com/preact@10.6.6/compat/dist/compat.mjs",
+  // "preact/hooks": "https://unpkg.com/preact@10.6.6/hooks/dist/hooks.mjs",
 };
 console.log(JSON.stringify(importMap, null, 2));
 //console.log(JSON.stringify(generator.getMap(), null, 2));

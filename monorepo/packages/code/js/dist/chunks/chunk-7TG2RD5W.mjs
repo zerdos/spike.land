@@ -4949,7 +4949,7 @@ var CodeSession = class {
       } else {
         console.log("WRONG");
         console.log({
-          newState
+          newHashCheck: newHashCheck2
         });
       }
       return;

@@ -8,23 +8,22 @@ async function startMonacoWithSession(session) {
     console.log("no monaco dom, exiting");
     return;
   }
-  const { startMonaco } = await import("./editor-WUIAHQGP.mjs");
-  const onchangeCode = (ev) => runner(editor.getModel().getValue(), ev.changes, session, ++session.i);
-  const { editor } = await startMonaco({
+  const { startMonaco } = await import("./editor-GFKSOZDU.mjs");
+  const { editor, monaco } = await startMonaco({
     container: monacoEditorDom,
     code: session.code
   });
-  editor.onDidChangeModelContent(onchangeCode);
-  Object.assign(window, { monaco });
-  session.editor = editor;
+  const model = editor.getModel();
+  editor.onDidChangeModelContent((ev) => runner(editor?.getModel()?.getValue(), ev.changes, session, ++session.i));
+  Object.assign(globalThis, { monaco, editor, model });
   window.sess = session;
 }
-async function getErrors({ monaco: monaco2, editor }) {
-  if (!monaco2) {
+async function getErrors({ monaco, editor }) {
+  if (!monaco) {
     return [{ messageText: "Error with the error checking. Try to reload!" }];
   }
   const model = editor.getModel();
-  const worker = await monaco2.languages.typescript.getTypeScriptWorker();
+  const worker = await monaco.languages.typescript.getTypeScriptWorker();
   const client = await worker(model);
   const filename = model.uri.toString();
   const diag = client.getSemanticDiagnostics(filename);
@@ -49,7 +48,7 @@ async function runner(c, changes, session, counter) {
         return;
       }
       try {
-        const { getHtmlAndCss } = await import("./renderToString-SLYPG2PE.mjs");
+        const { getHtmlAndCss } = await import("./renderToString-6GRA3RC2.mjs");
         if (counter < session.i) {
           return;
         }
@@ -67,7 +66,7 @@ async function runner(c, changes, session, counter) {
         if (session.i !== counter) {
           return;
         }
-        const { saveCode } = await import("./ws-3EWM3YSO.mjs");
+        const { saveCode } = await import("./ws-5YQ43BHQ.mjs");
         saveCode({ transpiled, code, i: counter, css, html });
         return;
       } catch (error2) {
@@ -91,23 +90,11 @@ async function runner(c, changes, session, counter) {
       console.log({ err: error });
     }
   } catch (error) {
-    session.errorText = error;
     console.error({ error });
   }
 }
-var startFromCode = async ({ code }) => {
-  const session = {
-    code,
-    i: 0,
-    changes: [],
-    setChild: () => {
-    }
-  };
-  await runner(code, null, session, session.i);
-  await quickStart(session);
-};
-async function quickStart(session, room, keepFullScreen) {
-  const { renderPreviewWindow } = await import("./renderPreviewWindow-4GB643W5.mjs");
+async function quickStart(session, keepFullScreen) {
+  const { renderPreviewWindow } = await import("./renderPreviewWindow-YYJEJUUJ.mjs");
   await renderPreviewWindow(session, room, keepFullScreen);
   if (!keepFullScreen) {
     await startMonacoWithSession(session);
@@ -132,6 +119,5 @@ async function getApp(transpiled, mode = "window") {
   return App;
 }
 export {
-  quickStart,
-  startFromCode
+  quickStart
 };

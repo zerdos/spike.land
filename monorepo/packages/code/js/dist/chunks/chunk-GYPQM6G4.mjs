@@ -601,7 +601,7 @@ import {
   widgetClose,
   widgetShadow,
   withNullAsUndefined
-} from "./chunk-64SWTKZF.mjs";
+} from "./chunk-M4IFUNGX.mjs";
 import {
   __commonJS,
   __esm,
@@ -2572,7 +2572,7 @@ registerLanguage({
         __require(["vs/basic-languages/freemarker2/freemarker2"], resolve, reject);
       }).then((m) => m.TagAngleInterpolationDollar);
     } else {
-      return import("./freemarker2-ISIVGNGP.mjs").then((m) => m.TagAutoInterpolationDollar);
+      return import("./freemarker2-HGN3DYNA.mjs").then((m) => m.TagAutoInterpolationDollar);
     }
   }
 });
@@ -2585,7 +2585,7 @@ registerLanguage({
         __require(["vs/basic-languages/freemarker2/freemarker2"], resolve, reject);
       }).then((m) => m.TagAngleInterpolationDollar);
     } else {
-      return import("./freemarker2-ISIVGNGP.mjs").then((m) => m.TagAngleInterpolationDollar);
+      return import("./freemarker2-HGN3DYNA.mjs").then((m) => m.TagAngleInterpolationDollar);
     }
   }
 });
@@ -2598,7 +2598,7 @@ registerLanguage({
         __require(["vs/basic-languages/freemarker2/freemarker2"], resolve, reject);
       }).then((m) => m.TagBracketInterpolationDollar);
     } else {
-      return import("./freemarker2-ISIVGNGP.mjs").then((m) => m.TagBracketInterpolationDollar);
+      return import("./freemarker2-HGN3DYNA.mjs").then((m) => m.TagBracketInterpolationDollar);
     }
   }
 });
@@ -2611,7 +2611,7 @@ registerLanguage({
         __require(["vs/basic-languages/freemarker2/freemarker2"], resolve, reject);
       }).then((m) => m.TagAngleInterpolationBracket);
     } else {
-      return import("./freemarker2-ISIVGNGP.mjs").then((m) => m.TagAngleInterpolationBracket);
+      return import("./freemarker2-HGN3DYNA.mjs").then((m) => m.TagAngleInterpolationBracket);
     }
   }
 });
@@ -2624,7 +2624,7 @@ registerLanguage({
         __require(["vs/basic-languages/freemarker2/freemarker2"], resolve, reject);
       }).then((m) => m.TagBracketInterpolationBracket);
     } else {
-      return import("./freemarker2-ISIVGNGP.mjs").then((m) => m.TagBracketInterpolationBracket);
+      return import("./freemarker2-HGN3DYNA.mjs").then((m) => m.TagBracketInterpolationBracket);
     }
   }
 });
@@ -2637,7 +2637,7 @@ registerLanguage({
         __require(["vs/basic-languages/freemarker2/freemarker2"], resolve, reject);
       }).then((m) => m.TagAutoInterpolationDollar);
     } else {
-      return import("./freemarker2-ISIVGNGP.mjs").then((m) => m.TagAutoInterpolationDollar);
+      return import("./freemarker2-HGN3DYNA.mjs").then((m) => m.TagAutoInterpolationDollar);
     }
   }
 });
@@ -2650,7 +2650,7 @@ registerLanguage({
         __require(["vs/basic-languages/freemarker2/freemarker2"], resolve, reject);
       }).then((m) => m.TagAutoInterpolationBracket);
     } else {
-      return import("./freemarker2-ISIVGNGP.mjs").then((m) => m.TagAutoInterpolationBracket);
+      return import("./freemarker2-HGN3DYNA.mjs").then((m) => m.TagAutoInterpolationBracket);
     }
   }
 });
@@ -2700,7 +2700,7 @@ registerLanguage({
         __require(["vs/basic-languages/handlebars/handlebars"], resolve, reject);
       });
     } else {
-      return import("./handlebars-O4AAG2O5.mjs");
+      return import("./handlebars-VWD5OH5J.mjs");
     }
   }
 });
@@ -2733,7 +2733,7 @@ registerLanguage({
         __require(["vs/basic-languages/html/html"], resolve, reject);
       });
     } else {
-      return import("./html-JSCOG3Z4.mjs");
+      return import("./html-FOKZLJCE.mjs");
     }
   }
 });
@@ -2786,7 +2786,7 @@ registerLanguage({
         __require(["vs/basic-languages/javascript/javascript"], resolve, reject);
       });
     } else {
-      return import("./javascript-OZAFEXQ3.mjs");
+      return import("./javascript-ZIAJUZDI.mjs");
     }
   }
 });
@@ -2885,7 +2885,7 @@ registerLanguage({
         __require(["vs/basic-languages/liquid/liquid"], resolve, reject);
       });
     } else {
-      return import("./liquid-HTBVII2G.mjs");
+      return import("./liquid-73IJS3WF.mjs");
     }
   }
 });
@@ -3176,7 +3176,7 @@ registerLanguage({
         __require(["vs/basic-languages/python/python"], resolve, reject);
       });
     } else {
-      return import("./python-5EML5PRA.mjs");
+      return import("./python-PUEK5C4K.mjs");
     }
   }
 });
@@ -3225,7 +3225,7 @@ registerLanguage({
         __require(["vs/basic-languages/razor/razor"], resolve, reject);
       });
     } else {
-      return import("./razor-4GEA6JUD.mjs");
+      return import("./razor-YYMT2L5D.mjs");
     }
   }
 });
@@ -3565,7 +3565,7 @@ registerLanguage({
         __require(["vs/basic-languages/typescript/typescript"], resolve, reject);
       });
     } else {
-      return import("./typescript-Q67VGH7K.mjs");
+      return import("./typescript-TZQLW6VV.mjs");
     }
   }
 });
@@ -3613,7 +3613,7 @@ registerLanguage({
         __require(["vs/basic-languages/xml/xml"], resolve, reject);
       });
     } else {
-      return import("./xml-PKWSBNBV.mjs");
+      return import("./xml-IBPABEKV.mjs");
     }
   }
 });
@@ -3630,7 +3630,7 @@ registerLanguage({
         __require(["vs/basic-languages/yaml/yaml"], resolve, reject);
       });
     } else {
-      return import("./yaml-UUP7EYBH.mjs");
+      return import("./yaml-AE5WN2YU.mjs");
     }
   }
 });
@@ -3744,7 +3744,7 @@ function getMode() {
       __require(["vs/language/css/cssMode"], resolve, reject);
     });
   } else {
-    return import("./cssMode-KJ5X54DE.mjs");
+    return import("./cssMode-6TTQP55V.mjs");
   }
 }
 monaco_editor_core_exports2.languages.onLanguage("less", () => {
@@ -3862,7 +3862,7 @@ function getMode2() {
       __require(["vs/language/html/htmlMode"], resolve, reject);
     });
   } else {
-    return import("./htmlMode-X3DXA45O.mjs");
+    return import("./htmlMode-CVTFP2IM.mjs");
   }
 }
 function registerHTMLLanguageService(languageId, options = optionsDefault2, modeConfiguration = getConfigurationDefault(languageId)) {
@@ -3957,7 +3957,7 @@ function getMode3() {
       __require(["vs/language/json/jsonMode"], resolve, reject);
     });
   } else {
-    return import("./jsonMode-KGG3K6OV.mjs");
+    return import("./jsonMode-X7NJPEKS.mjs");
   }
 }
 monaco_editor_core_exports4.languages.register({
@@ -32870,11 +32870,12 @@ var DisposableDecorations = class {
     this.decorationIds = [];
   }
   setDecorations(decorations) {
-    this.decorationIds = this.editor.deltaDecorations(this.decorationIds, decorations);
+    this.editor.changeDecorations((accessor) => {
+      this.decorationIds = accessor.deltaDecorations(this.decorationIds, decorations);
+    });
   }
   clear() {
-    this.editor.deltaDecorations(this.decorationIds, []);
-    this.decorationIds = [];
+    this.setDecorations([]);
   }
   dispose() {
     this.clear();
@@ -32884,18 +32885,16 @@ var DecorationsWidget = class {
   constructor(editor2) {
     this.editor = editor2;
     this.decorationIds = [];
-    this.disposableStore = new DisposableStore();
   }
   dispose() {
     this.clear();
-    this.disposableStore.dispose();
   }
   clear() {
-    this.editor.deltaDecorations(this.decorationIds, []);
-    this.disposableStore.clear();
+    this.editor.changeDecorations((accessor) => {
+      this.decorationIds = accessor.deltaDecorations(this.decorationIds, []);
+    });
   }
   setParts(lineNumber, parts, hiddenText) {
-    this.disposableStore.clear();
     const textModel = this.editor.getModel();
     if (!textModel) {
       return;
@@ -32910,16 +32909,18 @@ var DecorationsWidget = class {
         }
       });
     }
-    this.decorationIds = this.editor.deltaDecorations(this.decorationIds, parts.map((p) => {
-      return {
-        range: Range.fromPositions(new Position(lineNumber, p.column)),
-        options: {
-          description: "ghost-text",
-          after: { content: p.text, inlineClassName: p.preview ? "ghost-text-decoration-preview" : "ghost-text-decoration", cursorStops: InjectedTextCursorStops.Left },
-          showIfCollapsed: true
-        }
-      };
-    }).concat(hiddenTextDecorations));
+    this.editor.changeDecorations((accessor) => {
+      this.decorationIds = accessor.deltaDecorations(this.decorationIds, parts.map((p) => {
+        return {
+          range: Range.fromPositions(new Position(lineNumber, p.column)),
+          options: {
+            description: "ghost-text",
+            after: { content: p.text, inlineClassName: p.preview ? "ghost-text-decoration-preview" : "ghost-text-decoration", cursorStops: InjectedTextCursorStops.Left },
+            showIfCollapsed: true
+          }
+        };
+      }).concat(hiddenTextDecorations));
+    });
   }
 };
 var AdditionalLinesWidget = class {

@@ -1,6 +1,6 @@
 import {
   hashCode
-} from "./chunk-A7IVV6YY.mjs";
+} from "./chunk-7TG2RD5W.mjs";
 import {
   __commonJS,
   __toESM
@@ -434,18 +434,18 @@ var import_path_browserify = __toESM(require_path_browserify());
 import { jsx } from "https://spike.land/dist/emotion.mjs";
 import { render } from "https://spike.land/dist/react.mjs";
 var renderPreviewWindow = async (session, room, keepFullScreen) => {
-  const { DraggableWindow } = await import("./DraggableWindow-Z6RZSDGY.mjs");
+  const { DraggableWindow } = await import("./DraggableWindow-25GY4BX2.mjs");
   console.log("renderPreviewWindow");
   const target = document.createElement("div");
   const editor = document.getElementById("monacoEditor");
-  editor.style.opacity = "0";
-  const { App } = globalThis;
+  if (editor)
+    editor.style.opacity = "0";
   const bg = (await import("./synthwave-3QWL7RMT.mjs")).default;
   document.body.style.backgroundImage = `url(${import_path_browserify.default.join("./dist/chunks/", bg)} )`;
   render(jsx(DraggableWindow, {
     onShare: () => open(`https://spike.land/api/room/${room}/public`),
     onRestore: () => {
-      const model = session.editor.getModel();
+      const model = globalThis.model;
       model.setValue(session.code);
     },
     position: session.mode === "window" ? "fixed" : "absolute",
@@ -453,7 +453,7 @@ var renderPreviewWindow = async (session, room, keepFullScreen) => {
     hashCode: hashCode(),
     keepFullScreen,
     room
-  }, jsx(App, null)), target);
+  }, children), target);
   document.body.appendChild(target);
   editor.style.opacity = "1";
   editor.style.display = "block";

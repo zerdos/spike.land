@@ -14,7 +14,7 @@ const [, prefix, selector, room] = path;
 
 console.log({ prefix, selector, room });
 
-const roomName = (prefix === "api" && selector === "room")
+export const roomName = (prefix === "api" && selector === "room")
   ? room.slice(-12) || "code-main"
   : prefix === "live" && !!selector
   ? selector.slice(-12)
@@ -111,9 +111,8 @@ const chCode = async (code: string, i: number) => {
       w.sess && w.sess.editor && w.sess.editor.getModel &&
       w.sess.editor.getModel(modelUri)
     ) {
-      const model = w.sess.editor.getModel(modelUri);
-      if (model) {
-        model.setValue(code);
+      if (globalThis.model) {
+        globalThis.model.setValue(code);
       }
     } else {
       w.sess && w.sess.update && w.sess.update(code);
@@ -235,7 +234,6 @@ export async function join(App: ReactNode) {
       ...mST(),
       setChild: () => null,
       changes: [],
-
       children: [App],
       errorText: "",
     };
@@ -244,7 +242,6 @@ export async function join(App: ReactNode) {
     const { quickStart } = await import("./quickStart");
     quickStart(
       session,
-      roomName,
       stayFullscreen,
     );
   }

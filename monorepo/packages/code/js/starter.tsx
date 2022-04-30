@@ -1,10 +1,9 @@
-/** @jsx jsx */
-import { jsx } from "@emotion/react";
 import "core-js/modules/web.immediate";
 
-import { hydrate } from "react-dom";
+import { hydrate } from "preact";
 import { fromBinary } from "./binary";
 import { Workbox } from "workbox-window";
+import { ReactNode } from "react";
 
 if ("serviceWorker" in navigator) {
   const wb = new Workbox("/sw.js");
@@ -12,20 +11,13 @@ if ("serviceWorker" in navigator) {
   wb.register();
 }
 
-const path = location.pathname.split("/");
-const room =
-  ((path[1] === "api" && path[2] === "room")
-    ? path[3]
-    : (path.pop() || path.pop())!.slice(-12)) ||
-  "code-main";
-
-const start = async (App: JSX.Element) => {
+const start = async (App: ReactNode) => {
   const e = import("./editor");
   const p = import("./renderPreviewWindow");
   const container = document.querySelector("#root") ||
     document.createElement("div");
 
-  hydrate(container, <App />);
+  hydrate(App, container);
 
   console.log("HYDRATED");
   if (location.href.endsWith("hydrated")) return;
@@ -43,8 +35,10 @@ export const hydrateBinary = async (binary: string) => {
 export const run = async () => {
   if (globalThis.App) return;
 
+  const { roomName } = await import("./ws");
+
   const respS = await fetch(
-    `https://spike.land/api/room/${room}/session`,
+    `https://spike.land/api/room/${roomName}/session`,
   );
 
   const session = await respS.json();
