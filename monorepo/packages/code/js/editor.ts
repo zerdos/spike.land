@@ -35,9 +35,9 @@ const {
 const monEnv = {
   getWorkerUrl: function (_workerId: string, label: string) {
     if (label === "typescript" || label === "javascript") {
-      return "public/workers/language/typescript/ts.worker.js";
+      return "workers/language/typescript/ts.worker.js";
     }
-    return "public/workers/editor/editor.worker.js";
+    return "workers/editor/editor.worker.js";
   },
 };
 
@@ -73,7 +73,7 @@ export const startMonaco = async (
   document.head.appendChild(outerStyle);
 
   const innerStyle = document.createElement("style");
-  innerStyle.innerText = `@import url("public/starter.css");
+  innerStyle.innerText = `@import url("starter.css");
   @font-face {
     font-family: codicon;
     font-display: block;
