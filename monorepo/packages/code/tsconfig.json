@@ -15,7 +15,7 @@
     "noEmit": true,
     "jsx": "react-jsx",
     "module": "esnext",
-    // "jsxImportSource": "@emotion/react",
+    "jsxImportSource": "@emotion/react",
     "sourceMap": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
