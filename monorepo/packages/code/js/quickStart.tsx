@@ -143,7 +143,7 @@ async function runner(
         return;
       } catch (error) {
         console.error("EXCEPTION");
-        console.log({ e: error });
+        console.error(error);
         restartError = true;
         console.error({ restartError });
       }

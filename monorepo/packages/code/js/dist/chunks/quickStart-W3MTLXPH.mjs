@@ -69,12 +69,12 @@ async function runner(c, changes, session, counter) {
         if (session.i !== counter) {
           return;
         }
-        const { saveCode } = await import("./ws-GTUM4BCR.mjs");
+        const { saveCode } = await import("./ws-HKQPBJAW.mjs");
         saveCode({ transpiled, code, i: counter, css, html });
         return;
       } catch (error2) {
         console.error("EXCEPTION");
-        console.log({ e: error2 });
+        console.error(error2);
         restartError = true;
         console.error({ restartError });
       }
