@@ -15072,7 +15072,7 @@ var DraggableWindow = ({
         right: 20
       });
       setFullScreen(false);
-      requestAnimationFrame(() => document.querySelector("#root")?.classList.add("hidden"));
+      requestAnimationFrame(() => document.querySelector("#root")?.remove());
     };
     reveal();
   }, []);
