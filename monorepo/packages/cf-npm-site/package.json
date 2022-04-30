@@ -3,7 +3,7 @@
   "version": "0.7.409",
   "scripts": {
     "clean": "rm -rf dist && yarn build",
-    "build": "yarn tsc && esbuild --bundle --format=esm --target=esnext src/index.ts --outfile=dist/index.mjs"
+    "build": "yarn tsc && esbuild --bundle --format=esm --target=esnext src/index.ts --outfile=public/index.mjs"
   },
   "private": false,
   "publishConfig": {
@@ -11,7 +11,7 @@
   },
   "author": "Zoltan Erdos <zolika84@gmail.com>",
   "license": "BSD-3-Clause",
-  "typings": "dist/index.d.ts",
-  "main": "dist/index.mjs",
+  "typings": "public/index.d.ts",
+  "main": "public/index.mjs",
   "gitHead": "d0a0900f93473b9b959d0e4d242e95f99be8bb0b"
 }

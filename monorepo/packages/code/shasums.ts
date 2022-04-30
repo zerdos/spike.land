@@ -25,211 +25,211 @@ export const shasums = {
     "c61b3b59c3fc9c676a487e56d7b42fceb2edca5cb0242bfcdfbe96c6bbc28eeb",
   "renderPreviewWindow.tsx":
     "0892299db948a49bad25ab9604060c06f7863a4aca0c37368d60a56dd0e7b7f1",
-  "dist/react.mjs":
+  "public/react.mjs":
     "6012d5f40ed1ef2e0d5b783ad33da544f9a830257e095741112b6780888d8230",
-  "dist/emotion.mjs":
+  "public/emotion.mjs":
     "abcc81e2def2e9aa6c3b1ded82404689051e04a26d31dde10ae03880390dfcd0",
-  "dist/chunks/twig-6JRIPINY.mjs":
+  "public/chunks/twig-6JRIPINY.mjs":
     "88193a8e4f57d4eb9cde701def9a01266a62fe2d875b8603a542aaa1d18e173e",
-  "dist/chunks/ws-SI67EKBS.mjs":
+  "public/chunks/ws-SI67EKBS.mjs":
     "73008325a76bbc73baff68c64b019b7b8f0f00249ad2ea749324723efca067f1",
-  "dist/chunks/restructuredtext-ELNII65C.mjs":
+  "public/chunks/restructuredtext-ELNII65C.mjs":
     "609d6a8ecb80fefcc19fab0ddcdacc09867be41e509ef9ff2f772f2deb90ca47",
-  "dist/chunks/vb-LMHZRR3N.mjs":
+  "public/chunks/vb-LMHZRR3N.mjs":
     "7457ce3a9e3dee4fa760fb09392b20ddb87ba545ce73c526d852f2c63dc15607",
-  "dist/chunks/sql-T4G5FQEH.mjs":
+  "public/chunks/sql-T4G5FQEH.mjs":
     "ca7db881b42db18227d55a7e167d9c5cc74faecd222bc09236d4a78fc7f68525",
-  "dist/chunks/swift-63OOMEOS.mjs":
+  "public/chunks/swift-63OOMEOS.mjs":
     "f34c171e652ce13141769ad288bcb3d2e35afa17e35e19f4cc62a698889aa8fe",
-  "dist/chunks/lexon-PA3AJXCQ.mjs":
+  "public/chunks/lexon-PA3AJXCQ.mjs":
     "aad7365d5567575d1afde6c478a94ff242a8928818cf5a97f708673a1ed1a19a",
-  "dist/chunks/scheme-6GNFPKM3.mjs":
+  "public/chunks/scheme-6GNFPKM3.mjs":
     "55e8dc763fab9ac3aebb0003c41440338add67b36845ebf5c5aab086ff4a0979",
-  "dist/chunks/yaml-XXBQG5LP.mjs":
+  "public/chunks/yaml-XXBQG5LP.mjs":
     "234e2683ec93833737bbea119f81a019b84ff800ea952f8c18fd91a4e079900d",
-  "dist/chunks/msdax-AQ7GAPP3.mjs":
+  "public/chunks/msdax-AQ7GAPP3.mjs":
     "67ae2153d6c92c6b3bd776715d610644d4abb15124cd94eee7743282e4cb9ef5",
-  "dist/chunks/solidity-74L6U5ZX.mjs":
+  "public/chunks/solidity-74L6U5ZX.mjs":
     "e239029f48cbc5b9be826dd7194f974742b1f1f0eb0b4da40c36ccd927d2fd6e",
-  "dist/chunks/coffee-UPWTESV5.mjs":
+  "public/chunks/coffee-UPWTESV5.mjs":
     "a48ed3c995e057ba400bbca9244daa42b812a01268c20b2110a8e695a03f3393",
-  "dist/chunks/tcl-BGKPJKP2.mjs":
+  "public/chunks/tcl-BGKPJKP2.mjs":
     "bdd758c85ccf12dfcb0a5c3c261858ed1a0c32693d6d7d8a328590d5d1dc496a",
-  "dist/chunks/csharp-AC3O5WV3.mjs":
+  "public/chunks/csharp-AC3O5WV3.mjs":
     "3efbfb8d19b14e6b8990bd62272d115aea2e0a9dbf1a6dbd7555917fdb3fd821",
-  "dist/chunks/chunk-STZSL6PY.mjs":
+  "public/chunks/chunk-STZSL6PY.mjs":
     "36d5f400b5b2645a6e0d7f511fdd5a7929f1be1c9351c6bcefebd69d27a718a9",
-  "dist/chunks/css-QAEG5ZAB.mjs":
+  "public/chunks/css-QAEG5ZAB.mjs":
     "c8a115fcf0f3d5bd62ea057f88a5c4362abde8a7169ea1c0cecbc1d5de26c899",
-  "dist/chunks/pascal-EFJHYKJQ.mjs":
+  "public/chunks/pascal-EFJHYKJQ.mjs":
     "434b03d3e579b257e2626381791fda269c7e8436d6514b0876992ad835cfdc6c",
-  "dist/chunks/ruby-MTJHOUON.mjs":
+  "public/chunks/ruby-MTJHOUON.mjs":
     "94275620dd42b7ed3078c607c9291427e15ca5b339b8e5f3399e067e70bcfc41",
-  "dist/chunks/ini-QJXKWBZM.mjs":
+  "public/chunks/ini-QJXKWBZM.mjs":
     "d2ad3baee34abf65e356a3a55f5b91b8f5b77b223f564bbf1d1456516ec4873f",
-  "dist/chunks/chunk-Y55LJB23.mjs":
+  "public/chunks/chunk-Y55LJB23.mjs":
     "18c2e1269deba8f9fcd6acf16749d71c7f71477f366879685fb091d26cead25d",
-  "dist/chunks/fsharp-SSCEE4CJ.mjs":
+  "public/chunks/fsharp-SSCEE4CJ.mjs":
     "ed76240b4981e5f1a2249d0495a3d68ef849839c23a70212efdfb99d3445888d",
-  "dist/chunks/m3-MLRMI7T4.mjs":
+  "public/chunks/m3-MLRMI7T4.mjs":
     "4f1ef18b75a8299556e60cb283ff41dc4bf157a5c7079ab37bf53253a0e233b8",
-  "dist/chunks/session-ZAQQIWOL.mjs":
+  "public/chunks/session-ZAQQIWOL.mjs":
     "f4847a9c3bd6e44fb4cbeb1f36823800bf503d2320c5c8656b81355e8908d764",
-  "dist/chunks/clojure-QJTY2HRK.mjs":
+  "public/chunks/clojure-QJTY2HRK.mjs":
     "e66633325ed2398ce131a68727c5ecb7e1f3016b60f8907d4c37d95f0fb6e2eb",
-  "dist/chunks/powerquery-VFA43CSO.mjs":
+  "public/chunks/powerquery-VFA43CSO.mjs":
     "52f9d2aeb6ddec43107ae241e1137a9dcfa96b6a3aec1cf74f99aded8a1658f6",
-  "dist/chunks/pug-YU3PWWQZ.mjs":
+  "public/chunks/pug-YU3PWWQZ.mjs":
     "b966472430b8271891f17fd7061ece41491e939887eafabef283a120a5eec779",
-  "dist/chunks/scss-BA6Q7IVC.mjs":
+  "public/chunks/scss-BA6Q7IVC.mjs":
     "4fe968ac01bc3645d3d48ee868710490967227f62e38efc6328186749c18771f",
-  "dist/chunks/less-XXO7EFEW.mjs":
+  "public/chunks/less-XXO7EFEW.mjs":
     "5e8c237eae649fbf6c5c003bbd8b1c2d19df5217d3a70b321067ad5399e2e04b",
-  "dist/chunks/dart-RCCXJGRJ.mjs":
+  "public/chunks/dart-RCCXJGRJ.mjs":
     "c5ed5fa8c11b64bfffd314f2e301e8b94d5836fb2c1414223c4ed13388b27ab4",
-  "dist/chunks/cameligo-ULSDO4QJ.mjs":
+  "public/chunks/cameligo-ULSDO4QJ.mjs":
     "7e72de071b07b591d956a5e8ecf8f6fd0467c0a61b1c685ad4abb35b386c3f92",
-  "dist/chunks/redshift-7YCFLHQI.mjs":
+  "public/chunks/redshift-7YCFLHQI.mjs":
     "4f61dba004c4f1880008219463488bcd8e2ff35d04cb59434a9140cc9cec30f8",
-  "dist/chunks/shell-MB2XWQLO.mjs":
+  "public/chunks/shell-MB2XWQLO.mjs":
     "57c69899789601deec04650943aa9e199721aae815e71096b876e79d5251eed2",
-  "dist/chunks/jsonMode-GZTYBVBC.mjs":
+  "public/chunks/jsonMode-GZTYBVBC.mjs":
     "a48a7285600f21c1b78086a977fc6b7e17ece526e638d267cdcfa5920ea4a2a6",
-  "dist/chunks/dockerfile-QXXPI3Y3.mjs":
+  "public/chunks/dockerfile-QXXPI3Y3.mjs":
     "a9f909df6ffc43e0c035e19970af971605bea0f4f1c302fe233186329853756e",
-  "dist/chunks/markdown-NNFXC7L3.mjs":
+  "public/chunks/markdown-NNFXC7L3.mjs":
     "af211a218f97ed66b307e28c5ac65cf62b5436161ca44d4ae2f7b9210415bc68",
-  "dist/chunks/renderPreviewWindow-FI7CS65Z.mjs":
+  "public/chunks/renderPreviewWindow-FI7CS65Z.mjs":
     "eb4312f8925aafa3a136a12f2ef560cb6c0b67ab7046031a2893a1837bb8d82e",
-  "dist/chunks/java-4SEZROBX.mjs":
+  "public/chunks/java-4SEZROBX.mjs":
     "bc38980c7d13b1c3c5f16636088f9fc1bba9ff7f8bfaa99991c935067e0a2a41",
-  "dist/chunks/php-PUW23O37.mjs":
+  "public/chunks/php-PUW23O37.mjs":
     "539b70d6066356e08a3c1dc641d55d4131bb65933e3a14e1190a7ea4c01b0445",
-  "dist/chunks/javascript-E6NR2BPW.mjs":
+  "public/chunks/javascript-E6NR2BPW.mjs":
     "ed28dce10a59087b95b10966b8844f56bedccdc88e0f37c5c04117e6457df032",
-  "dist/chunks/typescript-75FG4AW4.mjs":
+  "public/chunks/typescript-75FG4AW4.mjs":
     "f3190c4ceb2de5ed2d873b842bbb051029113a9128e83bae6d59b38f51513ad2",
-  "dist/chunks/throttle-Z6JZ56VC.mjs":
+  "public/chunks/throttle-Z6JZ56VC.mjs":
     "3a483d54e8af0f1393497b298309e361a51bc991e66de960cf2957a52296ce13",
-  "dist/chunks/mips-AKXZT5PS.mjs":
+  "public/chunks/mips-AKXZT5PS.mjs":
     "1351cefb204d4824cc7dd600fda877a63e15c96af4d33eebd38a50c5a7da7c4c",
-  "dist/chunks/sparql-GSTSTRCO.mjs":
+  "public/chunks/sparql-GSTSTRCO.mjs":
     "1e7e983b7e5b167589f33450aafa1ce883cec384a9f268c7913d8e3645d5d7c6",
-  "dist/chunks/python-T3D2EQEY.mjs":
+  "public/chunks/python-T3D2EQEY.mjs":
     "d22a7d707a87a3f771ae6cde37ef2f1ae60653f17ccddf267cb51ad561539fec",
-  "dist/chunks/tsMode-6IBEAAZT.mjs":
+  "public/chunks/tsMode-6IBEAAZT.mjs":
     "298e0430e82612c0413f4c0c5e82cff39b66c10ba9822928bd314131c10ed681",
-  "dist/chunks/razor-2B2MQVPN.mjs":
+  "public/chunks/razor-2B2MQVPN.mjs":
     "e8d3f606e6a86a30f8661bc270ff6abbf7a429657c6028b37c88c5905eab3ce8",
-  "dist/chunks/flow9-REUG3SGK.mjs":
+  "public/chunks/flow9-REUG3SGK.mjs":
     "ea3ad8427c7e39c7c14efda6bc5a3f2d8d003067dbb013ebf52a9a7a74d99b69",
-  "dist/chunks/chunk-33ZXQI6X.mjs":
+  "public/chunks/chunk-33ZXQI6X.mjs":
     "47fdb3d49eb280a02fcb2501e4d70fd0fb42020585c981d5714a1f74742bf3c9",
-  "dist/chunks/renderToString-RBXW2EKZ.mjs":
+  "public/chunks/renderToString-RBXW2EKZ.mjs":
     "0057cbf8639fdcd4f1322c624f87b99285e409e5b0fd3801f4fe0fdbe2e9edd3",
-  "dist/chunks/bicep-4TR2SSK7.mjs":
+  "public/chunks/bicep-4TR2SSK7.mjs":
     "c085be993f9a968a112edef04b1e2bdfcdb547495eaa3bf6a046acbd1d33bcb5",
-  "dist/chunks/xml-OL5Y7IWQ.mjs":
+  "public/chunks/xml-OL5Y7IWQ.mjs":
     "09abd6e3221a6deae3bc0ebda2f787fc5b78a7e867b3f159eaaa127451a1060c",
-  "dist/chunks/pascaligo-ZZEN6QCV.mjs":
+  "public/chunks/pascaligo-ZZEN6QCV.mjs":
     "270b7b567e8bae98faa1cc578d36164a926f99c67c9bf4d25843aa48c14b191e",
-  "dist/chunks/graphql-TSX2OS3D.mjs":
+  "public/chunks/graphql-TSX2OS3D.mjs":
     "ad9e1dbb8a4e1f7d679573cfa848a8984dbc637809ef13d8fc5982c357b567cb",
-  "dist/chunks/liquid-D2F7ZNGU.mjs":
+  "public/chunks/liquid-D2F7ZNGU.mjs":
     "7b2003fa72a8b3737b4a4a73519ca81cf04e699ca98e1e427da239b4a740c7cc",
-  "dist/chunks/htmlMode-4C53YQ67.mjs":
+  "public/chunks/htmlMode-4C53YQ67.mjs":
     "5b19d08557042f219f138f011b25fb1bb6e3217858f6a18765fa9b73ad5b234e",
-  "dist/chunks/apex-M4SFKP7M.mjs":
+  "public/chunks/apex-M4SFKP7M.mjs":
     "604f8a2aad080a352c9907218c0e618f1e194b7706d228b634384e018b95d865",
-  "dist/chunks/objective-c-VGB47DIN.mjs":
+  "public/chunks/objective-c-VGB47DIN.mjs":
     "fecd9ab722dffed2778127b94c8c97ae50814d6a6206132bbc3bb6bdcde057ce",
-  "dist/chunks/perl-BMTJFPZ4.mjs":
+  "public/chunks/perl-BMTJFPZ4.mjs":
     "149abb5030524788ec49c47a3f91c13baea31c0b277ada5d58b467ba2506da9d",
-  "dist/chunks/scala-VYDUWTUA.mjs":
+  "public/chunks/scala-VYDUWTUA.mjs":
     "da25bb125af473dc07415e3d8d7e04af009ae981035d0b1fff84050f911f165b",
-  "dist/chunks/redis-3DJHM2EC.mjs":
+  "public/chunks/redis-3DJHM2EC.mjs":
     "1778ab2a838dda1748cd43ed9728595d40a1d0c97d08613e20e5c5da377b6f08",
-  "dist/chunks/freemarker2-TTAC7WJQ.mjs":
+  "public/chunks/freemarker2-TTAC7WJQ.mjs":
     "94d7bffa669fb3f73f7eeef59781a70572b899046f048599a7dee7eab5bda355",
-  "dist/chunks/postiats-UGOSBUUD.mjs":
+  "public/chunks/postiats-UGOSBUUD.mjs":
     "65fdb6c5ddc2d6fa9276391a86ed3c34136e756744449619281c4b7691b34f0e",
-  "dist/chunks/julia-GGKS2LXE.mjs":
+  "public/chunks/julia-GGKS2LXE.mjs":
     "0bf91cc2165d1df78263b98237be5b6ff7be1457e2a498bb4c8e8109b0f5ca1e",
-  "dist/chunks/qsharp-YDMFLIZD.mjs":
+  "public/chunks/qsharp-YDMFLIZD.mjs":
     "b6b4409f7c9f330ea59c4e045c7ecfabf72d77d8caf3b5ef9a46944946474873",
-  "dist/chunks/azcli-QLUNRANF.mjs":
+  "public/chunks/azcli-QLUNRANF.mjs":
     "2a285b34e6ecfd5568c81fdeb20a524de97e9d949d302bc7de320101f41e8644",
-  "dist/chunks/lua-4XBMVTFQ.mjs":
+  "public/chunks/lua-4XBMVTFQ.mjs":
     "b71d5eee3773c25e749513e94149011fe3e7aba5816fe276496d94250636baac",
-  "dist/chunks/elixir-W46NPTYJ.mjs":
+  "public/chunks/elixir-W46NPTYJ.mjs":
     "e07b3ae54b8ff964ba8ca85b240872e134191998fb27b1acade44ee08817f505",
-  "dist/chunks/prettierEsm-KIK5ML5W.mjs":
+  "public/chunks/prettierEsm-KIK5ML5W.mjs":
     "3f416dff0ae118f933b22ae8b59214f067da79a4dce06b5111497e53fc7b0b0f",
-  "dist/chunks/protobuf-GZWLIKTJ.mjs":
+  "public/chunks/protobuf-GZWLIKTJ.mjs":
     "06c00a147e5fe562fe08a0e082cf813f9efd31e2c995a0d156f552e7cec9bff5",
-  "dist/chunks/ecl-P36SUXQB.mjs":
+  "public/chunks/ecl-P36SUXQB.mjs":
     "3ab5a2ff8184a0770ee563bd8325f0139eb9b12b6bc8a7631cd9dee960047887",
-  "dist/chunks/rust-CJCP3XP2.mjs":
+  "public/chunks/rust-CJCP3XP2.mjs":
     "48820b46cd346b3b352cb2fb11e2b71b6a91ed6335434982806c1be5fd8bb448",
-  "dist/chunks/formatter-GJZUGQ2A.mjs":
+  "public/chunks/formatter-GJZUGQ2A.mjs":
     "c966e8b075c3abec658de0da8c7e7ead003783cfd68cead8f5b2db1ec4699ef2",
-  "dist/chunks/sophia-EWJLA4NC.mjs":
+  "public/chunks/sophia-EWJLA4NC.mjs":
     "419d6d7d148ad03176131f6d0e41b13c111dcc6c1cf7ca071539090f6f0d8703",
-  "dist/chunks/chunk-AH6KKUH7.mjs":
+  "public/chunks/chunk-AH6KKUH7.mjs":
     "5ccd3c45620f094ae4e80870da0a63626aea7c1d100a16e09572a13a31aaaead",
-  "dist/chunks/handlebars-ENIPTYHT.mjs":
+  "public/chunks/handlebars-ENIPTYHT.mjs":
     "b444d776dbcd17a70938fdb433b5b988d30c446a7db20da6a7d64b2475696361",
-  "dist/chunks/systemverilog-6HE57IU4.mjs":
+  "public/chunks/systemverilog-6HE57IU4.mjs":
     "8ef724f779c9a11b0dacf9853e009424808c782c84310fe9eb2096e80085825e",
-  "dist/chunks/cpp-2K35256B.mjs":
+  "public/chunks/cpp-2K35256B.mjs":
     "90ef34fbebb4ee4415846e882ed442e7dedaa5fa6cd0dfcb02de4823a35be334",
-  "dist/chunks/powershell-WYHXLCWK.mjs":
+  "public/chunks/powershell-WYHXLCWK.mjs":
     "1dd845802fb57f2d2de87fa8ab8d8a3d07b47c44054f2646efacb463bfa99f4a",
-  "dist/chunks/cssMode-3BBE2MIL.mjs":
+  "public/chunks/cssMode-3BBE2MIL.mjs":
     "f7add85573700df74f094cbdd4123a7be4a84e185b1cf93f326a8fc35f58cf05",
-  "dist/chunks/pla-HUMLE5VY.mjs":
+  "public/chunks/pla-HUMLE5VY.mjs":
     "31253cae0ac0e1fb8195af4926fc0ffd3eb37a5f032d4fedc6155582f5ca5ec3",
-  "dist/chunks/go-PWS6H4OD.mjs":
+  "public/chunks/go-PWS6H4OD.mjs":
     "dc9d7334114d7df47428513a63ee5b47f6afe94faa9c234e76fd75a10ba24604",
-  "dist/chunks/hcl-M3SO6DY3.mjs":
+  "public/chunks/hcl-M3SO6DY3.mjs":
     "4a8e9ab8b2cab22b267ea0fb28b26f0e8acd09d39a005d3615eb81321a24b0cb",
-  "dist/chunks/babelEsm-DUT6YDVL.mjs":
+  "public/chunks/babelEsm-DUT6YDVL.mjs":
     "07cb446d19c5a9bdca506be74113136859df6a8672b4952da8e41ece9dbb2345",
-  "dist/chunks/r-4OCUVCRR.mjs":
+  "public/chunks/r-4OCUVCRR.mjs":
     "4c899708da2ae5c49d537e6405f4e599ce037f69da0cc8c8117b1d94c38f2fd0",
-  "dist/chunks/pgsql-XOAP2GZY.mjs":
+  "public/chunks/pgsql-XOAP2GZY.mjs":
     "5c21efe76e2a0ee3df12ecc31c5f98a95d6ace903ee5fd8033f73897058829dc",
-  "dist/chunks/st-3B7CJ2H6.mjs":
+  "public/chunks/st-3B7CJ2H6.mjs":
     "f750403d9112138b694a9a5c3e0c70ea4cc671223b13654201b974222e95d2a6",
-  "dist/chunks/editor-7VCTGUZN.mjs":
+  "public/chunks/editor-7VCTGUZN.mjs":
     "9b0fa9a9c1ec7ea49376aa4d2533a7dad69e5c39babe8bf15aca787afff956ad",
-  "dist/chunks/abap-S3OEKAT5.mjs":
+  "public/chunks/abap-S3OEKAT5.mjs":
     "636c890e59a8cf5c362a0158b28cc7c3e4599ae76a01132da620c2654a97f30a",
-  "dist/chunks/html-MPLACHCC.mjs":
+  "public/chunks/html-MPLACHCC.mjs":
     "19b1e5067bcb66a701285e382402d97acfd5cae8770089aa532b246a79fe7462",
-  "dist/chunks/bat-YXSQRZ62.mjs":
+  "public/chunks/bat-YXSQRZ62.mjs":
     "831a257e06d0730373e5ffa9aaf9e039c90aa7a4e6659ffab70377eddba4ccf5",
-  "dist/chunks/mysql-UZJQDP7Q.mjs":
+  "public/chunks/mysql-UZJQDP7Q.mjs":
     "764b350052ba82b3e0be106ba3eabdf5ff0f92f5e98ebb8493f77a68496729a2",
-  "dist/chunks/csp-VQFYXPUC.mjs":
+  "public/chunks/csp-VQFYXPUC.mjs":
     "af8e890e81accfea50f5bc7f488ab682564f936669dedef84871da1d0b8e26e7",
-  "dist/chunks/sb-MBCSCWTV.mjs":
+  "public/chunks/sb-MBCSCWTV.mjs":
     "06c78509d6f81d432573cd1682dac585ac156a4959ba79be75a2f3d70a9b2098",
-  "dist/chunks/kotlin-LOW7LZAE.mjs":
+  "public/chunks/kotlin-LOW7LZAE.mjs":
     "9f40d2c7bdb1c889655233d017cdf26852f501d902a46e5054b0d4ff1f1de5c6",
-  "dist/chunks/chunk-YCBSXGWT.mjs":
+  "public/chunks/chunk-YCBSXGWT.mjs":
     "1092610d422c4a57e6960ae4d9df3f4d39e15052bd586295da3a17759ad54381",
-  "dist/starter.mjs":
+  "public/starter.mjs":
     "0c2b59df0de49e7f04da37bbb805080126529144a0e03f2efb5b964ac2e192e0",
-  "dist/workers/language/typescript/ts.worker.js":
+  "public/workers/language/typescript/ts.worker.js":
     "c02db6c0cc751f9166364c5559284b36a3207b0826fcc2af048b8d4b828003b5",
-  "dist/workers/language/typescript/ts.worker.js.LEGAL.txt":
+  "public/workers/language/typescript/ts.worker.js.LEGAL.txt":
     "dafcec8af8c794db298aca93abaec5a4a49bb5ecc9a94ce0c72e9b17da2ebe4c",
-  "dist/workers/editor/editor.worker.js":
+  "public/workers/editor/editor.worker.js":
     "92fc6a63b88b025cb893612c8b504a1db18e99c53abc7875127a268556a9a579",
-  "dist/appStarter.js":
+  "public/appStarter.js":
     "66b4b9225c0ddb0dba99e7f9510417541632bba16eefa32d9381539373b2637f",
-  "dist/framer-motion.mjs":
+  "public/framer-motion.mjs":
     "44dfa6a03f7c458c12c7c61e9088ddd2a1ceb5ebca24c37e97d049fe7ce74fcb",
   "getWorker.mjs":
     "49e0d01e2d851b77e90765982eb663f98658e990807a1cfbe958d10a9fff0a40",

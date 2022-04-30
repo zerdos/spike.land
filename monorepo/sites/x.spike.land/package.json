@@ -5,7 +5,7 @@
   "module": "./public/index.mjs",
   "scripts": {
     "deploy": "wrangler publish",
-    "bundle": "esbuild --bundle --format=esm --minify --tree-shaking=true --loader:.html=text --target=esnext src/index.ts --outfile=dist/index.mjs",
+    "bundle": "esbuild --bundle --format=esm --minify --tree-shaking=true --loader:.html=text --target=esnext src/index.ts --outfile=public/index.mjs",
     "postpublish": "yarn bundle"
   },
   "devDependencies": {

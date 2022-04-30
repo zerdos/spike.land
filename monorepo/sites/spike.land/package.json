@@ -2,15 +2,15 @@
   "name": "@spike.land/code-worker",
   "description": "An edge chat service that runs on Cloudflare Workers using Durable Objects",
   "version": "0.7.643",
-  "main": "dist/index.mjs",
+  "main": "public/index.mjs",
   "type": "module",
-  "module": "dist/index.mjs",
+  "module": "public/index.mjs",
   "private": true,
   "scripts": {
     "dev": "miniflare -m --wrangler-config wrangler.toml --https --host dev.spike.land --port 8080",
     "deploy": "wrangler publish src/index.ts",
     "copy": "rm -rf public && cp -a ../../monorepo/packages/code/js/public/. ./public",
-    "xbuild": "esbuild --bundle --format=esm --loader:.html=text --target=esnext src/index.ts --outfile=dist/index.mjs"
+    "xbuild": "esbuild --bundle --format=esm --loader:.html=text --target=esnext src/index.ts --outfile=public/index.mjs"
   },
   "devDependencies": {
     "@spike.land/cf-npm-site": "^0.7.409",
