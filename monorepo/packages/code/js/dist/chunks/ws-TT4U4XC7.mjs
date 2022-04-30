@@ -63,11 +63,11 @@ var webRtcArray = [];
 var hostname = window.location.hostname || "spike.land";
 var path = location.pathname.split("/");
 var [, prefix, selector, room] = path;
-(prefix === "api" && selector === "room" ? room : `${selector}-${room}`.slice(-12)) || "code-main";
+console.log({ prefix, selector, room });
+var roomName = (prefix === "api" && selector === "room" ? room : `${selector}-${room}`.slice(-12)) || "code-main";
 var user = (self && self.crypto && self.crypto.randomUUID && self.crypto.randomUUID() || v4()).slice(0, 8);
 var wsLastHashCode = 0;
 var webRTCLastSeenHashCode = 0;
-var roomName = "";
 var username = "";
 var lastSeenTimestamp = 0;
 var lastSeenNow = 0;
@@ -176,7 +176,6 @@ async function broadcastCodeChange(sess) {
   }
 }
 async function join(App) {
-  roomName = roomName || room || "code-main";
   if (user) {
     username = user;
   }
@@ -217,7 +216,7 @@ async function join(App) {
       errorText: ""
     };
     const stayFullscreen = location.pathname.endsWith("public");
-    const { quickStart } = await import("./quickStart-MCJCTIVR.mjs");
+    const { quickStart } = await import("./quickStart-27VKO6LB.mjs");
     quickStart(session, roomName, stayFullscreen);
   }
   wsConnection.addEventListener("message", (message) => processWsMessage(message, "ws"));

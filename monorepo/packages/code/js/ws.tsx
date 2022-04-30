@@ -9,10 +9,16 @@ const webRtcArray: (RTCDataChannel & { target: string })[] = [];
 const hostname = window.location.hostname || "spike.land";
 
 const path = location.pathname.split("/");
+
 const [, prefix, selector, room] = path;
-((prefix === "api" && selector === "room")
-  ? room
-  : `${selector}-${room}`.slice(-12)) || "code-main";
+
+console.log({ prefix, selector, room });
+
+const roomName =
+  ((prefix === "api" && selector === "room")
+    ? room
+    : `${selector}-${room}`.slice(-12)) || "code-main";
+
 const user = ((self && self.crypto && self.crypto.randomUUID &&
   self.crypto.randomUUID()) || (uidV4())).slice(
     0,
@@ -21,7 +27,6 @@ const user = ((self && self.crypto && self.crypto.randomUUID &&
 
 let wsLastHashCode = 0;
 let webRTCLastSeenHashCode = 0;
-let roomName = "";
 let username = "";
 let lastSeenTimestamp = 0;
 let lastSeenNow = 0;
@@ -173,8 +178,6 @@ async function broadcastCodeChange(sess: ICodeSession) {
 }
 
 export async function join(App: ReactFragment) {
-  roomName = roomName || room || "code-main";
-
   if (user) {
     username = user;
   }
