@@ -1,4 +1,8 @@
 import {
+  emotion_cache_browser_esm_default,
+  emotion_memoize_browser_esm_default
+} from "./chunk-AQGKM5PG.mjs";
+import {
   __commonJS,
   __toESM
 } from "./chunk-BZTAI3VG.mjs";
@@ -1015,13 +1019,13 @@ function debounce(func, wait = 166) {
 import * as React from "https://spike.land/dist/react.mjs";
 
 // ../../node_modules/@mui/utils/esm/ownerDocument.js
-function ownerDocument(node2) {
-  return node2 && node2.ownerDocument || document;
+function ownerDocument(node) {
+  return node && node.ownerDocument || document;
 }
 
 // ../../node_modules/@mui/utils/esm/ownerWindow.js
-function ownerWindow(node2) {
-  const doc = ownerDocument(node2);
+function ownerWindow(node) {
+  const doc = ownerDocument(node);
   return doc.defaultView || window;
 }
 
@@ -1142,18 +1146,18 @@ var inputTypesWhitelist = {
   datetime: true,
   "datetime-local": true
 };
-function focusTriggersKeyboardModality(node2) {
+function focusTriggersKeyboardModality(node) {
   const {
     type,
     tagName
-  } = node2;
-  if (tagName === "INPUT" && inputTypesWhitelist[type] && !node2.readOnly) {
+  } = node;
+  if (tagName === "INPUT" && inputTypesWhitelist[type] && !node.readOnly) {
     return true;
   }
-  if (tagName === "TEXTAREA" && !node2.readOnly) {
+  if (tagName === "TEXTAREA" && !node.readOnly) {
     return true;
   }
-  if (node2.isContentEditable) {
+  if (node.isContentEditable) {
     return true;
   }
   return false;
@@ -1192,9 +1196,9 @@ function isFocusVisible(event) {
   return hadKeyboardEvent || focusTriggersKeyboardModality(target);
 }
 function useIsFocusVisible() {
-  const ref = React7.useCallback((node2) => {
-    if (node2 != null) {
-      prepare(node2.ownerDocument);
+  const ref = React7.useCallback((node) => {
+    if (node != null) {
+      prepare(node.ownerDocument);
     }
   }, []);
   const isFocusVisibleRef = React7.useRef(false);
@@ -1326,14 +1330,14 @@ function createFilterOptions(config = {}) {
     ignoreCase = true,
     limit,
     matchFrom = "any",
-    stringify: stringify2,
-    trim: trim2 = false
+    stringify,
+    trim = false
   } = config;
   return (options, {
     inputValue,
     getOptionLabel
   }) => {
-    let input = trim2 ? inputValue.trim() : inputValue;
+    let input = trim ? inputValue.trim() : inputValue;
     if (ignoreCase) {
       input = input.toLowerCase();
     }
@@ -1341,7 +1345,7 @@ function createFilterOptions(config = {}) {
       input = stripDiacritics(input);
     }
     const filteredOptions = options.filter((option) => {
-      let candidate = (stringify2 || getOptionLabel)(option);
+      let candidate = (stringify || getOptionLabel)(option);
       if (ignoreCase) {
         candidate = candidate.toLowerCase();
       }
@@ -3197,32 +3201,32 @@ function getNodeName(element) {
 }
 
 // ../../node_modules/@popperjs/core/lib/dom-utils/getWindow.js
-function getWindow(node2) {
-  if (node2 == null) {
+function getWindow(node) {
+  if (node == null) {
     return window;
   }
-  if (node2.toString() !== "[object Window]") {
-    var ownerDocument2 = node2.ownerDocument;
+  if (node.toString() !== "[object Window]") {
+    var ownerDocument2 = node.ownerDocument;
     return ownerDocument2 ? ownerDocument2.defaultView || window : window;
   }
-  return node2;
+  return node;
 }
 
 // ../../node_modules/@popperjs/core/lib/dom-utils/instanceOf.js
-function isElement(node2) {
-  var OwnElement = getWindow(node2).Element;
-  return node2 instanceof OwnElement || node2 instanceof Element;
+function isElement(node) {
+  var OwnElement = getWindow(node).Element;
+  return node instanceof OwnElement || node instanceof Element;
 }
-function isHTMLElement(node2) {
-  var OwnElement = getWindow(node2).HTMLElement;
-  return node2 instanceof OwnElement || node2 instanceof HTMLElement;
+function isHTMLElement(node) {
+  var OwnElement = getWindow(node).HTMLElement;
+  return node instanceof OwnElement || node instanceof HTMLElement;
 }
-function isShadowRoot(node2) {
+function isShadowRoot(node) {
   if (typeof ShadowRoot === "undefined") {
     return false;
   }
-  var OwnElement = getWindow(node2).ShadowRoot;
-  return node2 instanceof OwnElement || node2 instanceof ShadowRoot;
+  var OwnElement = getWindow(node).ShadowRoot;
+  return node instanceof OwnElement || node instanceof ShadowRoot;
 }
 
 // ../../node_modules/@popperjs/core/lib/modifiers/applyStyles.js
@@ -3358,13 +3362,13 @@ function contains(parent, child) {
   if (parent.contains(child)) {
     return true;
   } else if (rootNode && isShadowRoot(rootNode)) {
-    var next2 = child;
+    var next = child;
     do {
-      if (next2 && parent.isSameNode(next2)) {
+      if (next && parent.isSameNode(next)) {
         return true;
       }
-      next2 = next2.parentNode || next2.host;
-    } while (next2);
+      next = next.parentNode || next.host;
+    } while (next);
   }
   return false;
 }
@@ -3564,7 +3568,7 @@ function roundOffsetsByDPR(_ref) {
 }
 function mapToStyles(_ref2) {
   var _Object$assign2;
-  var popper2 = _ref2.popper, popperRect = _ref2.popperRect, placement = _ref2.placement, variation = _ref2.variation, offsets = _ref2.offsets, position3 = _ref2.position, gpuAcceleration = _ref2.gpuAcceleration, adaptive = _ref2.adaptive, roundOffsets = _ref2.roundOffsets, isFixed = _ref2.isFixed;
+  var popper2 = _ref2.popper, popperRect = _ref2.popperRect, placement = _ref2.placement, variation = _ref2.variation, offsets = _ref2.offsets, position2 = _ref2.position, gpuAcceleration = _ref2.gpuAcceleration, adaptive = _ref2.adaptive, roundOffsets = _ref2.roundOffsets, isFixed = _ref2.isFixed;
   var _offsets$x = offsets.x, x2 = _offsets$x === void 0 ? 0 : _offsets$x, _offsets$y = offsets.y, y2 = _offsets$y === void 0 ? 0 : _offsets$y;
   var _ref3 = typeof roundOffsets === "function" ? roundOffsets({
     x: x2,
@@ -3586,7 +3590,7 @@ function mapToStyles(_ref2) {
     var widthProp = "clientWidth";
     if (offsetParent === getWindow(popper2)) {
       offsetParent = getDocumentElement(popper2);
-      if (getComputedStyle(offsetParent).position !== "static" && position3 === "absolute") {
+      if (getComputedStyle(offsetParent).position !== "static" && position2 === "absolute") {
         heightProp = "scrollHeight";
         widthProp = "scrollWidth";
       }
@@ -3606,7 +3610,7 @@ function mapToStyles(_ref2) {
     }
   }
   var commonStyles = Object.assign({
-    position: position3
+    position: position2
   }, adaptive && unsetSides);
   var _ref4 = roundOffsets === true ? roundOffsetsByDPR({
     x: x2,
@@ -3733,8 +3737,8 @@ function getOppositeVariationPlacement(placement) {
 }
 
 // ../../node_modules/@popperjs/core/lib/dom-utils/getWindowScroll.js
-function getWindowScroll(node2) {
-  var win = getWindow(node2);
+function getWindowScroll(node) {
+  var win = getWindow(node);
   var scrollLeft = win.pageXOffset;
   var scrollTop = win.pageYOffset;
   return {
@@ -3801,14 +3805,14 @@ function isScrollParent(element) {
 }
 
 // ../../node_modules/@popperjs/core/lib/dom-utils/getScrollParent.js
-function getScrollParent(node2) {
-  if (["html", "body", "#document"].indexOf(getNodeName(node2)) >= 0) {
-    return node2.ownerDocument.body;
+function getScrollParent(node) {
+  if (["html", "body", "#document"].indexOf(getNodeName(node)) >= 0) {
+    return node.ownerDocument.body;
   }
-  if (isHTMLElement(node2) && isScrollParent(node2)) {
-    return node2;
+  if (isHTMLElement(node) && isScrollParent(node)) {
+    return node;
   }
-  return getScrollParent(getParentNode(node2));
+  return getScrollParent(getParentNode(node));
 }
 
 // ../../node_modules/@popperjs/core/lib/dom-utils/listScrollParents.js
@@ -4331,11 +4335,11 @@ function getHTMLElementScroll(element) {
 }
 
 // ../../node_modules/@popperjs/core/lib/dom-utils/getNodeScroll.js
-function getNodeScroll(node2) {
-  if (node2 === getWindow(node2) || !isHTMLElement(node2)) {
-    return getWindowScroll(node2);
+function getNodeScroll(node) {
+  if (node === getWindow(node) || !isHTMLElement(node)) {
+    return getWindowScroll(node);
   } else {
-    return getHTMLElementScroll(node2);
+    return getHTMLElementScroll(node);
   }
 }
 
@@ -5215,8 +5219,8 @@ function handleContainer(containerInfo, props) {
         el: container
       });
       container.style.paddingRight = `${getPaddingRight(container) + scrollbarSize}px`;
-      const fixedElements2 = ownerDocument(container).querySelectorAll(".mui-fixed");
-      [].forEach.call(fixedElements2, (element) => {
+      const fixedElements = ownerDocument(container).querySelectorAll(".mui-fixed");
+      [].forEach.call(fixedElements, (element) => {
         restoreStyle.push({
           value: element.style.paddingRight,
           property: "padding-right",
@@ -5341,32 +5345,32 @@ var ModalManager = class {
 var import_prop_types13 = __toESM(require_prop_types());
 import * as React28 from "https://spike.land/dist/react.mjs";
 var candidatesSelector = ["input", "select", "textarea", "a[href]", "button", "[tabindex]", "audio[controls]", "video[controls]", '[contenteditable]:not([contenteditable="false"])'].join(",");
-function getTabIndex(node2) {
-  const tabindexAttr = parseInt(node2.getAttribute("tabindex"), 10);
+function getTabIndex(node) {
+  const tabindexAttr = parseInt(node.getAttribute("tabindex"), 10);
   if (!Number.isNaN(tabindexAttr)) {
     return tabindexAttr;
   }
-  if (node2.contentEditable === "true" || (node2.nodeName === "AUDIO" || node2.nodeName === "VIDEO" || node2.nodeName === "DETAILS") && node2.getAttribute("tabindex") === null) {
+  if (node.contentEditable === "true" || (node.nodeName === "AUDIO" || node.nodeName === "VIDEO" || node.nodeName === "DETAILS") && node.getAttribute("tabindex") === null) {
     return 0;
   }
-  return node2.tabIndex;
+  return node.tabIndex;
 }
-function isNonTabbableRadio(node2) {
-  if (node2.tagName !== "INPUT" || node2.type !== "radio") {
+function isNonTabbableRadio(node) {
+  if (node.tagName !== "INPUT" || node.type !== "radio") {
     return false;
   }
-  if (!node2.name) {
+  if (!node.name) {
     return false;
   }
-  const getRadio = (selector) => node2.ownerDocument.querySelector(`input[type="radio"]${selector}`);
-  let roving = getRadio(`[name="${node2.name}"]:checked`);
+  const getRadio = (selector) => node.ownerDocument.querySelector(`input[type="radio"]${selector}`);
+  let roving = getRadio(`[name="${node.name}"]:checked`);
   if (!roving) {
-    roving = getRadio(`[name="${node2.name}"]`);
+    roving = getRadio(`[name="${node.name}"]`);
   }
-  return roving !== node2;
+  return roving !== node;
 }
-function isNodeMatchingSelectorFocusable(node2) {
-  if (node2.disabled || node2.tagName === "INPUT" && node2.type === "hidden" || isNonTabbableRadio(node2)) {
+function isNodeMatchingSelectorFocusable(node) {
+  if (node.disabled || node.tagName === "INPUT" && node.type === "hidden" || isNonTabbableRadio(node)) {
     return false;
   }
   return true;
@@ -5374,18 +5378,18 @@ function isNodeMatchingSelectorFocusable(node2) {
 function defaultGetTabbable(root) {
   const regularTabNodes = [];
   const orderedTabNodes = [];
-  Array.from(root.querySelectorAll(candidatesSelector)).forEach((node2, i2) => {
-    const nodeTabIndex = getTabIndex(node2);
-    if (nodeTabIndex === -1 || !isNodeMatchingSelectorFocusable(node2)) {
+  Array.from(root.querySelectorAll(candidatesSelector)).forEach((node, i2) => {
+    const nodeTabIndex = getTabIndex(node);
+    if (nodeTabIndex === -1 || !isNodeMatchingSelectorFocusable(node)) {
       return;
     }
     if (nodeTabIndex === 0) {
-      regularTabNodes.push(node2);
+      regularTabNodes.push(node);
     } else {
       orderedTabNodes.push({
         documentOrder: i2,
         tabIndex: nodeTabIndex,
-        node: node2
+        node
       });
     }
   });
@@ -5641,9 +5645,9 @@ var ModalUnstyled = React29.forwardRef(function ModalUnstyled2(props, ref) {
     }
   });
   const isTopModal = React29.useCallback(() => manager.isTopModal(getModal()), [manager]);
-  const handlePortalRef = useEventCallback((node2) => {
-    mountNodeRef.current = node2;
-    if (!node2) {
+  const handlePortalRef = useEventCallback((node) => {
+    mountNodeRef.current = node;
+    if (!node) {
       return;
     }
     if (open && isTopModal()) {
@@ -5810,13 +5814,13 @@ function getOptionsFromChildren(children2) {
     return [];
   }
   const selectChildren = [];
-  React30.Children.forEach(children2, (node2) => {
+  React30.Children.forEach(children2, (node) => {
     var _props, _props2, _element$props$disabl2;
-    const nodeChildren = node2 == null ? void 0 : (_props = node2.props) == null ? void 0 : _props.children;
-    if ((node2 == null ? void 0 : (_props2 = node2.props) == null ? void 0 : _props2.value) === void 0) {
+    const nodeChildren = node == null ? void 0 : (_props = node.props) == null ? void 0 : _props.children;
+    if ((node == null ? void 0 : (_props2 = node.props) == null ? void 0 : _props2.value) === void 0) {
       if (nodeChildren != null) {
         var _element$props$disabl;
-        const element2 = node2;
+        const element2 = node;
         const group = {
           options: getOptionsFromChildren(nodeChildren),
           label: element2.props.label,
@@ -5826,7 +5830,7 @@ function getOptionsFromChildren(children2) {
       }
       return;
     }
-    const element = node2;
+    const element = node;
     const option = {
       value: element.props.value,
       label: element.props.label || element.props.children,
@@ -8405,17 +8409,6 @@ import * as React70 from "https://spike.land/dist/react.mjs";
 // ../../node_modules/@emotion/styled/dist/emotion-styled.browser.esm.js
 import "https://spike.land/dist/react.mjs";
 
-// ../../node_modules/@emotion/memoize/dist/emotion-memoize.browser.esm.js
-function memoize(fn2) {
-  var cache2 = /* @__PURE__ */ Object.create(null);
-  return function(arg) {
-    if (cache2[arg] === void 0)
-      cache2[arg] = fn2(arg);
-    return cache2[arg];
-  };
-}
-var emotion_memoize_browser_esm_default = memoize;
-
 // ../../node_modules/@emotion/is-prop-valid/dist/emotion-is-prop-valid.browser.esm.js
 var reactPropsRegex = /^((children|dangerouslySetInnerHTML|key|ref|autoFocus|defaultValue|defaultChecked|innerHTML|suppressContentEditableWarning|suppressHydrationWarning|valueLink|abbr|accept|acceptCharset|accessKey|action|allow|allowUserMedia|allowPaymentRequest|allowFullScreen|allowTransparency|alt|async|autoComplete|autoPlay|capture|cellPadding|cellSpacing|challenge|charSet|checked|cite|classID|className|cols|colSpan|content|contentEditable|contextMenu|controls|controlsList|coords|crossOrigin|data|dateTime|decoding|default|defer|dir|disabled|disablePictureInPicture|download|draggable|encType|enterKeyHint|form|formAction|formEncType|formMethod|formNoValidate|formTarget|frameBorder|headers|height|hidden|high|href|hrefLang|htmlFor|httpEquiv|id|inputMode|integrity|is|keyParams|keyType|kind|label|lang|list|loading|loop|low|marginHeight|marginWidth|max|maxLength|media|mediaGroup|method|min|minLength|multiple|muted|name|nonce|noValidate|open|optimum|pattern|placeholder|playsInline|poster|preload|profile|radioGroup|readOnly|referrerPolicy|rel|required|reversed|role|rows|rowSpan|sandbox|scope|scoped|scrolling|seamless|selected|shape|size|sizes|slot|span|spellCheck|src|srcDoc|srcLang|srcSet|start|step|style|summary|tabIndex|target|title|translate|type|useMap|value|width|wmode|wrap|about|datatype|inlist|prefix|property|resource|typeof|vocab|autoCapitalize|autoCorrect|autoSave|color|incremental|fallback|inert|itemProp|itemScope|itemType|itemID|itemRef|on|option|results|security|unselectable|accentHeight|accumulate|additive|alignmentBaseline|allowReorder|alphabetic|amplitude|arabicForm|ascent|attributeName|attributeType|autoReverse|azimuth|baseFrequency|baselineShift|baseProfile|bbox|begin|bias|by|calcMode|capHeight|clip|clipPathUnits|clipPath|clipRule|colorInterpolation|colorInterpolationFilters|colorProfile|colorRendering|contentScriptType|contentStyleType|cursor|cx|cy|d|decelerate|descent|diffuseConstant|direction|display|divisor|dominantBaseline|dur|dx|dy|edgeMode|elevation|enableBackground|end|exponent|externalResourcesRequired|fill|fillOpacity|fillRule|filter|filterRes|filterUnits|floodColor|floodOpacity|focusable|fontFamily|fontSize|fontSizeAdjust|fontStretch|fontStyle|fontVariant|fontWeight|format|from|fr|fx|fy|g1|g2|glyphName|glyphOrientationHorizontal|glyphOrientationVertical|glyphRef|gradientTransform|gradientUnits|hanging|horizAdvX|horizOriginX|ideographic|imageRendering|in|in2|intercept|k|k1|k2|k3|k4|kernelMatrix|kernelUnitLength|kerning|keyPoints|keySplines|keyTimes|lengthAdjust|letterSpacing|lightingColor|limitingConeAngle|local|markerEnd|markerMid|markerStart|markerHeight|markerUnits|markerWidth|mask|maskContentUnits|maskUnits|mathematical|mode|numOctaves|offset|opacity|operator|order|orient|orientation|origin|overflow|overlinePosition|overlineThickness|panose1|paintOrder|pathLength|patternContentUnits|patternTransform|patternUnits|pointerEvents|points|pointsAtX|pointsAtY|pointsAtZ|preserveAlpha|preserveAspectRatio|primitiveUnits|r|radius|refX|refY|renderingIntent|repeatCount|repeatDur|requiredExtensions|requiredFeatures|restart|result|rotate|rx|ry|scale|seed|shapeRendering|slope|spacing|specularConstant|specularExponent|speed|spreadMethod|startOffset|stdDeviation|stemh|stemv|stitchTiles|stopColor|stopOpacity|strikethroughPosition|strikethroughThickness|string|stroke|strokeDasharray|strokeDashoffset|strokeLinecap|strokeLinejoin|strokeMiterlimit|strokeOpacity|strokeWidth|surfaceScale|systemLanguage|tableValues|targetX|targetY|textAnchor|textDecoration|textRendering|textLength|to|transform|u1|u2|underlinePosition|underlineThickness|unicode|unicodeBidi|unicodeRange|unitsPerEm|vAlphabetic|vHanging|vIdeographic|vMathematical|values|vectorEffect|version|vertAdvY|vertOriginX|vertOriginY|viewBox|viewTarget|visibility|widths|wordSpacing|writingMode|x|xHeight|x1|x2|xChannelSelector|xlinkActuate|xlinkArcrole|xlinkHref|xlinkRole|xlinkShow|xlinkTitle|xlinkType|xmlBase|xmlns|xmlnsXlink|xmlLang|xmlSpace|y|y1|y2|yChannelSelector|z|zoomAndPan|for|class|autofocus)|(([Dd][Aa][Tt][Aa]|[Aa][Rr][Ii][Aa]|x)-.*))$/;
 var isPropValid = emotion_memoize_browser_esm_default(function(prop) {
@@ -8551,7 +8544,7 @@ var processStyleValue = function processStyleValue2(key, value) {
     case "animation":
     case "animationName": {
       if (typeof value === "string") {
-        return value.replace(animationRegex, function(match2, p1, p2) {
+        return value.replace(animationRegex, function(match, p1, p2) {
           cursor = {
             name: p1,
             styles: p2,
@@ -8620,15 +8613,15 @@ function handleInterpolation(mergedProps, registered, interpolation) {
         return interpolation.name;
       }
       if (interpolation.styles !== void 0) {
-        var next2 = interpolation.next;
-        if (next2 !== void 0) {
-          while (next2 !== void 0) {
+        var next = interpolation.next;
+        if (next !== void 0) {
+          while (next !== void 0) {
             cursor = {
-              name: next2.name,
-              styles: next2.styles,
+              name: next.name,
+              styles: next.styles,
               next: cursor
             };
-            next2 = next2.next;
+            next = next.next;
           }
         }
         var styles2 = interpolation.styles + ";";
@@ -8653,7 +8646,7 @@ function handleInterpolation(mergedProps, registered, interpolation) {
     case "string":
       if (false) {
         var matched = [];
-        var replaced = interpolation.replace(animationRegex, function(match2, p1, p2) {
+        var replaced = interpolation.replace(animationRegex, function(match, p1, p2) {
           var fakeVarName = "animation" + matched.length;
           matched.push("const " + fakeVarName + " = keyframes`" + p2.replace(/^@keyframes animation-\w+/, "") + "`");
           return "${" + fakeVarName + "}";
@@ -8749,16 +8742,16 @@ var serializeStyles = function serializeStyles2(args, registered, mergedProps) {
   }
   var sourceMap;
   if (false) {
-    styles2 = styles2.replace(sourceMapPattern, function(match3) {
-      sourceMap = match3;
+    styles2 = styles2.replace(sourceMapPattern, function(match2) {
+      sourceMap = match2;
       return "";
     });
   }
   labelPattern.lastIndex = 0;
   var identifierName = "";
-  var match2;
-  while ((match2 = labelPattern.exec(styles2)) !== null) {
-    identifierName += "-" + match2[1];
+  var match;
+  while ((match = labelPattern.exec(styles2)) !== null) {
+    identifierName += "-" + match[1];
   }
   var name = hash_browser_esm_default(styles2) + identifierName;
   if (false) {
@@ -9067,771 +9060,6 @@ import { ThemeContext as ThemeContext2, keyframes, css } from "https://spike.lan
 var import_prop_types28 = __toESM(require_prop_types());
 import * as React52 from "https://spike.land/dist/react.mjs";
 import { CacheProvider } from "https://spike.land/dist/emotion.mjs";
-
-// ../../node_modules/@emotion/sheet/dist/emotion-sheet.browser.esm.js
-function sheetForTag(tag) {
-  if (tag.sheet) {
-    return tag.sheet;
-  }
-  for (var i2 = 0; i2 < document.styleSheets.length; i2++) {
-    if (document.styleSheets[i2].ownerNode === tag) {
-      return document.styleSheets[i2];
-    }
-  }
-}
-function createStyleElement(options) {
-  var tag = document.createElement("style");
-  tag.setAttribute("data-emotion", options.key);
-  if (options.nonce !== void 0) {
-    tag.setAttribute("nonce", options.nonce);
-  }
-  tag.appendChild(document.createTextNode(""));
-  tag.setAttribute("data-s", "");
-  return tag;
-}
-var StyleSheet = function() {
-  function StyleSheet2(options) {
-    var _this = this;
-    this._insertTag = function(tag) {
-      var before;
-      if (_this.tags.length === 0) {
-        if (_this.insertionPoint) {
-          before = _this.insertionPoint.nextSibling;
-        } else if (_this.prepend) {
-          before = _this.container.firstChild;
-        } else {
-          before = _this.before;
-        }
-      } else {
-        before = _this.tags[_this.tags.length - 1].nextSibling;
-      }
-      _this.container.insertBefore(tag, before);
-      _this.tags.push(tag);
-    };
-    this.isSpeedy = options.speedy === void 0 ? true : options.speedy;
-    this.tags = [];
-    this.ctr = 0;
-    this.nonce = options.nonce;
-    this.key = options.key;
-    this.container = options.container;
-    this.prepend = options.prepend;
-    this.insertionPoint = options.insertionPoint;
-    this.before = null;
-  }
-  var _proto = StyleSheet2.prototype;
-  _proto.hydrate = function hydrate(nodes) {
-    nodes.forEach(this._insertTag);
-  };
-  _proto.insert = function insert(rule) {
-    if (this.ctr % (this.isSpeedy ? 65e3 : 1) === 0) {
-      this._insertTag(createStyleElement(this));
-    }
-    var tag = this.tags[this.tags.length - 1];
-    if (false) {
-      var isImportRule = rule.charCodeAt(0) === 64 && rule.charCodeAt(1) === 105;
-      if (isImportRule && this._alreadyInsertedOrderInsensitiveRule) {
-        console.error("You're attempting to insert the following rule:\n" + rule + "\n\n`@import` rules must be before all other types of rules in a stylesheet but other rules have already been inserted. Please ensure that `@import` rules are before all other rules.");
-      }
-      this._alreadyInsertedOrderInsensitiveRule = this._alreadyInsertedOrderInsensitiveRule || !isImportRule;
-    }
-    if (this.isSpeedy) {
-      var sheet = sheetForTag(tag);
-      try {
-        sheet.insertRule(rule, sheet.cssRules.length);
-      } catch (e3) {
-        if (false) {
-          console.error('There was a problem inserting the following rule: "' + rule + '"', e3);
-        }
-      }
-    } else {
-      tag.appendChild(document.createTextNode(rule));
-    }
-    this.ctr++;
-  };
-  _proto.flush = function flush() {
-    this.tags.forEach(function(tag) {
-      return tag.parentNode && tag.parentNode.removeChild(tag);
-    });
-    this.tags = [];
-    this.ctr = 0;
-    if (false) {
-      this._alreadyInsertedOrderInsensitiveRule = false;
-    }
-  };
-  return StyleSheet2;
-}();
-
-// ../../node_modules/stylis/src/Enum.js
-var MS = "-ms-";
-var MOZ = "-moz-";
-var WEBKIT = "-webkit-";
-var COMMENT = "comm";
-var RULESET = "rule";
-var DECLARATION = "decl";
-var IMPORT = "@import";
-var KEYFRAMES = "@keyframes";
-
-// ../../node_modules/stylis/src/Utility.js
-var abs = Math.abs;
-var from = String.fromCharCode;
-var assign = Object.assign;
-function hash3(value, length2) {
-  return (((length2 << 2 ^ charat(value, 0)) << 2 ^ charat(value, 1)) << 2 ^ charat(value, 2)) << 2 ^ charat(value, 3);
-}
-function trim(value) {
-  return value.trim();
-}
-function match(value, pattern) {
-  return (value = pattern.exec(value)) ? value[0] : value;
-}
-function replace(value, pattern, replacement) {
-  return value.replace(pattern, replacement);
-}
-function indexof(value, search) {
-  return value.indexOf(search);
-}
-function charat(value, index) {
-  return value.charCodeAt(index) | 0;
-}
-function substr(value, begin, end2) {
-  return value.slice(begin, end2);
-}
-function strlen(value) {
-  return value.length;
-}
-function sizeof(value) {
-  return value.length;
-}
-function append(value, array) {
-  return array.push(value), value;
-}
-function combine(array, callback) {
-  return array.map(callback).join("");
-}
-
-// ../../node_modules/stylis/src/Tokenizer.js
-var line = 1;
-var column = 1;
-var length = 0;
-var position = 0;
-var character = 0;
-var characters = "";
-function node(value, root, parent, type, props, children2, length2) {
-  return { value, root, parent, type, props, children: children2, line, column, length: length2, return: "" };
-}
-function copy(root, props) {
-  return assign(node("", null, null, "", null, null, 0), root, { length: -root.length }, props);
-}
-function char() {
-  return character;
-}
-function prev() {
-  character = position > 0 ? charat(characters, --position) : 0;
-  if (column--, character === 10)
-    column = 1, line--;
-  return character;
-}
-function next() {
-  character = position < length ? charat(characters, position++) : 0;
-  if (column++, character === 10)
-    column = 1, line++;
-  return character;
-}
-function peek() {
-  return charat(characters, position);
-}
-function caret() {
-  return position;
-}
-function slice(begin, end2) {
-  return substr(characters, begin, end2);
-}
-function token(type) {
-  switch (type) {
-    case 0:
-    case 9:
-    case 10:
-    case 13:
-    case 32:
-      return 5;
-    case 33:
-    case 43:
-    case 44:
-    case 47:
-    case 62:
-    case 64:
-    case 126:
-    case 59:
-    case 123:
-    case 125:
-      return 4;
-    case 58:
-      return 3;
-    case 34:
-    case 39:
-    case 40:
-    case 91:
-      return 2;
-    case 41:
-    case 93:
-      return 1;
-  }
-  return 0;
-}
-function alloc(value) {
-  return line = column = 1, length = strlen(characters = value), position = 0, [];
-}
-function dealloc(value) {
-  return characters = "", value;
-}
-function delimit(type) {
-  return trim(slice(position - 1, delimiter(type === 91 ? type + 2 : type === 40 ? type + 1 : type)));
-}
-function whitespace(type) {
-  while (character = peek())
-    if (character < 33)
-      next();
-    else
-      break;
-  return token(type) > 2 || token(character) > 3 ? "" : " ";
-}
-function escaping(index, count) {
-  while (--count && next())
-    if (character < 48 || character > 102 || character > 57 && character < 65 || character > 70 && character < 97)
-      break;
-  return slice(index, caret() + (count < 6 && peek() == 32 && next() == 32));
-}
-function delimiter(type) {
-  while (next())
-    switch (character) {
-      case type:
-        return position;
-      case 34:
-      case 39:
-        if (type !== 34 && type !== 39)
-          delimiter(character);
-        break;
-      case 40:
-        if (type === 41)
-          delimiter(type);
-        break;
-      case 92:
-        next();
-        break;
-    }
-  return position;
-}
-function commenter(type, index) {
-  while (next())
-    if (type + character === 47 + 10)
-      break;
-    else if (type + character === 42 + 42 && peek() === 47)
-      break;
-  return "/*" + slice(index, position - 1) + "*" + from(type === 47 ? type : next());
-}
-function identifier(index) {
-  while (!token(peek()))
-    next();
-  return slice(index, position);
-}
-
-// ../../node_modules/stylis/src/Parser.js
-function compile(value) {
-  return dealloc(parse("", null, null, null, [""], value = alloc(value), 0, [0], value));
-}
-function parse(value, root, parent, rule, rules, rulesets, pseudo, points, declarations) {
-  var index = 0;
-  var offset2 = 0;
-  var length2 = pseudo;
-  var atrule = 0;
-  var property = 0;
-  var previous = 0;
-  var variable = 1;
-  var scanning = 1;
-  var ampersand = 1;
-  var character2 = 0;
-  var type = "";
-  var props = rules;
-  var children2 = rulesets;
-  var reference2 = rule;
-  var characters2 = type;
-  while (scanning)
-    switch (previous = character2, character2 = next()) {
-      case 40:
-        if (previous != 108 && characters2.charCodeAt(length2 - 1) == 58) {
-          if (indexof(characters2 += replace(delimit(character2), "&", "&\f"), "&\f") != -1)
-            ampersand = -1;
-          break;
-        }
-      case 34:
-      case 39:
-      case 91:
-        characters2 += delimit(character2);
-        break;
-      case 9:
-      case 10:
-      case 13:
-      case 32:
-        characters2 += whitespace(previous);
-        break;
-      case 92:
-        characters2 += escaping(caret() - 1, 7);
-        continue;
-      case 47:
-        switch (peek()) {
-          case 42:
-          case 47:
-            append(comment(commenter(next(), caret()), root, parent), declarations);
-            break;
-          default:
-            characters2 += "/";
-        }
-        break;
-      case 123 * variable:
-        points[index++] = strlen(characters2) * ampersand;
-      case 125 * variable:
-      case 59:
-      case 0:
-        switch (character2) {
-          case 0:
-          case 125:
-            scanning = 0;
-          case 59 + offset2:
-            if (property > 0 && strlen(characters2) - length2)
-              append(property > 32 ? declaration(characters2 + ";", rule, parent, length2 - 1) : declaration(replace(characters2, " ", "") + ";", rule, parent, length2 - 2), declarations);
-            break;
-          case 59:
-            characters2 += ";";
-          default:
-            append(reference2 = ruleset(characters2, root, parent, index, offset2, rules, points, type, props = [], children2 = [], length2), rulesets);
-            if (character2 === 123)
-              if (offset2 === 0)
-                parse(characters2, root, reference2, reference2, props, rulesets, length2, points, children2);
-              else
-                switch (atrule) {
-                  case 100:
-                  case 109:
-                  case 115:
-                    parse(value, reference2, reference2, rule && append(ruleset(value, reference2, reference2, 0, 0, rules, points, type, rules, props = [], length2), children2), rules, children2, length2, points, rule ? props : children2);
-                    break;
-                  default:
-                    parse(characters2, reference2, reference2, reference2, [""], children2, 0, points, children2);
-                }
-        }
-        index = offset2 = property = 0, variable = ampersand = 1, type = characters2 = "", length2 = pseudo;
-        break;
-      case 58:
-        length2 = 1 + strlen(characters2), property = previous;
-      default:
-        if (variable < 1) {
-          if (character2 == 123)
-            --variable;
-          else if (character2 == 125 && variable++ == 0 && prev() == 125)
-            continue;
-        }
-        switch (characters2 += from(character2), character2 * variable) {
-          case 38:
-            ampersand = offset2 > 0 ? 1 : (characters2 += "\f", -1);
-            break;
-          case 44:
-            points[index++] = (strlen(characters2) - 1) * ampersand, ampersand = 1;
-            break;
-          case 64:
-            if (peek() === 45)
-              characters2 += delimit(next());
-            atrule = peek(), offset2 = length2 = strlen(type = characters2 += identifier(caret())), character2++;
-            break;
-          case 45:
-            if (previous === 45 && strlen(characters2) == 2)
-              variable = 0;
-        }
-    }
-  return rulesets;
-}
-function ruleset(value, root, parent, index, offset2, rules, points, type, props, children2, length2) {
-  var post = offset2 - 1;
-  var rule = offset2 === 0 ? rules : [""];
-  var size = sizeof(rule);
-  for (var i2 = 0, j3 = 0, k2 = 0; i2 < index; ++i2)
-    for (var x2 = 0, y2 = substr(value, post + 1, post = abs(j3 = points[i2])), z2 = value; x2 < size; ++x2)
-      if (z2 = trim(j3 > 0 ? rule[x2] + " " + y2 : replace(y2, /&\f/g, rule[x2])))
-        props[k2++] = z2;
-  return node(value, root, parent, offset2 === 0 ? RULESET : type, props, children2, length2);
-}
-function comment(value, root, parent) {
-  return node(value, root, parent, COMMENT, from(char()), substr(value, 2, -2), 0);
-}
-function declaration(value, root, parent, length2) {
-  return node(value, root, parent, DECLARATION, substr(value, 0, length2), substr(value, length2 + 1, -1), length2);
-}
-
-// ../../node_modules/stylis/src/Prefixer.js
-function prefix(value, length2) {
-  switch (hash3(value, length2)) {
-    case 5103:
-      return WEBKIT + "print-" + value + value;
-    case 5737:
-    case 4201:
-    case 3177:
-    case 3433:
-    case 1641:
-    case 4457:
-    case 2921:
-    case 5572:
-    case 6356:
-    case 5844:
-    case 3191:
-    case 6645:
-    case 3005:
-    case 6391:
-    case 5879:
-    case 5623:
-    case 6135:
-    case 4599:
-    case 4855:
-    case 4215:
-    case 6389:
-    case 5109:
-    case 5365:
-    case 5621:
-    case 3829:
-      return WEBKIT + value + value;
-    case 5349:
-    case 4246:
-    case 4810:
-    case 6968:
-    case 2756:
-      return WEBKIT + value + MOZ + value + MS + value + value;
-    case 6828:
-    case 4268:
-      return WEBKIT + value + MS + value + value;
-    case 6165:
-      return WEBKIT + value + MS + "flex-" + value + value;
-    case 5187:
-      return WEBKIT + value + replace(value, /(\w+).+(:[^]+)/, WEBKIT + "box-$1$2" + MS + "flex-$1$2") + value;
-    case 5443:
-      return WEBKIT + value + MS + "flex-item-" + replace(value, /flex-|-self/, "") + value;
-    case 4675:
-      return WEBKIT + value + MS + "flex-line-pack" + replace(value, /align-content|flex-|-self/, "") + value;
-    case 5548:
-      return WEBKIT + value + MS + replace(value, "shrink", "negative") + value;
-    case 5292:
-      return WEBKIT + value + MS + replace(value, "basis", "preferred-size") + value;
-    case 6060:
-      return WEBKIT + "box-" + replace(value, "-grow", "") + WEBKIT + value + MS + replace(value, "grow", "positive") + value;
-    case 4554:
-      return WEBKIT + replace(value, /([^-])(transform)/g, "$1" + WEBKIT + "$2") + value;
-    case 6187:
-      return replace(replace(replace(value, /(zoom-|grab)/, WEBKIT + "$1"), /(image-set)/, WEBKIT + "$1"), value, "") + value;
-    case 5495:
-    case 3959:
-      return replace(value, /(image-set\([^]*)/, WEBKIT + "$1$`$1");
-    case 4968:
-      return replace(replace(value, /(.+:)(flex-)?(.*)/, WEBKIT + "box-pack:$3" + MS + "flex-pack:$3"), /s.+-b[^;]+/, "justify") + WEBKIT + value + value;
-    case 4095:
-    case 3583:
-    case 4068:
-    case 2532:
-      return replace(value, /(.+)-inline(.+)/, WEBKIT + "$1$2") + value;
-    case 8116:
-    case 7059:
-    case 5753:
-    case 5535:
-    case 5445:
-    case 5701:
-    case 4933:
-    case 4677:
-    case 5533:
-    case 5789:
-    case 5021:
-    case 4765:
-      if (strlen(value) - 1 - length2 > 6)
-        switch (charat(value, length2 + 1)) {
-          case 109:
-            if (charat(value, length2 + 4) !== 45)
-              break;
-          case 102:
-            return replace(value, /(.+:)(.+)-([^]+)/, "$1" + WEBKIT + "$2-$3$1" + MOZ + (charat(value, length2 + 3) == 108 ? "$3" : "$2-$3")) + value;
-          case 115:
-            return ~indexof(value, "stretch") ? prefix(replace(value, "stretch", "fill-available"), length2) + value : value;
-        }
-      break;
-    case 4949:
-      if (charat(value, length2 + 1) !== 115)
-        break;
-    case 6444:
-      switch (charat(value, strlen(value) - 3 - (~indexof(value, "!important") && 10))) {
-        case 107:
-          return replace(value, ":", ":" + WEBKIT) + value;
-        case 101:
-          return replace(value, /(.+:)([^;!]+)(;|!.+)?/, "$1" + WEBKIT + (charat(value, 14) === 45 ? "inline-" : "") + "box$3$1" + WEBKIT + "$2$3$1" + MS + "$2box$3") + value;
-      }
-      break;
-    case 5936:
-      switch (charat(value, length2 + 11)) {
-        case 114:
-          return WEBKIT + value + MS + replace(value, /[svh]\w+-[tblr]{2}/, "tb") + value;
-        case 108:
-          return WEBKIT + value + MS + replace(value, /[svh]\w+-[tblr]{2}/, "tb-rl") + value;
-        case 45:
-          return WEBKIT + value + MS + replace(value, /[svh]\w+-[tblr]{2}/, "lr") + value;
-      }
-      return WEBKIT + value + MS + value + value;
-  }
-  return value;
-}
-
-// ../../node_modules/stylis/src/Serializer.js
-function serialize(children2, callback) {
-  var output = "";
-  var length2 = sizeof(children2);
-  for (var i2 = 0; i2 < length2; i2++)
-    output += callback(children2[i2], i2, children2, callback) || "";
-  return output;
-}
-function stringify(element, index, children2, callback) {
-  switch (element.type) {
-    case IMPORT:
-    case DECLARATION:
-      return element.return = element.return || element.value;
-    case COMMENT:
-      return "";
-    case KEYFRAMES:
-      return element.return = element.value + "{" + serialize(element.children, callback) + "}";
-    case RULESET:
-      element.value = element.props.join(",");
-  }
-  return strlen(children2 = serialize(element.children, callback)) ? element.return = element.value + "{" + children2 + "}" : "";
-}
-
-// ../../node_modules/stylis/src/Middleware.js
-function middleware(collection) {
-  var length2 = sizeof(collection);
-  return function(element, index, children2, callback) {
-    var output = "";
-    for (var i2 = 0; i2 < length2; i2++)
-      output += collection[i2](element, index, children2, callback) || "";
-    return output;
-  };
-}
-function rulesheet(callback) {
-  return function(element) {
-    if (!element.root) {
-      if (element = element.return)
-        callback(element);
-    }
-  };
-}
-function prefixer(element, index, children2, callback) {
-  if (element.length > -1) {
-    if (!element.return)
-      switch (element.type) {
-        case DECLARATION:
-          element.return = prefix(element.value, element.length);
-          break;
-        case KEYFRAMES:
-          return serialize([copy(element, { value: replace(element.value, "@", "@" + WEBKIT) })], callback);
-        case RULESET:
-          if (element.length)
-            return combine(element.props, function(value) {
-              switch (match(value, /(::plac\w+|:read-\w+)/)) {
-                case ":read-only":
-                case ":read-write":
-                  return serialize([copy(element, { props: [replace(value, /:(read-\w+)/, ":" + MOZ + "$1")] })], callback);
-                case "::placeholder":
-                  return serialize([
-                    copy(element, { props: [replace(value, /:(plac\w+)/, ":" + WEBKIT + "input-$1")] }),
-                    copy(element, { props: [replace(value, /:(plac\w+)/, ":" + MOZ + "$1")] }),
-                    copy(element, { props: [replace(value, /:(plac\w+)/, MS + "input-$1")] })
-                  ], callback);
-              }
-              return "";
-            });
-      }
-  }
-}
-
-// ../../node_modules/@emotion/cache/dist/emotion-cache.browser.esm.js
-var identifierWithPointTracking = function identifierWithPointTracking2(begin, points, index) {
-  var previous = 0;
-  var character2 = 0;
-  while (true) {
-    previous = character2;
-    character2 = peek();
-    if (previous === 38 && character2 === 12) {
-      points[index] = 1;
-    }
-    if (token(character2)) {
-      break;
-    }
-    next();
-  }
-  return slice(begin, position);
-};
-var toRules = function toRules2(parsed, points) {
-  var index = -1;
-  var character2 = 44;
-  do {
-    switch (token(character2)) {
-      case 0:
-        if (character2 === 38 && peek() === 12) {
-          points[index] = 1;
-        }
-        parsed[index] += identifierWithPointTracking(position - 1, points, index);
-        break;
-      case 2:
-        parsed[index] += delimit(character2);
-        break;
-      case 4:
-        if (character2 === 44) {
-          parsed[++index] = peek() === 58 ? "&\f" : "";
-          points[index] = parsed[index].length;
-          break;
-        }
-      default:
-        parsed[index] += from(character2);
-    }
-  } while (character2 = next());
-  return parsed;
-};
-var getRules = function getRules2(value, points) {
-  return dealloc(toRules(alloc(value), points));
-};
-var fixedElements = /* @__PURE__ */ new WeakMap();
-var compat = function compat2(element) {
-  if (element.type !== "rule" || !element.parent || element.length < 1) {
-    return;
-  }
-  var value = element.value, parent = element.parent;
-  var isImplicitRule = element.column === parent.column && element.line === parent.line;
-  while (parent.type !== "rule") {
-    parent = parent.parent;
-    if (!parent)
-      return;
-  }
-  if (element.props.length === 1 && value.charCodeAt(0) !== 58 && !fixedElements.get(parent)) {
-    return;
-  }
-  if (isImplicitRule) {
-    return;
-  }
-  fixedElements.set(element, true);
-  var points = [];
-  var rules = getRules(value, points);
-  var parentRules = parent.props;
-  for (var i2 = 0, k2 = 0; i2 < rules.length; i2++) {
-    for (var j3 = 0; j3 < parentRules.length; j3++, k2++) {
-      element.props[k2] = points[i2] ? rules[i2].replace(/&\f/g, parentRules[j3]) : parentRules[j3] + " " + rules[i2];
-    }
-  }
-};
-var removeLabel = function removeLabel2(element) {
-  if (element.type === "decl") {
-    var value = element.value;
-    if (value.charCodeAt(0) === 108 && value.charCodeAt(2) === 98) {
-      element["return"] = "";
-      element.value = "";
-    }
-  }
-};
-var defaultStylisPlugins = [prefixer];
-var createCache = function createCache2(options) {
-  var key = options.key;
-  if (false) {
-    throw new Error("You have to configure `key` for your cache. Please make sure it's unique (and not equal to 'css') as it's used for linking styles to your cache.\nIf multiple caches share the same key they might \"fight\" for each other's style elements.");
-  }
-  if (key === "css") {
-    var ssrStyles = document.querySelectorAll("style[data-emotion]:not([data-s])");
-    Array.prototype.forEach.call(ssrStyles, function(node2) {
-      var dataEmotionAttribute = node2.getAttribute("data-emotion");
-      if (dataEmotionAttribute.indexOf(" ") === -1) {
-        return;
-      }
-      document.head.appendChild(node2);
-      node2.setAttribute("data-s", "");
-    });
-  }
-  var stylisPlugins = options.stylisPlugins || defaultStylisPlugins;
-  if (false) {
-    if (/[^a-z-]/.test(key)) {
-      throw new Error('Emotion key must only contain lower case alphabetical characters and - but "' + key + '" was passed');
-    }
-  }
-  var inserted = {};
-  var container;
-  var nodesToHydrate = [];
-  {
-    container = options.container || document.head;
-    Array.prototype.forEach.call(document.querySelectorAll('style[data-emotion^="' + key + ' "]'), function(node2) {
-      var attrib = node2.getAttribute("data-emotion").split(" ");
-      for (var i2 = 1; i2 < attrib.length; i2++) {
-        inserted[attrib[i2]] = true;
-      }
-      nodesToHydrate.push(node2);
-    });
-  }
-  var _insert;
-  var omnipresentPlugins = [compat, removeLabel];
-  if (false) {
-    omnipresentPlugins.push(createUnsafeSelectorsAlarm({
-      get compat() {
-        return cache2.compat;
-      }
-    }), incorrectImportAlarm);
-  }
-  {
-    var currentSheet;
-    var finalizingPlugins = [stringify, false ? function(element) {
-      if (!element.root) {
-        if (element["return"]) {
-          currentSheet.insert(element["return"]);
-        } else if (element.value && element.type !== COMMENT) {
-          currentSheet.insert(element.value + "{}");
-        }
-      }
-    } : rulesheet(function(rule) {
-      currentSheet.insert(rule);
-    })];
-    var serializer = middleware(omnipresentPlugins.concat(stylisPlugins, finalizingPlugins));
-    var stylis = function stylis2(styles2) {
-      return serialize(compile(styles2), serializer);
-    };
-    _insert = function insert(selector, serialized, sheet, shouldCache) {
-      currentSheet = sheet;
-      if (false) {
-        currentSheet = {
-          insert: function insert2(rule) {
-            sheet.insert(rule + serialized.map);
-          }
-        };
-      }
-      stylis(selector ? selector + "{" + serialized.styles + "}" : serialized.styles);
-      if (shouldCache) {
-        cache2.inserted[serialized.name] = true;
-      }
-    };
-  }
-  var cache2 = {
-    key,
-    sheet: new StyleSheet({
-      key,
-      container,
-      nonce: options.nonce,
-      speedy: options.speedy,
-      prepend: options.prepend,
-      insertionPoint: options.insertionPoint
-    }),
-    nonce: options.nonce,
-    inserted,
-    registered: {},
-    insert: _insert
-  };
-  cache2.sheet.hydrate(nodesToHydrate);
-  return cache2;
-};
-var emotion_cache_browser_esm_default = createCache;
-
-// ../../node_modules/@mui/styled-engine/StyledEngineProvider/StyledEngineProvider.js
 var cache = emotion_cache_browser_esm_default({
   key: "css",
   prepend: true
@@ -10046,7 +9274,7 @@ function compose(...styles2) {
 var compose_default = compose;
 
 // ../../node_modules/@mui/system/esm/memoize.js
-function memoize2(fn2) {
+function memoize(fn2) {
   const cache2 = {};
   return (arg) => {
     if (cache2[arg] === void 0) {
@@ -10075,7 +9303,7 @@ var aliases = {
   paddingX: "px",
   paddingY: "py"
 };
-var getCssProperties = memoize2((prop) => {
+var getCssProperties = memoize((prop) => {
   if (prop.length > 2) {
     if (aliases[prop]) {
       prop = aliases[prop];
@@ -10095,31 +9323,31 @@ function createUnaryUnit(theme, themeKey, defaultValue, propName) {
   var _getPath;
   const themeSpacing = (_getPath = getPath(theme, themeKey)) != null ? _getPath : defaultValue;
   if (typeof themeSpacing === "number") {
-    return (abs2) => {
-      if (typeof abs2 === "string") {
-        return abs2;
+    return (abs) => {
+      if (typeof abs === "string") {
+        return abs;
       }
       if (false) {
-        if (typeof abs2 !== "number") {
-          console.error(`MUI: Expected ${propName} argument to be a number or a string, got ${abs2}.`);
+        if (typeof abs !== "number") {
+          console.error(`MUI: Expected ${propName} argument to be a number or a string, got ${abs}.`);
         }
       }
-      return themeSpacing * abs2;
+      return themeSpacing * abs;
     };
   }
   if (Array.isArray(themeSpacing)) {
-    return (abs2) => {
-      if (typeof abs2 === "string") {
-        return abs2;
+    return (abs) => {
+      if (typeof abs === "string") {
+        return abs;
       }
       if (false) {
-        if (!Number.isInteger(abs2)) {
+        if (!Number.isInteger(abs)) {
           console.error([`MUI: The \`theme.${themeKey}\` array type cannot be combined with non integer values.You should either use an integer value that can be used as index, or define the \`theme.${themeKey}\` as a number.`].join("\n"));
-        } else if (abs2 > themeSpacing.length - 1) {
-          console.error([`MUI: The value provided (${abs2}) overflows.`, `The supported values are: ${JSON.stringify(themeSpacing)}.`, `${abs2} > ${themeSpacing.length - 1}, you need to add the missing values.`].join("\n"));
+        } else if (abs > themeSpacing.length - 1) {
+          console.error([`MUI: The value provided (${abs}) overflows.`, `The supported values are: ${JSON.stringify(themeSpacing)}.`, `${abs} > ${themeSpacing.length - 1}, you need to add the missing values.`].join("\n"));
         }
       }
-      return themeSpacing[abs2];
+      return themeSpacing[abs];
     };
   }
   if (typeof themeSpacing === "function") {
@@ -10137,8 +9365,8 @@ function getValue2(transformer, propValue) {
   if (typeof propValue === "string" || propValue == null) {
     return propValue;
   }
-  const abs2 = Math.abs(propValue);
-  const transformed = transformer(abs2);
+  const abs = Math.abs(propValue);
+  const transformed = transformer(abs);
   if (propValue >= 0) {
     return transformed;
   }
@@ -10422,7 +9650,7 @@ var palette = compose_default(color, bgcolor, backgroundColor);
 var palette_default = palette;
 
 // ../../node_modules/@mui/system/esm/positions.js
-var position2 = style_default({
+var position = style_default({
   prop: "position"
 });
 var zIndex = style_default({
@@ -10441,7 +9669,7 @@ var bottom2 = style_default({
 var left2 = style_default({
   prop: "left"
 });
-var positions_default = compose_default(position2, zIndex, top2, right2, bottom2, left2);
+var positions_default = compose_default(position, zIndex, top2, right2, bottom2, left2);
 
 // ../../node_modules/@mui/system/esm/shadows.js
 var boxShadow = style_default({
@@ -11405,7 +10633,7 @@ var getCssValue = (keys, value) => {
 };
 function cssVarsParser(theme, options) {
   const {
-    prefix: prefix2,
+    prefix,
     basePrefix = "",
     shouldSkipGeneratingVar
   } = options || {};
@@ -11415,14 +10643,14 @@ function cssVarsParser(theme, options) {
   walkObjectDeep(theme, (keys, value) => {
     if (typeof value === "string" || typeof value === "number") {
       if (typeof value === "string" && value.match(/var\(\s*--/)) {
-        if (!basePrefix && prefix2) {
-          value = value.replace(/var\(\s*--/g, `var(--${prefix2}-`);
+        if (!basePrefix && prefix) {
+          value = value.replace(/var\(\s*--/g, `var(--${prefix}-`);
         } else {
-          value = prefix2 ? value.replace(new RegExp(`var\\(\\s*--${basePrefix}`, "g"), `var(--${prefix2}`) : value.replace(new RegExp(`var\\(\\s*--${basePrefix}-`, "g"), "var(--");
+          value = prefix ? value.replace(new RegExp(`var\\(\\s*--${basePrefix}`, "g"), `var(--${prefix}`) : value.replace(new RegExp(`var\\(\\s*--${basePrefix}-`, "g"), "var(--");
         }
       }
       if (!shouldSkipGeneratingVar || shouldSkipGeneratingVar && !shouldSkipGeneratingVar(keys, value)) {
-        const cssVar = `--${prefix2 ? `${prefix2}-` : ""}${keys.join("-")}`;
+        const cssVar = `--${prefix ? `${prefix}-` : ""}${keys.join("-")}`;
         Object.assign(css4, {
           [cssVar]: getCssValue(keys, value)
         });
@@ -11659,19 +10887,19 @@ function useCurrentColorScheme(options) {
 }
 
 // ../../node_modules/@mui/system/esm/cssVars/createGetCssVar.js
-function createGetCssVar(prefix2 = "") {
+function createGetCssVar(prefix = "") {
   function appendVar(...vars) {
     if (!vars.length) {
       return "";
     }
     const value = vars[0];
     if (typeof value === "string" && !value.match(/(#|\(|\)|(-?(\d*\.)?\d+)(px|em|%|ex|ch|rem|vw|vh|vmin|vmax|cm|mm|in|pt|pc))/)) {
-      return `, var(--${prefix2 ? `${prefix2}-` : ""}${value}${appendVar(...vars.slice(1))})`;
+      return `, var(--${prefix ? `${prefix}-` : ""}${value}${appendVar(...vars.slice(1))})`;
     }
     return `, ${value}`;
   }
   const getCssVar = (field, ...vars) => {
-    return `var(--${prefix2 ? `${prefix2}-` : ""}${field}${appendVar(...vars)})`;
+    return `var(--${prefix ? `${prefix}-` : ""}${field}${appendVar(...vars)})`;
   };
   return getCssVar;
 }
@@ -11709,7 +10937,7 @@ function createCssVarsProvider(options) {
   function CssVarsProvider({
     children: children2,
     theme: themeProp = {},
-    prefix: prefix2 = designSystemPrefix,
+    prefix = designSystemPrefix,
     modeStorageKey = DEFAULT_MODE_STORAGE_KEY,
     attribute = DEFAULT_ATTRIBUTE,
     defaultMode = desisgnSystemMode,
@@ -11760,18 +10988,18 @@ function createCssVarsProvider(options) {
       vars: rootVars,
       parsedTheme
     } = cssVarsParser(mergedTheme, {
-      prefix: prefix2,
+      prefix,
       basePrefix: designSystemPrefix,
       shouldSkipGeneratingVar
     });
     mergedTheme = _extends({}, parsedTheme, {
       components,
       colorSchemes,
-      prefix: prefix2,
+      prefix,
       vars: rootVars,
       spacing: themeProp.spacing ? createSpacing(themeProp.spacing) : systemSpacing,
       breakpoints: themeProp.breakpoints ? createBreakpoints(themeProp.breakpoints) : systemBreakpoints,
-      getCssVar: createGetCssVar(prefix2)
+      getCssVar: createGetCssVar(prefix)
     });
     const styleSheet = {};
     Object.entries(colorSchemes).forEach(([key, scheme]) => {
@@ -11780,7 +11008,7 @@ function createCssVarsProvider(options) {
         vars,
         parsedTheme: parsedScheme
       } = cssVarsParser(scheme, {
-        prefix: prefix2,
+        prefix,
         basePrefix: designSystemPrefix,
         shouldSkipGeneratingVar
       });
@@ -12476,20 +11704,20 @@ function createTheme2(options = {}, ...args) {
   muiTheme = args.reduce((acc, argument) => deepmerge(acc, argument), muiTheme);
   if (false) {
     const stateClasses = ["active", "checked", "completed", "disabled", "error", "expanded", "focused", "focusVisible", "required", "selected"];
-    const traverse = (node2, component) => {
+    const traverse = (node, component) => {
       let key;
-      for (key in node2) {
-        const child = node2[key];
+      for (key in node) {
+        const child = node[key];
         if (stateClasses.indexOf(key) !== -1 && Object.keys(child).length > 0) {
           if (false) {
             const stateClass = generateUtilityClass("", key);
-            console.error([`MUI: The \`${component}\` component increases the CSS specificity of the \`${key}\` internal state.`, "You can not override it like this: ", JSON.stringify(node2, null, 2), "", `Instead, you need to use the '&.${stateClass}' syntax:`, JSON.stringify({
+            console.error([`MUI: The \`${component}\` component increases the CSS specificity of the \`${key}\` internal state.`, "You can not override it like this: ", JSON.stringify(node, null, 2), "", `Instead, you need to use the '&.${stateClass}' syntax:`, JSON.stringify({
               root: {
                 [`&.${stateClass}`]: child
               }
             }, null, 2), "", "https://mui.com/r/state-classes-guide"].join("\n"));
           }
-          node2[key] = {};
+          node[key] = {};
         }
       }
     };
@@ -12812,14 +12040,14 @@ var Transition = function(_React$Component) {
   };
   _proto.onTransitionEnd = function onTransitionEnd(timeout2, handler) {
     this.setNextCallback(handler);
-    var node2 = this.props.nodeRef ? this.props.nodeRef.current : ReactDOM2.findDOMNode(this);
+    var node = this.props.nodeRef ? this.props.nodeRef.current : ReactDOM2.findDOMNode(this);
     var doesNotHaveTimeoutOrListener = timeout2 == null && !this.props.addEndListener;
-    if (!node2 || doesNotHaveTimeoutOrListener) {
+    if (!node || doesNotHaveTimeoutOrListener) {
       setTimeout(this.nextCallback, 0);
       return;
     }
     if (this.props.addEndListener) {
-      var _ref3 = this.props.nodeRef ? [this.nextCallback] : [node2, this.nextCallback], maybeNode = _ref3[0], maybeNextCallback = _ref3[1];
+      var _ref3 = this.props.nodeRef ? [this.nextCallback] : [node, this.nextCallback], maybeNode = _ref3[0], maybeNextCallback = _ref3[1];
       this.props.addEndListener(maybeNode, maybeNextCallback);
     }
     if (timeout2 != null) {
@@ -12894,14 +12122,14 @@ Transition.EXITING = EXITING;
 var Transition_default = Transition;
 
 // ../../node_modules/react-transition-group/esm/CSSTransition.js
-var _addClass = function addClass2(node2, classes) {
-  return node2 && classes && classes.split(" ").forEach(function(c2) {
-    return addClass(node2, c2);
+var _addClass = function addClass2(node, classes) {
+  return node && classes && classes.split(" ").forEach(function(c2) {
+    return addClass(node, c2);
   });
 };
-var removeClass2 = function removeClass3(node2, classes) {
-  return node2 && classes && classes.split(" ").forEach(function(c2) {
-    return removeClass(node2, c2);
+var removeClass2 = function removeClass3(node, classes) {
+  return node && classes && classes.split(" ").forEach(function(c2) {
+    return removeClass(node, c2);
   });
 };
 var CSSTransition = function(_React$Component) {
@@ -12918,50 +12146,50 @@ var CSSTransition = function(_React$Component) {
       exit: {}
     };
     _this.onEnter = function(maybeNode, maybeAppearing) {
-      var _this$resolveArgument = _this.resolveArguments(maybeNode, maybeAppearing), node2 = _this$resolveArgument[0], appearing = _this$resolveArgument[1];
-      _this.removeClasses(node2, "exit");
-      _this.addClass(node2, appearing ? "appear" : "enter", "base");
+      var _this$resolveArgument = _this.resolveArguments(maybeNode, maybeAppearing), node = _this$resolveArgument[0], appearing = _this$resolveArgument[1];
+      _this.removeClasses(node, "exit");
+      _this.addClass(node, appearing ? "appear" : "enter", "base");
       if (_this.props.onEnter) {
         _this.props.onEnter(maybeNode, maybeAppearing);
       }
     };
     _this.onEntering = function(maybeNode, maybeAppearing) {
-      var _this$resolveArgument2 = _this.resolveArguments(maybeNode, maybeAppearing), node2 = _this$resolveArgument2[0], appearing = _this$resolveArgument2[1];
+      var _this$resolveArgument2 = _this.resolveArguments(maybeNode, maybeAppearing), node = _this$resolveArgument2[0], appearing = _this$resolveArgument2[1];
       var type = appearing ? "appear" : "enter";
-      _this.addClass(node2, type, "active");
+      _this.addClass(node, type, "active");
       if (_this.props.onEntering) {
         _this.props.onEntering(maybeNode, maybeAppearing);
       }
     };
     _this.onEntered = function(maybeNode, maybeAppearing) {
-      var _this$resolveArgument3 = _this.resolveArguments(maybeNode, maybeAppearing), node2 = _this$resolveArgument3[0], appearing = _this$resolveArgument3[1];
+      var _this$resolveArgument3 = _this.resolveArguments(maybeNode, maybeAppearing), node = _this$resolveArgument3[0], appearing = _this$resolveArgument3[1];
       var type = appearing ? "appear" : "enter";
-      _this.removeClasses(node2, type);
-      _this.addClass(node2, type, "done");
+      _this.removeClasses(node, type);
+      _this.addClass(node, type, "done");
       if (_this.props.onEntered) {
         _this.props.onEntered(maybeNode, maybeAppearing);
       }
     };
     _this.onExit = function(maybeNode) {
-      var _this$resolveArgument4 = _this.resolveArguments(maybeNode), node2 = _this$resolveArgument4[0];
-      _this.removeClasses(node2, "appear");
-      _this.removeClasses(node2, "enter");
-      _this.addClass(node2, "exit", "base");
+      var _this$resolveArgument4 = _this.resolveArguments(maybeNode), node = _this$resolveArgument4[0];
+      _this.removeClasses(node, "appear");
+      _this.removeClasses(node, "enter");
+      _this.addClass(node, "exit", "base");
       if (_this.props.onExit) {
         _this.props.onExit(maybeNode);
       }
     };
     _this.onExiting = function(maybeNode) {
-      var _this$resolveArgument5 = _this.resolveArguments(maybeNode), node2 = _this$resolveArgument5[0];
-      _this.addClass(node2, "exit", "active");
+      var _this$resolveArgument5 = _this.resolveArguments(maybeNode), node = _this$resolveArgument5[0];
+      _this.addClass(node, "exit", "active");
       if (_this.props.onExiting) {
         _this.props.onExiting(maybeNode);
       }
     };
     _this.onExited = function(maybeNode) {
-      var _this$resolveArgument6 = _this.resolveArguments(maybeNode), node2 = _this$resolveArgument6[0];
-      _this.removeClasses(node2, "exit");
-      _this.addClass(node2, "exit", "done");
+      var _this$resolveArgument6 = _this.resolveArguments(maybeNode), node = _this$resolveArgument6[0];
+      _this.removeClasses(node, "exit");
+      _this.addClass(node, "exit", "done");
       if (_this.props.onExited) {
         _this.props.onExited(maybeNode);
       }
@@ -12972,8 +12200,8 @@ var CSSTransition = function(_React$Component) {
     _this.getClassNames = function(type) {
       var classNames = _this.props.classNames;
       var isStringClassNames = typeof classNames === "string";
-      var prefix2 = isStringClassNames && classNames ? classNames + "-" : "";
-      var baseClassName = isStringClassNames ? "" + prefix2 + type : classNames[type];
+      var prefix = isStringClassNames && classNames ? classNames + "-" : "";
+      var baseClassName = isStringClassNames ? "" + prefix + type : classNames[type];
       var activeClassName = isStringClassNames ? baseClassName + "-active" : classNames[type + "Active"];
       var doneClassName = isStringClassNames ? baseClassName + "-done" : classNames[type + "Done"];
       return {
@@ -12985,31 +12213,31 @@ var CSSTransition = function(_React$Component) {
     return _this;
   }
   var _proto = CSSTransition2.prototype;
-  _proto.addClass = function addClass3(node2, type, phase) {
+  _proto.addClass = function addClass3(node, type, phase) {
     var className = this.getClassNames(type)[phase + "ClassName"];
     var _this$getClassNames = this.getClassNames("enter"), doneClassName = _this$getClassNames.doneClassName;
     if (type === "appear" && phase === "done" && doneClassName) {
       className += " " + doneClassName;
     }
     if (phase === "active") {
-      node2 && node2.scrollTop;
+      node && node.scrollTop;
     }
     if (className) {
       this.appliedClasses[type][phase] = className;
-      _addClass(node2, className);
+      _addClass(node, className);
     }
   };
-  _proto.removeClasses = function removeClasses(node2, type) {
+  _proto.removeClasses = function removeClasses(node, type) {
     var _this$appliedClasses$ = this.appliedClasses[type], baseClassName = _this$appliedClasses$.base, activeClassName = _this$appliedClasses$.active, doneClassName = _this$appliedClasses$.done;
     this.appliedClasses[type] = {};
     if (baseClassName) {
-      removeClass2(node2, baseClassName);
+      removeClass2(node, baseClassName);
     }
     if (activeClassName) {
-      removeClass2(node2, activeClassName);
+      removeClass2(node, activeClassName);
     }
     if (doneClassName) {
-      removeClass2(node2, doneClassName);
+      removeClass2(node, doneClassName);
     }
   };
   _proto.render = function render() {
@@ -13070,16 +12298,16 @@ function getChildMapping(children2, mapFn) {
     });
   return result;
 }
-function mergeChildMappings(prev2, next2) {
-  prev2 = prev2 || {};
-  next2 = next2 || {};
+function mergeChildMappings(prev, next) {
+  prev = prev || {};
+  next = next || {};
   function getValueForKey(key) {
-    return key in next2 ? next2[key] : prev2[key];
+    return key in next ? next[key] : prev[key];
   }
   var nextKeysPending = /* @__PURE__ */ Object.create(null);
   var pendingKeys = [];
-  for (var prevKey in prev2) {
-    if (prevKey in next2) {
+  for (var prevKey in prev) {
+    if (prevKey in next) {
       if (pendingKeys.length) {
         nextKeysPending[prevKey] = pendingKeys;
         pendingKeys = [];
@@ -13090,7 +12318,7 @@ function mergeChildMappings(prev2, next2) {
   }
   var i2;
   var childMapping = {};
-  for (var nextKey in next2) {
+  for (var nextKey in next) {
     if (nextKeysPending[nextKey]) {
       for (i2 = 0; i2 < nextKeysPending[nextKey].length; i2++) {
         var pendingNextKey = nextKeysPending[nextKey][i2];
@@ -13198,12 +12426,12 @@ var TransitionGroup = function(_React$Component) {
       firstRender: false
     };
   };
-  _proto.handleExited = function handleExited(child, node2) {
+  _proto.handleExited = function handleExited(child, node) {
     var currentChildMapping = getChildMapping(this.props.children);
     if (child.key in currentChildMapping)
       return;
     if (child.props.onExited) {
-      child.props.onExited(node2);
+      child.props.onExited(node);
     }
     if (this.mounted) {
       this.setState(function(state) {

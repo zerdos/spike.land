@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { CacheProvider, jsx } from "@emotion/react";
-import { createCache } from "@emotion/react";
+import createCache from "@emotion/cache";
 
 import { ReactNode, renderToString } from "react";
 
