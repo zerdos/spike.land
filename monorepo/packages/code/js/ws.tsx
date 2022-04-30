@@ -3,7 +3,7 @@ import debounce from "lodash/debounce";
 import uidV4 from "./uidV4.mjs";
 import * as monaco from "monaco-editor";
 import { jsx } from "@emotion/react";
-import { Fragment, ReactFragment } from "react";
+import { Fragment, ReactNode } from "react";
 
 const webRtcArray: (RTCDataChannel & { target: string })[] = [];
 const hostname = window.location.hostname || "spike.land";
@@ -14,10 +14,11 @@ const [, prefix, selector, room] = path;
 
 console.log({ prefix, selector, room });
 
-const roomName =
-  ((prefix === "api" && selector === "room")
-    ? room
-    : `${selector}-${room}`.slice(-12)) || "code-main";
+const roomName = (prefix === "api" && selector === "room")
+  ? room.slice(-12) || "code-main"
+  : prefix === "live" && !!selector
+  ? selector.slice(-12)
+  : "code-main";
 
 const user = ((self && self.crypto && self.crypto.randomUUID &&
   self.crypto.randomUUID()) || (uidV4())).slice(
@@ -177,7 +178,7 @@ async function broadcastCodeChange(sess: ICodeSession) {
   }
 }
 
-export async function join(App: ReactFragment) {
+export async function join(App: ReactNode) {
   if (user) {
     username = user;
   }
