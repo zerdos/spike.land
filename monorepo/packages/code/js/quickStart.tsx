@@ -13,7 +13,7 @@ async function startMonacoWithSession(session: ICodeSession) {
 
   const onchangeCode = (ev) =>
     runner(editor.getModel().getValue(), ev.changes, session, ++session.i);
-  const { editor, monaco } = await startMonaco(
+  const { editor } = await startMonaco(
     /**
      * @param {any} code
      */
@@ -204,10 +204,10 @@ async function getReactChild(transpiled: string, mode = "window") {
     codeToHydrate,
   );
 
-  const mod = (await import(objectUrl));
+  const { default: App } = (await import(objectUrl));
   URL.revokeObjectURL(objectUrl);
 
-  return jsx(mod.default);
+  return App;
 }
 
 // Function createPatch(oldCode, newCode, createDelta) {
@@ -217,13 +217,13 @@ async function getReactChild(transpiled: string, mode = "window") {
 /**
  * @param {BlobPart} code
  */
-function createJsBlob(code) {
+function createJsBlob(code: string) {
   const blob = new Blob([code], { type: "application/javascript" });
 
   return URL.createObjectURL(blob);
 }
 
-async function getApp(transpiled, mode = "window") {
+async function getApp(transpiled: string, mode = "window") {
   const codeToHydrate = mode === "window"
     ? transpiled.replace("body{", "#zbody{")
     : transpiled;

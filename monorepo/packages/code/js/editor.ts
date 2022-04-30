@@ -1,5 +1,4 @@
 import * as monaco from "monaco-editor";
-import type { MonacoEnvironment } from "monaco-editor";
 import "monaco-editor/min/vs/editor/editor.main.css";
 import { dtsFiles } from "./types.mjs";
 // import { parse } from "@babel/parser";
@@ -33,8 +32,8 @@ const {
   emotionUtilsDts,
 } = dtsFiles;
 
-const monEnv: typeof MonacoEnvironment = {
-  getWorkerUrl: function (_workerId, label) {
+const monEnv = {
+  getWorkerUrl: function (_workerId: string, label: string) {
     if (label === "typescript" || label === "javascript") {
       return "dist/workers/language/typescript/ts.worker.js";
     }
@@ -46,12 +45,17 @@ Object.assign(globalThis, { MonacoEnvironment: monEnv });
 
 let started = false;
 
+const returnModules = {
+  editor: {} as unknown as ReturnType<typeof monaco.editor.create>,
+  monaco,
+};
+
 export const startMonaco = async (
   { code, container }: { code: string; container: Element },
 ) => {
   console.log("monaco-editor");
   if (!started) started = true;
-  else return;
+  else return returnModules;
   const shadowRoot = container.attachShadow({
     mode: "open",
   });
@@ -292,6 +296,7 @@ export const startMonaco = async (
       noSyntaxValidation: false,
     });
   })();
+  returnModules.editor = editor;
 
-  return { editor, monaco: { ...monaco } };
+  return returnModules;
 };

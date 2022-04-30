@@ -322,12 +322,16 @@ var monEnv = {
 };
 Object.assign(globalThis, { MonacoEnvironment: monEnv });
 var started = false;
+var returnModules = {
+  editor: {},
+  monaco: editor_main_exports
+};
 var startMonaco = async ({ code, container }) => {
   console.log("monaco-editor");
   if (!started)
     started = true;
   else
-    return;
+    return returnModules;
   const shadowRoot = container.attachShadow({
     mode: "open"
   });
@@ -505,7 +509,8 @@ var startMonaco = async ({ code, container }) => {
       noSyntaxValidation: false
     });
   })();
-  return { editor: editor2, monaco: { ...editor_main_exports } };
+  returnModules.editor = editor2;
+  return returnModules;
 };
 export {
   startMonaco

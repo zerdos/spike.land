@@ -8,9 +8,9 @@ async function startMonacoWithSession(session) {
     console.log("no monaco dom, exiting");
     return;
   }
-  const { startMonaco } = await import("./editor-2TPV3JDW.mjs");
+  const { startMonaco } = await import("./editor-WUIAHQGP.mjs");
   const onchangeCode = (ev) => runner(editor.getModel().getValue(), ev.changes, session, ++session.i);
-  const { editor, monaco } = await startMonaco({
+  const { editor } = await startMonaco({
     container: monacoEditorDom,
     code: session.code
   });
@@ -19,12 +19,12 @@ async function startMonacoWithSession(session) {
   session.editor = editor;
   window.sess = session;
 }
-async function getErrors({ monaco, editor }) {
-  if (!monaco) {
+async function getErrors({ monaco: monaco2, editor }) {
+  if (!monaco2) {
     return [{ messageText: "Error with the error checking. Try to reload!" }];
   }
   const model = editor.getModel();
-  const worker = await monaco.languages.typescript.getTypeScriptWorker();
+  const worker = await monaco2.languages.typescript.getTypeScriptWorker();
   const client = await worker(model);
   const filename = model.uri.toString();
   const diag = client.getSemanticDiagnostics(filename);
@@ -67,7 +67,7 @@ async function runner(c, changes, session, counter) {
         if (session.i !== counter) {
           return;
         }
-        const { saveCode } = await import("./ws-VYHB2MCK.mjs");
+        const { saveCode } = await import("./ws-3EWM3YSO.mjs");
         saveCode({ transpiled, code, i: counter, css, html });
         return;
       } catch (error2) {
@@ -116,9 +116,9 @@ async function quickStart(session, room, keepFullScreen) {
 async function getReactChild(transpiled, mode = "window") {
   const codeToHydrate = mode === "window" ? transpiled.replace("body{", "#zbody{") : transpiled;
   const objectUrl = createJsBlob(codeToHydrate);
-  const mod = await import(objectUrl);
+  const { default: App } = await import(objectUrl);
   URL.revokeObjectURL(objectUrl);
-  return jsx(mod.default);
+  return App;
 }
 function createJsBlob(code) {
   const blob = new Blob([code], { type: "application/javascript" });
