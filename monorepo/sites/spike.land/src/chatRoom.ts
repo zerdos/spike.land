@@ -44,7 +44,6 @@ interface WebsocketSession {
   blockedMessages: string[];
 }
 
-type ResolveFn = (value: unknown) => void;
 
 export class Code {
   state: IState;
