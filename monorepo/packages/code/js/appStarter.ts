@@ -52,5 +52,5 @@ document.body.appendChild(Object.assign(document.createElement("script"), {
 const { importShim } = self;
 
 importShim<null, { run: () => void }>(
-  "./public/starter.mjs",
+  "./starter.mjs",
 ).then(({ run }) => run());
