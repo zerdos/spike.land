@@ -1,7 +1,12 @@
 import { ReactNode } from "react";
 import { ICodeSession } from "./session";
 
-async function startMonacoWithSession(session: ICodeSession) {
+interface IRunnerSession extends ICodeSession {
+  changes: unknown[];
+  errorText: string;
+}
+
+async function startMonacoWithSession(session: IRunnerSession) {
   console.log("start monaco with session");
   const monacoEditorDom = document.querySelector("#monacoEditor");
   if (!monacoEditorDom) {
@@ -78,7 +83,7 @@ async function getErrors({ monaco, editor }) {
 async function runner(
   c: string,
   changes: unknown[],
-  session: ICodeSession & { changes: unknown[]; errorText: stringr },
+  session: IRunnerSession,
   counter: number,
 ) {
   session.changes.push(changes);
@@ -186,7 +191,7 @@ async function runner(
 // };
 
 export async function quickStart(
-  session: ICodeSession,
+  session: IRunnerSession,
   keepFullScreen: boolean,
 ) {
   // Session.children = await getReactChild(session.transpiled);
