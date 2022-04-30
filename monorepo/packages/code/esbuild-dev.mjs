@@ -46,12 +46,12 @@ await esbuild.build({
     ".ttf": "file",
   },
 
-  outdir: "js/dist/workers/",
+  outdir: "js/public/workers/",
 });
 
 await esbuild.build({
   entryPoints: ["./js/appStarter.ts"],
-  outfile: "./js/dist/appStarter.js",
+  outfile: "./js/public/appStarter.js",
   bundle: true,
   target: "esnext",
   // minify: true,
@@ -118,7 +118,7 @@ const build = (entryPoints) =>
       ".workerJS": "file",
       ".wasm": "file",
     },
-    outdir: "js/dist",
+    outdir: "js/public",
   }).catch(() => process.exit(1));
 
 // await build([
@@ -153,7 +153,7 @@ await build([
 //   resolveExtensions: [".tsx", ".ts", ".jsx", ".js", ".css", ".json", ".mjs"],
 //   target: ["es2020"],
 //   plugins: [importMap.plugin()],
-//   outdir: "dist",
+//   outdir: "public",
 // }).catch(() => process.exit(1));
 
 // esbuild.build({
@@ -166,5 +166,5 @@ await build([
 //   resolveExtensions: [".tsx", ".ts", ".jsx", ".js", ".css", ".json", ".mjs"],
 //   target: ["es2017"],
 //   plugins: [importMap.plugin()],
-//   outfile: "dist/ws.mjs",
+//   outfile: "public/ws.mjs",
 // }).catch(() => process.exit(1));

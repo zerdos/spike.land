@@ -450,6 +450,13 @@
     "@babel/helper-validator-identifier" "^7.16.7"
     to-fast-properties "^2.0.0"
 
+"@cloudflare/kv-asset-handler@^0.2.0":
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/@cloudflare/kv-asset-handler/-/kv-asset-handler-0.2.0.tgz#c9959bbd7a1c40bd7c674adae98aa8c8d0e5ca68"
+  integrity sha512-MVbXLbTcAotOPUj0pAMhVtJ+3/kFkwJqc5qNOleOZTv6QkZZABDMS21dSrSlVswEHwrpWC03e4fWytjqKvuE2A==
+  dependencies:
+    mime "^3.0.0"
+
 "@cloudflare/workers-types@3.8.0":
   version "3.8.0"
   resolved "https://registry.yarnpkg.com/@cloudflare/workers-types/-/workers-types-3.8.0.tgz#e7fd7acd0384bde0fcc177a007333ef3f256e9e1"
@@ -5276,7 +5283,7 @@ mime-types@^2.1.12, mime-types@~2.1.19:
   dependencies:
     mime-db "1.52.0"
 
-mime@3.0.0:
+mime@3.0.0, mime@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/mime/-/mime-3.0.0.tgz#b374550dca3a0c18443b0c950a6a58f1931cf7a7"
   integrity sha512-jSCU7/VB1loIWBZe14aEYHU/+1UMEHoaO7qxCOVJOw9GgH72VAWppxNcjU+x9a2k3GSIBXNKxXQFqRvvZ7vr3A==
@@ -7817,7 +7824,7 @@ wordwrap@^1.0.0:
   resolved "https://registry.yarnpkg.com/wordwrap/-/wordwrap-1.0.0.tgz#27584810891456a4171c8d0226441ade90cbcaeb"
   integrity sha1-J1hIEIkUVqQXHI0CJkQa3pDLyus=
 
-wrangler@0.0.27:
+wrangler@^0.0.27:
   version "0.0.27"
   resolved "https://registry.yarnpkg.com/wrangler/-/wrangler-0.0.27.tgz#503deb0a090eff3522b15b0b70800e646724dae1"
   integrity sha512-uhYE2kWPJrYJ2r+iDfI16GwETNPB9GrtzJZvQUgusp4FQa682Dwkom0CYQOHVD1gzvk7+SGizydxKyssm9AtWw==
