@@ -10,7 +10,7 @@ export const babelTransform = async (code: string) =>
 
       presets: [
         [
-          "@babel/preset-react",
+          "react",
           {
             "runtime": "automatic", // defaults to classic,
             "importSource": "@emotion/react", // defaults to react (only in automatic runtime)
