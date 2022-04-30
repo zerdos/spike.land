@@ -9,7 +9,7 @@
   "scripts": {
     "dev": "miniflare -m --wrangler-config wrangler.toml --https --host dev.spike.land --port 8080",
     "deploy": "yarn copy && wrangler publish src/index.ts",
-    "copy": "rm -rf public && mv ../packages/code/js/public ./",
+    "copy": "rm -rf public && mv ../../packages/code/js/public ./",
     "xbuild": "esbuild --bundle --format=esm --loader:.html=text --target=esnext src/index.ts --outfile=public/index.mjs"
   },
   "devDependencies": {
