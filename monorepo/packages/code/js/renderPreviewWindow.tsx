@@ -1,15 +1,16 @@
 /** @jsx jsx */
 import { jsx } from "@emotion/react";
 
+import bg from "./assets/synthwave.webp";
 import path from "path-browserify";
 import { render } from "react-dom";
-import type { ICodeSession } from "./session";
+import type { IRunnerSession } from "./quickStart";
 
 import { hashCode } from "./session";
+import { roomName } from "./ws";
 
 export const renderPreviewWindow = async (
-  session: ICodeSession,
-  room: string,
+  session: IRunnerSession,
   keepFullScreen: boolean,
 ) => {
   const { DraggableWindow } = await import("./DraggableWindow");
@@ -20,24 +21,19 @@ export const renderPreviewWindow = async (
   const editor = document.getElementById("monacoEditor");
   if (editor) editor.style.opacity = "0";
 
-  const bg = (await import("./assets/synthwave.webp")).default;
   document.body.style.backgroundImage = `url(${
     path.join("./dist/chunks/", bg)
   } )`;
   render(
     <DraggableWindow
-      onShare={() => open(`https://spike.land/api/room/${room}/public`)}
+      onShare={() => open(`https://spike.land/api/room/${roomName}/public`)}
       onRestore={() => {
         const model = globalThis.model;
         model.setValue(session.code);
       }}
-      position={session.mode === "window" ? "fixed" : "absolute"}
-      //@ts-ignore
-
       session={session}
       hashCode={hashCode()}
       keepFullScreen={keepFullScreen}
-      room={room}
     >
       {children}
     </DraggableWindow>,
@@ -45,7 +41,8 @@ export const renderPreviewWindow = async (
   );
 
   document.body.appendChild(target);
-
-  editor.style.opacity = "1";
-  editor.style.display = "block";
+  if (editor) {
+    editor.style.opacity = "1";
+    editor.style.display = "block";
+  }
 };

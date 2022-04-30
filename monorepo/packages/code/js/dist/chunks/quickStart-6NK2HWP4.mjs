@@ -65,7 +65,7 @@ async function runner(c, changes, session, counter) {
         if (session.i !== counter) {
           return;
         }
-        const { saveCode } = await import("./ws-RAG6W5PN.mjs");
+        const { saveCode } = await import("./ws-MWXE76CH.mjs");
         saveCode({ transpiled, code, i: counter, css, html });
         return;
       } catch (error2) {
@@ -93,8 +93,8 @@ async function runner(c, changes, session, counter) {
   }
 }
 async function quickStart(session, keepFullScreen) {
-  const { renderPreviewWindow } = await import("./renderPreviewWindow-YYJEJUUJ.mjs");
-  await renderPreviewWindow(session, room, keepFullScreen);
+  const { renderPreviewWindow } = await import("./renderPreviewWindow-WRMSULZI.mjs");
+  await renderPreviewWindow(session, keepFullScreen);
   if (!keepFullScreen) {
     await startMonacoWithSession(session);
   }

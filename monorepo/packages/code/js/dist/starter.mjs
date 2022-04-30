@@ -1514,14 +1514,14 @@ if ("serviceWorker" in navigator) {
 }
 var start = async (App) => {
   const e2 = import("./chunks/editor-GFKSOZDU.mjs");
-  const p = import("./chunks/renderPreviewWindow-YYJEJUUJ.mjs");
+  const p = import("./chunks/renderPreviewWindow-WRMSULZI.mjs");
   const container = document.querySelector("#root") || document.createElement("div");
   $(App, container);
   console.log("HYDRATED");
   if (location.href.endsWith("hydrated"))
     return;
   Object.assign(globalThis, { App });
-  const { join } = await import("./chunks/ws-RAG6W5PN.mjs");
+  const { join } = await import("./chunks/ws-MWXE76CH.mjs");
   join(App);
   await Promise.all([e2, p]);
 };
@@ -1532,7 +1532,7 @@ var hydrateBinary = async (binary) => {
 var run = async () => {
   if (globalThis.App)
     return;
-  const { roomName } = await import("./chunks/ws-RAG6W5PN.mjs");
+  const { roomName } = await import("./chunks/ws-MWXE76CH.mjs");
   const respS = await fetch(`https://spike.land/api/room/${roomName}/session`);
   const session = await respS.json();
   const container = document.getElementById("root") || document.createElement("div");

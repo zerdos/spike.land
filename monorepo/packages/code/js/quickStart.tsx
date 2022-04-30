@@ -1,9 +1,11 @@
-import { ReactNode } from "react";
-import { ICodeSession } from "./session";
+import type { Dispatch, ReactNode, SetStateAction } from "react";
+import type { ICodeSession } from "./session";
 
-interface IRunnerSession extends ICodeSession {
+export interface IRunnerSession extends ICodeSession {
   changes: unknown[];
   errorText: string;
+  setChild: Dispatch<SetStateAction<ReactNode[]>>;
+  url: string;
 }
 
 async function startMonacoWithSession(session: IRunnerSession) {
@@ -198,7 +200,7 @@ export async function quickStart(
     "./renderPreviewWindow"
   );
 
-  await renderPreviewWindow(session, room, keepFullScreen);
+  await renderPreviewWindow(session, keepFullScreen);
 
   if (!keepFullScreen) {
     await startMonacoWithSession(session);

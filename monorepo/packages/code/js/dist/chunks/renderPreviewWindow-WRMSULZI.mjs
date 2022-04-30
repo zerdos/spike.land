@@ -1,6 +1,13 @@
 import {
+  roomName
+} from "./chunk-ZVB2ZX2F.mjs";
+import "./chunk-GNRJA6OC.mjs";
+import "./chunk-GYPQM6G4.mjs";
+import "./chunk-CGA4QKUS.mjs";
+import {
   hashCode
 } from "./chunk-7TG2RD5W.mjs";
+import "./chunk-M4IFUNGX.mjs";
 import {
   __commonJS,
   __toESM
@@ -430,33 +437,37 @@ var require_path_browserify = __commonJS({
 });
 
 // js/renderPreviewWindow.tsx
-var import_path_browserify = __toESM(require_path_browserify());
 import { jsx } from "https://spike.land/dist/emotion.mjs";
+
+// js/assets/synthwave.webp
+var synthwave_default = "../synthwave-O2OHLPRX.webp";
+
+// js/renderPreviewWindow.tsx
+var import_path_browserify = __toESM(require_path_browserify());
 import { render } from "https://spike.land/dist/react.mjs";
-var renderPreviewWindow = async (session, room, keepFullScreen) => {
+var renderPreviewWindow = async (session, keepFullScreen) => {
   const { DraggableWindow } = await import("./DraggableWindow-25GY4BX2.mjs");
   console.log("renderPreviewWindow");
   const target = document.createElement("div");
   const editor = document.getElementById("monacoEditor");
   if (editor)
     editor.style.opacity = "0";
-  const bg = (await import("./synthwave-3QWL7RMT.mjs")).default;
-  document.body.style.backgroundImage = `url(${import_path_browserify.default.join("./dist/chunks/", bg)} )`;
+  document.body.style.backgroundImage = `url(${import_path_browserify.default.join("./dist/chunks/", synthwave_default)} )`;
   render(jsx(DraggableWindow, {
-    onShare: () => open(`https://spike.land/api/room/${room}/public`),
+    onShare: () => open(`https://spike.land/api/room/${roomName}/public`),
     onRestore: () => {
       const model = globalThis.model;
       model.setValue(session.code);
     },
-    position: session.mode === "window" ? "fixed" : "absolute",
     session,
     hashCode: hashCode(),
-    keepFullScreen,
-    room
+    keepFullScreen
   }, children), target);
   document.body.appendChild(target);
-  editor.style.opacity = "1";
-  editor.style.display = "block";
+  if (editor) {
+    editor.style.opacity = "1";
+    editor.style.display = "block";
+  }
 };
 export {
   renderPreviewWindow

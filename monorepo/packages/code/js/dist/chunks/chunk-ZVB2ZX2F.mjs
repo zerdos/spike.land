@@ -1,8 +1,6 @@
 import {
   require_debounce
 } from "./chunk-GNRJA6OC.mjs";
-import "./chunk-GYPQM6G4.mjs";
-import "./chunk-CGA4QKUS.mjs";
 import {
   Uri
 } from "./chunk-M4IFUNGX.mjs";
@@ -215,7 +213,7 @@ async function join(App) {
       errorText: ""
     };
     const stayFullscreen = location.pathname.endsWith("public");
-    const { quickStart } = await import("./quickStart-G7QMTPCP.mjs");
+    const { quickStart } = await import("./quickStart-6NK2HWP4.mjs");
     quickStart(session, stayFullscreen);
   }
   wsConnection.addEventListener("message", (message) => processWsMessage(message, "ws"));
@@ -477,9 +475,10 @@ async function handleNewICECandidateMessage(message, target) {
   console.log(connections[target]);
   await connections[target].addIceCandidate(candidate);
 }
+
 export {
-  join,
-  mySession,
   roomName,
-  saveCode
+  mySession,
+  saveCode,
+  join
 };

@@ -1,9 +1,9 @@
 /** @jsx jsx */
 import { css, jsx } from "@emotion/react";
 
-import { ReactNode, SetStateAction, useEffect, useRef, useState } from "react";
-import type { Dispatch, FC } from "react";
-import type { ICodeSession } from "./session";
+import { ReactNode, useEffect, useRef, useState } from "react";
+import type { FC } from "react";
+import type { IRunnerSession } from "./quickStart";
 
 import { motion } from "framer-motion";
 // import { motion } from "./lazyMotion";
@@ -47,11 +47,7 @@ interface DraggableWindowProps {
   onShare: () => void;
   onRestore: (() => void);
   hashCode: number;
-  session: ICodeSession & {
-    setChild: Dispatch<SetStateAction<ReactNode[]>>;
-    url: string;
-    errorText: string;
-  };
+  session: IRunnerSession;
   keepFullScreen: boolean;
   position?: string;
   room: string;
