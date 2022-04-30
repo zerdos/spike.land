@@ -55,7 +55,6 @@ async function startMonacoWithSession(session: IRunnerSession) {
   //   },
   // });
 
-  window.sess = session;
 }
 
 async function getErrors({ monaco, editor }) {
