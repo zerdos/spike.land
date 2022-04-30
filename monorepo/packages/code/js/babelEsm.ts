@@ -2,9 +2,9 @@ import { transform } from "@babel/standalone";
 
 export const babelTransform = async (code: string) =>
   (transform(
-    `/** @jsx jsX */
-
-    import { jsx as jsX } from '@emotion/react';
+    `
+    import React from 'react';
+    import { jsx } from '@emotion/react';
     
     ` + code,
     {
@@ -14,7 +14,7 @@ export const babelTransform = async (code: string) =>
 
       presets: [
         "react",
-        ["typescript", { isTSX: true, allExtensions: true }],
+        ["typescript", { isTSX: true, jsxPragma: "jsx", allExtensions: true }],
       ],
     },
   )).code || "";
