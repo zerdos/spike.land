@@ -4,7 +4,8 @@
     "react-dom": "https://spike.land/react.mjs",
     "framer-motion": "https://spike.land/framer-motion.mjs",
     "@emotion/react": "https://spike.land/emotion.mjs",
+    "@emotion/react/jsx-runtime": "https://spike.land/emotion.mjs",
     "@emotion/cache": "https://spike.land/emotion.mjs",
-    "tslib": "https://ga.jspm.io/npm:tslib@2.3.1/tslib.es6.js"
+    "tslib": "https://ga.jspm.io/npm:tslib@2.4.0/tslib.es6.js"
   }
 }
