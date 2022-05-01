@@ -2,6 +2,7 @@
   "name": "@spike.land/code",
   "version": "0.7.673",
   "description": "spike.land",
+  "type": "module",
   "main": "./js/public/starter.mjs",
   "files": [
     "**/*"
@@ -17,16 +18,16 @@
   },
   "scripts": {
     "typecheck": "cd monorepo/packages/code && yarn tsc",
-    "clean": "rm -rf .tsBuildInfo js/vendor js/public && mkdir js/public js/vendor && deno fmt js && yarn build:framer-motion && yarn build:emotion  && yarn build:preact",
+    "clean": "rm -rf .tsBuildInfo js/vendor js/public && mkdir js/public js/vendor && deno fmt js && yarn favicons && yarn build:framer-motion && yarn build:emotion  && yarn build:preact",
     "xpostinstall": "yarn importmap",
-    "build:sw": "yarn esbuild --outfile=./js/public/sw.js --platform=browser --bundle --minify ./js/sw.js && yarn sw",
+    "build:sw": "esbuild --outfile=./js/public/sw.js --platform=browser --bundle --minify ./js/sw.js && yarn sw",
     "start": "cd ../../.. && yarn start",
     "push": "cd ../../.. && yarn push",
     "build:preact": "esbuild --bundle js/preact.ts  --target=esnext --minify --format=esm  --platform=browser  --outfile=js/public/react.mjs",
     "build:framer-motion": "yarn esbuild --bundle js/motion.tsx  --target=esnext --minify --format=esm  --platform=browser  --define:process.env.NODE_ENV=\\\"production\\\" --external:react --external:@emotion/is-prop-valid  --external:react --external:tslib --outfile=js/public/framer-motion.mjs",
     "build:emotion": "yarn esbuild --bundle js/emotion.tsx  --target=esnext --minify --format=esm --external:react --platform=browser --external:tslib --define:process.env.NODE_ENV=\\\"production\\\" --outfile=js/public/emotion.mjs",
-    "build": "node esbuild-dev.mjs && echo build-ok && yarn build:sw && yarn favicons",
-    "favicons": "cp -a -f js/assets/favicons/. js/public || echo no-cp-favicons",
+    "build": "node esbuild-dev.mjs &&  yarn build:sw",
+    "favicons": "cp -a -f js/assets/favicons/. js/public",
     "importmap": "node --experimental-json-modules generate.mjs > ./importmap_NEW.json && mv importmap_NEW.json js/importmap.json",
     "workbox-cli": "workbox-cli",
     "sw": "echo ok",
