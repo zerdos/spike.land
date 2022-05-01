@@ -934,26 +934,6 @@
     "@babel/helper-validator-identifier" "^7.16.7"
     to-fast-properties "^2.0.0"
 
-"@chialab/esbuild-plugin-jsx-import@^0.15.14":
-  version "0.15.14"
-  resolved "https://registry.yarnpkg.com/@chialab/esbuild-plugin-jsx-import/-/esbuild-plugin-jsx-import-0.15.14.tgz#f32869512b0888dfc548ee613dfd0f26a00ad35e"
-  integrity sha512-ddz1gIofmdMLLljf+P+wlN6u0MKabEGMGhLUq1jLxvut1Iftf/mnBzANHVP+VqcES+7AyM7q2Py+jqCG5/m72A==
-  dependencies:
-    "@chialab/estransform" "^0.15.14"
-    "@chialab/node-resolve" "^0.15.9"
-
-"@chialab/estransform@^0.15.14":
-  version "0.15.14"
-  resolved "https://registry.yarnpkg.com/@chialab/estransform/-/estransform-0.15.14.tgz#832f6e68df59f5689b4eb14e5c59bc2f65337777"
-  integrity sha512-o416C85M3jGnzHswOK6MxncfPPTOuNUoJWDWV8FRPKkQzI3avVos+v/bEQVqMJX480lSDqfUHkhZ7gMJIzB2oQ==
-  dependencies:
-    "@parcel/source-map" "^2.0.0"
-
-"@chialab/node-resolve@^0.15.9":
-  version "0.15.9"
-  resolved "https://registry.yarnpkg.com/@chialab/node-resolve/-/node-resolve-0.15.9.tgz#46985d4f8a468bbb8443bc624ba60bcc4c72b9a8"
-  integrity sha512-4/2GWaGnMV2CLK4QsG4OyJVb6gcz28XPb/bswYWrH9DmYEx6YXVlNEGDswNJxFeYXvXBCIQ5UGzAzjdEMa075A==
-
 "@cloudflare/kv-asset-handler@0.2.0":
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/@cloudflare/kv-asset-handler/-/kv-asset-handler-0.2.0.tgz#c9959bbd7a1c40bd7c674adae98aa8c8d0e5ca68"
@@ -2269,13 +2249,6 @@
   dependencies:
     "@octokit/openapi-types" "^11.2.0"
 
-"@parcel/source-map@^2.0.0":
-  version "2.0.2"
-  resolved "https://registry.yarnpkg.com/@parcel/source-map/-/source-map-2.0.2.tgz#9aa0b00518cee31d5634de6e9c924a5539b142c1"
-  integrity sha512-NnUrPYLpYB6qyx2v6bcRPn/gVigmGG6M6xL8wIg/i0dP1GLkuY1nf+Hqdf63FzPTqqT7K3k6eE5yHPQVMO5jcA==
-  dependencies:
-    detect-libc "^1.0.3"
-
 "@popperjs/core@^2.11.5":
   version "2.11.5"
   resolved "https://registry.yarnpkg.com/@popperjs/core/-/core-2.11.5.tgz#db5a11bf66bdab39569719555b0f76e138d7bd64"
@@ -2492,6 +2465,13 @@
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/@types/path-browserify/-/path-browserify-1.0.0.tgz#294ec6e88b6b0d340a3897b7120e5b393f16690e"
   integrity sha512-XMCcyhSvxcch8b7rZAtFAaierBYdeHXVvg2iYnxOV0MCQHmPuRRmGZPFDRzPayxcGiiSL1Te9UIO+f3cuj0tfw==
+
+"@types/preact-i18n@^2.3.1":
+  version "2.3.1"
+  resolved "https://registry.yarnpkg.com/@types/preact-i18n/-/preact-i18n-2.3.1.tgz#ec36d934796a44d37e4c7c0b5f72f7b7d8e66634"
+  integrity sha512-cjJf4P1b8a8BdvsPyDrp/lKgnN1U3eXFJtDbd5/JjCFrxL6wWMMVsxFGNyl8EnLqWvxWe/z4alv6Q+SHlVKfdQ==
+  dependencies:
+    preact "^10.0.0"
 
 "@types/prettier@^2.6.0":
   version "2.6.0"
@@ -3656,11 +3636,6 @@ detect-indent@^6.0.0:
   version "6.1.0"
   resolved "https://registry.yarnpkg.com/detect-indent/-/detect-indent-6.1.0.tgz#592485ebbbf6b3b1ab2be175c8393d04ca0d57e6"
   integrity sha512-reYkTUJAZb9gUuZ2RvVCNhVHdg62RHnJ7WJl8ftMi4diZ6NWlciOzQN88pUhSELEwflJht4oQDv0F0BMlwaYtA==
-
-detect-libc@^1.0.3:
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/detect-libc/-/detect-libc-1.0.3.tgz#fa137c4bd698edf55cd5cd02ac559f91a4c4ba9b"
-  integrity sha1-+hN8S9aY7fVc1c0CrFWfkaTEups=
 
 dezalgo@^1.0.0:
   version "1.0.4"
@@ -6874,11 +6849,6 @@ postcss@^8.3.8, postcss@^8.4.12:
     picocolors "^1.0.0"
     source-map-js "^1.0.2"
 
-preact-jsx-runtime@^1.2.0:
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/preact-jsx-runtime/-/preact-jsx-runtime-1.2.0.tgz#a950ace575216a1c0cbe7ea29f3104f898a9aff8"
-  integrity sha512-427WYzJixkSjwV69pjmjxDBRVv80xYoOrz+D+gIqMNioO5o1LfJDS72CWkHoRgIhdIs87Tff3nWh2NtN8erXpw==
-
 preact-render-to-string@^5.1.21:
   version "5.2.0"
   resolved "https://registry.yarnpkg.com/preact-render-to-string/-/preact-render-to-string-5.2.0.tgz#3d3c4f9c570229b76d33353ed02ce662bd13dec1"
@@ -6886,7 +6856,7 @@ preact-render-to-string@^5.1.21:
   dependencies:
     pretty-format "^3.8.0"
 
-preact@^10.7.1:
+preact@^10.0.0, preact@^10.7.1:
   version "10.7.1"
   resolved "https://registry.yarnpkg.com/preact/-/preact-10.7.1.tgz#bdd2b2dce91a5842c3b9b34dfe050e5401068c9e"
   integrity sha512-MufnRFz39aIhs9AMFisonjzTud1PK1bY+jcJLo6m2T9Uh8AqjD77w11eAAawmjUogoGOnipECq7e/1RClIKsxg==
@@ -8228,7 +8198,7 @@ typedoc@0.22.15:
     minimatch "^5.0.1"
     shiki "^0.10.1"
 
-typescript@4.6.4, typescript@^4.3.5:
+typescript@4.6.4, typescript@^4.3.5, typescript@^4.6.4:
   version "4.6.4"
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.6.4.tgz#caa78bbc3a59e6a5c510d35703f6a09877ce45e9"
   integrity sha512-9ia/jWHIEbo49HfjrLGfKbZSuWo9iTMwXO+Ca3pRsSpbsMbc7/IU8NKdCZVRRBafVPGnoJeFL76ZOAA84I9fEg==

@@ -15,7 +15,8 @@
             "jsx": true
         },
         "ecmaVersion": "latest",
-        "sourceType": "module"
+        "sourceType": "module",
+        "jsxPragma": null 
     },
     "plugins": [
         "react",
@@ -24,7 +25,9 @@
     "rules": {
         "no-unused-vars": "off",
         "@typescript-eslint/no-unused-vars": ["error"],
-        "react/no-deprecated": "off"
+        "react/no-deprecated": "off",
+        "react/react-in-jsx-scope": "off",
+        "react/jsx-uses-react": "off"
       }
 }
 

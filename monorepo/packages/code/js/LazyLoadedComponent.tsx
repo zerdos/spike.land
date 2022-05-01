@@ -1,5 +1,3 @@
-/** @jsx jsx */
-import { jsx } from "@emotion/react";
 import { FC, lazy, Suspense, useEffect, useState } from "react";
 interface ILaztCom {
   name: string;

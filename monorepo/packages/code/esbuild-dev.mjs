@@ -82,7 +82,10 @@ const build = (entryPoints) =>
     // minifySyntax: true,
     legalComments: "none",
     splitting: true,
+
     inject: ["./js/react-shim.mjs"],
+
+    
     allowOverwrite: true,
     treeShaking: true,
     // external: ["react", "react-dom", "framer-motion", "tslib", "@emotion/react"],
@@ -110,16 +113,23 @@ const build = (entryPoints) =>
       ".ttf": "file",
       ".webp": "file",
       ".tsx": "tsx",
+      ".jsx": "tsx",
       ".mjs": "tsx",
       ".ts:": "tsx",
+      ".js:": "tsx",
       ".css": "css",
-      ".ts": "ts",
       ".d.ts": "dataurl",
       ".workerJS": "file",
       ".wasm": "file",
     },
     outdir: "js/public",
-  }).catch(() => process.exit(1));
+  }).catch((e) => {
+
+    console.error(e);
+    process.exit(1)
+
+  }
+);
 
 // await build([
 //   "js/renderPreviewWindow.tsx",
