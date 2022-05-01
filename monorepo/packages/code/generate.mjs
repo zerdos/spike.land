@@ -72,8 +72,8 @@ const importMap = { ...generator.getMap() };
 
 // importMap.imports["textdiff-patch"] =
 //  `https://unpkg.com/@spike.land/esm@${version}/public/textdiff-patch.mjs`;
-importMap.imports["react"] = isDev
-  ? "https://localhost:8000/monorepo/packages/code/js/public/react.mjs"
+importMap.imports["react/jsx-runtime"] = isDev ? 
+"https://localhost:8000/monorepo/packages/code/js/public/react.mjs"
   : "https://spike.land/react.mjs";
 importMap.imports["react-dom"] = importMap.imports["react"];
 
@@ -94,7 +94,8 @@ importMap.imports["@emotion/react"] = isDev
   ? "https://localhost:8000/monorepo/packages/code/js/public/emotion.mjs"
   : "https://spike.land/emotion.mjs";
 
-importMap.imports["@emotion/cache"] = isDev
+  
+  importMap.imports["@emotion/cache"] = isDev
   ? "https://localhost:8000/monorepo/packages/code/js/public/emotion.mjs"
   : "https://spike.land/emotion.mjs";
 //importMap.imports.tslib =
