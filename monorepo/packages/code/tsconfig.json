@@ -13,8 +13,10 @@
     "noFallthroughCasesInSwitch": true,
     "isolatedModules": true,
     "noEmit": true,
+  
     "module": "esnext",
     "jsx": "react-jsx",
+    "loader": "ts",
     "jsxImportSource": "@emotion/react",
     "sourceMap": true,
     "noUnusedLocals": true,
