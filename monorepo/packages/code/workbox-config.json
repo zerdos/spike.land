@@ -1,10 +1,10 @@
 {
-  "globDirectory": "js/",
+  "globDirectory": "js/public",
   "globPatterns": [
     "**/*.{css,ttf,webp,png,mjs,html,js,json,wasm}"
   ],
   "globIgnores": ["**/chunks/**"],
-  "swDest": "js/sw.js",
+  "swDest": "js/public/sw.js",
   "swSrc": "js/sw.js",
   "maximumFileSizeToCacheInBytes": 100000000
 }
