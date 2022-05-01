@@ -1,7 +1,6 @@
 import bg from "./assets/synthwave.webp";
 import path from "path-browserify";
 import { render } from "react-dom";
-
 import type { IRunnerSession } from "./quickStart";
 
 import { hashCode } from "./session";
