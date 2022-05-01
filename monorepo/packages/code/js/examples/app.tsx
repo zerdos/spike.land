@@ -1,6 +1,4 @@
-/** @jsx jsx */
-
-import { css, Global, jsx } from "@emotion/react";
+import { css, Global } from "@emotion/react";
 import { useState } from "react";
 
 const Hello = () => {

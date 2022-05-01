@@ -1,6 +1,3 @@
-/** @jsx jsx */
-import { jsx } from "@emotion/react";
-
 import { css } from "@emotion/react";
 import { motion } from "framer-motion";
 import { FC, useEffect, useRef, useState } from "react";
