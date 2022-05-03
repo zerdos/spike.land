@@ -3,7 +3,12 @@
 import { CacheProvider } from "@emotion/react";
 import createCache from "@emotion/cache";
 import type { FC } from "react";
-import { renderToString } from "react-dom";
+import {} from "react-dom";
+
+export const renderFromString = async (transpiled: string) => {
+  const App = await getApp(transpiled);
+  return getHtmlAndCss(App);
+};
 
 export const getHtmlAndCss = (MyComponent: FC) => {
   const key = "css";
@@ -24,3 +29,19 @@ export const getHtmlAndCss = (MyComponent: FC) => {
     css: cssText,
   };
 };
+
+async function getApp(transpiled: string, mode = "window") {
+  const codeToHydrate = mode === "window"
+    ? transpiled.replace("body{", "#zbody{")
+    : transpiled;
+
+  const objectUrl = createJsBlob(
+    codeToHydrate,
+  );
+
+  const App = (await import(objectUrl)).default;
+
+  URL.revokeObjectURL(objectUrl);
+
+  return App;
+}

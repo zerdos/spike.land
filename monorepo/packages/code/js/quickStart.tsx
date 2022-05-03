@@ -101,9 +101,11 @@ async function runner(
 
     const transpiled = await transform(c);
 
+    const { renderFromString, getApp } = await import("./renderToString");
+
+    const { html, css } = await renderFromString(transpiled);
+
     const App = await getApp(transpiled);
-    const { getHtmlAndCss } = await import("./renderToString");
-    const { html, css } = getHtmlAndCss(<App />);
 
     let restartError = false;
     /// yellow

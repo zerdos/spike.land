@@ -547,7 +547,7 @@ export class Code {
             //   hashCode: newHash,
             // }));
       
-            await this.kv.put<ICodeSession>("session", session);
+            await this.kv.put<ICodeSession>("session", mST());
 
             await this.kv.put(String(newHash), { oldHash, patch });
           } else {
