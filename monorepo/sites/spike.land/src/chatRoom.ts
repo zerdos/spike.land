@@ -415,10 +415,10 @@ export class Code {
       if (data.timestamp) {
         session.timestamp = Date.now();
 
-        session.webSocket.send({
+        session.webSocket.send(JSON.stringify({
           timestamp: session.timestamp,
           hashCode: this.state.mySession.hashCode()
-        });
+        }));
       }
  
       try {
