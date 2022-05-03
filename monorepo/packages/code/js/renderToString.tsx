@@ -3,7 +3,7 @@
 import { CacheProvider } from "@emotion/react";
 import createCache from "@emotion/cache";
 import type { FC } from "react";
-import {} from "react-dom";
+import { renderToString } from "react-dom";
 
 export const renderFromString = async (transpiled: string) => {
   const App = await getApp(transpiled);
