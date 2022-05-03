@@ -243,17 +243,18 @@ export class Code {
                 })
               }</script>
             <script defer type="module">
-              import("https://spike.land//starter.mjs")
+              window.startSession = "${mST().toString}";
+              import("https://spike.land/starter.mjs")
                 .then(
-                  ({hydrateBinary})=> hydrateBinary(
-                    atob("${btoa(toBinary(mST().transpiled))}")
+                  ({run})=> run(
+                    window.startSession
                     )
                   )
                 .catch(()=>{
                   const s = document.createElement("script");
                   s.async = "async";
                   s.type = "application/javascript";
-                  s.src = "https://spike.land//appStarter.js";
+                  s.src = "https://spike.land/appStarter.js";
                   document.head.appendChild(s);   
                 });
             </script>`,
@@ -308,23 +309,24 @@ export class Code {
             }</script>`,
           )
             .replace(
-              '<script defer src="https://spike.land//appStarter.js"></script>',
+              '<script defer src="https://spike.land/appStarter.js"></script>',
               `<script defer type="module">
-              import("https://spike.land//starter.mjs")
+              window.startSession = "${mST().toString}";
+              import("https://spike.land/starter.mjs")
                 .then(
-                  ({hydrateBinary})=> hydrateBinary(
-                    atob("${btoa(toBinary(mST().transpiled))}")
+                  ({run})=> run(
+                    window.startSession
                     )
                   )
                 .catch(()=>{
                   const s = document.createElement("script");
                   s.async = "async";
                   s.type = "application/javascript";
-                  s.src = "https://spike.land//appStarter.js";
+                  s.src = "https://spike.land/appStarter.js";
                   document.head.appendChild(s);   
                 });
             </script>
-            <script type="nomodule" defer  src="https://spike.land//appStarter.js"></script>`,
+            <script type="nomodule" defer  src="https://spike./appStarter.js"></script>`,
             ).replaceAll(vReg, version);
           return new Response(html, {
             status: 200,

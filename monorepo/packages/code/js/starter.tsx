@@ -13,7 +13,7 @@ if ("serviceWorker" in navigator) {
   wb.register();
 }
 
-const start = async (App: ReactNode) => {
+const start = async (App) => {
   const e = import("./editor");
   const p = import("./renderPreviewWindow");
   const container = document.querySelector("#root") ||
@@ -29,22 +29,21 @@ const start = async (App: ReactNode) => {
   await (Promise.all([e, p]));
 };
 
-export const hydrateBinary = async (binary: string) => {
-  const App = (await import(createJsBlob(fromBinary(binary)))).default;
-  globalThis.App = App;
-  start(App);
-};
-
-export const run = async () => {
+export const run = async (sess) => {
   if (globalThis.App) return;
 
-  const { roomName } = await import("./ws");
+  if (!window.startSession && !sess) {
+    const { roomName } = await import("./ws");
 
-  const respS = await fetch(
-    `https://spike.land/api/room/${roomName}/session`,
-  );
+    const respS = await fetch(
+      `https://spike.land/api/room/${roomName}/session`,
+    );
 
-  const session = await respS.json();
+    const session = await respS.json();
+    window.startSession = session;
+  }
+  const session = sess || window.startSession;
+
   const container = document.getElementById("root") ||
     document.createElement("div");
   container.innerHTML =
