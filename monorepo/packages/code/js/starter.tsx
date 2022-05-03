@@ -1,6 +1,6 @@
 import "core-js/modules/web.immediate";
 
-import { hydrate } from "preact";
+import { hydrate } from "react-dom";
 import { fromBinary } from "./binary";
 import { Workbox } from "workbox-window";
 import { ReactNode } from "react";
@@ -29,6 +29,7 @@ const start = async (App: ReactNode) => {
 
 export const hydrateBinary = async (binary: string) => {
   const App = (await import(createJsBlob(fromBinary(binary)))).default;
+  globalThis.App = App;
   start(App);
 };
 

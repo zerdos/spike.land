@@ -1,7 +1,9 @@
+/** @jsxImportSource @emotion/react */
+
 import { CacheProvider } from "@emotion/react";
 import createCache from "@emotion/cache";
 import type { FC } from "react";
-import { renderToString } from "./preact";
+import { renderToString } from "react-dom";
 
 export const getHtmlAndCss = (MyComponent: FC) => {
   const key = "css";

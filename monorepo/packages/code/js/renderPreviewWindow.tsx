@@ -1,3 +1,5 @@
+/** @jsxImportSource @emotion/react */
+
 import bg from "./assets/synthwave.webp";
 import path from "path-browserify";
 import { render } from "react-dom";

@@ -1,5 +1,7 @@
 import esbuild from "esbuild";
 import * as importMap from "esbuild-plugin-import-map";
+import { jsxImportSourcePlugin } from 'esbuild-plugin-jsximportsource';
+
 import jsonData from "./js/mockedMap.json" assert { type: "json" };
 
 const environment = process.env.NODE_ENV === "production"
@@ -41,6 +43,7 @@ await esbuild.build({
     "process.env.NODE_ENV": `"${environment}"`,
   },
   format: "iife",
+  plugins: [jsxImportSourcePlugin()],
   loader: {
     ".css": "css",
     ".ttf": "file",
@@ -83,9 +86,10 @@ const build = (entryPoints) =>
     legalComments: "none",
     splitting: true,
 
-    inject: ["./js/react-shim.mjs"],
 
-    
+    // inject: ["./js/react-shim.mjs"],
+
+    tsconfig: './tsconfig.json',
     allowOverwrite: true,
     treeShaking: true,
     // external: ["react", "react-dom", "framer-motion", "tslib", "@emotion/react"],
@@ -108,7 +112,7 @@ const build = (entryPoints) =>
     define: {
       "process.env.NODE_ENV": `"${environment}"`,
     },
-    plugins: [importMapPlugin],
+    plugins: [importMapPlugin, jsxImportSourcePlugin({filter: /.(tsx)/ })],
     loader: {
       ".ttf": "file",
       ".webp": "file",

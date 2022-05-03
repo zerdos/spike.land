@@ -2,8 +2,6 @@ import type { ICodeSession } from "./session";
 import debounce from "lodash/debounce";
 import uidV4 from "./uidV4.mjs";
 import * as monaco from "monaco-editor";
-import { jsx } from "@emotion/react";
-import { Fragment, ReactNode } from "react";
 
 const webRtcArray: (RTCDataChannel & { target: string })[] = [];
 const hostname = window.location.hostname || "spike.land";
@@ -128,7 +126,7 @@ async function rejoin() {
 
     if (ws) return ws;
 
-    ws = await join(jsx(Fragment));
+    ws = await join();
 
     return ws;
   }
@@ -234,7 +232,7 @@ export async function join(App: ReactNode) {
       ...mST(),
       setChild: () => null,
       changes: [],
-      children: [App],
+      children: [App ? App : globalThis.App],
       errorText: "",
     };
 
