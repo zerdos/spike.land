@@ -1,3 +1,4 @@
+/** @jsxImportSource @emotion/react */
 import type { Dispatch, ReactNode, SetStateAction } from "react";
 import type { ICodeSession } from "./session";
 
@@ -124,7 +125,7 @@ async function runner(
 
         // Session.html = zbody.innerHTML;
 
-        session.setChild((c: ReactNode[]) => [...c, App]);
+        session.setChild((c: ReactNode[]) => [...c, <App />]);
 
         globalThis.App = App;
         restartError = !html;

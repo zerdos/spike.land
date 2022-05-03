@@ -88,32 +88,10 @@ const w = window as unknown as {
   };
 };
 
-const chCode = async (code: string, i: number) => {
-  if (!code) {
-    return;
-  }
-
-  const sess = mST();
-
-  if (i < sess.i) {
-    return;
-  }
-
-  if (code === sess.code) {
-    return;
-  }
-
+const chCode = () => {
   try {
-    const modelUri = monaco.Uri.parse("file:///app/index.tsx");
-    if (
-      w.sess && w.sess.editor && w.sess.editor.getModel &&
-      w.sess.editor.getModel(modelUri)
-    ) {
-      if (globalThis.model) {
-        globalThis.model.setValue(code);
-      }
-    } else {
-      w.sess && w.sess.update && w.sess.update(code);
+    if (globalThis.model) {
+      globalThis.model.setValue(mST().code);
     }
   } catch (error) {
     console.error({ e: error });
@@ -184,6 +162,8 @@ export async function join(App: ReactNode) {
 
   rejoined = true;
 
+  console.log("WS connect!");
+
   const wsConnection = new WebSocket(
     "wss://" + hostname + "/api/room/" + roomName + "/websocket",
   );
@@ -237,7 +217,7 @@ export async function join(App: ReactNode) {
     return wsConnection;
   });
 
-  if (!w.sess) {
+  if (!globalThis.session) {
     const session = {
       ...mST(),
       setChild: () => null,
@@ -245,6 +225,7 @@ export async function join(App: ReactNode) {
       children: [App ? App : globalThis.App],
       errorText: "",
     };
+    globalThis.session = session;
 
     const stayFullscreen = location.pathname.endsWith("public");
     const { quickStart } = await import("./quickStart");
@@ -322,7 +303,12 @@ export async function join(App: ReactNode) {
         return;
       }
 
-      await mySession.applyPatch(data);
+      await mySession.applyPatch({
+        oldHash: data.oldHash,
+        newHash: data.newHash,
+        patch: data.patch,
+      });
+
       if (data.newHash === mySession.hashCode()) {
         chCode(
           mST().code,
@@ -334,6 +320,8 @@ export async function join(App: ReactNode) {
         }
 
         return;
+      } else {
+        console.log("errooooooor");
       }
 
       if (wsLastHashCode !== mySession.hashCode()) {
@@ -347,7 +335,7 @@ export async function join(App: ReactNode) {
         const messageData = mySession.createPatch(data);
         console.log("APPLYING PATCH AGAIN");
         await mySession.applyPatch(messageData);
-        chCode(data.code, data.i);
+        chCode();
         if (sendChannel) {
           sendChannel.send({ hashCode: messageData.newHash });
         }
@@ -357,7 +345,7 @@ export async function join(App: ReactNode) {
         const messageData = mySession.createPatch(data);
         console.log("APPLYING PATCH AGAIN");
         await mySession.applyPatch(messageData);
-        chCode(data.code, data.i);
+        chCode();
         if (sendChannel) {
           sendChannel.send({ hashCode: messageData.newHash });
         }
@@ -559,8 +547,8 @@ export async function join(App: ReactNode) {
       // Configure the remote description, which is the SDP payload
       // in our "answer" message.
 
-      // const desc = new RTCSessionDescription(message.sdp);
-      const desc = new RTCSessionDescription(message);
+      const desc = new RTCSessionDescription(message.sdp);
+      // const desc = new RTCSessionDescription(message);
 
       await connections[target].setRemoteDescription(desc).catch(console.error);
     }
@@ -572,8 +560,8 @@ export async function join(App: ReactNode) {
       if (!connections[target]) await createPeerConnection(target);
 
       if (!message.sdp) return;
-      // const desc = new RTCSessionDescription(message.sdp);
-      const desc = new RTCSessionDescription(message);
+      const desc = new RTCSessionDescription(message.sdp);
+      // const desc = new RTCSessionDescription(message);
 
       if (connections[target].signalingState != "stable") {
         log("  - But the signaling state isn't stable, so triggering rollback");
