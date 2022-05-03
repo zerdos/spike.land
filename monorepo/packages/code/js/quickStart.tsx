@@ -103,7 +103,7 @@ async function runner(
 
     const { renderFromString } = await import("./renderToString");
 
-    const { html, css, App } = await renderFromString(transpiled);
+    const { html, css, App } = await renderFromString(transpiled, counter);
 
     let restartError = false;
     /// yellow
