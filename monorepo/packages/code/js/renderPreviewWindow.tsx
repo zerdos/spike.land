@@ -34,7 +34,7 @@ export const renderPreviewWindow = async (
       hashCode={hashCode()}
       keepFullScreen={keepFullScreen}
     >
-      <App />
+      <App></App>
     </DraggableWindow>,
     target,
   );

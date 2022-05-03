@@ -1,3 +1,5 @@
+/** @jsxImportSource @emotion/react */
+
 import { css } from "@emotion/react";
 import type { motion as motionT, MotionProps } from "framer-motion";
 import { Fragment, lazy, Suspense, useEffect, useState } from "react";

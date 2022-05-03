@@ -1,7 +1,9 @@
 import * as emotionReact from "@emotion/react";
 import createCache from "@emotion/cache";
-export { Fragment, jsx, jsxs } from "@emotion/react/jsx-runtime";
 
+export { Fragment, jsxs } from "@emotion/react/jsx-runtime";
+
+export const { jsx } = emotionReact;
 export const { css } = emotionReact;
 export const { CacheProvider } = emotionReact;
 export const { ClassNames } = emotionReact;

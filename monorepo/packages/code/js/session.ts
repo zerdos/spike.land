@@ -1,3 +1,5 @@
+/** @jsxImportSource @emotion/react */
+
 import { Record } from "immutable";
 
 import createDelta from "textdiff-create";
