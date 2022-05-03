@@ -87,7 +87,7 @@ async function runner(
   session: IRunnerSession,
   counter: number,
 ) {
-  session.changes.push(changes);
+  // session.changes.push(changes);
   const { babelTransform } = await import("./babelEsm");
 
   // esbuildEsmTransform = esbuildEsmTransform ||
@@ -95,33 +95,31 @@ async function runner(
 
   const transform = babelTransform;
 
-  session.errorText = "";
-
   try {
     const { prettier } = await import("./prettierEsm");
-    const cd = prettier(c);
+    const code = prettier(c);
 
-    const transpiled = await transform(cd);
+    const transpiled = await transform(c);
+
+    const App = await getApp(transpiled);
+    const { getHtmlAndCss } = await import("./renderToString");
+    const { html, css } = getHtmlAndCss(App);
 
     let restartError = false;
     /// yellow
     if (transpiled.length > 0) {
-      if (counter < session.i) {
-        return;
-      }
-
       try {
-        const { getHtmlAndCss } = await import("./renderToString");
-
         if (counter < session.i) {
           return;
         }
 
-        const App = await getApp(transpiled);
-        const { html, css } = getHtmlAndCss(App);
-
-        session.transpiled = transpiled;
-        session.html = html;
+        const newSess = {
+          code,
+          transpiled,
+          i: counter,
+          html,
+          css,
+        };
 
         // Session.html = zbody.innerHTML;
 
@@ -129,20 +127,14 @@ async function runner(
 
         globalThis.App = App;
         restartError = !html;
-        session.code = cd;
         // GetCss = getCss || (await import("./templates.ts")).getCss;
         // setTimeout(async () => {
         //     session.html = document.getElementById("zbody").innerHTML;
         // const css = getCss(session);
-        const code = cd;
-        session.css = css;
-        if (session.i !== counter) {
-          return;
-        }
 
         const { saveCode } = await import("./ws");
 
-        saveCode({ transpiled, code, i: counter, css, html });
+        saveCode(newSess);
         // }, 10);
         return;
       } catch (error) {

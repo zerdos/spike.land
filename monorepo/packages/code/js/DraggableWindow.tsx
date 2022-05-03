@@ -2,6 +2,9 @@
 
 import { css } from "@emotion/react";
 
+import { CacheProvider } from "@emotion/react";
+import createCache from "@emotion/cache";
+
 import { ReactNode, useEffect, useRef, useState } from "react";
 import type { FC } from "react";
 import type { IRunnerSession } from "./quickStart";
@@ -31,6 +34,9 @@ import type {
   ToggleButton as MuiToggleButton,
   ToggleButtonGroup as MuiToggleButtonGroup,
 } from "./mui";
+
+const key = "css";
+const cache = createCache({ key });
 
 const Button = muiButton as typeof MuiButton;
 const ToggleButtonGroup = muiToggleButtonGroup as typeof MuiToggleButtonGroup;
@@ -221,7 +227,9 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
           height: 100%;
   `}
       >
-        {child}
+        <CacheProvider value={cache}>
+          {child}
+        </CacheProvider>
       </div>
     );
   }
@@ -369,7 +377,9 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
                         height: 100%;
                       `}
                 >
-                  {child}
+                  <CacheProvider value={cache}>
+                    {child}
+                  </CacheProvider>
                 </div>
               )} {
               /*  </div>
