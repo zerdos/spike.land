@@ -399,10 +399,20 @@ export class Code {
     });
 
     webSocket.addEventListener("message", async (msg) => {
-      session.webSocket.send(JSON.stringify({
-        hashCode: this.state.mySession.hashCode(),
-      }));
+     let data;
+      try{
+       data = JSON.parse(msg.data);
+      } catch (exp) {
+        webSocket.send(
+          JSON.stringify({
+            error: "JSON parse error",
+            exp: exp || {},
+          }),
+        );
+      }
 
+
+ 
       try {
         if (session.quit) {
           if (session.name && typeof session.name === "string") {
@@ -420,7 +430,7 @@ export class Code {
 
         if (typeof msg.data !== "string") return;
 
-        let data = JSON.parse(msg.data);
+
 
         // this.state.mySession.addEvent(
         //   { ...data, uuid: session.uuid } as unknown as IEvent,
@@ -527,7 +537,11 @@ export class Code {
           await this.state.mySession.applyPatch(data);
           if (newHash === this.state.mySession.hashCode()) {
             this.broadcast(msg.data);
-            const session = mST();
+
+            // session.webSocket.send(JSON.stringify({
+            //   hashCode: newHash,
+            // }));
+      
             await this.kv.put<ICodeSession>("session", session);
 
             await this.kv.put(String(newHash), { oldHash, patch });

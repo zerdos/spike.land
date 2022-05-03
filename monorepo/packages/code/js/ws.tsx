@@ -156,6 +156,7 @@ async function broadcastCodeChange(sess: ICodeSession) {
   })();
 
   if (ws) {
+    console.log({ wsLastHashCode });
     const message = await mySession.createPatchFromHashCode(
       wsLastHashCode,
       sess,
@@ -188,8 +189,17 @@ export async function join(App: ReactNode) {
   );
   rejoined = false;
 
+  wsConnection.addEventListener(
+    "message",
+    (message) => processWsMessage(message, "ws"),
+  );
+
   wsConnection.addEventListener("open", () => {
     ws = wsConnection;
+    ws.addEventListener(
+      "message",
+      (message) => processWsMessage(message, "ws"),
+    );
     // if (delta) {
     //   if (delta !== deltaSent) {
     //     deltaSent = delta;
@@ -243,11 +253,6 @@ export async function join(App: ReactNode) {
       stayFullscreen,
     );
   }
-
-  wsConnection.addEventListener(
-    "message",
-    (message) => processWsMessage(message, "ws"),
-  );
 
   wsConnection.addEventListener("close", (event) => {
     console.log("WebSocket closed, reconnecting:", event.code, event.reason);

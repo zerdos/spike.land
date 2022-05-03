@@ -219,6 +219,7 @@ export class CodeSession implements ICodeSess {
       console.log({
         newState,
       });
+      throw new Error("Wrong patch");
     }
   };
 

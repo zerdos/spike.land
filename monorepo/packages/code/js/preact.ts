@@ -2,7 +2,7 @@
 
 import * as react from "preact/compat";
 
-export { Fragment, jsx, jsxs } from "preact/compat/jsx-runtime";
+import { Fragment, jsx, jsxs } from "preact/compat/jsx-runtime";
 import { createPortal, hydrate, render } from "preact/compat";
 import renderToString from "preact-render-to-string";
 export { render };
@@ -15,6 +15,9 @@ export { renderToString };
 // });
 // export const hydrateRoot = (container, App) => hydrate(App, container);
 
+export { Fragment };
+export { jsx };
+export { jsxs };
 export const { createContext } = react;
 export const { useDebugValue } = react;
 
@@ -45,3 +48,5 @@ export const { useMemo } = react;
 export const { cloneElement } = react;
 
 export default react;
+
+window.React = { ...react, StrictMode: Fragment };

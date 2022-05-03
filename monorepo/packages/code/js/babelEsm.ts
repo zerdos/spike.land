@@ -13,6 +13,7 @@ export const babelTransform = async (code: string) =>
           "react",
           {
             "runtime": "automatic", // defaults to classic,
+            "development": false,
             "importSource": "@emotion/react", // defaults to react (only in automatic runtime)
           },
         ],

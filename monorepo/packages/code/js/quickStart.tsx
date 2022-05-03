@@ -122,13 +122,11 @@ async function runner(
         session.transpiled = transpiled;
         session.html = html;
 
-        const children = await getReactChild(transpiled);
-
         // Session.html = zbody.innerHTML;
 
-        session.setChild((c: ReactNode[]) => [...c, children]);
+        session.setChild((c: ReactNode[]) => [...c, App]);
 
-        globalThis.App = children;
+        globalThis.App = App;
         restartError = !html;
         session.code = cd;
         // GetCss = getCss || (await import("./templates.ts")).getCss;
