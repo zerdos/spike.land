@@ -15,7 +15,7 @@ export const getHtmlAndCss = (MyComponent: FC) => {
 
   const markup = renderToString(
     <CacheProvider value={cache}>
-      <MyComponent></MyComponent>
+      <App></App>
     </CacheProvider>,
   );
 

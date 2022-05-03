@@ -1,6 +1,8 @@
 /** @jsxImportSource @emotion/react */
 
 import "core-js/modules/web.immediate";
+import { CacheProvider } from "@emotion/react";
+import createCache from "@emotion/cache";
 
 import { hydrate } from "react-dom";
 import { fromBinary } from "./binary";
@@ -19,7 +21,15 @@ const start = async (App) => {
   const container = document.querySelector("#zbody") ||
     document.createElement("div");
 
-  hydrate(<App />, container);
+  const key = "css";
+  const cache = createCache({ key });
+
+  hydrate(
+    <CacheProvider value={cache}>
+      <App></App>
+    </CacheProvider>,
+    container,
+  );
 
   console.log("HYDRATED");
   if (location.href.endsWith("hydrated")) return;
