@@ -70,15 +70,6 @@ const mST = () => mySession.json().state;
 
 let intervalHandler: number | null = null;
 
-setInterval(() => {
-  if (Date.now() - lastSeenNow > 40_000) {
-    rejoined = false;
-    rejoin();
-  } else {
-    console.log("no_need_to_rejoin");
-  }
-}, 30_000);
-
 const w = window as unknown as {
   sess: {
     editor: typeof monaco.editor;
@@ -197,7 +188,7 @@ export async function join(App: ReactNode) {
       const now = Date.now();
       const diff = now - lastSeenNow;
 
-      if (now - lastSeenNow > 30_000) {
+      if (now - lastSeenNow > 40_000) {
         try {
           wsConnection.send(
             JSON.stringify({
