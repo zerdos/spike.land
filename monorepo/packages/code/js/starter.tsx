@@ -48,7 +48,6 @@ export const run = async (sess) => {
     const respS = await fetch(
       `https://spike.land/api/room/${roomName}/session`,
     );
-
     const session = await respS.json();
     window.startSession = session;
   }

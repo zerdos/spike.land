@@ -8,11 +8,16 @@ import type { FC } from "react";
 import { renderToString } from "react-dom";
 
 export const renderFromString = async (transpiled: string, i: number) => {
-  const App = await getApp(transpiled);
+  const Yap = await getApp(transpiled);
 
-  const { html, css } = getHtmlAndCss(App, i + 100);
+  const { html: _html, css: _css } = getHtmlAndCss(Yap, i + 100);
+
+  const App = await getApp(transpiled + `//${i}`);
+
+  const { html, css } = await getHtmlAndCss(App, i + 200);
 
   console.log(css);
+
   return {
     App,
     html,
@@ -33,15 +38,7 @@ export const getHtmlAndCss = (MyComponent: FC, i: number) => {
   const markup = renderToString(
     <CacheProvider value={cache} prepend={true}>
       <>
-        <>{salt}</>
         <App key={salt}></App>
-        <span
-          css={`
-        content: "${salt}";
-        `}
-        >
-          {salt}
-        </span>
       </>
     </CacheProvider>,
   );
