@@ -188,12 +188,12 @@ export async function join(App: ReactNode) {
       const now = Date.now();
       const diff = now - lastSeenNow;
 
-      if (now - lastSeenNow > 40_000) {
+      if (diff > 40_000) {
         try {
           wsConnection.send(
             JSON.stringify({
               name: username,
-              time: lastSeenTimestamp + diff,
+              timestamp: lastSeenTimestamp + diff,
             }),
           );
         } catch {
@@ -251,6 +251,11 @@ export async function join(App: ReactNode) {
 
     console.log({ data });
     // MySession.addEvent(data);
+
+    if (source === "ws" && data.timestamp) {
+      lastSeenNow = Date.now();
+      lastSeenTimestamp = data.timestamp;
+    }
 
     if (source === "ws" && (data.hashCode || data.newHash)) {
       wsLastHashCode = data.hashCode || data.newHash;
@@ -347,16 +352,9 @@ export async function join(App: ReactNode) {
       return;
     }
 
-    if (data.timestamp) {
-      lastSeenNow = Date.now();
-      lastSeenTimestamp = data.timestamp;
-    }
-
     if (data.name === username) {
       return;
     }
-
-    lastSeenTimestamp = data.timestamp;
 
     async function createPeerConnection(target: string) {
       log(`Setting up a connection with ${target}`);

@@ -382,6 +382,7 @@ export class Code {
     let session = {
       uuid,
       webSocket,
+      timestamp: Date.now(),
       blockedMessages: [] as string[],
     } as WebsocketSession;
     this.sessions.push(session);
@@ -411,7 +412,14 @@ export class Code {
         );
       }
 
+      if (data.timestamp) {
+        session.timestamp = Date.now();
 
+        session.webSocket.send({
+          timestamp: session.timestamp,
+          hashCode: this.state.mySession.hashCode()
+        });
+      }
  
       try {
         if (session.quit) {
@@ -428,8 +436,7 @@ export class Code {
           return;
         }
 
-        if (typeof msg.data !== "string") return;
-
+       
 
 
         // this.state.mySession.addEvent(
