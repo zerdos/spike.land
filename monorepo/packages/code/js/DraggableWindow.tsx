@@ -135,6 +135,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
   useEffect(() => {
     const reveal = async () => {
       if (keepFullScreen) {
+        requestAnimationFrame(() => document.querySelector("#root")?.remove());
         return;
       }
 

@@ -243,7 +243,7 @@ export class Code {
                 })
               }</script>
             <script defer type="module">
-              window.startSession = "${mST().toString}";
+              window.startSession = ${JSON.stringify(mST())};
               import("https://spike.land/starter.mjs")
                 .then(
                   ({run})=> run(
@@ -308,7 +308,7 @@ export class Code {
               })
             }</script>
             <script defer type="module">
-              window.startSession = "${mST().toString}";
+              window.startSession = ${JSON.stringify(mST())};
               import("https://spike.land/starter.mjs")
                 .then(
                   ({run})=> run(
@@ -474,7 +474,7 @@ export class Code {
 
         if (data.type === "lost") {
           webSocket.send(JSON.stringify({
-            ...mST().toJSON(),
+            ...mST(),
           }));A
         }
 
