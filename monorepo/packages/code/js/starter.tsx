@@ -16,7 +16,7 @@ if ("serviceWorker" in navigator) {
 const start = async (App) => {
   const e = import("./editor");
   const p = import("./renderPreviewWindow");
-  const container = document.querySelector("#root") ||
+  const container = document.querySelector("#zbody") ||
     document.createElement("div");
 
   hydrate(<App />, container);
