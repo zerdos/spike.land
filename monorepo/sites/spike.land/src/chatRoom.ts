@@ -306,11 +306,8 @@ export class Code {
               JSON.stringify({
                 imports: { ...imap.imports }
               })
-            }</script>`,
-          )
-            .replace(
-              '<script defer src="https://spike.land/appStarter.js"></script>',
-              `<script defer type="module">
+            }</script>
+            <script defer type="module">
               window.startSession = "${mST().toString}";
               import("https://spike.land/starter.mjs")
                 .then(
@@ -326,8 +323,7 @@ export class Code {
                   document.head.appendChild(s);   
                 });
             </script>
-            <script type="nomodule" defer  src="https://spike./appStarter.js"></script>`,
-            ).replaceAll(vReg, version);
+            <script type="nomodule" defer  src="https://spike./appStarter.js"></script>`);
           return new Response(html, {
             status: 200,
             headers: {
