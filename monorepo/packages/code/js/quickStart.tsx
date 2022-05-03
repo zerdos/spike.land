@@ -170,25 +170,10 @@ async function runner(
   }
 }
 
-// export const startFromCode = async ({ code }) => {
-//   const session = {
-//     code,
-//     i: 0,
-//     transpiled: "",
-//     html: "",
-//     changes: [],
-//     setChild: () => null,
-//   };
-//   await runner(code, null, session, session.i);
-//   await quickStart(session, false);
-// };
-
 export async function quickStart(
   session: IRunnerSession,
   keepFullScreen: boolean,
 ) {
-  // Session.children = await getReactChild(session.transpiled);
-  // session.children = null;
   const { renderPreviewWindow } = await import(
     "./renderPreviewWindow"
   );
@@ -198,48 +183,4 @@ export async function quickStart(
   if (!keepFullScreen) {
     await startMonacoWithSession(session);
   }
-}
-
-async function getReactChild(transpiled: string, mode = "window") {
-  const codeToHydrate = mode === "window"
-    ? transpiled.replace("body{", "#zbody{")
-    : transpiled;
-
-  const objectUrl = createJsBlob(
-    codeToHydrate,
-  );
-
-  const { default: App } = (await import(objectUrl));
-  URL.revokeObjectURL(objectUrl);
-
-  return App;
-}
-
-// Function createPatch(oldCode, newCode, createDelta) {
-//   return JSON.stringify(createDelta(oldCode, newCode));
-// }
-
-/**
- * @param {BlobPart} code
- */
-function createJsBlob(code: string) {
-  const blob = new Blob([code], { type: "application/javascript" });
-
-  return URL.createObjectURL(blob);
-}
-
-async function getApp(transpiled: string, mode = "window") {
-  const codeToHydrate = mode === "window"
-    ? transpiled.replace("body{", "#zbody{")
-    : transpiled;
-
-  const objectUrl = createJsBlob(
-    codeToHydrate,
-  );
-
-  const App = (await import(objectUrl)).default;
-
-  URL.revokeObjectURL(objectUrl);
-
-  return App;
 }

@@ -44,4 +44,13 @@ async function getApp(transpiled: string, mode = "window") {
   URL.revokeObjectURL(objectUrl);
 
   return App;
+
+  /**
+   * @param {BlobPart} code
+   */
+  function createJsBlob(code: string) {
+    const blob = new Blob([code], { type: "application/javascript" });
+
+    return URL.createObjectURL(blob);
+  }
 }
