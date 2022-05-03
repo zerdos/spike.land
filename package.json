@@ -4,7 +4,7 @@
   "description": "[Real time React page editor, in typescript! ![Screenshot](./spike.land-1920x1080.png)](https://spike.land)",
   "devDependencies": {
     "@cloudflare/workers-types": "3.8.0",
-    "@jspm/generator": "1.0.0-beta.30",
+    "@jspm/generator": "1.0.0-beta.31",
     "@playwright/test": "1.21.1",
     "@typescript-eslint/eslint-plugin": "5.22.0",
     "@typescript-eslint/parser": "5.22.0",

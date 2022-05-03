@@ -8,7 +8,7 @@ import type { FC } from "react";
 import { renderToString } from "react-dom";
 
 export const renderFromString = async (transpiled: string, i: number) => {
-  const Yap = await getApp(transpiled);
+  const Yap = await getApp(transpiled.replace(";"));
 
   const { html: _html, css: _css } = getHtmlAndCss(Yap, i + 100);
 
