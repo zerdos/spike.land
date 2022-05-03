@@ -8,12 +8,12 @@ const hostname = window.location.hostname || "spike.land";
 
 const path = location.pathname.split("/");
 
-const [, prefix, selector, room] = path;
+const [, prefix, selector, roomPart] = path;
 
-console.log({ prefix, selector, room });
+console.log({ prefix, selector, roomPart });
 
 export const roomName = (prefix === "api" && selector === "room")
-  ? room.slice(-12) || "code-main"
+  ? roomPart.slice(-12) || "code-main"
   : prefix === "live" && !!selector
   ? selector.slice(-12)
   : "code-main";
@@ -55,13 +55,13 @@ const sendChannel = {
 // let applyPatch;
 
 const resp = await fetch(
-  `https://spike.land/api/room/${room}/session`,
+  `https://spike.land/api/room/${roomName}/session`,
 );
 const state = await resp.json();
 
 const { startSession } = await import("./session");
 
-export const mySession = startSession(room, {
+export const mySession = startSession(roomName, {
   name: username,
   state,
 });
@@ -340,7 +340,7 @@ export async function join(App: ReactNode) {
         console.log("there is an error. fetch tje state....");
 
         const resp = await fetch(
-          `https://spike.land/api/room/${room}/session`,
+          `https://spike.land/api/room/${roomName}/session`,
         );
         const data = await resp.json();
 
