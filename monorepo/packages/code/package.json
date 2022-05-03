@@ -56,7 +56,7 @@
     "vite": "2.9.7",
     "vite-plugin-import-maps": "0.1.2"
   },
-  "gitHead": "cf1f5d25e26ea72ce197cf6dc7b5f5d49919373d",
+  "gitHead": "96f8f116ac7d7029d22956f61f6ce225be78cd2c",
   "author": "Zoltan Erdos <zolika84@gmail.com>",
   "license": "BSD-3-Clause",
   "publishConfig": {

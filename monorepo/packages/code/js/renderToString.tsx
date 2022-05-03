@@ -7,7 +7,14 @@ import { renderToString } from "react-dom";
 
 export const renderFromString = async (transpiled: string) => {
   const App = await getApp(transpiled);
-  return getHtmlAndCss(App);
+
+  const { css, html } = getHtmlAndCss(App);
+
+  return {
+    App,
+    html,
+    css,
+  };
 };
 
 export const getHtmlAndCss = (MyComponent: FC) => {
