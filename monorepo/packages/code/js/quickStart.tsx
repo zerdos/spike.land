@@ -103,7 +103,7 @@ async function runner(
 
     const App = await getApp(transpiled);
     const { getHtmlAndCss } = await import("./renderToString");
-    const { html, css } = getHtmlAndCss(App);
+    const { html, css } = getHtmlAndCss(<App />);
 
     let restartError = false;
     /// yellow
