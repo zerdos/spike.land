@@ -19,7 +19,7 @@ const start = async (App) => {
   const container = document.querySelector("#root") ||
     document.createElement("div");
 
-  hydrate(App, container);
+  hydrate(<App />, container);
 
   console.log("HYDRATED");
   if (location.href.endsWith("hydrated")) return;
