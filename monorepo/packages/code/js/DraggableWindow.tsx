@@ -212,6 +212,8 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
   if (isFullScreen) {
     return (
       <div
+        key={session.i}
+        ref={zbody}
         css={css`
           z-index: 10;
           display: block;
