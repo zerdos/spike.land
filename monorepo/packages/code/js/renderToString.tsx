@@ -10,9 +10,6 @@ import { renderToString } from "react-dom";
 export const renderFromString = async (transpiled: string, i: number) => {
   const App = await getApp(transpiled);
 
-  await wait(100);
-  const _tmp = getHtmlAndCss(App, i);
-  await wait(100);
   const { html, css } = getHtmlAndCss(App, i + 100);
 
   console.log(css);
