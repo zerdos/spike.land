@@ -91,7 +91,14 @@ const chCode = async () => {
       globalThis.model.setValue(mST().code);
       return;
     }
+
     const App = (await import(createJsBlob(mST().transpiled))).default;
+
+    const container = document.getElementById("root") ||
+      document.createElement("div");
+    container.innerHTML =
+      `<style>${mST().css}</style><div id="zbody">${msr().html}</div>`;
+
     render(App);
   } catch (error) {
     console.error({ e: error });
