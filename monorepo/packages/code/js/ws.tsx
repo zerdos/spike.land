@@ -105,10 +105,10 @@ async function rejoin() {
 export const saveCode = debounce(broadcastCodeChange, 500);
 
 async function broadcastCodeChange(sess: ICodeSession) {
+  if (sess.i <= mST().i) return;
   (async () => {
     try {
       if (sendChannel) {
-        ``;
         const message = webRTCLastSeenHashCode
           ? await mySession.createPatchFromHashCode(
             webRTCLastSeenHashCode,
