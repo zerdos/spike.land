@@ -3,7 +3,7 @@ import debounce from "lodash/debounce";
 import uidV4 from "./uidV4.mjs";
 import * as monaco from "monaco-editor";
 import type { IRunnerSession } from "./quickStart";
-import { createJsBlob, render } from "./starter";
+import { createJsBlob, renderApp } from "./starter";
 
 const webRtcArray: (RTCDataChannel & { target: string })[] = [];
 const hostname = window.location.hostname || "spike.land";
@@ -103,7 +103,7 @@ const chCode = async () => {
     root.replaceWith(container);
     container.id = "root";
 
-    render(App);
+    renderApp(App);
   } catch (error) {
     console.error({ e: error });
   }

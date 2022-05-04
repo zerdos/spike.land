@@ -4,7 +4,7 @@ import "core-js/modules/web.immediate";
 import { CacheProvider } from "@emotion/react";
 import createCache from "@emotion/cache";
 
-import { hydrate } from "react-dom";
+import { render } from "react-dom";
 import { fromBinary } from "./binary";
 import { Workbox } from "workbox-window";
 import { ReactNode } from "react";
@@ -29,18 +29,18 @@ const start = async (App) => {
   await (Promise.all([e, p]));
 };
 
-export const render = (App) => {
+export const renderApp = (App) => {
   const container = document.querySelector("#zbody") ||
     document.createElement("div");
 
   const key = "css";
   const cache = createCache({ key });
 
-  hydrate(
+  render(
+    container,
     <CacheProvider value={cache}>
       <App></App>
     </CacheProvider>,
-    container,
   );
 
   console.log("HYDRATED");
