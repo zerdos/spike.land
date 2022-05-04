@@ -7,13 +7,12 @@ import { IRunnerSession } from "./quickStart";
 
 import { hashCode } from "./session";
 import { roomName } from "./ws";
+import { DraggableWindow } from "DraggableWindow";
 
 export const renderPreviewWindow = async (
   session: IRunnerSession,
   keepFullScreen: boolean,
 ) => {
-  const { DraggableWindow } = await import("./DraggableWindow");
-
   console.log("renderPreviewWindow");
 
   const target = document.createElement("div");

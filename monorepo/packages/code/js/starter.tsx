@@ -8,6 +8,7 @@ import { hydrate } from "react-dom";
 import { fromBinary } from "./binary";
 import { Workbox } from "workbox-window";
 import { ReactNode } from "react";
+import { IRunnerSession } from "quickStart";
 
 if ("serviceWorker" in navigator) {
   const wb = new Workbox("/sw.js");
@@ -39,7 +40,7 @@ const start = async (App) => {
   await (Promise.all([e, p]));
 };
 
-export const run = async (sess) => {
+export const run = async (sess: IRunnerSession) => {
   if (globalThis.App) return;
 
   if (!window.startSession && !sess) {
