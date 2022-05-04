@@ -30,8 +30,7 @@ const start = async (App) => {
 };
 
 export const renderApp = (App) => {
-  const container = document.querySelector("#zbody") ||
-    document.createElement("div");
+  const container = document.createElement("div");
 
   const key = "css";
   const cache = createCache({ key });
@@ -42,6 +41,9 @@ export const renderApp = (App) => {
       <App></App>
     </CacheProvider>,
   );
+
+  document.getElementById("root").replaceWith(container);
+  container.id = "root";
 
   console.log("HYDRATED");
 };
@@ -60,8 +62,7 @@ export const run = async (sess: IRunnerSession) => {
   }
   const session = sess || window.startSession;
 
-  const container = document.getElementById("root") ||
-    document.createElement("div");
+  const container = document.getElementById("root");
   container.innerHTML =
     `<style>${session.css}</style><div id="zbody">${session.html}</div>`;
 
