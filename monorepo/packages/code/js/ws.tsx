@@ -94,10 +94,14 @@ const chCode = async () => {
 
     const App = (await import(createJsBlob(mST().transpiled))).default;
 
-    const container = document.getElementById("root") ||
-      document.createElement("div");
+    const container = document.createElement("div");
+
     container.innerHTML =
-      `<style>${mST().css}</style><div id="zbody">${msr().html}</div>`;
+      `<style>${mST().css}</style><div id="zbody">${mST().html}</div>`;
+
+    const root = document.getElementById("root");
+    root.replaceWith(container);
+    container.id = "root";
 
     render(App);
   } catch (error) {
