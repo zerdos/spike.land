@@ -3,6 +3,7 @@ import debounce from "lodash/debounce";
 import uidV4 from "./uidV4.mjs";
 import * as monaco from "monaco-editor";
 import type { IRunnerSession } from "./quickStart";
+import { createJsBlob, render } from "./starter";
 
 const webRtcArray: (RTCDataChannel & { target: string })[] = [];
 const hostname = window.location.hostname || "spike.land";
@@ -84,11 +85,14 @@ const w = window as unknown as {
   };
 };
 
-const chCode = () => {
+const chCode = async () => {
   try {
     if (globalThis.model) {
       globalThis.model.setValue(mST().code);
+      return;
     }
+    const App = (await import(createJsBlob(mST().transpiled))).default;
+    render(App);
   } catch (error) {
     console.error({ e: error });
   }
@@ -221,11 +225,11 @@ export async function join() {
   };
   // globalThis.session = session;
 
-  const stayFullscreen = location.pathname.endsWith("public");
+  if (location.pathname.endsWith("public")) return;
+
   const { quickStart } = await import("./quickStart");
   quickStart(
     session,
-    stayFullscreen,
   );
 }
 

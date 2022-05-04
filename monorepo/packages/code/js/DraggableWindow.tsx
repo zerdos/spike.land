@@ -55,7 +55,6 @@ interface DraggableWindowProps {
   onRestore: (() => void);
   hashCode: number;
   session: IRunnerSession;
-  keepFullScreen: boolean;
   position?: string;
   room: string;
   children: ReactNode;
@@ -66,7 +65,6 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
     onShare,
     onRestore,
     session,
-    keepFullScreen,
     children,
   },
 ) => {
@@ -140,11 +138,6 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
 
   useEffect(() => {
     const reveal = async () => {
-      if (keepFullScreen) {
-        requestAnimationFrame(() => document.querySelector("#root")?.remove());
-        return;
-      }
-
       // await wait(2000);
       // Const root = document.getElementById("root");
       // if (root && root.remove) root.remove();

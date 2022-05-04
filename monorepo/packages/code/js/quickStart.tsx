@@ -172,15 +172,12 @@ async function runner(
 
 export async function quickStart(
   session: IRunnerSession,
-  keepFullScreen: boolean,
 ) {
   const { renderPreviewWindow } = await import(
     "./renderPreviewWindow"
   );
 
-  await renderPreviewWindow(session, keepFullScreen);
+  await renderPreviewWindow(session);
 
-  if (!keepFullScreen) {
-    await startMonacoWithSession(session);
-  }
+  await startMonacoWithSession(session);
 }

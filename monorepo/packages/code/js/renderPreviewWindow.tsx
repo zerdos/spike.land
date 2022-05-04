@@ -11,7 +11,6 @@ import { DraggableWindow } from "DraggableWindow";
 
 export const renderPreviewWindow = async (
   session: IRunnerSession,
-  keepFullScreen: boolean,
 ) => {
   console.log("renderPreviewWindow");
 
@@ -32,7 +31,6 @@ export const renderPreviewWindow = async (
       room={roomName}
       session={session}
       hashCode={hashCode()}
-      keepFullScreen={keepFullScreen}
     >
       <App></App>
     </DraggableWindow>,

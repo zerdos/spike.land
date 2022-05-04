@@ -19,6 +19,17 @@ if ("serviceWorker" in navigator) {
 const start = async (App) => {
   const e = import("./editor");
   const p = import("./renderPreviewWindow");
+
+  render(App);
+
+  if (location.href.endsWith("hydrated")) return;
+  Object.assign(globalThis, { App });
+  const { join } = await import("./ws");
+  join(App);
+  await (Promise.all([e, p]));
+};
+
+export const render = (App) => {
   const container = document.querySelector("#zbody") ||
     document.createElement("div");
 
@@ -33,11 +44,6 @@ const start = async (App) => {
   );
 
   console.log("HYDRATED");
-  if (location.href.endsWith("hydrated")) return;
-  Object.assign(globalThis, { App });
-  const { join } = await import("./ws");
-  join(App);
-  await (Promise.all([e, p]));
 };
 
 export const run = async (sess: IRunnerSession) => {
