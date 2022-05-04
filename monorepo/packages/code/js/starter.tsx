@@ -20,7 +20,7 @@ const start = async (App) => {
   const e = import("./editor");
   const p = import("./renderPreviewWindow");
 
-  render(App);
+  renderApp(App);
 
   if (location.href.endsWith("hydrated")) return;
   Object.assign(globalThis, { App });
@@ -36,10 +36,10 @@ export const renderApp = (App) => {
   const cache = createCache({ key });
 
   render(
-    container,
     <CacheProvider value={cache}>
       <App></App>
     </CacheProvider>,
+    container,
   );
 
   document.getElementById("root").replaceWith(container);
