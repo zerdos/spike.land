@@ -941,10 +941,10 @@
   dependencies:
     mime "^3.0.0"
 
-"@cloudflare/workers-types@3.8.0":
-  version "3.8.0"
-  resolved "https://registry.yarnpkg.com/@cloudflare/workers-types/-/workers-types-3.8.0.tgz#e7fd7acd0384bde0fcc177a007333ef3f256e9e1"
-  integrity sha512-5dBAxHqt3SkBUcK0sFSW6me7KTjJpJ2eiIq8Aha/BfoWyl0G7/BlIT3bOWYSKOejuUq6mKsH4HKVWbJGJhbWog==
+"@cloudflare/workers-types@3.9.0":
+  version "3.9.0"
+  resolved "https://registry.yarnpkg.com/@cloudflare/workers-types/-/workers-types-3.9.0.tgz#c0b92905ebd2f28b79cefe67f27a7219a6d2e9fb"
+  integrity sha512-juyc/T+0QlwB4p7mTPoxS87RlHjceXJdCWwbGAQ5l3dO5xSDymW41wYx6f6LYe51fLccpjibj56UvqKeec2SSw==
 
 "@emotion/babel-plugin@^11.7.1":
   version "11.9.2"
@@ -8437,10 +8437,10 @@ vite@2.6.14:
   optionalDependencies:
     fsevents "~2.3.2"
 
-vite@2.9.7:
-  version "2.9.7"
-  resolved "https://registry.yarnpkg.com/vite/-/vite-2.9.7.tgz#210c328e08ed206ab0953eb1ca00860042cd0a77"
-  integrity sha512-5hH7aNQe8rJiTTqCtPNX/6mIKlGw+1wg8UXwAxDIIN8XaSR+Zx3GT2zSu7QKa1vIaBqfUODGh3vpwY8r0AW/jw==
+vite@2.9.8:
+  version "2.9.8"
+  resolved "https://registry.yarnpkg.com/vite/-/vite-2.9.8.tgz#2c2cb0790beb0fbe4b8c0995b80fe691a91c2545"
+  integrity sha512-zsBGwn5UT3YS0NLSJ7hnR54+vUKfgzMUh/Z9CxF1YKEBVIe213+63jrFLmZphgGI5zXwQCSmqIdbPuE8NJywPw==
   dependencies:
     esbuild "^0.14.27"
     postcss "^8.4.13"
