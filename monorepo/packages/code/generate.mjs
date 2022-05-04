@@ -81,6 +81,8 @@ importMap.imports["react/jsx-runtime"] = importMap.imports["react"];
 importMap.imports["react-dom"] = importMap.imports["react"];
 
 importMap.imports["react-dom"] = importMap.imports["react"];
+importMap.imports["react-dom/server"] = importMap.imports["react"];
+
 
 importMap.imports["framer-motion"] = isDev
   ? "https://localhost:8000/monorepo/packages/code/js/public/framer-motion.mjs"

@@ -1,20 +1,14 @@
 /** @jsxImportSource @emotion/react */
 
-import { css } from "@emotion/react";
-
 import { CacheProvider } from "@emotion/react";
 import createCache from "@emotion/cache";
 import type { FC } from "react";
-import { renderToString } from "react-dom";
+import { renderToString } from "react-dom/server";
 
-export const renderFromString = async (transpiled: string, i: number) => {
-  const Yap = await getApp(transpiled.replace(";"));
+export const renderFromString = async (transpiled: string) => {
+  const App = await getApp(transpiled);
 
-  const { html: _html, css: _css } = getHtmlAndCss(Yap, i + 100);
-
-  const App = await getApp(transpiled + `//${i}`);
-
-  const { html, css } = await getHtmlAndCss(App, i + 200);
+  const { html, css } = getHtmlAndCss(App);
 
   console.log(css);
 
@@ -25,9 +19,8 @@ export const renderFromString = async (transpiled: string, i: number) => {
   };
 };
 
-export const getHtmlAndCss = (MyComponent: FC, i: number) => {
-  const salt = `cache${i}`;
-  const key = salt + "css";
+export const getHtmlAndCss = (MyComponent: FC) => {
+  const key = "css";
   const cache = createCache({ key });
   let cssText = "";
 
@@ -36,16 +29,14 @@ export const getHtmlAndCss = (MyComponent: FC, i: number) => {
   };
 
   const markup = renderToString(
-    <CacheProvider value={cache} prepend={true}>
-      <>
-        <App key={salt}></App>
-      </>
+    <CacheProvider value={cache}>
+      <MyComponent />
     </CacheProvider>,
   );
 
   return {
-    html: markup.replaceAll(new RegExp(salt, "g"), ""),
-    css: cssText.replaceAll(new RegExp(salt, "g"), ""),
+    html: markup,
+    css: cssText,
   };
 };
 

@@ -1,5 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import type { Dispatch, ReactNode, SetStateAction } from "react";
+import { render } from "react-dom";
 import type { ICodeSession } from "./session";
 
 export interface IRunnerSession extends ICodeSession {
@@ -103,7 +104,7 @@ async function runner(
 
     const { renderFromString } = await import("./renderToString");
 
-    const { html, css, App } = await renderFromString(transpiled, counter);
+    const { html, css, App } = await renderFromString(transpiled);
 
     let restartError = false;
     /// yellow
@@ -123,19 +124,20 @@ async function runner(
 
         // Session.html = zbody.innerHTML;
 
+        const target = document.createElement("div");
+
+        render(<App />, target);
+        if (!target.innerHTML) return;
+
         session.setChild((c: ReactNode[]) => [...c, <App />]);
 
         globalThis.App = App;
-        restartError = !html;
-        // GetCss = getCss || (await import("./templates.ts")).getCss;
-        // setTimeout(async () => {
-        //     session.html = document.getElementById("zbody").innerHTML;
-        // const css = getCss(session);
 
         const { saveCode } = await import("./ws");
 
         saveCode(newSess);
-        // }, 10);
+        session = { ...session, ...newSess };
+
         return;
       } catch (error) {
         console.error("EXCEPTION");

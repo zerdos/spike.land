@@ -2,7 +2,7 @@
 
 import * as react from "preact/compat";
 
-import { Fragment, jsx, jsxs } from "preact/compat/jsx-runtime";
+import { Fragment, jsx, jsxs } from "preact/jsx-runtime";
 import { createPortal, hydrate, render } from "preact/compat";
 import renderToString from "preact-render-to-string";
 export { render };

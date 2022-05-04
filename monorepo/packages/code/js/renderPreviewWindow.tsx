@@ -3,7 +3,7 @@
 import bg from "./assets/synthwave.webp";
 import path from "path-browserify";
 import { render } from "react-dom";
-import type { IRunnerSession } from "./quickStart";
+import { IRunnerSession } from "./quickStart";
 
 import { hashCode } from "./session";
 import { roomName } from "./ws";
@@ -30,6 +30,7 @@ export const renderPreviewWindow = async (
         const model = globalThis.model;
         model.setValue(session.code);
       }}
+      room={roomName}
       session={session}
       hashCode={hashCode()}
       keepFullScreen={keepFullScreen}
