@@ -14,6 +14,10 @@ export interface IRunnerSession extends ICodeSession {
   url: string;
 }
 
+let throttleTime = 0;
+
+let runnerDebounced = throttle(runner, throttleTime);
+
 async function startMonacoWithSession(session: IRunnerSession) {
   console.log("start monaco with session");
   const monacoEditorDom = document.querySelector("#monacoEditor");
@@ -35,10 +39,6 @@ async function startMonacoWithSession(session: IRunnerSession) {
   );
 
   const model = editor.getModel();
-
-  let throttleTime = 0;
-
-  let runnerDebounced = throttle(runner, throttleTime);
 
   editor.onDidChangeModelContent((ev) =>
     runnerDebounced(
