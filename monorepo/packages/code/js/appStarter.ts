@@ -4,9 +4,12 @@ import "es-module-shims";
 import imap from "./mockedMap.json";
 
 // const esbuild = import("./esbuildEsm.ts");
+window.polyfilling = () => console.log("The polyfill is actively applying");
 
 self.esmsInitOptions = {
   shimMode: false,
+  "onpolyfill": "polyfilling",
+
   revokeBlobURLs: true,
   fetch: fetch,
   resolve: (id, parentUrl) => {
@@ -44,13 +47,13 @@ self.esmsInitOptions = {
 //   return fetch(url, init);
 // }
 
-document.body.appendChild(Object.assign(document.createElement("script"), {
-  type: "importmap-shim",
-  innerHTML: JSON.stringify(imap),
-}));
+// document.body.appendChild(Object.assign(document.createElement("script"), {
+//   type: "importmap-shim",
+//   innerHTML: JSON.stringify(imap),
+// }));
 
-const { importShim } = self;
+const { importShim, startSession } = self;
 
 importShim<null, { run: () => void }>(
   "./starter.mjs",
-).then(({ run }) => run());
+).then(({ run }) => run(startSession));

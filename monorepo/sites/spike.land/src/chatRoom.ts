@@ -243,12 +243,18 @@ export class Code {
                 })
               }</script>
             <script defer type="module">
+              
+
               window.startSession = ${JSON.stringify(mST())};
+              const AppPromise = import("https://spike.land/api/room/${codeSpace}/js");
               import("https://spike.land/starter.mjs")
                 .then(
-                  ({run})=> run(
-                    window.startSession
-                    )
+                  async ({run})=> {
+                   const App = (await AppPromise).default;
+                    run(
+                    window.startSession, App
+                    );
+                  }
                   )
                 .catch(()=>{
                   const s = document.createElement("script");

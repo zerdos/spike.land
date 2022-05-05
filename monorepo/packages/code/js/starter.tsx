@@ -17,16 +17,13 @@ if ("serviceWorker" in navigator) {
 }
 
 const start = async (App) => {
-  const e = import("./editor");
-  const p = import("./renderPreviewWindow");
-
   renderApp(App);
 
   if (location.href.endsWith("hydrated")) return;
+
   Object.assign(globalThis, { App });
   const { join } = await import("./ws");
   join(App);
-  await (Promise.all([e, p]));
 };
 
 export const renderApp = (App) => {
@@ -48,25 +45,15 @@ export const renderApp = (App) => {
   console.log("HYDRATED");
 };
 
-export const run = async (sess: IRunnerSession) => {
+export const run = async (session, StarterApp) => {
   if (globalThis.App) return;
-
-  if (!window.startSession && !sess) {
-    const { roomName } = await import("./ws");
-
-    const respS = await fetch(
-      `https://spike.land/api/room/${roomName}/session`,
-    );
-    const session = await respS.json();
-    window.startSession = session;
-  }
-  const session = sess || window.startSession;
 
   const container = document.getElementById("root");
   container.innerHTML =
     `<style>${session.css}</style><div id="zbody">${session.html}</div>`;
 
-  const App = (await import(createJsBlob(session.transpiled))).default;
+  const App = StarterApp ||
+    (await import(createJsBlob(session.transpiled))).default;
 
   start(App);
 };
