@@ -36,7 +36,9 @@ async function startMonacoWithSession(session: IRunnerSession) {
 
   const model = editor.getModel();
 
-  const runnerDebounced = throttle(runner, 50);
+  let throttleTime = 0;
+
+  let runnerDebounced = throttle(runner, throttleTime);
 
   editor.onDidChangeModelContent((ev) =>
     runnerDebounced(
@@ -110,7 +112,8 @@ async function runner(
       const { html, css, App } = await renderFromString(transpiled);
 
       try {
-        if (counter < session.i) {
+        if (session.i > counter) {
+          runnerDebounced = throttle(runner, ++throttleTime);
           return;
         }
 
@@ -149,12 +152,11 @@ async function runner(
 
     if (session.i > counter) {
       return;
+    } else if (throttleTime > 0) {
+      runnerDebounced = throttle(runner, --throttleTime);
     }
 
     const error = await getErrors(session);
-    if (session.i > counter) {
-      return;
-    }
 
     if (restartError) {
       error.push(
