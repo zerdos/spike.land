@@ -5,7 +5,7 @@ import type { ICodeSession } from "./session";
 import { prettier } from "./prettierEsm";
 import { babelTransform as transform } from "./babelEsm";
 import { renderFromString } from "./renderToString";
-import debounce from "lodash/debounce";
+import throttle from "lodash/throttle";
 
 export interface IRunnerSession extends ICodeSession {
   changes: unknown[];
@@ -36,7 +36,7 @@ async function startMonacoWithSession(session: IRunnerSession) {
 
   const model = editor.getModel();
 
-  const runnerDebounced = debounce(runner, 50);
+  const runnerDebounced = throttle(runner, 50);
 
   editor.onDidChangeModelContent((ev) =>
     runnerDebounced(
