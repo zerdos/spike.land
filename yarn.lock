@@ -5543,7 +5543,7 @@ mute-stream@0.0.8, mute-stream@~0.0.4:
   resolved "https://registry.yarnpkg.com/mute-stream/-/mute-stream-0.0.8.tgz#1630c42b2251ff81e2a283de96a5497ea92e5e0d"
   integrity sha512-nnbWWOkoWyUsTjKrhgD0dcz22mdkSnpYqbEjIm2nhwhuxlSkpywJmBo8h0ZqJdkp73mb90SssHkN4rsRaBAfAA==
 
-nanoid@^3.0.2, nanoid@^3.1.20, nanoid@^3.1.23:
+nanoid@^3.0.2, nanoid@^3.1.20, nanoid@^3.1.23, nanoid@^3.3.3:
   version "3.3.4"
   resolved "https://registry.yarnpkg.com/nanoid/-/nanoid-3.3.4.tgz#730b67e3cd09e2deacf03c027c81c9d9dbc5e8ab"
   integrity sha512-MqBkQh/OHTS2egovRtLk45wEyNXwF+cokD+1YPf9u5VfJiRdAiRwB2froX5Co9Rh20xs4siNPm8naNotSD6RBw==
@@ -5864,12 +5864,12 @@ object.getownpropertydescriptors@^2.0.3:
     es-abstract "^1.19.1"
 
 object.hasown@^1.1.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/object.hasown/-/object.hasown-1.1.0.tgz#7232ed266f34d197d15cac5880232f7a4790afe5"
-  integrity sha512-MhjYRfj3GBlhSkDHo6QmvgjRLXQ2zndabdf3nX0yTyZK9rPfxb6uRpAac8HXNLy1GpqWtZ81Qh4v3uOls2sRAg==
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/object.hasown/-/object.hasown-1.1.1.tgz#ad1eecc60d03f49460600430d97f23882cf592a3"
+  integrity sha512-LYLe4tivNQzq4JdaWW6WO3HMZZJWzkkH8fnI6EebWl0VZth2wL2Lovm74ep2/gZzlaTdV62JZHEqHQ2yVn8Q/A==
   dependencies:
-    define-properties "^1.1.3"
-    es-abstract "^1.19.1"
+    define-properties "^1.1.4"
+    es-abstract "^1.19.5"
 
 object.values@^1.1.5:
   version "1.1.5"
@@ -7884,16 +7884,17 @@ wordwrap@^1.0.0:
   resolved "https://registry.yarnpkg.com/wordwrap/-/wordwrap-1.0.0.tgz#27584810891456a4171c8d0226441ade90cbcaeb"
   integrity sha1-J1hIEIkUVqQXHI0CJkQa3pDLyus=
 
-wrangler@0.0.29:
-  version "0.0.29"
-  resolved "https://registry.yarnpkg.com/wrangler/-/wrangler-0.0.29.tgz#b92f7be1b42c849bdcc17485db74f56fe5480809"
-  integrity sha512-HZxjsombH0182R3xfEDBszpTK8RwTAc/gmNcLYyi11UStpsk59ht1WmWA55D/RDch5gfatZ3dfYfmtJ9capbrA==
+wrangler@0.0.30:
+  version "0.0.30"
+  resolved "https://registry.yarnpkg.com/wrangler/-/wrangler-0.0.30.tgz#b9a41ef51ed3058a059a47154670a3c93d8a0264"
+  integrity sha512-4PtclfGWY5RoDljqOeosHKRm1X4DiSK4SfEAf7cp9IS426CjIpkhKFEo1Fv90e1R2Cgm9CIEPphzb6T1dyjwKw==
   dependencies:
     "@esbuild-plugins/node-globals-polyfill" "^0.1.1"
     "@esbuild-plugins/node-modules-polyfill" "^0.1.4"
     blake3-wasm "^2.1.5"
     esbuild "0.14.34"
     miniflare "2.4.0"
+    nanoid "^3.3.3"
     path-to-regexp "^6.2.0"
     selfsigned "^2.0.1"
     semiver "^1.1.0"
