@@ -1,7 +1,8 @@
 import type { ICodeSession } from "./session";
 import debounce from "lodash/debounce";
 import uidV4 from "./uidV4.mjs";
-import * as monaco from "monaco-editor";
+import type * as monaco from "monaco-editor";
+
 import type { IRunnerSession } from "./quickStart";
 import { createJsBlob, renderApp } from "./starter";
 

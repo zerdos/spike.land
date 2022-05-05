@@ -1,7 +1,7 @@
-import * as monaco from "monaco-editor";
-import "monaco-editor/min/vs/editor/editor.main.css";
+import * as monaco from "monaco-editor/esm/vs/editor/editor.main";
+import "monaco-editor/esm/vs/editor/editor.main";
 import { dtsFiles } from "./types.mjs";
-import codicon from "./base/browser/ui/codicons/codicon/codicon.ttf";
+import codicon from "monaco-editor/esm/vs/base/browser/ui/codicons/codicon/codicon.ttf";
 // import { parse } from "@babel/parser";
 // import traverse from "@babel/traverse";
 // import MonacoJSXHighlighter from "monaco-jsx-highlighter";
@@ -128,7 +128,7 @@ export const startMonaco = async (
       monaco.Uri.parse("file:///app/index.tsx"),
     ),
     language: "typescript",
-    useShadowDOM: false,
+    useShadowDOM: true,
     theme: "vs-dark",
     autoClosingBrackets: "always",
   });
