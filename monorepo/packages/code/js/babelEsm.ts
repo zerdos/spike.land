@@ -9,6 +9,7 @@ import { transform as babelTransformB } from "@babel/core";
 // import presetFlow from "@babel/preset-flow";
 import presetReact from "@babel/preset-react";
 import presetTypescript from "@babel/preset-typescript";
+// import emotionPlugin from "@emotion/babel-plugin";
 
 // import { runScripts } from "./transformScriptTags";
 
@@ -213,6 +214,8 @@ export const babelTransform = async (code: string) =>
       compact: false,
       sourceType: "module",
       comments: false,
+
+      // plugins: [],
 
       presets: [
         [

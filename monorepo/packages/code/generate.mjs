@@ -47,6 +47,8 @@ await generator.install("@babel/preset-typescript");
 await generator.install("@emotion/react");
 await generator.install("@emotion/react/jsx-runtime");
 await generator.install("@emotion/cache");
+// await generator.install("@emotion/babel-plugin");
+
 // await generator.install("lodash/throttle");
 // await generator.install("simple-text-compress");
 // await generator.install("@emotion/styled");
