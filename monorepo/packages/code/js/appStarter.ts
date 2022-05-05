@@ -1,7 +1,7 @@
 // import { Workbox } from "workbox-window";
 import "es-module-shims";
 
-import imap from "./mockedMap.json";
+import imap from "./importmap.json";
 
 // const esbuild = import("./esbuildEsm.ts");
 window.polyfilling = () => console.log("The polyfill is actively applying");

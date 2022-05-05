@@ -207,7 +207,7 @@ function disableScriptTags() {
   window.removeEventListener("DOMContentLoaded", onDOMContentLoaded);
 }
 
-export const babelTransform = async (code: string) =>
+export const babelTransform = (code: string) =>
   (transform(
     code,
     {

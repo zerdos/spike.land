@@ -2,6 +2,10 @@
 import type { Dispatch, ReactNode, SetStateAction } from "react";
 import { render } from "react-dom";
 import type { ICodeSession } from "./session";
+import { prettier } from "./prettierEsm";
+import { babelTransform as transform } from "./babelEsm";
+import { renderFromString } from "./renderToString";
+import debounce from "lodash/debounce";
 
 export interface IRunnerSession extends ICodeSession {
   changes: unknown[];
@@ -32,9 +36,11 @@ async function startMonacoWithSession(session: IRunnerSession) {
 
   const model = editor.getModel();
 
+  const runnerDebounced = debounce(runner, 50);
+
   editor.onDidChangeModelContent((ev) =>
-    runner(
-      editor?.getModel()?.getValue() as string,
+    runnerDebounced(
+      model.getValue() as string,
       ev.changes,
       session,
       ++session.i,
@@ -89,26 +95,20 @@ async function runner(
   counter: number,
 ) {
   // session.changes.push(changes);
-  const { babelTransform } = await import("./babelEsm");
 
   // esbuildEsmTransform = esbuildEsmTransform ||
   //   (await import("./esbuildEsm.ts")).transform;
 
-  const transform = babelTransform;
-
   try {
-    const { prettier } = await import("./prettierEsm");
     const code = prettier(c);
 
-    const transpiled = await transform(c);
-
-    const { renderFromString } = await import("./renderToString");
-
-    const { html, css, App } = await renderFromString(transpiled);
+    const transpiled = transform(c);
 
     let restartError = false;
     /// yellow
     if (transpiled.length > 0) {
+      const { html, css, App } = await renderFromString(transpiled);
+
       try {
         if (counter < session.i) {
           return;
