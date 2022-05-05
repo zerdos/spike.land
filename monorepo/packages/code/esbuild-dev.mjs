@@ -8,6 +8,7 @@ const environment = process.env.NODE_ENV === "production"
   ? "production"
   : "development";
 
+const isDevelopment = environment === "development"
 importMap.load(jsonData);
 const importMapPlugin = importMap.plugin();
 
@@ -30,10 +31,12 @@ await esbuild.build({
     // "./js/workers/prettier.worker.js",
   ],
   bundle: true,
-  // minify: !isDevelopment,
-  // minifyWhitespace: !isDevelopment,
-  // minifyIdentifiers: !isDevelopment,
-  // minifySyntax: !isDevelopment,
+  minify: !isDevelopment,
+  minifyWhitespace: !isDevelopment,
+  minifyIdentifiers: !isDevelopment,
+  minifySyntax: !isDevelopment,
+  treeShaking: true,
+  ignoreAnnotations: true,
   legalComments: "none",
   ignoreAnnotations: true,
   treeShaking: true,
@@ -57,11 +60,14 @@ await esbuild.build({
   outfile: "./js/public/appStarter.js",
   bundle: true,
   target: "esnext",
-  // minify: true,
-  // minifyWhitespace: true,
-  // minifyIdentifiers: true,
-  // minifySyntax: true,
+  minify: !isDevelopment,
+  minifyWhitespace: !isDevelopment,
+  minifyIdentifiers: !isDevelopment,
+  minifySyntax: !isDevelopment,
   legalComments: "none",
+  ignoreAnnotations: true,
+  treeShaking: true,
+
 
 
   platform: "browser",
@@ -78,12 +84,20 @@ const build = (entryPoints) =>
     "outExtension": { ".js": ".mjs" },
     bundle: true,
     format: "esm",
-    // minify: !isDevelopment,
+  
     sourcemap: false,
-    // minifyIdentifiers: true,
-    // minifyWhitespace: true,
-    // minifySyntax: true,
+  
+    minify: !isDevelopment,
+    minifyWhitespace: !isDevelopment,
+    minifyIdentifiers: !isDevelopment,
+    minifySyntax: !isDevelopment,
     legalComments: "none",
+    treeShaking: true,
+    ignoreAnnotations: true,
+
+
+
+    
     splitting: true,
 
 
@@ -91,10 +105,9 @@ const build = (entryPoints) =>
 
     tsconfig: './tsconfig.json',
     allowOverwrite: true,
-    treeShaking: true,
+   
     // external: ["react", "react-dom", "framer-motion", "tslib", "@emotion/react"],
     platform: "browser",
-    ignoreAnnotations: true,
     chunkNames: "chunks/[name]-[hash]",
     resolveExtensions: [
       ".tsx",

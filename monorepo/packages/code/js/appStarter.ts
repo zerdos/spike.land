@@ -47,10 +47,10 @@ self.esmsInitOptions = {
 //   return fetch(url, init);
 // }
 
-// document.body.appendChild(Object.assign(document.createElement("script"), {
-//   type: "importmap-shim",
-//   innerHTML: JSON.stringify(imap),
-// }));
+document.body.appendChild(Object.assign(document.createElement("script"), {
+  type: "importmap-shim",
+  innerHTML: JSON.stringify(imap),
+}));
 
 const { importShim, startSession } = self;
 
