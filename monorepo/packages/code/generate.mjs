@@ -24,7 +24,11 @@ await generator.install("react");
 await generator.install("tslib");
 
 // await generator.install("preact-render-to-string");
-// await generator.install("preact");
+await generator.install("@babel/core");
+await generator.install("@babel/preset-react");
+await generator.install("@babel/preset-typescript");
+
+
 
 // await generator.install("preact/compat");
 // await generator.install("preact/jsx-runtime");
@@ -85,8 +89,8 @@ importMap.imports["react-dom/server"] = importMap.imports["react"];
 
 
 importMap.imports["framer-motion"] = isDev
-  ? "https://localhost:8000/monorepo/packages/code/js/public/framer-motion.mjs"
-  : "https://spike.land/public/framer-motion.mjs";
+  ? "https://localhost:8000/monorepo/packages/code/js/framer-motion.mjs"
+  : "https://spike.land/framer-motion.mjs";
 // importMap.imports["preact"] = isDev?"https://localhost:8000/monorepo/packages/code/js/public/preact.mjs":"https://spike.land/public/preact.mjs" ;
 // importMap.imports["preact/compat"] = importMap.imports["preact"];
 // importMap.imports["react-is"] =

@@ -18,7 +18,7 @@ import type {
 } from "@spike.land/code/js/session";
 import {startSession} from "@spike.land/code/js/session";
 
-import imap from "@spike.land/code/js/mockedMap.json";
+import imap from "@spike.land/code/js/importmap.json";
 
 console.log("chatroom");
 
@@ -238,9 +238,7 @@ export class Code {
                 </div>
               </div>
             <script type="importmap">${
-                JSON.stringify({
-                  imports: { ...imap.imports }
-                })
+                JSON.stringify(imap)
               }</script>
             <script defer type="module">
               
@@ -309,9 +307,7 @@ export class Code {
                 <div id="zbody">${mST().html}</div>
               </div>
               <script type="importmap">${
-              JSON.stringify({
-                imports: { ...imap.imports }
-              })
+              JSON.stringify(imap)
             }</script>
             <script defer type="module">
               window.startSession = ${JSON.stringify(mST())};
