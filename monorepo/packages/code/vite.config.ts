@@ -1,8 +1,18 @@
 import { defineConfig } from "vite";
 import { importMaps } from "vite-plugin-import-maps";
 import importmap from "./js/importmap.json";
-module.exports = defineConfig({
+
+export default defineConfig({
   plugins: [
-    importMaps([importmap]),
+    importMaps([
+      {
+        imports: {
+         ...importmap.imports
+        },
+        scopes: {
+          ...importmap.scopes
+        }
+      },
+    ]),
   ],
-});
+})

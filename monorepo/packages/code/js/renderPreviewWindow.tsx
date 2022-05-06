@@ -7,7 +7,7 @@ import { IRunnerSession } from "./quickStart";
 
 import { hashCode } from "./session";
 import { roomName } from "./ws";
-import { DraggableWindow } from "DraggableWindow";
+import { DraggableWindow } from "./DraggableWindow";
 
 export const renderPreviewWindow = async (
   session: IRunnerSession,
