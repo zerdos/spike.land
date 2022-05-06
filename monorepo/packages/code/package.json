@@ -82,7 +82,7 @@
     "@spike.land/qrious": "^0.7.644",
     "@types/babel__standalone": "^7.1.4",
     "@types/prettier": "^2.6.0",
-    "@types/react": "18.0.8",
+    "@types/react": "18.0.9",
     "@types/react-dom": "^18.0.3",
     "async-mutex": "0.3.2",
     "comlink": "4.3.1",
