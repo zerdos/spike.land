@@ -108,8 +108,6 @@ async function runner(
 
     const transpiled = transform(code);
 
-    if (transpiled === mST().transpiled) return;
-
     let restartError = false;
     /// yellow
     if (transpiled.length > 0) {
@@ -139,6 +137,8 @@ async function runner(
         session.setChild((c: ReactNode[]) => [...c, <App />]);
 
         globalThis.App = App;
+
+        if (transpiled === mST().transpiled) return;
 
         const { saveCode } = await import("./ws");
 
