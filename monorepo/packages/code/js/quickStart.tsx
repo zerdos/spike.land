@@ -1,13 +1,13 @@
 /** @jsxImportSource @emotion/react */
 import type { Dispatch, ReactNode, SetStateAction } from "react";
 import { render } from "react-dom";
-import type { ICodeSession } from "./session";
 import { prettier } from "./prettierEsm";
 import { babelTransform as transform } from "./babelEsm";
 import { renderFromString } from "./renderToString";
 import throttle from "lodash/throttle";
+import { mST } from "./ws";
 
-export interface IRunnerSession extends ICodeSession {
+export interface IRunnerSession {
   changes: unknown[];
   errorText: string;
   setChild: Dispatch<SetStateAction<ReactNode[]>>;
@@ -34,18 +34,20 @@ async function startMonacoWithSession(session: IRunnerSession) {
      */
     {
       container: monacoEditorDom,
-      code: session.code,
+      code: mST().code,
     },
   );
 
   const model = editor.getModel();
+
+  let inc = 0;
 
   editor.onDidChangeModelContent((ev) =>
     runnerDebounced(
       model.getValue() as string,
       ev.changes,
       session,
-      ++session.i,
+      mST().i + ++inc,
     )
   );
 
@@ -96,7 +98,7 @@ async function runner(
   session: IRunnerSession,
   counter: number,
 ) {
-  // session.changes.push(changes);
+  session.changes.push(changes);
 
   // esbuildEsmTransform = esbuildEsmTransform ||
   //   (await import("./esbuildEsm.ts")).transform;
@@ -104,7 +106,9 @@ async function runner(
   try {
     const code = prettier(c);
 
-    const transpiled = transform(c);
+    const transpiled = transform(code);
+
+    if (transpiled === mST().transpiled) return;
 
     let restartError = false;
     /// yellow
@@ -112,7 +116,7 @@ async function runner(
       const { html, css, App } = await renderFromString(transpiled);
 
       try {
-        if (session.i > counter) {
+        if (mST().i > counter) {
           runnerDebounced = throttle(runner, ++throttleTime);
           return;
         }
@@ -139,7 +143,6 @@ async function runner(
         const { saveCode } = await import("./ws");
 
         saveCode(newSess);
-        session = { ...session, ...newSess };
 
         return;
       } catch (error) {
@@ -150,7 +153,7 @@ async function runner(
       }
     }
 
-    if (session.i > counter) {
+    if (mST().i > counter) {
       return;
     } else if (throttleTime > 0) {
       runnerDebounced = throttle(runner, --throttleTime);

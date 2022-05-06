@@ -1,6 +1,5 @@
-/** @jsxImportSource @emotion/react */
-
-import { FC, lazy, Suspense, useEffect, useState } from "react";
+import { lazy, Suspense, useEffect, useState } from "react";
+import type { FC } from "react";
 interface ILaztCom {
   name: string;
   html: string;

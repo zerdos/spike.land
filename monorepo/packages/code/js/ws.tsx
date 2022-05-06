@@ -73,7 +73,7 @@ export const mySession = startSession(roomName, {
   state,
 });
 
-const mST = () => mySession.json().state;
+export const mST = () => mySession.json().state;
 
 let intervalHandler: NodeJS.Timer | null = null;
 
