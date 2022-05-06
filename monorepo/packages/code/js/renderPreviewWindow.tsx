@@ -6,7 +6,7 @@ import { render } from "react-dom";
 import { IRunnerSession } from "./quickStart";
 
 import { hashCode } from "./session";
-import { roomName } from "./ws";
+import { mST, roomName } from "./ws";
 import { DraggableWindow } from "./DraggableWindow";
 
 export const renderPreviewWindow = async (
@@ -26,7 +26,7 @@ export const renderPreviewWindow = async (
       onShare={() => open(`https://spike.land/api/room/${roomName}/public`)}
       onRestore={() => {
         const model = globalThis.model;
-        model.setValue(session.code);
+        model.setValue(mST().code);
       }}
       room={roomName}
       session={session}
