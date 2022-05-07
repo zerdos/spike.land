@@ -9,7 +9,7 @@ import { wait } from "./wait";
 // }
 
 const init = esbuild.initialize({
-  wasmURL: `https://unpkg.com/esbuild-wasm@${esbuild.version}/esbuild.wasm`,
+  wasmURL: `./esbuild.wasm`,
 });
 
 let initFinished = false;
