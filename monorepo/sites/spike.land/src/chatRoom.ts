@@ -108,7 +108,6 @@ export class Code {
       }
 
       let path = url.pathname.slice(1).split("/");
-      const vReg = /{VERSION}/ig;
 
       switch (path[0]) {
         case "code": {
@@ -271,8 +270,8 @@ export class Code {
                   s.src = "https://spike.land/appStarter.js";
                   document.head.appendChild(s);   
                 });
-            </script>`,
-            ).replaceAll(vReg, version),
+            </script>
+            `),
             {
               status: 200,
               headers: {
@@ -338,8 +337,6 @@ export class Code {
                   document.head.appendChild(s);   
                 });
             </script>
-            <script type="nomodule" defer src="https://spike.land/appStarter.js"></script>
-            <script defer src="https://spike.land/main.js"></script>
             `);
           return new Response(html, {
             status: 200,
