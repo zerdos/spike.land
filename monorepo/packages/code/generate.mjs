@@ -26,9 +26,9 @@ await generator.install("react");
 await generator.install("tslib");
 
 // await generator.install("preact-render-to-string");
-await generator.install("@babel/core");
-await generator.install("@babel/preset-react");
-await generator.install("@babel/preset-typescript");
+// await generator.install("@babel/core");/
+// await generator.install("@babel/preset-react");
+// await generator.install("@babel/preset-typescript");
 
 
 
