@@ -7,7 +7,7 @@
   "license": "MIT",
   "scripts": {
     "clean": "rimraf ./dist",
-    "build": "webpack --env production",
+    "xbuild": "webpack --env production",
     "serve": "webpack serve --mode=development",
     "start": "npm run serve",
     "test": "npm run build && playwright test tests"

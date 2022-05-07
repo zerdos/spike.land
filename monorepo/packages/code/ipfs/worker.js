@@ -1296,8 +1296,8 @@
       util.utf8 = require_utf8();
       util.pool = require_pool();
       util.LongBits = require_longbits();
-      util.isNode = Boolean(typeof global !== "undefined" && global && global.process && global.process.versions && global.process.versions.node);
-      util.global = util.isNode && global || typeof window !== "undefined" && window || typeof self !== "undefined" && self || exports2;
+      util.isNode = Boolean(typeof globalThis !== "undefined" && globalThis && globalThis.process && globalThis.process.versions && globalThis.process.versions.node);
+      util.global = util.isNode && globalThis || typeof window !== "undefined" && window || typeof self !== "undefined" && self || exports2;
       util.emptyArray = Object.freeze ? Object.freeze([]) : [];
       util.emptyObject = Object.freeze ? Object.freeze({}) : {};
       util.isInteger = Number.isInteger || function isInteger(value) {
@@ -1329,7 +1329,7 @@
         return typeof sizeOrArray === "number" ? util.Buffer ? util._Buffer_allocUnsafe(sizeOrArray) : new util.Array(sizeOrArray) : util.Buffer ? util._Buffer_from(sizeOrArray) : typeof Uint8Array === "undefined" ? sizeOrArray : new Uint8Array(sizeOrArray);
       };
       util.Array = typeof Uint8Array !== "undefined" ? Uint8Array : Array;
-      util.Long = util.global.dcodeIO && util.global.dcodeIO.Long || util.global.Long || util.inquire("long");
+      util.Long = util. globalThis.dcodeIO && util. globalThis.dcodeIO.Long || util. globalThis.Long || util.inquire("long");
       util.key2Re = /^true|false|0|1$/;
       util.key32Re = /^-?(?:0|[1-9][0-9]*)$/;
       util.key64Re = /^(?:[\\x00-\\xff]{8}|-?(?:0|[1-9][0-9]*))$/;
@@ -8787,7 +8787,7 @@ if (cid) {
         const formatted = convertToString(hash2);
         try {
           Digest2.decode(base58btc2.decode("z" + formatted));
-        } catch {
+        } catch (e) {
           return false;
         }
         return true;
@@ -8795,7 +8795,7 @@ if (cid) {
       function isBase32EncodedMultibase(hash2) {
         try {
           base322.decode(hash2);
-        } catch {
+        } catch (e) {
           return false;
         }
         return true;
@@ -9481,7 +9481,7 @@ if (cid) {
         const str = pathStr.toString();
         try {
           return `/ipfs/${CID.parse(str)}`;
-        } catch {
+        } catch (e) {
         }
         if (import_is_ipfs.default.path(str)) {
           return str;
@@ -10440,7 +10440,7 @@ if (cid) {
         if (typeof global2 !== "undefined") {
           return global2;
         }
-        throw new Error("unable to locate global object");
+        throw new Error("unable to locate globalThis object");
       };
       var global2 = getGlobal();
       module2.exports = exports2 = global2.fetch;
@@ -23394,7 +23394,7 @@ if (cid) {
             throw new Error("Supplied PeerID CID is invalid");
           }
           return exports2.createFromCID(cid);
-        } catch {
+        } catch (e) {
           const digest2 = Digest2.decode(buf2);
           if (digest2.code !== identity4.code) {
             throw new Error("Supplied PeerID CID is invalid");
@@ -23542,7 +23542,7 @@ if (cid) {
   function parseBytes(str) {
     try {
       return import_peer_id.default.parse(str).toBytes();
-    } catch {
+    } catch (e) {
       return CID.parse(str).bytes;
     }
   }
@@ -33690,7 +33690,7 @@ stored in the filename.
       } else if (isAsyncIterable(content)) {
         return content;
       }
-    } catch {
+    } catch (e) {
       throw (0, import_err_code25.default)(new Error("Content was invalid"), "ERR_INVALID_CONTENT");
     }
     throw (0, import_err_code25.default)(new Error("Content was invalid"), "ERR_INVALID_CONTENT");
@@ -42920,7 +42920,7 @@ stored in the filename.
       var defaultOptions16 = {
         concurrency: Infinity,
         timeout: 846e5,
-        global,
+        global: globalThis,
         singleProcess: false
       };
       module2.exports = (name8, options) => {
@@ -42958,7 +42958,7 @@ stored in the filename.
         return mutexes[name8];
       };
       module2.exports.Worker = function(script, Impl) {
-        Impl = Impl || global.Worker;
+        Impl = Impl || globalThis.Worker;
         let worker;
         try {
           worker = new Impl(script);
@@ -44846,7 +44846,7 @@ stored in the filename.
       log33("Content was an iterator");
       return content;
     }
-    if (global.Blob && content instanceof global.Blob) {
+    if ( globalThis.Blob && content instanceof globalThis.Blob) {
       log33("Content was an HTML5 Blob");
       let index = 0;
       const iterator = {
@@ -44857,7 +44857,7 @@ stored in the filename.
           return new Promise((resolve7, reject) => {
             const chunk = content.slice(index, MFS_MAX_CHUNK_SIZE);
             index += MFS_MAX_CHUNK_SIZE;
-            const reader = new global.FileReader();
+            const reader = new globalThis.FileReader();
             const handleLoad = (ev) => {
               reader.removeEventListener("loadend", handleLoad, false);
               if (ev.error) {
@@ -46056,7 +46056,7 @@ stored in the filename.
       const digest2 = decode3(buf2);
       const multihash = base32.encode(CID.createV1(code6, digest2).bytes).slice(1);
       return new Key(`/${multihash.toUpperCase()}`, false);
-    } catch {
+    } catch (e) {
       return key;
     }
   }
@@ -48159,7 +48159,7 @@ stored in the filename.
       if (root !== void 0) {
         try {
           await root.close();
-        } catch {
+        } catch (e) {
         }
       }
     }
@@ -50312,7 +50312,7 @@ stored in the filename.
         "Uint8Array",
         "Uint8ClampedArray"
       ];
-      var g = typeof globalThis === "undefined" ? global : globalThis;
+      var g = typeof globalThis === "undefined" ? globalThis : globalThis;
       module2.exports = function availableTypedArrays() {
         var out = [];
         for (var i = 0; i < possibleNames.length; i++) {
@@ -50351,7 +50351,7 @@ stored in the filename.
       var callBound = require_callBound();
       var $toString = callBound("Object.prototype.toString");
       var hasToStringTag = require_shams2()();
-      var g = typeof globalThis === "undefined" ? global : globalThis;
+      var g = typeof globalThis === "undefined" ? globalThis : globalThis;
       var typedArrays = availableTypedArrays();
       var $indexOf = callBound("Array.prototype.indexOf", true) || function indexOf(array, value) {
         for (var i = 0; i < array.length; i += 1) {
@@ -50416,7 +50416,7 @@ stored in the filename.
       var callBound = require_callBound();
       var $toString = callBound("Object.prototype.toString");
       var hasToStringTag = require_shams2()();
-      var g = typeof globalThis === "undefined" ? global : globalThis;
+      var g = typeof globalThis === "undefined" ? globalThis : globalThis;
       var typedArrays = availableTypedArrays();
       var $slice = callBound("String.prototype.slice");
       var toStrTags = {};
@@ -50816,11 +50816,7 @@ stored in the filename.
       };
       var debugs = {};
       var debugEnvRegex = /^$/;
-      if (process.env.NODE_DEBUG) {
-        debugEnv = process.env.NODE_DEBUG;
-        debugEnv = debugEnv.replace(/[|\\{}()[\]^$+?.]/g, "\\$&").replace(/\*/g, ".*").replace(/,/g, "$|^").toUpperCase();
-        debugEnvRegex = new RegExp("^" + debugEnv + "$", "i");
-      }
+   
       var debugEnv;
       exports2.debuglog = function(set2) {
         set2 = set2.toUpperCase();
@@ -51372,7 +51368,7 @@ stored in the filename.
   var require_queue_microtask = __commonJS({
     "../../node_modules/queue-microtask/index.js"(exports2, module2) {
       var promise;
-      module2.exports = typeof queueMicrotask === "function" ? queueMicrotask.bind(typeof window !== "undefined" ? window : global) : (cb) => (promise || (promise = Promise.resolve())).then(cb).catch((err) => setTimeout(() => {
+      module2.exports = typeof queueMicrotask === "function" ? queueMicrotask.bind(typeof window !== "undefined" ? window : globalThis) : (cb) => (promise || (promise = Promise.resolve())).then(cb).catch((err) => setTimeout(() => {
         throw err;
       }, 0));
     }
@@ -52635,12 +52631,12 @@ stored in the filename.
       }
       function config2(name8) {
         try {
-          if (!global.localStorage)
+          if (! globalThis.localStorage)
             return false;
         } catch (_) {
           return false;
         }
-        var val = global.localStorage[name8];
+        var val = globalThis.localStorage[name8];
         if (val == null)
           return false;
         return String(val).toLowerCase() === "true";
@@ -52668,7 +52664,7 @@ stored in the filename.
       };
       var Stream = require_stream_browser();
       var Buffer2 = require_buffer().Buffer;
-      var OurUint8Array = global.Uint8Array || function() {
+      var OurUint8Array = globalThis.Uint8Array || function() {
       };
       function _uint8ArrayToBuffer(chunk) {
         return Buffer2.from(chunk);
@@ -53833,7 +53829,7 @@ stored in the filename.
       };
       var Stream = require_stream_browser();
       var Buffer2 = require_buffer().Buffer;
-      var OurUint8Array = global.Uint8Array || function() {
+      var OurUint8Array = globalThis.Uint8Array || function() {
       };
       function _uint8ArrayToBuffer(chunk) {
         return Buffer2.from(chunk);
@@ -55886,7 +55882,7 @@ stored in the filename.
       "use strict";
       var Buffer2 = require_buffer().Buffer;
       var ta2str = function() {
-        if (global.TextDecoder) {
+        if ( globalThis.TextDecoder) {
           const decoder = new TextDecoder("utf-8");
           return decoder.decode.bind(decoder);
         } else {
@@ -55896,7 +55892,7 @@ stored in the filename.
         }
       }();
       var ab2str = function() {
-        if (global.TextDecoder) {
+        if ( globalThis.TextDecoder) {
           const decoder = new TextDecoder("utf-8");
           return decoder.decode.bind(decoder);
         } else {
@@ -56047,7 +56043,7 @@ stored in the filename.
       "use strict";
       var Buffer2 = require_buffer().Buffer;
       var str2bin = function() {
-        if (global.TextEncoder) {
+        if ( globalThis.TextEncoder) {
           const encoder = new TextEncoder("utf-8");
           return encoder.encode.bind(encoder);
         } else {
@@ -58084,7 +58080,7 @@ stored in the filename.
           this.subscriptions = /* @__PURE__ */ new Set();
           this.peers = /* @__PURE__ */ new Map();
           if (!SignaturePolicy[globalSignaturePolicy]) {
-            throw errcode16(new Error("Invalid global signature policy"), codes.ERR_INVALID_SIGNATURE_POLICY);
+            throw errcode16(new Error("Invalid globalThis signature policy"), codes.ERR_INVALID_SIGNATURE_POLICY);
           }
           this.globalSignaturePolicy = globalSignaturePolicy;
           this.canRelayMessage = canRelayMessage;
@@ -70322,7 +70318,7 @@ stored in the filename.
         try {
           new Address4(ip);
           return new Multiaddr22(`/ip4/${ip}/tcp/${port}`);
-        } catch {
+        } catch (e) {
         }
         try {
           const ip6 = new Address6(ip);
@@ -70627,7 +70623,7 @@ stored in the filename.
         throw new Error("Secure random number generation is not supported by this browser.\nUse Chrome, Firefox or Internet Explorer 11");
       }
       var Buffer2 = require_safe_buffer().Buffer;
-      var crypto6 = global.crypto || global.msCrypto;
+      var crypto6 = globalThis.crypto || globalThis.msCrypto;
       if (crypto6 && crypto6.getRandomValues) {
         module2.exports = randomBytes;
       } else {
@@ -71483,7 +71479,7 @@ stored in the filename.
           {
             urls: [
               "stun:stun.l.google.com:19302",
-              "stun:global.stun.twilio.com:3478"
+              "stun: globalThis.stun.twilio.com:3478"
             ]
           }
         ],
@@ -99213,7 +99209,7 @@ stored in the filename.
           const signal = anySignal5(signals);
           try {
             setMaxListeners && setMaxListeners(0, signal);
-          } catch {
+          } catch (e) {
           }
           const log48 = logger2(`libp2p:kad-dht:${this._lan ? "lan" : "wan"}:query:` + uint8ArrayToString(key, "base58btc"));
           const peersToQuery = peers.slice(0, Math.min(this._disjointPaths, peers.length));
@@ -99738,7 +99734,7 @@ stored in the filename.
             const signal = anySignal5([this._controller.signal, timeoutController.signal]);
             try {
               setMaxListeners && setMaxListeners(Infinity, signal);
-            } catch {
+            } catch (e) {
             }
             const found = await length4(await take5(this._peerRouting.getClosestPeers(this._peerId.toBytes(), {
               signal
@@ -100588,7 +100584,7 @@ stored in the filename.
             const controller = new TimeoutController3(options.timeout);
             try {
               setMaxListeners && setMaxListeners(Infinity, controller.signal);
-            } catch {
+            } catch (e) {
             }
             options.signal = controller.signal;
           }
@@ -102604,7 +102600,7 @@ stored in the filename.
         async _checkMetrics() {
           if (this._libp2p.metrics) {
             try {
-              const movingAverages = this._libp2p.metrics.global.movingAverages;
+              const movingAverages = this._libp2p.metrics. globalThis.movingAverages;
               const received = movingAverages.dataReceived[this._options.movingAverageInterval].movingAverage();
               await this._checkMaxLimit("maxReceivedData", received);
               const sent = movingAverages.dataSent[this._options.movingAverageInterval].movingAverage();
@@ -104124,7 +104120,7 @@ stored in the filename.
             const controller = new AbortController();
             try {
               setMaxListeners && setMaxListeners(Infinity, controller.signal);
-            } catch {
+            } catch (e) {
             }
             return controller;
           });
@@ -104321,7 +104317,7 @@ stored in the filename.
           const signal = anySignal5(signals);
           try {
             setMaxListeners && setMaxListeners(Infinity, signal);
-          } catch {
+          } catch (e) {
           }
           const pendingDial = {
             dialRequest,
@@ -117125,7 +117121,7 @@ stored in the filename.
           this._options = options;
           this._enabled = this._options.enabled;
           this._global = new Stat(initialCounters, options);
-          this._global.on("update", (stats) => this.emit("update", stats));
+          this._ globalThis.on("update", (stats) => this.emit("update", stats));
           this._peers = (0, import_tracked_map4.default)({
             system: "ipfs",
             component: "bitswap",
@@ -117136,25 +117132,25 @@ stored in the filename.
         enable() {
           this._enabled = true;
           this._options.enabled = true;
-          this._global.enable();
+          this._ globalThis.enable();
         }
         disable() {
           this._enabled = false;
           this._options.enabled = false;
-          this._global.disable();
+          this._ globalThis.disable();
         }
         stop() {
           this._enabled = false;
-          this._global.stop();
+          this._ globalThis.stop();
           for (const peerStat of this._peers) {
             peerStat[1].stop();
           }
         }
         get snapshot() {
-          return this._global.snapshot;
+          return this._ globalThis.snapshot;
         }
         get movingAverages() {
-          return this._global.movingAverages;
+          return this._ globalThis.movingAverages;
         }
         forPeer(peerId) {
           const peerIdStr = typeof peerId !== "string" && peerId.toB58String ? peerId.toB58String() : `${peerId}`;
@@ -117162,7 +117158,7 @@ stored in the filename.
         }
         push(peer, counter, inc) {
           if (this._enabled) {
-            this._global.push(counter, inc);
+            this._ globalThis.push(counter, inc);
             if (peer) {
               let peerStats = this._peers.get(peer);
               if (!peerStats) {
@@ -119109,12 +119105,13 @@ stored in the filename.
 
   // src/worker.js
   var { create: create8 } = (init_src18(), __toCommonJS(src_exports6));
-  var { Server: Server2, IPFSService: IPFSService2 } = (init_src19(), __toCommonJS(src_exports7));
+  var { Server: Server2, IPFSService: IPFSService2, import_env: import_env3 } = (init_src19(), __toCommonJS(src_exports7));
+  import_env3.isNode = false;
   console.info("hello world");
   var main = async () => {
     try {
       const connections = listen(self, "connect");
-      const ipfs2 = await create8();
+      const ipfs2 = await create8({ isNode: false, isWebWorker: true });
       await ipfs2.add({ content: "hello world" });
       const service = new IPFSService2(ipfs2);
       const server = new Server2(service);
