@@ -52,8 +52,8 @@ document.body.appendChild(Object.assign(document.createElement("script"), {
   innerHTML: JSON.stringify(imap),
 }));
 
-const { importShim, startSession } = self;
+const { importShim, startState } = self;
 
 importShim<null, { run: () => void }>(
   "./starter.mjs",
-).then(({ run }) => run(startSession));
+).then(({ run }) => run(startState));
