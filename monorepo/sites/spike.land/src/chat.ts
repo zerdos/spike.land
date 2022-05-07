@@ -9,6 +9,7 @@ import { CodeEnv } from "./env";
 export default {
   async fetch(request: Request, env: CodeEnv, ctx) {
     return handleErrors(request, async () => {
+
       console.log("handling request");
       // We have received an HTTP request! Parse the URL and route the request.
 
@@ -29,6 +30,13 @@ export default {
               "Cache-Control": "no-cache",
             },
           });
+      case "env":
+            return new Response(JSON.stringify(env), {
+              headers: {
+                "Content-Type": "text/html;charset=UTF-8",
+                "Cache-Control": "no-cache",
+              },
+            });
         case "files.json":
           return new Response(manifestJSON, {
             headers: {
@@ -97,7 +105,7 @@ async function handleApiRequest(
 
       newUrl.pathname = "/" + path.slice(2).join("/");
       newUrl.searchParams.append("room", name);
-
+      roomObject.room = name;
       return roomObject.fetch(newUrl.toString(), request);
     }
 

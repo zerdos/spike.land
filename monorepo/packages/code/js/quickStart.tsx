@@ -1,8 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import type { Dispatch, ReactNode, SetStateAction } from "react";
 import { render } from "react-dom";
-import { prettier } from "./prettierEsm";
-import { babelTransform as transform } from "./babelEsm";
+
 import { renderFromString } from "./renderToString";
 import throttle from "lodash/throttle";
 import { mST } from "./ws";
@@ -102,6 +101,8 @@ async function runner(
 
   // esbuildEsmTransform = esbuildEsmTransform ||
   //   (await import("./esbuildEsm.ts")).transform;
+  const { transform } = await import("./babelEsm");
+  const { prettier } = await import("./prettierEsm");
 
   try {
     const code = prettier(c);

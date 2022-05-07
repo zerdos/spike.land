@@ -47,6 +47,7 @@ interface WebsocketSession {
 
 export class Code {
   state: IState;
+  room: string = "";
   kv: DurableObjectStorage;
   sessions: WebsocketSession[];
   constructor(state: IState, private env: CodeEnv) {
@@ -94,7 +95,7 @@ export class Code {
     });
   }
 
-  async fetch(request: Request) {
+  async fetch(request: Request, env) {
     const mST = () => this.state.mySession.json().state;
     return await handleErrors(request, async () => {
       let code = "";
@@ -110,6 +111,15 @@ export class Code {
       const vReg = /{VERSION}/ig;
 
       switch (path[0]) {
+
+        case "env":
+          return new Response(JSON.stringify(env), {
+            headers: {
+              "Content-Type": "text/html;charset=UTF-8",
+              "Cache-Control": "no-cache",
+            },
+          });
+
         case "code": {
           return new Response(mST().code, {
             status: 200,
@@ -175,7 +185,7 @@ export class Code {
             LAZY.replace(
               "{...o}",
               JSON.stringify({
-                name: codeSpace,
+                name: this.state.mySession.room,
                 transpiled,
                 html:
                   `<div id="root"><style>${css}</style><div id="zbody">${html}</div></div>`,
@@ -210,6 +220,15 @@ export class Code {
               "Content-Type": "application/json; charset=UTF-8",
             },
           });
+          case "room":
+            return new Response(JSON.stringify({codeSpace}), {
+              status: 200,
+              headers: {
+                "Access-Control-Allow-Origin": "*",
+                "Cache-Control": "no-cache",
+                "Content-Type": "application/json; charset=UTF-8",
+              },
+            });
 
         case "js": {
           // if (codeSpace==="sanyi") {
@@ -243,14 +262,14 @@ export class Code {
             <script defer type="module">
               
 
-              window.startSession = ${JSON.stringify(mST())};
+              window.startState = ${JSON.stringify(mST())};
               const AppPromise = import("https://spike.land/api/room/${codeSpace}/js");
               import("https://spike.land/starter.mjs")
                 .then(
-                  async ({run})=> {
-                   const App = (await AppPromise).default;
+                   ({run})=> {
+
                     run(
-                    window.startSession, App
+                    window.startState, AppPromise
                     );
                   }
                   )
@@ -310,11 +329,13 @@ export class Code {
               JSON.stringify(imap)
             }</script>
             <script defer type="module">
-              window.startSession = ${JSON.stringify(mST())};
+              window.startState = ${JSON.stringify(mST())};
+            
+              const startApp = import("https://spike.land/api/room/${codeSpace}/js");
               import("https://spike.land/starter.mjs")
                 .then(
                   ({run})=> run(
-                    window.startSession
+                    window.startState, startApp
                     )
                   )
                 .catch(()=>{

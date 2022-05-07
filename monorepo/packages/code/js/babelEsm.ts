@@ -84,10 +84,6 @@ function processOptions(options) {
   };
 }
 
-function transform(code: string, options: any) {
-  return babelTransformB(code, processOptions(options));
-}
-
 const availablePlugins = {};
 const availablePresets = {};
 // export const buildExternalHelpers = babelBuildExternalHelpers;
@@ -208,8 +204,8 @@ function disableScriptTags() {
   window.removeEventListener("DOMContentLoaded", onDOMContentLoaded);
 }
 
-export const babelTransform = (code: string) =>
-  (transform(
+export const transform = (code: string) =>
+  (babelTransformB(
     code,
     {
       compact: false,

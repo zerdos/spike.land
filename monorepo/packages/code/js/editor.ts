@@ -1,6 +1,6 @@
 import * as monaco from "monaco-editor/esm/vs/editor/editor.main";
 import "monaco-editor/esm/vs/editor/editor.main";
-import { dtsFiles } from "./types.mjs";
+
 import codicon from "monaco-editor/esm/vs/base/browser/ui/codicons/codicon/codicon.ttf";
 // import { parse } from "@babel/parser";
 // import traverse from "@babel/traverse";
@@ -8,30 +8,6 @@ import codicon from "monaco-editor/esm/vs/base/browser/ui/codicons/codicon/codic
 // import Buffer from "buffer";
 
 // globalThis.Buffer = Buffer;
-
-import pAll from "p-all";
-
-const {
-  reactDts,
-  // jsxDevRuntimeDts,
-  jsxRuntimeDts,
-  // reactExpDts,
-  // globalDts,
-  propTypesDts,
-  cssTypeDts,
-  framerDts,
-  emotionStyled,
-  emotionStyleBase,
-  emotionCache,
-  emotionJSXNameSpaceDTS,
-  emotionJSXRuntimeDTS,
-  emotionReactDts,
-  emotionReactCssPropDts,
-  emotionReactHelperDts,
-  emotionThemingDts,
-  emotionSerializeDts,
-  emotionUtilsDts,
-} = dtsFiles;
 
 const monEnv = {
   getWorkerUrl: function (_workerId: string, label: string) {
@@ -166,6 +142,28 @@ export const startMonaco = async (
   );
 
   (async () => {
+    const { dtsFiles } = await import("./types.mjs");
+    const {
+      reactDts,
+      // jsxDevRuntimeDts,
+      jsxRuntimeDts,
+      // reactExpDts,
+      // globalDts,
+      propTypesDts,
+      cssTypeDts,
+      framerDts,
+      emotionStyled,
+      emotionStyleBase,
+      emotionCache,
+      emotionJSXNameSpaceDTS,
+      emotionJSXRuntimeDTS,
+      emotionReactDts,
+      emotionReactCssPropDts,
+      emotionReactHelperDts,
+      emotionThemingDts,
+      emotionSerializeDts,
+      emotionUtilsDts,
+    } = dtsFiles;
     const importHelper = [
       {
         name: "react",
@@ -288,6 +286,7 @@ export const startMonaco = async (
         )
     );
 
+    const pAll = (await (import("p-all"))).default;
     await pAll(dts, { concurrency: 2 });
 
     monaco.languages.typescript.typescriptDefaults.setEagerModelSync(true);

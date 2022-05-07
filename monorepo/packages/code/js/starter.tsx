@@ -22,8 +22,9 @@ const start = async (App) => {
   if (location.href.endsWith("hydrated")) return;
 
   Object.assign(globalThis, { App });
+
   const { join } = await import("./ws");
-  join(App);
+  join();
 };
 
 export const renderApp = (App) => {
@@ -45,16 +46,17 @@ export const renderApp = (App) => {
   console.log("HYDRATED");
 };
 
-export const run = async (session, StarterApp) => {
+export const run = async (session, StarterApp = null) => {
   if (globalThis.App) return;
 
   const container = document.getElementById("root");
   container.innerHTML =
     `<style>${session.css}</style><div id="zbody">${session.html}</div>`;
 
-  const App = StarterApp ||
-    (await import(createJsBlob(session.transpiled))).default;
+  const AppPromise = StarterApp || import(createJsBlob(session.transpiled));
 
+  const App = (await AppPromise).default;
+  console.log({ App });
   start(App);
 };
 

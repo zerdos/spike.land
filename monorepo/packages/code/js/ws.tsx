@@ -61,10 +61,9 @@ const sendChannel = {
 // Let createDelta;
 // let applyPatch;
 
-const resp = await fetch(
+const state = window.startState || await fetch(
   `https://spike.land/api/room/${roomName}/session`,
-);
-const state = await resp.json();
+).then((resp) => resp.json());
 
 const { startSession } = await import("./session");
 
