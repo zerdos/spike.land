@@ -68,7 +68,7 @@
   "include": [
     "js/**/*", "js/**/*.json"
   ],
-  "exclude": ["./js/vendor/**", "js/public"],
+  "exclude": ["./js/vendor/**", ""],
   "paths": {
     "path": ["path-browserify"],
     "buffer": ["buffer"],

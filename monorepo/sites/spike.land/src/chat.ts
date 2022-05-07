@@ -7,6 +7,8 @@ const assetManifest = JSON.parse(manifestJSON);
 import { handleErrors } from "./handleErrors";
 import { CodeEnv } from "./env";
 
+const instance = new WebAssembly.Instance(ESBUILD_WASM);
+
 export default {
   async fetch(request: Request, env: CodeEnv, ctx) {
     return handleErrors(request, async () => {
@@ -32,7 +34,7 @@ export default {
             },
           });
       case "env":
-            return new Response(JSON.stringify(env), {
+            return new Response(JSON.stringify({env, esM}), {
               headers: {
                 "Content-Type": "text/html;charset=UTF-8",
                 "Cache-Control": "no-cache",

@@ -19,7 +19,7 @@ import type {
 import {startSession} from "@spike.land/code/js/session";
 
 
-// import {transform, init} from "./esbuildEsm";
+import {transform, init} from "./esbuildEsm";
 
 
 import imap from "@spike.land/code/js/importmap.json";
@@ -129,9 +129,9 @@ export class Code {
         }
         case "transform": {
 
-          // await init();
+          await init();
 
-          return new Response( "ok"// await transform(mST().code)
+          return new Response(  await transform(mST().code)
           , {
             status: 200,
             headers: {

@@ -6,7 +6,6 @@ route = "https://spike.land/*"
 compatibility_date = "2021-10-16"
 usage_model = "bundled"
 
-
 [durable_objects]
 bindings = [
     { name = "CODE", class_name = "Code" },
@@ -14,7 +13,7 @@ bindings = [
 ]
 
 [site]
-bucket = "../../packages/code/js/public" # Add the directory with your static assets
+bucket = "./public" # Add the directory with your static assets
 
 [env.production]
 kv_namespaces = [

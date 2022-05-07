@@ -12,6 +12,10 @@ const isDevelopment = environment === "development"
 importMap.load(jsonData);
 const importMapPlugin = importMap.plugin();
 
+
+const outDir = "../../sites/spike.land/public";
+
+
 console.log(`
 -------------------------------------------------
 --------------${environment}---------------------
@@ -52,12 +56,12 @@ await esbuild.build({
     ".ttf": "file",
   },
 
-  outdir: "js/public/workers/",
+  outdir: outDir + "/workers/",
 });
 
 await esbuild.build({
   entryPoints: ["./js/appStarter.ts"],
-  outfile: "./js/public/appStarter.js",
+  outfile: outDir+ "/appStarter.js",
   bundle: true,
   target: "esnext",
   minify: !isDevelopment,
@@ -139,7 +143,7 @@ const build = (entryPoints) =>
       ".workerJS": "file",
       ".wasm": "file",
     },
-    outdir: "js/public",
+    outdir: "../../sites/spike.land/public",
   }).catch((e) => {
 
     console.error(e);
