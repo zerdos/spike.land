@@ -1,36 +1,25 @@
-import { Mutex } from "async-mutex";
-import * as esbuild from "esbuild-wasm";
-import wasmModule from "esbuild-wasm/esbuild.wasm";
-import { wait } from "./wait";
+// import { Mutex } from "async-mutex";
+// import {initialize, transform} from "./esbuildEsm";
+import * as esbuild from "esbuild-wasm"
+// import wasmUrl from  "./esbuild.wasm"
+// import { wait } from "./wait";
 
-let initFinished = false;
 
-export const init = async (wasmURL: "./esbuild.wasm", wasmModule: null) => {
-  if (wasmModule) {
+export const init = async (wasmUrl) => {
     await esbuild.initialize({
-      wasmModule,
+      wasmUrl
     });
-  } else {
-    await esbuild.initialize({
-      wasmURL,
-    });
-  }
+}
 
-  initFinished = true;
-};
-
-const mutex = new Mutex();
+// const mutex = new Mutex();
 
 export const transform = async (code: string, retry = 4): Promise<string> => {
   //const startTime = performance.now();
 
-  if (initFinished || await init()) {
-    initFinished = true;
-  }
 
   let result;
   try {
-    await mutex.waitForUnlock();
+    // await mutex.waitForUnlock();
 
     result = await esbuild.transform(
       `/** @jsx jsX */
@@ -44,7 +33,7 @@ export const transform = async (code: string, retry = 4): Promise<string> => {
     );
   } catch (e) {
     if (retry > 0) {
-      await wait(100);
+    //   await wait(100);
       return transform(code, retry - 1);
     }
     throw e;

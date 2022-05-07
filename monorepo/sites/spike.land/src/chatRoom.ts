@@ -18,14 +18,14 @@ import type {
 
 import {startSession} from "@spike.land/code/js/session";
 
-// import esbuildWasm from "./esbuild.wasm"
 
-// import {transform, init} from "@spike.land/code/js/esbuildEsm";
+// import {transform, init} from "./esbuildEsm";
 
 
 import imap from "@spike.land/code/js/importmap.json";
 
-console.log("chatroom");
+// const esbuildWasm = "";
+// console.log("chatroom");
 
 interface IState extends DurableObjectState {
   mySession: CodeSession;
@@ -129,9 +129,9 @@ export class Code {
         }
         case "transform": {
 
-        await init("", "esbuildWasm");
+          // await init();
 
-          return new Response(  await transform(mST().code)
+          return new Response( "ok"// await transform(mST().code)
           , {
             status: 200,
             headers: {
