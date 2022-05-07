@@ -7,7 +7,6 @@ const assetManifest = JSON.parse(manifestJSON);
 import { handleErrors } from "./handleErrors";
 import { CodeEnv } from "./env";
 
-const instance = new WebAssembly.Instance(ESBUILD_WASM);
 
 export default {
   async fetch(request: Request, env: CodeEnv, ctx) {

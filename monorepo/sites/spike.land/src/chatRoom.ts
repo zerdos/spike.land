@@ -1,6 +1,5 @@
 import { handleErrors } from "./handleErrors";
 import { RateLimiterClient } from "./rateLimiterClient";
-
 import LAZY from "./lazy.html";
 import HTML from "./index.html";
 import RCA from "./rca.tsx.html";
@@ -15,17 +14,10 @@ import type {
   ICodeSession,
   INewWSConnection,
 } from "@spike.land/code/js/session";
-
 import {startSession} from "@spike.land/code/js/session";
-
-
-import {transform, init} from "./esbuildEsm";
-
 
 import imap from "@spike.land/code/js/importmap.json";
 
-// const esbuildWasm = "";
-// console.log("chatroom");
 
 interface IState extends DurableObjectState {
   mySession: CodeSession;
@@ -55,7 +47,7 @@ export class Code {
   room: string = "";
   kv: DurableObjectStorage;
   sessions: WebsocketSession[];
-  constructor(state: IState, private env: CodeEnv, private ctx) {
+  constructor(state: IState, private env: CodeEnv) {
     this.kv = state.storage;
     this.state = state;
     this.sessions = [];
@@ -75,7 +67,7 @@ export class Code {
         const codeMainId = env.CODE.idFromName("code-main");
         const defaultRoomObject = env.CODE.get(codeMainId);
 
-        const resp = await defaultRoomObject.fetch("session", env, ctx);
+        const resp = await defaultRoomObject.fetch("session");
 
         session = await resp.json();
         if (!session) {
@@ -100,9 +92,7 @@ export class Code {
     });
   }
 
-  async fetch(request: Request) {
-    const env = this.env;
-    const ctx = this.ctx;
+  async fetch(request: Request, env) {
     const mST = () => this.state.mySession.json().state;
     return await handleErrors(request, async () => {
       let code = "";
@@ -119,20 +109,6 @@ export class Code {
       switch (path[0]) {
         case "code": {
           return new Response(mST().code, {
-            status: 200,
-            headers: {
-              "Access-Control-Allow-Origin": "*",
-              "Cache-Control": "no-cache",
-              "Content-Type": "application/javascript; charset=UTF-8",
-            },
-          });
-        }
-        case "transform": {
-
-          await init();
-
-          return new Response(  await transform(mST().code)
-          , {
             status: 200,
             headers: {
               "Access-Control-Allow-Origin": "*",
@@ -336,6 +312,7 @@ export class Code {
               <style>${mST().css}</style>
                 <div id="zbody">${mST().html}</div>
               </div>
+              <p id="debug"></p>
               <script type="importmap">${
               JSON.stringify(imap)
             }</script>
