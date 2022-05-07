@@ -1,6 +1,6 @@
 {
   "name": "@spike.land/code",
-  "version": "0.7.716",
+  "version": "0.7.717",
   "description": "spike.land",
   "type": "module",
   "main": "./js/public/starter.mjs",
@@ -79,7 +79,7 @@
     "@emotion/styled": "^11.8.1",
     "@emotion/utils": "^1.1.0",
     "@mui/material": "^5.6.4",
-    "@spike.land/qrious": "^0.7.644",
+    "@spike.land/qrious": "^0.7.717",
     "@types/babel__standalone": "^7.1.4",
     "@types/prettier": "^2.6.0",
     "@types/react": "18.0.9",

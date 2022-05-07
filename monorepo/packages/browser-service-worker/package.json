@@ -1,6 +1,6 @@
 {
   "name": "example-browser-service-worker",
-  "version": "1.0.0",
+  "version": "0.7.717",
   "private": true,
   "description": "IPFS with service worker",
   "keywords": [],
