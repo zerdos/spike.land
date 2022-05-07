@@ -111,15 +111,6 @@ export class Code {
       const vReg = /{VERSION}/ig;
 
       switch (path[0]) {
-
-        case "env":
-          return new Response(JSON.stringify(env), {
-            headers: {
-              "Content-Type": "text/html;charset=UTF-8",
-              "Cache-Control": "no-cache",
-            },
-          });
-
         case "code": {
           return new Response(mST().code, {
             status: 200,
