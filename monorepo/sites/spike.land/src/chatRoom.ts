@@ -312,7 +312,6 @@ export class Code {
               <style>${mST().css}</style>
                 <div id="zbody">${mST().html}</div>
               </div>
-              <p id="debug"></p>
               <script type="importmap">${
               JSON.stringify(imap)
             }</script>

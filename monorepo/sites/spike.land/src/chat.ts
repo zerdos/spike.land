@@ -1,12 +1,10 @@
 import {  getAssetFromKV } from '@cloudflare/kv-asset-handler'
 import manifestJSON from '__STATIC_CONTENT_MANIFEST'
-
-const assetManifest = JSON.parse(manifestJSON);
+const assetManifest = JSON.parse(manifestJSON)
 
 
 import { handleErrors } from "./handleErrors";
 import { CodeEnv } from "./env";
-
 
 export default {
   async fetch(request: Request, env: CodeEnv, ctx) {
@@ -20,7 +18,7 @@ export default {
 
       if (!path[0]) {
         // Serve our HTML at the root path.
-        return getHTMLResp(env, "code-main", ctx);
+        return getHTMLResp(env, "code-main");
       }
 
 
@@ -33,7 +31,7 @@ export default {
             },
           });
       case "env":
-            return new Response(JSON.stringify({env, esM}), {
+            return new Response(JSON.stringify(env), {
               headers: {
                 "Content-Type": "text/html;charset=UTF-8",
                 "Cache-Control": "no-cache",
@@ -48,10 +46,10 @@ export default {
           });
         case "api":
           // This is a request for `/api/...`, call the API handler.
-          return handleApiRequest(path.slice(1), request, env, ctx);
+          return handleApiRequest(path.slice(1), request, env);
 
         case "live":
-          return getHTMLResp(env, path[1], ctx);
+          return getHTMLResp(env, path[1]);
 
         default:
           return getAssetFromKV(
@@ -75,7 +73,6 @@ async function handleApiRequest(
   path: string[],
   request: Request,
   env: CodeEnv,
-  ctx
 ) {
   // We've received at API request. Route the request based on the path.
 
@@ -109,7 +106,7 @@ async function handleApiRequest(
       newUrl.pathname = "/" + path.slice(2).join("/");
       newUrl.searchParams.append("room", name);
       roomObject.room = name;
-      return roomObject.fetch(new Request(newUrl), env, ctx);
+      return roomObject.fetch(newUrl.toString(), request);
     }
 
     default:
@@ -117,9 +114,9 @@ async function handleApiRequest(
   }
 }
 
-async function getHTMLResp(env: CodeEnv, room: string, ctx) {
+async function getHTMLResp(env: CodeEnv, room: string) {
   const id = env.CODE.idFromName(room);
   const roomObject = env.CODE.get(id);
 
-  return roomObject.fetch(new Request("public?room="+room), env, ctx);
+  return roomObject.fetch("public?room="+room);
 }
