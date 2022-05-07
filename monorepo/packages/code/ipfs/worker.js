@@ -1329,7 +1329,7 @@
         return typeof sizeOrArray === "number" ? util.Buffer ? util._Buffer_allocUnsafe(sizeOrArray) : new util.Array(sizeOrArray) : util.Buffer ? util._Buffer_from(sizeOrArray) : typeof Uint8Array === "undefined" ? sizeOrArray : new Uint8Array(sizeOrArray);
       };
       util.Array = typeof Uint8Array !== "undefined" ? Uint8Array : Array;
-      util.Long = util. globalThis.dcodeIO && util. globalThis.dcodeIO.Long || util. globalThis.Long || util.inquire("long");
+      util.Long = util.global.dcodeIO && util.global.dcodeIO.Long || util.global.Long || util.inquire("long");
       util.key2Re = /^true|false|0|1$/;
       util.key32Re = /^-?(?:0|[1-9][0-9]*)$/;
       util.key64Re = /^(?:[\\x00-\\xff]{8}|-?(?:0|[1-9][0-9]*))$/;
@@ -78120,7 +78120,6 @@ stored in the filename.
       exports2.DUMP_SESSION_KEYS = exports2.NOISE_MSG_MAX_LENGTH_BYTES_WITHOUT_TAG = exports2.NOISE_MSG_MAX_LENGTH_BYTES = void 0;
       exports2.NOISE_MSG_MAX_LENGTH_BYTES = 65535;
       exports2.NOISE_MSG_MAX_LENGTH_BYTES_WITHOUT_TAG = exports2.NOISE_MSG_MAX_LENGTH_BYTES - 16;
-      exports2.DUMP_SESSION_KEYS = process.env.DUMP_SESSION_KEYS;
     }
   });
 
@@ -102600,7 +102599,7 @@ stored in the filename.
         async _checkMetrics() {
           if (this._libp2p.metrics) {
             try {
-              const movingAverages = this._libp2p.metrics. globalThis.movingAverages;
+              const movingAverages = this._libp2p.metrics.global.movingAverages;
               const received = movingAverages.dataReceived[this._options.movingAverageInterval].movingAverage();
               await this._checkMaxLimit("maxReceivedData", received);
               const sent = movingAverages.dataSent[this._options.movingAverageInterval].movingAverage();
@@ -113540,7 +113539,7 @@ stored in the filename.
       var IS_ELECTRON_RENDERER = IS_ELECTRON && IS_ENV_WITH_DOM;
       var IS_NODE = typeof __require === "function" && typeof globalThis.process !== "undefined" && typeof globalThis.process.release !== "undefined" && globalThis.process.release.name === "node" && !IS_ELECTRON;
       var IS_WEBWORKER = typeof importScripts === "function" && typeof self !== "undefined" && typeof WorkerGlobalScope !== "undefined" && self instanceof WorkerGlobalScope;
-      var IS_TEST = typeof globalThis.process !== "undefined" && typeof globalThis.process.env !== "undefined" && globalThis.process.env["NODE" + (() => "_")() + "ENV"] === "test";
+      var IS_TEST = false;
       var IS_REACT_NATIVE = typeof navigator !== "undefined" && navigator.product === "ReactNative";
       module2.exports = {
         isTest: IS_TEST,
@@ -117121,7 +117120,7 @@ stored in the filename.
           this._options = options;
           this._enabled = this._options.enabled;
           this._global = new Stat(initialCounters, options);
-          this._ globalThis.on("update", (stats) => this.emit("update", stats));
+          this._global.on("update", (stats) => this.emit("update", stats));
           this._peers = (0, import_tracked_map4.default)({
             system: "ipfs",
             component: "bitswap",
@@ -117132,25 +117131,25 @@ stored in the filename.
         enable() {
           this._enabled = true;
           this._options.enabled = true;
-          this._ globalThis.enable();
+          this._global.enable();
         }
         disable() {
           this._enabled = false;
           this._options.enabled = false;
-          this._ globalThis.disable();
+          this._global.disable();
         }
         stop() {
           this._enabled = false;
-          this._ globalThis.stop();
+          this._global.stop();
           for (const peerStat of this._peers) {
             peerStat[1].stop();
           }
         }
         get snapshot() {
-          return this._ globalThis.snapshot;
+          return this._global.snapshot;
         }
         get movingAverages() {
-          return this._ globalThis.movingAverages;
+          return this._global.movingAverages;
         }
         forPeer(peerId) {
           const peerIdStr = typeof peerId !== "string" && peerId.toB58String ? peerId.toB58String() : `${peerId}`;
@@ -117158,7 +117157,7 @@ stored in the filename.
         }
         push(peer, counter, inc) {
           if (this._enabled) {
-            this._ globalThis.push(counter, inc);
+            this._global.push(counter, inc);
             if (peer) {
               let peerStats = this._peers.get(peer);
               if (!peerStats) {
@@ -119106,7 +119105,6 @@ stored in the filename.
   // src/worker.js
   var { create: create8 } = (init_src18(), __toCommonJS(src_exports6));
   var { Server: Server2, IPFSService: IPFSService2, import_env: import_env3 } = (init_src19(), __toCommonJS(src_exports7));
-  import_env3.isNode = false;
   console.info("hello world");
   var main = async () => {
     try {
@@ -119154,35 +119152,4 @@ stored in the filename.
   };
   main();
 })();
-/*!
- * Determine if an object is a Buffer
- *
- * @author   Feross Aboukhadijeh <https://feross.org>
- * @license  MIT
- */
-/*!
- * The buffer module from node.js, for the browser.
- *
- * @author   Feross Aboukhadijeh <https://feross.org>
- * @license  MIT
- */
-/*!
- * bytes
- * Copyright(c) 2012-2014 TJ Holowaychuk
- * Copyright(c) 2015 Jed Watson
- * MIT Licensed
- */
-/*! ieee754. BSD-3-Clause License. Feross Aboukhadijeh <https://feross.org/opensource> */
-/*! noble-ed25519 - MIT License (c) 2019 Paul Miller (paulmillr.com) */
-/*! noble-secp256k1 - MIT License (c) 2019 Paul Miller (paulmillr.com) */
-/*! queue-microtask. MIT License. Feross Aboukhadijeh <https://feross.org/opensource> */
-/*! run-parallel-limit. MIT License. Feross Aboukhadijeh <https://feross.org/opensource> */
-/*! safe-buffer. MIT License. Feross Aboukhadijeh <https://feross.org/opensource> */
-/*! simple-peer. MIT License. Feross Aboukhadijeh <https://feross.org/opensource> */
-/**
- * Timestamp for 64-bit time_t, nanosecond precision and strftime
- *
- * @author Yusuke Kawasaki
- * @license MIT
- * @see https://github.com/kawanet/timestamp-nano
- */
+
