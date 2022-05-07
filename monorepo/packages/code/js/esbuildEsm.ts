@@ -2,29 +2,29 @@ import { Mutex } from "async-mutex";
 import * as esbuild from "esbuild-wasm";
 import { wait } from "./wait";
 
-// function crea/home/z/z/monorepo/packages/code/jsteWasmBlob(wasm: string) {
-//   const blob = new Blob([wasm], { type: "application/wasm" });
-
-//   return URL.createObjectURL(blob);
-// }
-
-const init = esbuild.initialize({
-  wasmURL: `./esbuild.wasm`,
-});
-
 let initFinished = false;
+
+export const init = async (url: "./esbuild.wasm") => {
+  await esbuild.initialize({
+    wasmURL: url,
+  });
+
+  initFinished = true;
+};
+
 const mutex = new Mutex();
 
 export const transform = async (code: string, retry = 4): Promise<string> => {
-  const startTime = performance.now();
+  //const startTime = performance.now();
 
-  if (initFinished || await init) {
+  if (initFinished || await init()) {
     initFinished = true;
   }
 
   let result;
   try {
     await mutex.waitForUnlock();
+
     result = await esbuild.transform(
       `/** @jsx jsX */
     import {jsx as jsX} from "@emotion/react";
@@ -38,14 +38,13 @@ export const transform = async (code: string, retry = 4): Promise<string> => {
   } catch (e) {
     if (retry > 0) {
       await wait(100);
-      ``;
       return transform(code, retry - 1);
     }
     throw e;
   }
 
-  const endTime = performance.now();
+  // const endTime = performance.now();
 
-  console.log(`esbuildEsmTransform: took ${endTime - startTime} milliseconds`);
+  // console.log(`esbuildEsmTransform: took ${endTime - startTime} milliseconds`);
   return result.code;
 };

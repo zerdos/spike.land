@@ -1,11 +1,10 @@
 import { handleErrors } from "./handleErrors";
 import { RateLimiterClient } from "./rateLimiterClient";
+
 import LAZY from "./lazy.html";
 import HTML from "./index.html";
 import RCA from "./rca.tsx.html";
 import HYDRATED from "./hydrated.html";
-
-import { toBinary } from "@spike.land/code/js/binary";
 
 import { version } from "@spike.land/code/package.json";
 
@@ -16,7 +15,10 @@ import type {
   ICodeSession,
   INewWSConnection,
 } from "@spike.land/code/js/session";
+
 import {startSession} from "@spike.land/code/js/session";
+import {transform} from "@spike.land/code/js/esbuildEsm";
+
 
 import imap from "@spike.land/code/js/importmap.json";
 
@@ -112,6 +114,16 @@ export class Code {
       switch (path[0]) {
         case "code": {
           return new Response(mST().code, {
+            status: 200,
+            headers: {
+              "Access-Control-Allow-Origin": "*",
+              "Cache-Control": "no-cache",
+              "Content-Type": "application/javascript; charset=UTF-8",
+            },
+          });
+        }
+        case "transform": {
+          return new Response( await transform(mST().code), {
             status: 200,
             headers: {
               "Access-Control-Allow-Origin": "*",
