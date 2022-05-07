@@ -25,13 +25,20 @@ export const transform = async (code: string, retry = 4): Promise<string> => {
   let result;
   try {
     await mutex.waitForUnlock();
-    result = await esbuild.transform(code, {
-      loader: "tsx",
-      target: "esnext",
-    });
+    result = await esbuild.transform(
+      `/** @jsx jsX */
+    import {jsx as jsX} from "@emotion/react";
+    ` +
+        code,
+      {
+        loader: "tsx",
+        target: "esnext",
+      },
+    );
   } catch (e) {
     if (retry > 0) {
       await wait(100);
+      ``;
       return transform(code, retry - 1);
     }
     throw e;

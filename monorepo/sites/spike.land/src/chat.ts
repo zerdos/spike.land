@@ -118,5 +118,5 @@ async function getHTMLResp(env: CodeEnv, room: string) {
   const id = env.CODE.idFromName(room);
   const roomObject = env.CODE.get(id);
 
-  return roomObject.fetch("public");
+  return roomObject.fetch("public?room="+room);
 }

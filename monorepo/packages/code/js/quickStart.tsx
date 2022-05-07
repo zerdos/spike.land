@@ -101,13 +101,13 @@ async function runner(
 
   // esbuildEsmTransform = esbuildEsmTransform ||
   //   (await import("./esbuildEsm.ts")).transform;
-  const { transform } = await import("./babelEsm");
+  const { transform } = await import("./esbuildEsm");
   const { prettier } = await import("./prettierEsm");
 
   try {
     const code = prettier(c);
 
-    const transpiled = transform(code);
+    const transpiled = await transform(code);
 
     let restartError = false;
     /// yellow

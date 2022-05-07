@@ -102,7 +102,7 @@ export class Code {
       let patched = false;
 
       let url = new URL(request.url);
-      const codeSpace = url.searchParams.get("room");
+      const codeSpace = url.searchParams.get("room") || "code-main";
       if (codeSpace && this.state.mySession.room === "") {
         this.state.mySession.setRoom(codeSpace);
       }
