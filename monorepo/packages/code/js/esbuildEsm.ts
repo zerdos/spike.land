@@ -2,7 +2,7 @@ import { Mutex } from "async-mutex";
 import * as esbuild from "esbuild-wasm";
 import { wait } from "./wait";
 
-// function createWasmBlob(wasm: string) {
+// function crea/home/z/z/monorepo/packages/code/jsteWasmBlob(wasm: string) {
 //   const blob = new Blob([wasm], { type: "application/wasm" });
 
 //   return URL.createObjectURL(blob);

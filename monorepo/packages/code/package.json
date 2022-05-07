@@ -11,6 +11,7 @@
     "./package.json": "./package.json",
     "./js/public/starter.mjs": "./js/public/starter.mjs",
     "./js/session": "./js/session.ts",
+    "./js/esbuildEsm": "./js/esbuildEsm.ts",
     "./js/binary": "./js/binary.ts",
     "./js/importmap.json": "./js/importmap.json",
     "./js/mockedMap.json": "./js/mockedMap.json",
