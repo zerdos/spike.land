@@ -104,8 +104,6 @@ typings/
 extension/
 .awcache
 
-packages/code/public/worker.js
-packages/code/worker/script.js
 
 
 .yarn/*

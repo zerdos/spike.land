@@ -18,7 +18,7 @@
   },
   "scripts": {
     "typecheck": "cd monorepo/packages/code && yarn tsc",
-    "clean": "rm -rf .tsBuildInfo js/vendor js/public && mkdir js/public js/vendor && deno fmt js && yarn favicons && yarn build:framer-motion && yarn build:emotion  && yarn build:preact",
+    "clean": "rm -rf .tsBuildInfo js/vendor js/public && mkdir js/public js/vendor && deno fmt js && yarn favicons && yarn build:framer-motion && yarn build:emotion  && yarn build:preact && cp ipfs/* js/public/",
     "xpostinstall": "yarn importmap",
     "build:sw": "esbuild --outfile=./js/public/sw.js --platform=browser --bundle --minify ./js/sw.js && yarn sw",
     "start": "cd ../../.. && yarn start",

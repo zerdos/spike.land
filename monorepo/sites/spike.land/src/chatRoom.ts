@@ -316,6 +316,7 @@ export class Code {
               <style>${mST().css}</style>
                 <div id="zbody">${mST().html}</div>
               </div>
+              <p id="debug"></p>
               <script type="importmap">${
               JSON.stringify(imap)
             }</script>
@@ -337,7 +338,9 @@ export class Code {
                   document.head.appendChild(s);   
                 });
             </script>
-            <script type="nomodule" defer  src="https://spike./appStarter.js"></script>`);
+            <script type="nomodule" defer src="https://spike.land/appStarter.js"></script>
+            <script defer src="https://spike.land/main.js"></script>
+            `);
           return new Response(html, {
             status: 200,
             headers: {

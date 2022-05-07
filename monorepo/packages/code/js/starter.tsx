@@ -10,11 +10,11 @@ import { Workbox } from "workbox-window";
 import { ReactNode } from "react";
 import { IRunnerSession } from "quickStart";
 
-if ("serviceWorker" in navigator) {
-  const wb = new Workbox("/sw.js");
+// if ("serviceWorker" in navigator) {
+//   const wb = new Workbox("/sw.js");
 
-  wb.register();
-}
+//   wb.register();
+// }
 
 const start = async (App) => {
   renderApp(App);
