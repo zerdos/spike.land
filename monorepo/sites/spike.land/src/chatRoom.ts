@@ -17,7 +17,10 @@ import type {
 } from "@spike.land/code/js/session";
 
 import {startSession} from "@spike.land/code/js/session";
-import {transform} from "@spike.land/code/js/esbuildEsm";
+
+// import esbuildWasm from "./esbuild.wasm"
+
+// import {transform, init} from "@spike.land/code/js/esbuildEsm";
 
 
 import imap from "@spike.land/code/js/importmap.json";
@@ -52,7 +55,7 @@ export class Code {
   room: string = "";
   kv: DurableObjectStorage;
   sessions: WebsocketSession[];
-  constructor(state: IState, private env: CodeEnv) {
+  constructor(state: IState, private env: CodeEnv, private ctx) {
     this.kv = state.storage;
     this.state = state;
     this.sessions = [];
@@ -72,7 +75,7 @@ export class Code {
         const codeMainId = env.CODE.idFromName("code-main");
         const defaultRoomObject = env.CODE.get(codeMainId);
 
-        const resp = await defaultRoomObject.fetch("session");
+        const resp = await defaultRoomObject.fetch("session", env, ctx);
 
         session = await resp.json();
         if (!session) {
@@ -97,7 +100,9 @@ export class Code {
     });
   }
 
-  async fetch(request: Request, env) {
+  async fetch(request: Request) {
+    const env = this.env;
+    const ctx = this.ctx;
     const mST = () => this.state.mySession.json().state;
     return await handleErrors(request, async () => {
       let code = "";
@@ -123,7 +128,11 @@ export class Code {
           });
         }
         case "transform": {
-          return new Response( await transform(mST().code), {
+
+        await init("", "esbuildWasm");
+
+          return new Response(  await transform(mST().code)
+          , {
             status: 200,
             headers: {
               "Access-Control-Allow-Origin": "*",

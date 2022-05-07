@@ -1,6 +1,5 @@
 import {  getAssetFromKV } from '@cloudflare/kv-asset-handler'
 import manifestJSON from '__STATIC_CONTENT_MANIFEST'
-import {init} from ""
 
 const assetManifest = JSON.parse(manifestJSON);
 
@@ -20,7 +19,7 @@ export default {
 
       if (!path[0]) {
         // Serve our HTML at the root path.
-        return getHTMLResp(env, "code-main");
+        return getHTMLResp(env, "code-main", ctx);
       }
 
 
@@ -48,10 +47,10 @@ export default {
           });
         case "api":
           // This is a request for `/api/...`, call the API handler.
-          return handleApiRequest(path.slice(1), request, env);
+          return handleApiRequest(path.slice(1), request, env, ctx);
 
         case "live":
-          return getHTMLResp(env, path[1]);
+          return getHTMLResp(env, path[1], ctx);
 
         default:
           return getAssetFromKV(
@@ -75,6 +74,7 @@ async function handleApiRequest(
   path: string[],
   request: Request,
   env: CodeEnv,
+  ctx
 ) {
   // We've received at API request. Route the request based on the path.
 
@@ -108,7 +108,7 @@ async function handleApiRequest(
       newUrl.pathname = "/" + path.slice(2).join("/");
       newUrl.searchParams.append("room", name);
       roomObject.room = name;
-      return roomObject.fetch(newUrl.toString(), request);
+      return roomObject.fetch(new Request(newUrl), env, ctx);
     }
 
     default:
@@ -116,9 +116,9 @@ async function handleApiRequest(
   }
 }
 
-async function getHTMLResp(env: CodeEnv, room: string) {
+async function getHTMLResp(env: CodeEnv, room: string, ctx) {
   const id = env.CODE.idFromName(room);
   const roomObject = env.CODE.get(id);
 
-  return roomObject.fetch("public?room="+room);
+  return roomObject.fetch(new Request("public?room="+room), env, ctx);
 }

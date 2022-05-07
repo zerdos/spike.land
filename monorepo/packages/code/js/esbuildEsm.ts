@@ -4,10 +4,19 @@ import { wait } from "./wait";
 
 let initFinished = false;
 
-export const init = async (url: "./esbuild.wasm") => {
-  await esbuild.initialize({
-    wasmURL: url,
-  });
+export const init = async (wasmURL: "./esbuild.wasm", wasmModule: null) => {
+  if (wasmModule){
+    await esbuild.initialize({
+      wasmModule
+    });
+  }
+  else {
+    await esbuild.initialize({
+      wasmURL
+    
+    });
+  }
+ 
 
   initFinished = true;
 };
