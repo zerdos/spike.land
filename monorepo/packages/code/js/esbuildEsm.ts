@@ -37,6 +37,7 @@ export const transform = async (code: string, retry = 4): Promise<string> => {
         target: "esnext",
       },
     );
+    return result.code;
   } catch (e) {
     if (retry > 0) {
       await wait(100);
@@ -48,5 +49,4 @@ export const transform = async (code: string, retry = 4): Promise<string> => {
   // const endTime = performance.now();
 
   // console.log(`esbuildEsmTransform: took ${endTime - startTime} milliseconds`);
-  return result.code;
 };
