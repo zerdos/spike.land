@@ -6177,17 +6177,10 @@ modify-values@^1.0.0:
   resolved "https://registry.yarnpkg.com/modify-values/-/modify-values-1.0.1.tgz#b3939fa605546474e3e3e3c63d64bd43b4ee6022"
   integrity sha512-xV2bxeN6F7oYjZWTe/YPAy6MN2M+sL4u/Rlm2AHCIVGfo2p1yGmBHQ6vHehl4bRTZBdHu3TSkWdYgkwpYzAGSw==
 
-<<<<<<< HEAD
-monaco-editor@0.34.0-dev.20220507:
-  version "0.34.0-dev.20220507"
-  resolved "https://registry.yarnpkg.com/monaco-editor/-/monaco-editor-0.34.0-dev.20220507.tgz#54def3c9ed30862548a180a1762783e693c0109a"
-  integrity sha512-PIiphW2OPJTNk0wC3TROa0k3U5yVYnmL2dJAgreYJ28rVH0lLtYqOu9tO8QU+oyVBzlK906372iVxm03zY97nA==
-=======
 monaco-editor@0.34.0-dev.20220508:
   version "0.34.0-dev.20220508"
   resolved "https://registry.yarnpkg.com/monaco-editor/-/monaco-editor-0.34.0-dev.20220508.tgz#7178c226d92c4a5505efd9b14d4e7b517b6dd490"
   integrity sha512-Ajt7nZq5R/B0fdyGq33W7PmUQBl3V5Y5RLPCrbgk/6WbEW5P6iwrcLsKKkvELKOzgp5VUu2rg9LF4CbgVDh5Pw==
->>>>>>> 933fca6d1d89243924d70f90ebc212a643f7ba44
 
 ms@2.1.2:
   version "2.1.2"
@@ -8787,10 +8780,10 @@ workbox-window@6.5.3:
     "@types/trusted-types" "^2.0.2"
     workbox-core "6.5.3"
 
-wrangler@0.0.31:
-  version "0.0.31"
-  resolved "https://registry.yarnpkg.com/wrangler/-/wrangler-0.0.31.tgz#909a23dcde930d4b205c80bb12551a53c6b822b7"
-  integrity sha512-c4rHbbfhTtR3LX8N5zj44GmKOKjIlkDR9c2O6BA27SFjNjNhIYTWinZPOaSprgxYxw/mTDAB0UpEwqti+xzg5w==
+wrangler@0.0.33:
+  version "0.0.33"
+  resolved "https://registry.yarnpkg.com/wrangler/-/wrangler-0.0.33.tgz#6b6187159b95f01564e8c30075fa35a014063869"
+  integrity sha512-mDmO+JaJp3ATM2Pth30G7RGkUBVw47thMFmgE18kHzVsEbAKC1bp1Q80P55tcY0lOJhW38syIGYFzcIA0fkedg==
   dependencies:
     "@esbuild-plugins/node-globals-polyfill" "^0.1.1"
     "@esbuild-plugins/node-modules-polyfill" "^0.1.4"
