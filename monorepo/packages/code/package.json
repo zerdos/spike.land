@@ -21,7 +21,7 @@
     "typecheck": "cd monorepo/packages/code && yarn tsc",
     "clean": "rm -rf .tsBuildInfo js/vendor ../../sites/spike.land/public && mkdir ../../sites/spike.land/public js/vendor && yarn favicons && yarn build:framer-motion && yarn build:emotion  && yarn build:preact && yarn wasm",
     "xpostinstall": "yarn importmap",
-    "wasm": "cp ../../node_modules/esbuild-wasm/esbuild.wasm ../../sites/spike.land/publiv",
+    "wasm": "cp ../../node_modules/esbuild-wasm/esbuild.wasm ../../sites/spike.land/public/",
     "build:sw": "esbuild --outfile=../sites/spike.land/public/sw.js --platform=browser --bundle --minify ./js/sw.js && yarn sw",
     "start": "cd ../../.. && yarn start",
     "push": "cd ../../.. && yarn push",
