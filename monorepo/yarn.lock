@@ -8780,10 +8780,10 @@ workbox-window@6.5.3:
     "@types/trusted-types" "^2.0.2"
     workbox-core "6.5.3"
 
-wrangler@0.0.33:
-  version "0.0.33"
-  resolved "https://registry.yarnpkg.com/wrangler/-/wrangler-0.0.33.tgz#6b6187159b95f01564e8c30075fa35a014063869"
-  integrity sha512-mDmO+JaJp3ATM2Pth30G7RGkUBVw47thMFmgE18kHzVsEbAKC1bp1Q80P55tcY0lOJhW38syIGYFzcIA0fkedg==
+wrangler@0.0.34:
+  version "0.0.34"
+  resolved "https://registry.yarnpkg.com/wrangler/-/wrangler-0.0.34.tgz#d24fbd4a1055f01f805be0186c3267c4b2c15e98"
+  integrity sha512-NOIXX2L1jq40XVbouSFTo8N6m9NZ8sWvMjFjBsF4bqNcBXjxaP3ZqqjjVNLGQgeYtSDGP9cm7fcXyy0UO9xKtA==
   dependencies:
     "@esbuild-plugins/node-globals-polyfill" "^0.1.1"
     "@esbuild-plugins/node-modules-polyfill" "^0.1.4"
