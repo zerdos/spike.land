@@ -5,16 +5,10 @@ import { wait } from "./wait";
 
 let initFinished = false;
 
-export const init = async (wasmURL: "./esbuild.wasm", wasmModule: null) => {
-  if (wasmModule) {
+export const init = async () => {
     await esbuild.initialize({
-      wasmModule,
+      wasmURL: "https://spike.land/esbuild.wasm"
     });
-  } else {
-    await esbuild.initialize({
-      wasmURL,
-    });
-  }
 
   initFinished = true;
 };
@@ -24,15 +18,16 @@ const mutex = new Mutex();
 export const transform = async (code: string, retry = 4): Promise<string> => {
   //const startTime = performance.now();
 
-  if (initFinished || await init()) {
-    initFinished = true;
-  }
 
-  let result;
   try {
     await mutex.waitForUnlock();
 
-    result = await esbuild.transform(
+    if (initFinished || await init()) {
+      initFinished = true;
+    }
+  
+
+    let result = await esbuild.transform(
       `/** @jsx jsX */
     import {jsx as jsX} from "@emotion/react";
     ` +
