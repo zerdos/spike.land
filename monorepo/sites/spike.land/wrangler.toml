@@ -5,6 +5,7 @@ account_id = "1f98921051196545ebe79a450d3c71ed"
 route = "https://spike.land/*"  
 compatibility_date = "2021-10-16"
 usage_model = "bundled"
+main = "src/index.ts"
 
 [durable_objects]
 bindings = [
