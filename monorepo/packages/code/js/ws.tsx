@@ -4,11 +4,11 @@ import debounce from "lodash/debounce";
 import uidV4 from "./uidV4.mjs";
 import type * as monaco from "monaco-editor";
 
-import { createJsBlob, renderApp } from "./starter";
+import { createJsBlob } from "./starter";
 
 const webRtcArray: (RTCDataChannel & { target: string })[] = [];
 const hostname = window.location.hostname || "spike.land";
-const bc = new BroadcastChannel("spike.land");
+
 
 const path = location.pathname.split("/");
 
@@ -36,8 +36,9 @@ const connections: {
   [target: string]: RTCPeerConnection;
 } = {}; // To st/ RTCPeerConnection
 
+const bc = new BroadcastChannel("spike.land");
+
 const session = {
-  setChild: () => {},
   // changes: [],
   url: "",
   errorText: "",
@@ -99,27 +100,31 @@ const w = window as unknown as {
     update: (code: string) => void;
   };
 };
+const apps: [keyof string: any]= {};
 
 const chCode = async () => {
+  const {prettier} = await import("prettierEsm");
+  prettier(model.getValue())
   try {
-    const App = (await import(createJsBlob(mST().transpiled))).default;
+
+    if ( globalThis.transpiled === mST().transpiled) return;
+
+    globalThis.transpiled = mST().transpiled;
+
+   
+    globalThis.App =   apps[mST().transpiled] || (await import(createJsBlob(mST().transpiled))).default;
+
+    apps[mST().transpiled] = globalThis.App;
+    globalThis.notify();
+
+    
 
     if (globalThis.model) {
-      globalThis.model.setValue(mST().code);
-      session.setChild((x) => [...x, <App />]);
+      const formatted = prettier(globalThis.model.getValue());
+      mST().code!==formatted && globalThis.model.setValue(mST().code);
       return;
     }
 
-    const container = document.createElement("div");
-
-    container.innerHTML =
-      `<style>${mST().css}</style><div id="zbody">${mST().html}</div>`;
-
-    const root = document.getElementById("root")!;
-    root.replaceWith(container);
-    container.id = "root";
-
-    renderApp(App);
   } catch (error) {
     console.error({ e: error });
   }

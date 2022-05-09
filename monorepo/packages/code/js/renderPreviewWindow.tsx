@@ -6,7 +6,7 @@ import { render } from "react-dom";
 import { IRunnerSession } from "./quickStart";
 
 import { hashCode } from "./session";
-import { mST, roomName } from "./ws";
+import { mST, mySession, roomName } from "./ws";
 import { DraggableWindow } from "./DraggableWindow";
 
 export const renderPreviewWindow = async (
@@ -20,7 +20,6 @@ export const renderPreviewWindow = async (
 
   document.body.style.backgroundImage = `url(${path.join("./chunks/", bg)} )`;
 
-  const { App } = globalThis;
   render(
     <DraggableWindow
       onShare={() => open(`https://spike.land/live/${roomName}/public`)}
@@ -30,13 +29,12 @@ export const renderPreviewWindow = async (
       }}
       room={roomName}
       session={session}
-      hashCode={hashCode()}
+      hashCode={mySession.hashCode()}
     >
-      <App></App>
     </DraggableWindow>,
     target,
   );
-
+  document.getElementById("root").remove();
   document.body.appendChild(target);
   if (editor) {
     editor.style.opacity = "1";

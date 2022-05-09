@@ -1,7 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import type { Dispatch, FC, ReactNode, SetStateAction } from "react";
 import { render } from "react-dom";
-
 import { renderFromString } from "./renderToString";
 import debounce from "lodash/debounce";
 import { mST, roomName, saveCode } from "./ws";
@@ -12,7 +11,6 @@ import throttle  from "lodash/throttle";
 export interface IRunnerSession {
   // changes: unknown[];
   errorText: string;
-  setChild: (r: ReactNode)=>void;
   child: Dispatch<SetStateAction<ReactNode[]>>;
   url: string;
 }
@@ -48,14 +46,14 @@ async function startMonacoWithSession(session: IRunnerSession) {
 
   let inc = 0;
 
-  editor.onDidChangeModelContent((ev) =>
-    runnerDebounced(
-      model.getValue() as string,
+  const { prettier } = await import("./prettierEsm");
+
+  editor.onDidChangeModelContent( ev => runnerDebounced(
+    prettier(model.getValue()),
       // ev.changes,
-      session,
-      mST().i + ++inc,
-    )
-  );
+      mST(),
+      mST().i + 1
+    )  );
 
   Object.assign(globalThis, { monaco, editor, model });
 
@@ -77,10 +75,12 @@ async function startMonacoWithSession(session: IRunnerSession) {
 }
 
 async function getErrors({ monaco, editor, model }) {
+
+  
+
   if (!monaco) {
     return [{ messageText: "Error with the error checking. Try to reload!" }];
   }
-
 
   const worker = await monaco.languages.typescript.getTypeScriptWorker();
   const client = await worker(model);
@@ -100,25 +100,25 @@ async function getErrors({ monaco, editor, model }) {
 const r = { counter: 0 };
 
 async function runner(
-  c: string,
+  code,
   // changes: unknown[],
   session: IRunnerSession,
   counter: number,
 ) {
+  
+  if (code === mST().code) return;
   const latest = ++r.counter;
   // session.changes.push(changes);
 
   // esbuildEsmTransform = esbuildEsmTransform ||
   //   (await import("./esbuildEsm.ts")).transform;
   const { init } = await import("./esbuildEsm");
-  const { prettier } = await import("./prettierEsm");
   const transform = await init();
 
 
 
 
   try {
-    const code = prettier(c);
     const transpiled = await transform(code);
 
     let restartError = false;
@@ -145,13 +145,6 @@ async function runner(
         if (!target.innerHTML) return;
 
         await saveCode(newSess);
-
-
-
-        
-        session.setChild((c: EmotionJSX.Element[]) => [...c, <App />]);
-
-        globalThis.App = App;
 
         return;
       } catch (error) {

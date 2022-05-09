@@ -14,22 +14,26 @@ import { render } from "react-dom";
 // }
 
 const start = async (App) => {
-  renderApp(App);
+  globalThis.App = App;
+  globalThis.notify = renderApp;
+  globalThis.notify()
 
   if (location.href.endsWith("hydrated")) return;
 
-  Object.assign(globalThis, { App });
+ 
 
   const { join } = await import("./ws");
   join();
 };
 
-export const renderApp = (App) => {
+export const renderApp = () => {
   const container = document.createElement("div");
 
   const key = "css";
   const cache = createCache({ key });
 
+  console.log("render App")
+  const {App} = globalThis;
   render(
     <CacheProvider value={cache}>
       <App></App>
@@ -40,11 +44,12 @@ export const renderApp = (App) => {
   document.getElementById("root")!.replaceWith(container);
   container.id = "root";
 
-  console.log("HYDRATED");
 };
 
 export const run = async (session, StarterApp = null) => {
   if (globalThis.App) return;
+
+ 
 
   const container = document.getElementById("root")!;
   container.innerHTML =
@@ -52,8 +57,8 @@ export const run = async (session, StarterApp = null) => {
 
   const AppPromise = StarterApp || import(createJsBlob(session.transpiled));
 
-  const App = (await AppPromise).default;
-  start(App);
+  start( (await AppPromise).default)
+
 };
 
 export function createJsBlob(code: string) {

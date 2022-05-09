@@ -117,7 +117,7 @@ export const startMonaco = async (
 
   const regex2 = / from \'\./ig;
 
-  const search = /https:\/\/spike\.land\/live\/[a-zA-Z]+/gm;
+  const search = / from \'https:\/\/spike\.land\/live\/[a-zA-Z]+/gm;
   const replaced = code.replaceAll(regex1, " from 'https://spike.land/live")
     .replaceAll(regex2, " from 'https://spike.land/live");
 
@@ -125,7 +125,7 @@ export const startMonaco = async (
   console.log("load more models");
 
   for (const match of models) {
-    const extraModel = match[0] + ".tsx";
+    const extraModel = match[0].slice(7) + ".tsx";
     console.log("extramodel");
     monaco.editor.createModel(
       await fetch(extraModel).then((res) => res.text()),

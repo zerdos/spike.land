@@ -57,7 +57,6 @@ interface DraggableWindowProps {
   session: IRunnerSession;
   position?: string;
   room: string;
-  children: ReactNode;
 }
 
 export const DraggableWindow: FC<DraggableWindowProps> = (
@@ -65,14 +64,13 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
     onShare,
     onRestore,
     session,
-    children,
-  },
-) => {
+    room
+}) => {
+  
   const [isStable, setIsStable] = useState(false);
   const [scaleRange, changeScaleRange] = useState(100);
   // Const [height, changeHeight] = useState(innerHeight);
-
-  const [childArray, setChild] = useState([children]);
+  const [childArray, setChild] = useState([globalThis.App]);
   //   <LazySpikeLandComponent
   //     name={room}
   //     hash={hashCode}
@@ -83,7 +81,8 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
 
   const startPositions = { bottom: 0, right: 0 };
 
-  session.setChild = setChild;
+
+
 
   const [qrUrl, setQRUrl] = useState(session.url);
   const [errorText, setErrorText] = useState("");
@@ -96,7 +95,10 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
 
   const [forcedIndie, setForcedIndie] = useState(0);
 
-  const child = childArray[childArray.length - 1 - forcedIndie];
+  const App = childArray[childArray.length - 1 - forcedIndie];
+
+  globalThis.notify = ()=> childArray[length-1 ] !== globalThis.App && setChild(x=>[...x, globalThis.App])
+
 
   // UseEffect(() => {
   // window.addEventListener("resize", () => changeHeight(window.innerHeight));
@@ -124,6 +126,8 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
       clearInterval(handler);
     };
   }, [setErrorText, setQRUrl, errorText, qrUrl]);
+
+
 
   const scale = scaleRange / 100;
   const [isFullScreen, setFullScreen] = useState(true);
@@ -208,24 +212,22 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
   //   );
   // }
 
-  if (isFullScreen) {
-    return (
-      <div
-        key={session.i}
-        ref={zbody}
-        css={css`
-          z-index: 10;
-          display: block;
-          width: 100%;
-          height: 100%;
-  `}
-      >
-        <CacheProvider value={cache}>
-          {child}
-        </CacheProvider>
-      </div>
-    );
-  }
+  // if (isFullScreen) {
+  //   return (
+  //     <div
+  //       key={session.i}
+  //       ref={zbody}
+  //       css={css`
+  //         z-index: 10;
+  //         display: block;
+  //         width: 100%;
+  //         height: 100%;
+  // `}
+  //     >
+  //       <App></App>
+  //     </div>
+  //   );
+  // }
 
   const internal = (
     <div
@@ -370,9 +372,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
                         height: 100%;
                       `}
                 >
-                  <CacheProvider value={cache}>
-                    {child}
-                  </CacheProvider>
+                  <App></App>
                 </div>
               )} {
               /*  </div>
