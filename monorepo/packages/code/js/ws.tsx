@@ -297,11 +297,13 @@ async function processWsMessage(
   source: "ws" | "rtc",
 ) {
   if (ws == null) return;
-  console.log(source, { event });
+
 
   lastSeenNow = Date.now();
 
   const data = JSON.parse(event.data);
+
+  console.log("ws", data.name, data.oldHash, data.newHash);
 
   
   // MySession.addEvent(data);
