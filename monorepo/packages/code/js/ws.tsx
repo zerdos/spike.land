@@ -4,7 +4,6 @@ import debounce from "lodash/debounce";
 import uidV4 from "./uidV4.mjs";
 import type * as monaco from "monaco-editor";
 
-import type { IRunnerSession } from "./quickStart";
 import { createJsBlob, renderApp } from "./starter";
 
 const webRtcArray: (RTCDataChannel & { target: string })[] = [];
@@ -39,14 +38,13 @@ const connections: {
 
 const session = {
   setChild: () => {},
-  changes: [],
+  // changes: [],
   url: "",
   errorText: "",
 };
 
 let wsLastHashCode = 0;
 let webRTCLastSeenHashCode = 0;
-let username = "";
 let lastSeenTimestamp = 0;
 let lastSeenNow = 0;
 let ws: WebSocket | null = null;
@@ -58,7 +56,7 @@ const sendChannel = {
     const target = data.target;
     const messageString = JSON.stringify({
       ...data,
-      name: data.name || username,
+      name: data.name || user,
     });
     webRtcArray.map((ch) => {
       try {
@@ -85,7 +83,7 @@ const state = window.startState || await fetch(
 const { startSession } = await import("./session");
 
 export const mySession = startSession(roomName, {
-  name: username,
+  name: user,
   state,
 });
 
@@ -117,7 +115,7 @@ const chCode = async () => {
     container.innerHTML =
       `<style>${mST().css}</style><div id="zbody">${mST().html}</div>`;
 
-    const root = document.getElementById("root");
+    const root = document.getElementById("root")!;
     root.replaceWith(container);
     container.id = "root";
 
@@ -187,7 +185,7 @@ export async function saveCode(sess: ICodeSession) {
       return;
     }
 
-    const messageString = JSON.stringify({ ...message, name: username });
+    const messageString = JSON.stringify({ ...message, name: user });
     if (message.patch !== "") {
       sendWS(messageString);
     }
@@ -198,9 +196,6 @@ export async function saveCode(sess: ICodeSession) {
 }
 
 export async function join() {
-  if (user) {
-    username = user;
-  }
   if (ws !== null) return ws;
 
   rejoined = true;
@@ -244,7 +239,7 @@ export async function join() {
         try {
           wsConnection.send(
             JSON.stringify({
-              name: username,
+              name: user,
               timestamp: lastSeenTimestamp + diff,
             }),
           );
@@ -256,24 +251,23 @@ export async function join() {
     }, 30_000);
 
     // Send user info message.
-    wsConnection.send(JSON.stringify({ name: username }));
+    wsConnection.send(JSON.stringify({ name: user }));
     return wsConnection;
   });
 
   // if (!globalThis.session) {
 
-  Object.assign(session, { ...mST() });
+  // Object.assign(session, { ...mST() });
   // globalThis.session = session;
 
   if (location.pathname.endsWith("public")) return;
-
   const { quickStart } = await import("./quickStart");
   quickStart(
     session,
   );
 }
 
-const h = {};
+const h: {[key: number]: number} = {};
 
 async function processWsMessage(
   event: { data: string },
@@ -313,7 +307,7 @@ async function processWsMessage(
   (async () => {
     try {
       if (
-        data.name && data.name !== username &&
+        data.name && data.name !== user &&
         !connections[data.name as keyof typeof connections]
       ) {
         await createPeerConnection(data.name);
@@ -341,7 +335,7 @@ async function processWsMessage(
     }
   })();
 
-  if (data.patch && data.name !== username) {
+  if (data.patch && data.name !== user) {
     if (data.newHash === mySession.hashCode()) {
       return;
     }
@@ -361,7 +355,7 @@ async function processWsMessage(
 
       return;
     } else {
-      console.log("errooooooor");
+      console.log("error -sending on sendChannel");
     }
 
     if (wsLastHashCode !== mySession.hashCode()) {
@@ -396,7 +390,7 @@ async function processWsMessage(
     return;
   }
 
-  if (data.name === username) {
+  if (data.name === user) {
     return;
   }
 
@@ -423,7 +417,7 @@ async function processWsMessage(
         ws!.send(JSON.stringify({
           type: "new-ice-candidate",
           target,
-          name: username,
+          name: user,
           candidate: event.candidate,
         }));
       }
@@ -538,7 +532,7 @@ async function processWsMessage(
         log("---> Sending the offer to the remote peer");
         ws!.send(JSON.stringify({
           target,
-          name: username,
+          name: user,
           type: "offer",
           sdp: connections[target].localDescription,
         }));
@@ -572,7 +566,7 @@ async function processWsMessage(
   }
 
   async function handleChatAnswerMessage(
-    message: { sdp: { sdp: RTCSessionDescriptionInit } },
+    message: { sdp: RTCSessionDescriptionInit},
     target: string,
   ) {
     log("*** Call recipient has accepted our call");
@@ -620,7 +614,7 @@ async function processWsMessage(
 
     ws!.send(JSON.stringify({
       target,
-      name: username,
+      name: user,
       type: "answer",
       sdp: connections[target].localDescription,
     }));

@@ -6,9 +6,6 @@ import { CacheProvider } from "@emotion/react";
 import createCache from "@emotion/cache";
 
 import { render } from "react-dom";
-import { Workbox } from "workbox-window";
-import { ReactNode } from "react";
-import { IRunnerSession } from "quickStart";
 
 // if ("serviceWorker" in navigator) {
 //   const wb = new Workbox("/sw.js");
@@ -40,7 +37,7 @@ export const renderApp = (App) => {
     container,
   );
 
-  document.getElementById("root").replaceWith(container);
+  document.getElementById("root")!.replaceWith(container);
   container.id = "root";
 
   console.log("HYDRATED");
@@ -49,7 +46,7 @@ export const renderApp = (App) => {
 export const run = async (session, StarterApp = null) => {
   if (globalThis.App) return;
 
-  const container = document.getElementById("root");
+  const container = document.getElementById("root")!;
   container.innerHTML =
     `<style>${session.css}</style><div id="zbody">${session.html}</div>`;
 

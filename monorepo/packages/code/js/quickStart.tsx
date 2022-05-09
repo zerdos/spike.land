@@ -1,21 +1,25 @@
 /** @jsxImportSource @emotion/react */
-import type { Dispatch, ReactNode, SetStateAction } from "react";
+import type { Dispatch, FC, ReactNode, SetStateAction } from "react";
 import { render } from "react-dom";
 
 import { renderFromString } from "./renderToString";
 import debounce from "lodash/debounce";
-import { mST, roomName } from "./ws";
+import { mST, roomName, saveCode } from "./ws";
+import throttle  from "lodash/throttle";
+
+
 
 export interface IRunnerSession {
-  changes: unknown[];
+  // changes: unknown[];
   errorText: string;
+  setChild: (r: ReactNode)=>void;
   child: Dispatch<SetStateAction<ReactNode[]>>;
   url: string;
 }
 
-let debounceTime = 0;
+let debounceTime = 30;
 
-let runnerDebounced = debounce(runner, debounceTime);
+let runnerDebounced =  throttle(runner, debounceTime);
 
 async function startMonacoWithSession(session: IRunnerSession) {
   console.log("start monaco with session");
@@ -47,7 +51,7 @@ async function startMonacoWithSession(session: IRunnerSession) {
   editor.onDidChangeModelContent((ev) =>
     runnerDebounced(
       model.getValue() as string,
-      ev.changes,
+      // ev.changes,
       session,
       mST().i + ++inc,
     )
@@ -72,13 +76,12 @@ async function startMonacoWithSession(session: IRunnerSession) {
   // });
 }
 
-async function getErrors({ monaco, editor }) {
+async function getErrors({ monaco, editor, model }) {
   if (!monaco) {
     return [{ messageText: "Error with the error checking. Try to reload!" }];
   }
 
-  console.log("GET ERRORs");
-  const model = editor.getModel();
+
   const worker = await monaco.languages.typescript.getTypeScriptWorker();
   const client = await worker(model);
 
@@ -98,12 +101,12 @@ const r = { counter: 0 };
 
 async function runner(
   c: string,
-  changes: unknown[],
+  // changes: unknown[],
   session: IRunnerSession,
   counter: number,
 ) {
   const latest = ++r.counter;
-  session.changes.push(changes);
+  // session.changes.push(changes);
 
   // esbuildEsmTransform = esbuildEsmTransform ||
   //   (await import("./esbuildEsm.ts")).transform;
@@ -111,12 +114,10 @@ async function runner(
   const { prettier } = await import("./prettierEsm");
   const transform = await init();
 
-  const error = await getErrors(session);
+
+
+
   try {
-    if (latest < r.counter) {
-      runnerDebounced = debounce(runner, ++debounceTime);
-      return;
-    }
     const code = prettier(c);
     const transpiled = await transform(code);
 
@@ -127,15 +128,7 @@ async function runner(
       const { html, css, App } = await renderFromString(transpiled);
 
       try {
-        console.log("---------error check");
 
-        console.log({ error });
-        console.log("---------error check");
-
-        if (latest < r.counter) {
-          runnerDebounced = debounce(runner, ++debounceTime);
-          return;
-        }
 
         const newSess = {
           code,
@@ -144,19 +137,19 @@ async function runner(
           html,
           css,
         };
-
-        // Session.html = zbody.innerHTML;
+        if (transpiled === mST().transpiled) return;
 
         const target = document.createElement("div");
 
         render(<App />, target);
         if (!target.innerHTML) return;
 
-        if (transpiled === mST().transpiled) return;
+        await saveCode(newSess);
 
-        const { saveCode } = await import("./ws");
-        if (latest === r.counter) await saveCode(newSess);
-        session.setChild((c: ReactNode[]) => [...c, <App />]);
+
+
+        
+        session.setChild((c: EmotionJSX.Element[]) => [...c, <App />]);
 
         globalThis.App = App;
 
@@ -167,22 +160,6 @@ async function runner(
         restartError = true;
         console.error({ restartError });
       }
-    }
-
-    if (mST().i > counter) {
-      return;
-    } else if (debounceTime > 0) {
-      runnerDebounced = debounce(runner, --debounceTime);
-    }
-
-    if (restartError) {
-      error.push(
-        { messageText: "Error while starting the app. Check the console!" },
-      );
-    }
-
-    if (error.length > 0) {
-      console.log({ err: error });
     }
   } catch (error) {
     console.error({ error });
