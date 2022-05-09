@@ -5,7 +5,7 @@ import createCache from "@emotion/cache";
 import type { FC } from "react";
 import { renderToString } from "react-dom/server";
 
-import {createJsBlob} from "./starter";
+import { createJsBlob } from "./starter";
 
 export const renderFromString = async (transpiled: string) => {
   const App = await getApp(transpiled);
@@ -51,7 +51,7 @@ async function getApp(transpiled: string, mode = "window") {
     codeToHydrate,
   );
 
-  const App = (await import(objectUrl, )).default;
+  const App = (await import(objectUrl)).default;
 
   URL.revokeObjectURL(objectUrl);
 
@@ -60,7 +60,6 @@ async function getApp(transpiled: string, mode = "window") {
   /**
    * @param {BlobPart} code
    */
-
 }
 
 export async function wait(delay: number): Promise<void> {

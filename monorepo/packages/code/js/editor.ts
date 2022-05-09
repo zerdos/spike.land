@@ -1,6 +1,9 @@
 import * as monaco from "monaco-editor/esm/vs/editor/editor.main";
 import "monaco-editor/esm/vs/editor/editor.main";
 
+import "core-js/proposals/string-replace-all-stage-4";
+import "core-js/proposals/string-match-all";
+
 import codicon from "monaco-editor/esm/vs/base/browser/ui/codicons/codicon/codicon.ttf";
 // import { parse } from "@babel/parser";
 // import traverse from "@babel/traverse";
@@ -28,7 +31,7 @@ const returnModules = {
 };
 
 export const startMonaco = async (
-  { code, container }: { code: string; container: Element },
+  { code, container, name }: { code: string; container: Element; name: string },
 ) => {
   console.log("monaco-editor");
   if (!started) started = true;
@@ -102,7 +105,7 @@ export const startMonaco = async (
     model: monaco.editor.createModel(
       code,
       "typescript",
-      monaco.Uri.parse("https://spike.land/live/coder.tsx"),
+      monaco.Uri.parse("https://spike.land/live/" + name + ".tsx"),
     ),
     language: "typescript",
     useShadowDOM: true,
@@ -110,9 +113,26 @@ export const startMonaco = async (
     autoClosingBrackets: "always",
   });
 
-  monaco.editor.createModel(
-    await fetch("https://spike.land/live/zoli.tsx").then(res=>res.text()), 
-  "typescript",  monaco.Uri.parse("https://spike.land/live/zoli.tsx"));
+  const regex1 = / from \'\.\./ig;
+
+  const regex2 = / from \'\./ig;
+
+  const search = /https:\/\/spike\.land\/live\/[a-zA-Z]+/gm;
+  const replaced = code.replaceAll(regex1, " from 'https://spike.land/live")
+    .replaceAll(regex2, " from 'https://spike.land/live");
+
+  const models = replaced.matchAll(search);
+  console.log("load more models");
+
+  for (const match of models) {
+    const extraModel = match[0] + ".tsx";
+    console.log("extramodel");
+    monaco.editor.createModel(
+      await fetch(extraModel).then((res) => res.text()),
+      "typescript",
+      monaco.Uri.parse(extraModel),
+    );
+  }
 
   // const defaultOptions = {
   //   parser: "babel", // for reference only, only babel is supported right now

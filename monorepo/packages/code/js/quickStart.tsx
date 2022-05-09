@@ -4,7 +4,7 @@ import { render } from "react-dom";
 
 import { renderFromString } from "./renderToString";
 import debounce from "lodash/debounce";
-import { mST } from "./ws";
+import { mST, roomName } from "./ws";
 
 export interface IRunnerSession {
   changes: unknown[];
@@ -33,13 +33,14 @@ async function startMonacoWithSession(session: IRunnerSession) {
      */
     {
       container: monacoEditorDom,
+      name: roomName,
       code: mST().code,
     },
   );
 
   const model = editor.getModel();
 
-  Object.assign(session, {monaco, editor, model});
+  Object.assign(session, { monaco, editor, model });
 
   let inc = 0;
 
@@ -93,7 +94,7 @@ async function getErrors({ monaco, editor }) {
 }
 
 // Let getHtmlAndCss;
-const r = {counter:0};
+const r = { counter: 0 };
 
 async function runner(
   c: string,
@@ -101,12 +102,12 @@ async function runner(
   session: IRunnerSession,
   counter: number,
 ) {
-  const latest =++r.counter;
+  const latest = ++r.counter;
   session.changes.push(changes);
 
   // esbuildEsmTransform = esbuildEsmTransform ||
   //   (await import("./esbuildEsm.ts")).transform;
-  const {  init } = await import("./esbuildEsm");
+  const { init } = await import("./esbuildEsm");
   const { prettier } = await import("./prettierEsm");
   const transform = await init();
 
@@ -127,15 +128,13 @@ async function runner(
       try {
         console.log("---------error check");
         const error = await getErrors(session);
-        console.log({error});
+        console.log({ error });
         console.log("---------error check");
 
         if (latest < r.counter) {
           runnerDebounced = debounce(runner, ++debounceTime);
           return;
         }
-
-
 
         const newSess = {
           code,
@@ -152,7 +151,6 @@ async function runner(
         render(<App />, target);
         if (!target.innerHTML) return;
 
-       
         if (transpiled === mST().transpiled) return;
 
         const { saveCode } = await import("./ws");
@@ -160,7 +158,6 @@ async function runner(
         session.setChild((c: ReactNode[]) => [...c, <App />]);
 
         globalThis.App = App;
-
 
         return;
       } catch (error) {
@@ -175,8 +172,8 @@ async function runner(
       return;
     } else if (debounceTime > 0) {
       runnerDebounced = debounce(runner, --debounceTime);
-    } 
-    
+    }
+
     if (restartError) {
       error.push(
         { messageText: "Error while starting the app. Check the console!" },

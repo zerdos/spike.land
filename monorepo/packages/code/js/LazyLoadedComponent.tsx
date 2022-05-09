@@ -1,9 +1,8 @@
 /** @jsxImportSource @emotion/react */
 
-
 import { lazy, Suspense, useEffect, useState } from "react";
 import type { FC } from "react";
-import {createJsBlob} from "./starter";
+import { createJsBlob } from "./starter";
 
 interface ILaztCom {
   name: string;
@@ -66,7 +65,6 @@ export const LazySpikeLandComponent: FC<ILaztCom> = (
       <LazyComponent key={hash} />
     </Suspense>
   );
-
 
   async function getApp(transpiled: string) {
     const objectUrl = createJsBlob(transpiled);

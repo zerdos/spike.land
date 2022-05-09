@@ -9,6 +9,7 @@ import { createJsBlob, renderApp } from "./starter";
 
 const webRtcArray: (RTCDataChannel & { target: string })[] = [];
 const hostname = window.location.hostname || "spike.land";
+const bc = new BroadcastChannel("spike.land");
 
 const path = location.pathname.split("/");
 
@@ -16,11 +17,15 @@ const [, prefix, selector, roomPart] = path;
 
 console.log({ prefix, selector, roomPart });
 
-export const roomName = (prefix === "api" && selector === "room")
+const roomN = (prefix === "api" && selector === "room")
   ? roomPart.slice(-12) || "code-main"
   : prefix === "live" && !!selector
   ? selector.slice(-12)
   : "code-main";
+
+export const roomName = roomN.includes(".")
+  ? roomN.slice(roomN.indexOf(".") - 1)
+  : roomN;
 
 const user = ((self && self.crypto && self.crypto.randomUUID &&
   self.crypto.randomUUID()) || (uidV4())).slice(
@@ -38,7 +43,6 @@ const session = {
   url: "",
   errorText: "",
 };
-
 
 let wsLastHashCode = 0;
 let webRTCLastSeenHashCode = 0;
@@ -70,7 +74,7 @@ const sendChannel = {
   }),
 };
 
-globalThis.sendChannel= sendChannel;
+globalThis.sendChannel = sendChannel;
 // Let createDelta;
 // let applyPatch;
 
@@ -104,11 +108,9 @@ const chCode = async () => {
 
     if (globalThis.model) {
       globalThis.model.setValue(mST().code);
-      session.setChild((x)=>[...x, <App/>]);
+      session.setChild((x) => [...x, <App />]);
       return;
     }
-
-
 
     const container = document.createElement("div");
 
@@ -136,25 +138,39 @@ async function rejoin() {
   return ws;
 }
 
+bc.onmessage = async (event) => {
+  console.log({ event });
 
- const sendRTC =  debounce((message)=>{sendChannel&& sendChannel.send(message)},50);
-const sendWS = debounce((mess)=>ws && ws.send(mess),500);
+  if (event.data.room === roomName && event.data.code !== mST().code) {
+    const messageData = mySession.createPatch(data);
+    await mySession.applyPatch(messageData);
+    chCode();
+  }
+};
+
+const sendRTC = debounce((message) => {
+  sendChannel && sendChannel.send(message);
+}, 50);
+const sendWS = debounce((mess) => ws && ws.send(mess), 500);
 
 export async function saveCode(sess: ICodeSession) {
+  bc.postMessage({
+    roomName,
+    ...sess,
+  });
+
   if (sess.i <= mST().i) return;
   (async () => {
     try {
-      
-        const message = webRTCLastSeenHashCode
-          ? await mySession.createPatchFromHashCode(
-            webRTCLastSeenHashCode,
-            sess,
-          )
-          : mySession.createPatch(sess);
-        if (message && message.patch !== "") {
-          sendRTC(message);
-        }
-      
+      const message = webRTCLastSeenHashCode
+        ? await mySession.createPatchFromHashCode(
+          webRTCLastSeenHashCode,
+          sess,
+        )
+        : mySession.createPatch(sess);
+      if (message && message.patch !== "") {
+        sendRTC(message);
+      }
     } catch (e) {
       console.error("Error sending RTC...", { e });
     }
@@ -246,7 +262,7 @@ export async function join() {
 
   // if (!globalThis.session) {
 
-  Object.assign(session, {...mST()})
+  Object.assign(session, { ...mST() });
   // globalThis.session = session;
 
   if (location.pathname.endsWith("public")) return;
@@ -257,9 +273,7 @@ export async function join() {
   );
 }
 
-const h = {
-
-}
+const h = {};
 
 async function processWsMessage(
   event: { data: string },
@@ -272,14 +286,6 @@ async function processWsMessage(
 
   const data = JSON.parse(event.data);
 
-  if (data.oldHash && data. newHash){
-  if (h[data.oldHash] && h[data.oldHash]===data.newHash) return; 
-
-  data[h.oldHash] = data.newHash;
-}
-
-
-  console.log({ data });
   // MySession.addEvent(data);
 
   if (source === "ws" && data.timestamp) {
@@ -291,10 +297,18 @@ async function processWsMessage(
     wsLastHashCode = data.hashCode || data.newHash;
   }
   if (source === "rtc" && data.hashCode || data.newHash) {
-    webRTCLastSeenHashCode =  data.hashCode || data.newHash;
+    webRTCLastSeenHashCode = data.hashCode || data.newHash;
   }
 
-  console.log(source, data.name);
+  if (data.newHash === mySession.hashCode()) return;
+
+  if (data.oldHash && data.newHash) {
+    if (h[data.oldHash] && h[data.oldHash] === data.newHash) return;
+
+    h[data.oldHash] = data.newHash;
+  }
+
+  if (data.newHash === mySession.hashCode()) return;
 
   (async () => {
     try {

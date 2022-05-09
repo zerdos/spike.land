@@ -3,6 +3,7 @@ import manifestJSON from '__STATIC_CONTENT_MANIFEST'
 const assetManifest = JSON.parse(manifestJSON)
 
 
+
 import { handleErrors } from "./handleErrors";
 import { CodeEnv } from "./env";
 
@@ -21,7 +22,7 @@ export default {
       const serveJs = !(accept && accept.includes("html"));
 
 
-      if (u.pathname.endsWith(".tsx") && !u.pathname.endsWith(".index.tsx")) url=new URL(request.url.replace(".tsx","/index.tsx"));
+      if (serveJs && u.pathname.endsWith(".tsx") && !u.pathname.endsWith(".index.tsx")) url=new URL(request.url.replace(".tsx","/index.tsx"));
       else if (u.pathname.endsWith(".js") && !u.pathname.endsWith(".index.js")) url=new URL(request.url.replace(".js","/index.js"));
 
       if (serveJs && !url.pathname.includes(".")) url = new URL(request.url+"/index.js");
@@ -107,7 +108,7 @@ async function handleApiRequest(
           return new Response("Method not allowed", { status: 405 });
         }
       }
-      const name = path[1];
+      const name = path[1].replace(".tsx", "");
 
     
       let id;

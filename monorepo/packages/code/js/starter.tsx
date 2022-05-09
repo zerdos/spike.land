@@ -2,7 +2,6 @@
 
 import "core-js/modules/web.immediate";
 
-
 import { CacheProvider } from "@emotion/react";
 import createCache from "@emotion/cache";
 
@@ -60,13 +59,13 @@ export const run = async (session, StarterApp = null) => {
   start(App);
 };
 
-
 export function createJsBlob(code: string) {
-const file = new File([code], "index.tsx",{ type: "application/javascript",  webkitRelativePath:"https://spike.land/live/"})
- const blobUrl = URL.createObjectURL(file);
-return blobUrl;
+  const file = new File([code], "index.tsx", {
+    type: "application/javascript",
+  });
+  const blobUrl = URL.createObjectURL(file);
+  return blobUrl;
   // const actualUrl = new URL(blobUrl,'https://spike.land/live/');
 
   // return actualUrl;
-  
 }
