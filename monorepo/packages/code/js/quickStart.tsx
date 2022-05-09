@@ -38,6 +38,8 @@ async function startMonacoWithSession(session: IRunnerSession) {
   );
 
   const model = editor.getModel();
+  
+  Object.assign(session, {monaco, editor, model});
 
   let inc = 0;
 
