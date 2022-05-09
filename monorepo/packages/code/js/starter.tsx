@@ -17,7 +17,7 @@ const { Sha256 } = (await import("@aws-crypto/sha256-browser")).default;
 
 const hash = new Sha256();
 
-const apps = {};
+const apps: {[key: string]: FC} = {};
 
 export const appFactory = async (transpiled) => {
   if (globalThis.transpiled === transpiled) return;
@@ -31,6 +31,7 @@ export const appFactory = async (transpiled) => {
   if (globalThis.App === apps[result]) return;
 
   globalThis.App = apps[result] ||
+  
     (await import(createJsBlob(transpiled))).default;
   globalThis.transpiled = transpiled;
 

@@ -4,6 +4,7 @@ import type { ICodeSession } from "./session";
 import debounce from "lodash/debounce";
 import uidV4 from "./uidV4.mjs";
 import type * as monaco from "monaco-editor";
+import type {FC} from "react";
 
 import { createJsBlob } from "./starter";
 
@@ -102,9 +103,9 @@ const w = window as unknown as {
     update: (code: string) => void;
   };
 };
-const apps: [keyof string: R]= {};
 
 const chCode = async () => {
+
   const {code, transpiled, i, css, html} = mST();
   const {prettier} = await import("prettierEsm");
   if (globalThis.model) { const formatted = prettier(globalThis.model.getValue());
