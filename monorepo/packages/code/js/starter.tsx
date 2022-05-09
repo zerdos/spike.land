@@ -14,34 +14,44 @@ import { render } from "react-dom";
 // }
 
 
+const {Sha256} = (await import('@aws-crypto/sha256-browser')).default;
 
+
+const hash = new Sha256();
 
 const apps = {};
 
 
-globalThis.appFactory= async (transpiled) => {
 
-  const {Sha256} = await import('@aws-crypto/sha256-browser');
-  const hash = new Sha256();
+export const appFactory= async (transpiled) => {
+
+  if (globalThis.transpiled === transpiled) return;
+  globalThis.transpiled = transpiled;
+
+  console.log(  "APP factory")
+ 
   hash.update(transpiled);
  const result = await hash.digest();
 
- if (globalThis.App === app[result]) return;
+ if (globalThis.App === apps[result]) return;
  
 
- globalThis.App =  apps[result] || (await import(createJsBlob(mST().transpiled))).default;
+ globalThis.App =  apps[result] || (await import(createJsBlob(transpiled))).default;
+globalThis.transpiled = transpiled;
 
  apps[result] = globalThis.App;
+ 
 
  globalThis.notify()
-
-
 }
 
 
-const start = async (transpiled) => {
+const start = async () => {
+
   globalThis.notify = renderApp;
-  globalThis.appFactory(transpiled);
+  globalThis.appFactory = appFactory;
+
+  globalThis.notify();
  
   if (location.href.endsWith("hydrated")) return;
 
@@ -82,8 +92,11 @@ export const run = async (session, StarterApp = null) => {
     `<style>${session.css}</style><div id="zbody">${session.html}</div>`;
 
   const AppPromise = StarterApp || import(createJsBlob(session.transpiled));
+  globalThis.transpiled = session.transpiled;
 
-  start(session.transpiled)
+  globalThis.App = (await AppPromise).default;
+
+  start()
 
 };
 

@@ -36,7 +36,7 @@ const connections: {
   [target: string]: RTCPeerConnection;
 } = {}; // To st/ RTCPeerConnection
 
-const bc = new BroadcastChannel("spike.land");
+
 
 const session = {
   // changes: [],
@@ -49,6 +49,7 @@ let webRTCLastSeenHashCode = 0;
 let lastSeenTimestamp = 0;
 let lastSeenNow = 0;
 let ws: WebSocket | null = null;
+let sendWS;
 let rejoined = false;
 const sendChannel = {
   webRtcArray,
@@ -103,26 +104,29 @@ const w = window as unknown as {
 const apps: [keyof string: any]= {};
 
 const chCode = async () => {
+  const {code, transpiled, i, css, html} = mST();
+  const {prettier} = await import("prettierEsm");
+  if (globalThis.model) { const formatted = prettier(globalThis.model.getValue());
+
+  if (code === formatted) return;
+}
+  if (globalThis.transpiled === transpiled) return;
+
 
   try {
 
-    if ( globalThis.transpiled === mST().transpiled) return;
+    if ( globalThis.transpiled === transpiled) return;
 
-    globalThis.transpiled = mST().transpiled;
+    await globalThis.appFactory(transpiled);
+   
 
    
-    globalThis.App =   apps[mST().transpiled] || (await import(createJsBlob(mST().transpiled))).default;
-
-    apps[mST().transpiled] = globalThis.App;
-    globalThis.notify();
-
-
+   
+   
     if (globalThis.model) {
-      const {prettier} = await import("prettierEsm");
-      const formatted = prettier(globalThis.model.getValue());
-
-
-      mST().code!==formatted && globalThis.model.setValue(mST().code);
+      console.log("MODEL SET FROM REMOTE.... SORRY");
+      mST().i===i && globalThis.model.setValue(code);
+      
       return;
     }
 
@@ -144,22 +148,21 @@ async function rejoin() {
 
 const ignoreUsers = [];
 
+const bc = new BroadcastChannel("spike.land");
 bc.onmessage = async (event) => {
   console.log({ event });
 
-  if (event.ignoreUser) !ignoreUsers.includes(ignoreUser) && ignoreUsers.push(event.data.ignoreUser)
+  if (event.data.ignoreUser) !ignoreUsers.includes(event.data.ignoreUser) && ignoreUsers.push(event.data.ignoreUser);
 
   if (event.data.roomName === roomName && event.data.sess.code !== mST().code) {
     const messageData = mySession.createPatch(event.data.sess);
     await mySession.applyPatch(messageData);
-    chCode();
+    await chCode();
   }
 };
 
-const sendRTC = debounce((message) => {
-  sendChannel && sendChannel.send(message);
-}, 50);
-const sendWS = debounce((mess) => ws && ws.send(mess), 500);
+const sendRTC = debounce(sendChannel.send, 100);
+
 
 export async function saveCode(sess: ICodeSession) {
   if (sess.i <= mST().i) return;
@@ -231,6 +234,8 @@ export async function join() {
 
   wsConnection.addEventListener("open", () => {
     ws = wsConnection;
+    const mess = (data: string)=>ws.send(data);
+    sendWS = debounce(mess, 500);
     ws.addEventListener(
       "message",
       (message) => processWsMessage(message, "ws"),
@@ -277,7 +282,7 @@ export async function join() {
   // Object.assign(session, { ...mST() });
   // globalThis.session = session;
 
-  if (location.pathname.endsWith("public")) return;
+  if (location.pathname.endsWith("public") || globalThis.model) return;
   const { quickStart } = await import("./quickStart");
   quickStart(
     session,
@@ -367,7 +372,7 @@ async function processWsMessage(
     });
 
     if (data.newHash === mySession.hashCode()) {
-      chCode();
+      await chCode();
 
       if (sendChannel) {
         sendChannel.send({ hashCode: data.newHash });
@@ -389,7 +394,7 @@ async function processWsMessage(
       const messageData = mySession.createPatch(data);
       console.log("APPLYING PATCH AGAIN");
       await mySession.applyPatch(messageData);
-      chCode();
+      await chCode();
       if (sendChannel) {
         sendChannel.send({ hashCode: messageData.newHash });
       }
@@ -399,7 +404,7 @@ async function processWsMessage(
       const messageData = mySession.createPatch(data);
       console.log("APPLYING PATCH AGAIN");
       await mySession.applyPatch(messageData);
-      chCode();
+      await chCode();
       if (sendChannel) {
         sendChannel.send({ hashCode: messageData.newHash });
       }
