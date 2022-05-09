@@ -111,6 +111,7 @@ async function runner(
   const { prettier } = await import("./prettierEsm");
   const transform = await init();
 
+  const error = await getErrors(session);
   try {
     if (latest < r.counter) {
       runnerDebounced = debounce(runner, ++debounceTime);
@@ -127,7 +128,7 @@ async function runner(
 
       try {
         console.log("---------error check");
-        const error = await getErrors(session);
+
         console.log({ error });
         console.log("---------error check");
 
