@@ -3,19 +3,19 @@ import type { Dispatch, ReactNode, SetStateAction } from "react";
 import { render } from "react-dom";
 
 import { renderFromString } from "./renderToString";
-import throttle from "lodash/throttle";
+import debounce from "lodash/debounce";
 import { mST } from "./ws";
 
 export interface IRunnerSession {
   changes: unknown[];
   errorText: string;
-  setChild: Dispatch<SetStateAction<ReactNode[]>>;
+  child: Dispatch<SetStateAction<ReactNode[]>>;
   url: string;
 }
 
-let throttleTime = 0;
+let debounceTime = 0;
 
-let runnerDebounced = throttle(runner, throttleTime);
+let runnerDebounced = debounce(runner, debounceTime);
 
 async function startMonacoWithSession(session: IRunnerSession) {
   console.log("start monaco with session");
@@ -90,6 +90,7 @@ async function getErrors({ monaco, editor }) {
 }
 
 // Let getHtmlAndCss;
+const r = {counter:0};
 
 async function runner(
   c: string,
@@ -97,26 +98,32 @@ async function runner(
   session: IRunnerSession,
   counter: number,
 ) {
+  const latest =++r.counter;
   session.changes.push(changes);
 
   // esbuildEsmTransform = esbuildEsmTransform ||
   //   (await import("./esbuildEsm.ts")).transform;
-  const { transform } = await import("./esbuildEsm");
+  const {  init } = await import("./esbuildEsm");
   const { prettier } = await import("./prettierEsm");
+  const transform = await init();
 
   try {
+    if (latest < r.counter) {
+      runnerDebounced = debounce(runner, ++debounceTime);
+      return;
+    }
     const code = prettier(c);
-
     const transpiled = await transform(code);
 
     let restartError = false;
     /// yellow
     if (transpiled.length > 0) {
+      if (latest < r.counter) return;
       const { html, css, App } = await renderFromString(transpiled);
 
       try {
-        if (mST().i > counter) {
-          runnerDebounced = throttle(runner, ++throttleTime);
+        if (latest < r.counter) {
+          runnerDebounced = debounce(runner, ++debounceTime);
           return;
         }
 
@@ -135,15 +142,15 @@ async function runner(
         render(<App />, target);
         if (!target.innerHTML) return;
 
+       
+        if (transpiled === mST().transpiled) return;
+
+        const { saveCode } = await import("./ws");
+        if (latest === r.counter) await saveCode(newSess);
         session.setChild((c: ReactNode[]) => [...c, <App />]);
 
         globalThis.App = App;
 
-        if (transpiled === mST().transpiled) return;
-
-        const { saveCode } = await import("./ws");
-
-        saveCode(newSess);
 
         return;
       } catch (error) {
@@ -156,8 +163,8 @@ async function runner(
 
     if (mST().i > counter) {
       return;
-    } else if (throttleTime > 0) {
-      runnerDebounced = throttle(runner, --throttleTime);
+    } else if (debounceTime > 0) {
+      runnerDebounced = debounce(runner, --debounceTime);
     }
 
     const error = await getErrors(session);

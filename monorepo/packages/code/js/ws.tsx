@@ -1,3 +1,4 @@
+/** @jsxImportSource @emotion/react */
 import type { ICodeSession } from "./session";
 import debounce from "lodash/debounce";
 import uidV4 from "./uidV4.mjs";
@@ -31,6 +32,14 @@ const connections: {
   [target: string]: RTCPeerConnection;
 } = {}; // To st/ RTCPeerConnection
 
+const session = {
+  setChild: () => {},
+  changes: [],
+  url: "",
+  errorText: "",
+};
+
+
 let wsLastHashCode = 0;
 let webRTCLastSeenHashCode = 0;
 let username = "";
@@ -39,6 +48,8 @@ let lastSeenNow = 0;
 let ws: WebSocket | null = null;
 let rejoined = false;
 const sendChannel = {
+  webRtcArray,
+  connections,
   send: ((data: { [key: string]: string | number }) => {
     const target = data.target;
     const messageString = JSON.stringify({
@@ -49,7 +60,7 @@ const sendChannel = {
       try {
         if (ch.readyState !== "open") return;
 
-        if (ch.target === target) {
+        if (!target || ch.target === target) {
           ch.send(messageString);
         }
       } catch (e) {
@@ -58,6 +69,8 @@ const sendChannel = {
     });
   }),
 };
+
+globalThis.sendChannel= sendChannel;
 // Let createDelta;
 // let applyPatch;
 
@@ -87,12 +100,15 @@ const w = window as unknown as {
 
 const chCode = async () => {
   try {
+    const App = (await import(createJsBlob(mST().transpiled))).default;
+
     if (globalThis.model) {
       globalThis.model.setValue(mST().code);
+      session.setChild((x)=>[...x, <App/>]);
       return;
     }
 
-    const App = (await import(createJsBlob(mST().transpiled))).default;
+
 
     const container = document.createElement("div");
 
@@ -120,13 +136,15 @@ async function rejoin() {
   return ws;
 }
 
-export const saveCode = debounce(broadcastCodeChange, 500);
 
-async function broadcastCodeChange(sess: ICodeSession) {
+ const sendRTC =  debounce((message)=>{sendChannel&& sendChannel.send(message)},50);
+const sendWS = debounce((mess)=>ws && ws.send(mess),500);
+
+export async function saveCode(sess: ICodeSession) {
   if (sess.i <= mST().i) return;
   (async () => {
     try {
-      if (sendChannel) {
+      
         const message = webRTCLastSeenHashCode
           ? await mySession.createPatchFromHashCode(
             webRTCLastSeenHashCode,
@@ -134,9 +152,9 @@ async function broadcastCodeChange(sess: ICodeSession) {
           )
           : mySession.createPatch(sess);
         if (message && message.patch !== "") {
-          sendChannel.send(message);
+          sendRTC(message);
         }
-      }
+      
     } catch (e) {
       console.error("Error sending RTC...", { e });
     }
@@ -155,7 +173,7 @@ async function broadcastCodeChange(sess: ICodeSession) {
 
     const messageString = JSON.stringify({ ...message, name: username });
     if (message.patch !== "") {
-      ws.send(messageString);
+      sendWS(messageString);
     }
   } else {
     rejoined = false;
@@ -227,13 +245,8 @@ export async function join() {
   });
 
   // if (!globalThis.session) {
-  const session = {
-    ...mST(),
-    setChild: () => {},
-    changes: [],
-    url: "",
-    errorText: "",
-  };
+
+  Object.assign(session, {...mST()})
   // globalThis.session = session;
 
   if (location.pathname.endsWith("public")) return;
@@ -242,6 +255,10 @@ export async function join() {
   quickStart(
     session,
   );
+}
+
+const h = {
+
 }
 
 async function processWsMessage(
@@ -255,6 +272,13 @@ async function processWsMessage(
 
   const data = JSON.parse(event.data);
 
+  if (data.oldHash && data. newHash){
+  if (h[data.oldHash] && h[data.oldHash]===data.newHash) return; 
+
+  data[h.oldHash] = data.newHash;
+}
+
+
   console.log({ data });
   // MySession.addEvent(data);
 
@@ -265,6 +289,9 @@ async function processWsMessage(
 
   if (source === "ws" && (data.hashCode || data.newHash)) {
     wsLastHashCode = data.hashCode || data.newHash;
+  }
+  if (source === "rtc" && data.hashCode || data.newHash) {
+    webRTCLastSeenHashCode =  data.hashCode || data.newHash;
   }
 
   console.log(source, data.name);
@@ -540,7 +567,7 @@ async function processWsMessage(
     // in our "answer" message.
 
     const desc = new RTCSessionDescription(
-      message.sdp as unknown as RTCSessionDescriptionInit,
+      message.sdp,
     );
     // const desc = new RTCSessionDescription(message);
 
@@ -554,6 +581,7 @@ async function processWsMessage(
     if (!connections[target]) await createPeerConnection(target);
 
     if (!message.sdp) return;
+
     const desc = new RTCSessionDescription(message.sdp);
     // const desc = new RTCSessionDescription(message);
 

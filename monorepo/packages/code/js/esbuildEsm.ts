@@ -3,28 +3,33 @@ import * as esbuild from "esbuild-wasm";
 import wasmModule from "esbuild-wasm/esbuild.wasm";
 import { wait } from "./wait";
 
-let initFinished = false;
-
-export const init = async () => {
-    await esbuild.initialize({
-      wasmURL: "https://spike.land/esbuild.wasm"
-    });
-
-  initFinished = true;
-};
+const mod = {initFinished: false};
 
 const mutex = new Mutex();
 
-export const transform = async (code: string, retry = 4): Promise<string> => {
+export const init = async () => {
+  if (mod.initFinished) return transform;
+
+  await mutex.runExclusive(async()=>{
+    mod.initFinished || await esbuild.initialize({
+      wasmURL: "https://spike.land/esbuild.wasm"
+    });
+    mod.initFinished=true;
+  return true;
+  });
+
+
+  return transform;
+};
+
+
+
+async function transform(code: string, retry = 4): Promise<string>{
   //const startTime = performance.now();
 
 
   try {
-    await mutex.waitForUnlock();
-
-    if (initFinished || await init()) {
-      initFinished = true;
-    }
+    //
   
 
     let result = await esbuild.transform(
