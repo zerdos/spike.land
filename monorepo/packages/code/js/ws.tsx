@@ -234,6 +234,7 @@ export async function join() {
   );
 
   wsConnection.addEventListener("open", () => {
+    console.log("NEW WS CONNECTION");
     ws = wsConnection;
     const mess = (data: string)=>ws.send(data);
     sendWS = debounce(mess, 500);
