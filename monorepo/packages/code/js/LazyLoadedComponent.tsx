@@ -1,5 +1,10 @@
+/** @jsxImportSource @emotion/react */
+
+
 import { lazy, Suspense, useEffect, useState } from "react";
 import type { FC } from "react";
+import {createJsBlob} from "./starter";
+
 interface ILaztCom {
   name: string;
   html: string;
@@ -15,7 +20,7 @@ export const LazySpikeLandComponent: FC<ILaztCom> = (
   useEffect(() => {
     const intervalHandler = setInterval(async () => {
       const resp = await fetch(
-        `https://spike.land/api/room/${name}/hashCodeSession`,
+        `https://spike.land/live/${name}/hashCodeSession`,
       );
       const text = await resp.text();
       setHash(Number(text));
@@ -29,7 +34,7 @@ export const LazySpikeLandComponent: FC<ILaztCom> = (
   useEffect(() => {
     (async () => {
       const resp = await fetch(
-        `https://spike.land/api/room/${name}/session`,
+        `https://spike.land/live/${name}/session`,
       );
       const { html, css, transpiled } = await resp.json();
       setHtmlCss({
@@ -62,11 +67,6 @@ export const LazySpikeLandComponent: FC<ILaztCom> = (
     </Suspense>
   );
 
-  function createJsBlob(code: string) {
-    const blob = new Blob([code], { type: "application/javascript" });
-
-    return URL.createObjectURL(blob);
-  }
 
   async function getApp(transpiled: string) {
     const objectUrl = createJsBlob(transpiled);

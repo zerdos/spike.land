@@ -23,7 +23,7 @@ export const renderPreviewWindow = async (
   const { App } = globalThis;
   render(
     <DraggableWindow
-      onShare={() => open(`https://spike.land/api/room/${roomName}/public`)}
+      onShare={() => open(`https://spike.land/live/${roomName}/public`)}
       onRestore={() => {
         const model = globalThis.model;
         model.setValue(mST().code);

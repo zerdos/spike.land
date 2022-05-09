@@ -81,7 +81,7 @@ export class CodeSession implements ICodeSess {
     //   if (savedStateStr) {
     //     savedState = JSON.parse(savedStateStr);
     //   } else {
-    //     fetch(`https://spike.land/api/room/${room}/mySession`).then(
+    //     fetch(`https://spike.land/live/${room}/mySession`).then(
     //       (resp) => resp.json(),
     //     ).then((session: IUserJSON) => {
     //       localStorage.setItem(cacheKey, JSON.stringify(session.state));
@@ -110,7 +110,7 @@ export class CodeSession implements ICodeSess {
   ) => {
     if (!hashStore[oldHash]) {
       const resp = await fetch(
-        `https://spike.land/api/room/${this.room}/session`,
+        `https://spike.land/live/${this.room}/session`,
       );
 
       const recRec = await resp.json();
@@ -173,7 +173,7 @@ export class CodeSession implements ICodeSess {
 
     if (!hashStore[oldHash]) {
       const resp = await fetch(
-        `https://spike.land/api/room/${this.room}/session`,
+        `https://spike.land/live/${this.room}/session`,
       );
       const newRec = await resp.json();
 

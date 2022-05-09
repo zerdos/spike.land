@@ -220,6 +220,7 @@ export class Code {
               },
             });
 
+        case "index.js":
         case "js": {
           // if (codeSpace==="sanyi") {
           //   'export default function(){};'
@@ -253,7 +254,7 @@ export class Code {
               
 
               window.startState = ${JSON.stringify(mST())};
-              const AppPromise = import("https://spike.land/api/room/${codeSpace}/js");
+              const AppPromise = import("https://spike.land/live/${codeSpace}/js");
               import("https://spike.land/starter.mjs")
                 .then(
                    ({run})=> {
@@ -321,7 +322,7 @@ export class Code {
             <script defer type="module">
               window.startState = ${JSON.stringify(mST())};
             
-              const startApp = import("https://spike.land/api/room/${codeSpace}/js");
+              const startApp = import("https://spike.land/live/${codeSpace}/js");
               import("https://spike.land/starter.mjs")
                 .then(
                   ({run})=> run(

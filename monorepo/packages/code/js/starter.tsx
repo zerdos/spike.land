@@ -1,11 +1,12 @@
 /** @jsxImportSource @emotion/react */
 
 import "core-js/modules/web.immediate";
+
+
 import { CacheProvider } from "@emotion/react";
 import createCache from "@emotion/cache";
 
 import { render } from "react-dom";
-import { fromBinary } from "./binary";
 import { Workbox } from "workbox-window";
 import { ReactNode } from "react";
 import { IRunnerSession } from "quickStart";
@@ -56,12 +57,16 @@ export const run = async (session, StarterApp = null) => {
   const AppPromise = StarterApp || import(createJsBlob(session.transpiled));
 
   const App = (await AppPromise).default;
-  console.log({ App });
   start(App);
 };
 
-export function createJsBlob(code: string) {
-  const blob = new Blob([code], { type: "application/javascript" });
 
-  return URL.createObjectURL(blob);
+export function createJsBlob(code: string) {
+const file = new File([code], "index.tsx",{ type: "application/javascript",  webkitRelativePath:"https://spike.land/live/"})
+ const blobUrl = URL.createObjectURL(file);
+return blobUrl;
+  // const actualUrl = new URL(blobUrl,'https://spike.land/live/');
+
+  // return actualUrl;
+  
 }

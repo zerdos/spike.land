@@ -75,7 +75,7 @@ globalThis.sendChannel= sendChannel;
 // let applyPatch;
 
 const state = window.startState || await fetch(
-  `https://spike.land/api/room/${roomName}/session`,
+  `https://spike.land/live/${roomName}/session`,
 ).then((resp) => resp.json());
 
 const { startSession } = await import("./session");
@@ -192,7 +192,7 @@ export async function join() {
   console.log("WS connect!");
 
   const wsConnection = new WebSocket(
-    "wss://" + hostname + "/api/room/" + roomName + "/websocket",
+    "wss://" + hostname + "/live/" + roomName + "/websocket",
   );
   rejoined = false;
 
@@ -354,7 +354,7 @@ async function processWsMessage(
       console.log("there is an error. fetch tje state....");
 
       const resp = await fetch(
-        `https://spike.land/api/room/${roomName}/session`,
+        `https://spike.land/live/${roomName}/session`,
       );
       const data = await resp.json();
 

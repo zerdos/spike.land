@@ -2,6 +2,7 @@ import { Mutex } from "async-mutex";
 import * as esbuild from "esbuild-wasm";
 import wasmModule from "esbuild-wasm/esbuild.wasm";
 import { wait } from "./wait";
+import "core-js/proposals/string-replace-all-stage-4";
 
 const mod = {initFinished: false};
 
@@ -23,6 +24,9 @@ export const init = async () => {
 };
 
 
+const regex1 = / from "../ig;
+
+const regex2 = / from "../ig;
 
 async function transform(code: string, retry = 4): Promise<string>{
   //const startTime = performance.now();
@@ -32,17 +36,18 @@ async function transform(code: string, retry = 4): Promise<string>{
     //
   
 
-    let result = await esbuild.transform(
+    let result = await esbuild.transform (
       `/** @jsx jsX */
     import {jsx as jsX} from "@emotion/react";
     ` +
         code,
       {
+        
         loader: "tsx",
         target: "esnext",
       },
     );
-    return result.code;
+    return result.code.replaceAll(regex1, "from 'https://spike.land/live").replaceAll(regex2, "from 'https://spike.land/live");
   } catch (e) {
     if (retry > 0) {
       await wait(100);

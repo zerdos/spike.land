@@ -61,6 +61,7 @@ export const startMonaco = async (
   shadowRoot.appendChild(innerStyle);
 
   monaco.languages.typescript.typescriptDefaults.setCompilerOptions({
+    baseUrl: "https://spike.land/live/",
     target: monaco.languages.typescript.ScriptTarget.ESNext,
     lib: [
       "dom",
@@ -101,7 +102,7 @@ export const startMonaco = async (
     model: monaco.editor.createModel(
       code,
       "typescript",
-      monaco.Uri.parse("https://spike.land/api/room/code-main/index.tsx"),
+      monaco.Uri.parse("https://spike.land/live/coder.tsx"),
     ),
     language: "typescript",
     useShadowDOM: true,
@@ -110,8 +111,8 @@ export const startMonaco = async (
   });
 
   monaco.editor.createModel(
-    await fetch("https://spike.land/api/room/zoli/index.tsx").then(res=>res.text()), 
-  "typescript",  monaco.Uri.parse("https://spike.land/api/room/zoli/js"));
+    await fetch("https://spike.land/live/zoli.tsx").then(res=>res.text()), 
+  "typescript",  monaco.Uri.parse("https://spike.land/live/zoli.tsx"));
 
   // const defaultOptions = {
   //   parser: "babel", // for reference only, only babel is supported right now
@@ -286,7 +287,7 @@ export const startMonaco = async (
           await (await fetch(
             url,
           )).text(),
-          `https://spike.land/api/room/code-main/node_modules/${name}/index.d.ts`,
+          `https://spike.land/live/${name}.d.ts`,
         )
     );
 

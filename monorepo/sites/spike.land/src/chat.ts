@@ -13,14 +13,32 @@ export default {
       console.log("handling request");
       // We have received an HTTP request! Parse the URL and route the request.
 
-      const url = new URL(request.url);
+      const u = new URL(request.url);
+      let url = u;
+
+      const accept = request.headers.get('accept');
+
+      const serveJs = !(accept && accept.includes("html"));
+
+
+      if (u.pathname.endsWith(".tsx") && !u.pathname.endsWith(".index.tsx")) url=new URL(request.url.replace(".tsx","/index.tsx"));
+      else if (u.pathname.endsWith(".js") && !u.pathname.endsWith(".index.js")) url=new URL(request.url.replace(".js","/index.js"));
+
+      if (serveJs && !url.pathname.includes(".")) url = new URL(request.url+"/index.js");
+
       const path = url.pathname.slice(1).split("/");
 
       if (!path[0]) {
         // Serve our HTML at the root path.
-        return getHTMLResp(env, "code-main");
+        return new Response(`<http><head>
+        <meta http-equiv="refresh" content="0; URL=https://spike.land/live/coder" />
+      </head></http>`, {
+          headers: {
+            "Content-Type": "text/html;charset=UTF-8",
+            "Cache-Control": "no-cache",
+          },
+        });
       }
-
 
       switch (path[0]) {
         case "ping":
@@ -31,7 +49,7 @@ export default {
             },
           });
       case "env":
-            return new Response(JSON.stringify(env), {
+            return new Response(JSON.stringify({env, accept}), {
               headers: {
                 "Content-Type": "text/html;charset=UTF-8",
                 "Cache-Control": "no-cache",
@@ -49,7 +67,8 @@ export default {
           return handleApiRequest(path.slice(1), request, env);
 
         case "live":
-          return getHTMLResp(env, path[1]);
+          const newPath = [ 'room', ...path.slice(1), 'public'];
+          return handleApiRequest(newPath, request, env);
 
         default:
           return getAssetFromKV(
@@ -88,9 +107,9 @@ async function handleApiRequest(
           return new Response("Method not allowed", { status: 405 });
         }
       }
-
       const name = path[1];
 
+    
       let id;
       if (name.match(/^[0-9a-f]{64}$/)) {
         id = env.CODE.idFromString(name);
@@ -103,6 +122,7 @@ async function handleApiRequest(
       const roomObject = env.CODE.get(id);
       const newUrl = new URL(request.url);
 
+   
       newUrl.pathname = "/" + path.slice(2).join("/");
       newUrl.searchParams.append("room", name);
       roomObject.room = name;
