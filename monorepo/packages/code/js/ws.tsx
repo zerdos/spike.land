@@ -125,7 +125,9 @@ const chCode = async () => {
    
     if (globalThis.model) {
       console.log("MODEL SET FROM REMOTE.... SORRY");
-      mST().i===i && globalThis.model.setValue(code);
+      setTimeout(() => {
+        ()=> mST().i===i && globalThis.model.setValue(code);
+      }, 200);
       
       return;
     }
