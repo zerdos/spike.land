@@ -64,9 +64,9 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
     onShare,
     onRestore,
     session,
-    room
-}) => {
-  
+    room,
+  },
+) => {
   const [isStable, setIsStable] = useState(false);
   const [scaleRange, changeScaleRange] = useState(100);
   // Const [height, changeHeight] = useState(innerHeight);
@@ -81,9 +81,6 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
 
   const startPositions = { bottom: 0, right: 0 };
 
-
-
-
   const [qrUrl, setQRUrl] = useState(session.url);
   const [errorText, setErrorText] = useState("");
 
@@ -97,8 +94,9 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
 
   const App = childArray[childArray.length - 1 - forcedIndie];
 
-  globalThis.notify = ()=> childArray[length-1 ] !== globalThis.App && setChild(x=>[...x, globalThis.App])
-
+  globalThis.notify = () =>
+    childArray[length - 1] !== globalThis.App &&
+    setChild((x) => [...x, globalThis.App]);
 
   // UseEffect(() => {
   // window.addEventListener("resize", () => changeHeight(window.innerHeight));
@@ -126,8 +124,6 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
       clearInterval(handler);
     };
   }, [setErrorText, setQRUrl, errorText, qrUrl]);
-
-
 
   const scale = scaleRange / 100;
   const [isFullScreen, setFullScreen] = useState(true);

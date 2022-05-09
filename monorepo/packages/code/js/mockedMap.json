@@ -8,5 +8,6 @@
     "framer-motion": "https://spike.land/framer-motion.mjs",
     "@emotion/react": "https://spike.land/emotion.mjs",
     "@emotion/react/jsx-runtime": "https://spike.land/emotion.mjs",
-    "@emotion/cache": "https://spike.land/emotion.mjs"  }
+    "@emotion/cache": "https://spike.land/emotion.mjs"
+  }
 }

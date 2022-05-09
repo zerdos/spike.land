@@ -5,7 +5,7 @@ import createCache from "@emotion/cache";
 import type { FC } from "react";
 import { renderToString } from "react-dom/server";
 
-import {  appFactory, createJsBlob } from "./starter";
+import { appFactory, createJsBlob } from "./starter";
 
 export const renderFromString = async (transpiled: string) => {
   const App = await getApp(transpiled);
@@ -39,10 +39,9 @@ export const getHtmlAndCss = (MyComponent: FC) => {
     html: markup,
     css: cssText,
   };
- };
+};
 
-
- async function getApp(transpiled: string, mode = "window") {
+async function getApp(transpiled: string, mode = "window") {
   const codeToHydrate = mode === "window"
     ? transpiled.replace("body{", "#zbody{")
     : transpiled;

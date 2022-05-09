@@ -4,9 +4,7 @@ import { render } from "react-dom";
 import { renderFromString } from "./renderToString";
 import debounce from "lodash/debounce";
 import { mST, roomName, saveCode } from "./ws";
-import throttle  from "lodash/throttle";
-
-
+import throttle from "lodash/throttle";
 
 export interface IRunnerSession {
   // changes: unknown[];
@@ -17,7 +15,7 @@ export interface IRunnerSession {
 
 let debounceTime = 100;
 
-let runnerDebounced =  throttle(runner, debounceTime);
+let runnerDebounced = throttle(runner, debounceTime);
 
 async function startMonacoWithSession(session: IRunnerSession) {
   console.log("start monaco with session");
@@ -48,12 +46,14 @@ async function startMonacoWithSession(session: IRunnerSession) {
 
   const { prettier } = await import("./prettierEsm");
 
-  editor.onDidChangeModelContent( ev => runnerDebounced(
-    prettier(model.getValue()),
+  editor.onDidChangeModelContent((ev) =>
+    runnerDebounced(
+      prettier(model.getValue()),
       // ev.changes,
       mST(),
-      mST().i + 1
-    )  );
+      mST().i + 1,
+    )
+  );
 
   Object.assign(globalThis, { monaco, editor, model });
 
@@ -75,9 +75,6 @@ async function startMonacoWithSession(session: IRunnerSession) {
 }
 
 async function getErrors({ monaco, editor, model }) {
-
-  
-
   if (!monaco) {
     return [{ messageText: "Error with the error checking. Try to reload!" }];
   }
@@ -105,7 +102,6 @@ async function runner(
   session: IRunnerSession,
   counter: number,
 ) {
-  
   if (code === mST().code) return;
 
   const latest = ++r.counter;
@@ -116,9 +112,6 @@ async function runner(
   const { init } = await import("./esbuildEsm");
   const transform = await init();
 
-
-
-
   try {
     const transpiled = await transform(code);
     if (transpiled === mST().transpiled) return;
@@ -127,10 +120,9 @@ async function runner(
     /// yellow
     if (transpiled.length > 0) {
       if (latest < r.counter) return;
-  
-      try {
-        const { html, css} = await renderFromString(transpiled);
 
+      try {
+        const { html, css } = await renderFromString(transpiled);
 
         await saveCode({
           code,
@@ -138,9 +130,7 @@ async function runner(
           i: counter,
           html,
           css,
-        })
-
-
+        });
 
         return;
       } catch (error) {

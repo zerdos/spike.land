@@ -13,49 +13,39 @@ import { render } from "react-dom";
 //   wb.register();
 // }
 
-
-const {Sha256} = (await import('@aws-crypto/sha256-browser')).default;
-
+const { Sha256 } = (await import("@aws-crypto/sha256-browser")).default;
 
 const hash = new Sha256();
 
 const apps = {};
 
-
-
-export const appFactory= async (transpiled) => {
-
+export const appFactory = async (transpiled) => {
   if (globalThis.transpiled === transpiled) return;
   globalThis.transpiled = transpiled;
 
-  console.log(  "APP factory")
- 
+  console.log("APP factory");
+
   hash.update(transpiled);
- const result = await hash.digest();
+  const result = await hash.digest();
 
- if (globalThis.App === apps[result]) return;
- 
+  if (globalThis.App === apps[result]) return;
 
- globalThis.App =  apps[result] || (await import(createJsBlob(transpiled))).default;
-globalThis.transpiled = transpiled;
+  globalThis.App = apps[result] ||
+    (await import(createJsBlob(transpiled))).default;
+  globalThis.transpiled = transpiled;
 
- apps[result] = globalThis.App;
- 
+  apps[result] = globalThis.App;
 
- globalThis.notify()
-}
-
+  globalThis.notify();
+};
 
 const start = async () => {
-
   globalThis.notify = renderApp;
   globalThis.appFactory = appFactory;
 
   globalThis.notify();
- 
-  if (location.href.endsWith("hydrated")) return;
 
- 
+  if (location.href.endsWith("hydrated")) return;
 
   const { join } = await import("./ws");
   join();
@@ -67,8 +57,8 @@ export const renderApp = () => {
   const key = "css";
   const cache = createCache({ key });
 
-  console.log("render App")
-  const {App} = globalThis;
+  console.log("render App");
+  const { App } = globalThis;
   render(
     <CacheProvider value={cache}>
       <App></App>
@@ -78,14 +68,10 @@ export const renderApp = () => {
 
   document.getElementById("root")!.replaceWith(container);
   container.id = "root";
-
 };
-
 
 export const run = async (session, StarterApp = null) => {
   if (globalThis.App) return;
-
- 
 
   const container = document.getElementById("root")!;
   container.innerHTML =
@@ -96,8 +82,7 @@ export const run = async (session, StarterApp = null) => {
 
   globalThis.App = (await AppPromise).default;
 
-  start()
-
+  start();
 };
 
 export function createJsBlob(code: string) {
