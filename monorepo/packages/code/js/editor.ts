@@ -109,8 +109,8 @@ export const startMonaco = async (
     autoClosingBrackets: "always",
   });
 
-  editor.createModel(
-    await fetch("https://spike.land/api/rooms/zoli/index.tsx").then(res=>res.text()), 
+  monaco.editor.createModel(
+    await fetch("https://spike.land/api/room/zoli/index.tsx").then(res=>res.text()), 
   "typescript",  monaco.Uri.parse("https://spike.land/api/room/zoli/js"));
 
   // const defaultOptions = {
