@@ -61,7 +61,7 @@ export const startMonaco = async (
   shadowRoot.appendChild(innerStyle);
 
   monaco.languages.typescript.typescriptDefaults.setCompilerOptions({
-    target: monaco.languages.typescript.ScriptTarget.ES5,
+    target: monaco.languages.typescript.ScriptTarget.ESNext,
     lib: [
       "dom",
       "dom.iterable",
@@ -79,7 +79,7 @@ export const startMonaco = async (
     noEmit: true,
 
     allowNonTsExtensions: true,
-    moduleResolution: monaco.languages.typescript.ModuleResolutionKind.NodeJs,
+    moduleResolution: monaco.languages.typescript.ModuleResolutionKind.ESNext,
     declaration: false,
     module: monaco.languages.typescript.ModuleKind.ESNext,
     noEmitOnError: true,
