@@ -7,7 +7,6 @@
     "@emotion/react": "https://spike.land/emotion.mjs",
     "@emotion/react/jsx-runtime": "https://spike.land/emotion.mjs",
     "react": "https://spike.land/react.mjs",
-    "tslib": "https://ga.jspm.io/npm:tslib@2.4.0/tslib.es6.js",
     "react/jsx-runtime": "https://spike.land/react.mjs",
     "react-dom": "https://spike.land/react.mjs",
     "react-dom/server": "https://spike.land/react.mjs",

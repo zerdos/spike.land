@@ -23,7 +23,7 @@ const generator = new Generator({
 await generator.install("react");
 
 // await generator.install("monaco-editor");
-await generator.install("tslib");
+// await generator.install("tslib");
 
 // await generator.install("preact-render-to-string");
 await generator.install("@babel/core");
