@@ -101,7 +101,7 @@ export const startMonaco = async (
     model: monaco.editor.createModel(
       code,
       "typescript",
-      monaco.Uri.parse("file:///app/index.tsx"),
+      monaco.Uri.parse("https://spike.land/api/room/code-main/index.tsx"),
     ),
     language: "typescript",
     useShadowDOM: true,
@@ -282,7 +282,7 @@ export const startMonaco = async (
           await (await fetch(
             url,
           )).text(),
-          `file:///node_modules/${name}/index.d.ts`,
+          `https://spike.land/api/room/code-main/node_modules/${name}/index.d.ts`,
         )
     );
 

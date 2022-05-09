@@ -107,6 +107,9 @@ export class Code {
       let path = url.pathname.slice(1).split("/");
 
       switch (path[0]) {
+        case "":
+        case "index":
+        case "index.tsx":
         case "code": {
           return new Response(mST().code, {
             status: 200,
