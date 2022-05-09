@@ -228,10 +228,7 @@ export async function join() {
   );
   rejoined = false;
 
-  wsConnection.addEventListener(
-    "message",
-    (message) => processWsMessage(message, "ws"),
-  );
+
 
   wsConnection.addEventListener("open", () => {
     console.log("NEW WS CONNECTION");
