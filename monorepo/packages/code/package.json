@@ -26,7 +26,7 @@
     "start": "cd ../../.. && yarn start",
     "push": "cd ../../.. && yarn push",
     "build:preact": "esbuild --bundle js/preact.ts  --target=esnext --minify --format=esm --platform=browser  --outfile=../../sites/spike.land/public/react.mjs",
-    "build:framer-motion": "yarn esbuild --bundle js/motion.tsx  --target=esnext --minify --format=esm  --platform=browser  --define:process.env.NODE_ENV=\\\"production\\\" --external:react --external:@emotion/is-prop-valid  --external:react --external:tslib --outfile=../../sites/spike.land/public/framer-motion.mjs",
+    "build:framer-motion": "yarn esbuild --bundle js/motion.tsx  --target=esnext --minify --format=esm  --platform=browser  --define:process.env.NODE_ENV=\\\"production\\\" --external:react --external:@emotion/is-prop-valid  --external:react --outfile=../../sites/spike.land/public/framer-motion.mjs",
     "build:emotion": "yarn esbuild --bundle js/emotion.tsx  --target=esnext --format=esm --external:react --external:react/jsx-runtime --platform=browser --external:tslib --define:process.env.NODE_ENV=\\\"production\\\" --outfile=../../sites/spike.land/public/emotion.mjs",
     "build": "node esbuild-dev.mjs &&  yarn build:sw",
     "favicons": "cp -a -f js/assets/favicons/. ../../sites/spike.land/public/",
@@ -70,6 +70,7 @@
     "react-dom": "preact/compat"
   },
   "dependencies": {
+    "@aws-crypto/sha256-browser": "^2.0.1",
     "@babel/core": "^7.17.10",
     "@babel/preset-react": "^7.16.7",
     "@babel/preset-typescript": "^7.16.7",

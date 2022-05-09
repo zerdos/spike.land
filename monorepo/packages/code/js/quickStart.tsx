@@ -15,7 +15,7 @@ export interface IRunnerSession {
   url: string;
 }
 
-let debounceTime = 30;
+let debounceTime = 100;
 
 let runnerDebounced =  throttle(runner, debounceTime);
 
@@ -107,6 +107,7 @@ async function runner(
 ) {
   
   if (code === mST().code) return;
+
   const latest = ++r.counter;
   // session.changes.push(changes);
 
@@ -120,31 +121,26 @@ async function runner(
 
   try {
     const transpiled = await transform(code);
+    if (transpiled === mST().transpiled) return;
 
     let restartError = false;
     /// yellow
     if (transpiled.length > 0) {
       if (latest < r.counter) return;
-      const { html, css, App } = await renderFromString(transpiled);
-
+  
       try {
+        const { html, css} = await renderFromString(transpiled);
 
 
-        const newSess = {
+        await saveCode({
           code,
           transpiled,
           i: counter,
           html,
           css,
-        };
-        if (transpiled === mST().transpiled) return;
+        })
 
-        const target = document.createElement("div");
 
-        render(<App />, target);
-        if (!target.innerHTML) return;
-
-        await saveCode(newSess);
 
         return;
       } catch (error) {

@@ -103,8 +103,7 @@ const w = window as unknown as {
 const apps: [keyof string: any]= {};
 
 const chCode = async () => {
-  const {prettier} = await import("prettierEsm");
-  prettier(model.getValue())
+
   try {
 
     if ( globalThis.transpiled === mST().transpiled) return;
@@ -117,10 +116,12 @@ const chCode = async () => {
     apps[mST().transpiled] = globalThis.App;
     globalThis.notify();
 
-    
 
     if (globalThis.model) {
+      const {prettier} = await import("prettierEsm");
       const formatted = prettier(globalThis.model.getValue());
+
+
       mST().code!==formatted && globalThis.model.setValue(mST().code);
       return;
     }
@@ -141,8 +142,12 @@ async function rejoin() {
   return ws;
 }
 
+const ignoreUsers = [];
+
 bc.onmessage = async (event) => {
   console.log({ event });
+
+  if (event.ignoreUser) !ignoreUsers.includes(ignoreUser) && ignoreUsers.push(event.data.ignoreUser)
 
   if (event.data.roomName === roomName && event.data.sess.code !== mST().code) {
     const messageData = mySession.createPatch(event.data.sess);
@@ -157,12 +162,19 @@ const sendRTC = debounce((message) => {
 const sendWS = debounce((mess) => ws && ws.send(mess), 500);
 
 export async function saveCode(sess: ICodeSession) {
+  if (sess.i <= mST().i) return;
+
+  const messageData = mySession.createPatch(sess);
+  await mySession.applyPatch(messageData);
+  
   bc.postMessage({
     roomName,
-    sess,
+    ignoreUser: user,
+    sess: mST()
   });
 
-  if (sess.i <= mST().i) return;
+  await chCode();
+
   (async () => {
     try {
       const message = webRTCLastSeenHashCode
@@ -285,6 +297,7 @@ async function processWsMessage(
 
   const data = JSON.parse(event.data);
 
+  
   // MySession.addEvent(data);
 
   if (source === "ws" && data.timestamp) {
@@ -298,6 +311,8 @@ async function processWsMessage(
   if (source === "rtc" && data.hashCode || data.newHash) {
     webRTCLastSeenHashCode = data.hashCode || data.newHash;
   }
+
+  if (ignoreUsers.includes(data.name)) return;
 
   if (data.newHash === mySession.hashCode()) return;
 

@@ -8,14 +8,12 @@ import { renderToString } from "react-dom/server";
 import { createJsBlob } from "./starter";
 
 export const renderFromString = async (transpiled: string) => {
-  const App = await getApp(transpiled);
+  globalThis.appFactory(transpiled);
+  const {App} = globalThis;
 
   const { html, css } = getHtmlAndCss(App);
 
-  console.log(css);
-
   return {
-    App,
     html,
     css,
   };

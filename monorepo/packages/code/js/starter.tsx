@@ -13,11 +13,36 @@ import { render } from "react-dom";
 //   wb.register();
 // }
 
-const start = async (App) => {
-  globalThis.App = App;
-  globalThis.notify = renderApp;
-  globalThis.notify()
 
+
+
+const apps = {};
+
+
+globalThis.appFactory= async (transpiled) => {
+
+  const {Sha256} = await import('@aws-crypto/sha256-browser');
+  const hash = new Sha256();
+  hash.update(transpiled);
+ const result = await hash.digest();
+
+ if (globalThis.App === app[result]) return;
+ 
+
+ globalThis.App =  apps[result] || (await import(createJsBlob(mST().transpiled))).default;
+
+ apps[result] = globalThis.App;
+
+ globalThis.notify()
+
+
+}
+
+
+const start = async (transpiled) => {
+  globalThis.notify = renderApp;
+  globalThis.appFactory(transpiled);
+ 
   if (location.href.endsWith("hydrated")) return;
 
  
@@ -46,6 +71,7 @@ export const renderApp = () => {
 
 };
 
+
 export const run = async (session, StarterApp = null) => {
   if (globalThis.App) return;
 
@@ -57,7 +83,7 @@ export const run = async (session, StarterApp = null) => {
 
   const AppPromise = StarterApp || import(createJsBlob(session.transpiled));
 
-  start( (await AppPromise).default)
+  start(session.transpiled)
 
 };
 
