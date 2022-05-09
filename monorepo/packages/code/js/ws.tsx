@@ -1,4 +1,5 @@
 /** @jsxImportSource @emotion/react */
+
 import type { ICodeSession } from "./session";
 import debounce from "lodash/debounce";
 import uidV4 from "./uidV4.mjs";
@@ -101,7 +102,7 @@ const w = window as unknown as {
     update: (code: string) => void;
   };
 };
-const apps: [keyof string: any]= {};
+const apps: [keyof string: R]= {};
 
 const chCode = async () => {
   const {code, transpiled, i, css, html} = mST();
