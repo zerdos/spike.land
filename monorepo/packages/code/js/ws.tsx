@@ -141,7 +141,7 @@ async function rejoin() {
 bc.onmessage = async (event) => {
   console.log({ event });
 
-  if (event.data.room === roomName && event.data.code !== mST().code) {
+  if (event.data.roomName === roomName && event.data.code !== mST().code) {
     const messageData = mySession.createPatch(data);
     await mySession.applyPatch(messageData);
     chCode();
