@@ -38,7 +38,7 @@ async function startMonacoWithSession(session: IRunnerSession) {
   );
 
   const model = editor.getModel();
-  
+
   Object.assign(session, {monaco, editor, model});
 
   let inc = 0;
@@ -76,6 +76,7 @@ async function getErrors({ monaco, editor }) {
     return [{ messageText: "Error with the error checking. Try to reload!" }];
   }
 
+  console.log("GET ERRORs");
   const model = editor.getModel();
   const worker = await monaco.languages.typescript.getTypeScriptWorker();
   const client = await worker(model);
@@ -124,10 +125,17 @@ async function runner(
       const { html, css, App } = await renderFromString(transpiled);
 
       try {
+        console.log("---------error check");
+        const error = await getErrors(session);
+        console.log({error});
+        console.log("---------error check");
+
         if (latest < r.counter) {
           runnerDebounced = debounce(runner, ++debounceTime);
           return;
         }
+
+
 
         const newSess = {
           code,
@@ -167,10 +175,8 @@ async function runner(
       return;
     } else if (debounceTime > 0) {
       runnerDebounced = debounce(runner, --debounceTime);
-    }
-
-    const error = await getErrors(session);
-
+    } 
+    
     if (restartError) {
       error.push(
         { messageText: "Error while starting the app. Check the console!" },

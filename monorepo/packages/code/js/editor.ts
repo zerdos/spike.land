@@ -109,6 +109,10 @@ export const startMonaco = async (
     autoClosingBrackets: "always",
   });
 
+  monaco.editor.createModel(
+    await fetch("https://spike.land/api/rooms/zoli/index.tsx").then(res=>res.text()), 
+  "typescript",  monaco.Uri.parse("https://spike.land/api/room/zoli/js"));
+
   // const defaultOptions = {
   //   parser: "babel", // for reference only, only babel is supported right now
   //   isHighlightGlyph: false, // if JSX elements should decorate the line number gutter
