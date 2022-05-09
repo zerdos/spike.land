@@ -141,8 +141,8 @@ async function rejoin() {
 bc.onmessage = async (event) => {
   console.log({ event });
 
-  if (event.data.roomName === roomName && event.data.code !== mST().code) {
-    const messageData = mySession.createPatch(data);
+  if (event.data.roomName === roomName && event.data.sess.code !== mST().code) {
+    const messageData = mySession.createPatch(event.data.sess);
     await mySession.applyPatch(messageData);
     chCode();
   }
@@ -156,7 +156,7 @@ const sendWS = debounce((mess) => ws && ws.send(mess), 500);
 export async function saveCode(sess: ICodeSession) {
   bc.postMessage({
     roomName,
-    ...sess,
+    sess,
   });
 
   if (sess.i <= mST().i) return;
