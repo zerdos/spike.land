@@ -81,8 +81,8 @@ export default {
             
             },
             {
-              ASSET_NAMESPACE: env.__STATIC_CONTENT
-            //   ASSET_MANIFEST: assetManifest
+              ASSET_NAMESPACE: env.__STATIC_CONTENT,
+              ASSET_MANIFEST: assetManifest
             },
           )
       }
