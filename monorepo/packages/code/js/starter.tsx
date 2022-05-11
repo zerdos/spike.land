@@ -40,14 +40,17 @@ export const appFactory = async (transpiled: string) => {
 
   apps[result] = globalThis.App;
 
-  globalThis.notify();
+  return renderApp();
+  
+
+  // globalThis.notify();
 };
 
 const start = async () => {
   globalThis.notify = renderApp;
   globalThis.appFactory = appFactory;
 
-  globalThis.notify();
+  renderApp();
 
   if (location.href.endsWith("hydrated")) return;
 
@@ -57,6 +60,7 @@ const start = async () => {
 
 export const renderApp = () => {
   const container = document.createElement("div");
+  container.style.height = "100%";
 
   const key = "css";
   const cache = createCache({ key });
@@ -70,13 +74,25 @@ export const renderApp = () => {
     container,
   );
 
-  document.getElementById("root")!.replaceWith(container);
-  container.id = "root";
+  console.log("container Html");
+
+  if (!container.innerHTML) return;
+
+  if (!globalThis.currentTarget){
+    console.log("currentTarget");
+
+    document.getElementById("root")?.replaceWith(container);
+    globalThis.currentTarget =container;
+  } else {
+    globalThis.currentTarget.parentNode?.replaceChildren(container);
+    globalThis.currentTarget = container;
+   
+  }
 };
 
 export const run = async (session: ICodeSession, StarterApp = null) => {
 
-  const container = document.getElementById("root")!;
+  const container = document.createElement("div");
   container.innerHTML =
     `<style>${session.css}</style><div id="zbody">${session.html}</div>`;
 

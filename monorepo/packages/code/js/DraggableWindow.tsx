@@ -2,8 +2,8 @@
 
 import { css } from "@emotion/react";
 
-import { CacheProvider } from "@emotion/react";
-import createCache from "@emotion/cache";
+// import { CacheProvider } from "@emotion/react";
+// import createCache from "@emotion/cache";
 
 import { useEffect, useRef, useState } from "react";
 import type { FC } from "react";
@@ -13,7 +13,7 @@ import { motion } from "framer-motion";
 import { QRButton } from "./Qr";
 
 // import { wait } from "./wait";
-import { Box, Slider } from "./mui";
+// import { Box, Slider } from "./mui";
 // import { LazySpikeLandComponent } from "./LazyLoadedComponent";
 
 import {
@@ -33,8 +33,8 @@ import type {
 } from "./mui";
 import { ICodeSession } from "session";
 
-const key = "css";
-const cache = createCache({ key });
+// const key = "css";
+// const cache = createCache({ key });
 
 // const Button = muiButton as typeof MuiButton;
 const ToggleButtonGroup = muiToggleButtonGroup as typeof MuiToggleButtonGroup;
@@ -66,7 +66,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
   // const [isStable, setIsStable] = useState(false);
   const [scaleRange, changeScaleRange] = useState(100);
   // Const [height, changeHeight] = useState(innerHeight);
-  const [childArray, setChild] = useState([globalThis.App]);
+  // const [childArray, setChild] = useState([globalThis.App]);
   //   <LazySpikeLandComponent
   //     name={room}
   //     hash={hashCode}
@@ -84,16 +84,14 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
   const [height, setHeight] = useState(window.innerHeight * devicePixelRatio);
   const ref = useRef<HTMLDivElement>(null);
   const zbody = useRef<HTMLDivElement>(null);
-  const appRef = useRef<HTMLDivElement>(null);
+  // const appRef = useRef<HTMLDivElement>(null);
 
 
 
-  const [forcedIndie, setForcedIndie] = useState(0);
+  // const [forcedIndie, setForcedIndie] = useState(0);
 
-  const App = childArray[childArray.length - 1 - forcedIndie];
+  // const App = childArray[childArray.length - 1 - forcedIndie];
 
-  globalThis.notify = () =>
-    appRef.current = globalThis.currentTarget;
   //  childArray[length - 1] !== globalThis.App &&
 //    setChild((x) => [...x, globalThis.App]);
 
@@ -125,13 +123,13 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
   const scale = scaleRange / 100;
   const [isFullScreen, setFullScreen] = useState(true);
 
-  useEffect(() => {
-    if (forcedIndie > 0) {
-      setTimeout(() => {
-        setForcedIndie((f) => f - 1);
-      }, 100);
-    }
-  }, [forcedIndie, childArray]);
+  // useEffect(() => {
+  //   if (forcedIndie > 0) {
+  //     setTimeout(() => {
+  //       setForcedIndie((f) => f - 1);
+  //     }, 100);
+  //   }
+  // }, [forcedIndie, childArray]);
 
   useEffect(() => {
     const reveal = async () => {
@@ -364,12 +362,8 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
                   css={css`
                         height: 100%;
                       `}
-                >
-      <CacheProvider ref={appRef} value={cache}>
-      <App/>
-    </CacheProvider>,
-                </div>
-              {/* )}  */}
+                />
+                             {/* )}  */}
               {
               /*  </div>
                    // {/* </div>
@@ -468,7 +462,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
         >
           <Share />
         </Fab>
-        <Box
+        {/* <Box
           css={css`
           max-height: 400px;
           min-height: 200px;
@@ -490,7 +484,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
             aria-label="Temperature"
             onKeyDown={() => null}
           />
-        </Box>
+        </Box> */}
       </div>
     </div>
   );

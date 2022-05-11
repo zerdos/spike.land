@@ -8,6 +8,7 @@ import { render } from "react-dom";
 import { appFactory, createJsBlob } from "./starter";
 
 export const renderFromString = async (transpiled: string) => {
+  console.log("render to string");
   const App = await getApp(transpiled);
 
   const { html, css } = getHtmlAndCss(App);
@@ -30,6 +31,7 @@ export const getHtmlAndCss = (MyComponent: FC) => {
   };
 
   const target = document.createElement("div");
+  target.style.height = "100%";
 
    render(
     <CacheProvider value={cache}>
@@ -39,9 +41,11 @@ export const getHtmlAndCss = (MyComponent: FC) => {
 
   const markup = target.innerHTML;
   if (markup) {
+    console.log("replace with");
+    globalThis.currentTarget.parentNode?.replaceChildren(target);
     globalThis.currentTarget = target;
     globalThis.App = MyComponent;
-    globalThis.notify()
+    // globalThis.notify()
   }
 
   return {

@@ -31,10 +31,10 @@ export const renderPreviewWindow = async (
     />,
     target,
   );
-  const oldRoot = document.getElementById("root");
-  if (oldRoot) oldRoot.replaceWith(target);
-  else
-  document.body.appendChild(target);
+
+  document.body.append(target);
+  document.getElementById("zbody")?.append(globalThis.currentTarget);
+
   if (editor) {
     editor.style.opacity = "1";
     editor.style.display = "block";
