@@ -23,9 +23,9 @@ export default {
 
 
       if (serveJs && u.pathname.endsWith(".tsx") && !u.pathname.endsWith(".index.tsx")) url=new URL(request.url.replace(".tsx","/index.tsx"));
-      else if (u.pathname.endsWith(".js") && !u.pathname.endsWith(".index.js")) url=new URL(request.url.replace(".js","/lazy"));
+      else if (u.pathname.endsWith(".js") && !u.pathname.endsWith(".index.js")) url=new URL(request.url.replace(".js","/index.js"));
 
-      if (serveJs && !url.pathname.includes(".")) url = new URL(request.url+"/index.js");
+      if (serveJs && !url.pathname.includes(".")) url = new URL(request.url+"/lazy");
 
       const path = url.pathname.slice(1).split("/");
 
