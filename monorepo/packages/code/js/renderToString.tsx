@@ -13,8 +13,6 @@ export const renderFromString = async (transpiled: string) => {
 
   const { html, css } = getHtmlAndCss(App);
 
-  if (html) await appFactory(transpiled);
-
   return {
     html,
     css,
