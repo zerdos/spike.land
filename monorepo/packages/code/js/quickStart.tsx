@@ -1,8 +1,6 @@
 /** @jsxImportSource @emotion/react */
-import type { Dispatch, FC, ReactNode, SetStateAction } from "react";
-import { render } from "react-dom";
+import type { Dispatch,  ReactNode, SetStateAction } from "react";
 import { renderFromString } from "./renderToString";
-import debounce from "lodash/debounce";
 import { mST, roomName, saveCode } from "./ws";
 import throttle from "lodash/throttle";
 
@@ -17,7 +15,7 @@ let debounceTime = 100;
 
 let runnerDebounced = throttle(runner, debounceTime);
 
-async function startMonacoWithSession(session: IRunnerSession) {
+async function startMonacoWithSession() {
   console.log("start monaco with session");
   const monacoEditorDom = document.querySelector("#monacoEditor");
   if (!monacoEditorDom) {
@@ -40,17 +38,16 @@ async function startMonacoWithSession(session: IRunnerSession) {
 
   const model = editor.getModel();
 
-  Object.assign(session, { monaco, editor, model });
+  // Object.assign(session, { monaco, editor, model });
 
-  let inc = 0;
+  // let inc = 0;
 
   const { prettier } = await import("./prettierEsm");
 
-  editor.onDidChangeModelContent((ev) =>
+  editor.onDidChangeModelContent(() =>
     runnerDebounced(
-      prettier(model.getValue()),
+      prettier(model!.getValue()),
       // ev.changes,
-      mST(),
       mST().i + 1,
     )
   );
@@ -74,32 +71,31 @@ async function startMonacoWithSession(session: IRunnerSession) {
   // });
 }
 
-async function getErrors({ monaco, editor, model }) {
-  if (!monaco) {
-    return [{ messageText: "Error with the error checking. Try to reload!" }];
-  }
+// async function getErrors({ monaco, editor, model }) {
+//   if (!monaco) {
+//     return [{ messageText: "Error with the error checking. Try to reload!" }];
+//   }
 
-  const worker = await monaco.languages.typescript.getTypeScriptWorker();
-  const client = await worker(model);
+//   const worker = await monaco.languages.typescript.getTypeScriptWorker();
+//   const client = await worker(model);
 
-  const filename = model.uri.toString();
-  const diag = client.getSemanticDiagnostics(filename);
-  const comp = client.getCompilerOptionsDiagnostics(filename);
-  const syntax = client.getSyntacticDiagnostics(filename);
-  const fastError = await Promise.race([diag, comp, syntax]);
+//   const filename = model.uri.toString();
+//   const diag = client.getSemanticDiagnostics(filename);
+//   const comp = client.getCompilerOptionsDiagnostics(filename);
+//   const syntax = client.getSyntacticDiagnostics(filename);
+//   const fastError = await Promise.race([diag, comp, syntax]);
 
-  // Model.dispose();
-  console.log(fastError);
-  return [];
-}
+//   // Model.dispose();
+//   console.log(fastError);
+//   return [];
+// }
 
 // Let getHtmlAndCss;
 const r = { counter: 0 };
 
 async function runner(
-  code,
+  code: string,
   // changes: unknown[],
-  session: IRunnerSession,
   counter: number,
 ) {
   if (code === mST().code) return;
@@ -146,13 +142,12 @@ async function runner(
 }
 
 export async function quickStart(
-  session: IRunnerSession,
 ) {
   const { renderPreviewWindow } = await import(
     "./renderPreviewWindow"
   );
 
-  await renderPreviewWindow(session);
+  await renderPreviewWindow();
 
-  await startMonacoWithSession(session);
+  await startMonacoWithSession();
 }

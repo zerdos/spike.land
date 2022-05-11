@@ -1,4 +1,4 @@
-import * as monaco from "monaco-editor/esm/vs/editor/editor.main";
+import * as monaco from "monaco-editor";
 import "monaco-editor/esm/vs/editor/editor.main";
 
 import "core-js/proposals/string-replace-all-stage-4";
@@ -27,7 +27,7 @@ let started = false;
 
 const returnModules = {
   editor: {} as unknown as ReturnType<typeof monaco.editor.create>,
-  monaco,
+  monaco
 };
 
 export const startMonaco = async (
@@ -83,7 +83,7 @@ export const startMonaco = async (
     noEmit: true,
 
     allowNonTsExtensions: true,
-    moduleResolution: monaco.languages.typescript.ModuleResolutionKind.ESNext,
+    moduleResolution: monaco.languages.typescript.ModuleResolutionKind.NodeJs,
     declaration: false,
     module: monaco.languages.typescript.ModuleKind.ESNext,
     noEmitOnError: true,
@@ -126,7 +126,6 @@ export const startMonaco = async (
 
   for (const match of models) {
     const extraModel = match[0].slice(7) + ".tsx";
-    console.log("extramodel");
     monaco.editor.createModel(
       await fetch(extraModel).then((res) => res.text()),
       "typescript",

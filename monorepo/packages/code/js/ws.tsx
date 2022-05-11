@@ -3,10 +3,7 @@
 import type { ICodeSession } from "./session";
 import debounce from "lodash/debounce";
 import uidV4 from "./uidV4.mjs";
-import type * as monaco from "monaco-editor";
-import type {FC} from "react";
 
-import { createJsBlob } from "./starter";
 
 const webRtcArray: (RTCDataChannel & { target: string })[] = [];
 const hostname = window.location.hostname || "spike.land";
@@ -40,18 +37,14 @@ const connections: {
 
 
 
-const session = {
-  // changes: [],
-  url: "",
-  errorText: "",
-};
+
 
 let wsLastHashCode = 0;
 let webRTCLastSeenHashCode = 0;
 let lastSeenTimestamp = 0;
 let lastSeenNow = 0;
 let ws: WebSocket | null = null;
-let sendWS;
+let sendWS: (msg: string) => void;
 let rejoined = false;
 const sendChannel = {
   webRtcArray,
@@ -76,7 +69,7 @@ const sendChannel = {
   }),
 };
 
-globalThis.sendChannel = sendChannel;
+
 // Let createDelta;
 // let applyPatch;
 
@@ -95,18 +88,18 @@ export const mST = () => mySession.json().state;
 
 let intervalHandler: NodeJS.Timer | null = null;
 
-const w = window as unknown as {
-  sess: {
-    editor: typeof monaco.editor;
+// const w = window as unknown as {
+//   sess: {
+//     editor: typeof monaco.editor;
 
-    // eslint-disable-next-line no-unused-vars
-    update: (code: string) => void;
-  };
-};
+//     // eslint-disable-next-line no-unused-vars
+//     update: (code: string) => void;
+//   };
+// };
 
 const chCode = async () => {
 
-  const {code, transpiled, i, css, html} = mST();
+  const {code, transpiled, i} = mST();
   const {prettier} = await import("prettierEsm");
   if (globalThis.model) { const formatted = prettier(globalThis.model.getValue());
 
@@ -149,7 +142,7 @@ async function rejoin() {
   return ws;
 }
 
-const ignoreUsers = [];
+const ignoreUsers: string[] = [];
 
 const bc = new BroadcastChannel("spike.land");
 bc.onmessage = async (event) => {
@@ -293,9 +286,8 @@ export async function join() {
 
   if (location.pathname.endsWith("public") || globalThis.model) return;
   const { quickStart } = await import("./quickStart");
-  quickStart(
-    session,
-  );
+  quickStart( );
+  return wsConnection;
 }
 
 const h: {[key: number]: number} = {};

@@ -1,5 +1,6 @@
 import * as monaco from "monaco-editor";
 import type { FC } from "react";
+import type { ICodeSession } from "session";
 
 declare global {
   // let MonacoEnvironment: monaco.Environment;
@@ -9,5 +10,6 @@ declare global {
   var appFactory: (transpiled: string)=> void;
   var transpiled: string;
   var notify: ()=> void;
+  var startState: ICodeSession
 
 }
