@@ -1,4 +1,4 @@
-import { getAssetFromKV } from '@cloudflare/kv-asset-handler'
+import {  getAssetFromKV } from '@cloudflare/kv-asset-handler'
 import manifestJSON from '__STATIC_CONTENT_MANIFEST'
 const assetManifest = JSON.parse(manifestJSON)
 
@@ -22,10 +22,10 @@ export default {
       const serveJs = !(accept && accept.includes("html"));
 
 
-      if (serveJs && u.pathname.endsWith(".tsx") && !u.pathname.endsWith(".index.tsx")) url = new URL(request.url.replace(".tsx", "/index.tsx"));
-      else if (u.pathname.endsWith(".js") && !u.pathname.endsWith(".index.js")) url = new URL(request.url.replace(".js", "/index.js"));
+      if (serveJs && u.pathname.endsWith(".tsx") && !u.pathname.endsWith(".index.tsx")) url=new URL(request.url.replace(".tsx","/index.tsx"));
+      else if (u.pathname.endsWith(".js") && !u.pathname.endsWith(".index.js")) url=new URL(request.url.replace(".js","/index.js"));
 
-      if (serveJs && !url.pathname.includes(".")) url = new URL(request.url + "/lazy");
+      if (serveJs && !url.pathname.includes(".")) url = new URL(request.url+"/index.js");
 
       const path = url.pathname.slice(1).split("/");
 
@@ -49,13 +49,13 @@ export default {
               "Cache-Control": "no-cache",
             },
           });
-        case "env":
-          return new Response(JSON.stringify({ env, accept }), {
-            headers: {
-              "Content-Type": "text/html;charset=UTF-8",
-              "Cache-Control": "no-cache",
-            },
-          });
+      case "env":
+            return new Response(JSON.stringify({env, accept}), {
+              headers: {
+                "Content-Type": "text/html;charset=UTF-8",
+                "Cache-Control": "no-cache",
+              },
+            });
         case "files.json":
           return new Response(manifestJSON, {
             headers: {
@@ -68,7 +68,7 @@ export default {
           return handleApiRequest(path.slice(1), request, env);
 
         case "live":
-          const newPath = ['room', ...path.slice(1), 'public'];
+          const newPath = [ 'room', ...path.slice(1), 'public'];
           return handleApiRequest(newPath, request, env);
 
         default:
@@ -110,7 +110,7 @@ async function handleApiRequest(
       }
       const name = path[1].replace(".tsx", "");
 
-
+    
       let id;
       if (name.match(/^[0-9a-f]{64}$/)) {
         id = env.CODE.idFromString(name);
@@ -123,7 +123,7 @@ async function handleApiRequest(
       const roomObject = env.CODE.get(id);
       const newUrl = new URL(request.url);
 
-
+   
       newUrl.pathname = "/" + path.slice(2).join("/");
       newUrl.searchParams.append("room", name);
       roomObject.room = name;
@@ -139,5 +139,5 @@ async function getHTMLResp(env: CodeEnv, room: string) {
   const id = env.CODE.idFromName(room);
   const roomObject = env.CODE.get(id);
 
-  return roomObject.fetch("public?room=" + room);
+  return roomObject.fetch("public?room="+room);
 }
