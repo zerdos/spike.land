@@ -1,5 +1,6 @@
-import {  getAssetFromKV } from '@cloudflare/kv-asset-handler'
-import manifestJSON from '__STATIC_CONTENT_MANIFEST'
+import {  getAssetFromKV } from '@cloudflare/kv-asset-handler';
+import manifestJSON from '__STATIC_CONTENT_MANIFEST';
+
 const assetManifest = JSON.parse(manifestJSON)
 
 
@@ -8,7 +9,7 @@ import { handleErrors } from "./handleErrors";
 import { CodeEnv } from "./env";
 
 export default {
-  async fetch(request: Request, env: CodeEnv, ctx) {
+  async fetch(request: Request, env: CodeEnv, ctx: {waitUntil: (pr: Promise<boolean>)=>Promise<boolean>}) {
     return handleErrors(request, async () => {
 
       console.log("handling request");
@@ -127,7 +128,6 @@ async function handleApiRequest(
    
       newUrl.pathname = "/" + path.slice(2).join("/");
       newUrl.searchParams.append("room", name);
-      roomObject.room = name;
       return roomObject.fetch(newUrl.toString(), request);
     }
 

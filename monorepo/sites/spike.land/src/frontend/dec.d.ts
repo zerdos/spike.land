@@ -1,5 +1,6 @@
-declare module "textdiff-patch" {
-  export default (old: string, delta: Object[]) => string as string;
+declare module "*_MANIFEST" {
+  const manifest: {[key: string]: string};
+  export default manifest;
 }
 
 declare module "*.webp" {
