@@ -57,8 +57,78 @@ body {
   window.process = {
     env: {
       "NODE_ENV": "production"
-    }};</script>
+    }};
+
+  function createJsBlob(code) {
+  const file = new File([code], "index.tsx", {
+    type: "application/javascript",
+  });
+  const blobUrl = URL.createObjectURL(file);
+  return blobUrl;
+  // const actualUrl =
+}
+
+
+const runApp = async () => {
+
+
+if (!document.getElementById("root")) {
+  const container = document.createElement("div");
+  container.id = "root";
+  container.style.height="100%";
+  document.body.append(container);
+}
+const root = document.getElementById("root");
+root.innerHTML =
+  `<style>${startState.css}</style><div id="zbody">${startState.html}</div>`;
+
+
+const AppPromise =  import(createJsBlob(window.startState.transpiled));
+globalThis.transpiled = startState.transpiled;
+
+globalThis.App = (await AppPromise).default;
+const {App} = globalThis;
+
+const {render} = await import("react-dom");
+const newRoot = document.createElement("div");
+
+render(App(),newRoot );
+
+if (!newRoot.innerHTML) return;
+
+
+
+
+if (!globalThis.currentTarget){
+  console.log("currentTarget");
+
+  root.replaceWith(newRoot);
+  globalThis.currentTarget =newRoot;
+} else {
+  globalThis.currentTarget.parentNode?.replaceChildren(newRoot);
+  globalThis.currentTarget = newRoot;
+ 
+}
+
+};
+
+    </script>
   <div id="root"></div>
+  <script defer>
+
+runApp();
+ import("https://spike.land/starter.mjs")
+    .then(
+      ({run})=> run()
+      )
+                .catch(()=>{
+                  const s = document.createElement("script");
+                  s.async = "async";
+                  s.type = "application/javascript";
+                  s.src = "https://spike.land/appStarter.js";
+                  document.head.appendChild(s);   
+                });
+  </script>
   <div id="monacoEditor"></div>
   
 

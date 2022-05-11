@@ -83,7 +83,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
   const [width, setWidth] = useState(window.innerWidth * devicePixelRatio);
   const [height, setHeight] = useState(window.innerHeight * devicePixelRatio);
   const ref = useRef<HTMLDivElement>(null);
-  const zbody = useRef<HTMLDivElement>(null);
+  const zbodyRef = useRef<HTMLDivElement>(null);
   // const appRef = useRef<HTMLDivElement>(null);
 
 
@@ -339,12 +339,9 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
                   overflow:overlay;
                   overflow-y: hidden;
                   >div{
-                    width:100%;
-                    height:100%;
-                    overflow-x: overlay;
-                    overflow-y: overlay;;
-                    background: transparent;
-                  }
+                    height: 100%;
+                    background: rgba(128,128,128.0.5);
+                  } 
               `}
           >
             {/* {errorText
@@ -358,8 +355,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
               : ( */}
                 <div
                   id="zbody"
-                  key={session.i}
-                  ref={zbody}
+                  ref={zbodyRef}
                 />
                              {/* )}  */}
               {

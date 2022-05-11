@@ -47,10 +47,10 @@ export const appFactory = async (transpiled: string) => {
 };
 
 const start = async () => {
-  globalThis.notify = renderApp;
-  globalThis.appFactory = appFactory;
+  // globalThis.notify = renderApp;
+  // globalThis.appFactory = appFactory;
 
-  renderApp();
+  // renderApp();
 
   if (location.href.endsWith("hydrated")) return;
 
@@ -90,16 +90,8 @@ export const renderApp = () => {
   }
 };
 
-export const run = async (session: ICodeSession, StarterApp = null) => {
+export const run = async () => {
 
-  const container = document.createElement("div");
-  container.innerHTML =
-    `<style>${session.css}</style><div id="zbody">${session.html}</div>`;
-
-  const AppPromise = StarterApp || import(createJsBlob(session.transpiled));
-  globalThis.transpiled = session.transpiled;
-
-  globalThis.App = (await AppPromise).default;
 
   start();
 };

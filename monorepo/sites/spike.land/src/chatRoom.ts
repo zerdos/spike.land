@@ -235,54 +235,6 @@ export class Code {
             },
           });
         }
-        case "hydrated": {
-          return new Response(
-            HYDRATED.replace(
-              `<div id="root"></div>`,
-              `<div id="root">
-                <style>
-                  ${mST().css}
-                </style>
-                <div id="zbody">
-                    ${mST().html}
-                </div>
-              </div>
-            <script type="importmap">${
-                JSON.stringify(imap)
-              }</script>
-            <script defer type="module">
-              
-
-              window.startState = ${JSON.stringify(mST())};
-              const AppPromise = import("https://spike.land/live/${codeSpace}/js");
-              import("https://spike.land/starter.mjs")
-                .then(
-                   ({run})=> {
-
-                    run(
-                    window.startState, AppPromise
-                    );
-                  }
-                  )
-                .catch(()=>{
-                  const s = document.createElement("script");
-                  s.async = "async";
-                  s.type = "application/javascript";
-                  s.src = "https://spike.land/appStarter.js";
-                  document.head.appendChild(s);   
-                });
-            </script>
-            `),
-            {
-              status: 200,
-              headers: {
-                "Access-Control-Allow-Origin": "*",
-                "Cache-Control": "no-cache",
-                "Content-Type": "text/html; charset=UTF-8",
-              },
-            },
-          );
-        }
         case "env": {
           return new Response(request.url, {
             status: 200,
@@ -308,7 +260,7 @@ export class Code {
             },
           });
         }
-
+        case "hydrated": 
         case "public": {
           const html = HTML.replace(
             `<div id="root"></div>`,
@@ -319,23 +271,9 @@ export class Code {
               <script type="importmap">${
               JSON.stringify(imap)
             }</script>
-            <script defer type="module">
+            <script>
               window.startState = ${JSON.stringify(mST())};
-            
-              const startApp = import("https://spike.land/live/${codeSpace}/js");
-              import("https://spike.land/starter.mjs")
-                .then(
-                  ({run})=> run(
-                    window.startState, startApp
-                    )
-                  )
-                .catch(()=>{
-                  const s = document.createElement("script");
-                  s.async = "async";
-                  s.type = "application/javascript";
-                  s.src = "https://spike.land/appStarter.js";
-                  document.head.appendChild(s);   
-                });
+              window.codeSpace="${codeSpace}";
             </script>
             `);
           return new Response(html, {

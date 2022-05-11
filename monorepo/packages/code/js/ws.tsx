@@ -13,17 +13,9 @@ const path = location.pathname.split("/");
 
 const [, prefix, selector, roomPart] = path;
 
-console.log({ prefix, selector, roomPart });
 
-const roomN = (prefix === "api" && selector === "room")
-  ? roomPart.slice(-12) || "code-main"
-  : prefix === "live" && !!selector
-  ? selector.slice(-12)
-  : "code-main";
 
-export const roomName = roomN.includes(".")
-  ? roomN.slice(roomN.indexOf(".") - 1)
-  : roomN;
+export const roomName = window.codeSpace;
 
 const user = ((self && self.crypto && self.crypto.randomUUID &&
   self.crypto.randomUUID()) || (uidV4())).slice(
