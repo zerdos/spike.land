@@ -201,8 +201,8 @@ export class Code {
               "Content-Type": "application/json; charset=UTF-8",
             },
           });
-        case "mySession":
-          return new Response(JSON.stringify(this.state.mySession.json()), {
+        case "mST":
+          return new Response(JSON.stringify({mST:mST(), hashCode: this.state.mySession.hashCode()}), {
             status: 200,
             headers: {
               "Access-Control-Allow-Origin": "*",

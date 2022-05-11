@@ -161,7 +161,8 @@ export async function saveCode(sess: ICodeSession) {
   bc.postMessage({
     roomName,
     ignoreUser: user,
-    sess: mST()
+    sess: mST(),
+    hashCode: mySession.hashCode()
   });
 
   await chCode();
