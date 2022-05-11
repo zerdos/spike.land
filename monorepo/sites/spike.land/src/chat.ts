@@ -78,11 +78,12 @@ export default {
               waitUntil(promise) {
                 return ctx.waitUntil(promise)
               },
-            },
-            {
-              ASSET_NAMESPACE: env.__STATIC_CONTENT,
-              ASSET_MANIFEST: assetManifest
-            },
+            }
+            // },
+            // {
+            //   ASSET_NAMESPACE: env.__STATIC_CONTENT,
+            //   ASSET_MANIFEST: assetManifest
+            // },
           )
       }
     });
