@@ -23,7 +23,7 @@ export default {
 
 
       if (serveJs && u.pathname.endsWith(".tsx") && !u.pathname.endsWith(".index.tsx")) url=new URL(request.url.replace(".tsx","/index.tsx"));
-      else if (u.pathname.endsWith(".js") && !u.pathname.endsWith(".index.js")) url=new URL(request.url.replace(".js","/index.js"));
+      else if (u.pathname.endsWith(".js") && !u.pathname.endsWith(".index.js")) url=new URL(request.url.replace(".js","/lazy"));
 
       if (serveJs && !url.pathname.includes(".")) url = new URL(request.url+"/index.js");
 

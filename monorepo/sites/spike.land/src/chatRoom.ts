@@ -1,6 +1,5 @@
 import { handleErrors } from "./handleErrors";
 import { RateLimiterClient } from "./rateLimiterClient";
-import LAZY from "./lazy.html";
 import HTML from "./index.html";
 import RCA from "./rca.tsx.html";
 import HYDRATED from "./hydrated.html";
@@ -172,16 +171,11 @@ export class Code {
           const hash = this.state.mySession.hashCode();
 
           return new Response(
-            LAZY.replace(
-              "{...o}",
-              JSON.stringify({
-                name: this.state.mySession.room,
-                transpiled,
-                html:
-                  `<div id="root"><style>${css}</style><div id="zbody">${html}</div></div>`,
-                hash,
-              }),
-            ),
+
+           `import { jsx as jsX } from "@emotion/react";
+           import {LoadRoom} from "https://spike.land/live/lazy/js";
+           export default ()=>jsX(LoadRoom, { room:"${codeSpace}"}) ;
+           `,
             {
               status: 200,
               headers: {

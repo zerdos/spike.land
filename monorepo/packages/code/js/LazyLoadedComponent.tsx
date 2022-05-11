@@ -19,10 +19,11 @@ export const LazySpikeLandComponent: FC<ILaztCom> = (
   useEffect(() => {
     const intervalHandler = setInterval(async () => {
       const resp = await fetch(
-        `https://spike.land/live/${name}/hashCodeSession`,
+        `https://spike.land/live/${name}/mS`,
       );
       const text = await resp.text();
       setHash(Number(text));
+
     }, 69_000);
     return () => {
       console.log("INTERVAL CLEARED");
