@@ -341,8 +341,9 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
                   >div{
                     width:100%;
                     height:100%;
-                    overflow: overlay;
-                    background: white;
+                    overflow-x: overlay;
+                    overflow-y: overlay;;
+                    background: transparent;
                   }
               `}
           >
@@ -359,9 +360,6 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
                   id="zbody"
                   key={session.i}
                   ref={zbody}
-                  css={css`
-                        height: 100%;
-                      `}
                 />
                              {/* )}  */}
               {
