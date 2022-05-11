@@ -38,7 +38,11 @@ export const getHtmlAndCss = (MyComponent: FC) => {
   target);
 
   const markup = target.innerHTML;
-  target.remove();
+  if (markup) {
+    globalThis.currentTarget = target;
+    globalThis.App = MyComponent;
+    globalThis.notify()
+  }
 
   return {
     html: markup,

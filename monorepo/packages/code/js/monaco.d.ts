@@ -12,5 +12,5 @@ declare global {
   var notify: ()=> void;
   var startState: ICodeSession
   var polyfilling: ()=>void
-
+  var currentTarget: HTMLDivElement;
 }

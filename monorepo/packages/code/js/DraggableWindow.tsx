@@ -84,14 +84,18 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
   const [height, setHeight] = useState(window.innerHeight * devicePixelRatio);
   const ref = useRef<HTMLDivElement>(null);
   const zbody = useRef<HTMLDivElement>(null);
+  const appRef = useRef<HTMLDivElement>(null);
+
+
 
   const [forcedIndie, setForcedIndie] = useState(0);
 
   const App = childArray[childArray.length - 1 - forcedIndie];
 
   globalThis.notify = () =>
-    childArray[length - 1] !== globalThis.App &&
-    setChild((x) => [...x, globalThis.App]);
+    appRef.current = globalThis.currentTarget;
+  //  childArray[length - 1] !== globalThis.App &&
+//    setChild((x) => [...x, globalThis.App]);
 
   // UseEffect(() => {
   // window.addEventListener("resize", () => changeHeight(window.innerHeight));
@@ -361,7 +365,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
                         height: 100%;
                       `}
                 >
-                      <CacheProvider value={cache}>
+      <CacheProvider ref={appRef} value={cache}>
       <App/>
     </CacheProvider>,
                 </div>
