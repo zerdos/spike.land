@@ -22,6 +22,7 @@ const QR: FC<{ url: string }> = ({ url }) => {
         background: "#1e1e1e",
         value: url,
       };
+      console.log({options});
       //@ts-ignore
       new QRious(options);
     };
@@ -55,11 +56,8 @@ export const QRButton: FC<{ url: string }> = ({ url }) => {
                 margin-bottom: 12px;
               `}
     >
-      {showQR ? <QR key={url} url={url + "/edit/"} /> : (
+      {showQR ? <QR key={url||"spike.land"} url={(url || "https://spike.land") + "/edit/"} /> : (
         <Fab
-          onClick={() => {
-            setQR(!showQR);
-          }}
         >
           <QrCode />
         </Fab>
