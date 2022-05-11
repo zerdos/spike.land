@@ -99,9 +99,6 @@ const build = (entryPoints) =>
     treeShaking: true,
     ignoreAnnotations: true,
 
-
-
-    
     splitting: true,
 
 

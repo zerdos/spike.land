@@ -15,4 +15,3 @@ declare global {
 
 }
 
-declare module "textdiff-patch";
