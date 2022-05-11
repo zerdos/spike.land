@@ -6,6 +6,7 @@
     "react": "https://spike.land/react.mjs",
     "react/jsx-runtime": "https://spike.land/react.mjs",
     "react-dom": "https://spike.land/react.mjs",
+    "preact": "https://spike.land/react.mjs",
     "react-dom/server": "https://spike.land/react.mjs",
     "framer-motion": "https://spike.land/framer-motion.mjs"
   },

@@ -3,7 +3,7 @@
 import { CacheProvider } from "@emotion/react";
 import createCache from "@emotion/cache";
 import type { FC } from "react";
-import { renderToString } from "react-dom/server";
+import { render } from "react-dom";
 
 import { appFactory, createJsBlob } from "./starter";
 
@@ -29,11 +29,16 @@ export const getHtmlAndCss = (MyComponent: FC) => {
     cssText += rule;
   };
 
-  const markup = renderToString(
+  const target = document.createElement("div");
+
+   render(
     <CacheProvider value={cache}>
       <MyComponent />
     </CacheProvider>,
-  );
+  target);
+
+  const markup = target.innerHTML;
+  target.remove();
 
   return {
     html: markup,

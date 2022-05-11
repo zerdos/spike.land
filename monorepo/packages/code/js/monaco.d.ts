@@ -1,5 +1,5 @@
 import * as monaco from "monaco-editor";
-import type { FC } from "react";
+import type { FC, ReactNode } from "react";
 import type { ICodeSession } from "session";
 
 declare global {
@@ -14,4 +14,3 @@ declare global {
   var polyfilling: ()=>void
 
 }
-

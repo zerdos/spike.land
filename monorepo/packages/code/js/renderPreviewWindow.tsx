@@ -21,10 +21,10 @@ export const renderPreviewWindow = async (
 
   render(
     <DraggableWindow
-      onRestore={() => {
-        const model = globalThis.model;
-        model.setValue(mST().code);
-      }}
+      // onRestore={() => {
+      //   const model = globalThis.model;
+      //   model.setValue(mST().code);
+      // }}
       room={roomName}
       session={mST()}
       hashCode={mySession.hashCode()}

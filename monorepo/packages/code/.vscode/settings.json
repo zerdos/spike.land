@@ -9,6 +9,7 @@
     "esbuild",
     "ipfs",
     "js",
+    "jsximportsource",
     "mhash",
     "multihash",
     "nocheck",

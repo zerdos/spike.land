@@ -1,5 +1,6 @@
 // import { Workbox } from "workbox-window";
 import "es-module-shims";
+import type { ICodeSession } from "session";
 
 import imap from "./importmap.json";
 
@@ -54,6 +55,6 @@ document.body.appendChild(Object.assign(document.createElement("script"), {
 
 const { importShim, startState } = self;
 
-importShim<null, { run: () => void }>(
+importShim<null, { run: (startState: ICodeSession) => void }>(
   "./starter.mjs",
 ).then(({ run }) => run(startState));

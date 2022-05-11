@@ -1,15 +1,13 @@
 // export type { Children } from "preact/compat";
-
+import type React from "react"
 import * as react from "preact/compat";
 
 import { Fragment, jsx, jsxs } from "preact/jsx-runtime";
 import { createPortal, hydrate, render } from "preact/compat";
-import renderToString from "preact-render-to-string";
 export { render };
 
 export { createPortal };
 export { hydrate };
-export { renderToString };
 // export const createRoot = (container) => ({
 //   render: (App) => render(App, container),
 // });
@@ -41,7 +39,7 @@ export const { isValidElement } = react;
 export const { memo } = react;
 export const { useImperativeHandle } = react;
 export const { Children } = react;
-
+export const { StrictMode } = react;
 export const { lazy } = react;
 export const { useMemo } = react;
 
@@ -49,4 +47,5 @@ export const { cloneElement } = react;
 
 export default react;
 
-window.React = { ...react, StrictMode: Fragment };
+window.React = react as unknown as typeof React;
+ 

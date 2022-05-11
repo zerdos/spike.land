@@ -25,7 +25,7 @@ await generator.install("react");
 // await generator.install("monaco-editor");
 // await generator.install("tslib");
 
-// await generator.install("preact-render-to-string");
+
 // await generator.install("@babel/core");
 // await generator.install("@babel/preset-react");
 // await generator.install("@babel/preset-typescript");
@@ -84,6 +84,8 @@ importMap.imports["react"] = isDev ?
 importMap.imports["react/jsx-runtime"] = importMap.imports["react"];
 importMap.imports["react-dom"] = importMap.imports["react"];
 
+importMap.imports["preact"] = importMap.imports["react"];
+
 importMap.imports["react-dom"] = importMap.imports["react"];
 importMap.imports["react-dom/server"] = importMap.imports["react"];
 
@@ -117,8 +119,6 @@ importMap.imports["@emotion/react"] = isDev
 importMap.imports = {
   ...importMap.imports,
   // "preact": "https://unpkg.com/preact@10.6.6/public/preact.mjs",
-  // "preact-render-to-string":
-    // "https://unpkg.com/preact-render-to-string@5.1.19/public/index.mjs",
   // "preact/compat": "https://unpkg.com/preact@10.6.6/compat/public/compat.mjs",
   // "preact/hooks": "https://unpkg.com/preact@10.6.6/hooks/public/hooks.mjs",
 };

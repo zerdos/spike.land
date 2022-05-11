@@ -17,7 +17,6 @@ import { Box, Slider } from "./mui";
 // import { LazySpikeLandComponent } from "./LazyLoadedComponent";
 
 import {
-  Button as muiButton,
   Fab,
   FullscreenIcon,
   Phone,
@@ -29,7 +28,6 @@ import {
 } from "./mui";
 
 import type {
-  Button as MuiButton,
   ToggleButton as MuiToggleButton,
   ToggleButtonGroup as MuiToggleButtonGroup,
 } from "./mui";
@@ -38,7 +36,7 @@ import { ICodeSession } from "session";
 const key = "css";
 const cache = createCache({ key });
 
-const Button = muiButton as typeof MuiButton;
+// const Button = muiButton as typeof MuiButton;
 const ToggleButtonGroup = muiToggleButtonGroup as typeof MuiToggleButtonGroup;
 const ToggleButton = muiToggleButton as typeof MuiToggleButton;
 const breakPoints = [680, 768, 1920];
@@ -51,7 +49,7 @@ const bg = `rgba(${Math.random() * 128 + 64}, ${Math.random() * 128 + 64}, ${
 }, ${!navigator.userAgent.includes("Firefox") ? 0.3 : 0.7})`;
 
 interface DraggableWindowProps {
-  onRestore: (() => void);
+  // onRestore: (() => void);
   hashCode: number;
   session: ICodeSession;
   position?: string;
@@ -60,12 +58,12 @@ interface DraggableWindowProps {
 
 export const DraggableWindow: FC<DraggableWindowProps> = (
   {
-    onRestore,
+    // onRestore,
     session,
     room,
   },
 ) => {
-  const [isStable, setIsStable] = useState(false);
+  // const [isStable, setIsStable] = useState(false);
   const [scaleRange, changeScaleRange] = useState(100);
   // Const [height, changeHeight] = useState(innerHeight);
   const [childArray, setChild] = useState([globalThis.App]);
@@ -79,7 +77,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
 
   const startPositions = { bottom: 0, right: 0 };
 
-  const [errorText, setErrorText] = useState("");
+  // const [errorText, setErrorText] = useState("");
 
   const [{ bottom, right }, setPositions] = useState(startPositions);
   const [width, setWidth] = useState(window.innerWidth * devicePixelRatio);
@@ -284,7 +282,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
                 /* background-color: red; */
             `}
         >
-          {errorText && errorText.trim() !== "" && (
+          {/* {errorText && errorText.trim() !== "" && (
             <pre
               css={css`
                     position: absolute;
@@ -299,10 +297,10 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
                     font-family: monospace;
                     white-space: pre-wrap;
                 `}
-            >
-              {isStable && errorText && errorText.trim()}
-              {isStable && errorText && errorText.trim() !== "" &&
-                (
+            > */}
+              {/* {isStable && errorText && errorText.trim()} */}
+              {/* {isStable && errorText && errorText.trim() !== "" && */}
+                {/* (
                   <div
                     css={css`
                           text-align: right;
@@ -317,9 +315,9 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
                       <span>Restore</span>
                     </Button>
                   </div>
-                )}
-            </pre>
-          )}
+                )} */}
+            {/* </pre> */}
+          {/* )} */}
 
           <motion.div
             initial={{
@@ -346,7 +344,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
                   }
               `}
           >
-            {errorText
+            {/* {errorText
               ? (
                 <div
                   id="zbody"
@@ -354,7 +352,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
                   dangerouslySetInnerHTML={createMarkup(session.html)}
                 />
               )
-              : (
+              : ( */}
                 <div
                   id="zbody"
                   key={session.i}
@@ -367,7 +365,8 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
       <App/>
     </CacheProvider>,
                 </div>
-              )} {
+              {/* )}  */}
+              {
               /*  </div>
                    // {/* </div>
                     <iframe
@@ -523,9 +522,9 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
   );
 };
 
-function createMarkup(__html: string) {
-  return { __html };
-}
+// function createMarkup(__html: string) {
+//   return { __html };
+// }
 
 // function resizeIframe(obj) {
 //   obj.style.height = obj.contentWindow.document.documentElement.scrollHeight +
