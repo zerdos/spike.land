@@ -1,6 +1,6 @@
 {
   "name": "@spike.land/code",
-  "version": "0.7.748",
+  "version": "0.7.749",
   "description": "spike.land",
   "type": "module",
   "main": "./js/starter.ts",
@@ -89,6 +89,7 @@
     "esbuild-plugin-import-map": "2.1.0",
     "esbuild-plugin-jsximportsource": "^0.0.4",
     "esbuild-wasm": "0.14.38",
+    "fast-diff": "1.2.0",
     "framer-motion": "6.3.3",
     "hoist-non-react-statics": "^3.3.2",
     "immutable": "^4.0.0",
@@ -101,7 +102,6 @@
     "preact-render-to-string": "^5.2.0",
     "prettier": "^2.6.2",
     "regenerator-runtime": "0.13.9",
-    "fast-diff": "1.2.0",
     "workbox-cacheable-response": "6.5.3",
     "workbox-cli": "6.5.3",
     "workbox-precaching": "6.5.3",
