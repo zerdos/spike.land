@@ -2,8 +2,7 @@
 
 import { Record } from "immutable";
 
-import createDelta from "textdiff-create";
-import applyPatch from "textdiff-patch";
+import {createDelta, applyPatch} from "./textDiff";
 // Import * as Immutable from "immutable"
 
 type IUsername = string;

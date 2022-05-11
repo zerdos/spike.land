@@ -11,5 +11,8 @@ declare global {
   var transpiled: string;
   var notify: ()=> void;
   var startState: ICodeSession
+  var polyfilling: ()=>void
 
 }
+
+declare module "textdiff-patch";

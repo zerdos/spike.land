@@ -5,9 +5,8 @@ import { css } from "@emotion/react";
 import { CacheProvider } from "@emotion/react";
 import createCache from "@emotion/cache";
 
-import { ReactNode, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { FC } from "react";
-import type { IRunnerSession } from "./quickStart";
 
 import { motion } from "framer-motion";
 // import { motion } from "./lazyMotion";
@@ -100,26 +99,26 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
   // window.addEventListener("resize", () => changeHeight(window.innerHeight));
   // });
 
-  useEffect(() => {
-    const handler = setInterval(async () => {
-      if (errorText !== session.errorText) {
-        const newError = session.errorText;
-        setErrorText(newError);
-        setIsStable(false);
-        // await wait(1500);
-        if (session.errorText === newError) {
-          setIsStable(true);
-        }
-      }
+  // useEffect(() => {
+  //   const handler = setInterval(async () => {
+  //     if (errorText !== session.errorText) {
+  //       const newError = session.errorText;
+  //       setErrorText(newError);
+  //       setIsStable(false);
+  //       // await wait(1500);
+  //       if (session.errorText === newError) {
+  //         setIsStable(true);
+  //       }
+  //     }
 
       
-      // SetChild(session.children);
-    }, 200);
+  //     // SetChild(session.children);
+  //   }, 200);
 
-    return () => {
-      clearInterval(handler);
-    };
-  }, [setErrorText, errorText]);
+  //   return () => {
+  //     clearInterval(handler);
+  //   };
+  // }, [setErrorText, errorText]);
 
   const scale = scaleRange / 100;
   const [isFullScreen, setFullScreen] = useState(true);

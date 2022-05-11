@@ -7,9 +7,9 @@ import imap from "./importmap.json";
 window.polyfilling = () => console.log("The polyfill is actively applying");
 
 self.esmsInitOptions = {
-  shimMode: false,
-  "onpolyfill": "polyfilling",
+  // shimMode: false,
 
+  shimMode: false,
   revokeBlobURLs: true,
   fetch: fetch,
   resolve: (id, parentUrl) => {

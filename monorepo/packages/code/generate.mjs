@@ -75,11 +75,7 @@ await generator.install("@emotion/cache");
 
 const importMap = { ...generator.getMap() };
 
-// importMap.imports["textdiff-create"] =
-//   `https://unpkg.com/@spike.land/esm@${version}/public/textdiff-create.mjs`;
 
-// importMap.imports["textdiff-patch"] =
-//  `https://unpkg.com/@spike.land/esm@${version}/public/textdiff-patch.mjs`;
 importMap.imports["react"] = isDev ? 
 "https://localhost:8000/monorepo/packages/code/js/public/react.mjs"
   : "https://spike.land/react.mjs";

@@ -1,10 +1,7 @@
-declare module "textdiff-create" {
-  const create: (str1: string, str2: string) => ({ str1: string, str2: string });
-  const createDelta: typeof create;
-  export default createDelta;
-}
+import type {ReactNode} from "react"
 
-declare module "textdiff-patch" {
-  const applyPatch : (str: string, obj: JSON) => string
-  export default applyPatch;
+
+declare module "https://spike.land/live/code-main/js" {
+  const returnFn: ()=> ReactNode
+  export default returnFn;
 }
