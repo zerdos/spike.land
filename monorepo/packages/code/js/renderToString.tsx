@@ -13,6 +13,8 @@ export const renderFromString = async (transpiled: string) => {
 
   const { html, css } = getHtmlAndCss(App);
 
+  await appFactory(transpiled);
+
   return {
     html,
     css,
@@ -38,14 +40,7 @@ export const getHtmlAndCss = (MyComponent: FC) => {
   target);
 
   const markup = target.innerHTML;
-  if (markup) {
-    console.log("replace with");
-    globalThis.currentTarget.parentNode?.replaceChildren(target);
-    globalThis.currentTarget = target;
-    globalThis.App = MyComponent;
-    // globalThis.notify()
-  }
-
+  
   return {
     html: markup,
     css: cssText,

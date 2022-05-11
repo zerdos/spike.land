@@ -48,10 +48,10 @@ export const appFactory = async (transpiled: string) => {
 
 const start = async () => {
   // globalThis.notify = renderApp;
-  globalThis. appFactory = appFactory;
+  globalThis.appFactory = appFactory;
 
   // renderApp();
-
+  
   if (location.href.endsWith("hydrated")) return;
 
   const { join } = await import("./ws");
