@@ -4,8 +4,10 @@ import "core-js/modules/web.immediate";
 
 import { CacheProvider } from "@emotion/react";
 import createCache from "@emotion/cache";
+import type {FC} from "react";
 
 import { render } from "react-dom";
+import { ICodeSession } from "session";
 
 // if ("serviceWorker" in navigator) {
 //   const wb = new Workbox("/sw.js");
@@ -19,15 +21,16 @@ const hash = new Sha256();
 
 const apps: {[key: string]: FC} = {};
 
-export const appFactory = async (transpiled) => {
+export const appFactory = async (transpiled: string) => {
   if (globalThis.transpiled === transpiled) return;
   globalThis.transpiled = transpiled;
 
   console.log("APP factory");
 
   hash.update(transpiled);
-  const result = await hash.digest();
+  const resultU8Arr = await hash.digest();
 
+  const result = new TextDecoder().decode(resultU8Arr);
   if (globalThis.App === apps[result]) return;
 
   globalThis.App = apps[result] ||
@@ -71,8 +74,7 @@ export const renderApp = () => {
   container.id = "root";
 };
 
-export const run = async (session, StarterApp = null) => {
-  if (globalThis.App) return;
+export const run = async (session: ICodeSession, StarterApp = null) => {
 
   const container = document.getElementById("root")!;
   container.innerHTML =

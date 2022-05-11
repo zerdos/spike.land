@@ -34,6 +34,7 @@ import type {
   ToggleButton as MuiToggleButton,
   ToggleButtonGroup as MuiToggleButtonGroup,
 } from "./mui";
+import { ICodeSession } from "session";
 
 const key = "css";
 const cache = createCache({ key });
@@ -51,17 +52,15 @@ const bg = `rgba(${Math.random() * 128 + 64}, ${Math.random() * 128 + 64}, ${
 }, ${!navigator.userAgent.includes("Firefox") ? 0.3 : 0.7})`;
 
 interface DraggableWindowProps {
-  onShare: () => void;
   onRestore: (() => void);
   hashCode: number;
-  session: IRunnerSession;
+  session: ICodeSession;
   position?: string;
   room: string;
 }
 
 export const DraggableWindow: FC<DraggableWindowProps> = (
   {
-    onShare,
     onRestore,
     session,
     room,
@@ -81,7 +80,6 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
 
   const startPositions = { bottom: 0, right: 0 };
 
-  const [qrUrl, setQRUrl] = useState(session.url);
   const [errorText, setErrorText] = useState("");
 
   const [{ bottom, right }, setPositions] = useState(startPositions);
@@ -114,16 +112,14 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
         }
       }
 
-      if (qrUrl !== session.url) {
-        setQRUrl(session.url);
-      }
+      
       // SetChild(session.children);
     }, 200);
 
     return () => {
       clearInterval(handler);
     };
-  }, [setErrorText, setQRUrl, errorText, qrUrl]);
+  }, [setErrorText, errorText]);
 
   const scale = scaleRange / 100;
   const [isFullScreen, setFullScreen] = useState(true);
@@ -368,7 +364,9 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
                         height: 100%;
                       `}
                 >
-                  <App></App>
+                      <CacheProvider value={cache}>
+      <App/>
+    </CacheProvider>,
                 </div>
               )} {
               /*  </div>
@@ -459,13 +457,12 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
           <FullscreenIcon key="fs" />
         </Fab>
 
-        <QRButton url={qrUrl} key="QRButton" />
+        <QRButton url={`https://spike.land/live/${room}/public`} key="QRButton" />
 
         <Fab
           key="Share"
-          onClick={() => {
-            onShare();
-          }}
+          onClick={() => open(`https://spike.land/live/${room}/public`)
+}
         >
           <Share />
         </Fab>

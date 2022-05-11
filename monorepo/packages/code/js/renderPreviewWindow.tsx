@@ -5,7 +5,6 @@ import path from "path-browserify";
 import { render } from "react-dom";
 import { IRunnerSession } from "./quickStart";
 
-import { hashCode } from "./session";
 import { mST, mySession, roomName } from "./ws";
 import { DraggableWindow } from "./DraggableWindow";
 
@@ -22,19 +21,19 @@ export const renderPreviewWindow = async (
 
   render(
     <DraggableWindow
-      onShare={() => open(`https://spike.land/live/${roomName}/public`)}
       onRestore={() => {
         const model = globalThis.model;
         model.setValue(mST().code);
       }}
       room={roomName}
-      session={session}
+      session={mST()}
       hashCode={mySession.hashCode()}
-    >
-    </DraggableWindow>,
+    />,
     target,
   );
-  document.getElementById("root").remove();
+  const oldRoot = document.getElementById("root");
+  if (oldRoot) oldRoot.replaceWith(target);
+  else
   document.body.appendChild(target);
   if (editor) {
     editor.style.opacity = "1";

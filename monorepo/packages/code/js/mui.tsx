@@ -90,7 +90,7 @@ const Tv = createSvgIcon(
   "Tv",
 );
 
-const MyFsb: FC<{ onClick: () => void; children: JSX.Element }> = (
+const MyFsb: FC<{ onClick?: () => void; children: JSX.Element }> = (
   { onClick, children },
 ) => (
   <Fab

@@ -53,10 +53,11 @@ export const QRButton: FC<{ url: string }> = ({ url }) => {
         setQR(!showQR);
       }}
       css={css`
-                margin-bottom: 12px;
+          margin-top: 12px;
+          margin-bottom: 12px;
               `}
     >
-      {showQR ? <QR key={url||"spike.land"} url={(url || "https://spike.land") + "/edit/"} /> : (
+      {showQR ? <QR key={url||"http://spike.land"} url={(url || "https://spike.land/live/coder/public") } /> : (
         <Fab
         >
           <QrCode />
