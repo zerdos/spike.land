@@ -264,11 +264,7 @@ export class Code {
         case "public": {
           const html = HTML.replace(
             `<div id="root"></div>`,
-            `<div id="root">
-              <style>${mST().css}</style>
-                <div id="zbody">${mST().html}</div>
-              </div>
-              <script type="importmap">${
+            ` <script type="importmap">${
               JSON.stringify(imap)
             }</script>
             <script>
