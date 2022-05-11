@@ -91,6 +91,7 @@ const {App} = globalThis;
 
 const {render} = await import("react-dom");
 const newRoot = document.createElement("div");
+newRoot.style.height="100%";
 
 render(App(),newRoot );
 
