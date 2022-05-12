@@ -78,7 +78,7 @@
     "@emotion/utils": "^1.1.0",
     "@mui/material": "^5.7.0",
     "@spike.land/qrious": "^0.7.769",
-    "@types/prettier": "^2.6.0",
+    "@types/prettier": "^2.6.1",
     "@types/react": "18.0.9",
     "@types/react-dom": "^18.0.3",
     "async-mutex": "0.3.2",

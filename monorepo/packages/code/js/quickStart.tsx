@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import type { Dispatch,  ReactNode, SetStateAction } from "react";
+import type { Dispatch, ReactNode, SetStateAction } from "react";
 import { renderFromString } from "./renderToString";
 import { mST, roomName, saveCode } from "./ws";
 import throttle from "lodash/throttle";
@@ -141,8 +141,7 @@ async function runner(
   }
 }
 
-export async function quickStart(
-) {
+export async function quickStart() {
   const { renderPreviewWindow } = await import(
     "./renderPreviewWindow"
   );

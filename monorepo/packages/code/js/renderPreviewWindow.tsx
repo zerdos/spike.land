@@ -4,13 +4,10 @@ import bg from "./assets/synthwave.webp";
 import path from "path-browserify";
 import { render } from "react-dom";
 
-
 import { mST, mySession, roomName } from "./ws";
 import { DraggableWindow } from "./DraggableWindow";
 
-export const renderPreviewWindow = async (
- 
-) => {
+export const renderPreviewWindow = async () => {
   console.log("renderPreviewWindow");
 
   const target = document.createElement("div");

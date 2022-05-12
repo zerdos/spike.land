@@ -7,10 +7,10 @@ declare global {
   var editor: ReturnType<typeof monaco.editor.create>;
   var model: monaco.editor.IModel;
   var App: FC;
-  var appFactory: (transpiled: string)=> void;
+  var appFactory: (transpiled: string) => void;
   var transpiled: string;
-  var notify: ()=> void;
-  var startState: ICodeSession
-  var polyfilling: ()=>void
+  var notify: () => void;
+  var startState: ICodeSession;
+  var polyfilling: () => void;
   var currentTarget: HTMLDivElement;
 }

@@ -4,16 +4,12 @@ import type { ICodeSession } from "./session";
 import debounce from "lodash/debounce";
 import uidV4 from "./uidV4.mjs";
 
-
 const webRtcArray: (RTCDataChannel & { target: string })[] = [];
 const hostname = window.location.hostname || "spike.land";
-
 
 const path = location.pathname.split("/");
 
 const [, prefix, selector, roomPart] = path;
-
-
 
 export const roomName = window.codeSpace;
 
@@ -26,10 +22,6 @@ const user = ((self && self.crypto && self.crypto.randomUUID &&
 const connections: {
   [target: string]: RTCPeerConnection;
 } = {}; // To st/ RTCPeerConnection
-
-
-
-
 
 let wsLastHashCode = 0;
 let webRTCLastSeenHashCode = 0;
@@ -61,7 +53,6 @@ const sendChannel = {
   }),
 };
 
-
 // Let createDelta;
 // let applyPatch;
 
@@ -90,34 +81,26 @@ let intervalHandler: NodeJS.Timer | null = null;
 // };
 
 const chCode = async () => {
+  const { code, transpiled, i } = mST();
+  const { prettier } = await import("prettierEsm");
+  if (globalThis.model) {
+    const formatted = prettier(globalThis.model.getValue());
 
-  const {code, transpiled, i} = mST();
-  const {prettier} = await import("prettierEsm");
-  if (globalThis.model) { const formatted = prettier(globalThis.model.getValue());
-
-  if (code === formatted) return;
-}
+    if (code === formatted) return;
+  }
   if (globalThis.transpiled === transpiled) return;
 
-
   try {
-
-    if ( globalThis.transpiled === transpiled) return;
+    if (globalThis.transpiled === transpiled) return;
 
     await globalThis.appFactory(transpiled);
-   
 
-   
-   
-   
     if (globalThis.model) {
       console.log("MODEL SET FROM REMOTE.... SORRY");
-      setTimeout(() => mST().i===i && globalThis.model.setValue(code)
-      , 200);
-      
+      setTimeout(() => mST().i === i && globalThis.model.setValue(code), 200);
+
       return;
     }
-
   } catch (error) {
     console.error({ e: error });
   }
@@ -140,7 +123,10 @@ const bc = new BroadcastChannel("spike.land");
 bc.onmessage = async (event) => {
   console.log({ event });
 
-  if (event.data.ignoreUser) !ignoreUsers.includes(event.data.ignoreUser) && ignoreUsers.push(event.data.ignoreUser);
+  if (event.data.ignoreUser) {
+    !ignoreUsers.includes(event.data.ignoreUser) &&
+      ignoreUsers.push(event.data.ignoreUser);
+  }
 
   if (event.data.roomName === roomName && event.data.sess.code !== mST().code) {
     const messageData = mySession.createPatch(event.data.sess);
@@ -151,18 +137,17 @@ bc.onmessage = async (event) => {
 
 const sendRTC = debounce(sendChannel.send, 100);
 
-
 export async function saveCode(sess: ICodeSession) {
   if (sess.i <= mST().i) return;
 
   const messageData = mySession.createPatch(sess);
   await mySession.applyPatch(messageData);
-  
+
   bc.postMessage({
     roomName,
     ignoreUser: user,
     sess: mST(),
-    hashCode: mySession.hashCode()
+    hashCode: mySession.hashCode(),
   });
 
   await chCode();
@@ -216,20 +201,17 @@ export async function join() {
   );
   rejoined = false;
 
-
-
   wsConnection.addEventListener("open", () => {
     console.log("NEW WS CONNECTION");
     ws = wsConnection;
-    const mess = (data: string)=>{
-      try{
-      ws && ws.send && ws.send(data);
-      }
-      catch(e){
-        ws=null;
+    const mess = (data: string) => {
+      try {
+        ws && ws.send && ws.send(data);
+      } catch (e) {
+        ws = null;
         rejoin();
       }
-    }
+    };
     sendWS = debounce(mess, 500);
     ws.addEventListener(
       "message",
@@ -279,11 +261,11 @@ export async function join() {
 
   if (location.pathname.endsWith("public") || globalThis.model) return;
   const { quickStart } = await import("./quickStart");
-  quickStart( );
+  quickStart();
   return wsConnection;
 }
 
-const h: {[key: number]: number} = {};
+const h: { [key: number]: number } = {};
 
 async function processWsMessage(
   event: { data: string },
@@ -291,14 +273,12 @@ async function processWsMessage(
 ) {
   if (ws == null) return;
 
-
   lastSeenNow = Date.now();
 
   const data = JSON.parse(event.data);
 
   console.log("ws", data.name, data.oldHash, data.newHash);
 
-  
   // MySession.addEvent(data);
 
   if (source === "ws" && data.timestamp) {
@@ -587,7 +567,7 @@ async function processWsMessage(
   }
 
   async function handleChatAnswerMessage(
-    message: { sdp: RTCSessionDescriptionInit},
+    message: { sdp: RTCSessionDescriptionInit },
     target: string,
   ) {
     log("*** Call recipient has accepted our call");

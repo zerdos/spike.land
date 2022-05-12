@@ -27,7 +27,7 @@ let started = false;
 
 const returnModules = {
   editor: {} as unknown as ReturnType<typeof monaco.editor.create>,
-  monaco
+  monaco,
 };
 
 export const startMonaco = async (

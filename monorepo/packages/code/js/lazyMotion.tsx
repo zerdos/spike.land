@@ -15,7 +15,9 @@ const moduleCache: {
   motion: null,
 };
 
-export const motion: FC<MotionProps & {children: ReactNode}> = ({ children, ...props }) => {
+export const motion: FC<MotionProps & { children: ReactNode }> = (
+  { children, ...props },
+) => {
   const [m, setMotionDiv] = useState<typeof motionT | { div: null }>({
     div: null,
   });

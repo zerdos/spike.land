@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 
-import { lazy, Suspense, useEffect, useState } from 'react';
-import type { FC, ReactNode } from 'react';
+import { lazy, Suspense, useEffect, useState } from "react";
+import type { FC, ReactNode } from "react";
 
 interface ILaztCom {
   name: string;
@@ -10,7 +10,7 @@ interface ILaztCom {
   transpiled: string;
   hash: number;
   children: React.ReactNode;
-  
+
   startApp: FC<{ children: React.ReactNode }>;
 }
 
@@ -26,8 +26,14 @@ export const LazySpikeLandComponent: FC<ILaztCom> = ({
   const LazyComponentInit = (transpiled: string) =>
     lazy(async () => import(createJsBlob(transpiled)));
 
-  const st = (hashCode: number, html: string, css: string, transpiled: string) => ({
-    htmlContent: `<div><style>${css}</style><div id="zbody">${html}</div></div>`,
+  const st = (
+    hashCode: number,
+    html: string,
+    css: string,
+    transpiled: string,
+  ) => ({
+    htmlContent:
+      `<div><style>${css}</style><div id="zbody">${html}</div></div>`,
     hashCode,
     transpiled,
   });
@@ -39,12 +45,15 @@ export const LazySpikeLandComponent: FC<ILaztCom> = ({
   );
 
   useEffect(() => {
-    const bc = new BroadcastChannel('spike.land');
+    const bc = new BroadcastChannel("spike.land");
 
     bc.onmessage = async (event) => {
       console.log({ event });
 
-      if (event.data.roomName === name && event.data.sess.transpiled !== transpiled) {
+      if (
+        event.data.roomName === name &&
+        event.data.sess.transpiled !== transpiled
+      ) {
         const { transpiled, css, html } = event.data.sess;
         const hashCode = event.data;
 
@@ -65,12 +74,14 @@ export const LazySpikeLandComponent: FC<ILaztCom> = ({
 
   useEffect(() => {
     const intervalHandler = setInterval(async () => {
-      const resp = await fetch(`https://spike.land/live/${name}/hashCodeSession`);
+      const resp = await fetch(
+        `https://spike.land/live/${name}/hashCodeSession`,
+      );
       const text = await resp.text();
       setHtmlCss((st) => ({ ...st, hashCode: Number(text) }));
     }, 69_000);
     return () => {
-      console.log('INTERVAL CLEARED');
+      console.log("INTERVAL CLEARED");
       clearInterval(intervalHandler);
     };
   }, []);
@@ -84,7 +95,10 @@ export const LazySpikeLandComponent: FC<ILaztCom> = ({
   return (
     <Suspense
       key={hashCode}
-      fallback={<div dangerouslySetInnerHTML={{ __html: 'bpo' + htmlContent }}></div>}>
+      fallback={
+        <div dangerouslySetInnerHTML={{ __html: "bpo" + htmlContent }}></div>
+      }
+    >
       <LazyComponent key={hashCode}>
         <>{children}</>
       </LazyComponent>
@@ -103,8 +117,8 @@ async function getApp(transpiled: string) {
 }
 
 function createJsBlob(code: string) {
-  const file = new File([code], 'index.tsx', {
-    type: 'application/javascript',
+  const file = new File([code], "index.tsx", {
+    type: "application/javascript",
   });
   const blobUrl = URL.createObjectURL(file);
   return blobUrl;
@@ -116,11 +130,11 @@ export const LoadRoom: FC<{ room: string; children: ReactNode }> = ({
   children,
 }) => {
   const [{ transpiled, css, html, hashCode, App }, setState] = useState({
-    css: '',
-    html: '',
-    transpiled: '',
+    css: "",
+    html: "",
+    transpiled: "",
     hashCode: 0,
-    App: ()=><></>
+    App: () => <></>,
   });
 
   useEffect(() => {
@@ -143,12 +157,15 @@ export const LoadRoom: FC<{ room: string; children: ReactNode }> = ({
 
     reload();
 
-    const bc = new BroadcastChannel('spike.land');
+    const bc = new BroadcastChannel("spike.land");
 
     bc.onmessage = async (event) => {
       console.log({ event });
 
-      if (event.data.roomName === room && event.data.sess.transpiled !== transpiled) {
+      if (
+        event.data.roomName === room &&
+        event.data.sess.transpiled !== transpiled
+      ) {
         const { transpiled, css, html } = event.data.sess;
         const App = await getApp(transpiled);
 
@@ -167,7 +184,8 @@ export const LoadRoom: FC<{ room: string; children: ReactNode }> = ({
       name={room}
       transpiled={transpiled}
       startApp={App}
-      hash={hashCode}>
+      hash={hashCode}
+    >
       {children}
     </LazySpikeLandComponent>
   );

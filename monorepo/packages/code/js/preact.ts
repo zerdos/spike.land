@@ -1,5 +1,5 @@
 // export type { Children } from "preact/compat";
-import type React from "react"
+import type React from "react";
 import * as react from "preact/compat";
 
 import { Fragment, jsx, jsxs } from "preact/jsx-runtime";
@@ -48,4 +48,3 @@ export const { cloneElement } = react;
 export default react;
 
 window.React = react as unknown as typeof React;
- 

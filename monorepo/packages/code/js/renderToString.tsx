@@ -33,14 +33,15 @@ export const getHtmlAndCss = (MyComponent: FC) => {
   const target = document.createElement("div");
   target.style.height = "100%";
 
-   render(
+  render(
     <CacheProvider value={cache}>
       <MyComponent />
     </CacheProvider>,
-  target);
+    target,
+  );
 
   const markup = target.innerHTML;
-  
+
   return {
     html: markup,
     css: cssText,

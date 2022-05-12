@@ -4,22 +4,20 @@ import "core-js/modules/web.immediate";
 
 import { CacheProvider } from "@emotion/react";
 import createCache from "@emotion/cache";
-import type {FC} from "react";
+import type { FC } from "react";
 
 import { render } from "react-dom";
 import { ICodeSession } from "session";
-
+import { md5 } from "./md5";
 // if ("serviceWorker" in navigator) {
 //   const wb = new Workbox("/sw.js");
 
 //   wb.register();
 // }
 
-const { md5 } = await import("./md5.mjs");
-
 // const hash = new Sha256();
 
-const apps: {[key: string]: FC} = {};
+const apps: { [key: string]: FC } = {};
 
 globalThis.apps = apps;
 
@@ -36,13 +34,13 @@ export const appFactory = async (transpiled: string) => {
   //new TextDecoder().decode(resultU8Arr);
   if (globalThis.App === apps[result]) return;
 
-  globalThis.App = apps[result] || (await import(createJsBlob(transpiled))).default;
+  globalThis.App = apps[result] ||
+    (await import(createJsBlob(transpiled))).default;
   globalThis.transpiled = transpiled;
 
   apps[result] = globalThis.App;
 
   return renderApp();
-  
 
   // globalThis.notify();
 };
@@ -52,7 +50,7 @@ const start = async () => {
   globalThis.appFactory = appFactory;
 
   // renderApp();
-  
+
   if (location.href.endsWith("hydrated")) return;
 
   const { join } = await import("./ws");
@@ -79,21 +77,18 @@ export const renderApp = () => {
 
   if (!container.innerHTML) return;
 
-  if (!globalThis.currentTarget){
+  if (!globalThis.currentTarget) {
     console.log("currentTarget");
 
     document.getElementById("root")?.replaceWith(container);
-    globalThis.currentTarget =container;
+    globalThis.currentTarget = container;
   } else {
     globalThis.currentTarget.parentNode?.replaceChildren(container);
     globalThis.currentTarget = container;
-   
   }
 };
 
 export const run = async () => {
-
-
   start();
 };
 

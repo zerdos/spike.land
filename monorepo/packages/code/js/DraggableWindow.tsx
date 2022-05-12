@@ -86,14 +86,12 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
   const zbodyRef = useRef<HTMLDivElement>(null);
   // const appRef = useRef<HTMLDivElement>(null);
 
-
-
   // const [forcedIndie, setForcedIndie] = useState(0);
 
   // const App = childArray[childArray.length - 1 - forcedIndie];
 
   //  childArray[length - 1] !== globalThis.App &&
-//    setChild((x) => [...x, globalThis.App]);
+  //    setChild((x) => [...x, globalThis.App]);
 
   // UseEffect(() => {
   // window.addEventListener("resize", () => changeHeight(window.innerHeight));
@@ -111,7 +109,6 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
   //       }
   //     }
 
-      
   //     // SetChild(session.children);
   //   }, 200);
 
@@ -284,7 +281,8 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
                 /* background-color: red; */
             `}
         >
-          {/* {errorText && errorText.trim() !== "" && (
+          {
+            /* {errorText && errorText.trim() !== "" && (
             <pre
               css={css`
                     position: absolute;
@@ -299,10 +297,12 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
                     font-family: monospace;
                     white-space: pre-wrap;
                 `}
-            > */}
-              {/* {isStable && errorText && errorText.trim()} */}
-              {/* {isStable && errorText && errorText.trim() !== "" && */}
-                {/* (
+            > */
+          }
+          {/* {isStable && errorText && errorText.trim()} */}
+          {/* {isStable && errorText && errorText.trim() !== "" && */}
+          {
+            /* (
                   <div
                     css={css`
                           text-align: right;
@@ -317,8 +317,9 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
                       <span>Restore</span>
                     </Button>
                   </div>
-                )} */}
-            {/* </pre> */}
+                )} */
+          }
+          {/* </pre> */}
           {/* )} */}
 
           <motion.div
@@ -344,7 +345,8 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
                   } 
               `}
           >
-            {/* {errorText
+            {
+              /* {errorText
               ? (
                 <div
                   id="zbody"
@@ -352,13 +354,14 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
                   dangerouslySetInnerHTML={createMarkup(session.html)}
                 />
               )
-              : ( */}
-                <div
-                  id="zbody"
-                  ref={zbodyRef}
-                />
-                             {/* )}  */}
-              {
+              : ( */
+            }
+            <div
+              id="zbody"
+              ref={zbodyRef}
+            />
+            {/* )}  */}
+            {
               /*  </div>
                    // {/* </div>
                     <iframe
@@ -447,16 +450,19 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
           <FullscreenIcon key="fs" />
         </Fab>
 
-        <QRButton url={`https://spike.land/live/${room}/public`} key="QRButton" />
+        <QRButton
+          url={`https://spike.land/live/${room}/public`}
+          key="QRButton"
+        />
 
         <Fab
           key="Share"
-          onClick={() => open(`https://spike.land/live/${room}/public`)
-}
+          onClick={() => open(`https://spike.land/live/${room}/public`)}
         >
           <Share />
         </Fab>
-        {/* <Box
+        {
+          /* <Box
           css={css`
           max-height: 400px;
           min-height: 200px;
@@ -478,7 +484,8 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
             aria-label="Temperature"
             onKeyDown={() => null}
           />
-        </Box> */}
+        </Box> */
+        }
       </div>
     </div>
   );
