@@ -7897,10 +7897,10 @@ wordwrap@^1.0.0:
   resolved "https://registry.yarnpkg.com/wordwrap/-/wordwrap-1.0.0.tgz#27584810891456a4171c8d0226441ade90cbcaeb"
   integrity sha1-J1hIEIkUVqQXHI0CJkQa3pDLyus=
 
-wrangler@2.0.2:
-  version "2.0.2"
-  resolved "https://registry.yarnpkg.com/wrangler/-/wrangler-2.0.2.tgz#4ecb57b7fc2188e7f4b1d988ff789b4af42ec3c7"
-  integrity sha512-K9e6W4FKgy1dh4xX9/XJaQwqz6Ta6HQKpm1KCi1B0G60rnpSGKZskGSHZUX4i5S+21jx+/0oucwZc5cdv+/cSw==
+wrangler@2.0.3:
+  version "2.0.3"
+  resolved "https://registry.yarnpkg.com/wrangler/-/wrangler-2.0.3.tgz#47dc080b9b15bf24d2a7433a87908192015a7fea"
+  integrity sha512-cMmL94sAb2M8Tku9VaBOF5L7rN2uWA9/2aQOkYjR0ox6tsQEGIJz6ReZ8s5laJP457xHzHdc20/hjPqhfj9G/w==
   dependencies:
     "@esbuild-plugins/node-globals-polyfill" "^0.1.1"
     "@esbuild-plugins/node-modules-polyfill" "^0.1.4"
