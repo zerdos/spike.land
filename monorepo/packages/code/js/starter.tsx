@@ -15,11 +15,13 @@ import { ICodeSession } from "session";
 //   wb.register();
 // }
 
-const { Sha256 } = (await import("@aws-crypto/sha256-browser")).default;
+const { md5 } = await import("./md5.mjs");
 
-const hash = new Sha256();
+// const hash = new Sha256();
 
 const apps: {[key: string]: FC} = {};
+
+globalThis.apps = apps;
 
 export const appFactory = async (transpiled: string) => {
   if (globalThis.transpiled === transpiled) return;
@@ -27,15 +29,14 @@ export const appFactory = async (transpiled: string) => {
 
   console.log("APP factory");
 
-  hash.update(transpiled);
-  const resultU8Arr = await hash.digest();
+  // hash.update(transpiled);
+  // const resultU8Arr = await hash.digest();
 
-  const result = new TextDecoder().decode(resultU8Arr);
+  const result = md5(transpiled);
+  //new TextDecoder().decode(resultU8Arr);
   if (globalThis.App === apps[result]) return;
 
-  globalThis.App = apps[result] ||
-  
-    (await import(createJsBlob(transpiled))).default;
+  globalThis.App = apps[result] || (await import(createJsBlob(transpiled))).default;
   globalThis.transpiled = transpiled;
 
   apps[result] = globalThis.App;
