@@ -76,28 +76,21 @@ if (!document.getElementById("root")) {
   const container = document.createElement("div");
   container.id = "root";
   container.style.height="100%";
+  container.innerHTML =  `<style>${startState.css}</style><div id="zbody">${startState.html}</div>`;
   document.body.append(container);
 }
 const root = document.getElementById("root");
-root.innerHTML =
-  `<style>${startState.css}</style><div id="zbody">${startState.html}</div>`;
-
-
-const AppPromise =  import(createJsBlob(window.startState.transpiled));
+ 
+globalThis.App =  (await import(createJsBlob(window.startState.transpiled))).default;
 globalThis.transpiled = startState.transpiled;
 
-globalThis.App = (await AppPromise).default;
 const {App} = globalThis;
 
-const {render} = await import("react-dom");
+const {render} = await import("https://spike.land/react.mjs");
 const newRoot = document.createElement("div");
 newRoot.style.height="100%";
 
 render(App(),newRoot );
-
-if (!newRoot.innerHTML && startState.html) return;
-
-
 
 
 if (!globalThis.currentTarget){
@@ -113,24 +106,14 @@ if (!globalThis.currentTarget){
 
 };
 
-    </script>
-  <div id="root"></div>
-  <script>
-runApp();
- import("https://spike.land/starter.mjs")
-    .then(
-      ({run})=> run()
-      )
-                .catch(()=>{
-                  const s = document.createElement("script");
-                  s.async = "async";
-                  s.type = "application/javascript";
-                  s.src = "https://spike.land/appStarter.js";
-                  document.head.appendChild(s);   
-                });
   </script>
-  <div id="monacoEditor"></div>
-  
+  <script async src="https://ga.jspm.io/npm:es-module-shims@1.5.4/dist/es-module-shims.js"></script>
+  <div id="root"></div>
+  <script type="module">
+   await runApp();   
+   const {run} = await import("https://spike.land/starter.mjs");
+   run();
+  </script>  
 
   <!-- Cloudflare Web Analytics -->
   <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "cc7e2ceaa75d4111b26b0ec989795375"}'></script><!-- End Cloudflare Web Analytics -->

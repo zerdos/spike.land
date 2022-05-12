@@ -17,11 +17,9 @@ let runnerDebounced = throttle(runner, debounceTime);
 
 async function startMonacoWithSession() {
   console.log("start monaco with session");
-  const monacoEditorDom = document.querySelector("#monacoEditor");
-  if (!monacoEditorDom) {
-    console.log("no monaco dom, exiting");
-    return;
-  }
+  const monacoEditorDom = document.createElement("div");
+  monacoEditorDom.id = "monacoEditor";
+  document.body.appendChild(monacoEditorDom);
 
   const { startMonaco } = await import("./editor");
 
