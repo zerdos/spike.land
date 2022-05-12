@@ -2,7 +2,7 @@ import esbuild from "esbuild";
 import * as importMap from "esbuild-plugin-import-map";
 import { jsxImportSourcePlugin } from 'esbuild-plugin-jsximportsource';
 
-import jsonData from "./js/importmap.json" assert { type: "json" };
+import jsonData from "./js/mockedMap.json" assert { type: "json" };
 
 const environment = process.env.NODE_ENV === "production"
   ? "production"
@@ -59,28 +59,28 @@ await esbuild.build({
   outdir: outDir + "/workers/",
 });
 
-await esbuild.build({
-  entryPoints: ["./js/appStarter.ts"],
-  outfile: outDir+ "/appStarter.js",
-  bundle: true,
-  target: "esnext",
-  minify: !isDevelopment,
-  minifyWhitespace: !isDevelopment,
-  minifyIdentifiers: !isDevelopment,
-  minifySyntax: !isDevelopment,
-  legalComments: "none",
-  ignoreAnnotations: true,
-  treeShaking: true,
+// await esbuild.build({
+//   entryPoints: ["./js/appStarter.ts"],
+//   outfile: outDir+ "/appStarter.js",
+//   bundle: true,
+//   target: "esnext",
+//   minify: !isDevelopment,
+//   minifyWhitespace: !isDevelopment,
+//   minifyIdentifiers: !isDevelopment,
+//   minifySyntax: !isDevelopment,
+//   legalComments: "none",
+//   ignoreAnnotations: true,
+//   treeShaking: true,
 
 
 
-  platform: "browser",
-  define: {
-    "process.env.NODE_ENV": `"${environment}"`,
-  },
+//   platform: "browser",
+//   define: {
+//     "process.env.NODE_ENV": `"${environment}"`,
+//   },
 
-  format: "iife",
-});
+//   format: "iife",
+// });
 
 const build = (entryPoints) =>
   esbuild.build({
@@ -121,6 +121,7 @@ const build = (entryPoints) =>
       ".ttf",
       ".workerJS",
     ],
+    
 
     target: "esnext",
     define: {
@@ -149,6 +150,76 @@ const build = (entryPoints) =>
   }
 );
 
+
+const buildNoImportMap = (entryPoints) =>
+  esbuild.build({
+    entryPoints,
+    "outExtension": { ".js": ".mjs" },
+    bundle: true,
+    format: "esm",
+  
+    sourcemap: false,
+  
+    minify: !isDevelopment,
+    minifyWhitespace: !isDevelopment,
+    minifyIdentifiers: !isDevelopment,
+    minifySyntax: !isDevelopment,
+    legalComments: "none",
+    treeShaking: true,
+    ignoreAnnotations: true,
+
+    splitting: true,
+
+
+    // inject: ["./js/react-shim.mjs"],
+
+    tsconfig: './tsconfig.json',
+    allowOverwrite: true,
+   
+    // external: ["react", "react-dom", "framer-motion", "tslib", "@emotion/react"],
+    platform: "browser",
+    chunkNames: "chunks/[name]-[hash]",
+    resolveExtensions: [
+      ".tsx",
+      ".ts",
+      ".jsx",
+      ".js",
+      ".css",
+      ".json",
+      ".mjs",
+      ".ttf",
+      ".workerJS",
+    ],
+    
+
+    target: "esnext",
+    define: {
+      "process.env.NODE_ENV": `"${environment}"`,
+    },
+    plugins: [jsxImportSourcePlugin({filter: /.(tsx)/ })],
+    loader: {
+      ".ttf": "file",
+      ".webp": "file",
+      ".tsx": "tsx",
+      ".jsx": "tsx",
+      ".mjs": "ts",
+      ".ts:": "ts",
+      ".js:": "ts",
+      ".css": "css",
+      ".d.ts": "dataurl",
+      ".workerJS": "file",
+      ".wasm": "file",
+    },
+    
+    outdir: "../../sites/spike.land/public",
+  }).catch((e) => {
+
+    console.error(e);
+    process.exit(1)
+
+  }
+);
+
 // await build([
 //   "js/renderPreviewWindow.tsx",
 //   "js/renderToString.tsx",
@@ -162,8 +233,12 @@ const build = (entryPoints) =>
 // ]);
 
 await build([
-  "js/starter.tsx",
+  "js/starter.tsx", "js/ws.tsx"
 ]);
+
+// await buildNoImportMap([
+//   "js/ws.tsx"
+// ])
 
 // esbuild.build({
 //   entryPoints: [

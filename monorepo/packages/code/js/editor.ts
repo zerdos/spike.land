@@ -53,7 +53,7 @@ export const startMonaco = async (
   document.head.appendChild(outerStyle);
 
   const innerStyle = document.createElement("style");
-  innerStyle.innerText = `@import url("starter.css");
+  innerStyle.innerText = `@import url("ws.css");
   @font-face {
     font-family: codicon;
     font-display: block;

@@ -60,6 +60,18 @@ const state = window.startState || await fetch(
   `https://spike.land/live/${roomName}/session`,
 ).then((resp) => resp.json());
 
+
+export const run = async () => {
+
+
+  // renderApp();
+
+  if (location.href.endsWith("hydrated")) return;
+
+  join();
+};
+
+
 const { startSession } = await import("./session");
 
 export const mySession = startSession(roomName, {
@@ -262,6 +274,7 @@ export async function join() {
   if (location.pathname.endsWith("public") || globalThis.model) return;
   const { quickStart } = await import("./quickStart");
   quickStart();
+  
   return wsConnection;
 }
 

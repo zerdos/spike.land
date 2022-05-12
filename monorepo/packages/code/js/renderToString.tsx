@@ -5,7 +5,7 @@ import createCache from "@emotion/cache";
 import type { FC } from "react";
 import { render } from "react-dom";
 
-import { appFactory, createJsBlob } from "./starter";
+import { createJsBlob } from "./starter";
 
 export const renderFromString = async (transpiled: string) => {
   console.log("render to string");
@@ -13,7 +13,7 @@ export const renderFromString = async (transpiled: string) => {
 
   const { html, css } = getHtmlAndCss(App);
 
-  await appFactory(transpiled);
+  await globalThis.appFactory(transpiled);
 
   return {
     html,

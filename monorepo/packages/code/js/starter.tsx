@@ -7,7 +7,7 @@ import createCache from "@emotion/cache";
 import type { FC } from "react";
 
 import { render } from "react-dom";
-import { ICodeSession } from "session";
+import type { ICodeSession } from "session";
 import { md5 } from "./md5";
 // if ("serviceWorker" in navigator) {
 //   const wb = new Workbox("/sw.js");
@@ -20,8 +20,8 @@ import { md5 } from "./md5";
 const apps: { [key: string]: FC } = {};
 
 globalThis.apps = apps;
-
 export const appFactory = async (transpiled: string) => {
+  if (!globalThis.appFactory ) globalThis.appFactory  = appFactory;
   if (globalThis.transpiled === transpiled) return;
   globalThis.transpiled = transpiled;
 
@@ -44,6 +44,8 @@ export const appFactory = async (transpiled: string) => {
 
   // globalThis.notify();
 };
+
+
 
 
 export const renderApp = () => {
@@ -77,16 +79,6 @@ export const renderApp = () => {
   }
 };
 
-export const run = async () => {
-  globalThis.appFactory = appFactory;
-
-  // renderApp();
-
-  if (location.href.endsWith("hydrated")) return;
-
-  const { join } = await import("./ws");
-  join();
-};
 
 export function createJsBlob(code: string) {
   const file = new File([code], "index.tsx", {
