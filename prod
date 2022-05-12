@@ -1,0 +1,4 @@
+yarn run v1.22.18
+$ NODE_ENV=production yarn ws:yarn push
+$ yarn --cwd monorepo  push
+$ cd .. && git add . && (git commit -m pre-release || echo nothing) && git push && git pull
