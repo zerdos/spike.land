@@ -3,7 +3,8 @@
   "ignorePaths": [
     "yarn.lock",
     "package.json",
-    "sw.js"
+    "sw.js",
+    "md5.mjs"
   ],
   "words": [
     "ampproject",
