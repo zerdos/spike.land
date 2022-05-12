@@ -69,7 +69,6 @@
     "react-dom": "preact/compat"
   },
   "dependencies": {
-    "@aws-crypto/sha256-browser": "^2.0.1",
     "@emotion/cache": "^11.7.1",
     "@emotion/react": "^11.9.0",
     "@emotion/serialize": "^1.0.3",
@@ -82,9 +81,7 @@
     "@types/react": "18.0.9",
     "@types/react-dom": "^18.0.3",
     "async-mutex": "0.3.2",
-    "comlink": "4.3.1",
     "core-js": "^3.22.5",
-    "es-module-shims": "1.5.4",
     "esbuild": "0.14.39",
     "esbuild-plugin-import-map": "2.1.0",
     "esbuild-plugin-jsximportsource": "^0.0.4",
@@ -100,7 +97,6 @@
     "popmotion": "^11.0.3",
     "preact": "^10.7.2",
     "prettier": "^2.6.2",
-    "regenerator-runtime": "0.13.9",
     "workbox-cacheable-response": "6.5.3",
     "workbox-cli": "6.5.3",
     "workbox-precaching": "6.5.3",
