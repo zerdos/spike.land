@@ -260,10 +260,7 @@ export class Code {
           const html = HTML.replace(
             `/** startState **/`,`Object.assign(window,${JSON.stringify({startState, codeSpace})});`)
             .replace(
-            `<!--importmap-->`,
-`<script type="importmap">${
-  JSON.stringify(imap)
-}</script>`);
+            `<!--importmap-->`,`<script type="importmap">${JSON.stringify(imap)}</script>`);
           return new Response(html, {
             status: 200,
             headers: {
