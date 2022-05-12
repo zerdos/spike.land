@@ -258,15 +258,12 @@ export class Code {
         case "public": {
           const startState = mST();
           const html = HTML.replace(
-            `<div id="root"></div>`,
-`<div id="root"><style>${startState.css}</style><div id="zbody">${startState.html}</div></div>
-<script type="importmap">${
+            `/** startState **/`,`Object.assign(window,${JSON.stringify({startState, codeSpace})});`)
+            .replace(
+            `<!--importmap-->`,
+`<script type="importmap">${
   JSON.stringify(imap)
-}</script>
-<script>
-  Object.assign(window,${JSON.stringify({startState, codeSpace})});
-</script>
-`);
+}</script>`);
           return new Response(html, {
             status: 200,
             headers: {
