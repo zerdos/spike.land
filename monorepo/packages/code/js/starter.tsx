@@ -45,17 +45,6 @@ export const appFactory = async (transpiled: string) => {
   // globalThis.notify();
 };
 
-const start = async () => {
-  // globalThis.notify = renderApp;
-  globalThis.appFactory = appFactory;
-
-  // renderApp();
-
-  if (location.href.endsWith("hydrated")) return;
-
-  const { join } = await import("./ws");
-  join();
-};
 
 export const renderApp = () => {
   const container = document.createElement("div");
@@ -89,7 +78,14 @@ export const renderApp = () => {
 };
 
 export const run = async () => {
-  start();
+  globalThis.appFactory = appFactory;
+
+  // renderApp();
+
+  if (location.href.endsWith("hydrated")) return;
+
+  const { join } = await import("./ws");
+  join();
 };
 
 export function createJsBlob(code: string) {

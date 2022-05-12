@@ -58,17 +58,6 @@ body {
     env: {
       "NODE_ENV": "production"
     }};
-
-function createJsBlob(code) {
-  const file = new File([code], "index.tsx", {
-    type: "application/javascript",
-  });
-  const blobUrl = URL.createObjectURL(file);
-  return blobUrl;
-  // const actualUrl =
-}
-
-
 const runApp = async (render) => {
 
 
@@ -115,10 +104,9 @@ if (!globalThis.currentTarget){
   <script async src="https://ga.jspm.io/npm:es-module-shims@1.5.4/dist/es-module-shims.js"></script>
   <!--importmap-->
   <script type="module">
-   import {render} from "react-dom";
-   import {run} from "https://spike.land/starter.mjs";
+   import {run, appFactory} from "https://spike.land/starter.mjs";
    
-   await runApp(render);
+   await appFactory(startState.transpiled);
    run();
   </script>  
 
