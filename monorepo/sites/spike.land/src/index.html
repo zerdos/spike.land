@@ -69,7 +69,7 @@ function createJsBlob(code) {
 }
 
 
-const runApp = async () => {
+const runApp = async (render) => {
 
 
 if (!document.getElementById("root")) {
@@ -86,7 +86,7 @@ globalThis.transpiled = startState.transpiled;
 
 const {App} = globalThis;
 
-const {render} = await import("https://spike.land/react.mjs");
+
 const newRoot = document.createElement("div");
 newRoot.style.height="100%";
 
@@ -115,8 +115,10 @@ if (!globalThis.currentTarget){
   <script async src="https://ga.jspm.io/npm:es-module-shims@1.5.4/dist/es-module-shims.js"></script>
   <!--importmap-->
   <script type="module">
-   await runApp();   
-   const {run} = await import("https://spike.land/starter.mjs");
+   import {render} from "react-dom";
+   import {run} from "https://spike.land/starter.mjs";
+   
+   await runApp(render);
    run();
   </script>  
 
