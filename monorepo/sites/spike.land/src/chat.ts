@@ -1,6 +1,6 @@
 import {  getAssetFromKV } from '@cloudflare/kv-asset-handler';
 import manifestJSON from '__STATIC_CONTENT_MANIFEST';
-
+import imap from "@spike.land/code/js/importmap.json"
 const assetManifest = JSON.parse(manifestJSON)
 
 
@@ -64,6 +64,13 @@ export default {
               "Cache-Control": "no-cache",
             },
           });
+          case "importmap.json":
+            return new Response(JSON.stringify(imap), {
+              headers: {
+                "Content-Type": "application/json;charset=UTF-8",
+                "Cache-Control": "no-cache",
+              },
+            });
         case "api":
           // This is a request for `/api/...`, call the API handler.
           return handleApiRequest(path.slice(1), request, env);

@@ -58,43 +58,6 @@ body {
     env: {
       "NODE_ENV": "production"
     }};
-const runApp = async (render) => {
-
-
-if (!document.getElementById("root")) {
-  const container = document.createElement("div");
-  container.id = "root";
-  container.style.height="100%";
-  container.innerHTML =  `<style>${startState.css}</style><div id="zbody">${startState.html}</div>`;
-  document.body.append(container);
-}
-const root = document.getElementById("root");
- 
-globalThis.App =  (await import(createJsBlob(window.startState.transpiled))).default;
-globalThis.transpiled = startState.transpiled;
-
-const {App} = globalThis;
-
-
-const newRoot = document.createElement("div");
-newRoot.style.height="100%";
-
-render(App(),newRoot );
-
-
-if (!globalThis.currentTarget){
-  console.log("currentTarget");
-
-  root.replaceWith(newRoot);
-  globalThis.currentTarget =newRoot;
-} else {
-  globalThis.currentTarget.parentNode?.replaceChildren(newRoot);
-  globalThis.currentTarget = newRoot;
- 
-}
-
-};
-
   </script>
   <div id="root"></div>
   <script>
@@ -102,12 +65,12 @@ if (!globalThis.currentTarget){
    document.getElementById("root").innerHTML =  `<style>${startState.css}</style><div id="zbody">${startState.html}</div>`;
   </script>
   <script async src="https://ga.jspm.io/npm:es-module-shims@1.5.4/dist/es-module-shims.js"></script>
-  <!--importmap-->
-  <script type="module">
+  <script type="importmap-shim" src="/importmap.json"></script>
+  <script type="module-shim">
    import {run, appFactory} from "https://spike.land/starter.mjs";
    
    await appFactory(startState.transpiled);
-   run();
+   await run();
   </script>  
 
   <!-- Cloudflare Web Analytics -->

@@ -32,7 +32,7 @@ export const appFactory = async (transpiled: string) => {
 
   const result = md5(transpiled);
   //new TextDecoder().decode(resultU8Arr);
-  if (globalThis.App === apps[result]) return;
+  if (globalThis.App  && globalThis.App === apps[result]) return;
 
   globalThis.App = apps[result] ||
     (await import(createJsBlob(transpiled))).default;
