@@ -256,19 +256,17 @@ export class Code {
         }
         case "hydrated": 
         case "public": {
-          const {html, css, transpiled, code, i}=mST();
+          const startState = mST();
           const html = HTML.replace(
             `<div id="root"></div>`,
-            `
-            <div id="root"><style>${css}</style><div id="zbody">${html}</div></div>
-            <script type="importmap">${
-              JSON.stringify(imap)
-            }</script>
-            <script>
-              window.startState = ${JSON.stringify({html, css, transpiled, code, i})};
-              window.codeSpace="${codeSpace}";
-            </script>
-            `);
+`<div id="root"><style>${startState.css}</style><div id="zbody">${startState.html}</div></div>
+<script type="importmap">${
+  JSON.stringify(imap)
+}</script>
+<script>
+  Object.assign(window,${JSON.stringify({startState, codeSpace})});
+</script>
+`);
           return new Response(html, {
             status: 200,
             headers: {
