@@ -69,10 +69,6 @@ export const run = async () => {
   if (location.href.endsWith("hydrated")) return;
 
   join();
-
-  const {ipfsSw} = await import("./main.mjs");
-  ipfsSw()
-
 };
 
 

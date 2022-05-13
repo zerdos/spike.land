@@ -15,9 +15,9 @@ import codicon from "monaco-editor/esm/vs/base/browser/ui/codicons/codicon/codic
 const monEnv = {
   getWorkerUrl: function (_workerId: string, label: string) {
     if (label === "typescript" || label === "javascript") {
-      return "workers/monaco-editor/esm/vs/language/typescript/ts.worker.js";
+      return "monaco-editor/esm/vs/language/typescript/ts.worker.js";
     }
-    return "workers/monaco-editor/esm/vs/editor/editor.worker.js";
+    return "monaco-editor/esm/vs/editor/editor.worker.js";
   },
 };
 

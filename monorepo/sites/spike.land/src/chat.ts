@@ -78,7 +78,7 @@ export default {
         case "live":
           const newPath = [ 'room', ...path.slice(1), 'public'];
           return handleApiRequest(newPath, request, env);
-
+  
         default:
           return getAssetFromKV(
             {

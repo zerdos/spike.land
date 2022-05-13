@@ -32,8 +32,9 @@ const workerEntryPoints = [
 await esbuild.build({
   entryPoints: [
     ...workerEntryPoints,
-   "./js/ipfs.worker.mjs",
-   "./js/sw.mjs",
+   "./worker.mjs",
+   "./main.mjs",
+   "./sw.mjs",
   
   ],
   bundle: true,
@@ -58,7 +59,7 @@ await esbuild.build({
     ".ttf": "file",
   },
 
-  outdir: outDir + "/workers/",
+  outdir: outDir,
 });
 
 // await esbuild.build({
