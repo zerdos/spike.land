@@ -1,8 +1,4 @@
-'use strict'
-import './app.css'
-
-// This is an entry point to our program.
-const main = async () => {
+export const ipfsSw = async () => {
   // We start a shared worker where IPFS node is loaded.
   const worker = createIPFSWorker()
   // @ts-ignore - Store worker in the window so that it's available in console.
@@ -16,7 +12,7 @@ const main = async () => {
   navigator.serviceWorker.onmessage = onServiceWorkerMessage
 
   // @ts-ignore - register expects string but weback requires this URL hack.
-  await navigator.serviceWorker.register(new URL('./service.js', import.meta.url), { scope: '/' })
+  await navigator.serviceWorker.register(new URL('https://spike.land/js/sw.js', import.meta.url), { scope: '/' })
 
   await navigator.serviceWorker.ready
 
@@ -81,8 +77,6 @@ const onServiceWorkerMessage = (event) => {
  */
 const createIPFSWorker = () => new SharedWorker(
   // @ts-ignore - Constructor takes string but webpack needs URL
-  new URL('./worker.js', import.meta.url),
-  'IPFS'
+  new URL('https://spike.land/workers/js/ipfs.worker.js'.  import.meta.url),
+ { name: 'IPFS'}
 )
-
-main()

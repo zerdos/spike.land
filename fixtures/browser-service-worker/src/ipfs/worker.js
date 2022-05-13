@@ -1,7 +1,5 @@
-'use strict'
-
-const { create } = require('ipfs-core')
-const { Server, IPFSService, import_env } = require('ipfs-message-port-server')
+import { create } from 'ipfs-core'
+import { Server, IPFSService, import_env } from 'ipfs-message-port-server'
 
 import_env.isNode=false;
 console.info('hello world')
@@ -38,14 +36,7 @@ const main = async () => {
 }
 }
 
-/**
- * Creates an AsyncIterable<Event> for all the events on the given `target` for
- * the given event `type`. It is like `target.addEventListener(type, listener, options)`
- * but instead of passing listener you get `AsyncIterable<Event>` instead.
- * @param {EventTarget} target
- * @param {string} type
- * @param {AddEventListenerOptions} [options]
- */
+
 const listen = function (target, type, options) {
   const events = []
   let resume

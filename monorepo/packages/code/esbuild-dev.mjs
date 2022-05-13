@@ -32,7 +32,9 @@ const workerEntryPoints = [
 await esbuild.build({
   entryPoints: [
     ...workerEntryPoints,
-    // "./js/workers/prettier.worker.js",
+   "./js/ipfs.worker.mjs",
+   "./js/sw.mjs",
+  
   ],
   bundle: true,
   minify: !isDevelopment,
