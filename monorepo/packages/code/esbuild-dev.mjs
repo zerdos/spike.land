@@ -33,7 +33,6 @@ await esbuild.build({
   entryPoints: [
     ...workerEntryPoints,
    "./worker.mjs",
-   "./main.mjs",
    "./sw.mjs",
   
   ],
@@ -236,7 +235,7 @@ const buildNoImportMap = (entryPoints) =>
 // ]);
 
 await build([
-  "js/starter.tsx", "js/ws.tsx"
+  "starter.mjs", "ws.mjs", "main.mjs"
 ]);
 
 // await buildNoImportMap([

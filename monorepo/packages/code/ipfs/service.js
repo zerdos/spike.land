@@ -3607,7 +3607,7 @@ if (cid) {
     const body = new Blob([`<html data-viewer>
 <head>
   <title>${url.pathname}</title>
-  <script src="https://spike.land/main.js"><\/script>
+  <script src="https://spike.land/main.mjs"><\/script>
 </head>
 <body>
   <iframe id="viewer" style="width:100%;height:100%;position:fixed;top:0;left:0;border:none;" src="/view${url.pathname}"></iframe>
