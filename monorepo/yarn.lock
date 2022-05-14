@@ -7591,10 +7591,10 @@ modify-values@^1.0.0:
   resolved "https://registry.yarnpkg.com/modify-values/-/modify-values-1.0.1.tgz#b3939fa605546474e3e3e3c63d64bd43b4ee6022"
   integrity sha512-xV2bxeN6F7oYjZWTe/YPAy6MN2M+sL4u/Rlm2AHCIVGfo2p1yGmBHQ6vHehl4bRTZBdHu3TSkWdYgkwpYzAGSw==
 
-monaco-editor@0.34.0-dev.20220513:
-  version "0.34.0-dev.20220513"
-  resolved "https://registry.yarnpkg.com/monaco-editor/-/monaco-editor-0.34.0-dev.20220513.tgz#85d7855bdb0bcc3d219034d0aaaf516a0b911f04"
-  integrity sha512-QyMbOv7DORCKyXSovLiIfTEdKfEOJ8l+d38X8r4q4z/dDQUD1GXjovfYlWkbcpcN0wipANQ1Uex1NQMyqAZV+g==
+monaco-editor@0.34.0-dev.20220514:
+  version "0.34.0-dev.20220514"
+  resolved "https://registry.yarnpkg.com/monaco-editor/-/monaco-editor-0.34.0-dev.20220514.tgz#d0fa8fce1d282436a159b8132cae6ad46f382436"
+  integrity sha512-LXL3UrpP/gxSj1uIDwYNAPtEdvYDWMiCDq0bCdbQd3vsmn9U+e2eYhOFUhsyFk1wqztnyitBDwzTiORyuM6Cbg==
 
 mortice@^2.0.0, mortice@^2.0.1:
   version "2.0.1"
@@ -9931,10 +9931,10 @@ typedoc@0.22.15:
     minimatch "^5.0.1"
     shiki "^0.10.1"
 
-typescript@4.8.0-dev.20220513:
-  version "4.8.0-dev.20220513"
-  resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.8.0-dev.20220513.tgz#18a14e78fa1adeda418d5c43acde590c3544c4c2"
-  integrity sha512-zNmhxGQm8LQ2N3G8bmRNk7jzpsdQRaQ5/J46Sfe0hIunl0w/Gadq+zSGeB4TZInfKC1CaGsjnIImIo1pNPTIOw==
+typescript@4.8.0-dev.20220514:
+  version "4.8.0-dev.20220514"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.8.0-dev.20220514.tgz#602c2744d9c3b4e4570f17e5dc39ff2ff20661c6"
+  integrity sha512-rfLmQGPxkYme1hQqQupiavg2LW3HFSjx0nLCnj3SmbMHX1kCSMZ27u6n2XlQNXOwYBW91FW6o709XInP3rghZg==
 
 typescript@^4.3.5:
   version "4.6.4"
