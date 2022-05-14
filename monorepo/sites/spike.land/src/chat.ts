@@ -76,8 +76,12 @@ export default {
           return handleApiRequest(path.slice(1), request, env);
         
         case "ipfs":
-          return fetch("https://cloudflare-ipfs.com/"+ (['ipfs', ...path.slice(1)]).join("/"));
-
+          const newUrl = new URL(url.pathname,"https://cloudflare-ipfs.com");
+          const resp = await fetch(newUrl);
+          if (res.ok)return resp;
+          const new2 = new URL(url.pathname,"https://ipfs.ip");
+          const resp2 = await fetch(newUrl);
+          return resp2;
 
         case "live":
           const newPath = [ 'room', ...path.slice(1), 'public'];
