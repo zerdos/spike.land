@@ -38,7 +38,8 @@ const sendChannel = {
       try {
         if (ch.readyState !== "open") return;
 
-        if (!target || ch.target === target) {
+        if (!target || ch.target === target && !ignoreUsers.includes(ch.target)) {
+
           ch.send(messageString);
         }
       } catch (e) {
@@ -51,7 +52,7 @@ const sendChannel = {
 // Let createDelta;
 // let applyPatch;
 
-const state = window.startState || await fetch(
+const startState = window.startState || await fetch(
   `https://spike.land/live/${codeSpace}/session`,
 ).then((resp) => resp.json());
 
@@ -71,7 +72,7 @@ const { startSession } = await import("./session");
 
 export const mySession = startSession(codeSpace, {
   name: user,
-  state,
+  startState,
 });
 
 export const mST = () => mySession.json().state;
@@ -95,7 +96,6 @@ const chCode = async () => {
 
     if (code === formatted) return;
   }
-  if (globalThis.transpiled === transpiled) return;
 
   try {
     if (globalThis.transpiled === transpiled) return;
@@ -104,6 +104,7 @@ const chCode = async () => {
 
     if (globalThis.model) {
       console.log("MODEL SET FROM REMOTE.... SORRY");
+      
       setTimeout(() => mST().i === i && globalThis.model.setValue(code), 200);
 
       return;
