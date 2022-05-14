@@ -69,6 +69,40 @@ async function startMonacoWithSession() {
   // });
 }
 
+async function startCMirror() {
+  console.log("start monaco with session");
+  const monacoEditorDom = document.createElement("div");
+  monacoEditorDom.id = "monacoEditor";
+  document.body.appendChild(monacoEditorDom);
+
+  const { startCodeMirror } = await import("./codeMirror");
+
+   startCodeMirror(
+    mST().code
+  );
+
+
+  // Object.assign(session, { monaco, editor, model });
+
+  // let inc = 0;
+
+
+  // monaco.languages.registerOnTypeFormattingEditProvider("typescript", {
+  //   autoFormatTriggerCharacters: ["}", "{", ")", "(", ";"],
+
+  //   async provideOnTypeFormattingEdits(model) {
+  //     const text = await formatter(model.getValue());
+
+  //     return [
+  //       {
+  //         range: model.getFullModelRange(),
+
+  //         text,
+  //       },
+  //     ];
+  //   },
+  // });
+}
 // async function getErrors({ monaco, editor, model }) {
 //   if (!monaco) {
 //     return [{ messageText: "Error with the error checking. Try to reload!" }];

@@ -69,6 +69,10 @@
     "react-dom": "preact/compat"
   },
   "dependencies": {
+    "@codemirror/basic-setup": "^0.20.0",
+    "@codemirror/lang-javascript": "^0.20.0",
+    "@codemirror/language": "^0.20.0",
+    "@codemirror/state": "^0.20.0",
     "@emotion/cache": "^11.7.1",
     "@emotion/react": "^11.9.0",
     "@emotion/serialize": "^1.0.3",
