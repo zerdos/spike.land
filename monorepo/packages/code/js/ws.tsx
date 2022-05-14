@@ -5,13 +5,8 @@ import debounce from "lodash/debounce";
 import uidV4 from "./uidV4.mjs";
 
 const webRtcArray: (RTCDataChannel & { target: string })[] = [];
-const hostname = window.location.hostname || "spike.land";
 
-const path = location.pathname.split("/");
-
-const [, prefix, selector, roomPart] = path;
-
-export const roomName = window.codeSpace;
+export const {codeSpace} = self;
 
 const user = ((self && self.crypto && self.crypto.randomUUID &&
   self.crypto.randomUUID()) || (uidV4())).slice(
@@ -57,7 +52,7 @@ const sendChannel = {
 // let applyPatch;
 
 const state = window.startState || await fetch(
-  `https://spike.land/live/${roomName}/session`,
+  `https://spike.land/live/${codeSpace}/session`,
 ).then((resp) => resp.json());
 
 
@@ -74,7 +69,7 @@ export const run = async () => {
 
 const { startSession } = await import("./session");
 
-export const mySession = startSession(roomName, {
+export const mySession = startSession(codeSpace, {
   name: user,
   state,
 });
@@ -140,7 +135,7 @@ bc.onmessage = async (event) => {
       ignoreUsers.push(event.data.ignoreUser);
   }
 
-  if (event.data.roomName === roomName && event.data.sess.code !== mST().code) {
+  if (event.data.codeSpace === codeSpace && event.data.sess.code !== mST().code) {
     const messageData = mySession.createPatch(event.data.sess);
     await mySession.applyPatch(messageData);
     await chCode();
@@ -156,7 +151,7 @@ export async function saveCode(sess: ICodeSession) {
   await mySession.applyPatch(messageData);
 
   bc.postMessage({
-    roomName,
+    codeSpace,
     ignoreUser: user,
     sess: mST(),
     hashCode: mySession.hashCode(),
@@ -209,7 +204,7 @@ export async function join() {
   console.log("WS connect!");
 
   const wsConnection = new WebSocket(
-    "wss://" + hostname + "/live/" + roomName + "/websocket",
+    "wss://spike.land/live/" + codeSpace + "/websocket",
   );
   rejoined = false;
 
@@ -376,7 +371,7 @@ async function processWsMessage(
       console.log("there is an error. fetch tje state....");
 
       const resp = await fetch(
-        `https://spike.land/live/${roomName}/session`,
+        `https://spike.land/live/${codeSpace}/session`,
       );
       const data = await resp.json();
 
@@ -640,13 +635,6 @@ async function processWsMessage(
 // our camera and microphone and add that stream to the connection for
 // use in our video call. Then we configure event handlers to get
 // needed notifications on the call.
-
-let myHostname = window.location.hostname;
-if (!myHostname) {
-  myHostname = "localhost";
-}
-
-log("Hostname: " + myHostname);
 
 // WebSocket chat/signaling channel variables.
 

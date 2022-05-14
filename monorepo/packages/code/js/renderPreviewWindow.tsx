@@ -4,7 +4,7 @@ import bg from "./assets/synthwave.webp";
 import path from "path-browserify";
 import { render } from "react-dom";
 
-import { mST, mySession, roomName } from "./ws";
+import {  mySession, codeSpace } from "./ws";
 import { DraggableWindow } from "./DraggableWindow";
 
 export const renderPreviewWindow = async () => {
@@ -22,8 +22,7 @@ export const renderPreviewWindow = async () => {
       //   const model = globalThis.model;
       //   model.setValue(mST().code);
       // }}
-      room={roomName}
-      session={mST()}
+      room={codeSpace}
       hashCode={mySession.hashCode()}
     />,
     target,

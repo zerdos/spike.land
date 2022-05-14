@@ -7,7 +7,7 @@ import createCache from "@emotion/cache";
 import type { FC } from "react";
 
 import { render } from "react-dom";
-import type { ICodeSession } from "session";
+
 import { md5 } from "./md5";
 // if ("serviceWorker" in navigator) {
 //   const wb = new Workbox("/sw.js");

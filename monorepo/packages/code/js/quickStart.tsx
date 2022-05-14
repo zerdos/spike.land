@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import type { Dispatch, ReactNode, SetStateAction } from "react";
 import { renderFromString } from "./renderToString";
-import { mST, roomName, saveCode } from "./ws";
+import { mST, codeSpace, saveCode } from "./ws";
 import throttle from "lodash/throttle";
 
 export interface IRunnerSession {
@@ -29,7 +29,7 @@ async function startMonacoWithSession() {
      */
     {
       container: monacoEditorDom,
-      name: roomName,
+      name: codeSpace,
       code: mST().code,
     },
   );

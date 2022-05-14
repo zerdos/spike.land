@@ -1,4 +1,4 @@
-export function md5(inputString: string) {
+export function md5(inputString) {
   var hc = "0123456789abcdef";
   function rh(n) {
     var j, s = "";

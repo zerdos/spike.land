@@ -23,6 +23,7 @@ export const LazySpikeLandComponent: FC<ILaztCom> = ({
   startApp,
   children,
 }) => {
+  
   const LazyComponentInit = (transpiled: string) =>
     lazy(async () => import(createJsBlob(transpiled)));
 
@@ -51,7 +52,7 @@ export const LazySpikeLandComponent: FC<ILaztCom> = ({
       console.log({ event });
 
       if (
-        event.data.roomName === name &&
+        event.data.codeSpace === name &&
         event.data.sess.transpiled !== transpiled
       ) {
         const { transpiled, css, html } = event.data.sess;
@@ -163,7 +164,7 @@ export const LoadRoom: FC<{ room: string; children: ReactNode }> = ({
       console.log({ event });
 
       if (
-        event.data.roomName === room &&
+        event.data.codeSpace === room &&
         event.data.sess.transpiled !== transpiled
       ) {
         const { transpiled, css, html } = event.data.sess;

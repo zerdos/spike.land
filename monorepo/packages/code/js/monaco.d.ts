@@ -13,4 +13,6 @@ declare global {
   var startState: ICodeSession;
   var polyfilling: () => void;
   var currentTarget: HTMLDivElement;
+  var codeSpace: string;
+  var apps: { [key: string]: FC } 
 }

@@ -31,7 +31,7 @@ import type {
   ToggleButton as MuiToggleButton,
   ToggleButtonGroup as MuiToggleButtonGroup,
 } from "./mui";
-import { ICodeSession } from "session";
+
 
 // const key = "css";
 // const cache = createCache({ key });
@@ -51,7 +51,6 @@ const bg = `rgba(${Math.random() * 128 + 64}, ${Math.random() * 128 + 64}, ${
 interface DraggableWindowProps {
   // onRestore: (() => void);
   hashCode: number;
-  session: ICodeSession;
   position?: string;
   room: string;
 }
@@ -59,7 +58,6 @@ interface DraggableWindowProps {
 export const DraggableWindow: FC<DraggableWindowProps> = (
   {
     // onRestore,
-    session,
     room,
   },
 ) => {
