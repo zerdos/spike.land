@@ -62,9 +62,28 @@ body {
   <div id="root"></div>
   <script>
    /** startState **/
+
+
+   if (codeSpace) window.codeSpace = "coder";
+   if (!startState) {
+     async()=>{
+       const resp = await fetch("https://spike.land/live/"+codeSpace+"/session");
+       window.startState = await resp.json();
+       h(window.startState);
+     }
+   } else {
+     h(startState);
+   }
+
+
+  
+   function h(startState){
    document.getElementById("root").innerHTML =  `<style>${startState.css}</style><div id="zbody">${startState.html}</div>`;
    window.appStarted = new Promise((resolve)=>{
-     window.appResolver=resolve});
+   window.appResolver=resolve});
+ 
+  }
+ 
  </script>
   <script async src="https://ga.jspm.io/npm:es-module-shims@1.5.4/dist/es-module-shims.js"></script>
   <script type="importmap-shim" src="/importmap.json"></script>
