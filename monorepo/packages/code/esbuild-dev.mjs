@@ -32,7 +32,7 @@ const workerEntryPoints = [
 await esbuild.build({
   entryPoints: [
     ...workerEntryPoints,
-   "./worker.mjs",
+   "./worker.tsx",
    "./sw.mjs",
   
   ],

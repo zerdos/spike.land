@@ -1,9 +1,6 @@
-import "core-js"
+
 import {create} from  "../../node_modules/ipfs-core/index.min.js"
 import { IPFSService, Server }  from "../../node_modules/ipfs-message-port-server/index.min.js";
-const OrbitDB = require('orbit-db/dist/orbitdb.min')
-globalThis.OrbitDB = OrbitDB;
-console.log(OrbitDB);
 
 // importScripts('https://unpkg.com/ipfs@0.62.3/index.min.js');
 // importScripts('https://unpkg.com/ipfs-message-port-server@0.11.3/index.min.js');
@@ -31,17 +28,17 @@ const main = async () => {
   const server = new Server(service)
   self.server = server
   self.ipfs = ipfs
-  const orbit = await OrbitDB.createInstance(ipfs)
-  self.orbit = orbit;
+  // const orbit = await OrbitDB.createInstance(ipfs)
+  // self.orbit = orbit;
 
-  db.events.on("replicated", address => {
-    console.log(db.iterator({ limit: -1 }).collect())
-  })
+  // db.events.on("replicated", address => {
+  //   console.log(db.iterator({ limit: -1 }).collect())
+  // })
 
   
   // Create / Open a database
-  const db = await orbit.log("hello")
-  await db.load()
+  // const db = await orbit.log("hello")
+  // await db.load()
 
 
   // connect every queued and future connection to the server
@@ -51,8 +48,8 @@ const main = async () => {
       server.connect(port)
     }
   }
-  const result = db.iterator({ limit: -1 }).collect()
-  console.log(JSON.stringify(result, null, 2))
+  // const result = db.iterator({ limit: -1 }).collect()
+  // console.log(JSON.stringify(result, null, 2))
 }catch (err) {
   console.error(err)
 }
