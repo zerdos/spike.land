@@ -1,6 +1,6 @@
 {
   "name": "@spike.land/code",
-  "version": "0.7.786",
+  "version": "0.7.789",
   "description": "spike.land",
   "type": "module",
   "main": "./js/starter.ts",
@@ -80,7 +80,7 @@
     "@emotion/styled": "^11.8.1",
     "@emotion/utils": "^1.1.0",
     "@mui/material": "^5.7.0",
-    "@spike.land/qrious": "^0.7.784",
+    "@spike.land/qrious": "^0.7.789",
     "@types/prettier": "^2.6.1",
     "@types/react": "18.0.9",
     "@types/react-dom": "^18.0.4",
