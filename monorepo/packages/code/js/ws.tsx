@@ -97,15 +97,31 @@ const chCode = async () => {
     if (code === formatted) return;
   }
 
+  if (globalThis.aceEditor) {
+    const formatted = prettier(globalThis.aceEditor.getValue());
+
+    if (code === formatted) return;
+  }
+
+
   try {
     if (globalThis.transpiled === transpiled) return;
 
     await globalThis.appFactory(transpiled);
 
-    if (globalThis.model) {
+    if (globalThis.model || globalThis.aceEditor) {
       console.log("MODEL SET FROM REMOTE.... SORRY");
 
-      setTimeout(() => mST().i === i && globalThis.model.setValue(code), 200);
+      setTimeout(() => {
+        const mst = mST()
+        if (mst.i === i) {
+         if (globalThis.model)
+          globalThis.model.setValue(mst.code);
+        if (globalThis.aceEditor) {
+          globalThis.aceEditor.setValue(mst.code);
+        }
+        }
+      }, 200);
 
       return;
     }

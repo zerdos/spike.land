@@ -2848,6 +2848,11 @@ abstract-leveldown@^7.2.0:
     level-supports "^2.0.1"
     queue-microtask "^1.2.3"
 
+ace-builds@^1.5.0:
+  version "1.5.0"
+  resolved "https://registry.yarnpkg.com/ace-builds/-/ace-builds-1.5.0.tgz#38ad4d6a6f7b50453533ee307c877a7133c33fb1"
+  integrity sha512-1BtEfIhFl/VDNRS9R1m9F8Kmeh2uJ98CxTeBE0kBjJpv5S5N2buTVWtc1BGXL9AromN7ekBjaEBaUl+ZPn4ciA==
+
 acorn@^8.5.0:
   version "8.7.1"
   resolved "https://registry.yarnpkg.com/acorn/-/acorn-8.7.1.tgz#0197122c843d1bf6d0a5e83220a788f278f63c30"

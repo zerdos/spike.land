@@ -88,6 +88,7 @@
     "multihash",
     "Mutex",
     "nocheck",
+    "noconflict",
     "novnc",
     "onpolyfill",
     "outbase",
