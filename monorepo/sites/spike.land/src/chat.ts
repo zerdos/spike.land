@@ -79,7 +79,7 @@ export default {
           const newUrl = new URL(url.pathname,"https://cloudflare-ipfs.com");
           const resp = await fetch(newUrl);
           if (res.ok)return resp;
-          const new2 = new URL(url.pathname,"https://ipfs.ip");
+          const new2 = new URL(url.pathname,"https://ipfs.io");
           const resp2 = await fetch(newUrl);
           return resp2;
 
