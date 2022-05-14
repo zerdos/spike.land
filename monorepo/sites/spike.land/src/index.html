@@ -76,8 +76,7 @@ body {
   <script>
    /** startState **/
 
-
-   if (codeSpace) window.codeSpace = "coder";
+   if (!codeSpace) window.codeSpace = "coder";
    if (!startState) {
      async()=>{
        const resp = await fetch("https://spike.land/live/"+codeSpace+"/session");
