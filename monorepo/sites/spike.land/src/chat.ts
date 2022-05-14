@@ -74,6 +74,10 @@ export default {
         case "api":
           // This is a request for `/api/...`, call the API handler.
           return handleApiRequest(path.slice(1), request, env);
+        
+        case "ipfs":
+          return fetch("https://cloudflare-ipfs.com/"+ (['ipfs', ...path.slice(1)]).join("/"));
+
 
         case "live":
           const newPath = [ 'room', ...path.slice(1), 'public'];

@@ -72,7 +72,7 @@ const { startSession } = await import("./session");
 
 export const mySession = startSession(codeSpace, {
   name: user,
-  startState,
+  state: startState,
 });
 
 export const mST = () => mySession.json().state;
@@ -104,7 +104,7 @@ const chCode = async () => {
 
     if (globalThis.model) {
       console.log("MODEL SET FROM REMOTE.... SORRY");
-      
+
       setTimeout(() => mST().i === i && globalThis.model.setValue(code), 200);
 
       return;
