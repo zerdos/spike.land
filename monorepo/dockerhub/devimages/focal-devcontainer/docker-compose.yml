@@ -9,6 +9,7 @@ services:
       - /home/$USER/tmpfs:exec
     user: $USER
     shm_size: 4gb
+    network_mode: bridge
     volumes:
       # - $HOME:/home/$USER/host:delegated
       - /var/run/docker.sock:/var/run/docker.sock

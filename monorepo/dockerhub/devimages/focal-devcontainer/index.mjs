@@ -9,8 +9,8 @@ const run = async () => {
   devGenerator.setXfce();
   devGenerator.setZsh();
   devGenerator.setRemoteDesktop("noVNC");
-  // devGenerator.setChrome();
-  // devGenerator.setVscode();
+  devGenerator.setChrome();
+  devGenerator.setVscode();
 
   const { Dockerfile, README } = await devGenerator.generate();
 

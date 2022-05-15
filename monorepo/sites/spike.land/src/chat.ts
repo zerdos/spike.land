@@ -75,7 +75,8 @@ export default {
           // This is a request for `/api/...`, call the API handler.
           return handleApiRequest(path.slice(1), request, env);
         
-        case "ipfs":
+          case "ipns":
+            case "ipfs":
           const u = new URL(request.url, "https://cloudflare-ipfs.com");
           const new1 = new URL(u.pathname, "https://cloudflare-ipfs.com");
           const resp = await fetch(new1.toString());
@@ -83,7 +84,6 @@ export default {
           const new2 = new URL(u.pathname,"https://ipfs.io");
           const resp2 = await fetch(new2.toString());
           return resp2;
-
         case "live":
           const newPath = [ 'room', ...path.slice(1), 'public'];
           return handleApiRequest(newPath, request, env);
