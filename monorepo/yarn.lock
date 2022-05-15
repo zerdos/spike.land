@@ -9938,10 +9938,10 @@ typedoc@0.22.15:
     minimatch "^5.0.1"
     shiki "^0.10.1"
 
-typescript@4.8.0-dev.20220514:
-  version "4.8.0-dev.20220514"
-  resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.8.0-dev.20220514.tgz#602c2744d9c3b4e4570f17e5dc39ff2ff20661c6"
-  integrity sha512-rfLmQGPxkYme1hQqQupiavg2LW3HFSjx0nLCnj3SmbMHX1kCSMZ27u6n2XlQNXOwYBW91FW6o709XInP3rghZg==
+typescript@4.8.0-dev.20220515:
+  version "4.8.0-dev.20220515"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.8.0-dev.20220515.tgz#5ce315e5d7b929c3ebc003d074591d074db6b5d6"
+  integrity sha512-pABtRgOXxIi33aXzrsRX1AsAlAAnBQeZ5s1IYW3XMpxi60cVLeGNEwRWLQpGXGo9x6PKPZFHHshlt3PuLzE1cg==
 
 typescript@^4.3.5:
   version "4.6.4"
