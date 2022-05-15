@@ -1,8 +1,19 @@
 
+// import type {} from "ace-builds";
+
+// interface AceEditor {
+//     createEditSession: typeof createEditSession
+//     edit
+// }
+
+// const ace = (self as unknown as {ace: {edit: typeof edit }}).ace;
 
 export const startAce = async  (code:string, onChange:(newCode: string)=>void)=>{
-    await import("ace-builds/src/ace")
+   
+    const ace = await import("ace-builds/src/ace");
     
+   
+    // const {ace} = window;
     var editor = ace.edit("editor");
     var js = ace.createEditSession(code);
     editor.setSession(js);
