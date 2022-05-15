@@ -10,9 +10,8 @@
 
 export const startAce = async  (code:string, onChange:(newCode: string)=>void)=>{
    
-    const ace = await import("ace-builds/src/ace");
-    
-   
+    const ace = (await import("ace-builds/src/ace")).default;
+
     // const {ace} = window;
     var editor = ace.edit("editor");
     var js = ace.createEditSession(code);
