@@ -5,7 +5,7 @@ import { css } from "@emotion/react";
 // import { CacheProvider } from "@emotion/react";
 // import createCache from "@emotion/cache";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useMemo } from "react";
 import type { FC } from "react";
 
 import { motion } from "framer-motion";
@@ -55,6 +55,7 @@ interface DraggableWindowProps {
   room: string;
 }
 
+
 export const DraggableWindow: FC<DraggableWindowProps> = (
   {
     // onRestore,
@@ -82,7 +83,17 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
   const [height, setHeight] = useState(window.innerHeight * devicePixelRatio);
   const top = height -bottom;
   const ref = useRef<HTMLDivElement>(null);
-  const zbodyRef = useRef<HTMLDivElement>(null);
+
+  const Zbody = useMemo( ()=>{
+    const zbodyRef = useRef<HTMLDivElement>(null);
+  
+    return  <div
+    id="zbody"
+    ref={zbodyRef}
+  
+  />
+  }, []);
+
   // const appRef = useRef<HTMLDivElement>(null);
 
   // const [forcedIndie, setForcedIndie] = useState(0);
@@ -355,10 +366,11 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
               )
               : ( */
             }
-            <div
-              id="zbody"
-              ref={zbodyRef}
-            />
+           
+
+           {Zbody}
+
+
             {/* )}  */}
             {
               /*  </div>
