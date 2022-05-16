@@ -7,16 +7,16 @@ import { render } from "react-dom";
 import {  mySession, codeSpace } from "./ws";
 import { DraggableWindow } from "./DraggableWindow";
 
-export const renderPreviewWindow = async () => {
+export const renderPreviewWindow = async (Editor) => {
   console.log("renderPreviewWindow");
 
   const target = document.createElement("div");
-  const editor = document.getElementById("monacoEditor");
-  if (editor) editor.style.opacity = "0";
 
   document.body.style.backgroundImage = `url(${path.join("./chunks/", bg)} )`;
 
   render(
+    <>
+    <Editor></Editor>
     <DraggableWindow
       // onRestore={() => {
       //   const model = globalThis.model;
@@ -24,15 +24,12 @@ export const renderPreviewWindow = async () => {
       // }}
       room={codeSpace}
       hashCode={mySession.hashCode()}
-    />,
+    /></>,
     target,
   );
 
   document.body.append(target);
   document.getElementById("zbody")?.append(globalThis.currentTarget);
 
-  if (editor) {
-    editor.style.opacity = "1";
-    editor.style.display = "block";
-  }
+
 };

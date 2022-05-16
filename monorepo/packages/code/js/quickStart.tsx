@@ -1,6 +1,7 @@
 import { mST, codeSpace } from "./ws";
 
 import {isMobile} from "./isMobile.mjs";
+import { AceEditor } from "./AceEditor";
 
 
 async function startAceWithSession() {
@@ -135,13 +136,11 @@ export async function quickStart() {
     "./renderPreviewWindow"
   );
 
-  await renderPreviewWindow();
+  const EditorNode = await isMobile()? (await import("./AceEditor")).AceEditor: (await import("./MonacoEditor")).MonacoEditor;
+  // const Editor = ()=>EditorNode;
 
-if (isMobile()){
-  await startAceWithSession()
-} else {
-  await startMonacoWithSession();
-}
+  await renderPreviewWindow(EditorNode);
+
   
 }
 
