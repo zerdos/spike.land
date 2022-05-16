@@ -80,6 +80,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
   const [{ bottom, right }, setPositions] = useState(startPositions);
   const [width, setWidth] = useState(window.innerWidth * devicePixelRatio);
   const [height, setHeight] = useState(window.innerHeight * devicePixelRatio);
+  const top = height -bottom;
   const ref = useRef<HTMLDivElement>(null);
   const zbodyRef = useRef<HTMLDivElement>(null);
   // const appRef = useRef<HTMLDivElement>(null);
@@ -491,9 +492,9 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
   return (
     <motion.div
       ref={ref}
-      initial={{ padding: 0, bottom: 0, right: 0 }}
+      initial={{ padding: 0, top: 0, right: 0 }}
       animate={{
-        bottom,
+        top: 20,
         padding: 8,
         right,
       }}
