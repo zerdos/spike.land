@@ -69,10 +69,6 @@
     "react-dom": "preact/compat"
   },
   "dependencies": {
-    "@codemirror/basic-setup": "^0.20.0",
-    "@codemirror/lang-javascript": "^0.20.0",
-    "@codemirror/language": "^0.20.0",
-    "@codemirror/state": "^0.20.0",
     "@emotion/cache": "^11.7.1",
     "@emotion/react": "^11.9.0",
     "@emotion/serialize": "^1.0.3",
@@ -86,7 +82,6 @@
     "@types/react-dom": "^18.0.4",
     "ace-builds": "^1.5.0",
     "async-mutex": "0.3.2",
-    "core-js": "^3.22.5",
     "esbuild": "0.14.39",
     "esbuild-plugin-import-map": "2.1.0",
     "esbuild-plugin-jsximportsource": "^0.0.4",
@@ -105,13 +100,6 @@
     "popmotion": "^11.0.3",
     "preact": "^10.7.2",
     "prettier": "^2.6.2",
-    "util": "^0.12.4",
-    "workbox-cacheable-response": "6.5.3",
-    "workbox-cli": "6.5.3",
-    "workbox-precaching": "6.5.3",
-    "workbox-routing": "6.5.3",
-    "workbox-strategies": "6.5.3",
-    "workbox-sw": "6.5.3",
-    "workbox-window": "6.5.3"
+    "util": "^0.12.4"
   }
 }

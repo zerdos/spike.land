@@ -1,7 +1,5 @@
 /** @jsxImportSource @emotion/react */
 
-import "core-js/modules/web.immediate";
-
 import { CacheProvider } from "@emotion/react";
 import createCache from "@emotion/cache";
 import type { FC } from "react";

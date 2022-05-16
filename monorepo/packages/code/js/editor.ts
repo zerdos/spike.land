@@ -1,9 +1,6 @@
 import * as monaco from "monaco-editor";
 import "monaco-editor/esm/vs/editor/editor.main";
 
-import "core-js/proposals/string-replace-all-stage-4";
-import "core-js/proposals/string-match-all";
-
 import codicon from "monaco-editor/esm/vs/base/browser/ui/codicons/codicon/codicon.ttf";
 // import { parse } from "@babel/parser";
 // import traverse from "@babel/traverse";

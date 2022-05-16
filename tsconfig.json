@@ -9,6 +9,7 @@
     "module": "esnext",
     "lib": ["dom", "dom.iterable", "ESNext"],
     "resolveJsonModule": true,
+    "downlevelIteration": true,
     "declarationMap": true,
     "moduleResolution": "node",
     "isolatedModules": true,
