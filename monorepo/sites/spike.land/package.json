@@ -15,7 +15,7 @@
     "@spike.land/cf-npm-site": "^0.7.717",
     "@spike.land/code": "^0.7.798",
     "tslib": "2.4.0",
-    "typescript": "4.8.0-dev.20220515"
+    "typescript": "4.8.0-dev.20220516"
   },
   "dependencies": {
     "@cloudflare/kv-asset-handler": "0.2.0",
