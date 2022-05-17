@@ -56,8 +56,9 @@ async function startAce   (code:string, onChange:(newCode: string)=>void){
     
     editor.setTheme("ace/theme/monokai");
     await import("ace-builds/src/mode-typescript");
+    // await import("ace-builds/src/mode-typescript-highlight-rules");
     
-    editor.session.setMode("ace/mode/typescript");
+    editor.session.setMode("ace/mode/typescript", {jsx: true});
 
     editor.session.on("change",  ()=>{
         const newStr = editor.getValue();
