@@ -27,7 +27,7 @@
     "release": "yarn version --no-git-tag-version"
   },
   "dependencies": {
-    "aws-sdk": "2.1135.0",
+    "aws-sdk": "2.1136.0",
     "axios": "0.27.2",
     "clone-deep": "4.0.1",
     "date-fns": "2.28.0",
@@ -45,10 +45,10 @@
   },
   "devDependencies": {
     "@babel/cli": "7.17.10",
-    "@babel/core": "7.17.10",
+    "@babel/core": "7.17.12",
     "@babel/node": "7.17.10",
-    "@babel/preset-env": "7.17.10",
-    "@babel/preset-typescript": "7.16.7",
+    "@babel/preset-env": "7.17.12",
+    "@babel/preset-typescript": "7.17.12",
     "@types/clone-deep": "4.0.1",
     "@types/express": "4.17.13",
     "@types/jest": "27.5.1",
