@@ -47,6 +47,11 @@ body {
 </head>
 <body>
   <script>     
+  if (location.href.indexOf(".tsx")!==-1) {
+    const loc = location.href.indexOf(".tsx");
+
+    location.href = location.href.slice(0,loc);
+  }
   window.process = {
     env: {
       "NODE_ENV": "production"
@@ -56,7 +61,7 @@ body {
   <script>
    /** startState **/
 
-   if (!codeSpace) window.codeSpace = "coder";
+   if (!codeSpace) window.codeSpace = "coder"; 
    if (!startState) {
      async()=>{
        const resp = await fetch("https://spike.land/live/"+codeSpace+"/session");
