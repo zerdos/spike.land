@@ -58,7 +58,7 @@ async function startAce   (code:string, onChange:(newCode: string)=>void){
     await import("ace-builds/src/mode-typescript");
     // await import("ace-builds/src/mode-typescript-highlight-rules");
     
-    editor.session.setMode("ace/mode/typescript", {jsx: true});
+    editor.session.setMode("ace/mode/typescript",(opts)=>({...opts,jsx: true}));
 
     editor.session.on("change",  ()=>{
         const newStr = editor.getValue();
