@@ -1,6 +1,6 @@
 {
   "name": "@spike.land/qrious",
-  "version": "0.7.799",
+  "version": "0.7.804",
   "description": "Library for QR code generation using canvas",
   "homepage": "https://github.com/neocotic/qrious",
   "publishConfig": {
@@ -30,7 +30,7 @@
   },
   "devDependencies": {
     "esbuild": "0.14.39",
-    "typescript": "4.8.0-dev.20220516"
+    "typescript": "4.8.0-dev.20220517"
   },
   "typings": "public/QRious.d.ts",
   "source": "src/QRious.tsx",

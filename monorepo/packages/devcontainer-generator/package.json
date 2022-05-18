@@ -1,6 +1,6 @@
 {
   "name": "@spike.land/devcontainer-generator",
-  "version": "0.7.799",
+  "version": "0.7.804",
   "description": "generates custom devcontainer Dockerfiles",
   "files": [
     "lib/**/*",
@@ -18,7 +18,7 @@
   "license": "MIT",
   "devDependencies": {
     "esbuild": "0.14.39",
-    "typescript": "4.8.0-dev.20220516"
+    "typescript": "4.8.0-dev.20220517"
   },
   "gitHead": "f19ed65bbe1e6fa6921e9d4a07d42a6cc4003eac"
 }

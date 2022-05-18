@@ -1,6 +1,6 @@
 {
   "name": "@spike.land/code",
-  "version": "0.7.802",
+  "version": "0.7.804",
   "description": "spike.land",
   "type": "module",
   "main": "./js/starter.ts",
@@ -53,8 +53,8 @@
   "repository": "https://github.com/spike-land/monorepo",
   "devDependencies": {
     "@types/lodash": "4.14.182",
-    "@types/node": "17.0.33",
-    "typescript": "4.8.0-dev.20220516",
+    "@types/node": "17.0.34",
+    "typescript": "4.8.0-dev.20220517",
     "vite": "2.9.9",
     "vite-plugin-import-maps": "0.1.2"
   },
@@ -75,8 +75,8 @@
     "@emotion/sheet": "^1.1.0",
     "@emotion/styled": "^11.8.1",
     "@emotion/utils": "^1.1.0",
-    "@mui/material": "^5.7.0",
-    "@spike.land/qrious": "^0.7.799",
+    "@mui/material": "^5.8.0",
+    "@spike.land/qrious": "^0.7.804",
     "@types/prettier": "^2.6.1",
     "@types/react": "18.0.9",
     "@types/react-dom": "^18.0.4",
@@ -94,7 +94,7 @@
     "ipfs-message-port-client": "^0.11.3",
     "ipfs-message-port-server": "^0.11.3",
     "lodash": "^4.17.21",
-    "monaco-editor": "0.34.0-dev.20220516",
+    "monaco-editor": "0.34.0-dev.20220517",
     "p-all": "^4.0.0",
     "path-browserify": "^1.0.1",
     "popmotion": "^11.0.3",
