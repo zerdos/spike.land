@@ -15,12 +15,12 @@ RUN ARCH= && dpkgArch="$(dpkg --print-architecture)" \
   && set -ex \
    && curl -fsSL https://download.docker.com/linux/debian/gpg | apt-key add - \
     && add-apt-repository \
-         "deb [arch=$ARCH] https://download.docker.com/linux/ubuntu groovy stable" \
+         "deb [arch=$ARCH] https://download.docker.com/linux/ubuntu jammy stable" \
        && apt-get install --no-install-recommends -y \
         docker-ce \
         docker-ce-cli \
     && curl -L  \
-        https://github.com/docker/compose/releases/download/v2.0.1/docker-compose-`uname -s`-`uname -m` \
+        https://github.com/docker/compose/releases/download/v2.5.1/docker-compose-`uname -s`-`uname -m` \
         -o /usr/local/bin/docker-compose \
     && chmod +x /usr/local/bin/docker-compose \
     && usermod -G docker -a ${USER} \

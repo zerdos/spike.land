@@ -6,6 +6,7 @@
 - Cypress 9.6.1
 - With noVNC - XFCE trough noVNC (http://localhost:6080)
 - With google-chrome
-- With Vscode- Zsh + Oh my zsh!
+- With Vscode- docker preinstalled
+- Zsh + Oh my zsh!
 - Deno: 1.21.3
 - github: https://github.com/spike-land/monorepo
