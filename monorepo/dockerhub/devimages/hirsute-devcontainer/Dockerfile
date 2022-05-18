@@ -118,7 +118,8 @@ RUN ARCH= && dpkgArch="$(dpkg --print-architecture)" \
   && ln -s /usr/local/bin/node /usr/local/bin/nodejs \
   # smoke tests
   && node --version \
-  && npm --version
+  && npm --version  \
+  && npm i -g npm yarn
 ### dotnet.Dockerfile
 
 ENV \
