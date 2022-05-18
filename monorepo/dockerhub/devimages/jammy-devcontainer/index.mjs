@@ -5,12 +5,18 @@ const { writeFile } = promises;
 const run = async () => {
   const devGenerator = new DevcontainerGenerator("jammy");
 
-  devGenerator.setNodeVersion("current");
+  devGenerator.setNodeVersion("lts");
   devGenerator.setXfce();
   devGenerator.setZsh();
   devGenerator.setRemoteDesktop("noVNC");
-  // devGenerator.setChrome();
-  // devGenerator.setVscode();
+  devGenerator.setChrome();
+  devGenerator.setDotnet("6");
+  
+  devGenerator.setDeno();
+  devGenerator.setCypress();
+  
+  // devGenerator.dot
+  devGenerator.setVscode();
 
   const { Dockerfile, README } = await devGenerator.generate();
 
