@@ -10,7 +10,9 @@ services:
 #       - ipfs:/data/ipfs
 #       - .:/export
   devcontainer: 
-    image: devimages/yammy-devcontainer:latest
+    build:
+      - context: .
+      : Dockerfile:  monorepo/dockerhubdevimages/yammy-devcontainer:latest
     ports: 
       - 5901:5901
       - 6080:6080
