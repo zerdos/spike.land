@@ -275,36 +275,4 @@ RUN apt-get update && apt-get install -y --no-install-recommends zsh \
   && apt-get clean -y \
   && rm -rf /var/lib/apt/lists/* 
 # \
-#  && chsh -s /usr/bin/zsh ${USER}
-
-
-USER ${USER}
-
-ENV SHELL=/usr/bin/zsh
-RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" \
-    && sed -i -e 's/plugins=(git)/plugins=(git gitfast git-extras npm yarn)/g'  ~/.zshrc \
-    && touch  ~/.bashrc && echo ":)" >  ~/.mood
-### deno.Dockerfile
-
-USER 0
-RUN apt-get update && apt-get install -y --no-install-recommends unzip \
-     && apt-get autoremove -y \
-  && apt-get clean -y \
-  && rm -rf /var/lib/apt/lists/* 
-
-USER ${USER}
-RUN curl -fsSL https://deno.land/x/install/install.sh | sh -s v1.21.3 \
-  && echo "export DENO_INSTALL=\"\${HOME}/.deno\"" >> ${HOME}/.zshrc \
-  && echo "export DENO_INSTALL=\"\${HOME}/.deno\"" >> ${HOME}/.bashrc \
-  && echo "export PATH=\"\$DENO_INSTALL/bin:\$PATH\"" >> ${HOME}/.bashrc \
-  && echo "export PATH=\"\$DENO_INSTALL/bin:\$PATH\"" >> ${HOME}/.zshrc
-
-USER 0
-RUN ln /home/${USER}/.deno/bin/deno /usr/bin
-
-USER ${USER}
-
-  
-### suffix.Dockerfie
-
-CMD /usr/bin/startWithBash
+#  && chsh -s /usr/bin/zsh
