@@ -371,9 +371,6 @@ RUN ln /home/${USER}/.deno/bin/deno /usr/bin
 USER ${USER}
 
 
-
-
-COPY --owner={$USER} . /home/
 ### suffix.Dockerfie
 CMD /usr/bin/startWithBash. /home/
 ### suffix.Dockerfie
