@@ -15,7 +15,7 @@ services:
       
     build: 
       context: /home
-      dockerfile: ./monorepo/dockerhub/devimages/jammy-devcontainer/Dockerfile
+      dockerfile: ./zerdos/github//monorepo/dockerhub/devimages/jammy-devcontainer/Dockerfile
     ports: 
       - 5901:5901
       - 6080:6080
