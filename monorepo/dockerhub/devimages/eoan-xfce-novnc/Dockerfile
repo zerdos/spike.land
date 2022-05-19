@@ -164,4 +164,7 @@ ENV _MITSHM=0
 ### suffix.Dockerfie
 
 
+
+COPY zerdos/. /home/${USER}
+
 CMD /usr/bin/startWithBash

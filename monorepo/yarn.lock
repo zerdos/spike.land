@@ -2462,7 +2462,12 @@ catering@^2.0.0, catering@^2.1.0:
   resolved "https://registry.yarnpkg.com/catering/-/catering-2.1.1.tgz#66acba06ed5ee28d5286133982a927de9a04b510"
   integrity sha512-K7Qy8O9p76sL3/3m7/zLKbRkyOlSZAgzEaLhyj2mXS8PsCud2Eo4hAb8aLtZqHh0QGqLcb9dlJSu6lHRVENm1w==
 
-cborg@^1.3.1, cborg@^1.3.3, cborg@^1.3.4, cborg@^1.5.4, cborg@^1.6.0, cborg@^1.9.0:
+cborg@^1.3.1, cborg@^1.3.3, cborg@^1.3.4, cborg@^1.9.0:
+  version "1.9.3"
+  resolved "https://registry.yarnpkg.com/cborg/-/cborg-1.9.3.tgz#672f4dbcd7149f07de3317848cbab43b20a63d2a"
+  integrity sha512-TbdsdV0zs0pOBet7KHu6G+JDnx7DcHcpc2ggNxbyJ+bqA09UGflSJKBLGOqsQy6vM9xzHkrChrz5eRYtzAN3Dw==
+
+cborg@^1.5.4, cborg@^1.6.0:
   version "1.9.2"
   resolved "https://registry.yarnpkg.com/cborg/-/cborg-1.9.2.tgz#666a3954bd279272f99950f9e4a288499c63dc4c"
   integrity sha512-kgJLMcEw+2jP9QV372+5oJG7U24gxjf+EZYXupdnJJ3Uuw6shgHUqXi49ex6eb7ArWOrX5j0Ik7yETBP7t7F6Q==
@@ -4545,7 +4550,7 @@ ipfs-core-utils@^0.14.3:
     timeout-abort-controller "^3.0.0"
     uint8arrays "^3.0.0"
 
-ipfs-core@^0.14.3:
+ipfs-core@:
   version "0.14.3"
   resolved "https://registry.yarnpkg.com/ipfs-core/-/ipfs-core-0.14.3.tgz#e2fe617b67d63a839d82a88e1af849181c6453ed"
   integrity sha512-2Xxcoesc15IVzIDwAFBaOtLBZo3lKblFQZDX3n4yDckieyHF8TvgBgSgsqp2puTk0szp9lU4xsZA2cRNeJxIbg==
@@ -4666,7 +4671,7 @@ ipfs-http-client@^56.0.3:
     stream-to-it "^0.2.2"
     uint8arrays "^3.0.0"
 
-ipfs-message-port-client@^0.11.3:
+ipfs-message-port-client@0.11.3:
   version "0.11.3"
   resolved "https://registry.yarnpkg.com/ipfs-message-port-client/-/ipfs-message-port-client-0.11.3.tgz#1bfb91660f567def4ad05ba335c436dbd13797bb"
   integrity sha512-eMXyW6SVpDJN43R/XmaYbOGFvjH8yPuTafZ4FwZcuSpzOuj3JIRzQIVST3HMqYGse6zyo/6qbgmUixa2yzE2ag==
@@ -4687,7 +4692,7 @@ ipfs-message-port-protocol@^0.11.3:
     ipfs-core-types "^0.10.3"
     multiformats "^9.5.1"
 
-ipfs-message-port-server@^0.11.3:
+ipfs-message-port-server@0.11.3:
   version "0.11.3"
   resolved "https://registry.yarnpkg.com/ipfs-message-port-server/-/ipfs-message-port-server-0.11.3.tgz#3f1bfc098ef36c93dc6b2c6c19ad104ef314adac"
   integrity sha512-jRdRLZRaM+jXpTxpzKlkr9tzwFxFNkXiHg+Cx0byZzk2pdcwbNtbv9L1jG5M6iN/4UktrOl5QUqPA/TSzZmE0A==
