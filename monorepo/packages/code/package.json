@@ -94,7 +94,7 @@
     "ipfs-message-port-client": "^0.11.3",
     "ipfs-message-port-server": "^0.11.3",
     "lodash": "^4.17.21",
-    "monaco-editor": "0.34.0-dev.20220518",
+    "monaco-editor": "0.34.0-dev.20220519",
     "p-all": "^4.0.0",
     "path-browserify": "^1.0.1",
     "popmotion": "^11.0.3",
