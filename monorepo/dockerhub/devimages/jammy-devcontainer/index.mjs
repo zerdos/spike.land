@@ -11,7 +11,7 @@ const run = async () => {
   devGenerator.setRemoteDesktop("noVNC");
   devGenerator.setChrome();
   devGenerator.setDotnet("6");
-  
+  // devGenerator.setD  
   devGenerator.setDeno();
   devGenerator.setCypress();
   devGenerator.setDocker();
