@@ -307,6 +307,4 @@ USER ${USER}
   
 ### suffix.Dockerfie
 
-COPY . .
-
 CMD /usr/bin/startWithBash
