@@ -160,11 +160,6 @@ RUN apt-get update \
 && apt-get clean -y \
 && rm -rf /var/lib/apt/lists/* 
 
-
-
-COPY . .
-
-
 USER ${USER}
  
 RUN yarn global add cypress@9.6.1
@@ -312,5 +307,6 @@ USER ${USER}
   
 ### suffix.Dockerfie
 
+COPY . .
 
 CMD /usr/bin/startWithBash
