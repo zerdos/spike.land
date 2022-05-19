@@ -1,18 +1,21 @@
 version: "3.7"
 services:
-#   ipfs:  
-#     image: ipfs/go-ipfs:latest
-#     ports: 
-#     #   - 4001:4001
-#       - 5001:5001
-#       - 8080:8080
-#     volumes:
-#       - ipfs:/data/ipfs
-#       - .:/export
+  ipfs:  
+    image: ipfs/go-ipfs:latest
+    ports: 
+      - 4001:4001
+      - 5001:5001
+      - 8080:8080
+    volumes:
+      - ipfs:/data/ipfs
+      - .:/exportdevcontainer
   devcontainer: 
-    build:
-      - context: .
-      : Dockerfile:  monorepo/dockerhubdevimages/yammy-devcontainer:latest
+
+
+      
+    build: 
+      context: /home
+      dockerfile: ./monorepo/monorepo/dockerhub/devimages/jammy-devcontainer/Dockerfile
     ports: 
       - 5901:5901
       - 6080:6080
