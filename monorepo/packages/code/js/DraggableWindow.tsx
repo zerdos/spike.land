@@ -466,9 +466,25 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
           key="QRButton"
         />
 
-        <Fab
+<Fab
           key="Share"
           onClick={() => open(`https://spike.land/live/${room}/public`)}
+        >
+          <Share />
+        </Fab>
+        <Fab
+          key="Share"
+          onClick={async() =>  {
+            const IdentifoAuth  =await import('@identifo/identifo-auth-js');
+
+
+            console.log(IdentifoAuth);
+
+            const identifo = new IdentifoAuth({
+              url: 'https://spuke.land', // URI of your Identifo server.
+              appId: 'ddw', // ID of application that you want to get access to.
+            });
+            }}
         >
           <Share />
         </Fab>
@@ -500,6 +516,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
       </div>
     </div>
   );
+  
 
   return (
     <motion.div
