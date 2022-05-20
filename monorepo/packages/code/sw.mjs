@@ -1,9 +1,7 @@
-
 import { defer, selectClient, toReadableStream } from "./service/util";
-import { IPFSClient } from 'ipfs-message-port-client'
+import { IPFSClient } from "ipfs-message-port-client";
 
-const IPFS_SERVER_URL = './worker.js'
-
+const IPFS_SERVER_URL = "./worker.js";
 
 /**
  * @param {LifecycleEvent} event
@@ -14,8 +12,6 @@ const oninstall = async (event) => {
   event.waitUntil(event.target.skipWaiting());
 };
 
-
-
 /**
  * @param {LifecycleEvent} event
  */
@@ -24,53 +20,54 @@ const onactivate = async (event) => {
   // very first page will be handled by service worker. Which is why we claim
   // clients.
   event.waitUntil(event.target.clients.claim());
-
 };
 
 /**
  * @param {Fetch} event
  */
 const onfetch = (event) => {
-
   const url = new URL(event.request.url);
-  try{
-  switch (url.origin) {
-    // Our service worker only serves pages for its own page origin
-    case location.origin: {
-      const paths = url.pathname.split("/");
-      if (paths.length>2) {
-
-      const protocol = paths[1];
-      switch (protocol) {
-        // If requests are for `/ipfs/...` or `/ipns/` URLs we respond with
-        // a content viewer which is a page containing an iframe
-        // for actual content like <iframe src=`/view${url.pathname}` />
-        // and a script that we can talk to in order to obtain a connection to the shared IPFS node via a MessagePort.
-        // This might be confusing but this wrapper page is what allows this
-        // service worker to obtain a MessagePort, otherwise there may not even
-        // be a page that will start a shared worker, nor a way to get a message
-        // port for it.
-        case "ipfs":
-        case "ipns":
-          return event.respondWith(fetchViewer({ url }));
-        // If requests are for `/view/...` URL those are requests from iframes
-        // for the content.
-        case "view":
-          return event.respondWith(fetchContent({
-            event,
-            path: url.pathname.slice(protocol.length + 1),
-          }));
-        // Anything else might be for scripts, source maps etc.. we just fetch
-        // those from network
-          return event.respondWith( fetch(event.request));
+  try {
+    switch (url.origin) {
+      // Our service worker only serves pages for its own page origin
+      case location.origin: {
+        const paths = url.pathname.split("/");
+        if (paths.length > 2) {
+          const protocol = paths[1];
+          switch (protocol) {
+            // If requests are for `/ipfs/...` or `/ipns/` URLs we respond with
+            // a content viewer which is a page containing an iframe
+            // for actual content like <iframe src=`/view${url.pathname}` />
+            // and a script that we can talk to in order to obtain a connection to the shared IPFS node via a MessagePort.
+            // This might be confusing but this wrapper page is what allows this
+            // service worker to obtain a MessagePort, otherwise there may not even
+            // be a page that will start a shared worker, nor a way to get a message
+            // port for it.
+            case "ipfs":
+            case "ipns":
+              return event.respondWith(fetchViewer({ url }));
+            // If requests are for `/view/...` URL those are requests from iframes
+            // for the content.
+            case "view":
+              return event.respondWith(fetchContent({
+                event,
+                path: url.pathname.slice(protocol.length + 1),
+              }));
+              // Anything else might be for scripts, source maps etc.. we just fetch
+              // those from network
+              return event.respondWith(fetch(event.request));
+          }
+        }
       }
+      // Requests to other origins are fetched from the network.
+      default:
+        try {
+          return event.respondWith(fetch(event.request));
+        } catch {
+          console.error(url);
+        }
     }
-    }
-    // Requests to other origins are fetched from the network.
-    default: {
-      return event.respondWith( fetch(event.request));
-    }
-  }}catch{
+  } catch {
     console.error(url);
   }
 };
@@ -110,7 +107,7 @@ const fetchViewer = async ({ url }) => {
 const fetchContent = async ({ event, path }) => {
   const [, protocol] = path.split("/");
   switch (protocol) {
-    case "ipns": 
+    case "ipns":
       return await fetchIPNSContent({
         event,
         path,
@@ -120,12 +117,11 @@ const fetchContent = async ({ event, path }) => {
         event,
         path,
       });
-    default: 
+    default:
       const response = await unsupportedProtocol(protocol);
       return response;
-    }
   }
-
+};
 
 /**
  * @param {Object} options
@@ -155,12 +151,12 @@ const fetchIPNSContent = async ({/* path, event */}) => {
  */
 const fetchIPFSContent = async ({ event, path }) => {
   // Obtains IPFS inst.statance
-  const ipfs = await  createIPFSClient(event);
+  const ipfs = await createIPFSClient(event);
   try {
     const stat = await ipfs.files.stat(path);
     switch (stat.type) {
       case "file": {
-        return  await fetchIPFSFile(ipfs, path);
+        return await fetchIPFSFile(ipfs, path);
       }
       case "directory": {
         if (!path.endsWith("/")) {
@@ -305,18 +301,14 @@ const unsupportedProtocol = async (protocol) => {
  *
  * @param {Fetch} context .**/
 
-
- const createIPFSClient = async (context) => {
+const createIPFSClient = async (context) => {
   // Selects a service worker client that can be used to obtain a message port
   // from, then sends a request to it and once a response is obtained, creates a
   // IPFS client and returns it
-  const client = await selectClient(context.target)
-  const port = await requestIPFSPort(client)
-  return IPFSClient.from(port)
-}
-
-
-
+  const client = await selectClient(context.target);
+  const port = await requestIPFSPort(client);
+  return IPFSClient.from(port);
+};
 
 /**
  * Sends a message prot request to the window client and waits for the response.
@@ -329,23 +321,22 @@ const requestIPFSPort = (client) => {
   // We might receive multiple concurrent requests from the same client (e.g.
   // images, scripts, stylesheets for the page) to avoid creating a port for
   // each request we use a little table keyed by client id instead.
-  const request = portRequests[client.id]
+  const request = portRequests[client.id];
   if (request == null) {
-    const request = defer()
-    portRequests[client.id] = request
+    const request = defer();
+    portRequests[client.id] = request;
     client.postMessage({
-      method: 'ipfs-message-port',
-      id: client.id
-    })
-    return request.promise
+      method: "ipfs-message-port",
+      id: client.id,
+    });
+    return request.promise;
   } else {
-    return request.promise
+    return request.promise;
   }
-}
-
+};
 
 /** @type {Record<string, { promise: Promise<MessagePort>, resolve(port:MessagePort):void, reject(error:Error):void }>} */
-const portRequests = Object.create(null)
+const portRequests = Object.create(null);
 
 /**
  * Listens to the messages from the clients if it is response to pending message
@@ -353,22 +344,19 @@ const portRequests = Object.create(null)
  *
  * @param {MessageEvent} event
  */
-const onmessage = ({data}) => {
+const onmessage = ({ data }) => {
   if (data) {
-    const request = portRequests[data.id]
+    const request = portRequests[data.id];
     if (request != null) {
-      delete portRequests[data.id]
+      delete portRequests[data.id];
       if (data.port instanceof MessagePort) {
-        request.resolve(data.port)
+        request.resolve(data.port);
       } else {
-        request.reject(new Error(data.error))
+        request.reject(new Error(data.error));
       }
     }
   }
-}
-
-
-
+};
 
 /**
  * Sets up service worker event handlers.
