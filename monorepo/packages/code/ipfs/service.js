@@ -4247,11 +4247,10 @@ if (cid) {
     }
   };
   var fetchViewer = async ({ url }) => {
-    const body = new Blob(
-      [`<html data-viewer>
+    const body = new Blob([`<!DOCTYPE html><html data-viewer>
 <head>
   <title>${url.pathname}</title>
-  <script src="https://spike.land/main.mjs"><\/script>
+  <script src="https://spike.land/main.js"><\/script>
 </head>
 <body>
   <iframe id="viewer" style="width:100%;height:100%;position:fixed;top:0;left:0;border:none;" src="/view${url.pathname}"></iframe>
