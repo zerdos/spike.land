@@ -5,22 +5,47 @@
   var __getOwnPropNames = Object.getOwnPropertyNames;
   var __getProtoOf = Object.getPrototypeOf;
   var __hasOwnProp = Object.prototype.hasOwnProperty;
-  var __commonJS = (cb, mod2) => function __require() {
-    return mod2 || (0, cb[__getOwnPropNames(cb)[0]])((mod2 = { exports: {} }).exports, mod2), mod2.exports;
-  };
+  var __commonJS = (cb, mod2) =>
+    function __require() {
+      return mod2 ||
+        (0, cb[__getOwnPropNames(cb)[0]])(
+          (mod2 = { exports: {} }).exports,
+          mod2,
+        ),
+        mod2.exports;
+    };
   var __copyProps = (to, from2, except, desc) => {
     if (from2 && typeof from2 === "object" || typeof from2 === "function") {
-      for (let key of __getOwnPropNames(from2))
-        if (!__hasOwnProp.call(to, key) && key !== except)
-          __defProp(to, key, { get: () => from2[key], enumerable: !(desc = __getOwnPropDesc(from2, key)) || desc.enumerable });
+      for (let key of __getOwnPropNames(from2)) {
+        if (!__hasOwnProp.call(to, key) && key !== except) {
+          __defProp(to, key, {
+            get: () => from2[key],
+            enumerable: !(desc = __getOwnPropDesc(from2, key)) ||
+              desc.enumerable,
+          });
+        }
+      }
     }
     return to;
   };
-  var __toESM = (mod2, isNodeMode, target) => (target = mod2 != null ? __create(__getProtoOf(mod2)) : {}, __copyProps(isNodeMode || !mod2 || !mod2.__esModule ? __defProp(target, "default", { value: mod2, enumerable: true }) : target, mod2));
+  var __toESM = (
+    mod2,
+    isNodeMode,
+    target,
+  ) => (target = mod2 != null ? __create(__getProtoOf(mod2)) : {},
+    __copyProps(
+      isNodeMode || !mod2 || !mod2.__esModule
+        ? __defProp(target, "default", { value: mod2, enumerable: true })
+        : target,
+      mod2,
+    ));
 
   // ../../node_modules/browser-readablestream-to-it/index.js
   var require_browser_readablestream_to_it = __commonJS({
-    "../../node_modules/browser-readablestream-to-it/index.js"(exports2, module2) {
+    "../../node_modules/browser-readablestream-to-it/index.js"(
+      exports2,
+      module2,
+    ) {
       "use strict";
       async function* browserReadableStreamToIt(stream, options = {}) {
         const reader = stream.getReader();
@@ -40,7 +65,7 @@
         }
       }
       module2.exports = browserReadableStreamToIt;
-    }
+    },
   });
 
   // ../../node_modules/err-code/index.js
@@ -52,7 +77,7 @@
           Object.defineProperty(obj, key, {
             value: props[key],
             enumerable: true,
-            configurable: true
+            configurable: true,
           });
         }
         return obj;
@@ -76,7 +101,7 @@
         } catch (_) {
           props.message = err.message;
           props.stack = err.stack;
-          const ErrClass = function() {
+          const ErrClass = function () {
           };
           ErrClass.prototype = Object.create(Object.getPrototypeOf(err));
           const output = assign(new ErrClass(), props);
@@ -84,7 +109,7 @@
         }
       }
       module2.exports = createError2;
-    }
+    },
   });
 
   // ../../node_modules/@protobufjs/aspromise/index.js
@@ -93,19 +118,24 @@
       "use strict";
       module2.exports = asPromise;
       function asPromise(fn, ctx) {
-        var params = new Array(arguments.length - 1), offset = 0, index = 2, pending = true;
-        while (index < arguments.length)
+        var params = new Array(arguments.length - 1),
+          offset = 0,
+          index = 2,
+          pending = true;
+        while (index < arguments.length) {
           params[offset++] = arguments[index++];
+        }
         return new Promise(function executor(resolve2, reject) {
           params[offset] = function callback(err) {
             if (pending) {
               pending = false;
-              if (err)
+              if (err) {
                 reject(err);
-              else {
+              } else {
                 var params2 = new Array(arguments.length - 1), offset2 = 0;
-                while (offset2 < params2.length)
+                while (offset2 < params2.length) {
                   params2[offset2++] = arguments[offset2];
+                }
                 resolve2.apply(null, params2);
               }
             }
@@ -120,7 +150,7 @@
           }
         });
       }
-    }
+    },
   });
 
   // ../../node_modules/@protobufjs/base64/index.js
@@ -130,17 +160,28 @@
       var base64 = exports2;
       base64.length = function length2(string) {
         var p = string.length;
-        if (!p)
+        if (!p) {
           return 0;
+        }
         var n = 0;
-        while (--p % 4 > 1 && string.charAt(p) === "=")
+        while (--p % 4 > 1 && string.charAt(p) === "=") {
           ++n;
+        }
         return Math.ceil(string.length * 3) / 4 - n;
       };
       var b64 = new Array(64);
       var s64 = new Array(123);
-      for (i = 0; i < 64; )
-        s64[b64[i] = i < 26 ? i + 65 : i < 52 ? i + 71 : i < 62 ? i - 4 : i - 59 | 43] = i++;
+      for (i = 0; i < 64;) {
+        s64[
+          b64[i] = i < 26
+            ? i + 65
+            : i < 52
+            ? i + 71
+            : i < 62
+            ? i - 4
+            : i - 59 | 43
+        ] = i++;
+      }
       var i;
       base64.encode = function encode3(buffer, start, end) {
         var parts = null, chunk = [];
@@ -165,19 +206,23 @@
               break;
           }
           if (i2 > 8191) {
-            (parts || (parts = [])).push(String.fromCharCode.apply(String, chunk));
+            (parts || (parts = [])).push(
+              String.fromCharCode.apply(String, chunk),
+            );
             i2 = 0;
           }
         }
         if (j) {
           chunk[i2++] = b64[t];
           chunk[i2++] = 61;
-          if (j === 1)
+          if (j === 1) {
             chunk[i2++] = 61;
+          }
         }
         if (parts) {
-          if (i2)
+          if (i2) {
             parts.push(String.fromCharCode.apply(String, chunk.slice(0, i2)));
+          }
           return parts.join("");
         }
         return String.fromCharCode.apply(String, chunk.slice(0, i2));
@@ -186,12 +231,14 @@
       base64.decode = function decode5(string, buffer, offset) {
         var start = offset;
         var j = 0, t;
-        for (var i2 = 0; i2 < string.length; ) {
+        for (var i2 = 0; i2 < string.length;) {
           var c = string.charCodeAt(i2++);
-          if (c === 61 && j > 1)
+          if (c === 61 && j > 1) {
             break;
-          if ((c = s64[c]) === void 0)
+          }
+          if ((c = s64[c]) === void 0) {
             throw Error(invalidEncoding);
+          }
           switch (j) {
             case 0:
               t = c;
@@ -213,14 +260,16 @@
               break;
           }
         }
-        if (j === 1)
+        if (j === 1) {
           throw Error(invalidEncoding);
+        }
         return offset - start;
       };
       base64.test = function test(string) {
-        return /^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$/.test(string);
+        return /^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$/
+          .test(string);
       };
-    }
+    },
   });
 
   // ../../node_modules/@protobufjs/eventemitter/index.js
@@ -234,23 +283,25 @@
       EventEmitter.prototype.on = function on(evt, fn, ctx) {
         (this._listeners[evt] || (this._listeners[evt] = [])).push({
           fn,
-          ctx: ctx || this
+          ctx: ctx || this,
         });
         return this;
       };
       EventEmitter.prototype.off = function off(evt, fn) {
-        if (evt === void 0)
+        if (evt === void 0) {
           this._listeners = {};
-        else {
-          if (fn === void 0)
+        } else {
+          if (fn === void 0) {
             this._listeners[evt] = [];
-          else {
+          } else {
             var listeners = this._listeners[evt];
-            for (var i = 0; i < listeners.length; )
-              if (listeners[i].fn === fn)
+            for (var i = 0; i < listeners.length;) {
+              if (listeners[i].fn === fn) {
                 listeners.splice(i, 1);
-              else
+              } else {
                 ++i;
+              }
+            }
           }
         }
         return this;
@@ -259,14 +310,16 @@
         var listeners = this._listeners[evt];
         if (listeners) {
           var args = [], i = 1;
-          for (; i < arguments.length; )
+          for (; i < arguments.length;) {
             args.push(arguments[i++]);
-          for (i = 0; i < listeners.length; )
+          }
+          for (i = 0; i < listeners.length;) {
             listeners[i].fn.apply(listeners[i++].ctx, args);
+          }
         }
         return this;
       };
-    }
+    },
   });
 
   // ../../node_modules/@protobufjs/float/index.js
@@ -275,9 +328,11 @@
       "use strict";
       module2.exports = factory(factory);
       function factory(exports3) {
-        if (typeof Float32Array !== "undefined")
-          (function() {
-            var f32 = new Float32Array([-0]), f8b = new Uint8Array(f32.buffer), le = f8b[3] === 128;
+        if (typeof Float32Array !== "undefined") {
+          (function () {
+            var f32 = new Float32Array([-0]),
+              f8b = new Uint8Array(f32.buffer),
+              le = f8b[3] === 128;
             function writeFloat_f32_cpy(val, buf, pos) {
               f32[0] = val;
               buf[pos] = f8b[0];
@@ -292,8 +347,12 @@
               buf[pos + 2] = f8b[1];
               buf[pos + 3] = f8b[0];
             }
-            exports3.writeFloatLE = le ? writeFloat_f32_cpy : writeFloat_f32_rev;
-            exports3.writeFloatBE = le ? writeFloat_f32_rev : writeFloat_f32_cpy;
+            exports3.writeFloatLE = le
+              ? writeFloat_f32_cpy
+              : writeFloat_f32_rev;
+            exports3.writeFloatBE = le
+              ? writeFloat_f32_rev
+              : writeFloat_f32_cpy;
             function readFloat_f32_cpy(buf, pos) {
               f8b[0] = buf[pos];
               f8b[1] = buf[pos + 1];
@@ -311,37 +370,59 @@
             exports3.readFloatLE = le ? readFloat_f32_cpy : readFloat_f32_rev;
             exports3.readFloatBE = le ? readFloat_f32_rev : readFloat_f32_cpy;
           })();
-        else
-          (function() {
+        } else {
+          (function () {
             function writeFloat_ieee754(writeUint, val, buf, pos) {
               var sign = val < 0 ? 1 : 0;
-              if (sign)
+              if (sign) {
                 val = -val;
-              if (val === 0)
+              }
+              if (val === 0) {
                 writeUint(1 / val > 0 ? 0 : 2147483648, buf, pos);
-              else if (isNaN(val))
+              } else if (isNaN(val)) {
                 writeUint(2143289344, buf, pos);
-              else if (val > 34028234663852886e22)
+              } else if (val > 34028234663852886e22) {
                 writeUint((sign << 31 | 2139095040) >>> 0, buf, pos);
-              else if (val < 11754943508222875e-54)
-                writeUint((sign << 31 | Math.round(val / 1401298464324817e-60)) >>> 0, buf, pos);
-              else {
-                var exponent = Math.floor(Math.log(val) / Math.LN2), mantissa = Math.round(val * Math.pow(2, -exponent) * 8388608) & 8388607;
-                writeUint((sign << 31 | exponent + 127 << 23 | mantissa) >>> 0, buf, pos);
+              } else if (val < 11754943508222875e-54) {
+                writeUint(
+                  (sign << 31 | Math.round(val / 1401298464324817e-60)) >>> 0,
+                  buf,
+                  pos,
+                );
+              } else {
+                var exponent = Math.floor(Math.log(val) / Math.LN2),
+                  mantissa =
+                    Math.round(val * Math.pow(2, -exponent) * 8388608) &
+                    8388607;
+                writeUint(
+                  (sign << 31 | exponent + 127 << 23 | mantissa) >>> 0,
+                  buf,
+                  pos,
+                );
               }
             }
             exports3.writeFloatLE = writeFloat_ieee754.bind(null, writeUintLE);
             exports3.writeFloatBE = writeFloat_ieee754.bind(null, writeUintBE);
             function readFloat_ieee754(readUint, buf, pos) {
-              var uint = readUint(buf, pos), sign = (uint >> 31) * 2 + 1, exponent = uint >>> 23 & 255, mantissa = uint & 8388607;
-              return exponent === 255 ? mantissa ? NaN : sign * Infinity : exponent === 0 ? sign * 1401298464324817e-60 * mantissa : sign * Math.pow(2, exponent - 150) * (mantissa + 8388608);
+              var uint = readUint(buf, pos),
+                sign = (uint >> 31) * 2 + 1,
+                exponent = uint >>> 23 & 255,
+                mantissa = uint & 8388607;
+              return exponent === 255
+                ? mantissa ? NaN : sign * Infinity
+                : exponent === 0
+                ? sign * 1401298464324817e-60 * mantissa
+                : sign * Math.pow(2, exponent - 150) * (mantissa + 8388608);
             }
             exports3.readFloatLE = readFloat_ieee754.bind(null, readUintLE);
             exports3.readFloatBE = readFloat_ieee754.bind(null, readUintBE);
           })();
-        if (typeof Float64Array !== "undefined")
-          (function() {
-            var f64 = new Float64Array([-0]), f8b = new Uint8Array(f64.buffer), le = f8b[7] === 128;
+        }
+        if (typeof Float64Array !== "undefined") {
+          (function () {
+            var f64 = new Float64Array([-0]),
+              f8b = new Uint8Array(f64.buffer),
+              le = f8b[7] === 128;
             function writeDouble_f64_cpy(val, buf, pos) {
               f64[0] = val;
               buf[pos] = f8b[0];
@@ -364,8 +445,12 @@
               buf[pos + 6] = f8b[1];
               buf[pos + 7] = f8b[0];
             }
-            exports3.writeDoubleLE = le ? writeDouble_f64_cpy : writeDouble_f64_rev;
-            exports3.writeDoubleBE = le ? writeDouble_f64_rev : writeDouble_f64_cpy;
+            exports3.writeDoubleLE = le
+              ? writeDouble_f64_cpy
+              : writeDouble_f64_rev;
+            exports3.writeDoubleBE = le
+              ? writeDouble_f64_rev
+              : writeDouble_f64_cpy;
             function readDouble_f64_cpy(buf, pos) {
               f8b[0] = buf[pos];
               f8b[1] = buf[pos + 1];
@@ -388,15 +473,20 @@
               f8b[0] = buf[pos + 7];
               return f64[0];
             }
-            exports3.readDoubleLE = le ? readDouble_f64_cpy : readDouble_f64_rev;
-            exports3.readDoubleBE = le ? readDouble_f64_rev : readDouble_f64_cpy;
+            exports3.readDoubleLE = le
+              ? readDouble_f64_cpy
+              : readDouble_f64_rev;
+            exports3.readDoubleBE = le
+              ? readDouble_f64_rev
+              : readDouble_f64_cpy;
           })();
-        else
-          (function() {
+        } else {
+          (function () {
             function writeDouble_ieee754(writeUint, off0, off1, val, buf, pos) {
               var sign = val < 0 ? 1 : 0;
-              if (sign)
+              if (sign) {
                 val = -val;
+              }
               if (val === 0) {
                 writeUint(0, buf, pos + off0);
                 writeUint(1 / val > 0 ? 0 : 2147483648, buf, pos + off1);
@@ -411,27 +501,66 @@
                 if (val < 22250738585072014e-324) {
                   mantissa = val / 5e-324;
                   writeUint(mantissa >>> 0, buf, pos + off0);
-                  writeUint((sign << 31 | mantissa / 4294967296) >>> 0, buf, pos + off1);
+                  writeUint(
+                    (sign << 31 | mantissa / 4294967296) >>> 0,
+                    buf,
+                    pos + off1,
+                  );
                 } else {
                   var exponent = Math.floor(Math.log(val) / Math.LN2);
-                  if (exponent === 1024)
+                  if (exponent === 1024) {
                     exponent = 1023;
+                  }
                   mantissa = val * Math.pow(2, -exponent);
                   writeUint(mantissa * 4503599627370496 >>> 0, buf, pos + off0);
-                  writeUint((sign << 31 | exponent + 1023 << 20 | mantissa * 1048576 & 1048575) >>> 0, buf, pos + off1);
+                  writeUint(
+                    (sign << 31 | exponent + 1023 << 20 |
+                      mantissa * 1048576 & 1048575) >>> 0,
+                    buf,
+                    pos + off1,
+                  );
                 }
               }
             }
-            exports3.writeDoubleLE = writeDouble_ieee754.bind(null, writeUintLE, 0, 4);
-            exports3.writeDoubleBE = writeDouble_ieee754.bind(null, writeUintBE, 4, 0);
+            exports3.writeDoubleLE = writeDouble_ieee754.bind(
+              null,
+              writeUintLE,
+              0,
+              4,
+            );
+            exports3.writeDoubleBE = writeDouble_ieee754.bind(
+              null,
+              writeUintBE,
+              4,
+              0,
+            );
             function readDouble_ieee754(readUint, off0, off1, buf, pos) {
-              var lo = readUint(buf, pos + off0), hi = readUint(buf, pos + off1);
-              var sign = (hi >> 31) * 2 + 1, exponent = hi >>> 20 & 2047, mantissa = 4294967296 * (hi & 1048575) + lo;
-              return exponent === 2047 ? mantissa ? NaN : sign * Infinity : exponent === 0 ? sign * 5e-324 * mantissa : sign * Math.pow(2, exponent - 1075) * (mantissa + 4503599627370496);
+              var lo = readUint(buf, pos + off0),
+                hi = readUint(buf, pos + off1);
+              var sign = (hi >> 31) * 2 + 1,
+                exponent = hi >>> 20 & 2047,
+                mantissa = 4294967296 * (hi & 1048575) + lo;
+              return exponent === 2047
+                ? mantissa ? NaN : sign * Infinity
+                : exponent === 0
+                ? sign * 5e-324 * mantissa
+                : sign * Math.pow(2, exponent - 1075) *
+                  (mantissa + 4503599627370496);
             }
-            exports3.readDoubleLE = readDouble_ieee754.bind(null, readUintLE, 0, 4);
-            exports3.readDoubleBE = readDouble_ieee754.bind(null, readUintBE, 4, 0);
+            exports3.readDoubleLE = readDouble_ieee754.bind(
+              null,
+              readUintLE,
+              0,
+              4,
+            );
+            exports3.readDoubleBE = readDouble_ieee754.bind(
+              null,
+              readUintBE,
+              4,
+              0,
+            );
           })();
+        }
         return exports3;
       }
       function writeUintLE(val, buf, pos) {
@@ -447,12 +576,14 @@
         buf[pos + 3] = val & 255;
       }
       function readUintLE(buf, pos) {
-        return (buf[pos] | buf[pos + 1] << 8 | buf[pos + 2] << 16 | buf[pos + 3] << 24) >>> 0;
+        return (buf[pos] | buf[pos + 1] << 8 | buf[pos + 2] << 16 |
+          buf[pos + 3] << 24) >>> 0;
       }
       function readUintBE(buf, pos) {
-        return (buf[pos] << 24 | buf[pos + 1] << 16 | buf[pos + 2] << 8 | buf[pos + 3]) >>> 0;
+        return (buf[pos] << 24 | buf[pos + 1] << 16 | buf[pos + 2] << 8 |
+          buf[pos + 3]) >>> 0;
       }
-    }
+    },
   });
 
   // ../../node_modules/@protobufjs/inquire/index.js
@@ -463,13 +594,14 @@
       function inquire(moduleName) {
         try {
           var mod = eval("quire".replace(/^/, "re"))(moduleName);
-          if (mod && (mod.length || Object.keys(mod).length))
+          if (mod && (mod.length || Object.keys(mod).length)) {
             return mod;
+          }
         } catch (e) {
         }
         return null;
       }
-    }
+    },
   });
 
   // ../../node_modules/@protobufjs/utf8/index.js
@@ -481,43 +613,54 @@
         var len = 0, c = 0;
         for (var i = 0; i < string.length; ++i) {
           c = string.charCodeAt(i);
-          if (c < 128)
+          if (c < 128) {
             len += 1;
-          else if (c < 2048)
+          } else if (c < 2048) {
             len += 2;
-          else if ((c & 64512) === 55296 && (string.charCodeAt(i + 1) & 64512) === 56320) {
+          } else if (
+            (c & 64512) === 55296 &&
+            (string.charCodeAt(i + 1) & 64512) === 56320
+          ) {
             ++i;
             len += 4;
-          } else
+          } else {
             len += 3;
+          }
         }
         return len;
       };
       utf8.read = function utf8_read(buffer, start, end) {
         var len = end - start;
-        if (len < 1)
+        if (len < 1) {
           return "";
+        }
         var parts = null, chunk = [], i = 0, t;
         while (start < end) {
           t = buffer[start++];
-          if (t < 128)
+          if (t < 128) {
             chunk[i++] = t;
-          else if (t > 191 && t < 224)
+          } else if (t > 191 && t < 224) {
             chunk[i++] = (t & 31) << 6 | buffer[start++] & 63;
-          else if (t > 239 && t < 365) {
-            t = ((t & 7) << 18 | (buffer[start++] & 63) << 12 | (buffer[start++] & 63) << 6 | buffer[start++] & 63) - 65536;
+          } else if (t > 239 && t < 365) {
+            t = ((t & 7) << 18 | (buffer[start++] & 63) << 12 |
+              (buffer[start++] & 63) << 6 | buffer[start++] & 63) - 65536;
             chunk[i++] = 55296 + (t >> 10);
             chunk[i++] = 56320 + (t & 1023);
-          } else
-            chunk[i++] = (t & 15) << 12 | (buffer[start++] & 63) << 6 | buffer[start++] & 63;
+          } else {
+            chunk[i++] = (t & 15) << 12 | (buffer[start++] & 63) << 6 |
+              buffer[start++] & 63;
+          }
           if (i > 8191) {
-            (parts || (parts = [])).push(String.fromCharCode.apply(String, chunk));
+            (parts || (parts = [])).push(
+              String.fromCharCode.apply(String, chunk),
+            );
             i = 0;
           }
         }
         if (parts) {
-          if (i)
+          if (i) {
             parts.push(String.fromCharCode.apply(String, chunk.slice(0, i)));
+          }
           return parts.join("");
         }
         return String.fromCharCode.apply(String, chunk.slice(0, i));
@@ -531,7 +674,10 @@
           } else if (c1 < 2048) {
             buffer[offset++] = c1 >> 6 | 192;
             buffer[offset++] = c1 & 63 | 128;
-          } else if ((c1 & 64512) === 55296 && ((c2 = string.charCodeAt(i + 1)) & 64512) === 56320) {
+          } else if (
+            (c1 & 64512) === 55296 &&
+            ((c2 = string.charCodeAt(i + 1)) & 64512) === 56320
+          ) {
             c1 = 65536 + ((c1 & 1023) << 10) + (c2 & 1023);
             ++i;
             buffer[offset++] = c1 >> 18 | 240;
@@ -546,7 +692,7 @@
         }
         return offset - start;
       };
-    }
+    },
   });
 
   // ../../node_modules/@protobufjs/pool/index.js
@@ -560,19 +706,21 @@
         var slab = null;
         var offset = SIZE;
         return function pool_alloc(size2) {
-          if (size2 < 1 || size2 > MAX)
+          if (size2 < 1 || size2 > MAX) {
             return alloc(size2);
+          }
           if (offset + size2 > SIZE) {
             slab = alloc(SIZE);
             offset = 0;
           }
           var buf = slice.call(slab, offset, offset += size2);
-          if (offset & 7)
+          if (offset & 7) {
             offset = (offset | 7) + 1;
+          }
           return buf;
         };
       }
-    }
+    },
   });
 
   // ../../node_modules/protobufjs/src/util/longbits.js
@@ -586,65 +734,96 @@
         this.hi = hi >>> 0;
       }
       var zero = LongBits.zero = new LongBits(0, 0);
-      zero.toNumber = function() {
+      zero.toNumber = function () {
         return 0;
       };
-      zero.zzEncode = zero.zzDecode = function() {
+      zero.zzEncode = zero.zzDecode = function () {
         return this;
       };
-      zero.length = function() {
+      zero.length = function () {
         return 1;
       };
       var zeroHash = LongBits.zeroHash = "\0\0\0\0\0\0\0\0";
       LongBits.fromNumber = function fromNumber(value) {
-        if (value === 0)
+        if (value === 0) {
           return zero;
+        }
         var sign = value < 0;
-        if (sign)
+        if (sign) {
           value = -value;
+        }
         var lo = value >>> 0, hi = (value - lo) / 4294967296 >>> 0;
         if (sign) {
           hi = ~hi >>> 0;
           lo = ~lo >>> 0;
           if (++lo > 4294967295) {
             lo = 0;
-            if (++hi > 4294967295)
+            if (++hi > 4294967295) {
               hi = 0;
+            }
           }
         }
         return new LongBits(lo, hi);
       };
       LongBits.from = function from2(value) {
-        if (typeof value === "number")
+        if (typeof value === "number") {
           return LongBits.fromNumber(value);
-        if (util.isString(value)) {
-          if (util.Long)
-            value = util.Long.fromString(value);
-          else
-            return LongBits.fromNumber(parseInt(value, 10));
         }
-        return value.low || value.high ? new LongBits(value.low >>> 0, value.high >>> 0) : zero;
+        if (util.isString(value)) {
+          if (util.Long) {
+            value = util.Long.fromString(value);
+          } else {
+            return LongBits.fromNumber(parseInt(value, 10));
+          }
+        }
+        return value.low || value.high
+          ? new LongBits(value.low >>> 0, value.high >>> 0)
+          : zero;
       };
       LongBits.prototype.toNumber = function toNumber(unsigned) {
         if (!unsigned && this.hi >>> 31) {
           var lo = ~this.lo + 1 >>> 0, hi = ~this.hi >>> 0;
-          if (!lo)
+          if (!lo) {
             hi = hi + 1 >>> 0;
+          }
           return -(lo + hi * 4294967296);
         }
         return this.lo + this.hi * 4294967296;
       };
       LongBits.prototype.toLong = function toLong(unsigned) {
-        return util.Long ? new util.Long(this.lo | 0, this.hi | 0, Boolean(unsigned)) : { low: this.lo | 0, high: this.hi | 0, unsigned: Boolean(unsigned) };
+        return util.Long
+          ? new util.Long(this.lo | 0, this.hi | 0, Boolean(unsigned))
+          : {
+            low: this.lo | 0,
+            high: this.hi | 0,
+            unsigned: Boolean(unsigned),
+          };
       };
       var charCodeAt = String.prototype.charCodeAt;
       LongBits.fromHash = function fromHash(hash) {
-        if (hash === zeroHash)
+        if (hash === zeroHash) {
           return zero;
-        return new LongBits((charCodeAt.call(hash, 0) | charCodeAt.call(hash, 1) << 8 | charCodeAt.call(hash, 2) << 16 | charCodeAt.call(hash, 3) << 24) >>> 0, (charCodeAt.call(hash, 4) | charCodeAt.call(hash, 5) << 8 | charCodeAt.call(hash, 6) << 16 | charCodeAt.call(hash, 7) << 24) >>> 0);
+        }
+        return new LongBits(
+          (charCodeAt.call(hash, 0) | charCodeAt.call(hash, 1) << 8 |
+            charCodeAt.call(hash, 2) << 16 | charCodeAt.call(hash, 3) << 24) >>>
+            0,
+          (charCodeAt.call(hash, 4) | charCodeAt.call(hash, 5) << 8 |
+            charCodeAt.call(hash, 6) << 16 | charCodeAt.call(hash, 7) << 24) >>>
+            0,
+        );
       };
       LongBits.prototype.toHash = function toHash() {
-        return String.fromCharCode(this.lo & 255, this.lo >>> 8 & 255, this.lo >>> 16 & 255, this.lo >>> 24, this.hi & 255, this.hi >>> 8 & 255, this.hi >>> 16 & 255, this.hi >>> 24);
+        return String.fromCharCode(
+          this.lo & 255,
+          this.lo >>> 8 & 255,
+          this.lo >>> 16 & 255,
+          this.lo >>> 24,
+          this.hi & 255,
+          this.hi >>> 8 & 255,
+          this.hi >>> 16 & 255,
+          this.hi >>> 24,
+        );
       };
       LongBits.prototype.zzEncode = function zzEncode() {
         var mask = this.hi >> 31;
@@ -659,10 +838,22 @@
         return this;
       };
       LongBits.prototype.length = function length2() {
-        var part0 = this.lo, part1 = (this.lo >>> 28 | this.hi << 4) >>> 0, part2 = this.hi >>> 24;
-        return part2 === 0 ? part1 === 0 ? part0 < 16384 ? part0 < 128 ? 1 : 2 : part0 < 2097152 ? 3 : 4 : part1 < 16384 ? part1 < 128 ? 5 : 6 : part1 < 2097152 ? 7 : 8 : part2 < 128 ? 9 : 10;
+        var part0 = this.lo,
+          part1 = (this.lo >>> 28 | this.hi << 4) >>> 0,
+          part2 = this.hi >>> 24;
+        return part2 === 0
+          ? part1 === 0
+            ? part0 < 16384 ? part0 < 128 ? 1 : 2 : part0 < 2097152 ? 3 : 4
+            : part1 < 16384
+            ? part1 < 128 ? 5 : 6
+            : part1 < 2097152
+            ? 7
+            : 8
+          : part2 < 128
+          ? 9
+          : 10;
       };
-    }
+    },
   });
 
   // ../../node_modules/protobufjs/src/util/minimal.js
@@ -678,12 +869,18 @@
       util.utf8 = require_utf8();
       util.pool = require_pool();
       util.LongBits = require_longbits();
-      util.isNode = Boolean(typeof global !== "undefined" && global && global.process && global.process.versions && global.process.versions.node);
-      util.global = util.isNode && global || typeof window !== "undefined" && window || typeof self !== "undefined" && self || exports2;
+      util.isNode = Boolean(
+        typeof global !== "undefined" && global && global.process &&
+          global.process.versions && global.process.versions.node,
+      );
+      util.global = util.isNode && global ||
+        typeof window !== "undefined" && window ||
+        typeof self !== "undefined" && self || exports2;
       util.emptyArray = Object.freeze ? Object.freeze([]) : [];
       util.emptyObject = Object.freeze ? Object.freeze({}) : {};
       util.isInteger = Number.isInteger || function isInteger(value) {
-        return typeof value === "number" && isFinite(value) && Math.floor(value) === value;
+        return typeof value === "number" && isFinite(value) &&
+          Math.floor(value) === value;
       };
       util.isString = function isString(value) {
         return typeof value === "string" || value instanceof String;
@@ -693,11 +890,14 @@
       };
       util.isset = util.isSet = function isSet(obj, prop) {
         var value = obj[prop];
-        if (value != null && obj.hasOwnProperty(prop))
-          return typeof value !== "object" || (Array.isArray(value) ? value.length : Object.keys(value).length) > 0;
+        if (value != null && obj.hasOwnProperty(prop)) {
+          return typeof value !== "object" ||
+            (Array.isArray(value) ? value.length : Object.keys(value).length) >
+              0;
+        }
         return false;
       };
-      util.Buffer = function() {
+      util.Buffer = function () {
         try {
           var Buffer2 = util.inquire("buffer").Buffer;
           return Buffer2.prototype.utf8Write ? Buffer2 : null;
@@ -708,26 +908,40 @@
       util._Buffer_from = null;
       util._Buffer_allocUnsafe = null;
       util.newBuffer = function newBuffer(sizeOrArray) {
-        return typeof sizeOrArray === "number" ? util.Buffer ? util._Buffer_allocUnsafe(sizeOrArray) : new util.Array(sizeOrArray) : util.Buffer ? util._Buffer_from(sizeOrArray) : typeof Uint8Array === "undefined" ? sizeOrArray : new Uint8Array(sizeOrArray);
+        return typeof sizeOrArray === "number"
+          ? util.Buffer
+            ? util._Buffer_allocUnsafe(sizeOrArray)
+            : new util.Array(sizeOrArray)
+          : util.Buffer
+          ? util._Buffer_from(sizeOrArray)
+          : typeof Uint8Array === "undefined"
+          ? sizeOrArray
+          : new Uint8Array(sizeOrArray);
       };
       util.Array = typeof Uint8Array !== "undefined" ? Uint8Array : Array;
-      util.Long = util.global.dcodeIO && util.global.dcodeIO.Long || util.global.Long || util.inquire("long");
+      util.Long = util.global.dcodeIO && util.global.dcodeIO.Long ||
+        util.global.Long || util.inquire("long");
       util.key2Re = /^true|false|0|1$/;
       util.key32Re = /^-?(?:0|[1-9][0-9]*)$/;
       util.key64Re = /^(?:[\\x00-\\xff]{8}|-?(?:0|[1-9][0-9]*))$/;
       util.longToHash = function longToHash(value) {
-        return value ? util.LongBits.from(value).toHash() : util.LongBits.zeroHash;
+        return value
+          ? util.LongBits.from(value).toHash()
+          : util.LongBits.zeroHash;
       };
       util.longFromHash = function longFromHash(hash, unsigned) {
         var bits = util.LongBits.fromHash(hash);
-        if (util.Long)
+        if (util.Long) {
           return util.Long.fromBits(bits.lo, bits.hi, unsigned);
+        }
         return bits.toNumber(Boolean(unsigned));
       };
       function merge(dst, src2, ifNotSet) {
-        for (var keys = Object.keys(src2), i = 0; i < keys.length; ++i)
-          if (dst[keys[i]] === void 0 || !ifNotSet)
+        for (var keys = Object.keys(src2), i = 0; i < keys.length; ++i) {
+          if (dst[keys[i]] === void 0 || !ifNotSet) {
             dst[keys[i]] = src2[keys[i]];
+          }
+        }
         return dst;
       }
       util.merge = merge;
@@ -736,22 +950,32 @@
       };
       function newError(name) {
         function CustomError(message, properties) {
-          if (!(this instanceof CustomError))
+          if (!(this instanceof CustomError)) {
             return new CustomError(message, properties);
-          Object.defineProperty(this, "message", { get: function() {
-            return message;
-          } });
-          if (Error.captureStackTrace)
+          }
+          Object.defineProperty(this, "message", {
+            get: function () {
+              return message;
+            },
+          });
+          if (Error.captureStackTrace) {
             Error.captureStackTrace(this, CustomError);
-          else
-            Object.defineProperty(this, "stack", { value: new Error().stack || "" });
-          if (properties)
+          } else {
+            Object.defineProperty(this, "stack", {
+              value: new Error().stack || "",
+            });
+          }
+          if (properties) {
             merge(this, properties);
+          }
         }
-        (CustomError.prototype = Object.create(Error.prototype)).constructor = CustomError;
-        Object.defineProperty(CustomError.prototype, "name", { get: function() {
-          return name;
-        } });
+        (CustomError.prototype = Object.create(Error.prototype)).constructor =
+          CustomError;
+        Object.defineProperty(CustomError.prototype, "name", {
+          get: function () {
+            return name;
+          },
+        });
         CustomError.prototype.toString = function toString() {
           return this.name + ": " + this.message;
         };
@@ -761,41 +985,55 @@
       util.ProtocolError = newError("ProtocolError");
       util.oneOfGetter = function getOneOf(fieldNames) {
         var fieldMap = {};
-        for (var i = 0; i < fieldNames.length; ++i)
+        for (var i = 0; i < fieldNames.length; ++i) {
           fieldMap[fieldNames[i]] = 1;
-        return function() {
-          for (var keys = Object.keys(this), i2 = keys.length - 1; i2 > -1; --i2)
-            if (fieldMap[keys[i2]] === 1 && this[keys[i2]] !== void 0 && this[keys[i2]] !== null)
+        }
+        return function () {
+          for (
+            var keys = Object.keys(this), i2 = keys.length - 1;
+            i2 > -1;
+            --i2
+          ) {
+            if (
+              fieldMap[keys[i2]] === 1 && this[keys[i2]] !== void 0 &&
+              this[keys[i2]] !== null
+            ) {
               return keys[i2];
+            }
+          }
         };
       };
       util.oneOfSetter = function setOneOf(fieldNames) {
-        return function(name) {
-          for (var i = 0; i < fieldNames.length; ++i)
-            if (fieldNames[i] !== name)
+        return function (name) {
+          for (var i = 0; i < fieldNames.length; ++i) {
+            if (fieldNames[i] !== name) {
               delete this[fieldNames[i]];
+            }
+          }
         };
       };
       util.toJSONOptions = {
         longs: String,
         enums: String,
         bytes: String,
-        json: true
+        json: true,
       };
-      util._configure = function() {
+      util._configure = function () {
         var Buffer2 = util.Buffer;
         if (!Buffer2) {
           util._Buffer_from = util._Buffer_allocUnsafe = null;
           return;
         }
-        util._Buffer_from = Buffer2.from !== Uint8Array.from && Buffer2.from || function Buffer_from(value, encoding) {
-          return new Buffer2(value, encoding);
-        };
-        util._Buffer_allocUnsafe = Buffer2.allocUnsafe || function Buffer_allocUnsafe(size) {
-          return new Buffer2(size);
-        };
+        util._Buffer_from = Buffer2.from !== Uint8Array.from && Buffer2.from ||
+          function Buffer_from(value, encoding) {
+            return new Buffer2(value, encoding);
+          };
+        util._Buffer_allocUnsafe = Buffer2.allocUnsafe ||
+          function Buffer_allocUnsafe(size) {
+            return new Buffer2(size);
+          };
       };
-    }
+    },
   });
 
   // ../../node_modules/protobufjs/src/writer.js
@@ -829,20 +1067,23 @@
         this.states = null;
       }
       var create2 = function create3() {
-        return util.Buffer ? function create_buffer_setup() {
-          return (Writer.create = function create_buffer() {
-            return new BufferWriter();
-          })();
-        } : function create_array() {
-          return new Writer();
-        };
+        return util.Buffer
+          ? function create_buffer_setup() {
+            return (Writer.create = function create_buffer() {
+              return new BufferWriter();
+            })();
+          }
+          : function create_array() {
+            return new Writer();
+          };
       };
       Writer.create = create2();
       Writer.alloc = function alloc(size) {
         return new util.Array(size);
       };
-      if (util.Array !== Array)
+      if (util.Array !== Array) {
         Writer.alloc = util.pool(Writer.alloc, util.Array.prototype.subarray);
+      }
       Writer.prototype._push = function push(fn, len, val) {
         this.tail = this.tail.next = new Op(fn, len, val);
         this.len += len;
@@ -866,11 +1107,24 @@
       VarintOp.prototype = Object.create(Op.prototype);
       VarintOp.prototype.fn = writeVarint32;
       Writer.prototype.uint32 = function write_uint32(value) {
-        this.len += (this.tail = this.tail.next = new VarintOp((value = value >>> 0) < 128 ? 1 : value < 16384 ? 2 : value < 2097152 ? 3 : value < 268435456 ? 4 : 5, value)).len;
+        this.len += (this.tail = this.tail.next = new VarintOp(
+          (value = value >>> 0) < 128
+            ? 1
+            : value < 16384
+            ? 2
+            : value < 2097152
+            ? 3
+            : value < 268435456
+            ? 4
+            : 5,
+          value,
+        )).len;
         return this;
       };
       Writer.prototype.int32 = function write_int32(value) {
-        return value < 0 ? this._push(writeVarint64, 10, LongBits.fromNumber(value)) : this.uint32(value);
+        return value < 0
+          ? this._push(writeVarint64, 10, LongBits.fromNumber(value))
+          : this.uint32(value);
       };
       Writer.prototype.sint32 = function write_sint32(value) {
         return this.uint32((value << 1 ^ value >> 31) >>> 0);
@@ -911,7 +1165,11 @@
       Writer.prototype.sfixed32 = Writer.prototype.fixed32;
       Writer.prototype.fixed64 = function write_fixed64(value) {
         var bits = LongBits.from(value);
-        return this._push(writeFixed32, 4, bits.lo)._push(writeFixed32, 4, bits.hi);
+        return this._push(writeFixed32, 4, bits.lo)._push(
+          writeFixed32,
+          4,
+          bits.hi,
+        );
       };
       Writer.prototype.sfixed64 = Writer.prototype.fixed64;
       Writer.prototype.float = function write_float(value) {
@@ -920,16 +1178,20 @@
       Writer.prototype.double = function write_double(value) {
         return this._push(util.float.writeDoubleLE, 8, value);
       };
-      var writeBytes = util.Array.prototype.set ? function writeBytes_set(val, buf, pos) {
-        buf.set(val, pos);
-      } : function writeBytes_for(val, buf, pos) {
-        for (var i = 0; i < val.length; ++i)
-          buf[pos + i] = val[i];
-      };
+      var writeBytes = util.Array.prototype.set
+        ? function writeBytes_set(val, buf, pos) {
+          buf.set(val, pos);
+        }
+        : function writeBytes_for(val, buf, pos) {
+          for (var i = 0; i < val.length; ++i) {
+            buf[pos + i] = val[i];
+          }
+        };
       Writer.prototype.bytes = function write_bytes(value) {
         var len = value.length >>> 0;
-        if (!len)
+        if (!len) {
           return this._push(writeByte, 1, 0);
+        }
         if (util.isString(value)) {
           var buf = Writer.alloc(len = base64.length(value));
           base64.decode(value, buf, 0);
@@ -939,7 +1201,9 @@
       };
       Writer.prototype.string = function write_string(value) {
         var len = utf8.length(value);
-        return len ? this.uint32(len)._push(utf8.write, len, value) : this._push(writeByte, 1, 0);
+        return len
+          ? this.uint32(len)._push(utf8.write, len, value)
+          : this._push(writeByte, 1, 0);
       };
       Writer.prototype.fork = function fork() {
         this.states = new State(this);
@@ -970,7 +1234,9 @@
         return this;
       };
       Writer.prototype.finish = function finish() {
-        var head = this.head.next, buf = this.constructor.alloc(this.len), pos = 0;
+        var head = this.head.next,
+          buf = this.constructor.alloc(this.len),
+          pos = 0;
         while (head) {
           head.fn(head.val, buf, pos);
           pos += head.len;
@@ -978,12 +1244,12 @@
         }
         return buf;
       };
-      Writer._configure = function(BufferWriter_) {
+      Writer._configure = function (BufferWriter_) {
         BufferWriter = BufferWriter_;
         Writer.create = create2();
         BufferWriter._configure();
       };
-    }
+    },
   });
 
   // ../../node_modules/protobufjs/src/writer_buffer.js
@@ -992,49 +1258,60 @@
       "use strict";
       module2.exports = BufferWriter;
       var Writer = require_writer();
-      (BufferWriter.prototype = Object.create(Writer.prototype)).constructor = BufferWriter;
+      (BufferWriter.prototype = Object.create(Writer.prototype)).constructor =
+        BufferWriter;
       var util = require_minimal();
       function BufferWriter() {
         Writer.call(this);
       }
-      BufferWriter._configure = function() {
+      BufferWriter._configure = function () {
         BufferWriter.alloc = util._Buffer_allocUnsafe;
-        BufferWriter.writeBytesBuffer = util.Buffer && util.Buffer.prototype instanceof Uint8Array && util.Buffer.prototype.set.name === "set" ? function writeBytesBuffer_set(val, buf, pos) {
-          buf.set(val, pos);
-        } : function writeBytesBuffer_copy(val, buf, pos) {
-          if (val.copy)
-            val.copy(buf, pos, 0, val.length);
-          else
-            for (var i = 0; i < val.length; )
-              buf[pos++] = val[i++];
-        };
+        BufferWriter.writeBytesBuffer =
+          util.Buffer && util.Buffer.prototype instanceof Uint8Array &&
+            util.Buffer.prototype.set.name === "set"
+            ? function writeBytesBuffer_set(val, buf, pos) {
+              buf.set(val, pos);
+            }
+            : function writeBytesBuffer_copy(val, buf, pos) {
+              if (val.copy) {
+                val.copy(buf, pos, 0, val.length);
+              } else {
+                for (var i = 0; i < val.length;) {
+                  buf[pos++] = val[i++];
+                }
+              }
+            };
       };
       BufferWriter.prototype.bytes = function write_bytes_buffer(value) {
-        if (util.isString(value))
+        if (util.isString(value)) {
           value = util._Buffer_from(value, "base64");
+        }
         var len = value.length >>> 0;
         this.uint32(len);
-        if (len)
+        if (len) {
           this._push(BufferWriter.writeBytesBuffer, len, value);
+        }
         return this;
       };
       function writeStringBuffer(val, buf, pos) {
-        if (val.length < 40)
+        if (val.length < 40) {
           util.utf8.write(val, buf, pos);
-        else if (buf.utf8Write)
+        } else if (buf.utf8Write) {
           buf.utf8Write(val, pos);
-        else
+        } else {
           buf.write(val, pos);
+        }
       }
       BufferWriter.prototype.string = function write_string_buffer(value) {
         var len = util.Buffer.byteLength(value);
         this.uint32(len);
-        if (len)
+        if (len) {
           this._push(writeStringBuffer, len, value);
+        }
         return this;
       };
       BufferWriter._configure();
-    }
+    },
   });
 
   // ../../node_modules/protobufjs/src/reader.js
@@ -1047,49 +1324,66 @@
       var LongBits = util.LongBits;
       var utf8 = util.utf8;
       function indexOutOfRange(reader, writeLength) {
-        return RangeError("index out of range: " + reader.pos + " + " + (writeLength || 1) + " > " + reader.len);
+        return RangeError(
+          "index out of range: " + reader.pos + " + " + (writeLength || 1) +
+            " > " + reader.len,
+        );
       }
       function Reader(buffer) {
         this.buf = buffer;
         this.pos = 0;
         this.len = buffer.length;
       }
-      var create_array = typeof Uint8Array !== "undefined" ? function create_typed_array(buffer) {
-        if (buffer instanceof Uint8Array || Array.isArray(buffer))
-          return new Reader(buffer);
-        throw Error("illegal buffer");
-      } : function create_array2(buffer) {
-        if (Array.isArray(buffer))
-          return new Reader(buffer);
-        throw Error("illegal buffer");
-      };
+      var create_array = typeof Uint8Array !== "undefined"
+        ? function create_typed_array(buffer) {
+          if (buffer instanceof Uint8Array || Array.isArray(buffer)) {
+            return new Reader(buffer);
+          }
+          throw Error("illegal buffer");
+        }
+        : function create_array2(buffer) {
+          if (Array.isArray(buffer)) {
+            return new Reader(buffer);
+          }
+          throw Error("illegal buffer");
+        };
       var create2 = function create3() {
-        return util.Buffer ? function create_buffer_setup(buffer) {
-          return (Reader.create = function create_buffer(buffer2) {
-            return util.Buffer.isBuffer(buffer2) ? new BufferReader(buffer2) : create_array(buffer2);
-          })(buffer);
-        } : create_array;
+        return util.Buffer
+          ? function create_buffer_setup(buffer) {
+            return (Reader.create = function create_buffer(buffer2) {
+              return util.Buffer.isBuffer(buffer2)
+                ? new BufferReader(buffer2)
+                : create_array(buffer2);
+            })(buffer);
+          }
+          : create_array;
       };
       Reader.create = create2();
-      Reader.prototype._slice = util.Array.prototype.subarray || util.Array.prototype.slice;
+      Reader.prototype._slice = util.Array.prototype.subarray ||
+        util.Array.prototype.slice;
       Reader.prototype.uint32 = function read_uint32_setup() {
         var value = 4294967295;
         return function read_uint32() {
           value = (this.buf[this.pos] & 127) >>> 0;
-          if (this.buf[this.pos++] < 128)
+          if (this.buf[this.pos++] < 128) {
             return value;
+          }
           value = (value | (this.buf[this.pos] & 127) << 7) >>> 0;
-          if (this.buf[this.pos++] < 128)
+          if (this.buf[this.pos++] < 128) {
             return value;
+          }
           value = (value | (this.buf[this.pos] & 127) << 14) >>> 0;
-          if (this.buf[this.pos++] < 128)
+          if (this.buf[this.pos++] < 128) {
             return value;
+          }
           value = (value | (this.buf[this.pos] & 127) << 21) >>> 0;
-          if (this.buf[this.pos++] < 128)
+          if (this.buf[this.pos++] < 128) {
             return value;
+          }
           value = (value | (this.buf[this.pos] & 15) << 28) >>> 0;
-          if (this.buf[this.pos++] < 128)
+          if (this.buf[this.pos++] < 128) {
             return value;
+          }
           if ((this.pos += 5) > this.len) {
             this.pos = this.len;
             throw indexOutOfRange(this, 10);
@@ -1110,21 +1404,25 @@
         if (this.len - this.pos > 4) {
           for (; i < 4; ++i) {
             bits.lo = (bits.lo | (this.buf[this.pos] & 127) << i * 7) >>> 0;
-            if (this.buf[this.pos++] < 128)
+            if (this.buf[this.pos++] < 128) {
               return bits;
+            }
           }
           bits.lo = (bits.lo | (this.buf[this.pos] & 127) << 28) >>> 0;
           bits.hi = (bits.hi | (this.buf[this.pos] & 127) >> 4) >>> 0;
-          if (this.buf[this.pos++] < 128)
+          if (this.buf[this.pos++] < 128) {
             return bits;
+          }
           i = 0;
         } else {
           for (; i < 3; ++i) {
-            if (this.pos >= this.len)
+            if (this.pos >= this.len) {
               throw indexOutOfRange(this);
+            }
             bits.lo = (bits.lo | (this.buf[this.pos] & 127) << i * 7) >>> 0;
-            if (this.buf[this.pos++] < 128)
+            if (this.buf[this.pos++] < 128) {
               return bits;
+            }
           }
           bits.lo = (bits.lo | (this.buf[this.pos++] & 127) << i * 7) >>> 0;
           return bits;
@@ -1132,16 +1430,19 @@
         if (this.len - this.pos > 4) {
           for (; i < 5; ++i) {
             bits.hi = (bits.hi | (this.buf[this.pos] & 127) << i * 7 + 3) >>> 0;
-            if (this.buf[this.pos++] < 128)
+            if (this.buf[this.pos++] < 128) {
               return bits;
+            }
           }
         } else {
           for (; i < 5; ++i) {
-            if (this.pos >= this.len)
+            if (this.pos >= this.len) {
               throw indexOutOfRange(this);
+            }
             bits.hi = (bits.hi | (this.buf[this.pos] & 127) << i * 7 + 3) >>> 0;
-            if (this.buf[this.pos++] < 128)
+            if (this.buf[this.pos++] < 128) {
               return bits;
+            }
           }
         }
         throw Error("invalid varint encoding");
@@ -1150,45 +1451,58 @@
         return this.uint32() !== 0;
       };
       function readFixed32_end(buf, end) {
-        return (buf[end - 4] | buf[end - 3] << 8 | buf[end - 2] << 16 | buf[end - 1] << 24) >>> 0;
+        return (buf[end - 4] | buf[end - 3] << 8 | buf[end - 2] << 16 |
+          buf[end - 1] << 24) >>> 0;
       }
       Reader.prototype.fixed32 = function read_fixed32() {
-        if (this.pos + 4 > this.len)
+        if (this.pos + 4 > this.len) {
           throw indexOutOfRange(this, 4);
+        }
         return readFixed32_end(this.buf, this.pos += 4);
       };
       Reader.prototype.sfixed32 = function read_sfixed32() {
-        if (this.pos + 4 > this.len)
+        if (this.pos + 4 > this.len) {
           throw indexOutOfRange(this, 4);
+        }
         return readFixed32_end(this.buf, this.pos += 4) | 0;
       };
       function readFixed64() {
-        if (this.pos + 8 > this.len)
+        if (this.pos + 8 > this.len) {
           throw indexOutOfRange(this, 8);
-        return new LongBits(readFixed32_end(this.buf, this.pos += 4), readFixed32_end(this.buf, this.pos += 4));
+        }
+        return new LongBits(
+          readFixed32_end(this.buf, this.pos += 4),
+          readFixed32_end(this.buf, this.pos += 4),
+        );
       }
       Reader.prototype.float = function read_float() {
-        if (this.pos + 4 > this.len)
+        if (this.pos + 4 > this.len) {
           throw indexOutOfRange(this, 4);
+        }
         var value = util.float.readFloatLE(this.buf, this.pos);
         this.pos += 4;
         return value;
       };
       Reader.prototype.double = function read_double() {
-        if (this.pos + 8 > this.len)
+        if (this.pos + 8 > this.len) {
           throw indexOutOfRange(this, 4);
+        }
         var value = util.float.readDoubleLE(this.buf, this.pos);
         this.pos += 8;
         return value;
       };
       Reader.prototype.bytes = function read_bytes() {
         var length2 = this.uint32(), start = this.pos, end = this.pos + length2;
-        if (end > this.len)
+        if (end > this.len) {
           throw indexOutOfRange(this, length2);
+        }
         this.pos += length2;
-        if (Array.isArray(this.buf))
+        if (Array.isArray(this.buf)) {
           return this.buf.slice(start, end);
-        return start === end ? new this.buf.constructor(0) : this._slice.call(this.buf, start, end);
+        }
+        return start === end
+          ? new this.buf.constructor(0)
+          : this._slice.call(this.buf, start, end);
       };
       Reader.prototype.string = function read_string() {
         var bytes = this.bytes();
@@ -1196,18 +1510,20 @@
       };
       Reader.prototype.skip = function skip(length2) {
         if (typeof length2 === "number") {
-          if (this.pos + length2 > this.len)
+          if (this.pos + length2 > this.len) {
             throw indexOutOfRange(this, length2);
+          }
           this.pos += length2;
         } else {
           do {
-            if (this.pos >= this.len)
+            if (this.pos >= this.len) {
               throw indexOutOfRange(this);
+            }
           } while (this.buf[this.pos++] & 128);
         }
         return this;
       };
-      Reader.prototype.skipType = function(wireType) {
+      Reader.prototype.skipType = function (wireType) {
         switch (wireType) {
           case 0:
             this.skip();
@@ -1227,11 +1543,13 @@
             this.skip(4);
             break;
           default:
-            throw Error("invalid wire type " + wireType + " at offset " + this.pos);
+            throw Error(
+              "invalid wire type " + wireType + " at offset " + this.pos,
+            );
         }
         return this;
       };
-      Reader._configure = function(BufferReader_) {
+      Reader._configure = function (BufferReader_) {
         BufferReader = BufferReader_;
         Reader.create = create2();
         BufferReader._configure();
@@ -1251,10 +1569,10 @@
           },
           sfixed64: function read_sfixed64() {
             return readFixed64.call(this)[fn](false);
-          }
+          },
         });
       };
-    }
+    },
   });
 
   // ../../node_modules/protobufjs/src/reader_buffer.js
@@ -1263,21 +1581,32 @@
       "use strict";
       module2.exports = BufferReader;
       var Reader = require_reader();
-      (BufferReader.prototype = Object.create(Reader.prototype)).constructor = BufferReader;
+      (BufferReader.prototype = Object.create(Reader.prototype)).constructor =
+        BufferReader;
       var util = require_minimal();
       function BufferReader(buffer) {
         Reader.call(this, buffer);
       }
-      BufferReader._configure = function() {
-        if (util.Buffer)
+      BufferReader._configure = function () {
+        if (util.Buffer) {
           BufferReader.prototype._slice = util.Buffer.prototype.slice;
+        }
       };
       BufferReader.prototype.string = function read_string_buffer() {
         var len = this.uint32();
-        return this.buf.utf8Slice ? this.buf.utf8Slice(this.pos, this.pos = Math.min(this.pos + len, this.len)) : this.buf.toString("utf-8", this.pos, this.pos = Math.min(this.pos + len, this.len));
+        return this.buf.utf8Slice
+          ? this.buf.utf8Slice(
+            this.pos,
+            this.pos = Math.min(this.pos + len, this.len),
+          )
+          : this.buf.toString(
+            "utf-8",
+            this.pos,
+            this.pos = Math.min(this.pos + len, this.len),
+          );
       };
       BufferReader._configure();
-    }
+    },
   });
 
   // ../../node_modules/protobufjs/src/rpc/service.js
@@ -1286,51 +1615,77 @@
       "use strict";
       module2.exports = Service2;
       var util = require_minimal();
-      (Service2.prototype = Object.create(util.EventEmitter.prototype)).constructor = Service2;
+      (Service2.prototype = Object.create(util.EventEmitter.prototype))
+        .constructor = Service2;
       function Service2(rpcImpl, requestDelimited, responseDelimited) {
-        if (typeof rpcImpl !== "function")
+        if (typeof rpcImpl !== "function") {
           throw TypeError("rpcImpl must be a function");
+        }
         util.EventEmitter.call(this);
         this.rpcImpl = rpcImpl;
         this.requestDelimited = Boolean(requestDelimited);
         this.responseDelimited = Boolean(responseDelimited);
       }
-      Service2.prototype.rpcCall = function rpcCall(method, requestCtor, responseCtor, request, callback) {
-        if (!request)
+      Service2.prototype.rpcCall = function rpcCall(
+        method,
+        requestCtor,
+        responseCtor,
+        request,
+        callback,
+      ) {
+        if (!request) {
           throw TypeError("request must be specified");
+        }
         var self2 = this;
-        if (!callback)
-          return util.asPromise(rpcCall, self2, method, requestCtor, responseCtor, request);
+        if (!callback) {
+          return util.asPromise(
+            rpcCall,
+            self2,
+            method,
+            requestCtor,
+            responseCtor,
+            request,
+          );
+        }
         if (!self2.rpcImpl) {
-          setTimeout(function() {
+          setTimeout(function () {
             callback(Error("already ended"));
           }, 0);
           return void 0;
         }
         try {
-          return self2.rpcImpl(method, requestCtor[self2.requestDelimited ? "encodeDelimited" : "encode"](request).finish(), function rpcCallback(err, response) {
-            if (err) {
-              self2.emit("error", err, method);
-              return callback(err);
-            }
-            if (response === null) {
-              self2.end(true);
-              return void 0;
-            }
-            if (!(response instanceof responseCtor)) {
-              try {
-                response = responseCtor[self2.responseDelimited ? "decodeDelimited" : "decode"](response);
-              } catch (err2) {
-                self2.emit("error", err2, method);
-                return callback(err2);
+          return self2.rpcImpl(
+            method,
+            requestCtor[self2.requestDelimited ? "encodeDelimited" : "encode"](
+              request,
+            ).finish(),
+            function rpcCallback(err, response) {
+              if (err) {
+                self2.emit("error", err, method);
+                return callback(err);
               }
-            }
-            self2.emit("data", response, method);
-            return callback(null, response);
-          });
+              if (response === null) {
+                self2.end(true);
+                return void 0;
+              }
+              if (!(response instanceof responseCtor)) {
+                try {
+                  response = responseCtor
+                    [self2.responseDelimited ? "decodeDelimited" : "decode"](
+                      response,
+                    );
+                } catch (err2) {
+                  self2.emit("error", err2, method);
+                  return callback(err2);
+                }
+              }
+              self2.emit("data", response, method);
+              return callback(null, response);
+            },
+          );
         } catch (err) {
           self2.emit("error", err, method);
-          setTimeout(function() {
+          setTimeout(function () {
             callback(err);
           }, 0);
           return void 0;
@@ -1338,14 +1693,15 @@
       };
       Service2.prototype.end = function end(endedByRPC) {
         if (this.rpcImpl) {
-          if (!endedByRPC)
+          if (!endedByRPC) {
             this.rpcImpl(null, null, null);
+          }
           this.rpcImpl = null;
           this.emit("end").off();
         }
         return this;
       };
-    }
+    },
   });
 
   // ../../node_modules/protobufjs/src/rpc.js
@@ -1354,7 +1710,7 @@
       "use strict";
       var rpc = exports2;
       rpc.Service = require_service();
-    }
+    },
   });
 
   // ../../node_modules/protobufjs/src/roots.js
@@ -1362,7 +1718,7 @@
     "../../node_modules/protobufjs/src/roots.js"(exports2, module2) {
       "use strict";
       module2.exports = {};
-    }
+    },
   });
 
   // ../../node_modules/protobufjs/src/index-minimal.js
@@ -1385,7 +1741,7 @@
         protobuf.Reader._configure(protobuf.BufferReader);
       }
       configure();
-    }
+    },
   });
 
   // ../../node_modules/protobufjs/minimal.js
@@ -1393,7 +1749,7 @@
     "../../node_modules/protobufjs/minimal.js"(exports2, module2) {
       "use strict";
       module2.exports = require_index_minimal();
-    }
+    },
   });
 
   // ../../node_modules/it-peekable/index.js
@@ -1401,7 +1757,9 @@
     "../../node_modules/it-peekable/index.js"(exports2, module2) {
       "use strict";
       function peekableIterator(iterable) {
-        const [iterator, symbol] = iterable[Symbol.asyncIterator] ? [iterable[Symbol.asyncIterator](), Symbol.asyncIterator] : [iterable[Symbol.iterator](), Symbol.iterator];
+        const [iterator, symbol] = iterable[Symbol.asyncIterator]
+          ? [iterable[Symbol.asyncIterator](), Symbol.asyncIterator]
+          : [iterable[Symbol.iterator](), Symbol.iterator];
         const queue = [];
         return {
           peek: () => {
@@ -1414,18 +1772,18 @@
             if (queue.length) {
               return {
                 done: false,
-                value: queue.shift()
+                value: queue.shift(),
               };
             }
             return iterator.next();
           },
           [symbol]() {
             return this;
-          }
+          },
         };
       }
       module2.exports = peekableIterator;
-    }
+    },
   });
 
   // ../../node_modules/ipfs-message-port-protocol/esm/src/error.js
@@ -1436,7 +1794,7 @@
       message,
       stack,
       code,
-      detail
+      detail,
     };
   };
   var decodeError = (error) => {
@@ -1447,7 +1805,7 @@
       return Object.assign(createError(name, message), {
         name,
         stack,
-        code
+        code,
       });
     }
   };
@@ -1506,10 +1864,17 @@
       const id = `${this.id}@${this.nextID++}`;
       this.queries[id] = query;
       if (query.timeout > 0 && query.timeout < Infinity) {
-        query.timerID = setTimeout(MessageTransport.timeout, query.timeout, this, id);
+        query.timerID = setTimeout(
+          MessageTransport.timeout,
+          query.timeout,
+          this,
+          id,
+        );
       }
       if (query.signal) {
-        query.signal.addEventListener("abort", () => this.abort(id), { once: true });
+        query.signal.addEventListener("abort", () => this.abort(id), {
+          once: true,
+        });
       }
       if (this.port) {
         MessageTransport.postQuery(this.port, id, query);
@@ -1548,7 +1913,7 @@
         if (self2.port) {
           self2.port.postMessage({
             type: "abort",
-            id
+            id,
           });
         }
       }
@@ -1562,7 +1927,7 @@
         if (this.port) {
           this.port.postMessage({
             type: "abort",
-            id
+            id,
           });
         }
         if (query.timerID != null) {
@@ -1576,7 +1941,7 @@
         namespace: query.namespace,
         method: query.method,
         id,
-        input: query.toJSON()
+        input: query.toJSON(),
       }, query.transfer());
     }
     handleEvent(event) {
@@ -1624,7 +1989,10 @@
       this.transport = transport;
       const api = this;
       for (const method of methods) {
-        api[method] = (input) => this.transport.execute(new Query(namespace, method.toString(), input));
+        api[method] = (input) =>
+          this.transport.execute(
+            new Query(namespace, method.toString(), input),
+          );
       }
     }
   };
@@ -1662,14 +2030,21 @@
   var MSB$1 = 128;
   var REST$1 = 127;
   function read(buf, offset) {
-    var res = 0, offset = offset || 0, shift = 0, counter = offset, b, l = buf.length;
+    var res = 0,
+      offset = offset || 0,
+      shift = 0,
+      counter = offset,
+      b,
+      l = buf.length;
     do {
       if (counter >= l) {
         read.bytes = 0;
         throw new RangeError("Could not decode varint");
       }
       b = buf[counter++];
-      res += shift < 28 ? (b & REST$1) << shift : (b & REST$1) * Math.pow(2, shift);
+      res += shift < 28
+        ? (b & REST$1) << shift
+        : (b & REST$1) * Math.pow(2, shift);
       shift += 7;
     } while (b >= MSB$1);
     read.bytes = counter - offset;
@@ -1684,13 +2059,31 @@
   var N7 = Math.pow(2, 49);
   var N8 = Math.pow(2, 56);
   var N9 = Math.pow(2, 63);
-  var length = function(value) {
-    return value < N1 ? 1 : value < N2 ? 2 : value < N3 ? 3 : value < N4 ? 4 : value < N5 ? 5 : value < N6 ? 6 : value < N7 ? 7 : value < N8 ? 8 : value < N9 ? 9 : 10;
+  var length = function (value) {
+    return value < N1
+      ? 1
+      : value < N2
+      ? 2
+      : value < N3
+      ? 3
+      : value < N4
+      ? 4
+      : value < N5
+      ? 5
+      : value < N6
+      ? 6
+      : value < N7
+      ? 7
+      : value < N8
+      ? 8
+      : value < N9
+      ? 9
+      : 10;
   };
   var varint = {
     encode: encode_1,
     decode,
-    encodingLength: length
+    encodingLength: length,
   };
   var _brrp_varint = varint;
   var varint_default = _brrp_varint;
@@ -1700,7 +2093,7 @@
     const code = varint_default.decode(data);
     return [
       code,
-      varint_default.decode.bytes
+      varint_default.decode.bytes,
     ];
   };
   var encodeTo = (int, target, offset = 0) => {
@@ -1714,8 +2107,9 @@
   // ../../node_modules/multiformats/esm/src/bytes.js
   var empty = new Uint8Array(0);
   var equals = (aa, bb) => {
-    if (aa === bb)
+    if (aa === bb) {
       return true;
+    }
     if (aa.byteLength !== bb.byteLength) {
       return false;
     }
@@ -1727,10 +2121,12 @@
     return true;
   };
   var coerce = (o) => {
-    if (o instanceof Uint8Array && o.constructor.name === "Uint8Array")
+    if (o instanceof Uint8Array && o.constructor.name === "Uint8Array") {
       return o;
-    if (o instanceof ArrayBuffer)
+    }
+    if (o instanceof ArrayBuffer) {
       return new Uint8Array(o);
+    }
     if (ArrayBuffer.isView(o)) {
       return new Uint8Array(o.buffer, o.byteOffset, o.byteLength);
     }
@@ -1796,10 +2192,13 @@
     var FACTOR = Math.log(BASE) / Math.log(256);
     var iFACTOR = Math.log(256) / Math.log(BASE);
     function encode3(source) {
-      if (source instanceof Uint8Array)
-        ;
+      if (source instanceof Uint8Array);
       else if (ArrayBuffer.isView(source)) {
-        source = new Uint8Array(source.buffer, source.byteOffset, source.byteLength);
+        source = new Uint8Array(
+          source.buffer,
+          source.byteOffset,
+          source.byteLength,
+        );
       } else if (Array.isArray(source)) {
         source = Uint8Array.from(source);
       }
@@ -1822,7 +2221,11 @@
       while (pbegin !== pend) {
         var carry = source[pbegin];
         var i2 = 0;
-        for (var it1 = size - 1; (carry !== 0 || i2 < length2) && it1 !== -1; it1--, i2++) {
+        for (
+          var it1 = size - 1;
+          (carry !== 0 || i2 < length2) && it1 !== -1;
+          it1--, i2++
+        ) {
           carry += 256 * b58[it1] >>> 0;
           b58[it1] = carry % BASE >>> 0;
           carry = carry / BASE >>> 0;
@@ -1868,7 +2271,11 @@
           return;
         }
         var i2 = 0;
-        for (var it3 = size - 1; (carry !== 0 || i2 < length2) && it3 !== -1; it3--, i2++) {
+        for (
+          var it3 = size - 1;
+          (carry !== 0 || i2 < length2) && it3 !== -1;
+          it3--, i2++
+        ) {
           carry += BASE * b256[it3] >>> 0;
           b256[it3] = carry % 256 >>> 0;
           carry = carry / 256 >>> 0;
@@ -1903,7 +2310,7 @@
     return {
       encode: encode3,
       decodeUnsafe,
-      decode: decode5
+      decode: decode5,
     };
   }
   var src = base;
@@ -1938,7 +2345,11 @@
             return this.baseDecode(text.slice(1));
           }
           default: {
-            throw Error(`Unable to decode multibase string ${JSON.stringify(text)}, ${this.name} decoder only supports inputs prefixed with ${this.prefix}`);
+            throw Error(
+              `Unable to decode multibase string ${
+                JSON.stringify(text)
+              }, ${this.name} decoder only supports inputs prefixed with ${this.prefix}`,
+            );
           }
         }
       } else {
@@ -1962,14 +2373,21 @@
       if (decoder) {
         return decoder.decode(input);
       } else {
-        throw RangeError(`Unable to decode multibase string ${JSON.stringify(input)}, only inputs prefixed with ${Object.keys(this.decoders)} are supported`);
+        throw RangeError(
+          `Unable to decode multibase string ${
+            JSON.stringify(input)
+          }, only inputs prefixed with ${
+            Object.keys(this.decoders)
+          } are supported`,
+        );
       }
     }
   };
-  var or = (left, right) => new ComposedDecoder({
-    ...left.decoders || { [left.prefix]: left },
-    ...right.decoders || { [right.prefix]: right }
-  });
+  var or = (left, right) =>
+    new ComposedDecoder({
+      ...left.decoders || { [left.prefix]: left },
+      ...right.decoders || { [right.prefix]: right },
+    });
   var Codec = class {
     constructor(name, prefix, baseEncode, baseDecode) {
       this.name = name;
@@ -1986,14 +2404,15 @@
       return this.decoder.decode(input);
     }
   };
-  var from = ({ name, prefix, encode: encode3, decode: decode5 }) => new Codec(name, prefix, encode3, decode5);
+  var from = ({ name, prefix, encode: encode3, decode: decode5 }) =>
+    new Codec(name, prefix, encode3, decode5);
   var baseX = ({ prefix, name, alphabet }) => {
     const { encode: encode3, decode: decode5 } = base_x_default(alphabet, name);
     return from({
       prefix,
       name,
       encode: encode3,
-      decode: (text) => coerce(decode5(text))
+      decode: (text) => coerce(decode5(text)),
     });
   };
   var decode4 = (string, alphabet, bitsPerChar, name) => {
@@ -2059,7 +2478,7 @@
       },
       decode(input) {
         return decode4(input, alphabet, bitsPerChar, name);
-      }
+      },
     });
   };
 
@@ -2067,12 +2486,12 @@
   var base58btc = baseX({
     name: "base58btc",
     prefix: "z",
-    alphabet: "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz"
+    alphabet: "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz",
   });
   var base58flickr = baseX({
     name: "base58flickr",
     prefix: "Z",
-    alphabet: "123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ"
+    alphabet: "123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ",
   });
 
   // ../../node_modules/multiformats/esm/src/bases/base32.js
@@ -2080,55 +2499,55 @@
     prefix: "b",
     name: "base32",
     alphabet: "abcdefghijklmnopqrstuvwxyz234567",
-    bitsPerChar: 5
+    bitsPerChar: 5,
   });
   var base32upper = rfc4648({
     prefix: "B",
     name: "base32upper",
     alphabet: "ABCDEFGHIJKLMNOPQRSTUVWXYZ234567",
-    bitsPerChar: 5
+    bitsPerChar: 5,
   });
   var base32pad = rfc4648({
     prefix: "c",
     name: "base32pad",
     alphabet: "abcdefghijklmnopqrstuvwxyz234567=",
-    bitsPerChar: 5
+    bitsPerChar: 5,
   });
   var base32padupper = rfc4648({
     prefix: "C",
     name: "base32padupper",
     alphabet: "ABCDEFGHIJKLMNOPQRSTUVWXYZ234567=",
-    bitsPerChar: 5
+    bitsPerChar: 5,
   });
   var base32hex = rfc4648({
     prefix: "v",
     name: "base32hex",
     alphabet: "0123456789abcdefghijklmnopqrstuv",
-    bitsPerChar: 5
+    bitsPerChar: 5,
   });
   var base32hexupper = rfc4648({
     prefix: "V",
     name: "base32hexupper",
     alphabet: "0123456789ABCDEFGHIJKLMNOPQRSTUV",
-    bitsPerChar: 5
+    bitsPerChar: 5,
   });
   var base32hexpad = rfc4648({
     prefix: "t",
     name: "base32hexpad",
     alphabet: "0123456789abcdefghijklmnopqrstuv=",
-    bitsPerChar: 5
+    bitsPerChar: 5,
   });
   var base32hexpadupper = rfc4648({
     prefix: "T",
     name: "base32hexpadupper",
     alphabet: "0123456789ABCDEFGHIJKLMNOPQRSTUV=",
-    bitsPerChar: 5
+    bitsPerChar: 5,
   });
   var base32z = rfc4648({
     prefix: "h",
     name: "base32z",
     alphabet: "ybndrfg8ejkmcpqxot1uwisza345h769",
-    bitsPerChar: 5
+    bitsPerChar: 5,
   });
 
   // ../../node_modules/multiformats/esm/src/cid.js
@@ -2150,7 +2569,7 @@
         multihash: readonly,
         bytes: readonly,
         _baseCache: hidden,
-        asCID: hidden
+        asCID: hidden,
       });
     }
     toV0() {
@@ -2164,7 +2583,9 @@
             throw new Error("Cannot convert a non dag-pb CID to CIDv0");
           }
           if (multihash.code !== SHA_256_CODE) {
-            throw new Error("Cannot convert non sha2-256 multihash CID to CIDv0");
+            throw new Error(
+              "Cannot convert non sha2-256 multihash CID to CIDv0",
+            );
           }
           return CID.createV0(multihash);
         }
@@ -2181,12 +2602,16 @@
           return this;
         }
         default: {
-          throw Error(`Can not convert CID version ${this.version} to version 0. This is a bug please report`);
+          throw Error(
+            `Can not convert CID version ${this.version} to version 0. This is a bug please report`,
+          );
         }
       }
     }
     equals(other) {
-      return other && this.code === other.code && this.version === other.version && equals2(this.multihash, other.multihash);
+      return other && this.code === other.code &&
+        this.version === other.version &&
+        equals2(this.multihash, other.multihash);
     }
     toString(base2) {
       const { bytes, version: version2, _baseCache } = this;
@@ -2201,7 +2626,7 @@
       return {
         code: this.code,
         version: this.version,
-        hash: this.multihash.bytes
+        hash: this.multihash.bytes,
       };
     }
     get [Symbol.toStringTag]() {
@@ -2218,10 +2643,14 @@
       throw new Error("Deprecated, use .toString()");
     }
     get codec() {
-      throw new Error('"codec" property is deprecated, use integer "code" property instead');
+      throw new Error(
+        '"codec" property is deprecated, use integer "code" property instead',
+      );
     }
     get buffer() {
-      throw new Error("Deprecated .buffer property, use .bytes to get Uint8Array instead");
+      throw new Error(
+        "Deprecated .buffer property, use .bytes to get Uint8Array instead",
+      );
     }
     get multibaseName() {
       throw new Error('"multibaseName" property is deprecated');
@@ -2234,7 +2663,12 @@
         return value;
       } else if (value != null && value.asCID === value) {
         const { version: version2, code, multihash, bytes } = value;
-        return new CID(version2, code, multihash, bytes || encodeCID(version2, code, multihash.bytes));
+        return new CID(
+          version2,
+          code,
+          multihash,
+          bytes || encodeCID(version2, code, multihash.bytes),
+        );
       } else if (value != null && value[cidSymbol] === true) {
         const { version: version2, multihash, code } = value;
         const digest = decode3(multihash);
@@ -2250,7 +2684,9 @@
       switch (version2) {
         case 0: {
           if (code !== DAG_PB_CODE) {
-            throw new Error(`Version 0 CID must use dag-pb (code: ${DAG_PB_CODE}) block encoding`);
+            throw new Error(
+              `Version 0 CID must use dag-pb (code: ${DAG_PB_CODE}) block encoding`,
+            );
           } else {
             return new CID(version2, code, digest, digest.bytes);
           }
@@ -2280,16 +2716,27 @@
     static decodeFirst(bytes) {
       const specs = CID.inspectBytes(bytes);
       const prefixSize = specs.size - specs.multihashSize;
-      const multihashBytes = coerce(bytes.subarray(prefixSize, prefixSize + specs.multihashSize));
+      const multihashBytes = coerce(
+        bytes.subarray(prefixSize, prefixSize + specs.multihashSize),
+      );
       if (multihashBytes.byteLength !== specs.multihashSize) {
         throw new Error("Incorrect length");
       }
-      const digestBytes = multihashBytes.subarray(specs.multihashSize - specs.digestSize);
-      const digest = new Digest(specs.multihashCode, specs.digestSize, digestBytes, multihashBytes);
-      const cid = specs.version === 0 ? CID.createV0(digest) : CID.createV1(specs.codec, digest);
+      const digestBytes = multihashBytes.subarray(
+        specs.multihashSize - specs.digestSize,
+      );
+      const digest = new Digest(
+        specs.multihashCode,
+        specs.digestSize,
+        digestBytes,
+        multihashBytes,
+      );
+      const cid = specs.version === 0
+        ? CID.createV0(digest)
+        : CID.createV1(specs.codec, digest);
       return [
         cid,
-        bytes.subarray(specs.size)
+        bytes.subarray(specs.size),
       ];
     }
     static inspectBytes(initialBytes) {
@@ -2321,7 +2768,7 @@
         multihashCode,
         digestSize,
         multihashSize,
-        size
+        size,
       };
     }
     static parse(source, base2) {
@@ -2337,30 +2784,32 @@
         const decoder = base2 || base58btc;
         return [
           base58btc.prefix,
-          decoder.decode(`${base58btc.prefix}${source}`)
+          decoder.decode(`${base58btc.prefix}${source}`),
         ];
       }
       case base58btc.prefix: {
         const decoder = base2 || base58btc;
         return [
           base58btc.prefix,
-          decoder.decode(source)
+          decoder.decode(source),
         ];
       }
       case base32.prefix: {
         const decoder = base2 || base32;
         return [
           base32.prefix,
-          decoder.decode(source)
+          decoder.decode(source),
         ];
       }
       default: {
         if (base2 == null) {
-          throw Error("To parse non base32 or base58btc encoded CID multibase decoder must be provided");
+          throw Error(
+            "To parse non base32 or base58btc encoded CID multibase decoder must be provided",
+          );
         }
         return [
           source[0],
-          base2.decode(source)
+          base2.decode(source),
         ];
       }
     }
@@ -2405,12 +2854,12 @@
   var readonly = {
     writable: false,
     configurable: false,
-    enumerable: true
+    enumerable: true,
   };
   var hidden = {
     writable: false,
     enumerable: false,
-    configurable: false
+    configurable: false,
   };
   var version = "0.0.0-dev";
   var deprecate = (range, message) => {
@@ -2420,7 +2869,8 @@
       throw new Error(message);
     }
   };
-  var IS_CID_DEPRECATION = `CID.isCID(v) is deprecated and will be removed in the next major release.
+  var IS_CID_DEPRECATION =
+    `CID.isCID(v) is deprecated and will be removed in the next major release.
 Following code pattern:
 
 if (CID.isCID(value)) {
@@ -2446,7 +2896,9 @@ if (cid) {
   var decodeCID = (encodedCID) => {
     const cid = encodedCID;
     if (!cid._baseCache) {
-      Object.defineProperty(cid, "_baseCache", { value: /* @__PURE__ */ new Map() });
+      Object.defineProperty(cid, "_baseCache", {
+        value: /* @__PURE__ */ new Map(),
+      });
     }
     if (!cid.asCID) {
       Object.defineProperty(cid, "asCID", { get: () => cid });
@@ -2474,7 +2926,7 @@ if (cid) {
         "put",
         "get",
         "rm",
-        "stat"
+        "stat",
       ], transport);
     }
   };
@@ -2482,7 +2934,7 @@ if (cid) {
     const { transfer } = options;
     const { block } = await this.remote.get({
       ...options,
-      cid: encodeCID2(cid, transfer)
+      cid: encodeCID2(cid, transfer),
     });
     return block;
   };
@@ -2491,7 +2943,7 @@ if (cid) {
     delete options.progress;
     const result = await this.remote.put({
       ...options,
-      block: block instanceof Uint8Array ? block : encodeBlock(block, transfer)
+      block: block instanceof Uint8Array ? block : encodeBlock(block, transfer),
     });
     return decodeCID(result.cid);
   };
@@ -2499,7 +2951,9 @@ if (cid) {
     const { transfer } = options;
     const entries = await this.remote.rm({
       ...options,
-      cids: Array.isArray(cids) ? cids.map((cid) => encodeCID2(cid, transfer)) : [encodeCID2(cids, transfer)]
+      cids: Array.isArray(cids)
+        ? cids.map((cid) => encodeCID2(cid, transfer))
+        : [encodeCID2(cids, transfer)],
     });
     yield* entries.map(decodeRmEntry);
   };
@@ -2507,11 +2961,11 @@ if (cid) {
     const { transfer } = options;
     const result = await this.remote.stat({
       ...options,
-      cid: encodeCID2(cid, transfer)
+      cid: encodeCID2(cid, transfer),
     });
     return {
       ...result,
-      cid: decodeCID(result.cid)
+      cid: decodeCID(result.cid),
     };
   };
   var decodeRmEntry = (entry) => {
@@ -2519,7 +2973,7 @@ if (cid) {
     if (entry.error) {
       return {
         cid,
-        error: decodeError(entry.error)
+        error: decodeError(entry.error),
       };
     } else {
       return { cid };
@@ -2538,7 +2992,7 @@ if (cid) {
     collectNode(dagNode, cids, transfer);
     return {
       dagNode,
-      cids
+      cids,
     };
   };
   var collectNode = (value, cids, transfer) => {
@@ -2573,38 +3027,38 @@ if (cid) {
       super("dag", [
         "put",
         "get",
-        "resolve"
+        "resolve",
       ], transport);
     }
   };
   DAGClient.prototype.put = async function put2(dagNode, options = {}) {
     const encodedCID = await this.remote.put({
       ...options,
-      dagNode: encodeNode(dagNode, options.transfer)
+      dagNode: encodeNode(dagNode, options.transfer),
     });
     return decodeCID(encodedCID);
   };
   DAGClient.prototype.get = async function get2(cid, options = {}) {
     const { value, remainderPath } = await this.remote.get({
       ...options,
-      cid: encodeCID2(cid, options.transfer)
+      cid: encodeCID2(cid, options.transfer),
     });
     return {
       value: decodeNode(value),
-      remainderPath
+      remainderPath,
     };
   };
   DAGClient.prototype.resolve = async function resolve(cid, options = {}) {
     const {
       cid: encodedCID,
-      remainderPath
+      remainderPath,
     } = await this.remote.resolve({
       ...options,
-      cid: encodeCIDOrPath(cid, options.transfer)
+      cid: encodeCIDOrPath(cid, options.transfer),
     });
     return {
       cid: decodeCID(encodedCID),
-      remainderPath
+      remainderPath,
     };
   };
   var encodeCIDOrPath = (input, transfer) => {
@@ -2646,12 +3100,12 @@ if (cid) {
   var encodeIterable = (iterable, encode3, transfer) => {
     const {
       port1: port,
-      port2: remote
+      port2: remote,
     } = new MessageChannel();
     const iterator = toIterator(iterable);
     const itemTransfer = /* @__PURE__ */ new Set();
     port.onmessage = async ({
-      data: { method }
+      data: { method },
     }) => {
       switch (method) {
         case "next": {
@@ -2660,7 +3114,7 @@ if (cid) {
             if (done) {
               port.postMessage({
                 type: "next",
-                done: true
+                done: true,
               });
               port.close();
             } else {
@@ -2669,13 +3123,13 @@ if (cid) {
               postMessage(port, {
                 type: "next",
                 done: false,
-                value: encodedValue
+                value: encodedValue,
               }, itemTransfer);
             }
           } catch (error) {
             port.postMessage({
               type: "throw",
-              error: encodeError(error)
+              error: encodeError(error),
             });
             port.close();
           }
@@ -2697,7 +3151,7 @@ if (cid) {
     transfer.add(remote);
     return {
       type: "RemoteIterable",
-      port: remote
+      port: remote,
     };
   };
   var toIterator = (iterable) => {
@@ -2714,19 +3168,23 @@ if (cid) {
   var encodeCallback = (callback, transfer) => {
     const {
       port1: port,
-      port2: remote
+      port2: remote,
     } = new MessageChannel();
     port.onmessage = ({ data }) => callback.apply(null, data);
     transfer.add(remote);
     return {
       type: "RemoteCallback",
-      port: remote
+      port: remote,
     };
   };
-  var postMessage = (port, message, transfer) => port.postMessage(message, transfer);
+  var postMessage = (port, message, transfer) =>
+    port.postMessage(message, transfer);
 
   // ../../node_modules/ipfs-message-port-client/esm/src/core.js
-  var import_browser_readablestream_to_it = __toESM(require_browser_readablestream_to_it(), 1);
+  var import_browser_readablestream_to_it = __toESM(
+    require_browser_readablestream_to_it(),
+    1,
+  );
 
   // ../../node_modules/ipfs-unixfs/esm/src/index.js
   var import_err_code = __toESM(require_err_code(), 1);
@@ -2736,14 +3194,17 @@ if (cid) {
   var $Reader = import_minimal.default.Reader;
   var $Writer = import_minimal.default.Writer;
   var $util = import_minimal.default.util;
-  var $root = import_minimal.default.roots["ipfs-unixfs"] || (import_minimal.default.roots["ipfs-unixfs"] = {});
+  var $root = import_minimal.default.roots["ipfs-unixfs"] ||
+    (import_minimal.default.roots["ipfs-unixfs"] = {});
   var Data = $root.Data = (() => {
     function Data2(p) {
       this.blocksizes = [];
       if (p) {
-        for (var ks = Object.keys(p), i = 0; i < ks.length; ++i)
-          if (p[ks[i]] != null)
+        for (var ks = Object.keys(p), i = 0; i < ks.length; ++i) {
+          if (p[ks[i]] != null) {
             this[ks[i]] = p[ks[i]];
+          }
+        }
       }
     }
     Data2.prototype.Type = 0;
@@ -2755,30 +3216,39 @@ if (cid) {
     Data2.prototype.mode = 0;
     Data2.prototype.mtime = null;
     Data2.encode = function encode3(m, w) {
-      if (!w)
+      if (!w) {
         w = $Writer.create();
-      w.uint32(8).int32(m.Type);
-      if (m.Data != null && Object.hasOwnProperty.call(m, "Data"))
-        w.uint32(18).bytes(m.Data);
-      if (m.filesize != null && Object.hasOwnProperty.call(m, "filesize"))
-        w.uint32(24).uint64(m.filesize);
-      if (m.blocksizes != null && m.blocksizes.length) {
-        for (var i = 0; i < m.blocksizes.length; ++i)
-          w.uint32(32).uint64(m.blocksizes[i]);
       }
-      if (m.hashType != null && Object.hasOwnProperty.call(m, "hashType"))
+      w.uint32(8).int32(m.Type);
+      if (m.Data != null && Object.hasOwnProperty.call(m, "Data")) {
+        w.uint32(18).bytes(m.Data);
+      }
+      if (m.filesize != null && Object.hasOwnProperty.call(m, "filesize")) {
+        w.uint32(24).uint64(m.filesize);
+      }
+      if (m.blocksizes != null && m.blocksizes.length) {
+        for (var i = 0; i < m.blocksizes.length; ++i) {
+          w.uint32(32).uint64(m.blocksizes[i]);
+        }
+      }
+      if (m.hashType != null && Object.hasOwnProperty.call(m, "hashType")) {
         w.uint32(40).uint64(m.hashType);
-      if (m.fanout != null && Object.hasOwnProperty.call(m, "fanout"))
+      }
+      if (m.fanout != null && Object.hasOwnProperty.call(m, "fanout")) {
         w.uint32(48).uint64(m.fanout);
-      if (m.mode != null && Object.hasOwnProperty.call(m, "mode"))
+      }
+      if (m.mode != null && Object.hasOwnProperty.call(m, "mode")) {
         w.uint32(56).uint32(m.mode);
-      if (m.mtime != null && Object.hasOwnProperty.call(m, "mtime"))
+      }
+      if (m.mtime != null && Object.hasOwnProperty.call(m, "mtime")) {
         $root.UnixTime.encode(m.mtime, w.uint32(66).fork()).ldelim();
+      }
       return w;
     };
     Data2.decode = function decode5(r, l) {
-      if (!(r instanceof $Reader))
+      if (!(r instanceof $Reader)) {
         r = $Reader.create(r);
+      }
       var c = l === void 0 ? r.len : r.pos + l, m = new $root.Data();
       while (r.pos < c) {
         var t = r.uint32();
@@ -2793,14 +3263,17 @@ if (cid) {
             m.filesize = r.uint64();
             break;
           case 4:
-            if (!(m.blocksizes && m.blocksizes.length))
+            if (!(m.blocksizes && m.blocksizes.length)) {
               m.blocksizes = [];
+            }
             if ((t & 7) === 2) {
               var c2 = r.uint32() + r.pos;
-              while (r.pos < c2)
+              while (r.pos < c2) {
                 m.blocksizes.push(r.uint64());
-            } else
+              }
+            } else {
               m.blocksizes.push(r.uint64());
+            }
             break;
           case 5:
             m.hashType = r.uint64();
@@ -2819,13 +3292,15 @@ if (cid) {
             break;
         }
       }
-      if (!m.hasOwnProperty("Type"))
+      if (!m.hasOwnProperty("Type")) {
         throw $util.ProtocolError("missing required 'Type'", { instance: m });
+      }
       return m;
     };
     Data2.fromObject = function fromObject(d) {
-      if (d instanceof $root.Data)
+      if (d instanceof $root.Data) {
         return d;
+      }
       var m = new $root.Data();
       switch (d.Type) {
         case "Raw":
@@ -2854,97 +3329,136 @@ if (cid) {
           break;
       }
       if (d.Data != null) {
-        if (typeof d.Data === "string")
-          $util.base64.decode(d.Data, m.Data = $util.newBuffer($util.base64.length(d.Data)), 0);
-        else if (d.Data.length)
+        if (typeof d.Data === "string") {
+          $util.base64.decode(
+            d.Data,
+            m.Data = $util.newBuffer($util.base64.length(d.Data)),
+            0,
+          );
+        } else if (d.Data.length) {
           m.Data = d.Data;
+        }
       }
       if (d.filesize != null) {
-        if ($util.Long)
+        if ($util.Long) {
           (m.filesize = $util.Long.fromValue(d.filesize)).unsigned = true;
-        else if (typeof d.filesize === "string")
+        } else if (typeof d.filesize === "string") {
           m.filesize = parseInt(d.filesize, 10);
-        else if (typeof d.filesize === "number")
+        } else if (typeof d.filesize === "number") {
           m.filesize = d.filesize;
-        else if (typeof d.filesize === "object")
-          m.filesize = new $util.LongBits(d.filesize.low >>> 0, d.filesize.high >>> 0).toNumber(true);
+        } else if (typeof d.filesize === "object") {
+          m.filesize = new $util.LongBits(
+            d.filesize.low >>> 0,
+            d.filesize.high >>> 0,
+          ).toNumber(true);
+        }
       }
       if (d.blocksizes) {
-        if (!Array.isArray(d.blocksizes))
+        if (!Array.isArray(d.blocksizes)) {
           throw TypeError(".Data.blocksizes: array expected");
+        }
         m.blocksizes = [];
         for (var i = 0; i < d.blocksizes.length; ++i) {
-          if ($util.Long)
-            (m.blocksizes[i] = $util.Long.fromValue(d.blocksizes[i])).unsigned = true;
-          else if (typeof d.blocksizes[i] === "string")
+          if ($util.Long) {
+            (m.blocksizes[i] = $util.Long.fromValue(d.blocksizes[i])).unsigned =
+              true;
+          } else if (typeof d.blocksizes[i] === "string") {
             m.blocksizes[i] = parseInt(d.blocksizes[i], 10);
-          else if (typeof d.blocksizes[i] === "number")
+          } else if (typeof d.blocksizes[i] === "number") {
             m.blocksizes[i] = d.blocksizes[i];
-          else if (typeof d.blocksizes[i] === "object")
-            m.blocksizes[i] = new $util.LongBits(d.blocksizes[i].low >>> 0, d.blocksizes[i].high >>> 0).toNumber(true);
+          } else if (typeof d.blocksizes[i] === "object") {
+            m.blocksizes[i] = new $util.LongBits(
+              d.blocksizes[i].low >>> 0,
+              d.blocksizes[i].high >>> 0,
+            ).toNumber(true);
+          }
         }
       }
       if (d.hashType != null) {
-        if ($util.Long)
+        if ($util.Long) {
           (m.hashType = $util.Long.fromValue(d.hashType)).unsigned = true;
-        else if (typeof d.hashType === "string")
+        } else if (typeof d.hashType === "string") {
           m.hashType = parseInt(d.hashType, 10);
-        else if (typeof d.hashType === "number")
+        } else if (typeof d.hashType === "number") {
           m.hashType = d.hashType;
-        else if (typeof d.hashType === "object")
-          m.hashType = new $util.LongBits(d.hashType.low >>> 0, d.hashType.high >>> 0).toNumber(true);
+        } else if (typeof d.hashType === "object") {
+          m.hashType = new $util.LongBits(
+            d.hashType.low >>> 0,
+            d.hashType.high >>> 0,
+          ).toNumber(true);
+        }
       }
       if (d.fanout != null) {
-        if ($util.Long)
+        if ($util.Long) {
           (m.fanout = $util.Long.fromValue(d.fanout)).unsigned = true;
-        else if (typeof d.fanout === "string")
+        } else if (typeof d.fanout === "string") {
           m.fanout = parseInt(d.fanout, 10);
-        else if (typeof d.fanout === "number")
+        } else if (typeof d.fanout === "number") {
           m.fanout = d.fanout;
-        else if (typeof d.fanout === "object")
-          m.fanout = new $util.LongBits(d.fanout.low >>> 0, d.fanout.high >>> 0).toNumber(true);
+        } else if (typeof d.fanout === "object") {
+          m.fanout = new $util.LongBits(d.fanout.low >>> 0, d.fanout.high >>> 0)
+            .toNumber(true);
+        }
       }
       if (d.mode != null) {
         m.mode = d.mode >>> 0;
       }
       if (d.mtime != null) {
-        if (typeof d.mtime !== "object")
+        if (typeof d.mtime !== "object") {
           throw TypeError(".Data.mtime: object expected");
+        }
         m.mtime = $root.UnixTime.fromObject(d.mtime);
       }
       return m;
     };
     Data2.toObject = function toObject(m, o) {
-      if (!o)
+      if (!o) {
         o = {};
+      }
       var d = {};
       if (o.arrays || o.defaults) {
         d.blocksizes = [];
       }
       if (o.defaults) {
         d.Type = o.enums === String ? "Raw" : 0;
-        if (o.bytes === String)
+        if (o.bytes === String) {
           d.Data = "";
-        else {
+        } else {
           d.Data = [];
-          if (o.bytes !== Array)
+          if (o.bytes !== Array) {
             d.Data = $util.newBuffer(d.Data);
+          }
         }
         if ($util.Long) {
           var n = new $util.Long(0, 0, true);
-          d.filesize = o.longs === String ? n.toString() : o.longs === Number ? n.toNumber() : n;
-        } else
+          d.filesize = o.longs === String
+            ? n.toString()
+            : o.longs === Number
+            ? n.toNumber()
+            : n;
+        } else {
           d.filesize = o.longs === String ? "0" : 0;
+        }
         if ($util.Long) {
           var n = new $util.Long(0, 0, true);
-          d.hashType = o.longs === String ? n.toString() : o.longs === Number ? n.toNumber() : n;
-        } else
+          d.hashType = o.longs === String
+            ? n.toString()
+            : o.longs === Number
+            ? n.toNumber()
+            : n;
+        } else {
           d.hashType = o.longs === String ? "0" : 0;
+        }
         if ($util.Long) {
           var n = new $util.Long(0, 0, true);
-          d.fanout = o.longs === String ? n.toString() : o.longs === Number ? n.toNumber() : n;
-        } else
+          d.fanout = o.longs === String
+            ? n.toString()
+            : o.longs === Number
+            ? n.toNumber()
+            : n;
+        } else {
           d.fanout = o.longs === String ? "0" : 0;
+        }
         d.mode = 0;
         d.mtime = null;
       }
@@ -2952,34 +3466,66 @@ if (cid) {
         d.Type = o.enums === String ? $root.Data.DataType[m.Type] : m.Type;
       }
       if (m.Data != null && m.hasOwnProperty("Data")) {
-        d.Data = o.bytes === String ? $util.base64.encode(m.Data, 0, m.Data.length) : o.bytes === Array ? Array.prototype.slice.call(m.Data) : m.Data;
+        d.Data = o.bytes === String
+          ? $util.base64.encode(m.Data, 0, m.Data.length)
+          : o.bytes === Array
+          ? Array.prototype.slice.call(m.Data)
+          : m.Data;
       }
       if (m.filesize != null && m.hasOwnProperty("filesize")) {
-        if (typeof m.filesize === "number")
+        if (typeof m.filesize === "number") {
           d.filesize = o.longs === String ? String(m.filesize) : m.filesize;
-        else
-          d.filesize = o.longs === String ? $util.Long.prototype.toString.call(m.filesize) : o.longs === Number ? new $util.LongBits(m.filesize.low >>> 0, m.filesize.high >>> 0).toNumber(true) : m.filesize;
+        } else {
+          d.filesize = o.longs === String
+            ? $util.Long.prototype.toString.call(m.filesize)
+            : o.longs === Number
+            ? new $util.LongBits(m.filesize.low >>> 0, m.filesize.high >>> 0)
+              .toNumber(true)
+            : m.filesize;
+        }
       }
       if (m.blocksizes && m.blocksizes.length) {
         d.blocksizes = [];
         for (var j = 0; j < m.blocksizes.length; ++j) {
-          if (typeof m.blocksizes[j] === "number")
-            d.blocksizes[j] = o.longs === String ? String(m.blocksizes[j]) : m.blocksizes[j];
-          else
-            d.blocksizes[j] = o.longs === String ? $util.Long.prototype.toString.call(m.blocksizes[j]) : o.longs === Number ? new $util.LongBits(m.blocksizes[j].low >>> 0, m.blocksizes[j].high >>> 0).toNumber(true) : m.blocksizes[j];
+          if (typeof m.blocksizes[j] === "number") {
+            d.blocksizes[j] = o.longs === String
+              ? String(m.blocksizes[j])
+              : m.blocksizes[j];
+          } else {
+            d.blocksizes[j] = o.longs === String
+              ? $util.Long.prototype.toString.call(m.blocksizes[j])
+              : o.longs === Number
+              ? new $util.LongBits(
+                m.blocksizes[j].low >>> 0,
+                m.blocksizes[j].high >>> 0,
+              ).toNumber(true)
+              : m.blocksizes[j];
+          }
         }
       }
       if (m.hashType != null && m.hasOwnProperty("hashType")) {
-        if (typeof m.hashType === "number")
+        if (typeof m.hashType === "number") {
           d.hashType = o.longs === String ? String(m.hashType) : m.hashType;
-        else
-          d.hashType = o.longs === String ? $util.Long.prototype.toString.call(m.hashType) : o.longs === Number ? new $util.LongBits(m.hashType.low >>> 0, m.hashType.high >>> 0).toNumber(true) : m.hashType;
+        } else {
+          d.hashType = o.longs === String
+            ? $util.Long.prototype.toString.call(m.hashType)
+            : o.longs === Number
+            ? new $util.LongBits(m.hashType.low >>> 0, m.hashType.high >>> 0)
+              .toNumber(true)
+            : m.hashType;
+        }
       }
       if (m.fanout != null && m.hasOwnProperty("fanout")) {
-        if (typeof m.fanout === "number")
+        if (typeof m.fanout === "number") {
           d.fanout = o.longs === String ? String(m.fanout) : m.fanout;
-        else
-          d.fanout = o.longs === String ? $util.Long.prototype.toString.call(m.fanout) : o.longs === Number ? new $util.LongBits(m.fanout.low >>> 0, m.fanout.high >>> 0).toNumber(true) : m.fanout;
+        } else {
+          d.fanout = o.longs === String
+            ? $util.Long.prototype.toString.call(m.fanout)
+            : o.longs === Number
+            ? new $util.LongBits(m.fanout.low >>> 0, m.fanout.high >>> 0)
+              .toNumber(true)
+            : m.fanout;
+        }
       }
       if (m.mode != null && m.hasOwnProperty("mode")) {
         d.mode = m.mode;
@@ -2990,9 +3536,12 @@ if (cid) {
       return d;
     };
     Data2.prototype.toJSON = function toJSON() {
-      return this.constructor.toObject(this, import_minimal.default.util.toJSONOptions);
+      return this.constructor.toObject(
+        this,
+        import_minimal.default.util.toJSONOptions,
+      );
     };
-    Data2.DataType = function() {
+    Data2.DataType = function () {
       const valuesById = {}, values = Object.create(valuesById);
       values[valuesById[0] = "Raw"] = 0;
       values[valuesById[1] = "Directory"] = 1;
@@ -3007,24 +3556,34 @@ if (cid) {
   var UnixTime = $root.UnixTime = (() => {
     function UnixTime2(p) {
       if (p) {
-        for (var ks = Object.keys(p), i = 0; i < ks.length; ++i)
-          if (p[ks[i]] != null)
+        for (var ks = Object.keys(p), i = 0; i < ks.length; ++i) {
+          if (p[ks[i]] != null) {
             this[ks[i]] = p[ks[i]];
+          }
+        }
       }
     }
-    UnixTime2.prototype.Seconds = $util.Long ? $util.Long.fromBits(0, 0, false) : 0;
+    UnixTime2.prototype.Seconds = $util.Long
+      ? $util.Long.fromBits(0, 0, false)
+      : 0;
     UnixTime2.prototype.FractionalNanoseconds = 0;
     UnixTime2.encode = function encode3(m, w) {
-      if (!w)
+      if (!w) {
         w = $Writer.create();
+      }
       w.uint32(8).int64(m.Seconds);
-      if (m.FractionalNanoseconds != null && Object.hasOwnProperty.call(m, "FractionalNanoseconds"))
+      if (
+        m.FractionalNanoseconds != null &&
+        Object.hasOwnProperty.call(m, "FractionalNanoseconds")
+      ) {
         w.uint32(21).fixed32(m.FractionalNanoseconds);
+      }
       return w;
     };
     UnixTime2.decode = function decode5(r, l) {
-      if (!(r instanceof $Reader))
+      if (!(r instanceof $Reader)) {
         r = $Reader.create(r);
+      }
       var c = l === void 0 ? r.len : r.pos + l, m = new $root.UnixTime();
       while (r.pos < c) {
         var t = r.uint32();
@@ -3040,23 +3599,31 @@ if (cid) {
             break;
         }
       }
-      if (!m.hasOwnProperty("Seconds"))
-        throw $util.ProtocolError("missing required 'Seconds'", { instance: m });
+      if (!m.hasOwnProperty("Seconds")) {
+        throw $util.ProtocolError("missing required 'Seconds'", {
+          instance: m,
+        });
+      }
       return m;
     };
     UnixTime2.fromObject = function fromObject(d) {
-      if (d instanceof $root.UnixTime)
+      if (d instanceof $root.UnixTime) {
         return d;
+      }
       var m = new $root.UnixTime();
       if (d.Seconds != null) {
-        if ($util.Long)
+        if ($util.Long) {
           (m.Seconds = $util.Long.fromValue(d.Seconds)).unsigned = false;
-        else if (typeof d.Seconds === "string")
+        } else if (typeof d.Seconds === "string") {
           m.Seconds = parseInt(d.Seconds, 10);
-        else if (typeof d.Seconds === "number")
+        } else if (typeof d.Seconds === "number") {
           m.Seconds = d.Seconds;
-        else if (typeof d.Seconds === "object")
-          m.Seconds = new $util.LongBits(d.Seconds.low >>> 0, d.Seconds.high >>> 0).toNumber();
+        } else if (typeof d.Seconds === "object") {
+          m.Seconds = new $util.LongBits(
+            d.Seconds.low >>> 0,
+            d.Seconds.high >>> 0,
+          ).toNumber();
+        }
       }
       if (d.FractionalNanoseconds != null) {
         m.FractionalNanoseconds = d.FractionalNanoseconds >>> 0;
@@ -3064,52 +3631,75 @@ if (cid) {
       return m;
     };
     UnixTime2.toObject = function toObject(m, o) {
-      if (!o)
+      if (!o) {
         o = {};
+      }
       var d = {};
       if (o.defaults) {
         if ($util.Long) {
           var n = new $util.Long(0, 0, false);
-          d.Seconds = o.longs === String ? n.toString() : o.longs === Number ? n.toNumber() : n;
-        } else
+          d.Seconds = o.longs === String
+            ? n.toString()
+            : o.longs === Number
+            ? n.toNumber()
+            : n;
+        } else {
           d.Seconds = o.longs === String ? "0" : 0;
+        }
         d.FractionalNanoseconds = 0;
       }
       if (m.Seconds != null && m.hasOwnProperty("Seconds")) {
-        if (typeof m.Seconds === "number")
+        if (typeof m.Seconds === "number") {
           d.Seconds = o.longs === String ? String(m.Seconds) : m.Seconds;
-        else
-          d.Seconds = o.longs === String ? $util.Long.prototype.toString.call(m.Seconds) : o.longs === Number ? new $util.LongBits(m.Seconds.low >>> 0, m.Seconds.high >>> 0).toNumber() : m.Seconds;
+        } else {
+          d.Seconds = o.longs === String
+            ? $util.Long.prototype.toString.call(m.Seconds)
+            : o.longs === Number
+            ? new $util.LongBits(m.Seconds.low >>> 0, m.Seconds.high >>> 0)
+              .toNumber()
+            : m.Seconds;
+        }
       }
-      if (m.FractionalNanoseconds != null && m.hasOwnProperty("FractionalNanoseconds")) {
+      if (
+        m.FractionalNanoseconds != null &&
+        m.hasOwnProperty("FractionalNanoseconds")
+      ) {
         d.FractionalNanoseconds = m.FractionalNanoseconds;
       }
       return d;
     };
     UnixTime2.prototype.toJSON = function toJSON() {
-      return this.constructor.toObject(this, import_minimal.default.util.toJSONOptions);
+      return this.constructor.toObject(
+        this,
+        import_minimal.default.util.toJSONOptions,
+      );
     };
     return UnixTime2;
   })();
   var Metadata = $root.Metadata = (() => {
     function Metadata2(p) {
       if (p) {
-        for (var ks = Object.keys(p), i = 0; i < ks.length; ++i)
-          if (p[ks[i]] != null)
+        for (var ks = Object.keys(p), i = 0; i < ks.length; ++i) {
+          if (p[ks[i]] != null) {
             this[ks[i]] = p[ks[i]];
+          }
+        }
       }
     }
     Metadata2.prototype.MimeType = "";
     Metadata2.encode = function encode3(m, w) {
-      if (!w)
+      if (!w) {
         w = $Writer.create();
-      if (m.MimeType != null && Object.hasOwnProperty.call(m, "MimeType"))
+      }
+      if (m.MimeType != null && Object.hasOwnProperty.call(m, "MimeType")) {
         w.uint32(10).string(m.MimeType);
+      }
       return w;
     };
     Metadata2.decode = function decode5(r, l) {
-      if (!(r instanceof $Reader))
+      if (!(r instanceof $Reader)) {
         r = $Reader.create(r);
+      }
       var c = l === void 0 ? r.len : r.pos + l, m = new $root.Metadata();
       while (r.pos < c) {
         var t = r.uint32();
@@ -3125,8 +3715,9 @@ if (cid) {
       return m;
     };
     Metadata2.fromObject = function fromObject(d) {
-      if (d instanceof $root.Metadata)
+      if (d instanceof $root.Metadata) {
         return d;
+      }
       var m = new $root.Metadata();
       if (d.MimeType != null) {
         m.MimeType = String(d.MimeType);
@@ -3134,8 +3725,9 @@ if (cid) {
       return m;
     };
     Metadata2.toObject = function toObject(m, o) {
-      if (!o)
+      if (!o) {
         o = {};
+      }
       var d = {};
       if (o.defaults) {
         d.MimeType = "";
@@ -3146,7 +3738,10 @@ if (cid) {
       return d;
     };
     Metadata2.prototype.toJSON = function toJSON() {
-      return this.constructor.toObject(this, import_minimal.default.util.toJSONOptions);
+      return this.constructor.toObject(
+        this,
+        import_minimal.default.util.toJSONOptions,
+      );
     };
     return Metadata2;
   })();
@@ -3175,19 +3770,19 @@ if (cid) {
     if (input.secs != null) {
       mtime = {
         secs: input.secs,
-        nsecs: input.nsecs
+        nsecs: input.nsecs,
       };
     }
     if (input.Seconds != null) {
       mtime = {
         secs: input.Seconds,
-        nsecs: input.FractionalNanoseconds
+        nsecs: input.FractionalNanoseconds,
       };
     }
     if (Array.isArray(input)) {
       mtime = {
         secs: input[0],
-        nsecs: input[1]
+        nsecs: input[1],
       };
     }
     if (input instanceof Date) {
@@ -3195,14 +3790,20 @@ if (cid) {
       const secs = Math.floor(ms / 1e3);
       mtime = {
         secs,
-        nsecs: (ms - secs * 1e3) * 1e3
+        nsecs: (ms - secs * 1e3) * 1e3,
       };
     }
     if (!Object.prototype.hasOwnProperty.call(mtime, "secs")) {
       return void 0;
     }
-    if (mtime != null && mtime.nsecs != null && (mtime.nsecs < 0 || mtime.nsecs > 999999999)) {
-      throw (0, import_err_code.default)(new Error("mtime-nsecs must be within the range [0,999999999]"), "ERR_INVALID_MTIME_NSECS");
+    if (
+      mtime != null && mtime.nsecs != null &&
+      (mtime.nsecs < 0 || mtime.nsecs > 999999999)
+    ) {
+      throw (0, import_err_code.default)(
+        new Error("mtime-nsecs must be within the range [0,999999999]"),
+        "ERR_INVALID_MTIME_NSECS",
+      );
     }
     return mtime;
   }
@@ -3216,14 +3817,16 @@ if (cid) {
         "add",
         "addAll",
         "cat",
-        "ls"
+        "ls",
       ], transport);
     }
   };
   CoreClient.prototype.addAll = async function* addAll(input, options = {}) {
     const { timeout, signal } = options;
     const transfer = options.transfer || /* @__PURE__ */ new Set();
-    const progressCallback = options.progress ? encodeCallback(options.progress, transfer) : void 0;
+    const progressCallback = options.progress
+      ? encodeCallback(options.progress, transfer)
+      : void 0;
     const result = await this.remote.addAll({
       ...options,
       input: encodeAddAllInput(input, transfer),
@@ -3231,14 +3834,16 @@ if (cid) {
       progressCallback,
       transfer,
       timeout,
-      signal
+      signal,
     });
     yield* decodeIterable(result.data, decodeAddedData);
   };
   CoreClient.prototype.add = async function add(input, options = {}) {
     const { timeout, signal } = options;
     const transfer = options.transfer || /* @__PURE__ */ new Set();
-    const progressCallback = options.progress ? encodeCallback(options.progress, transfer) : void 0;
+    const progressCallback = options.progress
+      ? encodeCallback(options.progress, transfer)
+      : void 0;
     const result = await this.remote.add({
       ...options,
       input: await encodeAddInput(input, transfer),
@@ -3246,7 +3851,7 @@ if (cid) {
       progressCallback,
       transfer,
       timeout,
-      signal
+      signal,
     });
     return decodeAddedData(result.data);
   };
@@ -3255,7 +3860,7 @@ if (cid) {
     const input = cid ? encodeCID2(cid) : inputPath;
     const result = await this.remote.cat({
       ...options,
-      path: input
+      path: input,
     });
     yield* decodeIterable(result.data, identity);
   };
@@ -3264,7 +3869,7 @@ if (cid) {
     const input = cid ? encodeCID2(cid) : inputPath;
     const result = await this.remote.ls({
       ...options,
-      path: input
+      path: input,
     });
     yield* decodeIterable(result.data, decodeLsEntry);
   };
@@ -3274,7 +3879,7 @@ if (cid) {
       cid: decodeCID(cid),
       mode,
       mtime,
-      size
+      size,
     };
   };
   var decodeLsEntry = ({ name, path, size, cid, type, mode, mtime }) => ({
@@ -3284,7 +3889,7 @@ if (cid) {
     path,
     mode,
     mtime,
-    size
+    size,
   });
   var identity = (v) => v;
   var encodeAddInput = async (input, transfer) => {
@@ -3299,15 +3904,29 @@ if (cid) {
     } else {
       const iterable = asIterable(input);
       if (iterable) {
-        return encodeIterable(await ensureIsByteStream(iterable), encodeIterableContent, transfer);
+        return encodeIterable(
+          await ensureIsByteStream(iterable),
+          encodeIterableContent,
+          transfer,
+        );
       }
       const asyncIterable = asAsyncIterable(input);
       if (asyncIterable) {
-        return encodeIterable(await ensureIsByteStream(asyncIterable), encodeAsyncIterableContent, transfer);
+        return encodeIterable(
+          await ensureIsByteStream(asyncIterable),
+          encodeAsyncIterableContent,
+          transfer,
+        );
       }
       const readableStream = asReadableStream(input);
       if (readableStream) {
-        return encodeIterable(await ensureIsByteStream((0, import_browser_readablestream_to_it.default)(readableStream)), encodeAsyncIterableContent, transfer);
+        return encodeIterable(
+          await ensureIsByteStream(
+            (0, import_browser_readablestream_to_it.default)(readableStream),
+          ),
+          encodeAsyncIterableContent,
+          transfer,
+        );
       }
       const file = asFileObject(input);
       if (file) {
@@ -3323,11 +3942,19 @@ if (cid) {
     }
     const asyncIterable = asAsyncIterable(input);
     if (asyncIterable) {
-      return encodeIterable(asyncIterable, encodeAsyncIterableContent, transfer);
+      return encodeIterable(
+        asyncIterable,
+        encodeAsyncIterableContent,
+        transfer,
+      );
     }
     const readableStream = asReadableStream(input);
     if (readableStream) {
-      return encodeIterable((0, import_browser_readablestream_to_it.default)(readableStream), encodeAsyncIterableContent, transfer);
+      return encodeIterable(
+        (0, import_browser_readablestream_to_it.default)(readableStream),
+        encodeAsyncIterableContent,
+        transfer,
+      );
     }
     throw TypeError("Unexpected input: " + typeof input);
   };
@@ -3339,12 +3966,12 @@ if (cid) {
     } else if (content instanceof Blob) {
       return {
         path: "",
-        content
+        content,
       };
     } else if (typeof content === "string") {
       return {
         path: "",
-        content
+        content,
       };
     } else {
       const file = asFileObject(content);
@@ -3365,12 +3992,12 @@ if (cid) {
     } else if (content instanceof Blob) {
       return {
         path: "",
-        content
+        content,
       };
     } else if (typeof content === "string") {
       return {
         path: "",
-        content
+        content,
       };
     } else {
       const file = asFileObject(content);
@@ -3385,7 +4012,7 @@ if (cid) {
     const output = {
       path,
       mode: parseMode(mode),
-      mtime: parseMtime(mtime)
+      mtime: parseMtime(mtime),
     };
     if (content) {
       output.content = encodeFileContent(content, transfer);
@@ -3408,11 +4035,19 @@ if (cid) {
       }
       const asyncIterable = asAsyncIterable(content);
       if (asyncIterable) {
-        return encodeIterable(asyncIterable, encodeAsyncIterableContent, transfer);
+        return encodeIterable(
+          asyncIterable,
+          encodeAsyncIterableContent,
+          transfer,
+        );
       }
       const readableStream = asReadableStream(content);
       if (readableStream) {
-        return encodeIterable((0, import_browser_readablestream_to_it.default)(readableStream), encodeAsyncIterableContent, transfer);
+        return encodeIterable(
+          (0, import_browser_readablestream_to_it.default)(readableStream),
+          encodeAsyncIterableContent,
+          transfer,
+        );
       }
       throw TypeError("Unexpected input: " + typeof content);
     }
@@ -3454,10 +4089,18 @@ if (cid) {
       return [];
     }
     peekable.push(value);
-    if (Number.isInteger(value) || isBytes(value) || typeof value === "string" || value instanceof String) {
+    if (
+      Number.isInteger(value) || isBytes(value) || typeof value === "string" ||
+      value instanceof String
+    ) {
       return peekable;
     }
-    throw (0, import_err_code2.default)(new Error("Unexpected input: multiple items passed - if you are using ipfs.add, please use ipfs.addAll instead"), "ERR_UNEXPECTED_INPUT");
+    throw (0, import_err_code2.default)(
+      new Error(
+        "Unexpected input: multiple items passed - if you are using ipfs.add, please use ipfs.addAll instead",
+      ),
+      "ERR_UNEXPECTED_INPUT",
+    );
   };
   function isBytes(obj) {
     return ArrayBuffer.isView(obj) || obj instanceof ArrayBuffer;
@@ -3477,7 +4120,7 @@ if (cid) {
       hash,
       withLocal,
       timeout,
-      signal
+      signal,
     });
     return decodeStat(stat3);
   };
@@ -3488,7 +4131,7 @@ if (cid) {
   var decodeStat = (data) => {
     return {
       ...data,
-      cid: decodeCID(data.cid)
+      cid: decodeCID(data.cid),
     };
   };
 
@@ -3538,7 +4181,7 @@ if (cid) {
   var getWindowClients = async (target, includeUncontrolled = false) => {
     const clients = await target.clients.matchAll({
       type: "window",
-      includeUncontrolled
+      includeUncontrolled,
     });
     return clients;
   };
@@ -3569,7 +4212,7 @@ if (cid) {
         if (source.return) {
           source.return(reason);
         }
-      }
+      },
     });
   };
 
@@ -3592,7 +4235,7 @@ if (cid) {
           case "view":
             return event.respondWith(fetchContent({
               event,
-              path: url.pathname.slice(protocol.length + 1)
+              path: url.pathname.slice(protocol.length + 1),
             }));
           default:
             return event.respondWith(fetch(event.request));
@@ -3604,7 +4247,8 @@ if (cid) {
     }
   };
   var fetchViewer = async ({ url }) => {
-    const body = new Blob([`<html data-viewer>
+    const body = new Blob(
+      [`<html data-viewer>
 <head>
   <title>${url.pathname}</title>
   <script src="https://spike.land/main.mjs"><\/script>
@@ -3614,9 +4258,11 @@ if (cid) {
 </body>
 
 </html>
-`], { type: "text/html" });
+`],
+      { type: "text/html" },
+    );
     return new Response(body, {
-      status: 200
+      status: 200,
     });
   };
   var fetchContent = async ({ event, path }) => {
@@ -3625,13 +4271,13 @@ if (cid) {
       case "ipns": {
         return await fetchIPNSContent({
           event,
-          path
+          path,
         });
       }
       case "ipfs":
         return await fetchIPFSContent({
           event,
-          path
+          path,
         });
       default: {
         const response = await unsupportedProtocol(protocol);
@@ -3640,15 +4286,18 @@ if (cid) {
     }
   };
   var fetchIPNSContent = async ({}) => {
-    return new Response(`<html>
+    return new Response(
+      `<html>
   <body>
     <h1>IPNS protocol support is not implemented</h1>
     <p>It is left as an excercise to the viewer</p>
   </body>
-</html>`, {
-      statusText: "IPNS support is not implemented",
-      status: 502
-    });
+</html>`,
+      {
+        statusText: "IPNS support is not implemented",
+        status: 502,
+      },
+    );
   };
   var fetchIPFSContent = async ({ event, path }) => {
     const ipfs = await createIPFSClient(event);
@@ -3663,8 +4312,12 @@ if (cid) {
             return Response.redirect(`${event.request.url}/`);
           } else {
             const index = `${path}index.html`;
-            const stat4 = await ipfs.files.stat(index).catch(() => ({ type: null }));
-            return stat4.type === "file" ? fetchIPFSFile(ipfs, index) : fetchIPFSDirectory(ipfs, path);
+            const stat4 = await ipfs.files.stat(index).catch(() => ({
+              type: null,
+            }));
+            return stat4.type === "file"
+              ? fetchIPFSFile(ipfs, index)
+              : fetchIPFSDirectory(ipfs, path);
           }
         }
         default: {
@@ -3673,41 +4326,46 @@ if (cid) {
       }
     } catch ({ message }) {
       console.error(message);
-      if (message.startsWith("no link named") || message.includes("does not exist")) {
+      if (
+        message.startsWith("no link named") ||
+        message.includes("does not exist")
+      ) {
         return new Response(message, {
           statusText: message,
-          status: 404
+          status: 404,
         });
       }
       if (message.includes("invalid")) {
         return new Response(message, {
           statusText: message,
-          status: 400
+          status: 400,
         });
       }
       return new Response(message, {
         statusText: message,
-        status: 500
+        status: 500,
       });
     }
   };
   var fetchIPFSFile = async (ipfs, path) => {
     const content = ipfs.cat(path);
     const body = toReadableStream(content);
-    const contentType = path.endsWith(".svg") ? { "content-type": "image/svg+xml" } : null;
+    const contentType = path.endsWith(".svg")
+      ? { "content-type": "image/svg+xml" }
+      : null;
     return new Response(body, {
       status: 200,
       headers: {
-        ...contentType
-      }
+        ...contentType,
+      },
     });
   };
   var fetchIPFSDirectory = async (ipfs, path) => {
     return new Response(toReadableStream(renderDirectory(ipfs, path)), {
       headers: {
-        "content-type": "text/html"
+        "content-type": "text/html",
       },
-      status: 200
+      status: 200,
     });
   };
   var renderDirectory = async function* (ipfs, path, limit = 64) {
@@ -3721,21 +4379,26 @@ if (cid) {
     }
     yield encoder.encode(`</ul>${limit < 0 ? PAGINATION_NOTE : ""}</html>`);
   };
-  var PAGINATION_NOTE = "<h2>Directory has too many entries</h2><p><mark>Implementing a pagination is left as an excercise to the viewer</mark></p></h2>";
-  var renderDirectoryEntry = (base2, entry) => `<li>
+  var PAGINATION_NOTE =
+    "<h2>Directory has too many entries</h2><p><mark>Implementing a pagination is left as an excercise to the viewer</mark></p></h2>";
+  var renderDirectoryEntry = (base2, entry) =>
+    `<li>
   <div class="type-${entry.type}"><a href="/view${base2}${entry.name}">${entry.name}<a></div>
   <small>${entry.cid.toString()}</small>
   <details><pre>${JSON.stringify(entry, null, 2)}</pre></details>
 </li>`;
   var unsupportedProtocol = async (protocol) => {
-    return new Response(`<html>
+    return new Response(
+      `<html>
     <body>
       <h1>Protocol ${protocol} is not supported</h1>
     </body>
-</html>`, {
-      statusText: `Unsupported protocol ${protocol}`,
-      status: 405
-    });
+</html>`,
+      {
+        statusText: `Unsupported protocol ${protocol}`,
+        status: 405,
+      },
+    );
   };
   var createIPFSClient = async (context) => {
     const client = await selectClient(context.target);
@@ -3749,7 +4412,7 @@ if (cid) {
       portRequests[client.id] = request2;
       client.postMessage({
         method: "ipfs-message-port",
-        id: client.id
+        id: client.id,
       });
       return request2.promise;
     } else {

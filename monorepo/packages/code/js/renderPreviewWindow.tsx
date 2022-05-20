@@ -4,7 +4,7 @@ import bg from "./assets/synthwave.webp";
 import path from "path-browserify";
 import { render } from "react-dom";
 
-import {  mySession, codeSpace } from "./ws";
+import { codeSpace, mySession } from "./ws";
 import { DraggableWindow } from "./DraggableWindow";
 
 export const renderPreviewWindow = async (Editor) => {
@@ -16,20 +16,19 @@ export const renderPreviewWindow = async (Editor) => {
 
   render(
     <>
-    <Editor></Editor>
-    <DraggableWindow
-      // onRestore={() => {
-      //   const model = globalThis.model;
-      //   model.setValue(mST().code);
-      // }}
-      room={codeSpace}
-      hashCode={mySession.hashCode()}
-    /></>,
+      <Editor></Editor>
+      <DraggableWindow
+        // onRestore={() => {
+        //   const model = globalThis.model;
+        //   model.setValue(mST().code);
+        // }}
+        room={codeSpace}
+        hashCode={mySession.hashCode()}
+      />
+    </>,
     target,
   );
 
   document.body.append(target);
   document.getElementById("zbody")?.append(globalThis.currentTarget);
-
-
 };

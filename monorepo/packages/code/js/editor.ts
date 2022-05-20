@@ -28,7 +28,11 @@ const returnModules = {
 };
 
 export const startMonaco = async (
-  { code, container, name }: { code: string; container: HTMLDivElement; name: string },
+  { code, container, name }: {
+    code: string;
+    container: HTMLDivElement;
+    name: string;
+  },
 ) => {
   console.log("monaco-editor");
   if (!started) started = true;

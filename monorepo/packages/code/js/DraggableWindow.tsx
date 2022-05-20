@@ -5,7 +5,7 @@ import { css } from "@emotion/react";
 // import { CacheProvider } from "@emotion/react";
 // import createCache from "@emotion/cache";
 
-import { useEffect, useRef, useState, useMemo } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import type { FC } from "react";
 
 import { motion } from "framer-motion";
@@ -32,7 +32,6 @@ import type {
   ToggleButtonGroup as MuiToggleButtonGroup,
 } from "./mui";
 
-
 // const key = "css";
 // const cache = createCache({ key });
 
@@ -54,7 +53,6 @@ interface DraggableWindowProps {
   position?: string;
   room: string;
 }
-
 
 export const DraggableWindow: FC<DraggableWindowProps> = (
   {
@@ -81,17 +79,18 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
   const [{ bottom, right }, setPositions] = useState(startPositions);
   const [width, setWidth] = useState(window.innerWidth * devicePixelRatio);
   const [height, setHeight] = useState(window.innerHeight * devicePixelRatio);
-  const top = height -bottom;
+  const top = height - bottom;
   const ref = useRef<HTMLDivElement>(null);
 
-  const Zbody = useMemo( ()=>{
+  const Zbody = useMemo(() => {
     const zbodyRef = useRef<HTMLDivElement>(null);
-  
-    return  <div
-    id="zbody"
-    ref={zbodyRef}
-  
-  />
+
+    return (
+      <div
+        id="zbody"
+        ref={zbodyRef}
+      />
+    );
   }, []);
 
   // const appRef = useRef<HTMLDivElement>(null);
@@ -366,10 +365,8 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
               )
               : ( */
             }
-           
 
-           {Zbody}
-
+            {Zbody}
 
             {/* )}  */}
             {
@@ -466,7 +463,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
           key="QRButton"
         />
 
-<Fab
+        <Fab
           key="Share"
           onClick={() => open(`https://spike.land/live/${room}/public`)}
         >
@@ -474,17 +471,16 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
         </Fab>
         <Fab
           key="Share"
-          onClick={async() =>  {
-            const IdentifoAuth  =await import('@identifo/identifo-auth-js');
-
+          onClick={async () => {
+            const IdentifoAuth = await import("@identifo/identifo-auth-js");
 
             console.log(IdentifoAuth);
 
             const identifo = new IdentifoAuth({
-              url: 'https://spuke.land', // URI of your Identifo server.
-              appId: 'ddw', // ID of application that you want to get access to.
+              url: "https://spuke.land", // URI of your Identifo server.
+              appId: "ddw", // ID of application that you want to get access to.
             });
-            }}
+          }}
         >
           <Share />
         </Fab>
@@ -516,7 +512,6 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
       </div>
     </div>
   );
-  
 
   return (
     <motion.div

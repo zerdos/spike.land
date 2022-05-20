@@ -7,13 +7,13 @@
     "lib": [
       "dom",
       "DOM.Iterable",
-      "esnext",
+      "esnext"
     ],
     "allowJs": true,
     "noFallthroughCasesInSwitch": true,
     "isolatedModules": true,
     "noEmit": true,
-  
+
     "module": "esnext",
     "jsx": "react-jsx",
     "jsxImportSource": "@emotion/react",
@@ -21,7 +21,6 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noImplicitReturns": true,
-  
 
     /* Strict Type-Checking Options */
 
@@ -62,11 +61,11 @@
     /* Advanced Options */
     "skipLibCheck": false, /* Skip type checking of declaration files. */
     "forceConsistentCasingInFileNames": true, /* Disallow inconsistently-cased references to the same file. */
-    "baseUrl": "js",
- 
+    "baseUrl": "js"
   },
   "include": [
-    "js/**/*", "js/**/*.json"
+    "js/**/*",
+    "js/**/*.json"
   ],
   "exclude": ["./js/vendor/**", ""],
   "paths": {

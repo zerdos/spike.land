@@ -6,7 +6,7 @@ import uidV4 from "./uidV4.mjs";
 
 const webRtcArray: (RTCDataChannel & { target: string })[] = [];
 
-export const {codeSpace} = self;
+export const { codeSpace } = self;
 
 const user = ((self && self.crypto && self.crypto.randomUUID &&
   self.crypto.randomUUID()) || (uidV4())).slice(
@@ -38,8 +38,9 @@ const sendChannel = {
       try {
         if (ch.readyState !== "open") return;
 
-        if (!target || ch.target === target && !ignoreUsers.includes(ch.target)) {
-
+        if (
+          !target || ch.target === target && !ignoreUsers.includes(ch.target)
+        ) {
           ch.send(messageString);
         }
       } catch (e) {
@@ -56,17 +57,13 @@ const startState = window.startState || await fetch(
   `https://spike.land/live/${codeSpace}/session`,
 ).then((resp) => resp.json());
 
-
 export const run = async () => {
-
-
   // renderApp();
 
   if (location.href.endsWith("hydrated")) return;
 
   join();
 };
-
 
 const { startSession } = await import("./session");
 
@@ -103,7 +100,6 @@ const chCode = async () => {
     if (code === formatted) return;
   }
 
-
   try {
     if (globalThis.transpiled === transpiled) return;
 
@@ -113,13 +109,14 @@ const chCode = async () => {
       console.log("MODEL SET FROM REMOTE.... SORRY");
 
       setTimeout(() => {
-        const mst = mST()
+        const mst = mST();
         if (mst.i === i) {
-         if (globalThis.model)
-          globalThis.model.setValue(mst.code);
-        if (globalThis.aceEditor) {
-          globalThis.aceEditor.setValue(mst.code);
-        }
+          if (globalThis.model) {
+            globalThis.model.setValue(mst.code);
+          }
+          if (globalThis.aceEditor) {
+            globalThis.aceEditor.setValue(mst.code);
+          }
         }
       }, 200);
 
@@ -152,7 +149,9 @@ bc.onmessage = async (event) => {
       ignoreUsers.push(event.data.ignoreUser);
   }
 
-  if (event.data.codeSpace === codeSpace && event.data.sess.code !== mST().code) {
+  if (
+    event.data.codeSpace === codeSpace && event.data.sess.code !== mST().code
+  ) {
     const messageData = mySession.createPatch(event.data.sess);
     await mySession.applyPatch(messageData);
     await chCode();
@@ -286,7 +285,7 @@ export async function join() {
   if (location.pathname.endsWith("public") || globalThis.model) return;
   const { quickStart } = await import("./quickStart");
   quickStart();
-  
+
   return wsConnection;
 }
 

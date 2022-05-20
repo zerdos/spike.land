@@ -3,7 +3,6 @@ declare module "*.html" {
   export default value;
 }
 
-
 declare module "textdiff-create" {
   const createDelta: (str1: string, str2: string) => Object[];
   export default createDelta;

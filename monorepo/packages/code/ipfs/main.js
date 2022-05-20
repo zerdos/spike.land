@@ -5,16 +5,17 @@
       let e = o();
       window.worker = e,
         navigator.serviceWorker.onmessage = n,
-        await navigator.serviceWorker.register(new URL("https:/spike.land/service.js", s.url), {
-          scope: "/",
-        }),
+        await navigator.serviceWorker.register(
+          new URL("https:/spike.land/service.js", s.url),
+          {
+            scope: "/",
+          },
+        ),
         await navigator.serviceWorker.ready;
       let r = document.getElementById("debug");
-      if (r) {r.textContent = "SW is ready",
+      if (r) r.textContent = "SW is ready", r.style.display = "none";
 
-        r.style.display = "none"}
-        
-        document.documentElement.dataset.viewer == null && a(location.pathname);
+      document.documentElement.dataset.viewer == null && a(location.pathname);
     },
     a = async (e) => {
       let [, r] = e.split("/");
@@ -40,6 +41,7 @@
         }
       }
     },
-    o = () => new SharedWorker(new URL("https:/spike.land/worker.js", s.url), "IPFS");
+    o = () =>
+      new SharedWorker(new URL("https:/spike.land/worker.js", s.url), "IPFS");
   i();
 })();

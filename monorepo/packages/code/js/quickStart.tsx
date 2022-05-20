@@ -1,26 +1,22 @@
-import { mST, codeSpace } from "./ws";
+import { codeSpace, mST } from "./ws";
 
-import {isMobile} from "./isMobile.mjs";
+import { isMobile } from "./isMobile.mjs";
 import { AceEditor } from "./AceEditor";
 
-
 async function startAceWithSession() {
-
   const aceDom = document.createElement("pre");
   aceDom.id = "editor";
   document.body.appendChild(aceDom);
 
-
-  const {startAce} = await import("./ace");
+  const { startAce } = await import("./ace");
   const { runnerDebounced } = await import("./runner");
 
-  startAce(mST().code, (newCode)=>{
+  startAce(mST().code, (newCode) => {
     runnerDebounced(
       newCode,
       mST().i + 1,
-    )
+    );
   });
-  
 }
 
 async function startMonacoWithSession() {
@@ -88,11 +84,9 @@ async function startMonacoWithSession() {
 //     mST().code
 //   );
 
-
 //   // Object.assign(session, { monaco, editor, model });
 
 //   // let inc = 0;
-
 
 //   // monaco.languages.registerOnTypeFormattingEditProvider("typescript", {
 //   //   autoFormatTriggerCharacters: ["}", "{", ")", "(", ";"],
@@ -136,12 +130,10 @@ export async function quickStart() {
     "./renderPreviewWindow"
   );
 
-  const EditorNode = await isMobile()? (await import("./AceEditor")).AceEditor: (await import("./MonacoEditor")).MonacoEditor;
+  const EditorNode = await isMobile()
+    ? (await import("./AceEditor")).AceEditor
+    : (await import("./MonacoEditor")).MonacoEditor;
   // const Editor = ()=>EditorNode;
 
   await renderPreviewWindow(EditorNode);
-
-  
 }
-
-

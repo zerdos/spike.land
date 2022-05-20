@@ -13,10 +13,9 @@ import type {
   ICodeSession,
   INewWSConnection,
 } from "@spike.land/code/js/session";
-import {startSession} from "@spike.land/code/js/session";
+import { startSession } from "@spike.land/code/js/session";
 
 import imap from "@spike.land/code/js/importmap.json";
-
 
 interface IState extends DurableObjectState {
   mySession: CodeSession;
@@ -39,7 +38,6 @@ interface WebsocketSession {
   quit?: boolean;
   blockedMessages: string[];
 }
-
 
 export class Code {
   state: IState;
@@ -84,7 +82,7 @@ export class Code {
 
       this.state.mySession = startSession("", {
         name: username,
-        state: { ...session }
+        state: { ...session },
       });
 
       return;
@@ -171,8 +169,7 @@ export class Code {
           const hash = this.state.mySession.hashCode();
 
           return new Response(
-
-           `import { jsx as jsX } from "@emotion/react";
+            `import { jsx as jsX } from "@emotion/react";
            import {LoadRoom} from "https://spike.land/live/lazy/js";
            export default ()=>jsX(LoadRoom, { room:"${codeSpace}"}) ;
            `,
@@ -196,7 +193,22 @@ export class Code {
             },
           });
         case "mST":
-          return new Response(JSON.stringify({mST:mST(), hashCode: this.state.mySession.hashCode()}), {
+          return new Response(
+            JSON.stringify({
+              mST: mST(),
+              hashCode: this.state.mySession.hashCode(),
+            }),
+            {
+              status: 200,
+              headers: {
+                "Access-Control-Allow-Origin": "*",
+                "Cache-Control": "no-cache",
+                "Content-Type": "application/json; charset=UTF-8",
+              },
+            },
+          );
+        case "room":
+          return new Response(JSON.stringify({ codeSpace }), {
             status: 200,
             headers: {
               "Access-Control-Allow-Origin": "*",
@@ -204,15 +216,6 @@ export class Code {
               "Content-Type": "application/json; charset=UTF-8",
             },
           });
-          case "room":
-            return new Response(JSON.stringify({codeSpace}), {
-              status: 200,
-              headers: {
-                "Access-Control-Allow-Origin": "*",
-                "Cache-Control": "no-cache",
-                "Content-Type": "application/json; charset=UTF-8",
-              },
-            });
 
         case "index.js":
         case "js": {
@@ -254,13 +257,19 @@ export class Code {
             },
           });
         }
-        case "hydrated": 
+        case "hydrated":
         case "public": {
           const startState = mST();
           const html = HTML.replace(
-            `/** startState **/`,`Object.assign(window,${JSON.stringify({startState, codeSpace})});`)
+            `/** startState **/`,
+            `Object.assign(window,${
+              JSON.stringify({ startState, codeSpace })
+            });`,
+          )
             .replace(
-            `<!--importmap-->`,`<script type="importmap">${JSON.stringify(imap)}</script>`);
+              `<!--importmap-->`,
+              `<script type="importmap">${JSON.stringify(imap)}</script>`,
+            );
           return new Response(html, {
             status: 200,
             headers: {
@@ -335,9 +344,9 @@ export class Code {
     });
 
     webSocket.addEventListener("message", async (msg) => {
-     let data;
-      try{
-       data = JSON.parse(msg.data);
+      let data;
+      try {
+        data = JSON.parse(msg.data);
       } catch (exp) {
         webSocket.send(
           JSON.stringify({
@@ -352,10 +361,10 @@ export class Code {
 
         session.webSocket.send(JSON.stringify({
           timestamp: session.timestamp,
-          hashCode: this.state.mySession.hashCode()
+          hashCode: this.state.mySession.hashCode(),
         }));
       }
- 
+
       try {
         if (session.quit) {
           if (session.name && typeof session.name === "string") {
@@ -370,9 +379,6 @@ export class Code {
           webSocket.close(1011, "WebSocket broken.");
           return;
         }
-
-       
-
 
         // this.state.mySession.addEvent(
         //   { ...data, uuid: session.uuid } as unknown as IEvent,
@@ -412,7 +418,8 @@ export class Code {
         if (data.type === "lost") {
           webSocket.send(JSON.stringify({
             ...mST(),
-          }));A
+          }));
+          A;
         }
 
         if (!session.name && data.name) {
@@ -483,7 +490,7 @@ export class Code {
             // session.webSocket.send(JSON.stringify({
             //   hashCode: newHash,
             // }));
-      
+
             await this.kv.put<ICodeSession>("session", mST());
 
             await this.kv.put(String(newHash), { oldHash, patch });

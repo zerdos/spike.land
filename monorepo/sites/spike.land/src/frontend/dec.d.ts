@@ -1,5 +1,5 @@
 declare module "*_MANIFEST" {
-  const manifest: {[key: string]: string};
+  const manifest: { [key: string]: string };
   export default manifest;
 }
 

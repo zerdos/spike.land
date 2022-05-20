@@ -1,58 +1,60 @@
 /** @jsxImportSource @emotion/react */
 
-import {useRef, useEffect} from "react";
-import { mST, codeSpace } from "./ws";
+import { useEffect, useRef } from "react";
+import { codeSpace, mST } from "./ws";
 
 import { css } from "@emotion/react";
 
+export const MonacoEditor = () => {
+  const ref = useRef<HTMLDivElement>(null) as null | {
+    current: HTMLDivElement;
+  };
 
-export const MonacoEditor =()=>
-{
-    const ref=useRef<HTMLDivElement>(null) as null | {current: HTMLDivElement };
+  useEffect(() => {
+    if (ref === null) return;
+    const load = async () => {
+      const { startMonaco } = await import("./editor");
 
+      const { editor, monaco } = await startMonaco(
+        /**
+         * @param {any} code
+         */
+        {
+          container: ref.current,
+          name: codeSpace,
+          code: mST().code,
+        },
+      );
 
-    useEffect(()=>{
-        if (ref === null) return;
-        const load = async ()=>{
-            
-  const { startMonaco } = await import("./editor");
+      const model = editor.getModel();
 
-  const { editor, monaco } = await startMonaco(
-    /**
-     * @param {any} code
-     */
-    {
-      container: ref.current,
-      name: codeSpace,
-      code: mST().code,
-    },
-  );
+      // Object.assign(session, { monaco, editor, model });
 
-  const model = editor.getModel();
+      // let inc = 0;
 
-  // Object.assign(session, { monaco, editor, model });
+      const { runnerDebounced } = await import("./runner");
+      editor.onDidChangeModelContent(() =>
+        runnerDebounced(
+          model!.getValue(),
+          // ev.changes,
+          mST().i + 1,
+        )
+      );
 
-  // let inc = 0;
+      Object.assign(globalThis, { monaco, editor, model });
+    };
+    load();
+  }, [ref]);
 
-  const { runnerDebounced } = await import("./runner");
-  editor.onDidChangeModelContent(() =>
-    runnerDebounced(
-      model!.getValue(),
-      // ev.changes,
-      mST().i + 1,
-    )
-  );
-
-  Object.assign(globalThis, { monaco, editor, model });
-        }
-        load();
-    }
-    , [ref])
-
-return <div css={css`
+  return (
+    <div
+      css={css`
   max-width: 640px;
   height: 100vh;
   /* background-color: #ffffff; */
   max-height: 100vh; 
-`} ref={ref} />
-}
+`}
+      ref={ref}
+    />
+  );
+};

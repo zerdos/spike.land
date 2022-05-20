@@ -19,7 +19,7 @@ const apps: { [key: string]: FC } = {};
 
 globalThis.apps = apps;
 export const appFactory = async (transpiled: string) => {
-  if (!globalThis.appFactory ) globalThis.appFactory  = appFactory;
+  if (!globalThis.appFactory) globalThis.appFactory = appFactory;
   if (globalThis.transpiled === transpiled) return;
   globalThis.transpiled = transpiled;
 
@@ -30,7 +30,7 @@ export const appFactory = async (transpiled: string) => {
 
   const result = md5(transpiled);
   //new TextDecoder().decode(resultU8Arr);
-  if (globalThis.App  && globalThis.App === apps[result]) return;
+  if (globalThis.App && globalThis.App === apps[result]) return;
 
   globalThis.App = apps[result] ||
     (await import(createJsBlob(transpiled))).default;
@@ -42,9 +42,6 @@ export const appFactory = async (transpiled: string) => {
 
   // globalThis.notify();
 };
-
-
-
 
 export const renderApp = () => {
   const container = document.createElement("div");
@@ -76,7 +73,6 @@ export const renderApp = () => {
     globalThis.currentTarget = container;
   }
 };
-
 
 export function createJsBlob(code: string) {
   const file = new File([code], "index.tsx", {

@@ -16,9 +16,7 @@ export default function (packageName, version, serveDir = "") {
                 }
                 const uri = (pathname.startsWith("/@")
                     ? pathname.substring(1)
-                    : `@${version}${serveDir
-                        ? `/${serveDir}`
-                        : ``}${pathname}`);
+                    : `@${version}${serveDir ? `/${serveDir}` : ``}${pathname}`);
                 let targetPath = uri;
                 if (uri.endsWith("/")) {
                     targetPath = `${uri}index.html`;
@@ -34,18 +32,21 @@ export default function (packageName, version, serveDir = "") {
                 });
                 const origResp = await Promise.any([
                     fetch(newReq).then((req) => {
-                        if (!req.ok)
+                        if (!req.ok) {
                             throw req.status;
+                        }
                         return req;
                     }),
                     fetch(`https://raw.githubusercontent.com/spike-land/monorepo/v${version}/monorepo/packages/code/${targetPath}`).then((req) => {
-                        if (!req.ok)
+                        if (!req.ok) {
                             throw req.status;
+                        }
                         return req;
                     }),
                 ]);
-                if (!origResp.ok)
+                if (!origResp.ok) {
                     throw new Error("not ok");
+                }
                 const cloned = origResp.clone();
                 const resp = new Response(cloned.body, {
                     headers: {
@@ -86,8 +87,9 @@ export default function (packageName, version, serveDir = "") {
                     resp.headers.delete("content-type"),
                         resp.headers.set("content-type", "text/html;charset=UTF-8");
                 }
-                if (origResp.status === 200)
+                if (origResp.status === 200) {
                     await cache.put(cacheKey, resp.clone());
+                }
                 return resp;
             }
             catch (Error) {

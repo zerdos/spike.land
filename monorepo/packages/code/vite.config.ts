@@ -7,12 +7,12 @@ export default defineConfig({
     importMaps([
       {
         imports: {
-         ...importmap.imports
+          ...importmap.imports,
         },
         scopes: {
-          ...importmap.scopes
-        }
+          ...importmap.scopes,
+        },
       },
     ]),
   ],
-})
+});

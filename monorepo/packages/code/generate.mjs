@@ -25,12 +25,9 @@ await generator.install("react");
 // await generator.install("monaco-editor");
 // await generator.install("tslib");
 
-
 // await generator.install("@babel/core");
 // await generator.install("@babel/preset-react");
 // await generator.install("@babel/preset-typescript");
-
-
 
 // await generator.install("preact/compat");
 // await generator.install("preact/jsx-runtime");
@@ -75,11 +72,9 @@ await generator.install("@emotion/cache");
 
 const importMap = { ...generator.getMap() };
 
-
-importMap.imports["react"] = isDev ? 
-"https://localhost:8000/monorepo/packages/code/js/public/react.mjs"
+importMap.imports["react"] = isDev
+  ? "https://localhost:8000/monorepo/packages/code/js/public/react.mjs"
   : "https://spike.land/react.mjs";
-
 
 importMap.imports["react/jsx-runtime"] = importMap.imports["react"];
 importMap.imports["react-dom"] = importMap.imports["react"];
@@ -88,7 +83,6 @@ importMap.imports["preact"] = importMap.imports["react"];
 
 importMap.imports["react-dom"] = importMap.imports["react"];
 importMap.imports["react-dom/server"] = importMap.imports["react"];
-
 
 importMap.imports["framer-motion"] = isDev
   ? "https://localhost:8000/monorepo/packages/code/js/framer-motion.mjs"
@@ -105,12 +99,11 @@ importMap.imports["@emotion/react"] = isDev
   ? "https://localhost:8000/monorepo/packages/code/js/public/emotion.mjs"
   : "https://spike.land/emotion.mjs";
 
-  importMap.imports["@emotion/react/jsx-runtime"] = isDev
+importMap.imports["@emotion/react/jsx-runtime"] = isDev
   ? "https://localhost:8000/monorepo/packages/code/js/public/emotion.mjs"
   : "https://spike.land/emotion.mjs";
 
-  
-  importMap.imports["@emotion/cache"] = isDev
+importMap.imports["@emotion/cache"] = isDev
   ? "https://localhost:8000/monorepo/packages/code/js/public/emotion.mjs"
   : "https://spike.land/emotion.mjs";
 //importMap.imports.tslib =

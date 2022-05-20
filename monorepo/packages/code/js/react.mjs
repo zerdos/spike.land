@@ -1,1 +1,1 @@
-export * from "https://spike.land/react.mjs"
+export * from "https://spike.land/react.mjs";

@@ -2,7 +2,6 @@ import { Mutex } from "async-mutex";
 import * as esbuild from "esbuild-wasm";
 import { wait } from "./wait";
 
-
 const mod = { initFinished: false };
 
 const mutex = new Mutex();

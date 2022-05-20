@@ -1,6 +1,6 @@
 import esbuild from "esbuild";
 import * as importMap from "esbuild-plugin-import-map";
-import { jsxImportSourcePlugin } from 'esbuild-plugin-jsximportsource';
+import { jsxImportSourcePlugin } from "esbuild-plugin-jsximportsource";
 
 import jsonData from "./js/mockedMap.json" assert { type: "json" };
 
@@ -8,13 +8,11 @@ const environment = process.env.NODE_ENV === "production"
   ? "production"
   : "development";
 
-const isDevelopment = true;// = environment === "development"
+const isDevelopment = true; // = environment === "development"
 importMap.load(jsonData);
 const importMapPlugin = importMap.plugin();
 
-
 const outDir = "../../sites/spike.land/public";
-
 
 console.log(`
 -------------------------------------------------
@@ -32,9 +30,8 @@ const workerEntryPoints = [
 await esbuild.build({
   entryPoints: [
     ...workerEntryPoints,
-   "./worker.tsx",
-   "./sw.mjs",
-  
+    "./worker.tsx",
+    "./sw.mjs",
   ],
   bundle: true,
   minify: !isDevelopment,
@@ -74,8 +71,6 @@ await esbuild.build({
 //   ignoreAnnotations: true,
 //   treeShaking: true,
 
-
-
 //   platform: "browser",
 //   define: {
 //     "process.env.NODE_ENV": `"${environment}"`,
@@ -90,9 +85,9 @@ const build = (entryPoints) =>
     "outExtension": { ".js": ".mjs" },
     bundle: true,
     format: "esm",
-  
+
     sourcemap: false,
-  
+
     minify: !isDevelopment,
     minifyWhitespace: !isDevelopment,
     minifyIdentifiers: !isDevelopment,
@@ -103,12 +98,11 @@ const build = (entryPoints) =>
 
     splitting: true,
 
-
     // inject: ["./js/react-shim.mjs"],
 
-    tsconfig: './tsconfig.json',
+    tsconfig: "./tsconfig.json",
     allowOverwrite: true,
-   
+
     // external: ["react", "react-dom", "framer-motion", "tslib", "@emotion/react"],
     platform: "browser",
     chunkNames: "chunks/[name]-[hash]",
@@ -123,13 +117,12 @@ const build = (entryPoints) =>
       ".ttf",
       ".workerJS",
     ],
-    
 
     target: "esnext",
     define: {
       "process.env.NODE_ENV": `"${environment}"`,
     },
-    plugins: [importMapPlugin, jsxImportSourcePlugin({filter: /.(tsx)/ })],
+    plugins: [importMapPlugin, jsxImportSourcePlugin({ filter: /.(tsx)/ })],
     loader: {
       ".ttf": "file",
       ".webp": "file",
@@ -145,13 +138,9 @@ const build = (entryPoints) =>
     },
     outdir: "../../sites/spike.land/public",
   }).catch((e) => {
-
     console.error(e);
-    process.exit(1)
-
-  }
-);
-
+    process.exit(1);
+  });
 
 const buildNoImportMap = (entryPoints) =>
   esbuild.build({
@@ -159,9 +148,9 @@ const buildNoImportMap = (entryPoints) =>
     "outExtension": { ".js": ".mjs" },
     bundle: true,
     format: "esm",
-  
+
     sourcemap: false,
-  
+
     minify: !isDevelopment,
     minifyWhitespace: !isDevelopment,
     minifyIdentifiers: !isDevelopment,
@@ -172,12 +161,11 @@ const buildNoImportMap = (entryPoints) =>
 
     splitting: true,
 
-
     // inject: ["./js/react-shim.mjs"],
 
-    tsconfig: './tsconfig.json',
+    tsconfig: "./tsconfig.json",
     allowOverwrite: true,
-   
+
     // external: ["react", "react-dom", "framer-motion", "tslib", "@emotion/react"],
     platform: "browser",
     chunkNames: "chunks/[name]-[hash]",
@@ -192,13 +180,12 @@ const buildNoImportMap = (entryPoints) =>
       ".ttf",
       ".workerJS",
     ],
-    
 
     target: "esnext",
     define: {
       "process.env.NODE_ENV": `"${environment}"`,
     },
-    plugins: [jsxImportSourcePlugin({filter: /.(tsx)/ })],
+    plugins: [jsxImportSourcePlugin({ filter: /.(tsx)/ })],
     loader: {
       ".ttf": "file",
       ".webp": "file",
@@ -212,15 +199,12 @@ const buildNoImportMap = (entryPoints) =>
       ".workerJS": "file",
       ".wasm": "file",
     },
-    
+
     outdir: "../../sites/spike.land/public",
   }).catch((e) => {
-
     console.error(e);
-    process.exit(1)
-
-  }
-);
+    process.exit(1);
+  });
 
 // await build([
 //   "js/renderPreviewWindow.tsx",
@@ -235,7 +219,9 @@ const buildNoImportMap = (entryPoints) =>
 // ]);
 
 await build([
-  "starter.mjs", "ws.mjs", "main.mjs"
+  "starter.mjs",
+  "ws.mjs",
+  "main.mjs",
 ]);
 
 // await buildNoImportMap([

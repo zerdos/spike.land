@@ -1,1 +1,1 @@
-export * from "./js/ws"
+export * from "./js/ws";

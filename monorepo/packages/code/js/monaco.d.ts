@@ -14,6 +14,6 @@ declare global {
   var polyfilling: () => void;
   var currentTarget: HTMLDivElement;
   var codeSpace: string;
-  var apps: { [key: string]: FC } 
+  var apps: { [key: string]: FC };
   var aceEditor: monaco.editor.IModel;
 }
