@@ -38,7 +38,7 @@ const ipfsSw = async () => {
     
     
     // Create / Open a database
-    const db = await orbitdb.eventLog(codeSpace,  {});  //options
+    const db = await orbitdb.log(codeSpace,  {});  //options
     await db.load()
   
     // Listen for updates from peers
