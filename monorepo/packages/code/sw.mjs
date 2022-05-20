@@ -1,6 +1,9 @@
 import { IPFSClient } from "ipfs-message-port-client";
 import { defer, selectClient, toReadableStream } from "./service/util";
 
+const IPFS_SERVER_URL = './worker.js'
+
+
 /**
  * @param {LifecycleEvent} event
  */
@@ -17,7 +20,9 @@ const onactivate = async (event) => {
   // We want to start handling requests right away, so that requests from the
   // very first page will be handled by service worker. Which is why we claim
   // clients.
+  postMessage({method:  "ipfs-message-port", id:1});
   event.waitUntil(event.target.clients.claim());
+
 };
 
 /**
@@ -102,23 +107,22 @@ const fetchViewer = async ({ url }) => {
 const fetchContent = async ({ event, path }) => {
   const [, protocol] = path.split("/");
   switch (protocol) {
-    case "ipns": {
+    case "ipns": 
       return await fetchIPNSContent({
         event,
         path,
       });
-    }
     case "ipfs":
-      return await fetchIPFSContent({
+      return fetchIPFSContent({
         event,
         path,
       });
-    default: {
+    default: 
       const response = await unsupportedProtocol(protocol);
       return response;
     }
   }
-};
+
 
 /**
  * @param {Object} options
@@ -148,12 +152,12 @@ const fetchIPNSContent = async ({/* path, event */}) => {
  */
 const fetchIPFSContent = async ({ event, path }) => {
   // Obtains IPFS instance
-  const ipfs = await createIPFSClient(event);
+  const ipfs =  createIPFSClient(event);
   try {
     const stat = await ipfs.files.stat(path);
     switch (stat.type) {
       case "file": {
-        return await fetchIPFSFile(ipfs, path);
+        return  fetchIPFSFile(ipfs, path);
       }
       case "directory": {
         if (!path.endsWith("/")) {
@@ -167,7 +171,7 @@ const fetchIPFSContent = async ({ event, path }) => {
           }));
           return stat.type === "file"
             ? fetchIPFSFile(ipfs, index)
-            : fetchIPFSDirectory(ipfs, path);
+            : await fetchIPFSDirectory(ipfs, path);
         }
       }
       default: {
@@ -296,16 +300,20 @@ const unsupportedProtocol = async (protocol) => {
  * Obtains MessagePort for the SharedWorker operating IPFS node and
  * creates a client for it.
  *
- * @param {Fetch} context
- */
-const createIPFSClient = async (context) => {
+ * @param {Fetch} context .**/
+
+
+ const createIPFSClient = async (context) => {
   // Selects a service worker client that can be used to obtain a message port
   // from, then sends a request to it and once a response is obtained, creates a
   // IPFS client and returns it
-  const client = await selectClient(context.target);
-  const port = await requestIPFSPort(client);
-  return IPFSClient.from(port);
-};
+  const client = await selectClient(context.target)
+  const port = await requestIPFSPort(client)
+  return IPFSClient.from(port)
+}
+
+
+
 
 /**
  * Sends a message prot request to the window client and waits for the response.
@@ -318,22 +326,23 @@ const requestIPFSPort = (client) => {
   // We might receive multiple concurrent requests from the same client (e.g.
   // images, scripts, stylesheets for the page) to avoid creating a port for
   // each request we use a little table keyed by client id instead.
-  const request = portRequests[client.id];
+  const request = portRequests[client.id]
   if (request == null) {
-    const request = defer();
-    portRequests[client.id] = request;
+    const request = defer()
+    portRequests[client.id] = request
     client.postMessage({
-      method: "ipfs-message-port",
-      id: client.id,
-    });
-    return request.promise;
+      method: 'ipfs-message-port',
+      id: client.id
+    })
+    return request.promise
   } else {
-    return request.promise;
+    return request.promise
   }
-};
+}
+
 
 /** @type {Record<string, { promise: Promise<MessagePort>, resolve(port:MessagePort):void, reject(error:Error):void }>} */
-const portRequests = Object.create(null);
+const portRequests = Object.create(null)
 
 /**
  * Listens to the messages from the clients if it is response to pending message
@@ -341,19 +350,22 @@ const portRequests = Object.create(null);
  *
  * @param {MessageEvent} event
  */
-const onmessage = ({ data }) => {
+const onmessage = ({data}) => {
   if (data) {
-    const request = portRequests[data.id];
+    const request = portRequests[data.id]
     if (request != null) {
-      delete portRequests[data.id];
+      delete portRequests[data.id]
       if (data.port instanceof MessagePort) {
-        request.resolve(data.port);
+        request.resolve(data.port)
       } else {
-        request.reject(new Error(data.error));
+        request.reject(new Error(data.error))
       }
     }
   }
-};
+}
+
+
+
 
 /**
  * Sets up service worker event handlers.

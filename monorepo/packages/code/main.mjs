@@ -1,8 +1,9 @@
-import OrbitDb from "orbit-db/dist/orbitdb"
+import * as OrbitModule from "orbit-db/dist/orbitdb"
 import { IPFSClient } from '../../node_modules/ipfs-message-port-client/'
 // URL to the script containing ipfs-message-port-server.
 const IPFS_SERVER_URL = './worker.js'
 
+const {default: OrbitDb} = OrbitModule;
 
 const load = async (path) => {
   const [, protocol] = path.split("/");
@@ -15,13 +16,13 @@ const load = async (path) => {
   }
 };
 
+const getIpfsPort= ()=>(new SharedWorker(  
+    new URL(IPFS_SERVER_URL, import.meta.url),  { name: "IPFS" })).port
+
+
 export const ipfsSw = async () => {
-  const worker = new SharedWorker(  
-     new URL(IPFS_SERVER_URL, import.meta.url),
-  { name: "IPFS" })
-  ;
-  window.worker = worker;
-  const ipfs = IPFSClient.from(worker.port);
+ 
+  const ipfs = IPFSClient.from(getIpfsPort());
   window.ipfs = ipfs
   window.OrbitDb =OrbitDb;
 
@@ -46,30 +47,49 @@ navigator.serviceWorker.onmessage = onServiceWorkerMessage;
       load(location.pathname);
     }
   
-  const data = ipfs.cat('/ipfs/ ')
-
-
-  for await (const chunk of data) {
-    console.log(chunk) 
-  }
 }
+
+
+const createIPFSClient = async (context) => {
+  // Selects a service worker client that can be used to obtain a message port
+  // from, then sends a request to it and once a response is obtained, creates a
+  // IPFS client and returns it
+  const client = await selectClient(context.target);
+  const port = await requestIPFSPort(client);
+  return IPFSClient.from(port);
+};
+
 const onServiceWorkerMessage = (event) => {
   /** @type {null|ServiceWorker} */
   const serviceWorker = (event.source);
   if (serviceWorker == null) return;
   switch (event.data.method) {
-    case "ipfs-message-port": {
+    case "ipfs-message-port": 
       // Receives request from service worker, creates a new shared worker and
       // responds back with the message port.
       // Note: MessagePort can be transferred only once which is why we need to
       // create a SharedWorker each time. However a ServiceWorker is only created
       // once (in main function) all other creations just create port to it.
-      const worker = createIPFSWorker();
-      return serviceWorker.postMessage({
-        method: "ipfs-message-port",
-        id: event.data.id,
-        port: worker.port,
-      }, [worker.port]);
-    }
+     const onServiceWorkerMessage = (event) => {
+      /** @type {null|ServiceWorker} */
+      const serviceWorker = (event.source);
+      if (serviceWorker == null) return;
+
+
+      switch (event.data.method) {
+        case "ipfs-message-port":
+          // Receives request from service worker, creates a new shared worker and
+          // responds back with the message port.
+          // Note: MessagePort can be transferred only once which is why we need to
+          // create a SharedWorker each time. However a ServiceWorker is only created
+          // once (in main function) all other creations just create port to it.
+        //  const worker = createIPFSWorker();
+        const port = getIpfsPort()
+        return serviceWorker.postMessage({
+          method: "ipfs-message-port",
+          id: event.data.id,
+          port
+        }, [port]);
+      }     
   }
-};
+  }}
