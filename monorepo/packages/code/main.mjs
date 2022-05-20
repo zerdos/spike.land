@@ -1,4 +1,4 @@
-import OrbitDB from "orbit-db"
+import OrbitDB from "./orbit"
 import { IPFSClient } from '../../node_modules/ipfs-message-port-client/'
 // URL to the script containing ipfs-message-port-server.
 const IPFS_SERVER_URL = './worker.js'
@@ -22,7 +22,7 @@ const getIpfsPort= ()=>(new SharedWorker(
 export const ipfsSw = async () => {
  
   const ipfs = IPFSClient.from(getIpfsPort());
-  const orbit = await OrbitDB.createInstance(ipfs)
+  const orbit = await OrbitDB.createInstance(ipfs);
   window.orbit = orbit;
   window.ipfs = ipfs
   window.OrbitDB =OrbitDB;
