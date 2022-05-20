@@ -310,6 +310,4 @@ USER ${USER}
 
 
 
-COPY zerdos/. /home/${USER}
-
 CMD /usr/bin/startWithBash

@@ -212,6 +212,4 @@ RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master
 
 
 
-COPY zerdos/. /home/${USER}
-
 CMD /usr/bin/startWithBash

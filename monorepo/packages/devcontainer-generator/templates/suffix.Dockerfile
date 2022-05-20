@@ -4,6 +4,4 @@ FROM devimage
 
 
 
-COPY zerdos/. /home/${USER}
-
 CMD /usr/bin/startWithBash

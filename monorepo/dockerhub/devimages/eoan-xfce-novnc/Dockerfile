@@ -165,6 +165,4 @@ ENV _MITSHM=0
 
 
 
-COPY zerdos/. /home/${USER}
-
 CMD /usr/bin/startWithBash
