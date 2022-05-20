@@ -9,7 +9,8 @@ const {OrbitDB}=self
 
 
 const load = async (path) => {
-  const [, protocol] = path.split("/");
+  const paths = path &&  path.split("/") || [];;
+  const protocol= path.length || "";
   switch (protocol) {
     case "ipfs":
     case "ipns": {
@@ -29,13 +30,15 @@ const ipfsSw = async () => {
 
   ;(async function () {
 
-    const orbitdb = await OrbitDB.createInstance(ipfs, {id: "tester"});
+    const orbitdb = await OrbitDB.createInstance(ipfs, {id: codeSpace});
   
 
-    window.OrbitDB =OrbitDB;
+
+
+    
     
     // Create / Open a database
-    const db = await orbitdb.log("hello")
+    const db = await orbitdb.eventLog(codeSpace,  {});  //options
     await db.load()
   
     // Listen for updates from peers
@@ -43,15 +46,26 @@ const ipfsSw = async () => {
       console.log(db.iterator({ limit: -1 }).collect())
     })
   
+
+    const bc = new BroadcastChannel("spike.land");
+  bc.onmessage = async (event) => {
+    console.log({ event });
+
+    
+    if (
+      event.data.codeSpace === codeSpace 
+    ) {
+     const hash = await db.add({...event.data.sess});
+     console.log(hash)
+    }
+  };
     // Add an s
-    const hash = await db.add("world")
-    console.log(hash)
-  
+
+    
     // Query
     const result = db.iterator({ limit: -1 }).collect()
     console.log(JSON.stringify(result, null, 2))
 
-    window.orbitdb = orbitdb;
   })()
 
 navigator.serviceWorker.onmessage = onServiceWorkerMessage;

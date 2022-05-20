@@ -14,6 +14,8 @@ const oninstall = async (event) => {
   event.waitUntil(event.target.skipWaiting());
 };
 
+
+
 /**
  * @param {LifecycleEvent} event
  */
@@ -33,7 +35,10 @@ const onfetch = (event) => {
   switch (url.origin) {
     // Our service worker only serves pages for its own page origin
     case location.origin: {
-      const [, protocol] = url.pathname.split("/");
+      const paths = url.pathname.split("/");
+      if (paths.length>2) {
+
+      const protocol = paths[1];
       switch (protocol) {
         // If requests are for `/ipfs/...` or `/ipns/` URLs we respond with
         // a content viewer which is a page containing an iframe
@@ -55,8 +60,9 @@ const onfetch = (event) => {
           }));
         // Anything else might be for scripts, source maps etc.. we just fetch
         // those from network
-          return event.respondWith( protocolfetch(event.request));
+          return event.respondWith( fetch(event.request));
       }
+    }
     }
     // Requests to other origins are fetched from the network.
     default: {
