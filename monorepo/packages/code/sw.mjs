@@ -71,6 +71,7 @@ export async function wait(delay) {
 const onfetch = (event) => {
   updateCache();
   const url =new URL( event.request.url);
+  
   const loc = url.pathname.slice(1);
   if (cache[loc] && hashResp[loc])  event.respondWith(async()=>hashResp[loc].clone())
   if (cache[loc]) return event.respondWith(async() =>{
@@ -112,10 +113,11 @@ const onfetch = (event) => {
             // If requests are for `/view/...` URL those are requests from iframes
             // for the content.
             case "view":
+              console.log("VIEW! Fetching the content: "+url.pathname.slice(protocol.length + 1));
               return event.respondWith(fetchContent({
                 event,
                 path: url.pathname.slice(protocol.length + 1),
-              }));
+          }));
               // Anything else might be for scripts, source maps etc.. we just fetch
               // those from network
               return event.respondWith(fetch(event.request).catch(e=>console.log({url, event})));
@@ -171,15 +173,15 @@ const fetchContent = async ({ event, path }) => {
   const [, protocol] = path.split("/");
   switch (protocol) {
     case "ipns":
-      return await fetchIPNSContent({
+      return event.respondWith(fetchIPNSContent({
         event,
         path,
-      });
+      }))
     case "ipfs":
-      return fetchIPFSContent({
+      return event.respondWith(fetchIPFSContent({
         event,
         path,
-      });
+      }));
     default:
       const response = await unsupportedProtocol(protocol);
       return response;
@@ -214,7 +216,9 @@ const fetchIPNSContent = async ({/* path, event */}) => {
  */
 const fetchIPFSContent = async ({ event, path }) => {
   // Obtains IPFS inst.statance
+  condole.log("IPFS")
   const ipfs = await createIPFSClient(event);
+  console.log({ipfs})
   try {
     const stat = await ipfs.files.stat(path);
     switch (stat.type) {
@@ -368,8 +372,11 @@ const createIPFSClient = async (context) => {
   // Selects a service worker client that can be used to obtain a message port
   // from, then sends a request to it and once a response is obtained, creates a
   // IPFS client and returns it
+  console.log("SELECTING  THE CLIENT")
   const client = await selectClient(context.target);
+  console.log("The client is...",client)
   const port = await requestIPFSPort(client);
+  console.log("The port is:", port)
   return IPFSClient.from(port);
 };
 
