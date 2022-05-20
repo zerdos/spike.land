@@ -11,8 +11,8 @@ services:
       - .:/exportdevcontainer
   devcontainer: 
     build: 
-      context: /home
-      dockerfile: z/github/monorepo/monorepo/dockerhub/devimages/jammy-devcontainer/Dockerfile
+      context: .
+      dockerfile: ./monorepo/monorepo/dockerhub/devimages/jammy-devcontainer/Dockerfile
     ports: 
       - 5901:5901
       - 6080:6080
