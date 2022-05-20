@@ -29,7 +29,7 @@ const ipfsSw = async () => {
 
 
   ;(async function () {
-
+    if (!codeSpace) return;
     const orbitdb = await OrbitDB.createInstance(ipfs, {id: codeSpace});
   
 
@@ -55,6 +55,9 @@ const ipfsSw = async () => {
     if (
       event.data.codeSpace === codeSpace 
     ) {
+
+      
+
      const hash = await db.add({...event.data.sess});
      console.log(hash)
     }

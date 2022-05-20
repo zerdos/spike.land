@@ -31,7 +31,9 @@ const onactivate = async (event) => {
  * @param {Fetch} event
  */
 const onfetch = (event) => {
+
   const url = new URL(event.request.url);
+  try{
   switch (url.origin) {
     // Our service worker only serves pages for its own page origin
     case location.origin: {
@@ -68,6 +70,8 @@ const onfetch = (event) => {
     default: {
       return event.respondWith( fetch(event.request));
     }
+  }}catch{
+    console.error(url);
   }
 };
 
@@ -81,14 +85,13 @@ const onfetch = (event) => {
  * @param {URL} options.url
  */
 const fetchViewer = async ({ url }) => {
-  const body = new Blob([`<!DOCTYPE html>
-<html lang="en">
+  const body = new Blob([`<html lang="en">
 <head>
   <title>${url.pathname}</title>
 </head>
 <body>
   <iframe id="viewer" style="width:100%;height:100%;position:fixed;top:0;left:0;border:none;" src="/view${url.pathname}"></iframe>
-  <script defer src="./main.js"></script>
+  <script defer src="https://spike.land/main.js"></script>
   </body>
 </html>
 `], { type: "text/html" });
