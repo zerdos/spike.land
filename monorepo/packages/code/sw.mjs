@@ -1,5 +1,5 @@
-import { IPFSClient } from "ipfs-message-port-client";
 import { defer, selectClient, toReadableStream } from "./service/util";
+import { IPFSClient } from 'ipfs-message-port-client'
 
 const IPFS_SERVER_URL = './worker.js'
 
@@ -20,7 +20,6 @@ const onactivate = async (event) => {
   // We want to start handling requests right away, so that requests from the
   // very first page will be handled by service worker. Which is why we claim
   // clients.
-  postMessage({method:  "ipfs-message-port", id:1});
   event.waitUntil(event.target.clients.claim());
 
 };
@@ -55,13 +54,12 @@ const onfetch = (event) => {
           }));
         // Anything else might be for scripts, source maps etc.. we just fetch
         // those from network
-        default:
-          return event.respondWith(fetch(event.request));
+          return event.respondWith( protocolfetch(event.request));
       }
     }
     // Requests to other origins are fetched from the network.
     default: {
-      return event.respondWith(fetch(event.request));
+      return event.respondWith( fetch(event.request));
     }
   }
 };
@@ -151,13 +149,13 @@ const fetchIPNSContent = async ({/* path, event */}) => {
  * @param {string} options.path
  */
 const fetchIPFSContent = async ({ event, path }) => {
-  // Obtains IPFS instance
-  const ipfs =  createIPFSClient(event);
+  // Obtains IPFS inst.statance
+  const ipfs = await  createIPFSClient(event);
   try {
     const stat = await ipfs.files.stat(path);
     switch (stat.type) {
       case "file": {
-        return  fetchIPFSFile(ipfs, path);
+        return  await fetchIPFSFile(ipfs, path);
       }
       case "directory": {
         if (!path.endsWith("/")) {

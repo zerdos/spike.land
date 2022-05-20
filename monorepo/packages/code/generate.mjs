@@ -1,7 +1,7 @@
 import { clearCache, Generator } from "@jspm/generator";
 clearCache();
 
-const env = process.env.NODE_ENV === "production"
+const env = process.env.NODE_EyNV === "production"
   ? "production"
   : "development";
 const isDev = env === "development";
@@ -22,7 +22,7 @@ const generator = new Generator({
 
 await generator.install("react");
 
-// await generator.install("monaco-editor");
+await generator.install("orbit-db");
 // await generator.install("tslib");
 
 // await generator.install("@babel/core");

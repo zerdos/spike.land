@@ -53,12 +53,11 @@
   "repository": "https://github.com/spike-land/monorepo",
   "devDependencies": {
     "@types/lodash": "4.14.182",
-    "@types/node": "17.0.34",
+    "@types/node": "17.0.35",
     "typescript": "4.8.0-dev.20220519",
     "vite": "2.9.9",
     "vite-plugin-import-maps": "0.1.2"
   },
-  "gitHead": "96f8f116ac7d7029d22956f61f6ce225be78cd2c",
   "author": "Zoltan Erdos <zolika84@gmail.com>",
   "license": "BSD-3-Clause",
   "publishConfig": {
@@ -66,7 +65,9 @@
   },
   "alias": {
     "react": "preact/compat",
-    "react-dom": "preact/compat"
+    "react-dom": "preact/compat",
+    "stream": "stream-browserify",
+    "path": "path-browserify"
   },
   "dependencies": {
     "@emotion/cache": "^11.7.1",
@@ -77,7 +78,7 @@
     "@emotion/utils": "^1.1.0",
     "@identifo/identifo-auth-js": "^3.3.2",
     "@mui/material": "^5.8.0",
-    "@spike.land/qrious": "^0.7.807",
+    "@spike.land/qrious": "^0.7.805",
     "@types/prettier": "^2.6.1",
     "@types/react": "18.0.9",
     "@types/react-dom": "^18.0.4",
@@ -91,7 +92,8 @@
     "framer-motion": "6.3.3",
     "hoist-non-react-statics": "^3.3.2",
     "immutable": "^4.0.0",
-    "ipfs-core": "",
+    "ipfs-core": "0.14.3",
+    "stream-browserify": "3.0.0",
     "ipfs-message-port-client": "0.11.3",
     "ipfs-message-port-server": "0.11.3",
     "lodash": "^4.17.21",

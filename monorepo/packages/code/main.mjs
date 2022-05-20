@@ -1,9 +1,8 @@
-import * as OrbitModule from "orbit-db/dist/orbitdb"
+import OrbitDB from "orbit-db"
 import { IPFSClient } from '../../node_modules/ipfs-message-port-client/'
 // URL to the script containing ipfs-message-port-server.
 const IPFS_SERVER_URL = './worker.js'
 
-const {default: OrbitDb} = OrbitModule;
 
 const load = async (path) => {
   const [, protocol] = path.split("/");
@@ -23,10 +22,13 @@ const getIpfsPort= ()=>(new SharedWorker(
 export const ipfsSw = async () => {
  
   const ipfs = IPFSClient.from(getIpfsPort());
+  const orbit = await OrbitDB.createInstance(ipfs)
+  window.orbit = orbit;
   window.ipfs = ipfs
-  window.OrbitDb =OrbitDb;
+  window.OrbitDB =OrbitDB;
 
-console.log({OrbitDb})
+
+console.log({OrbitDB})
 
 navigator.serviceWorker.onmessage = onServiceWorkerMessage;
 
@@ -49,15 +51,6 @@ navigator.serviceWorker.onmessage = onServiceWorkerMessage;
   
 }
 
-
-const createIPFSClient = async (context) => {
-  // Selects a service worker client that can be used to obtain a message port
-  // from, then sends a request to it and once a response is obtained, creates a
-  // IPFS client and returns it
-  const client = await selectClient(context.target);
-  const port = await requestIPFSPort(client);
-  return IPFSClient.from(port);
-};
 
 const onServiceWorkerMessage = (event) => {
   /** @type {null|ServiceWorker} */
