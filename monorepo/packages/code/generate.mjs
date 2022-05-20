@@ -1,7 +1,7 @@
 import { clearCache, Generator } from "@jspm/generator";
 clearCache();
 
-const env = process.env.NODE_EyNV === "production"
+const env = process.env.NODE_ENV === "production"
   ? "production"
   : "development";
 const isDev = env === "development";

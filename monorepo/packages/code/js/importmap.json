@@ -1,14 +1,14 @@
 {
   "imports": {
-    "@emotion/cache": "https://localhost:8000/monorepo/packages/code/js/public/emotion.mjs",
-    "@emotion/react": "https://localhost:8000/monorepo/packages/code/js/public/emotion.mjs",
-    "@emotion/react/jsx-runtime": "https://localhost:8000/monorepo/packages/code/js/public/emotion.mjs",
-    "react": "https://localhost:8000/monorepo/packages/code/js/public/react.mjs",
-    "react/jsx-runtime": "https://localhost:8000/monorepo/packages/code/js/public/react.mjs",
-    "react-dom": "https://localhost:8000/monorepo/packages/code/js/public/react.mjs",
-    "preact": "https://localhost:8000/monorepo/packages/code/js/public/react.mjs",
-    "react-dom/server": "https://localhost:8000/monorepo/packages/code/js/public/react.mjs",
-    "framer-motion": "https://localhost:8000/monorepo/packages/code/js/framer-motion.mjs"
+    "@emotion/cache": "https://spike.land/emotion.mjs",
+    "@emotion/react": "https://spike.land/emotion.mjs",
+    "@emotion/react/jsx-runtime": "https://spike.land/emotion.mjs",
+    "react": "https://spike.land/react.mjs",
+    "react/jsx-runtime": "https://spike.land/react.mjs",
+    "react-dom": "https://spike.land/react.mjs",
+    "preact": "https://spike.land/react.mjs",
+    "react-dom/server": "https://spike.land/react.mjs",
+    "framer-motion": "https://spike.land/framer-motion.mjs"
   },
   "scopes": {
     "https://ga.jspm.io/": {
@@ -22,8 +22,8 @@
       "@emotion/utils": "https://ga.jspm.io/npm:@emotion/utils@1.1.0/dist/emotion-utils.browser.esm.js",
       "@emotion/weak-memoize": "https://ga.jspm.io/npm:@emotion/weak-memoize@0.2.5/dist/weak-memoize.browser.esm.js",
       "hoist-non-react-statics": "https://ga.jspm.io/npm:hoist-non-react-statics@3.3.2/dist/hoist-non-react-statics.cjs.js",
-      "react-is": "https://ga.jspm.io/npm:react-is@16.13.1/dev.index.js",
-      "react/jsx-runtime": "https://ga.jspm.io/npm:react@18.1.0/dev.jsx-runtime.js",
+      "react-is": "https://ga.jspm.io/npm:react-is@16.13.1/index.js",
+      "react/jsx-runtime": "https://ga.jspm.io/npm:react@18.1.0/jsx-runtime.js",
       "stylis": "https://ga.jspm.io/npm:stylis@4.0.13/index.js"
     }
   }
