@@ -3,7 +3,7 @@ import {
   IPFSService,
   Server,
 } from "../../node_modules/ipfs-message-port-server/index.min.js";
-
+import { WebRTCStar } from '@libp2p/webrtc-star'
 // importScripts('https://unpkg.com/ipfs@0.62.3/index.min.js');
 // importScripts('https://unpkg.com/ipfs-message-port-server@0.11.3/index.min.js');
 
@@ -18,7 +18,9 @@ const main = async () => {
     // queue connections that occur while node was starting.
     self.onconnect = ({ports}) => connections.push(...ports)
 
-    const ipfs = await create({ isNode: false, isWebWorker: true });
+    const ipfs = await create({ isNode: false, isWebWorker: true,  
+  ...libp2pConfig()
+     });
     // And add hello world for tests
     await ipfs.add({ content: "hello world" });
 
@@ -51,3 +53,32 @@ const main = async () => {
 };
 
 main();
+
+
+ function libp2pConfig () {
+  const webRtcStar = new WebRTCStar()
+  
+  /** @type {import('libp2p').Libp2pOptions} */
+  const options = {
+    transports: [
+      webRtcStar
+    ],
+    peerDiscovery: [
+      webRtcStar.discovery
+    ],
+    connectionManager: {
+      maxParallelDials: 150, // 150 total parallel multiaddr dials
+      maxDialsPerPeer: 4, // Allow 4 multiaddrs to be dialed per peer in parallel
+      dialTimeout: 10e3, // 10 second dial timeout per peer dial
+      autoDial: true
+    },
+    nat: {
+      enabled: false
+    },
+    metrics: {
+      enabled: true
+    }
+  }
+
+  return options
+}

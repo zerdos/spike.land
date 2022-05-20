@@ -59,6 +59,7 @@
   },
   "dependencies": {
     "@cloudflare/kv-asset-handler": "^0.2.0",
+    "@libp2p/webrtc-star": "^1.0.10",
     "babel-runtime": "^6.26.0",
     "esbuild-wasm": "0.14.39",
     "ipfs-message-port-client": "^0.11.3",

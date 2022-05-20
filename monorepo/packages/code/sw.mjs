@@ -1,5 +1,8 @@
 import { defer, selectClient, toReadableStream } from "./service/util";
 import { IPFSClient } from "ipfs-message-port-client";
+import throttle from "lodash/throttle"
+import debounce from "lodash/debounce"
+
 
 const IPFS_SERVER_URL = "./worker.js";
 
@@ -15,18 +18,78 @@ const oninstall = async (event) => {
 /**
  * @param {LifecycleEvent} event
  */
+
+let cache = {
+
+};
+
+const hashResp = {}
+
+function update(){
+
+  async()=>{
+
+
+    const filesResp = await(fetch("https://spike.land/files.json"))
+    const files = await filesResp.json();
+    if (files){
+      cache = files
+    }
+
+  }
+
+
+}
+
+const updateCacheNOW = debounce(update, 500);
+
+
+const updateCache = throttle(update, 60_000);
+
 const onactivate = async (event) => {
   // We want to start handling requests right away, so that requests from the
   // very first page will be handled by service worker. Which is why we claim
   // clients.
+ 
+
   event.waitUntil(event.target.clients.claim());
 };
+
+
+export async function wait(delay) {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve();
+    }, delay);
+  });
+}
+
 
 /**
  * @param {Fetch} event
  */
 const onfetch = (event) => {
-  const url = new URL(event.request.url);
+  updateCache();
+  const url =new URL( event.request.url);
+  const loc = url.pathname.slice(1);
+  if (cache[loc] && hashResp[loc])  event.respondWith(async()=>hashResp[loc].clone())
+  if (cache[loc]) return event.respondWith(async() =>{
+
+    let resp = await fetch(cache[loc]);
+
+    if (!resp.ok) {
+      updateCacheNOW();
+     await  wait(1000);
+     resp = await fetch(cache[loc]);
+    }
+
+    if (!res.ok) return resp;; 
+
+    hashResp[cache[loc]] = resp.clone()
+
+    return resp;
+  });
+
   try {
     switch (url.origin) {
       // Our service worker only serves pages for its own page origin
@@ -55,7 +118,7 @@ const onfetch = (event) => {
               }));
               // Anything else might be for scripts, source maps etc.. we just fetch
               // those from network
-              return event.respondWith(fetch(event.request));
+              return event.respondWith(fetch(event.request).catch(e=>console.log({url, event})));
           }
         }
       }

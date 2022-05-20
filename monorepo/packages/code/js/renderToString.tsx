@@ -6,6 +6,7 @@ import type { FC } from "react";
 import { render } from "react-dom";
 
 import { createJsBlob } from "./starter";
+import { prettierCss, prettierHtml } from "./prettierEsm";
 
 export const renderFromString = async (transpiled: string) => {
   console.log("render to string");
@@ -16,8 +17,8 @@ export const renderFromString = async (transpiled: string) => {
   await globalThis.appFactory(transpiled);
 
   return {
-    html,
-    css,
+    html: prettierHtml(`<style>${css}</style><div id="zbody">${html}</div>`),
+    css: prettierCss(css)
   };
 };
 
