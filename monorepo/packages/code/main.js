@@ -25,6 +25,7 @@ const ipfsSw = async () => {
   const ipfs = IPFSClient.from(getIpfsPort());
 
   (async function () {
+    const {codeSpace} = window;
     if (!codeSpace) return;
     const orbitdb = await OrbitDB.createInstance(ipfs, { id: codeSpace });
 
