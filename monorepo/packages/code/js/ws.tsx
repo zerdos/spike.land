@@ -170,6 +170,7 @@ export async function saveCode(sess: ICodeSession) {
     codeSpace,
     ignoreUser: user,
     sess: mST(),
+    messageData,
     hashCode: mySession.hashCode(),
   });
 
