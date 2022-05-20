@@ -57,6 +57,7 @@
   "dependencies": {
     "@cloudflare/kv-asset-handler": "^0.2.0",
     "esbuild-wasm": "0.14.39",
+    "ipfs-message-port-client": "^0.11.3",
     "nodemon": "2.0.16",
     "preact": "10.7.2"
   }
