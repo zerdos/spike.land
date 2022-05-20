@@ -222,7 +222,6 @@ const buildNoImportMap = (entryPoints) =>
 await build([
   "starter.mjs",
   "ws.mjs",
-  "main.mjs",
 ]);
 
 // await buildNoImportMap([

@@ -81,8 +81,7 @@ const fetchViewer = async ({ url }) => {
 </head>
 <body>
   <iframe id="viewer" style="width:100%;height:100%;position:fixed;top:0;left:0;border:none;" src="/view${url.pathname}"></iframe>
-  <script type="module">
-  import {ipfsSw} from "https://spike.land/main.mjs";
+  <script type="module" src="./main.js">
   ipfsSw();
   </script>
 </body>
