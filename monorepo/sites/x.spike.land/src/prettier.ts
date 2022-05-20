@@ -1,6 +1,8 @@
 import prettier from "prettier/standalone";
 import parserBabel from "prettier/parser-babel";
 import parserHtml from "prettier/parser-html";
+import parserPostcss from "prettier/parser-postcss";
+
 
 export function formatter(code: string) {
   // return code;
@@ -22,7 +24,7 @@ export function formatter(code: string) {
     "trailingComma": "all",
     "useTabs": false,
     parser: "babel-ts",
-    plugins: [parserBabel, parserHtml],
+    plugins: [parserBabel, parserHtml,parserPostcss],
   });
   return formatted;
 }
