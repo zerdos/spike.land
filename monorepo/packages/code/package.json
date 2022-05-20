@@ -1,6 +1,6 @@
 {
   "name": "@spike.land/code",
-  "version": "0.7.807",
+  "version": "0.7.808",
   "description": "spike.land",
   "type": "module",
   "main": "./js/starter.ts",
@@ -78,7 +78,7 @@
     "@emotion/utils": "^1.1.0",
     "@identifo/identifo-auth-js": "^3.3.2",
     "@mui/material": "^5.8.0",
-    "@spike.land/qrious": "^0.7.805",
+    "@spike.land/qrious": "^0.7.808",
     "@types/prettier": "^2.6.1",
     "@types/react": "18.0.9",
     "@types/react-dom": "^18.0.4",
@@ -93,7 +93,6 @@
     "hoist-non-react-statics": "^3.3.2",
     "immutable": "^4.0.0",
     "ipfs-core": "0.14.3",
-    "stream-browserify": "3.0.0",
     "ipfs-message-port-client": "0.11.3",
     "ipfs-message-port-server": "0.11.3",
     "lodash": "^4.17.21",
@@ -104,6 +103,7 @@
     "popmotion": "^11.0.3",
     "preact": "^10.7.2",
     "prettier": "^2.6.2",
+    "stream-browserify": "3.0.0",
     "util": "^0.12.4"
   }
 }
