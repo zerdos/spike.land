@@ -42,8 +42,9 @@ const ipfsSw = async () => {
       console.log({ event });
 
       if (
-        event.data.codeSpace === 
-      ) {codeSpace
+        event.data.codeSpace === codeSpace
+      ) {
+      
         const hash = await db.add({ ...event.data.sess });
         console.log(hash);
       }
