@@ -9770,10 +9770,10 @@ typedoc@0.22.15:
     minimatch "^5.0.1"
     shiki "^0.10.1"
 
-typescript@4.8.0-dev.20220519:
-  version "4.8.0-dev.20220519"
-  resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.8.0-dev.20220519.tgz#16422c5e1c0601653b2b1c014f7559628c2a18ac"
-  integrity sha512-ac9knHGWM2Go5qy3VXajzAG1laHOEMNyDYj7W0cCcUBddp/boZozqvgo3EAv1KapC31Jdzkn7wDGY+Y7PonKSg==
+typescript@4.8.0-dev.20220520:
+  version "4.8.0-dev.20220520"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.8.0-dev.20220520.tgz#738288a2788f82cd7abe4f82941760599788bcb8"
+  integrity sha512-OLLEy7nRAUVunVn893E0QLf+pNitQQa+CBN4ZR3LpTIbK2VSPTIPX5wAFfVPZeuxXWn8mzCOammnyTAMFWpoEg==
 
 typescript@^4.3.5:
   version "4.6.4"
