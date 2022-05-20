@@ -1,14 +1,14 @@
-version: "3.7"
+version: "3.9"
 services:
-  ipfs:
-    image: ipfs/go-ipfs:latest
-    ports: 
-      - 4001:4001
-      - 5001:5001
-      - 8080:8080
-    volumes:
-      - ipfs:/data/ipfs
-      - .:/exportdevcontainer
+  # ipfs:
+  #   image: ipfs/go-ipfs:latest
+  #   ports: 
+  #     - 4001:4001
+  #     - 5001:5001
+  #     - 8080:8080
+  #   volumes:
+  #     - ipfs:/data/ipfs
+  #     - .:/exportdevcontainer
   devcontainer: 
     build: 
       context: .
@@ -21,6 +21,8 @@ services:
     volumes:
       # - $HOME:/home/$USER/host:delegated
       - .:/workspace
+      - node:/workspace/node_modules
       - /var/run/docker.sock:/var/run/docker.sock
 volumes: 
   ipfs:
+  node:
