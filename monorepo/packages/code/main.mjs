@@ -1,7 +1,11 @@
-import OrbitDB from "./orbit"
+
 import { IPFSClient } from '../../node_modules/ipfs-message-port-client/'
+
+
 // URL to the script containing ipfs-message-port-server.
 const IPFS_SERVER_URL = './worker.js'
+
+const OrbitDB=require("orbit-db/dist/orbitdb");
 
 
 const load = async (path) => {

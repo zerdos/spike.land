@@ -22,7 +22,7 @@ const generator = new Generator({
 
 await generator.install("react");
 
-await generator.install("orbit-db");
+// await generator.install("orbit-db");
 // await generator.install("tslib");
 
 // await generator.install("@babel/core");
