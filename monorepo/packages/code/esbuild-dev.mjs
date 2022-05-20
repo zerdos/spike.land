@@ -31,7 +31,7 @@ await esbuild.build({
   entryPoints: [
     ...workerEntryPoints,
     "./worker.tsx",
-    "./main.mjs",
+    "./main.js",
     "./sw.mjs",
   ],
   bundle: true,

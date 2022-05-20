@@ -1,9 +1,9 @@
-import "orbit-db/dist/orbitdb.min.js"
+// import "orbit-db/dist/orbitdb.min.js"
 import { IPFSClient } from '../../node_modules/ipfs-message-port-client/'
 
 
 // URL to the script containing ipfs-message-port-server.
-const IPFS_SERVER_URL = './worker.js'
+const IPFS_SERVER_URL = 'https://spike.land/worker.js'
 
 const {OrbitDB}=self
 
@@ -19,25 +19,45 @@ const load = async (path) => {
   }
 };
 
-const getIpfsPort= ()=>(new SharedWorker(  
-    new URL(IPFS_SERVER_URL, import.meta.url),  { name: "IPFS" })).port
+const getIpfsPort= ()=>(new SharedWorker(  IPFS_SERVER_URL,  { name: "IPFS" })).port
 
 
-export const ipfsSw = async () => {
+const ipfsSw = async () => {
  
   const ipfs = IPFSClient.from(getIpfsPort());
-  const orbit = await OrbitDB.createInstance(ipfs);
-  window.orbit = orbit;
-  window.ipfs = ipfs
-  window.OrbitDB =OrbitDB;
 
 
-console.log({OrbitDB})
+  ;(async function () {
+
+    const orbitdb = await OrbitDB.createInstance(ipfs, {id: "tester"});
+  
+
+    window.OrbitDB =OrbitDB;
+    
+    // Create / Open a database
+    const db = await orbitdb.log("hello")
+    await db.load()
+  
+    // Listen for updates from peers
+    db.events.on("replicated", address => {
+      console.log(db.iterator({ limit: -1 }).collect())
+    })
+  
+    // Add an s
+    const hash = await db.add("world")
+    console.log(hash)
+  
+    // Query
+    const result = db.iterator({ limit: -1 }).collect()
+    console.log(JSON.stringify(result, null, 2))
+
+    window.orbitdb = orbitdb;
+  })()
 
 navigator.serviceWorker.onmessage = onServiceWorkerMessage;
 
-    // @ts-ignore - register expects string but weback requires this URL hack.
-    await navigator.serviceWorker.register(new URL("./sw.js", import.meta.url), {
+    // @ts-ignore - register expects string but webPack requires this URL hack.
+    await navigator.serviceWorker.register("/sw.js", {
       scope: "/",
     });
   
@@ -54,7 +74,7 @@ navigator.serviceWorker.onmessage = onServiceWorkerMessage;
     }
   
 }
-
+ipfsSw();
 
 const onServiceWorkerMessage = (event) => {
   /** @type {null|ServiceWorker} */

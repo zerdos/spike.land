@@ -1,3 +1,4 @@
+
 import { defer, selectClient, toReadableStream } from "./service/util";
 import { IPFSClient } from 'ipfs-message-port-client'
 
@@ -74,19 +75,15 @@ const onfetch = (event) => {
  * @param {URL} options.url
  */
 const fetchViewer = async ({ url }) => {
-  const body = new Blob([`<html data-viewer>
+  const body = new Blob([`<!DOCTYPE html>
+<html lang="en">
 <head>
   <title>${url.pathname}</title>
- 
 </head>
 <body>
   <iframe id="viewer" style="width:100%;height:100%;position:fixed;top:0;left:0;border:none;" src="/view${url.pathname}"></iframe>
-  <script type="module" src="./main.js">
-  ipfsSw();
-  </script>
-</body>
-
-
+  <script defer src="./main.js"></script>
+  </body>
 </html>
 `], { type: "text/html" });
   return new Response(body, {
