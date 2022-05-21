@@ -10,10 +10,10 @@ const run = async () => {
   devGenerator.setZsh();
   devGenerator.setRemoteDesktop("noVNC");
   devGenerator.setChrome();
-  devGenerator.setDotnet("6");
+  // devGenerator.setDotnet("6");
   // devGenerator.setD
   devGenerator.setDeno();
-  devGenerator.setCypress();
+  // devGenerator.setCypress();
   devGenerator.setDocker();
 
   // devGenerator.dot

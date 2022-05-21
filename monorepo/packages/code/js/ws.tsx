@@ -18,6 +18,8 @@ const connections: {
   [target: string]: RTCPeerConnection;
 } = {}; // To st/ RTCPeerConnection
 
+globalThis.connections = globalThis.connections || connections;
+
 let wsLastHashCode = 0;
 let webRTCLastSeenHashCode = 0;
 let lastSeenTimestamp = 0;
@@ -65,6 +67,7 @@ const sendRTC = debounce(sendChannelSend, 100);
 const startState = window.startState || await fetch(
   `https://spike.land/live/${codeSpace}/session`,
 ).then((resp) => resp.json());
+
 
 export const run = async () => {
   // renderApp();
@@ -224,7 +227,8 @@ export async function saveCode(sess: ICodeSession) {
 
 export async function join() {
   if (ws !== null) return ws;
-
+  
+  if (connections!== globalThis.connections) return ws;
   rejoined = true;
 
   console.log("WS connect!");
