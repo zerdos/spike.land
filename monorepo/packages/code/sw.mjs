@@ -1,8 +1,7 @@
 import { defer, selectClient, toReadableStream } from "./service/util";
 import { IPFSClient } from "ipfs-message-port-client";
-import throttle from "lodash/throttle"
-import debounce from "lodash/debounce"
-
+import throttle from "lodash/throttle";
+import debounce from "lodash/debounce";
 
 const IPFS_SERVER_URL = "./worker.js";
 
@@ -19,30 +18,21 @@ const oninstall = async (event) => {
  * @param {LifecycleEvent} event
  */
 
-let cache = {
+let cache = {};
 
-};
+const hashResp = {};
 
-const hashResp = {}
-
-function update(){
-
-  async()=>{
-
-
-    const filesResp = await(fetch("https://spike.land/files.json"))
+function update() {
+  (async () => {
+    const filesResp = await (fetch("https://spike.land/files.json"));
     const files = await filesResp.json();
-    if (files){
-      cache = files
+    if (files) {
+      cache = files;
     }
-
-  }
-
-
+  });
 }
 
 const updateCacheNOW = debounce(update, 500);
-
 
 const updateCache = throttle(update, 60_000);
 
@@ -50,11 +40,9 @@ const onactivate = async (event) => {
   // We want to start handling requests right away, so that requests from the
   // very first page will be handled by service worker. Which is why we claim
   // clients.
- 
 
   event.waitUntil(event.target.clients.claim());
 };
-
 
 export async function wait(delay) {
   return new Promise((resolve) => {
@@ -64,32 +52,34 @@ export async function wait(delay) {
   });
 }
 
-
 /**
  * @param {Fetch} event
  */
 const onfetch = (event) => {
   updateCache();
-  const url =new URL( event.request.url);
-  
+  const url = new URL(event.request.url);
+
   const loc = url.pathname.slice(1);
-  if (cache[loc] && hashResp[loc])  event.respondWith(async()=>hashResp[loc].clone())
-  if (cache[loc]) return event.respondWith(async() =>{
+  if (cache[loc] && hashResp[loc]) {
+    event.respondWith(async () => hashResp[loc].clone());
+  }
+  if (cache[loc]) {
+    return event.respondWith(async () => {
+      let resp = await fetch(cache[loc]);
 
-    let resp = await fetch(cache[loc]);
+      if (!resp.ok) {
+        updateCacheNOW();
+        await wait(1000);
+        resp = await fetch(cache[loc]);
+      }
 
-    if (!resp.ok) {
-      updateCacheNOW();
-     await  wait(1000);
-     resp = await fetch(cache[loc]);
-    }
+      if (!res.ok) return resp;
 
-    if (!res.ok) return resp;; 
+      hashResp[cache[loc]] = resp.clone();
 
-    hashResp[cache[loc]] = resp.clone()
-
-    return resp;
-  });
+      return resp;
+    });
+  }
 
   try {
     switch (url.origin) {
@@ -113,14 +103,19 @@ const onfetch = (event) => {
             // If requests are for `/view/...` URL those are requests from iframes
             // for the content.
             case "view":
-              console.log("VIEW! Fetching the content: "+url.pathname.slice(protocol.length + 1));
+              console.log(
+                "VIEW! Fetching the content: " +
+                  url.pathname.slice(protocol.length + 1),
+              );
               return event.respondWith(fetchContent({
                 event,
                 path: url.pathname.slice(protocol.length + 1),
-          }));
+              }));
               // Anything else might be for scripts, source maps etc.. we just fetch
               // those from network
-              return event.respondWith(fetch(event.request).catch(e=>console.log({url, event})));
+              return event.respondWith(
+                fetch(event.request).catch((e) => console.log({ url, event })),
+              );
           }
         }
       }
@@ -176,7 +171,7 @@ const fetchContent = async ({ event, path }) => {
       return event.respondWith(fetchIPNSContent({
         event,
         path,
-      }))
+      }));
     case "ipfs":
       return event.respondWith(fetchIPFSContent({
         event,
@@ -216,9 +211,9 @@ const fetchIPNSContent = async ({/* path, event */}) => {
  */
 const fetchIPFSContent = async ({ event, path }) => {
   // Obtains IPFS inst.statance
-console.log("IPFS")
+  console.log("IPFS");
   const ipfs = await createIPFSClient(event);
-  console.log({ipfs})
+  console.log({ ipfs });
   try {
     const stat = await ipfs.files.stat(path);
     switch (stat.type) {
@@ -372,17 +367,16 @@ const createIPFSClient = async (context) => {
   // Selects a service worker client that can be used to obtain a message port
   // from, then sends a request to it and once a response is obtained, creates a
   // IPFS client and returns it
-  console.log("SELECTING  THE CLIENT")
+  console.log("SELECTING  THE CLIENT");
   const client = await selectClient(context.target);
-  console.log("The client is...",client)
+  console.log("The client is...", client);
   const port = await requestIPFSPort(client);
-  console.log("The port is:", port)
+  console.log("The port is:", port);
   return IPFSClient.from(port);
 };
 
-
 /** @type {Record<string, { promise: Promise<MessagePort>, resolve(port:MessagePort):void, reject(error:Error):void }>} */
-const portRequests = {}
+const portRequests = {};
 
 /**
  * Sends a message prot request to the window client and waits for the response.
@@ -392,13 +386,12 @@ const portRequests = {}
  * @returns {Promise<MessagePort>}
  */
 
-
 const requestIPFSPort = (client) => {
   // We might receive multiple concurrent requests from the same client (e.g.
   // images, scripts, stylesheets for the page) to avoid creating a port for
   // each request we use a little table keyed by client id instead.
   const request = portRequests[client.id];
-  
+
   if (request == null) {
     const request = defer();
     portRequests[client.id] = request;
@@ -412,14 +405,12 @@ const requestIPFSPort = (client) => {
   }
 };
 
-
 /**
  * Listens to the messages from the clients if it is response to pending message
  * port request resolves it.
  *
  * @param {MessageEvent} event
  */
-
 
 const onmessage = ({ data }) => {
   if (data) {

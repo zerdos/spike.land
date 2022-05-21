@@ -3,7 +3,6 @@ import parserBabel from "prettier/parser-babel";
 import parserHtml from "prettier/parser-html";
 import parserPostcss from "prettier/parser-postcss";
 
-
 export function formatter(code: string) {
   // return code;
   const formatted = prettier.format(code, {
@@ -24,7 +23,7 @@ export function formatter(code: string) {
     "trailingComma": "all",
     "useTabs": false,
     parser: "babel-ts",
-    plugins: [parserBabel, parserHtml,parserPostcss],
+    plugins: [parserBabel, parserHtml, parserPostcss],
   });
   return formatted;
 }

@@ -3,7 +3,6 @@ import parserBabel from "prettier/esm/parser-babel.mjs";
 import parserHtml from "prettier/esm/parser-html.mjs";
 import parserPostcss from "prettier/esm/parser-postcss.mjs";
 
-
 const jsOptions = {
   arrowParens: "always",
   bracketSpacing: true,
@@ -21,22 +20,22 @@ const jsOptions = {
   tabWidth: 2,
   trailingComma: "all",
   useTabs: false,
-  parser:  "babel-ts",
-  plugins: [parserBabel, parserHtml, parserPostcss]
-}
+  parser: "babel-ts",
+  plugins: [parserBabel, parserHtml, parserPostcss],
+};
 
-const htmlOptions ={
+const htmlOptions = {
   htmlWhitespaceSensitivity: "css",
   parser: "html",
-  plugins: [parserHtml, parserPostcss]
-}
+  plugins: [parserHtml, parserPostcss],
+};
 
 const cssOptions = {
-  parser:  "css",
-  plugins: [ parserPostcss]
-}
+  parser: "css",
+  plugins: [parserPostcss],
+};
 
-export const prettier = (code: string) =>Prettier.format(code,jsOptions);
-export const prettierCss = (code: string) =>Prettier.format(code,cssOptions);
-export const prettierHtml = (code: string) =>Prettier.format(code,htmlOptions);
-
+export const prettier = (code: string) => Prettier.format(code, jsOptions);
+export const prettierCss = (code: string) => Prettier.format(code, cssOptions);
+export const prettierHtml = (code: string) =>
+  Prettier.format(code, htmlOptions);

@@ -213,7 +213,6 @@ export async function saveCode(sess: ICodeSession) {
   }
 }
 
-
 export async function join() {
   if (ws !== null) return ws;
 

@@ -18,7 +18,7 @@ export const renderFromString = async (transpiled: string) => {
 
   return {
     html: prettierHtml(`<style>${css}</style><div id="zbody">${html}</div>`),
-    css: prettierCss(css)
+    css: prettierCss(css),
   };
 };
 
