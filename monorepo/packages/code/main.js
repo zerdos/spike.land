@@ -25,9 +25,22 @@ const ipfsSw = async () => {
   const ipfs = IPFSClient.from(getIpfsPort());
 
   (async function () {
-    const {codeSpace} = window;
+    const { codeSpace } = window;
     if (!codeSpace) return;
-    const orbitdb = await OrbitDB.createInstance(ipfs, { id: codeSpace });
+    const orbitdb = await OrbitDB.createInstance(ipfs, {
+      id: codeSpace,
+      create: true,
+      overwrite: true,
+      // Load only the local version of the database, 
+      // don't load the latest from the network yet
+      localOnly: false,
+      type: "eventlog",
+      // If "Public" flag is set, allow anyone to write to the database,
+      // otherwise only the creator of the database can write
+      accessController: {
+        write: ['*'] 
+      }
+    });
 
     // Create / Open a database
     const db = await orbitdb.log(codeSpace, {}); //options
@@ -38,6 +51,40 @@ const ipfsSw = async () => {
       console.log(db.iterator({ limit: -1 }).collect());
     });
 
+
+
+    const query = (db) => {
+      if (db.type === 'eventlog')
+        return db.iterator({ limit: 5 }).collect()
+      else if (db.type === 'feed')
+        return db.iterator({ limit: 5 }).collect()
+      else if (db.type === 'docstore')
+        return db.get('peer1')
+      else if (db.type === 'keyvalue')
+        return db.get('mykey')
+      else if (db.type === 'counter')
+        return db.value
+      else
+        throw new Error("Unknown datatbase type: ", db.type)
+    }
+  
+    const queryAndRender = async (db) => {
+      const networkPeers = await ipfs.swarm.peers()
+      const databasePeers = await ipfs.pubsub.peers(db.address.toString())
+  
+      const result = query(db)
+  
+      console.log({result});
+      if (dbType !== db.type || dbAddress !== db.address) {
+        dbType = db.type;
+        dbAddress = db.address;
+  
+          
+      }
+    }
+
+    db.events.on('write', () => queryAndRender(db))
+
     const bc = new BroadcastChannel("spike.land");
     bc.onmessage = async (event) => {
       console.log({ event });
@@ -45,19 +92,19 @@ const ipfsSw = async () => {
       if (
         event.data.codeSpace === codeSpace && event.data.messageData
       ) {
-      
+
         const hash = await db.add({ ...event.data.messageData });
         console.log(hash);
       }
     };
-    // Add an s
+    // Add an x``s
 
     // Query
     const result = db.iterator({ limit: -1 }).collect();
     console.log(JSON.stringify(result, null, 2));
   })();
 
-  navigator.serviceWorker.onmessage = onServiceWorkerMessage;
+  navigator.serviceWorker.onmessage = (e) => onServiceWorkerMessage(e);
 
   // @ts-ignore - register expects string but webPack requires this URL hack.
   await navigator.serviceWorker.register("/sw.js", {
@@ -78,37 +125,25 @@ const ipfsSw = async () => {
 };
 ipfsSw();
 
-const onServiceWorkerMessage = (event) => {
+function onServiceWorkerMessage(event) {
+  console.log("SW MESSAGE")
   /** @type {null|ServiceWorker} */
   const serviceWorker = (event.source);
   if (serviceWorker == null) return;
   switch (event.data.method) {
     case "ipfs-message-port":
-      // Receives request from service worker, creates a new shared worker and
-      // responds back with the message port.
-      // Note: MessagePort can be transferred only once which is why we need to
-      // create a SharedWorker each time. However a ServiceWorker is only created
-      // once (in main function) all other creations just create port to it.
-      const onServiceWorkerMessage = (event) => {
-        /** @type {null|ServiceWorker} */
-        const serviceWorker = (event.source);
-        if (serviceWorker == null) return;
+      const port = getIpfsPort();
+      return serviceWorker.postMessage({
+        method: "ipfs-message-port",
+        id: event.data.id,
+        port,
+      }, [port]);
+    // Receives request from service worker, creates a new shared worker and
+    // responds back with the message port.
+    // Note: MessagePort can be transferred only once which is why we need to
+    // create a SharedWorker each time. However a ServiceWorker is only created
+    // once (in main function) all other creations just create port to it.
 
-        switch (event.data.method) {
-          case "ipfs-message-port":
-            // Receives request from service worker, creates a new shared worker and
-            // responds back with the message port.
-            // Note: MessagePort can be transferred only once which is why we need to
-            // create a SharedWorker each time. However a ServiceWorker is only created
-            // once (in main function) all other creations just create port to it.
-            //  const worker = createIPFSWorker();
-            const port = getIpfsPort();
-            return serviceWorker.postMessage({
-              method: "ipfs-message-port",
-              id: event.data.id,
-              port,
-            }, [port]);
-        }
-      };
+
   }
 };

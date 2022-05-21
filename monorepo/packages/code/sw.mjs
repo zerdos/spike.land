@@ -380,6 +380,10 @@ const createIPFSClient = async (context) => {
   return IPFSClient.from(port);
 };
 
+
+/** @type {Record<string, { promise: Promise<MessagePort>, resolve(port:MessagePort):void, reject(error:Error):void }>} */
+const portRequests = {}
+
 /**
  * Sends a message prot request to the window client and waits for the response.
  * Returns promise for the message port it will receive.
@@ -387,11 +391,14 @@ const createIPFSClient = async (context) => {
  * @param {WindowClient} client
  * @returns {Promise<MessagePort>}
  */
+
+
 const requestIPFSPort = (client) => {
   // We might receive multiple concurrent requests from the same client (e.g.
   // images, scripts, stylesheets for the page) to avoid creating a port for
   // each request we use a little table keyed by client id instead.
   const request = portRequests[client.id];
+  
   if (request == null) {
     const request = defer();
     portRequests[client.id] = request;
@@ -405,8 +412,6 @@ const requestIPFSPort = (client) => {
   }
 };
 
-/** @type {Record<string, { promise: Promise<MessagePort>, resolve(port:MessagePort):void, reject(error:Error):void }>} */
-const portRequests = Object.create(null);
 
 /**
  * Listens to the messages from the clients if it is response to pending message
@@ -414,6 +419,8 @@ const portRequests = Object.create(null);
  *
  * @param {MessageEvent} event
  */
+
+
 const onmessage = ({ data }) => {
   if (data) {
     const request = portRequests[data.id];
