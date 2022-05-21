@@ -649,7 +649,7 @@ async function processWsMessage(
 
     await connections[target].setLocalDescription(
       await connections[target].createAnswer({}),
-      
+
     );
 
     ws.send(JSON.stringify({
@@ -718,13 +718,13 @@ interface RTCIceCandidateInit {
 }
 
 async function handleNewICECandidateMessage(
-  message: RTCIceCandidateInit,
+  init: RTCIceCandidateInit,
   target: string,
 ) {
   log(
-    "*** Adding received ICE candidate: " + JSON.stringify(message.candidate),
+    "*** Adding received ICE candidate: " + JSON.stringify(init),
   )
-  const candidate = new RTCIceCandidate(message.candidate);
+  const candidate = new RTCIceCandidate(init);
   // const candidate = new RTCIceCandidate(message);
 
   console.log(connections[target]);
