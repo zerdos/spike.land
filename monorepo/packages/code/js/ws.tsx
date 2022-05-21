@@ -59,7 +59,7 @@ function sendChannelSend(m){
   return sendChannel.send(m)
 }
 
-const sendRTC = debounce(sendChannelSend, 100);
+const sendRTC = debounce(sendChannelSend, 50);
 
 // Let createDelta;
 // let applyPatch;
