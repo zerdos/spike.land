@@ -39,10 +39,12 @@ async function startOrbit(codeSpace: string, ipfs: IPFS ){
     },
   });
 
-  // Create / Open a database
-  const db = await orbitdb.log(codeSpace, {}); //options
-  await db.load();
 
+  // Create / Open a database
+
+  const address = "/orbitdb/zdpuAxAofz2K6NjJcpYxWKYXCqarj2FMsZWANHLXzKWpj92m5/spike"
+
+  const db = await orbitdb.open(address, { sync: true });
   // Listen for updates from peers
   db.events.on("replicated", (_address: string) => {
     console.log(db.iterator({ limit: -1 }).collect());
@@ -85,9 +87,9 @@ async function startOrbit(codeSpace: string, ipfs: IPFS ){
     console.log({ event });
 
     if (
-      event.data.codeSpace === codeSpace && event.data.messageData
+      event.data.codeSpace && event.data.messageData
     ) {
-      const hash = await db.add({ ...event.data.messageData });
+      const hash = await db.add({ ...event.data.messageData, codeSpace: event.data.codeSpace });
       console.log(hash);
     }
   };
@@ -156,7 +158,7 @@ export const ipfsWorker = async () => {
    
     connections.map(ports=>server.connect(ports[0]))
     
-
+    startOrbit();
     function libp2pConfig() {
  
       /** @type {import('libp2p').Libp2pOptions} */
