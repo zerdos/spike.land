@@ -7,7 +7,8 @@
     "lib": [
       "dom",
       "DOM.Iterable",
-      "esnext"
+      "esnext",
+      "WebWorker"
     ],
     "allowJs": true,
     "noFallthroughCasesInSwitch": true,

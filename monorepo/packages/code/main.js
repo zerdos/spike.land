@@ -1,10 +1,7 @@
-// import "orbit-db/dist/orbitdb.min.js"
 import { IPFSClient } from "../../node_modules/ipfs-message-port-client/";
 
 // URL to the script containing ipfs-message-port-server.
 const IPFS_SERVER_URL = "https://spike.land/worker.js";
-
-const { OrbitDB } = self;
 
 const load = async (path) => {
   const paths = path && path.split("/") || [];
@@ -24,81 +21,6 @@ const getIpfsPort = () =>
 const ipfsSw = async () => {
   const ipfs = IPFSClient.from(getIpfsPort());
 
-  (async function () {
-    const { codeSpace } = window;
-    if (!codeSpace) return;
-    const orbitdb = await OrbitDB.createInstance(ipfs, {
-      id: codeSpace,
-      create: true,
-      overwrite: true,
-      // Load only the local version of the database,
-      // don't load the latest from the network yet
-      localOnly: false,
-      type: "eventlog",
-      // If "Public" flag is set, allow anyone to write to the database,
-      // otherwise only the creator of the database can write
-      accessController: {
-        write: ["*"],
-      },
-    });
-
-    // Create / Open a database
-    const db = await orbitdb.log(codeSpace, {}); //options
-    await db.load();
-
-    // Listen for updates from peers
-    db.events.on("replicated", (address) => {
-      console.log(db.iterator({ limit: -1 }).collect());
-    });
-
-    const query = (db) => {
-      if (db.type === "eventlog") {
-        return db.iterator({ limit: 5 }).collect();
-      } else if (db.type === "feed") {
-        return db.iterator({ limit: 5 }).collect();
-      } else if (db.type === "docstore") {
-        return db.get("peer1");
-      } else if (db.type === "keyvalue") {
-        return db.get("mykey");
-      } else if (db.type === "counter") {
-        return db.value;
-      } else {
-        throw new Error("Unknown datatbase type: ", db.type);
-      }
-    };
-
-    const queryAndRender = async (db) => {
-      const networkPeers = await ipfs.swarm.peers();
-      const databasePeers = await ipfs.pubsub.peers(db.address.toString());
-
-      const result = query(db);
-
-      console.log({ result });
-      if (dbType !== db.type || dbAddress !== db.address) {
-        dbType = db.type;
-        dbAddress = db.address;
-      }
-    };
-
-    db.events.on("write", () => queryAndRender(db));
-
-    const bc = new BroadcastChannel("spike.land");
-    bc.onmessage = async (event) => {
-      console.log({ event });
-
-      if (
-        event.data.codeSpace === codeSpace && event.data.messageData
-      ) {
-        const hash = await db.add({ ...event.data.messageData });
-        console.log(hash);
-      }
-    };
-    // Add an x``s
-
-    // Query
-    const result = db.iterator({ limit: -1 }).collect();
-    console.log(JSON.stringify(result, null, 2));
-  })();
 
   navigator.serviceWorker.onmessage = (e) => onServiceWorkerMessage(e);
 

@@ -70,6 +70,9 @@
     "stream": "stream-browserify",
     "path": "path-browserify"
   },
+  "resolutions": {
+    "path": "path-browserify"
+  },
   "dependencies": {
     "@emotion/cache": "^11.7.1",
     "@emotion/react": "^11.9.0",
@@ -80,11 +83,14 @@
     "@identifo/identifo-auth-js": "^3.3.2",
     "@mui/material": "^5.8.0",
     "@spike.land/qrious": "^0.7.811",
+    "@types/orbit-db": "https://github.com/orbitdb/orbit-db-types.git",
     "@types/prettier": "^2.6.1",
     "@types/react": "18.0.9",
     "@types/react-dom": "^18.0.4",
     "ace-builds": "^1.5.0",
+    "assert": "2.0.0",
     "async-mutex": "0.3.2",
+    "buffer": "6.0.3",
     "esbuild": "0.14.39",
     "esbuild-plugin-import-map": "2.1.0",
     "esbuild-plugin-jsximportsource": "^0.0.4",
@@ -94,16 +100,19 @@
     "hoist-non-react-statics": "^3.3.2",
     "immutable": "^4.0.0",
     "ipfs-core": "0.14.3",
+    "ipfs-core-config": "^0.3.3",
     "ipfs-message-port-client": "0.11.3",
     "ipfs-message-port-server": "0.11.3",
     "lodash": "^4.17.21",
     "monaco-editor": "0.34.0-dev.20220521",
     "orbit-db": "^0.28.6",
     "p-all": "^4.0.0",
+    "path": "https://github.com/browserify/path-browserify.git",
     "path-browserify": "^1.0.1",
     "popmotion": "^11.0.3",
     "preact": "^10.7.2",
     "prettier": "^2.6.2",
+    "stream": "https://github.com/browserify/stream-browserify.git",
     "stream-browserify": "3.0.0",
     "util": "^0.12.4"
   }

@@ -48,6 +48,11 @@ await esbuild.build({
   platform: "browser",
   define: {
     "process.env.NODE_ENV": `"${environment}"`,
+    "process.env.NODE_DEBUG": false,
+    "process.env.DEBUG": false,
+    "process.env.DUMP_SESSION_KEYS": false,
+    "process": JSON.stringify({env: {}}),
+    "global": "self"
   },
   format: "iife",
   plugins: [jsxImportSourcePlugin()],
@@ -122,6 +127,8 @@ const build = (entryPoints) =>
     target: "esnext",
     define: {
       "process.env.NODE_ENV": `"${environment}"`,
+      "process.env.NODE_DEBUG": "false",
+      "process.env.DEBUG": "false"
     },
     plugins: [importMapPlugin, jsxImportSourcePlugin({ filter: /.(tsx)/ })],
     loader: {
@@ -185,6 +192,8 @@ const buildNoImportMap = (entryPoints) =>
     target: "esnext",
     define: {
       "process.env.NODE_ENV": `"${environment}"`,
+      "process.env.NODE_DEBUG": "false",
+      "process.env.DEBUG": "false"
     },
     plugins: [jsxImportSourcePlugin({ filter: /.(tsx)/ })],
     loader: {
