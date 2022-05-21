@@ -36,6 +36,8 @@ const sendChannel = {
     });
     webRtcArray.map((ch) => {
       try {
+        console.log("WEBRTC send", data, ch);
+
         if (ch.readyState !== "open") return;
 
         if (
@@ -185,6 +187,7 @@ export async function saveCode(sess: ICodeSession) {
         )
         : mySession.createPatch(sess);
       if (message && message.patch !== "") {
+        console.log("sendRTC");
         sendRTC(message);
       }
     } catch (e) {
