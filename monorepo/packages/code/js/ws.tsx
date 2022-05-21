@@ -632,6 +632,7 @@ async function processWsMessage(
     const desc = new RTCSessionDescription(init);
     // const desc = new RTCSessionDescription(message);
 
+    await connections[target].setRemoteDescription(desc);
     if (connections[target].signalingState != "stable") {
       log("  - But the signaling state isn't stable, so triggering rollback");
 
