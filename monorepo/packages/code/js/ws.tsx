@@ -18,11 +18,7 @@ const connections: {
   [target: string]: RTCPeerConnection;
 } = {}; // To st/ RTCPeerConnection
 
-<<<<<<< HEAD
 globalThis.connections = globalThis.connections || connections;
-=======
-globalThis.connections = connections;
->>>>>>> dd96114050656fa63af76083fe7ec6589daf930d
 
 let wsLastHashCode = 0;
 let webRTCLastSeenHashCode = 0;
