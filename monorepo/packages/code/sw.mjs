@@ -216,7 +216,7 @@ const fetchIPNSContent = async ({/* path, event */}) => {
  */
 const fetchIPFSContent = async ({ event, path }) => {
   // Obtains IPFS inst.statance
-  condole.log("IPFS")
+console.log("IPFS")
   const ipfs = await createIPFSClient(event);
   console.log({ipfs})
   try {

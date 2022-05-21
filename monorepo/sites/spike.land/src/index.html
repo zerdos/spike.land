@@ -119,6 +119,9 @@ body {
     import {render} from "react-dom";
     
     import {run} from "https://spike.land/ws.mjs";
+
+
+
     window.noShim = true;    
     await appStarted;
 
@@ -128,6 +131,19 @@ body {
     
     <script defer src="./main.js">
 
+
+
+    </script>
+    <script defer>
+
+
+window.addEventListener('pageshow', (event) => {
+  if (event.persisted) {
+    console.log('This page was restored from the bfcache.');
+  } else {
+    console.log('This page was loaded normally.');
+  }
+});
     </script>
 
   <!-- Cloudflare Web Analytics -->
