@@ -52,6 +52,13 @@ const sendChannel = {
   }),
 };
 
+
+function sendChannelSend(m){
+  return sendChannel.send(m)
+}
+
+const sendRTC = debounce(sendChannelSend, 100);
+
 // Let createDelta;
 // let applyPatch;
 
@@ -160,7 +167,6 @@ bc.onmessage = async (event) => {
   }
 };
 
-const sendRTC = debounce(sendChannel.send, 100);
 
 export async function saveCode(sess: ICodeSession) {
   if (sess.i <= mST().i) return;
