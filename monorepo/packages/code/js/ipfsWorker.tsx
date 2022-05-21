@@ -42,7 +42,7 @@ async function startOrbit(codeSpace: string, ipfs: IPFS ){
 
   // Create / Open a database
 
-  const address = "/orbitdb/zdpuAxAofz2K6NjJcpYxWKYXCqarj2FMsZWANHLXzKWpj92m5/spike"
+const address = "/orbitdb/zdpuAxAofz2K6NjJcpYxWKYXCqarj2FMsZWANHLXzKWpj92m5/spike"
 
   const db = await orbitdb.open(address, { sync: true });
   // Listen for updates from peers
