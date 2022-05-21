@@ -27,7 +27,7 @@ async function startOrbit(codeSpace: string, ipfs: IPFS ){
   const orbitdb = await OrbitDB.createInstance(ipfs);
 
 
-  const address = "sometest"
+  const address = "/orbitdb/zdpuB1Rs22poucsDNKWuC2yAYL7q5GuaLgyBuJc4u699V3Uve/sometest"
 
  const db = await orbitdb.open(address, {
     // If database doesn't exist, create it
