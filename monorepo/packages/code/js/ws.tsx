@@ -364,7 +364,7 @@ async function processWsMessage(
       }
 
       if (data.type === "answer") {
-        await handleChatAnswerMessage(data, data.name);
+        await handleChatAnswerMessage(data.sdp, data.name);
 
         return;
       }
@@ -605,7 +605,7 @@ async function processWsMessage(
   }
 
   async function handleChatAnswerMessage(
-    sdp: { sdp: RTCSessionDescriptionInit },
+    offer:RTCSessionDescriptionInit,
     target: string,
   ) {
     log("*** Call recipient has accepted our call");
@@ -614,7 +614,7 @@ async function processWsMessage(
     // in our "answer" message.
 
     const desc = new RTCSessionDescription(
-      message.sdp,
+      offer.sdp,
     );
     // const desc = new RTCSessionDescription(message);
 
@@ -648,10 +648,11 @@ async function processWsMessage(
     log("---> Creating and sending answer to caller");
 
     await connections[target].setLocalDescription(
-      await connections[target].createAnswer(),
+      await connections[target].createAnswer({}),
+      
     );
 
-    ws!.send(JSON.stringify({
+    ws.send(JSON.stringify({
       target,
       name: user,
       type: "answer",
