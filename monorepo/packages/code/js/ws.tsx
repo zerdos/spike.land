@@ -18,7 +18,11 @@ const connections: {
   [target: string]: RTCPeerConnection;
 } = {}; // To st/ RTCPeerConnection
 
+<<<<<<< HEAD
 globalThis.connections = globalThis.connections || connections;
+=======
+globalThis.connections = connections;
+>>>>>>> dd96114050656fa63af76083fe7ec6589daf930d
 
 let wsLastHashCode = 0;
 let webRTCLastSeenHashCode = 0;
@@ -29,7 +33,7 @@ let sendWS: (msg: string) => void;
 let rejoined = false;
 const sendChannel = {
   webRtcArray,
-  connections,
+  connections: connections,
   send: ((data: { [key: string]: string | number }) => {
     const target = data.target;
     const messageString = JSON.stringify({
@@ -354,12 +358,12 @@ async function processWsMessage(
       }
 
       if (data.type === "new-ice-candidate") {
-        await handleNewICECandidateMessage(data, data.name);
+        await handleNewICECandidateMessage(data.candidate, data.name);
         return;
       }
 
       if (data.type === "offer") {
-        await handleChatOffer(data, data.name);
+        await handleChatOffer(data.sdp, data.name);
         return;
       }
 
@@ -605,7 +609,7 @@ async function processWsMessage(
   }
 
   async function handleChatAnswerMessage(
-    message: { sdp: RTCSessionDescriptionInit },
+    sdp: { sdp: RTCSessionDescriptionInit },
     target: string,
   ) {
     log("*** Call recipient has accepted our call");
@@ -622,14 +626,14 @@ async function processWsMessage(
   }
 
   async function handleChatOffer(
-    message: { sdp: RTCSessionDescriptionInit },
+    init: RTCSessionDescriptionInit ,
     target: string,
   ) {
     if (!connections[target]) await createPeerConnection(target);
 
-    if (!message.sdp) return;
+    if (!init) return;
 
-    const desc = new RTCSessionDescription(message.sdp);
+    const desc = new RTCSessionDescription(init.sdp);
     // const desc = new RTCSessionDescription(message);
 
     if (connections[target].signalingState != "stable") {
@@ -717,14 +721,12 @@ interface RTCIceCandidateInit {
 }
 
 async function handleNewICECandidateMessage(
-  message: {
-    candidate: RTCIceCandidateInit;
-  },
+  message: RTCIceCandidateInit,
   target: string,
 ) {
   log(
     "*** Adding received ICE candidate: " + JSON.stringify(message.candidate),
-  );
+  )
   const candidate = new RTCIceCandidate(message.candidate);
   // const candidate = new RTCIceCandidate(message);
 
