@@ -614,7 +614,7 @@ async function processWsMessage(
     // in our "answer" message.
 
     const desc = new RTCSessionDescription(
-      offer.sdp,
+      offer
     );
     // const desc = new RTCSessionDescription(message);
 
@@ -629,7 +629,7 @@ async function processWsMessage(
 
     if (!init) return;
 
-    const desc = new RTCSessionDescription(init.sdp);
+    const desc = new RTCSessionDescription(init);
     // const desc = new RTCSessionDescription(message);
 
     if (connections[target].signalingState != "stable") {
@@ -648,7 +648,7 @@ async function processWsMessage(
     log("---> Creating and sending answer to caller");
 
     await connections[target].setLocalDescription(
-      await connections[target].createAnswer({}),
+      await connections[target].createAnswer(),
 
     );
 
