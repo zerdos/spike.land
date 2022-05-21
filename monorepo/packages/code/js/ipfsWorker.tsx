@@ -27,12 +27,11 @@ async function startOrbit(codeSpace: string, ipfs: IPFS ){
   const orbitdb = await OrbitDB.createInstance(ipfs);
 
 
-  const address = "/orbitdb/zdpuAxAofz2K6NjJcpYxWKYXCqarj2FMsZWANHLXzKWpj92m5/spike"
+  const address = "sometest"
 
  const db = await orbitdb.open(address, {
     // If database doesn't exist, create it
     create: true, 
-    sync: true,
     overwrite: true,
     // Load only the local version of the database, 
     // don't load the latest from the network yet
