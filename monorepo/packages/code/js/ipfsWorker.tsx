@@ -158,7 +158,7 @@ export const ipfsWorker = async () => {
    
     connections.map(ports=>server.connect(ports[0]))
     
-    startOrbit();
+    startOrbit("logs", ipfs);
     function libp2pConfig() {
  
       /** @type {import('libp2p').Libp2pOptions} */
