@@ -24,27 +24,31 @@ async function startOrbit(codeSpace: string, ipfs: IPFS ){
 
 
   
-  const orbitdb = await OrbitDB.createInstance(ipfs as any, {
-  
-    create: true,
+  const orbitdb = await OrbitDB.createInstance(ipfs);
+
+
+  const address = "/orbitdb/zdpuAxAofz2K6NjJcpYxWKYXCqarj2FMsZWANHLXzKWpj92m5/spike"
+
+ const db = await orbitdb.open(address, {
+    // If database doesn't exist, create it
+    create: true, 
+    sync: true,
     overwrite: true,
-    // Load only the local version of the database,
+    // Load only the local version of the database, 
     // don't load the latest from the network yet
     localOnly: false,
     type: "eventlog",
     // If "Public" flag is set, allow anyone to write to the database,
     // otherwise only the creator of the database can write
     accessController: {
-      write: ["*"],
-    },
-  });
+      write:  ['*'],
+    }
+  })
 
 
   // Create / Open a database
 
-const address = "/orbitdb/zdpuAxAofz2K6NjJcpYxWKYXCqarj2FMsZWANHLXzKWpj92m5/spike"
 
-  const db = await orbitdb.open(address, { sync: true });
   // Listen for updates from peers
   db.events.on("replicated", (_address: string) => {
     console.log(db.iterator({ limit: -1 }).collect());
