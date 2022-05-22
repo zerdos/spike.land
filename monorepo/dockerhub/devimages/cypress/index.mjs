@@ -3,7 +3,7 @@ import { promises } from "fs";
 const { writeFile } = promises;
 
 const run = async () => {
-  const devGenerator = new DevcontainerGenerator("focal");
+  const devGenerator = new DevcontainerGenerator("jammy");
 
   devGenerator.setNodeVersion("lts");
   devGenerator.setXfce();

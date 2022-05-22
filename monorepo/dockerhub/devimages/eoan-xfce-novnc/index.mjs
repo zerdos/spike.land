@@ -3,7 +3,7 @@ import { promises } from "fs";
 const { writeFile } = promises;
 
 const run = async () => {
-  const devGenerator = new DevcontainerGenerator("focal"); // I know its not eoan - but eoan is not supported anymore
+  const devGenerator = new DevcontainerGenerator("jammy"); // I know its not eoan - but eoan is not supported anymore
 
   devGenerator.setXfce();
   devGenerator.setRemoteDesktop("noVNC");

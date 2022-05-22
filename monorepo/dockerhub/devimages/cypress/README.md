@@ -1,6 +1,6 @@
 ## Devcontainer
 
-- Base image: ubuntu:focal
+- Base image: ubuntu:jammy
 - Node: 16.15.0
 - Yarn: 1.22.19
 - Cypress 9.6.1
