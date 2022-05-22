@@ -6,8 +6,9 @@ import { render } from "react-dom";
 
 import { codeSpace, mySession } from "./ws";
 import { DraggableWindow } from "./DraggableWindow";
+import type {ReactNode} from "react"
 
-export const renderPreviewWindow = async (Editor) => {
+export const renderPreviewWindow = async (Editor: ReactNode) => {
   console.log("renderPreviewWindow");
 
   const target = document.createElement("div");

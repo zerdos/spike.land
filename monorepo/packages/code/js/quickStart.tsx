@@ -130,9 +130,9 @@ export async function quickStart() {
     "./renderPreviewWindow"
   );
 
-  const EditorNode = await isMobile()
+  const EditorNode: ReactNode = await (isMobile()
     ? (await import("./AceEditor")).AceEditor
-    : (await import("./MonacoEditor")).MonacoEditor;
+    : (await import("./MonacoEditor")).MonacoEditor);
   // const Editor = ()=>EditorNode;
 
   await renderPreviewWindow(EditorNode);

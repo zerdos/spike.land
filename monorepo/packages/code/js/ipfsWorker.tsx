@@ -5,9 +5,9 @@ const {
   IPFSService,
   Server,
 }  = require("ipfs-message-port-server")
-
+import config from "../../../node_modules/ipfs-core-config/esm/src/config.browser.js"
 import { WebRTCStar }  from "@libp2p/webrtc-star"
-import config from "../../../node_modules/ipfs-core-config/cjs/src/config.browser"
+
 //import OrbitDB from "orbit-db"
 //import { create } from "../../node_modules/ipfs-core/index.min.js"//;
 //import { create,  } from "ipfs-core"//;
@@ -20,14 +20,14 @@ import type * as IPFS  from "ipfs";
 
 
 
-async function startOrbit(codeSpace: string, ipfs: IPFS ){
+async function startOrbit(_codeSpace: string, ipfs: IPFS ){
 
 
   
   const orbitdb = await OrbitDB.createInstance(ipfs);
 
 
-  const address = "/orbitdb/zdpuB1Rs22poucsDNKWuC2yAYL7q5GuaLgyBuJc4u699V3Uve/sometest"
+  const address = " "
 
  const db = await orbitdb.open(address, {
     // If database doesn't exist, create it
@@ -53,7 +53,7 @@ async function startOrbit(codeSpace: string, ipfs: IPFS ){
     console.log(db.iterator({ limit: -1 }).collect());
   });
 
-  const query = (db:OrbitDB) => {
+  const query = (db: typeof OrbitDB) => {
     if (db.type === "eventlog") {
       return db.iterator({ limit: 5 }).collect();
     } else if (db.type === "feed") {
@@ -69,9 +69,13 @@ async function startOrbit(codeSpace: string, ipfs: IPFS ){
     }
   };
 
-  const queryAndRender = async (db) => {
-    const networkPeers = await ipfs.swarm.peers();
-    const databasePeers = await ipfs.pubsub.peers(db.address.toString());
+  let dbAddress = address;
+
+  const queryAndRender = async (db: typeof OrbitDB) => {
+    //const networkPeers = 
+    await ipfs.swarm.peers();
+    //const databasePeers = await 
+    ipfs.pubsub.peers(db.address.toString());
 
     const result = query(db);
     let dbType = result && result.type;
@@ -142,8 +146,6 @@ export const ipfsWorker = async () => {
     const server = new Server(service);
 
     
-  
-    self.server = server;
     self.ipfs = ipfs;
 
     //   console.log(db.iterator({ limit: -1 }).collect())

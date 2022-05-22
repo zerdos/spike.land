@@ -38,7 +38,7 @@ const sendChannel = {
     });
     webRtcArray.map((ch) => {
       try {
-        console.log("WEBRTC send", data, ch);
+        console.log("WebRtc send", data, ch);
 
         if (ch.readyState !== "open") return;
 
@@ -54,12 +54,6 @@ const sendChannel = {
   }),
 };
 
-
-function sendChannelSend(m){
-  return sendChannel.send(m)
-}
-
-const sendRTC = debounce(sendChannelSend, 50);
 
 // Let createDelta;
 // let applyPatch;
@@ -173,6 +167,7 @@ bc.onmessage = async (event) => {
 
 export async function saveCode(sess: ICodeSession) {
   if (sess.i <= mST().i) return;
+  if (connections!== globalThis.connections) return;
 
   const messageData = mySession.createPatch(sess);
   await mySession.applyPatch(messageData);
@@ -197,7 +192,7 @@ export async function saveCode(sess: ICodeSession) {
         : mySession.createPatch(sess);
       if (message && message.patch !== "") {
         console.log("sendRTC");
-        sendRTC(message);
+        sendChannel.send(message);
       }
     } catch (e) {
       console.error("Error sending RTC...", { e });
@@ -243,7 +238,7 @@ export async function join() {
     ws = wsConnection;
     const mess = (data: string) => {
       try {
-        ws && ws.send && ws.send(data);
+        ws && ws?.send && ws?.send(data);
       } catch (e) {
         ws = null;
         rejoin();
@@ -257,7 +252,7 @@ export async function join() {
     // if (delta) {
     //   if (delta !== deltaSent) {
     //     deltaSent = delta;
-    //     ws.send(JSON.stringify({
+    //     ws?.send(JSON.stringify({
     //       type: "delta",
     //     }));
     //   }
@@ -454,7 +449,7 @@ async function processWsMessage(
       if (event.candidate) {
         log("*** Outgoing ICE candidate: " + event.candidate);
 
-        ws.send(JSON.stringify({
+        ws?.send(JSON.stringify({
           type: "new-ice-candidate",
           target,
           name: user,
@@ -557,7 +552,7 @@ async function processWsMessage(
         const offer = await connections[target].createOffer();
 
         if (connections[target].signalingState != "stable") {
-          log("     -- The connection isn't stable yet; postponing...");
+          log("The connection isn't stable yet; postponing...");
           return;
         }
 
@@ -570,7 +565,7 @@ async function processWsMessage(
         // Send the offer to the remote peer.
 
         log("---> Sending the offer to the remote peer");
-        ws.send(JSON.stringify({
+        ws?.send(JSON.stringify({
           target,
           name: user,
           type: "offer",
@@ -651,7 +646,7 @@ async function processWsMessage(
       answer
     );
 
-    ws.send(JSON.stringify({
+    ws?.send(JSON.stringify({
       target,
       name: user,
       type: "answer",

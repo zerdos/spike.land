@@ -1,7 +1,7 @@
 import Prettier from "prettier/esm/standalone.mjs";
 import parserBabel from "prettier/esm/parser-babel.mjs";
 import parserHtml from "prettier/esm/parser-html.mjs";
-import parserPostcss from "prettier/esm/parser-postcss.mjs";
+import parserPostcss from "prettier/esm/parser-postcss";
 
 const jsOptions = {
   arrowParens: "always",
