@@ -33,7 +33,9 @@ export const appFactory = async (transpiled: string) => {
   if (globalThis.App && globalThis.App === apps[result]) return;
 
   globalThis.App = apps[result] ||
-    (await import(createJsBlob(transpiled))).default;
+    (await import(
+      /* @vite-ignore */
+      createJsBlob(transpiled))).default;
   globalThis.transpiled = transpiled;
 
   apps[result] = globalThis.App;

@@ -4,7 +4,7 @@ import bg from "./assets/synthwave.webp";
 import path from "path-browserify";
 import { render } from "react-dom";
 
-import { codeSpace, mySession } from "./ws";
+import { codeSpace } from "./ws";
 import { DraggableWindow } from "./DraggableWindow";
 import type { ReactNode } from "react";
 
@@ -24,7 +24,6 @@ export const renderPreviewWindow = async (Editor: ReactNode) => {
         //   model.setValue(mST().code);
         // }}
         room={codeSpace}
-        hashCode={mySession.hashCode()}
       />
     </>,
     target,
