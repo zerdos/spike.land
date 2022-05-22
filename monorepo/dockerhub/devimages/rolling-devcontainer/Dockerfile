@@ -170,7 +170,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends zsh \
 # \
 #  && chsh -s /usr/bin/zsh ${USER}
 
-
+RUN mkdir -p /workspace/node_modules && chown  ${USER}:${USER} /workspace  /workspace/node_modules
 USER ${USER}
 
 ENV SHELL=/usr/bin/zsh
