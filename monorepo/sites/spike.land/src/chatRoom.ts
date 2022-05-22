@@ -14,7 +14,7 @@ import type {
   INewWSConnection,
 } from "@spike.land/code/js/session";
 import { startSession } from "@spike.land/code/js/session";
-
+// import { prettier } from "./prettier";
 import imap from "@spike.land/code/js/importmap.json";
 
 interface IState extends DurableObjectState {
@@ -131,7 +131,8 @@ export class Code {
               });
             }
           }
-          return new Response(JSON.stringify(mST()), {
+        case "prettier":
+          return new Response(prettier(mST().code), {
             status: 200,
             headers: {
               "Access-Control-Allow-Origin": "*",
