@@ -14,8 +14,6 @@ const run = async () => {
   devGenerator.setDeno();
   devGenerator.setCypress();
   devGenerator.setDocker();
-
-  // devGenerator.dot
   devGenerator.setVscode();
 
   const { Dockerfile, README } = await devGenerator.generate();
