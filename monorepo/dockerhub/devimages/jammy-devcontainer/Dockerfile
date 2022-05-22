@@ -96,6 +96,75 @@ RUN ARCH= && dpkgArch="$(dpkg --print-architecture)" \
   && node --version \
   && npm --version  \
   && npm i -g npm yarn
+### dotnet.Dockerfile
+
+ENV \
+    # Unset ASPNETCORE_URLS from aspnet base image
+    ASPNETCORE_URLS= \
+    # Do not generate certificate
+    DOTNET_GENERATE_ASPNET_CERTIFICATE=false \
+    # Do not show first run text
+    DOTNET_NOLOGO=true \
+    # Enable correct mode for dotnet watch (only mode supported in a container)
+    DOTNET_USE_POLLING_FILE_WATCHER=true \
+    # Unset Logging__Console__FormatterName from aspnet base image
+    Logging__Console__FormatterName= \
+    # Skip extraction of XML docs - generally not useful within an image/container - helps performance
+    NUGET_XMLDOC_MODE=skip \
+    # PowerShell telemetry for docker image usage
+    POWERSHELL_DISTRIBUTION_CHANNEL=PSDocker-DotnetSDK-Debian-11
+
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends \
+        curl \
+        git \
+        wget \
+    && rm -rf /var/lib/apt/lists/*
+
+ENV DOTNET_SDK_VERSION="6.0.300"
+
+
+# Install .NET SDK
+RUN curl -SL --output dotnet.tar.gz https://dotnetcli.azureedge.net/dotnet/Sdk/${DOTNET_SDK_VERSION}/dotnet-sdk-${DOTNET_SDK_VERSION}-linux-x64.tar.gz \
+    && echo "52d720e90cfb889a92d605d64e6d0e90b96209e1bd7eab00dab1d567017d7a5a4ff4adbc55aff4cffcea4b1bf92bb8d351859d00d8eb65059eec5e449886c938  dotnet.tar.gz" | sha512sum -c - \
+    && mkdir -p /usr/share/dotnet \
+    && tar -zxf dotnet.tar.gz -C /usr/share/dotnet \
+    && rm dotnet.tar.gz \
+    && ln -s /usr/share/dotnet/dotnet /usr/bin/dotnet \
+    # Trigger first run experience
+    && dotnet help
+
+
+# Configure web servers to bind to port 80 when present
+ENV ASPNETCORE_URLS=http://+:80 \
+    # Enable detection of running in a container
+    DOTNET_RUNNING_IN_CONTAINER=true \
+    # Enable correct mode for dotnet watch (only mode supported in a container)
+    NUGET_XMLDOC_MODE=skip
+
+## cypress.Dockerfile
+
+RUN apt-get update \
+&& apt-get install --no-install-recommends -y \
+  libgtk2.0-0 \
+  libgtk-3-0 \
+  libnotify-dev \
+  libgconf-2-4 \
+  libnss3 \
+  libxss1 \
+  unzip \
+  libasound2 \
+  libxtst6 \
+  xvfb \
+&& apt-get autoremove -y \
+&& apt-get clean -y \
+&& rm -rf /var/lib/apt/lists/* 
+
+USER ${USER}
+ 
+RUN yarn global add cypress@9.6.1
+
+USER root
 ### noVNC.Dockerfile
 
 RUN  apt-get update \
@@ -142,6 +211,63 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/* 
 
     
+### chromium.Dockerfile
+RUN  curl -sSL  https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - \
+    && echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list \
+    && apt-get update && apt-get install -y --no-install-recommends \  
+    ## firefox 
+    google-chrome-stable \
+     && apt-get autoremove -y \
+  && apt-get clean -y \
+  && rm -rf /var/lib/apt/lists/* 
+  # && mv /usr/bin/google-chrome /usr/bin/google-chrome-bin \
+  # && mv /usr/bin/google-chrome-stable /usr/bin/google-chrome-stable-bin \
+  # && echo "/usr/bin/google-chrome-bin --no-sandbox" > /usr/bin/google-chrome \
+  # && echo "/usr/bin/google-chrome-stable-bin --no-sandbox" > /usr/bin/google-chrome-stable \
+  # && chmod +x /usr/bin/google-chrome \
+  # && chmod +x /usr/bin/google-chrome-stable  
+  
+ENV QT_X11_NO_MITSHM=1
+ENV _X11_NO_MITSHM=1
+ENV _MITSHM=0
+### vscode.Dockerfile
+RUN  curl -sSL https://packages.microsoft.com/keys/microsoft.asc | apt-key add - \
+    && echo "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main" >> /etc/apt/sources.list.d/vscode.list \
+    && apt-get update && apt-get install -y  code libxtst6 openssh-server \
+     && apt-get autoremove -y \
+  && apt-get clean -y \
+  && rm -rf /var/lib/apt/lists/* 
+#   && sed -i -e 's/\/usr\/bin\/code/\/usr\/share\/code\/code --user-data-dir /g' /usr/share/applications/code.desktop 
+# docker.Dockerfile
+RUN ARCH= && dpkgArch="$(dpkg --print-architecture)" \
+  && case "${dpkgArch##*-}" in \
+    amd64) ARCH='amd64';; \
+    ppc64el) ARCH='ppc64le';; \
+    s390x) ARCH='s390x';; \
+    arm64) ARCH='arm64';; \
+    armhf) ARCH='armv7l';; \
+    i386) ARCH='x86';; \
+    *) echo "unsupported architecture"; exit 1 ;; \
+  esac \
+  # gpg keys listed at https://github.com/nodejs/node#release-keys
+  && set -ex \
+   && curl -fsSL https://download.docker.com/linux/debian/gpg | apt-key add - \
+    && add-apt-repository \
+         "deb [arch=$ARCH] https://download.docker.com/linux/ubuntu jammy stable" \
+       && apt-get install --no-install-recommends -y \
+        docker-ce \
+        docker-ce-cli \
+    && curl -L  \
+        https://github.com/docker/compose/releases/download/v2.5.1/docker-compose-`uname -s`-`uname -m` \
+        -o /usr/local/bin/docker-compose \
+    && chmod +x /usr/local/bin/docker-compose \
+    && usermod -G docker -a ${USER} \
+    && apt-get autoremove -y \
+    && apt-get clean -y \
+    && rm -rf /var/lib/apt/lists/* 
+
+ENV COMPOSE_DOCKER_CLI_BUILD=1
+ENV DOCKER_BUILDKIT=1
 ### zsh.Dockerfie
 
 RUN apt-get update && apt-get install -y --no-install-recommends zsh \
@@ -158,6 +284,27 @@ ENV SHELL=/usr/bin/zsh
 RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" \
     && sed -i -e 's/plugins=(git)/plugins=(git gitfast git-extras npm yarn)/g'  ~/.zshrc \
     && touch  ~/.bashrc && echo ":)" >  ~/.mood
+### deno.Dockerfile
+
+USER 0
+RUN apt-get update && apt-get install -y --no-install-recommends unzip \
+     && apt-get autoremove -y \
+  && apt-get clean -y \
+  && rm -rf /var/lib/apt/lists/* 
+
+USER ${USER}
+RUN curl -fsSL https://deno.land/x/install/install.sh | sh -s v1.21.3 \
+  && echo "export DENO_INSTALL=\"\${HOME}/.deno\"" >> ${HOME}/.zshrc \
+  && echo "export DENO_INSTALL=\"\${HOME}/.deno\"" >> ${HOME}/.bashrc \
+  && echo "export PATH=\"\$DENO_INSTALL/bin:\$PATH\"" >> ${HOME}/.bashrc \
+  && echo "export PATH=\"\$DENO_INSTALL/bin:\$PATH\"" >> ${HOME}/.zshrc
+
+USER 0
+RUN ln /home/${USER}/.deno/bin/deno /usr/bin
+
+USER ${USER}
+
+  
 ### suffix.Dockerfie
 
 

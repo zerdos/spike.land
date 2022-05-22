@@ -11,14 +11,14 @@ services:
   #     - .:/exportdevcontainer
   devcontainer: 
     image: devimages/jammy-devcontainer:latest
-    build: 
-      context: .
-      dockerfile: ./monorepo/dockerhub/devimages/jammy-devcontainer/Dockerfile
+    # build: 
+    #   context: .
+    #   dockerfile: ./monorepo/dockerhub/devimages/jammy-devcontainer/Dockerfile
     ports: 
       - 5901:5901
       - 6080:6080
     privileged: true
-    shm_size: 4gb
+    shm_size: 2gb
     volumes:
       # - $HOME:/home/$USER/host:delegated
       - .:/workspace
