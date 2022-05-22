@@ -13,7 +13,6 @@ const run = async () => {
   devGenerator.setDotnet("6");
   devGenerator.setDeno();
   devGenerator.setCypress();
-  devGenerator.setDocker();
   devGenerator.setVscode();
 
   const { Dockerfile, README } = await devGenerator.generate();

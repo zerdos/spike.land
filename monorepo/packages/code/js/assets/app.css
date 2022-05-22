@@ -37,7 +37,7 @@ body {
 }
 
 #monacoEditor {
-  max-width: min(640px, 100%);
+  max-width: min(800px, 100%);
   height: 100vh;
   max-height: 100vh;
 }

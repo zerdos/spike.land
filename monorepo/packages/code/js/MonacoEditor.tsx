@@ -49,7 +49,7 @@ export const MonacoEditor = () => {
   return (
     <div
       css={css`
-  max-width: 640px;
+  max-width: 800px;
   height: 100vh;
   /* background-color: #ffffff; */
   max-height: 100vh; 
