@@ -16,7 +16,9 @@ ENV \
     # Skip extraction of XML docs - generally not useful within an image/container - helps performance
     NUGET_XMLDOC_MODE=skip \
     # PowerShell telemetry for docker image usage
-    POWERSHELL_DISTRIBUTION_CHANNEL=PSDocker-DotnetSDK-Ubuntu-22.04
+    POWERSHELL_DISTRIBUTION_CHANNEL=PSDocker-DotnetSDK-Ubuntu-22.04 \
+    PATH=/usr/share/dotnet:$PATH
+
 
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
@@ -35,7 +37,7 @@ RUN curl -fSL --output dotnet.tar.gz https://dotnetcli.azureedge.net/dotnet/Sdk/
     && rm dotnet.tar.gz \
     && ln -s /usr/share/dotnet/dotnet /usr/bin/dotnet \
     # Trigger first run experience by running arbitrary cmd
-    && dotnet help
+    && /usr/share/ditdotnet help
 
 # Install PowerShell global tool
 RUN powershell_version=7.2.3 \
