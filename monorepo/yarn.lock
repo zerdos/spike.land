@@ -7329,10 +7329,10 @@ modify-values@^1.0.0:
   resolved "https://registry.yarnpkg.com/modify-values/-/modify-values-1.0.1.tgz#b3939fa605546474e3e3e3c63d64bd43b4ee6022"
   integrity sha512-xV2bxeN6F7oYjZWTe/YPAy6MN2M+sL4u/Rlm2AHCIVGfo2p1yGmBHQ6vHehl4bRTZBdHu3TSkWdYgkwpYzAGSw==
 
-monaco-editor@0.34.0-dev.20220521:
-  version "0.34.0-dev.20220521"
-  resolved "https://registry.yarnpkg.com/monaco-editor/-/monaco-editor-0.34.0-dev.20220521.tgz#ca3dc2a02970bfdcdfcce5fc2f3eb03bbde25df0"
-  integrity sha512-n+kMDgSWz+ghLNopvvGNdJTu/hg9YstBoBENsWegGDC+iqJEvO7tKRYSOssAkXRZf6uYGaLnL5vtUH5br5AUKg==
+monaco-editor@0.34.0-dev.20220522:
+  version "0.34.0-dev.20220522"
+  resolved "https://registry.yarnpkg.com/monaco-editor/-/monaco-editor-0.34.0-dev.20220522.tgz#a4c5677eeb23b4f6469a0252d6836c5425caf657"
+  integrity sha512-U0hGGaWI//o9ID3woLN1vgHmcA6c0HnGwjLRNzD+FVbMZ8/jP6205XMGSD2yVjqFTtylVmu63+mYCSt1KRnFdw==
 
 mortice@^2.0.0, mortice@^2.0.1:
   version "2.0.1"
