@@ -6,8 +6,6 @@ var src_default = {
     } catch (Error) {
       return new Response(`Yayy... ${Object.prototype.toString.call(Error)}`);
     }
-  }
+  },
 };
-export {
-  src_default as default
-};
+export { src_default as default };

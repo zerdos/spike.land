@@ -21,7 +21,6 @@ const getIpfsPort = () =>
 const ipfsSw = async () => {
   const ipfs = IPFSClient.from(getIpfsPort());
 
-
   navigator.serviceWorker.onmessage = (e) => onServiceWorkerMessage(e);
 
   // @ts-ignore - register expects string but webPack requires this URL hack.

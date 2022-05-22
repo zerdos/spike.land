@@ -24,26 +24,22 @@ const workerEntryPoints = [
   "vs/editor/editor.worker.js",
 ].map((entry) => `monaco-editor/esm/${entry}`);
 
-
-const define= {
+const define = {
   "process.env.NODE_ENV": `"${environment}"`,
   "process.env.NODE_DEBUG": false,
   "process.env.DEBUG": false,
   "process.env.DUMP_SESSION_KEYS": false,
-  "process": JSON.stringify({env: {}}),
-  "global": "self"
+  "process": JSON.stringify({ env: {} }),
+  "global": "self",
 };
 
 const buildOptions = {
- define,
- target: "es2018", 
- platform: "browser",
+  define,
+  target: "es2018",
+  platform: "browser",
   legalComments: "none",
   plugins: [importMapPlugin, jsxImportSourcePlugin({ filter: /.(tsx)/ })],
-   
-
-
-}
+};
 
 await esbuild.build({
   ...buildOptions,
@@ -107,7 +103,7 @@ const build = (entryPoints) =>
       ".ttf",
       ".workerJS",
     ],
-    
+
     define,
     loader: {
       ".ttf": "file",
@@ -149,7 +145,6 @@ const buildNoImportMap = (entryPoints) =>
 
     // inject: ["./js/react-shim.mjs"],
 
-
     allowOverwrite: true,
 
     // external: ["react", "react-dom", "framer-motion", "tslib", "@emotion/react"],
@@ -166,7 +161,6 @@ const buildNoImportMap = (entryPoints) =>
       ".ttf",
       ".workerJS",
     ],
-
 
     loader: {
       ".ttf": "file",

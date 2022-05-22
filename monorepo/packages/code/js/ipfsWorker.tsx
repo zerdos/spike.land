@@ -1,52 +1,44 @@
-Object.assign(self, require("buffer"))
-const OrbitDB = require("orbit-db")
-const {create} = require("ipfs-core")
+Object.assign(self, require("buffer"));
+const OrbitDB = require("orbit-db");
+const { create } = require("ipfs-core");
 const {
   IPFSService,
   Server,
-}  = require("ipfs-message-port-server")
-import config from "../../../node_modules/ipfs-core-config/esm/src/config.browser.js"
-import { WebRTCStar }  from "@libp2p/webrtc-star"
+} = require("ipfs-message-port-server");
+import config from "../../../node_modules/ipfs-core-config/esm/src/config.browser.js";
+import { WebRTCStar } from "@libp2p/webrtc-star";
 
 //import OrbitDB from "orbit-db"
 //import { create } from "../../node_modules/ipfs-core/index.min.js"//;
 //import { create,  } from "ipfs-core"//;
 
-import type {} from "orbit-db"
-import type * as IPFS  from "ipfs";
+import type {} from "orbit-db";
+import type * as IPFS from "ipfs";
 // } from "../../node_modules/ipfs-message-port-server/index.min.js";
 // importScripts('https://unpkg.com/ipfs@0.62.3/index.min.js');
 // importScripts('https://unpkg.com/ipfs-message-port-server@0.11.3/index.min.js');
 
-
-
-async function startOrbit(_codeSpace: string, ipfs: IPFS ){
-
-
-  
+async function startOrbit(_codeSpace: string, ipfs: IPFS) {
   const orbitdb = await OrbitDB.createInstance(ipfs);
 
+  const address = "zed";
 
-  const address = "zed"
-
- const db = await orbitdb.open(address, {
+  const db = await orbitdb.open(address, {
     // If database doesn't exist, create it
-    create: true, 
+    create: true,
     overwrite: true,
-    // Load only the local version of the database, 
+    // Load only the local version of the database,
     // don't load the latest from the network yet
     localOnly: false,
     type: "eventlog",
     // If "Public" flag is set, allow anyone to write to the database,
     // otherwise only the creator of the database can write
     accessController: {
-      write:  ['*'],
-    }
-  })
-
+      write: ["*"],
+    },
+  });
 
   // Create / Open a database
-
 
   // Listen for updates from peers
   db.events.on("replicated", (_address: string) => {
@@ -72,9 +64,9 @@ async function startOrbit(_codeSpace: string, ipfs: IPFS ){
   let dbAddress = address;
 
   const queryAndRender = async (db: typeof OrbitDB) => {
-    //const networkPeers = 
+    //const networkPeers =
     await ipfs.swarm.peers();
-    //const databasePeers = await 
+    //const databasePeers = await
     ipfs.pubsub.peers(db.address.toString());
 
     const result = query(db);
@@ -96,7 +88,10 @@ async function startOrbit(_codeSpace: string, ipfs: IPFS ){
     if (
       event.data.codeSpace && event.data.messageData
     ) {
-      const hash = await db.add({ ...event.data.messageData, codeSpace: event.data.codeSpace });
+      const hash = await db.add({
+        ...event.data.messageData,
+        codeSpace: event.data.codeSpace,
+      });
       console.log(hash);
     }
   };
@@ -109,7 +104,7 @@ async function startOrbit(_codeSpace: string, ipfs: IPFS ){
 
 export const ipfsWorker = async () => {
   try {
-    console.log("Ipfs worker start")
+    console.log("Ipfs worker start");
     // start listening to all incoming connections - they will be from browsing
     // contexts that run `new SharedWorker(...)`
     // Note: It is important to start listening before we do any async work to
@@ -118,24 +113,22 @@ export const ipfsWorker = async () => {
     const webRtcStar = new WebRTCStar();
 
     const connections: MessagePort[][] = [];
-    self.addEventListener("connect", ({ports}:MessageEventInit) => ports && connections.push(ports))
+    self.addEventListener(
+      "connect",
+      ({ ports }: MessageEventInit) => ports && connections.push(ports),
+    );
     // queue connections that occur while node was starting.
-   
 
-    const defaultConfig=config();
+    const defaultConfig = config();
     const ipfs = await create({
-      
       config: {
         ...defaultConfig,
- 
-        Pubsub: {Enabled: true},
 
+        Pubsub: { Enabled: true },
         // ...libp2pConfig()
       },
-      
-      
-      libp2p:libp2pConfig()
 
+      libp2p: libp2pConfig(),
       //isWebWorker: true
       // ...libp2pConfig(),
     });
@@ -145,7 +138,6 @@ export const ipfsWorker = async () => {
     const service = new IPFSService(ipfs);
     const server = new Server(service);
 
-    
     self.ipfs = ipfs;
 
     //   console.log(db.iterator({ limit: -1 }).collect())
@@ -157,15 +149,16 @@ export const ipfsWorker = async () => {
 
     // connect every queued and future connection to the server
     // self.onconnect = ({ ports }) => server.connect(ports[0]);
-    
-    addEventListener("connect",({ports}: MessageEventInit)=>ports && server.connect(ports[0]))
-   
-   
-    connections.map(ports=>server.connect(ports[0]))
-    
+
+    addEventListener(
+      "connect",
+      ({ ports }: MessageEventInit) => ports && server.connect(ports[0]),
+    );
+
+    connections.map((ports) => server.connect(ports[0]));
+
     startOrbit("logs", ipfs);
     function libp2pConfig() {
- 
       /** @type {import('libp2p').Libp2pOptions} */
       const options = {
         transports: [
@@ -187,15 +180,13 @@ export const ipfsWorker = async () => {
           enabled: true,
         },
       };
-    
+
       return options;
     }
-    
+
     // const result = db.iterator({ limit: -1 }).collect()
     // console.log(JSON.stringify(result, null, 2))
   } catch (err) {
     console.error(err);
   }
 };
-
-

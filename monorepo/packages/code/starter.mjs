@@ -1,1 +1,1 @@
-export {appFactory} from "./js/starter";
+export { appFactory } from "./js/starter";

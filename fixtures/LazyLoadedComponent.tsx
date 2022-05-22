@@ -23,7 +23,6 @@ export const LazySpikeLandComponent: FC<ILaztCom> = ({
   startApp,
   children,
 }) => {
-  
   const LazyComponentInit = (transpiled: string) =>
     lazy(async () => import(createJsBlob(transpiled)));
 

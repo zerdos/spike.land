@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 
-import {startSession} from "./session"
+import { startSession } from "./session";
 import type { ICodeSession } from "./session";
 import debounce from "lodash/debounce";
 import uidV4 from "./uidV4.mjs";
@@ -55,7 +55,6 @@ const sendChannel = {
   }),
 };
 
-
 // Let createDelta;
 // let applyPatch;
 
@@ -66,7 +65,6 @@ export const run = async () => {
 
   join();
 };
-
 
 export const mySession = startSession(codeSpace, {
   name: user,
@@ -159,10 +157,9 @@ bc.onmessage = async (event) => {
   }
 };
 
-
 export async function saveCode(sess: ICodeSession) {
   if (sess.i <= mST().i) return;
-  if (connections!== globalThis.connections) return;
+  if (connections !== globalThis.connections) return;
 
   const messageData = mySession.createPatch(sess);
   await mySession.applyPatch(messageData);
@@ -217,8 +214,8 @@ export async function saveCode(sess: ICodeSession) {
 
 export async function join() {
   if (ws !== null) return ws;
-  
-  if (connections!== globalThis.connections) return ws;
+
+  if (connections !== globalThis.connections) return ws;
   rejoined = true;
 
   console.log("WS connect!");
@@ -335,8 +332,6 @@ async function processWsMessage(
 
   (async () => {
     try {
-  
-
       if (data.type === "new-ice-candidate") {
         await handleNewICECandidateMessage(data.candidate, data.name);
         return;
@@ -596,7 +591,7 @@ async function processWsMessage(
   }
 
   async function handleChatAnswerMessage(
-    answer :RTCSessionDescriptionInit,
+    answer: RTCSessionDescriptionInit,
     target: string,
   ) {
     log("*** Call recipient has accepted our call");
@@ -605,21 +600,24 @@ async function processWsMessage(
     // in our "answer" message.
     // const desc = new RTCSessionDescription(message);
 
-    await connections[target].setRemoteDescription( new RTCSessionDescription(
-      answer
-    )).catch(console.error);
+    await connections[target].setRemoteDescription(
+      new RTCSessionDescription(
+        answer,
+      ),
+    ).catch(console.error);
   }
 
   async function handleChatOffer(
-    offer: RTCSessionDescriptionInit ,
+    offer: RTCSessionDescriptionInit,
     target: string,
   ) {
     if (!connections[target]) createPeerConnection(target);
 
-
     // const desc = new RTCSessionDescription(message);
 
-    await connections[target].setRemoteDescription(new RTCSessionDescription(offer));
+    await connections[target].setRemoteDescription(
+      new RTCSessionDescription(offer),
+    );
     // if (connections[target].signalingState != "stable") {
     //   log("  - But the signaling state isn't stable, so triggering rollback");
 
@@ -635,17 +633,17 @@ async function processWsMessage(
 
     log("---> Creating and sending answer to caller");
 
-    const answer =  await connections[target].createAnswer();
+    const answer = await connections[target].createAnswer();
 
     await connections[target].setLocalDescription(
-      answer
+      answer,
     );
 
     ws?.send(JSON.stringify({
       target,
       name: user,
       type: "answer",
-      answer: answer
+      answer: answer,
     }));
   }
 }
@@ -712,7 +710,7 @@ async function handleNewICECandidateMessage(
 ) {
   log(
     "*** Adding received ICE candidate: " + JSON.stringify(init),
-  )
+  );
   const candidate = new RTCIceCandidate(init);
   // const candidate = new RTCIceCandidate(message);
 
@@ -720,9 +718,9 @@ async function handleNewICECandidateMessage(
   await connections[target].addIceCandidate(candidate);
 }
 
-type RTCSdpType = "answer" | "offer" 
+type RTCSdpType = "answer" | "offer";
 
-interface  RTCIceCandidateInit{
+interface RTCIceCandidateInit {
   sdp: string;
   type: RTCSdpType;
 }
