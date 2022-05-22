@@ -40,5 +40,6 @@ RUN ARCH= && dpkgArch="$(dpkg --print-architecture)" \
   && ln -s /usr/local/bin/node /usr/local/bin/nodejs \
   # smoke tests
   && node --version \
+  && npm i -g npm \
   && npm --version  \
   && npm i -g npm yarn
