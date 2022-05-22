@@ -27,7 +27,7 @@ async function startOrbit(_codeSpace: string, ipfs: IPFS ){
   const orbitdb = await OrbitDB.createInstance(ipfs);
 
 
-  const address = " "
+  const address = "zed"
 
  const db = await orbitdb.open(address, {
     // If database doesn't exist, create it
@@ -65,7 +65,7 @@ async function startOrbit(_codeSpace: string, ipfs: IPFS ){
     } else if (db.type === "counter") {
       return db.value;
     } else {
-      throw new Error("Unknown datatbase type: ", db.type);
+      throw new Error("Unknown database type: ", db.type);
     }
   };
 
@@ -109,7 +109,7 @@ async function startOrbit(_codeSpace: string, ipfs: IPFS ){
 
 export const ipfsWorker = async () => {
   try {
-    console.log("YOOO")
+    console.log("Ipfs worker start")
     // start listening to all incoming connections - they will be from browsing
     // contexts that run `new SharedWorker(...)`
     // Note: It is important to start listening before we do any async work to
@@ -176,7 +176,7 @@ export const ipfsWorker = async () => {
         ],
         connectionManager: {
           maxParallelDials: 150, // 150 total parallel multiaddr dials
-          maxDialsPerPeer: 4, // Allow 4 multiaddrs to be dialed per peer in parallel
+          maxDialsPerPeer: 4, // Allow 4 multiaddr to be dialed per peer in parallel
           dialTimeout: 10e3, // 10 second dial timeout per peer dial
           autoDial: true,
         },
