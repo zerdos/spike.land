@@ -345,13 +345,7 @@ async function processWsMessage(
 
   (async () => {
     try {
-      if (
-        data.name && data.name !== user &&
-        !connections[data.name as keyof typeof connections]
-      ) {
-        await createPeerConnection(data.name);
-        return;
-      }
+  
 
       if (data.type === "new-ice-candidate") {
         await handleNewICECandidateMessage(data.candidate, data.name);
@@ -359,13 +353,20 @@ async function processWsMessage(
       }
 
       if (data.type === "offer") {
-        await handleChatOffer(data.sdp, data.name);
+        await handleChatOffer(data.offer, data.name);
         return;
       }
 
       if (data.type === "answer") {
-        await handleChatAnswerMessage(data.sdp, data.name);
+        await handleChatAnswerMessage(data.answer, data.name);
 
+        return;
+      }
+      if (
+        data.name && data.name !== user &&
+        !connections[data.name as keyof typeof connections]
+      ) {
+        await createPeerConnection(data.name);
         return;
       }
     } catch (error) {
@@ -433,7 +434,7 @@ async function processWsMessage(
     return;
   }
 
-  async function createPeerConnection(target: string) {
+  function createPeerConnection(target: string) {
     log(`Setting up a connection with ${target}`);
     if (connections[target]) {
       log(`Aborting, since we have connection with this ${target}`);
@@ -453,11 +454,11 @@ async function processWsMessage(
       if (event.candidate) {
         log("*** Outgoing ICE candidate: " + event.candidate);
 
-        ws!.send(JSON.stringify({
+        ws.send(JSON.stringify({
           type: "new-ice-candidate",
           target,
           name: user,
-          candidate: event.candidate,
+          candidate: event.candidate.toJSON(),
         }));
       }
     };
@@ -569,11 +570,11 @@ async function processWsMessage(
         // Send the offer to the remote peer.
 
         log("---> Sending the offer to the remote peer");
-        ws!.send(JSON.stringify({
+        ws.send(JSON.stringify({
           target,
           name: user,
           type: "offer",
-          sdp: connections[target].localDescription,
+          offer: connections[target].localDescription,
         }));
       } catch {
         log(
@@ -605,59 +606,56 @@ async function processWsMessage(
   }
 
   async function handleChatAnswerMessage(
-    offer:RTCSessionDescriptionInit,
+    answer :RTCSessionDescriptionInit,
     target: string,
   ) {
     log("*** Call recipient has accepted our call");
 
     // Configure the remote description, which is the SDP payload
     // in our "answer" message.
-
-    const desc = new RTCSessionDescription(
-      offer
-    );
     // const desc = new RTCSessionDescription(message);
 
-    await connections[target].setRemoteDescription(desc).catch(console.error);
+    await connections[target].setRemoteDescription( new RTCSessionDescription(
+      answer
+    )).catch(console.error);
   }
 
   async function handleChatOffer(
-    init: RTCSessionDescriptionInit ,
+    offer: RTCSessionDescriptionInit ,
     target: string,
   ) {
-    if (!connections[target]) await createPeerConnection(target);
+    if (!connections[target]) createPeerConnection(target);
 
-    if (!init) return;
 
-    const desc = new RTCSessionDescription(init);
     // const desc = new RTCSessionDescription(message);
 
-    await connections[target].setRemoteDescription(desc);
-    if (connections[target].signalingState != "stable") {
-      log("  - But the signaling state isn't stable, so triggering rollback");
+    await connections[target].setRemoteDescription(new RTCSessionDescription(offer));
+    // if (connections[target].signalingState != "stable") {
+    //   log("  - But the signaling state isn't stable, so triggering rollback");
 
-      await Promise.all([
-        connections[target].setLocalDescription({ type: "rollback" }),
-        connections[target].setRemoteDescription(desc),
-      ]);
-      return;
-    }
+    //   await Promise.all([
+    //     connections[target].setLocalDescription({ type: "rollback" }),
+    //     connections[target].setRemoteDescription(new RTCSessionDescription(offer)),
+    //   ]);
+    //   return;
+    // }
 
-    log("  - Setting remote description");
-    await connections[target].setRemoteDescription(desc);
+    // log("  - Setting remote description");
+    // await connections[target].setRemoteDescription(desc);
 
     log("---> Creating and sending answer to caller");
 
-    await connections[target].setLocalDescription(
-      await connections[target].createAnswer(),
+    const answer =  await connections[target].createAnswer();
 
+    await connections[target].setLocalDescription(
+      answer
     );
 
     ws.send(JSON.stringify({
       target,
       name: user,
       type: "answer",
-      sdp: connections[target].localDescription,
+      answer: answer
     }));
   }
 }
@@ -732,9 +730,9 @@ async function handleNewICECandidateMessage(
   await connections[target].addIceCandidate(candidate);
 }
 
-type RTCSdpType = "answer" | "offer" | "pranswer" | "rollback";
+type RTCSdpType = "answer" | "offer" 
 
-interface RTCSessionDescriptionInit {
-  sdp?: string;
+interface  RTCIceCandidateInit{
+  sdp: string;
   type: RTCSdpType;
 }
