@@ -1,5 +1,6 @@
 /** @jsxImportSource @emotion/react */
 
+import {startSession} from "./session"
 import type { ICodeSession } from "./session";
 import debounce from "lodash/debounce";
 import uidV4 from "./uidV4.mjs";
@@ -58,11 +59,6 @@ const sendChannel = {
 // Let createDelta;
 // let applyPatch;
 
-const startState = window.startState || await fetch(
-  `https://spike.land/live/${codeSpace}/session`,
-).then((resp) => resp.json());
-
-
 export const run = async () => {
   // renderApp();
 
@@ -71,11 +67,10 @@ export const run = async () => {
   join();
 };
 
-const { startSession } = await import("./session");
 
 export const mySession = startSession(codeSpace, {
   name: user,
-  state: startState,
+  state: window.startState,
 });
 
 export const mST = () => mySession.json().state;
@@ -88,12 +83,12 @@ let intervalHandler: NodeJS.Timer | null = null;
 
 //     // eslint-disable-next-line no-unused-vars
 //     update: (code: string) => void;
-//   };
+//   };\
 // };
 
 const chCode = async () => {
   const { code, transpiled, i } = mST();
-  const { prettier } = await import("prettierEsm");
+  const { prettier } = await import("./prettierEsm");
   if (globalThis.model) {
     const formatted = prettier(globalThis.model.getValue());
 
