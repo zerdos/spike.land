@@ -37,7 +37,7 @@ RUN curl -fSL --output dotnet.tar.gz https://dotnetcli.azureedge.net/dotnet/Sdk/
     && rm dotnet.tar.gz 
 RUN  ln -s /usr/share/dotnet/dotnet /usr/bin/dotnet \
     # Trigger first run experience by running arbitrary cmd
-    && /usr/share/dotnet/dotnet help
+    && dotnet help
 
 # Install PowerShell global tool
 RUN powershell_version=7.2.3 \
