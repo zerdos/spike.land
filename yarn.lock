@@ -1138,7 +1138,7 @@
     npmlog "^4.1.2"
     write-file-atomic "^3.0.3"
 
-"@libp2p/interfaces@^1.3.31", "@libp2p/interfaces@^1.3.32":
+"@libp2p/interfaces@^1.3.31":
   version "1.3.32"
   resolved "https://registry.yarnpkg.com/@libp2p/interfaces/-/interfaces-1.3.32.tgz#569922d10227cfbfb659841ff10799c3695c864b"
   integrity sha512-BUZEyUSvyFfERs7civJzPs9VOf4MdTKkKhQ3GqGkjMHO2yc5TW/8U3Eq6zPv8ghxFZWKmZk7dUpe/L+VHvYlxQ==
@@ -1152,6 +1152,16 @@
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/@libp2p/interfaces/-/interfaces-2.0.0.tgz#19cbebb5444e3214c925ed8142d6e137386f3738"
   integrity sha512-pE99X3rk2rp1YbvLIfxgBCv7U4Ko/CGdC4M3mdAGYX0MAmcrVX2yMkneDaHv1N8W2bTP/6mo/e2DG6Fws0itiw==
+  dependencies:
+    "@multiformats/multiaddr" "^10.1.5"
+    err-code "^3.0.1"
+    interface-datastore "^6.1.0"
+    multiformats "^9.6.3"
+
+"@libp2p/interfaces@^2.0.1":
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/@libp2p/interfaces/-/interfaces-2.0.1.tgz#dcdd49f325099bc2190c4cc81f736502627b9aa8"
+  integrity sha512-KR98FMFkbDatozcHteTwt3eROMM4nActtvDAeFiIJRL+v7sQYZ5r30QMAQ0hYsrBU4XIp/SkwUMl0Omyvbc/XA==
   dependencies:
     "@multiformats/multiaddr" "^10.1.5"
     err-code "^3.0.1"
@@ -1218,12 +1228,12 @@
     "@multiformats/multiaddr" "^10.1.7"
     socket.io-client "^4.1.2"
 
-"@libp2p/webrtc-star@1.0.11":
-  version "1.0.11"
-  resolved "https://registry.yarnpkg.com/@libp2p/webrtc-star/-/webrtc-star-1.0.11.tgz#2bc961d731d8a7e0deb10a04977e70414728bb96"
-  integrity sha512-s39eNnjLujzUBs+dua/BKzGzrAj4iaOsmdPyQJrHQmySEPehUhLkGhlfxSgO0nas6SBw66NA1fPyMIIcEhBTyw==
+"@libp2p/webrtc-star@1.0.12":
+  version "1.0.12"
+  resolved "https://registry.yarnpkg.com/@libp2p/webrtc-star/-/webrtc-star-1.0.12.tgz#ca36e64ec8373f5460fcedc2ac79622e133eff62"
+  integrity sha512-1igTwDRg7ZvEVRzwFY4xbx8gqJDRR9XySFE6ME1SSxWOYjT5wCzT3z8ebJIQvC5GDdU2tG5f9Qsus1yRKqqeFg==
   dependencies:
-    "@libp2p/interfaces" "^1.3.32"
+    "@libp2p/interfaces" "^2.0.1"
     "@libp2p/logger" "^1.1.3"
     "@libp2p/peer-id" "^1.1.9"
     "@libp2p/utils" "^1.0.10"
