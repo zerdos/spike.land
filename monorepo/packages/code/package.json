@@ -117,5 +117,6 @@
     "stream": "https://github.com/browserify/stream-browserify.git",
     "stream-browserify": "3.0.0",
     "util": "^0.12.4"
-  }
+  },
+  "gitHead": "67d48a100505652f0e431fa7dd2fa810a2b1dec5"
 }

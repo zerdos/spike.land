@@ -39,7 +39,7 @@
     "build": "esbuild --loader:.css=text --bundle --minify  --target=es2017 --format=esm --platform=browser --outfile=public/QRious.mjs  src/QRious.ts",
     "clean": "rm -rf dist && yarn tsc && yarn build"
   },
-  "gitHead": "f19ed65bbe1e6fa6921e9d4a07d42a6cc4003eac",
+  "gitHead": "67d48a100505652f0e431fa7dd2fa810a2b1dec5",
   "dependencies": {
     "qrious-core": "4.0.0"
   }
