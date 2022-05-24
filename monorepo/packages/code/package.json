@@ -1,6 +1,6 @@
 {
   "name": "@spike.land/code",
-  "version": "0.7.826",
+  "version": "0.7.827",
   "description": "spike.land",
   "type": "module",
   "main": "./js/starter.ts",
@@ -82,7 +82,7 @@
     "@emotion/utils": "^1.1.0",
     "@identifo/identifo-auth-js": "^3.3.2",
     "@mui/material": "^5.8.0",
-    "@spike.land/qrious": "^0.7.826",
+    "@spike.land/qrious": "^0.7.827",
     "@types/orbit-db": "https://github.com/orbitdb/orbit-db-types.git",
     "@types/prettier": "^2.6.1",
     "@types/react": "18.0.9",
