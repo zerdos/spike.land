@@ -11,7 +11,7 @@
     "esbuild": "0.14.39",
     "eslint": "8.16.0",
     "eslint-plugin-react": "7.30.0",
-    "lerna": "4.0.0",
+    "lerna": "5.0.0",
     "open-cli": "7.0.1",
     "rimraf": "3.0.2",
     "speed-limiter": "1.0.2",
