@@ -37,7 +37,7 @@
     "build:prod": "NODE_ENV=production yarn build:all",
     "docker:build": "yarn ws:yarn docker:build",
     "docker:push": "yarn ws:yarn docker:push",
-    "postinstall": "cd monorepo && yarn",
+    "postinstall": "cd monorepo && yarn --ignore-scripts",
     "ws:yarn": "yarn --cwd monorepo ",
     "lerna": "lerna",
     "open-cli": "open-cli",
