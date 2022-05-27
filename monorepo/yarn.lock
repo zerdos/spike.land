@@ -4425,10 +4425,10 @@ esbuild-sunos-64@0.14.41:
   resolved "https://registry.yarnpkg.com/esbuild-sunos-64/-/esbuild-sunos-64-0.14.41.tgz#2f6f26fbc88778382d61145d2d6ec1c6ad5d47c2"
   integrity sha512-p96tTTcE8/WY7A4Udh+fxVUTGL8rIXOpyxyhZiXug+f7DGbjE24PbewqgIBRSDyM7xRUty+1RzqyJz73YIV6yg==
 
-esbuild-wasm@0.14.40:
-  version "0.14.40"
-  resolved "https://registry.yarnpkg.com/esbuild-wasm/-/esbuild-wasm-0.14.40.tgz#48c9a253bdc10ca3af731acf1fc7885a373c7b5b"
-  integrity sha512-2DfRxlN3hf1wJIJHCb+dnAIYbecpxdU8iGoJWreLcr/mSz1PGRV/9NPu298AEhwvKT8NDhxaBBgU/4fT3PixmA==
+esbuild-wasm@0.14.41:
+  version "0.14.41"
+  resolved "https://registry.yarnpkg.com/esbuild-wasm/-/esbuild-wasm-0.14.41.tgz#d5b7e89339cec0b596d950d5b3883c13b7e6f5df"
+  integrity sha512-um1v/yi0C6wqxYwflMXF1Yo3CsOc1esUbLftb2sQylwSLRUV2gI3t3EfUYfp3LNJPn7XzRQ9fvCbbW5QMLVppg==
 
 esbuild-windows-32@0.13.15:
   version "0.13.15"

@@ -94,7 +94,7 @@
     "esbuild": "0.14.41",
     "esbuild-plugin-import-map": "2.1.0",
     "esbuild-plugin-jsximportsource": "^0.0.4",
-    "esbuild-wasm": "0.14.40",
+    "esbuild-wasm": "0.14.41",
     "fast-diff": "1.2.0",
     "framer-motion": "6.3.4",
     "hoist-non-react-statics": "^3.3.2",
