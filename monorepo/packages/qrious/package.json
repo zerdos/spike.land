@@ -30,7 +30,7 @@
   },
   "devDependencies": {
     "esbuild": "0.14.41",
-    "typescript": "4.8.0-dev.20220527"
+    "typescript": "4.8.0-dev.20220528"
   },
   "typings": "public/QRious.d.ts",
   "source": "src/QRious.tsx",
