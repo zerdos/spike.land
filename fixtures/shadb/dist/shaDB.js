@@ -1,7 +1,13 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.shaDB = exports.getDB = exports.getDbObj = exports.assemble = exports
-  .diff = exports.sha256 = void 0;
+exports.shaDB =
+  exports.getDB =
+  exports.getDbObj =
+  exports.assemble =
+  exports
+    .diff =
+  exports.sha256 =
+    void 0;
 //@ts-nocheck
 const idb_1 = require("idb");
 const getDbObj_js_1 = require("./getDbObj.js");

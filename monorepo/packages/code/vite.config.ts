@@ -4,6 +4,6 @@ import importmap from "./js/importmap.json";
 
 export default defineConfig({
   plugins: [
-    importMaps(importmap as any ),
+    importMaps(importmap as any),
   ],
 });

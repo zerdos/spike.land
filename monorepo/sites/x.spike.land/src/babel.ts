@@ -4,13 +4,12 @@
 
 const init = esbuild.initialize({
   wasmURL: "https://unpkg.com/esbuild-wasm@0.14.10/esbuild.wasm",
-  worker: false
+  worker: false,
 });
 
 let initFinished = false;
 
 export const transform = async (code) => {
-
   if (!initFinished) {
     await init;
     initFinished = true;

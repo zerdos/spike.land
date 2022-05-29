@@ -148,8 +148,9 @@ export const Item = qComponent<
                 "input.edit",
               ) as HTMLInputElement;
               inputEl.focus();
-              inputEl.selectionStart = inputEl.selectionEnd =
-                inputEl.value.length;
+              inputEl.selectionStart =
+                inputEl.selectionEnd =
+                  inputEl.value.length;
             })}
           >
             {item.title}

@@ -35,7 +35,8 @@ export const appFactory = async (transpiled: string) => {
   globalThis.App = apps[result] ||
     (await import(
       /* @vite-ignore */
-      createJsBlob(transpiled))).default;
+      createJsBlob(transpiled)
+    )).default;
   globalThis.transpiled = transpiled;
 
   apps[result] = globalThis.App;

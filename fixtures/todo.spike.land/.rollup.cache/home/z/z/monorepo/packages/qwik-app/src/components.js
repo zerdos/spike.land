@@ -138,8 +138,9 @@ export const Item = qComponent({
             await notifyRender(hostElement);
             const inputEl = hostElement.querySelector("input.edit");
             inputEl.focus();
-            inputEl.selectionStart = inputEl.selectionEnd =
-              inputEl.value.length;
+            inputEl.selectionStart =
+              inputEl.selectionEnd =
+                inputEl.value.length;
           }),
         }, item.title),
         h("button", {
