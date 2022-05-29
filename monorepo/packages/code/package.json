@@ -91,7 +91,7 @@
     "assert": "2.0.0",
     "async-mutex": "0.3.2",
     "buffer": "6.0.3",
-    "esbuild": "0.14.41",
+    "esbuild": "0.14.42",
     "esbuild-plugin-import-map": "2.1.0",
     "esbuild-plugin-jsximportsource": "^0.0.4",
     "esbuild-wasm": "0.14.41",
