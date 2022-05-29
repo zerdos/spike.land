@@ -1895,7 +1895,7 @@
     prop-types "^15.8.1"
     react-is "^17.0.2"
 
-"@mui/material@^5.8.0":
+"@mui/material@^5.8.1":
   version "5.8.1"
   resolved "https://registry.yarnpkg.com/@mui/material/-/material-5.8.1.tgz#ff3c0dc65cf975362f8b141d4713a6d88b9f08e9"
   integrity sha512-Vl3BHFzOcAT5TJfvzoQUyuo/Xckn+/NSRyJ8upM4Hbz6Y1egW6P8f1RCa4FdkEfPSd5wSSYdmPfAiEh8eI4rPg==
@@ -2459,35 +2459,12 @@
   resolved "https://registry.yarnpkg.com/@tootallnate/once/-/once-2.0.0.tgz#f544a148d3ab35801c1f633a7441fd87c2e484bf"
   integrity sha512-XCuKFP5PS55gnMVu3dty8KPatLqUoy/ZYzDzAGCQ8JNFCkLXzmI7vNHCR+XpbZaMWQK/vQubr7PkYq8g470J/A==
 
-"@types/bn.js@*":
-  version "5.1.0"
-  resolved "https://registry.yarnpkg.com/@types/bn.js/-/bn.js-5.1.0.tgz#32c5d271503a12653c62cf4d2b45e6eab8cebc68"
-  integrity sha512-QSSVYj7pYFN49kW77o2s9xTCwZ8F2xLbjLLSEVh8D2F4JUhZtPAGOFLTD+ffqksBx/u4cE/KImFjyhqCjn/LIA==
-  dependencies:
-    "@types/node" "*"
-
 "@types/debug@^4.1.7":
   version "4.1.7"
   resolved "https://registry.yarnpkg.com/@types/debug/-/debug-4.1.7.tgz#7cc0ea761509124709b8b2d1090d8f6c17aadb82"
   integrity sha512-9AonUzyTjXXhEOa0DnqpzZi6VHlqKMswga9EXjpXnnqxwLtdvPPtlO8evrI5D9S6asFRCQ6v+wpiUKbw+vKqyg==
   dependencies:
     "@types/ms" "*"
-
-"@types/elliptic@^6.4.6":
-  version "6.4.14"
-  resolved "https://registry.yarnpkg.com/@types/elliptic/-/elliptic-6.4.14.tgz#7bbaad60567a588c1f08b10893453e6b9b4de48e"
-  integrity sha512-z4OBcDAU0GVwDTuwJzQCiL6188QvZMkvoERgcVjq0/mPM8jCfdwZ3x5zQEVoL9WCAru3aG5wl3Z5Ww5wBWn7ZQ==
-  dependencies:
-    "@types/bn.js" "*"
-
-"@types/events@^1.2.0":
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/@types/events/-/events-1.2.0.tgz#81a6731ce4df43619e5c8c945383b3e62a89ea86"
-  integrity sha512-KEIlhXnIutzKwRbQkGWb/I4HFqBuUykAdHgDED6xqwXJfONCjF5VoE0cXEiurh3XauygxzeDzgtXUqvLkxFzzA==
-
-"@types/ipfs@git+https://github.com/lukas2005/types-ipfs.git":
-  version "0.23.6"
-  resolved "git+https://github.com/lukas2005/types-ipfs.git#fb4bd2c5780810b8355356f2f683064008b60053"
 
 "@types/lodash@4.14.182":
   version "4.14.182"
@@ -2524,15 +2501,6 @@
   resolved "https://registry.yarnpkg.com/@types/normalize-package-data/-/normalize-package-data-2.4.1.tgz#d3357479a0fdfdd5907fe67e17e0a85c906e1301"
   integrity sha512-Gj7cI7z+98M282Tqmp2K5EIsoouUEzbBJhQQzDE3jSIRk6r9gsz0oUokqIUR4u1R3dMHo0pDHM7sNOHyhulypw==
 
-"@types/orbit-db@https://github.com/orbitdb/orbit-db-types.git":
-  version "1.0.1"
-  resolved "https://github.com/orbitdb/orbit-db-types.git#ed41369e64c054952c1e47505d598342a4967d4c"
-  dependencies:
-    "@types/elliptic" "^6.4.6"
-    "@types/events" "^1.2.0"
-    "@types/ipfs" "git+https://github.com/lukas2005/types-ipfs.git"
-    orbit-db "git+https://github.com/orbitdb/orbit-db.git"
-
 "@types/parse-json@^4.0.0":
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/@types/parse-json/-/parse-json-4.0.0.tgz#2f8bb441434d163b35fb8ffdccd7138927ffb8c0"
@@ -2543,17 +2511,17 @@
   resolved "https://registry.yarnpkg.com/@types/path-browserify/-/path-browserify-1.0.0.tgz#294ec6e88b6b0d340a3897b7120e5b393f16690e"
   integrity sha512-XMCcyhSvxcch8b7rZAtFAaierBYdeHXVvg2iYnxOV0MCQHmPuRRmGZPFDRzPayxcGiiSL1Te9UIO+f3cuj0tfw==
 
-"@types/prettier@^2.6.1":
-  version "2.6.1"
-  resolved "https://registry.yarnpkg.com/@types/prettier/-/prettier-2.6.1.tgz#76e72d8a775eef7ce649c63c8acae1a0824bbaed"
-  integrity sha512-XFjFHmaLVifrAKaZ+EKghFHtHSUonyw8P2Qmy2/+osBnrKbH9UYtlK10zg8/kCt47MFilll/DEDKy3DHfJ0URw==
+"@types/prettier@2.6.3":
+  version "2.6.3"
+  resolved "https://registry.yarnpkg.com/@types/prettier/-/prettier-2.6.3.tgz#68ada76827b0010d0db071f739314fa429943d0a"
+  integrity sha512-ymZk3LEC/fsut+/Q5qejp6R9O1rMxz3XaRHDV6kX8MrGAhOSPqVARbDi+EZvInBpw+BnCX3TD240byVkOfQsHg==
 
 "@types/prop-types@*", "@types/prop-types@^15.7.5":
   version "15.7.5"
   resolved "https://registry.yarnpkg.com/@types/prop-types/-/prop-types-15.7.5.tgz#5f19d2b85a98e9558036f6a3cacc8819420f05cf"
   integrity sha512-JCB8C6SnDoQf0cNycqd/35A7MjcnK+ZTqE7judS6o7utxUCg6imJg3QK2qzHKszlTjcj2cn+NwMB2i96ubpj7w==
 
-"@types/react-dom@^18.0.4":
+"@types/react-dom@18.0.5":
   version "18.0.5"
   resolved "https://registry.yarnpkg.com/@types/react-dom/-/react-dom-18.0.5.tgz#330b2d472c22f796e5531446939eacef8378444a"
   integrity sha512-OWPWTUrY/NIrjsAPkAk1wW9LZeIjSvkXRhclsFO8CZcZGCOg2G0YZy4ft+rOyYxy8B7ui5iZzi9OkDebZ7/QSA==
@@ -2684,7 +2652,7 @@ abstract-leveldown@~6.2.1:
     level-supports "~1.0.0"
     xtend "~4.0.0"
 
-ace-builds@^1.5.0:
+ace-builds@1.5.1:
   version "1.5.1"
   resolved "https://registry.yarnpkg.com/ace-builds/-/ace-builds-1.5.1.tgz#7ed9fe277acdc14e6522aa866b0980ac196d797e"
   integrity sha512-2G313uyM7lfqZgCs6xCW4QPeuX2GZKaCyRqKhTC2mBeZqC7TjkTXguKRyLzsAIMLJfj3koq98RXCBoemoZVAnQ==
@@ -5522,7 +5490,7 @@ immediate@~3.2.3:
   resolved "https://registry.yarnpkg.com/immediate/-/immediate-3.2.3.tgz#d140fa8f614659bd6541233097ddaac25cdd991c"
   integrity sha1-0UD6j2FGWb1lQSMwl92qwlzdmRw=
 
-immutable@^4.0.0:
+immutable@4.1.0, immutable@^4.0.0:
   version "4.1.0"
   resolved "https://registry.yarnpkg.com/immutable/-/immutable-4.1.0.tgz#f795787f0db780183307b9eb2091fcac1f6fafef"
   integrity sha512-oNkuqVTA8jqG1Q6c+UglTOD1xhC1BtjKI7XkCXRkZHrN5m18/XsnUp8Q89GkQO/z+0WjonSvl0FLhDYftp46nQ==
@@ -8551,30 +8519,6 @@ orbit-db@^0.28.6:
   version "0.28.6"
   resolved "https://registry.yarnpkg.com/orbit-db/-/orbit-db-0.28.6.tgz#46c16a155544e4904ed1ed870b384d037dbbfeff"
   integrity sha512-0rBtKhhTQiMvnPTLKS7Yu9rahNP2CLRvZEhlMEsxyfOsFLB5TiEfDayVBItfZ2oxhqamOumyItSwE9eBF0veIA==
-  dependencies:
-    ipfs-pubsub-1on1 "0.0.8"
-    is-node "^1.0.2"
-    localstorage-down "^0.6.7"
-    logplease "^1.2.14"
-    multihashes "~3.0.1"
-    orbit-db-access-controllers "^0.3.2"
-    orbit-db-cache "~0.3.0"
-    orbit-db-counterstore "^1.12.1"
-    orbit-db-docstore "~1.12.0"
-    orbit-db-eventstore "~1.12.0"
-    orbit-db-feedstore "~1.12.0"
-    orbit-db-identity-provider "~0.3.0"
-    orbit-db-io "^1.0.1"
-    orbit-db-keystore "~0.3.0"
-    orbit-db-kvstore "~1.12.0"
-    orbit-db-pubsub "~0.6.0"
-    orbit-db-storage-adapter "~0.5.3"
-    orbit-db-store "^4.3.4"
-    wherearewe "^1.0.2"
-
-"orbit-db@git+https://github.com/orbitdb/orbit-db.git":
-  version "0.28.6"
-  resolved "git+https://github.com/orbitdb/orbit-db.git#edaa07f67a506128fd25d535621b1eadd46aa918"
   dependencies:
     ipfs-pubsub-1on1 "0.0.8"
     is-node "^1.0.2"
