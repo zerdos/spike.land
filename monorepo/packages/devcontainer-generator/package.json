@@ -18,7 +18,7 @@
   "license": "MIT",
   "devDependencies": {
     "esbuild": "0.14.42",
-    "typescript": "4.8.0-dev.20220528"
+    "typescript": "4.8.0-dev.20220529"
   },
   "gitHead": "67d48a100505652f0e431fa7dd2fa810a2b1dec5"
 }
