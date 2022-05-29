@@ -337,7 +337,6 @@ export class Code {
         session.blockedMessages.push(
           JSON.stringify({
             joined: otherSession.name,
-            i: mST().i,
             hashCode: this.state.mySession.hashCode(),
           }),
         );
