@@ -28,7 +28,7 @@
     "@emotion/utils": "^1.0.0",
     "@emotion/weak-memoize": "^0.2.5",
     "@types/react": "18.0.9",
-    "framer-motion": "6.3.4",
+    "framer-motion": "6.3.5",
     "hoist-non-react-statics": "^3.3.2"
   },
   "publishConfig": {
