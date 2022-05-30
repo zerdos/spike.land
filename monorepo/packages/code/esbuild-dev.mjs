@@ -35,7 +35,7 @@ const define = {
 
 const buildOptions = {
   define,
-  target: "es2018",
+  target: "es2020",
   platform: "browser",
   legalComments: "none",
   plugins: [importMapPlugin, jsxImportSourcePlugin({ filter: /.(tsx)/ })],

@@ -1,12 +1,13 @@
 Object.assign(self, require("buffer"));
-const OrbitDB = require("orbit-db/dist/orbitdb.js");
-const { create } = require("ipfs-core");
+const OrbitDB = require("orbit-db/dist/orbitdb.min.js");
+const { create } = require("../../../node_modules/ipfs-core/index.min.js");
 const {
   IPFSService,
   Server,
-} = require("ipfs-message-port-server");
+} = require("../../../node_modules/ipfs-message-port-server/index.min.js");
+const WebRTCStar = require("../../../node_modules/libp2p-webrtc-star/dist/index.min.js");
+
 import config from "../../../node_modules/ipfs-core-config/esm/src/config.browser.js";
-import { WebRTCStar } from "@libp2p/webrtc-star";
 
 //import OrbitDB from "orbit-db"
 //import { create } from "../../node_modules/ipfs-core/index.min.js"//;
