@@ -5,7 +5,8 @@ const {
   IPFSService,
   Server,
 } = require("../../../node_modules/ipfs-message-port-server/index.min.js");
-const WebRTCStar = require("../../../node_modules/libp2p-webrtc-star/dist/index.min.js");
+import { WebRTCStar } from "@libp2p/webrtc-star";
+
 
 import config from "../../../node_modules/ipfs-core-config/esm/src/config.browser.js";
 
