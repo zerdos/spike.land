@@ -1,5 +1,5 @@
 Object.assign(self, require("buffer"));
-const OrbitDB = require("orbit-db");
+const OrbitDB = require("orbit-db/dist/orbitdb.js");
 const { create } = require("ipfs-core");
 const {
   IPFSService,

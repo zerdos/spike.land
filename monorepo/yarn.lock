@@ -8515,9 +8515,9 @@ orbit-db-store@^4.3.4:
     p-queue "^6.6.2"
     readable-stream "~3.6.0"
 
-orbit-db@^0.28.6:
+orbit-db@0.28.6:
   version "0.28.6"
-  resolved "https://registry.npmjs.org/orbit-db/-/orbit-db-0.28.6.tgz"
+  resolved "https://registry.yarnpkg.com/orbit-db/-/orbit-db-0.28.6.tgz#46c16a155544e4904ed1ed870b384d037dbbfeff"
   integrity sha512-0rBtKhhTQiMvnPTLKS7Yu9rahNP2CLRvZEhlMEsxyfOsFLB5TiEfDayVBItfZ2oxhqamOumyItSwE9eBF0veIA==
   dependencies:
     ipfs-pubsub-1on1 "0.0.8"
