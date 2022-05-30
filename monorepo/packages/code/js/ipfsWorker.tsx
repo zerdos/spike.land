@@ -1,5 +1,6 @@
 Object.assign(self, require("buffer"));
-const OrbitDB = require("orbit-db/dist/orbitdb.min.js");
+import type {OrbitDB} from "orbit-db"
+const {createInstance} = require("orbit-db/dist/orbitdb.min.js");
 const { create } = require("../../../node_modules/ipfs-core/index.min.js");
 const {
   IPFSService,
@@ -21,7 +22,7 @@ import type * as IPFS from "ipfs";
 // importScripts('https://unpkg.com/ipfs-message-port-server@0.11.3/index.min.js');
 
 async function startOrbit(_codeSpace: string, ipfs: IPFS) {
-  const orbitdb = await OrbitDB.createInstance(ipfs);
+  const orbitdb = await createInstance(ipfs);
 
   const address = "zed";
 
@@ -47,7 +48,7 @@ async function startOrbit(_codeSpace: string, ipfs: IPFS) {
     console.log(db.iterator({ limit: -1 }).collect());
   });
 
-  const query = (db: typeof OrbitDB) => {
+  const query = (db:  OrbitDB) => {
     if (db.type === "eventlog") {
       return db.iterator({ limit: 5 }).collect();
     } else if (db.type === "feed") {
