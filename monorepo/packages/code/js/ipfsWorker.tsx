@@ -1,6 +1,6 @@
 Object.assign(self, require("buffer"));
-import type {OrbitDB} from "orbit-db"
-const {createInstance} = require("orbit-db/dist/orbitdb.min.js");
+const OrbitDB = require("orbit-db")
+
 const { create } = require("../../../node_modules/ipfs-core/index.min.js");
 const {
   IPFSService,
@@ -22,7 +22,7 @@ import type * as IPFS from "ipfs";
 // importScripts('https://unpkg.com/ipfs-message-port-server@0.11.3/index.min.js');
 
 async function startOrbit(_codeSpace: string, ipfs: IPFS) {
-  const orbitdb = await createInstance(ipfs);
+  const orbitdb = await OrbitDB.createInstance(ipfs);
 
   const address = "zed";
 
