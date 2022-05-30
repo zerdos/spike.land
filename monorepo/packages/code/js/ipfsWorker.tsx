@@ -1,7 +1,7 @@
 Object.assign(self, require("buffer"));
 const OrbitDB = require("orbit-db")
 
-const { create } = require("../../../node_modules/ipfs-core/index.min.js");
+import * as IPFS from "ipfs-core"
 const {
   IPFSService,
   Server,
@@ -16,7 +16,6 @@ import config from "../../../node_modules/ipfs-core-config/esm/src/config.browse
 //import { create,  } from "ipfs-core"//;
 
 import type {} from "orbit-db";
-import type * as IPFS from "ipfs";
 // } from "../../node_modules/ipfs-message-port-server/index.min.js";
 // importScripts('https://unpkg.com/ipfs@0.62.3/index.min.js');
 // importScripts('https://unpkg.com/ipfs-message-port-server@0.11.3/index.min.js');
@@ -123,7 +122,7 @@ export const ipfsWorker = async () => {
     // queue connections that occur while node was starting.
 
     const defaultConfig = config();
-    const ipfs = await create({
+    const ipfs = await IPFS.create({
       config: {
         ...defaultConfig,
 
