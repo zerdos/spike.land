@@ -10354,10 +10354,10 @@ typedoc@0.22.15:
     minimatch "^5.0.1"
     shiki "^0.10.1"
 
-typescript@4.8.0-dev.20220529:
-  version "4.8.0-dev.20220529"
-  resolved "https://registry.npmjs.org/typescript/-/typescript-4.8.0-dev.20220529.tgz"
-  integrity sha512-Qwj3szAlVVhUj9+dAAh7MiPMgnzMaaQGiXQsrhveTWj3FXvtJ7H4Q0lCcyTVSS55a9nVOZJPUzDePWJKG8v0VA==
+typescript@4.8.0-dev.20220530:
+  version "4.8.0-dev.20220530"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.8.0-dev.20220530.tgz#a71d95c17df28b307f02826851145d22e7ec1e96"
+  integrity sha512-NB9F5TGowxNmBQ9GY/ufx1dreQby8NuzdtuogOEFFsK1SruBRlmCCUX6YkrTUK76WnhEoSzoLGGFj45qb8wfbw==
 
 typescript@^4.3.5:
   version "4.7.2"
