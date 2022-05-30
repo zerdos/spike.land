@@ -103,7 +103,7 @@
     "ipfs-message-port-client": "0.11.3",
     "ipfs-message-port-server": "0.11.3",
     "lodash": "^4.17.21",
-    "monaco-editor": "0.34.0-dev.20220529",
+    "monaco-editor": "0.34.0-dev.20220530",
     "orbit-db": "0.28.6",
     "p-all": "^4.0.0",
     "path": "file:./path",

@@ -2491,14 +2491,9 @@
   resolved "https://registry.npmjs.org/@types/ms/-/ms-0.7.31.tgz"
   integrity sha512-iiUgKzV9AuaEkZqkOLDIvlQiL6ltuZd9tGcW3gwpnX8JbuiuhFlEGmmFXEXkN50Cvq7Os88IY2v0dkDqXYWVgA==
 
-"@types/node@*", "@types/node@>=13.7.0":
-  version "17.0.35"
-  resolved "https://registry.npmjs.org/@types/node/-/node-17.0.35.tgz"
-  integrity sha512-vu1SrqBjbbZ3J6vwY17jBs8Sr/BKA+/a/WtjRG+whKg1iuLFOosq872EXS0eXWILdO36DHQQeku/ZcL6hz2fpg==
-
-"@types/node@17.0.36":
+"@types/node@*", "@types/node@17.0.36", "@types/node@>=13.7.0":
   version "17.0.36"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-17.0.36.tgz#c0d5f2fe76b47b63e0e0efc3d2049a9970d68794"
+  resolved "https://registry.npmjs.org/@types/node/-/node-17.0.36.tgz"
   integrity sha512-V3orv+ggDsWVHP99K3JlwtH20R7J4IhI1Kksgc+64q5VxgfRkQG8Ws3MFm/FZOKDYGy9feGFlZ70/HpCNe9QaA==
 
 "@types/normalize-package-data@^2.4.0":
@@ -7833,10 +7828,10 @@ modify-values@^1.0.0:
   resolved "https://registry.npmjs.org/modify-values/-/modify-values-1.0.1.tgz"
   integrity sha512-xV2bxeN6F7oYjZWTe/YPAy6MN2M+sL4u/Rlm2AHCIVGfo2p1yGmBHQ6vHehl4bRTZBdHu3TSkWdYgkwpYzAGSw==
 
-monaco-editor@0.34.0-dev.20220529:
-  version "0.34.0-dev.20220529"
-  resolved "https://registry.npmjs.org/monaco-editor/-/monaco-editor-0.34.0-dev.20220529.tgz"
-  integrity sha512-gytrN7wYUovDAsXdvb9m8w5IPiTYEFbqig8UAMZOiPnU5tUasyQOr+Xm5eyvQFMlBFenQgUqzZt0k2eXCxiYww==
+monaco-editor@0.34.0-dev.20220530:
+  version "0.34.0-dev.20220530"
+  resolved "https://registry.npmjs.org/monaco-editor/-/monaco-editor-0.34.0-dev.20220530.tgz"
+  integrity sha512-9DIvJkpkJyKi2viLVGKmXZJMywv7ilT7pCbaY7rD+cEL+faVx+2+m2MBUphr63PrOoMt1JQ25Qhb83LaKZPang==
 
 mortice@^2.0.0, mortice@^2.0.1:
   version "2.0.1"
@@ -8522,7 +8517,7 @@ orbit-db-store@^4.3.4:
 
 orbit-db@0.28.6:
   version "0.28.6"
-  resolved "https://registry.yarnpkg.com/orbit-db/-/orbit-db-0.28.6.tgz#46c16a155544e4904ed1ed870b384d037dbbfeff"
+  resolved "https://registry.npmjs.org/orbit-db/-/orbit-db-0.28.6.tgz"
   integrity sha512-0rBtKhhTQiMvnPTLKS7Yu9rahNP2CLRvZEhlMEsxyfOsFLB5TiEfDayVBItfZ2oxhqamOumyItSwE9eBF0veIA==
   dependencies:
     ipfs-pubsub-1on1 "0.0.8"
@@ -9219,7 +9214,7 @@ randombytes@^2.0.3, randombytes@^2.1.0:
 
 "react-dom@npm:@preact/compat@17.0.3", "react@npm:@preact/compat@17.0.3":
   version "17.0.3"
-  resolved "https://registry.yarnpkg.com/@preact/compat/-/compat-17.0.3.tgz#5e41def12b4b6d00d6f86e6b24ef46b029a99626"
+  resolved "https://registry.npmjs.org/@preact/compat/-/compat-17.0.3.tgz"
   integrity sha512-lzkui97aQ00hxzUwfRfZm7jUXE1bjWyOXiqm8DeWYhkD+G9ZaY1wso/itqyg60wGnP9DRlM4PDn2blIOnh1yeg==
 
 react-is@^16.13.1, react-is@^16.7.0:
@@ -9981,8 +9976,7 @@ stream-to-it@^0.2.2:
 
 "stream@npm:stream-browserify@3.0.0":
   version "3.0.0"
-  resolved "https://registry.yarnpkg.com/stream-browserify/-/stream-browserify-3.0.0.tgz#22b0a2850cdf6503e73085da1fc7b7d0c2122f2f"
-  integrity sha512-H73RAHsVBapbim0tU2JwwOiXUj+fikfiaoYAKHF3VJfA0pe2BCzkhAHBlLG6REzE+2WNZcxOXjK7lkso+9euLA==
+  resolved "git+ssh://git@github.com/browserify/stream-browserify.git#a3625cb4181c4bcdf09884e677d4320c641b8724"
   dependencies:
     inherits "~2.0.4"
     readable-stream "^3.5.0"
