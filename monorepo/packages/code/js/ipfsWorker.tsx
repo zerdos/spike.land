@@ -25,7 +25,7 @@ import type {} from "orbit-db";
 
 async function startOrbit(_codeSpace: string, ipfs: IPFS) {
 
-  const orbitdb = await OrbitDB.createInstance(ipfs);
+  const orbitdb = await OrbitDB.createInstance(ipfs, {id: ipfs.id().toString()});
 
   const address = "zed";
 
