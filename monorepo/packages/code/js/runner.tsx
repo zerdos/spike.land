@@ -12,13 +12,11 @@ export interface IRunnerSession {
   url: string;
 }
 
-let debounceTime = 100;
 
-export const runnerDebounced = throttle(runner, debounceTime);
 
 const r = { counter: 0 };
 
-async function runner(
+export async function runner(
   code: string,
   counter: number,
 ) {

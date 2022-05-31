@@ -3,7 +3,14 @@
 import { useEffect, useRef } from "react";
 import { codeSpace, mST } from "./ws";
 
+import {runner} from "./runner";
+import throttle from "lodash/throttle"
+
 import { css } from "@emotion/react";
+
+let debounceTime = 100;
+
+
 
 export const MonacoEditor = () => {
   const ref = useRef<HTMLDivElement>(null) as null | {
@@ -32,14 +39,18 @@ export const MonacoEditor = () => {
 
       // let inc = 0;
 
-      const { runnerDebounced } = await import("./runner");
-      editor.onDidChangeModelContent(() =>
-        runnerDebounced(
-          model!.getValue(),
-          // ev.changes,
-          mST().i + 1,
-        )
-      );
+      function runIt(){
+
+        const code =  model!.getValue();
+        const counter = mST().i + 1;
+        runner(code, counter)
+     
+    }
+    const runItThrottled = throttle(runner, debounceTime);
+
+ 
+      editor.onDidChangeModelContent(runItThrottled)
+
 
       Object.assign(globalThis, { monaco, editor, model });
     };
