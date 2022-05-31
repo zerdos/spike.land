@@ -330,26 +330,6 @@
     protons-runtime "^1.0.4"
     uint8arrays "^3.0.0"
 
-"@chainsafe/libp2p-noise@^5.0.1":
-  version "5.0.3"
-  resolved "https://registry.npmjs.org/@chainsafe/libp2p-noise/-/libp2p-noise-5.0.3.tgz"
-  integrity sha512-IT7q9JaEjv4aU3zO8zeomWyw79rLo8hGcmnyWOE1P/dVIT+jqrF08R3rVXonujBbmi6SSgZbB6NModqW+Oa2jw==
-  dependencies:
-    "@stablelib/chacha20poly1305" "^1.0.1"
-    "@stablelib/hkdf" "^1.0.1"
-    "@stablelib/sha256" "^1.0.1"
-    "@stablelib/x25519" "^1.0.1"
-    bl "^5.0.0"
-    debug "^4.3.1"
-    it-buffer "^0.1.3"
-    it-length-prefixed "^5.0.3"
-    it-pair "^1.0.0"
-    it-pb-rpc "^0.2.0"
-    it-pipe "^1.1.0"
-    peer-id "^0.16.0"
-    protobufjs "^6.11.2"
-    uint8arrays "^3.0.0"
-
 "@chainsafe/libp2p-noise@^6.0.1":
   version "6.2.0"
   resolved "https://registry.npmjs.org/@chainsafe/libp2p-noise/-/libp2p-noise-6.2.0.tgz"
@@ -2498,12 +2478,12 @@
     multiformats "^9.5.4"
     murmurhash3js-revisited "^3.0.0"
 
-"@noble/ed25519@^1.5.1", "@noble/ed25519@^1.6.0":
+"@noble/ed25519@^1.6.0":
   version "1.6.0"
   resolved "https://registry.npmjs.org/@noble/ed25519/-/ed25519-1.6.0.tgz"
   integrity sha512-UKju89WV37IUALIMfKhKW3psO8AqmrE/GvH6QbPKjzolQ98zM7WmGUeY+xdIgSf5tqPFf75ZCYMgym6E9Jsw3Q==
 
-"@noble/secp256k1@^1.3.0", "@noble/secp256k1@^1.5.4":
+"@noble/secp256k1@^1.5.4":
   version "1.5.5"
   resolved "https://registry.npmjs.org/@noble/secp256k1/-/secp256k1-1.5.5.tgz"
   integrity sha512-sZ1W6gQzYnu45wPrWx8D3kwI2/U29VYTx9OjbDAd7jwRItJ0cSTMPRL/C8AWZFn9kWFLQGqEXVEE86w4Z8LpIQ==
@@ -3003,13 +2983,6 @@
   resolved "https://registry.npmjs.org/@tsconfig/node16/-/node16-1.0.2.tgz"
   integrity sha512-eZxlbI8GZscaGS7kkc/trHTT5xgrjH3/1n2JDwusC9iahPKWMRvRjJSAN5mCXviuTGQ/lHnhvv8Q1YTpnfz9gA==
 
-"@types/debug@^4.1.7":
-  version "4.1.7"
-  resolved "https://registry.npmjs.org/@types/debug/-/debug-4.1.7.tgz"
-  integrity sha512-9AonUzyTjXXhEOa0DnqpzZi6VHlqKMswga9EXjpXnnqxwLtdvPPtlO8evrI5D9S6asFRCQ6v+wpiUKbw+vKqyg==
-  dependencies:
-    "@types/ms" "*"
-
 "@types/json5@^0.0.29":
   version "0.0.29"
   resolved "https://registry.npmjs.org/@types/json5/-/json5-0.0.29.tgz"
@@ -3034,11 +3007,6 @@
   version "1.2.2"
   resolved "https://registry.npmjs.org/@types/minimist/-/minimist-1.2.2.tgz"
   integrity sha512-jhuKLIRrhvCPLqwPcx6INqmKeiA5EWrsCOPhrlFSrbrmU4ZMPjj5Ul/oLCMDO98XRUIwVm78xICz4EPCektzeQ==
-
-"@types/ms@*":
-  version "0.7.31"
-  resolved "https://registry.npmjs.org/@types/ms/-/ms-0.7.31.tgz"
-  integrity sha512-iiUgKzV9AuaEkZqkOLDIvlQiL6ltuZd9tGcW3gwpnX8JbuiuhFlEGmmFXEXkN50Cvq7Os88IY2v0dkDqXYWVgA==
 
 "@types/node@*", "@types/node@17.0.36", "@types/node@>=13.7.0":
   version "17.0.36"
@@ -3144,13 +3112,6 @@ abbrev@1:
   version "1.1.1"
   resolved "https://registry.npmjs.org/abbrev/-/abbrev-1.1.1.tgz"
   integrity sha512-nne9/IiQ/hzIhY6pdDnbBtz7DjPTKrY00P/zvPSm5pOFkl6xuGrGnXn/VtTNNfNtAfZ9/1RtehkszU9qcTii0Q==
-
-abortable-iterator@^3.0.0, abortable-iterator@^3.0.2:
-  version "3.0.2"
-  resolved "https://registry.npmjs.org/abortable-iterator/-/abortable-iterator-3.0.2.tgz"
-  integrity sha512-qVP8HFfTpUQI2F+f1tpTriKDIZ4XrmwCrBCrQeRKO7DKWF3kgoT6NXiNDv2krrGcHxPwmI63eGQiec81sEaWIw==
-  dependencies:
-    get-iterator "^1.0.2"
 
 abortable-iterator@^4.0.2:
   version "4.0.2"
@@ -3886,11 +3847,6 @@ cipher-base@^1.0.0, cipher-base@^1.0.1, cipher-base@^1.0.3:
     inherits "^2.0.1"
     safe-buffer "^5.0.1"
 
-class-is@^1.1.0:
-  version "1.1.0"
-  resolved "https://registry.npmjs.org/class-is/-/class-is-1.1.0.tgz"
-  integrity sha512-rhjH9AG1fvabIDoGRVH587413LPjTZgmDF9fOFCbFJQV4yuocX1mHxxvXI4g3cGwbVY9wAYIoKlg1N79frJKQw==
-
 clean-stack@^2.0.0:
   version "2.2.0"
   resolved "https://registry.npmjs.org/clean-stack/-/clean-stack-2.2.0.tgz"
@@ -4321,7 +4277,7 @@ dateformat@^3.0.0:
   resolved "https://registry.npmjs.org/dateformat/-/dateformat-3.0.3.tgz"
   integrity sha512-jyCETtSl3VMZMWeRo7iY1FL19ges1t55hMo5yaam4Jrsm5EPL89UQkoQRyiI+Yf4k8r2ZpdngkV8hr1lIdjb3Q==
 
-debug@4, debug@^4.0.1, debug@^4.1.0, debug@^4.1.1, debug@^4.2.0, debug@^4.3.0, debug@^4.3.1, debug@^4.3.2, debug@^4.3.3, debug@~4.3.1, debug@~4.3.2:
+debug@4, debug@^4.1.0, debug@^4.1.1, debug@^4.2.0, debug@^4.3.1, debug@^4.3.2, debug@^4.3.3, debug@~4.3.1, debug@~4.3.2:
   version "4.3.4"
   resolved "https://registry.npmjs.org/debug/-/debug-4.3.4.tgz"
   integrity sha512-PRWFHuSU3eDtQJPvnNY7Jcket1j0t5OuOsFzPPzsekD52Zl8qUfFIPEiswXqIvHWGVHOgX+7G/vCNNhehwxfkQ==
@@ -4638,7 +4594,7 @@ envinfo@^7.7.4:
   resolved "https://registry.npmjs.org/envinfo/-/envinfo-7.8.1.tgz"
   integrity sha512-/o+BXHmB7ocbHEAs6F2EnG0ogybVVUdkRunTT2glZU9XAaGmhqskrvKwqXuDfNjEO0LZKWdejEEpnq8aM0tOaw==
 
-err-code@^2.0.2, err-code@^2.0.3:
+err-code@^2.0.2:
   version "2.0.3"
   resolved "https://registry.npmjs.org/err-code/-/err-code-2.0.3.tgz"
   integrity sha512-2bmlRpNKBxT/CRmPOlyISQpNj+qSeYvcym/uT0Jx2bMOlKLtSy1ZmLuVxSEKKyor/N5yhvp/ZiG1oE3DEYMSFA==
@@ -5518,11 +5474,6 @@ gensync@^1.0.0-beta.2:
   resolved "https://registry.npmjs.org/gensync/-/gensync-1.0.0-beta.2.tgz"
   integrity sha512-3hN7NaskYvMDLQY55gnW3NQ+mesEAepTqlg+VEbj7zzqEMBVNhzcGYYeqFo/TlYz6eQiFcp1HcsCZO+nGgS8zg==
 
-get-browser-rtc@^1.0.0:
-  version "1.1.0"
-  resolved "https://registry.npmjs.org/get-browser-rtc/-/get-browser-rtc-1.1.0.tgz"
-  integrity sha512-MghbMJ61EJrRsDe7w1Bvqt3ZsBuqhce5nrn/XAwgwOXhcsz53/ltdxOse1h/8eKXj5slzxdsz56g5rzOFSGwfQ==
-
 get-caller-file@^2.0.5:
   version "2.0.5"
   resolved "https://registry.npmjs.org/get-caller-file/-/get-caller-file-2.0.5.tgz"
@@ -6060,14 +6011,6 @@ internal-slot@^1.0.3:
     has "^1.0.3"
     side-channel "^1.0.4"
 
-ip-address@^8.0.0:
-  version "8.1.0"
-  resolved "https://registry.npmjs.org/ip-address/-/ip-address-8.1.0.tgz"
-  integrity sha512-Wz91gZKpNKoXtqvY8ScarKYwhXoK4r/b5QuT+uywe/azv0/nUCo7Bh0IRRI7F9DHR06kJNWtzMGLIbXavngbKA==
-  dependencies:
-    jsbn "1.1.0"
-    sprintf-js "1.1.2"
-
 ip-regex@^4.0.0, ip-regex@^4.3.0:
   version "4.3.0"
   resolved "https://registry.npmjs.org/ip-regex/-/ip-regex-4.3.0.tgz"
@@ -6121,38 +6064,6 @@ ipfs-client@^0.7.1:
     ipfs-grpc-client "^0.9.4"
     ipfs-http-client "^56.0.3"
     merge-options "^3.0.4"
-
-ipfs-core-config@^0.3.3:
-  version "0.3.3"
-  resolved "https://registry.npmjs.org/ipfs-core-config/-/ipfs-core-config-0.3.3.tgz"
-  integrity sha512-hF5OE4qKy8vJetI3VYWOYePiW0JSV3i/9ArIrwATT0aJHbPzrRWJFQvvfeAFVEPqRmEBnnIQZCjHyGeVFbYfBg==
-  dependencies:
-    "@chainsafe/libp2p-noise" "^5.0.1"
-    blockstore-datastore-adapter "^2.0.2"
-    datastore-core "^7.0.0"
-    datastore-fs "^7.0.0"
-    datastore-level "^8.0.0"
-    debug "^4.1.1"
-    err-code "^3.0.1"
-    hashlru "^2.3.0"
-    interface-datastore "^6.0.2"
-    ipfs-repo "^14.0.1"
-    ipfs-utils "^9.0.6"
-    ipns "^0.16.0"
-    is-ipfs "^6.0.1"
-    it-all "^1.0.4"
-    it-drain "^1.0.3"
-    it-foreach "^0.1.1"
-    libp2p-floodsub "^0.29.0"
-    libp2p-gossipsub "0.13.0"
-    libp2p-kad-dht "^0.28.5"
-    libp2p-mdns "^0.18.0"
-    libp2p-mplex "^0.10.2"
-    libp2p-tcp "^0.17.1"
-    libp2p-webrtc-star "^0.25.0"
-    libp2p-websockets "^0.16.2"
-    p-queue "^6.6.1"
-    uint8arrays "^3.0.0"
 
 ipfs-core-config@^0.4.0:
   version "0.4.0"
@@ -6559,7 +6470,7 @@ ipfs-unixfs@^6.0.0, ipfs-unixfs@^6.0.3, ipfs-unixfs@^6.0.9:
     err-code "^3.0.1"
     protobufjs "^6.10.2"
 
-ipfs-utils@^9.0.1, ipfs-utils@^9.0.6:
+ipfs-utils@^9.0.6:
   version "9.0.6"
   resolved "https://registry.npmjs.org/ipfs-utils/-/ipfs-utils-9.0.6.tgz"
   integrity sha512-/WfdwOIiJVb3uqfKRQ9Eo+vCEKsDgp7h4Pdc37MRwAiFciZ7xKAkEqsfXubV0VQi8x5jWTifeHn8WEPBLL451w==
@@ -6578,23 +6489,6 @@ ipfs-utils@^9.0.1, ipfs-utils@^9.0.6:
     node-fetch "https://registry.npmjs.org/@achingbrain/node-fetch/-/node-fetch-2.6.7.tgz"
     react-native-fetch-api "^2.0.0"
     stream-to-it "^0.2.2"
-
-ipns@^0.16.0:
-  version "0.16.0"
-  resolved "https://registry.npmjs.org/ipns/-/ipns-0.16.0.tgz"
-  integrity sha512-fBYkRjN3/fc6IQujUF4WBEyOXegK715w+wx9IErV6H2B5JXsMnHOBceUKn3L90dj+wJfHs6T+hM/OZiTT6mQCw==
-  dependencies:
-    cborg "^1.3.3"
-    debug "^4.2.0"
-    err-code "^3.0.1"
-    interface-datastore "^6.0.2"
-    libp2p-crypto "^0.21.0"
-    long "^4.0.0"
-    multiformats "^9.4.5"
-    peer-id "^0.16.0"
-    protobufjs "^6.10.2"
-    timestamp-nano "^1.0.0"
-    uint8arrays "^3.0.0"
 
 ipns@^1.0.0:
   version "1.0.2"
@@ -6750,11 +6644,6 @@ is-lambda@^1.0.1:
   version "1.0.1"
   resolved "https://registry.npmjs.org/is-lambda/-/is-lambda-1.0.1.tgz"
   integrity sha1-PZh3iZ5qU+/AFgUEzeFfgubwYdU=
-
-is-loopback-addr@^1.0.0:
-  version "1.0.1"
-  resolved "https://registry.npmjs.org/is-loopback-addr/-/is-loopback-addr-1.0.1.tgz"
-  integrity sha512-DhWU/kqY7X2F6KrrVTu7mHlbd2Pbo4D1YkAzasBMjQs6lJAoefxaA6m6CpSX0K6pjt9D0b9PNFI5zduy/vzOYw==
 
 is-loopback-addr@^2.0.1:
   version "2.0.1"
@@ -6950,14 +6839,6 @@ it-batch@^1.0.8, it-batch@^1.0.9:
   resolved "https://registry.npmjs.org/it-batch/-/it-batch-1.0.9.tgz"
   integrity sha512-7Q7HXewMhNFltTsAMdSz6luNhyhkhEtGGbYek/8Xb/GiqYMtwUmopE1ocPSiJKKp3rM4Dt045sNFoUu+KZGNyA==
 
-it-buffer@^0.1.3:
-  version "0.1.3"
-  resolved "https://registry.npmjs.org/it-buffer/-/it-buffer-0.1.3.tgz"
-  integrity sha512-9a2/9SYVwG7bcn3tpRDR4bXbtuMLXnDK48KVC+GXiQg97ZOOdWz2nIITBsOQ19b+gj01Rw8RNwtiLDLI8P8oiQ==
-  dependencies:
-    bl "^5.0.0"
-    buffer "^6.0.3"
-
 it-drain@^1.0.1, it-drain@^1.0.3, it-drain@^1.0.4, it-drain@^1.0.5:
   version "1.0.5"
   resolved "https://registry.npmjs.org/it-drain/-/it-drain-1.0.5.tgz"
@@ -6986,15 +6867,6 @@ it-glob@^1.0.1:
     "@types/minimatch" "^3.0.4"
     minimatch "^3.0.4"
 
-it-handshake@^2.0.0:
-  version "2.0.0"
-  resolved "https://registry.npmjs.org/it-handshake/-/it-handshake-2.0.0.tgz"
-  integrity sha512-K4q+mz8aLlCK3vTjtgNdHC9c/JbuOATsfogarjMsLcBZC5vYfKbX3Gq3AWcCdjIsIrPqzTlhPKSxl64LJkrt2w==
-  dependencies:
-    it-pushable "^1.4.0"
-    it-reader "^3.0.0"
-    p-defer "^3.0.0"
-
 it-handshake@^3.0.1:
   version "3.0.1"
   resolved "https://registry.npmjs.org/it-handshake/-/it-handshake-3.0.1.tgz"
@@ -7010,15 +6882,6 @@ it-last@^1.0.4, it-last@^1.0.5:
   version "1.0.6"
   resolved "https://registry.npmjs.org/it-last/-/it-last-1.0.6.tgz"
   integrity sha512-aFGeibeiX/lM4bX3JY0OkVCFkAw8+n9lkukkLNivbJRvNz8lI3YXv5xcqhFUV2lDJiraEK3OXRDbGuevnnR67Q==
-
-it-length-prefixed@^5.0.2, it-length-prefixed@^5.0.3:
-  version "5.0.3"
-  resolved "https://registry.npmjs.org/it-length-prefixed/-/it-length-prefixed-5.0.3.tgz"
-  integrity sha512-b+jDHLcnOnPDQN79ronmzF5jeBjdJsy0ce2O6i6X4J5tnaO8Fd146ZA/tMbzaLlKnTpXa0eKtofpYhumXGENeg==
-  dependencies:
-    bl "^5.0.0"
-    buffer "^6.0.3"
-    varint "^6.0.0"
 
 it-length-prefixed@^7.0.0, it-length-prefixed@^7.0.1:
   version "7.0.1"
@@ -7047,13 +6910,6 @@ it-merge@^1.0.1, it-merge@^1.0.2, it-merge@^1.0.3, it-merge@^1.0.4:
   dependencies:
     it-pushable "^1.4.0"
 
-it-pair@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.npmjs.org/it-pair/-/it-pair-1.0.0.tgz"
-  integrity sha512-9raOiDu5OAuDOahtMtapKQDrQTxBfzlzrNcB6o7JARHkt+7Bb1dMkW/TpYdAjBJE77KH3e2zGzwpGUP9tXbLww==
-  dependencies:
-    get-iterator "^1.0.2"
-
 it-pair@^2.0.2:
   version "2.0.2"
   resolved "https://registry.npmjs.org/it-pair/-/it-pair-2.0.2.tgz"
@@ -7075,14 +6931,6 @@ it-parallel@^2.0.1:
   integrity sha512-VnHs9UJXSr8jmPnquS76qhLU+tE3WvLJqBUKMjAD2/Z1O5JsjpHMqq8yvVByyuwuFnh1OG9faJVGc5c9t+T6Kg==
   dependencies:
     p-defer "^3.0.0"
-
-it-pb-rpc@^0.2.0:
-  version "0.2.0"
-  resolved "https://registry.npmjs.org/it-pb-rpc/-/it-pb-rpc-0.2.0.tgz"
-  integrity sha512-Rojodsa6yxSTZDqVVF9HXKsISoHtlLNOL0P6b/7oCswiscbjCpt1IB78BxRDHpFL3tg8jFPMNDTP3v6ZjrMf9w==
-  dependencies:
-    it-handshake "^2.0.0"
-    it-length-prefixed "^5.0.3"
 
 it-pb-stream@^1.0.2:
   version "1.0.2"
@@ -7113,7 +6961,7 @@ it-pipe@^2.0.3:
     it-pushable "^2.0.0"
     it-stream-types "^1.0.3"
 
-it-pushable@^1.4.0, it-pushable@^1.4.1, it-pushable@^1.4.2:
+it-pushable@^1.4.0, it-pushable@^1.4.2:
   version "1.4.2"
   resolved "https://registry.npmjs.org/it-pushable/-/it-pushable-1.4.2.tgz"
   integrity sha512-vVPu0CGRsTI8eCfhMknA7KIBqqGFolbRx+1mbQ6XuZ7YCz995Qj7L4XUviwClFunisDq96FdxzF5FnAbw15afg==
@@ -7124,13 +6972,6 @@ it-pushable@^2.0.0, it-pushable@^2.0.1:
   version "2.0.1"
   resolved "https://registry.npmjs.org/it-pushable/-/it-pushable-2.0.1.tgz"
   integrity sha512-UVu0KRPovrUZrso7lue8LYBC29/egqxV6xCJkZ1E1F3zPgzs4C0MSv6eDigOQKbcPJTVemcM7nsu/XNV0lwl+w==
-
-it-reader@^3.0.0:
-  version "3.0.0"
-  resolved "https://registry.npmjs.org/it-reader/-/it-reader-3.0.0.tgz"
-  integrity sha512-NxR40odATeaBmSefn6Xn43DplYvn2KtEKQzn4jrTRuPYXMky5M4e+KQ7aTJh0k0vkytLyeenGO1I1GXlGm4laQ==
-  dependencies:
-    bl "^5.0.0"
 
 it-reader@^5.0.0, it-reader@^5.0.1:
   version "5.0.1"
@@ -7188,16 +7029,6 @@ it-to-stream@^1.0.0:
     p-defer "^3.0.0"
     p-fifo "^1.0.0"
     readable-stream "^3.6.0"
-
-it-ws@^4.0.0:
-  version "4.0.0"
-  resolved "https://registry.npmjs.org/it-ws/-/it-ws-4.0.0.tgz"
-  integrity sha512-XmTzpMkevc6rUboy73r0CCNhciMmL/Yxir9O6FujRwdrjysztqLBQ1Xkr4CpY2m7BVSCObKotaCWJeZ29lOXRA==
-  dependencies:
-    buffer "^6.0.3"
-    event-iterator "^2.0.0"
-    iso-url "^1.1.2"
-    ws "^7.3.1"
 
 it-ws@^5.0.0:
   version "5.0.2"
@@ -7618,212 +7449,6 @@ libp2p-crypto@^0.16.0:
     tweetnacl "^1.0.0"
     ursa-optional "~0.10.0"
 
-libp2p-crypto@^0.21.0:
-  version "0.21.2"
-  resolved "https://registry.npmjs.org/libp2p-crypto/-/libp2p-crypto-0.21.2.tgz"
-  integrity sha512-EXFrhSpiHtJ+/L8xXDvQNK5VjUMG51u878jzZcaT5XhuN/zFg6PWJFnl/qB2Y2j7eMWnvCRP7Kp+ua2H36cG4g==
-  dependencies:
-    "@noble/ed25519" "^1.5.1"
-    "@noble/secp256k1" "^1.3.0"
-    err-code "^3.0.1"
-    iso-random-stream "^2.0.0"
-    multiformats "^9.4.5"
-    node-forge "^1.2.1"
-    protobufjs "^6.11.2"
-    uint8arrays "^3.0.0"
-
-libp2p-floodsub@^0.29.0:
-  version "0.29.1"
-  resolved "https://registry.npmjs.org/libp2p-floodsub/-/libp2p-floodsub-0.29.1.tgz"
-  integrity sha512-U9YL8xyGY5us/ox3RzVLRHNcK+qOuo4VSiNsSweNVjy50D4Fb9ahML0xHnahx9ZQicd6nDEPn8/i958fnu8N4g==
-  dependencies:
-    debug "^4.2.0"
-    libp2p-interfaces "^4.0.5"
-    time-cache "^0.3.0"
-    uint8arrays "^3.0.0"
-
-libp2p-gossipsub@0.13.0:
-  version "0.13.0"
-  resolved "https://registry.npmjs.org/libp2p-gossipsub/-/libp2p-gossipsub-0.13.0.tgz"
-  integrity sha512-xy2jRZGmJpjy++Di6f1admtjve8Fx0z5l8NISTQS282egwbRMmTPE6/UeYktb6hNGAgtSTIwXdHjXmMOiTarFA==
-  dependencies:
-    "@types/debug" "^4.1.7"
-    debug "^4.3.1"
-    denque "^1.5.0"
-    err-code "^3.0.1"
-    it-pipe "^1.1.0"
-    libp2p-interfaces "^4.0.4"
-    peer-id "^0.16.0"
-    protobufjs "^6.11.2"
-    uint8arrays "^3.0.0"
-
-libp2p-interfaces@^4.0.0, libp2p-interfaces@^4.0.4, libp2p-interfaces@^4.0.5:
-  version "4.0.6"
-  resolved "https://registry.npmjs.org/libp2p-interfaces/-/libp2p-interfaces-4.0.6.tgz"
-  integrity sha512-3KjzNEIWhi+VoOamLvgKKUE/xqwxSw/JYqsBnfMhAWVRvRtosROtVT03wci2XbuuowCYw+/hEX1xKJIR1w5n0A==
-  dependencies:
-    abortable-iterator "^3.0.0"
-    debug "^4.3.1"
-    err-code "^3.0.1"
-    it-length-prefixed "^5.0.2"
-    it-pipe "^1.1.0"
-    it-pushable "^1.4.2"
-    libp2p-crypto "^0.21.0"
-    multiaddr "^10.0.0"
-    multiformats "^9.1.2"
-    p-queue "^6.6.2"
-    peer-id "^0.16.0"
-    protobufjs "^6.10.2"
-    uint8arrays "^3.0.0"
-
-libp2p-kad-dht@^0.28.5:
-  version "0.28.6"
-  resolved "https://registry.npmjs.org/libp2p-kad-dht/-/libp2p-kad-dht-0.28.6.tgz"
-  integrity sha512-laJw8SRxYKYawMr295Yo38juRjiQ02cBTpnWU3KeTWnO+5bUYrtK6aOgxzMawiLDiDBZ/FLtdnoTPyuKP5QrTg==
-  dependencies:
-    any-signal "^3.0.0"
-    datastore-core "^7.0.0"
-    debug "^4.3.1"
-    err-code "^3.0.0"
-    hashlru "^2.3.0"
-    interface-datastore "^6.0.2"
-    it-all "^1.0.5"
-    it-drain "^1.0.4"
-    it-first "^1.0.4"
-    it-length "^1.0.3"
-    it-length-prefixed "^5.0.2"
-    it-map "^1.0.5"
-    it-merge "^1.0.3"
-    it-parallel "^2.0.1"
-    it-pipe "^1.1.0"
-    it-take "^1.0.2"
-    k-bucket "^5.1.0"
-    libp2p-crypto "^0.21.0"
-    libp2p-interfaces "^4.0.0"
-    libp2p-record "^0.10.4"
-    multiaddr "^10.0.0"
-    multiformats "^9.4.5"
-    p-defer "^3.0.0"
-    p-map "^4.0.0"
-    p-queue "^6.6.2"
-    peer-id "^0.16.0"
-    private-ip "^2.3.3"
-    protobufjs "^6.10.2"
-    streaming-iterables "^6.0.0"
-    timeout-abort-controller "^3.0.0"
-    uint8arrays "^3.0.0"
-    varint "^6.0.0"
-
-libp2p-mdns@^0.18.0:
-  version "0.18.0"
-  resolved "https://registry.npmjs.org/libp2p-mdns/-/libp2p-mdns-0.18.0.tgz"
-  integrity sha512-IBCKRuNc5USlli9QF/gOq2loCssE4ZKkVRhUNuAVBRXJ8ueqFEquc5R5C1sWy7AOgbycTgeNcxzSa1kuNb6nbg==
-  dependencies:
-    debug "^4.3.1"
-    multiaddr "^10.0.0"
-    multicast-dns "^7.2.0"
-    peer-id "^0.16.0"
-
-libp2p-mplex@^0.10.2:
-  version "0.10.7"
-  resolved "https://registry.npmjs.org/libp2p-mplex/-/libp2p-mplex-0.10.7.tgz"
-  integrity sha512-21VV0DZWuOsHgitWy1GZD1M/kki3a/hVoAJ5QC48p01JNSK5W8gxRiZtq7cCGJ/xNpbQxvMlMtS5eq8CFRlysg==
-  dependencies:
-    abortable-iterator "^3.0.2"
-    bl "^5.0.0"
-    debug "^4.3.1"
-    err-code "^3.0.1"
-    it-pipe "^1.1.0"
-    it-pushable "^1.4.1"
-    varint "^6.0.0"
-
-libp2p-record@^0.10.4:
-  version "0.10.6"
-  resolved "https://registry.npmjs.org/libp2p-record/-/libp2p-record-0.10.6.tgz"
-  integrity sha512-CbdO2P9DQn/DKll6R/J4nIw6Qt8xbUTfxYgJjpP9oz3izHKkpGQo0mPTe0NyuFTGIQ4OprrxqWqG5v8ZCGBqqw==
-  dependencies:
-    err-code "^3.0.1"
-    multiformats "^9.4.5"
-    protobufjs "^6.11.2"
-    uint8arrays "^3.0.0"
-
-libp2p-tcp@^0.17.1:
-  version "0.17.2"
-  resolved "https://registry.npmjs.org/libp2p-tcp/-/libp2p-tcp-0.17.2.tgz"
-  integrity sha512-SAdgDB4Rm0olPbyvanKP5JBaiRwbIOo0Nt++WYe1U2B6akg2uatsDOtulfpnc1gsL1B5vamnOpOzKaDj4kkt8g==
-  dependencies:
-    abortable-iterator "^3.0.0"
-    class-is "^1.1.0"
-    debug "^4.3.1"
-    err-code "^3.0.1"
-    libp2p-utils "^0.4.0"
-    mafmt "^10.0.0"
-    multiaddr "^10.0.0"
-    stream-to-it "^0.2.2"
-
-libp2p-utils@^0.4.0:
-  version "0.4.1"
-  resolved "https://registry.npmjs.org/libp2p-utils/-/libp2p-utils-0.4.1.tgz"
-  integrity sha512-kq/US2unamiyY+YwP47dO1uqpAdcbdYI2Fzi9JIEhjfPBaD1MR/uyQ/YP7ABthl3EaxAjIQYd1TVp85d6QKAtQ==
-  dependencies:
-    abortable-iterator "^3.0.0"
-    debug "^4.3.0"
-    err-code "^3.0.1"
-    ip-address "^8.0.0"
-    is-loopback-addr "^1.0.0"
-    multiaddr "^10.0.0"
-    private-ip "^2.1.1"
-
-libp2p-webrtc-peer@^10.0.1:
-  version "10.0.1"
-  resolved "https://registry.npmjs.org/libp2p-webrtc-peer/-/libp2p-webrtc-peer-10.0.1.tgz"
-  integrity sha512-Qi/YVrSI5sjU+iBvr1iAjGrakIEvzCS8S76v4q43jjlDb6Wj+S4OnFLH/uRlt7eLXcx4vlaI6huMzYrUAoopMg==
-  dependencies:
-    debug "^4.0.1"
-    err-code "^2.0.3"
-    get-browser-rtc "^1.0.0"
-    queue-microtask "^1.1.0"
-    randombytes "^2.0.3"
-    readable-stream "^3.4.0"
-
-libp2p-webrtc-star@^0.25.0:
-  version "0.25.0"
-  resolved "https://registry.npmjs.org/libp2p-webrtc-star/-/libp2p-webrtc-star-0.25.0.tgz"
-  integrity sha512-SyXjHDrm+qlKQE5HIddrUCSwkxCIJ30PAH4ZVNNADkC0F5IVQY9EoVJ+/rrzZuDDqccnS15TgxW13vmybX96bQ==
-  dependencies:
-    abortable-iterator "^3.0.0"
-    class-is "^1.1.0"
-    debug "^4.2.0"
-    err-code "^3.0.1"
-    ipfs-utils "^9.0.1"
-    it-pipe "^1.1.0"
-    libp2p-utils "^0.4.0"
-    libp2p-webrtc-peer "^10.0.1"
-    mafmt "^10.0.0"
-    multiaddr "^10.0.0"
-    p-defer "^3.0.0"
-    peer-id "^0.16.0"
-    socket.io-client "^4.1.2"
-    stream-to-it "^0.2.2"
-
-libp2p-websockets@^0.16.2:
-  version "0.16.2"
-  resolved "https://registry.npmjs.org/libp2p-websockets/-/libp2p-websockets-0.16.2.tgz"
-  integrity sha512-QGfo8jX1Ks16yi8C67CCyMW7k9cfCYiQ0lzKVJBud0fV3ymbMO2L8gzU6iXUUZTHILo8ka26zKhwQ4lmUMI+nA==
-  dependencies:
-    abortable-iterator "^3.0.0"
-    class-is "^1.1.0"
-    debug "^4.3.1"
-    err-code "^3.0.1"
-    ipfs-utils "^9.0.1"
-    it-ws "^4.0.0"
-    libp2p-utils "^0.4.0"
-    mafmt "^10.0.0"
-    multiaddr "^10.0.0"
-    multiaddr-to-uri "^8.0.0"
-    p-defer "^3.0.0"
-    p-timeout "^4.1.0"
-
 libp2p@^0.37.1:
   version "0.37.1"
   resolved "https://registry.npmjs.org/libp2p/-/libp2p-0.37.1.tgz"
@@ -7963,11 +7588,6 @@ lodash.templatesettings@^4.0.0:
   integrity sha512-stgLz+i3Aa9mZgnjr/O+v9ruKZsPsndy7qPZOchbqk2cnTU1ZaldKK+v7m54WoKIyxiuMZTKT2H81F8BeAc3ZQ==
   dependencies:
     lodash._reinterpolate "^3.0.0"
-
-lodash.throttle@^4.1.1:
-  version "4.1.1"
-  resolved "https://registry.npmjs.org/lodash.throttle/-/lodash.throttle-4.1.1.tgz"
-  integrity sha1-wj6RtxAkKscMN/HhzaknTMOb8vQ=
 
 lodash@^4.17.14, lodash@^4.17.15, lodash@^4.17.19, lodash@^4.17.21, lodash@^4.7.0:
   version "4.17.21"
@@ -8482,7 +8102,7 @@ multicast-dns@^7.2.0:
     dns-packet "^5.2.2"
     thunky "^1.0.2"
 
-multiformats@^9.0.0, multiformats@^9.0.2, multiformats@^9.0.4, multiformats@^9.1.0, multiformats@^9.1.2, multiformats@^9.4.2, multiformats@^9.4.5, multiformats@^9.4.7, multiformats@^9.5.1, multiformats@^9.5.4, multiformats@^9.6.3, multiformats@^9.6.4:
+multiformats@^9.0.0, multiformats@^9.0.2, multiformats@^9.0.4, multiformats@^9.1.0, multiformats@^9.4.2, multiformats@^9.4.5, multiformats@^9.4.7, multiformats@^9.5.1, multiformats@^9.5.4, multiformats@^9.6.3, multiformats@^9.6.4:
   version "9.6.5"
   resolved "https://registry.npmjs.org/multiformats/-/multiformats-9.6.5.tgz"
   integrity sha512-vMwf/FUO+qAPvl3vlSZEgEVFY/AxeZq5yg761ScF3CZsXgmTi/HGkicUiNN0CI4PW8FiY2P0OLklOcmQjdQJhw==
@@ -9223,7 +8843,7 @@ p-pipe@^3.1.0:
   resolved "https://registry.npmjs.org/p-pipe/-/p-pipe-3.1.0.tgz"
   integrity sha512-08pj8ATpzMR0Y80x50yJHn37NF6vjrqHutASaX5LiH5npS9XPvrUmscd9MF5R4fuYRHOxQR1FfMIlF7AzwoPqw==
 
-p-queue@^6.0.0, p-queue@^6.6.1, p-queue@^6.6.2:
+p-queue@^6.0.0, p-queue@^6.6.2:
   version "6.6.2"
   resolved "https://registry.npmjs.org/p-queue/-/p-queue-6.6.2.tgz"
   integrity sha512-RwFpb72c/BhQLEXIZ5K2e+AhgNVmIejGlTgiB9MzZ0e93GRvqZ7uSi0dvRF7/XIXDeNkra2fNHBxTyPDGySpjQ==
@@ -9284,11 +8904,6 @@ p-timeout@^3.2.0:
   integrity sha512-rhIwUycgwwKcP9yTOOFK/AKsAopjjCakVqLHePO3CC6Mir1Z99xT+R63jZxAT5lFZLa2inS5h+ZS2GvR99/FBg==
   dependencies:
     p-finally "^1.0.0"
-
-p-timeout@^4.1.0:
-  version "4.1.0"
-  resolved "https://registry.npmjs.org/p-timeout/-/p-timeout-4.1.0.tgz"
-  integrity sha512-+/wmHtzJuWii1sXn3HCuH/FTwGhrp4tmJTxSKJbfS+vkipci6osxXM5mY0jUiRzWKMTgUT8l7HFbeSwZAynqHw==
 
 p-timeout@^5.0.2:
   version "5.1.0"
@@ -9487,17 +9102,6 @@ path-type@^4.0.0:
   resolved "https://registry.npmjs.org/path-type/-/path-type-4.0.0.tgz"
   integrity sha512-gDKb8aZMDeD/tZWs9P6+q0J9Mwkdl6xMV8TjnGP3qJVJ06bdMgkbBlLU8IdfOsIsFz2BW1rNVT3XuNEl8zPAvw==
 
-peer-id@^0.16.0:
-  version "0.16.0"
-  resolved "https://registry.npmjs.org/peer-id/-/peer-id-0.16.0.tgz"
-  integrity sha512-EmL7FurFUduU9m1PS9cfJ5TAuCvxKQ7DKpfx3Yj6IKWyBRtosriFuOag/l3ni/dtPgPLwiA4R9IvpL7hsDLJuQ==
-  dependencies:
-    class-is "^1.1.0"
-    libp2p-crypto "^0.21.0"
-    multiformats "^9.4.5"
-    protobufjs "^6.10.2"
-    uint8arrays "^3.0.0"
-
 pem-jwk@^2.0.0:
   version "2.0.0"
   resolved "https://registry.npmjs.org/pem-jwk/-/pem-jwk-2.0.0.tgz"
@@ -9656,7 +9260,7 @@ proto-list@~1.2.1:
   resolved "https://registry.npmjs.org/proto-list/-/proto-list-1.2.4.tgz"
   integrity sha1-IS1b/hMYMGpCD2QCuOJv85ZHqEk=
 
-protobufjs@^6.10.2, protobufjs@^6.11.2:
+protobufjs@^6.10.2:
   version "6.11.3"
   resolved "https://registry.npmjs.org/protobufjs/-/protobufjs-6.11.3.tgz"
   integrity sha512-xL96WDdCZYdU7Slin569tFX712BxsxslWwAfAhCYjQKGTq7dAU91Lomy6nLLhh/dyGhk/YH4TwTSRxTzhuHyZg==
@@ -9742,7 +9346,7 @@ query-string@^6.13.8:
     split-on-first "^1.0.0"
     strict-uri-encode "^2.0.0"
 
-queue-microtask@^1.1.0, queue-microtask@^1.2.2, queue-microtask@^1.2.3:
+queue-microtask@^1.2.2, queue-microtask@^1.2.3:
   version "1.2.3"
   resolved "https://registry.npmjs.org/queue-microtask/-/queue-microtask-1.2.3.tgz"
   integrity sha512-NuaNSa6flKT5JaSYQzJok04JzTL1CA6aGhv5rfLW3PgqA+M2ChpZQnAC8h8i4ZFkBS8X5RqkDBHA7r4hej3K9A==
@@ -9764,7 +9368,7 @@ rabin-wasm@^0.1.4:
     node-fetch "^2.6.1"
     readable-stream "^3.6.0"
 
-randombytes@^2.0.3, randombytes@^2.1.0:
+randombytes@^2.1.0:
   version "2.1.0"
   resolved "https://registry.npmjs.org/randombytes/-/randombytes-2.1.0.tgz"
   integrity sha512-vYl3iOX+4CKUWuxGi9Ukhie6fsqXqS9FE2Zaic4tNFD2N2QQaXOMFbuKK4QmDHC0JO6B1Zp41J0LpT0oR68amQ==
@@ -10499,11 +10103,6 @@ stream-to-it@^0.2.2:
     inherits "~2.0.4"
     readable-stream "^3.5.0"
 
-streaming-iterables@^6.0.0:
-  version "6.2.0"
-  resolved "https://registry.npmjs.org/streaming-iterables/-/streaming-iterables-6.2.0.tgz"
-  integrity sha512-3AYC8oB60WyD1ic7uHmN/vm2oRGzRnQ3XFBl/bFMDi1q1+nc5/vjMmiE4vroIya3jG59t87VpyAj/iXYxyw9AA==
-
 streamsearch@0.1.2:
   version "0.1.2"
   resolved "https://registry.npmjs.org/streamsearch/-/streamsearch-0.1.2.tgz"
@@ -10716,13 +10315,6 @@ thunky@^1.0.2:
   version "1.1.0"
   resolved "https://registry.npmjs.org/thunky/-/thunky-1.1.0.tgz"
   integrity sha512-eHY7nBftgThBqOyHGVN+l8gF0BucP09fMo0oO/Lb0w1OF80dJv+lDVpXG60WMQvkcxAkNybKsrEIE3ZtKGmPrA==
-
-time-cache@^0.3.0:
-  version "0.3.0"
-  resolved "https://registry.npmjs.org/time-cache/-/time-cache-0.3.0.tgz"
-  integrity sha1-7Q388P2kXNyV+9YB/agw6/G9XYs=
-  dependencies:
-    lodash.throttle "^4.1.1"
 
 timeout-abort-controller@^3.0.0:
   version "3.0.0"
