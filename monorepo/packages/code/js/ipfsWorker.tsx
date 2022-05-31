@@ -1,16 +1,11 @@
 Object.assign(self, require("buffer"));
 Object.assign(self, require("path-browserify"));
 
-const OrbitDB = require("orbit-db")
+const OrbitDB = require("orbit-db");
 
-
-import * as IPFS from "ipfs-core"
-import {
-  IPFSService,
-  Server
-} from "ipfs-message-port-server"
+import * as IPFS from "ipfs-core";
+import { IPFSService, Server } from "ipfs-message-port-server";
 // import { WebRTCStar } from "@libp2p/webrtc-star";
-
 
 import config from "ipfs-core-config/config";
 
@@ -24,8 +19,9 @@ import type {} from "orbit-db";
 // importScripts('https://unpkg.com/ipfs-message-port-server@0.11.3/index.min.js');
 
 async function startOrbit(_codeSpace: string, ipfs: IPFS) {
-
-  const orbitdb = await OrbitDB.createInstance(ipfs, {id: ipfs.id().toString()});
+  const orbitdb = await OrbitDB.createInstance(ipfs, {
+    id: ipfs.id().toString(),
+  });
 
   const address = "zed";
 
@@ -51,7 +47,7 @@ async function startOrbit(_codeSpace: string, ipfs: IPFS) {
     console.log(db.iterator({ limit: -1 }).collect());
   });
 
-  const query = (db:  OrbitDB) => {
+  const query = (db: OrbitDB) => {
     if (db.type === "eventlog") {
       return db.iterator({ limit: 5 }).collect();
     } else if (db.type === "feed") {
@@ -133,7 +129,6 @@ export const ipfsWorker = async () => {
         Pubsub: { Enabled: true },
         // ...libp2pConfig()
       },
-
       // libp2p: libp2pConfig(),
       //isWebWorker: true
       // ...libp2pConfig(),
