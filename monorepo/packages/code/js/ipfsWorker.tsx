@@ -18,14 +18,16 @@ import type {} from "orbit-db";
 // importScripts('https://unpkg.com/ipfs@0.62.3/index.min.js');
 // importScripts('https://unpkg.com/ipfs-message-port-server@0.11.3/index.min.js');
 
-async function startOrbit(_codeSpace: string, ipfs: IPFS) {
-  const orbitdb = await OrbitDB.createInstance(ipfs, {
-    id: ipfs.id().toString(),
-  });
+const orbitDbs = {
 
-  const address = "zed";
+};
 
-  const db = await orbitdb.open(address, {
+async function startOrbit(codeSpace: string, address: string) {
+
+
+  
+  orbitDbs[codeSpace]= address || codeSpace;
+  const db = await orbitdb.open(address || codeSpace, {
     // If database doesn't exist, create it
     create: true,
     overwrite: true,
@@ -41,9 +43,14 @@ async function startOrbit(_codeSpace: string, ipfs: IPFS) {
   });
 
   // Create / Open a database
+  const bc = new BroadcastChannel("spike.land");
 
   // Listen for updates from peers
   db.events.on("replicated", (_address: string) => {
+    if (address !== _address) {
+      orbitDbs[codeSpace] = _address;
+      bc.postMessage({codeSpace, address: _address});
+    }
     console.log(db.iterator({ limit: -1 }).collect());
   });
 
@@ -65,6 +72,8 @@ async function startOrbit(_codeSpace: string, ipfs: IPFS) {
 
   let dbAddress = address;
 
+
+
   const queryAndRender = async (db: typeof OrbitDB) => {
     //const networkPeers =
     await ipfs.swarm.peers();
@@ -83,9 +92,18 @@ async function startOrbit(_codeSpace: string, ipfs: IPFS) {
 
   db.events.on("write", () => queryAndRender(db));
 
-  const bc = new BroadcastChannel("spike.land");
   bc.onmessage = async (event) => {
+    
+
     console.log({ event });
+
+    if (event.data.codeSpace && event.data.address) {
+      const {codeSpace, address} = event.data;
+     
+      if (!Object.prototype.hasOwnProperty(codeSpace)) {
+          startOrbit(codeSpace, address)
+      }
+    }
 
     if (
       event.data.codeSpace && event.data.messageData
@@ -139,8 +157,13 @@ export const ipfsWorker = async () => {
     const service = new IPFSService(ipfs);
     const server = new Server(service);
 
-    self.ipfs = ipfs;
+    
 
+    self.ipfs = ipfs;
+    
+    const orbitdb = await OrbitDB.createInstance(ipfs, {
+      id: ipfs.id().toString(),
+    });
     //   console.log(db.iterator({ limit: -1 }).collect())
     // })
 
