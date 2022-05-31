@@ -8,7 +8,7 @@ import uidV4 from "./uidV4.mjs";
 const webRtcArray: (RTCDataChannel & { target: string })[] = [];
 
 export const { codeSpace } = self;
-let address = self;
+let {address} = self;
 
 globalThis.codeSpace = codeSpace;
 globalThis.address = address;
@@ -148,7 +148,7 @@ bc.onmessage = async (event) => {
   console.log({ event });
 
   if (
-    event.data.codeSpace === codeSpace && event.data.address  && !address)  ws.send(JSON.stringify({codeSpace, address: event.data.address }));
+    event.data.codeSpace === codeSpace && event.data.address  && !address) { ws?.send(JSON.stringify({codeSpace, address: event.data.address }));}
   
 
 
