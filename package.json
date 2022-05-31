@@ -29,7 +29,7 @@
     "push": "NODE_ENV=production yarn ws:yarn push",
     "importmap": "yarn ws:yarn importmap",
     "build:code": "yarn ws:yarn build:code",
-    "publish": "yarn ws:yarn deploy",
+    "prepublish": "yarn build:prod && yarn ws:yarn deploy",
     "deploy": "yarn ws:yarn deploy",
     "lerna:publish": "yarn ws:yarn lerna:publish",
     "push:prod": "NODE_ENV=production yarn build-and-push",
