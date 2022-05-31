@@ -8,7 +8,10 @@ import uidV4 from "./uidV4.mjs";
 const webRtcArray: (RTCDataChannel & { target: string })[] = [];
 
 export const { codeSpace } = self;
+let address = self;
+
 globalThis.codeSpace = codeSpace;
+globalThis.address = address;
 
 const user = ((self && self.crypto && self.crypto.randomUUID &&
   self.crypto.randomUUID()) || (uidV4())).slice(
@@ -143,6 +146,11 @@ const ignoreUsers: string[] = [];
 const bc = new BroadcastChannel("spike.land");
 bc.onmessage = async (event) => {
   console.log({ event });
+
+  if (
+    event.data.codeSpace === codeSpace && event.data.address  && !address)  ws.send(JSON.stringify({codeSpace, address: event.data.address }));
+  
+
 
   if (event.data.ignoreUser) {
     !ignoreUsers.includes(event.data.ignoreUser) &&

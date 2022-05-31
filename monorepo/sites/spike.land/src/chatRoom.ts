@@ -18,9 +18,12 @@ import { prettier } from "./prettier";
 import imap from "@spike.land/code/js/importmap.json";
 import {transform} from "./esbuild.ts"
 
+
 interface IState extends DurableObjectState {
   mySession: CodeSession;
   hashOfCode: string;
+  address: string;
+
 }
 
 interface ISession {
@@ -29,8 +32,9 @@ interface ISession {
   transpiled: string;
   css: string;
   html: string;
+  address: string;
   lastTimestamp: number;
-}
+ }
 
 interface WebsocketSession {
   uuid: string;
@@ -51,6 +55,7 @@ export class Code {
     this.sessions = [];
     this.env = env;
     this.sessions = [];
+    this.address = ""
 
     const username = self.crypto.randomUUID().substring(0, 8);
 
@@ -61,6 +66,8 @@ export class Code {
         ? JSON.parse(sessionMaybeStr)
         : sessionMaybeStr;
 
+     
+
       if (!session) {
         const codeMainId = env.CODE.idFromName("code-main");
         const defaultRoomObject = env.CODE.get(codeMainId);
@@ -68,6 +75,7 @@ export class Code {
         const resp = await defaultRoomObject.fetch("session");
 
         session = await resp.json();
+
         if (!session) {
           session = {
             code: RCA,
@@ -78,6 +86,8 @@ export class Code {
             i: 0,
           };
         }
+        session.address=""
+      
         await this.kv.put<ISession>("session", session);
       }
 
@@ -85,6 +95,9 @@ export class Code {
         name: username,
         state: { ...session },
       });
+
+      this.state.address = session.address;
+    
 
       return;
     });
@@ -265,7 +278,7 @@ export class Code {
           const html = HTML.replace(
             `/** startState **/`,
             `Object.assign(window,${
-              JSON.stringify({ startState, codeSpace })
+              JSON.stringify({ startState, codeSpace, address})
             });`,
           )
             .replace(
@@ -345,6 +358,7 @@ export class Code {
     });
 
     webSocket.addEventListener("message", async (msg) => {
+    
       let data;
       try {
         data = JSON.parse(msg.data);
@@ -356,6 +370,16 @@ export class Code {
           }),
         );
       }
+
+
+
+      if (data.codeSpace  && data.address && !this.state.address ) {
+        this.broadcast(msg.data);
+      }
+
+      const address = this.state.address || data.address;
+
+     
 
       if (data.timestamp) {
         session.timestamp = Date.now();
@@ -492,7 +516,7 @@ export class Code {
             //   hashCode: newHash,
             // }));
 
-            await this.kv.put<ICodeSession>("session", mST());
+            await this.kv.put<ICodeSession>("session", {...mST(), address});
 
             await this.kv.put(String(newHash), { oldHash, patch });
           } else {
