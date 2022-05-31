@@ -84,7 +84,7 @@
     "@mui/material": "^5.8.1",
     "@spike.land/qrious": "^0.7.828",
     "@types/prettier": "2.6.3",
-    "@types/react": "18.0.9",
+    "@types/react": "18.0.10",
     "@types/react-dom": "18.0.5",
     "ace-builds": "1.5.3",
     "assert": "2.0.0",
