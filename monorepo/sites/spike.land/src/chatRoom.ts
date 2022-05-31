@@ -109,6 +109,7 @@ export class Code {
       let code = "";
       let patched = false;
 
+      const address = this.state.address;
       let url = new URL(request.url);
       const codeSpace = url.searchParams.get("room") || "code-main";
       if (codeSpace && this.state.mySession.room === "") {
@@ -377,8 +378,8 @@ export class Code {
         this.broadcast(msg.data);
       }
 
-      const address = this.state.address || data.address;
-
+      const address = this.state.address || data.address; 
+      this.state.address = address;
      
 
       if (data.timestamp) {
