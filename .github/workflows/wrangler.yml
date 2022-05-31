@@ -1,4 +1,4 @@
-name: Deploy
+name: Wrangler
 
 on:
   push:
@@ -8,7 +8,7 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    name: Deploy
+    name: Wrangler
     steps:
       - uses: actions/checkout@v2
       - name: Publish
