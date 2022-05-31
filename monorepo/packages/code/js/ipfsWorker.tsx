@@ -1,28 +1,31 @@
 Object.assign(self, require("buffer"));
+Object.assign(self, require("path-browserify"));
+
 const OrbitDB = require("orbit-db")
 
-const { create } = require("../../../node_modules/ipfs-core/index.min.js");
-const {
+
+import * as IPFS from "ipfs-core"
+import {
   IPFSService,
-  Server,
-} = require("../../../node_modules/ipfs-message-port-server/index.min.js");
-import { WebRTCStar } from "@libp2p/webrtc-star";
+  Server
+} from "ipfs-message-port-server"
+// import { WebRTCStar } from "@libp2p/webrtc-star";
 
 
-import config from "../../../node_modules/ipfs-core-config/esm/src/config.browser.js";
+import config from "ipfs-core-config/config";
 
 //import OrbitDB from "orbit-db"
 //import { create } from "../../node_modules/ipfs-core/index.min.js"//;
 //import { create,  } from "ipfs-core"//;
 
 import type {} from "orbit-db";
-import type * as IPFS from "ipfs";
 // } from "../../node_modules/ipfs-message-port-server/index.min.js";
 // importScripts('https://unpkg.com/ipfs@0.62.3/index.min.js');
 // importScripts('https://unpkg.com/ipfs-message-port-server@0.11.3/index.min.js');
 
 async function startOrbit(_codeSpace: string, ipfs: IPFS) {
-  const orbitdb = await OrbitDB.createInstance(ipfs);
+
+  const orbitdb = await OrbitDB.createInstance(ipfs, {id: ipfs.id().toString()});
 
   const address = "zed";
 
@@ -113,7 +116,7 @@ export const ipfsWorker = async () => {
     // Note: It is important to start listening before we do any async work to
     //  ensure that connections aren't missed while awaiting
 
-    const webRtcStar = new WebRTCStar();
+    // const webRtcStar = new WebRTCStar();
 
     const connections: MessagePort[][] = [];
     self.addEventListener(
@@ -123,7 +126,7 @@ export const ipfsWorker = async () => {
     // queue connections that occur while node was starting.
 
     const defaultConfig = config();
-    const ipfs = await create({
+    const ipfs = await IPFS.create({
       config: {
         ...defaultConfig,
 
@@ -131,7 +134,7 @@ export const ipfsWorker = async () => {
         // ...libp2pConfig()
       },
 
-      libp2p: libp2pConfig(),
+      // libp2p: libp2pConfig(),
       //isWebWorker: true
       // ...libp2pConfig(),
     });
@@ -161,31 +164,28 @@ export const ipfsWorker = async () => {
     connections.map((ports) => server.connect(ports[0]));
 
     startOrbit("logs", ipfs);
-    function libp2pConfig() {
-      /** @type {import('libp2p').Libp2pOptions} */
-      const options = {
-        transports: [
-          webRtcStar,
-        ],
-        peerDiscovery: [
-          webRtcStar.discovery,
-        ],
-        connectionManager: {
-          maxParallelDials: 150, // 150 total parallel multiaddr dials
-          maxDialsPerPeer: 4, // Allow 4 multiaddr to be dialed per peer in parallel
-          dialTimeout: 10e3, // 10 second dial timeout per peer dial
-          autoDial: true,
-        },
-        nat: {
-          enabled: false,
-        },
-        metrics: {
-          enabled: true,
-        },
-      };
+    // function libp2pConfig() {
+    //   /** @type {import('libp2p').Libp2pOptions} */
+    //   const options = {
+    //     // peerDiscovery: [
+    //     //   webRtcStar.discovery,
+    //     // ],
+    //     connectionManager: {
+    //       maxParallelDials: 150, // 150 total parallel multiaddr dials
+    //       maxDialsPerPeer: 4, // Allow 4 multiaddr to be dialed per peer in parallel
+    //       dialTimeout: 10e3, // 10 second dial timeout per peer dial
+    //       autoDial: true,
+    //     },
+    //     nat: {
+    //       enabled: false,
+    //     },
+    //     metrics: {
+    //       enabled: true,
+    //     },
+    //   };
 
-      return options;
-    }
+    //   return options;
+    // }
 
     // const result = db.iterator({ limit: -1 }).collect()
     // console.log(JSON.stringify(result, null, 2))
