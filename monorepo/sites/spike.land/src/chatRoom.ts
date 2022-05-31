@@ -16,6 +16,7 @@ import type {
 import { startSession } from "@spike.land/code/js/session";
 import { prettier } from "./prettier";
 import imap from "@spike.land/code/js/importmap.json";
+import {transform} from "./esbuild.ts"
 
 interface IState extends DurableObjectState {
   mySession: CodeSession;
@@ -131,16 +132,16 @@ export class Code {
               });
             }
           }
-        case "prettier":
+        case "prettier":{
           return new Response(prettier(mST().code), {
             status: 200,
             headers: {
               "Access-Control-Allow-Origin": "*",
               "Cache-Control": "no-cache",
-              "Content-Type": "application/json; charset=UTF-8",
+              "Content-Type": "application/javascript; charset=UTF-8",
             },
           });
-
+        }
         case "delta":
           type Diff = [-1 | 0 | 1, string];
 
@@ -224,7 +225,7 @@ export class Code {
           //   'export default function(){};'
           // }
 
-          return new Response(mST().transpiled, {
+          return new Response( await transform( mST().code), {
             status: 200,
             headers: {
               "Access-Control-Allow-Origin": "*",
