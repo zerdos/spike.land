@@ -13,7 +13,7 @@ export interface IRunnerSession {
 }
 
 
-
+export const runnerDebounced = throttle(runner, 100);
 const r = { counter: 0 };
 
 export async function runner(

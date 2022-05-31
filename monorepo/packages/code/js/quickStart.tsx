@@ -2,6 +2,7 @@ import { codeSpace, mST } from "./ws";
 
 import { isMobile } from "./isMobile.mjs";
 import { AceEditor } from "./AceEditor";
+import    { runnerDebounced } from "./runner";
 
 async function startAceWithSession() {
   const aceDom = document.createElement("pre");
@@ -9,7 +10,7 @@ async function startAceWithSession() {
   document.body.appendChild(aceDom);
 
   const { startAce } = await import("./ace");
-  const { runnerDebounced } = await import("./runner");
+
 
   startAce(mST().code, (newCode) => {
     runnerDebounced(
@@ -38,22 +39,21 @@ async function startMonacoWithSession() {
     },
   );
 
-  const model = editor.getModel();
+
 
   // Object.assign(session, { monaco, editor, model });
 
   // let inc = 0;
 
-  const { runnerDebounced } = await import("./runner");
   editor.onDidChangeModelContent(() =>
     runnerDebounced(
-      model!.getValue(),
+      editor.getModel()!.getValue(),
       // ev.changes,
       mST().i + 1,
     )
   );
 
-  Object.assign(globalThis, { monaco, editor, model });
+  Object.assign(globalThis, { monaco, editor, model: editor.getModel() });
 
   // monaco.languages.registerOnTypeFormattingEditProvider("typescript", {
   //   autoFormatTriggerCharacters: ["}", "{", ")", "(", ";"],

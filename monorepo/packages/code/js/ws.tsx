@@ -1,4 +1,7 @@
+
 /** @jsxImportSource @emotion/react */
+
+import "core-js/full";
 
 import { startSession } from "./session";
 import type { ICodeSession } from "./session";
@@ -115,7 +118,7 @@ const chCode = async () => {
         const mst = mST();
         if (mst.i === i) {
           if (globalThis.model) {
-            globalThis.model.setValue(mst.code);
+            globalThis.editor.getModel().setValue(mst.code);
           }
           if (globalThis.aceEditor) {
             globalThis.aceEditor.setValue(mst.code);
@@ -167,11 +170,14 @@ bc.onmessage = async (event) => {
 };
 
 export async function saveCode(sess: ICodeSession) {
-  if (sess.i <= mST().i) return;
+
   if (connections !== globalThis.connections) return;
 
+  if (sess.i <= mST().i) return;
+  
   const messageData = mySession.createPatch(sess);
   await mySession.applyPatch(messageData);
+
 
   bc.postMessage({
     codeSpace,

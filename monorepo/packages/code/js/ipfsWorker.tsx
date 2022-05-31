@@ -1,3 +1,5 @@
+import "core-js/full";
+
 Object.assign(self, require("buffer"));
 Object.assign(self, require("path-browserify"));
 

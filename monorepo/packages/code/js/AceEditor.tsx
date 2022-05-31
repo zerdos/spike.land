@@ -5,6 +5,7 @@ import { codeSpace, mST } from "./ws";
 
 import { css } from "@emotion/react";
 
+import      { runnerDebounced } from "./runner";
 export const AceEditor = () => {
   const ref = useRef<HTMLPreElement>(null) as null | {
     current: HTMLPreElement;
@@ -13,7 +14,7 @@ export const AceEditor = () => {
   useEffect(() => {
     if (ref === null) return;
     const load = async () => {
-      const { runnerDebounced } = await import("./runner");
+
 
       await startAce(mST().code, (newCode) => {
         runnerDebounced(

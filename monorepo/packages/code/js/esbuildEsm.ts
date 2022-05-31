@@ -1,3 +1,5 @@
+import "core-js/proposals/string-replace-all-stage-4";
+
 import { Mutex } from "async-mutex";
 import * as esbuild from "esbuild-wasm";
 import { wait } from "./wait";

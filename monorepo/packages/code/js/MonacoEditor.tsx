@@ -3,8 +3,7 @@
 import { useEffect, useRef } from "react";
 import { codeSpace, mST } from "./ws";
 
-import {runner} from "./runner";
-import throttle from "lodash/throttle"
+import {runnerDebounced} from "./runner";
 
 import { css } from "@emotion/react";
 
@@ -33,26 +32,23 @@ export const MonacoEditor = () => {
         },
       );
 
-      const model = editor.getModel();
+
 
       // Object.assign(session, { monaco, editor, model });
 
       // let inc = 0;
 
-      function runIt(){
-
-        const code =  model!.getValue();
-        const counter = mST().i + 1;
-        runner(code, counter)
-     
-    }
-    const runItThrottled = throttle(runner, debounceTime);
 
  
-      editor.onDidChangeModelContent(runItThrottled)
+      editor.onDidChangeModelContent(()=>{
+        const code =  editor.getModel()!.getValue();
+        const counter = mST().i + 1;
+        runnerDebounced(code, counter)
+     
+      });
 
 
-      Object.assign(globalThis, { monaco, editor, model });
+      Object.assign(globalThis, { monaco, editor });
     };
     load();
   }, [ref]);
