@@ -175,6 +175,7 @@ export async function saveCode(sess: ICodeSession) {
 
   bc.postMessage({
     codeSpace,
+    address,
     ignoreUser: user,
     sess: mST(),
     messageData,

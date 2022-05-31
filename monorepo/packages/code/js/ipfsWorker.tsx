@@ -43,7 +43,6 @@ async function startOrbit(codeSpace: string, address: string) {
   });
 
   // Create / Open a database
-  const bc = new BroadcastChannel("spike.land");
 
   // Listen for updates from peers
   db.events.on("replicated", (_address: string) => {
@@ -92,29 +91,7 @@ async function startOrbit(codeSpace: string, address: string) {
 
   db.events.on("write", () => queryAndRender(db));
 
-  bc.onmessage = async (event) => {
-    
-
-    console.log({ event });
-
-    if (event.data.codeSpace && event.data.address) {
-      const {codeSpace, address} = event.data;
-     
-      if (!Object.prototype.hasOwnProperty(codeSpace)) {
-          startOrbit(codeSpace, address)
-      }
-    }
-
-    if (
-      event.data.codeSpace && event.data.messageData
-    ) {
-      const hash = await db.add({
-        ...event.data.messageData,
-        codeSpace: event.data.codeSpace,
-      });
-      console.log(hash);
-    }
-  };
+ 
   // Add an x``s
 
   // Query
@@ -151,6 +128,32 @@ export const ipfsWorker = async () => {
       //isWebWorker: true
       // ...libp2pConfig(),
     });
+    const bc = new BroadcastChannel("spike.land");
+
+    bc.onmessage = async (event) => {
+    
+
+      console.log({ event });
+  
+      if (event.data.codeSpace && event.data.address) {
+        const {codeSpace, address} = event.data;
+       
+        if (!Object.prototype.hasOwnProperty(codeSpace)) {
+            startOrbit(codeSpace, address)
+        }
+      }
+  
+      if (
+        event.data.codeSpace && event.data.messageData
+      ) {
+        const hash = await db.add({
+          ...event.data.messageData,
+          codeSpace: event.data.codeSpace,
+        });
+        console.log(hash);
+      }
+    };
+
     // And add hello world for tests
     await ipfs.add({ content: "hello world" });
 
@@ -164,8 +167,6 @@ export const ipfsWorker = async () => {
     const orbitdb = await OrbitDB.createInstance(ipfs, {
       id: ipfs.id().toString(),
     });
-    const {codeSpace, address} = globalThis;
-    startOrbit(codeSpace, address)
     //   console.log(db.iterator({ limit: -1 }).collect())
     // })
 
