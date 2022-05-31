@@ -146,7 +146,7 @@ export const ipfsWorker = async () => {
 
         Pubsub: { Enabled: true },
         // ...libp2pConfig()
-      },
+    },
       // libp2p: libp2pConfig(),
       //isWebWorker: true
       // ...libp2pConfig(),
@@ -164,6 +164,8 @@ export const ipfsWorker = async () => {
     const orbitdb = await OrbitDB.createInstance(ipfs, {
       id: ipfs.id().toString(),
     });
+    const {codeSpace, address} = globalThis;
+    startOrbit(codeSpace, address)
     //   console.log(db.iterator({ limit: -1 }).collect())
     // })
 
