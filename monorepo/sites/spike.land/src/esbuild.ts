@@ -6,26 +6,19 @@ const regex1 = / from \"\.\./ig;
 
 const regex2 = / from \"\./ig;
 
-export async function transform(code: string) {
-  //const startTime = performance.now();
+export function transform(code: string) {
 
 
-
-    //
-
-    let result = await esbuild.transform(
-      `/** @jsx jsX */
+    esbuild.transformSync(
+    `/** @jsx jsX */
     import {jsx as jsX} from "@emotion/react";
-    ` +
-        code,
+    ${code}
+    ` ,
       {
         loader: "tsx",
         target: "esnext",
       },
-    );
-    
-    return result.code.replaceAll(regex1, ' from "https://spike.land/live')
-      .replaceAll(regex2, ' from "https://spike.land/live');
+    ).replaceAll(regex1, ' from "https://spike.land/live').replaceAll(regex2, ' from "https://spike.land/live');
   
 
   // const endTime = performance.now();

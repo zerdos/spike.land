@@ -225,7 +225,7 @@ export class Code {
           //   'export default function(){};'
           // }
 
-          return new Response( await transform( mST().code), {
+          return new Response(  transform( mST().code), {
             status: 200,
             headers: {
               "Access-Control-Allow-Origin": "*",
