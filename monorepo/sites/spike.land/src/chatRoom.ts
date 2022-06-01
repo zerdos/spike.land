@@ -298,6 +298,7 @@ export class Code {
           // eslint-disable-next-line no-undef
           let pair = new WebSocketPair();
 
+          const me = this;
           await handleSession(pair[1], ip);
 
           return new Response(null, { status: 101, webSocket: pair[0] });
@@ -313,24 +314,24 @@ export class Code {
     async function handleSession(webSocket: WebSocket, ip: string) {
       webSocket.accept();
   
-      let limiterId = this.env.LIMITERS.idFromName(ip);
+      let limiterId = me.env.LIMITERS.idFromName(ip);
   
       let limiter = new RateLimiterClient(
-        () => this.env.LIMITERS.get(limiterId),
+        () => me.env.LIMITERS.get(limiterId),
         (err: Error) => webSocket.close(1011, err.stack),
       );
       const uuid = self.crypto.randomUUID();
   
       const newConnEvent: INewWSConnection = {
         uuid,
-        hashCode: this.state.mySession.hashCode(),
+        hashCode: me.state.mySession.hashCode(),
         type: "new-ws-connection",
         timestamp: Date.now(),
       };
   
       webSocket.send(JSON.stringify(newConnEvent));
   
-      // this.state.mySession.addEvent(newConnEvent);
+      // me.state.mySession.addEvent(newConnEvent);
   
       let session = {
         uuid,
@@ -338,14 +339,14 @@ export class Code {
         timestamp: Date.now(),
         blockedMessages: [] as string[],
       } as WebsocketSession;
-      this.sessions.push(session);
+      me.sessions.push(session);
   
-      this.sessions.forEach((otherSession) => {
+      me.sessions.forEach((otherSession) => {
         if (otherSession.name) {
           session.blockedMessages.push(
             JSON.stringify({
               joined: otherSession.name,
-              hashCode: this.state.mySession.hashCode(),
+              hashCode: me.state.mySession.hashCode(),
             }),
           );
         }
@@ -366,12 +367,12 @@ export class Code {
           );
         }
   
-        if (data.codeSpace && data.address && !this.state.address) {
-          this.broadcast(msg.data);
+        if (data.codeSpace && data.address && !me.state.address) {
+          me.broadcast(msg.data);
         
   
-        this.state.address =  data.address;
-        await this.kv.put("address", data.address);
+        me.state.address =  data.address;
+        await me.kv.put("address", data.address);
         
       
       }
@@ -379,14 +380,14 @@ export class Code {
   
           session.webSocket.send(JSON.stringify({
             timestamp:  Date.now(),
-            hashCode: this.state.mySession.hashCode(),
+            hashCode: me.state.mySession.hashCode(),
           }));
         }
   
         try {
           if (session.quit) {
             if (session.name && typeof session.name === "string") {
-              // this.state.mySession.addEvent({
+              // me.state.mySession.addEvent({
               //   type: "quit",
               //   target: "broadcast",
               //   uuid: self.crypto.randomUUID(),
@@ -398,18 +399,18 @@ export class Code {
             return;
           }
   
-          // this.state.mySession.addEvent(
+          // me.state.mySession.addEvent(
           //   { ...data, uuid: session.uuid } as unknown as IEvent,
           // );
   
           // if (data.type === "get-cid") {
           //   const CID = data.cid;
-          //   if (this.hashCache[CID]) {
+          //   if (me.hashCache[CID]) {
           //     webSocket.send(
           //       JSON.stringify({
           //         type: "get-cid",
           //         cid: data.cid,
-          //         [CID]: this.hashCache[CID]
+          //         [CID]: me.hashCache[CID]
           //       })
           //     );
           //   }
@@ -456,11 +457,11 @@ export class Code {
             session.blockedMessages = [];
   
             // Broadcast to all other connections that this user has joined.
-            // this.broadcast({ joined: session.name });
+            // me.broadcast({ joined: session.name });
   
             const messageEv = {
               type: "code-init",
-              hashCode: this.state.mySession.hashCode(),
+              hashCode: me.state.mySession.hashCode(),
             };
   
             webSocket.send(
@@ -480,7 +481,7 @@ export class Code {
               data.type === "offer" ||
               data.type === "answer")
           ) {
-            this.user2user(data.target, { name: session.name, ...data });
+            me.user2user(data.target, { name: session.name, ...data });
             return;
           }
   
@@ -489,11 +490,11 @@ export class Code {
             (data.type === "delta")
           ) {
             const delta = data.delta;
-            await this.kv.put("delta", {
+            await me.kv.put("delta", {
               delta,
-              hashCode: this.state.mySession.hashCode(),
+              hashCode: me.state.mySession.hashCode(),
             });
-            // this.user2user(data.target, { name: session.name, ...data });
+            // me.user2user(data.target, { name: session.name, ...data });
             return;
           }
   
@@ -503,20 +504,20 @@ export class Code {
             const oldHash: number = data.oldHash;
             const patch: string = data.patch;
   
-            await this.state.mySession.applyPatch(data);
-            if (newHash === this.state.mySession.hashCode()) {
-              this.broadcast(msg.data);
+            await me.state.mySession.applyPatch(data);
+            if (newHash === me.state.mySession.hashCode()) {
+              me.broadcast(msg.data);
   
               // session.webSocket.send(JSON.stringify({
               //   hashCode: newHash,
               // }));
   
-              await this.kv.put<ICodeSession>("session",  ({...mST()}));
+              await me.kv.put<ICodeSession>("session",  ({...mST()}));
   
-              await this.kv.put(String(newHash), { oldHash, patch });
+              await me.kv.put(String(newHash), { oldHash, patch });
             } else {
-              this.user2user(data.name, {
-                hashCode: this.state.mySession.hashCode(),
+              me.user2user(data.name, {
+                hashCode: me.state.mySession.hashCode(),
               });
             }
   
@@ -545,9 +546,9 @@ export class Code {
   
       let closeOrErrorHandler = () => {
         session.quit = true;
-        this.sessions = this.sessions.filter((member) => member !== session);
+        me.sessions = me.sessions.filter((member) => member !== session);
         if (session.name) {
-          this.broadcast({ quit: session.name });
+          me.broadcast({ quit: session.name });
         }
       };
       webSocket.addEventListener("close", closeOrErrorHandler);
