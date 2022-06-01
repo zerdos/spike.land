@@ -3,15 +3,13 @@ import { RateLimiterClient } from "./rateLimiterClient";
 import HTML from "./index.html";
 
 import { CodeEnv } from "./env";
-import type {
-  ICodeSession,
-} from "@spike.land/code/js/session";
+import type { ICodeSession } from "@spike.land/code/js/session.tsx";
 import {
   hashCode,
   mST,
   patch,
   startSession,
-} from "@spike.land/code/js/session";
+} from "@spike.land/code/js/session.tsx";
 import imap from "@spike.land/code/js/importmap.json";
 
 interface IState extends DurableObjectState {
@@ -20,7 +18,7 @@ interface IState extends DurableObjectState {
 interface WebsocketSession {
   uuid: string;
   name?: string;
-  limiter:   RateLimiterClient,
+  limiter: RateLimiterClient;
   webSocket: WebSocket;
   quit?: boolean;
   blockedMessages: string[];
@@ -60,7 +58,6 @@ export class Code {
     this.codeSpace = url.searchParams.get("room") || "code-main";
 
     return await handleErrors(request, async () => {
-
       let path = url.pathname.slice(1).split("/");
 
       switch (path[0]) {
@@ -316,7 +313,8 @@ export class Code {
 
     webSocket.addEventListener(
       "message",
-      (msg: { data: string | ArrayBuffer }) => this.processWsMessage(msg, session),
+      (msg: { data: string | ArrayBuffer }) =>
+        this.processWsMessage(msg, session),
     );
 
     let closeOrErrorHandler = () => {
@@ -330,16 +328,19 @@ export class Code {
     webSocket.addEventListener("error", closeOrErrorHandler);
   }
 
-  async processWsMessage(msg:  { data: string | ArrayBuffer }, session: WebsocketSession) {
+  async processWsMessage(
+    msg: { data: string | ArrayBuffer },
+    session: WebsocketSession,
+  ) {
     if (session.quit) {
       session.webSocket.close(1011, "WebSocket broken.");
       return;
     }
 
-    const {webSocket, limiter} = session;
+    const { webSocket, limiter } = session;
 
-    const respondWith = (obj:Object)=> session.webSocket.send(JSON.stringify(obj))
-
+    const respondWith = (obj: Object) =>
+      session.webSocket.send(JSON.stringify(obj));
 
     let data;
     try {
@@ -359,7 +360,6 @@ export class Code {
       this.address = data.address;
       await this.kv.put("address", data.address);
 
-
       return;
     }
 
@@ -368,71 +368,65 @@ export class Code {
         timestamp: Date.now(),
         hashCode: hashCode(),
       });
-
     }
-     
+
     try {
+      if (
+        ["new-ice-candidate", "offer", "answer"].includes(data.type) &&
+        !limiter.checkLimit()
+      ) {
+        return respondWith({
+          error: "Your IP is being rate-limited, please try again later.",
+        });
+      }
 
-
-        if ( ['new-ice-candidate', 'offer', "answer"].includes(data.type) && !limiter.checkLimit()){
-        
-          return respondWith({
-              error: "Your IP is being rate-limited, please try again later.",
-            });
-          
+      try {
+        if (
+          ["new-ice-candidate", "offer", "answer"].includes(data.type)
+        ) {
+          return this.user2user(data.target, { name: session.name, ...data });
         }
 
-        
-     
-        try {
-          if (
-            ['new-ice-candidate', 'offer', "answer"].includes(data.type) 
-          ) {
-            return  this.user2user(data.target, { name: session.name, ...data });
+        if (data.patch && data.oldHash && data.newHash) {
+          if (data.oldHash !== hashCode()) {
+            return respondWith({ hashCode: hashCode() });
           }
 
-    
-          if (data.patch && data.oldHash && data.newHash) {
-       
-            if (data.oldHash !== hashCode()){
-             return respondWith({hashCode: hashCode()})
-            } 
+          await patch(data);
+          if (data.newHash === hashCode()) {
+            this.broadcast(msg.data);
 
-            await patch(data);
-            if (data.newHash === hashCode()) {
-              this.broadcast(msg.data);
+            respondWith({
+              hashCode: data.newHash,
+            });
 
-              respondWith({
-                hashCode: data.newHash,
-              });
-
-              await this.kv.put<ICodeSession>("session", mST());
-              await this.kv.put(String(data.newHash), { oldHash: data.oldHash, patch: data.patch });
-              return;
-            } else {
-              return respondWith({
-                hashCode: hashCode(),
-              });
-            }
-          }
-        } catch (exp) {
-          console.error({ exp });
-          return respondWith({
-              error: "unknown error - Trarraax",
-              exp: exp || {},
+            await this.kv.put<ICodeSession>("session", mST());
+            await this.kv.put(String(data.newHash), {
+              oldHash: data.oldHash,
+              patch: data.patch,
+            });
+            return;
+          } else {
+            return respondWith({
+              hashCode: hashCode(),
             });
           }
-          
-        
+        }
       } catch (exp) {
         console.error({ exp });
         return respondWith({
-          error: "unknown error - kxzkx",
+          error: "unknown error - Trarraax",
           exp: exp || {},
         });
       }
+    } catch (exp) {
+      console.error({ exp });
+      return respondWith({
+        error: "unknown error - kxzkx",
+        exp: exp || {},
+      });
     }
-  
+  }
 
   user2user(to: string, msg: Object | string) {
     const message = typeof msg !== "string" ? JSON.stringify(msg) : msg;
