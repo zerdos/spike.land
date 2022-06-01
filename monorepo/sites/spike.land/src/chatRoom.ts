@@ -422,32 +422,29 @@ export class Code {
               await this.kv.put(String(newHash), { oldHash, patch });
               return;
             } else {
-              webSocket.send(JSON.stringify({
+              return respondWith({
                 hashCode: hashCode(),
-              }));
-              return;
+              });
             }
           }
         } catch (exp) {
           console.error({ exp });
-          webSocket.send(
-            JSON.stringify({
+          return respondWith({
               error: "unknown error - kxzkx",
               exp: exp || {},
-            }),
-          );
-        }
+            });
+          }
+          
+        
       } catch (exp) {
         console.error({ exp });
-        webSocket.send(
-          JSON.stringify({
-            error: "unknown error r",
-            exp: exp || {},
-          }),
-        );
+        return respondWith({
+          error: "unknown error - kxzkx",
+          exp: exp || {},
+        });
       }
     }
-  }
+  
 
   user2user(to: string, msg: Object | string) {
     const message = typeof msg !== "string" ? JSON.stringify(msg) : msg;
