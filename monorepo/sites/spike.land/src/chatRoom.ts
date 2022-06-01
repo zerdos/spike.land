@@ -206,7 +206,7 @@ export class Code {
               "Content-Type": "application/json; charset=UTF-8",
             },
           });
-        case "  ":
+        case "mST":
           return new Response(
             JSON.stringify({
               mST: mST(),
