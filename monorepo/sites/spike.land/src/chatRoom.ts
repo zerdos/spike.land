@@ -7,7 +7,7 @@ import type { ICodeSession } from "@spike.land/code/js/session";
 import {
   hashCode,
   mST,
-  patch,
+  patch as applyPatch,
   startSession,
 } from "@spike.land/code/js/session";
 import imap from "@spike.land/code/js/importmap.json";
@@ -355,7 +355,14 @@ export class Code {
     }
 
     if (data.codeSpace && data.address && !this.address) {
-      this.broadcast(msg.data);
+
+  try{
+            this.broadcast(data);
+  } catch {
+    return respondWith({
+      "msg": "broadcast issue"
+    })
+  }
 
       this.address = data.address;
       await this.kv.put("address", data.address);
@@ -388,28 +395,39 @@ export class Code {
         }
 
         if (data.patch && data.oldHash && data.newHash) {
-          if (data.oldHash !== hashCode()) {
+          const {patch, newHash, oldHash} = data as {oldHash: number, newHash: number, patch: string};
+          if (oldHash !== hashCode()) {
             return respondWith({ hashCode: hashCode(), msg: "wrong oldHash" });
           }
 
-          await patch(data);
+          await applyPatch({oldHash, newHash, patch});
           
-          if (data.newHash === hashCode()) {
-            this.broadcast(msg.data);
+          if (newHash === hashCode()) {
 
-            respondWith({
-              msg: "all cool!",
-              hashCode: data.newHash,
-            });
+            try{
+              this.broadcast(data);
+    } catch {
+      return respondWith({
+        "msg": "broadcast issue"
+      })
+    }
+  
 
+          
             await this.kv.put<ICodeSession>("session", mST());
             await this.kv.put(String(data.newHash), {
               oldHash: data.oldHash,
               patch: data.patch,
             });
-            return;
+
+            return  respondWith({
+              msg: "all cool!",
+              hashCode: data.hashCode
+            });
+;
           } else {
             return respondWith({
+              msg: "apply wasn't done much",
               hashCode: hashCode(),
             });
           }
