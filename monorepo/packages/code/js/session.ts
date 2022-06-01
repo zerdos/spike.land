@@ -57,14 +57,18 @@ export type IUser = Record<
 export function initSession(room: string, u: IUserJSON) {
   return Record({ ...u, room, state: Record(u.state)() });
 }
+
+type CodePatch = { oldHash: number; newHash: number; patch: string }
 type IApplyPatch = (
-  prop: { oldHash: number; newHash: number; patch: string },
+  prop: CodePatch,
 ) => Promise<ICodeSess>;
 
 interface ICodeSess {
   hashCodeSession: number;
   hashCode: () => number;
   applyPatch: IApplyPatch;
+  createPatch: (st: ICodeSession)=> CodePatch
+  createPatchFromHashCode: (c: number, st: ICodeSession) => CodePatch
   json: () => IUserJSON;
 }
 
@@ -243,6 +247,8 @@ export const mST: () => ICodeSession = () => {
 };
 
 export const patch: IApplyPatch = async (x) => session!.applyPatch(x);
+export const makePatch = (st: ICodeSession)=>session.createPatch(st);
+export const makePatchFrom = (n: number, st: ICodeSession)=>session.createPatchFromHashCode(n, st);
 
 export const startSession = (room: string, u: IUserJSON): CodeSession =>
   session || new CodeSession(room, u);

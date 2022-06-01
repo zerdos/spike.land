@@ -2,7 +2,7 @@
 
 import "core-js/full";
 
-import { hashCode, mST, patch, startSession } from "./session";
+import { hashCode, makePatch, makePatchFrom, mST, patch as applyPatch, startSession } from "./session";
 import type { ICodeSession } from "./session";
 import { appFactory, renderApp } from "./starter";
 import debounce from "lodash/debounce";
@@ -73,7 +73,7 @@ export const run = async () => {
   join();
 };
 
-export const mySession = startSession(codeSpace, {
+startSession(codeSpace, {
   name: user,
   state: window.startState,
 });
@@ -163,8 +163,8 @@ bc.onmessage = async (event) => {
   if (
     event.data.codeSpace === codeSpace && event.data.sess.code !== mST().code
   ) {
-    const messageData = mySession.createPatch(event.data.sess);
-    await patch(messageData);
+    const messageData = makePatch(event.data.sess);
+    await applyPatch(messageData);
     await chCode();
   }
 };
@@ -174,8 +174,8 @@ export async function saveCode(sess: ICodeSession) {
 
   if (sess.i <= mST().i) return;
 
-  const messageData = mySession.createPatch(sess);
-  await patch(messageData);
+  const messageData = makePatch(sess);
+  await applyPatch(messageData);
 
   bc.postMessage({
     codeSpace,
@@ -191,11 +191,11 @@ export async function saveCode(sess: ICodeSession) {
   (async () => {
     try {
       const message = webRTCLastSeenHashCode
-        ? await mySession.createPatchFromHashCode(
+        ? await makePatchFrom(
           webRTCLastSeenHashCode,
           sess,
         )
-        : mySession.createPatch(sess);
+        : makePatch(sess);
       if (message && message.patch !== "") {
         console.log("sendRTC");
         sendChannel.send(message);
@@ -207,7 +207,7 @@ export async function saveCode(sess: ICodeSession) {
 
   if (ws) {
     console.log({ wsLastHashCode });
-    const message = await mySession.createPatchFromHashCode(
+    const message = await makePatchFrom(
       wsLastHashCode,
       sess,
     );
@@ -379,7 +379,7 @@ async function processWsMessage(
       return;
     }
 
-    await patch(data);
+    await applyPatch(data);
 
     if (data.newHash === hashCode()) {
       await chCode();
@@ -401,9 +401,9 @@ async function processWsMessage(
       );
       const data = await resp.json();
 
-      const messageData = mySession.createPatch(data);
+      const messageData = makePatch(data);
       console.log("APPLYING PATCH AGAIN");
-      await patch(messageData);
+      await applyPatch(messageData);
       await chCode();
       if (sendChannel) {
         sendChannel.send({ hashCode: messageData.newHash });
@@ -411,9 +411,9 @@ async function processWsMessage(
     }
 
     if (data.code && data.transpiled) {
-      const messageData = mySession.createPatch(data);
+      const messageData = makePatch(data);
       console.log("APPLYING PATCH AGAIN");
-      await patch(messageData);
+      await applyPatch(messageData);
       await chCode();
       if (sendChannel) {
         sendChannel.send({ hashCode: messageData.newHash });
