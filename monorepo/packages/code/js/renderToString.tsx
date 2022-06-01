@@ -5,7 +5,7 @@ import createCache from "@emotion/cache";
 import type { FC } from "react";
 import { render } from "react-dom";
 
-import { createJsBlob, appFactory } from "./starter";
+import { appFactory, createJsBlob } from "./starter";
 import { prettierCss, prettierHtml } from "./prettierEsm";
 
 export const renderFromString = async (transpiled: string) => {

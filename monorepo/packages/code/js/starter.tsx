@@ -19,7 +19,7 @@ const apps: { [key: string]: FC } = {};
 
 globalThis.apps = apps;
 export const appFactory = async (transpiled: string) => {
-  console.log("APP FACTPo")
+  console.log("APP FACTPo");
 
   if (globalThis.transpiled === transpiled) return;
   globalThis.transpiled = transpiled;

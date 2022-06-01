@@ -16,7 +16,6 @@ export const renderPreviewWindow = async (Editor: FC<{}>) => {
 
   document.body.style.backgroundImage = `url(${path.join("./chunks/", bg)} )`;
 
- 
   render(
     <>
       <Editor></Editor>
@@ -27,16 +26,16 @@ export const renderPreviewWindow = async (Editor: FC<{}>) => {
         // }}
         hashCode={mySession.hashCode()}
         room={codeSpace}
-      ></DraggableWindow>
+      >
+      </DraggableWindow>
     </>,
     target,
   );
 
   document.body.append(target);
-  if(document.getElementById("zbody")) {
-    document.getElementById("zbody") .append(globalThis.currentTarget);
+  if (document.getElementById("zbody")) {
+    document.getElementById("zbody").append(globalThis.currentTarget);
   } else {
     console.log("NO ZBODY");
   }
- 
 };

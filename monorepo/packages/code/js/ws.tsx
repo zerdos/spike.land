@@ -16,8 +16,6 @@ let { address } = self;
 globalThis.codeSpace = codeSpace;
 globalThis.address = address;
 
-
-
 const user = ((self && self.crypto && self.crypto.randomUUID &&
   self.crypto.randomUUID()) || (uidV4())).slice(
     0,
@@ -68,8 +66,7 @@ const sendChannel = {
 // let applyPatch;
 
 export const run = async () => {
- 
-  appFactory( window.startState.transpiled);
+  appFactory(window.startState.transpiled);
 
   if (location.href.endsWith("hydrated")) return;
 

@@ -58,24 +58,13 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
   {
     // onRestore,
     room,
-    hashCode
+    hashCode,
   },
 ) => {
-  // const [isStable, setIsStable] = useState(false);
   const [scaleRange, changeScaleRange] = useState(100);
-  // Const [height, changeHeight] = useState(innerHeight);
-  // const [childArray, setChild] = useState([globalThis.App]);
-  //   <LazySpikeLandComponent
-  //     name={room}
-  //     hash={hashCode}
-  //     transpiled={session.transpiled}
-  //     html={`<div id="root"><style>${session.css}</style><div id="zbody">${session.html}</div></div>`}
-  //   />,
-  // ]);
 
   const startPositions = { bottom: 0, right: 0 };
 
-  // const [errorText, setErrorText] = useState("");
 
   const [{ bottom, right }, setPositions] = useState(startPositions);
   const [width, setWidth] = useState(window.innerWidth * devicePixelRatio);
@@ -94,72 +83,25 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
     );
   }, []);
 
-  // const appRef = useRef<HTMLDivElement>(null);
-
-  // const [forcedIndie, setForcedIndie] = useState(0);
-
-  // const App = childArray[childArray.length - 1 - forcedIndie];
-
-  //  childArray[length - 1] !== globalThis.App &&
-  //    setChild((x) => [...x, globalThis.App]);
-
-  // UseEffect(() => {
-  // window.addEventListener("resize", () => changeHeight(window.innerHeight));
-  // });
-
-  // useEffect(() => {
-  //   const handler = setInterval(async () => {
-  //     if (errorText !== session.errorText) {
-  //       const newError = session.errorText;
-  //       setErrorText(newError);
-  //       setIsStable(false);
-  //       // await wait(1500);
-  //       if (session.errorText === newError) {
-  //         setIsStable(true);
-  //       }
-  //     }
-
-  //     // SetChild(session.children);
-  //   }, 200);
-
-  //   return () => {
-  //     clearInterval(handler);
-  //   };
-  // }, [setErrorText, errorText]);
+  
 
   const scale = scaleRange / 100;
   const [isFullScreen, setFullScreen] = useState(true);
 
-  // useEffect(() => {
-  //   if (forcedIndie > 0) {
-  //     setTimeout(() => {
-  //       setForcedIndie((f) => f - 1);
-  //     }, 100);
-  //   }
-  // }, [forcedIndie, childArray]);
 
   useEffect(() => {
     const reveal = async () => {
-      // await wait(2000);
-      // Const root = document.getElementById("root");
-      // if (root && root.remove) root.remove();
-
-      // await wait(2000);
-      // changeScaleRange(50);
-
+    
       setPositions({
         bottom: window.innerHeight * 0.2,
         right: window.innerWidth * 0.2,
       });
-      // ChangeScaleRange(75);
-      // setHeight(height=> height)
 
       if (window.innerWidth / devicePixelRatio < 600) {
         changeScaleRange(50);
         setWidth(breakPoints[0]);
         setHeight(breakPointHeights[0]);
 
-        // SetHeight(window.innerHeight * devicePixelRatio);
       }
 
       if (window.innerWidth / devicePixelRatio < 1200) {
@@ -167,25 +109,20 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
         setWidth(breakPoints[0]);
         setHeight(breakPointHeights[0]);
 
-        // SetHeight(window.innerHeight * devicePixelRatio);
       } else if (window.innerWidth / devicePixelRatio < 1800) {
-        // SetHeight(breakPoints[1]);
         setWidth(breakPoints[1]);
         setHeight(breakPointHeights[1]);
 
         changeScaleRange(50);
       } else if (window.innerWidth / devicePixelRatio < 2500) {
-        // SetHeight(breakPointHeights[2] * devicePixelRatio);
         setWidth(breakPoints[1]);
         setHeight(breakPointHeights[1]);
 
         changeScaleRange(75);
       } else if (window.innerWidth / devicePixelRatio > 2500) {
-        // SetWidth(window* devicePixelRatio)
         setWidth(breakPoints[1]);
         setHeight(breakPointHeights[1]);
 
-        // SetHeight(breakPoints[0]);
         changeScaleRange(100);
       }
 
@@ -200,32 +137,6 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
     reveal();
   }, []);
 
-  // If (isFullScreen) {
-  //   return (
-  //     <LazySpikeLandComponent
-  //       name={room}
-  //       cssText={session.css}
-  //       html={session.html}
-  //     />
-  //   );
-  // }
-
-  // if (isFullScreen) {
-  //   return (
-  //     <div
-  //       key={session.i}
-  //       ref={zbody}
-  //       css={css`
-  //         z-index: 10;
-  //         display: block;
-  //         width: 100%;
-  //         height: 100%;
-  // `}
-  //     >
-  //       <App></App>
-  //     </div>
-  //   );
-  // }
 
   const internal = (
     <div
@@ -355,37 +266,10 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
                   } 
               `}
           >
-            {
-              /* {errorText
-              ? (
-                <div
-                  id="zbody"
-                  css={`${session.css}`}
-                  dangerouslySetInnerHTML={createMarkup(session.html)}
-                />
-              )
-              : ( */
-            }
+          
 
-            {Zbody}
+            <Zbody />
 
-            {/* )}  */}
-            {
-              /*  </div>
-                   // {/* </div>
-                    <iframe
-                      frameborder="0"
-                      scrolling="no"
-                      css={css`
-                      height: 100%;
-                    `}
-                      onLoad={(e) => {
-                        console.log(e.target);
-                        console.log(e.target.document);
-                      }}
-                      src={`https://spike.land/live/${room}/hydrated`}
-                    /> */
-            }
           </motion.div>
         </motion.div>
         <ToggleButtonGroup
@@ -470,32 +354,6 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
         >
           <Share />
         </Fab>
-        ?
-        {
-          /* <Box
-          css={css`
-          max-height: 400px;
-          min-height: 200px;
-          margin-top: 20px;
-        `}
-        >
-          <Slider
-            sx={{
-              '& input[type="range"]': {
-                WebkitAppearance: "slider-vertical",
-              },
-            }}
-            max={0}
-            min={0 - childArray.length}
-            orientation="vertical"
-            defaultValue={0 - forcedIndie}
-            value={0 - forcedIndie}
-            onChange={(_, v) => setForcedIndie(0 - Number(v))}
-            aria-label="Temperature"
-            onKeyDown={() => null}
-          />
-        </Box> */
-        }
       </div>
     </div>
   );
@@ -530,12 +388,3 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
     </motion.div>
   );
 };
-
-// function createMarkup(__html: string) {
-//   return { __html };
-// }
-
-// function resizeIframe(obj) {
-//   obj.style.height = obj.contentWindow.document.documentElement.scrollHeight +
-//     "px";
-// }``
