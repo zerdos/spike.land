@@ -4,6 +4,7 @@ import "core-js/full";
 
 import { startSession } from "./session";
 import type { ICodeSession } from "./session";
+import { appFactory } from "./starter";
 import debounce from "lodash/debounce";
 import uidV4 from "./uidV4.mjs";
 
@@ -109,7 +110,7 @@ const chCode = async () => {
   try {
     if (globalThis.transpiled === transpiled) return;
 
-    await globalThis.appFactory(transpiled);
+    await appFactory(transpiled);
 
     if (globalThis.editor.getModel() || globalThis.aceEditor) {
       console.log("MODEL SET FROM REMOTE.... SORRY");

@@ -5,7 +5,7 @@ import createCache from "@emotion/cache";
 import type { FC } from "react";
 import { render } from "react-dom";
 
-import { createJsBlob } from "./starter";
+import { createJsBlob, appFactory } from "./starter";
 import { prettierCss, prettierHtml } from "./prettierEsm";
 
 export const renderFromString = async (transpiled: string) => {
@@ -14,7 +14,7 @@ export const renderFromString = async (transpiled: string) => {
 
   const { html, css } = getHtmlAndCss(App);
 
-  await globalThis.appFactory(transpiled);
+  await appFactory(transpiled);
 
   return {
     html: prettierHtml(`<style>${css}</style><div id="zbody">${html}</div>`),
