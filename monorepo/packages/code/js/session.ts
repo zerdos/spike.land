@@ -112,9 +112,8 @@ export class CodeSession implements ICodeSess {
         `https://spike.land/live/${this.room || globalThis.codeSpace}/mST`,
       );
 
-      const recRec = await resp.json() as ICodeSession;
-
-      hashStore[oldHash] = Record<ICodeSession>(recRec)();
+      const {mST, hashCode} = await(resp.json);
+      hashStore[hashCode] = Record<ICodeSession>(mST)();
     }
 
     const oldRec = hashStore[oldHash];
@@ -174,23 +173,11 @@ export class CodeSession implements ICodeSess {
       const resp = await fetch(
         `https://spike.land/live/${this.room || globalThis.codeSpace}/mST`,
       ); 
-      const newRec = await resp.json() as ICodeSession;
 
-      const newRecord = this.session.get("state").merge(newRec);
-      const newHashCheck = newRecord.hashCode();
-
-      if (newHashCheck === newHash) {
-        this.session = this.session.set("state", newRecord);
-        //  Console.error("WRONG update");
-      } else {
-        console.log("WRONG");
-        console.log({
-          newHashCheck,
-        });
-      }
-      return;
+      const {mST, hashCode} = await(resp.json);
+      hashStore[hashCode] = Record<ICodeSession>(mST)();
     }
-
+     
     const oldST = hashStore[oldHash].toJSON();
 
     const oldState = JSON.stringify(oldST);
