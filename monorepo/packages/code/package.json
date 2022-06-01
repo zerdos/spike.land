@@ -1,6 +1,6 @@
 {
   "name": "@spike.land/code",
-  "version": "0.7.871",
+  "version": "0.7.878",
   "description": "spike.land",
   "type": "module",
   "main": "./js/starter.ts",
