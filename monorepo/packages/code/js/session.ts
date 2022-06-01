@@ -109,7 +109,7 @@ export class CodeSession implements ICodeSess {
   ) => {
     if (!hashStore[oldHash]) {
       const resp = await fetch(
-        `https://spike.land/live/${this.room}/session`,
+        `https://spike.land/live/${this.room || globalThis.codeSpace}/mST`,
       );
 
       const recRec = await resp.json() as ICodeSession;
@@ -172,7 +172,7 @@ export class CodeSession implements ICodeSess {
 
     if (!hashStore[oldHash]) {
       const resp = await fetch(
-        `https://spike.land/live/${this.room || globalThis.codeSpace}/session`,
+        `https://spike.land/live/${this.room || globalThis.codeSpace}/mST`,
       ); 
       const newRec = await resp.json() as ICodeSession;
 
