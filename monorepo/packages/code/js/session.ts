@@ -241,7 +241,7 @@ if (!session) return {
   css: ""
 };
 
-const {i, transpiled, code, html, css} = session;
+const {i, transpiled, code, html, css} = session.json().state;
 return {i, transpiled, code, html, css};
 
 }

@@ -32,7 +32,6 @@ export class Code {
   kv: DurableObjectStorage;
   codeSpace: string;
   address: string;
-  mySession: CodeSession;
   sessions: WebsocketSession[];
   constructor(state: IState, private env: CodeEnv) {
     this.kv = state.storage;
@@ -47,8 +46,7 @@ export class Code {
       this.address = await this.kv.get<string>("address") || "";
 
       
-
-     this.mySession = startSession(this.codeSpace,   {
+      startSession(this.codeSpace,   {
         name: this.codeSpace,
         state: session 
       
@@ -56,7 +54,7 @@ export class Code {
         
       
       });
-
+    });
 
 
   }
@@ -307,7 +305,6 @@ export class Code {
 
     webSocket.send(JSON.stringify(newConnEvent));
 
-    // this.state.mySession.addEvent(newConnEvent);
 
     let session = {
       uuid,
@@ -378,35 +375,13 @@ export class Code {
     try {
       if (session.quit) {
         if (session.name && typeof session.name === "string") {
-          // this.state.mySession.addEvent({
-          //   type: "quit",
-          //   target: "broadcast",
-          //   uuid: self.crypto.randomUUID(),
-          //   name: session.name,
-          //   timestamp: Date.now()
-          // });
+         
         }
         webSocket.close(1011, "WebSocket broken.");
         return;
       }
 
-      // this.state.mySession.addEvent(
-      //   { ...data, uuid: session.uuid } as unknown as IEvent,
-      // );
-
-      // if (data.type === "get-cid") {
-      //   const CID = data.cid;
-      //   if (this.hashCache[CID]) {
-      //     webSocket.send(
-      //       JSON.stringify({
-      //         type: "get-cid",
-      //         cid: data.cid,
-      //         [CID]: this.hashCache[CID]
-      //       })
-      //     );
-      //   }
-      //   return;
-      // }
+  
 
       if (
         !(
@@ -440,9 +415,9 @@ export class Code {
         }
 
         // Deliver all the messages we queued up since the user connected.
-        // session.blockedMessages.forEach((queued) => {
-        //   webSocket.send(queued);
-        // });
+        session.blockedMessages.forEach((queued) => {
+          webSocket.send(queued);
+        });
 
         session.blockedMessages = [];
 
