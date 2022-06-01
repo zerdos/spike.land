@@ -5,7 +5,7 @@ Object.assign(self, require("path-browserify"));
 
 const OrbitDB = require("orbit-db");
 
-import * as IPFS from "ipfs-core";
+import {create} from "ipfs";
 import { IPFSService, Server } from "ipfs-message-port-server";
 // import { WebRTCStar } from "@libp2p/webrtc-star";
 
@@ -111,10 +111,13 @@ export const ipfsWorker = async () => {
     // queue connections that occur while node was starting.
 
     const defaultConfig = config();
-    const ipfs = await IPFS.create({
+    const ipfs = await create({
       config: {
         ...defaultConfig,
-
+        Addresses: {
+          ...defaultConfig?.Addresses,
+          Swarm: [...defaultConfig?.Addresses?.Swarm, "/dns4/ws-star0discovery.spike.land/tcp/443/wss/p2p-websocket-star"]
+        },
         Pubsub: { Enabled: true },
         // ...libp2pConfig()
       },

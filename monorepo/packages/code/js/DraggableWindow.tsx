@@ -43,6 +43,18 @@ interface DraggableWindowProps {
   room: string;
 }
 
+const ZBody = () => {
+  const zbodyRef = useRef<HTMLDivElement>(null);
+
+  return (
+    <div
+      id="zbody"
+      ref={zbodyRef}
+    />
+  );
+};
+
+
 export const DraggableWindow: FC<DraggableWindowProps> = (
   {
     // onRestore,
@@ -61,17 +73,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
   const top = height - bottom;
   const ref = useRef<HTMLDivElement>(null);
 
-  const Zbody = useMemo(() => {
-    const zbodyRef = useRef<HTMLDivElement>(null);
-
-    return (
-      <div
-        id="zbody"
-        ref={zbodyRef}
-      />
-    );
-  }, []);
-
+  
   
 
   const scale = scaleRange / 100;
@@ -215,7 +217,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
           >
           
 
-            <Zbody />
+            <ZBody />
 
           </motion.div>
         </motion.div>
