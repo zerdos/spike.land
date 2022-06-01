@@ -163,7 +163,7 @@ bc.onmessage = async (event) => {
   if (
     event.data.codeSpace === codeSpace && event.data.sess.code !== mST().code
   ) {
-    const messageData = makePatch(event.data.sess);
+    const messageData = await makePatch(event.data.sess);
     await applyPatch(messageData);
     await chCode();
   }
@@ -174,7 +174,7 @@ export async function saveCode(sess: ICodeSession) {
 
   if (sess.i <= mST().i) return;
 
-  const messageData = makePatch(sess);
+  const messageData = await makePatch(sess);
   await applyPatch(messageData);
 
   bc.postMessage({
@@ -195,7 +195,7 @@ export async function saveCode(sess: ICodeSession) {
           webRTCLastSeenHashCode,
           sess,
         )
-        : makePatch(sess);
+        :  await makePatch(sess);
       if (message && message.patch !== "") {
         console.log("sendRTC");
         sendChannel.send(message);
@@ -401,7 +401,7 @@ async function processWsMessage(
       );
       const data = await resp.json();
 
-      const messageData = makePatch(data);
+      const messageData = await makePatch(data);
       console.log("APPLYING PATCH AGAIN");
       await applyPatch(messageData);
       await chCode();
@@ -411,7 +411,7 @@ async function processWsMessage(
     }
 
     if (data.code && data.transpiled) {
-      const messageData = makePatch(data);
+      const messageData = await makePatch(data);
       console.log("APPLYING PATCH AGAIN");
       await applyPatch(messageData);
       await chCode();
