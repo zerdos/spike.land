@@ -129,15 +129,16 @@ export class CodeSession implements ICodeSess {
     }
 
     const oldRec = hashStore[oldHash];
-    const oldState = JSON.stringify(oldRec.toJSON());
+    const oldStr = JSON.stringify(oldRec.toJSON());
 
     const newRec = oldRec.merge(state);
+    const newStr = JSON.stringify(newRec.toJSON());
     const newHash = newRec.hashCode();
     hashStore[newHash] = newRec;
 
 
 
-    const patch = createPatch(JSON.stringify(oldRec.toJSON()), JSON.stringify(newRec.toJSON()));
+    const patch = createPatch(oldState, newStr);
     return {
       oldHash,
       newHash,
@@ -218,7 +219,7 @@ export const mST: () => ICodeSession = () => {
 };
 
 export const patch: IApplyPatch = async (x) => session!.applyPatch(x);
-export const makePatchFrom = (n: number, st: ICodeSession)=>session.createPatchFromHashCode(n, st);
+export const makePatchFrom = (n: number, st: ICodeSession)=>session!.createPatchFromHashCode(n, st);
 export const makePatch = (st: ICodeSession)=>makePatchFrom(hashCode(), st);
 
 export const startSession = (room: string, u: IUserJSON): CodeSession =>
