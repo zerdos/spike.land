@@ -130,7 +130,7 @@ export class Code {
             },
           });
         }
-        case "session":
+        case "session": {
           if (path[1]) {
             const session = await this.kv.get(path[1]);
             if (session) {
@@ -144,6 +144,15 @@ export class Code {
               });
             }
           }
+          return new Response(JSON.stringify(this.state.mySession), {
+            status: 200,
+            headers: {
+              "Access-Control-Allow-Origin": "*",
+              "Cache-Control": "no-cache",
+              "Content-Type": "application/json; charset=UTF-8",
+            },
+          });
+        }
         // case "prettier": {
         //   return new Response(prettier(mST().code), {
         //     status: 200,
