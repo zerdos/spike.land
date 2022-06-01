@@ -3,13 +3,11 @@
 import { useEffect, useRef } from "react";
 import { codeSpace, mST } from "./ws";
 
-import {runnerDebounced} from "./runner";
+import { runnerDebounced } from "./runner";
 
 import { css } from "@emotion/react";
 
 let debounceTime = 100;
-
-
 
 export const MonacoEditor = () => {
   const ref = useRef<HTMLDivElement>(null) as null | {
@@ -32,21 +30,15 @@ export const MonacoEditor = () => {
         },
       );
 
-
-
       // Object.assign(session, { monaco, editor, model });
 
       // let inc = 0;
 
-
- 
-      editor.onDidChangeModelContent(()=>{
-        const code =  editor.getModel()!.getValue();
+      editor.onDidChangeModelContent(() => {
+        const code = editor.getModel()!.getValue();
         const counter = mST().i + 1;
-        runnerDebounced(code, counter)
-     
+        runnerDebounced(code, counter);
       });
-
 
       Object.assign(globalThis, { monaco, editor });
     };

@@ -1,4 +1,4 @@
- /** @jsxImportSource @emotion/react */
+/** @jsxImportSource @emotion/react */
 
 import { css } from "@emotion/react";
 
@@ -58,6 +58,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
   {
     // onRestore,
     room,
+    hashCode
   },
 ) => {
   // const [isStable, setIsStable] = useState(false);
@@ -469,7 +470,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
         >
           <Share />
         </Fab>
-      ?
+        ?
         {
           /* <Box
           css={css`

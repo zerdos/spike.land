@@ -1,4 +1,3 @@
-
 /** @jsxImportSource @emotion/react */
 
 import "core-js/full";
@@ -11,7 +10,7 @@ import uidV4 from "./uidV4.mjs";
 const webRtcArray: (RTCDataChannel & { target: string })[] = [];
 
 export const { codeSpace } = self;
-let {address} = self;
+let { address } = self;
 
 globalThis.codeSpace = codeSpace;
 globalThis.address = address;
@@ -152,9 +151,10 @@ bc.onmessage = async (event) => {
   console.log({ event });
 
   if (
-    event.data.codeSpace === codeSpace && event.data.address  && !address) { ws?.send(JSON.stringify({codeSpace, address: event.data.address }));}
-  
-
+    event.data.codeSpace === codeSpace && event.data.address && !address
+  ) {
+    ws?.send(JSON.stringify({ codeSpace, address: event.data.address }));
+  }
 
   if (event.data.ignoreUser) {
     !ignoreUsers.includes(event.data.ignoreUser) &&
@@ -171,14 +171,12 @@ bc.onmessage = async (event) => {
 };
 
 export async function saveCode(sess: ICodeSession) {
-
   if (connections !== globalThis.connections) return;
 
   if (sess.i <= mST().i) return;
 
   const messageData = mySession.createPatch(sess);
   await mySession.applyPatch(messageData);
-
 
   bc.postMessage({
     codeSpace,

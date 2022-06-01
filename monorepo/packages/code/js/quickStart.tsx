@@ -2,7 +2,7 @@ import { codeSpace, mST } from "./ws";
 
 import { isMobile } from "./isMobile.mjs";
 import { AceEditor } from "./AceEditor";
-import    { runnerDebounced } from "./runner";
+import { runnerDebounced } from "./runner";
 
 async function startAceWithSession() {
   const aceDom = document.createElement("pre");
@@ -10,7 +10,6 @@ async function startAceWithSession() {
   document.body.appendChild(aceDom);
 
   const { startAce } = await import("./ace");
-
 
   startAce(mST().code, (newCode) => {
     runnerDebounced(
@@ -38,8 +37,6 @@ async function startMonacoWithSession() {
       code: mST().code,
     },
   );
-
-
 
   // Object.assign(session, { monaco, editor, model });
 

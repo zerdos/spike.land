@@ -12,7 +12,6 @@ export interface IRunnerSession {
   url: string;
 }
 
-
 export const runnerDebounced = throttle(runner, 100);
 const r = { counter: 0 };
 
