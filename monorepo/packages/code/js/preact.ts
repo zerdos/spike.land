@@ -1,3 +1,4 @@
+import "preact/debug";
 // export type { Children } from "preact/compat";
 import type React from "react";
 import * as react from "preact/compat";
