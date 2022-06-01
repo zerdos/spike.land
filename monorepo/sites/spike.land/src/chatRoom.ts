@@ -536,7 +536,7 @@ export class Code {
         console.error({exp});
         webSocket.send(
           JSON.stringify({
-            error: "unknown error",
+            error: "unknown error rwfre",
             exp: exp || {},
           }),
         );
