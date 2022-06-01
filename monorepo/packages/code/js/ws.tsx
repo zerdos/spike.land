@@ -206,7 +206,7 @@ export async function saveCode(sess: ICodeSession) {
 
 
     if (message.newHash !== hashCode()) {
-      console.error("NEW hash is not even hashCode")
+      console.error("NEW hash is not even hashCode", hashCode())
       return
     }
 
