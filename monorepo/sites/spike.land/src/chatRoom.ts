@@ -3,13 +3,13 @@ import { RateLimiterClient } from "./rateLimiterClient";
 import HTML from "./index.html";
 
 import { CodeEnv } from "./env";
-import type { ICodeSession } from "@spike.land/code/js/session.tsx";
+import type { ICodeSession } from "@spike.land/code/js/session";
 import {
   hashCode,
   mST,
   patch,
   startSession,
-} from "@spike.land/code/js/session.tsx";
+} from "@spike.land/code/js/session";
 import imap from "@spike.land/code/js/importmap.json";
 
 interface IState extends DurableObjectState {
