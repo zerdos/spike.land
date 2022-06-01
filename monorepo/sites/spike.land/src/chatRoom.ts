@@ -86,7 +86,7 @@ export class Code {
       });
     this.state.mySession = mySession;
     const mST = () => mySession.json().state;
-    
+
     globalThis.codeSpace = codeSpace;
 
 
@@ -472,6 +472,8 @@ export class Code {
           return;
         }
 
+        try{
+
         if (
           data.type &&
           (data.type === "new-ice-candidate" ||
@@ -520,6 +522,16 @@ export class Code {
 
           return;
         }
+      } catch (exp){
+        console.error({exp});
+        webSocket.send(
+          JSON.stringify({
+            error: "unknown error - kxzkx",
+            exp: exp || {},
+          }),
+        );
+      }
+
       } catch (exp) {
         console.error({exp});
         webSocket.send(
@@ -539,7 +551,7 @@ export class Code {
       }
     };
     webSocket.addEventListener("close", closeOrErrorHandler);
-    webSocket.addEventListener("error", closeOrErrorHandler);
+    webSocket.addEventListener("error", closeOrErrorHandler); d
   }
 
   user2user(to: string, msg: Object | string) {
