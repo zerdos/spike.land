@@ -65,7 +65,7 @@ interface ICodeSess {
 }
 
 
-let session: ICodeSession = null;
+let session: ICodeSession | null = null;
 
 const hashStore: { [key: number]: Record<ICodeSession> } = {};
 export class CodeSession implements ICodeSess {
