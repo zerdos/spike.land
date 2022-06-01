@@ -92,6 +92,7 @@ let intervalHandler: NodeJS.Timer | null = null;
 // };
 
 const chCode = async () => {
+  if (connections !== globalThis.connections) return;
   const { code, transpiled, i } = mST();
   const { prettier } = await import("./prettierEsm");
   if (globalThis.model) {
@@ -174,7 +175,7 @@ export async function saveCode(sess: ICodeSession) {
   if (connections !== globalThis.connections) return;
 
   if (sess.i <= mST().i) return;
-  
+
   const messageData = mySession.createPatch(sess);
   await mySession.applyPatch(messageData);
 
