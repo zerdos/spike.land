@@ -299,7 +299,7 @@ export class Code {
           let pair = new WebSocketPair();
 
           const me = this;
-          await handleSession(pair[1], ip);
+          await handleSession(pair[1], ip, me);
 
           return new Response(null, { status: 101, webSocket: pair[0] });
         }
@@ -311,7 +311,7 @@ export class Code {
 
 
 
-    async function handleSession(webSocket: WebSocket, ip: string) {
+    async function handleSession(webSocket: WebSocket, ip: string, me: Code) {
       webSocket.accept();
   
       let limiterId = me.env.LIMITERS.idFromName(ip);
