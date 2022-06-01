@@ -147,6 +147,7 @@ const ignoreUsers: string[] = [];
 
 const bc = new BroadcastChannel("spike.land");
 bc.onmessage = async (event) => {
+  if (event.data.ignoreUser && event.data.ignoreUser === user) return; 
   console.log({ event });
 
   if (
@@ -177,15 +178,6 @@ export async function saveCode(sess: ICodeSession) {
   const messageData = await makePatch(sess);
   await applyPatch(messageData);
 
-  bc.postMessage({
-    codeSpace,
-    address,
-    ignoreUser: user,
-    sess: mST(),
-    messageData,
-    hashCode: hashCode(),
-  });
-
   await chCode();
 
   (async () => {
@@ -212,14 +204,14 @@ export async function saveCode(sess: ICodeSession) {
       sess,
     );
 
-    if (!message) {
-      return;
+
+    if (message.newHash !== hashCode()) {
+      console.error("NEW hash is not even hashCode")
+      return
     }
 
     const messageString = JSON.stringify({ ...message, name: user });
-    if (message.patch !== "") {
-      sendWS(messageString);
-    }
+    sendWS(messageString);
   } else {
     rejoined = false;
     await rejoin();
@@ -391,35 +383,6 @@ async function processWsMessage(
       return;
     } else {
       console.log("error -sending on sendChannel");
-    }
-
-    if (wsLastHashCode !== hashCode()) {
-      console.log("there is an error. fetch tje state....");
-
-      const resp = await fetch(
-        `https://spike.land/live/${codeSpace}/session`,
-      );
-      const data = await resp.json();
-
-      const messageData = await makePatch(data);
-      console.log("APPLYING PATCH AGAIN");
-      await applyPatch(messageData);
-      await chCode();
-      if (sendChannel) {
-        sendChannel.send({ hashCode: messageData.newHash });
-      }
-    }
-
-    if (data.code && data.transpiled) {
-      const messageData = await makePatch(data);
-      console.log("APPLYING PATCH AGAIN");
-      await applyPatch(messageData);
-      await chCode();
-      if (sendChannel) {
-        sendChannel.send({ hashCode: messageData.newHash });
-      }
-
-      return;
     }
 
     return;
