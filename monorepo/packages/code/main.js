@@ -1,4 +1,4 @@
-import { IPFSClient } from "../../node_modules/ipfs-message-port-client/";
+import { IPFSClient } from "ipfs-message-port-client";
 
 // URL to the script containing ipfs-message-port-server.
 const IPFS_SERVER_URL = "https://spike.land/worker.js";
