@@ -1,16 +1,10 @@
 import { handleErrors } from "./handleErrors";
 import { RateLimiterClient } from "./rateLimiterClient";
 import HTML from "./index.html";
-import RCA from "./rca.tsx.html";
-import HYDRATED from "./hydrated.html";
-
-import { version } from "@spike.land/code/package.json";
 
 import { CodeEnv } from "./env";
 import type {
-  CodeSession,
   ICodeSession,
-  INewWSConnection,
 } from "@spike.land/code/js/session";
 import {
   hashCode,
@@ -26,6 +20,7 @@ interface IState extends DurableObjectState {
 interface WebsocketSession {
   uuid: string;
   name?: string;
+  limiter:   RateLimiterClient,
   webSocket: WebSocket;
   quit?: boolean;
   blockedMessages: string[];
@@ -44,12 +39,13 @@ export class Code {
     this.sessions = [];
     this.env = env;
     this.codeSpace = "";
+    this.address = "";
 
     this.state.blockConcurrencyWhile(async () => {
       const session = await this.kv.get<ICodeSession>("session") ||
         await (await (env.CODE.get(env.CODE.idFromName("code-main"))).fetch(
           "session",
-        )).json();
+        )).json() as ICodeSession;
       this.address = await this.kv.get<string>("address") || "";
 
       startSession(this.codeSpace, {
@@ -64,10 +60,6 @@ export class Code {
     this.codeSpace = url.searchParams.get("room") || "code-main";
 
     return await handleErrors(request, async () => {
-      let code = "";
-      let patched = false;
-
-      const address = this.state.address || "";
 
       let path = url.pathname.slice(1).split("/");
 
@@ -87,7 +79,7 @@ export class Code {
         }
         case "session": {
           if (path[1]) {
-            const session = await this.kv.get(path[1]);
+            const session = await this.kv.get<ICodeSession>(path[1]);
             if (session) {
               const { i, transpiled, code, html, css } = session;
 
@@ -324,8 +316,7 @@ export class Code {
 
     webSocket.addEventListener(
       "message",
-      (msg: { data: string }) =>
-        this.processWsMessage(msg, session),
+      (msg: { data: string | ArrayBuffer }) => this.processWsMessage(msg, session),
     );
 
     let closeOrErrorHandler = () => {
@@ -339,15 +330,15 @@ export class Code {
     webSocket.addEventListener("error", closeOrErrorHandler);
   }
 
-  async processWsMessage(msg, session) {
+  async processWsMessage(msg:  { data: string | ArrayBuffer }, session: WebsocketSession) {
     if (session.quit) {
-      webSocket.close(1011, "WebSocket broken.");
+      session.webSocket.close(1011, "WebSocket broken.");
       return;
     }
 
     const {webSocket, limiter} = session;
 
-    const respondWith = (obj)=> session.webSocket.send(JSON.stringify(obj))
+    const respondWith = (obj:Object)=> session.webSocket.send(JSON.stringify(obj))
 
 
     let data;
@@ -362,7 +353,7 @@ export class Code {
       });
     }
 
-    if (data.codeSpace && data.address && !this.state.address) {
+    if (data.codeSpace && data.address && !this.address) {
       this.broadcast(msg.data);
 
       this.address = data.address;
@@ -403,20 +394,20 @@ export class Code {
     
           if (data.patch && data.oldHash && data.newHash) {
        
-            if (oldHash !== hashCode()){
+            if (data.oldHash !== hashCode()){
              return respondWith({hashCode: hashCode()})
             } 
 
             await patch(data);
-            if (newHash === hashCode()) {
+            if (data.newHash === hashCode()) {
               this.broadcast(msg.data);
 
               respondWith({
-                hashCode: newHash,
+                hashCode: data.newHash,
               });
 
               await this.kv.put<ICodeSession>("session", mST());
-              await this.kv.put(String(newHash), { oldHash, patch });
+              await this.kv.put(String(data.newHash), { oldHash: data.oldHash, data.patch });
               return;
             } else {
               return respondWith({
