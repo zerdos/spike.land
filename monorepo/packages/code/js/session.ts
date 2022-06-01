@@ -64,6 +64,9 @@ interface ICodeSess {
   json: () => IUserJSON;
 }
 
+
+let session: ICodeSession = null;
+
 const hashStore: { [key: number]: Record<ICodeSession> } = {};
 export class CodeSession implements ICodeSess {
   session: IUser;
@@ -97,6 +100,7 @@ export class CodeSession implements ICodeSess {
 
     this.hashCodeSession = this.session.get("state").hashCode();
     hashStore[this.session.get("state").hashCode()] = this.session.get("state");
+    session=this;
   }
 
   public hashCode() {
@@ -227,7 +231,6 @@ export class CodeSession implements ICodeSess {
 
 export const hashCode = () => session?.hashCode() || 0;
 
-const session: CodeSession | null = null;
 export const startSession = (room: string, u: IUserJSON): CodeSession =>
   session || new CodeSession(room, u);
 

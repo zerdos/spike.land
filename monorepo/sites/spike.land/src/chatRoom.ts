@@ -22,15 +22,6 @@ interface IState extends DurableObjectState {
   address: string;
 }
 
-interface ISession {
-  i: number;
-  code: string;
-  transpiled: string;
-  css: string;
-  html: string;
-  lastTimestamp: number;
-}
-
 interface WebsocketSession {
   uuid: string;
   name?: string;
@@ -49,61 +40,56 @@ export class Code {
     this.state = state;
     this.sessions = [];
     this.env = env;
-    this.sessions = [];
-    const username = self.crypto.randomUUID().substring(0, 8);
+    
+    this.username = self.crypto.randomUUID().substring(0, 8);
 
     this.state.blockConcurrencyWhile(async () => {
-      const sessionMaybeStr = await this.kv.get<ISession>("session");
+      const session = await this.kv.get<ICodeSession>("session") || null;
       const address = await this.kv.get<string>("address") || "";
-      this.state.address = address;
 
-      let session: ISession = typeof sessionMaybeStr === "string"
-        ? JSON.parse(sessionMaybeStr)
-        : sessionMaybeStr;
 
-      if (!session) {
+      Object.assign(this.state,{session, address});
+
+      if (session != null) {
+
+          return;
+        }
+
+
         const codeMainId = env.CODE.idFromName("code-main");
         const defaultRoomObject = env.CODE.get(codeMainId);
 
         const resp = await defaultRoomObject.fetch("session");
 
-        session = await resp.json();
+        this.state.session =  resp.json();
 
-        if (!session) {
-          session = {
-            code: RCA,
-            transpiled: RCA,
-            html: "",
-            css: "",
-            lastTimestamp: 0,
-            i: 0,
-          };
-        }
+        
+      
 
-        await this.kv.put<string>("address", "");
-        this.state.address = "";
-      }
-
-      this.state.mySession = startSession("", {
-        name: username,
-        state: { ...session },
+        
+      
       });
 
-      await this.kv.put<ICodeSession>("session", this.state.mySession.json().state);
+   
 
-      this.state.address = address;
 
-      return;
-    });
   }
 
   async fetch(request: Request, env: CodeEnv) {
     let url = new URL(request.url);
     const codeSpace = url.searchParams.get("room") || "code-main";
+
+    const mySession = this.state.mySession || startSession(codeSpace, 
+      {
+        name: this.username,
+        state: this.state.session
+      });
+    this.state.mySession = mySession;
+    const mST = () => mySession.json().state;
     
     globalThis.codeSpace = codeSpace;
 
-    const mST = () => this.state.mySession.json().state;
+
     return await handleErrors(request, async () => {
       let code = "";
       let patched = false;
