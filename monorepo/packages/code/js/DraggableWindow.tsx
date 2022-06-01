@@ -1,4 +1,4 @@
-/** @jsxImportSource @emotion/react */
+ /** @jsxImportSource @emotion/react */
 
 import { css } from "@emotion/react";
 
@@ -460,7 +460,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
 
         <QRButton
           url={`https://spike.land/live/${room}/public`}
-          key="QRButton"
+          key={`qr-${hashCode}`}
         />
 
         <Fab
@@ -469,21 +469,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
         >
           <Share />
         </Fab>
-        <Fab
-          key="Share"
-          onClick={async () => {
-            const IdentifoAuth = await import("@identifo/identifo-auth-js");
-
-            console.log(IdentifoAuth);
-
-            const identifo = new IdentifoAuth({
-              url: "https://spuke.land", // URI of your Identifo server.
-              appId: "ddw", // ID of application that you want to get access to.
-            });
-          }}
-        >
-          <Share />
-        </Fab>
+      ?
         {
           /* <Box
           css={css`

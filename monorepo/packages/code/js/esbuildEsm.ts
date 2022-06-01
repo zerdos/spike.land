@@ -4,6 +4,7 @@ import { Mutex } from "async-mutex";
 import * as esbuild from "esbuild-wasm";
 import { wait } from "./wait";
 
+
 const mod = { initFinished: false };
 
 const mutex = new Mutex();
@@ -42,8 +43,11 @@ async function transform(code: string, retry = 4): Promise<string> {
         target: "esnext",
       },
     );
-    return result.code.replaceAll(regex1, ' from "https://spike.land/live')
+
+    const transpiled =  result.code.replaceAll(regex1, ' from "https://spike.land/live')
       .replaceAll(regex2, ' from "https://spike.land/live');
+    console.log({transpiled});
+    return transpiled;
   } catch (e) {
     if (retry > 0) {
       await wait(100);
