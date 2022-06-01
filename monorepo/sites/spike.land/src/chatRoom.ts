@@ -298,7 +298,7 @@ export class Code {
           // eslint-disable-next-line no-undef
           let pair = new WebSocketPair();
 
-          await this.handleSession(pair[1], ip);
+          await handleSession(pair[1], ip);
 
           return new Response(null, { status: 101, webSocket: pair[0] });
         }
