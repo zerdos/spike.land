@@ -166,9 +166,9 @@ export class CodeSession implements ICodeSess {
     }
 
 
-    const oldCode = oldST.code;
-    const newCode = JSON.parse(applyPatch(oldCode, JSON.parse(patch)));
-    const newRec: Record<ICodeSession> = Record<ICodeSession>({...oldST, code: newCode})();
+const oldStr =JSON.stringify(hashStore[oldHash].toJSON());
+    const newState = JSON.parse(applyPatch(oldStr, JSON.parse(patch)));
+    const newRec: Record<ICodeSession> =  this.session.get("state").merge(newState);
 
     console.log({ newState });
     console.log(newRec.hashCode());
