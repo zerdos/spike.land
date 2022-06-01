@@ -77,7 +77,7 @@ export class Code {
 
   async fetch(request: Request, env: CodeEnv) {
     let url = new URL(request.url);
-    this.codeSpace - url.searchParams.get("room") || "code-main";
+    this.codeSpace = url.searchParams.get("room") || "code-main";
 
     if (!this.state.mySession) {
 
