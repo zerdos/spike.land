@@ -138,7 +138,7 @@ export class CodeSession implements ICodeSess {
 
 
 
-    const patch = createPatch(oldState, newStr);
+    const patch = createPatch(oldStr, newStr);
     return {
       oldHash,
       newHash,
