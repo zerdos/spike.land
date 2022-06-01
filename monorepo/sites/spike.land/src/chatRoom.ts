@@ -310,8 +310,7 @@ export class Code {
 
 
 
-    async handleSession(webSocket: WebSocket, ip: string) {
-      const mST = () => this.state.mySession.json().state as ICodeSession;
+    async function handleSession(webSocket: WebSocket, ip: string) {
       webSocket.accept();
   
       let limiterId = this.env.LIMITERS.idFromName(ip);
