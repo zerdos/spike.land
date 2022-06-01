@@ -66,6 +66,6 @@
     "esbuild-wasm": "0.14.42",
     "ipfs-message-port-client": "0.12.0",
     "nodemon": "2.0.16",
-    "preact": "10.7.2"
+    "preact": "10.7.3"
   }
 }
