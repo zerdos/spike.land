@@ -166,7 +166,11 @@ export class CodeSession implements ICodeSess {
     newHash,
     patch,
   }: { oldHash: number; newHash: number; patch: string }) => {
+  
     const oldHashCheck = this.session.get("state").hashCode();
+
+    if (oldHash !== oldHashCheck) return;
+
     hashStore[oldHashCheck] = this.session.get("state");
 
     if (!hashStore[oldHash]) {
