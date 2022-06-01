@@ -14,9 +14,7 @@ import type {
   INewWSConnection,
 } from "@spike.land/code/js/session";
 import { startSession } from "@spike.land/code/js/session";
-import { prettier } from "./prettier";
 import imap from "@spike.land/code/js/importmap.json";
-import { transform } from "./esbuild.ts";
 
 interface IState extends DurableObjectState {
   mySession: CodeSession;
@@ -30,7 +28,6 @@ interface ISession {
   transpiled: string;
   css: string;
   html: string;
-  address: string;
   lastTimestamp: number;
 }
 
@@ -52,13 +49,13 @@ export class Code {
     this.state = state;
     this.sessions = [];
     this.env = env;
-    this.sessions = [];
-    this.address = "";
-
+    this.sessions = [];x§
     const username = self.crypto.randomUUID().substring(0, 8);
 
     this.state.blockConcurrencyWhile(async () => {
       const sessionMaybeStr = await this.kv.get<ISession>("session");
+      const address = await this.kv.get<string>("address") || "";
+      this.state.address = address;
 
       let session: ISession = typeof sessionMaybeStr === "string"
         ? JSON.parse(sessionMaybeStr)
@@ -82,9 +79,9 @@ export class Code {
             i: 0,
           };
         }
-        session.address = "";
 
-        await this.kv.put<ISession>("session", session);
+        await this.kv.put<string>("address", "");
+        this.state.address = "";
       }
 
       this.state.mySession = startSession("", {
@@ -92,13 +89,15 @@ export class Code {
         state: { ...session },
       });
 
-      this.state.address = session.address;
+      await this.kv.put<ICodeSession>("session", this.state.mySession.json().state);
+
+      this.state.address = address;
 
       return;
     });
   }
 
-  async fetch(request: Request, env) {
+  async fetch(request: Request, env: CodeEnv) {
     const mST = () => this.state.mySession.json().state;
     return await handleErrors(request, async () => {
       let code = "";
@@ -107,7 +106,7 @@ export class Code {
       const address = this.state.address || "";
       let url = new URL(request.url);
       const codeSpace = url.searchParams.get("room") || "code-main";
-      if (codeSpace && this.state.mySession.room === "") {
+      if (codeSpace) {
         this.state.mySession.setRoom(codeSpace);
       }
 
@@ -356,7 +355,7 @@ export class Code {
     webSocket.addEventListener("message", async (msg) => {
       let data;
       try {
-        data = JSON.parse(msg.data);
+        data = typeof msg.data==="string"? JSON.parse(msg.data): JSON.parse(new TextDecoder().decode(msg.data))
       } catch (exp) {
         webSocket.send(
           JSON.stringify({
@@ -368,16 +367,17 @@ export class Code {
 
       if (data.codeSpace && data.address && !this.state.address) {
         this.broadcast(msg.data);
-      }
+      
 
-      const address = this.state.address || data.address;
-      this.state.address = address;
-
+      this.state.address =  data.address;
+      await this.kv.put("address", data.address);
+      
+    
+    }
       if (data.timestamp) {
-        session.timestamp = Date.now();
 
         session.webSocket.send(JSON.stringify({
-          timestamp: session.timestamp,
+          timestamp:  Date.now(),
           hashCode: this.state.mySession.hashCode(),
         }));
       }
@@ -436,7 +436,6 @@ export class Code {
           webSocket.send(JSON.stringify({
             ...mST(),
           }));
-          A;
         }
 
         if (!session.name && data.name) {
@@ -508,7 +507,7 @@ export class Code {
             //   hashCode: newHash,
             // }));
 
-            await this.kv.put<ICodeSession>("session", { ...mST(), address });
+            await this.kv.put<ICodeSession>("session", mST());
 
             await this.kv.put(String(newHash), { oldHash, patch });
           } else {
@@ -520,6 +519,7 @@ export class Code {
           return;
         }
       } catch (exp) {
+        console.error({exp});
         webSocket.send(
           JSON.stringify({
             error: "unknown error",
