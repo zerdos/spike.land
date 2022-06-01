@@ -175,11 +175,11 @@ export class CodeSession implements ICodeSess {
     newHash,
     patch,
   }: { oldHash: number; newHash: number; patch: string }) => {
-    const meHash =  this.hashCode()
+    const meHash = this.hashCode();
 
     const bestGuesses = this.room || globalThis.codeSpace;
 
-    if (!hashStore[oldHash] && bestGuesses ) {
+    if (!hashStore[oldHash] && bestGuesses) {
       const resp = await fetch(
         `https://spike.land/live/${bestGuesses}/mST`,
       );
@@ -201,9 +201,7 @@ export class CodeSession implements ICodeSess {
     console.log(newRec.hashCode());
 
     const newRecord = this.session.get("state").merge(newRec);
-    
 
-   
     const newHashCheck = newRecord.hashCode();
 
     if (newHashCheck === newHash) {

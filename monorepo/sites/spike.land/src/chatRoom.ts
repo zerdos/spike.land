@@ -355,14 +355,13 @@ export class Code {
     }
 
     if (data.codeSpace && data.address && !this.address) {
-
-  try{
-            this.broadcast(data);
-  } catch {
-    return respondWith({
-      "msg": "broadcast issue"
-    })
-  }
+      try {
+        this.broadcast(data);
+      } catch {
+        return respondWith({
+          "msg": "broadcast issue",
+        });
+      }
 
       this.address = data.address;
       await this.kv.put("address", data.address);
@@ -395,36 +394,36 @@ export class Code {
         }
 
         if (data.patch && data.oldHash && data.newHash) {
-          const {patch, newHash, oldHash} = data as {oldHash: number, newHash: number, patch: string};
+          const { patch, newHash, oldHash } = data as {
+            oldHash: number;
+            newHash: number;
+            patch: string;
+          };
           if (oldHash !== hashCode()) {
             return respondWith({ hashCode: hashCode(), msg: "wrong oldHash" });
           }
 
-          await applyPatch({oldHash, newHash, patch});
-          
+          await applyPatch({ oldHash, newHash, patch });
+
           if (newHash === hashCode()) {
-
-            try{
+            try {
               this.broadcast(data);
-    } catch {
-      return respondWith({
-        "msg": "broadcast issue"
-      })
-    }
-  
+            } catch {
+              return respondWith({
+                "msg": "broadcast issue",
+              });
+            }
 
-          
             await this.kv.put<ICodeSession>("session", mST());
             await this.kv.put(String(data.newHash), {
               oldHash: data.oldHash,
               patch: data.patch,
             });
 
-            return  respondWith({
+            return respondWith({
               msg: "all cool!",
-              hashCode: data.hashCode
+              hashCode: data.hashCode,
             });
-;
           } else {
             return respondWith({
               msg: "apply wasn't done much",
