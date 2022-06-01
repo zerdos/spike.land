@@ -112,7 +112,7 @@ export class CodeSession implements ICodeSess {
         `https://spike.land/live/${this.room || globalThis.codeSpace}/mST`,
       );
 
-      const {mST, hashCode} = await(resp.json);
+      const {mST, hashCode} = await resp.json();
       hashStore[hashCode] =this.session.get("state").merge(mST);
     }
 
@@ -174,7 +174,7 @@ export class CodeSession implements ICodeSess {
         `https://spike.land/live/${this.room || globalThis.codeSpace}/mST`,
       ); 
 
-      const {mST, hashCode} = await(resp.json);
+      const {mST, hashCode} = await resp.json();
       hashStore[hashCode] = this.session.get("state").merge(mST);
     }
      
