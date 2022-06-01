@@ -113,7 +113,7 @@ export class CodeSession implements ICodeSess {
       );
 
       const {mST, hashCode} = await(resp.json);
-      hashStore[hashCode] = Record<ICodeSession>(mST)();
+      hashStore[hashCode] =this.session.get("state").merge(mST);
     }
 
     const oldRec = hashStore[oldHash];
@@ -175,7 +175,7 @@ export class CodeSession implements ICodeSess {
       ); 
 
       const {mST, hashCode} = await(resp.json);
-      hashStore[hashCode] = Record<ICodeSession>(mST)();
+      hashStore[hashCode] = this.session.get("state").merge(mST);
     }
      
     const oldST = hashStore[oldHash].toJSON();
