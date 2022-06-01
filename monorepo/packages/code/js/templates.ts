@@ -31,7 +31,7 @@ export function getHtml({ html, css }: { html: string; css: string }): string {
 <link rel="icon" type="image/png" href="https://spike.land/assets/zed-icon-big.png" />
 <link rel="stylesheet" href="https://unpkg.com/modern-css-reset@1.4.0/public/reset.min.css" />
 
-<script async src="https://ga.jspm.io/npm:es-module-shims@1.4.1/public/es-module-shims.js"></script>
+<script async src="https://ga.jspm.io/npm:es-module-shims@1.5.5/public/es-module-shims.js"></script>
 <script type="esms-options">
 {
   "shimMode": true,
@@ -91,7 +91,7 @@ export const getEditorHTML = () =>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <link rel="icon" type="image/png" href="https://spike.land/assets/zed-icon-big.png" />
   
-  <script async src="https://ga.jspm.io/npm:es-module-shims@1.4.1/public/es-module-shims.js"></script>
+  <script async src="https://ga.jspm.io/npm:es-module-shims@1.5.5/public/es-module-shims.js"></script>
 <title>Instant React Editor</title>
 </head>
 <body>
