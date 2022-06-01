@@ -402,13 +402,10 @@ export class Code {
 
     
           if (data.patch && data.oldHash && data.newHash) {
-            const newHash: number = data.newHash;
-            const oldHash: number = data.oldHash;
-            const patch: string = data.patch;
+       
             if (oldHash !== hashCode()){
              return respondWith({hashCode: hashCode()})
             } 
-
 
             await patch(data);
             if (newHash === hashCode()) {
@@ -430,7 +427,7 @@ export class Code {
         } catch (exp) {
           console.error({ exp });
           return respondWith({
-              error: "unknown error - kxzkx",
+              error: "unknown error - Trarraax",
               exp: exp || {},
             });
           }
