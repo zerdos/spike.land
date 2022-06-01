@@ -72,10 +72,12 @@ body {
   </script>
   <div id="root"></div>
   <script>
+    
    /** startState **/
 
 
-   const ]ace = window.codeSpace || "coder";
+   const codeSpace = window.codeSpace || "coder";
+   const address = window.address || "";
    window.codeSpace = codeSpace;
    if (!window.startState) {
      async()=>{
@@ -90,7 +92,7 @@ body {
 
   
    function h(startState){
-   document.getElementById("root").innerHTML =  `<style>${startState.css}</style><div id="zbody">${startState.html}</div>`;
+   document.getElementById("root").innerHTML =  startState.html;
    window.appStarted = new Promise((resolve)=>{
    window.appResolver=resolve});
  

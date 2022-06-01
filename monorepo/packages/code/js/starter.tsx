@@ -19,6 +19,7 @@ const apps: { [key: string]: FC } = {};
 
 globalThis.apps = apps;
 export const appFactory = async (transpiled: string) => {
+  console.log("APP FACTPo")
 
   if (globalThis.transpiled === transpiled) return;
   globalThis.transpiled = transpiled;
@@ -78,7 +79,7 @@ export const renderApp = () => {
 };
 
 export function createJsBlob(code: string) {
-  const file = new File([code], "index.tsx", {
+  const file = new File([code], "index.mjs", {
     type: "application/javascript",
   });
   const blobUrl = URL.createObjectURL(file);

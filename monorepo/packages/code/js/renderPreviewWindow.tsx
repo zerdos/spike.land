@@ -7,6 +7,7 @@ import { render } from "react-dom";
 import { codeSpace, mySession } from "./ws";
 import { DraggableWindow } from "./DraggableWindow";
 import type { FC } from "react";
+import { appFactory } from "./starter";
 
 export const renderPreviewWindow = async (Editor: FC<{}>) => {
   console.log("renderPreviewWindow");
@@ -15,9 +16,10 @@ export const renderPreviewWindow = async (Editor: FC<{}>) => {
 
   document.body.style.backgroundImage = `url(${path.join("./chunks/", bg)} )`;
 
+ 
   render(
     <>
-      <Editor />
+      <Editor></Editor>
       <DraggableWindow
         // onRestore={() => {
         //   const model = globalThis.model;
@@ -25,11 +27,16 @@ export const renderPreviewWindow = async (Editor: FC<{}>) => {
         // }}
         hashCode={mySession.hashCode()}
         room={codeSpace}
-      />
+      ></DraggableWindow>
     </>,
     target,
   );
 
   document.body.append(target);
-  document.getElementById("zbody")?.append(globalThis.currentTarget);
+  if(document.getElementById("zbody")) {
+    document.getElementById("zbody") .append(globalThis.currentTarget);
+  } else {
+    console.log("NO ZBODY");
+  }
+ 
 };

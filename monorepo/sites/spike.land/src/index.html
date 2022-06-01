@@ -59,9 +59,12 @@ body {
   </script>
   <div id="root"></div>
   <script>
+
+
    /** startState **/
 
    if (!codeSpace) window.codeSpace = "coder"; 
+   if (!address) window.address = "";
    if (!startState) {
      async()=>{
        const resp = await fetch("https://spike.land/live/"+codeSpace+"/session");
@@ -74,32 +77,19 @@ body {
 
 
   
-   function h(startState){
-   document.getElementById("root").innerHTML =  `<style>${startState.css}</style><div id="zbody">${startState.html}</div>`;
+   function h({html}){
+   document.getElementById("root").innerHTML = html;
    window.appStarted = new Promise((resolve)=>{
    window.appResolver=resolve});
  
   }
  
  </script>
-  <!-- <script async src="https://ga.jspm.io/npm:es-module-shims@1.5.5/dist/es-module-shims.js"></script> -->
+  <script async src="https://ga.jspm.io/npm:es-module-shims@1.5.5/dist/es-module-shims.js"></script>
 
-  <!-- <script type="importmap-shim" src="/importmap.json"></script> -->
-  <!-- <script type="module-shim"> -->
-   <!-- import {appFactory} from "https://spike.land/starter.mjs"; -->
-   <!--  -->
-   <!-- await appFactory(startState.transpiled); -->
-   <!-- appResolver(true); -->
-<!--  -->
-   <!-- if (window.noShim!==true){ -->
-    <!-- const {run} = await import("https://spike.land/ws.mjs"); -->
-    <!-- run(); -->
-   <!-- } -->
-   
-   
-  </script>  
+  <script type="importmap-shim" src="/importmap.json"></script> 
   <script type="importmap">
-    {
+{
   "imports": {
     "react/jsx-runtime": "https://spike.land/react.mjs",
     "react": "https://spike.land/react.mjs",
@@ -120,6 +110,14 @@ body {
 
     await run();
    </script> 
+
+<script type="module-shim">
+  import {render} from "react-dom";
+  import {run} from "./ws.mjs";
+
+
+  await run();
+ </script> 
     
     <script defer src="./main.js"></script>
     <script defer>

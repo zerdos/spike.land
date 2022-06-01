@@ -4,7 +4,7 @@ import "core-js/full";
 
 import { startSession } from "./session";
 import type { ICodeSession } from "./session";
-import { appFactory } from "./starter";
+import { appFactory, renderApp } from "./starter";
 import debounce from "lodash/debounce";
 import uidV4 from "./uidV4.mjs";
 
@@ -15,6 +15,8 @@ let { address } = self;
 
 globalThis.codeSpace = codeSpace;
 globalThis.address = address;
+
+
 
 const user = ((self && self.crypto && self.crypto.randomUUID &&
   self.crypto.randomUUID()) || (uidV4())).slice(
@@ -66,7 +68,8 @@ const sendChannel = {
 // let applyPatch;
 
 export const run = async () => {
-  // renderApp();
+ 
+  appFactory( window.startState.transpiled);
 
   if (location.href.endsWith("hydrated")) return;
 
@@ -301,7 +304,7 @@ export async function join() {
 
   if (location.pathname.endsWith("public") || globalThis.model) return;
   const { quickStart } = await import("./quickStart");
-  quickStart();
+  await quickStart();
 
   return wsConnection;
 }
