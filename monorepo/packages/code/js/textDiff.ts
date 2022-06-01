@@ -1,6 +1,6 @@
 import diff from "fast-diff";
 
-type Delta = {
+export type Delta = {
   0: 0 | -1;
   1: number;
 } | {

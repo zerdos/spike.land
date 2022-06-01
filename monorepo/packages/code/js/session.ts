@@ -2,7 +2,7 @@
 
 import { Record } from "immutable";
 
-import { applyPatch, createDelta } from "./textDiff";
+import { applyPatch, createDelta, Delta } from "./textDiff";
 // Import * as Immutable from "immutable"
 
 type IUsername = string;
@@ -58,7 +58,7 @@ export function initSession(room: string, u: IUserJSON) {
   return Record({ ...u, room, state: Record(u.state)() });
 }
 
-type CodePatch = { oldHash: number; newHash: number; patch: string }
+type CodePatch = { oldHash: number; newHash: number; patch: Delta[] }
 type IApplyPatch = (
   prop: CodePatch,
 ) => Promise<ICodeSess>;
@@ -150,7 +150,7 @@ export class CodeSession implements ICodeSess {
     oldHash,
     newHash,
     patch,
-  }: { oldHash: number; newHash: number; patch: string }) => {
+  }: { oldHash: number; newHash: number; patch: Diff }) => {
     const meHash = this.hashCode();
 
     const bestGuesses = this.room || globalThis.codeSpace;
@@ -168,7 +168,7 @@ export class CodeSession implements ICodeSess {
 
 
 const oldStr =JSON.stringify(hashStore[oldHash].toJSON());
-    const newState = JSON.parse(applyPatch(oldStr, JSON.parse(patch)));
+    const newState = JSON.parse(applyPatch(oldStr, patch));
     const newRec: Record<ICodeSession> =  this.session.get("state").merge(newState);
 
     console.log({ newState });
@@ -226,5 +226,5 @@ export const startSession = (room: string, u: IUserJSON): CodeSession =>
   session || new CodeSession(room, u);
 
 function createPatch(oldCode: string, newCode: string) {
-  return JSON.stringify(createDelta(oldCode, newCode));
+  return createDelta(oldCode, newCode);
 }
