@@ -1,6 +1,6 @@
 {
   "name": "@spike.land/code",
-  "version": "0.7.847",
+  "version": "0.7.848",
   "description": "spike.land",
   "type": "module",
   "main": "./js/starter.ts",
@@ -82,7 +82,7 @@
     "@emotion/utils": "^1.1.0",
     "@identifo/identifo-auth-js": "^3.3.2",
     "@mui/material": "^5.8.2",
-    "@spike.land/qrious": "^0.7.828",
+    "@spike.land/qrious": "^0.7.848",
     "@types/prettier": "2.6.3",
     "@types/react": "18.0.10",
     "@types/react-dom": "18.0.5",
