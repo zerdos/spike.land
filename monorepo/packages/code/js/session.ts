@@ -166,7 +166,7 @@ export class CodeSession implements ICodeSess {
     hashStore[newHash] = newRec;
 
     const newState = newRec.toJSON();
-    const patch = createPatch(oldState, newState);
+    const patch = createPatch(oldRec.code, newRec.code);
     return {
       oldHash,
       newHash,
