@@ -4,7 +4,8 @@ import bg from "./assets/synthwave.webp";
 import path from "path-browserify";
 import { render } from "react-dom";
 
-import { codeSpace, mySession } from "./ws";
+import { codeSpace } from "./ws";
+import {hashCode} from "./session"
 import { DraggableWindow } from "./DraggableWindow";
 import type { FC } from "react";
 import { appFactory } from "./starter";
@@ -24,7 +25,7 @@ export const renderPreviewWindow = async (Editor: FC<{}>) => {
         //   const model = globalThis.model;
         //   model.setValue(mST().code);
         // }}
-        hashCode={mySession.hashCode()}
+        hashCode={hashCode()}
         room={codeSpace}
       >
       </DraggableWindow>

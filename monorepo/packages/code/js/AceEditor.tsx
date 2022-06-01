@@ -1,7 +1,8 @@
 /** @jsxImportSource @emotion/react */
 
 import { useEffect, useRef } from "react";
-import { codeSpace, mST } from "./ws";
+import { mST } from "./session";
+import { codeSpace } from "./ws";
 
 import { css } from "@emotion/react";
 

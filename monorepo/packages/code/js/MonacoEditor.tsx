@@ -1,9 +1,10 @@
 /** @jsxImportSource @emotion/react */
 
 import { useEffect, useRef } from "react";
-import { codeSpace, mST } from "./ws";
+import { codeSpace } from "./ws";
 
 import { runnerDebounced } from "./runner";
+import { mST } from "./session";
 
 import { css } from "@emotion/react";
 

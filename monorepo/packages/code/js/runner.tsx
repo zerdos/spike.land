@@ -2,7 +2,8 @@
 
 import type { Dispatch, ReactNode, SetStateAction } from "react";
 import { renderFromString } from "./renderToString";
-import { mST, saveCode } from "./ws";
+import { saveCode } from "./ws";
+import { mST } from "./session";
 import throttle from "lodash/throttle";
 
 export interface IRunnerSession {

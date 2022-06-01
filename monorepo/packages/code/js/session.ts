@@ -230,6 +230,19 @@ export class CodeSession implements ICodeSess {
 }
 
 export const hashCode = () => session?.hashCode() || 0;
+export const mST= ()=>{
+if (!session) return {
+  i:0,
+  transpiled: "",
+  code: "",
+  html: "",
+  css: ""
+};
+
+const {i, transpiled, code, html, css} = session;
+return {i, transpiled, code, html, css};
+
+}
 
 export const startSession = (room: string, u: IUserJSON): CodeSession =>
   session || new CodeSession(room, u);

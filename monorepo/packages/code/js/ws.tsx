@@ -2,7 +2,7 @@
 
 import "core-js/full";
 
-import { startSession } from "./session";
+import { startSession, mST, hashCode } from "./session";
 import type { ICodeSession } from "./session";
 import { appFactory, renderApp } from "./starter";
 import debounce from "lodash/debounce";
@@ -78,7 +78,6 @@ export const mySession = startSession(codeSpace, {
   state: window.startState,
 });
 
-export const mST = () => mySession.json().state;
 
 let intervalHandler: NodeJS.Timer | null = null;
 
@@ -185,7 +184,7 @@ export async function saveCode(sess: ICodeSession) {
     ignoreUser: user,
     sess: mST(),
     messageData,
-    hashCode: mySession.hashCode(),
+    hashCode: hashCode(),
   });
 
   await chCode();
@@ -336,7 +335,7 @@ async function processWsMessage(
 
   if (ignoreUsers.includes(data.name)) return;
 
-  if (data.newHash === mySession.hashCode()) return;
+  if (data.newHash === hashCode()) return;
 
   if (data.oldHash && data.newHash) {
     if (h[data.oldHash] && h[data.oldHash] === data.newHash) return;
@@ -344,7 +343,7 @@ async function processWsMessage(
     h[data.oldHash] = data.newHash;
   }
 
-  if (data.newHash === mySession.hashCode()) return;
+  if (data.newHash === hashCode()) return;
 
   (async () => {
     try {
@@ -377,7 +376,7 @@ async function processWsMessage(
   })();
 
   if (data.patch && data.name !== user) {
-    if (data.newHash === mySession.hashCode()) {
+    if (data.newHash === hashCode()) {
       return;
     }
 
@@ -387,7 +386,7 @@ async function processWsMessage(
       patch: data.patch,
     });
 
-    if (data.newHash === mySession.hashCode()) {
+    if (data.newHash === hashCode()) {
       await chCode();
 
       if (sendChannel) {
@@ -399,7 +398,7 @@ async function processWsMessage(
       console.log("error -sending on sendChannel");
     }
 
-    if (wsLastHashCode !== mySession.hashCode()) {
+    if (wsLastHashCode !== hashCode()) {
       console.log("there is an error. fetch tje state....");
 
       const resp = await fetch(

@@ -13,7 +13,7 @@ import type {
   ICodeSession,
   INewWSConnection,
 } from "@spike.land/code/js/session";
-import { startSession } from "@spike.land/code/js/session";
+import { startSession, mST, hashCode } from "@spike.land/code/js/session";
 import imap from "@spike.land/code/js/importmap.json";
 
 interface IState extends DurableObjectState {
@@ -63,12 +63,10 @@ export class Code {
 
         const resp = await defaultRoomObject.fetch("session");
 
-        this.state.session =  resp.json();
+        this.state.session =  resp.json() as ICodeSession;
 
         
-      
-
-        
+  
       
       });
 
@@ -81,6 +79,14 @@ export class Code {
     let url = new URL(request.url);
     this.codeSpace - url.searchParams.get("room") || "code-main";
 
+    if (!this.state.mySession) {
+
+      this.state.mySession = startSession(this.codeSpace,   {
+        name: this.codeSpace,
+        state: this.state.session
+      });
+      this.state.mySession.setRoom(this.codeSpace);
+    }
 
 
     return await handleErrors(request, async () => {
@@ -97,7 +103,7 @@ export class Code {
         case "index":
         case "index.tsx":
         case "code": {
-          return new Response(this.mST().code, {
+          return new Response(mST().code, {
             status: 200,
             headers: {
               "Access-Control-Allow-Origin": "*",
@@ -130,7 +136,7 @@ export class Code {
           });
         }
         // case "prettier": {
-        //   return new Response(prettier(this.mST().code), {
+        //   return new Response(prettier(mST().code), {
         //     status: 200,
         //     headers: {
         //       "Access-Control-Allow-Origin": "*",
@@ -149,7 +155,7 @@ export class Code {
 
           let deltaDiffs: Diff[][];
 
-          if (!delta || delta.hashCode !== this.state.mySession.hashCode()) {
+          if (!delta || delta.hashCode !== hashCode()) {
             deltaDiffs = [];
           } else {
             deltaDiffs = delta.delta;
@@ -164,8 +170,8 @@ export class Code {
             },
           });
         case "lazy":
-          const { html, css, transpiled } = this.mST();
-          const hash = this.state.mySession.hashCode();
+          const { html, css, transpiled } = mST();
+          const hash = hashCode();
 
           return new Response(
             `import { jsx as jsX } from "@emotion/react";
@@ -183,7 +189,7 @@ export class Code {
           );
 
         case "hashCodeSession":
-          return new Response(this.state.mySession.hashCode().toString(), {
+          return new Response(hashCode().toString(), {
             status: 200,
             headers: {
               "Access-Control-Allow-Origin": "*",
@@ -191,11 +197,11 @@ export class Code {
               "Content-Type": "application/json; charset=UTF-8",
             },
           });
-        case "this.mST":
+        case "mST":
           return new Response(
             JSON.stringify({
-              mST: this.mST(),
-              hashCode: this.state.mySession.hashCode(),
+              mST: mST(),
+              hashCode: hashCode(),
             }),
             {
               status: 200,
@@ -207,7 +213,7 @@ export class Code {
             },
           );
         case "room":
-          return new Response(JSON.stringify({ this.codeSpace }), {
+          return new Response(JSON.stringify({codeSpace: this.codeSpace }), {
             status: 200,
             headers: {
               "Access-Control-Allow-Origin": "*",
@@ -222,7 +228,7 @@ export class Code {
           //   'export default function(){};'
           // }
 
-          return new Response(this.mST().transpiled, {
+          return new Response(mST().transpiled, {
             status: 200,
             headers: {
               "Access-Control-Allow-Origin": "*",
@@ -258,7 +264,7 @@ export class Code {
         }
         case "hydrated":
         case "public": {
-          const startState = this.mST();
+          const startState = mST();
           const html = HTML.replace(
             `/** startState **/`,
             `Object.assign(window,${
@@ -299,19 +305,6 @@ export class Code {
     });
   }
 
-  mST(){
-
-    if (!this.state.mySession) {
-
-      this.state.mySession = startSession(this.codeSpace,   {
-        name: this.codeSpace,
-        state: this.state.session
-      });
-      this.state.mySession.setRoom(this.codeSpace);
-    }
-
-    return this.state.mySession.json().state as ICodeSession;
-  }
 
   async handleSession(webSocket: WebSocket, ip: string) {
     webSocket.accept();
@@ -327,7 +320,7 @@ export class Code {
 
     const newConnEvent: INewWSConnection = {
       uuid,
-      hashCode: this.state.mySession.hashCode(),
+      hashCode: hashCode(),
       type: "new-ws-connection",
       timestamp: Date.now(),
     };
@@ -350,7 +343,7 @@ export class Code {
         session.blockedMessages.push(
           JSON.stringify({
             joined: otherSession.name,
-            hashCode: this.state.mySession.hashCode(),
+            hashCode: hashCode(),
           }),
         );
       }
@@ -398,7 +391,7 @@ export class Code {
 
       session.webSocket.send(JSON.stringify({
         timestamp:  Date.now(),
-        hashCode: this.state.mySession.hashCode(),
+        hashCode: hashCode(),
       }));
       return;
 
@@ -453,7 +446,7 @@ export class Code {
       }
 
       if (data.type === "lost") {
-        webSocket.send(JSON.stringify(this.mST()));
+        webSocket.send(JSON.stringify(mST()));
         return;
       }
 
@@ -478,7 +471,7 @@ export class Code {
 
         const messageEv = {
           type: "code-init",
-          hashCode: this.state.mySession.hashCode(),
+          hashCode: hashCode(),
         };
 
         webSocket.send(
@@ -509,7 +502,7 @@ export class Code {
         const delta = data.delta;
         await this.kv.put("delta", {
           delta,
-          hashCode: this.state.mySession.hashCode(),
+          hashCode: hashCode(),
         });
         // this.user2user(data.target, { name: session.name, ...data });
         return;
@@ -522,19 +515,19 @@ export class Code {
         const patch: string = data.patch;
 
         await this.state.mySession.applyPatch(data);
-        if (newHash === this.state.mySession.hashCode()) {
+        if (newHash === hashCode()) {
           this.broadcast(msg.data);
 
           // session.webSocket.send(JSON.stringify({
           //   hashCode: newHash,
           // }));
 
-          await this.kv.put<ICodeSession>("session",  this.mST());
+          await this.kv.put<ICodeSession>("session",  mST());
 
           await this.kv.put(String(newHash), { oldHash, patch });
         } else {
           this.user2user(data.name, {
-            hashCode: this.state.mySession.hashCode(),
+            hashCode: hashCode(),
           });
         }
 
