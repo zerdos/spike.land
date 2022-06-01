@@ -201,12 +201,9 @@ export class CodeSession implements ICodeSess {
     console.log(newRec.hashCode());
 
     const newRecord = this.session.get("state").merge(newRec);
-    const newCode = newRecord.get("code");
-    if (oldCode === newCode) {
-      return;
-    }
+    
 
-    console.log(newRecord.hashCode());
+   
     const newHashCheck = newRecord.hashCode();
 
     if (newHashCheck === newHash) {

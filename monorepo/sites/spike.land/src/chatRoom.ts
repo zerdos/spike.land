@@ -389,14 +389,16 @@ export class Code {
 
         if (data.patch && data.oldHash && data.newHash) {
           if (data.oldHash !== hashCode()) {
-            return respondWith({ hashCode: hashCode() });
+            return respondWith({ hashCode: hashCode(), msg: "wrong oldHash" });
           }
 
           await patch(data);
+          
           if (data.newHash === hashCode()) {
             this.broadcast(msg.data);
 
             respondWith({
+              msg: "all cool!",
               hashCode: data.newHash,
             });
 
