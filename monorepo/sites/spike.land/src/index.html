@@ -115,13 +115,8 @@ body {
     </script>
   <script type="module">
     import {render} from "react-dom";
-    
     import {run} from "./ws.mjs";
 
-
-
-    window.noShim = true;    
-    await appStarted;
 
     await run();
    </script> 
