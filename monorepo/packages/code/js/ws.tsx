@@ -181,6 +181,7 @@ export async function saveCode(sess: ICodeSession) {
   await chCode();
 
   (async () => {
+    if (Object.keys(connections).length==0) return;
     try {
       const message = webRTCLastSeenHashCode
         ? await makePatchFrom(
