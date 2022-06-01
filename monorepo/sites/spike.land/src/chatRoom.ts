@@ -141,16 +141,16 @@ export class Code {
               });
             }
           }
-        case "prettier": {
-          return new Response(prettier(mST().code), {
-            status: 200,
-            headers: {
-              "Access-Control-Allow-Origin": "*",
-              "Cache-Control": "no-cache",
-              "Content-Type": "application/javascript; charset=UTF-8",
-            },
-          });
-        }
+        // case "prettier": {
+        //   return new Response(prettier(mST().code), {
+        //     status: 200,
+        //     headers: {
+        //       "Access-Control-Allow-Origin": "*",
+        //       "Cache-Control": "no-cache",
+        //       "Content-Type": "application/javascript; charset=UTF-8",
+        //     },
+        //   });
+        // }
         case "delta":
           type Diff = [-1 | 0 | 1, string];
 
@@ -264,7 +264,7 @@ export class Code {
             headers: {
               "Access-Control-Allow-Origin": "*",
               "Cache-Control": "no-cache",
-              "Content-Type": "application/javascript; charset=UTF-8",
+              "Content-Type": "application/json; charset=UTF-8",
             },
           });
         }
