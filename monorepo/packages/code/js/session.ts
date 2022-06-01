@@ -112,7 +112,7 @@ export class CodeSession implements ICodeSess {
         `https://spike.land/live/${this.room}/session`,
       );
 
-      const recRec = await resp.json();
+      const recRec = await resp.json() as ICodeSession;
 
       hashStore[oldHash] = Record<ICodeSession>(recRec)();
     }
@@ -172,9 +172,9 @@ export class CodeSession implements ICodeSess {
 
     if (!hashStore[oldHash]) {
       const resp = await fetch(
-        `https://spike.land/live/${this.room}/session`,
-      );
-      const newRec = await resp.json();
+        `https://spike.land/live/${this.room || globalThis.codeSpace}/session`,
+      ); 
+      const newRec = await resp.json() as ICodeSession;
 
       const newRecord = this.session.get("state").merge(newRec);
       const newHashCheck = newRecord.hashCode();
@@ -228,8 +228,8 @@ export class CodeSession implements ICodeSess {
     return { ...user, state };
   }
 
-  public setRoom(room: string) {
-    const user = this.session.set("room", room);
+  public setRoom(codeSpace: string) {
+    const user = this.session.set("room", codeSpace);
     this.session = user;
   }
 }

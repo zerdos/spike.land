@@ -49,7 +49,7 @@ export class Code {
     this.state = state;
     this.sessions = [];
     this.env = env;
-    this.sessions = [];x§
+    this.sessions = [];
     const username = self.crypto.randomUUID().substring(0, 8);
 
     this.state.blockConcurrencyWhile(async () => {
@@ -98,14 +98,18 @@ export class Code {
   }
 
   async fetch(request: Request, env: CodeEnv) {
+    let url = new URL(request.url);
+    const codeSpace = url.searchParams.get("room") || "code-main";
+    
+    globalThis.codeSpace = codeSpace;
+
     const mST = () => this.state.mySession.json().state;
     return await handleErrors(request, async () => {
       let code = "";
       let patched = false;
 
       const address = this.state.address || "";
-      let url = new URL(request.url);
-      const codeSpace = url.searchParams.get("room") || "code-main";
+     
       if (codeSpace) {
         this.state.mySession.setRoom(codeSpace);
       }
@@ -311,7 +315,7 @@ export class Code {
   }
 
   async handleSession(webSocket: WebSocket, ip: string) {
-    const mST = () => this.state.mySession.json().state;
+    const mST = () => this.state.mySession.json().state as ICodeSession;
     webSocket.accept();
 
     let limiterId = this.env.LIMITERS.idFromName(ip);
@@ -355,7 +359,9 @@ export class Code {
     webSocket.addEventListener("message", async (msg) => {
       let data;
       try {
+
         data = typeof msg.data==="string"? JSON.parse(msg.data): JSON.parse(new TextDecoder().decode(msg.data))
+    
       } catch (exp) {
         webSocket.send(
           JSON.stringify({
@@ -494,7 +500,8 @@ export class Code {
           return;
         }
 
-        if (data.patch) {
+
+        if (data.patch && data.oldHash && data.newHash) {
           const newHash: number = data.newHash;
           const oldHash: number = data.oldHash;
           const patch: string = data.patch;
@@ -507,7 +514,7 @@ export class Code {
             //   hashCode: newHash,
             // }));
 
-            await this.kv.put<ICodeSession>("session", mST());
+            await this.kv.put<ICodeSession>("session",  ({...mST()}));
 
             await this.kv.put(String(newHash), { oldHash, patch });
           } else {
