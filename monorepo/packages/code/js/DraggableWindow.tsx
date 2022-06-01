@@ -24,10 +24,7 @@ import type {
   ToggleButtonGroup as MuiToggleButtonGroup,
 } from "./mui";
 
-// const key = "css";
-// const cache = createCache({ key });
 
-// const Button = muiButton as typeof MuiButton;
 const ToggleButtonGroup = muiToggleButtonGroup as typeof MuiToggleButtonGroup;
 const ToggleButton = muiToggleButton as typeof MuiToggleButton;
 const breakPoints = [680, 768, 1920];
@@ -189,51 +186,9 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
                 height: ${height * scale / devicePixelRatio};
                 display: block;
                 overflow: hidden;
-
-
-                /* background-color: red; */
             `}
         >
-          {
-            /* {errorText && errorText.trim() !== "" && (
-            <pre
-              css={css`
-                    position: absolute;
-                    z-index:3;
-                    color: rgb(255, 240, 240);
-                    padding: 24px;
-                    font-size: 14pt;
-                    background-color: rgb(255, 0, 0);
-                    flex: 0 0 auto;
-                    overflow: auto;
-                    margin: 0;
-                    font-family: monospace;
-                    white-space: pre-wrap;
-                `}
-            > */
-          }
-          {/* {isStable && errorText && errorText.trim()} */}
-          {/* {isStable && errorText && errorText.trim() !== "" && */}
-          {
-            /* (
-                  <div
-                    css={css`
-                          text-align: right;
-                        `}
-                  >
-                    <Button
-                      onClick={() => {
-                        onRestore();
-                        setErrorText("");
-                      }}
-                    >
-                      <span>Restore</span>
-                    </Button>
-                  </div>
-                )} */
-          }
-          {/* </pre> */}
-          {/* )} */}
+        
 
           <motion.div
             initial={{
