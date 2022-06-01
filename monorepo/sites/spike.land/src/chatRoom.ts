@@ -6,20 +6,16 @@ import HYDRATED from "./hydrated.html";
 
 import { version } from "@spike.land/code/package.json";
 
-import applyDelta from "textdiff-patch";
 import { CodeEnv } from "./env";
 import type {
   CodeSession,
   ICodeSession,
   INewWSConnection,
 } from "@spike.land/code/js/session";
-import { startSession, mST, hashCode } from "@spike.land/code/js/session";
+import { startSession, mST, hashCode, patch } from "@spike.land/code/js/session";
 import imap from "@spike.land/code/js/importmap.json";
 
 interface IState extends DurableObjectState {
-  mySession: CodeSession;
-  session: ICodeSession;
-  address: string;
 }
 
 interface WebsocketSession {
@@ -35,6 +31,8 @@ export class Code {
   room: string = "";
   kv: DurableObjectStorage;
   codeSpace: string;
+  address: string;
+  mySession: CodeSession;
   sessions: WebsocketSession[];
   constructor(state: IState, private env: CodeEnv) {
     this.kv = state.storage;
@@ -43,34 +41,22 @@ export class Code {
     this.env = env;
     this.codeSpace="";
     
-    this.username = self.crypto.randomUUID().substring(0, 8);
 
     this.state.blockConcurrencyWhile(async () => {
-      const session = await this.kv.get<ICodeSession>("session") || null;
-      const address = await this.kv.get<string>("address") || "";
+      const session = await this.kv.get<ICodeSession>("session") || await (await (env.CODE.get(env.CODE.idFromName("code-main"))).fetch("session")).json();
+      this.address = await this.kv.get<string>("address") || "";
 
+      
 
-      Object.assign(this.state,{session, address});
-
-      if (session != null) {
-
-          return;
-        }
-
-
-        const codeMainId = env.CODE.idFromName("code-main");
-        const defaultRoomObject = env.CODE.get(codeMainId);
-
-        const resp = await defaultRoomObject.fetch("session");
-
-        this.state.session =  resp.json() as ICodeSession;
+     this.mySession = startSession(this.codeSpace,   {
+        name: this.codeSpace,
+        state: session 
+      
 
         
-  
       
       });
 
-   
 
 
   }
@@ -79,14 +65,6 @@ export class Code {
     let url = new URL(request.url);
     this.codeSpace = url.searchParams.get("room") || "code-main";
 
-    if (!this.state.mySession) {
-
-      this.state.mySession = startSession(this.codeSpace,   {
-        name: this.codeSpace,
-        state: this.state.session
-      });
-      this.state.mySession.setRoom(this.codeSpace);
-    }
 
 
     return await handleErrors(request, async () => {
@@ -116,7 +94,9 @@ export class Code {
           if (path[1]) {
             const session = await this.kv.get(path[1]);
             if (session) {
-              new Response(JSON.stringify(session), {
+              const {i, transpiled, code, html, css} = session;
+    
+              new Response(JSON.stringify({i, transpiled, code, html, css}), {
                 status: 200,
                 headers: {
                   "Access-Control-Allow-Origin": "*",
@@ -126,7 +106,7 @@ export class Code {
               });
             }
           }
-          return new Response(JSON.stringify(this.state.mySession), {
+          return new Response(JSON.stringify(mST()), {
             status: 200,
             headers: {
               "Access-Control-Allow-Origin": "*",
@@ -514,7 +494,7 @@ export class Code {
         const oldHash: number = data.oldHash;
         const patch: string = data.patch;
 
-        await this.state.mySession.applyPatch(data);
+        await patch(data);
         if (newHash === hashCode()) {
           this.broadcast(msg.data);
 
@@ -589,8 +569,4 @@ export class Code {
       }
     });
   }
-}
-
-function applyPatch(old: string, delta: string) {
-  return applyDelta(old, JSON.parse(delta));
 }

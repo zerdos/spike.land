@@ -57,15 +57,17 @@ export type IUser = Record<
 export function initSession(room: string, u: IUserJSON) {
   return Record({ ...u, room, state: Record(u.state)() });
 }
+type IApplyPatch = (prop: { oldHash: number; newHash: number; patch: string }) => Promise<ICodeSess>
 
 interface ICodeSess {
   hashCodeSession: number;
   hashCode: () => number;
+  applyPatch:   IApplyPatch;
   json: () => IUserJSON;
 }
 
 
-let session: ICodeSession | null = null;
+let session: ICodeSess | null = null;
 
 const hashStore: { [key: number]: Record<ICodeSession> } = {};
 export class CodeSession implements ICodeSess {
@@ -73,6 +75,7 @@ export class CodeSession implements ICodeSess {
   hashCodeSession: number;
   created: string = new Date().toISOString();
   constructor(private room: string, user: IUserJSON) {
+    session = this;
     const savedState: ICodeSession | null = null;
 
     // If (user.state.code === "" && room) {
@@ -100,7 +103,6 @@ export class CodeSession implements ICodeSess {
 
     this.hashCodeSession = this.session.get("state").hashCode();
     hashStore[this.session.get("state").hashCode()] = this.session.get("state");
-    session=this;
   }
 
   public hashCode() {
@@ -230,7 +232,7 @@ export class CodeSession implements ICodeSess {
 }
 
 export const hashCode = () => session?.hashCode() || 0;
-export const mST= ()=>{
+export const mST: ()=> ICodeSession= ()=> {
 if (!session) return {
   i:0,
   transpiled: "",
@@ -243,6 +245,8 @@ const {i, transpiled, code, html, css} = session;
 return {i, transpiled, code, html, css};
 
 }
+
+export const patch:IApplyPatch = async (x)=>session!.applyPatch(x)
 
 export const startSession = (room: string, u: IUserJSON): CodeSession =>
   session || new CodeSession(room, u);

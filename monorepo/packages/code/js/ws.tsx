@@ -2,7 +2,7 @@
 
 import "core-js/full";
 
-import { startSession, mST, hashCode } from "./session";
+import { startSession, mST, hashCode, patch } from "./session";
 import type { ICodeSession } from "./session";
 import { appFactory, renderApp } from "./starter";
 import debounce from "lodash/debounce";
@@ -165,7 +165,7 @@ bc.onmessage = async (event) => {
     event.data.codeSpace === codeSpace && event.data.sess.code !== mST().code
   ) {
     const messageData = mySession.createPatch(event.data.sess);
-    await mySession.applyPatch(messageData);
+    await patch(messageData);
     await chCode();
   }
 };
@@ -176,7 +176,7 @@ export async function saveCode(sess: ICodeSession) {
   if (sess.i <= mST().i) return;
 
   const messageData = mySession.createPatch(sess);
-  await mySession.applyPatch(messageData);
+  await patch(messageData);
 
   bc.postMessage({
     codeSpace,
@@ -380,11 +380,7 @@ async function processWsMessage(
       return;
     }
 
-    await mySession.applyPatch({
-      oldHash: data.oldHash,
-      newHash: data.newHash,
-      patch: data.patch,
-    });
+    await patch(data);
 
     if (data.newHash === hashCode()) {
       await chCode();
@@ -408,7 +404,7 @@ async function processWsMessage(
 
       const messageData = mySession.createPatch(data);
       console.log("APPLYING PATCH AGAIN");
-      await mySession.applyPatch(messageData);
+      await patch(messageData);
       await chCode();
       if (sendChannel) {
         sendChannel.send({ hashCode: messageData.newHash });
@@ -418,7 +414,7 @@ async function processWsMessage(
     if (data.code && data.transpiled) {
       const messageData = mySession.createPatch(data);
       console.log("APPLYING PATCH AGAIN");
-      await mySession.applyPatch(messageData);
+      await patch(messageData);
       await chCode();
       if (sendChannel) {
         sendChannel.send({ hashCode: messageData.newHash });
