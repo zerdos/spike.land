@@ -57,15 +57,16 @@ export type IUser = Record<
 export function initSession(room: string, u: IUserJSON) {
   return Record({ ...u, room, state: Record(u.state)() });
 }
-type IApplyPatch = (prop: { oldHash: number; newHash: number; patch: string }) => Promise<ICodeSess>
+type IApplyPatch = (
+  prop: { oldHash: number; newHash: number; patch: string },
+) => Promise<ICodeSess>;
 
 interface ICodeSess {
   hashCodeSession: number;
   hashCode: () => number;
-  applyPatch:   IApplyPatch;
+  applyPatch: IApplyPatch;
   json: () => IUserJSON;
 }
-
 
 let session: ICodeSess | null = null;
 
@@ -102,8 +103,6 @@ export class CodeSession implements ICodeSess {
     })();
 
     this.hashCodeSession = this.hashCode();
-
-
   }
 
   public hashCode() {
@@ -122,8 +121,8 @@ export class CodeSession implements ICodeSess {
         `https://spike.land/live/${this.room || globalThis.codeSpace}/mST`,
       );
 
-      const {mST, hashCode} = await resp.json();
-      hashStore[hashCode] =this.session.get("state").merge(mST);
+      const { mST, hashCode } = await resp.json();
+      hashStore[hashCode] = this.session.get("state").merge(mST);
     }
 
     const oldRec = hashStore[oldHash];
@@ -176,7 +175,6 @@ export class CodeSession implements ICodeSess {
     newHash,
     patch,
   }: { oldHash: number; newHash: number; patch: string }) => {
-  
     const oldHashCheck = this.session.get("state").hashCode();
 
     if (oldHash !== oldHashCheck) return;
@@ -186,12 +184,12 @@ export class CodeSession implements ICodeSess {
     if (!hashStore[oldHash]) {
       const resp = await fetch(
         `https://spike.land/live/${this.room || globalThis.codeSpace}/mST`,
-      ); 
+      );
 
-      const {mST, hashCode} = await resp.json();
+      const { mST, hashCode } = await resp.json();
       hashStore[hashCode] = this.session.get("state").merge(mST);
     }
-     
+
     const oldST = hashStore[oldHash].toJSON();
 
     const oldState = JSON.stringify(oldST);
@@ -236,21 +234,22 @@ export class CodeSession implements ICodeSess {
 }
 
 export const hashCode = () => session?.hashCode() || 0;
-export const mST: ()=> ICodeSession= ()=> {
-if (!session) return {
-  i:0,
-  transpiled: "",
-  code: "",
-  html: "",
-  css: ""
+export const mST: () => ICodeSession = () => {
+  if (!session) {
+    return {
+      i: 0,
+      transpiled: "",
+      code: "",
+      html: "",
+      css: "",
+    };
+  }
+
+  const { i, transpiled, code, html, css } = session.json().state;
+  return { i, transpiled, code, html, css };
 };
 
-const {i, transpiled, code, html, css} = session.json().state;
-return {i, transpiled, code, html, css};
-
-}
-
-export const patch:IApplyPatch = async (x)=>session!.applyPatch(x)
+export const patch: IApplyPatch = async (x) => session!.applyPatch(x);
 
 export const startSession = (room: string, u: IUserJSON): CodeSession =>
   session || new CodeSession(room, u);

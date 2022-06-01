@@ -5,7 +5,7 @@ import path from "path-browserify";
 import { render } from "react-dom";
 
 import { codeSpace } from "./ws";
-import {hashCode} from "./session"
+import { hashCode } from "./session";
 import { DraggableWindow } from "./DraggableWindow";
 import type { FC } from "react";
 import { appFactory } from "./starter";

@@ -2,7 +2,7 @@
 
 import "core-js/full";
 
-import { startSession, mST, hashCode, patch } from "./session";
+import { hashCode, mST, patch, startSession } from "./session";
 import type { ICodeSession } from "./session";
 import { appFactory, renderApp } from "./starter";
 import debounce from "lodash/debounce";
@@ -77,7 +77,6 @@ export const mySession = startSession(codeSpace, {
   name: user,
   state: window.startState,
 });
-
 
 let intervalHandler: NodeJS.Timer | null = null;
 

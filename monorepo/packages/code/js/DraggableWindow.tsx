@@ -24,7 +24,6 @@ import type {
   ToggleButtonGroup as MuiToggleButtonGroup,
 } from "./mui";
 
-
 const ToggleButtonGroup = muiToggleButtonGroup as typeof MuiToggleButtonGroup;
 const ToggleButton = muiToggleButton as typeof MuiToggleButton;
 const breakPoints = [680, 768, 1920];
@@ -54,7 +53,6 @@ const ZBody = () => {
   );
 };
 
-
 export const DraggableWindow: FC<DraggableWindowProps> = (
   {
     // onRestore,
@@ -66,23 +64,17 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
 
   const startPositions = { bottom: 0, right: 0 };
 
-
   const [{ bottom, right }, setPositions] = useState(startPositions);
   const [width, setWidth] = useState(window.innerWidth * devicePixelRatio);
   const [height, setHeight] = useState(window.innerHeight * devicePixelRatio);
   const top = height - bottom;
   const ref = useRef<HTMLDivElement>(null);
 
-  
-  
-
   const scale = scaleRange / 100;
   const [isFullScreen, setFullScreen] = useState(true);
 
-
   useEffect(() => {
     const reveal = async () => {
-    
       setPositions({
         bottom: window.innerHeight * 0.2,
         right: window.innerWidth * 0.2,
@@ -92,14 +84,12 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
         changeScaleRange(50);
         setWidth(breakPoints[0]);
         setHeight(breakPointHeights[0]);
-
       }
 
       if (window.innerWidth / devicePixelRatio < 1200) {
         changeScaleRange(75);
         setWidth(breakPoints[0]);
         setHeight(breakPointHeights[0]);
-
       } else if (window.innerWidth / devicePixelRatio < 1800) {
         setWidth(breakPoints[1]);
         setHeight(breakPointHeights[1]);
@@ -127,7 +117,6 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
 
     reveal();
   }, []);
-
 
   const internal = (
     <div
@@ -190,8 +179,6 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
                 overflow: hidden;
             `}
         >
-        
-
           <motion.div
             initial={{
               transformOrigin: "0px 0px",
@@ -215,10 +202,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
                   } 
               `}
           >
-          
-
             <ZBody />
-
           </motion.div>
         </motion.div>
         <ToggleButtonGroup

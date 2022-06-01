@@ -3,7 +3,7 @@ import "preact/debug";
 import type React from "react";
 import * as react from "preact/compat";
 
-export {renderToString} from "preact/compat/server";
+export { renderToString } from "preact/compat/server";
 
 import { Fragment, jsx, jsxs } from "preact/jsx-runtime";
 import { createPortal, hydrate, render } from "preact/compat";

@@ -12,7 +12,12 @@ import type {
   ICodeSession,
   INewWSConnection,
 } from "@spike.land/code/js/session";
-import { startSession, mST, hashCode, patch } from "@spike.land/code/js/session";
+import {
+  hashCode,
+  mST,
+  patch,
+  startSession,
+} from "@spike.land/code/js/session";
 import imap from "@spike.land/code/js/importmap.json";
 
 interface IState extends DurableObjectState {
@@ -38,39 +43,31 @@ export class Code {
     this.state = state;
     this.sessions = [];
     this.env = env;
-    this.codeSpace="";
-    
+    this.codeSpace = "";
 
     this.state.blockConcurrencyWhile(async () => {
-      const session = await this.kv.get<ICodeSession>("session") || await (await (env.CODE.get(env.CODE.idFromName("code-main"))).fetch("session")).json();
+      const session = await this.kv.get<ICodeSession>("session") ||
+        await (await (env.CODE.get(env.CODE.idFromName("code-main"))).fetch(
+          "session",
+        )).json();
       this.address = await this.kv.get<string>("address") || "";
 
-      
-      startSession(this.codeSpace,   {
+      startSession(this.codeSpace, {
         name: this.codeSpace,
-        state: session 
-      
-
-        
-      
+        state: session,
       });
     });
-
-
   }
 
   async fetch(request: Request, env: CodeEnv) {
     let url = new URL(request.url);
     this.codeSpace = url.searchParams.get("room") || "code-main";
 
-
-
     return await handleErrors(request, async () => {
       let code = "";
       let patched = false;
 
       const address = this.state.address || "";
-     
 
       let path = url.pathname.slice(1).split("/");
 
@@ -92,9 +89,9 @@ export class Code {
           if (path[1]) {
             const session = await this.kv.get(path[1]);
             if (session) {
-              const {i, transpiled, code, html, css} = session;
-    
-              new Response(JSON.stringify({i, transpiled, code, html, css}), {
+              const { i, transpiled, code, html, css } = session;
+
+              new Response(JSON.stringify({ i, transpiled, code, html, css }), {
                 status: 200,
                 headers: {
                   "Access-Control-Allow-Origin": "*",
@@ -191,7 +188,7 @@ export class Code {
             },
           );
         case "room":
-          return new Response(JSON.stringify({codeSpace: this.codeSpace }), {
+          return new Response(JSON.stringify({ codeSpace: this.codeSpace }), {
             status: 200,
             headers: {
               "Access-Control-Allow-Origin": "*",
@@ -246,7 +243,11 @@ export class Code {
           const html = HTML.replace(
             `/** startState **/`,
             `Object.assign(window,${
-              JSON.stringify({ startState, codeSpace: this.codeSpace, address: this.address })
+              JSON.stringify({
+                startState,
+                codeSpace: this.codeSpace,
+                address: this.address,
+              })
             });`,
           )
             .replace(
@@ -283,10 +284,8 @@ export class Code {
     });
   }
 
-
   async handleSession(webSocket: WebSocket, ip: string) {
     webSocket.accept();
-   
 
     let limiterId = this.env.LIMITERS.idFromName(ip);
 
@@ -297,15 +296,15 @@ export class Code {
     const uuid = self.crypto.randomUUID();
 
     const newConnEvent = {
-      hashCode: hashCode()
+      hashCode: hashCode(),
     };
 
     webSocket.send(JSON.stringify(newConnEvent));
 
-
     let session = {
       uuid,
       webSocket,
+      limiter,
       timestamp: Date.now(),
       blockedMessages: [] as string[],
     } as WebsocketSession;
@@ -323,7 +322,11 @@ export class Code {
       }
     });
 
-    webSocket.addEventListener("message", (msg: {data: string})=>this.processWsMessage(msg, webSocket, session, limiter));
+    webSocket.addEventListener(
+      "message",
+      (msg: { data: string }) =>
+        this.processWsMessage(msg, session),
+    );
 
     let closeOrErrorHandler = () => {
       session.quit = true;
@@ -333,177 +336,118 @@ export class Code {
       }
     };
     webSocket.addEventListener("close", closeOrErrorHandler);
-    webSocket.addEventListener("error", closeOrErrorHandler); 
+    webSocket.addEventListener("error", closeOrErrorHandler);
   }
 
-  async processWsMessage(msg, webSocket, session, limiter){
+  async processWsMessage(msg, session) {
+    if (session.quit) {
+      webSocket.close(1011, "WebSocket broken.");
+      return;
+    }
+
+    const {webSocket, limiter} = session;
+
+    const respondWith = (obj)=> session.webSocket.send(JSON.stringify(obj))
+
+
     let data;
     try {
-
-      data = typeof msg.data==="string"? JSON.parse(msg.data): JSON.parse(new TextDecoder().decode(msg.data))
-  
+      data = typeof msg.data === "string"
+        ? JSON.parse(msg.data)
+        : JSON.parse(new TextDecoder().decode(msg.data));
     } catch (exp) {
-      webSocket.send(
-        JSON.stringify({
-          error: "JSON parse error",
-          exp: exp || {},
-        }),
-      );
-      return;
+      return respondWith({
+        error: "JSON parse error",
+        exp: exp || {},
+      });
     }
 
     if (data.codeSpace && data.address && !this.state.address) {
       this.broadcast(msg.data);
-    
 
-    this.address =  data.address;
-    await this.kv.put("address", data.address);
-    return;
-    
-  
-  }
-    if (data.timestamp) {
+      this.address = data.address;
+      await this.kv.put("address", data.address);
 
-      webSocket.send(JSON.stringify({
-        timestamp:  Date.now(),
-        hashCode: hashCode(),
-      }));
+
       return;
+    }
 
+    if (data.timestamp && !data.patch) {
+      return respondWith({
+        timestamp: Date.now(),
+        hashCode: hashCode(),
+      });
+
+    }
+     
     try {
-      if (session.quit) {
-        webSocket.close(1011, "WebSocket broken.");
-        return;
-      }
 
-  
 
-      if (
-        !(
-          data.type &&
-          (data.type === "new-ice-candidate" ||
-            data.type === "offer" ||
-            data.type === "answer")
-        ) &&
-        !limiter.checkLimit()
-      ) {
+        if ( ['new-ice-candidate', 'offer', "answer"].includes(data.type) && !limiter.checkLimit()){
+        
+          return respondWith({
+              error: "Your IP is being rate-limited, please try again later.",
+            });
+          
+        }
+
+        
+     
+        try {
+          if (
+            ['new-ice-candidate', 'offer', "answer"].includes(data.type) 
+          ) {
+            return  this.user2user(data.target, { name: session.name, ...data });
+          }
+
+    
+          if (data.patch && data.oldHash && data.newHash) {
+            const newHash: number = data.newHash;
+            const oldHash: number = data.oldHash;
+            const patch: string = data.patch;
+            if (oldHash !== hashCode()){
+             return respondWith({hashCode: hashCode()})
+            } 
+
+
+            await patch(data);
+            if (newHash === hashCode()) {
+              this.broadcast(msg.data);
+
+              respondWith({
+                hashCode: newHash,
+              });
+
+              await this.kv.put<ICodeSession>("session", mST());
+              await this.kv.put(String(newHash), { oldHash, patch });
+              return;
+            } else {
+              webSocket.send(JSON.stringify({
+                hashCode: hashCode(),
+              }));
+              return;
+            }
+          }
+        } catch (exp) {
+          console.error({ exp });
+          webSocket.send(
+            JSON.stringify({
+              error: "unknown error - kxzkx",
+              exp: exp || {},
+            }),
+          );
+        }
+      } catch (exp) {
+        console.error({ exp });
         webSocket.send(
           JSON.stringify({
-            error: "Your IP is being rate-limited, please try again later.",
+            error: "unknown error r",
+            exp: exp || {},
           }),
         );
-        return;
       }
-
-      if (data.type === "lost") {
-        webSocket.send(JSON.stringify(mST()));
-        return;
-      }
-
-      if (!session.name && data.name) {
-        session.name = "" + (data.name || "anonymous");
-
-        if (session.name.length > 32) {
-          webSocket.send(JSON.stringify({ error: "Name too long." }));
-          webSocket.close(1009, "Name too long.");
-          return;
-        }
-
-        // Deliver all the messages we queued up since the user connected.
-        session.blockedMessages.forEach((queued) => {
-          webSocket.send(queued);
-        });
-
-        session.blockedMessages = [];
-
-        // Broadcast to all other connections that this user has joined.
-        // this.broadcast({ joined: session.name });
-
-        const messageEv = {
-          type: "code-init",
-          hashCode: hashCode(),
-        };
-
-        webSocket.send(
-          JSON.stringify(messageEv),
-        );
-
-        // Note that we've now received the user info message.
-
-        return;
-      }
-
-      try{
-
-      if (
-        data.type &&
-        (data.type === "new-ice-candidate" ||
-          data.type === "offer" ||
-          data.type === "answer")
-      ) {
-        this.user2user(data.target, { name: session.name, ...data });
-        return;
-      }
-
-      // if (
-      //   data.type &&
-      //   (data.type === "delta")
-      // ) {
-      //   const delta = data.delta;
-      //   await this.kv.put("delta", {
-      //     delta,
-      //     hashCode: hashCode(),
-      //   });
-      //   // this.user2user(data.target, { name: session.name, ...data });
-      //   return;
-      // }
-
-
-      if (data.patch && data.oldHash && data.newHash) {
-        const newHash: number = data.newHash;
-        const oldHash: number = data.oldHash;
-        const patch: string = data.patch;
-
-        await patch(data);
-        if (newHash === hashCode()) {
-          this.broadcast(msg.data);
-
-          webSocket.send(JSON.stringify({
-            hashCode: newHash,
-          }));
-
-          await this.kv.put<ICodeSession>("session",  mST());
-          await this.kv.put(String(newHash), { oldHash, patch });
-          return;
-        } else {
-          webSocket.send(JSON.stringify({
-            hashCode: hashCode(),
-          }));
-          return 
-        }
-
-
-      }
-    } catch (exp){
-      console.error({exp});
-      webSocket.send(
-        JSON.stringify({
-          error: "unknown error - kxzkx",
-          exp: exp || {},
-        }),
-      );
     }
-
-    } catch (exp) {
-      console.error({exp});
-      webSocket.send(
-        JSON.stringify({
-          error: "unknown error r",
-          exp: exp || {},
-        }),
-      );
-    }
-  }}
+  }
 
   user2user(to: string, msg: Object | string) {
     const message = typeof msg !== "string" ? JSON.stringify(msg) : msg;

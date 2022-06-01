@@ -5,7 +5,7 @@ Object.assign(self, require("path-browserify"));
 
 const OrbitDB = require("orbit-db");
 
-import {create} from "ipfs";
+import { create } from "ipfs";
 import { IPFSService, Server } from "ipfs-message-port-server";
 // import { WebRTCStar } from "@libp2p/webrtc-star";
 
@@ -115,8 +115,8 @@ export const ipfsWorker = async () => {
       config: {
         ...defaultConfig,
         // Addresses: {
-          // ...defaultConfig?.Addresses,
-          // Swarm: [...defaultConfig?.Addresses?.Swarm, "/dns4/ws-star0discovery.spike.land/tcp/443/wss/p2p-websocket-star"]
+        // ...defaultConfig?.Addresses,
+        // Swarm: [...defaultConfig?.Addresses?.Swarm, "/dns4/ws-star0discovery.spike.land/tcp/443/wss/p2p-websocket-star"]
         // },
         Pubsub: { Enabled: true },
         // ...libp2pConfig()
@@ -152,11 +152,12 @@ export const ipfsWorker = async () => {
     // And add hello world for tests
     await ipfs.add({ content: "hello world" });
 
-    try{
-    await ipfs.swarm.connect("/dns4/spike.land/tcp/443/wss/api/rtc/websocket")
-    } 
-    catch{
-      console.log("Error connecting swarm")
+    try {
+      await ipfs.swarm.connect(
+        "/dns4/spike.land/tcp/443/wss/api/rtc/websocket",
+      );
+    } catch {
+      console.log("Error connecting swarm");
     }
     const service = new IPFSService(ipfs);
     const server = new Server(service);
