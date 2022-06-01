@@ -101,12 +101,16 @@ export class CodeSession implements ICodeSess {
       state: savedState ? savedState : user.state,
     })();
 
-    this.hashCodeSession = this.session.get("state").hashCode();
-    hashStore[this.session.get("state").hashCode()] = this.session.get("state");
+    this.hashCodeSession = this.hashCode();
+
+
   }
 
   public hashCode() {
-    return this.session.get("state").hashCode();
+    const state = this.session.get("state");
+    const hashCode = state.hashCode();
+    hashStore[hashCode] = state;
+    return hashCode;
   }
 
   public createPatchFromHashCode = async (

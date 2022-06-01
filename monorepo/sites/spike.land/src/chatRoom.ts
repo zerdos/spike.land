@@ -246,7 +246,7 @@ export class Code {
           const html = HTML.replace(
             `/** startState **/`,
             `Object.assign(window,${
-              JSON.stringify({ startState, codeSpace: this.codeSpace, address: this.state.address })
+              JSON.stringify({ startState, codeSpace: this.codeSpace, address: this.address })
             });`,
           )
             .replace(
@@ -296,11 +296,8 @@ export class Code {
     );
     const uuid = self.crypto.randomUUID();
 
-    const newConnEvent: INewWSConnection = {
-      uuid,
-      hashCode: hashCode(),
-      type: "new-ws-connection",
-      timestamp: Date.now(),
+    const newConnEvent = {
+      hashCode: hashCode()
     };
 
     webSocket.send(JSON.stringify(newConnEvent));
@@ -352,13 +349,14 @@ export class Code {
           exp: exp || {},
         }),
       );
+      return;
     }
 
     if (data.codeSpace && data.address && !this.state.address) {
       this.broadcast(msg.data);
     
 
-    this.state.address =  data.address;
+    this.address =  data.address;
     await this.kv.put("address", data.address);
     return;
     
@@ -366,7 +364,7 @@ export class Code {
   }
     if (data.timestamp) {
 
-      session.webSocket.send(JSON.stringify({
+      webSocket.send(JSON.stringify({
         timestamp:  Date.now(),
         hashCode: hashCode(),
       }));
@@ -374,9 +372,6 @@ export class Code {
 
     try {
       if (session.quit) {
-        if (session.name && typeof session.name === "string") {
-         
-        }
         webSocket.close(1011, "WebSocket broken.");
         return;
       }
@@ -450,18 +445,18 @@ export class Code {
         return;
       }
 
-      if (
-        data.type &&
-        (data.type === "delta")
-      ) {
-        const delta = data.delta;
-        await this.kv.put("delta", {
-          delta,
-          hashCode: hashCode(),
-        });
-        // this.user2user(data.target, { name: session.name, ...data });
-        return;
-      }
+      // if (
+      //   data.type &&
+      //   (data.type === "delta")
+      // ) {
+      //   const delta = data.delta;
+      //   await this.kv.put("delta", {
+      //     delta,
+      //     hashCode: hashCode(),
+      //   });
+      //   // this.user2user(data.target, { name: session.name, ...data });
+      //   return;
+      // }
 
 
       if (data.patch && data.oldHash && data.newHash) {
@@ -473,20 +468,21 @@ export class Code {
         if (newHash === hashCode()) {
           this.broadcast(msg.data);
 
-          // session.webSocket.send(JSON.stringify({
-          //   hashCode: newHash,
-          // }));
+          webSocket.send(JSON.stringify({
+            hashCode: newHash,
+          }));
 
           await this.kv.put<ICodeSession>("session",  mST());
-
           await this.kv.put(String(newHash), { oldHash, patch });
+          return;
         } else {
-          this.user2user(data.name, {
+          webSocket.send(JSON.stringify({
             hashCode: hashCode(),
-          });
+          }));
+          return 
         }
 
-        return;
+
       }
     } catch (exp){
       console.error({exp});
