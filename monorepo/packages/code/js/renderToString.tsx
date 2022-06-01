@@ -3,7 +3,7 @@
 import { CacheProvider } from "@emotion/react";
 import createCache from "@emotion/cache";
 import type { FC } from "react";
-import { render } from "react-dom";
+import { renderToString } from "react-dom";
 
 import { appFactory, createJsBlob } from "./starter";
 import { prettierCss, prettierHtml } from "./prettierEsm";
@@ -31,17 +31,17 @@ export const getHtmlAndCss = (MyComponent: FC) => {
     cssText += rule;
   };
 
-  const target = document.createElement("div");
-  target.style.height = "100%";
+  // const target = document.createElement("div");
+  // target.style.height = "100%";
 
-  render(
+
+
+  const markup =  renderToString(
     <CacheProvider value={cache}>
       <MyComponent />
-    </CacheProvider>,
-    target,
+    </CacheProvider>
+    // target,
   );
-
-  const markup = target.innerHTML;
 
   return {
     html: markup,

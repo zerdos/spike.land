@@ -10631,10 +10631,17 @@ postcss@^8.3.8, postcss@^8.4.13:
     picocolors "^1.0.0"
     source-map-js "^1.0.2"
 
-preact@^10.7.2:
-  version "10.7.2"
-  resolved "https://registry.npmjs.org/preact/-/preact-10.7.2.tgz"
-  integrity sha512-GLjn0I3r6ka+NvxJUppsVFqb4V0qDTEHT/QxHlidPuClGaxF/4AI2Qti4a0cv3XMh5n1+D3hLScW10LRIm5msQ==
+preact-render-to-string@^5.2.0:
+  version "5.2.0"
+  resolved "https://registry.yarnpkg.com/preact-render-to-string/-/preact-render-to-string-5.2.0.tgz#3d3c4f9c570229b76d33353ed02ce662bd13dec1"
+  integrity sha512-+RGwSW78Cl+NsZRUbFW1MGB++didsfqRk+IyRVTaqy+3OjtpKK/6HgBtfszUX0YXMfo41k2iaQSseAHGKEwrbg==
+  dependencies:
+    pretty-format "^3.8.0"
+
+preact@^10.7.3:
+  version "10.7.3"
+  resolved "https://registry.yarnpkg.com/preact/-/preact-10.7.3.tgz#f98c09a29cb8dbb22e5fc824a1edcc377fc42b5a"
+  integrity sha512-giqJXP8VbtA1tyGa3f1n9wiN7PrHtONrDyE3T+ifjr/tTkg+2N4d/6sjC9WyJKv8wM7rOYDveqy5ZoFmYlwo4w==
 
 prepend-http@^2.0.0:
   version "2.0.0"
@@ -10655,6 +10662,11 @@ pretty-bytes@^6.0.0:
   version "6.0.0"
   resolved "https://registry.yarnpkg.com/pretty-bytes/-/pretty-bytes-6.0.0.tgz#928be2ad1f51a2e336add8ba764739f9776a8140"
   integrity sha512-6UqkYefdogmzqAZWzJ7laYeJnaXDy2/J+ZqiiMtS7t7OfpXWTlaeGMwX8U6EFvPV/YWWEKRkS8hKS4k60WHTOg==
+
+pretty-format@^3.8.0:
+  version "3.8.0"
+  resolved "https://registry.yarnpkg.com/pretty-format/-/pretty-format-3.8.0.tgz#bfbed56d5e9a776645f4b1ff7aa1a3ac4fa3c385"
+  integrity sha1-v77VbV6ad2ZF9LH/eqGjrE+jw4U=
 
 private-ip@^2.1.1, private-ip@^2.3.3:
   version "2.3.3"
