@@ -127,7 +127,7 @@ export async function quickStart() {
     "./renderPreviewWindow"
   );
 
-  const EditorNode: ReactNode =
+  const EditorNode: React.FC<{}> =
     await (isMobile()
       ? (await import("./AceEditor")).AceEditor
       : (await import("./MonacoEditor")).MonacoEditor);

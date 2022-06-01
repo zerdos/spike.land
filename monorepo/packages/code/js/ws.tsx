@@ -95,7 +95,7 @@ const chCode = async () => {
   const { code, transpiled, i } = mST();
   const { prettier } = await import("./prettierEsm");
   if (globalThis.editor) {
-    const formatted = prettier(globalThis.editor.getModel().getValue());
+    const formatted = prettier(globalThis.editor.getModel()!.getValue());
 
     if (code === formatted) return;
   }
@@ -118,7 +118,7 @@ const chCode = async () => {
         const mst = mST();
         if (mst.i === i) {
           if (globalThis.editor.getModel()) {
-            globalThis.editor.getModel().setValue(mst.code);
+            globalThis.editor.getModel()!.setValue(mst.code);
           }
           if (globalThis.aceEditor) {
             globalThis.aceEditor.setValue(mst.code);

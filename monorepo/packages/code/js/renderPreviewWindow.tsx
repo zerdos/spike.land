@@ -4,11 +4,11 @@ import bg from "./assets/synthwave.webp";
 import path from "path-browserify";
 import { render } from "react-dom";
 
-import { codeSpace } from "./ws";
+import { codeSpace, mySession } from "./ws";
 import { DraggableWindow } from "./DraggableWindow";
-import type { ReactNode } from "react";
+import type { FC } from "react";
 
-export const renderPreviewWindow = async (Editor: ReactNode) => {
+export const renderPreviewWindow = async (Editor: FC<{}>) => {
   console.log("renderPreviewWindow");
 
   const target = document.createElement("div");
@@ -17,12 +17,13 @@ export const renderPreviewWindow = async (Editor: ReactNode) => {
 
   render(
     <>
-      <Editor></Editor>
+      <Editor />
       <DraggableWindow
         // onRestore={() => {
         //   const model = globalThis.model;
         //   model.setValue(mST().code);
         // }}
+        hashCode={mySession.hashCode()}
         room={codeSpace}
       />
     </>,
