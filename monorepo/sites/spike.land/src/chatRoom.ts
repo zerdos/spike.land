@@ -307,252 +307,258 @@ export class Code {
           return new Response("Not found", { status: 404 });
       }
     });
-  }
 
-  async handleSession(webSocket: WebSocket, ip: string) {
-    const mST = () => this.state.mySession.json().state as ICodeSession;
-    webSocket.accept();
 
-    let limiterId = this.env.LIMITERS.idFromName(ip);
 
-    let limiter = new RateLimiterClient(
-      () => this.env.LIMITERS.get(limiterId),
-      (err: Error) => webSocket.close(1011, err.stack),
-    );
-    const uuid = self.crypto.randomUUID();
-
-    const newConnEvent: INewWSConnection = {
-      uuid,
-      hashCode: this.state.mySession.hashCode(),
-      type: "new-ws-connection",
-      timestamp: Date.now(),
-    };
-
-    webSocket.send(JSON.stringify(newConnEvent));
-
-    // this.state.mySession.addEvent(newConnEvent);
-
-    let session = {
-      uuid,
-      webSocket,
-      timestamp: Date.now(),
-      blockedMessages: [] as string[],
-    } as WebsocketSession;
-    this.sessions.push(session);
-
-    this.sessions.forEach((otherSession) => {
-      if (otherSession.name) {
-        session.blockedMessages.push(
-          JSON.stringify({
-            joined: otherSession.name,
-            hashCode: this.state.mySession.hashCode(),
-          }),
-        );
-      }
-    });
-
-    webSocket.addEventListener("message", async (msg) => {
-      let data;
-      try {
-
-        data = typeof msg.data==="string"? JSON.parse(msg.data): JSON.parse(new TextDecoder().decode(msg.data))
-    
-      } catch (exp) {
-        webSocket.send(
-          JSON.stringify({
-            error: "JSON parse error",
-            exp: exp || {},
-          }),
-        );
-      }
-
-      if (data.codeSpace && data.address && !this.state.address) {
-        this.broadcast(msg.data);
-      
-
-      this.state.address =  data.address;
-      await this.kv.put("address", data.address);
-      
-    
-    }
-      if (data.timestamp) {
-
-        session.webSocket.send(JSON.stringify({
-          timestamp:  Date.now(),
-          hashCode: this.state.mySession.hashCode(),
-        }));
-      }
-
-      try {
-        if (session.quit) {
-          if (session.name && typeof session.name === "string") {
-            // this.state.mySession.addEvent({
-            //   type: "quit",
-            //   target: "broadcast",
-            //   uuid: self.crypto.randomUUID(),
-            //   name: session.name,
-            //   timestamp: Date.now()
-            // });
-          }
-          webSocket.close(1011, "WebSocket broken.");
-          return;
+    async handleSession(webSocket: WebSocket, ip: string) {
+      const mST = () => this.state.mySession.json().state as ICodeSession;
+      webSocket.accept();
+  
+      let limiterId = this.env.LIMITERS.idFromName(ip);
+  
+      let limiter = new RateLimiterClient(
+        () => this.env.LIMITERS.get(limiterId),
+        (err: Error) => webSocket.close(1011, err.stack),
+      );
+      const uuid = self.crypto.randomUUID();
+  
+      const newConnEvent: INewWSConnection = {
+        uuid,
+        hashCode: this.state.mySession.hashCode(),
+        type: "new-ws-connection",
+        timestamp: Date.now(),
+      };
+  
+      webSocket.send(JSON.stringify(newConnEvent));
+  
+      // this.state.mySession.addEvent(newConnEvent);
+  
+      let session = {
+        uuid,
+        webSocket,
+        timestamp: Date.now(),
+        blockedMessages: [] as string[],
+      } as WebsocketSession;
+      this.sessions.push(session);
+  
+      this.sessions.forEach((otherSession) => {
+        if (otherSession.name) {
+          session.blockedMessages.push(
+            JSON.stringify({
+              joined: otherSession.name,
+              hashCode: this.state.mySession.hashCode(),
+            }),
+          );
         }
-
-        // this.state.mySession.addEvent(
-        //   { ...data, uuid: session.uuid } as unknown as IEvent,
-        // );
-
-        // if (data.type === "get-cid") {
-        //   const CID = data.cid;
-        //   if (this.hashCache[CID]) {
-        //     webSocket.send(
-        //       JSON.stringify({
-        //         type: "get-cid",
-        //         cid: data.cid,
-        //         [CID]: this.hashCache[CID]
-        //       })
-        //     );
-        //   }
-        //   return;
-        // }
-
-        if (
-          !(
+      });
+  
+      webSocket.addEventListener("message", async (msg) => {
+        let data;
+        try {
+  
+          data = typeof msg.data==="string"? JSON.parse(msg.data): JSON.parse(new TextDecoder().decode(msg.data))
+      
+        } catch (exp) {
+          webSocket.send(
+            JSON.stringify({
+              error: "JSON parse error",
+              exp: exp || {},
+            }),
+          );
+        }
+  
+        if (data.codeSpace && data.address && !this.state.address) {
+          this.broadcast(msg.data);
+        
+  
+        this.state.address =  data.address;
+        await this.kv.put("address", data.address);
+        
+      
+      }
+        if (data.timestamp) {
+  
+          session.webSocket.send(JSON.stringify({
+            timestamp:  Date.now(),
+            hashCode: this.state.mySession.hashCode(),
+          }));
+        }
+  
+        try {
+          if (session.quit) {
+            if (session.name && typeof session.name === "string") {
+              // this.state.mySession.addEvent({
+              //   type: "quit",
+              //   target: "broadcast",
+              //   uuid: self.crypto.randomUUID(),
+              //   name: session.name,
+              //   timestamp: Date.now()
+              // });
+            }
+            webSocket.close(1011, "WebSocket broken.");
+            return;
+          }
+  
+          // this.state.mySession.addEvent(
+          //   { ...data, uuid: session.uuid } as unknown as IEvent,
+          // );
+  
+          // if (data.type === "get-cid") {
+          //   const CID = data.cid;
+          //   if (this.hashCache[CID]) {
+          //     webSocket.send(
+          //       JSON.stringify({
+          //         type: "get-cid",
+          //         cid: data.cid,
+          //         [CID]: this.hashCache[CID]
+          //       })
+          //     );
+          //   }
+          //   return;
+          // }
+  
+          if (
+            !(
+              data.type &&
+              (data.type === "new-ice-candidate" ||
+                data.type === "offer" ||
+                data.type === "answer")
+            ) &&
+            !limiter.checkLimit()
+          ) {
+            webSocket.send(
+              JSON.stringify({
+                error: "Your IP is being rate-limited, please try again later.",
+              }),
+            );
+            return;
+          }
+  
+          if (data.type === "lost") {
+            webSocket.send(JSON.stringify({
+              ...mST(),
+            }));
+          }
+  
+          if (!session.name && data.name) {
+            session.name = "" + (data.name || "anonymous");
+  
+            if (session.name.length > 32) {
+              webSocket.send(JSON.stringify({ error: "Name too long." }));
+              webSocket.close(1009, "Name too long.");
+              return;
+            }
+  
+            // Deliver all the messages we queued up since the user connected.
+            // session.blockedMessages.forEach((queued) => {
+            //   webSocket.send(queued);
+            // });
+  
+            session.blockedMessages = [];
+  
+            // Broadcast to all other connections that this user has joined.
+            // this.broadcast({ joined: session.name });
+  
+            const messageEv = {
+              type: "code-init",
+              hashCode: this.state.mySession.hashCode(),
+            };
+  
+            webSocket.send(
+              JSON.stringify(messageEv),
+            );
+  
+            // Note that we've now received the user info message.
+  
+            return;
+          }
+  
+          try{
+  
+          if (
             data.type &&
             (data.type === "new-ice-candidate" ||
               data.type === "offer" ||
               data.type === "answer")
-          ) &&
-          !limiter.checkLimit()
-        ) {
-          webSocket.send(
-            JSON.stringify({
-              error: "Your IP is being rate-limited, please try again later.",
-            }),
-          );
-          return;
-        }
-
-        if (data.type === "lost") {
-          webSocket.send(JSON.stringify({
-            ...mST(),
-          }));
-        }
-
-        if (!session.name && data.name) {
-          session.name = "" + (data.name || "anonymous");
-
-          if (session.name.length > 32) {
-            webSocket.send(JSON.stringify({ error: "Name too long." }));
-            webSocket.close(1009, "Name too long.");
+          ) {
+            this.user2user(data.target, { name: session.name, ...data });
             return;
           }
-
-          // Deliver all the messages we queued up since the user connected.
-          // session.blockedMessages.forEach((queued) => {
-          //   webSocket.send(queued);
-          // });
-
-          session.blockedMessages = [];
-
-          // Broadcast to all other connections that this user has joined.
-          // this.broadcast({ joined: session.name });
-
-          const messageEv = {
-            type: "code-init",
-            hashCode: this.state.mySession.hashCode(),
-          };
-
-          webSocket.send(
-            JSON.stringify(messageEv),
-          );
-
-          // Note that we've now received the user info message.
-
-          return;
-        }
-
-        try{
-
-        if (
-          data.type &&
-          (data.type === "new-ice-candidate" ||
-            data.type === "offer" ||
-            data.type === "answer")
-        ) {
-          this.user2user(data.target, { name: session.name, ...data });
-          return;
-        }
-
-        if (
-          data.type &&
-          (data.type === "delta")
-        ) {
-          const delta = data.delta;
-          await this.kv.put("delta", {
-            delta,
-            hashCode: this.state.mySession.hashCode(),
-          });
-          // this.user2user(data.target, { name: session.name, ...data });
-          return;
-        }
-
-
-        if (data.patch && data.oldHash && data.newHash) {
-          const newHash: number = data.newHash;
-          const oldHash: number = data.oldHash;
-          const patch: string = data.patch;
-
-          await this.state.mySession.applyPatch(data);
-          if (newHash === this.state.mySession.hashCode()) {
-            this.broadcast(msg.data);
-
-            // session.webSocket.send(JSON.stringify({
-            //   hashCode: newHash,
-            // }));
-
-            await this.kv.put<ICodeSession>("session",  ({...mST()}));
-
-            await this.kv.put(String(newHash), { oldHash, patch });
-          } else {
-            this.user2user(data.name, {
+  
+          if (
+            data.type &&
+            (data.type === "delta")
+          ) {
+            const delta = data.delta;
+            await this.kv.put("delta", {
+              delta,
               hashCode: this.state.mySession.hashCode(),
             });
+            // this.user2user(data.target, { name: session.name, ...data });
+            return;
           }
-
-          return;
+  
+  
+          if (data.patch && data.oldHash && data.newHash) {
+            const newHash: number = data.newHash;
+            const oldHash: number = data.oldHash;
+            const patch: string = data.patch;
+  
+            await this.state.mySession.applyPatch(data);
+            if (newHash === this.state.mySession.hashCode()) {
+              this.broadcast(msg.data);
+  
+              // session.webSocket.send(JSON.stringify({
+              //   hashCode: newHash,
+              // }));
+  
+              await this.kv.put<ICodeSession>("session",  ({...mST()}));
+  
+              await this.kv.put(String(newHash), { oldHash, patch });
+            } else {
+              this.user2user(data.name, {
+                hashCode: this.state.mySession.hashCode(),
+              });
+            }
+  
+            return;
+          }
+        } catch (exp){
+          console.error({exp});
+          webSocket.send(
+            JSON.stringify({
+              error: "unknown error - kxzkx",
+              exp: exp || {},
+            }),
+          );
         }
-      } catch (exp){
-        console.error({exp});
-        webSocket.send(
-          JSON.stringify({
-            error: "unknown error - kxzkx",
-            exp: exp || {},
-          }),
-        );
-      }
+  
+        } catch (exp) {
+          console.error({exp});
+          webSocket.send(
+            JSON.stringify({
+              error: "unknown error rwfre",
+              exp: exp || {},
+            }),
+          );
+        }
+      });
+  
+      let closeOrErrorHandler = () => {
+        session.quit = true;
+        this.sessions = this.sessions.filter((member) => member !== session);
+        if (session.name) {
+          this.broadcast({ quit: session.name });
+        }
+      };
+      webSocket.addEventListener("close", closeOrErrorHandler);
+      webSocket.addEventListener("error", closeOrErrorHandler); d
+    }
+  
 
-      } catch (exp) {
-        console.error({exp});
-        webSocket.send(
-          JSON.stringify({
-            error: "unknown error rwfre",
-            exp: exp || {},
-          }),
-        );
-      }
-    });
 
-    let closeOrErrorHandler = () => {
-      session.quit = true;
-      this.sessions = this.sessions.filter((member) => member !== session);
-      if (session.name) {
-        this.broadcast({ quit: session.name });
-      }
-    };
-    webSocket.addEventListener("close", closeOrErrorHandler);
-    webSocket.addEventListener("error", closeOrErrorHandler); d
   }
+
 
   user2user(to: string, msg: Object | string) {
     const message = typeof msg !== "string" ? JSON.stringify(msg) : msg;
