@@ -95,8 +95,8 @@ const chCode = async () => {
   if (connections !== globalThis.connections) return;
   const { code, transpiled, i } = mST();
   const { prettier } = await import("./prettierEsm");
-  if (globalThis.model) {
-    const formatted = prettier(globalThis.model.getValue());
+  if (globalThis.editor) {
+    const formatted = prettier(globalThis.editor.getModel().getValue());
 
     if (code === formatted) return;
   }
@@ -112,13 +112,13 @@ const chCode = async () => {
 
     await globalThis.appFactory(transpiled);
 
-    if (globalThis.model || globalThis.aceEditor) {
+    if (globalThis.editor.getModel() || globalThis.aceEditor) {
       console.log("MODEL SET FROM REMOTE.... SORRY");
 
       setTimeout(() => {
         const mst = mST();
         if (mst.i === i) {
-          if (globalThis.model) {
+          if (globalThis.editor.getModel()) {
             globalThis.editor.getModel().setValue(mst.code);
           }
           if (globalThis.aceEditor) {
