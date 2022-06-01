@@ -2,19 +2,11 @@
 
 import { css } from "@emotion/react";
 
-// import { CacheProvider } from "@emotion/react";
-// import createCache from "@emotion/cache";
-
 import { useEffect, useMemo, useRef, useState } from "react";
 import type { FC } from "react";
 
 import { motion } from "framer-motion";
-// import { motion } from "./lazyMotion";
 import { QRButton } from "./Qr";
-
-// import { wait } from "./wait";
-// import { Box, Slider } from "./mui";
-// import { LazySpikeLandComponent } from "./LazyLoadedComponent";
 
 import {
   Fab,
