@@ -59,10 +59,10 @@ const mapper = async (name) => {
 
 function onPeriodicSync( event){
   if (event.tag == 'get-latest-news') {
-    event.waitUntil(async()=>{
+    event.waitUntil((async()=>{
       await update();
       await pMap(Object.keys(cache), mapper,  {concurrency: 2});
-    });
+    })());
   }
 }
 
