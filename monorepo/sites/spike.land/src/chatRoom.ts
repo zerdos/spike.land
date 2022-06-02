@@ -387,23 +387,32 @@ export class Code {
       }
 
       try {
-        if (
+        if ( data.type && 
           ["new-ice-candidate", "offer", "answer"].includes(data.type)
         ) {
           return this.user2user(data.target, { name: session.name, ...data });
         }
 
         if (data.patch && data.oldHash && data.newHash) {
-          const { patch, newHash, oldHash } = data as {
-            oldHash: number;
-            newHash: number;
-            patch: string;
-          };
+
+          respondWith({msg: hashCode()});
+          const  patch = data.patch;
+          const newHash = Number(data.newHash);
+          const oldHash = Number(data.oldHash);
+          
           if (oldHash !== hashCode()) {
             return respondWith({ hashCode: hashCode(), msg: "wrong oldHash" });
           }
 
-          await applyPatch({ oldHash, newHash, patch });
+          try{
+          await applyPatch(data);
+          } catch(err){
+            if (err instanceof Error) {
+              stack = err.stack;
+              return respondWith({ error: err.stack, message: err.message });
+            }
+            return respondWith({msg: "misztikus hiba", hash: hashCode()})
+          }
 
           if (newHash === hashCode()) {
             try {
@@ -414,11 +423,11 @@ export class Code {
               });
             }
 
-            await this.kv.put<ICodeSession>("session", mST());
-            await this.kv.put(String(data.newHash), {
-              oldHash: data.oldHash,
-              patch: data.patch,
-            });
+            await this.kv.put<ICodeSession>("session", {...mST()});
+            await this.kv.put(String(newHash), JSON.stringify({
+              oldHash,
+              patch
+            }));
 
             return respondWith({
               msg: "all cool!",

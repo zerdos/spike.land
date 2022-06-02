@@ -151,7 +151,7 @@ export class CodeSession implements ICodeSess {
 
    const bestGuesses = this.room || globalThis.codeSpace;
 
-    if ( !Object.keys(hashStore).map(x=>Number(x)).includes(oldHash) && bestGuesses) {
+    if ( !Object.keys(hashStore).map(x=>Number(x)).includes(Number(oldHash)) && bestGuesses) {
       console.log(Object.keys(hashStore))
       const resp = await fetch(
         `https://spike.land/live/${bestGuesses}/mST`,
