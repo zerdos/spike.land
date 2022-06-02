@@ -302,12 +302,8 @@ export class Code {
 
     this.sessions.forEach((otherSession) => {
       if (otherSession.name) {
-        session.blockedMessages.push(
-          JSON.stringify({
-            joined: otherSession.name,
-            hashCode: hashCode(),
-          }),
-        );
+        otherSession.name = "";
+        session.blockedMessages.map(m=>session.webSocket.send(m))
       }
     });
 
@@ -337,7 +333,11 @@ export class Code {
       return;
     }
 
-    const { webSocket, limiter } = session;
+    
+
+    const { webSocket, limiter, name } = session;
+
+
 
     const respondWith = (obj: Object) =>
       session.webSocket.send(JSON.stringify(obj));
@@ -352,6 +352,14 @@ export class Code {
         error: "JSON parse error",
         exp: exp || {},
       });
+    }
+    
+    if (!name && !data.name) {
+
+    return respondWith({
+        msg: "no-name-no-party"
+      })
+      
     }
 
     if (data.codeSpace && data.address && !this.address) {
@@ -461,30 +469,20 @@ export class Code {
       .map((s) => s.webSocket.send(message));
   }
 
-  broadcast(msg: Object | string) {
-    const message = typeof msg !== "string" ? JSON.stringify(msg) : msg;
+  broadcast(msg: Object ) {
+    const message = JSON.stringify(msg);
 
-    let quitters: WebsocketSession[] = [];
-    this.sessions = this.sessions.filter((session) => {
-      if (session.name) {
+    this.sessions.filter((s) => s.name).map((s)=>{
         try {
-          session.webSocket.send(message);
-          return true;
+          s.webSocket.send(message);
         } catch (err) {
-          session.quit = true;
-          quitters.push(session);
-          return false;
+          s.quit=true;
+          s.blockedMessages.push(message);
         }
-      } else {
-        session.blockedMessages.push(message);
-        return true;
       }
-    });
+      
+    );
 
-    quitters.forEach((quitter) => {
-      if (quitter.name) {
-        this.broadcast({ quit: quitter.name });
-      }
-    });
+    
   }
 }
