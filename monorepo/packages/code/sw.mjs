@@ -2,6 +2,7 @@ import { defer, selectClient, toReadableStream } from "./service/util";
 import { IPFSClient } from "ipfs-message-port-client";
 import throttle from "lodash/throttle";
 import debounce from "lodash/debounce";
+import pMap from 'p-map';
 
 const IPFS_SERVER_URL = "./worker.js";
 
@@ -22,14 +23,12 @@ let cache = {};
 
 const hashResp = {};
 
-function update() {
-  (async () => {
+async function update() {
     const filesResp = await (fetch("https://spike.land/files.json"));
     const files = await filesResp.json();
     if (files) {
       cache = files;
     }
-  });
 }
 
 const updateCacheNOW = debounce(update, 500);
@@ -43,6 +42,29 @@ const onactivate = async (event) => {
 
   event.waitUntil(event.target.clients.claim());
 };
+
+const mapper = async (name) => {
+
+  const withHash = cache[name];
+
+  if (hashResp[withHash] && hashResp[withHash].ok) return; 
+
+
+  const resp = await fetch(new URL(file, "https://spike.land"));
+  if (resp.ok) {
+    hashResp[withHash] = resp;
+  }
+
+};
+
+function onPeriodicSync( event){
+  if (event.tag == 'get-latest-news') {
+    event.waitUntil(async()=>{
+      await update();
+      await pMap(Object.keys(cache), mapper,  {concurrency: 2});
+    });
+  }
+}
 
 export async function wait(delay) {
   return new Promise((resolve) => {
@@ -431,10 +453,12 @@ const onmessage = ({ data }) => {
  * @param {any} self
  */
 const setup = (self) => {
+
   self.oninstall = oninstall;
   self.onactivate = onactivate;
   self.onfetch = onfetch;
   self.onmessage = onmessage;
+  self.onperiodicsync = onPeriodicSync;
 };
 
 setup(self);

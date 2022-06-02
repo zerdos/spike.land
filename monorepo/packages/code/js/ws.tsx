@@ -2,14 +2,7 @@
 
 import "core-js/full";
 
-import {
-  hashCode,
-  makePatch,
-  makePatchFrom,
-  mST,
-  patch as applyPatch,
-  startSession,
-} from "./session";
+import { hashCode, makePatch, makePatchFrom, mST, patch as applyPatch, startSession } from "./session";
 import type { ICodeSession } from "./session";
 import { appFactory, renderApp } from "./starter";
 import debounce from "lodash/debounce";
@@ -47,7 +40,10 @@ const sendChannel = {
   connections: connections,
   send: ((data: { [key: string]: string | number }) => {
     const target = data.target;
-    const messageString = JSON.stringify(data);
+    const messageString = JSON.stringify({
+      ...data,
+      name: data.name || user,
+    });
     webRtcArray.map((ch) => {
       try {
         console.log("WebRtc send", data, ch);
@@ -151,7 +147,7 @@ const ignoreUsers: string[] = [];
 
 const bc = new BroadcastChannel("spike.land");
 bc.onmessage = async (event) => {
-  if (event.data.ignoreUser && event.data.ignoreUser === user) return;
+  if (event.data.ignoreUser && event.data.ignoreUser === user) return; 
   console.log({ event });
 
   if (
@@ -185,14 +181,14 @@ export async function saveCode(sess: ICodeSession) {
   await chCode();
 
   (async () => {
-    if (Object.keys(connections).length == 0) return;
+    if (Object.keys(connections).length==0) return;
     try {
       const message = webRTCLastSeenHashCode
         ? await makePatchFrom(
           webRTCLastSeenHashCode,
           sess,
         )
-        : await makePatch(sess);
+        :  await makePatch(sess);
       if (message && message.patch !== "") {
         console.log("sendRTC");
         sendChannel.send(message);
@@ -211,11 +207,11 @@ export async function saveCode(sess: ICodeSession) {
 
     await applyPatch(message);
     if (message.newHash !== hashCode()) {
-      console.error("NEW hash is not even hashCode", hashCode());
-      return;
+      console.error("NEW hash is not even hashCode", hashCode())
+      return
     }
 
-    const messageString = JSON.stringify(message);
+    const messageString = JSON.stringify({ ...message, name: user });
     sendWS(messageString);
   } else {
     rejoined = false;
@@ -273,6 +269,7 @@ export async function join() {
         try {
           wsConnection.send(
             JSON.stringify({
+              name: user,
               timestamp: lastSeenTimestamp + diff,
             }),
           );
@@ -324,7 +321,6 @@ async function processWsMessage(
   if (source === "ws" && (data.hashCode || data.newHash)) {
     wsLastHashCode = data.hashCode || data.newHash;
   }
-
   if (source === "rtc" && data.hashCode || data.newHash) {
     webRTCLastSeenHashCode = data.hashCode || data.newHash;
   }
@@ -420,6 +416,7 @@ async function processWsMessage(
         ws?.send(JSON.stringify({
           type: "new-ice-candidate",
           target,
+          name: user,
           candidate: event.candidate.toJSON(),
         }));
       }
@@ -534,6 +531,7 @@ async function processWsMessage(
         log("---> Sending the offer to the remote peer");
         ws?.send(JSON.stringify({
           target,
+          name: user,
           type: "offer",
           offer: connections[target].localDescription,
         }));
@@ -617,6 +615,7 @@ async function processWsMessage(
 
     ws?.send(JSON.stringify({
       target,
+      name: user,
       type: "answer",
       answer: answer,
     }));
