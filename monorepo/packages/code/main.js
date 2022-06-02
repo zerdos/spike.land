@@ -30,22 +30,17 @@ const ipfsSw = async () => {
 
   const registration = await navigator.serviceWorker.ready;
 
-  
   try {
-
     const tags = await registration.periodicSync.getTags();
-    if (tags && tags.includes('get-latest-news')){
-
-    
-        console.log("skipDownloadingLatestNewsOnPageLoad");
+    if (tags && tags.includes("get-latest-news")) {
+      console.log("skipDownloadingLatestNewsOnPageLoad");
     } else {
-  
-    await registration.periodicSync.register('get-latest-news', {
-      minInterval: 60 * 60 * 1000,
-    });
-  }
+      await registration.periodicSync.register("get-latest-news", {
+        minInterval: 60 * 60 * 1000,
+      });
+    }
   } catch {
-    console.log('Periodic Sync could not be registered!');
+    console.log("Periodic Sync could not be registered!");
   }
 
   // This is just for testing, lets us know when SW is ready.

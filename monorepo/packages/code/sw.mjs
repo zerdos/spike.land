@@ -2,7 +2,7 @@ import { defer, selectClient, toReadableStream } from "./service/util";
 import { IPFSClient } from "ipfs-message-port-client";
 import throttle from "lodash/throttle";
 import debounce from "lodash/debounce";
-import pMap from 'p-map';
+import pMap from "p-map";
 
 const IPFS_SERVER_URL = "./worker.js";
 
@@ -24,11 +24,11 @@ let cache = {};
 const hashResp = {};
 
 async function update() {
-    const filesResp = await (fetch("https://spike.land/files.json"));
-    const files = await filesResp.json();
-    if (files) {
-      cache = files;
-    }
+  const filesResp = await (fetch("https://spike.land/files.json"));
+  const files = await filesResp.json();
+  if (files) {
+    cache = files;
+  }
 }
 
 const updateCacheNOW = debounce(update, 500);
@@ -44,28 +44,23 @@ const onactivate = async (event) => {
 };
 
 const mapper = async (name) => {
-
   const withHash = cache[name];
 
   if (hashResp[withHash] && hashResp[withHash].ok) {
-
-
-  const resp = await fetch(new URL(withHash, "https://spike.land"));
-  if (resp.ok) {
-  
-  
-  hashResp[withHash] = resp.clone()
-await resp.blob();
-
-  }
+    const resp = await fetch(new URL(withHash, "https://spike.land"));
+    if (resp.ok) {
+      hashResp[withHash] = resp.clone();
+      resp.url = 
+      await resp.blob();
+    }
   }
 };
 
-function onPeriodicSync( event){
-  if (event.tag == 'get-latest-news') {
-    event.waitUntil((async()=>{
+function onPeriodicSync(event) {
+  if (event.tag == "get-latest-news") {
+    event.waitUntil((async () => {
       await update();
-      await pMap(Object.keys(cache), mapper,  {concurrency: 2});
+      await pMap(Object.keys(cache), mapper, { concurrency: 2 });
     })());
   }
 }
@@ -86,24 +81,26 @@ const onfetch = (event) => {
   const url = new URL(event.request.url);
 
   const loc = url.pathname.slice(1);
-  if (cache[loc] && hashResp[cache[loc]]) {
-    event.respondWith((async () => hashResp[cache[loc]].clone())());
-  }
+ 
   if (cache[loc]) {
     return event.respondWith((async () => {
-      let resp = await fetch( new URL(cache[loc], "https://spike.land")   );
+      if (!hashResp[cache[loc]]) {
+
+      
+      let resp = await fetch(new URL(cache[loc], "https://spike.land"));
 
       if (!resp.ok) {
         updateCacheNOW();
         await wait(1000);
-        resp = await fetch(new URL(cache[loc], "https://spike.land")   );
+        resp = await fetch(new URL(cache[loc], "https://spike.land"));
       }
 
       if (!resp.ok) return resp.clone();
 
-      hashResp[cache[loc]] = resp.clone();
-
-      return hashResp[cache[loc]];
+      hashResp[cache[loc]] = resp
+    }
+    const cloned = hashResp[cache[loc]].clone();
+      return new Response( {...cloned, request: event.request, url: event.request.url});
     })());
   }
 
@@ -457,7 +454,6 @@ const onmessage = ({ data }) => {
  * @param {any} self
  */
 const setup = (self) => {
-
   self.oninstall = oninstall;
   self.onactivate = onactivate;
   self.onfetch = onfetch;
