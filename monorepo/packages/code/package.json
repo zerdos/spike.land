@@ -18,6 +18,7 @@
     "./shasums": "./shasums.ts"
   },
   "scripts": {
+    "test": "uvu -r esbuild-register tests",
     "typecheck": "cd monorepo/packages/code && yarn tsc",
     "clean": "rm -rf .tsBuildInfo js/vendor ../../sites/spike.land/public && mkdir ../../sites/spike.land/public js/vendor && yarn favicons && yarn build:framer-motion && yarn build:emotion  && yarn build:preact && yarn wasm",
     "xpostinstall": "yarn importmap",
@@ -94,6 +95,7 @@
     "esbuild": "0.14.42",
     "esbuild-plugin-import-map": "2.1.0",
     "esbuild-plugin-jsximportsource": "^0.0.4",
+    "esbuild-register": "^3.3.2",
     "esbuild-wasm": "0.14.42",
     "fast-diff": "1.2.0",
     "framer-motion": "6.3.6",
@@ -117,7 +119,8 @@
     "react-dom": "npm:@preact/compat@17.0.3",
     "stream": "npm:stream-browserify@3.0.0",
     "stream-browserify": "3.0.0",
-    "util": "^0.12.4"
+    "util": "^0.12.4",
+    "uvu": "^0.5.3"
   },
   "gitHead": "67d48a100505652f0e431fa7dd2fa810a2b1dec5"
 }

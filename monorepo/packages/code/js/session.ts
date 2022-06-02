@@ -64,8 +64,7 @@ type IApplyPatch = (
 ) => Promise<ICodeSess>;
 
 interface ICodeSess {
-  hashCodeSession: number;
-  hashCode: () => number;
+  hashOfState: () => number;
   applyPatch: IApplyPatch;
   createPatchFromHashCode: (c: number, st: ICodeSession) => CodePatch;
   json: () => IUserJSON;
@@ -105,10 +104,9 @@ export class CodeSession implements ICodeSess {
       state: savedState ? savedState : user.state,
     })();
 
-    this.hashCodeSession = this.hashCode();
   }
 
-  public hashCode() {
+  public hashOfState() {
     const state = this.session.get("state");
     const hashCode = state.hashCode();
     hashStore[hashCode] = state;
@@ -149,20 +147,20 @@ export class CodeSession implements ICodeSess {
     newHash,
     patch,
   }: { oldHash: number; newHash: number; patch: Diff }) => {
-    const meHash = this.hashCode();
+    const meHash = this.hashOfState();
 
-    const bestGuesses = this.room || globalThis.codeSpace;
+   const bestGuesses = this.room || globalThis.codeSpace;
 
-    if (!hashStore[oldHash] && bestGuesses) {
+    if ( !Object.keys(hashStore).map(x=>Number(x)).includes(oldHash) && bestGuesses) {
+      console.log(Object.keys(hashStore))
       const resp = await fetch(
         `https://spike.land/live/${bestGuesses}/mST`,
       );
 
-      const { mST, hashCode } = await resp.json();
-      hashStore[hashCode] = this.session.get("state").merge(mST);
-    } else {
-      return;
-    }
+      const s = await resp.json();
+
+      hashStore[Number(s.hashCode)] = this.session.get("state").merge(s.mST);
+    } 
 
     const oldStr = JSON.stringify(hashStore[oldHash].toJSON());
     const newState = JSON.parse(applyPatch(oldStr, patch));
@@ -170,8 +168,6 @@ export class CodeSession implements ICodeSess {
       newState,
     );
 
-    console.log({ newState });
-    console.log(newRec.hashCode());
 
     const newRecord = this.session.get("state").merge(newRec);
 
@@ -181,10 +177,7 @@ export class CodeSession implements ICodeSess {
       this.session = this.session.set("state", newRecord);
       //  Console.error("WRONG update");
     } else {
-      console.log("WRONG");
-      console.log({
-        newState,
-      });
+
       throw new Error("Wrong patch");
     }
   };
@@ -201,7 +194,9 @@ export class CodeSession implements ICodeSess {
   }
 }
 
-export const hashCode = () => session?.hashCode() || 0;
+export const hashCode = () => session? session.hashOfState() : 0;
+
+
 export const mST: () => ICodeSession = () => {
   if (!session) {
     return {
@@ -224,6 +219,9 @@ export const makePatch = (st: ICodeSession) => makePatchFrom(hashCode(), st);
 
 export const startSession = (room: string, u: IUserJSON): CodeSession =>
   session || new CodeSession(room, u);
+
+
+
 
 function createPatch(oldCode: string, newCode: string) {
   return createDelta(oldCode, newCode);
