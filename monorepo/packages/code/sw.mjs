@@ -100,6 +100,7 @@ const onfetch = (event) => {
       hashResp[cache[loc]] = resp
     }
     const cloned = hashResp[cache[loc]].clone();
+    await resp.blob();
       return new Response(cloned.body, {request: event.request, url: event.request.url});
     })());
   }
