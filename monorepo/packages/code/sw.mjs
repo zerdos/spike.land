@@ -49,11 +49,11 @@ const mapper = async (name) => {
   if (hashResp[withHash] && hashResp[withHash].ok) {
     const resp = await fetch(new URL(withHash, "https://spike.land"));
     if (resp.ok) {
-
-
       const blob = await resp.blob();
 
-      hashResp[withHash] = new Response(blob, {url: new URL(name, "https://spike.land")});
+      hashResp[withHash] = new Response(blob, {
+        url: new URL(name, "https://spike.land"),
+      });
     }
   }
 };
@@ -83,30 +83,28 @@ const onfetch = (event) => {
   const url = new URL(event.request.url);
 
   const loc = url.pathname.slice(1);
- 
+
   if (cache[loc]) {
     return event.respondWith((async () => {
       if (!hashResp[cache[loc]]) {
+        let resp = await fetch(new URL(cache[loc], "https://spike.land"));
 
-      
-      let resp = await fetch(new URL(cache[loc], "https://spike.land"));
+        if (!resp.ok) {
+          updateCacheNOW();
+          await wait(1000);
+          resp = await fetch(new URL(cache[loc], "https://spike.land"));
+        }
 
-      if (!resp.ok) {
-        updateCacheNOW();
-        await wait(1000);
-        resp = await fetch(new URL(cache[loc], "https://spike.land"));
+        if (!resp.ok) return resp.clone();
+
+        const blob = await resp.blob();
+
+        hashResp[cache[loc]] = new Response(blob, {
+          request: event.request,
+          url: event.request.url,
+        });
       }
-
-      if (!resp.ok) return resp.clone();
-
-      
-      const blob = await resp.blob();
-
-      hashResp[cache[loc]] = new Response(blob, {request: event.request, url: event.request.url});
-
-
-    }
-    return hashResp[cache[loc]].clone();
+      return hashResp[cache[loc]].clone();
     })());
   }
 
