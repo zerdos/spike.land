@@ -60,7 +60,7 @@ const mapper = async (name) => {
 
 
   }
-
+  }
 };
 
 function onPeriodicSync( event){
