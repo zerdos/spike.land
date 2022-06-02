@@ -101,7 +101,7 @@ export class CodeSession implements ICodeSess {
 
     this.session = initSession(room, {
       ...user,
-      state: savedState ? savedState : user.state,
+      state: savedState ? savedState : JSON.parse(str(user.state)),
     })();
   }
 
