@@ -98,17 +98,9 @@ RUN ARCH= && dpkgArch="$(dpkg --print-architecture)" \
   && npm --version  \
   && npm i -g npm yarn
 ## cypress.Dockerfile
-ENV CI=1 \
-# disable shared memory X11 affecting Cypress v4 and Chrome
-# https://github.com/cypress-io/cypress-docker-images/issues/270
-  QT_X11_NO_MITSHM=1 \
+ENV  QT_X11_NO_MITSHM=1 \
   _X11_NO_MITSHM=1 \
-  _MITSHM=0 \
-  # point Cypress at the /root/cache no matter what user account is used
-  # see https://on.cypress.io/caching
-   DBUS_SESSION_BUS_ADDRESS=/dev/null
-
-
+  _MITSHM=0 
 
 RUN apt-get update \
 && apt-get install --no-install-recommends -y \
@@ -135,10 +127,6 @@ RUN apt-get update \
 && apt-get autoremove -y \
 && apt-get clean -y \
 && rm -rf /var/lib/apt/lists/* 
-
-
-
-
 
 
 USER ${USER}
