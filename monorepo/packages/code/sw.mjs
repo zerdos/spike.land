@@ -49,9 +49,11 @@ const mapper = async (name) => {
   if (hashResp[withHash] && hashResp[withHash].ok) {
     const resp = await fetch(new URL(withHash, "https://spike.land"));
     if (resp.ok) {
-      hashResp[withHash] = resp.clone();
-      resp.url = 
-      await resp.blob();
+
+
+      const blob = await resp.blob();
+
+      hashResp[withHash] = new Response(blob, {url: new URL(name, "https://spike.land")});
     }
   }
 };
@@ -97,11 +99,14 @@ const onfetch = (event) => {
 
       if (!resp.ok) return resp.clone();
 
-      hashResp[cache[loc]] = resp
+      
+      const blob = await resp.blob();
+
+      hashResp[cache[loc]] = new Response(blob, {request: event.request, url: event.request.url});
+
+
     }
-    const cloned = hashResp[cache[loc]].clone();
-    await resp.blob();
-      return new Response(cloned.body, {request: event.request, url: event.request.url});
+    return hashResp[cache[loc]].clone();
     })());
   }
 
