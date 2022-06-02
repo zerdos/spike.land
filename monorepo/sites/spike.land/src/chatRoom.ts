@@ -11,13 +11,13 @@ import {
   startSession,
 } from "@spike.land/code/js/session";
 import imap from "@spike.land/code/js/importmap.json";
+import { Delta } from "@spike.land/code/js/textDiff";
 
 interface IState extends DurableObjectState {
 }
 
 interface WebsocketSession {
-  uuid: string;
-  name?: string;
+  name: string;
   limiter: RateLimiterClient;
   webSocket: WebSocket;
   quit?: boolean;
@@ -285,7 +285,7 @@ export class Code {
 
 
     let session = {
-      name: null,
+      name: "",
       webSocket,
       limiter,
       timestamp: Date.now(),
@@ -326,7 +326,19 @@ export class Code {
     const respondWith = (obj: Object) =>
       session.webSocket.send(JSON.stringify(obj));
 
-    let data;
+    let data: {
+      name?: string,
+      timestamp?: number,
+      codeSpace?: string,
+      target?: string,
+      type?: "new-ice-candidate" |"offer" |"answer"          
+      patch?: Delta[],
+      address? :string,
+      hashCode?: number,
+      newHash?: number,
+      oldHash?: number,
+
+    };
     try {
       data = typeof msg.data === "string"
         ? JSON.parse(msg.data)
@@ -350,7 +362,7 @@ export class Code {
         if (otherSession===session) return;
 
         if (otherSession.name === data.name) {
-          otherSession.name = null;
+          otherSession.name = "";
           otherSession.blockedMessages.map(m=>session.webSocket.send(m));
           otherSession.blockedMessages=[];
         }
@@ -394,9 +406,7 @@ export class Code {
 
     try {
       if (
-        limiter.checkLimit() && 
-       ! (["new-ice-candidate", "offer", "answer"].includes(data.type))
-        
+        limiter.checkLimit() &&  !data.type
       ) {
         return respondWith({
           error: "Your IP is being rate-limited, please try again later.",
@@ -405,8 +415,8 @@ export class Code {
 
       try {
         if (
-          data.type &&
-          ["new-ice-candidate", "offer", "answer"].includes(data.type)
+          data.target && 
+          data.type &&   ["new-ice-candidate", "offer", "answer"].includes(data.type)
         ) {
           return this.user2user(data.target, { ...data,  name });
         }
@@ -421,12 +431,12 @@ export class Code {
           }
 
           try {
-            await applyPatch(data);
+            await applyPatch({patch, newHash, oldHash});
           } catch (err) {
             return respondWith({
               msg: "strange error",
-              err: err.toString(),
-              stack: err.stack.toString(),
+              err: (err instanceof SyntaxError)? err.toString(): "Some error",
+              stack: (err instanceof SyntaxError)? err.stack?.toString(): "no stack",
               hash: hashCode(),
             });
           }
