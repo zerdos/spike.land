@@ -52,7 +52,11 @@ const mapper = async (name) => {
 
   const resp = await fetch(new URL(file, "https://spike.land"));
   if (resp.ok) {
-    hashResp[withHash] = resp;
+  
+  
+  const blob =  await resp.blob();  
+  hashResp[withHash] = resp.clone();
+
   }
 
 };
