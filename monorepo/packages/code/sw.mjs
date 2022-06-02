@@ -101,7 +101,7 @@ const onfetch = (event) => {
         resp = await fetch(new URL(cache[loc], "https://spike.land")   );
       }
 
-      if (!res.ok) return resp.clone();
+      if (!resp.ok) return resp.clone();
 
       hashResp[cache[loc]] = resp.clone();
 
