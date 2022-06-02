@@ -303,10 +303,6 @@ export class Code {
 
     let closeOrErrorHandler = () => {
       session.quit = true;
-      this.sessions = this.sessions.filter((member) => member !== session);
-      if (session.name) {
-        this.broadcast({ quit: session.name });
-      }
     };
     webSocket.addEventListener("close", closeOrErrorHandler);
     webSocket.addEventListener("error", closeOrErrorHandler);
@@ -346,17 +342,23 @@ export class Code {
     
     if (!name ) {
     if (data.name){
-      
+      session.name = data.name;
 
-     this.sessions= this.sessions.map((otherSession) => {
+
+      try{
+      this.sessions.map((otherSession) => {
+        if (otherSession===session) return;
+
         if (otherSession.name === data.name) {
           otherSession.name = null;
           otherSession.blockedMessages.map(m=>session.webSocket.send(m));
           otherSession.blockedMessages=[];
         }
       });
+    } catch(e){
+      respondWith({error: "error while checked blocked messages"});
+    }
   
-      session.name = data.name;
 
       return respondWith({
         hashCode: hashCode()
