@@ -328,6 +328,7 @@ async function processWsMessage(
   if (source === "ws" && (data.hashCode || data.newHash)) {
     wsLastHashCode = data.hashCode || data.newHash;
   }
+  
   if (source === "rtc" && data.hashCode || data.newHash) {
     webRTCLastSeenHashCode = data.hashCode || data.newHash;
   }

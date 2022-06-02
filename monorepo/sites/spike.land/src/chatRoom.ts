@@ -400,7 +400,7 @@ export class Code {
           const oldHash = Number(data.oldHash);
 
           if (oldHash !== hashCode()) {
-            return respondWith({ hashCode: hashCode(), msg: "wrong oldHash" });
+            return respondWith({ hashCode: hashCode() });
           }
 
           try {
@@ -429,13 +429,11 @@ export class Code {
               }),
             );
 
-            return respondWith(data);
-          } else {
-            return respondWith({
-              msg: "apply wasn't done much",
-              hashCode: hashCode(),
+          } 
+          return respondWith({
+              hashCode: hashCode()
             });
-          }
+          
         }
       } catch (exp) {
         console.error({ exp });
