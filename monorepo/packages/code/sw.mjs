@@ -56,7 +56,7 @@ const mapper = async (name) => {
   
   const blob =  await resp.blob();  
   const clone = resp.clone()
-  hashResp[withHash] = new Response(blob, {url: new URL(file, "https://spike.land"), headers: clone.headers });
+  hashResp[withHash] = new Response(blob, {url: new URL(name, "https://spike.land"), headers: clone.headers });
 
 
   }
@@ -88,8 +88,8 @@ const onfetch = (event) => {
   const url = new URL(event.request.url);
 
   const loc = url.pathname.slice(1);
-  if (cache[loc] && hashResp[loc]) {
-    event.respondWith(async () => hashResp[loc].clone());
+  if (cache[loc] && hashResp[cache[loc]]) {
+    event.respondWith(async () => hashResp[cache[loc]].clone());
   }
   if (cache[loc]) {
     return event.respondWith(async () => {
@@ -101,11 +101,11 @@ const onfetch = (event) => {
         resp = await fetch(new URL(cache[loc], "https://spike.land")   );
       }
 
-      if (!res.ok) return resp;
+      if (!res.ok) return resp.clone();
 
       hashResp[cache[loc]] = resp.clone();
 
-      return resp;
+      return hashResp[cache[loc]];
     });
   }
 
