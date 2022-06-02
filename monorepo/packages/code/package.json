@@ -30,7 +30,7 @@
     "build:orbit-db": "esbuild --bundle js/preact.ts  --target=esnext --minify --format=esm --platform=browser  --outfile=../../sites/spike.land/public/react.mjs",
     "build:framer-motion": "yarn esbuild --bundle js/motion.tsx  --target=esnext --minify --format=esm  --platform=browser  --define:process.env.NODE_ENV=\\\"production\\\" --external:react --external:@emotion/is-prop-valid  --external:react --outfile=../../sites/spike.land/public/framer-motion.mjs",
     "build:emotion": "yarn esbuild --bundle js/emotion.tsx  --target=esnext --format=esm --external:react --external:react/jsx-runtime --platform=browser --define:process.env.NODE_ENV=\\\"production\\\" --outfile=../../sites/spike.land/public/emotion.mjs",
-    "build": "yanode esbuild-dev.mjs &&  yarn build:sw",
+    "build": "yarn test && node esbuild-dev.mjs &&  yarn build:sw",
     "favicons": "cp -a -f js/assets/favicons/. ../../sites/spike.land/public/",
     "importmap": "node --experimental-json-modules generate.mjs > ./importmap_NEW.json && mv importmap_NEW.json js/importmap.json",
     "workbox-cli": "workbox-cli",
