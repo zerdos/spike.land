@@ -103,7 +103,6 @@ export class CodeSession implements ICodeSess {
       ...user,
       state: savedState ? savedState : user.state,
     })();
-
   }
 
   public hashOfState() {
@@ -149,10 +148,13 @@ export class CodeSession implements ICodeSess {
   }: { oldHash: number; newHash: number; patch: Diff }) => {
     const meHash = this.hashOfState();
 
-   const bestGuesses = this.room || globalThis.codeSpace;
+    const bestGuesses = this.room || globalThis.codeSpace;
 
-    if ( !Object.keys(hashStore).map(x=>Number(x)).includes(Number(oldHash)) && bestGuesses) {
-      console.log(Object.keys(hashStore))
+    if (
+      !Object.keys(hashStore).map((x) => Number(x)).includes(Number(oldHash)) &&
+      bestGuesses
+    ) {
+      console.log(Object.keys(hashStore));
       const resp = await fetch(
         `https://spike.land/live/${bestGuesses}/mST`,
       );
@@ -160,14 +162,13 @@ export class CodeSession implements ICodeSess {
       const s = await resp.json();
 
       hashStore[Number(s.hashCode)] = this.session.get("state").merge(s.mST);
-    } 
+    }
 
     const oldStr = JSON.stringify(hashStore[oldHash].toJSON());
     const newState = JSON.parse(applyPatch(oldStr, patch));
     const newRec: Record<ICodeSession> = this.session.get("state").merge(
       newState,
     );
-
 
     const newRecord = this.session.get("state").merge(newRec);
 
@@ -177,7 +178,6 @@ export class CodeSession implements ICodeSess {
       this.session = this.session.set("state", newRecord);
       //  Console.error("WRONG update");
     } else {
-
       throw new Error("Wrong patch");
     }
   };
@@ -194,8 +194,7 @@ export class CodeSession implements ICodeSess {
   }
 }
 
-export const hashCode = () => session? session.hashOfState() : 0;
-
+export const hashCode = () => session ? session.hashOfState() : 0;
 
 export const mST: () => ICodeSession = () => {
   if (!session) {
@@ -219,9 +218,6 @@ export const makePatch = (st: ICodeSession) => makePatchFrom(hashCode(), st);
 
 export const startSession = (room: string, u: IUserJSON): CodeSession =>
   session || new CodeSession(room, u);
-
-
-
 
 function createPatch(oldCode: string, newCode: string) {
   return createDelta(oldCode, newCode);
