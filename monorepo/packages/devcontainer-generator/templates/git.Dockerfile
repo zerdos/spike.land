@@ -1,4 +1,4 @@
-FROM devimage
+gccFROM devimage
 
 ### git.Dockerfile
 
