@@ -93,12 +93,12 @@ const onfetch = (event) => {
   }
   if (cache[loc]) {
     return event.respondWith(async () => {
-      let resp = await fetch(cache[loc]);
+      let resp = await fetch( new URL(cache[loc], "https://spike.land")   );
 
       if (!resp.ok) {
         updateCacheNOW();
         await wait(1000);
-        resp = await fetch(cache[loc]);
+        resp = await fetch(new URL(cache[loc], "https://spike.land")   );
       }
 
       if (!res.ok) return resp;
