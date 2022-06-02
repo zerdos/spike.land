@@ -2,7 +2,14 @@
 
 import "core-js/full";
 
-import { hashCode, makePatch, makePatchFrom, mST, patch as applyPatch, startSession } from "./session";
+import {
+  hashCode,
+  makePatch,
+  makePatchFrom,
+  mST,
+  patch as applyPatch,
+  startSession,
+} from "./session";
 import type { ICodeSession } from "./session";
 import { appFactory, renderApp } from "./starter";
 import debounce from "lodash/debounce";
@@ -147,7 +154,7 @@ const ignoreUsers: string[] = [];
 
 const bc = new BroadcastChannel("spike.land");
 bc.onmessage = async (event) => {
-  if (event.data.ignoreUser && event.data.ignoreUser === user) return; 
+  if (event.data.ignoreUser && event.data.ignoreUser === user) return;
   console.log({ event });
 
   if (
@@ -181,14 +188,14 @@ export async function saveCode(sess: ICodeSession) {
   await chCode();
 
   (async () => {
-    if (Object.keys(connections).length==0) return;
+    if (Object.keys(connections).length == 0) return;
     try {
       const message = webRTCLastSeenHashCode
         ? await makePatchFrom(
           webRTCLastSeenHashCode,
           sess,
         )
-        :  await makePatch(sess);
+        : await makePatch(sess);
       if (message && message.patch !== "") {
         console.log("sendRTC");
         sendChannel.send(message);
@@ -207,8 +214,8 @@ export async function saveCode(sess: ICodeSession) {
 
     await applyPatch(message);
     if (message.newHash !== hashCode()) {
-      console.error("NEW hash is not even hashCode", hashCode())
-      return
+      console.error("NEW hash is not even hashCode", hashCode());
+      return;
     }
 
     const messageString = JSON.stringify({ ...message, name: user });

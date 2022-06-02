@@ -58,7 +58,7 @@ export function initSession(room: string, u: IUserJSON) {
   return Record({ ...u, room, state: Record(u.state)() });
 }
 
-type CodePatch = { oldHash: number; newHash: number; patch: Delta[] }
+type CodePatch = { oldHash: number; newHash: number; patch: Delta[] };
 type IApplyPatch = (
   prop: CodePatch,
 ) => Promise<ICodeSess>;
@@ -67,7 +67,7 @@ interface ICodeSess {
   hashCodeSession: number;
   hashCode: () => number;
   applyPatch: IApplyPatch;
-  createPatchFromHashCode: (c: number, st: ICodeSession) => CodePatch
+  createPatchFromHashCode: (c: number, st: ICodeSession) => CodePatch;
   json: () => IUserJSON;
 }
 
@@ -136,8 +136,6 @@ export class CodeSession implements ICodeSess {
     const newHash = newRec.hashCode();
     hashStore[newHash] = newRec;
 
-
-
     const patch = createPatch(oldStr, newStr);
     return {
       oldHash,
@@ -166,10 +164,11 @@ export class CodeSession implements ICodeSess {
       return;
     }
 
-
-const oldStr =JSON.stringify(hashStore[oldHash].toJSON());
+    const oldStr = JSON.stringify(hashStore[oldHash].toJSON());
     const newState = JSON.parse(applyPatch(oldStr, patch));
-    const newRec: Record<ICodeSession> =  this.session.get("state").merge(newState);
+    const newRec: Record<ICodeSession> = this.session.get("state").merge(
+      newState,
+    );
 
     console.log({ newState });
     console.log(newRec.hashCode());
@@ -219,8 +218,9 @@ export const mST: () => ICodeSession = () => {
 };
 
 export const patch: IApplyPatch = async (x) => session!.applyPatch(x);
-export const makePatchFrom = (n: number, st: ICodeSession)=>session!.createPatchFromHashCode(n, st);
-export const makePatch = (st: ICodeSession)=>makePatchFrom(hashCode(), st);
+export const makePatchFrom = (n: number, st: ICodeSession) =>
+  session!.createPatchFromHashCode(n, st);
+export const makePatch = (st: ICodeSession) => makePatchFrom(hashCode(), st);
 
 export const startSession = (room: string, u: IUserJSON): CodeSession =>
   session || new CodeSession(room, u);

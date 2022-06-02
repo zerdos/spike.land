@@ -158,7 +158,6 @@ ENV CI=1 \
   _MITSHM=0 \
   # point Cypress at the /root/cache no matter what user account is used
   # see https://on.cypress.io/caching
-
    DBUS_SESSION_BUS_ADDRESS=/dev/null
 
 
@@ -196,7 +195,7 @@ RUN apt-get update \
 
 USER ${USER}
  
-RUN yarn global add cypress@10.0.0
+RUN yarn global add cypress@10.0.1
 
 USER 0
 ### noVNC.Dockerfile
