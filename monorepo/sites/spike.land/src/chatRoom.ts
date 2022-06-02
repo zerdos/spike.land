@@ -406,15 +406,10 @@ export class Code {
           try {
             await applyPatch(data);
           } catch (err) {
-            // if (err instanceof Error) {
-            //   const stack = err && err.stack;
-            //   const message = err && err.message
-            //   return respondWith({  tack, message });
-            // }
             return respondWith({ msg: "strange error", err: err.toString(), stack: err.stack.toString(),  hash: hashCode() });
           }
-          respondWith({ msg: "all good", hash: hashCode()} );
 
+          
 
           if (newHash === hashCode()) {
             try {
@@ -434,10 +429,7 @@ export class Code {
               }),
             );
 
-            return respondWith({
-              msg: "all cool!",
-              hashCode: data.hashCode,
-            });
+            return respondWith(data);
           } else {
             return respondWith({
               msg: "apply wasn't done much",
