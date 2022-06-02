@@ -145,7 +145,7 @@ export class CodeSession implements ICodeSess {
     oldHash,
     newHash,
     patch,
-  }: { oldHash: number; newHash: number; patch: Diff }) => {
+  }: { oldHash: number; newHash: number; patch: Delta[] }) => {
     const meHash = this.hashOfState();
 
     const bestGuesses = this.room || globalThis.codeSpace;
