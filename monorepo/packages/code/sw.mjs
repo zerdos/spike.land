@@ -50,12 +50,14 @@ const mapper = async (name) => {
   if (hashResp[withHash] && hashResp[withHash].ok) return; 
 
 
-  const resp = await fetch(new URL(file, "https://spike.land"));
+  const resp = await fetch(new URL(withHash, "https://spike.land"));
   if (resp.ok) {
   
   
   const blob =  await resp.blob();  
-  hashResp[withHash] = resp.clone();
+  const clone = resp.clone()
+  hashResp[withHash] = new Response(blob, {url: new URL(file, "https://spike.land"), headers: clone.headers });
+
 
   }
 

@@ -60,6 +60,9 @@ async function getApp(transpiled: string, mode = "window") {
 
   URL.revokeObjectURL(objectUrl);
 
+  new Response(blob, {
+    url: new UR
+  })
   return App;
 
   /**
