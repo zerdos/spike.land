@@ -162,13 +162,15 @@ export class CodeSession implements ICodeSess {
 
       const s = await resp.json();
 
-      // hashStore[Number(s.hashCode)] = 
-      
-      const serverRecord = this.session.get("state").merge(JSON.parse(str(s.mST)));
+      // hashStore[Number(s.hashCode)] =
+
+      const serverRecord = this.session.get("state").merge(
+        JSON.parse(str(s.mST)),
+      );
       hashStore[serverRecord.hashCode()] = serverRecord;
     }
 
-    const oldStr = str( hashStore[oldHash].toJSON());
+    const oldStr = str(hashStore[oldHash].toJSON());
     const applied = applyPatch(oldStr, patch);
     const newState = JSON.parse(applied);
     const newRec: Record<ICodeSession> = this.session.get("state").merge(
@@ -216,9 +218,9 @@ export const mST: () => ICodeSession = () => {
   return { i, transpiled, code, html, css };
 };
 
-function str(s: ICodeSession){
+function str(s: ICodeSession) {
   const { i, transpiled, code, html, css } = s;
-  return JSON.stringify({ i, transpiled, code, html, css }); 
+  return JSON.stringify({ i, transpiled, code, html, css });
 }
 
 export const patch: IApplyPatch = async (x) => session!.applyPatch(x);

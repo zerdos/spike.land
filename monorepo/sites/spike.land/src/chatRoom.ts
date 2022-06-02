@@ -406,10 +406,13 @@ export class Code {
           try {
             await applyPatch(data);
           } catch (err) {
-            return respondWith({ msg: "strange error", err: err.toString(), stack: err.stack.toString(),  hash: hashCode() });
+            return respondWith({
+              msg: "strange error",
+              err: err.toString(),
+              stack: err.stack.toString(),
+              hash: hashCode(),
+            });
           }
-
-          
 
           if (newHash === hashCode()) {
             try {
@@ -428,12 +431,10 @@ export class Code {
                 patch,
               }),
             );
-
-          } 
+          }
           return respondWith({
-              hashCode: hashCode()
-            });
-          
+            hashCode: hashCode(),
+          });
         }
       } catch (exp) {
         console.error({ exp });
