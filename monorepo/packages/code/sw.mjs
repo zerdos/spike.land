@@ -54,9 +54,7 @@ const mapper = async (name) => {
   if (resp.ok) {
   
   
-  const blob =  await resp.blob();  
-  const clone = resp.clone()
-  hashResp[withHash] = new Response(blob, {url: new URL(name, "https://spike.land"), headers: clone.headers });
+  hashResp[withHash] = resp.clone()
 
 
   }
