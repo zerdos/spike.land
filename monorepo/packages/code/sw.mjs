@@ -89,10 +89,10 @@ const onfetch = (event) => {
 
   const loc = url.pathname.slice(1);
   if (cache[loc] && hashResp[cache[loc]]) {
-    event.respondWith(async () => hashResp[cache[loc]].clone());
+    event.respondWith((async () => hashResp[cache[loc]].clone())());
   }
   if (cache[loc]) {
-    return event.respondWith(async () => {
+    return event.respondWith((async () => {
       let resp = await fetch( new URL(cache[loc], "https://spike.land")   );
 
       if (!resp.ok) {
@@ -106,7 +106,7 @@ const onfetch = (event) => {
       hashResp[cache[loc]] = resp.clone();
 
       return hashResp[cache[loc]];
-    });
+    })());
   }
 
   try {
