@@ -361,6 +361,9 @@ export class Code {
       })
       
     }
+    if (data.name && !name) {
+      session.name = name;
+    }
 
     if (data.codeSpace && data.address && !this.address) {
       try {
