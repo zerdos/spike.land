@@ -55,7 +55,7 @@ const mapper = async (name) => {
   
   
   hashResp[withHash] = resp.clone()
-
+await resp.blob();
 
   }
   }
