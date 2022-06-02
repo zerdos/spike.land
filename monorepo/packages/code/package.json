@@ -92,6 +92,7 @@
     "async-mutex": "0.3.2",
     "buffer": "6.0.3",
     "core-js": "^3.22.7",
+    "es-module-shims": "^1.5.5",
     "esbuild": "0.14.42",
     "esbuild-plugin-import-map": "2.1.0",
     "esbuild-plugin-jsximportsource": "^0.0.4",

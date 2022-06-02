@@ -1,4 +1,5 @@
 import { IPFSClient } from "ipfs-message-port-client";
+import "es-module-shims";
 
 // URL to the script containing ipfs-message-port-server.
 const IPFS_SERVER_URL = "https://spike.land/worker.js";
@@ -15,8 +16,7 @@ const load = async (path) => {
   }
 };
 
-const getIpfsPort = () =>
-  (new SharedWorker(IPFS_SERVER_URL, { name: "IPFS" })).port;
+const getIpfsPort = () =>(new SharedWorker(IPFS_SERVER_URL, { name: "IPFS" })).port;
 
 const ipfsSw = async () => {
   const ipfs = IPFSClient.from(getIpfsPort());
@@ -45,7 +45,6 @@ const ipfsSw = async () => {
 
   // This is just for testing, lets us know when SW is ready.
 
-  console.log("*******ready******");
   // URLs like `localhost:3000/ipfs/Qmf412jQZiuVUtdgnB36FXFX7xg5V6KEbSJ4dpQuhkLyfD`
   // are loaded from service worker. However it could be that such a URL is loaded
   // before the service worker was registered in which case our server just loads a blank
@@ -56,7 +55,6 @@ const ipfsSw = async () => {
 ipfsSw();
 
 function onServiceWorkerMessage(event) {
-  console.log("SW MESSAGE");
   /** @type {null|ServiceWorker} */
   const serviceWorker = (event.source);
   if (serviceWorker == null) return;
@@ -74,4 +72,19 @@ function onServiceWorkerMessage(event) {
       // create a SharedWorker each time. However a ServiceWorker is only created
       // once (in main function) all other creations just create port to it.
   }
+}
+
+document.addEventListener("load", ()=>{
+  setTimeout(200, ()=>{
+   if (!window.startedWithNativeEsmModules) loadApp()
+
+  });
+})
+
+const loadApp =async () => {
+
+const {run} = await importShim("./ws.mjs", import.meta.url)
+if (window.startedWithNativeEsmModules) return;
+await run();
+
 }

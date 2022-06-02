@@ -10,7 +10,6 @@ import {
   patch as applyPatch,
   startSession,
 } from "@spike.land/code/js/session";
-import imap from "@spike.land/code/js/importmap.json";
 import { Delta } from "@spike.land/code/js/textDiff";
 
 interface IState extends DurableObjectState {
@@ -239,10 +238,6 @@ export class Code {
               })
             });`,
           )
-            .replace(
-              `<!--importmap-->`,
-              `<script type="importmap">${JSON.stringify(imap)}</script>`,
-            );
           return new Response(html, {
             status: 200,
             headers: {

@@ -19,12 +19,10 @@ const apps: { [key: string]: FC } = {};
 
 globalThis.apps = apps;
 export const appFactory = async (transpiled: string) => {
-  console.log("APP FACTPo");
 
   if (globalThis.transpiled === transpiled) return;
   globalThis.transpiled = transpiled;
 
-  console.log("APP factory");
 
   // hash.update(transpiled);
   // const resultU8Arr = await hash.digest();
@@ -54,8 +52,9 @@ export const renderApp = () => {
   const key = "css";
   const cache = createCache({ key });
 
-  console.log("render App");
+
   const { App } = globalThis;
+  console.log("render App");
   render(
     <CacheProvider value={cache}>
       <App></App>
@@ -63,12 +62,10 @@ export const renderApp = () => {
     container,
   );
 
-  console.log("container Html");
 
   if (!container.innerHTML) return;
 
   if (!globalThis.currentTarget) {
-    console.log("currentTarget");
 
     document.getElementById("root")?.replaceWith(container);
     globalThis.currentTarget = container;
