@@ -283,7 +283,6 @@ export class Code {
       (err: Error) => webSocket.close(1011, err.stack),
     );
 
-
     let session = {
       name: "",
       webSocket,
@@ -293,7 +292,6 @@ export class Code {
     } as WebsocketSession;
 
     this.sessions.push(session);
-
 
     webSocket.addEventListener(
       "message",
@@ -317,27 +315,22 @@ export class Code {
       return;
     }
 
-    
-
     const { webSocket, limiter, name } = session;
-
-
 
     const respondWith = (obj: Object) =>
       session.webSocket.send(JSON.stringify(obj));
 
     let data: {
-      name?: string,
-      timestamp?: number,
-      codeSpace?: string,
-      target?: string,
-      type?: "new-ice-candidate" |"offer" |"answer"          
-      patch?: Delta[],
-      address? :string,
-      hashCode?: number,
-      newHash?: number,
-      oldHash?: number,
-
+      name?: string;
+      timestamp?: number;
+      codeSpace?: string;
+      target?: string;
+      type?: "new-ice-candidate" | "offer" | "answer";
+      patch?: Delta[];
+      address?: string;
+      hashCode?: number;
+      newHash?: number;
+      oldHash?: number;
     };
     try {
       data = typeof msg.data === "string"
@@ -349,37 +342,35 @@ export class Code {
         exp: exp || {},
       });
     }
-    
-    
-    
-    if (!name ) {
-    if (data.name){
-      session.name = data.name;
 
+    if (!name) {
+      if (data.name) {
+        session.name = data.name;
 
-      try{
-      this.sessions.map((otherSession) => {
-        if (otherSession===session) return;
+        try {
+          this.sessions.map((otherSession) => {
+            if (otherSession === session) return;
 
-        if (otherSession.name === data.name) {
-          otherSession.name = "";
-          otherSession.blockedMessages.map(m=>session.webSocket.send(m));
-          otherSession.blockedMessages=[];
+            if (otherSession.name === data.name) {
+              otherSession.name = "";
+              otherSession.blockedMessages.map((m) =>
+                session.webSocket.send(m)
+              );
+              otherSession.blockedMessages = [];
+            }
+          });
+        } catch (e) {
+          respondWith({ error: "error while checked blocked messages" });
         }
-      });
-    } catch(e){
-      respondWith({error: "error while checked blocked messages"});
-    }
-  
+
+        return respondWith({
+          hashCode: hashCode(),
+        });
+      }
 
       return respondWith({
-        hashCode: hashCode()
-      })
-    }
-
-    return respondWith({
-        msg: "no-name-no-party"
-      });   
+        msg: "no-name-no-party",
+      });
     }
 
     if (data.codeSpace && data.address && !this.address) {
@@ -415,10 +406,11 @@ export class Code {
 
       try {
         if (
-          data.target && 
-          data.type &&   ["new-ice-candidate", "offer", "answer"].includes(data.type)
+          data.target &&
+          data.type &&
+          ["new-ice-candidate", "offer", "answer"].includes(data.type)
         ) {
-          return this.user2user(data.target, { ...data,  name });
+          return this.user2user(data.target, { ...data, name });
         }
 
         if (data.patch && data.oldHash && data.newHash) {
@@ -431,12 +423,14 @@ export class Code {
           }
 
           try {
-            await applyPatch({patch, newHash, oldHash});
+            await applyPatch({ patch, newHash, oldHash });
           } catch (err) {
             return respondWith({
               msg: "strange error",
-              err: (err instanceof SyntaxError)? err.toString(): "Some error",
-              stack: (err instanceof SyntaxError)? err.stack?.toString(): "no stack",
+              err: (err instanceof SyntaxError) ? err.toString() : "Some error",
+              stack: (err instanceof SyntaxError)
+                ? err.stack?.toString()
+                : "no stack",
               hash: hashCode(),
             });
           }
@@ -488,20 +482,16 @@ export class Code {
       .map((s) => s.webSocket.send(message));
   }
 
-  broadcast(msg: Object ) {
+  broadcast(msg: Object) {
     const message = JSON.stringify(msg);
 
-    this.sessions.filter((s) => s.name).map((s)=>{
-        try {
-          s.webSocket.send(message);
-        } catch (err) {
-          s.quit=true;
-          s.blockedMessages.push(message);
-        }
+    this.sessions.filter((s) => s.name).map((s) => {
+      try {
+        s.webSocket.send(message);
+      } catch (err) {
+        s.quit = true;
+        s.blockedMessages.push(message);
       }
-      
-    );
-
-    
+    });
   }
 }
