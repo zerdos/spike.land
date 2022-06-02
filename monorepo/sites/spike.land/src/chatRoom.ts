@@ -282,16 +282,10 @@ export class Code {
       () => this.env.LIMITERS.get(limiterId),
       (err: Error) => webSocket.close(1011, err.stack),
     );
-    const uuid = self.crypto.randomUUID();
 
-    const newConnEvent = {
-      hashCode: hashCode(),
-    };
-
-    webSocket.send(JSON.stringify(newConnEvent));
 
     let session = {
-      uuid,
+      name: null,
       webSocket,
       limiter,
       timestamp: Date.now(),
@@ -300,12 +294,6 @@ export class Code {
 
     this.sessions.push(session);
 
-    this.sessions.forEach((otherSession) => {
-      if (otherSession.name) {
-        otherSession.name = "";
-        session.blockedMessages.map(m=>session.webSocket.send(m))
-      }
-    });
 
     webSocket.addEventListener(
       "message",
@@ -358,7 +346,18 @@ export class Code {
     
     if (!name ) {
     if (data.name){
+      
+
+     this.sessions= this.sessions.map((otherSession) => {
+        if (otherSession.name === data.name) {
+          otherSession.name = null;
+          otherSession.blockedMessages.map(m=>session.webSocket.send(m));
+          otherSession.blockedMessages=[];
+        }
+      });
+  
       session.name = data.name;
+
       return respondWith({
         hashCode: hashCode()
       })
