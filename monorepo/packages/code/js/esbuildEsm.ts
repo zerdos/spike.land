@@ -48,8 +48,8 @@ async function transform(code: string, retry = 4): Promise<string> {
       ' from "https://spike.land/live',
     )
       .replaceAll(regex2, ' from "https://spike.land/live');
-    console.log({ transpiled });
-    return transpiled;
+   
+      return transpiled;
   } catch (e) {
     if (retry > 0) {
       await wait(100);
