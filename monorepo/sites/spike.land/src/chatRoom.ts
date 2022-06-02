@@ -354,15 +354,19 @@ export class Code {
       });
     }
     
-    if (!name && !data.name) {
+    
+    
+    if (!name ) {
+    if (data.name){
+      session.name = data.name;
+      return respondWith({
+        hashCode: hashCode()
+      })
+    }
 
     return respondWith({
         msg: "no-name-no-party"
-      })
-      
-    }
-    if (data.name && !name) {
-      session.name = name;
+      });   
     }
 
     if (data.codeSpace && data.address && !this.address) {
@@ -389,8 +393,9 @@ export class Code {
 
     try {
       if (
-        ["new-ice-candidate", "offer", "answer"].includes(data.type) &&
-        !limiter.checkLimit()
+        limiter.checkLimit() && 
+       ! (["new-ice-candidate", "offer", "answer"].includes(data.type))
+        
       ) {
         return respondWith({
           error: "Your IP is being rate-limited, please try again later.",
