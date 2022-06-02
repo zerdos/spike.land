@@ -126,10 +126,10 @@ export class CodeSession implements ICodeSess {
     }
 
     const oldRec = hashStore[oldHash];
-    const oldStr = JSON.stringify(oldRec.toJSON());
+    const oldStr = str(oldRec.toJSON());
 
     const newRec = oldRec.merge(state);
-    const newStr = JSON.stringify(newRec.toJSON());
+    const newStr = str(newRec.toJSON());
     const newHash = newRec.hashCode();
     hashStore[newHash] = newRec;
 
@@ -164,8 +164,9 @@ export class CodeSession implements ICodeSess {
       hashStore[Number(s.hashCode)] = this.session.get("state").merge(s.mST);
     }
 
-    const oldStr = JSON.stringify(hashStore[oldHash].toJSON());
-    const newState = JSON.parse(applyPatch(oldStr, patch));
+    const oldStr = str( hashStore[oldHash].toJSON());
+    const applied = applyPatch(oldStr, patch);
+    const newState = JSON.parse(applied);
     const newRec: Record<ICodeSession> = this.session.get("state").merge(
       newState,
     );
@@ -210,6 +211,11 @@ export const mST: () => ICodeSession = () => {
   const { i, transpiled, code, html, css } = session.json().state;
   return { i, transpiled, code, html, css };
 };
+
+function str(s: ICodeSession){
+  const { i, transpiled, code, html, css } = s;
+  return JSON.stringify({ i, transpiled, code, html, css }); 
+}
 
 export const patch: IApplyPatch = async (x) => session!.applyPatch(x);
 export const makePatchFrom = (n: number, st: ICodeSession) =>

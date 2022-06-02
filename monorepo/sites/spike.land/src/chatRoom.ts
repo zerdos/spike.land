@@ -395,7 +395,6 @@ export class Code {
         }
 
         if (data.patch && data.oldHash && data.newHash) {
-          respondWith({ msg: hashCode() });
           const patch = data.patch;
           const newHash = Number(data.newHash);
           const oldHash = Number(data.oldHash);
@@ -407,12 +406,15 @@ export class Code {
           try {
             await applyPatch(data);
           } catch (err) {
-            if (err instanceof Error) {
-              stack = err.stack;
-              return respondWith({ error: err.stack, message: err.message });
-            }
-            return respondWith({ msg: "misztikus hiba", hash: hashCode() });
+            // if (err instanceof Error) {
+            //   const stack = err && err.stack;
+            //   const message = err && err.message
+            //   return respondWith({  tack, message });
+            // }
+            return respondWith({ msg: "strange error", err: err.toString(), stack: err.stack.toString(),  hash: hashCode() });
           }
+          respondWith({ msg: "all good", hash: hashCode()} );
+
 
           if (newHash === hashCode()) {
             try {
