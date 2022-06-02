@@ -402,7 +402,7 @@ export class Code {
           data.type &&
           ["new-ice-candidate", "offer", "answer"].includes(data.type)
         ) {
-          return this.user2user(data.target, { name: session.name, ...data });
+          return this.user2user(data.target, { ...data,  name });
         }
 
         if (data.patch && data.oldHash && data.newHash) {

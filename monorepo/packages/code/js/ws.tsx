@@ -47,10 +47,7 @@ const sendChannel = {
   connections: connections,
   send: ((data: { [key: string]: string | number }) => {
     const target = data.target;
-    const messageString = JSON.stringify({
-      ...data,
-      name: data.name || user,
-    });
+    const messageString = JSON.stringify(data);
     webRtcArray.map((ch) => {
       try {
         console.log("WebRtc send", data, ch);
@@ -218,7 +215,7 @@ export async function saveCode(sess: ICodeSession) {
       return;
     }
 
-    const messageString = JSON.stringify({ ...message, name: user });
+    const messageString = JSON.stringify(message);
     sendWS(messageString);
   } else {
     rejoined = false;
@@ -276,7 +273,6 @@ export async function join() {
         try {
           wsConnection.send(
             JSON.stringify({
-              name: user,
               timestamp: lastSeenTimestamp + diff,
             }),
           );
@@ -424,7 +420,6 @@ async function processWsMessage(
         ws?.send(JSON.stringify({
           type: "new-ice-candidate",
           target,
-          name: user,
           candidate: event.candidate.toJSON(),
         }));
       }
@@ -539,7 +534,6 @@ async function processWsMessage(
         log("---> Sending the offer to the remote peer");
         ws?.send(JSON.stringify({
           target,
-          name: user,
           type: "offer",
           offer: connections[target].localDescription,
         }));
@@ -623,7 +617,6 @@ async function processWsMessage(
 
     ws?.send(JSON.stringify({
       target,
-      name: user,
       type: "answer",
       answer: answer,
     }));
