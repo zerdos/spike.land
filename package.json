@@ -9,7 +9,7 @@
     "@typescript-eslint/eslint-plugin": "5.27.0",
     "@typescript-eslint/parser": "5.27.0",
     "esbuild": "0.14.42",
-    "eslint": "8.16.0",
+    "eslint": "8.17.0",
     "eslint-plugin-react": "7.30.0",
     "lerna": "5.0.0",
     "open-cli": "7.0.1",
