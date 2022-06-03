@@ -10,11 +10,15 @@ import { prettierCss, prettierHtml } from "./prettierEsm";
 
 import { CacheProvider } from '@emotion/react'
 import { renderToString } from 'react-dom/server'
-import createEmotionServer from '@emotion/server/create-instance'
-import createCache from '@emotion/cache'
 
 
-export const getIframe = (App: FC) => {
+
+export const getIframe = async (App: FC) => {
+
+  var Buffer = require('buffer/').Buffer 
+
+  const createEmotionServer =(await  import('@emotion/server/create-instance')).default;
+
 const key = 'custom'
 const cache = createCache({ key })
 const { extractCriticalToChunks, constructStyleTagsFromChunks } = createEmotionServer(cache)
