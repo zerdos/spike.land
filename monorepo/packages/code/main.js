@@ -1,11 +1,11 @@
-import { IPFSClient } from "ipfs-message-port-client";
 
-navigator.serviceWorker.onmessage = onServiceWorkerMessage
 
-  // @ts-ignore - register expects string but webPack requires this URL hack.
-  navigator.serviceWorker.register("/sw.js", {
-    scope: "/",
-  });
+navigator.serviceWorker.onmessage = onServiceWorkerMessage;
+
+// @ts-ignore - register expects string but webPack requires this URL hack.
+navigator.serviceWorker.register("/sw.js", {
+  scope: "/",
+});
 
 // URL to the script containing ipfs-message-port-server.
 const load = async (path) => {
@@ -34,7 +34,11 @@ const ipfsSw = async () => {
   await loadApp();
 };
 ipfsSw();
-const getIpfsPort = () =>IPFSClient.from((new SharedWorker(new URL("./worker.js", location.origin), { name: "IPFS" })).port);
+const getIpfsPort = () =>new SharedWorker(new URL("./worker.js", location.origin), {
+      name: "IPFS",
+}
+    ).port
+
 function onServiceWorkerMessage(event) {
   /** @type {null|ServiceWorker} */
   const serviceWorker = (event.source);
@@ -57,7 +61,7 @@ function onServiceWorkerMessage(event) {
 
 const loadApp = async () => {
   await import("es-module-shims");
-  
+
   const { run } = await importShim("./ws.mjs", import.meta.url);
   if (window.startedWithNativeEsmModules) return;
   await run();
