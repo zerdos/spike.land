@@ -98,7 +98,7 @@ const build = (entryPoints) =>
     ignoreAnnotations: true,
     splitting: true,
     tsconfig: "./tsconfig.json",
-    allowOverwrite: false,
+    allowOverwrite: true,
 
     // external: ["react", "react-dom", "framer-motion", "tslib", "@emotion/react"],
     platform: "browser",
