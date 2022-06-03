@@ -58,13 +58,6 @@ export const renderApp = (html:string) => {
 
   const { App } = globalThis;
   console.log("render App");
-  hydrate(container,
-    <CacheProvider value={cache}>
-      <App/>
-    </CacheProvider>
-  );
-
-  if (!container.innerHTML) return;
 
   if (!globalThis.currentTarget) {
     document.getElementById("root")?.replaceWith(container);
@@ -73,6 +66,15 @@ export const renderApp = (html:string) => {
     globalThis.currentTarget.parentNode?.replaceChildren(container);
     globalThis.currentTarget = container;
   }
+
+  hydrate(container,
+    <CacheProvider value={cache}>
+      <App/>
+    </CacheProvider>
+  );
+
+  if (!container.innerHTML) return;
+
 };
 
 export function createJsBlob(code: string) {
