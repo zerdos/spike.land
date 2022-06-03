@@ -12,7 +12,9 @@ import { DraggableWindow } from "./DraggableWindow";
 import type { FC } from "react";
 import { appFactory } from "./starter";
 
+globalThis.draggableWindow = globalThis.draggableWindow  || 1;
 export const renderPreviewWindow = async (Editor: FC<{}>) => {
+  if (!globalThis.draggableWindow++>1) return;
   console.log("renderPreviewWindow");
 
   const target = document.createElement("div");

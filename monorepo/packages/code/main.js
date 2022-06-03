@@ -61,11 +61,9 @@ function onServiceWorkerMessage(event) {
 
 const loadApp = async () => {
   console.log("es-module-shims import and start the app!")
-  await import("es-module-shims");
-
-  const { run } = await importShim("./ws.mjs", import.meta.url);
   if (window.startedWithNativeEsmModules) return;
-  await run();
+
+  await import("es-module-shims");
 };
 
 async function syncCachesLater() {
