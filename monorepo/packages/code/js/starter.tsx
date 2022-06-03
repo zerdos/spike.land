@@ -19,10 +19,8 @@ const apps: { [key: string]: FC } = {};
 
 globalThis.apps = apps;
 export const appFactory = async (transpiled: string) => {
-
   if (globalThis.transpiled === transpiled) return;
   globalThis.transpiled = transpiled;
-
 
   // hash.update(transpiled);
   // const resultU8Arr = await hash.digest();
@@ -52,7 +50,6 @@ export const renderApp = () => {
   const key = "css";
   const cache = createCache({ key });
 
-
   const { App } = globalThis;
   console.log("render App");
   render(
@@ -62,11 +59,9 @@ export const renderApp = () => {
     container,
   );
 
-
   if (!container.innerHTML) return;
 
   if (!globalThis.currentTarget) {
-
     document.getElementById("root")?.replaceWith(container);
     globalThis.currentTarget = container;
   } else {

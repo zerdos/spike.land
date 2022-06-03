@@ -237,7 +237,7 @@ export class Code {
                 address: this.address,
               })
             });`,
-          )
+          );
           return new Response(html, {
             status: 200,
             headers: {
