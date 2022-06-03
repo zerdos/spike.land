@@ -50,7 +50,6 @@ export const appFactory = async (transpiled: string, html: string) => {
 
 export const renderApp = (html:string) => {
   const container = document.createElement("div");
-  container.innerHTML= html;
   container.style.height = "100%";
 
   const key = "css";
