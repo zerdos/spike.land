@@ -6059,10 +6059,10 @@ formidable@^1.2.2:
   resolved "https://registry.yarnpkg.com/formidable/-/formidable-1.2.6.tgz#d2a51d60162bbc9b4a055d8457a7c75315d1a168"
   integrity sha512-KcpbcpuLNOwrEjnbpMC0gS+X8ciDoZE1kkqzat4a8vrprf+s9pKNQ/QIwWfbfs4ltgmFl3MD177SNTkve3BwGQ==
 
-framer-motion@6.3.9:
-  version "6.3.9"
-  resolved "https://registry.yarnpkg.com/framer-motion/-/framer-motion-6.3.9.tgz#cae8b56f51392e8d5481ae7ee9e51932bb49cf92"
-  integrity sha512-sabi8OwrNy+xkjt5r25mhCwwubWB4ASCkLURJYL4kY5uiTipapkIQPYIsBQex6K1QWKmCMpIuRN5M6L2b+iC7g==
+framer-motion@6.3.10:
+  version "6.3.10"
+  resolved "https://registry.yarnpkg.com/framer-motion/-/framer-motion-6.3.10.tgz#e71f8c4ee09612de8328725c4fb1a1c204ae451f"
+  integrity sha512-modFplFb1Fznsm0MrmRAJUC32UDA5jbGU9rDvkGzhAHksru2tnoKbU/Pa3orzdsJI0CJviG4NGBrmwGveU98Cg==
   dependencies:
     framesync "6.0.1"
     hey-listen "^1.0.8"
