@@ -4,7 +4,7 @@ import { CacheProvider } from "@emotion/react";
 import createCache from "@emotion/cache";
 import type { FC } from "react";
 
-import { hydrate } from "react-dom";
+import { render } from "react-dom";
 
 import { md5 } from "./md5";
 // if ("serviceWorker" in navigator) {
@@ -59,6 +59,16 @@ export const renderApp = (html:string) => {
   const { App } = globalThis;
   console.log("render App");
 
+
+  render(
+    <CacheProvider value={cache}>
+      <App/>
+    </CacheProvider>, container
+  );
+
+  if (!container.innerHTML) return;
+
+
   if (!globalThis.currentTarget) {
     document.getElementById("root")?.replaceWith(container);
     globalThis.currentTarget = container;
@@ -66,15 +76,6 @@ export const renderApp = (html:string) => {
     globalThis.currentTarget.parentNode?.replaceChildren(container);
     globalThis.currentTarget = container;
   }
-
-  hydrate(container,
-    <CacheProvider value={cache}>
-      <App/>
-    </CacheProvider>
-  );
-
-  if (!container.innerHTML) return;
-
 };
 
 export function createJsBlob(code: string) {
