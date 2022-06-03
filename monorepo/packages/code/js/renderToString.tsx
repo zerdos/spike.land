@@ -100,7 +100,7 @@ async function getApp(transpiled: string, mode = "window") {
     codeToHydrate,
   );
 
-  const App = (await import(objectUrl)).default;
+  const App = window.importShim?(await window.importShim(objectUrl)).default :(await import(objectUrl)).default;
 
   URL.revokeObjectURL(objectUrl);
 
