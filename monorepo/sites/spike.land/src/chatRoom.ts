@@ -1,6 +1,7 @@
 import { handleErrors } from "./handleErrors";
 import { RateLimiterClient } from "./rateLimiterClient";
 import HTML from "./index.html";
+import IIFE from "./iife.html";
 
 import { CodeEnv } from "./env";
 import type { ICodeSession } from "@spike.land/code/js/session";
@@ -247,7 +248,27 @@ export class Code {
             },
           });
         }
-
+        case "iife": {
+          const startState = mST();
+          const html = IIFE.replace(
+            `/** startState **/`,
+            `Object.assign(window,${
+              JSON.stringify({
+                startState,
+                codeSpace: this.codeSpace,
+                address: this.address,
+              })
+            });`,
+          );
+          return new Response(html, {
+            status: 200,
+            headers: {
+              "Access-Control-Allow-Origin": "*",
+              "Cache-Control": "no-cache",
+              "Content-Type": "text/html; charset=UTF-8",
+            },
+          });
+        }
         case "websocket": {
           if (request.headers.get("Upgrade") != "websocket") {
             return new Response("expected websocket", { status: 400 });
