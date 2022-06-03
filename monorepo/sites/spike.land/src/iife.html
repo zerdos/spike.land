@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head profile="http://www.w3.org/2005/10/profile">
@@ -112,20 +113,9 @@ window.addEventListener('pageshow', (event) => {
   }
 }
     </script>
-  <script type="module">
-    import {render} from "react-dom";
-    import {run} from "./ws.mjs";
+  
+    <script defer src="./iife.js"></script>
 
-    window.startedWithNativeEsmModules = true;
-
-    await run();
-   </script> 
-
-
-
-    
-    <script defer src="./main.js"></script>
-    
 
   <!-- Cloudflare Web Analytics -->
   <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "cc7e2ceaa75d4111b26b0ec989795375"}'></script><!-- End Cloudflare Web Analytics -->
