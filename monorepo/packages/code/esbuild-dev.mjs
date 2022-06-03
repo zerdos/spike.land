@@ -64,7 +64,7 @@ await esbuild.build({
   format: "iife",
   loader: {
     ".ttf": "file",
-    ".webp": "dataurl",
+    ".webp": "file",
     ".tsx": "tsx",
     ".jsx": "tsx",
     ".mjs": "ts",
