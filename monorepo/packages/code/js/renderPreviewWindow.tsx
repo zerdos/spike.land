@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 
-import bg from "./assets/synthwave.webp";
+
 import path from "path-browserify";
 import { render } from "react-dom";
 
@@ -19,7 +19,7 @@ export const renderPreviewWindow = async (Editor: FC<{}>) => {
 
   const target = document.createElement("div");
 
-  document.body.style.backgroundImage = `url(${path.join("/chunks/", bg)} )`;
+  document.body.style.backgroundImage = `url("/assets/synthwave.webp")`;
 
   render(
     <Fragment>
