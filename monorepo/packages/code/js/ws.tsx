@@ -73,7 +73,7 @@ const sendChannel = {
 // let applyPatch;
 
 export const run = async () => {
-  appFactory(window.startState.transpiled);
+  appFactory(window.startState.transpiled, window.startState.html);
 
   if (location.href.endsWith("hydrated")) return;
 
@@ -115,7 +115,7 @@ const chCode = async () => {
   try {
     if (globalThis.transpiled === transpiled) return;
 
-    await appFactory(transpiled);
+    await appFactory(transpiled, html);
 
     if (globalThis.editor.getModel() || globalThis.aceEditor) {
       console.log("MODEL SET FROM REMOTE.... SORRY");

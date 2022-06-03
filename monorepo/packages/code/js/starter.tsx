@@ -4,7 +4,7 @@ import { CacheProvider } from "@emotion/react";
 import createCache from "@emotion/cache";
 import type { FC } from "react";
 
-import { render } from "react-dom";
+import { hydrate } from "react-dom";
 
 import { md5 } from "./md5";
 // if ("serviceWorker" in navigator) {
@@ -18,7 +18,7 @@ import { md5 } from "./md5";
 const apps: { [key: string]: FC } = {};
 
 globalThis.apps = apps;
-export const appFactory = async (transpiled: string) => {
+export const appFactory = async (transpiled: string, html: string) => {
   if (globalThis.transpiled === transpiled) return;
   globalThis.transpiled = transpiled;
 
@@ -29,8 +29,13 @@ export const appFactory = async (transpiled: string) => {
   //new TextDecoder().decode(resultU8Arr);
   if (globalThis.App && globalThis.App === apps[result]) return;
 
+  if (!window.importShim) {
+    await  import("es-module-shims"); 
+  } 
+
+
   globalThis.App = apps[result] ||
-    (await import(
+    (await importShim(
       /* @vite-ignore */
       createJsBlob(transpiled)
     )).default;
@@ -38,13 +43,14 @@ export const appFactory = async (transpiled: string) => {
 
   apps[result] = globalThis.App;
 
-  return renderApp();
+  return renderApp(html);
 
   // globalThis.notify();
 };
 
-export const renderApp = () => {
+export const renderApp = (html:string) => {
   const container = document.createElement("div");
+  container.innerHTML= html;
   container.style.height = "100%";
 
   const key = "css";
@@ -52,11 +58,10 @@ export const renderApp = () => {
 
   const { App } = globalThis;
   console.log("render App");
-  render(
+  hydrate(container,
     <CacheProvider value={cache}>
-      <App></App>
-    </CacheProvider>,
-    container,
+      <App/>
+    </CacheProvider>
   );
 
   if (!container.innerHTML) return;

@@ -149,7 +149,7 @@ const onfetch = (event) => {
       // Requests to other origins are fetched from the network.
       default:
         try {
-          return event.respondWith(fetch(event.request));
+          return event.respondWith(fetch(event.request).catch((e) => console.log({ url, event })));
         } catch {
           console.error(url);
         }

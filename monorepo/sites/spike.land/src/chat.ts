@@ -106,8 +106,9 @@ export default {
           const resp2 = await fetch(new2.toString());
           return resp2;
         case "live":
-          const newPath = ["room", ...path.slice(1), "public"];
-          return handleApiRequest(newPath, request, env);
+          return handleApiRequest(["room", ...path.slice(1), "public"], request, env);
+        case "iife":
+            return handleApiRequest(["room", ...path.slice(1), "iife"], request, env);
 
         default:
           return getAssetFromKV(

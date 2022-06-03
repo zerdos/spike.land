@@ -4,6 +4,8 @@ import bg from "./assets/synthwave.webp";
 import path from "path-browserify";
 import { render } from "react-dom";
 
+import { Fragment } from "react";
+
 import { codeSpace } from "./ws";
 import { hashCode } from "./session";
 import { DraggableWindow } from "./DraggableWindow";
@@ -18,8 +20,8 @@ export const renderPreviewWindow = async (Editor: FC<{}>) => {
   document.body.style.backgroundImage = `url(${path.join("./chunks/", bg)} )`;
 
   render(
-    <>
-      <Editor></Editor>
+    <Fragment>
+      <Editor/>
       <DraggableWindow
         // onRestore={() => {
         //   const model = globalThis.model;
@@ -27,9 +29,8 @@ export const renderPreviewWindow = async (Editor: FC<{}>) => {
         // }}
         hashCode={hashCode()}
         room={codeSpace}
-      >
-      </DraggableWindow>
-    </>,
+      />
+    </Fragment>,
     target,
   );
 
