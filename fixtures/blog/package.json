@@ -56,7 +56,7 @@
     "gatsby-plugin-react-helmet": "5.15.0",
     "gatsby-source-filesystem": "4.15.0",
     "normalize.css": "8.0.1",
-    "typescript": "4.7.2",
+    "typescript": "4.7.3",
     "typography": "0.16.21",
     "typography-theme-wordpress-2016": "0.16.19"
   },
