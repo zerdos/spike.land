@@ -83,23 +83,23 @@ export const ipfsWorker = async () => {
     bc.onmessage = async (event) => {
       console.log({ event });
 
-      if (event.data.codeSpace && event.data.address) {
+      if (event.data.codeSpace) {
         const { codeSpace, address } = event.data;
 
         if (!Object.prototype.hasOwnProperty(codeSpace)) {
-          startOrbit(orbitdb,codeSpace, address);
+          startOrbit(orbitdb, codeSpace, address);
         }
       }
 
-      if (
-        event.data.codeSpace && event.data.messageData
-      ) {
-        const hash = await db.add({
-          ...event.data.messageData,
-          codeSpace: event.data.codeSpace,
-        });
-        console.log(hash);
-      }
+      // if (
+      //   event.data.codeSpace && event.data.messageData
+      // ) {
+      //   const hash = await db.add({
+      //     ...event.data.messageData,
+      //     codeSpace: event.data.codeSpace,
+      //   });
+      //   console.log(hash);
+      // }
     };
     //   console.log(db.iterator({ limit: -1 }).collect())
     // })
