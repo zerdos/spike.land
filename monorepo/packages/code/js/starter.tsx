@@ -55,7 +55,7 @@ export const renderApp = () => {
 
   render(
     // <CacheProvider value={cache}>
-      <App />,
+    <App />,
     // </CacheProvider>,
     container,
   );

@@ -22,8 +22,6 @@ import type {} from "orbit-db";
 
 const orbitDbs = {};
 
-
-
 export const ipfsWorker = async () => {
   try {
     console.log("Ipfs worker start");
@@ -58,8 +56,6 @@ export const ipfsWorker = async () => {
     });
     const bc = new BroadcastChannel("spike.land");
 
-  
-
     // And add hello world for tests
     await ipfs.add({ content: "hello world" });
 
@@ -85,7 +81,7 @@ export const ipfsWorker = async () => {
         const { codeSpace, address } = event.data;
 
         if (!Object.prototype.hasOwnProperty(codeSpace)) {
-          startOrbit(orbitdb,codeSpace, address);
+          startOrbit(orbitdb, codeSpace, address);
         }
       }
 
@@ -146,9 +142,12 @@ export const ipfsWorker = async () => {
   }
 };
 
-
-async function startOrbit(orbitdb: OrbitDB,codeSpace: string, address: string) {
-  if (orbitDbs[codeSpace] ) return;
+async function startOrbit(
+  orbitdb: OrbitDB,
+  codeSpace: string,
+  address: string,
+) {
+  if (orbitDbs[codeSpace]) return;
   orbitDbs[codeSpace] = address || codeSpace;
   const db = await orbitdb.open(address || codeSpace, {
     // If database doesn't exist, create it

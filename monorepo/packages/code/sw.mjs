@@ -152,12 +152,12 @@ const onfetch = (event) => {
           return event.respondWith(
             fetch(event.request).catch((e) => console.log({ url, event })),
           );
-        } catch(err2) {
-          console.log({err2})
+        } catch (err2) {
+          console.log({ err2 });
           console.error(url);
         }
     }
-  } catch(err) {
+  } catch (err) {
     console.log(err);
     console.error(url);
   }
@@ -272,10 +272,10 @@ const fetchIPFSContent = async ({ event, path }) => {
       }
     }
   } catch (err3) {
-    console.error({err3});
+    console.error({ err3 });
 
-    if (!(err3 && err3.message))return;
-    const {message} = err3;
+    if (!(err3 && err3.message)) return;
+    const { message } = err3;
 
     // If such link does not exists respond with 404
     if (
