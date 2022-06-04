@@ -238,7 +238,7 @@ export class Code {
                 address: this.address,
               })
             });`,
-          );
+          ).replace(`<div id="root"></div>`,`<div id="root">${startState.html}</div>`);
           return new Response(html, {
             status: 200,
             headers: {
