@@ -125,12 +125,12 @@ const onfetch = (event) => {
             // be a page that will start a shared worker, nor a way to get a message
             // port for it.
             case "ipfs":
-            case "ipns":{
+            case "ipns": {
               return event.respondWith(fetchViewer(url));
             }
             // If requests are for `/view/...` URL those are requests from iframes
             // for the content.
-            case "view":{
+            case "view": {
               console.log(
                 "VIEW! Fetching the content: " +
                   url.pathname.slice(protocol.length + 1),

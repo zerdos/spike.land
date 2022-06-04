@@ -183,7 +183,7 @@ export async function saveCode(sess: ICodeSession) {
   if (sess.i <= mST().i) return;
 
   const messageData = await makePatch(sess);
-  bc.postMessage({ignoreUser: user, sess, codeSpace, address, messageData })
+  bc.postMessage({ ignoreUser: user, sess, codeSpace, address, messageData });
 
   await applyPatch(messageData);
   await chCode();
@@ -318,7 +318,7 @@ async function processWsMessage(
   const data = JSON.parse(event.data);
 
   console.log("ws", data.name, data.oldHash, data.newHash);
-  
+
   // MySession.addEvent(data);
 
   if (source === "ws" && data.timestamp) {
