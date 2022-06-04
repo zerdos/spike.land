@@ -167,6 +167,7 @@ async function startOrbit(orbitdb: OrbitDB,codeSpace: string, address: string) {
       write: ["*"],
     },
   });
+  bc.onmessage = (event)
 
   // Create / Open a database
 
