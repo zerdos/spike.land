@@ -66,13 +66,13 @@ export const renderFromString = async (transpiled: string) => {
 };
 
 export const getHtmlAndCss = (App: FC) => {
-  const key = "css";
+  // const key = "css";
   // const cache = createCache({ key });
-  let cssText = "";
+  // let cssText = "";
 
-  cache.sheet.insert = (rule: string) => {
-    cssText += rule;
-  };
+  // cache.sheet.insert = (rule: string) => {
+  //   cssText += rule;
+  // };
 
   // const target = document.createElement("div");
   // target.style.height = "100%";
