@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 
-import { CacheProvider } from "@emotion/react";
-import createCache from "@emotion/cache";
+// import { CacheProvider } from "@emotion/react";
+// import createCache from "@emotion/cache";
 import type { FC } from "react";
 
 import { render } from "react-dom";
@@ -47,16 +47,16 @@ export const renderApp = () => {
   const container = document.createElement("div");
   container.style.height = "100%";
 
-  const key = "css";
-  const cache = createCache({ key });
+  // const key = "css";
+  // const cache = createCache({ key });
 
   const { App } = globalThis;
   console.log("render App");
 
   render(
-    <CacheProvider value={cache}>
-      <App />
-    </CacheProvider>,
+    // <CacheProvider value={cache}>
+      <App />,
+    // </CacheProvider>,
     container,
   );
 
