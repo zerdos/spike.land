@@ -3,7 +3,7 @@ import { promises as fs } from "fs";
 
 // versions.json
 var node = {
-  lts: "16.15.0",
+  lts: "16.15.1",
   current: "18.3.0"
 };
 var deno = "1.22.2";
