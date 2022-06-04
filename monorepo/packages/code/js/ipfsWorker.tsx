@@ -148,6 +148,7 @@ export const ipfsWorker = async () => {
 
 
 async function startOrbit(orbitdb: OrbitDB,codeSpace: string, address: string) {
+  if (orbitDbs[codeSpace] ) return;
   orbitDbs[codeSpace] = address || codeSpace;
   const db = await orbitdb.open(address || codeSpace, {
     // If database doesn't exist, create it
