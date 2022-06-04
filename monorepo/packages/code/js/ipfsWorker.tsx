@@ -84,7 +84,7 @@ export const ipfsWorker = async () => {
       console.log({ event });
 
       if (event.data.codeSpace) {
-        const { codeSpace, address } = event.data;
+        const { codeSpace, address, messageData } = event.data;
 
         if (!Object.prototype.hasOwnProperty(codeSpace)) {
           startOrbit(orbitdb, codeSpace, address, messageData);
