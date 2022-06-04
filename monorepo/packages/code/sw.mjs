@@ -213,7 +213,7 @@ const fetchContent = async ({ event, path }) => {
       }));
     default:
       const response = await unsupportedProtocol(protocol);
-      return response;
+      return event.respondWith(response);
   }
 };
 
