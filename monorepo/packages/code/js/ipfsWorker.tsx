@@ -87,7 +87,7 @@ export const ipfsWorker = async () => {
         const { codeSpace, address } = event.data;
 
         if (!Object.prototype.hasOwnProperty(codeSpace)) {
-          startOrbit(orbitdb, codeSpace, address);
+          startOrbit(orbitdb, codeSpace, address, messageData);
         }
       }
 
@@ -149,11 +149,12 @@ export const ipfsWorker = async () => {
 };
 
 
-async function startOrbit(orbitdb: OrbitDB,codeSpace: string, address: string) {
+async function startOrbit(orbitdb: OrbitDB, codeSpace: string, address: string, messageData: Object) {
   console.log("startorbit", codeSpace, address, {orbitDbs})
-  if (orbitDbs[codeSpace] ) return;
-  orbitDbs[codeSpace] = address || codeSpace;
-  const db = await orbitdb.open(address || codeSpace, {
+
+  const init = orbitDbs[codeSpace];
+  orbitDbs[codeSpace] = orbitDbs[codeSpace] || await orbitdb.open(address || codeSpace, {
+ 
     // If database doesn't exist, create it
     create: true,
     overwrite: true,
@@ -167,11 +168,13 @@ async function startOrbit(orbitdb: OrbitDB,codeSpace: string, address: string) {
       write: ["*"],
     },
   });
-  bc.onmessage = (event)
+
+  const db = orbitDbs[codeSpace];
 
   // Create / Open a database
 
   // Listen for updates from peers
+  if (!init){
   db.events.on("replicated", (_address: string) => {
     if (address !== _address) {
       orbitDbs[codeSpace] = _address;
@@ -221,4 +224,8 @@ async function startOrbit(orbitdb: OrbitDB,codeSpace: string, address: string) {
   // Query
   const result = db.iterator({ limit: -1 }).collect();
   console.log(JSON.stringify(result, null, 2));
+} 
+if (messageData) {
+  await db.add(messageData);
+}
 }
