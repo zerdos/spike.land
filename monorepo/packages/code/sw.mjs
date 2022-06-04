@@ -156,7 +156,8 @@ const onfetch = (event) => {
           console.error(url);
         }
     }
-  } catch {
+  } catch(err) {
+    console.log(err);
     console.error(url);
   }
 };
@@ -256,7 +257,7 @@ const fetchIPFSContent = async ({ event, path }) => {
           // try index.html file in this directory if there is such file
           // render it otherwise render directory
           const index = `${path}index.html`;
-          const stat = await ipfs.files.stat(index).catch(() => ({
+          const stat = await ipfs.files.stat(index).catch((e) => ({
             type: null,
           }));
           return stat.type === "file"
