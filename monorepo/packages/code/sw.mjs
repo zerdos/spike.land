@@ -257,7 +257,7 @@ const fetchIPFSContent = async ({ event, path }) => {
           // try index.html file in this directory if there is such file
           // render it otherwise render directory
           const index = `${path}index.html`;
-          const stat = await ipfs.files.stat(index).catch((e) => ({
+          const stat = await ipfs.files.stat(index).catch(() => ({
             type: null,
           }));
           return stat.type === "file"
