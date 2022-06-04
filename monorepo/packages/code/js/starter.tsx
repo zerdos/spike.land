@@ -29,9 +29,6 @@ export const appFactory = async (transpiled: string, _html: string) => {
   //new TextDecoder().decode(resultU8Arr);
   if (globalThis.App && globalThis.App === apps[result]) return;
 
-
-
-
   globalThis.App = apps[result] ||
     (await import(
       /* @vite-ignore */
@@ -56,15 +53,14 @@ export const renderApp = () => {
   const { App } = globalThis;
   console.log("render App");
 
-
   render(
     <CacheProvider value={cache}>
-      <App/>
-    </CacheProvider>, container
+      <App />
+    </CacheProvider>,
+    container,
   );
 
   if (!container.innerHTML) return;
-
 
   if (!globalThis.currentTarget) {
     document.getElementById("root")?.replaceWith(container);

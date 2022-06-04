@@ -7,31 +7,30 @@ import type { FC } from "react";
 import { appFactory, createJsBlob } from "./starter";
 import { prettierCss, prettierHtml } from "./prettierEsm";
 
-import { CacheProvider } from '@emotion/react'
-import { renderToString } from 'react-dom/server'
-
-
+import { CacheProvider } from "@emotion/react";
+import { renderToString } from "react-dom/server";
 
 export const getIframe = async (App: FC) => {
+  var Buffer = require("buffer/").Buffer;
 
-  var Buffer = require('buffer/').Buffer 
+  const createEmotionServer =
+    (await import("@emotion/server/create-instance")).default;
 
-  const createEmotionServer =(await  import('@emotion/server/create-instance')).default;
+  const key = "custom";
+  const cache = createCache({ key });
+  const { extractCriticalToChunks, constructStyleTagsFromChunks } =
+    createEmotionServer(cache);
 
-const key = 'custom'
-const cache = createCache({ key })
-const { extractCriticalToChunks, constructStyleTagsFromChunks } = createEmotionServer(cache)
+  const html = renderToString(
+    <CacheProvider value={cache}>
+      <App />
+    </CacheProvider>,
+  );
 
-const html = renderToString(
-  <CacheProvider value={cache}>
-    <App />
-  </CacheProvider>
-)
+  const chunks = extractCriticalToChunks(html);
+  const styles = constructStyleTagsFromChunks(chunks);
 
-const chunks = extractCriticalToChunks(html)
-const styles = constructStyleTagsFromChunks(chunks)
-
-return `<!DOCTYPE html>
+  return `<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -46,8 +45,7 @@ return `<!DOCTYPE html>
     <script src="./bundle.js"></script>
 </body>
 </html>`;
-}
-
+};
 
 export const renderFromString = async (transpiled: string) => {
   console.log("render to string");
@@ -55,12 +53,14 @@ export const renderFromString = async (transpiled: string) => {
 
   const { html, css } = getHtmlAndCss(App);
 
-  const htmlWithCss =  prettierHtml(`<style>${css}</style><div id="zbody">${html}</div>`)
+  const htmlWithCss = prettierHtml(
+    `<style>${css}</style><div id="zbody">${html}</div>`,
+  );
 
   await appFactory(transpiled, htmlWithCss);
 
   return {
-    html: htmlWithCss, 
+    html: htmlWithCss,
     css: prettierCss(css),
   };
 };

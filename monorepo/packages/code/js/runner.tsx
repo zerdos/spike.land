@@ -42,9 +42,7 @@ export async function runner(
       if (latest < r.counter) return;
 
       try {
-
         const { renderFromString } = await import("./renderToString");
-
 
         const { html, css } = await renderFromString(transpiled);
 

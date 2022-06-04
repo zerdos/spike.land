@@ -149,7 +149,9 @@ const onfetch = (event) => {
       // Requests to other origins are fetched from the network.
       default:
         try {
-          return event.respondWith(fetch(event.request).catch((e) => console.log({ url, event })));
+          return event.respondWith(
+            fetch(event.request).catch((e) => console.log({ url, event })),
+          );
         } catch {
           console.error(url);
         }
@@ -168,7 +170,7 @@ const onfetch = (event) => {
  * @param {Object} options
  * @param {URL} options.url
  */
-const fetchViewer = async (url ) => {
+const fetchViewer = async (url) => {
   const body = new Blob([`<html lang="en">
 <head>
   <title>${url.pathname}</title>

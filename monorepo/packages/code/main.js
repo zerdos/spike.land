@@ -1,5 +1,3 @@
-
-
 navigator.serviceWorker.onmessage = onServiceWorkerMessage;
 
 // @ts-ignore - register expects string but webPack requires this URL hack.
@@ -34,10 +32,10 @@ const ipfsSw = async () => {
   await loadApp();
 };
 ipfsSw();
-const getIpfsPort = () =>new SharedWorker(new URL("./worker.js", location.origin), {
-      name: "IPFS",
-}
-    ).port
+const getIpfsPort = () =>
+  new SharedWorker(new URL("./worker.js", location.origin), {
+    name: "IPFS",
+  }).port;
 
 function onServiceWorkerMessage(event) {
   /** @type {null|ServiceWorker} */
@@ -60,7 +58,7 @@ function onServiceWorkerMessage(event) {
 }
 
 const loadApp = async () => {
-  console.log("es-module-shims import and start the app!")
+  console.log("es-module-shims import and start the app!");
   if (window.startedWithNativeEsmModules) return;
 
   await import("es-module-shims");
