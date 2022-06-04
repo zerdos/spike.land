@@ -4,6 +4,9 @@ Object.assign(self, require("buffer"));
 Object.assign(self, require("path-browserify"));
 
 const OrbitDB = require("orbit-db");
+const bc = new BroadcastChannel("spike.land");
+
+  
 
 import { create } from "ipfs";
 import { IPFSService, Server } from "ipfs-message-port-server";
@@ -56,9 +59,7 @@ export const ipfsWorker = async () => {
       //isWebWorker: true
       // ...libp2pConfig(),
     });
-    const bc = new BroadcastChannel("spike.land");
-
-  
+   
 
     // And add hello world for tests
     await ipfs.add({ content: "hello world" });
@@ -78,6 +79,7 @@ export const ipfsWorker = async () => {
     const orbitdb = await OrbitDB.createInstance(ipfs, {
       id: ipfs.id().toString(),
     });
+    
     bc.onmessage = async (event) => {
       console.log({ event });
 
