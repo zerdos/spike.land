@@ -1,7 +1,6 @@
 /** @jsxImportSource @emotion/react */
 
 import type { Dispatch, ReactNode, SetStateAction } from "react";
-import { renderFromString } from "./renderToString";
 import { saveCode } from "./ws";
 import { mST } from "./session";
 import throttle from "lodash/throttle";
@@ -43,6 +42,10 @@ export async function runner(
       if (latest < r.counter) return;
 
       try {
+
+        const { renderFromString } = await import("./renderToString");
+
+
         const { html, css } = await renderFromString(transpiled);
 
         await saveCode({

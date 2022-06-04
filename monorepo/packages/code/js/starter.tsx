@@ -18,7 +18,7 @@ import { md5 } from "./md5";
 const apps: { [key: string]: FC } = {};
 
 globalThis.apps = apps;
-export const appFactory = async (transpiled: string, html: string) => {
+export const appFactory = async (transpiled: string, _html: string) => {
   if (globalThis.transpiled === transpiled) return;
   globalThis.transpiled = transpiled;
 
@@ -29,13 +29,11 @@ export const appFactory = async (transpiled: string, html: string) => {
   //new TextDecoder().decode(resultU8Arr);
   if (globalThis.App && globalThis.App === apps[result]) return;
 
-  if (!window.importShim) {
-    await  import("es-module-shims"); 
-  } 
+
 
 
   globalThis.App = apps[result] ||
-    (await importShim(
+    (await import(
       /* @vite-ignore */
       createJsBlob(transpiled)
     )).default;
@@ -43,12 +41,12 @@ export const appFactory = async (transpiled: string, html: string) => {
 
   apps[result] = globalThis.App;
 
-  return renderApp(html);
+  return renderApp();
 
   // globalThis.notify();
 };
 
-export const renderApp = (html:string) => {
+export const renderApp = () => {
   const container = document.createElement("div");
   container.style.height = "100%";
 

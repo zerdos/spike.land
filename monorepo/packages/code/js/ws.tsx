@@ -98,7 +98,7 @@ let intervalHandler: NodeJS.Timer | null = null;
 
 const chCode = async () => {
   if (connections !== globalThis.connections) return;
-  const { code, transpiled, i } = mST();
+  const { code, transpiled, i, html } = mST();
   const { prettier } = await import("./prettierEsm");
   if (globalThis.editor) {
     const formatted = prettier(globalThis.editor.getModel()!.getValue());

@@ -3,7 +3,6 @@
 import { CacheProvider } from "@emotion/react";
 import createCache from "@emotion/cache";
 import type { FC } from "react";
-import { renderToString } from "react-dom/server";
 
 import { appFactory, createJsBlob } from "./starter";
 import { prettierCss, prettierHtml } from "./prettierEsm";
@@ -100,7 +99,7 @@ async function getApp(transpiled: string, mode = "window") {
     codeToHydrate,
   );
 
-  const App = window.importShim?(await window.importShim(objectUrl)).default :(await import(objectUrl)).default;
+  const App = await import(objectUrl).default;
 
   URL.revokeObjectURL(objectUrl);
 
