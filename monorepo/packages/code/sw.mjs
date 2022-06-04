@@ -135,10 +135,10 @@ const onfetch = (event) => {
                 "VIEW! Fetching the content: " +
                   url.pathname.slice(protocol.length + 1),
               );
-              return event.respondWith(fetchContent({
+              return fetchContent({
                 event,
                 path: url.pathname.slice(protocol.length + 1),
-              }));
+              });
             }
             default:
               // Anything else might be for scripts, source maps etc.. we just fetch
