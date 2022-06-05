@@ -10990,7 +10990,7 @@ rc@^1.1.2, rc@^1.2.7, rc@^1.2.8:
     minimist "^1.2.0"
     strip-json-comments "~2.0.1"
 
-"react-dom@npm:@preact/compat@17.0.3", "react@npm:@preact/compat@17.0.3":
+"react-dom@npm:@preact/compat@17.0.3":
   version "17.0.3"
   resolved "https://registry.yarnpkg.com/@preact/compat/-/compat-17.0.3.tgz#5e41def12b4b6d00d6f86e6b24ef46b029a99626"
   integrity sha512-lzkui97aQ00hxzUwfRfZm7jUXE1bjWyOXiqm8DeWYhkD+G9ZaY1wso/itqyg60wGnP9DRlM4PDn2blIOnh1yeg==
@@ -11021,6 +11021,11 @@ react-transition-group@^4.4.2:
     dom-helpers "^5.0.1"
     loose-envify "^1.4.0"
     prop-types "^15.6.2"
+
+"react@npm:@preact/compat@17.1.0":
+  version "17.1.0"
+  resolved "https://registry.yarnpkg.com/@preact/compat/-/compat-17.1.0.tgz#b6a21e0e7db18fe6a02ace91b4c2f720de722d4f"
+  integrity sha512-2MZfaQZIvfgLs4c7AEqvWR/z/MnY+LriCTYkmjN1JHBDrTjhC0gnEVzJozZro7VR5zpqqIOZtAlIQQThCQvpOw==
 
 read-cmd-shim@^2.0.0:
   version "2.0.0"
@@ -11853,6 +11858,7 @@ stack-trace@0.0.10:
   integrity sha1-VHxws0fo0ytOEI6hoqFZ5f3eGcA=
 
 stream-browserify@3.0.0, "stream@npm:stream-browserify@3.0.0":
+  name stream
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/stream-browserify/-/stream-browserify-3.0.0.tgz#22b0a2850cdf6503e73085da1fc7b7d0c2122f2f"
   integrity sha512-H73RAHsVBapbim0tU2JwwOiXUj+fikfiaoYAKHF3VJfA0pe2BCzkhAHBlLG6REzE+2WNZcxOXjK7lkso+9euLA==
