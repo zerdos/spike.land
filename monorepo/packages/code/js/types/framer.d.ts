@@ -1721,7 +1721,7 @@ interface Orchestration {
    * @remarks
    * ```javascript
    * const transition = {
-   *   delay: 0.2
+   *   delay: 0
    * }
    * ```
    *

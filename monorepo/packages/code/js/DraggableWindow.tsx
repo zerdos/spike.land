@@ -112,8 +112,8 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
         right: 20,
       });
     };
-
-    setTimeout(reveal, 1500);
+reveal();
+    // setTimeout(reveal, 200);
   }, []);
 
   const [ch, setCh] = useState(children);
@@ -121,7 +121,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
 
   return (
     <motion.div
-      transition={{ delay: 0.5, duration: 0.5 }}
+      transition={{ delay: 1, duration: 0.4 }}
       ref={ref}
       initial={{
         top: 0,
@@ -168,7 +168,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
             css={css`
         overflow: hidden;
         `}
-            transition={{ delay: 0.5, duration: 0.5 }}
+            transition={{ delay: 1, duration: 0.4 }}
             initial={{ height: 0, width: 0 }}
             animate={{ height: "auto", width: "auto" }}
           >
@@ -203,7 +203,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
           {/* <span>{width}*{height}</span> */}
 
           <motion.div
-            transition={{ delay: 0.5, duration: 1 }}
+            transition={{ delay: 1, duration: 0.4 }}
             initial={{
               width: window.innerWidth,
               height: window.innerHeight,
@@ -220,10 +220,11 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
             
                 display: block;
                 overflow: hidden;
+                overflow-y: hidden;
             `}
           >
             <motion.div
-              transition={{ delay: 0.5, duration: 0.5 }}
+              transition={{ delay: 1, duration: 0.4 }}
               initial={{
                 width: window.innerWidth,
                 height: window.innerHeight,
@@ -248,7 +249,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
             </motion.div>
           </motion.div>
           <motion.div
-            transition={{ delay: 0.5, duration: 0.5 }}
+            transition={{ delay: 1, duration: 0.4 }}
             initial={{ height: 0, width: 0 }}
             animate={{ height: "auto", width: "auto" }}
           >
@@ -310,9 +311,9 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
         </div>
 
         <motion.div
-          transition={{ delay: 0.5, duration: 0.5 }}
+          transition={{ delay: 1, duration: 0.4 }}
           initial={{ height: 0, width: 0 }}
-          animate={{ height: "auto", width: "auto" }}
+          animate={{ height: "100%", width: "auto" }}
         >
           <div
             css={css`
