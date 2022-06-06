@@ -123,6 +123,8 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
     <motion.div
       layoutId="modal"
       ref={ref}
+      initial= {{ padding: 0, top: 0, right: 0, left: 0, bottom: 0 
+      }}
       animate={isFullScreen? { padding: 0, top: 0, right: 0, left: 0, bottom: 0 
        } :{
         top: 20,
@@ -140,7 +142,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
             z-index: 10;
 
             white-space: normal;
-            position: ${isFullScreen? "absolute": "fixed"};
+            position: sticky;
           `}
           {...(isFullScreen?{drag: true, 
             dragElastic: 0.5,
