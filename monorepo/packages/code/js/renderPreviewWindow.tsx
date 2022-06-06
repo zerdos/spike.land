@@ -16,29 +16,29 @@ export const renderPreviewWindow = async (Editor: FC<{}>) => {
   if (!globalThis.draggableWindow++ > 1) return;
   console.log("renderPreviewWindow");
 
-  const target = document.createElement("div");
+  const target = //document.createElement("div");  
+  document.getElementById("root")
 
   document.body.style.backgroundImage = `url("/assets/synthwave.webp")`;
+  const {App} = globalThis;
 
   render(
     <Fragment>
-      <Editor />
-      <DraggableWindow
+        <DraggableWindow
         // onRestore={() => {
         //   const model = globalThis.model;
         //   model.setValue(mST().code);
         // }}
         hashCode={hashCode()}
         room={codeSpace}
-      />
+      ><App /></DraggableWindow>
+        
+              <Editor />
+
     </Fragment>,
     target,
   );
 
-  document.body.append(target);
-  if (document.getElementById("zbody")) {
-    document.getElementById("zbody").append(globalThis.currentTarget);
-  } else {
-    console.log("NO ZBODY");
-  }
+  // document.getElementById("root").append(target);
+
 };

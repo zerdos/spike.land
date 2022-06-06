@@ -53,6 +53,7 @@ const ZBody = () => {
 
 export const DraggableWindow: FC<DraggableWindowProps> = (
   {
+    children,
     // onRestore,
     room,
     hashCode,
@@ -123,15 +124,11 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
     <motion.div
 
       ref={ref}
-      initial= {{ padding: 0, top: 0, right: 0, left: 0, bottom: 0 
+      initial= {{ padding: 0, top: 0, right: 0, left: 0, bottom: 0
       }}
       animate={isFullScreen? { padding: 0, top: 0, right: 0, left: 0, bottom: 0 
        } :{
         top: 20,
-        left: "auto",
-        bottom: "auto",
-        width: "auto",
-        height: "auto",
         padding: 8,
         right,
       }}
@@ -237,7 +234,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
                   } 
               `}
           >
-            <ZBody />
+           {children}
           </motion.div>
         </motion.div>
         <motion.div
