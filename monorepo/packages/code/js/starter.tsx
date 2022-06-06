@@ -65,6 +65,7 @@ export const renderApp = () => {
   if (!globalThis.currentTarget) {
     document.getElementById("root")?.replaceWith(container);
     globalThis.currentTarget = container;
+    container.id = "root";
   } else {
     globalThis.currentTarget.parentNode?.replaceChildren(container);
     globalThis.currentTarget = container;
