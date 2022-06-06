@@ -138,8 +138,9 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
             backdrop-filter: blur(15px);
             border-radius: 16px;
             z-index: 10;
+
             white-space: normal;
-            position: fixed;
+            position: ${isFullScreen? "absolute": "fixed"};
           `}
           {...(isFullScreen?{drag: true, 
             dragElastic: 0.5,
