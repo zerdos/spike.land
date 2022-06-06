@@ -192,7 +192,6 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
               top:0,
               right: 0,
               left: 0,
-              height: "100vh",
               bottom: 0,        
               position: "absolute",
               width: window.innerWidth / devicePixelRatio,
