@@ -69,6 +69,7 @@ export const renderApp = () => {
   } else {
     globalThis.currentTarget.parentNode?.replaceChildren(container);
     globalThis.currentTarget = container;
+    container
   }
 };
 
