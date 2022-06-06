@@ -121,8 +121,11 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
   return (
     <motion.div
       ref={ref}
-      animate={isFullScreen? { padding: 0, top: 0, right: 0 } :{
+      animate={isFullScreen? { padding: 0, top: 0, right: 0, left: 0, bottom: 0, height: "100vh", width: "100hw"
+       } :{
         top: 20,
+        width: "auto",
+        height: "auto",
         padding: 8,
         right,
       }}
