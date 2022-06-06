@@ -116,8 +116,8 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
     setTimeout(reveal, 1500); 
   }, []);
 
-
-
+  if (isFullScreen) return <ZBody />
+ 
   return (
     <motion.div
       ref={ref}
