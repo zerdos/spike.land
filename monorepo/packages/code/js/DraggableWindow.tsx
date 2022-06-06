@@ -45,12 +45,10 @@ interface DraggableWindowProps {
 const ZBody = () => {
   const zbodyRef = useRef<HTMLDivElement>(null);
 
-  return (
-    <div
+  return  <div
       id="zbody"
       ref={zbodyRef}
     />
-  );
 };
 
 export const DraggableWindow: FC<DraggableWindowProps> = (
@@ -136,8 +134,8 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
       >
         <motion.div
         animate = {{
-          height: isFullScreen? 0:"100%",
-          width: isFullScreen? 0:"100%"
+          height: isFullScreen? 0:"initial",
+          width: isFullScreen? 0:"initial"
         }}
         ><ToggleButtonGroup
           value={scaleRange}
@@ -217,7 +215,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
           </motion.div>
         </motion.div>
         <motion.div
-        animate={{height: isFullScreen? 0: "100%"}}>
+        animate={{height: isFullScreen? 0: "initial"}}>
         <ToggleButtonGroup
           value={width}
 
