@@ -159,9 +159,11 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
           `}
       >
         <motion.div
+        css={css`
+        overflow`}
         animate = {{
-          height: isFullScreen? 0:"initial",
-          width: isFullScreen? 0:"initial"
+          height: isFullScreen? 0:"auto",
+          width: isFullScreen? 0:"auto"
         }}
         ><ToggleButtonGroup
           value={scaleRange}
@@ -298,12 +300,21 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
         </motion.div>
       </div>
 
-      <motiondiv
+      <motion.div
+      animate= {isFullScreen? {
+        height: 0,
+        width: 0,
+        padding: 0,
+        overflow: hidden
+      }: {
+        height: "auto",
+        width: "auto",
+        padding: 16
+      }}
         css={css`
               display: flex;
               align-items: center;          
               flex-direction: column;
-              padding: 16px;
               `}
       >
         <Fab
@@ -326,7 +337,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
         >
           <Share />
         </Fab>
-      </div>
+      </motion.div>
     </div>
     </motion.div>
   );
