@@ -36,7 +36,7 @@ export const MonacoEditor = () => {
       // let inc = 0;
 
       editor.onDidChangeModelContent(() => {
-        const code = editor.getModel()!.getValue();
+        const code = editor?.getModel()?.getValue();
         const counter = mST().i + 1;
         runnerDebounced(code, counter);
       });

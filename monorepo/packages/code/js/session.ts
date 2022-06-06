@@ -225,7 +225,7 @@ function str(s: ICodeSession) {
 
 export const patch: IApplyPatch = async (x) => session!.applyPatch(x);
 export const makePatchFrom = (n: number, st: ICodeSession) =>
-  session!.createPatchFromHashCode(n, st);
+  session?.createPatchFromHashCode(n, st);
 export const makePatch = (st: ICodeSession) => makePatchFrom(hashCode(), st);
 
 export const startSession = (room: string, u: IUserJSON): CodeSession =>
