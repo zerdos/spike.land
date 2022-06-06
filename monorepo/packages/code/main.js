@@ -1,3 +1,4 @@
+import "core-js/full";
 navigator.serviceWorker.onmessage = onServiceWorkerMessage;
 
 // @ts-ignore - register expects string but webPack requires this URL hack.
@@ -29,8 +30,9 @@ const ipfsSw = async () => {
   if (document.documentElement.dataset.viewer) {
     return load(location.pathname);
   }
-  await loadApp();
-};
+}
+  setTimeout(loadApp,200);
+
 ipfsSw();
 const getIpfsPort = () =>
   new SharedWorker(new URL("./worker.js", location.origin), {

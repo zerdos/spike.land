@@ -240,7 +240,7 @@ export class Code {
             });`,
           ).replace(
             `<div id="root"></div>`,
-            `<div id="root">${startState.html}</div>`,
+            `<style>${startState.css}</style><div id="root">${startState.html}</div>`,
           );
           return new Response(html, {
             status: 200,

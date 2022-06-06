@@ -1,8 +1,7 @@
 
 html,
 body,
-#root,
-#zbody {
+#root{
   height: 100%;
 }
 
@@ -19,7 +18,6 @@ body {
   background-attachment: fixed;
   background-size: cover;
   background-position: top;
-  overscroll-behavior-y: contain;
   width: 100%;
   margin: 0;
   padding: 0;

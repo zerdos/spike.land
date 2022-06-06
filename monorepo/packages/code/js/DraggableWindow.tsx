@@ -42,16 +42,7 @@ interface DraggableWindowProps {
   room: string;
 }
 
-const ZBody = () => {
-  const zbodyRef = useRef<HTMLDivElement>(null);
 
-  return (
-    <div
-      id="zbody"
-      ref={zbodyRef}
-    />
-  );
-};
 
 export const DraggableWindow: FC<DraggableWindowProps> = (
   {
@@ -121,7 +112,7 @@ reveal();
 
   return (
     <motion.div
-      transition={{ delay: 1, duration: 0.4 }}
+      transition={{ delay: 0, duration: 0.4 }}
       ref={ref}
       initial={{
         top: 0,
@@ -143,13 +134,15 @@ reveal();
             white-space: normal;
             position: fixed;
           `}
-      // drag={true}
-      // dragConstraints={{
-      //   left: 0,
-      //   right: width - 20 - width / 6,
-      //   bottom: innerHeight,
-      // }}
-      // dragElastic={0.5}
+      drag={true}
+      dragMomentum={false}
+    
+      dragConstraints={{
+        left: 0,
+        right: width - 20 - width / 6,
+        bottom: innerHeight,
+      }}
+      dragElastic={0.5}
     >
       <div
         css={css` 
@@ -165,10 +158,8 @@ reveal();
           `}
         >
           <motion.div
-            css={css`
-        overflow: hidden;
-        `}
-            transition={{ delay: 1, duration: 0.4 }}
+
+            transition={{ delay: 0, duration: 0.4 }}
             initial={{ height: 0, width: 0 }}
             animate={{ height: "auto", width: "auto" }}
           >
@@ -203,7 +194,7 @@ reveal();
           {/* <span>{width}*{height}</span> */}
 
           <motion.div
-            transition={{ delay: 1, duration: 0.4 }}
+            transition={{ delay: 0, duration: 0.4 }}
             initial={{
               width: window.innerWidth,
               height: window.innerHeight,
@@ -224,7 +215,7 @@ reveal();
             `}
           >
             <motion.div
-              transition={{ delay: 1, duration: 0.4 }}
+              transition={{ delay: 0, duration: 0.4 }}
               initial={{
                 width: window.innerWidth,
                 height: window.innerHeight,
@@ -249,7 +240,7 @@ reveal();
             </motion.div>
           </motion.div>
           <motion.div
-            transition={{ delay: 1, duration: 0.4 }}
+            transition={{ delay: 0, duration: 0.4 }}
             initial={{ height: 0, width: 0 }}
             animate={{ height: "auto", width: "auto" }}
           >
@@ -311,7 +302,7 @@ reveal();
         </div>
 
         <motion.div
-          transition={{ delay: 1, duration: 0.4 }}
+          transition={{ delay: 0, duration: 0.4 }}
           initial={{ height: 0, width: 0 }}
           animate={{ height: "100%", width: "auto" }}
         >

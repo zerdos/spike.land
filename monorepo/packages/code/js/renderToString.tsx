@@ -10,19 +10,15 @@ import { prettierCss, prettierHtml } from "./prettierEsm";
 import { renderToString } from "react-dom/server";
 
 export const renderFromString = async (transpiled: string) => {
-  console.log("render to string");
+  console.log("render to string");    
   const App = await getApp(transpiled);
 
   const { html, css } = getHtmlAndCss(App);
 
-  const htmlWithCss = prettierHtml(
-    `<style>${css}</style><div id="zbody">${html}</div>`,
-  );
-
-  await appFactory(transpiled, htmlWithCss);
+  await appFactory(transpiled, html);
 
   return {
-    html: htmlWithCss,
+    html: prettierHtml(html),
     css: prettierCss(css),
   };
 };
@@ -53,12 +49,9 @@ export const getHtmlAndCss = (App: FC) => {
 };
 
 async function getApp(transpiled: string, mode = "window") {
-  const codeToHydrate = mode === "window"
-    ? transpiled.replace("body{", "#zbody{")
-    : transpiled;
 
   const objectUrl = createJsBlob(
-    codeToHydrate,
+    transpiled,
   );
 
   const App = window.importShim
