@@ -116,6 +116,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
     setTimeout(reveal, 1500); 
   }, []);
 
+  if (isFullScreen) return children;
  
   return (
 
@@ -123,8 +124,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
     <motion.div
 
       ref={ref}
-      initial= {{ padding: 0, top: 0, right: 0, left: 0, bottom: 0
-      }}
+    
       animate={isFullScreen? { padding: 0, top: 0, right: 0, left: 0, bottom: 0 
        } :{
         top: 20,
