@@ -160,7 +160,8 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
       >
         <motion.div
         css={css`
-        overflow`}
+        overflow: hidden;
+        `}
         animate = {{
           height: isFullScreen? 0:"auto",
           width: isFullScreen? 0:"auto"
@@ -243,7 +244,10 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
           </motion.div>
         </motion.div>
         <motion.div
-        animate={{height: isFullScreen? 0: "initial"}}>
+        css={css`
+          overflow: hidden;
+        `}
+        animate={{height: isFullScreen? 0: "auto"}}>
         <ToggleButtonGroup
           value={width}
 
@@ -305,7 +309,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
         height: 0,
         width: 0,
         padding: 0,
-        overflow: hidden
+
       }: {
         height: "auto",
         width: "auto",
@@ -313,6 +317,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
       }}
         css={css`
               display: flex;
+              overflow: "hidden"
               align-items: center;          
               flex-direction: column;
               `}
