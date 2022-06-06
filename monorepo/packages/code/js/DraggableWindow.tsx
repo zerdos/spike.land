@@ -47,7 +47,6 @@ const ZBody = () => {
 
   return (
     <div
-      id="zbody"
       ref={zbodyRef}
     />
   );
@@ -115,8 +114,10 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
       requestAnimationFrame(() => document.querySelector("#root")?.remove());
     };
 
-    reveal();
+    setTimeout(reveal, 1500); 
   }, []);
+
+
 
   const internal = (
     <div
@@ -182,13 +183,19 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
           <motion.div
             initial={{
               transformOrigin: "0px 0px",
+              top:0,
+              right: 0,
+              left: 0,
+              height: "100vh",
+              bottom: 0,        
+              position: "absolute",
               width: window.innerWidth / devicePixelRatio,
               height: window.innerHeight / devicePixelRatio,
               scale: scaleRange / 100,
             }}
             animate={{
+              position: "relative",
               transformOrigin: "0px 0px",
-
               width: width / devicePixelRatio,
               height: height / devicePixelRatio,
               scale: scaleRange / 100,
