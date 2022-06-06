@@ -118,8 +118,34 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
 
 
 
-  const internal = (
-    <div
+  return (
+    <motion.div
+      ref={ref}
+
+    
+      animate={isFullScreen? { padding: 0, top: 0, right: 0 } :{
+        top: 20,
+        padding: 8,
+        right,
+      }}
+      css={css`
+            background-color:${bg};
+            backdrop-filter: blur(15px);
+            border-radius: 16px;
+            z-index: 10;
+            white-space: normal;
+            position: fixed;
+          `}
+      dragElastic={0.5}
+      dragConstraints={{
+        left: 0,
+        right: width - 20 - width / 6,
+        bottom: innerHeight,
+      }}
+      dragMomentum={false}
+      drag={!isFullScreen}
+    >
+<div
       css={css` 
               display: flex;
               
@@ -272,7 +298,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
         </motion.div>
       </div>
 
-      <div
+      <motiondiv
         css={css`
               display: flex;
               align-items: center;          
@@ -302,35 +328,6 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
         </Fab>
       </div>
     </div>
-  );
-
-  return (
-    <motion.div
-      ref={ref}
-      initial={{ padding: 0, top: 0, right: 0 }}
-      animate={{
-        top: 20,
-        padding: 8,
-        right,
-      }}
-      css={css`
-            background-color:${bg};
-            backdrop-filter: blur(15px);
-            border-radius: 16px;
-            z-index: 10;
-            white-space: normal;
-            position: fixed;
-          `}
-      dragElastic={0.5}
-      dragConstraints={{
-        left: 0,
-        right: width - 20 - width / 6,
-        bottom: innerHeight,
-      }}
-      dragMomentum={false}
-      drag={!isFullScreen}
-    >
-      {internal}
     </motion.div>
   );
 };
