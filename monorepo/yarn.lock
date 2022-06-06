@@ -3336,15 +3336,10 @@
   resolved "https://registry.yarnpkg.com/@types/minimist/-/minimist-1.2.2.tgz#ee771e2ba4b3dc5b372935d549fd9617bf345b8c"
   integrity sha512-jhuKLIRrhvCPLqwPcx6INqmKeiA5EWrsCOPhrlFSrbrmU4ZMPjj5Ul/oLCMDO98XRUIwVm78xICz4EPCektzeQ==
 
-"@types/node@*", "@types/node@>=12.12.47", "@types/node@>=13.7.0":
+"@types/node@*", "@types/node@17.0.40", "@types/node@>=12.12.47", "@types/node@>=13.7.0":
   version "17.0.40"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-17.0.40.tgz#76ee88ae03650de8064a6cf75b8d95f9f4a16090"
   integrity sha512-UXdBxNGqTMtm7hCwh9HtncFVLrXoqA3oJW30j6XWp5BH/wu3mVeaxo7cq5benFdBw34HB3XDT2TRPI7rXZ+mDg==
-
-"@types/node@17.0.38":
-  version "17.0.38"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-17.0.38.tgz#f8bb07c371ccb1903f3752872c89f44006132947"
-  integrity sha512-5jY9RhV7c0Z4Jy09G+NIDTsCZ5G0L5n+Z+p+Y7t5VJHM30bgwzSjVtlcBxqAj+6L/swIlvtOSzr8rBk/aNyV2g==
 
 "@types/node@^8.0.24":
   version "8.10.66"
@@ -5358,7 +5353,7 @@ es-module-lexer@^0.10.4:
   resolved "https://registry.yarnpkg.com/es-module-lexer/-/es-module-lexer-0.10.5.tgz#06f76d51fa53b1f78e3bd8bb36dd275eda2fdd53"
   integrity sha512-+7IwY/kiGAacQfY+YBhKMvEmyAJnw5grTUgjG85Pe7vcUI/6b7pZjZG8nQ7+48YhzEAEqrEgD2dCz/JIK+AYvw==
 
-es-module-shims@^1.5.5:
+es-module-shims@^1.5.6:
   version "1.5.6"
   resolved "https://registry.yarnpkg.com/es-module-shims/-/es-module-shims-1.5.6.tgz#f32560381e6c2574e3832a0bfde32d269163e9f3"
   integrity sha512-P/WNC3j4hncbMjx8mdgNchYaSulXJO8Q7lF6CJthc0Rv3t6ZuzfQnkXkNzluUdgnS9/7mTTJrS9dDgZ2OYbZvA==
@@ -5617,7 +5612,7 @@ esbuild-plugin-jsximportsource@^0.0.4:
   resolved "https://registry.yarnpkg.com/esbuild-plugin-jsximportsource/-/esbuild-plugin-jsximportsource-0.0.4.tgz#51175f4e114565bfa61bbfbff656b7b2161ac017"
   integrity sha512-dCt1rFA/e7DyL5XlcGOL5p4MgHTCn77BqEInl6ftKZ6AcxL4WY28B3PhdrsAGU3A9nCREM7vxQ9fAZ+VfuY6EA==
 
-esbuild-register@^3.3.2:
+esbuild-register@^3.3.3:
   version "3.3.3"
   resolved "https://registry.yarnpkg.com/esbuild-register/-/esbuild-register-3.3.3.tgz#5bd80025c80caf77e6484ced5cc77233b1d39688"
   integrity sha512-eFHOkutgIMJY5gc8LUp/7c+LLlDqzNi9T6AwCZ2WKKl3HmT+5ef3ZRyPPxDOynInML0fgaC50yszPKfPnjC0NQ==
@@ -11853,6 +11848,7 @@ stack-trace@0.0.10:
   integrity sha1-VHxws0fo0ytOEI6hoqFZ5f3eGcA=
 
 stream-browserify@3.0.0, "stream@npm:stream-browserify@3.0.0":
+  name stream
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/stream-browserify/-/stream-browserify-3.0.0.tgz#22b0a2850cdf6503e73085da1fc7b7d0c2122f2f"
   integrity sha512-H73RAHsVBapbim0tU2JwwOiXUj+fikfiaoYAKHF3VJfA0pe2BCzkhAHBlLG6REzE+2WNZcxOXjK7lkso+9euLA==
