@@ -121,8 +121,6 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
   return (
     <motion.div
       ref={ref}
-
-    
       animate={isFullScreen? { padding: 0, top: 0, right: 0 } :{
         top: 20,
         padding: 8,
@@ -136,14 +134,14 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
             white-space: normal;
             position: fixed;
           `}
-      dragElastic={0.5}
-      dragConstraints={{
-        left: 0,
-        right: width - 20 - width / 6,
-        bottom: innerHeight,
-      }}
-      dragMomentum={false}
-      drag={!isFullScreen}
+          {...(isFullScreen?{drag: true, 
+            dragElastic: 0.5,
+            dragConstraints: { 
+              left: 0,
+              right: width - 20 - width / 6,
+              bottom: innerHeight,
+            }} :{})}
+     
     >
 <div
       css={css` 
