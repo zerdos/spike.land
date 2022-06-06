@@ -68,9 +68,9 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
   const [height, setHeight] = useState(window.innerHeight * devicePixelRatio);
   const top = height - bottom;
   const ref = useRef<HTMLDivElement>(null);
+  
 
   const scale = scaleRange / 100;
-  const [isFullScreen, setFullScreen] = useState(true);
 
   useEffect(() => {
     const reveal = async () => {
@@ -110,43 +110,51 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
         bottom: 20,
         right: 20,
       });
-      setFullScreen(false);
     };
 
     setTimeout(reveal, 1500); 
   }, []);
 
-  if (isFullScreen) return children;
- 
+  const [ch, setCh] = useState(children);
+  globalThis.setCh = setCh;
+  
+  
   return (
 
 
     <motion.div
-
+      transition={{ delay: 0.5, duration:0.5 }}
       ref={ref}
+      initial={{
+        top: 0,
+        padding: 0,
+        right: 0,
+        borderRadius: 0
+      }}
     
       animate={{
-        top: 20,
+        top: bottom,
         padding: 8,
         right,
+        borderRadius: 16
       }}
       css={css`
             background-color:${bg};
             backdrop-filter: blur(15px);
-            border-radius: 16px;
             z-index: 10;
 
             white-space: normal;
             position: fixed;
           `}
-          {...(isFullScreen?{}:{drag: true, 
-            dragElastic: 0.5,
-            dragConstraints: { 
-              left: 0,
-              right: width - 20 - width / 6,
-              bottom: innerHeight,
-            }})}
-     
+      // drag={true}
+      // dragConstraints={{
+      //   left: 0,
+      //   right: width - 20 - width / 6,
+      //   bottom: innerHeight,
+      // }}
+      // dragElastic={0.5}
+    
+      
     >
 <div
       css={css` 
@@ -166,10 +174,11 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
         css={css`
         overflow: hidden;
         `}
-        animate = {{
-          height: isFullScreen? 0:"auto",
-          width: isFullScreen? 0:"auto"
-        }}
+              transition={{ delay: 0.5, duration:0.5 }}
+     
+        initial={{height: 0, width: 0}}
+       
+        animate={{height: "auto", width: "auto"}}
         ><ToggleButtonGroup
           value={scaleRange}
           size="small"
@@ -201,24 +210,38 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
         {/* <span>{width}*{height}</span> */}
 
         <motion.div
+
+transition={{ delay: 0.5, duration:1 }}
  
+ initial={{
+  width: window.innerWidth ,
+  height:  window.innerHeight,
+  borderRadius: 0
+  // Opacity: isFullScreen ? 1 : 0.7,
+}}
+
             animate={{
             width: width * scale / devicePixelRatio,
             height: height * scale / devicePixelRatio,
-            borderRadius: isFullScreen ? 0 : 8,
+            borderRadius:  8,
             // Opacity: isFullScreen ? 1 : 0.7,
           }}
           css={css`
-                width: ${width * scale / devicePixelRatio};
-                height: ${height * scale / devicePixelRatio};
+            
                 display: block;
                 overflow: hidden;
             `}
         >
           <motion.div
+                transition={{ delay: 0.5, duration:0.5 }}
+          initial= {{
+            width: window.innerWidth,
+            height:  window.innerHeight ,
+            scale: 1,
+          }}
 
             animate={{
-              transformOrigin: "0px 0px",
+       transformOrigin: "0px 0px",
               width: width / devicePixelRatio,
               height: height / devicePixelRatio,
               scale: scaleRange / 100,
@@ -232,15 +255,15 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
                   } 
               `}
           >
-           {children}
+           {ch}
           </motion.div>
         </motion.div>
         <motion.div
 
-        css={css`
-          overflow: hidden;
-        `}
-        animate={{height: isFullScreen? 0: "auto"}}>
+        transition={{ delay: 0.5, duration:0.5 }}
+        initial={{height: 0, width: 0}}
+        animate={{height: "auto", width: "auto"}}
+       >
         <ToggleButtonGroup
           value={width}
 
@@ -298,28 +321,25 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
       </div>
 
       <motion.div
-   
-      animate= {isFullScreen? {
-        height: 0,
-        width: 0,
-        padding: 0,
+             transition={{ delay: 0.5, duration:0.5 }}
 
-      }: {
-        height: "auto",
-        width: "auto",
-        padding: 16
-      }}
-        css={css`
+      initial={{height: 0, width: 0}}
+      animate={{height: "auto", width: "auto"}}
+   
+    
+     
+      >
+        <div    css={css`
+        padding: 16px;
               display: flex;
               overflow: "hidden"
               align-items: center;          
               flex-direction: column;
-              `}
-      >
+              `}>
         <Fab
           key="fullscreen"
           onClick={() => {
-            setFullScreen(true);
+            // setFullScreen(true);
           }}
         >
           <FullscreenIcon key="fs" />
@@ -336,7 +356,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
         >
           <Share />
         </Fab>
-      </motion.div>
+        </div>      </motion.div>
     </div>
     </motion.div>
 

@@ -27,7 +27,10 @@ export const appFactory = async (transpiled: string, _html: string) => {
 
   const result = md5(transpiled);
   //new TextDecoder().decode(resultU8Arr);
-  if (globalThis.App && globalThis.App === apps[result]) return;
+  if (globalThis.App && globalThis.App === apps[result]) {
+    globalThis.setCh && globalThis.setCh(globalThis.App);
+    return;
+  }
 
   globalThis.App = apps[result] ||
     (await import(
@@ -38,6 +41,8 @@ export const appFactory = async (transpiled: string, _html: string) => {
 
   apps[result] = globalThis.App;
 
+  if (  globalThis.setCh) return globalThis.setCh(globalThis.App)
+ 
   return renderApp();
 
   // globalThis.notify();
