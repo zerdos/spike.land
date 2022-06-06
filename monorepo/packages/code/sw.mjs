@@ -152,8 +152,9 @@ const onfetch = (event) => {
       // Requests to other origins are fetched from the network.
       default:
         try {
+          const req = event.request.clone();
           return event.respondWith(
-            fetch(event.request).catch((e) => console.log({ url, event })),
+            fetch(req).catch((e) => console.log({ url, req })),
           );
         } catch (err2) {
           console.log({ err2 });
