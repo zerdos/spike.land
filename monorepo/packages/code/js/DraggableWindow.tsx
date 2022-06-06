@@ -197,10 +197,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
         {/* <span>{width}*{height}</span> */}
 
         <motion.div
-          initial={{
-            width: window.innerWidth,
-            height: window.innerHeight,
-          }}
+
           animate={{
             width: width * scale / devicePixelRatio,
             height: height * scale / devicePixelRatio,
@@ -215,16 +212,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
             `}
         >
           <motion.div
-            initial={{
-              transformOrigin: "0px 0px",
-              top:0,
-              right: 0,
-              left: 0,
-              bottom: 0,        
-              width: window.innerWidth / devicePixelRatio,
-              height: window.innerHeight / devicePixelRatio,
-              scale: scaleRange / 100,
-            }}
+           
             animate={{
               transformOrigin: "0px 0px",
               width: width / devicePixelRatio,
