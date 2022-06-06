@@ -118,7 +118,10 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
 
  
   return (
+
+
     <motion.div
+      layoutId="modal"
       ref={ref}
       animate={isFullScreen? { padding: 0, top: 0, right: 0, left: 0, bottom: 0 
        } :{
@@ -161,6 +164,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
           `}
       >
         <motion.div
+          layoutId="modal"
         css={css`
         overflow: hidden;
         `}
@@ -199,8 +203,8 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
         {/* <span>{width}*{height}</span> */}
 
         <motion.div
-
-          animate={{
+            layoutId="modal"
+            animate={{
             width: width * scale / devicePixelRatio,
             height: height * scale / devicePixelRatio,
             borderRadius: isFullScreen ? 0 : 8,
@@ -214,7 +218,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
             `}
         >
           <motion.div
-           
+             layoutId="modal"
             animate={{
               transformOrigin: "0px 0px",
               width: width / devicePixelRatio,
@@ -234,6 +238,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
           </motion.div>
         </motion.div>
         <motion.div
+          layoutId="modal"
         css={css`
           overflow: hidden;
         `}
@@ -295,6 +300,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
       </div>
 
       <motion.div
+          layoutId="modal"
       animate= {isFullScreen? {
         height: 0,
         width: 0,
@@ -335,5 +341,6 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
       </motion.div>
     </div>
     </motion.div>
+
   );
 };
