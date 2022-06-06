@@ -41,8 +41,8 @@ export const appFactory = async (transpiled: string, _html: string) => {
 
   apps[result] = globalThis.App;
 
-  if (  globalThis.setCh) return globalThis.setCh(globalThis.App)
- 
+  if (globalThis.setCh) return globalThis.setCh(globalThis.App);
+
   return renderApp();
 
   // globalThis.notify();
@@ -74,7 +74,7 @@ export const renderApp = () => {
   } else {
     globalThis.currentTarget.parentNode?.replaceChildren(container);
     globalThis.currentTarget = container;
-    container
+    container;
   }
 };
 

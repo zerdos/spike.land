@@ -45,10 +45,12 @@ interface DraggableWindowProps {
 const ZBody = () => {
   const zbodyRef = useRef<HTMLDivElement>(null);
 
-  return  <div
+  return (
+    <div
       id="zbody"
       ref={zbodyRef}
     />
+  );
 };
 
 export const DraggableWindow: FC<DraggableWindowProps> = (
@@ -68,7 +70,6 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
   const [height, setHeight] = useState(window.innerHeight * devicePixelRatio);
   const top = height - bottom;
   const ref = useRef<HTMLDivElement>(null);
-  
 
   const scale = scaleRange / 100;
 
@@ -112,31 +113,27 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
       });
     };
 
-    setTimeout(reveal, 1500); 
+    setTimeout(reveal, 1500);
   }, []);
 
   const [ch, setCh] = useState(children);
   globalThis.setCh = setCh;
-  
-  
+
   return (
-
-
     <motion.div
-      transition={{ delay: 0.5, duration:0.5 }}
+      transition={{ delay: 0.5, duration: 0.5 }}
       ref={ref}
       initial={{
         top: 0,
         padding: 0,
         right: 0,
-        borderRadius: 0
+        borderRadius: 0,
       }}
-    
       animate={{
         top: bottom,
         padding: 8,
         right,
-        borderRadius: 16
+        borderRadius: 16,
       }}
       css={css`
             background-color:${bg};
@@ -153,100 +150,92 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
       //   bottom: innerHeight,
       // }}
       // dragElastic={0.5}
-    
-      
     >
-<div
-      css={css` 
+      <div
+        css={css` 
               display: flex;
               
                 `}
-    >
-      <div
-        css={css`
+      >
+        <div
+          css={css`
             display: flex;
             flex-direction: column;
             align-items: center;
           `}
-      >
-        <motion.div
-
-        css={css`
+        >
+          <motion.div
+            css={css`
         overflow: hidden;
         `}
-              transition={{ delay: 0.5, duration:0.5 }}
-     
-        initial={{height: 0, width: 0}}
-       
-        animate={{height: "auto", width: "auto"}}
-        ><ToggleButtonGroup
-          value={scaleRange}
-          size="small"
-          exclusive
-          onChange={(_e: unknown, newScale: number) => {
-            newScale && changeScaleRange(newScale);
-          }}
-        >
-          {sizes.map((size) => (
-            <ToggleButton
-              key={size}
-              value={size}
+            transition={{ delay: 0.5, duration: 0.5 }}
+            initial={{ height: 0, width: 0 }}
+            animate={{ height: "auto", width: "auto" }}
+          >
+            <ToggleButtonGroup
+              value={scaleRange}
+              size="small"
+              exclusive
+              onChange={(_e: unknown, newScale: number) => {
+                newScale && changeScaleRange(newScale);
+              }}
             >
-              <span
-                css={css`
+              {sizes.map((size) => (
+                <ToggleButton
+                  key={size}
+                  value={size}
+                >
+                  <span
+                    css={css`
                        color: ${
-                  size === scaleRange
-                    ? "rgba(255,255,255,.8)"
-                    : "rgba(0,0,0,.3)"
-                };
+                      size === scaleRange
+                        ? "rgba(255,255,255,.8)"
+                        : "rgba(0,0,0,.3)"
+                    };
                        `}
-              >
-                {size}%
-              </span>
-            </ToggleButton>
-          ))}
-        </ToggleButtonGroup>
-        </motion.div>
-        {/* <span>{width}*{height}</span> */}
+                  >
+                    {size}%
+                  </span>
+                </ToggleButton>
+              ))}
+            </ToggleButtonGroup>
+          </motion.div>
+          {/* <span>{width}*{height}</span> */}
 
-        <motion.div
-
-transition={{ delay: 0.5, duration:1 }}
- 
- initial={{
-  width: window.innerWidth ,
-  height:  window.innerHeight,
-  borderRadius: 0
-  // Opacity: isFullScreen ? 1 : 0.7,
-}}
-
+          <motion.div
+            transition={{ delay: 0.5, duration: 1 }}
+            initial={{
+              width: window.innerWidth,
+              height: window.innerHeight,
+              borderRadius: 0,
+              // Opacity: isFullScreen ? 1 : 0.7,
+            }}
             animate={{
-            width: width * scale / devicePixelRatio,
-            height: height * scale / devicePixelRatio,
-            borderRadius:  8,
-            // Opacity: isFullScreen ? 1 : 0.7,
-          }}
-          css={css`
+              width: width * scale / devicePixelRatio,
+              height: height * scale / devicePixelRatio,
+              borderRadius: 8,
+              // Opacity: isFullScreen ? 1 : 0.7,
+            }}
+            css={css`
             
                 display: block;
                 overflow: hidden;
             `}
-        >
-          <motion.div
-                transition={{ delay: 0.5, duration:0.5 }}
-          initial= {{
-            width: window.innerWidth,
-            height:  window.innerHeight ,
-            scale: 1,
-          }}
-
-            animate={{
-       transformOrigin: "0px 0px",
-              width: width / devicePixelRatio,
-              height: height / devicePixelRatio,
-              scale: scaleRange / 100,
-            }}
-            css={css`
+          >
+            <motion.div
+              transition={{ delay: 0.5, duration: 0.5 }}
+              initial={{
+                width: window.innerWidth,
+                height: window.innerHeight,
+                scale: 1,
+              }}
+              animate={{
+                transformOrigin: "0px 0px",
+                width: width / devicePixelRatio,
+                height: height / devicePixelRatio,
+                scale: scaleRange / 100,
+              }}
+              css={css`
                   overflow:overlay;
                   overflow-y: hidden;
                   >div{
@@ -254,111 +243,109 @@ transition={{ delay: 0.5, duration:1 }}
                     background: rgba(128,128,128.0.5);
                   } 
               `}
-          >
-           {ch}
-          </motion.div>
-        </motion.div>
-        <motion.div
-
-        transition={{ delay: 0.5, duration:0.5 }}
-        initial={{height: 0, width: 0}}
-        animate={{height: "auto", width: "auto"}}
-       >
-        <ToggleButtonGroup
-          value={width}
-
-          size="small"
-          exclusive
-          onChange={(_e: unknown, newSize: number) => {
-            if (newSize) {
-              setHeight(breakPointHeights[breakPoints.indexOf(newSize)]);
-              setWidth(newSize);
-            }
-          }}
-        >
-          {breakPoints.map((size) => (
-            <ToggleButton
-              key={`size-${size}`}
-              value={size}
             >
-              {size === 680
-                ? (
-                  <Phone
-                    css={css`
+              {ch}
+            </motion.div>
+          </motion.div>
+          <motion.div
+            transition={{ delay: 0.5, duration: 0.5 }}
+            initial={{ height: 0, width: 0 }}
+            animate={{ height: "auto", width: "auto" }}
+          >
+            <ToggleButtonGroup
+              value={width}
+              size="small"
+              exclusive
+              onChange={(_e: unknown, newSize: number) => {
+                if (newSize) {
+                  setHeight(breakPointHeights[breakPoints.indexOf(newSize)]);
+                  setWidth(newSize);
+                }
+              }}
+            >
+              {breakPoints.map((size) => (
+                <ToggleButton
+                  key={`size-${size}`}
+                  value={size}
+                >
+                  {size === 680
+                    ? (
+                      <Phone
+                        css={css`
                         color: ${
-                      width === 680 ? "rgba(255,255,255,.8)" : "rgba(0,0,0,.3)"
-                    };
+                          width === 680
+                            ? "rgba(255,255,255,.8)"
+                            : "rgba(0,0,0,.3)"
+                        };
                         `}
-                  />
-                )
-                : (size === 768
-                  ? (
-                    <Tablet
-                      css={css`
+                      />
+                    )
+                    : (size === 768
+                      ? (
+                        <Tablet
+                          css={css`
                         color: ${
-                        width === 768
-                          ? "rgba(255,255,255,.8)"
-                          : "rgba(0,0,0,.3)"
-                      };
+                            width === 768
+                              ? "rgba(255,255,255,.8)"
+                              : "rgba(0,0,0,.3)"
+                          };
                         `}
-                    />
-                  )
-                  : (
-                    <Tv
-                      css={css`
+                        />
+                      )
+                      : (
+                        <Tv
+                          css={css`
                         color: ${
-                        width === 1920
-                          ? "rgba(255,255,255,.8)"
-                          : "rgba(0,0,0,.3)"
-                      };
+                            width === 1920
+                              ? "rgba(255,255,255,.8)"
+                              : "rgba(0,0,0,.3)"
+                          };
                       `}
-                    />
-                  ))}
-            </ToggleButton>
-          ))}
-        </ToggleButtonGroup>
-        </motion.div>
-      </div>
+                        />
+                      ))}
+                </ToggleButton>
+              ))}
+            </ToggleButtonGroup>
+          </motion.div>
+        </div>
 
-      <motion.div
-             transition={{ delay: 0.5, duration:0.5 }}
-
-      initial={{height: 0, width: 0}}
-      animate={{height: "auto", width: "auto"}}
-   
-    
-     
-      >
-        <div    css={css`
+        <motion.div
+          transition={{ delay: 0.5, duration: 0.5 }}
+          initial={{ height: 0, width: 0 }}
+          animate={{ height: "auto", width: "auto" }}
+        >
+          <div
+            css={css`
         padding: 16px;
               display: flex;
               overflow: "hidden"
               align-items: center;          
               flex-direction: column;
-              `}>
-        <Fab
-          key="fullscreen"
-          onClick={() => {
-            // setFullScreen(true);
-          }}
-        >
-          <FullscreenIcon key="fs" />
-        </Fab>
+              `}
+          >
+            <Fab
+              key="fullscreen"
+              onClick={() => {
+                // setFullScreen(true);
+              }}
+            >
+              <FullscreenIcon key="fs" />
+            </Fab>
 
-        <QRButton
-          url={`https://spike.land/live/${room}/public`}
-          key={`qr-${hashCode}`}
-        />
+            <QRButton
+              url={`https://spike.land/live/${room}/public`}
+              key={`qr-${hashCode}`}
+            />
 
-        <Fab
-          key="Share"
-          onClick={() => open(`https://spike.land/live/${room}/public`)}
-        >
-          <Share />
-        </Fab>
-        </div>      </motion.div>
-    </div>
+            <Fab
+              key="Share"
+              onClick={() => open(`https://spike.land/live/${room}/public`)}
+            >
+              <Share />
+            </Fab>
+          </div>
+        </motion.div>
+      </div>
     </motion.div>
-
   );
 };
