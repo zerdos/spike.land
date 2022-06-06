@@ -115,7 +115,7 @@
     "preact": "^10.7.3",
     "preact-render-to-string": "^5.2.0",
     "prettier": "^2.6.2",
-    "react": "npm:@preact/compat@17.1.0",
+    "react": "npm:@preact/compat@17.1.1",
     "react-dom": "npm:@preact/compat@17.1.0",
     "stream": "npm:stream-browserify@3.0.0",
     "stream-browserify": "3.0.0",

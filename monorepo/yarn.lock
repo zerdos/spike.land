@@ -10809,7 +10809,7 @@ rc@^1.1.2, rc@^1.2.7, rc@^1.2.8:
     minimist "^1.2.0"
     strip-json-comments "~2.0.1"
 
-"react-dom@npm:@preact/compat@17.1.0", "react@npm:@preact/compat@17.1.0":
+"react-dom@npm:@preact/compat@17.1.0":
   version "17.1.0"
   resolved "https://registry.yarnpkg.com/@preact/compat/-/compat-17.1.0.tgz#b6a21e0e7db18fe6a02ace91b4c2f720de722d4f"
   integrity sha512-2MZfaQZIvfgLs4c7AEqvWR/z/MnY+LriCTYkmjN1JHBDrTjhC0gnEVzJozZro7VR5zpqqIOZtAlIQQThCQvpOw==
@@ -10840,6 +10840,11 @@ react-transition-group@^4.4.2:
     dom-helpers "^5.0.1"
     loose-envify "^1.4.0"
     prop-types "^15.6.2"
+
+"react@npm:@preact/compat@17.1.1":
+  version "17.1.1"
+  resolved "https://registry.yarnpkg.com/@preact/compat/-/compat-17.1.1.tgz#60a657ffe7d9830ceefc7ae44fcfce589c5acf23"
+  integrity sha512-OjQJ6oVcjFTiKWs4MIoE/cORFFGhqnt1RO0uxGNAFUglBMPNahMDJyX5w+qEOEaOpaNTLM1L3ixc2bFEpxgs3A==
 
 read-cmd-shim@^2.0.0:
   version "2.0.0"
