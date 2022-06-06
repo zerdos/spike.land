@@ -138,7 +138,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
             z-index: 10;
 
             white-space: normal;
-            position: sticky;
+            position: fixed;
           `}
           {...(isFullScreen?{}:{drag: true, 
             dragElastic: 0.5,
