@@ -144,13 +144,13 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
             white-space: normal;
             position: sticky;
           `}
-          {...(isFullScreen?{drag: true, 
+          {...(isFullScreen?{}:{drag: true, 
             dragElastic: 0.5,
             dragConstraints: { 
               left: 0,
               right: width - 20 - width / 6,
               bottom: innerHeight,
-            }} :{})}
+            }})}
      
     >
 <div
