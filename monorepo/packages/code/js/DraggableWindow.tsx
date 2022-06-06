@@ -133,7 +133,12 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
             align-items: center;
           `}
       >
-        <ToggleButtonGroup
+        <motion.div
+        animate = {{
+          height: isFullScreen? 0:"100%",
+          width: isFullScreen? 0:"100%"
+        }}
+        ><ToggleButtonGroup
           value={scaleRange}
           size="small"
           exclusive
@@ -160,6 +165,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
             </ToggleButton>
           ))}
         </ToggleButtonGroup>
+        </motion.div>
         {/* <span>{width}*{height}</span> */}
 
         <motion.div
@@ -212,8 +218,11 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
             <ZBody />
           </motion.div>
         </motion.div>
+        <motion.div
+        animate={{height: isFullScreen? 0: "100%"}}>
         <ToggleButtonGroup
           value={width}
+
           size="small"
           exclusive
           onChange={(_e: unknown, newSize: number) => {
@@ -264,6 +273,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
             </ToggleButton>
           ))}
         </ToggleButtonGroup>
+        </motion.div>
       </div>
 
       <div
