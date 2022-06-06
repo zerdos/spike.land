@@ -193,13 +193,11 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
               right: 0,
               left: 0,
               bottom: 0,        
-              position: "absolute",
               width: window.innerWidth / devicePixelRatio,
               height: window.innerHeight / devicePixelRatio,
               scale: scaleRange / 100,
             }}
             animate={{
-              position: "relative",
               transformOrigin: "0px 0px",
               width: width / devicePixelRatio,
               height: height / devicePixelRatio,
