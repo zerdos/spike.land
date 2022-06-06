@@ -10,7 +10,7 @@ import { prettierCss, prettierHtml } from "./prettierEsm";
 import { renderToString } from "react-dom/server";
 
 export const renderFromString = async (transpiled: string) => {
-  console.log("render to string");    
+  console.log("render to string");
   const App = await getApp(transpiled);
 
   const { html, css } = getHtmlAndCss(App);
@@ -49,7 +49,6 @@ export const getHtmlAndCss = (App: FC) => {
 };
 
 async function getApp(transpiled: string, mode = "window") {
-
   const objectUrl = createJsBlob(
     transpiled,
   );

@@ -30,8 +30,7 @@ const ipfsSw = async () => {
   if (document.documentElement.dataset.viewer) {
     return load(location.pathname);
   }
-}
-  setTimeout(loadApp,200);
+};
 
 ipfsSw();
 const getIpfsPort = () =>
@@ -65,6 +64,9 @@ const loadApp = async () => {
 
   await import("es-module-shims");
 };
+
+setTimeout(loadApp, 200);
+
 
 async function syncCachesLater() {
   const registration = await navigator.serviceWorker.ready;

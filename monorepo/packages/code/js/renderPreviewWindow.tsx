@@ -18,7 +18,7 @@ export const renderPreviewWindow = async (Editor: FC<{}>) => {
 
   const target = document.createElement("div");
   target.style.height = "100%";
-    // document.getElementById("root");
+  // document.getElementById("root");
 
   document.body.style.backgroundImage = `url("/assets/synthwave.webp")`;
   const { App } = globalThis;
@@ -42,6 +42,6 @@ export const renderPreviewWindow = async (Editor: FC<{}>) => {
   );
 
   document.body.appendChild(target);
-  document.getElementById("root").remove()
-  target.id="root";
+  document.getElementById("root").remove();
+  target.id = "root";
 };

@@ -123,7 +123,7 @@ const chCode = async () => {
       setTimeout(() => {
         const mst = mST();
         if (mst.i === i) {
-          if (globalThis.editor?.getModel )  {
+          if (globalThis.editor?.getModel) {
             globalThis.editor.getModel()?.setValue(mst.code);
           }
           if (globalThis.aceEditor) {

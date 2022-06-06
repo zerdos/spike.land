@@ -42,8 +42,6 @@ interface DraggableWindowProps {
   room: string;
 }
 
-
-
 export const DraggableWindow: FC<DraggableWindowProps> = (
   {
     children,
@@ -103,7 +101,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
         right: 20,
       });
     };
-reveal();
+    reveal();
     // setTimeout(reveal, 200);
   }, []);
 
@@ -136,7 +134,6 @@ reveal();
           `}
       drag={true}
       dragMomentum={false}
-    
       dragConstraints={{
         left: 0,
         right: width - 20 - width / 6,
@@ -158,7 +155,6 @@ reveal();
           `}
         >
           <motion.div
-
             transition={{ delay: 0, duration: 0.4 }}
             initial={{ height: 0, width: 0 }}
             animate={{ height: "auto", width: "auto" }}
