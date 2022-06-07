@@ -1,4 +1,4 @@
-FROM {DISTRO}
+FROM --platform=linux/amd64 {DISTRO}
 
 ### base.Dockerfile
 ### Generator: https://github.com/spike-land/monorepo/tree/main/dockerhub/devimages

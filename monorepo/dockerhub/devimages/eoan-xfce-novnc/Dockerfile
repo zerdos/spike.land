@@ -1,4 +1,4 @@
-FROM ubuntu:jammy
+FROM --platform=linux/amd64 ubuntu:jammy
 
 ### base.Dockerfile
 ### Generator: https://github.com/spike-land/monorepo/tree/main/dockerhub/devimages
