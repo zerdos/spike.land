@@ -155,7 +155,8 @@ async function startOrbit(
 
   const init = orbitDbs[codeSpace];
   orbitDbs[codeSpace] = orbitDbs[codeSpace] ||
-    await orbitdb.open(address || codeSpace, {
+    await orbitdb.open("/orbitdb/zdpuAp2ZthtbiECNgbTyuUazbQ3xTejnxTRT6D9JXrt7LzfQY/test",  //address || codeSpace, 
+    {
       // If database doesn't exist, create it
       create: true,
       overwrite: true,
@@ -163,6 +164,7 @@ async function startOrbit(
       // don't load the latest from the network yet
       localOnly: false,
       type: "eventlog",
+      
       // If "Public" flag is set, allow anyone to write to the database,
       // otherwise only the creator of the database can write
       accessController: {
@@ -220,13 +222,16 @@ async function startOrbit(
 
     db.events.on("write", () => queryAndRender(db));
 
-    // Add an x``s
+    // Add a
 
-    // Query
-    const result = db.iterator({ limit: -1 }).collect();
-    console.log(JSON.stringify(result, null, 2));
+    const all = db.iterator({ limit: -1 })
+      .collect().map((e) => e.payload.value)
+
+    console.log({all});
   }
+
   if (messageData) {
+    console.log("adding", {messageData});
     await db.add(messageData);
   }
 }
