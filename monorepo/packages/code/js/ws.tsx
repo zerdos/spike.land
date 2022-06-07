@@ -45,7 +45,7 @@ let rejoined = false;
 const sendChannel = {
   webRtcArray,
   connections: connections,
-  send: ((data: { [key: string]: string | number }) => {
+  send: ((data: { [key: string]: string | number | Object }) => {
     const target = data.target;
     const messageString = JSON.stringify({
       ...data,
@@ -73,7 +73,7 @@ const sendChannel = {
 // let applyPatch;
 
 export const run = async () => {
-  appFactory(window.startState.transpiled, window.startState.html);
+ renderApp(await appFactory(window.startState.transpiled));
 
   if (location.href.endsWith("hydrated")) return;
 
@@ -98,10 +98,16 @@ let intervalHandler: NodeJS.Timer | null = null;
 
 const chCode = async () => {
   if (connections !== globalThis.connections) return;
-  const { code, transpiled, i, html } = mST();
+  const { code, transpiled, i } = mST();
+  renderApp(await appFactory(transpiled));
   const { prettier } = await import("./prettierEsm");
   if (globalThis.editor?.getModel) {
-    const formatted = prettier(globalThis.editor.getModel()?.getValue());
+
+    const code = globalThis.editor.getModel()?.getValue()
+
+    if (!code) return;
+
+    const formatted = prettier(code);
 
     if (code === formatted) return;
   }
@@ -115,7 +121,7 @@ const chCode = async () => {
   try {
     if (globalThis.transpiled === transpiled) return;
 
-    await appFactory(transpiled, html);
+   
 
     if (globalThis.editor?.getModel || globalThis.aceEditor) {
       console.log("MODEL SET FROM REMOTE.... SORRY");
@@ -172,7 +178,7 @@ bc.onmessage = async (event) => {
     event.data.codeSpace === codeSpace && event.data.sess.code !== mST().code
   ) {
     const messageData = await makePatch(event.data.sess);
-    await applyPatch(messageData);
+    await applyPatch(messageData!);
     await chCode();
   }
 };
@@ -185,7 +191,7 @@ export async function saveCode(sess: ICodeSession) {
   const messageData = await makePatch(sess);
   bc.postMessage({ ignoreUser: user, sess, codeSpace, address, messageData });
 
-  await applyPatch(messageData);
+  await applyPatch(messageData!);
   await chCode();
 
   (async () => {
@@ -197,7 +203,7 @@ export async function saveCode(sess: ICodeSession) {
           sess,
         )
         : await makePatch(sess);
-      if (message && message.patch !== "") {
+      if (message && message.patch) {
         console.log("sendRTC");
         sendChannel.send(message);
       }
@@ -212,6 +218,8 @@ export async function saveCode(sess: ICodeSession) {
       wsLastHashCode,
       sess,
     );
+
+    if (!message) return;
 
     await applyPatch(message);
     if (message.newHash !== hashCode()) {

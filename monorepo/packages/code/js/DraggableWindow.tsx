@@ -2,8 +2,8 @@
 
 import { css } from "@emotion/react";
 
-import { useEffect, useMemo, useRef, useState } from "react";
-import type { FC } from "react";
+import { useEffect, useRef, useState } from "react";
+import type { FC, ReactNode } from "react";
 
 import { motion } from "framer-motion";
 import { QRButton } from "./Qr";
@@ -40,6 +40,7 @@ interface DraggableWindowProps {
   hashCode: number;
   position?: string;
   room: string;
+  children: ReactNode
 }
 
 export const DraggableWindow: FC<DraggableWindowProps> = (
@@ -57,7 +58,6 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
   const [{ bottom, right }, setPositions] = useState(startPositions);
   const [width, setWidth] = useState(window.innerWidth * devicePixelRatio);
   const [height, setHeight] = useState(window.innerHeight * devicePixelRatio);
-  const top = height - bottom;
   const ref = useRef<HTMLDivElement>(null);
 
   const scale = scaleRange / 100;
@@ -304,9 +304,9 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
         >
           <div
             css={css`
-        padding: 16px;
+              padding: 16px;
               display: flex;
-              overflow: "hidden"
+              overflow: "hidden";
               align-items: center;          
               flex-direction: column;
               `}

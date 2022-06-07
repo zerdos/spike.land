@@ -2,7 +2,8 @@
 
 // import { CacheProvider } from "@emotion/react";
 // import createCache from "@emotion/cache";
-import type { FC } from "react";
+import type { FC, ReactElement } from "react";
+// import  from "react";
 
 import { render } from "react-dom";
 
@@ -18,8 +19,8 @@ import { md5 } from "./md5";
 const apps: { [key: string]: FC } = {};
 
 globalThis.apps = apps;
-export const appFactory = async (transpiled: string, _html: string) => {
-  if (globalThis.transpiled === transpiled) return;
+export const appFactory = async (transpiled: string) => {
+  if (globalThis.transpiled === transpiled) return globalThis.App;
   globalThis.transpiled = transpiled;
 
   // hash.update(transpiled);
@@ -27,10 +28,10 @@ export const appFactory = async (transpiled: string, _html: string) => {
 
   const result = md5(transpiled);
   //new TextDecoder().decode(resultU8Arr);
-  if (globalThis.App && globalThis.App === apps[result]) {
-    globalThis.setCh && globalThis.setCh(globalThis.App);
-    return;
-  }
+  // if (globalThis.App && globalThis.App === apps[result]) {
+  //   globalThis.setCh && globalThis.setCh(globalThis.App);
+  //   return;
+  // }
 
   globalThis.App = apps[result] ||
     (await import(
@@ -41,21 +42,23 @@ export const appFactory = async (transpiled: string, _html: string) => {
 
   apps[result] = globalThis.App;
 
-  if (globalThis.setCh) return globalThis.setCh(globalThis.App);
 
-  return renderApp();
+
+  return apps[result];
 
   // globalThis.notify();
 };
 
-export const renderApp = () => {
+export const renderApp = (App: FC<{}>) => {
+  if (globalThis.setCh) return globalThis.setCh(<App/>);
+
   const container = document.createElement("div");
   container.style.height = "100%";
 
   // const key = "css";
   // const cache = createCache({ key });
 
-  const { App } = globalThis;
+  // const { App } = globalThis;
   console.log("render App");
 
   render(

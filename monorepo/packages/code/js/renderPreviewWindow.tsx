@@ -1,6 +1,5 @@
 /** @jsxImportSource @emotion/react */
 
-import path from "path-browserify";
 import { render } from "react-dom";
 
 import { Fragment } from "react";
@@ -9,11 +8,11 @@ import { codeSpace } from "./ws";
 import { hashCode } from "./session";
 import { DraggableWindow } from "./DraggableWindow";
 import type { FC } from "react";
-import { appFactory } from "./starter";
 
-globalThis.draggableWindow = globalThis.draggableWindow || 1;
+
+globalThis.draggableWindow = globalThis.draggableWindow || 0;
 export const renderPreviewWindow = async (Editor: FC<{}>) => {
-  if (!globalThis.draggableWindow++ > 1) return;
+  if (globalThis.draggableWindow++) return;
   console.log("renderPreviewWindow");
 
   const target = document.createElement("div");
@@ -42,6 +41,6 @@ export const renderPreviewWindow = async (Editor: FC<{}>) => {
   );
 
   document.body.appendChild(target);
-  document.getElementById("root").remove();
+  document.getElementById("root")?.remove();
   target.id = "root";
 };

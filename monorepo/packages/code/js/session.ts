@@ -61,21 +61,21 @@ export function initSession(room: string, u: IUserJSON) {
 type CodePatch = { oldHash: number; newHash: number; patch: Delta[] };
 type IApplyPatch = (
   prop: CodePatch,
-) => Promise<ICodeSess>;
+) => Promise<void>;
 
 interface ICodeSess {
   hashOfState: () => number;
   applyPatch: IApplyPatch;
-  createPatchFromHashCode: (c: number, st: ICodeSession) => CodePatch;
+  createPatchFromHashCode: (c: number, st: ICodeSession) => Promise<CodePatch>;
   json: () => IUserJSON;
 }
 
-let session: ICodeSess | null = null;
+let session: CodeSession | null = null;
 
 const hashStore: { [key: number]: Record<ICodeSession> } = {};
 export class CodeSession implements ICodeSess {
   session: IUser;
-  hashCodeSession: number;
+  hashCodeSession: number=0;
   created: string = new Date().toISOString();
   constructor(private room: string, user: IUserJSON) {
     session = this;
@@ -146,8 +146,8 @@ export class CodeSession implements ICodeSess {
     oldHash,
     newHash,
     patch,
-  }: { oldHash: number; newHash: number; patch: Delta[] }) => {
-    const meHash = this.hashOfState();
+  }: CodePatch) => {
+    const x = this.hashOfState();
 
     const bestGuesses = this.room || globalThis.codeSpace;
 
@@ -185,9 +185,10 @@ export class CodeSession implements ICodeSess {
       this.session = this.session.set("state", newRecord);
       //  Console.error("WRONG update");
     } else {
-      throw new Error("Wrong patch");
+      new Error("Wrong patch");
+      return
     }
-  };
+  } 
 
   public json() {
     const user = this.session.toJSON();
@@ -223,7 +224,7 @@ function str(s: ICodeSession) {
   return JSON.stringify({ i, transpiled, code, html, css });
 }
 
-export const patch: IApplyPatch = async (x) => session!.applyPatch(x);
+export const patch: IApplyPatch  = async (x) => session?.applyPatch(x);
 export const makePatchFrom = (n: number, st: ICodeSession) =>
   session?.createPatchFromHashCode(n, st);
 export const makePatch = (st: ICodeSession) => makePatchFrom(hashCode(), st);
