@@ -45,8 +45,8 @@ await esbuild.build({
   ...buildOptions,
   entryPoints: [
     ...workerEntryPoints,
-    "./worker.tsx",
-    "./main.js",
+    // "./worker  .tsx",
+    "./main.ts",
     // "./iife.js",
     "./sw.mjs",
   ],

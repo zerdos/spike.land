@@ -51,8 +51,6 @@ export const MonacoEditor = () => {
       css={css`
   max-width: 800px;
   height: 100vh;
-  /* background-color: #ffffff; */
-  max-height: 100vh; 
 `}
       ref={ref}
     />

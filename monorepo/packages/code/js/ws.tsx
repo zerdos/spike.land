@@ -29,11 +29,11 @@ const user = ((self && self.crypto && self.crypto.randomUUID &&
     8,
   );
 
-const connections: {
+const rtcConns: {
   [target: string]: RTCPeerConnection;
 } = {}; // To st/ RTCPeerConnection
 
-globalThis.connections = globalThis.connections || connections;
+globalThis.rtcConns = globalThis.rtcConns || rtcConns;
 
 let wsLastHashCode = 0;
 let webRTCLastSeenHashCode = 0;
@@ -44,7 +44,7 @@ let sendWS: (msg: string) => void;
 let rejoined = false;
 const sendChannel = {
   webRtcArray,
-  connections: connections,
+  rtcConns: rtcConns,
   send: ((data: { [key: string]: string | number | Object }) => {
     const target = data.target;
     const messageString = JSON.stringify({
@@ -97,7 +97,7 @@ let intervalHandler: NodeJS.Timer | null = null;
 // };
 
 const chCode = async () => {
-  if (connections !== globalThis.connections) return;
+  if (rtcConns !== globalThis.rtcConns) return;
   const { code, transpiled, i } = mST();
   renderApp(await appFactory(transpiled));
   const { prettier } = await import("./prettierEsm");
@@ -181,7 +181,7 @@ bc.onmessage = async (event) => {
 };
 
 export async function saveCode(sess: ICodeSession) {
-  if (connections !== globalThis.connections) return;
+  if (rtcConns !== globalThis.rtcConns) return;
 
   if (sess.i <= mST().i) return;
 
@@ -192,7 +192,7 @@ export async function saveCode(sess: ICodeSession) {
   await chCode();
 
   (async () => {
-    if (Object.keys(connections).length == 0) return;
+    if (Object.keys(rtcConns).length == 0) return;
     try {
       const message = webRTCLastSeenHashCode
         ? await makePatchFrom(
@@ -235,7 +235,7 @@ export async function saveCode(sess: ICodeSession) {
 export async function join() {
   if (ws !== null) return ws;
 
-  if (connections !== globalThis.connections) return ws;
+  if (rtcConns !== globalThis.rtcConns) return ws;
   rejoined = true;
 
   console.log("WS connect!");
@@ -369,7 +369,7 @@ async function processWsMessage(
       }
       if (
         data.name && data.name !== user &&
-        !connections[data.name as keyof typeof connections]
+        !rtcConns[data.name as keyof typeof rtcConns]
       ) {
         await createPeerConnection(data.name);
         return;
@@ -408,7 +408,7 @@ async function processWsMessage(
 
   function createPeerConnection(target: string) {
     log(`Setting up a connection with ${target}`);
-    if (connections[target]) {
+    if (rtcConns[target]) {
       log(`Aborting, since we have connection with this ${target}`);
       return;
     }
@@ -416,13 +416,13 @@ async function processWsMessage(
     // Create an RTCPeerConnection which knows to use our chosen
     // STUN server.
 
-    connections[target] = new RTCPeerConnection(
+    rtcConns[target] = new RTCPeerConnection(
       rcpOptions,
     );
 
     // Set up event handlers for the ICE negotiation process.
 
-    connections[target].onicecandidate = (event) => {
+    rtcConns[target].onicecandidate = (event) => {
       if (event.candidate) {
         log("*** Outgoing ICE candidate: " + event.candidate);
 
@@ -434,24 +434,24 @@ async function processWsMessage(
         }));
       }
     };
-    connections[target].oniceconnectionstatechange =
+    rtcConns[target].onicertcConnstatechange =
       handleICEConnectionStateChangeEvent;
-    connections[target].onicegatheringstatechange =
+    rtcConns[target].onicegatheringstatechange =
       handleICEGatheringStateChangeEvent;
-    connections[target].onsignalingstatechange = () => {
+    rtcConns[target].onsignalingstatechange = () => {
       log(
-        "*** connections[target].signalingState  changed to: " +
-          connections[target].signalingState,
+        "*** rtcConns[target].signalingState  changed to: " +
+          rtcConns[target].signalingState,
       );
-      switch (connections[target].signalingState) {
+      switch (rtcConns[target].signalingState) {
         case "closed":
           break;
       }
     };
-    connections[target].onnegotiationneeded = handleNegotiationNeededEvent;
-    connections[target].ontrack = (ev) => console.log(ev);
+    rtcConns[target].onnegotiationneeded = handleNegotiationNeededEvent;
+    rtcConns[target].ontrack = (ev) => console.log(ev);
 
-    connections[target].ondatachannel = (event) => {
+    rtcConns[target].ondatachannel = (event) => {
       console.log("Receive Channel Callback");
       const rtc = event.channel;
       rtc.binaryType = "arraybuffer";
@@ -472,7 +472,7 @@ async function processWsMessage(
     };
 
     const rtc = Object.assign(
-      connections[target].createDataChannel(
+      rtcConns[target].createDataChannel(
         target,
         dataChannelOptions,
       ),
@@ -505,19 +505,19 @@ async function processWsMessage(
     rtc.addEventListener("open", () => {
       console.log("@@@@@@@@RTC IS OPEN&&&&&&&&");
       webRtcArray.push(rtc);
-      // connections[target].sendChannel = rtc;
+      // rtcConns[target].sendChannel = rtc;
     });
 
     rtc.addEventListener("close", () => {
       console.log("xxxxxxxx- The Data Channel is Closed");
     });
 
-    return connections[target];
+    return rtcConns[target];
 
     function onReceiveChannelClosed() {
       console.log("Receive channel is closed");
-      connections[target].close();
-      delete connections[target];
+      rtcConns[target].close();
+      delete rtcConns[target];
       console.log("Closed remote peer connection");
     }
 
@@ -526,9 +526,9 @@ async function processWsMessage(
 
       try {
         log("---> Creating offer");
-        const offer = await connections[target].createOffer();
+        const offer = await rtcConns[target].createOffer();
 
-        if (connections[target].signalingState != "stable") {
+        if (rtcConns[target].signalingState != "stable") {
           log("The connection isn't stable yet; postponing...");
           return;
         }
@@ -537,7 +537,7 @@ async function processWsMessage(
         // description.
 
         log("---> Setting local description to the offer");
-        await connections[target].setLocalDescription(offer);
+        await rtcConns[target].setLocalDescription(offer);
 
         // Send the offer to the remote peer.
 
@@ -546,7 +546,7 @@ async function processWsMessage(
           target,
           name: user,
           type: "offer",
-          offer: connections[target].localDescription,
+          offer: rtcConns[target].localDescription,
         }));
       } catch {
         log(
@@ -558,10 +558,10 @@ async function processWsMessage(
     function handleICEConnectionStateChangeEvent() {
       log(
         "*** ICE connection state changed to " +
-          connections[target].iceConnectionState,
+          rtcConns[target].iceConnectionState,
       );
 
-      switch (connections[target].iceConnectionState) {
+      switch (rtcConns[target].iceConnectionState) {
         case "closed":
         case "failed":
         case "disconnected":
@@ -571,8 +571,8 @@ async function processWsMessage(
 
     function handleICEGatheringStateChangeEvent() {
       log(
-        "*** connections[target].iceGatheringState changed to: " +
-          connections[target].iceGatheringState,
+        "*** rtcConns[target].iceGatheringState changed to: " +
+          rtcConns[target].iceGatheringState,
       );
     }
   }
@@ -587,7 +587,7 @@ async function processWsMessage(
     // in our "answer" message.
     // const desc = new RTCSessionDescription(message);
 
-    await connections[target].setRemoteDescription(
+    await rtcConns[target].setRemoteDescription(
       new RTCSessionDescription(
         answer,
       ),
@@ -598,31 +598,31 @@ async function processWsMessage(
     offer: RTCSessionDescriptionInit,
     target: string,
   ) {
-    if (!connections[target]) createPeerConnection(target);
+    if (!rtcConns[target]) createPeerConnection(target);
 
     // const desc = new RTCSessionDescription(message);
 
-    await connections[target].setRemoteDescription(
+    await rtcConns[target].setRemoteDescription(
       new RTCSessionDescription(offer),
     );
-    // if (connections[target].signalingState != "stable") {
+    // if (rtcConns[target].signalingState != "stable") {
     //   log("  - But the signaling state isn't stable, so triggering rollback");
 
     //   await Promise.all([
-    //     connections[target].setLocalDescription({ type: "rollback" }),
-    //     connections[target].setRemoteDescription(new RTCSessionDescription(offer)),
+    //     rtcConns[target].setLocalDescription({ type: "rollback" }),
+    //     rtcConns[target].setRemoteDescription(new RTCSessionDescription(offer)),
     //   ]);
     //   return;
     // }
 
     // log("  - Setting remote description");
-    // await connections[target].setRemoteDescription(desc);
+    // await rtcConns[target].setRemoteDescription(desc);
 
     log("---> Creating and sending answer to caller");
 
-    const answer = await connections[target].createAnswer();
+    const answer = await rtcConns[target].createAnswer();
 
-    await connections[target].setLocalDescription(
+    await rtcConns[target].setLocalDescription(
       answer,
     );
 
@@ -701,8 +701,8 @@ async function handleNewICECandidateMessage(
   const candidate = new RTCIceCandidate(init);
   // const candidate = new RTCIceCandidate(message);
 
-  console.log(connections[target]);
-  await connections[target].addIceCandidate(candidate);
+  console.log(rtcConns[target]);
+  await rtcConns[target].addIceCandidate(candidate);
 }
 
 type RTCSdpType = "answer" | "offer";

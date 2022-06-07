@@ -15,7 +15,7 @@ import config from "ipfs-core-config/config";
 //import { create } from "../../node_modules/ipfs-core/index.min.js"//;
 //import { create,  } from "ipfs-core"//;
 
-import type {} from "orbit-db";
+import type { } from "orbit-db";
 // } from "../../node_modules/ipfs-message-port-server/index.min.js";
 // importScripts('https://unpkg.com/ipfs@0.62.3/index.min.js');
 // importScripts('https://unpkg.com/ipfs-message-port-server@0.11.3/index.min.js');
@@ -25,6 +25,7 @@ const orbitDbs = {};
 self.orbitDbs = orbitDbs;
 
 export const ipfsWorker = async () => {
+  if (globalThis.ipfs) return;
   try {
     console.log("Ipfs worker start");
     // start listening to all incoming connections - they will be from browsing
@@ -34,23 +35,19 @@ export const ipfsWorker = async () => {
 
     // const webRtcStar = new WebRTCStar();
 
-    const connections: MessagePort[][] = [];
-    self.addEventListener(
-      "connect",
-      ({ ports }: MessageEventInit) => ports && connections.push(ports),
-    );
+
     // queue connections that occur while node was starting.
 
     const defaultConfig = config();
     const ipfs = await create(
       {
         start: true,
-        preload: { 
+        preload: {
           enabled: false
         },
         config: {
           ...defaultConfig,
-         
+
           Pubsub: { Enabled: true },
           Addresses: {
             Swarm: [
@@ -67,7 +64,7 @@ export const ipfsWorker = async () => {
           },
         }
       })
-      
+
     //   {
     //   config: {
     //     ...defaultConfig,
@@ -86,11 +83,14 @@ export const ipfsWorker = async () => {
     // And add hello world for tests
     await ipfs.add({ content: "hello world" });
 
-   
+
     const service = new IPFSService(ipfs);
     const server = new Server(service);
 
+    self.ipfsMessagePortServer = server;
     self.ipfs = ipfs;
+    globalThis.ipfs = ipfs;
+    globalThis.ipfsMessagePortServer = server;
 
     const orbitdb = await OrbitDB.createInstance(ipfs, {
       id: ipfs.id().toString(),
@@ -127,17 +127,17 @@ export const ipfsWorker = async () => {
     // connect every queued and future connection to the server
     // self.onconnect = ({ ports }) => server.connect(ports[0]);
 
-    addEventListener(
-      "connect",
-      ({ ports }: MessageEventInit) => ports && server.connect(ports[0]),
-    );
+    // addEventListener(
+    //   "connect",
+    //   ({ ports }: MessageEventInit) => ports && server.connect(ports[0]),
+    // );
 
-    connections.map((ports) => server.connect(ports[0]));
+    // connections.map((ports) => server.connect(ports[0]));
 
     // function libp2pConfig() {
     //   /** @type {import('libp2p').Libp2pOptions} */
     //   const options = {
-        
+
     //     connectionManager: {
     //       maxParallelDials: 150, // 150 total parallel multiaddr dials
     //       maxDialsPerPeer: 4, // Allow 4 multiaddr to be dialed per peer in parallel
@@ -162,6 +162,8 @@ export const ipfsWorker = async () => {
   }
 };
 
+ipfsWorker();
+
 async function startOrbit(
   orbitdb: OrbitDB,
   codeSpace: string,
@@ -173,21 +175,21 @@ async function startOrbit(
   const init = orbitDbs[codeSpace];
   orbitDbs[codeSpace] = orbitDbs[codeSpace] ||
     await orbitdb.open("/orbitdb/zdpuAp2ZthtbiECNgbTyuUazbQ3xTejnxTRT6D9JXrt7LzfQY/test",  //address || codeSpace, 
-    {
-      // If database doesn't exist, create it
-      create: true,
-      overwrite: true,
-      // Load only the local version of the database,
-      // don't load the latest from the network yet
-      localOnly: false,
-      type: "eventlog",
-      
-      // If "Public" flag is set, allow anyone to write to the database,
-      // otherwise only the creator of the database can write
-      accessController: {
-        write: ["*"],
-      },
-    });
+      {
+        // If database doesn't exist, create it
+        create: true,
+        overwrite: true,
+        // Load only the local version of the database,
+        // don't load the latest from the network yet
+        localOnly: false,
+        type: "eventlog",
+
+        // If "Public" flag is set, allow anyone to write to the database,
+        // otherwise only the creator of the database can write
+        accessController: {
+          write: ["*"],
+        },
+      });
 
   const db = orbitDbs[codeSpace];
 
@@ -222,7 +224,6 @@ async function startOrbit(
     let dbAddress = address;
 
     const queryAndRender = async (db: typeof OrbitDB) => {
-      //const networkPeers =
       await ipfs.swarm.peers();
       //const databasePeers = await
       ipfs.pubsub.peers(db.address.toString());
@@ -244,11 +245,95 @@ async function startOrbit(
     const all = db.iterator({ limit: -1 })
       .collect().map((e) => e.payload.value)
 
-    console.log({all});
+    console.log({ all });
   }
 
   if (messageData) {
-    console.log("adding", {messageData});
+    console.log("adding", { messageData });
     await db.add(messageData);
+  }
+}
+
+
+
+// URL to the script containing ipfs-message-port-server.
+const load = async (path) => {
+  const paths = path && path.split("/") || [];
+  const protocol = path.length || "";
+  switch (protocol) {
+    case "ipfs":
+    case "ipns": {
+      document.body.innerHTML =
+        `<iframe id="viewer" style="width:100%;height:100%;position:fixed;top:0;left:0;border:none;" src="/view${path}"></iframe>`;
+    }
+  }
+};
+
+const ipfsSw = async () => {
+  try {
+    navigator.serviceWorker.onmessage = onServiceWorkerMessage;
+
+    // @ts-ignore - register expects string but webPack requires this URL hack.
+    navigator.serviceWorker.register("/sw.js", {
+      scope: "/",
+    });
+    await navigator.serviceWorker.ready;
+
+    // This is just for testing, lets us know when SW is ready.
+
+    // URLs like `localhost:3000/ipfs/Qmf412jQZiuVUtdgnB36FXFX7xg5V6KEbSJ4dpQuhkLyfD`
+    // are loaded from service worker. However it could be that such a URL is loaded
+    // before the service worker was registered in which case our server just loads a blank
+    if (document.documentElement.dataset.viewer) {
+      return load(location.pathname);
+    }
+  } catch {
+    console.log("ipfs load error");
+  }
+};
+
+ipfsSw();
+// const getIpfsPort = () =>
+//   new SharedWorker(new URL("./worker.js", location.origin), {
+//     name: "IPFS",
+//   }).port;
+
+function onServiceWorkerMessage(event) {
+  /** @type {null|ServiceWorker} */
+  const serviceWorker = (event.source);
+  if (serviceWorker == null) return;
+  switch (event.data.method) {
+    case "ipfs-message-port":
+      const port = new MessageChannel();
+      ipfsMessagePortServer.connect(port[0]);
+      // const port = getIpfsPort();
+      return serviceWorker.postMessage({
+        method: "ipfs-message-port",
+        id: event.data.id,
+        port,
+      }, [port]);
+    // Receives request from service worker, creates a new shared worker and
+    // responds back with the message port.
+    // Note: MessagePort can be transferred only once which is why we need to
+    // create a SharedWorker each time. However a ServiceWorker is only created
+    // once (in main function) all other creations just create port to it.
+  }
+}
+
+const loadApp = async () => {
+  console.log("es-module-shims import and start the app!");
+  if (window.startedWithNativeEsmModules) return;
+
+  await import("es-module-shims");
+};
+
+setTimeout(loadApp, 200);
+
+async function syncCachesLater() {
+  const registration = await navigator.serviceWorker.ready;
+  try {
+    await registration.çƒ.register("sync-cache");
+  } catch {
+    console.log("Background Sync could not be registered!");
   }
 }
