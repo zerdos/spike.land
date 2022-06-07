@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { codeSpace } from "./ws";
 
 import { runnerDebounced } from "./runner";
@@ -14,6 +14,8 @@ export const MonacoEditor = () => {
   const ref = useRef<HTMLDivElement>(null) as null | {
     current: HTMLDivElement;
   };
+
+  const [lines, setLines] = React.useState(mST().code.split('\n').length);
 
   useEffect(() => {
     if (ref === null) return;
@@ -36,7 +38,7 @@ export const MonacoEditor = () => {
       // let inc = 0;
 
       editor.onDidChangeModelContent(() => {
-        const code = editor?.getModel()?.getValue();
+        const code = editor?.getModel()?.getValue()!;
         const counter = mST().i + 1;
         runnerDebounced(code, counter);
       });
@@ -45,12 +47,12 @@ export const MonacoEditor = () => {
     };
     load();
   }, [ref]);
-
+ 
   return (
     <div
       css={css`
   max-width: 800px;
-  height: 100vh;
+  height: ${60 + lines/40*100}% ;
 `}
       ref={ref}
     />

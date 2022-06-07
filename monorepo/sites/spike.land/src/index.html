@@ -7,9 +7,12 @@
   <title>Instant React Editor</title>
 
 <style>
- html, body, #root {
-  height: 100%;
-} 
+
+html, body {margin: 0; height: 100%}
+
+#root {
+  height: 100%; 
+}
  /* Remove all the styles of the "User-Agent-Stylesheet", except for the 'display' property */
  *:where(:not(iframe, canvas, img, svg, video):not(svg *)) {
    all: unset;

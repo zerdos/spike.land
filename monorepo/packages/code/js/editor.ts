@@ -110,7 +110,15 @@ export const startMonaco = async (
     ),
     language: "typescript",
     useShadowDOM: true,
-    smoothScrolling: true,
+    scrollbar: {
+      scrollByPage: false,
+      alwaysConsumeMouseWheel: false
+    },
+    scrollBeyondLastLine: false,
+    scrollPredominantAxis: false,
+
+    // smoothScrolling: true,
+   
     codeLens: true,
     suggest:  {/**
     * Overwrite word ends on accept. Default to false.
