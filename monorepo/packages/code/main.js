@@ -1,6 +1,5 @@
 import "core-js/full";
 
-
 // URL to the script containing ipfs-message-port-server.
 const load = async (path) => {
   const paths = path && path.split("/") || [];
@@ -15,30 +14,26 @@ const load = async (path) => {
 };
 
 const ipfsSw = async () => {
+  try {
+    navigator.serviceWorker.onmessage = onServiceWorkerMessage;
 
-  try{
+    // @ts-ignore - register expects string but webPack requires this URL hack.
+    navigator.serviceWorker.register("/sw.js", {
+      scope: "/",
+    });
+    await navigator.serviceWorker.ready;
 
+    // This is just for testing, lets us know when SW is ready.
 
-  navigator.serviceWorker.onmessage = onServiceWorkerMessage;
-
-  // @ts-ignore - register expects string but webPack requires this URL hack.
-  navigator.serviceWorker.register("/sw.js", {
-    scope: "/",
-  });
-  await navigator.serviceWorker.ready;
-
-  // This is just for testing, lets us know when SW is ready.
-
-  // URLs like `localhost:3000/ipfs/Qmf412jQZiuVUtdgnB36FXFX7xg5V6KEbSJ4dpQuhkLyfD`
-  // are loaded from service worker. However it could be that such a URL is loaded
-  // before the service worker was registered in which case our server just loads a blank
-  if (document.documentElement.dataset.viewer) {
-    return load(location.pathname);
+    // URLs like `localhost:3000/ipfs/Qmf412jQZiuVUtdgnB36FXFX7xg5V6KEbSJ4dpQuhkLyfD`
+    // are loaded from service worker. However it could be that such a URL is loaded
+    // before the service worker was registered in which case our server just loads a blank
+    if (document.documentElement.dataset.viewer) {
+      return load(location.pathname);
+    }
+  } catch {
+    console.log("ipfs load error");
   }
-} catch {
-
-  console.log("ipfs load error");
-}
 };
 
 ipfsSw();
@@ -75,7 +70,6 @@ const loadApp = async () => {
 };
 
 setTimeout(loadApp, 200);
-
 
 async function syncCachesLater() {
   const registration = await navigator.serviceWorker.ready;
