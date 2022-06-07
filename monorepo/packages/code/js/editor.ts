@@ -139,7 +139,7 @@ export const startMonaco = async (
    /**
     * Enable or disable the suggest status bar.
     */
-   showStatusBar: true,
+   showStatusBar: false,
    /**
     * Enable or disable the rendering of the suggestion preview.
     */
