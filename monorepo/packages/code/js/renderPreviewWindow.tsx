@@ -9,7 +9,6 @@ import { hashCode } from "./session";
 import { DraggableWindow } from "./DraggableWindow";
 import type { FC } from "react";
 
-
 globalThis.draggableWindow = globalThis.draggableWindow || 0;
 export const renderPreviewWindow = async (Editor: FC<{}>) => {
   if (globalThis.draggableWindow++) return;

@@ -75,7 +75,7 @@ let session: CodeSession | null = null;
 const hashStore: { [key: number]: Record<ICodeSession> } = {};
 export class CodeSession implements ICodeSess {
   session: IUser;
-  hashCodeSession: number=0;
+  hashCodeSession: number = 0;
   created: string = new Date().toISOString();
   constructor(private room: string, user: IUserJSON) {
     session = this;
@@ -186,9 +186,9 @@ export class CodeSession implements ICodeSess {
       //  Console.error("WRONG update");
     } else {
       new Error("Wrong patch");
-      return
+      return;
     }
-  } 
+  };
 
   public json() {
     const user = this.session.toJSON();
@@ -224,7 +224,7 @@ function str(s: ICodeSession) {
   return JSON.stringify({ i, transpiled, code, html, css });
 }
 
-export const patch: IApplyPatch  = async (x) => session?.applyPatch(x);
+export const patch: IApplyPatch = async (x) => session?.applyPatch(x);
 export const makePatchFrom = (n: number, st: ICodeSession) =>
   session?.createPatchFromHashCode(n, st);
 export const makePatch = (st: ICodeSession) => makePatchFrom(hashCode(), st);

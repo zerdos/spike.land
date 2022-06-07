@@ -20,5 +20,16 @@ declare global {
   var aceEditor: monaco.editor.IModel;
   var connections: { [target: string]: RTCPeerConnection };
   var draggableWindow: number;
-  var setCh: React.Dispatch<React.SetStateAction<string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | React.ReactFragment | React.ReactPortal | null | undefined>>
+  var setCh: React.Dispatch<
+    React.SetStateAction<
+      | string
+      | number
+      | boolean
+      | React.ReactElement<any, string | React.JSXElementConstructor<any>>
+      | React.ReactFragment
+      | React.ReactPortal
+      | null
+      | undefined
+    >
+  >;
 }

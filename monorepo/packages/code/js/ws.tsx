@@ -73,7 +73,7 @@ const sendChannel = {
 // let applyPatch;
 
 export const run = async () => {
- renderApp(await appFactory(window.startState.transpiled));
+  renderApp(await appFactory(window.startState.transpiled));
 
   if (location.href.endsWith("hydrated")) return;
 
@@ -102,8 +102,7 @@ const chCode = async () => {
   renderApp(await appFactory(transpiled));
   const { prettier } = await import("./prettierEsm");
   if (globalThis.editor?.getModel) {
-
-    const code = globalThis.editor.getModel()?.getValue()
+    const code = globalThis.editor.getModel()?.getValue();
 
     if (!code) return;
 
@@ -120,8 +119,6 @@ const chCode = async () => {
 
   try {
     if (globalThis.transpiled === transpiled) return;
-
-   
 
     if (globalThis.editor?.getModel || globalThis.aceEditor) {
       console.log("MODEL SET FROM REMOTE.... SORRY");

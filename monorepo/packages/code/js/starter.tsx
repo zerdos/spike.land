@@ -42,15 +42,13 @@ export const appFactory = async (transpiled: string) => {
 
   apps[result] = globalThis.App;
 
-
-
   return apps[result];
 
   // globalThis.notify();
 };
 
 export const renderApp = (App: FC<{}>) => {
-  if (globalThis.setCh) return globalThis.setCh(<App/>);
+  if (globalThis.setCh) return globalThis.setCh(<App />);
 
   const container = document.createElement("div");
   container.style.height = "100%";
