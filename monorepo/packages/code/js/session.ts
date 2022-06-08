@@ -117,9 +117,11 @@ export class CodeSession implements ICodeSess {
     state: ICodeSession,
   ) => {
     const s = JSON.parse(str(state));
+   
     if (!hashStore[oldHash]) {
       const resp = await fetch(
-        `https://spike.land/live/${this.room || globalThis.codeSpace}/mST`,
+        `https://spike.land/live/${this.room}
+        `,
       );
 
       const { mST, hashCode } = await resp.json();
@@ -149,7 +151,7 @@ export class CodeSession implements ICodeSess {
   }: CodePatch) => {
     const x = this.hashOfState();
 
-    const bestGuesses = this.room || globalThis.codeSpace;
+    const bestGuesses = this.room || "";
 
     if (
       !Object.keys(hashStore).map((x) => Number(x)).includes(Number(oldHash)) &&
@@ -160,7 +162,7 @@ export class CodeSession implements ICodeSess {
         `https://spike.land/live/${bestGuesses}/mST`,
       );
 
-      const s = await resp.json();
+      const s = await resp.json() as {hashCode: string; mST: ICodeSession};
 
       // hashStore[Number(s.hashCode)] =
 

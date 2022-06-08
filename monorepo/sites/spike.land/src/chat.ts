@@ -1,5 +1,3 @@
-const qr = require("qr-image");
-
 import { getAssetFromKV } from "@cloudflare/kv-asset-handler";
 import manifestJSON from "__STATIC_CONTENT_MANIFEST";
 import imap from "@spike.land/code/js/importmap.json";
@@ -8,11 +6,6 @@ const assetManifest = JSON.parse(manifestJSON);
 import { handleErrors } from "./handleErrors";
 import { CodeEnv } from "./env";
 
-const generate = async (text) => {
-  const headers = { "Content-Type": "image/png" };
-  const qr_png = qr.imageSync(text || "https://workers.dev");
-  return new Response(qr_png, { headers });
-};
 
 export default {
   async fetch(
@@ -78,8 +71,6 @@ export default {
               "Cache-Control": "no-cache",
             },
           });
-        case "qr":
-          return await generate("https://spike.land");
         case "files.json":
           return new Response(manifestJSON, {
             headers: {

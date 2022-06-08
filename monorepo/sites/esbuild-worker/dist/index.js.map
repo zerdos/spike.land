@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["../src/request.ts", "../src/index.ts"],
+  "sourcesContent": ["\nexport async function handleRequest(request: Request) {\n    // Parse the request's url so we can get the path\n    const url = new URL(request.url);\n    // Get the path's current count\n    const currentValue = await COUNTER_NAMESPACE.get(url.pathname);\n    // Increment the path's count, defaulting it to 0\n    const newValue = (parseInt(currentValue ?? \"0\") + 1).toString();\n    // Store the new count\n    await COUNTER_NAMESPACE.put(url.pathname, newValue);\n    // Return the new count\n    return new Response(newValue);\n  }", "import { handleRequest } from \"./request\";\n\naddEventListener(\"fetch\", (event) => {\n  event.respondWith(handleRequest(event.request));\n});"],
+  "mappings": ";;AACA,+BAAoC,SAAkB;AAElD,UAAM,MAAM,IAAI,IAAI,QAAQ,GAAG;AAE/B,UAAM,eAAe,MAAM,kBAAkB,IAAI,IAAI,QAAQ;AAE7D,UAAM,WAAY,UAAS,gBAAgB,GAAG,IAAI,GAAG,SAAS;AAE9D,UAAM,kBAAkB,IAAI,IAAI,UAAU,QAAQ;AAElD,WAAO,IAAI,SAAS,QAAQ;AAAA,EAC9B;;;ACVF,mBAAiB,SAAS,CAAC,UAAU;AACnC,UAAM,YAAY,cAAc,MAAM,OAAO,CAAC;AAAA,EAChD,CAAC;",
+  "names": []
+}

@@ -1,0 +1,1 @@
+var COUNTER_NAMESPACE: KVNamespace;
