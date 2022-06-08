@@ -6,6 +6,7 @@
       "lib": ["ES2021", "ESNext.String", "ES5", "ES2015"],
       "alwaysStrict": true,
       "strict": true,
+    
       "noEmit": false,
       "forceConsistentCasingInFileNames": true,
       "preserveConstEnums": true,
