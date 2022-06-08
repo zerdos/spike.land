@@ -65,24 +65,6 @@ export const ipfsWorker = async () => {
         }
       })
 
-    //   {
-    //   config: {
-    //     ...defaultConfig,
-    //     // Addresses: {
-    //     // ...defaultConfig?.Addresses,
-    //     // Swarm: [...defaultConfig?.Addresses?.Swarm, "/dns4/ws-star0discovery.spike.land/tcp/443/wss/p2p-websocket-star"]
-    //     // },
-    //     Pubsub: { Enabled: true },
-    //     // ...libp2pConfig()
-    //   },
-    //   // libp2p: libp2pConfig(),
-    //   //isWebWorker: true
-    //   // ...libp2pConfig(),
-    // });
-
-    // And add hello world for tests
-    await ipfs.add({ content: "hello world" });
-
 
     const service = new IPFSService(ipfs);
     const server = new Server(service);
@@ -162,7 +144,6 @@ export const ipfsWorker = async () => {
   }
 };
 
-ipfsWorker();
 
 async function startOrbit(
   orbitdb: OrbitDB,
@@ -298,12 +279,14 @@ ipfsSw();
 //     name: "IPFS",
 //   }).port;
 
-function onServiceWorkerMessage(event) {
+async function onServiceWorkerMessage(event) {
   /** @type {null|ServiceWorker} */
   const serviceWorker = (event.source);
   if (serviceWorker == null) return;
   switch (event.data.method) {
     case "ipfs-message-port":
+      await ipfsWorker();
+
       const port = new MessageChannel();
       ipfsMessagePortServer.connect(port[0]);
       // const port = getIpfsPort();

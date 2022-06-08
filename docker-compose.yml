@@ -20,7 +20,6 @@ services:
       - 5901:5901
       - 6080:6080
     privileged: true
-    network_mode: host
     shm_size: 2gb
     volumes:
       # - $HOME:/home/$USER/host:delegated
