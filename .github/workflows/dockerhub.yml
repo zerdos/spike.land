@@ -43,7 +43,7 @@ jobs:
           context: ./
           file: ./monorepo/dockerhub/devimages/${{ matrix.image-name }}/Dockerfile
           push: true
-          platforms: linux/amd64,linux/arm/v7,linux/arm64
+          platforms: linux/amd64,linux/arm64
           tags: devimages/${{ matrix.image-name }}:${{ steps.extract_version.outputs.version }},devimages/${{ matrix.image-name }}:latest
           cache-from: type=registry,ref=devimages/${{ matrix.image-name }}:buildcache
           cache-to: type=registry,ref=devimages/${{ matrix.image-name }}:buildcache,mode=max
