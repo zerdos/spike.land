@@ -63,7 +63,7 @@
     "@cloudflare/kv-asset-handler": "0.2.0",
     "@libp2p/webrtc-star": "1.0.12",
     "@sindresorhus/is": "4.6.0",
-    "esbuild-wasm": "0.14.42",
+    "esbuild-wasm": "0.14.43",
     "ipfs-message-port-client": "0.12.1",
     "nodemon": "2.0.16",
     "preact": "10.7.3"
