@@ -39,7 +39,7 @@
     "docker:build": "yarn ws:yarn docker:build",
     "docker:push": "yarn ws:yarn docker:push",
     "postinstall": "yarn i:mono && yarn build:prod",
-    "i:mono": "cd monorepo && yarn --ignore-scripts",
+    "i:mono": "cd monorepo && yarn",
     "ws:yarn": "yarn --cwd monorepo ",
     "lerna": "lerna",
     "open-cli": "open-cli",
