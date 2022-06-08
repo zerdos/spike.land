@@ -11,7 +11,7 @@ export default {
   async fetch(
     request: Request,
     env: CodeEnv,
-    ctx: { waitUntil: (pr: Promise<boolean>) => Promise<boolean> },
+    ctx: ExecutionContext,
   ) {
     return handleErrors(request, async () => {
       console.log("handling request");

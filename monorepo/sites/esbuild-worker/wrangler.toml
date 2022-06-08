@@ -11,7 +11,6 @@ kv_namespaces = [
 [build]
 command = "npm run build"
 [build.upload]
-format = "service-worker"
 
 [miniflare]
 live_reload = true

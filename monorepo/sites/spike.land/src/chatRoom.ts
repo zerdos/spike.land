@@ -53,7 +53,7 @@ export class Code {
     });
   }
 
-  async fetch(request: Request, env: CodeEnv) {
+  async fetch(request: Request, env: CodeEnv, ctx: ExecutionContext) {
     let url = new URL(request.url);
     this.codeSpace = url.searchParams.get("room") || "code-main";
 
