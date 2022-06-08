@@ -1,4 +1,4 @@
-FROM --platform=linux/amd64 ubuntu:rolling
+FROM ubuntu:rolling
 
 ### base.Dockerfile
 ### Generator: https://github.com/spike-land/monorepo/tree/main/dockerhub/devimages
