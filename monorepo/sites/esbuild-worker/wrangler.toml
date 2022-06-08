@@ -20,3 +20,9 @@ bucket = "./public"
 # Below options are optional
 include = ["static"]
 exclude = ["ignore_dir"]
+
+[env.dev]
+
+kv_namespaces = [{ binding = "__STATIC_CONTENT"}]
+
+    

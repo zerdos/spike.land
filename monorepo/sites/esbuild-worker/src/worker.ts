@@ -1,16 +1,26 @@
-import { getAssetFromKV } from "@cloudflare/kv-asset-handler";
+// import { getAssetFromKV } from "@cloudflare/kv-asset-handler";
 import { handleRequest } from "./request";
 
-export default {
-        async fetch(request, env, ctx){
+
+
+
+
+export default{
+        fetch: async (request, env, ctx) =>{
       
-          // const url = new URL(request.url);
+          const url = new URL(request.url);
       
-          // if (url.pathname.length>1) return getAssetFromKV();
-          return new Response("Hello Min,..iflare!");
+          // if (url.pathname.length>1) return getAssetFromKV({
+          //   request,
+          //   waitUntil(promise) {
+          //     return ctx.waitUntil(promise)
+          //   }
+          // });
+
+          return new Response("YAY");
           // return event.respondWith(handleRequest(event.request));
         },
-        async scheduled(controller: ScheduledController , env: EventInit, ctx: ExecutionContext) {
+        scheduled: (controller: ScheduledController , env: EventInit, ctx: ExecutionContext) =>  {
           // - `controller` contains `scheduledTime` and `cron` properties
           // - `env` contains bindings, KV namespaces, Durable Objects, etc
           // - `ctx` contains the `waitUntil` method
