@@ -15,7 +15,7 @@ export const MonacoEditor = () => {
     current: HTMLDivElement;
   };
 
-  const [lines, setLines] = React.useState(mST().code.split('\n').length);
+  const [lines, setLines] = React.useState(mST().code.split("\n").length);
 
   useEffect(() => {
     if (ref === null) return;
@@ -47,12 +47,12 @@ export const MonacoEditor = () => {
     };
     load();
   }, [ref]);
- 
+
   return (
     <div
       css={css`
   max-width: 800px;
-  height: ${60 + lines/40*100}% ;
+  height: ${60 + lines / 40 * 100}% ;
 `}
       ref={ref}
     />

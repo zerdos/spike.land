@@ -15,7 +15,7 @@ import config from "ipfs-core-config/config";
 //import { create } from "../../node_modules/ipfs-core/index.min.js"//;
 //import { create,  } from "ipfs-core"//;
 
-import type { } from "orbit-db";
+import type {} from "orbit-db";
 // } from "../../node_modules/ipfs-message-port-server/index.min.js";
 // importScripts('https://unpkg.com/ipfs@0.62.3/index.min.js');
 // importScripts('https://unpkg.com/ipfs-message-port-server@0.11.3/index.min.js');
@@ -35,7 +35,6 @@ export const ipfsWorker = async () => {
 
     // const webRtcStar = new WebRTCStar();
 
-
     // queue connections that occur while node was starting.
 
     const defaultConfig = config();
@@ -43,7 +42,7 @@ export const ipfsWorker = async () => {
       {
         start: true,
         preload: {
-          enabled: false
+          enabled: false,
         },
         config: {
           ...defaultConfig,
@@ -55,16 +54,16 @@ export const ipfsWorker = async () => {
               // '/dns4/star-signal.cloud.ipfs.team/wss/p2p-webrtc-star',
               // '/dns4/ws-star.discovery.libp2p.io/tcp/443/wss/p2p-websocket-star',
               // Use IPFS dev webrtc signal server]
-              '/dns4/wrtc-star1.par.dwebops.pub/tcp/443/wss/p2p-webrtc-star/',
-              '/dns4/wrtc-star2.sjc.dwebops.pub/tcp/443/wss/p2p-webrtc-star/',
-              '/dns4/webrtc-star.discovery.libp2p.io/tcp/443/wss/p2p-webrtc-star/',
+              "/dns4/wrtc-star1.par.dwebops.pub/tcp/443/wss/p2p-webrtc-star/",
+              "/dns4/wrtc-star2.sjc.dwebops.pub/tcp/443/wss/p2p-webrtc-star/",
+              "/dns4/webrtc-star.discovery.libp2p.io/tcp/443/wss/p2p-webrtc-star/",
               // Use local signal server
               // '/ip4/0.0.0.0/tcp/9090/wss/p2p-webrtc-star',
-            ]
+            ],
           },
-        }
-      })
-
+        },
+      },
+    );
 
     const service = new IPFSService(ipfs);
     const server = new Server(service);
@@ -144,7 +143,6 @@ export const ipfsWorker = async () => {
   }
 };
 
-
 async function startOrbit(
   orbitdb: OrbitDB,
   codeSpace: string,
@@ -155,7 +153,8 @@ async function startOrbit(
 
   const init = orbitDbs[codeSpace];
   orbitDbs[codeSpace] = orbitDbs[codeSpace] ||
-    await orbitdb.open("/orbitdb/zdpuAp2ZthtbiECNgbTyuUazbQ3xTejnxTRT6D9JXrt7LzfQY/test",  //address || codeSpace, 
+    await orbitdb.open(
+      "/orbitdb/zdpuAp2ZthtbiECNgbTyuUazbQ3xTejnxTRT6D9JXrt7LzfQY/test", //address || codeSpace,
       {
         // If database doesn't exist, create it
         create: true,
@@ -170,7 +169,8 @@ async function startOrbit(
         accessController: {
           write: ["*"],
         },
-      });
+      },
+    );
 
   const db = orbitDbs[codeSpace];
 
@@ -224,7 +224,7 @@ async function startOrbit(
     // Add a
 
     const all = db.iterator({ limit: -1 })
-      .collect().map((e) => e.payload.value)
+      .collect().map((e) => e.payload.value);
 
     console.log({ all });
   }
@@ -234,8 +234,6 @@ async function startOrbit(
     await db.add(messageData);
   }
 }
-
-
 
 // URL to the script containing ipfs-message-port-server.
 const load = async (path) => {
@@ -295,11 +293,11 @@ async function onServiceWorkerMessage(event) {
         id: event.data.id,
         port,
       }, [port]);
-    // Receives request from service worker, creates a new shared worker and
-    // responds back with the message port.
-    // Note: MessagePort can be transferred only once which is why we need to
-    // create a SharedWorker each time. However a ServiceWorker is only created
-    // once (in main function) all other creations just create port to it.
+      // Receives request from service worker, creates a new shared worker and
+      // responds back with the message port.
+      // Note: MessagePort can be transferred only once which is why we need to
+      // create a SharedWorker each time. However a ServiceWorker is only created
+      // once (in main function) all other creations just create port to it.
   }
 }
 

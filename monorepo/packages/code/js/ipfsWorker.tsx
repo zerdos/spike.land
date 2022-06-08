@@ -45,12 +45,12 @@ export const ipfsWorker = async () => {
     const ipfs = await create(
       {
         start: true,
-        preload: { 
-          enabled: false
+        preload: {
+          enabled: false,
         },
         config: {
           ...defaultConfig,
-         
+
           Pubsub: { Enabled: true },
           Addresses: {
             Swarm: [
@@ -58,16 +58,17 @@ export const ipfsWorker = async () => {
               // '/dns4/star-signal.cloud.ipfs.team/wss/p2p-webrtc-star',
               // '/dns4/ws-star.discovery.libp2p.io/tcp/443/wss/p2p-websocket-star',
               // Use IPFS dev webrtc signal server]
-              '/dns4/wrtc-star1.par.dwebops.pub/tcp/443/wss/p2p-webrtc-star/',
-              '/dns4/wrtc-star2.sjc.dwebops.pub/tcp/443/wss/p2p-webrtc-star/',
-              '/dns4/webrtc-star.discovery.libp2p.io/tcp/443/wss/p2p-webrtc-star/',
+              "/dns4/wrtc-star1.par.dwebops.pub/tcp/443/wss/p2p-webrtc-star/",
+              "/dns4/wrtc-star2.sjc.dwebops.pub/tcp/443/wss/p2p-webrtc-star/",
+              "/dns4/webrtc-star.discovery.libp2p.io/tcp/443/wss/p2p-webrtc-star/",
               // Use local signal server
               // '/ip4/0.0.0.0/tcp/9090/wss/p2p-webrtc-star',
-            ]
+            ],
           },
-        }
-      })
-      
+        },
+      },
+    );
+
     //   {
     //   config: {
     //     ...defaultConfig,
@@ -86,7 +87,6 @@ export const ipfsWorker = async () => {
     // And add hello world for tests
     await ipfs.add({ content: "hello world" });
 
-   
     const service = new IPFSService(ipfs);
     const server = new Server(service);
 
@@ -137,7 +137,7 @@ export const ipfsWorker = async () => {
     // function libp2pConfig() {
     //   /** @type {import('libp2p').Libp2pOptions} */
     //   const options = {
-        
+
     //     connectionManager: {
     //       maxParallelDials: 150, // 150 total parallel multiaddr dials
     //       maxDialsPerPeer: 4, // Allow 4 multiaddr to be dialed per peer in parallel
@@ -172,22 +172,24 @@ async function startOrbit(
 
   const init = orbitDbs[codeSpace];
   orbitDbs[codeSpace] = orbitDbs[codeSpace] ||
-    await orbitdb.open("/orbitdb/zdpuAp2ZthtbiECNgbTyuUazbQ3xTejnxTRT6D9JXrt7LzfQY/test",  //address || codeSpace, 
-    {
-      // If database doesn't exist, create it
-      create: true,
-      overwrite: true,
-      // Load only the local version of the database,
-      // don't load the latest from the network yet
-      localOnly: false,
-      type: "eventlog",
-      
-      // If "Public" flag is set, allow anyone to write to the database,
-      // otherwise only the creator of the database can write
-      accessController: {
-        write: ["*"],
+    await orbitdb.open(
+      "/orbitdb/zdpuAp2ZthtbiECNgbTyuUazbQ3xTejnxTRT6D9JXrt7LzfQY/test", //address || codeSpace,
+      {
+        // If database doesn't exist, create it
+        create: true,
+        overwrite: true,
+        // Load only the local version of the database,
+        // don't load the latest from the network yet
+        localOnly: false,
+        type: "eventlog",
+
+        // If "Public" flag is set, allow anyone to write to the database,
+        // otherwise only the creator of the database can write
+        accessController: {
+          write: ["*"],
+        },
       },
-    });
+    );
 
   const db = orbitDbs[codeSpace];
 
@@ -242,13 +244,13 @@ async function startOrbit(
     // Add a
 
     const all = db.iterator({ limit: -1 })
-      .collect().map((e) => e.payload.value)
+      .collect().map((e) => e.payload.value);
 
-    console.log({all});
+    console.log({ all });
   }
 
   if (messageData) {
-    console.log("adding", {messageData});
+    console.log("adding", { messageData });
     await db.add(messageData);
   }
 }
