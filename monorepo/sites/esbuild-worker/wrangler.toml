@@ -15,3 +15,9 @@ format = "service-worker"
 
 [miniflare]
 live_reload = true
+
+[site]
+bucket = "./public"
+# Below options are optional
+include = ["static"]
+exclude = ["ignore_dir"]
