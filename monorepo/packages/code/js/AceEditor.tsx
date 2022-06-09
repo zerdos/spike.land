@@ -51,7 +51,7 @@ globalThis.setValue = async ()=> {
   const mst = mST();
   if ( i>=mst.i) return;
   
-  editor?.getModel().setValue(mst.code);
+  editor.setValue(mst.code);
   changeContent(x=> ({...x, i: mst.i, code: mst.code}));
 }
 

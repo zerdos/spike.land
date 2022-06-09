@@ -56,7 +56,7 @@ const sendChannel = {
         console.log("WebRtc send", data, ch);
 
         if (ch.readyState !== "open") return;
-
+        
         if (
           !target || ch.target === target && !ignoreUsers.includes(ch.target)
         ) {
@@ -72,6 +72,15 @@ const sendChannel = {
 // Let createDelta;
 // let applyPatch;
 
+
+globalThis.update = async () =>  { 
+  
+  renderApp(await appFactory(mST().transpiled));
+  if (globalThis.setValue) {
+    globalThis.setValue();
+  }
+
+}
 
 export const run = async () => {
   renderApp(await appFactory(window.startState.transpiled));
