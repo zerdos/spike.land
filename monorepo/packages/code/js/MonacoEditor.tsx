@@ -59,7 +59,7 @@ export const MonacoEditor = () => {
   }
 
   useEffect(()=>editor?.onDidChangeModelContent(async () => {
-    console.log("booooooo");
+    console.log("edi");
     formatter = formatter || (await import("./prettierEsm")).prettier;
     const code = model.getValue()!;
     if (formatter(code) === mST().code) return;
