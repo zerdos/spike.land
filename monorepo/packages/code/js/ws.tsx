@@ -118,8 +118,7 @@ const chCode = async () => {
   }
 
   try {
-    if (globalThis.transpiled === transpiled) return;
-
+ 
     if (globalThis.editor?.getModel || globalThis.aceEditor) {
       console.log("MODEL SET FROM REMOTE.... SORRY");
 
