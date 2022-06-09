@@ -3,6 +3,8 @@
 import { useEffect, useRef, useState } from "react";
 import { codeSpace } from "./ws";
 
+
+
 import { runnerDebounced } from "./runner";
 import { mST } from "./session";
 
@@ -48,7 +50,7 @@ export const MonacoEditor = () => {
     load();
   }, [ref]);
 
-  globalThis.update = ()=> {
+  globalThis.setValue = async ()=> {
     const mst = mST();
     if ( i>=mst.i) return;
     

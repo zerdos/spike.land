@@ -72,6 +72,7 @@ const sendChannel = {
 // Let createDelta;
 // let applyPatch;
 
+
 export const run = async () => {
   renderApp(await appFactory(window.startState.transpiled));
 
@@ -96,51 +97,10 @@ let intervalHandler: NodeJS.Timer | null = null;
 //   };\
 // };
 
-const chCode = async () => {
-  if (rtcConns !== globalThis.rtcConns) return;
-  const { code, transpiled, i } = mST();
 
-  const { prettier } = await import("./prettierEsm");
-  
-  if (globalThis.editor?.getModel) {
-    const code = globalThis.editor.getModel()?.getValue();
 
-    if (!code) return;
 
-    const formatted = prettier(code);
-    if (code === formatted) return;
-  }
 
-  if (globalThis.aceEditor) {
-    const formatted = prettier(globalThis.aceEditor.getValue());
-
-    if (code === formatted) return;
-  }
-
-  try {
- 
-    if (globalThis.editor?.getModel || globalThis.aceEditor) {
-      console.log("MODEL SET FROM REMOTE.... SORRY");
-
-  setTimeout(async () => {
-
-        if (mST().i === i) {
-          if (globalThis.editor?.getModel) {
-            globalThis.editor.getModel()?.setValue(code);
-          }
-          if (globalThis.aceEditor) {
-            globalThis.aceEditor.setValue(code);
-          }
-          renderApp(await appFactory(transpiled));
-        }
-      }, 200);
-
-      return;
-    }
-  } catch (error) {
-    console.error({ e: error });
-  }
-};
 
 async function rejoin() {
   if (!rejoined || ws === null) {
@@ -176,7 +136,6 @@ bc.onmessage = async (event) => {
   ) {
     const messageData = await makePatch(event.data.sess);
     await applyPatch(messageData!);
-    await chCode();
   }
 };
 
@@ -190,7 +149,6 @@ export async function saveCode(sess: ICodeSession) {
 
   await applyPatch(messageData!);
   
-  await chCode();
 
   (async () => {
     if (Object.keys(rtcConns).length == 0) return;
@@ -389,8 +347,7 @@ async function processWsMessage(
     await applyPatch(data);
 
     if (data.newHash === hashCode()) {
-      await chCode();
-
+    
       if (sendChannel) {
         sendChannel.send({ hashCode: data.newHash });
       }

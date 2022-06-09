@@ -1,29 +1,61 @@
 /** @jsxImportSource @emotion/react */
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+import {renderApp, appFactory} from "./starter";
 import { mST } from "./session";
 import { codeSpace } from "./ws";
 
 import { css } from "@emotion/react";
 
 import { runnerDebounced } from "./runner";
+
+
+let formatter = null;
 export const AceEditor = () => {
   const ref = useRef<HTMLPreElement>(null) as null | {
     current: HTMLPreElement;
   };
 
+  const [{code, i, editor}, changeContent]  = useState({...mST(), editor: null});
+
+
+
   useEffect(() => {
     if (ref === null) return;
     const load = async () => {
-      await startAce(mST().code, (newCode) => {
-        runnerDebounced(
-          newCode,
-          mST().i + 1,
-        );
-      });
+      const editor = await startAce(mST().code);
+
+      changeContent(x=>({...x, editor}));
     };
     load();
   }, [ref]);
+
+  useEffect(()=>{
+
+    if (!editor) return;
+
+    const listener = async()=>{
+    formatter = formatter || (await import("./prettierEsm")).prettier;
+    const code = editor.getValue()!;
+    if (formatter(code) === mST().code) return;
+    changeContent(x=>({...x, code, i: x.i+1 }));
+    runnerDebounced(code, i+1);
+    }
+    editor?.session.on("change", listener)
+
+    return ()=>editor?.session.off("change", listener);
+  }, [editor, code, i, changeContent])
+
+
+globalThis.setValue = async ()=> {
+  const mst = mST();
+  if ( i>=mst.i) return;
+  
+  editor?.getModel().setValue(mst.code);
+  changeContent(x=> ({...x, i: mst.i, code: mst.code}));
+}
+
+
 
   return (
     <pre
@@ -41,7 +73,7 @@ export const AceEditor = () => {
   );
 };
 
-async function startAce(code: string, onChange: (newCode: string) => void) {
+async function startAce(code: string, ) {
   const ace = (await import("ace-builds/src/ace")).default;
 
   // const {ace} = window;
@@ -60,9 +92,6 @@ async function startAce(code: string, onChange: (newCode: string) => void) {
     (opts) => ({ ...opts, jsx: true }),
   );
 
-  editor.session.on("change", () => {
-    const newStr = editor.getValue();
-    onChange(newStr);
-  });
-  globalThis.aceEditor = editor;
+
+  return editor;
 }
