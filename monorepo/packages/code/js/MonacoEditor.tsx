@@ -8,14 +8,13 @@ import { mST } from "./session";
 
 import { css } from "@emotion/react";
 
-let debounceTime = 100;
 
 export const MonacoEditor = () => {
   const ref = useRef<HTMLDivElement>(null) as null | {
     current: HTMLDivElement;
   };
 
-  const [lines, setLines] = React.useState(mST().code.split("\n").length);
+  const [lines, setLines] = useState(mST().code.split("\n").length);
 
   useEffect(() => {
     if (ref === null) return;
@@ -51,7 +50,7 @@ export const MonacoEditor = () => {
   return (
     <div
       css={css`
-  max-width: 800px;
+  max-width: 640px;
   height: ${60 + lines / 40 * 100}% ;
 `}
       ref={ref}

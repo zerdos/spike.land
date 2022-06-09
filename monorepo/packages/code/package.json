@@ -18,7 +18,7 @@
     "./shasums": "./shasums.ts"
   },
   "scripts": {
-    "test": "uvu -r yarn tests",
+    "test": "uvu -r esbuild-register tests",
     "typecheck": "cd monorepo/packages/code && yarn tsc",
     "clean": "rm -rf .tsBuildInfo js/vendor ../../sites/spike.land/public && mkdir ../../sites/spike.land/public js/vendor && yarn favicons && yarn build:framer-motion && yarn build:emotion  && yarn build:preact && yarn wasm",
     "xpostinstall": "yarn importmap",

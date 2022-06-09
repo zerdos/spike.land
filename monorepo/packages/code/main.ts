@@ -6,7 +6,7 @@ Object.assign(self, require("path-browserify"));
 const OrbitDB = require("orbit-db");
 const bc = new BroadcastChannel("spike.land");
 
-import { create } from "ipfs";
+import { create } from "ipfs-core";
 import { IPFSService, Server } from "ipfs-message-port-server";
 
 import config from "ipfs-core-config/config";

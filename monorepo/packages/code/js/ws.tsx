@@ -99,15 +99,16 @@ let intervalHandler: NodeJS.Timer | null = null;
 const chCode = async () => {
   if (rtcConns !== globalThis.rtcConns) return;
   const { code, transpiled, i } = mST();
-  renderApp(await appFactory(transpiled));
+
   const { prettier } = await import("./prettierEsm");
+  renderApp(await appFactory(transpiled));
+
   if (globalThis.editor?.getModel) {
     const code = globalThis.editor.getModel()?.getValue();
 
     if (!code) return;
 
     const formatted = prettier(code);
-
     if (code === formatted) return;
   }
 
@@ -123,13 +124,13 @@ const chCode = async () => {
       console.log("MODEL SET FROM REMOTE.... SORRY");
 
       setTimeout(() => {
-        const mst = mST();
-        if (mst.i === i) {
+
+        if (mST().i === i) {
           if (globalThis.editor?.getModel) {
-            globalThis.editor.getModel()?.setValue(mst.code);
+            globalThis.editor.getModel()?.setValue(code);
           }
           if (globalThis.aceEditor) {
-            globalThis.aceEditor.setValue(mst.code);
+            globalThis.aceEditor.setValue(code);
           }
         }
       }, 200);
