@@ -218,6 +218,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
                 scale: 1,
               }}
               animate={{
+                
                 transformOrigin: "0px 0px",
                 width: width / devicePixelRatio,
                 height: height / devicePixelRatio,
@@ -226,9 +227,9 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
               css={css`
                   overflow:overlay;
                   overflow-y: hidden;
-                  >div{
+                  
                     background: rgba(128,128,128.0.5);
-                  } 
+                  
               `}
             >
               {ch}
