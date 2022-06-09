@@ -10,11 +10,21 @@
 body {
   background-color: black;
   color: white;
+  overflow: overlay;
+}
+
+html[data-theme='dark'] {
+  --text-color-normal: hsl(210, 10%, 62%);
+  --text-color-light: hsl(210, 15%, 35%);
+  --text-color-richer: hsl(210, 50%, 72%);
+  --text-color-highlight: hsl(25, 70%, 45%);
 }
 @media screen and (prefers-color-scheme: light) {
   body {
     background-color: white;
     color: black;
+    --text-color-normal: #0a244d;
+    --text-color-light: #8cabd9;
   }
 }
 html, body {margin: 0; height: 100%}
