@@ -211,7 +211,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
             `}
           >
             <motion.div
-              transition={{ delay: 0, duration: 0.4 }}
+              transition={{ delay: 0, duration: 2.4 }}
               initial={{
                 width: window.innerWidth,
                 height: window.innerHeight,
@@ -219,7 +219,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
                 scale: 1,
               }}
               animate={{
-                background: rgba(128,128,128.0.5),
+                background: rgba(128,128,128, 0.5),
                 transformOrigin: "0px 0px",
                 width: width / devicePixelRatio,
                 height: height / devicePixelRatio,
