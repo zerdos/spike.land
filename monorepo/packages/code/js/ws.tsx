@@ -101,8 +101,7 @@ const chCode = async () => {
   const { code, transpiled, i } = mST();
 
   const { prettier } = await import("./prettierEsm");
-  renderApp(await appFactory(transpiled));
-
+  
   if (globalThis.editor?.getModel) {
     const code = globalThis.editor.getModel()?.getValue();
 
@@ -132,6 +131,7 @@ const chCode = async () => {
           if (globalThis.aceEditor) {
             globalThis.aceEditor.setValue(code);
           }
+          renderApp(await appFactory(transpiled));
         }
       }, 200);
 
