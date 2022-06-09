@@ -6,6 +6,7 @@ import { codeSpace } from "./ws";
 import { runnerDebounced } from "./runner";
 import { mST } from "./session";
 
+
 import { css } from "@emotion/react";
 
 
@@ -15,6 +16,8 @@ export const MonacoEditor = () => {
   };
 
   const [lines, setLines] = useState(mST().code.split("\n").length);
+
+  const [{code, i}, changeContent]  = useState(mST());
 
   useEffect(() => {
     if (ref === null) return;
@@ -36,10 +39,12 @@ export const MonacoEditor = () => {
 
       // let inc = 0;
 
-      editor.onDidChangeModelContent(() => {
+      editor.onDidChangeModelContent(async () => {
+        const {prettier} = await import("./prettierEsm");
         const code = editor?.getModel()?.getValue()!;
-        const counter = mST().i + 1;
-        runnerDebounced(code, counter);
+        if (prettier(code) === mST().code) return;
+        changeContent(x=>({code, i: x.i+1 }));
+        runnerDebounced(code, i+1);
       });
 
       Object.assign(globalThis, { monaco, editor });
@@ -47,7 +52,15 @@ export const MonacoEditor = () => {
     load();
   }, [ref]);
 
-  return (
+  globalThis.update = ()=> {
+    const mst = mST();
+    if ( i<mst.i) 
+    
+    editor?.getModel().setValue(mst.code);
+    changeContent({i: mst.i, code: mst.code});
+  }
+
+  return ( 
     <div
       css={css`
   max-width: 640px;
