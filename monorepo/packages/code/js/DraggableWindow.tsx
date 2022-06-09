@@ -219,7 +219,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
                 scale: 1,
               }}
               animate={{
-                background: "rgba(9,2,92, 0.3)",
+                background: "rgba(92,92,92, 0.5)",
                 transformOrigin: "0px 0px",
                 width: width / devicePixelRatio,
                 height: height / devicePixelRatio,
