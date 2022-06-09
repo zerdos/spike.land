@@ -211,7 +211,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
             `}
           >
             <motion.div
-              transition={{ delay: 0, duration: 12.4 }}
+              transition={{ delay: 0, duration: 0.4 }}
               initial={{
                 width: window.innerWidth,
                 height: window.innerHeight,
