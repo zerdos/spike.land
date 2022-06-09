@@ -67,9 +67,12 @@ try{
   );
 } catch (err){
   console.error({err});
+  globalThis.App = ()=> <p>error</p>;
+
+  const {App} = globalThis;
   render(
     // <CacheProvider value={cache}>
-    <p>error</p>,
+    <App />,
     // </CacheProvider>,
     container,
   );

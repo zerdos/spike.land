@@ -14,7 +14,7 @@ import {
   Phone,
   Share,
   Tablet,
-  ToggleButton as muiToggleButton,
+ToggleButton as muiToggleButton,
   ToggleButtonGroup as muiToggleButtonGroup,
   Tv,
 } from "./mui";
@@ -227,7 +227,6 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
                   overflow:overlay;
                   overflow-y: hidden;
                   >div{
-                    height: 100%;
                     background: rgba(128,128,128.0.5);
                   } 
               `}
