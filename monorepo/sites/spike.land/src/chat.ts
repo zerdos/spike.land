@@ -6,7 +6,6 @@ const assetManifest = JSON.parse(manifestJSON);
 import { handleErrors } from "./handleErrors";
 import { CodeEnv } from "./env";
 
-
 export default {
   async fetch(
     request: Request,

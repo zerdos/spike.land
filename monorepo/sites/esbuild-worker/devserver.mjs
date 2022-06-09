@@ -1,17 +1,15 @@
-import { Miniflare, Log, LogLevel, KVPlugin } from "miniflare";
+import { KVPlugin, Log, LogLevel, Miniflare } from "miniflare";
 
-const run = async ()=> {
-
+const run = async () => {
   const port = 8000;
 
-  consty 
-const mf = new Miniflare({
+  consty;
+  const mf = new Miniflare({
+    envPath: true,
+    packagePath: true,
+    wranglerConfigPath: true,
 
-  envPath: true,
-  packagePath: true,
-  wranglerConfigPath:  true,
-
-  kvNamespaces: ["__STATIC_CONTENT"],
+    kvNamespaces: ["__STATIC_CONTENT"],
 
     buildCommand: "npm run build",
     open: true,
@@ -22,7 +20,7 @@ const mf = new Miniflare({
     sourceMap: true,
     log: new Log(LogLevel.INFO),
     liveReload: true,
-    modules: true, 
+    modules: true,
     watch: true,
     wranglerConfigEnv: "dev",
     https: true,
@@ -32,20 +30,16 @@ const mf = new Miniflare({
 
   const server = await mf.startServer();
   console.log(`https://0.0.0.0:${port}`);
+};
+
+run();
+
+async function wait(delay) {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve();
+    }, delay);
+  });
 }
 
-run ();
-
-
-
-async function wait(delay){
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        resolve();
-      }, delay);
-    });
-  }
-
-  
-  
 //   await mf.dispose();

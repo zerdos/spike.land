@@ -56,7 +56,7 @@ const sendChannel = {
         console.log("WebRtc send", data, ch);
 
         if (ch.readyState !== "open") return;
-        
+
         if (
           !target || ch.target === target && !ignoreUsers.includes(ch.target)
         ) {
@@ -72,15 +72,12 @@ const sendChannel = {
 // Let createDelta;
 // let applyPatch;
 
-
-globalThis.update = async () =>  { 
-  
+globalThis.update = async () => {
   renderApp(await appFactory(mST().transpiled));
   if (globalThis.setValue) {
     globalThis.setValue();
   }
-
-}
+};
 
 export const run = async () => {
   renderApp(await appFactory(window.startState.transpiled));
@@ -105,11 +102,6 @@ let intervalHandler: NodeJS.Timer | null = null;
 //     update: (code: string) => void;
 //   };\
 // };
-
-
-
-
-
 
 async function rejoin() {
   if (!rejoined || ws === null) {
@@ -157,7 +149,6 @@ export async function saveCode(sess: ICodeSession) {
   bc.postMessage({ ignoreUser: user, sess, codeSpace, address, messageData });
 
   await applyPatch(messageData!);
-  
 
   (async () => {
     if (Object.keys(rtcConns).length == 0) return;
@@ -356,7 +347,6 @@ async function processWsMessage(
     await applyPatch(data);
 
     if (data.newHash === hashCode()) {
-    
       if (sendChannel) {
         sendChannel.send({ hashCode: data.newHash });
       }

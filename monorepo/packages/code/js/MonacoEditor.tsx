@@ -3,11 +3,8 @@
 import { useEffect, useRef, useState } from "react";
 import { codeSpace } from "./ws";
 
-
-
 import { runnerDebounced } from "./runner";
 import { mST } from "./session";
-
 
 import { css } from "@emotion/react";
 
@@ -20,8 +17,12 @@ export const MonacoEditor = () => {
 
   const [lines, setLines] = useState(mST().code.split("\n").length);
 
-  const [{code, i, model, editor}, changeContent]  = useState({...mST(), model: null, editor: null});
-  
+  const [{ code, i, model, editor }, changeContent] = useState({
+    ...mST(),
+    model: null,
+    editor: null,
+  });
+
   useEffect(() => {
     if (ref === null) return;
     const load = async () => {
@@ -38,36 +39,34 @@ export const MonacoEditor = () => {
         },
       );
 
-      changeContent(x=>({...x, editor, model: editor.getModel()}));
+      changeContent((x) => ({ ...x, editor, model: editor.getModel() }));
 
       // Object.assign(session, { monaco, editor, model });
 
       // let inc = 0;
-
-      
-
     };
     load();
   }, [ref]);
 
-  globalThis.setValue = async ()=> {
+  globalThis.setValue = async () => {
     const mst = mST();
-    if ( i>=mst.i) return;
-    
+    if (i >= mst.i) return;
+
     editor?.getModel().setValue(mst.code);
-    changeContent(x=> ({...x, i: mst.i, code: mst.code}));
-  }
+    changeContent((x) => ({ ...x, i: mst.i, code: mst.code }));
+  };
 
-  useEffect(()=>editor?.onDidChangeModelContent(async () => {
-    console.log("edi");
-    formatter = formatter || (await import("./prettierEsm")).prettier;
-    const code = model.getValue()!;
-    if (formatter(code) === mST().code) return;
-    changeContent(x=>({...x, code, i: x.i+1 }));
-    runnerDebounced(code, i+1);
-  }).dispose,[code, i, changeContent, editor, model]);
+  useEffect(() =>
+    editor?.onDidChangeModelContent(async () => {
+      console.log("edi");
+      formatter = formatter || (await import("./prettierEsm")).prettier;
+      const code = model.getValue()!;
+      if (formatter(code) === mST().code) return;
+      changeContent((x) => ({ ...x, code, i: x.i + 1 }));
+      runnerDebounced(code, i + 1);
+    }).dispose, [code, i, changeContent, editor, model]);
 
-  return ( 
+  return (
     <div
       css={css`
   max-width: 640px;

@@ -117,7 +117,7 @@ export class CodeSession implements ICodeSess {
     state: ICodeSession,
   ) => {
     const s = JSON.parse(str(state));
-   
+
     if (!hashStore[oldHash]) {
       const resp = await fetch(
         `https://spike.land/live/${this.room}
@@ -162,7 +162,7 @@ export class CodeSession implements ICodeSess {
         `https://spike.land/live/${bestGuesses}/mST`,
       );
 
-      const s = await resp.json() as {hashCode: string; mST: ICodeSession};
+      const s = await resp.json() as { hashCode: string; mST: ICodeSession };
 
       // hashStore[Number(s.hashCode)] =
 
@@ -227,12 +227,11 @@ function str(s: ICodeSession) {
 }
 
 export const patch: IApplyPatch = async (x) => {
-  
-  session?.applyPatch(x)
-if (globalThis.update) {
-  globalThis.update()
-
-}};
+  session?.applyPatch(x);
+  if (globalThis.update) {
+    globalThis.update();
+  }
+};
 export const makePatchFrom = (n: number, st: ICodeSession) =>
   session?.createPatchFromHashCode(n, st);
 export const makePatch = (st: ICodeSession) => makePatchFrom(hashCode(), st);

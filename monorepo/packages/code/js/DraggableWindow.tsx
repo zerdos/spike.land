@@ -313,7 +313,8 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
           >
             <Fab
               key="fullscreen"
-              onClick={() => {
+              onClick={(e) => {
+                document.getElementById("root").requestFullscreen()
                 // setFullScreen(true);
               }}
             >
