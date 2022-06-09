@@ -9,6 +9,7 @@ import { mST } from "./session";
 
 import { css } from "@emotion/react";
 
+let formatter = null;
 
 export const MonacoEditor = () => {
   const ref = useRef<HTMLDivElement>(null) as null | {
@@ -17,8 +18,8 @@ export const MonacoEditor = () => {
 
   const [lines, setLines] = useState(mST().code.split("\n").length);
 
-  const [{code, i}, changeContent]  = useState(mST());
-
+  const [{code, i, model, editor}, changeContent]  = useState({...mST(), model: null, editor: null});
+  
   useEffect(() => {
     if (ref === null) return;
     const load = async () => {
@@ -35,30 +36,34 @@ export const MonacoEditor = () => {
         },
       );
 
+      changeContent(x=>({...x, editor, model: editor.getModel()}));
+
       // Object.assign(session, { monaco, editor, model });
 
       // let inc = 0;
 
-      editor.onDidChangeModelContent(async () => {
-        const {prettier} = await import("./prettierEsm");
-        const code = editor?.getModel()?.getValue()!;
-        if (prettier(code) === mST().code) return;
-        changeContent(x=>({code, i: x.i+1 }));
-        runnerDebounced(code, i+1);
-      });
+      
 
-      Object.assign(globalThis, { monaco, editor });
     };
     load();
   }, [ref]);
 
   globalThis.update = ()=> {
     const mst = mST();
-    if ( i<mst.i) 
+    if ( i>=mst.i) return;
     
     editor?.getModel().setValue(mst.code);
-    changeContent({i: mst.i, code: mst.code});
+    changeContent(x=> ({...x, i: mst.i, code: mst.code}));
   }
+
+  useEffect(()=>editor?.onDidChangeModelContent(async () => {
+    console.log("booooooo");
+    formatter = formatter || (await import("./prettierEsm")).prettier;
+    const code = model.getValue()!;
+    if (formatter(code) === mST().code) return;
+    changeContent(x=>({...x, code, i: x.i+1 }));
+    runnerDebounced(code, i+1);
+  }).dispose,[code, i, changeContent, editor, model]);
 
   return ( 
     <div

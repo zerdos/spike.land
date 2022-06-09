@@ -189,6 +189,7 @@ export async function saveCode(sess: ICodeSession) {
   bc.postMessage({ ignoreUser: user, sess, codeSpace, address, messageData });
 
   await applyPatch(messageData!);
+  
   await chCode();
 
   (async () => {

@@ -216,7 +216,7 @@ var path = __importStar(require("path"));
 var invokeUpdate_1 = require("./invokeUpdate");
 var RecursionDepth_1 = require("./RecursionDepth");
 // @ts-expect-error
-var Uri = window.monaco.Uri;
+var Uri = monaco.Uri;
 var ImportResolver = /** @class */ (function () {
   function ImportResolver(options) {
     var e_1, _a;

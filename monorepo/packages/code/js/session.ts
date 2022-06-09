@@ -230,9 +230,9 @@ export const patch: IApplyPatch = async (x) => {
   
   session?.applyPatch(x)
 if (globalThis.update) {
-  globalThis.update
-}
-};
+  globalThis.update()
+
+}};
 export const makePatchFrom = (n: number, st: ICodeSession) =>
   session?.createPatchFromHashCode(n, st);
 export const makePatch = (st: ICodeSession) => makePatchFrom(hashCode(), st);

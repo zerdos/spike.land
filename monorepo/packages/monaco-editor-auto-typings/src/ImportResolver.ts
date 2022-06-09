@@ -16,7 +16,7 @@ import { invokeUpdate } from "./invokeUpdate";
 import { RecursionDepth } from "./RecursionDepth";
 
 // @ts-expect-error
-const Uri: MonacoUri = window.monaco.Uri;
+const Uri: MonacoUri = monaco.Uri;
 
 export class ImportResolver {
   private loadedFiles: string[];
