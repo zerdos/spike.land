@@ -434,7 +434,7 @@ async function processWsMessage(
         }));
       }
     };
-    rtcConns[target].onicertcConnstatechange =
+    rtcConns[target].oniceconnectionstatechange =
       handleICEConnectionStateChangeEvent;
     rtcConns[target].onicegatheringstatechange =
       handleICEGatheringStateChangeEvent;

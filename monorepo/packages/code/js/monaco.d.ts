@@ -18,7 +18,7 @@ declare global {
   var address: string;
   var apps: { [key: string]: FC };
   var aceEditor: monaco.editor.IModel;
-  var connections: { [target: string]: RTCPeerConnection };
+  var rtcConns: { [target: string]: RTCPeerConnection };
   var draggableWindow: number;
   var setCh: React.Dispatch<
     React.SetStateAction<
