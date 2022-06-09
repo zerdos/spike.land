@@ -122,7 +122,7 @@ const chCode = async () => {
     if (globalThis.editor?.getModel || globalThis.aceEditor) {
       console.log("MODEL SET FROM REMOTE.... SORRY");
 
-      setTimeout(() => {
+  setTimeout(async () => {
 
         if (mST().i === i) {
           if (globalThis.editor?.getModel) {
