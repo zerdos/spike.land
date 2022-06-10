@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 
-import "core-js/full";
+// import "core-js/full";
 
 import {
   hashCode,
