@@ -16,10 +16,8 @@ command = "npm run build"
 live_reload = true
 
 [site]
-bucket = "./public"
+bucket = "./dist"
 # Below options are optional
-include = ["static"]
-exclude = ["ignore_dir"]
 
 [env.dev]
 

@@ -1,24 +1,21 @@
 {
   "compilerOptions": {
-    "allowJs": true,
-    "target": "es2021",
-    "module": "esnext",
-    "lib": ["ES2021", "ESNext.String", "ES5", "ES2015"],
-    "alwaysStrict": true,
-    "strict": true,
-
-    "noEmit": false,
-    "forceConsistentCasingInFileNames": true,
-    "preserveConstEnums": true,
-    "moduleResolution": "node",
-    "sourceMap": true,
-    "outDir": "dist",
-    "resolveJsonModule": true,
-    "esModuleInterop": true,
+    "target": "ESNext",
+    "useDefineForClassFields": true,
+    "lib": ["DOM", "DOM.Iterable", "ESNext"],
+    "allowJs": false,
     "skipLibCheck": true,
-    "types": ["@cloudflare/workers-types", "@cloudflare/kv-asset-handler"]
+    "esModuleInterop": false,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "": true,
+    "module": "ESNext",
+    "moduleResolution": "Node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "react-jsx"
   },
-  "include": [
-    "./src/*.ts"
-  ]
+  "include": ["src"],
+  "references": [{ "path": "./tsconfig.node.json" }]
 }
