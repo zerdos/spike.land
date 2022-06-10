@@ -3,11 +3,10 @@
 import { isMobile } from "./isMobile.mjs";
 import { AceEditor } from "./AceEditor";
 import { MonacoEditor } from "./MonacoEditor";
-import {useEffect} from "react";
+import { useEffect } from "react";
 import { renderPreviewWindow } from "./renderPreviewWindow";
-import { mST } from 'session.js';
-import { useState } from 'preact/hooks';
-
+import { mST } from "session.js";
+import { useState } from "preact/hooks";
 
 // const  Shiki = () => {
 //   // const [code, setCode] = useState(mmST().code);
@@ -23,22 +22,17 @@ import { useState } from 'preact/hooks';
 //   }
 //   run();
 // }, [code])
-  
+
 //   return <div dangerouslySetInnerHTML={{__html: innerHtml}} />
 // }
 
-globalThis.editable=false;
+globalThis.editable = false;
 
 export async function quickStart() {
   // if (!globalThis.editable) return  renderPreviewWindow(Shiki);
 
-
-if (isMobile()) {
-  return renderPreviewWindow(AceEditor);
-}
-return renderPreviewWindow(MonacoEditor);
-
-
-
-
+  if (isMobile()) {
+    return renderPreviewWindow(AceEditor);
+  }
+  return renderPreviewWindow(MonacoEditor);
 }

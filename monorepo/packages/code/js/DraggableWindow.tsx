@@ -14,7 +14,7 @@ import {
   Phone,
   Share,
   Tablet,
-ToggleButton as muiToggleButton,
+  ToggleButton as muiToggleButton,
   ToggleButtonGroup as muiToggleButtonGroup,
   Tv,
 } from "./mui";
@@ -312,7 +312,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
             <Fab
               key="fullscreen"
               onClick={(e) => {
-                document.getElementById("root").requestFullscreen()
+                document.getElementById("root").requestFullscreen();
                 // setFullScreen(true);
               }}
             >

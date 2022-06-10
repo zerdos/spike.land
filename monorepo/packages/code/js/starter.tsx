@@ -58,25 +58,25 @@ export const renderApp = (App: FC<{}>) => {
 
   // const { App } = globalThis;
   console.log("render App");
-try{
-  render(
-    // <CacheProvider value={cache}>
-    <App />,
-    // </CacheProvider>,
-    container,
-  );
-} catch (err){
-  console.error({err});
-  globalThis.App = ()=> <p>error</p>;
+  try {
+    render(
+      // <CacheProvider value={cache}>
+      <App />,
+      // </CacheProvider>,
+      container,
+    );
+  } catch (err) {
+    console.error({ err });
+    globalThis.App = () => <p>error</p>;
 
-  const {App} = globalThis;
-  render(
-    // <CacheProvider value={cache}>
-    <App />,
-    // </CacheProvider>,
-    container,
-  );
-}
+    const { App } = globalThis;
+    render(
+      // <CacheProvider value={cache}>
+      <App />,
+      // </CacheProvider>,
+      container,
+    );
+  }
 
   if (!container.innerHTML) return;
 
