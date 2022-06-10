@@ -48,11 +48,11 @@ export const MonacoEditor = () => {
     load();
   }, [ref]);
 
-  globalThis.setValue = async () => {
+  globalThis.setValue = async (revert: false) => {
     const mst = mST();
-    if (i >= mst.i) return;
+    if (i >= mst.i && !revert) return;
 
-    editor?.getModel().setValue(mst.code);
+    model?.setValue(mst.code);
     changeContent((x) => ({ ...x, i: mst.i, code: mst.code }));
   };
 

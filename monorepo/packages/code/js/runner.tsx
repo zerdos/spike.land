@@ -12,9 +12,11 @@ export interface IRunnerSession {
   url: string;
 }
 
-export const runnerDebounced = throttle(runner, 100);
+export const runnerDebounced =  runner; //(runner, 100);
 const r = { counter: 0 };
 
+
+let transform = null;
 export async function runner(
   code: string,
   counter: number,
@@ -23,14 +25,13 @@ export async function runner(
 
   if (prettier(code) === mST().code) return;
 
-  const latest = ++r.counter;
   // session.changes.push(changes);
 
   // esbuildEsmTransform = esbuildEsmTransform ||
   //   (await import("./esbuildEsm.ts")).transform;
   const { init } = await import("./esbuildEsm");
 
-  const transform = await init();
+  transform = transform || await init();;
 
   try {
     const transpiled = await transform(code);
@@ -39,7 +40,7 @@ export async function runner(
     let restartError = false;
     /// yellow
     if (transpiled.length > 0) {
-      if (latest < r.counter) return;
+     
 
       try {
         const { renderFromString } = await import("./renderToString");
@@ -52,10 +53,12 @@ export async function runner(
           i: counter,
           html,
           css,
-        });
+        });   
 
         return;
       } catch (error) {
+
+        globalThis.update(true);
         console.error("EXCEPTION");
         console.error(error);
         restartError = true;

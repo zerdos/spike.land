@@ -72,10 +72,10 @@ const sendChannel = {
 // Let createDelta;
 // let applyPatch;
 
-globalThis.update = async () => {
+globalThis.update = async (revert=false) => {
   renderApp(await appFactory(mST().transpiled));
   if (globalThis.setValue) {
-    globalThis.setValue();
+    globalThis.setValue(revert);
   }
 };
 
@@ -212,7 +212,9 @@ export async function join() {
         ws && ws?.send && ws?.send(data);
       } catch (e) {
         ws = null;
-        rejoin();
+        rejoined = false;
+
+         rejoin();
       }
     };
     sendWS = debounce(mess, 500);
