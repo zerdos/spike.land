@@ -52,7 +52,7 @@
     "eslint-plugin-react": "7.30.0",
     "gatsby-plugin-emotion": "7.16.0",
     "gatsby-plugin-manifest": "4.16.0",
-    "gatsby-plugin-mdx": "3.16.0",
+    "gatsby-plugin-mdx": "3.16.1",
     "gatsby-plugin-react-helmet": "5.16.0",
     "gatsby-source-filesystem": "4.16.0",
     "normalize.css": "8.0.1",
