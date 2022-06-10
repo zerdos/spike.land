@@ -4,6 +4,7 @@ import type { FC, ReactNode } from "react";
 import type { ICodeSession } from "session";
 
 declare global {
+  var editable: boolean;
   // let MonacoEnvironment: monaco.Environment;
   var editor: ReturnType<typeof monaco.editor.create>;
   var model: monaco.editor.IModel;
