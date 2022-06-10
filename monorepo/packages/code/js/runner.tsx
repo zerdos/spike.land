@@ -53,7 +53,7 @@ export async function runner(
           i: counter,
           html,
           css,
-        });   
+         });   
 
         return;
       } catch (error) {

@@ -45,9 +45,10 @@ await esbuild.build({
   ...buildOptions,
   entryPoints: [
     ...workerEntryPoints,
+    "monaco-jsx-syntax-highlight/lib/worker/index.js",
     // "./worker  .tsx",
     "./main.ts",
-    // "./iife.js",
+    // "./iife.js"
     "./sw.mjs",
   ],
   bundle: true,
@@ -111,6 +112,7 @@ const build = (entryPoints) =>
       ".css",
       ".json",
       ".mjs",
+      ".js",
       ".ttf",
       ".workerJS",
     ],
@@ -169,6 +171,7 @@ const buildNoImportMap = (entryPoints) =>
       ".css",
       ".json",
       ".mjs",
+
       ".ttf",
       ".workerJS",
     ],
@@ -181,6 +184,7 @@ const buildNoImportMap = (entryPoints) =>
       ".mjs": "ts",
       ".ts:": "ts",
       ".js:": "ts",
+
       ".css": "css",
       ".d.ts": "dataurl",
       ".workerJS": "file",

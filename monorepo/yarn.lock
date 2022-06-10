@@ -7781,6 +7781,11 @@ monaco-editor@0.34.0-dev.20220609:
   resolved "https://registry.yarnpkg.com/monaco-editor/-/monaco-editor-0.34.0-dev.20220609.tgz#18f670194529a7684fd738d22753e203b9d90e52"
   integrity sha512-nW77ApXPsCcB8/FT8g/s5MYsoqL+GKlEt5VvFnqlcftIYDd/sOoOcahNq1DGJOuM4s3brQG6qldbQI62G63mdg==
 
+monaco-jsx-syntax-highlight@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/monaco-jsx-syntax-highlight/-/monaco-jsx-syntax-highlight-1.0.0.tgz#a7d07939732070b00d28cffa6d4e29261bbe93ad"
+  integrity sha512-MaGvETUijP4wb3px+SUtZG++QSObuzThjZ7VgVciWlc53HlKRWBsUopctxEbfBWs7Wr4gHS4FC3fmqalvWqDgg==
+
 mortice@^2.0.1:
   version "2.0.1"
   resolved "https://registry.npmjs.org/mortice/-/mortice-2.0.1.tgz"
