@@ -4,7 +4,7 @@
   "module": "devserver.mjs",
   "type": "module",
   "scripts": {
-    "build": "esbuild --bundle --sourcemap --outdir=dist --out-extension:.js=.mjs --external:__STATIC_CONTENT_MANIFEST --format=esm --target=esnext  src/worker.ts ",
+    "build": "esbuild --bundle --sourcemap --outdir=dist --out-extension:.js=.mjs --external:__STATIC_CONTENT_MANIFEST --format=esm --target=esnext  worker/worker.ts ",
     "ts": "node -r esbuild-register",
     "dev:worker": "miniflare dist/worker.js --watch --debug --https - -open",
     "dev:vite": "vite",
