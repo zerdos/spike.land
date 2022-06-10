@@ -1,7 +1,7 @@
 import * as monaco from "monaco-editor";
 import "monaco-editor/esm/vs/editor/editor.main";
 
-import { MonacoJsxSyntaxHighlight } from 'monaco-jsx-syntax-highlight';
+import { MonacoJsxSyntaxHighlight } from "monaco-jsx-syntax-highlight";
 
 import codicon from "monaco-editor/esm/vs/base/browser/ui/codicons/codicon/codicon.ttf";
 // import { parse } from "@babel/parser";
@@ -36,7 +36,6 @@ export const startMonaco = async (
     name: string;
   },
 ) => {
-
   console.log("monaco-editor");
   if (!started) started = true;
   else return returnModules;
@@ -105,7 +104,10 @@ export const startMonaco = async (
       noSyntaxValidation: true,
     });
 
-  const monacoJsxSyntaxHighlight = new MonacoJsxSyntaxHighlight("/monaco-jsx-syntax-highlight/lib/worker/index.js", monaco)
+  const monacoJsxSyntaxHighlight = new MonacoJsxSyntaxHighlight(
+    "/monaco-jsx-syntax-highlight/lib/worker/index.js",
+    monaco,
+  );
 
   const editor = monaco.editor.create(innerContainer, {
     model: monaco.editor.createModel(
@@ -166,7 +168,7 @@ export const startMonaco = async (
        * Show details inline with the label. Defaults to true.
        */
       showInlineDetails: true,
-      
+
       /**
        * Show method-suggestions.
        */
@@ -221,24 +223,22 @@ export const startMonaco = async (
       showSnippets: true,
     },
 
-
     automaticLayout: true,
 
     theme: "vs-dark",
-    
+
     autoClosingBrackets: "always",
   });
 
-
   const { highlighter, dispose } = monacoJsxSyntaxHighlight.highlighterBuilder({
     editor: editor,
-})
-highlighter()
+  });
+  highlighter();
 
-editor.onDidChangeModelContent(() => {
-  // content change, highlight
-  highlighter()
-});
+  editor.onDidChangeModelContent(() => {
+    // content change, highlight
+    highlighter();
+  });
   const regex1 = / from \'\.\./ig;
 
   const regex2 = / from \'\./ig;

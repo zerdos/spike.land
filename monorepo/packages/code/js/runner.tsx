@@ -12,9 +12,8 @@ export interface IRunnerSession {
   url: string;
 }
 
-export const runnerDebounced =  runner; //(runner, 100);
+export const runnerDebounced = runner; //(runner, 100);
 const r = { counter: 0 };
-
 
 let transform = null;
 export async function runner(
@@ -31,7 +30,7 @@ export async function runner(
   //   (await import("./esbuildEsm.ts")).transform;
   const { init } = await import("./esbuildEsm");
 
-  transform = transform || await init();;
+  transform = transform || await init();
 
   try {
     const transpiled = await transform(code);
@@ -40,8 +39,6 @@ export async function runner(
     let restartError = false;
     /// yellow
     if (transpiled.length > 0) {
-     
-
       try {
         const { renderFromString } = await import("./renderToString");
 
@@ -53,11 +50,10 @@ export async function runner(
           i: counter,
           html,
           css,
-         });   
+        });
 
         return;
       } catch (error) {
-
         globalThis.update(true);
         console.error("EXCEPTION");
         console.error(error);

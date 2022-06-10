@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "[Real time React page editor, in typescript! ![Screenshot](./spike.land-1920x1080.png)](https://spike.land)",
   "devDependencies": {
-
     "@jspm/generator": "1.0.0-beta.31",
     "@playwright/test": "1.22.2",
     "@typescript-eslint/eslint-plugin": "5.27.1",
