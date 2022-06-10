@@ -10707,10 +10707,10 @@ wordwrap@~0.0.2:
   resolved "https://registry.npmjs.org/wordwrap/-/wordwrap-0.0.3.tgz"
   integrity sha1-o9XabNXAvAAI03I0u68b7WMFkQc=
 
-wrangler@2.0.8:
-  version "2.0.8"
-  resolved "https://registry.npmjs.org/wrangler/-/wrangler-2.0.8.tgz"
-  integrity sha512-htum4L3ikiuATiU7YsmCnEF68PtTlov2LSymZPA2S/JNjiUhwcePnDRzT/ajOqiR5cd7kxf3u+0ykc/ZdD1rbg==
+wrangler@2.0.9:
+  version "2.0.9"
+  resolved "https://registry.npmjs.org/wrangler/-/wrangler-2.0.9.tgz"
+  integrity sha512-qRmjOHQKUaylxQFjVt0IniY5tu/KFi4BWwSm7C33Lr7oQNSC/ANUn9K8wJew9DtrnTw7arhhK1qbGAxB/IEo+w==
   dependencies:
     "@esbuild-plugins/node-globals-polyfill" "^0.1.1"
     "@esbuild-plugins/node-modules-polyfill" "^0.1.4"
