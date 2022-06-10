@@ -15,6 +15,10 @@ bindings = [
     { name = "LIMITERS", class_name = "CodeRateLimiter" }
 ]
 
+[[migrations]]
+tag = "v1" # Should be unique for each entry
+new_classes = ["Users"] # Array of new classes
+
 [site]
 bucket = "./public" # Add the directory with your static assets
 
