@@ -198,7 +198,5 @@ const buildNoImportMap = (entryPoints) =>
   });
 
 await build([
-  "starter.mjs",
-  "renderToString.mjs",
   "ws.mjs",
 ]);
