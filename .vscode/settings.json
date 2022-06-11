@@ -21,6 +21,7 @@
   "git.autorefresh": true,
   "git.autofetch": true,
   "npm.packageManager": "yarn",
+  "explorer.expandSingleFolderWorkspaces": true,
   "typescript.enablePromptUseWorkspaceTsdk": true,
   "cSpell.words": [
     "axax",

@@ -688,7 +688,7 @@ const sw = async () => {
 
     // This is just for testing, lets us know when SW is ready.
 
-    // URLs like `localhost:3000/ipfs/Qmf412jQZiuVUtdgnB36FXFX7xg5V6KEbSJ4dpQuhkLyfD`
+
     // are loaded from service worker. However it could be that such a URL is loaded
     // before the service worker was registered in which case our server just loads a blank
     if (document.documentElement.dataset.viewer) {
