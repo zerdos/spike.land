@@ -682,7 +682,7 @@ const sw = async () => {
   try {
     navigator.serviceWorker.onmessage = async (event)=>{
       /** @type {null|ServiceWorker} */
-      const serviceWorker = (event.source);
+      const serviceWorker = (event.source) as ServiceWorker;
       if (serviceWorker == null) return;
       switch (event.data.method) {
         case "ipfs-message-port":
@@ -693,12 +693,11 @@ const sw = async () => {
     // 
           const channel = new MessageChannel();
           (await ipfsMessagePortServer()).connect(channel.port1);
-          const port = channel.port2;
           return serviceWorker.postMessage({
             method: "ipfs-message-port",
             id: event.data.id,
-            port,
-          }, [port]);
+            port: channel.port2,
+          }, [channel.port2]);
 
           // Receives request from service worker, creates a new shared worker and
           // responds back with the message port.
