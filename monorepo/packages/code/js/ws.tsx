@@ -190,7 +190,6 @@ export async function saveCode(sess: ICodeSession) {
 
     if (!message) return;
 
-    await applyPatch(message);
     if (message.newHash !== hashCode()) {
       console.error("NEW hash is not even hashCode", hashCode());
       return;

@@ -26,33 +26,41 @@ export async function runner({code, counter} :
   counter: number,
 }
 ) {
+
   if (i>=counter) return;
   i = counter;
-  
-  console.log({code, counter}); 
+  const { init } = await import("./esbuildEsm");
+  transform = transform || await init();
+  const { renderFromString } = await import("./renderToString");
   if (await prettier(code) === await prettier(mST().code)) return;
+  if (i>counter) return;
+
+  
+  
+ 
+
 
   // session.changes.push(changes);
 
   // esbuildEsmTransform = esbuildEsmTransform ||
   //   (await import("./esbuildEsm.ts")).transform;
-  const { init } = await import("./esbuildEsm");
+ 
 
-  transform = transform || await init();
 
   try {
     const transpiled = await transform(code);
     if (transpiled === mST().transpiled) return;
-    if (i>=counter) return;
+  
+   
 
     let restartError = false;
     /// yellow
     if (transpiled.length > 0) {
       try {
-        const { renderFromString } = await import("./renderToString");
-
         const { html, css } = await renderFromString(transpiled);
-        if (i>=counter) return;
+       
+        if (i>counter) return;
+       
         await saveCode({
           code,
           transpiled,

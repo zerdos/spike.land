@@ -36,10 +36,21 @@ export const AceEditor = () => {
 
     const listener = async () => {
       formatter = formatter || (await import("./prettierEsm")).prettier;
-      const code = editor.getValue()!;
-      if (formatter(code) === mST().code) return;
-      changeContent((x) => ({ ...x, code, i: x.i + 1 }));
-      runnerDebounced(code, i + 1);
+      const newCode = editor.getValue()!;
+      if (newCode === code) return;
+
+      const counter = i + 1;
+
+      
+      try {
+        changeContent((x) => ({ ...x, i: counter, code: newCode }))
+        await runnerDebounced({code: newCode, counter});
+      } catch (err) {
+        console.error({ err });
+        console.error("restore editor");
+
+        // model?.setValue(code);
+      }
     };
     editor?.session.on("change", listener);
 
@@ -47,13 +58,15 @@ export const AceEditor = () => {
   }, [editor, code, i, changeContent]);
 
   globalThis.setValue = (newCode, counter) => {
-    if (counter !== i && newCode === code) {
-      changeContent((x) => ({ ...x, i: counter }));
-    }
-    if (newCode === code) return;
 
-    model?.setValue(newCode);
-    changeContent((x) => ({ ...x, i: counter, code: newCode }));
+    if (counter <= i) {
+      return;
+     }
+ 
+     changeContent((x) => ({ ...x, i: counter, code: newCode }));
+     editor?.setValue(newCode);
+
+
   };
 
   return (
