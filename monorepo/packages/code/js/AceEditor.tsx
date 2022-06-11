@@ -5,11 +5,11 @@ import { mST } from "./session";
 
 import { css } from "@emotion/react";
 
-import type {edit, Ace} from "ace-builds"
+import type { Ace, edit } from "ace-builds";
 
 import { runnerDebounced } from "./runner";
 
-type IPrettier = (code: string)=> string
+type IPrettier = (code: string) => string;
 let formatter: null | IPrettier = null;
 export const AceEditor = () => {
   const ref = useRef<HTMLPreElement>(null) as null | {
@@ -18,7 +18,7 @@ export const AceEditor = () => {
 
   const [{ code, i, editor }, changeContent] = useState({
     ...mST(),
-    editor: null as null | Ace.Editor
+    editor: null as null | Ace.Editor,
   });
 
   useEffect(() => {
@@ -46,14 +46,14 @@ export const AceEditor = () => {
     return () => editor?.session.off("change", listener);
   }, [editor, code, i, changeContent]);
 
-  globalThis.setValue = ( newCode, counter) => {
-
-    if (counter !== i && newCode === code) changeContent(x=>({...x, i:counter})) 
-    if(newCode === code) return;
+  globalThis.setValue = (newCode, counter) => {
+    if (counter !== i && newCode === code) {
+      changeContent((x) => ({ ...x, i: counter }));
+    }
+    if (newCode === code) return;
 
     model?.setValue(newCode);
     changeContent((x) => ({ ...x, i: counter, code: newCode }));
-
   };
 
   return (
@@ -76,7 +76,7 @@ async function startAce(code: string) {
   const ace = (await import("ace-builds/src/ace")).default;
 
   // const {ace} = window;
-  var editor = (ace.edit as typeof edit) ("editor");
+  var editor = (ace.edit as typeof edit)("editor");
   var js = ace.createEditSession(code);
   editor.setSession(js);
 
@@ -88,7 +88,7 @@ async function startAce(code: string) {
 
   editor.session.setMode(
     "ace/mode/typescript",
-    ()=>({ jsx: true }),
+    () => ({ jsx: true }),
   );
 
   return editor;

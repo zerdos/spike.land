@@ -3,7 +3,7 @@
 import type { Dispatch, ReactNode, SetStateAction } from "react";
 import { saveCode } from "./ws";
 import { mST } from "./session";
-import debounce from "lodash/debounce"
+import debounce from "lodash/debounce";
 
 export interface IRunnerSession {
   // changes: unknown[];
@@ -14,15 +14,13 @@ export interface IRunnerSession {
 
 export const runnerDebounced = debounce(runner, 100);
 
-type ITransform = (code: string, retry?: number)=> Promise<string>
+type ITransform = (code: string, retry?: number) => Promise<string>;
 
-let transform: ITransform | null = null
+let transform: ITransform | null = null;
 export async function runner(
   code: string,
   counter: number,
 ) {
- 
-
   if (await prettier(code) === await prettier(mST().code)) return;
 
   // session.changes.push(changes);
@@ -55,7 +53,7 @@ export async function runner(
 
         return;
       } catch (error) {
-         await globalThis.update();
+        await globalThis.update();
         console.error("EXCEPTION");
         console.error(error);
         restartError = true;

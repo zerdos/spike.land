@@ -73,8 +73,8 @@ const sendChannel = {
 // let applyPatch;
 
 globalThis.update = async () => {
-  const {transpiled, i, code} = mST();
-  
+  const { transpiled, i, code } = mST();
+
   if (globalThis.setValue) {
     globalThis.setValue(code, i);
   }
@@ -90,12 +90,9 @@ export const run = async () => {
   const current = await navigator.serviceWorker.ready;
   sw();
 
-  Promise.all((await navigator.serviceWorker.getRegistrations()).map(  (sw)=>{
-    
-    if (current!==sw) sw.unregister(); 
+  Promise.all((await navigator.serviceWorker.getRegistrations()).map((sw) => {
+    if (current !== sw) sw.unregister();
   }));
-
-
 
   if (location.href.endsWith("hydrated")) return;
 
@@ -686,23 +683,18 @@ interface RTCIceCandidateInit {
   type: RTCSdpType;
 }
 
-
-
-
-
 const sw = async () => {
   try {
-    navigator.serviceWorker.onmessage = async (event)=>{
+    navigator.serviceWorker.onmessage = async (event) => {
       /** @type {null|ServiceWorker} */
       const serviceWorker = (event.source) as ServiceWorker;
       if (serviceWorker == null) return;
       switch (event.data.method) {
         case "ipfs-message-port":
-    
-        const {ipfsMessagePortServer} = await import("./ipfs");
-    
+          const { ipfsMessagePortServer } = await import("./ipfs");
+
           // await ipfsWorker();
-    // 
+          //
           const channel = new MessageChannel();
           (await ipfsMessagePortServer()).connect(channel.port1);
           return serviceWorker.postMessage({
@@ -721,9 +713,7 @@ const sw = async () => {
 
     // @ts-ignore - register expects string but webPack requires this URL hack.
 
-
     // This is just for testing, lets us know when SW is ready.
-
 
     // are loaded from service worker. However it could be that such a URL is loaded
     // before the service worker was registered in which case our server just loads a blank
@@ -746,4 +736,3 @@ const sw = async () => {
     console.log("ipfs load error");
   }
 };
-

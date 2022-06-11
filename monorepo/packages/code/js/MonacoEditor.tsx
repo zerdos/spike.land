@@ -8,7 +8,7 @@ import { mST } from "./session";
 
 import { css } from "@emotion/react";
 
-type IPrettier = (code: string)=> string
+type IPrettier = (code: string) => string;
 let formatter: null | IPrettier = null;
 
 export const MonacoEditor = () => {
@@ -17,11 +17,14 @@ export const MonacoEditor = () => {
   };
 
   const mst = mST();
-  const [{code, i, editor, model}, changeContent] = useState({
+  const [{ code, i, editor, model }, changeContent] = useState({
     code: mst.code,
     i: mst.i,
-    editor: null as {onDidChangeModelContent: ()=>void} | null,
-    model: null as null | {getValue: ()=>string; setValue:(code: string)=> void}
+    editor: null as { onDidChangeModelContent: () => void } | null,
+    model: null as null | {
+      getValue: () => string;
+      setValue: (code: string) => void;
+    },
   });
 
   const lines = code?.split("\n").length || 0;
@@ -42,7 +45,11 @@ export const MonacoEditor = () => {
         },
       );
 
-      changeContent((x) => ({ ...x, editor: editor as unknown as  {onDidChangeModelContent: ()=>void} , model: editor.getModel() }));
+      changeContent((x) => ({
+        ...x,
+        editor: editor as unknown as { onDidChangeModelContent: () => void },
+        model: editor.getModel(),
+      }));
 
       // Object.assign(session, { monaco, editor, model });
 
@@ -51,35 +58,31 @@ export const MonacoEditor = () => {
     load();
   }, [ref]);
 
-  globalThis.setValue = async ( newCode, counter) => {
-  
-
-    if (counter !== i && newCode === code) return changeContent(x=>({...x, i:counter})) 
-    if(newCode === code) return;
-    if (counter <= i ) return;
+  globalThis.setValue = async (newCode, counter) => {
+    if (counter !== i && newCode === code) {
+      return changeContent((x) => ({ ...x, i: counter }));
+    }
+    if (newCode === code) return;
+    if (counter <= i) return;
 
     if (await prettier(newCode) === await prettier(code)) return;
     model?.setValue(newCode);
     changeContent((x) => ({ ...x, i: counter, code: newCode }));
-
   };
 
   useEffect(() =>
     editor?.onDidChangeModelContent(async () => {
       const newCode = model.getValue();
-      const counter = i + 1; 
-      
-      try{
+      const counter = i + 1;
+
+      try {
         await runnerDebounced(newCode, counter);
         changeContent((x) => ({ ...x, i: counter, code: newCode }));
-      } catch(err){
-        console.error({err});
+      } catch (err) {
+        console.error({ err });
         console.error("restore editor");
         model?.setValue(code);
       }
-
-
-      
     }).dispose, [i, changeContent, model, editor]);
 
   return (

@@ -12,13 +12,12 @@ import type {} from "orbit-db";
 // importScripts('https://unpkg.com/ipfs@0.62.3/index.min.js');
 // importScripts('https://unpkg.com/ipfs-message-port-server@0.11.3/index.min.js');
 
-
-
 const orbitDbs = {};
 
 self.orbitDbs = orbitDbs;
 
-export const ipfs = async ()=> await create(
+export const ipfs = async () =>
+  await create(
     {
       start: true,
       preload: {
@@ -45,12 +44,8 @@ export const ipfs = async ()=> await create(
     },
   );
 
-
-
-  export const service = async () => new IPFSService(await ipfs());
-  export const ipfsMessagePortServer = async () => new Server(await service());
-
-
+export const service = async () => new IPFSService(await ipfs());
+export const ipfsMessagePortServer = async () => new Server(await service());
 
 // async function startOrbit(
 //   orbitdb: OrbitDB,
