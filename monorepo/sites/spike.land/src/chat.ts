@@ -13,7 +13,7 @@ export default {
     ctx: ExecutionContext,
   ) {
     return handleErrors(request, async () => {
-      console.log("handling request" + request.url);
+      console.log(`handling request: ${request.url}` );
       // We have received an HTTP request! Parse the URL and route the request.
 
       const u = new URL(request.url);

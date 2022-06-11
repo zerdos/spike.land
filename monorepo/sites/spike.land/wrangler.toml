@@ -5,6 +5,9 @@ route = "https://spike.land/*"
 compatibility_date = "2021-10-16"
 usage_model = "bundled"
 main = "dist/worker.mjs"
+https = true
+local = true
+upstream-protocol = "https"
 
 [durable_objects]
 bindings = [
@@ -27,6 +30,7 @@ bucket = "./public" # Add the directory with your static assets
 [env.staging]
 name = "spike-land-dd"
 route = "https://staging.spike.land/*"
+
 
 
 migrations = [
