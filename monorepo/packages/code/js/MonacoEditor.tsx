@@ -16,10 +16,10 @@ export const MonacoEditor = () => {
     current: HTMLDivElement;
   };
 
-  const {i, code} = mST();
-  const [sess, changeContent] = useState({
-    code: code,
-    i: i,
+  const mst = mST();
+  const [{code, i, lines, editor, model}, changeContent] = useState({
+    code: mst.code,
+    i: mst.i,
     lines: code.split("\n").length,
     editor: null as {onDidChangeModelContent: ()=>void} | null,
     model: null as null | {getValue: ()=>string; setValue:(code: string)=> void}
@@ -52,20 +52,24 @@ export const MonacoEditor = () => {
     load();
   }, [ref]);
 
-  globalThis.setValue = ( code, i) => {
+  globalThis.setValue = ( newCode, counter) => {
+
+    if (counter !== i && newCode === code) changeContent(x=>({...x, i:counter})) 
+    if(newCode === code) return;
 
     model?.setValue(code);
-    changeContent((x) => ({ ...x, i, code }));
+    changeContent((x) => ({ ...x, i: counter, code: newCode }));
+
   };
 
   useEffect(() =>
     editor?.onDidChangeModelContent(async () => {
       formatter = formatter || (await import("./prettierEsm")).prettier;
-      const code = model.getValue();
-      if (formatter(code) === mST().code) return;
-      changeContent((x) => ({ ...x, code, i: x.i + 1 }));
-      runnerDebounced(code, i + 1);
-    }).dispose, [code, i, changeContent, model]);
+      const newCode = formatter(model.getValue());
+      if (newCode === code) return;
+      changeContent((x) => ({ ...x, code: newCode, i: x.i + 1 }));
+      runnerDebounced(newCode, i + 1);
+    }).dispose, [code, i, changeContent, model, editor]);
 
   return (
     <div

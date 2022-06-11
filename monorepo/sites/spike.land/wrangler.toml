@@ -7,7 +7,6 @@ compatibility_date = "2021-10-16"
 usage_model = "bundled"
 main = "src/index.ts"
 
-node_compat = true 
 
 [durable_objects]
 bindings = [

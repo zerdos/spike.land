@@ -46,10 +46,14 @@ export const AceEditor = () => {
     return () => editor?.session.off("change", listener);
   }, [editor, code, i, changeContent]);
 
-  globalThis.setValue = (code, i) => {
+  globalThis.setValue = ( newCode, counter) => {
 
-    editor?.setValue(code);
-    changeContent((x) => ({ ...x, i, code }));
+    if (counter !== i && newCode === code) changeContent(x=>({...x, i:counter})) 
+    if(newCode === code) return;
+
+    model?.setValue(code);
+    changeContent((x) => ({ ...x, i: counter, code: newCode }));
+
   };
 
   return (
