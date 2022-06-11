@@ -72,11 +72,13 @@ const sendChannel = {
 // Let createDelta;
 // let applyPatch;
 
-globalThis.update = async (revert = false) => {
-  renderApp(await appFactory(mST().transpiled));
+globalThis.update = async () => {
+  const {transpiled, i, code} = mST();
+  
   if (globalThis.setValue) {
-    globalThis.setValue(revert);
+    globalThis.setValue(code, i);
   }
+  renderApp(await appFactory(transpiled));
 };
 
 export const run = async () => {
@@ -678,7 +680,32 @@ interface RTCIceCandidateInit {
 
 const sw = async () => {
   try {
-    navigator.serviceWorker.onmessage = onServiceWorkerMessage;
+    navigator.serviceWorker.onmessage = async (event)=>{
+      /** @type {null|ServiceWorker} */
+      const serviceWorker = (event.source);
+      if (serviceWorker == null) return;
+      switch (event.data.method) {
+        case "ipfs-message-port":
+    
+        const {ipfsMessagePortServer} = await import("./ipfs");
+    
+          // await ipfsWorker();
+    // 
+          const channel = new MessageChannel();
+          (await ipfsMessagePortServer()).connect(channel.port1);
+          return serviceWorker.postMessage({
+            method: "ipfs-message-port",
+            id: event.data.id,
+            port: channel.port2,
+          }, [channel.port2]);
+
+          // Receives request from service worker, creates a new shared worker and
+          // responds back with the message port.
+          // Note: MessagePort can be transferred only once which is why we need to
+          // create a SharedWorker each time. However a ServiceWorker is only created
+          // once (in main function) all other creations just create port to it.
+      }
+    };
 
     // @ts-ignore - register expects string but webPack requires this URL hack.
     navigator.serviceWorker.register("/sw.js", {
@@ -692,6 +719,18 @@ const sw = async () => {
     // are loaded from service worker. However it could be that such a URL is loaded
     // before the service worker was registered in which case our server just loads a blank
     if (document.documentElement.dataset.viewer) {
+      const load = async (path: string) => {
+        const paths = path && path.split("/") || [];
+        const protocol = paths[0] || "";
+        switch (protocol) {
+          case "ipfs":
+          case "ipns": {
+            document.body.innerHTML =
+              `<iframe id="viewer" style="width:100%;height:100%;position:fixed;top:0;left:0;border:none;" src="/view${path}"></iframe>`;
+          }
+        }
+      };
+
       return load(location.pathname);
     }
   } catch {
@@ -699,29 +738,3 @@ const sw = async () => {
   }
 };
 
-
-async function onServiceWorkerMessage(event) {
-  /** @type {null|ServiceWorker} */
-  const serviceWorker = (event.source);
-  if (serviceWorker == null) return;
-  switch (event.data.method) {
-    case "ipfs-message-port":
-
-    const {ipfsMessagePortServer} = await import("./ipfs");
-
-      // await ipfsWorker();
-// 
-      const port = new MessageChannel();
-      ipfsMessagePortServer().connect(port[0]);
-      return serviceWorker.postMessage({
-        method: "ipfs-message-port",
-        id: event.data.id,
-        port,
-      }, [port]);
-      // Receives request from service worker, creates a new shared worker and
-      // responds back with the message port.
-      // Note: MessagePort can be transferred only once which is why we need to
-      // create a SharedWorker each time. However a ServiceWorker is only created
-      // once (in main function) all other creations just create port to it.
-  }
-}

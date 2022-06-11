@@ -4,6 +4,9 @@ import type { FC, ReactNode } from "react";
 import type { ICodeSession } from "session";
 
 declare global {
+  var setValue: (code: string, i: number)=> void;
+  var update: ()=>Promise<void>
+  var startedWithNativeEsmModules: boolean;
   var editable: boolean;
   // let MonacoEnvironment: monaco.Environment;
   var editor: ReturnType<typeof monaco.editor.create>;

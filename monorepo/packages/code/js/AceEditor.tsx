@@ -1,15 +1,16 @@
 /** @jsxImportSource @emotion/react */
 
 import { useEffect, useRef, useState } from "react";
-import { appFactory, renderApp } from "./starter";
 import { mST } from "./session";
-import { codeSpace } from "./ws";
 
 import { css } from "@emotion/react";
 
+import type {edit, Ace} from "ace-builds"
+
 import { runnerDebounced } from "./runner";
 
-let formatter = null;
+type IPrettier = (code: string)=> string
+let formatter: null | IPrettier = null;
 export const AceEditor = () => {
   const ref = useRef<HTMLPreElement>(null) as null | {
     current: HTMLPreElement;
@@ -17,7 +18,7 @@ export const AceEditor = () => {
 
   const [{ code, i, editor }, changeContent] = useState({
     ...mST(),
-    editor: null,
+    editor: null as null | Ace.Editor
   });
 
   useEffect(() => {
@@ -45,12 +46,10 @@ export const AceEditor = () => {
     return () => editor?.session.off("change", listener);
   }, [editor, code, i, changeContent]);
 
-  globalThis.setValue = async () => {
-    const mst = mST();
-    if (i >= mst.i) return;
+  globalThis.setValue = (code, i) => {
 
-    editor.setValue(mst.code);
-    changeContent((x) => ({ ...x, i: mst.i, code: mst.code }));
+    editor?.setValue(code);
+    changeContent((x) => ({ ...x, i, code }));
   };
 
   return (
@@ -73,7 +72,7 @@ async function startAce(code: string) {
   const ace = (await import("ace-builds/src/ace")).default;
 
   // const {ace} = window;
-  var editor = ace.edit("editor");
+  var editor = (ace.edit as typeof edit) ("editor");
   var js = ace.createEditSession(code);
   editor.setSession(js);
 
@@ -85,7 +84,7 @@ async function startAce(code: string) {
 
   editor.session.setMode(
     "ace/mode/typescript",
-    (opts) => ({ ...opts, jsx: true }),
+    ()=>({ jsx: true }),
   );
 
   return editor;

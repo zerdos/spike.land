@@ -227,9 +227,9 @@ function str(s: ICodeSession) {
 }
 
 export const patch: IApplyPatch = async (x) => {
-  session?.applyPatch(x);
+  await session?.applyPatch(x);
   if (globalThis.update) {
-    globalThis.update();
+    await globalThis.update();
   }
 };
 export const makePatchFrom = (n: number, st: ICodeSession) =>

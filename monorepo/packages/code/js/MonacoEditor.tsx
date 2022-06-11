@@ -8,27 +8,31 @@ import { mST } from "./session";
 
 import { css } from "@emotion/react";
 
-let formatter = null;
+type IPrettier = (code: string)=> string
+let formatter: null | IPrettier = null;
 
 export const MonacoEditor = () => {
   const ref = useRef<HTMLDivElement>(null) as null | {
     current: HTMLDivElement;
   };
 
-  const [lines, setLines] = useState(mST().code.split("\n").length);
-
-  const [{ code, i, model, editor }, changeContent] = useState({
-    ...mST(),
-    model: null,
-    editor: null,
+  const {i, code} = mST();
+  const [sess, changeContent] = useState({
+    code: code,
+    i: i,
+    lines: code.split("\n").length,
+    editor: null as {onDidChangeModelContent: ()=>void} | null,
+    model: null as null | {getValue: ()=>string; setValue:(code: string)=> void}
   });
+
+
 
   useEffect(() => {
     if (ref === null) return;
     const load = async () => {
       const { startMonaco } = await import("./editor");
 
-      const { editor, monaco } = await startMonaco(
+      const { editor } = await startMonaco(
         /**
          * @param {any} code
          */
@@ -39,7 +43,7 @@ export const MonacoEditor = () => {
         },
       );
 
-      changeContent((x) => ({ ...x, editor, model: editor.getModel() }));
+      changeContent((x) => ({ ...x, editor: editor as unknown as  {onDidChangeModelContent: ()=>void} , model: editor.getModel() }));
 
       // Object.assign(session, { monaco, editor, model });
 
@@ -48,29 +52,26 @@ export const MonacoEditor = () => {
     load();
   }, [ref]);
 
-  globalThis.setValue = async (revert: false) => {
-    const mst = mST();
-    if (i >= mst.i && !revert) return;
+  globalThis.setValue = ( code, i) => {
 
-    model?.setValue(mst.code);
-    changeContent((x) => ({ ...x, i: mst.i, code: mst.code }));
+    model?.setValue(code);
+    changeContent((x) => ({ ...x, i, code }));
   };
 
   useEffect(() =>
     editor?.onDidChangeModelContent(async () => {
-      console.log("edi");
       formatter = formatter || (await import("./prettierEsm")).prettier;
-      const code = model.getValue()!;
+      const code = model.getValue();
       if (formatter(code) === mST().code) return;
       changeContent((x) => ({ ...x, code, i: x.i + 1 }));
       runnerDebounced(code, i + 1);
-    }).dispose, [code, i, changeContent, editor, model]);
+    }).dispose, [code, i, changeContent, model]);
 
   return (
     <div
       css={css`
   max-width: 640px;
-  height: ${60 + lines / 40 * 100}% ;
+  height: ${60 + sess.lines / 40 * 100}% ;
 `}
       ref={ref}
     />

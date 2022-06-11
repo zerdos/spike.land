@@ -3,7 +3,6 @@
 import type { Dispatch, ReactNode, SetStateAction } from "react";
 import { saveCode } from "./ws";
 import { mST } from "./session";
-import throttle from "lodash/throttle";
 
 export interface IRunnerSession {
   // changes: unknown[];
@@ -13,9 +12,10 @@ export interface IRunnerSession {
 }
 
 export const runnerDebounced = runner; //(runner, 100);
-const r = { counter: 0 };
 
-let transform = null;
+type ITransform = (code: string, retry?: number)=> Promise<string>
+
+let transform: ITransform | null = null
 export async function runner(
   code: string,
   counter: number,
@@ -54,7 +54,7 @@ export async function runner(
 
         return;
       } catch (error) {
-        globalThis.update(true);
+         await globalThis.update();
         console.error("EXCEPTION");
         console.error(error);
         restartError = true;
