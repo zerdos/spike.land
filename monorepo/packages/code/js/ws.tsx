@@ -253,12 +253,15 @@ export async function join() {
 
       if (diff > 40_000) {
         try {
-          wsConnection.send(
+          if (wsConnection?.OPEN) return wsConnection?.send(
             JSON.stringify({
               name: user,
               timestamp: lastSeenTimestamp + diff,
-            }),
+            })
+            
           );
+          rejoined = false;
+          rejoin();
         } catch {
           rejoined = false;
           rejoin();
