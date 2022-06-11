@@ -35,8 +35,8 @@ export const AceEditor = () => {
     if (!editor) return;
 
     const listener = async () => {
-      formatter = formatter || (await import("./prettierEsm")).prettier;
-      const newCode = editor.getValue()!;
+   
+      const newCode =editor.getSession().getValue();
       if (newCode === code) return;
 
       const counter = i + 1;
