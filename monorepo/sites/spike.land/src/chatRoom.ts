@@ -146,7 +146,7 @@ export class Code {
 
           return new Response(
             `import { jsx as jsX } from "@emotion/react";
-           import {LoadRoom} from "//live/lazy/js";
+           import {LoadRoom} from "/live/lazy/js";
            export default ()=>jsX(LoadRoom, { room:"${this.codeSpace}"}) ;
            `,
             {

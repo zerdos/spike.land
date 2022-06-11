@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 
-declare module "//live/code-main/js" {
+declare module "//ive/code-main/js" {
   const returnFn: () => ReactNode;
   export default returnFn;
 }

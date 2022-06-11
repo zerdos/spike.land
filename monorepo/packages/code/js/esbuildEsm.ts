@@ -45,9 +45,9 @@ async function transform(code: string, retry = 4): Promise<string> {
 
     const transpiled = result.code.replaceAll(
       regex1,
-      ' from "//live',
+      ' from "/live',
     )
-      .replaceAll(regex2, ' from "//live');
+      .replaceAll(regex2, ' from "/live');
 
     return transpiled;
   } catch (e) {

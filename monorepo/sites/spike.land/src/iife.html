@@ -69,7 +69,7 @@ body {
    if (!address) window.address = "";
    if (!startState) {
      async()=>{
-       const resp = await fetch("//live/"+codeSpace+"/session");
+       const resp = await fetch("/live/"+codeSpace+"/session");
        window.startState = await resp.json();
        h(window.startState);
      }
