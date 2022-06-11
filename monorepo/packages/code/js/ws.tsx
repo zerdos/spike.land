@@ -693,11 +693,12 @@ const sw = async () => {
     // 
           const channel = new MessageChannel();
           (await ipfsMessagePortServer()).connect(channel.port1);
+          const port = channel.port2;
           return serviceWorker.postMessage({
             method: "ipfs-message-port",
             id: event.data.id,
-            port: channel.port2,
-          }, [channel.port2]);
+            port,
+          }, [port]);
 
           // Receives request from service worker, creates a new shared worker and
           // responds back with the message port.
