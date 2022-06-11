@@ -257,7 +257,7 @@ export async function join() {
 
       if (diff > 40_000) {
         try {
-          if (wsConnection?.OPEN) {
+          if (wsConnection.readyState === wsConnection.OPEN) {
             return wsConnection?.send(
               JSON.stringify({
                 name: user,
