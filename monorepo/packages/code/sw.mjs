@@ -47,7 +47,7 @@ const mapper = async (name) => {
   const withHash = cache[name];
 
   if (hashResp[withHash] && hashResp[withHash].ok) {
-    const resp = await fetch(new URL(withHash, "/"));
+    const resp = await fetch(new URL(withHash, location.origin));
     if (resp.ok) {
       const blob = await resp.blob();
 
