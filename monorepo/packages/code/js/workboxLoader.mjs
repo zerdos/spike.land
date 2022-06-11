@@ -4,7 +4,7 @@ export const workboxLoader = async () => {
   if (
     "serviceWorker" in window.navigator
   ) {
-    // fetch("https://spike.land/check").then((x) => x.json())
+    // fetch("//check").then((x) => x.json())
     //   .then((x) => x.missing).then((missingArray) =>
     //     import("./ipfsClient.mjs").then(({ ipfsCat }) =>
     //       Promise.all(
@@ -15,7 +15,7 @@ export const workboxLoader = async () => {
     //               x.text()
     //             ),
     //           ]).then((content) =>
-    //             fetch(`https://spike.land/add/${cid}`, {
+    //             fetch(`//add/${cid}`, {
     //               method: "POST",
     //               body: content,
     //             })
@@ -34,7 +34,7 @@ export const workboxLoader = async () => {
     try {
       let url = "./sw.js";
       if (location.hostname.includes("spike.land")) {
-        url = "https://spike.land/sw.js";
+        url = "//sw.js";
       }
 
       const wb = new Workbox(url);

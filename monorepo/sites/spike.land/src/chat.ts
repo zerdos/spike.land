@@ -13,7 +13,7 @@ export default {
     ctx: ExecutionContext,
   ) {
     return handleErrors(request, async () => {
-      console.log("handling request");
+      console.log("handling request" + request.url);
       // We have received an HTTP request! Parse the URL and route the request.
 
       const u = new URL(request.url);
@@ -43,11 +43,10 @@ export default {
       if (!path[0]) {
         // Serve our HTML at the root path.
         return new Response(
-          `<http><head>
-        <meta http-equiv="refresh" content="0; URL=https://spike.land/live/coder" />
-      </head></http>`,
+          `<meta http-equiv="refresh" content="0; URL=${u.protocol+ "//" + u.hostname+":"+u.port }/live/coder" />`,
           {
             headers: {
+              "Location": `${u.protocol}//${u.hostname}:${u.port }/live/coder`,
               "Content-Type": "text/html;charset=UTF-8",
               "Cache-Control": "no-cache",
             },

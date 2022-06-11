@@ -320,13 +320,13 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
             </Fab>
 
             <QRButton
-              url={`https://spike.land/live/${room}/public`}
+              url={`//live/${room}/public`}
               key={`qr-${hashCode}`}
             />
 
             <Fab
               key="Share"
-              onClick={() => open(`https://spike.land/live/${room}/public`)}
+              onClick={() => open(`//live/${room}/public`)}
             >
               <Share />
             </Fab>

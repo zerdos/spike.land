@@ -103,7 +103,7 @@ export function createJsBlob(code: string) {
   });
   const blobUrl = URL.createObjectURL(file);
   return blobUrl;
-  // const actualUrl = new URL(blobUrl,'https://spike.land/live/');
+  // const actualUrl = new URL(blobUrl,'//live/');
 
   // return actualUrl;
 }

@@ -1,12 +1,10 @@
 name = "spike-land"
-workers_dev = true
 # Add your account ID here
 account_id = "1f98921051196545ebe79a450d3c71ed"
 route = "https://spike.land/*"  
 compatibility_date = "2021-10-16"
 usage_model = "bundled"
-main = "src/index.ts"
-
+main = "dist/worker.mjs"
 
 [durable_objects]
 bindings = [
@@ -15,14 +13,29 @@ bindings = [
 ]
 
 [[migrations]]
+tag = "v2" # Should be unique for each entry
+new_classes = ["Code", "CodeRateLimiter"] # Array of new classes
+
+[[migrations]]
 tag = "v1" # Should be unique for each entry
 new_classes = ["Users"] # Array of new classes
 
 [site]
 bucket = "./public" # Add the directory with your static assets
 
-[env.production]
-kv_namespaces = [
-{ binding = "__STATIC_CONTENT", id = "97bd80e066674da58f9c264923b1f832" } ]
 
-        
+[env.dev]
+name = "spike-land-dev"
+route = "https://dev.spike.land/*"
+
+migrations = [
+    {tag = "v3", new_classes= ["Users", "Code", "CodeRateLimiter"]}
+]
+
+durable_objects.bindings = [
+    { name = "CODE", class_name = "Code" },
+    { name = "LIMITERS", class_name = "CodeRateLimiter" }
+]
+
+site.bucket = "./public"
+

@@ -3,7 +3,7 @@
 <head profile="http://www.w3.org/2005/10/profile">
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width" />
-  <base href="https://spike.land/">
+  <base href="/">
   <title>Instant React Editor</title>
 
 <style>
@@ -96,7 +96,7 @@ html, body {margin: 0; height: 100%}
    if (!address) window.address = "";
    if (!startState) {
      async()=>{
-       const resp = await fetch("https://spike.land/live/"+codeSpace+"/session");
+       const resp = await fetch("/live/"+codeSpace+"/session");
        window.startState = await resp.json();
        h(window.startState);
      }
@@ -128,15 +128,15 @@ window.addEventListener('pageshow', (event) => {
   <script type="importmap">
 {
   "imports": {
-    "react/jsx-runtime": "https://spike.land/react.mjs",
-    "react": "https://spike.land/react.mjs",
-    "preact": "https://spike.land/react.mjs",
-    "react-dom": "https://spike.land/react.mjs",
-    "react-dom/server": "https://spike.land/react.mjs",
-    "framer-motion": "https://spike.land/framer-motion.mjs",
-    "@emotion/react": "https://spike.land/emotion.mjs",
-    "@emotion/react/jsx-runtime": "https://spike.land/emotion.mjs",
-    "@emotion/cache": "https://spike.land/emotion.mjs"
+    "react/jsx-runtime": "/react.mjs",
+    "react": "/react.mjs",
+    "preact": "/react.mjs",
+    "react-dom": "/react.mjs",
+    "react-dom/server": "/react.mjs",
+    "framer-motion": "/framer-motion.mjs",
+    "@emotion/react": "/emotion.mjs",
+    "@emotion/react/jsx-runtime": "/emotion.mjs",
+    "@emotion/cache": "/emotion.mjs"
   }
 }
     </script>

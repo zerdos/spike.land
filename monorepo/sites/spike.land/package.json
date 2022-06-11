@@ -6,8 +6,8 @@
   "module": "dist/worker.mjs",
   "private": true,
   "scripts": {
-    "dev": "miniflare -m --wrangler-config wrangler.toml --https --host 0.0.0.0 --port 8080",
-    "deploy": "wrangler publish src/index.ts",
+    "dev": "miniflare dist/worker.mjs --wrangler-config wrangler.toml  --watch --https --open",
+    "deploy": "wrangler publish",
     "xbuild": "esbuild --bundle --format=esm --loader:.html=text --external:__STATIC_CONTENT_MANIFEST --target=esnext src/index.ts --outfile=dist/worker.mjs"
   },
   "devDependencies": {

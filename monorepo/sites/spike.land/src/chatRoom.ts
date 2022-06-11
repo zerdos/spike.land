@@ -40,15 +40,11 @@ export class Code {
     this.address = "";
 
     this.state.blockConcurrencyWhile(async () => {
-      const backupSession = async () =>
-        await (await (env.CODE.get(env.CODE.idFromName("code-main"))).fetch(
-          "session",
-        )).json() as ICodeSession;
+      const backupSession = { "i": 13483, "transpiled": "import { jsx as jsX } from \"@emotion/react\";\nimport { css } from \"@emotion/react\";\nimport { motion } from \"framer-motion\";\nimport Zoli from \"//live/zoli\";\nexport default () => /* @__PURE__ */ jsX(\"header\", {\n  css: css` \n      background-color: red;\n      min-height: 100%;\n      display: flex;\n      flex-direction: column;\n      justify-content: center;\n      font-size: calc(10px + 2vmin);\n      color: white;\n      text-align: center;\n      overflow: hidden;\n    `\n}, /* @__PURE__ */ jsX(motion.div, {\n  animate: { rotate: 360 },\n  transition: {\n    delay: 2,\n    type: \"spring\",\n    stiffness: 50\n  }\n}, /* @__PURE__ */ jsX(\"div\", {\n  css: css`\n       font-size: 20px;\n       margin: 5%;\n       height: 50vh;\n       border: 5px solid black;\n       overflow: hidden;\n       border-radius: 20px;\n        `\n}, /* @__PURE__ */ jsX(Zoli, null))), /* @__PURE__ */ jsX(\"p\", null, \"Hey!Try to modify \", /* @__PURE__ */ jsX(\"code\", null, \"this\"), \" page.\"), /* @__PURE__ */ jsX(\"a\", {\n  css: css`\n      \n  color: #61dafb;\n  `,\n  href: \"./edit\"\n}, \"Open the editor.\"));\n", "code": "import { css } from '@emotion/react';\nimport { motion } from 'framer-motion';\nimport Zoli from './zoli';\n\nexport default () => (\n  <header\n    css={css` \n      background-color: red;\n      min-height: 100%;\n      display: flex;\n      flex-direction: column;\n      justify-content: center;\n      font-size: calc(10px + 2vmin);\n      color: white;\n      text-align: center;\n      overflow: hidden;\n    `}>\n    <motion.div\n      animate={{ rotate: 360 }}\n      transition={{\n        delay: 2,\n        type: 'spring',\n        stiffness: 50,\n      }}>\n      <div\n        css={css`\n       font-size: 20px;\n       margin: 5%;\n       height: 50vh;\n       border: 5px solid black;\n       overflow: hidden;\n       border-radius: 20px;\n        `}>\n        <Zoli />\n      </div>\n    </motion.div>\n    <p>\n      Hey!Try to modify <code>this</code> page.\n    </p>\n    <a\n      css={css`\n      \n  color: #61dafb;\n  `}\n      href=\"./edit\">\n      Open the editor.\n    </a>\n  </header>\n);\n", "html": "<header class=\"css-gl22wg\">\n  <div data-projection-id=\"1\">\n    <div class=\"css-gm31fr\">\n      <header class=\"css-34wkbp\">\n        <div data-projection-id=\"2\">\n          <div class=\"css-15plvkc\">🔥</div>\n          -------------------\n        </div>\n        <p>Hey!Try to modify <code>this</code> page.</p>\n        <a href=\"./edit\" class=\"css-1v5q1ar\">Open the editor.</a>\n      </header>\n    </div>\n  </div>\n  <p>Hey!Try to modify <code>this</code> page.</p>\n  <a href=\"./edit\" class=\"css-1d4tf5g\">Open the editor.</a>\n</header>\n", "css": ".css-gl22wg {\n  background-color: red;\n  min-height: 100%;\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-flex-direction: column;\n  -ms-flex-direction: column;\n  flex-direction: column;\n  -webkit-box-pack: center;\n  -ms-flex-pack: center;\n  -webkit-justify-content: center;\n  justify-content: center;\n  font-size: calc(10px + 2vmin);\n  color: white;\n  text-align: center;\n  overflow: hidden;\n}\n.css-gm31fr {\n  font-size: 20px;\n  margin: 5%;\n  height: 50vh;\n  border: 5px solid black;\n  overflow: hidden;\n  border-radius: 20px;\n}\n.css-34wkbp {\n  background-color: gre;\n  min-height: 100%;\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-flex-direction: column;\n  -ms-flex-direction: column;\n  flex-direction: column;\n  -webkit-box-pack: center;\n  -ms-flex-pack: center;\n  -webkit-justify-content: center;\n  justify-content: center;\n  font-size: calc(10px + 2vmin);\n  color: white;\n  text-align: center;\n  overflow: hidden;\n}\n.css-15plvkc {\n  font-size: calc(10px + 20vmin);\n}\n.css-1v5q1ar {\n  color: #61dafb;\n}\n.css-1d4tf5g {\n  color: #61dafb;\n}\n" } as ICodeSession;
 
-      const session = await this.kv.get<ICodeSession>("session") ||
-        await backupSession();
+      const session = await this.kv.get<ICodeSession>("session") || backupSession;
       if (!session.code) {
-        const s = await backupSession();
+        const s = backupSession;
         session.code = s.code;
         session.transpiled = s.transpiled;
         session.i = s.i;
@@ -150,7 +146,7 @@ export class Code {
 
           return new Response(
             `import { jsx as jsX } from "@emotion/react";
-           import {LoadRoom} from "https://spike.land/live/lazy/js";
+           import {LoadRoom} from "//live/lazy/js";
            export default ()=>jsX(LoadRoom, { room:"${this.codeSpace}"}) ;
            `,
             {
@@ -242,12 +238,11 @@ export class Code {
           const startState = mST();
           const html = HTML.replace(
             `/** startState **/`,
-            `Object.assign(window,${
-              JSON.stringify({
-                startState,
-                codeSpace: this.codeSpace,
-                address: this.address,
-              })
+            `Object.assign(window,${JSON.stringify({
+              startState,
+              codeSpace: this.codeSpace,
+              address: this.address,
+            })
             });`,
           ).replace(
             `<div id="root"></div>`,
@@ -266,12 +261,11 @@ export class Code {
           const startState = mST();
           const html = IIFE.replace(
             `/** startState **/`,
-            `Object.assign(window,${
-              JSON.stringify({
-                startState,
-                codeSpace: this.codeSpace,
-                address: this.address,
-              })
+            `Object.assign(window,${JSON.stringify({
+              startState,
+              codeSpace: this.codeSpace,
+              address: this.address,
+            })
             });`,
           );
           return new Response(html, {

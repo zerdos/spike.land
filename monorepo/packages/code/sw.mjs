@@ -24,7 +24,7 @@ let cache = {};
 const hashResp = {};
 
 async function update() {
-  const filesResp = await (fetch("https://spike.land/files.json"));
+  const filesResp = await (fetch("//files.json"));
   const files = await filesResp.json();
   if (files) {
     cache = files;
@@ -47,12 +47,12 @@ const mapper = async (name) => {
   const withHash = cache[name];
 
   if (hashResp[withHash] && hashResp[withHash].ok) {
-    const resp = await fetch(new URL(withHash, "https://spike.land"));
+    const resp = await fetch(new URL(withHash, "/"));
     if (resp.ok) {
       const blob = await resp.blob();
 
       hashResp[withHash] = new Response(blob, {
-        url: new URL(name, "https://spike.land"),
+        url: new URL(name, "/"),
       });
     }
   }
@@ -87,12 +87,12 @@ const onfetch = (event) => {
   if (cache[loc]) {
     return event.respondWith((async () => {
       if (!hashResp[cache[loc]]) {
-        let resp = await fetch(new URL(cache[loc], "https://spike.land"));
+        let resp = await fetch(new URL(cache[loc], "/"));
 
         if (!resp.ok) {
           updateCacheNOW();
           await wait(1000);
-          resp = await fetch(new URL(cache[loc], "https://spike.land"));
+          resp = await fetch(new URL(cache[loc], "/"));
         }
 
         if (!resp.ok) return resp.clone();
@@ -183,7 +183,7 @@ const fetchViewer = async (url) => {
 </head>
 <body>
 <iframe id="viewer" style="width:100%;height:100%;position:fixed;top:0;left:0;border:none;" src="/view${url.pathname}"></iframe>  
-  <script defer src="https://spike.land/main.js"></script>
+  <script defer src="//main.js"></script>
   </body>
 </html>
 `], { type: "text/html" });

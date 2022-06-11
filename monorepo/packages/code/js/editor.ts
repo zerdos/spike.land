@@ -67,7 +67,7 @@ export const startMonaco = async (
   shadowRoot.appendChild(innerStyle);
 
   monaco.languages.typescript.typescriptDefaults.setCompilerOptions({
-    baseUrl: "https://spike.land/live/",
+    baseUrl:  location.origin +"/live/",
     target: monaco.languages.typescript.ScriptTarget.ESNext,
     lib: [
       "dom",
@@ -113,7 +113,7 @@ export const startMonaco = async (
     model: monaco.editor.createModel(
       code,
       "typescript",
-      monaco.Uri.parse("https://spike.land/live/" + name + ".tsx"),
+      monaco.Uri.parse(location.origin+ "/live/" + name + ".tsx"),
     ),
     language: "typescript",
     useShadowDOM: true,
@@ -244,8 +244,8 @@ export const startMonaco = async (
   const regex2 = / from \'\./ig;
 
   const search = / from \'https:\/\/spike\.land\/live\/[a-zA-Z]+/gm;
-  const replaced = code.replaceAll(regex1, " from 'https://spike.land/live")
-    .replaceAll(regex2, " from 'https://spike.land/live");
+  const replaced = code.replaceAll(regex1, ` from '${location.origin}/live`)
+    .replaceAll(regex2, ` from '${location.origin}/live`);
 
   const models = replaced.matchAll(search);
   console.log("load more models");
@@ -432,7 +432,7 @@ export const startMonaco = async (
           await (await fetch(
             url,
           )).text(),
-          `https://spike.land/live/${name}.d.ts`,
+          location.origin +`/live/${name}.d.ts`,
         )
     );
 

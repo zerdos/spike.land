@@ -74,7 +74,7 @@ const importMap = { ...generator.getMap() };
 
 importMap.imports["react"] = isDev
   ? "https://localhost:8000/monorepo/packages/code/js/public/react.mjs"
-  : "https://spike.land/react.mjs";
+  : "/react.mjs";
 
 importMap.imports["react/jsx-runtime"] = importMap.imports["react"];
 importMap.imports["react-dom"] = importMap.imports["react"];
@@ -86,8 +86,8 @@ importMap.imports["react-dom/server"] = importMap.imports["react"];
 
 importMap.imports["framer-motion"] = isDev
   ? "https://localhost:8000/monorepo/packages/code/js/framer-motion.mjs"
-  : "https://spike.land/framer-motion.mjs";
-// importMap.imports["preact"] = isDev?"https://localhost:8000/monorepo/packages/code/js/public/preact.mjs":"https://spike.land/public/preact.mjs" ;
+  : "/framer-motion.mjs";
+// importMap.imports["preact"] = isDev?"https://localhost:8000/monorepo/packages/code/js/public/preact.mjs":"//public/preact.mjs" ;
 // importMap.imports["preact/compat"] = importMap.imports["preact"];
 // importMap.imports["react-is"] =
 // `https://unpkg.com/@spike.land/esm@${version}/public/react-is.mjs`;
@@ -97,15 +97,15 @@ importMap.imports["framer-motion"] = isDev
 
 importMap.imports["@emotion/react"] = isDev
   ? "https://localhost:8000/monorepo/packages/code/js/public/emotion.mjs"
-  : "https://spike.land/emotion.mjs";
+  : "/emotion.mjs";
 
 importMap.imports["@emotion/react/jsx-runtime"] = isDev
   ? "https://localhost:8000/monorepo/packages/code/js/public/emotion.mjs"
-  : "https://spike.land/emotion.mjs";
+  : "/emotion.mjs";
 
 importMap.imports["@emotion/cache"] = isDev
   ? "https://localhost:8000/monorepo/packages/code/js/public/emotion.mjs"
-  : "https://spike.land/emotion.mjs";
+  : "/emotion.mjs";
 //importMap.imports.tslib =
 //   "https://cdnjs.cloudflare.com/ajax/libs/tslib/2.3.1/tslib.es6.min.js";
 

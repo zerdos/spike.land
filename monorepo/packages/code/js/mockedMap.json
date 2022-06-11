@@ -1,12 +1,12 @@
 {
   "imports": {
-    "react/jsx-runtime": "https://spike.land/react.mjs",
-    "react": "https://spike.land/react.mjs",
-    "preact": "https://spike.land/react.mjs",
-    "react-dom": "https://spike.land/react.mjs",
-    "react-dom/server": "https://spike.land/react.mjs",
-    "framer-motion": "https://spike.land/framer-motion.mjs",
-    "@emotion/react": "https://spike.land/emotion.mjs",
-    "@emotion/react/jsx-runtime": "https://spike.land/emotion.mjs"
+    "react/jsx-runtime": "/react.mjs",
+    "react": "/react.mjs",
+    "preact": "/react.mjs",
+    "react-dom": "/react.mjs",
+    "react-dom/server": "/react.mjs",
+    "framer-motion": "/framer-motion.mjs",
+    "@emotion/react": "/emotion.mjs",
+    "@emotion/react/jsx-runtime": "/emotion.mjs"
   }
 }

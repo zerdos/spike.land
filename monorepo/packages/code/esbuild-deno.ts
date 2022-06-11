@@ -3,9 +3,9 @@ import { denoPlugin } from "https://deno.land/x/esbuild_deno_loader@0.5.0/mod.ts
 
 await esbuild.build({
   plugins: [
-    denoPlugin({ importMapURL: new URL("https://spike.land/importmap.json") }),
+    denoPlugin({ importMapURL: new URL("//importmap.json") }),
   ],
-  entryPoints: ["https://spike.land/ws.mjs"],
+  entryPoints: ["//ws.mjs"],
   outfile: "./monorepo/sites/spike.land/public/bundle.mjs",
   bundle: true,
   format: "esm",

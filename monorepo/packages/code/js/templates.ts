@@ -28,7 +28,7 @@ export function getHtml({ html, css }: { html: string; css: string }): string {
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta name="Description" content="Generated with spike.land">
 <title>${title}</title>
-<link rel="icon" type="image/png" href="https://spike.land/assets/zed-icon-big.png" />
+<link rel="icon" type="image/png" href="//assets/zed-icon-big.png" />
 <link rel="stylesheet" href="https://unpkg.com/modern-css-reset@1.4.0/public/reset.min.css" />
 
 <script async src="https://ga.jspm.io/npm:es-module-shims@1.5.5/public/es-module-shims.js"></script>
@@ -89,7 +89,7 @@ export const getEditorHTML = () =>
 <html lang="en">
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-  <link rel="icon" type="image/png" href="https://spike.land/assets/zed-icon-big.png" />
+  <link rel="icon" type="image/png" href="//assets/zed-icon-big.png" />
   
   <script async src="https://ga.jspm.io/npm:es-module-shims@1.5.5/public/es-module-shims.js"></script>
 <title>Instant React Editor</title>
@@ -108,11 +108,11 @@ ${
   }
 </script>
 <script type="module">
-import {edit} from "https://spike.land/data.mjs"
+import {edit} from "//data.mjs"
 try{
   edit(location.pathname.slice(42, 52));
 }catch(error){
-  fetch("https://spike.land/error", {method: "POST",  body: JSON.stringify({error})})
+  fetch("//error", {method: "POST",  body: JSON.stringify({error})})
 }
 </script>
 </body>

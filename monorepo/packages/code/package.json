@@ -51,7 +51,7 @@
   "bugs": {
     "url": "https://github.com/spike-land/monorepo"
   },
-  "homepage": "https://spike.land",
+  "homepage": "/",
   "repository": "https://github.com/spike-land/monorepo",
   "devDependencies": {
     "@types/lodash": "4.14.182",

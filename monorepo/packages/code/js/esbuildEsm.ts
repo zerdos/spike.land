@@ -13,7 +13,7 @@ export const init = async () => {
 
   await mutex.runExclusive(async () => {
     mod.initFinished || await esbuild.initialize({
-      wasmURL: "https://spike.land/esbuild.wasm",
+      wasmURL: "/esbuild.wasm",
     });
     mod.initFinished = true;
     return true;
@@ -45,9 +45,9 @@ async function transform(code: string, retry = 4): Promise<string> {
 
     const transpiled = result.code.replaceAll(
       regex1,
-      ' from "https://spike.land/live',
+      ' from "//live',
     )
-      .replaceAll(regex2, ' from "https://spike.land/live');
+      .replaceAll(regex2, ' from "//live');
 
     return transpiled;
   } catch (e) {
