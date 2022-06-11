@@ -320,13 +320,13 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
             </Fab>
 
             <QRButton
-              url={`//live/${room}/public`}
+              url={location.origin + `/live/${room}/public`}
               key={`qr-${hashCode}`}
             />
 
             <Fab
               key="Share"
-              onClick={() => open(`//live/${room}/public`)}
+              onClick={() => open(`/live/${room}/public`)}
             >
               <Share />
             </Fab>

@@ -24,18 +24,20 @@ new_classes = ["Users"] # Array of new classes
 bucket = "./public" # Add the directory with your static assets
 
 
-[env.dev]
-name = "spike-land-dev"
-route = "https://dev.spike.land/*"
+[env.staging]
+name = "spike-land-dd"
+route = "https://staging.spike.land/*"
+
 
 migrations = [
-    {tag = "v3", new_classes= ["Users", "Code", "CodeRateLimiter"]}
+    {tag = "v4", new_classes= ["Users", "Code", "CodeRateLimiter"]}
 ]
+
 
 durable_objects.bindings = [
     { name = "CODE", class_name = "Code" },
     { name = "LIMITERS", class_name = "CodeRateLimiter" }
 ]
 
-site.bucket = "./public"
+
 

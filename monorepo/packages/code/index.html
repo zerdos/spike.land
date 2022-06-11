@@ -81,7 +81,7 @@ textarea {
    window.codeSpace = codeSpace;
    if (!window.startState) {
      async()=>{
-       const resp = await fetch("//live/"+codeSpace+"/session");
+       const resp = await fetch("/live/"+codeSpace+"/session");
        window.startState = await resp.json();
        h(window.startState);
      }
@@ -104,7 +104,7 @@ textarea {
     import {run} from "./ws.mjs";
 
     if (!window.startState)  await  (async() =>{
-       const resp = await fetch("//live/"+codeSpace+"/session");
+       const resp = await fetch("/live/"+codeSpace+"/session");
        window.startState = await resp.json();
       //  h(window.startState);
      })();
