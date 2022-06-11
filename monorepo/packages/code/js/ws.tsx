@@ -158,7 +158,7 @@ export async function saveCode(sess: ICodeSession) {
   if (sess.i <= mST().i) return;
 
   const messageData = await makePatch(sess);
- 
+
   await applyPatch(messageData!);
   if (sess.i !== mST().i) return;
   bc.postMessage({ ignoreUser: user, sess, codeSpace, address, messageData });
@@ -229,7 +229,11 @@ export async function join() {
         rejoin();
       }
     };
-    sendWS = debounce(mess, 500, {maxWait: 1200, leading: true, trailing: true});
+    sendWS = debounce(mess, 500, {
+      maxWait: 1200,
+      leading: true,
+      trailing: true,
+    });
     ws.addEventListener(
       "message",
       (message) => processWsMessage(message, "ws"),
@@ -253,13 +257,14 @@ export async function join() {
 
       if (diff > 40_000) {
         try {
-          if (wsConnection?.OPEN) return wsConnection?.send(
-            JSON.stringify({
-              name: user,
-              timestamp: lastSeenTimestamp + diff,
-            })
-            
-          );
+          if (wsConnection?.OPEN) {
+            return wsConnection?.send(
+              JSON.stringify({
+                name: user,
+                timestamp: lastSeenTimestamp + diff,
+              }),
+            );
+          }
           rejoined = false;
           rejoin();
         } catch {

@@ -15,8 +15,6 @@ export const renderFromString = async (transpiled: string) => {
 
   const { html, css } = getHtmlAndCss(MyApp);
 
-  
-
   // await appFactory(transpiled, html);
 
   return {

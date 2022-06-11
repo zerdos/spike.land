@@ -58,9 +58,9 @@ export const MonacoEditor = () => {
     load();
   }, [ref]);
 
-  globalThis.setValue =  (newCode, counter) => {
+  globalThis.setValue = (newCode, counter) => {
     if (counter <= i) {
-     return;
+      return;
     }
 
     changeContent((x) => ({ ...x, i: counter, code: newCode }));
@@ -69,16 +69,14 @@ export const MonacoEditor = () => {
 
   useEffect(() =>
     editor?.onDidChangeModelContent(async () => {
-      
       const newCode = model.getValue();
       if (newCode === code) return;
 
       const counter = i + 1;
 
-      
       try {
-        changeContent((x) => ({ ...x, i: counter, code: newCode }))
-        await runnerDebounced({code: newCode, counter});
+        changeContent((x) => ({ ...x, i: counter, code: newCode }));
+        await runnerDebounced({ code: newCode, counter });
       } catch (err) {
         console.error({ err });
         console.error("restore editor");

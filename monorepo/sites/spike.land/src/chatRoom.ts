@@ -40,15 +40,15 @@ export class Code {
     this.address = "";
 
     this.state.blockConcurrencyWhile(async () => {
+      const backupSession = async () =>
+        await (await (env.CODE.get(env.CODE.idFromName("code-main"))).fetch(
+          "session",
+        )).json() as ICodeSession;
 
-
-      const backupSession = async()=> await (await (env.CODE.get(env.CODE.idFromName("code-main"))).fetch(
-        "session",
-      )).json() as ICodeSession
-      
-      const session = await this.kv.get<ICodeSession>("session") || await backupSession();
-      if (!session.code)   {
-      const s =  await backupSession();
+      const session = await this.kv.get<ICodeSession>("session") ||
+        await backupSession();
+      if (!session.code) {
+        const s = await backupSession();
         session.code = s.code;
         session.transpiled = s.transpiled;
         session.i = s.i;

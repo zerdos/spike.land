@@ -41,10 +41,9 @@ export const AceEditor = () => {
 
       const counter = i + 1;
 
-      
       try {
-        changeContent((x) => ({ ...x, i: counter, code: newCode }))
-        await runnerDebounced({code: newCode, counter});
+        changeContent((x) => ({ ...x, i: counter, code: newCode }));
+        await runnerDebounced({ code: newCode, counter });
       } catch (err) {
         console.error({ err });
         console.error("restore editor");
@@ -58,15 +57,12 @@ export const AceEditor = () => {
   }, [editor, code, i, changeContent]);
 
   globalThis.setValue = (newCode, counter) => {
-
     if (counter <= i) {
       return;
-     }
- 
-     changeContent((x) => ({ ...x, i: counter, code: newCode }));
-     editor?.setValue(newCode);
+    }
 
-
+    changeContent((x) => ({ ...x, i: counter, code: newCode }));
+    editor?.setValue(newCode);
   };
 
   return (
