@@ -24,7 +24,7 @@ let cache = {};
 const hashResp = {};
 
 async function update() {
-  const filesResp = await (fetch("//files.json"));
+  const filesResp = await (fetch("/files.json"));
   const files = await filesResp.json();
   if (files) {
     cache = files;

@@ -108,7 +108,7 @@ ${
   }
 </script>
 <script type="module">
-import {edit} from "//data.mjs"
+import {edit} from "/data.mjs"
 try{
   edit(location.pathname.slice(42, 52));
 }catch(error){

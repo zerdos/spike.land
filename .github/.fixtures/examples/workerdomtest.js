@@ -1,5 +1,5 @@
 fetch(
-  "//ipfs/QmRX68ncYxZcPT9kzKUZotU6NDr92toosBcMCKHyywPony",
+  "/ipfs/QmRX68ncYxZcPT9kzKUZotU6NDr92toosBcMCKHyywPony",
 )
   .then((data) => data.text())
   .then(async (text) => {

@@ -34,7 +34,7 @@ export const workboxLoader = async () => {
     try {
       let url = "./sw.js";
       if (location.hostname.includes("spike.land")) {
-        url = "//sw.js";
+        url = "/sw.js";
       }
 
       const wb = new Workbox(url);

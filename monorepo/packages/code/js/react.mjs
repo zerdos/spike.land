@@ -1,1 +1,1 @@
-export * from "//react.mjs";
+export * from "/react.mjs";

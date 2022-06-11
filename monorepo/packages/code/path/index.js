@@ -331,7 +331,7 @@ var posix = {
     }
 
     if (end === -1) return hasRoot ? "/" : ".";
-    if (hasRoot && end === 1) return "//";
+    if (hasRoot && end === 1) return "/";
     return path.slice(0, end);
   },
 
