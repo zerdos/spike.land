@@ -230,7 +230,7 @@ export async function join() {
         rejoin();
       }
     };
-    sendWS = debounce(mess, 500);
+    sendWS = debounce(mess, 500, {maxWait: 1200, leading: true, trailing: true});
     ws.addEventListener(
       "message",
       (message) => processWsMessage(message, "ws"),

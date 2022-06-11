@@ -12,15 +12,24 @@ export interface IRunnerSession {
   url: string;
 }
 
-export const runnerDebounced = debounce(runner, 100);
+ const debounced = debounce(runner, 300,  { maxWait: 600, trailing: true, leading: true });
+
+export const runnerDebounced = (props)=>debounced(props);
 
 type ITransform = (code: string, retry?: number) => Promise<string>;
 
 let transform: ITransform | null = null;
-export async function runner(
+let i = 0;
+export async function runner({code, counter} : 
+{
   code: string,
   counter: number,
+}
 ) {
+  if (i>=counter) return;
+  i = counter;
+  
+  console.log({code, counter}); 
   if (await prettier(code) === await prettier(mST().code)) return;
 
   // session.changes.push(changes);
@@ -34,6 +43,7 @@ export async function runner(
   try {
     const transpiled = await transform(code);
     if (transpiled === mST().transpiled) return;
+    if (i>=counter) return;
 
     let restartError = false;
     /// yellow
@@ -42,7 +52,7 @@ export async function runner(
         const { renderFromString } = await import("./renderToString");
 
         const { html, css } = await renderFromString(transpiled);
-
+        if (i>=counter) return;
         await saveCode({
           code,
           transpiled,

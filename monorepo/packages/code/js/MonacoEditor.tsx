@@ -58,35 +58,32 @@ export const MonacoEditor = () => {
     load();
   }, [ref]);
 
-  globalThis.setValue = async (newCode, counter) => {
-    if (counter !== i && newCode === code) {
-      return changeContent((x) => ({ ...x, i: counter }));
+  globalThis.setValue =  (newCode, counter) => {
+    if (counter <= i) {
+     return;
     }
-    if (newCode === code) return;
-    if (counter <= i) return;
 
-    if (await prettier(newCode) === await prettier(code)) return;
-    model?.setValue(newCode);
     changeContent((x) => ({ ...x, i: counter, code: newCode }));
+    model?.setValue(newCode);
   };
 
   useEffect(() =>
     editor?.onDidChangeModelContent(async () => {
       
-      const newCode = await prettier(model.getValue());
+      const newCode = model.getValue();
       if (newCode === code) return;
 
       const counter = i + 1;
 
       
       try {
-        await runnerDebounced(newCode, counter);
-        changeContent((x) => ({ ...x, i: counter, code: newCode }));
+        changeContent((x) => ({ ...x, i: counter, code: newCode }))
+        await runnerDebounced({code: newCode, counter});
       } catch (err) {
         console.error({ err });
         console.error("restore editor");
 
-        model?.setValue(code);
+        // model?.setValue(code);
       }
     }).dispose, [i, changeContent, model, editor]);
 
