@@ -40,10 +40,21 @@ export class Code {
     this.address = "";
 
     this.state.blockConcurrencyWhile(async () => {
-      const session = await this.kv.get<ICodeSession>("session") ||
-        await (await (env.CODE.get(env.CODE.idFromName("code-main"))).fetch(
-          "session",
-        )).json() as ICodeSession;
+
+
+      const backupSession = async()=> await (await (env.CODE.get(env.CODE.idFromName("code-main"))).fetch(
+        "session",
+      )).json() as ICodeSession
+      
+      const session = await this.kv.get<ICodeSession>("session") || await backupSession();
+      if (!session.code)   {
+      const s =  await backupSession();
+        session.code = s.code;
+        session.transpiled = s.transpiled;
+        session.i = s.i;
+        session.html = s.html;
+        session.css = s.css;
+      }
       this.address = await this.kv.get<string>("address") || "";
 
       startSession(this.codeSpace, {

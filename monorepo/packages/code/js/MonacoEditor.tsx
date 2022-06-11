@@ -72,15 +72,20 @@ export const MonacoEditor = () => {
 
   useEffect(() =>
     editor?.onDidChangeModelContent(async () => {
-      const newCode = model.getValue();
+      
+      const newCode = await prettier(model.getValue());
+      if (newCode === code) return;
+
       const counter = i + 1;
 
+      
       try {
         await runnerDebounced(newCode, counter);
         changeContent((x) => ({ ...x, i: counter, code: newCode }));
       } catch (err) {
         console.error({ err });
         console.error("restore editor");
+
         model?.setValue(code);
       }
     }).dispose, [i, changeContent, model, editor]);
