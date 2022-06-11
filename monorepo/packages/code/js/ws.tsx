@@ -158,9 +158,10 @@ export async function saveCode(sess: ICodeSession) {
   if (sess.i <= mST().i) return;
 
   const messageData = await makePatch(sess);
-  bc.postMessage({ ignoreUser: user, sess, codeSpace, address, messageData });
-
+ 
   await applyPatch(messageData!);
+  if (sess.i !== mST().i) return;
+  bc.postMessage({ ignoreUser: user, sess, codeSpace, address, messageData });
 
   (async () => {
     if (Object.keys(rtcConns).length == 0) return;
