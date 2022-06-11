@@ -17,15 +17,14 @@ export const MonacoEditor = () => {
   };
 
   const mst = mST();
-  const [{code, i, lines, editor, model}, changeContent] = useState({
+  const [{code, i, editor, model}, changeContent] = useState({
     code: mst.code,
     i: mst.i,
-    lines: code.split("\n").length,
     editor: null as {onDidChangeModelContent: ()=>void} | null,
     model: null as null | {getValue: ()=>string; setValue:(code: string)=> void}
   });
 
-
+  const lines = code?.split("\n").length || 0;
 
   useEffect(() => {
     if (ref === null) return;
@@ -52,30 +51,42 @@ export const MonacoEditor = () => {
     load();
   }, [ref]);
 
-  globalThis.setValue = ( newCode, counter) => {
+  globalThis.setValue = async ( newCode, counter) => {
+  
 
-    if (counter !== i && newCode === code) changeContent(x=>({...x, i:counter})) 
+    if (counter !== i && newCode === code) return changeContent(x=>({...x, i:counter})) 
     if(newCode === code) return;
+    if (counter <= i ) return;
 
-    model?.setValue(code);
+    if (await prettier(newCode) === await prettier(code)) return;
+    model?.setValue(newCode);
     changeContent((x) => ({ ...x, i: counter, code: newCode }));
 
   };
 
   useEffect(() =>
     editor?.onDidChangeModelContent(async () => {
-      formatter = formatter || (await import("./prettierEsm")).prettier;
-      const newCode = formatter(model.getValue());
-      if (newCode === code) return;
-      changeContent((x) => ({ ...x, code: newCode, i: x.i + 1 }));
-      runnerDebounced(newCode, i + 1);
-    }).dispose, [code, i, changeContent, model, editor]);
+      const newCode = model.getValue();
+      const counter = i + 1; 
+      
+      try{
+        await runnerDebounced(newCode, counter);
+        changeContent((x) => ({ ...x, i: counter, code: newCode }));
+      } catch(err){
+        console.error({err});
+        console.error("restore editor");
+        model?.setValue(code);
+      }
+
+
+      
+    }).dispose, [i, changeContent, model, editor]);
 
   return (
     <div
       css={css`
   max-width: 640px;
-  height: ${60 + sess.lines / 40 * 100}% ;
+  height: ${60 + lines / 40 * 100}% ;
 `}
       ref={ref}
     />

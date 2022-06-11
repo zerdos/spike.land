@@ -82,8 +82,20 @@ globalThis.update = async () => {
 };
 
 export const run = async () => {
+  navigator.serviceWorker.register("/sw.js", {
+    scope: "/",
+  });
   renderApp(await appFactory(window.startState.transpiled));
+
+  const current = await navigator.serviceWorker.ready;
   sw();
+
+  Promise.all((await navigator.serviceWorker.getRegistrations()).map(  (sw)=>{
+    
+    if (current!==sw) sw.unregister(); 
+  }));
+
+
 
   if (location.href.endsWith("hydrated")) return;
 
@@ -708,10 +720,7 @@ const sw = async () => {
     };
 
     // @ts-ignore - register expects string but webPack requires this URL hack.
-    navigator.serviceWorker.register("/sw.js", {
-      scope: "/",
-    });
-    await navigator.serviceWorker.ready;
+
 
     // This is just for testing, lets us know when SW is ready.
 

@@ -19,6 +19,13 @@ import { md5 } from "./md5";
 const apps: { [key: string]: FC } = {};
 
 globalThis.apps = apps;
+
+
+globalThis.prettier = async (code: string)=>  {
+ const {prettier} =  await import("./prettierEsm");
+ globalThis.prettier = async (code)=>prettier(code);
+ return prettier(code);
+}
 export const appFactory = async (transpiled: string) => {
   if (globalThis.transpiled === transpiled) return globalThis.App;
   globalThis.transpiled = transpiled;

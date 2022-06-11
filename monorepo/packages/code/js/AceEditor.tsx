@@ -51,7 +51,7 @@ export const AceEditor = () => {
     if (counter !== i && newCode === code) changeContent(x=>({...x, i:counter})) 
     if(newCode === code) return;
 
-    model?.setValue(code);
+    model?.setValue(newCode);
     changeContent((x) => ({ ...x, i: counter, code: newCode }));
 
   };

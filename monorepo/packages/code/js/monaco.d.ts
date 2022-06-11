@@ -5,6 +5,8 @@ import type { ICodeSession } from "session";
 
 declare global {
   var setValue: (code: string, i: number)=> void;
+  var prettier: (code: string)=> string;
+  
   var update: ()=>Promise<void>
   var startedWithNativeEsmModules: boolean;
   var editable: boolean;
