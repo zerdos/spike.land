@@ -52,7 +52,7 @@ const mapper = async (name) => {
       const blob = await resp.blob();
 
       hashResp[withHash] = new Response(blob, {
-        url: new URL(name, "/"),
+        url: new URL(name, location.origin),
       });
     }
   }
@@ -87,12 +87,12 @@ const onfetch = (event) => {
   if (cache[loc]) {
     return event.respondWith((async () => {
       if (!hashResp[cache[loc]]) {
-        let resp = await fetch(new URL(cache[loc], "/"));
+        let resp = await fetch(new URL(cache[loc], location.origin));
 
         if (!resp.ok) {
           updateCacheNOW();
           await wait(1000);
-          resp = await fetch(new URL(cache[loc], "/"));
+          resp = await fetch(new URL(cache[loc], location.origin));
         }
 
         if (!resp.ok) return resp.clone();
