@@ -43,7 +43,7 @@ export default {
       if (!path[0]) {
         // Serve our HTML at the root path.
         return new Response(
-          `<meta http-equiv="refresh" content="0; URL=${u.protocol+ "/" + u.hostname+":"+u.port }/live/coder" />`,
+          `<meta http-equiv="refresh" content="0; URL=${u.protocol+ "//" + u.hostname+":"+u.port }/live/coder" />`,
           {
             headers: {
               "Location": `${u.protocol}//${u.hostname}:${u.port }/live/coder`,
