@@ -4,7 +4,7 @@ import { CacheProvider } from "@emotion/react";
 import createCache from "@emotion/cache";
 import type { FC } from "react";
 
-import { appFactory, renderApp } from "./starter";
+import { appFactory } from "./starter";
 import { prettierCss, prettierHtml } from "./prettierEsm";
 
 import { renderToString } from "react-dom/server";
@@ -15,7 +15,7 @@ export const renderFromString = async (transpiled: string) => {
 
   const { html, css } = getHtmlAndCss(MyApp);
 
-  renderApp(MyApp);
+  
 
   // await appFactory(transpiled, html);
 
