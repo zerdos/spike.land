@@ -28,6 +28,7 @@ export async function runner({ code, counter }: {
   code: string;
   counter: number;
 }) {
+  console.log({i, counter})
   if (i >= counter) return setTimeout(()=>i = mST().i,100);
   i = counter;
   const { init } = await import("./esbuildEsm");

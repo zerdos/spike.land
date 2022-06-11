@@ -368,6 +368,7 @@ async function processWsMessage(
     }
 
     await applyPatch(data);
+    await globalThis.update(true);
 
     if (data.newHash === hashCode()) {
       if (sendChannel) {

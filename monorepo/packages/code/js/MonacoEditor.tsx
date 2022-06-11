@@ -64,7 +64,9 @@ export const MonacoEditor = () => {
     }
 
     changeContent((x) => ({ ...x, i: counter, code: newCode }));
-    model?.setValue(newCode);
+    setTimeout(() => {
+      model?.setValue(newCode);
+    }, 100); 
   };
 
   useEffect(() =>

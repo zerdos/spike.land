@@ -62,7 +62,7 @@ export const AceEditor = () => {
     }
 
     changeContent((x) => ({ ...x, i: counter, code: newCode }));
-    editor?.setValue(newCode);
+    setTimeout(()=> editor?.setValue(newCode), 100);
   };
 
   return (
