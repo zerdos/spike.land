@@ -58,8 +58,8 @@ export const MonacoEditor = () => {
     load();
   }, [ref]);
 
-  globalThis.setValue = (newCode, counter) => {
-    if (counter <= i) {
+  globalThis.setValue = (newCode, counter, force) => {
+    if (!force && counter <= i) {
       return;
     }
 

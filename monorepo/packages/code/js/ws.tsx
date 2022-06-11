@@ -72,11 +72,11 @@ const sendChannel = {
 // Let createDelta;
 // let applyPatch;
 
-globalThis.update = async () => {
+globalThis.update = async (force=false) => {
   const { transpiled, i, code } = mST();
 
   if (globalThis.setValue) {
-    globalThis.setValue(code, i);
+    globalThis.setValue(code, i, force);
   }
   renderApp(await appFactory(transpiled));
 };
@@ -149,6 +149,7 @@ bc.onmessage = async (event) => {
   ) {
     const messageData = await makePatch(event.data.sess);
     await applyPatch(messageData!);
+    await globalThis.update(true);
   }
 };
 

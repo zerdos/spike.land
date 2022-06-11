@@ -56,8 +56,8 @@ export const AceEditor = () => {
     return () => editor?.session.off("change", listener);
   }, [editor, code, i, changeContent]);
 
-  globalThis.setValue = (newCode, counter) => {
-    if (counter <= i) {
+  globalThis.setValue = (newCode, counter, force) => {
+    if (! force && counter <= i) {
       return;
     }
 
