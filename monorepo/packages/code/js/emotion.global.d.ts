@@ -5,6 +5,4 @@ declare global {
   interface Window {
     emotionReact: typeof Emotion;
   }
-}
-declare module "esbuild-wasm/esbuild.wasm";
-declare module "*.wasm";
+}s
