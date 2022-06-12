@@ -6,7 +6,7 @@
   "module": "dist/worker.mjs",
   "private": true,
   "scripts": {
-    "dev": "miniflare dist/worker.mjs --wrangler-config wrangler.toml  --watch --https --open",
+    "dev": "wrangler dev",
     "deploy": "wrangler publish",
     "xbuild": "esbuild --bundle --format=esm --loader:.html=text --external:__STATIC_CONTENT_MANIFEST --target=esnext src/index.ts --outfile=dist/worker.mjs"
   },

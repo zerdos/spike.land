@@ -4,10 +4,7 @@ account_id = "1f98921051196545ebe79a450d3c71ed"
 route = "https://spike.land/*"  
 compatibility_date = "2021-10-16"
 usage_model = "bundled"
-main = "dist/worker.mjs"
-https = true
-local = true
-upstream-protocol = "https"
+main = "src/index.ts"
 
 [durable_objects]
 bindings = [
@@ -22,6 +19,9 @@ new_classes = ["Code", "CodeRateLimiter"] # Array of new classes
 [[migrations]]
 tag = "v1" # Should be unique for each entry
 new_classes = ["Users"] # Array of new classes
+
+
+
 
 [site]
 bucket = "./public" # Add the directory with your static assets
@@ -42,6 +42,5 @@ durable_objects.bindings = [
     { name = "CODE", class_name = "Code" },
     { name = "LIMITERS", class_name = "CodeRateLimiter" }
 ]
-
 
 
