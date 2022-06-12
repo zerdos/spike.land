@@ -1,1 +1,1 @@
-export { motion } from "framer-motion";
+export * from "framer-motion";
