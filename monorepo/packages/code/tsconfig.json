@@ -15,7 +15,7 @@
     "isolatedModules": true,
     "noEmit": true,
 
-    "module": "esnext",
+    "module":"ES2022",
     "jsx": "react-jsx",
     "jsxImportSource": "@emotion/react",
     "sourceMap": true,
@@ -56,8 +56,8 @@
     /* Experimental Options */
     // "experimentalDecorators": true,        /* Enables experimental support for ES7 decorators. */
     // "emitDecoratorMetadata": true,         /* Enables experimental support for emitting type metadata for decorators. */
-
     "composite": true,
+    "importHelpers": false,
     "incremental": true,
     /* Advanced Options */
     "skipLibCheck": false, /* Skip type checking of declaration files. */

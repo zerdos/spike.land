@@ -5,7 +5,6 @@
     "preact": "/react.mjs",
     "react-dom": "/react.mjs",
     "react-dom/server": "/react.mjs",
-    "framer-motion": "/framer-motion.mjs",
     "@emotion/react": "/emotion.mjs",
     "@emotion/react/jsx-runtime": "/emotion.mjs"
   }

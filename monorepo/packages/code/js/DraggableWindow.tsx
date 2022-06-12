@@ -5,7 +5,7 @@ import { css } from "@emotion/react";
 import { useEffect, useRef, useState } from "react";
 import type { FC, ReactNode } from "react";
 
-import { motion } from "framer-motion";
+import { LazyMotion, domMax, m } from "framer-motion"
 import { QRButton } from "./Qr";
 
 import {
@@ -109,7 +109,8 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
   globalThis.setCh = setCh;
 
   return (
-    <motion.div
+    <LazyMotion features={domMax}>
+    <m.div
       transition={{ delay: 0, duration: 0.4 }}
       ref={ref}
       initial={{
@@ -154,7 +155,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
             align-items: center;
           `}
         >
-          <motion.div
+          <m.div
             transition={{ delay: 0, duration: 0.4 }}
             initial={{ height: 0, width: 0 }}
             animate={{ height: "auto", width: "auto" }}
@@ -186,10 +187,10 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
                 </ToggleButton>
               ))}
             </ToggleButtonGroup>
-          </motion.div>
+          </m.div>
           {/* <span>{width}*{height}</span> */}
 
-          <motion.div
+          <m.div
             transition={{ delay: 0, duration: 0.4 }}
             initial={{
               width: window.innerWidth,
@@ -210,7 +211,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
                 overflow-y: hidden;
             `}
           >
-            <motion.div
+            <m.div
               transition={{ delay: 0, duration: 0.4 }}
               initial={{
                 width: window.innerWidth,
@@ -231,9 +232,9 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
               `}
             >
               {ch}
-            </motion.div>
-          </motion.div>
-          <motion.div
+            </m.div>
+          </m.div>
+          <m.div
             transition={{ delay: 0, duration: 0.4 }}
             initial={{ height: 0, width: 0 }}
             animate={{ height: "auto", width: "auto" }}
@@ -292,10 +293,10 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
                 </ToggleButton>
               ))}
             </ToggleButtonGroup>
-          </motion.div>
+          </m.div>
         </div>
 
-        <motion.div
+        <m.div
           transition={{ delay: 0, duration: 0.4 }}
           initial={{ height: 0, width: 0 }}
           animate={{ height: "100%", width: "auto" }}
@@ -331,8 +332,9 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
               <Share />
             </Fab>
           </div>
-        </motion.div>
+        </m.div>
       </div>
-    </motion.div>
+    </m.div>
+    </LazyMotion>
   );
 };
