@@ -17,7 +17,6 @@
     "clean": "yarn lerna run clean",
     "build": "yarn lerna run build",
     "serve": "nodemon ./http2-server/http2-server.mjs",
-    "push": "NODE_ENV=production yarn lerna push",
     "importmap": "yarn lerna importmap",
     "build:code": "yarn lerna build:code",
     "deploy": "yarn lerna run deploy",
@@ -36,7 +35,10 @@
     "pw": "playwright",
     "test": "echo \"Error: no test specified\" && exit 1"
 },
-"dependencies": {
-  "lerna": "5.1.1"
+"devDependencies": {
+  "lerna": "5.1.1",
+  "typescript": "4.7.3",
+  "@cloudflare/workers-types":"3.11.0",
+  "@cloudflare/kv-asset-handler":"0.2.0"
 }
 }

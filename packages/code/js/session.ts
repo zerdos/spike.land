@@ -149,7 +149,7 @@ export class CodeSession implements ICodeSess {
     newHash,
     patch,
   }: CodePatch) => {
-    const x = this.hashOfState();
+    
 
     const bestGuesses = this.room || "";
 
@@ -228,8 +228,8 @@ function str(s: ICodeSession) {
 
 export const patch: IApplyPatch = async (x) => {
   await session?.applyPatch(x);
-  if (globalThis.update) {
-    await globalThis.update();
+  if ( (globalThis as unknown as {update: ()=>Promise<void> | null})?.update) {
+    await (globalThis as unknown as {update: ()=>Promise<void> | null}) .update();
   }
 };
 export const makePatchFrom = (n: number, st: ICodeSession) =>

@@ -18,23 +18,27 @@ const debounced = debounce(runner, 300, {
   leading: true,
 });
 
-export const runnerDebounced = (props) => debounced(props);
+export const runnerDebounced: typeof runner = (props) => debounced(props);
 
 type ITransform = (code: string, retry?: number) => Promise<string>;
 
 let transform: ITransform | null = null;
 let i = 0;
+
 export async function runner({ code, counter }: {
   code: string;
   counter: number;
 }) {
   console.log({i, counter})
-  if (i >= counter) return setTimeout(()=>i = mST().i,100);
+  if (i >= counter) {
+    setTimeout(()=>i = mST().i,100);
+    return;
+  }
   i = counter;
   const { init } = await import("./esbuildEsm");
   transform = transform || await init();
   const { renderFromString } = await import("./renderToString");
-  if (await prettier(code) === await prettier(mST().code)) return;
+  if (await prettierJs(code) === await prettierJs(mST().code)) return;
   if (i > counter) return;
 
   // session.changes.push(changes);
@@ -69,6 +73,7 @@ export async function runner({ code, counter }: {
         console.error(error);
         restartError = true;
         console.error({ restartError });
+        return
       }
     }
   } catch (error) {

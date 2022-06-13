@@ -2,14 +2,14 @@
 	"folders": [
 		{
 			"name": "code",
-			"path": "monorepo/packages/code"
+			"path": "packages/code"
 		},
 		{
 			"name": "spike.land",
-			"path": "monorepo/sites/spike.land"
+			"path": "sites/spike.land"
 		},
 		{
-			"name": "z",
+			"name": "monorepo",
 			"path": "."
 		}
 	],

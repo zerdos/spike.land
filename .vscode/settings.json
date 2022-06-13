@@ -22,7 +22,6 @@
   "git.autofetch": true,
   "npm.packageManager": "yarn",
   "explorer.expandSingleFolderWorkspaces": true,
-  "typescript.enablePromptUseWorkspaceTsdk": true,
   "cSpell.words": [
     "axax",
     "codicon",
@@ -51,6 +50,5 @@
     "**/.hg/store/**": true
   },
   "typescript.tsserver.useSyntaxServer": "always",
-  "deno.enable": false,
-  "typescript.tsdk": "node_modules/typescript/lib"
+  "deno.enable": false
 }

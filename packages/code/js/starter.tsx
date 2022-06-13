@@ -2,7 +2,7 @@
 
 // import { CacheProvider } from "@emotion/react";
 // import createCache from "@emotion/cache";
-import type { FC, ReactElement } from "react";
+import type { FC } from "react";
 // import  from "react";
 
 import { render } from "react-dom";
@@ -20,10 +20,10 @@ const apps: { [key: string]: FC } = {};
 
 globalThis.apps = apps;
 
-globalThis.prettier = async (code: string) => {
-  const { prettier } = await import("./prettierEsm");
-  globalThis.prettier = async (code) => prettier(code);
-  return prettier(code);
+globalThis.prettierJs = async (code: string) => {
+  const { prettierJs } = await import("./prettierEsm");
+  globalThis.prettierJs = async (code: string) => prettierJs(code);
+  return prettierJs(code);
 };
 export const appFactory = async (transpiled: string) => {
   if (globalThis.transpiled === transpiled) return globalThis.App;

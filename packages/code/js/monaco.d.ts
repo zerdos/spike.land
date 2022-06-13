@@ -4,10 +4,10 @@ import type { FC, ReactNode } from "react";
 import type { ICodeSession } from "session";
 
 declare global {
-  var setValue: (code: string, i: number) => void;
-  var prettier: (code: string) => string;
+  var setValue: (code: string, i: number, force: boolean) => void;
+  var prettierJs: (code: string) => Promise<string>;
 
-  var update: () => Promise<void>;
+  var update: (force?: boolean) => Promise<void>;
   var startedWithNativeEsmModules: boolean;
   var editable: boolean;
   // let MonacoEnvironment: monaco.Environment;

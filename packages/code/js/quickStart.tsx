@@ -3,10 +3,7 @@
 import { isMobile } from "./isMobile.mjs";
 import { AceEditor } from "./AceEditor";
 import { MonacoEditor } from "./MonacoEditor";
-import { useEffect } from "react";
 import { renderPreviewWindow } from "./renderPreviewWindow";
-import { mST } from "session.js";
-import { useState } from "preact/hooks";
 
 // const  Shiki = () => {
 //   // const [code, setCode] = useState(mmST().code);

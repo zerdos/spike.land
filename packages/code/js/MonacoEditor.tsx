@@ -1,3 +1,4 @@
+
 /** @jsxImportSource @emotion/react */
 
 import { useEffect, useRef, useState } from "react";
@@ -7,9 +8,10 @@ import { runnerDebounced } from "./runner";
 import { mST } from "./session";
 
 import { css } from "@emotion/react";
+import type { editor} from "monaco-editor"
 
-type IPrettier = (code: string) => string;
-let formatter: null | IPrettier = null;
+export type IStandaloneCodeEditor = editor.IStandaloneCodeEditor
+
 
 export const MonacoEditor = () => {
   const ref = useRef<HTMLDivElement>(null) as null | {
@@ -17,14 +19,10 @@ export const MonacoEditor = () => {
   };
 
   const mst = mST();
-  const [{ code, i, editor, model }, changeContent] = useState({
+  const [{ code, i, editor }, changeContent] = useState({
     code: mst.code,
     i: mst.i,
-    editor: null as { onDidChangeModelContent: () => void } | null,
-    model: null as null | {
-      getValue: () => string;
-      setValue: (code: string) => void;
-    },
+    editor: null as null | IStandaloneCodeEditor
   });
 
   const lines = code?.split("\n").length || 0;
@@ -47,7 +45,7 @@ export const MonacoEditor = () => {
 
       changeContent((x) => ({
         ...x,
-        editor: editor as unknown as { onDidChangeModelContent: () => void },
+        editor,
         model: editor.getModel(),
       }));
 
@@ -65,13 +63,13 @@ export const MonacoEditor = () => {
 
     changeContent((x) => ({ ...x, i: counter, code: newCode }));
     setTimeout(() => {
-      model?.setValue(newCode);
+      editor?.getModel()?.setValue(newCode);
     }, 100); 
   };
 
   useEffect(() =>
     editor?.onDidChangeModelContent(async () => {
-      const newCode = model.getValue();
+      const newCode = editor?.getModel()?.getValue()!;
       if (newCode === code) return;
 
       const counter = i + 1;
@@ -85,7 +83,7 @@ export const MonacoEditor = () => {
 
         // model?.setValue(code);
       }
-    }).dispose, [i, changeContent, model, editor]);
+    }).dispose, [i, changeContent, editor]);
 
   return (
     <div
