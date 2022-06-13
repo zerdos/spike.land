@@ -83,14 +83,6 @@ export default {
               "Cache-Control": "no-cache",
             },
           });
-        case "globals.json":
-          const globals = await import("globals");
-          return new Response(JSON.stringify(globals), {
-            headers: {
-              "Content-Type": "application/json;charset=UTF-8",
-              "Cache-Control": "no-cache",
-            },
-          });
         case "api":
           // This is a request for `/api/...`, call the API handler.
           return handleApiRequest(path.slice(1), request, env);

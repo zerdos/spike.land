@@ -1,66 +1,44 @@
 {
-  "name": "z",
-  "version": "1.0.0",
-  "description": "[Real time React page editor, in typescript! ![Screenshot](./spike.land-1920x1080.png)](https://spike.land)",
-  "devDependencies": {
-    "@jspm/generator": "1.0.0-beta.31",
-    "@playwright/test": "1.22.2",
-    "@typescript-eslint/eslint-plugin": "5.27.1",
-    "@typescript-eslint/parser": "5.27.1",
-    "esbuild": "0.14.43",
-    "eslint": "8.17.0",
-    "eslint-plugin-react": "7.30.0",
-    "lerna": "5.1.1",
-    "open-cli": "7.0.1",
-    "rimraf": "3.0.2",
-    "speed-limiter": "1.0.2",
-    "typescript": "4.7.3",
-    "wait-on": "6.0.1",
-    "wrangler": "2.0.9",
-    "yarn": "1.22.19"
-  },
+  "name": "github.com-spike.land",
+  "description": "our monorepo",
+  "repository": "git@github.com:spike-land/monorepo.git",
+  "author": "Zoltan Erdos <zoliika84@gmail.com>",
+  "license": "MIT",
+  "private": true,
+  "workspaces": [
+    "packages/*",
+    "dockerhub/devimages/*",
+    "sites/*"
+  ],
   "scripts": {
-    "start": "yarn ws:yarn build && yarn open && yarn serve",
+    "start": "yarn lerna build && yarn open && yarn serve",
     "__hard__reformat": "rm -rf node_modules monorepo &&  git reset --hard HEAD && deno fmt . && yarn && yarn build:prod",
     "open": "open-cli https://localhost:8000/monorepo/packages/code/js/index.html",
-    "clean": "yarn ws:yarn clean",
+    "clean": "yarn lerna  clean",
     "serve": "nodemon ./http2-server/http2-server.mjs",
-    "push": "NODE_ENV=production yarn ws:yarn push",
-    "importmap": "yarn ws:yarn importmap",
-    "build:code": "yarn ws:yarn build:code",
-    "deploy": "yarn ws:yarn deploy",
-    "lerna:publish": "yarn ws:yarn lerna:publish",
+    "push": "NODE_ENV=production yarn lerna push",
+    "importmap": "yarn lerna importmap",
+    "build:code": "yarn lerna build:code",
+    "deploy": "yarn lerna run deploy",
+    "lerna:publish": "yarn lerna lerna:publish",
     "push:prod": "NODE_ENV=production yarn build-and-push",
-    "build-and-push": "yarn importmap && yarn re:build && yarn ws:yarn push:prod",
-    "re:build": "yarn ws:yarn re:build",
-    "build:all": "yarn ws:yarn re:build",
+    "build-and-push": "yarn importmap && yarn re:build && yarn lerna push:prod",
+    "re:build": "NODE_ENV=production  yarn lerna run re:build",
+    "build:all": "yarn lerna run re:build",
     "build:prod": "NODE_ENV=production yarn build:all",
-    "docker:build": "yarn ws:yarn docker:build",
-    "docker:push": "yarn ws:yarn docker:push",
-    "postinstall": "yarn i:mono && yarn build:prod",
-    "i:mono": "cd monorepo && yarn",
-    "ws:yarn": "yarn --cwd monorepo ",
+    "docker:build": "yarn lerna docker:build",
+    "docker:push": "yarn lerna docker:push",
+    "postinstall": "yarn build:prod",
     "lerna": "lerna",
     "open-cli": "open-cli",
     "pw": "playwright",
     "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/spike-land/monorepo.git"
-  },
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/spike-land/monorepo/issues"
-  },
-  "homepage": "https://github.com/spike-land/monorepo#readme",
-  "resolutions": {
-    "stream": ""
-  },
-  "dependencies": {
-    "@cloudflare/kv-asset-handler": "0.2.0",
-    "nodemon": "2.0.16",
-    "preact": "10.7.3"
-  }
+},
+"dependencies": {
+  "@cloudflare/workers-types": "3.11.0",
+  "@jspm/generator": "1.0.0-beta.31",
+  "lerna": "5.1.1",
+  "typescript": "4.7.3",
+  "wrangler": "2.0.9"
+}
 }

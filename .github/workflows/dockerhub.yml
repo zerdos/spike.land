@@ -35,13 +35,13 @@ jobs:
         uses: Saionaro/extract-package-version@v1.1.1
         id: extract_version
         with:
-          path: monorepo/dockerhub/devimages/${{ matrix.image-name }}
+          path: dockerhub/devimages/${{ matrix.image-name }}
 
       - name: Build and push
         uses: docker/build-push-action@v3
         with:
           context: ./
-          file: ./monorepo/dockerhub/devimages/${{ matrix.image-name }}/Dockerfile
+          file: ./dockerhub/devimages/${{ matrix.image-name }}/Dockerfile
           push: true
           platforms: linux/amd64,linux/arm64
           tags: devimages/${{ matrix.image-name }}:${{ steps.extract_version.outputs.version }},devimages/${{ matrix.image-name }}:latest
