@@ -12,9 +12,11 @@ export const init = async () => {
   if (mod.initFinished) return transform;
 
   await mutex.runExclusive(async () => {
-    mod.initFinished || await esbuild.initialize({
+    mod.initFinished || await esbuild.initialize(
+      {
       wasmURL: "/esbuild.wasm",
-    });
+    }
+    );
     mod.initFinished = true;
     return true;
   });

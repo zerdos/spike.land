@@ -5,4 +5,4 @@ declare global {
   interface Window {
     emotionReact: typeof Emotion;
   }
-}s
+}
