@@ -45,7 +45,7 @@ await esbuild.build({
   ...buildOptions,
   entryPoints: [
     ...workerEntryPoints,
-    "monaco-jsx-syntax-highlight/lib/worker/index.js",
+    // "monaco-jsx-syntax-highlight/lib/worker/index.js",
     // "./worker  .tsx",
     "./main.ts",
     // "./iife.js"
