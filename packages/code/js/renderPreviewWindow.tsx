@@ -13,7 +13,10 @@ import type { FC } from "react";
 globalThis.draggableWindow = globalThis.draggableWindow || 0;
 export const renderPreviewWindow = async (Editor: FC<{}>) => {
   if (globalThis.draggableWindow++) return;
+  console.log("renderPreviewWindow");
 
+  const target = document.createElement("div");
+  target.style.height = "100%";
   // document.getElementById("root");
 
   const { App } = globalThis;
@@ -79,10 +82,10 @@ export const renderPreviewWindow = async (Editor: FC<{}>) => {
       <Editor />
       </div>
     </Fragment>,
-    document.getElementById("root"),
+    target
   );
 
-  // document.body.appendChild(target);
-  // document.getElementById("root")?.remove();
-  // target.id = "root";
+  document.body.appendChild(target);
+  document.getElementById("root")?.remove();
+  target.id = "root";
 };
