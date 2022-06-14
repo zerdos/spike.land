@@ -1,7 +1,7 @@
 {
   "name": "@spike.land/code-worker",
   "description": "An edge chat service that runs on Cloudflare Workers using Durable Objects",
-  "version": "0.7.978",
+  "version": "0.8.0",
   "type": "module",
   "module": "dist/worker.mjs",
   "private": true,
@@ -12,15 +12,12 @@
     "xbuild": "esbuild --bundle --format=esm --loader:.html=text --external:__STATIC_CONTENT_MANIFEST --target=esnext src/index.ts --outfile=dist/worker.mjs"
   },
   "devDependencies": {
-
     "typescript": "4.7.3",
     "wrangler": "2.0.12"
   },
   "dependencies": {
-    "@spike.land/code": "^0.7.978",
-
-    "@cloudflare/kv-asset-handler": "0.2.0"
-
+    "@cloudflare/kv-asset-handler": "0.2.0",
+    "@spike.land/code": "^0.8.0"
   },
   "publishConfig": {
     "access": "public"
