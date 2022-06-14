@@ -75,7 +75,7 @@ export const renderPreviewWindow = async (Editor: FC<{}>) => {
         hashCode={hashCode()}
         room={codeSpace}
       >
-        <App />
+         <App />
         
       </DraggableWindow>
 
