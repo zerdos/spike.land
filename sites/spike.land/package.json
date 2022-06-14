@@ -7,7 +7,8 @@
   "private": true,
   "scripts": {
     "dev": "wrangler dev",
-    "deploy": "wrangler publish",
+    "deploy": "wrangler publish --env=testing",
+    "prepublishOnly": "yarn wrangler publish",
     "xbuild": "esbuild --bundle --format=esm --loader:.html=text --external:__STATIC_CONTENT_MANIFEST --target=esnext src/index.ts --outfile=dist/worker.mjs"
   },
   "devDependencies": {

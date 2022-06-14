@@ -24,8 +24,6 @@ export const renderPreviewWindow = async (Editor: FC<{}>) => {
   render(
     <Fragment>
       <div css={css`
-          height: 100%;
-          width: 100%;
           background-blend-mode: overlay;
           background:  repeating-radial-gradient(circle at bottom left, 
                         #fedc00 0, #fedc00 5.5555555556%, 

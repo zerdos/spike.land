@@ -27,9 +27,9 @@ new_classes = ["Users"] # Array of new classes
 bucket = "./public" # Add the directory with your static assets
 
 
-[env.staging]
-name = "spike-land-dd"
-route = "https://staging.spike.land/*"
+[env.testing]
+name = "testing-spike-land"
+route = "https://testing.spike.land/*"
 
 
 
