@@ -1,11 +1,12 @@
 export * from "preact";
-import * as PreactCOMPAT from "preact/compat";
+export * from "preact/compat";
 import  Preact from "preact/compat";
-export default {...Preact, ...PreactCOMPAT, React: Preact}
+export default Preact
 // import * as react from "preact/compat";
 
-export { renderToString } from "preact-render-to-string";
+export { renderToString } from "preact/compat/server";
 
+export * from "preact/compat/jsx-runtime";
 // import { createPortal, hydrate, render } from "preact/compat";
 // export { render };
 
