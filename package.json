@@ -30,16 +30,15 @@
     "docker:push": "yarn lerna docker:push",
     "postinstall": "yarn re:build",
     "lerna": "lerna",
-
     "push": "git pull && yarn && git add . && git commit -m push && git push && cd sites/spike.land && yarn deploy",
     "open-cli": "open-cli",
     "pw": "playwright",
     "test": "echo \"Error: no test specified\" && exit 1"
-},
-"devDependencies": {
-  "lerna": "5.1.2",
-  "typescript": "4.7.3",
-  "@cloudflare/workers-types":"3.11.0",
-  "@cloudflare/kv-asset-handler":"0.2.0"
-}
+  },
+  "devDependencies": {
+    "@cloudflare/kv-asset-handler": "0.2.0",
+    "@cloudflare/workers-types": "3.11.0",
+    "lerna": "5.1.2",
+    "typescript": "4.7.3"
+  }
 }

@@ -66,6 +66,7 @@
     "access": "public"
   },
   "alias": {
+    "stream": "stream-browserify",
     "react": "preact/compat",
     "react-dom": "preact/compat"
   },
@@ -117,7 +118,6 @@
     "react": "npm:@preact/compat@17.1.1",
     "react-dom": "npm:@preact/compat@17.1.1",
     "shiki": "^0.10.1",
-    "stream": "npm:stream-browserify@3.0.0",
     "stream-browserify": "3.0.0",
     "util": "^0.12.4",
     "uvu": "^0.5.3"
