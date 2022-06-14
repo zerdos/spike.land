@@ -28,7 +28,7 @@ export const MonacoEditor = () => {
   const lines = code?.split("\n").length || 0;
 
   useEffect(() => {
-    if (ref === null) return;
+    if (!ref?.current) return;
     const load = async () => {
       const { startMonaco } = await import("./editor");
 

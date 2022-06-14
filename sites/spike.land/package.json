@@ -14,7 +14,7 @@
   "devDependencies": {
 
     "typescript": "4.7.3",
-    "wrangler": "2.0.11"
+    "wrangler": "2.0.12"
   },
   "dependencies": {
     "@spike.land/code": "^0.7.978",

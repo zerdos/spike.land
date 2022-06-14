@@ -384,7 +384,7 @@
     uint8arraylist "^1.4.0"
     uint8arrays "^3.0.0"
 
-"@cloudflare/kv-asset-handler@0.2.0":
+"@cloudflare/kv-asset-handler@0.2.0", "@cloudflare/kv-asset-handler@^0.2.0":
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/@cloudflare/kv-asset-handler/-/kv-asset-handler-0.2.0.tgz#c9959bbd7a1c40bd7c674adae98aa8c8d0e5ca68"
   integrity sha512-MVbXLbTcAotOPUj0pAMhVtJ+3/kFkwJqc5qNOleOZTv6QkZZABDMS21dSrSlVswEHwrpWC03e4fWytjqKvuE2A==
@@ -10595,11 +10595,12 @@ wordwrap@~0.0.2:
   resolved "https://registry.yarnpkg.com/wordwrap/-/wordwrap-0.0.3.tgz#a3d5da6cd5c0bc0008d37234bbaf1bed63059107"
   integrity sha512-1tMA907+V4QmxV7dbRvb4/8MaRALK6q9Abid3ndMYnbyo8piisCmeONVqVSXqQA3KaP4SLt5b7ud6E2sqP8TFw==
 
-wrangler@2.0.11:
-  version "2.0.11"
-  resolved "https://registry.yarnpkg.com/wrangler/-/wrangler-2.0.11.tgz#d240f6ca3d55344e69a95cb6ca76f0ad869d421e"
-  integrity sha512-wRofP6GvpzZxCmqG1sLpdkHLFIv95oiv8KXyoO1eYGZ7izIhnfEt1kMPA9WguBgojDCw0+9xebhp/rOp8lYBtA==
+wrangler@2.0.12:
+  version "2.0.12"
+  resolved "https://registry.yarnpkg.com/wrangler/-/wrangler-2.0.12.tgz#506af20c67aa2b8dbed480713f1103814a943d08"
+  integrity sha512-Dnzqxl3vW5J16Lt3gEbl/teNnTuAqMwsuMexR7BFSHWTwfWjHT9Sc7B6bPIKw0O01zDU/hUscw8nkyhMMM3xDw==
   dependencies:
+    "@cloudflare/kv-asset-handler" "^0.2.0"
     "@esbuild-plugins/node-globals-polyfill" "^0.1.1"
     "@esbuild-plugins/node-modules-polyfill" "^0.1.4"
     blake3-wasm "^2.1.5"
