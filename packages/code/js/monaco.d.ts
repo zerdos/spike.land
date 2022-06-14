@@ -3,6 +3,10 @@ import * as monaco from "monaco-editor";
 import type { FC, ReactNode } from "react";
 import type { ICodeSession } from "session";
 
+declare module "preact/compat/server.*";
+
+"preact/compat/server";
+
 declare global {
   var setValue: (code: string, i: number, force: boolean) => void;
   var prettierJs: (code: string) => Promise<string>;

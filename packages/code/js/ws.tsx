@@ -159,12 +159,17 @@ export async function saveCode(sess: ICodeSession) {
 
   if (sess.i <= mST().i) return;
 
+  console.log("creating a patch")
   const messageData = await makePatch(sess);
 
+  console.log("applying the patch")
   await applyPatch(messageData!);
+
+  console.log("done")
   if (sess.i !== mST().i) return;
   bc.postMessage({ ignoreUser: user, sess, codeSpace, address, messageData });
 
+  try{
   (async () => {
     if (Object.keys(rtcConns).length == 0) return;
     try {
@@ -183,6 +188,13 @@ export async function saveCode(sess: ICodeSession) {
     }
   })();
 
+}catch(e){
+console.log("Errorr1")
+}
+
+
+try{
+  (async()=>{
   if (ws) {
     console.log({ wsLastHashCode });
     const message = await makePatchFrom(
@@ -203,6 +215,13 @@ export async function saveCode(sess: ICodeSession) {
     rejoined = false;
     await rejoin();
   }
+})();
+
+}
+catch(e){
+
+  console.error("errorr2", {e});
+}
 }
 
 export async function join() {
@@ -214,7 +233,7 @@ export async function join() {
   console.log("WS connect!");
 
   const wsConnection = new WebSocket(
-    "wss://spike.land/live/" + codeSpace + "/websocket",
+    `wss://${location.host}/live/` + codeSpace + "/websocket",
   );
   rejoined = false;
 

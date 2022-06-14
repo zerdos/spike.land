@@ -68,7 +68,6 @@ export async function runner({ code, counter }: {
 
         return;
       } catch (error) {
-        await globalThis.update();
         console.error("EXCEPTION");
         console.error(error);
         restartError = true;
