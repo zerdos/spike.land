@@ -19,9 +19,9 @@ export const renderPreviewWindow = async (Editor: FC<{}>) => {
   target.style.height = "100%";
   // document.getElementById("root");
 
-  const { App } = globalThis;
+  const { App, appRoot } = globalThis;
 
-  root.render(
+  appRoot.render(
     <Fragment>
       <div css={css`
           height: 100%;
@@ -75,7 +75,7 @@ export const renderPreviewWindow = async (Editor: FC<{}>) => {
         hashCode={hashCode()}
         room={codeSpace}
       >
-         <App />
+         {App} 
         
       </DraggableWindow>
 

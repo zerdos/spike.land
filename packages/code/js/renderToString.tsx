@@ -2,12 +2,13 @@
 
 import { CacheProvider } from "@emotion/react";
 import createCache from "@emotion/cache";
-import type { FC } from "react";
+import type {  ReactElement } from "react";
 
 import { appFactory } from "./starter";
 import { prettierCss, prettierHtml } from "./prettierEsm";
 
 import { renderToString } from "react-dom/server";
+
 
 export const renderFromString = async (transpiled: string) => {
   console.log("render to string");
@@ -23,7 +24,7 @@ export const renderFromString = async (transpiled: string) => {
   };
 };
 
-export const getHtmlAndCss = (MyApp: FC) => {
+export const getHtmlAndCss = (MyApp: ReactElement) => {
   const key = "css";
   const cache = createCache({ key });
   let cssText = "";
@@ -37,7 +38,7 @@ export const getHtmlAndCss = (MyApp: FC) => {
 
   const markup = renderToString(
     <CacheProvider value={cache}>
-      <MyApp />
+      {MyApp} 
     </CacheProvider>,
     // target,
   );

@@ -22,6 +22,8 @@ const generator = new Generator({
 
 await generator.install("react");
 
+// await generator.install("preact/compat");
+
 // await generator.install("orbit-db");
 // await generator.install("tslib");
 

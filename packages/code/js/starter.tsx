@@ -2,7 +2,7 @@
 
 // import { CacheProvider } from "@emotion/react";
 // import createCache from "@emotion/cache";
-import type { FC } from "react";
+import type {  ReactElement } from "react";
 // import  from "react";
 
 import type {} from "react-dom/next"
@@ -17,7 +17,7 @@ import { md5 } from "./md5";
 
 // const hash = new Sha256();
 
-const apps: { [key: string]: FC } = {};
+const apps: { [key: string]: ReactElement } = {};
 
 globalThis.apps = apps;
 
@@ -40,52 +40,64 @@ export const appFactory = async (transpiled: string) => {
   //   return;
   // }
 
-  globalThis.App = apps[result] ||
-    (await import(
+  if (!apps[result]) {
+    const App =  (await import(
       /* @vite-ignore */
       createJsBlob(transpiled)
     )).default;
-  globalThis.transpiled = transpiled;
+    apps[result] = <App />
+  }
 
-  apps[result] = globalThis.App;
+  globalThis.transpiled = transpiled;
+  globalThis.App = apps[result];
+
 
   return apps[result];
 
   // globalThis.notify();
 };
 
-export const renderApp = (App: FC<{}>) => {
-  if (globalThis.setCh) return globalThis.setCh(<App />);
+export const renderApp = (App: ReactElement) => {
+  if (globalThis.setCh) return globalThis.setCh(App);
 
 
 
   // const key = "css";
   // const cache = createCache({ key });
 
-if (!globalThis.root) {
-  const container = document.createElement("div");
-  container.style.height = "100%";
-  globalThis.root =  createRoot(container);;
+if (!globalThis.appRoot) {
+  const container = document.getElementById("root")!;
+ 
+  globalThis.appRoot =  createRoot(container);
 }
 
-  const {root} = globalThis
+  const {appRoot} = globalThis
+
+
   // const { App } = globalThis;
   console.log("render App");
   try {
-    root.render(
+    appRoot.render(
       // <CacheProvider value={cache}>
-      <App />
+      // <>
+      App
+
+
       // </CacheProvider>,
   
     );
   } catch (err) {
     console.error({ err });
-    globalThis.App = () => <p>error</p>;
+    const ErrorFailBack =  () => <p>error</p>;;
+
+    globalThis.App = <ErrorFailBack />
 
     const { App } = globalThis;
-    root.render(
+    appRoot.render(
       // <CacheProvider value={cache}>
-      <App />,
+      // <>
+      App
+      // </>
       // </CacheProvider>,
     );
   }
