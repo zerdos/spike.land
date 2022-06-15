@@ -5,7 +5,7 @@
 import type { FC } from "react";
 // import  from "react";
 
-import { render } from "react-dom";
+import { createRoot } from "react-dom";
 
 import { md5 } from "./md5";
 // if ("serviceWorker" in navigator) {
