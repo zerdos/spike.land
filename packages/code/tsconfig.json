@@ -1,19 +1,20 @@
 {
   "compilerOptions": {
-    "target": "es2020",
+    "target": "es2018",
     /* Visit https://aka.ms/tsconfig.json to read more about this file */
 
     /* Basic Options */
     "lib": [
       "dom",
       "DOM.Iterable",
+      "es2020",
       "esnext"
     ],
     "allowJs": true,
     "noFallthroughCasesInSwitch": true,
     "isolatedModules": true,
     "noEmit": true,
-
+    "downlevelIteration": true,
     "module":"ES2022",
     "jsx": "react-jsx",
     "jsxImportSource": "@emotion/react",

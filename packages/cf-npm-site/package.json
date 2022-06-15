@@ -3,7 +3,7 @@
   "version": "0.8.0",
   "scripts": {
     "clean": "rm -rf dist && yarn build",
-    "build": "yarn tsc && esbuild --bundle --format=esm --target=esnext src/index.ts --outfile=public/index.mjs"
+    "build": "esbuild --bundle --format=esm --target=esnext src/index.ts --outfile=public/index.mjs"
   },
   "private": false,
   "publishConfig": {

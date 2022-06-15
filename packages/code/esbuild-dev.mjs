@@ -49,16 +49,16 @@ await esbuild.build({
     ...workerEntryPoints
   ],
   bundle: true,
-  minify: false,
-  minifyWhitespace: false,
-  minifyIdentifiers: false,
+  minify: true,
+  minifyWhitespace: true,
+  minifyIdentifiers: true,
   minifySyntax: false,
   treeShaking: true,
   ignoreAnnotations: true,
   plugins: [jsxImportSourcePlugin({ filter: /.(tsx)/ })],
   ignoreAnnotations: true,
   treeShaking: true,
-  outExtension: {".js": ".workerJS"},
+  outExtension: {".js": ".monaco.worker.js"},
   format: "iife",
   loader: {
     ".ttf": "file",
@@ -112,7 +112,7 @@ await esbuild.build({
     ".d.ts": "dataurl",
     ".css": "css",
     ".ttf": "file",
-    ".workerJS": "file"
+    ".monaco.worker.js": "file"
   },
 
   outdir: outDir,
@@ -138,6 +138,19 @@ const build = (entryPoints) =>
     splitting: true,
     tsconfig: "./tsconfig.json",
     allowOverwrite: true,
+    resolveExtensions: [
+      ".tsx",
+      ".ts",
+      ".jsx",
+      ".js",
+      ".css",
+      ".json",
+      ".mjs",
+      ".js",
+      ".ttf",
+      ".monaco.worker.js",
+    ],
+
 
     // external: ["react", "react-dom", "framer-motion", "tslib", "@emotion/react"],
     platform: "browser",
@@ -152,7 +165,7 @@ const build = (entryPoints) =>
       ".mjs",
       ".js",
       ".ttf",
-      ".workerJS",
+      ".monaco.worker.js",
     ],
 
     define,
@@ -166,7 +179,7 @@ const build = (entryPoints) =>
       ".js:": "tsx",
       ".css": "css",
       ".d.ts": "dataurl",
-      ".workerJS": "file",
+      ".monaco.worker.js": "file",
       ".wasm": "file",
     },
     outdir: "../../sites/spike.land/public",

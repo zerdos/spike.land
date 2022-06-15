@@ -1,7 +1,9 @@
 import * as monaco from "monaco-editor";
 import "monaco-editor/esm/vs/editor/editor.main";
-import tsWorker from "./monaco-editor/language/typescript/ts.worker.workerJS"
-import editorWorker from "./monaco-editor/editor/editor.worker.workerJS"
+//@ts-ignore
+import tsWorker from "./monaco-editor/language/typescript/ts.worker.monaco.worker"
+//@ts-ignore
+import editorWorker from "./monaco-editor/editor/editor.worker.monaco.worker"
 
 // import { MonacoJsxSyntaxHighlight } from "monaco-jsx-syntax-highlight";
 
@@ -58,7 +60,7 @@ export const startMonaco = async (
   document.head.appendChild(outerStyle);
 
   const innerStyle = document.createElement("style");
-  innerStyle.innerText = `@import url("editor.css");
+  innerStyle.innerText = `@import url("ws.css");
   @font-face {
     font-family: codicon;
     font-display: block;

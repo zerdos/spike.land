@@ -82,16 +82,17 @@ globalThis.update = async (force=false) => {
 };
 
 export const run = async () => {
-  navigator?.serviceWorker.register("/sw.js", {
-    scope: "/",
-  });
+ 
   renderApp(await appFactory(window.startState.transpiled));
 
-  if (navigator.serviceWorker){
-  const current = await navigator?.serviceWorker.ready;
+  if (navigator && navigator?.serviceWorker){
+  navigator.serviceWorker.register("/sw.js", {
+    scope: "/",
+  });
+  const current = await navigator.serviceWorker.ready;
   sw();
 
-  Promise.all((await navigator?.serviceWorker.getRegistrations()).map((sw) => {
+  Promise.all((await navigator.serviceWorker.getRegistrations()).map((sw) => {
     if (current !== sw) sw.unregister();
   }));
   }
