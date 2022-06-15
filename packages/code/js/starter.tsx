@@ -5,7 +5,8 @@
 import type { FC } from "react";
 // import  from "react";
 
-import { createRoot } from "react-dom";
+import type {} from "react-dom/next"
+import {createRoot} from "react-dom/client";
 
 import { md5 } from "./md5";
 // if ("serviceWorker" in navigator) {
@@ -56,45 +57,41 @@ export const appFactory = async (transpiled: string) => {
 export const renderApp = (App: FC<{}>) => {
   if (globalThis.setCh) return globalThis.setCh(<App />);
 
-  const container = document.createElement("div");
-  container.style.height = "100%";
+
 
   // const key = "css";
   // const cache = createCache({ key });
 
+if (!globalThis.root) {
+  const container = document.createElement("div");
+  container.style.height = "100%";
+  globalThis.root =  createRoot(container);;
+}
+
+  const {root} = globalThis
   // const { App } = globalThis;
   console.log("render App");
   try {
-    render(
+    root.render(
       // <CacheProvider value={cache}>
-      <App />,
+      <App />
       // </CacheProvider>,
-      container,
+  
     );
   } catch (err) {
     console.error({ err });
     globalThis.App = () => <p>error</p>;
 
     const { App } = globalThis;
-    render(
+    root.render(
       // <CacheProvider value={cache}>
       <App />,
       // </CacheProvider>,
-      container,
     );
   }
 
-  if (!container.innerHTML) return;
+  
 
-  if (!globalThis.currentTarget) {
-    document.getElementById("root")?.replaceWith(container);
-    globalThis.currentTarget = container;
-    container.id = "root";
-  } else {
-    globalThis.currentTarget.parentNode?.replaceChildren(container);
-    globalThis.currentTarget = container;
-    container;
-  }
 };
 
 export function createJsBlob(code: string) {

@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 
-import { render } from "react-dom";
+// import { c } from "react-dom/client";
 
 import { Fragment } from "react";
 
@@ -21,7 +21,7 @@ export const renderPreviewWindow = async (Editor: FC<{}>) => {
 
   const { App } = globalThis;
 
-  render(
+  root.render(
     <Fragment>
       <div css={css`
           height: 100%;
@@ -81,11 +81,10 @@ export const renderPreviewWindow = async (Editor: FC<{}>) => {
 
       <Editor />
       </div>
-    </Fragment>,
-    target
+    </Fragment>
   );
 
-  document.body.appendChild(target);
-  document.getElementById("root")?.remove();
-  target.id = "root";
+  // document.body.appendChild(target);
+  // document.getElementById("root")?.remove();
+  // target.id = "root";
 };

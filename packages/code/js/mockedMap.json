@@ -4,6 +4,7 @@
     "react": "/react.mjs",
     "preact": "/react.mjs",
     "react-dom": "/react.mjs",
+    "react-dom/client": "/react.mjs",
     "react-dom/server": "/react.mjs",
     "@emotion/react": "/emotion.mjs",
     "@emotion/react/jsx-runtime": "/emotion.mjs"

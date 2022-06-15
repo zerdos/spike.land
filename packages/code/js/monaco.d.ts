@@ -1,12 +1,14 @@
 import { ExecSyncOptionsWithStringEncoding } from "child_process";
 import * as monaco from "monaco-editor";
 import type { FC, ReactNode } from "react";
+import type { Root } from "react-dom/client";
 import type { ICodeSession } from "session";
 
 declare module "preact/compat/server.*";
 
 
 declare global {
+  var root: Root,
   var setValue: (code: string, i: number, force: boolean) => void;
   var prettierJs: (code: string) => Promise<string>;
 
