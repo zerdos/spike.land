@@ -55,7 +55,7 @@
   "devDependencies": {
     "@jspm/generator": "1.0.0-beta.31",
     "@types/lodash": "4.14.182",
-    "@types/node": "17.0.42",
+    "@types/node": "17.0.43",
     "typescript": "4.7.3",
     "vite": "2.9.12",
     "vite-plugin-import-maps": "0.1.2"
@@ -112,7 +112,7 @@
     "path": "file:./path",
     "path-browserify": "file:./path",
     "popmotion": "^11.0.3",
-    "preact": "^10.7.3",
+    "preact": "^10.8.0",
     "preact-render-to-string": "^5.2.0",
     "prettier": "^2.7.0",
     "react": "npm:@preact/compat@17.1.1",
