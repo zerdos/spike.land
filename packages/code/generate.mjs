@@ -86,9 +86,9 @@ importMap.imports["preact"] = importMap.imports["react"];
 importMap.imports["react-dom"] = importMap.imports["react"];
 importMap.imports["react-dom/server"] = importMap.imports["react"];
 
-importMap.imports["framer-motion"] = isDev
-  ? "https://localhost:8000/monorepo/packages/code/js/framer-motion.mjs"
-  : "/framer-motion.mjs";
+// importMap.imports["framer-motion"] = isDev
+//   ? "https://localhost:8000/monorepo/packages/code/js/framer-motion.mjs"
+//   : "/framer-motion.mjs";
 // importMap.imports["preact"] = isDev?"https://localhost:8000/monorepo/packages/code/js/public/preact.mjs":"//public/preact.mjs" ;
 // importMap.imports["preact/compat"] = importMap.imports["preact"];
 // importMap.imports["react-is"] =

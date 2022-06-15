@@ -7,8 +7,7 @@
     "react/jsx-runtime": "/react.mjs",
     "react-dom": "/react.mjs",
     "preact": "/react.mjs",
-    "react-dom/server": "/react.mjs",
-    "framer-motion": "/framer-motion.mjs"
+    "react-dom/server": "/react.mjs"
   },
   "scopes": {
     "https://ga.jspm.io/": {
