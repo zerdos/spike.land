@@ -30,7 +30,9 @@ export const MonacoEditor = () => {
   useEffect(() => {
     if (!ref?.current) return;
     const load = async () => {
-      const { startMonaco } = await import("./editor");
+
+      const editorUrl = "../editor.mjs"
+      const { startMonaco } = await import(editorUrl);
 
       const { editor } = await startMonaco(
         /**

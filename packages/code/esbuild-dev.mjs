@@ -199,4 +199,5 @@ const buildNoImportMap = (entryPoints) =>
 
 await build([
   "ws.mjs",
+  "editor.mjs"
 ]);
