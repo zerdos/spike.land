@@ -1,5 +1,7 @@
 import * as monaco from "monaco-editor";
 import "monaco-editor/esm/vs/editor/editor.main";
+import tsWorker from "./monaco-editor/language/typescript/ts.worker.workerJS"
+import editorWorker from "./monaco-editor/editor/editor.worker.workerJS"
 
 // import { MonacoJsxSyntaxHighlight } from "monaco-jsx-syntax-highlight";
 
@@ -14,9 +16,9 @@ import codicon from "monaco-editor/esm/vs/base/browser/ui/codicons/codicon/codic
 const monEnv = {
   getWorkerUrl: function (_workerId: string, label: string) {
     if (label === "typescript" || label === "javascript") {
-      return "monaco-editor/esm/vs/language/typescript/ts.worker.js";
+      return tsWorker;
     }
-    return "monaco-editor/esm/vs/editor/editor.worker.js";
+    return editorWorker;
   },
 };
 

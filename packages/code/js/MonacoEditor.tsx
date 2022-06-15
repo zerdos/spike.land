@@ -2,8 +2,6 @@
 /** @jsxImportSource @emotion/react */
 
 import { useEffect, useRef, useState } from "react";
-import { codeSpace } from "./ws";
-
 import { runnerDebounced } from "./runner";
 import { mST } from "./session";
 
@@ -31,8 +29,8 @@ export const MonacoEditor = () => {
     if (!ref?.current) return;
     const load = async () => {
 
-      const editorUrl = "../editor.mjs"
-      const { startMonaco } = await import(editorUrl);
+
+      const { startMonaco } = await import("./editor");
 
       const { editor } = await startMonaco(
         /**
@@ -40,7 +38,7 @@ export const MonacoEditor = () => {
          */
         {
           container: ref.current,
-          name: codeSpace,
+          name: globalThis.codeSpace,
           code: mST().code,
         },
       );

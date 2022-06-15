@@ -41,10 +41,46 @@ const buildOptions = {
   plugins: [importMapPlugin, jsxImportSourcePlugin({ filter: /.(tsx)/ })],
 };
 
+
+
 await esbuild.build({
   ...buildOptions,
   entryPoints: [
-    ...workerEntryPoints,
+    ...workerEntryPoints
+  ],
+  bundle: true,
+  minify: false,
+  minifyWhitespace: false,
+  minifyIdentifiers: false,
+  minifySyntax: false,
+  treeShaking: true,
+  ignoreAnnotations: true,
+  plugins: [jsxImportSourcePlugin({ filter: /.(tsx)/ })],
+  ignoreAnnotations: true,
+  treeShaking: true,
+  outExtension: {".js": ".workerJS"},
+  format: "iife",
+  loader: {
+    ".ttf": "file",
+    ".webp": "file",
+    ".tsx": "tsx",
+    ".jsx": "tsx",
+    ".mjs": "ts",
+    ".ts:": "ts",
+    ".js:": "ts",
+    ".css": "css",
+    ".d.ts": "dataurl",
+    ".css": "css",
+    ".ttf": "file",
+  },
+
+  outdir: "./js/monaco-editor",
+});
+
+
+await esbuild.build({
+  ...buildOptions,
+  entryPoints: [
     // "monaco-jsx-syntax-highlight/lib/worker/index.js",
     // "./worker  .tsx",
     "./main.ts",
@@ -57,6 +93,7 @@ await esbuild.build({
   minifyIdentifiers: false,
   minifySyntax: false,
   treeShaking: true,
+ 
   ignoreAnnotations: true,
   plugins: [jsxImportSourcePlugin({ filter: /.(tsx)/ })],
   ignoreAnnotations: true,
@@ -75,6 +112,7 @@ await esbuild.build({
     ".d.ts": "dataurl",
     ".css": "css",
     ".ttf": "file",
+    ".workerJS": "file"
   },
 
   outdir: outDir,
@@ -137,6 +175,7 @@ const build = (entryPoints) =>
     process.exit(1);
   });
 
+
 const buildNoImportMap = (entryPoints) =>
   esbuild.build({
     entryPoints,
@@ -198,6 +237,5 @@ const buildNoImportMap = (entryPoints) =>
   });
 
 await build([
-  "ws.mjs",
-  "editor.mjs"
+  "ws.mjs"
 ]);
