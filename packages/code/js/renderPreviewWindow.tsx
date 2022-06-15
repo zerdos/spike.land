@@ -2,12 +2,13 @@
 
 // import { c } from "react-dom/client";
 
-import { Fragment, Suspense, lazy} from "react";
+import { Fragment//, Suspense, lazy
+} from "react";
 
 // import { codeSpace } from "./ws";
 // import { hashCode } from "./session";
 import {css} from "@emotion/react"
-// import  type { DraggableWindow } from "./DraggableWindow";
+import  type { DraggableWindow } from "./DraggableWindow";
 import type { FC } from "react";
 
 globalThis.draggableWindow = globalThis.draggableWindow || 0;
@@ -19,7 +20,7 @@ export const renderPreviewWindow = async (Editor: FC<{}>) => {
   target.style.height = "100%";
   // document.getElementById("root");
 
-  const DraggableWindow = lazy(()=>import("./DraggableWindow").then(({DraggableWindow})=>({default: DraggableWindow})));
+  // const DraggableWindow = lazy(()=>import("./DraggableWindow").then(({DraggableWindow})=>({default: DraggableWindow})));
 
   const MyApp = ()=>{
 
@@ -71,7 +72,7 @@ export const renderPreviewWindow = async (Editor: FC<{}>) => {
                       #e0d81d 0, #e0d81d 100%);
   `
   }>
-    <Suspense fallback={App}>
+    {/* <Suspense fallback={App}> */}
           <DraggableWindow
           // onRestore={() => {
           //   const model = globalThis.model;
@@ -85,7 +86,7 @@ export const renderPreviewWindow = async (Editor: FC<{}>) => {
           {App} 
           
         </DraggableWindow>
-    </Suspense>
+    {/* </Suspense> */}
 
   <Editor />
   </div>
