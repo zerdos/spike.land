@@ -1,4 +1,3 @@
-
 /** @jsxImportSource @emotion/react */
 
 import { useEffect, useRef, useState } from "react";
@@ -6,10 +5,9 @@ import { runnerDebounced } from "./runner";
 import { mST } from "./session";
 
 import { css } from "@emotion/react";
-import type { editor} from "monaco-editor"
+import type { editor } from "monaco-editor";
 
-export type IStandaloneCodeEditor = editor.IStandaloneCodeEditor
-
+export type IStandaloneCodeEditor = editor.IStandaloneCodeEditor;
 
 export const MonacoEditor = () => {
   const ref = useRef<HTMLDivElement>(null) as null | {
@@ -20,7 +18,7 @@ export const MonacoEditor = () => {
   const [{ code, i, editor }, changeContent] = useState({
     code: mst.code,
     i: mst.i,
-    editor: null as null | IStandaloneCodeEditor
+    editor: null as null | IStandaloneCodeEditor,
   });
 
   const lines = code?.split("\n").length || 0;
@@ -28,8 +26,6 @@ export const MonacoEditor = () => {
   useEffect(() => {
     if (!ref?.current) return;
     const load = async () => {
-
-
       const { startMonaco } = await import("./editor");
 
       const { editor } = await startMonaco(
@@ -64,7 +60,7 @@ export const MonacoEditor = () => {
     changeContent((x) => ({ ...x, i: counter, code: newCode }));
     setTimeout(() => {
       editor?.getModel()?.setValue(newCode);
-    }, 100); 
+    }, 100);
   };
 
   useEffect(() =>

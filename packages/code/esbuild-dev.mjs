@@ -41,12 +41,10 @@ const buildOptions = {
   plugins: [importMapPlugin, jsxImportSourcePlugin({ filter: /.(tsx)/ })],
 };
 
-
-
 await esbuild.build({
   ...buildOptions,
   entryPoints: [
-    ...workerEntryPoints
+    ...workerEntryPoints,
   ],
   bundle: true,
   minify: true,
@@ -58,7 +56,7 @@ await esbuild.build({
   plugins: [jsxImportSourcePlugin({ filter: /.(tsx)/ })],
   ignoreAnnotations: true,
   treeShaking: true,
-  outExtension: {".js": ".monaco.worker.js"},
+  outExtension: { ".js": ".monaco.worker.js" },
   format: "iife",
   loader: {
     ".ttf": "file",
@@ -77,7 +75,6 @@ await esbuild.build({
   outdir: "./js/monaco-editor",
 });
 
-
 await esbuild.build({
   ...buildOptions,
   entryPoints: [
@@ -93,7 +90,7 @@ await esbuild.build({
   minifyIdentifiers: false,
   minifySyntax: false,
   treeShaking: true,
- 
+
   ignoreAnnotations: true,
   plugins: [jsxImportSourcePlugin({ filter: /.(tsx)/ })],
   ignoreAnnotations: true,
@@ -112,7 +109,7 @@ await esbuild.build({
     ".d.ts": "dataurl",
     ".css": "css",
     ".ttf": "file",
-    ".monaco.worker.js": "file"
+    ".monaco.worker.js": "file",
   },
 
   outdir: outDir,
@@ -151,7 +148,6 @@ const build = (entryPoints) =>
       ".monaco.worker.js",
     ],
 
-
     // external: ["react", "react-dom", "framer-motion", "tslib", "@emotion/react"],
     platform: "browser",
     chunkNames: "chunks/[name]-[hash]",
@@ -187,7 +183,6 @@ const build = (entryPoints) =>
     console.error(e);
     process.exit(1);
   });
-
 
 const buildNoImportMap = (entryPoints) =>
   esbuild.build({
@@ -250,5 +245,5 @@ const buildNoImportMap = (entryPoints) =>
   });
 
 await build([
-  "ws.mjs"
+  "ws.mjs",
 ]);

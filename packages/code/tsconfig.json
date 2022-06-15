@@ -15,7 +15,7 @@
     "isolatedModules": true,
     "noEmit": true,
     "downlevelIteration": true,
-    "module":"ES2022",
+    "module": "ES2022",
     "jsx": "react-jsx",
     "jsxImportSource": "@emotion/react",
     "sourceMap": true,

@@ -2,11 +2,11 @@
 
 // import { CacheProvider } from "@emotion/react";
 // import createCache from "@emotion/cache";
-import type {  ReactElement } from "react";
+import type { ReactElement } from "react";
 // import  from "react";
 
-import type {} from "react-dom/next"
-import {createRoot} from "react-dom/client";
+import type {} from "react-dom/next";
+import { createRoot } from "react-dom/client";
 
 import { md5 } from "./md5";
 // if ("serviceWorker" in navigator) {
@@ -41,16 +41,15 @@ export const appFactory = async (transpiled: string) => {
   // }
 
   if (!apps[result]) {
-    const App =  (await import(
+    const App = (await import(
       /* @vite-ignore */
       createJsBlob(transpiled)
     )).default;
-    apps[result] = <App />
+    apps[result] = <App />;
   }
 
   globalThis.transpiled = transpiled;
   globalThis.App = apps[result];
-
 
   return apps[result];
 
@@ -60,19 +59,16 @@ export const appFactory = async (transpiled: string) => {
 export const renderApp = (App: ReactElement) => {
   if (globalThis.setCh) return globalThis.setCh(App);
 
-
-
   // const key = "css";
   // const cache = createCache({ key });
 
-if (!globalThis.appRoot) {
-  const container = document.getElementById("root")!;
- 
-  globalThis.appRoot =  createRoot(container);
-}
+  if (!globalThis.appRoot) {
+    const container = document.getElementById("root")!;
 
-  const {appRoot} = globalThis
+    globalThis.appRoot = createRoot(container);
+  }
 
+  const { appRoot } = globalThis;
 
   // const { App } = globalThis;
   console.log("render App");
@@ -80,44 +76,37 @@ if (!globalThis.appRoot) {
     appRoot.render(
       // <CacheProvider value={cache}>
       // <>
-      App
-
-
+      App,
       // </CacheProvider>,
-  
     );
   } catch (err) {
     console.error({ err });
-    const ErrorFailBack =  () => <p>error</p>;;
+    const ErrorFailBack = () => <p>error</p>;
 
-    globalThis.App = <ErrorFailBack />
+    globalThis.App = <ErrorFailBack />;
 
     const { App } = globalThis;
     appRoot.render(
       // <CacheProvider value={cache}>
       // <>
-      App
+      App,
       // </>
       // </CacheProvider>,
     );
   }
-
-  
-
 };
 
 export function createJsBlob(code: string) {
-  try{
-  const file = new File([code], "index.mjs", {
-    type: "application/javascript",
-  });
-  const blobUrl = URL.createObjectURL(file);
-  return blobUrl;
-  // const actualUrl = new URL(blobUrl,'//live/');
+  try {
+    const file = new File([code], "index.mjs", {
+      type: "application/javascript",
+    });
+    const blobUrl = URL.createObjectURL(file);
+    return blobUrl;
+    // const actualUrl = new URL(blobUrl,'//live/');
 
-  // return actualUrl;
-}
-catch(err){
-  console.error(err);
-}
+    // return actualUrl;
+  } catch (err) {
+    console.error(err);
+  }
 }

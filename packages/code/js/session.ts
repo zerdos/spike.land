@@ -149,8 +149,6 @@ export class CodeSession implements ICodeSess {
     newHash,
     patch,
   }: CodePatch) => {
-    
-
     const bestGuesses = this.room || "";
 
     if (
@@ -228,8 +226,11 @@ function str(s: ICodeSession) {
 
 export const patch: IApplyPatch = async (x) => {
   await session?.applyPatch(x);
-  if ( (globalThis as unknown as {update: ()=>Promise<void> | null})?.update) {
-    await (globalThis as unknown as {update: ()=>Promise<void> | null}) .update();
+  if (
+    (globalThis as unknown as { update: () => Promise<void> | null })?.update
+  ) {
+    await (globalThis as unknown as { update: () => Promise<void> | null })
+      .update();
   }
 };
 export const makePatchFrom = (n: number, st: ICodeSession) =>

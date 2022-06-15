@@ -28,10 +28,10 @@ export async function quickStart() {
   // if (!globalThis.editable) return  renderPreviewWindow(Shiki);
 
   if (isMobile()) {
-    const { AceEditor } = await import( "./AceEditor");
+    const { AceEditor } = await import("./AceEditor");
     return renderPreviewWindow(AceEditor);
   }
 
-const  { MonacoEditor } = await import("./MonacoEditor");
+  const { MonacoEditor } = await import("./MonacoEditor");
   return renderPreviewWindow(MonacoEditor);
 }

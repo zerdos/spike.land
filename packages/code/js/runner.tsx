@@ -29,9 +29,9 @@ export async function runner({ code, counter }: {
   code: string;
   counter: number;
 }) {
-  console.log({i, counter})
+  console.log({ i, counter });
   if (i >= counter) {
-    setTimeout(()=>i = mST().i,100);
+    setTimeout(() => i = mST().i, 100);
     return;
   }
   i = counter;
@@ -72,7 +72,7 @@ export async function runner({ code, counter }: {
         console.error(error);
         restartError = true;
         console.error({ restartError });
-        return
+        return;
       }
     }
   } catch (error) {

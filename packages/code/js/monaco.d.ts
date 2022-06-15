@@ -1,11 +1,10 @@
 import { ExecSyncOptionsWithStringEncoding } from "child_process";
 import * as monaco from "monaco-editor";
-import type { FC, ReactNode, ReactElement} from "react";
+import type { FC, ReactElement, ReactNode } from "react";
 import type { Root } from "react-dom/client";
 import type { ICodeSession } from "session";
 
 declare module "preact/compat/server.*";
-
 
 declare global {
   var appRoot: Root;

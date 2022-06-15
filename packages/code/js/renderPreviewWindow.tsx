@@ -2,12 +2,13 @@
 
 // import { c } from "react-dom/client";
 
-import { Fragment//, Suspense, lazy
+import {
+  Fragment, //, Suspense, lazy
 } from "react";
 
 // import { codeSpace } from "./ws";
 // import { hashCode } from "./session";
-import {css} from "@emotion/react"
+import { css } from "@emotion/react";
 import { DraggableWindow } from "./DraggableWindow";
 import type { FC } from "react";
 
@@ -22,13 +23,13 @@ export const renderPreviewWindow = async (Editor: FC<{}>) => {
 
   // const DraggableWindow = lazy(()=>import("./DraggableWindow").then(({DraggableWindow})=>({default: DraggableWindow})));
 
-  const MyApp = ()=>{
-
+  const MyApp = () => {
     // const Dw = =useState<typeof DraggableWindow | null>(null);
 
-  return <Fragment>
-
-  <div css={css`
+    return (
+      <Fragment>
+        <div
+          css={css`
       height: 100%;
       width: 100%;
       background-blend-mode: overlay;
@@ -70,31 +71,29 @@ export const renderPreviewWindow = async (Editor: FC<{}>) => {
                       #7cba6d 0, #7cba6d 88.8888888889%, 
                       #becc2f 0, #becc2f 94.4444444444%, 
                       #e0d81d 0, #e0d81d 100%);
-  `
-  }>
-    {/* <Suspense fallback={App}> */}
-          <DraggableWindow
-          // onRestore={() => {
-          //   const model = globalThis.model;
-          //   model.setValue(mST().code);
-          // }}
-          hashCode={0}
-          room={codeSpace}
-
-
+  `}
         >
-          {App} 
-          
-        </DraggableWindow>
-    {/* </Suspense> */}
+          {/* <Suspense fallback={App}> */}
+          <DraggableWindow
+            // onRestore={() => {
+            //   const model = globalThis.model;
+            //   model.setValue(mST().code);
+            // }}
+            hashCode={0}
+            room={codeSpace}
+          >
+            {App}
+          </DraggableWindow>
+          {/* </Suspense> */}
 
-  <Editor />
-  </div>
-</Fragment>
-}
+          <Editor />
+        </div>
+      </Fragment>
+    );
+  };
 
   appRoot.render(
-    <MyApp />
+    <MyApp />,
   );
 
   // document.body.appendChild(target);

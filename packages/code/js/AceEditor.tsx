@@ -35,8 +35,7 @@ export const AceEditor = () => {
     if (!editor) return;
 
     const listener = async () => {
-   
-      const newCode =editor.getSession().getValue();
+      const newCode = editor.getSession().getValue();
       if (newCode === code) return;
 
       const counter = i + 1;
@@ -57,12 +56,12 @@ export const AceEditor = () => {
   }, [editor, code, i, changeContent]);
 
   globalThis.setValue = (newCode, counter, force) => {
-    if (! force && counter <= i) {
+    if (!force && counter <= i) {
       return;
     }
 
     changeContent((x) => ({ ...x, i: counter, code: newCode }));
-    setTimeout(()=> editor?.setValue(newCode), 100);
+    setTimeout(() => editor?.setValue(newCode), 100);
   };
 
   return (

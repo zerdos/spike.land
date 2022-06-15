@@ -1,9 +1,9 @@
 import * as monaco from "monaco-editor";
 import "monaco-editor/esm/vs/editor/editor.main";
 //@ts-ignore
-import tsWorker from "./monaco-editor/language/typescript/ts.worker.monaco.worker"
+import tsWorker from "./monaco-editor/language/typescript/ts.worker.monaco.worker";
 //@ts-ignore
-import editorWorker from "./monaco-editor/editor/editor.worker.monaco.worker"
+import editorWorker from "./monaco-editor/editor/editor.worker.monaco.worker";
 
 // import { MonacoJsxSyntaxHighlight } from "monaco-jsx-syntax-highlight";
 
@@ -71,7 +71,7 @@ export const startMonaco = async (
   shadowRoot.appendChild(innerStyle);
 
   monaco.languages.typescript.typescriptDefaults.setCompilerOptions({
-    baseUrl:  location.origin +"/live/",
+    baseUrl: location.origin + "/live/",
     target: monaco.languages.typescript.ScriptTarget.ESNext,
     lib: [
       "dom",
@@ -117,7 +117,7 @@ export const startMonaco = async (
     model: monaco.editor.createModel(
       code,
       "typescript",
-      monaco.Uri.parse(location.origin+ "/live/" + name + ".tsx"),
+      monaco.Uri.parse(location.origin + "/live/" + name + ".tsx"),
     ),
     language: "typescript",
     useShadowDOM: true,
@@ -436,7 +436,7 @@ export const startMonaco = async (
           await (await fetch(
             url,
           )).text(),
-          location.origin +`/live/${name}.d.ts`,
+          location.origin + `/live/${name}.d.ts`,
         )
     );
 

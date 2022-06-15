@@ -72,7 +72,7 @@ const sendChannel = {
 // Let createDelta;
 // let applyPatch;
 
-globalThis.update = async (force=false) => {
+globalThis.update = async (force = false) => {
   const { transpiled, i, code } = mST();
 
   if (globalThis.setValue) {
@@ -82,19 +82,18 @@ globalThis.update = async (force=false) => {
 };
 
 export const run = async () => {
- 
   renderApp(await appFactory(window.startState.transpiled));
 
-  if (navigator && navigator?.serviceWorker){
-  navigator.serviceWorker.register("/sw.js", {
-    scope: "/",
-  });
-  const current = await navigator.serviceWorker.ready;
-  sw();
+  if (navigator && navigator?.serviceWorker) {
+    navigator.serviceWorker.register("/sw.js", {
+      scope: "/",
+    });
+    const current = await navigator.serviceWorker.ready;
+    sw();
 
-  Promise.all((await navigator.serviceWorker.getRegistrations()).map((sw) => {
-    if (current !== sw) sw.unregister();
-  }));
+    Promise.all((await navigator.serviceWorker.getRegistrations()).map((sw) => {
+      if (current !== sw) sw.unregister();
+    }));
   }
   if (location.href.endsWith("hydrated")) return;
 
@@ -160,69 +159,64 @@ export async function saveCode(sess: ICodeSession) {
 
   if (sess.i <= mST().i) return;
 
-  console.log("creating a patch")
+  console.log("creating a patch");
   const messageData = await makePatch(sess);
 
-  console.log("applying the patch")
+  console.log("applying the patch");
   await applyPatch(messageData!);
 
-  console.log("done")
+  console.log("done");
   if (sess.i !== mST().i) return;
   bc.postMessage({ ignoreUser: user, sess, codeSpace, address, messageData });
 
-  try{
-  (async () => {
-    if (Object.keys(rtcConns).length == 0) return;
-    try {
-      const message = webRTCLastSeenHashCode
-        ? await makePatchFrom(
-          webRTCLastSeenHashCode,
-          sess,
-        )
-        : await makePatch(sess);
-      if (message && message.patch) {
-        console.log("sendRTC");
-        sendChannel.send(message);
+  try {
+    (async () => {
+      if (Object.keys(rtcConns).length == 0) return;
+      try {
+        const message = webRTCLastSeenHashCode
+          ? await makePatchFrom(
+            webRTCLastSeenHashCode,
+            sess,
+          )
+          : await makePatch(sess);
+        if (message && message.patch) {
+          console.log("sendRTC");
+          sendChannel.send(message);
+        }
+      } catch (e) {
+        console.error("Error sending RTC...", { e });
       }
-    } catch (e) {
-      console.error("Error sending RTC...", { e });
-    }
-  })();
-
-}catch(e){
-console.log("Errorr1")
-}
-
-
-try{
-  (async()=>{
-  if (ws) {
-    console.log({ wsLastHashCode });
-    const message = await makePatchFrom(
-      wsLastHashCode,
-      sess,
-    );
-
-    if (!message) return;
-
-    if (message.newHash !== hashCode()) {
-      console.error("NEW hash is not even hashCode", hashCode());
-      return;
-    }
-
-    const messageString = JSON.stringify({ ...message, name: user });
-    sendWS(messageString);
-  } else {
-    rejoined = false;
-    await rejoin();
+    })();
+  } catch (e) {
+    console.log("Errorr1");
   }
-})();
 
-}
-catch(e){
+  try {
+    (async () => {
+      if (ws) {
+        console.log({ wsLastHashCode });
+        const message = await makePatchFrom(
+          wsLastHashCode,
+          sess,
+        );
 
-  console.error("errorr2", {e});
-}
+        if (!message) return;
+
+        if (message.newHash !== hashCode()) {
+          console.error("NEW hash is not even hashCode", hashCode());
+          return;
+        }
+
+        const messageString = JSON.stringify({ ...message, name: user });
+        sendWS(messageString);
+      } else {
+        rejoined = false;
+        await rejoin();
+      }
+    })();
+  } catch (e) {
+    console.error("errorr2", { e });
+  }
 }
 
 export async function join() {

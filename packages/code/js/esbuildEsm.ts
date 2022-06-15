@@ -14,8 +14,8 @@ export const init = async () => {
   await mutex.runExclusive(async () => {
     mod.initFinished || await esbuild.initialize(
       {
-      wasmURL: "/esbuild.wasm",
-    }
+        wasmURL: "/esbuild.wasm",
+      },
     );
     mod.initFinished = true;
     return true;
