@@ -1,3 +1,5 @@
+"use strict";
+
 // src/index.ts
 function src_default(packageName, version, serveDir = "") {
   return async function(request, env) {
