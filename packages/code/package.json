@@ -55,7 +55,7 @@
     "@jspm/generator": "1.0.0-beta.31",
     "@types/lodash": "4.14.182",
     "@types/node": "17.0.43",
-    "typescript": "4.7.3",
+    "typescript": "4.7.4",
     "vite": "2.9.12",
     "vite-plugin-import-maps": "0.1.2"
   },
