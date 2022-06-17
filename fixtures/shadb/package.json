@@ -31,7 +31,7 @@
   "dependencies": {
     "diff": "5.1.0",
 
-    "idb": "7.0.1",
+    "idb": "7.0.2",
     "ipfs-only-hash": "4.0.0"
   },
   "devDependencies": {
