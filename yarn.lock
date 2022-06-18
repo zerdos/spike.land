@@ -9674,10 +9674,10 @@ module-lookup-amd@^7.0.1:
     requirejs "^2.3.5"
     requirejs-config-file "^4.0.0"
 
-monaco-editor@0.34.0-dev.20220617:
-  version "0.34.0-dev.20220617"
-  resolved "https://registry.yarnpkg.com/monaco-editor/-/monaco-editor-0.34.0-dev.20220617.tgz#e6281b09de3dc7431a5d0b235dccb853591f63d1"
-  integrity sha512-Gs9B4qN8jLJm9bUIUgn9gk2yvaZ/CHDBm8TmzJ6f4cc8kKE70wdQpPNvsQfy0jwX+S6woyNc4GLPWSBiyC6IZQ==
+monaco-editor@0.34.0-dev.20220618:
+  version "0.34.0-dev.20220618"
+  resolved "https://registry.yarnpkg.com/monaco-editor/-/monaco-editor-0.34.0-dev.20220618.tgz#2a08a7d5ec04b847484f6d4344c3b4a30c96ff1e"
+  integrity sha512-Vck1XhroKN5ZDzjju1YaF+ZBlRvwC2176S5v9OsmM8o+cU5HneRfNxA9I91IIql8LSg3chFN9HzZmCeuPAEsZA==
 
 mortice@^2.0.1:
   version "2.0.1"
