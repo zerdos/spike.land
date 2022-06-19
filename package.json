@@ -40,8 +40,5 @@
     "@cloudflare/workers-types": "3.13.0",
     "lerna": "5.1.4",
     "typescript": "4.7.4"
-  },
-  "dependencies": {
-    "madge": "^5.0.1"
   }
 }
