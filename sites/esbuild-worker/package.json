@@ -22,7 +22,7 @@
     "vite": "2.9.12"
   },
   "dependencies": {
-    "miniflare": "^2.5.0",
+    "miniflare": "2.5.1",
     "react": "^18.1.0",
     "react-dom": "^18.1.0"
   }
