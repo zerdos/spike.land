@@ -98,7 +98,7 @@
     "esbuild-register": "^3.3.3",
     "esbuild-wasm": "0.14.47",
     "fast-diff": "1.2.0",
-    "framer-motion": "6.3.12",
+    "framer-motion": "6.3.13",
     "hoist-non-react-statics": "^3.3.2",
     "immutable": "4.1.0",
     "ipfs": "^0.63.3",
