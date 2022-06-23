@@ -104,7 +104,7 @@
     "ipfs": "^0.63.3",
     "ipfs-core": "0.15.3",
     "ipfs-message-port-client": "0.12.3",
-    "ipfs-message-port-server": "0.12.0",
+    "ipfs-message-port-server": "0.12.1",
     "lodash": "^4.17.21",
     "monaco-editor": "0.34.0-dev.20220622",
     "orbit-db": "0.28.6",
