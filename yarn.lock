@@ -7466,15 +7466,15 @@ ipfs-log@^5.4.1:
     p-map "^4.0.0"
     p-whilst "^2.1.0"
 
-ipfs-message-port-client@0.12.2:
-  version "0.12.2"
-  resolved "https://registry.yarnpkg.com/ipfs-message-port-client/-/ipfs-message-port-client-0.12.2.tgz#2274650800303ccac6a4afc22ad897910a59c2e2"
-  integrity sha512-CP/vPL7I3Eeis8gPku7+3OzXGdx8te3QQJ08taI0IGXyypvPMP9BQlx7VKr7SLz8rzWB/g7wZycLSms4zV6m4w==
+ipfs-message-port-client@0.12.3:
+  version "0.12.3"
+  resolved "https://registry.yarnpkg.com/ipfs-message-port-client/-/ipfs-message-port-client-0.12.3.tgz#1b4961997dfa8cf76b5cbd9092e9f64b123b69f5"
+  integrity sha512-6Le0cDAs1JJr4R1zTJms+XpiWa+8XY5ZEOE9uD0KGtDuA1gGvW43lZCmNUNf+gUzdTYpcMlPWTuTm+qpxP/7aA==
   dependencies:
     browser-readablestream-to-it "^1.0.1"
     err-code "^3.0.1"
-    ipfs-core-types "^0.11.0"
-    ipfs-message-port-protocol "^0.12.0"
+    ipfs-core-types "^0.11.1"
+    ipfs-message-port-protocol "^0.12.1"
     ipfs-unixfs "^6.0.9"
     it-peekable "^1.0.2"
     multiformats "^9.5.1"
@@ -7485,6 +7485,14 @@ ipfs-message-port-protocol@^0.12.0:
   integrity sha512-sFiTnP9S0jxScaH1ylf5ykqDjnl9q6RoLhnZiEiwae7cO2AEXVw2Vd7Ed7FkxKsBUo2DL/FxIQpA52KE+ieMCw==
   dependencies:
     ipfs-core-types "^0.11.0"
+    multiformats "^9.5.1"
+
+ipfs-message-port-protocol@^0.12.1:
+  version "0.12.1"
+  resolved "https://registry.yarnpkg.com/ipfs-message-port-protocol/-/ipfs-message-port-protocol-0.12.1.tgz#e3afc1a101d07d660f4a2b4c4ec14f6ca8c4285b"
+  integrity sha512-bGu1KpmA40ln+YAnuYOeWJ1Bpq538tTTeXJ5ew7JB/F6GHQVcIypdJOVqzZn4VjNyMRjNtoc2Axe5tW9e6UX8A==
+  dependencies:
+    ipfs-core-types "^0.11.1"
     multiformats "^9.5.1"
 
 ipfs-message-port-server@0.12.0:
