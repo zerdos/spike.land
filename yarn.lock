@@ -7305,10 +7305,10 @@ ipfs-log@^5.4.1:
     p-map "^4.0.0"
     p-whilst "^2.1.0"
 
-ipfs-message-port-client@0.12.3:
-  version "0.12.3"
-  resolved "https://registry.yarnpkg.com/ipfs-message-port-client/-/ipfs-message-port-client-0.12.3.tgz#1b4961997dfa8cf76b5cbd9092e9f64b123b69f5"
-  integrity sha512-6Le0cDAs1JJr4R1zTJms+XpiWa+8XY5ZEOE9uD0KGtDuA1gGvW43lZCmNUNf+gUzdTYpcMlPWTuTm+qpxP/7aA==
+ipfs-message-port-client@0.12.4:
+  version "0.12.4"
+  resolved "https://registry.yarnpkg.com/ipfs-message-port-client/-/ipfs-message-port-client-0.12.4.tgz#94a05261b5acacb55ffa0b2699438338032a278a"
+  integrity sha512-c2FBmikgg7MrakmRc6RnOKQ9FzPqNtRDI/tmTqcTbFSujCG9As6SKhJ37Q7OI3SpU4Nz8BsAW1y6tyxEfhCx2w==
   dependencies:
     browser-readablestream-to-it "^1.0.1"
     err-code "^3.0.1"
