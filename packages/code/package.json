@@ -102,7 +102,7 @@
     "hoist-non-react-statics": "^3.3.2",
     "immutable": "4.1.0",
     "ipfs": "^0.63.3",
-    "ipfs-core": "0.15.3",
+    "ipfs-core": "0.15.4",
     "ipfs-message-port-client": "0.12.3",
     "ipfs-message-port-server": "0.12.1",
     "lodash": "^4.17.21",
