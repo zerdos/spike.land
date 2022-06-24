@@ -2,9 +2,7 @@
 
 // import { c } from "react-dom/client";
 
-import {
-  Fragment,  Suspense
-} from "react";
+import { Fragment, Suspense } from "react";
 
 // import { codeSpace } from "./ws";
 // import { hashCode } from "./session";
@@ -15,20 +13,20 @@ import type { FC } from "react";
 globalThis.draggableWindow = globalThis.draggableWindow || 0;
 export const renderPreviewWindow = async (Editor: FC<{}>) => {
   if (globalThis.draggableWindow++) return;
-try{
-  console.log("renderPreviewWindow");
+  try {
+    console.log("renderPreviewWindow");
 
-  // document.getElementById("root");
+    // document.getElementById("root");
 
-  // const DraggableWindow = lazy(()=>import("./DraggableWindow").then(({DraggableWindow})=>({default: DraggableWindow})));
+    // const DraggableWindow = lazy(()=>import("./DraggableWindow").then(({DraggableWindow})=>({default: DraggableWindow})));
 
-  const MyApp = () => {
-    // const Dw = =useState<typeof DraggableWindow | null>(null);
+    const MyApp = () => {
+      // const Dw = =useState<typeof DraggableWindow | null>(null);
 
-    return (
-      <Fragment>
-        <div
-          css={css`
+      return (
+        <Fragment>
+          <div
+            css={css`
       height: 100%;
       width: 100%;
       background-blend-mode: overlay;
@@ -71,38 +69,38 @@ try{
                       #becc2f 0, #becc2f 94.4444444444%, 
                       #e0d81d 0, #e0d81d 100%);
   `}
-        >
-          <Suspense fallback={<p>Error</p> }>
-          <DraggableWindow
-            // onRestore={() => {
-            //   const model = globalThis.model;
-            //   model.setValue(mST().code);
-            // }}
-            hashCode={0}
-            room={codeSpace}
           >
-            {App}
-          </DraggableWindow>
-          </Suspense>
+            <Suspense fallback={<p>Error</p>}>
+              <DraggableWindow
+                // onRestore={() => {
+                //   const model = globalThis.model;
+                //   model.setValue(mST().code);
+                // }}
+                hashCode={0}
+                room={codeSpace}
+              >
+                {App}
+              </DraggableWindow>
+            </Suspense>
 
-          <Editor />
-        </div>
-      </Fragment>
+            <Editor />
+          </div>
+        </Fragment>
+      );
+    };
+    appRoot.render(
+      <MyApp />,
     );
-  };
-  appRoot.render(
-    <MyApp />,
-  );
-} catch(err) {
-  console.log(" catch renderPreviewWindow");
+  } catch (err) {
+    console.log(" catch renderPreviewWindow");
 
-  const MyDummy = () => {
-    // const Dw = =useState<typeof DraggableWindow | null>(null);
+    const MyDummy = () => {
+      // const Dw = =useState<typeof DraggableWindow | null>(null);
 
-    return (
-      <Fragment>
-        <div
-          css={css`
+      return (
+        <Fragment>
+          <div
+            css={css`
       height: 100%;
       width: 100%;
       background-blend-mode: overlay;
@@ -145,29 +143,29 @@ try{
                       #becc2f 0, #becc2f 94.4444444444%, 
                       #e0d81d 0, #e0d81d 100%);
   `}
-        >
-          <Suspense fallback={<p>Error</p> }>
-          <DraggableWindow
-            // onRestore={() => {
-            //   const model = globalThis.model;
-            //   model.setValue(mST().code);
-            // }}
-            hashCode={0}
-            room={codeSpace}
           >
-           <h1>error</h1>
-          </DraggableWindow>
-          </Suspense>
+            <Suspense fallback={<p>Error</p>}>
+              <DraggableWindow
+                // onRestore={() => {
+                //   const model = globalThis.model;
+                //   model.setValue(mST().code);
+                // }}
+                hashCode={0}
+                room={codeSpace}
+              >
+                <h1>error</h1>
+              </DraggableWindow>
+            </Suspense>
 
-          <Editor />
-        </div>
-      </Fragment>
+            <Editor />
+          </div>
+        </Fragment>
+      );
+    };
+    appRoot.render(
+      <MyDummy />,
     );
-  };
-  appRoot.render(
-    <MyDummy />,
-  );
-}
+  }
   // document.body.appendChild(target);
   // document.getElementById("root")?.remove();
   // target.id = "root";

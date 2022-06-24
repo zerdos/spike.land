@@ -3,7 +3,7 @@
 import { Mutex } from "async-mutex";
 import * as esbuild from "esbuild-wasm";
 import { wait } from "./wait";
-import wasmURL from "esbuild-wasm/esbuild.wasm"
+import wasmURL from "esbuild-wasm/esbuild.wasm";
 
 const mod = { initFinished: false };
 
@@ -15,7 +15,7 @@ export const init = async () => {
   await mutex.runExclusive(async () => {
     mod.initFinished || await esbuild.initialize(
       {
-        wasmURL
+        wasmURL,
       },
     );
     mod.initFinished = true;

@@ -2,7 +2,7 @@
 
 // import { CacheProvider } from "@emotion/react";
 // import createCache from "@emotion/cache";
-import {Suspense, Fragment} from "react"
+import { Fragment, Suspense } from "react";
 import type { ReactElement } from "react";
 // import  from "react";
 
@@ -73,17 +73,17 @@ export const renderApp = (App: ReactElement) => {
 
   // const { App } = globalThis;
   console.log("render App");
-  try{
-  appRoot.render(
-    // <CacheProvider value={cache}>
-    <Fragment>
-    <Suspense fallback={<p>error</p>}>
-    {App}
-    </Suspense>
-    </Fragment>,
-    // </CacheProvider>,
-  );
-  }catch(err){
+  try {
+    appRoot.render(
+      // <CacheProvider value={cache}>
+      <Fragment>
+        <Suspense fallback={<p>error</p>}>
+          {App}
+        </Suspense>
+      </Fragment>,
+      // </CacheProvider>,
+    );
+  } catch (err) {
     appRoot.render(
       // <CacheProvider value={cache}>
       <Fragment>
@@ -92,7 +92,6 @@ export const renderApp = (App: ReactElement) => {
       // </CacheProvider>,
     );
   }
-  
 };
 
 export function createJsBlob(code: string) {
