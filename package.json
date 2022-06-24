@@ -30,7 +30,7 @@
     "docker:push": "yarn lerna docker:push",
     "postinstall": "yarn re:build",
     "lerna": "lerna",
-    "push": "git pull && yarn && git add . && git commit -m push && git push && cd sites/spike.land && yarn deploy",
+    "push": "git pull && yarn && git add . && git commit -m push && git push && cd sites/spike.land && NODE_ENV=production  yarn deploy",
     "open-cli": "open-cli",
     "pw": "playwright",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -40,5 +40,11 @@
     "@cloudflare/workers-types": "3.13.0",
     "lerna": "5.1.6",
     "typescript": "4.7.4"
+  },
+  "engines": {
+    "node": ">=16.7"
+  },
+  "volta": {
+    "node": "18.2.0"
   }
 }
