@@ -2684,9 +2684,9 @@
     "@multiformats/multiaddr" "^10.1.1"
 
 "@multiformats/multiaddr@^10.0.0", "@multiformats/multiaddr@^10.1.1", "@multiformats/multiaddr@^10.1.5", "@multiformats/multiaddr@^10.1.7", "@multiformats/multiaddr@^10.1.8":
-  version "10.2.0"
-  resolved "https://registry.yarnpkg.com/@multiformats/multiaddr/-/multiaddr-10.2.0.tgz#52feba9b495fcb9c76be787b040a4779ed61f083"
-  integrity sha512-njYZidmSOP5qDaZszgDafaPd+AQsm1iOk7ktzmOZ4P5nkuK+YJofnysdSSQjJbLXCS7ft17Y/XcIwulQeTdrQA==
+  version "10.2.1"
+  resolved "https://registry.yarnpkg.com/@multiformats/multiaddr/-/multiaddr-10.2.1.tgz#1ce3f1391d9390711a2eaef62b20e1deec2cb26b"
+  integrity sha512-i1l5tEmWgJ3bQYew3gL0yI5jy+8JfIpFcaBbjwbS7LyQSHYZLjDyfagFWMPEDdQB3/gxYpkddHlci4uJW/IMZw==
   dependencies:
     dns-over-http-resolver "^2.0.1"
     err-code "^3.0.1"
@@ -5130,9 +5130,9 @@ electron-fetch@^1.7.2:
     encoding "^0.1.13"
 
 electron-to-chromium@^1.4.164:
-  version "1.4.169"
-  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.4.169.tgz#d4b8cf9816566c7e9518128f1a97f39de9c7af9d"
-  integrity sha512-Yb7UFva1sLlAaRyCkgoFF3qWvwZacFDtsGKi44rZsk8vnhL0DMhsUdhI4Dz9CCJQfftncDMGSI3AYiDtg8mD/w==
+  version "1.4.170"
+  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.4.170.tgz#0415fc489402e09bfbe1f0c99bbf4d73f31d48d4"
+  integrity sha512-rZ8PZLhK4ORPjFqLp9aqC4/S1j4qWFsPPz13xmWdrbBkU/LlxMcok+f+6f8YnQ57MiZwKtOaW15biZZsY5Igvw==
 
 electron-webrtc@^0.3.0:
   version "0.3.0"
@@ -6845,9 +6845,9 @@ ipaddr.js@^2.0.1:
   integrity sha512-1qTgH9NG+IIJ4yfKs2e6Pp1bZg8wbDbKHT21HrLIeYBTRLgMYKnMTPAuI3Lcs61nfx5h1xlXnbJtH1kX5/d/ng==
 
 ipfs-bitswap@^11.0.0:
-  version "11.0.3"
-  resolved "https://registry.yarnpkg.com/ipfs-bitswap/-/ipfs-bitswap-11.0.3.tgz#07973289840f3574048e7162095ed7343e16f74d"
-  integrity sha512-uSzWVvNzyRyv3itLwDGZyVgzJF+2hwdZsWd+tdxJ7KRljq/REYt1pSTUXxsK2MPXqw93UOI0BcYiS15sgOkuTQ==
+  version "11.0.4"
+  resolved "https://registry.yarnpkg.com/ipfs-bitswap/-/ipfs-bitswap-11.0.4.tgz#d9e2c87a81e50e9d0cd6cb2f5ae391347b9028cd"
+  integrity sha512-9lHzO0TPAVEqxbQHvcoxqZHO5nQQRmdLPCn0FLDoTLtKJmvJZGma0tXgJHO5TWhUb1rmX9CNC8BX5dkRhq1Cow==
   dependencies:
     "@libp2p/interfaces" "^2.0.2"
     "@libp2p/topology" "^1.1.6"
