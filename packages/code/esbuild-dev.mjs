@@ -1,7 +1,7 @@
 import esbuild from "esbuild";
 import * as importMap from "esbuild-plugin-import-map";
 import { jsxImportSourcePlugin } from "esbuild-plugin-jsximportsource";
-
+import alias from 'esbuild-plugin-alias';
 import jsonData from "./js/mockedMap.json" assert { type: "json" };
 
 const environment = process.env.NODE_ENV === "production"
@@ -38,7 +38,9 @@ const buildOptions = {
   target: "es2020",
   platform: "browser",
   legalComments: "none",
-  plugins: [importMapPlugin, jsxImportSourcePlugin({ filter: /.(tsx)/ })],
+  plugins: [importMapPlugin, jsxImportSourcePlugin({ filter: /.(tsx)/ }), alias({
+    "path": "path-browserify"
+  })],
 };
 
 await esbuild.build({

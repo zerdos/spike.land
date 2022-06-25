@@ -64,14 +64,6 @@
   "publishConfig": {
     "access": "public"
   },
-  "alias": {
-    "stream": "stream-browserify",
-    "react": "preact/compat",
-    "react-dom": "preact/compat"
-  },
-  "resolutions": {
-    "path": "path-browserify"
-  },
   "dependencies": {
     "@emotion/cache": "^11.9.3",
     "@emotion/react": "^11.9.3",
@@ -93,6 +85,7 @@
     "core-js": "^3.23.1",
     "es-module-shims": "^1.5.6",
     "esbuild": "0.14.47",
+    "esbuild-plugin-alias": "^0.2.1",
     "esbuild-plugin-import-map": "2.1.0",
     "esbuild-plugin-jsximportsource": "^0.0.4",
     "esbuild-register": "^3.3.3",
@@ -109,8 +102,7 @@
     "monaco-editor": "0.34.0-dev.20220625",
     "orbit-db": "0.28.6",
     "p-all": "^4.0.0",
-    "path": "file:./path",
-    "path-browserify": "file:./path",
+    "path-browserify": "1.0.1",
     "popmotion": "^11.0.3",
     "preact": "^10.8.0",
     "preact-render-to-string": "^5.2.0",
