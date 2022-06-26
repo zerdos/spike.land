@@ -11669,10 +11669,10 @@ module-details-from-path@^1.0.3:
   resolved "https://registry.npmjs.org/module-details-from-path/-/module-details-from-path-1.0.3.tgz"
   integrity sha512-ySViT69/76t8VhE1xXHK6Ch4NcDd26gx0MzKXLO+F7NOtnqH68d9zF94nT8ZWSxXh8ELOERsnJO/sWt1xZYw5A==
 
-monaco-editor@0.34.0-dev.20220625:
-  version "0.34.0-dev.20220625"
-  resolved "https://registry.npmjs.org/monaco-editor/-/monaco-editor-0.34.0-dev.20220625.tgz"
-  integrity sha512-R0sv7pjPEpQ/3l6BKILYxnCp8l4HOZd1HswY2BlRXjxKrKmpqlLExa+/JsFndIQt0unceQGFEt8VQqpcDGZGag==
+monaco-editor@0.34.0-dev.20220626:
+  version "0.34.0-dev.20220626"
+  resolved "https://registry.yarnpkg.com/monaco-editor/-/monaco-editor-0.34.0-dev.20220626.tgz#a8c52b0c6722a02c54a14c98f7bbb41cb56221c9"
+  integrity sha512-+A84bG2Ykl0AAkWOoaVNmEG+fxH1o226xCnXKj+gsIAN+fUOf7pcwfGlyBa73qEDX4ofOlAGe65FgIH7wNpJCQ==
 
 mortice@^2.0.1:
   version "2.0.1"
