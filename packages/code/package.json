@@ -55,6 +55,10 @@
   },
   "homepage": "/",
   "repository": "https://github.com/spike-land/monorepo",
+  "alias": {
+    "react": "preact/compat",
+    "react-dom": "preact/compat"
+  },
   "devDependencies": {
     "@jspm/generator": "1.0.0-beta.31",
     "@types/lodash": "4.14.182",
@@ -113,8 +117,8 @@
     "preact": "^10.8.2",
     "preact-render-to-string": "^5.2.0",
     "prettier": "^2.7.1",
-    "react": "18.2.0",
-    "react-dom": "18.2.0",
+    "react": "npm:@preact/compat@17.1.1",
+    "react-dom": "npm:@preact/compat@17.1.1",
     "shiki": "^0.10.1",
     "stream-browserify": "3.0.0",
     "util": "^0.12.4",

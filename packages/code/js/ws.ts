@@ -7,7 +7,7 @@ import {
   mST,
   patch as applyPatch,
   startSession,
-} from "./session";
+} from "./session.ts";
 import type { ICodeSession } from "./session.ts";
 import { appFactory, renderApp } from "./starter.tsx";
 import debounce from "lodash/debounce";
@@ -299,7 +299,7 @@ export async function join() {
   // globalThis.session = session;
 
   if (location.pathname.endsWith("public") || globalThis.model) return;
-  const { quickStart } = await import("./quickStart");
+  const { quickStart } = await import("./quickStart.tsx");
   await quickStart();
 
   return wsConnection;
@@ -706,7 +706,7 @@ const sw = async () => {
       if (serviceWorker == null) return;
       switch (event.data.method) {
         case "ipfs-message-port":
-          const { ipfsMessagePortServer } = await import("./ipfs");
+          const { ipfsMessagePortServer } = await import("./ipfs.ts");
 
           // await ipfsWorker();
           //

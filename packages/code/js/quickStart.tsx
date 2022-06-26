@@ -2,7 +2,7 @@
 // import * as shiki from 'shiki';
 import { isMobile } from "./isMobile.mjs";
 
-import { renderPreviewWindow } from "./renderPreviewWindow";
+import { renderPreviewWindow } from "./renderPreviewWindow.tsx";
 
 // const  Shiki = () => {
 //   // const [code, setCode] = useState(mmST().code);
@@ -28,10 +28,10 @@ export async function quickStart() {
   // if (!globalThis.editable) return  renderPreviewWindow(Shiki);
 
   if (isMobile()) {
-    const { AceEditor } = await import("./AceEditor");
+    const { AceEditor } = await import("./AceEditor.tsx");
     return renderPreviewWindow(AceEditor);
   }
 
-  const { MonacoEditor } = await import("./MonacoEditor");
+  const { MonacoEditor } = await import("./MonacoEditor.tsx");
   return renderPreviewWindow(MonacoEditor);
 }

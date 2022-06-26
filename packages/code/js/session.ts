@@ -2,7 +2,7 @@
 
 import { Record } from "immutable";
 
-import { applyPatch, createDelta, Delta } from "./textDiff";
+import { applyPatch, createDelta, Delta } from "./textDiff.ts";
 // Import * as Immutable from "immutable"
 
 type IUsername = string;
@@ -76,9 +76,11 @@ const hashStore: { [key: number]: Record<ICodeSession> } = {};
 export class CodeSession implements ICodeSess {
   session: IUser;
   hashCodeSession: number = 0;
+  room: string;
   created: string = new Date().toISOString();
-  constructor(private room: string, user: IUserJSON) {
+  constructor( room: string, user: IUserJSON) {
     session = this;
+    this.room = room;
     const savedState: ICodeSession | null = null;
 
     // If (user.state.code === "" && room) {
@@ -102,17 +104,17 @@ export class CodeSession implements ICodeSess {
     this.session = initSession(room, {
       ...user,
       state: savedState ? savedState : JSON.parse(str(user.state)),
-    })();
+    })()
   }
 
-  public hashOfState() {
+  hashOfState = ()=> {
     const state = this.session.get("state");
     const hashCode = state.hashCode();
     hashStore[hashCode] = state;
     return hashCode;
   }
 
-  public createPatchFromHashCode = async (
+  createPatchFromHashCode = async (
     oldHash: number,
     state: ICodeSession,
   ) => {
@@ -144,7 +146,7 @@ export class CodeSession implements ICodeSess {
     };
   };
 
-  public applyPatch = async ({
+  applyPatch = async ({
     oldHash,
     newHash,
     patch,
@@ -160,7 +162,7 @@ export class CodeSession implements ICodeSess {
         `/live/${bestGuesses}/mST`,
       );
 
-      const s = await resp.json() as { hashCode: string; mST: ICodeSession };
+      const s: { hashCode: string; mST: ICodeSession } = await resp.json();
 
       // hashStore[Number(s.hashCode)] =
 
@@ -190,13 +192,13 @@ export class CodeSession implements ICodeSess {
     }
   };
 
-  public json() {
+  json() {
     const user = this.session.toJSON();
     const state = user.state.toJSON();
     return { ...user, state };
   }
 
-  public setRoom(codeSpace: string) {
+  setRoom(codeSpace: string) {
     const user = this.session.set("room", codeSpace);
     this.session = user;
   }
@@ -226,12 +228,7 @@ function str(s: ICodeSession) {
 
 export const patch: IApplyPatch = async (x) => {
   await session?.applyPatch(x);
-  if (
-    (globalThis as unknown as { update: () => Promise<void> | null })?.update
-  ) {
-    await (globalThis as unknown as { update: () => Promise<void> | null })
-      .update();
-  }
+  await globalThis.update?.call()
 };
 export const makePatchFrom = (n: number, st: ICodeSession) =>
   session?.createPatchFromHashCode(n, st);

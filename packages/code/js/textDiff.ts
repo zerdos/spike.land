@@ -10,9 +10,10 @@ export type Delta = {
 
 export function createDelta(original: string, revision: string) {
   var result = diff(original, revision);
-  return result.map((r) =>
-    r[0] === 1 ? r : [r[0], r[1].length] as Delta
-  ) as Delta[];
+  const delta: Delta[] = result.map((r) =>
+    r[0] === 1 ? r : [r[0], r[1].length]
+  ) ;
+return delta;
 }
 
 export function applyPatch(original: string, delta: Delta[]) {
