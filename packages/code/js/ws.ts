@@ -1,5 +1,3 @@
-/** @jsxImportSource @emotion/react */
-
 // import "core-js/full";
 
 import {
@@ -10,8 +8,8 @@ import {
   patch as applyPatch,
   startSession,
 } from "./session";
-import type { ICodeSession } from "./session";
-import { appFactory, renderApp } from "./starter";
+import type { ICodeSession } from "./session.ts";
+import { appFactory, renderApp } from "./starter.tsx";
 import debounce from "lodash/debounce";
 import uidV4 from "./uidV4.mjs";
 
@@ -149,7 +147,7 @@ bc.onmessage = async (event) => {
     event.data.codeSpace === codeSpace && event.data.sess.code !== mST().code
   ) {
     const messageData = await makePatch(event.data.sess);
-    await applyPatch(messageData!);
+    await applyPatch(messageData);
     await globalThis.update(true);
   }
 };
@@ -163,7 +161,7 @@ export async function saveCode(sess: ICodeSession) {
   const messageData = await makePatch(sess);
 
   console.log("applying the patch");
-  await applyPatch(messageData!);
+  await applyPatch(messageData);
 
   console.log("done");
   if (sess.i !== mST().i) return;
@@ -366,7 +364,7 @@ async function processWsMessage(
       }
       if (
         data.name && data.name !== user &&
-        !rtcConns[data.name as keyof typeof rtcConns]
+        !rtcConns[data.name]
       ) {
         await createPeerConnection(data.name);
         return;
@@ -680,12 +678,7 @@ rcpOptions.iceServers = [{ urls: "stun:stun.stunprotocol.org:3478" }, {
   urls: "stun:stun.l.google.com:19302",
 }];
 
-interface RTCIceCandidateInit {
-  candidate?: string;
-  sdpMLineIndex?: number | null;
-  sdpMid?: string | null;
-  usernameFragment?: string | null;
-}
+
 
 async function handleNewICECandidateMessage(
   init: RTCIceCandidateInit,
@@ -703,16 +696,13 @@ async function handleNewICECandidateMessage(
 
 type RTCSdpType = "answer" | "offer";
 
-interface RTCIceCandidateInit {
-  sdp: string;
-  type: RTCSdpType;
-}
+
 
 const sw = async () => {
   try {
     navigator.serviceWorker.onmessage = async (event) => {
       /** @type {null|ServiceWorker} */
-      const serviceWorker = (event.source) as ServiceWorker;
+      const serviceWorker = event.source;
       if (serviceWorker == null) return;
       switch (event.data.method) {
         case "ipfs-message-port":

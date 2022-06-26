@@ -1,1 +1,1 @@
-export { run } from "./js/ws";
+export { run } from "./js/ws.ts";

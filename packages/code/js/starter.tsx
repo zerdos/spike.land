@@ -64,7 +64,9 @@ export const renderApp = (App: ReactElement) => {
   // const cache = createCache({ key });
 
   if (!globalThis.appRoot) {
-    const container = document.getElementById("root")!;
+    const container = document.getElementById("root");
+
+    if (!container) return;
 
     globalThis.appRoot = createRoot(container);
   }
