@@ -48,6 +48,5 @@
     "**/node_modules/*/**": true,
     "**/.hg/store/**": true
   },
-  "typescript.tsserver.useSyntaxServer": "always",
-  "deno.enable": false
+  "typescript.tsdk": "node_modules/typescript/lib"
 }
