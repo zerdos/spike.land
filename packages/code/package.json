@@ -4,8 +4,7 @@
   "description": "spike.land",
   "type": "module",
   "entry": "./index.js",
-  "source": "index.js",     
-
+  "source": "index.js",
   "main": "public/static/bundle.mjs",
   "files": [
     "**/*"

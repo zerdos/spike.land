@@ -19,6 +19,7 @@
 		"git.autorefresh": true,
 		"explorer.expandSingleFolderWorkspaces": true,
 		"typescript.enablePromptUseWorkspaceTsdk": true,
-		"typescript.tsserver.useSyntaxServer": "always"
+		"typescript.tsserver.useSyntaxServer": "always",
+		"typescript.tsdk": "monorepo/node_modules/typescript/lib"
 	}
 }

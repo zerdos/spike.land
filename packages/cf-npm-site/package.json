@@ -3,11 +3,13 @@
   "version": "0.8.0",
   "scripts": {
     "clean": "rm -rf dist && yarn build",
-    "build": "esbuild --bundle --format=esm --target=esnext src/index.ts --outfile=public/index.mjs"
+    "build": "yarn esbuild --bundle --format=esm --target=esnext src/index.ts --outfile=public/index.mjs"
   },
-  "private": false,
   "publishConfig": {
     "access": "public"
+  },
+  "dependencies": {
+    "esbuild": "0.14.47"
   },
   "author": "Zoltan Erdos <zolika84@gmail.com>",
   "license": "BSD-3-Clause",
