@@ -106,8 +106,5 @@ extension/
 
 
 
-.yarn/*
-!.yarn/releases
-!.yarn/plugins
 .pnp.*
 importmap.json5

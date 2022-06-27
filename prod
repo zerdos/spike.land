@@ -1,7 +1,0 @@
-yarn run v1.22.18
-$ NODE_ENV=production yarn ws:yarn push
-$ yarn --cwd monorepo  push
-$ cd .. && git add . && (git commit -m pre-release || echo nothing) && git push && git pull
-[main 9e592f29a] pre-release
- 2 files changed, 11 insertions(+), 133 deletions(-)
- create mode 100644 prod
