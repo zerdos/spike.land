@@ -7,8 +7,8 @@ export function createDelta(original: string, revision: string) {
   var result = diff(original, revision);
   const delta: Delta[] = result.map((r) =>
     r[0] === 1 ? r : [r[0], r[1].length]
-  ) ;
-return delta;
+  );
+  return delta;
 }
 
 export function applyPatch(original: string, delta: Delta[]) {

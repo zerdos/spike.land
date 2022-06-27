@@ -21,7 +21,7 @@ export const MonacoEditor = () => {
     editor: null as null | IStandaloneCodeEditor,
   });
 
-  const [myId, setMyId ]= useState('editor-loading');
+  const [myId, setMyId] = useState("editor-loading");
 
   const lines = code?.split("\n").length || 0;
 
@@ -51,7 +51,7 @@ export const MonacoEditor = () => {
 
       // let inc = 0;
 
-      setMyId("editor")
+      setMyId("editor");
     };
     load();
   }, [ref]);

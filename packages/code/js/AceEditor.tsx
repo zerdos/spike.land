@@ -19,7 +19,7 @@ export const AceEditor = () => {
     editor: null as null | Ace.Editor,
   });
 
-  const [myId, setMyId ]= useState('editor-loading');
+  const [myId, setMyId] = useState("editor-loading");
 
   useEffect(() => {
     if (ref === null) return;

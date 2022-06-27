@@ -1,6 +1,6 @@
 import * as monaco from "monaco-editor";
 import "monaco-editor/esm/vs/editor/editor.main";
-import throttle  from "lodash/throttle";
+import throttle from "lodash/throttle";
 //@ts-ignore
 import tsWorker from "./monaco-editor/language/typescript/ts.worker.monaco.worker";
 //@ts-ignore
@@ -29,15 +29,16 @@ Object.assign(globalThis, { MonacoEnvironment: monEnv });
 
 let started = false;
 
-
-
-export const monacoContribution = async (monaco: typeof monaco, code: string) => {
+export const monacoContribution = async (
+  monaco: typeof monaco,
+  code: string,
+) => {
   monaco.languages.typescript.typescriptDefaults
-  .setDiagnosticsOptions({
-    noSuggestionDiagnostics: true,
-    noSemanticValidation: true,
-    noSyntaxValidation: true,
-  });
+    .setDiagnosticsOptions({
+      noSuggestionDiagnostics: true,
+      noSemanticValidation: true,
+      noSyntaxValidation: true,
+    });
 
   monaco.languages.typescript.typescriptDefaults.setCompilerOptions({
     baseUrl: location.origin + "/live/",
@@ -89,8 +90,6 @@ export const monacoContribution = async (monaco: typeof monaco, code: string) =>
       monaco.Uri.parse(extraModel),
     );
   }
-
-
 
   (async () => {
     const { dtsFiles } = await import("./types.mjs");
@@ -247,8 +246,7 @@ export const monacoContribution = async (monaco: typeof monaco, code: string) =>
       noSyntaxValidation: false,
     });
   })();
-
-}
+};
 
 const returnModules = {
   editor: {} as unknown as ReturnType<typeof monaco.editor.create>,
@@ -293,7 +291,7 @@ export const startMonaco = async (
   shadowRoot.appendChild(innerStyle);
 
   await monacoContribution(monaco, code);
- 
+
   returnModules.editor = monaco.editor.create(innerContainer, {
     model: monaco.editor.createModel(
       code,
@@ -414,9 +412,6 @@ export const startMonaco = async (
 
     autoClosingBrackets: "always",
   });
-
- 
-  
 
   return returnModules;
 };

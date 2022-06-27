@@ -1,6 +1,6 @@
 import esbuild from "esbuild";
 
-import {pnpPlugin} from '@yarnpkg/esbuild-plugin-pnp';
+import { pnpPlugin } from "@yarnpkg/esbuild-plugin-pnp";
 import * as importMap from "esbuild-plugin-import-map";
 import { jsxImportSourcePlugin } from "esbuild-plugin-jsximportsource";
 import alias from "esbuild-plugin-alias";
@@ -41,7 +41,6 @@ const buildOptions = {
   platform: "browser",
   legalComments: "none",
   plugins: [
-    
     pnpPlugin(),
     importMapPlugin,
     jsxImportSourcePlugin({ filter: /.(tsx)/ }),
@@ -63,7 +62,7 @@ await esbuild.build({
   minifySyntax: false,
   treeShaking: true,
   ignoreAnnotations: true,
-  plugins: [pnpPlugin(),  jsxImportSourcePlugin({ filter: /.(tsx)/ })],
+  plugins: [pnpPlugin(), jsxImportSourcePlugin({ filter: /.(tsx)/ })],
   ignoreAnnotations: true,
   treeShaking: true,
   outExtension: { ".js": ".monaco.worker.js" },
@@ -102,7 +101,7 @@ await esbuild.build({
   treeShaking: true,
 
   ignoreAnnotations: true,
-  plugins: [ pnpPlugin(), jsxImportSourcePlugin({ filter: /.(tsx)/ })],
+  plugins: [pnpPlugin(), jsxImportSourcePlugin({ filter: /.(tsx)/ })],
   ignoreAnnotations: true,
   treeShaking: true,
   // outExtension: {".js": ".workerJS"},
@@ -260,5 +259,4 @@ await build([
   "ws.mjs",
 ]);
 
-
-await build
+await build;

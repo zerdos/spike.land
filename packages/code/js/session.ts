@@ -75,17 +75,17 @@ let session: CodeSession | null = null;
 const hashStore: { [key: number]: Record<ICodeSession> } = {};
 export class CodeSession implements ICodeSess {
   session: IUser;
-  update(){
+  update() {
     this.cb(true);
   }
-cb = (_force: boolean)=>{}
-  onUpdate(fn: (force: boolean)=>void){
+  cb = (_force: boolean) => {};
+  onUpdate(fn: (force: boolean) => void) {
     this.cb = fn;
-  };
+  }
   hashCodeSession: number = 0;
   room: string;
   created: string = new Date().toISOString();
-  constructor( room: string, user: IUserJSON) {
+  constructor(room: string, user: IUserJSON) {
     session = this;
     this.room = room;
     const savedState: ICodeSession | null = null;
@@ -111,15 +111,15 @@ cb = (_force: boolean)=>{}
     this.session = initSession(room, {
       ...user,
       state: savedState ? savedState : JSON.parse(str(user.state)),
-    })()
+    })();
   }
 
-  hashOfState = ()=> {
+  hashOfState = () => {
     const state = this.session.get("state");
     const hashCode = state.hashCode();
     hashStore[hashCode] = state;
     return hashCode;
-  }
+  };
 
   createPatchFromHashCode = async (
     oldHash: number,
@@ -236,11 +236,11 @@ function str(s: ICodeSession) {
 export const patch: IApplyPatch = async (x) => {
   await session?.applyPatch(x);
   session?.update();
-
- };
-export const onUpdate = (fn: (_force: boolean)=>void)=>session?.onUpdate(fn)
+};
+export const onUpdate = (fn: (_force: boolean) => void) =>
+  session?.onUpdate(fn);
 export const makePatchFrom = (n: number, st: ICodeSession) =>
-  (session as CodeSession).createPatchFromHashCode(n, st) ;
+  (session as CodeSession).createPatchFromHashCode(n, st);
 export const makePatch = (st: ICodeSession) => makePatchFrom(hashCode(), st);
 
 export const startSession = (room: string, u: IUserJSON): CodeSession =>

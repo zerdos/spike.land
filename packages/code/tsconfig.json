@@ -15,13 +15,11 @@
     "noFallthroughCasesInSwitch": true,
     "isolatedModules": true,
     "downlevelIteration": true,
- 
+
     "noEmit": true,
     "module": "commonjs",
     "jsx": "react-jsx",
-  
 
-  
     "jsxImportSource": "@emotion/react",
     "sourceMap": true,
     "noUnusedLocals": true,

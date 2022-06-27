@@ -5,8 +5,8 @@ import {
   makePatch,
   makePatchFrom,
   mST,
+  onUpdate,
   patch as applyPatch,
-  onUpdate, 
   startSession,
 } from "./session";
 import type { ICodeSession } from "./session";
@@ -71,8 +71,6 @@ const sendChannel = {
 // Let createDelta;
 // let applyPatch;
 
-
-
 export const run = async () => {
   renderApp(await appFactory(window.startState.transpiled));
 
@@ -97,7 +95,7 @@ startSession(codeSpace, {
   state: window.startState,
 });
 
-onUpdate( async (force = false) => {
+onUpdate(async (force = false) => {
   const { transpiled, i, code } = mST();
 
   if (globalThis.setValue) {
@@ -150,9 +148,9 @@ bc.onmessage = async (event) => {
     event.data.codeSpace === codeSpace && event.data.sess.code !== mST().code
   ) {
     const messageData = await makePatch(event.data.sess);
-    
+
     await applyPatch(messageData);
-    }
+  }
 };
 
 export async function saveCode(sess: ICodeSession) {
@@ -680,8 +678,6 @@ rcpOptions.iceServers = [{ urls: "stun:stun.stunprotocol.org:3478" }, {
   urls: "stun:stun.l.google.com:19302",
 }];
 
-
-
 async function handleNewICECandidateMessage(
   init: RTCIceCandidateInit,
   target: string,
@@ -695,7 +691,6 @@ async function handleNewICECandidateMessage(
   console.log(rtcConns[target]);
   await rtcConns[target].addIceCandidate(candidate);
 }
-
 
 const sw = async () => {
   try {
@@ -715,7 +710,7 @@ const sw = async () => {
             method: "ipfs-message-port",
             id: event.data.id,
             port: channel.port2,
-          }, {transfer: [channel.port2]});
+          }, { transfer: [channel.port2] });
 
           // Receives request from service worker, creates a new shared worker and
           // responds back with the message port.
