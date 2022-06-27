@@ -9,8 +9,6 @@ import type { Ace, edit } from "ace-builds";
 
 import { runnerDebounced } from "./runner";
 
-type IPrettier = (code: string) => string;
-let formatter: null | IPrettier = null;
 export const AceEditor = () => {
   const ref = useRef<HTMLPreElement>(null) as null | {
     current: HTMLPreElement;
