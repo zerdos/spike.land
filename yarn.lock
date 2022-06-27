@@ -5085,7 +5085,7 @@ __metadata:
     lodash: ^4.17.21
     microbundle: ^0.15.0
     microenvi: ^0.3.1
-    monaco-editor: 0.34.0-dev.20220626
+    monaco-editor: 0.34.0-dev.20220627
     orbit-db: 0.28.6
     p-all: ^4.0.0
     path-browserify: 1.0.1
@@ -15414,10 +15414,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"monaco-editor@npm:0.34.0-dev.20220626":
-  version: 0.34.0-dev.20220626
-  resolution: "monaco-editor@npm:0.34.0-dev.20220626"
-  checksum: 195449dcbe7d15ce4adda6c3d8c08f5915047314939984a576c35daa836afbd7cb6550c73fb6d3b0a903390d26369e8d27919ac9c505cec6ed45b0f6161dfc5c
+"monaco-editor@npm:0.34.0-dev.20220627":
+  version: 0.34.0-dev.20220627
+  resolution: "monaco-editor@npm:0.34.0-dev.20220627"
+  checksum: a56c95bd1cf62c0a5a2021bef2197f215cf97491a7ca29483675583fdfff946cf4854ac89147d748921bd28cbe605dc1221ef70a9359a60c5e32d64875192401
   languageName: node
   linkType: hard
 
