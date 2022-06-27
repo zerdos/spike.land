@@ -1,4 +1,7 @@
 [Real time React page editor, in typescript!
+
+![Screenshot](edotor.png)(https://spike.land)
+
 ![Screenshot](![screen-capture](https://user-i![screen-capture](https://user-images.githubusercontent.com/1433047/152510761-ecd12293-1eaf-425e-ae7b-71238260cc8c.gif)
 mages.githubusercontent.com/1433047/152510558-c0b763f5-d64d-4884-9fb6-8a82f571062e.gif)
 )](https://spike.land)
