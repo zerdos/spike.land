@@ -5093,8 +5093,8 @@ __metadata:
     preact: ^10.8.2
     preact-render-to-string: ^5.2.0
     prettier: ^2.7.1
-    react: "npm:@preact/compat@17.1.1"
-    react-dom: "npm:@preact/compat@17.1.1"
+    react: ^18.2.0
+    react-dom: ^18.2.0
     shiki: ^0.10.1
     stream-browserify: 3.0.0
     typescript: 4.7.4
@@ -19087,15 +19087,6 @@ __metadata:
   bin:
     rc: ./cli.js
   checksum: 2e26e052f8be2abd64e6d1dabfbd7be03f80ec18ccbc49562d31f617d0015fbdbcf0f9eed30346ea6ab789e0fdfe4337f033f8016efdbee0df5354751842080e
-  languageName: node
-  linkType: hard
-
-"react-dom@npm:@preact/compat@17.1.1, react@npm:@preact/compat@17.1.1":
-  version: 17.1.1
-  resolution: "@preact/compat@npm:17.1.1"
-  peerDependencies:
-    preact: "*"
-  checksum: 4171731dee6f25bdb8a200117c7d5b75527d79080aa864482e6b50a74e08b0fd24329aa7d97feb1c3e1b4aa9cbcc8a8b5e25ac01bab0fdf4d67843a53bda0eab
   languageName: node
   linkType: hard
 
