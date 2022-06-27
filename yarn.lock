@@ -5093,6 +5093,7 @@ __metadata:
     preact: ^10.8.2
     preact-render-to-string: ^5.2.0
     prettier: ^2.7.1
+    qrious-core: ^4.0.0
     react: ^18.2.0
     react-dom: ^18.2.0
     shiki: ^0.10.1
@@ -18960,7 +18961,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"qrious-core@npm:4.0.0":
+"qrious-core@npm:4.0.0, qrious-core@npm:^4.0.0":
   version: 4.0.0
   resolution: "qrious-core@npm:4.0.0"
   dependencies:
