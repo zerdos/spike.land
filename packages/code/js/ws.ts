@@ -7,9 +7,9 @@ import {
   mST,
   patch as applyPatch,
   startSession,
-} from "./session.ts";
-import type { ICodeSession } from "./session.ts";
-import { appFactory, renderApp } from "./starter.tsx";
+} from "./session";
+import type { ICodeSession } from "./session";
+import { appFactory, renderApp } from "./starter";
 import debounce from "lodash/debounce";
 import uidV4 from "./uidV4.mjs";
 
@@ -147,6 +147,7 @@ bc.onmessage = async (event) => {
     event.data.codeSpace === codeSpace && event.data.sess.code !== mST().code
   ) {
     const messageData = await makePatch(event.data.sess);
+    
     await applyPatch(messageData);
     await globalThis.update(true);
   }
@@ -186,7 +187,7 @@ export async function saveCode(sess: ICodeSession) {
       }
     })();
   } catch (e) {
-    console.log("Errorr1");
+    console.log("Error 1");
   }
 
   try {
@@ -213,7 +214,7 @@ export async function saveCode(sess: ICodeSession) {
       }
     })();
   } catch (e) {
-    console.error("errorr2", { e });
+    console.error("error 2", { e });
   }
 }
 
@@ -299,7 +300,7 @@ export async function join() {
   // globalThis.session = session;
 
   if (location.pathname.endsWith("public") || globalThis.model) return;
-  const { quickStart } = await import("./quickStart.tsx");
+  const { quickStart } = await import("./quickStart");
   await quickStart();
 
   return wsConnection;
@@ -694,9 +695,6 @@ async function handleNewICECandidateMessage(
   await rtcConns[target].addIceCandidate(candidate);
 }
 
-type RTCSdpType = "answer" | "offer";
-
-
 
 const sw = async () => {
   try {
@@ -706,7 +704,7 @@ const sw = async () => {
       if (serviceWorker == null) return;
       switch (event.data.method) {
         case "ipfs-message-port":
-          const { ipfsMessagePortServer } = await import("./ipfs.ts");
+          const { ipfsMessagePortServer } = await import("./ipfs");
 
           // await ipfsWorker();
           //
@@ -716,7 +714,7 @@ const sw = async () => {
             method: "ipfs-message-port",
             id: event.data.id,
             port: channel.port2,
-          }, [channel.port2]);
+          }, {transfer: [channel.port2]});
 
           // Receives request from service worker, creates a new shared worker and
           // responds back with the message port.

@@ -2,7 +2,7 @@
 
 import { Record } from "immutable";
 
-import { applyPatch, createDelta, Delta } from "./textDiff.ts";
+import { applyPatch, createDelta, Delta } from "./textDiff";
 // Import * as Immutable from "immutable"
 
 type IUsername = string;
@@ -228,10 +228,10 @@ function str(s: ICodeSession) {
 
 export const patch: IApplyPatch = async (x) => {
   await session?.applyPatch(x);
-  await globalThis.update?.call()
+  await globalThis.update?.call(window)
 };
 export const makePatchFrom = (n: number, st: ICodeSession) =>
-  session?.createPatchFromHashCode(n, st);
+  (session as CodeSession).createPatchFromHashCode(n, st) ;
 export const makePatch = (st: ICodeSession) => makePatchFrom(hashCode(), st);
 
 export const startSession = (room: string, u: IUserJSON): CodeSession =>
