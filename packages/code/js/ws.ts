@@ -6,6 +6,7 @@ import {
   makePatchFrom,
   mST,
   patch as applyPatch,
+  onUpdate, 
   startSession,
 } from "./session";
 import type { ICodeSession } from "./session";
@@ -70,14 +71,7 @@ const sendChannel = {
 // Let createDelta;
 // let applyPatch;
 
-globalThis.update = async (force = false) => {
-  const { transpiled, i, code } = mST();
 
-  if (globalThis.setValue) {
-    globalThis.setValue(code, i, force);
-  }
-  renderApp(await appFactory(transpiled));
-};
 
 export const run = async () => {
   renderApp(await appFactory(window.startState.transpiled));
@@ -101,6 +95,15 @@ export const run = async () => {
 startSession(codeSpace, {
   name: user,
   state: window.startState,
+});
+
+onUpdate( async (force = false) => {
+  const { transpiled, i, code } = mST();
+
+  if (globalThis.setValue) {
+    globalThis.setValue(code, i, force);
+  }
+  renderApp(await appFactory(transpiled));
 });
 
 let intervalHandler: NodeJS.Timer | null = null;
@@ -149,8 +152,7 @@ bc.onmessage = async (event) => {
     const messageData = await makePatch(event.data.sess);
     
     await applyPatch(messageData);
-    await globalThis.update(true);
-  }
+    }
 };
 
 export async function saveCode(sess: ICodeSession) {
@@ -382,7 +384,6 @@ async function processWsMessage(
     }
 
     await applyPatch(data);
-    await globalThis.update(true);
 
     if (data.newHash === hashCode()) {
       if (sendChannel) {

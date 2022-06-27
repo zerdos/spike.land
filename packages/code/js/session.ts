@@ -75,6 +75,13 @@ let session: CodeSession | null = null;
 const hashStore: { [key: number]: Record<ICodeSession> } = {};
 export class CodeSession implements ICodeSess {
   session: IUser;
+  update(){
+    this.cb(true);
+  }
+cb = (_force: boolean)=>{}
+  onUpdate(fn: (force: boolean)=>void){
+    this.cb = fn;
+  };
   hashCodeSession: number = 0;
   room: string;
   created: string = new Date().toISOString();
@@ -228,8 +235,10 @@ function str(s: ICodeSession) {
 
 export const patch: IApplyPatch = async (x) => {
   await session?.applyPatch(x);
-  await globalThis.update?.call(window)
-};
+  session?.update();
+
+ };
+export const onUpdate = (fn: (_force: boolean)=>void)=>session?.onUpdate(fn)
 export const makePatchFrom = (n: number, st: ICodeSession) =>
   (session as CodeSession).createPatchFromHashCode(n, st) ;
 export const makePatch = (st: ICodeSession) => makePatchFrom(hashCode(), st);

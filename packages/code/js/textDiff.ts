@@ -1,12 +1,7 @@
 import diff from "fast-diff";
 
-export type Delta = {
-  0: 0 | -1;
-  1: number;
-} | {
-  0: 1;
-  1: string;
-};
+type Diff = [-1 | 0 | 1, string];
+export type Delta = Diff | [0 | -1, number];
 
 export function createDelta(original: string, revision: string) {
   var result = diff(original, revision);
