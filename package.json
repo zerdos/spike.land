@@ -45,7 +45,7 @@
     "node": ">=16.7"
   },
   "volta": {
-    "node": "18.2.0"
+    "node": "18.4.0"
   },
   "dependencies": {
     "preact": "^10.8.2"
