@@ -12,6 +12,7 @@ import {
   startSession,
 } from "@spike.land/code/js/session";
 import { Delta } from "@spike.land/code/js/textDiff";
+import imap from "@spike.land/code/js/importmap.json";
 import { getBackupSession } from "./getBackupSession";
 
 interface IState extends DurableObjectState {
@@ -249,7 +250,8 @@ export class Code {
             });`,
           ).replace(
             `<div id="root"></div>`,
-            `<style>${startState.css}</style><div id="root">${startState.html}</div>`,
+            `  <script type="importmap">${JSON.stringify(imap)}</script>
+            <style>${startState.css}</style><div id="root">${startState.html}</div>`,
           );
           return new Response(html, {
             status: 200,

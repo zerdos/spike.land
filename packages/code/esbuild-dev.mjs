@@ -4,7 +4,7 @@ import { pnpPlugin } from "@yarnpkg/esbuild-plugin-pnp";
 import * as importMap from "esbuild-plugin-import-map";
 import { jsxImportSourcePlugin } from "esbuild-plugin-jsximportsource";
 import alias from "esbuild-plugin-alias";
-import jsonData from "./js/mockedMap.json" assert { type: "json" };
+import jsonData from "./js/importmap.json" assert { type: "json" };
 
 const environment = process.env.NODE_ENV === "production"
   ? "production"
@@ -158,7 +158,7 @@ const build = (entryPoints) =>
       ".monaco.worker.js",
     ],
 
-    // external: ["react", "react-dom", "framer-motion", "tslib", "@emotion/react"],
+    // external: ["react", "react-dom/client", "framer-motion", "tslib", "@emotion/react"],
     platform: "browser",
     chunkNames: "chunks/[name]-[hash]",
     resolveExtensions: [
@@ -218,7 +218,7 @@ const build = (entryPoints) =>
 
 //     allowOverwrite: true,
 
-//     // external: ["react", "react-dom", "framer-motion", "tslib", "@emotion/react"],
+//     // external: ["react", "react-dom/client", "framer-motion", "tslib", "@emotion/react"],
 //     platform: "browser",
 //     chunkNames: "chunks/[name]-[hash]",
 //     resolveExtensions: [

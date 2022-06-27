@@ -77,7 +77,7 @@
     "buffer": ["buffer"],
     "stream": ["stream-browserify"],
     "react": ["preact-compat"],
-    "react-dom": ["preact-compat"],
+    "react-dom/client": ["preact-compat"],
     "react/jsx-runtime": ["preact-compat/jsx-runtime"],
     // Not necessary unless you consume a module using `createClass`
     "create-react-class": ["preact-compat/lib/create-react-class"],

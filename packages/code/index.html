@@ -52,7 +52,7 @@ textarea {
       "react/jsx-runtime": "/react.mjs",
       "react": "/react.mjs",
       "preact": "/react.mjs",
-      "react-dom": "/react.mjs",
+      "react-dom/client": "/react.mjs",
       "react-dom/server": "/react.mjs",
       "framer-motion": "/framer-motion.mjs",
       "@emotion/react": "/emotion.mjs",
@@ -100,7 +100,7 @@ textarea {
  
  </script>
   <script type="module">
-    import {createRoot} from "react-dom";
+    import {createRoot} from "react-dom/client";
     import {run} from "./ws.mjs";
 
     if (!window.startState)  await  (async() =>{

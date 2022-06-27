@@ -1,13 +1,14 @@
 {
   "imports": {
-    "@emotion/cache": "/emotion.mjs",
-    "@emotion/react": "/emotion.mjs",
-    "@emotion/react/jsx-runtime": "/emotion.mjs",
-    "react": "/react.mjs",
-    "react/jsx-runtime": "/react.mjs",
-    "react-dom": "/react.mjs",
-    "preact": "/react.mjs",
-    "react-dom/server": "/react.mjs"
+    "@emotion/cache": "https://ga.jspm.io/npm:@emotion/cache@11.9.3/dist/emotion-cache.browser.esm.js",
+    "@emotion/react": "https://ga.jspm.io/npm:@emotion/react@11.9.3/dist/emotion-react.browser.esm.js",
+    "@emotion/react/jsx-runtime": "https://ga.jspm.io/npm:@emotion/react@11.9.3/jsx-runtime/dist/emotion-react-jsx-runtime.esm.js",
+    "framer-motion": "https://ga.jspm.io/npm:framer-motion@6.3.16/dist/es/index.mjs",
+    "react": "https://ga.jspm.io/npm:react@18.2.0/index.js",
+    "react-dom": "https://ga.jspm.io/npm:react-dom@18.2.0/index.js",
+    "react-dom/client": "https://ga.jspm.io/npm:react-dom@18.2.0/client.js",
+    "react-dom/server": "https://ga.jspm.io/npm:react-dom@18.2.0/server.browser.js",
+    "react/jsx-runtime": "https://ga.jspm.io/npm:react@18.2.0/jsx-runtime.js"
   },
   "scopes": {
     "https://ga.jspm.io/": {
@@ -20,10 +21,16 @@
       "@emotion/unitless": "https://ga.jspm.io/npm:@emotion/unitless@0.7.5/dist/unitless.browser.esm.js",
       "@emotion/utils": "https://ga.jspm.io/npm:@emotion/utils@1.1.0/dist/emotion-utils.browser.esm.js",
       "@emotion/weak-memoize": "https://ga.jspm.io/npm:@emotion/weak-memoize@0.2.5/dist/weak-memoize.browser.esm.js",
+      "framesync": "https://ga.jspm.io/npm:framesync@6.0.1/dist/es/index.mjs",
+      "hey-listen": "https://ga.jspm.io/npm:hey-listen@1.0.8/dist/index.js",
       "hoist-non-react-statics": "https://ga.jspm.io/npm:hoist-non-react-statics@3.3.2/dist/hoist-non-react-statics.cjs.js",
+      "popmotion": "https://ga.jspm.io/npm:popmotion@11.0.3/dist/es/index.mjs",
+      "process": "https://ga.jspm.io/npm:@jspm/core@2.0.0-beta.24/nodelibs/browser/process-production.js",
       "react-is": "https://ga.jspm.io/npm:react-is@16.13.1/index.js",
-      "react/jsx-runtime": "https://ga.jspm.io/npm:react@18.2.0/jsx-runtime.js",
-      "stylis": "https://ga.jspm.io/npm:stylis@4.0.13/index.js"
+      "scheduler": "https://ga.jspm.io/npm:scheduler@0.23.0/index.js",
+      "style-value-types": "https://ga.jspm.io/npm:style-value-types@5.0.0/dist/es/index.mjs",
+      "stylis": "https://ga.jspm.io/npm:stylis@4.0.13/index.js",
+      "tslib": "https://ga.jspm.io/npm:tslib@2.4.0/tslib.es6.js"
     }
   }
 }

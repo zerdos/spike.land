@@ -74,6 +74,8 @@ html, body {margin: 0; height: 100%}
   
 </head>
 <body>
+  
+  <div id="root"></div>
   <script>     
   window.startedWithNativeEsmModules = false;
   if (location.href.indexOf(".tsx")!==-1) {
@@ -86,7 +88,7 @@ html, body {margin: 0; height: 100%}
       "NODE_ENV": "production"
     }};
   </script>
-  <div id="root"></div>
+
   <script>
 
 
@@ -125,23 +127,9 @@ window.addEventListener('pageshow', (event) => {
  
  </script>
 
-  <script type="importmap">
-{
-  "imports": {
-    "react/jsx-runtime": "/react.mjs",
-    "react": "/react.mjs",
-    "preact": "/react.mjs",
-    "react-dom": "/react.mjs",
-    "react-dom/server": "/react.mjs",
-    "framer-motion": "/framer-motion.mjs",
-    "@emotion/react": "/emotion.mjs",
-    "@emotion/react/jsx-runtime": "/emotion.mjs",
-    "@emotion/cache": "/emotion.mjs"
-  }
-}
-    </script>
+
   <script type="module">
-    import {createRoot} from "react-dom";
+    import {createRoot} from "react-dom/client";
     import {run} from "./ws.mjs";
 
     window.startedWithNativeEsmModules = true;
