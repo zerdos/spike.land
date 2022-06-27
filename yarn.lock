@@ -9667,8 +9667,8 @@ __metadata:
     "@vitejs/plugin-react": ^1.3.2
     esbuild: 0.14.47
     miniflare: 2.5.1
-    react: ^18.1.0
-    react-dom: ^18.1.0
+    react: ^18.2.0
+    react-dom: ^18.2.0
     typescript: 4.7.4
     vite: 2.9.13
   languageName: unknown
@@ -19077,7 +19077,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-dom@npm:^18.1.0":
+"react-dom@npm:^18.2.0":
   version: 18.2.0
   resolution: "react-dom@npm:18.2.0"
   dependencies:
@@ -19134,7 +19134,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react@npm:^18.1.0":
+"react@npm:^18.2.0":
   version: 18.2.0
   resolution: "react@npm:18.2.0"
   dependencies:
