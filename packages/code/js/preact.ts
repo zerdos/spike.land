@@ -34,6 +34,7 @@ export const {
   version,
 } = Preact;
 
+export const flushSync = (callback: (arg: boolean)=>void, arg: boolean) => callback(arg)
 import { hydrate, render, unmountComponentAtNode } from "preact/compat";
 
 export function createRoot(container: HTMLDivElement) {
