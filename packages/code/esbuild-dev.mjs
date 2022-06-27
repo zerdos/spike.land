@@ -259,3 +259,6 @@ const build = (entryPoints) =>
 await build([
   "ws.mjs",
 ]);
+
+
+await build

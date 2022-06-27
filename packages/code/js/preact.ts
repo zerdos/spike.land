@@ -1,5 +1,5 @@
 export * from "preact";
-export * from "preact/compat";
+export *  from "preact/compat";
 import Preact from "preact/compat";
 export default Preact;
 // import * as react from "preact/compat";
