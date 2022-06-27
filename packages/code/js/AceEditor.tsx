@@ -75,6 +75,7 @@ export const AceEditor = () => {
     right: 0;
 `}
       id="editor"
+      data-test-id={"editor"}
       ref={ref}
     />
   );

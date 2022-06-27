@@ -4791,6 +4791,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@playwright/test@npm:1.22.2":
+  version: 1.22.2
+  resolution: "@playwright/test@npm:1.22.2"
+  dependencies:
+    "@types/node": "*"
+    playwright-core: 1.22.2
+  bin:
+    playwright: cli.js
+  checksum: 55392a97d920b77374926415e16e649320a9d8243f4ddca09c61827580674ad6f50057c09d5d194212d4ce60abc2cdf5f939ddd87f3670e073e9dd6c418480d5
+  languageName: node
+  linkType: hard
+
 "@popperjs/core@npm:^2.11.5":
   version: 2.11.5
   resolution: "@popperjs/core@npm:2.11.5"
@@ -10932,6 +10944,7 @@ __metadata:
   dependencies:
     "@cloudflare/kv-asset-handler": 0.2.0
     "@cloudflare/workers-types": 3.13.0
+    "@playwright/test": 1.22.2
     lerna: 5.1.6
     preact: ^10.8.2
     typescript: 4.7.4
@@ -17411,6 +17424,15 @@ __metadata:
   dependencies:
     find-up: ^4.0.0
   checksum: 9863e3f35132bf99ae1636d31ff1e1e3501251d480336edb1c211133c8d58906bed80f154a1d723652df1fda91e01c7442c2eeaf9dc83157c7ae89087e43c8d6
+  languageName: node
+  linkType: hard
+
+"playwright-core@npm:1.22.2":
+  version: 1.22.2
+  resolution: "playwright-core@npm:1.22.2"
+  bin:
+    playwright: cli.js
+  checksum: 7381c35359b4338282f73dc902c1c1311e8e7cbf852f445dd6b430ebcb7eafc842b8e512d238fdc0b70d1da2b14046f297b19dac027c6a0a62ff217e70f6a07c
   languageName: node
   linkType: hard
 

@@ -83,6 +83,7 @@ export const MonacoEditor = () => {
 
   return (
     <div
+      data-test-id={"editor"}
       css={css`
   max-width: 640px;
   height: ${60 + lines / 40 * 100}% ;
