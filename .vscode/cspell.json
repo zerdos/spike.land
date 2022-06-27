@@ -4,6 +4,7 @@
     "yarn.lock",
     "package.json",
     "sw.js",
+    "getBackupSession.ts",
     "md5.ts"
   ],
   "words": [
