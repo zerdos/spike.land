@@ -21,6 +21,8 @@ export const AceEditor = () => {
     editor: null as null | Ace.Editor,
   });
 
+  const [myId, setMyId ]= useState('editor-loading');
+
   useEffect(() => {
     if (ref === null) return;
     const load = async () => {
@@ -51,7 +53,7 @@ export const AceEditor = () => {
       }
     };
     editor?.session.on("change", listener);
-
+    setMyId("editor");
     return () => editor?.session.off("change", listener);
   }, [editor, code, i, changeContent]);
 
@@ -75,7 +77,7 @@ export const AceEditor = () => {
     right: 0;
 `}
       id="editor"
-      data-test-id={"editor"}
+      data-test-id={myId}
       ref={ref}
     />
   );

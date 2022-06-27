@@ -21,6 +21,8 @@ export const MonacoEditor = () => {
     editor: null as null | IStandaloneCodeEditor,
   });
 
+  const [myId, setMyId ]= useState('editor-loading');
+
   const lines = code?.split("\n").length || 0;
 
   useEffect(() => {
@@ -48,6 +50,8 @@ export const MonacoEditor = () => {
       // Object.assign(session, { monaco, editor, model });
 
       // let inc = 0;
+
+      setMyId("editor")
     };
     load();
   }, [ref]);
@@ -83,7 +87,7 @@ export const MonacoEditor = () => {
 
   return (
     <div
-      data-test-id={"editor"}
+      data-test-id={myId}
       css={css`
   max-width: 640px;
   height: ${60 + lines / 40 * 100}% ;
