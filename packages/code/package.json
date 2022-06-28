@@ -84,7 +84,7 @@
     "@types/react": "18.0.14",
     "@types/react-dom": "18.0.5",
     "@yarnpkg/esbuild-plugin-pnp": "^3.0.0-rc.10",
-    "ace-builds": "1.6.1",
+    "ace-builds": "1.7.0",
     "assert": "2.0.0",
     "async-mutex": "0.3.2",
     "buffer": "6.0.3",
