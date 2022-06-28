@@ -22,9 +22,11 @@ const generator = new Generator({
 
 await generator.install("react/jsx-runtime");
 await generator.install("framer-motion");
-await generator.install("@emotion/react/jsx-runtime");
+// await generator.install("@emotion/react/jsx-runtime");
 
-// await generator.install("preact/compat");
+await generator.install("preact/compat");
+const list = ["preact-render-to-string","@emotion/react"];
+await Promise.all(list.map(async(name)=>await generator.install(name)));
 
 // await generator.install("orbit-db");
 // await generator.install("tslib");
@@ -47,9 +49,9 @@ await generator.install("@emotion/react/jsx-runtime");
 // await generator.install("@spike.land/smart-monaco-editor");
 
 // await generator.install("@emotion/server");
-await generator.install("@emotion/react");
+// await generator.install("@emotion/react");
 await generator.install("react");
-await generator.install("@emotion/react/jsx-runtime");
+// await generator.install("@emotion/react/jsx-runtime");
 await generator.install("@emotion/cache");
 await generator.install("react-dom/server");
 
