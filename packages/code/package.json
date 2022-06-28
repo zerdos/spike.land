@@ -106,7 +106,7 @@
     "ipfs-message-port-server": "0.12.1",
     "lodash": "^4.17.21",
     "microbundle": "^0.15.0",
-    "monaco-editor": "0.34.0-dev.20220627",
+    "monaco-editor": "0.34.0-dev.20220628",
     "orbit-db": "0.28.6",
     "p-all": "^4.0.0",
     "path-browserify": "1.0.1",
