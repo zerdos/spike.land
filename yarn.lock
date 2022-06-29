@@ -5062,7 +5062,7 @@ __metadata:
     "@types/react": 18.0.14
     "@types/react-dom": 18.0.5
     "@yarnpkg/esbuild-plugin-pnp": ^3.0.0-rc.10
-    ace-builds: 1.7.0
+    ace-builds: 1.7.1
     assert: 2.0.0
     async-mutex: 0.3.2
     buffer: 6.0.3
@@ -5756,10 +5756,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ace-builds@npm:1.7.0":
-  version: 1.7.0
-  resolution: "ace-builds@npm:1.7.0"
-  checksum: 9c3fc884ad4c7fea653f64a7a79ceb783707e7390c06b24f60f6084bdcd9beb53f511239cf6181f743e2e5640407bdb32c05a8d2e08f2845aba2dc0468755a5c
+"ace-builds@npm:1.7.1":
+  version: 1.7.1
+  resolution: "ace-builds@npm:1.7.1"
+  checksum: da1a550ab3332c055b15fa0fe804d8705e5527d687866f57d5931f080883b2d1c517f2f7bc652169d37aa9aa5eabeb74ffe168f4394e59dc34db3291061ceb41
   languageName: node
   linkType: hard
 
