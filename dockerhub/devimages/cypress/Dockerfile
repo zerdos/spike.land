@@ -1,7 +1,8 @@
-FROM ubuntu:focal
+FROM ubuntu:jammy
 
 ### base.Dockerfile
-### Generator: https://github.com/zed-vision/monorepo/
+### Generator: https://github.com/spike-land/monorepo/tree/main/dockerhub/devimages
+
 LABEL maintainer=zoltan.erdos@me.com
 
 ENV DEBIAN_FRONTEND=noninteractive
@@ -20,6 +21,7 @@ RUN apt-get update \
   inotify-tools \
   libvips \
   locales \
+  make \
   mc \
   dirmngr \
   procps \
@@ -44,8 +46,16 @@ RUN (addgroup --gid 1000 ${USER}  \
   && touch /usr/bin/startx /usr/bin/startWithBash \
   && chmod +x /usr/bin/startx /usr/bin/startWithBash \
   && echo "(sudo sysctl fs.inotify.max_user_watches=524288 fs.inotify.max_user_instances=524288 net.core.somaxconn=524288 fscache.object_max_active=524288 || echo failed) && (sudo sysctl -p || echo failed) && (sudo chown ${USER}:${USER} /home/${USER}/tmpfs)" >> /usr/bin/startx \
-  && echo "bash /usr/bin/startx" >> /usr/bin/startWithBash && chmod +x /usr/bin/startWithBash 
-ENV NODE_VERSION 14.18.1
+  && echo "bash /usr/bin/startx" >> /usr/bin/startWithBash && chmod +x /usr/bin/startWithBash  \
+  # && curl --silent --location https://deb.nodesource.com/setup_18.x | bash - \
+  # && apt-get update \
+  # && apt-get install --no-install-recommends -y nodejs build-essential \
+  #   && apt-get autoremove -y \
+  && apt-get clean -y \
+  && rm -rf /var/lib/apt/lists/* 
+
+ENV NODE_VERSION 16.15.1
+
 RUN ARCH= && dpkgArch="$(dpkg --print-architecture)" \
   && case "${dpkgArch##*-}" in \
     amd64) ARCH='x64';; \
@@ -60,6 +70,7 @@ RUN ARCH= && dpkgArch="$(dpkg --print-architecture)" \
   && set -ex \
   && for key in \
     4ED778F539E3634C779C87C6D7062848A1AB005C \
+    141F07595B7B3FFE74309A937405533BE57C7D57 \
     94AE36675C464D64BAFA68DD7434390BDBE9B9C5 \
     74F12602B6F1C4E913FAA37AD3A89613643B6201 \
     71DCFD284A79C3B38668286BC97EC7A07EDE3FC1 \
@@ -83,28 +94,13 @@ RUN ARCH= && dpkgArch="$(dpkg --print-architecture)" \
   && ln -s /usr/local/bin/node /usr/local/bin/nodejs \
   # smoke tests
   && node --version \
-  && npm --version
-
-ENV YARN_VERSION 1.22.15
-
-RUN set -ex \
-  && for key in \
-    6A010C5166006599AA17F08146C2130DFD2497F5 \
-  ; do \
-    gpg --batch --keyserver hkps://keys.openpgp.org --recv-keys "$key" || \
-    gpg --batch --keyserver keyserver.ubuntu.com --recv-keys "$key" ; \
-  done \
-  && curl -fsSLO --compressed "https://yarnpkg.com/downloads/$YARN_VERSION/yarn-v$YARN_VERSION.tar.gz" \
-  && curl -fsSLO --compressed "https://yarnpkg.com/downloads/$YARN_VERSION/yarn-v$YARN_VERSION.tar.gz.asc" \
-  && gpg --batch --verify yarn-v$YARN_VERSION.tar.gz.asc yarn-v$YARN_VERSION.tar.gz \
-  && mkdir -p /opt \
-  && tar -xzf yarn-v$YARN_VERSION.tar.gz -C /opt/ \
-  && ln -s /opt/yarn-v$YARN_VERSION/bin/yarn /usr/local/bin/yarn \
-  && ln -s /opt/yarn-v$YARN_VERSION/bin/yarnpkg /usr/local/bin/yarnpkg \
-  && rm yarn-v$YARN_VERSION.tar.gz.asc yarn-v$YARN_VERSION.tar.gz \
-  # smoke test
-  && yarn --version
+  && npm i -g npm \
+  && npm --version  \
+  && npm i -g npm yarn
 ## cypress.Dockerfile
+ENV  QT_X11_NO_MITSHM=1 \
+  _X11_NO_MITSHM=1 \
+  _MITSHM=0 
 
 RUN apt-get update \
 && apt-get install --no-install-recommends -y \
@@ -114,19 +110,30 @@ RUN apt-get update \
   libgconf-2-4 \
   libnss3 \
   libxss1 \
+  bzip2 \
   unzip \
+  bzip2 \
   libasound2 \
   libxtst6 \
   xvfb \
+  fonts-liberation \
+  libcurl4 \
+  libappindicator3-1\
+  libcurl3-gnutls \
+  libcurl3-nss \
+  xdg-utils \
+  wget \
+  curl  \
 && apt-get autoremove -y \
 && apt-get clean -y \
 && rm -rf /var/lib/apt/lists/* 
 
+
 USER ${USER}
  
-RUN yarn global add cypress@8.6.0
+RUN yarn global add cypress@10.2.0
 
-USER root
+USER 0
 ### noVNC.Dockerfile
 
 RUN  apt-get update \
@@ -138,6 +145,7 @@ RUN  apt-get update \
   fonts-noto-color-emoji \
   # xvfb \
   novnc \
+  g++ \
   # websockify \
   tigervnc-standalone-server \
   tigervnc-xorg-extension \
@@ -173,32 +181,32 @@ RUN apt-get update \
 
     
 ### chromium.Dockerfile
-RUN  curl -sSL  https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - \
+RUN  (curl -sSL  https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - \
     && echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list \
     && apt-get update && apt-get install -y --no-install-recommends \  
     ## firefox 
     google-chrome-stable \
      && apt-get autoremove -y \
   && apt-get clean -y \
-  && rm -rf /var/lib/apt/lists/* \
-  && mv /usr/bin/google-chrome /usr/bin/google-chrome-bin \
-  && mv /usr/bin/google-chrome-stable /usr/bin/google-chrome-stable-bin \
-  && echo "/usr/bin/google-chrome-bin --no-sandbox" > /usr/bin/google-chrome \
-  && echo "/usr/bin/google-chrome-stable-bin --no-sandbox" > /usr/bin/google-chrome-stable \
-  && chmod +x /usr/bin/google-chrome \
-  && chmod +x /usr/bin/google-chrome-stable  
+  && rm -rf /var/lib/apt/lists/* ) || echo "this arch is not supported"
+  # && mv /usr/bin/google-chrome /usr/bin/google-chrome-bin \
+  # && mv /usr/bin/google-chrome-stable /usr/bin/google-chrome-stable-bin \
+  # && echo "/usr/bin/google-chrome-bin --no-sandbox" > /usr/bin/google-chrome \
+  # && echo "/usr/bin/google-chrome-stable-bin --no-sandbox" > /usr/bin/google-chrome-stable \
+  # && chmod +x /usr/bin/google-chrome \
+  # && chmod +x /usr/bin/google-chrome-stable  
   
 ENV QT_X11_NO_MITSHM=1
 ENV _X11_NO_MITSHM=1
 ENV _MITSHM=0
 ### vscode.Dockerfile
-RUN  curl -sSL https://packages.microsoft.com/keys/microsoft.asc | apt-key add - \
+RUN  (curl -sSL https://packages.microsoft.com/keys/microsoft.asc | apt-key add - \
     && echo "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main" >> /etc/apt/sources.list.d/vscode.list \
-    && apt-get update && apt-get install -y --no-install-recommends code libxtst6 \
+    && apt-get update && apt-get install -y  code libxtst6 openssh-server \
      && apt-get autoremove -y \
   && apt-get clean -y \
-  && rm -rf /var/lib/apt/lists/* \
-  && sed -i -e 's/\/usr\/bin\/code/\/usr\/share\/code\/code --user-data-dir /g' /usr/share/applications/code.desktop 
+  && rm -rf /var/lib/apt/lists/* ) || echo "this arch is not supported" 
+#   && sed -i -e 's/\/usr\/bin\/code/\/usr\/share\/code\/code --user-data-dir /g' /usr/share/applications/code.desktop 
 ### zsh.Dockerfie
 
 RUN apt-get update && apt-get install -y --no-install-recommends zsh \
@@ -208,7 +216,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends zsh \
 # \
 #  && chsh -s /usr/bin/zsh ${USER}
 
-
+RUN mkdir -p /workspace/node_modules && chown  ${USER}:${USER} /workspace  /workspace/node_modules
 USER ${USER}
 
 ENV SHELL=/usr/bin/zsh
@@ -216,6 +224,7 @@ RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master
     && sed -i -e 's/plugins=(git)/plugins=(git gitfast git-extras npm yarn)/g'  ~/.zshrc \
     && touch  ~/.bashrc && echo ":)" >  ~/.mood
 ### suffix.Dockerfie
+
 
 
 CMD /usr/bin/startWithBash

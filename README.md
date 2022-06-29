@@ -1,15 +1,20 @@
 [Real time React page editor, in typescript!
-![Screenshot](./spike.land-1920x1080.png)](https://spike.land)
 
-# This is a monorepo. [![LastUpdated](https://img.shields.io/github/last-commit/zed-vision/monorepo.svg)](https://github.com/zed-vision/monorepo/)
+![Screenshot](editor.png)(https://spike.land)
+
+![Screenshot](![screen-capture](https://user-i![screen-capture](https://user-images.githubusercontent.com/1433047/152510761-ecd12293-1eaf-425e-ae7b-71238260cc8c.gif)
+mages.githubusercontent.com/1433047/152510558-c0b763f5-d64d-4884-9fb6-8a82f571062e.gif)
+)](https://spike.land)
+
+# This is a monorepo. [![LastUpdated](https://img.shields.io/github/last-commit/spike-land/monorepo.svg)](https://github.com/spike-land/monorepo/)
 
 ```js
 if (code) return "it is in the monorepo";
 
-// blog:          packages/zed-vision-site
-// docker-images: docker-images/packages/groovy*
-//                                      /focal*
-//                                         etc.
+// blog:          sites/blog.spike.land
+// docker-images: dockerhub/devimages/groovy-devcontainer
+//                                   /focal-devcontainer
+//                                   /rolling-devcontainer
 //
 // code-editor:   packages/code
 ```
@@ -17,7 +22,7 @@ if (code) return "it is in the monorepo";
 ### If you came here for a specific thing - then look in the packages folder.
 
 You can browse thr whole repo with gitpods:
-[![Gitpod Ready-to-Code](https://img.shields.io/badge/Gitpod-Ready--to--Code-blue?logo=gitpod)](https://gitpod.io/#https://github.com/zed-vision/monorepo)
+[![Gitpod Ready-to-Code](https://img.shields.io/badge/Gitpod-Ready--to--Code-blue?logo=gitpod)](https://gitpod.io/#https://github.com/spike-land/monorepo)
 
 ```bash
 # If you opened the repo in gitpods, 

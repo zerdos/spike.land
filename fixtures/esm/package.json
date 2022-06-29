@@ -1,0 +1,45 @@
+{
+  "name": "@spike.land/esm",
+  "version": "0.6.250",
+  "description": "esm modules for packages with maintainers from the 2015",
+  "files": [
+    "**/*"
+  ],
+  "authors": [
+    "Zoltan Erdos <zolika84@gmail.com>"
+  ],
+  "bugs": {
+    "url": "https://github.com/spike-land/monorepo"
+  },
+  "type": "module",
+  "exports": {
+    "./package.json": "./package.json",
+    "./react.mjs": "./dist/react.mjs",
+    "./emotion-react.mjs": "./dist/emotion-react.mjs",
+    "./framer-motion.mjs": "./dist/framer-motion.mjs"
+  },
+  "typings": "dist/types/*",
+  "license": "BSD-3-Clause",
+  "dependencies": {
+    "@babel/runtime": "^7.17.0",
+    "@emotion/cache": "^11.7.1",
+    "@emotion/serialize": "^1.0.2",
+    "@emotion/sheet": "^1.1.0",
+    "@emotion/utils": "^1.0.0",
+    "@emotion/weak-memoize": "^0.2.5",
+    "@types/react": "18.0.14",
+    "framer-motion": "6.3.16",
+    "hoist-non-react-statics": "^3.3.2"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "sideEffects": false,
+  "scripts": {
+    "clean": "rm -rf dist",
+    "build": "yarn build:framer-motion & yarn build:emotion-react",
+    "build:framer-motion": "yarn esbuild --bundle src/framer-motion.mjs  --target=es2017 --format=esm --external:react --external:@emotion/is-prop-valid --outfile=dist/framer-motion.mjs"
+  },
+  "private": false,
+  "gitHead": "b0d8028d205cc1d050d88daedbd29b6f4dc7d4f0"
+}

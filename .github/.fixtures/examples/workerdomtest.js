@@ -1,5 +1,5 @@
 fetch(
-  "https://spike.land/ipfs/QmRX68ncYxZcPT9kzKUZotU6NDr92toosBcMCKHyywPony",
+  "/ipfs/QmRX68ncYxZcPT9kzKUZotU6NDr92toosBcMCKHyywPony",
 )
   .then((data) => data.text())
   .then(async (text) => {
@@ -22,7 +22,7 @@ fetch(
     };
 
     const { renderEmotion } = await import(
-      "https://unpkg.com/@zedvision/emotion-react-renderer/dist/bundle.js"
+      "https://unpkg.com/@spike.land/emotion-react-renderer/public/bundle.js"
     );
 
     renderEmotion(App(), document.getElementById("zbody"));

@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head profile="http://www.w3.org/2005/10/profile">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width" />
+  <base href="/">
+  <title>Instant React Editor</title>
+
+<style>
+  html,
+body {
+  color: white;
+  overflow: overlay;
+}
+
+html[data-theme='dark'] {
+  --text-color-normal: hsl(210, 10%, 62%);
+  --text-color-light: hsl(210, 15%, 35%);
+  --text-color-richer: hsl(210, 50%, 72%);
+  --text-color-highlight: hsl(25, 70%, 45%);
+}
+@media screen and (prefers-color-scheme: light) {
+  body {
+    background-color: white;
+    color: black;
+    --text-color-normal: #0a244d;
+    --text-color-light: #8cabd9;
+  }
+}
+html, body {margin: 0; height: 100%}
+
+#root {
+  height: 100%; 
+}
+ /* Remove all the styles of the "User-Agent-Stylesheet", except for the 'display' property */
+ *:where(:not(iframe, canvas, img, svg, video):not(svg *)) {
+   all: unset;
+   display: revert;
+ }
+ 
+ /* Preferred box-sizing value */
+ *,
+ *::before,
+ *::after {
+   box-sizing: border-box;
+ }
+ 
+ /*
+   Remove list styles (bullets/numbers)
+   in case you use it with normalize.css
+ */
+ ol, ul {
+   list-style: none;
+ }
+ 
+ /* For images to not be able to exceed their container */
+ img {
+   max-width: 100%;
+ }
+ 
+ /* Removes spacing between cells in tables */
+ table {
+   border-collapse: collapse;
+ }
+ 
+ /* Revert the 'white-space' property for textarea elements on Safari */
+ textarea {
+   white-space: revert;
+ }
+ 
+   </style>
+  
+</head>
+<body>
+  
+  <div id="root"></div>
+  <script>     
+  window.startedWithNativeEsmModules = false;
+  if (location.href.indexOf(".tsx")!==-1) {
+    const loc = location.href.indexOf(".tsx");
+
+    location.href = location.href.slice(0,loc);
+  }
+  window.process = {
+    env: {
+      "NODE_ENV": "production"
+    }};
+  </script>
+
+  <script>
+
+
+   /** startState **/
+
+   if (!codeSpace) window.codeSpace = "coder"; 
+   if (!address) window.address = "";
+   if (!startState) {
+     async()=>{
+       const resp = await fetch("/live/"+codeSpace+"/session");
+       window.startState = await resp.json();
+       h(window.startState);
+     }
+   } else {
+     h(startState);
+   }
+
+
+  
+   function h({html}){
+   document.getElementById("root").innerHTML = html;
+   window.appStarted = new Promise((resolve)=>{
+   window.appResolver=resolve});
+ 
+  }
+
+
+
+window.addEventListener('pageshow', (event) => {
+  if (event.persisted) {
+    console.log('This page was restored from the background cache.');
+  } else {
+    console.log('This page was loaded normally.');
+  }
+});
+ 
+ </script>
+
+
+  <script type="module">
+    import {createRoot} from "react-dom/client";
+    import {run} from "./ws.mjs";
+
+    window.startedWithNativeEsmModules = true;
+
+    await run();
+   </script> 
+
+
+
+    
+    <script defer src="./main.js"></script>
+    
+
+  <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "cc7e2ceaa75d4111b26b0ec989795375"}'></script><!-- End Cloudflare Web Analytics -->
+</body>
+</html>

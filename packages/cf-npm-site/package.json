@@ -1,0 +1,19 @@
+{
+  "name": "@spike.land/cf-npm-site",
+  "version": "0.8.0",
+  "scripts": {
+    "clean": "rm -rf dist && yarn build",
+    "build": "yarn esbuild --bundle --format=esm --target=esnext src/index.ts --outfile=public/index.mjs"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "esbuild": "0.14.47"
+  },
+  "author": "Zoltan Erdos <zolika84@gmail.com>",
+  "license": "BSD-3-Clause",
+  "typings": "public/index.d.ts",
+  "main": "public/index.mjs",
+  "gitHead": "d0a0900f93473b9b959d0e4d242e95f99be8bb0b"
+}

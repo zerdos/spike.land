@@ -1,9 +1,6 @@
 import importmapJson from "./importmap.json";
-/**
- * @param {{html: string, css: string}} opts
- * @returns  {string}
- */
-export function getHtml({ html, css }) {
+
+export function getHtml({ html, css }: { html: string; css: string }): string {
   //
   // For some reason, pre-rendering doesn't care about global styles, the site flickers without this patch
   //
@@ -31,13 +28,17 @@ export function getHtml({ html, css }) {
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta name="Description" content="Generated with spike.land">
 <title>${title}</title>
-<link rel="modulepreload" href="./app.js">  
-<link rel="icon" type="image/png" href="https://spike.land/zed-icon-big.png" />
-<link rel="stylesheet" href="https://unpkg.com/modern-css-reset/dist/reset.min.css" />
-<script crossorigin src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
-<script crossorigin src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
-<script crossorigin src="https://unpkg.com/react-is@17.0.2/umd/react-is.production.min.js"></script>
-<script async src="https://unpkg.com/es-module-shims@1.3.0/dist/es-module-shims.js"></script>
+<link rel="icon" type="image/png" href="//assets/zed-icon-big.png" />
+<link rel="stylesheet" href="https://unpkg.com/modern-css-reset@1.4.0/public/reset.min.css" />
+
+<script async src="https://ga.jspm.io/npm:es-module-shims@1.5.5/public/es-module-shims.js"></script>
+<script type="esms-options">
+{
+  "shimMode": true,
+  "polyfillEnable": ["css-modules", "json-modules"],
+  "nonce": "n0nce"
+}
+</script>
 <style>
 .skip-link {
   position: absolute;
@@ -52,6 +53,10 @@ export function getHtml({ html, css }) {
   top: 0;
 }
 ${css}</style>
+<script crossorigin src="https://unpkg.com/react@18.0.0-rc.0-next-13036bfbc-20220121/umd/react.production.min.js"></script>
+<script crossorigin src="https://unpkg.com/react-is@18.0.0-rc.0-next-13036bfbc-20220121/umd/react-is.production.min.js"></script>
+<script crossorigin src="https://unpkg.com/react-dom@18.0.0-rc.0-next-13036bfbc-20220121/umd/react-dom.production.min.js"></script>
+<script crossorigin src="https://unpkg.com/@emotion/react@11.7.1/public/emotion-react.umd.min.js"></script>
 </head>
 <body>
 <a class="skip-link" href="#zbody">Jump to the page</a>
@@ -60,12 +65,15 @@ ${css}</style>
 </main>
 <script>window.process = {env: {NODE_ENV:"production" }}</script>
 <script type="importmap-shim">
-${JSON.stringify(importmapJson)}
+${JSON.stringify({ imports: { ...importmapJson.imports, app: "./app.js" } })}
 </script>
 <script type="module-shim">
-  import App from './app.js';
-  import {jsx} from "@emotion/react"        
-  ReactDOM.render(jsx(App),document.getElementById('zbody'));
+  import App from 'app';
+  import {jsx} from "@emotion/react"
+  import {createRoot} from "react
+
+  const root = createRoot(document.getElementById('zbody'))
+  root.render(jsx(App));
 </script>
 </body>
 </html>
@@ -81,24 +89,30 @@ export const getEditorHTML = () =>
 <html lang="en">
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-  <link rel="icon" type="image/png" href="https://spike.land/zed-icon-big.png" />
-  <script async src="https://unpkg.com/es-module-shims@1.3.0/dist/es-module-shims.js"></script>
-  <script crossorigin src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
-  <script crossorigin src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
-  <script crossorigin src="https://unpkg.com/react-is@17.0.2/umd/react-is.production.min.js"></script>
+  <link rel="icon" type="image/png" href="//assets/zed-icon-big.png" />
+  
+  <script async src="https://ga.jspm.io/npm:es-module-shims@1.5.5/public/es-module-shims.js"></script>
 <title>Instant React Editor</title>
 </head>
 <body>
 <script>window.process = {env: {NODE_ENV:"production" }}</script>
-<script type="importmap-shim">
-${JSON.stringify(importmapJson)}
+<script crossorigin src="https://unpkg.com/react@18.0.0-rc.0-next-13036bfbc-20220121/umd/react.production.min.js"></script>
+<script crossorigin src="https://unpkg.com/react-is@18.0.0-rc.0-next-13036bfbc-20220121/umd/react-is.production.min.js"></script>
+<script crossorigin src="https://unpkg.com/react-dom@18.0.0-rc.0-next-13036bfbc-20220121/umd/react-dom.production.min.js"></script>
+<script crossorigin src="https://unpkg.com/@emotion/react@11.7.1/public/emotion-react.umd.min.js"></script>
+<script type="importmap">
+${
+    JSON.stringify({
+      imports: { ...importmapJson.imports, app: ["./app.js"] },
+    })
+  }
 </script>
-<script type="module-shim">
-import {edit} from "https://spike.land/js/data.mjs"
+<script type="module">
+import {edit} from "/data.mjs"
 try{
   edit(location.pathname.slice(42, 52));
 }catch(error){
-  fetch("https://spike.land/error", {method: "POST",  body: JSON.stringify({error})})
+  fetch("//error", {method: "POST",  body: JSON.stringify({error})})
 }
 </script>
 </body>

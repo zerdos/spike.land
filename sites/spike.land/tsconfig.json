@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    "allowJs": true,
+    "target": "es2021",
+    "module": "esnext",
+    "lib": ["ES2021", "ESNext.String", "ES5", "ES2015"],
+    "alwaysStrict": true,
+    "strict": true,
+    "noEmit": false,
+    "forceConsistentCasingInFileNames": true,
+    "preserveConstEnums": true,
+    "moduleResolution": "node",
+    "sourceMap": true,
+    "outDir": "dist",
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "types": ["@cloudflare/workers-types"]
+  },
+  "include": [
+    "./src/*.ts"
+  ]
+}

@@ -1,6 +1,5 @@
+import { css, Global } from "@emotion/react";
 import { useState } from "react";
-/** @jsx jsx */
-import { css, Global, jsx } from "@emotion/react";
 
 const Hello = () => {
   const [color, setColor] = useState("white");
@@ -19,7 +18,9 @@ const Hello = () => {
               margin: 12px;
             `}
           value={color}
-          onChange={(e) => setColor(e.target.value)}
+          onChange={(e) => {
+            setColor(e.target.value);
+          }}
         />
       </label>
     </div>

@@ -1,0 +1,30 @@
+{
+  "name": "@spike.land/jammy-devcontainer",
+  "tagname": "jammy-devcontainer",
+  "scripts": {
+    "tag:version": "node --no-warnings -e 'const p = require(__dirname + `/package.json`); console.log(`devimages/${p.tagname}:${p.version}`)'",
+    "tag:latest": "node -e 'const p = require(__dirname + `/package.json`); console.log(`devimages/${p.tagname}:latest`)'",
+    "docker:push": "node docker.js",
+    "docker:build": "docker build .",
+    "build": "node index.mjs"
+  },
+  "files": [
+    ".devcontainer/**/*",
+    "docker-compose.yml",
+    "Dockerfile",
+    "README.md"
+  ],
+  "devDependencies": {
+    "@spike.land/devcontainer-generator": "^0.8.0"
+  },
+  "version": "0.8.0",
+  "description": "devcontainer vscode docker xfce remoteDesktop",
+  "main": "index.js",
+  "repository": "git@github.com:spike-land/monorepo.git",
+  "author": "Zoltan Erdos <zolika84@gmail.com>",
+  "license": "BSD-3-Clause",
+  "gitHead": "67d48a100505652f0e431fa7dd2fa810a2b1dec5",
+  "publishConfig": {
+    "access": "public"
+  }
+}

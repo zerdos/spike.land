@@ -1,0 +1,47 @@
+
+html,
+body,
+#root{
+  height: 100%;
+}
+
+
+*, *::before, *::after {
+  box-sizing: inherit;
+}
+body {
+  border: 0;
+  padding: 0;
+  margin: 0;
+  background: fixed;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  background-position: top;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  min-height: -webkit-fill-available;
+  height: 100%;
+  position: fixed;
+  /* prevent overscroll bounce*/
+  overflow-y: scroll;
+  --webkit-overflow-scrolling: touch;
+  padding-bottom: 0 !important;
+  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: hidden;
+}
+
+
+
+.hidden {
+  display: none;
+}
+
+@font-face {
+  font-family: "codicon";
+  src: url("/assets/fonts/base/browser/ui/codicons/codicon/codicon.ttf")
+    format("truetype");
+}

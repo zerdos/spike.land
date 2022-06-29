@@ -1,13 +1,11 @@
-/** @jsx jsx */
-import { css, jsx } from "@emotion/react";
-
+import { css } from "@emotion/react";
 import { motion } from "framer-motion";
 
 export default () => (
   <header
     css={css`
       background-color: #282c34;
-      min-height: 100vh;
+      min-height: 100%;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -20,18 +18,29 @@ export default () => (
     <motion.div
       animate={{ rotate: 360 }}
       transition={{
+        repeat: 0,
         duration: 2,
-        loop: 0,
+        repeatType: "loop",
       }}
     >
-      <div css="font-size: calc(10px + 20vmin)">|🔥|</div>
+      <div
+        css={css`
+      font-size: calc(10px + 20vmin);
+        `}
+      >
+        🔥
+      </div>
       -------------------
     </motion.div>
     <p>
-      Hey! Try to modify <code>this</code> page.
+      Hey!Try to modify <code>this</code> page.
     </p>
-
-    <a css="color: #61dafb;" href="./edit/">
+    <a
+      css={css`
+  color: #61dafb;
+  `}
+      href="./edit"
+    >
       Open the editor.
     </a>
   </header>

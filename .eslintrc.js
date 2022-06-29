@@ -2,6 +2,7 @@
 module.exports = {
   "env": {
     "browser": true,
+    "node": true,
     "es2021": true,
   },
   "extends": [
@@ -20,7 +21,7 @@ module.exports = {
   ],
   "settings": {
     "react": {
-      "version": "17.0.1",
+      "version": "18",
     },
   },
   "rules": {},

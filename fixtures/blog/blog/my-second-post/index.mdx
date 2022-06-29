@@ -1,0 +1,90 @@
+---
+title: My Second Post!
+date: "2015-05-06T23:46:37.121Z"
+---
+
+And lets have some typography
+
+<hr />
+
+# h1 
+## h2 
+### h3
+#### h4 
+##### h5 
+
+
+*This text will be italic*
+
+
+
+
+I think you should use an `<addr>` element here instead.
+
+
+**This text will be bold**
+
+
+- [x] @mentions, #refs, [links](), **formatting**, and <del>tags</del> supported
+- [x] list syntax required (any unordered or ordered list supported)
+- [x] this is a complete item
+- [ ] this is an incomplete item
+
+
+```javascript live=true
+/** @jsx jsx */
+import { css, jsx } from '@emotion/react';
+
+import { motion } from 'framer-motion';
+
+export default () => (
+  <header
+    css={css`
+      background-color: #282c34;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      font-size: calc(10px + 2vmin);
+      color: white;
+      text-align: center;
+      overflow: hidden;
+    `}>
+    <motion.div
+      animate={{ rotate: 360 }}
+      transition={{
+        duration: 2,
+        loop: 0,
+      }}>
+      <div css="font-size: calc(10px + 20vmin)">|🔥|</div>
+      -------------------
+    </motion.div>
+    <p>
+      Hey! Try to modify <code>this</code> page.
+    </p>
+
+    <a css="color: #61dafb;" href="./edit/">
+      Open the editor.
+    </a>
+  </header>
+);
+
+```
+
+As Kanye West said:
+
+> We're living the future so
+> the present is our past.
+
+_You **can** combine them_
+
+
+# h1 
+
+## h2 ```code```
+
+text
+
+
+```var i=code```
+ 
