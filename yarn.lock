@@ -1560,10 +1560,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@cloudflare/workers-types@npm:3.13.0":
-  version: 3.13.0
-  resolution: "@cloudflare/workers-types@npm:3.13.0"
-  checksum: bd4b8c354f7bfed4cc24407d86ff4a686a1076a8637f5a483a0b107ccda6094cecdb70a5eb5308401014f82838fd796885d60832d1e3671bacf5d3ff5760585b
+"@cloudflare/workers-types@npm:3.14.0":
+  version: 3.14.0
+  resolution: "@cloudflare/workers-types@npm:3.14.0"
+  checksum: f49483681bfcba6ee111e0d1800d4c0a70daec5b3d07fdfb1797a0330ca5cc867eb6789160802810d98c93ac238a71e67702710667a2bfad20b25db8a2d10d79
   languageName: node
   linkType: hard
 
@@ -9673,7 +9673,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "esbuild-worker@workspace:sites/esbuild-worker"
   dependencies:
-    "@cloudflare/workers-types": 3.13.0
+    "@cloudflare/workers-types": 3.14.0
     "@types/react": 18.0.14
     "@types/react-dom": ^18.0.5
     "@vitejs/plugin-react": ^1.3.2
@@ -10942,7 +10942,7 @@ __metadata:
   resolution: "github.com-spike.land@workspace:."
   dependencies:
     "@cloudflare/kv-asset-handler": 0.2.0
-    "@cloudflare/workers-types": 3.13.0
+    "@cloudflare/workers-types": 3.14.0
     "@playwright/test": 1.23.0
     lerna: 5.1.6
     preact: ^10.8.2

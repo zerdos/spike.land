@@ -4,11 +4,11 @@
     "preact-render-to-string": "https://ga.jspm.io/npm:preact-render-to-string@5.2.0/dist/index.mjs",
     "preact/compat": "https://ga.jspm.io/npm:preact@10.8.2/compat/dist/compat.module.js",
     "preact/jsx-runtime": "https://ga.jspm.io/npm:preact@10.8.2/jsx-runtime/dist/jsxRuntime.module.js",
-    "react": "/react.mjs",
-    "react-dom": "/react.mjs",
-    "react-dom/client": "/react.mjs",
-    "react-dom/server": "/react.mjs",
-    "react/jsx-runtime": "/react.mjs"
+    "react": "https://ga.jspm.io/npm:react@18.2.0/index.js",
+    "react-dom": "https://ga.jspm.io/npm:react-dom@18.2.0/index.js",
+    "react-dom/client": "https://ga.jspm.io/npm:react-dom@18.2.0/client.js",
+    "react-dom/server": "https://ga.jspm.io/npm:react-dom@18.2.0/server.browser.js",
+    "react/jsx-runtime": "https://ga.jspm.io/npm:react@18.2.0/jsx-runtime.js"
   },
   "scopes": {
     "https://ga.jspm.io/": {
