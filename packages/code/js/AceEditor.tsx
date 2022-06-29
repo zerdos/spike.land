@@ -1,13 +1,16 @@
 /** @jsxImportSource @emotion/react */
 
 import { useEffect, useRef, useState } from "react";
-import { mST } from "./session";
+import { mST, onUpdate } from "./session";
 
 import { css } from "@emotion/react";
 
+import { appFactory, renderApp } from "./starter";
 import type { Ace, edit } from "ace-builds";
 
-import { runnerDebounced } from "./runner";
+import { runner } from "./runner";
+import debounce from "lodash/debounce";
+
 
 export const AceEditor = () => {
   const ref = useRef<HTMLPreElement>(null) as null | {
@@ -15,7 +18,8 @@ export const AceEditor = () => {
   };
 
   const [{ code, i, editor }, changeContent] = useState({
-    ...mST(),
+    code: mST().code,
+    i: mST().i + 1,
     editor: null as null | Ace.Editor,
   });
 
@@ -31,39 +35,72 @@ export const AceEditor = () => {
     load();
   }, [ref]);
 
+
+
   useEffect(() => {
     if (!editor) return;
 
-    const listener = async () => {
-      const newCode = editor.getSession().getValue();
+
+    const onChange = async () => {
+      const newCode = editor?.session?.getValue()!;
       if (newCode === code) return;
-
+      if (newCode === mST().code) return;
+      // if (i === mST().i) return;
+      
       const counter = i + 1;
-
+  
       try {
-        changeContent((x) => ({ ...x, i: counter, code: newCode }));
-        await runnerDebounced({ code: newCode, counter });
+        console.log("change content");
+        changeContent((x) => ({ ...x, i: x.i+1, code: newCode }));
+        onUpdate(async()=> {
+          const sess = mST();
+          renderApp(await appFactory(sess.transpiled));
+          
+          if (sess.i <= counter) {
+            return;
+          }
+          
+          setTimeout(() => {
+  
+            if (mST().i!==sess.i) return;
+            console.log(`session ${sess.i} mst: ${mST().i}, our i: ${counter}`);
+             changeContent((x) => ({ ...x, code: sess.code, i: sess.i +1 }));
+             editor?.setValue(sess.code)}, 100);
+      
+        });
+        
+        
+        runner({ code: newCode, counter });
       } catch (err) {
         console.error({ err });
         console.error("restore editor");
-
+  
         // model?.setValue(code);
       }
-    };
+    
+    
+      
+    
+    }
+   
+    const debounced = debounce(onChange, 300, {
+      maxWait: 600,
+      trailing: true,
+      leading: true,
+    });
+
+const listener =  ()=>debounced();
+
     editor?.session.on("change", listener);
     setMyId("editor");
+
+
     return () => editor?.session.off("change", listener);
+
+    
   }, [editor, code, i, changeContent]);
 
-  globalThis.setValue = (newCode, counter, force) => {
-    if (!force && counter <= i) {
-      return;
-    }
-
-    changeContent((x) => ({ ...x, i: counter, code: newCode }));
-    setTimeout(() => editor?.setValue(newCode), 100);
-  };
-
+  
   return (
     <pre
       css={css`

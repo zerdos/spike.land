@@ -1,8 +1,10 @@
 /** @jsxImportSource @emotion/react */
 
 import { useEffect, useRef, useState } from "react";
-import { runnerDebounced } from "./runner";
-import { mST } from "./session";
+import { runner } from "./runner";
+import { mST, onUpdate } from "./session";
+import { appFactory, renderApp } from "./starter";
+import debounce from "lodash/debounce";
 
 import { css } from "@emotion/react";
 import type { editor } from "monaco-editor";
@@ -17,7 +19,7 @@ export const MonacoEditor = () => {
   const mst = mST();
   const [{ code, i, editor }, changeContent] = useState({
     code: mst.code,
-    i: mst.i,
+    i: mst.i + 1,
     editor: null as null | IStandaloneCodeEditor,
   });
 
@@ -56,34 +58,64 @@ export const MonacoEditor = () => {
     load();
   }, [ref]);
 
-  globalThis.setValue = (newCode, counter, force) => {
-    if (!force && counter <= i) {
-      return;
+ 
+  useEffect(() =>{
+
+
+  const onChange = async () => {
+    const newCode = editor?.getModel()?.getValue()!;
+    if (newCode === code) return;
+    if (newCode === mST().code) return;
+    // if (i === mST().i) return;
+    
+    const counter = i + 1;
+
+    try {
+      console.log("change content");
+      changeContent((x) => ({ ...x, i: x.i+1, code: newCode }));
+      onUpdate(async()=> {
+        const sess = mST();
+        renderApp(await appFactory(sess.transpiled));
+        
+        if (sess.i <= counter) {
+          return;
+        }
+        
+        setTimeout(() => {
+
+          if (mST().i!==sess.i) return;
+          console.log(`session ${sess.i} mst: ${mST().i}, our i: ${counter}`);
+           changeContent((x) => ({ ...x, code: sess.code, i: sess.i +1 }));
+           editor?.setValue(sess.code)}, 100);
+    
+      });
+      
+      
+      runner({ code: newCode, counter });
+    } catch (err) {
+      console.error({ err });
+      console.error("restore editor");
+
+      // model?.setValue(code);
     }
+  
+  
+    
+  
+  }
+ 
+  const debounced = debounce(onChange, 300, {
+    maxWait: 600,
+    trailing: true,
+    leading: true,
+  });
 
-    changeContent((x) => ({ ...x, i: counter, code: newCode }));
-    setTimeout(() => {
-      editor?.getModel()?.setValue(newCode);
-    }, 100);
-  };
-
-  useEffect(() =>
-    editor?.onDidChangeModelContent(async () => {
-      const newCode = editor?.getModel()?.getValue()!;
-      if (newCode === code) return;
-
-      const counter = i + 1;
-
-      try {
-        changeContent((x) => ({ ...x, i: counter, code: newCode }));
-        await runnerDebounced({ code: newCode, counter });
-      } catch (err) {
-        console.error({ err });
-        console.error("restore editor");
-
-        // model?.setValue(code);
-      }
-    }).dispose, [i, changeContent, editor]);
+     const dispose =  editor?.onDidChangeModelContent(()=>{
+      console.log("changed");
+      debounced();
+    }).dispose
+    return dispose
+    }, [i, changeContent, editor])
 
   return (
     <div

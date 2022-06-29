@@ -5,7 +5,6 @@ import {
   makePatch,
   makePatchFrom,
   mST,
-  onUpdate,
   patch as applyPatch,
   startSession,
 } from "./session";
@@ -93,15 +92,6 @@ export const run = async () => {
 startSession(codeSpace, {
   name: user,
   state: window.startState,
-});
-
-onUpdate(async (force = false) => {
-  const { transpiled, i, code } = mST();
-
-  if (globalThis.setValue) {
-    globalThis.setValue(code, i, force);
-  }
-  renderApp(await appFactory(transpiled));
 });
 
 let intervalHandler: NodeJS.Timer | null = null;
