@@ -1,4 +1,4 @@
-export * from "preact";
+export * from "preact"
 import Preact from "preact/compat";
 
 export default Preact;

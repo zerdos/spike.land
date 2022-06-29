@@ -4,7 +4,20 @@ import { pnpPlugin } from "@yarnpkg/esbuild-plugin-pnp";
 import * as importMap from "esbuild-plugin-import-map";
 import { jsxImportSourcePlugin } from "esbuild-plugin-jsximportsource";
 import alias from "esbuild-plugin-alias";
-import jsonData from "./js/importmap.json" assert { type: "json" };
+// import jsonData from "./js/mockedMap.json" assert { type: "json" };
+
+const jsonData = {
+  "imports": {
+    // "framer-motion": "/framer-motion.mjs",
+    // "@emotion/react": "/emotion.mjs",
+    "react": "/react.mjs",
+    "react-dom": "/react.mjs",
+    "react-dom/client": "/react.mjs",
+    "react-dom/server": "/react.mjs",
+    "react/jsx-runtime": "/react.mjs"
+  }
+}
+
 
 const environment = process.env.NODE_ENV === "production"
   ? "production"
@@ -195,68 +208,12 @@ const build = (entryPoints) =>
     process.exit(1);
   });
 
-// const buildNoImportMap = (entryPoints) =>
-//   esbuild.build({
-//     entryPoints,
-//     "outExtension": { ".js": ".mjs" },
-//     bundle: true,
-//     format: "esm",
-
-//     sourcemap: false,
-
-//     minify: !isDevelopment,
-//     minifyWhitespace: !isDevelopment,
-//     minifyIdentifiers: !isDevelopment,
-//     minifySyntax: !isDevelopment,
-//     legalComments: "none",
-//     treeShaking: true,
-//     ignoreAnnotations: true,
-
-//     splitting: true,
-
-//     // inject: ["./js/react-shim.mjs"],
-
-//     allowOverwrite: true,
-
-//     // external: ["react", "react-dom/client", "framer-motion", "tslib", "@emotion/react"],
-//     platform: "browser",
-//     chunkNames: "chunks/[name]-[hash]",
-//     resolveExtensions: [
-//       ".tsx",
-//       ".ts",
-//       ".jsx",
-//       ".js",
-//       ".css",
-//       ".json",
-//       ".mjs",
-//       ".wasm",
-//       ".ttf",
-//       ".workerJS",
-//     ],
-
-//     loader: {
-//       ".ttf": "file",
-//       ".webp": "file",
-//       ".tsx": "tsx",
-//       ".jsx": "tsx",
-//       ".mjs": "ts",
-//       ".ts:": "ts",
-//       ".js:": "ts",
-
-//       ".css": "css",
-//       ".d.ts": "dataurl",
-//       ".workerJS": "file",
-//       ".wasm": "copy",
-//     },
-
-//     outdir: "../../sites/spike.land/public",
-//   }).catch((e) => {
-//     console.error(e);
-//     process.exit(1);
-//   });
 
 await build([
   "ws.mjs",
+  "react.ts",
+  "framer-motion.ts",
+  "emotion.ts"
 ]);
 
 await build;

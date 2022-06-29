@@ -21,11 +21,10 @@ const generator = new Generator({
 // Install a new package into the import map
 
 await generator.install("react/jsx-runtime");
-await generator.install("framer-motion");
 // await generator.install("@emotion/react/jsx-runtime");
 
 await generator.install("preact/compat");
-const list = ["preact-render-to-string","@emotion/react"];
+const list = ["preact-render-to-string", "preact/jsx-runtime", "preact"];
 await Promise.all(list.map(async(name)=>await generator.install(name)));
 
 // await generator.install("orbit-db");
@@ -52,7 +51,6 @@ await Promise.all(list.map(async(name)=>await generator.install(name)));
 // await generator.install("@emotion/react");
 await generator.install("react");
 // await generator.install("@emotion/react/jsx-runtime");
-await generator.install("@emotion/cache");
 await generator.install("react-dom/server");
 
 await generator.install("react-dom/client");

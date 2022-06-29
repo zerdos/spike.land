@@ -67,10 +67,7 @@
     "forceConsistentCasingInFileNames": true, /* Disallow inconsistently-cased references to the same file. */
     "baseUrl": "js"
   },
-  "include": [
-    "js/**/*",
-    "js/**/*.json"
-  ],
+  "include":  ["js"],
   "exclude": ["./js/vendor/**", ""],
   "paths": {
     "path": ["path-browserify"],

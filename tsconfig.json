@@ -68,7 +68,7 @@
   "include": [
     "packages/code/js",
     "sites/spike.land/src"
-  ],
+, "packages/code/react.ts", "packages/code/framer-motion.ts", "packages/code/motion.tsx", "packages/code/emotion.ts"  ],
   "exclude": ["./js/vendor/**", "**node_modules", "node_modules"],
   "paths": {
     "path": ["path-browserify"],

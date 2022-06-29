@@ -12,7 +12,7 @@ import {
   startSession,
 } from "@spike.land/code/js/session";
 import { Delta } from "@spike.land/code/js/textDiff";
-import imap from "@spike.land/code/js/importmap.json";
+import imap from "@spike.land/code/js/mockedMap.json";
 import { getBackupSession } from "./getBackupSession";
 
 interface IState extends DurableObjectState {
