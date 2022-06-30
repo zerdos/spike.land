@@ -35,7 +35,7 @@ export default {
       }
 
       if (serveJs && !url.pathname.includes(".")) {
-        url = new URL(request.url + "/index.js");
+        url = new URL( "index.js", request.url);
       }
 
       const path = url.pathname.slice(1).split("/");
