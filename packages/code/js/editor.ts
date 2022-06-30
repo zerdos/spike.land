@@ -231,7 +231,7 @@ export const monacoContribution = async (
 
     const dts = importHelper.map(({ name, url }) =>
       async () =>
-        languages.typescript.typescriptDefaults.addExtraLib(
+      typescript.typescriptDefaults.addExtraLib(
           await (await fetch(
             url,
           )).text(),
@@ -242,8 +242,8 @@ export const monacoContribution = async (
     const pAll = (await (import("p-all"))).default;
     await pAll(dts, { concurrency: 2 });
 
-    languages.typescript.typescriptDefaults.setEagerModelSync(true);
-    languages.typescript.typescriptDefaults.setDiagnosticsOptions({
+    typescript.typescriptDefaults.setEagerModelSync(true);
+    typescript.typescriptDefaults.setDiagnosticsOptions({
       noSuggestionDiagnostics: false,
       noSemanticValidation: false,
       noSyntaxValidation: false,
