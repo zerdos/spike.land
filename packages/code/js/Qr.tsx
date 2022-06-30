@@ -2,12 +2,12 @@
 
 import { css } from "@emotion/react";
 import { motion } from "framer-motion";
-import { FC,  useState } from "react";
-import { QRious } from 'react-qrious';
+import { FC, useState } from "react";
+import { QRious } from "react-qrious";
 
 import { Fab, QrCode } from "./mui";
 
-const QR: FC<{ url: string }> = ({ url }) =>  <QRious value={url} />
+const QR: FC<{ url: string }> = ({ url }) => <QRious value={url} />;
 
 export const QRButton: FC<{ url: string }> = ({ url }) => {
   const [showQR, setQR] = useState(false);

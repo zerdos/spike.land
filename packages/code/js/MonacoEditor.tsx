@@ -58,64 +58,55 @@ export const MonacoEditor = () => {
     load();
   }, [ref]);
 
- 
-  useEffect(() =>{
+  useEffect(() => {
+    const onChange = async () => {
+      const newCode = editor?.getModel()?.getValue()!;
+      if (newCode === code) return;
+      if (newCode === mST().code) return;
+      // if (i === mST().i) return;
 
+      const counter = i + 1;
 
-  const onChange = async () => {
-    const newCode = editor?.getModel()?.getValue()!;
-    if (newCode === code) return;
-    if (newCode === mST().code) return;
-    // if (i === mST().i) return;
-    
-    const counter = i + 1;
+      try {
+        console.log("change content");
+        changeContent((x) => ({ ...x, i: x.i + 1, code: newCode }));
+        onUpdate(async () => {
+          const sess = mST();
+          renderApp(await appFactory(sess.transpiled));
 
-    try {
-      console.log("change content");
-      changeContent((x) => ({ ...x, i: x.i+1, code: newCode }));
-      onUpdate(async()=> {
-        const sess = mST();
-        renderApp(await appFactory(sess.transpiled));
-        
-        if (sess.i <= counter) {
-          return;
-        }
-        
-        setTimeout(() => {
+          if (sess.i <= counter) {
+            return;
+          }
 
-          if (mST().i!==sess.i) return;
-          console.log(`session ${sess.i} mst: ${mST().i}, our i: ${counter}`);
-           changeContent((x) => ({ ...x, code: sess.code, i: sess.i +1 }));
-           editor?.setValue(sess.code)}, 100);
-    
-      });
-      
-      
-      runner({ code: newCode, counter });
-    } catch (err) {
-      console.error({ err });
-      console.error("restore editor");
+          setTimeout(() => {
+            if (mST().i !== sess.i) return;
+            console.log(`session ${sess.i} mst: ${mST().i}, our i: ${counter}`);
+            changeContent((x) => ({ ...x, code: sess.code, i: sess.i + 1 }));
+            editor?.setValue(sess.code);
+          }, 100);
+        });
 
-      // model?.setValue(code);
-    }
-  
-  
-    
-  
-  }
- 
-  const debounced = debounce(onChange, 300, {
-    maxWait: 600,
-    trailing: true,
-    leading: true,
-  });
+        runner({ code: newCode, counter });
+      } catch (err) {
+        console.error({ err });
+        console.error("restore editor");
 
-     const dispose =  editor?.onDidChangeModelContent(()=>{
+        // model?.setValue(code);
+      }
+    };
+
+    const debounced = debounce(onChange, 300, {
+      maxWait: 600,
+      trailing: true,
+      leading: true,
+    });
+
+    const dispose = editor?.onDidChangeModelContent(() => {
       console.log("changed");
       debounced();
-    }).dispose
-    return dispose
-    }, [i, changeContent, editor])
+    }).dispose;
+    return dispose;
+  }, [i, changeContent, editor]);
 
   return (
     <div

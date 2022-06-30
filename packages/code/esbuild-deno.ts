@@ -1,8 +1,6 @@
-import * as esbuild from 'https://deno.land/x/esbuild@v0.14.48/wasm.js'
+import * as esbuild from "https://deno.land/x/esbuild@v0.14.48/wasm.js";
 
 import { denoPlugin } from "https://deno.land/x/esbuild_deno_loader@0.5.0/mod.ts";
-
-
 
 const jsonData = {
   "imports": {
@@ -12,14 +10,13 @@ const jsonData = {
     "react-dom": "/react.mjs",
     "react-dom/client": "/react.mjs",
     "react-dom/server": "/react.mjs",
-    "react/jsx-runtime": "/react.mjs"
-  }
-}
-
+    "react/jsx-runtime": "/react.mjs",
+  },
+};
 
 const environment = "production";
-  // ? "production"
-  // : "development";
+// ? "production"
+// : "development";
 
 const isDevelopment = true; // = environment === "development"
 // importMap.load(jsonData);
@@ -33,7 +30,7 @@ console.log(`
 -------------------------------------------------`);
 
 const workerEntryPoints = [
- `https://unpkg.com/monaco-editor@0.33.0/esm/vs/language/typescript/ts.worker.js`,
+  `https://unpkg.com/monaco-editor@0.33.0/esm/vs/language/typescript/ts.worker.js`,
   "https://unpkg.com/monaco-editor@0.33.0/esm/vs/editor/editor.worker.js",
 ].map((entry) => `monaco-editor/esm/${entry}`);
 
@@ -56,7 +53,7 @@ const buildOptions = {
     // importMapPlugin,
     // jsxImportSourcePlugin({ filter: /.(tsx)/ }),
     // alias({
-      // "path": "path-browserify",
+    // "path": "path-browserify",
     // }),
   ],
 };
@@ -94,6 +91,3 @@ await esbuild.build({
 
   outdir: "./js/monaco-editor",
 });
-
-
-

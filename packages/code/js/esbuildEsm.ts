@@ -15,7 +15,7 @@ export const init = async () => {
   await mutex.runExclusive(async () => {
     mod.initFinished || await esbuild.initialize(
       {
-        wasmURL: wasmURL as unknown as string
+        wasmURL: wasmURL as unknown as string,
       },
     );
     mod.initFinished = true;

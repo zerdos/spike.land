@@ -25,7 +25,7 @@ await generator.install("react/jsx-runtime");
 
 await generator.install("preact/compat");
 const list = ["preact-render-to-string", "preact/jsx-runtime", "preact"];
-await Promise.all(list.map(async(name)=>await generator.install(name)));
+await Promise.all(list.map(async (name) => await generator.install(name)));
 
 // await generator.install("orbit-db");
 // await generator.install("tslib");
@@ -55,7 +55,6 @@ await generator.install("react-dom/server");
 
 await generator.install("react-dom/client");
 await generator.install("react-dom");
-
 
 // await generator.install("@emotion/babel-plugin");
 

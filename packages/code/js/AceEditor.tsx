@@ -11,7 +11,6 @@ import type { Ace, edit } from "ace-builds";
 import { runner } from "./runner";
 import debounce from "lodash/debounce";
 
-
 export const AceEditor = () => {
   const ref = useRef<HTMLPreElement>(null) as null | {
     current: HTMLPreElement;
@@ -35,72 +34,59 @@ export const AceEditor = () => {
     load();
   }, [ref]);
 
-
-
   useEffect(() => {
     if (!editor) return;
-
 
     const onChange = async () => {
       const newCode = editor?.session?.getValue()!;
       if (newCode === code) return;
       if (newCode === mST().code) return;
       // if (i === mST().i) return;
-      
+
       const counter = i + 1;
-  
+
       try {
         console.log("change content");
-        changeContent((x) => ({ ...x, i: x.i+1, code: newCode }));
-        onUpdate(async()=> {
+        changeContent((x) => ({ ...x, i: x.i + 1, code: newCode }));
+        onUpdate(async () => {
           const sess = mST();
           renderApp(await appFactory(sess.transpiled));
-          
+
           if (sess.i <= counter) {
             return;
           }
-          
+
           setTimeout(() => {
-  
-            if (mST().i!==sess.i) return;
+            if (mST().i !== sess.i) return;
             console.log(`session ${sess.i} mst: ${mST().i}, our i: ${counter}`);
-             changeContent((x) => ({ ...x, code: sess.code, i: sess.i +1 }));
-             editor?.setValue(sess.code)}, 100);
-      
+            changeContent((x) => ({ ...x, code: sess.code, i: sess.i + 1 }));
+            editor?.setValue(sess.code);
+          }, 100);
         });
-        
-        
+
         runner({ code: newCode, counter });
       } catch (err) {
         console.error({ err });
         console.error("restore editor");
-  
+
         // model?.setValue(code);
       }
-    
-    
-      
-    
-    }
-   
+    };
+
     const debounced = debounce(onChange, 300, {
       maxWait: 600,
       trailing: true,
       leading: true,
     });
 
-const listener =  ()=>debounced();
+    const listener = () => debounced();
 
     editor?.session.on("change", listener);
     setMyId("editor");
 
-
     return () => editor?.session.off("change", listener);
-
-    
   }, [editor, code, i, changeContent]);
 
-  
   return (
     <pre
       css={css`

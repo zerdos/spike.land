@@ -231,7 +231,7 @@ export const monacoContribution = async (
 
     const dts = importHelper.map(({ name, url }) =>
       async () =>
-      typescript.typescriptDefaults.addExtraLib(
+        typescript.typescriptDefaults.addExtraLib(
           await (await fetch(
             url,
           )).text(),

@@ -14,10 +14,9 @@ const jsonData = {
     "react-dom": "/react.mjs",
     "react-dom/client": "/react.mjs",
     "react-dom/server": "/react.mjs",
-    "react/jsx-runtime": "/react.mjs"
-  }
-}
-
+    "react/jsx-runtime": "/react.mjs",
+  },
+};
 
 const environment = process.env.NODE_ENV === "production"
   ? "production"
@@ -200,14 +199,13 @@ const build = (entryPoints) =>
     process.exit(1);
   });
 
-
 await build([
   "ws.mjs",
   "react.ts",
   "framer-motion.ts",
   "emotion.ts",
   "js/MonacoEditor.tsx",
-  "js/AceEditor.tsx"
+  "js/AceEditor.tsx",
 ]);
 
 await build;

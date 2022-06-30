@@ -1,4 +1,4 @@
-export * from "preact"
+export * from "preact";
 import Preact from "preact/compat";
 
 export default Preact;
@@ -34,7 +34,8 @@ export const {
   version,
 } = Preact;
 
-export const flushSync = (callback: (arg: boolean)=>void, arg: boolean) => callback(arg)
+export const flushSync = (callback: (arg: boolean) => void, arg: boolean) =>
+  callback(arg);
 import { hydrate, render, unmountComponentAtNode } from "preact/compat";
 
 export function createRoot(container: HTMLDivElement) {

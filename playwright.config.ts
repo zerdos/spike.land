@@ -1,10 +1,10 @@
-import { type PlaywrightTestConfig, devices } from '@playwright/test';
+import { devices, type PlaywrightTestConfig } from "@playwright/test";
 
 const config: PlaywrightTestConfig = {
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 0,
   use: {
-    trace: 'on-first-retry',
+    trace: "on-first-retry",
   },
   projects: [
     // {
@@ -12,10 +12,9 @@ const config: PlaywrightTestConfig = {
     //   use: { ...devices['Desktop Chrome'] },
     // },
     {
-         name: 'Mobile Chrome',
-          use: {...devices['Pixel 5']}
-        },
-        
+      name: "Mobile Chrome",
+      use: { ...devices["Pixel 5"] },
+    },
     // {
     //   name: 'firefox',
     //   use: { ...devices['Desktop Firefox'] },

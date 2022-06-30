@@ -97,14 +97,12 @@ export const renderApp = (App: ReactElement) => {
 };
 
 export function createJsBlob(code: string) {
+  const file = new File([code], "index.mjs", {
+    type: "application/javascript",
+  });
+  const blobUrl = URL.createObjectURL(file);
+  return blobUrl;
+  // const actualUrl = new URL(blobUrl,'//live/');
 
-    const file = new File([code], "index.mjs", {
-      type: "application/javascript",
-    });
-    const blobUrl = URL.createObjectURL(file);
-    return blobUrl;
-    // const actualUrl = new URL(blobUrl,'//live/');
-
-    // return actualUrl;
-  }
-
+  // return actualUrl;
+}

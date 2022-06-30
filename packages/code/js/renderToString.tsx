@@ -17,7 +17,7 @@ export const renderFromString = async (transpiled: string) => {
 
   // await appFactory(transpiled, html);
 
-  console.log({html, css})
+  console.log({ html, css });
 
   return {
     html: prettierHtml(html),
