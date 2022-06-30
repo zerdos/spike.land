@@ -8,4 +8,4 @@
 - With google-chrome
 - With Vscode- Zsh + Oh my zsh!
 - Deno: 1.23.1
-- github: https://github.com/spike-land/monorepo
+- github: https://github.com/zerdos/spike.land

@@ -1,7 +1,7 @@
 FROM ubuntu:rolling
 
 ### base.Dockerfile
-### Generator: https://github.com/spike-land/monorepo/tree/main/dockerhub/devimages
+### Generator: https://github.com/zerdos/spike.land/tree/main/dockerhub/devimages
 
 LABEL maintainer=zoltan.erdos@me.com
 

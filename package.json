@@ -1,7 +1,7 @@
 {
   "name": "github.com-spike.land",
   "description": "our monorepo",
-  "repository": "git@github.com:spike-land/monorepo.git",
+  "repository": "git@github.com:zerdos/spike.land.git",
   "author": "Zoltan Erdos <zoliika84@gmail.com>",
   "license": "MIT",
   "private": true,

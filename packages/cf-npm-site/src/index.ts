@@ -63,7 +63,7 @@ export default function (
               return req;
             }),
             fetch(
-              `https://raw.githubusercontent.com/spike-land/monorepo/v${version}/monorepo/packages/code/${targetPath}`,
+              `https://raw.githubusercontent.com/zerdos/spike.land/v${version}/monorepo/packages/code/${targetPath}`,
             ).then((req) => {
               if (!req.ok) {
                 throw req.status;

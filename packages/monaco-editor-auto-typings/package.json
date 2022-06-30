@@ -2,10 +2,10 @@
   "name": "@spike.land/monaco-editor-auto-typings",
   "version": "0.8.0",
   "bugs": {
-    "url": "https://github.com/spike-land/monorepo"
+    "url": "https://github.com/zerdos/spike.land"
   },
-  "homepage": "https://github.com/spike-land/monorepo",
-  "repository": "https://github.com/spike-land/monorepo",
+  "homepage": "https://github.com/zerdos/spike.land",
+  "repository": "https://github.com/zerdos/spike.land",
   "author": "Lukas Bach",
   "publishConfig": {
     "access": "public"

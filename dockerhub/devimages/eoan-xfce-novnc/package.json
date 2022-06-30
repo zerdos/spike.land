@@ -20,7 +20,7 @@
   "version": "0.8.0",
   "description": "devcontainer vscode docker xfce remoteDesktop",
   "main": "index.js",
-  "repository": "https://github.com/spike-land/monorepo",
+  "repository": "https://github.com/zerdos/spike.land",
   "author": "Zoltan Erdos <zolika84@gmail.com>",
   "license": "BSD-3-Clause",
   "gitHead": "67d48a100505652f0e431fa7dd2fa810a2b1dec5",
