@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { runner } from "./runner";
+import { codeSpace } from "./ws";
 import { mST, onUpdate } from "./session";
 import { appFactory, renderApp } from "./starter";
 import debounce from "lodash/debounce";
@@ -38,7 +39,7 @@ export const MonacoEditor = () => {
          */
         {
           container: ref.current,
-          name: globalThis.codeSpace,
+          name: codeSpace,
           code: mST().code,
         },
       );

@@ -15,11 +15,9 @@ import uidV4 from "./uidV4.mjs";
 
 const webRtcArray: (RTCDataChannel & { target: string })[] = [];
 
-export const { codeSpace } = self;
-let { address } = self;
+export const  {codeSpace}  = window;
+const { address } = window;;
 
-globalThis.codeSpace = codeSpace;
-globalThis.address = address;
 
 const user = ((self && self.crypto && self.crypto.randomUUID &&
   self.crypto.randomUUID()) || (uidV4())).slice(
