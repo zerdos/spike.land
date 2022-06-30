@@ -33,7 +33,7 @@ function src_default(packageName, version, serveDir = "") {
             }
             return req;
           }),
-          fetch(`https://raw.githubusercontent.com/spike-land/monorepo/v${version}/monorepo/packages/code/${targetPath}`).then((req) => {
+          fetch(`https://raw.githubusercontent.com/zerdos/spike.land/v${version}/monorepo/packages/code/${targetPath}`).then((req) => {
             if (!req.ok) {
               throw req.status;
             }

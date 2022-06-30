@@ -5093,8 +5093,10 @@ __metadata:
     preact: ^10.8.2
     preact-render-to-string: ^5.2.0
     prettier: ^2.7.1
+    qrious: ^4.0.2
     qrious-core: ^4.0.0
     react: ^18.2.0
+    react-qrious: ^2.5.3
     shiki: ^0.10.1
     stream-browserify: 3.0.0
     typescript: 4.7.4
@@ -5167,15 +5169,14 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@spike.land/qrious@^0.8.0, @spike.land/qrious@workspace:packages/qrious":
-  version: 0.0.0-use.local
-  resolution: "@spike.land/qrious@workspace:packages/qrious"
+"@spike.land/qrious@npm:^0.8.0":
+  version: 0.8.0
+  resolution: "@spike.land/qrious@npm:0.8.0"
   dependencies:
-    esbuild: 0.14.48
     qrious-core: 4.0.0
-    typescript: 4.7.4
-  languageName: unknown
-  linkType: soft
+  checksum: 1f2e7d3266e5943b3ca72fb578b7066cead04d30b53595fd300196fbff2a232b41c807b97159379898a94411c165acf0b39bf05424b68fe366f6fa23073ff1a7
+  languageName: node
+  linkType: hard
 
 "@spike.land/rolling-devcontainer@workspace:dockerhub/devimages/rolling-devcontainer":
   version: 0.0.0-use.local
@@ -19179,6 +19180,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"qrious@npm:^4.0.2":
+  version: 4.0.2
+  resolution: "qrious@npm:4.0.2"
+  checksum: 13c72ca7d2738cb73bcda25fb98b32004e136bfbfb154355ebbccac396fa3e2d46ecf6b298abd745c8cbc60e839868a8ec3aef1995c65983ad74bdbde43bc56c
+  languageName: node
+  linkType: hard
+
 "qs@npm:^6.9.4":
   version: 6.10.5
   resolution: "qs@npm:6.10.5"
@@ -19320,6 +19328,18 @@ __metadata:
   dependencies:
     p-defer: ^3.0.0
   checksum: 1696e365db9fb10949f3e60d9fac7f2087fb4a0c51eedd168b6393c8c1198b507b408c56e52f470d2e7cf2c1831e1189bc8d7fed4c1574ef98ffdc3bf0ec746f
+  languageName: node
+  linkType: hard
+
+"react-qrious@npm:^2.5.3":
+  version: 2.5.3
+  resolution: "react-qrious@npm:2.5.3"
+  dependencies:
+    tslib: ^2.4.0
+  peerDependencies:
+    qrious: ">=4.0.0"
+    react: ">=16.8.0"
+  checksum: 0a73b7b87aca0c281779215456962a663ee409eee6185ec6db0c333967a305a4000831c2d095302b0def40ca0f18528e8df65ffe60f26af780a08b1badea52a5
   languageName: node
   linkType: hard
 
@@ -21847,7 +21867,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tslib@npm:^2.0.3, tslib@npm:^2.1.0, tslib@npm:^2.3.0, tslib@npm:^2.3.1":
+"tslib@npm:^2.0.3, tslib@npm:^2.1.0, tslib@npm:^2.3.0, tslib@npm:^2.3.1, tslib@npm:^2.4.0":
   version: 2.4.0
   resolution: "tslib@npm:2.4.0"
   checksum: 8c4aa6a3c5a754bf76aefc38026134180c053b7bd2f81338cb5e5ebf96fefa0f417bff221592bf801077f5bf990562f6264fecbc42cd3309b33872cb6fc3b113
