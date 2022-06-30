@@ -18,13 +18,13 @@ export const MonacoEditor = () => {
   };
 
   const mst = mST();
-  const [{ code, i, editor }, changeContent] = useState({
+  const [{ code, i, editor, myId }, changeContent] = useState({
     code: mst.code,
     i: mst.i + 1,
+    myId: "loading",
     editor: null as null | IStandaloneCodeEditor,
   });
 
-  const [myId, setMyId] = useState("editor-loading");
 
   const lines = code?.split("\n").length || 0;
 
@@ -47,14 +47,13 @@ export const MonacoEditor = () => {
       changeContent((x) => ({
         ...x,
         editor,
+        myId: "editor",
         model: editor.getModel(),
       }));
 
       // Object.assign(session, { monaco, editor, model });
 
       // let inc = 0;
-
-      setMyId("editor");
     };
     load();
   }, [ref]);

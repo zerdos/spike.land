@@ -226,6 +226,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
                   height: height / devicePixelRatio,
                   scale: scaleRange / 100,
                 }}
+                data-test-id="z-body"
                 css={css`
                   overflow:overlay;
                   overflow-y: hidden;

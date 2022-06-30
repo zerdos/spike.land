@@ -16,20 +16,20 @@ export const AceEditor = () => {
     current: HTMLPreElement;
   };
 
-  const [{ code, i, editor }, changeContent] = useState({
+  const [{ code, i, editor, myId }, changeContent] = useState({
     code: mST().code,
     i: mST().i + 1,
+    myId: 'loading',
     editor: null as null | Ace.Editor,
   });
 
-  const [myId, setMyId] = useState("editor-loading");
 
   useEffect(() => {
     if (ref === null) return;
     const load = async () => {
       const editor = await startAce(mST().code);
 
-      changeContent((x) => ({ ...x, editor }));
+      changeContent((x) => ({ ...x, editor, myId: 'editor' }));
     };
     load();
   }, [ref]);
@@ -82,15 +82,15 @@ export const AceEditor = () => {
     const listener = () => debounced();
 
     editor?.session.on("change", listener);
-    setMyId("editor");
+  
 
     return () => editor?.session.off("change", listener);
   }, [editor, code, i, changeContent]);
 
   return (
+    <div data-test-id={myId} css={css`@import url("/js/AceEditor.css")`}>
     <pre
       css={css`
-      @import url("/js/AceEditor.css");
     margin: 0;
     position: absolute;
     top: 0;
@@ -99,9 +99,10 @@ export const AceEditor = () => {
     right: 0;
 `}
       id="editor"
-      data-test-id={myId}
+  
       ref={ref}
     />
+    </div>
   );
 };
 

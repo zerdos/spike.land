@@ -7,14 +7,15 @@ const config: PlaywrightTestConfig = {
     trace: "on-first-retry",
   },
   projects: [
-    // {
-    //   name: 'chromium',
-    //   use: { ...devices['Desktop Chrome'] },
-    // },
     {
-      name: "Mobile Chrome",
-      use: { ...devices["Pixel 5"] },
+      name: 'chromium',
+      use: { ...devices['Desktop Chrome'] },
     },
+    // {
+    //   name: "Mobile Chrome",
+    //   d
+    //   use: { ...devices["Pixel 5"] },
+    // },
     // {
     //   name: 'firefox',
     //   use: { ...devices['Desktop Firefox'] },
