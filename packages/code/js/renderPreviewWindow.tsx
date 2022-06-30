@@ -3,18 +3,20 @@
 // import { c } from "react-dom/client";
 
 import { Fragment, Suspense } from "react";
-
-// import { codeSpace } from "./ws";
+import { appRoot, appFactory } from "./starter";
+import { codeSpace } from "./ws";
 // import { hashCode } from "./session";
 import { css } from "@emotion/react";
 import { DraggableWindow } from "./DraggableWindow";
 import type { FC } from "react";
+import { mST } from "./session";
 
 globalThis.draggableWindow = globalThis.draggableWindow || 0;
 export const renderPreviewWindow = async (Editor: FC<{}>) => {
   if (globalThis.draggableWindow++) return;
   try {
     console.log("renderPreviewWindow");
+    const App = await appFactory(mST().transpiled);
 
     // document.getElementById("root");
 

@@ -27,7 +27,7 @@ globalThis.prettierJs = async (code: string) => {
   globalThis.prettierJs = async (code: string) => prettierJs(code);
   return prettierJs(code);
 };
-export const appFactory = async (transpiled: string) => {
+export const appFactory = async (transpiled: string): Promise<ReactElement> => {
   if (globalThis.transpiled === transpiled) return globalThis.App;
   globalThis.transpiled = transpiled;
 
@@ -57,21 +57,17 @@ export const appFactory = async (transpiled: string) => {
   // globalThis.notify();
 };
 
+export const appRoot = createRoot(document.getElementById("root") || (()=>{
+const root = document.createElement("div");
+document.body.append(root);
+return root
+})())
+
 export const renderApp = (App: ReactElement) => {
   if (globalThis.setCh) return globalThis.setCh(App);
 
   // const key = "css";
   // const cache = createCache({ key });
-
-  if (!globalThis.appRoot) {
-    const container = document.getElementById("root");
-
-    if (!container) return;
-
-    globalThis.appRoot = createRoot(container);
-  }
-
-  const { appRoot } = globalThis;
 
   // const { App } = globalThis;
   console.log("render App");
