@@ -1,6 +1,7 @@
 import * as monaco from "monaco-editor";
 import "monaco-editor/esm/vs/editor/editor.main";
 import throttle from "lodash/throttle";
+
 //@ts-ignore
 import tsWorker from "./monaco-editor/language/typescript/ts.worker.monaco.worker";
 //@ts-ignore
@@ -30,19 +31,21 @@ Object.assign(globalThis, { MonacoEnvironment: monEnv });
 let started = false;
 
 export const monacoContribution = async (
-  monaco: typeof monaco,
+  typescript: typeof monaco.languages.typescript,
+  editor: typeof monaco.editor,
   code: string,
 ) => {
-  monaco.languages.typescript.typescriptDefaults
+  // const {typescript} = languages;
+  typescript.typescriptDefaults
     .setDiagnosticsOptions({
       noSuggestionDiagnostics: true,
       noSemanticValidation: true,
       noSyntaxValidation: true,
     });
 
-  monaco.languages.typescript.typescriptDefaults.setCompilerOptions({
+  typescript.typescriptDefaults.setCompilerOptions({
     baseUrl: location.origin + "/live/",
-    target: monaco.languages.typescript.ScriptTarget.ESNext,
+    target: typescript.ScriptTarget.ESNext,
     lib: [
       "dom",
       "dom.iterable",
@@ -60,14 +63,14 @@ export const monacoContribution = async (
     noEmit: true,
 
     allowNonTsExtensions: true,
-    moduleResolution: monaco.languages.typescript.ModuleResolutionKind.NodeJs,
+    moduleResolution: typescript.ModuleResolutionKind.NodeJs,
     declaration: false,
-    module: monaco.languages.typescript.ModuleKind.ESNext,
+    module: typescript.ModuleKind.ESNext,
     noEmitOnError: true,
     maxNodeModuleJsDepth: 10,
 
     jsxImportSource: "@emotion/react",
-    jsx: monaco.languages.typescript.JsxEmit.ReactJSX,
+    jsx: typescript.JsxEmit.ReactJSX,
     allowUmdGlobalAccess: true,
   });
 
@@ -84,7 +87,7 @@ export const monacoContribution = async (
 
   for (const match of models) {
     const extraModel = match[0].slice(7) + ".tsx";
-    monaco.editor.createModel(
+    editor.createModel(
       await fetch(extraModel).then((res) => res.text()),
       "typescript",
       monaco.Uri.parse(extraModel),
@@ -228,7 +231,7 @@ export const monacoContribution = async (
 
     const dts = importHelper.map(({ name, url }) =>
       async () =>
-        monaco.languages.typescript.typescriptDefaults.addExtraLib(
+        languages.typescript.typescriptDefaults.addExtraLib(
           await (await fetch(
             url,
           )).text(),
@@ -239,8 +242,8 @@ export const monacoContribution = async (
     const pAll = (await (import("p-all"))).default;
     await pAll(dts, { concurrency: 2 });
 
-    monaco.languages.typescript.typescriptDefaults.setEagerModelSync(true);
-    monaco.languages.typescript.typescriptDefaults.setDiagnosticsOptions({
+    languages.typescript.typescriptDefaults.setEagerModelSync(true);
+    languages.typescript.typescriptDefaults.setDiagnosticsOptions({
       noSuggestionDiagnostics: false,
       noSemanticValidation: false,
       noSyntaxValidation: false,
@@ -280,7 +283,7 @@ export const startMonaco = async (
   document.head.appendChild(outerStyle);
 
   const innerStyle = document.createElement("style");
-  innerStyle.innerText = `@import url("ws.css");
+  innerStyle.innerText = `@import url("/js/MonacoEditor.css");
   @font-face {
     font-family: codicon;
     font-display: block;
@@ -290,7 +293,7 @@ export const startMonaco = async (
   `;
   shadowRoot.appendChild(innerStyle);
 
-  await monacoContribution(monaco, code);
+  await monacoContribution(monaco.languages.typescript, monaco.editor, code);
 
   returnModules.editor = monaco.editor.create(innerContainer, {
     model: monaco.editor.createModel(

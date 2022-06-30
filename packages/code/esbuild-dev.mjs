@@ -213,7 +213,9 @@ await build([
   "ws.mjs",
   "react.ts",
   "framer-motion.ts",
-  "emotion.ts"
+  "emotion.ts",
+  "js/MonacoEditor.tsx",
+  "js/AceEditor.tsx"
 ]);
 
 await build;

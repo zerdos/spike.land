@@ -104,6 +104,7 @@ const listener =  ()=>debounced();
   return (
     <pre
       css={css`
+      @import url("/js/AceEditor.css");
     margin: 0;
     position: absolute;
     top: 0;
