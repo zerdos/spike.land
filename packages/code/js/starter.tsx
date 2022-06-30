@@ -22,11 +22,6 @@ const apps: { [key: string]: ReactElement } = {};
 
 globalThis.apps = apps;
 
-globalThis.prettierJs = async (code: string) => {
-  const { prettierJs } = await import("./prettierEsm");
-  globalThis.prettierJs = async (code: string) => prettierJs(code);
-  return prettierJs(code);
-};
 export const appFactory = async (transpiled: string): Promise<ReactElement> => {
   if (globalThis.transpiled === transpiled) return globalThis.App;
   globalThis.transpiled = transpiled;

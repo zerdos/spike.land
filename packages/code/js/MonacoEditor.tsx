@@ -7,6 +7,8 @@ import { mST, onUpdate } from "./session";
 import { appFactory, renderApp } from "./starter";
 import debounce from "lodash/debounce";
 
+import { prettierJs } from "./prettierEsm";
+
 import { css } from "@emotion/react";
 import type { editor } from "monaco-editor";
 
@@ -60,7 +62,7 @@ export const MonacoEditor = () => {
 
   useEffect(() => {
     const onChange = async () => {
-      const newCode = editor?.getModel()?.getValue()!;
+      const newCode = prettierJs(editor?.getModel()?.getValue()!);
       if (newCode === code) return;
       if (newCode === mST().code) return;
       // if (i === mST().i) return;

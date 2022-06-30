@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { mST, onUpdate } from "./session";
 
 import { css } from "@emotion/react";
+import { prettierJs } from "./prettierEsm"
 
 import { appFactory, renderApp } from "./starter";
 import type { Ace, edit } from "ace-builds";
@@ -38,7 +39,7 @@ export const AceEditor = () => {
     if (!editor) return;
 
     const onChange = async () => {
-      const newCode = editor?.session?.getValue()!;
+      const newCode = prettierJs(editor?.session?.getValue()!);
       if (newCode === code) return;
       if (newCode === mST().code) return;
       // if (i === mST().i) return;

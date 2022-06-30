@@ -413,7 +413,7 @@ export const startMonaco = async (
 
     theme: "vs-dark",
 
-    autoClosingBrackets: "always",
+    autoClosingBrackets: "beforeWhitespace",
   });
 
   return returnModules;

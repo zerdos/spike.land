@@ -38,7 +38,7 @@ export async function runner({ code, counter }: {
   const { init } = await import("./esbuildEsm");
   transform = transform || await init();
   const { renderFromString } = await import("./renderToString");
-  if (await prettierJs(code) === await prettierJs(mST().code)) return;
+  if (code === mST().code) return;
   if (i > counter) return;
 
   // session.changes.push(changes);
