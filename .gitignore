@@ -1,5 +1,6 @@
 # ignore haters
 haters/
+.env
 client_id
 videos/
 screenshots/
