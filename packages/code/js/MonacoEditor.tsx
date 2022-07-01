@@ -27,7 +27,6 @@ export const MonacoEditor = () => {
     editor: null as null | IStandaloneCodeEditor,
   });
 
-
   const lines = code?.split("\n").length || 0;
 
   useEffect(() => {

@@ -52,11 +52,13 @@ export const appFactory = async (transpiled: string): Promise<ReactElement> => {
   // globalThis.notify();
 };
 
-export const appRoot = createRoot(document.getElementById("root") || (()=>{
-const root = document.createElement("div");
-document.body.append(root);
-return root
-})())
+export const appRoot = createRoot(
+  document.getElementById("root") || (() => {
+    const root = document.createElement("div");
+    document.body.append(root);
+    return root;
+  })(),
+);
 
 export const renderApp = (App: ReactElement) => {
   if (globalThis.setCh) return globalThis.setCh(App);

@@ -3,7 +3,7 @@
 // import { c } from "react-dom/client";
 
 import { Fragment, Suspense } from "react";
-import { appRoot, appFactory } from "./starter";
+import { appFactory, appRoot } from "./starter";
 import { codeSpace } from "./ws";
 // import { hashCode } from "./session";
 import { css } from "@emotion/react";

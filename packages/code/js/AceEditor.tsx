@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { mST, onUpdate } from "./session";
 
 import { css } from "@emotion/react";
-import { prettierJs } from "./prettierEsm"
+import { prettierJs } from "./prettierEsm";
 
 import { appFactory, renderApp } from "./starter";
 import type { Ace, edit } from "ace-builds";
@@ -20,17 +20,16 @@ export const AceEditor = () => {
   const [{ code, i, editor, myId }, changeContent] = useState({
     code: mST().code,
     i: mST().i + 1,
-    myId: 'loading',
+    myId: "loading",
     editor: null as null | Ace.Editor,
   });
-
 
   useEffect(() => {
     if (ref === null) return;
     const load = async () => {
       const editor = await startAce(mST().code);
 
-      changeContent((x) => ({ ...x, editor, myId: 'editor' }));
+      changeContent((x) => ({ ...x, editor, myId: "editor" }));
     };
     load();
   }, [ref]);
@@ -83,15 +82,14 @@ export const AceEditor = () => {
     const listener = () => debounced();
 
     editor?.session.on("change", listener);
-  
 
     return () => editor?.session.off("change", listener);
   }, [editor, code, i, changeContent]);
 
   return (
     <div data-test-id={myId} css={css`@import url("/js/AceEditor.css")`}>
-    <pre
-      css={css`
+      <pre
+        css={css`
     margin: 0;
     position: absolute;
     top: 0;
@@ -99,10 +97,9 @@ export const AceEditor = () => {
     left: 0;
     right: 0;
 `}
-      id="editor"
-  
-      ref={ref}
-    />
+        id="editor"
+        ref={ref}
+      />
     </div>
   );
 };
