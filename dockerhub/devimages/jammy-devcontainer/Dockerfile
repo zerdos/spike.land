@@ -131,7 +131,7 @@ RUN apt-get update \
 
 USER ${USER}
  
-RUN yarn global add cypress@10.2.0
+RUN yarn global add cypress@10.3.0
 
 USER 0
 ### noVNC.Dockerfile
@@ -232,7 +232,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends unzip \
   && rm -rf /var/lib/apt/lists/* 
 
 USER ${USER}
-RUN curl -fsSL https://deno.land/x/install/install.sh | sh -s v1.23.1 \
+RUN curl -fsSL https://deno.land/x/install/install.sh | sh -s v1.23.2 \
   && echo "export DENO_INSTALL=\"\${HOME}/.deno\"" >> ${HOME}/.zshrc \
   && echo "export DENO_INSTALL=\"\${HOME}/.deno\"" >> ${HOME}/.bashrc \
   && echo "export PATH=\"\$DENO_INSTALL/bin:\$PATH\"" >> ${HOME}/.bashrc \
