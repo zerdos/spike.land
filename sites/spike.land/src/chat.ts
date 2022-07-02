@@ -28,7 +28,7 @@ export default {
       ) {
         url = new URL(request.url.replace(".tsx", "/index.tsx"));
       } else if (
-        u.pathname.endsWith(".js") && !u.pathname.endsWith(".index.js")
+        u.pathname.endsWith(".js") && !u.pathname.endsWith(".index.js") && !u.pathname.includes(".worker") && !u.pathname.endsWith("sw.js")
       ) {
         url = new URL(request.url.replace(".js", "/index.js"));
       }
@@ -38,31 +38,33 @@ export default {
       }
 
       const path = url.pathname.slice(1).split("/");
+
+      if (!path[0]) {
+        // Serve our HTML at the root path.
+        return new Response(
+          `<meta http-equiv="refresh" content="0; URL=${
+            u.protocol + "//" + u.hostname + ":" + u.port
+          }/live/coder" />`,
+          {
+            headers: {
+              "Location": `${u.protocol}//${u.hostname}:${u.port}/live/coder`,
+              "Content-Type": "text/html;charset=UTF-8",
+              "Cache-Control": "no-cache",
+            },
+          },
+        );
+      }
+
       
 
       const handleFetchApi = async ( path: string[]):Promise<Response> =>{
       
         const newUrl =  new URL(path.join("/"), url.origin).toString();
-        const _request = new Request(newUrl, {...request.clone(), url: newUrl})
+        const _request = new Request(newUrl, {...request, url: newUrl})
       
         return (async(request)=>{
 
-          if (!path[0]) {
-            // Serve our HTML at the root path.
-            return new Response(
-              `<meta http-equiv="refresh" content="0; URL=${
-                u.protocol + "//" + u.hostname + ":" + u.port
-              }/live/coder" />`,
-              {
-                headers: {
-                  "Location": `${u.protocol}//${u.hostname}:${u.port}/live/coder`,
-                  "Content-Type": "text/html;charset=UTF-8",
-                  "Cache-Control": "no-cache",
-                },
-              },
-            );
-          }
-    
+        
           switch (path[0]) {
             case "ping":
               return new Response("ping" + Math.random(), {
