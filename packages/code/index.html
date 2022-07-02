@@ -100,8 +100,7 @@ textarea {
  
  </script>
   <script type="module">
-    import {createRoot} from "react-dom/client";
-    import {run} from "./ws.mjs";
+    import "./ws.mjs";
 
     if (!window.startState)  await  (async() =>{
        const resp = await fetch("/live/"+codeSpace+"/session");
@@ -110,7 +109,6 @@ textarea {
      })();
 
 
-    await run();
    </script> 
 </body>
 </html>
