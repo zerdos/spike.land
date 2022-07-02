@@ -4,10 +4,11 @@ import { pnpPlugin } from "@yarnpkg/esbuild-plugin-pnp";
 import * as importMap from "esbuild-plugin-import-map";
 import { jsxImportSourcePlugin } from "esbuild-plugin-jsximportsource";
 import alias from "esbuild-plugin-alias";
-// import jsonData from "./js/mockedMap.json" assert { type: "json" };
+// import imap from "./js/importma]p.json"
 
 const jsonData = {
   "imports": {
+    // ...imap,
     // "framer-motion": "/framer-motion.mjs",
     // "@emotion/react": "/emotion.mjs",
     "react": "/react.mjs",
@@ -15,7 +16,16 @@ const jsonData = {
     "react-dom/client": "/react.mjs",
     "react-dom/server": "/react.mjs",
     "react/jsx-runtime": "/react.mjs",
-  },
+    // "preact": "https://ga.jspm.io/npm:preact@10.8.2/dist/preact.module.js",
+    // "preact-render-to-string": "https://ga.jspm.io/npm:preact-render-to-string@5.2.0/dist/index.mjs",
+    // "preact/compat": "https://ga.jspm.io/npm:preact@10.8.2/compat/dist/compat.module.js",
+    // "preact/jsx-runtime": "https://ga.jspm.io/npm:preact@10.8.2/jsx-runtime/dist/jsxRuntime.module.js"
+  }
+  // "scopes": {
+  //   "https://ga.jspm.io/": {
+  //     "preact/hooks": "https://ga.jspm.io/npm:preact@10.8.2/hooks/dist/hooks.module.js"
+  //   }
+  // }
 };
 
 const environment = process.env.NODE_ENV === "production"
@@ -202,16 +212,15 @@ const build = (entryPoints, format="esm") =>
 
 
 await build([
-  "ws.mjs",
+  "ws.mjs", 
+  "react.ts",
   "framer-motion.ts",
   "emotion.ts",
+  "js/starter.tsx",
+  "renderToString.tsx",
   "js/MonacoEditor.tsx",
   "js/AceEditor.tsx",
 ]);
-
-await build([
-  "react.ts",
-], "esm");
 
 
 await build;

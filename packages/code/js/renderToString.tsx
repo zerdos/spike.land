@@ -1,51 +1,26 @@
+/** @jsx jsx */
+
 /** @jsxImportSource @emotion/react */
 
-import { CacheProvider } from "@emotion/react";
-import createCache from "@emotion/cache";
-import type { ReactElement } from "react";
-
-import { appFactory } from "./starter";
-import { prettierCss, prettierHtml } from "./prettierEsm";
-
+import {  prettierHtml } from "./prettierEsm";
+import {CacheProvider } from "@emotion/react"
+import createCache, {EmotionCache, } from "@emotion/cache"
 import { renderToString } from "react-dom/server";
+import React, { Fragment, ReactNode } from "react";
+import {jsx} from "@emotion/react"
 
-export const renderFromString = async (transpiled: string) => {
-  console.log("render to string");
-  const MyApp = await appFactory(transpiled);
+const WithCache: React.FC<{children: React.ReactNode, cache: EmotionCache}> = ({children, cache}) => <CacheProvider value={cache}>{children}</CacheProvider>
 
-  const { html, css } = getHtmlAndCss(MyApp);
+export const renderFromString = async (App: ReactNode) =>  {
+  const myCache =  createCache({
+    prepend: true,
+    key: 'my-prefix-key',
+    stylisPlugins: [
+      /* your plugins here */
+    ]
+  });
 
-  // await appFactory(transpiled, html);
+const AppWithCache = ()=><WithCache cache={myCache}>{App}</WithCache>
 
-  console.log({ html, css });
-
-  return {
-    html: prettierHtml(html),
-    css: prettierCss(css),
-  };
-};
-
-export const getHtmlAndCss = (MyApp: ReactElement) => {
-  const key = "css";
-  const cache = createCache({ key });
-  let cssText = "";
-
-  cache.sheet.insert = (rule: string) => {
-    cssText += rule;
-  };
-
-  // const target = document.createElement("div");
-  // target.style.height = "100%";
-
-  const markup = renderToString(
-    <CacheProvider value={cache}>
-      {MyApp}
-    </CacheProvider>,
-    // target,
-  );
-
-  return {
-    html: markup,
-    css: cssText,
-  };
-};
+return {html:prettierHtml( renderToString(<AppWithCache />)), css: ""};
+}

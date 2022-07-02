@@ -1,9 +1,7 @@
-import { run  } from "./js/ws.ts";
+
 // import {mST} from "./mST" assert {type: "json"}
 
-
-
-(()=>{
+import("./js/ws.ts").then(({run})=>{
 // const {codeSpace} = window;
 
 const {codeSpace, mST} = window;
@@ -17,4 +15,4 @@ fetch(`/live/${codeSpace}/mST`)
   .then(()=>console.log("All good!"))
   .catch((err)=>console.error(err))
   .finally(()=>console.log("finally!"));
-})()
+})

@@ -1,26 +1,21 @@
 /** @jsxImportSource @emotion/react */
 
-// import { CacheProvider } from "@emotion/react";
-// import createCache from "@emotion/cache";
-import { Fragment, Suspense } from "react";
+import { Fragment, Suspense, } from "react";
 import type { ReactElement } from "react";
-// import  from "react";
 
 import type {} from "react-dom/next";
 import { createRoot } from "react-dom/client";
 
 import { md5 } from "./md5";
-import "es-module-shims";
+// import "es-module-shims";
     
 
+// const importMap = { imports: {  
+//   "framer-motion": "/framer-motion.mjs",
+//   "@emotion/react": "/emotion.mjs",
+//   "react": "/react.mjs"} };
 
-// if ("serviceWorker" in navigator) {
-//   const wb = new Workbox("/sw.js");
-
-//   wb.register();
-// }
-
-// const hash = new Sha256();
+  // importShim.addImportMap(importMap)
 
 const apps: { [key: string]: ReactElement } = {};
 
@@ -44,11 +39,13 @@ export const appFactory = async (transpiled: string): Promise<ReactElement> => {
 
     const {importShim} = window;
 
-    const App = (await importShim(
+
+    const App = ((await importShim(
       /* @vite-ignore */
       createJsBlob(transpiled)
-    )).default;
-    apps[result] = <App />;
+    )).default as ()=>ReactElement)();
+    
+    apps[result] = App;
   }
 
   globalThis.transpiled = transpiled;

@@ -1,11 +1,11 @@
 {
   "imports": {
-    "framer-motion": "/framer-motion.mjs",
-    "@emotion/react": "/emotion.mjs",
     "react": "/react.mjs",
     "react-dom": "/react.mjs",
     "react-dom/client": "/react.mjs",
     "react-dom/server": "/react.mjs",
-    "react/jsx-runtime": "/react.mjs"
+    "react/jsx-runtime": "/react.mjs",
+    "react/jsx-dev-runtime": "/react.mjs"
+    
   }
 }

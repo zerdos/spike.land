@@ -46,7 +46,9 @@
     "node": "18.4.0"
   },
   "dependencies": {
+    "@emotion/styled": "^11.9.3",
     "cypress": "^10.3.0",
+    "emotion-server": "^11.0.0",
     "preact": "^10.8.2"
   },
   "packageManager": "yarn@3.2.1"

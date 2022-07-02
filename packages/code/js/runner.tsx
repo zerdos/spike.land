@@ -2,8 +2,31 @@
 
 import type { Dispatch, ReactNode, SetStateAction } from "react";
 import { saveCode } from "./ws";
+import {appFactory} from "./starter";
 import { mST } from "./session";
 import debounce from "lodash/debounce";
+
+// import "es-module-shims";
+    
+
+
+// if ("serviceWorker" in navigator) {
+//   const wb = new Workbox("/sw.js");
+
+//   wb.register();
+// }
+
+// const hash = new Sha256();
+
+// const importMap = { imports: {  
+//   "framer-motion": "/framer-motion.mjs",
+//   "react-dom/server": "/react.mjs",
+//   "@emotion/react": "/emotion.mjs",
+//   "react": "/react.mjs",} };
+
+  // importShim.addImportMap(importMap)
+
+
 
 export interface IRunnerSession {
   // changes: unknown[];
@@ -37,7 +60,7 @@ export async function runner({ code, counter }: {
   i = counter;
   const { init } = await import("./esbuildEsm");
   transform = transform || await init();
-  const { renderFromString } = await import("./renderToString");
+  const { renderFromString } = await window.importShim("/js/renderToString.mjs");
   if (code === mST().code) return;
   if (i > counter) return;
 
@@ -54,7 +77,7 @@ export async function runner({ code, counter }: {
     /// yellow
     if (transpiled.length > 0) {
       try {
-        const { html, css } = await renderFromString(transpiled);
+        const { html, css } = await renderFromString(await appFactory(transpiled));
 
         if (i > counter) return;
 

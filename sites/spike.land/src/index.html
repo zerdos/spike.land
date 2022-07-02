@@ -29,9 +29,7 @@ html[data-theme='dark'] {
 }
 html, body {margin: 0; height: 100%}
 
-#root {
-  height: 100%; 
-}
+ /* #root{} */
  /* Remove all the styles of the "User-Agent-Stylesheet", except for the 'display' property */
  *:where(:not(iframe, canvas, img, svg, video):not(svg *)) {
    all: unset;
@@ -68,12 +66,20 @@ html, body {margin: 0; height: 100%}
    white-space: revert;
  }
  
-  /*injected-css*/
-
-   </style></head><body>
+ 
+   </style>
+   </head>
+   
+   
+  <body>
   
-  <div id="root"></div>
-  <script>     
+  
+  
+  
+  
+  
+
+<script>     
   if (location.href.indexOf(".tsx")!==-1) {
     const loc = location.href.indexOf(".tsx");
 
@@ -84,10 +90,28 @@ html, body {margin: 0; height: 100%}
     env: {
       "NODE_ENV": "production"
     }};
-  </script>
+    
+  
 
-  <script>
 
+
+const esmsInitOptions = {
+  shimMode: true,
+  mapOverrides: true,
+  polyfillEnable: ['css-modules', 'json-modules'], // default empty
+  nonce: 'n0nce', // default is automatic detection
+  noLoadEventRetriggers: true, // default false
+  revokeBlobURLs: true, // default false
+  mapOverrides: true, // default false
+  onerror: (e) => {},
+  onpolyfill: () => {}, // default logs to the console
+  resolve: (id, parentUrl, resolve) => resolve(id, parentUrl), // default is spec resolution
+  fetch: (url, options) => fetch(url, options), // default is native
+  meta: (meta, url) => null,
+  onimport: (url, options, parentUrl) => null
+};
+
+Object.assign(window, {esmsInitOptions});
 
    /** startState **/
 
@@ -102,9 +126,19 @@ window.addEventListener('pageshow', (event) => {
  </script>
 
 
-  <script type="module" src="./ws.mjs"></script> 
+<script async src="https://ga.jspm.io/npm:es-module-shims@1.5.8/dist/es-module-shims.js"></script>
+
+<div id="root"></div>
 
 
-  <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "cc7e2ceaa75d4111b26b0ec989795375"}'></script><!-- End Cloudflare Web Analytics -->
+<script type="module-shim">
+  import {createRoot} from "react-dom/client";
+  import "./ws.mjs"
+  console.log("done");
+</script>
+
+  <!-- Cloudflare Web Analytics -->
+  <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "cc7e2ceaa75d4111b26b0ec989795375"}'></script>
+  <!-- End Cloudflare Web Analytics -->
 </body>
 </html>

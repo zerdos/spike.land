@@ -20,7 +20,7 @@ const generator = new Generator({
 
 // Install a new package into the import map
 
-await generator.install("react/jsx-runtime");
+// await generator.install("react/jsx-runtime");
 // await generator.install("@emotion/react/jsx-runtime");
 
 await generator.install("preact/compat");
@@ -49,12 +49,12 @@ await Promise.all(list.map(async (name) => await generator.install(name)));
 
 // await generator.install("@emotion/server");
 // await generator.install("@emotion/react");
-await generator.install("react");
+// await generator.install("react");
 // await generator.install("@emotion/react/jsx-runtime");
-await generator.install("react-dom/server");
+// await generator.install("react-dom/server");
 
-await generator.install("react-dom/client");
-await generator.install("react-dom");
+// await generator.install("react-dom/client");
+// await generator.install("react-dom");
 
 // await generator.install("@emotion/babel-plugin");
 

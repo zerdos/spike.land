@@ -12,8 +12,34 @@ import {
   startSession,
 } from "@spike.land/code/js/session";
 import { Delta } from "@spike.land/code/js/textDiff";
-import imap from "@spike.land/code/js/mockedMap.json";
+// import importMap from "@spike.land/code/js/importmap.json";
 import { getBackupSession } from "./getBackupSession";
+
+// const importMap = {
+//   imports: {
+//     ...imap.imports,
+//     // "@emotion/react": "/emotion.mjs",
+//     // "@emotion/cache": "/emotion.mjs"
+//   },
+  
+// }
+
+const importMap = {
+  "imports": {
+    // ...imap,
+    "framer-motion": "/framer-motion.mjs",
+    "@emotion/react": "/emotion.mjs",
+    "react": "/react.mjs",
+    "react-dom": "/react.mjs",
+    "react-dom/client": "/react.mjs",
+    "react-dom/server": "/react.mjs",
+    "react/jsx-runtime": "/react.mjs",
+    // "preact": "https://ga.jspm.io/npm:preact@10.8.2/dist/preact.module.js",
+    // "preact-render-to-string": "https://ga.jspm.io/npm:preact-render-to-string@5.2.0/dist/index.mjs",
+    // "preact/compat": "https://ga.jspm.io/npm:preact@10.8.2/compat/dist/compat.module.js",
+    // "preact/jsx-runtime": "https://ga.jspm.io/npm:preact@10.8.2/jsx-runtime/dist/jsxRuntime.module.js"
+  }
+};
 
 interface IState extends DurableObjectState {
 }
@@ -238,8 +264,9 @@ export class Code {
         }
         case "hydrated":
         case "public": {
-          const startState = mST();
-          const html = HTML.replace(
+          const {css, html} = mST();
+         
+          return new Response( HTML.replace(
             `/** startState **/`,
             `Object.assign(window,${
               JSON.stringify({
@@ -247,12 +274,18 @@ export class Code {
                 address: this.address,
               })
             });`,
-          ).replace("/*injected-css*/",startState.css).replace(
+          ).replace(`/* #root{} */`, `
+          #root{
+            height: 100%; 
+          }
+          ${css}
+          `).replace(
             `<div id="root"></div>`,
-            `<script type="importmap">${JSON.stringify(imap)}</script>
-           <div id="root">${startState.html}</div>`,
-          );
-          return new Response(html, {
+            `<script type="importmap-shim">
+            ${JSON.stringify({imports: {...importMap.imports}})}
+            </script>
+           <div id="root">${html}</div>`,
+          ), {
             status: 200,
             headers: {
               "Access-Control-Allow-Origin": "*",

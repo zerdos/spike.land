@@ -70,13 +70,8 @@
     "access": "public"
   },
   "dependencies": {
-    "@emotion/cache": "^11.9.3",
     "@emotion/react": "^11.9.3",
-    "@emotion/serialize": "^1.0.4",
-    "@emotion/server": "^11.4.0",
-    "@emotion/sheet": "^1.1.1",
     "@emotion/styled": "^11.9.3",
-    "@emotion/utils": "^1.1.0",
     "@identifo/identifo-auth-js": "^3.3.2",
     "@mui/material": "^5.8.6",
     "@spike.land/qrious": "^0.8.0",
