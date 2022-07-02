@@ -281,10 +281,8 @@ export class Code {
           ${css}
           `).replace(
             `<div id="root"></div>`,
-            `<script type="importmap-shim">
-            ${JSON.stringify({imports: {...importMap.imports}})}
-            </script>
-           <div id="root">${html}</div>`,
+            `<div id="root">`+html+`</div>
+           `,
           ), {
             status: 200,
             headers: {

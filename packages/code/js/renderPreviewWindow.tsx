@@ -1,29 +1,36 @@
 /** @jsxImportSource @emotion/react */
 
-// import { c } from "react-dom/client";
 
-import { Fragment, Suspense } from "react";
-import { appFactory, appRoot } from "./starter";
+import { Fragment, Suspense, useEffect, useState } from "react";
+import { appRoot } from "./starter";
 import { codeSpace } from "./ws";
-// import { hashCode } from "./session";
 import { css } from "@emotion/react";
 import { DraggableWindow } from "./DraggableWindow";
 import type { FC } from "react";
-import { mST } from "./session";
+
+
+const ErrorComp = ()=>   <h1>error</h1>
 
 globalThis.draggableWindow = globalThis.draggableWindow || 0;
 export const renderPreviewWindow = async (Editor: FC<{}>) => {
   if (globalThis.draggableWindow++) return;
   try {
-    console.log("renderPreviewWindow");
-    const App = await appFactory(mST().transpiled);
-
+  
     // document.getElementById("root");
 
     // const DraggableWindow = lazy(()=>import("./DraggableWindow").then(({DraggableWindow})=>({default: DraggableWindow})));
 
     const MyApp = () => {
       // const Dw = =useState<typeof DraggableWindow | null>(null);
+
+
+     const [App, setApp] = useState(()=>globalThis.App );
+    
+     useEffect(()=>{
+setApp(globalThis.App);
+     },[globalThis.App])
+
+
 
       return (
         <Fragment>
@@ -72,7 +79,7 @@ export const renderPreviewWindow = async (Editor: FC<{}>) => {
                       #e0d81d 0, #e0d81d 100%);
   `}
           >
-            <Suspense fallback={<p>Error</p>}>
+            <Suspense fallback={<ErrorComp />}>
               <DraggableWindow
                 // onRestore={() => {
                 //   const model = globalThis.model;
@@ -155,7 +162,7 @@ export const renderPreviewWindow = async (Editor: FC<{}>) => {
                 hashCode={0}
                 room={codeSpace}
               >
-                <h1>error</h1>
+                {globalThis.App}
               </DraggableWindow>
             </Suspense>
 

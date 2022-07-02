@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { runner } from "./runner";
 import { codeSpace } from "./ws";
-import { mST, onUpdate } from "./session";
+import { mST, onUpdate, hashCode } from "./session";
 import { appFactory, renderApp } from "./starter";
 import debounce from "lodash/debounce";
 

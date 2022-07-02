@@ -2,8 +2,8 @@
 
 import { css } from "@emotion/react";
 
-import { useEffect, useRef, useState } from "react";
-import type { FC, ReactNode } from "react";
+import {  ReactNode, useEffect, useRef, useState } from "react";
+import type { FC } from "react";
 
 import { domMax, LazyMotion, m } from "framer-motion";
 import { QRButton } from "./Qr";
@@ -42,6 +42,8 @@ interface DraggableWindowProps {
   room: string;
   children: ReactNode;
 }
+
+
 
 export const DraggableWindow: FC<DraggableWindowProps> = (
   {
@@ -104,9 +106,6 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
     reveal();
     // setTimeout(reveal, 200);
   }, []);
-
-  const [ch, setCh] = useState(children);
-  globalThis.setCh = setCh;
 
   return (
     <LazyMotion features={domMax}>
@@ -232,7 +231,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
                   overflow-y: hidden;
               `}
               >
-                {ch}
+                {children}
               </m.div>
             </m.div>
             <m.div
@@ -315,7 +314,6 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
                 key="fullscreen"
                 onClick={() => {
                   document.getElementById("root")?.requestFullscreen();
-                  // setFullScreen(true);
                 }}
               >
                 <FullscreenIcon key="fs" />

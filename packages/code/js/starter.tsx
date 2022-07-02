@@ -1,59 +1,43 @@
 /** @jsxImportSource @emotion/react */
 
-import { Fragment, Suspense, } from "react";
-import type { ReactElement } from "react";
+import { FC, Fragment, Suspense, lazy } from "react";
 
 import type {} from "react-dom/next";
 import { createRoot } from "react-dom/client";
 
+import {mST} from "./session"
 import { md5 } from "./md5";
-// import "es-module-shims";
-    
+// import { hashCode } from "session";
 
-// const importMap = { imports: {  
-//   "framer-motion": "/framer-motion.mjs",
-//   "@emotion/react": "/emotion.mjs",
-//   "react": "/react.mjs"} };
-
-  // importShim.addImportMap(importMap)
-
-const apps: { [key: string]: ReactElement } = {};
+const apps: { [key: string]: FC } = {};
 
 globalThis.apps = apps;
 
-export const appFactory = async (transpiled: string): Promise<ReactElement> => {
+export const appFactory = async (transpiled: string): Promise<FC> => {
+  const result = md5(transpiled);
+  return lazy(()=>import(`/live/${codeSpace}/js#${result}`));
   if (globalThis.transpiled === transpiled) return globalThis.App;
   globalThis.transpiled = transpiled;
 
   // hash.update(transpiled);
   // const resultU8Arr = await hash.digest();
 
-  const result = md5(transpiled);
+
+
   //new TextDecoder().decode(resultU8Arr);
   // if (globalThis.App && globalThis.App === apps[result]) {
   //   globalThis.setCh && globalThis.setCh(globalThis.App);
   //   return;
   // }
 
-  if (!apps[result]) {
-
-    const {importShim} = window;
-
-
-    const App = ((await importShim(
-      /* @vite-ignore */
-      createJsBlob(transpiled)
-    )).default as ()=>ReactElement)();
-    
-    apps[result] = App;
+  if (!apps[result]) {    
+    apps[result] = (await import(createJsBlob(transpiled))).default as unknown as FC;;
   }
 
   globalThis.transpiled = transpiled;
   globalThis.App = apps[result];
 
-  return apps[result];
-
-  // globalThis.notify();
+  return  globalThis.App ;
 };
 
 export const appRoot = createRoot(
@@ -64,9 +48,8 @@ export const appRoot = createRoot(
   })(),
 );
 
-export const renderApp = (App: ReactElement) => {
-  if (globalThis.setCh) return globalThis.setCh(App);
-
+export const renderApp = (App: FC) => {
+ 
   // const key = "css";
   // const cache = createCache({ key });
 
@@ -76,19 +59,17 @@ export const renderApp = (App: ReactElement) => {
     appRoot.render(
       // <CacheProvider value={cache}>
       <Fragment>
-        <Suspense fallback={<p>error</p>}>
-          {App}
+        <Suspense fallback={<div dangerouslySetInnerHTML={{__html: mST().html}} />}>
+          <App />
         </Suspense>
       </Fragment>,
       // </CacheProvider>,
     );
   } catch (err) {
     appRoot.render(
-      // <CacheProvider value={cache}>
       <Fragment>
         <p>error</p>
       </Fragment>,
-      // </CacheProvider>,
     );
   }
 };

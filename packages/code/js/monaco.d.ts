@@ -15,7 +15,7 @@ declare global {
   // let MonacoEnvironment: monaco.Environment;
   var editor: ReturnType<typeof monaco.editor.create>;
   var model: monaco.editor.IModel;
-  var App: ReactElement;
+  var App: FC;
   var appFactory: (transpiled: string, html: string) => void;
   var transpiled: string;
   var notify: () => void;
@@ -24,20 +24,9 @@ declare global {
   var currentTarget: HTMLDivElement;
   var codeSpace: string;
   var address: string;
-  var apps: { [key: string]: ReactElement };
+  var apps: { [key: string]: FC };
   var aceEditor: monaco.editor.IModel;
   var rtcConns: { [target: string]: RTCPeerConnection };
   var draggableWindow: number;
-  var setCh: React.Dispatch<
-    React.SetStateAction<
-      | string
-      | number
-      | boolean
-      | React.ReactElement<any, string | React.JSXElementConstructor<any>>
-      | React.ReactFragment
-      | React.ReactPortal
-      | null
-      | undefined
-    >
-  >;
+  var setCh:React.Dispatch<React.SetStateAction<FC<{}>[]>>
 }

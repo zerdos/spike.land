@@ -97,18 +97,7 @@ html, body {margin: 0; height: 100%}
 
 const esmsInitOptions = {
   shimMode: true,
-  mapOverrides: true,
-  polyfillEnable: ['css-modules', 'json-modules'], // default empty
-  nonce: 'n0nce', // default is automatic detection
-  noLoadEventRetriggers: true, // default false
-  revokeBlobURLs: true, // default false
-  mapOverrides: true, // default false
-  onerror: (e) => {},
-  onpolyfill: () => {}, // default logs to the console
-  resolve: (id, parentUrl, resolve) => resolve(id, parentUrl), // default is spec resolution
-  fetch: (url, options) => fetch(url, options), // default is native
-  meta: (meta, url) => null,
-  onimport: (url, options, parentUrl) => null
+  polyfillEnable: ['css-modules', 'json-modules'] // default empty
 };
 
 Object.assign(window, {esmsInitOptions});
@@ -130,10 +119,10 @@ window.addEventListener('pageshow', (event) => {
 
 <div id="root"></div>
 
-
+<script type="importmap-shim" src="./importmap.json"></script>
 <script type="module-shim">
-  import {createRoot} from "react-dom/client";
   import "./ws.mjs"
+
   console.log("done");
 </script>
 

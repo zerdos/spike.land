@@ -79,9 +79,9 @@ await esbuild.build({
     ...workerEntryPoints,
   ],
   bundle: true,
-  minify: true,
-  minifyWhitespace: true,
-  minifyIdentifiers: true,
+  minify: false,
+  minifyWhitespace: false,
+  minifyIdentifiers: false,
   minifySyntax: false,
   treeShaking: true,
   ignoreAnnotations: true,
@@ -155,10 +155,10 @@ const build = (entryPoints, format="esm") =>
 
     sourcemap: false,
 
-    minify: !isDevelopment,
-    minifyWhitespace: !isDevelopment,
-    minifyIdentifiers: !isDevelopment,
-    minifySyntax: !isDevelopment,
+    minify: false,
+    minifyWhitespace: false,
+    minifyIdentifiers: false,
+    minifySyntax: false,
     legalComments: "none",
     treeShaking: true,
     ignoreAnnotations: true,
@@ -216,10 +216,6 @@ await build([
   "react.ts",
   "framer-motion.ts",
   "emotion.ts",
-  "js/starter.tsx",
-  "renderToString.tsx",
-  "js/MonacoEditor.tsx",
-  "js/AceEditor.tsx",
 ]);
 
 
