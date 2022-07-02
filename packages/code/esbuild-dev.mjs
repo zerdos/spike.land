@@ -135,7 +135,7 @@ await esbuild.build({
   outdir: outDir,
 });
 
-const build = (entryPoints) =>
+const build = (entryPoints, format="esm") =>
   esbuild.build({
     ...buildOptions,
     entryPoints,
@@ -152,7 +152,7 @@ const build = (entryPoints) =>
     legalComments: "none",
     treeShaking: true,
     ignoreAnnotations: true,
-    splitting: true,
+    format,
     tsconfig: "./tsconfig.json",
     allowOverwrite: true,
     resolveExtensions: [
@@ -200,13 +200,18 @@ const build = (entryPoints) =>
     process.exit(1);
   });
 
+
 await build([
   "ws.mjs",
-  "react.ts",
   "framer-motion.ts",
   "emotion.ts",
   "js/MonacoEditor.tsx",
   "js/AceEditor.tsx",
 ]);
+
+await build([
+  "react.ts",
+], "esm");
+
 
 await build;
