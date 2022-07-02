@@ -68,19 +68,18 @@ html, body {margin: 0; height: 100%}
    white-space: revert;
  }
  
-   </style>
-  
-</head>
-<body>
+  /*injected-css*/
+
+   </style></head><body>
   
   <div id="root"></div>
   <script>     
-  window.startedWithNativeEsmModules = false;
   if (location.href.indexOf(".tsx")!==-1) {
     const loc = location.href.indexOf(".tsx");
 
     location.href = location.href.slice(0,loc);
   }
+
   window.process = {
     env: {
       "NODE_ENV": "production"
@@ -91,29 +90,6 @@ html, body {margin: 0; height: 100%}
 
 
    /** startState **/
-
-   if (!codeSpace) window.codeSpace = "coder"; 
-   if (!address) window.address = "";
-   if (!startState) {
-     async()=>{
-       const resp = await fetch("/live/"+codeSpace+"/session");
-       window.startState = await resp.json();
-       h(window.startState);
-     }
-   } else {
-     h(startState);
-   }
-
-
-  
-   function h({html}){
-   document.getElementById("root").innerHTML = html;
-   window.appStarted = new Promise((resolve)=>{
-   window.appResolver=resolve});
- 
-  }
-
-
 
 window.addEventListener('pageshow', (event) => {
   if (event.persisted) {
@@ -126,17 +102,8 @@ window.addEventListener('pageshow', (event) => {
  </script>
 
 
-  <script type="module">
-    import "./ws.mjs";
-    window.startedWithNativeEsmModules = true;
+  <script type="module" src="./ws.mjs"></script> 
 
-   </script> 
-
-
-
-    
-    <script defer src="./main.js"></script>
-    
 
   <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "cc7e2ceaa75d4111b26b0ec989795375"}'></script><!-- End Cloudflare Web Analytics -->
 </body>

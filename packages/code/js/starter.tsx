@@ -10,6 +10,7 @@ import type {} from "react-dom/next";
 import { createRoot } from "react-dom/client";
 
 import { md5 } from "./md5";
+
 // if ("serviceWorker" in navigator) {
 //   const wb = new Workbox("/sw.js");
 
@@ -37,7 +38,12 @@ export const appFactory = async (transpiled: string): Promise<ReactElement> => {
   // }
 
   if (!apps[result]) {
-    const App = (await import(
+
+    await import("es-module-shims/wasm");
+    
+    const {importShim} = window;
+
+    const App = (await importShim(
       /* @vite-ignore */
       createJsBlob(transpiled)
     )).default;

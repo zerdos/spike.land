@@ -51,6 +51,7 @@ const buildOptions = {
   define,
   target: "es2020",
   platform: "browser",
+  external: ["./mST"],
   legalComments: "none",
   plugins: [
     pnpPlugin(),

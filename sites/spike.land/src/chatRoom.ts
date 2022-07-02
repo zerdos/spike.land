@@ -243,15 +243,14 @@ export class Code {
             `/** startState **/`,
             `Object.assign(window,${
               JSON.stringify({
-                startState,
                 codeSpace: this.codeSpace,
                 address: this.address,
               })
             });`,
-          ).replace(
+          ).replace("/*injected-css*/",startState.css).replace(
             `<div id="root"></div>`,
-            `  <script type="importmap">${JSON.stringify(imap)}</script>
-            <style>${startState.css}</style><div id="root">${startState.html}</div>`,
+            `<script type="importmap">${JSON.stringify(imap)}</script>
+           <div id="root">${startState.html}</div>`,
           );
           return new Response(html, {
             status: 200,

@@ -11,7 +11,6 @@ declare global {
   var setValue: (code: string, i: number, force: boolean) => void;
   var prettierJs: (code: string) => Promise<string>;
 
-  var startedWithNativeEsmModules: boolean;
   var editable: boolean;
   // let MonacoEnvironment: monaco.Environment;
   var editor: ReturnType<typeof monaco.editor.create>;

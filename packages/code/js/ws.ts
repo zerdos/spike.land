@@ -65,10 +65,17 @@ const sendChannel = {
 };
 
 // Let createDelta;
-// let applyPatch;
 
-export const run = async () => {
-  renderApp(await appFactory(window.startState.transpiled));
+
+export const run = async (state:ICodeSession) => {
+
+  startSession(codeSpace, {
+    name: user,
+    state
+  });
+
+  renderApp(await appFactory(state.transpiled));
+
 
   if (navigator && navigator?.serviceWorker) {
     navigator.serviceWorker.register("/sw.js", {
@@ -86,10 +93,7 @@ export const run = async () => {
   join();
 };
 
-startSession(codeSpace, {
-  name: user,
-  state: window.startState,
-});
+
 
 let intervalHandler: NodeJS.Timer | null = null;
 

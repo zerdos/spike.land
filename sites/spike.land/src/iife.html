@@ -65,28 +65,6 @@ body {
 
    /** startState **/
 
-   if (!codeSpace) window.codeSpace = "coder"; 
-   if (!address) window.address = "";
-   if (!startState) {
-     async()=>{
-       const resp = await fetch("/live/"+codeSpace+"/session");
-       window.startState = await resp.json();
-       h(window.startState);
-     }
-   } else {
-     h(startState);
-   }
-
-
-  
-   function h({html}){
-   document.getElementById("root").innerHTML = html;
-   window.appStarted = new Promise((resolve)=>{
-   window.appResolver=resolve});
- 
-  }
-
-
 
 window.addEventListener('pageshow', (event) => {
   if (event.persisted) {

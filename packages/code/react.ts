@@ -1,7 +1,13 @@
 export * from "preact";
 import Preact from "preact/compat";
 
+
+window.React = window.React || Preact;
+
 export default Preact;
+
+
+
 export const {
   Fragment,
   createContext,

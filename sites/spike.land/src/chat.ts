@@ -1,7 +1,6 @@
 import { getAssetFromKV } from "@cloudflare/kv-asset-handler";
 import manifestJSON from "__STATIC_CONTENT_MANIFEST";
 import imap from "@spike.land/code/js/importmap.json";
-const assetManifest = JSON.parse(manifestJSON);
 
 import { handleErrors } from "./handleErrors";
 import { CodeEnv } from "./env";
@@ -39,92 +38,130 @@ export default {
       }
 
       const path = url.pathname.slice(1).split("/");
+      
 
-      if (!path[0]) {
-        // Serve our HTML at the root path.
-        return new Response(
-          `<meta http-equiv="refresh" content="0; URL=${
-            u.protocol + "//" + u.hostname + ":" + u.port
-          }/live/coder" />`,
-          {
-            headers: {
-              "Location": `${u.protocol}//${u.hostname}:${u.port}/live/coder`,
-              "Content-Type": "text/html;charset=UTF-8",
-              "Cache-Control": "no-cache",
-            },
-          },
-        );
-      }
+      const handleFetchApi = async ( path: string[]):Promise<Response> =>{
+      
+        const newUrl =  new URL(path.join("/"), url.origin).toString();
+        const _request = new Request(newUrl, {...request.clone(), url: newUrl})
+      
+        return (async(request)=>{
 
-      switch (path[0]) {
-        case "ping":
-          return new Response("ping" + Math.random(), {
-            headers: {
-              "Content-Type": "text/html;charset=UTF-8",
-              "Cache-Control": "no-cache",
-            },
-          });
-        case "env":
-          return new Response(JSON.stringify({ env, accept }), {
-            headers: {
-              "Content-Type": "text/html;charset=UTF-8",
-              "Cache-Control": "no-cache",
-            },
-          });
-        case "files.json":
-          return new Response(manifestJSON, {
-            headers: {
-              "Content-Type": "application/json;charset=UTF-8",
-              "Cache-Control": "no-cache",
-            },
-          });
-        case "importmap.json":
-          return new Response(JSON.stringify(imap), {
-            headers: {
-              "Content-Type": "application/json;charset=UTF-8",
-              "Cache-Control": "no-cache",
-            },
-          });
-        case "api":
-          // This is a request for `/api/...`, call the API handler.
-          return handleApiRequest(path.slice(1), request, env);
-
-        case "ipns":
-        case "ipfs":
-          const u = new URL(request.url, "https://cloudflare-ipfs.com");
-          const new1 = new URL(u.pathname, "https://cloudflare-ipfs.com");
-          const resp = await fetch(new1.toString());
-          if (resp.ok) return resp;
-          const new2 = new URL(u.pathname, "https://ipfs.io");
-          const resp2 = await fetch(new2.toString());
-          return resp2;
-        case "live":
-          return handleApiRequest(
-            ["room", ...path.slice(1), "public"],
-            request,
-            env,
-          );
-        case "iife":
-          return handleApiRequest(
-            ["room", ...path.slice(1), "iife"],
-            request,
-            env,
-          );
-
-        default:
-          return getAssetFromKV(
-            {
-              request,
-              waitUntil(promise) {
-                return ctx.waitUntil(promise);
+          if (!path[0]) {
+            // Serve our HTML at the root path.
+            return new Response(
+              `<meta http-equiv="refresh" content="0; URL=${
+                u.protocol + "//" + u.hostname + ":" + u.port
+              }/live/coder" />`,
+              {
+                headers: {
+                  "Location": `${u.protocol}//${u.hostname}:${u.port}/live/coder`,
+                  "Content-Type": "text/html;charset=UTF-8",
+                  "Cache-Control": "no-cache",
+                },
               },
-            },
-            {
-              ASSET_NAMESPACE: env.__STATIC_CONTENT,
-              ASSET_MANIFEST: assetManifest,
-            },
-          );
-      }
+            );
+          }
+    
+          switch (path[0]) {
+            case "ping":
+              return new Response("ping" + Math.random(), {
+                headers: {
+                  "Content-Type": "text/html;charset=UTF-8",
+                  "Cache-Control": "no-cache",
+                },
+              });
+            case "env":
+              return new Response(JSON.stringify({ env, accept }), {
+                headers: {
+                  "Content-Type": "text/html;charset=UTF-8",
+                  "Cache-Control": "no-cache",
+                },
+              });
+            case "files.json":
+              return new Response(manifestJSON, {
+                headers: {
+                  "Content-Type": "application/json;charset=UTF-8",
+                  "Cache-Control": "no-cache",
+                },
+              });
+            case "importmap.json":
+              return new Response(JSON.stringify(imap), {
+                headers: {
+                  "Content-Type": "application/json;charset=UTF-8",
+                  "Cache-Control": "no-cache",
+                },
+              });
+            case "api":
+              // This is a request for `/api/...`, call the API handler.
+              return handleApiRequest(path.slice(1), request, env);
+    
+            case "ipns":
+            case "ipfs":
+              const u = new URL(request.url, "https://cloudflare-ipfs.com");
+              const new1 = new URL(u.pathname, "https://cloudflare-ipfs.com");
+              const resp = await fetch(new1.toString());
+              if (resp.ok) return resp;
+              const new2 = new URL(u.pathname, "https://ipfs.io");
+              const resp2 = await fetch(new2.toString());
+              return resp2;
+            case "live":
+    
+            const paths =  [...path.slice(1)];
+          
+    
+            // const newUrl =  new URL(paths.join("/"), url.origin);
+    
+    
+                // const assets: typeof assetManifest = {}
+                // Object.keys(assetManifest).map(x=>{assets[`/live/${paths[0]}/${x}`]=assetManifest[x]})
+    
+    
+                
+            return   Promise.any( [ handleApiRequest(
+                ["room", ...paths, "public"],
+                request,
+                env,
+              ),
+    
+              path.length>2? handleFetchApi([...path.slice(2)]): Promise.reject()
+            
+            ]).catch(()=> new Response("Error"))
+            
+    
+    
+    
+    
+    
+    
+    
+            
+            default:
+              return getAssetFromKV(
+                {
+                  request,
+                  waitUntil(promise) {
+                    return ctx.waitUntil(promise);
+                  },
+                },
+                {
+                  ASSET_NAMESPACE: env.__STATIC_CONTENT,
+                  ASSET_MANIFEST: manifestJSON,
+                },
+              );
+          }
+    
+        })(_request);
+
+      
+            
+
+
+    
+      
+    }
+
+    return handleFetchApi(path);
     });
   },
 };

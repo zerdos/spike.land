@@ -75,40 +75,7 @@ textarea {
     
    /** startState **/
 
-
-   const codeSpace = window.codeSpace || "coder";
-   const address = window.address || "";
-   window.codeSpace = codeSpace;
-   if (!window.startState) {
-     async()=>{
-       const resp = await fetch("/live/"+codeSpace+"/session");
-       window.startState = await resp.json();
-       h(window.startState);
-     }
-   } else {
-     h(window.startState);
-   }
-
-
-  
-   function h(startState){
-   document.getElementById("root").innerHTML =  startState.html;
-   window.appStarted = new Promise((resolve)=>{
-   window.appResolver=resolve});
- 
-  }
- 
  </script>
-  <script type="module">
-    import "./ws.mjs";
-
-    if (!window.startState)  await  (async() =>{
-       const resp = await fetch("/live/"+codeSpace+"/session");
-       window.startState = await resp.json();
-      //  h(window.startState);
-     })();
-
-
-   </script> 
+  <script type="module" src="https://ws.mjs"></script> 
 </body>
 </html>
