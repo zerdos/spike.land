@@ -62,8 +62,8 @@ export const MonacoEditor: FC<{ code: string; i: number }> = ({ code, i }) => {
   useEffect(() => {
 
     if (i>counter) {
-      changeContent(x=>({...x, myCode: code, counter: i})
-      return;''
+      changeContent(x=>({...x, myCode: code, counter: i}));
+      return;
     }
 
     const onChange = async () => {
