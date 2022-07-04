@@ -1,9 +1,9 @@
 /** @jsxImportSource @emotion/react */
 
-import { useEffect, useRef, useState, FC } from "react";
+import { FC, useEffect, useRef, useState } from "react";
 import { runner } from "./runner";
 import { codeSpace } from "./ws";
-import { mST, onUpdate, hashCode } from "./session";
+import { hashCode, mST, onUpdate } from "./session";
 // import { appFactory, renderApp } from "./starter";
 import debounce from "lodash/debounce";
 
@@ -14,13 +14,13 @@ import type { editor } from "monaco-editor";
 
 export type IStandaloneCodeEditor = editor.IStandaloneCodeEditor;
 
-export const MonacoEditor: FC<{code: string, i: number}> = ({code, i}) => {
+export const MonacoEditor: FC<{ code: string; i: number }> = ({ code, i }) => {
   const ref = useRef<HTMLDivElement>(null) as null | {
     current: HTMLDivElement;
   };
 
   // const mst = mST();
-  const [{  editor, myId }, changeContent] = useState({
+  const [{ editor, myId }, changeContent] = useState({
     // code: mst.code,
     // i: mst.i + 1,
     myId: "loading",
@@ -107,10 +107,10 @@ export const MonacoEditor: FC<{code: string, i: number}> = ({code, i}) => {
       debounced();
     }).dispose;
     return dispose;
-  }, [ changeContent, editor, i, code]);
+  }, [changeContent, editor, i, code]);
 
   return (
-    <div 
+    <div
       data-test-id={myId}
       css={css`
   max-width: 640px;

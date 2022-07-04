@@ -1,8 +1,7 @@
 /** @jsxImportSource @emotion/react */
 
-
-import { Fragment, ReactNode, Suspense, useEffect, useState } from "react";
-import { appRoot, appFactory, AutoUpdateApp } from "./starter";
+import {  ReactNode, Suspense, useEffect, useState } from "react";
+import { appFactory, appRoot, AutoUpdateApp } from "./starter";
 import { codeSpace } from "./ws";
 import { css } from "@emotion/react";
 import { DraggableWindow } from "./DraggableWindow";
@@ -10,9 +9,10 @@ import type { FC } from "react";
 import { hashCode, mST, onUpdate } from "session";
 
 
-const ErrorComp = ()=>   <h1>error</h1>
 
-const RainbowContainer: FC<{children: ReactNode}> = ({children})=><div     css={css`
+const RainbowContainer: FC<{ children: ReactNode }> = ({ children }) => (
+  <div
+    css={css`
 height: 100%;
 width: 100%;
 background-blend-mode: overlay;
@@ -54,88 +54,87 @@ background:  repeating-radial-gradient(circle at bottom left,
                 #7cba6d 0, #7cba6d 88.8888888889%, 
                 #becc2f 0, #becc2f 94.4444444444%, 
                 #e0d81d 0, #e0d81d 100%);
-`}>{children}</div>
+`}
+  >
+    {children}
+  </div>
+);
 
-const MyApp: FC<{Editor: FC<{code: string, i: number}>}> = ({Editor}) => {
+const MyApp: FC<{ Editor: FC<{ code: string; i: number }> }> = ({ Editor }) => {
   // const Dw = =useState<typeof DraggableWindow | null>(null);
 
+  const [hash, setHash] = useState(() => hashCode());
 
+  useEffect(() => {
+    onUpdate(() => {
+      const newHash = hashCode();
+      if (hash !== newHash) {
+        setHash(newHash);
+      }
+    });
+  }, [hash, setHash]);
 
-const [hash, setHash] = useState(()=>hashCode() );
+  // const {App} = globalThis;
+  //  const [ResultApp, setApp] = useState(<App />);
 
-useEffect(()=>{
- onUpdate(()=>{
-  const newHash = hashCode();
-  if (hash !== newHash)
-  setHash(newHash);
- });
-}, [hash, setHash]);
+  return (
+    <RainbowContainer>
+      <Editor code={mST().code} i={mST().i} />
 
-// const {App} = globalThis;
-//  const [ResultApp, setApp] = useState(<App />);
-
-
-
-  return <RainbowContainer>
-
-        <Editor code={mST().code} i={mST().i} />
-
-        <Suspense fallback={<div dangerouslySetInnerHTML={{__html: mST().html}}></div>}>
-          <DraggableWindow
-            // onRestore={() => {
-            //   const model = globalThis.model;
-            //   model.setValue(mST().code);
-            // }}
-            hashCode={0}
-            room={codeSpace}
-          >
-      <AutoUpdateApp hash={hash}></AutoUpdateApp>
-          </DraggableWindow>
-        </Suspense>
-
-      </RainbowContainer>;
+      <Suspense
+        fallback={<div dangerouslySetInnerHTML={{ __html: mST().html }}></div>}
+      >
+        <DraggableWindow
+          // onRestore={() => {
+          //   const model = globalThis.model;
+          //   model.setValue(mST().code);
+          // }}
+          hashCode={0}
+          room={codeSpace}
+        >
+          <AutoUpdateApp hash={hash}></AutoUpdateApp>
+        </DraggableWindow>
+      </Suspense>
+    </RainbowContainer>
+  );
 };
 
-
 const MyAutoUpdatingApp: FC = () => {
+  const [hash, setHash] = useState(() => hashCode());
 
+  useEffect(() => {
+    onUpdate(() => {
+      const newHash = hashCode();
+      if (hash !== newHash) {
+        setHash(newHash);
+      }
+    });
+  }, [hash, setHash]);
 
-const [hash, setHash] = useState(()=>hashCode() );
-
-useEffect(()=>{
- onUpdate(()=>{
-  const newHash = hashCode();
-  if (hash !== newHash)
-  setHash(newHash);
- });
-}, [hash, setHash]);
-
-
-  return  <AutoUpdateApp hash={hash}></AutoUpdateApp>
+  return <AutoUpdateApp hash={hash}></AutoUpdateApp>;
 };
 
 globalThis.draggableWindow = globalThis.draggableWindow || 0;
-export const renderPreviewWindow = async (Editor?: FC<{code: string, i: number}>) => {
+export const renderPreviewWindow = async (
+  Editor?: FC<{ code: string; i: number }>,
+) => {
   if (globalThis.draggableWindow++) return;
 
+  await appFactory(mST().transpiled);
 
-    await appFactory(mST().transpiled);
-  
-    // document.getElementById("root");
+  // document.getElementById("root");
 
-    // const DraggableWindow = lazy(()=>import("./DraggableWindow").then(({DraggableWindow})=>({default: DraggableWindow})));
-if (!Editor) {
+  // const DraggableWindow = lazy(()=>import("./DraggableWindow").then(({DraggableWindow})=>({default: DraggableWindow})));
+  if (!Editor) {
+    appRoot.render(
+      <MyAutoUpdatingApp />,
+    );
+    return;
+  }
 
   appRoot.render(
-    <MyAutoUpdatingApp  />,
+    <MyApp Editor={Editor} />,
   );
-  return;
-}
-    
-
-    appRoot.render(
-      <MyApp Editor={Editor} />,
-    );
 
   // document.body.appendChild(target);
   // document.getElementById("root")?.remove();

@@ -1,18 +1,13 @@
 /** @jsxImportSource @emotion/react */
 
-
-
 import type { Dispatch, ReactNode, SetStateAction } from "react";
 import { saveCode } from "./ws";
-import {appFactory} from "./starter";
+import { appFactory } from "./starter";
 import { mST } from "./session";
-import debounce from "lodash/debounce";
-import {renderFromString} from "./renderToString"
+import { renderFromString } from "./renderToString";
 // var Stream = require('stream/')
 
 // import "es-module-shims";
-window.Buffer = Buffer;
-
 
 // if ("serviceWorker" in navigator) {
 //   const wb = new Workbox("/sw.js");
@@ -22,15 +17,13 @@ window.Buffer = Buffer;
 
 // const hash = new Sha256();
 
-// const importMap = { imports: {  
+// const importMap = { imports: {
 //   "framer-motion": "/framer-motion.mjs",
 //   "react-dom/server": "/react.mjs",
 //   "@emotion/react": "/emotion.mjs",
 //   "react": "/react.mjs",} };
 
-  // importShim.addImportMap(importMap)
-
-
+// importShim.addImportMap(importMap)
 
 export interface IRunnerSession {
   // changes: unknown[];
@@ -39,13 +32,13 @@ export interface IRunnerSession {
   url: string;
 }
 
-const debounced = debounce(runner, 300, {
-  maxWait: 600,
-  trailing: true,
-  leading: true,
-});
+// const debounced = debounce(runner, 300, {
+//   maxWait: 600,
+//   trailing: true,
+//   leading: true,
+// });
 
-export const runnerDebounced: typeof runner = (props) => debounced(props);
+// export const runnerDebounced: typeof runner = (props) => debounced(props);
 
 type ITransform = (code: string, retry?: number) => Promise<string>;
 
@@ -81,7 +74,7 @@ export async function runner({ code, counter }: {
     if (transpiled.length > 0) {
       try {
         const App = await appFactory(transpiled);
-        const { html, css } =  renderFromString(App);
+        const { html, css } = renderFromString(App);
 
         if (i > counter) return;
 

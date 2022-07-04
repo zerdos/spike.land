@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 
-import { useEffect, useRef, useState, FC } from "react";
-import { mST,  } from "./session";
+import { FC, useEffect, useRef, useState } from "react";
+import { mST } from "./session";
 
 import { css } from "@emotion/react";
 import { prettierJs } from "./prettierEsm";
@@ -12,14 +12,14 @@ import type { Ace, edit } from "ace-builds";
 import { runner } from "./runner";
 import debounce from "lodash/debounce";
 
-export const AceEditor: FC<{code: string, i: number}> = ({code, i}) => {
+export const AceEditor: FC<{ code: string; i: number }> = ({ code, i }) => {
   const ref = useRef<HTMLPreElement>(null) as null | {
     current: HTMLPreElement;
   };
 
-  const [{  editor, myId }, changeContent] = useState({
-    // code: mST().code,
-    // i: mST().i + 1,
+  const [{ editor, myId, counter,  }, changeContent] = useState({
+    code: mST().code,
+    counter: i,
     myId: "loading",
     editor: null as null | Ace.Editor,
   });
@@ -28,8 +28,7 @@ export const AceEditor: FC<{code: string, i: number}> = ({code, i}) => {
     if (ref === null) return;
     const load = async () => {
       const editor = await startAce(mST().code);
-
-      changeContent((x) => ({ ...x, editor, myId: "editor" }));
+      changeContent((x) => ({ ...x,  editor, myId: "editor" }));
     };
     load();
   }, [ref]);
@@ -47,7 +46,7 @@ export const AceEditor: FC<{code: string, i: number}> = ({code, i}) => {
 
       try {
         console.log("change content");
-        changeContent((x) => ({ ...x, i: i + 1, code: newCode }));
+        changeContent((x) => ({ ...x, counter: counter + 1, code: newCode }));
         // onUpdate(async () => {
         //   const sess = mST();
         //   // renderApp(await appFactory(sess.transpiled));
@@ -84,7 +83,7 @@ export const AceEditor: FC<{code: string, i: number}> = ({code, i}) => {
     editor?.session.on("change", listener);
 
     return () => editor?.session.off("change", listener);
-  }, [editor, code, i, changeContent]);
+  }, [editor, code, i]);
 
   return (
     <div data-test-id={myId} css={css`@import url("/js/AceEditor.css")`}>

@@ -1,35 +1,46 @@
-import  * as Preact from "preact";
+import * as Preact from "preact";
 import PreactCompat from "preact/compat";
-import  { hydrate as hy, render as rend, unmountComponentAtNode as unm } from "preact/compat"
+import {
+  hydrate as hy,
+  render as rend,
+  unmountComponentAtNode as unm,
+} from "preact/compat";
 
 import { renderToString as renderToStr } from "preact-render-to-string";
 
-import {jsx as j, jsxDEV as jd, jsxs as js, JSX as jjx} from "preact/jsx-runtime";
+import {
+  JSX as jjx,
+  jsx as j,
+  jsxDEV as jd,
+  jsxs as js,
+} from "preact/jsx-runtime";
 
-window.ReactDOM = window.ReactDOM  || { hydrate: hy, render: rend, unmountComponentAtNode: unm, renderToString: renderToStr };
+window.ReactDOM = window.ReactDOM ||
+  {
+    hydrate: hy,
+    render: rend,
+    unmountComponentAtNode: unm,
+    renderToString: renderToStr,
+  };
 
-window.PreactJSX = window.PreactJSX || {jsx: j, jsxDEV: jd, jsxs: js};
-window.renderToString = window.renderToString || renderToStr
-
+window.PreactJSX = window.PreactJSX || { jsx: j, jsxDEV: jd, jsxs: js };
+window.renderToString = window.renderToString || renderToStr;
 
 window.React = window.React || PreactCompat;
 
 window.MyPreact = window.MyPreact || Preact;
 
-export const {jsx, jsxDEV, jsxs} = window.PreactJSX; 
+export const { jsx, jsxDEV, jsxs } = window.PreactJSX;
 
-export const {Fragment } = Preact; 
-
+export const { Fragment } = Preact;
 
 export const { hydrate, render, unmountComponentAtNode } = window.ReactDOM;
 // @ts-ignore
-export const {renderToString} = window;;
+export const { renderToString } = window;
 
-export const { toChildArray, }= Preact
+export const { toChildArray } = Preact;
 
 export default PreactCompat;
-
-
 
 export const {
   createContext,
@@ -83,5 +94,3 @@ export function hydrateRoot(
   hydrate(children, container);
   return createRoot(container);
 }
-
-

@@ -2,7 +2,7 @@
 
 import { css } from "@emotion/react";
 
-import {  ReactNode, useEffect, useRef, useState } from "react";
+import { ReactNode, useEffect, useRef, useState } from "react";
 import type { FC } from "react";
 
 import { domMax, LazyMotion, m } from "framer-motion";
@@ -42,8 +42,6 @@ interface DraggableWindowProps {
   room: string;
   children: ReactNode;
 }
-
-
 
 export const DraggableWindow: FC<DraggableWindowProps> = (
   {

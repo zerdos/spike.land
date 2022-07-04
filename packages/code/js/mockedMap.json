@@ -6,6 +6,5 @@
     "react-dom/server": "/react.mjs",
     "react/jsx-runtime": "/react.mjs",
     "react/jsx-dev-runtime": "/react.mjs"
-    
   }
 }

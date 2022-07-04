@@ -66,16 +66,13 @@ const sendChannel = {
 
 // Let createDelta;
 
-
-export const run = async (state:ICodeSession) => {
-
+export const run = async (state: ICodeSession) => {
   startSession(codeSpace, {
     name: user,
-    state
+    state,
   });
 
   // renderApp(await appFactory(state.transpiled));
-
 
   if (navigator && navigator?.serviceWorker) {
     navigator.serviceWorker.register("/sw.js", {
@@ -92,8 +89,6 @@ export const run = async (state:ICodeSession) => {
 
   join();
 };
-
-
 
 let intervalHandler: NodeJS.Timer | null = null;
 
@@ -289,7 +284,6 @@ export async function join() {
 
   // Object.assign(session, { ...mST() });
   // globalThis.session = session;
-
 
   const { quickStart } = await import("./quickStart");
   await quickStart();

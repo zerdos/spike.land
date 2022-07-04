@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 
-import { lazy, Suspense, useEffect, useState } from 'react';
-import type { FC, ReactNode } from 'react';
+import { lazy, Suspense, useEffect, useState } from "react";
+import type { FC, ReactNode } from "react";
 
 interface ILaztCom {
   name: string;
@@ -25,7 +25,8 @@ export const LazySpikeLandComponent: FC<ILaztCom> = ({
   children,
 }) => {
   const st = (hashCode: number, html: string, css: string) => ({
-    htmlContent: `<div><style>${css}</style><div id="zbody">xxxxxxxx${html}</div></div>`,
+    htmlContent:
+      `<div><style>${css}</style><div id="zbody">xxxxxxxx${html}</div></div>`,
     hashCode,
   });
 
@@ -33,14 +34,16 @@ export const LazySpikeLandComponent: FC<ILaztCom> = ({
 
   useEffect(() => {
     const intervalHandler = setInterval(async () => {
-      const resp = await fetch(`https://spike.land/live/${name}/hashCodeSession`);
+      const resp = await fetch(
+        `https://spike.land/live/${name}/hashCodeSession`,
+      );
       const text = await resp.text();
       if (hashCode === Number(text)) return;
       setHtmlCss((st) => ({ ...st, hashCode: Number(text) }));
     }, 69_000);
 
     return () => {
-      console.log('INTERVAL CLEARED');
+      console.log("INTERVAL CLEARED");
       clearInterval(intervalHandler);
     };
   }, []);
@@ -53,7 +56,10 @@ export const LazySpikeLandComponent: FC<ILaztCom> = ({
   return (
     <Suspense
       key={hashCode}
-      fallback={<div dangerouslySetInnerHTML={{ __html: 'bpo' + htmlContent }}></div>}>
+      fallback={
+        <div dangerouslySetInnerHTML={{ __html: "bpo" + htmlContent }}></div>
+      }
+    >
       <LazyComponent key={hashCode}>
         <>{children}</>
       </LazyComponent>
@@ -72,8 +78,8 @@ async function getApp(transpiled: string) {
 }
 
 function createJsBlob(code: string) {
-  const file = new File([code], 'index.tsx', {
-    type: 'application/javascript',
+  const file = new File([code], "index.tsx", {
+    type: "application/javascript",
   });
   const blobUrl = URL.createObjectURL(file);
   return blobUrl;
@@ -85,9 +91,9 @@ export const LoadRoom: FC<{ room: string; children: ReactNode }> = ({
   children,
 }) => {
   const [{ transpiled, css, html, hashCode, App }, setState] = useState({
-    css: '',
-    html: '',
-    transpiled: '',
+    css: "",
+    html: "",
+    transpiled: "",
     hashCode: 0,
     App: () => <></>,
   });
@@ -114,15 +120,20 @@ export const LoadRoom: FC<{ room: string; children: ReactNode }> = ({
     reload();
   }, []);
 
-  const [apps, setApps] = useState({} as { [key: typeof hashCode]: typeof App });
+  const [apps, setApps] = useState(
+    {} as { [key: typeof hashCode]: typeof App },
+  );
 
   useEffect(() => {
-    const bc = new BroadcastChannel('spike.land');
+    const bc = new BroadcastChannel("spike.land");
 
     bc.onmessage = async (event) => {
       console.log({ event });
 
-      if (event.data.roomName === room && event.data.sess.transpiled !== transpiled) {
+      if (
+        event.data.roomName === room &&
+        event.data.sess.transpiled !== transpiled
+      ) {
         const { transpiled, css, html } = event.data.sess;
         const hashCode = event.data.hashCode as number;
 
@@ -150,7 +161,8 @@ export const LoadRoom: FC<{ room: string; children: ReactNode }> = ({
       html={html}
       name={room}
       startApp={apps[hashCode]}
-      hash={hashCode}>
+      hash={hashCode}
+    >
       {children}
     </LazySpikeLandComponent>
   );

@@ -28,5 +28,5 @@ declare global {
   var aceEditor: monaco.editor.IModel;
   var rtcConns: { [target: string]: RTCPeerConnection };
   var draggableWindow: number;
-  var setCh:React.Dispatch<React.SetStateAction<FC<{}>[]>>
+  var setCh: React.Dispatch<React.SetStateAction<FC<{}>[]>>;
 }

@@ -20,7 +20,7 @@ const jsonData = {
     // "preact-render-to-string": "https://ga.jspm.io/npm:preact-render-to-string@5.2.0/dist/index.mjs",
     // "preact/compat": "https://ga.jspm.io/npm:preact@10.8.2/compat/dist/compat.module.js",
     // "preact/jsx-runtime": "https://ga.jspm.io/npm:preact@10.8.2/jsx-runtime/dist/jsxRuntime.module.js"
-  }
+  },
   // "scopes": {
   //   "https://ga.jspm.io/": {
   //     "preact/hooks": "https://ga.jspm.io/npm:preact@10.8.2/hooks/dist/hooks.module.js"
@@ -70,7 +70,7 @@ const buildOptions = {
     jsxImportSourcePlugin({ filter: /.(tsx)/ }),
     alias({
       "path": "path-browserify",
-      "stream": "stream-browserify"
+      "stream": "stream-browserify",
     }),
   ],
 };
@@ -147,7 +147,7 @@ await esbuild.build({
   outdir: outDir,
 });
 
-const build = (entryPoints, format="esm") =>
+const build = (entryPoints, format = "esm") =>
   esbuild.build({
     ...buildOptions,
     entryPoints,
@@ -158,9 +158,9 @@ const build = (entryPoints, format="esm") =>
     sourcemap: false,
 
     minify: !isDevelopment,
-    minifyWhitespace:  !isDevelopment,
-    minifyIdentifiers:  !isDevelopment,
-    minifySyntax:  !isDevelopment,
+    minifyWhitespace: !isDevelopment,
+    minifyIdentifiers: !isDevelopment,
+    minifySyntax: !isDevelopment,
     legalComments: "none",
     treeShaking: true,
     ignoreAnnotations: true,
@@ -212,13 +212,13 @@ const build = (entryPoints, format="esm") =>
     process.exit(1);
   });
 
-
 await build([
-  "ws.mjs", 
+  "ws.mjs",
   "react.ts",
   "framer-motion.ts",
   "emotion.ts",
+  "js/MonacoEditor.tsx",
+  "js/AceEditor.tsx",
 ]);
-
 
 await build;

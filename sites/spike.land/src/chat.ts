@@ -5,8 +5,6 @@ import manifestJSON from "__STATIC_CONTENT_MANIFEST";
 import { handleErrors } from "./handleErrors";
 import { CodeEnv } from "./env";
 
-
-
 const imap = {
   "imports": {
     // ...imap,
@@ -21,9 +19,8 @@ const imap = {
     // "preact-render-to-string": "https://ga.jspm.io/npm:preact-render-to-string@5.2.0/dist/index.mjs",
     // "preact/compat": "https://ga.jspm.io/npm:preact@10.8.2/compat/dist/compat.module.js",
     // "preact/jsx-runtime": "https://ga.jspm.io/npm:preact@10.8.2/jsx-runtime/dist/jsxRuntime.module.js"
-  }
+  },
 };
-
 
 export default {
   async fetch(
@@ -48,7 +45,8 @@ export default {
       ) {
         url = new URL(request.url.replace(".tsx", "/index.tsx"));
       } else if (
-        u.pathname.endsWith(".js") && !u.pathname.endsWith(".index.js") && !u.pathname.includes(".worker") && !u.pathname.endsWith("sw.js")
+        u.pathname.endsWith(".js") && !u.pathname.endsWith(".index.js") &&
+        !u.pathname.includes(".worker") && !u.pathname.endsWith("sw.js")
       ) {
         url = new URL(request.url.replace(".js", "/index.js"));
       }
@@ -75,16 +73,11 @@ export default {
         );
       }
 
-      
+      const handleFetchApi = async (path: string[]): Promise<Response> => {
+        const newUrl = new URL(path.join("/"), url.origin).toString();
+        const _request = new Request(newUrl, { ...request, url: newUrl });
 
-      const handleFetchApi = async ( path: string[]):Promise<Response> =>{
-      
-        const newUrl =  new URL(path.join("/"), url.origin).toString();
-        const _request = new Request(newUrl, {...request, url: newUrl})
-      
-        return (async(request)=>{
-
-        
+        return (async (request) => {
           switch (path[0]) {
             case "ping":
               return new Response("ping" + Math.random(), {
@@ -117,7 +110,7 @@ export default {
             case "api":
               // This is a request for `/api/...`, call the API handler.
               return handleApiRequest(path.slice(1), request, env);
-    
+
             case "ipns":
             case "ipfs":
               const u = new URL(request.url, "https://cloudflare-ipfs.com");
@@ -128,36 +121,25 @@ export default {
               const resp2 = await fetch(new2.toString());
               return resp2;
             case "live":
-    
-            const paths =  [...path.slice(1)];
-          
-    
-            // const newUrl =  new URL(paths.join("/"), url.origin);
-    
-    
-                // const assets: typeof assetManifest = {}
-                // Object.keys(assetManifest).map(x=>{assets[`/live/${paths[0]}/${x}`]=assetManifest[x]})
-    
-    
-                
-            return   Promise.any( [ handleApiRequest(
-                ["room", ...paths, "public"],
-                request,
-                env,
-              ),
-    
-              path.length>2? handleFetchApi([...path.slice(2)]): Promise.reject()
-            
-            ]).catch(()=> new Response("Error"))
-            
-    
-    
-    
-    
-    
-    
-    
-            
+              const paths = [...path.slice(1)];
+
+              // const newUrl =  new URL(paths.join("/"), url.origin);
+
+              // const assets: typeof assetManifest = {}
+              // Object.keys(assetManifest).map(x=>{assets[`/live/${paths[0]}/${x}`]=assetManifest[x]})
+
+              return Promise.any([
+                handleApiRequest(
+                  ["room", ...paths, "public"],
+                  request,
+                  env,
+                ),
+
+                path.length > 2
+                  ? handleFetchApi([...path.slice(2)])
+                  : Promise.reject(),
+              ]).catch(() => new Response("Error"));
+
             default:
               return getAssetFromKV(
                 {
@@ -172,18 +154,10 @@ export default {
                 },
               );
           }
-    
         })(_request);
+      };
 
-      
-            
-
-
-    
-      
-    }
-
-    return handleFetchApi(path);
+      return handleFetchApi(path);
     });
   },
 };

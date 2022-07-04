@@ -21,7 +21,7 @@ import { getBackupSession } from "./getBackupSession";
 //     // "@emotion/react": "/emotion.mjs",
 //     // "@emotion/cache": "/emotion.mjs"
 //   },
-  
+
 // }
 
 const importMap = {
@@ -38,7 +38,7 @@ const importMap = {
     // "preact-render-to-string": "https://ga.jspm.io/npm:preact-render-to-string@5.2.0/dist/index.mjs",
     // "preact/compat": "https://ga.jspm.io/npm:preact@10.8.2/compat/dist/compat.module.js",
     // "preact/jsx-runtime": "https://ga.jspm.io/npm:preact@10.8.2/jsx-runtime/dist/jsxRuntime.module.js"
-  }
+  },
 };
 
 interface IState extends DurableObjectState {
@@ -277,33 +277,39 @@ export class Code {
         }
         case "hydrated":
         case "public": {
-          const {css, html} = mST();
-         
-          return new Response( HTML.replace(
-            `/** startState **/`,
-            `Object.assign(window,${
-              JSON.stringify({
-                codeSpace: this.codeSpace,
-                address: this.address,
-              })
-            });`,
-          ).replace(`/* #root{} */`, `
+          const { css, html } = mST();
+
+          return new Response(
+            HTML.replace(
+              `/** startState **/`,
+              `Object.assign(window,${
+                JSON.stringify({
+                  codeSpace: this.codeSpace,
+                  address: this.address,
+                })
+              });`,
+            ).replace(
+              `/* #root{} */`,
+              `
           #root{
             height: 100%; 
           }
           ${css}
-          `).replace(
-            `<div id="root"></div>`,
-            `<div id="root">`+html+`</div>
+          `,
+            ).replace(
+              `<div id="root"></div>`,
+              `<div id="root">` + html + `</div>
            `,
-          ), {
-            status: 200,
-            headers: {
-              "Access-Control-Allow-Origin": "*",
-              "Cache-Control": "no-cache",
-              "Content-Type": "text/html; charset=UTF-8",
+            ),
+            {
+              status: 200,
+              headers: {
+                "Access-Control-Allow-Origin": "*",
+                "Cache-Control": "no-cache",
+                "Content-Type": "text/html; charset=UTF-8",
+              },
             },
-          });
+          );
         }
         case "iife": {
           const startState = mST();
