@@ -14,15 +14,15 @@ import type { editor } from "monaco-editor";
 
 export type IStandaloneCodeEditor = editor.IStandaloneCodeEditor;
 
-export const MonacoEditor: FC = () => {
+export const MonacoEditor: FC<{code: string, i: number}> = ({code, i}) => {
   const ref = useRef<HTMLDivElement>(null) as null | {
     current: HTMLDivElement;
   };
 
-  const mst = mST();
-  const [{ code, i, editor, myId }, changeContent] = useState({
-    code: mst.code,
-    i: mst.i + 1,
+  // const mst = mST();
+  const [{  editor, myId }, changeContent] = useState({
+    // code: mst.code,
+    // i: mst.i + 1,
     myId: "loading",
     editor: null as null | IStandaloneCodeEditor,
   });
@@ -70,7 +70,7 @@ export const MonacoEditor: FC = () => {
 
       try {
         console.log("change content");
-        changeContent((x) => ({ ...x, i: x.i + 1, code: newCode }));
+        changeContent((x) => ({ ...x, i: i + 1, code: newCode }));
         // onUpdate(async () => {
         //   const sess = mST();
         //   // renderApp(await appFactory(sess.transpiled));
@@ -107,7 +107,7 @@ export const MonacoEditor: FC = () => {
       debounced();
     }).dispose;
     return dispose;
-  }, [i, changeContent, editor]);
+  }, [ changeContent, editor]);
 
   return (
     <div

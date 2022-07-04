@@ -56,7 +56,7 @@ background:  repeating-radial-gradient(circle at bottom left,
                 #e0d81d 0, #e0d81d 100%);
 `}>{children}</div>
 
-const MyApp: FC<{Editor: FC<{}>}> = ({Editor}) => {
+const MyApp: FC<{Editor: FC<{code: string, i: number}>}> = ({Editor}) => {
   // const Dw = =useState<typeof DraggableWindow | null>(null);
 
 
@@ -83,7 +83,7 @@ const {App} = globalThis;
 
   return <RainbowContainer>
 
-        <Editor />
+        <Editor code={mST().code} i={mST().i} />
 
         <Suspense fallback={<div dangerouslySetInnerHTML={{__html: mST().html}}></div>}>
           <DraggableWindow
