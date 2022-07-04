@@ -1,13 +1,17 @@
 /** @jsxImportSource @emotion/react */
 
+
+
 import type { Dispatch, ReactNode, SetStateAction } from "react";
 import { saveCode } from "./ws";
 import {appFactory} from "./starter";
 import { mST } from "./session";
 import debounce from "lodash/debounce";
+import {renderFromString} from "./renderToString"
+// var Stream = require('stream/')
 
 // import "es-module-shims";
-    
+window.Buffer = Buffer;
 
 
 // if ("serviceWorker" in navigator) {
@@ -60,7 +64,6 @@ export async function runner({ code, counter }: {
   i = counter;
   const { init } = await import("./esbuildEsm");
   transform = transform || await init();
-  const { renderFromString } = await import("./renderToString");
   if (code === mST().code) return;
   if (i > counter) return;
 
@@ -78,7 +81,7 @@ export async function runner({ code, counter }: {
     if (transpiled.length > 0) {
       try {
         const App = await appFactory(transpiled);
-        const { html, css } = await renderFromString(App);
+        const { html, css } =  renderFromString(App);
 
         if (i > counter) return;
 

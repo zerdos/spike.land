@@ -1,5 +1,6 @@
 /** @jsxImportSource @emotion/react */
 
+
 import { isMobile } from "./isMobile.mjs";
 
 import { renderPreviewWindow } from "./renderPreviewWindow";
@@ -7,6 +8,8 @@ import { renderPreviewWindow } from "./renderPreviewWindow";
 globalThis.editable = false;
 
 export async function quickStart() {
+
+  window.Buffer =  require('buffer/').Buffer
   if (isMobile()) {
     const { AceEditor } = await import("./AceEditor");
     return renderPreviewWindow(AceEditor);

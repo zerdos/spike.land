@@ -102,7 +102,7 @@ const {App} = globalThis;
 };
 
 globalThis.draggableWindow = globalThis.draggableWindow || 0;
-export const renderPreviewWindow = async (Editor: FC<{}>) => {
+export const renderPreviewWindow = async (Editor: FC<{code: string, i: number}>) => {
   if (globalThis.draggableWindow++) return;
 
 

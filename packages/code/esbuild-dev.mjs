@@ -52,8 +52,9 @@ const define = {
   "process.env.NODE_ENV": `"${environment}"`,
   "process.env.NODE_DEBUG": false,
   "process.env.DEBUG": false,
+  "process.env.version": `"1.1.1"`,
   "process.env.DUMP_SESSION_KEYS": false,
-  "process": JSON.stringify({ env: {} }),
+  "process": JSON.stringify({ env: {}, version: "1.1.1", browser: true }),
   "global": "self",
 };
 
@@ -69,6 +70,7 @@ const buildOptions = {
     jsxImportSourcePlugin({ filter: /.(tsx)/ }),
     alias({
       "path": "path-browserify",
+      "stream": "stream-browserify"
     }),
   ],
 };
@@ -155,10 +157,10 @@ const build = (entryPoints, format="esm") =>
 
     sourcemap: false,
 
-    minify: false,
-    minifyWhitespace: false,
-    minifyIdentifiers: false,
-    minifySyntax: false,
+    minify: !isDevelopment,
+    minifyWhitespace:  !isDevelopment,
+    minifyIdentifiers:  !isDevelopment,
+    minifySyntax:  !isDevelopment,
     legalComments: "none",
     treeShaking: true,
     ignoreAnnotations: true,

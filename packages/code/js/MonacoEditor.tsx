@@ -107,10 +107,10 @@ export const MonacoEditor: FC<{code: string, i: number}> = ({code, i}) => {
       debounced();
     }).dispose;
     return dispose;
-  }, [ changeContent, editor]);
+  }, [ changeContent, editor, i, code]);
 
   return (
-    <div
+    <div 
       data-test-id={myId}
       css={css`
   max-width: 640px;

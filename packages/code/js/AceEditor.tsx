@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 
-import { useEffect, useRef, useState } from "react";
-import { mST, onUpdate } from "./session";
+import { useEffect, useRef, useState, FC } from "react";
+import { mST,  } from "./session";
 
 import { css } from "@emotion/react";
 import { prettierJs } from "./prettierEsm";
@@ -12,14 +12,14 @@ import type { Ace, edit } from "ace-builds";
 import { runner } from "./runner";
 import debounce from "lodash/debounce";
 
-export const AceEditor = () => {
+export const AceEditor: FC<{code: string, i: number}> = ({code, i}) => {
   const ref = useRef<HTMLPreElement>(null) as null | {
     current: HTMLPreElement;
   };
 
-  const [{ code, i, editor, myId }, changeContent] = useState({
-    code: mST().code,
-    i: mST().i + 1,
+  const [{  editor, myId }, changeContent] = useState({
+    // code: mST().code,
+    // i: mST().i + 1,
     myId: "loading",
     editor: null as null | Ace.Editor,
   });
@@ -47,7 +47,7 @@ export const AceEditor = () => {
 
       try {
         console.log("change content");
-        changeContent((x) => ({ ...x, i: x.i + 1, code: newCode }));
+        changeContent((x) => ({ ...x, i: i + 1, code: newCode }));
         // onUpdate(async () => {
         //   const sess = mST();
         //   // renderApp(await appFactory(sess.transpiled));
