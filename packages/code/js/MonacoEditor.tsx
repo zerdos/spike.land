@@ -20,9 +20,9 @@ export const MonacoEditor: FC<{ code: string; i: number }> = ({ code, i }) => {
   };
 
   // const mst = mST();
-  const [{ editor, myId }, changeContent] = useState({
-    // code: mst.code,
-    // i: mst.i + 1,
+  const [{ counter, myCode, editor, myId }, changeContent] = useState({
+    myCode: code,
+    counter: i,
     myId: "loading",
     editor: null as null | IStandaloneCodeEditor,
   });
@@ -66,11 +66,11 @@ export const MonacoEditor: FC<{ code: string; i: number }> = ({ code, i }) => {
       if (newCode === mST().code) return;
       // if (i === mST().i) return;
 
-      const counter = i + 1;
+
 
       try {
         console.log("change content");
-        changeContent((x) => ({ ...x, i: i + 1, code: newCode }));
+        changeContent((x) => ({ ...x, counter: x.counter + 1, myCode: newCode }));
         // onUpdate(async () => {
         //   const sess = mST();
         //   // renderApp(await appFactory(sess.transpiled));
@@ -87,7 +87,7 @@ export const MonacoEditor: FC<{ code: string; i: number }> = ({ code, i }) => {
         //   }, 100);
         // });
 
-        runner({ code: newCode, counter });
+        runner({ code: newCode, counter: counter + 1 });
       } catch (err) {
         console.error({ err });
         console.error("restore editor");
