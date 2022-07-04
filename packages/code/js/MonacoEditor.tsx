@@ -1,10 +1,10 @@
 /** @jsxImportSource @emotion/react */
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, FC } from "react";
 import { runner } from "./runner";
 import { codeSpace } from "./ws";
 import { mST, onUpdate, hashCode } from "./session";
-import { appFactory, renderApp } from "./starter";
+// import { appFactory, renderApp } from "./starter";
 import debounce from "lodash/debounce";
 
 import { prettierJs } from "./prettierEsm";
@@ -14,7 +14,7 @@ import type { editor } from "monaco-editor";
 
 export type IStandaloneCodeEditor = editor.IStandaloneCodeEditor;
 
-export const MonacoEditor = () => {
+export const MonacoEditor: FC = () => {
   const ref = useRef<HTMLDivElement>(null) as null | {
     current: HTMLDivElement;
   };
@@ -71,21 +71,21 @@ export const MonacoEditor = () => {
       try {
         console.log("change content");
         changeContent((x) => ({ ...x, i: x.i + 1, code: newCode }));
-        onUpdate(async () => {
-          const sess = mST();
-          renderApp(await appFactory(sess.transpiled));
+        // onUpdate(async () => {
+        //   const sess = mST();
+        //   // renderApp(await appFactory(sess.transpiled));
 
-          if (sess.i <= counter) {
-            return;
-          }
+        //   if (sess.i <= counter) {
+        //     return;
+        //   }
 
-          setTimeout(() => {
-            if (mST().i !== sess.i) return;
-            console.log(`session ${sess.i} mst: ${mST().i}, our i: ${counter}`);
-            changeContent((x) => ({ ...x, code: sess.code, i: sess.i + 1 }));
-            editor?.setValue(sess.code);
-          }, 100);
-        });
+        //   setTimeout(() => {
+        //     if (mST().i !== sess.i) return;
+        //     console.log(`session ${sess.i} mst: ${mST().i}, our i: ${counter}`);
+        //     changeContent((x) => ({ ...x, code: sess.code, i: sess.i + 1 }));
+        //     editor?.setValue(sess.code);
+        //   }, 100);
+        // });
 
         runner({ code: newCode, counter });
       } catch (err) {

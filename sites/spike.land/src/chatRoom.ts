@@ -228,6 +228,19 @@ export class Code {
           //   'export default function(){};'
           // }
 
+          if (path[1]) {
+            const session = await this.kv.get<ICodeSession>(path[1]);
+            if (session && session.transpiled) {
+              return new Response(session.transpiled, {
+                status: 200,
+                headers: {
+                  "Access-Control-Allow-Origin": "*",
+                  "Cache-Control": "no-cache",
+                  "Content-Type": "application/javascript; charset=UTF-8",
+                },
+              });
+            }
+          }
           return new Response(mST().transpiled, {
             status: 200,
             headers: {

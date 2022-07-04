@@ -9,7 +9,7 @@ import {
   startSession,
 } from "./session";
 import type { ICodeSession } from "./session";
-import { appFactory, renderApp } from "./starter";
+// import { appFactory, renderApp } from "./starter";
 import debounce from "lodash/debounce";
 import uidV4 from "./uidV4.mjs";
 
@@ -74,7 +74,7 @@ export const run = async (state:ICodeSession) => {
     state
   });
 
-  renderApp(await appFactory(state.transpiled));
+  // renderApp(await appFactory(state.transpiled));
 
 
   if (navigator && navigator?.serviceWorker) {

@@ -15,7 +15,7 @@ globalThis.apps = apps;
 
 export const appFactory = async (transpiled: string): Promise<FC> => {
   const result = md5(transpiled);
-  return lazy(()=>import(`/live/${codeSpace}/js#${result}`));
+  // return lazy(>import(`/live/${codeSpace}/js#${result}`));
   if (globalThis.transpiled === transpiled) return globalThis.App;
   globalThis.transpiled = transpiled;
 
@@ -36,6 +36,7 @@ export const appFactory = async (transpiled: string): Promise<FC> => {
 
   globalThis.transpiled = transpiled;
   globalThis.App = apps[result];
+
 
   return  globalThis.App ;
 };

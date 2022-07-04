@@ -6,7 +6,7 @@ import { mST, onUpdate } from "./session";
 import { css } from "@emotion/react";
 import { prettierJs } from "./prettierEsm";
 
-import { appFactory, renderApp } from "./starter";
+// import { appFactory, renderApp } from "./starter";
 import type { Ace, edit } from "ace-builds";
 
 import { runner } from "./runner";
@@ -48,21 +48,21 @@ export const AceEditor = () => {
       try {
         console.log("change content");
         changeContent((x) => ({ ...x, i: x.i + 1, code: newCode }));
-        onUpdate(async () => {
-          const sess = mST();
-          renderApp(await appFactory(sess.transpiled));
+        // onUpdate(async () => {
+        //   const sess = mST();
+        //   // renderApp(await appFactory(sess.transpiled));
 
-          if (sess.i <= counter) {
-            return;
-          }
+        //   if (sess.i <= counter) {
+        //     return;
+        //   }
 
-          setTimeout(() => {
-            if (mST().i !== sess.i) return;
-            console.log(`session ${sess.i} mst: ${mST().i}, our i: ${counter}`);
-            changeContent((x) => ({ ...x, code: sess.code, i: sess.i + 1 }));
-            editor?.setValue(sess.code);
-          }, 100);
-        });
+        //   setTimeout(() => {
+        //     if (mST().i !== sess.i) return;
+        //     console.log(`session ${sess.i} mst: ${mST().i}, our i: ${counter}`);
+        //     changeContent((x) => ({ ...x, code: sess.code, i: sess.i + 1 }));
+        //     editor?.setValue(sess.code);
+        //   }, 100);
+        // });
 
         runner({ code: newCode, counter });
       } catch (err) {
