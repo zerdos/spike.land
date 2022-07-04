@@ -7,6 +7,7 @@ import { createRoot } from "react-dom/client";
 
 import {mST} from "./session"
 import { md5 } from "./md5";
+import "es-module-shims"
 // import { renderPreviewWindow } from "renderPreviewWindow";
 // import { hashCode } from "session";
 
@@ -16,7 +17,7 @@ globalThis.apps = apps;
 
 export const AutoUpdateApp: FC<{hash: number}> = ({hash})=> {
 
-const App = lazy(()=>import(createJsBlob(mST().transpiled)));
+const App = lazy(()=>importShim(createJsBlob(mST().transpiled)));
 
 return <Suspense fallback={<div dangerouslySetInnerHTML={{__html: mST().html}}></div>}>
   <App />
@@ -41,7 +42,7 @@ export const appFactory = async (transpiled: string): Promise<FC> => {
   // }
 
   if (!apps[result]) {    
-    apps[result] = (await import(createJsBlob(transpiled))).default as unknown as FC;;
+    apps[result] = (await importShim(createJsBlob(transpiled))).default as unknown as FC;;
   }
 
   globalThis.transpiled = transpiled;
