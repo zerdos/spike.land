@@ -17,8 +17,8 @@ export const AceEditor: FC<{ code: string; i: number }> = ({ code, i }) => {
     current: HTMLPreElement;
   };
 
-  const [{ editor, myId, counter,  }, changeContent] = useState({
-    code: mST().code,
+  const [{ editor, myId, counter, myCode }, changeContent] = useState({
+    myCode: mST().code,
     counter: i,
     myId: "loading",
     editor: null as null | Ace.Editor,
@@ -86,7 +86,7 @@ export const AceEditor: FC<{ code: string; i: number }> = ({ code, i }) => {
   }, [editor, code, i]);
 
   return (
-    <div data-test-id={myId} css={css`@import url("/js/AceEditor.css")`}>
+    <div data-test-id={myId}>
       <pre
         css={css`
     margin: 0;

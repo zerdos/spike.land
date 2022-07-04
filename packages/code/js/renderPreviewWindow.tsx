@@ -72,7 +72,7 @@ const MyApp: FC<{ Editor: FC<{ code: string; i: number }> }> = ({ Editor }) => <
       >
         <MyAutoUpdatingApp />
       </DraggableWindow>
-            <Editor code={mST().code} i={mST().i} />
+      <Editor code={mST().code} i={mST().i} />
 
     </RainbowContainer>
 

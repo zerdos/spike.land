@@ -1,5 +1,6 @@
 /** @jsxImportSource @emotion/react */
 
+import { url } from "inspector";
 import { isMobile } from "./isMobile.mjs";
 
 import { renderPreviewWindow } from "./renderPreviewWindow";
@@ -17,10 +18,10 @@ export async function quickStart() {
   }
 
   if (isMobile()) {
-    const { AceEditor } = await import("./AceEditor");
+    const { AceEditor } = await import(new URL("/js/AceEditor.mjs",location.origin).toString());
     return renderPreviewWindow(AceEditor);
   }
 
-  const { MonacoEditor } = await import("./MonacoEditor");
+  const { MonacoEditor } = await import(new URL("/js/MonacoEditor.mjs",location.origin).toString());
   return renderPreviewWindow(MonacoEditor);
 }

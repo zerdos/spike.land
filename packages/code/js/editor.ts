@@ -1,6 +1,5 @@
 import * as monaco from "monaco-editor";
 import "monaco-editor/esm/vs/editor/editor.main";
-import throttle from "lodash/throttle";
 
 //@ts-ignore
 import tsWorker from "./monaco-editor/language/typescript/ts.worker.monaco.worker";
