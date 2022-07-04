@@ -76,7 +76,7 @@ export const MonacoEditor: FC<{ code: string; i: number }> = ({ code, i }) => {
 
       try {
         console.log("change content");
-        changeContent((x) => ({ ...x, counter: x.counter + 1, myCode: newCode }));
+        changeContent((x) => ({ ...x, counter: counter + 1, myCode: newCode }));
         // onUpdate(async () => {
         //   const sess = mST();
         //   // renderApp(await appFactory(sess.transpiled));
