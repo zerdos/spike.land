@@ -23,8 +23,7 @@ export const renderFromString = (App: FC) => {
   };
 };
 const extractCritical = (html: string) => {
-  const res = [];
-  const rules: {[key:  string]: boolean} = {};
+  const rules: {[key:  string]: string} = {};
   for (let i in document.styleSheets) {
     const styleSheet = document.styleSheets[i];
     for (let r in styleSheet.cssRules) {
@@ -32,11 +31,11 @@ const extractCritical = (html: string) => {
       if (rule && rule.cssText && rule.cssText.slice(0, 5) === ".css-") {
         const selector = rule.cssText.slice(1, 11);
         if (  !rules[selector] && html.includes(selector) && !rule.cssText.slice(10).includes(".css-") ){ 
-          rules[selector] = true;
-          res.push(rule.cssText);
+          rules[selector] = rule.cssText;
         }
       }
     }
   }
-  return res.join(" ");
+
+  return   Object.keys(rules).map(r=>rules[r]).join(" ");
 };
