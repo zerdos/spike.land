@@ -1,12 +1,12 @@
 /** @jsxImportSource @emotion/react */
 
-import {  ReactNode, Suspense, useEffect, useState } from "react";
+import {  ReactNode, useEffect, useState } from "react";
 import { appFactory, appRoot, AutoUpdateApp } from "./starter";
 import { codeSpace } from "./ws";
 import { css } from "@emotion/react";
 import { DraggableWindow } from "./DraggableWindow";
 import type { FC } from "react";
-import { hashCode, mST, onUpdate } from "session";
+import { hashCode, mST, onSessionUpdate } from "session";
 
 
 
@@ -81,12 +81,12 @@ const MyAutoUpdatingApp: FC = () => {
   const [hash, setHash] = useState(() => hashCode());
 
   useEffect(() => {
-    onUpdate(() => {
+    onSessionUpdate(() => {
       const newHash = hashCode();
       if (hash !== newHash) {
         setHash(newHash);
       }
-    });
+    }, "myApp");
   }, [hash, setHash]);
 
   return <AutoUpdateApp hash={hash}></AutoUpdateApp>;

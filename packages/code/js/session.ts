@@ -76,11 +76,15 @@ const hashStore: { [key: number]: Record<ICodeSession> } = {};
 export class CodeSession implements ICodeSess {
   session: IUser;
   update() {
-    this.cb(true);
+    Object.keys(this.cb).map(k=>this.cb[k]).map(x=>{try{
+        x(true);
+    } catch(err){
+      console.error("error calling callback", {err});
+    }})
   }
-  cb = (_force: boolean) => {};
-  onUpdate(fn: (force: boolean) => void) {
-    this.cb = fn;
+  cb: {[key: string]:  (_force: boolean)=>void } = {};
+  onUpdate(fn: (force: boolean) => void, regId: string) {
+    this.cb[regId] = fn;
   }
   hashCodeSession: number = 0;
   room: string;
@@ -237,8 +241,8 @@ export const patch: IApplyPatch = async (x) => {
   await session?.applyPatch(x);
   session?.update();
 };
-export const onUpdate = (fn: (_force: boolean) => void) =>
-  session?.onUpdate(fn);
+export const onSessionUpdate = (fn: (_force: boolean) => void, regId = "default") =>
+  session?.onUpdate(fn, regId);
 export const makePatchFrom = (n: number, st: ICodeSession) =>
   (session as CodeSession).createPatchFromHashCode(n, st);
 export const makePatch = (st: ICodeSession) => makePatchFrom(hashCode(), st);

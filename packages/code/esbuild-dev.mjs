@@ -4,7 +4,6 @@ import { pnpPlugin } from "@yarnpkg/esbuild-plugin-pnp";
 import * as importMap from "esbuild-plugin-import-map";
 import { jsxImportSourcePlugin } from "esbuild-plugin-jsximportsource";
 import alias from "esbuild-plugin-alias";
-// import imap from "./js/importma]p.json"
 
 const jsonData = {
   "imports": {
@@ -217,9 +216,7 @@ await build([
   "ws.mjs",
   "react.ts",
   "framer-motion.ts",
-  "emotion.ts",
-  "js/MonacoEditor.tsx",
-  "js/AceEditor.tsx",
+  "emotion.ts"
 ]);
 
 await build;
