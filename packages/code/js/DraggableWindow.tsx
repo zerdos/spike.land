@@ -234,8 +234,6 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
             </m.div>
             <m.div
               transition={{ delay: 0, duration: 0.4 }}
-              initial={{ height: 0, width: 0 }}
-              animate={{ height: "auto", width: "auto" }}
             >
               <ToggleButtonGroup
                 value={width}
