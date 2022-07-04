@@ -78,7 +78,7 @@ export async function runner({ code, counter }: {
     if (transpiled.length > 0) {
       try {
         const App = await appFactory(transpiled);
-        const { html, css } = await renderFromString(<App />);
+        const { html, css } = await renderFromString(App);
 
         if (i > counter) return;
 
