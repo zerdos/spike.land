@@ -60,6 +60,12 @@ export const MonacoEditor: FC<{ code: string; i: number }> = ({ code, i }) => {
   }, [ref]);
 
   useEffect(() => {
+
+    if (i>counter) {
+      changeContent(x=>({...x, myCode: code, counter: i})
+      return;''
+    }
+
     const onChange = async () => {
       const newCode = prettierJs(editor?.getModel()?.getValue()!);
       if (newCode === code) return;
