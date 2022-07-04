@@ -7,11 +7,21 @@ import { createRoot } from "react-dom/client";
 
 import {mST} from "./session"
 import { md5 } from "./md5";
+// import { renderPreviewWindow } from "renderPreviewWindow";
 // import { hashCode } from "session";
 
 const apps: { [key: string]: FC } = {};
 
 globalThis.apps = apps;
+
+export const AutoUpdateApp: FC<{hash: number}> = ({hash})=> {
+
+const App = lazy(()=>import(createJsBlob(mST().transpiled)));
+
+return <Suspense fallback={<div dangerouslySetInnerHTML={{__html: mST().html}}></div>}>
+  <App />
+</Suspense>}
+
 
 export const appFactory = async (transpiled: string): Promise<FC> => {
   const result = md5(transpiled);

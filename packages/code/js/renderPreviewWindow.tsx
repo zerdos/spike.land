@@ -2,7 +2,7 @@
 
 
 import { Fragment, ReactNode, Suspense, useEffect, useState } from "react";
-import { appRoot, appFactory } from "./starter";
+import { appRoot, appFactory, AutoUpdateApp } from "./starter";
 import { codeSpace } from "./ws";
 import { css } from "@emotion/react";
 import { DraggableWindow } from "./DraggableWindow";
@@ -71,13 +71,8 @@ useEffect(()=>{
  });
 }, [hash, setHash]);
 
-const {App} = globalThis;
- const [ResultApp, setApp] = useState(<App />);
-
- useEffect(()=>{
-  const {App} = globalThis;
-      setApp(<App />);
- },[hash, setApp])
+// const {App} = globalThis;
+//  const [ResultApp, setApp] = useState(<App />);
 
 
 
@@ -94,15 +89,33 @@ const {App} = globalThis;
             hashCode={0}
             room={codeSpace}
           >
-         {ResultApp}
+      <AutoUpdateApp hash={hash}></AutoUpdateApp>
           </DraggableWindow>
         </Suspense>
 
       </RainbowContainer>;
 };
 
+
+const MyAutoUpdatingApp: FC = () => {
+
+
+const [hash, setHash] = useState(()=>hashCode() );
+
+useEffect(()=>{
+ onUpdate(()=>{
+  const newHash = hashCode();
+  if (hash !== newHash)
+  setHash(newHash);
+ });
+}, [hash, setHash]);
+
+
+  return  <AutoUpdateApp hash={hash}></AutoUpdateApp>
+};
+
 globalThis.draggableWindow = globalThis.draggableWindow || 0;
-export const renderPreviewWindow = async (Editor: FC<{code: string, i: number}>) => {
+export const renderPreviewWindow = async (Editor?: FC<{code: string, i: number}>) => {
   if (globalThis.draggableWindow++) return;
 
 
@@ -111,8 +124,15 @@ export const renderPreviewWindow = async (Editor: FC<{code: string, i: number}>)
     // document.getElementById("root");
 
     // const DraggableWindow = lazy(()=>import("./DraggableWindow").then(({DraggableWindow})=>({default: DraggableWindow})));
+if (!Editor) {
 
-   
+  appRoot.render(
+    <MyAutoUpdatingApp  />,
+  );
+  return;
+}
+    
+
     appRoot.render(
       <MyApp Editor={Editor} />,
     );

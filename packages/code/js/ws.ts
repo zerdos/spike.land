@@ -88,7 +88,7 @@ export const run = async (state:ICodeSession) => {
       if (current !== sw) sw.unregister();
     }));
   }
-  if (location.href.endsWith("hydrated")) return;
+  // if (location.href.endsWith("hydrated")) return;
 
   join();
 };
@@ -290,7 +290,7 @@ export async function join() {
   // Object.assign(session, { ...mST() });
   // globalThis.session = session;
 
-  if (location.pathname.endsWith("public") || globalThis.model) return;
+
   const { quickStart } = await import("./quickStart");
   await quickStart();
 
