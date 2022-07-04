@@ -107,7 +107,7 @@ export const MonacoEditor: FC<{ code: string; i: number }> = ({ code, i }) => {
       debounced();
     }).dispose;
     return dispose;
-  }, [changeContent, editor, i, code]);
+  }, [changeContent, editor, i, code, counter, myCode]);
 
   return (
     <div
