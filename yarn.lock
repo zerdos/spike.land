@@ -5115,11 +5115,11 @@ __metadata:
     "@mui/material": ^5.8.6
     "@spike.land/qrious": ^0.8.0
     "@types/lodash": 4.14.182
-    "@types/node": 18.0.0
+    "@types/node": 18.0.1
     "@types/prettier": 2.6.3
     "@types/react": 18.0.14
     "@types/react-dom": 18.0.5
-    "@yarnpkg/esbuild-plugin-pnp": ^3.0.0-rc.10
+    "@yarnpkg/esbuild-plugin-pnp": ^3.0.0-rc.11
     ace-builds: 1.7.1
     assert: 2.0.0
     async-mutex: 0.3.2
@@ -5159,7 +5159,7 @@ __metadata:
     stream-browserify: 3.0.0
     typescript: 4.7.4
     util: ^0.12.4
-    uvu: ^0.5.4
+    uvu: ^0.5.6
     vite: 2.9.13
     vite-plugin-import-maps: 0.1.2
   languageName: unknown
@@ -5216,7 +5216,7 @@ __metadata:
   dependencies:
     "@types/path-browserify": ^1.0.0
     path-browserify: 1.0.1
-    typedoc: 0.23.2
+    typedoc: 0.23.5
     typescript: 4.7.4
   languageName: unknown
   linkType: soft
@@ -5527,10 +5527,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:*, @types/node@npm:18.0.0, @types/node@npm:>=12.12.47, @types/node@npm:>=13.7.0":
+"@types/node@npm:*, @types/node@npm:>=12.12.47, @types/node@npm:>=13.7.0":
   version: 18.0.0
   resolution: "@types/node@npm:18.0.0"
   checksum: aab2b325727a2599f6d25ebe0dedf58c40fb66a51ce4ca9c0226ceb70fcda2d3afccdca29db5942eb48b158ee8585a274a1e3750c718bbd5399d7f41d62dfdcc
+  languageName: node
+  linkType: hard
+
+"@types/node@npm:18.0.1":
+  version: 18.0.1
+  resolution: "@types/node@npm:18.0.1"
+  checksum: be14b251c54cc2b4ca78ac6eadf2fe5e831e487f2e17848f21d576295945b538271dcc674d0bba582b3f8d95b84f6826e99b6ba4710c76f165a8bdd4d4f0618e
   languageName: node
   linkType: hard
 
@@ -5722,14 +5729,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@yarnpkg/esbuild-plugin-pnp@npm:^3.0.0-rc.10":
-  version: 3.0.0-rc.10
-  resolution: "@yarnpkg/esbuild-plugin-pnp@npm:3.0.0-rc.10"
+"@yarnpkg/esbuild-plugin-pnp@npm:^3.0.0-rc.11":
+  version: 3.0.0-rc.11
+  resolution: "@yarnpkg/esbuild-plugin-pnp@npm:3.0.0-rc.11"
   dependencies:
     tslib: ^1.13.0
   peerDependencies:
     esbuild: ">=0.10.0"
-  checksum: 9084f150d22e2b6492cef01cc72ebfb4b49ba230a9849d132d0803f63cb1d64403af8f9d5ee7bdc69a08325d7ab694a430824ed57109e4761d0be2ffce278f1f
+  checksum: 8649f0266911d835d4f1a1ccd6d339d58ac8e884db5632007ffdaf739ae89ad9f42349fc9313e2f696aaad126fe4f1937072b8ea10b14cab14d2061c1e7b76cb
   languageName: node
   linkType: hard
 
@@ -22472,9 +22479,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typedoc@npm:0.23.2":
-  version: 0.23.2
-  resolution: "typedoc@npm:0.23.2"
+"typedoc@npm:0.23.5":
+  version: 0.23.5
+  resolution: "typedoc@npm:0.23.5"
   dependencies:
     lunr: ^2.3.9
     marked: ^4.0.16
@@ -22484,7 +22491,7 @@ __metadata:
     typescript: 4.6.x || 4.7.x
   bin:
     typedoc: bin/typedoc
-  checksum: 2c93349b5f1987d32171130a428d36ecbe31e215d87e06707d837f9465eced70b19eec669939c67e8ef0e02852faf4ee1f4ba113dab7fee980171af082e27583
+  checksum: a8c0aed855f588a2c008e5520e59e4a59d48d14cd483d0030fc3345bed3757aac8618659c59b4087c221aa2f7a7875b9f30c7a4a966e43ec969cd8905d6d8b67
   languageName: node
   linkType: hard
 
@@ -22843,9 +22850,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"uvu@npm:^0.5.4":
-  version: 0.5.4
-  resolution: "uvu@npm:0.5.4"
+"uvu@npm:^0.5.6":
+  version: 0.5.6
+  resolution: "uvu@npm:0.5.6"
   dependencies:
     dequal: ^2.0.0
     diff: ^5.0.0
@@ -22853,7 +22860,7 @@ __metadata:
     sade: ^1.7.3
   bin:
     uvu: bin.js
-  checksum: a212bf0bc18eb5cd065bcbf6454e7551cb802e586f1177589668b0d6980276d7a811080dcb742187c0b49d693653984e7a99ea44f76fa0b2a1820c21855f755d
+  checksum: 09460a37975627de9fcad396e5078fb844d01aaf64a6399ebfcfd9e55f1c2037539b47611e8631f89be07656962af0cf48c334993db82b9ae9c3d25ce3862168
   languageName: node
   linkType: hard
 
