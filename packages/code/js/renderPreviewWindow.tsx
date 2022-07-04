@@ -60,44 +60,22 @@ background:  repeating-radial-gradient(circle at bottom left,
   </div>
 );
 
-const MyApp: FC<{ Editor: FC<{ code: string; i: number }> }> = ({ Editor }) => {
-  // const Dw = =useState<typeof DraggableWindow | null>(null);
+const MyApp: FC<{ Editor: FC<{ code: string; i: number }> }> = ({ Editor }) => <RainbowContainer>
 
-  const [hash, setHash] = useState(() => hashCode());
-
-  useEffect(() => {
-    onUpdate(() => {
-      const newHash = hashCode();
-      if (hash !== newHash) {
-        setHash(newHash);
-      }
-    });
-  }, [hash, setHash]);
-
-  // const {App} = globalThis;
-  //  const [ResultApp, setApp] = useState(<App />);
-
-  return (
-    <RainbowContainer>
-      <Editor code={mST().code} i={mST().i} />
-
-      <Suspense
-        fallback={<div dangerouslySetInnerHTML={{ __html: mST().html }}></div>}
+      <DraggableWindow
+        // onRestore={() => {
+        //   const model = globalThis.model;
+        //   model.setValue(mST().code);
+        // }}
+        hashCode={0}
+        room={codeSpace}
       >
-        <DraggableWindow
-          // onRestore={() => {
-          //   const model = globalThis.model;
-          //   model.setValue(mST().code);
-          // }}
-          hashCode={0}
-          room={codeSpace}
-        >
-          <AutoUpdateApp hash={hash}></AutoUpdateApp>
-        </DraggableWindow>
-      </Suspense>
+        <MyAutoUpdatingApp />
+      </DraggableWindow>
+            <Editor code={mST().code} i={mST().i} />
+
     </RainbowContainer>
-  );
-};
+
 
 const MyAutoUpdatingApp: FC = () => {
   const [hash, setHash] = useState(() => hashCode());
