@@ -31,7 +31,7 @@ const extractCritical = (html: string) => {
       const rule = styleSheet.cssRules[r];
       if (rule && rule.cssText && rule.cssText.slice(0, 5) === ".css-") {
         const selector = rule.cssText.slice(1, 11);
-        if (html.includes(selector)) res.push(rule.cssText);
+        if (html.includes(selector) && !rule.cssText.slice(10).includes(".css-") ) res.push(rule.cssText);
       }
     }
   }
