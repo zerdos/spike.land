@@ -87,8 +87,11 @@ export const Editor: FC<{ code: string; i: number }> = ({ code, i }) => {
     }
 
     const cb = async () => {
-      const newCode = prettierJs(getValue()!);
-      if (newCode === code) return;
+      const code = getValue();
+      const newCode = prettierJs(code);
+    
+      if (code === myCode) return;
+      if (newCode === myCode ) return;
       if (newCode === mST().code) return;
       // if (i === mST().i) return;
 
@@ -118,14 +121,15 @@ export const Editor: FC<{ code: string; i: number }> = ({ code, i }) => {
           const sess = mST();
           // renderApp(await appFactory(sess.transpiled));
 
-          if (sess.i <= counter) {
+          if (sess.i <= counter +1) {
             return;
           }
+
 
           setTimeout(() => {
             if (mST().i !== sess.i) return;
             console.log(`session ${sess.i} mst: ${mST().i}, our i: ${counter}`);
-            changeContent((x) => ({ ...x, myCode: sess.code, counter: sess.i + 1 }));
+            changeContent((x) => ({ ...x, myCode: sess.code, counter: sess.i  }));
             setValue(sess.code);
           }, 100);
         }, "editor");
