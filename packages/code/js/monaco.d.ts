@@ -1,6 +1,5 @@
 declare global {
   var setValue: (code: string, i: number, force: boolean) => void;
-  var prettierJs: (code: string) => Promise<string>;
 
   var editable: boolean;
   // let MonacoEnvironment: monaco.Environment;

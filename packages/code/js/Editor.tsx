@@ -38,7 +38,7 @@ export const Editor: FC<{ code: string; i: number }> = ({ code, i }) => {
 
   useEffect(() => {
     if (!ref?.current) return;
-    const load = async () => {
+    const setMonaco = async () => {
       const { startMonaco } = await import("./startMonaco");
 
       const { editor } = await startMonaco(
@@ -67,7 +67,7 @@ export const Editor: FC<{ code: string; i: number }> = ({ code, i }) => {
       // let inc = 0;
     };
 
-    engine === "monaco" ? load() : (async () => {
+    const setAce = async () => {
       const {startAce} = await import("./startAce");
       const editor = await startAce(mST().code);
       changeContent((x) => ({
@@ -80,10 +80,22 @@ export const Editor: FC<{ code: string; i: number }> = ({ code, i }) => {
         setValue: (code: string) => editor.session.setValue(code),
         myId: "editor",
       }));
-    })();
-    import("./prettierEsm").then(({ prettierJs }) =>
-      changeContent((x) => ({ ...x, prettierJs }))
-    );
+    
+    
+    }
+
+    const loadEditors = async () =>{
+    
+
+    engine === "monaco" ? await setMonaco() : await setAce();
+
+
+    const {prettierJs} = await import("./prettierEsm");
+    changeContent((x) => ({ ...x, prettierJs }));
+    }
+
+    loadEditors();
+    
   }, [ref]);
 
   useEffect(() => {
