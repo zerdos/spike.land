@@ -1,18 +1,21 @@
 /** @jsxImportSource @emotion/react */
 
 import { css } from "@emotion/react";
-import { motion } from "framer-motion";
-import { FC, useState } from "react";
-import { QRious } from "react-qrious";
+import { LazyMotion, domAnimation, m } from "framer-motion";
+import { FC, useState, lazy, Suspense } from "react";
 
 import { Fab, QrCode } from "./mui";
 
-const QR: FC<{ url: string }> = ({ url }) => <QRious value={url} />;
+
+const QRious = lazy(()=>import("react-qrious").then( ({QRious})=>({default: QRious})))
+
+const QR: FC<{ url: string }> = ({ url }) => <Suspense ><QRious value={url} /></Suspense>;
 
 export const QRButton: FC<{ url: string }> = ({ url }) => {
   const [showQR, setQR] = useState(false);
   return (
-    <motion.div
+    <LazyMotion features={domAnimation}>
+    <m.div
       animate={{
         width: showQR ? 200 : 56,
         height: showQR ? 220 : 48,
@@ -37,6 +40,7 @@ export const QRButton: FC<{ url: string }> = ({ url }) => {
             <QrCode />
           </Fab>
         )}
-    </motion.div>
+    </m.div>
+    </LazyMotion>
   );
 };

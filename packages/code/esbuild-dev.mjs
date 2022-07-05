@@ -31,7 +31,7 @@ const environment = process.env.NODE_ENV === "production"
   ? "production"
   : "development";
 
-const isDevelopment = true; // = environment === "development"
+const isDevelopment  = environment === "development"
 importMap.load(jsonData);
 const importMapPlugin = importMap.plugin();
 
@@ -80,15 +80,13 @@ await esbuild.build({
     ...workerEntryPoints,
   ],
   bundle: true,
-  minify: false,
-  minifyWhitespace: false,
-  minifyIdentifiers: false,
-  minifySyntax: false,
+  minify: !isDevelopment,
+  minifyWhitespace: !isDevelopment,
+  minifyIdentifiers: !isDevelopment,
+  minifySyntax: !isDevelopment,
   treeShaking: true,
   ignoreAnnotations: true,
   plugins: [pnpPlugin(), jsxImportSourcePlugin({ filter: /.(tsx)/ })],
-  ignoreAnnotations: true,
-  treeShaking: true,
   outExtension: { ".js": ".monaco.worker.js" },
   format: "iife",
   loader: {
