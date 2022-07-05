@@ -15,16 +15,20 @@ Object.assign(window, {esmsInitOptions: {
   polyfillEnable: ['css-modules', 'json-modules'] // default empty
 }});
 
+console.log(window.assets);
+const {assets} = window;
+
+
 const init = async ()=> window.importShim || await import("es-module-shims").then(()=>importShim.addImportMap({
   "imports": {
     // ...imap,
-    "framer-motion": assets["framer-motion.mjs"],
-    "@emotion/react": assets["emotion.mjs"],
-    "react": assets["react.mjs"],
-    "react-dom": assets["react.mjs"],
-    "react-dom/client": assets["react.mjs"],
-    "react-dom/server": assets["react.mjs"],
-    "react/jsx-runtime": assets["react.mjs"]
+    "framer-motion": location.origin +  "/" + assets["framer-motion.mjs"],
+    "@emotion/react": location.origin +  "/" +assets["emotion.mjs"],
+    "react": location.origin +  "/" +assets["react.mjs"],
+    "react-dom": location.origin +  "/" +assets["react.mjs"],
+    "react-dom/client": location.origin +  "/" +assets["react.mjs"],
+    "react-dom/server": location.origin +  "/" +assets["react.mjs"],
+    "react/jsx-runtime":location.origin +  "/" + assets["react.mjs"]
     // "preact": "https://ga.jspm.io/npm:preact@10.8.2/dist/preact.module.js",
     // "preact-render-to-string": "https://ga.jspm.io/npm:preact-render-to-string@5.2.0/dist/index.mjs",
     // "preact/compat": "https://ga.jspm.io/npm:preact@10.8.2/compat/dist/compat.module.js",

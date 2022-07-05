@@ -302,7 +302,11 @@ export class Code {
                 JSON.stringify({
                   codeSpace: this.codeSpace,
                   address: this.address,
-                  assets
+                  assets: {
+                    "react.mjs": assets['react.mjs'],
+                    "emotion.mjs": assets["emotion.mjs"],
+                    "framer-motion.mjs": assets["framer-motion.mjs"]
+                  }
                 })
               });`,
             ).replace("/live/coder/mST.mjs", `/live/${this.codeSpace}/mST.mjs`)

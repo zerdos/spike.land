@@ -43,7 +43,7 @@ export default {
         serveJs && u.pathname.endsWith(".tsx") &&
         !u.pathname.endsWith(".index.tsx")
       ) {
-      url = new URL(request.url.pe(".tsx", "/index.tsx"));
+      url = new URL(request.url.replace(".tsx", "/index.tsx"));
       } else if (
         u.pathname.endsWith(".js") && !u.pathname.endsWith(".index.js") &&
         !u.pathname.includes(".worker") && !u.pathname.endsWith("sw.js")
