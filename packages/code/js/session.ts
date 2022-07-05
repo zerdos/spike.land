@@ -167,7 +167,7 @@ export class CodeSession implements ICodeSess {
     const bestGuesses = this.room || "";
 
     if (
-      !Object.keys(hashStore).map((x) => Number(x)).includes(Number(oldHash)) &&
+      ! (Object.keys(hashStore).map((x) => Number(x)).includes(Number(oldHash))) &&
       bestGuesses
     ) {
       console.log(Object.keys(hashStore));
