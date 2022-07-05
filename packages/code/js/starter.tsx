@@ -18,13 +18,13 @@ Object.assign(window, {esmsInitOptions: {
 const init = async ()=> window.importShim || await import("es-module-shims").then(()=>importShim.addImportMap({
   "imports": {
     // ...imap,
-    "framer-motion": assets[framer-motion.mjs"],
-    "@emotion/react": "/emotion.mjs",
-    "react": "/react.mjs",
-    "react-dom": "/react.mjs",
-    "react-dom/client": "/react.mjs",
-    "react-dom/server": "/react.mjs",
-    "react/jsx-runtime": "/react.mjs",
+    "framer-motion": assets["framer-motion.mjs"],
+    "@emotion/react": assets["emotion.mjs"],
+    "react": assets["react.mjs"],
+    "react-dom": assets["react.mjs"],
+    "react-dom/client": assets["react.mjs"],
+    "react-dom/server": assets["react.mjs"],
+    "react/jsx-runtime": assets["react.mjs"]
     // "preact": "https://ga.jspm.io/npm:preact@10.8.2/dist/preact.module.js",
     // "preact-render-to-string": "https://ga.jspm.io/npm:preact-render-to-string@5.2.0/dist/index.mjs",
     // "preact/compat": "https://ga.jspm.io/npm:preact@10.8.2/compat/dist/compat.module.js",

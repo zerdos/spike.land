@@ -1,6 +1,6 @@
 declare global {
   var setValue: (code: string, i: number, force: boolean) => void;
-
+  var assets: Record<string, string>;
   var editable: boolean;
   // let MonacoEnvironment: monaco.Environment;
   var appFactory: (transpiled: string, html: string) => void;
