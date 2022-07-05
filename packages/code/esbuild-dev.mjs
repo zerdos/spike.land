@@ -213,6 +213,8 @@ const build = (entryPoints, format = "esm") =>
 await build([
   "ws.mjs",
   "react.ts",
+  "js/startMonaco.ts",
+  "js/startAce.ts",
   "framer-motion.ts",
   "emotion.ts",
 ]);

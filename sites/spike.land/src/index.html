@@ -91,16 +91,7 @@ html, body {margin: 0; height: 100%}
       "NODE_ENV": "production"
     }};
     
-  
 
-
-
-const esmsInitOptions = {
-  shimMode: true,
-  polyfillEnable: ['css-modules', 'json-modules'] // default empty
-};
-
-Object.assign(window, {esmsInitOptions});
 
    /** startState **/
 
@@ -116,7 +107,6 @@ window.addEventListener('pageshow', (event) => {
 
 <div id="root"></div>
 
-<script type="importmap-shim" src="./importmap.json"></script>
 <script type="module" src="./ws.mjs"></script>
 
   <!-- Cloudflare Web Analytics -->

@@ -7,16 +7,40 @@ import { createRoot } from "react-dom/client";
 
 import { mST } from "./session";
 import { md5 } from "./md5";
-import "es-module-shims";
 // import { renderPreviewWindow } from "renderPreviewWindow";
 // import { hashCode } from "session";
 
 const apps: { [key: string]: FC } = {};
 
-globalThis.apps = apps;
+
+
+Object.assign(window, {esmsInitOptions: {
+  shimMode: true,
+  polyfillEnable: ['css-modules', 'json-modules'] // default empty
+}});
+
+const init = async ()=> window.importShim || await import("es-module-shims").then(()=>importShim.addImportMap({
+  "imports": {
+    // ...imap,
+    "framer-motion": "/framer-motion.mjs",
+    "@emotion/react": "/emotion.mjs",
+    "react": "/react.mjs",
+    "react-dom": "/react.mjs",
+    "react-dom/client": "/react.mjs",
+    "react-dom/server": "/react.mjs",
+    "react/jsx-runtime": "/react.mjs",
+    // "preact": "https://ga.jspm.io/npm:preact@10.8.2/dist/preact.module.js",
+    // "preact-render-to-string": "https://ga.jspm.io/npm:preact-render-to-string@5.2.0/dist/index.mjs",
+    // "preact/compat": "https://ga.jspm.io/npm:preact@10.8.2/compat/dist/compat.module.js",
+    // "preact/jsx-runtime": "https://ga.jspm.io/npm:preact@10.8.2/jsx-runtime/dist/jsxRuntime.module.js"
+  },
+}));
+
+
 
 export const AutoUpdateApp: FC<{ hash: number }> = ({ hash }) => {
-  const App = lazy(() => importShim(createJsBlob(mST().transpiled)));
+  
+  const App = lazy(() => init().then(()=>importShim(createJsBlob(mST().transpiled))));
 
   return (
     <Suspense
@@ -27,7 +51,10 @@ export const AutoUpdateApp: FC<{ hash: number }> = ({ hash }) => {
   );
 };
 
+
+
 export const appFactory = async (transpiled: string): Promise<FC> => {
+ 
   const result = md5(transpiled);
   // return lazy(>import(`/live/${codeSpace}/js#${result}`));
   if (globalThis.transpiled === transpiled) return globalThis.App;
@@ -43,7 +70,7 @@ export const appFactory = async (transpiled: string): Promise<FC> => {
   // }
 
   if (!apps[result]) {
-    apps[result] = (await importShim(createJsBlob(transpiled)))
+    apps[result] = (await init().then(()=>importShim(createJsBlob(transpiled))))
       .default as unknown as FC;
   }
 

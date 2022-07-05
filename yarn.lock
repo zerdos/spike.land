@@ -5244,17 +5244,6 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@spike.land/monaco-editor-auto-typings@workspace:packages/monaco-editor-auto-typings":
-  version: 0.0.0-use.local
-  resolution: "@spike.land/monaco-editor-auto-typings@workspace:packages/monaco-editor-auto-typings"
-  dependencies:
-    "@types/path-browserify": ^1.0.0
-    path-browserify: 1.0.1
-    typedoc: 0.23.5
-    typescript: 4.7.4
-  languageName: unknown
-  linkType: soft
-
 "@spike.land/monorepo-modules@workspace:dockerhub/devimages/monorepo-modules":
   version: 0.0.0-use.local
   resolution: "@spike.land/monorepo-modules@workspace:dockerhub/devimages/monorepo-modules"
@@ -5593,13 +5582,6 @@ __metadata:
   version: 4.0.0
   resolution: "@types/parse-json@npm:4.0.0"
   checksum: fd6bce2b674b6efc3db4c7c3d336bd70c90838e8439de639b909ce22f3720d21344f52427f1d9e57b265fcb7f6c018699b99e5e0c208a1a4823014269a6bf35b
-  languageName: node
-  linkType: hard
-
-"@types/path-browserify@npm:^1.0.0":
-  version: 1.0.0
-  resolution: "@types/path-browserify@npm:1.0.0"
-  checksum: e3f98ef9638fb75dc7547c3cde5fa86bc5986e38403ec91234abcc7b911e30711af7c6abc674d617d27c4a6c09e7f8e9d77662b1cc45d00d4708d94764202b61
   languageName: node
   linkType: hard
 
@@ -15117,13 +15099,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lunr@npm:^2.3.9":
-  version: 2.3.9
-  resolution: "lunr@npm:2.3.9"
-  checksum: 176719e24fcce7d3cf1baccce9dd5633cd8bdc1f41ebe6a180112e5ee99d80373fe2454f5d4624d437e5a8319698ca6837b9950566e15d2cae5f2a543a3db4b8
-  languageName: node
-  linkType: hard
-
 "mafmt@npm:^10.0.0":
   version: 10.0.0
   resolution: "mafmt@npm:10.0.0"
@@ -15259,15 +15234,6 @@ __metadata:
   version: 4.3.0
   resolution: "map-obj@npm:4.3.0"
   checksum: fbc554934d1a27a1910e842bc87b177b1a556609dd803747c85ece420692380827c6ae94a95cce4407c054fa0964be3bf8226f7f2cb2e9eeee432c7c1985684e
-  languageName: node
-  linkType: hard
-
-"marked@npm:^4.0.16":
-  version: 4.0.17
-  resolution: "marked@npm:4.0.17"
-  bin:
-    marked: bin/marked.js
-  checksum: 33a3c43a20b47bddaf045a59bfc7c3d41cc321931cc663ed231ca3b5b3b195fb2ac2973e687c2afd65b79539c14619baa07d19793f70130160f0af80c06d9b3a
   languageName: node
   linkType: hard
 
@@ -15670,7 +15636,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"minimatch@npm:^5.0.1, minimatch@npm:^5.1.0":
+"minimatch@npm:^5.0.1":
   version: 5.1.0
   resolution: "minimatch@npm:5.1.0"
   dependencies:
@@ -22251,22 +22217,6 @@ __metadata:
   version: 0.0.6
   resolution: "typedarray@npm:0.0.6"
   checksum: 33b39f3d0e8463985eeaeeacc3cb2e28bc3dfaf2a5ed219628c0b629d5d7b810b0eb2165f9f607c34871d5daa92ba1dc69f49051cf7d578b4cbd26c340b9d1b1
-  languageName: node
-  linkType: hard
-
-"typedoc@npm:0.23.5":
-  version: 0.23.5
-  resolution: "typedoc@npm:0.23.5"
-  dependencies:
-    lunr: ^2.3.9
-    marked: ^4.0.16
-    minimatch: ^5.1.0
-    shiki: ^0.10.1
-  peerDependencies:
-    typescript: 4.6.x || 4.7.x
-  bin:
-    typedoc: bin/typedoc
-  checksum: a8c0aed855f588a2c008e5520e59e4a59d48d14cd483d0030fc3345bed3757aac8618659c59b4087c221aa2f7a7875b9f30c7a4a966e43ec969cd8905d6d8b67
   languageName: node
   linkType: hard
 

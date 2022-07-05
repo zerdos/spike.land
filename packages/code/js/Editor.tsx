@@ -11,6 +11,7 @@ import debounce from "lodash/debounce";
 
 import { css } from "@emotion/react";
 
+
 // export type IStandaloneCodeEditor = editor.Ist;
 
 export const Editor: FC<{ code: string; i: number }> = ({ code, i }) => {
@@ -38,7 +39,7 @@ export const Editor: FC<{ code: string; i: number }> = ({ code, i }) => {
   useEffect(() => {
     if (!ref?.current) return;
     const load = async () => {
-      const { startMonaco } = await import("./mEditor");
+      const { startMonaco } = await import("./startMonaco");
 
       const { editor } = await startMonaco(
         /**
@@ -67,6 +68,7 @@ export const Editor: FC<{ code: string; i: number }> = ({ code, i }) => {
     };
 
     engine === "monaco" ? load() : (async () => {
+      const {startAce} = await import("./startAce");
       const editor = await startAce(mST().code);
       changeContent((x) => ({
         ...x,
@@ -186,24 +188,4 @@ export const Editor: FC<{ code: string; i: number }> = ({ code, i }) => {
   );
 };
 
-async function startAce(code: string) {
-  const ace = (await import("ace-builds/src/ace")).default;
 
-  // const {ace} = window;
-  var editor = ace.edit("editor");
-  var js = ace.createEditSession(code);
-  editor.setSession(js);
-
-  await import("ace-builds/src/theme-monokai");
-
-  editor.setTheme("ace/theme/monokai");
-  await import("ace-builds/src/mode-typescript");
-  // await import("ace-builds/src/mode-typescript-highlight-rules");
-
-  editor.session.setMode(
-    "ace/mode/typescript",
-    () => ({ jsx: true }),
-  );
-
-  return editor;
-}

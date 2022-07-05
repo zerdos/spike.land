@@ -282,7 +282,7 @@ export const startMonaco = async (
   document.head.appendChild(outerStyle);
 
   const innerStyle = document.createElement("style");
-  innerStyle.innerText = `@import url("/js/MonacoEditor.css");
+  innerStyle.innerText = `@import url("/js/startMonaco.css");
   @font-face {
     font-family: codicon;
     font-display: block;
