@@ -107,7 +107,11 @@ window.addEventListener('pageshow', (event) => {
 
 <div id="root"></div>
 
-<script type="module" src="./ws.mjs"></script>
+<script type="module">
+    import {mST} from "/live/coder/mST.mjs" 
+    import {run } from "./js/ws.mjs"
+    run(mST);
+</script>
 
   <!-- Cloudflare Web Analytics -->
   <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "cc7e2ceaa75d4111b26b0ec989795375"}'></script>

@@ -43,7 +43,7 @@ export default {
         serveJs && u.pathname.endsWith(".tsx") &&
         !u.pathname.endsWith(".index.tsx")
       ) {
-        url = new URL(request.url.replace(".tsx", "/index.tsx"));
+      url = new URL(request.url.pe(".tsx", "/index.tsx"));
       } else if (
         u.pathname.endsWith(".js") && !u.pathname.endsWith(".index.js") &&
         !u.pathname.includes(".worker") && !u.pathname.endsWith("sw.js")
@@ -62,12 +62,12 @@ export default {
         return new Response(
           `<meta http-equiv="refresh" content="0; URL=${
             u.protocol + "//" + u.hostname + ":" + u.port
-          }/live/coder" />`,
+          }/live/coder/" />`,
           {
             headers: {
               "Location": `${u.protocol}//${u.hostname}:${u.port}/live/coder`,
               "Content-Type": "text/html;charset=UTF-8",
-              "Cache-Control": "no-cache",
+              "Cache-Control": "no- cache",
             },
           },
         );

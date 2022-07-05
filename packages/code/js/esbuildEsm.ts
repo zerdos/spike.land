@@ -17,7 +17,7 @@ export const init = async () => {
       {
         wasmURL: wasmURL as unknown as string,
       },
-    );
+  );
     mod.initFinished = true;
     return true;
   });

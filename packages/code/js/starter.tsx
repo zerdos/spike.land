@@ -18,7 +18,7 @@ Object.assign(window, {esmsInitOptions: {
 const init = async ()=> window.importShim || await import("es-module-shims").then(()=>importShim.addImportMap({
   "imports": {
     // ...imap,
-    "framer-motion": "/framer-motion.mjs",
+    "framer-motion": assets[framer-motion.mjs"],
     "@emotion/react": "/emotion.mjs",
     "react": "/react.mjs",
     "react-dom": "/react.mjs",
