@@ -7,12 +7,8 @@ import { createRoot } from "react-dom/client";
 
 import { mST } from "./session";
 import { md5 } from "./md5";
-// import { renderPreviewWindow } from "renderPreviewWindow";
-// import { hashCode } from "session";
 
 const apps: { [key: string]: FC } = {};
-
-
 
 Object.assign(window, {esmsInitOptions: {
   shimMode: true,
@@ -57,8 +53,8 @@ export const appFactory = async (transpiled: string): Promise<FC> => {
  
   const result = md5(transpiled);
   // return lazy(>import(`/live/${codeSpace}/js#${result}`));
-  if (globalThis.transpiled === transpiled) return globalThis.App;
-  globalThis.transpiled = transpiled;
+  // if (globalThis.transpiled === transpiled) return globalThis.App;
+  // globalThis.transpiled = transpiled;
 
   // hash.update(transpiled);
   // const resultU8Arr = await hash.digest();
@@ -70,14 +66,12 @@ export const appFactory = async (transpiled: string): Promise<FC> => {
   // }
 
   if (!apps[result]) {
-    apps[result] = (await init().then(()=>importShim(createJsBlob(transpiled))))
+    await init();
+    apps[result] = (await importShim(createJsBlob(transpiled)))
       .default as unknown as FC;
   }
 
-  globalThis.transpiled = transpiled;
-  globalThis.App = apps[result];
-
-  return globalThis.App;
+  return apps[result];
 };
 
 export const appRoot = createRoot(
