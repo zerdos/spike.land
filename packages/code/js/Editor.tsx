@@ -10,6 +10,7 @@ import { isMobile } from "./isMobile.mjs";
 import debounce from "lodash/debounce";
 
 import { css } from "@emotion/react";
+import { wait } from "wait";
 
 
 // export type IStandaloneCodeEditor = editor.Ist;
@@ -92,6 +93,8 @@ export const Editor: FC<{ code: string; i: number }> = ({ code, i }) => {
 
     const {prettierJs} = await import("./prettierEsm");
     changeContent((x) => ({ ...x, prettierJs }));
+    wait(1000);
+    runner({code: code + " ", counter});
     }
 
     loadEditors();

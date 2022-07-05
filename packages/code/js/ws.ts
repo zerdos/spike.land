@@ -66,11 +66,29 @@ const sendChannel = {
 
 // Let createDelta;
 
+export async function quickStart() {
+  const { renderPreviewWindow } = await import("./renderPreviewWindow");
+  // window.Buffer = require("buffer/").Buffer;
+
+  if (
+    location.pathname.endsWith("public")  ||
+    location.pathname.endsWith("hydrated")
+  ) {
+    renderPreviewWindow();
+  }
+
+  const { Editor } = await import("./Editor");
+  return renderPreviewWindow(Editor);
+}
+
+
 export const run = async (state: ICodeSession) => {
   startSession(codeSpace, {
     name: user,
     state,
   });
+  
+  quickStart();
 
   // renderApp(await appFactory(state.transpiled));
 
@@ -285,8 +303,7 @@ export async function join() {
   // Object.assign(session, { ...mST() });
   // globalThis.session = session;
 
-  const { quickStart } = await import("./quickStart");
-  await quickStart();
+ 
 
   return wsConnection;
 }

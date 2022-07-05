@@ -15,9 +15,7 @@ Object.assign(window, {esmsInitOptions: {
   polyfillEnable: ['css-modules', 'json-modules'] // default empty
 }});
 
-console.log(window.assets);
 const {assets} = window;
-
 
 const init = async ()=> window.importShim || await import("es-module-shims").then(()=>importShim.addImportMap({
   "imports": {
