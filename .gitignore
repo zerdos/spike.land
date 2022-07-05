@@ -1,6 +1,7 @@
 # ignore haters
 haters/
 .env
+.yarn/cache
 client_id
 videos/
 screenshots/
