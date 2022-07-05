@@ -108,7 +108,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
   return (
     <LazyMotion features={domMax}>
       <m.div
-        transition={{ delay: 0, duration:  0.4 }}
+        transition={{ delay: 0, duration: 0.4 }}
         ref={ref}
         initial={{
           top: 0,
@@ -153,7 +153,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
           `}
           >
             <m.div
-              transition={{ delay: 0, duration:  0.4 }}
+              transition={{ delay: 0, duration: 0.4 }}
               initial={{ height: 0, width: 0 }}
               animate={{ height: "auto", width: "auto" }}
             >
@@ -188,7 +188,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
             {/* <span>{width}*{height}</span> */}
 
             <m.div
-              transition={{ delay: 0, duration:  0.4 }}
+              transition={{ delay: 0, duration: 0.4 }}
               initial={{
                 width: window.innerWidth,
                 height: window.innerHeight,
@@ -209,7 +209,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
             `}
             >
               <m.div
-                transition={{ delay: 0, duration:  0.4 }}
+                transition={{ delay: 0, duration: 0.4 }}
                 initial={{
                   width: window.innerWidth,
                   height: window.innerHeight,
@@ -233,7 +233,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
               </m.div>
             </m.div>
             <m.div
-              transition={{ delay: 0, duration:  0.4 }}
+              transition={{ delay: 0, duration: 0.4 }}
             >
               <ToggleButtonGroup
                 value={width}
@@ -293,7 +293,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
           </div>
 
           <m.div
-            transition={{ delay: 0, duration:  0.4 }}
+            transition={{ delay: 0, duration: 0.4 }}
             initial={{ height: 0, width: 0 }}
             animate={{ height: "100%", width: "auto" }}
           >

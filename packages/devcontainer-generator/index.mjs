@@ -4,7 +4,7 @@ import { promises as fs } from "fs";
 // versions.json
 var node = {
   lts: "16.15.1",
-  current: "18.4.0"
+  current: "18.4.0",
 };
 var deno = "1.23.2";
 var git = "2.37.0";
@@ -15,14 +15,22 @@ var dotnet5 = "5.0.406";
 var dotnet6 = "6.0.300";
 var sha = {
   dotnet_sha512: {
-    "3.1.417": "8eb1002ad829ddd17638b942d3f8da24ad71ccab268a92a1fa6af6a65d86a4ab7f885f663ea9c68127bb356462bce125222ec4f04dc928005cbbbb1a8658f107",
-    "5.0.406": "21f0617d359d5c333a8925af71b359c0e9e371eaa6e4b20faf0f699296cebaacc56cb9660fa310b2ed99ca636f241f2df999698a883cf7899dd670bdf92bdd29",
-    "6.0.300": "52d720e90cfb889a92d605d64e6d0e90b96209e1bd7eab00dab1d567017d7a5a4ff4adbc55aff4cffcea4b1bf92bb8d351859d00d8eb65059eec5e449886c938"
-  }
+    "3.1.417":
+      "8eb1002ad829ddd17638b942d3f8da24ad71ccab268a92a1fa6af6a65d86a4ab7f885f663ea9c68127bb356462bce125222ec4f04dc928005cbbbb1a8658f107",
+    "5.0.406":
+      "21f0617d359d5c333a8925af71b359c0e9e371eaa6e4b20faf0f699296cebaacc56cb9660fa310b2ed99ca636f241f2df999698a883cf7899dd670bdf92bdd29",
+    "6.0.300":
+      "52d720e90cfb889a92d605d64e6d0e90b96209e1bd7eab00dab1d567017d7a5a4ff4adbc55aff4cffcea4b1bf92bb8d351859d00d8eb65059eec5e449886c938",
+  },
 };
 
 // src/devcontainerGenerator.ts
-var getDistro = (b) => b === "gitpod/workspace-full" ? "gitpod/workspace-full" : b === "stretch" || b === "buster" ? "debian" : "ubuntu";
+var getDistro = (b) =>
+  b === "gitpod/workspace-full"
+    ? "gitpod/workspace-full"
+    : b === "stretch" || b === "buster"
+    ? "debian"
+    : "ubuntu";
 var DevcontainerGenerator = class {
   constructor(base) {
     this.base = base;
@@ -50,7 +58,7 @@ var DevcontainerGenerator = class {
       "deno",
       "zsh",
       "vscode",
-      "suffix"
+      "suffix",
     ];
     this._nodeVersion = null;
     this._gitVersion = "";
@@ -68,19 +76,34 @@ var DevcontainerGenerator = class {
     this._zsh = false;
     this._chromium = false;
     this._chrome = false;
-    this.loadTemplate = async (filename, extension) => await fs.readFile(`../../../packages/devcontainer-generator/templates/${filename}.${extension}`).catch((e) => {
-      console.error({ e });
-      return "";
-    });
+    this.loadTemplate = async (filename, extension) =>
+      await fs.readFile(
+        `../../../packages/devcontainer-generator/templates/${filename}.${extension}`,
+      ).catch((e) => {
+        console.error({ e });
+        return "";
+      });
   }
   async init() {
-    const bufferDockerfiles = await Promise.all(this._templateInputs.map(async (fileName) => await this.loadTemplate(fileName, "Dockerfile")));
-    const bufferReadmeFiles = await Promise.all(this._templateInputs.map(async (fileName) => await this.loadTemplate(fileName, "README")));
-    this._templateInputs.forEach((input, index) => this._dockerTemplates[input] = String(bufferDockerfiles[index]));
-    this._templateInputs.forEach((input, index) => this._readmeTemplates[input] = String(bufferReadmeFiles[index]));
+    const bufferDockerfiles = await Promise.all(
+      this._templateInputs.map(async (fileName) =>
+        await this.loadTemplate(fileName, "Dockerfile")
+      ),
+    );
+    const bufferReadmeFiles = await Promise.all(
+      this._templateInputs.map(async (fileName) =>
+        await this.loadTemplate(fileName, "README")
+      ),
+    );
+    this._templateInputs.forEach((input, index) =>
+      this._dockerTemplates[input] = String(bufferDockerfiles[index])
+    );
+    this._templateInputs.forEach((input, index) =>
+      this._readmeTemplates[input] = String(bufferReadmeFiles[index])
+    );
     return {
       dockerTemplates: this._dockerTemplates,
-      readmeTemplates: this._readmeTemplates
+      readmeTemplates: this._readmeTemplates,
     };
   }
   setNodeVersion(nodeVersion) {
@@ -92,8 +115,9 @@ var DevcontainerGenerator = class {
   updateGit(forceFromSource = false) {
     if (getDistro(this.base) === "ubuntu" && !forceFromSource) {
       this._gitVersion = "ubuntu";
-    } else
+    } else {
       this._gitVersion = git;
+    }
   }
   setDebianBackports() {
     this._debianBackports = true;
@@ -137,37 +161,70 @@ var DevcontainerGenerator = class {
   }
   async generate() {
     const { dockerTemplates, readmeTemplates } = await this.init();
-    this._dockerfile += dockerTemplates["base"].replace("{DISTRO}", getDistro(this.base) + ":" + this.base);
+    this._dockerfile += dockerTemplates["base"].replace(
+      "{DISTRO}",
+      getDistro(this.base) + ":" + this.base,
+    );
     this._readme += readmeTemplates["base"].replace("{DISTRO}", this.base);
     if (this._debianBackports) {
-      this._dockerfile += dockerTemplates["debianBackports"].replace("{DISTRO}", this.base).replace("{DISTRO}", this.base);
+      this._dockerfile += dockerTemplates["debianBackports"].replace(
+        "{DISTRO}",
+        this.base,
+      ).replace("{DISTRO}", this.base);
     }
     if (this._gitVersion) {
       if (this._gitVersion === "ubuntu") {
         this._dockerfile += dockerTemplates["gitUbuntu"];
       } else {
-        this._dockerfile += dockerTemplates["git"].replace("{GIT_VERSION}", this._gitVersion);
+        this._dockerfile += dockerTemplates["git"].replace(
+          "{GIT_VERSION}",
+          this._gitVersion,
+        );
       }
     }
     if (this._nodeVersion) {
-      this._dockerfile += dockerTemplates["node"].replace("{NODE_VERSION}", node[this._nodeVersion]).replace("{YARN_VERSION}", yarn);
-      this._readme += readmeTemplates["node"].replace("{NODE_VERSION}", node[this._nodeVersion]).replace("{YARN_VERSION}", yarn);
+      this._dockerfile += dockerTemplates["node"].replace(
+        "{NODE_VERSION}",
+        node[this._nodeVersion],
+      ).replace("{YARN_VERSION}", yarn);
+      this._readme += readmeTemplates["node"].replace(
+        "{NODE_VERSION}",
+        node[this._nodeVersion],
+      ).replace("{YARN_VERSION}", yarn);
     }
     if (this._dotnet) {
       if (this._dotnet === "6") {
-        this._dockerfile += dockerTemplates["dotnet6"].replace("{DOTNET_SDK_VERSION}", dotnet6).replace("{dotnet_sha512}", sha.dotnet_sha512[dotnet6]);
+        this._dockerfile += dockerTemplates["dotnet6"].replace(
+          "{DOTNET_SDK_VERSION}",
+          dotnet6,
+        ).replace("{dotnet_sha512}", sha.dotnet_sha512[dotnet6]);
       } else if (this._dotnet === "3") {
-        this._dockerfile += dockerTemplates["dotnet3"].replace("{DOTNET_SDK_VERSION}", dotnet3).replace("{dotnet_sha512}", sha.dotnet_sha512[dotnet3]);
+        this._dockerfile += dockerTemplates["dotnet3"].replace(
+          "{DOTNET_SDK_VERSION}",
+          dotnet3,
+        ).replace("{dotnet_sha512}", sha.dotnet_sha512[dotnet3]);
       } else {
-        this._dockerfile += dockerTemplates["dotnet5"].replace("{DOTNET_SDK_VERSION}", dotnet5).replace("{dotnet_sha512}", sha.dotnet_sha512[dotnet5]);
+        this._dockerfile += dockerTemplates["dotnet5"].replace(
+          "{DOTNET_SDK_VERSION}",
+          dotnet5,
+        ).replace("{dotnet_sha512}", sha.dotnet_sha512[dotnet5]);
       }
     }
     if (this._cypressVersion) {
-      this._dockerfile += dockerTemplates["cypress"].replace("{CYPRESS_VERSION}", this._cypressVersion);
-      this._readme += readmeTemplates["cypress"].replace("{CYPRESS_VERSION}", this._cypressVersion);
+      this._dockerfile += dockerTemplates["cypress"].replace(
+        "{CYPRESS_VERSION}",
+        this._cypressVersion,
+      );
+      this._readme += readmeTemplates["cypress"].replace(
+        "{CYPRESS_VERSION}",
+        this._cypressVersion,
+      );
     }
     if (this._xpra) {
-      this._dockerfile += dockerTemplates["xpra"].replace(/{XPRADISTRO}/g, this.base);
+      this._dockerfile += dockerTemplates["xpra"].replace(
+        /{XPRADISTRO}/g,
+        this.base,
+      );
       this._readme += readmeTemplates["xpra"];
       let xpraStart = "xpra start --start=xterm";
       if (this._xfce) {
@@ -191,11 +248,17 @@ RUN echo "${xpraStart} --html=on --bind-tcp=0.0.0.0:14500 --daemon=no --encoding
       }
     }
     if (this._chrome) {
-      this._dockerfile += dockerTemplates["google-chrome"].replace("{CHROMIUM}", getDistro(this.base) === "debian" ? "chromium" : "firefox");
+      this._dockerfile += dockerTemplates["google-chrome"].replace(
+        "{CHROMIUM}",
+        getDistro(this.base) === "debian" ? "chromium" : "firefox",
+      );
       this._readme += readmeTemplates["google-chrome"];
     }
     if (this._chromium) {
-      this._dockerfile += dockerTemplates["chromium"].replace("{CHROMIUM}", getDistro(this.base) === "debian" ? "chromium" : "firefox");
+      this._dockerfile += dockerTemplates["chromium"].replace(
+        "{CHROMIUM}",
+        getDistro(this.base) === "debian" ? "chromium" : "firefox",
+      );
       this._readme += readmeTemplates["chromium"];
     }
     if (this._android) {
@@ -207,10 +270,16 @@ RUN echo "${xpraStart} --html=on --bind-tcp=0.0.0.0:14500 --daemon=no --encoding
       this._readme += readmeTemplates["vscode"];
     }
     if (this._docker || this._k8s) {
-      this._dockerfile += dockerTemplates["docker"].replace("{DISTRO}", getDistro(this.base));
+      this._dockerfile += dockerTemplates["docker"].replace(
+        "{DISTRO}",
+        getDistro(this.base),
+      );
       this._readme += readmeTemplates["docker"];
       if (this._k8s) {
-        this._dockerfile += dockerTemplates["kubernetes"].replace("{DISTRO}", getDistro(this.base));
+        this._dockerfile += dockerTemplates["kubernetes"].replace(
+          "{DISTRO}",
+          getDistro(this.base),
+        );
         this._readme += readmeTemplates["kubernetes"];
       }
     }
@@ -219,7 +288,10 @@ RUN echo "${xpraStart} --html=on --bind-tcp=0.0.0.0:14500 --daemon=no --encoding
       this._readme += readmeTemplates["zsh"];
     }
     if (this._deno) {
-      this._dockerfile += dockerTemplates["deno"].replace("{DENO_VERSION}", deno);
+      this._dockerfile += dockerTemplates["deno"].replace(
+        "{DENO_VERSION}",
+        deno,
+      );
       this._readme += readmeTemplates["deno"].replace("{DENO_VERSION}", deno);
     }
     this._dockerfile += dockerTemplates["suffix"];
@@ -227,10 +299,8 @@ RUN echo "${xpraStart} --html=on --bind-tcp=0.0.0.0:14500 --daemon=no --encoding
     this._dockerfile = this._dockerfile.replace(/FROM devimage\n/g, "");
     return {
       Dockerfile: this._dockerfile,
-      README: this._readme
+      README: this._readme,
     };
   }
 };
-export {
-  DevcontainerGenerator
-};
+export { DevcontainerGenerator };

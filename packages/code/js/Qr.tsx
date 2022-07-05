@@ -1,46 +1,51 @@
 /** @jsxImportSource @emotion/react */
 
 import { css } from "@emotion/react";
-import { LazyMotion, domAnimation, m } from "framer-motion";
-import { FC, useState, lazy, Suspense } from "react";
+import { domAnimation, LazyMotion, m } from "framer-motion";
+import { FC, lazy, Suspense, useState } from "react";
 
 import { Fab, QrCode } from "./mui";
 
+const QRious = lazy(() =>
+  import("react-qrious").then(({ QRious }) => ({ default: QRious }))
+);
 
-const QRious = lazy(()=>import("react-qrious").then( ({QRious})=>({default: QRious})))
-
-const QR: FC<{ url: string }> = ({ url }) => <Suspense ><QRious value={url} /></Suspense>;
+const QR: FC<{ url: string }> = ({ url }) => (
+  <Suspense>
+    <QRious value={url} />
+  </Suspense>
+);
 
 export const QRButton: FC<{ url: string }> = ({ url }) => {
   const [showQR, setQR] = useState(false);
   return (
     <LazyMotion features={domAnimation}>
-    <m.div
-      animate={{
-        width: showQR ? 200 : 56,
-        height: showQR ? 220 : 48,
-      }}
-      onClick={() => {
-        setQR(!showQR);
-      }}
-      css={css`
+      <m.div
+        animate={{
+          width: showQR ? 200 : 56,
+          height: showQR ? 220 : 48,
+        }}
+        onClick={() => {
+          setQR(!showQR);
+        }}
+        css={css`
           margin-top: 12px;
           margin-bottom: 12px;
               `}
-    >
-      {showQR
-        ? (
-          <QR
-            key={url || "http://spike.land"}
-            url={url || "/live/coder/public"}
-          />
-        )
-        : (
-          <Fab>
-            <QrCode />
-          </Fab>
-        )}
-    </m.div>
+      >
+        {showQR
+          ? (
+            <QR
+              key={url || "http://spike.land"}
+              url={url || "/live/coder/public"}
+            />
+          )
+          : (
+            <Fab>
+              <QrCode />
+            </Fab>
+          )}
+      </m.div>
     </LazyMotion>
   );
 };

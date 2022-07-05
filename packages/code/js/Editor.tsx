@@ -3,13 +3,11 @@
 import { FC, useEffect, useRef, useState } from "react";
 import { runner } from "./runner";
 import { codeSpace } from "./ws";
-import {  mST,  onSessionUpdate } from "./session";
+import { mST, onSessionUpdate } from "./session";
 import { isMobile } from "./isMobile.mjs";
 
 // import { appFactory, renderApp } from "./starter";
 import debounce from "lodash/debounce";
-
-
 
 import { css } from "@emotion/react";
 
@@ -21,15 +19,18 @@ export const Editor: FC<{ code: string; i: number }> = ({ code, i }) => {
   };
 
   // const mst = mST();
-  const [{ counter, myCode, myId, engine, prettierJs, getValue, setValue, onChange }, changeContent] = useState({
+  const [
+    { counter, myCode, myId, engine, prettierJs, getValue, setValue, onChange },
+    changeContent,
+  ] = useState({
     myCode: code,
     counter: i,
     myId: "loading",
-    getValue: ()=>"" as string,
-    setValue: (_code: string)=>{},
-    onChange: (_cb: ()=>void)=>{},
-    prettierJs: (code: string)=>code,
-    engine: isMobile()? "ace": "monaco"
+    getValue: () => "" as string,
+    setValue: (_code: string) => {},
+    onChange: (_cb: () => void) => {},
+    prettierJs: (code: string) => code,
+    engine: isMobile() ? "ace" : "monaco",
   });
 
   const lines = code?.split("\n").length || 0;
@@ -37,10 +38,7 @@ export const Editor: FC<{ code: string; i: number }> = ({ code, i }) => {
   useEffect(() => {
     if (!ref?.current) return;
     const load = async () => {
-
-
-     
-    const { startMonaco } = await import("./mEditor");
+      const { startMonaco } = await import("./mEditor");
 
       const { editor } = await startMonaco(
         /**
@@ -55,10 +53,11 @@ export const Editor: FC<{ code: string; i: number }> = ({ code, i }) => {
 
       changeContent((x) => ({
         ...x,
-        setValue: (code: string)=>editor.getModel()?.setValue(code),
-        getValue: ()=> editor.getModel()?.getValue() as string ,
-        onChange: (cb: ()=>void) => editor?.onDidChangeModelContent(cb).dispose,
-        myId: "editor"
+        setValue: (code: string) => editor.getModel()?.setValue(code),
+        getValue: () => editor.getModel()?.getValue() as string,
+        onChange: (cb: () => void) =>
+          editor?.onDidChangeModelContent(cb).dispose,
+        myId: "editor",
         // model: editor.getModel(),
       }));
 
@@ -67,35 +66,38 @@ export const Editor: FC<{ code: string; i: number }> = ({ code, i }) => {
       // let inc = 0;
     };
 
-   engine === "monaco" ? load(): (async ()=>{
-    const editor = await startAce(mST().code);
-    changeContent((x) => ({ ...x, onChange: (cb: ()=>void) =>{
-      editor?.session.on("change", cb);
-      return () => editor?.session.off("change", cb);
-
-    },  getValue:()=> editor.session.getValue(), setValue: (code: string)=>editor.session.setValue(code), myId: "editor" }))
-
-   })();
-    import("./prettierEsm").then(({prettierJs})=>changeContent(x=>({...x, prettierJs })));
+    engine === "monaco" ? load() : (async () => {
+      const editor = await startAce(mST().code);
+      changeContent((x) => ({
+        ...x,
+        onChange: (cb: () => void) => {
+          editor?.session.on("change", cb);
+          return () => editor?.session.off("change", cb);
+        },
+        getValue: () => editor.session.getValue(),
+        setValue: (code: string) => editor.session.setValue(code),
+        myId: "editor",
+      }));
+    })();
+    import("./prettierEsm").then(({ prettierJs }) =>
+      changeContent((x) => ({ ...x, prettierJs }))
+    );
   }, [ref]);
 
   useEffect(() => {
-
-    if (i>counter) {
-      changeContent(x=>({...x, myCode: code, counter: i}));
+    if (i > counter) {
+      changeContent((x) => ({ ...x, myCode: code, counter: i }));
       return;
     }
 
     const cb = async () => {
       const code = getValue();
       const newCode = prettierJs(code);
-    
+
       if (code === myCode) return;
-      if (newCode === myCode ) return;
+      if (newCode === myCode) return;
       if (newCode === mST().code) return;
       // if (i === mST().i) return;
-
-
 
       try {
         console.log("change content");
@@ -116,20 +118,22 @@ export const Editor: FC<{ code: string; i: number }> = ({ code, i }) => {
         //   }, 100);
         // });
 
-
         onSessionUpdate(async () => {
           const sess = mST();
           // renderApp(await appFactory(sess.transpiled));
 
-          if (sess.i <= counter +1) {
+          if (sess.i <= counter + 1) {
             return;
           }
-
 
           setTimeout(() => {
             if (mST().i !== sess.i) return;
             console.log(`session ${sess.i} mst: ${mST().i}, our i: ${counter}`);
-            changeContent((x) => ({ ...x, myCode: sess.code, counter: sess.i  }));
+            changeContent((x) => ({
+              ...x,
+              myCode: sess.code,
+              counter: sess.i,
+            }));
             setValue(sess.code);
           }, 100);
         }, "editor");
@@ -149,20 +153,25 @@ export const Editor: FC<{ code: string; i: number }> = ({ code, i }) => {
       leading: true,
     });
 
-    return  onChange( () => debounced() );
+    return onChange(() => debounced());
   }, [changeContent, setValue, getValue, onChange, i, code, counter, myCode]);
 
-  if (engine === 'monaco') return <div
-      data-test-id={myId}
-      css={css`
+  if (engine === "monaco") {
+    return (
+      <div
+        data-test-id={myId}
+        css={css`
   max-width: 640px;
   height: ${60 + lines / 40 * 100}% ;
 `}
-      ref={ref}
-    />
+        ref={ref}
+      />
+    );
+  }
 
-
-  return  <div data-test-id={myId}
+  return (
+    <div
+      data-test-id={myId}
       css={css`
   margin: 0;
   position: absolute;
@@ -174,11 +183,8 @@ export const Editor: FC<{ code: string; i: number }> = ({ code, i }) => {
       id="editor"
       ref={ref}
     />
-  
+  );
 };
-
-
-
 
 async function startAce(code: string) {
   const ace = (await import("ace-builds/src/ace")).default;

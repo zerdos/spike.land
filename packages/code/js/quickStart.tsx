@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 export async function quickStart() {
-  const  { renderPreviewWindow }= await import("./renderPreviewWindow")
+  const { renderPreviewWindow } = await import("./renderPreviewWindow");
   // window.Buffer = require("buffer/").Buffer;
 
   if (
@@ -10,6 +10,6 @@ export async function quickStart() {
     renderPreviewWindow();
   }
 
-  const { Editor } = await import('./Editor')
+  const { Editor } = await import("./Editor");
   return renderPreviewWindow(Editor);
 }

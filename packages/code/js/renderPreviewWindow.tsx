@@ -1,14 +1,12 @@
 /** @jsxImportSource @emotion/react */
 
-import {  ReactNode, useEffect, useState } from "react";
+import { ReactNode, useEffect, useState } from "react";
 import { appFactory, appRoot, AutoUpdateApp } from "./starter";
 import { codeSpace } from "./ws";
 import { css } from "@emotion/react";
 import { DraggableWindow } from "./DraggableWindow";
 import type { FC } from "react";
 import { hashCode, mST, onSessionUpdate } from "session";
-
-
 
 const RainbowContainer: FC<{ children: ReactNode }> = ({ children }) => (
   <div
@@ -60,22 +58,21 @@ background:  repeating-radial-gradient(circle at bottom left,
   </div>
 );
 
-const MyApp: FC<{ Editor: FC<{ code: string; i: number }> }> = ({ Editor }) => <RainbowContainer>
-
-      <DraggableWindow
-        // onRestore={() => {
-        //   const model = globalThis.model;
-        //   model.setValue(mST().code);
-        // }}
-        hashCode={0}
-        room={codeSpace}
-      >
-        <MyAutoUpdatingApp />
-      </DraggableWindow>
-      <Editor code={mST().code} i={mST().i} />
-
-    </RainbowContainer>
-
+const MyApp: FC<{ Editor: FC<{ code: string; i: number }> }> = ({ Editor }) => (
+  <RainbowContainer>
+    <DraggableWindow
+      // onRestore={() => {
+      //   const model = globalThis.model;
+      //   model.setValue(mST().code);
+      // }}
+      hashCode={0}
+      room={codeSpace}
+    >
+      <MyAutoUpdatingApp />
+    </DraggableWindow>
+    <Editor code={mST().code} i={mST().i} />
+  </RainbowContainer>
+);
 
 const MyAutoUpdatingApp: FC = () => {
   const [hash, setHash] = useState(() => hashCode());

@@ -31,7 +31,7 @@ const environment = process.env.NODE_ENV === "production"
   ? "production"
   : "development";
 
-const isDevelopment  = environment === "development"
+const isDevelopment = environment === "development";
 importMap.load(jsonData);
 const importMapPlugin = importMap.plugin();
 
@@ -214,7 +214,7 @@ await build([
   "ws.mjs",
   "react.ts",
   "framer-motion.ts",
-  "emotion.ts"
+  "emotion.ts",
 ]);
 
 await build;

@@ -28,7 +28,7 @@ export const AceEditor: FC<{ code: string; i: number }> = ({ code, i }) => {
     if (ref === null) return;
     const load = async () => {
       const editor = await startAce(mST().code);
-      changeContent((x) => ({ ...x,  editor, myId: "editor" }));
+      changeContent((x) => ({ ...x, editor, myId: "editor" }));
     };
     load();
   }, [ref]);
