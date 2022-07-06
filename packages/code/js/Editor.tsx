@@ -38,7 +38,9 @@ export const Editor: FC<{ code: string; i: number }> = ({ code, i }) => {
   const lines = code?.split("\n").length || 0;
 
   useEffect(() => {
+
     if (!ref?.current) return;
+    
     const setMonaco = async () => {
       const { startMonaco } = await import("./startMonaco");
 
@@ -99,7 +101,7 @@ export const Editor: FC<{ code: string; i: number }> = ({ code, i }) => {
 
     const {prettierJs} = await import("./prettierEsm");
     changeContent((x) => ({ ...x, prettierJs }));
-    wait(1000);
+    await wait(1000);
     runner({code: code + " ", counter});
     }
 
