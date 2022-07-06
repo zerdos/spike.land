@@ -7,7 +7,7 @@ Object.assign(self, require("big-integer"));
 const OrbitDB = require("orbit-db");
 const bc = new BroadcastChannel("spike.land");
 
-import { create } from "ipfs/dist/index.min";
+import { create } from "ipfs-core";
 import { IPFSService, Server } from "ipfs-message-port-server";
 
 import config from "ipfs-core-config/config";
