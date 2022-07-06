@@ -140,17 +140,7 @@ export const ipfsMessagePortServer = async () => new Server(await service());
 // }
 
 // // URL to the script containing ipfs-message-port-server.
-// const load = async (path) => {
-//   const paths = path && path.split("/") || [];
-//   const protocol = path.length || "";
-//   switch (protocol) {
-//     case "ipfs":
-//     case "ipns": {
-//       document.body.innerHTML =
-//         `<iframe id="viewer" style="width:100%;height:100%;position:fixed;top:0;left:0;border:none;" src="/view${path}"></iframe>`;
-//     }
-//   }
-// };
+
 
 // const ipfsSw = async () => {
 //   try {
@@ -167,9 +157,9 @@ export const ipfsMessagePortServer = async () => new Server(await service());
 //     // URLs like `localhost:3000/ipfs/Qmf412jQZiuVUtdgnB36FXFX7xg5V6KEbSJ4dpQuhkLyfD`
 //     // are loaded from service worker. However it could be that such a URL is loaded
 //     // before the service worker was registered in which case our server just loads a blank
-//     if (document.documentElement.dataset.viewer) {
-//       return load(location.pathname);
-//     }
+    if (document.documentElement.dataset.viewer) {
+      return load(location.pathname);
+    }
 //   } catch {
 //     console.log("ipfs load error");
 //   }
