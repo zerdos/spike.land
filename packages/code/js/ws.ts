@@ -92,22 +92,23 @@ export const run = async (state: ICodeSession) => {
 
   // renderApp(await appFactory(state.transpiled));
 
-  if (navigator && navigator?.serviceWorker) {
-    navigator.serviceWorker.register("/sw.js", {
-      scope: "/",
-    });
-    const current = await navigator.serviceWorker.ready;
-    sw();
-
-    Promise.all((await navigator.serviceWorker.getRegistrations()).map((sw) => {
-      if (current !== sw) sw.unregister();
-    }));
-  }
   // if (location.href.endsWith("hydrated")) return;
 
   join();
 };
+(async()=>{
+if (navigator && navigator?.serviceWorker) {
+  navigator.serviceWorker.register("/sw.js", {
+    scope: "/",
+  });
+  const current = await navigator.serviceWorker.ready;
+  sw();
 
+  Promise.all((await navigator.serviceWorker.getRegistrations()).map((sw) => {
+    if (current !== sw) sw.unregister();
+  }));
+}
+})();
 let intervalHandler: NodeJS.Timer | null = null;
 
 // const w = window as unknown as {
@@ -702,12 +703,16 @@ const sw = async () => {
       if (serviceWorker == null) return;
       switch (event.data.method) {
         case "ipfs-message-port":
-          const { ipfsMessagePortServer } = await import("./ipfs");
+          console.log("Message port request");
+          const {connect}  = await import("./ipfs");
 
+          console.log("can connect trough", {connect})
           // await ipfsWorker();
           //
           const channel = new MessageChannel();
-          (await ipfsMessagePortServer()).connect(channel.port1);
+          await connect(channel);
+          console.log({channel});
+        
           return serviceWorker.postMessage({
             method: "ipfs-message-port",
             id: event.data.id,

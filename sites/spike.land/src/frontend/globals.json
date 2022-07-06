@@ -228,7 +228,7 @@
       "WeakMap": false,
       "WeakSet": false
     },
-    "es2020": {
+    "es2022": {
       "Array": false,
       "ArrayBuffer": false,
       "Atomics": false,
@@ -2014,7 +2014,7 @@
     "WeakMap": false,
     "WeakSet": false
   },
-  "es2020": {
+  "es2022": {
     "Array": false,
     "ArrayBuffer": false,
     "Atomics": false,

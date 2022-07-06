@@ -1,13 +1,13 @@
-import { create } from "ipfs-core";
-import { IPFSService, Server } from "ipfs-message-port-server";
+require("../../../node_modules/ipfs-core/dist/index.min.js");
+require( "../../../node_modules/ipfs-message-port-server/dist/index.min.js")
 
-import config from "ipfs-core-config/config";
-
+const {Server, IPFSService, IpfsCore}=self
 //import OrbitDB from "orbit-db"
 //import { create } from "../../node_modules/ipfs-core/index.min.js"//;
 //import { create,  } from "ipfs-core"//;
 
 import type {} from "orbit-db";
+
 // } from "../../node_modules/ipfs-message-port-server/index.min.js";
 // importScripts('https://unpkg.com/ipfs@0.62.3/index.min.js');
 // importScripts('https://unpkg.com/ipfs-message-port-server@0.11.3/index.min.js');
@@ -16,36 +16,16 @@ const orbitDbs = {};
 
 self.orbitDbs = orbitDbs;
 
-export const ipfs = async () =>
-  await create(
-    {
-      start: true,
-      preload: {
-        enabled: false,
-      },
-      config: {
-        ...defaultConfig,
+let ipfsServer = null;
 
-        Pubsub: { Enabled: true },
-        Addresses: {
-          Swarm: [
-            // Use IPFS dev signal server
-            // '/dns4/star-signal.cloud.ipfs.team/wss/p2p-webrtc-star',
-            // '/dns4/ws-star.discovery.libp2p.io/tcp/443/wss/p2p-websocket-star',
-            // Use IPFS dev webrtc signal server]
-            "/dns4/wrtc-star1.par.dwebops.pub/tcp/443/wss/p2p-webrtc-star/",
-            "/dns4/wrtc-star2.sjc.dwebops.pub/tcp/443/wss/p2p-webrtc-star/",
-            "/dns4/webrtc-star.discovery.libp2p.io/tcp/443/wss/p2p-webrtc-star/",
-            // Use local signal server
-            // '/ip4/0.0.0.0/tcp/9090/wss/p2p-webrtc-star',
-          ],
-        },
-      },
-    },
-  );
+export const connect = async (channel: MessageChannel)=>{
 
-export const service = async () => new IPFSService(await ipfs());
-export const ipfsMessagePortServer = async () => new Server(await service());
+  ipfsServer = ipfsServer ||  new Server( new IPFSService(await IpfsCore.create()));
+  
+  return ipfsServer.connect(channel.port1);
+}
+
+
 
 // async function startOrbit(
 //   orbitdb: OrbitDB,
@@ -157,9 +137,9 @@ export const ipfsMessagePortServer = async () => new Server(await service());
 //     // URLs like `localhost:3000/ipfs/Qmf412jQZiuVUtdgnB36FXFX7xg5V6KEbSJ4dpQuhkLyfD`
 //     // are loaded from service worker. However it could be that such a URL is loaded
 //     // before the service worker was registered in which case our server just loads a blank
-    if (document.documentElement.dataset.viewer) {
-      return load(location.pathname);
-    }
+    // if (document.documentElement.dataset.viewer) {
+    //   return load(location.pathname);
+    // }
 //   } catch {
 //     console.log("ipfs load error");
 //   }

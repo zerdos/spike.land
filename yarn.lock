@@ -5171,7 +5171,7 @@ __metadata:
     hoist-non-react-statics: ^3.3.2
     immutable: 4.1.0
     ipfs: ^0.63.5
-    ipfs-core: 0.15.4
+    ipfs-core: ^0.15.4
     ipfs-message-port-client: 0.12.4
     ipfs-message-port-server: 0.12.1
     lodash: ^4.17.21
@@ -12424,7 +12424,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ipfs-core@npm:0.15.4, ipfs-core@npm:^0.15.4":
+"ipfs-core@npm:^0.15.4":
   version: 0.15.4
   resolution: "ipfs-core@npm:0.15.4"
   dependencies:

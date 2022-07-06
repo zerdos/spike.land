@@ -1,3 +1,7 @@
+// import {swClient} from "./js/ws";
+
+// swClient();
+
 const load = async (path) => {
   const paths = path && path.split("/") || [];
   const protocol = path.length || "";

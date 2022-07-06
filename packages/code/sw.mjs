@@ -175,7 +175,7 @@ const onfetch = (event) => {
  *
  * @param {Object} options
  * @param {URL} options.url
- */
+  */
 const fetchViewer = async (url) => {
   const body = new Blob([`<html lang="en">
 <head>
@@ -183,7 +183,7 @@ const fetchViewer = async (url) => {
 </head>
 <body>
 <iframe id="viewer" style="width:100%;height:100%;position:fixed;top:0;left:0;border:none;" src="/view${url.pathname}"></iframe>  
-  <script defer src="//main.js"></script>
+  <script type="module" src="/js/ws.mjs"></script>
   </body>
 </html>
 `], { type: "text/html" });

@@ -60,7 +60,7 @@ const define = {
 
 const buildOptions = {
   define,
-  target: "es2020",
+  target: "es2022",
   platform: "browser",
   external: ["./mST"],
   legalComments: "none",
@@ -111,8 +111,8 @@ await esbuild.build({
   ...buildOptions,
   entryPoints: [
     // "monaco-jsx-syntax-highlight/lib/worker/index.js",
-    "./ipfsWorker.ts",
-    // "./iife.js"
+    "./js/ipfsWorker.tsx",
+    "./main.ts",
     "./sw.mjs",
   ],
   bundle: true,

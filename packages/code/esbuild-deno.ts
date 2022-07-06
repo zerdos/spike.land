@@ -45,7 +45,7 @@ const define = {
 
 const buildOptions = {
   define,
-  target: "es2020",
+  target: "es2022",
   platform: "browser",
   legalComments: "none",
   plugins: [
