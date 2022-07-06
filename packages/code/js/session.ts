@@ -2,7 +2,7 @@
 
 import { Record } from "immutable";
 
-import { applyPatch, createDelta, Delta } from "./textDiff";
+import { applyPatch as aPatch, createDelta, Delta } from "./textDiff";
 // Import * as Immutable from "immutable"
 
 type IUsername = string;
@@ -164,16 +164,17 @@ export class CodeSession implements ICodeSess {
     newHash,
     patch,
   }: CodePatch) => {
-    const bestGuesses = this.room || "";
+    const codeSpace = this.room || "";
 
     if (
       ! (Object.keys(hashStore).map((x) => Number(x)).includes(Number(oldHash))) &&
-      bestGuesses
+      codeSpace
     ) {
       console.log(Object.keys(hashStore));
       const resp = await fetch(
-        `/live/${bestGuesses}/mST`,
+        `/live/${codeSpace}/mST`,
       );
+      if (resp.ok) {
 
       const s: { hashCode: string; mST: ICodeSession } = await resp.json();
 
@@ -183,10 +184,17 @@ export class CodeSession implements ICodeSess {
         JSON.parse(str(s.mST)),
       );
       hashStore[serverRecord.hashCode()] = serverRecord;
+      } else {
+        const {mST} = await import(location.origin + `/live/${this.room}/mst.mjs?${Date.now()}`);
+        const latestRec = this.session.get("state").merge(
+          JSON.parse(str(mST)),
+        );
+        hashStore[latestRec.hashCode()] = latestRec;
+      }
     }
 
     const oldStr = str(hashStore[oldHash].toJSON());
-    const applied = applyPatch(oldStr, patch);
+    const applied = aPatch(oldStr, patch);
     const newState = JSON.parse(applied);
     const newRec: Record<ICodeSession> = this.session.get("state").merge(
       newState,
@@ -239,7 +247,7 @@ function str(s: ICodeSession) {
   return JSON.stringify({ i, transpiled, code, html, css });
 }
 
-export const patch: IApplyPatch = async (x) => {
+export const applyPatch: IApplyPatch = async (x) => {
   await session?.applyPatch(x);
   session?.update();
 };

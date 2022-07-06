@@ -143,7 +143,9 @@ export const Editor: FC<{ code: string; i: number }> = ({ code, i }) => {
             return;
           }
 
-          setTimeout(() => {
+          
+
+          //setTimeout(() => {
             if (mST().i !== sess.i) return;
             console.log(`session ${sess.i} mst: ${mST().i}, our i: ${counter}`);
             changeContent((x) => ({
@@ -152,7 +154,7 @@ export const Editor: FC<{ code: string; i: number }> = ({ code, i }) => {
               counter: sess.i,
             }));
             setValue(sess.code);
-          }, 100);
+        //  }, 100);
         }, "editor");
 
         runner({ code: newCode, counter: counter + 1 });

@@ -4,7 +4,7 @@ import * as assert from "uvu/assert";
 import {
   hashCode,
   makePatch,
-  patch as applyPatch,
+  applyPatch,
   startSession,
 } from "../js/session";
 

@@ -10,7 +10,7 @@ import type { ICodeSession } from "@spike.land/code/js/session";
 import {
   hashCode,
   mST,
-  patch as applyPatch,
+  applyPatch,
   startSession,
 } from "@spike.land/code/js/session";
 import { Delta } from "@spike.land/code/js/textDiff";

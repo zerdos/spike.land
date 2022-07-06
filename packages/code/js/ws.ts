@@ -5,7 +5,7 @@ import {
   makePatch,
   makePatchFrom,
   mST,
-  patch as applyPatch,
+  applyPatch,
   startSession,
 } from "./session";
 import type { ICodeSession } from "./session";
