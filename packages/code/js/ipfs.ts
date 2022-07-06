@@ -1,12 +1,18 @@
 require("../../../node_modules/ipfs-core/dist/index.min.js");
-require( "../../../node_modules/ipfs-message-port-server/dist/index.min.js")
+import { IPFSService, Server } from 'ipfs-message-port-server'
+import defaultConfig from "../../../node_modules/ipfs-core-config/src/config.browser.js"
+import {libp2pConfig} from "../../../node_modules/ipfs-core-config/src/libp2p.browser.js"
+// import repo from "../../../node_modules/ipfs-core-config/repo.browser.js"
+// import {routers} from "../../../node_modules/ipfs-core-config/libp2p-pubsub-routers.browser.js"
 
-const {Server, IPFSService, IpfsCore}=self
+import type {} from "orbit-db";
+
+const { IpfsCore}=self
+
 //import OrbitDB from "orbit-db"
 //import { create } from "../../node_modules/ipfs-core/index.min.js"//;
 //import { create,  } from "ipfs-core"//;
 
-import type {} from "orbit-db";
 
 // } from "../../node_modules/ipfs-message-port-server/index.min.js";
 // importScripts('https://unpkg.com/ipfs@0.62.3/index.min.js');
@@ -20,7 +26,16 @@ let ipfsServer = null;
 
 export const connect = async (channel: MessageChannel)=>{
 
-  ipfsServer = ipfsServer ||  new Server( new IPFSService(await IpfsCore.create()));
+  ipfsServer = ipfsServer ||  new Server( new IPFSService(await IpfsCore.create(   {
+    start: true,
+    preload: {
+      enabled: false,
+    },
+    config: {
+      ...defaultConfig(),
+      ...libp2pConfig()
+    },
+  })));
   
   return ipfsServer.connect(channel.port1);
 }
