@@ -195,6 +195,7 @@ const build = (entryPoints, format = "esm") =>
     ],
 
     define,
+entryNames: "[dir]/[name]-[hash]",
     loader: {
       ".ttf": "file",
       ".webp": "file",
