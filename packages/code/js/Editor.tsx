@@ -52,6 +52,7 @@ export const Editor: FC<{ code: string; i: number }> = ({ code, i }) => {
           code: mST().code,
         },
       );
+      globalThis.editor = editor;
 
       changeContent((x) => ({
         ...x,
@@ -71,6 +72,7 @@ export const Editor: FC<{ code: string; i: number }> = ({ code, i }) => {
     const setAce = async () => {
       const {startAce} = await import("./startAce");
       const editor = await startAce(mST().code);
+      globalThis.editor = editor;
       changeContent((x) => ({
         ...x,
         onChange: (cb: () => void) => {
@@ -153,6 +155,13 @@ export const Editor: FC<{ code: string; i: number }> = ({ code, i }) => {
               myCode: sess.code,
               counter: sess.i,
             }));
+
+            if (engine === "monaco") {
+              const state = globalThis.editor.saveViewState()
+              setValue(sess.code);
+              globalThis.editor.restoreViewState(state);
+              return
+            }
             setValue(sess.code);
         //  }, 100);
         }, "editor");
