@@ -81,6 +81,7 @@
     "ace-builds": "1.7.1",
     "assert": "2.0.0",
     "async-mutex": "0.3.2",
+    "big-integer": "^1.6.51",
     "buffer": "6.0.3",
     "core-js": "^3.23.3",
     "es-module-shims": "^1.5.8",

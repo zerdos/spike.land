@@ -44,11 +44,6 @@ export default {
         !u.pathname.endsWith(".index.tsx")
       ) {
       url = new URL(request.url.replace(".tsx", "/index.tsx"));
-      } else if (
-        u.pathname.endsWith(".js") && !u.pathname.endsWith(".index.js") &&
-        !u.pathname.includes(".worker") && !u.pathname.endsWith("sw.js")
-      ) {
-        url = new URL(request.url.replace(".js", "/index.js"));
       }
 
       if (serveJs && !url.pathname.includes(".")) {
