@@ -10,7 +10,7 @@ import {
 } from "./session";
 import type { ICodeSession } from "./session";
 // import { appFactory, renderApp } from "./starter";
-// import debounce from "lodash/debounce";
+import debounce from "lodash/debounce";
 import uidV4 from "./uidV4.mjs";
 
 const webRtcArray: (RTCDataChannel & { target: string })[] = [];
@@ -247,14 +247,12 @@ export async function join() {
 
         rejoin();
       }
-
-      sendWS = mess;
-    // };
-    // sendWS = debounce(mess, 500, {
-    //   maxWait: 1200,
-    //   leading: true,
-    //   trailing: true,
-    // });
+    };
+    sendWS = debounce(mess, 500, {
+      maxWait: 1200,
+      leading: true,
+      trailing: true,
+    });
     ws.addEventListener(
       "message",
       (message) => processWsMessage(message, "ws"),

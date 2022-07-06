@@ -56,7 +56,11 @@ export const Editor: FC<{ code: string; i: number }> = ({ code, i }) => {
 
       changeContent((x) => ({
         ...x,
-        setValue: (code: string) => editor.getModel()?.setValue(code),
+        setValue: (code: string) => {
+          const state = editor.saveViewState();
+          editor.getModel()?.setValue(code);
+          if (state) editor.restoreViewState(state);
+        },
         getValue: () => editor.getModel()?.getValue() as string,
         onChange: (cb: () => void) =>
           editor?.onDidChangeModelContent(cb).dispose,
@@ -155,13 +159,7 @@ export const Editor: FC<{ code: string; i: number }> = ({ code, i }) => {
               myCode: sess.code,
               counter: sess.i,
             }));
-
-            if (engine === "monaco") {
-              const state = globalThis.editor.saveViewState()
-              setValue(sess.code);
-              globalThis.editor.restoreViewState(state);
-              return
-            }
+          
             setValue(sess.code);
         //  }, 100);
         }, "editor");
@@ -175,13 +173,13 @@ export const Editor: FC<{ code: string; i: number }> = ({ code, i }) => {
       }
     };
 
-    const debounced = debounce(cb, 300, {
-      maxWait: 600,
-      trailing: true,
-      leading: true,
-    });
+    // const debounced = debounce(cb, 0, {
+    //   maxWait: 600,
+    //   trailing: true,
+    //   leading: true,
+    // });
 
-    return onChange(() => debounced());
+    return onChange(() => cb());
   }, [changeContent, setValue, getValue, onChange, i, code, counter, myCode]);
 
   if (engine === "monaco") {

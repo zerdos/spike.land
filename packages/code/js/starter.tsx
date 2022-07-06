@@ -36,19 +36,30 @@ const init = async ()=> window.importShim || await import("es-module-shims").the
 
 
 
+
+let App: FC = () => <></>
+
 export const AutoUpdateApp: FC<{ hash: number }> = ({ hash }) => {
   
-  const App = lazy(() => init().then(()=>importShim(createJsBlob(mST().transpiled))));
+  const result = md5(mST().transpiled);
+
+  if (apps[result]) {
+    App = apps[result];
+    return <App />
+  }
+
+
+const FallbackApp = App;
+ const AppLazy = lazy(() => appFactory(mST().transpiled).then((App) =>({default: App})));
 
   return (
     <Suspense
-      fallback={<div dangerouslySetInnerHTML={{ __html: mST().html }}></div>}
+      fallback={<FallbackApp />}
     >
-      <App />
+      <AppLazy />
     </Suspense>
   );
 };
-
 
 
 export const appFactory = async (transpiled: string): Promise<FC> => {
@@ -72,7 +83,8 @@ export const appFactory = async (transpiled: string): Promise<FC> => {
     apps[result] = (await importShim(createJsBlob(transpiled)))
       .default as unknown as FC;
   }
-
+  
+  App = apps[result];
   return apps[result];
 };
 
