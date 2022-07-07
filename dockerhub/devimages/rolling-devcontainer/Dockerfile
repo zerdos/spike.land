@@ -54,7 +54,7 @@ RUN (addgroup --gid 1000 ${USER}  \
   && apt-get clean -y \
   && rm -rf /var/lib/apt/lists/* 
 
-ENV NODE_VERSION 18.4.0
+ENV NODE_VERSION 18.5.0
 
 RUN ARCH= && dpkgArch="$(dpkg --print-architecture)" \
   && case "${dpkgArch##*-}" in \
