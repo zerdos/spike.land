@@ -61,9 +61,10 @@ const MyAutoUpdatingApp: FC = () => {
   const [hash, setHash] = useState(() => hashCode());
 
   useEffect(() => {
-    onSessionUpdate(() => {
+    onSessionUpdate(async () => {
       const newHash = hashCode();
       if (hash !== newHash) {
+        await appFactory(mST().transpiled);
         setHash(newHash);
       }
     }, "myApp");
