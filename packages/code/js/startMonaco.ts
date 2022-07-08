@@ -16,6 +16,9 @@ import codicon from "monaco-editor/esm/vs/base/browser/ui/codicons/codicon/codic
 
 // globalThis.Buffer = Buffer;
 
+
+
+
 const monEnv = {
   getWorkerUrl: function (_workerId: string, label: string) {
     if (label === "typescript" || label === "javascript") {
@@ -282,7 +285,7 @@ export const startMonaco = async (
   document.head.appendChild(outerStyle);
 
   const innerStyle = document.createElement("style");
-  innerStyle.innerText = `@import url("/js/startMonaco.css");
+  innerStyle.innerText = `@import url("${import.meta.url.replace("mjs", 'css')}");
   @font-face {
     font-family: codicon;
     font-display: block;

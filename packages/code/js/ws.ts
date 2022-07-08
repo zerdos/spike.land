@@ -73,6 +73,21 @@ export async function quickStart(codeSpace: string) {
   return renderPreviewWindow(codeSpace);
 }
 
+// export const work = async (startState: {
+//   mST: ICodeSession, codeSpace:string, address: string, assets: {[key: string]: string}
+// }) => {
+//   codeSpace = startState.codeSpace;
+//   address = startState.address;
+//   const {assets}= startState;
+//   const seession = startSession(codeSpace, {
+//     name: user,
+//     state: startState.mST,
+//   });
+
+//   join()
+
+
+// }
 
 export const run = async (startState: {
   mST: ICodeSession, codeSpace:string, address: string, assets: {[key: string]: string}
