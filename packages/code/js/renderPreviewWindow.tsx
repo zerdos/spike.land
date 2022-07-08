@@ -1,8 +1,7 @@
 /** @jsxImportSource @emotion/react */
 
 import { ReactNode, useEffect, useState } from "react";
-import { appFactory, appRoot, AutoUpdateApp } from "./starter";
-import { codeSpace } from "./ws";
+import {  appRoot, AutoUpdateApp, appFactory } from "./starter";
 import { css } from "@emotion/react";
 import { DraggableWindow } from "./DraggableWindow";
 import type { FC } from "react";
@@ -58,22 +57,6 @@ background:  repeating-radial-gradient(circle at bottom left,
   </div>
 );
 
-const MyApp: FC<{ Editor: FC<{ code: string; i: number }> }> = ({ Editor }) => (
-  <RainbowContainer>
-    <DraggableWindow
-      // onRestore={() => {
-      //   const model = globalThis.model;
-      //   model.setValue(mST().code);
-      // }}
-      hashCode={0}
-      room={codeSpace}
-    >
-      <MyAutoUpdatingApp />
-    </DraggableWindow>
-    <Editor code={mST().code} i={mST().i} />
-  </RainbowContainer>
-);
-
 const MyAutoUpdatingApp: FC = () => {
   const [hash, setHash] = useState(() => hashCode());
 
@@ -86,32 +69,43 @@ const MyAutoUpdatingApp: FC = () => {
     }, "myApp");
   }, [hash, setHash]);
 
-  return <AutoUpdateApp hash={hash}></AutoUpdateApp>;
+  return <AutoUpdateApp key={hash} hash={hash}/>;
 };
 
-globalThis.draggableWindow = globalThis.draggableWindow || 0;
 export const renderPreviewWindow = async (
-  Editor?: FC<{ code: string; i: number }>,
+ codeSpace: string
 ) => {
-  if (globalThis.draggableWindow++) return;
+
 
   await appFactory(mST().transpiled);
 
   // document.getElementById("root");
 
-  // const DraggableWindow = lazy(()=>import("./DraggableWindow").then(({DraggableWindow})=>({default: DraggableWindow})));
-  if (!Editor) {
+
+  if (
+    location.pathname.endsWith("public")  ||
+    location.pathname.endsWith("hydrated")
+  ){
     appRoot.render(
       <MyAutoUpdatingApp />,
     );
     return;
   }
 
+  const { Editor } = await import("./Editor");
   appRoot.render(
-    <MyApp Editor={Editor} />,
+    <RainbowContainer>
+    <DraggableWindow
+      // onRestore={() => {
+      //   const model = globalThis.model;
+      //   model.setValue(mST().code);
+      // }}
+      hashCode={0}
+      room={codeSpace}
+    >
+      <MyAutoUpdatingApp />
+    </DraggableWindow>
+    <Editor code={mST().code} i={mST().i} codeSpace={codeSpace} />
+  </RainbowContainer>
   );
-
-  // document.body.appendChild(target);
-  // document.getElementById("root")?.remove();
-  // target.id = "root";
 };

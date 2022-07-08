@@ -12,11 +12,10 @@ import type { ICodeSession } from "./session";
 // import { appFactory, renderApp } from "./starter";
 import debounce from "lodash/debounce";
 import uidV4 from "./uidV4.mjs";
+import { initShims } from "starter";
 
 const webRtcArray: (RTCDataChannel & { target: string })[] = [];
 
-export const { codeSpace } = window;
-const { address } = window;
 
 const user = ((self && self.crypto && self.crypto.randomUUID &&
   self.crypto.randomUUID()) || (uidV4())).slice(
@@ -28,8 +27,9 @@ const rtcConns: {
   [target: string]: RTCPeerConnection;
 } = {}; // To st/ RTCPeerConnection
 
-globalThis.rtcConns = globalThis.rtcConns || rtcConns;
-
+let bc: BroadcastChannel;
+let codeSpace: string;
+let address: string;
 let wsLastHashCode = 0;
 let webRTCLastSeenHashCode = 0;
 let lastSeenTimestamp = 0;
@@ -66,35 +66,60 @@ const sendChannel = {
 
 // Let createDelta;
 
-export async function quickStart() {
+export async function quickStart(codeSpace: string) {
   const { renderPreviewWindow } = await import("./renderPreviewWindow");
   // window.Buffer = require("buffer/").Buffer;
 
-  if (
-    location.pathname.endsWith("public")  ||
-    location.pathname.endsWith("hydrated")
-  ) {
-    renderPreviewWindow();
-  }
-
-  const { Editor } = await import("./Editor");
-  return renderPreviewWindow(Editor);
+  return renderPreviewWindow(codeSpace);
 }
 
 
-export const run = async (state: ICodeSession) => {
+export const run = async (startState: {
+  mST: ICodeSession, codeSpace:string, address: string, assets: {[key: string]: string}
+}) => {
+  codeSpace = startState.codeSpace;
+  address = startState.address;
+  const {assets}= startState;
   startSession(codeSpace, {
     name: user,
-    state,
+    state: startState.mST,
   });
+
+  initShims(assets);
   
-  quickStart();
+  quickStart(codeSpace);
 
   // renderApp(await appFactory(state.transpiled));
 
   // if (location.href.endsWith("hydrated")) return;
 
   join();
+
+  bc = new BroadcastChannel("spike.land");
+  bc.onmessage = async (event) => {
+    if (event.data.ignoreUser && event.data.ignoreUser === user) return;
+    console.log({ event });
+
+    if (
+      event.data.codeSpace === codeSpace && event.data.address && !address
+    ) {
+      ws?.send(JSON.stringify({ codeSpace, address: event.data.address }));
+    }
+
+    if (event.data.ignoreUser) {
+      !ignoreUsers.includes(event.data.ignoreUser) &&
+        ignoreUsers.push(event.data.ignoreUser);
+    }
+
+    if (
+      event.data.codeSpace === codeSpace && event.data.sess.code !== mST().code
+    ) {
+      const messageData = await makePatch(event.data.sess);
+
+      await applyPatch(messageData);
+    }
+  };
+
 };
 (async()=>{
 if (navigator && navigator?.serviceWorker) {
@@ -102,7 +127,7 @@ if (navigator && navigator?.serviceWorker) {
     scope: "/",
   });
   const current = await navigator.serviceWorker.ready;
-  sw();
+  await sw();
 
   Promise.all((await navigator.serviceWorker.getRegistrations()).map((sw) => {
     if (current !== sw) sw.unregister();
@@ -133,33 +158,9 @@ async function rejoin() {
 
 const ignoreUsers: string[] = [];
 
-const bc = new BroadcastChannel("spike.land");
-bc.onmessage = async (event) => {
-  if (event.data.ignoreUser && event.data.ignoreUser === user) return;
-  console.log({ event });
-
-  if (
-    event.data.codeSpace === codeSpace && event.data.address && !address
-  ) {
-    ws?.send(JSON.stringify({ codeSpace, address: event.data.address }));
-  }
-
-  if (event.data.ignoreUser) {
-    !ignoreUsers.includes(event.data.ignoreUser) &&
-      ignoreUsers.push(event.data.ignoreUser);
-  }
-
-  if (
-    event.data.codeSpace === codeSpace && event.data.sess.code !== mST().code
-  ) {
-    const messageData = await makePatch(event.data.sess);
-
-    await applyPatch(messageData);
-  }
-};
 
 export async function saveCode(sess: ICodeSession) {
-  if (rtcConns !== globalThis.rtcConns) return;
+  // if (rtcConns !== globalThis.rtcConns) return;
 
   if (sess.i <= mST().i) return;
 
@@ -226,7 +227,7 @@ export async function saveCode(sess: ICodeSession) {
 export async function join() {
   if (ws !== null) return ws;
 
-  if (rtcConns !== globalThis.rtcConns) return ws;
+  // if (rtcConns !== globalThis.rtcConns) return ws;
   rejoined = true;
 
   console.log("WS connect!");
@@ -695,7 +696,7 @@ async function handleNewICECandidateMessage(
   await rtcConns[target].addIceCandidate(candidate);
 }
 
-const sw = async () => {
+async function sw() {
   try {
     navigator.serviceWorker.onmessage = async (event) => {
       /** @type {null|ServiceWorker} */

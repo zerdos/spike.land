@@ -2,12 +2,10 @@
 
 import { FC, useEffect, useRef, useState } from "react";
 import { runner } from "./runner";
-import { codeSpace } from "./ws";
 import { mST, onSessionUpdate } from "./session";
 import { isMobile } from "./isMobile.mjs";
 
 // import { appFactory, renderApp } from "./starter";
-import debounce from "lodash/debounce";
 
 import { css } from "@emotion/react";
 import { wait } from "wait";
@@ -15,7 +13,7 @@ import { wait } from "wait";
 
 // export type IStandaloneCodeEditor = editor.Ist;
 
-export const Editor: FC<{ code: string; i: number }> = ({ code, i }) => {
+export const Editor: FC<{ code: string; i: number, codeSpace: string }> = ({ code, i, codeSpace }) => {
   const ref = useRef<HTMLDivElement>(null) as null | {
     current: HTMLDivElement;
   };
@@ -54,7 +52,7 @@ export const Editor: FC<{ code: string; i: number }> = ({ code, i }) => {
           code: mST().code,
         },
       );
-      globalThis.editor = editor;
+     // globalThis.editor = editor;
 
       changeContent((x) => ({
         ...x,
@@ -78,7 +76,6 @@ export const Editor: FC<{ code: string; i: number }> = ({ code, i }) => {
     const setAce = async () => {
       const {startAce} = await import("./startAce");
       const editor = await startAce(mST().code);
-      globalThis.editor = editor;
       changeContent((x) => ({
         ...x,
         onChange: (cb: () => void) => {
@@ -102,6 +99,7 @@ export const Editor: FC<{ code: string; i: number }> = ({ code, i }) => {
     const {prettierJs} = await import("./prettierEsm");
     changeContent((x) => ({ ...x, prettierJs }));
     await wait(1000);
+    // console.log("RUN THE RUNNER");
     runner({code: code + " ", counter});
     }
 
@@ -125,8 +123,36 @@ export const Editor: FC<{ code: string; i: number }> = ({ code, i }) => {
       // if (i === mST().i) return;
 
       try {
-        console.log("change content");
+        // console.log("change content");
+
         changeContent((x) => ({ ...x, counter: counter + 1, myCode: newCode }));
+
+        onSessionUpdate(async () => {
+          const sess = mST();
+          // renderApp(await appFactory(sess.transpiled));
+
+          if (sess.i <= counter + 1) {
+            return;
+          }
+
+          
+
+          //setTimeout(() => {
+            if (mST().i !== sess.i) return;
+
+            // console.log(`session ${sess.i} mst: ${mST().i}, our i: ${counter}`);
+            changeContent((x) => ({
+              ...x,
+              myCode: sess.code,
+              counter: sess.i,
+            }));
+          
+            setValue(sess.code);
+        //  }, 100);
+        }, "editor");
+
+        // console.log("RUN THE RUNNER AGAIN");
+        await runner({ code: newCode, counter: counter + 1 });
         // onUpdate(async () => {
         //   const sess = mST();
         //   // renderApp(await appFactory(sess.transpiled));
@@ -143,30 +169,8 @@ export const Editor: FC<{ code: string; i: number }> = ({ code, i }) => {
         //   }, 100);
         // });
 
-        onSessionUpdate(async () => {
-          const sess = mST();
-          // renderApp(await appFactory(sess.transpiled));
-
-          if (sess.i <= counter + 1) {
-            return;
-          }
-
-          
-
-          //setTimeout(() => {
-            if (mST().i !== sess.i) return;
-            console.log(`session ${sess.i} mst: ${mST().i}, our i: ${counter}`);
-            changeContent((x) => ({
-              ...x,
-              myCode: sess.code,
-              counter: sess.i,
-            }));
-          
-            setValue(sess.code);
-        //  }, 100);
-        }, "editor");
-
-        runner({ code: newCode, counter: counter + 1 });
+     
+     
       } catch (err) {
         console.error({ err });
         console.error("restore editor");
@@ -182,7 +186,7 @@ export const Editor: FC<{ code: string; i: number }> = ({ code, i }) => {
     // });
 
     return onChange(() => cb());
-  }, [changeContent, setValue, getValue, onChange, i, code, counter, myCode]);
+  }, [ setValue, getValue, onChange, counter]);
 
   if (engine === "monaco") {
     return (

@@ -49,7 +49,7 @@ export async function runner({ code, counter }: {
   code: string;
   counter: number;
 }) {
-  console.log({ i, counter });
+  // console.log({ i, counter });
   if (i >= counter) {
     setTimeout(() => i = mST().i, 100);
     return;
@@ -73,8 +73,10 @@ export async function runner({ code, counter }: {
     /// yellow
     if (transpiled.length > 0) {
       try {
+        // console.log(transpiled);
         const App = await appFactory(transpiled);
         const { html, css } = renderFromString(App);
+        // console.log({html, css});
 
         if (i > counter) return;
 

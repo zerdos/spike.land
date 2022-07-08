@@ -200,8 +200,21 @@ export class Code {
             },
           });
           case "mST.mjs":
+            const a = JSON.parse(manifestJSON)
+            const assets= {
+              "react.mjs": a['react.mjs'],
+              "emotion.mjs": a["emotion.mjs"],
+              "framer-motion.mjs": a["framer-motion.mjs"]
+            }
             return new Response(
-              `export const mST=${JSON.stringify(mST())};`,
+              `
+              export const assets=${JSON.stringify(assets)};
+              export const mST=${JSON.stringify(mST())};
+              export const codeSpace="${this.codeSpace}";
+              export const address="${this.address}";
+              
+              `,
+              
               {
                 status: 200,
                 headers: {
@@ -293,24 +306,17 @@ export class Code {
         case "public": {
           const { css, html } = mST();
 
-          const assets = JSON.parse(manifestJSON)
+
+          const a = JSON.parse(manifestJSON)
+          const assets= {
+            "react.mjs": a['react.mjs'],
+            "emotion.mjs": a["emotion.mjs"],
+            "framer-motion.mjs": a["framer-motion.mjs"]
+          }
 
           return new Response(
-            HTML.replace(
-              `/** startState **/`,
-              `Object.assign(window,${
-                JSON.stringify({
-                  codeSpace: this.codeSpace,
-                  address: this.address,
-                  assets: {
-                    "react.mjs": assets['react.mjs'],
-                    "emotion.mjs": assets["emotion.mjs"],
-                    "framer-motion.mjs": assets["framer-motion.mjs"]
-                  }
-                })
-              });`,
-            ).replace("/live/coder/mST.mjs", `/live/${this.codeSpace}/mST.mjs`)
-              .replace("js/ws.mjs", assets['js/ws.mjs'])
+            HTML.replace("/live/coder/mST.mjs", `/live/${this.codeSpace}/mST.mjs`)
+              .replace("js/ws.mjs", a['js/ws.mjs'])
             .replace(
               `/* #root{} */`,
               `
