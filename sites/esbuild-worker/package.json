@@ -1,6 +1,6 @@
 {
   "name": "esbuild-worker",
-  "version": "0.8.0",
+  "version": "0.8.1",
   "module": "devserver.mjs",
   "type": "module",
   "scripts": {
