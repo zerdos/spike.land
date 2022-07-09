@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 
 import { ReactNode, useEffect, useState } from "react";
-import {  appRoot, AutoUpdateApp, appFactory } from "./starter";
+import { appFactory, appRoot, AutoUpdateApp } from "./starter";
 import { css } from "@emotion/react";
 import { DraggableWindow } from "./DraggableWindow";
 import type { FC } from "react";
@@ -70,23 +70,20 @@ const MyAutoUpdatingApp: FC = () => {
     }, "myApp");
   }, [hash, setHash]);
 
-  return <AutoUpdateApp key={hash} hash={hash}/>;
+  return <AutoUpdateApp key={hash} hash={hash} />;
 };
 
 export const renderPreviewWindow = async (
- codeSpace: string
+  codeSpace: string,
 ) => {
-
-
   await appFactory(mST().transpiled);
 
   // document.getElementById("root");
 
-
   if (
-    location.pathname.endsWith("public")  ||
+    location.pathname.endsWith("public") ||
     location.pathname.endsWith("hydrated")
-  ){
+  ) {
     appRoot.render(
       <MyAutoUpdatingApp />,
     );
@@ -96,17 +93,17 @@ export const renderPreviewWindow = async (
   const { Editor } = await import("./Editor");
   appRoot.render(
     <RainbowContainer>
-    <DraggableWindow
-      // onRestore={() => {
-      //   const model = globalThis.model;
-      //   model.setValue(mST().code);
-      // }}
-      hashCode={0}
-      room={codeSpace}
-    >
-      <MyAutoUpdatingApp />
-    </DraggableWindow>
-    <Editor code={mST().code} i={mST().i} codeSpace={codeSpace} />
-  </RainbowContainer>
+      <DraggableWindow
+        // onRestore={() => {
+        //   const model = globalThis.model;
+        //   model.setValue(mST().code);
+        // }}
+        hashCode={0}
+        room={codeSpace}
+      >
+        <MyAutoUpdatingApp />
+      </DraggableWindow>
+      <Editor code={mST().code} i={mST().i} codeSpace={codeSpace} />
+    </RainbowContainer>,
   );
 };

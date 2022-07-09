@@ -7,40 +7,39 @@ import { createRoot } from "react-dom/client";
 import { mST } from "./session";
 import { md5 } from "./md5";
 
-
-Object.assign(window, {esmsInitOptions: {
-  shimMode: true,
-  polyfillEnable: ['css-modules', 'json-modules'] // default empty
-}});
-
-
-export const initShims = async (assets: {[key: string]: string})=> import("es-module-shims").then(()=>importShim.addImportMap({
-  "imports": {
-    // ...imap,
-    "framer-motion": location.origin +  "/" + assets["framer-motion.mjs"],
-    "@emotion/react": location.origin +  "/" +assets["emotion.mjs"],
-    "react": location.origin +  "/" +assets["react.mjs"],
-    "react-dom": location.origin +  "/" +assets["react.mjs"],
-    "react-dom/client": location.origin +  "/" +assets["react.mjs"],
-    "react-dom/server": location.origin +  "/" +assets["react.mjs"],
-    "react/jsx-runtime":location.origin +  "/" + assets["react.mjs"]
-    // "preact": "https://ga.jspm.io/npm:preact@10.8.2/dist/preact.module.js",
-    // "preact-render-to-string": "https://ga.jspm.io/npm:preact-render-to-string@5.2.0/dist/index.mjs",
-    // "preact/compat": "https://ga.jspm.io/npm:preact@10.8.2/compat/dist/compat.module.js",
-    // "preact/jsx-runtime": "https://ga.jspm.io/npm:preact@10.8.2/jsx-runtime/dist/jsxRuntime.module.js"
+Object.assign(window, {
+  esmsInitOptions: {
+    shimMode: true,
+    polyfillEnable: ["css-modules", "json-modules"], // default empty
   },
-}));
+});
 
+export const initShims = async (assets: { [key: string]: string }) =>
+  import("es-module-shims").then(() =>
+    importShim.addImportMap({
+      "imports": {
+        // ...imap,
+        "framer-motion": location.origin + "/" + assets["framer-motion.mjs"],
+        "@emotion/react": location.origin + "/" + assets["emotion.mjs"],
+        "react": location.origin + "/" + assets["react.mjs"],
+        "react-dom": location.origin + "/" + assets["react.mjs"],
+        "react-dom/client": location.origin + "/" + assets["react.mjs"],
+        "react-dom/server": location.origin + "/" + assets["react.mjs"],
+        "react/jsx-runtime": location.origin + "/" + assets["react.mjs"],
+        // "preact": "https://ga.jspm.io/npm:preact@10.8.2/dist/preact.module.js",
+        // "preact-render-to-string": "https://ga.jspm.io/npm:preact-render-to-string@5.2.0/dist/index.mjs",
+        // "preact/compat": "https://ga.jspm.io/npm:preact@10.8.2/compat/dist/compat.module.js",
+        // "preact/jsx-runtime": "https://ga.jspm.io/npm:preact@10.8.2/jsx-runtime/dist/jsxRuntime.module.js"
+      },
+    })
+  );
 
-
-
-let App: FC = () => <Fragment></Fragment>
+let App: FC = () => <Fragment></Fragment>;
 const apps: { [key: string]: FC } = {};
 
 // {[md5(starter.transpiled)]: await appFactory(starter.transpiled)};
 
-export const AutoUpdateApp: FC<{hash: number}> = ({hash}) => {
-
+export const AutoUpdateApp: FC<{ hash: number }> = ({ hash }) => {
   const result = md5(mST().transpiled);
 
   if (apps[result]) {
@@ -48,12 +47,10 @@ export const AutoUpdateApp: FC<{hash: number}> = ({hash}) => {
   }
   // apps[]=result;
 
-  return <App key={hash}/>
+  return <App key={hash} />;
 };
 
-
-export async function appFactory(transpiled: string):Promise<FC>{
- 
+export async function appFactory(transpiled: string): Promise<FC> {
   const result = md5(transpiled);
   // return lazy(>import(`/live/${codeSpace}/js#${result}`));
   // if (globalThis.transpiled === transpiled) return globalThis.App;
@@ -69,12 +66,13 @@ export async function appFactory(transpiled: string):Promise<FC>{
   // }
 
   if (!apps[result]) {
-    apps[result] = (await importShim(createJsBlob(transpiled))).default as unknown as FC;
+    apps[result] = (await importShim(createJsBlob(transpiled)))
+      .default as unknown as FC;
   }
-  
+
   App = apps[result];
   return apps[result];
-};
+}
 
 export const appRoot = createRoot(
   document.getElementById("root") || (() => {

@@ -15,5 +15,5 @@ const load = async (path) => {
 };
 
 if (document.documentElement.dataset.viewer) {
-   load(location.pathname);
+  load(location.pathname);
 }

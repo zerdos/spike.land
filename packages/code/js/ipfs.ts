@@ -1,18 +1,17 @@
 require("../../../node_modules/ipfs-core/dist/index.min.js");
-import { IPFSService, Server } from 'ipfs-message-port-server'
-import defaultConfig from "../../../node_modules/ipfs-core-config/src/config.browser.js"
-import {libp2pConfig} from "../../../node_modules/ipfs-core-config/src/libp2p.browser.js"
+import { IPFSService, Server } from "ipfs-message-port-server";
+import defaultConfig from "../../../node_modules/ipfs-core-config/src/config.browser.js";
+import { libp2pConfig } from "../../../node_modules/ipfs-core-config/src/libp2p.browser.js";
 // import repo from "../../../node_modules/ipfs-core-config/repo.browser.js"
 // import {routers} from "../../../node_modules/ipfs-core-config/libp2p-pubsub-routers.browser.js"
 
 import type {} from "orbit-db";
 
-const { IpfsCore}=self
+const { IpfsCore } = self;
 
 //import OrbitDB from "orbit-db"
 //import { create } from "../../node_modules/ipfs-core/index.min.js"//;
 //import { create,  } from "ipfs-core"//;
-
 
 // } from "../../node_modules/ipfs-message-port-server/index.min.js";
 // importScripts('https://unpkg.com/ipfs@0.62.3/index.min.js');
@@ -24,23 +23,24 @@ self.orbitDbs = orbitDbs;
 
 let ipfsServer = null;
 
-export const connect = async (channel: MessageChannel)=>{
+export const connect = async (channel: MessageChannel) => {
+  ipfsServer = ipfsServer || new Server(
+    new IPFSService(
+      await IpfsCore.create({
+        start: true,
+        preload: {
+          enabled: false,
+        },
+        config: {
+          ...defaultConfig(),
+          ...libp2pConfig(),
+        },
+      }),
+    ),
+  );
 
-  ipfsServer = ipfsServer ||  new Server( new IPFSService(await IpfsCore.create(   {
-    start: true,
-    preload: {
-      enabled: false,
-    },
-    config: {
-      ...defaultConfig(),
-      ...libp2pConfig()
-    },
-  })));
-  
   return ipfsServer.connect(channel.port1);
-}
-
-
+};
 
 // async function startOrbit(
 //   orbitdb: OrbitDB,
@@ -136,7 +136,6 @@ export const connect = async (channel: MessageChannel)=>{
 
 // // URL to the script containing ipfs-message-port-server.
 
-
 // const ipfsSw = async () => {
 //   try {
 //     navigator.serviceWorker.onmessage = onServiceWorkerMessage;
@@ -152,9 +151,9 @@ export const connect = async (channel: MessageChannel)=>{
 //     // URLs like `localhost:3000/ipfs/Qmf412jQZiuVUtdgnB36FXFX7xg5V6KEbSJ4dpQuhkLyfD`
 //     // are loaded from service worker. However it could be that such a URL is loaded
 //     // before the service worker was registered in which case our server just loads a blank
-    // if (document.documentElement.dataset.viewer) {
-    //   return load(location.pathname);
-    // }
+// if (document.documentElement.dataset.viewer) {
+//   return load(location.pathname);
+// }
 //   } catch {
 //     console.log("ipfs load error");
 //   }

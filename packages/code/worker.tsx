@@ -1,4 +1,2 @@
-import { xit } from "mocha";
-
-xit { ipfsWorker } from "./js/ipfsWorker";
+import { ipfsWorker } from "./js/ipfsWorker";
 ipfsWorker();

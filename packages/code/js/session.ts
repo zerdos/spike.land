@@ -167,7 +167,9 @@ export class CodeSession implements ICodeSess {
     const codeSpace = this.room || "";
 
     if (
-      ! (Object.keys(hashStore).map((x) => Number(x)).includes(Number(oldHash))) &&
+      !(Object.keys(hashStore).map((x) => Number(x)).includes(
+        Number(oldHash),
+      )) &&
       codeSpace
     ) {
       console.log(Object.keys(hashStore));
@@ -175,17 +177,18 @@ export class CodeSession implements ICodeSess {
         `/live/${codeSpace}/mST`,
       );
       if (resp.ok) {
+        const s: { hashCode: string; mST: ICodeSession } = await resp.json();
 
-      const s: { hashCode: string; mST: ICodeSession } = await resp.json();
+        // hashStore[Number(s.hashCode)] =
 
-      // hashStore[Number(s.hashCode)] =
-
-      const serverRecord = this.session.get("state").merge(
-        JSON.parse(str(s.mST)),
-      );
-      hashStore[serverRecord.hashCode()] = serverRecord;
+        const serverRecord = this.session.get("state").merge(
+          JSON.parse(str(s.mST)),
+        );
+        hashStore[serverRecord.hashCode()] = serverRecord;
       } else {
-        const {mST} = await import(location.origin + `/live/${this.room}/mst.mjs?${Date.now()}`);
+        const { mST } = await import(
+          location.origin + `/live/${this.room}/mst.mjs?${Date.now()}`
+        );
         const latestRec = this.session.get("state").merge(
           JSON.parse(str(mST)),
         );

@@ -43,7 +43,7 @@ export default {
         serveJs && u.pathname.endsWith(".tsx") &&
         !u.pathname.endsWith(".index.tsx")
       ) {
-      url = new URL(request.url.replace(".tsx", "/index.tsx"));
+        url = new URL(request.url.replace(".tsx", "/index.tsx"));
       }
 
       if (serveJs && !url.pathname.includes(".")) {

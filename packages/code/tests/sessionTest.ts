@@ -1,12 +1,7 @@
 import { test } from "uvu";
 import * as assert from "uvu/assert";
 
-import {
-  hashCode,
-  makePatch,
-  applyPatch,
-  startSession,
-} from "../js/session";
+import { applyPatch, hashCode, makePatch, startSession } from "../js/session";
 
 const state1 = { code: "", transpiled: "", i: 33, css: "", html: "" };
 const state2 = { code: "dddd", transpiled: "", i: 33, css: "", html: "" };

@@ -4,13 +4,12 @@ import HTML from "./index.html";
 import IIFE from "./iife.html";
 import manifestJSON from "__STATIC_CONTENT_MANIFEST";
 
-
 import { CodeEnv } from "./env";
 import type { ICodeSession } from "@spike.land/code/js/session";
 import {
+  applyPatch,
   hashCode,
   mST,
-  applyPatch,
   startSession,
 } from "@spike.land/code/js/session";
 import { Delta } from "@spike.land/code/js/textDiff";
@@ -199,31 +198,30 @@ export class Code {
               "Content-Type": "application/json; charset=UTF-8",
             },
           });
-          case "mST.mjs":
-            const a = JSON.parse(manifestJSON)
-            const assets= {
-              "react.mjs": a['react.mjs'],
-              "emotion.mjs": a["emotion.mjs"],
-              "framer-motion.mjs": a["framer-motion.mjs"]
-            }
-            return new Response(
-              `
+        case "mST.mjs":
+          const a = JSON.parse(manifestJSON);
+          const assets = {
+            "react.mjs": a["react.mjs"],
+            "emotion.mjs": a["emotion.mjs"],
+            "framer-motion.mjs": a["framer-motion.mjs"],
+          };
+          return new Response(
+            `
               export const assets=${JSON.stringify(assets)};
               export const mST=${JSON.stringify(mST())};
               export const codeSpace="${this.codeSpace}";
               export const address="${this.address}";
               
               `,
-              
-              {
-                status: 200,
-                headers: {
-                  "Access-Control-Allow-Origin": "*",
-                  "Cache-Control": "no-cache",
-                  "Content-Type": "application/javascript; charset=UTF-8",
-                },
+            {
+              status: 200,
+              headers: {
+                "Access-Control-Allow-Origin": "*",
+                "Cache-Control": "no-cache",
+                "Content-Type": "application/javascript; charset=UTF-8",
               },
-            );
+            },
+          );
         case "mST":
           return new Response(
             JSON.stringify({
@@ -306,30 +304,32 @@ export class Code {
         case "public": {
           const { css, html } = mST();
 
-
-          const a = JSON.parse(manifestJSON)
-          const assets= {
-            "react.mjs": a['react.mjs'],
+          const a = JSON.parse(manifestJSON);
+          const assets = {
+            "react.mjs": a["react.mjs"],
             "emotion.mjs": a["emotion.mjs"],
-            "framer-motion.mjs": a["framer-motion.mjs"]
-          }
+            "framer-motion.mjs": a["framer-motion.mjs"],
+          };
 
           return new Response(
-            HTML.replace("/live/coder/mST.mjs", `/live/${this.codeSpace}/mST.mjs`)
-              .replace("js/ws.mjs", a['js/ws.mjs'])
-            .replace(
-              `/* #root{} */`,
-              `
+            HTML.replace(
+              "/live/coder/mST.mjs",
+              `/live/${this.codeSpace}/mST.mjs`,
+            )
+              .replace("js/ws.mjs", a["js/ws.mjs"])
+              .replace(
+                `/* #root{} */`,
+                `
           #root{
             height: 100%; 
           }
           ${css}
           `,
-            ).replace(
-              `<div id="root"></div>`,
-              `<div id="root">` + html + `</div>
+              ).replace(
+                `<div id="root"></div>`,
+                `<div id="root">` + html + `</div>
            `,
-            ),
+              ),
             {
               status: 200,
               headers: {

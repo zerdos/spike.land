@@ -1,6 +1,6 @@
 import esbuild from "esbuild";
-import { dirname, resolve } from 'path';
-import { fileURLToPath } from 'url';
+import { dirname, resolve } from "path";
+import { fileURLToPath } from "url";
 import { pnpPlugin } from "@yarnpkg/esbuild-plugin-pnp";
 import * as importMap from "esbuild-plugin-import-map";
 import { jsxImportSourcePlugin } from "esbuild-plugin-jsximportsource";
@@ -123,10 +123,17 @@ await esbuild.build({
   treeShaking: true,
 
   ignoreAnnotations: true,
-  plugins: [ alias({
-    "path" :new URL('./path/index.js', import.meta.url).pathname,
-    "stream":  new URL('../../node_modules/stream-browserify/index.js',  import.meta.url).pathname
-  }),pnpPlugin(), jsxImportSourcePlugin({ filter: /.(tsx)/ })],
+  plugins: [
+    alias({
+      "path": new URL("./path/index.js", import.meta.url).pathname,
+      "stream": new URL(
+        "../../node_modules/stream-browserify/index.js",
+        import.meta.url,
+      ).pathname,
+    }),
+    pnpPlugin(),
+    jsxImportSourcePlugin({ filter: /.(tsx)/ }),
+  ],
   ignoreAnnotations: true,
   treeShaking: true,
   // outExtension: {".js": ".workerJS"},
@@ -219,7 +226,7 @@ await build([
   "react.ts",
   "js/startMonaco.ts",
   "framer-motion.ts",
-  "emotion.ts"
+  "emotion.ts",
 ]);
 
 await build;

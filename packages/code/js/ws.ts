@@ -1,11 +1,11 @@
 // import "core-js/full";
 
 import {
+  applyPatch,
   hashCode,
   makePatch,
   makePatchFrom,
   mST,
-  applyPatch,
   startSession,
 } from "./session";
 import type { ICodeSession } from "./session";
@@ -15,7 +15,6 @@ import uidV4 from "./uidV4.mjs";
 import { initShims } from "starter";
 
 const webRtcArray: (RTCDataChannel & { target: string })[] = [];
-
 
 const user = ((self && self.crypto && self.crypto.randomUUID &&
   self.crypto.randomUUID()) || (uidV4())).slice(
@@ -86,22 +85,24 @@ export async function quickStart(codeSpace: string) {
 
 //   join()
 
-
 // }
 
 export const run = async (startState: {
-  mST: ICodeSession, codeSpace:string, address: string, assets: {[key: string]: string}
+  mST: ICodeSession;
+  codeSpace: string;
+  address: string;
+  assets: { [key: string]: string };
 }) => {
   codeSpace = startState.codeSpace;
   address = startState.address;
-  const {assets}= startState;
+  const { assets } = startState;
   startSession(codeSpace, {
     name: user,
     state: startState.mST,
   });
 
   initShims(assets);
-  
+
   quickStart(codeSpace);
 
   // renderApp(await appFactory(state.transpiled));
@@ -134,20 +135,19 @@ export const run = async (startState: {
       await applyPatch(messageData);
     }
   };
-
 };
-(async()=>{
-if (navigator && navigator?.serviceWorker) {
-  navigator.serviceWorker.register("/sw.js", {
-    scope: "/",
-  });
-  const current = await navigator.serviceWorker.ready;
-  await sw();
+(async () => {
+  if (navigator && navigator?.serviceWorker) {
+    navigator.serviceWorker.register("/sw.js", {
+      scope: "/",
+    });
+    const current = await navigator.serviceWorker.ready;
+    await sw();
 
-  Promise.all((await navigator.serviceWorker.getRegistrations()).map((sw) => {
-    if (current !== sw) sw.unregister();
-  }));
-}
+    Promise.all((await navigator.serviceWorker.getRegistrations()).map((sw) => {
+      if (current !== sw) sw.unregister();
+    }));
+  }
 })();
 let intervalHandler: NodeJS.Timer | null = null;
 
@@ -172,7 +172,6 @@ async function rejoin() {
 }
 
 const ignoreUsers: string[] = [];
-
 
 export async function saveCode(sess: ICodeSession) {
   // if (rtcConns !== globalThis.rtcConns) return;
@@ -319,8 +318,6 @@ export async function join() {
 
   // Object.assign(session, { ...mST() });
   // globalThis.session = session;
-
- 
 
   return wsConnection;
 }
@@ -720,15 +717,15 @@ async function sw() {
       switch (event.data.method) {
         case "ipfs-message-port":
           console.log("Message port request");
-          const {connect}  = await import("./ipfs");
+          const { connect } = await import("./ipfs");
 
-          console.log("can connect trough", {connect})
+          console.log("can connect trough", { connect });
           // await ipfsWorker();
           //
           const channel = new MessageChannel();
           await connect(channel);
-          console.log({channel});
-        
+          console.log({ channel });
+
           return serviceWorker.postMessage({
             method: "ipfs-message-port",
             id: event.data.id,
@@ -767,4 +764,4 @@ async function sw() {
   } catch {
     console.log("ipfs load error");
   }
-};
+}

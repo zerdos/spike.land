@@ -10,10 +10,11 @@ import { isMobile } from "./isMobile.mjs";
 import { css } from "@emotion/react";
 import { wait } from "wait";
 
-
 // export type IStandaloneCodeEditor = editor.Ist;
 
-export const Editor: FC<{ code: string; i: number, codeSpace: string }> = ({ code, i, codeSpace }) => {
+export const Editor: FC<{ code: string; i: number; codeSpace: string }> = (
+  { code, i, codeSpace },
+) => {
   const ref = useRef<HTMLDivElement>(null) as null | {
     current: HTMLDivElement;
   };
@@ -36,9 +37,8 @@ export const Editor: FC<{ code: string; i: number, codeSpace: string }> = ({ cod
   const lines = code?.split("\n").length || 0;
 
   useEffect(() => {
-
     if (!ref?.current) return;
-    
+
     const setMonaco = async () => {
       const { startMonaco } = await import("./startMonaco");
 
@@ -52,7 +52,7 @@ export const Editor: FC<{ code: string; i: number, codeSpace: string }> = ({ cod
           code: mST().code,
         },
       );
-     // globalThis.editor = editor;
+      // globalThis.editor = editor;
 
       changeContent((x) => ({
         ...x,
@@ -74,7 +74,7 @@ export const Editor: FC<{ code: string; i: number, codeSpace: string }> = ({ cod
     };
 
     const setAce = async () => {
-      const {startAce} = await import("./startAce");
+      const { startAce } = await import("./startAce");
       const editor = await startAce(mST().code);
       changeContent((x) => ({
         ...x,
@@ -86,25 +86,19 @@ export const Editor: FC<{ code: string; i: number, codeSpace: string }> = ({ cod
         setValue: (code: string) => editor.session.setValue(code),
         myId: "editor",
       }));
-    
-    
-    }
+    };
 
-    const loadEditors = async () =>{
-    
+    const loadEditors = async () => {
+      engine === "monaco" ? await setMonaco() : await setAce();
 
-    engine === "monaco" ? await setMonaco() : await setAce();
-
-
-    const {prettierJs} = await import("./prettierEsm");
-    changeContent((x) => ({ ...x, prettierJs }));
-    await wait(1000);
-    // console.log("RUN THE RUNNER");
-    runner({code: code + " ", counter});
-    }
+      const { prettierJs } = await import("./prettierEsm");
+      changeContent((x) => ({ ...x, prettierJs }));
+      await wait(1000);
+      // console.log("RUN THE RUNNER");
+      runner({ code: code + " ", counter });
+    };
 
     loadEditors();
-    
   }, [ref]);
 
   useEffect(() => {
@@ -135,20 +129,18 @@ export const Editor: FC<{ code: string; i: number, codeSpace: string }> = ({ cod
             return;
           }
 
-          
-
           //setTimeout(() => {
-            if (mST().i !== sess.i) return;
+          if (mST().i !== sess.i) return;
 
-            // console.log(`session ${sess.i} mst: ${mST().i}, our i: ${counter}`);
-            changeContent((x) => ({
-              ...x,
-              myCode: sess.code,
-              counter: sess.i,
-            }));
-          
-            setValue(sess.code);
-        //  }, 100);
+          // console.log(`session ${sess.i} mst: ${mST().i}, our i: ${counter}`);
+          changeContent((x) => ({
+            ...x,
+            myCode: sess.code,
+            counter: sess.i,
+          }));
+
+          setValue(sess.code);
+          //  }, 100);
         }, "editor");
 
         // console.log("RUN THE RUNNER AGAIN");
@@ -168,9 +160,6 @@ export const Editor: FC<{ code: string; i: number, codeSpace: string }> = ({ cod
         //     editor?.setValue(sess.code);
         //   }, 100);
         // });
-
-     
-     
       } catch (err) {
         console.error({ err });
         console.error("restore editor");
@@ -186,7 +175,7 @@ export const Editor: FC<{ code: string; i: number, codeSpace: string }> = ({ cod
     // });
 
     return onChange(() => cb());
-  }, [ setValue, getValue, onChange, counter]);
+  }, [setValue, getValue, onChange, counter]);
 
   if (engine === "monaco") {
     return (
@@ -217,5 +206,3 @@ export const Editor: FC<{ code: string; i: number, codeSpace: string }> = ({ cod
     />
   );
 };
-
-
