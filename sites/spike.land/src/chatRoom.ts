@@ -9,7 +9,7 @@ import type { ICodeSession } from "@spike.land/code/js/session";
 import {
   applyPatch,
   hashCode,
-  mST,
+  mST as mSTOrig,
   startSession,
 } from "@spike.land/code/js/session";
 import { Delta } from "@spike.land/code/js/textDiff";
@@ -86,16 +86,18 @@ export class Code {
       startSession(this.codeSpace, {
         name: this.codeSpace,
         state: session,
-      });
+      }, "");
     });
   }
 
-  async fetch(request: Request, env: CodeEnv, ctx: ExecutionContext) {
+  async fetch(request: Request, env: CodeEnv, ctx: ExecutionContext) {    
     let url = new URL(request.url);
+    const mST = ()=>mSTOrig(url.origin);
+
     this.codeSpace = url.searchParams.get("room") || "code-main";
 
     return await handleErrors(request, async () => {
-      let path = url.pathname.slice(1).split("/");
+      let path = url.pathname.slice(1).split("/");      
 
       switch (path[0]) {
         case "":
@@ -552,7 +554,7 @@ export class Code {
               });
             }
 
-            await this.kv.put<ICodeSession>("session", { ...mST() });
+            await this.kv.put<ICodeSession>("session", { ...mSTOrig() });
             await this.kv.put(
               String(newHash),
               JSON.stringify({

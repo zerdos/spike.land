@@ -64,8 +64,12 @@ const MyAutoUpdatingApp: FC = () => {
     onSessionUpdate(async () => {
       const newHash = hashCode();
       if (hash !== newHash) {
+        try{
         await appFactory(mST().transpiled);
         setHash(newHash);
+        } catch(e) {
+          console.error({e})
+        }
       }
     }, "myApp");
   }, [hash, setHash]);
@@ -76,7 +80,11 @@ const MyAutoUpdatingApp: FC = () => {
 export const renderPreviewWindow = async (
   codeSpace: string,
 ) => {
+  try{
   await appFactory(mST().transpiled);
+  } catch(e){
+    console.error({e})
+  }
 
   // document.getElementById("root");
 

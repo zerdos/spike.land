@@ -90,10 +90,12 @@ export class CodeSession implements ICodeSess {
   }
   hashCodeSession: number = 0;
   room: string;
+  origin: string;
   created: string = new Date().toISOString();
-  constructor(room: string, user: IUserJSON) {
+  constructor( room: string, user: IUserJSON, origin: string,) {
     session = this;
     this.room = room;
+    this.origin = origin;
     const savedState: ICodeSession | null = null;
 
     // If (user.state.code === "" && room) {
@@ -116,7 +118,7 @@ export class CodeSession implements ICodeSess {
 
     this.session = initSession(room, {
       ...user,
-      state: savedState ? savedState : JSON.parse(str(user.state)),
+      state: savedState ? savedState : JSON.parse(str(user.state, this.origin)),
     })();
   }
 
@@ -131,7 +133,7 @@ export class CodeSession implements ICodeSess {
     oldHash: number,
     state: ICodeSession,
   ) => {
-    const s = JSON.parse(str(state));
+    const s = JSON.parse(str(state, this.origin));
 
     if (!hashStore[oldHash]) {
       const resp = await fetch(
@@ -144,10 +146,10 @@ export class CodeSession implements ICodeSess {
     }
 
     const oldRec = hashStore[oldHash];
-    const oldStr = str(oldRec.toJSON());
+    const oldStr = str(oldRec.toJSON(),this.origin);
 
     const newRec = oldRec.merge(s);
-    const newStr = str(newRec.toJSON());
+    const newStr = str(newRec.toJSON(),this.origin);
     const newHash = newRec.hashCode();
     hashStore[newHash] = newRec;
 
@@ -182,7 +184,7 @@ export class CodeSession implements ICodeSess {
         // hashStore[Number(s.hashCode)] =
 
         const serverRecord = this.session.get("state").merge(
-          JSON.parse(str(s.mST)),
+          JSON.parse(str(s.mST,this.origin)),
         );
         hashStore[serverRecord.hashCode()] = serverRecord;
       } else {
@@ -190,13 +192,13 @@ export class CodeSession implements ICodeSess {
           location.origin + `/live/${this.room}/mst.mjs?${Date.now()}`
         );
         const latestRec = this.session.get("state").merge(
-          JSON.parse(str(mST)),
+          JSON.parse(str(mST,this.origin)),
         );
         hashStore[latestRec.hashCode()] = latestRec;
       }
     }
 
-    const oldStr = str(hashStore[oldHash].toJSON());
+    const oldStr = str(hashStore[oldHash].toJSON(),this.origin);
     const applied = aPatch(oldStr, patch);
     const newState = JSON.parse(applied);
     const newRec: Record<ICodeSession> = this.session.get("state").merge(
@@ -230,7 +232,7 @@ export class CodeSession implements ICodeSess {
 
 export const hashCode = () => session ? session.hashOfState() : 0;
 
-export const mST: () => ICodeSession = () => {
+export const mST: (origin?: string) => ICodeSession = () => {
   if (!session) {
     return {
       i: 0,
@@ -241,13 +243,33 @@ export const mST: () => ICodeSession = () => {
     };
   }
 
+  if (origin) return addOrigin(session.json().state, origin);
+
   const { i, transpiled, code, html, css } = session.json().state;
   return { i, transpiled, code, html, css };
 };
 
-function str(s: ICodeSession) {
+
+function addOrigin(s: ICodeSession, origin: string){
   const { i, transpiled, code, html, css } = s;
-  return JSON.stringify({ i, transpiled, code, html, css });
+
+  const mst =   { i, transpiled, code, html, css };
+
+  mst.code= mst.code.replace(`from '/live`, `from '${origin}/live`);
+  mst.code= mst.code.replace(`from './`, `from '${origin}/live/`);
+
+  mst.transpiled= mst.transpiled.replace(`from "/live`, `from "${origin}/live/`);
+
+  mst.transpiled= mst.transpiled.replace(`from "./`, `from "${origin}/live/`);
+  return mst;
+}
+function str(s: ICodeSession, origin: string) {
+
+
+
+
+
+  return JSON.stringify(addOrigin(s, origin));
 }
 
 export const applyPatch: IApplyPatch = async (x) => {
@@ -262,8 +284,8 @@ export const makePatchFrom = (n: number, st: ICodeSession) =>
   (session as CodeSession).createPatchFromHashCode(n, st);
 export const makePatch = (st: ICodeSession) => makePatchFrom(hashCode(), st);
 
-export const startSession = (room: string, u: IUserJSON): CodeSession =>
-  session || new CodeSession(room, u);
+export const startSession = (room: string, u: IUserJSON, origin: string): CodeSession =>
+  session || new CodeSession(room, u, origin);
 
 function createPatch(oldCode: string, newCode: string) {
   return createDelta(oldCode, newCode);
