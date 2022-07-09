@@ -1,7 +1,0 @@
-{
-  "hookId": "testHook",
-  "url": "testUrl",
-  "headers": null,
-  "hookEvents": [],
-  "hookType": "TEAMS_HOOK"
-}

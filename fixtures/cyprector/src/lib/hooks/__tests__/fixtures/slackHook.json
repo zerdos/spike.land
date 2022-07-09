@@ -1,9 +1,0 @@
-{
-  "hookId": "testHook",
-  "url": "testUrl",
-  "headers": null,
-  "hookEvents": [],
-  "hookType": "SLACK_HOOK",
-  "slackResultFilter": "ALL",
-  "slackBranchFilter": []
-}
