@@ -92,7 +92,7 @@ export class Code {
 
   async fetch(request: Request, env: CodeEnv, ctx: ExecutionContext) {    
     let url = new URL(request.url);
-    const mST = ()=>mSTOrig(url.origin);
+    const mST = ()=>mSTOrig("https://testing.spike.land");
 
     this.codeSpace = url.searchParams.get("room") || "code-main";
 
