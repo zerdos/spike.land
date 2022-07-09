@@ -32,13 +32,12 @@ name = "testing-spike-land"
 route = "https://testing.spike.land/*"
 
 
+[[env.testing.migrations]]
+tag = "v4" 
+new_classes= ["Users", "Code", "CodeRateLimiter"]
 
-migrations = [
-    {tag = "v4", new_classes= ["Users", "Code", "CodeRateLimiter"]}
-]
-
-[env.testing]
-durable_objects.bindings = [
+[env.testing.durable_objects]
+bindings = [
     { name = "CODE", class_name = "Code" },
     { name = "LIMITERS", class_name = "CodeRateLimiter" }
 ]
