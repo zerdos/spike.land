@@ -71,7 +71,7 @@
   },
   "dependencies": {
     "@emotion/react": "^11.9.3",
-    "@identifo/identifo-auth-js": "^3.3.2",
+    "@identifo/identifo-auth-js": "^3.3.3",
     "@mui/material": "^5.8.7",
     "@spike.land/qrious": "^0.8.0",
     "@types/prettier": "2.6.3",
