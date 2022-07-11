@@ -78,7 +78,7 @@ export async function quickStart(codeSpace: string) {
 //   codeSpace = startState.codeSpace;
 //   address = startState.address;
 //   const {assets}= startState;
-//   const seession = startSession(codeSpace, {
+//   const session = startSession(codeSpace, {
 //     name: user,
 //     state: startState.mST,
 //   });

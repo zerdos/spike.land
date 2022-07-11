@@ -128,7 +128,7 @@ const onfetch = (event) => {
             case "ipns": {
               return event.respondWith(fetchViewer(url));
             }
-            // If requests are for `/view/...` URL those are requests from iframes
+            // If requests are for `/view/...` URL those are requests from iframe's
             // for the content.
             case "view": {
               console.log(
