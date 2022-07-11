@@ -99,8 +99,7 @@ export const run = async (startState: {
   startSession(codeSpace, {
     name: user,
     state: startState.mST,
-  
-  },  "");
+  }, "");
 
   initShims(assets);
 

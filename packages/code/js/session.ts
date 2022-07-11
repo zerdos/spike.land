@@ -92,7 +92,7 @@ export class CodeSession implements ICodeSess {
   room: string;
   originStr: string;
   created: string = new Date().toISOString();
-  constructor( room: string, user: IUserJSON, originStr: string,) {
+  constructor(room: string, user: IUserJSON, originStr: string) {
     session = this;
     this.room = room;
     this.originStr = originStr;
@@ -118,7 +118,9 @@ export class CodeSession implements ICodeSess {
 
     this.session = initSession(room, {
       ...user,
-      state: savedState ? savedState : JSON.parse(str(user.state, this.originStr)),
+      state: savedState
+        ? savedState
+        : JSON.parse(str(user.state, this.originStr)),
     })();
   }
 
@@ -146,10 +148,10 @@ export class CodeSession implements ICodeSess {
     }
 
     const oldRec = hashStore[oldHash];
-    const oldStr = str(oldRec.toJSON(),this.originStr);
+    const oldStr = str(oldRec.toJSON(), this.originStr);
 
     const newRec = oldRec.merge(s);
-    const newStr = str(newRec.toJSON(),this.originStr);
+    const newStr = str(newRec.toJSON(), this.originStr);
     const newHash = newRec.hashCode();
     hashStore[newHash] = newRec;
 
@@ -184,7 +186,7 @@ export class CodeSession implements ICodeSess {
         // hashStore[Number(s.hashCode)] =
 
         const serverRecord = this.session.get("state").merge(
-          JSON.parse(str(s.mST,this.originStr)),
+          JSON.parse(str(s.mST, this.originStr)),
         );
         hashStore[serverRecord.hashCode()] = serverRecord;
       } else {
@@ -192,13 +194,13 @@ export class CodeSession implements ICodeSess {
           location.origin + `/live/${this.room}/mst.mjs?${Date.now()}`
         );
         const latestRec = this.session.get("state").merge(
-          JSON.parse(str(mST,this.originStr)),
+          JSON.parse(str(mST, this.originStr)),
         );
         hashStore[latestRec.hashCode()] = latestRec;
       }
     }
 
-    const oldStr = str(hashStore[oldHash].toJSON(),this.originStr);
+    const oldStr = str(hashStore[oldHash].toJSON(), this.originStr);
     const applied = aPatch(oldStr, patch);
     const newState = JSON.parse(applied);
     const newRec: Record<ICodeSession> = this.session.get("state").merge(
@@ -249,26 +251,26 @@ export const mST: (originStr?: string) => ICodeSession = (originStr) => {
   return { i, transpiled, code, html, css };
 };
 
-
-function addOrigin(s: ICodeSession, originStr: string){
+function addOrigin(s: ICodeSession, originStr: string) {
   const { i, transpiled, code, html, css } = s;
 
-  const mst =   { i, transpiled, code, html, css };
+  const mst = { i, transpiled, code, html, css };
 
-  mst.code= mst.code.replace(`from '/live`, `from '${originStr}/live`);
-  mst.code= mst.code.replace(`from './`, `from '${originStr}/live/`);
+  mst.code = mst.code.replace(`from '/live`, `from '${originStr}/live`);
+  mst.code = mst.code.replace(`from './`, `from '${originStr}/live/`);
 
-  mst.transpiled= mst.transpiled.replace(`from "/live`, `from "${originStr}/live`);
+  mst.transpiled = mst.transpiled.replace(
+    `from "/live`,
+    `from "${originStr}/live`,
+  );
 
-  mst.transpiled= mst.transpiled.replace(`from "./`, `from "${originStr}/live/`);
+  mst.transpiled = mst.transpiled.replace(
+    `from "./`,
+    `from "${originStr}/live/`,
+  );
   return mst;
 }
 function str(s: ICodeSession, originStr: string) {
-
-
-
-
-
   return JSON.stringify(addOrigin(s, originStr));
 }
 
@@ -284,8 +286,11 @@ export const makePatchFrom = (n: number, st: ICodeSession) =>
   (session as CodeSession).createPatchFromHashCode(n, st);
 export const makePatch = (st: ICodeSession) => makePatchFrom(hashCode(), st);
 
-export const startSession = (room: string, u: IUserJSON, originStr: string): CodeSession =>
-  session || new CodeSession(room, u, originStr);
+export const startSession = (
+  room: string,
+  u: IUserJSON,
+  originStr: string,
+): CodeSession => session || new CodeSession(room, u, originStr);
 
 function createPatch(oldCode: string, newCode: string) {
   return createDelta(oldCode, newCode);

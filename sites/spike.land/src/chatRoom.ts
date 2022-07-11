@@ -90,14 +90,14 @@ export class Code {
     });
   }
 
-  async fetch(request: Request, env: CodeEnv, ctx: ExecutionContext) {    
+  async fetch(request: Request, env: CodeEnv, ctx: ExecutionContext) {
     let url = new URL(request.url);
-    const mST = ()=>mSTOrig("https://testing.spike.land");
+    const mST = () => mSTOrig("https://testing.spike.land");
 
     this.codeSpace = url.searchParams.get("room") || "code-main";
 
     return await handleErrors(request, async () => {
-      let path = url.pathname.slice(1).split("/");      
+      let path = url.pathname.slice(1).split("/");
 
       switch (path[0]) {
         case "":
