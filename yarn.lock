@@ -4049,6 +4049,7 @@ __metadata:
     ipfs-core: 0.15.4
     ipfs-message-port-client: 0.12.4
     ipfs-message-port-server: 0.12.1
+    iso-constants: 0.1.2
     lodash: 4.17.21
     microenvi: 0.3.1
     monaco-editor: 0.33.0
@@ -12027,7 +12028,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"iso-constants@npm:^0.1.2":
+"iso-constants@npm:0.1.2, iso-constants@npm:^0.1.2":
   version: 0.1.2
   resolution: "iso-constants@npm:0.1.2"
   checksum: 5e59939d03b4603d9426704c4dea8c41a4db14a91e34273a1b129aa84e265d6a63456d3543e3be85f47cdf350be5359bd31c59566e5084bdaee618dc65843804
