@@ -23,7 +23,7 @@ services:
     shm_size: 4gb
     volumes:
       # - $HOME:/home/$USER/host:delegated
-      - .:/workspace
+      # - .:/workspace
       - node:/workspace/node_modules
       - /var/run/docker.sock:/var/run/docker.sock
 volumes: 
