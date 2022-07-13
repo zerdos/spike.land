@@ -16980,7 +16980,7 @@ var renderPreviewWindow = async (codeSpace) => {
     appRoot.render(jsx(MyAutoUpdatingApp, null));
     return;
   }
-  const { Editor } = await import("./NVWRJXA5.mjs");
+  const { Editor } = await import("./HOOIY7LL.mjs");
   appRoot.render(jsx(RainbowContainer, null, jsx(DraggableWindow, {
     hashCode: 0,
     room: codeSpace
