@@ -60,6 +60,7 @@ import {
   useReducedMotion,
   useReducedMotionConfig,
   useResetProjection,
+  useScroll,
   useSpring,
   useTime,
   useTransform,
@@ -69,7 +70,7 @@ import {
   useVisualElementContext,
   visualElement,
   wrapHandler
-} from "./2V3YMMCZ.mjs";
+} from "./REDEJWQ7.mjs";
 import "./C23GJUEW.mjs";
 import {
   init_define_process
@@ -139,6 +140,7 @@ export {
   useReducedMotion,
   useReducedMotionConfig,
   useResetProjection,
+  useScroll,
   useSpring,
   useTime,
   useTransform,

@@ -5140,7 +5140,7 @@ Object.assign(window, {
     polyfillEnable: ["css-modules", "json-modules"]
   }
 });
-var initShims = async (assets) => import("./JH6BBGEI.mjs").then(() => importShim.addImportMap({
+var initShims = async (assets) => import("./7HO6S5US.mjs").then(() => importShim.addImportMap({
   "imports": {
     "framer-motion": location.origin + "/" + assets["framer-motion.mjs"],
     "@emotion/react": location.origin + "/" + assets["emotion.mjs"],

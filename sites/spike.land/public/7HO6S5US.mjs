@@ -16,7 +16,7 @@ init_define_process();
   const importHook = globalHook(shimMode && esmsInitOptions.onimport);
   const resolveHook = globalHook(shimMode && esmsInitOptions.resolve);
   let fetchHook = esmsInitOptions.fetch ? globalHook(esmsInitOptions.fetch) : fetch;
-  const metaHook = esmsInitOptions.meta ? globalHook(shimModule && esmsInitOptions.meta) : noop;
+  const metaHook = esmsInitOptions.meta ? globalHook(shimMode && esmsInitOptions.meta) : noop;
   const skip = esmsInitOptions.skip ? new RegExp(esmsInitOptions.skip) : null;
   const mapOverrides = esmsInitOptions.mapOverrides;
   let nonce = esmsInitOptions.nonce;
@@ -36,9 +36,6 @@ init_define_process();
   const enable = Array.isArray(esmsInitOptions.polyfillEnable) ? esmsInitOptions.polyfillEnable : [];
   const cssModulesEnabled = enable.includes("css-modules");
   const jsonModulesEnabled = enable.includes("json-modules");
-  function setShimMode() {
-    shimMode = true;
-  }
   const edge = !navigator.userAgentData && !!navigator.userAgent.match(/Edge\/\d+\.\d+/);
   const baseUrl = hasDocument ? document.baseURI : `${location.protocol}//${location.host}${location.pathname.includes("/") ? location.pathname.slice(0, location.pathname.lastIndexOf("/") + 1) : location.pathname}`;
   function createBlob(source, type = "text/javascript") {
@@ -53,6 +50,26 @@ init_define_process();
   function fromParent(parent) {
     return parent ? ` imported from ${parent}` : "";
   }
+  let importMapSrcOrLazy = false;
+  function setImportMapSrcOrLazy() {
+    importMapSrcOrLazy = true;
+  }
+  if (!shimMode) {
+    if (document.querySelectorAll("script[type=module-shim],script[type=importmap-shim],link[rel=modulepreload-shim]").length) {
+      shimMode = true;
+    } else {
+      let seenScript = false;
+      for (const script of document.querySelectorAll("script[type=module],script[type=importmap]")) {
+        if (!seenScript) {
+          if (script.type === "module" && !script.ep)
+            seenScript = true;
+        } else if (script.type === "importmap" && seenScript) {
+          importMapSrcOrLazy = true;
+          break;
+        }
+      }
+    }
+  }
   const backslashRegEx = /\\/g;
   function isURL(url) {
     if (url.indexOf(":") === -1)
@@ -64,32 +81,32 @@ init_define_process();
       return false;
     }
   }
-  function resolveUrl(relUrl, parentUrl2) {
-    return resolveIfNotPlainOrUrl(relUrl, parentUrl2) || (isURL(relUrl) ? relUrl : resolveIfNotPlainOrUrl("./" + relUrl, parentUrl2));
+  function resolveUrl(relUrl, parentUrl) {
+    return resolveIfNotPlainOrUrl(relUrl, parentUrl) || (isURL(relUrl) ? relUrl : resolveIfNotPlainOrUrl("./" + relUrl, parentUrl));
   }
-  function resolveIfNotPlainOrUrl(relUrl, parentUrl2) {
-    const queryHashIndex = parentUrl2.indexOf("?", parentUrl2.indexOf("#") === -1 ? parentUrl2.indexOf("#") : parentUrl2.length);
+  function resolveIfNotPlainOrUrl(relUrl, parentUrl) {
+    const queryHashIndex = parentUrl.indexOf("?", parentUrl.indexOf("#") === -1 ? parentUrl.indexOf("#") : parentUrl.length);
     if (queryHashIndex !== -1)
-      parentUrl2 = parentUrl2.slice(0, queryHashIndex);
+      parentUrl = parentUrl.slice(0, queryHashIndex);
     if (relUrl.indexOf("\\") !== -1)
       relUrl = relUrl.replace(backslashRegEx, "/");
     if (relUrl[0] === "/" && relUrl[1] === "/") {
-      return parentUrl2.slice(0, parentUrl2.indexOf(":") + 1) + relUrl;
+      return parentUrl.slice(0, parentUrl.indexOf(":") + 1) + relUrl;
     } else if (relUrl[0] === "." && (relUrl[1] === "/" || relUrl[1] === "." && (relUrl[2] === "/" || relUrl.length === 2 && (relUrl += "/")) || relUrl.length === 1 && (relUrl += "/")) || relUrl[0] === "/") {
-      const parentProtocol = parentUrl2.slice(0, parentUrl2.indexOf(":") + 1);
+      const parentProtocol = parentUrl.slice(0, parentUrl.indexOf(":") + 1);
       let pathname;
-      if (parentUrl2[parentProtocol.length + 1] === "/") {
+      if (parentUrl[parentProtocol.length + 1] === "/") {
         if (parentProtocol !== "file:") {
-          pathname = parentUrl2.slice(parentProtocol.length + 2);
+          pathname = parentUrl.slice(parentProtocol.length + 2);
           pathname = pathname.slice(pathname.indexOf("/") + 1);
         } else {
-          pathname = parentUrl2.slice(8);
+          pathname = parentUrl.slice(8);
         }
       } else {
-        pathname = parentUrl2.slice(parentProtocol.length + (parentUrl2[parentProtocol.length] === "/"));
+        pathname = parentUrl.slice(parentProtocol.length + (parentUrl[parentProtocol.length] === "/"));
       }
       if (relUrl[0] === "/")
-        return parentUrl2.slice(0, parentUrl2.length - pathname.length - 1) + relUrl;
+        return parentUrl.slice(0, parentUrl.length - pathname.length - 1) + relUrl;
       const segmented = pathname.slice(0, pathname.lastIndexOf("/") + 1) + relUrl;
       const output = [];
       let segmentIndex = -1;
@@ -116,7 +133,7 @@ init_define_process();
       }
       if (segmentIndex !== -1)
         output.push(segmented.slice(segmentIndex));
-      return parentUrl2.slice(0, parentUrl2.length - pathname.length) + output.join("");
+      return parentUrl.slice(0, parentUrl.length - pathname.length) + output.join("");
     }
   }
   function resolveAndComposeImportMap(json, baseUrl2, parentMap) {
@@ -140,17 +157,17 @@ init_define_process();
         return segment;
     } while ((sepIndex = path.lastIndexOf("/", sepIndex - 1)) !== -1);
   }
-  function applyPackages(id2, packages) {
-    const pkgName = getMatch(id2, packages);
+  function applyPackages(id, packages) {
+    const pkgName = getMatch(id, packages);
     if (pkgName) {
       const pkg = packages[pkgName];
       if (pkg === null)
         return;
-      return pkg + id2.slice(pkgName.length);
+      return pkg + id.slice(pkgName.length);
     }
   }
-  function resolveImportMap(importMap2, resolvedOrPlain, parentUrl2) {
-    let scopeUrl = parentUrl2 && getMatch(parentUrl2, importMap2.scopes);
+  function resolveImportMap(importMap2, resolvedOrPlain, parentUrl) {
+    let scopeUrl = parentUrl && getMatch(parentUrl, importMap2.scopes);
     while (scopeUrl) {
       const packageResolution = applyPackages(resolvedOrPlain, importMap2.scopes[scopeUrl]);
       if (packageResolution)
@@ -181,7 +198,7 @@ init_define_process();
   function dynamicImportScript(url, { errUrl = url } = {}) {
     err = void 0;
     const src = createBlob(`import*as m from'${url}';self._esmsi=m`);
-    const s2 = Object.assign(document.createElement("script"), { type: "module", src });
+    const s2 = Object.assign(document.createElement("script"), { type: "module", src, ep: true });
     s2.setAttribute("nonce", nonce);
     s2.setAttribute("noshim", "");
     const p2 = new Promise((resolve2, reject) => {
@@ -1958,26 +1975,26 @@ init_define_process();
   function o() {
     throw Object.assign(Error(`Parse error ${f}:${c$1.slice(0, n).split("\n").length}:${n - c$1.lastIndexOf("\n", n - 1)}`), { idx: n });
   }
-  async function _resolve(id2, parentUrl2) {
-    const urlResolved = resolveIfNotPlainOrUrl(id2, parentUrl2);
+  async function _resolve(id, parentUrl) {
+    const urlResolved = resolveIfNotPlainOrUrl(id, parentUrl);
     return {
-      r: resolveImportMap(importMap, urlResolved || id2, parentUrl2) || throwUnresolved(id2, parentUrl2),
-      b: !urlResolved && !isURL(id2)
+      r: resolveImportMap(importMap, urlResolved || id, parentUrl) || throwUnresolved(id, parentUrl),
+      b: !urlResolved && !isURL(id)
     };
   }
-  const resolve = resolveHook ? async (id2, parentUrl2) => {
-    let result = resolveHook(id2, parentUrl2, defaultResolve);
+  const resolve = resolveHook ? async (id, parentUrl) => {
+    let result = resolveHook(id, parentUrl, defaultResolve);
     if (result && result.then)
       result = await result;
-    return result ? { r: result, b: !resolveIfNotPlainOrUrl(id2, parentUrl2) && !isURL(id2) } : _resolve(id2, parentUrl2);
+    return result ? { r: result, b: !resolveIfNotPlainOrUrl(id, parentUrl) && !isURL(id) } : _resolve(id, parentUrl);
   } : _resolve;
-  async function importShim(id2, ...args2) {
-    let parentUrl2 = args2[args2.length - 1];
-    if (typeof parentUrl2 !== "string")
-      parentUrl2 = baseUrl;
+  async function importShim(id, ...args) {
+    let parentUrl = args[args.length - 1];
+    if (typeof parentUrl !== "string")
+      parentUrl = baseUrl;
     await initPromise;
     if (importHook)
-      await importHook(id2, typeof args2[1] !== "string" ? args2[1] : {}, parentUrl2);
+      await importHook(id, typeof args[1] !== "string" ? args[1] : {}, parentUrl);
     if (acceptingImportMaps || shimMode || !baselinePassthrough) {
       if (hasDocument)
         processImportMaps();
@@ -1985,22 +2002,22 @@ init_define_process();
         acceptingImportMaps = false;
     }
     await importMapPromise;
-    return topLevelLoad((await resolve(id2, parentUrl2)).r, { credentials: "same-origin" });
+    return topLevelLoad((await resolve(id, parentUrl)).r, { credentials: "same-origin" });
   }
   self.importShim = importShim;
-  function defaultResolve(id2, parentUrl2) {
-    return resolveImportMap(importMap, resolveIfNotPlainOrUrl(id2, parentUrl2) || id2, parentUrl2) || throwUnresolved(id2, parentUrl2);
+  function defaultResolve(id, parentUrl) {
+    return resolveImportMap(importMap, resolveIfNotPlainOrUrl(id, parentUrl) || id, parentUrl) || throwUnresolved(id, parentUrl);
   }
-  function throwUnresolved(id2, parentUrl2) {
-    throw Error(`Unable to resolve specifier '${id2}'${fromParent(parentUrl2)}`);
+  function throwUnresolved(id, parentUrl) {
+    throw Error(`Unable to resolve specifier '${id}'${fromParent(parentUrl)}`);
   }
-  const resolveSync = (id2, parentUrl2 = baseUrl) => {
-    parentUrl2 = `${parentUrl2}`;
-    const result = resolveHook && resolveHook(id2, parentUrl2, defaultResolve);
-    return result && !result.then ? result : defaultResolve(id2, parentUrl2);
+  const resolveSync = (id, parentUrl = baseUrl) => {
+    parentUrl = `${parentUrl}`;
+    const result = resolveHook && resolveHook(id, parentUrl, defaultResolve);
+    return result && !result.then ? result : defaultResolve(id, parentUrl);
   };
-  function metaResolve(id2, parentUrl2 = this.url) {
-    return resolveSync(id2, parentUrl2);
+  function metaResolve(id, parentUrl = this.url) {
+    return resolveSync(id, parentUrl);
   }
   importShim.resolve = resolveSync;
   importShim.getImportMap = () => JSON.parse(JSON.stringify(importMap));
@@ -2020,25 +2037,8 @@ init_define_process();
       load.n = load.d.some((dep) => dep.n);
   }
   let importMap = { imports: {}, scopes: {} };
-  let importMapSrcOrLazy = false;
   let baselinePassthrough;
   const initPromise = featureDetectionPromise.then(() => {
-    if (!shimMode) {
-      if (document.querySelectorAll("script[type=module-shim],script[type=importmap-shim],link[rel=modulepreload-shim]").length) {
-        setShimMode();
-      } else {
-        let seenScript = false;
-        for (const script of document.querySelectorAll("script[type=module],script[type=importmap]")) {
-          if (!seenScript) {
-            if (script.type === "module")
-              seenScript = true;
-          } else if (script.type === "importmap") {
-            importMapSrcOrLazy = true;
-            break;
-          }
-        }
-      }
-    }
     baselinePassthrough = esmsInitOptions.polyfillEnable !== true && supportsDynamicImport && supportsImportMeta && supportsImportMaps && (!jsonModulesEnabled || supportsJsonAssertions) && (!cssModulesEnabled || supportsCssAssertions) && !importMapSrcOrLazy && true;
     if (hasDocument) {
       if (!supportsImportMaps) {
@@ -2088,7 +2088,7 @@ init_define_process();
       acceptingImportMaps = false;
     await importMapPromise;
     if (importHook)
-      await importHook(id, typeof args[1] !== "string" ? args[1] : {}, parentUrl);
+      await importHook(url, typeof fetchOpts !== "string" ? fetchOpts : {}, "");
     if (!shimMode && baselinePassthrough) {
       if (nativelyLoaded)
         return null;
@@ -2365,7 +2365,7 @@ init_define_process();
     if (script.src) {
       if (!shimMode)
         return;
-      importMapSrcOrLazy = true;
+      setImportMapSrcOrLazy();
     }
     if (acceptingImportMaps) {
       importMapPromise = importMapPromise.then(async () => {

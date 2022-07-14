@@ -767,19 +767,19 @@ function pointFromTouch(e, pointType) {
     pointType = "page";
   }
   var primaryTouch = e.touches[0] || e.changedTouches[0];
-  var point = primaryTouch || defaultPagePoint;
+  var point2 = primaryTouch || defaultPagePoint;
   return {
-    x: point[pointType + "X"],
-    y: point[pointType + "Y"]
+    x: point2[pointType + "X"],
+    y: point2[pointType + "Y"]
   };
 }
-function pointFromMouse(point, pointType) {
+function pointFromMouse(point2, pointType) {
   if (pointType === void 0) {
     pointType = "page";
   }
   return {
-    x: point[pointType + "X"],
-    y: point[pointType + "Y"]
+    x: point2[pointType + "X"],
+    y: point2[pointType + "Y"]
   };
 }
 function extractEventInfo(event, pointType) {
@@ -1168,8 +1168,8 @@ function calcAngularFreq(undampedFreq, dampingRatio) {
 // ../../node_modules/popmotion/dist/es/animations/generators/spring.mjs
 var durationKeys = ["duration", "bounce"];
 var physicsKeys = ["stiffness", "damping", "mass"];
-function isSpringType(options, keys) {
-  return keys.some((key) => options[key] !== void 0);
+function isSpringType(options, keys2) {
+  return keys2.some((key) => options[key] !== void 0);
 }
 function getSpringOptions(options) {
   let springOptions = Object.assign({ velocity: 0, stiffness: 100, damping: 10, mass: 1, isResolvedFromDuration: false }, options);
@@ -1796,10 +1796,10 @@ function detectAnimationFromOptions(config) {
   } else if (types[config.type]) {
     return types[config.type];
   }
-  const keys = new Set(Object.keys(config));
-  if (keys.has("ease") || keys.has("duration") && !keys.has("dampingRatio")) {
+  const keys2 = new Set(Object.keys(config));
+  if (keys2.has("ease") || keys2.has("duration") && !keys2.has("dampingRatio")) {
     return keyframes;
-  } else if (keys.has("dampingRatio") || keys.has("stiffness") || keys.has("mass") || keys.has("damping") || keys.has("restSpeed") || keys.has("restDelta")) {
+  } else if (keys2.has("dampingRatio") || keys2.has("stiffness") || keys2.has("mass") || keys2.has("damping") || keys2.has("restSpeed") || keys2.has("restDelta")) {
     return spring;
   }
   return keyframes;
@@ -1998,11 +1998,11 @@ init_define_process();
 
 // ../../node_modules/popmotion/dist/es/utils/is-point.mjs
 init_define_process();
-var isPoint = (point) => point.hasOwnProperty("x") && point.hasOwnProperty("y");
+var isPoint = (point2) => point2.hasOwnProperty("x") && point2.hasOwnProperty("y");
 
 // ../../node_modules/popmotion/dist/es/utils/is-point-3d.mjs
 init_define_process();
-var isPoint3D = (point) => isPoint(point) && point.hasOwnProperty("z");
+var isPoint3D = (point2) => isPoint(point2) && point2.hasOwnProperty("z");
 
 // ../../node_modules/popmotion/dist/es/utils/distance.mjs
 var distance1D = (a2, b2) => Math.abs(a2 - b2);
@@ -2177,7 +2177,7 @@ var isFloat = function(value) {
 var MotionValue = function() {
   function MotionValue3(init) {
     var _this = this;
-    this.version = "6.4.3";
+    this.version = "6.5.0";
     this.timeDelta = 0;
     this.lastUpdated = 0;
     this.updateSubscribers = new SubscriptionManager();
@@ -3339,7 +3339,7 @@ function updateMotionValuesFromProps(element, next, prev) {
     if (isMotionValue(nextValue)) {
       element.addValue(key, nextValue);
       if (true) {
-        warnOnce(nextValue.version === "6.4.3", "Attempting to mix Framer Motion versions ".concat(nextValue.version, " with 6.4.3 may not work as expected."));
+        warnOnce(nextValue.version === "6.5.0", "Attempting to mix Framer Motion versions ".concat(nextValue.version, " with 6.5.0 may not work as expected."));
       }
     } else if (isMotionValue(prevValue)) {
       element.addValue(key, motionValue(nextValue));
@@ -3926,11 +3926,11 @@ function buildSVGPath(attrs, length2, spacing, offset, useDashCase) {
     useDashCase = true;
   }
   attrs.pathLength = 1;
-  var keys = useDashCase ? dashKeys : camelKeys;
-  attrs[keys.offset] = px.transform(-offset);
+  var keys2 = useDashCase ? dashKeys : camelKeys;
+  attrs[keys2.offset] = px.transform(-offset);
   var pathLength = px.transform(length2);
   var pathSpacing = px.transform(spacing);
-  attrs[keys.array] = "".concat(pathLength, " ").concat(pathSpacing);
+  attrs[keys2.array] = "".concat(pathLength, " ").concat(pathSpacing);
 }
 
 // ../../node_modules/framer-motion/dist/es/render/svg/utils/build-attrs.mjs
@@ -4356,9 +4356,9 @@ var PanSession = function() {
       var isDistancePastThreshold = distance(info2.offset, { x: 0, y: 0 }) >= 3;
       if (!isPanStarted && !isDistancePastThreshold)
         return;
-      var point2 = info2.point;
+      var point3 = info2.point;
       var timestamp2 = getFrameData().timestamp;
-      _this.history.push(__assign(__assign({}, point2), { timestamp: timestamp2 }));
+      _this.history.push(__assign(__assign({}, point3), { timestamp: timestamp2 }));
       var _a2 = _this.handlers, onStart = _a2.onStart, onMove = _a2.onMove;
       if (!isPanStarted) {
         onStart && onStart(_this.lastMoveEvent, info2);
@@ -4390,9 +4390,9 @@ var PanSession = function() {
     this.transformPagePoint = transformPagePoint;
     var info = extractEventInfo(event);
     var initialInfo = transformPoint(info, this.transformPagePoint);
-    var point = initialInfo.point;
+    var point2 = initialInfo.point;
     var timestamp = getFrameData().timestamp;
-    this.history = [__assign(__assign({}, point), { timestamp })];
+    this.history = [__assign(__assign({}, point2), { timestamp })];
     var onSessionStart = handlers.onSessionStart;
     onSessionStart && onSessionStart(event, getPanInfo(initialInfo, this.history));
     this.removeListeners = pipe(addPointerEvent(window, "pointermove", this.handlePointerMove), addPointerEvent(window, "pointerup", this.handlePointerUp), addPointerEvent(window, "pointercancel", this.handlePointerUp));
@@ -4413,11 +4413,11 @@ function subtractPoint(a2, b2) {
   return { x: a2.x - b2.x, y: a2.y - b2.y };
 }
 function getPanInfo(_a, history) {
-  var point = _a.point;
+  var point2 = _a.point;
   return {
-    point,
-    delta: subtractPoint(point, lastDevicePoint(history)),
-    offset: subtractPoint(point, startDevicePoint(history)),
+    point: point2,
+    delta: subtractPoint(point2, lastDevicePoint(history)),
+    offset: subtractPoint(point2, startDevicePoint(history)),
     velocity: getVelocity2(history, 0.1)
   };
 }
@@ -4463,14 +4463,14 @@ function getVelocity2(history, timeDelta) {
 
 // ../../node_modules/framer-motion/dist/es/gestures/drag/utils/constraints.mjs
 init_define_process();
-function applyConstraints(point, _a, elastic) {
+function applyConstraints(point2, _a, elastic) {
   var min = _a.min, max = _a.max;
-  if (min !== void 0 && point < min) {
-    point = elastic ? mix(min, point, elastic.min) : Math.max(point, min);
-  } else if (max !== void 0 && point > max) {
-    point = elastic ? mix(max, point, elastic.max) : Math.min(point, max);
+  if (min !== void 0 && point2 < min) {
+    point2 = elastic ? mix(min, point2, elastic.min) : Math.max(point2, min);
+  } else if (max !== void 0 && point2 > max) {
+    point2 = elastic ? mix(max, point2, elastic.max) : Math.min(point2, max);
   }
-  return point;
+  return point2;
 }
 function calcRelativeAxisConstraints(axis, min, max) {
   return {
@@ -4569,11 +4569,11 @@ function convertBoxToBoundingBox(_a) {
   var x = _a.x, y = _a.y;
   return { top: y.min, right: x.max, bottom: y.max, left: x.min };
 }
-function transformBoxPoints(point, transformPoint2) {
+function transformBoxPoints(point2, transformPoint2) {
   if (!transformPoint2)
-    return point;
-  var topLeft = transformPoint2({ x: point.left, y: point.top });
-  var bottomRight = transformPoint2({ x: point.right, y: point.bottom });
+    return point2;
+  var topLeft = transformPoint2({ x: point2.left, y: point2.top });
+  var bottomRight = transformPoint2({ x: point2.right, y: point2.bottom });
   return {
     top: topLeft.y,
     left: topLeft.x,
@@ -4602,16 +4602,16 @@ function hasTranslate(value) {
 }
 
 // ../../node_modules/framer-motion/dist/es/projection/geometry/delta-apply.mjs
-function scalePoint(point, scale2, originPoint) {
-  var distanceFromOrigin = point - originPoint;
+function scalePoint(point2, scale2, originPoint) {
+  var distanceFromOrigin = point2 - originPoint;
   var scaled = scale2 * distanceFromOrigin;
   return originPoint + scaled;
 }
-function applyPointDelta(point, translate, scale2, originPoint, boxScale) {
+function applyPointDelta(point2, translate, scale2, originPoint, boxScale) {
   if (boxScale !== void 0) {
-    point = scalePoint(point, boxScale, originPoint);
+    point2 = scalePoint(point2, boxScale, originPoint);
   }
-  return scalePoint(point, scale2, originPoint) + translate;
+  return scalePoint(point2, scale2, originPoint) + translate;
 }
 function applyAxisDelta(axis, translate, scale2, originPoint, boxScale) {
   if (translate === void 0) {
@@ -4887,7 +4887,7 @@ var VisualElementDragControls = function() {
     var externalMotionValue = this.visualElement.getProps()[dragKey];
     return externalMotionValue ? externalMotionValue : this.visualElement.getValue(axis, (_b = (_a = this.visualElement.getProps().initial) === null || _a === void 0 ? void 0 : _a[axis]) !== null && _b !== void 0 ? _b : 0);
   };
-  VisualElementDragControls2.prototype.snapToCursor = function(point) {
+  VisualElementDragControls2.prototype.snapToCursor = function(point2) {
     var _this = this;
     eachAxis(function(axis) {
       var drag2 = _this.getProps().drag;
@@ -4897,7 +4897,7 @@ var VisualElementDragControls = function() {
       var axisValue = _this.getAxisMotionValue(axis);
       if (projection && projection.layout) {
         var _a = projection.layout.actual[axis], min = _a.min, max = _a.max;
-        axisValue.set(point[axis] - mix(min, max, 0.5));
+        axisValue.set(point2[axis] - mix(min, max, 0.5));
       }
     });
   };
@@ -5687,13 +5687,13 @@ function copyBoxInto(box, originBox) {
 
 // ../../node_modules/framer-motion/dist/es/projection/geometry/delta-remove.mjs
 init_define_process();
-function removePointDelta(point, translate, scale2, originPoint, boxScale) {
-  point -= translate;
-  point = scalePoint(point, 1 / scale2, originPoint);
+function removePointDelta(point2, translate, scale2, originPoint, boxScale) {
+  point2 -= translate;
+  point2 = scalePoint(point2, 1 / scale2, originPoint);
   if (boxScale !== void 0) {
-    point = scalePoint(point, 1 / boxScale, originPoint);
+    point2 = scalePoint(point2, 1 / boxScale, originPoint);
   }
-  return point;
+  return point2;
 }
 function removeAxisDelta(axis, translate, scale2, origin, boxScale, originAxis, sourceAxis) {
   if (translate === void 0) {
@@ -6346,13 +6346,13 @@ function createProjectionNode(_a) {
     ProjectionNode.prototype.show = function() {
       this.isVisible = true;
     };
-    ProjectionNode.prototype.scheduleRender = function(notifyAll) {
+    ProjectionNode.prototype.scheduleRender = function(notifyAll2) {
       var _a2, _b, _c;
-      if (notifyAll === void 0) {
-        notifyAll = true;
+      if (notifyAll2 === void 0) {
+        notifyAll2 = true;
       }
       (_b = (_a2 = this.options).scheduleRender) === null || _b === void 0 ? void 0 : _b.call(_a2);
-      notifyAll && ((_c = this.getStack()) === null || _c === void 0 ? void 0 : _c.scheduleRender());
+      notifyAll2 && ((_c = this.getStack()) === null || _c === void 0 ? void 0 : _c.scheduleRender());
       if (this.resumingFrom && !this.resumingFrom.instance) {
         this.resumingFrom = void 0;
       }
@@ -7311,11 +7311,11 @@ function ReorderItem(_a, externalRef) {
     return motion(as);
   });
   var context = useContext17(ReorderContext);
-  var point = {
+  var point2 = {
     x: useDefaultMotionValue(style2 === null || style2 === void 0 ? void 0 : style2.x),
     y: useDefaultMotionValue(style2 === null || style2 === void 0 ? void 0 : style2.y)
   };
-  var zIndex = useTransform([point.x, point.y], function(_a2) {
+  var zIndex = useTransform([point2.x, point2.y], function(_a2) {
     var _b2 = __read(_a2, 2), latestX = _b2[0], latestY = _b2[1];
     return latestX || latestY ? 1 : "unset";
   });
@@ -7325,9 +7325,9 @@ function ReorderItem(_a, externalRef) {
   useEffect16(function() {
     registerItem(value, measuredLayout.current);
   }, [context]);
-  return React10.createElement(Component, __assign({ drag: axis }, props, { dragSnapToOrigin: true, style: __assign(__assign({}, style2), { x: point.x, y: point.y, zIndex }), layout, onDrag: function(event, gesturePoint) {
+  return React10.createElement(Component, __assign({ drag: axis }, props, { dragSnapToOrigin: true, style: __assign(__assign({}, style2), { x: point2.x, y: point2.y, zIndex }), layout, onDrag: function(event, gesturePoint) {
     var velocity = gesturePoint.velocity;
-    velocity[axis] && updateOrder(value, point[axis].get(), velocity[axis]);
+    velocity[axis] && updateOrder(value, point2[axis].get(), velocity[axis]);
     onDrag === null || onDrag === void 0 ? void 0 : onDrag(event, gesturePoint);
   }, onLayoutMeasure: function(measured) {
     measuredLayout.current = measured;
@@ -7410,213 +7410,8 @@ function useVelocity(value) {
   return velocity;
 }
 
-// ../../node_modules/framer-motion/dist/es/value/scroll/use-element-scroll.mjs
+// ../../node_modules/framer-motion/dist/es/value/use-scroll.mjs
 init_define_process();
-
-// ../../node_modules/framer-motion/dist/es/value/scroll/utils.mjs
-init_define_process();
-function createScrollMotionValues() {
-  return {
-    scrollX: motionValue(0),
-    scrollY: motionValue(0),
-    scrollXProgress: motionValue(0),
-    scrollYProgress: motionValue(0)
-  };
-}
-function setProgress(offset, maxOffset, value) {
-  value.set(!offset || !maxOffset ? 0 : offset / maxOffset);
-}
-function createScrollUpdater(values, getOffsets) {
-  var update = function() {
-    var _a = getOffsets(), xOffset = _a.xOffset, yOffset = _a.yOffset, xMaxOffset = _a.xMaxOffset, yMaxOffset = _a.yMaxOffset;
-    values.scrollX.set(xOffset);
-    values.scrollY.set(yOffset);
-    setProgress(xOffset, xMaxOffset, values.scrollXProgress);
-    setProgress(yOffset, yMaxOffset, values.scrollYProgress);
-  };
-  update();
-  return update;
-}
-
-// ../../node_modules/framer-motion/dist/es/value/scroll/use-element-scroll.mjs
-var getElementScrollOffsets = function(element) {
-  return function() {
-    return {
-      xOffset: element.scrollLeft,
-      yOffset: element.scrollTop,
-      xMaxOffset: element.scrollWidth - element.offsetWidth,
-      yMaxOffset: element.scrollHeight - element.offsetHeight
-    };
-  };
-};
-function useElementScroll(ref) {
-  var values = useConstant(createScrollMotionValues);
-  useIsomorphicLayoutEffect(function() {
-    var element = ref.current;
-    invariant(!!element, "ref provided to useScroll must be passed into a HTML element.");
-    if (!element)
-      return;
-    var updateScrollValues = createScrollUpdater(values, getElementScrollOffsets(element));
-    var scrollListener = addDomEvent(element, "scroll", updateScrollValues);
-    var resizeListener = addDomEvent(element, "resize", updateScrollValues);
-    return function() {
-      scrollListener && scrollListener();
-      resizeListener && resizeListener();
-    };
-  }, []);
-  return values;
-}
-
-// ../../node_modules/framer-motion/dist/es/value/scroll/use-viewport-scroll.mjs
-init_define_process();
-var viewportScrollValues;
-function getViewportScrollOffsets() {
-  return {
-    xOffset: window.pageXOffset,
-    yOffset: window.pageYOffset,
-    xMaxOffset: document.body.clientWidth - window.innerWidth,
-    yMaxOffset: document.body.clientHeight - window.innerHeight
-  };
-}
-var hasListeners = false;
-function addEventListeners() {
-  hasListeners = true;
-  var updateScrollValues = createScrollUpdater(viewportScrollValues, getViewportScrollOffsets);
-  addDomEvent(window, "scroll", updateScrollValues);
-  addDomEvent(window, "resize", updateScrollValues);
-}
-function useViewportScroll() {
-  if (!viewportScrollValues) {
-    viewportScrollValues = createScrollMotionValues();
-  }
-  useIsomorphicLayoutEffect(function() {
-    !hasListeners && addEventListeners();
-  }, []);
-  return viewportScrollValues;
-}
-
-// ../../node_modules/framer-motion/dist/es/utils/use-animation-frame.mjs
-init_define_process();
-import { useContext as useContext19, useEffect as useEffect18 } from "/react.mjs";
-var getCurrentTime2 = typeof performance !== "undefined" ? function() {
-  return performance.now();
-} : function() {
-  return Date.now();
-};
-function useAnimationFrame(callback) {
-  var initialTimestamp = useConstant(getCurrentTime2);
-  var isStatic = useContext19(MotionConfigContext).isStatic;
-  useEffect18(function() {
-    if (isStatic)
-      return;
-    var provideTimeSinceStart = function(_a) {
-      var timestamp = _a.timestamp;
-      callback(timestamp - initialTimestamp);
-    };
-    es_default.update(provideTimeSinceStart, true);
-    return function() {
-      return cancelSync.update(provideTimeSinceStart);
-    };
-  }, [callback]);
-}
-
-// ../../node_modules/framer-motion/dist/es/value/use-time.mjs
-init_define_process();
-function useTime() {
-  var time2 = useMotionValue(0);
-  useAnimationFrame(function(t) {
-    return time2.set(t);
-  });
-  return time2;
-}
-
-// ../../node_modules/framer-motion/dist/es/animation/animation-controls.mjs
-init_define_process();
-function animationControls() {
-  var hasMounted = false;
-  var pendingAnimations = [];
-  var subscribers = /* @__PURE__ */ new Set();
-  var controls = {
-    subscribe: function(visualElement2) {
-      subscribers.add(visualElement2);
-      return function() {
-        return void subscribers.delete(visualElement2);
-      };
-    },
-    start: function(definition, transitionOverride) {
-      if (hasMounted) {
-        var animations_1 = [];
-        subscribers.forEach(function(visualElement2) {
-          animations_1.push(animateVisualElement(visualElement2, definition, {
-            transitionOverride
-          }));
-        });
-        return Promise.all(animations_1);
-      } else {
-        return new Promise(function(resolve) {
-          pendingAnimations.push({
-            animation: [definition, transitionOverride],
-            resolve
-          });
-        });
-      }
-    },
-    set: function(definition) {
-      invariant(hasMounted, "controls.set() should only be called after a component has mounted. Consider calling within a useEffect hook.");
-      return subscribers.forEach(function(visualElement2) {
-        setValues(visualElement2, definition);
-      });
-    },
-    stop: function() {
-      subscribers.forEach(function(visualElement2) {
-        stopAnimation(visualElement2);
-      });
-    },
-    mount: function() {
-      hasMounted = true;
-      pendingAnimations.forEach(function(_a) {
-        var animation = _a.animation, resolve = _a.resolve;
-        controls.start.apply(controls, __spreadArray([], __read(animation), false)).then(resolve);
-      });
-      return function() {
-        hasMounted = false;
-        controls.stop();
-      };
-    }
-  };
-  return controls;
-}
-
-// ../../node_modules/framer-motion/dist/es/animation/use-animation.mjs
-init_define_process();
-import { useEffect as useEffect19 } from "/react.mjs";
-function useAnimationControls() {
-  var controls = useConstant(animationControls);
-  useEffect19(controls.mount, []);
-  return controls;
-}
-var useAnimation = useAnimationControls;
-
-// ../../node_modules/framer-motion/dist/es/utils/use-cycle.mjs
-init_define_process();
-import { useRef as useRef13, useState as useState5, useCallback as useCallback3 } from "/react.mjs";
-function useCycle() {
-  var items = [];
-  for (var _i = 0; _i < arguments.length; _i++) {
-    items[_i] = arguments[_i];
-  }
-  var index = useRef13(0);
-  var _a = __read(useState5(items[index.current]), 2), item = _a[0], setItem = _a[1];
-  var runCycle = useCallback3(function(next) {
-    index.current = typeof next !== "number" ? wrap(0, items.length, index.current + 1) : next;
-    setItem(items[index.current]);
-  }, __spreadArray([items.length], __read(items), false));
-  return [item, runCycle];
-}
-
-// ../../node_modules/framer-motion/dist/es/utils/use-in-view.mjs
-init_define_process();
-import { useState as useState6, useEffect as useEffect20 } from "/react.mjs";
 
 // ../../node_modules/@motionone/dom/dist/index.es.js
 init_define_process();
@@ -7650,6 +7445,7 @@ init_define_process();
 
 // ../../node_modules/@motionone/utils/dist/clamp.es.js
 init_define_process();
+var clamp3 = (min, max, v) => Math.min(Math.max(v, min), max);
 
 // ../../node_modules/@motionone/utils/dist/defaults.es.js
 init_define_process();
@@ -7659,15 +7455,28 @@ init_define_process();
 
 // ../../node_modules/@motionone/utils/dist/is.es.js
 init_define_process();
+var isNumber = (value) => typeof value === "number";
+var isString2 = (value) => typeof value === "string";
+var isEasingList = (easing) => Array.isArray(easing) && !isNumber(easing[0]);
 
 // ../../node_modules/@motionone/utils/dist/wrap.es.js
 init_define_process();
+var wrap2 = (min, max, v) => {
+  const rangeSize = max - min;
+  return ((v - min) % rangeSize + rangeSize) % rangeSize + min;
+};
+
+// ../../node_modules/@motionone/utils/dist/easing.es.js
+function getEasingForSegment(easing, i) {
+  return isEasingList(easing) ? easing[wrap2(0, easing.length, i)] : easing;
+}
 
 // ../../node_modules/@motionone/utils/dist/interpolate.es.js
 init_define_process();
 
 // ../../node_modules/@motionone/utils/dist/mix.es.js
 init_define_process();
+var mix2 = (min, max, progress3) => -progress3 * min + progress3 * max + min;
 
 // ../../node_modules/@motionone/utils/dist/noop.es.js
 init_define_process();
@@ -7678,6 +7487,39 @@ init_define_process();
 
 // ../../node_modules/@motionone/utils/dist/progress.es.js
 init_define_process();
+var progress2 = (min, max, value) => max - min === 0 ? 1 : (value - min) / (max - min);
+
+// ../../node_modules/@motionone/utils/dist/offset.es.js
+function fillOffset(offset, remaining) {
+  const min = offset[offset.length - 1];
+  for (let i = 1; i <= remaining; i++) {
+    const offsetProgress = progress2(0, remaining, i);
+    offset.push(mix2(min, 1, offsetProgress));
+  }
+}
+function defaultOffset2(length2) {
+  const offset = [0];
+  fillOffset(offset, length2 - 1);
+  return offset;
+}
+
+// ../../node_modules/@motionone/utils/dist/interpolate.es.js
+function interpolate2(output, input = defaultOffset2(output.length), easing = noopReturn) {
+  const length2 = output.length;
+  const remainder = length2 - input.length;
+  remainder > 0 && fillOffset(input, remainder);
+  return (t) => {
+    let i = 0;
+    for (; i < length2 - 2; i++) {
+      if (t < input[i + 1])
+        break;
+    }
+    let progressInRange = clamp3(0, 1, progress2(input[i], input[i + 1], t));
+    const segmentEasing = getEasingForSegment(easing, i);
+    progressInRange = segmentEasing(progressInRange);
+    return mix2(output[i], output[i + 1], progressInRange);
+  };
+}
 
 // ../../node_modules/@motionone/utils/dist/time.es.js
 init_define_process();
@@ -8117,7 +7959,7 @@ function inView(elementOrSelector, onStart, { root, margin: rootMargin, amount =
         if (typeof newOnEnd === "function") {
           activeIntersections.set(entry.target, newOnEnd);
         } else {
-          observer.unobserve(entry.target);
+          observer2.unobserve(entry.target);
         }
       } else if (onEnd) {
         onEnd(entry);
@@ -8125,13 +7967,13 @@ function inView(elementOrSelector, onStart, { root, margin: rootMargin, amount =
       }
     });
   };
-  const observer = new IntersectionObserver(onIntersectionChange, {
+  const observer2 = new IntersectionObserver(onIntersectionChange, {
     root,
     rootMargin,
     threshold: typeof amount === "number" ? amount : thresholds[amount]
   });
-  elements.forEach((element) => observer.observe(element));
-  return () => observer.disconnect();
+  elements.forEach((element) => observer2.observe(element));
+  return () => observer2.disconnect();
 }
 
 // ../../node_modules/@motionone/dom/dist/gestures/resize/index.es.js
@@ -8139,15 +7981,151 @@ init_define_process();
 
 // ../../node_modules/@motionone/dom/dist/gestures/resize/handle-element.es.js
 init_define_process();
+var resizeHandlers = /* @__PURE__ */ new WeakMap();
+var observer;
+function getElementSize(target, borderBoxSize) {
+  if (borderBoxSize) {
+    const { inlineSize, blockSize } = borderBoxSize[0];
+    return { width: inlineSize, height: blockSize };
+  } else if (target instanceof SVGElement && "getBBox" in target) {
+    return target.getBBox();
+  } else {
+    return {
+      width: target.offsetWidth,
+      height: target.offsetHeight
+    };
+  }
+}
+function notifyTarget({ target, contentRect, borderBoxSize }) {
+  var _a;
+  (_a = resizeHandlers.get(target)) === null || _a === void 0 ? void 0 : _a.forEach((handler) => {
+    handler({
+      target,
+      contentSize: contentRect,
+      get size() {
+        return getElementSize(target, borderBoxSize);
+      }
+    });
+  });
+}
+function notifyAll(entries) {
+  entries.forEach(notifyTarget);
+}
+function createResizeObserver() {
+  if (typeof ResizeObserver === "undefined")
+    return;
+  observer = new ResizeObserver(notifyAll);
+}
+function resizeElement(target, handler) {
+  if (!observer)
+    createResizeObserver();
+  const elements = resolveElements(target);
+  elements.forEach((element) => {
+    let elementHandlers = resizeHandlers.get(element);
+    if (!elementHandlers) {
+      elementHandlers = /* @__PURE__ */ new Set();
+      resizeHandlers.set(element, elementHandlers);
+    }
+    elementHandlers.add(handler);
+    observer === null || observer === void 0 ? void 0 : observer.observe(element);
+  });
+  return () => {
+    elements.forEach((element) => {
+      const elementHandlers = resizeHandlers.get(element);
+      elementHandlers === null || elementHandlers === void 0 ? void 0 : elementHandlers.delete(handler);
+      if (!(elementHandlers === null || elementHandlers === void 0 ? void 0 : elementHandlers.size)) {
+        observer === null || observer === void 0 ? void 0 : observer.unobserve(element);
+      }
+    });
+  };
+}
 
 // ../../node_modules/@motionone/dom/dist/gestures/resize/handle-window.es.js
 init_define_process();
+var windowCallbacks = /* @__PURE__ */ new Set();
+var windowResizeHandler;
+function createWindowResizeHandler() {
+  windowResizeHandler = () => {
+    const size = {
+      width: window.innerWidth,
+      height: window.innerHeight
+    };
+    const info = {
+      target: window,
+      size,
+      contentSize: size
+    };
+    windowCallbacks.forEach((callback) => callback(info));
+  };
+  window.addEventListener("resize", windowResizeHandler);
+}
+function resizeWindow(callback) {
+  windowCallbacks.add(callback);
+  if (!windowResizeHandler)
+    createWindowResizeHandler();
+  return () => {
+    windowCallbacks.delete(callback);
+    if (!windowCallbacks.size && windowResizeHandler) {
+      windowResizeHandler = void 0;
+    }
+  };
+}
+
+// ../../node_modules/@motionone/dom/dist/gestures/resize/index.es.js
+function resize(a2, b2) {
+  return typeof a2 === "function" ? resizeWindow(a2) : resizeElement(a2, b2);
+}
 
 // ../../node_modules/@motionone/dom/dist/gestures/scroll/index.es.js
 init_define_process();
 
 // ../../node_modules/@motionone/dom/dist/gestures/scroll/info.es.js
 init_define_process();
+var maxElapsed2 = 50;
+var createAxisInfo = () => ({
+  current: 0,
+  offset: [],
+  progress: 0,
+  scrollLength: 0,
+  targetOffset: 0,
+  targetLength: 0,
+  containerLength: 0,
+  velocity: 0
+});
+var createScrollInfo = () => ({
+  time: 0,
+  x: createAxisInfo(),
+  y: createAxisInfo()
+});
+var keys = {
+  x: {
+    length: "Width",
+    position: "Left"
+  },
+  y: {
+    length: "Height",
+    position: "Top"
+  }
+};
+function updateAxisInfo(element, axisName, info, time2) {
+  const axis = info[axisName];
+  const { length: length2, position } = keys[axisName];
+  const prev = axis.current;
+  const prevTime = info.time;
+  axis.current = element["scroll" + position];
+  axis.scrollLength = element["scroll" + length2] - element["client" + length2];
+  axis.offset.length = 0;
+  axis.offset[0] = 0;
+  axis.offset[1] = axis.scrollLength;
+  axis.progress = progress2(0, axis.scrollLength, axis.current);
+  const elapsed = time2 - prevTime;
+  axis.velocity = elapsed > maxElapsed2 ? 0 : velocityPerSecond2(axis.current - prev, elapsed);
+}
+function updateScrollInfo(element, info, time2) {
+  updateAxisInfo(element, "x", info, time2);
+  updateAxisInfo(element, "y", info, time2);
+  info.time = time2;
+}
 
 // ../../node_modules/@motionone/dom/dist/gestures/scroll/on-scroll-handler.es.js
 init_define_process();
@@ -8157,15 +8135,237 @@ init_define_process();
 
 // ../../node_modules/@motionone/dom/dist/gestures/scroll/offsets/inset.es.js
 init_define_process();
+function calcInset(element, container) {
+  let inset = { x: 0, y: 0 };
+  let current = element;
+  while (current && current !== container) {
+    if (current instanceof HTMLElement) {
+      inset.x += current.offsetLeft;
+      inset.y += current.offsetTop;
+      current = current.offsetParent;
+    } else if (current instanceof SVGGraphicsElement && "getBBox" in current) {
+      const { top, left } = current.getBBox();
+      inset.x += left;
+      inset.y += top;
+      while (current && current.tagName !== "svg") {
+        current = current.parentNode;
+      }
+    }
+  }
+  return inset;
+}
 
 // ../../node_modules/@motionone/dom/dist/gestures/scroll/offsets/presets.es.js
 init_define_process();
+var ScrollOffset = {
+  Enter: [
+    [0, 1],
+    [1, 1]
+  ],
+  Exit: [
+    [0, 0],
+    [1, 0]
+  ],
+  Any: [
+    [1, 0],
+    [0, 1]
+  ],
+  All: [
+    [0, 0],
+    [1, 1]
+  ]
+};
 
 // ../../node_modules/@motionone/dom/dist/gestures/scroll/offsets/offset.es.js
 init_define_process();
 
 // ../../node_modules/@motionone/dom/dist/gestures/scroll/offsets/edge.es.js
 init_define_process();
+var namedEdges = {
+  start: 0,
+  center: 0.5,
+  end: 1
+};
+function resolveEdge(edge, length2, inset = 0) {
+  let delta = 0;
+  if (namedEdges[edge] !== void 0) {
+    edge = namedEdges[edge];
+  }
+  if (isString2(edge)) {
+    const asNumber2 = parseFloat(edge);
+    if (edge.endsWith("px")) {
+      delta = asNumber2;
+    } else if (edge.endsWith("%")) {
+      edge = asNumber2 / 100;
+    } else if (edge.endsWith("vw")) {
+      delta = asNumber2 / 100 * document.documentElement.clientWidth;
+    } else if (edge.endsWith("vh")) {
+      delta = asNumber2 / 100 * document.documentElement.clientHeight;
+    } else {
+      edge = asNumber2;
+    }
+  }
+  if (isNumber(edge)) {
+    delta = length2 * edge;
+  }
+  return inset + delta;
+}
+
+// ../../node_modules/@motionone/dom/dist/gestures/scroll/offsets/offset.es.js
+var defaultOffset3 = [0, 0];
+function resolveOffset(offset, containerLength, targetLength, targetInset) {
+  let offsetDefinition = Array.isArray(offset) ? offset : defaultOffset3;
+  let targetPoint = 0;
+  let containerPoint = 0;
+  if (isNumber(offset)) {
+    offsetDefinition = [offset, offset];
+  } else if (isString2(offset)) {
+    offset = offset.trim();
+    if (offset.includes(" ")) {
+      offsetDefinition = offset.split(" ");
+    } else {
+      offsetDefinition = [offset, namedEdges[offset] ? offset : `0`];
+    }
+  }
+  targetPoint = resolveEdge(offsetDefinition[0], targetLength, targetInset);
+  containerPoint = resolveEdge(offsetDefinition[1], containerLength);
+  return targetPoint - containerPoint;
+}
+
+// ../../node_modules/@motionone/dom/dist/gestures/scroll/offsets/index.es.js
+var point = { x: 0, y: 0 };
+function resolveOffsets(container, info, options) {
+  let { offset: offsetDefinition = ScrollOffset.All } = options;
+  const { target = container, axis = "y" } = options;
+  const lengthLabel = axis === "y" ? "height" : "width";
+  const inset = target !== container ? calcInset(target, container) : point;
+  const targetSize = target === container ? { width: container.scrollWidth, height: container.scrollHeight } : { width: target.clientWidth, height: target.clientHeight };
+  const containerSize = {
+    width: container.clientWidth,
+    height: container.clientHeight
+  };
+  info[axis].offset.length = 0;
+  let hasChanged2 = !info[axis].interpolate;
+  const numOffsets = offsetDefinition.length;
+  for (let i = 0; i < numOffsets; i++) {
+    const offset = resolveOffset(offsetDefinition[i], containerSize[lengthLabel], targetSize[lengthLabel], inset[axis]);
+    if (!hasChanged2 && offset !== info[axis].interpolatorOffsets[i]) {
+      hasChanged2 = true;
+    }
+    info[axis].offset[i] = offset;
+  }
+  if (hasChanged2) {
+    info[axis].interpolate = interpolate2(defaultOffset2(numOffsets), info[axis].offset);
+    info[axis].interpolatorOffsets = [...info[axis].offset];
+  }
+  info[axis].progress = info[axis].interpolate(info[axis].current);
+}
+
+// ../../node_modules/@motionone/dom/dist/gestures/scroll/on-scroll-handler.es.js
+function measure(container, target = container, info) {
+  info.x.targetOffset = 0;
+  info.y.targetOffset = 0;
+  if (target !== container) {
+    let node = target;
+    while (node && node != container) {
+      info.x.targetOffset += node.offsetLeft;
+      info.y.targetOffset += node.offsetTop;
+      node = node.offsetParent;
+    }
+  }
+  info.x.targetLength = target === container ? target.scrollWidth : target.clientWidth;
+  info.y.targetLength = target === container ? target.scrollHeight : target.clientHeight;
+  info.x.containerLength = container.clientWidth;
+  info.y.containerLength = container.clientHeight;
+}
+function createOnScrollHandler(element, onScroll, info, options = {}) {
+  const axis = options.axis || "y";
+  return {
+    measure: () => measure(element, options.target, info),
+    update: (time2) => {
+      updateScrollInfo(element, info, time2);
+      if (options.offset || options.target) {
+        resolveOffsets(element, info, options);
+      }
+    },
+    notify: typeof onScroll === "function" ? () => onScroll(info) : scrubAnimation(onScroll, info[axis])
+  };
+}
+function scrubAnimation(controls, axisInfo) {
+  controls.pause();
+  controls.forEachNative((animation, { easing }) => {
+    var _a, _b;
+    if (animation.updateDuration) {
+      if (!easing)
+        animation.easing = noopReturn;
+      animation.updateDuration(1);
+    } else {
+      const timingOptions = { duration: 1e3 };
+      if (!easing)
+        timingOptions.easing = "linear";
+      (_b = (_a = animation.effect) === null || _a === void 0 ? void 0 : _a.updateTiming) === null || _b === void 0 ? void 0 : _b.call(_a, timingOptions);
+    }
+  });
+  return () => {
+    controls.currentTime = axisInfo.progress;
+  };
+}
+
+// ../../node_modules/@motionone/dom/dist/gestures/scroll/index.es.js
+var scrollListeners = /* @__PURE__ */ new WeakMap();
+var resizeListeners = /* @__PURE__ */ new WeakMap();
+var onScrollHandlers = /* @__PURE__ */ new WeakMap();
+var getEventTarget = (element) => element === document.documentElement ? window : element;
+function scroll(onScroll, _a = {}) {
+  var { container = document.documentElement } = _a, options = __rest(_a, ["container"]);
+  let containerHandlers = onScrollHandlers.get(container);
+  if (!containerHandlers) {
+    containerHandlers = /* @__PURE__ */ new Set();
+    onScrollHandlers.set(container, containerHandlers);
+  }
+  const info = createScrollInfo();
+  const containerHandler = createOnScrollHandler(container, onScroll, info, options);
+  containerHandlers.add(containerHandler);
+  if (!scrollListeners.has(container)) {
+    const listener2 = () => {
+      const time2 = performance.now();
+      for (const handler of containerHandlers)
+        handler.measure();
+      for (const handler of containerHandlers)
+        handler.update(time2);
+      for (const handler of containerHandlers)
+        handler.notify();
+    };
+    scrollListeners.set(container, listener2);
+    const target = getEventTarget(container);
+    window.addEventListener("resize", listener2, { passive: true });
+    if (container !== document.documentElement) {
+      resizeListeners.set(container, resize(container, listener2));
+    }
+    target.addEventListener("scroll", listener2, { passive: true });
+  }
+  const listener = scrollListeners.get(container);
+  const onLoadProcesss = requestAnimationFrame(listener);
+  return () => {
+    var _a2;
+    if (typeof onScroll !== "function")
+      onScroll.stop();
+    cancelAnimationFrame(onLoadProcesss);
+    const containerHandlers2 = onScrollHandlers.get(container);
+    if (!containerHandlers2)
+      return;
+    containerHandlers2.delete(containerHandler);
+    if (containerHandlers2.size)
+      return;
+    const listener2 = scrollListeners.get(container);
+    scrollListeners.delete(container);
+    if (listener2) {
+      getEventTarget(container).removeEventListener("scroll", listener2);
+      (_a2 = resizeListeners.get(container)) === null || _a2 === void 0 ? void 0 : _a2();
+      window.removeEventListener("resize", listener2);
+    }
+  };
+}
 
 // ../../node_modules/@motionone/dom/dist/state/index.es.js
 init_define_process();
@@ -8267,7 +8467,169 @@ init_define_process();
 // ../../node_modules/@motionone/dom/dist/animate/utils/style-string.es.js
 init_define_process();
 
+// ../../node_modules/framer-motion/dist/es/value/use-scroll.mjs
+var createScrollMotionValues = function() {
+  return {
+    scrollX: motionValue(0),
+    scrollY: motionValue(0),
+    scrollXProgress: motionValue(0),
+    scrollYProgress: motionValue(0)
+  };
+};
+function useScroll(_a) {
+  if (_a === void 0) {
+    _a = {};
+  }
+  var container = _a.container, target = _a.target, options = __rest(_a, ["container", "target"]);
+  var values = useConstant(createScrollMotionValues);
+  useIsomorphicLayoutEffect(function() {
+    return scroll(function(_a2) {
+      var x = _a2.x, y = _a2.y;
+      values.scrollX.set(x.current);
+      values.scrollXProgress.set(x.progress);
+      values.scrollY.set(y.current);
+      values.scrollYProgress.set(y.progress);
+    }, __assign(__assign({}, options), { container: (container === null || container === void 0 ? void 0 : container.current) || void 0, target: (target === null || target === void 0 ? void 0 : target.current) || void 0 }));
+  }, []);
+  return values;
+}
+
+// ../../node_modules/framer-motion/dist/es/value/scroll/use-element-scroll.mjs
+init_define_process();
+function useElementScroll(ref) {
+  warnOnce(false, "useElementScroll is deprecated. Convert to useScroll({ container: ref }).");
+  return useScroll({ container: ref });
+}
+
+// ../../node_modules/framer-motion/dist/es/value/scroll/use-viewport-scroll.mjs
+init_define_process();
+function useViewportScroll() {
+  warnOnce(false, "useViewportScroll is deprecated. Convert to useScroll().");
+  return useScroll();
+}
+
+// ../../node_modules/framer-motion/dist/es/utils/use-animation-frame.mjs
+init_define_process();
+import { useContext as useContext19, useEffect as useEffect18 } from "/react.mjs";
+var getCurrentTime2 = typeof performance !== "undefined" ? function() {
+  return performance.now();
+} : function() {
+  return Date.now();
+};
+function useAnimationFrame(callback) {
+  var initialTimestamp = useConstant(getCurrentTime2);
+  var isStatic = useContext19(MotionConfigContext).isStatic;
+  useEffect18(function() {
+    if (isStatic)
+      return;
+    var provideTimeSinceStart = function(_a) {
+      var timestamp = _a.timestamp;
+      callback(timestamp - initialTimestamp);
+    };
+    es_default.update(provideTimeSinceStart, true);
+    return function() {
+      return cancelSync.update(provideTimeSinceStart);
+    };
+  }, [callback]);
+}
+
+// ../../node_modules/framer-motion/dist/es/value/use-time.mjs
+init_define_process();
+function useTime() {
+  var time2 = useMotionValue(0);
+  useAnimationFrame(function(t) {
+    return time2.set(t);
+  });
+  return time2;
+}
+
+// ../../node_modules/framer-motion/dist/es/animation/animation-controls.mjs
+init_define_process();
+function animationControls() {
+  var hasMounted = false;
+  var pendingAnimations = [];
+  var subscribers = /* @__PURE__ */ new Set();
+  var controls = {
+    subscribe: function(visualElement2) {
+      subscribers.add(visualElement2);
+      return function() {
+        return void subscribers.delete(visualElement2);
+      };
+    },
+    start: function(definition, transitionOverride) {
+      if (hasMounted) {
+        var animations_1 = [];
+        subscribers.forEach(function(visualElement2) {
+          animations_1.push(animateVisualElement(visualElement2, definition, {
+            transitionOverride
+          }));
+        });
+        return Promise.all(animations_1);
+      } else {
+        return new Promise(function(resolve) {
+          pendingAnimations.push({
+            animation: [definition, transitionOverride],
+            resolve
+          });
+        });
+      }
+    },
+    set: function(definition) {
+      invariant(hasMounted, "controls.set() should only be called after a component has mounted. Consider calling within a useEffect hook.");
+      return subscribers.forEach(function(visualElement2) {
+        setValues(visualElement2, definition);
+      });
+    },
+    stop: function() {
+      subscribers.forEach(function(visualElement2) {
+        stopAnimation(visualElement2);
+      });
+    },
+    mount: function() {
+      hasMounted = true;
+      pendingAnimations.forEach(function(_a) {
+        var animation = _a.animation, resolve = _a.resolve;
+        controls.start.apply(controls, __spreadArray([], __read(animation), false)).then(resolve);
+      });
+      return function() {
+        hasMounted = false;
+        controls.stop();
+      };
+    }
+  };
+  return controls;
+}
+
+// ../../node_modules/framer-motion/dist/es/animation/use-animation.mjs
+init_define_process();
+import { useEffect as useEffect19 } from "/react.mjs";
+function useAnimationControls() {
+  var controls = useConstant(animationControls);
+  useEffect19(controls.mount, []);
+  return controls;
+}
+var useAnimation = useAnimationControls;
+
+// ../../node_modules/framer-motion/dist/es/utils/use-cycle.mjs
+init_define_process();
+import { useRef as useRef13, useState as useState5, useCallback as useCallback3 } from "/react.mjs";
+function useCycle() {
+  var items = [];
+  for (var _i = 0; _i < arguments.length; _i++) {
+    items[_i] = arguments[_i];
+  }
+  var index = useRef13(0);
+  var _a = __read(useState5(items[index.current]), 2), item = _a[0], setItem = _a[1];
+  var runCycle = useCallback3(function(next) {
+    index.current = typeof next !== "number" ? wrap(0, items.length, index.current + 1) : next;
+    setItem(items[index.current]);
+  }, __spreadArray([items.length], __read(items), false));
+  return [item, runCycle];
+}
+
 // ../../node_modules/framer-motion/dist/es/utils/use-in-view.mjs
+init_define_process();
+import { useState as useState6, useEffect as useEffect20 } from "/react.mjs";
 function useInView(ref, _a) {
   var _b = _a === void 0 ? {} : _a, root = _b.root, margin = _b.margin, amount = _b.amount, _c = _b.once, once = _c === void 0 ? false : _c;
   var _d = __read(useState6(false), 2), isInView = _d[0], setInView = _d[1];
@@ -8508,6 +8870,7 @@ export {
   useMotionTemplate,
   useSpring,
   useVelocity,
+  useScroll,
   useElementScroll,
   useViewportScroll,
   useAnimationFrame,

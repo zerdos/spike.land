@@ -6,7 +6,7 @@ import {
   makePatch,
   makePatchFrom,
   startSession
-} from "./GGJRYCBP.mjs";
+} from "./5S6SE64O.mjs";
 import {
   require_browser
 } from "./A2CAC27W.mjs";
@@ -24662,7 +24662,7 @@ var sendChannel = {
   }
 };
 async function quickStart(codeSpace2) {
-  const { renderPreviewWindow } = await import("./WLVP4ANY.mjs");
+  const { renderPreviewWindow } = await import("./KHB5CE4Y.mjs");
   return renderPreviewWindow(codeSpace2);
 }
 var run = async (startState) => {
