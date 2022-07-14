@@ -1,15 +1,9 @@
 import {
-  applyPatch,
-  hashCode,
-  initShims,
-  mST,
-  makePatch,
-  makePatchFrom,
-  startSession
-} from "./5S6SE64O.mjs";
-import {
   require_browser
 } from "./A2CAC27W.mjs";
+import {
+  jsx
+} from "./D4S3JOF6.mjs";
 import {
   __commonJS,
   __toESM,
@@ -509,8 +503,8 @@ var require_headersToString = __commonJS({
       var list = headersToList_1.headersToList(headers);
       var lines = list.map(function(_a) {
         var _b = __read(_a, 2), name = _b[0], value = _b[1];
-        var values = [].concat(value);
-        return name + ": " + values.join(", ");
+        var values2 = [].concat(value);
+        return name + ": " + values2.join(", ");
       });
       return lines.join("\r\n");
     }
@@ -548,8 +542,8 @@ var require_stringToHeaders = __commonJS({
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.stringToHeaders = void 0;
     var Headers_1 = require_Headers();
-    function stringToHeaders(str) {
-      var lines = str.trim().split(/[\r\n]+/);
+    function stringToHeaders(str2) {
+      var lines = str2.trim().split(/[\r\n]+/);
       return lines.reduce(function(headers, line) {
         if (line.trim() === "") {
           return headers;
@@ -598,8 +592,8 @@ var require_listToHeaders = __commonJS({
       var headers = new Headers_1.default();
       list.forEach(function(_a) {
         var _b = __read(_a, 2), name = _b[0], value = _b[1];
-        var values = [].concat(value);
-        values.forEach(function(value2) {
+        var values2 = [].concat(value);
+        values2.forEach(function(value2) {
           headers.append(name, value2);
         });
       });
@@ -636,8 +630,8 @@ var require_objectToHeaders = __commonJS({
     var reduceHeadersObject_1 = require_reduceHeadersObject();
     function objectToHeaders(headersObject) {
       return reduceHeadersObject_1.reduceHeadersObject(headersObject, function(headers, name, value) {
-        var values = [].concat(value).filter(Boolean);
-        values.forEach(function(value2) {
+        var values2 = [].concat(value).filter(Boolean);
+        values2.forEach(function(value2) {
           headers.append(name, value2);
         });
         return headers;
@@ -677,8 +671,8 @@ var require_flattenHeadersList = __commonJS({
     exports.flattenHeadersList = void 0;
     function flattenHeadersList(list) {
       return list.map(function(_a) {
-        var _b = __read(_a, 2), name = _b[0], values = _b[1];
-        return [name, [].concat(values).join("; ")];
+        var _b = __read(_a, 2), name = _b[0], values2 = _b[1];
+        return [name, [].concat(values2).join("; ")];
       });
     }
     exports.flattenHeadersList = flattenHeadersList;
@@ -763,13 +757,13 @@ var require_cookie = __commonJS({
     var decode = decodeURIComponent;
     var encode = encodeURIComponent;
     var fieldContentRegExp = /^[\u0009\u0020-\u007e\u0080-\u00ff]+$/;
-    function parse(str, options) {
-      if (typeof str !== "string") {
+    function parse(str2, options) {
+      if (typeof str2 !== "string") {
         throw new TypeError("argument str must be a string");
       }
       var obj = {};
       var opt = options || {};
-      var pairs = str.split(";");
+      var pairs = str2.split(";");
       var dec = opt.decode || decode;
       for (var i = 0; i < pairs.length; i++) {
         var pair = pairs[i];
@@ -801,64 +795,64 @@ var require_cookie = __commonJS({
       if (value && !fieldContentRegExp.test(value)) {
         throw new TypeError("argument val is invalid");
       }
-      var str = name + "=" + value;
+      var str2 = name + "=" + value;
       if (null != opt.maxAge) {
         var maxAge = opt.maxAge - 0;
         if (isNaN(maxAge) || !isFinite(maxAge)) {
           throw new TypeError("option maxAge is invalid");
         }
-        str += "; Max-Age=" + Math.floor(maxAge);
+        str2 += "; Max-Age=" + Math.floor(maxAge);
       }
       if (opt.domain) {
         if (!fieldContentRegExp.test(opt.domain)) {
           throw new TypeError("option domain is invalid");
         }
-        str += "; Domain=" + opt.domain;
+        str2 += "; Domain=" + opt.domain;
       }
       if (opt.path) {
         if (!fieldContentRegExp.test(opt.path)) {
           throw new TypeError("option path is invalid");
         }
-        str += "; Path=" + opt.path;
+        str2 += "; Path=" + opt.path;
       }
       if (opt.expires) {
         if (typeof opt.expires.toUTCString !== "function") {
           throw new TypeError("option expires is invalid");
         }
-        str += "; Expires=" + opt.expires.toUTCString();
+        str2 += "; Expires=" + opt.expires.toUTCString();
       }
       if (opt.httpOnly) {
-        str += "; HttpOnly";
+        str2 += "; HttpOnly";
       }
       if (opt.secure) {
-        str += "; Secure";
+        str2 += "; Secure";
       }
       if (opt.sameSite) {
         var sameSite = typeof opt.sameSite === "string" ? opt.sameSite.toLowerCase() : opt.sameSite;
         switch (sameSite) {
           case true:
-            str += "; SameSite=Strict";
+            str2 += "; SameSite=Strict";
             break;
           case "lax":
-            str += "; SameSite=Lax";
+            str2 += "; SameSite=Lax";
             break;
           case "strict":
-            str += "; SameSite=Strict";
+            str2 += "; SameSite=Strict";
             break;
           case "none":
-            str += "; SameSite=None";
+            str2 += "; SameSite=None";
             break;
           default:
             throw new TypeError("option sameSite is invalid");
         }
       }
-      return str;
+      return str2;
     }
-    function tryDecode(str, decode2) {
+    function tryDecode(str2, decode2) {
       try {
-        return decode2(str);
+        return decode2(str2);
       } catch (e) {
-        return str;
+        return str2;
       }
     }
   }
@@ -1155,10 +1149,10 @@ var require_events = __commonJS({
         return this;
       }
       if (arguments.length === 0) {
-        var keys = Object.keys(events);
+        var keys2 = Object.keys(events);
         var key;
-        for (i = 0; i < keys.length; ++i) {
-          key = keys[i];
+        for (i = 0; i < keys2.length; ++i) {
+          key = keys2[i];
           if (key === "removeListener")
             continue;
           this.removeAllListeners(key);
@@ -1544,7 +1538,7 @@ var require_invariant = __commonJS({
     }(Error);
     exports.InvariantError = InvariantError;
     function createInvariantWith(ErrorConstructor) {
-      var invariant = function(predicate, message) {
+      var invariant2 = function(predicate, message) {
         var positionals = [];
         for (var _i = 2; _i < arguments.length; _i++) {
           positionals[_i - 2] = arguments[_i];
@@ -1557,7 +1551,7 @@ var require_invariant = __commonJS({
           throw error;
         }
       };
-      return invariant;
+      return invariant2;
     }
     exports.createInvariantWith = createInvariantWith;
     function polymorphicInvariant(ErrorClass) {
@@ -1879,9 +1873,9 @@ var require_AsyncEventEmitter = __commonJS({
         });
         return _super.prototype.emit.apply(this, __spreadArray([event], __read(args)));
       };
-      AsyncEventEmitter2.prototype.untilIdle = function(event, filter) {
-        if (filter === void 0) {
-          filter = function() {
+      AsyncEventEmitter2.prototype.untilIdle = function(event, filter3) {
+        if (filter3 === void 0) {
+          filter3 = function() {
             return true;
           };
         }
@@ -1892,7 +1886,7 @@ var require_AsyncEventEmitter = __commonJS({
             switch (_a.label) {
               case 0:
                 listenersQueue = this.queue.get(event) || [];
-                return [4, Promise.all(listenersQueue.filter(filter).map(function(_a2) {
+                return [4, Promise.all(listenersQueue.filter(filter3).map(function(_a2) {
                   var done = _a2.done;
                   return done;
                 })).finally(function() {
@@ -2305,7 +2299,7 @@ var require_implementation = __commonJS({
     "use strict";
     init_define_process();
     var ERROR_MESSAGE = "Function.prototype.bind called on incompatible ";
-    var slice = Array.prototype.slice;
+    var slice3 = Array.prototype.slice;
     var toStr = Object.prototype.toString;
     var funcType = "[object Function]";
     module.exports = function bind(that) {
@@ -2313,17 +2307,17 @@ var require_implementation = __commonJS({
       if (typeof target !== "function" || toStr.call(target) !== funcType) {
         throw new TypeError(ERROR_MESSAGE + target);
       }
-      var args = slice.call(arguments, 1);
+      var args = slice3.call(arguments, 1);
       var bound;
       var binder = function() {
         if (this instanceof bound) {
-          var result = target.apply(this, args.concat(slice.call(arguments)));
+          var result = target.apply(this, args.concat(slice3.call(arguments)));
           if (Object(result) === result) {
             return result;
           }
           return this;
         } else {
-          return target.apply(that, args.concat(slice.call(arguments)));
+          return target.apply(that, args.concat(slice3.call(arguments)));
         }
       };
       var boundLength = Math.max(0, target.length - args.length);
@@ -2559,11 +2553,11 @@ var require_get_intrinsic = __commonJS({
     var rePropName = /[^%.[\]]+|\[(?:(-?\d+(?:\.\d+)?)|(["'])((?:(?!\2)[^\\]|\\.)*?)\2)\]|(?=(?:\.|\[\])(?:\.|\[\]|%$))/g;
     var reEscapeChar = /\\(\\)?/g;
     var stringToPath = function stringToPath2(string) {
-      var first = $strSlice(string, 0, 1);
-      var last = $strSlice(string, -1);
-      if (first === "%" && last !== "%") {
+      var first3 = $strSlice(string, 0, 1);
+      var last3 = $strSlice(string, -1);
+      if (first3 === "%" && last3 !== "%") {
         throw new $SyntaxError("invalid intrinsic syntax, expected closing `%`");
-      } else if (last === "%" && first !== "%") {
+      } else if (last3 === "%" && first3 !== "%") {
         throw new $SyntaxError("invalid intrinsic syntax, expected opening `%`");
       }
       var result = [];
@@ -2618,9 +2612,9 @@ var require_get_intrinsic = __commonJS({
       }
       for (var i = 1, isOwn = true; i < parts.length; i += 1) {
         var part = parts[i];
-        var first = $strSlice(part, 0, 1);
-        var last = $strSlice(part, -1);
-        if ((first === '"' || first === "'" || first === "`" || (last === '"' || last === "'" || last === "`")) && first !== last) {
+        var first3 = $strSlice(part, 0, 1);
+        var last3 = $strSlice(part, -1);
+        if ((first3 === '"' || first3 === "'" || first3 === "`" || (last3 === '"' || last3 === "'" || last3 === "`")) && first3 !== last3) {
           throw new $SyntaxError("property names with quotes must have matching quotes");
         }
         if (part === "constructor" || !isOwn) {
@@ -2774,8 +2768,8 @@ var require_is_generator_function = __commonJS({
         return true;
       }
       if (!hasToStringTag) {
-        var str = toStr.call(fn);
-        return str === "[object GeneratorFunction]";
+        var str2 = toStr.call(fn);
+        return str2 === "[object GeneratorFunction]";
       }
       if (!getProto) {
         return false;
@@ -2895,10 +2889,10 @@ var require_for_each = __commonJS({
     init_define_process();
     var isCallable = require_is_callable();
     var toStr = Object.prototype.toString;
-    var hasOwnProperty = Object.prototype.hasOwnProperty;
+    var hasOwnProperty2 = Object.prototype.hasOwnProperty;
     var forEachArray = function forEachArray2(array, iterator, receiver) {
       for (var i = 0, len = array.length; i < len; i++) {
-        if (hasOwnProperty.call(array, i)) {
+        if (hasOwnProperty2.call(array, i)) {
           if (receiver == null) {
             iterator(array[i], i, array);
           } else {
@@ -2918,7 +2912,7 @@ var require_for_each = __commonJS({
     };
     var forEachObject = function forEachObject2(object, iterator, receiver) {
       for (var k in object) {
-        if (hasOwnProperty.call(object, k)) {
+        if (hasOwnProperty2.call(object, k)) {
           if (receiver == null) {
             iterator(object[k], k, object);
           } else {
@@ -2927,7 +2921,7 @@ var require_for_each = __commonJS({
         }
       }
     };
-    var forEach = function forEach2(list, iterator, thisArg) {
+    var forEach2 = function forEach3(list, iterator, thisArg) {
       if (!isCallable(iterator)) {
         throw new TypeError("iterator must be a function");
       }
@@ -2943,7 +2937,7 @@ var require_for_each = __commonJS({
         forEachObject(list, iterator, receiver);
       }
     };
-    module.exports = forEach;
+    module.exports = forEach2;
   }
 });
 
@@ -3001,14 +2995,14 @@ var require_is_typed_array = __commonJS({
   "../../node_modules/is-typed-array/index.js"(exports, module) {
     "use strict";
     init_define_process();
-    var forEach = require_for_each();
+    var forEach2 = require_for_each();
     var availableTypedArrays = require_available_typed_arrays();
     var callBound = require_callBound();
     var $toString = callBound("Object.prototype.toString");
     var hasToStringTag = require_shams2()();
     var g = typeof globalThis === "undefined" ? self : globalThis;
     var typedArrays = availableTypedArrays();
-    var $indexOf = callBound("Array.prototype.indexOf", true) || function indexOf(array, value) {
+    var $indexOf = callBound("Array.prototype.indexOf", true) || function indexOf2(array, value) {
       for (var i = 0; i < array.length; i += 1) {
         if (array[i] === value) {
           return i;
@@ -3021,7 +3015,7 @@ var require_is_typed_array = __commonJS({
     var gOPD = require_getOwnPropertyDescriptor();
     var getPrototypeOf = Object.getPrototypeOf;
     if (hasToStringTag && gOPD && getPrototypeOf) {
-      forEach(typedArrays, function(typedArray) {
+      forEach2(typedArrays, function(typedArray) {
         var arr = new g[typedArray]();
         if (Symbol.toStringTag in arr) {
           var proto = getPrototypeOf(arr);
@@ -3036,7 +3030,7 @@ var require_is_typed_array = __commonJS({
     }
     var tryTypedArrays = function tryAllTypedArrays(value) {
       var anyTrue = false;
-      forEach(toStrTags, function(getter, typedArray) {
+      forEach2(toStrTags, function(getter, typedArray) {
         if (!anyTrue) {
           try {
             anyTrue = getter.call(value) === typedArray;
@@ -3067,7 +3061,7 @@ var require_which_typed_array = __commonJS({
   "../../node_modules/which-typed-array/index.js"(exports, module) {
     "use strict";
     init_define_process();
-    var forEach = require_for_each();
+    var forEach2 = require_for_each();
     var availableTypedArrays = require_available_typed_arrays();
     var callBound = require_callBound();
     var $toString = callBound("Object.prototype.toString");
@@ -3079,7 +3073,7 @@ var require_which_typed_array = __commonJS({
     var gOPD = require_getOwnPropertyDescriptor();
     var getPrototypeOf = Object.getPrototypeOf;
     if (hasToStringTag && gOPD && getPrototypeOf) {
-      forEach(typedArrays, function(typedArray) {
+      forEach2(typedArrays, function(typedArray) {
         if (typeof g[typedArray] === "function") {
           var arr = new g[typedArray]();
           if (Symbol.toStringTag in arr) {
@@ -3096,7 +3090,7 @@ var require_which_typed_array = __commonJS({
     }
     var tryTypedArrays = function tryAllTypedArrays(value) {
       var foundName = false;
-      forEach(toStrTags, function(getter, typedArray) {
+      forEach2(toStrTags, function(getter, typedArray) {
         if (!foundName) {
           try {
             var name = getter.call(value);
@@ -3221,24 +3215,24 @@ var require_types = __commonJS({
       return ObjectToString(value) === "[object Map]";
     }
     isMapToString.working = typeof Map !== "undefined" && isMapToString(/* @__PURE__ */ new Map());
-    function isMap(value) {
+    function isMap2(value) {
       if (typeof Map === "undefined") {
         return false;
       }
       return isMapToString.working ? isMapToString(value) : value instanceof Map;
     }
-    exports.isMap = isMap;
+    exports.isMap = isMap2;
     function isSetToString(value) {
       return ObjectToString(value) === "[object Set]";
     }
     isSetToString.working = typeof Set !== "undefined" && isSetToString(/* @__PURE__ */ new Set());
-    function isSet(value) {
+    function isSet2(value) {
       if (typeof Set === "undefined") {
         return false;
       }
       return isSetToString.working ? isSetToString(value) : value instanceof Set;
     }
-    exports.isSet = isSet;
+    exports.isSet = isSet2;
     function isWeakMapToString(value) {
       return ObjectToString(value) === "[object WeakMap]";
     }
@@ -3401,10 +3395,10 @@ var require_util = __commonJS({
   "../../node_modules/util/util.js"(exports) {
     init_define_process();
     var getOwnPropertyDescriptors = Object.getOwnPropertyDescriptors || function getOwnPropertyDescriptors2(obj) {
-      var keys = Object.keys(obj);
+      var keys2 = Object.keys(obj);
       var descriptors = {};
-      for (var i = 0; i < keys.length; i++) {
-        descriptors[keys[i]] = Object.getOwnPropertyDescriptor(obj, keys[i]);
+      for (var i = 0; i < keys2.length; i++) {
+        descriptors[keys2[i]] = Object.getOwnPropertyDescriptor(obj, keys2[i]);
       }
       return descriptors;
     };
@@ -3420,7 +3414,7 @@ var require_util = __commonJS({
       var i = 1;
       var args = arguments;
       var len = args.length;
-      var str = String(f).replace(formatRegExp, function(x2) {
+      var str2 = String(f).replace(formatRegExp, function(x2) {
         if (x2 === "%%")
           return "%";
         if (i >= len)
@@ -3442,12 +3436,12 @@ var require_util = __commonJS({
       });
       for (var x = args[i]; i < len; x = args[++i]) {
         if (isNull(x) || !isObject(x)) {
-          str += " " + x;
+          str2 += " " + x;
         } else {
-          str += " " + inspect(x);
+          str2 += " " + inspect(x);
         }
       }
-      return str;
+      return str2;
     };
     exports.deprecate = function(fn, msg) {
       if (typeof define_process_default !== "undefined" && define_process_default.noDeprecation === true) {
@@ -3482,21 +3476,21 @@ var require_util = __commonJS({
       debugEnvRegex = new RegExp("^" + debugEnv + "$", "i");
     }
     var debugEnv;
-    exports.debuglog = function(set) {
-      set = set.toUpperCase();
-      if (!debugs[set]) {
-        if (debugEnvRegex.test(set)) {
+    exports.debuglog = function(set3) {
+      set3 = set3.toUpperCase();
+      if (!debugs[set3]) {
+        if (debugEnvRegex.test(set3)) {
           var pid = define_process_default.pid;
-          debugs[set] = function() {
+          debugs[set3] = function() {
             var msg = exports.format.apply(exports, arguments);
-            console.error("%s %d: %s", set, pid, msg);
+            console.error("%s %d: %s", set3, pid, msg);
           };
         } else {
-          debugs[set] = function() {
+          debugs[set3] = function() {
           };
         }
       }
-      return debugs[set];
+      return debugs[set3];
     };
     function inspect(obj, opts) {
       var ctx = {
@@ -3550,23 +3544,23 @@ var require_util = __commonJS({
       "date": "magenta",
       "regexp": "red"
     };
-    function stylizeWithColor(str, styleType) {
+    function stylizeWithColor(str2, styleType) {
       var style = inspect.styles[styleType];
       if (style) {
-        return "\x1B[" + inspect.colors[style][0] + "m" + str + "\x1B[" + inspect.colors[style][1] + "m";
+        return "\x1B[" + inspect.colors[style][0] + "m" + str2 + "\x1B[" + inspect.colors[style][1] + "m";
       } else {
-        return str;
+        return str2;
       }
     }
-    function stylizeNoColor(str, styleType) {
-      return str;
+    function stylizeNoColor(str2, styleType) {
+      return str2;
     }
     function arrayToHash(array) {
-      var hash = {};
+      var hash2 = {};
       array.forEach(function(val, idx) {
-        hash[val] = true;
+        hash2[val] = true;
       });
-      return hash;
+      return hash2;
     }
     function formatValue(ctx, value, recurseTimes) {
       if (ctx.customInspect && value && isFunction(value.inspect) && value.inspect !== exports.inspect && !(value.constructor && value.constructor.prototype === value)) {
@@ -3580,15 +3574,15 @@ var require_util = __commonJS({
       if (primitive) {
         return primitive;
       }
-      var keys = Object.keys(value);
-      var visibleKeys = arrayToHash(keys);
+      var keys2 = Object.keys(value);
+      var visibleKeys = arrayToHash(keys2);
       if (ctx.showHidden) {
-        keys = Object.getOwnPropertyNames(value);
+        keys2 = Object.getOwnPropertyNames(value);
       }
-      if (isError(value) && (keys.indexOf("message") >= 0 || keys.indexOf("description") >= 0)) {
+      if (isError(value) && (keys2.indexOf("message") >= 0 || keys2.indexOf("description") >= 0)) {
         return formatError(value);
       }
-      if (keys.length === 0) {
+      if (keys2.length === 0) {
         if (isFunction(value)) {
           var name = value.name ? ": " + value.name : "";
           return ctx.stylize("[Function" + name + "]", "special");
@@ -3621,7 +3615,7 @@ var require_util = __commonJS({
       if (isError(value)) {
         base = " " + formatError(value);
       }
-      if (keys.length === 0 && (!array || value.length == 0)) {
+      if (keys2.length === 0 && (!array || value.length == 0)) {
         return braces[0] + base + braces[1];
       }
       if (recurseTimes < 0) {
@@ -3634,9 +3628,9 @@ var require_util = __commonJS({
       ctx.seen.push(value);
       var output;
       if (array) {
-        output = formatArray(ctx, value, recurseTimes, visibleKeys, keys);
+        output = formatArray(ctx, value, recurseTimes, visibleKeys, keys2);
       } else {
-        output = keys.map(function(key) {
+        output = keys2.map(function(key) {
           return formatProperty(ctx, value, recurseTimes, visibleKeys, key, array);
         });
       }
@@ -3660,16 +3654,16 @@ var require_util = __commonJS({
     function formatError(value) {
       return "[" + Error.prototype.toString.call(value) + "]";
     }
-    function formatArray(ctx, value, recurseTimes, visibleKeys, keys) {
+    function formatArray(ctx, value, recurseTimes, visibleKeys, keys2) {
       var output = [];
       for (var i = 0, l = value.length; i < l; ++i) {
-        if (hasOwnProperty(value, String(i))) {
+        if (hasOwnProperty2(value, String(i))) {
           output.push(formatProperty(ctx, value, recurseTimes, visibleKeys, String(i), true));
         } else {
           output.push("");
         }
       }
-      keys.forEach(function(key) {
+      keys2.forEach(function(key) {
         if (!key.match(/^\d+$/)) {
           output.push(formatProperty(ctx, value, recurseTimes, visibleKeys, key, true));
         }
@@ -3677,47 +3671,47 @@ var require_util = __commonJS({
       return output;
     }
     function formatProperty(ctx, value, recurseTimes, visibleKeys, key, array) {
-      var name, str, desc;
+      var name, str2, desc;
       desc = Object.getOwnPropertyDescriptor(value, key) || { value: value[key] };
       if (desc.get) {
         if (desc.set) {
-          str = ctx.stylize("[Getter/Setter]", "special");
+          str2 = ctx.stylize("[Getter/Setter]", "special");
         } else {
-          str = ctx.stylize("[Getter]", "special");
+          str2 = ctx.stylize("[Getter]", "special");
         }
       } else {
         if (desc.set) {
-          str = ctx.stylize("[Setter]", "special");
+          str2 = ctx.stylize("[Setter]", "special");
         }
       }
-      if (!hasOwnProperty(visibleKeys, key)) {
+      if (!hasOwnProperty2(visibleKeys, key)) {
         name = "[" + key + "]";
       }
-      if (!str) {
+      if (!str2) {
         if (ctx.seen.indexOf(desc.value) < 0) {
           if (isNull(recurseTimes)) {
-            str = formatValue(ctx, desc.value, null);
+            str2 = formatValue(ctx, desc.value, null);
           } else {
-            str = formatValue(ctx, desc.value, recurseTimes - 1);
+            str2 = formatValue(ctx, desc.value, recurseTimes - 1);
           }
-          if (str.indexOf("\n") > -1) {
+          if (str2.indexOf("\n") > -1) {
             if (array) {
-              str = str.split("\n").map(function(line) {
+              str2 = str2.split("\n").map(function(line) {
                 return "  " + line;
               }).join("\n").substr(2);
             } else {
-              str = "\n" + str.split("\n").map(function(line) {
+              str2 = "\n" + str2.split("\n").map(function(line) {
                 return "   " + line;
               }).join("\n");
             }
           }
         } else {
-          str = ctx.stylize("[Circular]", "special");
+          str2 = ctx.stylize("[Circular]", "special");
         }
       }
       if (isUndefined(name)) {
         if (array && key.match(/^\d+$/)) {
-          return str;
+          return str2;
         }
         name = JSON.stringify("" + key);
         if (name.match(/^"([a-zA-Z_][a-zA-Z_0-9]*)"$/)) {
@@ -3728,7 +3722,7 @@ var require_util = __commonJS({
           name = ctx.stylize(name, "string");
         }
       }
-      return name + ": " + str;
+      return name + ": " + str2;
     }
     function reduceToSingleString(output, base, braces) {
       var numLinesEst = 0;
@@ -3840,14 +3834,14 @@ var require_util = __commonJS({
     exports._extend = function(origin, add) {
       if (!add || !isObject(add))
         return origin;
-      var keys = Object.keys(add);
-      var i = keys.length;
+      var keys2 = Object.keys(add);
+      var i = keys2.length;
       while (i--) {
-        origin[keys[i]] = add[keys[i]];
+        origin[keys2[i]] = add[keys2[i]];
       }
       return origin;
     };
-    function hasOwnProperty(obj, prop) {
+    function hasOwnProperty2(obj, prop) {
       return Object.prototype.hasOwnProperty.call(obj, prop);
     }
     var kCustomPromisifiedSymbol = typeof Symbol !== "undefined" ? Symbol("util.promisify.custom") : void 0;
@@ -4446,8 +4440,8 @@ var require_set_cookie = __commonJS({
       map: false,
       silent: false
     };
-    function isNonEmptyString(str) {
-      return typeof str === "string" && !!str.trim();
+    function isNonEmptyString(str2) {
+      return typeof str2 === "string" && !!str2.trim();
     }
     function parseString(setCookieValue, options) {
       var parts = setCookieValue.split(";").filter(isNonEmptyString);
@@ -4509,13 +4503,13 @@ var require_set_cookie = __commonJS({
       }
       options = options ? Object.assign({}, defaultParseOptions, options) : defaultParseOptions;
       if (!options.map) {
-        return input.filter(isNonEmptyString).map(function(str) {
-          return parseString(str, options);
+        return input.filter(isNonEmptyString).map(function(str2) {
+          return parseString(str2, options);
         });
       } else {
         var cookies = {};
-        return input.filter(isNonEmptyString).reduce(function(cookies2, str) {
-          var cookie = parseString(str, options);
+        return input.filter(isNonEmptyString).reduce(function(cookies2, str2) {
+          var cookie = parseString(str2, options);
           cookies2[cookie.name] = cookie;
           return cookies2;
         }, cookies);
@@ -4924,8 +4918,8 @@ var require_invariant2 = __commonJS({
     Object.defineProperty(exports, "__esModule", {
       value: true
     });
-    exports.invariant = invariant;
-    function invariant(condition, message) {
+    exports.invariant = invariant2;
+    function invariant2(condition, message) {
       const booleanCondition = Boolean(condition);
       if (!booleanCondition) {
         throw new Error(message != null ? message : "Unexpected invariant triggered.");
@@ -5465,9 +5459,9 @@ var require_blockString = __commonJS({
       }
       return lines.map((line, i) => i === 0 ? line : line.slice(commonIndent)).slice((_firstNonEmptyLine2 = firstNonEmptyLine) !== null && _firstNonEmptyLine2 !== void 0 ? _firstNonEmptyLine2 : 0, lastNonEmptyLine + 1);
     }
-    function leadingWhitespace(str) {
+    function leadingWhitespace(str2) {
       let i = 0;
-      while (i < str.length && (0, _characterClasses.isWhiteSpace)(str.charCodeAt(i))) {
+      while (i < str2.length && (0, _characterClasses.isWhiteSpace)(str2.charCodeAt(i))) {
         ++i;
       }
       return i;
@@ -6050,14 +6044,14 @@ var require_inspect = __commonJS({
       return typeof value.toJSON === "function";
     }
     function formatObject(object, seenValues) {
-      const entries = Object.entries(object);
-      if (entries.length === 0) {
+      const entries3 = Object.entries(object);
+      if (entries3.length === 0) {
         return "{}";
       }
       if (seenValues.length > MAX_RECURSIVE_DEPTH) {
         return "[" + getObjectTag(object) + "]";
       }
-      const properties = entries.map(([key, value]) => key + ": " + formatValue(value, seenValues));
+      const properties = entries3.map(([key, value]) => key + ": " + formatValue(value, seenValues));
       return "{ " + properties.join(", ") + " }";
     }
     function formatArray(array, seenValues) {
@@ -6717,13 +6711,13 @@ var require_parser = __commonJS({
         this.expectKeyword("enum");
         const name = this.parseName();
         const directives = this.parseConstDirectives();
-        const values = this.parseEnumValuesDefinition();
+        const values2 = this.parseEnumValuesDefinition();
         return this.node(start, {
           kind: _kinds.Kind.ENUM_TYPE_DEFINITION,
           description,
           name,
           directives,
-          values
+          values: values2
         });
       }
       parseEnumValuesDefinition() {
@@ -6878,15 +6872,15 @@ var require_parser = __commonJS({
         this.expectKeyword("enum");
         const name = this.parseName();
         const directives = this.parseConstDirectives();
-        const values = this.parseEnumValuesDefinition();
-        if (directives.length === 0 && values.length === 0) {
+        const values2 = this.parseEnumValuesDefinition();
+        if (directives.length === 0 && values2.length === 0) {
           throw this.unexpected();
         }
         return this.node(start, {
           kind: _kinds.Kind.ENUM_TYPE_EXTENSION,
           name,
           directives,
-          values
+          values: values2
         });
       }
       parseInputObjectTypeExtension() {
@@ -7122,10 +7116,10 @@ var require_mapValue = __commonJS({
       value: true
     });
     exports.mapValue = mapValue;
-    function mapValue(map, fn) {
+    function mapValue(map2, fn) {
       const result = /* @__PURE__ */ Object.create(null);
-      for (const key of Object.keys(map)) {
-        result[key] = fn(map[key], key);
+      for (const key of Object.keys(map2)) {
+        result[key] = fn(map2[key], key);
       }
       return result;
     }
@@ -7271,11 +7265,11 @@ var require_suggestionList = __commonJS({
         return distance <= threshold ? distance : void 0;
       }
     };
-    function stringToArray(str) {
-      const strLength = str.length;
+    function stringToArray(str2) {
+      const strLength = str2.length;
       const array = new Array(strLength);
       for (let i = 0; i < strLength; ++i) {
-        array[i] = str.charCodeAt(i);
+        array[i] = str2.charCodeAt(i);
       }
       return array;
     }
@@ -7298,11 +7292,11 @@ var require_toObjMap = __commonJS({
       if (Object.getPrototypeOf(obj) === null) {
         return obj;
       }
-      const map = /* @__PURE__ */ Object.create(null);
+      const map2 = /* @__PURE__ */ Object.create(null);
       for (const [key, value] of Object.entries(obj)) {
-        map[key] = value;
+        map2[key] = value;
       }
-      return map;
+      return map2;
     }
   }
 });
@@ -7316,12 +7310,12 @@ var require_printString = __commonJS({
       value: true
     });
     exports.printString = printString;
-    function printString(str) {
-      return `"${str.replace(escapedRegExp, escapedReplacer)}"`;
+    function printString(str2) {
+      return `"${str2.replace(escapedRegExp, escapedReplacer)}"`;
     }
     var escapedRegExp = /[\x00-\x1f\x22\x5c\x7f-\x9f]/g;
-    function escapedReplacer(str) {
-      return escapeSequences[str.charCodeAt(0)];
+    function escapedReplacer(str2) {
+      return escapeSequences[str2.charCodeAt(0)];
     }
     var escapeSequences = [
       "\\u0000",
@@ -7514,7 +7508,7 @@ var require_visitor = __commonJS({
       }
       let stack = void 0;
       let inArray = Array.isArray(root);
-      let keys = [root];
+      let keys2 = [root];
       let index = -1;
       let edits = [];
       let node = root;
@@ -7524,7 +7518,7 @@ var require_visitor = __commonJS({
       const ancestors = [];
       do {
         index++;
-        const isLeaving = index === keys.length;
+        const isLeaving = index === keys2.length;
         const isEdited = isLeaving && edits.length !== 0;
         if (isLeaving) {
           key = ancestors.length === 0 ? void 0 : path[path.length - 1];
@@ -7551,12 +7545,12 @@ var require_visitor = __commonJS({
             }
           }
           index = stack.index;
-          keys = stack.keys;
+          keys2 = stack.keys;
           edits = stack.edits;
           inArray = stack.inArray;
           stack = stack.prev;
         } else if (parent) {
-          key = inArray ? index : keys[index];
+          key = inArray ? index : keys2[index];
           node = parent[key];
           if (node === null || node === void 0) {
             continue;
@@ -7599,12 +7593,12 @@ var require_visitor = __commonJS({
           stack = {
             inArray,
             index,
-            keys,
+            keys: keys2,
             edits,
             prev: stack
           };
           inArray = Array.isArray(node);
-          keys = inArray ? node : (_node$kind = visitorKeys[node.kind]) !== null && _node$kind !== void 0 ? _node$kind : [];
+          keys2 = inArray ? node : (_node$kind = visitorKeys[node.kind]) !== null && _node$kind !== void 0 ? _node$kind : [];
           index = -1;
           edits = [];
           if (parent) {
@@ -7718,21 +7712,21 @@ var require_printer = __commonJS({
         leave: (node) => "$" + node.name
       },
       Document: {
-        leave: (node) => join2(node.definitions, "\n\n")
+        leave: (node) => join3(node.definitions, "\n\n")
       },
       OperationDefinition: {
         leave(node) {
-          const varDefs = wrap("(", join2(node.variableDefinitions, ", "), ")");
-          const prefix = join2([
+          const varDefs = wrap("(", join3(node.variableDefinitions, ", "), ")");
+          const prefix = join3([
             node.operation,
-            join2([node.name, varDefs]),
-            join2(node.directives, " ")
+            join3([node.name, varDefs]),
+            join3(node.directives, " ")
           ], " ");
           return (prefix === "query" ? "" : prefix + " ") + node.selectionSet;
         }
       },
       VariableDefinition: {
-        leave: ({ variable, type, defaultValue, directives }) => variable + ": " + type + wrap(" = ", defaultValue) + wrap(" ", join2(directives, " "))
+        leave: ({ variable, type, defaultValue, directives }) => variable + ": " + type + wrap(" = ", defaultValue) + wrap(" ", join3(directives, " "))
       },
       SelectionSet: {
         leave: ({ selections }) => block(selections)
@@ -7740,29 +7734,29 @@ var require_printer = __commonJS({
       Field: {
         leave({ alias, name, arguments: args, directives, selectionSet }) {
           const prefix = wrap("", alias, ": ") + name;
-          let argsLine = prefix + wrap("(", join2(args, ", "), ")");
+          let argsLine = prefix + wrap("(", join3(args, ", "), ")");
           if (argsLine.length > MAX_LINE_LENGTH) {
-            argsLine = prefix + wrap("(\n", indent(join2(args, "\n")), "\n)");
+            argsLine = prefix + wrap("(\n", indent(join3(args, "\n")), "\n)");
           }
-          return join2([argsLine, join2(directives, " "), selectionSet], " ");
+          return join3([argsLine, join3(directives, " "), selectionSet], " ");
         }
       },
       Argument: {
         leave: ({ name, value }) => name + ": " + value
       },
       FragmentSpread: {
-        leave: ({ name, directives }) => "..." + name + wrap(" ", join2(directives, " "))
+        leave: ({ name, directives }) => "..." + name + wrap(" ", join3(directives, " "))
       },
       InlineFragment: {
-        leave: ({ typeCondition, directives, selectionSet }) => join2([
+        leave: ({ typeCondition, directives, selectionSet }) => join3([
           "...",
           wrap("on ", typeCondition),
-          join2(directives, " "),
+          join3(directives, " "),
           selectionSet
         ], " ")
       },
       FragmentDefinition: {
-        leave: ({ name, typeCondition, variableDefinitions, directives, selectionSet }) => `fragment ${name}${wrap("(", join2(variableDefinitions, ", "), ")")} on ${typeCondition} ${wrap("", join2(directives, " "), " ")}` + selectionSet
+        leave: ({ name, typeCondition, variableDefinitions, directives, selectionSet }) => `fragment ${name}${wrap("(", join3(variableDefinitions, ", "), ")")} on ${typeCondition} ${wrap("", join3(directives, " "), " ")}` + selectionSet
       },
       IntValue: {
         leave: ({ value }) => value
@@ -7783,16 +7777,16 @@ var require_printer = __commonJS({
         leave: ({ value }) => value
       },
       ListValue: {
-        leave: ({ values }) => "[" + join2(values, ", ") + "]"
+        leave: ({ values: values2 }) => "[" + join3(values2, ", ") + "]"
       },
       ObjectValue: {
-        leave: ({ fields }) => "{" + join2(fields, ", ") + "}"
+        leave: ({ fields }) => "{" + join3(fields, ", ") + "}"
       },
       ObjectField: {
         leave: ({ name, value }) => name + ": " + value
       },
       Directive: {
-        leave: ({ name, arguments: args }) => "@" + name + wrap("(", join2(args, ", "), ")")
+        leave: ({ name, arguments: args }) => "@" + name + wrap("(", join3(args, ", "), ")")
       },
       NamedType: {
         leave: ({ name }) => name
@@ -7804,108 +7798,108 @@ var require_printer = __commonJS({
         leave: ({ type }) => type + "!"
       },
       SchemaDefinition: {
-        leave: ({ description, directives, operationTypes }) => wrap("", description, "\n") + join2(["schema", join2(directives, " "), block(operationTypes)], " ")
+        leave: ({ description, directives, operationTypes }) => wrap("", description, "\n") + join3(["schema", join3(directives, " "), block(operationTypes)], " ")
       },
       OperationTypeDefinition: {
         leave: ({ operation, type }) => operation + ": " + type
       },
       ScalarTypeDefinition: {
-        leave: ({ description, name, directives }) => wrap("", description, "\n") + join2(["scalar", name, join2(directives, " ")], " ")
+        leave: ({ description, name, directives }) => wrap("", description, "\n") + join3(["scalar", name, join3(directives, " ")], " ")
       },
       ObjectTypeDefinition: {
-        leave: ({ description, name, interfaces, directives, fields }) => wrap("", description, "\n") + join2([
+        leave: ({ description, name, interfaces, directives, fields }) => wrap("", description, "\n") + join3([
           "type",
           name,
-          wrap("implements ", join2(interfaces, " & ")),
-          join2(directives, " "),
+          wrap("implements ", join3(interfaces, " & ")),
+          join3(directives, " "),
           block(fields)
         ], " ")
       },
       FieldDefinition: {
-        leave: ({ description, name, arguments: args, type, directives }) => wrap("", description, "\n") + name + (hasMultilineItems(args) ? wrap("(\n", indent(join2(args, "\n")), "\n)") : wrap("(", join2(args, ", "), ")")) + ": " + type + wrap(" ", join2(directives, " "))
+        leave: ({ description, name, arguments: args, type, directives }) => wrap("", description, "\n") + name + (hasMultilineItems(args) ? wrap("(\n", indent(join3(args, "\n")), "\n)") : wrap("(", join3(args, ", "), ")")) + ": " + type + wrap(" ", join3(directives, " "))
       },
       InputValueDefinition: {
-        leave: ({ description, name, type, defaultValue, directives }) => wrap("", description, "\n") + join2([name + ": " + type, wrap("= ", defaultValue), join2(directives, " ")], " ")
+        leave: ({ description, name, type, defaultValue, directives }) => wrap("", description, "\n") + join3([name + ": " + type, wrap("= ", defaultValue), join3(directives, " ")], " ")
       },
       InterfaceTypeDefinition: {
-        leave: ({ description, name, interfaces, directives, fields }) => wrap("", description, "\n") + join2([
+        leave: ({ description, name, interfaces, directives, fields }) => wrap("", description, "\n") + join3([
           "interface",
           name,
-          wrap("implements ", join2(interfaces, " & ")),
-          join2(directives, " "),
+          wrap("implements ", join3(interfaces, " & ")),
+          join3(directives, " "),
           block(fields)
         ], " ")
       },
       UnionTypeDefinition: {
-        leave: ({ description, name, directives, types }) => wrap("", description, "\n") + join2(["union", name, join2(directives, " "), wrap("= ", join2(types, " | "))], " ")
+        leave: ({ description, name, directives, types }) => wrap("", description, "\n") + join3(["union", name, join3(directives, " "), wrap("= ", join3(types, " | "))], " ")
       },
       EnumTypeDefinition: {
-        leave: ({ description, name, directives, values }) => wrap("", description, "\n") + join2(["enum", name, join2(directives, " "), block(values)], " ")
+        leave: ({ description, name, directives, values: values2 }) => wrap("", description, "\n") + join3(["enum", name, join3(directives, " "), block(values2)], " ")
       },
       EnumValueDefinition: {
-        leave: ({ description, name, directives }) => wrap("", description, "\n") + join2([name, join2(directives, " ")], " ")
+        leave: ({ description, name, directives }) => wrap("", description, "\n") + join3([name, join3(directives, " ")], " ")
       },
       InputObjectTypeDefinition: {
-        leave: ({ description, name, directives, fields }) => wrap("", description, "\n") + join2(["input", name, join2(directives, " "), block(fields)], " ")
+        leave: ({ description, name, directives, fields }) => wrap("", description, "\n") + join3(["input", name, join3(directives, " "), block(fields)], " ")
       },
       DirectiveDefinition: {
-        leave: ({ description, name, arguments: args, repeatable, locations }) => wrap("", description, "\n") + "directive @" + name + (hasMultilineItems(args) ? wrap("(\n", indent(join2(args, "\n")), "\n)") : wrap("(", join2(args, ", "), ")")) + (repeatable ? " repeatable" : "") + " on " + join2(locations, " | ")
+        leave: ({ description, name, arguments: args, repeatable, locations }) => wrap("", description, "\n") + "directive @" + name + (hasMultilineItems(args) ? wrap("(\n", indent(join3(args, "\n")), "\n)") : wrap("(", join3(args, ", "), ")")) + (repeatable ? " repeatable" : "") + " on " + join3(locations, " | ")
       },
       SchemaExtension: {
-        leave: ({ directives, operationTypes }) => join2(["extend schema", join2(directives, " "), block(operationTypes)], " ")
+        leave: ({ directives, operationTypes }) => join3(["extend schema", join3(directives, " "), block(operationTypes)], " ")
       },
       ScalarTypeExtension: {
-        leave: ({ name, directives }) => join2(["extend scalar", name, join2(directives, " ")], " ")
+        leave: ({ name, directives }) => join3(["extend scalar", name, join3(directives, " ")], " ")
       },
       ObjectTypeExtension: {
-        leave: ({ name, interfaces, directives, fields }) => join2([
+        leave: ({ name, interfaces, directives, fields }) => join3([
           "extend type",
           name,
-          wrap("implements ", join2(interfaces, " & ")),
-          join2(directives, " "),
+          wrap("implements ", join3(interfaces, " & ")),
+          join3(directives, " "),
           block(fields)
         ], " ")
       },
       InterfaceTypeExtension: {
-        leave: ({ name, interfaces, directives, fields }) => join2([
+        leave: ({ name, interfaces, directives, fields }) => join3([
           "extend interface",
           name,
-          wrap("implements ", join2(interfaces, " & ")),
-          join2(directives, " "),
+          wrap("implements ", join3(interfaces, " & ")),
+          join3(directives, " "),
           block(fields)
         ], " ")
       },
       UnionTypeExtension: {
-        leave: ({ name, directives, types }) => join2([
+        leave: ({ name, directives, types }) => join3([
           "extend union",
           name,
-          join2(directives, " "),
-          wrap("= ", join2(types, " | "))
+          join3(directives, " "),
+          wrap("= ", join3(types, " | "))
         ], " ")
       },
       EnumTypeExtension: {
-        leave: ({ name, directives, values }) => join2(["extend enum", name, join2(directives, " "), block(values)], " ")
+        leave: ({ name, directives, values: values2 }) => join3(["extend enum", name, join3(directives, " "), block(values2)], " ")
       },
       InputObjectTypeExtension: {
-        leave: ({ name, directives, fields }) => join2(["extend input", name, join2(directives, " "), block(fields)], " ")
+        leave: ({ name, directives, fields }) => join3(["extend input", name, join3(directives, " "), block(fields)], " ")
       }
     };
-    function join2(maybeArray, separator = "") {
+    function join3(maybeArray, separator = "") {
       var _maybeArray$filter$jo;
       return (_maybeArray$filter$jo = maybeArray === null || maybeArray === void 0 ? void 0 : maybeArray.filter((x) => x).join(separator)) !== null && _maybeArray$filter$jo !== void 0 ? _maybeArray$filter$jo : "";
     }
     function block(array) {
-      return wrap("{\n", indent(join2(array, "\n")), "\n}");
+      return wrap("{\n", indent(join3(array, "\n")), "\n}");
     }
     function wrap(start, maybeString, end = "") {
       return maybeString != null && maybeString !== "" ? start + maybeString + end : "";
     }
-    function indent(str) {
-      return wrap("  ", str.replace(/\n/g, "\n  "));
+    function indent(str2) {
+      return wrap("  ", str2.replace(/\n/g, "\n  "));
     }
     function hasMultilineItems(maybeArray) {
       var _maybeArray$some;
-      return (_maybeArray$some = maybeArray === null || maybeArray === void 0 ? void 0 : maybeArray.some((str) => str.includes("\n"))) !== null && _maybeArray$some !== void 0 ? _maybeArray$some : false;
+      return (_maybeArray$some = maybeArray === null || maybeArray === void 0 ? void 0 : maybeArray.some((str2) => str2.includes("\n"))) !== null && _maybeArray$some !== void 0 ? _maybeArray$some : false;
     }
   }
 });
@@ -8561,7 +8555,7 @@ var require_definition = __commonJS({
         return enumValue.value;
       }
       toConfig() {
-        const values = (0, _keyValMap.keyValMap)(this.getValues(), (value) => value.name, (value) => ({
+        const values2 = (0, _keyValMap.keyValMap)(this.getValues(), (value) => value.name, (value) => ({
           description: value.description,
           value: value.value,
           deprecationReason: value.deprecationReason,
@@ -8571,7 +8565,7 @@ var require_definition = __commonJS({
         return {
           name: this.name,
           description: this.description,
-          values,
+          values: values2,
           extensions: this.extensions,
           astNode: this.astNode,
           extensionASTNodes: this.extensionASTNodes
@@ -9493,8 +9487,8 @@ var require_introspection = __commonJS({
           },
           resolve(type, { includeDeprecated }) {
             if ((0, _definition.isEnumType)(type)) {
-              const values = type.getValues();
-              return includeDeprecated ? values : values.filter((field) => field.deprecationReason == null);
+              const values2 = type.getValues();
+              return includeDeprecated ? values2 : values2.filter((field) => field.deprecationReason == null);
             }
           }
         },
@@ -9508,8 +9502,8 @@ var require_introspection = __commonJS({
           },
           resolve(type, { includeDeprecated }) {
             if ((0, _definition.isInputObjectType)(type)) {
-              const values = Object.values(type.getFields());
-              return includeDeprecated ? values : values.filter((field) => field.deprecationReason == null);
+              const values2 = Object.values(type.getFields());
+              return includeDeprecated ? values2 : values2.filter((field) => field.deprecationReason == null);
             }
           }
         },
@@ -9878,25 +9872,25 @@ var require_schema = __commonJS({
         };
       }
       isSubType(abstractType, maybeSubType) {
-        let map = this._subTypeMap[abstractType.name];
-        if (map === void 0) {
-          map = /* @__PURE__ */ Object.create(null);
+        let map2 = this._subTypeMap[abstractType.name];
+        if (map2 === void 0) {
+          map2 = /* @__PURE__ */ Object.create(null);
           if ((0, _definition.isUnionType)(abstractType)) {
             for (const type of abstractType.getTypes()) {
-              map[type.name] = true;
+              map2[type.name] = true;
             }
           } else {
             const implementations = this.getImplementations(abstractType);
             for (const type of implementations.objects) {
-              map[type.name] = true;
+              map2[type.name] = true;
             }
             for (const type of implementations.interfaces) {
-              map[type.name] = true;
+              map2[type.name] = true;
             }
           }
-          this._subTypeMap[abstractType.name] = map;
+          this._subTypeMap[abstractType.name] = map2;
         }
-        return map[maybeSubType.name] !== void 0;
+        return map2[maybeSubType.name] !== void 0;
       }
       getDirectives() {
         return this._directives;
@@ -11597,11 +11591,11 @@ var require_OverlappingFieldsCanBeMergedRule = __commonJS({
       }
       add(a, b, areMutuallyExclusive) {
         const [key1, key2] = a < b ? [a, b] : [b, a];
-        const map = this._data.get(key1);
-        if (map === void 0) {
+        const map2 = this._data.get(key1);
+        if (map2 === void 0) {
           this._data.set(key1, /* @__PURE__ */ new Map([[key2, areMutuallyExclusive]]));
         } else {
-          map.set(key2, areMutuallyExclusive);
+          map2.set(key2, areMutuallyExclusive);
         }
       }
     };
@@ -12207,7 +12201,7 @@ var require_values = __commonJS({
           }));
           continue;
         }
-        if (!hasOwnProperty(inputs, varName)) {
+        if (!hasOwnProperty2(inputs, varName)) {
           if (varDefNode.defaultValue) {
             coercedValues[varName] = (0, _valueFromAST.valueFromAST)(varDefNode.defaultValue, varType);
           } else if ((0, _definition.isNonNullType)(varType)) {
@@ -12262,7 +12256,7 @@ var require_values = __commonJS({
         let isNull = valueNode.kind === _kinds.Kind.NULL;
         if (valueNode.kind === _kinds.Kind.VARIABLE) {
           const variableName = valueNode.name.value;
-          if (variableValues == null || !hasOwnProperty(variableValues, variableName)) {
+          if (variableValues == null || !hasOwnProperty2(variableValues, variableName)) {
             if (argDef.defaultValue !== void 0) {
               coercedValues[name] = argDef.defaultValue;
             } else if ((0, _definition.isNonNullType)(argType)) {
@@ -12296,7 +12290,7 @@ var require_values = __commonJS({
         return getArgumentValues(directiveDef, directiveNode, variableValues);
       }
     }
-    function hasOwnProperty(obj, prop) {
+    function hasOwnProperty2(obj, prop) {
       return Object.prototype.hasOwnProperty.call(obj, prop);
     }
   }
@@ -12372,8 +12366,8 @@ var require_collectFields = __commonJS({
       }
     }
     function shouldIncludeNode(variableValues, node) {
-      const skip = (0, _values.getDirectiveValues)(_directives.GraphQLSkipDirective, node, variableValues);
-      if ((skip === null || skip === void 0 ? void 0 : skip.if) === true) {
+      const skip2 = (0, _values.getDirectiveValues)(_directives.GraphQLSkipDirective, node, variableValues);
+      if ((skip2 === null || skip2 === void 0 ? void 0 : skip2.if) === true) {
         return false;
       }
       const include = (0, _values.getDirectiveValues)(_directives.GraphQLIncludeDirective, node, variableValues);
@@ -12464,8 +12458,8 @@ var require_groupBy = __commonJS({
     Object.defineProperty(exports, "__esModule", {
       value: true
     });
-    exports.groupBy = groupBy;
-    function groupBy(list, keyFn) {
+    exports.groupBy = groupBy2;
+    function groupBy2(list, keyFn) {
       const result = /* @__PURE__ */ new Map();
       for (const item of list) {
         const key = keyFn(item);
@@ -13327,9 +13321,9 @@ var require_ValidationContext = __commonJS({
         if (!spreads) {
           spreads = [];
           const setsToVisit = [node];
-          let set;
-          while (set = setsToVisit.pop()) {
-            for (const selection of set.selections) {
+          let set3;
+          while (set3 = setsToVisit.pop()) {
+            for (const selection of set3.selections) {
               if (selection.kind === _kinds.Kind.FRAGMENT_SPREAD) {
                 spreads.push(selection);
               } else if (selection.selectionSet) {
@@ -13588,9 +13582,9 @@ var require_promiseReduce = __commonJS({
     });
     exports.promiseReduce = promiseReduce;
     var _isPromise = require_isPromise();
-    function promiseReduce(values, callbackFn, initialValue) {
+    function promiseReduce(values2, callbackFn, initialValue) {
       let accumulator = initialValue;
-      for (const value of values) {
+      for (const value of values2) {
         accumulator = (0, _isPromise.isPromise)(accumulator) ? accumulator.then((resolved) => callbackFn(resolved, value)) : callbackFn(accumulator, value);
       }
       return accumulator;
@@ -15612,8 +15606,8 @@ var require_getIntrospectionQuery = __commonJS({
       const specifiedByUrl = optionsWithDefault.specifiedByUrl ? "specifiedByURL" : "";
       const directiveIsRepeatable = optionsWithDefault.directiveIsRepeatable ? "isRepeatable" : "";
       const schemaDescription = optionsWithDefault.schemaDescription ? descriptions : "";
-      function inputDeprecation(str) {
-        return optionsWithDefault.inputValueDeprecation ? str : "";
+      function inputDeprecation(str2) {
+        return optionsWithDefault.inputValueDeprecation ? str2 : "";
       }
       return `
     query IntrospectionQuery {
@@ -16603,7 +16597,7 @@ var require_lexicographicSortSchema = __commonJS({
         const config = directive.toConfig();
         return new _directives.GraphQLDirective({
           ...config,
-          locations: sortBy(config.locations, (x) => x),
+          locations: sortBy2(config.locations, (x) => x),
           args: sortArgs(config.args)
         });
       }
@@ -16670,17 +16664,17 @@ var require_lexicographicSortSchema = __commonJS({
         (0, _invariant.invariant)(false, "Unexpected type: " + (0, _inspect.inspect)(type));
       }
     }
-    function sortObjMap(map, sortValueFn) {
+    function sortObjMap(map2, sortValueFn) {
       const sortedMap = /* @__PURE__ */ Object.create(null);
-      for (const key of Object.keys(map).sort(_naturalCompare.naturalCompare)) {
-        sortedMap[key] = sortValueFn(map[key]);
+      for (const key of Object.keys(map2).sort(_naturalCompare.naturalCompare)) {
+        sortedMap[key] = sortValueFn(map2[key]);
       }
       return sortedMap;
     }
     function sortByName(array) {
-      return sortBy(array, (obj) => obj.name);
+      return sortBy2(array, (obj) => obj.name);
     }
-    function sortBy(array, mapToKey) {
+    function sortBy2(array, mapToKey) {
       return array.slice().sort((obj1, obj2) => {
         const key1 = mapToKey(obj1);
         const key2 = mapToKey(obj2);
@@ -16805,8 +16799,8 @@ ${operationTypes.join("\n")}
       return printDescription(type) + "union " + type.name + possibleTypes;
     }
     function printEnum(type) {
-      const values = type.getValues().map((value, i) => printDescription(value, "  ", !i) + "  " + value.name + printDeprecated(value.deprecationReason));
-      return printDescription(type) + `enum ${type.name}` + printBlock(values);
+      const values2 = type.getValues().map((value, i) => printDescription(value, "  ", !i) + "  " + value.name + printDeprecated(value.deprecationReason));
+      return printDescription(type) + `enum ${type.name}` + printBlock(values2);
     }
     function printInputObject(type) {
       const fields = Object.values(type.getFields()).map((f, i) => printDescription(f, "  ", !i) + "  " + printInputValue(f));
@@ -17103,7 +17097,7 @@ var require_findBreakingChanges = __commonJS({
     }
     function findDirectiveChanges(oldSchema, newSchema) {
       const schemaChanges = [];
-      const directivesDiff = diff(oldSchema.getDirectives(), newSchema.getDirectives());
+      const directivesDiff = diff2(oldSchema.getDirectives(), newSchema.getDirectives());
       for (const oldDirective of directivesDiff.removed) {
         schemaChanges.push({
           type: BreakingChangeType.DIRECTIVE_REMOVED,
@@ -17111,7 +17105,7 @@ var require_findBreakingChanges = __commonJS({
         });
       }
       for (const [oldDirective, newDirective] of directivesDiff.persisted) {
-        const argsDiff = diff(oldDirective.args, newDirective.args);
+        const argsDiff = diff2(oldDirective.args, newDirective.args);
         for (const newArg of argsDiff.added) {
           if ((0, _definition.isRequiredArgument)(newArg)) {
             schemaChanges.push({
@@ -17145,7 +17139,7 @@ var require_findBreakingChanges = __commonJS({
     }
     function findTypeChanges(oldSchema, newSchema) {
       const schemaChanges = [];
-      const typesDiff = diff(Object.values(oldSchema.getTypeMap()), Object.values(newSchema.getTypeMap()));
+      const typesDiff = diff2(Object.values(oldSchema.getTypeMap()), Object.values(newSchema.getTypeMap()));
       for (const oldType of typesDiff.removed) {
         schemaChanges.push({
           type: BreakingChangeType.TYPE_REMOVED,
@@ -17174,7 +17168,7 @@ var require_findBreakingChanges = __commonJS({
     }
     function findInputObjectTypeChanges(oldType, newType) {
       const schemaChanges = [];
-      const fieldsDiff = diff(Object.values(oldType.getFields()), Object.values(newType.getFields()));
+      const fieldsDiff = diff2(Object.values(oldType.getFields()), Object.values(newType.getFields()));
       for (const newField of fieldsDiff.added) {
         if ((0, _definition.isRequiredInputField)(newField)) {
           schemaChanges.push({
@@ -17207,7 +17201,7 @@ var require_findBreakingChanges = __commonJS({
     }
     function findUnionTypeChanges(oldType, newType) {
       const schemaChanges = [];
-      const possibleTypesDiff = diff(oldType.getTypes(), newType.getTypes());
+      const possibleTypesDiff = diff2(oldType.getTypes(), newType.getTypes());
       for (const newPossibleType of possibleTypesDiff.added) {
         schemaChanges.push({
           type: DangerousChangeType.TYPE_ADDED_TO_UNION,
@@ -17224,7 +17218,7 @@ var require_findBreakingChanges = __commonJS({
     }
     function findEnumTypeChanges(oldType, newType) {
       const schemaChanges = [];
-      const valuesDiff = diff(oldType.getValues(), newType.getValues());
+      const valuesDiff = diff2(oldType.getValues(), newType.getValues());
       for (const newValue of valuesDiff.added) {
         schemaChanges.push({
           type: DangerousChangeType.VALUE_ADDED_TO_ENUM,
@@ -17241,7 +17235,7 @@ var require_findBreakingChanges = __commonJS({
     }
     function findImplementedInterfacesChanges(oldType, newType) {
       const schemaChanges = [];
-      const interfacesDiff = diff(oldType.getInterfaces(), newType.getInterfaces());
+      const interfacesDiff = diff2(oldType.getInterfaces(), newType.getInterfaces());
       for (const newInterface of interfacesDiff.added) {
         schemaChanges.push({
           type: DangerousChangeType.IMPLEMENTED_INTERFACE_ADDED,
@@ -17258,7 +17252,7 @@ var require_findBreakingChanges = __commonJS({
     }
     function findFieldChanges(oldType, newType) {
       const schemaChanges = [];
-      const fieldsDiff = diff(Object.values(oldType.getFields()), Object.values(newType.getFields()));
+      const fieldsDiff = diff2(Object.values(oldType.getFields()), Object.values(newType.getFields()));
       for (const oldField of fieldsDiff.removed) {
         schemaChanges.push({
           type: BreakingChangeType.FIELD_REMOVED,
@@ -17279,7 +17273,7 @@ var require_findBreakingChanges = __commonJS({
     }
     function findArgChanges(oldType, oldField, newField) {
       const schemaChanges = [];
-      const argsDiff = diff(oldField.args, newField.args);
+      const argsDiff = diff2(oldField.args, newField.args);
       for (const oldArg of argsDiff.removed) {
         schemaChanges.push({
           type: BreakingChangeType.ARG_REMOVED,
@@ -17370,7 +17364,7 @@ var require_findBreakingChanges = __commonJS({
       ast != null || (0, _invariant.invariant)(false);
       return (0, _printer.print)((0, _sortValueNode.sortValueNode)(ast));
     }
-    function diff(oldArray, newArray) {
+    function diff2(oldArray, newArray) {
       const added = [];
       const removed = [];
       const persisted = [];
@@ -18890,34 +18884,34 @@ var require_dist = __commonJS({
     init_define_process();
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.pathToRegexp = exports.tokensToRegexp = exports.regexpToFunction = exports.match = exports.tokensToFunction = exports.compile = exports.parse = void 0;
-    function lexer(str) {
+    function lexer(str2) {
       var tokens = [];
       var i = 0;
-      while (i < str.length) {
-        var char = str[i];
+      while (i < str2.length) {
+        var char = str2[i];
         if (char === "*" || char === "+" || char === "?") {
-          tokens.push({ type: "MODIFIER", index: i, value: str[i++] });
+          tokens.push({ type: "MODIFIER", index: i, value: str2[i++] });
           continue;
         }
         if (char === "\\") {
-          tokens.push({ type: "ESCAPED_CHAR", index: i++, value: str[i++] });
+          tokens.push({ type: "ESCAPED_CHAR", index: i++, value: str2[i++] });
           continue;
         }
         if (char === "{") {
-          tokens.push({ type: "OPEN", index: i, value: str[i++] });
+          tokens.push({ type: "OPEN", index: i, value: str2[i++] });
           continue;
         }
         if (char === "}") {
-          tokens.push({ type: "CLOSE", index: i, value: str[i++] });
+          tokens.push({ type: "CLOSE", index: i, value: str2[i++] });
           continue;
         }
         if (char === ":") {
           var name = "";
           var j = i + 1;
-          while (j < str.length) {
-            var code = str.charCodeAt(j);
+          while (j < str2.length) {
+            var code = str2.charCodeAt(j);
             if (code >= 48 && code <= 57 || code >= 65 && code <= 90 || code >= 97 && code <= 122 || code === 95) {
-              name += str[j++];
+              name += str2[j++];
               continue;
             }
             break;
@@ -18929,32 +18923,32 @@ var require_dist = __commonJS({
           continue;
         }
         if (char === "(") {
-          var count = 1;
+          var count2 = 1;
           var pattern = "";
           var j = i + 1;
-          if (str[j] === "?") {
+          if (str2[j] === "?") {
             throw new TypeError('Pattern cannot start with "?" at '.concat(j));
           }
-          while (j < str.length) {
-            if (str[j] === "\\") {
-              pattern += str[j++] + str[j++];
+          while (j < str2.length) {
+            if (str2[j] === "\\") {
+              pattern += str2[j++] + str2[j++];
               continue;
             }
-            if (str[j] === ")") {
-              count--;
-              if (count === 0) {
+            if (str2[j] === ")") {
+              count2--;
+              if (count2 === 0) {
                 j++;
                 break;
               }
-            } else if (str[j] === "(") {
-              count++;
-              if (str[j + 1] !== "?") {
+            } else if (str2[j] === "(") {
+              count2++;
+              if (str2[j + 1] !== "?") {
                 throw new TypeError("Capturing groups are not allowed at ".concat(j));
               }
             }
-            pattern += str[j++];
+            pattern += str2[j++];
           }
-          if (count)
+          if (count2)
             throw new TypeError("Unbalanced pattern at ".concat(i));
           if (!pattern)
             throw new TypeError("Missing pattern at ".concat(i));
@@ -18962,16 +18956,16 @@ var require_dist = __commonJS({
           i = j;
           continue;
         }
-        tokens.push({ type: "CHAR", index: i, value: str[i++] });
+        tokens.push({ type: "CHAR", index: i, value: str2[i++] });
       }
       tokens.push({ type: "END", index: i, value: "" });
       return tokens;
     }
-    function parse(str, options) {
+    function parse(str2, options) {
       if (options === void 0) {
         options = {};
       }
-      var tokens = lexer(str);
+      var tokens = lexer(str2);
       var _a = options.prefixes, prefixes = _a === void 0 ? "./" : _a;
       var defaultPattern = "[^".concat(escapeString(options.delimiter || "/#?"), "]+?");
       var result = [];
@@ -19050,8 +19044,8 @@ var require_dist = __commonJS({
       return result;
     }
     exports.parse = parse;
-    function compile(str, options) {
-      return tokensToFunction(parse(str, options), options);
+    function compile(str2, options) {
+      return tokensToFunction(parse(str2, options), options);
     }
     exports.compile = compile;
     function tokensToFunction(tokens, options) {
@@ -19113,13 +19107,13 @@ var require_dist = __commonJS({
       };
     }
     exports.tokensToFunction = tokensToFunction;
-    function match(str, options) {
-      var keys = [];
-      var re = pathToRegexp(str, keys, options);
-      return regexpToFunction(re, keys, options);
+    function match(str2, options) {
+      var keys2 = [];
+      var re = pathToRegexp(str2, keys2, options);
+      return regexpToFunction(re, keys2, options);
     }
     exports.match = match;
-    function regexpToFunction(re, keys, options) {
+    function regexpToFunction(re, keys2, options) {
       if (options === void 0) {
         options = {};
       }
@@ -19135,7 +19129,7 @@ var require_dist = __commonJS({
         var _loop_1 = function(i2) {
           if (m[i2] === void 0)
             return "continue";
-          var key = keys[i2 - 1];
+          var key = keys2[i2 - 1];
           if (key.modifier === "*" || key.modifier === "+") {
             params[key.name] = m[i2].split(key.prefix + key.suffix).map(function(value) {
               return decode(value, key);
@@ -19151,20 +19145,20 @@ var require_dist = __commonJS({
       };
     }
     exports.regexpToFunction = regexpToFunction;
-    function escapeString(str) {
-      return str.replace(/([.+*?=^!:${}()[\]|/\\])/g, "\\$1");
+    function escapeString(str2) {
+      return str2.replace(/([.+*?=^!:${}()[\]|/\\])/g, "\\$1");
     }
     function flags(options) {
       return options && options.sensitive ? "" : "i";
     }
-    function regexpToRegexp(path, keys) {
-      if (!keys)
+    function regexpToRegexp(path, keys2) {
+      if (!keys2)
         return path;
       var groupsRegex = /\((?:\?<(.*?)>)?(?!\?)/g;
       var index = 0;
       var execResult = groupsRegex.exec(path.source);
       while (execResult) {
-        keys.push({
+        keys2.push({
           name: execResult[1] || index++,
           prefix: "",
           suffix: "",
@@ -19175,16 +19169,16 @@ var require_dist = __commonJS({
       }
       return path;
     }
-    function arrayToRegexp(paths, keys, options) {
+    function arrayToRegexp(paths, keys2, options) {
       var parts = paths.map(function(path) {
-        return pathToRegexp(path, keys, options).source;
+        return pathToRegexp(path, keys2, options).source;
       });
       return new RegExp("(?:".concat(parts.join("|"), ")"), flags(options));
     }
-    function stringToRegexp(path, keys, options) {
-      return tokensToRegexp(parse(path, options), keys, options);
+    function stringToRegexp(path, keys2, options) {
+      return tokensToRegexp(parse(path, options), keys2, options);
     }
-    function tokensToRegexp(tokens, keys, options) {
+    function tokensToRegexp(tokens, keys2, options) {
       if (options === void 0) {
         options = {};
       }
@@ -19202,8 +19196,8 @@ var require_dist = __commonJS({
           var prefix = escapeString(encode(token.prefix));
           var suffix = escapeString(encode(token.suffix));
           if (token.pattern) {
-            if (keys)
-              keys.push(token);
+            if (keys2)
+              keys2.push(token);
             if (prefix || suffix) {
               if (token.modifier === "+" || token.modifier === "*") {
                 var mod = token.modifier === "*" ? "?" : "";
@@ -19240,12 +19234,12 @@ var require_dist = __commonJS({
       return new RegExp(route, flags(options));
     }
     exports.tokensToRegexp = tokensToRegexp;
-    function pathToRegexp(path, keys, options) {
+    function pathToRegexp(path, keys2, options) {
       if (path instanceof RegExp)
-        return regexpToRegexp(path, keys);
+        return regexpToRegexp(path, keys2);
       if (Array.isArray(path))
-        return arrayToRegexp(path, keys, options);
-      return stringToRegexp(path, keys, options);
+        return arrayToRegexp(path, keys2, options);
+      return stringToRegexp(path, keys2, options);
     }
     exports.pathToRegexp = pathToRegexp;
   }
@@ -19624,7 +19618,7 @@ var require_dom = __commonJS({
       }
       return current;
     }
-    function toOrderedSet(input) {
+    function toOrderedSet2(input) {
       if (!input)
         return [];
       var list = splitOnASCIIWhitespace(input);
@@ -19921,10 +19915,10 @@ var require_dom = __commonJS({
       lookupPrefix: function(namespaceURI) {
         var el = this;
         while (el) {
-          var map = el._nsMap;
-          if (map) {
-            for (var n in map) {
-              if (map[n] == namespaceURI) {
+          var map2 = el._nsMap;
+          if (map2) {
+            for (var n in map2) {
+              if (map2[n] == namespaceURI) {
                 return n;
               }
             }
@@ -19936,10 +19930,10 @@ var require_dom = __commonJS({
       lookupNamespaceURI: function(prefix) {
         var el = this;
         while (el) {
-          var map = el._nsMap;
-          if (map) {
-            if (prefix in map) {
-              return map[prefix];
+          var map2 = el._nsMap;
+          if (map2) {
+            if (prefix in map2) {
+              return map2[prefix];
             }
           }
           el = el.nodeType == ATTRIBUTE_NODE ? el.ownerDocument : el.parentNode;
@@ -19977,7 +19971,7 @@ var require_dom = __commonJS({
         el._nsMap[newAttr.prefix ? newAttr.localName : ""] = newAttr.value;
       }
     }
-    function _onRemoveAttribute(doc, el, newAttr, remove) {
+    function _onRemoveAttribute(doc, el, newAttr, remove3) {
       doc && doc._inc++;
       var ns = newAttr.namespaceURI;
       if (ns === NAMESPACE.XMLNS) {
@@ -20116,7 +20110,7 @@ var require_dom = __commonJS({
         return rtv;
       },
       getElementsByClassName: function(classNames) {
-        var classNamesSet = toOrderedSet(classNames);
+        var classNamesSet = toOrderedSet2(classNames);
         return new LiveNodeList(this, function(base) {
           var ls = [];
           if (classNamesSet.length > 0) {
@@ -20126,7 +20120,7 @@ var require_dom = __commonJS({
                 if (nodeClassNames) {
                   var matches = classNames === nodeClassNames;
                   if (!matches) {
-                    var nodeClassNamesSet = toOrderedSet(nodeClassNames);
+                    var nodeClassNamesSet = toOrderedSet2(nodeClassNames);
                     matches = classNamesSet.every(arrayIncludes(nodeClassNamesSet));
                   }
                   if (matches) {
@@ -20325,8 +20319,8 @@ var require_dom = __commonJS({
     }
     CharacterData.prototype = {
       data: "",
-      substringData: function(offset, count) {
-        return this.data.substring(offset, offset + count);
+      substringData: function(offset, count2) {
+        return this.data.substring(offset, offset + count2);
       },
       appendData: function(text) {
         text = this.data + text;
@@ -20339,12 +20333,12 @@ var require_dom = __commonJS({
       appendChild: function(newChild) {
         throw new Error(ExceptionMessage[HIERARCHY_REQUEST_ERR]);
       },
-      deleteData: function(offset, count) {
-        this.replaceData(offset, count, "");
+      deleteData: function(offset, count2) {
+        this.replaceData(offset, count2, "");
       },
-      replaceData: function(offset, count, text) {
+      replaceData: function(offset, count2, text) {
         var start = this.data.substring(0, offset);
-        var end = this.data.substring(offset + count);
+        var end = this.data.substring(offset + count2);
         text = start + text + end;
         this.nodeValue = this.data = text;
         this.length = text.length;
@@ -22594,7 +22588,7 @@ var require_lib10 = __commonJS({
       handleRequest: () => handleRequest,
       matchRequestUrl: () => matchRequestUrl,
       response: () => response,
-      rest: () => rest2,
+      rest: () => rest3,
       restContext: () => restContext,
       setupWorker: () => setupWorker2
     });
@@ -22607,9 +22601,9 @@ var require_lib10 = __commonJS({
       delay: () => delay,
       errors: () => errors,
       extensions: () => extensions,
-      fetch: () => fetch,
+      fetch: () => fetch2,
       json: () => json,
-      set: () => set,
+      set: () => set3,
       status: () => status,
       text: () => text,
       xml: () => xml
@@ -22623,7 +22617,7 @@ var require_lib10 = __commonJS({
       };
     };
     var import_headers_polyfill = require_lib();
-    function set(...args) {
+    function set3(...args) {
       return (res) => {
         const [name, value] = args;
         if (typeof name === "string") {
@@ -22775,7 +22769,7 @@ var require_lib10 = __commonJS({
       }
       return requestParameters;
     };
-    var fetch = (input, requestInit = {}) => {
+    var fetch2 = (input, requestInit = {}) => {
       if (typeof input === "string") {
         return useFetch(input, augmentRequestInit(requestInit));
       }
@@ -23156,9 +23150,9 @@ Learn more about creating the Service Worker script: https://mswjs.io/docs/cli/i
         return error2;
       }
     }
-    function extractMultipartVariables(variables, map, files) {
+    function extractMultipartVariables(variables, map2, files) {
       const operations = { variables };
-      for (const [key, pathArray] of Object.entries(map)) {
+      for (const [key, pathArray] of Object.entries(map2)) {
         if (!(key in files)) {
           throw new Error(`Given files do not have a key '${key}' .`);
         }
@@ -23197,12 +23191,12 @@ Learn more about creating the Service Worker script: https://mswjs.io/docs/cli/i
             };
           }
           if ((_b = request.body) == null ? void 0 : _b.operations) {
-            const _c = request.body, { operations, map } = _c, files = __objRest(_c, ["operations", "map"]);
+            const _c = request.body, { operations, map: map2 } = _c, files = __objRest(_c, ["operations", "map"]);
             const parsedOperations = jsonParse(operations) || {};
             if (!parsedOperations.query) {
               return null;
             }
-            const parsedMap = jsonParse(map || "") || {};
+            const parsedMap = jsonParse(map2 || "") || {};
             const variables = parsedOperations.variables ? extractMultipartVariables(parsedOperations.variables, parsedMap, files) : {};
             return {
               query: parsedOperations.query,
@@ -23370,9 +23364,9 @@ Learn more about creating the Service Worker script: https://mswjs.io/docs/cli/i
     }
     var defaultContext = {
       status,
-      set,
+      set: set3,
       delay,
-      fetch
+      fetch: fetch2
     };
     var RequestHandler = class {
       constructor(options) {
@@ -24230,7 +24224,7 @@ If this message still persists after updating, please report an issue: https://g
         return new RestHandler(method, path, resolver);
       };
     }
-    var rest2 = {
+    var rest3 = {
       all: createRestHandler(/.+/),
       head: createRestHandler("HEAD"),
       get: createRestHandler("GET"),
@@ -24266,6 +24260,528 @@ If this message still persists after updating, please report an issue: https://g
     var graphql = __spreadProps(__spreadValues({}, standardGraphQLHandlers), {
       link: createGraphQLLink
     });
+  }
+});
+
+// ../../node_modules/fast-diff/diff.js
+var require_diff = __commonJS({
+  "../../node_modules/fast-diff/diff.js"(exports, module) {
+    init_define_process();
+    var DIFF_DELETE = -1;
+    var DIFF_INSERT = 1;
+    var DIFF_EQUAL = 0;
+    function diff_main(text1, text2, cursor_pos, _fix_unicode) {
+      if (text1 === text2) {
+        if (text1) {
+          return [[DIFF_EQUAL, text1]];
+        }
+        return [];
+      }
+      if (cursor_pos != null) {
+        var editdiff = find_cursor_edit_diff(text1, text2, cursor_pos);
+        if (editdiff) {
+          return editdiff;
+        }
+      }
+      var commonlength = diff_commonPrefix(text1, text2);
+      var commonprefix = text1.substring(0, commonlength);
+      text1 = text1.substring(commonlength);
+      text2 = text2.substring(commonlength);
+      commonlength = diff_commonSuffix(text1, text2);
+      var commonsuffix = text1.substring(text1.length - commonlength);
+      text1 = text1.substring(0, text1.length - commonlength);
+      text2 = text2.substring(0, text2.length - commonlength);
+      var diffs = diff_compute_(text1, text2);
+      if (commonprefix) {
+        diffs.unshift([DIFF_EQUAL, commonprefix]);
+      }
+      if (commonsuffix) {
+        diffs.push([DIFF_EQUAL, commonsuffix]);
+      }
+      diff_cleanupMerge(diffs, _fix_unicode);
+      return diffs;
+    }
+    function diff_compute_(text1, text2) {
+      var diffs;
+      if (!text1) {
+        return [[DIFF_INSERT, text2]];
+      }
+      if (!text2) {
+        return [[DIFF_DELETE, text1]];
+      }
+      var longtext = text1.length > text2.length ? text1 : text2;
+      var shorttext = text1.length > text2.length ? text2 : text1;
+      var i = longtext.indexOf(shorttext);
+      if (i !== -1) {
+        diffs = [
+          [DIFF_INSERT, longtext.substring(0, i)],
+          [DIFF_EQUAL, shorttext],
+          [DIFF_INSERT, longtext.substring(i + shorttext.length)]
+        ];
+        if (text1.length > text2.length) {
+          diffs[0][0] = diffs[2][0] = DIFF_DELETE;
+        }
+        return diffs;
+      }
+      if (shorttext.length === 1) {
+        return [[DIFF_DELETE, text1], [DIFF_INSERT, text2]];
+      }
+      var hm = diff_halfMatch_(text1, text2);
+      if (hm) {
+        var text1_a = hm[0];
+        var text1_b = hm[1];
+        var text2_a = hm[2];
+        var text2_b = hm[3];
+        var mid_common = hm[4];
+        var diffs_a = diff_main(text1_a, text2_a);
+        var diffs_b = diff_main(text1_b, text2_b);
+        return diffs_a.concat([[DIFF_EQUAL, mid_common]], diffs_b);
+      }
+      return diff_bisect_(text1, text2);
+    }
+    function diff_bisect_(text1, text2) {
+      var text1_length = text1.length;
+      var text2_length = text2.length;
+      var max_d = Math.ceil((text1_length + text2_length) / 2);
+      var v_offset = max_d;
+      var v_length = 2 * max_d;
+      var v1 = new Array(v_length);
+      var v2 = new Array(v_length);
+      for (var x = 0; x < v_length; x++) {
+        v1[x] = -1;
+        v2[x] = -1;
+      }
+      v1[v_offset + 1] = 0;
+      v2[v_offset + 1] = 0;
+      var delta = text1_length - text2_length;
+      var front = delta % 2 !== 0;
+      var k1start = 0;
+      var k1end = 0;
+      var k2start = 0;
+      var k2end = 0;
+      for (var d = 0; d < max_d; d++) {
+        for (var k1 = -d + k1start; k1 <= d - k1end; k1 += 2) {
+          var k1_offset = v_offset + k1;
+          var x1;
+          if (k1 === -d || k1 !== d && v1[k1_offset - 1] < v1[k1_offset + 1]) {
+            x1 = v1[k1_offset + 1];
+          } else {
+            x1 = v1[k1_offset - 1] + 1;
+          }
+          var y1 = x1 - k1;
+          while (x1 < text1_length && y1 < text2_length && text1.charAt(x1) === text2.charAt(y1)) {
+            x1++;
+            y1++;
+          }
+          v1[k1_offset] = x1;
+          if (x1 > text1_length) {
+            k1end += 2;
+          } else if (y1 > text2_length) {
+            k1start += 2;
+          } else if (front) {
+            var k2_offset = v_offset + delta - k1;
+            if (k2_offset >= 0 && k2_offset < v_length && v2[k2_offset] !== -1) {
+              var x2 = text1_length - v2[k2_offset];
+              if (x1 >= x2) {
+                return diff_bisectSplit_(text1, text2, x1, y1);
+              }
+            }
+          }
+        }
+        for (var k2 = -d + k2start; k2 <= d - k2end; k2 += 2) {
+          var k2_offset = v_offset + k2;
+          var x2;
+          if (k2 === -d || k2 !== d && v2[k2_offset - 1] < v2[k2_offset + 1]) {
+            x2 = v2[k2_offset + 1];
+          } else {
+            x2 = v2[k2_offset - 1] + 1;
+          }
+          var y2 = x2 - k2;
+          while (x2 < text1_length && y2 < text2_length && text1.charAt(text1_length - x2 - 1) === text2.charAt(text2_length - y2 - 1)) {
+            x2++;
+            y2++;
+          }
+          v2[k2_offset] = x2;
+          if (x2 > text1_length) {
+            k2end += 2;
+          } else if (y2 > text2_length) {
+            k2start += 2;
+          } else if (!front) {
+            var k1_offset = v_offset + delta - k2;
+            if (k1_offset >= 0 && k1_offset < v_length && v1[k1_offset] !== -1) {
+              var x1 = v1[k1_offset];
+              var y1 = v_offset + x1 - k1_offset;
+              x2 = text1_length - x2;
+              if (x1 >= x2) {
+                return diff_bisectSplit_(text1, text2, x1, y1);
+              }
+            }
+          }
+        }
+      }
+      return [[DIFF_DELETE, text1], [DIFF_INSERT, text2]];
+    }
+    function diff_bisectSplit_(text1, text2, x, y) {
+      var text1a = text1.substring(0, x);
+      var text2a = text2.substring(0, y);
+      var text1b = text1.substring(x);
+      var text2b = text2.substring(y);
+      var diffs = diff_main(text1a, text2a);
+      var diffsb = diff_main(text1b, text2b);
+      return diffs.concat(diffsb);
+    }
+    function diff_commonPrefix(text1, text2) {
+      if (!text1 || !text2 || text1.charAt(0) !== text2.charAt(0)) {
+        return 0;
+      }
+      var pointermin = 0;
+      var pointermax = Math.min(text1.length, text2.length);
+      var pointermid = pointermax;
+      var pointerstart = 0;
+      while (pointermin < pointermid) {
+        if (text1.substring(pointerstart, pointermid) == text2.substring(pointerstart, pointermid)) {
+          pointermin = pointermid;
+          pointerstart = pointermin;
+        } else {
+          pointermax = pointermid;
+        }
+        pointermid = Math.floor((pointermax - pointermin) / 2 + pointermin);
+      }
+      if (is_surrogate_pair_start(text1.charCodeAt(pointermid - 1))) {
+        pointermid--;
+      }
+      return pointermid;
+    }
+    function diff_commonSuffix(text1, text2) {
+      if (!text1 || !text2 || text1.slice(-1) !== text2.slice(-1)) {
+        return 0;
+      }
+      var pointermin = 0;
+      var pointermax = Math.min(text1.length, text2.length);
+      var pointermid = pointermax;
+      var pointerend = 0;
+      while (pointermin < pointermid) {
+        if (text1.substring(text1.length - pointermid, text1.length - pointerend) == text2.substring(text2.length - pointermid, text2.length - pointerend)) {
+          pointermin = pointermid;
+          pointerend = pointermin;
+        } else {
+          pointermax = pointermid;
+        }
+        pointermid = Math.floor((pointermax - pointermin) / 2 + pointermin);
+      }
+      if (is_surrogate_pair_end(text1.charCodeAt(text1.length - pointermid))) {
+        pointermid--;
+      }
+      return pointermid;
+    }
+    function diff_halfMatch_(text1, text2) {
+      var longtext = text1.length > text2.length ? text1 : text2;
+      var shorttext = text1.length > text2.length ? text2 : text1;
+      if (longtext.length < 4 || shorttext.length * 2 < longtext.length) {
+        return null;
+      }
+      function diff_halfMatchI_(longtext2, shorttext2, i) {
+        var seed = longtext2.substring(i, i + Math.floor(longtext2.length / 4));
+        var j = -1;
+        var best_common = "";
+        var best_longtext_a, best_longtext_b, best_shorttext_a, best_shorttext_b;
+        while ((j = shorttext2.indexOf(seed, j + 1)) !== -1) {
+          var prefixLength = diff_commonPrefix(longtext2.substring(i), shorttext2.substring(j));
+          var suffixLength = diff_commonSuffix(longtext2.substring(0, i), shorttext2.substring(0, j));
+          if (best_common.length < suffixLength + prefixLength) {
+            best_common = shorttext2.substring(j - suffixLength, j) + shorttext2.substring(j, j + prefixLength);
+            best_longtext_a = longtext2.substring(0, i - suffixLength);
+            best_longtext_b = longtext2.substring(i + prefixLength);
+            best_shorttext_a = shorttext2.substring(0, j - suffixLength);
+            best_shorttext_b = shorttext2.substring(j + prefixLength);
+          }
+        }
+        if (best_common.length * 2 >= longtext2.length) {
+          return [
+            best_longtext_a,
+            best_longtext_b,
+            best_shorttext_a,
+            best_shorttext_b,
+            best_common
+          ];
+        } else {
+          return null;
+        }
+      }
+      var hm1 = diff_halfMatchI_(longtext, shorttext, Math.ceil(longtext.length / 4));
+      var hm2 = diff_halfMatchI_(longtext, shorttext, Math.ceil(longtext.length / 2));
+      var hm;
+      if (!hm1 && !hm2) {
+        return null;
+      } else if (!hm2) {
+        hm = hm1;
+      } else if (!hm1) {
+        hm = hm2;
+      } else {
+        hm = hm1[4].length > hm2[4].length ? hm1 : hm2;
+      }
+      var text1_a, text1_b, text2_a, text2_b;
+      if (text1.length > text2.length) {
+        text1_a = hm[0];
+        text1_b = hm[1];
+        text2_a = hm[2];
+        text2_b = hm[3];
+      } else {
+        text2_a = hm[0];
+        text2_b = hm[1];
+        text1_a = hm[2];
+        text1_b = hm[3];
+      }
+      var mid_common = hm[4];
+      return [text1_a, text1_b, text2_a, text2_b, mid_common];
+    }
+    function diff_cleanupMerge(diffs, fix_unicode) {
+      diffs.push([DIFF_EQUAL, ""]);
+      var pointer = 0;
+      var count_delete = 0;
+      var count_insert = 0;
+      var text_delete = "";
+      var text_insert = "";
+      var commonlength;
+      while (pointer < diffs.length) {
+        if (pointer < diffs.length - 1 && !diffs[pointer][1]) {
+          diffs.splice(pointer, 1);
+          continue;
+        }
+        switch (diffs[pointer][0]) {
+          case DIFF_INSERT:
+            count_insert++;
+            text_insert += diffs[pointer][1];
+            pointer++;
+            break;
+          case DIFF_DELETE:
+            count_delete++;
+            text_delete += diffs[pointer][1];
+            pointer++;
+            break;
+          case DIFF_EQUAL:
+            var previous_equality = pointer - count_insert - count_delete - 1;
+            if (fix_unicode) {
+              if (previous_equality >= 0 && ends_with_pair_start(diffs[previous_equality][1])) {
+                var stray = diffs[previous_equality][1].slice(-1);
+                diffs[previous_equality][1] = diffs[previous_equality][1].slice(0, -1);
+                text_delete = stray + text_delete;
+                text_insert = stray + text_insert;
+                if (!diffs[previous_equality][1]) {
+                  diffs.splice(previous_equality, 1);
+                  pointer--;
+                  var k = previous_equality - 1;
+                  if (diffs[k] && diffs[k][0] === DIFF_INSERT) {
+                    count_insert++;
+                    text_insert = diffs[k][1] + text_insert;
+                    k--;
+                  }
+                  if (diffs[k] && diffs[k][0] === DIFF_DELETE) {
+                    count_delete++;
+                    text_delete = diffs[k][1] + text_delete;
+                    k--;
+                  }
+                  previous_equality = k;
+                }
+              }
+              if (starts_with_pair_end(diffs[pointer][1])) {
+                var stray = diffs[pointer][1].charAt(0);
+                diffs[pointer][1] = diffs[pointer][1].slice(1);
+                text_delete += stray;
+                text_insert += stray;
+              }
+            }
+            if (pointer < diffs.length - 1 && !diffs[pointer][1]) {
+              diffs.splice(pointer, 1);
+              break;
+            }
+            if (text_delete.length > 0 || text_insert.length > 0) {
+              if (text_delete.length > 0 && text_insert.length > 0) {
+                commonlength = diff_commonPrefix(text_insert, text_delete);
+                if (commonlength !== 0) {
+                  if (previous_equality >= 0) {
+                    diffs[previous_equality][1] += text_insert.substring(0, commonlength);
+                  } else {
+                    diffs.splice(0, 0, [DIFF_EQUAL, text_insert.substring(0, commonlength)]);
+                    pointer++;
+                  }
+                  text_insert = text_insert.substring(commonlength);
+                  text_delete = text_delete.substring(commonlength);
+                }
+                commonlength = diff_commonSuffix(text_insert, text_delete);
+                if (commonlength !== 0) {
+                  diffs[pointer][1] = text_insert.substring(text_insert.length - commonlength) + diffs[pointer][1];
+                  text_insert = text_insert.substring(0, text_insert.length - commonlength);
+                  text_delete = text_delete.substring(0, text_delete.length - commonlength);
+                }
+              }
+              var n = count_insert + count_delete;
+              if (text_delete.length === 0 && text_insert.length === 0) {
+                diffs.splice(pointer - n, n);
+                pointer = pointer - n;
+              } else if (text_delete.length === 0) {
+                diffs.splice(pointer - n, n, [DIFF_INSERT, text_insert]);
+                pointer = pointer - n + 1;
+              } else if (text_insert.length === 0) {
+                diffs.splice(pointer - n, n, [DIFF_DELETE, text_delete]);
+                pointer = pointer - n + 1;
+              } else {
+                diffs.splice(pointer - n, n, [DIFF_DELETE, text_delete], [DIFF_INSERT, text_insert]);
+                pointer = pointer - n + 2;
+              }
+            }
+            if (pointer !== 0 && diffs[pointer - 1][0] === DIFF_EQUAL) {
+              diffs[pointer - 1][1] += diffs[pointer][1];
+              diffs.splice(pointer, 1);
+            } else {
+              pointer++;
+            }
+            count_insert = 0;
+            count_delete = 0;
+            text_delete = "";
+            text_insert = "";
+            break;
+        }
+      }
+      if (diffs[diffs.length - 1][1] === "") {
+        diffs.pop();
+      }
+      var changes = false;
+      pointer = 1;
+      while (pointer < diffs.length - 1) {
+        if (diffs[pointer - 1][0] === DIFF_EQUAL && diffs[pointer + 1][0] === DIFF_EQUAL) {
+          if (diffs[pointer][1].substring(diffs[pointer][1].length - diffs[pointer - 1][1].length) === diffs[pointer - 1][1]) {
+            diffs[pointer][1] = diffs[pointer - 1][1] + diffs[pointer][1].substring(0, diffs[pointer][1].length - diffs[pointer - 1][1].length);
+            diffs[pointer + 1][1] = diffs[pointer - 1][1] + diffs[pointer + 1][1];
+            diffs.splice(pointer - 1, 1);
+            changes = true;
+          } else if (diffs[pointer][1].substring(0, diffs[pointer + 1][1].length) == diffs[pointer + 1][1]) {
+            diffs[pointer - 1][1] += diffs[pointer + 1][1];
+            diffs[pointer][1] = diffs[pointer][1].substring(diffs[pointer + 1][1].length) + diffs[pointer + 1][1];
+            diffs.splice(pointer + 1, 1);
+            changes = true;
+          }
+        }
+        pointer++;
+      }
+      if (changes) {
+        diff_cleanupMerge(diffs, fix_unicode);
+      }
+    }
+    function is_surrogate_pair_start(charCode) {
+      return charCode >= 55296 && charCode <= 56319;
+    }
+    function is_surrogate_pair_end(charCode) {
+      return charCode >= 56320 && charCode <= 57343;
+    }
+    function starts_with_pair_end(str2) {
+      return is_surrogate_pair_end(str2.charCodeAt(0));
+    }
+    function ends_with_pair_start(str2) {
+      return is_surrogate_pair_start(str2.charCodeAt(str2.length - 1));
+    }
+    function remove_empty_tuples(tuples) {
+      var ret = [];
+      for (var i = 0; i < tuples.length; i++) {
+        if (tuples[i][1].length > 0) {
+          ret.push(tuples[i]);
+        }
+      }
+      return ret;
+    }
+    function make_edit_splice(before, oldMiddle, newMiddle, after) {
+      if (ends_with_pair_start(before) || starts_with_pair_end(after)) {
+        return null;
+      }
+      return remove_empty_tuples([
+        [DIFF_EQUAL, before],
+        [DIFF_DELETE, oldMiddle],
+        [DIFF_INSERT, newMiddle],
+        [DIFF_EQUAL, after]
+      ]);
+    }
+    function find_cursor_edit_diff(oldText, newText, cursor_pos) {
+      var oldRange = typeof cursor_pos === "number" ? { index: cursor_pos, length: 0 } : cursor_pos.oldRange;
+      var newRange = typeof cursor_pos === "number" ? null : cursor_pos.newRange;
+      var oldLength = oldText.length;
+      var newLength = newText.length;
+      if (oldRange.length === 0 && (newRange === null || newRange.length === 0)) {
+        var oldCursor = oldRange.index;
+        var oldBefore = oldText.slice(0, oldCursor);
+        var oldAfter = oldText.slice(oldCursor);
+        var maybeNewCursor = newRange ? newRange.index : null;
+        editBefore: {
+          var newCursor = oldCursor + newLength - oldLength;
+          if (maybeNewCursor !== null && maybeNewCursor !== newCursor) {
+            break editBefore;
+          }
+          if (newCursor < 0 || newCursor > newLength) {
+            break editBefore;
+          }
+          var newBefore = newText.slice(0, newCursor);
+          var newAfter = newText.slice(newCursor);
+          if (newAfter !== oldAfter) {
+            break editBefore;
+          }
+          var prefixLength = Math.min(oldCursor, newCursor);
+          var oldPrefix = oldBefore.slice(0, prefixLength);
+          var newPrefix = newBefore.slice(0, prefixLength);
+          if (oldPrefix !== newPrefix) {
+            break editBefore;
+          }
+          var oldMiddle = oldBefore.slice(prefixLength);
+          var newMiddle = newBefore.slice(prefixLength);
+          return make_edit_splice(oldPrefix, oldMiddle, newMiddle, oldAfter);
+        }
+        editAfter: {
+          if (maybeNewCursor !== null && maybeNewCursor !== oldCursor) {
+            break editAfter;
+          }
+          var cursor = oldCursor;
+          var newBefore = newText.slice(0, cursor);
+          var newAfter = newText.slice(cursor);
+          if (newBefore !== oldBefore) {
+            break editAfter;
+          }
+          var suffixLength = Math.min(oldLength - cursor, newLength - cursor);
+          var oldSuffix = oldAfter.slice(oldAfter.length - suffixLength);
+          var newSuffix = newAfter.slice(newAfter.length - suffixLength);
+          if (oldSuffix !== newSuffix) {
+            break editAfter;
+          }
+          var oldMiddle = oldAfter.slice(0, oldAfter.length - suffixLength);
+          var newMiddle = newAfter.slice(0, newAfter.length - suffixLength);
+          return make_edit_splice(oldBefore, oldMiddle, newMiddle, oldSuffix);
+        }
+      }
+      if (oldRange.length > 0 && newRange && newRange.length === 0) {
+        replaceRange: {
+          var oldPrefix = oldText.slice(0, oldRange.index);
+          var oldSuffix = oldText.slice(oldRange.index + oldRange.length);
+          var prefixLength = oldPrefix.length;
+          var suffixLength = oldSuffix.length;
+          if (newLength < prefixLength + suffixLength) {
+            break replaceRange;
+          }
+          var newPrefix = newText.slice(0, prefixLength);
+          var newSuffix = newText.slice(newLength - suffixLength);
+          if (oldPrefix !== newPrefix || oldSuffix !== newSuffix) {
+            break replaceRange;
+          }
+          var oldMiddle = oldText.slice(prefixLength, oldLength - suffixLength);
+          var newMiddle = newText.slice(prefixLength, newLength - suffixLength);
+          return make_edit_splice(oldPrefix, oldMiddle, newMiddle, oldSuffix);
+        }
+      }
+      return null;
+    }
+    function diff2(text1, text2, cursor_pos) {
+      return diff_main(text1, text2, cursor_pos, true);
+    }
+    diff2.INSERT = DIFF_INSERT;
+    diff2.DELETE = DIFF_DELETE;
+    diff2.EQUAL = DIFF_EQUAL;
+    module.exports = diff2;
   }
 });
 
@@ -24357,11 +24873,11 @@ var require_getRawTag = __commonJS({
     init_define_process();
     var Symbol2 = require_Symbol();
     var objectProto = Object.prototype;
-    var hasOwnProperty = objectProto.hasOwnProperty;
+    var hasOwnProperty2 = objectProto.hasOwnProperty;
     var nativeObjectToString = objectProto.toString;
     var symToStringTag = Symbol2 ? Symbol2.toStringTag : void 0;
     function getRawTag(value) {
-      var isOwn = hasOwnProperty.call(value, symToStringTag), tag = value[symToStringTag];
+      var isOwn = hasOwnProperty2.call(value, symToStringTag), tag = value[symToStringTag];
       try {
         value[symToStringTag] = void 0;
         var unmasked = true;
@@ -24571,6 +25087,4482 @@ var require_debounce = __commonJS({
 // js/ws.ts
 init_define_process();
 var import_msw = __toESM(require_lib10(), 1);
+
+// js/session.ts
+init_define_process();
+
+// ../../node_modules/immutable/dist/immutable.es.js
+init_define_process();
+var DELETE = "delete";
+var SHIFT = 5;
+var SIZE = 1 << SHIFT;
+var MASK = SIZE - 1;
+var NOT_SET = {};
+function MakeRef() {
+  return { value: false };
+}
+function SetRef(ref) {
+  if (ref) {
+    ref.value = true;
+  }
+}
+function OwnerID() {
+}
+function ensureSize(iter) {
+  if (iter.size === void 0) {
+    iter.size = iter.__iterate(returnTrue);
+  }
+  return iter.size;
+}
+function wrapIndex(iter, index) {
+  if (typeof index !== "number") {
+    var uint32Index = index >>> 0;
+    if ("" + uint32Index !== index || uint32Index === 4294967295) {
+      return NaN;
+    }
+    index = uint32Index;
+  }
+  return index < 0 ? ensureSize(iter) + index : index;
+}
+function returnTrue() {
+  return true;
+}
+function wholeSlice(begin, end, size) {
+  return (begin === 0 && !isNeg(begin) || size !== void 0 && begin <= -size) && (end === void 0 || size !== void 0 && end >= size);
+}
+function resolveBegin(begin, size) {
+  return resolveIndex(begin, size, 0);
+}
+function resolveEnd(end, size) {
+  return resolveIndex(end, size, size);
+}
+function resolveIndex(index, size, defaultIndex) {
+  return index === void 0 ? defaultIndex : isNeg(index) ? size === Infinity ? size : Math.max(0, size + index) | 0 : size === void 0 || size === index ? index : Math.min(size, index) | 0;
+}
+function isNeg(value) {
+  return value < 0 || value === 0 && 1 / value === -Infinity;
+}
+var IS_COLLECTION_SYMBOL = "@@__IMMUTABLE_ITERABLE__@@";
+function isCollection(maybeCollection) {
+  return Boolean(maybeCollection && maybeCollection[IS_COLLECTION_SYMBOL]);
+}
+var IS_KEYED_SYMBOL = "@@__IMMUTABLE_KEYED__@@";
+function isKeyed(maybeKeyed) {
+  return Boolean(maybeKeyed && maybeKeyed[IS_KEYED_SYMBOL]);
+}
+var IS_INDEXED_SYMBOL = "@@__IMMUTABLE_INDEXED__@@";
+function isIndexed(maybeIndexed) {
+  return Boolean(maybeIndexed && maybeIndexed[IS_INDEXED_SYMBOL]);
+}
+function isAssociative(maybeAssociative) {
+  return isKeyed(maybeAssociative) || isIndexed(maybeAssociative);
+}
+var Collection = function Collection2(value) {
+  return isCollection(value) ? value : Seq(value);
+};
+var KeyedCollection = function(Collection3) {
+  function KeyedCollection2(value) {
+    return isKeyed(value) ? value : KeyedSeq(value);
+  }
+  if (Collection3)
+    KeyedCollection2.__proto__ = Collection3;
+  KeyedCollection2.prototype = Object.create(Collection3 && Collection3.prototype);
+  KeyedCollection2.prototype.constructor = KeyedCollection2;
+  return KeyedCollection2;
+}(Collection);
+var IndexedCollection = function(Collection3) {
+  function IndexedCollection2(value) {
+    return isIndexed(value) ? value : IndexedSeq(value);
+  }
+  if (Collection3)
+    IndexedCollection2.__proto__ = Collection3;
+  IndexedCollection2.prototype = Object.create(Collection3 && Collection3.prototype);
+  IndexedCollection2.prototype.constructor = IndexedCollection2;
+  return IndexedCollection2;
+}(Collection);
+var SetCollection = function(Collection3) {
+  function SetCollection2(value) {
+    return isCollection(value) && !isAssociative(value) ? value : SetSeq(value);
+  }
+  if (Collection3)
+    SetCollection2.__proto__ = Collection3;
+  SetCollection2.prototype = Object.create(Collection3 && Collection3.prototype);
+  SetCollection2.prototype.constructor = SetCollection2;
+  return SetCollection2;
+}(Collection);
+Collection.Keyed = KeyedCollection;
+Collection.Indexed = IndexedCollection;
+Collection.Set = SetCollection;
+var IS_SEQ_SYMBOL = "@@__IMMUTABLE_SEQ__@@";
+function isSeq(maybeSeq) {
+  return Boolean(maybeSeq && maybeSeq[IS_SEQ_SYMBOL]);
+}
+var IS_RECORD_SYMBOL = "@@__IMMUTABLE_RECORD__@@";
+function isRecord(maybeRecord) {
+  return Boolean(maybeRecord && maybeRecord[IS_RECORD_SYMBOL]);
+}
+function isImmutable(maybeImmutable) {
+  return isCollection(maybeImmutable) || isRecord(maybeImmutable);
+}
+var IS_ORDERED_SYMBOL = "@@__IMMUTABLE_ORDERED__@@";
+function isOrdered(maybeOrdered) {
+  return Boolean(maybeOrdered && maybeOrdered[IS_ORDERED_SYMBOL]);
+}
+var ITERATE_KEYS = 0;
+var ITERATE_VALUES = 1;
+var ITERATE_ENTRIES = 2;
+var REAL_ITERATOR_SYMBOL = typeof Symbol === "function" && Symbol.iterator;
+var FAUX_ITERATOR_SYMBOL = "@@iterator";
+var ITERATOR_SYMBOL = REAL_ITERATOR_SYMBOL || FAUX_ITERATOR_SYMBOL;
+var Iterator = function Iterator2(next) {
+  this.next = next;
+};
+Iterator.prototype.toString = function toString() {
+  return "[Iterator]";
+};
+Iterator.KEYS = ITERATE_KEYS;
+Iterator.VALUES = ITERATE_VALUES;
+Iterator.ENTRIES = ITERATE_ENTRIES;
+Iterator.prototype.inspect = Iterator.prototype.toSource = function() {
+  return this.toString();
+};
+Iterator.prototype[ITERATOR_SYMBOL] = function() {
+  return this;
+};
+function iteratorValue(type, k, v, iteratorResult) {
+  var value = type === 0 ? k : type === 1 ? v : [k, v];
+  iteratorResult ? iteratorResult.value = value : iteratorResult = {
+    value,
+    done: false
+  };
+  return iteratorResult;
+}
+function iteratorDone() {
+  return { value: void 0, done: true };
+}
+function hasIterator(maybeIterable) {
+  if (Array.isArray(maybeIterable)) {
+    return true;
+  }
+  return !!getIteratorFn(maybeIterable);
+}
+function isIterator(maybeIterator) {
+  return maybeIterator && typeof maybeIterator.next === "function";
+}
+function getIterator(iterable) {
+  var iteratorFn = getIteratorFn(iterable);
+  return iteratorFn && iteratorFn.call(iterable);
+}
+function getIteratorFn(iterable) {
+  var iteratorFn = iterable && (REAL_ITERATOR_SYMBOL && iterable[REAL_ITERATOR_SYMBOL] || iterable[FAUX_ITERATOR_SYMBOL]);
+  if (typeof iteratorFn === "function") {
+    return iteratorFn;
+  }
+}
+function isEntriesIterable(maybeIterable) {
+  var iteratorFn = getIteratorFn(maybeIterable);
+  return iteratorFn && iteratorFn === maybeIterable.entries;
+}
+function isKeysIterable(maybeIterable) {
+  var iteratorFn = getIteratorFn(maybeIterable);
+  return iteratorFn && iteratorFn === maybeIterable.keys;
+}
+var hasOwnProperty = Object.prototype.hasOwnProperty;
+function isArrayLike(value) {
+  if (Array.isArray(value) || typeof value === "string") {
+    return true;
+  }
+  return value && typeof value === "object" && Number.isInteger(value.length) && value.length >= 0 && (value.length === 0 ? Object.keys(value).length === 1 : value.hasOwnProperty(value.length - 1));
+}
+var Seq = function(Collection3) {
+  function Seq2(value) {
+    return value === void 0 || value === null ? emptySequence() : isImmutable(value) ? value.toSeq() : seqFromValue(value);
+  }
+  if (Collection3)
+    Seq2.__proto__ = Collection3;
+  Seq2.prototype = Object.create(Collection3 && Collection3.prototype);
+  Seq2.prototype.constructor = Seq2;
+  Seq2.prototype.toSeq = function toSeq3() {
+    return this;
+  };
+  Seq2.prototype.toString = function toString5() {
+    return this.__toString("Seq {", "}");
+  };
+  Seq2.prototype.cacheResult = function cacheResult() {
+    if (!this._cache && this.__iterateUncached) {
+      this._cache = this.entrySeq().toArray();
+      this.size = this._cache.length;
+    }
+    return this;
+  };
+  Seq2.prototype.__iterate = function __iterate2(fn, reverse3) {
+    var cache = this._cache;
+    if (cache) {
+      var size = cache.length;
+      var i = 0;
+      while (i !== size) {
+        var entry = cache[reverse3 ? size - ++i : i++];
+        if (fn(entry[1], entry[0], this) === false) {
+          break;
+        }
+      }
+      return i;
+    }
+    return this.__iterateUncached(fn, reverse3);
+  };
+  Seq2.prototype.__iterator = function __iterator2(type, reverse3) {
+    var cache = this._cache;
+    if (cache) {
+      var size = cache.length;
+      var i = 0;
+      return new Iterator(function() {
+        if (i === size) {
+          return iteratorDone();
+        }
+        var entry = cache[reverse3 ? size - ++i : i++];
+        return iteratorValue(type, entry[0], entry[1]);
+      });
+    }
+    return this.__iteratorUncached(type, reverse3);
+  };
+  return Seq2;
+}(Collection);
+var KeyedSeq = function(Seq2) {
+  function KeyedSeq2(value) {
+    return value === void 0 || value === null ? emptySequence().toKeyedSeq() : isCollection(value) ? isKeyed(value) ? value.toSeq() : value.fromEntrySeq() : isRecord(value) ? value.toSeq() : keyedSeqFromValue(value);
+  }
+  if (Seq2)
+    KeyedSeq2.__proto__ = Seq2;
+  KeyedSeq2.prototype = Object.create(Seq2 && Seq2.prototype);
+  KeyedSeq2.prototype.constructor = KeyedSeq2;
+  KeyedSeq2.prototype.toKeyedSeq = function toKeyedSeq3() {
+    return this;
+  };
+  return KeyedSeq2;
+}(Seq);
+var IndexedSeq = function(Seq2) {
+  function IndexedSeq2(value) {
+    return value === void 0 || value === null ? emptySequence() : isCollection(value) ? isKeyed(value) ? value.entrySeq() : value.toIndexedSeq() : isRecord(value) ? value.toSeq().entrySeq() : indexedSeqFromValue(value);
+  }
+  if (Seq2)
+    IndexedSeq2.__proto__ = Seq2;
+  IndexedSeq2.prototype = Object.create(Seq2 && Seq2.prototype);
+  IndexedSeq2.prototype.constructor = IndexedSeq2;
+  IndexedSeq2.of = function of() {
+    return IndexedSeq2(arguments);
+  };
+  IndexedSeq2.prototype.toIndexedSeq = function toIndexedSeq2() {
+    return this;
+  };
+  IndexedSeq2.prototype.toString = function toString5() {
+    return this.__toString("Seq [", "]");
+  };
+  return IndexedSeq2;
+}(Seq);
+var SetSeq = function(Seq2) {
+  function SetSeq2(value) {
+    return (isCollection(value) && !isAssociative(value) ? value : IndexedSeq(value)).toSetSeq();
+  }
+  if (Seq2)
+    SetSeq2.__proto__ = Seq2;
+  SetSeq2.prototype = Object.create(Seq2 && Seq2.prototype);
+  SetSeq2.prototype.constructor = SetSeq2;
+  SetSeq2.of = function of() {
+    return SetSeq2(arguments);
+  };
+  SetSeq2.prototype.toSetSeq = function toSetSeq2() {
+    return this;
+  };
+  return SetSeq2;
+}(Seq);
+Seq.isSeq = isSeq;
+Seq.Keyed = KeyedSeq;
+Seq.Set = SetSeq;
+Seq.Indexed = IndexedSeq;
+Seq.prototype[IS_SEQ_SYMBOL] = true;
+var ArraySeq = function(IndexedSeq2) {
+  function ArraySeq2(array) {
+    this._array = array;
+    this.size = array.length;
+  }
+  if (IndexedSeq2)
+    ArraySeq2.__proto__ = IndexedSeq2;
+  ArraySeq2.prototype = Object.create(IndexedSeq2 && IndexedSeq2.prototype);
+  ArraySeq2.prototype.constructor = ArraySeq2;
+  ArraySeq2.prototype.get = function get11(index, notSetValue) {
+    return this.has(index) ? this._array[wrapIndex(this, index)] : notSetValue;
+  };
+  ArraySeq2.prototype.__iterate = function __iterate2(fn, reverse3) {
+    var array = this._array;
+    var size = array.length;
+    var i = 0;
+    while (i !== size) {
+      var ii = reverse3 ? size - ++i : i++;
+      if (fn(array[ii], ii, this) === false) {
+        break;
+      }
+    }
+    return i;
+  };
+  ArraySeq2.prototype.__iterator = function __iterator2(type, reverse3) {
+    var array = this._array;
+    var size = array.length;
+    var i = 0;
+    return new Iterator(function() {
+      if (i === size) {
+        return iteratorDone();
+      }
+      var ii = reverse3 ? size - ++i : i++;
+      return iteratorValue(type, ii, array[ii]);
+    });
+  };
+  return ArraySeq2;
+}(IndexedSeq);
+var ObjectSeq = function(KeyedSeq2) {
+  function ObjectSeq2(object) {
+    var keys2 = Object.keys(object).concat(Object.getOwnPropertySymbols ? Object.getOwnPropertySymbols(object) : []);
+    this._object = object;
+    this._keys = keys2;
+    this.size = keys2.length;
+  }
+  if (KeyedSeq2)
+    ObjectSeq2.__proto__ = KeyedSeq2;
+  ObjectSeq2.prototype = Object.create(KeyedSeq2 && KeyedSeq2.prototype);
+  ObjectSeq2.prototype.constructor = ObjectSeq2;
+  ObjectSeq2.prototype.get = function get11(key, notSetValue) {
+    if (notSetValue !== void 0 && !this.has(key)) {
+      return notSetValue;
+    }
+    return this._object[key];
+  };
+  ObjectSeq2.prototype.has = function has5(key) {
+    return hasOwnProperty.call(this._object, key);
+  };
+  ObjectSeq2.prototype.__iterate = function __iterate2(fn, reverse3) {
+    var object = this._object;
+    var keys2 = this._keys;
+    var size = keys2.length;
+    var i = 0;
+    while (i !== size) {
+      var key = keys2[reverse3 ? size - ++i : i++];
+      if (fn(object[key], key, this) === false) {
+        break;
+      }
+    }
+    return i;
+  };
+  ObjectSeq2.prototype.__iterator = function __iterator2(type, reverse3) {
+    var object = this._object;
+    var keys2 = this._keys;
+    var size = keys2.length;
+    var i = 0;
+    return new Iterator(function() {
+      if (i === size) {
+        return iteratorDone();
+      }
+      var key = keys2[reverse3 ? size - ++i : i++];
+      return iteratorValue(type, key, object[key]);
+    });
+  };
+  return ObjectSeq2;
+}(KeyedSeq);
+ObjectSeq.prototype[IS_ORDERED_SYMBOL] = true;
+var CollectionSeq = function(IndexedSeq2) {
+  function CollectionSeq2(collection) {
+    this._collection = collection;
+    this.size = collection.length || collection.size;
+  }
+  if (IndexedSeq2)
+    CollectionSeq2.__proto__ = IndexedSeq2;
+  CollectionSeq2.prototype = Object.create(IndexedSeq2 && IndexedSeq2.prototype);
+  CollectionSeq2.prototype.constructor = CollectionSeq2;
+  CollectionSeq2.prototype.__iterateUncached = function __iterateUncached(fn, reverse3) {
+    if (reverse3) {
+      return this.cacheResult().__iterate(fn, reverse3);
+    }
+    var collection = this._collection;
+    var iterator = getIterator(collection);
+    var iterations = 0;
+    if (isIterator(iterator)) {
+      var step;
+      while (!(step = iterator.next()).done) {
+        if (fn(step.value, iterations++, this) === false) {
+          break;
+        }
+      }
+    }
+    return iterations;
+  };
+  CollectionSeq2.prototype.__iteratorUncached = function __iteratorUncached(type, reverse3) {
+    if (reverse3) {
+      return this.cacheResult().__iterator(type, reverse3);
+    }
+    var collection = this._collection;
+    var iterator = getIterator(collection);
+    if (!isIterator(iterator)) {
+      return new Iterator(iteratorDone);
+    }
+    var iterations = 0;
+    return new Iterator(function() {
+      var step = iterator.next();
+      return step.done ? step : iteratorValue(type, iterations++, step.value);
+    });
+  };
+  return CollectionSeq2;
+}(IndexedSeq);
+var EMPTY_SEQ;
+function emptySequence() {
+  return EMPTY_SEQ || (EMPTY_SEQ = new ArraySeq([]));
+}
+function keyedSeqFromValue(value) {
+  var seq = maybeIndexedSeqFromValue(value);
+  if (seq) {
+    return seq.fromEntrySeq();
+  }
+  if (typeof value === "object") {
+    return new ObjectSeq(value);
+  }
+  throw new TypeError("Expected Array or collection object of [k, v] entries, or keyed object: " + value);
+}
+function indexedSeqFromValue(value) {
+  var seq = maybeIndexedSeqFromValue(value);
+  if (seq) {
+    return seq;
+  }
+  throw new TypeError("Expected Array or collection object of values: " + value);
+}
+function seqFromValue(value) {
+  var seq = maybeIndexedSeqFromValue(value);
+  if (seq) {
+    return isEntriesIterable(value) ? seq.fromEntrySeq() : isKeysIterable(value) ? seq.toSetSeq() : seq;
+  }
+  if (typeof value === "object") {
+    return new ObjectSeq(value);
+  }
+  throw new TypeError("Expected Array or collection object of values, or keyed object: " + value);
+}
+function maybeIndexedSeqFromValue(value) {
+  return isArrayLike(value) ? new ArraySeq(value) : hasIterator(value) ? new CollectionSeq(value) : void 0;
+}
+var IS_MAP_SYMBOL = "@@__IMMUTABLE_MAP__@@";
+function isMap(maybeMap) {
+  return Boolean(maybeMap && maybeMap[IS_MAP_SYMBOL]);
+}
+function isOrderedMap(maybeOrderedMap) {
+  return isMap(maybeOrderedMap) && isOrdered(maybeOrderedMap);
+}
+function isValueObject(maybeValue) {
+  return Boolean(maybeValue && typeof maybeValue.equals === "function" && typeof maybeValue.hashCode === "function");
+}
+function is(valueA, valueB) {
+  if (valueA === valueB || valueA !== valueA && valueB !== valueB) {
+    return true;
+  }
+  if (!valueA || !valueB) {
+    return false;
+  }
+  if (typeof valueA.valueOf === "function" && typeof valueB.valueOf === "function") {
+    valueA = valueA.valueOf();
+    valueB = valueB.valueOf();
+    if (valueA === valueB || valueA !== valueA && valueB !== valueB) {
+      return true;
+    }
+    if (!valueA || !valueB) {
+      return false;
+    }
+  }
+  return !!(isValueObject(valueA) && isValueObject(valueB) && valueA.equals(valueB));
+}
+var imul = typeof Math.imul === "function" && Math.imul(4294967295, 2) === -2 ? Math.imul : function imul2(a, b) {
+  a |= 0;
+  b |= 0;
+  var c = a & 65535;
+  var d = b & 65535;
+  return c * d + ((a >>> 16) * d + c * (b >>> 16) << 16 >>> 0) | 0;
+};
+function smi(i32) {
+  return i32 >>> 1 & 1073741824 | i32 & 3221225471;
+}
+var defaultValueOf = Object.prototype.valueOf;
+function hash(o) {
+  if (o == null) {
+    return hashNullish(o);
+  }
+  if (typeof o.hashCode === "function") {
+    return smi(o.hashCode(o));
+  }
+  var v = valueOf(o);
+  if (v == null) {
+    return hashNullish(v);
+  }
+  switch (typeof v) {
+    case "boolean":
+      return v ? 1108378657 : 1108378656;
+    case "number":
+      return hashNumber(v);
+    case "string":
+      return v.length > STRING_HASH_CACHE_MIN_STRLEN ? cachedHashString(v) : hashString(v);
+    case "object":
+    case "function":
+      return hashJSObj(v);
+    case "symbol":
+      return hashSymbol(v);
+    default:
+      if (typeof v.toString === "function") {
+        return hashString(v.toString());
+      }
+      throw new Error("Value type " + typeof v + " cannot be hashed.");
+  }
+}
+function hashNullish(nullish) {
+  return nullish === null ? 1108378658 : 1108378659;
+}
+function hashNumber(n) {
+  if (n !== n || n === Infinity) {
+    return 0;
+  }
+  var hash2 = n | 0;
+  if (hash2 !== n) {
+    hash2 ^= n * 4294967295;
+  }
+  while (n > 4294967295) {
+    n /= 4294967295;
+    hash2 ^= n;
+  }
+  return smi(hash2);
+}
+function cachedHashString(string) {
+  var hashed = stringHashCache[string];
+  if (hashed === void 0) {
+    hashed = hashString(string);
+    if (STRING_HASH_CACHE_SIZE === STRING_HASH_CACHE_MAX_SIZE) {
+      STRING_HASH_CACHE_SIZE = 0;
+      stringHashCache = {};
+    }
+    STRING_HASH_CACHE_SIZE++;
+    stringHashCache[string] = hashed;
+  }
+  return hashed;
+}
+function hashString(string) {
+  var hashed = 0;
+  for (var ii = 0; ii < string.length; ii++) {
+    hashed = 31 * hashed + string.charCodeAt(ii) | 0;
+  }
+  return smi(hashed);
+}
+function hashSymbol(sym) {
+  var hashed = symbolMap[sym];
+  if (hashed !== void 0) {
+    return hashed;
+  }
+  hashed = nextHash();
+  symbolMap[sym] = hashed;
+  return hashed;
+}
+function hashJSObj(obj) {
+  var hashed;
+  if (usingWeakMap) {
+    hashed = weakMap.get(obj);
+    if (hashed !== void 0) {
+      return hashed;
+    }
+  }
+  hashed = obj[UID_HASH_KEY];
+  if (hashed !== void 0) {
+    return hashed;
+  }
+  if (!canDefineProperty) {
+    hashed = obj.propertyIsEnumerable && obj.propertyIsEnumerable[UID_HASH_KEY];
+    if (hashed !== void 0) {
+      return hashed;
+    }
+    hashed = getIENodeHash(obj);
+    if (hashed !== void 0) {
+      return hashed;
+    }
+  }
+  hashed = nextHash();
+  if (usingWeakMap) {
+    weakMap.set(obj, hashed);
+  } else if (isExtensible !== void 0 && isExtensible(obj) === false) {
+    throw new Error("Non-extensible objects are not allowed as keys.");
+  } else if (canDefineProperty) {
+    Object.defineProperty(obj, UID_HASH_KEY, {
+      enumerable: false,
+      configurable: false,
+      writable: false,
+      value: hashed
+    });
+  } else if (obj.propertyIsEnumerable !== void 0 && obj.propertyIsEnumerable === obj.constructor.prototype.propertyIsEnumerable) {
+    obj.propertyIsEnumerable = function() {
+      return this.constructor.prototype.propertyIsEnumerable.apply(this, arguments);
+    };
+    obj.propertyIsEnumerable[UID_HASH_KEY] = hashed;
+  } else if (obj.nodeType !== void 0) {
+    obj[UID_HASH_KEY] = hashed;
+  } else {
+    throw new Error("Unable to set a non-enumerable property on object.");
+  }
+  return hashed;
+}
+var isExtensible = Object.isExtensible;
+var canDefineProperty = function() {
+  try {
+    Object.defineProperty({}, "@", {});
+    return true;
+  } catch (e) {
+    return false;
+  }
+}();
+function getIENodeHash(node) {
+  if (node && node.nodeType > 0) {
+    switch (node.nodeType) {
+      case 1:
+        return node.uniqueID;
+      case 9:
+        return node.documentElement && node.documentElement.uniqueID;
+    }
+  }
+}
+function valueOf(obj) {
+  return obj.valueOf !== defaultValueOf && typeof obj.valueOf === "function" ? obj.valueOf(obj) : obj;
+}
+function nextHash() {
+  var nextHash2 = ++_objHashUID;
+  if (_objHashUID & 1073741824) {
+    _objHashUID = 0;
+  }
+  return nextHash2;
+}
+var usingWeakMap = typeof WeakMap === "function";
+var weakMap;
+if (usingWeakMap) {
+  weakMap = /* @__PURE__ */ new WeakMap();
+}
+var symbolMap = /* @__PURE__ */ Object.create(null);
+var _objHashUID = 0;
+var UID_HASH_KEY = "__immutablehash__";
+if (typeof Symbol === "function") {
+  UID_HASH_KEY = Symbol(UID_HASH_KEY);
+}
+var STRING_HASH_CACHE_MIN_STRLEN = 16;
+var STRING_HASH_CACHE_MAX_SIZE = 255;
+var STRING_HASH_CACHE_SIZE = 0;
+var stringHashCache = {};
+var ToKeyedSequence = function(KeyedSeq2) {
+  function ToKeyedSequence2(indexed, useKeys) {
+    this._iter = indexed;
+    this._useKeys = useKeys;
+    this.size = indexed.size;
+  }
+  if (KeyedSeq2)
+    ToKeyedSequence2.__proto__ = KeyedSeq2;
+  ToKeyedSequence2.prototype = Object.create(KeyedSeq2 && KeyedSeq2.prototype);
+  ToKeyedSequence2.prototype.constructor = ToKeyedSequence2;
+  ToKeyedSequence2.prototype.get = function get11(key, notSetValue) {
+    return this._iter.get(key, notSetValue);
+  };
+  ToKeyedSequence2.prototype.has = function has5(key) {
+    return this._iter.has(key);
+  };
+  ToKeyedSequence2.prototype.valueSeq = function valueSeq2() {
+    return this._iter.valueSeq();
+  };
+  ToKeyedSequence2.prototype.reverse = function reverse3() {
+    var this$1$1 = this;
+    var reversedSequence = reverseFactory(this, true);
+    if (!this._useKeys) {
+      reversedSequence.valueSeq = function() {
+        return this$1$1._iter.toSeq().reverse();
+      };
+    }
+    return reversedSequence;
+  };
+  ToKeyedSequence2.prototype.map = function map2(mapper, context2) {
+    var this$1$1 = this;
+    var mappedSequence = mapFactory(this, mapper, context2);
+    if (!this._useKeys) {
+      mappedSequence.valueSeq = function() {
+        return this$1$1._iter.toSeq().map(mapper, context2);
+      };
+    }
+    return mappedSequence;
+  };
+  ToKeyedSequence2.prototype.__iterate = function __iterate2(fn, reverse3) {
+    var this$1$1 = this;
+    return this._iter.__iterate(function(v, k) {
+      return fn(v, k, this$1$1);
+    }, reverse3);
+  };
+  ToKeyedSequence2.prototype.__iterator = function __iterator2(type, reverse3) {
+    return this._iter.__iterator(type, reverse3);
+  };
+  return ToKeyedSequence2;
+}(KeyedSeq);
+ToKeyedSequence.prototype[IS_ORDERED_SYMBOL] = true;
+var ToIndexedSequence = function(IndexedSeq2) {
+  function ToIndexedSequence2(iter) {
+    this._iter = iter;
+    this.size = iter.size;
+  }
+  if (IndexedSeq2)
+    ToIndexedSequence2.__proto__ = IndexedSeq2;
+  ToIndexedSequence2.prototype = Object.create(IndexedSeq2 && IndexedSeq2.prototype);
+  ToIndexedSequence2.prototype.constructor = ToIndexedSequence2;
+  ToIndexedSequence2.prototype.includes = function includes3(value) {
+    return this._iter.includes(value);
+  };
+  ToIndexedSequence2.prototype.__iterate = function __iterate2(fn, reverse3) {
+    var this$1$1 = this;
+    var i = 0;
+    reverse3 && ensureSize(this);
+    return this._iter.__iterate(function(v) {
+      return fn(v, reverse3 ? this$1$1.size - ++i : i++, this$1$1);
+    }, reverse3);
+  };
+  ToIndexedSequence2.prototype.__iterator = function __iterator2(type, reverse3) {
+    var this$1$1 = this;
+    var iterator = this._iter.__iterator(ITERATE_VALUES, reverse3);
+    var i = 0;
+    reverse3 && ensureSize(this);
+    return new Iterator(function() {
+      var step = iterator.next();
+      return step.done ? step : iteratorValue(type, reverse3 ? this$1$1.size - ++i : i++, step.value, step);
+    });
+  };
+  return ToIndexedSequence2;
+}(IndexedSeq);
+var ToSetSequence = function(SetSeq2) {
+  function ToSetSequence2(iter) {
+    this._iter = iter;
+    this.size = iter.size;
+  }
+  if (SetSeq2)
+    ToSetSequence2.__proto__ = SetSeq2;
+  ToSetSequence2.prototype = Object.create(SetSeq2 && SetSeq2.prototype);
+  ToSetSequence2.prototype.constructor = ToSetSequence2;
+  ToSetSequence2.prototype.has = function has5(key) {
+    return this._iter.includes(key);
+  };
+  ToSetSequence2.prototype.__iterate = function __iterate2(fn, reverse3) {
+    var this$1$1 = this;
+    return this._iter.__iterate(function(v) {
+      return fn(v, v, this$1$1);
+    }, reverse3);
+  };
+  ToSetSequence2.prototype.__iterator = function __iterator2(type, reverse3) {
+    var iterator = this._iter.__iterator(ITERATE_VALUES, reverse3);
+    return new Iterator(function() {
+      var step = iterator.next();
+      return step.done ? step : iteratorValue(type, step.value, step.value, step);
+    });
+  };
+  return ToSetSequence2;
+}(SetSeq);
+var FromEntriesSequence = function(KeyedSeq2) {
+  function FromEntriesSequence2(entries3) {
+    this._iter = entries3;
+    this.size = entries3.size;
+  }
+  if (KeyedSeq2)
+    FromEntriesSequence2.__proto__ = KeyedSeq2;
+  FromEntriesSequence2.prototype = Object.create(KeyedSeq2 && KeyedSeq2.prototype);
+  FromEntriesSequence2.prototype.constructor = FromEntriesSequence2;
+  FromEntriesSequence2.prototype.entrySeq = function entrySeq2() {
+    return this._iter.toSeq();
+  };
+  FromEntriesSequence2.prototype.__iterate = function __iterate2(fn, reverse3) {
+    var this$1$1 = this;
+    return this._iter.__iterate(function(entry) {
+      if (entry) {
+        validateEntry(entry);
+        var indexedCollection = isCollection(entry);
+        return fn(indexedCollection ? entry.get(1) : entry[1], indexedCollection ? entry.get(0) : entry[0], this$1$1);
+      }
+    }, reverse3);
+  };
+  FromEntriesSequence2.prototype.__iterator = function __iterator2(type, reverse3) {
+    var iterator = this._iter.__iterator(ITERATE_VALUES, reverse3);
+    return new Iterator(function() {
+      while (true) {
+        var step = iterator.next();
+        if (step.done) {
+          return step;
+        }
+        var entry = step.value;
+        if (entry) {
+          validateEntry(entry);
+          var indexedCollection = isCollection(entry);
+          return iteratorValue(type, indexedCollection ? entry.get(0) : entry[0], indexedCollection ? entry.get(1) : entry[1], step);
+        }
+      }
+    });
+  };
+  return FromEntriesSequence2;
+}(KeyedSeq);
+ToIndexedSequence.prototype.cacheResult = ToKeyedSequence.prototype.cacheResult = ToSetSequence.prototype.cacheResult = FromEntriesSequence.prototype.cacheResult = cacheResultThrough;
+function flipFactory(collection) {
+  var flipSequence = makeSequence(collection);
+  flipSequence._iter = collection;
+  flipSequence.size = collection.size;
+  flipSequence.flip = function() {
+    return collection;
+  };
+  flipSequence.reverse = function() {
+    var reversedSequence = collection.reverse.apply(this);
+    reversedSequence.flip = function() {
+      return collection.reverse();
+    };
+    return reversedSequence;
+  };
+  flipSequence.has = function(key) {
+    return collection.includes(key);
+  };
+  flipSequence.includes = function(key) {
+    return collection.has(key);
+  };
+  flipSequence.cacheResult = cacheResultThrough;
+  flipSequence.__iterateUncached = function(fn, reverse3) {
+    var this$1$1 = this;
+    return collection.__iterate(function(v, k) {
+      return fn(k, v, this$1$1) !== false;
+    }, reverse3);
+  };
+  flipSequence.__iteratorUncached = function(type, reverse3) {
+    if (type === ITERATE_ENTRIES) {
+      var iterator = collection.__iterator(type, reverse3);
+      return new Iterator(function() {
+        var step = iterator.next();
+        if (!step.done) {
+          var k = step.value[0];
+          step.value[0] = step.value[1];
+          step.value[1] = k;
+        }
+        return step;
+      });
+    }
+    return collection.__iterator(type === ITERATE_VALUES ? ITERATE_KEYS : ITERATE_VALUES, reverse3);
+  };
+  return flipSequence;
+}
+function mapFactory(collection, mapper, context2) {
+  var mappedSequence = makeSequence(collection);
+  mappedSequence.size = collection.size;
+  mappedSequence.has = function(key) {
+    return collection.has(key);
+  };
+  mappedSequence.get = function(key, notSetValue) {
+    var v = collection.get(key, NOT_SET);
+    return v === NOT_SET ? notSetValue : mapper.call(context2, v, key, collection);
+  };
+  mappedSequence.__iterateUncached = function(fn, reverse3) {
+    var this$1$1 = this;
+    return collection.__iterate(function(v, k, c) {
+      return fn(mapper.call(context2, v, k, c), k, this$1$1) !== false;
+    }, reverse3);
+  };
+  mappedSequence.__iteratorUncached = function(type, reverse3) {
+    var iterator = collection.__iterator(ITERATE_ENTRIES, reverse3);
+    return new Iterator(function() {
+      var step = iterator.next();
+      if (step.done) {
+        return step;
+      }
+      var entry = step.value;
+      var key = entry[0];
+      return iteratorValue(type, key, mapper.call(context2, entry[1], key, collection), step);
+    });
+  };
+  return mappedSequence;
+}
+function reverseFactory(collection, useKeys) {
+  var this$1$1 = this;
+  var reversedSequence = makeSequence(collection);
+  reversedSequence._iter = collection;
+  reversedSequence.size = collection.size;
+  reversedSequence.reverse = function() {
+    return collection;
+  };
+  if (collection.flip) {
+    reversedSequence.flip = function() {
+      var flipSequence = flipFactory(collection);
+      flipSequence.reverse = function() {
+        return collection.flip();
+      };
+      return flipSequence;
+    };
+  }
+  reversedSequence.get = function(key, notSetValue) {
+    return collection.get(useKeys ? key : -1 - key, notSetValue);
+  };
+  reversedSequence.has = function(key) {
+    return collection.has(useKeys ? key : -1 - key);
+  };
+  reversedSequence.includes = function(value) {
+    return collection.includes(value);
+  };
+  reversedSequence.cacheResult = cacheResultThrough;
+  reversedSequence.__iterate = function(fn, reverse3) {
+    var this$1$12 = this;
+    var i = 0;
+    reverse3 && ensureSize(collection);
+    return collection.__iterate(function(v, k) {
+      return fn(v, useKeys ? k : reverse3 ? this$1$12.size - ++i : i++, this$1$12);
+    }, !reverse3);
+  };
+  reversedSequence.__iterator = function(type, reverse3) {
+    var i = 0;
+    reverse3 && ensureSize(collection);
+    var iterator = collection.__iterator(ITERATE_ENTRIES, !reverse3);
+    return new Iterator(function() {
+      var step = iterator.next();
+      if (step.done) {
+        return step;
+      }
+      var entry = step.value;
+      return iteratorValue(type, useKeys ? entry[0] : reverse3 ? this$1$1.size - ++i : i++, entry[1], step);
+    });
+  };
+  return reversedSequence;
+}
+function filterFactory(collection, predicate, context2, useKeys) {
+  var filterSequence = makeSequence(collection);
+  if (useKeys) {
+    filterSequence.has = function(key) {
+      var v = collection.get(key, NOT_SET);
+      return v !== NOT_SET && !!predicate.call(context2, v, key, collection);
+    };
+    filterSequence.get = function(key, notSetValue) {
+      var v = collection.get(key, NOT_SET);
+      return v !== NOT_SET && predicate.call(context2, v, key, collection) ? v : notSetValue;
+    };
+  }
+  filterSequence.__iterateUncached = function(fn, reverse3) {
+    var this$1$1 = this;
+    var iterations = 0;
+    collection.__iterate(function(v, k, c) {
+      if (predicate.call(context2, v, k, c)) {
+        iterations++;
+        return fn(v, useKeys ? k : iterations - 1, this$1$1);
+      }
+    }, reverse3);
+    return iterations;
+  };
+  filterSequence.__iteratorUncached = function(type, reverse3) {
+    var iterator = collection.__iterator(ITERATE_ENTRIES, reverse3);
+    var iterations = 0;
+    return new Iterator(function() {
+      while (true) {
+        var step = iterator.next();
+        if (step.done) {
+          return step;
+        }
+        var entry = step.value;
+        var key = entry[0];
+        var value = entry[1];
+        if (predicate.call(context2, value, key, collection)) {
+          return iteratorValue(type, useKeys ? key : iterations++, value, step);
+        }
+      }
+    });
+  };
+  return filterSequence;
+}
+function countByFactory(collection, grouper, context2) {
+  var groups = Map2().asMutable();
+  collection.__iterate(function(v, k) {
+    groups.update(grouper.call(context2, v, k, collection), 0, function(a) {
+      return a + 1;
+    });
+  });
+  return groups.asImmutable();
+}
+function groupByFactory(collection, grouper, context2) {
+  var isKeyedIter = isKeyed(collection);
+  var groups = (isOrdered(collection) ? OrderedMap() : Map2()).asMutable();
+  collection.__iterate(function(v, k) {
+    groups.update(grouper.call(context2, v, k, collection), function(a) {
+      return a = a || [], a.push(isKeyedIter ? [k, v] : v), a;
+    });
+  });
+  var coerce = collectionClass(collection);
+  return groups.map(function(arr) {
+    return reify(collection, coerce(arr));
+  }).asImmutable();
+}
+function sliceFactory(collection, begin, end, useKeys) {
+  var originalSize = collection.size;
+  if (wholeSlice(begin, end, originalSize)) {
+    return collection;
+  }
+  var resolvedBegin = resolveBegin(begin, originalSize);
+  var resolvedEnd = resolveEnd(end, originalSize);
+  if (resolvedBegin !== resolvedBegin || resolvedEnd !== resolvedEnd) {
+    return sliceFactory(collection.toSeq().cacheResult(), begin, end, useKeys);
+  }
+  var resolvedSize = resolvedEnd - resolvedBegin;
+  var sliceSize;
+  if (resolvedSize === resolvedSize) {
+    sliceSize = resolvedSize < 0 ? 0 : resolvedSize;
+  }
+  var sliceSeq = makeSequence(collection);
+  sliceSeq.size = sliceSize === 0 ? sliceSize : collection.size && sliceSize || void 0;
+  if (!useKeys && isSeq(collection) && sliceSize >= 0) {
+    sliceSeq.get = function(index, notSetValue) {
+      index = wrapIndex(this, index);
+      return index >= 0 && index < sliceSize ? collection.get(index + resolvedBegin, notSetValue) : notSetValue;
+    };
+  }
+  sliceSeq.__iterateUncached = function(fn, reverse3) {
+    var this$1$1 = this;
+    if (sliceSize === 0) {
+      return 0;
+    }
+    if (reverse3) {
+      return this.cacheResult().__iterate(fn, reverse3);
+    }
+    var skipped = 0;
+    var isSkipping = true;
+    var iterations = 0;
+    collection.__iterate(function(v, k) {
+      if (!(isSkipping && (isSkipping = skipped++ < resolvedBegin))) {
+        iterations++;
+        return fn(v, useKeys ? k : iterations - 1, this$1$1) !== false && iterations !== sliceSize;
+      }
+    });
+    return iterations;
+  };
+  sliceSeq.__iteratorUncached = function(type, reverse3) {
+    if (sliceSize !== 0 && reverse3) {
+      return this.cacheResult().__iterator(type, reverse3);
+    }
+    if (sliceSize === 0) {
+      return new Iterator(iteratorDone);
+    }
+    var iterator = collection.__iterator(type, reverse3);
+    var skipped = 0;
+    var iterations = 0;
+    return new Iterator(function() {
+      while (skipped++ < resolvedBegin) {
+        iterator.next();
+      }
+      if (++iterations > sliceSize) {
+        return iteratorDone();
+      }
+      var step = iterator.next();
+      if (useKeys || type === ITERATE_VALUES || step.done) {
+        return step;
+      }
+      if (type === ITERATE_KEYS) {
+        return iteratorValue(type, iterations - 1, void 0, step);
+      }
+      return iteratorValue(type, iterations - 1, step.value[1], step);
+    });
+  };
+  return sliceSeq;
+}
+function takeWhileFactory(collection, predicate, context2) {
+  var takeSequence = makeSequence(collection);
+  takeSequence.__iterateUncached = function(fn, reverse3) {
+    var this$1$1 = this;
+    if (reverse3) {
+      return this.cacheResult().__iterate(fn, reverse3);
+    }
+    var iterations = 0;
+    collection.__iterate(function(v, k, c) {
+      return predicate.call(context2, v, k, c) && ++iterations && fn(v, k, this$1$1);
+    });
+    return iterations;
+  };
+  takeSequence.__iteratorUncached = function(type, reverse3) {
+    var this$1$1 = this;
+    if (reverse3) {
+      return this.cacheResult().__iterator(type, reverse3);
+    }
+    var iterator = collection.__iterator(ITERATE_ENTRIES, reverse3);
+    var iterating = true;
+    return new Iterator(function() {
+      if (!iterating) {
+        return iteratorDone();
+      }
+      var step = iterator.next();
+      if (step.done) {
+        return step;
+      }
+      var entry = step.value;
+      var k = entry[0];
+      var v = entry[1];
+      if (!predicate.call(context2, v, k, this$1$1)) {
+        iterating = false;
+        return iteratorDone();
+      }
+      return type === ITERATE_ENTRIES ? step : iteratorValue(type, k, v, step);
+    });
+  };
+  return takeSequence;
+}
+function skipWhileFactory(collection, predicate, context2, useKeys) {
+  var skipSequence = makeSequence(collection);
+  skipSequence.__iterateUncached = function(fn, reverse3) {
+    var this$1$1 = this;
+    if (reverse3) {
+      return this.cacheResult().__iterate(fn, reverse3);
+    }
+    var isSkipping = true;
+    var iterations = 0;
+    collection.__iterate(function(v, k, c) {
+      if (!(isSkipping && (isSkipping = predicate.call(context2, v, k, c)))) {
+        iterations++;
+        return fn(v, useKeys ? k : iterations - 1, this$1$1);
+      }
+    });
+    return iterations;
+  };
+  skipSequence.__iteratorUncached = function(type, reverse3) {
+    var this$1$1 = this;
+    if (reverse3) {
+      return this.cacheResult().__iterator(type, reverse3);
+    }
+    var iterator = collection.__iterator(ITERATE_ENTRIES, reverse3);
+    var skipping = true;
+    var iterations = 0;
+    return new Iterator(function() {
+      var step;
+      var k;
+      var v;
+      do {
+        step = iterator.next();
+        if (step.done) {
+          if (useKeys || type === ITERATE_VALUES) {
+            return step;
+          }
+          if (type === ITERATE_KEYS) {
+            return iteratorValue(type, iterations++, void 0, step);
+          }
+          return iteratorValue(type, iterations++, step.value[1], step);
+        }
+        var entry = step.value;
+        k = entry[0];
+        v = entry[1];
+        skipping && (skipping = predicate.call(context2, v, k, this$1$1));
+      } while (skipping);
+      return type === ITERATE_ENTRIES ? step : iteratorValue(type, k, v, step);
+    });
+  };
+  return skipSequence;
+}
+function concatFactory(collection, values2) {
+  var isKeyedCollection = isKeyed(collection);
+  var iters = [collection].concat(values2).map(function(v) {
+    if (!isCollection(v)) {
+      v = isKeyedCollection ? keyedSeqFromValue(v) : indexedSeqFromValue(Array.isArray(v) ? v : [v]);
+    } else if (isKeyedCollection) {
+      v = KeyedCollection(v);
+    }
+    return v;
+  }).filter(function(v) {
+    return v.size !== 0;
+  });
+  if (iters.length === 0) {
+    return collection;
+  }
+  if (iters.length === 1) {
+    var singleton = iters[0];
+    if (singleton === collection || isKeyedCollection && isKeyed(singleton) || isIndexed(collection) && isIndexed(singleton)) {
+      return singleton;
+    }
+  }
+  var concatSeq = new ArraySeq(iters);
+  if (isKeyedCollection) {
+    concatSeq = concatSeq.toKeyedSeq();
+  } else if (!isIndexed(collection)) {
+    concatSeq = concatSeq.toSetSeq();
+  }
+  concatSeq = concatSeq.flatten(true);
+  concatSeq.size = iters.reduce(function(sum, seq) {
+    if (sum !== void 0) {
+      var size = seq.size;
+      if (size !== void 0) {
+        return sum + size;
+      }
+    }
+  }, 0);
+  return concatSeq;
+}
+function flattenFactory(collection, depth, useKeys) {
+  var flatSequence = makeSequence(collection);
+  flatSequence.__iterateUncached = function(fn, reverse3) {
+    if (reverse3) {
+      return this.cacheResult().__iterate(fn, reverse3);
+    }
+    var iterations = 0;
+    var stopped = false;
+    function flatDeep(iter, currentDepth) {
+      iter.__iterate(function(v, k) {
+        if ((!depth || currentDepth < depth) && isCollection(v)) {
+          flatDeep(v, currentDepth + 1);
+        } else {
+          iterations++;
+          if (fn(v, useKeys ? k : iterations - 1, flatSequence) === false) {
+            stopped = true;
+          }
+        }
+        return !stopped;
+      }, reverse3);
+    }
+    flatDeep(collection, 0);
+    return iterations;
+  };
+  flatSequence.__iteratorUncached = function(type, reverse3) {
+    if (reverse3) {
+      return this.cacheResult().__iterator(type, reverse3);
+    }
+    var iterator = collection.__iterator(type, reverse3);
+    var stack = [];
+    var iterations = 0;
+    return new Iterator(function() {
+      while (iterator) {
+        var step = iterator.next();
+        if (step.done !== false) {
+          iterator = stack.pop();
+          continue;
+        }
+        var v = step.value;
+        if (type === ITERATE_ENTRIES) {
+          v = v[1];
+        }
+        if ((!depth || stack.length < depth) && isCollection(v)) {
+          stack.push(iterator);
+          iterator = v.__iterator(type, reverse3);
+        } else {
+          return useKeys ? step : iteratorValue(type, iterations++, v, step);
+        }
+      }
+      return iteratorDone();
+    });
+  };
+  return flatSequence;
+}
+function flatMapFactory(collection, mapper, context2) {
+  var coerce = collectionClass(collection);
+  return collection.toSeq().map(function(v, k) {
+    return coerce(mapper.call(context2, v, k, collection));
+  }).flatten(true);
+}
+function interposeFactory(collection, separator) {
+  var interposedSequence = makeSequence(collection);
+  interposedSequence.size = collection.size && collection.size * 2 - 1;
+  interposedSequence.__iterateUncached = function(fn, reverse3) {
+    var this$1$1 = this;
+    var iterations = 0;
+    collection.__iterate(function(v) {
+      return (!iterations || fn(separator, iterations++, this$1$1) !== false) && fn(v, iterations++, this$1$1) !== false;
+    }, reverse3);
+    return iterations;
+  };
+  interposedSequence.__iteratorUncached = function(type, reverse3) {
+    var iterator = collection.__iterator(ITERATE_VALUES, reverse3);
+    var iterations = 0;
+    var step;
+    return new Iterator(function() {
+      if (!step || iterations % 2) {
+        step = iterator.next();
+        if (step.done) {
+          return step;
+        }
+      }
+      return iterations % 2 ? iteratorValue(type, iterations++, separator) : iteratorValue(type, iterations++, step.value, step);
+    });
+  };
+  return interposedSequence;
+}
+function sortFactory(collection, comparator, mapper) {
+  if (!comparator) {
+    comparator = defaultComparator;
+  }
+  var isKeyedCollection = isKeyed(collection);
+  var index = 0;
+  var entries3 = collection.toSeq().map(function(v, k) {
+    return [k, v, index++, mapper ? mapper(v, k, collection) : v];
+  }).valueSeq().toArray();
+  entries3.sort(function(a, b) {
+    return comparator(a[3], b[3]) || a[2] - b[2];
+  }).forEach(isKeyedCollection ? function(v, i) {
+    entries3[i].length = 2;
+  } : function(v, i) {
+    entries3[i] = v[1];
+  });
+  return isKeyedCollection ? KeyedSeq(entries3) : isIndexed(collection) ? IndexedSeq(entries3) : SetSeq(entries3);
+}
+function maxFactory(collection, comparator, mapper) {
+  if (!comparator) {
+    comparator = defaultComparator;
+  }
+  if (mapper) {
+    var entry = collection.toSeq().map(function(v, k) {
+      return [v, mapper(v, k, collection)];
+    }).reduce(function(a, b) {
+      return maxCompare(comparator, a[1], b[1]) ? b : a;
+    });
+    return entry && entry[0];
+  }
+  return collection.reduce(function(a, b) {
+    return maxCompare(comparator, a, b) ? b : a;
+  });
+}
+function maxCompare(comparator, a, b) {
+  var comp = comparator(b, a);
+  return comp === 0 && b !== a && (b === void 0 || b === null || b !== b) || comp > 0;
+}
+function zipWithFactory(keyIter, zipper, iters, zipAll2) {
+  var zipSequence = makeSequence(keyIter);
+  var sizes = new ArraySeq(iters).map(function(i) {
+    return i.size;
+  });
+  zipSequence.size = zipAll2 ? sizes.max() : sizes.min();
+  zipSequence.__iterate = function(fn, reverse3) {
+    var iterator = this.__iterator(ITERATE_VALUES, reverse3);
+    var step;
+    var iterations = 0;
+    while (!(step = iterator.next()).done) {
+      if (fn(step.value, iterations++, this) === false) {
+        break;
+      }
+    }
+    return iterations;
+  };
+  zipSequence.__iteratorUncached = function(type, reverse3) {
+    var iterators = iters.map(function(i) {
+      return i = Collection(i), getIterator(reverse3 ? i.reverse() : i);
+    });
+    var iterations = 0;
+    var isDone = false;
+    return new Iterator(function() {
+      var steps;
+      if (!isDone) {
+        steps = iterators.map(function(i) {
+          return i.next();
+        });
+        isDone = zipAll2 ? steps.every(function(s) {
+          return s.done;
+        }) : steps.some(function(s) {
+          return s.done;
+        });
+      }
+      if (isDone) {
+        return iteratorDone();
+      }
+      return iteratorValue(type, iterations++, zipper.apply(null, steps.map(function(s) {
+        return s.value;
+      })));
+    });
+  };
+  return zipSequence;
+}
+function reify(iter, seq) {
+  return iter === seq ? iter : isSeq(iter) ? seq : iter.constructor(seq);
+}
+function validateEntry(entry) {
+  if (entry !== Object(entry)) {
+    throw new TypeError("Expected [K, V] tuple: " + entry);
+  }
+}
+function collectionClass(collection) {
+  return isKeyed(collection) ? KeyedCollection : isIndexed(collection) ? IndexedCollection : SetCollection;
+}
+function makeSequence(collection) {
+  return Object.create((isKeyed(collection) ? KeyedSeq : isIndexed(collection) ? IndexedSeq : SetSeq).prototype);
+}
+function cacheResultThrough() {
+  if (this._iter.cacheResult) {
+    this._iter.cacheResult();
+    this.size = this._iter.size;
+    return this;
+  }
+  return Seq.prototype.cacheResult.call(this);
+}
+function defaultComparator(a, b) {
+  if (a === void 0 && b === void 0) {
+    return 0;
+  }
+  if (a === void 0) {
+    return 1;
+  }
+  if (b === void 0) {
+    return -1;
+  }
+  return a > b ? 1 : a < b ? -1 : 0;
+}
+function arrCopy(arr, offset) {
+  offset = offset || 0;
+  var len = Math.max(0, arr.length - offset);
+  var newArr = new Array(len);
+  for (var ii = 0; ii < len; ii++) {
+    newArr[ii] = arr[ii + offset];
+  }
+  return newArr;
+}
+function invariant(condition, error) {
+  if (!condition) {
+    throw new Error(error);
+  }
+}
+function assertNotInfinite(size) {
+  invariant(size !== Infinity, "Cannot perform this action with an infinite size.");
+}
+function coerceKeyPath(keyPath) {
+  if (isArrayLike(keyPath) && typeof keyPath !== "string") {
+    return keyPath;
+  }
+  if (isOrdered(keyPath)) {
+    return keyPath.toArray();
+  }
+  throw new TypeError("Invalid keyPath: expected Ordered Collection or Array: " + keyPath);
+}
+var toString2 = Object.prototype.toString;
+function isPlainObject(value) {
+  if (!value || typeof value !== "object" || toString2.call(value) !== "[object Object]") {
+    return false;
+  }
+  var proto = Object.getPrototypeOf(value);
+  if (proto === null) {
+    return true;
+  }
+  var parentProto = proto;
+  var nextProto = Object.getPrototypeOf(proto);
+  while (nextProto !== null) {
+    parentProto = nextProto;
+    nextProto = Object.getPrototypeOf(parentProto);
+  }
+  return parentProto === proto;
+}
+function isDataStructure(value) {
+  return typeof value === "object" && (isImmutable(value) || Array.isArray(value) || isPlainObject(value));
+}
+function quoteString(value) {
+  try {
+    return typeof value === "string" ? JSON.stringify(value) : String(value);
+  } catch (_ignoreError) {
+    return JSON.stringify(value);
+  }
+}
+function has(collection, key) {
+  return isImmutable(collection) ? collection.has(key) : isDataStructure(collection) && hasOwnProperty.call(collection, key);
+}
+function get(collection, key, notSetValue) {
+  return isImmutable(collection) ? collection.get(key, notSetValue) : !has(collection, key) ? notSetValue : typeof collection.get === "function" ? collection.get(key) : collection[key];
+}
+function shallowCopy(from) {
+  if (Array.isArray(from)) {
+    return arrCopy(from);
+  }
+  var to = {};
+  for (var key in from) {
+    if (hasOwnProperty.call(from, key)) {
+      to[key] = from[key];
+    }
+  }
+  return to;
+}
+function remove(collection, key) {
+  if (!isDataStructure(collection)) {
+    throw new TypeError("Cannot update non-data-structure value: " + collection);
+  }
+  if (isImmutable(collection)) {
+    if (!collection.remove) {
+      throw new TypeError("Cannot update immutable value without .remove() method: " + collection);
+    }
+    return collection.remove(key);
+  }
+  if (!hasOwnProperty.call(collection, key)) {
+    return collection;
+  }
+  var collectionCopy = shallowCopy(collection);
+  if (Array.isArray(collectionCopy)) {
+    collectionCopy.splice(key, 1);
+  } else {
+    delete collectionCopy[key];
+  }
+  return collectionCopy;
+}
+function set(collection, key, value) {
+  if (!isDataStructure(collection)) {
+    throw new TypeError("Cannot update non-data-structure value: " + collection);
+  }
+  if (isImmutable(collection)) {
+    if (!collection.set) {
+      throw new TypeError("Cannot update immutable value without .set() method: " + collection);
+    }
+    return collection.set(key, value);
+  }
+  if (hasOwnProperty.call(collection, key) && value === collection[key]) {
+    return collection;
+  }
+  var collectionCopy = shallowCopy(collection);
+  collectionCopy[key] = value;
+  return collectionCopy;
+}
+function updateIn$1(collection, keyPath, notSetValue, updater) {
+  if (!updater) {
+    updater = notSetValue;
+    notSetValue = void 0;
+  }
+  var updatedValue = updateInDeeply(isImmutable(collection), collection, coerceKeyPath(keyPath), 0, notSetValue, updater);
+  return updatedValue === NOT_SET ? notSetValue : updatedValue;
+}
+function updateInDeeply(inImmutable, existing, keyPath, i, notSetValue, updater) {
+  var wasNotSet = existing === NOT_SET;
+  if (i === keyPath.length) {
+    var existingValue = wasNotSet ? notSetValue : existing;
+    var newValue = updater(existingValue);
+    return newValue === existingValue ? existing : newValue;
+  }
+  if (!wasNotSet && !isDataStructure(existing)) {
+    throw new TypeError("Cannot update within non-data-structure value in path [" + keyPath.slice(0, i).map(quoteString) + "]: " + existing);
+  }
+  var key = keyPath[i];
+  var nextExisting = wasNotSet ? NOT_SET : get(existing, key, NOT_SET);
+  var nextUpdated = updateInDeeply(nextExisting === NOT_SET ? inImmutable : isImmutable(nextExisting), nextExisting, keyPath, i + 1, notSetValue, updater);
+  return nextUpdated === nextExisting ? existing : nextUpdated === NOT_SET ? remove(existing, key) : set(wasNotSet ? inImmutable ? emptyMap() : {} : existing, key, nextUpdated);
+}
+function setIn$1(collection, keyPath, value) {
+  return updateIn$1(collection, keyPath, NOT_SET, function() {
+    return value;
+  });
+}
+function setIn(keyPath, v) {
+  return setIn$1(this, keyPath, v);
+}
+function removeIn(collection, keyPath) {
+  return updateIn$1(collection, keyPath, function() {
+    return NOT_SET;
+  });
+}
+function deleteIn(keyPath) {
+  return removeIn(this, keyPath);
+}
+function update$1(collection, key, notSetValue, updater) {
+  return updateIn$1(collection, [key], notSetValue, updater);
+}
+function update(key, notSetValue, updater) {
+  return arguments.length === 1 ? key(this) : update$1(this, key, notSetValue, updater);
+}
+function updateIn(keyPath, notSetValue, updater) {
+  return updateIn$1(this, keyPath, notSetValue, updater);
+}
+function merge$1() {
+  var iters = [], len = arguments.length;
+  while (len--)
+    iters[len] = arguments[len];
+  return mergeIntoKeyedWith(this, iters);
+}
+function mergeWith$1(merger) {
+  var iters = [], len = arguments.length - 1;
+  while (len-- > 0)
+    iters[len] = arguments[len + 1];
+  if (typeof merger !== "function") {
+    throw new TypeError("Invalid merger function: " + merger);
+  }
+  return mergeIntoKeyedWith(this, iters, merger);
+}
+function mergeIntoKeyedWith(collection, collections, merger) {
+  var iters = [];
+  for (var ii = 0; ii < collections.length; ii++) {
+    var collection$1 = KeyedCollection(collections[ii]);
+    if (collection$1.size !== 0) {
+      iters.push(collection$1);
+    }
+  }
+  if (iters.length === 0) {
+    return collection;
+  }
+  if (collection.toSeq().size === 0 && !collection.__ownerID && iters.length === 1) {
+    return collection.constructor(iters[0]);
+  }
+  return collection.withMutations(function(collection2) {
+    var mergeIntoCollection = merger ? function(value, key) {
+      update$1(collection2, key, NOT_SET, function(oldVal) {
+        return oldVal === NOT_SET ? value : merger(oldVal, value, key);
+      });
+    } : function(value, key) {
+      collection2.set(key, value);
+    };
+    for (var ii2 = 0; ii2 < iters.length; ii2++) {
+      iters[ii2].forEach(mergeIntoCollection);
+    }
+  });
+}
+function mergeDeepWithSources(collection, sources, merger) {
+  return mergeWithSources(collection, sources, deepMergerWith(merger));
+}
+function mergeWithSources(collection, sources, merger) {
+  if (!isDataStructure(collection)) {
+    throw new TypeError("Cannot merge into non-data-structure value: " + collection);
+  }
+  if (isImmutable(collection)) {
+    return typeof merger === "function" && collection.mergeWith ? collection.mergeWith.apply(collection, [merger].concat(sources)) : collection.merge ? collection.merge.apply(collection, sources) : collection.concat.apply(collection, sources);
+  }
+  var isArray = Array.isArray(collection);
+  var merged = collection;
+  var Collection3 = isArray ? IndexedCollection : KeyedCollection;
+  var mergeItem = isArray ? function(value) {
+    if (merged === collection) {
+      merged = shallowCopy(merged);
+    }
+    merged.push(value);
+  } : function(value, key) {
+    var hasVal = hasOwnProperty.call(merged, key);
+    var nextVal = hasVal && merger ? merger(merged[key], value, key) : value;
+    if (!hasVal || nextVal !== merged[key]) {
+      if (merged === collection) {
+        merged = shallowCopy(merged);
+      }
+      merged[key] = nextVal;
+    }
+  };
+  for (var i = 0; i < sources.length; i++) {
+    Collection3(sources[i]).forEach(mergeItem);
+  }
+  return merged;
+}
+function deepMergerWith(merger) {
+  function deepMerger(oldValue, newValue, key) {
+    return isDataStructure(oldValue) && isDataStructure(newValue) && areMergeable(oldValue, newValue) ? mergeWithSources(oldValue, [newValue], deepMerger) : merger ? merger(oldValue, newValue, key) : newValue;
+  }
+  return deepMerger;
+}
+function areMergeable(oldDataStructure, newDataStructure) {
+  var oldSeq = Seq(oldDataStructure);
+  var newSeq = Seq(newDataStructure);
+  return isIndexed(oldSeq) === isIndexed(newSeq) && isKeyed(oldSeq) === isKeyed(newSeq);
+}
+function mergeDeep() {
+  var iters = [], len = arguments.length;
+  while (len--)
+    iters[len] = arguments[len];
+  return mergeDeepWithSources(this, iters);
+}
+function mergeDeepWith(merger) {
+  var iters = [], len = arguments.length - 1;
+  while (len-- > 0)
+    iters[len] = arguments[len + 1];
+  return mergeDeepWithSources(this, iters, merger);
+}
+function mergeIn(keyPath) {
+  var iters = [], len = arguments.length - 1;
+  while (len-- > 0)
+    iters[len] = arguments[len + 1];
+  return updateIn$1(this, keyPath, emptyMap(), function(m) {
+    return mergeWithSources(m, iters);
+  });
+}
+function mergeDeepIn(keyPath) {
+  var iters = [], len = arguments.length - 1;
+  while (len-- > 0)
+    iters[len] = arguments[len + 1];
+  return updateIn$1(this, keyPath, emptyMap(), function(m) {
+    return mergeDeepWithSources(m, iters);
+  });
+}
+function withMutations(fn) {
+  var mutable = this.asMutable();
+  fn(mutable);
+  return mutable.wasAltered() ? mutable.__ensureOwner(this.__ownerID) : this;
+}
+function asMutable() {
+  return this.__ownerID ? this : this.__ensureOwner(new OwnerID());
+}
+function asImmutable() {
+  return this.__ensureOwner();
+}
+function wasAltered() {
+  return this.__altered;
+}
+var Map2 = function(KeyedCollection2) {
+  function Map3(value) {
+    return value === void 0 || value === null ? emptyMap() : isMap(value) && !isOrdered(value) ? value : emptyMap().withMutations(function(map2) {
+      var iter = KeyedCollection2(value);
+      assertNotInfinite(iter.size);
+      iter.forEach(function(v, k) {
+        return map2.set(k, v);
+      });
+    });
+  }
+  if (KeyedCollection2)
+    Map3.__proto__ = KeyedCollection2;
+  Map3.prototype = Object.create(KeyedCollection2 && KeyedCollection2.prototype);
+  Map3.prototype.constructor = Map3;
+  Map3.of = function of() {
+    var keyValues = [], len = arguments.length;
+    while (len--)
+      keyValues[len] = arguments[len];
+    return emptyMap().withMutations(function(map2) {
+      for (var i = 0; i < keyValues.length; i += 2) {
+        if (i + 1 >= keyValues.length) {
+          throw new Error("Missing value for key: " + keyValues[i]);
+        }
+        map2.set(keyValues[i], keyValues[i + 1]);
+      }
+    });
+  };
+  Map3.prototype.toString = function toString5() {
+    return this.__toString("Map {", "}");
+  };
+  Map3.prototype.get = function get11(k, notSetValue) {
+    return this._root ? this._root.get(0, void 0, k, notSetValue) : notSetValue;
+  };
+  Map3.prototype.set = function set3(k, v) {
+    return updateMap(this, k, v);
+  };
+  Map3.prototype.remove = function remove3(k) {
+    return updateMap(this, k, NOT_SET);
+  };
+  Map3.prototype.deleteAll = function deleteAll(keys2) {
+    var collection = Collection(keys2);
+    if (collection.size === 0) {
+      return this;
+    }
+    return this.withMutations(function(map2) {
+      collection.forEach(function(key) {
+        return map2.remove(key);
+      });
+    });
+  };
+  Map3.prototype.clear = function clear2() {
+    if (this.size === 0) {
+      return this;
+    }
+    if (this.__ownerID) {
+      this.size = 0;
+      this._root = null;
+      this.__hash = void 0;
+      this.__altered = true;
+      return this;
+    }
+    return emptyMap();
+  };
+  Map3.prototype.sort = function sort2(comparator) {
+    return OrderedMap(sortFactory(this, comparator));
+  };
+  Map3.prototype.sortBy = function sortBy2(mapper, comparator) {
+    return OrderedMap(sortFactory(this, comparator, mapper));
+  };
+  Map3.prototype.map = function map2(mapper, context2) {
+    var this$1$1 = this;
+    return this.withMutations(function(map3) {
+      map3.forEach(function(value, key) {
+        map3.set(key, mapper.call(context2, value, key, this$1$1));
+      });
+    });
+  };
+  Map3.prototype.__iterator = function __iterator2(type, reverse3) {
+    return new MapIterator(this, type, reverse3);
+  };
+  Map3.prototype.__iterate = function __iterate2(fn, reverse3) {
+    var this$1$1 = this;
+    var iterations = 0;
+    this._root && this._root.iterate(function(entry) {
+      iterations++;
+      return fn(entry[1], entry[0], this$1$1);
+    }, reverse3);
+    return iterations;
+  };
+  Map3.prototype.__ensureOwner = function __ensureOwner2(ownerID) {
+    if (ownerID === this.__ownerID) {
+      return this;
+    }
+    if (!ownerID) {
+      if (this.size === 0) {
+        return emptyMap();
+      }
+      this.__ownerID = ownerID;
+      this.__altered = false;
+      return this;
+    }
+    return makeMap(this.size, this._root, ownerID, this.__hash);
+  };
+  return Map3;
+}(KeyedCollection);
+Map2.isMap = isMap;
+var MapPrototype = Map2.prototype;
+MapPrototype[IS_MAP_SYMBOL] = true;
+MapPrototype[DELETE] = MapPrototype.remove;
+MapPrototype.removeAll = MapPrototype.deleteAll;
+MapPrototype.setIn = setIn;
+MapPrototype.removeIn = MapPrototype.deleteIn = deleteIn;
+MapPrototype.update = update;
+MapPrototype.updateIn = updateIn;
+MapPrototype.merge = MapPrototype.concat = merge$1;
+MapPrototype.mergeWith = mergeWith$1;
+MapPrototype.mergeDeep = mergeDeep;
+MapPrototype.mergeDeepWith = mergeDeepWith;
+MapPrototype.mergeIn = mergeIn;
+MapPrototype.mergeDeepIn = mergeDeepIn;
+MapPrototype.withMutations = withMutations;
+MapPrototype.wasAltered = wasAltered;
+MapPrototype.asImmutable = asImmutable;
+MapPrototype["@@transducer/init"] = MapPrototype.asMutable = asMutable;
+MapPrototype["@@transducer/step"] = function(result, arr) {
+  return result.set(arr[0], arr[1]);
+};
+MapPrototype["@@transducer/result"] = function(obj) {
+  return obj.asImmutable();
+};
+var ArrayMapNode = function ArrayMapNode2(ownerID, entries3) {
+  this.ownerID = ownerID;
+  this.entries = entries3;
+};
+ArrayMapNode.prototype.get = function get2(shift, keyHash, key, notSetValue) {
+  var entries3 = this.entries;
+  for (var ii = 0, len = entries3.length; ii < len; ii++) {
+    if (is(key, entries3[ii][0])) {
+      return entries3[ii][1];
+    }
+  }
+  return notSetValue;
+};
+ArrayMapNode.prototype.update = function update2(ownerID, shift, keyHash, key, value, didChangeSize, didAlter) {
+  var removed = value === NOT_SET;
+  var entries3 = this.entries;
+  var idx = 0;
+  var len = entries3.length;
+  for (; idx < len; idx++) {
+    if (is(key, entries3[idx][0])) {
+      break;
+    }
+  }
+  var exists = idx < len;
+  if (exists ? entries3[idx][1] === value : removed) {
+    return this;
+  }
+  SetRef(didAlter);
+  (removed || !exists) && SetRef(didChangeSize);
+  if (removed && entries3.length === 1) {
+    return;
+  }
+  if (!exists && !removed && entries3.length >= MAX_ARRAY_MAP_SIZE) {
+    return createNodes(ownerID, entries3, key, value);
+  }
+  var isEditable = ownerID && ownerID === this.ownerID;
+  var newEntries = isEditable ? entries3 : arrCopy(entries3);
+  if (exists) {
+    if (removed) {
+      idx === len - 1 ? newEntries.pop() : newEntries[idx] = newEntries.pop();
+    } else {
+      newEntries[idx] = [key, value];
+    }
+  } else {
+    newEntries.push([key, value]);
+  }
+  if (isEditable) {
+    this.entries = newEntries;
+    return this;
+  }
+  return new ArrayMapNode(ownerID, newEntries);
+};
+var BitmapIndexedNode = function BitmapIndexedNode2(ownerID, bitmap, nodes) {
+  this.ownerID = ownerID;
+  this.bitmap = bitmap;
+  this.nodes = nodes;
+};
+BitmapIndexedNode.prototype.get = function get3(shift, keyHash, key, notSetValue) {
+  if (keyHash === void 0) {
+    keyHash = hash(key);
+  }
+  var bit = 1 << ((shift === 0 ? keyHash : keyHash >>> shift) & MASK);
+  var bitmap = this.bitmap;
+  return (bitmap & bit) === 0 ? notSetValue : this.nodes[popCount(bitmap & bit - 1)].get(shift + SHIFT, keyHash, key, notSetValue);
+};
+BitmapIndexedNode.prototype.update = function update3(ownerID, shift, keyHash, key, value, didChangeSize, didAlter) {
+  if (keyHash === void 0) {
+    keyHash = hash(key);
+  }
+  var keyHashFrag = (shift === 0 ? keyHash : keyHash >>> shift) & MASK;
+  var bit = 1 << keyHashFrag;
+  var bitmap = this.bitmap;
+  var exists = (bitmap & bit) !== 0;
+  if (!exists && value === NOT_SET) {
+    return this;
+  }
+  var idx = popCount(bitmap & bit - 1);
+  var nodes = this.nodes;
+  var node = exists ? nodes[idx] : void 0;
+  var newNode = updateNode(node, ownerID, shift + SHIFT, keyHash, key, value, didChangeSize, didAlter);
+  if (newNode === node) {
+    return this;
+  }
+  if (!exists && newNode && nodes.length >= MAX_BITMAP_INDEXED_SIZE) {
+    return expandNodes(ownerID, nodes, bitmap, keyHashFrag, newNode);
+  }
+  if (exists && !newNode && nodes.length === 2 && isLeafNode(nodes[idx ^ 1])) {
+    return nodes[idx ^ 1];
+  }
+  if (exists && newNode && nodes.length === 1 && isLeafNode(newNode)) {
+    return newNode;
+  }
+  var isEditable = ownerID && ownerID === this.ownerID;
+  var newBitmap = exists ? newNode ? bitmap : bitmap ^ bit : bitmap | bit;
+  var newNodes = exists ? newNode ? setAt(nodes, idx, newNode, isEditable) : spliceOut(nodes, idx, isEditable) : spliceIn(nodes, idx, newNode, isEditable);
+  if (isEditable) {
+    this.bitmap = newBitmap;
+    this.nodes = newNodes;
+    return this;
+  }
+  return new BitmapIndexedNode(ownerID, newBitmap, newNodes);
+};
+var HashArrayMapNode = function HashArrayMapNode2(ownerID, count2, nodes) {
+  this.ownerID = ownerID;
+  this.count = count2;
+  this.nodes = nodes;
+};
+HashArrayMapNode.prototype.get = function get4(shift, keyHash, key, notSetValue) {
+  if (keyHash === void 0) {
+    keyHash = hash(key);
+  }
+  var idx = (shift === 0 ? keyHash : keyHash >>> shift) & MASK;
+  var node = this.nodes[idx];
+  return node ? node.get(shift + SHIFT, keyHash, key, notSetValue) : notSetValue;
+};
+HashArrayMapNode.prototype.update = function update4(ownerID, shift, keyHash, key, value, didChangeSize, didAlter) {
+  if (keyHash === void 0) {
+    keyHash = hash(key);
+  }
+  var idx = (shift === 0 ? keyHash : keyHash >>> shift) & MASK;
+  var removed = value === NOT_SET;
+  var nodes = this.nodes;
+  var node = nodes[idx];
+  if (removed && !node) {
+    return this;
+  }
+  var newNode = updateNode(node, ownerID, shift + SHIFT, keyHash, key, value, didChangeSize, didAlter);
+  if (newNode === node) {
+    return this;
+  }
+  var newCount = this.count;
+  if (!node) {
+    newCount++;
+  } else if (!newNode) {
+    newCount--;
+    if (newCount < MIN_HASH_ARRAY_MAP_SIZE) {
+      return packNodes(ownerID, nodes, newCount, idx);
+    }
+  }
+  var isEditable = ownerID && ownerID === this.ownerID;
+  var newNodes = setAt(nodes, idx, newNode, isEditable);
+  if (isEditable) {
+    this.count = newCount;
+    this.nodes = newNodes;
+    return this;
+  }
+  return new HashArrayMapNode(ownerID, newCount, newNodes);
+};
+var HashCollisionNode = function HashCollisionNode2(ownerID, keyHash, entries3) {
+  this.ownerID = ownerID;
+  this.keyHash = keyHash;
+  this.entries = entries3;
+};
+HashCollisionNode.prototype.get = function get5(shift, keyHash, key, notSetValue) {
+  var entries3 = this.entries;
+  for (var ii = 0, len = entries3.length; ii < len; ii++) {
+    if (is(key, entries3[ii][0])) {
+      return entries3[ii][1];
+    }
+  }
+  return notSetValue;
+};
+HashCollisionNode.prototype.update = function update5(ownerID, shift, keyHash, key, value, didChangeSize, didAlter) {
+  if (keyHash === void 0) {
+    keyHash = hash(key);
+  }
+  var removed = value === NOT_SET;
+  if (keyHash !== this.keyHash) {
+    if (removed) {
+      return this;
+    }
+    SetRef(didAlter);
+    SetRef(didChangeSize);
+    return mergeIntoNode(this, ownerID, shift, keyHash, [key, value]);
+  }
+  var entries3 = this.entries;
+  var idx = 0;
+  var len = entries3.length;
+  for (; idx < len; idx++) {
+    if (is(key, entries3[idx][0])) {
+      break;
+    }
+  }
+  var exists = idx < len;
+  if (exists ? entries3[idx][1] === value : removed) {
+    return this;
+  }
+  SetRef(didAlter);
+  (removed || !exists) && SetRef(didChangeSize);
+  if (removed && len === 2) {
+    return new ValueNode(ownerID, this.keyHash, entries3[idx ^ 1]);
+  }
+  var isEditable = ownerID && ownerID === this.ownerID;
+  var newEntries = isEditable ? entries3 : arrCopy(entries3);
+  if (exists) {
+    if (removed) {
+      idx === len - 1 ? newEntries.pop() : newEntries[idx] = newEntries.pop();
+    } else {
+      newEntries[idx] = [key, value];
+    }
+  } else {
+    newEntries.push([key, value]);
+  }
+  if (isEditable) {
+    this.entries = newEntries;
+    return this;
+  }
+  return new HashCollisionNode(ownerID, this.keyHash, newEntries);
+};
+var ValueNode = function ValueNode2(ownerID, keyHash, entry) {
+  this.ownerID = ownerID;
+  this.keyHash = keyHash;
+  this.entry = entry;
+};
+ValueNode.prototype.get = function get6(shift, keyHash, key, notSetValue) {
+  return is(key, this.entry[0]) ? this.entry[1] : notSetValue;
+};
+ValueNode.prototype.update = function update6(ownerID, shift, keyHash, key, value, didChangeSize, didAlter) {
+  var removed = value === NOT_SET;
+  var keyMatch = is(key, this.entry[0]);
+  if (keyMatch ? value === this.entry[1] : removed) {
+    return this;
+  }
+  SetRef(didAlter);
+  if (removed) {
+    SetRef(didChangeSize);
+    return;
+  }
+  if (keyMatch) {
+    if (ownerID && ownerID === this.ownerID) {
+      this.entry[1] = value;
+      return this;
+    }
+    return new ValueNode(ownerID, this.keyHash, [key, value]);
+  }
+  SetRef(didChangeSize);
+  return mergeIntoNode(this, ownerID, shift, hash(key), [key, value]);
+};
+ArrayMapNode.prototype.iterate = HashCollisionNode.prototype.iterate = function(fn, reverse3) {
+  var entries3 = this.entries;
+  for (var ii = 0, maxIndex = entries3.length - 1; ii <= maxIndex; ii++) {
+    if (fn(entries3[reverse3 ? maxIndex - ii : ii]) === false) {
+      return false;
+    }
+  }
+};
+BitmapIndexedNode.prototype.iterate = HashArrayMapNode.prototype.iterate = function(fn, reverse3) {
+  var nodes = this.nodes;
+  for (var ii = 0, maxIndex = nodes.length - 1; ii <= maxIndex; ii++) {
+    var node = nodes[reverse3 ? maxIndex - ii : ii];
+    if (node && node.iterate(fn, reverse3) === false) {
+      return false;
+    }
+  }
+};
+ValueNode.prototype.iterate = function(fn, reverse3) {
+  return fn(this.entry);
+};
+var MapIterator = function(Iterator3) {
+  function MapIterator2(map2, type, reverse3) {
+    this._type = type;
+    this._reverse = reverse3;
+    this._stack = map2._root && mapIteratorFrame(map2._root);
+  }
+  if (Iterator3)
+    MapIterator2.__proto__ = Iterator3;
+  MapIterator2.prototype = Object.create(Iterator3 && Iterator3.prototype);
+  MapIterator2.prototype.constructor = MapIterator2;
+  MapIterator2.prototype.next = function next() {
+    var type = this._type;
+    var stack = this._stack;
+    while (stack) {
+      var node = stack.node;
+      var index = stack.index++;
+      var maxIndex = void 0;
+      if (node.entry) {
+        if (index === 0) {
+          return mapIteratorValue(type, node.entry);
+        }
+      } else if (node.entries) {
+        maxIndex = node.entries.length - 1;
+        if (index <= maxIndex) {
+          return mapIteratorValue(type, node.entries[this._reverse ? maxIndex - index : index]);
+        }
+      } else {
+        maxIndex = node.nodes.length - 1;
+        if (index <= maxIndex) {
+          var subNode = node.nodes[this._reverse ? maxIndex - index : index];
+          if (subNode) {
+            if (subNode.entry) {
+              return mapIteratorValue(type, subNode.entry);
+            }
+            stack = this._stack = mapIteratorFrame(subNode, stack);
+          }
+          continue;
+        }
+      }
+      stack = this._stack = this._stack.__prev;
+    }
+    return iteratorDone();
+  };
+  return MapIterator2;
+}(Iterator);
+function mapIteratorValue(type, entry) {
+  return iteratorValue(type, entry[0], entry[1]);
+}
+function mapIteratorFrame(node, prev) {
+  return {
+    node,
+    index: 0,
+    __prev: prev
+  };
+}
+function makeMap(size, root, ownerID, hash2) {
+  var map2 = Object.create(MapPrototype);
+  map2.size = size;
+  map2._root = root;
+  map2.__ownerID = ownerID;
+  map2.__hash = hash2;
+  map2.__altered = false;
+  return map2;
+}
+var EMPTY_MAP;
+function emptyMap() {
+  return EMPTY_MAP || (EMPTY_MAP = makeMap(0));
+}
+function updateMap(map2, k, v) {
+  var newRoot;
+  var newSize;
+  if (!map2._root) {
+    if (v === NOT_SET) {
+      return map2;
+    }
+    newSize = 1;
+    newRoot = new ArrayMapNode(map2.__ownerID, [[k, v]]);
+  } else {
+    var didChangeSize = MakeRef();
+    var didAlter = MakeRef();
+    newRoot = updateNode(map2._root, map2.__ownerID, 0, void 0, k, v, didChangeSize, didAlter);
+    if (!didAlter.value) {
+      return map2;
+    }
+    newSize = map2.size + (didChangeSize.value ? v === NOT_SET ? -1 : 1 : 0);
+  }
+  if (map2.__ownerID) {
+    map2.size = newSize;
+    map2._root = newRoot;
+    map2.__hash = void 0;
+    map2.__altered = true;
+    return map2;
+  }
+  return newRoot ? makeMap(newSize, newRoot) : emptyMap();
+}
+function updateNode(node, ownerID, shift, keyHash, key, value, didChangeSize, didAlter) {
+  if (!node) {
+    if (value === NOT_SET) {
+      return node;
+    }
+    SetRef(didAlter);
+    SetRef(didChangeSize);
+    return new ValueNode(ownerID, keyHash, [key, value]);
+  }
+  return node.update(ownerID, shift, keyHash, key, value, didChangeSize, didAlter);
+}
+function isLeafNode(node) {
+  return node.constructor === ValueNode || node.constructor === HashCollisionNode;
+}
+function mergeIntoNode(node, ownerID, shift, keyHash, entry) {
+  if (node.keyHash === keyHash) {
+    return new HashCollisionNode(ownerID, keyHash, [node.entry, entry]);
+  }
+  var idx1 = (shift === 0 ? node.keyHash : node.keyHash >>> shift) & MASK;
+  var idx2 = (shift === 0 ? keyHash : keyHash >>> shift) & MASK;
+  var newNode;
+  var nodes = idx1 === idx2 ? [mergeIntoNode(node, ownerID, shift + SHIFT, keyHash, entry)] : (newNode = new ValueNode(ownerID, keyHash, entry), idx1 < idx2 ? [node, newNode] : [newNode, node]);
+  return new BitmapIndexedNode(ownerID, 1 << idx1 | 1 << idx2, nodes);
+}
+function createNodes(ownerID, entries3, key, value) {
+  if (!ownerID) {
+    ownerID = new OwnerID();
+  }
+  var node = new ValueNode(ownerID, hash(key), [key, value]);
+  for (var ii = 0; ii < entries3.length; ii++) {
+    var entry = entries3[ii];
+    node = node.update(ownerID, 0, void 0, entry[0], entry[1]);
+  }
+  return node;
+}
+function packNodes(ownerID, nodes, count2, excluding) {
+  var bitmap = 0;
+  var packedII = 0;
+  var packedNodes = new Array(count2);
+  for (var ii = 0, bit = 1, len = nodes.length; ii < len; ii++, bit <<= 1) {
+    var node = nodes[ii];
+    if (node !== void 0 && ii !== excluding) {
+      bitmap |= bit;
+      packedNodes[packedII++] = node;
+    }
+  }
+  return new BitmapIndexedNode(ownerID, bitmap, packedNodes);
+}
+function expandNodes(ownerID, nodes, bitmap, including, node) {
+  var count2 = 0;
+  var expandedNodes = new Array(SIZE);
+  for (var ii = 0; bitmap !== 0; ii++, bitmap >>>= 1) {
+    expandedNodes[ii] = bitmap & 1 ? nodes[count2++] : void 0;
+  }
+  expandedNodes[including] = node;
+  return new HashArrayMapNode(ownerID, count2 + 1, expandedNodes);
+}
+function popCount(x) {
+  x -= x >> 1 & 1431655765;
+  x = (x & 858993459) + (x >> 2 & 858993459);
+  x = x + (x >> 4) & 252645135;
+  x += x >> 8;
+  x += x >> 16;
+  return x & 127;
+}
+function setAt(array, idx, val, canEdit) {
+  var newArray = canEdit ? array : arrCopy(array);
+  newArray[idx] = val;
+  return newArray;
+}
+function spliceIn(array, idx, val, canEdit) {
+  var newLen = array.length + 1;
+  if (canEdit && idx + 1 === newLen) {
+    array[idx] = val;
+    return array;
+  }
+  var newArray = new Array(newLen);
+  var after = 0;
+  for (var ii = 0; ii < newLen; ii++) {
+    if (ii === idx) {
+      newArray[ii] = val;
+      after = -1;
+    } else {
+      newArray[ii] = array[ii + after];
+    }
+  }
+  return newArray;
+}
+function spliceOut(array, idx, canEdit) {
+  var newLen = array.length - 1;
+  if (canEdit && idx === newLen) {
+    array.pop();
+    return array;
+  }
+  var newArray = new Array(newLen);
+  var after = 0;
+  for (var ii = 0; ii < newLen; ii++) {
+    if (ii === idx) {
+      after = 1;
+    }
+    newArray[ii] = array[ii + after];
+  }
+  return newArray;
+}
+var MAX_ARRAY_MAP_SIZE = SIZE / 4;
+var MAX_BITMAP_INDEXED_SIZE = SIZE / 2;
+var MIN_HASH_ARRAY_MAP_SIZE = SIZE / 4;
+var IS_LIST_SYMBOL = "@@__IMMUTABLE_LIST__@@";
+function isList(maybeList) {
+  return Boolean(maybeList && maybeList[IS_LIST_SYMBOL]);
+}
+var List = function(IndexedCollection2) {
+  function List2(value) {
+    var empty = emptyList();
+    if (value === void 0 || value === null) {
+      return empty;
+    }
+    if (isList(value)) {
+      return value;
+    }
+    var iter = IndexedCollection2(value);
+    var size = iter.size;
+    if (size === 0) {
+      return empty;
+    }
+    assertNotInfinite(size);
+    if (size > 0 && size < SIZE) {
+      return makeList(0, size, SHIFT, null, new VNode(iter.toArray()));
+    }
+    return empty.withMutations(function(list) {
+      list.setSize(size);
+      iter.forEach(function(v, i) {
+        return list.set(i, v);
+      });
+    });
+  }
+  if (IndexedCollection2)
+    List2.__proto__ = IndexedCollection2;
+  List2.prototype = Object.create(IndexedCollection2 && IndexedCollection2.prototype);
+  List2.prototype.constructor = List2;
+  List2.of = function of() {
+    return this(arguments);
+  };
+  List2.prototype.toString = function toString5() {
+    return this.__toString("List [", "]");
+  };
+  List2.prototype.get = function get11(index, notSetValue) {
+    index = wrapIndex(this, index);
+    if (index >= 0 && index < this.size) {
+      index += this._origin;
+      var node = listNodeFor(this, index);
+      return node && node.array[index & MASK];
+    }
+    return notSetValue;
+  };
+  List2.prototype.set = function set3(index, value) {
+    return updateList(this, index, value);
+  };
+  List2.prototype.remove = function remove3(index) {
+    return !this.has(index) ? this : index === 0 ? this.shift() : index === this.size - 1 ? this.pop() : this.splice(index, 1);
+  };
+  List2.prototype.insert = function insert(index, value) {
+    return this.splice(index, 0, value);
+  };
+  List2.prototype.clear = function clear2() {
+    if (this.size === 0) {
+      return this;
+    }
+    if (this.__ownerID) {
+      this.size = this._origin = this._capacity = 0;
+      this._level = SHIFT;
+      this._root = this._tail = this.__hash = void 0;
+      this.__altered = true;
+      return this;
+    }
+    return emptyList();
+  };
+  List2.prototype.push = function push() {
+    var values2 = arguments;
+    var oldSize = this.size;
+    return this.withMutations(function(list) {
+      setListBounds(list, 0, oldSize + values2.length);
+      for (var ii = 0; ii < values2.length; ii++) {
+        list.set(oldSize + ii, values2[ii]);
+      }
+    });
+  };
+  List2.prototype.pop = function pop() {
+    return setListBounds(this, 0, -1);
+  };
+  List2.prototype.unshift = function unshift() {
+    var values2 = arguments;
+    return this.withMutations(function(list) {
+      setListBounds(list, -values2.length);
+      for (var ii = 0; ii < values2.length; ii++) {
+        list.set(ii, values2[ii]);
+      }
+    });
+  };
+  List2.prototype.shift = function shift() {
+    return setListBounds(this, 1);
+  };
+  List2.prototype.concat = function concat2() {
+    var arguments$1 = arguments;
+    var seqs = [];
+    for (var i = 0; i < arguments.length; i++) {
+      var argument = arguments$1[i];
+      var seq = IndexedCollection2(typeof argument !== "string" && hasIterator(argument) ? argument : [argument]);
+      if (seq.size !== 0) {
+        seqs.push(seq);
+      }
+    }
+    if (seqs.length === 0) {
+      return this;
+    }
+    if (this.size === 0 && !this.__ownerID && seqs.length === 1) {
+      return this.constructor(seqs[0]);
+    }
+    return this.withMutations(function(list) {
+      seqs.forEach(function(seq2) {
+        return seq2.forEach(function(value) {
+          return list.push(value);
+        });
+      });
+    });
+  };
+  List2.prototype.setSize = function setSize(size) {
+    return setListBounds(this, 0, size);
+  };
+  List2.prototype.map = function map2(mapper, context2) {
+    var this$1$1 = this;
+    return this.withMutations(function(list) {
+      for (var i = 0; i < this$1$1.size; i++) {
+        list.set(i, mapper.call(context2, list.get(i), i, this$1$1));
+      }
+    });
+  };
+  List2.prototype.slice = function slice3(begin, end) {
+    var size = this.size;
+    if (wholeSlice(begin, end, size)) {
+      return this;
+    }
+    return setListBounds(this, resolveBegin(begin, size), resolveEnd(end, size));
+  };
+  List2.prototype.__iterator = function __iterator2(type, reverse3) {
+    var index = reverse3 ? this.size : 0;
+    var values2 = iterateList(this, reverse3);
+    return new Iterator(function() {
+      var value = values2();
+      return value === DONE ? iteratorDone() : iteratorValue(type, reverse3 ? --index : index++, value);
+    });
+  };
+  List2.prototype.__iterate = function __iterate2(fn, reverse3) {
+    var index = reverse3 ? this.size : 0;
+    var values2 = iterateList(this, reverse3);
+    var value;
+    while ((value = values2()) !== DONE) {
+      if (fn(value, reverse3 ? --index : index++, this) === false) {
+        break;
+      }
+    }
+    return index;
+  };
+  List2.prototype.__ensureOwner = function __ensureOwner2(ownerID) {
+    if (ownerID === this.__ownerID) {
+      return this;
+    }
+    if (!ownerID) {
+      if (this.size === 0) {
+        return emptyList();
+      }
+      this.__ownerID = ownerID;
+      this.__altered = false;
+      return this;
+    }
+    return makeList(this._origin, this._capacity, this._level, this._root, this._tail, ownerID, this.__hash);
+  };
+  return List2;
+}(IndexedCollection);
+List.isList = isList;
+var ListPrototype = List.prototype;
+ListPrototype[IS_LIST_SYMBOL] = true;
+ListPrototype[DELETE] = ListPrototype.remove;
+ListPrototype.merge = ListPrototype.concat;
+ListPrototype.setIn = setIn;
+ListPrototype.deleteIn = ListPrototype.removeIn = deleteIn;
+ListPrototype.update = update;
+ListPrototype.updateIn = updateIn;
+ListPrototype.mergeIn = mergeIn;
+ListPrototype.mergeDeepIn = mergeDeepIn;
+ListPrototype.withMutations = withMutations;
+ListPrototype.wasAltered = wasAltered;
+ListPrototype.asImmutable = asImmutable;
+ListPrototype["@@transducer/init"] = ListPrototype.asMutable = asMutable;
+ListPrototype["@@transducer/step"] = function(result, arr) {
+  return result.push(arr);
+};
+ListPrototype["@@transducer/result"] = function(obj) {
+  return obj.asImmutable();
+};
+var VNode = function VNode2(array, ownerID) {
+  this.array = array;
+  this.ownerID = ownerID;
+};
+VNode.prototype.removeBefore = function removeBefore(ownerID, level, index) {
+  if (index === level ? 1 << level : this.array.length === 0) {
+    return this;
+  }
+  var originIndex = index >>> level & MASK;
+  if (originIndex >= this.array.length) {
+    return new VNode([], ownerID);
+  }
+  var removingFirst = originIndex === 0;
+  var newChild;
+  if (level > 0) {
+    var oldChild = this.array[originIndex];
+    newChild = oldChild && oldChild.removeBefore(ownerID, level - SHIFT, index);
+    if (newChild === oldChild && removingFirst) {
+      return this;
+    }
+  }
+  if (removingFirst && !newChild) {
+    return this;
+  }
+  var editable = editableVNode(this, ownerID);
+  if (!removingFirst) {
+    for (var ii = 0; ii < originIndex; ii++) {
+      editable.array[ii] = void 0;
+    }
+  }
+  if (newChild) {
+    editable.array[originIndex] = newChild;
+  }
+  return editable;
+};
+VNode.prototype.removeAfter = function removeAfter(ownerID, level, index) {
+  if (index === (level ? 1 << level : 0) || this.array.length === 0) {
+    return this;
+  }
+  var sizeIndex = index - 1 >>> level & MASK;
+  if (sizeIndex >= this.array.length) {
+    return this;
+  }
+  var newChild;
+  if (level > 0) {
+    var oldChild = this.array[sizeIndex];
+    newChild = oldChild && oldChild.removeAfter(ownerID, level - SHIFT, index);
+    if (newChild === oldChild && sizeIndex === this.array.length - 1) {
+      return this;
+    }
+  }
+  var editable = editableVNode(this, ownerID);
+  editable.array.splice(sizeIndex + 1);
+  if (newChild) {
+    editable.array[sizeIndex] = newChild;
+  }
+  return editable;
+};
+var DONE = {};
+function iterateList(list, reverse3) {
+  var left = list._origin;
+  var right = list._capacity;
+  var tailPos = getTailOffset(right);
+  var tail = list._tail;
+  return iterateNodeOrLeaf(list._root, list._level, 0);
+  function iterateNodeOrLeaf(node, level, offset) {
+    return level === 0 ? iterateLeaf(node, offset) : iterateNode(node, level, offset);
+  }
+  function iterateLeaf(node, offset) {
+    var array = offset === tailPos ? tail && tail.array : node && node.array;
+    var from = offset > left ? 0 : left - offset;
+    var to = right - offset;
+    if (to > SIZE) {
+      to = SIZE;
+    }
+    return function() {
+      if (from === to) {
+        return DONE;
+      }
+      var idx = reverse3 ? --to : from++;
+      return array && array[idx];
+    };
+  }
+  function iterateNode(node, level, offset) {
+    var values2;
+    var array = node && node.array;
+    var from = offset > left ? 0 : left - offset >> level;
+    var to = (right - offset >> level) + 1;
+    if (to > SIZE) {
+      to = SIZE;
+    }
+    return function() {
+      while (true) {
+        if (values2) {
+          var value = values2();
+          if (value !== DONE) {
+            return value;
+          }
+          values2 = null;
+        }
+        if (from === to) {
+          return DONE;
+        }
+        var idx = reverse3 ? --to : from++;
+        values2 = iterateNodeOrLeaf(array && array[idx], level - SHIFT, offset + (idx << level));
+      }
+    };
+  }
+}
+function makeList(origin, capacity, level, root, tail, ownerID, hash2) {
+  var list = Object.create(ListPrototype);
+  list.size = capacity - origin;
+  list._origin = origin;
+  list._capacity = capacity;
+  list._level = level;
+  list._root = root;
+  list._tail = tail;
+  list.__ownerID = ownerID;
+  list.__hash = hash2;
+  list.__altered = false;
+  return list;
+}
+var EMPTY_LIST;
+function emptyList() {
+  return EMPTY_LIST || (EMPTY_LIST = makeList(0, 0, SHIFT));
+}
+function updateList(list, index, value) {
+  index = wrapIndex(list, index);
+  if (index !== index) {
+    return list;
+  }
+  if (index >= list.size || index < 0) {
+    return list.withMutations(function(list2) {
+      index < 0 ? setListBounds(list2, index).set(0, value) : setListBounds(list2, 0, index + 1).set(index, value);
+    });
+  }
+  index += list._origin;
+  var newTail = list._tail;
+  var newRoot = list._root;
+  var didAlter = MakeRef();
+  if (index >= getTailOffset(list._capacity)) {
+    newTail = updateVNode(newTail, list.__ownerID, 0, index, value, didAlter);
+  } else {
+    newRoot = updateVNode(newRoot, list.__ownerID, list._level, index, value, didAlter);
+  }
+  if (!didAlter.value) {
+    return list;
+  }
+  if (list.__ownerID) {
+    list._root = newRoot;
+    list._tail = newTail;
+    list.__hash = void 0;
+    list.__altered = true;
+    return list;
+  }
+  return makeList(list._origin, list._capacity, list._level, newRoot, newTail);
+}
+function updateVNode(node, ownerID, level, index, value, didAlter) {
+  var idx = index >>> level & MASK;
+  var nodeHas = node && idx < node.array.length;
+  if (!nodeHas && value === void 0) {
+    return node;
+  }
+  var newNode;
+  if (level > 0) {
+    var lowerNode = node && node.array[idx];
+    var newLowerNode = updateVNode(lowerNode, ownerID, level - SHIFT, index, value, didAlter);
+    if (newLowerNode === lowerNode) {
+      return node;
+    }
+    newNode = editableVNode(node, ownerID);
+    newNode.array[idx] = newLowerNode;
+    return newNode;
+  }
+  if (nodeHas && node.array[idx] === value) {
+    return node;
+  }
+  if (didAlter) {
+    SetRef(didAlter);
+  }
+  newNode = editableVNode(node, ownerID);
+  if (value === void 0 && idx === newNode.array.length - 1) {
+    newNode.array.pop();
+  } else {
+    newNode.array[idx] = value;
+  }
+  return newNode;
+}
+function editableVNode(node, ownerID) {
+  if (ownerID && node && ownerID === node.ownerID) {
+    return node;
+  }
+  return new VNode(node ? node.array.slice() : [], ownerID);
+}
+function listNodeFor(list, rawIndex) {
+  if (rawIndex >= getTailOffset(list._capacity)) {
+    return list._tail;
+  }
+  if (rawIndex < 1 << list._level + SHIFT) {
+    var node = list._root;
+    var level = list._level;
+    while (node && level > 0) {
+      node = node.array[rawIndex >>> level & MASK];
+      level -= SHIFT;
+    }
+    return node;
+  }
+}
+function setListBounds(list, begin, end) {
+  if (begin !== void 0) {
+    begin |= 0;
+  }
+  if (end !== void 0) {
+    end |= 0;
+  }
+  var owner = list.__ownerID || new OwnerID();
+  var oldOrigin = list._origin;
+  var oldCapacity = list._capacity;
+  var newOrigin = oldOrigin + begin;
+  var newCapacity = end === void 0 ? oldCapacity : end < 0 ? oldCapacity + end : oldOrigin + end;
+  if (newOrigin === oldOrigin && newCapacity === oldCapacity) {
+    return list;
+  }
+  if (newOrigin >= newCapacity) {
+    return list.clear();
+  }
+  var newLevel = list._level;
+  var newRoot = list._root;
+  var offsetShift = 0;
+  while (newOrigin + offsetShift < 0) {
+    newRoot = new VNode(newRoot && newRoot.array.length ? [void 0, newRoot] : [], owner);
+    newLevel += SHIFT;
+    offsetShift += 1 << newLevel;
+  }
+  if (offsetShift) {
+    newOrigin += offsetShift;
+    oldOrigin += offsetShift;
+    newCapacity += offsetShift;
+    oldCapacity += offsetShift;
+  }
+  var oldTailOffset = getTailOffset(oldCapacity);
+  var newTailOffset = getTailOffset(newCapacity);
+  while (newTailOffset >= 1 << newLevel + SHIFT) {
+    newRoot = new VNode(newRoot && newRoot.array.length ? [newRoot] : [], owner);
+    newLevel += SHIFT;
+  }
+  var oldTail = list._tail;
+  var newTail = newTailOffset < oldTailOffset ? listNodeFor(list, newCapacity - 1) : newTailOffset > oldTailOffset ? new VNode([], owner) : oldTail;
+  if (oldTail && newTailOffset > oldTailOffset && newOrigin < oldCapacity && oldTail.array.length) {
+    newRoot = editableVNode(newRoot, owner);
+    var node = newRoot;
+    for (var level = newLevel; level > SHIFT; level -= SHIFT) {
+      var idx = oldTailOffset >>> level & MASK;
+      node = node.array[idx] = editableVNode(node.array[idx], owner);
+    }
+    node.array[oldTailOffset >>> SHIFT & MASK] = oldTail;
+  }
+  if (newCapacity < oldCapacity) {
+    newTail = newTail && newTail.removeAfter(owner, 0, newCapacity);
+  }
+  if (newOrigin >= newTailOffset) {
+    newOrigin -= newTailOffset;
+    newCapacity -= newTailOffset;
+    newLevel = SHIFT;
+    newRoot = null;
+    newTail = newTail && newTail.removeBefore(owner, 0, newOrigin);
+  } else if (newOrigin > oldOrigin || newTailOffset < oldTailOffset) {
+    offsetShift = 0;
+    while (newRoot) {
+      var beginIndex = newOrigin >>> newLevel & MASK;
+      if (beginIndex !== newTailOffset >>> newLevel & MASK) {
+        break;
+      }
+      if (beginIndex) {
+        offsetShift += (1 << newLevel) * beginIndex;
+      }
+      newLevel -= SHIFT;
+      newRoot = newRoot.array[beginIndex];
+    }
+    if (newRoot && newOrigin > oldOrigin) {
+      newRoot = newRoot.removeBefore(owner, newLevel, newOrigin - offsetShift);
+    }
+    if (newRoot && newTailOffset < oldTailOffset) {
+      newRoot = newRoot.removeAfter(owner, newLevel, newTailOffset - offsetShift);
+    }
+    if (offsetShift) {
+      newOrigin -= offsetShift;
+      newCapacity -= offsetShift;
+    }
+  }
+  if (list.__ownerID) {
+    list.size = newCapacity - newOrigin;
+    list._origin = newOrigin;
+    list._capacity = newCapacity;
+    list._level = newLevel;
+    list._root = newRoot;
+    list._tail = newTail;
+    list.__hash = void 0;
+    list.__altered = true;
+    return list;
+  }
+  return makeList(newOrigin, newCapacity, newLevel, newRoot, newTail);
+}
+function getTailOffset(size) {
+  return size < SIZE ? 0 : size - 1 >>> SHIFT << SHIFT;
+}
+var OrderedMap = function(Map3) {
+  function OrderedMap2(value) {
+    return value === void 0 || value === null ? emptyOrderedMap() : isOrderedMap(value) ? value : emptyOrderedMap().withMutations(function(map2) {
+      var iter = KeyedCollection(value);
+      assertNotInfinite(iter.size);
+      iter.forEach(function(v, k) {
+        return map2.set(k, v);
+      });
+    });
+  }
+  if (Map3)
+    OrderedMap2.__proto__ = Map3;
+  OrderedMap2.prototype = Object.create(Map3 && Map3.prototype);
+  OrderedMap2.prototype.constructor = OrderedMap2;
+  OrderedMap2.of = function of() {
+    return this(arguments);
+  };
+  OrderedMap2.prototype.toString = function toString5() {
+    return this.__toString("OrderedMap {", "}");
+  };
+  OrderedMap2.prototype.get = function get11(k, notSetValue) {
+    var index = this._map.get(k);
+    return index !== void 0 ? this._list.get(index)[1] : notSetValue;
+  };
+  OrderedMap2.prototype.clear = function clear2() {
+    if (this.size === 0) {
+      return this;
+    }
+    if (this.__ownerID) {
+      this.size = 0;
+      this._map.clear();
+      this._list.clear();
+      this.__altered = true;
+      return this;
+    }
+    return emptyOrderedMap();
+  };
+  OrderedMap2.prototype.set = function set3(k, v) {
+    return updateOrderedMap(this, k, v);
+  };
+  OrderedMap2.prototype.remove = function remove3(k) {
+    return updateOrderedMap(this, k, NOT_SET);
+  };
+  OrderedMap2.prototype.__iterate = function __iterate2(fn, reverse3) {
+    var this$1$1 = this;
+    return this._list.__iterate(function(entry) {
+      return entry && fn(entry[1], entry[0], this$1$1);
+    }, reverse3);
+  };
+  OrderedMap2.prototype.__iterator = function __iterator2(type, reverse3) {
+    return this._list.fromEntrySeq().__iterator(type, reverse3);
+  };
+  OrderedMap2.prototype.__ensureOwner = function __ensureOwner2(ownerID) {
+    if (ownerID === this.__ownerID) {
+      return this;
+    }
+    var newMap = this._map.__ensureOwner(ownerID);
+    var newList = this._list.__ensureOwner(ownerID);
+    if (!ownerID) {
+      if (this.size === 0) {
+        return emptyOrderedMap();
+      }
+      this.__ownerID = ownerID;
+      this.__altered = false;
+      this._map = newMap;
+      this._list = newList;
+      return this;
+    }
+    return makeOrderedMap(newMap, newList, ownerID, this.__hash);
+  };
+  return OrderedMap2;
+}(Map2);
+OrderedMap.isOrderedMap = isOrderedMap;
+OrderedMap.prototype[IS_ORDERED_SYMBOL] = true;
+OrderedMap.prototype[DELETE] = OrderedMap.prototype.remove;
+function makeOrderedMap(map2, list, ownerID, hash2) {
+  var omap = Object.create(OrderedMap.prototype);
+  omap.size = map2 ? map2.size : 0;
+  omap._map = map2;
+  omap._list = list;
+  omap.__ownerID = ownerID;
+  omap.__hash = hash2;
+  omap.__altered = false;
+  return omap;
+}
+var EMPTY_ORDERED_MAP;
+function emptyOrderedMap() {
+  return EMPTY_ORDERED_MAP || (EMPTY_ORDERED_MAP = makeOrderedMap(emptyMap(), emptyList()));
+}
+function updateOrderedMap(omap, k, v) {
+  var map2 = omap._map;
+  var list = omap._list;
+  var i = map2.get(k);
+  var has5 = i !== void 0;
+  var newMap;
+  var newList;
+  if (v === NOT_SET) {
+    if (!has5) {
+      return omap;
+    }
+    if (list.size >= SIZE && list.size >= map2.size * 2) {
+      newList = list.filter(function(entry, idx) {
+        return entry !== void 0 && i !== idx;
+      });
+      newMap = newList.toKeyedSeq().map(function(entry) {
+        return entry[0];
+      }).flip().toMap();
+      if (omap.__ownerID) {
+        newMap.__ownerID = newList.__ownerID = omap.__ownerID;
+      }
+    } else {
+      newMap = map2.remove(k);
+      newList = i === list.size - 1 ? list.pop() : list.set(i, void 0);
+    }
+  } else if (has5) {
+    if (v === list.get(i)[1]) {
+      return omap;
+    }
+    newMap = map2;
+    newList = list.set(i, [k, v]);
+  } else {
+    newMap = map2.set(k, list.size);
+    newList = list.set(list.size, [k, v]);
+  }
+  if (omap.__ownerID) {
+    omap.size = newMap.size;
+    omap._map = newMap;
+    omap._list = newList;
+    omap.__hash = void 0;
+    omap.__altered = true;
+    return omap;
+  }
+  return makeOrderedMap(newMap, newList);
+}
+var IS_STACK_SYMBOL = "@@__IMMUTABLE_STACK__@@";
+function isStack(maybeStack) {
+  return Boolean(maybeStack && maybeStack[IS_STACK_SYMBOL]);
+}
+var Stack = function(IndexedCollection2) {
+  function Stack2(value) {
+    return value === void 0 || value === null ? emptyStack() : isStack(value) ? value : emptyStack().pushAll(value);
+  }
+  if (IndexedCollection2)
+    Stack2.__proto__ = IndexedCollection2;
+  Stack2.prototype = Object.create(IndexedCollection2 && IndexedCollection2.prototype);
+  Stack2.prototype.constructor = Stack2;
+  Stack2.of = function of() {
+    return this(arguments);
+  };
+  Stack2.prototype.toString = function toString5() {
+    return this.__toString("Stack [", "]");
+  };
+  Stack2.prototype.get = function get11(index, notSetValue) {
+    var head = this._head;
+    index = wrapIndex(this, index);
+    while (head && index--) {
+      head = head.next;
+    }
+    return head ? head.value : notSetValue;
+  };
+  Stack2.prototype.peek = function peek() {
+    return this._head && this._head.value;
+  };
+  Stack2.prototype.push = function push() {
+    var arguments$1 = arguments;
+    if (arguments.length === 0) {
+      return this;
+    }
+    var newSize = this.size + arguments.length;
+    var head = this._head;
+    for (var ii = arguments.length - 1; ii >= 0; ii--) {
+      head = {
+        value: arguments$1[ii],
+        next: head
+      };
+    }
+    if (this.__ownerID) {
+      this.size = newSize;
+      this._head = head;
+      this.__hash = void 0;
+      this.__altered = true;
+      return this;
+    }
+    return makeStack(newSize, head);
+  };
+  Stack2.prototype.pushAll = function pushAll(iter) {
+    iter = IndexedCollection2(iter);
+    if (iter.size === 0) {
+      return this;
+    }
+    if (this.size === 0 && isStack(iter)) {
+      return iter;
+    }
+    assertNotInfinite(iter.size);
+    var newSize = this.size;
+    var head = this._head;
+    iter.__iterate(function(value) {
+      newSize++;
+      head = {
+        value,
+        next: head
+      };
+    }, true);
+    if (this.__ownerID) {
+      this.size = newSize;
+      this._head = head;
+      this.__hash = void 0;
+      this.__altered = true;
+      return this;
+    }
+    return makeStack(newSize, head);
+  };
+  Stack2.prototype.pop = function pop() {
+    return this.slice(1);
+  };
+  Stack2.prototype.clear = function clear2() {
+    if (this.size === 0) {
+      return this;
+    }
+    if (this.__ownerID) {
+      this.size = 0;
+      this._head = void 0;
+      this.__hash = void 0;
+      this.__altered = true;
+      return this;
+    }
+    return emptyStack();
+  };
+  Stack2.prototype.slice = function slice3(begin, end) {
+    if (wholeSlice(begin, end, this.size)) {
+      return this;
+    }
+    var resolvedBegin = resolveBegin(begin, this.size);
+    var resolvedEnd = resolveEnd(end, this.size);
+    if (resolvedEnd !== this.size) {
+      return IndexedCollection2.prototype.slice.call(this, begin, end);
+    }
+    var newSize = this.size - resolvedBegin;
+    var head = this._head;
+    while (resolvedBegin--) {
+      head = head.next;
+    }
+    if (this.__ownerID) {
+      this.size = newSize;
+      this._head = head;
+      this.__hash = void 0;
+      this.__altered = true;
+      return this;
+    }
+    return makeStack(newSize, head);
+  };
+  Stack2.prototype.__ensureOwner = function __ensureOwner2(ownerID) {
+    if (ownerID === this.__ownerID) {
+      return this;
+    }
+    if (!ownerID) {
+      if (this.size === 0) {
+        return emptyStack();
+      }
+      this.__ownerID = ownerID;
+      this.__altered = false;
+      return this;
+    }
+    return makeStack(this.size, this._head, ownerID, this.__hash);
+  };
+  Stack2.prototype.__iterate = function __iterate2(fn, reverse3) {
+    var this$1$1 = this;
+    if (reverse3) {
+      return new ArraySeq(this.toArray()).__iterate(function(v, k) {
+        return fn(v, k, this$1$1);
+      }, reverse3);
+    }
+    var iterations = 0;
+    var node = this._head;
+    while (node) {
+      if (fn(node.value, iterations++, this) === false) {
+        break;
+      }
+      node = node.next;
+    }
+    return iterations;
+  };
+  Stack2.prototype.__iterator = function __iterator2(type, reverse3) {
+    if (reverse3) {
+      return new ArraySeq(this.toArray()).__iterator(type, reverse3);
+    }
+    var iterations = 0;
+    var node = this._head;
+    return new Iterator(function() {
+      if (node) {
+        var value = node.value;
+        node = node.next;
+        return iteratorValue(type, iterations++, value);
+      }
+      return iteratorDone();
+    });
+  };
+  return Stack2;
+}(IndexedCollection);
+Stack.isStack = isStack;
+var StackPrototype = Stack.prototype;
+StackPrototype[IS_STACK_SYMBOL] = true;
+StackPrototype.shift = StackPrototype.pop;
+StackPrototype.unshift = StackPrototype.push;
+StackPrototype.unshiftAll = StackPrototype.pushAll;
+StackPrototype.withMutations = withMutations;
+StackPrototype.wasAltered = wasAltered;
+StackPrototype.asImmutable = asImmutable;
+StackPrototype["@@transducer/init"] = StackPrototype.asMutable = asMutable;
+StackPrototype["@@transducer/step"] = function(result, arr) {
+  return result.unshift(arr);
+};
+StackPrototype["@@transducer/result"] = function(obj) {
+  return obj.asImmutable();
+};
+function makeStack(size, head, ownerID, hash2) {
+  var map2 = Object.create(StackPrototype);
+  map2.size = size;
+  map2._head = head;
+  map2.__ownerID = ownerID;
+  map2.__hash = hash2;
+  map2.__altered = false;
+  return map2;
+}
+var EMPTY_STACK;
+function emptyStack() {
+  return EMPTY_STACK || (EMPTY_STACK = makeStack(0));
+}
+var IS_SET_SYMBOL = "@@__IMMUTABLE_SET__@@";
+function isSet(maybeSet) {
+  return Boolean(maybeSet && maybeSet[IS_SET_SYMBOL]);
+}
+function isOrderedSet(maybeOrderedSet) {
+  return isSet(maybeOrderedSet) && isOrdered(maybeOrderedSet);
+}
+function deepEqual(a, b) {
+  if (a === b) {
+    return true;
+  }
+  if (!isCollection(b) || a.size !== void 0 && b.size !== void 0 && a.size !== b.size || a.__hash !== void 0 && b.__hash !== void 0 && a.__hash !== b.__hash || isKeyed(a) !== isKeyed(b) || isIndexed(a) !== isIndexed(b) || isOrdered(a) !== isOrdered(b)) {
+    return false;
+  }
+  if (a.size === 0 && b.size === 0) {
+    return true;
+  }
+  var notAssociative = !isAssociative(a);
+  if (isOrdered(a)) {
+    var entries3 = a.entries();
+    return b.every(function(v, k) {
+      var entry = entries3.next().value;
+      return entry && is(entry[1], v) && (notAssociative || is(entry[0], k));
+    }) && entries3.next().done;
+  }
+  var flipped = false;
+  if (a.size === void 0) {
+    if (b.size === void 0) {
+      if (typeof a.cacheResult === "function") {
+        a.cacheResult();
+      }
+    } else {
+      flipped = true;
+      var _ = a;
+      a = b;
+      b = _;
+    }
+  }
+  var allEqual = true;
+  var bSize = b.__iterate(function(v, k) {
+    if (notAssociative ? !a.has(v) : flipped ? !is(v, a.get(k, NOT_SET)) : !is(a.get(k, NOT_SET), v)) {
+      allEqual = false;
+      return false;
+    }
+  });
+  return allEqual && a.size === bSize;
+}
+function mixin(ctor, methods) {
+  var keyCopier = function(key) {
+    ctor.prototype[key] = methods[key];
+  };
+  Object.keys(methods).forEach(keyCopier);
+  Object.getOwnPropertySymbols && Object.getOwnPropertySymbols(methods).forEach(keyCopier);
+  return ctor;
+}
+function toJS(value) {
+  if (!value || typeof value !== "object") {
+    return value;
+  }
+  if (!isCollection(value)) {
+    if (!isDataStructure(value)) {
+      return value;
+    }
+    value = Seq(value);
+  }
+  if (isKeyed(value)) {
+    var result$1 = {};
+    value.__iterate(function(v, k) {
+      result$1[k] = toJS(v);
+    });
+    return result$1;
+  }
+  var result = [];
+  value.__iterate(function(v) {
+    result.push(toJS(v));
+  });
+  return result;
+}
+var Set2 = function(SetCollection2) {
+  function Set3(value) {
+    return value === void 0 || value === null ? emptySet() : isSet(value) && !isOrdered(value) ? value : emptySet().withMutations(function(set3) {
+      var iter = SetCollection2(value);
+      assertNotInfinite(iter.size);
+      iter.forEach(function(v) {
+        return set3.add(v);
+      });
+    });
+  }
+  if (SetCollection2)
+    Set3.__proto__ = SetCollection2;
+  Set3.prototype = Object.create(SetCollection2 && SetCollection2.prototype);
+  Set3.prototype.constructor = Set3;
+  Set3.of = function of() {
+    return this(arguments);
+  };
+  Set3.fromKeys = function fromKeys(value) {
+    return this(KeyedCollection(value).keySeq());
+  };
+  Set3.intersect = function intersect(sets) {
+    sets = Collection(sets).toArray();
+    return sets.length ? SetPrototype.intersect.apply(Set3(sets.pop()), sets) : emptySet();
+  };
+  Set3.union = function union(sets) {
+    sets = Collection(sets).toArray();
+    return sets.length ? SetPrototype.union.apply(Set3(sets.pop()), sets) : emptySet();
+  };
+  Set3.prototype.toString = function toString5() {
+    return this.__toString("Set {", "}");
+  };
+  Set3.prototype.has = function has5(value) {
+    return this._map.has(value);
+  };
+  Set3.prototype.add = function add(value) {
+    return updateSet(this, this._map.set(value, value));
+  };
+  Set3.prototype.remove = function remove3(value) {
+    return updateSet(this, this._map.remove(value));
+  };
+  Set3.prototype.clear = function clear2() {
+    return updateSet(this, this._map.clear());
+  };
+  Set3.prototype.map = function map2(mapper, context2) {
+    var this$1$1 = this;
+    var didChanges = false;
+    var newMap = updateSet(this, this._map.mapEntries(function(ref) {
+      var v = ref[1];
+      var mapped = mapper.call(context2, v, v, this$1$1);
+      if (mapped !== v) {
+        didChanges = true;
+      }
+      return [mapped, mapped];
+    }, context2));
+    return didChanges ? newMap : this;
+  };
+  Set3.prototype.union = function union() {
+    var iters = [], len = arguments.length;
+    while (len--)
+      iters[len] = arguments[len];
+    iters = iters.filter(function(x) {
+      return x.size !== 0;
+    });
+    if (iters.length === 0) {
+      return this;
+    }
+    if (this.size === 0 && !this.__ownerID && iters.length === 1) {
+      return this.constructor(iters[0]);
+    }
+    return this.withMutations(function(set3) {
+      for (var ii = 0; ii < iters.length; ii++) {
+        SetCollection2(iters[ii]).forEach(function(value) {
+          return set3.add(value);
+        });
+      }
+    });
+  };
+  Set3.prototype.intersect = function intersect() {
+    var iters = [], len = arguments.length;
+    while (len--)
+      iters[len] = arguments[len];
+    if (iters.length === 0) {
+      return this;
+    }
+    iters = iters.map(function(iter) {
+      return SetCollection2(iter);
+    });
+    var toRemove = [];
+    this.forEach(function(value) {
+      if (!iters.every(function(iter) {
+        return iter.includes(value);
+      })) {
+        toRemove.push(value);
+      }
+    });
+    return this.withMutations(function(set3) {
+      toRemove.forEach(function(value) {
+        set3.remove(value);
+      });
+    });
+  };
+  Set3.prototype.subtract = function subtract() {
+    var iters = [], len = arguments.length;
+    while (len--)
+      iters[len] = arguments[len];
+    if (iters.length === 0) {
+      return this;
+    }
+    iters = iters.map(function(iter) {
+      return SetCollection2(iter);
+    });
+    var toRemove = [];
+    this.forEach(function(value) {
+      if (iters.some(function(iter) {
+        return iter.includes(value);
+      })) {
+        toRemove.push(value);
+      }
+    });
+    return this.withMutations(function(set3) {
+      toRemove.forEach(function(value) {
+        set3.remove(value);
+      });
+    });
+  };
+  Set3.prototype.sort = function sort2(comparator) {
+    return OrderedSet(sortFactory(this, comparator));
+  };
+  Set3.prototype.sortBy = function sortBy2(mapper, comparator) {
+    return OrderedSet(sortFactory(this, comparator, mapper));
+  };
+  Set3.prototype.wasAltered = function wasAltered3() {
+    return this._map.wasAltered();
+  };
+  Set3.prototype.__iterate = function __iterate2(fn, reverse3) {
+    var this$1$1 = this;
+    return this._map.__iterate(function(k) {
+      return fn(k, k, this$1$1);
+    }, reverse3);
+  };
+  Set3.prototype.__iterator = function __iterator2(type, reverse3) {
+    return this._map.__iterator(type, reverse3);
+  };
+  Set3.prototype.__ensureOwner = function __ensureOwner2(ownerID) {
+    if (ownerID === this.__ownerID) {
+      return this;
+    }
+    var newMap = this._map.__ensureOwner(ownerID);
+    if (!ownerID) {
+      if (this.size === 0) {
+        return this.__empty();
+      }
+      this.__ownerID = ownerID;
+      this._map = newMap;
+      return this;
+    }
+    return this.__make(newMap, ownerID);
+  };
+  return Set3;
+}(SetCollection);
+Set2.isSet = isSet;
+var SetPrototype = Set2.prototype;
+SetPrototype[IS_SET_SYMBOL] = true;
+SetPrototype[DELETE] = SetPrototype.remove;
+SetPrototype.merge = SetPrototype.concat = SetPrototype.union;
+SetPrototype.withMutations = withMutations;
+SetPrototype.asImmutable = asImmutable;
+SetPrototype["@@transducer/init"] = SetPrototype.asMutable = asMutable;
+SetPrototype["@@transducer/step"] = function(result, arr) {
+  return result.add(arr);
+};
+SetPrototype["@@transducer/result"] = function(obj) {
+  return obj.asImmutable();
+};
+SetPrototype.__empty = emptySet;
+SetPrototype.__make = makeSet;
+function updateSet(set3, newMap) {
+  if (set3.__ownerID) {
+    set3.size = newMap.size;
+    set3._map = newMap;
+    return set3;
+  }
+  return newMap === set3._map ? set3 : newMap.size === 0 ? set3.__empty() : set3.__make(newMap);
+}
+function makeSet(map2, ownerID) {
+  var set3 = Object.create(SetPrototype);
+  set3.size = map2 ? map2.size : 0;
+  set3._map = map2;
+  set3.__ownerID = ownerID;
+  return set3;
+}
+var EMPTY_SET;
+function emptySet() {
+  return EMPTY_SET || (EMPTY_SET = makeSet(emptyMap()));
+}
+var Range = function(IndexedSeq2) {
+  function Range2(start, end, step) {
+    if (!(this instanceof Range2)) {
+      return new Range2(start, end, step);
+    }
+    invariant(step !== 0, "Cannot step a Range by 0");
+    start = start || 0;
+    if (end === void 0) {
+      end = Infinity;
+    }
+    step = step === void 0 ? 1 : Math.abs(step);
+    if (end < start) {
+      step = -step;
+    }
+    this._start = start;
+    this._end = end;
+    this._step = step;
+    this.size = Math.max(0, Math.ceil((end - start) / step - 1) + 1);
+    if (this.size === 0) {
+      if (EMPTY_RANGE) {
+        return EMPTY_RANGE;
+      }
+      EMPTY_RANGE = this;
+    }
+  }
+  if (IndexedSeq2)
+    Range2.__proto__ = IndexedSeq2;
+  Range2.prototype = Object.create(IndexedSeq2 && IndexedSeq2.prototype);
+  Range2.prototype.constructor = Range2;
+  Range2.prototype.toString = function toString5() {
+    if (this.size === 0) {
+      return "Range []";
+    }
+    return "Range [ " + this._start + "..." + this._end + (this._step !== 1 ? " by " + this._step : "") + " ]";
+  };
+  Range2.prototype.get = function get11(index, notSetValue) {
+    return this.has(index) ? this._start + wrapIndex(this, index) * this._step : notSetValue;
+  };
+  Range2.prototype.includes = function includes3(searchValue) {
+    var possibleIndex = (searchValue - this._start) / this._step;
+    return possibleIndex >= 0 && possibleIndex < this.size && possibleIndex === Math.floor(possibleIndex);
+  };
+  Range2.prototype.slice = function slice3(begin, end) {
+    if (wholeSlice(begin, end, this.size)) {
+      return this;
+    }
+    begin = resolveBegin(begin, this.size);
+    end = resolveEnd(end, this.size);
+    if (end <= begin) {
+      return new Range2(0, 0);
+    }
+    return new Range2(this.get(begin, this._end), this.get(end, this._end), this._step);
+  };
+  Range2.prototype.indexOf = function indexOf2(searchValue) {
+    var offsetValue = searchValue - this._start;
+    if (offsetValue % this._step === 0) {
+      var index = offsetValue / this._step;
+      if (index >= 0 && index < this.size) {
+        return index;
+      }
+    }
+    return -1;
+  };
+  Range2.prototype.lastIndexOf = function lastIndexOf2(searchValue) {
+    return this.indexOf(searchValue);
+  };
+  Range2.prototype.__iterate = function __iterate2(fn, reverse3) {
+    var size = this.size;
+    var step = this._step;
+    var value = reverse3 ? this._start + (size - 1) * step : this._start;
+    var i = 0;
+    while (i !== size) {
+      if (fn(value, reverse3 ? size - ++i : i++, this) === false) {
+        break;
+      }
+      value += reverse3 ? -step : step;
+    }
+    return i;
+  };
+  Range2.prototype.__iterator = function __iterator2(type, reverse3) {
+    var size = this.size;
+    var step = this._step;
+    var value = reverse3 ? this._start + (size - 1) * step : this._start;
+    var i = 0;
+    return new Iterator(function() {
+      if (i === size) {
+        return iteratorDone();
+      }
+      var v = value;
+      value += reverse3 ? -step : step;
+      return iteratorValue(type, reverse3 ? size - ++i : i++, v);
+    });
+  };
+  Range2.prototype.equals = function equals3(other) {
+    return other instanceof Range2 ? this._start === other._start && this._end === other._end && this._step === other._step : deepEqual(this, other);
+  };
+  return Range2;
+}(IndexedSeq);
+var EMPTY_RANGE;
+function getIn$1(collection, searchKeyPath, notSetValue) {
+  var keyPath = coerceKeyPath(searchKeyPath);
+  var i = 0;
+  while (i !== keyPath.length) {
+    collection = get(collection, keyPath[i++], NOT_SET);
+    if (collection === NOT_SET) {
+      return notSetValue;
+    }
+  }
+  return collection;
+}
+function getIn(searchKeyPath, notSetValue) {
+  return getIn$1(this, searchKeyPath, notSetValue);
+}
+function hasIn$1(collection, keyPath) {
+  return getIn$1(collection, keyPath, NOT_SET) !== NOT_SET;
+}
+function hasIn(searchKeyPath) {
+  return hasIn$1(this, searchKeyPath);
+}
+function toObject() {
+  assertNotInfinite(this.size);
+  var object = {};
+  this.__iterate(function(v, k) {
+    object[k] = v;
+  });
+  return object;
+}
+Collection.isIterable = isCollection;
+Collection.isKeyed = isKeyed;
+Collection.isIndexed = isIndexed;
+Collection.isAssociative = isAssociative;
+Collection.isOrdered = isOrdered;
+Collection.Iterator = Iterator;
+mixin(Collection, {
+  toArray: function toArray() {
+    assertNotInfinite(this.size);
+    var array = new Array(this.size || 0);
+    var useTuples = isKeyed(this);
+    var i = 0;
+    this.__iterate(function(v, k) {
+      array[i++] = useTuples ? [k, v] : v;
+    });
+    return array;
+  },
+  toIndexedSeq: function toIndexedSeq() {
+    return new ToIndexedSequence(this);
+  },
+  toJS: function toJS$1() {
+    return toJS(this);
+  },
+  toKeyedSeq: function toKeyedSeq() {
+    return new ToKeyedSequence(this, true);
+  },
+  toMap: function toMap() {
+    return Map2(this.toKeyedSeq());
+  },
+  toObject,
+  toOrderedMap: function toOrderedMap() {
+    return OrderedMap(this.toKeyedSeq());
+  },
+  toOrderedSet: function toOrderedSet() {
+    return OrderedSet(isKeyed(this) ? this.valueSeq() : this);
+  },
+  toSet: function toSet() {
+    return Set2(isKeyed(this) ? this.valueSeq() : this);
+  },
+  toSetSeq: function toSetSeq() {
+    return new ToSetSequence(this);
+  },
+  toSeq: function toSeq() {
+    return isIndexed(this) ? this.toIndexedSeq() : isKeyed(this) ? this.toKeyedSeq() : this.toSetSeq();
+  },
+  toStack: function toStack() {
+    return Stack(isKeyed(this) ? this.valueSeq() : this);
+  },
+  toList: function toList() {
+    return List(isKeyed(this) ? this.valueSeq() : this);
+  },
+  toString: function toString3() {
+    return "[Collection]";
+  },
+  __toString: function __toString(head, tail) {
+    if (this.size === 0) {
+      return head + tail;
+    }
+    return head + " " + this.toSeq().map(this.__toStringMapper).join(", ") + " " + tail;
+  },
+  concat: function concat() {
+    var values2 = [], len = arguments.length;
+    while (len--)
+      values2[len] = arguments[len];
+    return reify(this, concatFactory(this, values2));
+  },
+  includes: function includes(searchValue) {
+    return this.some(function(value) {
+      return is(value, searchValue);
+    });
+  },
+  entries: function entries() {
+    return this.__iterator(ITERATE_ENTRIES);
+  },
+  every: function every(predicate, context2) {
+    assertNotInfinite(this.size);
+    var returnValue = true;
+    this.__iterate(function(v, k, c) {
+      if (!predicate.call(context2, v, k, c)) {
+        returnValue = false;
+        return false;
+      }
+    });
+    return returnValue;
+  },
+  filter: function filter(predicate, context2) {
+    return reify(this, filterFactory(this, predicate, context2, true));
+  },
+  find: function find(predicate, context2, notSetValue) {
+    var entry = this.findEntry(predicate, context2);
+    return entry ? entry[1] : notSetValue;
+  },
+  forEach: function forEach(sideEffect, context2) {
+    assertNotInfinite(this.size);
+    return this.__iterate(context2 ? sideEffect.bind(context2) : sideEffect);
+  },
+  join: function join(separator) {
+    assertNotInfinite(this.size);
+    separator = separator !== void 0 ? "" + separator : ",";
+    var joined = "";
+    var isFirst = true;
+    this.__iterate(function(v) {
+      isFirst ? isFirst = false : joined += separator;
+      joined += v !== null && v !== void 0 ? v.toString() : "";
+    });
+    return joined;
+  },
+  keys: function keys() {
+    return this.__iterator(ITERATE_KEYS);
+  },
+  map: function map(mapper, context2) {
+    return reify(this, mapFactory(this, mapper, context2));
+  },
+  reduce: function reduce$1(reducer, initialReduction, context2) {
+    return reduce(this, reducer, initialReduction, context2, arguments.length < 2, false);
+  },
+  reduceRight: function reduceRight(reducer, initialReduction, context2) {
+    return reduce(this, reducer, initialReduction, context2, arguments.length < 2, true);
+  },
+  reverse: function reverse() {
+    return reify(this, reverseFactory(this, true));
+  },
+  slice: function slice(begin, end) {
+    return reify(this, sliceFactory(this, begin, end, true));
+  },
+  some: function some(predicate, context2) {
+    return !this.every(not(predicate), context2);
+  },
+  sort: function sort(comparator) {
+    return reify(this, sortFactory(this, comparator));
+  },
+  values: function values() {
+    return this.__iterator(ITERATE_VALUES);
+  },
+  butLast: function butLast() {
+    return this.slice(0, -1);
+  },
+  isEmpty: function isEmpty() {
+    return this.size !== void 0 ? this.size === 0 : !this.some(function() {
+      return true;
+    });
+  },
+  count: function count(predicate, context2) {
+    return ensureSize(predicate ? this.toSeq().filter(predicate, context2) : this);
+  },
+  countBy: function countBy(grouper, context2) {
+    return countByFactory(this, grouper, context2);
+  },
+  equals: function equals(other) {
+    return deepEqual(this, other);
+  },
+  entrySeq: function entrySeq() {
+    var collection = this;
+    if (collection._cache) {
+      return new ArraySeq(collection._cache);
+    }
+    var entriesSequence = collection.toSeq().map(entryMapper).toIndexedSeq();
+    entriesSequence.fromEntrySeq = function() {
+      return collection.toSeq();
+    };
+    return entriesSequence;
+  },
+  filterNot: function filterNot(predicate, context2) {
+    return this.filter(not(predicate), context2);
+  },
+  findEntry: function findEntry(predicate, context2, notSetValue) {
+    var found = notSetValue;
+    this.__iterate(function(v, k, c) {
+      if (predicate.call(context2, v, k, c)) {
+        found = [k, v];
+        return false;
+      }
+    });
+    return found;
+  },
+  findKey: function findKey(predicate, context2) {
+    var entry = this.findEntry(predicate, context2);
+    return entry && entry[0];
+  },
+  findLast: function findLast(predicate, context2, notSetValue) {
+    return this.toKeyedSeq().reverse().find(predicate, context2, notSetValue);
+  },
+  findLastEntry: function findLastEntry(predicate, context2, notSetValue) {
+    return this.toKeyedSeq().reverse().findEntry(predicate, context2, notSetValue);
+  },
+  findLastKey: function findLastKey(predicate, context2) {
+    return this.toKeyedSeq().reverse().findKey(predicate, context2);
+  },
+  first: function first(notSetValue) {
+    return this.find(returnTrue, null, notSetValue);
+  },
+  flatMap: function flatMap(mapper, context2) {
+    return reify(this, flatMapFactory(this, mapper, context2));
+  },
+  flatten: function flatten(depth) {
+    return reify(this, flattenFactory(this, depth, true));
+  },
+  fromEntrySeq: function fromEntrySeq() {
+    return new FromEntriesSequence(this);
+  },
+  get: function get7(searchKey, notSetValue) {
+    return this.find(function(_, key) {
+      return is(key, searchKey);
+    }, void 0, notSetValue);
+  },
+  getIn,
+  groupBy: function groupBy(grouper, context2) {
+    return groupByFactory(this, grouper, context2);
+  },
+  has: function has2(searchKey) {
+    return this.get(searchKey, NOT_SET) !== NOT_SET;
+  },
+  hasIn,
+  isSubset: function isSubset(iter) {
+    iter = typeof iter.includes === "function" ? iter : Collection(iter);
+    return this.every(function(value) {
+      return iter.includes(value);
+    });
+  },
+  isSuperset: function isSuperset(iter) {
+    iter = typeof iter.isSubset === "function" ? iter : Collection(iter);
+    return iter.isSubset(this);
+  },
+  keyOf: function keyOf(searchValue) {
+    return this.findKey(function(value) {
+      return is(value, searchValue);
+    });
+  },
+  keySeq: function keySeq() {
+    return this.toSeq().map(keyMapper).toIndexedSeq();
+  },
+  last: function last(notSetValue) {
+    return this.toSeq().reverse().first(notSetValue);
+  },
+  lastKeyOf: function lastKeyOf(searchValue) {
+    return this.toKeyedSeq().reverse().keyOf(searchValue);
+  },
+  max: function max(comparator) {
+    return maxFactory(this, comparator);
+  },
+  maxBy: function maxBy(mapper, comparator) {
+    return maxFactory(this, comparator, mapper);
+  },
+  min: function min(comparator) {
+    return maxFactory(this, comparator ? neg(comparator) : defaultNegComparator);
+  },
+  minBy: function minBy(mapper, comparator) {
+    return maxFactory(this, comparator ? neg(comparator) : defaultNegComparator, mapper);
+  },
+  rest: function rest() {
+    return this.slice(1);
+  },
+  skip: function skip(amount) {
+    return amount === 0 ? this : this.slice(Math.max(0, amount));
+  },
+  skipLast: function skipLast(amount) {
+    return amount === 0 ? this : this.slice(0, -Math.max(0, amount));
+  },
+  skipWhile: function skipWhile(predicate, context2) {
+    return reify(this, skipWhileFactory(this, predicate, context2, true));
+  },
+  skipUntil: function skipUntil(predicate, context2) {
+    return this.skipWhile(not(predicate), context2);
+  },
+  sortBy: function sortBy(mapper, comparator) {
+    return reify(this, sortFactory(this, comparator, mapper));
+  },
+  take: function take(amount) {
+    return this.slice(0, Math.max(0, amount));
+  },
+  takeLast: function takeLast(amount) {
+    return this.slice(-Math.max(0, amount));
+  },
+  takeWhile: function takeWhile(predicate, context2) {
+    return reify(this, takeWhileFactory(this, predicate, context2));
+  },
+  takeUntil: function takeUntil(predicate, context2) {
+    return this.takeWhile(not(predicate), context2);
+  },
+  update: function update7(fn) {
+    return fn(this);
+  },
+  valueSeq: function valueSeq() {
+    return this.toIndexedSeq();
+  },
+  hashCode: function hashCode() {
+    return this.__hash || (this.__hash = hashCollection(this));
+  }
+});
+var CollectionPrototype = Collection.prototype;
+CollectionPrototype[IS_COLLECTION_SYMBOL] = true;
+CollectionPrototype[ITERATOR_SYMBOL] = CollectionPrototype.values;
+CollectionPrototype.toJSON = CollectionPrototype.toArray;
+CollectionPrototype.__toStringMapper = quoteString;
+CollectionPrototype.inspect = CollectionPrototype.toSource = function() {
+  return this.toString();
+};
+CollectionPrototype.chain = CollectionPrototype.flatMap;
+CollectionPrototype.contains = CollectionPrototype.includes;
+mixin(KeyedCollection, {
+  flip: function flip() {
+    return reify(this, flipFactory(this));
+  },
+  mapEntries: function mapEntries(mapper, context2) {
+    var this$1$1 = this;
+    var iterations = 0;
+    return reify(this, this.toSeq().map(function(v, k) {
+      return mapper.call(context2, [k, v], iterations++, this$1$1);
+    }).fromEntrySeq());
+  },
+  mapKeys: function mapKeys(mapper, context2) {
+    var this$1$1 = this;
+    return reify(this, this.toSeq().flip().map(function(k, v) {
+      return mapper.call(context2, k, v, this$1$1);
+    }).flip());
+  }
+});
+var KeyedCollectionPrototype = KeyedCollection.prototype;
+KeyedCollectionPrototype[IS_KEYED_SYMBOL] = true;
+KeyedCollectionPrototype[ITERATOR_SYMBOL] = CollectionPrototype.entries;
+KeyedCollectionPrototype.toJSON = toObject;
+KeyedCollectionPrototype.__toStringMapper = function(v, k) {
+  return quoteString(k) + ": " + quoteString(v);
+};
+mixin(IndexedCollection, {
+  toKeyedSeq: function toKeyedSeq2() {
+    return new ToKeyedSequence(this, false);
+  },
+  filter: function filter2(predicate, context2) {
+    return reify(this, filterFactory(this, predicate, context2, false));
+  },
+  findIndex: function findIndex(predicate, context2) {
+    var entry = this.findEntry(predicate, context2);
+    return entry ? entry[0] : -1;
+  },
+  indexOf: function indexOf(searchValue) {
+    var key = this.keyOf(searchValue);
+    return key === void 0 ? -1 : key;
+  },
+  lastIndexOf: function lastIndexOf(searchValue) {
+    var key = this.lastKeyOf(searchValue);
+    return key === void 0 ? -1 : key;
+  },
+  reverse: function reverse2() {
+    return reify(this, reverseFactory(this, false));
+  },
+  slice: function slice2(begin, end) {
+    return reify(this, sliceFactory(this, begin, end, false));
+  },
+  splice: function splice(index, removeNum) {
+    var numArgs = arguments.length;
+    removeNum = Math.max(removeNum || 0, 0);
+    if (numArgs === 0 || numArgs === 2 && !removeNum) {
+      return this;
+    }
+    index = resolveBegin(index, index < 0 ? this.count() : this.size);
+    var spliced = this.slice(0, index);
+    return reify(this, numArgs === 1 ? spliced : spliced.concat(arrCopy(arguments, 2), this.slice(index + removeNum)));
+  },
+  findLastIndex: function findLastIndex(predicate, context2) {
+    var entry = this.findLastEntry(predicate, context2);
+    return entry ? entry[0] : -1;
+  },
+  first: function first2(notSetValue) {
+    return this.get(0, notSetValue);
+  },
+  flatten: function flatten2(depth) {
+    return reify(this, flattenFactory(this, depth, false));
+  },
+  get: function get8(index, notSetValue) {
+    index = wrapIndex(this, index);
+    return index < 0 || this.size === Infinity || this.size !== void 0 && index > this.size ? notSetValue : this.find(function(_, key) {
+      return key === index;
+    }, void 0, notSetValue);
+  },
+  has: function has3(index) {
+    index = wrapIndex(this, index);
+    return index >= 0 && (this.size !== void 0 ? this.size === Infinity || index < this.size : this.indexOf(index) !== -1);
+  },
+  interpose: function interpose(separator) {
+    return reify(this, interposeFactory(this, separator));
+  },
+  interleave: function interleave() {
+    var collections = [this].concat(arrCopy(arguments));
+    var zipped = zipWithFactory(this.toSeq(), IndexedSeq.of, collections);
+    var interleaved = zipped.flatten(true);
+    if (zipped.size) {
+      interleaved.size = zipped.size * collections.length;
+    }
+    return reify(this, interleaved);
+  },
+  keySeq: function keySeq2() {
+    return Range(0, this.size);
+  },
+  last: function last2(notSetValue) {
+    return this.get(-1, notSetValue);
+  },
+  skipWhile: function skipWhile2(predicate, context2) {
+    return reify(this, skipWhileFactory(this, predicate, context2, false));
+  },
+  zip: function zip() {
+    var collections = [this].concat(arrCopy(arguments));
+    return reify(this, zipWithFactory(this, defaultZipper, collections));
+  },
+  zipAll: function zipAll() {
+    var collections = [this].concat(arrCopy(arguments));
+    return reify(this, zipWithFactory(this, defaultZipper, collections, true));
+  },
+  zipWith: function zipWith(zipper) {
+    var collections = arrCopy(arguments);
+    collections[0] = this;
+    return reify(this, zipWithFactory(this, zipper, collections));
+  }
+});
+var IndexedCollectionPrototype = IndexedCollection.prototype;
+IndexedCollectionPrototype[IS_INDEXED_SYMBOL] = true;
+IndexedCollectionPrototype[IS_ORDERED_SYMBOL] = true;
+mixin(SetCollection, {
+  get: function get9(value, notSetValue) {
+    return this.has(value) ? value : notSetValue;
+  },
+  includes: function includes2(value) {
+    return this.has(value);
+  },
+  keySeq: function keySeq3() {
+    return this.valueSeq();
+  }
+});
+var SetCollectionPrototype = SetCollection.prototype;
+SetCollectionPrototype.has = CollectionPrototype.includes;
+SetCollectionPrototype.contains = SetCollectionPrototype.includes;
+SetCollectionPrototype.keys = SetCollectionPrototype.values;
+mixin(KeyedSeq, KeyedCollectionPrototype);
+mixin(IndexedSeq, IndexedCollectionPrototype);
+mixin(SetSeq, SetCollectionPrototype);
+function reduce(collection, reducer, reduction, context2, useFirst, reverse3) {
+  assertNotInfinite(collection.size);
+  collection.__iterate(function(v, k, c) {
+    if (useFirst) {
+      useFirst = false;
+      reduction = v;
+    } else {
+      reduction = reducer.call(context2, reduction, v, k, c);
+    }
+  }, reverse3);
+  return reduction;
+}
+function keyMapper(v, k) {
+  return k;
+}
+function entryMapper(v, k) {
+  return [k, v];
+}
+function not(predicate) {
+  return function() {
+    return !predicate.apply(this, arguments);
+  };
+}
+function neg(predicate) {
+  return function() {
+    return -predicate.apply(this, arguments);
+  };
+}
+function defaultZipper() {
+  return arrCopy(arguments);
+}
+function defaultNegComparator(a, b) {
+  return a < b ? 1 : a > b ? -1 : 0;
+}
+function hashCollection(collection) {
+  if (collection.size === Infinity) {
+    return 0;
+  }
+  var ordered = isOrdered(collection);
+  var keyed = isKeyed(collection);
+  var h2 = ordered ? 1 : 0;
+  var size = collection.__iterate(keyed ? ordered ? function(v, k) {
+    h2 = 31 * h2 + hashMerge(hash(v), hash(k)) | 0;
+  } : function(v, k) {
+    h2 = h2 + hashMerge(hash(v), hash(k)) | 0;
+  } : ordered ? function(v) {
+    h2 = 31 * h2 + hash(v) | 0;
+  } : function(v) {
+    h2 = h2 + hash(v) | 0;
+  });
+  return murmurHashOfSize(size, h2);
+}
+function murmurHashOfSize(size, h2) {
+  h2 = imul(h2, 3432918353);
+  h2 = imul(h2 << 15 | h2 >>> -15, 461845907);
+  h2 = imul(h2 << 13 | h2 >>> -13, 5);
+  h2 = (h2 + 3864292196 | 0) ^ size;
+  h2 = imul(h2 ^ h2 >>> 16, 2246822507);
+  h2 = imul(h2 ^ h2 >>> 13, 3266489909);
+  h2 = smi(h2 ^ h2 >>> 16);
+  return h2;
+}
+function hashMerge(a, b) {
+  return a ^ b + 2654435769 + (a << 6) + (a >> 2) | 0;
+}
+var OrderedSet = function(Set3) {
+  function OrderedSet2(value) {
+    return value === void 0 || value === null ? emptyOrderedSet() : isOrderedSet(value) ? value : emptyOrderedSet().withMutations(function(set3) {
+      var iter = SetCollection(value);
+      assertNotInfinite(iter.size);
+      iter.forEach(function(v) {
+        return set3.add(v);
+      });
+    });
+  }
+  if (Set3)
+    OrderedSet2.__proto__ = Set3;
+  OrderedSet2.prototype = Object.create(Set3 && Set3.prototype);
+  OrderedSet2.prototype.constructor = OrderedSet2;
+  OrderedSet2.of = function of() {
+    return this(arguments);
+  };
+  OrderedSet2.fromKeys = function fromKeys(value) {
+    return this(KeyedCollection(value).keySeq());
+  };
+  OrderedSet2.prototype.toString = function toString5() {
+    return this.__toString("OrderedSet {", "}");
+  };
+  return OrderedSet2;
+}(Set2);
+OrderedSet.isOrderedSet = isOrderedSet;
+var OrderedSetPrototype = OrderedSet.prototype;
+OrderedSetPrototype[IS_ORDERED_SYMBOL] = true;
+OrderedSetPrototype.zip = IndexedCollectionPrototype.zip;
+OrderedSetPrototype.zipWith = IndexedCollectionPrototype.zipWith;
+OrderedSetPrototype.zipAll = IndexedCollectionPrototype.zipAll;
+OrderedSetPrototype.__empty = emptyOrderedSet;
+OrderedSetPrototype.__make = makeOrderedSet;
+function makeOrderedSet(map2, ownerID) {
+  var set3 = Object.create(OrderedSetPrototype);
+  set3.size = map2 ? map2.size : 0;
+  set3._map = map2;
+  set3.__ownerID = ownerID;
+  return set3;
+}
+var EMPTY_ORDERED_SET;
+function emptyOrderedSet() {
+  return EMPTY_ORDERED_SET || (EMPTY_ORDERED_SET = makeOrderedSet(emptyOrderedMap()));
+}
+function throwOnInvalidDefaultValues(defaultValues) {
+  if (isRecord(defaultValues)) {
+    throw new Error("Can not call `Record` with an immutable Record as default values. Use a plain javascript object instead.");
+  }
+  if (isImmutable(defaultValues)) {
+    throw new Error("Can not call `Record` with an immutable Collection as default values. Use a plain javascript object instead.");
+  }
+  if (defaultValues === null || typeof defaultValues !== "object") {
+    throw new Error("Can not call `Record` with a non-object as default values. Use a plain javascript object instead.");
+  }
+}
+var Record = function Record2(defaultValues, name) {
+  var hasInitialized;
+  throwOnInvalidDefaultValues(defaultValues);
+  var RecordType = function Record3(values2) {
+    var this$1$1 = this;
+    if (values2 instanceof RecordType) {
+      return values2;
+    }
+    if (!(this instanceof RecordType)) {
+      return new RecordType(values2);
+    }
+    if (!hasInitialized) {
+      hasInitialized = true;
+      var keys2 = Object.keys(defaultValues);
+      var indices = RecordTypePrototype._indices = {};
+      RecordTypePrototype._name = name;
+      RecordTypePrototype._keys = keys2;
+      RecordTypePrototype._defaultValues = defaultValues;
+      for (var i = 0; i < keys2.length; i++) {
+        var propName = keys2[i];
+        indices[propName] = i;
+        if (RecordTypePrototype[propName]) {
+          typeof console === "object" && console.warn && console.warn("Cannot define " + recordName(this) + ' with property "' + propName + '" since that property name is part of the Record API.');
+        } else {
+          setProp(RecordTypePrototype, propName);
+        }
+      }
+    }
+    this.__ownerID = void 0;
+    this._values = List().withMutations(function(l) {
+      l.setSize(this$1$1._keys.length);
+      KeyedCollection(values2).forEach(function(v, k) {
+        l.set(this$1$1._indices[k], v === this$1$1._defaultValues[k] ? void 0 : v);
+      });
+    });
+    return this;
+  };
+  var RecordTypePrototype = RecordType.prototype = Object.create(RecordPrototype);
+  RecordTypePrototype.constructor = RecordType;
+  if (name) {
+    RecordType.displayName = name;
+  }
+  return RecordType;
+};
+Record.prototype.toString = function toString4() {
+  var str2 = recordName(this) + " { ";
+  var keys2 = this._keys;
+  var k;
+  for (var i = 0, l = keys2.length; i !== l; i++) {
+    k = keys2[i];
+    str2 += (i ? ", " : "") + k + ": " + quoteString(this.get(k));
+  }
+  return str2 + " }";
+};
+Record.prototype.equals = function equals2(other) {
+  return this === other || isRecord(other) && recordSeq(this).equals(recordSeq(other));
+};
+Record.prototype.hashCode = function hashCode2() {
+  return recordSeq(this).hashCode();
+};
+Record.prototype.has = function has4(k) {
+  return this._indices.hasOwnProperty(k);
+};
+Record.prototype.get = function get10(k, notSetValue) {
+  if (!this.has(k)) {
+    return notSetValue;
+  }
+  var index = this._indices[k];
+  var value = this._values.get(index);
+  return value === void 0 ? this._defaultValues[k] : value;
+};
+Record.prototype.set = function set2(k, v) {
+  if (this.has(k)) {
+    var newValues = this._values.set(this._indices[k], v === this._defaultValues[k] ? void 0 : v);
+    if (newValues !== this._values && !this.__ownerID) {
+      return makeRecord(this, newValues);
+    }
+  }
+  return this;
+};
+Record.prototype.remove = function remove2(k) {
+  return this.set(k);
+};
+Record.prototype.clear = function clear() {
+  var newValues = this._values.clear().setSize(this._keys.length);
+  return this.__ownerID ? this : makeRecord(this, newValues);
+};
+Record.prototype.wasAltered = function wasAltered2() {
+  return this._values.wasAltered();
+};
+Record.prototype.toSeq = function toSeq2() {
+  return recordSeq(this);
+};
+Record.prototype.toJS = function toJS$12() {
+  return toJS(this);
+};
+Record.prototype.entries = function entries2() {
+  return this.__iterator(ITERATE_ENTRIES);
+};
+Record.prototype.__iterator = function __iterator(type, reverse3) {
+  return recordSeq(this).__iterator(type, reverse3);
+};
+Record.prototype.__iterate = function __iterate(fn, reverse3) {
+  return recordSeq(this).__iterate(fn, reverse3);
+};
+Record.prototype.__ensureOwner = function __ensureOwner(ownerID) {
+  if (ownerID === this.__ownerID) {
+    return this;
+  }
+  var newValues = this._values.__ensureOwner(ownerID);
+  if (!ownerID) {
+    this.__ownerID = ownerID;
+    this._values = newValues;
+    return this;
+  }
+  return makeRecord(this, newValues, ownerID);
+};
+Record.isRecord = isRecord;
+Record.getDescriptiveName = recordName;
+var RecordPrototype = Record.prototype;
+RecordPrototype[IS_RECORD_SYMBOL] = true;
+RecordPrototype[DELETE] = RecordPrototype.remove;
+RecordPrototype.deleteIn = RecordPrototype.removeIn = deleteIn;
+RecordPrototype.getIn = getIn;
+RecordPrototype.hasIn = CollectionPrototype.hasIn;
+RecordPrototype.merge = merge$1;
+RecordPrototype.mergeWith = mergeWith$1;
+RecordPrototype.mergeIn = mergeIn;
+RecordPrototype.mergeDeep = mergeDeep;
+RecordPrototype.mergeDeepWith = mergeDeepWith;
+RecordPrototype.mergeDeepIn = mergeDeepIn;
+RecordPrototype.setIn = setIn;
+RecordPrototype.update = update;
+RecordPrototype.updateIn = updateIn;
+RecordPrototype.withMutations = withMutations;
+RecordPrototype.asMutable = asMutable;
+RecordPrototype.asImmutable = asImmutable;
+RecordPrototype[ITERATOR_SYMBOL] = RecordPrototype.entries;
+RecordPrototype.toJSON = RecordPrototype.toObject = CollectionPrototype.toObject;
+RecordPrototype.inspect = RecordPrototype.toSource = function() {
+  return this.toString();
+};
+function makeRecord(likeRecord, values2, ownerID) {
+  var record = Object.create(Object.getPrototypeOf(likeRecord));
+  record._values = values2;
+  record.__ownerID = ownerID;
+  return record;
+}
+function recordName(record) {
+  return record.constructor.displayName || record.constructor.name || "Record";
+}
+function recordSeq(record) {
+  return keyedSeqFromValue(record._keys.map(function(k) {
+    return [k, record.get(k)];
+  }));
+}
+function setProp(prototype, name) {
+  try {
+    Object.defineProperty(prototype, name, {
+      get: function() {
+        return this.get(name);
+      },
+      set: function(value) {
+        invariant(this.__ownerID, "Cannot set on an immutable record.");
+        this.set(name, value);
+      }
+    });
+  } catch (error) {
+  }
+}
+var Repeat = function(IndexedSeq2) {
+  function Repeat2(value, times) {
+    if (!(this instanceof Repeat2)) {
+      return new Repeat2(value, times);
+    }
+    this._value = value;
+    this.size = times === void 0 ? Infinity : Math.max(0, times);
+    if (this.size === 0) {
+      if (EMPTY_REPEAT) {
+        return EMPTY_REPEAT;
+      }
+      EMPTY_REPEAT = this;
+    }
+  }
+  if (IndexedSeq2)
+    Repeat2.__proto__ = IndexedSeq2;
+  Repeat2.prototype = Object.create(IndexedSeq2 && IndexedSeq2.prototype);
+  Repeat2.prototype.constructor = Repeat2;
+  Repeat2.prototype.toString = function toString5() {
+    if (this.size === 0) {
+      return "Repeat []";
+    }
+    return "Repeat [ " + this._value + " " + this.size + " times ]";
+  };
+  Repeat2.prototype.get = function get11(index, notSetValue) {
+    return this.has(index) ? this._value : notSetValue;
+  };
+  Repeat2.prototype.includes = function includes3(searchValue) {
+    return is(this._value, searchValue);
+  };
+  Repeat2.prototype.slice = function slice3(begin, end) {
+    var size = this.size;
+    return wholeSlice(begin, end, size) ? this : new Repeat2(this._value, resolveEnd(end, size) - resolveBegin(begin, size));
+  };
+  Repeat2.prototype.reverse = function reverse3() {
+    return this;
+  };
+  Repeat2.prototype.indexOf = function indexOf2(searchValue) {
+    if (is(this._value, searchValue)) {
+      return 0;
+    }
+    return -1;
+  };
+  Repeat2.prototype.lastIndexOf = function lastIndexOf2(searchValue) {
+    if (is(this._value, searchValue)) {
+      return this.size;
+    }
+    return -1;
+  };
+  Repeat2.prototype.__iterate = function __iterate2(fn, reverse3) {
+    var size = this.size;
+    var i = 0;
+    while (i !== size) {
+      if (fn(this._value, reverse3 ? size - ++i : i++, this) === false) {
+        break;
+      }
+    }
+    return i;
+  };
+  Repeat2.prototype.__iterator = function __iterator2(type, reverse3) {
+    var this$1$1 = this;
+    var size = this.size;
+    var i = 0;
+    return new Iterator(function() {
+      return i === size ? iteratorDone() : iteratorValue(type, reverse3 ? size - ++i : i++, this$1$1._value);
+    });
+  };
+  Repeat2.prototype.equals = function equals3(other) {
+    return other instanceof Repeat2 ? is(this._value, other._value) : deepEqual(other);
+  };
+  return Repeat2;
+}(IndexedSeq);
+var EMPTY_REPEAT;
+
+// js/textDiff.ts
+init_define_process();
+var import_fast_diff = __toESM(require_diff(), 1);
+function createDelta(original, revision) {
+  var result = (0, import_fast_diff.default)(original, revision);
+  const delta = result.map((r) => r[0] === 1 ? r : [r[0], r[1].length]);
+  return delta;
+}
+function applyPatch(original, delta) {
+  var result = "", index = 0;
+  for (var i = 0; i < delta.length; i++) {
+    var item = delta[i], operation = item[0], value = item[1];
+    if (item[0] === -1 && typeof value === "number") {
+      index += value;
+    } else if (operation == 0 && typeof value === "number") {
+      result += original.slice(index, index += value);
+    } else {
+      result += value;
+    }
+  }
+  return result;
+}
+
+// js/session.ts
+function initSession(room, u) {
+  return Record({ ...u, room, state: Record(u.state)() });
+}
+var session = null;
+var hashStore = {};
+var CodeSession = class {
+  session;
+  update() {
+    Object.keys(this.cb).map((k) => this.cb[k]).map((x) => {
+      try {
+        x(true);
+      } catch (err) {
+        console.error("error calling callback", { err });
+      }
+    });
+  }
+  cb = {};
+  onUpdate(fn, regId) {
+    this.cb[regId] = fn;
+  }
+  hashCodeSession = 0;
+  room;
+  originStr;
+  created = new Date().toISOString();
+  constructor(room, user2, originStr) {
+    session = this;
+    this.room = room;
+    this.originStr = originStr;
+    const savedState = null;
+    this.session = initSession(room, {
+      ...user2,
+      state: savedState ? savedState : JSON.parse(str(user2.state, this.originStr))
+    })();
+  }
+  hashOfState = () => {
+    const state = this.session.get("state");
+    const hashCode4 = state.hashCode();
+    hashStore[hashCode4] = state;
+    return hashCode4;
+  };
+  createPatchFromHashCode = async (oldHash, state) => {
+    const s = JSON.parse(str(state, this.originStr));
+    if (!hashStore[oldHash]) {
+      const resp = await fetch(`/live/${this.room}
+        `);
+      const { mST: mST2, hashCode: hashCode4 } = await resp.json();
+      hashStore[hashCode4] = this.session.get("state").merge(mST2);
+    }
+    const oldRec = hashStore[oldHash];
+    const oldStr = str(oldRec.toJSON(), this.originStr);
+    const newRec = oldRec.merge(s);
+    const newStr = str(newRec.toJSON(), this.originStr);
+    const newHash = newRec.hashCode();
+    hashStore[newHash] = newRec;
+    const patch = createPatch(oldStr, newStr);
+    return {
+      oldHash,
+      newHash,
+      patch
+    };
+  };
+  applyPatch = async ({
+    oldHash,
+    newHash,
+    patch
+  }) => {
+    const codeSpace2 = this.room || "";
+    if (!Object.keys(hashStore).map((x) => Number(x)).includes(Number(oldHash)) && codeSpace2) {
+      console.log(Object.keys(hashStore));
+      const resp = await fetch(`/live/${codeSpace2}/mST`);
+      if (resp.ok) {
+        const s = await resp.json();
+        const serverRecord = this.session.get("state").merge(JSON.parse(str(s.mST, this.originStr)));
+        hashStore[serverRecord.hashCode()] = serverRecord;
+      } else {
+        const { mST: mST2 } = await import(location.origin + `/live/${this.room}/mst.mjs?${Date.now()}`);
+        const latestRec = this.session.get("state").merge(JSON.parse(str(mST2, this.originStr)));
+        hashStore[latestRec.hashCode()] = latestRec;
+      }
+    }
+    const oldStr = str(hashStore[oldHash].toJSON(), this.originStr);
+    const applied = applyPatch(oldStr, patch);
+    const newState = JSON.parse(applied);
+    const newRec = this.session.get("state").merge(newState);
+    const newRecord = this.session.get("state").merge(newRec);
+    const newHashCheck = newRecord.hashCode();
+    if (newHashCheck === newHash) {
+      this.session = this.session.set("state", newRecord);
+    } else {
+      new Error("Wrong patch");
+      return;
+    }
+  };
+  json() {
+    const user2 = this.session.toJSON();
+    const state = user2.state.toJSON();
+    return { ...user2, state };
+  }
+  setRoom(codeSpace2) {
+    const user2 = this.session.set("room", codeSpace2);
+    this.session = user2;
+  }
+};
+var hashCode3 = () => session ? session.hashOfState() : 0;
+var mST = (originStr) => {
+  if (!session) {
+    return {
+      i: 0,
+      transpiled: "",
+      code: "",
+      html: "",
+      css: ""
+    };
+  }
+  if (originStr)
+    return addOrigin(session.json().state, originStr);
+  const { i, transpiled, code, html, css } = session.json().state;
+  return { i, transpiled, code, html, css };
+};
+function addOrigin(s, originStr) {
+  const { i, transpiled, code, html, css } = s;
+  const mst = { i, transpiled, code, html, css };
+  mst.code = mst.code.replace(`from '/live`, `from '${originStr}/live`);
+  mst.code = mst.code.replace(`from './`, `from '${originStr}/live/`);
+  mst.transpiled = mst.transpiled.replace(`from "/live`, `from "${originStr}/live`);
+  mst.transpiled = mst.transpiled.replace(`from "./`, `from "${originStr}/live/`);
+  return mst;
+}
+function str(s, originStr) {
+  return JSON.stringify(addOrigin(s, originStr));
+}
+var applyPatch2 = async (x) => {
+  await session?.applyPatch(x);
+  session?.update();
+};
+var onSessionUpdate = (fn, regId = "default") => session?.onUpdate(fn, regId);
+var makePatchFrom = (n, st) => session.createPatchFromHashCode(n, st);
+var makePatch = (st) => makePatchFrom(hashCode3(), st);
+var startSession = (room, u, originStr) => session || new CodeSession(room, u, originStr);
+function createPatch(oldCode, newCode) {
+  return createDelta(oldCode, newCode);
+}
+
+// js/ws.ts
 var import_debounce = __toESM(require_debounce(), 1);
 
 // js/uidV4.mjs
@@ -24615,6 +29607,180 @@ function v4(options, buf, offset) {
     return buf;
   }
   return stringify(rnds);
+}
+
+// js/starter.tsx
+init_define_process();
+import { Fragment } from "/react.mjs";
+
+// js/md5.js
+init_define_process();
+function md5(inputString) {
+  var hc = "0123456789abcdef";
+  function rh(n) {
+    var j, s = "";
+    for (j = 0; j <= 3; j++) {
+      s += hc.charAt(n >> j * 8 + 4 & 15) + hc.charAt(n >> j * 8 & 15);
+    }
+    return s;
+  }
+  function ad(x2, y) {
+    var l = (x2 & 65535) + (y & 65535);
+    var m = (x2 >> 16) + (y >> 16) + (l >> 16);
+    return m << 16 | l & 65535;
+  }
+  function rl(n, c2) {
+    return n << c2 | n >>> 32 - c2;
+  }
+  function cm(q, a2, b2, x2, s, t) {
+    return ad(rl(ad(ad(a2, q), ad(x2, t)), s), b2);
+  }
+  function ff(a2, b2, c2, d2, x2, s, t) {
+    return cm(b2 & c2 | ~b2 & d2, a2, b2, x2, s, t);
+  }
+  function gg(a2, b2, c2, d2, x2, s, t) {
+    return cm(b2 & d2 | c2 & ~d2, a2, b2, x2, s, t);
+  }
+  function hh(a2, b2, c2, d2, x2, s, t) {
+    return cm(b2 ^ c2 ^ d2, a2, b2, x2, s, t);
+  }
+  function ii(a2, b2, c2, d2, x2, s, t) {
+    return cm(c2 ^ (b2 | ~d2), a2, b2, x2, s, t);
+  }
+  function sb(x2) {
+    var i2;
+    var nblk = (x2.length + 8 >> 6) + 1;
+    var blks = new Array(nblk * 16);
+    for (i2 = 0; i2 < nblk * 16; i2++)
+      blks[i2] = 0;
+    for (i2 = 0; i2 < x2.length; i2++) {
+      blks[i2 >> 2] |= x2.charCodeAt(i2) << i2 % 4 * 8;
+    }
+    blks[i2 >> 2] |= 128 << i2 % 4 * 8;
+    blks[nblk * 16 - 2] = x2.length * 8;
+    return blks;
+  }
+  var i, x = sb(inputString), a = 1732584193, b = -271733879, c = -1732584194, d = 271733878, olda, oldb, oldc, oldd;
+  for (i = 0; i < x.length; i += 16) {
+    olda = a;
+    oldb = b;
+    oldc = c;
+    oldd = d;
+    a = ff(a, b, c, d, x[i + 0], 7, -680876936);
+    d = ff(d, a, b, c, x[i + 1], 12, -389564586);
+    c = ff(c, d, a, b, x[i + 2], 17, 606105819);
+    b = ff(b, c, d, a, x[i + 3], 22, -1044525330);
+    a = ff(a, b, c, d, x[i + 4], 7, -176418897);
+    d = ff(d, a, b, c, x[i + 5], 12, 1200080426);
+    c = ff(c, d, a, b, x[i + 6], 17, -1473231341);
+    b = ff(b, c, d, a, x[i + 7], 22, -45705983);
+    a = ff(a, b, c, d, x[i + 8], 7, 1770035416);
+    d = ff(d, a, b, c, x[i + 9], 12, -1958414417);
+    c = ff(c, d, a, b, x[i + 10], 17, -42063);
+    b = ff(b, c, d, a, x[i + 11], 22, -1990404162);
+    a = ff(a, b, c, d, x[i + 12], 7, 1804603682);
+    d = ff(d, a, b, c, x[i + 13], 12, -40341101);
+    c = ff(c, d, a, b, x[i + 14], 17, -1502002290);
+    b = ff(b, c, d, a, x[i + 15], 22, 1236535329);
+    a = gg(a, b, c, d, x[i + 1], 5, -165796510);
+    d = gg(d, a, b, c, x[i + 6], 9, -1069501632);
+    c = gg(c, d, a, b, x[i + 11], 14, 643717713);
+    b = gg(b, c, d, a, x[i + 0], 20, -373897302);
+    a = gg(a, b, c, d, x[i + 5], 5, -701558691);
+    d = gg(d, a, b, c, x[i + 10], 9, 38016083);
+    c = gg(c, d, a, b, x[i + 15], 14, -660478335);
+    b = gg(b, c, d, a, x[i + 4], 20, -405537848);
+    a = gg(a, b, c, d, x[i + 9], 5, 568446438);
+    d = gg(d, a, b, c, x[i + 14], 9, -1019803690);
+    c = gg(c, d, a, b, x[i + 3], 14, -187363961);
+    b = gg(b, c, d, a, x[i + 8], 20, 1163531501);
+    a = gg(a, b, c, d, x[i + 13], 5, -1444681467);
+    d = gg(d, a, b, c, x[i + 2], 9, -51403784);
+    c = gg(c, d, a, b, x[i + 7], 14, 1735328473);
+    b = gg(b, c, d, a, x[i + 12], 20, -1926607734);
+    a = hh(a, b, c, d, x[i + 5], 4, -378558);
+    d = hh(d, a, b, c, x[i + 8], 11, -2022574463);
+    c = hh(c, d, a, b, x[i + 11], 16, 1839030562);
+    b = hh(b, c, d, a, x[i + 14], 23, -35309556);
+    a = hh(a, b, c, d, x[i + 1], 4, -1530992060);
+    d = hh(d, a, b, c, x[i + 4], 11, 1272893353);
+    c = hh(c, d, a, b, x[i + 7], 16, -155497632);
+    b = hh(b, c, d, a, x[i + 10], 23, -1094730640);
+    a = hh(a, b, c, d, x[i + 13], 4, 681279174);
+    d = hh(d, a, b, c, x[i + 0], 11, -358537222);
+    c = hh(c, d, a, b, x[i + 3], 16, -722521979);
+    b = hh(b, c, d, a, x[i + 6], 23, 76029189);
+    a = hh(a, b, c, d, x[i + 9], 4, -640364487);
+    d = hh(d, a, b, c, x[i + 12], 11, -421815835);
+    c = hh(c, d, a, b, x[i + 15], 16, 530742520);
+    b = hh(b, c, d, a, x[i + 2], 23, -995338651);
+    a = ii(a, b, c, d, x[i + 0], 6, -198630844);
+    d = ii(d, a, b, c, x[i + 7], 10, 1126891415);
+    c = ii(c, d, a, b, x[i + 14], 15, -1416354905);
+    b = ii(b, c, d, a, x[i + 5], 21, -57434055);
+    a = ii(a, b, c, d, x[i + 12], 6, 1700485571);
+    d = ii(d, a, b, c, x[i + 3], 10, -1894986606);
+    c = ii(c, d, a, b, x[i + 10], 15, -1051523);
+    b = ii(b, c, d, a, x[i + 1], 21, -2054922799);
+    a = ii(a, b, c, d, x[i + 8], 6, 1873313359);
+    d = ii(d, a, b, c, x[i + 15], 10, -30611744);
+    c = ii(c, d, a, b, x[i + 6], 15, -1560198380);
+    b = ii(b, c, d, a, x[i + 13], 21, 1309151649);
+    a = ii(a, b, c, d, x[i + 4], 6, -145523070);
+    d = ii(d, a, b, c, x[i + 11], 10, -1120210379);
+    c = ii(c, d, a, b, x[i + 2], 15, 718787259);
+    b = ii(b, c, d, a, x[i + 9], 21, -343485551);
+    a = ad(a, olda);
+    b = ad(b, oldb);
+    c = ad(c, oldc);
+    d = ad(d, oldd);
+  }
+  return rh(a) + rh(b) + rh(c) + rh(d);
+}
+
+// js/starter.tsx
+Object.assign(window, {
+  esmsInitOptions: {
+    shimMode: true,
+    polyfillEnable: ["css-modules", "json-modules"]
+  }
+});
+var initShims = async (assets) => import("./7HO6S5US.mjs").then(() => importShim.addImportMap({
+  "imports": {
+    "framer-motion": location.origin + "/" + assets["framer-motion.mjs"],
+    "@emotion/react": location.origin + "/" + assets["emotion.mjs"],
+    "react": location.origin + "/" + assets["react.mjs"],
+    "react-dom": location.origin + "/" + assets["react.mjs"],
+    "react-dom/client": location.origin + "/" + assets["react.mjs"],
+    "react-dom/server": location.origin + "/" + assets["react.mjs"],
+    "react/jsx-runtime": location.origin + "/" + assets["react.mjs"]
+  }
+}));
+var App = () => jsx(Fragment, null);
+var apps = {};
+var AutoUpdateApp = ({ hash: hash2 }) => {
+  const result = md5(mST().transpiled);
+  if (apps[result]) {
+    App = apps[result];
+  }
+  return jsx(App, {
+    key: hash2
+  });
+};
+async function appFactory(transpiled) {
+  const result = md5(transpiled);
+  if (!apps[result]) {
+    apps[result] = (await importShim(createJsBlob(transpiled))).default;
+  }
+  App = apps[result];
+  return apps[result];
+}
+function createJsBlob(code) {
+  const file = new File([code], "index.mjs", {
+    type: "application/javascript"
+  });
+  const blobUrl = URL.createObjectURL(file);
+  return blobUrl;
 }
 
 // js/ws.ts
@@ -24662,7 +29828,7 @@ var sendChannel = {
   }
 };
 async function quickStart(codeSpace2) {
-  const { renderPreviewWindow } = await import("./KHB5CE4Y.mjs");
+  const { renderPreviewWindow } = await import("./XXNYGKP2.mjs");
   return renderPreviewWindow(codeSpace2);
 }
 var run = async (startState) => {
@@ -24675,7 +29841,7 @@ var run = async (startState) => {
   }, "");
   initShims(assets);
   quickStart(codeSpace);
-  join();
+  join2();
   bc = new BroadcastChannel("spike.land");
   bc.onmessage = async (event) => {
     if (event.data.ignoreUser && event.data.ignoreUser === user)
@@ -24689,7 +29855,7 @@ var run = async (startState) => {
     }
     if (event.data.codeSpace === codeSpace && event.data.sess.code !== mST().code) {
       const messageData = await makePatch(event.data.sess);
-      await applyPatch(messageData);
+      await applyPatch2(messageData);
     }
   };
 };
@@ -24710,7 +29876,7 @@ var intervalHandler = null;
 async function rejoin() {
   if (!rejoined || ws === null) {
     ws = null;
-    const newWs = await join();
+    const newWs = await join2();
     return newWs;
   }
   return ws;
@@ -24722,7 +29888,7 @@ async function saveCode(sess) {
   console.log("creating a patch");
   const messageData = await makePatch(sess);
   console.log("applying the patch");
-  await applyPatch(messageData);
+  await applyPatch2(messageData);
   console.log("done");
   if (sess.i !== mST().i)
     return;
@@ -24751,8 +29917,8 @@ async function saveCode(sess) {
         const message = await makePatchFrom(wsLastHashCode, sess);
         if (!message)
           return;
-        if (message.newHash !== hashCode()) {
-          console.error("NEW hash is not even hashCode", hashCode());
+        if (message.newHash !== hashCode3()) {
+          console.error("NEW hash is not even hashCode", hashCode3());
           return;
         }
         const messageString = JSON.stringify({ ...message, name: user });
@@ -24766,7 +29932,7 @@ async function saveCode(sess) {
     console.error("error 2", { e });
   }
 }
-async function join() {
+async function join2() {
   if (ws !== null)
     return ws;
   rejoined = true;
@@ -24796,13 +29962,13 @@ async function join() {
     }
     intervalHandler = setInterval(() => {
       const now = Date.now();
-      const diff = now - lastSeenNow;
-      if (diff > 4e4) {
+      const diff2 = now - lastSeenNow;
+      if (diff2 > 4e4) {
         try {
           if (wsConnection.readyState === wsConnection.OPEN) {
             return wsConnection?.send(JSON.stringify({
               name: user,
-              timestamp: lastSeenTimestamp + diff
+              timestamp: lastSeenTimestamp + diff2
             }));
           }
           rejoined = false;
@@ -24837,14 +30003,14 @@ async function processWsMessage(event, source) {
   }
   if (ignoreUsers.includes(data.name))
     return;
-  if (data.newHash === hashCode())
+  if (data.newHash === hashCode3())
     return;
   if (data.oldHash && data.newHash) {
     if (h[data.oldHash] && h[data.oldHash] === data.newHash)
       return;
     h[data.oldHash] = data.newHash;
   }
-  if (data.newHash === hashCode())
+  if (data.newHash === hashCode3())
     return;
   (async () => {
     try {
@@ -24870,11 +30036,11 @@ async function processWsMessage(event, source) {
     }
   })();
   if (data.patch && data.name !== user) {
-    if (data.newHash === hashCode()) {
+    if (data.newHash === hashCode3()) {
       return;
     }
-    await applyPatch(data);
-    if (data.newHash === hashCode()) {
+    await applyPatch2(data);
+    if (data.newHash === hashCode3()) {
       if (sendChannel) {
         sendChannel.send({ hashCode: data.newHash });
       }
@@ -25076,8 +30242,13 @@ async function sw() {
 }
 
 export {
+  hashCode3 as hashCode,
+  mST,
+  onSessionUpdate,
+  AutoUpdateApp,
+  appFactory,
   quickStart,
   run,
   saveCode,
-  join
+  join2 as join
 };

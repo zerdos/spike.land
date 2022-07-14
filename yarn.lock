@@ -4099,6 +4099,7 @@ __metadata:
     qrious-core: 4.0.0
     react: 18.2.0
     react-qrious: 2.5.5
+    react-reverse-portal: ^2.1.0
     shiki: 0.10.1
     stream-browserify: 3.0.0
     typescript: 4.7.4
@@ -17703,6 +17704,16 @@ __metadata:
   version: 0.14.0
   resolution: "react-refresh@npm:0.14.0"
   checksum: dc69fa8c993df512f42dd0f1b604978ae89bd747c0ed5ec595c0cc50d535fb2696619ccd98ae28775cc01d0a7c146a532f0f7fb81dc22e1977c242a4912312f4
+  languageName: node
+  linkType: hard
+
+"react-reverse-portal@npm:^2.1.0":
+  version: 2.1.0
+  resolution: "react-reverse-portal@npm:2.1.0"
+  peerDependencies:
+    react: ^16.0.0 || ^17.0.0 || ^18.0.0
+    react-dom: ^16.0.0 || ^17.0.0 || ^18.0.0
+  checksum: ecc93ea67c305c68ae92bb5db3925d152d0c0095410f910af64c046f659408ecab1e0bbe5d936c00101f1a48017af10ec31e3c7c5ec21cf867a48032fbbbfb60
   languageName: node
   linkType: hard
 

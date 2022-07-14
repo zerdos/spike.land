@@ -5,8 +5,6 @@ import { runner } from "./runner";
 import { mST, onSessionUpdate } from "./session";
 import { isMobile } from "./isMobile.mjs";
 
-// import { appFactory, renderApp } from "./starter";
-
 import { css } from "@emotion/react";
 import { wait } from "wait";
 
@@ -123,7 +121,6 @@ export const Editor: FC<{ code: string; i: number; codeSpace: string }> = (
 
         onSessionUpdate(async () => {
           const sess = mST();
-          // renderApp(await appFactory(sess.transpiled));
 
           if (sess.i <= counter + 1) {
             return;
@@ -145,21 +142,7 @@ export const Editor: FC<{ code: string; i: number; codeSpace: string }> = (
 
         // console.log("RUN THE RUNNER AGAIN");
         await runner({ code: newCode, counter: counter + 1 });
-        // onUpdate(async () => {
-        //   const sess = mST();
-        //   // renderApp(await appFactory(sess.transpiled));
-
-        //   if (sess.i <= counter) {
-        //     return;
-        //   }
-
-        //   setTimeout(() => {
-        //     if (mST().i !== sess.i) return;
-        //     console.log(`session ${sess.i} mst: ${mST().i}, our i: ${counter}`);
-        //     changeContent((x) => ({ ...x, code: sess.code, i: sess.i + 1 }));
-        //     editor?.setValue(sess.code);
-        //   }, 100);
-        // });
+     
       } catch (err) {
         console.error({ err });
         console.error("restore editor");

@@ -1,11 +1,12 @@
 import {
   AutoUpdateApp,
   appFactory,
-  appRoot,
   hashCode,
   mST,
-  onSessionUpdate
-} from "./5S6SE64O.mjs";
+  onSessionUpdate,
+  saveCode
+} from "./EQFTJM54.mjs";
+import "./A2CAC27W.mjs";
 import {
   LazyMotion,
   domAnimation,
@@ -29,6 +30,9 @@ import {
   withEmotionCache
 } from "./D4S3JOF6.mjs";
 import "./C23GJUEW.mjs";
+import {
+  wait
+} from "./UOSP66EM.mjs";
 import {
   __commonJS,
   __toESM,
@@ -104,7 +108,7 @@ var require_react_is_development = __commonJS({
         var ContextProvider = REACT_PROVIDER_TYPE;
         var Element2 = REACT_ELEMENT_TYPE;
         var ForwardRef2 = REACT_FORWARD_REF_TYPE;
-        var Fragment10 = REACT_FRAGMENT_TYPE;
+        var Fragment11 = REACT_FRAGMENT_TYPE;
         var Lazy = REACT_LAZY_TYPE;
         var Memo2 = REACT_MEMO_TYPE;
         var Portal3 = REACT_PORTAL_TYPE;
@@ -163,7 +167,7 @@ var require_react_is_development = __commonJS({
         exports.ContextProvider = ContextProvider;
         exports.Element = Element2;
         exports.ForwardRef = ForwardRef2;
-        exports.Fragment = Fragment10;
+        exports.Fragment = Fragment11;
         exports.Lazy = Lazy;
         exports.Memo = Memo2;
         exports.Portal = Portal3;
@@ -228,8 +232,8 @@ var require_object_assign = __commonJS({
           return false;
         }
         var test2 = {};
-        for (var i = 0; i < 10; i++) {
-          test2["_" + String.fromCharCode(i)] = i;
+        for (var i2 = 0; i2 < 10; i2++) {
+          test2["_" + String.fromCharCode(i2)] = i2;
         }
         var order22 = Object.getOwnPropertyNames(test2).map(function(n) {
           return test2[n];
@@ -262,9 +266,9 @@ var require_object_assign = __commonJS({
         }
         if (getOwnPropertySymbols) {
           symbols = getOwnPropertySymbols(from);
-          for (var i = 0; i < symbols.length; i++) {
-            if (propIsEnumerable.call(from, symbols[i])) {
-              to[symbols[i]] = from[symbols[i]];
+          for (var i2 = 0; i2 < symbols.length; i2++) {
+            if (propIsEnumerable.call(from, symbols[i2])) {
+              to[symbols[i2]] = from[symbols[i2]];
             }
           }
         }
@@ -380,7 +384,7 @@ var require_factoryWithTypeCheckers = __commonJS({
     function emptyFunctionThatReturnsNull() {
       return null;
     }
-    module.exports = function(isValidElement6, throwOnDirectAccess) {
+    module.exports = function(isValidElement7, throwOnDirectAccess) {
       var ITERATOR_SYMBOL = typeof Symbol === "function" && Symbol.iterator;
       var FAUX_ITERATOR_SYMBOL = "@@iterator";
       function getIteratorFn(maybeIterable) {
@@ -487,8 +491,8 @@ var require_factoryWithTypeCheckers = __commonJS({
             var propType = getPropType(propValue);
             return new PropTypeError("Invalid " + location2 + " `" + propFullName + "` of type " + ("`" + propType + "` supplied to `" + componentName + "`, expected an array."));
           }
-          for (var i = 0; i < propValue.length; i++) {
-            var error = typeChecker(propValue, i, componentName, location2, propFullName + "[" + i + "]", ReactPropTypesSecret);
+          for (var i2 = 0; i2 < propValue.length; i2++) {
+            var error = typeChecker(propValue, i2, componentName, location2, propFullName + "[" + i2 + "]", ReactPropTypesSecret);
             if (error instanceof Error) {
               return error;
             }
@@ -500,7 +504,7 @@ var require_factoryWithTypeCheckers = __commonJS({
       function createElementTypeChecker() {
         function validate(props, propName, componentName, location2, propFullName) {
           var propValue = props[propName];
-          if (!isValidElement6(propValue)) {
+          if (!isValidElement7(propValue)) {
             var propType = getPropType(propValue);
             return new PropTypeError("Invalid " + location2 + " `" + propFullName + "` of type " + ("`" + propType + "` supplied to `" + componentName + "`, expected a single ReactElement."));
           }
@@ -543,8 +547,8 @@ var require_factoryWithTypeCheckers = __commonJS({
         }
         function validate(props, propName, componentName, location2, propFullName) {
           var propValue = props[propName];
-          for (var i = 0; i < expectedValues.length; i++) {
-            if (is(propValue, expectedValues[i])) {
+          for (var i2 = 0; i2 < expectedValues.length; i2++) {
+            if (is(propValue, expectedValues[i2])) {
               return null;
             }
           }
@@ -586,17 +590,17 @@ var require_factoryWithTypeCheckers = __commonJS({
           true ? printWarning("Invalid argument supplied to oneOfType, expected an instance of array.") : void 0;
           return emptyFunctionThatReturnsNull;
         }
-        for (var i = 0; i < arrayOfTypeCheckers.length; i++) {
-          var checker = arrayOfTypeCheckers[i];
+        for (var i2 = 0; i2 < arrayOfTypeCheckers.length; i2++) {
+          var checker = arrayOfTypeCheckers[i2];
           if (typeof checker !== "function") {
-            printWarning("Invalid argument supplied to oneOfType. Expected an array of check functions, but received " + getPostfixForTypeWarning(checker) + " at index " + i + ".");
+            printWarning("Invalid argument supplied to oneOfType. Expected an array of check functions, but received " + getPostfixForTypeWarning(checker) + " at index " + i2 + ".");
             return emptyFunctionThatReturnsNull;
           }
         }
         function validate(props, propName, componentName, location2, propFullName) {
           var expectedTypes = [];
-          for (var i2 = 0; i2 < arrayOfTypeCheckers.length; i2++) {
-            var checker2 = arrayOfTypeCheckers[i2];
+          for (var i3 = 0; i3 < arrayOfTypeCheckers.length; i3++) {
+            var checker2 = arrayOfTypeCheckers[i3];
             var checkerResult = checker2(props, propName, componentName, location2, propFullName, ReactPropTypesSecret);
             if (checkerResult == null) {
               return null;
@@ -680,7 +684,7 @@ var require_factoryWithTypeCheckers = __commonJS({
             if (Array.isArray(propValue)) {
               return propValue.every(isNode);
             }
-            if (propValue === null || isValidElement6(propValue)) {
+            if (propValue === null || isValidElement7(propValue)) {
               return true;
             }
             var iteratorFn = getIteratorFn(propValue);
@@ -879,7 +883,7 @@ var require_react_is_development2 = __commonJS({
         var ContextProvider = REACT_PROVIDER_TYPE;
         var Element2 = REACT_ELEMENT_TYPE;
         var ForwardRef2 = REACT_FORWARD_REF_TYPE;
-        var Fragment10 = REACT_FRAGMENT_TYPE;
+        var Fragment11 = REACT_FRAGMENT_TYPE;
         var Lazy = REACT_LAZY_TYPE;
         var Memo2 = REACT_MEMO_TYPE;
         var Portal3 = REACT_PORTAL_TYPE;
@@ -947,7 +951,7 @@ var require_react_is_development2 = __commonJS({
         exports.ContextProvider = ContextProvider;
         exports.Element = Element2;
         exports.ForwardRef = ForwardRef2;
-        exports.Fragment = Fragment10;
+        exports.Fragment = Fragment11;
         exports.Lazy = Lazy;
         exports.Memo = Memo2;
         exports.Portal = Portal3;
@@ -991,7 +995,7 @@ var require_react_is2 = __commonJS({
 
 // js/renderPreviewWindow.tsx
 init_define_process();
-import { useEffect as useEffect29, useState as useState25 } from "/react.mjs";
+import { useEffect as useEffect30, useState as useState26, useMemo as useMemo8, Fragment as Fragment10 } from "/react.mjs";
 
 // js/DraggableWindow.tsx
 init_define_process();
@@ -1014,9 +1018,9 @@ function _objectWithoutPropertiesLoose(source, excluded) {
     return {};
   var target = {};
   var sourceKeys = Object.keys(source);
-  var key, i;
-  for (i = 0; i < sourceKeys.length; i++) {
-    key = sourceKeys[i];
+  var key, i2;
+  for (i2 = 0; i2 < sourceKeys.length; i2++) {
+    key = sourceKeys[i2];
     if (excluded.indexOf(key) >= 0)
       continue;
     target[key] = source[key];
@@ -1313,14 +1317,14 @@ function createChainedFunction(...funcs) {
 
 // ../../node_modules/@mui/utils/esm/debounce.js
 init_define_process();
-function debounce(func, wait = 166) {
+function debounce(func, wait2 = 166) {
   let timeout2;
   function debounced(...args) {
     const later = () => {
       func.apply(this, args);
     };
     clearTimeout(timeout2);
-    timeout2 = setTimeout(later, wait);
+    timeout2 = setTimeout(later, wait2);
   }
   debounced.clear = () => {
     clearTimeout(timeout2);
@@ -2891,7 +2895,7 @@ var ActionTypes;
 init_define_process();
 var pageSize = 5;
 function findValidOptionToHighlight(index, lookupDirection, options, focusDisabled, isOptionDisabled, wrapAround) {
-  if (options.length === 0 || options.every((o, i) => isOptionDisabled(o, i))) {
+  if (options.length === 0 || options.every((o, i2) => isOptionDisabled(o, i2))) {
     return -1;
   }
   let nextFocus = index;
@@ -4524,8 +4528,8 @@ function flip(_ref) {
   var checksMap = /* @__PURE__ */ new Map();
   var makeFallbackChecks = true;
   var firstFittingPlacement = placements2[0];
-  for (var i = 0; i < placements2.length; i++) {
-    var placement = placements2[i];
+  for (var i2 = 0; i2 < placements2.length; i2++) {
+    var placement = placements2[i2];
     var _basePlacement = getBasePlacement(placement);
     var isStartVariation = getVariation(placement) === start;
     var isVertical = [top, bottom].indexOf(_basePlacement) >= 0;
@@ -6032,7 +6036,7 @@ function isNodeMatchingSelectorFocusable(node) {
 function defaultGetTabbable(root) {
   const regularTabNodes = [];
   const orderedTabNodes = [];
-  Array.from(root.querySelectorAll(candidatesSelector)).forEach((node, i) => {
+  Array.from(root.querySelectorAll(candidatesSelector)).forEach((node, i2) => {
     const nodeTabIndex = getTabIndex(node);
     if (nodeTabIndex === -1 || !isNodeMatchingSelectorFocusable(node)) {
       return;
@@ -6041,7 +6045,7 @@ function defaultGetTabbable(root) {
       regularTabNodes.push(node);
     } else {
       orderedTabNodes.push({
-        documentOrder: i,
+        documentOrder: i2,
         tabIndex: nodeTabIndex,
         node
       });
@@ -7470,8 +7474,8 @@ function findClosest(values3, currentValue) {
 function trackFinger(event, touchId) {
   if (touchId.current !== void 0 && event.changedTouches) {
     const touchEvent = event;
-    for (let i = 0; i < touchEvent.changedTouches.length; i += 1) {
-      const touch = touchEvent.changedTouches[i];
+    for (let i2 = 0; i2 < touchEvent.changedTouches.length; i2 += 1) {
+      const touch = touchEvent.changedTouches[i2];
       if (touch.identifier === touchId.current) {
         return {
           x: touch.clientX,
@@ -9472,12 +9476,12 @@ var createStyled = function createStyled2(tag, options) {
       }
       styles2.push(args[0][0]);
       var len = args.length;
-      var i = 1;
-      for (; i < len; i++) {
-        if (args[0][i] === void 0) {
+      var i2 = 1;
+      for (; i2 < len; i2++) {
+        if (args[0][i2] === void 0) {
           console.error(ILLEGAL_ESCAPE_SEQUENCE_ERROR);
         }
-        styles2.push(args[i], args[0][i]);
+        styles2.push(args[i2], args[0][i2]);
       }
     }
     var Styled = withEmotionCache(function(props, cache2, ref) {
@@ -9859,7 +9863,7 @@ function getPath(obj, path, checkVars = true) {
     return null;
   }, obj);
 }
-function getValue(themeMapping, transform2, propValueFinal, userValue = propValueFinal) {
+function getValue(themeMapping, transform3, propValueFinal, userValue = propValueFinal) {
   let value;
   if (typeof themeMapping === "function") {
     value = themeMapping(propValueFinal);
@@ -9868,8 +9872,8 @@ function getValue(themeMapping, transform2, propValueFinal, userValue = propValu
   } else {
     value = getPath(themeMapping, propValueFinal) || userValue;
   }
-  if (transform2) {
-    value = transform2(value);
+  if (transform3) {
+    value = transform3(value);
   }
   return value;
 }
@@ -9878,7 +9882,7 @@ function style(options) {
     prop,
     cssProperty = options.prop,
     themeKey,
-    transform: transform2
+    transform: transform3
   } = options;
   const fn2 = (props) => {
     if (props[prop] == null) {
@@ -9888,9 +9892,9 @@ function style(options) {
     const theme = props.theme;
     const themeMapping = getPath(theme, themeKey) || {};
     const styleFromPropValue = (propValueFinal) => {
-      let value = getValue(themeMapping, transform2, propValueFinal);
+      let value = getValue(themeMapping, transform3, propValueFinal);
       if (propValueFinal === value && typeof propValueFinal === "string") {
-        value = getValue(themeMapping, transform2, `${prop}${propValueFinal === "default" ? "" : capitalize(propValueFinal)}`, propValueFinal);
+        value = getValue(themeMapping, transform3, `${prop}${propValueFinal === "default" ? "" : capitalize(propValueFinal)}`, propValueFinal);
       }
       if (cssProperty === false) {
         return value;
@@ -10714,7 +10718,7 @@ function createSpacing(spacingInput = 8) {
   if (spacingInput.mui) {
     return spacingInput;
   }
-  const transform2 = createUnarySpacing({
+  const transform3 = createUnarySpacing({
     spacing: spacingInput
   });
   const spacing2 = (...argsInput) => {
@@ -10725,7 +10729,7 @@ function createSpacing(spacingInput = 8) {
     }
     const args = argsInput.length === 0 ? [1] : argsInput;
     return args.map((argument) => {
-      const output = transform2(argument);
+      const output = transform3(argument);
       return typeof output === "number" ? `${output}px` : output;
     }).join(" ");
   };
@@ -11196,7 +11200,7 @@ function recomposeColor(color2) {
     values: values3
   } = color2;
   if (type.indexOf("rgb") !== -1) {
-    values3 = values3.map((n, i) => i < 3 ? parseInt(n, 10) : n);
+    values3 = values3.map((n, i2) => i2 < 3 ? parseInt(n, 10) : n);
   } else if (type.indexOf("hsl") !== -1) {
     values3[1] = `${values3[1]}%`;
     values3[2] = `${values3[2]}%`;
@@ -11264,8 +11268,8 @@ function darken(color2, coefficient) {
   if (color2.type.indexOf("hsl") !== -1) {
     color2.values[2] *= 1 - coefficient;
   } else if (color2.type.indexOf("rgb") !== -1 || color2.type.indexOf("color") !== -1) {
-    for (let i = 0; i < 3; i += 1) {
-      color2.values[i] *= 1 - coefficient;
+    for (let i2 = 0; i2 < 3; i2 += 1) {
+      color2.values[i2] *= 1 - coefficient;
     }
   }
   return recomposeColor(color2);
@@ -11276,12 +11280,12 @@ function lighten(color2, coefficient) {
   if (color2.type.indexOf("hsl") !== -1) {
     color2.values[2] += (100 - color2.values[2]) * coefficient;
   } else if (color2.type.indexOf("rgb") !== -1) {
-    for (let i = 0; i < 3; i += 1) {
-      color2.values[i] += (255 - color2.values[i]) * coefficient;
+    for (let i2 = 0; i2 < 3; i2 += 1) {
+      color2.values[i2] += (255 - color2.values[i2]) * coefficient;
     }
   } else if (color2.type.indexOf("color") !== -1) {
-    for (let i = 0; i < 3; i += 1) {
-      color2.values[i] += (1 - color2.values[i]) * coefficient;
+    for (let i2 = 0; i2 < 3; i2 += 1) {
+      color2.values[i2] += (1 - color2.values[i2]) * coefficient;
     }
   }
   return recomposeColor(color2);
@@ -13680,19 +13684,19 @@ function mergeChildMappings(prev, next) {
       pendingKeys.push(prevKey);
     }
   }
-  var i;
+  var i2;
   var childMapping = {};
   for (var nextKey in next) {
     if (nextKeysPending[nextKey]) {
-      for (i = 0; i < nextKeysPending[nextKey].length; i++) {
-        var pendingNextKey = nextKeysPending[nextKey][i];
-        childMapping[nextKeysPending[nextKey][i]] = getValueForKey(pendingNextKey);
+      for (i2 = 0; i2 < nextKeysPending[nextKey].length; i2++) {
+        var pendingNextKey = nextKeysPending[nextKey][i2];
+        childMapping[nextKeysPending[nextKey][i2]] = getValueForKey(pendingNextKey);
       }
     }
     childMapping[nextKey] = getValueForKey(nextKey);
   }
-  for (i = 0; i < pendingKeys.length; i++) {
-    childMapping[pendingKeys[i]] = getValueForKey(pendingKeys[i]);
+  for (i2 = 0; i2 < pendingKeys.length; i2++) {
+    childMapping[pendingKeys[i2]] = getValueForKey(pendingKeys[i2]);
   }
   return childMapping;
 }
@@ -16905,6 +16909,395 @@ var DraggableWindow = ({
 };
 
 // js/renderPreviewWindow.tsx
+import { hydrateRoot } from "/react.mjs";
+
+// ../../node_modules/react-reverse-portal/dist/web/index.js
+init_define_process();
+import * as React83 from "/react.mjs";
+import * as ReactDOM4 from "/react.mjs";
+var __extends = function() {
+  var extendStatics = function(d, b) {
+    extendStatics = Object.setPrototypeOf || { __proto__: [] } instanceof Array && function(d2, b2) {
+      d2.__proto__ = b2;
+    } || function(d2, b2) {
+      for (var p in b2)
+        if (b2.hasOwnProperty(p))
+          d2[p] = b2[p];
+    };
+    return extendStatics(d, b);
+  };
+  return function(d, b) {
+    extendStatics(d, b);
+    function __() {
+      this.constructor = d;
+    }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+  };
+}();
+var ELEMENT_TYPE_HTML = "html";
+var ELEMENT_TYPE_SVG = "svg";
+var SVG_NAMESPACE = "http://www.w3.org/2000/svg";
+var validateElementType = function(domElement, elementType) {
+  if (elementType === ELEMENT_TYPE_HTML) {
+    return domElement instanceof HTMLElement;
+  }
+  if (elementType === ELEMENT_TYPE_SVG) {
+    return domElement instanceof SVGElement;
+  }
+  throw new Error('Unrecognized element type "' + elementType + '" for validateElementType.');
+};
+var createPortalNode = function(elementType, options) {
+  var initialProps = {};
+  var parent;
+  var lastPlaceholder;
+  var element;
+  if (elementType === ELEMENT_TYPE_HTML) {
+    element = document.createElement("div");
+  } else if (elementType === ELEMENT_TYPE_SVG) {
+    element = document.createElementNS(SVG_NAMESPACE, "g");
+  } else {
+    throw new Error('Invalid element type "' + elementType + '" for createPortalNode: must be "html" or "svg".');
+  }
+  if (options && typeof options === "object") {
+    for (var _i = 0, _a = Object.entries(options.attributes); _i < _a.length; _i++) {
+      var _b = _a[_i], key = _b[0], value = _b[1];
+      element.setAttribute(key, value);
+    }
+  }
+  var portalNode = {
+    element,
+    elementType,
+    setPortalProps: function(props) {
+      initialProps = props;
+    },
+    getInitialPortalProps: function() {
+      return initialProps;
+    },
+    mount: function(newParent, newPlaceholder) {
+      if (newPlaceholder === lastPlaceholder) {
+        return;
+      }
+      portalNode.unmount();
+      if (newParent !== parent) {
+        if (!validateElementType(newParent, elementType)) {
+          throw new Error('Invalid element type for portal: "' + elementType + '" portalNodes must be used with ' + elementType + " elements, but OutPortal is within <" + newParent.tagName + ">.");
+        }
+      }
+      newParent.replaceChild(portalNode.element, newPlaceholder);
+      parent = newParent;
+      lastPlaceholder = newPlaceholder;
+    },
+    unmount: function(expectedPlaceholder) {
+      if (expectedPlaceholder && expectedPlaceholder !== lastPlaceholder) {
+        return;
+      }
+      if (parent && lastPlaceholder) {
+        parent.replaceChild(lastPlaceholder, portalNode.element);
+        parent = void 0;
+        lastPlaceholder = void 0;
+      }
+    }
+  };
+  return portalNode;
+};
+var InPortal = function(_super) {
+  __extends(InPortal2, _super);
+  function InPortal2(props) {
+    var _this = _super.call(this, props) || this;
+    _this.addPropsChannel = function() {
+      Object.assign(_this.props.node, {
+        setPortalProps: function(props2) {
+          _this.setState({ nodeProps: props2 });
+        }
+      });
+    };
+    _this.state = {
+      nodeProps: _this.props.node.getInitialPortalProps()
+    };
+    return _this;
+  }
+  InPortal2.prototype.componentDidMount = function() {
+    this.addPropsChannel();
+  };
+  InPortal2.prototype.componentDidUpdate = function() {
+    this.addPropsChannel();
+  };
+  InPortal2.prototype.render = function() {
+    var _this = this;
+    var _a = this.props, children2 = _a.children, node = _a.node;
+    return ReactDOM4.createPortal(React83.Children.map(children2, function(child) {
+      if (!React83.isValidElement(child))
+        return child;
+      return React83.cloneElement(child, _this.state.nodeProps);
+    }), node.element);
+  };
+  return InPortal2;
+}(React83.PureComponent);
+var OutPortal = function(_super) {
+  __extends(OutPortal2, _super);
+  function OutPortal2(props) {
+    var _this = _super.call(this, props) || this;
+    _this.placeholderNode = React83.createRef();
+    _this.passPropsThroughPortal();
+    return _this;
+  }
+  OutPortal2.prototype.passPropsThroughPortal = function() {
+    var propsForTarget = Object.assign({}, this.props, { node: void 0 });
+    this.props.node.setPortalProps(propsForTarget);
+  };
+  OutPortal2.prototype.componentDidMount = function() {
+    var node = this.props.node;
+    this.currentPortalNode = node;
+    var placeholder = this.placeholderNode.current;
+    var parent = placeholder.parentNode;
+    node.mount(parent, placeholder);
+    this.passPropsThroughPortal();
+  };
+  OutPortal2.prototype.componentDidUpdate = function() {
+    var node = this.props.node;
+    if (this.currentPortalNode && node !== this.currentPortalNode) {
+      this.currentPortalNode.unmount(this.placeholderNode.current);
+      this.currentPortalNode = node;
+    }
+    var placeholder = this.placeholderNode.current;
+    var parent = placeholder.parentNode;
+    node.mount(parent, placeholder);
+    this.passPropsThroughPortal();
+  };
+  OutPortal2.prototype.componentWillUnmount = function() {
+    var node = this.props.node;
+    node.unmount(this.placeholderNode.current);
+  };
+  OutPortal2.prototype.render = function() {
+    return React83.createElement("div", { ref: this.placeholderNode });
+  };
+  return OutPortal2;
+}(React83.PureComponent);
+var createHtmlPortalNode = createPortalNode.bind(null, ELEMENT_TYPE_HTML);
+var createSvgPortalNode = createPortalNode.bind(null, ELEMENT_TYPE_SVG);
+
+// js/Editor.tsx
+init_define_process();
+import { useEffect as useEffect29, useRef as useRef29, useState as useState25 } from "/react.mjs";
+
+// js/runner.tsx
+init_define_process();
+
+// js/renderToString.tsx
+init_define_process();
+import { renderToString } from "/react.mjs";
+var renderFromString = (App) => {
+  const html = renderToString(jsx(App, null));
+  return {
+    html,
+    css: extractCritical(html)
+  };
+};
+var extractCritical = (html) => {
+  const rules = {};
+  for (let i2 in document.styleSheets) {
+    const styleSheet = document.styleSheets[i2];
+    for (let r2 in styleSheet.cssRules) {
+      const rule = styleSheet.cssRules[r2];
+      if (rule && rule.cssText && rule.cssText.slice(0, 5) === ".css-") {
+        const selector = rule.cssText.slice(1, 11);
+        if (!rules[selector] && html.includes(selector) && !rule.cssText.slice(10).includes(".css-")) {
+          rules[selector] = rule.cssText;
+        }
+      }
+    }
+  }
+  return Object.keys(rules).map((r2) => rules[r2]).join(" ");
+};
+
+// js/runner.tsx
+var transform2 = null;
+var i = 0;
+async function runner({ code, counter }) {
+  if (i >= counter) {
+    setTimeout(() => i = mST().i, 100);
+    return;
+  }
+  i = counter;
+  const { init } = await import("./ZVVITWXQ.mjs");
+  transform2 = transform2 || await init();
+  if (code === mST().code)
+    return;
+  if (i > counter)
+    return;
+  try {
+    const transpiled = await transform2(code);
+    if (transpiled === mST().transpiled)
+      return;
+    let restartError = false;
+    if (transpiled.length > 0) {
+      try {
+        const App = await appFactory(transpiled);
+        const { html, css: css2 } = renderFromString(App);
+        if (i > counter)
+          return;
+        await saveCode({
+          code,
+          transpiled,
+          i: counter,
+          html,
+          css: css2
+        });
+        return;
+      } catch (error) {
+        console.error("EXCEPTION");
+        console.error(error);
+        restartError = true;
+        console.error({ restartError });
+        return;
+      }
+    }
+  } catch (error) {
+    console.error({ error });
+  }
+}
+
+// js/isMobile.mjs
+init_define_process();
+function isMobile() {
+  let check = false;
+  (function(a) {
+    if (/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|iris|kindle|lge |maemo|midp|mmp|mobile.+firefox|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows ce|xda|xiino/i.test(a) || /1207|6310|6590|3gso|4thp|50[1-6]i|770s|802s|a wa|abac|ac(er|oo|s\-)|ai(ko|rn)|al(av|ca|co)|amoi|an(ex|ny|yw)|aptu|ar(ch|go)|as(te|us)|attw|au(di|\-m|r |s )|avan|be(ck|ll|nq)|bi(lb|rd)|bl(ac|az)|br(e|v)w|bumb|bw\-(n|u)|c55\/|capi|ccwa|cdm\-|cell|chtm|cldc|cmd\-|co(mp|nd)|craw|da(it|ll|ng)|dbte|dc\-s|devi|dica|dmob|do(c|p)o|ds(12|\-d)|el(49|ai)|em(l2|ul)|er(ic|k0)|esl8|ez([4-7]0|os|wa|ze)|fetc|fly(\-|_)|g1 u|g560|gene|gf\-5|g\-mo|go(\.w|od)|gr(ad|un)|haie|hcit|hd\-(m|p|t)|hei\-|hi(pt|ta)|hp( i|ip)|hs\-c|ht(c(\-| |_|a|g|p|s|t)|tp)|hu(aw|tc)|i\-(20|go|ma)|i230|iac( |\-|\/)|ibro|idea|ig01|ikom|im1k|inno|ipaq|iris|ja(t|v)a|jbro|jemu|jigs|kddi|keji|kgt( |\/)|klon|kpt |kwc\-|kyo(c|k)|le(no|xi)|lg( g|\/(k|l|u)|50|54|\-[a-w])|libw|lynx|m1\-w|m3ga|m50\/|ma(te|ui|xo)|mc(01|21|ca)|m\-cr|me(rc|ri)|mi(o8|oa|ts)|mmef|mo(01|02|bi|de|do|t(\-| |o|v)|zz)|mt(50|p1|v )|mwbp|mywa|n10[0-2]|n20[2-3]|n30(0|2)|n50(0|2|5)|n7(0(0|1)|10)|ne((c|m)\-|on|tf|wf|wg|wt)|nok(6|i)|nzph|o2im|op(ti|wv)|oran|owg1|p800|pan(a|d|t)|pdxg|pg(13|\-([1-8]|c))|phil|pire|pl(ay|uc)|pn\-2|po(ck|rt|se)|prox|psio|pt\-g|qa\-a|qc(07|12|21|32|60|\-[2-7]|i\-)|qtek|r380|r600|raks|rim9|ro(ve|zo)|s55\/|sa(ge|ma|mm|ms|ny|va)|sc(01|h\-|oo|p\-)|sdk\/|se(c(\-|0|1)|47|mc|nd|ri)|sgh\-|shar|sie(\-|m)|sk\-0|sl(45|id)|sm(al|ar|b3|it|t5)|so(ft|ny)|sp(01|h\-|v\-|v )|sy(01|mb)|t2(18|50)|t6(00|10|18)|ta(gt|lk)|tcl\-|tdg\-|tel(i|m)|tim\-|t\-mo|to(pl|sh)|ts(70|m\-|m3|m5)|tx\-9|up(\.b|g1|si)|utst|v400|v750|veri|vi(rg|te)|vk(40|5[0-3]|\-v)|vm40|voda|vulc|vx(52|53|60|61|70|80|81|83|85|98)|w3c(\-| )|webc|whit|wi(g |nc|nw)|wmlb|wonu|x700|yas\-|your|zeto|zte\-/i.test(a.substr(0, 4))) {
+      check = true;
+    }
+  })(navigator.userAgent || navigator.vendor || window.opera);
+  return check;
+}
+
+// js/Editor.tsx
+var Editor = ({ code, i: i2, codeSpace }) => {
+  const ref = useRef29(null);
+  const [
+    { counter, myCode, myId, engine, prettierJs, getValue: getValue3, setValue, onChange },
+    changeContent
+  ] = useState25({
+    myCode: code,
+    counter: i2,
+    myId: "loading",
+    getValue: () => "",
+    setValue: (_code) => {
+    },
+    onChange: (_cb) => {
+    },
+    prettierJs: (code2) => code2,
+    engine: isMobile() ? "ace" : "monaco"
+  });
+  const lines = code?.split("\n").length || 0;
+  useEffect29(() => {
+    if (!ref?.current)
+      return;
+    const setMonaco = async () => {
+      const { startMonaco } = await import("./js/startMonaco.mjs");
+      const { editor } = await startMonaco({
+        container: ref.current,
+        name: codeSpace,
+        code: mST().code
+      });
+      changeContent((x) => ({
+        ...x,
+        setValue: (code2) => {
+          const state = editor.saveViewState();
+          editor.getModel()?.setValue(code2);
+          if (state)
+            editor.restoreViewState(state);
+        },
+        getValue: () => editor.getModel()?.getValue(),
+        onChange: (cb) => editor?.onDidChangeModelContent(cb).dispose,
+        myId: "editor"
+      }));
+    };
+    const setAce = async () => {
+      const { startAce } = await import("./5JY3MSJR.mjs");
+      const editor = await startAce(mST().code);
+      changeContent((x) => ({
+        ...x,
+        onChange: (cb) => {
+          editor?.session.on("change", cb);
+          return () => editor?.session.off("change", cb);
+        },
+        getValue: () => editor.session.getValue(),
+        setValue: (code2) => editor.session.setValue(code2),
+        myId: "editor"
+      }));
+    };
+    const loadEditors = async () => {
+      engine === "monaco" ? await setMonaco() : await setAce();
+      const { prettierJs: prettierJs2 } = await import("./32FXNSU7.mjs");
+      changeContent((x) => ({ ...x, prettierJs: prettierJs2 }));
+      await wait(1e3);
+      runner({ code: code + " ", counter });
+    };
+    loadEditors();
+  }, [ref]);
+  useEffect29(() => {
+    if (i2 > counter) {
+      changeContent((x) => ({ ...x, myCode: code, counter: i2 }));
+      return;
+    }
+    const cb = async () => {
+      const code2 = getValue3();
+      const newCode = prettierJs(code2);
+      if (code2 === myCode)
+        return;
+      if (newCode === myCode)
+        return;
+      if (newCode === mST().code)
+        return;
+      try {
+        changeContent((x) => ({ ...x, counter: counter + 1, myCode: newCode }));
+        onSessionUpdate(async () => {
+          const sess = mST();
+          if (sess.i <= counter + 1) {
+            return;
+          }
+          if (mST().i !== sess.i)
+            return;
+          changeContent((x) => ({
+            ...x,
+            myCode: sess.code,
+            counter: sess.i
+          }));
+          setValue(sess.code);
+        }, "editor");
+        await runner({ code: newCode, counter: counter + 1 });
+      } catch (err) {
+        console.error({ err });
+        console.error("restore editor");
+      }
+    };
+    return onChange(() => cb());
+  }, [setValue, getValue3, onChange, counter]);
+  if (engine === "monaco") {
+    return jsx("div", {
+      "data-test-id": myId,
+      css: css`
+  max-width: 640px;
+  height: ${60 + lines / 40 * 100}% ;
+`,
+      ref
+    });
+  }
+  return jsx("div", {
+    "data-test-id": myId,
+    css: css`
+  margin: 0;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+`,
+    id: "editor",
+    ref
+  });
+};
+
+// js/renderPreviewWindow.tsx
 var RainbowContainer = ({ children: children2 }) => jsx("div", {
   css: css`
 height: 100%;
@@ -16950,9 +17343,9 @@ background:  repeating-radial-gradient(circle at bottom left,
                 #e0d81d 0, #e0d81d 100%);
 `
 }, children2);
-var MyAutoUpdatingApp = () => {
-  const [hash3, setHash] = useState25(() => hashCode());
-  useEffect29(() => {
+var AppToRender = ({ codeSpace }) => {
+  const [hash3, setHash] = useState26(() => hashCode());
+  useEffect30(() => {
     onSessionUpdate(async () => {
       const newHash = hashCode();
       if (hash3 !== newHash) {
@@ -16965,10 +17358,27 @@ var MyAutoUpdatingApp = () => {
       }
     }, "myApp");
   }, [hash3, setHash]);
-  return jsx(AutoUpdateApp, {
+  const portalNode = useMemo8(() => createHtmlPortalNode({
+    attributes: { id: `root-${codeSpace}`, style: "height: 100%" }
+  }), []);
+  const isStandalone = location.pathname.endsWith("public") || location.pathname.endsWith("hydrated");
+  return jsx(Fragment10, null, jsx(InPortal, {
+    node: portalNode
+  }, jsx(AutoUpdateApp, {
     key: hash3,
     hash: hash3
-  });
+  })), isStandalone ? jsx(OutPortal, {
+    node: portalNode
+  }) : jsx(RainbowContainer, null, jsx(DraggableWindow, {
+    hashCode: 0,
+    room: codeSpace
+  }, jsx(OutPortal, {
+    node: portalNode
+  })), jsx(Editor, {
+    code: mST().code,
+    i: mST().i,
+    codeSpace
+  })));
 };
 var renderPreviewWindow = async (codeSpace) => {
   try {
@@ -16976,19 +17386,9 @@ var renderPreviewWindow = async (codeSpace) => {
   } catch (e) {
     console.error({ e });
   }
-  if (location.pathname.endsWith("public") || location.pathname.endsWith("hydrated")) {
-    appRoot.render(jsx(MyAutoUpdatingApp, null));
-    return;
-  }
-  const { Editor } = await import("./2HFSLGO5.mjs");
-  appRoot.render(jsx(RainbowContainer, null, jsx(DraggableWindow, {
-    hashCode: 0,
-    room: codeSpace
-  }, jsx(MyAutoUpdatingApp, null)), jsx(Editor, {
-    code: mST().code,
-    i: mST().i,
+  return hydrateRoot(document.getElementById("root"), jsx(AppToRender, {
     codeSpace
-  })));
+  }));
 };
 export {
   renderPreviewWindow

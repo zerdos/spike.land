@@ -2,7 +2,6 @@
 import { FC, Fragment } from "react";
 
 import type {} from "react-dom/next";
-import { createRoot } from "react-dom/client";
 
 import { mST } from "./session";
 import { md5 } from "./md5";
@@ -74,34 +73,6 @@ export async function appFactory(transpiled: string): Promise<FC> {
   return apps[result];
 }
 
-export const appRoot = createRoot(
-  document.getElementById("root") || (() => {
-    const root = document.createElement("div");
-    document.body.append(root);
-    return root;
-  })(),
-);
-
-export const renderApp = (App: FC) => {
-  // const key = "css";
-  // const cache = createCache({ key });
-
-  // const { App } = globalThis;
-  console.log("render App");
-  try {
-    appRoot.render(
-      // <CacheProvider value={cache}>
-      <App />,
-      // </CacheProvider>,
-    );
-  } catch (err) {
-    appRoot.render(
-      <Fragment>
-        <p>error</p>
-      </Fragment>,
-    );
-  }
-};
 
 export function createJsBlob(code: string) {
   const file = new File([code], "index.mjs", {

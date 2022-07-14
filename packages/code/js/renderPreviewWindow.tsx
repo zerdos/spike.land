@@ -1,11 +1,15 @@
 /** @jsxImportSource @emotion/react */
 
-import { ReactNode, useEffect, useState } from "react";
+import { ReactNode, useEffect, useState, useMemo, Fragment } from "react";
 import { appFactory, appRoot, AutoUpdateApp } from "./starter";
 import { css } from "@emotion/react";
 import { DraggableWindow } from "./DraggableWindow";
 import type { FC } from "react";
+import { hydrateRoot } from "react-dom/client";
+
 import { hashCode, mST, onSessionUpdate } from "session";
+import * as portals from 'react-reverse-portal';
+import { Editor } from "./Editor"
 
 const RainbowContainer: FC<{ children: ReactNode }> = ({ children }) => (
   <div
@@ -57,7 +61,7 @@ background:  repeating-radial-gradient(circle at bottom left,
   </div>
 );
 
-const MyAutoUpdatingApp: FC = () => {
+const AppToRender: FC<{codeSpace: string}> = ({codeSpace}) => {
   const [hash, setHash] = useState(() => hashCode());
 
   useEffect(() => {
@@ -74,7 +78,50 @@ const MyAutoUpdatingApp: FC = () => {
     }, "myApp");
   }, [hash, setHash]);
 
-  return <AutoUpdateApp key={hash} hash={hash} />;
+ 
+
+  const portalNode = useMemo(() =>  portals.createHtmlPortalNode({
+    attributes: { id: `root-${codeSpace}`, style: "height: 100%"}}, 
+  ), []);
+
+
+  const isStandalone = 
+    location.pathname.endsWith("public") ||
+    location.pathname.endsWith("hydrated")
+  
+
+  return     <Fragment>
+    <portals.InPortal node={portalNode}>
+      <AutoUpdateApp key={hash} hash={hash} />
+    </portals.InPortal>
+
+    {isStandalone?
+        <portals.OutPortal
+        node={portalNode}
+     
+        // These props go back to the content of the InPortal, and trigger a
+        // component render (but on the same component instance) as if they
+        // had been passed to MyExpensiveComponent directly.
+    />: <RainbowContainer>
+    <DraggableWindow
+      // onRestore={() => {
+      //   const model = globalThis.model;
+      //   model.setValue(mST().code);
+      // }}
+      hashCode={0}
+      room={codeSpace}
+    >
+    <portals.OutPortal
+        node={portalNode}
+     
+        // These props go back to the content of the InPortal, and trigger a
+        // component render (but on the same component instance) as if they
+        // had been passed to MyExpensiveComponent directly.
+    />
+    </DraggableWindow>
+    <Editor code={mST().code} i={mST().i} codeSpace={codeSpace} />
+  </RainbowContainer>}
+    </Fragment> 
 };
 
 export const renderPreviewWindow = async (
@@ -86,32 +133,9 @@ export const renderPreviewWindow = async (
     console.error({ e });
   }
 
-  // document.getElementById("root");
-
-  if (
-    location.pathname.endsWith("public") ||
-    location.pathname.endsWith("hydrated")
-  ) {
-    appRoot.render(
-      <MyAutoUpdatingApp />,
+return  hydrateRoot(document.getElementById("root"),
+      <AppToRender codeSpace={codeSpace} />,
     );
-    return;
-  }
 
-  const { Editor } = await import("./Editor");
-  appRoot.render(
-    <RainbowContainer>
-      <DraggableWindow
-        // onRestore={() => {
-        //   const model = globalThis.model;
-        //   model.setValue(mST().code);
-        // }}
-        hashCode={0}
-        room={codeSpace}
-      >
-        <MyAutoUpdatingApp />
-      </DraggableWindow>
-      <Editor code={mST().code} i={mST().i} codeSpace={codeSpace} />
-    </RainbowContainer>,
-  );
+
 };
