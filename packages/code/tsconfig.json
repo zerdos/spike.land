@@ -18,7 +18,7 @@
     "noEmit": true,
     "module": "es2022",
     "jsx": "react-jsx",
-
+    "checkJs": false,
     "jsxImportSource": "@emotion/react",
     "sourceMap": true,
     "noUnusedLocals": true,
@@ -66,8 +66,8 @@
     "forceConsistentCasingInFileNames": true, /* Disallow inconsistently-cased references to the same file. */
     "baseUrl": "js"
   },
-  "include": ["js", "../../.fixtures/LazyComponent.tsx"],
-  "exclude": ["./js/vendor/**", ""],
+  "include": ["js"],
+  "exclude": ["./js/vendor/**"],
   "paths": {
     "path": ["path-browserify"],
     "buffer": ["buffer"],
