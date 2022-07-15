@@ -86,7 +86,7 @@
     "buffer": "6.0.3",
     "core-js": "3.23.4",
     "es-module-shims": "1.5.9",
-    "esbuild": "0.14.49",
+    "esbuild": "^0.14.49",
     "esbuild-plugin-alias": "0.2.1",
     "esbuild-plugin-import-map": "2.1.0",
     "esbuild-plugin-jsximportsource": "0.0.4",
