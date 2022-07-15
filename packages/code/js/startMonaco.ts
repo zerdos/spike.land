@@ -77,17 +77,18 @@ export const monacoContribution = async (
 
   const regex2 = / from \'\./ig;
 
-  const search = / from \'https:\/\/[a-z.]?spike\.land\/live\/[a-zA-Z]+/gm;
+  const search = new RegExp(` from '${origin}/live/[a-zA-Z]+`, 'gm');
   const replaced = code.replaceAll(regex1, ` from '${location.origin}/live`)
     .replaceAll(regex2, ` from '${location.origin}/live`);
 
   const models = replaced.matchAll(search);
-  console.log("load more models");
+  console.log("load more models", replaced, models);
 
   for (const match of models) {
     console.log("***** EXTRA MODELS *****");
-    console.log(match);
+
     const extraModel = match[0].slice(7) + ".tsx";
+    console.log(extraModel);
     editor.createModel(
       await fetch(extraModel).then((res) => res.text()),
       "typescript",

@@ -1,1 +1,0 @@
-import{g as i}from"./YZ5NCQOK.mjs";i();async function r(s){let t=(await import("./WDTRPETJ.mjs")).default;var e=t.edit("editor"),a=t.createEditSession(s);return e.setSession(a),await import("./Y2P3CHRT.mjs"),e.setTheme("ace/theme/monokai"),await import("./TV77B3E3.mjs"),e.session.setMode("ace/mode/typescript",()=>({jsx:!0})),e}export{r as startAce};
