@@ -145,7 +145,7 @@ export const renderPreviewWindow = async (
   }
 
   return hydrateRoot(
-    document.getElementById("root"),
+    document.getElementById("root")!,
     <AppToRender codeSpace={codeSpace} />,
   );
 };

@@ -16,14 +16,16 @@ import config from "ipfs-core-config/config";
 //import { create } from "../../node_modules/ipfs-core/index.min.js"//;
 //import { create,  } from "ipfs-core"//;
 
-import type {} from "orbit-db";
+// import  {OrbitDB} from "orbit-db";
+import { MultiService } from "ipfs-message-port-server/dist/src/server";
 // } from "../../node_modules/ipfs-message-port-server/index.min.js";
 // importScripts('https://unpkg.com/ipfs@0.62.3/index.min.js');
 // importScripts('https://unpkg.com/ipfs-message-port-server@0.11.3/index.min.js');
 
-const orbitDbs = {};
+const orbitDbs: {[key: string]: typeof OrbitDB} = {
 
-self.orbitDbs = orbitDbs;
+};
+
 
 export const ipfsWorker = async () => {
   try {
@@ -88,10 +90,11 @@ export const ipfsWorker = async () => {
     // And add hello world for tests
     await ipfs.add({ content: "hello world" });
 
-    const service = new IPFSService(ipfs);
-    const server = new Server(service);
+    // const service = new IPFSService(ipfs);
+    // const server = new Server<[IPFSService]>(service);
 
-    self.ipfs = ipfs;
+    const service: MultiService<{}> = new IPFSService(ipfs)
+    const server = new Server(service)
 
     const orbitdb = await OrbitDB.createInstance(ipfs, {
       id: ipfs.id().toString(),
@@ -134,7 +137,100 @@ export const ipfsWorker = async () => {
     );
 
     connections.map((ports) => server.connect(ports[0]));
-
+   
+    async function startOrbit(
+      orbitdb: typeof OrbitDB,
+      codeSpace: string,
+      address: string,
+      messageData: Object,
+    ) {
+      console.log("startorbit", codeSpace, address, { orbitDbs });
+    
+      const init = orbitDbs[codeSpace];
+      orbitDbs[codeSpace] = orbitDbs[codeSpace] ||
+        await orbitdb.open(
+          "/orbitdb/zdpuAp2ZthtbiECNgbTyuUazbQ3xTejnxTRT6D9JXrt7LzfQY/test", //address || codeSpace,
+          {
+            // If database doesn't exist, create it
+            create: true,
+            overwrite: true,
+            // Load only the local version of the database,
+            // don't load the latest from the network yet
+            localOnly: false,
+            type: "eventlog",
+    
+            // If "Public" flag is set, allow anyone to write to the database,
+            // otherwise only the creator of the database can write
+            accessController: {
+              write: ["*"],
+            },
+          },
+        );
+    
+      const db = orbitDbs[codeSpace];
+    
+      // Create / Open a database
+    
+      // Listen for updates from peers
+      if (!init) {
+        db.events.on("replicated", (_address: string) => {
+          if (address !== _address) {
+            orbitDbs[codeSpace] = _address;
+            bc.postMessage({ codeSpace, address: _address });
+          }
+          console.log(db.iterator({ limit: -1 }).collect());
+        });
+    
+        const query = (db: typeof OrbitDB) => {
+          if (db.type === "eventlog") {
+            return db.iterator({ limit: 5 }).collect();
+          } else if (db.type === "feed") {
+            return db.iterator({ limit: 5 }).collect();
+          } else if (db.type === "docstore") {
+            return db.get("peer1");
+          } else if (db.type === "keyvalue") {
+            return db.get("mykey");
+          } else if (db.type === "counter") {
+            return db.value;
+          } else {
+            throw new Error("Unknown database type: ", db.type);
+          }
+        };
+    
+        let dbAddress = address;
+    
+        const queryAndRender = async (db: typeof OrbitDB) => {
+          //const networkPeers =
+          await ipfs.swarm.peers();
+          //const databasePeers = await
+          ipfs.pubsub.peers(db.address.toString());
+    
+          const result = query(db);
+          let dbType = result && result.type;
+    
+          console.log({ result });
+          if (dbType !== db.type || dbAddress !== db.address) {
+            dbType = db.type;
+            dbAddress = db.address;
+          }
+        };
+    
+        db.events.on("write", () => queryAndRender(db));
+    
+        // Add a
+    
+        const all = db.iterator({ limit: -1 })
+          .collect().map((e: {payload: {value: string}}) => e.payload.value);
+    
+        console.log({ all });
+      }
+    
+      if (messageData) {
+        console.log("adding", { messageData });
+        await db.add(messageData);
+      }
+    }
+    
     // function libp2pConfig() {
     //   /** @type {import('libp2p').Libp2pOptions} */
     //   const options = {
@@ -163,95 +259,3 @@ export const ipfsWorker = async () => {
   }
 };
 
-async function startOrbit(
-  orbitdb: OrbitDB,
-  codeSpace: string,
-  address: string,
-  messageData: Object,
-) {
-  console.log("startorbit", codeSpace, address, { orbitDbs });
-
-  const init = orbitDbs[codeSpace];
-  orbitDbs[codeSpace] = orbitDbs[codeSpace] ||
-    await orbitdb.open(
-      "/orbitdb/zdpuAp2ZthtbiECNgbTyuUazbQ3xTejnxTRT6D9JXrt7LzfQY/test", //address || codeSpace,
-      {
-        // If database doesn't exist, create it
-        create: true,
-        overwrite: true,
-        // Load only the local version of the database,
-        // don't load the latest from the network yet
-        localOnly: false,
-        type: "eventlog",
-
-        // If "Public" flag is set, allow anyone to write to the database,
-        // otherwise only the creator of the database can write
-        accessController: {
-          write: ["*"],
-        },
-      },
-    );
-
-  const db = orbitDbs[codeSpace];
-
-  // Create / Open a database
-
-  // Listen for updates from peers
-  if (!init) {
-    db.events.on("replicated", (_address: string) => {
-      if (address !== _address) {
-        orbitDbs[codeSpace] = _address;
-        bc.postMessage({ codeSpace, address: _address });
-      }
-      console.log(db.iterator({ limit: -1 }).collect());
-    });
-
-    const query = (db: OrbitDB) => {
-      if (db.type === "eventlog") {
-        return db.iterator({ limit: 5 }).collect();
-      } else if (db.type === "feed") {
-        return db.iterator({ limit: 5 }).collect();
-      } else if (db.type === "docstore") {
-        return db.get("peer1");
-      } else if (db.type === "keyvalue") {
-        return db.get("mykey");
-      } else if (db.type === "counter") {
-        return db.value;
-      } else {
-        throw new Error("Unknown database type: ", db.type);
-      }
-    };
-
-    let dbAddress = address;
-
-    const queryAndRender = async (db: typeof OrbitDB) => {
-      //const networkPeers =
-      await ipfs.swarm.peers();
-      //const databasePeers = await
-      ipfs.pubsub.peers(db.address.toString());
-
-      const result = query(db);
-      let dbType = result && result.type;
-
-      console.log({ result });
-      if (dbType !== db.type || dbAddress !== db.address) {
-        dbType = db.type;
-        dbAddress = db.address;
-      }
-    };
-
-    db.events.on("write", () => queryAndRender(db));
-
-    // Add a
-
-    const all = db.iterator({ limit: -1 })
-      .collect().map((e) => e.payload.value);
-
-    console.log({ all });
-  }
-
-  if (messageData) {
-    console.log("adding", { messageData });
-    await db.add(messageData);
-  }
-}

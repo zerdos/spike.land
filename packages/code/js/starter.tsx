@@ -14,6 +14,7 @@ Object.assign(window, {
 });
 
 export const initShims = async (assets: { [key: string]: string }) =>
+// @ts-ignore
   import("es-module-shims").then(() =>
     importShim.addImportMap({
       "imports": {
