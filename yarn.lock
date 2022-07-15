@@ -4088,7 +4088,7 @@ __metadata:
     microenvi: 0.3.1
     monaco-editor: 0.33.0
     msw: ^0.44.1
-    orbit-db: 0.28.6
+    orbit-db: ^0.28.6
     p-all: 4.0.0
     p-map: 5.5.0
     path-browserify: 1.0.1
@@ -15620,7 +15620,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"orbit-db@npm:0.28.6":
+"orbit-db@npm:^0.28.6":
   version: 0.28.6
   resolution: "orbit-db@npm:0.28.6"
   dependencies:

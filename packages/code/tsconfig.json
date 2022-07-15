@@ -5,10 +5,9 @@
 
     /* Basic Options */
     "lib": [
-      "dom",
+      "DOM",
       "DOM.Iterable",
       "es2022",
-      "WebWorker",
       "esnext"
     ],
     "allowJs": true,
@@ -67,7 +66,7 @@
     "forceConsistentCasingInFileNames": true, /* Disallow inconsistently-cased references to the same file. */
     "baseUrl": "js"
   },
-  "include": ["js"],
+  "include": ["js", "../../.fixtures/LazyComponent.tsx"],
   "exclude": ["./js/vendor/**", ""],
   "paths": {
     "path": ["path-browserify"],

@@ -711,7 +711,7 @@ async function sw() {
       switch (event.data.method) {
         case "ipfs-message-port":
           console.log("Message port request");
-          const { connect } = await import("./ipfs");
+          const { connect } = await import("./ipfs.mjs");
 
           console.log("can connect trough", { connect });
           // await ipfsWorker();
@@ -747,7 +747,7 @@ async function sw() {
         switch (protocol) {
           case "ipfs":
           case "ipns": {
-            document.body.innerHTML =
+           document.body.innerHTML =
               `<iframe id="viewer" style="width:100%;height:100%;position:fixed;top:0;left:0;border:none;" src="/view${path}"></iframe>`;
           }
         }

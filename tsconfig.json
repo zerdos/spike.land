@@ -72,7 +72,7 @@
     "packages/code/framer-motion.ts",
     "packages/code/motion.tsx",
     "packages/code/emotion.ts"
-  ],
+, ".fixtures/LazyComponent.tsx"  ],
   "exclude": ["./js/vendor/**", "**node_modules", "node_modules"],
   "paths": {
     "path": ["path-browserify"],
