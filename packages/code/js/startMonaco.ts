@@ -85,6 +85,8 @@ export const monacoContribution = async (
   console.log("load more models");
 
   for (const match of models) {
+    console.log("***** EXTRA MODELS *****");
+    console.log(match);
     const extraModel = match[0].slice(7) + ".tsx";
     editor.createModel(
       await fetch(extraModel).then((res) => res.text()),
