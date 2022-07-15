@@ -10,6 +10,12 @@ import createSvgIcon from "@mui/material/utils/createSvgIcon";
 
 import type { FC } from "react";
 
+import ToggleButton from "@mui/material/ToggleButton/ToggleButton";
+import  ToggleButtonGroup from "@mui/material/ToggleButtonGroup/ToggleButtonGroup";
+
+export {ToggleButton}
+export {ToggleButtonGroup}
+
 export { Box };
 export { Slider };
 
@@ -123,5 +129,3 @@ export {
   Tv,
 };
 
-export { default as ToggleButton } from "@mui/material/ToggleButton";
-export { default as ToggleButtonGroup } from "@mui/material/ToggleButtonGroup";

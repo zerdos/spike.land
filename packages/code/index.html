@@ -56,7 +56,10 @@ textarea {
     }};
 
 
-
+  window.esmsInitOptions = {
+    shimMode: true,
+    polyfillEnable: ["css-modules", "json-modules"], // default empty
+  };
   </script>
   <div id="root"></div>
   <script>
@@ -64,6 +67,20 @@ textarea {
    /** startState **/
 
  </script>
-  <script type="module" src="./ws.mjs"></script> 
+  <script type="module">
+    import {mST, assets, codeSpace, address} from "https://testing.spike.land/live/coder/mST.mjs" 
+    import {run } from "./js/ws"
+
+    document.getElementById("root").innerHTML =`<div id="root-${codeSpace}" style="height: 100%">` +
+                  mST.html + `</div>`
+
+    run({
+      mST,
+      codeSpace,
+      address,
+      assets
+    });
+  
+  </script> 
 </body>
 </html>
