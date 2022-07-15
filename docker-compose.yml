@@ -10,7 +10,7 @@ services:
   #     - ipfs:/data/ipfs
   #     - .:/exportdevcontainer
   devcontainer: 
-    image: devimages/jammy-devcontainer:latest
+    image: devimages/gitpod:latest
     # build: 
     #   context: .
     #   dockerfile: ./monorepo/dockerhub/devimages/jammy-devcontainer/Dockerfile
