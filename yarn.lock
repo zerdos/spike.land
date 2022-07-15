@@ -4041,13 +4041,13 @@ __metadata:
   resolution: "@spike.land/code-worker@workspace:sites/spike.land"
   dependencies:
     "@cloudflare/kv-asset-handler": 0.2.0
-    "@spike.land/code": 0.8.1
+    "@spike.land/code": ^0.8.2
     typescript: 4.7.4
     wrangler: 2.0.22
   languageName: unknown
   linkType: soft
 
-"@spike.land/code@0.8.1, @spike.land/code@workspace:packages/code":
+"@spike.land/code@^0.8.2, @spike.land/code@workspace:packages/code":
   version: 0.0.0-use.local
   resolution: "@spike.land/code@workspace:packages/code"
   dependencies:
@@ -4116,11 +4116,11 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@spike.land/cypress@workspace:dockerhub/devimages/cypress"
   dependencies:
-    "@spike.land/devcontainer-generator": 0.8.1
+    "@spike.land/devcontainer-generator": ^0.8.2
   languageName: unknown
   linkType: soft
 
-"@spike.land/devcontainer-generator@0.8.1, @spike.land/devcontainer-generator@workspace:packages/devcontainer-generator":
+"@spike.land/devcontainer-generator@^0.8.2, @spike.land/devcontainer-generator@workspace:packages/devcontainer-generator":
   version: 0.0.0-use.local
   resolution: "@spike.land/devcontainer-generator@workspace:packages/devcontainer-generator"
   dependencies:
@@ -4133,7 +4133,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@spike.land/eoan-xfce-novnc@workspace:dockerhub/devimages/eoan-xfce-novnc"
   dependencies:
-    "@spike.land/devcontainer-generator": 0.8.1
+    "@spike.land/devcontainer-generator": ^0.8.2
   languageName: unknown
   linkType: soft
 
@@ -4153,7 +4153,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@spike.land/jammy-devcontainer@workspace:dockerhub/devimages/jammy-devcontainer"
   dependencies:
-    "@spike.land/devcontainer-generator": 0.8.1
+    "@spike.land/devcontainer-generator": ^0.8.2
   languageName: unknown
   linkType: soft
 
@@ -4176,7 +4176,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@spike.land/rolling-devcontainer@workspace:dockerhub/devimages/rolling-devcontainer"
   dependencies:
-    "@spike.land/devcontainer-generator": 0.8.1
+    "@spike.land/devcontainer-generator": ^0.8.2
   languageName: unknown
   linkType: soft
 
