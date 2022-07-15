@@ -329,7 +329,8 @@ export class Code {
           `,
               ).replace(
                 `<div id="root"></div>`,
-                `<div id="root"><div id="root-${this.codeSpace}" style="height: 100%">` + html + `</div></div>
+                `<div id="root"><div id="root-${this.codeSpace}" style="height: 100%">` +
+                  html + `</div></div>
            `,
               ),
             {

@@ -73,7 +73,6 @@ export async function appFactory(transpiled: string): Promise<FC> {
   return apps[result];
 }
 
-
 export function createJsBlob(code: string) {
   const file = new File([code], "index.mjs", {
     type: "application/javascript",

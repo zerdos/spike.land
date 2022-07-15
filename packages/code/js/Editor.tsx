@@ -142,7 +142,6 @@ export const Editor: FC<{ code: string; i: number; codeSpace: string }> = (
 
         // console.log("RUN THE RUNNER AGAIN");
         await runner({ code: newCode, counter: counter + 1 });
-     
       } catch (err) {
         console.error({ err });
         console.error("restore editor");
