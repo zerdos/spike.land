@@ -3,6 +3,9 @@ import { IPFSClient } from "ipfs-message-port-client";
 import throttle from "lodash/throttle";
 import debounce from "lodash/debounce";
 import pMap from "p-map";
+//import { setupWorker, rest } from 'msw'
+
+
 
 
 const IPFS_SERVER_URL = "./worker.js";
@@ -213,6 +216,27 @@ const fetchContent = async ({ event, path }) => {
         event,
         path,
       }));
+//     case "mock":
+
+
+// // 2. Define request handlers and response resolvers.
+// const worker = setupWorker(
+//   rest.get(`https://${lo}/octocat`, (req, res, ctx) => {
+//     console.log({req});
+//     return res(
+//       ctx.delay(1500),
+//       ctx.status(202, 'Mocked status'),
+//       ctx.json({
+//         message: 'Mocked response JSON body',
+//       }),
+//     )
+//   }),
+// )
+
+// // 3. Start the Service Worker.
+// return worker.start()
+
+
     default:
       const response = await unsupportedProtocol(protocol);
       return event.respondWith(response);
