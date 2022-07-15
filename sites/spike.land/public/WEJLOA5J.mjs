@@ -2177,7 +2177,7 @@ var isFloat = function(value) {
 var MotionValue = function() {
   function MotionValue3(init) {
     var _this = this;
-    this.version = "6.5.0";
+    this.version = "6.5.1";
     this.timeDelta = 0;
     this.lastUpdated = 0;
     this.updateSubscribers = new SubscriptionManager();
@@ -3339,7 +3339,7 @@ function updateMotionValuesFromProps(element, next, prev) {
     if (isMotionValue(nextValue)) {
       element.addValue(key, nextValue);
       if (true) {
-        warnOnce(nextValue.version === "6.5.0", "Attempting to mix Framer Motion versions ".concat(nextValue.version, " with 6.5.0 may not work as expected."));
+        warnOnce(nextValue.version === "6.5.1", "Attempting to mix Framer Motion versions ".concat(nextValue.version, " with 6.5.1 may not work as expected."));
       }
     } else if (isMotionValue(prevValue)) {
       element.addValue(key, motionValue(nextValue));
@@ -7160,15 +7160,14 @@ init_define_process();
 
 // ../../node_modules/framer-motion/dist/es/value/use-on-change.mjs
 init_define_process();
-import { useEffect as useEffect14 } from "/react.mjs";
 function useOnChange(value, callback) {
-  useEffect14(function() {
+  useIsomorphicLayoutEffect(function() {
     if (isMotionValue(value))
       return value.onChange(callback);
   }, [callback]);
 }
 function useMultiOnChange(values, handler) {
-  useEffect14(function() {
+  useIsomorphicLayoutEffect(function() {
     var subscriptions = values.map(function(value) {
       return value.onChange(handler);
     });
@@ -7221,7 +7220,7 @@ init_define_process();
 // ../../node_modules/framer-motion/dist/es/components/Reorder/Group.mjs
 init_define_process();
 import * as React9 from "/react.mjs";
-import { forwardRef as forwardRef2, useRef as useRef10, useEffect as useEffect15 } from "/react.mjs";
+import { forwardRef as forwardRef2, useRef as useRef10, useEffect as useEffect14 } from "/react.mjs";
 
 // ../../node_modules/framer-motion/dist/es/context/ReorderContext.mjs
 init_define_process();
@@ -7282,7 +7281,7 @@ function ReorderGroup(_a, externalRef) {
       }
     }
   };
-  useEffect15(function() {
+  useEffect14(function() {
     isReordering.current = false;
   });
   return React9.createElement(Component, __assign({}, props, { ref: externalRef }), React9.createElement(ReorderContext.Provider, { value: context }, children));
@@ -7298,7 +7297,7 @@ function compareMin(a2, b2) {
 // ../../node_modules/framer-motion/dist/es/components/Reorder/Item.mjs
 init_define_process();
 import * as React10 from "/react.mjs";
-import { forwardRef as forwardRef3, useContext as useContext17, useRef as useRef11, useEffect as useEffect16 } from "/react.mjs";
+import { forwardRef as forwardRef3, useContext as useContext17, useRef as useRef11, useEffect as useEffect15 } from "/react.mjs";
 function useDefaultMotionValue(value, defaultValue) {
   if (defaultValue === void 0) {
     defaultValue = 0;
@@ -7322,7 +7321,7 @@ function ReorderItem(_a, externalRef) {
   var measuredLayout = useRef11(null);
   invariant(Boolean(context), "Reorder.Item must be a child of Reorder.Group");
   var _d = context, axis = _d.axis, registerItem = _d.registerItem, updateOrder = _d.updateOrder;
-  useEffect16(function() {
+  useEffect15(function() {
     registerItem(value, measuredLayout.current);
   }, [context]);
   return React10.createElement(Component, __assign({ drag: axis }, props, { dragSnapToOrigin: true, style: __assign(__assign({}, style2), { x: point2.x, y: point2.y, zIndex }), layout, onDrag: function(event, gesturePoint) {
@@ -7399,10 +7398,10 @@ function useSpring(source, config) {
 
 // ../../node_modules/framer-motion/dist/es/value/use-velocity.mjs
 init_define_process();
-import { useEffect as useEffect17 } from "/react.mjs";
+import { useEffect as useEffect16 } from "/react.mjs";
 function useVelocity(value) {
   var velocity = useMotionValue(value.getVelocity());
-  useEffect17(function() {
+  useEffect16(function() {
     return value.velocityUpdateSubscribers.add(function(newVelocity) {
       velocity.set(newVelocity);
     });
@@ -8510,7 +8509,7 @@ function useViewportScroll() {
 
 // ../../node_modules/framer-motion/dist/es/utils/use-animation-frame.mjs
 init_define_process();
-import { useContext as useContext19, useEffect as useEffect18 } from "/react.mjs";
+import { useContext as useContext19, useEffect as useEffect17 } from "/react.mjs";
 var getCurrentTime2 = typeof performance !== "undefined" ? function() {
   return performance.now();
 } : function() {
@@ -8519,7 +8518,7 @@ var getCurrentTime2 = typeof performance !== "undefined" ? function() {
 function useAnimationFrame(callback) {
   var initialTimestamp = useConstant(getCurrentTime2);
   var isStatic = useContext19(MotionConfigContext).isStatic;
-  useEffect18(function() {
+  useEffect17(function() {
     if (isStatic)
       return;
     var provideTimeSinceStart = function(_a) {
@@ -8602,10 +8601,10 @@ function animationControls() {
 
 // ../../node_modules/framer-motion/dist/es/animation/use-animation.mjs
 init_define_process();
-import { useEffect as useEffect19 } from "/react.mjs";
+import { useEffect as useEffect18 } from "/react.mjs";
 function useAnimationControls() {
   var controls = useConstant(animationControls);
-  useEffect19(controls.mount, []);
+  useEffect18(controls.mount, []);
   return controls;
 }
 var useAnimation = useAnimationControls;
@@ -8629,11 +8628,11 @@ function useCycle() {
 
 // ../../node_modules/framer-motion/dist/es/utils/use-in-view.mjs
 init_define_process();
-import { useState as useState6, useEffect as useEffect20 } from "/react.mjs";
+import { useState as useState6, useEffect as useEffect19 } from "/react.mjs";
 function useInView(ref, _a) {
   var _b = _a === void 0 ? {} : _a, root = _b.root, margin = _b.margin, amount = _b.amount, _c = _b.once, once = _c === void 0 ? false : _c;
   var _d = __read(useState6(false), 2), isInView = _d[0], setInView = _d[1];
-  useEffect20(function() {
+  useEffect19(function() {
     var _a2;
     if (!ref.current || once && isInView)
       return;
@@ -8695,11 +8694,11 @@ function startTransition(cb2) {
 
 // ../../node_modules/framer-motion/dist/es/utils/use-instant-transition.mjs
 init_define_process();
-import { useEffect as useEffect21 } from "/react.mjs";
+import { useEffect as useEffect20 } from "/react.mjs";
 function useInstantTransition() {
   var _a = __read(useForceUpdate(), 2), forceUpdate = _a[0], forcedRenderCount = _a[1];
   var startInstantLayoutTransition = useInstantLayoutTransition();
-  useEffect21(function() {
+  useEffect20(function() {
     es_default.postRender(function() {
       return es_default.postRender(function() {
         return instantAnimationState.current = false;
@@ -8730,7 +8729,7 @@ function useResetProjection() {
 
 // ../../node_modules/framer-motion/dist/es/animation/use-animated-state.mjs
 init_define_process();
-import { useState as useState7, useEffect as useEffect22 } from "/react.mjs";
+import { useState as useState7, useEffect as useEffect21 } from "/react.mjs";
 var createObject = function() {
   return {};
 };
@@ -8767,11 +8766,11 @@ function useAnimatedState(initialState) {
   var element = useConstant(function() {
     return stateVisualElement({ props: {}, visualState }, { initialState });
   });
-  useEffect22(function() {
+  useEffect21(function() {
     element.mount({});
     return element.unmount;
   }, [element]);
-  useEffect22(function() {
+  useEffect21(function() {
     element.setProps({
       onUpdate: function(v) {
         setAnimationState(__assign({}, v));

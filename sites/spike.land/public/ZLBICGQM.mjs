@@ -5564,7 +5564,7 @@ var sendChannel = {
   }
 };
 async function quickStart(codeSpace2) {
-  const { renderPreviewWindow } = await import("./ZWUSXM5S.mjs");
+  const { renderPreviewWindow } = await import("./7BPDCKWW.mjs");
   return renderPreviewWindow(codeSpace2);
 }
 var run = async (startState) => {

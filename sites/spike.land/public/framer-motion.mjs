@@ -70,7 +70,7 @@ import {
   useVisualElementContext,
   visualElement,
   wrapHandler
-} from "./REDEJWQ7.mjs";
+} from "./WEJLOA5J.mjs";
 import "./C23GJUEW.mjs";
 import {
   init_define_process

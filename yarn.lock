@@ -4042,7 +4042,7 @@ __metadata:
     "@cloudflare/kv-asset-handler": 0.2.0
     "@spike.land/code": 0.8.1
     typescript: 4.7.4
-    wrangler: 2.0.19
+    wrangler: 2.0.21
   languageName: unknown
   linkType: soft
 
@@ -4075,7 +4075,7 @@ __metadata:
     esbuild-register: 3.3.3
     esbuild-wasm: 0.14.49
     fast-diff: 1.2.0
-    framer-motion: 6.5.0
+    framer-motion: 6.5.1
     hoist-non-react-statics: 3.3.2
     immutable: 4.1.0
     ipfs: 0.63.5
@@ -4086,7 +4086,7 @@ __metadata:
     lodash: 4.17.21
     microenvi: 0.3.1
     monaco-editor: 0.33.0
-    msw: ^0.44.0
+    msw: ^0.44.1
     orbit-db: 0.28.6
     p-all: 4.0.0
     p-map: 5.5.0
@@ -9444,9 +9444,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"framer-motion@npm:6.5.0":
-  version: 6.5.0
-  resolution: "framer-motion@npm:6.5.0"
+"framer-motion@npm:6.5.1":
+  version: 6.5.1
+  resolution: "framer-motion@npm:6.5.1"
   dependencies:
     "@emotion/is-prop-valid": ^0.8.2
     "@motionone/dom": 10.12.0
@@ -9461,7 +9461,7 @@ __metadata:
   dependenciesMeta:
     "@emotion/is-prop-valid":
       optional: true
-  checksum: d4d11a216f08e918195b38ab4edf86762d09cd023051a7e481ca9cee403f6bd5675eab0c1f8b2fce43800ebaac270077e2fe23c8e2b3cd4b84365e4bca7e6112
+  checksum: 737959063137b4ccafe01e0ac0c9e5a9531bf3f729f62c34ca7a5d7955e6664f70affd22b044f7db51df41acb21d120a4f71a860e17a80c4db766ad66f2153a1
   languageName: node
   linkType: hard
 
@@ -14407,9 +14407,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"msw@npm:^0.44.0":
-  version: 0.44.0
-  resolution: "msw@npm:0.44.0"
+"msw@npm:^0.44.1":
+  version: 0.44.1
+  resolution: "msw@npm:0.44.1"
   dependencies:
     "@mswjs/cookies": ^0.2.2
     "@mswjs/interceptors": ^0.17.2
@@ -14438,7 +14438,7 @@ __metadata:
       optional: true
   bin:
     msw: cli/index.js
-  checksum: fd8baab3be02bb04f254fd7651237fb675197fda05bbfcfb082d457658c8a7de0c6f2ea6158d42ceddc4d66366ef26c8f0621eaa94c53148f65948c3638397fc
+  checksum: 1854dfc6877861526d311f2df46ba1d8c58bc9850edcff06cb1ff37b329bf902095b225da96c5e877739a6cfcd95d37fe85605e8620ead3d577be47cb256ff37
   languageName: node
   linkType: hard
 
@@ -20869,9 +20869,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"wrangler@npm:2.0.19":
-  version: 2.0.19
-  resolution: "wrangler@npm:2.0.19"
+"wrangler@npm:2.0.21":
+  version: 2.0.21
+  resolution: "wrangler@npm:2.0.21"
   dependencies:
     "@cloudflare/kv-asset-handler": ^0.2.0
     "@esbuild-plugins/node-globals-polyfill": ^0.1.1
@@ -20890,7 +20890,7 @@ __metadata:
   bin:
     wrangler: bin/wrangler.js
     wrangler2: bin/wrangler.js
-  checksum: 567aad327dc191fa8e8f11b9082ec5189e8a8636bb2c66e49a5ca247bf7f52a91233c44dead1cc1ee4098c96961fdd8c861580f1b595aac3938d14600cc7ca26
+  checksum: e985b09f02f7e699887cd05445f096ee6cb71d334ac6b6ea921197b68dadbf1e1661a7794a54e95babc18e67f5d721b5bf3270f8e2e618897208b4960cef46b8
   languageName: node
   linkType: hard
 
