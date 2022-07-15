@@ -44717,7 +44717,7 @@ var monacoContribution = async (typescript, editor2, code) => {
     editor2.createModel(await fetch(extraModel).then((res) => res.text()), "typescript", Uri.parse(extraModel));
   }
   (async () => {
-    const { dtsFiles } = await import("../VFHKGJIT.mjs");
+    const { dtsFiles } = await import("../WANYU4QA.mjs");
     const {
       reactDts,
       jsxRuntimeDts,

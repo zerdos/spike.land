@@ -80,6 +80,12 @@ html, body {margin: 0; height: 100%}
   
 
 <script>     
+
+window.esmsInitOptions = {
+    shimMode: true,
+    polyfillEnable: ["css-modules", "json-modules"], // default empty
+  };
+  
   if (location.href.indexOf(".tsx")!==-1) {
     const loc = location.href.indexOf(".tsx");
 

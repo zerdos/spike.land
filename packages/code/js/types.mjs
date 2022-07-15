@@ -1,31 +1,33 @@
-import reactDts from "../../../node_modules/@types/react/index.d.ts?text";
-import jsxRuntimeDts from "../../../node_modules/@types/react/jsx-runtime.d.ts?text";
-// import reactExpDts from "@types/react/experimental.d.ts?text";
-// import globalDts from "@types/react/global.d.ts?text";
-import propTypesDts from "@types/prop-types/index.d.ts?text";
-import cssTypeDts from "csstype/index.d.ts?text";
-import framerDts from "./types/framer.d.ts?text";
-import emotionStyleBase from "@emotion/styled/types/base.d.ts?text";
-import emotionStyled from "@emotion/styled/types/index.d.ts?text";
-import emotionCache from "@emotion/cache/types/index.d.ts?text";
-import emotionReactDts from "@emotion/react/types/index.d.ts?text";
+// const reactDts = "https://unpkg.com/../../../node_modules/@types/react/index.d.ts?text";
+// const jsxRuntimeDts = "https://unpkg.com/../../../node_modules/@types/react/jsx-runtime.d.ts?text";
+// const reactExpDts = "https://unpkg.com/@types/react/experimental.d.ts?text";
+// const globalDts = "https://unpkg.com/@types/react/global.d.ts?text";
+// const propTypesDts = "https://unpkg.com/@types/prop-types/index.d.ts?text";
+const cssTypeDts = "https://unpkg.com/csstype/index.d.ts?text";
+const framerDts = "https://raw.githubusercontent.com/zerdos/spike.land/main/packages/code/js/types/framer.d.ts";
+const emotionStyleBase = "https://unpkg.com/@emotion/styled/types/base.d.ts?text";
+const emotionStyled = "https://unpkg.com/@emotion/styled/types/index.d.ts?text";
+const emotionCache = "https://unpkg.com/@emotion/cache/types/index.d.ts?text";
+const emotionReactDts = "https://unpkg.com/@emotion/react/types/index.d.ts?text";
 
-import emotionJSXDts from "@emotion/react/types/jsx-runtime.d.ts?text";
-import emotionJSXRuntimeDTS from "@emotion/react/types/jsx-runtime.d.ts?text";
-import emotionJSXNameSpaceDTS from "@emotion/react/types/jsx-namespace.d.ts?text";
-import emotionReactCssPropDts from "@emotion/react/types/css-prop.d.ts?text";
-import emotionReactHelperDts from "@emotion/react/types/helper.d.ts?text";
-import emotionThemingDts from "@emotion/react/types/theming.d.ts?text";
-import emotionSerializeDts from "@emotion/serialize/types/index.d.ts?text";
-import emotionUtilsDts from "@emotion/utils/types/index.d.ts?text";
-// import popmotionDts from "popmotion/lib/index.d.ts?text";
+const emotionJSXDts = "https://unpkg.com/@emotion/react/types/jsx-runtime.d.ts?text";
+const emotionJSXRuntimeDTS = "https://unpkg.com/@emotion/react/types/jsx-runtime.d.ts?text";
+const emotionJSXNameSpaceDTS = "https://unpkg.com/@emotion/react/types/jsx-namespace.d.ts?text";
+const emotionReactCssPropDts = "https://unpkg.com/@emotion/react/types/css-prop.d.ts?text";
+const emotionReactHelperDts = "https://unpkg.com/@emotion/react/types/helper.d.ts?text";
+const emotionThemingDts = "https://unpkg.com/@emotion/react/types/theming.d.ts?text";
+const emotionSerializeDts = "https://unpkg.com/@emotion/serialize/types/index.d.ts?text";
+const emotionUtilsDts = "https://unpkg.com/@emotion/utils/types/index.d.ts?text";
+
+
+// const popmotionDts = "https://unpkg.com/popmotion/lib/index.d.ts?text";
 
 export const dtsFiles = {
-  reactDts,
-  jsxRuntimeDts,
+  reactDts: "https://unpkg.com/@types/react/index.d.ts",
+  jsxRuntimeDts:  "https://unpkg.com/@types/react/jsx-runtime.d.ts",
   // reactExpDts,
   // globalDts,
-  propTypesDts,
+  propTypesDts: "https://unpkg.com/@types/prop-types/index.d.ts",
   cssTypeDts,
   framerDts,
   emotionStyleBase,
@@ -39,6 +41,6 @@ export const dtsFiles = {
   emotionReactHelperDts,
   emotionThemingDts,
   emotionSerializeDts,
-  emotionUtilsDts,
+  emotionUtilsDts: "https://unpkg.com/@emotion/utils/types/index.d.ts"
   // popmotionDts
 };

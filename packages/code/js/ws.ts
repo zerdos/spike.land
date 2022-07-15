@@ -239,7 +239,7 @@ export async function join() {
   rejoined = true;
 
   console.log("WS connect!");
-
+  if (location.host.includes("localhost")) return;
   const wsConnection = new WebSocket(
     `wss://${location.host}/live/` + codeSpace + "/websocket",
   );
