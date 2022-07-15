@@ -4043,7 +4043,7 @@ __metadata:
     "@cloudflare/kv-asset-handler": 0.2.0
     "@spike.land/code": 0.8.1
     typescript: 4.7.4
-    wrangler: 2.0.21
+    wrangler: 2.0.22
   languageName: unknown
   linkType: soft
 
@@ -20901,9 +20901,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"wrangler@npm:2.0.21":
-  version: 2.0.21
-  resolution: "wrangler@npm:2.0.21"
+"wrangler@npm:2.0.22":
+  version: 2.0.22
+  resolution: "wrangler@npm:2.0.22"
   dependencies:
     "@cloudflare/kv-asset-handler": ^0.2.0
     "@esbuild-plugins/node-globals-polyfill": ^0.1.1
@@ -20922,7 +20922,7 @@ __metadata:
   bin:
     wrangler: bin/wrangler.js
     wrangler2: bin/wrangler.js
-  checksum: e985b09f02f7e699887cd05445f096ee6cb71d334ac6b6ea921197b68dadbf1e1661a7794a54e95babc18e67f5d721b5bf3270f8e2e618897208b4960cef46b8
+  checksum: 784f7cf87b7d42422ddc553f991494f0ec83c14488c4753840ac60a40aaf064625e7b81d6a198b81b520f37605a7a502a6808891c3a3981b8b0ba7a1baecf15b
   languageName: node
   linkType: hard
 
