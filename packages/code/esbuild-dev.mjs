@@ -2,6 +2,7 @@ import esbuild from "esbuild";
 import { dirname, resolve } from "path";
 import { fileURLToPath } from "url";
 import { pnpPlugin } from "@yarnpkg/esbuild-plugin-pnp";
+
 import * as importMap from "esbuild-plugin-import-map";
 import { jsxImportSourcePlugin } from "esbuild-plugin-jsximportsource";
 import alias from "esbuild-plugin-alias";
@@ -95,9 +96,7 @@ await esbuild.build({
     ".webp": "file",
     ".tsx": "tsx",
     ".jsx": "tsx",
-    ".mjs": "ts",
     ".ts:": "ts",
-    ".js:": "ts",
     ".css": "css",
     ".d.ts": "dataurl",
     ".css": "css",
