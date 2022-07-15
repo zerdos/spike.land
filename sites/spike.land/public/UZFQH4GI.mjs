@@ -5,7 +5,7 @@ import {
   mST,
   onSessionUpdate,
   saveCode
-} from "./45BYMQ4V.mjs";
+} from "./VQX3N2CN.mjs";
 import {
   LazyMotion,
   domAnimation,
@@ -17344,6 +17344,7 @@ background:  repeating-radial-gradient(circle at bottom left,
 }, children2);
 var AppToRender = ({ codeSpace }) => {
   const [hash3, setHash] = useState26(() => hashCode());
+  const [isStandalone, setIsStandalone] = useState26(true);
   useEffect30(() => {
     onSessionUpdate(async () => {
       const newHash = hashCode();
@@ -17357,10 +17358,15 @@ var AppToRender = ({ codeSpace }) => {
       }
     }, "myApp");
   }, [hash3, setHash]);
+  useEffect30(() => {
+    setTimeout(() => {
+      const isStandalone2 = location.pathname.endsWith("public") || location.pathname.endsWith("hydrated");
+      setIsStandalone(isStandalone2);
+    }, 500);
+  }, []);
   const portalNode = useMemo8(() => createHtmlPortalNode({
     attributes: { id: `root-${codeSpace}`, style: "height: 100%" }
   }), []);
-  const isStandalone = location.pathname.endsWith("public") || location.pathname.endsWith("hydrated");
   return jsx(Fragment10, null, jsx(InPortal, {
     node: portalNode
   }, jsx(AutoUpdateApp, {

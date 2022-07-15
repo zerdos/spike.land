@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 
 import { Fragment, ReactNode, useEffect, useMemo, useState } from "react";
-import { appFactory, appRoot, AutoUpdateApp } from "./starter";
+import { appFactory, AutoUpdateApp } from "./starter";
 import { css } from "@emotion/react";
 import { DraggableWindow } from "./DraggableWindow";
 import type { FC } from "react";
@@ -63,6 +63,7 @@ background:  repeating-radial-gradient(circle at bottom left,
 
 const AppToRender: FC<{ codeSpace: string }> = ({ codeSpace }) => {
   const [hash, setHash] = useState(() => hashCode());
+  const [isStandalone, setIsStandalone] = useState(true);
 
   useEffect(() => {
     onSessionUpdate(async () => {
@@ -78,13 +79,22 @@ const AppToRender: FC<{ codeSpace: string }> = ({ codeSpace }) => {
     }, "myApp");
   }, [hash, setHash]);
 
+  useEffect(()=>{
+
+    setTimeout(() => {
+      const isStandalone = location.pathname.endsWith("public") ||
+      location.pathname.endsWith("hydrated");
+
+      setIsStandalone(isStandalone);
+    }, 500);
+  },[])
+
   const portalNode = useMemo(() =>
     portals.createHtmlPortalNode({
       attributes: { id: `root-${codeSpace}`, style: "height: 100%" },
     }), []);
 
-  const isStandalone = location.pathname.endsWith("public") ||
-    location.pathname.endsWith("hydrated");
+
 
   return (
     <Fragment>
