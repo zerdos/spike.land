@@ -11,15 +11,6 @@ import createSvgIcon from "@mui/material/utils/createSvgIcon";
 export {default as ToggleButton} from "@mui/material/ToggleButton/ToggleButton";
 export {default as ToggleButtonGroup} from "@mui/material/ToggleButtonGroup/ToggleButtonGroup";
 
-// export {Button}
-// export {Fab}
-
-// export { ToggleButton };
-// export { ToggleButtonGroup };
-
-// export { Box };
-// export { Slider };
-// const createSvgIcon = (el: JSX.Element, name: string)=> ()=><svg data-testid={name}>{el}</svg>
 
 export const FullscreenIcon = createSvgIcon(
   <path d="M17 4h5v5h-2V6h-3V4zM4 9V6h3V4H2v5h2zm16 6v3h-3v2h5v-5h-2zM7 18H4v-3H2v5h5v-2zM18 8H6v8h12V8z">
@@ -36,14 +27,6 @@ export const Phone = createSvgIcon(
   "PhoneAndroid",
 );
 
-// const MyButton: FC<{ onClick: () => any; children: JSX.Element }> = (
-//   { onClick, children },
-// ) => (
-//   <Button variant="contained" color="primary" onClick={onClick}>
-//     {children}
-//   </Button>
-// );
-
 export const Share = createSvgIcon(
   <path
     key="12"
@@ -53,18 +36,6 @@ export const Share = createSvgIcon(
   "Share",
 );
 
-// Const FullScr = createSvgIcon(
-//   <path
-//     key="12"
-//     d="M19 4H5a2 2 0 00-2 2v12a2 2 0 002 2h4v-2H5V8h14v10h-4v2h4c1.1 0 2-.9 2-2V6a2 2 0 00-2-2zm-7 6l-4 4h3v6h2v-6h3l-4-4z"
-//   />,
-//   "Share",
-// );
-
-// export function MdOpenInBrowser (props) {
-//   return GenIcon({"tag":"svg","attr":{"viewBox":"0 0 24 24"},"child":[{"tag":"path","attr":{"fill":"none","d":"M0 0h24v24H0z"}},{"tag":"path","attr":{"d":"}}]})(props);
-// };
-// MdOpenInBrowser
 
 export const Tablet = createSvgIcon(
   <path
@@ -82,18 +53,6 @@ export const Tv = createSvgIcon(
   </path>,
   "Tv",
 );
-
-// const MyFsb: FC<{ onClick?: () => void; children: JSX.Element }> = (
-//   { onClick, children },
-// ) => (
-//   <Fab
-//     variant="extended"
-//     color="primary"
-//     onClick={onClick}
-//   >
-//     {children}
-//   </Fab>
-// );
 
 export const QrCode = createSvgIcon(
   <path
