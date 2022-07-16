@@ -324,7 +324,6 @@ async function processWsMessage(
   source: "ws" | "rtc",
 ) {
   if (ws == null) return;
-
   lastSeenNow = Date.now();
 
   const data = JSON.parse(event.data);
@@ -338,9 +337,25 @@ async function processWsMessage(
     lastSeenTimestamp = data.timestamp;
   }
 
-  if (source === "ws" && (data.hashCode || data.newHash)) {
-    wsLastHashCode = data.hashCode || data.newHash;
+  if (source === "ws" && data.hashCode) {
+    wsLastHashCode = data.hashCode;
+   
+
+   
   }
+
+  if (source === "ws" && (data.hashCode)) {
+    wsLastHashCode = data.hashCode;
+  }
+
+  if (wsLastHashCode!==hashCode()){
+    const resp = await fetch(`https://spike.land/live/${codeSpace}/mST`);
+    const state = await resp.json();
+  
+     const codePatch = await makePatch(state.mST);
+    if (codePatch.newHash === wsLastHashCode) await applyPatch(codePatch);
+}
+
   if (source === "rtc" && data.hashCode || data.newHash) {
     webRTCLastSeenHashCode = data.hashCode || data.newHash;
   }
