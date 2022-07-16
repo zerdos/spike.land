@@ -1,12 +1,20 @@
 /** @jsxImportSource @emotion/react */
 
-import { FC, useEffect, useRef, useState } from "react";
+import { FC, useEffect, useRef, useState, useCallback } from "react";
 import { runner } from "./runner";
 import { mST, onSessionUpdate } from "./session";
 import { isMobile } from "./isMobile.mjs";
 
 import { css } from "@emotion/react";
+import debounce from "lodash/debounce";
 import { wait } from "wait";
+
+const runnerDebounced = debounce(runner, 200, {trailing: true, leading: true, maxWait: 500});
+
+const mod = {
+  CH: ()=>{} 
+}
+
 
 // export type IStandaloneCodeEditor = editor.Ist;
 
@@ -19,7 +27,7 @@ export const Editor: FC<{ code: string; i: number; codeSpace: string }> = (
 
   // const mst = mST();
   const [
-    { counter, myCode, myId, engine, prettierJs, getValue, setValue, onChange },
+    mySession,
     changeContent,
   ] = useState({
     myCode: code,
@@ -32,10 +40,19 @@ export const Editor: FC<{ code: string; i: number; codeSpace: string }> = (
     engine: isMobile() ? "ace" : "monaco",
   });
 
+  mod.CH = () => changeContent;
+
+ 
+
+  const  { counter, myCode, myId, engine, prettierJs, getValue, setValue, onChange } = mySession;
+
+
   const lines = code?.split("\n").length || 0;
 
   useEffect(() => {
     if (!ref?.current) return;
+
+  
 
     const setMonaco = async () => {
       const { startMonaco } = await import("./startMonaco");
@@ -55,12 +72,19 @@ export const Editor: FC<{ code: string; i: number; codeSpace: string }> = (
       changeContent((x) => ({
         ...x,
         setValue: (code: string) => {
-          const state = editor.saveViewState();
-          editor.getModel()?.setValue(code);
+          let state = null;
+          try {
+            state = editor.saveViewState();
+          } catch(e) {
+            console.error("error while saving the state");
+          }
+
+          editor.getModel()!.setValue(code);
+          
           if (state) editor.restoreViewState(state);
         },
-        getValue: () => editor.getModel()?.getValue() as string,
-        onChange: (cb: () => void) =>
+        getValue: () => editor.getModel()!.getValue() as string,
+        onChange: (cb: ()=>void) =>
           editor?.onDidChangeModelContent(cb).dispose,
         myId: "editor",
         // model: editor.getModel(),
@@ -76,9 +100,9 @@ export const Editor: FC<{ code: string; i: number; codeSpace: string }> = (
       const editor = await startAce(mST().code);
       changeContent((x) => ({
         ...x,
-        onChange: (cb: () => void) => {
-          editor?.session.on("change", cb);
-          return () => editor?.session.off("change", cb);
+        onChange: (cb: ()=>void) => {
+          editor.session.on("change", cb);
+          return () => editor.session.off("change", cb);
         },
         getValue: () => editor.session.getValue(),
         setValue: (code: string) => editor.session.setValue(code),
@@ -93,7 +117,7 @@ export const Editor: FC<{ code: string; i: number; codeSpace: string }> = (
       changeContent((x) => ({ ...x, prettierJs }));
       await wait(1000);
       // console.log("RUN THE RUNNER");
-      runner({ code: code + " ", counter });
+      runnerDebounced({ code: code + " ", counter });
     };
 
     loadEditors();
@@ -119,29 +143,10 @@ export const Editor: FC<{ code: string; i: number; codeSpace: string }> = (
 
         changeContent((x) => ({ ...x, counter: counter + 1, myCode: newCode }));
 
-        onSessionUpdate(async () => {
-          const sess = mST();
-
-          if (sess.i <= counter + 1) {
-            return;
-          }
-
-          //setTimeout(() => {
-          if (mST().i !== sess.i) return;
-
-          // console.log(`session ${sess.i} mst: ${mST().i}, our i: ${counter}`);
-          changeContent((x) => ({
-            ...x,
-            myCode: sess.code,
-            counter: sess.i,
-          }));
-
-          setValue(sess.code);
-          //  }, 100);
-        }, "editor");
+      
 
         // console.log("RUN THE RUNNER AGAIN");
-        await runner({ code: newCode, counter: counter + 1 });
+        await runnerDebounced({ code: newCode, counter: counter + 1 });
       } catch (err) {
         console.error({ err });
         console.error("restore editor");
@@ -159,20 +164,52 @@ export const Editor: FC<{ code: string; i: number; codeSpace: string }> = (
     return onChange(() => cb());
   }, [setValue, getValue, onChange, counter]);
 
-  if (engine === "monaco") {
-    return (
-      <div
-        data-test-id={myId}
-        css={css`
-  max-width: 640px;
-  height: ${60 + lines / 40 * 100}% ;
-`}
-        ref={ref}
-      />
-    );
-  }
+  
+ 
+  onSessionUpdate(()=>{
+    console.log("sessUP");
+    const sess = mST();
+
+
+
+    setTimeout(() => {
+    if (sess.i <= counter) {
+      return;
+    }
+    if (mST().i > sess.i) return;
+
+    // console.log(`session ${sess.i} mst: ${mST().i}, our i: ${counter}`);
+    setValue(sess.code);
+
+    if (mod.CH() as unknown as typeof changeContent !== changeContent){
+      const ch = mod.CH() as unknown as typeof changeContent;
+      ch(x=>({
+        ...x,
+        myCode: sess.code,
+        counter: sess.i,
+      }));
+    }
+
+   changeContent((x)=> ({
+      ...x,
+      myCode: sess.code,
+      counter: sess.i,
+    }));
+
+   
+     }, 300);
+   
+  }, "editor");
 
   return (
+    engine === "monaco"?   <div
+    data-test-id={myId}
+    css={css`
+max-width: 640px;
+height: ${60 + lines / 40 * 100}% ;
+`}
+    ref={ref}
+  />:
     <div
       data-test-id={myId}
       css={css`

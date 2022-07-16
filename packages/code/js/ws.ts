@@ -11,10 +11,9 @@ import {
 
 
 import type { ICodeSession } from "./session";
-import thtottle from "lodash/throttle";
+import throttle from "lodash/throttle";
 import uidV4 from "./uidV4.mjs";
 import { initShims } from "starter";
-import { throttle } from "lodash";
 
 const webRtcArray: (RTCDataChannel & { target: string })[] = [];
 
@@ -261,7 +260,7 @@ export async function join() {
         rejoin();
       }
     };
-    sendWS = throttle(mess, 500, {
+    sendWS = throttle(mess, 1000, {
       leading: true,
       trailing: true,
     });

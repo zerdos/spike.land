@@ -4,8 +4,9 @@ import {
   hashCode,
   mST,
   onSessionUpdate,
+  require_debounce,
   saveCode
-} from "./4YQ6WAVY.mjs";
+} from "./RVKT3GA3.mjs";
 import {
   LazyMotion,
   domAnimation,
@@ -5009,8 +5010,8 @@ function validateModifiers(modifiers) {
           }).join(", ") + '; but "' + key + '" was provided.');
       }
       modifier.requires && modifier.requires.forEach(function(requirement) {
-        if (modifiers.find(function(mod) {
-          return mod.name === requirement;
+        if (modifiers.find(function(mod2) {
+          return mod2.name === requirement;
         }) == null) {
           console.error(format(MISSING_DEPENDENCY_ERROR, String(modifier.name), requirement, requirement));
         }
@@ -17163,10 +17164,16 @@ function isMobile() {
 }
 
 // js/Editor.tsx
+var import_debounce3 = __toESM(require_debounce(), 1);
+var runnerDebounced = (0, import_debounce3.default)(runner, 200, { trailing: true, leading: true, maxWait: 500 });
+var mod = {
+  CH: () => {
+  }
+};
 var Editor = ({ code, i: i2, codeSpace }) => {
   const ref = useRef29(null);
   const [
-    { counter, myCode, myId, engine, prettierJs, getValue: getValue3, setValue, onChange },
+    mySession,
     changeContent
   ] = useState25({
     myCode: code,
@@ -17180,6 +17187,8 @@ var Editor = ({ code, i: i2, codeSpace }) => {
     prettierJs: (code2) => code2,
     engine: isMobile() ? "ace" : "monaco"
   });
+  mod.CH = () => changeContent;
+  const { counter, myCode, myId, engine, prettierJs, getValue: getValue3, setValue, onChange } = mySession;
   const lines = code?.split("\n").length || 0;
   useEffect29(() => {
     if (!ref?.current)
@@ -17194,12 +17203,17 @@ var Editor = ({ code, i: i2, codeSpace }) => {
       changeContent((x) => ({
         ...x,
         setValue: (code2) => {
-          const state = editor.saveViewState();
-          editor.getModel()?.setValue(code2);
+          let state = null;
+          try {
+            state = editor.saveViewState();
+          } catch (e) {
+            console.error("error while saving the state");
+          }
+          editor.getModel().setValue(code2);
           if (state)
             editor.restoreViewState(state);
         },
-        getValue: () => editor.getModel()?.getValue(),
+        getValue: () => editor.getModel().getValue(),
         onChange: (cb) => editor?.onDidChangeModelContent(cb).dispose,
         myId: "editor"
       }));
@@ -17210,8 +17224,8 @@ var Editor = ({ code, i: i2, codeSpace }) => {
       changeContent((x) => ({
         ...x,
         onChange: (cb) => {
-          editor?.session.on("change", cb);
-          return () => editor?.session.off("change", cb);
+          editor.session.on("change", cb);
+          return () => editor.session.off("change", cb);
         },
         getValue: () => editor.session.getValue(),
         setValue: (code2) => editor.session.setValue(code2),
@@ -17223,7 +17237,7 @@ var Editor = ({ code, i: i2, codeSpace }) => {
       const { prettierJs: prettierJs2 } = await import("./32FXNSU7.mjs");
       changeContent((x) => ({ ...x, prettierJs: prettierJs2 }));
       await wait(1e3);
-      runner({ code: code + " ", counter });
+      runnerDebounced({ code: code + " ", counter });
     };
     loadEditors();
   }, [ref]);
@@ -17243,21 +17257,7 @@ var Editor = ({ code, i: i2, codeSpace }) => {
         return;
       try {
         changeContent((x) => ({ ...x, counter: counter + 1, myCode: newCode }));
-        onSessionUpdate(async () => {
-          const sess = mST();
-          if (sess.i <= counter + 1) {
-            return;
-          }
-          if (mST().i !== sess.i)
-            return;
-          changeContent((x) => ({
-            ...x,
-            myCode: sess.code,
-            counter: sess.i
-          }));
-          setValue(sess.code);
-        }, "editor");
-        await runner({ code: newCode, counter: counter + 1 });
+        await runnerDebounced({ code: newCode, counter: counter + 1 });
       } catch (err) {
         console.error({ err });
         console.error("restore editor");
@@ -17265,17 +17265,39 @@ var Editor = ({ code, i: i2, codeSpace }) => {
     };
     return onChange(() => cb());
   }, [setValue, getValue3, onChange, counter]);
-  if (engine === "monaco") {
-    return jsx("div", {
-      "data-test-id": myId,
-      css: css`
-  max-width: 640px;
-  height: ${60 + lines / 40 * 100}% ;
+  onSessionUpdate(() => {
+    console.log("sessUP");
+    const sess = mST();
+    setTimeout(() => {
+      if (sess.i <= counter) {
+        return;
+      }
+      if (mST().i > sess.i)
+        return;
+      setValue(sess.code);
+      if (mod.CH() !== changeContent) {
+        const ch = mod.CH();
+        ch((x) => ({
+          ...x,
+          myCode: sess.code,
+          counter: sess.i
+        }));
+      }
+      changeContent((x) => ({
+        ...x,
+        myCode: sess.code,
+        counter: sess.i
+      }));
+    }, 300);
+  }, "editor");
+  return engine === "monaco" ? jsx("div", {
+    "data-test-id": myId,
+    css: css`
+max-width: 640px;
+height: ${60 + lines / 40 * 100}% ;
 `,
-      ref
-    });
-  }
-  return jsx("div", {
+    ref
+  }) : jsx("div", {
     "data-test-id": myId,
     css: css`
   margin: 0;
