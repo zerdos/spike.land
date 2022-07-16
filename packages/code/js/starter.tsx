@@ -6,23 +6,26 @@ import type {} from "react-dom/next";
 import { mST } from "./session";
 import { md5 } from "./md5";
 
-Object.assign(window, {
-
-});
+Object.assign(window, {});
 
 import "es-module-shims";
 
-const orig = location.origin.includes("localhost")? ".":location.origin;
+const orig = location.origin.includes("localhost") ? "." : location.origin;
 
-export const initShims = async (assets: { [key: string]: string }) => location.origin.includes("localhost")?importShim.addImportMap({
-"imports": {
-  "@emotion/react": orig + "/" + assets["emotion.mjs"],
-  "framer-motion":"./framer-motion",
-  "react": orig + "/" + assets["react.mjs"],
-  "react-dom":orig + "/" + assets["react.mjs"],
-  "react-dom/client":orig + "/" + assets["react.mjs"],
-  "react-dom/server": orig+ "/" + assets["react.mjs"],
-  "react/jsx-runtime":orig+ "/" + assets["react.mjs"]}}): importShim.addImportMap({
+export const initShims = async (assets: { [key: string]: string }) =>
+  location.origin.includes("localhost")
+    ? importShim.addImportMap({
+      "imports": {
+        "@emotion/react": orig + "/" + assets["emotion.mjs"],
+        "framer-motion": "./framer-motion",
+        "react": orig + "/" + assets["react.mjs"],
+        "react-dom": orig + "/" + assets["react.mjs"],
+        "react-dom/client": orig + "/" + assets["react.mjs"],
+        "react-dom/server": orig + "/" + assets["react.mjs"],
+        "react/jsx-runtime": orig + "/" + assets["react.mjs"],
+      },
+    })
+    : importShim.addImportMap({
       "imports": {
         // ...imap,
         "framer-motion": location.origin + "/" + assets["framer-motion.mjs"],
@@ -36,9 +39,9 @@ export const initShims = async (assets: { [key: string]: string }) => location.o
         // "preact-render-to-string": "https://ga.jspm.io/npm:preact-render-to-string@5.2.0/dist/index.mjs",
         // "preact/compat": "https://ga.jspm.io/npm:preact@10.8.2/compat/dist/compat.module.js",
         // "preact/jsx-runtime": "https://ga.jspm.io/npm:preact@10.8.2/jsx-runtime/dist/jsxRuntime.module.js"
-      }});
-  
-  
+      },
+    });
+
 let App: FC = () => <Fragment></Fragment>;
 const apps: { [key: string]: FC } = {};
 

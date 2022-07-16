@@ -79,22 +79,19 @@ const AppToRender: FC<{ codeSpace: string }> = ({ codeSpace }) => {
     }, "myApp");
   }, [hash, setHash]);
 
-  useEffect(()=>{
-
+  useEffect(() => {
     setTimeout(() => {
       const isStandalone = location.pathname.endsWith("public") ||
-      location.pathname.endsWith("hydrated");
+        location.pathname.endsWith("hydrated");
 
       setIsStandalone(isStandalone);
     }, 500);
-  },[])
+  }, []);
 
   const portalNode = useMemo(() =>
     portals.createHtmlPortalNode({
       attributes: { id: `root-${codeSpace}`, style: "height: 100%" },
     }), []);
-
-
 
   return (
     <Fragment>

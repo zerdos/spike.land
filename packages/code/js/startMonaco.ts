@@ -77,7 +77,7 @@ export const monacoContribution = async (
 
   const regex2 = / from \'\./ig;
 
-  const search = new RegExp(` from '${origin}/live/[a-zA-Z]+`, 'gm');
+  const search = new RegExp(` from '${origin}/live/[a-zA-Z]+`, "gm");
   const replaced = code.replaceAll(regex1, ` from '${location.origin}/live`)
     .replaceAll(regex2, ` from '${location.origin}/live`);
 

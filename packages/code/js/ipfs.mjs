@@ -6,7 +6,6 @@ import { libp2pConfig } from "../../../node_modules/ipfs-core-config/src/libp2p.
 // import repo from "../../../node_modules/ipfs-core-config/repo.browser.js"
 // import {routers} from "../../../node_modules/ipfs-core-config/libp2p-pubsub-routers.browser.js"
 
-
 const { IpfsCore } = self;
 
 //import OrbitDB from "orbit-db"

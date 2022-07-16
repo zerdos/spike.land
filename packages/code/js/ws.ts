@@ -9,7 +9,6 @@ import {
   startSession,
 } from "./session";
 
-
 import type { ICodeSession } from "./session";
 import throttle from "lodash/throttle";
 import uidV4 from "./uidV4.mjs";
@@ -339,22 +338,19 @@ async function processWsMessage(
 
   if (source === "ws" && data.hashCode) {
     wsLastHashCode = data.hashCode;
-   
-
-   
   }
 
   if (source === "ws" && (data.hashCode)) {
     wsLastHashCode = data.hashCode;
   }
 
-  if (wsLastHashCode!==hashCode()){
+  if (wsLastHashCode !== hashCode()) {
     const resp = await fetch(`https://spike.land/live/${codeSpace}/mST`);
     const state = await resp.json();
-  
-     const codePatch = await makePatch(state.mST);
+
+    const codePatch = await makePatch(state.mST);
     if (codePatch.newHash === wsLastHashCode) await applyPatch(codePatch);
-}
+  }
 
   if (source === "rtc" && data.hashCode || data.newHash) {
     webRTCLastSeenHashCode = data.hashCode || data.newHash;
@@ -763,7 +759,7 @@ async function sw() {
         switch (protocol) {
           case "ipfs":
           case "ipns": {
-           document.body.innerHTML =
+            document.body.innerHTML =
               `<iframe id="viewer" style="width:100%;height:100%;position:fixed;top:0;left:0;border:none;" src="/view${path}"></iframe>`;
           }
         }
