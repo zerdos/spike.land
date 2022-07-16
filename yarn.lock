@@ -3892,15 +3892,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@playwright/test@npm:1.23.3":
-  version: 1.23.3
-  resolution: "@playwright/test@npm:1.23.3"
+"@playwright/test@npm:1.23.4":
+  version: 1.23.4
+  resolution: "@playwright/test@npm:1.23.4"
   dependencies:
     "@types/node": "*"
-    playwright-core: 1.23.3
+    playwright-core: 1.23.4
   bin:
     playwright: cli.js
-  checksum: 77e1ac3064c05cfb9d7ea165a2654433711f653cdf63e5040c08779002d1bdfcac4d55f4abd932e086d400fb4a84e37c5023f9535967d005f96b99aed4d3b858
+  checksum: 7004308fde2c3ff1062b50115f9db9eb74d3e0c6cdee42d723a3a4ccbf811c3cf2be934c75d706c464c17a8839ae9237c2abbf90ec46bd3ddec8d34c24dc9c4b
   languageName: node
   linkType: hard
 
@@ -4052,12 +4052,12 @@ __metadata:
   resolution: "@spike.land/code@workspace:packages/code"
   dependencies:
     "@emotion/react": 11.9.3
+    "@emotion/styled": 11.9.3
     "@identifo/identifo-auth-js": 3.3.3
     "@jspm/generator": 1.0.0-beta.33
     "@mui/material": 5.9.0
-    "@spike.land/qrious": 0.8.0
     "@types/lodash": 4.14.182
-    "@types/node": 18.0.4
+    "@types/node": 18.0.5
     "@types/prettier": 2.6.3
     "@types/react": 18.0.15
     "@types/react-dom": 18.0.6
@@ -4162,15 +4162,6 @@ __metadata:
   resolution: "@spike.land/monorepo-modules@workspace:dockerhub/devimages/monorepo-modules"
   languageName: unknown
   linkType: soft
-
-"@spike.land/qrious@npm:0.8.0":
-  version: 0.8.0
-  resolution: "@spike.land/qrious@npm:0.8.0"
-  dependencies:
-    qrious-core: 4.0.0
-  checksum: 1f2e7d3266e5943b3ca72fb578b7066cead04d30b53595fd300196fbff2a232b41c807b97159379898a94411c165acf0b39bf05424b68fe366f6fa23073ff1a7
-  languageName: node
-  linkType: hard
 
 "@spike.land/rolling-devcontainer@workspace:dockerhub/devimages/rolling-devcontainer":
   version: 0.0.0-use.local
@@ -4467,10 +4458,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:*, @types/node@npm:18.0.4, @types/node@npm:>=12.12.47, @types/node@npm:>=13.7.0":
+"@types/node@npm:*, @types/node@npm:>=12.12.47, @types/node@npm:>=13.7.0":
   version: 18.0.4
   resolution: "@types/node@npm:18.0.4"
   checksum: 981284fd57941f233f0e77038087c122f56e3c2b4fc4e090dfc7f0a93abfc526d5ccdd59eb3ef551d713245cf3943e37c7b957f12ba699209341a447c39fab59
+  languageName: node
+  linkType: hard
+
+"@types/node@npm:18.0.5":
+  version: 18.0.5
+  resolution: "@types/node@npm:18.0.5"
+  checksum: cc9c67d0074252f798d226dd95a22e0e8851cf7fc623ef4a603d9ad2c2b46650f930147062ea33719008b1de67f08f499ad693307d02f8396e6f1fead8144329
   languageName: node
   linkType: hard
 
@@ -7949,13 +7947,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"emitter-component@npm:^1.1.1":
-  version: 1.1.1
-  resolution: "emitter-component@npm:1.1.1"
-  checksum: 10e907f507a8c16a318e07595119e58b5c3267528d4e3b962ee9b14fd83c97599e7931ccb983ec551a8de8116955c1d6ae7d213c5b0c920b62c02b7cb8d7a4d7
-  languageName: node
-  linkType: hard
-
 "emoji-regex@npm:^8.0.0":
   version: 8.0.0
   resolution: "emoji-regex@npm:8.0.0"
@@ -7967,13 +7958,6 @@ __metadata:
   version: 3.0.0
   resolution: "emojis-list@npm:3.0.0"
   checksum: ddaaa02542e1e9436c03970eeed445f4ed29a5337dfba0fe0c38dfdd2af5da2429c2a0821304e8a8d1cadf27fdd5b22ff793571fa803ae16852a6975c65e8e70
-  languageName: node
-  linkType: hard
-
-"emotion-server@npm:11.0.0":
-  version: 11.0.0
-  resolution: "emotion-server@npm:11.0.0"
-  checksum: e0c11a9b6e1324d7c4512246e95174415b6405d886ffaf591e85ab8d53cefe6d3a5e46ce58ad747e2088c36d16f6efa8fea9141bf8a27326511b39d51b9e52d9
   languageName: node
   linkType: hard
 
@@ -9890,13 +9874,10 @@ __metadata:
   dependencies:
     "@cloudflare/kv-asset-handler": 0.2.0
     "@cloudflare/workers-types": 3.14.1
-    "@emotion/styled": 11.9.3
-    "@playwright/test": 1.23.3
+    "@playwright/test": 1.23.4
     cypress: 10.3.0
-    emotion-server: 11.0.0
     lerna: 5.1.8
     preact: 10.10.0
-    stream: 0.0.2
     typescript: 4.7.4
   languageName: unknown
   linkType: soft
@@ -16405,12 +16386,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"playwright-core@npm:1.23.3":
-  version: 1.23.3
-  resolution: "playwright-core@npm:1.23.3"
+"playwright-core@npm:1.23.4":
+  version: 1.23.4
+  resolution: "playwright-core@npm:1.23.4"
   bin:
     playwright: cli.js
-  checksum: e83cf0b05d791ded54e155fc8cb5689dcb57e02f315f23f5955d769fbb40685ce085218debbc6e617280b0d432e857631762c010586dfd19a6f14a5149384ecd
+  checksum: 347a40f2fbcc9ee896c5cf8d8211ffa7a200e22f154e879d9e829ee6bd365acc1c69c8b11a64a96a9d2fae9c85e859c995680be1a15b5e74c367ffa53425c9c9
   languageName: node
   linkType: hard
 
@@ -19332,15 +19313,6 @@ __metadata:
   dependencies:
     get-iterator: ^1.0.2
   checksum: 0725dd8ddb889829cab70b81a883d5a09cd34272ccd44fad195de9fb900a8588fbf801490b6418ae5e234c128743ad829c50cfcd6686fab3b50bb6e76d59238c
-  languageName: node
-  linkType: hard
-
-"stream@npm:0.0.2":
-  version: 0.0.2
-  resolution: "stream@npm:0.0.2"
-  dependencies:
-    emitter-component: ^1.1.1
-  checksum: 43d89e176c282234d452754f9b55a82c74ea68345bf6176af32c4c213801f88df7984c83ec5a735457705dddf4668373edb9f0ec270a7491e1d881631a763978
   languageName: node
   linkType: hard
 

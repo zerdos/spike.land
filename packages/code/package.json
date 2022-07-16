@@ -58,7 +58,7 @@
   "devDependencies": {
     "@jspm/generator": "1.0.0-beta.33",
     "@types/lodash": "4.14.182",
-    "@types/node": "18.0.4",
+    "@types/node": "18.0.5",
     "iso-constants": "0.1.2",
     "microenvi": "0.3.1",
     "typescript": "4.7.4",
@@ -72,9 +72,9 @@
   },
   "dependencies": {
     "@emotion/react": "11.9.3",
+    "@emotion/styled": "11.9.3",
     "@identifo/identifo-auth-js": "3.3.3",
     "@mui/material": "5.9.0",
-    "@spike.land/qrious": "0.8.0",
     "@types/prettier": "2.6.3",
     "@types/react": "18.0.15",
     "@types/react-dom": "18.0.6",
