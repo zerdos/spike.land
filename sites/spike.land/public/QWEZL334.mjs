@@ -6,7 +6,7 @@ import {
   onSessionUpdate,
   require_debounce,
   saveCode
-} from "./RVKT3GA3.mjs";
+} from "./UDZY4OZH.mjs";
 import {
   LazyMotion,
   domAnimation,
@@ -16656,11 +16656,6 @@ var Tv = createSvgIcon(jsx("path", {
   key: "12",
   d: "M21 3H3c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h5v2h8v-2h5c1.1 0 1.99-.9 1.99-2L23 5c0-1.1-.9-2-2-2zm0 14H3V5h18v12z"
 }), "Tv");
-var MyFsb = ({ onClick, children: children2 }) => jsx(Fab_default, {
-  variant: "extended",
-  color: "primary",
-  onClick
-}, children2);
 var QrCode = createSvgIcon(jsx("path", {
   key: "12",
   d: "M3 11h8V3H3v8zm2-6h4v4H5V5zM3 21h8v-8H3v8zm2-6h4v4H5v-4zm8-12v8h8V3h-8zm6 6h-4V5h4v4zm0 10h2v2h-2zm-6-6h2v2h-2zm2 2h2v2h-2zm-2 2h2v2h-2zm2 2h2v2h-2zm2-2h2v2h-2zm0-4h2v2h-2zm2 2h2v2h-2z"
@@ -16690,7 +16685,7 @@ var QRButton = ({ url }) => {
   }, showQR ? jsx(QR, {
     key: url || "http://spike.land",
     url: url || "/live/coder/public"
-  }) : jsx(MyFsb, null, jsx(QrCode, null))));
+  }) : jsx(Fab_default, null, jsx(QrCode, null))));
 };
 
 // js/DraggableWindow.tsx
@@ -16886,7 +16881,7 @@ var DraggableWindow = ({
               align-items: center;          
               flex-direction: column;
               `
-  }, jsx(MyFsb, {
+  }, jsx(Fab_default, {
     key: "fullscreen",
     onClick: () => {
       document.getElementById("root")?.requestFullscreen();
@@ -16896,7 +16891,7 @@ var DraggableWindow = ({
   })), jsx(QRButton, {
     url: location.origin + `/live/${room}/public`,
     key: `qr-${hashCode2}`
-  }), jsx(MyFsb, {
+  }), jsx(Fab_default, {
     key: "Share",
     onClick: () => open(`/live/${room}/public`)
   }, jsx(Share, null)))))));
@@ -17165,7 +17160,11 @@ function isMobile() {
 
 // js/Editor.tsx
 var import_debounce3 = __toESM(require_debounce(), 1);
-var runnerDebounced = (0, import_debounce3.default)(runner, 200, { trailing: true, leading: true, maxWait: 500 });
+var runnerDebounced = (0, import_debounce3.default)(runner, 200, {
+  trailing: true,
+  leading: true,
+  maxWait: 500
+});
 var mod = {
   CH: () => {
   }
@@ -17188,7 +17187,16 @@ var Editor = ({ code, i: i2, codeSpace }) => {
     engine: isMobile() ? "ace" : "monaco"
   });
   mod.CH = () => changeContent;
-  const { counter, myCode, myId, engine, prettierJs, getValue: getValue3, setValue, onChange } = mySession;
+  const {
+    counter,
+    myCode,
+    myId,
+    engine,
+    prettierJs,
+    getValue: getValue3,
+    setValue,
+    onChange
+  } = mySession;
   const lines = code?.split("\n").length || 0;
   useEffect29(() => {
     if (!ref?.current)

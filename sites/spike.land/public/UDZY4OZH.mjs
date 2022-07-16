@@ -8000,7 +8000,7 @@ var sendChannel = {
   }
 };
 async function quickStart(codeSpace2) {
-  const { renderPreviewWindow } = await import("./LE2EAOGZ.mjs");
+  const { renderPreviewWindow } = await import("./QWEZL334.mjs");
   return renderPreviewWindow(codeSpace2);
 }
 var run = async (startState) => {
@@ -8168,8 +8168,18 @@ async function processWsMessage(event, source) {
     lastSeenNow = Date.now();
     lastSeenTimestamp = data.timestamp;
   }
-  if (source === "ws" && (data.hashCode || data.newHash)) {
-    wsLastHashCode = data.hashCode || data.newHash;
+  if (source === "ws" && data.hashCode) {
+    wsLastHashCode = data.hashCode;
+  }
+  if (source === "ws" && data.hashCode) {
+    wsLastHashCode = data.hashCode;
+  }
+  if (wsLastHashCode !== hashCode3()) {
+    const resp = await fetch(`https://spike.land/live/${codeSpace}/mST`);
+    const state = await resp.json();
+    const codePatch = await makePatch(state.mST);
+    if (codePatch.newHash === wsLastHashCode)
+      await applyPatch2(codePatch);
   }
   if (source === "rtc" && data.hashCode || data.newHash) {
     webRTCLastSeenHashCode = data.hashCode || data.newHash;

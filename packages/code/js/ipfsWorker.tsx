@@ -22,10 +22,7 @@ import { MultiService } from "ipfs-message-port-server/dist/src/server";
 // importScripts('https://unpkg.com/ipfs@0.62.3/index.min.js');
 // importScripts('https://unpkg.com/ipfs-message-port-server@0.11.3/index.min.js');
 
-const orbitDbs: {[key: string]: typeof OrbitDB} = {
-
-};
-
+const orbitDbs: { [key: string]: typeof OrbitDB } = {};
 
 export const ipfsWorker = async () => {
   try {
@@ -93,8 +90,8 @@ export const ipfsWorker = async () => {
     // const service = new IPFSService(ipfs);
     // const server = new Server<[IPFSService]>(service);
 
-    const service: MultiService<{}> = new IPFSService(ipfs)
-    const server = new Server(service)
+    const service: MultiService<{}> = new IPFSService(ipfs);
+    const server = new Server(service);
 
     const orbitdb = await OrbitDB.createInstance(ipfs, {
       id: ipfs.id().toString(),
@@ -137,7 +134,7 @@ export const ipfsWorker = async () => {
     );
 
     connections.map((ports) => server.connect(ports[0]));
-   
+
     async function startOrbit(
       orbitdb: typeof OrbitDB,
       codeSpace: string,
@@ -145,7 +142,7 @@ export const ipfsWorker = async () => {
       messageData: Object,
     ) {
       console.log("startorbit", codeSpace, address, { orbitDbs });
-    
+
       const init = orbitDbs[codeSpace];
       orbitDbs[codeSpace] = orbitDbs[codeSpace] ||
         await orbitdb.open(
@@ -158,7 +155,7 @@ export const ipfsWorker = async () => {
             // don't load the latest from the network yet
             localOnly: false,
             type: "eventlog",
-    
+
             // If "Public" flag is set, allow anyone to write to the database,
             // otherwise only the creator of the database can write
             accessController: {
@@ -166,11 +163,11 @@ export const ipfsWorker = async () => {
             },
           },
         );
-    
+
       const db = orbitDbs[codeSpace];
-    
+
       // Create / Open a database
-    
+
       // Listen for updates from peers
       if (!init) {
         db.events.on("replicated", (_address: string) => {
@@ -180,7 +177,7 @@ export const ipfsWorker = async () => {
           }
           console.log(db.iterator({ limit: -1 }).collect());
         });
-    
+
         const query = (db: typeof OrbitDB) => {
           if (db.type === "eventlog") {
             return db.iterator({ limit: 5 }).collect();
@@ -196,41 +193,43 @@ export const ipfsWorker = async () => {
             throw new Error("Unknown database type: ", db.type);
           }
         };
-    
+
         let dbAddress = address;
-    
+
         const queryAndRender = async (db: typeof OrbitDB) => {
           //const networkPeers =
           await ipfs.swarm.peers();
           //const databasePeers = await
           ipfs.pubsub.peers(db.address.toString());
-    
+
           const result = query(db);
           let dbType = result && result.type;
-    
+
           console.log({ result });
           if (dbType !== db.type || dbAddress !== db.address) {
             dbType = db.type;
             dbAddress = db.address;
           }
         };
-    
+
         db.events.on("write", () => queryAndRender(db));
-    
+
         // Add a
-    
+
         const all = db.iterator({ limit: -1 })
-          .collect().map((e: {payload: {value: string}}) => e.payload.value);
-    
+          .collect().map((e: { payload: { value: string } }) =>
+            e.payload.value
+          );
+
         console.log({ all });
       }
-    
+
       if (messageData) {
         console.log("adding", { messageData });
         await db.add(messageData);
       }
     }
-    
+
     // function libp2pConfig() {
     //   /** @type {import('libp2p').Libp2pOptions} */
     //   const options = {
@@ -258,4 +257,3 @@ export const ipfsWorker = async () => {
     console.error(err);
   }
 };
-
