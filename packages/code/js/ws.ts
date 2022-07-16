@@ -8,10 +8,13 @@ import {
   mST,
   startSession,
 } from "./session";
+
+
 import type { ICodeSession } from "./session";
-import debounce from "lodash/debounce";
+import thtottle from "lodash/throttle";
 import uidV4 from "./uidV4.mjs";
 import { initShims } from "starter";
+import { throttle } from "lodash";
 
 const webRtcArray: (RTCDataChannel & { target: string })[] = [];
 
@@ -258,8 +261,7 @@ export async function join() {
         rejoin();
       }
     };
-    sendWS = debounce(mess, 500, {
-      maxWait: 1200,
+    sendWS = throttle(mess, 500, {
       leading: true,
       trailing: true,
     });
