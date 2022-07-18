@@ -6,7 +6,7 @@ import { mST, onSessionUpdate } from "./session";
 import { isMobile } from "./isMobile.mjs";
 
 import { css } from "@emotion/react";
-import debounce from "lodash/debounce";
+import debounce from "lodash.debounce";
 import { wait } from "wait";
 
 const runnerDebounced = debounce(runner, 500, {
