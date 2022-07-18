@@ -48,15 +48,16 @@ const apps: { [key: string]: FC } = {};
 
 // {[md5(starter.transpiled)]: await appFactory(starter.transpiled)};
 
-export const AutoUpdateApp: FC<{ hash: number, codeSpace: string }> = ({ hash, codeSpace }) => {
+export const AutoUpdateApp: FC<{ hash: number, codeSpace: string, starter: FC }> = ({ hash, codeSpace, starter }) => {
   const result = md5(mST().transpiled);
 
-App = apps[result];
 
-  if (!App) {
-      return lazy(()=>import(`${location.origin}/live/${codeSpace}/index.js`));
+  if (!apps[result]) {
+    apps[result] = starter;
   
   } 
+
+  App = apps[result];
 
 
   return <App key={hash} />;

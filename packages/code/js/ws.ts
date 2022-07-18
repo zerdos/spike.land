@@ -8,6 +8,8 @@ import {
   mST,
   startSession,
 } from "./session";
+import type {FC} from "react";
+import {renderPreviewWindow}  from "./renderPreviewWindow";
 
 import type { ICodeSession } from "./session";
 import throttle from "lodash/throttle";
@@ -65,13 +67,6 @@ const sendChannel = {
 
 // Let createDelta;
 
-export async function quickStart(codeSpace: string) {
-  const { renderPreviewWindow } = await import("./renderPreviewWindow");
-  // window.Buffer = require("buffer/").Buffer;
-
-  return renderPreviewWindow(codeSpace);
-}
-
 // export const work = async (startState: {
 //   mST: ICodeSession, codeSpace:string, address: string, assets: {[key: string]: string}
 // }) => {
@@ -91,19 +86,24 @@ export const run = async (startState: {
   mST: ICodeSession;
   codeSpace: string;
   address: string;
+  App: FC, 
   assets: { [key: string]: string };
 }) => {
   codeSpace = startState.codeSpace;
   address = startState.address;
+
   const { assets } = startState;
   startSession(codeSpace, {
     name: user,
     state: startState.mST,
-  }, "");
+  }, location.origin);
+
+  const App = startState.App;
+  renderPreviewWindow(codeSpace, App);
 
   initShims(assets);
 
-  quickStart(codeSpace);
+
   join();
 
   bc = new BroadcastChannel("spike.land");
@@ -344,13 +344,6 @@ async function processWsMessage(
     wsLastHashCode = data.hashCode;
   }
 
-  if (wsLastHashCode !== hashCode()) {
-    const resp = await fetch(`https://spike.land/live/${codeSpace}/mST`);
-    const state = await resp.json();
-
-    const codePatch = await makePatch(state.mST);
-    if (codePatch.newHash === wsLastHashCode) await applyPatch(codePatch);
-  }
 
   if (source === "rtc" && data.hashCode || data.newHash) {
     webRTCLastSeenHashCode = data.hashCode || data.newHash;
@@ -418,9 +411,24 @@ async function processWsMessage(
     return;
   }
 
+  if (data.patch && data.name === user) {
+   wsLastHashCode = data.newHash;
+
+    return;
+  }
+
   if (data.name === user) {
     return;
   }
+
+  if (wsLastHashCode !== hashCode()) {
+    const resp = await fetch(`https://spike.land/live/${codeSpace}/mST`);
+    const state = await resp.json();
+
+    const codePatch = await makePatch(state.mST);
+    if (codePatch.newHash === wsLastHashCode) await applyPatch(codePatch);
+  }
+
 
   function createPeerConnection(target: string) {
     log(`Setting up a connection with ${target}`);
