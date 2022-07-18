@@ -967,7 +967,12 @@ window.ReactDOM = window.ReactDOM || {
 };
 window.PreactJSX = window.PreactJSX || { jsx: e3, jsxDEV: e3, jsxs: e3 };
 window.renderToString = window.renderToString || m3;
-window.React = window.React || compat_module_default;
+window.React = window.React || {
+  ...compat_module_default,
+  lazy: U,
+  Suspense: T3,
+  SuspenseList: D
+};
 window.MyPreact = window.MyPreact || preact_module_exports;
 var { jsx, jsxDEV, jsxs } = window.PreactJSX;
 var { Fragment } = preact_module_exports;

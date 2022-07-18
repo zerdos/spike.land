@@ -10,6 +10,7 @@ import { hydrateRoot } from "react-dom/client";
 import { hashCode, mST, onSessionUpdate } from "session";
 import * as portals from "react-reverse-portal";
 import { Editor } from "./Editor";
+import { Suspense } from "react";
 
 const RainbowContainer: FC<{ children: ReactNode }> = ({ children }) => (
   <div
@@ -85,18 +86,20 @@ const AppToRender: FC<{ codeSpace: string }> = ({ codeSpace }) => {
         location.pathname.endsWith("hydrated");
 
       setIsStandalone(isStandalone);
-    }, 500);
+    }, 2500);
   }, []);
 
   const portalNode = useMemo(() =>
     portals.createHtmlPortalNode({
-      attributes: { id: `root-${codeSpace}`, style: "height: 100%" },
+      attributes: { id: `root-${codeSpace}`, style: "height: 100%" }
     }), []);
 
   return (
     <Fragment>
       <portals.InPortal node={portalNode}>
-        <AutoUpdateApp key={hash} hash={hash} />
+        <Suspense fallback={<div style= "height: 100%"   dangerouslySetInnerHTML={{__html: mST().html}} />}>
+           <div style= "height: 100%"  ><AutoUpdateApp key={hash} hash={hash} codeSpace={codeSpace} /></div>
+        </Suspense>
       </portals.InPortal>
 
       {isStandalone
@@ -136,7 +139,7 @@ export const renderPreviewWindow = async (
   codeSpace: string,
 ) => {
   try {
-    await appFactory(mST().transpiled);
+    // await appFactory(mST().transpiled);
   } catch (e) {
     console.error({ e });
   }

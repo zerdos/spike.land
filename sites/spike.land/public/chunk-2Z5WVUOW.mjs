@@ -5377,7 +5377,7 @@ function v4(options, buf, offset) {
 
 // js/starter.tsx
 init_define_process();
-import { Fragment } from "/react.mjs";
+import { Fragment, lazy } from "/react.mjs";
 
 // js/md5.js
 init_define_process();
@@ -7934,10 +7934,11 @@ var initShims = async (assets) => location.origin.includes("localhost") ? import
 });
 var App = () => jsx(Fragment, null);
 var apps = {};
-var AutoUpdateApp = ({ hash: hash2 }) => {
+var AutoUpdateApp = ({ hash: hash2, codeSpace: codeSpace2 }) => {
   const result = md5(mST().transpiled);
-  if (apps[result]) {
-    App = apps[result];
+  App = apps[result];
+  if (!App) {
+    App = lazy(() => import(`${location.origin}/live/${codeSpace2}/index.js`));
   }
   return jsx(App, {
     key: hash2
@@ -7997,7 +7998,7 @@ var sendChannel = {
   }
 };
 async function quickStart(codeSpace2) {
-  const { renderPreviewWindow } = await import("./renderPreviewWindow-IM37M4LQ.mjs");
+  const { renderPreviewWindow } = await import("./renderPreviewWindow-75PQAGHG.mjs");
   return renderPreviewWindow(codeSpace2);
 }
 var run = async (startState) => {
