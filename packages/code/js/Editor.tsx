@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 
-import { FC, useCallback, useEffect, useRef, useState } from "react";
+import { FC,, useEffect, useRef, useState } from "react";
 import { runner } from "./runner";
 import { mST, onSessionUpdate } from "./session";
 import { isMobile } from "./isMobile.mjs";
@@ -9,10 +9,10 @@ import { css } from "@emotion/react";
 import debounce from "lodash/debounce";
 import { wait } from "wait";
 
-const runnerDebounced = debounce(runner, 200, {
+const runnerDebounced = debounce(runner, 500, {
   trailing: true,
   leading: true,
-  maxWait: 500,
+  maxWait: 1500,
 });
 
 const mod = {
