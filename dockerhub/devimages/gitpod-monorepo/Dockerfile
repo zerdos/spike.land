@@ -5,10 +5,9 @@ RUN git clone --depth 1 --recurse-submodules --shallow-submodules https://github
 
 
 
-
 FROM devimages/gitpod
 
-COPY --link --chown=gitpod:gitpod --from=devimages/monorepo-modules:latest /home/node/.cache/yarn/. /home/gitpod/.cache/yarn/
+COPY --link --chown=gitpod:gitpod --from=devimages/monorepo-modules:latest /home/node/.yarn /home/gitpod/.yarn
 
 USER gitpod
 WORKDIR /workspace/monorepo
