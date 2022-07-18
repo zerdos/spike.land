@@ -3,7 +3,7 @@ import {
   domAnimation,
   domMax,
   m
-} from "../chunk-23O4ZXH6.mjs";
+} from "../chunk-2IKSDUHF.mjs";
 import {
   CacheProvider,
   Global,
@@ -25821,7 +25821,7 @@ async function sw() {
       switch (event.data.method) {
         case "ipfs-message-port":
           console.log("Message port request");
-          const { connect } = await import("../ipfs-SHHTEPVH.mjs");
+          const { connect } = await import("../ipfs-2OLEVEPX.mjs");
           console.log("can connect trough", { connect });
           const channel = new MessageChannel();
           await connect(channel);
