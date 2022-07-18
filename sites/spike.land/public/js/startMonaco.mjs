@@ -1,4 +1,4 @@
-import "../NB2RQBSD.mjs";
+import "../OQRUQI2Y.mjs";
 import {
   $,
   AccessibilityHelpNLS,
@@ -18,9 +18,9 @@ import {
   CodeEditorWidget,
   Codicon,
   Color,
-  ColorScheme,
   Command,
   CommandsRegistry,
+  CompletionItemInsertTextRule,
   CompletionItemKinds,
   ContextKeyExpr,
   CopyOptions,
@@ -29,7 +29,9 @@ import {
   CursorColumns,
   CursorMoveCommands,
   CursorState,
+  DataTransfers,
   DataUri,
+  DebounceEmitter,
   DeferredPromise,
   Delayer,
   DenseKeyProvider,
@@ -63,8 +65,9 @@ import {
   FoldingRangeKind,
   FormattingEdit,
   FuzzyScore,
+  FuzzyScoreOptions,
   Gesture,
-  GlobalMouseMoveMonitor,
+  GlobalPointerMoveMonitor,
   GoToLineNLS,
   HSVA,
   HighlightedLabel,
@@ -125,7 +128,6 @@ import {
   KeybindingsRegistry,
   LRUCache,
   LanguageAgnosticBracketTokens,
-  LanguageConfigurationRegistry,
   Lazy,
   LcsDiff,
   LineDecoration,
@@ -139,6 +141,7 @@ import {
   MenuId,
   MenuItemAction,
   MenuRegistry,
+  Mimes,
   MinimapPosition,
   ModelDecorationInjectedTextOptions,
   ModelDecorationOptions,
@@ -164,6 +167,7 @@ import {
   Range,
   Range2,
   RawContextKey,
+  RefCountedDisposable,
   Registry,
   RenderLineInput,
   ReplaceCommand,
@@ -220,10 +224,8 @@ import {
   WorkbenchTreeElementCanCollapse,
   WorkbenchTreeElementCanExpand,
   activeContrastBorder,
-  addDisposableGenericMouseDownListener,
-  addDisposableGenericMouseUpListener,
   addDisposableListener,
-  addDisposableNonBubblingMouseOutListener,
+  addHook,
   addStandardDisposableGenericMouseDownListener,
   addStandardDisposableListener,
   alert,
@@ -234,6 +236,7 @@ import {
   asArray,
   asCSSUrl,
   assertIsDefined,
+  assertNever,
   assertType,
   attachBadgeStyler,
   attachListStyler,
@@ -272,11 +275,13 @@ import {
   dirname2,
   disposableTimeout,
   dispose,
+  distinct,
   editor,
   editorActiveLinkForeground,
   editorBackground,
   editorBracketMatchBackground,
   editorBracketMatchBorder,
+  editorConfigurationBaseNode,
   editorErrorBorder,
   editorErrorForeground,
   editorFindMatch,
@@ -314,14 +319,15 @@ import {
   equals,
   errorForeground,
   escape,
+  escapeDoubleQuotes,
   escapeRegExpCharacters,
   extUri,
   extname,
+  extractSelection,
   findFirstInSorted,
   findMaxBy,
   first,
   firstNonWhitespaceIndex,
-  flatten,
   focusBorder,
   foreground,
   format,
@@ -334,6 +340,9 @@ import {
   getComputedStyle,
   getDocumentRangeSemanticTokens,
   getDomNodePagePosition,
+  getEnterAction,
+  getGoodIndentForLine,
+  getIndentMetadata,
   getLeadingWhitespace,
   getMapForWordSeparators,
   getOnTypeFormattingEdits,
@@ -348,6 +357,7 @@ import {
   hasDriveLetter,
   hash,
   hide,
+  hookDomPurifyHrefAndSrcSanitizer,
   iconForeground,
   illegalArgument,
   inUntrustedWorkspace,
@@ -370,6 +380,7 @@ import {
   init_contextkey,
   init_cursorColumns,
   init_dom,
+  init_dompurify,
   init_editOperation,
   init_editorBrowser,
   init_editorColorRegistry,
@@ -377,6 +388,7 @@ import {
   init_editorExtensions,
   init_editorState,
   init_editorWorker,
+  init_encodedTokenAttributes,
   init_eolCounter,
   init_errors,
   init_event,
@@ -410,6 +422,7 @@ import {
   init_linkedList,
   init_log,
   init_map,
+  init_mime,
   init_model,
   init_model2,
   init_modelService,
@@ -472,6 +485,7 @@ import {
   isBasicASCII,
   isCancellationError,
   isCodeEditor,
+  isDark,
   isDiffEditor,
   isDisposable,
   isEmptyMarkdownString,
@@ -479,6 +493,7 @@ import {
   isFalsyOrEmpty,
   isFalsyOrWhitespace,
   isFirefox,
+  isHighContrast,
   isHighSurrogate,
   isIMenuItem,
   isIOS,
@@ -496,8 +511,6 @@ import {
   isNonEmptyArray,
   isNumber,
   isObject,
-  isRootOrDriveLetter,
-  isSafari,
   isSemanticColoringEnabled,
   isSingleFolderWorkspaceIdentifier,
   isStandalone,
@@ -519,6 +532,7 @@ import {
   markdownEscapeEscapedIcons,
   matchesContiguousSubString,
   matchesPrefix,
+  matchesSubString,
   matchesWords,
   minimapFindMatch,
   minimapSelectionOccurrenceHighlight,
@@ -559,7 +573,9 @@ import {
   registerMultiEditorAction,
   registerSingleton,
   registerThemingParticipant,
+  relativePath,
   removeCSSRulesContainingSelector,
+  removeHook,
   removeMarkdownEscapes,
   renderFormattedText,
   renderLabelWithIcons,
@@ -567,12 +583,12 @@ import {
   reset,
   resolvePath,
   runWhenIdle,
+  sanitize,
   sep,
   severity_default,
   show,
   size,
   splitLines,
-  standardMouseMoveMerger,
   status,
   stripIcons,
   stripWildcards,
@@ -593,7 +609,7 @@ import {
   widgetClose,
   widgetShadow,
   withNullAsUndefined
-} from "../AIIGUVZM.mjs";
+} from "../TFWJXA4H.mjs";
 import {
   __commonJS,
   __esm,
@@ -625,7 +641,7 @@ var require_formatActions = __commonJS({
     init_contextkey();
     init_instantiation();
     init_progress();
-    var __decorate70 = exports2 && exports2.__decorate || function(decorators, target, key, desc) {
+    var __decorate77 = exports2 && exports2.__decorate || function(decorators, target, key, desc) {
       var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
       if (typeof Reflect === "object" && typeof Reflect.decorate === "function")
         r = Reflect.decorate(decorators, target, key, desc);
@@ -635,12 +651,12 @@ var require_formatActions = __commonJS({
             r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
       return c > 3 && r && Object.defineProperty(target, key, r), r;
     };
-    var __param70 = exports2 && exports2.__param || function(paramIndex, decorator) {
+    var __param77 = exports2 && exports2.__param || function(paramIndex, decorator) {
       return function(target, key) {
         decorator(target, key, paramIndex);
       };
     };
-    var __awaiter50 = exports2 && exports2.__awaiter || function(thisArg, _arguments, P, generator) {
+    var __awaiter55 = exports2 && exports2.__awaiter || function(thisArg, _arguments, P, generator) {
       function adopt(value) {
         return value instanceof P ? value : new P(function(resolve) {
           resolve(value);
@@ -678,7 +694,7 @@ var require_formatActions = __commonJS({
         this._disposables.add(_editor.onDidChangeModel(() => this._update()));
         this._disposables.add(_editor.onDidChangeModelLanguage(() => this._update()));
         this._disposables.add(_editor.onDidChangeConfiguration((e) => {
-          if (e.hasChanged(49)) {
+          if (e.hasChanged(50)) {
             this._update();
           }
         }));
@@ -689,7 +705,7 @@ var require_formatActions = __commonJS({
       }
       _update() {
         this._sessionDisposables.clear();
-        if (!this._editor.getOption(49)) {
+        if (!this._editor.getOption(50)) {
           return;
         }
         if (!this._editor.hasModel()) {
@@ -700,12 +716,12 @@ var require_formatActions = __commonJS({
         if (!support || !support.autoFormatTriggerCharacters) {
           return;
         }
-        let triggerChars = new CharacterSet();
-        for (let ch of support.autoFormatTriggerCharacters) {
+        const triggerChars = new CharacterSet();
+        for (const ch of support.autoFormatTriggerCharacters) {
           triggerChars.add(ch.charCodeAt(0));
         }
-        this._sessionDisposables.add(this._editor.onDidType((text2) => {
-          let lastCharCode = text2.charCodeAt(text2.length - 1);
+        this._sessionDisposables.add(this._editor.onDidType((text) => {
+          const lastCharCode = text.charCodeAt(text.length - 1);
           if (triggerChars.has(lastCharCode)) {
             this._trigger(String.fromCharCode(lastCharCode));
           }
@@ -750,9 +766,9 @@ var require_formatActions = __commonJS({
       }
     };
     FormatOnType.ID = "editor.contrib.autoFormat";
-    FormatOnType = __decorate70([
-      __param70(1, ILanguageFeaturesService),
-      __param70(2, IEditorWorkerService)
+    FormatOnType = __decorate77([
+      __param77(1, ILanguageFeaturesService),
+      __param77(2, IEditorWorkerService)
     ], FormatOnType);
     var FormatOnPaste = class FormatOnPaste {
       constructor(editor2, _languageFeaturesService, _instantiationService) {
@@ -772,7 +788,7 @@ var require_formatActions = __commonJS({
       }
       _update() {
         this._callOnModel.clear();
-        if (!this.editor.getOption(48)) {
+        if (!this.editor.getOption(49)) {
           return;
         }
         if (!this.editor.hasModel()) {
@@ -794,9 +810,9 @@ var require_formatActions = __commonJS({
       }
     };
     FormatOnPaste.ID = "editor.contrib.formatOnPaste";
-    FormatOnPaste = __decorate70([
-      __param70(1, ILanguageFeaturesService),
-      __param70(2, IInstantiationService)
+    FormatOnPaste = __decorate77([
+      __param77(1, ILanguageFeaturesService),
+      __param77(2, IInstantiationService)
     ], FormatOnPaste);
     var FormatDocumentAction = class extends EditorAction {
       constructor() {
@@ -818,7 +834,7 @@ var require_formatActions = __commonJS({
         });
       }
       run(accessor, editor2) {
-        return __awaiter50(this, void 0, void 0, function* () {
+        return __awaiter55(this, void 0, void 0, function* () {
           if (editor2.hasModel()) {
             const instaService = accessor.get(IInstantiationService);
             const progressService = accessor.get(IEditorProgressService);
@@ -847,7 +863,7 @@ var require_formatActions = __commonJS({
         });
       }
       run(accessor, editor2) {
-        return __awaiter50(this, void 0, void 0, function* () {
+        return __awaiter55(this, void 0, void 0, function* () {
           if (!editor2.hasModel()) {
             return;
           }
@@ -865,7 +881,7 @@ var require_formatActions = __commonJS({
     registerEditorContribution(FormatOnPaste.ID, FormatOnPaste);
     registerEditorAction(FormatDocumentAction);
     registerEditorAction(FormatSelectionAction);
-    CommandsRegistry.registerCommand("editor.action.format", (accessor) => __awaiter50(void 0, void 0, void 0, function* () {
+    CommandsRegistry.registerCommand("editor.action.format", (accessor) => __awaiter55(void 0, void 0, void 0, function* () {
       const editor2 = accessor.get(ICodeEditorService).getFocusedCodeEditor();
       if (!editor2 || !editor2.hasModel()) {
         return;
@@ -881,7 +897,7 @@ var require_formatActions = __commonJS({
 });
 
 // ../../node_modules/monaco-editor/esm/vs/editor/contrib/documentSymbols/browser/outlineModel.js
-var __decorate31, __param31, __awaiter24, TreeElement, OutlineElement, OutlineGroup, OutlineModel, IOutlineModelService, OutlineModelService;
+var __decorate36, __param36, __awaiter28, TreeElement, OutlineElement, OutlineGroup, OutlineModel, IOutlineModelService, OutlineModelService;
 var init_outlineModel = __esm({
   "../../node_modules/monaco-editor/esm/vs/editor/contrib/documentSymbols/browser/outlineModel.js"() {
     init_define_process();
@@ -898,7 +914,7 @@ var init_outlineModel = __esm({
     init_model2();
     init_lifecycle();
     init_languageFeatures();
-    __decorate31 = function(decorators, target, key, desc) {
+    __decorate36 = function(decorators, target, key, desc) {
       var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
       if (typeof Reflect === "object" && typeof Reflect.decorate === "function")
         r = Reflect.decorate(decorators, target, key, desc);
@@ -908,12 +924,12 @@ var init_outlineModel = __esm({
             r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
       return c > 3 && r && Object.defineProperty(target, key, r), r;
     };
-    __param31 = function(paramIndex, decorator) {
+    __param36 = function(paramIndex, decorator) {
       return function(target, key) {
         decorator(target, key, paramIndex);
       };
     };
-    __awaiter24 = function(thisArg, _arguments, P, generator) {
+    __awaiter28 = function(thisArg, _arguments, P, generator) {
       function adopt(value) {
         return value instanceof P ? value : new P(function(resolve) {
           resolve(value);
@@ -942,9 +958,8 @@ var init_outlineModel = __esm({
     };
     TreeElement = class {
       remove() {
-        if (this.parent) {
-          this.parent.children.delete(this.id);
-        }
+        var _a5;
+        (_a5 = this.parent) === null || _a5 === void 0 ? void 0 : _a5.children.delete(this.id);
       }
       static findId(candidate, container) {
         let candidateId;
@@ -1002,8 +1017,8 @@ var init_outlineModel = __esm({
         const provider = registry.ordered(textModel);
         const promises = provider.map((provider2, index) => {
           var _a5;
-          let id = TreeElement.findId(`provider_${index}`, result);
-          let group = new OutlineGroup(id, result, (_a5 = provider2.displayName) !== null && _a5 !== void 0 ? _a5 : "Unknown Outline Provider", index);
+          const id = TreeElement.findId(`provider_${index}`, result);
+          const group = new OutlineGroup(id, result, (_a5 = provider2.displayName) !== null && _a5 !== void 0 ? _a5 : "Unknown Outline Provider", index);
           return Promise.resolve(provider2.provideDocumentSymbols(textModel, cts.token)).then((result2) => {
             for (const info of result2 || []) {
               OutlineModel._makeOutlineElement(info, group);
@@ -1037,8 +1052,8 @@ var init_outlineModel = __esm({
         });
       }
       static _makeOutlineElement(info, container) {
-        let id = TreeElement.findId(info, container);
-        let res = new OutlineElement(id, container, info);
+        const id = TreeElement.findId(info, container);
+        const res = new OutlineElement(id, container, info);
         if (info.children) {
           for (const childInfo of info.children) {
             OutlineModel._makeOutlineElement(childInfo, res);
@@ -1058,8 +1073,8 @@ var init_outlineModel = __esm({
         if (count !== 1) {
           this.children = this._groups;
         } else {
-          let group = Iterable.first(this._groups.values());
-          for (let [, child] of group.children) {
+          const group = Iterable.first(this._groups.values());
+          for (const [, child] of group.children) {
             child.parent = this;
             this.children.set(child.id, child);
           }
@@ -1116,12 +1131,12 @@ var init_outlineModel = __esm({
         this._disposables.dispose();
       }
       getOrCreate(textModel, token) {
-        return __awaiter24(this, void 0, void 0, function* () {
+        return __awaiter28(this, void 0, void 0, function* () {
           const registry = this._languageFeaturesService.documentSymbolProvider;
           const provider = registry.ordered(textModel);
           let data = this._cache.get(textModel.id);
           if (!data || data.versionId !== textModel.getVersionId() || !equals(data.provider, provider)) {
-            let source = new CancellationTokenSource();
+            const source = new CancellationTokenSource();
             data = {
               versionId: textModel.getVersionId(),
               provider,
@@ -1157,10 +1172,10 @@ var init_outlineModel = __esm({
         });
       }
     };
-    OutlineModelService = __decorate31([
-      __param31(0, ILanguageFeaturesService),
-      __param31(1, ILanguageFeatureDebounceService),
-      __param31(2, IModelService)
+    OutlineModelService = __decorate36([
+      __param36(0, ILanguageFeaturesService),
+      __param36(1, ILanguageFeatureDebounceService),
+      __param36(2, IModelService)
     ], OutlineModelService);
     registerSingleton(IOutlineModelService, OutlineModelService, true);
   }
@@ -1176,7 +1191,7 @@ var require_documentSymbols = __commonJS({
     init_resolverService();
     init_outlineModel();
     init_commands();
-    var __awaiter50 = exports2 && exports2.__awaiter || function(thisArg, _arguments, P, generator) {
+    var __awaiter55 = exports2 && exports2.__awaiter || function(thisArg, _arguments, P, generator) {
       function adopt(value) {
         return value instanceof P ? value : new P(function(resolve) {
           resolve(value);
@@ -1204,7 +1219,7 @@ var require_documentSymbols = __commonJS({
       });
     };
     CommandsRegistry.registerCommand("_executeDocumentSymbolProvider", function(accessor, ...args) {
-      return __awaiter50(this, void 0, void 0, function* () {
+      return __awaiter55(this, void 0, void 0, function* () {
         const [resource] = args;
         assertType(URI.isUri(resource));
         const outlineService = accessor.get(IOutlineModelService);
@@ -1227,10 +1242,10 @@ var init_inPlaceReplaceCommand = __esm({
     init_define_process();
     init_selection();
     InPlaceReplaceCommand = class {
-      constructor(editRange, originalSelection, text2) {
+      constructor(editRange, originalSelection, text) {
         this._editRange = editRange;
         this._originalSelection = originalSelection;
-        this._text = text2;
+        this._text = text;
       }
       getEditOperations(model, builder) {
         builder.addTrackedEditOperation(this._editRange, this._text);
@@ -1264,7 +1279,7 @@ var require_inPlaceReplace = __commonJS({
     init_nls();
     init_themeService();
     init_inPlaceReplaceCommand();
-    var __decorate70 = exports2 && exports2.__decorate || function(decorators, target, key, desc) {
+    var __decorate77 = exports2 && exports2.__decorate || function(decorators, target, key, desc) {
       var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
       if (typeof Reflect === "object" && typeof Reflect.decorate === "function")
         r = Reflect.decorate(decorators, target, key, desc);
@@ -1274,16 +1289,16 @@ var require_inPlaceReplace = __commonJS({
             r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
       return c > 3 && r && Object.defineProperty(target, key, r), r;
     };
-    var __param70 = exports2 && exports2.__param || function(paramIndex, decorator) {
+    var __param77 = exports2 && exports2.__param || function(paramIndex, decorator) {
       return function(target, key) {
         decorator(target, key, paramIndex);
       };
     };
     var InPlaceReplaceController = class InPlaceReplaceController2 {
       constructor(editor2, editorWorkerService) {
-        this.decorationIds = [];
         this.editor = editor2;
         this.editorWorkerService = editorWorkerService;
+        this.decorations = this.editor.createDecorationsCollection();
       }
       static get(editor2) {
         return editor2.getContribution(InPlaceReplaceController2.ID);
@@ -1316,9 +1331,9 @@ var require_inPlaceReplace = __commonJS({
           if (!state.validate(this.editor)) {
             return;
           }
-          let editRange = Range.lift(result.range);
+          const editRange = Range.lift(result.range);
           let highlightRange = result.range;
-          let diff = result.value.length - (selection.endColumn - selection.startColumn);
+          const diff = result.value.length - (selection.endColumn - selection.startColumn);
           highlightRange = {
             startLineNumber: highlightRange.startLineNumber,
             startColumn: highlightRange.startColumn,
@@ -1332,7 +1347,7 @@ var require_inPlaceReplace = __commonJS({
           this.editor.pushUndoStop();
           this.editor.executeCommand(source, command);
           this.editor.pushUndoStop();
-          this.decorationIds = this.editor.deltaDecorations(this.decorationIds, [{
+          this.decorations.set([{
             range: highlightRange,
             options: InPlaceReplaceController2.DECORATION
           }]);
@@ -1340,7 +1355,7 @@ var require_inPlaceReplace = __commonJS({
             this.decorationRemover.cancel();
           }
           this.decorationRemover = timeout(350);
-          this.decorationRemover.then(() => this.decorationIds = this.editor.deltaDecorations(this.decorationIds, [])).catch(onUnexpectedError);
+          this.decorationRemover.then(() => this.decorations.clear()).catch(onUnexpectedError);
         }).catch(onUnexpectedError);
       }
     };
@@ -1349,8 +1364,8 @@ var require_inPlaceReplace = __commonJS({
       description: "in-place-replace",
       className: "valueSetReplacement"
     });
-    InPlaceReplaceController = __decorate70([
-      __param70(1, IEditorWorkerService)
+    InPlaceReplaceController = __decorate77([
+      __param77(1, IEditorWorkerService)
     ], InPlaceReplaceController);
     var InPlaceReplaceUp = class extends EditorAction {
       constructor() {
@@ -1464,7 +1479,7 @@ var require_viewportSemanticTokens = __commonJS({
     init_languageFeatureDebounce();
     init_stopwatch();
     init_languageFeatures();
-    var __decorate70 = exports2 && exports2.__decorate || function(decorators, target, key, desc) {
+    var __decorate77 = exports2 && exports2.__decorate || function(decorators, target, key, desc) {
       var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
       if (typeof Reflect === "object" && typeof Reflect.decorate === "function")
         r = Reflect.decorate(decorators, target, key, desc);
@@ -1474,7 +1489,7 @@ var require_viewportSemanticTokens = __commonJS({
             r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
       return c > 3 && r && Object.defineProperty(target, key, r), r;
     };
-    var __param70 = exports2 && exports2.__param || function(paramIndex, decorator) {
+    var __param77 = exports2 && exports2.__param || function(paramIndex, decorator) {
       return function(target, key) {
         decorator(target, key, paramIndex);
       };
@@ -1540,18 +1555,18 @@ var require_viewportSemanticTokens = __commonJS({
           return;
         }
         const model = this._editor.getModel();
-        if (model.hasCompleteSemanticTokens()) {
+        if (model.tokenization.hasCompleteSemanticTokens()) {
           return;
         }
         if (!isSemanticColoringEnabled(model, this._themeService, this._configurationService)) {
-          if (model.hasSomeSemanticTokens()) {
-            model.setSemanticTokens(null, false);
+          if (model.tokenization.hasSomeSemanticTokens()) {
+            model.tokenization.setSemanticTokens(null, false);
           }
           return;
         }
         if (!hasDocumentRangeSemanticTokensProvider(this._provider, model)) {
-          if (model.hasSomeSemanticTokens()) {
-            model.setSemanticTokens(null, false);
+          if (model.tokenization.hasSomeSemanticTokens()) {
+            model.tokenization.setSemanticTokens(null, false);
           }
           return;
         }
@@ -1569,18 +1584,18 @@ var require_viewportSemanticTokens = __commonJS({
           }
           const { provider, tokens: result } = r;
           const styling = this._modelService.getSemanticTokensProviderStyling(provider);
-          model.setPartialSemanticTokens(range, toMultilineTokens2(result, styling, model.getLanguageId()));
+          model.tokenization.setPartialSemanticTokens(range, toMultilineTokens2(result, styling, model.getLanguageId()));
         }).then(() => this._removeOutstandingRequest(request), () => this._removeOutstandingRequest(request));
         return request;
       }
     };
     ViewportSemanticTokensContribution.ID = "editor.contrib.viewportSemanticTokens";
-    ViewportSemanticTokensContribution = __decorate70([
-      __param70(1, IModelService),
-      __param70(2, IThemeService),
-      __param70(3, IConfigurationService),
-      __param70(4, ILanguageFeatureDebounceService),
-      __param70(5, ILanguageFeaturesService)
+    ViewportSemanticTokensContribution = __decorate77([
+      __param77(1, IModelService),
+      __param77(2, IThemeService),
+      __param77(3, IConfigurationService),
+      __param77(4, ILanguageFeatureDebounceService),
+      __param77(5, ILanguageFeaturesService)
     ], ViewportSemanticTokensContribution);
     registerEditorContribution(ViewportSemanticTokensContribution.ID, ViewportSemanticTokensContribution);
   }
@@ -1616,7 +1631,7 @@ var require_accessibilityHelp = __commonJS({
     init_colorRegistry();
     init_themeService();
     init_standaloneStrings();
-    var __decorate70 = exports2 && exports2.__decorate || function(decorators, target, key, desc) {
+    var __decorate77 = exports2 && exports2.__decorate || function(decorators, target, key, desc) {
       var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
       if (typeof Reflect === "object" && typeof Reflect.decorate === "function")
         r = Reflect.decorate(decorators, target, key, desc);
@@ -1626,7 +1641,7 @@ var require_accessibilityHelp = __commonJS({
             r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
       return c > 3 && r && Object.defineProperty(target, key, r), r;
     };
-    var __param70 = exports2 && exports2.__param || function(paramIndex, decorator) {
+    var __param77 = exports2 && exports2.__param || function(paramIndex, decorator) {
       return function(target, key) {
         decorator(target, key, paramIndex);
       };
@@ -1649,8 +1664,8 @@ var require_accessibilityHelp = __commonJS({
       }
     };
     AccessibilityHelpController.ID = "editor.contrib.accessibilityHelpController";
-    AccessibilityHelpController = __decorate70([
-      __param70(1, IInstantiationService)
+    AccessibilityHelpController = __decorate77([
+      __param77(1, IInstantiationService)
     ], AccessibilityHelpController);
     function getSelectionLabel(selections, charactersSelected) {
       if (!selections || selections.length === 0) {
@@ -1770,43 +1785,43 @@ var require_accessibilityHelp = __commonJS({
             });
           }
         }
-        let text2 = getSelectionLabel(selections, charactersSelected);
-        if (options.get(54)) {
-          if (options.get(81)) {
-            text2 += AccessibilityHelpNLS.readonlyDiffEditor;
+        let text = getSelectionLabel(selections, charactersSelected);
+        if (options.get(55)) {
+          if (options.get(82)) {
+            text += AccessibilityHelpNLS.readonlyDiffEditor;
           } else {
-            text2 += AccessibilityHelpNLS.editableDiffEditor;
+            text += AccessibilityHelpNLS.editableDiffEditor;
           }
         } else {
-          if (options.get(81)) {
-            text2 += AccessibilityHelpNLS.readonlyEditor;
+          if (options.get(82)) {
+            text += AccessibilityHelpNLS.readonlyEditor;
           } else {
-            text2 += AccessibilityHelpNLS.editableEditor;
+            text += AccessibilityHelpNLS.editableEditor;
           }
         }
         const turnOnMessage = isMacintosh ? AccessibilityHelpNLS.changeConfigToOnMac : AccessibilityHelpNLS.changeConfigToOnWinLinux;
         switch (options.get(2)) {
           case 0:
-            text2 += "\n\n - " + turnOnMessage;
+            text += "\n\n - " + turnOnMessage;
             break;
           case 2:
-            text2 += "\n\n - " + AccessibilityHelpNLS.auto_on;
+            text += "\n\n - " + AccessibilityHelpNLS.auto_on;
             break;
           case 1:
-            text2 += "\n\n - " + AccessibilityHelpNLS.auto_off;
-            text2 += " " + turnOnMessage;
+            text += "\n\n - " + AccessibilityHelpNLS.auto_off;
+            text += " " + turnOnMessage;
             break;
         }
-        if (options.get(130)) {
-          text2 += "\n\n - " + this._descriptionForCommand(ToggleTabFocusModeAction.ID, AccessibilityHelpNLS.tabFocusModeOnMsg, AccessibilityHelpNLS.tabFocusModeOnMsgNoKb);
+        if (options.get(131)) {
+          text += "\n\n - " + this._descriptionForCommand(ToggleTabFocusModeAction.ID, AccessibilityHelpNLS.tabFocusModeOnMsg, AccessibilityHelpNLS.tabFocusModeOnMsgNoKb);
         } else {
-          text2 += "\n\n - " + this._descriptionForCommand(ToggleTabFocusModeAction.ID, AccessibilityHelpNLS.tabFocusModeOffMsg, AccessibilityHelpNLS.tabFocusModeOffMsgNoKb);
+          text += "\n\n - " + this._descriptionForCommand(ToggleTabFocusModeAction.ID, AccessibilityHelpNLS.tabFocusModeOffMsg, AccessibilityHelpNLS.tabFocusModeOffMsgNoKb);
         }
         const openDocMessage = isMacintosh ? AccessibilityHelpNLS.openDocMac : AccessibilityHelpNLS.openDocWinLinux;
-        text2 += "\n\n - " + openDocMessage;
-        text2 += "\n\n" + AccessibilityHelpNLS.outroMsg;
-        this._contentDomNode.domNode.appendChild(renderFormattedText(text2));
-        this._contentDomNode.domNode.setAttribute("aria-label", text2);
+        text += "\n\n - " + openDocMessage;
+        text += "\n\n" + AccessibilityHelpNLS.outroMsg;
+        this._contentDomNode.domNode.appendChild(renderFormattedText(text));
+        this._contentDomNode.domNode.setAttribute("aria-label", text);
       }
       hide() {
         if (!this._isVisible) {
@@ -1835,10 +1850,10 @@ var require_accessibilityHelp = __commonJS({
     AccessibilityHelpWidget.ID = "editor.contrib.accessibilityHelpWidget";
     AccessibilityHelpWidget.WIDTH = 500;
     AccessibilityHelpWidget.HEIGHT = 300;
-    AccessibilityHelpWidget = __decorate70([
-      __param70(1, IContextKeyService),
-      __param70(2, IKeybindingService),
-      __param70(3, IOpenerService)
+    AccessibilityHelpWidget = __decorate77([
+      __param77(1, IContextKeyService),
+      __param77(2, IKeybindingService),
+      __param77(3, IOpenerService)
     ], AccessibilityHelpWidget);
     var ShowAccessibilityHelpAction = class extends EditorAction {
       constructor() {
@@ -1915,6 +1930,7 @@ var require_inspectTokens = __commonJS({
     init_lifecycle();
     init_editorExtensions();
     init_languages();
+    init_encodedTokenAttributes();
     init_nullTokenize();
     init_language();
     init_standaloneTheme();
@@ -1922,7 +1938,7 @@ var require_inspectTokens = __commonJS({
     init_themeService();
     init_standaloneStrings();
     init_theme();
-    var __decorate70 = exports2 && exports2.__decorate || function(decorators, target, key, desc) {
+    var __decorate77 = exports2 && exports2.__decorate || function(decorators, target, key, desc) {
       var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
       if (typeof Reflect === "object" && typeof Reflect.decorate === "function")
         r = Reflect.decorate(decorators, target, key, desc);
@@ -1932,7 +1948,7 @@ var require_inspectTokens = __commonJS({
             r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
       return c > 3 && r && Object.defineProperty(target, key, r), r;
     };
-    var __param70 = exports2 && exports2.__param || function(paramIndex, decorator) {
+    var __param77 = exports2 && exports2.__param || function(paramIndex, decorator) {
       return function(target, key) {
         decorator(target, key, paramIndex);
       };
@@ -1972,9 +1988,9 @@ var require_inspectTokens = __commonJS({
       }
     };
     InspectTokensController.ID = "editor.contrib.inspectTokens";
-    InspectTokensController = __decorate70([
-      __param70(1, IStandaloneThemeService),
-      __param70(2, ILanguageService)
+    InspectTokensController = __decorate77([
+      __param77(1, IStandaloneThemeService),
+      __param77(2, ILanguageService)
     ], InspectTokensController);
     var InspectTokens = class extends EditorAction {
       constructor() {
@@ -2159,7 +2175,7 @@ var require_inspectTokens = __commonJS({
     registerThemingParticipant((theme, collector) => {
       const border = theme.getColor(editorHoverBorder);
       if (border) {
-        const borderWidth = theme.type === ColorScheme.HIGH_CONTRAST ? 2 : 1;
+        const borderWidth = isHighContrast(theme.type) ? 2 : 1;
         collector.addRule(`.monaco-editor .tokens-inspect-widget { border: ${borderWidth}px solid ${border}; }`);
         collector.addRule(`.monaco-editor .tokens-inspect-widget .tokens-inspect-separator { background-color: ${border}; }`);
       }
@@ -2482,7 +2498,7 @@ registerLanguage({
         __require(["vs/basic-languages/css/css"], resolve, reject);
       });
     } else {
-      return import("../4JXQDKK3.mjs");
+      return import("../YGR73V4E.mjs");
     }
   }
 });
@@ -2603,7 +2619,7 @@ registerLanguage({
         __require(["vs/basic-languages/freemarker2/freemarker2"], resolve, reject);
       }).then((m) => m.TagAngleInterpolationDollar);
     } else {
-      return import("../XZWAK3SR.mjs").then((m) => m.TagAutoInterpolationDollar);
+      return import("../7GMWH5GI.mjs").then((m) => m.TagAutoInterpolationDollar);
     }
   }
 });
@@ -2616,7 +2632,7 @@ registerLanguage({
         __require(["vs/basic-languages/freemarker2/freemarker2"], resolve, reject);
       }).then((m) => m.TagAngleInterpolationDollar);
     } else {
-      return import("../XZWAK3SR.mjs").then((m) => m.TagAngleInterpolationDollar);
+      return import("../7GMWH5GI.mjs").then((m) => m.TagAngleInterpolationDollar);
     }
   }
 });
@@ -2629,7 +2645,7 @@ registerLanguage({
         __require(["vs/basic-languages/freemarker2/freemarker2"], resolve, reject);
       }).then((m) => m.TagBracketInterpolationDollar);
     } else {
-      return import("../XZWAK3SR.mjs").then((m) => m.TagBracketInterpolationDollar);
+      return import("../7GMWH5GI.mjs").then((m) => m.TagBracketInterpolationDollar);
     }
   }
 });
@@ -2642,7 +2658,7 @@ registerLanguage({
         __require(["vs/basic-languages/freemarker2/freemarker2"], resolve, reject);
       }).then((m) => m.TagAngleInterpolationBracket);
     } else {
-      return import("../XZWAK3SR.mjs").then((m) => m.TagAngleInterpolationBracket);
+      return import("../7GMWH5GI.mjs").then((m) => m.TagAngleInterpolationBracket);
     }
   }
 });
@@ -2655,7 +2671,7 @@ registerLanguage({
         __require(["vs/basic-languages/freemarker2/freemarker2"], resolve, reject);
       }).then((m) => m.TagBracketInterpolationBracket);
     } else {
-      return import("../XZWAK3SR.mjs").then((m) => m.TagBracketInterpolationBracket);
+      return import("../7GMWH5GI.mjs").then((m) => m.TagBracketInterpolationBracket);
     }
   }
 });
@@ -2668,7 +2684,7 @@ registerLanguage({
         __require(["vs/basic-languages/freemarker2/freemarker2"], resolve, reject);
       }).then((m) => m.TagAutoInterpolationDollar);
     } else {
-      return import("../XZWAK3SR.mjs").then((m) => m.TagAutoInterpolationDollar);
+      return import("../7GMWH5GI.mjs").then((m) => m.TagAutoInterpolationDollar);
     }
   }
 });
@@ -2681,7 +2697,7 @@ registerLanguage({
         __require(["vs/basic-languages/freemarker2/freemarker2"], resolve, reject);
       }).then((m) => m.TagAutoInterpolationBracket);
     } else {
-      return import("../XZWAK3SR.mjs").then((m) => m.TagAutoInterpolationBracket);
+      return import("../7GMWH5GI.mjs").then((m) => m.TagAutoInterpolationBracket);
     }
   }
 });
@@ -2734,7 +2750,7 @@ registerLanguage({
         __require(["vs/basic-languages/handlebars/handlebars"], resolve, reject);
       });
     } else {
-      return import("../IW5CKGEG.mjs");
+      return import("../4KTHD5G2.mjs");
     }
   }
 });
@@ -2769,7 +2785,7 @@ registerLanguage({
         __require(["vs/basic-languages/html/html"], resolve, reject);
       });
     } else {
-      return import("../7B4LUUGZ.mjs");
+      return import("../HBP5DI6Z.mjs");
     }
   }
 });
@@ -2825,7 +2841,7 @@ registerLanguage({
         __require(["vs/basic-languages/javascript/javascript"], resolve, reject);
       });
     } else {
-      return import("../MGTVCC54.mjs");
+      return import("../KGBJIUPU.mjs");
     }
   }
 });
@@ -2878,7 +2894,7 @@ registerLanguage({
         __require(["vs/basic-languages/less/less"], resolve, reject);
       });
     } else {
-      return import("../SQJ7ZDBU.mjs");
+      return import("../UZEQLCCA.mjs");
     }
   }
 });
@@ -2930,7 +2946,7 @@ registerLanguage({
         __require(["vs/basic-languages/liquid/liquid"], resolve, reject);
       });
     } else {
-      return import("../YVY4FPCF.mjs");
+      return import("../Y3ASNEMF.mjs");
     }
   }
 });
@@ -3239,7 +3255,7 @@ registerLanguage({
         __require(["vs/basic-languages/python/python"], resolve, reject);
       });
     } else {
-      return import("../YSSNDCHU.mjs");
+      return import("../DFXCGBRW.mjs");
     }
   }
 });
@@ -3291,7 +3307,7 @@ registerLanguage({
         __require(["vs/basic-languages/razor/razor"], resolve, reject);
       });
     } else {
-      return import("../Q3AAVWJX.mjs");
+      return import("../HLYZ6QPE.mjs");
     }
   }
 });
@@ -3447,7 +3463,7 @@ registerLanguage({
         __require(["vs/basic-languages/scss/scss"], resolve, reject);
       });
     } else {
-      return import("../ZQSPBNQS.mjs");
+      return import("../5MMGHDV4.mjs");
     }
   }
 });
@@ -3651,7 +3667,7 @@ registerLanguage({
         __require(["vs/basic-languages/typescript/typescript"], resolve, reject);
       });
     } else {
-      return import("../MSC4CFJV.mjs");
+      return import("../7TCJPD26.mjs");
     }
   }
 });
@@ -3701,7 +3717,7 @@ registerLanguage({
         __require(["vs/basic-languages/xml/xml"], resolve, reject);
       });
     } else {
-      return import("../FMPYCJ3R.mjs");
+      return import("../EZGCUJVQ.mjs");
     }
   }
 });
@@ -3719,7 +3735,7 @@ registerLanguage({
         __require(["vs/basic-languages/yaml/yaml"], resolve, reject);
       });
     } else {
-      return import("../KKWMR6MH.mjs");
+      return import("../BQJSYRMO.mjs");
     }
   }
 });
@@ -3799,7 +3815,15 @@ var optionsDefault = {
     float: "ignore",
     idSelector: "ignore"
   },
-  data: { useDefaultDataProvider: true }
+  data: { useDefaultDataProvider: true },
+  format: {
+    newlineBetweenSelectors: true,
+    newlineBetweenRules: true,
+    spaceAroundSelectorSeparator: false,
+    braceStyle: "collapse",
+    maxPreserveNewLines: void 0,
+    preserveNewLines: true
+  }
 };
 var modeConfigurationDefault = {
   completionItems: true,
@@ -3812,7 +3836,9 @@ var modeConfigurationDefault = {
   colors: true,
   foldingRanges: true,
   diagnostics: true,
-  selectionRanges: true
+  selectionRanges: true,
+  documentFormattingEdits: true,
+  documentRangeFormattingEdits: true
 };
 var cssDefaults = new LanguageServiceDefaultsImpl("css", optionsDefault, modeConfigurationDefault);
 var scssDefaults = new LanguageServiceDefaultsImpl("scss", optionsDefault, modeConfigurationDefault);
@@ -3824,7 +3850,7 @@ function getMode() {
       __require(["vs/language/css/cssMode"], resolve, reject);
     });
   } else {
-    return import("../RJHIJDUM.mjs");
+    return import("../X74TAZY4.mjs");
   }
 }
 monaco_editor_core_exports2.languages.onLanguage("less", () => {
@@ -3943,7 +3969,7 @@ function getMode2() {
       __require(["vs/language/html/htmlMode"], resolve, reject);
     });
   } else {
-    return import("../7ULHWAJY.mjs");
+    return import("../5LTYNXI2.mjs");
   }
 }
 function registerHTMLLanguageService(languageId, options = optionsDefault2, modeConfiguration = getConfigurationDefault(languageId)) {
@@ -4039,7 +4065,7 @@ function getMode3() {
       __require(["vs/language/json/jsonMode"], resolve, reject);
     });
   } else {
-    return import("../3KBDNDFC.mjs");
+    return import("../Q5Y5AK56.mjs");
   }
 }
 monaco_editor_core_exports4.languages.register({
@@ -4122,17 +4148,17 @@ var SelectionAnchorController = class SelectionAnchorController2 {
   setSelectionAnchor() {
     if (this.editor.hasModel()) {
       const position = this.editor.getPosition();
-      const previousDecorations = this.decorationId ? [this.decorationId] : [];
-      const newDecorationId = this.editor.deltaDecorations(previousDecorations, [{
-        range: Selection.fromPositions(position, position),
-        options: {
+      this.editor.changeDecorations((accessor) => {
+        if (this.decorationId) {
+          accessor.removeDecoration(this.decorationId);
+        }
+        this.decorationId = accessor.addDecoration(Selection.fromPositions(position, position), {
           description: "selection-anchor",
           stickiness: 1,
           hoverMessage: new MarkdownString().appendText(localize("selectionAnchor", "Selection Anchor")),
           className: "selection-anchor"
-        }
-      }]);
-      this.decorationId = newDecorationId[0];
+        });
+      });
       this.selectionAnchorSetContextKey.set(!!this.decorationId);
       alert(localize("anchorSet", "Anchor set at {0}:{1}", position.lineNumber, position.column));
     }
@@ -4157,8 +4183,11 @@ var SelectionAnchorController = class SelectionAnchorController2 {
   }
   cancelSelectionAnchor() {
     if (this.decorationId) {
-      this.editor.deltaDecorations([this.decorationId], []);
-      this.decorationId = void 0;
+      const decorationId = this.decorationId;
+      this.editor.changeDecorations((accessor) => {
+        accessor.removeDecoration(decorationId);
+        this.decorationId = void 0;
+      });
       this.selectionAnchorSetContextKey.set(false);
     }
   }
@@ -4272,7 +4301,7 @@ init_nls();
 init_actions2();
 init_colorRegistry();
 init_themeService();
-var overviewRulerBracketMatchForeground = registerColor("editorOverviewRuler.bracketMatchForeground", { dark: "#A0A0A0", light: "#A0A0A0", hc: "#A0A0A0" }, localize("overviewRulerBracketMatchForeground", "Overview ruler marker color for matching brackets."));
+var overviewRulerBracketMatchForeground = registerColor("editorOverviewRuler.bracketMatchForeground", { dark: "#A0A0A0", light: "#A0A0A0", hcDark: "#A0A0A0", hcLight: "#A0A0A0" }, localize("overviewRulerBracketMatchForeground", "Overview ruler marker color for matching brackets."));
 var JumpToBracketAction = class extends EditorAction {
   constructor() {
     super({
@@ -4338,9 +4367,9 @@ var BracketMatchingController = class extends Disposable {
     this._editor = editor2;
     this._lastBracketsData = [];
     this._lastVersionId = 0;
-    this._decorations = [];
+    this._decorations = this._editor.createDecorationsCollection();
     this._updateBracketsSoon = this._register(new RunOnceScheduler(() => this._updateBrackets(), 50));
-    this._matchBrackets = this._editor.getOption(64);
+    this._matchBrackets = this._editor.getOption(65);
     this._updateBracketsSoon.schedule();
     this._register(editor2.onDidChangeCursorPosition((e) => {
       if (this._matchBrackets === "never") {
@@ -4353,7 +4382,6 @@ var BracketMatchingController = class extends Disposable {
     }));
     this._register(editor2.onDidChangeModel((e) => {
       this._lastBracketsData = [];
-      this._decorations = [];
       this._updateBracketsSoon.schedule();
     }));
     this._register(editor2.onDidChangeModelLanguageConfiguration((e) => {
@@ -4361,9 +4389,9 @@ var BracketMatchingController = class extends Disposable {
       this._updateBracketsSoon.schedule();
     }));
     this._register(editor2.onDidChangeConfiguration((e) => {
-      if (e.hasChanged(64)) {
-        this._matchBrackets = this._editor.getOption(64);
-        this._decorations = this._editor.deltaDecorations(this._decorations, []);
+      if (e.hasChanged(65)) {
+        this._matchBrackets = this._editor.getOption(65);
+        this._decorations.clear();
         this._lastBracketsData = [];
         this._lastVersionId = 0;
         this._updateBracketsSoon.schedule();
@@ -4389,7 +4417,7 @@ var BracketMatchingController = class extends Disposable {
       const brackets = model.bracketPairs.matchBracket(position);
       let newCursorPosition = null;
       if (brackets) {
-        if (brackets[0].containsPosition(position)) {
+        if (brackets[0].containsPosition(position) && !brackets[1].containsPosition(position)) {
           newCursorPosition = brackets[1].getStartPosition();
         } else if (brackets[1].containsPosition(position)) {
           newCursorPosition = brackets[0].getStartPosition();
@@ -4397,7 +4425,7 @@ var BracketMatchingController = class extends Disposable {
       } else {
         const enclosingBrackets = model.bracketPairs.findEnclosingBrackets(position);
         if (enclosingBrackets) {
-          newCursorPosition = enclosingBrackets[0].getStartPosition();
+          newCursorPosition = enclosingBrackets[1].getStartPosition();
         } else {
           const nextBracket = model.bracketPairs.findNextBracket(position);
           if (nextBracket && nextBracket.range) {
@@ -4458,15 +4486,16 @@ var BracketMatchingController = class extends Disposable {
       return;
     }
     this._recomputeBrackets();
-    let newDecorations = [], newDecorationsLen = 0;
+    const newDecorations = [];
+    let newDecorationsLen = 0;
     for (const bracketData of this._lastBracketsData) {
-      let brackets = bracketData.brackets;
+      const brackets = bracketData.brackets;
       if (brackets) {
         newDecorations[newDecorationsLen++] = { range: brackets[0], options: bracketData.options };
         newDecorations[newDecorationsLen++] = { range: brackets[1], options: bracketData.options };
       }
     }
-    this._decorations = this._editor.deltaDecorations(this._decorations, newDecorations);
+    this._decorations.set(newDecorations);
   }
   _recomputeBrackets() {
     if (!this._editor.hasModel() || !this._editor.hasWidgetFocus()) {
@@ -4486,9 +4515,10 @@ var BracketMatchingController = class extends Disposable {
     if (this._lastVersionId === versionId) {
       previousData = this._lastBracketsData;
     }
-    let positions = [], positionsLen = 0;
+    const positions = [];
+    let positionsLen = 0;
     for (let i = 0, len = selections.length; i < len; i++) {
-      let selection = selections[i];
+      const selection = selections[i];
       if (selection.isEmpty()) {
         positions[positionsLen++] = selection.getStartPosition();
       }
@@ -4496,10 +4526,12 @@ var BracketMatchingController = class extends Disposable {
     if (positions.length > 1) {
       positions.sort(Position.compare);
     }
-    let newData = [], newDataLen = 0;
-    let previousIndex = 0, previousLen = previousData.length;
+    const newData = [];
+    let newDataLen = 0;
+    let previousIndex = 0;
+    const previousLen = previousData.length;
     for (let i = 0, len = positions.length; i < len; i++) {
-      let position = positions[i];
+      const position = positions[i];
       while (previousIndex < previousLen && previousData[previousIndex].position.isBefore(position)) {
         previousIndex++;
       }
@@ -4675,25 +4707,25 @@ var TransposeLettersAction = class extends EditorAction {
     if (!editor2.hasModel()) {
       return;
     }
-    let model = editor2.getModel();
-    let commands = [];
-    let selections = editor2.getSelections();
-    for (let selection of selections) {
+    const model = editor2.getModel();
+    const commands = [];
+    const selections = editor2.getSelections();
+    for (const selection of selections) {
       if (!selection.isEmpty()) {
         continue;
       }
-      let lineNumber = selection.startLineNumber;
-      let column = selection.startColumn;
-      let lastColumn = model.getLineMaxColumn(lineNumber);
+      const lineNumber = selection.startLineNumber;
+      const column = selection.startColumn;
+      const lastColumn = model.getLineMaxColumn(lineNumber);
       if (lineNumber === 1 && (column === 1 || column === 2 && lastColumn === 2)) {
         continue;
       }
-      let endPosition = column === lastColumn ? selection.getPosition() : MoveOperations.rightPosition(model, selection.getPosition().lineNumber, selection.getPosition().column);
-      let middlePosition = MoveOperations.leftPosition(model, endPosition);
-      let beginPosition = MoveOperations.leftPosition(model, middlePosition);
-      let leftChar = model.getValueInRange(Range.fromPositions(beginPosition, middlePosition));
-      let rightChar = model.getValueInRange(Range.fromPositions(middlePosition, endPosition));
-      let replaceRange = Range.fromPositions(beginPosition, endPosition);
+      const endPosition = column === lastColumn ? selection.getPosition() : MoveOperations.rightPosition(model, selection.getPosition().lineNumber, selection.getPosition().column);
+      const middlePosition = MoveOperations.leftPosition(model, endPosition);
+      const beginPosition = MoveOperations.leftPosition(model, middlePosition);
+      const leftChar = model.getValueInRange(Range.fromPositions(beginPosition, middlePosition));
+      const rightChar = model.getValueInRange(Range.fromPositions(middlePosition, endPosition));
+      const replaceRange = Range.fromPositions(beginPosition, endPosition);
       commands.push(new ReplaceCommand(replaceRange, rightChar + leftChar));
     }
     if (commands.length > 0) {
@@ -4813,6 +4845,7 @@ var CopyAction = supportsCopy ? registerCommand(new MultiCommand({
 })) : void 0;
 MenuRegistry.appendMenuItem(MenuId.MenubarEditMenu, { submenu: MenuId.MenubarCopy, title: { value: localize("copy as", "Copy As"), original: "Copy As" }, group: "2_ccp", order: 3 });
 MenuRegistry.appendMenuItem(MenuId.EditorContext, { submenu: MenuId.EditorContextCopy, title: { value: localize("copy as", "Copy As"), original: "Copy As" }, group: CLIPBOARD_CONTEXT_MENU_GROUP, order: 3 });
+MenuRegistry.appendMenuItem(MenuId.EditorContext, { submenu: MenuId.EditorContextShare, title: { value: localize("share", "Share"), original: "Share" }, group: "11_share", order: -1 });
 var PasteAction = supportsPaste ? registerCommand(new MultiCommand({
   id: "editor.action.clipboardPasteAction",
   precondition: void 0,
@@ -4864,7 +4897,7 @@ var ExecCommandCopyWithSyntaxHighlightingAction = class extends EditorAction {
     if (!editor2.hasModel()) {
       return;
     }
-    const emptySelectionClipboard = editor2.getOption(32);
+    const emptySelectionClipboard = editor2.getOption(33);
     if (!emptySelectionClipboard && editor2.getSelection().isEmpty()) {
       return;
     }
@@ -4881,7 +4914,7 @@ function registerExecCommandImpl(target, browserCommand) {
   target.addImplementation(1e4, "code-editor", (accessor, args) => {
     const focusedEditor = accessor.get(ICodeEditorService).getFocusedCodeEditor();
     if (focusedEditor && focusedEditor.hasTextFocus()) {
-      const emptySelectionClipboard = focusedEditor.getOption(32);
+      const emptySelectionClipboard = focusedEditor.getOption(33);
       const selection = focusedEditor.getSelection();
       if (selection && selection.isEmpty() && !emptySelectionClipboard) {
         return true;
@@ -4914,7 +4947,7 @@ if (PasteAction) {
             let multicursorText = null;
             let mode = null;
             if (metadata) {
-              pasteOnNewLine = focusedEditor.getOption(32) && !!metadata.isFromEmptySelection;
+              pasteOnNewLine = focusedEditor.getOption(33) && !!metadata.isFromEmptySelection;
               multicursorText = typeof metadata.multicursorText !== "undefined" ? metadata.multicursorText : null;
               mode = metadata.mode;
             }
@@ -4995,6 +5028,21 @@ CodeActionKind.Refactor = new CodeActionKind("refactor");
 CodeActionKind.Source = new CodeActionKind("source");
 CodeActionKind.SourceOrganizeImports = CodeActionKind.Source.append("organizeImports");
 CodeActionKind.SourceFixAll = CodeActionKind.Source.append("fixAll");
+var CodeActionTriggerSource;
+(function(CodeActionTriggerSource2) {
+  CodeActionTriggerSource2["Refactor"] = "refactor";
+  CodeActionTriggerSource2["RefactorPreview"] = "refactor preview";
+  CodeActionTriggerSource2["Lightbulb"] = "lightbulb";
+  CodeActionTriggerSource2["Default"] = "other (default)";
+  CodeActionTriggerSource2["SourceAction"] = "source action";
+  CodeActionTriggerSource2["QuickFix"] = "quick fix action";
+  CodeActionTriggerSource2["FixAll"] = "fix all";
+  CodeActionTriggerSource2["OrganizeImports"] = "organize imports";
+  CodeActionTriggerSource2["AutoFix"] = "auto fix";
+  CodeActionTriggerSource2["QuickFixHover"] = "quick fix hover window";
+  CodeActionTriggerSource2["OnSave"] = "save participants";
+  CodeActionTriggerSource2["ProblemsView"] = "problems view";
+})(CodeActionTriggerSource || (CodeActionTriggerSource = {}));
 function mayIncludeActionsOfKind(filter, providedKind) {
   if (filter.include && !filter.include.intersects(providedKind)) {
     return false;
@@ -5043,9 +5091,9 @@ function excludesAction(providedKind, exclude, include) {
   return true;
 }
 var CodeActionCommandArgs = class {
-  constructor(kind, apply2, preferred) {
+  constructor(kind, apply, preferred) {
     this.kind = kind;
-    this.apply = apply2;
+    this.apply = apply;
     this.preferred = preferred;
   }
   static fromUser(arg, defaults) {
@@ -5105,6 +5153,7 @@ var __awaiter3 = function(thisArg, _arguments, P, generator) {
 };
 var codeActionCommandId = "editor.action.codeAction";
 var refactorCommandId = "editor.action.refactor";
+var refactorPreviewCommandId = "editor.action.refactor.preview";
 var sourceActionCommandId = "editor.action.sourceAction";
 var organizeImportsCommandId = "editor.action.organizeImports";
 var fixAllCommandId = "editor.action.fixAll";
@@ -5203,7 +5252,7 @@ function getCodeActions(registry, model, rangeOrSelection, trigger, progress, to
     }
   });
   return Promise.all(promises).then((actions) => {
-    const allActions = flatten(actions.map((x) => x.actions));
+    const allActions = actions.map((x) => x.actions).flat();
     const allDocumentation = coalesce(actions.map((x) => x.documentation));
     return new ManagedCodeActionSet(allActions, allDocumentation, disposables);
   }).finally(() => {
@@ -5268,7 +5317,7 @@ CommandsRegistry.registerCommand("_executeCodeActionProvider", function(accessor
       throw illegalArgument();
     }
     const include = typeof kind === "string" ? new CodeActionKind(kind) : void 0;
-    const codeActionSet = yield getCodeActions(codeActionProvider, model, validatedRangeOrSelection, { type: 1, filter: { includeSourceActions: true, include } }, Progress.None, CancellationToken.None);
+    const codeActionSet = yield getCodeActions(codeActionProvider, model, validatedRangeOrSelection, { type: 1, triggerAction: CodeActionTriggerSource.Default, filter: { includeSourceActions: true, include } }, Progress.None, CancellationToken.None);
     const resolving = [];
     const resolveCount = Math.min(codeActionSet.validActions.length, typeof itemResolveCount === "number" ? itemResolveCount : 0);
     for (let i = 0; i < resolveCount; i++) {
@@ -5362,7 +5411,11 @@ var MessageController = class MessageController2 {
   }
   _onDidAttemptReadOnlyEdit() {
     if (this._editor.hasModel()) {
-      this.showMessage(localize("editor.readonly", "Cannot edit in read-only editor"), this._editor.getPosition());
+      if (this._editor.isSimpleWidget) {
+        this.showMessage(localize("editor.simple.readonly", "Cannot edit in read-only input"), this._editor.getPosition());
+      } else {
+        this.showMessage(localize("editor.readonly", "Cannot edit in read-only editor"), this._editor.getPosition());
+      }
     }
   }
 };
@@ -5382,20 +5435,21 @@ registerEditorCommand(new MessageCommand({
   }
 }));
 var MessageWidget = class {
-  constructor(editor2, { lineNumber, column }, text2) {
+  constructor(editor2, { lineNumber, column }, text) {
     this.allowEditorOverflow = true;
     this.suppressMouseDown = false;
     this._editor = editor2;
     this._editor.revealLinesInCenterIfOutsideViewport(lineNumber, lineNumber, 0);
-    this._position = { lineNumber, column: column - 1 };
+    this._position = { lineNumber, column };
     this._domNode = document.createElement("div");
     this._domNode.classList.add("monaco-editor-overlaymessage");
+    this._domNode.style.marginLeft = "-6px";
     const anchorTop = document.createElement("div");
     anchorTop.classList.add("anchor", "top");
     this._domNode.appendChild(anchorTop);
     const message = document.createElement("div");
     message.classList.add("message");
-    message.textContent = text2;
+    message.textContent = text;
     this._domNode.appendChild(message);
     const anchorBottom = document.createElement("div");
     anchorBottom.classList.add("anchor", "below");
@@ -5404,13 +5458,12 @@ var MessageWidget = class {
     this._domNode.classList.add("fadeIn");
   }
   static fadeOut(messageWidget) {
-    let handle;
     const dispose2 = () => {
       messageWidget.dispose();
       clearTimeout(handle);
       messageWidget.getDomNode().removeEventListener("animationend", dispose2);
     };
-    handle = setTimeout(dispose2, 110);
+    const handle = setTimeout(dispose2, 110);
     messageWidget.getDomNode().addEventListener("animationend", dispose2);
     messageWidget.getDomNode().classList.add("fadeOut");
     return { dispose: dispose2 };
@@ -5425,7 +5478,14 @@ var MessageWidget = class {
     return this._domNode;
   }
   getPosition() {
-    return { position: this._position, preference: [1, 2] };
+    return {
+      position: this._position,
+      preference: [
+        1,
+        2
+      ],
+      positionAffinity: 1
+    };
   }
   afterRender(position) {
     this._domNode.classList.toggle("below", position === 2);
@@ -5446,6 +5506,7 @@ init_lifecycle();
 init_position();
 init_languageFeatures();
 init_keybinding();
+init_telemetry();
 var __decorate3 = function(decorators, target, key, desc) {
   var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
   if (typeof Reflect === "object" && typeof Reflect.decorate === "function")
@@ -5498,12 +5559,13 @@ function stripNewlines(str) {
   return str.replace(/\r\n|\r|\n/g, " ");
 }
 var CodeActionMenu = class CodeActionMenu2 extends Disposable {
-  constructor(_editor, _delegate, _contextMenuService, keybindingService, _languageFeaturesService) {
+  constructor(_editor, _delegate, _contextMenuService, keybindingService, _languageFeaturesService, _telemetryService) {
     super();
     this._editor = _editor;
     this._delegate = _delegate;
     this._contextMenuService = _contextMenuService;
     this._languageFeaturesService = _languageFeaturesService;
+    this._telemetryService = _telemetryService;
     this._visible = false;
     this._showingActions = this._register(new MutableDisposable());
     this._keybindingResolver = new CodeActionKeybindingResolver({
@@ -5529,12 +5591,18 @@ var CodeActionMenu = class CodeActionMenu2 extends Disposable {
       const menuActions = this.getMenuActions(trigger, actionsToShow, codeActions.documentation);
       const anchor = Position.isIPosition(at) ? this._toCoords(at) : at || { x: 0, y: 0 };
       const resolver = this._keybindingResolver.getResolver();
-      const useShadowDOM = this._editor.getOption(115);
+      const useShadowDOM = this._editor.getOption(116);
       this._contextMenuService.showContextMenu({
         domForShadowRoot: useShadowDOM ? this._editor.getDomNode() : void 0,
         getAnchor: () => anchor,
         getActions: () => menuActions,
-        onHide: () => {
+        onHide: (didCancel) => {
+          const openedFromString = options.fromLightbulb ? CodeActionTriggerSource.Lightbulb : trigger.triggerAction;
+          this._telemetryService.publicLog2("codeAction.applyCodeAction", {
+            codeActionFrom: openedFromString,
+            validCodeActions: codeActions.validActions.length,
+            cancelled: didCancel
+          });
           this._visible = false;
           this._editor.focus();
         },
@@ -5545,7 +5613,7 @@ var CodeActionMenu = class CodeActionMenu2 extends Disposable {
   }
   getMenuActions(trigger, actionsToShow, documentation) {
     var _a5, _b2;
-    const toCodeActionAction = (item) => new CodeActionAction(item.action, () => this._delegate.onSelectCodeAction(item));
+    const toCodeActionAction = (item) => new CodeActionAction(item.action, () => this._delegate.onSelectCodeAction(item, trigger));
     const result = actionsToShow.map(toCodeActionAction);
     const allDocumentation = [...documentation];
     const model = this._editor.getModel();
@@ -5580,7 +5648,8 @@ var CodeActionMenu = class CodeActionMenu2 extends Disposable {
 CodeActionMenu = __decorate3([
   __param3(2, IContextMenuService),
   __param3(3, IKeybindingService),
-  __param3(4, ILanguageFeaturesService)
+  __param3(4, ILanguageFeaturesService),
+  __param3(5, ITelemetryService)
 ], CodeActionMenu);
 var CodeActionKeybindingResolver = class {
   constructor(_keybindingProvider) {
@@ -5701,7 +5770,7 @@ var LightBulbWidget = class LightBulbWidget2 extends Disposable {
       this._editor.focus();
       e.preventDefault();
       const { top, height } = getDomNodePagePosition(this._domNode);
-      const lineHeight = this._editor.getOption(59);
+      const lineHeight = this._editor.getOption(60);
       let pad = Math.floor(lineHeight / 3);
       if (this.state.widgetPosition.position !== null && this.state.widgetPosition.position.lineNumber < this.state.editorPosition.lineNumber) {
         pad += lineHeight;
@@ -5718,14 +5787,9 @@ var LightBulbWidget = class LightBulbWidget2 extends Disposable {
         return;
       }
       this.hide();
-      const monitor = new GlobalMouseMoveMonitor();
-      monitor.startMonitoring(e.target, e.buttons, standardMouseMoveMerger, () => {
-      }, () => {
-        monitor.dispose();
-      });
     }));
     this._register(this._editor.onDidChangeConfiguration((e) => {
-      if (e.hasChanged(57) && !this._editor.getOption(57).enabled) {
+      if (e.hasChanged(58) && !this._editor.getOption(58).enabled) {
         this.hide();
       }
     }));
@@ -5750,7 +5814,7 @@ var LightBulbWidget = class LightBulbWidget2 extends Disposable {
       return this.hide();
     }
     const options = this._editor.getOptions();
-    if (!options.get(57).enabled) {
+    if (!options.get(58).enabled) {
       return this.hide();
     }
     const model = this._editor.getModel();
@@ -5759,7 +5823,7 @@ var LightBulbWidget = class LightBulbWidget2 extends Disposable {
     }
     const { lineNumber, column } = model.validatePosition(atPosition);
     const tabSize = model.getOptions().tabSize;
-    const fontInfo = options.get(44);
+    const fontInfo = options.get(45);
     const lineContent = model.getLineContent(lineNumber);
     const indent = computeIndentLevel(lineContent, tabSize);
     const lineHasSpace = fontInfo.spaceWidth * indent > 22;
@@ -5910,14 +5974,14 @@ var CodeActionUi = class CodeActionUi2 extends Disposable {
     _CodeActionUi_disposed.set(this, false);
     this._codeActionWidget = new Lazy(() => {
       return this._register(instantiationService.createInstance(CodeActionMenu, this._editor, {
-        onSelectCodeAction: (action) => __awaiter5(this, void 0, void 0, function* () {
-          this.delegate.applyCodeAction(action, true);
+        onSelectCodeAction: (action, trigger) => __awaiter5(this, void 0, void 0, function* () {
+          this.delegate.applyCodeAction(action, true, Boolean(trigger.preview));
         })
       }));
     });
     this._lightBulbWidget = new Lazy(() => {
       const widget = this._register(instantiationService.createInstance(LightBulbWidget, this._editor, quickFixActionId, preferredFixActionId));
-      this._register(widget.onClick((e) => this.showCodeActionList(e.trigger, e.actions, e, { includeDisabledActions: false })));
+      this._register(widget.onClick((e) => this.showCodeActionList(e.trigger, e.actions, e, { includeDisabledActions: false, fromLightbulb: true })));
       return widget;
     });
   }
@@ -5949,7 +6013,7 @@ var CodeActionUi = class CodeActionUi2 extends Disposable {
           if (validActionToApply) {
             try {
               this._lightBulbWidget.getValue().hide();
-              yield this.delegate.applyCodeAction(validActionToApply, false);
+              yield this.delegate.applyCodeAction(validActionToApply, false, false);
             } finally {
               actions.dispose();
             }
@@ -5974,7 +6038,7 @@ var CodeActionUi = class CodeActionUi2 extends Disposable {
           }
         }
         this._activeCodeActions.value = actions;
-        this._codeActionWidget.getValue().show(newState.trigger, actions, newState.position, { includeDisabledActions });
+        this._codeActionWidget.getValue().show(newState.trigger, actions, newState.position, { includeDisabledActions, fromLightbulb: false });
       } else {
         if (this._codeActionWidget.getValue().isVisible) {
           actions.dispose();
@@ -6071,13 +6135,13 @@ var CodeActionOracle = class extends Disposable {
     }
     if (resources.some((resource) => isEqual(resource, model.uri))) {
       this._autoTriggerTimer.cancelAndSet(() => {
-        this.trigger({ type: 2 });
+        this.trigger({ type: 2, triggerAction: CodeActionTriggerSource.Default });
       }, this._delay);
     }
   }
   _onCursorChange() {
     this._autoTriggerTimer.cancelAndSet(() => {
-      this.trigger({ type: 2 });
+      this.trigger({ type: 2, triggerAction: CodeActionTriggerSource.Default });
     }, this._delay);
   }
   _getRangeOfMarker(selection) {
@@ -6201,7 +6265,7 @@ var CodeActionModel = class extends Disposable {
     this._codeActionOracle.value = void 0;
     this.setState(CodeActionsState.Empty);
     const model = this._editor.getModel();
-    if (model && this._registry.has(model) && !this._editor.getOption(81)) {
+    if (model && this._registry.has(model) && !this._editor.getOption(82)) {
       const supportedActions = [];
       for (const provider of this._registry.all(model)) {
         if (Array.isArray(provider.providedCodeActionKinds)) {
@@ -6221,15 +6285,14 @@ var CodeActionModel = class extends Disposable {
         }
         this.setState(new CodeActionsState.Triggered(trigger.trigger, trigger.selection, trigger.position, actions));
       }, void 0);
-      this._codeActionOracle.value.trigger({ type: 2 });
+      this._codeActionOracle.value.trigger({ type: 2, triggerAction: CodeActionTriggerSource.Default });
     } else {
       this._supportedCodeActions.reset();
     }
   }
   trigger(trigger) {
-    if (this._codeActionOracle.value) {
-      this._codeActionOracle.value.trigger(trigger);
-    }
+    var _a5;
+    (_a5 = this._codeActionOracle.value) === null || _a5 === void 0 ? void 0 : _a5.trigger(trigger);
   }
   setState(newState, skipNotify) {
     if (newState === this._state) {
@@ -6292,6 +6355,16 @@ var __awaiter6 = function(thisArg, _arguments, P, generator) {
 function contextKeyForSupportedActions(kind) {
   return ContextKeyExpr.regex(SUPPORTED_CODE_ACTIONS.keys()[0], new RegExp("(\\s|^)" + escapeRegExpCharacters(kind.value) + "\\b"));
 }
+function refactorTrigger(editor2, userArgs, preview, codeActionFrom) {
+  const args = CodeActionCommandArgs.fromUser(userArgs, {
+    kind: CodeActionKind.Refactor,
+    apply: "never"
+  });
+  return triggerCodeActionsForEditorSelection(editor2, typeof (userArgs === null || userArgs === void 0 ? void 0 : userArgs.kind) === "string" ? args.preferred ? localize("editor.action.refactor.noneMessage.preferred.kind", "No preferred refactorings for '{0}' available", userArgs.kind) : localize("editor.action.refactor.noneMessage.kind", "No refactorings for '{0}' available", userArgs.kind) : args.preferred ? localize("editor.action.refactor.noneMessage.preferred", "No preferred refactorings available") : localize("editor.action.refactor.noneMessage", "No refactorings available"), {
+    include: CodeActionKind.Refactor.contains(args.kind) ? args.kind : CodeActionKind.None,
+    onlyIncludePreferredActions: args.preferred
+  }, args.apply, preview, codeActionFrom);
+}
 var argsSchema = {
   type: "object",
   defaultSnippets: [{ body: { kind: "" } }],
@@ -6326,12 +6399,12 @@ var QuickFixController = class QuickFixController2 extends Disposable {
     this._model = this._register(new CodeActionModel(this._editor, languageFeaturesService.codeActionProvider, markerService, contextKeyService, progressService));
     this._register(this._model.onDidChangeState((newState) => this.update(newState)));
     this._ui = new Lazy(() => this._register(new CodeActionUi(editor2, QuickFixAction.Id, AutoFixAction.Id, {
-      applyCodeAction: (action, retrigger) => __awaiter6(this, void 0, void 0, function* () {
+      applyCodeAction: (action, retrigger, preview) => __awaiter6(this, void 0, void 0, function* () {
         try {
-          yield this._applyCodeAction(action);
+          yield this._applyCodeAction(action, preview);
         } finally {
           if (retrigger) {
-            this._trigger({ type: 2, filter: {} });
+            this._trigger({ type: 2, triggerAction: CodeActionTriggerSource.QuickFix, filter: {} });
           }
         }
       })
@@ -6344,22 +6417,22 @@ var QuickFixController = class QuickFixController2 extends Disposable {
     this._ui.getValue().update(newState);
   }
   showCodeActions(trigger, actions, at) {
-    return this._ui.getValue().showCodeActionList(trigger, actions, at, { includeDisabledActions: false });
+    return this._ui.getValue().showCodeActionList(trigger, actions, at, { includeDisabledActions: false, fromLightbulb: false });
   }
-  manualTriggerAtCurrentPosition(notAvailableMessage, filter, autoApply) {
+  manualTriggerAtCurrentPosition(notAvailableMessage, triggerAction, filter, autoApply, preview) {
     var _a5;
     if (!this._editor.hasModel()) {
       return;
     }
     (_a5 = MessageController.get(this._editor)) === null || _a5 === void 0 ? void 0 : _a5.closeMessage();
     const triggerPosition = this._editor.getPosition();
-    this._trigger({ type: 1, filter, autoApply, context: { notAvailableMessage, position: triggerPosition } });
+    this._trigger({ type: 1, triggerAction, filter, autoApply, context: { notAvailableMessage, position: triggerPosition }, preview });
   }
   _trigger(trigger) {
     return this._model.trigger(trigger);
   }
-  _applyCodeAction(action) {
-    return this._instantiationService.invokeFunction(applyCodeAction, action, this._editor);
+  _applyCodeAction(action, preview) {
+    return this._instantiationService.invokeFunction(applyCodeAction, action, ApplyCodeActionReason.FromCodeActions, { preview, editor: this._editor });
   }
 };
 QuickFixController.ID = "editor.contrib.quickFixController";
@@ -6370,7 +6443,13 @@ QuickFixController = __decorate6([
   __param6(4, IInstantiationService),
   __param6(5, ILanguageFeaturesService)
 ], QuickFixController);
-function applyCodeAction(accessor, item, editor2) {
+var ApplyCodeActionReason;
+(function(ApplyCodeActionReason2) {
+  ApplyCodeActionReason2["OnSave"] = "onSave";
+  ApplyCodeActionReason2["FromProblemsView"] = "fromProblemsView";
+  ApplyCodeActionReason2["FromCodeActions"] = "fromCodeActions";
+})(ApplyCodeActionReason || (ApplyCodeActionReason = {}));
+function applyCodeAction(accessor, item, codeActionReason, options) {
   return __awaiter6(this, void 0, void 0, function* () {
     const bulkEditService = accessor.get(IBulkEditService);
     const commandService = accessor.get(ICommandService);
@@ -6379,11 +6458,19 @@ function applyCodeAction(accessor, item, editor2) {
     telemetryService.publicLog2("codeAction.applyCodeAction", {
       codeActionTitle: item.action.title,
       codeActionKind: item.action.kind,
-      codeActionIsPreferred: !!item.action.isPreferred
+      codeActionIsPreferred: !!item.action.isPreferred,
+      reason: codeActionReason
     });
     yield item.resolve(CancellationToken.None);
     if (item.action.edit) {
-      yield bulkEditService.apply(ResourceEdit.convert(item.action.edit), { editor: editor2, label: item.action.title });
+      yield bulkEditService.apply(ResourceEdit.convert(item.action.edit), {
+        editor: options === null || options === void 0 ? void 0 : options.editor,
+        label: item.action.title,
+        quotableLabel: item.action.title,
+        code: "undoredo.codeAction",
+        respectAutoSaveConfig: true,
+        showPreview: options === null || options === void 0 ? void 0 : options.preview
+      });
     }
     if (item.action.command) {
       try {
@@ -6404,12 +6491,10 @@ function asMessage(err) {
     return void 0;
   }
 }
-function triggerCodeActionsForEditorSelection(editor2, notAvailableMessage, filter, autoApply) {
+function triggerCodeActionsForEditorSelection(editor2, notAvailableMessage, filter, autoApply, preview = false, triggerAction = CodeActionTriggerSource.Default) {
   if (editor2.hasModel()) {
     const controller = QuickFixController.get(editor2);
-    if (controller) {
-      controller.manualTriggerAtCurrentPosition(notAvailableMessage, filter, autoApply);
-    }
+    controller === null || controller === void 0 ? void 0 : controller.manualTriggerAtCurrentPosition(notAvailableMessage, triggerAction, filter, autoApply, preview);
   }
 }
 var QuickFixAction = class extends EditorAction {
@@ -6427,7 +6512,7 @@ var QuickFixAction = class extends EditorAction {
     });
   }
   run(_accessor, editor2) {
-    return triggerCodeActionsForEditorSelection(editor2, localize("editor.action.quickFix.noneMessage", "No code actions available"), void 0, void 0);
+    return triggerCodeActionsForEditorSelection(editor2, localize("editor.action.quickFix.noneMessage", "No code actions available"), void 0, void 0, false, CodeActionTriggerSource.QuickFix);
   }
 };
 QuickFixAction.Id = "editor.action.quickFix";
@@ -6481,14 +6566,24 @@ var RefactorAction = class extends EditorAction {
     });
   }
   run(_accessor, editor2, userArgs) {
-    const args = CodeActionCommandArgs.fromUser(userArgs, {
-      kind: CodeActionKind.Refactor,
-      apply: "never"
+    return refactorTrigger(editor2, userArgs, false, CodeActionTriggerSource.Refactor);
+  }
+};
+var RefactorPreview = class extends EditorAction {
+  constructor() {
+    super({
+      id: refactorPreviewCommandId,
+      label: localize("refactor.preview.label", "Refactor with Preview..."),
+      alias: "Refactor Preview...",
+      precondition: ContextKeyExpr.and(EditorContextKeys.writable, EditorContextKeys.hasCodeActionsProvider),
+      description: {
+        description: "Refactor Preview...",
+        args: [{ name: "args", schema: argsSchema }]
+      }
     });
-    return triggerCodeActionsForEditorSelection(editor2, typeof (userArgs === null || userArgs === void 0 ? void 0 : userArgs.kind) === "string" ? args.preferred ? localize("editor.action.refactor.noneMessage.preferred.kind", "No preferred refactorings for '{0}' available", userArgs.kind) : localize("editor.action.refactor.noneMessage.kind", "No refactorings for '{0}' available", userArgs.kind) : args.preferred ? localize("editor.action.refactor.noneMessage.preferred", "No preferred refactorings available") : localize("editor.action.refactor.noneMessage", "No refactorings available"), {
-      include: CodeActionKind.Refactor.contains(args.kind) ? args.kind : CodeActionKind.None,
-      onlyIncludePreferredActions: args.preferred
-    }, args.apply);
+  }
+  run(_accessor, editor2, userArgs) {
+    return refactorTrigger(editor2, userArgs, true, CodeActionTriggerSource.RefactorPreview);
   }
 };
 var SourceAction = class extends EditorAction {
@@ -6518,7 +6613,7 @@ var SourceAction = class extends EditorAction {
       include: CodeActionKind.Source.contains(args.kind) ? args.kind : CodeActionKind.None,
       includeSourceActions: true,
       onlyIncludePreferredActions: args.preferred
-    }, args.apply);
+    }, args.apply, void 0, CodeActionTriggerSource.SourceAction);
   }
 };
 var OrganizeImportsAction = class extends EditorAction {
@@ -6536,7 +6631,7 @@ var OrganizeImportsAction = class extends EditorAction {
     });
   }
   run(_accessor, editor2) {
-    return triggerCodeActionsForEditorSelection(editor2, localize("editor.action.organize.noneMessage", "No organize imports action available"), { include: CodeActionKind.SourceOrganizeImports, includeSourceActions: true }, "ifSingle");
+    return triggerCodeActionsForEditorSelection(editor2, localize("editor.action.organize.noneMessage", "No organize imports action available"), { include: CodeActionKind.SourceOrganizeImports, includeSourceActions: true }, "ifSingle", void 0, CodeActionTriggerSource.OrganizeImports);
   }
 };
 var FixAllAction = class extends EditorAction {
@@ -6549,7 +6644,7 @@ var FixAllAction = class extends EditorAction {
     });
   }
   run(_accessor, editor2) {
-    return triggerCodeActionsForEditorSelection(editor2, localize("fixAll.noneMessage", "No fix all action available"), { include: CodeActionKind.SourceFixAll, includeSourceActions: true }, "ifSingle");
+    return triggerCodeActionsForEditorSelection(editor2, localize("fixAll.noneMessage", "No fix all action available"), { include: CodeActionKind.SourceFixAll, includeSourceActions: true }, "ifSingle", void 0, CodeActionTriggerSource.FixAll);
   }
 };
 var AutoFixAction = class extends EditorAction {
@@ -6573,7 +6668,7 @@ var AutoFixAction = class extends EditorAction {
     return triggerCodeActionsForEditorSelection(editor2, localize("editor.action.autoFix.noneMessage", "No auto fixes available"), {
       include: CodeActionKind.QuickFix,
       onlyIncludePreferredActions: true
-    }, "ifSingle");
+    }, "ifSingle", void 0, CodeActionTriggerSource.AutoFix);
   }
 };
 AutoFixAction.Id = "editor.action.autoFix";
@@ -6582,6 +6677,7 @@ AutoFixAction.Id = "editor.action.autoFix";
 registerEditorContribution(QuickFixController.ID, QuickFixController);
 registerEditorAction(QuickFixAction);
 registerEditorAction(RefactorAction);
+registerEditorAction(RefactorPreview);
 registerEditorAction(SourceAction);
 registerEditorAction(OrganizeImportsAction);
 registerEditorAction(AutoFixAction);
@@ -6703,7 +6799,7 @@ CommandsRegistry.registerCommand("_executeCodeLensProvider", function(accessor, 
   const disposables = new DisposableStore();
   return getCodeLensModel(codeLensProvider, model, CancellationToken.None).then((value) => {
     disposables.add(value);
-    let resolve = [];
+    const resolve = [];
     for (const item of value.lenses) {
       if (itemResolveCount === void 0 || itemResolveCount === null || Boolean(item.symbol.command)) {
         result.push(item.symbol);
@@ -6866,7 +6962,7 @@ var CodeLensContentWidget = class {
   }
   withCommands(lenses, animate) {
     this._commands.clear();
-    let children = [];
+    const children = [];
     let hasSymbol = false;
     for (let i = 0; i < lenses.length; i++) {
       const lens = lenses[i];
@@ -6877,7 +6973,7 @@ var CodeLensContentWidget = class {
       if (lens.command) {
         const title = renderLabelWithIcons(lens.command.title.trim());
         if (lens.command.id) {
-          children.push($("a", { id: String(i), title: lens.command.tooltip }, ...title));
+          children.push($("a", { id: String(i), title: lens.command.tooltip, role: "button" }, ...title));
           this._commands.set(String(i), lens.command);
         } else {
           children.push($("span", { title: lens.command.tooltip }, ...title));
@@ -6932,7 +7028,7 @@ var CodeLensHelper = class {
     this._removeDecorations.push(decorationId);
   }
   commit(changeAccessor) {
-    let resultingDecorations = changeAccessor.deltaDecorations(this._removeDecorations, this._addDecorations);
+    const resultingDecorations = changeAccessor.deltaDecorations(this._removeDecorations, this._addDecorations);
     for (let i = 0, len = resultingDecorations.length; i < len; i++) {
       this._addDecorationsCallbacks[i](resultingDecorations[i]);
     }
@@ -6946,7 +7042,7 @@ var CodeLensWidget = class {
     this._data = data;
     this._decorationIds = [];
     let range;
-    let lenses = [];
+    const lenses = [];
     this._data.forEach((codeLensData, i) => {
       if (codeLensData.symbol.command) {
         lenses.push(codeLensData.symbol);
@@ -6979,9 +7075,7 @@ var CodeLensWidget = class {
   dispose(helper, viewZoneChangeAccessor) {
     this._decorationIds.forEach(helper.removeDecoration, helper);
     this._decorationIds = [];
-    if (viewZoneChangeAccessor) {
-      viewZoneChangeAccessor.removeZone(this._viewZoneId);
-    }
+    viewZoneChangeAccessor === null || viewZoneChangeAccessor === void 0 ? void 0 : viewZoneChangeAccessor.removeZone(this._viewZoneId);
     if (this._contentWidget) {
       this._editor.removeContentWidget(this._contentWidget);
       this._contentWidget = void 0;
@@ -7129,7 +7223,7 @@ var CodeLensContribution = class CodeLensContribution2 {
     this._disposables.add(this._editor.onDidChangeModel(() => this._onModelChange()));
     this._disposables.add(this._editor.onDidChangeModelLanguage(() => this._onModelChange()));
     this._disposables.add(this._editor.onDidChangeConfiguration((e) => {
-      if (e.hasChanged(44) || e.hasChanged(16) || e.hasChanged(15)) {
+      if (e.hasChanged(45) || e.hasChanged(16) || e.hasChanged(15)) {
         this._updateLensStyle();
       }
       if (e.hasChanged(14)) {
@@ -7151,20 +7245,20 @@ var CodeLensContribution = class CodeLensContribution2 {
     this._styleElement.remove();
   }
   _getLayoutInfo() {
+    const lineHeightFactor = Math.max(1.3, this._editor.getOption(60) / this._editor.getOption(47));
     let fontSize = this._editor.getOption(16);
-    let codeLensHeight;
     if (!fontSize || fontSize < 5) {
-      fontSize = this._editor.getOption(46) * 0.9 | 0;
-      codeLensHeight = this._editor.getOption(59);
-    } else {
-      codeLensHeight = fontSize * Math.max(1.3, this._editor.getOption(59) / this._editor.getOption(46)) | 0;
+      fontSize = this._editor.getOption(47) * 0.9 | 0;
     }
-    return { codeLensHeight, fontSize };
+    return {
+      fontSize,
+      codeLensHeight: fontSize * lineHeightFactor | 0
+    };
   }
   _updateLensStyle() {
     const { codeLensHeight, fontSize } = this._getLayoutInfo();
     const fontFamily = this._editor.getOption(15);
-    const editorFontInfo = this._editor.getOption(44);
+    const editorFontInfo = this._editor.getOption(45);
     const fontFamilyVar = `--codelens-font-family${this._styleClassName}`;
     const fontFeaturesVar = `--codelens-font-features${this._styleClassName}`;
     let newStyle = `
@@ -7178,7 +7272,7 @@ var CodeLensContribution = class CodeLensContribution2 {
     this._editor.getContainerDomNode().style.setProperty(fontFamilyVar, fontFamily !== null && fontFamily !== void 0 ? fontFamily : "inherit");
     this._editor.getContainerDomNode().style.setProperty(fontFeaturesVar, editorFontInfo.fontFeatureSettings);
     this._editor.changeViewZones((accessor) => {
-      for (let lens of this._lenses) {
+      for (const lens of this._lenses) {
         lens.updateHeight(codeLensHeight, accessor);
       }
     });
@@ -7220,7 +7314,7 @@ var CodeLensContribution = class CodeLensContribution2 {
     }
     for (const provider of this._languageFeaturesService.codeLensProvider.all(model)) {
       if (typeof provider.onDidChange === "function") {
-        let registration = provider.onDidChange(() => scheduler.schedule());
+        const registration = provider.onDidChange(() => scheduler.schedule());
         this._localToDispose.add(registration);
       }
     }
@@ -7246,7 +7340,7 @@ var CodeLensContribution = class CodeLensContribution2 {
     this._localToDispose.add(this._editor.onDidChangeModelContent(() => {
       this._editor.changeDecorations((decorationsAccessor) => {
         this._editor.changeViewZones((viewZonesAccessor) => {
-          let toDispose = [];
+          const toDispose = [];
           let lastLensLineNumber = -1;
           this._lenses.forEach((lens) => {
             if (!lens.isValid() || lastLensLineNumber === lens.getLineNumber()) {
@@ -7256,7 +7350,7 @@ var CodeLensContribution = class CodeLensContribution2 {
               lastLensLineNumber = lens.getLineNumber();
             }
           });
-          let helper = new CodeLensHelper();
+          const helper = new CodeLensHelper();
           toDispose.forEach((l) => {
             l.dispose(helper, viewZonesAccessor);
             this._lenses.splice(this._lenses.indexOf(l), 1);
@@ -7300,7 +7394,7 @@ var CodeLensContribution = class CodeLensContribution2 {
       }
       if ((target === null || target === void 0 ? void 0 : target.tagName) === "A") {
         for (const lens of this._lenses) {
-          let command = lens.getCommand(target);
+          const command = lens.getCommand(target);
           if (command) {
             this._commandService.executeCommand(command.id, ...command.arguments || []).catch((err) => this._notificationService.error(err));
             break;
@@ -7324,11 +7418,11 @@ var CodeLensContribution = class CodeLensContribution2 {
     if (!this._editor.hasModel()) {
       return;
     }
-    let maxLineNumber = this._editor.getModel().getLineCount();
-    let groups = [];
+    const maxLineNumber = this._editor.getModel().getLineCount();
+    const groups = [];
     let lastGroup;
-    for (let symbol of symbols.lenses) {
-      let line = symbol.symbol.range.startLineNumber;
+    for (const symbol of symbols.lenses) {
+      const line = symbol.symbol.range.startLineNumber;
       if (line < 1 || line > maxLineNumber) {
         continue;
       } else if (lastGroup && lastGroup[lastGroup.length - 1].symbol.range.startLineNumber === line) {
@@ -7346,8 +7440,8 @@ var CodeLensContribution = class CodeLensContribution2 {
         let codeLensIndex = 0;
         let groupsIndex = 0;
         while (groupsIndex < groups.length && codeLensIndex < this._lenses.length) {
-          let symbolsLineNumber = groups[groupsIndex][0].symbol.range.startLineNumber;
-          let codeLensLineNumber = this._lenses[codeLensIndex].getLineNumber();
+          const symbolsLineNumber = groups[groupsIndex][0].symbol.range.startLineNumber;
+          const codeLensLineNumber = this._lenses[codeLensIndex].getLineNumber();
           if (codeLensLineNumber < symbolsLineNumber) {
             this._lenses[codeLensIndex].dispose(helper, viewZoneAccessor);
             this._lenses.splice(codeLensIndex, 1);
@@ -7541,7 +7635,7 @@ function getColors(registry, model, token) {
   const providers = registry.ordered(model).reverse();
   const promises = providers.map((provider) => Promise.resolve(provider.provideDocumentColors(model, token)).then((result) => {
     if (Array.isArray(result)) {
-      for (let colorInfo of result) {
+      for (const colorInfo of result) {
         colors.push({ colorInfo, provider });
       }
     }
@@ -7565,7 +7659,7 @@ CommandsRegistry.registerCommand("_executeDocumentColorProvider", function(acces
   const providers = colorProviderRegistry.ordered(model).reverse();
   const promises = providers.map((provider) => Promise.resolve(provider.provideDocumentColors(model, CancellationToken.None)).then((result) => {
     if (Array.isArray(result)) {
-      for (let ci of result) {
+      for (const ci of result) {
         rawCIs.push({ range: ci.range, color: [ci.color.red, ci.color.green, ci.color.blue, ci.color.alpha] });
       }
     }
@@ -7653,7 +7747,7 @@ var ColorDetector = class ColorDetector2 extends Disposable {
     this._localToDispose = this._register(new DisposableStore());
     this._decorationsIds = [];
     this._colorDatas = /* @__PURE__ */ new Map();
-    this._colorDecoratorIds = /* @__PURE__ */ new Set();
+    this._colorDecoratorIds = this._editor.createDecorationsCollection();
     this._ruleFactory = new DynamicCssRules(this._editor);
     this._colorDecorationClassRefs = this._register(new DisposableStore());
     this._debounceInformation = languageFeatureDebounceService.for(_languageFeaturesService.colorProvider, "Document Colors", { min: ColorDetector2.RECOMPUTE_TIME });
@@ -7664,7 +7758,7 @@ var ColorDetector = class ColorDetector2 extends Disposable {
     this._register(_editor.onDidChangeModelLanguage(() => this.onModelChanged()));
     this._register(_languageFeaturesService.colorProvider.onDidChange(() => this.onModelChanged()));
     this._register(_editor.onDidChangeConfiguration(() => {
-      let prevIsEnabled = this._isEnabled;
+      const prevIsEnabled = this._isEnabled;
       this._isEnabled = this.isEnabled();
       if (prevIsEnabled !== this._isEnabled) {
         if (this._isEnabled) {
@@ -7760,17 +7854,19 @@ var ColorDetector = class ColorDetector2 extends Disposable {
       },
       options: ModelDecorationOptions.EMPTY
     }));
-    this._decorationsIds = this._editor.deltaDecorations(this._decorationsIds, decorations);
-    this._colorDatas = /* @__PURE__ */ new Map();
-    this._decorationsIds.forEach((id, i) => this._colorDatas.set(id, colorDatas[i]));
+    this._editor.changeDecorations((changeAccessor) => {
+      this._decorationsIds = changeAccessor.deltaDecorations(this._decorationsIds, decorations);
+      this._colorDatas = /* @__PURE__ */ new Map();
+      this._decorationsIds.forEach((id, i) => this._colorDatas.set(id, colorDatas[i]));
+    });
   }
   updateColorDecorators(colorData) {
     this._colorDecorationClassRefs.clear();
-    let decorations = [];
+    const decorations = [];
     for (let i = 0; i < colorData.length && decorations.length < MAX_DECORATORS; i++) {
       const { red, green, blue, alpha } = colorData[i].colorInfo.color;
       const rgba = new RGBA(Math.round(red * 255), Math.round(green * 255), Math.round(blue * 255), alpha);
-      let color = `rgba(${rgba.r}, ${rgba.g}, ${rgba.b}, ${rgba.a})`;
+      const color = `rgba(${rgba.r}, ${rgba.g}, ${rgba.b}, ${rgba.a})`;
       const ref = this._colorDecorationClassRefs.add(this._ruleFactory.createClassNameRef({
         backgroundColor: color
       }));
@@ -7792,11 +7888,12 @@ var ColorDetector = class ColorDetector2 extends Disposable {
         }
       });
     }
-    this._colorDecoratorIds = new Set(this._editor.deltaDecorations([...this._colorDecoratorIds], decorations));
+    this._colorDecoratorIds.set(decorations);
   }
   removeAllDecorations() {
-    this._decorationsIds = this._editor.deltaDecorations(this._decorationsIds, []);
-    this._colorDecoratorIds = new Set(this._editor.deltaDecorations([...this._colorDecoratorIds], []));
+    this._editor.removeDecorations(this._decorationsIds);
+    this._decorationsIds = [];
+    this._colorDecoratorIds.clear();
     this._colorDecorationClassRefs.clear();
   }
   getColorData(position) {
@@ -7810,8 +7907,8 @@ var ColorDetector = class ColorDetector2 extends Disposable {
     }
     return this._colorDatas.get(decorations[0].id);
   }
-  isColorDecorationId(decorationId) {
-    return this._colorDecoratorIds.has(decorationId);
+  isColorDecoration(decoration2) {
+    return this._colorDecoratorIds.has(decoration2);
   }
 };
 ColorDetector.ID = "editor.contrib.colorDetector";
@@ -7996,20 +8093,23 @@ var SaturationBox = class extends Disposable {
     this.selection = $2(".saturation-selection");
     append(this.domNode, this.selection);
     this.layout();
-    this._register(addDisposableGenericMouseDownListener(this.domNode, (e) => this.onMouseDown(e)));
+    this._register(addDisposableListener(this.domNode, EventType.POINTER_DOWN, (e) => this.onPointerDown(e)));
     this._register(this.model.onDidChangeColor(this.onDidChangeColor, this));
     this.monitor = null;
   }
-  onMouseDown(e) {
-    this.monitor = this._register(new GlobalMouseMoveMonitor());
+  onPointerDown(e) {
+    if (!e.target || !(e.target instanceof Element)) {
+      return;
+    }
+    this.monitor = this._register(new GlobalPointerMoveMonitor());
     const origin2 = getDomNodePagePosition(this.domNode);
     if (e.target !== this.selection) {
       this.onDidChangePosition(e.offsetX, e.offsetY);
     }
-    this.monitor.startMonitoring(e.target, e.buttons, standardMouseMoveMerger, (event) => this.onDidChangePosition(event.posx - origin2.left, event.posy - origin2.top), () => null);
-    const mouseUpListener = addDisposableGenericMouseUpListener(document, () => {
+    this.monitor.startMonitoring(e.target, e.pointerId, e.buttons, (event) => this.onDidChangePosition(event.pageX - origin2.left, event.pageY - origin2.top), () => null);
+    const pointerUpListener = addDisposableListener(document, EventType.POINTER_UP, () => {
       this._onColorFlushed.fire();
-      mouseUpListener.dispose();
+      pointerUpListener.dispose();
       if (this.monitor) {
         this.monitor.stopMonitoring(true);
         this.monitor = null;
@@ -8073,7 +8173,7 @@ var Strip = class extends Disposable {
     this.overlay = append(this.domNode, $2(".overlay"));
     this.slider = append(this.domNode, $2(".slider"));
     this.slider.style.top = `0px`;
-    this._register(addDisposableGenericMouseDownListener(this.domNode, (e) => this.onMouseDown(e)));
+    this._register(addDisposableListener(this.domNode, EventType.POINTER_DOWN, (e) => this.onPointerDown(e)));
     this.layout();
   }
   layout() {
@@ -8081,17 +8181,20 @@ var Strip = class extends Disposable {
     const value = this.getValue(this.model.color);
     this.updateSliderPosition(value);
   }
-  onMouseDown(e) {
-    const monitor = this._register(new GlobalMouseMoveMonitor());
+  onPointerDown(e) {
+    if (!e.target || !(e.target instanceof Element)) {
+      return;
+    }
+    const monitor = this._register(new GlobalPointerMoveMonitor());
     const origin2 = getDomNodePagePosition(this.domNode);
     this.domNode.classList.add("grabbing");
     if (e.target !== this.slider) {
       this.onDidChangeTop(e.offsetY);
     }
-    monitor.startMonitoring(e.target, e.buttons, standardMouseMoveMerger, (event) => this.onDidChangeTop(event.posy - origin2.top), () => null);
-    const mouseUpListener = addDisposableGenericMouseUpListener(document, () => {
+    monitor.startMonitoring(e.target, e.pointerId, e.buttons, (event) => this.onDidChangeTop(event.pageY - origin2.top), () => null);
+    const pointerUpListener = addDisposableListener(document, EventType.POINTER_UP, () => {
       this._onColorFlushed.fire();
-      mouseUpListener.dispose();
+      pointerUpListener.dispose();
       monitor.stopMonitoring(true);
       this.domNode.classList.remove("grabbing");
     }, true);
@@ -8227,7 +8330,7 @@ var ColorHoverParticipant = class ColorHoverParticipant2 {
         return [];
       }
       for (const d of lineDecorations) {
-        if (!colorDetector.isColorDecorationId(d.id)) {
+        if (!colorDetector.isColorDecoration(d)) {
           continue;
         }
         const colorData = colorDetector.getColorData(d.range.getStartPosition());
@@ -8260,7 +8363,7 @@ var ColorHoverParticipant = class ColorHoverParticipant2 {
     const colorHover = hoverParts[0];
     const editorModel = this._editor.getModel();
     const model = colorHover.model;
-    const widget = disposables.add(new ColorPickerWidget(context.fragment, model, this._editor.getOption(129), this._themeService));
+    const widget = disposables.add(new ColorPickerWidget(context.fragment, model, this._editor.getOption(130), this._themeService));
     context.setColorPicker(widget);
     let range = new Range(colorHover.range.startLineNumber, colorHover.range.startColumn, colorHover.range.endLineNumber, colorHover.range.endColumn);
     const updateEditorModel = () => {
@@ -8328,7 +8431,6 @@ init_lifecycle();
 init_types();
 init_editorState();
 init_editorExtensions();
-init_position();
 init_range();
 init_language();
 init_resolverService();
@@ -8389,13 +8491,13 @@ var ClickLinkGesture = class extends Disposable {
     this._onCancel = this._register(new Emitter());
     this.onCancel = this._onCancel.event;
     this._editor = editor2;
-    this._opts = createOptions(this._editor.getOption(70));
+    this._opts = createOptions(this._editor.getOption(71));
     this._lastMouseMoveEvent = null;
     this._hasTriggerKeyOnMouseDown = false;
     this._lineNumberOnMouseDown = 0;
     this._register(this._editor.onDidChangeConfiguration((e) => {
-      if (e.hasChanged(70)) {
-        const newOpts = createOptions(this._editor.getOption(70));
+      if (e.hasChanged(71)) {
+        const newOpts = createOptions(this._editor.getOption(71));
         if (this._opts.equals(newOpts)) {
           return;
         }
@@ -8581,7 +8683,7 @@ var Arrow = class {
   constructor(_editor) {
     this._editor = _editor;
     this._ruleName = Arrow._IdGenerator.nextId();
-    this._decorations = [];
+    this._decorations = this._editor.createDecorationsCollection();
     this._color = null;
     this._height = -1;
   }
@@ -8609,10 +8711,17 @@ var Arrow = class {
     if (where.column === 1) {
       where = { lineNumber: where.lineNumber, column: 2 };
     }
-    this._decorations = this._editor.deltaDecorations(this._decorations, [{ range: Range.fromPositions(where), options: { description: "zone-widget-arrow", className: this._ruleName, stickiness: 1 } }]);
+    this._decorations.set([{
+      range: Range.fromPositions(where),
+      options: {
+        description: "zone-widget-arrow",
+        className: this._ruleName,
+        stickiness: 1
+      }
+    }]);
   }
   hide() {
-    this._editor.deltaDecorations(this._decorations, []);
+    this._decorations.clear();
   }
 };
 Arrow._IdGenerator = new IdGenerator(".arrow-decoration-");
@@ -8621,12 +8730,12 @@ var ZoneWidget = class {
     this._arrow = null;
     this._overlayWidget = null;
     this._resizeSash = null;
-    this._positionMarkerId = [];
     this._viewZone = null;
     this._disposables = new DisposableStore();
     this.container = null;
     this._isShowing = false;
     this.editor = editor2;
+    this._positionMarkerId = this.editor.createDecorationsCollection();
     this.options = deepClone(options);
     mixin(this.options, defaultOptions, false);
     this.domNode = document.createElement("div");
@@ -8654,8 +8763,7 @@ var ZoneWidget = class {
         this._viewZone = null;
       });
     }
-    this.editor.deltaDecorations(this._positionMarkerId, []);
-    this._positionMarkerId = [];
+    this._positionMarkerId.clear();
     this._disposables.dispose();
   }
   create() {
@@ -8685,12 +8793,12 @@ var ZoneWidget = class {
   }
   _applyStyles() {
     if (this.container && this.options.frameColor) {
-      let frameColor = this.options.frameColor.toString();
+      const frameColor = this.options.frameColor.toString();
       this.container.style.borderTopColor = frameColor;
       this.container.style.borderBottomColor = frameColor;
     }
     if (this._arrow && this.options.arrowColor) {
-      let arrowColor = this.options.arrowColor.toString();
+      const arrowColor = this.options.arrowColor.toString();
       this._arrow.color = arrowColor;
     }
   }
@@ -8709,7 +8817,7 @@ var ZoneWidget = class {
   _onViewZoneHeight(height) {
     this.domNode.style.height = `${height}px`;
     if (this.container) {
-      let containerHeight = height - this._decoratingElementsHeight();
+      const containerHeight = height - this._decoratingElementsHeight();
       this.container.style.height = `${containerHeight}px`;
       const layoutInfo = this.editor.getLayoutInfo();
       this._doLayout(containerHeight, this._getWidth(layoutInfo));
@@ -8719,15 +8827,7 @@ var ZoneWidget = class {
     }
   }
   get position() {
-    const [id] = this._positionMarkerId;
-    if (!id) {
-      return void 0;
-    }
-    const model = this.editor.getModel();
-    if (!model) {
-      return void 0;
-    }
-    const range = model.getDecorationRange(id);
+    const range = this._positionMarkerId.getRange(0);
     if (!range) {
       return void 0;
     }
@@ -8738,7 +8838,7 @@ var ZoneWidget = class {
     this._isShowing = true;
     this._showImpl(range, heightInLines);
     this._isShowing = false;
-    this._positionMarkerId = this.editor.deltaDecorations(this._positionMarkerId, [{ range, options: ModelDecorationOptions.EMPTY }]);
+    this._positionMarkerId.set([{ range, options: ModelDecorationOptions.EMPTY }]);
   }
   hide() {
     if (this._viewZone) {
@@ -8758,14 +8858,14 @@ var ZoneWidget = class {
     }
   }
   _decoratingElementsHeight() {
-    let lineHeight = this.editor.getOption(59);
+    const lineHeight = this.editor.getOption(60);
     let result = 0;
     if (this.options.showArrow) {
-      let arrowHeight = Math.round(lineHeight / 3);
+      const arrowHeight = Math.round(lineHeight / 3);
       result += 2 * arrowHeight;
     }
     if (this.options.showFrame) {
-      let frameThickness = Math.round(lineHeight / 9);
+      const frameThickness = Math.round(lineHeight / 9);
       result += 2 * frameThickness;
     }
     return result;
@@ -8778,7 +8878,7 @@ var ZoneWidget = class {
     this.domNode.style.left = this._getLeft(layoutInfo) + "px";
     const viewZoneDomNode = document.createElement("div");
     viewZoneDomNode.style.overflow = "hidden";
-    const lineHeight = this.editor.getOption(59);
+    const lineHeight = this.editor.getOption(60);
     const maxHeightInLines = Math.max(12, this.editor.getLayoutInfo().height / lineHeight * 0.8);
     heightInLines = Math.min(heightInLines, maxHeightInLines);
     let arrowHeight = 0;
@@ -8810,7 +8910,7 @@ var ZoneWidget = class {
       this.container.style.borderTopWidth = width2 + "px";
       this.container.style.borderBottomWidth = width2 + "px";
     }
-    let containerHeight = heightInLines * lineHeight - this._decoratingElementsHeight();
+    const containerHeight = heightInLines * lineHeight - this._decoratingElementsHeight();
     if (this.container) {
       this.container.style.top = arrowHeight + "px";
       this.container.style.height = containerHeight + "px";
@@ -8882,9 +8982,9 @@ var ZoneWidget = class {
     }));
     this._disposables.add(this._resizeSash.onDidChange((evt) => {
       if (data) {
-        let lineDelta = (evt.currentY - data.startY) / this.editor.getOption(59);
-        let roundedLineDelta = lineDelta < 0 ? Math.ceil(lineDelta) : Math.floor(lineDelta);
-        let newHeightInLines = data.heightInLines + roundedLineDelta;
+        const lineDelta = (evt.currentY - data.startY) / this.editor.getOption(60);
+        const roundedLineDelta = lineDelta < 0 ? Math.ceil(lineDelta) : Math.floor(lineDelta);
+        const newHeightInLines = data.heightInLines + roundedLineDelta;
         if (newHeightInLines > 5 && newHeightInLines < 35) {
           this._relayout(newHeightInLines);
         }
@@ -8941,7 +9041,7 @@ var BaseDropdown = class extends ActionRunner {
     }
     for (const event of [EventType.MOUSE_DOWN, EventType2.Tap]) {
       this._register(addDisposableListener(this._label, event, (e) => {
-        if (e instanceof MouseEvent && e.detail > 1) {
+        if (e instanceof MouseEvent && (e.detail > 1 || e.button !== 0)) {
           return;
         }
         if (this.visible) {
@@ -9082,6 +9182,7 @@ var DropdownMenuActionViewItem = class extends BaseActionViewItem {
       this.element.setAttribute("aria-haspopup", "true");
       this.element.setAttribute("aria-expanded", "false");
       this.element.title = this._action.label || "";
+      this.element.ariaLabel = this._action.label || "";
       return null;
     };
     const isActionsArray = Array.isArray(this.menuActionsOrProvider);
@@ -9140,6 +9241,7 @@ init_contextkey();
 init_instantiation();
 init_keybinding();
 init_themeService();
+init_theme();
 var __decorate12 = function(decorators, target, key, desc) {
   var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
   if (typeof Reflect === "object" && typeof Reflect.decorate === "function")
@@ -9244,11 +9346,12 @@ function fillInActions(groups, target, useAlternativeActions, isPrimaryAction = 
   }
 }
 var MenuEntryActionViewItem = class MenuEntryActionViewItem2 extends ActionViewItem {
-  constructor(_action, options, _keybindingService, _notificationService, _contextKeyService) {
-    super(void 0, _action, { icon: !!(_action.class || _action.item.icon), label: !_action.class && !_action.item.icon, draggable: options === null || options === void 0 ? void 0 : options.draggable });
+  constructor(action, options, _keybindingService, _notificationService, _contextKeyService, _themeService) {
+    super(void 0, action, { icon: !!(action.class || action.item.icon), label: !action.class && !action.item.icon, draggable: options === null || options === void 0 ? void 0 : options.draggable, keybinding: options === null || options === void 0 ? void 0 : options.keybinding, hoverDelegate: options === null || options === void 0 ? void 0 : options.hoverDelegate });
     this._keybindingService = _keybindingService;
     this._notificationService = _notificationService;
     this._contextKeyService = _contextKeyService;
+    this._themeService = _themeService;
     this._wantsAltCommand = false;
     this._itemClassDispose = this._register(new MutableDisposable());
     this._altKey = ModifierKeyEmitter.getInstance();
@@ -9277,7 +9380,8 @@ var MenuEntryActionViewItem = class MenuEntryActionViewItem2 extends ActionViewI
     let mouseOver = false;
     let alternativeKeyDown = this._altKey.keyStatus.altKey || (isWindows || isLinux) && this._altKey.keyStatus.shiftKey;
     const updateAltState = () => {
-      const wantsAltCommand = mouseOver && alternativeKeyDown;
+      var _a5;
+      const wantsAltCommand = mouseOver && alternativeKeyDown && !!((_a5 = this._commandAction.alt) === null || _a5 === void 0 ? void 0 : _a5.enabled);
       if (wantsAltCommand !== this._wantsAltCommand) {
         this._wantsAltCommand = wantsAltCommand;
         this.updateLabel();
@@ -9306,21 +9410,19 @@ var MenuEntryActionViewItem = class MenuEntryActionViewItem2 extends ActionViewI
     }
   }
   updateTooltip() {
-    if (this.label) {
-      const keybinding = this._keybindingService.lookupKeybinding(this._commandAction.id, this._contextKeyService);
-      const keybindingLabel = keybinding && keybinding.getLabel();
-      const tooltip = this._commandAction.tooltip || this._commandAction.label;
-      let title = keybindingLabel ? localize("titleAndKb", "{0} ({1})", tooltip, keybindingLabel) : tooltip;
-      if (!this._wantsAltCommand && this._menuItemAction.alt) {
-        const altTooltip = this._menuItemAction.alt.tooltip || this._menuItemAction.alt.label;
-        const altKeybinding = this._keybindingService.lookupKeybinding(this._menuItemAction.alt.id, this._contextKeyService);
-        const altKeybindingLabel = altKeybinding && altKeybinding.getLabel();
-        const altTitleSection = altKeybindingLabel ? localize("titleAndKb", "{0} ({1})", altTooltip, altKeybindingLabel) : altTooltip;
-        title += `
-[${UILabelProvider.modifierLabels[OS].altKey}] ${altTitleSection}`;
-      }
-      this.label.title = title;
+    var _a5;
+    const keybinding = this._keybindingService.lookupKeybinding(this._commandAction.id, this._contextKeyService);
+    const keybindingLabel = keybinding && keybinding.getLabel();
+    const tooltip = this._commandAction.tooltip || this._commandAction.label;
+    let title = keybindingLabel ? localize("titleAndKb", "{0} ({1})", tooltip, keybindingLabel) : tooltip;
+    if (!this._wantsAltCommand && ((_a5 = this._menuItemAction.alt) === null || _a5 === void 0 ? void 0 : _a5.enabled)) {
+      const altTooltip = this._menuItemAction.alt.tooltip || this._menuItemAction.alt.label;
+      const altKeybinding = this._keybindingService.lookupKeybinding(this._menuItemAction.alt.id, this._contextKeyService);
+      const altKeybindingLabel = altKeybinding && altKeybinding.getLabel();
+      const altTitleSection = altKeybindingLabel ? localize("titleAndKb", "{0} ({1})", altTooltip, altKeybindingLabel) : altTooltip;
+      title = localize("titleAndKbAndAlt", "{0}\n[{1}] {2}", title, UILabelProvider.modifierLabels[OS].altKey, altTitleSection);
     }
+    this._applyUpdateTooltip(title);
   }
   updateClass() {
     if (this.options.icon) {
@@ -9328,7 +9430,7 @@ var MenuEntryActionViewItem = class MenuEntryActionViewItem2 extends ActionViewI
         if (this._menuItemAction.alt) {
           this._updateItemClass(this._menuItemAction.alt.item);
         }
-      } else if (this._menuItemAction.alt) {
+      } else {
         this._updateItemClass(this._menuItemAction.item);
       }
     }
@@ -9351,34 +9453,32 @@ var MenuEntryActionViewItem = class MenuEntryActionViewItem2 extends ActionViewI
         label.classList.remove(...iconClasses);
       });
     } else {
-      if (icon.light) {
-        label.style.setProperty("--menu-entry-icon-light", asCSSUrl(icon.light));
-      }
-      if (icon.dark) {
-        label.style.setProperty("--menu-entry-icon-dark", asCSSUrl(icon.dark));
-      }
+      label.style.backgroundImage = isDark(this._themeService.getColorTheme().type) ? asCSSUrl(icon.dark) : asCSSUrl(icon.light);
       label.classList.add("icon");
-      this._itemClassDispose.value = toDisposable(() => {
+      this._itemClassDispose.value = combinedDisposable(toDisposable(() => {
+        label.style.backgroundImage = "";
         label.classList.remove("icon");
-        label.style.removeProperty("--menu-entry-icon-light");
-        label.style.removeProperty("--menu-entry-icon-dark");
-      });
+      }), this._themeService.onDidColorThemeChange(() => {
+        this.updateClass();
+      }));
     }
   }
 };
 MenuEntryActionViewItem = __decorate12([
   __param12(2, IKeybindingService),
   __param12(3, INotificationService),
-  __param12(4, IContextKeyService)
+  __param12(4, IContextKeyService),
+  __param12(5, IThemeService)
 ], MenuEntryActionViewItem);
 var SubmenuEntryActionViewItem = class SubmenuEntryActionViewItem2 extends DropdownMenuActionViewItem {
-  constructor(action, options, contextMenuService) {
+  constructor(action, options, contextMenuService, _themeService) {
     var _a5, _b2;
     const dropdownOptions = Object.assign({}, options !== null && options !== void 0 ? options : /* @__PURE__ */ Object.create(null), {
       menuAsChild: (_a5 = options === null || options === void 0 ? void 0 : options.menuAsChild) !== null && _a5 !== void 0 ? _a5 : false,
       classNames: (_b2 = options === null || options === void 0 ? void 0 : options.classNames) !== null && _b2 !== void 0 ? _b2 : ThemeIcon.isThemeIcon(action.item.icon) ? ThemeIcon.asClassName(action.item.icon) : void 0
     });
     super(action, { getActions: () => action.actions }, contextMenuService, dropdownOptions);
+    this._themeService = _themeService;
   }
   render(container) {
     super.render(container);
@@ -9387,18 +9487,22 @@ var SubmenuEntryActionViewItem = class SubmenuEntryActionViewItem2 extends Dropd
       const { icon } = this._action.item;
       if (icon && !ThemeIcon.isThemeIcon(icon)) {
         this.element.classList.add("icon");
-        if (icon.light) {
-          this.element.style.setProperty("--menu-entry-icon-light", asCSSUrl(icon.light));
-        }
-        if (icon.dark) {
-          this.element.style.setProperty("--menu-entry-icon-dark", asCSSUrl(icon.dark));
-        }
+        const setBackgroundImage = () => {
+          if (this.element) {
+            this.element.style.backgroundImage = isDark(this._themeService.getColorTheme().type) ? asCSSUrl(icon.dark) : asCSSUrl(icon.light);
+          }
+        };
+        setBackgroundImage();
+        this._register(this._themeService.onDidColorThemeChange(() => {
+          setBackgroundImage();
+        }));
       }
     }
   }
 };
 SubmenuEntryActionViewItem = __decorate12([
-  __param12(2, IContextMenuService)
+  __param12(2, IContextMenuService),
+  __param12(3, IThemeService)
 ], SubmenuEntryActionViewItem);
 var DropdownWithDefaultActionViewItem = class DropdownWithDefaultActionViewItem2 extends BaseActionViewItem {
   constructor(submenuAction, options, _keybindingService, _notificationService, _contextMenuService, _menuService, _instaService, _storageService) {
@@ -9411,16 +9515,17 @@ var DropdownWithDefaultActionViewItem = class DropdownWithDefaultActionViewItem2
     this._instaService = _instaService;
     this._storageService = _storageService;
     this._container = null;
+    this._options = options;
     this._storageKey = `${submenuAction.item.submenu._debugName}_lastActionId`;
     let defaultAction;
-    let defaultActionId = _storageService.get(this._storageKey, 1);
+    const defaultActionId = _storageService.get(this._storageKey, 1);
     if (defaultActionId) {
       defaultAction = submenuAction.actions.find((a) => defaultActionId === a.id);
     }
     if (!defaultAction) {
       defaultAction = submenuAction.actions[0];
     }
-    this._defaultAction = this._instaService.createInstance(MenuEntryActionViewItem, defaultAction, void 0);
+    this._defaultAction = this._instaService.createInstance(MenuEntryActionViewItem, defaultAction, { keybinding: this._getDefaultActionKeybindingLabel(defaultAction) });
     const dropdownOptions = Object.assign({}, options !== null && options !== void 0 ? options : /* @__PURE__ */ Object.create(null), {
       menuAsChild: (_a5 = options === null || options === void 0 ? void 0 : options.menuAsChild) !== null && _a5 !== void 0 ? _a5 : true,
       classNames: (_b2 = options === null || options === void 0 ? void 0 : options.classNames) !== null && _b2 !== void 0 ? _b2 : ["codicon", "codicon-chevron-down"],
@@ -9436,7 +9541,7 @@ var DropdownWithDefaultActionViewItem = class DropdownWithDefaultActionViewItem2
   update(lastAction) {
     this._storageService.store(this._storageKey, lastAction.id, 1, 0);
     this._defaultAction.dispose();
-    this._defaultAction = this._instaService.createInstance(MenuEntryActionViewItem, lastAction, void 0);
+    this._defaultAction = this._instaService.createInstance(MenuEntryActionViewItem, lastAction, { keybinding: this._getDefaultActionKeybindingLabel(lastAction) });
     this._defaultAction.actionRunner = new class extends ActionRunner {
       runAction(action, context) {
         return __awaiter11(this, void 0, void 0, function* () {
@@ -9447,6 +9552,17 @@ var DropdownWithDefaultActionViewItem = class DropdownWithDefaultActionViewItem2
     if (this._container) {
       this._defaultAction.render(prepend(this._container, $(".action-container")));
     }
+  }
+  _getDefaultActionKeybindingLabel(defaultAction) {
+    var _a5;
+    let defaultActionKeybinding;
+    if ((_a5 = this._options) === null || _a5 === void 0 ? void 0 : _a5.renderKeybindingWithDefaultActionLabel) {
+      const kb = this._keybindingService.lookupKeybinding(defaultAction.id);
+      if (kb) {
+        defaultActionKeybinding = `(${kb.getLabel()})`;
+      }
+    }
+    return defaultActionKeybinding;
   }
   setActionContext(newContext) {
     super.setActionContext(newContext);
@@ -9517,7 +9633,7 @@ DropdownWithDefaultActionViewItem = __decorate12([
 ], DropdownWithDefaultActionViewItem);
 function createActionViewItem(instaService, action, options) {
   if (action instanceof MenuItemAction) {
-    return instaService.createInstance(MenuEntryActionViewItem, action, void 0);
+    return instaService.createInstance(MenuEntryActionViewItem, action, options);
   } else if (action instanceof SubmenuItemAction) {
     if (action.item.rememberDefaultAction) {
       return instaService.createInstance(DropdownWithDefaultActionViewItem, action, options);
@@ -9590,7 +9706,7 @@ PeekContextController = __decorate13([
 ], PeekContextController);
 registerEditorContribution(PeekContextController.ID, PeekContextController);
 function getOuterEditor(accessor) {
-  let editor2 = accessor.get(ICodeEditorService).getFocusedCodeEditor();
+  const editor2 = accessor.get(ICodeEditorService).getFocusedCodeEditor();
   if (editor2 instanceof EmbeddedCodeEditorWidget) {
     return editor2.getParentEditor();
   }
@@ -9617,7 +9733,7 @@ var PeekViewWidget = class PeekViewWidget2 extends ZoneWidget {
     }
   }
   style(styles) {
-    let options = this.options;
+    const options = this.options;
     if (styles.headerBackgroundColor) {
       options.headerBackgroundColor = styles.headerBackgroundColor;
     }
@@ -9631,7 +9747,7 @@ var PeekViewWidget = class PeekViewWidget2 extends ZoneWidget {
   }
   _applyStyles() {
     super._applyStyles();
-    let options = this.options;
+    const options = this.options;
     if (this._headElement && options.headerBackgroundColor) {
       this._headElement.style.backgroundColor = options.headerBackgroundColor.toString();
     }
@@ -9714,7 +9830,7 @@ var PeekViewWidget = class PeekViewWidget2 extends ZoneWidget {
       this.dispose();
       return;
     }
-    const headHeight = Math.ceil(this.editor.getOption(59) * 1.2);
+    const headHeight = Math.ceil(this.editor.getOption(60) * 1.2);
     const bodyHeight = Math.round(heightInPixel - (headHeight + 2));
     this._doLayoutHead(headHeight, widthInPixel);
     this._doLayoutBody(bodyHeight, widthInPixel);
@@ -9734,20 +9850,20 @@ var PeekViewWidget = class PeekViewWidget2 extends ZoneWidget {
 PeekViewWidget = __decorate13([
   __param13(2, IInstantiationService)
 ], PeekViewWidget);
-var peekViewTitleBackground = registerColor("peekViewTitle.background", { dark: transparent(editorInfoForeground, 0.1), light: transparent(editorInfoForeground, 0.1), hc: null }, localize("peekViewTitleBackground", "Background color of the peek view title area."));
-var peekViewTitleForeground = registerColor("peekViewTitleLabel.foreground", { dark: Color.white, light: Color.black, hc: Color.white }, localize("peekViewTitleForeground", "Color of the peek view title."));
-var peekViewTitleInfoForeground = registerColor("peekViewTitleDescription.foreground", { dark: "#ccccccb3", light: "#616161", hc: "#FFFFFF99" }, localize("peekViewTitleInfoForeground", "Color of the peek view title info."));
-var peekViewBorder = registerColor("peekView.border", { dark: editorInfoForeground, light: editorInfoForeground, hc: contrastBorder }, localize("peekViewBorder", "Color of the peek view borders and arrow."));
-var peekViewResultsBackground = registerColor("peekViewResult.background", { dark: "#252526", light: "#F3F3F3", hc: Color.black }, localize("peekViewResultsBackground", "Background color of the peek view result list."));
-var peekViewResultsMatchForeground = registerColor("peekViewResult.lineForeground", { dark: "#bbbbbb", light: "#646465", hc: Color.white }, localize("peekViewResultsMatchForeground", "Foreground color for line nodes in the peek view result list."));
-var peekViewResultsFileForeground = registerColor("peekViewResult.fileForeground", { dark: Color.white, light: "#1E1E1E", hc: Color.white }, localize("peekViewResultsFileForeground", "Foreground color for file nodes in the peek view result list."));
-var peekViewResultsSelectionBackground = registerColor("peekViewResult.selectionBackground", { dark: "#3399ff33", light: "#3399ff33", hc: null }, localize("peekViewResultsSelectionBackground", "Background color of the selected entry in the peek view result list."));
-var peekViewResultsSelectionForeground = registerColor("peekViewResult.selectionForeground", { dark: Color.white, light: "#6C6C6C", hc: Color.white }, localize("peekViewResultsSelectionForeground", "Foreground color of the selected entry in the peek view result list."));
-var peekViewEditorBackground = registerColor("peekViewEditor.background", { dark: "#001F33", light: "#F2F8FC", hc: Color.black }, localize("peekViewEditorBackground", "Background color of the peek view editor."));
-var peekViewEditorGutterBackground = registerColor("peekViewEditorGutter.background", { dark: peekViewEditorBackground, light: peekViewEditorBackground, hc: peekViewEditorBackground }, localize("peekViewEditorGutterBackground", "Background color of the gutter in the peek view editor."));
-var peekViewResultsMatchHighlight = registerColor("peekViewResult.matchHighlightBackground", { dark: "#ea5c004d", light: "#ea5c004d", hc: null }, localize("peekViewResultsMatchHighlight", "Match highlight color in the peek view result list."));
-var peekViewEditorMatchHighlight = registerColor("peekViewEditor.matchHighlightBackground", { dark: "#ff8f0099", light: "#f5d802de", hc: null }, localize("peekViewEditorMatchHighlight", "Match highlight color in the peek view editor."));
-var peekViewEditorMatchHighlightBorder = registerColor("peekViewEditor.matchHighlightBorder", { dark: null, light: null, hc: activeContrastBorder }, localize("peekViewEditorMatchHighlightBorder", "Match highlight border in the peek view editor."));
+var peekViewTitleBackground = registerColor("peekViewTitle.background", { dark: transparent(editorInfoForeground, 0.1), light: transparent(editorInfoForeground, 0.1), hcDark: null, hcLight: null }, localize("peekViewTitleBackground", "Background color of the peek view title area."));
+var peekViewTitleForeground = registerColor("peekViewTitleLabel.foreground", { dark: Color.white, light: Color.black, hcDark: Color.white, hcLight: editorForeground }, localize("peekViewTitleForeground", "Color of the peek view title."));
+var peekViewTitleInfoForeground = registerColor("peekViewTitleDescription.foreground", { dark: "#ccccccb3", light: "#616161", hcDark: "#FFFFFF99", hcLight: "#292929" }, localize("peekViewTitleInfoForeground", "Color of the peek view title info."));
+var peekViewBorder = registerColor("peekView.border", { dark: editorInfoForeground, light: editorInfoForeground, hcDark: contrastBorder, hcLight: contrastBorder }, localize("peekViewBorder", "Color of the peek view borders and arrow."));
+var peekViewResultsBackground = registerColor("peekViewResult.background", { dark: "#252526", light: "#F3F3F3", hcDark: Color.black, hcLight: Color.white }, localize("peekViewResultsBackground", "Background color of the peek view result list."));
+var peekViewResultsMatchForeground = registerColor("peekViewResult.lineForeground", { dark: "#bbbbbb", light: "#646465", hcDark: Color.white, hcLight: editorForeground }, localize("peekViewResultsMatchForeground", "Foreground color for line nodes in the peek view result list."));
+var peekViewResultsFileForeground = registerColor("peekViewResult.fileForeground", { dark: Color.white, light: "#1E1E1E", hcDark: Color.white, hcLight: editorForeground }, localize("peekViewResultsFileForeground", "Foreground color for file nodes in the peek view result list."));
+var peekViewResultsSelectionBackground = registerColor("peekViewResult.selectionBackground", { dark: "#3399ff33", light: "#3399ff33", hcDark: null, hcLight: null }, localize("peekViewResultsSelectionBackground", "Background color of the selected entry in the peek view result list."));
+var peekViewResultsSelectionForeground = registerColor("peekViewResult.selectionForeground", { dark: Color.white, light: "#6C6C6C", hcDark: Color.white, hcLight: editorForeground }, localize("peekViewResultsSelectionForeground", "Foreground color of the selected entry in the peek view result list."));
+var peekViewEditorBackground = registerColor("peekViewEditor.background", { dark: "#001F33", light: "#F2F8FC", hcDark: Color.black, hcLight: Color.white }, localize("peekViewEditorBackground", "Background color of the peek view editor."));
+var peekViewEditorGutterBackground = registerColor("peekViewEditorGutter.background", { dark: peekViewEditorBackground, light: peekViewEditorBackground, hcDark: peekViewEditorBackground, hcLight: peekViewEditorBackground }, localize("peekViewEditorGutterBackground", "Background color of the gutter in the peek view editor."));
+var peekViewResultsMatchHighlight = registerColor("peekViewResult.matchHighlightBackground", { dark: "#ea5c004d", light: "#ea5c004d", hcDark: null, hcLight: null }, localize("peekViewResultsMatchHighlight", "Match highlight color in the peek view result list."));
+var peekViewEditorMatchHighlight = registerColor("peekViewEditor.matchHighlightBackground", { dark: "#ff8f0099", light: "#f5d802de", hcDark: null, hcLight: null }, localize("peekViewEditorMatchHighlight", "Match highlight color in the peek view editor."));
+var peekViewEditorMatchHighlightBorder = registerColor("peekViewEditor.matchHighlightBorder", { dark: null, light: null, hcDark: activeContrastBorder, hcLight: activeContrastBorder }, localize("peekViewEditorMatchHighlightBorder", "Match highlight border in the peek view editor."));
 
 // ../../node_modules/monaco-editor/esm/vs/editor/contrib/gotoSymbol/browser/link/goToDefinitionAtPosition.js
 init_nls();
@@ -9907,7 +10023,7 @@ var FileReferences = class {
       if (this._previews.size !== 0) {
         return this;
       }
-      for (let child of this.children) {
+      for (const child of this.children) {
         if (this._previews.has(child.uri)) {
           continue;
         }
@@ -9933,7 +10049,7 @@ var ReferencesModel = class {
     const [providersFirst] = links;
     links.sort(ReferencesModel._compareReferences);
     let current;
-    for (let link of links) {
+    for (const link of links) {
       if (!current || !extUri.isEqual(current.uri, link.uri, true)) {
         current = new FileReferences(this, link.uri);
         this.groups.push(current);
@@ -9971,10 +10087,10 @@ var ReferencesModel = class {
     }
   }
   nextOrPreviousReference(reference, next) {
-    let { parent } = reference;
+    const { parent } = reference;
     let idx = parent.children.indexOf(reference);
-    let childCount = parent.children.length;
-    let groupCount = parent.parent.groups.length;
+    const childCount = parent.children.length;
+    const groupCount = parent.parent.groups.length;
     if (groupCount === 1 || next && idx + 1 < childCount || !next && idx > 0) {
       if (next) {
         idx = (idx + 1) % childCount;
@@ -10058,35 +10174,6 @@ init_resolverService();
 // ../../node_modules/monaco-editor/esm/vs/editor/contrib/gotoSymbol/browser/peek/referencesTree.js
 init_define_process();
 init_dom();
-
-// ../../node_modules/monaco-editor/esm/vs/base/common/labels.js
-init_define_process();
-init_extpath();
-init_network();
-init_platform();
-init_resources();
-init_uri();
-function getBaseLabel(resource) {
-  if (!resource) {
-    return void 0;
-  }
-  if (typeof resource === "string") {
-    resource = URI.file(resource);
-  }
-  const base = basename2(resource) || (resource.scheme === Schemas.file ? resource.fsPath : resource.path);
-  if (isWindows && isRootOrDriveLetter(base)) {
-    return normalizeDriveLetter(base);
-  }
-  return base;
-}
-function normalizeDriveLetter(path, continueAsWindows) {
-  if (hasDriveLetter(path, continueAsWindows)) {
-    return path.charAt(0).toUpperCase() + path.slice(1);
-  }
-  return path;
-}
-
-// ../../node_modules/monaco-editor/esm/vs/editor/contrib/gotoSymbol/browser/peek/referencesTree.js
 init_lifecycle();
 init_resources();
 init_resolverService();
@@ -10173,9 +10260,9 @@ var IdentityProvider = class {
   }
 };
 var FileReferencesTemplate = class FileReferencesTemplate2 extends Disposable {
-  constructor(container, _uriLabel, themeService) {
+  constructor(container, _labelService, themeService) {
     super();
-    this._uriLabel = _uriLabel;
+    this._labelService = _labelService;
     const parent = document.createElement("div");
     parent.classList.add("reference-file");
     this.file = this._register(new IconLabel(parent, { supportHighlights: true }));
@@ -10184,8 +10271,8 @@ var FileReferencesTemplate = class FileReferencesTemplate2 extends Disposable {
     container.appendChild(parent);
   }
   set(element, matches) {
-    let parent = dirname2(element.uri);
-    this.file.setLabel(getBaseLabel(element.uri), this._uriLabel.getUriLabel(parent, { relative: true }), { title: this._uriLabel.getUriLabel(element.uri), matches });
+    const parent = dirname2(element.uri);
+    this.file.setLabel(this._labelService.getUriBasenameLabel(element.uri), this._labelService.getUriLabel(parent, { relative: true }), { title: this._labelService.getUriLabel(element.uri), matches });
     const len = element.children.length;
     this.badge.setCount(len);
     if (len > 1) {
@@ -10332,7 +10419,7 @@ var DecorationsManager = class {
     if (!model) {
       return;
     }
-    for (let ref of this._model.references) {
+    for (const ref of this._model.references) {
       if (ref.uri.toString() === model.uri.toString()) {
         this._addDecorations(ref.parent);
         return;
@@ -10347,7 +10434,7 @@ var DecorationsManager = class {
     const newDecorations = [];
     const newDecorationsActualIndex = [];
     for (let i = 0, len = reference.children.length; i < len; i++) {
-      let oneReference = reference.children[i];
+      const oneReference = reference.children[i];
       if (this._decorationIgnoreSet.has(oneReference.id)) {
         continue;
       }
@@ -10360,10 +10447,12 @@ var DecorationsManager = class {
       });
       newDecorationsActualIndex.push(i);
     }
-    const decorations = this._editor.deltaDecorations([], newDecorations);
-    for (let i = 0; i < decorations.length; i++) {
-      this._decorations.set(decorations[i], reference.children[newDecorationsActualIndex[i]]);
-    }
+    this._editor.changeDecorations((changeAccessor) => {
+      const decorations = changeAccessor.deltaDecorations([], newDecorations);
+      for (let i = 0; i < decorations.length; i++) {
+        this._decorations.set(decorations[i], reference.children[newDecorationsActualIndex[i]]);
+      }
+    });
   }
   _onDecorationChanged() {
     const toRemove = [];
@@ -10371,7 +10460,7 @@ var DecorationsManager = class {
     if (!model) {
       return;
     }
-    for (let [decorationId, reference] of this._decorations) {
+    for (const [decorationId, reference] of this._decorations) {
       const newRange = model.getDecorationRange(decorationId);
       if (!newRange) {
         continue;
@@ -10399,10 +10488,10 @@ var DecorationsManager = class {
     for (let i = 0, len = toRemove.length; i < len; i++) {
       this._decorations.delete(toRemove[i]);
     }
-    this._editor.deltaDecorations(toRemove, []);
+    this._editor.removeDecorations(toRemove);
   }
   removeDecorations() {
-    this._editor.deltaDecorations([...this._decorations.keys()], []);
+    this._editor.removeDecorations([...this._decorations.keys()]);
     this._decorations.clear();
   }
 };
@@ -10478,7 +10567,6 @@ var ReferenceWidget = class ReferenceWidget2 extends PeekViewWidget {
     });
   }
   show(where) {
-    this.editor.revealRangeInCenterIfOutsideViewport(where, 0);
     super.show(where, this.layoutData.heightInLines || 18);
   }
   focusOnReferenceTree() {
@@ -10505,7 +10593,7 @@ var ReferenceWidget = class ReferenceWidget2 extends PeekViewWidget {
     hide(this._messageContainer);
     this._splitView = new SplitView(containerElement, { orientation: 1 });
     this._previewContainer = append(containerElement, $("div.preview.inline"));
-    let options = {
+    const options = {
       scrollBeyondLastLine: false,
       scrollbar: {
         verticalScrollbarSize: 14,
@@ -10573,7 +10661,7 @@ var ReferenceWidget = class ReferenceWidget2 extends PeekViewWidget {
         this.layoutData.ratio = this._splitView.getViewSize(0) / this._dim.width;
       }
     }, void 0));
-    let onEvent = (element, kind) => {
+    const onEvent = (element, kind) => {
       if (element instanceof OneReference) {
         if (kind === "show") {
           this._revealReference(element, false);
@@ -10831,7 +10919,7 @@ var ReferencesController = class ReferencesController2 {
       this.closeWidget();
     }));
     this._disposables.add(this._widget.onDidSelectReference((event) => {
-      let { element, kind } = event;
+      const { element, kind } = event;
       if (!element) {
         return;
       }
@@ -10869,12 +10957,12 @@ var ReferencesController = class ReferencesController2 {
           } else {
             this._widget.setMetaTitle("");
           }
-          let uri = this._editor.getModel().uri;
-          let pos = new Position(range.startLineNumber, range.startColumn);
-          let selection = this._model.nearestReference(uri, pos);
+          const uri = this._editor.getModel().uri;
+          const pos = new Position(range.startLineNumber, range.startColumn);
+          const selection = this._model.nearestReference(uri, pos);
           if (selection) {
             return this._widget.setSelection(selection).then(() => {
-              if (this._widget && this._editor.getOption(77) === "editor") {
+              if (this._widget && this._editor.getOption(78) === "editor") {
                 this._widget.focusOnPreviewEditor();
               }
             });
@@ -11326,7 +11414,7 @@ function getLocationLinks(model, position, registry, provide) {
   });
   return Promise.all(promises).then((values) => {
     const result = [];
-    for (let value of values) {
+    for (const value of values) {
       if (Array.isArray(value)) {
         result.push(...value);
       } else if (value) {
@@ -11499,7 +11587,7 @@ var SymbolNavigationAction = class extends EditorAction {
       let altAction;
       if (references.referenceAt(model.uri, position)) {
         const altActionId = this._getAlternativeCommand(editor2);
-        if (altActionId !== this.id && _goToActionIds.has(altActionId)) {
+        if (!SymbolNavigationAction._activeAlternativeCommands.has(altActionId) && _goToActionIds.has(altActionId)) {
           altAction = editor2.getAction(altActionId);
         }
       }
@@ -11510,7 +11598,10 @@ var SymbolNavigationAction = class extends EditorAction {
           (_a5 = MessageController.get(editor2)) === null || _a5 === void 0 ? void 0 : _a5.showMessage(this._getNoResultFoundMessage(info), position);
         }
       } else if (referenceCount === 1 && altAction) {
-        altAction.run();
+        SymbolNavigationAction._activeAlternativeCommands.add(this.id);
+        altAction.run().finally(() => {
+          SymbolNavigationAction._activeAlternativeCommands.delete(this.id);
+        });
       } else {
         return this._onResult(editorService, symbolNavService, editor2, references);
       }
@@ -11567,10 +11658,10 @@ var SymbolNavigationAction = class extends EditorAction {
       }
       if (highlight) {
         const modelNow = targetEditor.getModel();
-        const ids = targetEditor.deltaDecorations([], [{ range, options: { description: "symbol-navigate-action-highlight", className: "symbolHighlight" } }]);
+        const decorations = targetEditor.createDecorationsCollection([{ range, options: { description: "symbol-navigate-action-highlight", className: "symbolHighlight" } }]);
         setTimeout(() => {
           if (targetEditor.getModel() === modelNow) {
-            targetEditor.deltaDecorations(ids, []);
+            decorations.clear();
           }
         }, 350);
       }
@@ -11586,6 +11677,7 @@ var SymbolNavigationAction = class extends EditorAction {
     }
   }
 };
+SymbolNavigationAction._activeAlternativeCommands = /* @__PURE__ */ new Set();
 var DefinitionAction = class extends SymbolNavigationAction {
   _getLocationModel(languageFeaturesService, model, position, token) {
     return __awaiter16(this, void 0, void 0, function* () {
@@ -11596,13 +11688,13 @@ var DefinitionAction = class extends SymbolNavigationAction {
     return info && info.word ? localize("noResultWord", "No definition found for '{0}'", info.word) : localize("generic.noResults", "No definition found");
   }
   _getAlternativeCommand(editor2) {
-    return editor2.getOption(51).alternativeDefinitionCommand;
+    return editor2.getOption(52).alternativeDefinitionCommand;
   }
   _getGoToPreference(editor2) {
-    return editor2.getOption(51).multipleDefinitions;
+    return editor2.getOption(52).multipleDefinitions;
   }
 };
-var goToDefinitionKb = isWeb && !isStandalone ? 2048 | 70 : 70;
+var goToDefinitionKb = isWeb && !isStandalone() ? 2048 | 70 : 70;
 registerGoToAction((_a = class GoToDefinitionAction extends DefinitionAction {
   constructor() {
     super({
@@ -11683,10 +11775,10 @@ var DeclarationAction = class extends SymbolNavigationAction {
     return info && info.word ? localize("decl.noResultWord", "No declaration found for '{0}'", info.word) : localize("decl.generic.noResults", "No declaration found");
   }
   _getAlternativeCommand(editor2) {
-    return editor2.getOption(51).alternativeDeclarationCommand;
+    return editor2.getOption(52).alternativeDeclarationCommand;
   }
   _getGoToPreference(editor2) {
-    return editor2.getOption(51).multipleDeclarations;
+    return editor2.getOption(52).multipleDeclarations;
   }
 };
 registerGoToAction((_d = class GoToDeclarationAction extends DeclarationAction {
@@ -11739,10 +11831,10 @@ var TypeDefinitionAction = class extends SymbolNavigationAction {
     return info && info.word ? localize("goToTypeDefinition.noResultWord", "No type definition found for '{0}'", info.word) : localize("goToTypeDefinition.generic.noResults", "No type definition found");
   }
   _getAlternativeCommand(editor2) {
-    return editor2.getOption(51).alternativeTypeDefinitionCommand;
+    return editor2.getOption(52).alternativeTypeDefinitionCommand;
   }
   _getGoToPreference(editor2) {
-    return editor2.getOption(51).multipleTypeDefinitions;
+    return editor2.getOption(52).multipleTypeDefinitions;
   }
 };
 registerGoToAction((_e = class GoToTypeDefinitionAction extends TypeDefinitionAction {
@@ -11797,10 +11889,10 @@ var ImplementationAction = class extends SymbolNavigationAction {
     return info && info.word ? localize("goToImplementation.noResultWord", "No implementation found for '{0}'", info.word) : localize("goToImplementation.generic.noResults", "No implementation found");
   }
   _getAlternativeCommand(editor2) {
-    return editor2.getOption(51).alternativeImplementationCommand;
+    return editor2.getOption(52).alternativeImplementationCommand;
   }
   _getGoToPreference(editor2) {
-    return editor2.getOption(51).multipleImplementations;
+    return editor2.getOption(52).multipleImplementations;
   }
 };
 registerGoToAction((_g = class GoToImplementationAction extends ImplementationAction {
@@ -11855,10 +11947,10 @@ var ReferencesAction = class extends SymbolNavigationAction {
     return info ? localize("references.no", "No references found for '{0}'", info.word) : localize("references.noGeneric", "No references found");
   }
   _getAlternativeCommand(editor2) {
-    return editor2.getOption(51).alternativeReferenceCommand;
+    return editor2.getOption(52).alternativeReferenceCommand;
   }
   _getGoToPreference(editor2) {
-    return editor2.getOption(51).multipleReferences;
+    return editor2.getOption(52).multipleReferences;
   }
 };
 registerGoToAction(class GoToReferencesAction extends ReferencesAction {
@@ -11934,7 +12026,7 @@ var GenericGoToLocationAction = class extends SymbolNavigationAction {
   }
   _getGoToPreference(editor2) {
     var _a5;
-    return (_a5 = this._gotoMultipleBehaviour) !== null && _a5 !== void 0 ? _a5 : editor2.getOption(51).multipleReferences;
+    return (_a5 = this._gotoMultipleBehaviour) !== null && _a5 !== void 0 ? _a5 : editor2.getOption(52).multipleReferences;
   }
   _getAlternativeCommand() {
     return "";
@@ -12097,11 +12189,11 @@ var GotoDefinitionAtPositionEditorContribution = class GotoDefinitionAtPositionE
     this.languageFeaturesService = languageFeaturesService;
     this.toUnhook = new DisposableStore();
     this.toUnhookForKeyboard = new DisposableStore();
-    this.linkDecorations = [];
     this.currentWordAtPosition = null;
     this.previousPromise = null;
     this.editor = editor2;
-    let linkGesture = new ClickLinkGesture(editor2);
+    this.linkDecorations = this.editor.createDecorationsCollection();
+    const linkGesture = new ClickLinkGesture(editor2);
     this.toUnhook.add(linkGesture);
     this.toUnhook.add(linkGesture.onMouseMoveOrRelevantKeyDown(([mouseEvent, keyboardEvent]) => {
       this.startFindDefinitionFromMouse(mouseEvent, withNullAsUndefined(keyboardEvent));
@@ -12165,7 +12257,7 @@ var GotoDefinitionAtPositionEditorContribution = class GotoDefinitionAtPositionE
       return Promise.resolve(0);
     }
     this.currentWordAtPosition = word;
-    let state = new EditorState(this.editor, 4 | 1 | 2 | 8);
+    const state = new EditorState(this.editor, 4 | 1 | 2 | 8);
     if (this.previousPromise) {
       this.previousPromise.cancel();
       this.previousPromise = null;
@@ -12179,7 +12271,7 @@ var GotoDefinitionAtPositionEditorContribution = class GotoDefinitionAtPositionE
       if (results.length > 1) {
         this.addDecoration(new Range(position.lineNumber, word.startColumn, position.lineNumber, word.endColumn), new MarkdownString().appendText(localize("multipleResults", "Click to show {0} definitions.", results.length)));
       } else {
-        let result = results[0];
+        const result = results[0];
         if (!result.uri) {
           return;
         }
@@ -12209,7 +12301,7 @@ var GotoDefinitionAtPositionEditorContribution = class GotoDefinitionAtPositionE
     }).then(void 0, onUnexpectedError);
   }
   getPreviewValue(textEditorModel, startLineNumber, result) {
-    let rangeToUse = result.targetSelectionRange ? result.range : this.getPreviewRangeBasedOnBrackets(textEditorModel, startLineNumber);
+    let rangeToUse = result.range;
     const numberOfLinesInRange = rangeToUse.endLineNumber - rangeToUse.startLineNumber;
     if (numberOfLinesInRange >= GotoDefinitionAtPositionEditorContribution2.MAX_SOURCE_PREVIEW_LINES) {
       rangeToUse = this.getPreviewRangeBasedOnIndentation(textEditorModel, startLineNumber);
@@ -12232,49 +12324,12 @@ var GotoDefinitionAtPositionEditorContribution = class GotoDefinitionAtPositionE
     const maxLineNumber = Math.min(textEditorModel.getLineCount(), startLineNumber + GotoDefinitionAtPositionEditorContribution2.MAX_SOURCE_PREVIEW_LINES);
     let endLineNumber = startLineNumber + 1;
     for (; endLineNumber < maxLineNumber; endLineNumber++) {
-      let endIndent = textEditorModel.getLineFirstNonWhitespaceColumn(endLineNumber);
+      const endIndent = textEditorModel.getLineFirstNonWhitespaceColumn(endLineNumber);
       if (startIndent === endIndent) {
         break;
       }
     }
     return new Range(startLineNumber, 1, endLineNumber + 1, 1);
-  }
-  getPreviewRangeBasedOnBrackets(textEditorModel, startLineNumber) {
-    const maxLineNumber = Math.min(textEditorModel.getLineCount(), startLineNumber + GotoDefinitionAtPositionEditorContribution2.MAX_SOURCE_PREVIEW_LINES);
-    const brackets = [];
-    let ignoreFirstEmpty = true;
-    let currentBracket = textEditorModel.bracketPairs.findNextBracket(new Position(startLineNumber, 1));
-    while (currentBracket !== null) {
-      if (brackets.length === 0) {
-        brackets.push(currentBracket);
-      } else {
-        const lastBracket = brackets[brackets.length - 1];
-        if (lastBracket.open[0] === currentBracket.open[0] && lastBracket.isOpen && !currentBracket.isOpen) {
-          brackets.pop();
-        } else {
-          brackets.push(currentBracket);
-        }
-        if (brackets.length === 0) {
-          if (ignoreFirstEmpty) {
-            ignoreFirstEmpty = false;
-          } else {
-            return new Range(startLineNumber, 1, currentBracket.range.endLineNumber + 1, 1);
-          }
-        }
-      }
-      const maxColumn = textEditorModel.getLineMaxColumn(startLineNumber);
-      let nextLineNumber = currentBracket.range.endLineNumber;
-      let nextColumn = currentBracket.range.endColumn;
-      if (maxColumn === currentBracket.range.endColumn) {
-        nextLineNumber++;
-        nextColumn = 1;
-      }
-      if (nextLineNumber > maxLineNumber) {
-        return new Range(startLineNumber, 1, maxLineNumber + 1, 1);
-      }
-      currentBracket = textEditorModel.bracketPairs.findNextBracket(new Position(nextLineNumber, nextColumn));
-    }
-    return new Range(startLineNumber, 1, maxLineNumber + 1, 1);
   }
   addDecoration(range, hoverMessage) {
     const newDecorations = {
@@ -12285,12 +12340,10 @@ var GotoDefinitionAtPositionEditorContribution = class GotoDefinitionAtPositionE
         hoverMessage
       }
     };
-    this.linkDecorations = this.editor.deltaDecorations(this.linkDecorations, [newDecorations]);
+    this.linkDecorations.set([newDecorations]);
   }
   removeLinkDecorations() {
-    if (this.linkDecorations.length > 0) {
-      this.linkDecorations = this.editor.deltaDecorations(this.linkDecorations, []);
-    }
+    this.linkDecorations.clear();
   }
   isEnabled(mouseEvent, withKey) {
     return this.editor.hasModel() && mouseEvent.isNoneOrSingleMouseDown && mouseEvent.target.type === 6 && (mouseEvent.hasTriggerModifier || (withKey ? withKey.keyCodeIsTriggerKey : false)) && this.languageFeaturesService.definitionProvider.has(this.editor.getModel());
@@ -12305,7 +12358,7 @@ var GotoDefinitionAtPositionEditorContribution = class GotoDefinitionAtPositionE
   gotoDefinition(position, openToSide) {
     this.editor.setPosition(position);
     return this.editor.invokeWithinContext((accessor) => {
-      const canPeek = !openToSide && this.editor.getOption(78) && !this.isInPeekEditor(accessor);
+      const canPeek = !openToSide && this.editor.getOption(79) && !this.isInPeekEditor(accessor);
       const action = new DefinitionAction({ openToSide, openInPeek: canPeek, muteMessage: true }, { alias: "", label: "", id: "", precondition: void 0 });
       return action.run(accessor, this.editor);
     });
@@ -12493,7 +12546,7 @@ var HoverOperation = class extends Disposable {
     super.dispose();
   }
   get _hoverTime() {
-    return this._editor.getOption(53).delay;
+    return this._editor.getOption(54).delay;
   }
   get _firstWaitTime() {
     return this._hoverTime / 2;
@@ -12685,7 +12738,7 @@ var Scanner = class {
     if (this.pos >= this.value.length) {
       return { type: 14, pos: this.pos, len: 0 };
     }
-    let pos = this.pos;
+    const pos = this.pos;
     let len = 0;
     let ch = this.value.charCodeAt(pos);
     let type;
@@ -12825,7 +12878,7 @@ var Placeholder = class extends TransformableMarker {
     return this._children.length === 1 && this._children[0] instanceof Choice ? this._children[0] : void 0;
   }
   clone() {
-    let ret = new Placeholder(this.index);
+    const ret = new Placeholder(this.index);
     if (this.transform) {
       ret.transform = this.transform.clone();
     }
@@ -12852,7 +12905,7 @@ var Choice = class extends Marker {
     return this.options[0].len();
   }
   clone() {
-    let ret = new Choice();
+    const ret = new Choice();
     this.options.forEach(ret.appendChild, ret);
     return ret;
   }
@@ -12891,7 +12944,7 @@ var Transform = class extends Marker {
     return "";
   }
   clone() {
-    let ret = new Transform();
+    const ret = new Transform();
     ret.regexp = new RegExp(this.regexp.source, (this.regexp.ignoreCase ? "i" : "") + (this.regexp.global ? "g" : ""));
     ret._children = this.children.map((child) => child.clone());
     return ret;
@@ -12930,7 +12983,7 @@ var FormatString = class extends Marker {
       return value;
     }
     return match.map((word) => {
-      return word.charAt(0).toUpperCase() + word.substr(1).toLowerCase();
+      return word.charAt(0).toUpperCase() + word.substr(1);
     }).join("");
   }
   _toCamelCase(value) {
@@ -12940,14 +12993,13 @@ var FormatString = class extends Marker {
     }
     return match.map((word, index) => {
       if (index === 0) {
-        return word.toLowerCase();
-      } else {
-        return word.charAt(0).toUpperCase() + word.substr(1).toLowerCase();
+        return word.charAt(0).toLowerCase() + word.substr(1);
       }
+      return word.charAt(0).toUpperCase() + word.substr(1);
     }).join("");
   }
   clone() {
-    let ret = new FormatString(this.index, this.shorthandName, this.ifValue, this.elseValue);
+    const ret = new FormatString(this.index, this.shorthandName, this.ifValue, this.elseValue);
     return ret;
   }
 };
@@ -12990,7 +13042,7 @@ function walk(marker, visitor) {
 var TextmateSnippet = class extends Marker {
   get placeholderInfo() {
     if (!this._placeholders) {
-      let all = [];
+      const all = [];
       let last;
       this.walk(function(candidate) {
         if (candidate instanceof Placeholder) {
@@ -13032,7 +13084,7 @@ var TextmateSnippet = class extends Marker {
     return ret;
   }
   enclosingPlaceholders(placeholder) {
-    let ret = [];
+    const ret = [];
     let { parent } = placeholder;
     while (parent) {
       if (parent instanceof Placeholder) {
@@ -13062,7 +13114,7 @@ var TextmateSnippet = class extends Marker {
     return super.replace(child, others);
   }
   clone() {
-    let ret = new TextmateSnippet();
+    const ret = new TextmateSnippet();
     this._children = this.children.map((child) => child.clone());
     return ret;
   }
@@ -13082,17 +13134,21 @@ var SnippetParser = class {
     return /\${?CLIPBOARD/.test(template);
   }
   parse(value, insertFinalTabstop, enforceFinalTabstop) {
+    const snippet = new TextmateSnippet();
+    this.parseFragment(value, snippet);
+    this.ensureFinalTabstop(snippet, enforceFinalTabstop !== null && enforceFinalTabstop !== void 0 ? enforceFinalTabstop : false, insertFinalTabstop !== null && insertFinalTabstop !== void 0 ? insertFinalTabstop : false);
+    return snippet;
+  }
+  parseFragment(value, snippet) {
+    const offset = snippet.children.length;
     this._scanner.text(value);
     this._token = this._scanner.next();
-    const snippet = new TextmateSnippet();
     while (this._parse(snippet)) {
     }
     const placeholderDefaultValues = /* @__PURE__ */ new Map();
     const incompletePlaceholders = [];
-    let placeholderCount = 0;
     snippet.walk((marker) => {
       if (marker instanceof Placeholder) {
-        placeholderCount += 1;
         if (marker.isFinalTabstop) {
           placeholderDefaultValues.set(0, void 0);
         } else if (!placeholderDefaultValues.has(marker.index) && marker.children.length > 0) {
@@ -13106,25 +13162,27 @@ var SnippetParser = class {
     for (const placeholder of incompletePlaceholders) {
       const defaultValues = placeholderDefaultValues.get(placeholder.index);
       if (defaultValues) {
-        const clone2 = new Placeholder(placeholder.index);
-        clone2.transform = placeholder.transform;
+        const clone = new Placeholder(placeholder.index);
+        clone.transform = placeholder.transform;
         for (const child of defaultValues) {
-          clone2.appendChild(child.clone());
+          clone.appendChild(child.clone());
         }
-        snippet.replace(placeholder, [clone2]);
+        snippet.replace(placeholder, [clone]);
       }
     }
-    if (!enforceFinalTabstop) {
-      enforceFinalTabstop = placeholderCount > 0 && insertFinalTabstop;
+    return snippet.children.slice(offset);
+  }
+  ensureFinalTabstop(snippet, enforceFinalTabstop, insertFinalTabstop) {
+    if (enforceFinalTabstop || insertFinalTabstop && snippet.placeholders.length > 0) {
+      const finalTabstop = snippet.placeholders.find((p) => p.index === 0);
+      if (!finalTabstop) {
+        snippet.appendChild(new Placeholder(0));
+      }
     }
-    if (!placeholderDefaultValues.has(0) && enforceFinalTabstop) {
-      snippet.appendChild(new Placeholder(0));
-    }
-    return snippet;
   }
   _accept(type, value) {
     if (type === void 0 || this._token.type === type) {
-      let ret = !value ? true : this._scanner.tokenText(this._token);
+      const ret = !value ? true : this._scanner.tokenText(this._token);
       this._token = this._scanner.next();
       return ret;
     }
@@ -13289,7 +13347,7 @@ var SnippetParser = class {
     }
   }
   _parseTransform(parent) {
-    let transform = new Transform();
+    const transform = new Transform();
     let regexValue = "";
     let regexOptions = "";
     while (true) {
@@ -13350,7 +13408,7 @@ var SnippetParser = class {
     if (this._accept(3)) {
       complex = true;
     }
-    let index = this._accept(8, true);
+    const index = this._accept(8, true);
     if (!index) {
       this._backTo(token);
       return false;
@@ -13365,7 +13423,7 @@ var SnippetParser = class {
       return false;
     }
     if (this._accept(6)) {
-      let shorthand = this._accept(9, true);
+      const shorthand = this._accept(9, true);
       if (!shorthand || !this._accept(4)) {
         this._backTo(token);
         return false;
@@ -13374,28 +13432,28 @@ var SnippetParser = class {
         return true;
       }
     } else if (this._accept(11)) {
-      let ifValue = this._until(4);
+      const ifValue = this._until(4);
       if (ifValue) {
         parent.appendChild(new FormatString(Number(index), void 0, ifValue, void 0));
         return true;
       }
     } else if (this._accept(12)) {
-      let elseValue = this._until(4);
+      const elseValue = this._until(4);
       if (elseValue) {
         parent.appendChild(new FormatString(Number(index), void 0, void 0, elseValue));
         return true;
       }
     } else if (this._accept(13)) {
-      let ifValue = this._until(1);
+      const ifValue = this._until(1);
       if (ifValue) {
-        let elseValue = this._until(4);
+        const elseValue = this._until(4);
         if (elseValue) {
           parent.appendChild(new FormatString(Number(index), void 0, ifValue, elseValue));
           return true;
         }
       }
     } else {
-      let elseValue = this._until(4);
+      const elseValue = this._until(4);
       if (elseValue) {
         parent.appendChild(new FormatString(Number(index), void 0, void 0, elseValue));
         return true;
@@ -13428,10 +13486,10 @@ init_define_process();
 init_define_process();
 init_dom();
 
-// ../../node_modules/monaco-editor/esm/vs/base/browser/ui/findinput/findInputCheckboxes.js
+// ../../node_modules/monaco-editor/esm/vs/base/browser/ui/findinput/findInputToggles.js
 init_define_process();
 
-// ../../node_modules/monaco-editor/esm/vs/base/browser/ui/checkbox/checkbox.js
+// ../../node_modules/monaco-editor/esm/vs/base/browser/ui/toggle/toggle.js
 init_define_process();
 init_widget();
 init_codicons();
@@ -13442,7 +13500,7 @@ var defaultOpts = {
   inputActiveOptionForeground: Color.fromHex("#FFFFFF"),
   inputActiveOptionBackground: Color.fromHex("#0E639C50")
 };
-var Checkbox = class extends Widget {
+var Toggle = class extends Widget {
   constructor(opts) {
     super();
     this._onChange = this._register(new Emitter());
@@ -13451,9 +13509,10 @@ var Checkbox = class extends Widget {
     this.onKeyDown = this._onKeyDown.event;
     this._opts = Object.assign(Object.assign({}, defaultOpts), opts);
     this._checked = this._opts.isChecked;
-    const classes = ["monaco-custom-checkbox"];
+    const classes = ["monaco-custom-toggle"];
     if (this._opts.icon) {
-      classes.push(...CSSIcon.asClassNameArray(this._opts.icon));
+      this._icon = this._opts.icon;
+      classes.push(...CSSIcon.asClassNameArray(this._icon));
     }
     if (this._opts.actionClassName) {
       classes.push(...this._opts.actionClassName.split(" "));
@@ -13534,17 +13593,17 @@ var Checkbox = class extends Widget {
   }
 };
 
-// ../../node_modules/monaco-editor/esm/vs/base/browser/ui/findinput/findInputCheckboxes.js
+// ../../node_modules/monaco-editor/esm/vs/base/browser/ui/findinput/findInputToggles.js
 init_codicons();
 init_nls();
-var NLS_CASE_SENSITIVE_CHECKBOX_LABEL = localize("caseDescription", "Match Case");
-var NLS_WHOLE_WORD_CHECKBOX_LABEL = localize("wordsDescription", "Match Whole Word");
-var NLS_REGEX_CHECKBOX_LABEL = localize("regexDescription", "Use Regular Expression");
-var CaseSensitiveCheckbox = class extends Checkbox {
+var NLS_CASE_SENSITIVE_TOGGLE_LABEL = localize("caseDescription", "Match Case");
+var NLS_WHOLE_WORD_TOGGLE_LABEL = localize("wordsDescription", "Match Whole Word");
+var NLS_REGEX_TOGGLE_LABEL = localize("regexDescription", "Use Regular Expression");
+var CaseSensitiveToggle = class extends Toggle {
   constructor(opts) {
     super({
       icon: Codicon.caseSensitive,
-      title: NLS_CASE_SENSITIVE_CHECKBOX_LABEL + opts.appendTitle,
+      title: NLS_CASE_SENSITIVE_TOGGLE_LABEL + opts.appendTitle,
       isChecked: opts.isChecked,
       inputActiveOptionBorder: opts.inputActiveOptionBorder,
       inputActiveOptionForeground: opts.inputActiveOptionForeground,
@@ -13552,11 +13611,11 @@ var CaseSensitiveCheckbox = class extends Checkbox {
     });
   }
 };
-var WholeWordsCheckbox = class extends Checkbox {
+var WholeWordsToggle = class extends Toggle {
   constructor(opts) {
     super({
       icon: Codicon.wholeWord,
-      title: NLS_WHOLE_WORD_CHECKBOX_LABEL + opts.appendTitle,
+      title: NLS_WHOLE_WORD_TOGGLE_LABEL + opts.appendTitle,
       isChecked: opts.isChecked,
       inputActiveOptionBorder: opts.inputActiveOptionBorder,
       inputActiveOptionForeground: opts.inputActiveOptionForeground,
@@ -13564,11 +13623,11 @@ var WholeWordsCheckbox = class extends Checkbox {
     });
   }
 };
-var RegexCheckbox = class extends Checkbox {
+var RegexToggle = class extends Toggle {
   constructor(opts) {
     super({
       icon: Codicon.regex,
-      title: NLS_REGEX_CHECKBOX_LABEL + opts.appendTitle,
+      title: NLS_REGEX_TOGGLE_LABEL + opts.appendTitle,
       isChecked: opts.isChecked,
       inputActiveOptionBorder: opts.inputActiveOptionBorder,
       inputActiveOptionForeground: opts.inputActiveOptionForeground,
@@ -13653,7 +13712,7 @@ var FindInput = class extends Widget {
       flexibleWidth,
       flexibleMaxHeight
     }));
-    this.regex = this._register(new RegexCheckbox({
+    this.regex = this._register(new RegexToggle({
       appendTitle: appendRegexLabel,
       isChecked: false,
       inputActiveOptionBorder: this.inputActiveOptionBorder,
@@ -13670,7 +13729,7 @@ var FindInput = class extends Widget {
     this._register(this.regex.onKeyDown((e) => {
       this._onRegexKeyDown.fire(e);
     }));
-    this.wholeWords = this._register(new WholeWordsCheckbox({
+    this.wholeWords = this._register(new WholeWordsToggle({
       appendTitle: appendWholeWordsLabel,
       isChecked: false,
       inputActiveOptionBorder: this.inputActiveOptionBorder,
@@ -13684,7 +13743,7 @@ var FindInput = class extends Widget {
       }
       this.validate();
     }));
-    this.caseSensitive = this._register(new CaseSensitiveCheckbox({
+    this.caseSensitive = this._register(new CaseSensitiveToggle({
       appendTitle: appendCaseSensitiveLabel,
       isChecked: false,
       inputActiveOptionBorder: this.inputActiveOptionBorder,
@@ -13704,10 +13763,10 @@ var FindInput = class extends Widget {
     if (this._showOptionButtons) {
       this.inputBox.paddingRight = this.caseSensitive.width() + this.wholeWords.width() + this.regex.width();
     }
-    let indexes = [this.caseSensitive.domNode, this.wholeWords.domNode, this.regex.domNode];
+    const indexes = [this.caseSensitive.domNode, this.wholeWords.domNode, this.regex.domNode];
     this.onkeydown(this.domNode, (event) => {
       if (event.equals(15) || event.equals(17) || event.equals(9)) {
-        let index = indexes.indexOf(document.activeElement);
+        const index = indexes.indexOf(document.activeElement);
         if (index >= 0) {
           let newIndex = -1;
           if (event.equals(17)) {
@@ -13736,9 +13795,7 @@ var FindInput = class extends Widget {
     this.controls.appendChild(this.wholeWords.domNode);
     this.controls.appendChild(this.regex.domNode);
     this.domNode.appendChild(this.controls);
-    if (parent) {
-      parent.appendChild(this.domNode);
-    }
+    parent === null || parent === void 0 ? void 0 : parent.appendChild(this.domNode);
     this._register(addDisposableListener(this.inputBox.inputElement, "compositionstart", (e) => {
       this.imeSessionInProgress = true;
     }));
@@ -13803,14 +13860,14 @@ var FindInput = class extends Widget {
   }
   applyStyles() {
     if (this.domNode) {
-      const checkBoxStyles = {
+      const toggleStyles = {
         inputActiveOptionBorder: this.inputActiveOptionBorder,
         inputActiveOptionForeground: this.inputActiveOptionForeground,
         inputActiveOptionBackground: this.inputActiveOptionBackground
       };
-      this.regex.style(checkBoxStyles);
-      this.wholeWords.style(checkBoxStyles);
-      this.caseSensitive.style(checkBoxStyles);
+      this.regex.style(toggleStyles);
+      this.wholeWords.style(toggleStyles);
+      this.caseSensitive.style(toggleStyles);
       const inputBoxStyles = {
         inputBackground: this.inputBackground,
         inputForeground: this.inputForeground,
@@ -13877,8 +13934,8 @@ init_codicons();
 init_event();
 init_nls();
 var NLS_DEFAULT_LABEL2 = localize("defaultLabel", "input");
-var NLS_PRESERVE_CASE_LABEL = localize("label.preserveCaseCheckbox", "Preserve Case");
-var PreserveCaseCheckbox = class extends Checkbox {
+var NLS_PRESERVE_CASE_LABEL = localize("label.preserveCaseToggle", "Preserve Case");
+var PreserveCaseToggle = class extends Toggle {
   constructor(opts) {
     super({
       icon: Codicon.preserveCase,
@@ -13955,7 +14012,7 @@ var ReplaceInput = class extends Widget {
       flexibleWidth,
       flexibleMaxHeight
     }));
-    this.preserveCase = this._register(new PreserveCaseCheckbox({
+    this.preserveCase = this._register(new PreserveCaseToggle({
       appendTitle: appendPreserveCaseLabel,
       isChecked: false,
       inputActiveOptionBorder: this.inputActiveOptionBorder,
@@ -13977,10 +14034,10 @@ var ReplaceInput = class extends Widget {
     } else {
       this.cachedOptionsWidth = 0;
     }
-    let indexes = [this.preserveCase.domNode];
+    const indexes = [this.preserveCase.domNode];
     this.onkeydown(this.domNode, (event) => {
       if (event.equals(15) || event.equals(17) || event.equals(9)) {
-        let index = indexes.indexOf(document.activeElement);
+        const index = indexes.indexOf(document.activeElement);
         if (index >= 0) {
           let newIndex = -1;
           if (event.equals(17)) {
@@ -14002,14 +14059,12 @@ var ReplaceInput = class extends Widget {
         }
       }
     });
-    let controls = document.createElement("div");
+    const controls = document.createElement("div");
     controls.className = "controls";
     controls.style.display = this._showOptionButtons ? "block" : "none";
     controls.appendChild(this.preserveCase.domNode);
     this.domNode.appendChild(controls);
-    if (parent) {
-      parent.appendChild(this.domNode);
-    }
+    parent === null || parent === void 0 ? void 0 : parent.appendChild(this.domNode);
     this.onkeydown(this.inputBox.inputElement, (e) => this._onKeyDown.fire(e));
     this.onkeyup(this.inputBox.inputElement, (e) => this._onKeyUp.fire(e));
     this.oninput(this.inputBox.inputElement, (e) => this._onInput.fire());
@@ -14052,12 +14107,12 @@ var ReplaceInput = class extends Widget {
   }
   applyStyles() {
     if (this.domNode) {
-      const checkBoxStyles = {
+      const toggleStyles = {
         inputActiveOptionBorder: this.inputActiveOptionBorder,
         inputActiveOptionForeground: this.inputActiveOptionForeground,
         inputActiveOptionBackground: this.inputActiveOptionBackground
       };
-      this.preserveCase.style(checkBoxStyles);
+      this.preserveCase.style(toggleStyles);
       const inputBoxStyles = {
         inputBackground: this.inputBackground,
         inputForeground: this.inputForeground,
@@ -14109,6 +14164,7 @@ var ReplaceInput = class extends Widget {
 init_contextkey();
 init_keybindingsRegistry();
 init_nls();
+init_lifecycle();
 var __decorate19 = function(decorators, target, key, desc) {
   var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
   if (typeof Reflect === "object" && typeof Reflect.decorate === "function")
@@ -14125,33 +14181,53 @@ var __param19 = function(paramIndex, decorator) {
   };
 };
 var historyNavigationVisible = new RawContextKey("suggestWidgetVisible", false, localize("suggestWidgetVisible", "Whether suggestion are visible"));
-var HistoryNavigationWidgetContext = "historyNavigationWidget";
+var HistoryNavigationWidgetFocusContext = "historyNavigationWidgetFocus";
 var HistoryNavigationForwardsEnablementContext = "historyNavigationForwardsEnabled";
 var HistoryNavigationBackwardsEnablementContext = "historyNavigationBackwardsEnabled";
-function bindContextScopedWidget(contextKeyService, widget, contextKey) {
-  new RawContextKey(contextKey, widget).bindTo(contextKeyService);
-}
-function createWidgetScopedContextKeyService(contextKeyService, widget) {
-  return contextKeyService.createScoped(widget.target);
-}
-function getContextScopedWidget(contextKeyService, contextKey) {
-  return contextKeyService.getContext(document.activeElement).getValue(contextKey);
-}
-function createAndBindHistoryNavigationWidgetScopedContextKeyService(contextKeyService, widget) {
-  const scopedContextKeyService = createWidgetScopedContextKeyService(contextKeyService, widget);
-  bindContextScopedWidget(scopedContextKeyService, widget, HistoryNavigationWidgetContext);
+var lastFocusedWidget = void 0;
+var widgets = [];
+function registerAndCreateHistoryNavigationContext(contextKeyService, widget) {
+  if (widgets.includes(widget)) {
+    throw new Error("Cannot register the same widget multiple times");
+  }
+  widgets.push(widget);
+  const disposableStore = new DisposableStore();
+  const scopedContextKeyService = disposableStore.add(contextKeyService.createScoped(widget.element));
+  const historyNavigationWidgetFocus = new RawContextKey(HistoryNavigationWidgetFocusContext, false).bindTo(scopedContextKeyService);
   const historyNavigationForwardsEnablement = new RawContextKey(HistoryNavigationForwardsEnablementContext, true).bindTo(scopedContextKeyService);
   const historyNavigationBackwardsEnablement = new RawContextKey(HistoryNavigationBackwardsEnablementContext, true).bindTo(scopedContextKeyService);
+  const onDidFocus = () => {
+    historyNavigationWidgetFocus.set(true);
+    lastFocusedWidget = widget;
+  };
+  const onDidBlur = () => {
+    historyNavigationWidgetFocus.set(false);
+    if (lastFocusedWidget === widget) {
+      lastFocusedWidget = void 0;
+    }
+  };
+  if (widget.element === document.activeElement) {
+    onDidFocus();
+  }
+  disposableStore.add(widget.onDidFocus(() => onDidFocus()));
+  disposableStore.add(widget.onDidBlur(() => onDidBlur()));
+  disposableStore.add(toDisposable(() => {
+    widgets.splice(widgets.indexOf(widget), 1);
+    onDidBlur();
+  }));
   return {
     scopedContextKeyService,
     historyNavigationForwardsEnablement,
-    historyNavigationBackwardsEnablement
+    historyNavigationBackwardsEnablement,
+    dispose() {
+      disposableStore.dispose();
+    }
   };
 }
 var ContextScopedFindInput = class ContextScopedFindInput2 extends FindInput {
   constructor(container, contextViewProvider, options, contextKeyService, showFindOptions = false) {
     super(container, contextViewProvider, showFindOptions, options);
-    this._register(createAndBindHistoryNavigationWidgetScopedContextKeyService(contextKeyService, { target: this.inputBox.element, historyNavigator: this.inputBox }).scopedContextKeyService);
+    this._register(registerAndCreateHistoryNavigationContext(contextKeyService, this.inputBox));
   }
 };
 ContextScopedFindInput = __decorate19([
@@ -14160,7 +14236,7 @@ ContextScopedFindInput = __decorate19([
 var ContextScopedReplaceInput = class ContextScopedReplaceInput2 extends ReplaceInput {
   constructor(container, contextViewProvider, options, contextKeyService, showReplaceOptions = false) {
     super(container, contextViewProvider, showReplaceOptions, options);
-    this._register(createAndBindHistoryNavigationWidgetScopedContextKeyService(contextKeyService, { target: this.inputBox.element, historyNavigator: this.inputBox }).scopedContextKeyService);
+    this._register(registerAndCreateHistoryNavigationContext(contextKeyService, this.inputBox));
   }
 };
 ContextScopedReplaceInput = __decorate19([
@@ -14169,28 +14245,24 @@ ContextScopedReplaceInput = __decorate19([
 KeybindingsRegistry.registerCommandAndKeybindingRule({
   id: "history.showPrevious",
   weight: 200,
-  when: ContextKeyExpr.and(ContextKeyExpr.has(HistoryNavigationWidgetContext), ContextKeyExpr.equals(HistoryNavigationBackwardsEnablementContext, true), historyNavigationVisible.isEqualTo(false)),
+  when: ContextKeyExpr.and(ContextKeyExpr.has(HistoryNavigationWidgetFocusContext), ContextKeyExpr.equals(HistoryNavigationBackwardsEnablementContext, true), historyNavigationVisible.isEqualTo(false)),
   primary: 16,
   secondary: [512 | 16],
   handler: (accessor) => {
-    const widget = getContextScopedWidget(accessor.get(IContextKeyService), HistoryNavigationWidgetContext);
-    if (widget) {
-      const historyInputBox = widget.historyNavigator;
-      historyInputBox.showPreviousValue();
+    if (lastFocusedWidget) {
+      lastFocusedWidget.showPreviousValue();
     }
   }
 });
 KeybindingsRegistry.registerCommandAndKeybindingRule({
   id: "history.showNext",
   weight: 200,
-  when: ContextKeyExpr.and(ContextKeyExpr.has(HistoryNavigationWidgetContext), ContextKeyExpr.equals(HistoryNavigationForwardsEnablementContext, true), historyNavigationVisible.isEqualTo(false)),
+  when: ContextKeyExpr.and(ContextKeyExpr.has(HistoryNavigationWidgetFocusContext), ContextKeyExpr.equals(HistoryNavigationForwardsEnablementContext, true), historyNavigationVisible.isEqualTo(false)),
   primary: 18,
   secondary: [512 | 18],
   handler: (accessor) => {
-    const widget = getContextScopedWidget(accessor.get(IContextKeyService), HistoryNavigationWidgetContext);
-    if (widget) {
-      const historyInputBox = widget.historyNavigator;
-      historyInputBox.showNextValue();
+    if (lastFocusedWidget) {
+      lastFocusedWidget.showNextValue();
     }
   }
 });
@@ -14248,6 +14320,7 @@ var CompletionItem = class {
     this.isInvalid = !this.textLabel;
     this.sortTextLow = completion.sortText && completion.sortText.toLowerCase();
     this.filterTextLow = completion.filterText && completion.filterText.toLowerCase();
+    this.extensionId = completion.extensionId;
     if (Range.isIRange(completion.range)) {
       this.editStart = new Position(completion.range.startLineNumber, completion.range.startColumn);
       this.editInsertEnd = new Position(completion.range.endLineNumber, completion.range.endColumn);
@@ -14327,7 +14400,7 @@ function provideSuggestionItems(registry, model, position, options = CompletionO
       if (!container) {
         return didAddResult;
       }
-      for (let suggestion of container.suggestions) {
+      for (const suggestion of container.suggestions) {
         if (!options.kindFilter.has(suggestion.kind)) {
           if (!options.showDeprecated && ((_a5 = suggestion === null || suggestion === void 0 ? void 0 : suggestion.tags) === null || _a5 === void 0 ? void 0 : _a5.includes(1))) {
             continue;
@@ -14366,7 +14439,7 @@ function provideSuggestionItems(registry, model, position, options = CompletionO
       const list = yield _snippetSuggestSupport.provideCompletionItems(model, position, context, token);
       onCompletionList(_snippetSuggestSupport, list, sw2);
     }))();
-    for (let providerGroup of registry.orderedGroups(model)) {
+    for (const providerGroup of registry.orderedGroups(model)) {
       let didAddResult = false;
       yield Promise.all(providerGroup.map((provider) => __awaiter18(this, void 0, void 0, function* () {
         if (options.providerFilter.size > 0 && !options.providerFilter.has(provider)) {
@@ -14387,7 +14460,7 @@ function provideSuggestionItems(registry, model, position, options = CompletionO
     yield snippetCompletions;
     if (token.isCancellationRequested) {
       disposables.dispose();
-      return Promise.reject(canceled());
+      return Promise.reject(new CancellationError());
     }
     return new CompletionItemModel(result.sort(getSuggestionComparator(options.snippetSortOrder)), needsClipboard, { entries: durations, elapsed: sw.elapsed() }, disposables);
   });
@@ -14400,9 +14473,9 @@ function defaultComparator(a, b) {
       return 1;
     }
   }
-  if (a.completion.label < b.completion.label) {
+  if (a.textLabel < b.textLabel) {
     return -1;
-  } else if (a.completion.label > b.completion.label) {
+  } else if (a.textLabel > b.textLabel) {
     return 1;
   }
   return a.completion.kind - b.completion.kind;
@@ -14466,32 +14539,32 @@ CommandsRegistry.registerCommand("_executeCompletionItemProvider", (accessor, ..
     ref.dispose();
   }
 }));
-var _onlyOnceProvider;
-var _onlyOnceSuggestions = [];
-function showSimpleSuggestions(accessor, editor2, suggestions) {
-  const { completionProvider } = accessor.get(ILanguageFeaturesService);
-  if (!_onlyOnceProvider) {
-    _onlyOnceProvider = new class {
-      provideCompletionItems() {
-        let suggestions2 = _onlyOnceSuggestions.slice(0);
-        let result = { suggestions: suggestions2 };
-        _onlyOnceSuggestions.length = 0;
-        return result;
-      }
-    }();
-    completionProvider.register("*", _onlyOnceProvider);
-  }
-  setTimeout(() => {
-    var _a5;
-    _onlyOnceSuggestions.push(...suggestions);
-    (_a5 = editor2.getContribution("editor.contrib.suggestController")) === null || _a5 === void 0 ? void 0 : _a5.triggerSuggest((/* @__PURE__ */ new Set()).add(_onlyOnceProvider));
-  }, 0);
+function showSimpleSuggestions(editor2, provider) {
+  var _a5;
+  (_a5 = editor2.getContribution("editor.contrib.suggestController")) === null || _a5 === void 0 ? void 0 : _a5.triggerSuggest((/* @__PURE__ */ new Set()).add(provider), void 0, true);
 }
+var QuickSuggestionsOptions = class {
+  static isAllOff(config) {
+    return config.other === "off" && config.comments === "off" && config.strings === "off";
+  }
+  static isAllOn(config) {
+    return config.other === "on" && config.comments === "on" && config.strings === "on";
+  }
+  static valueFor(config, tokenType) {
+    switch (tokenType) {
+      case 1:
+        return config.comments;
+      case 2:
+        return config.strings;
+      default:
+        return config.other;
+    }
+  }
+};
 
 // ../../node_modules/monaco-editor/esm/vs/editor/contrib/hover/browser/contentHover.js
 init_async();
 init_editorContextKeys();
-init_event();
 var __decorate20 = function(decorators, target, key, desc) {
   var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
   if (typeof Reflect === "object" && typeof Reflect.decorate === "function")
@@ -14515,7 +14588,7 @@ var ContentHoverController = class ContentHoverController2 extends Disposable {
     this._instantiationService = _instantiationService;
     this._keybindingService = _keybindingService;
     this._widget = this._register(this._instantiationService.createInstance(ContentHoverWidget, this._editor));
-    this._decorationsChangerListener = this._register(new EditorDecorationsChangerListener(this._editor));
+    this._isChangingDecorations = false;
     this._messages = [];
     this._messagesAreComplete = false;
     this._participants = [];
@@ -14528,7 +14601,12 @@ var ContentHoverController = class ContentHoverController2 extends Disposable {
     this._register(this._hoverOperation.onResult((result) => {
       this._withResult(result.value, result.isComplete, result.hasLoadingMessage);
     }));
-    this._register(this._decorationsChangerListener.onDidChangeModelDecorations(() => this._onModelDecorationsChanged()));
+    this._register(this._editor.onDidChangeModelDecorations(() => {
+      if (this._isChangingDecorations) {
+        return;
+      }
+      this._onModelDecorationsChanged();
+    }));
     this._register(addStandardDisposableListener(this._widget.getDomNode(), "keydown", (e) => {
       if (e.equals(9)) {
         this.hide();
@@ -14564,7 +14642,7 @@ var ContentHoverController = class ContentHoverController2 extends Disposable {
       anchorCandidates.push(new HoverRangeAnchor(0, target.range));
     }
     if (target.type === 7) {
-      const epsilon = this._editor.getOption(44).typicalHalfwidthCharacterWidth / 2;
+      const epsilon = this._editor.getOption(45).typicalHalfwidthCharacterWidth / 2;
       if (!target.detail.isAfterLines && typeof target.detail.horizontalDistanceToText === "number" && target.detail.horizontalDistanceToText < epsilon) {
         anchorCandidates.push(new HoverRangeAnchor(0, target.range));
       }
@@ -14610,6 +14688,9 @@ var ContentHoverController = class ContentHoverController2 extends Disposable {
   isColorPickerVisible() {
     return this._widget.isColorPickerVisible;
   }
+  containsNode(node) {
+    return this._widget.getDomNode().contains(node);
+  }
   _addLoadingMessage(result) {
     if (this._computer.anchor) {
       for (const participant of this._participants) {
@@ -14633,16 +14714,7 @@ var ContentHoverController = class ContentHoverController2 extends Disposable {
     }
   }
   _renderMessages(anchor, messages) {
-    let renderColumn = 1073741824;
-    let highlightRange = messages[0].range;
-    let forceShowAtRange = null;
-    for (const msg of messages) {
-      renderColumn = Math.min(renderColumn, msg.range.startColumn);
-      highlightRange = Range.plusRange(highlightRange, msg.range);
-      if (msg.forceShowAtRange) {
-        forceShowAtRange = msg.range;
-      }
-    }
+    const { showAtPosition, showAtRange, highlightRange } = ContentHoverController2.computeHoverRanges(anchor.range, messages);
     const disposables = new DisposableStore();
     const statusBar = disposables.add(new EditorHoverStatusBar(this._keybindingService));
     const fragment = document.createDocumentFragment();
@@ -14665,18 +14737,51 @@ var ContentHoverController = class ContentHoverController2 extends Disposable {
     }
     if (fragment.hasChildNodes()) {
       if (highlightRange) {
-        const highlightDecorations = this._decorationsChangerListener.deltaDecorations([], [{
-          range: highlightRange,
-          options: ContentHoverController2._DECORATION_OPTIONS
-        }]);
+        const highlightDecoration = this._editor.createDecorationsCollection();
+        try {
+          this._isChangingDecorations = true;
+          highlightDecoration.set([{
+            range: highlightRange,
+            options: ContentHoverController2._DECORATION_OPTIONS
+          }]);
+        } finally {
+          this._isChangingDecorations = false;
+        }
         disposables.add(toDisposable(() => {
-          this._decorationsChangerListener.deltaDecorations(highlightDecorations, []);
+          try {
+            this._isChangingDecorations = true;
+            highlightDecoration.clear();
+          } finally {
+            this._isChangingDecorations = false;
+          }
         }));
       }
-      this._widget.showAt(fragment, new ContentHoverVisibleData(colorPicker, forceShowAtRange ? forceShowAtRange.getStartPosition() : new Position(anchor.range.startLineNumber, renderColumn), forceShowAtRange ? forceShowAtRange : highlightRange, this._editor.getOption(53).above, this._computer.shouldFocus, disposables));
+      this._widget.showAt(fragment, new ContentHoverVisibleData(colorPicker, showAtPosition, showAtRange, this._editor.getOption(54).above, this._computer.shouldFocus, disposables));
     } else {
       disposables.dispose();
     }
+  }
+  static computeHoverRanges(anchorRange, messages) {
+    const anchorLineNumber = anchorRange.startLineNumber;
+    let renderStartColumn = anchorRange.startColumn;
+    let renderEndColumn = anchorRange.endColumn;
+    let highlightRange = messages[0].range;
+    let forceShowAtRange = null;
+    for (const msg of messages) {
+      highlightRange = Range.plusRange(highlightRange, msg.range);
+      if (msg.range.startLineNumber === anchorLineNumber && msg.range.endLineNumber === anchorLineNumber) {
+        renderStartColumn = Math.min(renderStartColumn, msg.range.startColumn);
+        renderEndColumn = Math.max(renderEndColumn, msg.range.endColumn);
+      }
+      if (msg.forceShowAtRange) {
+        forceShowAtRange = msg.range;
+      }
+    }
+    return {
+      showAtPosition: forceShowAtRange ? forceShowAtRange.getStartPosition() : new Position(anchorRange.startLineNumber, renderStartColumn),
+      showAtRange: forceShowAtRange ? forceShowAtRange : new Range(anchorLineNumber, renderStartColumn, anchorLineNumber, renderEndColumn),
+      highlightRange
+    };
   }
 };
 ContentHoverController._DECORATION_OPTIONS = ModelDecorationOptions.register({
@@ -14687,29 +14792,6 @@ ContentHoverController = __decorate20([
   __param20(1, IInstantiationService),
   __param20(2, IKeybindingService)
 ], ContentHoverController);
-var EditorDecorationsChangerListener = class extends Disposable {
-  constructor(_editor) {
-    super();
-    this._editor = _editor;
-    this._onDidChangeModelDecorations = this._register(new Emitter());
-    this.onDidChangeModelDecorations = this._onDidChangeModelDecorations.event;
-    this._isChangingDecorations = false;
-    this._register(this._editor.onDidChangeModelDecorations((e) => {
-      if (this._isChangingDecorations) {
-        return;
-      }
-      this._onDidChangeModelDecorations.fire(e);
-    }));
-  }
-  deltaDecorations(oldDecorations, newDecorations) {
-    try {
-      this._isChangingDecorations = true;
-      return this._editor.deltaDecorations(oldDecorations, newDecorations);
-    } finally {
-      this._isChangingDecorations = false;
-    }
-  }
-};
 var ContentHoverVisibleData = class {
   constructor(colorPicker, showAtPosition, showAtRange, preferAbove, stoleFocus, disposables) {
     this.colorPicker = colorPicker;
@@ -14731,7 +14813,7 @@ var ContentHoverWidget = class ContentHoverWidget2 extends Disposable {
     this._visibleData = null;
     this._register(this._editor.onDidLayoutChange(() => this._layout()));
     this._register(this._editor.onDidChangeConfiguration((e) => {
-      if (e.hasChanged(44)) {
+      if (e.hasChanged(45)) {
         this._updateFont();
       }
     }));
@@ -14784,7 +14866,7 @@ var ContentHoverWidget = class ContentHoverWidget2 extends Disposable {
   }
   _layout() {
     const height = Math.max(this._editor.getLayoutInfo().height / 4, 250);
-    const { fontSize, lineHeight } = this._editor.getOption(44);
+    const { fontSize, lineHeight } = this._editor.getOption(45);
     this._hover.contentsDomNode.style.fontSize = `${fontSize}px`;
     this._hover.contentsDomNode.style.lineHeight = `${lineHeight / fontSize}`;
     this._hover.contentsDomNode.style.maxHeight = `${height}px`;
@@ -14800,10 +14882,8 @@ var ContentHoverWidget = class ContentHoverWidget2 extends Disposable {
     this._hover.contentsDomNode.appendChild(node);
     this._hover.contentsDomNode.style.paddingBottom = "";
     this._updateFont();
-    this._editor.layoutContentWidget(this);
     this.onContentsChanged();
     this._editor.render();
-    this._editor.layoutContentWidget(this);
     this.onContentsChanged();
     if (visibleData.stoleFocus) {
       this._hover.containerDomNode.focus();
@@ -14823,6 +14903,7 @@ var ContentHoverWidget = class ContentHoverWidget2 extends Disposable {
     }
   }
   onContentsChanged() {
+    this._editor.layoutContentWidget(this);
     this._hover.onContentsChanged();
     const scrollDimensions = this._hover.scrollbar.getScrollDimensions();
     const hasHorizontalScrollbar = scrollDimensions.scrollWidth > scrollDimensions.width;
@@ -14894,6 +14975,9 @@ var ContentHoverComputer = class {
     }
     const model = editor2.getModel();
     const lineNumber = anchor.range.startLineNumber;
+    if (lineNumber > model.getLineCount()) {
+      return [];
+    }
     const maxColumn = model.getLineMaxColumn(lineNumber);
     return editor2.getLineDecorations(lineNumber).filter((d) => {
       if (d.options.isWholeLine) {
@@ -14951,801 +15035,7 @@ init_define_process();
 // ../../node_modules/monaco-editor/esm/vs/base/browser/markdownRenderer.js
 init_define_process();
 init_dom();
-
-// ../../node_modules/monaco-editor/esm/vs/base/browser/dompurify/dompurify.js
-init_define_process();
-function _toConsumableArray(arr) {
-  if (Array.isArray(arr)) {
-    for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) {
-      arr2[i] = arr[i];
-    }
-    return arr2;
-  } else {
-    return Array.from(arr);
-  }
-}
-var hasOwnProperty = Object.hasOwnProperty;
-var setPrototypeOf = Object.setPrototypeOf;
-var isFrozen = Object.isFrozen;
-var getPrototypeOf = Object.getPrototypeOf;
-var getOwnPropertyDescriptor = Object.getOwnPropertyDescriptor;
-var freeze = Object.freeze;
-var seal = Object.seal;
-var create = Object.create;
-var _ref = typeof Reflect !== "undefined" && Reflect;
-var apply = _ref.apply;
-var construct = _ref.construct;
-if (!apply) {
-  apply = function apply2(fun, thisValue, args) {
-    return fun.apply(thisValue, args);
-  };
-}
-if (!freeze) {
-  freeze = function freeze2(x) {
-    return x;
-  };
-}
-if (!seal) {
-  seal = function seal2(x) {
-    return x;
-  };
-}
-if (!construct) {
-  construct = function construct2(Func, args) {
-    return new (Function.prototype.bind.apply(Func, [null].concat(_toConsumableArray(args))))();
-  };
-}
-var arrayForEach = unapply(Array.prototype.forEach);
-var arrayPop = unapply(Array.prototype.pop);
-var arrayPush = unapply(Array.prototype.push);
-var stringToLowerCase = unapply(String.prototype.toLowerCase);
-var stringMatch = unapply(String.prototype.match);
-var stringReplace = unapply(String.prototype.replace);
-var stringIndexOf = unapply(String.prototype.indexOf);
-var stringTrim = unapply(String.prototype.trim);
-var regExpTest = unapply(RegExp.prototype.test);
-var typeErrorCreate = unconstruct(TypeError);
-function unapply(func) {
-  return function(thisArg) {
-    for (var _len = arguments.length, args = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
-      args[_key - 1] = arguments[_key];
-    }
-    return apply(func, thisArg, args);
-  };
-}
-function unconstruct(func) {
-  return function() {
-    for (var _len2 = arguments.length, args = Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
-      args[_key2] = arguments[_key2];
-    }
-    return construct(func, args);
-  };
-}
-function addToSet(set, array) {
-  if (setPrototypeOf) {
-    setPrototypeOf(set, null);
-  }
-  var l = array.length;
-  while (l--) {
-    var element = array[l];
-    if (typeof element === "string") {
-      var lcElement = stringToLowerCase(element);
-      if (lcElement !== element) {
-        if (!isFrozen(array)) {
-          array[l] = lcElement;
-        }
-        element = lcElement;
-      }
-    }
-    set[element] = true;
-  }
-  return set;
-}
-function clone(object) {
-  var newObject = create(null);
-  var property = void 0;
-  for (property in object) {
-    if (apply(hasOwnProperty, object, [property])) {
-      newObject[property] = object[property];
-    }
-  }
-  return newObject;
-}
-function lookupGetter(object, prop) {
-  while (object !== null) {
-    var desc = getOwnPropertyDescriptor(object, prop);
-    if (desc) {
-      if (desc.get) {
-        return unapply(desc.get);
-      }
-      if (typeof desc.value === "function") {
-        return unapply(desc.value);
-      }
-    }
-    object = getPrototypeOf(object);
-  }
-  function fallbackValue(element) {
-    console.warn("fallback value for", element);
-    return null;
-  }
-  return fallbackValue;
-}
-var html = freeze(["a", "abbr", "acronym", "address", "area", "article", "aside", "audio", "b", "bdi", "bdo", "big", "blink", "blockquote", "body", "br", "button", "canvas", "caption", "center", "cite", "code", "col", "colgroup", "content", "data", "datalist", "dd", "decorator", "del", "details", "dfn", "dialog", "dir", "div", "dl", "dt", "element", "em", "fieldset", "figcaption", "figure", "font", "footer", "form", "h1", "h2", "h3", "h4", "h5", "h6", "head", "header", "hgroup", "hr", "html", "i", "img", "input", "ins", "kbd", "label", "legend", "li", "main", "map", "mark", "marquee", "menu", "menuitem", "meter", "nav", "nobr", "ol", "optgroup", "option", "output", "p", "picture", "pre", "progress", "q", "rp", "rt", "ruby", "s", "samp", "section", "select", "shadow", "small", "source", "spacer", "span", "strike", "strong", "style", "sub", "summary", "sup", "table", "tbody", "td", "template", "textarea", "tfoot", "th", "thead", "time", "tr", "track", "tt", "u", "ul", "var", "video", "wbr"]);
-var svg = freeze(["svg", "a", "altglyph", "altglyphdef", "altglyphitem", "animatecolor", "animatemotion", "animatetransform", "circle", "clippath", "defs", "desc", "ellipse", "filter", "font", "g", "glyph", "glyphref", "hkern", "image", "line", "lineargradient", "marker", "mask", "metadata", "mpath", "path", "pattern", "polygon", "polyline", "radialgradient", "rect", "stop", "style", "switch", "symbol", "text", "textpath", "title", "tref", "tspan", "view", "vkern"]);
-var svgFilters = freeze(["feBlend", "feColorMatrix", "feComponentTransfer", "feComposite", "feConvolveMatrix", "feDiffuseLighting", "feDisplacementMap", "feDistantLight", "feFlood", "feFuncA", "feFuncB", "feFuncG", "feFuncR", "feGaussianBlur", "feMerge", "feMergeNode", "feMorphology", "feOffset", "fePointLight", "feSpecularLighting", "feSpotLight", "feTile", "feTurbulence"]);
-var svgDisallowed = freeze(["animate", "color-profile", "cursor", "discard", "fedropshadow", "feimage", "font-face", "font-face-format", "font-face-name", "font-face-src", "font-face-uri", "foreignobject", "hatch", "hatchpath", "mesh", "meshgradient", "meshpatch", "meshrow", "missing-glyph", "script", "set", "solidcolor", "unknown", "use"]);
-var mathMl = freeze(["math", "menclose", "merror", "mfenced", "mfrac", "mglyph", "mi", "mlabeledtr", "mmultiscripts", "mn", "mo", "mover", "mpadded", "mphantom", "mroot", "mrow", "ms", "mspace", "msqrt", "mstyle", "msub", "msup", "msubsup", "mtable", "mtd", "mtext", "mtr", "munder", "munderover"]);
-var mathMlDisallowed = freeze(["maction", "maligngroup", "malignmark", "mlongdiv", "mscarries", "mscarry", "msgroup", "mstack", "msline", "msrow", "semantics", "annotation", "annotation-xml", "mprescripts", "none"]);
-var text = freeze(["#text"]);
-var html$1 = freeze(["accept", "action", "align", "alt", "autocapitalize", "autocomplete", "autopictureinpicture", "autoplay", "background", "bgcolor", "border", "capture", "cellpadding", "cellspacing", "checked", "cite", "class", "clear", "color", "cols", "colspan", "controls", "controlslist", "coords", "crossorigin", "datetime", "decoding", "default", "dir", "disabled", "disablepictureinpicture", "disableremoteplayback", "download", "draggable", "enctype", "enterkeyhint", "face", "for", "headers", "height", "hidden", "high", "href", "hreflang", "id", "inputmode", "integrity", "ismap", "kind", "label", "lang", "list", "loading", "loop", "low", "max", "maxlength", "media", "method", "min", "minlength", "multiple", "muted", "name", "noshade", "novalidate", "nowrap", "open", "optimum", "pattern", "placeholder", "playsinline", "poster", "preload", "pubdate", "radiogroup", "readonly", "rel", "required", "rev", "reversed", "role", "rows", "rowspan", "spellcheck", "scope", "selected", "shape", "size", "sizes", "span", "srclang", "start", "src", "srcset", "step", "style", "summary", "tabindex", "title", "translate", "type", "usemap", "valign", "value", "width", "xmlns", "slot"]);
-var svg$1 = freeze(["accent-height", "accumulate", "additive", "alignment-baseline", "ascent", "attributename", "attributetype", "azimuth", "basefrequency", "baseline-shift", "begin", "bias", "by", "class", "clip", "clippathunits", "clip-path", "clip-rule", "color", "color-interpolation", "color-interpolation-filters", "color-profile", "color-rendering", "cx", "cy", "d", "dx", "dy", "diffuseconstant", "direction", "display", "divisor", "dur", "edgemode", "elevation", "end", "fill", "fill-opacity", "fill-rule", "filter", "filterunits", "flood-color", "flood-opacity", "font-family", "font-size", "font-size-adjust", "font-stretch", "font-style", "font-variant", "font-weight", "fx", "fy", "g1", "g2", "glyph-name", "glyphref", "gradientunits", "gradienttransform", "height", "href", "id", "image-rendering", "in", "in2", "k", "k1", "k2", "k3", "k4", "kerning", "keypoints", "keysplines", "keytimes", "lang", "lengthadjust", "letter-spacing", "kernelmatrix", "kernelunitlength", "lighting-color", "local", "marker-end", "marker-mid", "marker-start", "markerheight", "markerunits", "markerwidth", "maskcontentunits", "maskunits", "max", "mask", "media", "method", "mode", "min", "name", "numoctaves", "offset", "operator", "opacity", "order", "orient", "orientation", "origin", "overflow", "paint-order", "path", "pathlength", "patterncontentunits", "patterntransform", "patternunits", "points", "preservealpha", "preserveaspectratio", "primitiveunits", "r", "rx", "ry", "radius", "refx", "refy", "repeatcount", "repeatdur", "restart", "result", "rotate", "scale", "seed", "shape-rendering", "specularconstant", "specularexponent", "spreadmethod", "startoffset", "stddeviation", "stitchtiles", "stop-color", "stop-opacity", "stroke-dasharray", "stroke-dashoffset", "stroke-linecap", "stroke-linejoin", "stroke-miterlimit", "stroke-opacity", "stroke", "stroke-width", "style", "surfacescale", "systemlanguage", "tabindex", "targetx", "targety", "transform", "text-anchor", "text-decoration", "text-rendering", "textlength", "type", "u1", "u2", "unicode", "values", "viewbox", "visibility", "version", "vert-adv-y", "vert-origin-x", "vert-origin-y", "width", "word-spacing", "wrap", "writing-mode", "xchannelselector", "ychannelselector", "x", "x1", "x2", "xmlns", "y", "y1", "y2", "z", "zoomandpan"]);
-var mathMl$1 = freeze(["accent", "accentunder", "align", "bevelled", "close", "columnsalign", "columnlines", "columnspan", "denomalign", "depth", "dir", "display", "displaystyle", "encoding", "fence", "frame", "height", "href", "id", "largeop", "length", "linethickness", "lspace", "lquote", "mathbackground", "mathcolor", "mathsize", "mathvariant", "maxsize", "minsize", "movablelimits", "notation", "numalign", "open", "rowalign", "rowlines", "rowspacing", "rowspan", "rspace", "rquote", "scriptlevel", "scriptminsize", "scriptsizemultiplier", "selection", "separator", "separators", "stretchy", "subscriptshift", "supscriptshift", "symmetric", "voffset", "width", "xmlns"]);
-var xml = freeze(["xlink:href", "xml:id", "xlink:title", "xml:space", "xmlns:xlink"]);
-var MUSTACHE_EXPR = seal(/\{\{[\s\S]*|[\s\S]*\}\}/gm);
-var ERB_EXPR = seal(/<%[\s\S]*|[\s\S]*%>/gm);
-var DATA_ATTR = seal(/^data-[\-\w.\u00B7-\uFFFF]/);
-var ARIA_ATTR = seal(/^aria-[\-\w]+$/);
-var IS_ALLOWED_URI = seal(/^(?:(?:(?:f|ht)tps?|mailto|tel|callto|cid|xmpp):|[^a-z]|[a-z+.\-]+(?:[^a-z+.\-:]|$))/i);
-var IS_SCRIPT_OR_DATA = seal(/^(?:\w+script|data):/i);
-var ATTR_WHITESPACE = seal(/[\u0000-\u0020\u00A0\u1680\u180E\u2000-\u2029\u205F\u3000]/g);
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function(obj) {
-  return typeof obj;
-} : function(obj) {
-  return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
-};
-function _toConsumableArray$1(arr) {
-  if (Array.isArray(arr)) {
-    for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) {
-      arr2[i] = arr[i];
-    }
-    return arr2;
-  } else {
-    return Array.from(arr);
-  }
-}
-var getGlobal = function getGlobal2() {
-  return typeof window === "undefined" ? null : window;
-};
-var _createTrustedTypesPolicy = function _createTrustedTypesPolicy2(trustedTypes, document2) {
-  if ((typeof trustedTypes === "undefined" ? "undefined" : _typeof(trustedTypes)) !== "object" || typeof trustedTypes.createPolicy !== "function") {
-    return null;
-  }
-  var suffix = null;
-  var ATTR_NAME = "data-tt-policy-suffix";
-  if (document2.currentScript && document2.currentScript.hasAttribute(ATTR_NAME)) {
-    suffix = document2.currentScript.getAttribute(ATTR_NAME);
-  }
-  var policyName = "dompurify" + (suffix ? "#" + suffix : "");
-  try {
-    return trustedTypes.createPolicy(policyName, {
-      createHTML: function createHTML(html$$1) {
-        return html$$1;
-      }
-    });
-  } catch (_) {
-    console.warn("TrustedTypes policy " + policyName + " could not be created.");
-    return null;
-  }
-};
-function createDOMPurify() {
-  var window2 = arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : getGlobal();
-  var DOMPurify = function DOMPurify2(root) {
-    return createDOMPurify(root);
-  };
-  DOMPurify.version = "2.3.1";
-  DOMPurify.removed = [];
-  if (!window2 || !window2.document || window2.document.nodeType !== 9) {
-    DOMPurify.isSupported = false;
-    return DOMPurify;
-  }
-  var originalDocument = window2.document;
-  var document2 = window2.document;
-  var DocumentFragment = window2.DocumentFragment, HTMLTemplateElement = window2.HTMLTemplateElement, Node = window2.Node, Element = window2.Element, NodeFilter = window2.NodeFilter, _window$NamedNodeMap = window2.NamedNodeMap, NamedNodeMap = _window$NamedNodeMap === void 0 ? window2.NamedNodeMap || window2.MozNamedAttrMap : _window$NamedNodeMap, Text2 = window2.Text, Comment = window2.Comment, DOMParser2 = window2.DOMParser, trustedTypes = window2.trustedTypes;
-  var ElementPrototype = Element.prototype;
-  var cloneNode = lookupGetter(ElementPrototype, "cloneNode");
-  var getNextSibling = lookupGetter(ElementPrototype, "nextSibling");
-  var getChildNodes = lookupGetter(ElementPrototype, "childNodes");
-  var getParentNode = lookupGetter(ElementPrototype, "parentNode");
-  if (typeof HTMLTemplateElement === "function") {
-    var template = document2.createElement("template");
-    if (template.content && template.content.ownerDocument) {
-      document2 = template.content.ownerDocument;
-    }
-  }
-  var trustedTypesPolicy = _createTrustedTypesPolicy(trustedTypes, originalDocument);
-  var emptyHTML = trustedTypesPolicy && RETURN_TRUSTED_TYPE ? trustedTypesPolicy.createHTML("") : "";
-  var _document = document2, implementation = _document.implementation, createNodeIterator = _document.createNodeIterator, createDocumentFragment = _document.createDocumentFragment, getElementsByTagName = _document.getElementsByTagName;
-  var importNode = originalDocument.importNode;
-  var documentMode = {};
-  try {
-    documentMode = clone(document2).documentMode ? document2.documentMode : {};
-  } catch (_) {
-  }
-  var hooks = {};
-  DOMPurify.isSupported = typeof getParentNode === "function" && implementation && typeof implementation.createHTMLDocument !== "undefined" && documentMode !== 9;
-  var MUSTACHE_EXPR$$1 = MUSTACHE_EXPR, ERB_EXPR$$1 = ERB_EXPR, DATA_ATTR$$1 = DATA_ATTR, ARIA_ATTR$$1 = ARIA_ATTR, IS_SCRIPT_OR_DATA$$1 = IS_SCRIPT_OR_DATA, ATTR_WHITESPACE$$1 = ATTR_WHITESPACE;
-  var IS_ALLOWED_URI$$1 = IS_ALLOWED_URI;
-  var ALLOWED_TAGS = null;
-  var DEFAULT_ALLOWED_TAGS = addToSet({}, [].concat(_toConsumableArray$1(html), _toConsumableArray$1(svg), _toConsumableArray$1(svgFilters), _toConsumableArray$1(mathMl), _toConsumableArray$1(text)));
-  var ALLOWED_ATTR = null;
-  var DEFAULT_ALLOWED_ATTR = addToSet({}, [].concat(_toConsumableArray$1(html$1), _toConsumableArray$1(svg$1), _toConsumableArray$1(mathMl$1), _toConsumableArray$1(xml)));
-  var FORBID_TAGS = null;
-  var FORBID_ATTR = null;
-  var ALLOW_ARIA_ATTR = true;
-  var ALLOW_DATA_ATTR = true;
-  var ALLOW_UNKNOWN_PROTOCOLS = false;
-  var SAFE_FOR_TEMPLATES = false;
-  var WHOLE_DOCUMENT = false;
-  var SET_CONFIG = false;
-  var FORCE_BODY = false;
-  var RETURN_DOM = false;
-  var RETURN_DOM_FRAGMENT = false;
-  var RETURN_DOM_IMPORT = true;
-  var RETURN_TRUSTED_TYPE = false;
-  var SANITIZE_DOM = true;
-  var KEEP_CONTENT = true;
-  var IN_PLACE = false;
-  var USE_PROFILES = {};
-  var FORBID_CONTENTS = null;
-  var DEFAULT_FORBID_CONTENTS = addToSet({}, ["annotation-xml", "audio", "colgroup", "desc", "foreignobject", "head", "iframe", "math", "mi", "mn", "mo", "ms", "mtext", "noembed", "noframes", "noscript", "plaintext", "script", "style", "svg", "template", "thead", "title", "video", "xmp"]);
-  var DATA_URI_TAGS = null;
-  var DEFAULT_DATA_URI_TAGS = addToSet({}, ["audio", "video", "img", "source", "image", "track"]);
-  var URI_SAFE_ATTRIBUTES = null;
-  var DEFAULT_URI_SAFE_ATTRIBUTES = addToSet({}, ["alt", "class", "for", "id", "label", "name", "pattern", "placeholder", "role", "summary", "title", "value", "style", "xmlns"]);
-  var MATHML_NAMESPACE = "http://www.w3.org/1998/Math/MathML";
-  var SVG_NAMESPACE = "http://www.w3.org/2000/svg";
-  var HTML_NAMESPACE = "http://www.w3.org/1999/xhtml";
-  var NAMESPACE = HTML_NAMESPACE;
-  var IS_EMPTY_INPUT = false;
-  var CONFIG = null;
-  var formElement = document2.createElement("form");
-  var _parseConfig = function _parseConfig2(cfg) {
-    if (CONFIG && CONFIG === cfg) {
-      return;
-    }
-    if (!cfg || (typeof cfg === "undefined" ? "undefined" : _typeof(cfg)) !== "object") {
-      cfg = {};
-    }
-    cfg = clone(cfg);
-    ALLOWED_TAGS = "ALLOWED_TAGS" in cfg ? addToSet({}, cfg.ALLOWED_TAGS) : DEFAULT_ALLOWED_TAGS;
-    ALLOWED_ATTR = "ALLOWED_ATTR" in cfg ? addToSet({}, cfg.ALLOWED_ATTR) : DEFAULT_ALLOWED_ATTR;
-    URI_SAFE_ATTRIBUTES = "ADD_URI_SAFE_ATTR" in cfg ? addToSet(clone(DEFAULT_URI_SAFE_ATTRIBUTES), cfg.ADD_URI_SAFE_ATTR) : DEFAULT_URI_SAFE_ATTRIBUTES;
-    DATA_URI_TAGS = "ADD_DATA_URI_TAGS" in cfg ? addToSet(clone(DEFAULT_DATA_URI_TAGS), cfg.ADD_DATA_URI_TAGS) : DEFAULT_DATA_URI_TAGS;
-    FORBID_CONTENTS = "FORBID_CONTENTS" in cfg ? addToSet({}, cfg.FORBID_CONTENTS) : DEFAULT_FORBID_CONTENTS;
-    FORBID_TAGS = "FORBID_TAGS" in cfg ? addToSet({}, cfg.FORBID_TAGS) : {};
-    FORBID_ATTR = "FORBID_ATTR" in cfg ? addToSet({}, cfg.FORBID_ATTR) : {};
-    USE_PROFILES = "USE_PROFILES" in cfg ? cfg.USE_PROFILES : false;
-    ALLOW_ARIA_ATTR = cfg.ALLOW_ARIA_ATTR !== false;
-    ALLOW_DATA_ATTR = cfg.ALLOW_DATA_ATTR !== false;
-    ALLOW_UNKNOWN_PROTOCOLS = cfg.ALLOW_UNKNOWN_PROTOCOLS || false;
-    SAFE_FOR_TEMPLATES = cfg.SAFE_FOR_TEMPLATES || false;
-    WHOLE_DOCUMENT = cfg.WHOLE_DOCUMENT || false;
-    RETURN_DOM = cfg.RETURN_DOM || false;
-    RETURN_DOM_FRAGMENT = cfg.RETURN_DOM_FRAGMENT || false;
-    RETURN_DOM_IMPORT = cfg.RETURN_DOM_IMPORT !== false;
-    RETURN_TRUSTED_TYPE = cfg.RETURN_TRUSTED_TYPE || false;
-    FORCE_BODY = cfg.FORCE_BODY || false;
-    SANITIZE_DOM = cfg.SANITIZE_DOM !== false;
-    KEEP_CONTENT = cfg.KEEP_CONTENT !== false;
-    IN_PLACE = cfg.IN_PLACE || false;
-    IS_ALLOWED_URI$$1 = cfg.ALLOWED_URI_REGEXP || IS_ALLOWED_URI$$1;
-    NAMESPACE = cfg.NAMESPACE || HTML_NAMESPACE;
-    if (SAFE_FOR_TEMPLATES) {
-      ALLOW_DATA_ATTR = false;
-    }
-    if (RETURN_DOM_FRAGMENT) {
-      RETURN_DOM = true;
-    }
-    if (USE_PROFILES) {
-      ALLOWED_TAGS = addToSet({}, [].concat(_toConsumableArray$1(text)));
-      ALLOWED_ATTR = [];
-      if (USE_PROFILES.html === true) {
-        addToSet(ALLOWED_TAGS, html);
-        addToSet(ALLOWED_ATTR, html$1);
-      }
-      if (USE_PROFILES.svg === true) {
-        addToSet(ALLOWED_TAGS, svg);
-        addToSet(ALLOWED_ATTR, svg$1);
-        addToSet(ALLOWED_ATTR, xml);
-      }
-      if (USE_PROFILES.svgFilters === true) {
-        addToSet(ALLOWED_TAGS, svgFilters);
-        addToSet(ALLOWED_ATTR, svg$1);
-        addToSet(ALLOWED_ATTR, xml);
-      }
-      if (USE_PROFILES.mathMl === true) {
-        addToSet(ALLOWED_TAGS, mathMl);
-        addToSet(ALLOWED_ATTR, mathMl$1);
-        addToSet(ALLOWED_ATTR, xml);
-      }
-    }
-    if (cfg.ADD_TAGS) {
-      if (ALLOWED_TAGS === DEFAULT_ALLOWED_TAGS) {
-        ALLOWED_TAGS = clone(ALLOWED_TAGS);
-      }
-      addToSet(ALLOWED_TAGS, cfg.ADD_TAGS);
-    }
-    if (cfg.ADD_ATTR) {
-      if (ALLOWED_ATTR === DEFAULT_ALLOWED_ATTR) {
-        ALLOWED_ATTR = clone(ALLOWED_ATTR);
-      }
-      addToSet(ALLOWED_ATTR, cfg.ADD_ATTR);
-    }
-    if (cfg.ADD_URI_SAFE_ATTR) {
-      addToSet(URI_SAFE_ATTRIBUTES, cfg.ADD_URI_SAFE_ATTR);
-    }
-    if (cfg.FORBID_CONTENTS) {
-      if (FORBID_CONTENTS === DEFAULT_FORBID_CONTENTS) {
-        FORBID_CONTENTS = clone(FORBID_CONTENTS);
-      }
-      addToSet(FORBID_CONTENTS, cfg.FORBID_CONTENTS);
-    }
-    if (KEEP_CONTENT) {
-      ALLOWED_TAGS["#text"] = true;
-    }
-    if (WHOLE_DOCUMENT) {
-      addToSet(ALLOWED_TAGS, ["html", "head", "body"]);
-    }
-    if (ALLOWED_TAGS.table) {
-      addToSet(ALLOWED_TAGS, ["tbody"]);
-      delete FORBID_TAGS.tbody;
-    }
-    if (freeze) {
-      freeze(cfg);
-    }
-    CONFIG = cfg;
-  };
-  var MATHML_TEXT_INTEGRATION_POINTS = addToSet({}, ["mi", "mo", "mn", "ms", "mtext"]);
-  var HTML_INTEGRATION_POINTS = addToSet({}, ["foreignobject", "desc", "title", "annotation-xml"]);
-  var ALL_SVG_TAGS = addToSet({}, svg);
-  addToSet(ALL_SVG_TAGS, svgFilters);
-  addToSet(ALL_SVG_TAGS, svgDisallowed);
-  var ALL_MATHML_TAGS = addToSet({}, mathMl);
-  addToSet(ALL_MATHML_TAGS, mathMlDisallowed);
-  var _checkValidNamespace = function _checkValidNamespace2(element) {
-    var parent = getParentNode(element);
-    if (!parent || !parent.tagName) {
-      parent = {
-        namespaceURI: HTML_NAMESPACE,
-        tagName: "template"
-      };
-    }
-    var tagName = stringToLowerCase(element.tagName);
-    var parentTagName = stringToLowerCase(parent.tagName);
-    if (element.namespaceURI === SVG_NAMESPACE) {
-      if (parent.namespaceURI === HTML_NAMESPACE) {
-        return tagName === "svg";
-      }
-      if (parent.namespaceURI === MATHML_NAMESPACE) {
-        return tagName === "svg" && (parentTagName === "annotation-xml" || MATHML_TEXT_INTEGRATION_POINTS[parentTagName]);
-      }
-      return Boolean(ALL_SVG_TAGS[tagName]);
-    }
-    if (element.namespaceURI === MATHML_NAMESPACE) {
-      if (parent.namespaceURI === HTML_NAMESPACE) {
-        return tagName === "math";
-      }
-      if (parent.namespaceURI === SVG_NAMESPACE) {
-        return tagName === "math" && HTML_INTEGRATION_POINTS[parentTagName];
-      }
-      return Boolean(ALL_MATHML_TAGS[tagName]);
-    }
-    if (element.namespaceURI === HTML_NAMESPACE) {
-      if (parent.namespaceURI === SVG_NAMESPACE && !HTML_INTEGRATION_POINTS[parentTagName]) {
-        return false;
-      }
-      if (parent.namespaceURI === MATHML_NAMESPACE && !MATHML_TEXT_INTEGRATION_POINTS[parentTagName]) {
-        return false;
-      }
-      var commonSvgAndHTMLElements = addToSet({}, ["title", "style", "font", "a", "script"]);
-      return !ALL_MATHML_TAGS[tagName] && (commonSvgAndHTMLElements[tagName] || !ALL_SVG_TAGS[tagName]);
-    }
-    return false;
-  };
-  var _forceRemove = function _forceRemove2(node) {
-    arrayPush(DOMPurify.removed, { element: node });
-    try {
-      node.parentNode.removeChild(node);
-    } catch (_) {
-      try {
-        node.outerHTML = emptyHTML;
-      } catch (_2) {
-        node.remove();
-      }
-    }
-  };
-  var _removeAttribute = function _removeAttribute2(name, node) {
-    try {
-      arrayPush(DOMPurify.removed, {
-        attribute: node.getAttributeNode(name),
-        from: node
-      });
-    } catch (_) {
-      arrayPush(DOMPurify.removed, {
-        attribute: null,
-        from: node
-      });
-    }
-    node.removeAttribute(name);
-    if (name === "is" && !ALLOWED_ATTR[name]) {
-      if (RETURN_DOM || RETURN_DOM_FRAGMENT) {
-        try {
-          _forceRemove(node);
-        } catch (_) {
-        }
-      } else {
-        try {
-          node.setAttribute(name, "");
-        } catch (_) {
-        }
-      }
-    }
-  };
-  var _initDocument = function _initDocument2(dirty) {
-    var doc = void 0;
-    var leadingWhitespace = void 0;
-    if (FORCE_BODY) {
-      dirty = "<remove></remove>" + dirty;
-    } else {
-      var matches = stringMatch(dirty, /^[\r\n\t ]+/);
-      leadingWhitespace = matches && matches[0];
-    }
-    var dirtyPayload = trustedTypesPolicy ? trustedTypesPolicy.createHTML(dirty) : dirty;
-    if (NAMESPACE === HTML_NAMESPACE) {
-      try {
-        doc = new DOMParser2().parseFromString(dirtyPayload, "text/html");
-      } catch (_) {
-      }
-    }
-    if (!doc || !doc.documentElement) {
-      doc = implementation.createDocument(NAMESPACE, "template", null);
-      try {
-        doc.documentElement.innerHTML = IS_EMPTY_INPUT ? "" : dirtyPayload;
-      } catch (_) {
-      }
-    }
-    var body = doc.body || doc.documentElement;
-    if (dirty && leadingWhitespace) {
-      body.insertBefore(document2.createTextNode(leadingWhitespace), body.childNodes[0] || null);
-    }
-    if (NAMESPACE === HTML_NAMESPACE) {
-      return getElementsByTagName.call(doc, WHOLE_DOCUMENT ? "html" : "body")[0];
-    }
-    return WHOLE_DOCUMENT ? doc.documentElement : body;
-  };
-  var _createIterator = function _createIterator2(root) {
-    return createNodeIterator.call(root.ownerDocument || root, root, NodeFilter.SHOW_ELEMENT | NodeFilter.SHOW_COMMENT | NodeFilter.SHOW_TEXT, null, false);
-  };
-  var _isClobbered = function _isClobbered2(elm) {
-    if (elm instanceof Text2 || elm instanceof Comment) {
-      return false;
-    }
-    if (typeof elm.nodeName !== "string" || typeof elm.textContent !== "string" || typeof elm.removeChild !== "function" || !(elm.attributes instanceof NamedNodeMap) || typeof elm.removeAttribute !== "function" || typeof elm.setAttribute !== "function" || typeof elm.namespaceURI !== "string" || typeof elm.insertBefore !== "function") {
-      return true;
-    }
-    return false;
-  };
-  var _isNode = function _isNode2(object) {
-    return (typeof Node === "undefined" ? "undefined" : _typeof(Node)) === "object" ? object instanceof Node : object && (typeof object === "undefined" ? "undefined" : _typeof(object)) === "object" && typeof object.nodeType === "number" && typeof object.nodeName === "string";
-  };
-  var _executeHook = function _executeHook2(entryPoint, currentNode, data) {
-    if (!hooks[entryPoint]) {
-      return;
-    }
-    arrayForEach(hooks[entryPoint], function(hook) {
-      hook.call(DOMPurify, currentNode, data, CONFIG);
-    });
-  };
-  var _sanitizeElements = function _sanitizeElements2(currentNode) {
-    var content = void 0;
-    _executeHook("beforeSanitizeElements", currentNode, null);
-    if (_isClobbered(currentNode)) {
-      _forceRemove(currentNode);
-      return true;
-    }
-    if (stringMatch(currentNode.nodeName, /[\u0080-\uFFFF]/)) {
-      _forceRemove(currentNode);
-      return true;
-    }
-    var tagName = stringToLowerCase(currentNode.nodeName);
-    _executeHook("uponSanitizeElement", currentNode, {
-      tagName,
-      allowedTags: ALLOWED_TAGS
-    });
-    if (!_isNode(currentNode.firstElementChild) && (!_isNode(currentNode.content) || !_isNode(currentNode.content.firstElementChild)) && regExpTest(/<[/\w]/g, currentNode.innerHTML) && regExpTest(/<[/\w]/g, currentNode.textContent)) {
-      _forceRemove(currentNode);
-      return true;
-    }
-    if (tagName === "select" && regExpTest(/<template/i, currentNode.innerHTML)) {
-      _forceRemove(currentNode);
-      return true;
-    }
-    if (!ALLOWED_TAGS[tagName] || FORBID_TAGS[tagName]) {
-      if (KEEP_CONTENT && !FORBID_CONTENTS[tagName]) {
-        var parentNode = getParentNode(currentNode) || currentNode.parentNode;
-        var childNodes = getChildNodes(currentNode) || currentNode.childNodes;
-        if (childNodes && parentNode) {
-          var childCount = childNodes.length;
-          for (var i = childCount - 1; i >= 0; --i) {
-            parentNode.insertBefore(cloneNode(childNodes[i], true), getNextSibling(currentNode));
-          }
-        }
-      }
-      _forceRemove(currentNode);
-      return true;
-    }
-    if (currentNode instanceof Element && !_checkValidNamespace(currentNode)) {
-      _forceRemove(currentNode);
-      return true;
-    }
-    if ((tagName === "noscript" || tagName === "noembed") && regExpTest(/<\/no(script|embed)/i, currentNode.innerHTML)) {
-      _forceRemove(currentNode);
-      return true;
-    }
-    if (SAFE_FOR_TEMPLATES && currentNode.nodeType === 3) {
-      content = currentNode.textContent;
-      content = stringReplace(content, MUSTACHE_EXPR$$1, " ");
-      content = stringReplace(content, ERB_EXPR$$1, " ");
-      if (currentNode.textContent !== content) {
-        arrayPush(DOMPurify.removed, { element: currentNode.cloneNode() });
-        currentNode.textContent = content;
-      }
-    }
-    _executeHook("afterSanitizeElements", currentNode, null);
-    return false;
-  };
-  var _isValidAttribute = function _isValidAttribute2(lcTag, lcName, value) {
-    if (SANITIZE_DOM && (lcName === "id" || lcName === "name") && (value in document2 || value in formElement)) {
-      return false;
-    }
-    if (ALLOW_DATA_ATTR && !FORBID_ATTR[lcName] && regExpTest(DATA_ATTR$$1, lcName))
-      ;
-    else if (ALLOW_ARIA_ATTR && regExpTest(ARIA_ATTR$$1, lcName))
-      ;
-    else if (!ALLOWED_ATTR[lcName] || FORBID_ATTR[lcName]) {
-      return false;
-    } else if (URI_SAFE_ATTRIBUTES[lcName])
-      ;
-    else if (regExpTest(IS_ALLOWED_URI$$1, stringReplace(value, ATTR_WHITESPACE$$1, "")))
-      ;
-    else if ((lcName === "src" || lcName === "xlink:href" || lcName === "href") && lcTag !== "script" && stringIndexOf(value, "data:") === 0 && DATA_URI_TAGS[lcTag])
-      ;
-    else if (ALLOW_UNKNOWN_PROTOCOLS && !regExpTest(IS_SCRIPT_OR_DATA$$1, stringReplace(value, ATTR_WHITESPACE$$1, "")))
-      ;
-    else if (!value)
-      ;
-    else {
-      return false;
-    }
-    return true;
-  };
-  var _sanitizeAttributes = function _sanitizeAttributes2(currentNode) {
-    var attr = void 0;
-    var value = void 0;
-    var lcName = void 0;
-    var l = void 0;
-    _executeHook("beforeSanitizeAttributes", currentNode, null);
-    var attributes = currentNode.attributes;
-    if (!attributes) {
-      return;
-    }
-    var hookEvent = {
-      attrName: "",
-      attrValue: "",
-      keepAttr: true,
-      allowedAttributes: ALLOWED_ATTR
-    };
-    l = attributes.length;
-    while (l--) {
-      attr = attributes[l];
-      var _attr = attr, name = _attr.name, namespaceURI = _attr.namespaceURI;
-      value = stringTrim(attr.value);
-      lcName = stringToLowerCase(name);
-      hookEvent.attrName = lcName;
-      hookEvent.attrValue = value;
-      hookEvent.keepAttr = true;
-      hookEvent.forceKeepAttr = void 0;
-      _executeHook("uponSanitizeAttribute", currentNode, hookEvent);
-      value = hookEvent.attrValue;
-      if (hookEvent.forceKeepAttr) {
-        continue;
-      }
-      _removeAttribute(name, currentNode);
-      if (!hookEvent.keepAttr) {
-        continue;
-      }
-      if (regExpTest(/\/>/i, value)) {
-        _removeAttribute(name, currentNode);
-        continue;
-      }
-      if (SAFE_FOR_TEMPLATES) {
-        value = stringReplace(value, MUSTACHE_EXPR$$1, " ");
-        value = stringReplace(value, ERB_EXPR$$1, " ");
-      }
-      var lcTag = currentNode.nodeName.toLowerCase();
-      if (!_isValidAttribute(lcTag, lcName, value)) {
-        continue;
-      }
-      try {
-        if (namespaceURI) {
-          currentNode.setAttributeNS(namespaceURI, name, value);
-        } else {
-          currentNode.setAttribute(name, value);
-        }
-        arrayPop(DOMPurify.removed);
-      } catch (_) {
-      }
-    }
-    _executeHook("afterSanitizeAttributes", currentNode, null);
-  };
-  var _sanitizeShadowDOM = function _sanitizeShadowDOM2(fragment) {
-    var shadowNode = void 0;
-    var shadowIterator = _createIterator(fragment);
-    _executeHook("beforeSanitizeShadowDOM", fragment, null);
-    while (shadowNode = shadowIterator.nextNode()) {
-      _executeHook("uponSanitizeShadowNode", shadowNode, null);
-      if (_sanitizeElements(shadowNode)) {
-        continue;
-      }
-      if (shadowNode.content instanceof DocumentFragment) {
-        _sanitizeShadowDOM2(shadowNode.content);
-      }
-      _sanitizeAttributes(shadowNode);
-    }
-    _executeHook("afterSanitizeShadowDOM", fragment, null);
-  };
-  DOMPurify.sanitize = function(dirty, cfg) {
-    var body = void 0;
-    var importedNode = void 0;
-    var currentNode = void 0;
-    var oldNode = void 0;
-    var returnNode = void 0;
-    IS_EMPTY_INPUT = !dirty;
-    if (IS_EMPTY_INPUT) {
-      dirty = "<!-->";
-    }
-    if (typeof dirty !== "string" && !_isNode(dirty)) {
-      if (typeof dirty.toString !== "function") {
-        throw typeErrorCreate("toString is not a function");
-      } else {
-        dirty = dirty.toString();
-        if (typeof dirty !== "string") {
-          throw typeErrorCreate("dirty is not a string, aborting");
-        }
-      }
-    }
-    if (!DOMPurify.isSupported) {
-      if (_typeof(window2.toStaticHTML) === "object" || typeof window2.toStaticHTML === "function") {
-        if (typeof dirty === "string") {
-          return window2.toStaticHTML(dirty);
-        }
-        if (_isNode(dirty)) {
-          return window2.toStaticHTML(dirty.outerHTML);
-        }
-      }
-      return dirty;
-    }
-    if (!SET_CONFIG) {
-      _parseConfig(cfg);
-    }
-    DOMPurify.removed = [];
-    if (typeof dirty === "string") {
-      IN_PLACE = false;
-    }
-    if (IN_PLACE)
-      ;
-    else if (dirty instanceof Node) {
-      body = _initDocument("<!---->");
-      importedNode = body.ownerDocument.importNode(dirty, true);
-      if (importedNode.nodeType === 1 && importedNode.nodeName === "BODY") {
-        body = importedNode;
-      } else if (importedNode.nodeName === "HTML") {
-        body = importedNode;
-      } else {
-        body.appendChild(importedNode);
-      }
-    } else {
-      if (!RETURN_DOM && !SAFE_FOR_TEMPLATES && !WHOLE_DOCUMENT && dirty.indexOf("<") === -1) {
-        return trustedTypesPolicy && RETURN_TRUSTED_TYPE ? trustedTypesPolicy.createHTML(dirty) : dirty;
-      }
-      body = _initDocument(dirty);
-      if (!body) {
-        return RETURN_DOM ? null : emptyHTML;
-      }
-    }
-    if (body && FORCE_BODY) {
-      _forceRemove(body.firstChild);
-    }
-    var nodeIterator = _createIterator(IN_PLACE ? dirty : body);
-    while (currentNode = nodeIterator.nextNode()) {
-      if (currentNode.nodeType === 3 && currentNode === oldNode) {
-        continue;
-      }
-      if (_sanitizeElements(currentNode)) {
-        continue;
-      }
-      if (currentNode.content instanceof DocumentFragment) {
-        _sanitizeShadowDOM(currentNode.content);
-      }
-      _sanitizeAttributes(currentNode);
-      oldNode = currentNode;
-    }
-    oldNode = null;
-    if (IN_PLACE) {
-      return dirty;
-    }
-    if (RETURN_DOM) {
-      if (RETURN_DOM_FRAGMENT) {
-        returnNode = createDocumentFragment.call(body.ownerDocument);
-        while (body.firstChild) {
-          returnNode.appendChild(body.firstChild);
-        }
-      } else {
-        returnNode = body;
-      }
-      if (RETURN_DOM_IMPORT) {
-        returnNode = importNode.call(originalDocument, returnNode, true);
-      }
-      return returnNode;
-    }
-    var serializedHTML = WHOLE_DOCUMENT ? body.outerHTML : body.innerHTML;
-    if (SAFE_FOR_TEMPLATES) {
-      serializedHTML = stringReplace(serializedHTML, MUSTACHE_EXPR$$1, " ");
-      serializedHTML = stringReplace(serializedHTML, ERB_EXPR$$1, " ");
-    }
-    return trustedTypesPolicy && RETURN_TRUSTED_TYPE ? trustedTypesPolicy.createHTML(serializedHTML) : serializedHTML;
-  };
-  DOMPurify.setConfig = function(cfg) {
-    _parseConfig(cfg);
-    SET_CONFIG = true;
-  };
-  DOMPurify.clearConfig = function() {
-    CONFIG = null;
-    SET_CONFIG = false;
-  };
-  DOMPurify.isValidAttribute = function(tag, attr, value) {
-    if (!CONFIG) {
-      _parseConfig({});
-    }
-    var lcTag = stringToLowerCase(tag);
-    var lcName = stringToLowerCase(attr);
-    return _isValidAttribute(lcTag, lcName, value);
-  };
-  DOMPurify.addHook = function(entryPoint, hookFunction) {
-    if (typeof hookFunction !== "function") {
-      return;
-    }
-    hooks[entryPoint] = hooks[entryPoint] || [];
-    arrayPush(hooks[entryPoint], hookFunction);
-  };
-  DOMPurify.removeHook = function(entryPoint) {
-    if (hooks[entryPoint]) {
-      arrayPop(hooks[entryPoint]);
-    }
-  };
-  DOMPurify.removeHooks = function(entryPoint) {
-    if (hooks[entryPoint]) {
-      hooks[entryPoint] = [];
-    }
-  };
-  DOMPurify.removeAllHooks = function() {
-    hooks = {};
-  };
-  return DOMPurify;
-}
-var purify = createDOMPurify();
-var version = purify.version;
-var isSupported = purify.isSupported;
-var sanitize = purify.sanitize;
-var setConfig = purify.setConfig;
-var clearConfig = purify.clearConfig;
-var isValidAttribute = purify.isValidAttribute;
-var addHook = purify.addHook;
-var removeHook = purify.removeHook;
-var removeHooks = purify.removeHooks;
-var removeAllHooks = purify.removeAllHooks;
-
-// ../../node_modules/monaco-editor/esm/vs/base/browser/markdownRenderer.js
+init_dompurify();
 init_formattedTextRenderer();
 init_mouseEvent();
 init_async();
@@ -15868,21 +15158,21 @@ var __marked_exports = {};
     var getEscapeReplacement = function getEscapeReplacement2(ch) {
       return escapeReplacements[ch];
     };
-    function escape2(html2, encode) {
+    function escape2(html, encode) {
       if (encode) {
-        if (escapeTest.test(html2)) {
-          return html2.replace(escapeReplace, getEscapeReplacement);
+        if (escapeTest.test(html)) {
+          return html.replace(escapeReplace, getEscapeReplacement);
         }
       } else {
-        if (escapeTestNoEncode.test(html2)) {
-          return html2.replace(escapeReplaceNoEncode, getEscapeReplacement);
+        if (escapeTestNoEncode.test(html)) {
+          return html.replace(escapeReplaceNoEncode, getEscapeReplacement);
         }
       }
-      return html2;
+      return html;
     }
     var unescapeTest = /&(#(?:\d+)|(?:#x[0-9A-Fa-f]+)|(?:\w+));?/ig;
-    function unescape(html2) {
-      return html2.replace(unescapeTest, function(_, n) {
+    function unescape(html) {
+      return html.replace(unescapeTest, function(_, n) {
         n = n.toLowerCase();
         if (n === "colon")
           return ":";
@@ -15894,7 +15184,7 @@ var __marked_exports = {};
     }
     var caret = /(^|[^\[])\^/g;
     function edit(regex, opt) {
-      regex = regex.source || regex;
+      regex = typeof regex === "string" ? regex : regex.source;
       opt = opt || "";
       var obj = {
         replace: function replace(name, val) {
@@ -15993,7 +15283,7 @@ var __marked_exports = {};
       if (!cells[0].trim()) {
         cells.shift();
       }
-      if (!cells[cells.length - 1].trim()) {
+      if (cells.length > 0 && !cells[cells.length - 1].trim()) {
         cells.pop();
       }
       if (cells.length > count) {
@@ -16024,7 +15314,7 @@ var __marked_exports = {};
           break;
         }
       }
-      return str.substr(0, l - suffLen);
+      return str.slice(0, l - suffLen);
     }
     function findClosingBracket(str, b) {
       if (str.indexOf(b[1]) === -1) {
@@ -16068,7 +15358,7 @@ var __marked_exports = {};
     function outputLink(cap, link, raw, lexer2) {
       var href = link.href;
       var title = link.title ? escape2(link.title) : null;
-      var text2 = cap[1].replace(/\\([\[\]])/g, "$1");
+      var text = cap[1].replace(/\\([\[\]])/g, "$1");
       if (cap[0].charAt(0) !== "!") {
         lexer2.state.inLink = true;
         var token = {
@@ -16076,28 +15366,27 @@ var __marked_exports = {};
           raw,
           href,
           title,
-          text: text2,
-          tokens: lexer2.inlineTokens(text2, [])
+          text,
+          tokens: lexer2.inlineTokens(text, [])
         };
         lexer2.state.inLink = false;
         return token;
-      } else {
-        return {
-          type: "image",
-          raw,
-          href,
-          title,
-          text: escape2(text2)
-        };
       }
+      return {
+        type: "image",
+        raw,
+        href,
+        title,
+        text: escape2(text)
+      };
     }
-    function indentCodeCompensation(raw, text2) {
+    function indentCodeCompensation(raw, text) {
       var matchIndentToCode = raw.match(/^(\s+)(?:```)/);
       if (matchIndentToCode === null) {
-        return text2;
+        return text;
       }
       var indentToCode = matchIndentToCode[1];
-      return text2.split("\n").map(function(node) {
+      return text.split("\n").map(function(node) {
         var matchIndentInNode = node.match(/^\s+/);
         if (matchIndentInNode === null) {
           return node;
@@ -16126,12 +15415,12 @@ var __marked_exports = {};
       _proto.code = function code(src) {
         var cap = this.rules.block.code.exec(src);
         if (cap) {
-          var text2 = cap[0].replace(/^ {1,4}/gm, "");
+          var text = cap[0].replace(/^ {1,4}/gm, "");
           return {
             type: "code",
             raw: cap[0],
             codeBlockStyle: "indented",
-            text: !this.options.pedantic ? rtrim(text2, "\n") : text2
+            text: !this.options.pedantic ? rtrim(text, "\n") : text
           };
         }
       };
@@ -16139,32 +15428,32 @@ var __marked_exports = {};
         var cap = this.rules.block.fences.exec(src);
         if (cap) {
           var raw = cap[0];
-          var text2 = indentCodeCompensation(raw, cap[3] || "");
+          var text = indentCodeCompensation(raw, cap[3] || "");
           return {
             type: "code",
             raw,
             lang: cap[2] ? cap[2].trim() : cap[2],
-            text: text2
+            text
           };
         }
       };
       _proto.heading = function heading(src) {
         var cap = this.rules.block.heading.exec(src);
         if (cap) {
-          var text2 = cap[2].trim();
-          if (/#$/.test(text2)) {
-            var trimmed = rtrim(text2, "#");
+          var text = cap[2].trim();
+          if (/#$/.test(text)) {
+            var trimmed = rtrim(text, "#");
             if (this.options.pedantic) {
-              text2 = trimmed.trim();
+              text = trimmed.trim();
             } else if (!trimmed || / $/.test(trimmed)) {
-              text2 = trimmed.trim();
+              text = trimmed.trim();
             }
           }
           var token = {
             type: "heading",
             raw: cap[0],
             depth: cap[1].length,
-            text: text2,
+            text,
             tokens: []
           };
           this.lexer.inline(token.text, token.tokens);
@@ -16183,12 +15472,12 @@ var __marked_exports = {};
       _proto.blockquote = function blockquote(src) {
         var cap = this.rules.block.blockquote.exec(src);
         if (cap) {
-          var text2 = cap[0].replace(/^ *> ?/gm, "");
+          var text = cap[0].replace(/^ *>[ \t]?/gm, "");
           return {
             type: "blockquote",
             raw: cap[0],
-            tokens: this.lexer.blockTokens(text2, []),
-            text: text2
+            tokens: this.lexer.blockTokens(text, []),
+            text
           };
         }
       };
@@ -16210,7 +15499,7 @@ var __marked_exports = {};
           if (this.options.pedantic) {
             bull = isordered ? bull : "[*+-]";
           }
-          var itemRegex = new RegExp("^( {0,3}" + bull + ")((?: [^\\n]*)?(?:\\n|$))");
+          var itemRegex = new RegExp("^( {0,3}" + bull + ")((?:[	 ][^\\n]*)?(?:\\n|$))");
           while (src) {
             endEarly = false;
             if (!(cap = itemRegex.exec(src))) {
@@ -16239,7 +15528,8 @@ var __marked_exports = {};
               endEarly = true;
             }
             if (!endEarly) {
-              var nextBulletRegex = new RegExp("^ {0," + Math.min(3, indent - 1) + "}(?:[*+-]|\\d{1,9}[.)])");
+              var nextBulletRegex = new RegExp("^ {0," + Math.min(3, indent - 1) + "}(?:[*+-]|\\d{1,9}[.)])((?: [^\\n]*)?(?:\\n|$))");
+              var hrRegex = new RegExp("^ {0," + Math.min(3, indent - 1) + "}((?:- *){3,}|(?:_ *){3,}|(?:\\* *){3,})(?:\\n+|$)");
               while (src) {
                 rawLine = src.split("\n", 1)[0];
                 line = rawLine;
@@ -16247,6 +15537,9 @@ var __marked_exports = {};
                   line = line.replace(/^ {1,4}(?=( {4})*[^ ])/g, "  ");
                 }
                 if (nextBulletRegex.test(line)) {
+                  break;
+                }
+                if (hrRegex.test(src)) {
                   break;
                 }
                 if (line.search(/[^ ]/) >= indent || !line.trim()) {
@@ -16319,7 +15612,7 @@ var __marked_exports = {};
           return list2;
         }
       };
-      _proto.html = function html2(src) {
+      _proto.html = function html(src) {
         var cap = this.rules.block.html.exec(src);
         if (cap) {
           var token = {
@@ -16363,7 +15656,7 @@ var __marked_exports = {};
               };
             }),
             align: cap[2].replace(/^ *|\| *$/g, "").split(/ *\| */),
-            rows: cap[3] ? cap[3].replace(/\n[ \t]*$/, "").split("\n") : []
+            rows: cap[3] && cap[3].trim() ? cap[3].replace(/\n[ \t]*$/, "").split("\n") : []
           };
           if (item.header.length === item.align.length) {
             item.raw = cap[0];
@@ -16391,14 +15684,14 @@ var __marked_exports = {};
             l = item.header.length;
             for (j = 0; j < l; j++) {
               item.header[j].tokens = [];
-              this.lexer.inlineTokens(item.header[j].text, item.header[j].tokens);
+              this.lexer.inline(item.header[j].text, item.header[j].tokens);
             }
             l = item.rows.length;
             for (j = 0; j < l; j++) {
               row = item.rows[j];
               for (k = 0; k < row.length; k++) {
                 row[k].tokens = [];
-                this.lexer.inlineTokens(row[k].text, row[k].tokens);
+                this.lexer.inline(row[k].text, row[k].tokens);
               }
             }
             return item;
@@ -16432,7 +15725,7 @@ var __marked_exports = {};
           return token;
         }
       };
-      _proto.text = function text2(src) {
+      _proto.text = function text(src) {
         var cap = this.rules.block.text.exec(src);
         if (cap) {
           var token = {
@@ -16530,11 +15823,11 @@ var __marked_exports = {};
           var link = (cap[2] || cap[1]).replace(/\s+/g, " ");
           link = links[link.toLowerCase()];
           if (!link || !link.href) {
-            var text2 = cap[0].charAt(0);
+            var text = cap[0].charAt(0);
             return {
               type: "text",
-              raw: text2,
-              text: text2
+              raw: text,
+              text
             };
           }
           return outputLink(cap, link, cap[0], this.lexer);
@@ -16583,12 +15876,12 @@ var __marked_exports = {};
                 tokens: this.lexer.inlineTokens(_text, [])
               };
             }
-            var text2 = src.slice(2, lLength + match.index + rLength - 1);
+            var text = src.slice(2, lLength + match.index + rLength - 1);
             return {
               type: "strong",
               raw: src.slice(0, lLength + match.index + rLength + 1),
-              text: text2,
-              tokens: this.lexer.inlineTokens(text2, [])
+              text,
+              tokens: this.lexer.inlineTokens(text, [])
             };
           }
         }
@@ -16596,17 +15889,17 @@ var __marked_exports = {};
       _proto.codespan = function codespan(src) {
         var cap = this.rules.inline.code.exec(src);
         if (cap) {
-          var text2 = cap[2].replace(/\n/g, " ");
-          var hasNonSpaceChars = /[^ ]/.test(text2);
-          var hasSpaceCharsOnBothEnds = /^ /.test(text2) && / $/.test(text2);
+          var text = cap[2].replace(/\n/g, " ");
+          var hasNonSpaceChars = /[^ ]/.test(text);
+          var hasSpaceCharsOnBothEnds = /^ /.test(text) && / $/.test(text);
           if (hasNonSpaceChars && hasSpaceCharsOnBothEnds) {
-            text2 = text2.substring(1, text2.length - 1);
+            text = text.substring(1, text.length - 1);
           }
-          text2 = escape2(text2, true);
+          text = escape2(text, true);
           return {
             type: "codespan",
             raw: cap[0],
-            text: text2
+            text
           };
         }
       };
@@ -16633,23 +15926,23 @@ var __marked_exports = {};
       _proto.autolink = function autolink(src, mangle2) {
         var cap = this.rules.inline.autolink.exec(src);
         if (cap) {
-          var text2, href;
+          var text, href;
           if (cap[2] === "@") {
-            text2 = escape2(this.options.mangle ? mangle2(cap[1]) : cap[1]);
-            href = "mailto:" + text2;
+            text = escape2(this.options.mangle ? mangle2(cap[1]) : cap[1]);
+            href = "mailto:" + text;
           } else {
-            text2 = escape2(cap[1]);
-            href = text2;
+            text = escape2(cap[1]);
+            href = text;
           }
           return {
             type: "link",
             raw: cap[0],
-            text: text2,
+            text,
             href,
             tokens: [{
               type: "text",
-              raw: text2,
-              text: text2
+              raw: text,
+              text
             }]
           };
         }
@@ -16657,32 +15950,32 @@ var __marked_exports = {};
       _proto.url = function url(src, mangle2) {
         var cap;
         if (cap = this.rules.inline.url.exec(src)) {
-          var text2, href;
+          var text, href;
           if (cap[2] === "@") {
-            text2 = escape2(this.options.mangle ? mangle2(cap[0]) : cap[0]);
-            href = "mailto:" + text2;
+            text = escape2(this.options.mangle ? mangle2(cap[0]) : cap[0]);
+            href = "mailto:" + text;
           } else {
             var prevCapZero;
             do {
               prevCapZero = cap[0];
               cap[0] = this.rules.inline._backpedal.exec(cap[0])[0];
             } while (prevCapZero !== cap[0]);
-            text2 = escape2(cap[0]);
+            text = escape2(cap[0]);
             if (cap[1] === "www.") {
-              href = "http://" + text2;
+              href = "http://" + text;
             } else {
-              href = text2;
+              href = text;
             }
           }
           return {
             type: "link",
             raw: cap[0],
-            text: text2,
+            text,
             href,
             tokens: [{
               type: "text",
-              raw: text2,
-              text: text2
+              raw: text,
+              text
             }]
           };
         }
@@ -16690,16 +15983,16 @@ var __marked_exports = {};
       _proto.inlineText = function inlineText(src, smartypants2) {
         var cap = this.rules.inline.text.exec(src);
         if (cap) {
-          var text2;
+          var text;
           if (this.lexer.state.inRawBlock) {
-            text2 = this.options.sanitize ? this.options.sanitizer ? this.options.sanitizer(cap[0]) : escape2(cap[0]) : cap[0];
+            text = this.options.sanitize ? this.options.sanitizer ? this.options.sanitizer(cap[0]) : escape2(cap[0]) : cap[0];
           } else {
-            text2 = escape2(this.options.smartypants ? smartypants2(cap[0]) : cap[0]);
+            text = escape2(this.options.smartypants ? smartypants2(cap[0]) : cap[0]);
           }
           return {
             type: "text",
             raw: cap[0],
-            text: text2
+            text
           };
         }
       };
@@ -16709,10 +16002,10 @@ var __marked_exports = {};
       newline: /^(?: *(?:\n|$))+/,
       code: /^( {4}[^\n]+(?:\n(?: *(?:\n|$))*)?)+/,
       fences: /^ {0,3}(`{3,}(?=[^`\n]*\n)|~{3,})([^\n]*)\n(?:|([\s\S]*?)\n)(?: {0,3}\1[~`]* *(?=\n|$)|$)/,
-      hr: /^ {0,3}((?:- *){3,}|(?:_ *){3,}|(?:\* *){3,})(?:\n+|$)/,
+      hr: /^ {0,3}((?:-[\t ]*){3,}|(?:_[ \t]*){3,}|(?:\*[ \t]*){3,})(?:\n+|$)/,
       heading: /^ {0,3}(#{1,6})(?=\s|$)(.*)(?:\n+|$)/,
       blockquote: /^( {0,3}> ?(paragraph|[^\n]*)(?:\n|$))+/,
-      list: /^( {0,3}bull)( [^\n]+?)?(?:\n|$)/,
+      list: /^( {0,3}bull)([ \t][^\n]+?)?(?:\n|$)/,
       html: "^ {0,3}(?:<(script|pre|style|textarea)[\\s>][\\s\\S]*?(?:</\\1>[^\\n]*\\n+|$)|comment[^\\n]*(\\n+|$)|<\\?[\\s\\S]*?(?:\\?>\\n*|$)|<![A-Z][\\s\\S]*?(?:>\\n*|$)|<!\\[CDATA\\[[\\s\\S]*?(?:\\]\\]>\\n*|$)|</?(tag)(?: +|\\n|/?>)[\\s\\S]*?(?:(?:\\n *)+\\n|$)|<(?!script|pre|style|textarea)([a-z][\\w-]*)(?:attribute)*? */?>(?=[ \\t]*(?:\\n|$))[\\s\\S]*?(?:(?:\\n *)+\\n|$)|</(?!script|pre|style|textarea)[a-z][\\w-]*\\s*>(?=[ \\t]*(?:\\n|$))[\\s\\S]*?(?:(?:\\n *)+\\n|$))",
       def: /^ {0,3}\[(label)\]: *(?:\n *)?<?([^\s>]+)>?(?:(?: +(?:\n *)?| *\n *)(title))? *(?:\n+|$)/,
       table: noopTest,
@@ -16755,8 +16048,8 @@ var __marked_exports = {};
       reflinkSearch: "reflink|nolink(?!\\()",
       emStrong: {
         lDelim: /^(?:\*+(?:([punct_])|[^\s*]))|^_+(?:([punct*])|([^\s_]))/,
-        rDelimAst: /^[^_*]*?\_\_[^_*]*?\*[^_*]*?(?=\_\_)|[punct_](\*+)(?=[\s]|$)|[^punct*_\s](\*+)(?=[punct_\s]|$)|[punct_\s](\*+)(?=[^punct*_\s])|[\s](\*+)(?=[punct_])|[punct_](\*+)(?=[punct_])|[^punct*_\s](\*+)(?=[^punct*_\s])/,
-        rDelimUnd: /^[^_*]*?\*\*[^_*]*?\_[^_*]*?(?=\*\*)|[punct*](\_+)(?=[\s]|$)|[^punct*_\s](\_+)(?=[punct*\s]|$)|[punct*\s](\_+)(?=[^punct*_\s])|[\s](\_+)(?=[punct*])|[punct*](\_+)(?=[punct*])/
+        rDelimAst: /^[^_*]*?\_\_[^_*]*?\*[^_*]*?(?=\_\_)|[^*]+(?=[^*])|[punct_](\*+)(?=[\s]|$)|[^punct*_\s](\*+)(?=[punct_\s]|$)|[punct_\s](\*+)(?=[^punct*_\s])|[\s](\*+)(?=[punct_])|[punct_](\*+)(?=[punct_])|[^punct*_\s](\*+)(?=[^punct*_\s])/,
+        rDelimUnd: /^[^_*]*?\*\*[^_*]*?\_[^_*]*?(?=\*\*)|[^_]+(?=[^_])|[punct*](\_+)(?=[\s]|$)|[^punct*_\s](\_+)(?=[punct*\s]|$)|[punct*\s](\_+)(?=[^punct*_\s])|[\s](\_+)(?=[punct*])|[punct*](\_+)(?=[punct*])/
       },
       code: /^(`+)([^`]|[^`][\s\S]*?[^`])\1(?!`)/,
       br: /^( {2,}|\\)\n(?!\s*$)/,
@@ -16815,14 +16108,14 @@ var __marked_exports = {};
       br: edit(inline.br).replace("{2,}", "*").getRegex(),
       text: edit(inline.gfm.text).replace("\\b_", "\\b_| {2,}\\n").replace(/\{2,\}/g, "*").getRegex()
     });
-    function smartypants(text2) {
-      return text2.replace(/---/g, "\u2014").replace(/--/g, "\u2013").replace(/(^|[-\u2014/(\[{"\s])'/g, "$1\u2018").replace(/'/g, "\u2019").replace(/(^|[-\u2014/(\[{\u2018\s])"/g, "$1\u201C").replace(/"/g, "\u201D").replace(/\.{3}/g, "\u2026");
+    function smartypants(text) {
+      return text.replace(/---/g, "\u2014").replace(/--/g, "\u2013").replace(/(^|[-\u2014/(\[{"\s])'/g, "$1\u2018").replace(/'/g, "\u2019").replace(/(^|[-\u2014/(\[{\u2018\s])"/g, "$1\u201C").replace(/"/g, "\u201D").replace(/\.{3}/g, "\u2026");
     }
-    function mangle(text2) {
+    function mangle(text) {
       var out = "", i, ch;
-      var l = text2.length;
+      var l = text.length;
       for (i = 0; i < l; i++) {
-        ch = text2.charCodeAt(i);
+        ch = text.charCodeAt(i);
         if (Math.random() > 0.5) {
           ch = "x" + ch.toString(16);
         }
@@ -16872,7 +16165,7 @@ var __marked_exports = {};
       };
       var _proto = Lexer2.prototype;
       _proto.lex = function lex(src) {
-        src = src.replace(/\r\n|\r/g, "\n").replace(/\t/g, "    ");
+        src = src.replace(/\r\n|\r/g, "\n");
         this.blockTokens(src, this.tokens);
         var next;
         while (next = this.inlineQueue.shift()) {
@@ -16886,7 +16179,11 @@ var __marked_exports = {};
           tokens = [];
         }
         if (this.options.pedantic) {
-          src = src.replace(/^ +$/gm, "");
+          src = src.replace(/\t/g, "    ").replace(/^ +$/gm, "");
+        } else {
+          src = src.replace(/^( *)(\t+)/gm, function(_, leading, tabs) {
+            return leading + "    ".repeat(tabs.length);
+          });
         }
         var token, lastToken, cutSrc, lastParagraphClipped;
         while (src) {
@@ -17227,14 +16524,15 @@ var __marked_exports = {};
       _proto.blockquote = function blockquote(quote) {
         return "<blockquote>\n" + quote + "</blockquote>\n";
       };
-      _proto.html = function html2(_html) {
+      _proto.html = function html(_html) {
         return _html;
       };
-      _proto.heading = function heading(text2, level, raw, slugger) {
+      _proto.heading = function heading(text, level, raw, slugger) {
         if (this.options.headerIds) {
-          return "<h" + level + ' id="' + this.options.headerPrefix + slugger.slug(raw) + '">' + text2 + "</h" + level + ">\n";
+          var id = this.options.headerPrefix + slugger.slug(raw);
+          return "<h" + level + ' id="' + id + '">' + text + "</h" + level + ">\n";
         }
-        return "<h" + level + ">" + text2 + "</h" + level + ">\n";
+        return "<h" + level + ">" + text + "</h" + level + ">\n";
       };
       _proto.hr = function hr() {
         return this.options.xhtml ? "<hr/>\n" : "<hr>\n";
@@ -17243,14 +16541,14 @@ var __marked_exports = {};
         var type = ordered ? "ol" : "ul", startatt = ordered && start !== 1 ? ' start="' + start + '"' : "";
         return "<" + type + startatt + ">\n" + body + "</" + type + ">\n";
       };
-      _proto.listitem = function listitem(text2) {
-        return "<li>" + text2 + "</li>\n";
+      _proto.listitem = function listitem(text) {
+        return "<li>" + text + "</li>\n";
       };
       _proto.checkbox = function checkbox(checked) {
         return "<input " + (checked ? 'checked="" ' : "") + 'disabled="" type="checkbox"' + (this.options.xhtml ? " /" : "") + "> ";
       };
-      _proto.paragraph = function paragraph(text2) {
-        return "<p>" + text2 + "</p>\n";
+      _proto.paragraph = function paragraph(text) {
+        return "<p>" + text + "</p>\n";
       };
       _proto.table = function table(header, body) {
         if (body)
@@ -17263,48 +16561,48 @@ var __marked_exports = {};
       _proto.tablecell = function tablecell(content, flags) {
         var type = flags.header ? "th" : "td";
         var tag = flags.align ? "<" + type + ' align="' + flags.align + '">' : "<" + type + ">";
-        return tag + content + "</" + type + ">\n";
+        return tag + content + ("</" + type + ">\n");
       };
-      _proto.strong = function strong(text2) {
-        return "<strong>" + text2 + "</strong>";
+      _proto.strong = function strong(text) {
+        return "<strong>" + text + "</strong>";
       };
-      _proto.em = function em(text2) {
-        return "<em>" + text2 + "</em>";
+      _proto.em = function em(text) {
+        return "<em>" + text + "</em>";
       };
-      _proto.codespan = function codespan(text2) {
-        return "<code>" + text2 + "</code>";
+      _proto.codespan = function codespan(text) {
+        return "<code>" + text + "</code>";
       };
       _proto.br = function br() {
         return this.options.xhtml ? "<br/>" : "<br>";
       };
-      _proto.del = function del(text2) {
-        return "<del>" + text2 + "</del>";
+      _proto.del = function del(text) {
+        return "<del>" + text + "</del>";
       };
-      _proto.link = function link(href, title, text2) {
+      _proto.link = function link(href, title, text) {
         href = cleanUrl(this.options.sanitize, this.options.baseUrl, href);
         if (href === null) {
-          return text2;
+          return text;
         }
         var out = '<a href="' + escape2(href) + '"';
         if (title) {
           out += ' title="' + title + '"';
         }
-        out += ">" + text2 + "</a>";
+        out += ">" + text + "</a>";
         return out;
       };
-      _proto.image = function image(href, title, text2) {
+      _proto.image = function image(href, title, text) {
         href = cleanUrl(this.options.sanitize, this.options.baseUrl, href);
         if (href === null) {
-          return text2;
+          return text;
         }
-        var out = '<img src="' + href + '" alt="' + text2 + '"';
+        var out = '<img src="' + href + '" alt="' + text + '"';
         if (title) {
           out += ' title="' + title + '"';
         }
         out += this.options.xhtml ? "/>" : ">";
         return out;
       };
-      _proto.text = function text2(_text) {
+      _proto.text = function text(_text) {
         return _text;
       };
       return Renderer2;
@@ -17313,29 +16611,29 @@ var __marked_exports = {};
       function TextRenderer2() {
       }
       var _proto = TextRenderer2.prototype;
-      _proto.strong = function strong(text2) {
-        return text2;
+      _proto.strong = function strong(text) {
+        return text;
       };
-      _proto.em = function em(text2) {
-        return text2;
+      _proto.em = function em(text) {
+        return text;
       };
-      _proto.codespan = function codespan(text2) {
-        return text2;
+      _proto.codespan = function codespan(text) {
+        return text;
       };
-      _proto.del = function del(text2) {
-        return text2;
+      _proto.del = function del(text) {
+        return text;
       };
-      _proto.html = function html2(text2) {
-        return text2;
+      _proto.html = function html(text) {
+        return text;
       };
-      _proto.text = function text2(_text) {
+      _proto.text = function text(_text) {
         return _text;
       };
-      _proto.link = function link(href, title, text2) {
-        return "" + text2;
+      _proto.link = function link(href, title, text) {
+        return "" + text;
       };
-      _proto.image = function image(href, title, text2) {
-        return "" + text2;
+      _proto.image = function image(href, title, text) {
+        return "" + text;
       };
       _proto.br = function br() {
         return "";
@@ -17962,46 +17260,38 @@ function renderMarkdown(markdown, options = {}, markedOptions = {}) {
   let signalInnerHTML;
   const withInnerHTML = new Promise((c) => signalInnerHTML = c);
   const renderer = new marked.Renderer();
-  renderer.image = (href, title, text2) => {
+  renderer.image = (href, title, text) => {
     let dimensions = [];
     let attributes = [];
     if (href) {
       ({ href, dimensions } = parseHrefAndDimensions(href));
-      attributes.push(`src="${href}"`);
+      attributes.push(`src="${escapeDoubleQuotes(href)}"`);
     }
-    if (text2) {
-      attributes.push(`alt="${text2}"`);
+    if (text) {
+      attributes.push(`alt="${escapeDoubleQuotes(text)}"`);
     }
     if (title) {
-      attributes.push(`title="${title}"`);
+      attributes.push(`title="${escapeDoubleQuotes(title)}"`);
     }
     if (dimensions.length) {
       attributes = attributes.concat(dimensions);
     }
     return "<img " + attributes.join(" ") + ">";
   };
-  renderer.link = (href, title, text2) => {
+  renderer.link = (href, title, text) => {
     if (typeof href !== "string") {
       return "";
     }
-    if (href === text2) {
-      text2 = removeMarkdownEscapes(text2);
+    if (href === text) {
+      text = removeMarkdownEscapes(text);
     }
-    href = _href(href, false);
-    if (markdown.baseUri) {
-      href = resolveWithBaseUri(URI.from(markdown.baseUri), href);
-    }
-    title = typeof title === "string" ? removeMarkdownEscapes(title) : "";
+    title = typeof title === "string" ? escapeDoubleQuotes(removeMarkdownEscapes(title)) : "";
     href = removeMarkdownEscapes(href);
-    if (!href || /^data:|javascript:/i.test(href) || /^command:/i.test(href) && !markdown.isTrusted || /^command:(\/\/\/)?_workbench\.downloadResource/i.test(href)) {
-      return text2;
-    } else {
-      href = href.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#39;");
-      return `<a data-href="${href}" title="${title || href}">${text2}</a>`;
-    }
+    href = href.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#39;");
+    return `<a href="${href}" title="${title || href}">${text}</a>`;
   };
-  renderer.paragraph = (text2) => {
-    return `<p>${text2}</p>`;
+  renderer.paragraph = (text) => {
+    return `<p>${text}</p>`;
   };
   if (options.codeBlockRenderer) {
     renderer.code = (code, lang) => {
@@ -18052,9 +17342,9 @@ function renderMarkdown(markdown, options = {}, markedOptions = {}) {
     }));
   }
   if (!markdown.supportHtml) {
-    markedOptions.sanitizer = (html2) => {
-      const match = markdown.isTrusted ? html2.match(/^(<span[^>]+>)|(<\/\s*span>)$/) : void 0;
-      return match ? html2 : "";
+    markedOptions.sanitizer = (html) => {
+      const match = markdown.isTrusted ? html.match(/^(<span[^>]+>)|(<\/\s*span>)$/) : void 0;
+      return match ? html : "";
     };
     markedOptions.sanitize = true;
     markedOptions.silent = true;
@@ -18085,6 +17375,19 @@ function renderMarkdown(markdown, options = {}, markedOptions = {}) {
       } catch (err) {
       }
       img.src = _href(href, true);
+    }
+  });
+  markdownHtmlDoc.body.querySelectorAll("a").forEach((a) => {
+    const href = a.getAttribute("href");
+    a.setAttribute("href", "");
+    if (!href || /^data:|javascript:/i.test(href) || /^command:/i.test(href) && !markdown.isTrusted || /^command:(\/\/\/)?_workbench\.downloadResource/i.test(href)) {
+      a.replaceWith(...a.childNodes);
+    } else {
+      let resolvedHref = _href(href, false);
+      if (markdown.baseUri) {
+        resolvedHref = resolveWithBaseUri(URI.from(markdown.baseUri), href);
+      }
+      a.dataset.href = resolvedHref;
     }
   });
   element.innerHTML = sanitizeRenderedMarkdown(markdown, markdownHtmlDoc.body.innerHTML);
@@ -18134,22 +17437,12 @@ function sanitizeRenderedMarkdown(options, renderedMarkdown) {
       return;
     }
   });
-  const anchor = document.createElement("a");
-  addHook("afterSanitizeAttributes", (node) => {
-    for (const attr of ["href", "src"]) {
-      if (node.hasAttribute(attr)) {
-        anchor.href = node.getAttribute(attr);
-        if (!allowedSchemes.includes(anchor.protocol.replace(/:$/, ""))) {
-          node.removeAttribute(attr);
-        }
-      }
-    }
-  });
+  const hook = hookDomPurifyHrefAndSrcSanitizer(allowedSchemes);
   try {
     return sanitize(renderedMarkdown, Object.assign(Object.assign({}, config), { RETURN_TRUSTED_TYPE: true }));
   } finally {
     removeHook("uponSanitizeAttribute");
-    removeHook("afterSanitizeAttributes");
+    hook.dispose();
   }
 }
 function getSanitizerOptions(options) {
@@ -18231,7 +17524,11 @@ var MarkdownRenderer = class MarkdownRenderer2 {
     this._options = _options;
     this._languageService = _languageService;
     this._openerService = _openerService;
-    this._onDidRenderAsync = new Emitter();
+    this._onDidRenderAsync = new DebounceEmitter({
+      delay: 50,
+      merge: (arr) => {
+      }
+    });
     this.onDidRenderAsync = this._onDidRenderAsync.event;
   }
   dispose() {
@@ -18250,7 +17547,7 @@ var MarkdownRenderer = class MarkdownRenderer2 {
       dispose: () => disposables.dispose()
     };
   }
-  _getRenderOptions(markdown, disposeables) {
+  _getRenderOptions(markdown, disposables) {
     return {
       codeBlockRenderer: (languageAlias, value) => __awaiter19(this, void 0, void 0, function* () {
         var _a5, _b2, _c2;
@@ -18263,28 +17560,31 @@ var MarkdownRenderer = class MarkdownRenderer2 {
         if (!languageId) {
           languageId = PLAINTEXT_LANGUAGE_ID;
         }
-        const html2 = yield tokenizeToString(this._languageService, value, languageId);
+        const html = yield tokenizeToString(this._languageService, value, languageId);
         const element = document.createElement("span");
-        element.innerHTML = (_c2 = (_b2 = MarkdownRenderer2._ttpTokenizer) === null || _b2 === void 0 ? void 0 : _b2.createHTML(html2)) !== null && _c2 !== void 0 ? _c2 : html2;
+        element.innerHTML = (_c2 = (_b2 = MarkdownRenderer2._ttpTokenizer) === null || _b2 === void 0 ? void 0 : _b2.createHTML(html)) !== null && _c2 !== void 0 ? _c2 : html;
         if (this._options.editor) {
-          const fontInfo = this._options.editor.getOption(44);
+          const fontInfo = this._options.editor.getOption(45);
           applyFontInfo(element, fontInfo);
         } else if (this._options.codeBlockFontFamily) {
           element.style.fontFamily = this._options.codeBlockFontFamily;
+        }
+        if (this._options.codeBlockFontSize !== void 0) {
+          element.style.fontSize = this._options.codeBlockFontSize;
         }
         return element;
       }),
       asyncRenderCallback: () => this._onDidRenderAsync.fire(),
       actionHandler: {
         callback: (content) => this._openerService.open(content, { fromUserGesture: true, allowContributedOpeners: true, allowCommands: markdown.isTrusted }).catch(onUnexpectedError),
-        disposables: disposeables
+        disposables
       }
     };
   }
 };
 MarkdownRenderer._ttpTokenizer = (_a2 = window.trustedTypes) === null || _a2 === void 0 ? void 0 : _a2.createPolicy("tokenizeToString", {
-  createHTML(html2) {
-    return html2;
+  createHTML(html) {
+    return html;
   }
 });
 MarkdownRenderer = __decorate21([
@@ -18312,7 +17612,7 @@ var MarginHoverWidget = class extends Disposable {
     }));
     this._register(this._editor.onDidChangeModelDecorations(() => this._onModelDecorationsChanged()));
     this._register(this._editor.onDidChangeConfiguration((e) => {
-      if (e.hasChanged(44)) {
+      if (e.hasChanged(45)) {
         this._updateFont();
       }
     }));
@@ -18393,7 +17693,7 @@ var MarginHoverWidget = class extends Disposable {
     const editorLayout = this._editor.getLayoutInfo();
     const topForLineNumber = this._editor.getTopForLineNumber(lineNumber);
     const editorScrollTop = this._editor.getScrollTop();
-    const lineHeight = this._editor.getOption(59);
+    const lineHeight = this._editor.getOption(60);
     const nodeHeight = this._hover.containerDomNode.clientHeight;
     const top = topForLineNumber - editorScrollTop - (nodeHeight - lineHeight) / 2;
     this._hover.containerDomNode.style.left = `${editorLayout.glyphMarginLeft + editorLayout.glyphMarginWidth}px`;
@@ -18805,7 +18105,7 @@ var MarkerList = class MarkerList2 {
     if (this._markers.length === 0) {
       return false;
     }
-    let oldIdx = this._nextIdx;
+    const oldIdx = this._nextIdx;
     if (this._nextIdx === -1) {
       this._initIdx(model, position, fwd);
     } else if (fwd) {
@@ -18843,7 +18143,7 @@ var MarkerNavigationService = class MarkerNavigationService2 {
     this._provider = new LinkedList();
   }
   getMarkerList(resource) {
-    for (let provider of this._provider) {
+    for (const provider of this._provider) {
       const result = provider.getMarkerList(resource);
       if (result) {
         return result;
@@ -19067,16 +18367,16 @@ var MessageWidget2 = class {
     this._editor.applyFontInfo(this._relatedBlock);
     if (isNonEmptyArray(relatedInformation)) {
       const relatedInformationNode = this._relatedBlock.appendChild(document.createElement("div"));
-      relatedInformationNode.style.paddingTop = `${Math.floor(this._editor.getOption(59) * 0.66)}px`;
+      relatedInformationNode.style.paddingTop = `${Math.floor(this._editor.getOption(60) * 0.66)}px`;
       this._lines += 1;
       for (const related of relatedInformation) {
-        let container = document.createElement("div");
-        let relatedResource = document.createElement("a");
+        const container = document.createElement("div");
+        const relatedResource = document.createElement("a");
         relatedResource.classList.add("filename");
-        relatedResource.innerText = `${getBaseLabel(related.resource)}(${related.startLineNumber}, ${related.startColumn}): `;
+        relatedResource.innerText = `${this._labelService.getUriBasenameLabel(related.resource)}(${related.startLineNumber}, ${related.startColumn}): `;
         relatedResource.title = this._labelService.getUriLabel(related.resource);
         this._relatedDiagnostics.set(relatedResource, related);
-        let relatedMessage = document.createElement("span");
+        const relatedMessage = document.createElement("span");
         relatedMessage.innerText = related.message;
         container.appendChild(relatedResource);
         container.appendChild(relatedMessage);
@@ -19084,7 +18384,7 @@ var MessageWidget2 = class {
         relatedInformationNode.appendChild(container);
       }
     }
-    const fontInfo = this._editor.getOption(44);
+    const fontInfo = this._editor.getOption(45);
     const scrollWidth = Math.ceil(fontInfo.typicalFullwidthCharacterWidth * this._longestLineLength * 0.75);
     const scrollHeight = fontInfo.lineHeight * this._lines;
     this._scrollable.setScrollDimensions({ scrollWidth, scrollHeight });
@@ -19200,9 +18500,9 @@ var MarkerNavigationWidget = class MarkerNavigationWidget2 extends PeekViewWidge
     this._message.update(marker);
     this._severity = marker.severity;
     this._applyTheme(this._themeService.getColorTheme());
-    let range = Range.lift(marker);
+    const range = Range.lift(marker);
     const editorPosition = this.editor.getPosition();
-    let position = editorPosition && range.containsPosition(editorPosition) ? editorPosition : range.getStartPosition();
+    const position = editorPosition && range.containsPosition(editorPosition) ? editorPosition : range.getStartPosition();
     super.show(position, this.computeRequiredHeight());
     const model = this.editor.getModel();
     if (model) {
@@ -19249,13 +18549,13 @@ MarkerNavigationWidget = __decorate24([
 var errorDefault = oneOf(editorErrorForeground, editorErrorBorder);
 var warningDefault = oneOf(editorWarningForeground, editorWarningBorder);
 var infoDefault = oneOf(editorInfoForeground, editorInfoBorder);
-var editorMarkerNavigationError = registerColor("editorMarkerNavigationError.background", { dark: errorDefault, light: errorDefault, hc: contrastBorder }, localize("editorMarkerNavigationError", "Editor marker navigation widget error color."));
-var editorMarkerNavigationErrorHeader = registerColor("editorMarkerNavigationError.headerBackground", { dark: transparent(editorMarkerNavigationError, 0.1), light: transparent(editorMarkerNavigationError, 0.1), hc: null }, localize("editorMarkerNavigationErrorHeaderBackground", "Editor marker navigation widget error heading background."));
-var editorMarkerNavigationWarning = registerColor("editorMarkerNavigationWarning.background", { dark: warningDefault, light: warningDefault, hc: contrastBorder }, localize("editorMarkerNavigationWarning", "Editor marker navigation widget warning color."));
-var editorMarkerNavigationWarningHeader = registerColor("editorMarkerNavigationWarning.headerBackground", { dark: transparent(editorMarkerNavigationWarning, 0.1), light: transparent(editorMarkerNavigationWarning, 0.1), hc: "#0C141F" }, localize("editorMarkerNavigationWarningBackground", "Editor marker navigation widget warning heading background."));
-var editorMarkerNavigationInfo = registerColor("editorMarkerNavigationInfo.background", { dark: infoDefault, light: infoDefault, hc: contrastBorder }, localize("editorMarkerNavigationInfo", "Editor marker navigation widget info color."));
-var editorMarkerNavigationInfoHeader = registerColor("editorMarkerNavigationInfo.headerBackground", { dark: transparent(editorMarkerNavigationInfo, 0.1), light: transparent(editorMarkerNavigationInfo, 0.1), hc: null }, localize("editorMarkerNavigationInfoHeaderBackground", "Editor marker navigation widget info heading background."));
-var editorMarkerNavigationBackground = registerColor("editorMarkerNavigation.background", { dark: editorBackground, light: editorBackground, hc: editorBackground }, localize("editorMarkerNavigationBackground", "Editor marker navigation widget background."));
+var editorMarkerNavigationError = registerColor("editorMarkerNavigationError.background", { dark: errorDefault, light: errorDefault, hcDark: contrastBorder, hcLight: contrastBorder }, localize("editorMarkerNavigationError", "Editor marker navigation widget error color."));
+var editorMarkerNavigationErrorHeader = registerColor("editorMarkerNavigationError.headerBackground", { dark: transparent(editorMarkerNavigationError, 0.1), light: transparent(editorMarkerNavigationError, 0.1), hcDark: null, hcLight: null }, localize("editorMarkerNavigationErrorHeaderBackground", "Editor marker navigation widget error heading background."));
+var editorMarkerNavigationWarning = registerColor("editorMarkerNavigationWarning.background", { dark: warningDefault, light: warningDefault, hcDark: contrastBorder, hcLight: contrastBorder }, localize("editorMarkerNavigationWarning", "Editor marker navigation widget warning color."));
+var editorMarkerNavigationWarningHeader = registerColor("editorMarkerNavigationWarning.headerBackground", { dark: transparent(editorMarkerNavigationWarning, 0.1), light: transparent(editorMarkerNavigationWarning, 0.1), hcDark: "#0C141F", hcLight: transparent(editorMarkerNavigationWarning, 0.2) }, localize("editorMarkerNavigationWarningBackground", "Editor marker navigation widget warning heading background."));
+var editorMarkerNavigationInfo = registerColor("editorMarkerNavigationInfo.background", { dark: infoDefault, light: infoDefault, hcDark: contrastBorder, hcLight: contrastBorder }, localize("editorMarkerNavigationInfo", "Editor marker navigation widget info color."));
+var editorMarkerNavigationInfoHeader = registerColor("editorMarkerNavigationInfo.headerBackground", { dark: transparent(editorMarkerNavigationInfo, 0.1), light: transparent(editorMarkerNavigationInfo, 0.1), hcDark: null, hcLight: null }, localize("editorMarkerNavigationInfoHeaderBackground", "Editor marker navigation widget info heading background."));
+var editorMarkerNavigationBackground = registerColor("editorMarkerNavigation.background", { dark: editorBackground, light: editorBackground, hcDark: editorBackground, hcLight: editorBackground }, localize("editorMarkerNavigationBackground", "Editor marker navigation widget background."));
 
 // ../../node_modules/monaco-editor/esm/vs/editor/contrib/gotoError/browser/gotoError.js
 var __decorate25 = function(decorators, target, key, desc) {
@@ -19576,7 +18876,8 @@ var MarkerHover = class {
 };
 var markerCodeActionTrigger = {
   type: 1,
-  filter: { include: CodeActionKind.QuickFix }
+  filter: { include: CodeActionKind.QuickFix },
+  triggerAction: CodeActionTriggerSource.QuickFixHover
 };
 var MarkerHoverParticipant = class MarkerHoverParticipant2 {
   constructor(_editor, _markerDecorationsService, _openerService, _languageFeaturesService) {
@@ -19688,7 +18989,7 @@ var MarkerHoverParticipant = class MarkerHoverParticipant2 {
         }
       });
     }
-    if (!this._editor.getOption(81)) {
+    if (!this._editor.getOption(82)) {
       const quickfixPlaceholderElement = context.statusBar.append($7("div"));
       if (this.recentMarkerCodeActionsInfo) {
         if (IMarkerData.makeKey(this.recentMarkerCodeActionsInfo.marker) === IMarkerData.makeKey(markerHover.marker)) {
@@ -19730,7 +19031,9 @@ var MarkerHoverParticipant = class MarkerHoverParticipant2 {
             context.hide();
             controller === null || controller === void 0 ? void 0 : controller.showCodeActions(markerCodeActionTrigger, actions, {
               x: elementPosition.left + 6,
-              y: elementPosition.top + elementPosition.height + 6
+              y: elementPosition.top + elementPosition.height + 6,
+              width: elementPosition.width,
+              height: elementPosition.height
             });
           }
         });
@@ -19788,7 +19091,7 @@ var ModesHoverController = class ModesHoverController2 {
     this._glyphWidget = null;
     this._hookEvents();
     this._didChangeConfigurationHandler = this._editor.onDidChangeConfiguration((e) => {
-      if (e.hasChanged(53)) {
+      if (e.hasChanged(54)) {
         this._unhookEvents();
         this._hookEvents();
       }
@@ -19799,7 +19102,7 @@ var ModesHoverController = class ModesHoverController2 {
   }
   _hookEvents() {
     const hideWidgetsEventHandler = () => this._hideWidgets();
-    const hoverOpts = this._editor.getOption(53);
+    const hoverOpts = this._editor.getOption(54);
     this._isHoverEnabled = hoverOpts.enabled;
     this._isHoverSticky = hoverOpts.sticky;
     if (this._isHoverEnabled) {
@@ -19811,7 +19114,7 @@ var ModesHoverController = class ModesHoverController2 {
       this._toUnhook.add(this._editor.onMouseMove((e) => this._onEditorMouseMove(e)));
       this._toUnhook.add(this._editor.onKeyDown((e) => this._onKeyDown(e)));
     }
-    this._toUnhook.add(this._editor.onMouseLeave(hideWidgetsEventHandler));
+    this._toUnhook.add(this._editor.onMouseLeave((e) => this._onEditorMouseLeave(e)));
     this._toUnhook.add(this._editor.onDidChangeModel(hideWidgetsEventHandler));
     this._toUnhook.add(this._editor.onDidScrollChange((e) => this._onEditorScrollChanged(e)));
   }
@@ -19840,6 +19143,14 @@ var ModesHoverController = class ModesHoverController2 {
   }
   _onEditorMouseUp(mouseEvent) {
     this._isMouseDown = false;
+  }
+  _onEditorMouseLeave(mouseEvent) {
+    var _a5;
+    const targetEm = mouseEvent.event.browserEvent.relatedTarget;
+    if ((_a5 = this._contentWidget) === null || _a5 === void 0 ? void 0 : _a5.containsNode(targetEm)) {
+      return;
+    }
+    this._hideWidgets();
   }
   _onEditorMouseMove(mouseEvent) {
     var _a5, _b2, _c2, _d2, _e2;
@@ -19945,7 +19256,7 @@ var ShowHoverAction = class extends EditorAction {
     if (!editor2.hasModel()) {
       return;
     }
-    let controller = ModesHoverController.get(editor2);
+    const controller = ModesHoverController.get(editor2);
     if (!controller) {
       return;
     }
@@ -20071,6 +19382,1677 @@ ColorContribution.ID = "editor.contrib.colorContribution";
 registerEditorContribution(ColorContribution.ID, ColorContribution);
 HoverParticipantRegistry.register(ColorHoverParticipant);
 
+// ../../node_modules/monaco-editor/esm/vs/editor/contrib/copyPaste/browser/copyPasteContribution.js
+init_define_process();
+init_editorExtensions();
+
+// ../../node_modules/monaco-editor/esm/vs/editor/contrib/copyPaste/browser/copyPasteController.js
+init_define_process();
+init_dom();
+init_async();
+
+// ../../node_modules/monaco-editor/esm/vs/base/common/dataTransfer.js
+init_define_process();
+var __awaiter22 = function(thisArg, _arguments, P, generator) {
+  function adopt(value) {
+    return value instanceof P ? value : new P(function(resolve) {
+      resolve(value);
+    });
+  }
+  return new (P || (P = Promise))(function(resolve, reject) {
+    function fulfilled(value) {
+      try {
+        step(generator.next(value));
+      } catch (e) {
+        reject(e);
+      }
+    }
+    function rejected(value) {
+      try {
+        step(generator["throw"](value));
+      } catch (e) {
+        reject(e);
+      }
+    }
+    function step(result) {
+      result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
+    }
+    step((generator = generator.apply(thisArg, _arguments || [])).next());
+  });
+};
+function createStringDataTransferItem(stringOrPromise) {
+  return {
+    asString: () => __awaiter22(this, void 0, void 0, function* () {
+      return stringOrPromise;
+    }),
+    asFile: () => void 0,
+    value: typeof stringOrPromise === "string" ? stringOrPromise : void 0
+  };
+}
+function createFileDataTransferItem(fileName, uri, data) {
+  return {
+    asString: () => __awaiter22(this, void 0, void 0, function* () {
+      return "";
+    }),
+    asFile: () => ({ name: fileName, uri, data }),
+    value: void 0
+  };
+}
+var VSDataTransfer = class {
+  constructor() {
+    this._entries = /* @__PURE__ */ new Map();
+  }
+  get size() {
+    return this._entries.size;
+  }
+  has(mimeType) {
+    return this._entries.has(this.toKey(mimeType));
+  }
+  get(mimeType) {
+    var _a5;
+    return (_a5 = this._entries.get(this.toKey(mimeType))) === null || _a5 === void 0 ? void 0 : _a5[0];
+  }
+  append(mimeType, value) {
+    const existing = this._entries.get(mimeType);
+    if (existing) {
+      existing.push(value);
+    } else {
+      this._entries.set(this.toKey(mimeType), [value]);
+    }
+  }
+  replace(mimeType, value) {
+    this._entries.set(this.toKey(mimeType), [value]);
+  }
+  delete(mimeType) {
+    this._entries.delete(this.toKey(mimeType));
+  }
+  *entries() {
+    for (const [mine, items] of this._entries.entries()) {
+      for (const item of items) {
+        yield [mine, item];
+      }
+    }
+  }
+  values() {
+    return Array.from(this._entries.values()).flat();
+  }
+  forEach(f) {
+    for (const [mime, item] of this.entries()) {
+      f(item, mime);
+    }
+  }
+  toKey(mimeType) {
+    return mimeType.toLowerCase();
+  }
+};
+
+// ../../node_modules/monaco-editor/esm/vs/editor/contrib/copyPaste/browser/copyPasteController.js
+init_lifecycle();
+init_mime();
+
+// ../../node_modules/monaco-editor/esm/vs/base/common/uuid.js
+init_define_process();
+var generateUuid = function() {
+  if (typeof crypto === "object" && typeof crypto.randomUUID === "function") {
+    return crypto.randomUUID.bind(crypto);
+  }
+  let getRandomValues;
+  if (typeof crypto === "object" && typeof crypto.getRandomValues === "function") {
+    getRandomValues = crypto.getRandomValues.bind(crypto);
+  } else {
+    getRandomValues = function(bucket) {
+      for (let i = 0; i < bucket.length; i++) {
+        bucket[i] = Math.floor(Math.random() * 256);
+      }
+      return bucket;
+    };
+  }
+  const _data = new Uint8Array(16);
+  const _hex = [];
+  for (let i = 0; i < 256; i++) {
+    _hex.push(i.toString(16).padStart(2, "0"));
+  }
+  return function generateUuid2() {
+    getRandomValues(_data);
+    _data[6] = _data[6] & 15 | 64;
+    _data[8] = _data[8] & 63 | 128;
+    let i = 0;
+    let result = "";
+    result += _hex[_data[i++]];
+    result += _hex[_data[i++]];
+    result += _hex[_data[i++]];
+    result += _hex[_data[i++]];
+    result += "-";
+    result += _hex[_data[i++]];
+    result += _hex[_data[i++]];
+    result += "-";
+    result += _hex[_data[i++]];
+    result += _hex[_data[i++]];
+    result += "-";
+    result += _hex[_data[i++]];
+    result += _hex[_data[i++]];
+    result += "-";
+    result += _hex[_data[i++]];
+    result += _hex[_data[i++]];
+    result += _hex[_data[i++]];
+    result += _hex[_data[i++]];
+    result += _hex[_data[i++]];
+    result += _hex[_data[i++]];
+    return result;
+  };
+}();
+
+// ../../node_modules/monaco-editor/esm/vs/editor/browser/dnd.js
+init_define_process();
+init_arrays();
+init_mime();
+init_uri();
+
+// ../../node_modules/monaco-editor/esm/vs/platform/dnd/browser/dnd.js
+init_define_process();
+init_uri();
+init_opener();
+init_platform2();
+var CodeDataTransfers = {
+  EDITORS: "CodeEditors",
+  FILES: "CodeFiles"
+};
+function extractEditorsDropData(e) {
+  var _a5;
+  const editors = [];
+  if (e.dataTransfer && e.dataTransfer.types.length > 0) {
+    const rawEditorsData = e.dataTransfer.getData(CodeDataTransfers.EDITORS);
+    if (rawEditorsData) {
+      try {
+        editors.push(...parse(rawEditorsData));
+      } catch (error) {
+      }
+    } else {
+      try {
+        const rawResourcesData = e.dataTransfer.getData(DataTransfers.RESOURCES);
+        editors.push(...createDraggedEditorInputFromRawResourcesData(rawResourcesData));
+      } catch (error) {
+      }
+    }
+    if ((_a5 = e.dataTransfer) === null || _a5 === void 0 ? void 0 : _a5.files) {
+      for (let i = 0; i < e.dataTransfer.files.length; i++) {
+        const file = e.dataTransfer.files[i];
+        if (file && file.path) {
+          try {
+            editors.push({ resource: URI.file(file.path), isExternal: true, allowWorkspaceOpen: true });
+          } catch (error) {
+          }
+        }
+      }
+    }
+    const rawCodeFiles = e.dataTransfer.getData(CodeDataTransfers.FILES);
+    if (rawCodeFiles) {
+      try {
+        const codeFiles = JSON.parse(rawCodeFiles);
+        for (const codeFile of codeFiles) {
+          editors.push({ resource: URI.file(codeFile), isExternal: true, allowWorkspaceOpen: true });
+        }
+      } catch (error) {
+      }
+    }
+    const contributions = Registry.as(Extensions3.DragAndDropContribution).getAll();
+    for (const contribution of contributions) {
+      const data = e.dataTransfer.getData(contribution.dataFormatKey);
+      if (data) {
+        try {
+          editors.push(...contribution.getEditorInputs(data));
+        } catch (error) {
+        }
+      }
+    }
+  }
+  return editors;
+}
+function createDraggedEditorInputFromRawResourcesData(rawResourcesData) {
+  const editors = [];
+  if (rawResourcesData) {
+    const resourcesRaw = JSON.parse(rawResourcesData);
+    for (const resourceRaw of resourcesRaw) {
+      if (resourceRaw.indexOf(":") > 0) {
+        const { selection, uri } = extractSelection(URI.parse(resourceRaw));
+        editors.push({ resource: uri, options: { selection } });
+      }
+    }
+  }
+  return editors;
+}
+var DragAndDropContributionRegistry = class {
+  constructor() {
+    this._contributions = /* @__PURE__ */ new Map();
+  }
+  getAll() {
+    return this._contributions.values();
+  }
+};
+var Extensions3 = {
+  DragAndDropContribution: "workbench.contributions.dragAndDrop"
+};
+Registry.add(Extensions3.DragAndDropContribution, new DragAndDropContributionRegistry());
+
+// ../../node_modules/monaco-editor/esm/vs/editor/browser/dnd.js
+var __awaiter23 = function(thisArg, _arguments, P, generator) {
+  function adopt(value) {
+    return value instanceof P ? value : new P(function(resolve) {
+      resolve(value);
+    });
+  }
+  return new (P || (P = Promise))(function(resolve, reject) {
+    function fulfilled(value) {
+      try {
+        step(generator.next(value));
+      } catch (e) {
+        reject(e);
+      }
+    }
+    function rejected(value) {
+      try {
+        step(generator["throw"](value));
+      } catch (e) {
+        reject(e);
+      }
+    }
+    function step(result) {
+      result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
+    }
+    step((generator = generator.apply(thisArg, _arguments || [])).next());
+  });
+};
+function toVSDataTransfer(dataTransfer) {
+  const vsDataTransfer = new VSDataTransfer();
+  for (const item of dataTransfer.items) {
+    const type = item.type;
+    if (item.kind === "string") {
+      const asStringValue = new Promise((resolve) => item.getAsString(resolve));
+      vsDataTransfer.append(type, createStringDataTransferItem(asStringValue));
+    } else if (item.kind === "file") {
+      const file = item.getAsFile();
+      if (file) {
+        vsDataTransfer.append(type, createFileDataTransferItemFromFile(file));
+      }
+    }
+  }
+  return vsDataTransfer;
+}
+function createFileDataTransferItemFromFile(file) {
+  const uri = file.path ? URI.parse(file.path) : void 0;
+  return createFileDataTransferItem(file.name, uri, () => __awaiter23(this, void 0, void 0, function* () {
+    return new Uint8Array(yield file.arrayBuffer());
+  }));
+}
+var INTERNAL_DND_MIME_TYPES = Object.freeze([
+  CodeDataTransfers.EDITORS,
+  CodeDataTransfers.FILES,
+  DataTransfers.RESOURCES
+]);
+function addExternalEditorsDropData(dataTransfer, dragEvent, overwriteUriList = false) {
+  var _a5;
+  if (dragEvent.dataTransfer && (overwriteUriList || !dataTransfer.has(Mimes.uriList))) {
+    const editorData = extractEditorsDropData(dragEvent).filter((input) => input.resource).map((input) => input.resource.toString());
+    for (const item of (_a5 = dragEvent.dataTransfer) === null || _a5 === void 0 ? void 0 : _a5.items) {
+      const file = item.getAsFile();
+      if (file) {
+        editorData.push(file.path ? URI.file(file.path).toString() : file.name);
+      }
+    }
+    if (editorData.length) {
+      dataTransfer.replace(Mimes.uriList, createStringDataTransferItem(UriList.create(editorData)));
+    }
+  }
+  for (const internal of INTERNAL_DND_MIME_TYPES) {
+    dataTransfer.delete(internal);
+  }
+}
+var UriList = Object.freeze({
+  create: (entries) => {
+    return distinct(entries.map((x) => x.toString())).join("\r\n");
+  },
+  parse: (str) => {
+    return str.split("\r\n").filter((value) => !value.startsWith("#"));
+  }
+});
+
+// ../../node_modules/monaco-editor/esm/vs/editor/contrib/copyPaste/browser/copyPasteController.js
+init_range();
+init_languageFeatures();
+init_editorState();
+
+// ../../node_modules/monaco-editor/esm/vs/editor/contrib/snippet/browser/snippetController2.js
+init_define_process();
+init_lifecycle();
+init_types();
+init_editorExtensions();
+init_position();
+init_selection();
+init_editorContextKeys();
+init_languageConfigurationRegistry();
+init_languageFeatures();
+init_nls();
+init_contextkey();
+init_log();
+
+// ../../node_modules/monaco-editor/esm/vs/editor/contrib/snippet/browser/snippetSession.js
+init_define_process();
+init_arrays();
+init_lifecycle();
+init_strings();
+init_editOperation();
+init_range();
+init_selection();
+init_languageConfigurationRegistry();
+init_textModel();
+
+// ../../node_modules/monaco-editor/esm/vs/editor/contrib/snippet/browser/snippetVariables.js
+init_define_process();
+
+// ../../node_modules/monaco-editor/esm/vs/base/common/labels.js
+init_define_process();
+init_extpath();
+init_platform();
+function normalizeDriveLetter(path, isWindowsOS = isWindows) {
+  if (hasDriveLetter(path, isWindowsOS)) {
+    return path.charAt(0).toUpperCase() + path.slice(1);
+  }
+  return path;
+}
+
+// ../../node_modules/monaco-editor/esm/vs/editor/contrib/snippet/browser/snippetVariables.js
+init_path();
+init_resources();
+init_strings();
+init_languageConfigurationRegistry();
+init_nls();
+var __decorate28 = function(decorators, target, key, desc) {
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function")
+    r = Reflect.decorate(decorators, target, key, desc);
+  else
+    for (var i = decorators.length - 1; i >= 0; i--)
+      if (d = decorators[i])
+        r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __param28 = function(paramIndex, decorator) {
+  return function(target, key) {
+    decorator(target, key, paramIndex);
+  };
+};
+var KnownSnippetVariableNames = Object.freeze({
+  "CURRENT_YEAR": true,
+  "CURRENT_YEAR_SHORT": true,
+  "CURRENT_MONTH": true,
+  "CURRENT_DATE": true,
+  "CURRENT_HOUR": true,
+  "CURRENT_MINUTE": true,
+  "CURRENT_SECOND": true,
+  "CURRENT_DAY_NAME": true,
+  "CURRENT_DAY_NAME_SHORT": true,
+  "CURRENT_MONTH_NAME": true,
+  "CURRENT_MONTH_NAME_SHORT": true,
+  "CURRENT_SECONDS_UNIX": true,
+  "SELECTION": true,
+  "CLIPBOARD": true,
+  "TM_SELECTED_TEXT": true,
+  "TM_CURRENT_LINE": true,
+  "TM_CURRENT_WORD": true,
+  "TM_LINE_INDEX": true,
+  "TM_LINE_NUMBER": true,
+  "TM_FILENAME": true,
+  "TM_FILENAME_BASE": true,
+  "TM_DIRECTORY": true,
+  "TM_FILEPATH": true,
+  "CURSOR_INDEX": true,
+  "CURSOR_NUMBER": true,
+  "RELATIVE_FILEPATH": true,
+  "BLOCK_COMMENT_START": true,
+  "BLOCK_COMMENT_END": true,
+  "LINE_COMMENT": true,
+  "WORKSPACE_NAME": true,
+  "WORKSPACE_FOLDER": true,
+  "RANDOM": true,
+  "RANDOM_HEX": true,
+  "UUID": true
+});
+var CompositeSnippetVariableResolver = class {
+  constructor(_delegates) {
+    this._delegates = _delegates;
+  }
+  resolve(variable) {
+    for (const delegate of this._delegates) {
+      const value = delegate.resolve(variable);
+      if (value !== void 0) {
+        return value;
+      }
+    }
+    return void 0;
+  }
+};
+var SelectionBasedVariableResolver = class {
+  constructor(_model, _selection, _selectionIdx, _overtypingCapturer) {
+    this._model = _model;
+    this._selection = _selection;
+    this._selectionIdx = _selectionIdx;
+    this._overtypingCapturer = _overtypingCapturer;
+  }
+  resolve(variable) {
+    const { name } = variable;
+    if (name === "SELECTION" || name === "TM_SELECTED_TEXT") {
+      let value = this._model.getValueInRange(this._selection) || void 0;
+      let isMultiline = this._selection.startLineNumber !== this._selection.endLineNumber;
+      if (!value && this._overtypingCapturer) {
+        const info = this._overtypingCapturer.getLastOvertypedInfo(this._selectionIdx);
+        if (info) {
+          value = info.value;
+          isMultiline = info.multiline;
+        }
+      }
+      if (value && isMultiline && variable.snippet) {
+        const line = this._model.getLineContent(this._selection.startLineNumber);
+        const lineLeadingWhitespace = getLeadingWhitespace(line, 0, this._selection.startColumn - 1);
+        let varLeadingWhitespace = lineLeadingWhitespace;
+        variable.snippet.walk((marker) => {
+          if (marker === variable) {
+            return false;
+          }
+          if (marker instanceof Text) {
+            varLeadingWhitespace = getLeadingWhitespace(splitLines(marker.value).pop());
+          }
+          return true;
+        });
+        const whitespaceCommonLength = commonPrefixLength(varLeadingWhitespace, lineLeadingWhitespace);
+        value = value.replace(/(\r\n|\r|\n)(.*)/g, (m, newline, rest) => `${newline}${varLeadingWhitespace.substr(whitespaceCommonLength)}${rest}`);
+      }
+      return value;
+    } else if (name === "TM_CURRENT_LINE") {
+      return this._model.getLineContent(this._selection.positionLineNumber);
+    } else if (name === "TM_CURRENT_WORD") {
+      const info = this._model.getWordAtPosition({
+        lineNumber: this._selection.positionLineNumber,
+        column: this._selection.positionColumn
+      });
+      return info && info.word || void 0;
+    } else if (name === "TM_LINE_INDEX") {
+      return String(this._selection.positionLineNumber - 1);
+    } else if (name === "TM_LINE_NUMBER") {
+      return String(this._selection.positionLineNumber);
+    } else if (name === "CURSOR_INDEX") {
+      return String(this._selectionIdx);
+    } else if (name === "CURSOR_NUMBER") {
+      return String(this._selectionIdx + 1);
+    }
+    return void 0;
+  }
+};
+var ModelBasedVariableResolver = class {
+  constructor(_labelService, _model) {
+    this._labelService = _labelService;
+    this._model = _model;
+  }
+  resolve(variable) {
+    const { name } = variable;
+    if (name === "TM_FILENAME") {
+      return basename(this._model.uri.fsPath);
+    } else if (name === "TM_FILENAME_BASE") {
+      const name2 = basename(this._model.uri.fsPath);
+      const idx = name2.lastIndexOf(".");
+      if (idx <= 0) {
+        return name2;
+      } else {
+        return name2.slice(0, idx);
+      }
+    } else if (name === "TM_DIRECTORY") {
+      if (dirname(this._model.uri.fsPath) === ".") {
+        return "";
+      }
+      return this._labelService.getUriLabel(dirname2(this._model.uri));
+    } else if (name === "TM_FILEPATH") {
+      return this._labelService.getUriLabel(this._model.uri);
+    } else if (name === "RELATIVE_FILEPATH") {
+      return this._labelService.getUriLabel(this._model.uri, { relative: true, noPrefix: true });
+    }
+    return void 0;
+  }
+};
+var ClipboardBasedVariableResolver = class {
+  constructor(_readClipboardText, _selectionIdx, _selectionCount, _spread) {
+    this._readClipboardText = _readClipboardText;
+    this._selectionIdx = _selectionIdx;
+    this._selectionCount = _selectionCount;
+    this._spread = _spread;
+  }
+  resolve(variable) {
+    if (variable.name !== "CLIPBOARD") {
+      return void 0;
+    }
+    const clipboardText = this._readClipboardText();
+    if (!clipboardText) {
+      return void 0;
+    }
+    if (this._spread) {
+      const lines = clipboardText.split(/\r\n|\n|\r/).filter((s) => !isFalsyOrWhitespace(s));
+      if (lines.length === this._selectionCount) {
+        return lines[this._selectionIdx];
+      }
+    }
+    return clipboardText;
+  }
+};
+var CommentBasedVariableResolver = class CommentBasedVariableResolver2 {
+  constructor(_model, _selection, _languageConfigurationService) {
+    this._model = _model;
+    this._selection = _selection;
+    this._languageConfigurationService = _languageConfigurationService;
+  }
+  resolve(variable) {
+    const { name } = variable;
+    const langId = this._model.getLanguageIdAtPosition(this._selection.selectionStartLineNumber, this._selection.selectionStartColumn);
+    const config = this._languageConfigurationService.getLanguageConfiguration(langId).comments;
+    if (!config) {
+      return void 0;
+    }
+    if (name === "LINE_COMMENT") {
+      return config.lineCommentToken || void 0;
+    } else if (name === "BLOCK_COMMENT_START") {
+      return config.blockCommentStartToken || void 0;
+    } else if (name === "BLOCK_COMMENT_END") {
+      return config.blockCommentEndToken || void 0;
+    }
+    return void 0;
+  }
+};
+CommentBasedVariableResolver = __decorate28([
+  __param28(2, ILanguageConfigurationService)
+], CommentBasedVariableResolver);
+var TimeBasedVariableResolver = class {
+  constructor() {
+    this._date = new Date();
+  }
+  resolve(variable) {
+    const { name } = variable;
+    if (name === "CURRENT_YEAR") {
+      return String(this._date.getFullYear());
+    } else if (name === "CURRENT_YEAR_SHORT") {
+      return String(this._date.getFullYear()).slice(-2);
+    } else if (name === "CURRENT_MONTH") {
+      return String(this._date.getMonth().valueOf() + 1).padStart(2, "0");
+    } else if (name === "CURRENT_DATE") {
+      return String(this._date.getDate().valueOf()).padStart(2, "0");
+    } else if (name === "CURRENT_HOUR") {
+      return String(this._date.getHours().valueOf()).padStart(2, "0");
+    } else if (name === "CURRENT_MINUTE") {
+      return String(this._date.getMinutes().valueOf()).padStart(2, "0");
+    } else if (name === "CURRENT_SECOND") {
+      return String(this._date.getSeconds().valueOf()).padStart(2, "0");
+    } else if (name === "CURRENT_DAY_NAME") {
+      return TimeBasedVariableResolver.dayNames[this._date.getDay()];
+    } else if (name === "CURRENT_DAY_NAME_SHORT") {
+      return TimeBasedVariableResolver.dayNamesShort[this._date.getDay()];
+    } else if (name === "CURRENT_MONTH_NAME") {
+      return TimeBasedVariableResolver.monthNames[this._date.getMonth()];
+    } else if (name === "CURRENT_MONTH_NAME_SHORT") {
+      return TimeBasedVariableResolver.monthNamesShort[this._date.getMonth()];
+    } else if (name === "CURRENT_SECONDS_UNIX") {
+      return String(Math.floor(this._date.getTime() / 1e3));
+    }
+    return void 0;
+  }
+};
+TimeBasedVariableResolver.dayNames = [localize("Sunday", "Sunday"), localize("Monday", "Monday"), localize("Tuesday", "Tuesday"), localize("Wednesday", "Wednesday"), localize("Thursday", "Thursday"), localize("Friday", "Friday"), localize("Saturday", "Saturday")];
+TimeBasedVariableResolver.dayNamesShort = [localize("SundayShort", "Sun"), localize("MondayShort", "Mon"), localize("TuesdayShort", "Tue"), localize("WednesdayShort", "Wed"), localize("ThursdayShort", "Thu"), localize("FridayShort", "Fri"), localize("SaturdayShort", "Sat")];
+TimeBasedVariableResolver.monthNames = [localize("January", "January"), localize("February", "February"), localize("March", "March"), localize("April", "April"), localize("May", "May"), localize("June", "June"), localize("July", "July"), localize("August", "August"), localize("September", "September"), localize("October", "October"), localize("November", "November"), localize("December", "December")];
+TimeBasedVariableResolver.monthNamesShort = [localize("JanuaryShort", "Jan"), localize("FebruaryShort", "Feb"), localize("MarchShort", "Mar"), localize("AprilShort", "Apr"), localize("MayShort", "May"), localize("JuneShort", "Jun"), localize("JulyShort", "Jul"), localize("AugustShort", "Aug"), localize("SeptemberShort", "Sep"), localize("OctoberShort", "Oct"), localize("NovemberShort", "Nov"), localize("DecemberShort", "Dec")];
+var WorkspaceBasedVariableResolver = class {
+  constructor(_workspaceService) {
+    this._workspaceService = _workspaceService;
+  }
+  resolve(variable) {
+    if (!this._workspaceService) {
+      return void 0;
+    }
+    const workspaceIdentifier = toWorkspaceIdentifier(this._workspaceService.getWorkspace());
+    if (!workspaceIdentifier) {
+      return void 0;
+    }
+    if (variable.name === "WORKSPACE_NAME") {
+      return this._resolveWorkspaceName(workspaceIdentifier);
+    } else if (variable.name === "WORKSPACE_FOLDER") {
+      return this._resoveWorkspacePath(workspaceIdentifier);
+    }
+    return void 0;
+  }
+  _resolveWorkspaceName(workspaceIdentifier) {
+    if (isSingleFolderWorkspaceIdentifier(workspaceIdentifier)) {
+      return basename(workspaceIdentifier.uri.path);
+    }
+    let filename = basename(workspaceIdentifier.configPath.path);
+    if (filename.endsWith(WORKSPACE_EXTENSION)) {
+      filename = filename.substr(0, filename.length - WORKSPACE_EXTENSION.length - 1);
+    }
+    return filename;
+  }
+  _resoveWorkspacePath(workspaceIdentifier) {
+    if (isSingleFolderWorkspaceIdentifier(workspaceIdentifier)) {
+      return normalizeDriveLetter(workspaceIdentifier.uri.fsPath);
+    }
+    const filename = basename(workspaceIdentifier.configPath.path);
+    let folderpath = workspaceIdentifier.configPath.fsPath;
+    if (folderpath.endsWith(filename)) {
+      folderpath = folderpath.substr(0, folderpath.length - filename.length - 1);
+    }
+    return folderpath ? normalizeDriveLetter(folderpath) : "/";
+  }
+};
+var RandomBasedVariableResolver = class {
+  resolve(variable) {
+    const { name } = variable;
+    if (name === "RANDOM") {
+      return Math.random().toString().slice(-6);
+    } else if (name === "RANDOM_HEX") {
+      return Math.random().toString(16).slice(-6);
+    } else if (name === "UUID") {
+      return generateUuid();
+    }
+    return void 0;
+  }
+};
+
+// ../../node_modules/monaco-editor/esm/vs/editor/contrib/snippet/browser/snippetSession.js
+var __decorate29 = function(decorators, target, key, desc) {
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function")
+    r = Reflect.decorate(decorators, target, key, desc);
+  else
+    for (var i = decorators.length - 1; i >= 0; i--)
+      if (d = decorators[i])
+        r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __param29 = function(paramIndex, decorator) {
+  return function(target, key) {
+    decorator(target, key, paramIndex);
+  };
+};
+var OneSnippet = class {
+  constructor(_editor, _snippet, _snippetLineLeadingWhitespace) {
+    this._editor = _editor;
+    this._snippet = _snippet;
+    this._snippetLineLeadingWhitespace = _snippetLineLeadingWhitespace;
+    this._offset = -1;
+    this._nestingLevel = 1;
+    this._placeholderGroups = groupBy(_snippet.placeholders, Placeholder.compareByIndex);
+    this._placeholderGroupsIdx = -1;
+  }
+  initialize(textChange) {
+    this._offset = textChange.newPosition;
+  }
+  dispose() {
+    if (this._placeholderDecorations) {
+      this._editor.removeDecorations([...this._placeholderDecorations.values()]);
+    }
+    this._placeholderGroups.length = 0;
+  }
+  _initDecorations() {
+    if (this._offset === -1) {
+      throw new Error(`Snippet not initialized!`);
+    }
+    if (this._placeholderDecorations) {
+      return;
+    }
+    this._placeholderDecorations = /* @__PURE__ */ new Map();
+    const model = this._editor.getModel();
+    this._editor.changeDecorations((accessor) => {
+      for (const placeholder of this._snippet.placeholders) {
+        const placeholderOffset = this._snippet.offset(placeholder);
+        const placeholderLen = this._snippet.fullLen(placeholder);
+        const range = Range.fromPositions(model.getPositionAt(this._offset + placeholderOffset), model.getPositionAt(this._offset + placeholderOffset + placeholderLen));
+        const options = placeholder.isFinalTabstop ? OneSnippet._decor.inactiveFinal : OneSnippet._decor.inactive;
+        const handle = accessor.addDecoration(range, options);
+        this._placeholderDecorations.set(placeholder, handle);
+      }
+    });
+  }
+  move(fwd) {
+    if (!this._editor.hasModel()) {
+      return [];
+    }
+    this._initDecorations();
+    if (this._placeholderGroupsIdx >= 0) {
+      const operations = [];
+      for (const placeholder of this._placeholderGroups[this._placeholderGroupsIdx]) {
+        if (placeholder.transform) {
+          const id = this._placeholderDecorations.get(placeholder);
+          const range = this._editor.getModel().getDecorationRange(id);
+          const currentValue = this._editor.getModel().getValueInRange(range);
+          const transformedValueLines = placeholder.transform.resolve(currentValue).split(/\r\n|\r|\n/);
+          for (let i = 1; i < transformedValueLines.length; i++) {
+            transformedValueLines[i] = this._editor.getModel().normalizeIndentation(this._snippetLineLeadingWhitespace + transformedValueLines[i]);
+          }
+          operations.push(EditOperation.replace(range, transformedValueLines.join(this._editor.getModel().getEOL())));
+        }
+      }
+      if (operations.length > 0) {
+        this._editor.executeEdits("snippet.placeholderTransform", operations);
+      }
+    }
+    let couldSkipThisPlaceholder = false;
+    if (fwd === true && this._placeholderGroupsIdx < this._placeholderGroups.length - 1) {
+      this._placeholderGroupsIdx += 1;
+      couldSkipThisPlaceholder = true;
+    } else if (fwd === false && this._placeholderGroupsIdx > 0) {
+      this._placeholderGroupsIdx -= 1;
+      couldSkipThisPlaceholder = true;
+    } else {
+    }
+    const newSelections = this._editor.getModel().changeDecorations((accessor) => {
+      const activePlaceholders = /* @__PURE__ */ new Set();
+      const selections = [];
+      for (const placeholder of this._placeholderGroups[this._placeholderGroupsIdx]) {
+        const id = this._placeholderDecorations.get(placeholder);
+        const range = this._editor.getModel().getDecorationRange(id);
+        selections.push(new Selection(range.startLineNumber, range.startColumn, range.endLineNumber, range.endColumn));
+        couldSkipThisPlaceholder = couldSkipThisPlaceholder && this._hasPlaceholderBeenCollapsed(placeholder);
+        accessor.changeDecorationOptions(id, placeholder.isFinalTabstop ? OneSnippet._decor.activeFinal : OneSnippet._decor.active);
+        activePlaceholders.add(placeholder);
+        for (const enclosingPlaceholder of this._snippet.enclosingPlaceholders(placeholder)) {
+          const id2 = this._placeholderDecorations.get(enclosingPlaceholder);
+          accessor.changeDecorationOptions(id2, enclosingPlaceholder.isFinalTabstop ? OneSnippet._decor.activeFinal : OneSnippet._decor.active);
+          activePlaceholders.add(enclosingPlaceholder);
+        }
+      }
+      for (const [placeholder, id] of this._placeholderDecorations) {
+        if (!activePlaceholders.has(placeholder)) {
+          accessor.changeDecorationOptions(id, placeholder.isFinalTabstop ? OneSnippet._decor.inactiveFinal : OneSnippet._decor.inactive);
+        }
+      }
+      return selections;
+    });
+    return !couldSkipThisPlaceholder ? newSelections !== null && newSelections !== void 0 ? newSelections : [] : this.move(fwd);
+  }
+  _hasPlaceholderBeenCollapsed(placeholder) {
+    let marker = placeholder;
+    while (marker) {
+      if (marker instanceof Placeholder) {
+        const id = this._placeholderDecorations.get(marker);
+        const range = this._editor.getModel().getDecorationRange(id);
+        if (range.isEmpty() && marker.toString().length > 0) {
+          return true;
+        }
+      }
+      marker = marker.parent;
+    }
+    return false;
+  }
+  get isAtFirstPlaceholder() {
+    return this._placeholderGroupsIdx <= 0 || this._placeholderGroups.length === 0;
+  }
+  get isAtLastPlaceholder() {
+    return this._placeholderGroupsIdx === this._placeholderGroups.length - 1;
+  }
+  get hasPlaceholder() {
+    return this._snippet.placeholders.length > 0;
+  }
+  get isTrivialSnippet() {
+    return this._snippet.placeholders.length === 0 || this._snippet.placeholders.length === 1 && this._snippet.placeholders[0].isFinalTabstop;
+  }
+  computePossibleSelections() {
+    const result = /* @__PURE__ */ new Map();
+    for (const placeholdersWithEqualIndex of this._placeholderGroups) {
+      let ranges;
+      for (const placeholder of placeholdersWithEqualIndex) {
+        if (placeholder.isFinalTabstop) {
+          break;
+        }
+        if (!ranges) {
+          ranges = [];
+          result.set(placeholder.index, ranges);
+        }
+        const id = this._placeholderDecorations.get(placeholder);
+        const range = this._editor.getModel().getDecorationRange(id);
+        if (!range) {
+          result.delete(placeholder.index);
+          break;
+        }
+        ranges.push(range);
+      }
+    }
+    return result;
+  }
+  get activeChoice() {
+    if (!this._placeholderDecorations) {
+      return void 0;
+    }
+    const placeholder = this._placeholderGroups[this._placeholderGroupsIdx][0];
+    if (!(placeholder === null || placeholder === void 0 ? void 0 : placeholder.choice)) {
+      return void 0;
+    }
+    const id = this._placeholderDecorations.get(placeholder);
+    if (!id) {
+      return void 0;
+    }
+    const range = this._editor.getModel().getDecorationRange(id);
+    if (!range) {
+      return void 0;
+    }
+    return { range, choice: placeholder.choice };
+  }
+  get hasChoice() {
+    let result = false;
+    this._snippet.walk((marker) => {
+      result = marker instanceof Choice;
+      return !result;
+    });
+    return result;
+  }
+  merge(others) {
+    const model = this._editor.getModel();
+    this._nestingLevel *= 10;
+    this._editor.changeDecorations((accessor) => {
+      for (const placeholder of this._placeholderGroups[this._placeholderGroupsIdx]) {
+        const nested = others.shift();
+        console.assert(nested._offset !== -1);
+        console.assert(!nested._placeholderDecorations);
+        const indexLastPlaceholder = nested._snippet.placeholderInfo.last.index;
+        for (const nestedPlaceholder of nested._snippet.placeholderInfo.all) {
+          if (nestedPlaceholder.isFinalTabstop) {
+            nestedPlaceholder.index = placeholder.index + (indexLastPlaceholder + 1) / this._nestingLevel;
+          } else {
+            nestedPlaceholder.index = placeholder.index + nestedPlaceholder.index / this._nestingLevel;
+          }
+        }
+        this._snippet.replace(placeholder, nested._snippet.children);
+        const id = this._placeholderDecorations.get(placeholder);
+        accessor.removeDecoration(id);
+        this._placeholderDecorations.delete(placeholder);
+        for (const placeholder2 of nested._snippet.placeholders) {
+          const placeholderOffset = nested._snippet.offset(placeholder2);
+          const placeholderLen = nested._snippet.fullLen(placeholder2);
+          const range = Range.fromPositions(model.getPositionAt(nested._offset + placeholderOffset), model.getPositionAt(nested._offset + placeholderOffset + placeholderLen));
+          const handle = accessor.addDecoration(range, OneSnippet._decor.inactive);
+          this._placeholderDecorations.set(placeholder2, handle);
+        }
+      }
+      this._placeholderGroups = groupBy(this._snippet.placeholders, Placeholder.compareByIndex);
+    });
+  }
+};
+OneSnippet._decor = {
+  active: ModelDecorationOptions.register({ description: "snippet-placeholder-1", stickiness: 0, className: "snippet-placeholder" }),
+  inactive: ModelDecorationOptions.register({ description: "snippet-placeholder-2", stickiness: 1, className: "snippet-placeholder" }),
+  activeFinal: ModelDecorationOptions.register({ description: "snippet-placeholder-3", stickiness: 1, className: "finish-snippet-placeholder" }),
+  inactiveFinal: ModelDecorationOptions.register({ description: "snippet-placeholder-4", stickiness: 1, className: "finish-snippet-placeholder" })
+};
+var _defaultOptions = {
+  overwriteBefore: 0,
+  overwriteAfter: 0,
+  adjustWhitespace: true,
+  clipboardText: void 0,
+  overtypingCapturer: void 0
+};
+var SnippetSession = class SnippetSession2 {
+  constructor(_editor, _template, _options = _defaultOptions, _languageConfigurationService) {
+    this._editor = _editor;
+    this._template = _template;
+    this._options = _options;
+    this._languageConfigurationService = _languageConfigurationService;
+    this._templateMerges = [];
+    this._snippets = [];
+  }
+  static adjustWhitespace(model, position, snippet, adjustIndentation, adjustNewlines) {
+    const line = model.getLineContent(position.lineNumber);
+    const lineLeadingWhitespace = getLeadingWhitespace(line, 0, position.column - 1);
+    let snippetTextString;
+    snippet.walk((marker) => {
+      if (!(marker instanceof Text) || marker.parent instanceof Choice) {
+        return true;
+      }
+      const lines = marker.value.split(/\r\n|\r|\n/);
+      if (adjustIndentation) {
+        const offset = snippet.offset(marker);
+        if (offset === 0) {
+          lines[0] = model.normalizeIndentation(lines[0]);
+        } else {
+          snippetTextString = snippetTextString !== null && snippetTextString !== void 0 ? snippetTextString : snippet.toString();
+          const prevChar = snippetTextString.charCodeAt(offset - 1);
+          if (prevChar === 10 || prevChar === 13) {
+            lines[0] = model.normalizeIndentation(lineLeadingWhitespace + lines[0]);
+          }
+        }
+        for (let i = 1; i < lines.length; i++) {
+          lines[i] = model.normalizeIndentation(lineLeadingWhitespace + lines[i]);
+        }
+      }
+      const newValue = lines.join(model.getEOL());
+      if (newValue !== marker.value) {
+        marker.parent.replace(marker, [new Text(newValue)]);
+        snippetTextString = void 0;
+      }
+      return true;
+    });
+    return lineLeadingWhitespace;
+  }
+  static adjustSelection(model, selection, overwriteBefore, overwriteAfter) {
+    if (overwriteBefore !== 0 || overwriteAfter !== 0) {
+      const { positionLineNumber, positionColumn } = selection;
+      const positionColumnBefore = positionColumn - overwriteBefore;
+      const positionColumnAfter = positionColumn + overwriteAfter;
+      const range = model.validateRange({
+        startLineNumber: positionLineNumber,
+        startColumn: positionColumnBefore,
+        endLineNumber: positionLineNumber,
+        endColumn: positionColumnAfter
+      });
+      selection = Selection.createWithDirection(range.startLineNumber, range.startColumn, range.endLineNumber, range.endColumn, selection.getDirection());
+    }
+    return selection;
+  }
+  static createEditsAndSnippetsFromSelections(editor2, template, overwriteBefore, overwriteAfter, enforceFinalTabstop, adjustWhitespace, clipboardText, overtypingCapturer, languageConfigurationService) {
+    const edits = [];
+    const snippets = [];
+    if (!editor2.hasModel()) {
+      return { edits, snippets };
+    }
+    const model = editor2.getModel();
+    const workspaceService = editor2.invokeWithinContext((accessor) => accessor.get(IWorkspaceContextService));
+    const modelBasedVariableResolver = editor2.invokeWithinContext((accessor) => new ModelBasedVariableResolver(accessor.get(ILabelService), model));
+    const readClipboardText = () => clipboardText;
+    const firstBeforeText = model.getValueInRange(SnippetSession2.adjustSelection(model, editor2.getSelection(), overwriteBefore, 0));
+    const firstAfterText = model.getValueInRange(SnippetSession2.adjustSelection(model, editor2.getSelection(), 0, overwriteAfter));
+    const firstLineFirstNonWhitespace = model.getLineFirstNonWhitespaceColumn(editor2.getSelection().positionLineNumber);
+    const indexedSelections = editor2.getSelections().map((selection, idx) => ({ selection, idx })).sort((a, b) => Range.compareRangesUsingStarts(a.selection, b.selection));
+    for (const { selection, idx } of indexedSelections) {
+      let extensionBefore = SnippetSession2.adjustSelection(model, selection, overwriteBefore, 0);
+      let extensionAfter = SnippetSession2.adjustSelection(model, selection, 0, overwriteAfter);
+      if (firstBeforeText !== model.getValueInRange(extensionBefore)) {
+        extensionBefore = selection;
+      }
+      if (firstAfterText !== model.getValueInRange(extensionAfter)) {
+        extensionAfter = selection;
+      }
+      const snippetSelection = selection.setStartPosition(extensionBefore.startLineNumber, extensionBefore.startColumn).setEndPosition(extensionAfter.endLineNumber, extensionAfter.endColumn);
+      const snippet = new SnippetParser().parse(template, true, enforceFinalTabstop);
+      const start = snippetSelection.getStartPosition();
+      const snippetLineLeadingWhitespace = SnippetSession2.adjustWhitespace(model, start, snippet, adjustWhitespace || idx > 0 && firstLineFirstNonWhitespace !== model.getLineFirstNonWhitespaceColumn(selection.positionLineNumber), true);
+      snippet.resolveVariables(new CompositeSnippetVariableResolver([
+        modelBasedVariableResolver,
+        new ClipboardBasedVariableResolver(readClipboardText, idx, indexedSelections.length, editor2.getOption(72) === "spread"),
+        new SelectionBasedVariableResolver(model, selection, idx, overtypingCapturer),
+        new CommentBasedVariableResolver(model, selection, languageConfigurationService),
+        new TimeBasedVariableResolver(),
+        new WorkspaceBasedVariableResolver(workspaceService),
+        new RandomBasedVariableResolver()
+      ]));
+      edits[idx] = EditOperation.replace(snippetSelection, snippet.toString());
+      edits[idx].identifier = { major: idx, minor: 0 };
+      edits[idx]._isTracked = true;
+      snippets[idx] = new OneSnippet(editor2, snippet, snippetLineLeadingWhitespace);
+    }
+    return { edits, snippets };
+  }
+  static createEditsAndSnippetsFromEdits(editor2, snippetEdits, enforceFinalTabstop, adjustWhitespace, clipboardText, overtypingCapturer, languageConfigurationService) {
+    if (!editor2.hasModel() || snippetEdits.length === 0) {
+      return { edits: [], snippets: [] };
+    }
+    const edits = [];
+    const model = editor2.getModel();
+    const parser = new SnippetParser();
+    const snippet = new TextmateSnippet();
+    snippetEdits = snippetEdits.sort((a, b) => Range.compareRangesUsingStarts(a.range, b.range));
+    let offset = 0;
+    for (let i = 0; i < snippetEdits.length; i++) {
+      const { range, template } = snippetEdits[i];
+      if (i > 0) {
+        const lastRange = snippetEdits[i - 1].range;
+        const textRange = Range.fromPositions(lastRange.getEndPosition(), range.getStartPosition());
+        const textNode = new Text(model.getValueInRange(textRange));
+        snippet.appendChild(textNode);
+        offset += textNode.value.length;
+      }
+      parser.parseFragment(template, snippet);
+      const snippetText = snippet.toString();
+      const snippetFragmentText = snippetText.slice(offset);
+      offset = snippetText.length;
+      const edit = EditOperation.replace(range, snippetFragmentText);
+      edit.identifier = { major: i, minor: 0 };
+      edit._isTracked = true;
+      edits.push(edit);
+    }
+    parser.ensureFinalTabstop(snippet, enforceFinalTabstop, true);
+    const resolver = new CompositeSnippetVariableResolver([
+      editor2.invokeWithinContext((accessor) => new ModelBasedVariableResolver(accessor.get(ILabelService), model)),
+      new ClipboardBasedVariableResolver(() => clipboardText, 0, editor2.getSelections().length, editor2.getOption(72) === "spread"),
+      new SelectionBasedVariableResolver(model, editor2.getSelection(), 0, overtypingCapturer),
+      new CommentBasedVariableResolver(model, editor2.getSelection(), languageConfigurationService),
+      new TimeBasedVariableResolver(),
+      new WorkspaceBasedVariableResolver(editor2.invokeWithinContext((accessor) => accessor.get(IWorkspaceContextService))),
+      new RandomBasedVariableResolver()
+    ]);
+    snippet.resolveVariables(resolver);
+    return {
+      edits,
+      snippets: [new OneSnippet(editor2, snippet, "")]
+    };
+  }
+  dispose() {
+    dispose(this._snippets);
+  }
+  _logInfo() {
+    return `template="${this._template}", merged_templates="${this._templateMerges.join(" -> ")}"`;
+  }
+  insert() {
+    if (!this._editor.hasModel()) {
+      return;
+    }
+    const { edits, snippets } = typeof this._template === "string" ? SnippetSession2.createEditsAndSnippetsFromSelections(this._editor, this._template, this._options.overwriteBefore, this._options.overwriteAfter, false, this._options.adjustWhitespace, this._options.clipboardText, this._options.overtypingCapturer, this._languageConfigurationService) : SnippetSession2.createEditsAndSnippetsFromEdits(this._editor, this._template, false, this._options.adjustWhitespace, this._options.clipboardText, this._options.overtypingCapturer, this._languageConfigurationService);
+    this._snippets = snippets;
+    this._editor.executeEdits("snippet", edits, (_undoEdits) => {
+      const undoEdits = _undoEdits.filter((edit) => !!edit.identifier);
+      for (let idx = 0; idx < snippets.length; idx++) {
+        snippets[idx].initialize(undoEdits[idx].textChange);
+      }
+      if (this._snippets[0].hasPlaceholder) {
+        return this._move(true);
+      } else {
+        return undoEdits.map((edit) => Selection.fromPositions(edit.range.getEndPosition()));
+      }
+    });
+    this._editor.revealRange(this._editor.getSelections()[0]);
+  }
+  merge(template, options = _defaultOptions) {
+    if (!this._editor.hasModel()) {
+      return;
+    }
+    this._templateMerges.push([this._snippets[0]._nestingLevel, this._snippets[0]._placeholderGroupsIdx, template]);
+    const { edits, snippets } = SnippetSession2.createEditsAndSnippetsFromSelections(this._editor, template, options.overwriteBefore, options.overwriteAfter, true, options.adjustWhitespace, options.clipboardText, options.overtypingCapturer, this._languageConfigurationService);
+    this._editor.executeEdits("snippet", edits, (_undoEdits) => {
+      const undoEdits = _undoEdits.filter((edit) => !!edit.identifier);
+      for (let idx = 0; idx < snippets.length; idx++) {
+        snippets[idx].initialize(undoEdits[idx].textChange);
+      }
+      const isTrivialSnippet = snippets[0].isTrivialSnippet;
+      if (!isTrivialSnippet) {
+        for (const snippet of this._snippets) {
+          snippet.merge(snippets);
+        }
+        console.assert(snippets.length === 0);
+      }
+      if (this._snippets[0].hasPlaceholder && !isTrivialSnippet) {
+        return this._move(void 0);
+      } else {
+        return undoEdits.map((edit) => Selection.fromPositions(edit.range.getEndPosition()));
+      }
+    });
+  }
+  next() {
+    const newSelections = this._move(true);
+    this._editor.setSelections(newSelections);
+    this._editor.revealPositionInCenterIfOutsideViewport(newSelections[0].getPosition());
+  }
+  prev() {
+    const newSelections = this._move(false);
+    this._editor.setSelections(newSelections);
+    this._editor.revealPositionInCenterIfOutsideViewport(newSelections[0].getPosition());
+  }
+  _move(fwd) {
+    const selections = [];
+    for (const snippet of this._snippets) {
+      const oneSelection = snippet.move(fwd);
+      selections.push(...oneSelection);
+    }
+    return selections;
+  }
+  get isAtFirstPlaceholder() {
+    return this._snippets[0].isAtFirstPlaceholder;
+  }
+  get isAtLastPlaceholder() {
+    return this._snippets[0].isAtLastPlaceholder;
+  }
+  get hasPlaceholder() {
+    return this._snippets[0].hasPlaceholder;
+  }
+  get hasChoice() {
+    return this._snippets[0].hasChoice;
+  }
+  get activeChoice() {
+    return this._snippets[0].activeChoice;
+  }
+  isSelectionWithinPlaceholders() {
+    if (!this.hasPlaceholder) {
+      return false;
+    }
+    const selections = this._editor.getSelections();
+    if (selections.length < this._snippets.length) {
+      return false;
+    }
+    const allPossibleSelections = /* @__PURE__ */ new Map();
+    for (const snippet of this._snippets) {
+      const possibleSelections = snippet.computePossibleSelections();
+      if (allPossibleSelections.size === 0) {
+        for (const [index, ranges] of possibleSelections) {
+          ranges.sort(Range.compareRangesUsingStarts);
+          for (const selection of selections) {
+            if (ranges[0].containsRange(selection)) {
+              allPossibleSelections.set(index, []);
+              break;
+            }
+          }
+        }
+      }
+      if (allPossibleSelections.size === 0) {
+        return false;
+      }
+      allPossibleSelections.forEach((array2, index) => {
+        array2.push(...possibleSelections.get(index));
+      });
+    }
+    selections.sort(Range.compareRangesUsingStarts);
+    for (const [index, ranges] of allPossibleSelections) {
+      if (ranges.length !== selections.length) {
+        allPossibleSelections.delete(index);
+        continue;
+      }
+      ranges.sort(Range.compareRangesUsingStarts);
+      for (let i = 0; i < ranges.length; i++) {
+        if (!ranges[i].containsRange(selections[i])) {
+          allPossibleSelections.delete(index);
+          continue;
+        }
+      }
+    }
+    return allPossibleSelections.size > 0;
+  }
+};
+SnippetSession = __decorate29([
+  __param29(3, ILanguageConfigurationService)
+], SnippetSession);
+
+// ../../node_modules/monaco-editor/esm/vs/editor/contrib/snippet/browser/snippetController2.js
+var __decorate30 = function(decorators, target, key, desc) {
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function")
+    r = Reflect.decorate(decorators, target, key, desc);
+  else
+    for (var i = decorators.length - 1; i >= 0; i--)
+      if (d = decorators[i])
+        r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __param30 = function(paramIndex, decorator) {
+  return function(target, key) {
+    decorator(target, key, paramIndex);
+  };
+};
+var _defaultOptions2 = {
+  overwriteBefore: 0,
+  overwriteAfter: 0,
+  undoStopBefore: true,
+  undoStopAfter: true,
+  adjustWhitespace: true,
+  clipboardText: void 0,
+  overtypingCapturer: void 0
+};
+var SnippetController2 = class SnippetController22 {
+  constructor(_editor, _logService, _languageFeaturesService, contextKeyService, _languageConfigurationService) {
+    this._editor = _editor;
+    this._logService = _logService;
+    this._languageFeaturesService = _languageFeaturesService;
+    this._languageConfigurationService = _languageConfigurationService;
+    this._snippetListener = new DisposableStore();
+    this._modelVersionId = -1;
+    this._inSnippet = SnippetController22.InSnippetMode.bindTo(contextKeyService);
+    this._hasNextTabstop = SnippetController22.HasNextTabstop.bindTo(contextKeyService);
+    this._hasPrevTabstop = SnippetController22.HasPrevTabstop.bindTo(contextKeyService);
+  }
+  static get(editor2) {
+    return editor2.getContribution(SnippetController22.ID);
+  }
+  dispose() {
+    var _a5;
+    this._inSnippet.reset();
+    this._hasPrevTabstop.reset();
+    this._hasNextTabstop.reset();
+    (_a5 = this._session) === null || _a5 === void 0 ? void 0 : _a5.dispose();
+    this._snippetListener.dispose();
+  }
+  apply(edits, opts) {
+    try {
+      this._doInsert(edits, typeof opts === "undefined" ? _defaultOptions2 : Object.assign(Object.assign({}, _defaultOptions2), opts));
+    } catch (e) {
+      this.cancel();
+      this._logService.error(e);
+      this._logService.error("snippet_error");
+      this._logService.error("insert_edits=", edits);
+      this._logService.error("existing_template=", this._session ? this._session._logInfo() : "<no_session>");
+    }
+  }
+  insert(template, opts) {
+    try {
+      this._doInsert(template, typeof opts === "undefined" ? _defaultOptions2 : Object.assign(Object.assign({}, _defaultOptions2), opts));
+    } catch (e) {
+      this.cancel();
+      this._logService.error(e);
+      this._logService.error("snippet_error");
+      this._logService.error("insert_template=", template);
+      this._logService.error("existing_template=", this._session ? this._session._logInfo() : "<no_session>");
+    }
+  }
+  _doInsert(template, opts) {
+    var _a5;
+    if (!this._editor.hasModel()) {
+      return;
+    }
+    this._snippetListener.clear();
+    if (opts.undoStopBefore) {
+      this._editor.getModel().pushStackElement();
+    }
+    if (this._session && typeof template !== "string") {
+      this.cancel();
+    }
+    if (!this._session) {
+      this._modelVersionId = this._editor.getModel().getAlternativeVersionId();
+      this._session = new SnippetSession(this._editor, template, opts, this._languageConfigurationService);
+      this._session.insert();
+    } else {
+      assertType(typeof template === "string");
+      this._session.merge(template, opts);
+    }
+    if (opts.undoStopAfter) {
+      this._editor.getModel().pushStackElement();
+    }
+    if ((_a5 = this._session) === null || _a5 === void 0 ? void 0 : _a5.hasChoice) {
+      this._choiceCompletionItemProvider = {
+        provideCompletionItems: (model, position) => {
+          if (!this._session || model !== this._editor.getModel() || !Position.equals(this._editor.getPosition(), position)) {
+            return void 0;
+          }
+          const { activeChoice } = this._session;
+          if (!activeChoice || activeChoice.choice.options.length === 0) {
+            return void 0;
+          }
+          const word = model.getValueInRange(activeChoice.range);
+          const isAnyOfOptions = Boolean(activeChoice.choice.options.find((o) => o.value === word));
+          const suggestions = [];
+          for (let i = 0; i < activeChoice.choice.options.length; i++) {
+            const option = activeChoice.choice.options[i];
+            suggestions.push({
+              kind: 13,
+              label: option.value,
+              insertText: option.value,
+              sortText: "a".repeat(i + 1),
+              range: activeChoice.range,
+              filterText: isAnyOfOptions ? `${word}_${option.value}` : void 0,
+              command: { id: "jumpToNextSnippetPlaceholder", title: localize("next", "Go to next placeholder...") }
+            });
+          }
+          return { suggestions };
+        }
+      };
+      const registration = this._languageFeaturesService.completionProvider.register({
+        language: this._editor.getModel().getLanguageId(),
+        pattern: this._editor.getModel().uri.fsPath,
+        scheme: this._editor.getModel().uri.scheme
+      }, this._choiceCompletionItemProvider);
+      this._snippetListener.add(registration);
+    }
+    this._updateState();
+    this._snippetListener.add(this._editor.onDidChangeModelContent((e) => e.isFlush && this.cancel()));
+    this._snippetListener.add(this._editor.onDidChangeModel(() => this.cancel()));
+    this._snippetListener.add(this._editor.onDidChangeCursorSelection(() => this._updateState()));
+  }
+  _updateState() {
+    if (!this._session || !this._editor.hasModel()) {
+      return;
+    }
+    if (this._modelVersionId === this._editor.getModel().getAlternativeVersionId()) {
+      return this.cancel();
+    }
+    if (!this._session.hasPlaceholder) {
+      return this.cancel();
+    }
+    if (this._session.isAtLastPlaceholder || !this._session.isSelectionWithinPlaceholders()) {
+      this._editor.getModel().pushStackElement();
+      return this.cancel();
+    }
+    this._inSnippet.set(true);
+    this._hasPrevTabstop.set(!this._session.isAtFirstPlaceholder);
+    this._hasNextTabstop.set(!this._session.isAtLastPlaceholder);
+    this._handleChoice();
+  }
+  _handleChoice() {
+    if (!this._session || !this._editor.hasModel()) {
+      this._currentChoice = void 0;
+      return;
+    }
+    const { activeChoice } = this._session;
+    if (!activeChoice || !this._choiceCompletionItemProvider) {
+      this._currentChoice = void 0;
+      return;
+    }
+    if (this._currentChoice !== activeChoice.choice) {
+      this._currentChoice = activeChoice.choice;
+      queueMicrotask(() => {
+        showSimpleSuggestions(this._editor, this._choiceCompletionItemProvider);
+      });
+    }
+  }
+  finish() {
+    while (this._inSnippet.get()) {
+      this.next();
+    }
+  }
+  cancel(resetSelection = false) {
+    var _a5;
+    this._inSnippet.reset();
+    this._hasPrevTabstop.reset();
+    this._hasNextTabstop.reset();
+    this._snippetListener.clear();
+    this._currentChoice = void 0;
+    (_a5 = this._session) === null || _a5 === void 0 ? void 0 : _a5.dispose();
+    this._session = void 0;
+    this._modelVersionId = -1;
+    if (resetSelection) {
+      this._editor.setSelections([this._editor.getSelection()]);
+    }
+  }
+  prev() {
+    if (this._session) {
+      this._session.prev();
+    }
+    this._updateState();
+  }
+  next() {
+    if (this._session) {
+      this._session.next();
+    }
+    this._updateState();
+  }
+  isInSnippet() {
+    return Boolean(this._inSnippet.get());
+  }
+};
+SnippetController2.ID = "snippetController2";
+SnippetController2.InSnippetMode = new RawContextKey("inSnippetMode", false, localize("inSnippetMode", "Whether the editor in current in snippet mode"));
+SnippetController2.HasNextTabstop = new RawContextKey("hasNextTabstop", false, localize("hasNextTabstop", "Whether there is a next tab stop when in snippet mode"));
+SnippetController2.HasPrevTabstop = new RawContextKey("hasPrevTabstop", false, localize("hasPrevTabstop", "Whether there is a previous tab stop when in snippet mode"));
+SnippetController2 = __decorate30([
+  __param30(1, ILogService),
+  __param30(2, ILanguageFeaturesService),
+  __param30(3, IContextKeyService),
+  __param30(4, ILanguageConfigurationService)
+], SnippetController2);
+registerEditorContribution(SnippetController2.ID, SnippetController2);
+var CommandCtor = EditorCommand.bindToContribution(SnippetController2.get);
+registerEditorCommand(new CommandCtor({
+  id: "jumpToNextSnippetPlaceholder",
+  precondition: ContextKeyExpr.and(SnippetController2.InSnippetMode, SnippetController2.HasNextTabstop),
+  handler: (ctrl) => ctrl.next(),
+  kbOpts: {
+    weight: 100 + 30,
+    kbExpr: EditorContextKeys.editorTextFocus,
+    primary: 2
+  }
+}));
+registerEditorCommand(new CommandCtor({
+  id: "jumpToPrevSnippetPlaceholder",
+  precondition: ContextKeyExpr.and(SnippetController2.InSnippetMode, SnippetController2.HasPrevTabstop),
+  handler: (ctrl) => ctrl.prev(),
+  kbOpts: {
+    weight: 100 + 30,
+    kbExpr: EditorContextKeys.editorTextFocus,
+    primary: 1024 | 2
+  }
+}));
+registerEditorCommand(new CommandCtor({
+  id: "leaveSnippet",
+  precondition: SnippetController2.InSnippetMode,
+  handler: (ctrl) => ctrl.cancel(true),
+  kbOpts: {
+    weight: 100 + 30,
+    kbExpr: EditorContextKeys.editorTextFocus,
+    primary: 9,
+    secondary: [1024 | 9]
+  }
+}));
+registerEditorCommand(new CommandCtor({
+  id: "acceptSnippet",
+  precondition: SnippetController2.InSnippetMode,
+  handler: (ctrl) => ctrl.finish()
+}));
+function performSnippetEdit(editor2, snippet, selections) {
+  const controller = SnippetController2.get(editor2);
+  if (!controller) {
+    return false;
+  }
+  editor2.focus();
+  controller.apply(selections.map((selection) => {
+    return {
+      range: Selection.liftSelection(selection),
+      template: snippet
+    };
+  }));
+  return controller.isInSnippet();
+}
+
+// ../../node_modules/monaco-editor/esm/vs/editor/contrib/copyPaste/browser/copyPasteController.js
+init_configuration();
+var __decorate31 = function(decorators, target, key, desc) {
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function")
+    r = Reflect.decorate(decorators, target, key, desc);
+  else
+    for (var i = decorators.length - 1; i >= 0; i--)
+      if (d = decorators[i])
+        r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __param31 = function(paramIndex, decorator) {
+  return function(target, key) {
+    decorator(target, key, paramIndex);
+  };
+};
+var __awaiter24 = function(thisArg, _arguments, P, generator) {
+  function adopt(value) {
+    return value instanceof P ? value : new P(function(resolve) {
+      resolve(value);
+    });
+  }
+  return new (P || (P = Promise))(function(resolve, reject) {
+    function fulfilled(value) {
+      try {
+        step(generator.next(value));
+      } catch (e) {
+        reject(e);
+      }
+    }
+    function rejected(value) {
+      try {
+        step(generator["throw"](value));
+      } catch (e) {
+        reject(e);
+      }
+    }
+    function step(result) {
+      result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
+    }
+    step((generator = generator.apply(thisArg, _arguments || [])).next());
+  });
+};
+var vscodeClipboardMime = "application/vnd.code.copyMetadata";
+var CopyPasteController = class CopyPasteController2 extends Disposable {
+  constructor(editor2, _bulkEditService, _clipboardService, _configurationService, _languageFeaturesService) {
+    super();
+    this._bulkEditService = _bulkEditService;
+    this._clipboardService = _clipboardService;
+    this._configurationService = _configurationService;
+    this._languageFeaturesService = _languageFeaturesService;
+    this._editor = editor2;
+    const container = editor2.getContainerDomNode();
+    this._register(addDisposableListener(container, "copy", (e) => this.handleCopy(e)));
+    this._register(addDisposableListener(container, "cut", (e) => this.handleCopy(e)));
+    this._register(addDisposableListener(container, "paste", (e) => this.handlePaste(e), true));
+  }
+  arePasteActionsEnabled(model) {
+    return this._configurationService.getValue("editor.experimental.pasteActions.enabled", {
+      resource: model.uri
+    });
+  }
+  handleCopy(e) {
+    var _a5;
+    if (!e.clipboardData || !this._editor.hasTextFocus()) {
+      return;
+    }
+    const model = this._editor.getModel();
+    const selections = this._editor.getSelections();
+    if (!model || !(selections === null || selections === void 0 ? void 0 : selections.length)) {
+      return;
+    }
+    if (!this.arePasteActionsEnabled(model)) {
+      return;
+    }
+    const ranges = [...selections];
+    const primarySelection = selections[0];
+    const wasFromEmptySelection = primarySelection.isEmpty();
+    if (wasFromEmptySelection) {
+      if (!this._editor.getOption(33)) {
+        return;
+      }
+      ranges[0] = new Range(primarySelection.startLineNumber, 0, primarySelection.startLineNumber, model.getLineLength(primarySelection.startLineNumber));
+    }
+    const providers = this._languageFeaturesService.documentPasteEditProvider.ordered(model).filter((x) => !!x.prepareDocumentPaste);
+    if (!providers.length) {
+      this.setCopyMetadata(e.clipboardData, { wasFromEmptySelection });
+      return;
+    }
+    const dataTransfer = toVSDataTransfer(e.clipboardData);
+    const handle = generateUuid();
+    this.setCopyMetadata(e.clipboardData, {
+      id: handle,
+      wasFromEmptySelection
+    });
+    const promise = createCancelablePromise((token) => __awaiter24(this, void 0, void 0, function* () {
+      const results = yield Promise.all(providers.map((provider) => {
+        return provider.prepareDocumentPaste(model, ranges, dataTransfer, token);
+      }));
+      for (const result of results) {
+        result === null || result === void 0 ? void 0 : result.forEach((value, key) => {
+          dataTransfer.replace(key, value);
+        });
+      }
+      return dataTransfer;
+    }));
+    (_a5 = this._currentClipboardItem) === null || _a5 === void 0 ? void 0 : _a5.dataTransferPromise.cancel();
+    this._currentClipboardItem = { handle, dataTransferPromise: promise };
+  }
+  setCopyMetadata(dataTransfer, metadata) {
+    dataTransfer.setData(vscodeClipboardMime, JSON.stringify(metadata));
+  }
+  handlePaste(e) {
+    var _a5, _b2, _c2;
+    return __awaiter24(this, void 0, void 0, function* () {
+      if (!e.clipboardData || !this._editor.hasTextFocus()) {
+        return;
+      }
+      const selections = this._editor.getSelections();
+      if (!(selections === null || selections === void 0 ? void 0 : selections.length) || !this._editor.hasModel()) {
+        return;
+      }
+      const model = this._editor.getModel();
+      if (!this.arePasteActionsEnabled(model)) {
+        return;
+      }
+      let metadata;
+      const rawMetadata = (_a5 = e.clipboardData) === null || _a5 === void 0 ? void 0 : _a5.getData(vscodeClipboardMime);
+      if (rawMetadata && typeof rawMetadata === "string") {
+        metadata = JSON.parse(rawMetadata);
+      }
+      const providers = this._languageFeaturesService.documentPasteEditProvider.ordered(model);
+      if (!providers.length) {
+        return;
+      }
+      e.preventDefault();
+      e.stopImmediatePropagation();
+      const originalDocVersion = model.getVersionId();
+      const tokenSource = new EditorStateCancellationTokenSource(this._editor, 1 | 2);
+      try {
+        const dataTransfer = toVSDataTransfer(e.clipboardData);
+        if ((metadata === null || metadata === void 0 ? void 0 : metadata.id) && ((_b2 = this._currentClipboardItem) === null || _b2 === void 0 ? void 0 : _b2.handle) === metadata.id) {
+          const toMergeDataTransfer = yield this._currentClipboardItem.dataTransferPromise;
+          toMergeDataTransfer.forEach((value, key) => {
+            dataTransfer.replace(key, value);
+          });
+        }
+        if (!dataTransfer.has(Mimes.uriList)) {
+          const resources = yield this._clipboardService.readResources();
+          if (resources.length) {
+            dataTransfer.append(Mimes.uriList, createStringDataTransferItem(UriList.create(resources)));
+          }
+        }
+        dataTransfer.delete(vscodeClipboardMime);
+        for (const provider of providers) {
+          if (!provider.pasteMimeTypes.some((type) => {
+            if (type.toLowerCase() === DataTransfers.FILES.toLowerCase()) {
+              return [...dataTransfer.values()].some((item) => item.asFile());
+            }
+            return dataTransfer.has(type);
+          })) {
+            continue;
+          }
+          const edit = yield provider.provideDocumentPasteEdits(model, selections, dataTransfer, tokenSource.token);
+          if (originalDocVersion !== model.getVersionId()) {
+            return;
+          }
+          if (edit) {
+            performSnippetEdit(this._editor, typeof edit.insertText === "string" ? SnippetParser.escape(edit.insertText) : edit.insertText.snippet, selections);
+            if (edit.additionalEdit) {
+              yield this._bulkEditService.apply(ResourceEdit.convert(edit.additionalEdit), { editor: this._editor });
+            }
+            return;
+          }
+        }
+        const textDataTransfer = (_c2 = dataTransfer.get(Mimes.text)) !== null && _c2 !== void 0 ? _c2 : dataTransfer.get("text");
+        if (!textDataTransfer) {
+          return;
+        }
+        const text = yield textDataTransfer.asString();
+        if (originalDocVersion !== model.getVersionId()) {
+          return;
+        }
+        this._editor.trigger("keyboard", "paste", {
+          text,
+          pasteOnNewLine: metadata === null || metadata === void 0 ? void 0 : metadata.wasFromEmptySelection,
+          multicursorText: null
+        });
+      } finally {
+        tokenSource.dispose();
+      }
+    });
+  }
+};
+CopyPasteController.ID = "editor.contrib.copyPasteActionController";
+CopyPasteController = __decorate31([
+  __param31(1, IBulkEditService),
+  __param31(2, IClipboardService),
+  __param31(3, IConfigurationService),
+  __param31(4, ILanguageFeaturesService)
+], CopyPasteController);
+
+// ../../node_modules/monaco-editor/esm/vs/editor/contrib/copyPaste/browser/copyPasteContribution.js
+init_nls();
+init_configurationRegistry();
+init_platform2();
+registerEditorContribution(CopyPasteController.ID, CopyPasteController);
+Registry.as(Extensions.Configuration).registerConfiguration(Object.assign(Object.assign({}, editorConfigurationBaseNode), { properties: {
+  "editor.experimental.pasteActions.enabled": {
+    type: "boolean",
+    scope: 5,
+    description: localize("pasteActions", "Enable/disable running edits from extensions on paste."),
+    default: false
+  }
+} }));
+
 // ../../node_modules/monaco-editor/esm/vs/editor/contrib/comment/browser/comment.js
 init_define_process();
 init_keyCodes();
@@ -20161,7 +21143,7 @@ var BlockCommentCommand = class {
     }
   }
   static _createRemoveBlockCommentOperations(r, startToken, endToken) {
-    let res = [];
+    const res = [];
     if (!Range.isEmpty(r)) {
       res.push(EditOperation.delete(new Range(r.startLineNumber, r.startColumn - startToken.length, r.startLineNumber, r.startColumn)));
       res.push(EditOperation.delete(new Range(r.endLineNumber, r.endColumn, r.endLineNumber, r.endColumn + endToken.length)));
@@ -20171,7 +21153,7 @@ var BlockCommentCommand = class {
     return res;
   }
   static _createAddBlockCommentOperations(r, startToken, endToken, insertSpace) {
-    let res = [];
+    const res = [];
     if (!Range.isEmpty(r)) {
       res.push(EditOperation.insert(new Position(r.startLineNumber, r.startColumn), startToken + (insertSpace ? " " : "")));
       res.push(EditOperation.insert(new Position(r.endLineNumber, r.endColumn), (insertSpace ? " " : "") + endToken));
@@ -20183,7 +21165,7 @@ var BlockCommentCommand = class {
   getEditOperations(model, builder) {
     const startLineNumber = this._selection.startLineNumber;
     const startColumn = this._selection.startColumn;
-    model.tokenizeIfCheap(startLineNumber);
+    model.tokenization.tokenizeIfCheap(startLineNumber);
     const languageId = model.getLanguageIdAtPosition(startLineNumber, startColumn);
     const config = this.languageConfigurationService.getLanguageConfiguration(languageId).comments;
     if (!config || !config.blockCommentStartToken || !config.blockCommentEndToken) {
@@ -20212,7 +21194,6 @@ init_editOperation();
 init_position();
 init_range();
 init_selection();
-init_languageConfigurationRegistry();
 var LineCommentCommand = class {
   constructor(languageConfigurationService, selection, tabSize, type, insertSpace, ignoreEmptyLines, ignoreFirstLine) {
     this.languageConfigurationService = languageConfigurationService;
@@ -20227,14 +21208,14 @@ var LineCommentCommand = class {
     this._ignoreFirstLine = ignoreFirstLine || false;
   }
   static _gatherPreflightCommentStrings(model, startLineNumber, endLineNumber, languageConfigurationService) {
-    model.tokenizeIfCheap(startLineNumber);
+    model.tokenization.tokenizeIfCheap(startLineNumber);
     const languageId = model.getLanguageIdAtPosition(startLineNumber, 1);
     const config = languageConfigurationService.getLanguageConfiguration(languageId).comments;
     const commentStr = config ? config.lineCommentToken : null;
     if (!commentStr) {
       return null;
     }
-    let lines = [];
+    const lines = [];
     for (let i = 0, lineCount = endLineNumber - startLineNumber + 1; i < lineCount; i++) {
       lines[i] = {
         ignore: false,
@@ -20331,7 +21312,7 @@ var LineCommentCommand = class {
   _attemptRemoveBlockComment(model, s, startToken, endToken) {
     let startLineNumber = s.startLineNumber;
     let endLineNumber = s.endLineNumber;
-    let startTokenAllowedBeforeColumn = endToken.length + Math.max(model.getLineFirstNonWhitespaceColumn(s.startLineNumber), s.startColumn);
+    const startTokenAllowedBeforeColumn = endToken.length + Math.max(model.getLineFirstNonWhitespaceColumn(s.startLineNumber), s.startColumn);
     let startTokenIndex = model.getLineContent(startLineNumber).lastIndexOf(startToken, startTokenAllowedBeforeColumn - 1);
     let endTokenIndex = model.getLineContent(endLineNumber).indexOf(endToken, s.endColumn - 1 - startToken.length);
     if (startTokenIndex !== -1 && endTokenIndex === -1) {
@@ -20361,9 +21342,9 @@ var LineCommentCommand = class {
     return null;
   }
   _executeBlockComment(model, builder, s) {
-    model.tokenizeIfCheap(s.startLineNumber);
-    let languageId = model.getLanguageIdAtPosition(s.startLineNumber, 1);
-    let config = LanguageConfigurationRegistry.getComments(languageId);
+    model.tokenization.tokenizeIfCheap(s.startLineNumber);
+    const languageId = model.getLanguageIdAtPosition(s.startLineNumber, 1);
+    const config = this.languageConfigurationService.getLanguageConfiguration(languageId).comments;
     if (!config || !config.blockCommentStartToken || !config.blockCommentEndToken) {
       return;
     }
@@ -20416,7 +21397,7 @@ var LineCommentCommand = class {
     return new Selection(result.selectionStartLineNumber, result.selectionStartColumn + this._deltaColumn, result.positionLineNumber, result.positionColumn + this._deltaColumn);
   }
   static _createRemoveLineCommentsOperations(lines, startLineNumber) {
-    let res = [];
+    const res = [];
     for (let i = 0, len = lines.length; i < len; i++) {
       const lineData = lines[i];
       if (lineData.ignore) {
@@ -20427,7 +21408,7 @@ var LineCommentCommand = class {
     return res;
   }
   _createAddLineCommentsOperations(lines, startLineNumber) {
-    let res = [];
+    const res = [];
     const afterCommentStr = this._insertSpace ? " " : "";
     for (let i = 0, len = lines.length; i < len; i++) {
       const lineData = lines[i];
@@ -20624,7 +21605,8 @@ init_nls();
 init_actions2();
 init_contextkey();
 init_keybinding();
-var __decorate28 = function(decorators, target, key, desc) {
+init_configuration();
+var __decorate32 = function(decorators, target, key, desc) {
   var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
   if (typeof Reflect === "object" && typeof Reflect.decorate === "function")
     r = Reflect.decorate(decorators, target, key, desc);
@@ -20634,18 +21616,19 @@ var __decorate28 = function(decorators, target, key, desc) {
         r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
   return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __param28 = function(paramIndex, decorator) {
+var __param32 = function(paramIndex, decorator) {
   return function(target, key) {
     decorator(target, key, paramIndex);
   };
 };
 var ContextMenuController = class ContextMenuController2 {
-  constructor(editor2, _contextMenuService, _contextViewService, _contextKeyService, _keybindingService, _menuService) {
+  constructor(editor2, _contextMenuService, _contextViewService, _contextKeyService, _keybindingService, _menuService, _configurationService) {
     this._contextMenuService = _contextMenuService;
     this._contextViewService = _contextViewService;
     this._contextKeyService = _contextKeyService;
     this._keybindingService = _keybindingService;
     this._menuService = _menuService;
+    this._configurationService = _configurationService;
     this._toDispose = new DisposableStore();
     this._contextMenuIsBeingShownCount = 0;
     this._editor = editor2;
@@ -20660,6 +21643,9 @@ var ContextMenuController = class ContextMenuController2 {
       }
     }));
     this._toDispose.add(this._editor.onKeyDown((e) => {
+      if (!this._editor.getOption(20)) {
+        return;
+      }
       if (e.keyCode === 58) {
         e.preventDefault();
         e.stopPropagation();
@@ -20689,6 +21675,9 @@ var ContextMenuController = class ContextMenuController2 {
     }
     e.event.preventDefault();
     e.event.stopPropagation();
+    if (e.target.type === 11) {
+      return this._showScrollbarContextMenu({ x: e.event.posx - 1, width: 2, y: e.event.posy - 1, height: 2 });
+    }
     if (e.target.type !== 6 && e.target.type !== 7 && e.target.type !== 1) {
       return;
     }
@@ -20718,10 +21707,6 @@ var ContextMenuController = class ContextMenuController2 {
     if (!this._editor.hasModel()) {
       return;
     }
-    if (!this._contextMenuService) {
-      this._editor.focus();
-      return;
-    }
     const menuActions = this._getMenuActions(this._editor.getModel(), this._editor.isSimpleWidget ? MenuId.SimpleEditorContext : MenuId.EditorContext);
     if (menuActions.length > 0) {
       this._doShowContextMenu(menuActions, anchor);
@@ -20732,7 +21717,7 @@ var ContextMenuController = class ContextMenuController2 {
     const menu = this._menuService.createMenu(menuId, this._contextKeyService);
     const groups = menu.getActions({ arg: model.uri });
     menu.dispose();
-    for (let group of groups) {
+    for (const group of groups) {
       const [, actions] = group;
       let addedItems = 0;
       for (const action of actions) {
@@ -20760,7 +21745,7 @@ var ContextMenuController = class ContextMenuController2 {
     if (!this._editor.hasModel()) {
       return;
     }
-    const oldHoverSetting = this._editor.getOption(53);
+    const oldHoverSetting = this._editor.getOption(54);
     this._editor.updateOptions({
       hover: {
         enabled: false
@@ -20775,7 +21760,7 @@ var ContextMenuController = class ContextMenuController2 {
       const posy = editorCoords.top + cursorCoords.top + cursorCoords.height;
       anchor = { x: posx, y: posy };
     }
-    const useShadowDOM = this._editor.getOption(115) && !isIOS;
+    const useShadowDOM = this._editor.getOption(116) && !isIOS;
     this._contextMenuIsBeingShownCount++;
     this._contextMenuService.showContextMenu({
       domForShadowRoot: useShadowDOM ? this._editor.getDomNode() : void 0,
@@ -20804,6 +21789,103 @@ var ContextMenuController = class ContextMenuController2 {
       }
     });
   }
+  _showScrollbarContextMenu(anchor) {
+    if (!this._editor.hasModel()) {
+      return;
+    }
+    const minimapOptions = this._editor.getOption(66);
+    let lastId = 0;
+    const createAction = (opts) => {
+      return {
+        id: `menu-action-${++lastId}`,
+        label: opts.label,
+        tooltip: "",
+        class: void 0,
+        enabled: typeof opts.enabled === "undefined" ? true : opts.enabled,
+        checked: opts.checked,
+        run: opts.run,
+        dispose: () => null
+      };
+    };
+    const createSubmenuAction = (label, actions2) => {
+      return new SubmenuAction(`menu-action-${++lastId}`, label, actions2, void 0);
+    };
+    const createEnumAction = (label, enabled, configName, configuredValue, options) => {
+      if (!enabled) {
+        return createAction({ label, enabled, run: () => {
+        } });
+      }
+      const createRunner = (value) => {
+        return () => {
+          this._configurationService.updateValue(configName, value);
+        };
+      };
+      const actions2 = [];
+      for (const option of options) {
+        actions2.push(createAction({
+          label: option.label,
+          checked: configuredValue === option.value,
+          run: createRunner(option.value)
+        }));
+      }
+      return createSubmenuAction(label, actions2);
+    };
+    const actions = [];
+    actions.push(createAction({
+      label: localize("context.minimap.showMinimap", "Show Minimap"),
+      checked: minimapOptions.enabled,
+      run: () => {
+        this._configurationService.updateValue(`editor.minimap.enabled`, !minimapOptions.enabled);
+      }
+    }));
+    actions.push(new Separator());
+    actions.push(createAction({
+      label: localize("context.minimap.renderCharacters", "Render Characters"),
+      enabled: minimapOptions.enabled,
+      checked: minimapOptions.renderCharacters,
+      run: () => {
+        this._configurationService.updateValue(`editor.minimap.renderCharacters`, !minimapOptions.renderCharacters);
+      }
+    }));
+    actions.push(createEnumAction(localize("context.minimap.size", "Size"), minimapOptions.enabled, "editor.minimap.size", minimapOptions.size, [{
+      label: localize("context.minimap.size.proportional", "Proportional"),
+      value: "proportional"
+    }, {
+      label: localize("context.minimap.size.fill", "Fill"),
+      value: "fill"
+    }, {
+      label: localize("context.minimap.size.fit", "Fit"),
+      value: "fit"
+    }]));
+    actions.push(createEnumAction(localize("context.minimap.scale", "Scale"), minimapOptions.enabled, "editor.minimap.scale", minimapOptions.scale, [{
+      label: localize("context.minimap.scale.1", "1"),
+      value: 1
+    }, {
+      label: localize("context.minimap.scale.2", "2"),
+      value: 2
+    }, {
+      label: localize("context.minimap.scale.3", "3"),
+      value: 3
+    }]));
+    actions.push(createEnumAction(localize("context.minimap.slider", "Slider"), minimapOptions.enabled, "editor.minimap.showSlider", minimapOptions.showSlider, [{
+      label: localize("context.minimap.slider.mouseover", "Mouse Over"),
+      value: "mouseover"
+    }, {
+      label: localize("context.minimap.slider.always", "Always"),
+      value: "always"
+    }]));
+    const useShadowDOM = this._editor.getOption(116) && !isIOS;
+    this._contextMenuIsBeingShownCount++;
+    this._contextMenuService.showContextMenu({
+      domForShadowRoot: useShadowDOM ? this._editor.getDomNode() : void 0,
+      getAnchor: () => anchor,
+      getActions: () => actions,
+      onHide: (wasCancelled) => {
+        this._contextMenuIsBeingShownCount--;
+        this._editor.focus();
+      }
+    });
+  }
   _keybindingFor(action) {
     return this._keybindingService.lookupKeybinding(action.id);
   }
@@ -20815,12 +21897,13 @@ var ContextMenuController = class ContextMenuController2 {
   }
 };
 ContextMenuController.ID = "editor.contrib.contextmenu";
-ContextMenuController = __decorate28([
-  __param28(1, IContextMenuService),
-  __param28(2, IContextViewService),
-  __param28(3, IContextKeyService),
-  __param28(4, IKeybindingService),
-  __param28(5, IMenuService)
+ContextMenuController = __decorate32([
+  __param32(1, IContextMenuService),
+  __param32(2, IContextViewService),
+  __param32(3, IContextKeyService),
+  __param32(4, IKeybindingService),
+  __param32(5, IMenuService),
+  __param32(6, IConfigurationService)
 ], ContextMenuController);
 var ShowContextMenu = class extends EditorAction {
   constructor() {
@@ -20998,11 +22081,11 @@ var DragAndDropCommand = class {
     this.targetSelection = null;
   }
   getEditOperations(model, builder) {
-    let text2 = model.getValueInRange(this.selection);
+    const text = model.getValueInRange(this.selection);
     if (!this.copy) {
       builder.addEditOperation(this.selection, null);
     }
-    builder.addEditOperation(new Range(this.targetPosition.lineNumber, this.targetPosition.column, this.targetPosition.lineNumber, this.targetPosition.column), text2);
+    builder.addEditOperation(new Range(this.targetPosition.lineNumber, this.targetPosition.column, this.targetPosition.lineNumber, this.targetPosition.column), text);
     if (this.selection.containsPosition(this.targetPosition) && !(this.copy && (this.selection.getEndPosition().equals(this.targetPosition) || this.selection.getStartPosition().equals(this.targetPosition)))) {
       this.targetSelection = this.selection;
       return;
@@ -21042,6 +22125,7 @@ var DragAndDropController = class extends Disposable {
   constructor(editor2) {
     super();
     this._editor = editor2;
+    this._dndDecorationIds = this._editor.createDecorationsCollection();
     this._register(this._editor.onMouseDown((e) => this._onEditorMouseDown(e)));
     this._register(this._editor.onMouseUp((e) => this._onEditorMouseUp(e)));
     this._register(this._editor.onMouseDrag((e) => this._onEditorMouseDrag(e)));
@@ -21051,7 +22135,6 @@ var DragAndDropController = class extends Disposable {
     this._register(this._editor.onKeyUp((e) => this.onEditorKeyUp(e)));
     this._register(this._editor.onDidBlurEditorWidget(() => this.onEditorBlur()));
     this._register(this._editor.onDidBlurEditorText(() => this.onEditorBlur()));
-    this._dndDecorationIds = [];
     this._mouseDown = false;
     this._modifierPressed = false;
     this._dragSelection = null;
@@ -21098,10 +22181,10 @@ var DragAndDropController = class extends Disposable {
     });
   }
   _onEditorMouseDrag(mouseEvent) {
-    let target = mouseEvent.target;
+    const target = mouseEvent.target;
     if (this._dragSelection === null) {
       const selections = this._editor.getSelections() || [];
-      let possibleSelections = selections.filter((selection) => target.position && selection.containsPosition(target.position));
+      const possibleSelections = selections.filter((selection) => target.position && selection.containsPosition(target.position));
       if (possibleSelections.length === 1) {
         this._dragSelection = possibleSelections[0];
       } else {
@@ -21135,11 +22218,11 @@ var DragAndDropController = class extends Disposable {
   }
   _onEditorMouseDrop(mouseEvent) {
     if (mouseEvent.target && (this._hitContent(mouseEvent.target) || this._hitMargin(mouseEvent.target)) && mouseEvent.target.position) {
-      let newCursorPosition = new Position(mouseEvent.target.position.lineNumber, mouseEvent.target.position.column);
+      const newCursorPosition = new Position(mouseEvent.target.position.lineNumber, mouseEvent.target.position.column);
       if (this._dragSelection === null) {
         let newSelections = null;
         if (mouseEvent.event.shiftKey) {
-          let primarySelection = this._editor.getSelection();
+          const primarySelection = this._editor.getSelection();
           if (primarySelection) {
             const { selectionStartLineNumber, selectionStartColumn } = primarySelection;
             newSelections = [new Selection(selectionStartLineNumber, selectionStartColumn, newCursorPosition.lineNumber, newCursorPosition.column)];
@@ -21168,15 +22251,14 @@ var DragAndDropController = class extends Disposable {
     this._mouseDown = false;
   }
   showAt(position) {
-    let newDecorations = [{
+    this._dndDecorationIds.set([{
       range: new Range(position.lineNumber, position.column, position.lineNumber, position.column),
       options: DragAndDropController._DECORATION_OPTIONS
-    }];
-    this._dndDecorationIds = this._editor.deltaDecorations(this._dndDecorationIds, newDecorations);
+    }]);
     this._editor.revealPosition(position, 1);
   }
   _removeDecoration() {
-    this._dndDecorationIds = this._editor.deltaDecorations(this._dndDecorationIds, []);
+    this._dndDecorationIds.clear();
   }
   _hitContent(target) {
     return target.type === 6 || target.type === 7;
@@ -21199,6 +22281,185 @@ DragAndDropController._DECORATION_OPTIONS = ModelDecorationOptions.register({
   className: "dnd-target"
 });
 registerEditorContribution(DragAndDropController.ID, DragAndDropController);
+
+// ../../node_modules/monaco-editor/esm/vs/editor/contrib/dropIntoEditor/browser/dropIntoEditorContribution.js
+init_define_process();
+init_lifecycle();
+init_mime();
+init_resources();
+init_uri();
+init_editorExtensions();
+init_range();
+init_selection();
+init_languageFeatures();
+init_editorState();
+init_configuration();
+var __decorate33 = function(decorators, target, key, desc) {
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function")
+    r = Reflect.decorate(decorators, target, key, desc);
+  else
+    for (var i = decorators.length - 1; i >= 0; i--)
+      if (d = decorators[i])
+        r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __param33 = function(paramIndex, decorator) {
+  return function(target, key) {
+    decorator(target, key, paramIndex);
+  };
+};
+var __awaiter25 = function(thisArg, _arguments, P, generator) {
+  function adopt(value) {
+    return value instanceof P ? value : new P(function(resolve) {
+      resolve(value);
+    });
+  }
+  return new (P || (P = Promise))(function(resolve, reject) {
+    function fulfilled(value) {
+      try {
+        step(generator.next(value));
+      } catch (e) {
+        reject(e);
+      }
+    }
+    function rejected(value) {
+      try {
+        step(generator["throw"](value));
+      } catch (e) {
+        reject(e);
+      }
+    }
+    function step(result) {
+      result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
+    }
+    step((generator = generator.apply(thisArg, _arguments || [])).next());
+  });
+};
+var DropIntoEditorController = class DropIntoEditorController2 extends Disposable {
+  constructor(editor2, workspaceContextService, _languageFeaturesService, _configurationService, _bulkEditService) {
+    super();
+    this._languageFeaturesService = _languageFeaturesService;
+    this._configurationService = _configurationService;
+    this._bulkEditService = _bulkEditService;
+    this._register(editor2.onDropIntoEditor((e) => this.onDropIntoEditor(editor2, e.position, e.event)));
+    this._languageFeaturesService.documentOnDropEditProvider.register("*", new DefaultOnDropProvider(workspaceContextService));
+    this._register(this._configurationService.onDidChangeConfiguration((e) => {
+      if (e.affectsConfiguration("workbench.experimental.editor.dropIntoEditor.enabled")) {
+        this.updateEditorOptions(editor2);
+      }
+    }));
+    this.updateEditorOptions(editor2);
+  }
+  updateEditorOptions(editor2) {
+    editor2.updateOptions({
+      enableDropIntoEditor: this._configurationService.getValue("workbench.experimental.editor.dropIntoEditor.enabled")
+    });
+  }
+  onDropIntoEditor(editor2, position, dragEvent) {
+    return __awaiter25(this, void 0, void 0, function* () {
+      if (!dragEvent.dataTransfer || !editor2.hasModel()) {
+        return;
+      }
+      const model = editor2.getModel();
+      const modelVersionNow = model.getVersionId();
+      const ourDataTransfer = yield this.extractDataTransferData(dragEvent);
+      if (ourDataTransfer.size === 0) {
+        return;
+      }
+      if (editor2.getModel().getVersionId() !== modelVersionNow) {
+        return;
+      }
+      const tokenSource = new EditorStateCancellationTokenSource(editor2, 1);
+      try {
+        const providers = this._languageFeaturesService.documentOnDropEditProvider.ordered(model);
+        for (const provider of providers) {
+          const edit = yield provider.provideDocumentOnDropEdits(model, position, ourDataTransfer, tokenSource.token);
+          if (tokenSource.token.isCancellationRequested || editor2.getModel().getVersionId() !== modelVersionNow) {
+            return;
+          }
+          if (edit) {
+            const range = new Range(position.lineNumber, position.column, position.lineNumber, position.column);
+            performSnippetEdit(editor2, typeof edit.insertText === "string" ? SnippetParser.escape(edit.insertText) : edit.insertText.snippet, [Selection.fromRange(range, 0)]);
+            if (edit.additionalEdit) {
+              yield this._bulkEditService.apply(ResourceEdit.convert(edit.additionalEdit), { editor: editor2 });
+            }
+            return;
+          }
+        }
+      } finally {
+        tokenSource.dispose();
+      }
+    });
+  }
+  extractDataTransferData(dragEvent) {
+    return __awaiter25(this, void 0, void 0, function* () {
+      if (!dragEvent.dataTransfer) {
+        return new VSDataTransfer();
+      }
+      const textEditorDataTransfer = toVSDataTransfer(dragEvent.dataTransfer);
+      addExternalEditorsDropData(textEditorDataTransfer, dragEvent);
+      return textEditorDataTransfer;
+    });
+  }
+};
+DropIntoEditorController.ID = "editor.contrib.dropIntoEditorController";
+DropIntoEditorController = __decorate33([
+  __param33(1, IWorkspaceContextService),
+  __param33(2, ILanguageFeaturesService),
+  __param33(3, IConfigurationService),
+  __param33(4, IBulkEditService)
+], DropIntoEditorController);
+var DefaultOnDropProvider = class DefaultOnDropProvider2 {
+  constructor(_workspaceContextService) {
+    this._workspaceContextService = _workspaceContextService;
+  }
+  provideDocumentOnDropEdits(_model, _position, dataTransfer, _token) {
+    var _a5;
+    return __awaiter25(this, void 0, void 0, function* () {
+      const urlListEntry = dataTransfer.get(Mimes.uriList);
+      if (urlListEntry) {
+        const urlList = yield urlListEntry.asString();
+        const snippet = this.getUriListInsertText(urlList);
+        if (snippet) {
+          return { insertText: snippet };
+        }
+      }
+      const textEntry = (_a5 = dataTransfer.get("text")) !== null && _a5 !== void 0 ? _a5 : dataTransfer.get(Mimes.text);
+      if (textEntry) {
+        const text = yield textEntry.asString();
+        return { insertText: text };
+      }
+      return void 0;
+    });
+  }
+  getUriListInsertText(strUriList) {
+    const uris = [];
+    for (const resource of UriList.parse(strUriList)) {
+      try {
+        uris.push(URI.parse(resource));
+      } catch (_a5) {
+      }
+    }
+    if (!uris.length) {
+      return;
+    }
+    return uris.map((uri) => {
+      const root = this._workspaceContextService.getWorkspaceFolder(uri);
+      if (root) {
+        const rel = relativePath(root.uri, uri);
+        if (rel) {
+          return rel;
+        }
+      }
+      return uri.fsPath;
+    }).join(" ");
+  }
+};
+DefaultOnDropProvider = __decorate33([
+  __param33(0, IWorkspaceContextService)
+], DefaultOnDropProvider);
+registerEditorContribution(DropIntoEditorController.ID, DropIntoEditorController);
 
 // ../../node_modules/monaco-editor/esm/vs/editor/contrib/find/browser/findController.js
 init_define_process();
@@ -21236,7 +22497,7 @@ var FindDecorations = class {
     this._startPosition = this._editor.getPosition();
   }
   dispose() {
-    this._editor.deltaDecorations(this._allDecorations(), []);
+    this._editor.removeDecorations(this._allDecorations());
     this._decorations = [];
     this._overviewRulerApproximateDecorations = [];
     this._findScopeDecorationIds = [];
@@ -21283,7 +22544,7 @@ var FindDecorations = class {
     return 1;
   }
   getCurrentMatchesPosition(desiredRange) {
-    let candidates = this._editor.getModel().getDecorationsInRange(desiredRange);
+    const candidates = this._editor.getModel().getDecorationsInRange(desiredRange);
     for (const candidate of candidates) {
       const candidateOpts = candidate.options;
       if (candidateOpts === FindDecorations._FIND_MATCH_DECORATION || candidateOpts === FindDecorations._CURRENT_FIND_MATCH_DECORATION) {
@@ -21297,7 +22558,7 @@ var FindDecorations = class {
     let matchPosition = 0;
     if (nextMatch) {
       for (let i = 0, len = this._decorations.length; i < len; i++) {
-        let range = this._editor.getModel().getDecorationRange(this._decorations[i]);
+        const range = this._editor.getModel().getDecorationRange(this._decorations[i]);
         if (nextMatch.equalsRange(range)) {
           newCurrentDecorationId = this._decorations[i];
           matchPosition = i + 1;
@@ -21322,8 +22583,8 @@ var FindDecorations = class {
         if (newCurrentDecorationId !== null) {
           let rng = this._editor.getModel().getDecorationRange(newCurrentDecorationId);
           if (rng.startLineNumber !== rng.endLineNumber && rng.endColumn === 1) {
-            let lineBeforeEnd = rng.endLineNumber - 1;
-            let lineBeforeEndMaxColumn = this._editor.getModel().getLineMaxColumn(lineBeforeEnd);
+            const lineBeforeEnd = rng.endLineNumber - 1;
+            const lineBeforeEndMaxColumn = this._editor.getModel().getLineMaxColumn(lineBeforeEnd);
             rng = new Range(rng.startLineNumber, rng.startColumn, lineBeforeEnd, lineBeforeEndMaxColumn);
           }
           this._rangeHighlightDecorationId = changeAccessor.addDecoration(rng, FindDecorations._RANGE_HIGHLIGHT_DECORATION);
@@ -21335,7 +22596,7 @@ var FindDecorations = class {
   set(findMatches, findScopes) {
     this._editor.changeDecorations((accessor) => {
       let findMatchesOptions = FindDecorations._FIND_MATCH_DECORATION;
-      let newOverviewRulerApproximateDecorations = [];
+      const newOverviewRulerApproximateDecorations = [];
       if (findMatches.length > 1e3) {
         findMatchesOptions = FindDecorations._FIND_MATCH_NO_OVERVIEW_DECORATION;
         const lineCount = this._editor.getModel().getLineCount();
@@ -21364,7 +22625,7 @@ var FindDecorations = class {
           options: FindDecorations._FIND_MATCH_ONLY_OVERVIEW_DECORATION
         });
       }
-      let newFindMatchesDecorations = new Array(findMatches.length);
+      const newFindMatchesDecorations = new Array(findMatches.length);
       for (let i = 0, len = findMatches.length; i < len; i++) {
         newFindMatchesDecorations[i] = {
           range: findMatches[i].range,
@@ -21391,8 +22652,8 @@ var FindDecorations = class {
       return null;
     }
     for (let i = this._decorations.length - 1; i >= 0; i--) {
-      let decorationId = this._decorations[i];
-      let r = this._editor.getModel().getDecorationRange(decorationId);
+      const decorationId = this._decorations[i];
+      const r = this._editor.getModel().getDecorationRange(decorationId);
       if (!r || r.endLineNumber > position.lineNumber) {
         continue;
       }
@@ -21411,8 +22672,8 @@ var FindDecorations = class {
       return null;
     }
     for (let i = 0, len = this._decorations.length; i < len; i++) {
-      let decorationId = this._decorations[i];
-      let r = this._editor.getModel().getDecorationRange(decorationId);
+      const decorationId = this._decorations[i];
+      const r = this._editor.getModel().getDecorationRange(decorationId);
       if (!r || r.startLineNumber < position.lineNumber) {
         continue;
       }
@@ -21507,7 +22768,7 @@ var ReplaceAllCommand = class {
   }
   getEditOperations(model, builder) {
     if (this._ranges.length > 0) {
-      let ops = [];
+      const ops = [];
       for (let i = 0; i < this._ranges.length; i++) {
         ops.push({
           range: this._ranges[i],
@@ -21517,7 +22778,7 @@ var ReplaceAllCommand = class {
       ops.sort((o1, o2) => {
         return Range.compareRangesUsingStarts(o1.range, o2.range);
       });
-      let resultOps = [];
+      const resultOps = [];
       let previousOp = ops[0];
       for (let i = 1; i < ops.length; i++) {
         if (previousOp.range.endLineNumber === ops[i].range.startLineNumber && previousOp.range.endColumn === ops[i].range.startColumn) {
@@ -21623,15 +22884,15 @@ var ReplacePattern = class {
     }
     let result = "";
     for (let i = 0, len = this._state.pieces.length; i < len; i++) {
-      let piece = this._state.pieces[i];
+      const piece = this._state.pieces[i];
       if (piece.staticValue !== null) {
         result += piece.staticValue;
         continue;
       }
       let match = ReplacePattern._substitute(piece.matchIndex, matches);
       if (piece.caseOps !== null && piece.caseOps.length > 0) {
-        let repl = [];
-        let lenOps = piece.caseOps.length;
+        const repl = [];
+        const lenOps = piece.caseOps.length;
         let opIdx = 0;
         for (let idx = 0, len2 = match.length; idx < len2; idx++) {
           if (opIdx >= lenOps) {
@@ -21673,7 +22934,7 @@ var ReplacePattern = class {
     let remainder = "";
     while (matchIndex > 0) {
       if (matchIndex < matches.length) {
-        let match = matches[matchIndex] || "";
+        const match = matches[matchIndex] || "";
         return match + remainder;
       }
       remainder = String(matchIndex % 10) + remainder;
@@ -21742,16 +23003,16 @@ function parseReplaceString(replaceString) {
   if (!replaceString || replaceString.length === 0) {
     return new ReplacePattern(null);
   }
-  let caseOps = [];
-  let result = new ReplacePieceBuilder(replaceString);
+  const caseOps = [];
+  const result = new ReplacePieceBuilder(replaceString);
   for (let i = 0, len = replaceString.length; i < len; i++) {
-    let chCode = replaceString.charCodeAt(i);
+    const chCode = replaceString.charCodeAt(i);
     if (chCode === 92) {
       i++;
       if (i >= len) {
         break;
       }
-      let nextChCode = replaceString.charCodeAt(i);
+      const nextChCode = replaceString.charCodeAt(i);
       switch (nextChCode) {
         case 92:
           result.emitUnchanged(i - 1);
@@ -21781,7 +23042,7 @@ function parseReplaceString(replaceString) {
       if (i >= len) {
         break;
       }
-      let nextChCode = replaceString.charCodeAt(i);
+      const nextChCode = replaceString.charCodeAt(i);
       if (nextChCode === 36) {
         result.emitUnchanged(i - 1);
         result.emitStatic("$", i + 1);
@@ -21796,7 +23057,7 @@ function parseReplaceString(replaceString) {
       if (49 <= nextChCode && nextChCode <= 57) {
         let matchIndex = nextChCode - 48;
         if (i + 1 < len) {
-          let nextNextChCode = replaceString.charCodeAt(i + 1);
+          const nextNextChCode = replaceString.charCodeAt(i + 1);
           if (48 <= nextNextChCode && nextNextChCode <= 57) {
             i++;
             matchIndex = matchIndex * 10 + (nextNextChCode - 48);
@@ -21906,7 +23167,7 @@ var FindModelBoundToEditorModel = class {
       return;
     }
     if (e.searchString || e.isReplaceRevealed || e.isRegex || e.wholeWord || e.matchCase || e.searchScope) {
-      let model = this._editor.getModel();
+      const model = this._editor.getModel();
       if (model.isTooLargeForSyncing()) {
         this._startSearchingTimer.cancel();
         this._startSearchingTimer.setIfNotSet(() => {
@@ -21956,7 +23217,7 @@ var FindModelBoundToEditorModel = class {
         return findScope;
       });
     }
-    let findMatches = this._findMatches(findScopes, false, MATCHES_LIMIT);
+    const findMatches = this._findMatches(findScopes, false, MATCHES_LIMIT);
     this._decorations.set(findMatches, findScopes);
     const editorSelection = this._editor.getSelection();
     let currentMatchesPosition = this._decorations.getCurrentMatchesPosition(editorSelection);
@@ -21965,7 +23226,7 @@ var FindModelBoundToEditorModel = class {
       currentMatchesPosition = matchAfterSelection > 0 ? matchAfterSelection - 1 + 1 : currentMatchesPosition;
     }
     this._state.changeMatchInfo(currentMatchesPosition, this._decorations.getCount(), void 0);
-    if (moveCursor && this._editor.getOption(35).cursorMoveOnType) {
+    if (moveCursor && this._editor.getOption(36).cursorMoveOnType) {
       this._moveToNextMatch(this._decorations.getStartPosition());
     }
   }
@@ -21974,7 +23235,7 @@ var FindModelBoundToEditorModel = class {
   }
   _cannotFind() {
     if (!this._hasMatches()) {
-      let findScope = this._decorations.getFindScope();
+      const findScope = this._decorations.getFindScope();
       if (findScope) {
         this._editor.revealRangeInCenterIfOutsideViewport(findScope, 0);
       }
@@ -21983,15 +23244,15 @@ var FindModelBoundToEditorModel = class {
     return false;
   }
   _setCurrentFindMatch(match) {
-    let matchesPosition = this._decorations.setCurrentFindMatch(match);
+    const matchesPosition = this._decorations.setCurrentFindMatch(match);
     this._state.changeMatchInfo(matchesPosition, this._decorations.getCount(), match);
     this._editor.setSelection(match);
     this._editor.revealRangeInCenterIfOutsideViewport(match, 0);
   }
   _prevSearchPosition(before) {
-    let isUsingLineStops = this._state.isRegex && (this._state.searchString.indexOf("^") >= 0 || this._state.searchString.indexOf("$") >= 0);
+    const isUsingLineStops = this._state.isRegex && (this._state.searchString.indexOf("^") >= 0 || this._state.searchString.indexOf("$") >= 0);
     let { lineNumber, column } = before;
-    let model = this._editor.getModel();
+    const model = this._editor.getModel();
     if (isUsingLineStops || column === 1) {
       if (lineNumber === 1) {
         lineNumber = model.getLineCount();
@@ -22026,21 +23287,21 @@ var FindModelBoundToEditorModel = class {
     if (this._cannotFind()) {
       return;
     }
-    let findScope = this._decorations.getFindScope();
-    let searchRange = FindModelBoundToEditorModel._getSearchRange(this._editor.getModel(), findScope);
+    const findScope = this._decorations.getFindScope();
+    const searchRange = FindModelBoundToEditorModel._getSearchRange(this._editor.getModel(), findScope);
     if (searchRange.getEndPosition().isBefore(before)) {
       before = searchRange.getEndPosition();
     }
     if (before.isBefore(searchRange.getStartPosition())) {
       before = searchRange.getEndPosition();
     }
-    let { lineNumber, column } = before;
-    let model = this._editor.getModel();
+    const { lineNumber, column } = before;
+    const model = this._editor.getModel();
     let position = new Position(lineNumber, column);
-    let prevMatch = model.findPreviousMatch(this._state.searchString, position, this._state.isRegex, this._state.matchCase, this._state.wholeWord ? this._editor.getOption(117) : null, false);
+    let prevMatch = model.findPreviousMatch(this._state.searchString, position, this._state.isRegex, this._state.matchCase, this._state.wholeWord ? this._editor.getOption(118) : null, false);
     if (prevMatch && prevMatch.range.isEmpty() && prevMatch.range.getStartPosition().equals(position)) {
       position = this._prevSearchPosition(position);
-      prevMatch = model.findPreviousMatch(this._state.searchString, position, this._state.isRegex, this._state.matchCase, this._state.wholeWord ? this._editor.getOption(117) : null, false);
+      prevMatch = model.findPreviousMatch(this._state.searchString, position, this._state.isRegex, this._state.matchCase, this._state.wholeWord ? this._editor.getOption(118) : null, false);
     }
     if (!prevMatch) {
       return;
@@ -22054,9 +23315,9 @@ var FindModelBoundToEditorModel = class {
     this._moveToPrevMatch(this._editor.getSelection().getStartPosition());
   }
   _nextSearchPosition(after) {
-    let isUsingLineStops = this._state.isRegex && (this._state.searchString.indexOf("^") >= 0 || this._state.searchString.indexOf("$") >= 0);
+    const isUsingLineStops = this._state.isRegex && (this._state.searchString.indexOf("^") >= 0 || this._state.searchString.indexOf("$") >= 0);
     let { lineNumber, column } = after;
-    let model = this._editor.getModel();
+    const model = this._editor.getModel();
     if (isUsingLineStops || column === model.getLineMaxColumn(lineNumber)) {
       if (lineNumber === model.getLineCount()) {
         lineNumber = 1;
@@ -22088,7 +23349,7 @@ var FindModelBoundToEditorModel = class {
       }
       return;
     }
-    let nextMatch = this._getNextMatch(after, false, true);
+    const nextMatch = this._getNextMatch(after, false, true);
     if (nextMatch) {
       this._setCurrentFindMatch(nextMatch.range);
     }
@@ -22097,21 +23358,21 @@ var FindModelBoundToEditorModel = class {
     if (this._cannotFind()) {
       return null;
     }
-    let findScope = this._decorations.getFindScope();
-    let searchRange = FindModelBoundToEditorModel._getSearchRange(this._editor.getModel(), findScope);
+    const findScope = this._decorations.getFindScope();
+    const searchRange = FindModelBoundToEditorModel._getSearchRange(this._editor.getModel(), findScope);
     if (searchRange.getEndPosition().isBefore(after)) {
       after = searchRange.getStartPosition();
     }
     if (after.isBefore(searchRange.getStartPosition())) {
       after = searchRange.getStartPosition();
     }
-    let { lineNumber, column } = after;
-    let model = this._editor.getModel();
+    const { lineNumber, column } = after;
+    const model = this._editor.getModel();
     let position = new Position(lineNumber, column);
-    let nextMatch = model.findNextMatch(this._state.searchString, position, this._state.isRegex, this._state.matchCase, this._state.wholeWord ? this._editor.getOption(117) : null, captureMatches);
+    let nextMatch = model.findNextMatch(this._state.searchString, position, this._state.isRegex, this._state.matchCase, this._state.wholeWord ? this._editor.getOption(118) : null, captureMatches);
     if (forceMove && nextMatch && nextMatch.range.isEmpty() && nextMatch.range.getStartPosition().equals(position)) {
       position = this._nextSearchPosition(position);
-      nextMatch = model.findNextMatch(this._state.searchString, position, this._state.isRegex, this._state.matchCase, this._state.wholeWord ? this._editor.getOption(117) : null, captureMatches);
+      nextMatch = model.findNextMatch(this._state.searchString, position, this._state.isRegex, this._state.matchCase, this._state.wholeWord ? this._editor.getOption(118) : null, captureMatches);
     }
     if (!nextMatch) {
       return null;
@@ -22134,13 +23395,13 @@ var FindModelBoundToEditorModel = class {
     if (!this._hasMatches()) {
       return;
     }
-    let replacePattern = this._getReplacePattern();
-    let selection = this._editor.getSelection();
-    let nextMatch = this._getNextMatch(selection.getStartPosition(), true, false);
+    const replacePattern = this._getReplacePattern();
+    const selection = this._editor.getSelection();
+    const nextMatch = this._getNextMatch(selection.getStartPosition(), true, false);
     if (nextMatch) {
       if (selection.equalsRange(nextMatch.range)) {
-        let replaceString = replacePattern.buildReplaceString(nextMatch.matches, this._state.preserveCase);
-        let command = new ReplaceCommand(selection, replaceString);
+        const replaceString = replacePattern.buildReplaceString(nextMatch.matches, this._state.preserveCase);
+        const command = new ReplaceCommand(selection, replaceString);
         this._executeEditorCommand("replace", command);
         this._decorations.setStartPosition(new Position(selection.startLineNumber, selection.startColumn + replaceString.length));
         this.research(true);
@@ -22152,7 +23413,7 @@ var FindModelBoundToEditorModel = class {
   }
   _findMatches(findScopes, captureMatches, limitResultCount) {
     const searchRanges = (findScopes || [null]).map((scope) => FindModelBoundToEditorModel._getSearchRange(this._editor.getModel(), scope));
-    return this._editor.getModel().findMatches(this._state.searchString, searchRanges, this._state.isRegex, this._state.matchCase, this._state.wholeWord ? this._editor.getOption(117) : null, captureMatches, limitResultCount);
+    return this._editor.getModel().findMatches(this._state.searchString, searchRanges, this._state.isRegex, this._state.matchCase, this._state.wholeWord ? this._editor.getOption(118) : null, captureMatches, limitResultCount);
   }
   replaceAll() {
     if (!this._hasMatches()) {
@@ -22167,7 +23428,7 @@ var FindModelBoundToEditorModel = class {
     this.research(false);
   }
   _largeReplaceAll() {
-    const searchParams = new SearchParams(this._state.searchString, this._state.isRegex, this._state.matchCase, this._state.wholeWord ? this._editor.getOption(117) : null);
+    const searchParams = new SearchParams(this._state.searchString, this._state.isRegex, this._state.matchCase, this._state.wholeWord ? this._editor.getOption(118) : null);
     const searchData = searchParams.parseSearchRequest();
     if (!searchData) {
       return;
@@ -22196,29 +23457,29 @@ var FindModelBoundToEditorModel = class {
     } else {
       resultText = modelText.replace(searchRegex, replacePattern.buildReplaceString(null, preserveCase));
     }
-    let command = new ReplaceCommandThatPreservesSelection(fullModelRange, resultText, this._editor.getSelection());
+    const command = new ReplaceCommandThatPreservesSelection(fullModelRange, resultText, this._editor.getSelection());
     this._executeEditorCommand("replaceAll", command);
   }
   _regularReplaceAll(findScopes) {
     const replacePattern = this._getReplacePattern();
-    let matches = this._findMatches(findScopes, replacePattern.hasReplacementPatterns || this._state.preserveCase, 1073741824);
-    let replaceStrings = [];
+    const matches = this._findMatches(findScopes, replacePattern.hasReplacementPatterns || this._state.preserveCase, 1073741824);
+    const replaceStrings = [];
     for (let i = 0, len = matches.length; i < len; i++) {
       replaceStrings[i] = replacePattern.buildReplaceString(matches[i].matches, this._state.preserveCase);
     }
-    let command = new ReplaceAllCommand(this._editor.getSelection(), matches.map((m) => m.range), replaceStrings);
+    const command = new ReplaceAllCommand(this._editor.getSelection(), matches.map((m) => m.range), replaceStrings);
     this._executeEditorCommand("replaceAll", command);
   }
   selectAllMatches() {
     if (!this._hasMatches()) {
       return;
     }
-    let findScopes = this._decorations.getFindScopes();
-    let matches = this._findMatches(findScopes, false, 1073741824);
+    const findScopes = this._decorations.getFindScopes();
+    const matches = this._findMatches(findScopes, false, 1073741824);
     let selections = matches.map((m) => new Selection(m.range.startLineNumber, m.range.startColumn, m.range.endLineNumber, m.range.endColumn));
-    let editorSelection = this._editor.getSelection();
+    const editorSelection = this._editor.getSelection();
     for (let i = 0, len = selections.length; i < len; i++) {
-      let sel = selections[i];
+      const sel = selections[i];
       if (sel.equalsRange(editorSelection)) {
         selections = [editorSelection].concat(selections.slice(0, i)).concat(selections.slice(i + 1));
         break;
@@ -22262,7 +23523,7 @@ var FindOptionsWidget = class extends Widget {
     const inputActiveOptionBorderColor = themeService.getColorTheme().getColor(inputActiveOptionBorder);
     const inputActiveOptionForegroundColor = themeService.getColorTheme().getColor(inputActiveOptionForeground);
     const inputActiveOptionBackgroundColor = themeService.getColorTheme().getColor(inputActiveOptionBackground);
-    this.caseSensitive = this._register(new CaseSensitiveCheckbox({
+    this.caseSensitive = this._register(new CaseSensitiveToggle({
       appendTitle: this._keybindingLabelFor(FIND_IDS.ToggleCaseSensitiveCommand),
       isChecked: this._state.matchCase,
       inputActiveOptionBorder: inputActiveOptionBorderColor,
@@ -22275,7 +23536,7 @@ var FindOptionsWidget = class extends Widget {
         matchCase: this.caseSensitive.checked
       }, false);
     }));
-    this.wholeWords = this._register(new WholeWordsCheckbox({
+    this.wholeWords = this._register(new WholeWordsToggle({
       appendTitle: this._keybindingLabelFor(FIND_IDS.ToggleWholeWordCommand),
       isChecked: this._state.wholeWord,
       inputActiveOptionBorder: inputActiveOptionBorderColor,
@@ -22288,7 +23549,7 @@ var FindOptionsWidget = class extends Widget {
         wholeWord: this.wholeWords.checked
       }, false);
     }));
-    this.regex = this._register(new RegexCheckbox({
+    this.regex = this._register(new RegexToggle({
       appendTitle: this._keybindingLabelFor(FIND_IDS.ToggleRegexCommand),
       isChecked: this._state.isRegex,
       inputActiveOptionBorder: inputActiveOptionBorderColor,
@@ -22320,13 +23581,13 @@ var FindOptionsWidget = class extends Widget {
         this._revealTemporarily();
       }
     }));
-    this._register(addDisposableNonBubblingMouseOutListener(this._domNode, (e) => this._onMouseOut()));
+    this._register(addDisposableListener(this._domNode, EventType.MOUSE_LEAVE, (e) => this._onMouseLeave()));
     this._register(addDisposableListener(this._domNode, "mouseover", (e) => this._onMouseOver()));
     this._applyTheme(themeService.getColorTheme());
     this._register(themeService.onDidColorThemeChange(this._applyTheme.bind(this)));
   }
   _keybindingLabelFor(actionId) {
-    let kb = this._keybindingService.lookupKeybinding(actionId);
+    const kb = this._keybindingService.lookupKeybinding(actionId);
     if (!kb) {
       return "";
     }
@@ -22354,7 +23615,7 @@ var FindOptionsWidget = class extends Widget {
     this._show();
     this._hideSoon.schedule();
   }
-  _onMouseOut() {
+  _onMouseLeave() {
     this._hideSoon.schedule();
   }
   _onMouseOver() {
@@ -22375,7 +23636,7 @@ var FindOptionsWidget = class extends Widget {
     this._domNode.style.display = "none";
   }
   _applyTheme(theme) {
-    let inputStyles = {
+    const inputStyles = {
       inputActiveOptionBorder: theme.getColor(inputActiveOptionBorder),
       inputActiveOptionForeground: theme.getColor(inputActiveOptionForeground),
       inputActiveOptionBackground: theme.getColor(inputActiveOptionBackground)
@@ -22493,7 +23754,7 @@ var FindReplaceState = class extends Disposable {
     return this._currentMatch;
   }
   changeMatchInfo(matchesPosition, matchesCount, currentMatch) {
-    let changeEvent = {
+    const changeEvent = {
       moveCursor: false,
       updateHistory: false,
       searchString: false,
@@ -22542,7 +23803,7 @@ var FindReplaceState = class extends Disposable {
   }
   change(newState, moveCursor, updateHistory = true) {
     var _a5;
-    let changeEvent = {
+    const changeEvent = {
       moveCursor,
       updateHistory,
       searchString: false,
@@ -22700,7 +23961,8 @@ function showHistoryKeybindingHint(keybindingService) {
 // ../../node_modules/monaco-editor/esm/vs/editor/contrib/find/browser/findWidget.js
 init_colorRegistry();
 init_themeService();
-var __awaiter22 = function(thisArg, _arguments, P, generator) {
+init_theme();
+var __awaiter26 = function(thisArg, _arguments, P, generator) {
   function adopt(value) {
     return value instanceof P ? value : new P(function(resolve) {
       resolve(value);
@@ -22803,20 +24065,20 @@ var FindWidget = class extends Widget {
     this._tryUpdateWidgetWidth();
     this._findInput.inputBox.layout();
     this._register(this._codeEditor.onDidChangeConfiguration((e) => {
-      if (e.hasChanged(81)) {
-        if (this._codeEditor.getOption(81)) {
+      if (e.hasChanged(82)) {
+        if (this._codeEditor.getOption(82)) {
           this._state.change({ isReplaceRevealed: false }, false);
         }
         this._updateButtons();
       }
-      if (e.hasChanged(131)) {
+      if (e.hasChanged(132)) {
         this._tryUpdateWidgetWidth();
       }
       if (e.hasChanged(2)) {
         this.updateAccessibilitySupport();
       }
-      if (e.hasChanged(35)) {
-        const addExtraSpaceOnTop = this._codeEditor.getOption(35).addExtraSpaceOnTop;
+      if (e.hasChanged(36)) {
+        const addExtraSpaceOnTop = this._codeEditor.getOption(36).addExtraSpaceOnTop;
         if (addExtraSpaceOnTop && !this._viewZone) {
           this._viewZone = new FindWidgetViewZone(0);
           this._showViewZone();
@@ -22832,9 +24094,9 @@ var FindWidget = class extends Widget {
         this._updateToggleSelectionFindButton();
       }
     }));
-    this._register(this._codeEditor.onDidFocusEditorWidget(() => __awaiter22(this, void 0, void 0, function* () {
+    this._register(this._codeEditor.onDidFocusEditorWidget(() => __awaiter26(this, void 0, void 0, function* () {
       if (this._isVisible) {
-        let globalBufferTerm = yield this._controller.getGlobalBufferTerm();
+        const globalBufferTerm = yield this._controller.getGlobalBufferTerm();
         if (globalBufferTerm && globalBufferTerm !== this._state.searchString) {
           this._state.change({ searchString: globalBufferTerm }, false);
           this._findInput.select();
@@ -22860,7 +24122,7 @@ var FindWidget = class extends Widget {
       this._replaceInputFocused.set(false);
     }));
     this._codeEditor.addOverlayWidget(this);
-    if (this._codeEditor.getOption(35).addExtraSpaceOnTop) {
+    if (this._codeEditor.getOption(36).addExtraSpaceOnTop) {
       this._viewZone = new FindWidgetViewZone(0);
     }
     this._applyTheme(themeService.getColorTheme());
@@ -22917,7 +24179,7 @@ var FindWidget = class extends Widget {
     }
     if (e.isReplaceRevealed) {
       if (this._state.isReplaceRevealed) {
-        if (!this._codeEditor.getOption(81) && !this._isReplaceVisible) {
+        if (!this._codeEditor.getOption(82) && !this._isReplaceVisible) {
           this._isReplaceVisible = true;
           this._replaceInput.width = getTotalWidth(this._findInput.domNode);
           this._updateButtons();
@@ -22956,7 +24218,7 @@ var FindWidget = class extends Widget {
       this._updateToggleSelectionFindButton();
     }
     if (e.searchString || e.matchesCount || e.matchesPosition) {
-      let showRedOutline = this._state.searchString.length > 0 && this._state.matchesCount === 0;
+      const showRedOutline = this._state.searchString.length > 0 && this._state.matchesCount === 0;
       this._domNode.classList.toggle("no-results", showRedOutline);
       this._updateMatchesCount();
       this._updateButtons();
@@ -23026,9 +24288,9 @@ var FindWidget = class extends Widget {
     return localize("ariaSearchNoResultWithLineNumNoCurrentMatch", "{0} found for '{1}'", label, searchString);
   }
   _updateToggleSelectionFindButton() {
-    let selection = this._codeEditor.getSelection();
-    let isSelection = selection ? selection.startLineNumber !== selection.endLineNumber || selection.startColumn !== selection.endColumn : false;
-    let isChecked = this._toggleSelectionFind.checked;
+    const selection = this._codeEditor.getSelection();
+    const isSelection = selection ? selection.startLineNumber !== selection.endLineNumber || selection.startColumn !== selection.endColumn : false;
+    const isChecked = this._toggleSelectionFind.checked;
     if (this._isVisible && (isChecked || isSelection)) {
       this._toggleSelectionFind.enable();
     } else {
@@ -23040,15 +24302,15 @@ var FindWidget = class extends Widget {
     this._replaceInput.setEnabled(this._isVisible && this._isReplaceVisible);
     this._updateToggleSelectionFindButton();
     this._closeBtn.setEnabled(this._isVisible);
-    let findInputIsNonEmpty = this._state.searchString.length > 0;
-    let matchesCount = this._state.matchesCount ? true : false;
+    const findInputIsNonEmpty = this._state.searchString.length > 0;
+    const matchesCount = this._state.matchesCount ? true : false;
     this._prevBtn.setEnabled(this._isVisible && findInputIsNonEmpty && matchesCount && this._state.canNavigateBack());
     this._nextBtn.setEnabled(this._isVisible && findInputIsNonEmpty && matchesCount && this._state.canNavigateForward());
     this._replaceBtn.setEnabled(this._isVisible && this._isReplaceVisible && findInputIsNonEmpty);
     this._replaceAllBtn.setEnabled(this._isVisible && this._isReplaceVisible && findInputIsNonEmpty);
     this._domNode.classList.toggle("replaceToggled", this._isReplaceVisible);
     this._toggleReplaceBtn.setExpanded(this._isReplaceVisible);
-    let canReplace = !this._codeEditor.getOption(81);
+    const canReplace = !this._codeEditor.getOption(82);
     this._toggleReplaceBtn.setEnabled(this._isVisible && canReplace);
   }
   _reveal() {
@@ -23059,7 +24321,7 @@ var FindWidget = class extends Widget {
     if (!this._isVisible) {
       this._isVisible = true;
       const selection = this._codeEditor.getSelection();
-      switch (this._codeEditor.getOption(35).autoFindInSelection) {
+      switch (this._codeEditor.getOption(36).autoFindInSelection) {
         case "always":
           this._toggleSelectionFind.checked = true;
           break;
@@ -23085,7 +24347,7 @@ var FindWidget = class extends Widget {
       }, 200));
       this._codeEditor.layoutOverlayWidget(this);
       let adjustEditorScrollTop = true;
-      if (this._codeEditor.getOption(35).seedSearchStringFromSelection && selection) {
+      if (this._codeEditor.getOption(36).seedSearchStringFromSelection && selection) {
         const domNode = this._codeEditor.getDomNode();
         if (domNode) {
           const editorCoords = getDomNodePagePosition(domNode);
@@ -23130,7 +24392,7 @@ var FindWidget = class extends Widget {
     }
   }
   _layoutViewZone(targetScrollTop) {
-    const addExtraSpaceOnTop = this._codeEditor.getOption(35).addExtraSpaceOnTop;
+    const addExtraSpaceOnTop = this._codeEditor.getOption(36).addExtraSpaceOnTop;
     if (!addExtraSpaceOnTop) {
       this._removeViewZone();
       return;
@@ -23152,7 +24414,7 @@ var FindWidget = class extends Widget {
     if (!this._isVisible) {
       return;
     }
-    const addExtraSpaceOnTop = this._codeEditor.getOption(35).addExtraSpaceOnTop;
+    const addExtraSpaceOnTop = this._codeEditor.getOption(36).addExtraSpaceOnTop;
     if (!addExtraSpaceOnTop) {
       return;
     }
@@ -23166,7 +24428,7 @@ var FindWidget = class extends Widget {
         if (newHeight === viewZone.heightInPx) {
           return;
         }
-        let scrollAdjustment = newHeight - viewZone.heightInPx;
+        const scrollAdjustment = newHeight - viewZone.heightInPx;
         viewZone.heightInPx = newHeight;
         accessor.layoutZone(this._viewZoneId);
         if (adjustScroll) {
@@ -23175,7 +24437,7 @@ var FindWidget = class extends Widget {
         return;
       } else {
         let scrollAdjustment = this._getHeight();
-        scrollAdjustment -= this._codeEditor.getOption(75).top;
+        scrollAdjustment -= this._codeEditor.getOption(76).top;
         if (scrollAdjustment <= 0) {
           return;
         }
@@ -23200,7 +24462,7 @@ var FindWidget = class extends Widget {
     });
   }
   _applyTheme(theme) {
-    let inputStyles = {
+    const inputStyles = {
       inputActiveOptionBorder: theme.getColor(inputActiveOptionBorder),
       inputActiveOptionBackground: theme.getColor(inputActiveOptionBackground),
       inputActiveOptionForeground: theme.getColor(inputActiveOptionForeground),
@@ -23242,7 +24504,7 @@ var FindWidget = class extends Widget {
     let reducedFindWidget = false;
     let narrowFindWidget = false;
     if (this._resized) {
-      let widgetWidth = getTotalWidth(this._domNode);
+      const widgetWidth = getTotalWidth(this._domNode);
       if (widgetWidth > FIND_WIDGET_INITIAL_WIDTH) {
         this._domNode.style.maxWidth = `${editorWidth - 28 - minimapWidth - 15}px`;
         this._replaceInput.width = getTotalWidth(this._findInput.domNode);
@@ -23266,7 +24528,7 @@ var FindWidget = class extends Widget {
     }
     if (this._resized) {
       this._findInput.inputBox.layout();
-      let findInputWidth = this._findInput.inputBox.element.clientWidth;
+      const findInputWidth = this._findInput.inputBox.element.clientWidth;
       if (findInputWidth > 0) {
         this._replaceInput.width = findInputWidth;
       }
@@ -23310,7 +24572,7 @@ var FindWidget = class extends Widget {
       return;
     }
     if (this._toggleSelectionFind.checked) {
-      let selections = this._codeEditor.getSelections();
+      const selections = this._codeEditor.getSelections();
       selections.map((selection) => {
         if (selection.endColumn === 1 && selection.endLineNumber > selection.startLineNumber) {
           selection = selection.setEndPosition(selection.endLineNumber - 1, this._codeEditor.getModel().getLineMaxColumn(selection.endLineNumber - 1));
@@ -23407,7 +24669,7 @@ var FindWidget = class extends Widget {
     return 0;
   }
   _keybindingLabelFor(actionId) {
-    let kb = this._keybindingService.lookupKeybinding(actionId);
+    const kb = this._keybindingService.lookupKeybinding(actionId);
     if (!kb) {
       return "";
     }
@@ -23497,7 +24759,7 @@ var FindWidget = class extends Widget {
         this._codeEditor.getAction(FIND_IDS.NextMatchFindAction).run().then(void 0, onUnexpectedError);
       }
     }));
-    let findPart = document.createElement("div");
+    const findPart = document.createElement("div");
     findPart.className = "find-part";
     findPart.appendChild(this._findInput.domNode);
     const actionsContainer = document.createElement("div");
@@ -23506,7 +24768,7 @@ var FindWidget = class extends Widget {
     actionsContainer.appendChild(this._matchesCount);
     actionsContainer.appendChild(this._prevBtn.domNode);
     actionsContainer.appendChild(this._nextBtn.domNode);
-    this._toggleSelectionFind = this._register(new Checkbox({
+    this._toggleSelectionFind = this._register(new Toggle({
       icon: findSelectionIcon,
       title: NLS_TOGGLE_SELECTION_FIND_TITLE + this._keybindingLabelFor(FIND_IDS.ToggleSearchScopeCommand),
       isChecked: false
@@ -23514,7 +24776,7 @@ var FindWidget = class extends Widget {
     this._register(this._toggleSelectionFind.onChange(() => {
       if (this._toggleSelectionFind.checked) {
         if (this._codeEditor.hasModel()) {
-          let selections = this._codeEditor.getSelections();
+          const selections = this._codeEditor.getSelections();
           selections.map((selection) => {
             if (selection.endColumn === 1 && selection.endLineNumber > selection.startLineNumber) {
               selection = selection.setEndPosition(selection.endLineNumber - 1, this._codeEditor.getModel().getLineMaxColumn(selection.endLineNumber - 1));
@@ -23612,7 +24874,7 @@ var FindWidget = class extends Widget {
         this._controller.replaceAll();
       }
     }));
-    let replacePart = document.createElement("div");
+    const replacePart = document.createElement("div");
     replacePart.className = "replace-part";
     replacePart.appendChild(this._replaceInput.domNode);
     const replaceActionsContainer = document.createElement("div");
@@ -23648,7 +24910,7 @@ var FindWidget = class extends Widget {
     }));
     this._register(this._resizeSash.onDidChange((evt) => {
       this._resized = true;
-      let width = originalWidth + evt.startX - evt.currentX;
+      const width = originalWidth + evt.startX - evt.currentX;
       if (width < FIND_WIDGET_INITIAL_WIDTH) {
         return;
       }
@@ -23710,14 +24972,13 @@ var SimpleButton = class extends Widget {
       e.preventDefault();
     });
     this.onkeydown(this._domNode, (e) => {
+      var _a5, _b2;
       if (e.equals(10) || e.equals(3)) {
         this._opts.onTrigger();
         e.preventDefault();
         return;
       }
-      if (this._opts.onKeyDown) {
-        this._opts.onKeyDown(e);
-      }
+      (_b2 = (_a5 = this._opts).onKeyDown) === null || _b2 === void 0 ? void 0 : _b2.call(_a5, e);
     });
   }
   get domNode() {
@@ -23762,7 +25023,7 @@ registerThemingParticipant((theme, collector) => {
   }
   const findMatchHighlightBorder = theme.getColor(editorFindMatchHighlightBorder);
   if (findMatchHighlightBorder) {
-    collector.addRule(`.monaco-editor .findMatch { border: 1px ${theme.type === "hc" ? "dotted" : "solid"} ${findMatchHighlightBorder}; box-sizing: border-box; }`);
+    collector.addRule(`.monaco-editor .findMatch { border: 1px ${isHighContrast(theme.type) ? "dotted" : "solid"} ${findMatchHighlightBorder}; box-sizing: border-box; }`);
   }
   const findMatchBorder = theme.getColor(editorFindMatchBorder);
   if (findMatchBorder) {
@@ -23770,7 +25031,7 @@ registerThemingParticipant((theme, collector) => {
   }
   const findRangeHighlightBorder = theme.getColor(editorFindRangeHighlightBorder);
   if (findRangeHighlightBorder) {
-    collector.addRule(`.monaco-editor .findScope { border: 1px ${theme.type === "hc" ? "dashed" : "solid"} ${findRangeHighlightBorder}; }`);
+    collector.addRule(`.monaco-editor .findScope { border: 1px ${isHighContrast(theme.type) ? "dashed" : "solid"} ${findRangeHighlightBorder}; }`);
   }
   const hcBorder = theme.getColor(contrastBorder);
   if (hcBorder) {
@@ -23814,7 +25075,7 @@ init_actions2();
 init_contextkey();
 init_keybinding();
 init_themeService();
-var __decorate29 = function(decorators, target, key, desc) {
+var __decorate34 = function(decorators, target, key, desc) {
   var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
   if (typeof Reflect === "object" && typeof Reflect.decorate === "function")
     r = Reflect.decorate(decorators, target, key, desc);
@@ -23824,12 +25085,12 @@ var __decorate29 = function(decorators, target, key, desc) {
         r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
   return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __param29 = function(paramIndex, decorator) {
+var __param34 = function(paramIndex, decorator) {
   return function(target, key) {
     decorator(target, key, paramIndex);
   };
 };
-var __awaiter23 = function(thisArg, _arguments, P, generator) {
+var __awaiter27 = function(thisArg, _arguments, P, generator) {
   function adopt(value) {
     return value instanceof P ? value : new P(function(resolve) {
       resolve(value);
@@ -23890,7 +25151,7 @@ var CommonFindController = class CommonFindController2 extends Disposable {
     this._register(this._state.onFindReplaceStateChange((e) => this._onStateChanged(e)));
     this._model = null;
     this._register(this._editor.onDidChangeModel(() => {
-      let shouldRestartFind = this._editor.getModel() && this._state.isRevealed;
+      const shouldRestartFind = this._editor.getModel() && this._state.isRevealed;
       this.disposeModel();
       this._state.change({
         searchScope: null,
@@ -23908,7 +25169,7 @@ var CommonFindController = class CommonFindController2 extends Disposable {
           shouldFocus: 0,
           shouldAnimate: false,
           updateSearchScope: false,
-          loop: this._editor.getOption(35).loop
+          loop: this._editor.getOption(36).loop
         });
       }
     }));
@@ -24007,7 +25268,7 @@ var CommonFindController = class CommonFindController2 extends Disposable {
       this._state.change({ searchScope: null }, true);
     } else {
       if (this._editor.hasModel()) {
-        let selections = this._editor.getSelections();
+        const selections = this._editor.getSelections();
         selections.map((selection) => {
           if (selection.endColumn === 1 && selection.endLineNumber > selection.startLineNumber) {
             selection = selection.setEndPosition(selection.endLineNumber - 1, this._editor.getModel().getLineMaxColumn(selection.endLineNumber - 1));
@@ -24032,14 +25293,14 @@ var CommonFindController = class CommonFindController2 extends Disposable {
   highlightFindOptions(ignoreWhenVisible = false) {
   }
   _start(opts, newState) {
-    return __awaiter23(this, void 0, void 0, function* () {
+    return __awaiter27(this, void 0, void 0, function* () {
       this.disposeModel();
       if (!this._editor.hasModel()) {
         return;
       }
-      let stateChanges = Object.assign(Object.assign({}, newState), { isRevealed: true });
+      const stateChanges = Object.assign(Object.assign({}, newState), { isRevealed: true });
       if (opts.seedSearchStringFromSelection === "single") {
-        let selectionSearchString = getSelectionSearchString(this._editor, opts.seedSearchStringFromSelection, opts.seedSearchStringFromNonEmptySelection);
+        const selectionSearchString = getSelectionSearchString(this._editor, opts.seedSearchStringFromSelection, opts.seedSearchStringFromNonEmptySelection);
         if (selectionSearchString) {
           if (this._state.isRegex) {
             stateChanges.searchString = escapeRegExpCharacters(selectionSearchString);
@@ -24048,13 +25309,13 @@ var CommonFindController = class CommonFindController2 extends Disposable {
           }
         }
       } else if (opts.seedSearchStringFromSelection === "multiple" && !opts.updateSearchScope) {
-        let selectionSearchString = getSelectionSearchString(this._editor, opts.seedSearchStringFromSelection);
+        const selectionSearchString = getSelectionSearchString(this._editor, opts.seedSearchStringFromSelection);
         if (selectionSearchString) {
           stateChanges.searchString = selectionSearchString;
         }
       }
       if (!stateChanges.searchString && opts.seedSearchStringFromGlobalClipboard) {
-        let selectionSearchString = yield this.getGlobalBufferTerm();
+        const selectionSearchString = yield this.getGlobalBufferTerm();
         if (!this._editor.hasModel()) {
           return;
         }
@@ -24068,7 +25329,7 @@ var CommonFindController = class CommonFindController2 extends Disposable {
         stateChanges.isReplaceRevealed = false;
       }
       if (opts.updateSearchScope) {
-        let currentSelections = this._editor.getSelections();
+        const currentSelections = this._editor.getSelections();
         if (currentSelections.some((selection) => !selection.isEmpty())) {
           stateChanges.searchScope = currentSelections;
         }
@@ -24120,24 +25381,24 @@ var CommonFindController = class CommonFindController2 extends Disposable {
     return false;
   }
   getGlobalBufferTerm() {
-    return __awaiter23(this, void 0, void 0, function* () {
-      if (this._editor.getOption(35).globalFindClipboard && this._editor.hasModel() && !this._editor.getModel().isTooLargeForSyncing()) {
+    return __awaiter27(this, void 0, void 0, function* () {
+      if (this._editor.getOption(36).globalFindClipboard && this._editor.hasModel() && !this._editor.getModel().isTooLargeForSyncing()) {
         return this._clipboardService.readFindText();
       }
       return "";
     });
   }
-  setGlobalBufferTerm(text2) {
-    if (this._editor.getOption(35).globalFindClipboard && this._editor.hasModel() && !this._editor.getModel().isTooLargeForSyncing()) {
-      this._clipboardService.writeFindText(text2);
+  setGlobalBufferTerm(text) {
+    if (this._editor.getOption(36).globalFindClipboard && this._editor.hasModel() && !this._editor.getModel().isTooLargeForSyncing()) {
+      this._clipboardService.writeFindText(text);
     }
   }
 };
 CommonFindController.ID = "editor.contrib.findController";
-CommonFindController = __decorate29([
-  __param29(1, IContextKeyService),
-  __param29(2, IStorageService),
-  __param29(3, IClipboardService)
+CommonFindController = __decorate34([
+  __param34(1, IContextKeyService),
+  __param34(2, IStorageService),
+  __param34(3, IClipboardService)
 ], CommonFindController);
 var FindController = class FindController2 extends CommonFindController {
   constructor(editor2, _contextViewService, _contextKeyService, _keybindingService, _themeService, _notificationService, _storageService, clipboardService) {
@@ -24153,13 +25414,13 @@ var FindController = class FindController2 extends CommonFindController {
     const _super = Object.create(null, {
       _start: { get: () => super._start }
     });
-    return __awaiter23(this, void 0, void 0, function* () {
+    return __awaiter27(this, void 0, void 0, function* () {
       if (!this._widget) {
         this._createFindWidget();
       }
       const selection = this._editor.getSelection();
       let updateSearchScope = false;
-      switch (this._editor.getOption(35).autoFindInSelection) {
+      switch (this._editor.getOption(36).autoFindInSelection) {
         case "always":
           updateSearchScope = true;
           break;
@@ -24200,14 +25461,14 @@ var FindController = class FindController2 extends CommonFindController {
     this._findOptionsWidget = this._register(new FindOptionsWidget(this._editor, this._state, this._keybindingService, this._themeService));
   }
 };
-FindController = __decorate29([
-  __param29(1, IContextViewService),
-  __param29(2, IContextKeyService),
-  __param29(3, IKeybindingService),
-  __param29(4, IThemeService),
-  __param29(5, INotificationService),
-  __param29(6, IStorageService),
-  __param29(7, IClipboardService)
+FindController = __decorate34([
+  __param34(1, IContextViewService),
+  __param34(2, IContextKeyService),
+  __param34(3, IKeybindingService),
+  __param34(4, IThemeService),
+  __param34(5, INotificationService),
+  __param34(6, IStorageService),
+  __param34(7, IClipboardService)
 ], FindController);
 var StartFindAction = registerMultiEditorAction(new MultiEditorAction({
   id: FIND_IDS.StartFindAction,
@@ -24233,13 +25494,13 @@ StartFindAction.addImplementation(0, (accessor, editor2, args) => {
   }
   return controller.start({
     forceRevealReplace: false,
-    seedSearchStringFromSelection: editor2.getOption(35).seedSearchStringFromSelection !== "never" ? "single" : "none",
-    seedSearchStringFromNonEmptySelection: editor2.getOption(35).seedSearchStringFromSelection === "selection",
-    seedSearchStringFromGlobalClipboard: editor2.getOption(35).globalFindClipboard,
+    seedSearchStringFromSelection: editor2.getOption(36).seedSearchStringFromSelection !== "never" ? "single" : "none",
+    seedSearchStringFromNonEmptySelection: editor2.getOption(36).seedSearchStringFromSelection === "selection",
+    seedSearchStringFromGlobalClipboard: editor2.getOption(36).globalFindClipboard,
     shouldFocus: 1,
     shouldAnimate: true,
     updateSearchScope: false,
-    loop: editor2.getOption(35).loop
+    loop: editor2.getOption(36).loop
   });
 });
 var findArgDescription = {
@@ -24291,7 +25552,7 @@ var StartFindWithArgsAction = class extends EditorAction {
     });
   }
   run(accessor, editor2, args) {
-    return __awaiter23(this, void 0, void 0, function* () {
+    return __awaiter27(this, void 0, void 0, function* () {
       const controller = CommonFindController.get(editor2);
       if (controller) {
         const newState = args ? {
@@ -24305,13 +25566,13 @@ var StartFindWithArgsAction = class extends EditorAction {
         } : {};
         yield controller.start({
           forceRevealReplace: false,
-          seedSearchStringFromSelection: controller.getState().searchString.length === 0 && editor2.getOption(35).seedSearchStringFromSelection !== "never" ? "single" : "none",
-          seedSearchStringFromNonEmptySelection: editor2.getOption(35).seedSearchStringFromSelection === "selection",
+          seedSearchStringFromSelection: controller.getState().searchString.length === 0 && editor2.getOption(36).seedSearchStringFromSelection !== "never" ? "single" : "none",
+          seedSearchStringFromNonEmptySelection: editor2.getOption(36).seedSearchStringFromSelection === "selection",
           seedSearchStringFromGlobalClipboard: true,
           shouldFocus: 1,
           shouldAnimate: true,
           updateSearchScope: (args === null || args === void 0 ? void 0 : args.findInSelection) || false,
-          loop: editor2.getOption(35).loop
+          loop: editor2.getOption(36).loop
         }, newState);
         controller.setGlobalBufferTerm(controller.getState().searchString);
       }
@@ -24336,7 +25597,7 @@ var StartFindWithSelectionAction = class extends EditorAction {
     });
   }
   run(accessor, editor2) {
-    return __awaiter23(this, void 0, void 0, function* () {
+    return __awaiter27(this, void 0, void 0, function* () {
       const controller = CommonFindController.get(editor2);
       if (controller) {
         yield controller.start({
@@ -24347,7 +25608,7 @@ var StartFindWithSelectionAction = class extends EditorAction {
           shouldFocus: 0,
           shouldAnimate: true,
           updateSearchScope: false,
-          loop: editor2.getOption(35).loop
+          loop: editor2.getOption(36).loop
         });
         controller.setGlobalBufferTerm(controller.getState().searchString);
       }
@@ -24356,18 +25617,18 @@ var StartFindWithSelectionAction = class extends EditorAction {
 };
 var MatchFindAction = class extends EditorAction {
   run(accessor, editor2) {
-    return __awaiter23(this, void 0, void 0, function* () {
+    return __awaiter27(this, void 0, void 0, function* () {
       const controller = CommonFindController.get(editor2);
       if (controller && !this._run(controller)) {
         yield controller.start({
           forceRevealReplace: false,
-          seedSearchStringFromSelection: controller.getState().searchString.length === 0 && editor2.getOption(35).seedSearchStringFromSelection !== "never" ? "single" : "none",
-          seedSearchStringFromNonEmptySelection: editor2.getOption(35).seedSearchStringFromSelection === "selection",
+          seedSearchStringFromSelection: controller.getState().searchString.length === 0 && editor2.getOption(36).seedSearchStringFromSelection !== "never" ? "single" : "none",
+          seedSearchStringFromNonEmptySelection: editor2.getOption(36).seedSearchStringFromSelection === "selection",
           seedSearchStringFromGlobalClipboard: true,
           shouldFocus: 0,
           shouldAnimate: true,
           updateSearchScope: false,
-          loop: editor2.getOption(35).loop
+          loop: editor2.getOption(36).loop
         });
         this._run(controller);
       }
@@ -24430,14 +25691,14 @@ var PreviousMatchFindAction = class extends MatchFindAction {
 };
 var SelectionMatchFindAction = class extends EditorAction {
   run(accessor, editor2) {
-    return __awaiter23(this, void 0, void 0, function* () {
+    return __awaiter27(this, void 0, void 0, function* () {
       const controller = CommonFindController.get(editor2);
       if (!controller) {
         return;
       }
-      const seedSearchStringFromNonEmptySelection = editor2.getOption(35).seedSearchStringFromSelection === "selection";
+      const seedSearchStringFromNonEmptySelection = editor2.getOption(36).seedSearchStringFromSelection === "selection";
       let selectionSearchString = null;
-      if (editor2.getOption(35).seedSearchStringFromSelection !== "never") {
+      if (editor2.getOption(36).seedSearchStringFromSelection !== "never") {
         selectionSearchString = getSelectionSearchString(editor2, "single", seedSearchStringFromNonEmptySelection);
       }
       if (selectionSearchString) {
@@ -24446,13 +25707,13 @@ var SelectionMatchFindAction = class extends EditorAction {
       if (!this._run(controller)) {
         yield controller.start({
           forceRevealReplace: false,
-          seedSearchStringFromSelection: editor2.getOption(35).seedSearchStringFromSelection !== "never" ? "single" : "none",
+          seedSearchStringFromSelection: editor2.getOption(36).seedSearchStringFromSelection !== "never" ? "single" : "none",
           seedSearchStringFromNonEmptySelection,
           seedSearchStringFromGlobalClipboard: false,
           shouldFocus: 0,
           shouldAnimate: true,
           updateSearchScope: false,
-          loop: editor2.getOption(35).loop
+          loop: editor2.getOption(36).loop
         });
         this._run(controller);
       }
@@ -24514,7 +25775,7 @@ var StartFindReplaceAction = registerMultiEditorAction(new MultiEditorAction({
   }
 }));
 StartFindReplaceAction.addImplementation(0, (accessor, editor2, args) => {
-  if (!editor2.hasModel() || editor2.getOption(81)) {
+  if (!editor2.hasModel() || editor2.getOption(82)) {
     return false;
   }
   const controller = CommonFindController.get(editor2);
@@ -24523,17 +25784,17 @@ StartFindReplaceAction.addImplementation(0, (accessor, editor2, args) => {
   }
   const currentSelection = editor2.getSelection();
   const findInputFocused = controller.isFindInputFocused();
-  const seedSearchStringFromSelection = !currentSelection.isEmpty() && currentSelection.startLineNumber === currentSelection.endLineNumber && editor2.getOption(35).seedSearchStringFromSelection !== "never" && !findInputFocused;
+  const seedSearchStringFromSelection = !currentSelection.isEmpty() && currentSelection.startLineNumber === currentSelection.endLineNumber && editor2.getOption(36).seedSearchStringFromSelection !== "never" && !findInputFocused;
   const shouldFocus = findInputFocused || seedSearchStringFromSelection ? 2 : 1;
   return controller.start({
     forceRevealReplace: true,
     seedSearchStringFromSelection: seedSearchStringFromSelection ? "single" : "none",
-    seedSearchStringFromNonEmptySelection: editor2.getOption(35).seedSearchStringFromSelection === "selection",
-    seedSearchStringFromGlobalClipboard: editor2.getOption(35).seedSearchStringFromSelection !== "never",
+    seedSearchStringFromNonEmptySelection: editor2.getOption(36).seedSearchStringFromSelection === "selection",
+    seedSearchStringFromGlobalClipboard: editor2.getOption(36).seedSearchStringFromSelection !== "never",
     shouldFocus,
     shouldAnimate: true,
     updateSearchScope: false,
-    loop: editor2.getOption(35).loop
+    loop: editor2.getOption(36).loop
   });
 });
 registerEditorContribution(CommonFindController.ID, FindController);
@@ -24710,21 +25971,21 @@ var FoldingRegions = class {
   ensureParentIndices() {
     if (!this._parentsComputed) {
       this._parentsComputed = true;
-      let parentIndexes = [];
-      let isInsideLast = (startLineNumber, endLineNumber) => {
-        let index = parentIndexes[parentIndexes.length - 1];
+      const parentIndexes = [];
+      const isInsideLast = (startLineNumber, endLineNumber) => {
+        const index = parentIndexes[parentIndexes.length - 1];
         return this.getStartLineNumber(index) <= startLineNumber && this.getEndLineNumber(index) >= endLineNumber;
       };
       for (let i = 0, len = this._startIndexes.length; i < len; i++) {
-        let startLineNumber = this._startIndexes[i];
-        let endLineNumber = this._endIndexes[i];
+        const startLineNumber = this._startIndexes[i];
+        const endLineNumber = this._endIndexes[i];
         if (startLineNumber > MAX_LINE_NUMBER || endLineNumber > MAX_LINE_NUMBER) {
           throw new Error("startLineNumber or endLineNumber must not exceed " + MAX_LINE_NUMBER);
         }
         while (parentIndexes.length > 0 && !isInsideLast(startLineNumber, endLineNumber)) {
           parentIndexes.pop();
         }
-        let parentIndex = parentIndexes.length > 0 ? parentIndexes[parentIndexes.length - 1] : -1;
+        const parentIndex = parentIndexes.length > 0 ? parentIndexes[parentIndexes.length - 1] : -1;
         parentIndexes.push(i);
         this._startIndexes[i] = startLineNumber + ((parentIndex & 255) << 24);
         this._endIndexes[i] = endLineNumber + ((parentIndex & 65280) << 16);
@@ -24747,14 +26008,14 @@ var FoldingRegions = class {
     return !!this._types;
   }
   isCollapsed(index) {
-    let arrayIndex = index / 32 | 0;
-    let bit = index % 32;
+    const arrayIndex = index / 32 | 0;
+    const bit = index % 32;
     return (this._collapseStates[arrayIndex] & 1 << bit) !== 0;
   }
   setCollapsed(index, newState) {
-    let arrayIndex = index / 32 | 0;
-    let bit = index % 32;
-    let value = this._collapseStates[arrayIndex];
+    const arrayIndex = index / 32 | 0;
+    const bit = index % 32;
+    const value = this._collapseStates[arrayIndex];
     if (newState) {
       this._collapseStates[arrayIndex] = value | 1 << bit;
     } else {
@@ -24778,7 +26039,7 @@ var FoldingRegions = class {
   }
   getParentIndex(index) {
     this.ensureParentIndices();
-    let parent = ((this._startIndexes[index] & MASK_INDENT) >>> 24) + ((this._endIndexes[index] & MASK_INDENT) >>> 16);
+    const parent = ((this._startIndexes[index] & MASK_INDENT) >>> 24) + ((this._endIndexes[index] & MASK_INDENT) >>> 16);
     if (parent === MAX_FOLDING_REGIONS) {
       return -1;
     }
@@ -24793,7 +26054,7 @@ var FoldingRegions = class {
       return -1;
     }
     while (low < high) {
-      let mid = Math.floor((low + high) / 2);
+      const mid = Math.floor((low + high) / 2);
       if (line < this.getStartLineNumber(mid)) {
         high = mid;
       } else {
@@ -24805,7 +26066,7 @@ var FoldingRegions = class {
   findRange(line) {
     let index = this.findIndex(line);
     if (index >= 0) {
-      let endLineNumber = this.getEndLineNumber(index);
+      const endLineNumber = this.getEndLineNumber(index);
       if (endLineNumber >= line) {
         return index;
       }
@@ -24820,7 +26081,7 @@ var FoldingRegions = class {
     return -1;
   }
   toString() {
-    let res = [];
+    const res = [];
     for (let i = 0; i < this.length; i++) {
       res[i] = `[${this.isCollapsed(i) ? "+" : "-"}] ${this.getStartLineNumber(i)}/${this.getEndLineNumber(i)}`;
     }
@@ -24898,13 +26159,13 @@ var FoldingModel = class {
           k++;
         }
       };
-      for (let region of toggledRegions) {
-        let index = region.regionIndex;
-        let editorDecorationId = this._editorDecorationIds[index];
+      for (const region of toggledRegions) {
+        const index = region.regionIndex;
+        const editorDecorationId = this._editorDecorationIds[index];
         if (editorDecorationId && !processed[editorDecorationId]) {
           processed[editorDecorationId] = true;
           updateDecorationsUntil(index);
-          let newCollapseState = !this._regions.isCollapsed(index);
+          const newCollapseState = !this._regions.isCollapsed(index);
           this._regions.setCollapsed(index, newCollapseState);
           dirtyRegionEndLine = Math.max(dirtyRegionEndLine, this._regions.getEndLineNumber(index));
         }
@@ -24914,9 +26175,9 @@ var FoldingModel = class {
     this._updateEventEmitter.fire({ model: this, collapseStateChanged: toggledRegions });
   }
   update(newRegions, blockedLineNumers = []) {
-    let newEditorDecorations = [];
-    let isBlocked = (startLineNumber, endLineNumber) => {
-      for (let blockedLineNumber of blockedLineNumers) {
+    const newEditorDecorations = [];
+    const isBlocked = (startLineNumber, endLineNumber) => {
+      for (const blockedLineNumber of blockedLineNumers) {
         if (startLineNumber < blockedLineNumber && blockedLineNumber <= endLineNumber) {
           return true;
         }
@@ -24924,7 +26185,7 @@ var FoldingModel = class {
       return false;
     };
     let lastHiddenLine = -1;
-    let initRange = (index, isCollapsed) => {
+    const initRange = (index, isCollapsed) => {
       const startLineNumber = newRegions.getStartLineNumber(index);
       const endLineNumber = newRegions.getEndLineNumber(index);
       if (!isCollapsed) {
@@ -24947,9 +26208,9 @@ var FoldingModel = class {
       }
     };
     let i = 0;
-    let nextCollapsed = () => {
+    const nextCollapsed = () => {
       while (i < this._regions.length) {
-        let isCollapsed = this._regions.isCollapsed(i);
+        const isCollapsed = this._regions.isCollapsed(i);
         i++;
         if (isCollapsed) {
           return i - 1;
@@ -24960,12 +26221,12 @@ var FoldingModel = class {
     let k = 0;
     let collapsedIndex = nextCollapsed();
     while (collapsedIndex !== -1 && k < newRegions.length) {
-      let decRange = this._textModel.getDecorationRange(this._editorDecorationIds[collapsedIndex]);
+      const decRange = this._textModel.getDecorationRange(this._editorDecorationIds[collapsedIndex]);
       if (decRange) {
-        let collapsedStartLineNumber = decRange.startLineNumber;
+        const collapsedStartLineNumber = decRange.startLineNumber;
         if (decRange.startColumn === Math.max(decRange.endColumn - 1, 1) && this._textModel.getLineMaxColumn(collapsedStartLineNumber) === decRange.endColumn) {
           while (k < newRegions.length) {
-            let startLineNumber = newRegions.getStartLineNumber(k);
+            const startLineNumber = newRegions.getStartLineNumber(k);
             if (collapsedStartLineNumber >= startLineNumber) {
               initRange(k, collapsedStartLineNumber === startLineNumber);
               k++;
@@ -24981,19 +26242,21 @@ var FoldingModel = class {
       initRange(k, false);
       k++;
     }
-    this._editorDecorationIds = this._decorationProvider.deltaDecorations(this._editorDecorationIds, newEditorDecorations);
+    this._decorationProvider.changeDecorations((changeAccessor) => {
+      this._editorDecorationIds = changeAccessor.deltaDecorations(this._editorDecorationIds, newEditorDecorations);
+    });
     this._regions = newRegions;
     this._isInitialized = true;
     this._updateEventEmitter.fire({ model: this });
   }
   getMemento() {
-    let collapsedRanges = [];
+    const collapsedRanges = [];
     for (let i = 0; i < this._regions.length; i++) {
       if (this._regions.isCollapsed(i)) {
-        let range = this._textModel.getDecorationRange(this._editorDecorationIds[i]);
+        const range = this._textModel.getDecorationRange(this._editorDecorationIds[i]);
         if (range) {
-          let startLineNumber = range.startLineNumber;
-          let endLineNumber = range.endLineNumber + this._regions.getEndLineNumber(i) - this._regions.getStartLineNumber(i);
+          const startLineNumber = range.startLineNumber;
+          const endLineNumber = range.endLineNumber + this._regions.getEndLineNumber(i) - this._regions.getStartLineNumber(i);
           collapsedRanges.push({ startLineNumber, endLineNumber });
         }
       }
@@ -25007,9 +26270,9 @@ var FoldingModel = class {
     if (!Array.isArray(state)) {
       return;
     }
-    let toToogle = [];
-    for (let range of state) {
-      let region = this.getRegionAtLine(range.startLineNumber);
+    const toToogle = [];
+    for (const range of state) {
+      const region = this.getRegionAtLine(range.startLineNumber);
       if (region && !region.isCollapsed) {
         toToogle.push(region);
       }
@@ -25017,15 +26280,15 @@ var FoldingModel = class {
     this.toggleCollapseState(toToogle);
   }
   dispose() {
-    this._decorationProvider.deltaDecorations(this._editorDecorationIds, []);
+    this._decorationProvider.removeDecorations(this._editorDecorationIds);
   }
   getAllRegionsAtLine(lineNumber, filter) {
-    let result = [];
+    const result = [];
     if (this._regions) {
       let index = this._regions.findRange(lineNumber);
       let level = 1;
       while (index >= 0) {
-        let current = this._regions.toRegion(index);
+        const current = this._regions.toRegion(index);
         if (!filter || filter(current, level)) {
           result.push(current);
         }
@@ -25037,7 +26300,7 @@ var FoldingModel = class {
   }
   getRegionAtLine(lineNumber) {
     if (this._regions) {
-      let index = this._regions.findRange(lineNumber);
+      const index = this._regions.findRange(lineNumber);
       if (index >= 0) {
         return this._regions.toRegion(index);
       }
@@ -25045,13 +26308,13 @@ var FoldingModel = class {
     return null;
   }
   getRegionsInside(region, filter) {
-    let result = [];
-    let index = region ? region.regionIndex + 1 : 0;
-    let endLineNumber = region ? region.endLineNumber : Number.MAX_VALUE;
+    const result = [];
+    const index = region ? region.regionIndex + 1 : 0;
+    const endLineNumber = region ? region.endLineNumber : Number.MAX_VALUE;
     if (filter && filter.length === 2) {
       const levelStack = [];
       for (let i = index, len = this._regions.length; i < len; i++) {
-        let current = this._regions.toRegion(i);
+        const current = this._regions.toRegion(i);
         if (this._regions.getStartLineNumber(i) < endLineNumber) {
           while (levelStack.length > 0 && !current.containedBy(levelStack[levelStack.length - 1])) {
             levelStack.pop();
@@ -25066,7 +26329,7 @@ var FoldingModel = class {
       }
     } else {
       for (let i = index, len = this._regions.length; i < len; i++) {
-        let current = this._regions.toRegion(i);
+        const current = this._regions.toRegion(i);
         if (this._regions.getStartLineNumber(i) < endLineNumber) {
           if (!filter || filter(current)) {
             result.push(current);
@@ -25080,14 +26343,14 @@ var FoldingModel = class {
   }
 };
 function toggleCollapseState(foldingModel, levels, lineNumbers) {
-  let toToggle = [];
-  for (let lineNumber of lineNumbers) {
-    let region = foldingModel.getRegionAtLine(lineNumber);
+  const toToggle = [];
+  for (const lineNumber of lineNumbers) {
+    const region = foldingModel.getRegionAtLine(lineNumber);
     if (region) {
       const doCollapse = !region.isCollapsed;
       toToggle.push(region);
       if (levels > 1) {
-        let regionsInside = foldingModel.getRegionsInside(region, (r, level) => r.isCollapsed !== doCollapse && level < levels);
+        const regionsInside = foldingModel.getRegionsInside(region, (r, level) => r.isCollapsed !== doCollapse && level < levels);
         toToggle.push(...regionsInside);
       }
     }
@@ -25095,38 +26358,38 @@ function toggleCollapseState(foldingModel, levels, lineNumbers) {
   foldingModel.toggleCollapseState(toToggle);
 }
 function setCollapseStateLevelsDown(foldingModel, doCollapse, levels = Number.MAX_VALUE, lineNumbers) {
-  let toToggle = [];
+  const toToggle = [];
   if (lineNumbers && lineNumbers.length > 0) {
-    for (let lineNumber of lineNumbers) {
-      let region = foldingModel.getRegionAtLine(lineNumber);
+    for (const lineNumber of lineNumbers) {
+      const region = foldingModel.getRegionAtLine(lineNumber);
       if (region) {
         if (region.isCollapsed !== doCollapse) {
           toToggle.push(region);
         }
         if (levels > 1) {
-          let regionsInside = foldingModel.getRegionsInside(region, (r, level) => r.isCollapsed !== doCollapse && level < levels);
+          const regionsInside = foldingModel.getRegionsInside(region, (r, level) => r.isCollapsed !== doCollapse && level < levels);
           toToggle.push(...regionsInside);
         }
       }
     }
   } else {
-    let regionsInside = foldingModel.getRegionsInside(null, (r, level) => r.isCollapsed !== doCollapse && level < levels);
+    const regionsInside = foldingModel.getRegionsInside(null, (r, level) => r.isCollapsed !== doCollapse && level < levels);
     toToggle.push(...regionsInside);
   }
   foldingModel.toggleCollapseState(toToggle);
 }
 function setCollapseStateLevelsUp(foldingModel, doCollapse, levels, lineNumbers) {
-  let toToggle = [];
-  for (let lineNumber of lineNumbers) {
-    let regions = foldingModel.getAllRegionsAtLine(lineNumber, (region, level) => region.isCollapsed !== doCollapse && level <= levels);
+  const toToggle = [];
+  for (const lineNumber of lineNumbers) {
+    const regions = foldingModel.getAllRegionsAtLine(lineNumber, (region, level) => region.isCollapsed !== doCollapse && level <= levels);
     toToggle.push(...regions);
   }
   foldingModel.toggleCollapseState(toToggle);
 }
 function setCollapseStateUp(foldingModel, doCollapse, lineNumbers) {
-  let toToggle = [];
-  for (let lineNumber of lineNumbers) {
-    let regions = foldingModel.getAllRegionsAtLine(lineNumber, (region) => region.isCollapsed !== doCollapse);
+  const toToggle = [];
+  for (const lineNumber of lineNumbers) {
+    const regions = foldingModel.getAllRegionsAtLine(lineNumber, (region) => region.isCollapsed !== doCollapse);
     if (regions.length > 0) {
       toToggle.push(regions[0]);
     }
@@ -25134,29 +26397,29 @@ function setCollapseStateUp(foldingModel, doCollapse, lineNumbers) {
   foldingModel.toggleCollapseState(toToggle);
 }
 function setCollapseStateAtLevel(foldingModel, foldLevel, doCollapse, blockedLineNumbers) {
-  let filter = (region, level) => level === foldLevel && region.isCollapsed !== doCollapse && !blockedLineNumbers.some((line) => region.containsLine(line));
-  let toToggle = foldingModel.getRegionsInside(null, filter);
+  const filter = (region, level) => level === foldLevel && region.isCollapsed !== doCollapse && !blockedLineNumbers.some((line) => region.containsLine(line));
+  const toToggle = foldingModel.getRegionsInside(null, filter);
   foldingModel.toggleCollapseState(toToggle);
 }
 function setCollapseStateForRest(foldingModel, doCollapse, blockedLineNumbers) {
-  let filteredRegions = [];
-  for (let lineNumber of blockedLineNumbers) {
+  const filteredRegions = [];
+  for (const lineNumber of blockedLineNumbers) {
     const regions = foldingModel.getAllRegionsAtLine(lineNumber, void 0);
     if (regions.length > 0) {
       filteredRegions.push(regions[0]);
     }
   }
-  let filter = (region) => filteredRegions.every((filteredRegion) => !filteredRegion.containedBy(region) && !region.containedBy(filteredRegion)) && region.isCollapsed !== doCollapse;
-  let toToggle = foldingModel.getRegionsInside(null, filter);
+  const filter = (region) => filteredRegions.every((filteredRegion) => !filteredRegion.containedBy(region) && !region.containedBy(filteredRegion)) && region.isCollapsed !== doCollapse;
+  const toToggle = foldingModel.getRegionsInside(null, filter);
   foldingModel.toggleCollapseState(toToggle);
 }
 function setCollapseStateForMatchingLines(foldingModel, regExp, doCollapse) {
-  let editorModel = foldingModel.textModel;
-  let regions = foldingModel.regions;
-  let toToggle = [];
+  const editorModel = foldingModel.textModel;
+  const regions = foldingModel.regions;
+  const toToggle = [];
   for (let i = regions.length - 1; i >= 0; i--) {
     if (doCollapse !== regions.isCollapsed(i)) {
-      let startLineNumber = regions.getStartLineNumber(i);
+      const startLineNumber = regions.getStartLineNumber(i);
       if (regExp.test(editorModel.getLineContent(startLineNumber))) {
         toToggle.push(regions.toRegion(i));
       }
@@ -25165,8 +26428,8 @@ function setCollapseStateForMatchingLines(foldingModel, regExp, doCollapse) {
   foldingModel.toggleCollapseState(toToggle);
 }
 function setCollapseStateForType(foldingModel, type, doCollapse) {
-  let regions = foldingModel.regions;
-  let toToggle = [];
+  const regions = foldingModel.regions;
+  const toToggle = [];
   for (let i = regions.length - 1; i >= 0; i--) {
     if (doCollapse !== regions.isCollapsed(i) && type === regions.getType(i)) {
       toToggle.push(regions.toRegion(i));
@@ -25176,11 +26439,11 @@ function setCollapseStateForType(foldingModel, type, doCollapse) {
 }
 function getParentFoldLine(lineNumber, foldingModel) {
   let startLineNumber = null;
-  let foldingRegion = foldingModel.getRegionAtLine(lineNumber);
+  const foldingRegion = foldingModel.getRegionAtLine(lineNumber);
   if (foldingRegion !== null) {
     startLineNumber = foldingRegion.startLineNumber;
     if (lineNumber === startLineNumber) {
-      let parentFoldingIdx = foldingRegion.parentIndex;
+      const parentFoldingIdx = foldingRegion.parentIndex;
       if (parentFoldingIdx !== -1) {
         startLineNumber = foldingModel.regions.getStartLineNumber(parentFoldingIdx);
       } else {
@@ -25196,7 +26459,7 @@ function getPreviousFoldLine(lineNumber, foldingModel) {
     if (lineNumber !== foldingRegion.startLineNumber) {
       return foldingRegion.startLineNumber;
     } else {
-      let expectedParentIndex = foldingRegion.parentIndex;
+      const expectedParentIndex = foldingRegion.parentIndex;
       let minLineNumber = 0;
       if (expectedParentIndex !== -1) {
         minLineNumber = foldingModel.regions.getStartLineNumber(foldingRegion.parentIndex);
@@ -25234,7 +26497,7 @@ function getPreviousFoldLine(lineNumber, foldingModel) {
 function getNextFoldLine(lineNumber, foldingModel) {
   let foldingRegion = foldingModel.getRegionAtLine(lineNumber);
   if (foldingRegion !== null && foldingRegion.startLineNumber === lineNumber) {
-    let expectedParentIndex = foldingRegion.parentIndex;
+    const expectedParentIndex = foldingRegion.parentIndex;
     let maxLineNumber = 0;
     if (expectedParentIndex !== -1) {
       maxLineNumber = foldingModel.regions.getEndLineNumber(foldingRegion.parentIndex);
@@ -25305,18 +26568,18 @@ var HiddenRangeModel = class {
   }
   updateHiddenRanges() {
     let updateHiddenAreas = false;
-    let newHiddenAreas = [];
+    const newHiddenAreas = [];
     let i = 0;
     let k = 0;
     let lastCollapsedStart = Number.MAX_VALUE;
     let lastCollapsedEnd = -1;
-    let ranges = this._foldingModel.regions;
+    const ranges = this._foldingModel.regions;
     for (; i < ranges.length; i++) {
       if (!ranges.isCollapsed(i)) {
         continue;
       }
-      let startLineNumber = ranges.getStartLineNumber(i) + 1;
-      let endLineNumber = ranges.getEndLineNumber(i);
+      const startLineNumber = ranges.getStartLineNumber(i) + 1;
+      const endLineNumber = ranges.getEndLineNumber(i);
       if (lastCollapsedStart <= startLineNumber && endLineNumber <= lastCollapsedEnd) {
         continue;
       }
@@ -25338,8 +26601,8 @@ var HiddenRangeModel = class {
     if (!Array.isArray(state) || state.length === 0) {
       return false;
     }
-    let hiddenRanges = [];
-    for (let r of state) {
+    const hiddenRanges = [];
+    for (const r of state) {
       if (!r.startLineNumber || !r.endLineNumber) {
         return false;
       }
@@ -25364,9 +26627,9 @@ var HiddenRangeModel = class {
   }
   adjustSelections(selections) {
     let hasChanges = false;
-    let editorModel = this._foldingModel.textModel;
+    const editorModel = this._foldingModel.textModel;
     let lastRange = null;
-    let adjustLine = (line) => {
+    const adjustLine = (line) => {
       if (!lastRange || !isInside(line, lastRange)) {
         lastRange = findRange(this._hiddenRanges, line);
       }
@@ -25377,12 +26640,12 @@ var HiddenRangeModel = class {
     };
     for (let i = 0, len = selections.length; i < len; i++) {
       let selection = selections[i];
-      let adjustedStartLine = adjustLine(selection.startLineNumber);
+      const adjustedStartLine = adjustLine(selection.startLineNumber);
       if (adjustedStartLine) {
         selection = selection.setStartPosition(adjustedStartLine, editorModel.getLineMaxColumn(adjustedStartLine));
         hasChanges = true;
       }
-      let adjustedEndLine = adjustLine(selection.endLineNumber);
+      const adjustedEndLine = adjustLine(selection.endLineNumber);
       if (adjustedEndLine) {
         selection = selection.setEndPosition(adjustedEndLine, editorModel.getLineMaxColumn(adjustedEndLine));
         hasChanges = true;
@@ -25406,7 +26669,7 @@ function isInside(line, range) {
   return line >= range.startLineNumber && line <= range.endLineNumber;
 }
 function findRange(ranges, line) {
-  let i = findFirstInSorted(ranges, (r) => line < r.startLineNumber) - 1;
+  const i = findFirstInSorted(ranges, (r) => line < r.startLineNumber) - 1;
   if (i >= 0 && ranges[i].endLineNumber >= line) {
     return ranges[i];
   }
@@ -25428,9 +26691,9 @@ var IndentRangeProvider = class {
   dispose() {
   }
   compute(cancelationToken, notifyTooManyRegions) {
-    let foldingRules = this.languageConfigurationService.getLanguageConfiguration(this.editorModel.getLanguageId()).foldingRules;
-    let offSide = foldingRules && !!foldingRules.offSide;
-    let markers = foldingRules && foldingRules.markers;
+    const foldingRules = this.languageConfigurationService.getLanguageConfiguration(this.editorModel.getLanguageId()).foldingRules;
+    const offSide = foldingRules && !!foldingRules.offSide;
+    const markers = foldingRules && foldingRules.markers;
     return Promise.resolve(computeRanges(this.editorModel, offSide, markers, this.maxFoldingRegions, notifyTooManyRegions));
   }
 };
@@ -25447,7 +26710,7 @@ var RangesCollector = class {
     if (startLineNumber > MAX_LINE_NUMBER || endLineNumber > MAX_LINE_NUMBER) {
       return;
     }
-    let index = this._length;
+    const index = this._length;
     this._startIndexes[index] = startLineNumber;
     this._endIndexes[index] = endLineNumber;
     this._length++;
@@ -25456,22 +26719,21 @@ var RangesCollector = class {
     }
   }
   toIndentRanges(model) {
+    var _a5;
     if (this._length <= this._foldingRangesLimit) {
-      let startIndexes = new Uint32Array(this._length);
-      let endIndexes = new Uint32Array(this._length);
+      const startIndexes = new Uint32Array(this._length);
+      const endIndexes = new Uint32Array(this._length);
       for (let i = this._length - 1, k = 0; i >= 0; i--, k++) {
         startIndexes[k] = this._startIndexes[i];
         endIndexes[k] = this._endIndexes[i];
       }
       return new FoldingRegions(startIndexes, endIndexes);
     } else {
-      if (this._notifyTooManyRegions) {
-        this._notifyTooManyRegions(this._foldingRangesLimit);
-      }
+      (_a5 = this._notifyTooManyRegions) === null || _a5 === void 0 ? void 0 : _a5.call(this, this._foldingRangesLimit);
       let entries = 0;
       let maxIndent = this._indentOccurrences.length;
       for (let i = 0; i < this._indentOccurrences.length; i++) {
-        let n = this._indentOccurrences[i];
+        const n = this._indentOccurrences[i];
         if (n) {
           if (n + entries > this._foldingRangesLimit) {
             maxIndent = i;
@@ -25481,12 +26743,12 @@ var RangesCollector = class {
         }
       }
       const tabSize = model.getOptions().tabSize;
-      let startIndexes = new Uint32Array(this._foldingRangesLimit);
-      let endIndexes = new Uint32Array(this._foldingRangesLimit);
+      const startIndexes = new Uint32Array(this._foldingRangesLimit);
+      const endIndexes = new Uint32Array(this._foldingRangesLimit);
       for (let i = this._length - 1, k = 0; i >= 0; i--) {
-        let startIndex = this._startIndexes[i];
-        let lineContent = model.getLineContent(startIndex);
-        let indent = computeIndentLevel(lineContent, tabSize);
+        const startIndex = this._startIndexes[i];
+        const lineContent = model.getLineContent(startIndex);
+        const indent = computeIndentLevel(lineContent, tabSize);
         if (indent < maxIndent || indent === maxIndent && entries++ < this._foldingRangesLimit) {
           startIndexes[k] = startIndex;
           endIndexes[k] = this._endIndexes[i];
@@ -25500,17 +26762,17 @@ var RangesCollector = class {
 function computeRanges(model, offSide, markers, foldingRangesLimit, notifyTooManyRegions) {
   const tabSize = model.getOptions().tabSize;
   foldingRangesLimit = foldingRangesLimit !== null && foldingRangesLimit !== void 0 ? foldingRangesLimit : MAX_FOLDING_REGIONS_FOR_INDENT_DEFAULT;
-  let result = new RangesCollector(foldingRangesLimit, notifyTooManyRegions);
+  const result = new RangesCollector(foldingRangesLimit, notifyTooManyRegions);
   let pattern = void 0;
   if (markers) {
     pattern = new RegExp(`(${markers.start.source})|(?:${markers.end.source})`);
   }
-  let previousRegions = [];
-  let line = model.getLineCount() + 1;
+  const previousRegions = [];
+  const line = model.getLineCount() + 1;
   previousRegions.push({ indent: -1, endAbove: line, line });
   for (let line2 = model.getLineCount(); line2 > 0; line2--) {
-    let lineContent = model.getLineContent(line2);
-    let indent = computeIndentLevel(lineContent, tabSize);
+    const lineContent = model.getLineContent(line2);
+    const indent = computeIndentLevel(lineContent, tabSize);
     let previous = previousRegions[previousRegions.length - 1];
     if (indent === -1) {
       if (offSide) {
@@ -25545,7 +26807,7 @@ function computeRanges(model, offSide, markers, foldingRangesLimit, notifyTooMan
         previousRegions.pop();
         previous = previousRegions[previousRegions.length - 1];
       } while (previous.indent > indent);
-      let endLineNumber = previous.endAbove - 1;
+      const endLineNumber = previous.endAbove - 1;
       if (endLineNumber - line2 >= 1) {
         result.insertFirst(line2, endLineNumber, indent);
       }
@@ -25586,7 +26848,7 @@ var SyntaxRangeProvider = class {
   compute(cancellationToken, notifyTooManyRegions) {
     return collectSyntaxRanges(this.providers, this.editorModel, cancellationToken).then((ranges) => {
       if (ranges) {
-        let res = sanitizeRanges(ranges, this.limit, notifyTooManyRegions);
+        const res = sanitizeRanges(ranges, this.limit, notifyTooManyRegions);
         return res;
       }
       return null;
@@ -25599,7 +26861,7 @@ var SyntaxRangeProvider = class {
 };
 function collectSyntaxRanges(providers, model, cancellationToken) {
   let rangeData = null;
-  let promises = providers.map((provider, i) => {
+  const promises = providers.map((provider, i) => {
     return Promise.resolve(provider.provideFoldingRanges(model, foldingContext, cancellationToken)).then((ranges) => {
       if (cancellationToken.isCancellationRequested) {
         return;
@@ -25608,8 +26870,8 @@ function collectSyntaxRanges(providers, model, cancellationToken) {
         if (!Array.isArray(rangeData)) {
           rangeData = [];
         }
-        let nLines = model.getLineCount();
-        for (let r of ranges) {
+        const nLines = model.getLineCount();
+        for (const r of ranges) {
           if (r.start > 0 && r.end > r.start && r.end <= nLines) {
             rangeData.push({ start: r.start, end: r.end, rank: i, kind: r.kind });
           }
@@ -25636,7 +26898,7 @@ var RangesCollector2 = class {
     if (startLineNumber > MAX_LINE_NUMBER || endLineNumber > MAX_LINE_NUMBER) {
       return;
     }
-    let index = this._length;
+    const index = this._length;
     this._startIndexes[index] = startLineNumber;
     this._endIndexes[index] = endLineNumber;
     this._nestingLevels[index] = nestingLevel;
@@ -25647,22 +26909,21 @@ var RangesCollector2 = class {
     }
   }
   toIndentRanges() {
+    var _a5;
     if (this._length <= this._foldingRangesLimit) {
-      let startIndexes = new Uint32Array(this._length);
-      let endIndexes = new Uint32Array(this._length);
+      const startIndexes = new Uint32Array(this._length);
+      const endIndexes = new Uint32Array(this._length);
       for (let i = 0; i < this._length; i++) {
         startIndexes[i] = this._startIndexes[i];
         endIndexes[i] = this._endIndexes[i];
       }
       return new FoldingRegions(startIndexes, endIndexes, this._types);
     } else {
-      if (this._notifyTooManyRegions) {
-        this._notifyTooManyRegions(this._foldingRangesLimit);
-      }
+      (_a5 = this._notifyTooManyRegions) === null || _a5 === void 0 ? void 0 : _a5.call(this, this._foldingRangesLimit);
       let entries = 0;
       let maxLevel = this._nestingLevelCounts.length;
       for (let i = 0; i < this._nestingLevelCounts.length; i++) {
-        let n = this._nestingLevelCounts[i];
+        const n = this._nestingLevelCounts[i];
         if (n) {
           if (n + entries > this._foldingRangesLimit) {
             maxLevel = i;
@@ -25671,11 +26932,11 @@ var RangesCollector2 = class {
           entries += n;
         }
       }
-      let startIndexes = new Uint32Array(this._foldingRangesLimit);
-      let endIndexes = new Uint32Array(this._foldingRangesLimit);
-      let types = [];
+      const startIndexes = new Uint32Array(this._foldingRangesLimit);
+      const endIndexes = new Uint32Array(this._foldingRangesLimit);
+      const types = [];
       for (let i = 0, k = 0; i < this._length; i++) {
-        let level = this._nestingLevels[i];
+        const level = this._nestingLevels[i];
         if (level < maxLevel || level === maxLevel && entries++ < this._foldingRangesLimit) {
           startIndexes[k] = this._startIndexes[i];
           endIndexes[k] = this._endIndexes[i];
@@ -25688,17 +26949,17 @@ var RangesCollector2 = class {
   }
 };
 function sanitizeRanges(rangeData, limit, notifyTooManyRegions) {
-  let sorted = rangeData.sort((d1, d2) => {
+  const sorted = rangeData.sort((d1, d2) => {
     let diff = d1.start - d2.start;
     if (diff === 0) {
       diff = d1.rank - d2.rank;
     }
     return diff;
   });
-  let collector = new RangesCollector2(limit, notifyTooManyRegions);
+  const collector = new RangesCollector2(limit, notifyTooManyRegions);
   let top = void 0;
-  let previous = [];
-  for (let entry of sorted) {
+  const previous = [];
+  for (const entry of sorted) {
     if (!top) {
       top = entry;
       collector.add(entry.start, entry.end, entry.kind && entry.kind.value, previous.length);
@@ -25733,7 +26994,7 @@ var InitializingRangeProvider = class {
     this.editorModel = editorModel;
     this.id = ID_INIT_PROVIDER;
     if (initialRanges.length) {
-      let toDecorationRange = (range) => {
+      const toDecorationRange = (range) => {
         return {
           range: {
             startLineNumber: range.startLineNumber,
@@ -25762,10 +27023,10 @@ var InitializingRangeProvider = class {
     }
   }
   compute(cancelationToken) {
-    let foldingRangeData = [];
+    const foldingRangeData = [];
     if (this.decorationIds) {
-      for (let id of this.decorationIds) {
-        let range = this.editorModel.getDecorationRange(id);
+      for (const id of this.decorationIds) {
+        const range = this.editorModel.getDecorationRange(id);
         if (range) {
           foldingRangeData.push({ start: range.startLineNumber, end: range.endLineNumber, rank: 1 });
         }
@@ -25807,11 +27068,11 @@ var FoldingDecorationProvider = class {
       return FoldingDecorationProvider.EXPANDED_VISUAL_DECORATION;
     }
   }
-  deltaDecorations(oldDecorations, newDecorations) {
-    return this.editor.deltaDecorations(oldDecorations, newDecorations);
-  }
   changeDecorations(callback) {
     return this.editor.changeDecorations(callback);
+  }
+  removeDecorations(decorationIds) {
+    this.editor.removeDecorations(decorationIds);
   }
 };
 FoldingDecorationProvider.COLLAPSED_VISUAL_DECORATION = ModelDecorationOptions.register({
@@ -25850,7 +27111,7 @@ FoldingDecorationProvider.HIDDEN_RANGE_DECORATION = ModelDecorationOptions.regis
 init_languageFeatureDebounce();
 init_stopwatch();
 init_languageFeatures();
-var __decorate30 = function(decorators, target, key, desc) {
+var __decorate35 = function(decorators, target, key, desc) {
   var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
   if (typeof Reflect === "object" && typeof Reflect.decorate === "function")
     r = Reflect.decorate(decorators, target, key, desc);
@@ -25860,7 +27121,7 @@ var __decorate30 = function(decorators, target, key, desc) {
         r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
   return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __param30 = function(paramIndex, decorator) {
+var __param35 = function(paramIndex, decorator) {
   return function(target, key) {
     decorator(target, key, paramIndex);
   };
@@ -25876,13 +27137,13 @@ var FoldingController = class FoldingController2 extends Disposable {
     this.localToDispose = this._register(new DisposableStore());
     this.editor = editor2;
     const options = this.editor.getOptions();
-    this._isEnabled = options.get(37);
-    this._useFoldingProviders = options.get(38) !== "indentation";
-    this._unfoldOnClickAfterEndOfLine = options.get(42);
+    this._isEnabled = options.get(38);
+    this._useFoldingProviders = options.get(39) !== "indentation";
+    this._unfoldOnClickAfterEndOfLine = options.get(43);
     this._restoringViewState = false;
     this._currentModelHasFoldedImports = false;
-    this._foldingImportsByDefault = options.get(40);
-    this._maxFoldingRegions = options.get(41);
+    this._foldingImportsByDefault = options.get(41);
+    this._maxFoldingRegions = options.get(42);
     this.updateDebounceInfo = languageFeatureDebounceService.for(languageFeaturesService.foldingRangeProvider, "Folding", { min: 200 });
     this.foldingModel = null;
     this.hiddenRangeModel = null;
@@ -25894,8 +27155,8 @@ var FoldingController = class FoldingController2 extends Disposable {
     this.cursorChangedScheduler = null;
     this.mouseDownInfo = null;
     this.foldingDecorationProvider = new FoldingDecorationProvider(editor2);
-    this.foldingDecorationProvider.autoHideFoldingControls = options.get(99) === "mouseover";
-    this.foldingDecorationProvider.showFoldingHighlights = options.get(39);
+    this.foldingDecorationProvider.autoHideFoldingControls = options.get(100) === "mouseover";
+    this.foldingDecorationProvider.showFoldingHighlights = options.get(40);
     this.foldingEnabled = CONTEXT_FOLDING_ENABLED.bindTo(this.contextKeyService);
     this.foldingEnabled.set(this._isEnabled);
     this._notifyTooManyRegions = (maxFoldingRegions) => {
@@ -25910,31 +27171,31 @@ var FoldingController = class FoldingController2 extends Disposable {
     };
     this._register(this.editor.onDidChangeModel(() => this.onModelChanged()));
     this._register(this.editor.onDidChangeConfiguration((e) => {
-      if (e.hasChanged(37)) {
-        this._isEnabled = this.editor.getOptions().get(37);
+      if (e.hasChanged(38)) {
+        this._isEnabled = this.editor.getOptions().get(38);
         this.foldingEnabled.set(this._isEnabled);
         this.onModelChanged();
       }
-      if (e.hasChanged(41)) {
-        this._maxFoldingRegions = this.editor.getOptions().get(41);
+      if (e.hasChanged(42)) {
+        this._maxFoldingRegions = this.editor.getOptions().get(42);
         this._tooManyRegionsNotified = false;
         this.onModelChanged();
       }
-      if (e.hasChanged(99) || e.hasChanged(39)) {
+      if (e.hasChanged(100) || e.hasChanged(40)) {
         const options2 = this.editor.getOptions();
-        this.foldingDecorationProvider.autoHideFoldingControls = options2.get(99) === "mouseover";
-        this.foldingDecorationProvider.showFoldingHighlights = options2.get(39);
+        this.foldingDecorationProvider.autoHideFoldingControls = options2.get(100) === "mouseover";
+        this.foldingDecorationProvider.showFoldingHighlights = options2.get(40);
         this.triggerFoldingModelChanged();
       }
-      if (e.hasChanged(38)) {
-        this._useFoldingProviders = this.editor.getOptions().get(38) !== "indentation";
+      if (e.hasChanged(39)) {
+        this._useFoldingProviders = this.editor.getOptions().get(39) !== "indentation";
         this.onFoldingStrategyChanged();
       }
-      if (e.hasChanged(42)) {
-        this._unfoldOnClickAfterEndOfLine = this.editor.getOptions().get(42);
+      if (e.hasChanged(43)) {
+        this._unfoldOnClickAfterEndOfLine = this.editor.getOptions().get(43);
       }
-      if (e.hasChanged(40)) {
-        this._foldingImportsByDefault = this.editor.getOptions().get(40);
+      if (e.hasChanged(41)) {
+        this._foldingImportsByDefault = this.editor.getOptions().get(41);
       }
     }));
     this.onModelChanged();
@@ -25943,19 +27204,19 @@ var FoldingController = class FoldingController2 extends Disposable {
     return editor2.getContribution(FoldingController2.ID);
   }
   saveViewState() {
-    let model = this.editor.getModel();
+    const model = this.editor.getModel();
     if (!model || !this._isEnabled || model.isTooLargeForTokenization()) {
       return {};
     }
     if (this.foldingModel) {
-      let collapsedRegions = this.foldingModel.isInitialized ? this.foldingModel.getMemento() : this.hiddenRangeModel.getMemento();
-      let provider = this.rangeProvider ? this.rangeProvider.id : void 0;
+      const collapsedRegions = this.foldingModel.isInitialized ? this.foldingModel.getMemento() : this.hiddenRangeModel.getMemento();
+      const provider = this.rangeProvider ? this.rangeProvider.id : void 0;
       return { collapsedRegions, lineCount: model.getLineCount(), provider, foldedImports: this._currentModelHasFoldedImports };
     }
     return void 0;
   }
   restoreViewState(state) {
-    let model = this.editor.getModel();
+    const model = this.editor.getModel();
     if (!model || !this._isEnabled || model.isTooLargeForTokenization() || !this.hiddenRangeModel) {
       return;
     }
@@ -25988,7 +27249,7 @@ var FoldingController = class FoldingController2 extends Disposable {
   }
   onModelChanged() {
     this.localToDispose.clear();
-    let model = this.editor.getModel();
+    const model = this.editor.getModel();
     if (!this._isEnabled || !model || model.isTooLargeForTokenization()) {
       return;
     }
@@ -26043,7 +27304,7 @@ var FoldingController = class FoldingController2 extends Disposable {
     }
     this.rangeProvider = new IndentRangeProvider(editorModel, this.languageConfigurationService, this._maxFoldingRegions);
     if (this._useFoldingProviders && this.foldingModel) {
-      let foldingProviders = this.languageFeaturesService.foldingRangeProvider.ordered(this.foldingModel.textModel);
+      const foldingProviders = this.languageFeaturesService.foldingRangeProvider.ordered(this.foldingModel.textModel);
       if (foldingProviders.length === 0 && this.foldingStateMemento && this.foldingStateMemento.collapsedRegions) {
         const rangeProvider = this.rangeProvider = new InitializingRangeProvider(editorModel, this.foldingStateMemento.collapsedRegions, () => {
           this.foldingStateMemento = null;
@@ -26078,7 +27339,7 @@ var FoldingController = class FoldingController2 extends Disposable {
         }
         const sw = new StopWatch(true);
         const provider = this.getRangeProvider(foldingModel.textModel);
-        let foldingRegionPromise = this.foldingRegionPromise = createCancelablePromise((token) => provider.compute(token, this._notifyTooManyRegions));
+        const foldingRegionPromise = this.foldingRegionPromise = createCancelablePromise((token) => provider.compute(token, this._notifyTooManyRegions));
         return foldingRegionPromise.then((foldingRanges) => {
           if (foldingRanges && foldingRegionPromise === this.foldingRegionPromise) {
             let scrollState;
@@ -26089,12 +27350,10 @@ var FoldingController = class FoldingController2 extends Disposable {
                 this._currentModelHasFoldedImports = hasChanges;
               }
             }
-            let selections = this.editor.getSelections();
-            let selectionLineNumbers = selections ? selections.map((s) => s.startLineNumber) : [];
+            const selections = this.editor.getSelections();
+            const selectionLineNumbers = selections ? selections.map((s) => s.startLineNumber) : [];
             foldingModel.update(foldingRanges, selectionLineNumbers);
-            if (scrollState) {
-              scrollState.restore(this.editor);
-            }
+            scrollState === null || scrollState === void 0 ? void 0 : scrollState.restore(this.editor);
             const newValue = this.updateDebounceInfo.update(foldingModel.textModel, sw.elapsed());
             if (this.updateScheduler) {
               this.updateScheduler.defaultDelay = newValue;
@@ -26110,7 +27369,7 @@ var FoldingController = class FoldingController2 extends Disposable {
   }
   onHiddenRangesChanges(hiddenRanges) {
     if (this.hiddenRangeModel && hiddenRanges.length && !this._restoringViewState) {
-      let selections = this.editor.getSelections();
+      const selections = this.editor.getSelections();
       if (selections) {
         if (this.hiddenRangeModel.adjustSelections(selections)) {
           this.editor.setSelections(selections);
@@ -26131,11 +27390,11 @@ var FoldingController = class FoldingController2 extends Disposable {
     }
     foldingModel.then((foldingModel2) => {
       if (foldingModel2) {
-        let selections = this.editor.getSelections();
+        const selections = this.editor.getSelections();
         if (selections && selections.length > 0) {
-          let toToggle = [];
-          for (let selection of selections) {
-            let lineNumber = selection.selectionStartLineNumber;
+          const toToggle = [];
+          for (const selection of selections) {
+            const lineNumber = selection.selectionStartLineNumber;
             if (this.hiddenRangeModel && this.hiddenRangeModel.isHidden(lineNumber)) {
               toToggle.push(...foldingModel2.getAllRegionsAtLine(lineNumber, (r) => r.isCollapsed && lineNumber > r.startLineNumber));
             }
@@ -26180,7 +27439,7 @@ var FoldingController = class FoldingController2 extends Disposable {
       }
       case 6: {
         if (this.hiddenRangeModel.hasRanges()) {
-          let model = this.editor.getModel();
+          const model = this.editor.getModel();
           if (model && range.startColumn === model.getLineMaxColumn(range.startLineNumber)) {
             break;
           }
@@ -26193,13 +27452,13 @@ var FoldingController = class FoldingController2 extends Disposable {
     this.mouseDownInfo = { lineNumber: range.startLineNumber, iconClicked };
   }
   onEditorMouseUp(e) {
-    const foldingModel = this.getFoldingModel();
+    const foldingModel = this.foldingModel;
     if (!foldingModel || !this.mouseDownInfo || !e.target) {
       return;
     }
-    let lineNumber = this.mouseDownInfo.lineNumber;
-    let iconClicked = this.mouseDownInfo.iconClicked;
-    let range = e.target.range;
+    const lineNumber = this.mouseDownInfo.lineNumber;
+    const iconClicked = this.mouseDownInfo.iconClicked;
+    const range = e.target.range;
     if (!range || range.startLineNumber !== lineNumber) {
       return;
     }
@@ -26208,61 +27467,57 @@ var FoldingController = class FoldingController2 extends Disposable {
         return;
       }
     } else {
-      let model = this.editor.getModel();
+      const model = this.editor.getModel();
       if (!model || range.startColumn !== model.getLineMaxColumn(lineNumber)) {
         return;
       }
     }
-    foldingModel.then((foldingModel2) => {
-      if (foldingModel2) {
-        let region = foldingModel2.getRegionAtLine(lineNumber);
-        if (region && region.startLineNumber === lineNumber) {
-          let isCollapsed = region.isCollapsed;
-          if (iconClicked || isCollapsed) {
-            let surrounding = e.event.altKey;
-            let toToggle = [];
-            if (surrounding) {
-              let filter = (otherRegion) => !otherRegion.containedBy(region) && !region.containedBy(otherRegion);
-              let toMaybeToggle = foldingModel2.getRegionsInside(null, filter);
-              for (const r of toMaybeToggle) {
-                if (r.isCollapsed) {
-                  toToggle.push(r);
-                }
-              }
-              if (toToggle.length === 0) {
-                toToggle = toMaybeToggle;
-              }
-            } else {
-              let recursive = e.event.middleButton || e.event.shiftKey;
-              if (recursive) {
-                for (const r of foldingModel2.getRegionsInside(region)) {
-                  if (r.isCollapsed === isCollapsed) {
-                    toToggle.push(r);
-                  }
-                }
-              }
-              if (isCollapsed || !recursive || toToggle.length === 0) {
-                toToggle.push(region);
+    const region = foldingModel.getRegionAtLine(lineNumber);
+    if (region && region.startLineNumber === lineNumber) {
+      const isCollapsed = region.isCollapsed;
+      if (iconClicked || isCollapsed) {
+        const surrounding = e.event.altKey;
+        let toToggle = [];
+        if (surrounding) {
+          const filter = (otherRegion) => !otherRegion.containedBy(region) && !region.containedBy(otherRegion);
+          const toMaybeToggle = foldingModel.getRegionsInside(null, filter);
+          for (const r of toMaybeToggle) {
+            if (r.isCollapsed) {
+              toToggle.push(r);
+            }
+          }
+          if (toToggle.length === 0) {
+            toToggle = toMaybeToggle;
+          }
+        } else {
+          const recursive = e.event.middleButton || e.event.shiftKey;
+          if (recursive) {
+            for (const r of foldingModel.getRegionsInside(region)) {
+              if (r.isCollapsed === isCollapsed) {
+                toToggle.push(r);
               }
             }
-            foldingModel2.toggleCollapseState(toToggle);
-            this.reveal({ lineNumber, column: 1 });
+          }
+          if (isCollapsed || !recursive || toToggle.length === 0) {
+            toToggle.push(region);
           }
         }
+        foldingModel.toggleCollapseState(toToggle);
+        this.reveal({ lineNumber, column: 1 });
       }
-    }).then(void 0, onUnexpectedError);
+    }
   }
   reveal(position) {
     this.editor.revealPositionInCenterIfOutsideViewport(position, 0);
   }
 };
 FoldingController.ID = "editor.contrib.folding";
-FoldingController = __decorate30([
-  __param30(1, IContextKeyService),
-  __param30(2, ILanguageConfigurationService),
-  __param30(3, INotificationService),
-  __param30(4, ILanguageFeatureDebounceService),
-  __param30(5, ILanguageFeaturesService)
+FoldingController = __decorate35([
+  __param35(1, IContextKeyService),
+  __param35(2, ILanguageConfigurationService),
+  __param35(3, INotificationService),
+  __param35(4, ILanguageFeatureDebounceService),
+  __param35(5, ILanguageFeaturesService)
 ], FoldingController);
 var FoldingAction = class extends EditorAction {
   runEditorCommand(accessor, editor2, args) {
@@ -26286,7 +27541,7 @@ var FoldingAction = class extends EditorAction {
     }
   }
   getSelectedLines(editor2) {
-    let selections = editor2.getSelections();
+    const selections = editor2.getSelections();
     return selections ? selections.map((s) => s.startLineNumber) : [];
   }
   getLineNumbers(args, editor2) {
@@ -26339,7 +27594,7 @@ var UnfoldAction = class extends FoldingAction {
             description: `Property-value pairs that can be passed through this argument:
 						* 'levels': Number of levels to unfold. If not set, defaults to 1.
 						* 'direction': If 'up', unfold given number of levels up otherwise unfolds down.
-						* 'selectionLines': The start lines (0-based) of the editor selections to apply the unfold action to. If not set, the active selection(s) will be used.
+						* 'selectionLines': Array of the start lines (0-based) of the editor selections to apply the unfold action to. If not set, the active selection(s) will be used.
 						`,
             constraint: foldingArgumentsConstraint,
             schema: {
@@ -26368,8 +27623,8 @@ var UnfoldAction = class extends FoldingAction {
     });
   }
   invoke(_foldingController, foldingModel, editor2, args) {
-    let levels = args && args.levels || 1;
-    let lineNumbers = this.getLineNumbers(args, editor2);
+    const levels = args && args.levels || 1;
+    const lineNumbers = this.getLineNumbers(args, editor2);
     if (args && args.direction === "up") {
       setCollapseStateLevelsUp(foldingModel, false, levels, lineNumbers);
     } else {
@@ -26418,7 +27673,7 @@ var FoldAction = class extends FoldingAction {
             description: `Property-value pairs that can be passed through this argument:
 							* 'levels': Number of levels to fold.
 							* 'direction': If 'up', folds given number of levels up otherwise folds down.
-							* 'selectionLines': The start lines (0-based) of the editor selections to apply the fold action to. If not set, the active selection(s) will be used.
+							* 'selectionLines': Array of the start lines (0-based) of the editor selections to apply the fold action to. If not set, the active selection(s) will be used.
 							If no levels or direction is set, folds the region at the locations or if already collapsed, the first uncollapsed parent instead.
 						`,
             constraint: foldingArgumentsConstraint,
@@ -26446,7 +27701,7 @@ var FoldAction = class extends FoldingAction {
     });
   }
   invoke(_foldingController, foldingModel, editor2, args) {
-    let lineNumbers = this.getLineNumbers(args, editor2);
+    const lineNumbers = this.getLineNumbers(args, editor2);
     const levels = args && args.levels;
     const direction = args && args.direction;
     if (typeof levels !== "number" && typeof direction !== "string") {
@@ -26475,7 +27730,7 @@ var ToggleFoldAction = class extends FoldingAction {
     });
   }
   invoke(_foldingController, foldingModel, editor2) {
-    let selectedLines = this.getSelectedLines(editor2);
+    const selectedLines = this.getSelectedLines(editor2);
     toggleCollapseState(foldingModel, 1, selectedLines);
   }
 };
@@ -26494,7 +27749,7 @@ var FoldRecursivelyAction = class extends FoldingAction {
     });
   }
   invoke(_foldingController, foldingModel, editor2) {
-    let selectedLines = this.getSelectedLines(editor2);
+    const selectedLines = this.getSelectedLines(editor2);
     setCollapseStateLevelsDown(foldingModel, true, Number.MAX_VALUE, selectedLines);
   }
 };
@@ -26522,7 +27777,7 @@ var FoldAllBlockCommentsAction = class extends FoldingAction {
       }
       const comments = languageConfigurationService.getLanguageConfiguration(editorModel.getLanguageId()).comments;
       if (comments && comments.blockCommentStartToken) {
-        let regExp = new RegExp("^\\s*" + escapeRegExpCharacters(comments.blockCommentStartToken));
+        const regExp = new RegExp("^\\s*" + escapeRegExpCharacters(comments.blockCommentStartToken));
         setCollapseStateForMatchingLines(foldingModel, regExp, true);
       }
     }
@@ -26552,7 +27807,7 @@ var FoldAllRegionsAction = class extends FoldingAction {
       }
       const foldingRules = languageConfigurationService.getLanguageConfiguration(editorModel.getLanguageId()).foldingRules;
       if (foldingRules && foldingRules.markers && foldingRules.markers.start) {
-        let regExp = new RegExp(foldingRules.markers.start);
+        const regExp = new RegExp(foldingRules.markers.start);
         setCollapseStateForMatchingLines(foldingModel, regExp, true);
       }
     }
@@ -26582,7 +27837,7 @@ var UnfoldAllRegionsAction = class extends FoldingAction {
       }
       const foldingRules = languageConfigurationService.getLanguageConfiguration(editorModel.getLanguageId()).foldingRules;
       if (foldingRules && foldingRules.markers && foldingRules.markers.start) {
-        let regExp = new RegExp(foldingRules.markers.start);
+        const regExp = new RegExp(foldingRules.markers.start);
         setCollapseStateForMatchingLines(foldingModel, regExp, false);
       }
     }
@@ -26603,7 +27858,7 @@ var FoldAllRegionsExceptAction = class extends FoldingAction {
     });
   }
   invoke(_foldingController, foldingModel, editor2) {
-    let selectedLines = this.getSelectedLines(editor2);
+    const selectedLines = this.getSelectedLines(editor2);
     setCollapseStateForRest(foldingModel, true, selectedLines);
   }
 };
@@ -26622,7 +27877,7 @@ var UnfoldAllRegionsExceptAction = class extends FoldingAction {
     });
   }
   invoke(_foldingController, foldingModel, editor2) {
-    let selectedLines = this.getSelectedLines(editor2);
+    const selectedLines = this.getSelectedLines(editor2);
     setCollapseStateForRest(foldingModel, false, selectedLines);
   }
 };
@@ -26686,9 +27941,9 @@ var GotoParentFoldAction = class extends FoldingAction {
     });
   }
   invoke(_foldingController, foldingModel, editor2) {
-    let selectedLines = this.getSelectedLines(editor2);
+    const selectedLines = this.getSelectedLines(editor2);
     if (selectedLines.length > 0) {
-      let startLineNumber = getParentFoldLine(selectedLines[0], foldingModel);
+      const startLineNumber = getParentFoldLine(selectedLines[0], foldingModel);
       if (startLineNumber !== null) {
         editor2.setSelection({
           startLineNumber,
@@ -26714,9 +27969,9 @@ var GotoPreviousFoldAction = class extends FoldingAction {
     });
   }
   invoke(_foldingController, foldingModel, editor2) {
-    let selectedLines = this.getSelectedLines(editor2);
+    const selectedLines = this.getSelectedLines(editor2);
     if (selectedLines.length > 0) {
-      let startLineNumber = getPreviousFoldLine(selectedLines[0], foldingModel);
+      const startLineNumber = getPreviousFoldLine(selectedLines[0], foldingModel);
       if (startLineNumber !== null) {
         editor2.setSelection({
           startLineNumber,
@@ -26742,9 +27997,9 @@ var GotoNextFoldAction = class extends FoldingAction {
     });
   }
   invoke(_foldingController, foldingModel, editor2) {
-    let selectedLines = this.getSelectedLines(editor2);
+    const selectedLines = this.getSelectedLines(editor2);
     if (selectedLines.length > 0) {
-      let startLineNumber = getNextFoldLine(selectedLines[0], foldingModel);
+      const startLineNumber = getNextFoldLine(selectedLines[0], foldingModel);
       if (startLineNumber !== null) {
         editor2.setSelection({
           startLineNumber,
@@ -26785,8 +28040,8 @@ for (let i = 1; i <= 7; i++) {
     }
   }));
 }
-var foldBackgroundBackground = registerColor("editor.foldBackground", { light: transparent(editorSelectionBackground, 0.3), dark: transparent(editorSelectionBackground, 0.3), hc: null }, localize("foldBackgroundBackground", "Background color behind folded ranges. The color must not be opaque so as not to hide underlying decorations."), true);
-var editorFoldForeground = registerColor("editorGutter.foldingControlForeground", { dark: iconForeground, light: iconForeground, hc: iconForeground }, localize("editorGutter.foldingControlForeground", "Color of the folding control in the editor gutter."));
+var foldBackgroundBackground = registerColor("editor.foldBackground", { light: transparent(editorSelectionBackground, 0.3), dark: transparent(editorSelectionBackground, 0.3), hcDark: null, hcLight: null }, localize("foldBackgroundBackground", "Background color behind folded ranges. The color must not be opaque so as not to hide underlying decorations."), true);
+var editorFoldForeground = registerColor("editorGutter.foldingControlForeground", { dark: iconForeground, light: iconForeground, hcDark: iconForeground, hcLight: iconForeground }, localize("editorGutter.foldingControlForeground", "Color of the folding control in the editor gutter."));
 registerThemingParticipant((theme, collector) => {
   const foldBackground = theme.getColor(foldBackgroundBackground);
   if (foldBackground) {
@@ -26854,9 +28109,14 @@ registerEditorAction(EditorFontZoomReset);
 var import_formatActions = __toESM(require_formatActions());
 var import_documentSymbols = __toESM(require_documentSymbols());
 
-// ../../node_modules/monaco-editor/esm/vs/editor/contrib/inlineCompletions/browser/inlineCompletionsContribution.js
+// ../../node_modules/monaco-editor/esm/vs/editor/contrib/inlineCompletions/browser/ghostText.contribution.js
 init_define_process();
 init_editorExtensions();
+init_editorContextKeys();
+
+// ../../node_modules/monaco-editor/esm/vs/editor/contrib/inlineCompletions/browser/consts.js
+init_define_process();
+var inlineSuggestCommitId = "editor.action.inlineSuggest.commit";
 
 // ../../node_modules/monaco-editor/esm/vs/editor/contrib/inlineCompletions/browser/ghostTextController.js
 init_define_process();
@@ -26866,10 +28126,6 @@ init_strings();
 init_editorExtensions();
 init_cursorColumns();
 init_editorContextKeys();
-
-// ../../node_modules/monaco-editor/esm/vs/editor/contrib/inlineCompletions/browser/consts.js
-init_define_process();
-var inlineSuggestCommitId = "editor.action.inlineSuggest.commit";
 
 // ../../node_modules/monaco-editor/esm/vs/editor/contrib/inlineCompletions/browser/ghostTextModel.js
 init_define_process();
@@ -26885,7 +28141,6 @@ init_cancellation();
 init_errors();
 init_event();
 init_lifecycle();
-init_strings();
 init_editOperation();
 init_range();
 init_languages();
@@ -26894,7 +28149,52 @@ init_languages();
 init_define_process();
 init_event();
 init_lifecycle();
+
+// ../../node_modules/monaco-editor/esm/vs/editor/contrib/inlineCompletions/browser/utils.js
+init_define_process();
 init_range();
+function createDisposableRef(object, disposable) {
+  return {
+    object,
+    dispose: () => disposable === null || disposable === void 0 ? void 0 : disposable.dispose()
+  };
+}
+function applyEdits(text, edits) {
+  const transformer = new PositionOffsetTransformer(text);
+  const offsetEdits = edits.map((e) => {
+    const range = Range.lift(e.range);
+    return {
+      startOffset: transformer.getOffset(range.getStartPosition()),
+      endOffset: transformer.getOffset(range.getEndPosition()),
+      text: e.text
+    };
+  });
+  offsetEdits.sort((a, b) => b.startOffset - a.startOffset);
+  for (const edit of offsetEdits) {
+    text = text.substring(0, edit.startOffset) + edit.text + text.substring(edit.endOffset);
+  }
+  return text;
+}
+var PositionOffsetTransformer = class {
+  constructor(text) {
+    this.lineStartOffsetByLineIdx = [];
+    this.lineStartOffsetByLineIdx.push(0);
+    for (let i = 0; i < text.length; i++) {
+      if (text.charAt(i) === "\n") {
+        this.lineStartOffsetByLineIdx.push(i + 1);
+      }
+    }
+  }
+  getOffset(position) {
+    return this.lineStartOffsetByLineIdx[position.lineNumber - 1] + position.column - 1;
+  }
+};
+var array = [];
+function getReadonlyEmptyArray() {
+  return array;
+}
+
+// ../../node_modules/monaco-editor/esm/vs/editor/contrib/inlineCompletions/browser/ghostText.js
 var GhostText = class {
   constructor(lineNumber, parts, additionalReservedLineCount = 0) {
     this.lineNumber = lineNumber;
@@ -26907,48 +28207,36 @@ var GhostText = class {
     }
     const lastPart = this.parts[this.parts.length - 1];
     const cappedLineText = lineText.substr(0, lastPart.column - 1);
-    const text2 = applyEdits(cappedLineText, this.parts.map((p) => ({
+    const text = applyEdits(cappedLineText, this.parts.map((p) => ({
       range: { startLineNumber: 1, endLineNumber: 1, startColumn: p.column, endColumn: p.column },
       text: p.lines.join("\n")
     })));
-    return text2.substring(this.parts[0].column - 1);
+    return text.substring(this.parts[0].column - 1);
+  }
+  isEmpty() {
+    return this.parts.every((p) => p.lines.length === 0);
   }
 };
-var PositionOffsetTransformer = class {
-  constructor(text2) {
-    this.lineStartOffsetByLineIdx = [];
-    this.lineStartOffsetByLineIdx.push(0);
-    for (let i = 0; i < text2.length; i++) {
-      if (text2.charAt(i) === "\n") {
-        this.lineStartOffsetByLineIdx.push(i + 1);
-      }
-    }
-  }
-  getOffset(position) {
-    return this.lineStartOffsetByLineIdx[position.lineNumber - 1] + position.column - 1;
-  }
-};
-function applyEdits(text2, edits) {
-  const transformer = new PositionOffsetTransformer(text2);
-  const offsetEdits = edits.map((e) => {
-    const range = Range.lift(e.range);
-    return {
-      startOffset: transformer.getOffset(range.getStartPosition()),
-      endOffset: transformer.getOffset(range.getEndPosition()),
-      text: e.text
-    };
-  });
-  offsetEdits.sort((a, b) => b.startOffset - a.startOffset);
-  for (const edit of offsetEdits) {
-    text2 = text2.substring(0, edit.startOffset) + edit.text + text2.substring(edit.endOffset);
-  }
-  return text2;
-}
 var GhostTextPart = class {
   constructor(column, lines, preview) {
     this.column = column;
     this.lines = lines;
     this.preview = preview;
+  }
+};
+var GhostTextReplacement = class {
+  constructor(lineNumber, columnStart, length, newLines, additionalReservedLineCount = 0) {
+    this.lineNumber = lineNumber;
+    this.columnStart = columnStart;
+    this.length = length;
+    this.newLines = newLines;
+    this.additionalReservedLineCount = additionalReservedLineCount;
+    this.parts = [
+      new GhostTextPart(this.columnStart + this.length, this.newLines, false)
+    ];
+  }
+  renderForScreenReader(_lineText) {
+    return this.newLines.join("\n");
   }
 };
 var BaseGhostTextWidgetModel = class extends Disposable {
@@ -26959,7 +28247,7 @@ var BaseGhostTextWidgetModel = class extends Disposable {
     this.onDidChangeEmitter = new Emitter();
     this.onDidChange = this.onDidChangeEmitter.event;
     this._register(editor2.onDidChangeConfiguration((e) => {
-      if (e.hasChanged(106) && this._expanded === void 0) {
+      if (e.hasChanged(107) && this._expanded === void 0) {
         this.onDidChangeEmitter.fire();
       }
     }));
@@ -26977,6 +28265,25 @@ init_commands();
 init_define_process();
 init_strings();
 init_range();
+function minimizeInlineCompletion(model, inlineCompletion) {
+  if (!inlineCompletion) {
+    return inlineCompletion;
+  }
+  const valueToReplace = model.getValueInRange(inlineCompletion.range);
+  const commonPrefixLen = commonPrefixLength(valueToReplace, inlineCompletion.insertText);
+  const startOffset = model.getOffsetAt(inlineCompletion.range.getStartPosition()) + commonPrefixLen;
+  const start = model.getPositionAt(startOffset);
+  const remainingValueToReplace = valueToReplace.substr(commonPrefixLen);
+  const commonSuffixLen = commonSuffixLength(remainingValueToReplace, inlineCompletion.insertText);
+  const end = model.getPositionAt(Math.max(startOffset, model.getOffsetAt(inlineCompletion.range.getEndPosition()) - commonSuffixLen));
+  return {
+    range: Range.fromPositions(start, end),
+    insertText: inlineCompletion.insertText.substr(commonPrefixLen, inlineCompletion.insertText.length - commonPrefixLen - commonSuffixLen),
+    snippetInfo: inlineCompletion.snippetInfo,
+    filterText: inlineCompletion.filterText,
+    additionalTextEdits: inlineCompletion.additionalTextEdits
+  };
+}
 function normalizedInlineCompletionsEquals(a, b) {
   if (a === b) {
     return true;
@@ -26984,7 +28291,7 @@ function normalizedInlineCompletionsEquals(a, b) {
   if (!a || !b) {
     return false;
   }
-  return a.range.equalsRange(b.range) && a.text === b.text && a.command === b.command;
+  return a.range.equalsRange(b.range) && a.insertText === b.insertText && a.command === b.command;
 }
 function inlineCompletionToGhostText(inlineCompletion, textModel, mode, cursorPosition, previewSuffixLength = 0) {
   if (inlineCompletion.range.startLineNumber !== inlineCompletion.range.endLineNumber) {
@@ -26994,18 +28301,21 @@ function inlineCompletionToGhostText(inlineCompletion, textModel, mode, cursorPo
   const sourceIndentationLength = getLeadingWhitespace(sourceLine).length;
   const suggestionTouchesIndentation = inlineCompletion.range.startColumn - 1 <= sourceIndentationLength;
   if (suggestionTouchesIndentation) {
-    const suggestionAddedIndentationLength = getLeadingWhitespace(inlineCompletion.text).length;
+    const suggestionAddedIndentationLength = getLeadingWhitespace(inlineCompletion.insertText).length;
     const replacedIndentation = sourceLine.substring(inlineCompletion.range.startColumn - 1, sourceIndentationLength);
     const rangeThatDoesNotReplaceIndentation = Range.fromPositions(inlineCompletion.range.getStartPosition().delta(0, replacedIndentation.length), inlineCompletion.range.getEndPosition());
-    const suggestionWithoutIndentationChange = inlineCompletion.text.startsWith(replacedIndentation) ? inlineCompletion.text.substring(replacedIndentation.length) : inlineCompletion.text.substring(suggestionAddedIndentationLength);
+    const suggestionWithoutIndentationChange = inlineCompletion.insertText.startsWith(replacedIndentation) ? inlineCompletion.insertText.substring(replacedIndentation.length) : inlineCompletion.insertText.substring(suggestionAddedIndentationLength);
     inlineCompletion = {
       range: rangeThatDoesNotReplaceIndentation,
-      text: suggestionWithoutIndentationChange,
-      command: inlineCompletion.command
+      insertText: suggestionWithoutIndentationChange,
+      command: inlineCompletion.command,
+      snippetInfo: void 0,
+      filterText: inlineCompletion.filterText,
+      additionalTextEdits: inlineCompletion.additionalTextEdits
     };
   }
   const valueToBeReplaced = textModel.getValueInRange(inlineCompletion.range);
-  const changes = cachingDiff(valueToBeReplaced, inlineCompletion.text);
+  const changes = cachingDiff(valueToBeReplaced, inlineCompletion.insertText);
   if (!changes) {
     return void 0;
   }
@@ -27017,7 +28327,7 @@ function inlineCompletionToGhostText(inlineCompletion, textModel, mode, cursorPo
       return void 0;
     }
   }
-  const previewStartInCompletionText = inlineCompletion.text.length - previewSuffixLength;
+  const previewStartInCompletionText = inlineCompletion.insertText.length - previewSuffixLength;
   for (const c of changes) {
     const insertColumn = inlineCompletion.range.startColumn + c.originalStart + c.originalLength;
     if (mode === "subwordSmart" && cursorPosition && cursorPosition.lineNumber === inlineCompletion.range.startLineNumber && insertColumn < cursorPosition.column) {
@@ -27031,8 +28341,8 @@ function inlineCompletionToGhostText(inlineCompletion, textModel, mode, cursorPo
     }
     const modifiedEnd = c.modifiedStart + c.modifiedLength;
     const nonPreviewTextEnd = Math.max(c.modifiedStart, Math.min(modifiedEnd, previewStartInCompletionText));
-    const nonPreviewText = inlineCompletion.text.substring(c.modifiedStart, nonPreviewTextEnd);
-    const italicText = inlineCompletion.text.substring(nonPreviewTextEnd, Math.max(c.modifiedStart, modifiedEnd));
+    const nonPreviewText = inlineCompletion.insertText.substring(c.modifiedStart, nonPreviewTextEnd);
+    const italicText = inlineCompletion.insertText.substring(nonPreviewTextEnd, Math.max(c.modifiedStart, modifiedEnd));
     if (nonPreviewText.length > 0) {
       const lines = splitLines(nonPreviewText);
       parts.push(new GhostTextPart(insertColumn, lines, false));
@@ -27049,7 +28359,16 @@ function cachingDiff(originalValue, newValue) {
   if ((lastRequest === null || lastRequest === void 0 ? void 0 : lastRequest.originalValue) === originalValue && (lastRequest === null || lastRequest === void 0 ? void 0 : lastRequest.newValue) === newValue) {
     return lastRequest === null || lastRequest === void 0 ? void 0 : lastRequest.changes;
   } else {
-    const changes = smartDiff(originalValue, newValue);
+    let changes = smartDiff(originalValue, newValue, true);
+    if (changes) {
+      const deletedChars = deletedCharacters(changes);
+      if (deletedChars > 0) {
+        const newChanges = smartDiff(originalValue, newValue, false);
+        if (newChanges && deletedCharacters(newChanges) < deletedChars) {
+          changes = newChanges;
+        }
+      }
+    }
     lastRequest = {
       originalValue,
       newValue,
@@ -27058,7 +28377,14 @@ function cachingDiff(originalValue, newValue) {
     return changes;
   }
 }
-function smartDiff(originalValue, newValue) {
+function deletedCharacters(changes) {
+  let sum2 = 0;
+  for (const c of changes) {
+    sum2 += Math.max(c.originalLength - c.modifiedLength, 0);
+  }
+  return sum2;
+}
+function smartDiff(originalValue, newValue, smartBracketMatching) {
   if (originalValue.length > 5e3 || newValue.length > 5e3) {
     return void 0;
   }
@@ -27084,16 +28410,17 @@ function smartDiff(originalValue, newValue) {
     let group = 0;
     const characters = new Int32Array(source.length);
     for (let i = 0, len = source.length; i < len; i++) {
-      const id = group * 100 + level;
-      if (source[i] === "(") {
+      if (smartBracketMatching && source[i] === "(") {
+        const id = group * 100 + level;
         characters[i] = getUniqueCharCode(2 * id);
         level++;
-      } else if (source[i] === ")") {
+      } else if (smartBracketMatching && source[i] === ")") {
+        level = Math.max(level - 1, 0);
+        const id = group * 100 + level;
         characters[i] = getUniqueCharCode(2 * id + 1);
-        if (level === 1) {
+        if (level === 0) {
           group++;
         }
-        level = Math.max(level - 1, 0);
       } else {
         characters[i] = source.charCodeAt(i);
       }
@@ -27154,6 +28481,11 @@ function fixBracketsInLine(tokens, languageConfigurationService) {
 var StaticTokenizerSource = class {
   constructor(lines) {
     this.lines = lines;
+    this.tokenization = {
+      getLineTokens: (lineNumber) => {
+        return this.lines[lineNumber - 1];
+      }
+    };
   }
   getLineCount() {
     return this.lines.length;
@@ -27161,15 +28493,14 @@ var StaticTokenizerSource = class {
   getLineLength(lineNumber) {
     return this.lines[lineNumber - 1].getLineContent().length;
   }
-  getLineTokens(lineNumber) {
-    return this.lines[lineNumber - 1];
-  }
 };
 
 // ../../node_modules/monaco-editor/esm/vs/editor/contrib/inlineCompletions/browser/inlineCompletionsModel.js
 init_languageFeatures();
 init_languageFeatureDebounce();
-var __decorate32 = function(decorators, target, key, desc) {
+init_types();
+init_configuration();
+var __decorate37 = function(decorators, target, key, desc) {
   var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
   if (typeof Reflect === "object" && typeof Reflect.decorate === "function")
     r = Reflect.decorate(decorators, target, key, desc);
@@ -27179,12 +28510,12 @@ var __decorate32 = function(decorators, target, key, desc) {
         r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
   return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __param32 = function(paramIndex, decorator) {
+var __param37 = function(paramIndex, decorator) {
   return function(target, key) {
     decorator(target, key, paramIndex);
   };
 };
-var __awaiter25 = function(thisArg, _arguments, P, generator) {
+var __awaiter29 = function(thisArg, _arguments, P, generator) {
   function adopt(value) {
     return value instanceof P ? value : new P(function(resolve) {
       resolve(value);
@@ -27212,7 +28543,7 @@ var __awaiter25 = function(thisArg, _arguments, P, generator) {
   });
 };
 var InlineCompletionsModel = class InlineCompletionsModel2 extends Disposable {
-  constructor(editor2, cache, commandService, languageConfigurationService, languageFeaturesService, debounceService) {
+  constructor(editor2, cache, commandService, languageConfigurationService, languageFeaturesService, debounceService, configurationService) {
     super();
     this.editor = editor2;
     this.cache = cache;
@@ -27225,7 +28556,7 @@ var InlineCompletionsModel = class InlineCompletionsModel2 extends Disposable {
     this.completionSession = this._register(new MutableDisposable());
     this.active = false;
     this.disposed = false;
-    this.debounceValue = this.debounceService.for(this.languageFeaturesService.inlineCompletionsProvider, "InlineCompletionsDebounce", { min: 50, max: 200 });
+    this.debounceValue = this.debounceService.for(this.languageFeaturesService.inlineCompletionsProvider, "InlineCompletionsDebounce", { min: 50, max: 50 });
     this._register(commandService.onDidExecuteCommand((e) => {
       const commands = /* @__PURE__ */ new Set([
         CoreEditingCommands.Tab.id,
@@ -27242,7 +28573,7 @@ var InlineCompletionsModel = class InlineCompletionsModel2 extends Disposable {
       this.handleUserInput();
     }));
     this._register(this.editor.onDidChangeCursorPosition((e) => {
-      if (this.session && !this.session.isValid) {
+      if (e.reason === 3 || this.session && !this.session.isValid) {
         this.hide();
       }
     }));
@@ -27250,6 +28581,9 @@ var InlineCompletionsModel = class InlineCompletionsModel2 extends Disposable {
       this.disposed = true;
     }));
     this._register(this.editor.onDidBlurEditorWidget(() => {
+      if (configurationService.getValue("editor.inlineSuggest.hideOnBlur")) {
+        return;
+      }
       this.hide();
     }));
   }
@@ -27286,7 +28620,7 @@ var InlineCompletionsModel = class InlineCompletionsModel2 extends Disposable {
     }
   }
   startSessionIfTriggered() {
-    const suggestOptions = this.editor.getOption(55);
+    const suggestOptions = this.editor.getOption(56);
     if (!suggestOptions.enabled) {
       return;
     }
@@ -27325,17 +28659,18 @@ var InlineCompletionsModel = class InlineCompletionsModel2 extends Disposable {
   }
   hasMultipleInlineCompletions() {
     var _a5;
-    return __awaiter25(this, void 0, void 0, function* () {
+    return __awaiter29(this, void 0, void 0, function* () {
       const result = yield (_a5 = this.session) === null || _a5 === void 0 ? void 0 : _a5.hasMultipleInlineCompletions();
       return result !== void 0 ? result : false;
     });
   }
 };
-InlineCompletionsModel = __decorate32([
-  __param32(2, ICommandService),
-  __param32(3, ILanguageConfigurationService),
-  __param32(4, ILanguageFeaturesService),
-  __param32(5, ILanguageFeatureDebounceService)
+InlineCompletionsModel = __decorate37([
+  __param37(2, ICommandService),
+  __param37(3, ILanguageConfigurationService),
+  __param37(4, ILanguageFeaturesService),
+  __param37(5, ILanguageFeatureDebounceService),
+  __param37(6, IConfigurationService)
 ], InlineCompletionsModel);
 var InlineCompletionsSession = class extends BaseGhostTextWidgetModel {
   constructor(editor2, triggerPosition, shouldUpdate, commandService, cache, initialTriggerKind, languageConfigurationService, registry, debounce) {
@@ -27351,37 +28686,75 @@ var InlineCompletionsSession = class extends BaseGhostTextWidgetModel {
     this.minReservedLineCount = 0;
     this.updateOperation = this._register(new MutableDisposable());
     this.updateSoon = this._register(new RunOnceScheduler(() => {
-      let triggerKind = this.initialTriggerKind;
+      const triggerKind = this.initialTriggerKind;
       this.initialTriggerKind = InlineCompletionTriggerKind.Automatic;
       return this.update(triggerKind);
     }, 50));
+    this.filteredCompletions = [];
     this.currentlySelectedCompletionId = void 0;
     let lastCompletionItem = void 0;
     this._register(this.onDidChange(() => {
+      var _a5;
       const currentCompletion = this.currentCompletion;
       if (currentCompletion && currentCompletion.sourceInlineCompletion !== lastCompletionItem) {
         lastCompletionItem = currentCompletion.sourceInlineCompletion;
         const provider = currentCompletion.sourceProvider;
-        if (provider.handleItemDidShow) {
-          provider.handleItemDidShow(currentCompletion.sourceInlineCompletions, lastCompletionItem);
-        }
+        (_a5 = provider.handleItemDidShow) === null || _a5 === void 0 ? void 0 : _a5.call(provider, currentCompletion.sourceInlineCompletions, lastCompletionItem);
       }
     }));
     this._register(toDisposable(() => {
       this.cache.clear();
     }));
     this._register(this.editor.onDidChangeCursorPosition((e) => {
+      var _a5;
+      if (e.reason === 3) {
+        return;
+      }
+      (_a5 = this.cache.value) === null || _a5 === void 0 ? void 0 : _a5.updateRanges();
       if (this.cache.value) {
+        this.updateFilteredInlineCompletions();
         this.onDidChangeEmitter.fire();
       }
     }));
     this._register(this.editor.onDidChangeModelContent((e) => {
+      var _a5;
+      (_a5 = this.cache.value) === null || _a5 === void 0 ? void 0 : _a5.updateRanges();
+      this.updateFilteredInlineCompletions();
       this.scheduleAutomaticUpdate();
     }));
     this._register(this.registry.onDidChange(() => {
       this.updateSoon.schedule(this.debounce.get(this.editor.getModel()));
     }));
     this.scheduleAutomaticUpdate();
+  }
+  updateFilteredInlineCompletions() {
+    if (!this.cache.value) {
+      this.filteredCompletions = [];
+      return;
+    }
+    const model = this.editor.getModel();
+    const cursorPosition = model.validatePosition(this.editor.getPosition());
+    this.filteredCompletions = this.cache.value.completions.filter((c) => {
+      const originalValue = model.getValueInRange(c.synchronizedRange).toLowerCase();
+      const filterText = c.inlineCompletion.filterText.toLowerCase();
+      const indent = model.getLineIndentColumn(c.synchronizedRange.startLineNumber);
+      const cursorPosIndex = Math.max(0, cursorPosition.column - c.synchronizedRange.startColumn);
+      let filterTextBefore = filterText.substring(0, cursorPosIndex);
+      let filterTextAfter = filterText.substring(cursorPosIndex);
+      let originalValueBefore = originalValue.substring(0, cursorPosIndex);
+      let originalValueAfter = originalValue.substring(cursorPosIndex);
+      if (c.synchronizedRange.startColumn <= indent) {
+        originalValueBefore = originalValueBefore.trimStart();
+        if (originalValueBefore.length === 0) {
+          originalValueAfter = originalValueAfter.trimStart();
+        }
+        filterTextBefore = filterTextBefore.trimStart();
+        if (filterTextBefore.length === 0) {
+          filterTextAfter = filterTextAfter.trimStart();
+        }
+      }
+      return filterTextBefore.startsWith(originalValueBefore) && matchesSubString(originalValueAfter, filterTextAfter);
+    });
   }
   fixAndGetIndexOfCurrentSelection() {
     if (!this.currentlySelectedCompletionId || !this.cache.value) {
@@ -27390,7 +28763,7 @@ var InlineCompletionsSession = class extends BaseGhostTextWidgetModel {
     if (this.cache.value.completions.length === 0) {
       return 0;
     }
-    const idx = this.cache.value.completions.findIndex((v) => v.semanticId === this.currentlySelectedCompletionId);
+    const idx = this.filteredCompletions.findIndex((v) => v.semanticId === this.currentlySelectedCompletionId);
     if (idx === -1) {
       this.currentlySelectedCompletionId = void 0;
       return 0;
@@ -27401,13 +28774,12 @@ var InlineCompletionsSession = class extends BaseGhostTextWidgetModel {
     if (!this.cache.value) {
       return void 0;
     }
-    return this.cache.value.completions[this.fixAndGetIndexOfCurrentSelection()];
+    return this.filteredCompletions[this.fixAndGetIndexOfCurrentSelection()];
   }
   showNextInlineCompletion() {
-    var _a5;
-    return __awaiter25(this, void 0, void 0, function* () {
+    return __awaiter29(this, void 0, void 0, function* () {
       yield this.ensureUpdateWithExplicitContext();
-      const completions = ((_a5 = this.cache.value) === null || _a5 === void 0 ? void 0 : _a5.completions) || [];
+      const completions = this.filteredCompletions || [];
       if (completions.length > 0) {
         const newIdx = (this.fixAndGetIndexOfCurrentSelection() + 1) % completions.length;
         this.currentlySelectedCompletionId = completions[newIdx].semanticId;
@@ -27418,10 +28790,9 @@ var InlineCompletionsSession = class extends BaseGhostTextWidgetModel {
     });
   }
   showPreviousInlineCompletion() {
-    var _a5;
-    return __awaiter25(this, void 0, void 0, function* () {
+    return __awaiter29(this, void 0, void 0, function* () {
       yield this.ensureUpdateWithExplicitContext();
-      const completions = ((_a5 = this.cache.value) === null || _a5 === void 0 ? void 0 : _a5.completions) || [];
+      const completions = this.filteredCompletions || [];
       if (completions.length > 0) {
         const newIdx = (this.fixAndGetIndexOfCurrentSelection() + completions.length - 1) % completions.length;
         this.currentlySelectedCompletionId = completions[newIdx].semanticId;
@@ -27433,7 +28804,7 @@ var InlineCompletionsSession = class extends BaseGhostTextWidgetModel {
   }
   ensureUpdateWithExplicitContext() {
     var _a5;
-    return __awaiter25(this, void 0, void 0, function* () {
+    return __awaiter29(this, void 0, void 0, function* () {
       if (this.updateOperation.value) {
         if (this.updateOperation.value.triggerKind === InlineCompletionTriggerKind.Explicit) {
           yield this.updateOperation.value.promise;
@@ -27447,15 +28818,29 @@ var InlineCompletionsSession = class extends BaseGhostTextWidgetModel {
   }
   hasMultipleInlineCompletions() {
     var _a5;
-    return __awaiter25(this, void 0, void 0, function* () {
+    return __awaiter29(this, void 0, void 0, function* () {
       yield this.ensureUpdateWithExplicitContext();
       return (((_a5 = this.cache.value) === null || _a5 === void 0 ? void 0 : _a5.completions.length) || 0) > 1;
     });
   }
   get ghostText() {
     const currentCompletion = this.currentCompletion;
-    const mode = this.editor.getOptions().get(55).mode;
-    return currentCompletion ? inlineCompletionToGhostText(currentCompletion, this.editor.getModel(), mode, this.editor.getPosition()) : void 0;
+    if (!currentCompletion) {
+      return void 0;
+    }
+    const cursorPosition = this.editor.getPosition();
+    if (currentCompletion.range.getEndPosition().isBefore(cursorPosition)) {
+      return void 0;
+    }
+    const mode = this.editor.getOptions().get(56).mode;
+    const ghostText = inlineCompletionToGhostText(currentCompletion, this.editor.getModel(), mode, cursorPosition);
+    if (ghostText) {
+      if (ghostText.isEmpty()) {
+        return void 0;
+      }
+      return ghostText;
+    }
+    return new GhostTextReplacement(currentCompletion.range.startLineNumber, currentCompletion.range.startColumn, currentCompletion.range.endColumn - currentCompletion.range.startColumn, currentCompletion.insertText.split("\n"), 0);
   }
   get currentCompletion() {
     const completion = this.currentCachedCompletion;
@@ -27472,13 +28857,13 @@ var InlineCompletionsSession = class extends BaseGhostTextWidgetModel {
     this.updateSoon.schedule(this.debounce.get(this.editor.getModel()));
   }
   update(triggerKind) {
-    return __awaiter25(this, void 0, void 0, function* () {
+    return __awaiter29(this, void 0, void 0, function* () {
       if (!this.shouldUpdate()) {
         return;
       }
       const position = this.editor.getPosition();
       const startTime = new Date();
-      const promise = createCancelablePromise((token) => __awaiter25(this, void 0, void 0, function* () {
+      const promise = createCancelablePromise((token) => __awaiter29(this, void 0, void 0, function* () {
         let result;
         try {
           result = yield provideInlineCompletions(this.registry, position, this.editor.getModel(), { triggerKind, selectedSuggestionInfo: void 0 }, token, this.languageConfigurationService);
@@ -27492,6 +28877,7 @@ var InlineCompletionsSession = class extends BaseGhostTextWidgetModel {
           return;
         }
         this.cache.setValue(this.editor, result, triggerKind);
+        this.updateFilteredInlineCompletions();
         this.onDidChangeEmitter.fire();
       }));
       const operation = new UpdateOperation(promise, triggerKind);
@@ -27506,7 +28892,8 @@ var InlineCompletionsSession = class extends BaseGhostTextWidgetModel {
     this._register(disposable);
   }
   commitCurrentCompletion() {
-    if (!this.ghostText) {
+    const ghostText = this.ghostText;
+    if (!ghostText) {
       return;
     }
     const completion = this.currentCompletion;
@@ -27515,10 +28902,21 @@ var InlineCompletionsSession = class extends BaseGhostTextWidgetModel {
     }
   }
   commit(completion) {
+    var _a5;
     const cache = this.cache.clearAndLeak();
-    this.editor.executeEdits("inlineSuggestion.accept", [
-      EditOperation.replaceMove(completion.range, completion.text)
-    ]);
+    if (completion.snippetInfo) {
+      this.editor.executeEdits("inlineSuggestion.accept", [
+        EditOperation.replaceMove(completion.range, ""),
+        ...completion.additionalTextEdits
+      ]);
+      this.editor.setPosition(completion.snippetInfo.range.getStartPosition());
+      (_a5 = SnippetController2.get(this.editor)) === null || _a5 === void 0 ? void 0 : _a5.insert(completion.snippetInfo.snippet);
+    } else {
+      this.editor.executeEdits("inlineSuggestion.accept", [
+        EditOperation.replaceMove(completion.range, completion.insertText),
+        ...completion.additionalTextEdits
+      ]);
+    }
     if (completion.command) {
       this.commandService.executeCommand(completion.command.id, ...completion.command.arguments || []).finally(() => {
         cache === null || cache === void 0 ? void 0 : cache.dispose();
@@ -27527,6 +28925,11 @@ var InlineCompletionsSession = class extends BaseGhostTextWidgetModel {
       cache === null || cache === void 0 ? void 0 : cache.dispose();
     }
     this.onDidChangeEmitter.fire();
+  }
+  get commands() {
+    var _a5;
+    const lists = new Set(((_a5 = this.cache.value) === null || _a5 === void 0 ? void 0 : _a5.completions.map((c) => c.inlineCompletion.sourceInlineCompletions)) || []);
+    return [...lists].flatMap((l) => l.commands || []);
   }
 };
 var UpdateOperation = class {
@@ -27539,38 +28942,50 @@ var UpdateOperation = class {
   }
 };
 var SynchronizedInlineCompletionsCache = class extends Disposable {
-  constructor(editor2, completionsSource, onChange, triggerKind) {
+  constructor(completionsSource, editor2, onChange, triggerKind) {
     super();
+    this.editor = editor2;
+    this.onChange = onChange;
     this.triggerKind = triggerKind;
-    const decorationIds = editor2.deltaDecorations([], completionsSource.items.map((i) => ({
-      range: i.range,
-      options: {
-        description: "inline-completion-tracking-range"
-      }
-    })));
+    this.isDisposing = false;
+    const decorationIds = editor2.changeDecorations((changeAccessor) => {
+      return changeAccessor.deltaDecorations([], completionsSource.items.map((i) => ({
+        range: i.range,
+        options: {
+          description: "inline-completion-tracking-range"
+        }
+      })));
+    });
     this._register(toDisposable(() => {
-      editor2.deltaDecorations(decorationIds, []);
+      this.isDisposing = true;
+      editor2.removeDecorations(decorationIds);
     }));
     this.completions = completionsSource.items.map((c, idx) => new CachedInlineCompletion(c, decorationIds[idx]));
     this._register(editor2.onDidChangeModelContent(() => {
-      let hasChanged = false;
-      const model = editor2.getModel();
-      for (const c of this.completions) {
-        const newRange = model.getDecorationRange(c.decorationId);
-        if (!newRange) {
-          onUnexpectedError(new Error("Decoration has no range"));
-          continue;
-        }
-        if (!c.synchronizedRange.equalsRange(newRange)) {
-          hasChanged = true;
-          c.synchronizedRange = newRange;
-        }
-      }
-      if (hasChanged) {
-        onChange();
-      }
+      this.updateRanges();
     }));
     this._register(completionsSource);
+  }
+  updateRanges() {
+    if (this.isDisposing) {
+      return;
+    }
+    let hasChanged = false;
+    const model = this.editor.getModel();
+    for (const c of this.completions) {
+      const newRange = model.getDecorationRange(c.decorationId);
+      if (!newRange) {
+        onUnexpectedError(new Error("Decoration has no range"));
+        continue;
+      }
+      if (!c.synchronizedRange.equalsRange(newRange)) {
+        hasChanged = true;
+        c.synchronizedRange = newRange;
+      }
+    }
+    if (hasChanged) {
+      this.onChange();
+    }
   }
 };
 var CachedInlineCompletion = class {
@@ -27578,7 +28993,8 @@ var CachedInlineCompletion = class {
     this.inlineCompletion = inlineCompletion;
     this.decorationId = decorationId;
     this.semanticId = JSON.stringify({
-      text: this.inlineCompletion.text,
+      text: this.inlineCompletion.insertText,
+      abbreviation: this.inlineCompletion.filterText,
       startLine: this.inlineCompletion.range.startLineNumber,
       startColumn: this.inlineCompletion.range.startColumn,
       command: this.inlineCompletion.command
@@ -27587,25 +29003,23 @@ var CachedInlineCompletion = class {
   }
   toLiveInlineCompletion() {
     return {
-      text: this.inlineCompletion.text,
+      insertText: this.inlineCompletion.insertText,
       range: this.synchronizedRange,
       command: this.inlineCompletion.command,
       sourceProvider: this.inlineCompletion.sourceProvider,
       sourceInlineCompletions: this.inlineCompletion.sourceInlineCompletions,
-      sourceInlineCompletion: this.inlineCompletion.sourceInlineCompletion
+      sourceInlineCompletion: this.inlineCompletion.sourceInlineCompletion,
+      snippetInfo: this.inlineCompletion.snippetInfo,
+      filterText: this.inlineCompletion.filterText,
+      additionalTextEdits: this.inlineCompletion.additionalTextEdits
     };
   }
 };
-function getDefaultRange(position, model) {
-  const word = model.getWordAtPosition(position);
-  const maxColumn = model.getLineMaxColumn(position.lineNumber);
-  return word ? new Range(position.lineNumber, word.startColumn, position.lineNumber, maxColumn) : Range.fromPositions(position, position.with(void 0, maxColumn));
-}
 function provideInlineCompletions(registry, position, model, context, token = CancellationToken.None, languageConfigurationService) {
-  return __awaiter25(this, void 0, void 0, function* () {
+  return __awaiter29(this, void 0, void 0, function* () {
     const defaultReplaceRange = getDefaultRange(position, model);
     const providers = registry.all(model);
-    const results = yield Promise.all(providers.map((provider) => __awaiter25(this, void 0, void 0, function* () {
+    const results = yield Promise.all(providers.map((provider) => __awaiter29(this, void 0, void 0, function* () {
       const completions = yield Promise.resolve(provider.provideInlineCompletions(model, position, context, token)).catch(onUnexpectedExternalError);
       return {
         completions,
@@ -27620,23 +29034,44 @@ function provideInlineCompletions(registry, position, model, context, token = Ca
     const itemsByHash = /* @__PURE__ */ new Map();
     for (const result of results) {
       const completions = result.completions;
-      if (completions) {
-        for (const item of completions.items) {
-          const range = item.range ? Range.lift(item.range) : defaultReplaceRange;
-          if (range.startLineNumber !== range.endLineNumber) {
-            continue;
-          }
-          const text2 = languageConfigurationService && item.completeBracketPairs ? closeBrackets(item.text, range.getStartPosition(), model, languageConfigurationService) : item.text;
-          const trackedItem = {
-            text: text2,
-            range,
-            command: item.command,
-            sourceProvider: result.provider,
-            sourceInlineCompletions: completions,
-            sourceInlineCompletion: item
-          };
-          itemsByHash.set(JSON.stringify({ text: text2, range: item.range }), trackedItem);
+      if (!completions) {
+        continue;
+      }
+      for (const item of completions.items) {
+        const range = item.range ? Range.lift(item.range) : defaultReplaceRange;
+        if (range.startLineNumber !== range.endLineNumber) {
+          continue;
         }
+        let insertText;
+        let snippetInfo;
+        if (typeof item.insertText === "string") {
+          insertText = item.insertText;
+          if (languageConfigurationService && item.completeBracketPairs) {
+            insertText = closeBrackets(insertText, range.getStartPosition(), model, languageConfigurationService);
+          }
+          snippetInfo = void 0;
+        } else if ("snippet" in item.insertText) {
+          const snippet = new SnippetParser().parse(item.insertText.snippet);
+          insertText = snippet.toString();
+          snippetInfo = {
+            snippet: item.insertText.snippet,
+            range
+          };
+        } else {
+          assertNever(item.insertText);
+        }
+        const trackedItem = {
+          insertText,
+          snippetInfo,
+          range,
+          command: item.command,
+          sourceProvider: result.provider,
+          sourceInlineCompletions: completions,
+          sourceInlineCompletion: item,
+          filterText: item.filterText || insertText,
+          additionalTextEdits: item.additionalTextEdits || getReadonlyEmptyArray()
+        };
+        itemsByHash.set(JSON.stringify({ insertText, range: item.range }), trackedItem);
       }
     }
     return {
@@ -27649,33 +29084,21 @@ function provideInlineCompletions(registry, position, model, context, token = Ca
     };
   });
 }
-function closeBrackets(text2, position, model, languageConfigurationService) {
+function getDefaultRange(position, model) {
+  const word = model.getWordAtPosition(position);
+  const maxColumn = model.getLineMaxColumn(position.lineNumber);
+  return word ? new Range(position.lineNumber, word.startColumn, position.lineNumber, maxColumn) : Range.fromPositions(position, position.with(void 0, maxColumn));
+}
+function closeBrackets(text, position, model, languageConfigurationService) {
   const lineStart = model.getLineContent(position.lineNumber).substring(0, position.column - 1);
-  const newLine = lineStart + text2;
-  const newTokens = model.tokenizeLineWithEdit(position, newLine.length - (position.column - 1), text2);
+  const newLine = lineStart + text;
+  const newTokens = model.tokenization.tokenizeLineWithEdit(position, newLine.length - (position.column - 1), text);
   const slicedTokens = newTokens === null || newTokens === void 0 ? void 0 : newTokens.sliceAndInflate(position.column - 1, newLine.length, 0);
   if (!slicedTokens) {
-    return text2;
+    return text;
   }
-  console.log(slicedTokens);
   const newText = fixBracketsInLine(slicedTokens, languageConfigurationService);
   return newText;
-}
-function minimizeInlineCompletion(model, inlineCompletion) {
-  if (!inlineCompletion) {
-    return inlineCompletion;
-  }
-  const valueToReplace = model.getValueInRange(inlineCompletion.range);
-  const commonPrefixLen = commonPrefixLength(valueToReplace, inlineCompletion.text);
-  const startOffset = model.getOffsetAt(inlineCompletion.range.getStartPosition()) + commonPrefixLen;
-  const start = model.getPositionAt(startOffset);
-  const remainingValueToReplace = valueToReplace.substr(commonPrefixLen);
-  const commonSuffixLen = commonSuffixLength(remainingValueToReplace, inlineCompletion.text);
-  const end = model.getPositionAt(Math.max(startOffset, model.getOffsetAt(inlineCompletion.range.getEndPosition()) - commonSuffixLen));
-  return {
-    range: Range.fromPositions(start, end),
-    text: inlineCompletion.text.substr(commonPrefixLen, inlineCompletion.text.length - commonPrefixLen - commonSuffixLen)
-  };
 }
 
 // ../../node_modules/monaco-editor/esm/vs/editor/contrib/inlineCompletions/browser/suggestWidgetPreviewModel.js
@@ -27694,742 +29117,6 @@ init_event();
 init_lifecycle();
 init_position();
 init_range();
-
-// ../../node_modules/monaco-editor/esm/vs/editor/contrib/snippet/browser/snippetSession.js
-init_define_process();
-init_arrays();
-init_lifecycle();
-init_strings();
-init_editOperation();
-init_range();
-init_selection();
-init_textModel();
-
-// ../../node_modules/monaco-editor/esm/vs/editor/contrib/snippet/browser/snippetVariables.js
-init_define_process();
-init_path();
-init_resources();
-init_strings();
-
-// ../../node_modules/monaco-editor/esm/vs/base/common/uuid.js
-init_define_process();
-var _data = new Uint8Array(16);
-var _hex = [];
-for (let i = 0; i < 256; i++) {
-  _hex.push(i.toString(16).padStart(2, "0"));
-}
-var _fillRandomValues;
-if (typeof crypto === "object" && typeof crypto.getRandomValues === "function") {
-  _fillRandomValues = crypto.getRandomValues.bind(crypto);
-} else {
-  _fillRandomValues = function(bucket) {
-    for (let i = 0; i < bucket.length; i++) {
-      bucket[i] = Math.floor(Math.random() * 256);
-    }
-    return bucket;
-  };
-}
-function generateUuid() {
-  _fillRandomValues(_data);
-  _data[6] = _data[6] & 15 | 64;
-  _data[8] = _data[8] & 63 | 128;
-  let i = 0;
-  let result = "";
-  result += _hex[_data[i++]];
-  result += _hex[_data[i++]];
-  result += _hex[_data[i++]];
-  result += _hex[_data[i++]];
-  result += "-";
-  result += _hex[_data[i++]];
-  result += _hex[_data[i++]];
-  result += "-";
-  result += _hex[_data[i++]];
-  result += _hex[_data[i++]];
-  result += "-";
-  result += _hex[_data[i++]];
-  result += _hex[_data[i++]];
-  result += "-";
-  result += _hex[_data[i++]];
-  result += _hex[_data[i++]];
-  result += _hex[_data[i++]];
-  result += _hex[_data[i++]];
-  result += _hex[_data[i++]];
-  result += _hex[_data[i++]];
-  return result;
-}
-
-// ../../node_modules/monaco-editor/esm/vs/editor/contrib/snippet/browser/snippetVariables.js
-init_languageConfigurationRegistry();
-init_nls();
-var KnownSnippetVariableNames = Object.freeze({
-  "CURRENT_YEAR": true,
-  "CURRENT_YEAR_SHORT": true,
-  "CURRENT_MONTH": true,
-  "CURRENT_DATE": true,
-  "CURRENT_HOUR": true,
-  "CURRENT_MINUTE": true,
-  "CURRENT_SECOND": true,
-  "CURRENT_DAY_NAME": true,
-  "CURRENT_DAY_NAME_SHORT": true,
-  "CURRENT_MONTH_NAME": true,
-  "CURRENT_MONTH_NAME_SHORT": true,
-  "CURRENT_SECONDS_UNIX": true,
-  "SELECTION": true,
-  "CLIPBOARD": true,
-  "TM_SELECTED_TEXT": true,
-  "TM_CURRENT_LINE": true,
-  "TM_CURRENT_WORD": true,
-  "TM_LINE_INDEX": true,
-  "TM_LINE_NUMBER": true,
-  "TM_FILENAME": true,
-  "TM_FILENAME_BASE": true,
-  "TM_DIRECTORY": true,
-  "TM_FILEPATH": true,
-  "RELATIVE_FILEPATH": true,
-  "BLOCK_COMMENT_START": true,
-  "BLOCK_COMMENT_END": true,
-  "LINE_COMMENT": true,
-  "WORKSPACE_NAME": true,
-  "WORKSPACE_FOLDER": true,
-  "RANDOM": true,
-  "RANDOM_HEX": true,
-  "UUID": true
-});
-var CompositeSnippetVariableResolver = class {
-  constructor(_delegates) {
-    this._delegates = _delegates;
-  }
-  resolve(variable) {
-    for (const delegate of this._delegates) {
-      let value = delegate.resolve(variable);
-      if (value !== void 0) {
-        return value;
-      }
-    }
-    return void 0;
-  }
-};
-var SelectionBasedVariableResolver = class {
-  constructor(_model, _selection, _selectionIdx, _overtypingCapturer) {
-    this._model = _model;
-    this._selection = _selection;
-    this._selectionIdx = _selectionIdx;
-    this._overtypingCapturer = _overtypingCapturer;
-  }
-  resolve(variable) {
-    const { name } = variable;
-    if (name === "SELECTION" || name === "TM_SELECTED_TEXT") {
-      let value = this._model.getValueInRange(this._selection) || void 0;
-      let isMultiline = this._selection.startLineNumber !== this._selection.endLineNumber;
-      if (!value && this._overtypingCapturer) {
-        const info = this._overtypingCapturer.getLastOvertypedInfo(this._selectionIdx);
-        if (info) {
-          value = info.value;
-          isMultiline = info.multiline;
-        }
-      }
-      if (value && isMultiline && variable.snippet) {
-        const line = this._model.getLineContent(this._selection.startLineNumber);
-        const lineLeadingWhitespace = getLeadingWhitespace(line, 0, this._selection.startColumn - 1);
-        let varLeadingWhitespace = lineLeadingWhitespace;
-        variable.snippet.walk((marker) => {
-          if (marker === variable) {
-            return false;
-          }
-          if (marker instanceof Text) {
-            varLeadingWhitespace = getLeadingWhitespace(splitLines(marker.value).pop());
-          }
-          return true;
-        });
-        const whitespaceCommonLength = commonPrefixLength(varLeadingWhitespace, lineLeadingWhitespace);
-        value = value.replace(/(\r\n|\r|\n)(.*)/g, (m, newline, rest) => `${newline}${varLeadingWhitespace.substr(whitespaceCommonLength)}${rest}`);
-      }
-      return value;
-    } else if (name === "TM_CURRENT_LINE") {
-      return this._model.getLineContent(this._selection.positionLineNumber);
-    } else if (name === "TM_CURRENT_WORD") {
-      const info = this._model.getWordAtPosition({
-        lineNumber: this._selection.positionLineNumber,
-        column: this._selection.positionColumn
-      });
-      return info && info.word || void 0;
-    } else if (name === "TM_LINE_INDEX") {
-      return String(this._selection.positionLineNumber - 1);
-    } else if (name === "TM_LINE_NUMBER") {
-      return String(this._selection.positionLineNumber);
-    }
-    return void 0;
-  }
-};
-var ModelBasedVariableResolver = class {
-  constructor(_labelService, _model) {
-    this._labelService = _labelService;
-    this._model = _model;
-  }
-  resolve(variable) {
-    const { name } = variable;
-    if (name === "TM_FILENAME") {
-      return basename(this._model.uri.fsPath);
-    } else if (name === "TM_FILENAME_BASE") {
-      const name2 = basename(this._model.uri.fsPath);
-      const idx = name2.lastIndexOf(".");
-      if (idx <= 0) {
-        return name2;
-      } else {
-        return name2.slice(0, idx);
-      }
-    } else if (name === "TM_DIRECTORY") {
-      if (dirname(this._model.uri.fsPath) === ".") {
-        return "";
-      }
-      return this._labelService.getUriLabel(dirname2(this._model.uri));
-    } else if (name === "TM_FILEPATH") {
-      return this._labelService.getUriLabel(this._model.uri);
-    } else if (name === "RELATIVE_FILEPATH") {
-      return this._labelService.getUriLabel(this._model.uri, { relative: true, noPrefix: true });
-    }
-    return void 0;
-  }
-};
-var ClipboardBasedVariableResolver = class {
-  constructor(_readClipboardText, _selectionIdx, _selectionCount, _spread) {
-    this._readClipboardText = _readClipboardText;
-    this._selectionIdx = _selectionIdx;
-    this._selectionCount = _selectionCount;
-    this._spread = _spread;
-  }
-  resolve(variable) {
-    if (variable.name !== "CLIPBOARD") {
-      return void 0;
-    }
-    const clipboardText = this._readClipboardText();
-    if (!clipboardText) {
-      return void 0;
-    }
-    if (this._spread) {
-      const lines = clipboardText.split(/\r\n|\n|\r/).filter((s) => !isFalsyOrWhitespace(s));
-      if (lines.length === this._selectionCount) {
-        return lines[this._selectionIdx];
-      }
-    }
-    return clipboardText;
-  }
-};
-var CommentBasedVariableResolver = class {
-  constructor(_model, _selection) {
-    this._model = _model;
-    this._selection = _selection;
-  }
-  resolve(variable) {
-    const { name } = variable;
-    const langId = this._model.getLanguageIdAtPosition(this._selection.selectionStartLineNumber, this._selection.selectionStartColumn);
-    const config = LanguageConfigurationRegistry.getComments(langId);
-    if (!config) {
-      return void 0;
-    }
-    if (name === "LINE_COMMENT") {
-      return config.lineCommentToken || void 0;
-    } else if (name === "BLOCK_COMMENT_START") {
-      return config.blockCommentStartToken || void 0;
-    } else if (name === "BLOCK_COMMENT_END") {
-      return config.blockCommentEndToken || void 0;
-    }
-    return void 0;
-  }
-};
-var TimeBasedVariableResolver = class {
-  constructor() {
-    this._date = new Date();
-  }
-  resolve(variable) {
-    const { name } = variable;
-    if (name === "CURRENT_YEAR") {
-      return String(this._date.getFullYear());
-    } else if (name === "CURRENT_YEAR_SHORT") {
-      return String(this._date.getFullYear()).slice(-2);
-    } else if (name === "CURRENT_MONTH") {
-      return String(this._date.getMonth().valueOf() + 1).padStart(2, "0");
-    } else if (name === "CURRENT_DATE") {
-      return String(this._date.getDate().valueOf()).padStart(2, "0");
-    } else if (name === "CURRENT_HOUR") {
-      return String(this._date.getHours().valueOf()).padStart(2, "0");
-    } else if (name === "CURRENT_MINUTE") {
-      return String(this._date.getMinutes().valueOf()).padStart(2, "0");
-    } else if (name === "CURRENT_SECOND") {
-      return String(this._date.getSeconds().valueOf()).padStart(2, "0");
-    } else if (name === "CURRENT_DAY_NAME") {
-      return TimeBasedVariableResolver.dayNames[this._date.getDay()];
-    } else if (name === "CURRENT_DAY_NAME_SHORT") {
-      return TimeBasedVariableResolver.dayNamesShort[this._date.getDay()];
-    } else if (name === "CURRENT_MONTH_NAME") {
-      return TimeBasedVariableResolver.monthNames[this._date.getMonth()];
-    } else if (name === "CURRENT_MONTH_NAME_SHORT") {
-      return TimeBasedVariableResolver.monthNamesShort[this._date.getMonth()];
-    } else if (name === "CURRENT_SECONDS_UNIX") {
-      return String(Math.floor(this._date.getTime() / 1e3));
-    }
-    return void 0;
-  }
-};
-TimeBasedVariableResolver.dayNames = [localize("Sunday", "Sunday"), localize("Monday", "Monday"), localize("Tuesday", "Tuesday"), localize("Wednesday", "Wednesday"), localize("Thursday", "Thursday"), localize("Friday", "Friday"), localize("Saturday", "Saturday")];
-TimeBasedVariableResolver.dayNamesShort = [localize("SundayShort", "Sun"), localize("MondayShort", "Mon"), localize("TuesdayShort", "Tue"), localize("WednesdayShort", "Wed"), localize("ThursdayShort", "Thu"), localize("FridayShort", "Fri"), localize("SaturdayShort", "Sat")];
-TimeBasedVariableResolver.monthNames = [localize("January", "January"), localize("February", "February"), localize("March", "March"), localize("April", "April"), localize("May", "May"), localize("June", "June"), localize("July", "July"), localize("August", "August"), localize("September", "September"), localize("October", "October"), localize("November", "November"), localize("December", "December")];
-TimeBasedVariableResolver.monthNamesShort = [localize("JanuaryShort", "Jan"), localize("FebruaryShort", "Feb"), localize("MarchShort", "Mar"), localize("AprilShort", "Apr"), localize("MayShort", "May"), localize("JuneShort", "Jun"), localize("JulyShort", "Jul"), localize("AugustShort", "Aug"), localize("SeptemberShort", "Sep"), localize("OctoberShort", "Oct"), localize("NovemberShort", "Nov"), localize("DecemberShort", "Dec")];
-var WorkspaceBasedVariableResolver = class {
-  constructor(_workspaceService) {
-    this._workspaceService = _workspaceService;
-  }
-  resolve(variable) {
-    if (!this._workspaceService) {
-      return void 0;
-    }
-    const workspaceIdentifier = toWorkspaceIdentifier(this._workspaceService.getWorkspace());
-    if (!workspaceIdentifier) {
-      return void 0;
-    }
-    if (variable.name === "WORKSPACE_NAME") {
-      return this._resolveWorkspaceName(workspaceIdentifier);
-    } else if (variable.name === "WORKSPACE_FOLDER") {
-      return this._resoveWorkspacePath(workspaceIdentifier);
-    }
-    return void 0;
-  }
-  _resolveWorkspaceName(workspaceIdentifier) {
-    if (isSingleFolderWorkspaceIdentifier(workspaceIdentifier)) {
-      return basename(workspaceIdentifier.uri.path);
-    }
-    let filename = basename(workspaceIdentifier.configPath.path);
-    if (filename.endsWith(WORKSPACE_EXTENSION)) {
-      filename = filename.substr(0, filename.length - WORKSPACE_EXTENSION.length - 1);
-    }
-    return filename;
-  }
-  _resoveWorkspacePath(workspaceIdentifier) {
-    if (isSingleFolderWorkspaceIdentifier(workspaceIdentifier)) {
-      return normalizeDriveLetter(workspaceIdentifier.uri.fsPath);
-    }
-    let filename = basename(workspaceIdentifier.configPath.path);
-    let folderpath = workspaceIdentifier.configPath.fsPath;
-    if (folderpath.endsWith(filename)) {
-      folderpath = folderpath.substr(0, folderpath.length - filename.length - 1);
-    }
-    return folderpath ? normalizeDriveLetter(folderpath) : "/";
-  }
-};
-var RandomBasedVariableResolver = class {
-  resolve(variable) {
-    const { name } = variable;
-    if (name === "RANDOM") {
-      return Math.random().toString().slice(-6);
-    } else if (name === "RANDOM_HEX") {
-      return Math.random().toString(16).slice(-6);
-    } else if (name === "UUID") {
-      return generateUuid();
-    }
-    return void 0;
-  }
-};
-
-// ../../node_modules/monaco-editor/esm/vs/editor/contrib/snippet/browser/snippetSession.js
-var OneSnippet = class {
-  constructor(_editor, _snippet, _offset, _snippetLineLeadingWhitespace) {
-    this._editor = _editor;
-    this._snippet = _snippet;
-    this._offset = _offset;
-    this._snippetLineLeadingWhitespace = _snippetLineLeadingWhitespace;
-    this._nestingLevel = 1;
-    this._placeholderGroups = groupBy(_snippet.placeholders, Placeholder.compareByIndex);
-    this._placeholderGroupsIdx = -1;
-  }
-  dispose() {
-    if (this._placeholderDecorations) {
-      this._editor.deltaDecorations([...this._placeholderDecorations.values()], []);
-    }
-    this._placeholderGroups.length = 0;
-  }
-  _initDecorations() {
-    if (this._placeholderDecorations) {
-      return;
-    }
-    this._placeholderDecorations = /* @__PURE__ */ new Map();
-    const model = this._editor.getModel();
-    this._editor.changeDecorations((accessor) => {
-      for (const placeholder of this._snippet.placeholders) {
-        const placeholderOffset = this._snippet.offset(placeholder);
-        const placeholderLen = this._snippet.fullLen(placeholder);
-        const range = Range.fromPositions(model.getPositionAt(this._offset + placeholderOffset), model.getPositionAt(this._offset + placeholderOffset + placeholderLen));
-        const options = placeholder.isFinalTabstop ? OneSnippet._decor.inactiveFinal : OneSnippet._decor.inactive;
-        const handle = accessor.addDecoration(range, options);
-        this._placeholderDecorations.set(placeholder, handle);
-      }
-    });
-  }
-  move(fwd) {
-    if (!this._editor.hasModel()) {
-      return [];
-    }
-    this._initDecorations();
-    if (this._placeholderGroupsIdx >= 0) {
-      let operations = [];
-      for (const placeholder of this._placeholderGroups[this._placeholderGroupsIdx]) {
-        if (placeholder.transform) {
-          const id = this._placeholderDecorations.get(placeholder);
-          const range = this._editor.getModel().getDecorationRange(id);
-          const currentValue = this._editor.getModel().getValueInRange(range);
-          const transformedValueLines = placeholder.transform.resolve(currentValue).split(/\r\n|\r|\n/);
-          for (let i = 1; i < transformedValueLines.length; i++) {
-            transformedValueLines[i] = this._editor.getModel().normalizeIndentation(this._snippetLineLeadingWhitespace + transformedValueLines[i]);
-          }
-          operations.push(EditOperation.replace(range, transformedValueLines.join(this._editor.getModel().getEOL())));
-        }
-      }
-      if (operations.length > 0) {
-        this._editor.executeEdits("snippet.placeholderTransform", operations);
-      }
-    }
-    let couldSkipThisPlaceholder = false;
-    if (fwd === true && this._placeholderGroupsIdx < this._placeholderGroups.length - 1) {
-      this._placeholderGroupsIdx += 1;
-      couldSkipThisPlaceholder = true;
-    } else if (fwd === false && this._placeholderGroupsIdx > 0) {
-      this._placeholderGroupsIdx -= 1;
-      couldSkipThisPlaceholder = true;
-    } else {
-    }
-    const newSelections = this._editor.getModel().changeDecorations((accessor) => {
-      const activePlaceholders = /* @__PURE__ */ new Set();
-      const selections = [];
-      for (const placeholder of this._placeholderGroups[this._placeholderGroupsIdx]) {
-        const id = this._placeholderDecorations.get(placeholder);
-        const range = this._editor.getModel().getDecorationRange(id);
-        selections.push(new Selection(range.startLineNumber, range.startColumn, range.endLineNumber, range.endColumn));
-        couldSkipThisPlaceholder = couldSkipThisPlaceholder && this._hasPlaceholderBeenCollapsed(placeholder);
-        accessor.changeDecorationOptions(id, placeholder.isFinalTabstop ? OneSnippet._decor.activeFinal : OneSnippet._decor.active);
-        activePlaceholders.add(placeholder);
-        for (const enclosingPlaceholder of this._snippet.enclosingPlaceholders(placeholder)) {
-          const id2 = this._placeholderDecorations.get(enclosingPlaceholder);
-          accessor.changeDecorationOptions(id2, enclosingPlaceholder.isFinalTabstop ? OneSnippet._decor.activeFinal : OneSnippet._decor.active);
-          activePlaceholders.add(enclosingPlaceholder);
-        }
-      }
-      for (const [placeholder, id] of this._placeholderDecorations) {
-        if (!activePlaceholders.has(placeholder)) {
-          accessor.changeDecorationOptions(id, placeholder.isFinalTabstop ? OneSnippet._decor.inactiveFinal : OneSnippet._decor.inactive);
-        }
-      }
-      return selections;
-    });
-    return !couldSkipThisPlaceholder ? newSelections !== null && newSelections !== void 0 ? newSelections : [] : this.move(fwd);
-  }
-  _hasPlaceholderBeenCollapsed(placeholder) {
-    let marker = placeholder;
-    while (marker) {
-      if (marker instanceof Placeholder) {
-        const id = this._placeholderDecorations.get(marker);
-        const range = this._editor.getModel().getDecorationRange(id);
-        if (range.isEmpty() && marker.toString().length > 0) {
-          return true;
-        }
-      }
-      marker = marker.parent;
-    }
-    return false;
-  }
-  get isAtFirstPlaceholder() {
-    return this._placeholderGroupsIdx <= 0 || this._placeholderGroups.length === 0;
-  }
-  get isAtLastPlaceholder() {
-    return this._placeholderGroupsIdx === this._placeholderGroups.length - 1;
-  }
-  get hasPlaceholder() {
-    return this._snippet.placeholders.length > 0;
-  }
-  computePossibleSelections() {
-    const result = /* @__PURE__ */ new Map();
-    for (const placeholdersWithEqualIndex of this._placeholderGroups) {
-      let ranges;
-      for (const placeholder of placeholdersWithEqualIndex) {
-        if (placeholder.isFinalTabstop) {
-          break;
-        }
-        if (!ranges) {
-          ranges = [];
-          result.set(placeholder.index, ranges);
-        }
-        const id = this._placeholderDecorations.get(placeholder);
-        const range = this._editor.getModel().getDecorationRange(id);
-        if (!range) {
-          result.delete(placeholder.index);
-          break;
-        }
-        ranges.push(range);
-      }
-    }
-    return result;
-  }
-  get choice() {
-    return this._placeholderGroups[this._placeholderGroupsIdx][0].choice;
-  }
-  merge(others) {
-    const model = this._editor.getModel();
-    this._nestingLevel *= 10;
-    this._editor.changeDecorations((accessor) => {
-      for (const placeholder of this._placeholderGroups[this._placeholderGroupsIdx]) {
-        const nested = others.shift();
-        console.assert(!nested._placeholderDecorations);
-        const indexLastPlaceholder = nested._snippet.placeholderInfo.last.index;
-        for (const nestedPlaceholder of nested._snippet.placeholderInfo.all) {
-          if (nestedPlaceholder.isFinalTabstop) {
-            nestedPlaceholder.index = placeholder.index + (indexLastPlaceholder + 1) / this._nestingLevel;
-          } else {
-            nestedPlaceholder.index = placeholder.index + nestedPlaceholder.index / this._nestingLevel;
-          }
-        }
-        this._snippet.replace(placeholder, nested._snippet.children);
-        const id = this._placeholderDecorations.get(placeholder);
-        accessor.removeDecoration(id);
-        this._placeholderDecorations.delete(placeholder);
-        for (const placeholder2 of nested._snippet.placeholders) {
-          const placeholderOffset = nested._snippet.offset(placeholder2);
-          const placeholderLen = nested._snippet.fullLen(placeholder2);
-          const range = Range.fromPositions(model.getPositionAt(nested._offset + placeholderOffset), model.getPositionAt(nested._offset + placeholderOffset + placeholderLen));
-          const handle = accessor.addDecoration(range, OneSnippet._decor.inactive);
-          this._placeholderDecorations.set(placeholder2, handle);
-        }
-      }
-      this._placeholderGroups = groupBy(this._snippet.placeholders, Placeholder.compareByIndex);
-    });
-  }
-};
-OneSnippet._decor = {
-  active: ModelDecorationOptions.register({ description: "snippet-placeholder-1", stickiness: 0, className: "snippet-placeholder" }),
-  inactive: ModelDecorationOptions.register({ description: "snippet-placeholder-2", stickiness: 1, className: "snippet-placeholder" }),
-  activeFinal: ModelDecorationOptions.register({ description: "snippet-placeholder-3", stickiness: 1, className: "finish-snippet-placeholder" }),
-  inactiveFinal: ModelDecorationOptions.register({ description: "snippet-placeholder-4", stickiness: 1, className: "finish-snippet-placeholder" })
-};
-var _defaultOptions = {
-  overwriteBefore: 0,
-  overwriteAfter: 0,
-  adjustWhitespace: true,
-  clipboardText: void 0,
-  overtypingCapturer: void 0
-};
-var SnippetSession = class {
-  constructor(editor2, template, options = _defaultOptions) {
-    this._templateMerges = [];
-    this._snippets = [];
-    this._editor = editor2;
-    this._template = template;
-    this._options = options;
-  }
-  static adjustWhitespace(model, position, snippet, adjustIndentation, adjustNewlines) {
-    const line = model.getLineContent(position.lineNumber);
-    const lineLeadingWhitespace = getLeadingWhitespace(line, 0, position.column - 1);
-    let snippetTextString;
-    snippet.walk((marker) => {
-      if (!(marker instanceof Text) || marker.parent instanceof Choice) {
-        return true;
-      }
-      const lines = marker.value.split(/\r\n|\r|\n/);
-      if (adjustIndentation) {
-        const offset = snippet.offset(marker);
-        if (offset === 0) {
-          lines[0] = model.normalizeIndentation(lines[0]);
-        } else {
-          snippetTextString = snippetTextString !== null && snippetTextString !== void 0 ? snippetTextString : snippet.toString();
-          let prevChar = snippetTextString.charCodeAt(offset - 1);
-          if (prevChar === 10 || prevChar === 13) {
-            lines[0] = model.normalizeIndentation(lineLeadingWhitespace + lines[0]);
-          }
-        }
-        for (let i = 1; i < lines.length; i++) {
-          lines[i] = model.normalizeIndentation(lineLeadingWhitespace + lines[i]);
-        }
-      }
-      const newValue = lines.join(model.getEOL());
-      if (newValue !== marker.value) {
-        marker.parent.replace(marker, [new Text(newValue)]);
-        snippetTextString = void 0;
-      }
-      return true;
-    });
-    return lineLeadingWhitespace;
-  }
-  static adjustSelection(model, selection, overwriteBefore, overwriteAfter) {
-    if (overwriteBefore !== 0 || overwriteAfter !== 0) {
-      const { positionLineNumber, positionColumn } = selection;
-      const positionColumnBefore = positionColumn - overwriteBefore;
-      const positionColumnAfter = positionColumn + overwriteAfter;
-      const range = model.validateRange({
-        startLineNumber: positionLineNumber,
-        startColumn: positionColumnBefore,
-        endLineNumber: positionLineNumber,
-        endColumn: positionColumnAfter
-      });
-      selection = Selection.createWithDirection(range.startLineNumber, range.startColumn, range.endLineNumber, range.endColumn, selection.getDirection());
-    }
-    return selection;
-  }
-  static createEditsAndSnippets(editor2, template, overwriteBefore, overwriteAfter, enforceFinalTabstop, adjustWhitespace, clipboardText, overtypingCapturer) {
-    const edits = [];
-    const snippets = [];
-    if (!editor2.hasModel()) {
-      return { edits, snippets };
-    }
-    const model = editor2.getModel();
-    const workspaceService = editor2.invokeWithinContext((accessor) => accessor.get(IWorkspaceContextService));
-    const modelBasedVariableResolver = editor2.invokeWithinContext((accessor) => new ModelBasedVariableResolver(accessor.get(ILabelService), model));
-    const readClipboardText = () => clipboardText;
-    let delta = 0;
-    let firstBeforeText = model.getValueInRange(SnippetSession.adjustSelection(model, editor2.getSelection(), overwriteBefore, 0));
-    let firstAfterText = model.getValueInRange(SnippetSession.adjustSelection(model, editor2.getSelection(), 0, overwriteAfter));
-    let firstLineFirstNonWhitespace = model.getLineFirstNonWhitespaceColumn(editor2.getSelection().positionLineNumber);
-    const indexedSelections = editor2.getSelections().map((selection, idx) => ({ selection, idx })).sort((a, b) => Range.compareRangesUsingStarts(a.selection, b.selection));
-    for (const { selection, idx } of indexedSelections) {
-      let extensionBefore = SnippetSession.adjustSelection(model, selection, overwriteBefore, 0);
-      let extensionAfter = SnippetSession.adjustSelection(model, selection, 0, overwriteAfter);
-      if (firstBeforeText !== model.getValueInRange(extensionBefore)) {
-        extensionBefore = selection;
-      }
-      if (firstAfterText !== model.getValueInRange(extensionAfter)) {
-        extensionAfter = selection;
-      }
-      const snippetSelection = selection.setStartPosition(extensionBefore.startLineNumber, extensionBefore.startColumn).setEndPosition(extensionAfter.endLineNumber, extensionAfter.endColumn);
-      const snippet = new SnippetParser().parse(template, true, enforceFinalTabstop);
-      const start = snippetSelection.getStartPosition();
-      const snippetLineLeadingWhitespace = SnippetSession.adjustWhitespace(model, start, snippet, adjustWhitespace || idx > 0 && firstLineFirstNonWhitespace !== model.getLineFirstNonWhitespaceColumn(selection.positionLineNumber), true);
-      snippet.resolveVariables(new CompositeSnippetVariableResolver([
-        modelBasedVariableResolver,
-        new ClipboardBasedVariableResolver(readClipboardText, idx, indexedSelections.length, editor2.getOption(71) === "spread"),
-        new SelectionBasedVariableResolver(model, selection, idx, overtypingCapturer),
-        new CommentBasedVariableResolver(model, selection),
-        new TimeBasedVariableResolver(),
-        new WorkspaceBasedVariableResolver(workspaceService),
-        new RandomBasedVariableResolver()
-      ]));
-      const offset = model.getOffsetAt(start) + delta;
-      delta += snippet.toString().length - model.getValueLengthInRange(snippetSelection);
-      edits[idx] = EditOperation.replace(snippetSelection, snippet.toString());
-      edits[idx].identifier = { major: idx, minor: 0 };
-      snippets[idx] = new OneSnippet(editor2, snippet, offset, snippetLineLeadingWhitespace);
-    }
-    return { edits, snippets };
-  }
-  dispose() {
-    dispose(this._snippets);
-  }
-  _logInfo() {
-    return `template="${this._template}", merged_templates="${this._templateMerges.join(" -> ")}"`;
-  }
-  insert() {
-    if (!this._editor.hasModel()) {
-      return;
-    }
-    const { edits, snippets } = SnippetSession.createEditsAndSnippets(this._editor, this._template, this._options.overwriteBefore, this._options.overwriteAfter, false, this._options.adjustWhitespace, this._options.clipboardText, this._options.overtypingCapturer);
-    this._snippets = snippets;
-    this._editor.executeEdits("snippet", edits, (undoEdits) => {
-      if (this._snippets[0].hasPlaceholder) {
-        return this._move(true);
-      } else {
-        return undoEdits.filter((edit) => !!edit.identifier).map((edit) => Selection.fromPositions(edit.range.getEndPosition()));
-      }
-    });
-    this._editor.revealRange(this._editor.getSelections()[0]);
-  }
-  merge(template, options = _defaultOptions) {
-    if (!this._editor.hasModel()) {
-      return;
-    }
-    this._templateMerges.push([this._snippets[0]._nestingLevel, this._snippets[0]._placeholderGroupsIdx, template]);
-    const { edits, snippets } = SnippetSession.createEditsAndSnippets(this._editor, template, options.overwriteBefore, options.overwriteAfter, true, options.adjustWhitespace, options.clipboardText, options.overtypingCapturer);
-    this._editor.executeEdits("snippet", edits, (undoEdits) => {
-      for (const snippet of this._snippets) {
-        snippet.merge(snippets);
-      }
-      console.assert(snippets.length === 0);
-      if (this._snippets[0].hasPlaceholder) {
-        return this._move(void 0);
-      } else {
-        return undoEdits.filter((edit) => !!edit.identifier).map((edit) => Selection.fromPositions(edit.range.getEndPosition()));
-      }
-    });
-  }
-  next() {
-    const newSelections = this._move(true);
-    this._editor.setSelections(newSelections);
-    this._editor.revealPositionInCenterIfOutsideViewport(newSelections[0].getPosition());
-  }
-  prev() {
-    const newSelections = this._move(false);
-    this._editor.setSelections(newSelections);
-    this._editor.revealPositionInCenterIfOutsideViewport(newSelections[0].getPosition());
-  }
-  _move(fwd) {
-    const selections = [];
-    for (const snippet of this._snippets) {
-      const oneSelection = snippet.move(fwd);
-      selections.push(...oneSelection);
-    }
-    return selections;
-  }
-  get isAtFirstPlaceholder() {
-    return this._snippets[0].isAtFirstPlaceholder;
-  }
-  get isAtLastPlaceholder() {
-    return this._snippets[0].isAtLastPlaceholder;
-  }
-  get hasPlaceholder() {
-    return this._snippets[0].hasPlaceholder;
-  }
-  get choice() {
-    return this._snippets[0].choice;
-  }
-  isSelectionWithinPlaceholders() {
-    if (!this.hasPlaceholder) {
-      return false;
-    }
-    const selections = this._editor.getSelections();
-    if (selections.length < this._snippets.length) {
-      return false;
-    }
-    let allPossibleSelections = /* @__PURE__ */ new Map();
-    for (const snippet of this._snippets) {
-      const possibleSelections = snippet.computePossibleSelections();
-      if (allPossibleSelections.size === 0) {
-        for (const [index, ranges] of possibleSelections) {
-          ranges.sort(Range.compareRangesUsingStarts);
-          for (const selection of selections) {
-            if (ranges[0].containsRange(selection)) {
-              allPossibleSelections.set(index, []);
-              break;
-            }
-          }
-        }
-      }
-      if (allPossibleSelections.size === 0) {
-        return false;
-      }
-      allPossibleSelections.forEach((array, index) => {
-        array.push(...possibleSelections.get(index));
-      });
-    }
-    selections.sort(Range.compareRangesUsingStarts);
-    for (let [index, ranges] of allPossibleSelections) {
-      if (ranges.length !== selections.length) {
-        allPossibleSelections.delete(index);
-        continue;
-      }
-      ranges.sort(Range.compareRangesUsingStarts);
-      for (let i = 0; i < ranges.length; i++) {
-        if (!ranges[i].containsRange(selections[i])) {
-          allPossibleSelections.delete(index);
-          continue;
-        }
-      }
-    }
-    return allPossibleSelections.size > 0;
-  }
-};
 
 // ../../node_modules/monaco-editor/esm/vs/editor/contrib/suggest/browser/suggestController.js
 init_define_process();
@@ -28450,223 +29137,6 @@ init_position();
 init_range();
 init_editorContextKeys();
 
-// ../../node_modules/monaco-editor/esm/vs/editor/contrib/snippet/browser/snippetController2.js
-init_define_process();
-init_lifecycle();
-init_editorExtensions();
-init_range();
-init_selection();
-init_editorContextKeys();
-init_nls();
-init_contextkey();
-init_instantiation();
-init_log();
-var __decorate33 = function(decorators, target, key, desc) {
-  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-  if (typeof Reflect === "object" && typeof Reflect.decorate === "function")
-    r = Reflect.decorate(decorators, target, key, desc);
-  else
-    for (var i = decorators.length - 1; i >= 0; i--)
-      if (d = decorators[i])
-        r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-  return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __param33 = function(paramIndex, decorator) {
-  return function(target, key) {
-    decorator(target, key, paramIndex);
-  };
-};
-var _defaultOptions2 = {
-  overwriteBefore: 0,
-  overwriteAfter: 0,
-  undoStopBefore: true,
-  undoStopAfter: true,
-  adjustWhitespace: true,
-  clipboardText: void 0,
-  overtypingCapturer: void 0
-};
-var SnippetController2 = class SnippetController22 {
-  constructor(_editor, _instantiationService, _logService, contextKeyService) {
-    this._editor = _editor;
-    this._instantiationService = _instantiationService;
-    this._logService = _logService;
-    this._snippetListener = new DisposableStore();
-    this._modelVersionId = -1;
-    this._inSnippet = SnippetController22.InSnippetMode.bindTo(contextKeyService);
-    this._hasNextTabstop = SnippetController22.HasNextTabstop.bindTo(contextKeyService);
-    this._hasPrevTabstop = SnippetController22.HasPrevTabstop.bindTo(contextKeyService);
-  }
-  static get(editor2) {
-    return editor2.getContribution(SnippetController22.ID);
-  }
-  dispose() {
-    var _a5;
-    this._inSnippet.reset();
-    this._hasPrevTabstop.reset();
-    this._hasNextTabstop.reset();
-    (_a5 = this._session) === null || _a5 === void 0 ? void 0 : _a5.dispose();
-    this._snippetListener.dispose();
-  }
-  insert(template, opts) {
-    try {
-      this._doInsert(template, typeof opts === "undefined" ? _defaultOptions2 : Object.assign(Object.assign({}, _defaultOptions2), opts));
-    } catch (e) {
-      this.cancel();
-      this._logService.error(e);
-      this._logService.error("snippet_error");
-      this._logService.error("insert_template=", template);
-      this._logService.error("existing_template=", this._session ? this._session._logInfo() : "<no_session>");
-    }
-  }
-  _doInsert(template, opts) {
-    if (!this._editor.hasModel()) {
-      return;
-    }
-    this._snippetListener.clear();
-    if (opts.undoStopBefore) {
-      this._editor.getModel().pushStackElement();
-    }
-    if (!this._session) {
-      this._modelVersionId = this._editor.getModel().getAlternativeVersionId();
-      this._session = new SnippetSession(this._editor, template, opts);
-      this._session.insert();
-    } else {
-      this._session.merge(template, opts);
-    }
-    if (opts.undoStopAfter) {
-      this._editor.getModel().pushStackElement();
-    }
-    this._updateState();
-    this._snippetListener.add(this._editor.onDidChangeModelContent((e) => e.isFlush && this.cancel()));
-    this._snippetListener.add(this._editor.onDidChangeModel(() => this.cancel()));
-    this._snippetListener.add(this._editor.onDidChangeCursorSelection(() => this._updateState()));
-  }
-  _updateState() {
-    if (!this._session || !this._editor.hasModel()) {
-      return;
-    }
-    if (this._modelVersionId === this._editor.getModel().getAlternativeVersionId()) {
-      return this.cancel();
-    }
-    if (!this._session.hasPlaceholder) {
-      return this.cancel();
-    }
-    if (this._session.isAtLastPlaceholder || !this._session.isSelectionWithinPlaceholders()) {
-      this._editor.getModel().pushStackElement();
-      return this.cancel();
-    }
-    this._inSnippet.set(true);
-    this._hasPrevTabstop.set(!this._session.isAtFirstPlaceholder);
-    this._hasNextTabstop.set(!this._session.isAtLastPlaceholder);
-    this._handleChoice();
-  }
-  _handleChoice() {
-    if (!this._session || !this._editor.hasModel()) {
-      this._currentChoice = void 0;
-      return;
-    }
-    const { choice } = this._session;
-    if (!choice) {
-      this._currentChoice = void 0;
-      return;
-    }
-    if (this._currentChoice !== choice) {
-      this._currentChoice = choice;
-      this._editor.setSelections(this._editor.getSelections().map((s) => Selection.fromPositions(s.getStartPosition())));
-      const [first2] = choice.options;
-      this._instantiationService.invokeFunction(showSimpleSuggestions, this._editor, choice.options.map((option, i) => {
-        return {
-          kind: 13,
-          label: option.value,
-          insertText: option.value,
-          sortText: "a".repeat(i + 1),
-          range: Range.fromPositions(this._editor.getPosition(), this._editor.getPosition().delta(0, first2.value.length))
-        };
-      }));
-    }
-  }
-  finish() {
-    while (this._inSnippet.get()) {
-      this.next();
-    }
-  }
-  cancel(resetSelection = false) {
-    var _a5;
-    this._inSnippet.reset();
-    this._hasPrevTabstop.reset();
-    this._hasNextTabstop.reset();
-    this._snippetListener.clear();
-    (_a5 = this._session) === null || _a5 === void 0 ? void 0 : _a5.dispose();
-    this._session = void 0;
-    this._modelVersionId = -1;
-    if (resetSelection) {
-      this._editor.setSelections([this._editor.getSelection()]);
-    }
-  }
-  prev() {
-    if (this._session) {
-      this._session.prev();
-    }
-    this._updateState();
-  }
-  next() {
-    if (this._session) {
-      this._session.next();
-    }
-    this._updateState();
-  }
-  isInSnippet() {
-    return Boolean(this._inSnippet.get());
-  }
-};
-SnippetController2.ID = "snippetController2";
-SnippetController2.InSnippetMode = new RawContextKey("inSnippetMode", false, localize("inSnippetMode", "Whether the editor in current in snippet mode"));
-SnippetController2.HasNextTabstop = new RawContextKey("hasNextTabstop", false, localize("hasNextTabstop", "Whether there is a next tab stop when in snippet mode"));
-SnippetController2.HasPrevTabstop = new RawContextKey("hasPrevTabstop", false, localize("hasPrevTabstop", "Whether there is a previous tab stop when in snippet mode"));
-SnippetController2 = __decorate33([
-  __param33(1, IInstantiationService),
-  __param33(2, ILogService),
-  __param33(3, IContextKeyService)
-], SnippetController2);
-registerEditorContribution(SnippetController2.ID, SnippetController2);
-var CommandCtor = EditorCommand.bindToContribution(SnippetController2.get);
-registerEditorCommand(new CommandCtor({
-  id: "jumpToNextSnippetPlaceholder",
-  precondition: ContextKeyExpr.and(SnippetController2.InSnippetMode, SnippetController2.HasNextTabstop),
-  handler: (ctrl) => ctrl.next(),
-  kbOpts: {
-    weight: 100 + 30,
-    kbExpr: EditorContextKeys.editorTextFocus,
-    primary: 2
-  }
-}));
-registerEditorCommand(new CommandCtor({
-  id: "jumpToPrevSnippetPlaceholder",
-  precondition: ContextKeyExpr.and(SnippetController2.InSnippetMode, SnippetController2.HasPrevTabstop),
-  handler: (ctrl) => ctrl.prev(),
-  kbOpts: {
-    weight: 100 + 30,
-    kbExpr: EditorContextKeys.editorTextFocus,
-    primary: 1024 | 2
-  }
-}));
-registerEditorCommand(new CommandCtor({
-  id: "leaveSnippet",
-  precondition: SnippetController2.InSnippetMode,
-  handler: (ctrl) => ctrl.cancel(true),
-  kbOpts: {
-    weight: 100 + 30,
-    kbExpr: EditorContextKeys.editorTextFocus,
-    primary: 9,
-    secondary: [1024 | 9]
-  }
-}));
-registerEditorCommand(new CommandCtor({
-  id: "acceptSnippet",
-  precondition: SnippetController2.InSnippetMode,
-  handler: (ctrl) => ctrl.finish()
-}));
-
 // ../../node_modules/monaco-editor/esm/vs/editor/contrib/suggest/browser/suggestMemory.js
 init_define_process();
 init_async();
@@ -28676,7 +29146,7 @@ init_languages();
 init_configuration();
 init_extensions();
 init_instantiation();
-var __decorate34 = function(decorators, target, key, desc) {
+var __decorate38 = function(decorators, target, key, desc) {
   var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
   if (typeof Reflect === "object" && typeof Reflect.decorate === "function")
     r = Reflect.decorate(decorators, target, key, desc);
@@ -28686,7 +29156,7 @@ var __decorate34 = function(decorators, target, key, desc) {
         r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
   return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __param34 = function(paramIndex, decorator) {
+var __param38 = function(paramIndex, decorator) {
   return function(target, key) {
     decorator(target, key, paramIndex);
   };
@@ -28699,7 +29169,7 @@ var Memory = class {
     if (items.length === 0) {
       return 0;
     }
-    let topScore = items[0].score[0];
+    const topScore = items[0].score[0];
     for (let i = 0; i < items.length; i++) {
       const { score, completion: suggestion } = items[i];
       if (score[0] !== topScore) {
@@ -28746,7 +29216,7 @@ var LRUMemory = class extends Memory {
     if (/\s$/.test(lineSuffix)) {
       return super.select(model, pos, items);
     }
-    let topScore = items[0].score[0];
+    const topScore = items[0].score[0];
     let indexPreselect = -1;
     let indexRecency = -1;
     let seq = -1;
@@ -28777,7 +29247,7 @@ var LRUMemory = class extends Memory {
   }
   fromJSON(data) {
     this._cache.clear();
-    let seq = 0;
+    const seq = 0;
     for (const [key, value] of data) {
       value.touch = seq;
       value.type = typeof value.type === "number" ? value.type : CompletionItemKinds.fromString(value.type);
@@ -28802,18 +29272,18 @@ var PrefixMemory = class extends Memory {
     });
   }
   select(model, pos, items) {
-    let { word } = model.getWordUntilPosition(pos);
+    const { word } = model.getWordUntilPosition(pos);
     if (!word) {
       return super.select(model, pos, items);
     }
-    let key = `${model.getLanguageId()}/${word}`;
+    const key = `${model.getLanguageId()}/${word}`;
     let item = this._trie.get(key);
     if (!item) {
       item = this._trie.findSubstr(key);
     }
     if (item) {
       for (let i = 0; i < items.length; i++) {
-        let { kind, insertText } = items[i].completion;
+        const { kind, insertText } = items[i].completion;
         if (kind === item.type && insertText === item.insertText) {
           return i;
         }
@@ -28822,7 +29292,7 @@ var PrefixMemory = class extends Memory {
     return super.select(model, pos, items);
   }
   toJSON() {
-    let entries = [];
+    const entries = [];
     this._trie.forEach((value, key) => entries.push([key, value]));
     entries.sort((a, b) => -(a[1].touch - b[1].touch)).forEach((value, i) => value[1].touch = i);
     return entries.slice(0, 200);
@@ -28898,9 +29368,9 @@ SuggestMemoryService._strategyCtors = /* @__PURE__ */ new Map([
   ["first", NoMemory]
 ]);
 SuggestMemoryService._storagePrefix = "suggest/memories";
-SuggestMemoryService = __decorate34([
-  __param34(0, IStorageService),
-  __param34(1, IConfigurationService)
+SuggestMemoryService = __decorate38([
+  __param38(0, IStorageService),
+  __param38(1, IConfigurationService)
 ], SuggestMemoryService);
 var ISuggestMemoryService = createDecorator("ISuggestMemories");
 registerSingleton(ISuggestMemoryService, SuggestMemoryService, true);
@@ -28908,7 +29378,7 @@ registerSingleton(ISuggestMemoryService, SuggestMemoryService, true);
 // ../../node_modules/monaco-editor/esm/vs/editor/contrib/suggest/browser/wordContextKey.js
 init_define_process();
 init_contextkey();
-var __decorate35 = function(decorators, target, key, desc) {
+var __decorate39 = function(decorators, target, key, desc) {
   var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
   if (typeof Reflect === "object" && typeof Reflect.decorate === "function")
     r = Reflect.decorate(decorators, target, key, desc);
@@ -28918,7 +29388,7 @@ var __decorate35 = function(decorators, target, key, desc) {
         r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
   return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __param35 = function(paramIndex, decorator) {
+var __param39 = function(paramIndex, decorator) {
   return function(target, key) {
     decorator(target, key, paramIndex);
   };
@@ -28928,7 +29398,7 @@ var WordContextKey = class WordContextKey2 {
     this._editor = _editor;
     this._enabled = false;
     this._ckAtEnd = WordContextKey2.AtEnd.bindTo(contextKeyService);
-    this._configListener = this._editor.onDidChangeConfiguration((e) => e.hasChanged(111) && this._update());
+    this._configListener = this._editor.onDidChangeConfiguration((e) => e.hasChanged(112) && this._update());
     this._update();
   }
   dispose() {
@@ -28938,7 +29408,7 @@ var WordContextKey = class WordContextKey2 {
     this._ckAtEnd.reset();
   }
   _update() {
-    const enabled = this._editor.getOption(111) === "on";
+    const enabled = this._editor.getOption(112) === "on";
     if (this._enabled === enabled) {
       return;
     }
@@ -28968,23 +29438,21 @@ var WordContextKey = class WordContextKey2 {
   }
 };
 WordContextKey.AtEnd = new RawContextKey("atEndOfWord", false);
-WordContextKey = __decorate35([
-  __param35(1, IContextKeyService)
+WordContextKey = __decorate39([
+  __param39(1, IContextKeyService)
 ], WordContextKey);
 
 // ../../node_modules/monaco-editor/esm/vs/editor/contrib/suggest/browser/suggestController.js
 init_nls();
-init_actions2();
 init_commands();
 init_contextkey();
 init_instantiation();
-init_keybindingsRegistry();
 init_log();
 
 // ../../node_modules/monaco-editor/esm/vs/editor/contrib/suggest/browser/suggestAlternatives.js
 init_define_process();
 init_contextkey();
-var __decorate36 = function(decorators, target, key, desc) {
+var __decorate40 = function(decorators, target, key, desc) {
   var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
   if (typeof Reflect === "object" && typeof Reflect.decorate === "function")
     r = Reflect.decorate(decorators, target, key, desc);
@@ -28994,7 +29462,7 @@ var __decorate36 = function(decorators, target, key, desc) {
         r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
   return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __param36 = function(paramIndex, decorator) {
+var __param40 = function(paramIndex, decorator) {
   return function(target, key) {
     decorator(target, key, paramIndex);
   };
@@ -29021,7 +29489,7 @@ var SuggestAlternatives = class SuggestAlternatives2 {
       this.reset();
       return;
     }
-    let nextIndex = SuggestAlternatives2._moveIndex(true, model, index);
+    const nextIndex = SuggestAlternatives2._moveIndex(true, model, index);
     if (nextIndex === index) {
       this.reset();
       return;
@@ -29069,8 +29537,8 @@ var SuggestAlternatives = class SuggestAlternatives2 {
   }
 };
 SuggestAlternatives.OtherSuggestions = new RawContextKey("hasOtherSuggestions", false);
-SuggestAlternatives = __decorate36([
-  __param36(1, IContextKeyService)
+SuggestAlternatives = __decorate40([
+  __param40(1, IContextKeyService)
 ], SuggestAlternatives);
 
 // ../../node_modules/monaco-editor/esm/vs/editor/contrib/suggest/browser/suggestCommitCharacters.js
@@ -29084,9 +29552,9 @@ var CommitCharacterController = class {
     this._disposables.add(widget.onDidShow(() => this._onItem(widget.getFocusedItem())));
     this._disposables.add(widget.onDidFocus(this._onItem, this));
     this._disposables.add(widget.onDidHide(this.reset, this));
-    this._disposables.add(editor2.onWillType((text2) => {
+    this._disposables.add(editor2.onWillType((text) => {
       if (this._active && !widget.isFrozen()) {
-        const ch = text2.charCodeAt(text2.length - 1);
+        const ch = text.charCodeAt(text.length - 1);
         if (this._active.acceptCharacters.has(ch) && editor2.getOption(0)) {
           accept(this._active.item);
         }
@@ -29138,7 +29606,7 @@ init_define_process();
 init_linkedList();
 init_position();
 init_range();
-var __awaiter26 = function(thisArg, _arguments, P, generator) {
+var __awaiter30 = function(thisArg, _arguments, P, generator) {
   function adopt(value) {
     return value instanceof P ? value : new P(function(resolve) {
       resolve(value);
@@ -29167,7 +29635,7 @@ var __awaiter26 = function(thisArg, _arguments, P, generator) {
 };
 var BracketSelectionRangeProvider = class {
   provideSelectionRanges(model, positions) {
-    return __awaiter26(this, void 0, void 0, function* () {
+    return __awaiter30(this, void 0, void 0, function* () {
       const result = [];
       for (const position of positions) {
         const bucket = [];
@@ -29191,21 +29659,22 @@ var BracketSelectionRangeProvider = class {
         resolve();
         break;
       }
-      let bracket = model.bracketPairs.findNextBracket(pos);
+      const bracket = model.bracketPairs.findNextBracket(pos);
       if (!bracket) {
         resolve();
         break;
       }
-      let d = Date.now() - t1;
+      const d = Date.now() - t1;
       if (d > BracketSelectionRangeProvider._maxDuration) {
         setTimeout(() => BracketSelectionRangeProvider._bracketsRightYield(resolve, round + 1, model, pos, ranges));
         break;
       }
-      const key = bracket.close[0];
-      if (bracket.isOpen) {
-        let val = counts.has(key) ? counts.get(key) : 0;
+      if (bracket.bracketInfo.isOpeningBracket) {
+        const key = bracket.bracketInfo.bracketText;
+        const val = counts.has(key) ? counts.get(key) : 0;
         counts.set(key, val + 1);
       } else {
+        const key = bracket.bracketInfo.getClosedBrackets()[0].bracketText;
         let val = counts.has(key) ? counts.get(key) : 0;
         val -= 1;
         counts.set(key, Math.max(0, val));
@@ -29233,28 +29702,29 @@ var BracketSelectionRangeProvider = class {
         resolve();
         break;
       }
-      let bracket = model.bracketPairs.findPrevBracket(pos);
+      const bracket = model.bracketPairs.findPrevBracket(pos);
       if (!bracket) {
         resolve();
         break;
       }
-      let d = Date.now() - t1;
+      const d = Date.now() - t1;
       if (d > BracketSelectionRangeProvider._maxDuration) {
         setTimeout(() => BracketSelectionRangeProvider._bracketsLeftYield(resolve, round + 1, model, pos, ranges, bucket));
         break;
       }
-      const key = bracket.close[0];
-      if (!bracket.isOpen) {
-        let val = counts.has(key) ? counts.get(key) : 0;
+      if (!bracket.bracketInfo.isOpeningBracket) {
+        const key = bracket.bracketInfo.getClosedBrackets()[0].bracketText;
+        const val = counts.has(key) ? counts.get(key) : 0;
         counts.set(key, val + 1);
       } else {
+        const key = bracket.bracketInfo.bracketText;
         let val = counts.has(key) ? counts.get(key) : 0;
         val -= 1;
         counts.set(key, Math.max(0, val));
         if (val < 0) {
-          let list = ranges.get(key);
+          const list = ranges.get(key);
           if (list) {
-            let closing = list.shift();
+            const closing = list.shift();
             if (list.size === 0) {
               ranges.delete(key);
             }
@@ -29293,7 +29763,7 @@ BracketSelectionRangeProvider._maxDuration = 30;
 BracketSelectionRangeProvider._maxRounds = 2;
 
 // ../../node_modules/monaco-editor/esm/vs/editor/contrib/suggest/browser/wordDistance.js
-var __awaiter27 = function(thisArg, _arguments, P, generator) {
+var __awaiter31 = function(thisArg, _arguments, P, generator) {
   function adopt(value) {
     return value instanceof P ? value : new P(function(resolve) {
       resolve(value);
@@ -29322,8 +29792,8 @@ var __awaiter27 = function(thisArg, _arguments, P, generator) {
 };
 var WordDistance = class {
   static create(service, editor2) {
-    return __awaiter27(this, void 0, void 0, function* () {
-      if (!editor2.getOption(106).localityBonus) {
+    return __awaiter31(this, void 0, void 0, function* () {
+      if (!editor2.getOption(107).localityBonus) {
         return WordDistance.None;
       }
       if (!editor2.hasModel()) {
@@ -29352,13 +29822,13 @@ var WordDistance = class {
           if (item.kind === 17) {
             return 2 << 20;
           }
-          let word = typeof item.label === "string" ? item.label : item.label.label;
-          let wordLines = wordRanges[word];
+          const word = typeof item.label === "string" ? item.label : item.label.label;
+          const wordLines = wordRanges[word];
           if (isFalsyOrEmpty(wordLines)) {
             return 2 << 20;
           }
-          let idx = binarySearch(wordLines, Range.fromPositions(anchor), Range.compareRangesUsingStarts);
-          let bestWordRange = idx >= 0 ? wordLines[idx] : wordLines[Math.max(0, ~idx - 1)];
+          const idx = binarySearch(wordLines, Range.fromPositions(anchor), Range.compareRangesUsingStarts);
+          const bestWordRange = idx >= 0 ? wordLines[idx] : wordLines[Math.max(0, ~idx - 1)];
           let blockDistance = ranges.length;
           for (const range of ranges) {
             if (!Range.containsRange(range.range, bestWordRange)) {
@@ -29388,8 +29858,14 @@ init_telemetry();
 init_define_process();
 init_arrays();
 init_strings();
+var LineContext = class {
+  constructor(leadingLineContent, characterCountDelta) {
+    this.leadingLineContent = leadingLineContent;
+    this.characterCountDelta = characterCountDelta;
+  }
+};
 var CompletionModel = class {
-  constructor(items, column, lineContext, wordDistance, options, snippetSuggestions, clipboardText) {
+  constructor(items, column, lineContext, wordDistance, options, snippetSuggestions, fuzzyScoreOptions = FuzzyScoreOptions.default, clipboardText = void 0) {
     this.clipboardText = clipboardText;
     this._snippetCompareFn = CompletionModel._compareCompletionItems;
     this._items = items;
@@ -29398,6 +29874,7 @@ var CompletionModel = class {
     this._options = options;
     this._refilterKind = 1;
     this._lineContext = lineContext;
+    this._fuzzyScoreOptions = fuzzyScoreOptions;
     if (snippetSuggestions === "top") {
       this._snippetCompareFn = CompletionModel._compareCompletionItemsSnippetsUp;
     } else if (snippetSuggestions === "bottom") {
@@ -29424,7 +29901,7 @@ var CompletionModel = class {
   get incomplete() {
     this._ensureCachedState();
     const result = /* @__PURE__ */ new Set();
-    for (let [provider, incomplete] of this._providerInfo) {
+    for (const [provider, incomplete] of this._providerInfo) {
       if (incomplete) {
         result.add(provider);
       }
@@ -29432,7 +29909,7 @@ var CompletionModel = class {
     return result;
   }
   adopt(except) {
-    let res = [];
+    const res = [];
     for (let i = 0; i < this._items.length; ) {
       if (!except.has(this._items[i].provider)) {
         res.push(this._items[i]);
@@ -29491,7 +29968,7 @@ var CompletionModel = class {
         if (wordPos >= wordLen) {
           item.score = FuzzyScore.Default;
         } else if (typeof item.completion.filterText === "string") {
-          let match = scoreFn(word, wordLow, wordPos, item.completion.filterText, item.filterTextLow, 0, false);
+          const match = scoreFn(word, wordLow, wordPos, item.completion.filterText, item.filterTextLow, 0, this._fuzzyScoreOptions);
           if (!match) {
             continue;
           }
@@ -29502,7 +29979,7 @@ var CompletionModel = class {
             item.score[0] = match[0];
           }
         } else {
-          let match = scoreFn(word, wordLow, wordPos, item.textLabel, item.labelLow, 0, false);
+          const match = scoreFn(word, wordLow, wordPos, item.textLabel, item.labelLow, 0, this._fuzzyScoreOptions);
           if (!match) {
             continue;
           }
@@ -29561,7 +30038,7 @@ var CompletionModel = class {
 
 // ../../node_modules/monaco-editor/esm/vs/editor/contrib/suggest/browser/suggestModel.js
 init_languageFeatures();
-var __decorate37 = function(decorators, target, key, desc) {
+var __decorate41 = function(decorators, target, key, desc) {
   var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
   if (typeof Reflect === "object" && typeof Reflect.decorate === "function")
     r = Reflect.decorate(decorators, target, key, desc);
@@ -29571,12 +30048,12 @@ var __decorate37 = function(decorators, target, key, desc) {
         r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
   return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __param37 = function(paramIndex, decorator) {
+var __param41 = function(paramIndex, decorator) {
   return function(target, key) {
     decorator(target, key, paramIndex);
   };
 };
-var __awaiter28 = function(thisArg, _arguments, P, generator) {
+var __awaiter32 = function(thisArg, _arguments, P, generator) {
   function adopt(value) {
     return value instanceof P ? value : new P(function(resolve) {
       resolve(value);
@@ -29603,7 +30080,7 @@ var __awaiter28 = function(thisArg, _arguments, P, generator) {
     step((generator = generator.apply(thisArg, _arguments || [])).next());
   });
 };
-var LineContext = class {
+var LineContext2 = class {
   constructor(model, position, auto, shy) {
     this.leadingLineContent = model.getLineContent(position.lineNumber).substr(0, position.column - 1);
     this.leadingWord = model.getWordUntilPosition(position);
@@ -29618,7 +30095,7 @@ var LineContext = class {
     }
     const model = editor2.getModel();
     const pos = editor2.getPosition();
-    model.tokenizeIfCheap(pos.lineNumber);
+    model.tokenization.tokenizeIfCheap(pos.lineNumber);
     const word = model.getWordAtPosition(pos);
     if (!word) {
       return false;
@@ -29663,7 +30140,6 @@ var SuggestModel = class SuggestModel2 {
     this._configurationService = _configurationService;
     this._languageFeaturesService = _languageFeaturesService;
     this._toDispose = new DisposableStore();
-    this._quickSuggestDelay = 10;
     this._triggerCharacterListener = new DisposableStore();
     this._triggerQuickSuggest = new TimeoutTimer();
     this._state = 0;
@@ -29686,7 +30162,6 @@ var SuggestModel = class SuggestModel2 {
     }));
     this._toDispose.add(this._editor.onDidChangeConfiguration(() => {
       this._updateTriggerCharacters();
-      this._updateQuickSuggest();
     }));
     this._toDispose.add(this._languageFeaturesService.completionProvider.onDidChange(() => {
       this._updateTriggerCharacters();
@@ -29711,7 +30186,6 @@ var SuggestModel = class SuggestModel2 {
       }
     }));
     this._updateTriggerCharacters();
-    this._updateQuickSuggest();
   }
   dispose() {
     dispose(this._triggerCharacterListener);
@@ -29720,15 +30194,9 @@ var SuggestModel = class SuggestModel2 {
     this._completionDisposables.dispose();
     this.cancel();
   }
-  _updateQuickSuggest() {
-    this._quickSuggestDelay = this._editor.getOption(80);
-    if (isNaN(this._quickSuggestDelay) || !this._quickSuggestDelay && this._quickSuggestDelay !== 0 || this._quickSuggestDelay < 0) {
-      this._quickSuggestDelay = 10;
-    }
-  }
   _updateTriggerCharacters() {
     this._triggerCharacterListener.clear();
-    if (this._editor.getOption(81) || !this._editor.hasModel() || !this._editor.getOption(109)) {
+    if (this._editor.getOption(82) || !this._editor.hasModel() || !this._editor.getOption(110)) {
       return;
     }
     const supportsByTriggerCharacter = /* @__PURE__ */ new Map();
@@ -29743,25 +30211,25 @@ var SuggestModel = class SuggestModel2 {
         set.add(support);
       }
     }
-    const checkTriggerCharacter = (text2) => {
+    const checkTriggerCharacter = (text) => {
       if (!canShowSuggestOnTriggerCharacters(this._editor, this._contextKeyService, this._configurationService)) {
         return;
       }
-      if (LineContext.shouldAutoTrigger(this._editor)) {
+      if (LineContext2.shouldAutoTrigger(this._editor)) {
         return;
       }
-      if (!text2) {
+      if (!text) {
         const position = this._editor.getPosition();
         const model = this._editor.getModel();
-        text2 = model.getLineContent(position.lineNumber).substr(0, position.column - 1);
+        text = model.getLineContent(position.lineNumber).substr(0, position.column - 1);
       }
       let lastChar = "";
-      if (isLowSurrogate(text2.charCodeAt(text2.length - 1))) {
-        if (isHighSurrogate(text2.charCodeAt(text2.length - 2))) {
-          lastChar = text2.substr(text2.length - 2);
+      if (isLowSurrogate(text.charCodeAt(text.length - 1))) {
+        if (isHighSurrogate(text.charCodeAt(text.length - 2))) {
+          lastChar = text.substr(text.length - 2);
         }
       } else {
-        lastChar = text2.charAt(text2.length - 1);
+        lastChar = text.charAt(text.length - 1);
       }
       const supports = supportsByTriggerCharacter.get(lastChar);
       if (supports) {
@@ -29826,10 +30294,10 @@ var SuggestModel = class SuggestModel2 {
   }
   _doTriggerQuickSuggest() {
     var _a5;
-    if (this._editor.getOption(79) === false) {
+    if (QuickSuggestionsOptions.isAllOff(this._editor.getOption(80))) {
       return;
     }
-    if (this._editor.getOption(106).snippetsPreventQuickSuggestions && ((_a5 = SnippetController2.get(this._editor)) === null || _a5 === void 0 ? void 0 : _a5.isInSnippet())) {
+    if (this._editor.getOption(107).snippetsPreventQuickSuggestions && ((_a5 = SnippetController2.get(this._editor)) === null || _a5 === void 0 ? void 0 : _a5.isInSnippet())) {
       return;
     }
     this.cancel();
@@ -29837,24 +30305,23 @@ var SuggestModel = class SuggestModel2 {
       if (this._state !== 0) {
         return;
       }
-      if (!LineContext.shouldAutoTrigger(this._editor)) {
+      if (!LineContext2.shouldAutoTrigger(this._editor)) {
         return;
       }
-      if (!this._editor.hasModel()) {
+      if (!this._editor.hasModel() || !this._editor.hasWidgetFocus()) {
         return;
       }
       const model = this._editor.getModel();
       const pos = this._editor.getPosition();
-      const quickSuggestions = this._editor.getOption(79);
-      if (quickSuggestions === false) {
+      const config = this._editor.getOption(80);
+      if (QuickSuggestionsOptions.isAllOff(config)) {
         return;
-      } else if (quickSuggestions === true) {
-      } else {
-        model.tokenizeIfCheap(pos.lineNumber);
-        const lineTokens = model.getLineTokens(pos.lineNumber);
+      }
+      if (!QuickSuggestionsOptions.isAllOn(config)) {
+        model.tokenization.tokenizeIfCheap(pos.lineNumber);
+        const lineTokens = model.tokenization.getLineTokens(pos.lineNumber);
         const tokenType = lineTokens.getStandardTokenType(lineTokens.findTokenIndexAtOffset(Math.max(pos.column - 1 - 1, 0)));
-        const inValidScope = quickSuggestions.other && tokenType === 0 || quickSuggestions.comments && tokenType === 1 || quickSuggestions.strings && tokenType === 2;
-        if (!inValidScope) {
+        if (QuickSuggestionsOptions.valueFor(config, tokenType) !== "on") {
           return;
         }
       }
@@ -29865,7 +30332,7 @@ var SuggestModel = class SuggestModel2 {
         return;
       }
       this.trigger({ auto: true, shy: false });
-    }, this._quickSuggestDelay);
+    }, this._editor.getOption(81));
   }
   _refilterCompletionItems() {
     Promise.resolve().then(() => {
@@ -29877,18 +30344,18 @@ var SuggestModel = class SuggestModel2 {
       }
       const model = this._editor.getModel();
       const position = this._editor.getPosition();
-      const ctx = new LineContext(model, position, this._state === 2, false);
+      const ctx = new LineContext2(model, position, this._state === 2, false);
       this._onNewContext(ctx);
     });
   }
-  trigger(context, retrigger = false, onlyFrom, existing) {
+  trigger(context, retrigger = false, onlyFrom, existing, noFilter) {
     var _a5;
     if (!this._editor.hasModel()) {
       return;
     }
     const model = this._editor.getModel();
     const auto = context.auto;
-    const ctx = new LineContext(model, this._editor.getPosition(), auto, context.shy);
+    const ctx = new LineContext2(model, this._editor.getPosition(), auto, context.shy);
     this.cancel(retrigger);
     this._state = auto ? 2 : 1;
     this._onDidTrigger.fire({ auto, shy: context.shy, position: this._editor.getPosition() });
@@ -29901,7 +30368,7 @@ var SuggestModel = class SuggestModel2 {
       };
     }
     this._requestToken = new CancellationTokenSource();
-    const snippetSuggestions = this._editor.getOption(101);
+    const snippetSuggestions = this._editor.getOption(102);
     let snippetSortOrder = 1;
     switch (snippetSuggestions) {
       case "top":
@@ -29912,9 +30379,10 @@ var SuggestModel = class SuggestModel2 {
         break;
     }
     const { itemKind: itemKindFilter, showDeprecated } = SuggestModel2._createSuggestFilter(this._editor);
+    const completionOptions = new CompletionOptions(snippetSortOrder, !noFilter ? itemKindFilter : /* @__PURE__ */ new Set(), onlyFrom, showDeprecated);
     const wordDistance = WordDistance.create(this._editorWorkerService, this._editor);
-    const completions = provideSuggestionItems(this._languageFeaturesService.completionProvider, model, this._editor.getPosition(), new CompletionOptions(snippetSortOrder, itemKindFilter, onlyFrom, showDeprecated), suggestCtx, this._requestToken.token);
-    Promise.all([completions, wordDistance]).then(([completions2, wordDistance2]) => __awaiter28(this, void 0, void 0, function* () {
+    const completions = provideSuggestionItems(this._languageFeaturesService.completionProvider, model, this._editor.getPosition(), completionOptions, suggestCtx, this._requestToken.token);
+    Promise.all([completions, wordDistance]).then(([completions2, wordDistance2]) => __awaiter32(this, void 0, void 0, function* () {
       var _b2;
       (_b2 = this._requestToken) === null || _b2 === void 0 ? void 0 : _b2.dispose();
       if (!this._editor.hasModel()) {
@@ -29933,11 +30401,11 @@ var SuggestModel = class SuggestModel2 {
         const cmpFn = getSuggestionComparator(snippetSortOrder);
         items = items.concat(existing.items).sort(cmpFn);
       }
-      const ctx2 = new LineContext(model2, this._editor.getPosition(), auto, context.shy);
+      const ctx2 = new LineContext2(model2, this._editor.getPosition(), auto, context.shy);
       this._completionModel = new CompletionModel(items, this._context.column, {
         leadingLineContent: ctx2.leadingLineContent,
         characterCountDelta: ctx2.column - this._context.column
-      }, wordDistance2, this._editor.getOption(106), this._editor.getOption(101), clipboardText);
+      }, wordDistance2, this._editor.getOption(107), this._editor.getOption(102), void 0, clipboardText);
       this._completionDisposables.add(completions2.disposable);
       this._onNewContext(ctx2);
       this._reportDurationsTelemetry(completions2.durations);
@@ -29954,11 +30422,11 @@ var SuggestModel = class SuggestModel2 {
   }
   static _createSuggestFilter(editor2) {
     const result = /* @__PURE__ */ new Set();
-    const snippetSuggestions = editor2.getOption(101);
+    const snippetSuggestions = editor2.getOption(102);
     if (snippetSuggestions === "none") {
       result.add(27);
     }
-    const suggestOptions = editor2.getOption(106);
+    const suggestOptions = editor2.getOption(107);
     if (!suggestOptions.showMethods) {
       result.add(0);
     }
@@ -30070,7 +30538,7 @@ var SuggestModel = class SuggestModel2 {
     }
     if (ctx.leadingWord.word.length !== 0 && ctx.leadingWord.startColumn > this._context.leadingWord.startColumn) {
       const inactiveProvider = new Set(this._languageFeaturesService.completionProvider.all(this._editor.getModel()));
-      for (let provider of this._completionModel.allProvider) {
+      for (const provider of this._completionModel.allProvider) {
         inactiveProvider.delete(provider);
       }
       const items = this._completionModel.adopt(/* @__PURE__ */ new Set());
@@ -30082,21 +30550,21 @@ var SuggestModel = class SuggestModel2 {
       const items = this._completionModel.adopt(incomplete);
       this.trigger({ auto: this._state === 2, shy: false, triggerKind: 2 }, true, incomplete, { items, clipboardText: this._completionModel.clipboardText });
     } else {
-      let oldLineContext = this._completionModel.lineContext;
-      let isFrozen2 = false;
+      const oldLineContext = this._completionModel.lineContext;
+      let isFrozen = false;
       this._completionModel.lineContext = {
         leadingLineContent: ctx.leadingLineContent,
         characterCountDelta: ctx.column - this._context.column
       };
       if (this._completionModel.items.length === 0) {
-        if (LineContext.shouldAutoTrigger(this._editor) && this._context.leadingWord.endColumn < ctx.leadingWord.startColumn) {
+        if (LineContext2.shouldAutoTrigger(this._editor) && this._context.leadingWord.endColumn < ctx.leadingWord.startColumn) {
           this.trigger({ auto: this._context.auto, shy: false }, true);
           return;
         }
         if (!this._context.auto) {
           this._completionModel.lineContext = oldLineContext;
-          isFrozen2 = this._completionModel.items.length > 0;
-          if (isFrozen2 && ctx.leadingWord.word.length === 0) {
+          isFrozen = this._completionModel.items.length > 0;
+          if (isFrozen && ctx.leadingWord.word.length === 0) {
             this.cancel();
             return;
           }
@@ -30109,19 +30577,19 @@ var SuggestModel = class SuggestModel2 {
         completionModel: this._completionModel,
         auto: this._context.auto,
         shy: this._context.shy,
-        isFrozen: isFrozen2
+        isFrozen
       });
     }
   }
 };
-SuggestModel = __decorate37([
-  __param37(1, IEditorWorkerService),
-  __param37(2, IClipboardService),
-  __param37(3, ITelemetryService),
-  __param37(4, ILogService),
-  __param37(5, IContextKeyService),
-  __param37(6, IConfigurationService),
-  __param37(7, ILanguageFeaturesService)
+SuggestModel = __decorate41([
+  __param41(1, IEditorWorkerService),
+  __param41(2, IClipboardService),
+  __param41(3, ITelemetryService),
+  __param41(4, ILogService),
+  __param41(5, IContextKeyService),
+  __param41(6, IConfigurationService),
+  __param41(7, ILanguageFeaturesService)
 ], SuggestModel);
 
 // ../../node_modules/monaco-editor/esm/vs/editor/contrib/suggest/browser/suggestOvertypingCapturer.js
@@ -30198,7 +30666,7 @@ init_nls();
 init_actions2();
 init_contextkey();
 init_instantiation();
-var __decorate38 = function(decorators, target, key, desc) {
+var __decorate42 = function(decorators, target, key, desc) {
   var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
   if (typeof Reflect === "object" && typeof Reflect.decorate === "function")
     r = Reflect.decorate(decorators, target, key, desc);
@@ -30208,7 +30676,7 @@ var __decorate38 = function(decorators, target, key, desc) {
         r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
   return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __param38 = function(paramIndex, decorator) {
+var __param42 = function(paramIndex, decorator) {
   return function(target, key) {
     decorator(target, key, paramIndex);
   };
@@ -30251,7 +30719,7 @@ var SuggestWidgetStatus = class SuggestWidgetStatus2 {
     const renderMenu = () => {
       const left = [];
       const right = [];
-      for (let [group, actions] of menu.getActions()) {
+      for (const [group, actions] of menu.getActions()) {
         if (group === "left") {
           left.push(...actions);
         } else {
@@ -30270,10 +30738,10 @@ var SuggestWidgetStatus = class SuggestWidgetStatus2 {
     this._menuDisposables.clear();
   }
 };
-SuggestWidgetStatus = __decorate38([
-  __param38(1, IInstantiationService),
-  __param38(2, IMenuService),
-  __param38(3, IContextKeyService)
+SuggestWidgetStatus = __decorate42([
+  __param42(1, IInstantiationService),
+  __param42(2, IMenuService),
+  __param42(3, IContextKeyService)
 ], SuggestWidgetStatus);
 
 // ../../node_modules/monaco-editor/esm/vs/editor/contrib/symbolIcons/browser/symbolIcons.js
@@ -30285,167 +30753,200 @@ init_themeService();
 var SYMBOL_ICON_ARRAY_FOREGROUND = registerColor("symbolIcon.arrayForeground", {
   dark: foreground,
   light: foreground,
-  hc: foreground
+  hcDark: foreground,
+  hcLight: foreground
 }, localize("symbolIcon.arrayForeground", "The foreground color for array symbols. These symbols appear in the outline, breadcrumb, and suggest widget."));
 var SYMBOL_ICON_BOOLEAN_FOREGROUND = registerColor("symbolIcon.booleanForeground", {
   dark: foreground,
   light: foreground,
-  hc: foreground
+  hcDark: foreground,
+  hcLight: foreground
 }, localize("symbolIcon.booleanForeground", "The foreground color for boolean symbols. These symbols appear in the outline, breadcrumb, and suggest widget."));
 var SYMBOL_ICON_CLASS_FOREGROUND = registerColor("symbolIcon.classForeground", {
   dark: "#EE9D28",
   light: "#D67E00",
-  hc: "#EE9D28"
+  hcDark: "#EE9D28",
+  hcLight: "#D67E00"
 }, localize("symbolIcon.classForeground", "The foreground color for class symbols. These symbols appear in the outline, breadcrumb, and suggest widget."));
 var SYMBOL_ICON_COLOR_FOREGROUND = registerColor("symbolIcon.colorForeground", {
   dark: foreground,
   light: foreground,
-  hc: foreground
+  hcDark: foreground,
+  hcLight: foreground
 }, localize("symbolIcon.colorForeground", "The foreground color for color symbols. These symbols appear in the outline, breadcrumb, and suggest widget."));
 var SYMBOL_ICON_CONSTANT_FOREGROUND = registerColor("symbolIcon.constantForeground", {
   dark: foreground,
   light: foreground,
-  hc: foreground
+  hcDark: foreground,
+  hcLight: foreground
 }, localize("symbolIcon.constantForeground", "The foreground color for constant symbols. These symbols appear in the outline, breadcrumb, and suggest widget."));
 var SYMBOL_ICON_CONSTRUCTOR_FOREGROUND = registerColor("symbolIcon.constructorForeground", {
   dark: "#B180D7",
   light: "#652D90",
-  hc: "#B180D7"
+  hcDark: "#B180D7",
+  hcLight: "#652D90"
 }, localize("symbolIcon.constructorForeground", "The foreground color for constructor symbols. These symbols appear in the outline, breadcrumb, and suggest widget."));
 var SYMBOL_ICON_ENUMERATOR_FOREGROUND = registerColor("symbolIcon.enumeratorForeground", {
   dark: "#EE9D28",
   light: "#D67E00",
-  hc: "#EE9D28"
+  hcDark: "#EE9D28",
+  hcLight: "#D67E00"
 }, localize("symbolIcon.enumeratorForeground", "The foreground color for enumerator symbols. These symbols appear in the outline, breadcrumb, and suggest widget."));
 var SYMBOL_ICON_ENUMERATOR_MEMBER_FOREGROUND = registerColor("symbolIcon.enumeratorMemberForeground", {
   dark: "#75BEFF",
   light: "#007ACC",
-  hc: "#75BEFF"
+  hcDark: "#75BEFF",
+  hcLight: "#007ACC"
 }, localize("symbolIcon.enumeratorMemberForeground", "The foreground color for enumerator member symbols. These symbols appear in the outline, breadcrumb, and suggest widget."));
 var SYMBOL_ICON_EVENT_FOREGROUND = registerColor("symbolIcon.eventForeground", {
   dark: "#EE9D28",
   light: "#D67E00",
-  hc: "#EE9D28"
+  hcDark: "#EE9D28",
+  hcLight: "#D67E00"
 }, localize("symbolIcon.eventForeground", "The foreground color for event symbols. These symbols appear in the outline, breadcrumb, and suggest widget."));
 var SYMBOL_ICON_FIELD_FOREGROUND = registerColor("symbolIcon.fieldForeground", {
   dark: "#75BEFF",
   light: "#007ACC",
-  hc: "#75BEFF"
+  hcDark: "#75BEFF",
+  hcLight: "#007ACC"
 }, localize("symbolIcon.fieldForeground", "The foreground color for field symbols. These symbols appear in the outline, breadcrumb, and suggest widget."));
 var SYMBOL_ICON_FILE_FOREGROUND = registerColor("symbolIcon.fileForeground", {
   dark: foreground,
   light: foreground,
-  hc: foreground
+  hcDark: foreground,
+  hcLight: foreground
 }, localize("symbolIcon.fileForeground", "The foreground color for file symbols. These symbols appear in the outline, breadcrumb, and suggest widget."));
 var SYMBOL_ICON_FOLDER_FOREGROUND = registerColor("symbolIcon.folderForeground", {
   dark: foreground,
   light: foreground,
-  hc: foreground
+  hcDark: foreground,
+  hcLight: foreground
 }, localize("symbolIcon.folderForeground", "The foreground color for folder symbols. These symbols appear in the outline, breadcrumb, and suggest widget."));
 var SYMBOL_ICON_FUNCTION_FOREGROUND = registerColor("symbolIcon.functionForeground", {
   dark: "#B180D7",
   light: "#652D90",
-  hc: "#B180D7"
+  hcDark: "#B180D7",
+  hcLight: "#652D90"
 }, localize("symbolIcon.functionForeground", "The foreground color for function symbols. These symbols appear in the outline, breadcrumb, and suggest widget."));
 var SYMBOL_ICON_INTERFACE_FOREGROUND = registerColor("symbolIcon.interfaceForeground", {
   dark: "#75BEFF",
   light: "#007ACC",
-  hc: "#75BEFF"
+  hcDark: "#75BEFF",
+  hcLight: "#007ACC"
 }, localize("symbolIcon.interfaceForeground", "The foreground color for interface symbols. These symbols appear in the outline, breadcrumb, and suggest widget."));
 var SYMBOL_ICON_KEY_FOREGROUND = registerColor("symbolIcon.keyForeground", {
   dark: foreground,
   light: foreground,
-  hc: foreground
+  hcDark: foreground,
+  hcLight: foreground
 }, localize("symbolIcon.keyForeground", "The foreground color for key symbols. These symbols appear in the outline, breadcrumb, and suggest widget."));
 var SYMBOL_ICON_KEYWORD_FOREGROUND = registerColor("symbolIcon.keywordForeground", {
   dark: foreground,
   light: foreground,
-  hc: foreground
+  hcDark: foreground,
+  hcLight: foreground
 }, localize("symbolIcon.keywordForeground", "The foreground color for keyword symbols. These symbols appear in the outline, breadcrumb, and suggest widget."));
 var SYMBOL_ICON_METHOD_FOREGROUND = registerColor("symbolIcon.methodForeground", {
   dark: "#B180D7",
   light: "#652D90",
-  hc: "#B180D7"
+  hcDark: "#B180D7",
+  hcLight: "#652D90"
 }, localize("symbolIcon.methodForeground", "The foreground color for method symbols. These symbols appear in the outline, breadcrumb, and suggest widget."));
 var SYMBOL_ICON_MODULE_FOREGROUND = registerColor("symbolIcon.moduleForeground", {
   dark: foreground,
   light: foreground,
-  hc: foreground
+  hcDark: foreground,
+  hcLight: foreground
 }, localize("symbolIcon.moduleForeground", "The foreground color for module symbols. These symbols appear in the outline, breadcrumb, and suggest widget."));
 var SYMBOL_ICON_NAMESPACE_FOREGROUND = registerColor("symbolIcon.namespaceForeground", {
   dark: foreground,
   light: foreground,
-  hc: foreground
+  hcDark: foreground,
+  hcLight: foreground
 }, localize("symbolIcon.namespaceForeground", "The foreground color for namespace symbols. These symbols appear in the outline, breadcrumb, and suggest widget."));
 var SYMBOL_ICON_NULL_FOREGROUND = registerColor("symbolIcon.nullForeground", {
   dark: foreground,
   light: foreground,
-  hc: foreground
+  hcDark: foreground,
+  hcLight: foreground
 }, localize("symbolIcon.nullForeground", "The foreground color for null symbols. These symbols appear in the outline, breadcrumb, and suggest widget."));
 var SYMBOL_ICON_NUMBER_FOREGROUND = registerColor("symbolIcon.numberForeground", {
   dark: foreground,
   light: foreground,
-  hc: foreground
+  hcDark: foreground,
+  hcLight: foreground
 }, localize("symbolIcon.numberForeground", "The foreground color for number symbols. These symbols appear in the outline, breadcrumb, and suggest widget."));
 var SYMBOL_ICON_OBJECT_FOREGROUND = registerColor("symbolIcon.objectForeground", {
   dark: foreground,
   light: foreground,
-  hc: foreground
+  hcDark: foreground,
+  hcLight: foreground
 }, localize("symbolIcon.objectForeground", "The foreground color for object symbols. These symbols appear in the outline, breadcrumb, and suggest widget."));
 var SYMBOL_ICON_OPERATOR_FOREGROUND = registerColor("symbolIcon.operatorForeground", {
   dark: foreground,
   light: foreground,
-  hc: foreground
+  hcDark: foreground,
+  hcLight: foreground
 }, localize("symbolIcon.operatorForeground", "The foreground color for operator symbols. These symbols appear in the outline, breadcrumb, and suggest widget."));
 var SYMBOL_ICON_PACKAGE_FOREGROUND = registerColor("symbolIcon.packageForeground", {
   dark: foreground,
   light: foreground,
-  hc: foreground
+  hcDark: foreground,
+  hcLight: foreground
 }, localize("symbolIcon.packageForeground", "The foreground color for package symbols. These symbols appear in the outline, breadcrumb, and suggest widget."));
 var SYMBOL_ICON_PROPERTY_FOREGROUND = registerColor("symbolIcon.propertyForeground", {
   dark: foreground,
   light: foreground,
-  hc: foreground
+  hcDark: foreground,
+  hcLight: foreground
 }, localize("symbolIcon.propertyForeground", "The foreground color for property symbols. These symbols appear in the outline, breadcrumb, and suggest widget."));
 var SYMBOL_ICON_REFERENCE_FOREGROUND = registerColor("symbolIcon.referenceForeground", {
   dark: foreground,
   light: foreground,
-  hc: foreground
+  hcDark: foreground,
+  hcLight: foreground
 }, localize("symbolIcon.referenceForeground", "The foreground color for reference symbols. These symbols appear in the outline, breadcrumb, and suggest widget."));
 var SYMBOL_ICON_SNIPPET_FOREGROUND = registerColor("symbolIcon.snippetForeground", {
   dark: foreground,
   light: foreground,
-  hc: foreground
+  hcDark: foreground,
+  hcLight: foreground
 }, localize("symbolIcon.snippetForeground", "The foreground color for snippet symbols. These symbols appear in the outline, breadcrumb, and suggest widget."));
 var SYMBOL_ICON_STRING_FOREGROUND = registerColor("symbolIcon.stringForeground", {
   dark: foreground,
   light: foreground,
-  hc: foreground
+  hcDark: foreground,
+  hcLight: foreground
 }, localize("symbolIcon.stringForeground", "The foreground color for string symbols. These symbols appear in the outline, breadcrumb, and suggest widget."));
 var SYMBOL_ICON_STRUCT_FOREGROUND = registerColor("symbolIcon.structForeground", {
   dark: foreground,
   light: foreground,
-  hc: foreground
+  hcDark: foreground,
+  hcLight: foreground
 }, localize("symbolIcon.structForeground", "The foreground color for struct symbols. These symbols appear in the outline, breadcrumb, and suggest widget."));
 var SYMBOL_ICON_TEXT_FOREGROUND = registerColor("symbolIcon.textForeground", {
   dark: foreground,
   light: foreground,
-  hc: foreground
+  hcDark: foreground,
+  hcLight: foreground
 }, localize("symbolIcon.textForeground", "The foreground color for text symbols. These symbols appear in the outline, breadcrumb, and suggest widget."));
 var SYMBOL_ICON_TYPEPARAMETER_FOREGROUND = registerColor("symbolIcon.typeParameterForeground", {
   dark: foreground,
   light: foreground,
-  hc: foreground
+  hcDark: foreground,
+  hcLight: foreground
 }, localize("symbolIcon.typeParameterForeground", "The foreground color for type parameter symbols. These symbols appear in the outline, breadcrumb, and suggest widget."));
 var SYMBOL_ICON_UNIT_FOREGROUND = registerColor("symbolIcon.unitForeground", {
   dark: foreground,
   light: foreground,
-  hc: foreground
+  hcDark: foreground,
+  hcLight: foreground
 }, localize("symbolIcon.unitForeground", "The foreground color for unit symbols. These symbols appear in the outline, breadcrumb, and suggest widget."));
 var SYMBOL_ICON_VARIABLE_FOREGROUND = registerColor("symbolIcon.variableForeground", {
   dark: "#75BEFF",
   light: "#007ACC",
-  hc: "#75BEFF"
+  hcDark: "#75BEFF",
+  hcLight: "#007ACC"
 }, localize("symbolIcon.variableForeground", "The foreground color for variable symbols. These symbols appear in the outline, breadcrumb, and suggest widget."));
 registerThemingParticipant((theme, collector) => {
   const symbolIconArrayColor = theme.getColor(SYMBOL_ICON_ARRAY_FOREGROUND);
@@ -30588,6 +31089,7 @@ init_nls();
 init_contextkey();
 init_instantiation();
 init_colorRegistry();
+init_theme();
 init_themeService();
 
 // ../../node_modules/monaco-editor/esm/vs/editor/contrib/suggest/browser/resizable.js
@@ -30737,14 +31239,13 @@ var ResizableHTMLElement = class {
 
 // ../../node_modules/monaco-editor/esm/vs/editor/contrib/suggest/browser/suggestWidgetDetails.js
 init_define_process();
-init_browser();
 init_dom();
 init_codicons();
 init_event();
 init_lifecycle();
 init_nls();
 init_instantiation();
-var __decorate39 = function(decorators, target, key, desc) {
+var __decorate43 = function(decorators, target, key, desc) {
   var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
   if (typeof Reflect === "object" && typeof Reflect.decorate === "function")
     r = Reflect.decorate(decorators, target, key, desc);
@@ -30754,7 +31255,7 @@ var __decorate39 = function(decorators, target, key, desc) {
         r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
   return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __param39 = function(paramIndex, decorator) {
+var __param43 = function(paramIndex, decorator) {
   return function(target, key) {
     decorator(target, key, paramIndex);
   };
@@ -30787,7 +31288,7 @@ var SuggestDetailsWidget = class SuggestDetailsWidget2 {
     this._docs = append(this._body, $("p.docs"));
     this._configureFont();
     this._disposables.add(this._editor.onDidChangeConfiguration((e) => {
-      if (e.hasChanged(44)) {
+      if (e.hasChanged(45)) {
         this._configureFont();
       }
     }));
@@ -30798,10 +31299,10 @@ var SuggestDetailsWidget = class SuggestDetailsWidget2 {
   }
   _configureFont() {
     const options = this._editor.getOptions();
-    const fontInfo = options.get(44);
-    const fontFamily = fontInfo.getMassagedFontFamily(isSafari ? EDITOR_FONT_DEFAULTS.fontFamily : null);
-    const fontSize = options.get(107) || fontInfo.fontSize;
-    const lineHeight = options.get(108) || fontInfo.lineHeight;
+    const fontInfo = options.get(45);
+    const fontFamily = fontInfo.getMassagedFontFamily();
+    const fontSize = options.get(108) || fontInfo.fontSize;
+    const lineHeight = options.get(109) || fontInfo.lineHeight;
     const fontWeight = fontInfo.fontWeight;
     const fontSizePx = `${fontSize}px`;
     const lineHeightPx = `${lineHeight}px`;
@@ -30814,7 +31315,7 @@ var SuggestDetailsWidget = class SuggestDetailsWidget2 {
     this._close.style.width = lineHeightPx;
   }
   getLayoutInfo() {
-    const lineHeight = this._editor.getOption(108) || this._editor.getOption(44).lineHeight;
+    const lineHeight = this._editor.getOption(109) || this._editor.getOption(45).lineHeight;
     const borderWidth = this._borderWidth;
     const borderHeight = borderWidth * 2;
     return {
@@ -30941,8 +31442,8 @@ var SuggestDetailsWidget = class SuggestDetailsWidget2 {
     return this._borderWidth;
   }
 };
-SuggestDetailsWidget = __decorate39([
-  __param39(1, IInstantiationService)
+SuggestDetailsWidget = __decorate43([
+  __param43(1, IInstantiationService)
 ], SuggestDetailsWidget);
 var SuggestDetailsOverlay = class {
   constructor(widget, _editor) {
@@ -31108,9 +31609,7 @@ var SuggestDetailsOverlay = class {
 
 // ../../node_modules/monaco-editor/esm/vs/editor/contrib/suggest/browser/suggestWidgetRenderer.js
 init_define_process();
-init_browser();
 init_dom();
-init_arrays();
 init_codicons();
 init_event();
 init_lifecycle();
@@ -31205,7 +31704,7 @@ init_model2();
 init_language();
 init_nls();
 init_themeService();
-var __decorate40 = function(decorators, target, key, desc) {
+var __decorate44 = function(decorators, target, key, desc) {
   var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
   if (typeof Reflect === "object" && typeof Reflect.decorate === "function")
     r = Reflect.decorate(decorators, target, key, desc);
@@ -31215,7 +31714,7 @@ var __decorate40 = function(decorators, target, key, desc) {
         r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
   return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __param40 = function(paramIndex, decorator) {
+var __param44 = function(paramIndex, decorator) {
   return function(target, key) {
     decorator(target, key, paramIndex);
   };
@@ -31265,8 +31764,8 @@ var ItemRenderer = class ItemRenderer2 {
     data.root.classList.add("show-file-icons");
     data.icon = append(container, $(".icon"));
     data.colorspan = append(data.icon, $("span.colorspan"));
-    const text2 = append(container, $(".contents"));
-    const main = append(text2, $(".main"));
+    const text = append(container, $(".contents"));
+    const main = append(text, $(".main"));
     data.iconContainer = append(main, $(".icon-label.codicon"));
     data.left = append(main, $("span.left"));
     data.right = append(main, $("span.right"));
@@ -31279,16 +31778,19 @@ var ItemRenderer = class ItemRenderer2 {
     data.readMore.title = localize("readMore", "Read More");
     const configureFont = () => {
       const options = this._editor.getOptions();
-      const fontInfo = options.get(44);
-      const fontFamily = fontInfo.getMassagedFontFamily(isSafari ? EDITOR_FONT_DEFAULTS.fontFamily : null);
+      const fontInfo = options.get(45);
+      const fontFamily = fontInfo.getMassagedFontFamily();
       const fontFeatureSettings = fontInfo.fontFeatureSettings;
-      const fontSize = options.get(107) || fontInfo.fontSize;
-      const lineHeight = options.get(108) || fontInfo.lineHeight;
+      const fontSize = options.get(108) || fontInfo.fontSize;
+      const lineHeight = options.get(109) || fontInfo.lineHeight;
       const fontWeight = fontInfo.fontWeight;
+      const letterSpacing = fontInfo.letterSpacing;
       const fontSizePx = `${fontSize}px`;
       const lineHeightPx = `${lineHeight}px`;
+      const letterSpacingPx = `${letterSpacing}px`;
       data.root.style.fontSize = fontSizePx;
       data.root.style.fontWeight = fontWeight;
+      data.root.style.letterSpacing = letterSpacingPx;
       main.style.fontFamily = fontFamily;
       main.style.fontFeatureSettings = fontFeatureSettings;
       main.style.lineHeight = lineHeightPx;
@@ -31299,7 +31801,7 @@ var ItemRenderer = class ItemRenderer2 {
     };
     configureFont();
     data.disposables.add(this._editor.onDidChangeConfiguration((e) => {
-      if (e.hasChanged(44) || e.hasChanged(107) || e.hasChanged(108)) {
+      if (e.hasChanged(45) || e.hasChanged(108) || e.hasChanged(109)) {
         configureFont();
       }
     }));
@@ -31313,7 +31815,7 @@ var ItemRenderer = class ItemRenderer2 {
       labelEscapeNewLines: true,
       matches: createMatches(element.score)
     };
-    let color = [];
+    const color = [];
     if (completion.kind === 19 && _completionItemColor.extract(element, color)) {
       data.icon.className = "icon customcolor";
       data.iconContainer.className = "icon hide";
@@ -31327,10 +31829,10 @@ var ItemRenderer = class ItemRenderer2 {
     } else if (completion.kind === 23 && this._themeService.getFileIconTheme().hasFolderIcons) {
       data.icon.className = "icon hide";
       data.iconContainer.className = "icon hide";
-      labelOptions.extraClasses = flatten([
+      labelOptions.extraClasses = [
         getIconClasses(this._modelService, this._languageService, URI.from({ scheme: "fake", path: element.textLabel }), FileKind.FOLDER),
         getIconClasses(this._modelService, this._languageService, URI.from({ scheme: "fake", path: completion.detail }), FileKind.FOLDER)
-      ]);
+      ].flat();
     } else {
       data.icon.className = "icon hide";
       data.iconContainer.className = "";
@@ -31350,7 +31852,7 @@ var ItemRenderer = class ItemRenderer2 {
       data.detailsLabel.textContent = stripNewLines(completion.label.description || "");
       data.root.classList.remove("string-label");
     }
-    if (this._editor.getOption(106).showInlineDetails) {
+    if (this._editor.getOption(107).showInlineDetails) {
       show(data.detailsLabel);
     } else {
       hide(data.detailsLabel);
@@ -31378,17 +31880,17 @@ var ItemRenderer = class ItemRenderer2 {
     templateData.disposables.dispose();
   }
 };
-ItemRenderer = __decorate40([
-  __param40(1, IModelService),
-  __param40(2, ILanguageService),
-  __param40(3, IThemeService)
+ItemRenderer = __decorate44([
+  __param44(1, IModelService),
+  __param44(2, ILanguageService),
+  __param44(3, IThemeService)
 ], ItemRenderer);
 function stripNewLines(str) {
   return str.replace(/\r\n|\r|\n/g, "");
 }
 
 // ../../node_modules/monaco-editor/esm/vs/editor/contrib/suggest/browser/suggestWidget.js
-var __decorate41 = function(decorators, target, key, desc) {
+var __decorate45 = function(decorators, target, key, desc) {
   var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
   if (typeof Reflect === "object" && typeof Reflect.decorate === "function")
     r = Reflect.decorate(decorators, target, key, desc);
@@ -31398,12 +31900,12 @@ var __decorate41 = function(decorators, target, key, desc) {
         r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
   return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __param41 = function(paramIndex, decorator) {
+var __param45 = function(paramIndex, decorator) {
   return function(target, key) {
     decorator(target, key, paramIndex);
   };
 };
-var __awaiter29 = function(thisArg, _arguments, P, generator) {
+var __awaiter33 = function(thisArg, _arguments, P, generator) {
   function adopt(value) {
     return value instanceof P ? value : new P(function(resolve) {
       resolve(value);
@@ -31430,15 +31932,15 @@ var __awaiter29 = function(thisArg, _arguments, P, generator) {
     step((generator = generator.apply(thisArg, _arguments || [])).next());
   });
 };
-var editorSuggestWidgetBackground = registerColor("editorSuggestWidget.background", { dark: editorWidgetBackground, light: editorWidgetBackground, hc: editorWidgetBackground }, localize("editorSuggestWidgetBackground", "Background color of the suggest widget."));
-var editorSuggestWidgetBorder = registerColor("editorSuggestWidget.border", { dark: editorWidgetBorder, light: editorWidgetBorder, hc: editorWidgetBorder }, localize("editorSuggestWidgetBorder", "Border color of the suggest widget."));
-var editorSuggestWidgetForeground = registerColor("editorSuggestWidget.foreground", { dark: editorForeground, light: editorForeground, hc: editorForeground }, localize("editorSuggestWidgetForeground", "Foreground color of the suggest widget."));
-var editorSuggestWidgetSelectedForeground = registerColor("editorSuggestWidget.selectedForeground", { dark: quickInputListFocusForeground, light: quickInputListFocusForeground, hc: quickInputListFocusForeground }, localize("editorSuggestWidgetSelectedForeground", "Foreground color of the selected entry in the suggest widget."));
-var editorSuggestWidgetSelectedIconForeground = registerColor("editorSuggestWidget.selectedIconForeground", { dark: quickInputListFocusIconForeground, light: quickInputListFocusIconForeground, hc: quickInputListFocusIconForeground }, localize("editorSuggestWidgetSelectedIconForeground", "Icon foreground color of the selected entry in the suggest widget."));
-var editorSuggestWidgetSelectedBackground = registerColor("editorSuggestWidget.selectedBackground", { dark: quickInputListFocusBackground, light: quickInputListFocusBackground, hc: quickInputListFocusBackground }, localize("editorSuggestWidgetSelectedBackground", "Background color of the selected entry in the suggest widget."));
-var editorSuggestWidgetHighlightForeground = registerColor("editorSuggestWidget.highlightForeground", { dark: listHighlightForeground, light: listHighlightForeground, hc: listHighlightForeground }, localize("editorSuggestWidgetHighlightForeground", "Color of the match highlights in the suggest widget."));
-var editorSuggestWidgetHighlightFocusForeground = registerColor("editorSuggestWidget.focusHighlightForeground", { dark: listFocusHighlightForeground, light: listFocusHighlightForeground, hc: listFocusHighlightForeground }, localize("editorSuggestWidgetFocusHighlightForeground", "Color of the match highlights in the suggest widget when an item is focused."));
-var editorSuggestWidgetStatusForeground = registerColor("editorSuggestWidgetStatus.foreground", { dark: transparent(editorSuggestWidgetForeground, 0.5), light: transparent(editorSuggestWidgetForeground, 0.5), hc: transparent(editorSuggestWidgetForeground, 0.5) }, localize("editorSuggestWidgetStatusForeground", "Foreground color of the suggest widget status."));
+var editorSuggestWidgetBackground = registerColor("editorSuggestWidget.background", { dark: editorWidgetBackground, light: editorWidgetBackground, hcDark: editorWidgetBackground, hcLight: editorWidgetBackground }, localize("editorSuggestWidgetBackground", "Background color of the suggest widget."));
+var editorSuggestWidgetBorder = registerColor("editorSuggestWidget.border", { dark: editorWidgetBorder, light: editorWidgetBorder, hcDark: editorWidgetBorder, hcLight: editorWidgetBorder }, localize("editorSuggestWidgetBorder", "Border color of the suggest widget."));
+var editorSuggestWidgetForeground = registerColor("editorSuggestWidget.foreground", { dark: editorForeground, light: editorForeground, hcDark: editorForeground, hcLight: editorForeground }, localize("editorSuggestWidgetForeground", "Foreground color of the suggest widget."));
+var editorSuggestWidgetSelectedForeground = registerColor("editorSuggestWidget.selectedForeground", { dark: quickInputListFocusForeground, light: quickInputListFocusForeground, hcDark: quickInputListFocusForeground, hcLight: quickInputListFocusForeground }, localize("editorSuggestWidgetSelectedForeground", "Foreground color of the selected entry in the suggest widget."));
+var editorSuggestWidgetSelectedIconForeground = registerColor("editorSuggestWidget.selectedIconForeground", { dark: quickInputListFocusIconForeground, light: quickInputListFocusIconForeground, hcDark: quickInputListFocusIconForeground, hcLight: quickInputListFocusIconForeground }, localize("editorSuggestWidgetSelectedIconForeground", "Icon foreground color of the selected entry in the suggest widget."));
+var editorSuggestWidgetSelectedBackground = registerColor("editorSuggestWidget.selectedBackground", { dark: quickInputListFocusBackground, light: quickInputListFocusBackground, hcDark: quickInputListFocusBackground, hcLight: quickInputListFocusBackground }, localize("editorSuggestWidgetSelectedBackground", "Background color of the selected entry in the suggest widget."));
+var editorSuggestWidgetHighlightForeground = registerColor("editorSuggestWidget.highlightForeground", { dark: listHighlightForeground, light: listHighlightForeground, hcDark: listHighlightForeground, hcLight: listHighlightForeground }, localize("editorSuggestWidgetHighlightForeground", "Color of the match highlights in the suggest widget."));
+var editorSuggestWidgetHighlightFocusForeground = registerColor("editorSuggestWidget.focusHighlightForeground", { dark: listFocusHighlightForeground, light: listFocusHighlightForeground, hcDark: listFocusHighlightForeground, hcLight: listFocusHighlightForeground }, localize("editorSuggestWidgetFocusHighlightForeground", "Color of the match highlights in the suggest widget when an item is focused."));
+var editorSuggestWidgetStatusForeground = registerColor("editorSuggestWidgetStatus.foreground", { dark: transparent(editorSuggestWidgetForeground, 0.5), light: transparent(editorSuggestWidgetForeground, 0.5), hcDark: transparent(editorSuggestWidgetForeground, 0.5), hcLight: transparent(editorSuggestWidgetForeground, 0.5) }, localize("editorSuggestWidgetStatusForeground", "Foreground color of the suggest widget status."));
 var PersistedWidgetSize = class {
   constructor(_service, editor2) {
     this._service = _service;
@@ -31531,7 +32033,7 @@ var SuggestWidget = class SuggestWidget2 {
     const details = instantiationService.createInstance(SuggestDetailsWidget, this.editor);
     details.onDidClose(this.toggleDetails, this, this._disposables);
     this._details = new SuggestDetailsOverlay(details, this.editor);
-    const applyIconStyle = () => this.element.domNode.classList.toggle("no-icons", !this.editor.getOption(106).showIcons);
+    const applyIconStyle = () => this.element.domNode.classList.toggle("no-icons", !this.editor.getOption(107).showIcons);
     applyIconStyle();
     const renderer = instantiationService.createInstance(ItemRenderer, this.editor);
     this._disposables.add(renderer);
@@ -31543,6 +32045,7 @@ var SuggestWidget = class SuggestWidget2 {
       alwaysConsumeMouseWheel: true,
       useShadows: false,
       mouseSupport: false,
+      multipleSelectionSupport: false,
       accessibilityProvider: {
         getRole: () => "option",
         getWidgetAriaLabel: () => localize("suggest", "Suggest"),
@@ -31569,7 +32072,7 @@ var SuggestWidget = class SuggestWidget2 {
       }
     });
     this._status = instantiationService.createInstance(SuggestWidgetStatus, this.element.domNode);
-    const applyStatusBarStyle = () => this.element.domNode.classList.toggle("with-status-bar", this.editor.getOption(106).showStatusBar);
+    const applyStatusBarStyle = () => this.element.domNode.classList.toggle("with-status-bar", this.editor.getOption(107).showStatusBar);
     applyStatusBarStyle();
     this._disposables.add(attachListStyler(this._list, _themeService, {
       listInactiveFocusBackground: editorSuggestWidgetSelectedBackground,
@@ -31583,7 +32086,7 @@ var SuggestWidget = class SuggestWidget2 {
     this._disposables.add(this._list.onDidChangeFocus((e) => this._onListFocus(e)));
     this._disposables.add(this.editor.onDidChangeCursorSelection(() => this._onCursorSelectionChanged()));
     this._disposables.add(this.editor.onDidChangeConfiguration((e) => {
-      if (e.hasChanged(106)) {
+      if (e.hasChanged(107)) {
         applyStatusBarStyle();
         applyIconStyle();
       }
@@ -31643,7 +32146,7 @@ var SuggestWidget = class SuggestWidget2 {
     }
   }
   _onThemeChange(theme) {
-    this._details.widget.borderWidth = theme.type === "hc" ? 2 : 1;
+    this._details.widget.borderWidth = isHighContrast(theme.type) ? 2 : 1;
   }
   _onListFocus(e) {
     var _a5;
@@ -31669,7 +32172,7 @@ var SuggestWidget = class SuggestWidget2 {
       this._currentSuggestionDetails = void 0;
       this._focusedItem = item;
       this._list.reveal(index);
-      this._currentSuggestionDetails = createCancelablePromise((token) => __awaiter29(this, void 0, void 0, function* () {
+      this._currentSuggestionDetails = createCancelablePromise((token) => __awaiter33(this, void 0, void 0, function* () {
         const loading = disposableTimeout(() => {
           if (this._isDetailsVisible()) {
             this.showDetails(true);
@@ -31777,7 +32280,7 @@ var SuggestWidget = class SuggestWidget2 {
       this._loadingTimeout = disposableTimeout(() => this._setState(1), delay);
     }
   }
-  showSuggestions(completionModel, selectionIndex, isFrozen2, isAuto) {
+  showSuggestions(completionModel, selectionIndex, isFrozen, isAuto) {
     var _a5, _b2;
     this._contentWidget.setPosition(this.editor.getPosition());
     (_a5 = this._loadingTimeout) === null || _a5 === void 0 ? void 0 : _a5.dispose();
@@ -31786,7 +32289,7 @@ var SuggestWidget = class SuggestWidget2 {
     if (this._completionModel !== completionModel) {
       this._completionModel = completionModel;
     }
-    if (isFrozen2 && this._state !== 2 && this._state !== 0) {
+    if (isFrozen && this._state !== 2 && this._state !== 0) {
       this._setState(4);
       return;
     }
@@ -31800,7 +32303,7 @@ var SuggestWidget = class SuggestWidget2 {
     }
     this._focusedItem = void 0;
     this._list.splice(0, this._list.length, this._completionModel.items);
-    this._setState(isFrozen2 ? 4 : 3);
+    this._setState(isFrozen ? 4 : 3);
     this._list.reveal(selectionIndex, 0);
     this._list.setFocus([selectionIndex]);
     this._layout(this.element.size);
@@ -32050,9 +32553,9 @@ var SuggestWidget = class SuggestWidget2 {
     }
   }
   getLayoutInfo() {
-    const fontInfo = this.editor.getOption(44);
-    const itemHeight = clamp(this.editor.getOption(108) || fontInfo.lineHeight, 8, 1e3);
-    const statusBarHeight = !this.editor.getOption(106).showStatusBar || this._state === 2 || this._state === 1 ? 0 : itemHeight;
+    const fontInfo = this.editor.getOption(45);
+    const itemHeight = clamp(this.editor.getOption(109) || fontInfo.lineHeight, 8, 1e3);
+    const statusBarHeight = !this.editor.getOption(107).showStatusBar || this._state === 2 || this._state === 1 ? 0 : itemHeight;
     const borderWidth = this._details.widget.borderWidth;
     const borderHeight = 2 * borderWidth;
     return {
@@ -32084,11 +32587,11 @@ var SuggestWidget = class SuggestWidget2 {
 };
 SuggestWidget.LOADING_MESSAGE = localize("suggestWidget.loading", "Loading...");
 SuggestWidget.NO_SUGGESTIONS_MESSAGE = localize("suggestWidget.noSuggestions", "No suggestions.");
-SuggestWidget = __decorate41([
-  __param41(1, IStorageService),
-  __param41(2, IContextKeyService),
-  __param41(3, IThemeService),
-  __param41(4, IInstantiationService)
+SuggestWidget = __decorate45([
+  __param45(1, IStorageService),
+  __param45(2, IContextKeyService),
+  __param45(3, IThemeService),
+  __param45(4, IInstantiationService)
 ], SuggestWidget);
 var SuggestContentWidget = class {
   constructor(_widget, _editor) {
@@ -32165,7 +32668,7 @@ var SuggestContentWidget = class {
 init_telemetry();
 init_resources();
 init_hash();
-var __decorate42 = function(decorators, target, key, desc) {
+var __decorate46 = function(decorators, target, key, desc) {
   var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
   if (typeof Reflect === "object" && typeof Reflect.decorate === "function")
     r = Reflect.decorate(decorators, target, key, desc);
@@ -32175,7 +32678,7 @@ var __decorate42 = function(decorators, target, key, desc) {
         r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
   return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __param42 = function(paramIndex, decorator) {
+var __param46 = function(paramIndex, decorator) {
   return function(target, key) {
     decorator(target, key, paramIndex);
   };
@@ -32228,8 +32731,8 @@ var SuggestController = class SuggestController2 {
     this.editor = editor2;
     this.model = _instantiationService.createInstance(SuggestModel, this.editor);
     const ctxInsertMode = Context.InsertMode.bindTo(_contextKeyService);
-    ctxInsertMode.set(editor2.getOption(106).insertMode);
-    this.model.onDidTrigger(() => ctxInsertMode.set(editor2.getOption(106).insertMode));
+    ctxInsertMode.set(editor2.getOption(107).insertMode);
+    this.model.onDidTrigger(() => ctxInsertMode.set(editor2.getOption(107).insertMode));
     this.widget = this._toDispose.add(new IdleValue(() => {
       const widget = this._instantiationService.createInstance(SuggestWidget, this.editor);
       this._toDispose.add(widget);
@@ -32315,8 +32818,8 @@ var SuggestController = class SuggestController2 {
         this.model.clear();
       }
     }));
-    let acceptSuggestionsOnEnter = Context.AcceptSuggestionsOnEnter.bindTo(_contextKeyService);
-    let updateFromConfig = () => {
+    const acceptSuggestionsOnEnter = Context.AcceptSuggestionsOnEnter.bindTo(_contextKeyService);
+    const updateFromConfig = () => {
       const acceptSuggestionOnEnter = this.editor.getOption(1);
       acceptSuggestionsOnEnter.set(acceptSuggestionOnEnter === "on" || acceptSuggestionOnEnter === "smart");
     };
@@ -32359,7 +32862,7 @@ var SuggestController = class SuggestController2 {
     this._memoryService.memorize(model, this.editor.getPosition(), item);
     if (Array.isArray(item.completion.additionalTextEdits)) {
       const scrollState = StableEditorScrollState.capture(this.editor);
-      this.editor.executeEdits("suggestController.additionalTextEdits.sync", item.completion.additionalTextEdits.map((edit) => EditOperation.replace(Range.lift(edit.range), edit.text)));
+      this.editor.executeEdits("suggestController.additionalTextEdits.sync", item.completion.additionalTextEdits.map((edit) => EditOperation.replaceMove(Range.lift(edit.range), edit.text)));
       scrollState.restoreRelativeVerticalPositionOfCursor(this.editor);
     } else if (!item.isResolved) {
       const sw = new StopWatch(true);
@@ -32370,17 +32873,17 @@ var SuggestController = class SuggestController2 {
           docListener.dispose();
           return;
         }
-        for (let change of e.changes) {
+        for (const change of e.changes) {
           const thisPosition = Range.getEndPosition(change.range);
           if (!position || Position.isBefore(thisPosition, position)) {
             position = thisPosition;
           }
         }
       });
-      let oldFlags = flags;
+      const oldFlags = flags;
       flags |= 2;
       let didType = false;
-      let typeListener = this.editor.onWillType(() => {
+      const typeListener = this.editor.onWillType(() => {
         typeListener.dispose();
         didType = true;
         if (!(oldFlags & 2)) {
@@ -32398,7 +32901,7 @@ var SuggestController = class SuggestController2 {
           this.editor.pushUndoStop();
         }
         const scrollState = StableEditorScrollState.capture(this.editor);
-        this.editor.executeEdits("suggestController.additionalTextEdits.async", item.completion.additionalTextEdits.map((edit) => EditOperation.replace(Range.lift(edit.range), edit.text)));
+        this.editor.executeEdits("suggestController.additionalTextEdits.async", item.completion.additionalTextEdits.map((edit) => EditOperation.replaceMove(Range.lift(edit.range), edit.text)));
         scrollState.restoreRelativeVerticalPositionOfCursor(this.editor);
         if (didType || !(oldFlags & 2)) {
           this.editor.pushUndoStop();
@@ -32448,19 +32951,20 @@ var SuggestController = class SuggestController2 {
     }
     this._alertCompletionItem(item);
     Promise.all(tasks).finally(() => {
-      this._reportSuggestionAcceptedTelemetry(model, event);
+      this._reportSuggestionAcceptedTelemetry(item, model, event);
       this.model.clear();
       cts.dispose();
     });
   }
-  _reportSuggestionAcceptedTelemetry(model, acceptedSuggestion) {
+  _reportSuggestionAcceptedTelemetry(item, model, acceptedSuggestion) {
     var _a5;
     if (this._telemetryGate++ % 100 !== 0) {
       return;
     }
-    const providerId = ((_a5 = acceptedSuggestion.item.provider._debugDisplayName) !== null && _a5 !== void 0 ? _a5 : "unknown").split("(", 1)[0].toLowerCase();
+    const providerId = item.extensionId ? item.extensionId.value : ((_a5 = acceptedSuggestion.item.provider._debugDisplayName) !== null && _a5 !== void 0 ? _a5 : "unknown").split("(", 1)[0].toLowerCase();
     this._telemetryService.publicLog2("suggest.acceptedSuggestion", {
       providerId,
+      kind: item.completion.kind,
       basenameHash: hash(basename2(model.uri)).toString(16),
       languageId: model.getLanguageId(),
       fileExtension: extname(model.uri)
@@ -32468,7 +32972,7 @@ var SuggestController = class SuggestController2 {
   }
   getOverwriteInfo(item, toggleMode) {
     assertType(this.editor.hasModel());
-    let replace = this.editor.getOption(106).insertMode === "replace";
+    let replace = this.editor.getOption(107).insertMode === "replace";
     if (toggleMode) {
       replace = !replace;
     }
@@ -32483,13 +32987,13 @@ var SuggestController = class SuggestController2 {
   }
   _alertCompletionItem(item) {
     if (isNonEmptyArray(item.completion.additionalTextEdits)) {
-      let msg = localize("aria.alert.snippet", "Accepting '{0}' made {1} additional edits", item.textLabel, item.completion.additionalTextEdits.length);
+      const msg = localize("aria.alert.snippet", "Accepting '{0}' made {1} additional edits", item.textLabel, item.completion.additionalTextEdits.length);
       alert(msg);
     }
   }
-  triggerSuggest(onlyFrom, auto) {
+  triggerSuggest(onlyFrom, auto, noFilter) {
     if (this.editor.hasModel()) {
-      this.model.trigger({ auto: auto !== null && auto !== void 0 ? auto : false, shy: false }, false, onlyFrom);
+      this.model.trigger({ auto: auto !== null && auto !== void 0 ? auto : false, shy: false }, false, onlyFrom, void 0, noFilter);
       this.editor.revealPosition(this.editor.getPosition(), 0);
       this.editor.focus();
     }
@@ -32523,7 +33027,7 @@ var SuggestController = class SuggestController2 {
       return textNow !== item.completion.insertText;
     };
     Event.once(this.model.onDidTrigger)((_) => {
-      let listener = [];
+      const listener = [];
       Event.any(this.model.onDidTrigger, this.model.onDidCancel)(() => {
         dispose(listener);
         fallback();
@@ -32614,13 +33118,13 @@ var SuggestController = class SuggestController2 {
   }
 };
 SuggestController.ID = "editor.contrib.suggestController";
-SuggestController = __decorate42([
-  __param42(1, ISuggestMemoryService),
-  __param42(2, ICommandService),
-  __param42(3, IContextKeyService),
-  __param42(4, IInstantiationService),
-  __param42(5, ILogService),
-  __param42(6, ITelemetryService)
+SuggestController = __decorate46([
+  __param46(1, ISuggestMemoryService),
+  __param46(2, ICommandService),
+  __param46(3, IContextKeyService),
+  __param46(4, IInstantiationService),
+  __param46(5, ILogService),
+  __param46(6, ITelemetryService)
 ], SuggestController);
 var PriorityRegistry = class {
   constructor(prioritySelector) {
@@ -32686,38 +33190,36 @@ registerEditorCommand(new SuggestCommand({
   precondition: Context.Visible,
   handler(x) {
     x.acceptSelectedSuggestion(true, false);
-  }
+  },
+  kbOpts: [{
+    primary: 2,
+    kbExpr: ContextKeyExpr.and(Context.Visible, EditorContextKeys.textInputFocus),
+    weight
+  }, {
+    primary: 3,
+    kbExpr: ContextKeyExpr.and(Context.Visible, EditorContextKeys.textInputFocus, Context.AcceptSuggestionsOnEnter, Context.MakesTextEdit),
+    weight
+  }],
+  menuOpts: [{
+    menuId: suggestWidgetStatusbarMenu,
+    title: localize("accept.insert", "Insert"),
+    group: "left",
+    order: 1,
+    when: Context.HasInsertAndReplaceRange.toNegated()
+  }, {
+    menuId: suggestWidgetStatusbarMenu,
+    title: localize("accept.insert", "Insert"),
+    group: "left",
+    order: 1,
+    when: ContextKeyExpr.and(Context.HasInsertAndReplaceRange, Context.InsertMode.isEqualTo("insert"))
+  }, {
+    menuId: suggestWidgetStatusbarMenu,
+    title: localize("accept.replace", "Replace"),
+    group: "left",
+    order: 1,
+    when: ContextKeyExpr.and(Context.HasInsertAndReplaceRange, Context.InsertMode.isEqualTo("replace"))
+  }]
 }));
-KeybindingsRegistry.registerKeybindingRule({
-  id: "acceptSelectedSuggestion",
-  when: ContextKeyExpr.and(Context.Visible, EditorContextKeys.textInputFocus),
-  primary: 2,
-  weight
-});
-KeybindingsRegistry.registerKeybindingRule({
-  id: "acceptSelectedSuggestion",
-  when: ContextKeyExpr.and(Context.Visible, EditorContextKeys.textInputFocus, Context.AcceptSuggestionsOnEnter, Context.MakesTextEdit),
-  primary: 3,
-  weight
-});
-MenuRegistry.appendMenuItem(suggestWidgetStatusbarMenu, {
-  command: { id: "acceptSelectedSuggestion", title: localize("accept.insert", "Insert") },
-  group: "left",
-  order: 1,
-  when: Context.HasInsertAndReplaceRange.toNegated()
-});
-MenuRegistry.appendMenuItem(suggestWidgetStatusbarMenu, {
-  command: { id: "acceptSelectedSuggestion", title: localize("accept.insert", "Insert") },
-  group: "left",
-  order: 1,
-  when: ContextKeyExpr.and(Context.HasInsertAndReplaceRange, Context.InsertMode.isEqualTo("insert"))
-});
-MenuRegistry.appendMenuItem(suggestWidgetStatusbarMenu, {
-  command: { id: "acceptSelectedSuggestion", title: localize("accept.replace", "Replace") },
-  group: "left",
-  order: 1,
-  when: ContextKeyExpr.and(Context.HasInsertAndReplaceRange, Context.InsertMode.isEqualTo("replace"))
-});
 registerEditorCommand(new SuggestCommand({
   id: "acceptAlternativeSelectedSuggestion",
   precondition: ContextKeyExpr.and(Context.Visible, EditorContextKeys.textInputFocus),
@@ -32952,8 +33454,8 @@ var SuggestWidgetInlineCompletionProvider = class extends Disposable {
             if (!normalizedSuggestItem) {
               return void 0;
             }
-            const valid = rangeStartsWith(normalizedItemToPreselect.range, normalizedSuggestItem.range) && normalizedItemToPreselect.text.startsWith(normalizedSuggestItem.text);
-            return { index, valid, prefixLength: normalizedSuggestItem.text.length, suggestItem };
+            const valid = rangeStartsWith(normalizedItemToPreselect.range, normalizedSuggestItem.range) && normalizedItemToPreselect.insertText.startsWith(normalizedSuggestItem.insertText);
+            return { index, valid, prefixLength: normalizedSuggestItem.insertText.length, suggestItem };
           }).filter((item) => item && item.valid);
           const result = findMaxBy(candidates, compareBy((s) => s.prefixLength, numberComparator));
           return result ? result.index : -1;
@@ -33052,7 +33554,10 @@ function suggestionToSuggestItemInfo(suggestController, position, item, toggleMo
       isSnippetText: false,
       normalizedInlineCompletion: {
         range: Range.fromPositions(position, position),
-        text: ""
+        insertText: "",
+        filterText: "",
+        snippetInfo: void 0,
+        additionalTextEdits: []
       }
     };
   }
@@ -33073,14 +33578,17 @@ function suggestionToSuggestItemInfo(suggestController, position, item, toggleMo
     isSnippetText,
     completionItemKind: item.completion.kind,
     normalizedInlineCompletion: {
-      text: insertText,
-      range: Range.fromPositions(position.delta(0, -info.overwriteBefore), position.delta(0, Math.max(info.overwriteAfter, 0)))
+      insertText,
+      filterText: insertText,
+      range: Range.fromPositions(position.delta(0, -info.overwriteBefore), position.delta(0, Math.max(info.overwriteAfter, 0))),
+      snippetInfo: void 0,
+      additionalTextEdits: []
     }
   };
 }
 
 // ../../node_modules/monaco-editor/esm/vs/editor/contrib/inlineCompletions/browser/suggestWidgetPreviewModel.js
-var __decorate43 = function(decorators, target, key, desc) {
+var __decorate47 = function(decorators, target, key, desc) {
   var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
   if (typeof Reflect === "object" && typeof Reflect.decorate === "function")
     r = Reflect.decorate(decorators, target, key, desc);
@@ -33090,12 +33598,12 @@ var __decorate43 = function(decorators, target, key, desc) {
         r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
   return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __param43 = function(paramIndex, decorator) {
+var __param47 = function(paramIndex, decorator) {
   return function(target, key) {
     decorator(target, key, paramIndex);
   };
 };
-var __awaiter30 = function(thisArg, _arguments, P, generator) {
+var __awaiter34 = function(thisArg, _arguments, P, generator) {
   function adopt(value) {
     return value instanceof P ? value : new P(function(resolve) {
       resolve(value);
@@ -33135,6 +33643,9 @@ var SuggestWidgetPreviewModel = class SuggestWidgetPreviewModel2 extends BaseGho
     this.updateCacheSoon = this._register(new RunOnceScheduler(() => this.updateCache(), 50));
     this.minReservedLineCount = 0;
     this._register(this.suggestionInlineCompletionSource.onDidChange(() => {
+      if (!this.editor.hasModel()) {
+        return;
+      }
       this.updateCacheSoon.schedule();
       const suggestWidgetState = this.suggestionInlineCompletionSource.state;
       if (!suggestWidgetState) {
@@ -33165,23 +33676,27 @@ var SuggestWidgetPreviewModel = class SuggestWidgetPreviewModel2 extends BaseGho
     return this.suggestionInlineCompletionSource.state !== void 0;
   }
   isSuggestionPreviewEnabled() {
-    const suggestOptions = this.editor.getOption(106);
+    const suggestOptions = this.editor.getOption(107);
     return suggestOptions.preview;
   }
   updateCache() {
-    return __awaiter30(this, void 0, void 0, function* () {
+    return __awaiter34(this, void 0, void 0, function* () {
       const state = this.suggestionInlineCompletionSource.state;
       if (!state || !state.selectedItem) {
         return;
       }
       const info = {
-        text: state.selectedItem.normalizedInlineCompletion.text,
+        text: state.selectedItem.normalizedInlineCompletion.insertText,
         range: state.selectedItem.normalizedInlineCompletion.range,
         isSnippetText: state.selectedItem.isSnippetText,
         completionKind: state.selectedItem.completionItemKind
       };
       const position = this.editor.getPosition();
-      const promise = createCancelablePromise((token) => __awaiter30(this, void 0, void 0, function* () {
+      if (state.selectedItem.isSnippetText || state.selectedItem.completionItemKind === 27 || state.selectedItem.completionItemKind === 20 || state.selectedItem.completionItemKind === 23) {
+        this.cache.clear();
+        return;
+      }
+      const promise = createCancelablePromise((token) => __awaiter34(this, void 0, void 0, function* () {
         let result;
         try {
           result = yield provideInlineCompletions(this.languageFeaturesService.inlineCompletionsProvider, position, this.editor.getModel(), { triggerKind: InlineCompletionTriggerKind.Automatic, selectedSuggestionInfo: info }, token);
@@ -33190,6 +33705,7 @@ var SuggestWidgetPreviewModel = class SuggestWidgetPreviewModel2 extends BaseGho
           return;
         }
         if (token.isCancellationRequested) {
+          result.dispose();
           return;
         }
         this.cache.setValue(this.editor, result, InlineCompletionTriggerKind.Automatic);
@@ -33206,42 +33722,34 @@ var SuggestWidgetPreviewModel = class SuggestWidgetPreviewModel2 extends BaseGho
   get ghostText() {
     var _a5, _b2, _c2;
     const isSuggestionPreviewEnabled = this.isSuggestionPreviewEnabled();
-    const augmentedCompletion = minimizeInlineCompletion(this.editor.getModel(), (_b2 = (_a5 = this.cache.value) === null || _a5 === void 0 ? void 0 : _a5.completions[0]) === null || _b2 === void 0 ? void 0 : _b2.toLiveInlineCompletion());
+    const model = this.editor.getModel();
+    const augmentedCompletion = minimizeInlineCompletion(model, (_b2 = (_a5 = this.cache.value) === null || _a5 === void 0 ? void 0 : _a5.completions[0]) === null || _b2 === void 0 ? void 0 : _b2.toLiveInlineCompletion());
     const suggestWidgetState = this.suggestionInlineCompletionSource.state;
-    const suggestInlineCompletion = minimizeInlineCompletion(this.editor.getModel(), (_c2 = suggestWidgetState === null || suggestWidgetState === void 0 ? void 0 : suggestWidgetState.selectedItem) === null || _c2 === void 0 ? void 0 : _c2.normalizedInlineCompletion);
-    const isAugmentedCompletionValid = augmentedCompletion && suggestInlineCompletion && augmentedCompletion.text.startsWith(suggestInlineCompletion.text) && augmentedCompletion.range.equalsRange(suggestInlineCompletion.range);
+    const suggestInlineCompletion = minimizeInlineCompletion(model, (_c2 = suggestWidgetState === null || suggestWidgetState === void 0 ? void 0 : suggestWidgetState.selectedItem) === null || _c2 === void 0 ? void 0 : _c2.normalizedInlineCompletion);
+    const isAugmentedCompletionValid = augmentedCompletion && suggestInlineCompletion && augmentedCompletion.insertText.startsWith(suggestInlineCompletion.insertText) && augmentedCompletion.range.equalsRange(suggestInlineCompletion.range);
     if (!isSuggestionPreviewEnabled && !isAugmentedCompletionValid) {
       return void 0;
     }
     const finalCompletion = isAugmentedCompletionValid ? augmentedCompletion : suggestInlineCompletion || augmentedCompletion;
-    const inlineCompletionPreviewLength = isAugmentedCompletionValid ? finalCompletion.text.length - suggestInlineCompletion.text.length : 0;
+    const inlineCompletionPreviewLength = isAugmentedCompletionValid ? finalCompletion.insertText.length - suggestInlineCompletion.insertText.length : 0;
     const newGhostText = this.toGhostText(finalCompletion, inlineCompletionPreviewLength);
     return newGhostText;
   }
   toGhostText(completion, inlineCompletionPreviewLength) {
-    const mode = this.editor.getOptions().get(106).previewMode;
+    const mode = this.editor.getOptions().get(107).previewMode;
     return completion ? inlineCompletionToGhostText(completion, this.editor.getModel(), mode, this.editor.getPosition(), inlineCompletionPreviewLength) || new GhostText(completion.range.endLineNumber, [], this.minReservedLineCount) : void 0;
   }
 };
-SuggestWidgetPreviewModel = __decorate43([
-  __param43(2, ILanguageFeaturesService)
+SuggestWidgetPreviewModel = __decorate47([
+  __param47(2, ILanguageFeaturesService)
 ], SuggestWidgetPreviewModel);
 function sum(arr) {
   return arr.reduce((a, b) => a + b, 0);
 }
 
-// ../../node_modules/monaco-editor/esm/vs/editor/contrib/inlineCompletions/browser/utils.js
-init_define_process();
-function createDisposableRef(object, disposable) {
-  return {
-    object,
-    dispose: () => disposable === null || disposable === void 0 ? void 0 : disposable.dispose()
-  };
-}
-
 // ../../node_modules/monaco-editor/esm/vs/editor/contrib/inlineCompletions/browser/ghostTextModel.js
 init_instantiation();
-var __decorate44 = function(decorators, target, key, desc) {
+var __decorate48 = function(decorators, target, key, desc) {
   var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
   if (typeof Reflect === "object" && typeof Reflect.decorate === "function")
     r = Reflect.decorate(decorators, target, key, desc);
@@ -33251,12 +33759,12 @@ var __decorate44 = function(decorators, target, key, desc) {
         r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
   return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __param44 = function(paramIndex, decorator) {
+var __param48 = function(paramIndex, decorator) {
   return function(target, key) {
     decorator(target, key, paramIndex);
   };
 };
-var __awaiter31 = function(thisArg, _arguments, P, generator) {
+var __awaiter35 = function(thisArg, _arguments, P, generator) {
   function adopt(value) {
     return value instanceof P ? value : new P(function(resolve) {
       resolve(value);
@@ -33377,14 +33885,14 @@ var GhostTextModel = class GhostTextModel2 extends DelegatingModel {
   }
   hasMultipleInlineCompletions() {
     var _a5;
-    return __awaiter31(this, void 0, void 0, function* () {
+    return __awaiter35(this, void 0, void 0, function* () {
       const result = yield (_a5 = this.activeInlineCompletionsModel) === null || _a5 === void 0 ? void 0 : _a5.hasMultipleInlineCompletions();
       return result !== void 0 ? result : false;
     });
   }
 };
-GhostTextModel = __decorate44([
-  __param44(1, IInstantiationService)
+GhostTextModel = __decorate48([
+  __param48(1, IInstantiationService)
 ], GhostTextModel);
 var SharedInlineCompletionCache = class extends Disposable {
   constructor() {
@@ -33397,7 +33905,7 @@ var SharedInlineCompletionCache = class extends Disposable {
     return this.cache.value;
   }
   setValue(editor2, completionsSource, triggerKind) {
-    this.cache.value = new SynchronizedInlineCompletionsCache(editor2, completionsSource, () => this.onDidChangeEmitter.fire(), triggerKind);
+    this.cache.value = new SynchronizedInlineCompletionsCache(completionsSource, editor2, () => this.onDidChangeEmitter.fire(), triggerKind);
   }
   clearAndLeak() {
     return this.cache.clearAndLeak();
@@ -33416,11 +33924,12 @@ init_lineTokens();
 init_position();
 init_range();
 init_stringBuilder();
+init_model();
 init_language();
 init_editorColorRegistry();
 init_instantiation();
 init_themeService();
-var __decorate45 = function(decorators, target, key, desc) {
+var __decorate49 = function(decorators, target, key, desc) {
   var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
   if (typeof Reflect === "object" && typeof Reflect.decorate === "function")
     r = Reflect.decorate(decorators, target, key, desc);
@@ -33430,7 +33939,7 @@ var __decorate45 = function(decorators, target, key, desc) {
         r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
   return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __param45 = function(paramIndex, decorator) {
+var __param49 = function(paramIndex, decorator) {
   return function(target, key) {
     decorator(target, key, paramIndex);
   };
@@ -33448,8 +33957,9 @@ var GhostTextWidget = class GhostTextWidget2 extends Disposable {
     this.partsWidget = this._register(this.instantiationService.createInstance(DecorationsWidget, this.editor));
     this.additionalLinesWidget = this._register(new AdditionalLinesWidget(this.editor, this.languageService.languageIdCodec));
     this.viewMoreContentWidget = void 0;
+    this.replacementDecoration = this._register(new DisposableDecorations(this.editor));
     this._register(this.editor.onDidChangeConfiguration((e) => {
-      if (e.hasChanged(29) || e.hasChanged(105) || e.hasChanged(88) || e.hasChanged(83) || e.hasChanged(45) || e.hasChanged(44) || e.hasChanged(59)) {
+      if (e.hasChanged(29) || e.hasChanged(106) || e.hasChanged(89) || e.hasChanged(84) || e.hasChanged(46) || e.hasChanged(45) || e.hasChanged(60)) {
         this.update();
       }
     }));
@@ -33474,6 +33984,7 @@ var GhostTextWidget = class GhostTextWidget2 extends Disposable {
     if (!this.editor.hasModel() || !ghostText || this.disposed) {
       this.partsWidget.clear();
       this.additionalLinesWidget.clear();
+      this.replacementDecoration.clear();
       return;
     }
     const inlineTexts = new Array();
@@ -33494,8 +34005,20 @@ var GhostTextWidget = class GhostTextWidget2 extends Disposable {
         });
       }
     }
+    if (ghostText instanceof GhostTextReplacement) {
+      this.replacementDecoration.setDecorations([
+        {
+          range: new Range(ghostText.lineNumber, ghostText.columnStart, ghostText.lineNumber, ghostText.columnStart + ghostText.length),
+          options: {
+            inlineClassName: "inline-completion-text-to-replace",
+            description: "GhostTextReplacement"
+          }
+        }
+      ]);
+    } else {
+      this.replacementDecoration.setDecorations([]);
+    }
     const textBufferLine = this.editor.getModel().getLineContent(ghostText.lineNumber);
-    this.editor.getModel().getLineTokens(ghostText.lineNumber);
     let hiddenTextStartColumn = void 0;
     let lastIdx = 0;
     for (const part of ghostText.parts) {
@@ -33523,7 +34046,7 @@ var GhostTextWidget = class GhostTextWidget2 extends Disposable {
     }
     this.partsWidget.setParts(ghostText.lineNumber, inlineTexts, hiddenTextStartColumn !== void 0 ? { column: hiddenTextStartColumn, length: textBufferLine.length + 1 - hiddenTextStartColumn } : void 0);
     this.additionalLinesWidget.updateLines(ghostText.lineNumber, additionalLines, ghostText.additionalReservedLineCount);
-    if (ghostText.parts.some((p) => p.lines.length < 0)) {
+    if (0 < 0) {
       this.viewMoreContentWidget = this.renderViewMoreLines(new Position(ghostText.lineNumber, this.editor.getModel().getLineMaxColumn(ghostText.lineNumber)), "", 0);
     } else {
       (_a5 = this.viewMoreContentWidget) === null || _a5 === void 0 ? void 0 : _a5.dispose();
@@ -33531,7 +34054,7 @@ var GhostTextWidget = class GhostTextWidget2 extends Disposable {
     }
   }
   renderViewMoreLines(position, firstLineText, remainingLinesLength) {
-    const fontInfo = this.editor.getOption(44);
+    const fontInfo = this.editor.getOption(45);
     const domNode = document.createElement("div");
     domNode.className = "suggest-preview-additional-widget";
     applyFontInfo(domNode, fontInfo);
@@ -33557,26 +34080,41 @@ var GhostTextWidget = class GhostTextWidget2 extends Disposable {
     return new ViewMoreLinesContentWidget(this.editor, position, domNode, disposableStore);
   }
 };
-GhostTextWidget = __decorate45([
-  __param45(2, IInstantiationService),
-  __param45(3, ILanguageService)
+GhostTextWidget = __decorate49([
+  __param49(2, IInstantiationService),
+  __param49(3, ILanguageService)
 ], GhostTextWidget);
+var DisposableDecorations = class {
+  constructor(editor2) {
+    this.editor = editor2;
+    this.decorationIds = [];
+  }
+  setDecorations(decorations) {
+    this.editor.changeDecorations((accessor) => {
+      this.decorationIds = accessor.deltaDecorations(this.decorationIds, decorations);
+    });
+  }
+  clear() {
+    this.setDecorations([]);
+  }
+  dispose() {
+    this.clear();
+  }
+};
 var DecorationsWidget = class {
   constructor(editor2) {
     this.editor = editor2;
     this.decorationIds = [];
-    this.disposableStore = new DisposableStore();
   }
   dispose() {
     this.clear();
-    this.disposableStore.dispose();
   }
   clear() {
-    this.editor.deltaDecorations(this.decorationIds, []);
-    this.disposableStore.clear();
+    this.editor.changeDecorations((accessor) => {
+      this.decorationIds = accessor.deltaDecorations(this.decorationIds, []);
+    });
   }
   setParts(lineNumber, parts, hiddenText) {
-    this.disposableStore.clear();
     const textModel = this.editor.getModel();
     if (!textModel) {
       return;
@@ -33591,16 +34129,18 @@ var DecorationsWidget = class {
         }
       });
     }
-    this.decorationIds = this.editor.deltaDecorations(this.decorationIds, parts.map((p) => {
-      return {
-        range: Range.fromPositions(new Position(lineNumber, p.column)),
-        options: {
-          description: "ghost-text",
-          after: { content: p.text, inlineClassName: p.preview ? "ghost-text-decoration-preview" : "ghost-text-decoration" },
-          showIfCollapsed: true
-        }
-      };
-    }).concat(hiddenTextDecorations));
+    this.editor.changeDecorations((accessor) => {
+      this.decorationIds = accessor.deltaDecorations(this.decorationIds, parts.map((p) => {
+        return {
+          range: Range.fromPositions(new Position(lineNumber, p.column)),
+          options: {
+            description: "ghost-text",
+            after: { content: p.text, inlineClassName: p.preview ? "ghost-text-decoration-preview" : "ghost-text-decoration", cursorStops: InjectedTextCursorStops.Left },
+            showIfCollapsed: true
+          }
+        };
+      }).concat(hiddenTextDecorations));
+    });
   }
 };
 var AdditionalLinesWidget = class {
@@ -33650,12 +34190,12 @@ var AdditionalLinesWidget = class {
 };
 function renderLines(domNode, tabSize, lines, opts, languageIdCodec) {
   const disableMonospaceOptimizations = opts.get(29);
-  const stopRenderingLineAfter = opts.get(105);
+  const stopRenderingLineAfter = opts.get(106);
   const renderWhitespace = "none";
-  const renderControlCharacters = opts.get(83);
-  const fontLigatures = opts.get(45);
-  const fontInfo = opts.get(44);
-  const lineHeight = opts.get(59);
+  const renderControlCharacters = opts.get(84);
+  const fontLigatures = opts.get(46);
+  const fontInfo = opts.get(45);
+  const lineHeight = opts.get(60);
   const sb = createStringBuilder(1e4);
   sb.appendASCIIString('<div class="suggest-preview-text">');
   for (let i = 0, len = lines.length; i < len; i++) {
@@ -33673,8 +34213,8 @@ function renderLines(domNode, tabSize, lines, opts, languageIdCodec) {
   }
   sb.appendASCIIString("</div>");
   applyFontInfo(domNode, fontInfo);
-  const html2 = sb.build();
-  const trustedhtml = ttPolicy ? ttPolicy.createHTML(html2) : html2;
+  const html = sb.build();
+  const trustedhtml = ttPolicy ? ttPolicy.createHTML(html) : html;
   domNode.innerHTML = trustedhtml;
 }
 var ViewMoreLinesContentWidget = class extends Disposable {
@@ -33729,8 +34269,7 @@ registerThemingParticipant((theme, collector) => {
 init_nls();
 init_contextkey();
 init_instantiation();
-init_keybindingsRegistry();
-var __decorate46 = function(decorators, target, key, desc) {
+var __decorate50 = function(decorators, target, key, desc) {
   var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
   if (typeof Reflect === "object" && typeof Reflect.decorate === "function")
     r = Reflect.decorate(decorators, target, key, desc);
@@ -33740,12 +34279,12 @@ var __decorate46 = function(decorators, target, key, desc) {
         r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
   return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __param46 = function(paramIndex, decorator) {
+var __param50 = function(paramIndex, decorator) {
   return function(target, key) {
     decorator(target, key, paramIndex);
   };
 };
-var __awaiter32 = function(thisArg, _arguments, P, generator) {
+var __awaiter36 = function(thisArg, _arguments, P, generator) {
   function adopt(value) {
     return value instanceof P ? value : new P(function(resolve) {
       resolve(value);
@@ -33784,10 +34323,10 @@ var GhostTextController = class GhostTextController2 extends Disposable {
       this.updateModelController();
     }));
     this._register(this.editor.onDidChangeConfiguration((e) => {
-      if (e.hasChanged(106)) {
+      if (e.hasChanged(107)) {
         this.updateModelController();
       }
-      if (e.hasChanged(55)) {
+      if (e.hasChanged(56)) {
         this.updateModelController();
       }
     }));
@@ -33801,8 +34340,8 @@ var GhostTextController = class GhostTextController2 extends Disposable {
     return (_a5 = this.activeController.value) === null || _a5 === void 0 ? void 0 : _a5.model;
   }
   updateModelController() {
-    const suggestOptions = this.editor.getOption(106);
-    const inlineSuggestOptions = this.editor.getOption(55);
+    const suggestOptions = this.editor.getOption(107);
+    const inlineSuggestOptions = this.editor.getOption(56);
     this.activeController.value = void 0;
     this.activeController.value = this.editor.hasModel() && (suggestOptions.preview || inlineSuggestOptions.enabled || this.triggeredExplicitly) ? this.instantiationService.createInstance(ActiveGhostTextController, this.editor) : void 0;
     this.activeModelDidChangeEmitter.fire();
@@ -33841,7 +34380,7 @@ var GhostTextController = class GhostTextController2 extends Disposable {
   }
   hasMultipleInlineCompletions() {
     var _a5;
-    return __awaiter32(this, void 0, void 0, function* () {
+    return __awaiter36(this, void 0, void 0, function* () {
       const result = yield (_a5 = this.activeModel) === null || _a5 === void 0 ? void 0 : _a5.hasMultipleInlineCompletions();
       return result !== void 0 ? result : false;
     });
@@ -33851,8 +34390,8 @@ GhostTextController.inlineSuggestionVisible = new RawContextKey("inlineSuggestio
 GhostTextController.inlineSuggestionHasIndentation = new RawContextKey("inlineSuggestionHasIndentation", false, localize("inlineSuggestionHasIndentation", "Whether the inline suggestion starts with whitespace"));
 GhostTextController.inlineSuggestionHasIndentationLessThanTabSize = new RawContextKey("inlineSuggestionHasIndentationLessThanTabSize", true, localize("inlineSuggestionHasIndentationLessThanTabSize", "Whether the inline suggestion starts with whitespace that is less than what would be inserted by tab"));
 GhostTextController.ID = "editor.contrib.ghostTextController";
-GhostTextController = __decorate46([
-  __param46(1, IInstantiationService)
+GhostTextController = __decorate50([
+  __param50(1, IInstantiationService)
 ], GhostTextController);
 var GhostTextContextKeys = class {
   constructor(contextKeyService) {
@@ -33907,37 +34446,10 @@ var ActiveGhostTextController = class ActiveGhostTextController2 extends Disposa
     this.contextKeys.inlineCompletionSuggestsIndentationLessThanTabSize.set(startsWithIndentationLessThanTabSize);
   }
 };
-ActiveGhostTextController = __decorate46([
-  __param46(1, IInstantiationService),
-  __param46(2, IContextKeyService)
+ActiveGhostTextController = __decorate50([
+  __param50(1, IInstantiationService),
+  __param50(2, IContextKeyService)
 ], ActiveGhostTextController);
-var GhostTextCommand = EditorCommand.bindToContribution(GhostTextController.get);
-var commitInlineSuggestionAction = new GhostTextCommand({
-  id: inlineSuggestCommitId,
-  precondition: GhostTextController.inlineSuggestionVisible,
-  handler(x) {
-    x.commit();
-    x.editor.focus();
-  }
-});
-registerEditorCommand(commitInlineSuggestionAction);
-KeybindingsRegistry.registerKeybindingRule({
-  primary: 2,
-  weight: 200,
-  id: commitInlineSuggestionAction.id,
-  when: ContextKeyExpr.and(commitInlineSuggestionAction.precondition, EditorContextKeys.tabMovesFocus.toNegated(), GhostTextController.inlineSuggestionHasIndentationLessThanTabSize)
-});
-registerEditorCommand(new GhostTextCommand({
-  id: "editor.action.inlineSuggest.hide",
-  precondition: GhostTextController.inlineSuggestionVisible,
-  kbOpts: {
-    weight: 100,
-    primary: 9
-  },
-  handler(x) {
-    x.hide();
-  }
-}));
 var ShowNextInlineSuggestionAction = class extends EditorAction {
   constructor() {
     super({
@@ -33952,7 +34464,7 @@ var ShowNextInlineSuggestionAction = class extends EditorAction {
     });
   }
   run(accessor, editor2) {
-    return __awaiter32(this, void 0, void 0, function* () {
+    return __awaiter36(this, void 0, void 0, function* () {
       const controller = GhostTextController.get(editor2);
       if (controller) {
         controller.showNextInlineCompletion();
@@ -33976,7 +34488,7 @@ var ShowPreviousInlineSuggestionAction = class extends EditorAction {
     });
   }
   run(accessor, editor2) {
-    return __awaiter32(this, void 0, void 0, function* () {
+    return __awaiter36(this, void 0, void 0, function* () {
       const controller = GhostTextController.get(editor2);
       if (controller) {
         controller.showPreviousInlineCompletion();
@@ -33996,7 +34508,7 @@ var TriggerInlineSuggestionAction = class extends EditorAction {
     });
   }
   run(accessor, editor2) {
-    return __awaiter32(this, void 0, void 0, function* () {
+    return __awaiter36(this, void 0, void 0, function* () {
       const controller = GhostTextController.get(editor2);
       if (controller) {
         controller.trigger();
@@ -34005,7 +34517,7 @@ var TriggerInlineSuggestionAction = class extends EditorAction {
   }
 };
 
-// ../../node_modules/monaco-editor/esm/vs/editor/contrib/inlineCompletions/browser/inlineCompletionsHoverParticipant.js
+// ../../node_modules/monaco-editor/esm/vs/editor/contrib/inlineCompletions/browser/ghostTextHoverParticipant.js
 init_define_process();
 init_dom();
 init_lifecycle();
@@ -34016,7 +34528,7 @@ init_actions2();
 init_commands();
 init_contextkey();
 init_opener();
-var __decorate47 = function(decorators, target, key, desc) {
+var __decorate51 = function(decorators, target, key, desc) {
   var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
   if (typeof Reflect === "object" && typeof Reflect.decorate === "function")
     r = Reflect.decorate(decorators, target, key, desc);
@@ -34026,7 +34538,7 @@ var __decorate47 = function(decorators, target, key, desc) {
         r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
   return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __param47 = function(paramIndex, decorator) {
+var __param51 = function(paramIndex, decorator) {
   return function(target, key) {
     decorator(target, key, paramIndex);
   };
@@ -34042,6 +34554,10 @@ var InlineCompletionsHover = class {
   }
   hasMultipleSuggestions() {
     return this.controller.hasMultipleInlineCompletions();
+  }
+  get commands() {
+    var _a5, _b2, _c2;
+    return ((_c2 = (_b2 = (_a5 = this.controller.activeModel) === null || _a5 === void 0 ? void 0 : _a5.activeInlineCompletionsModel) === null || _b2 === void 0 ? void 0 : _b2.completionSession.value) === null || _c2 === void 0 ? void 0 : _c2.commands) || [];
   }
 };
 var InlineCompletionsHoverParticipant = class InlineCompletionsHoverParticipant2 {
@@ -34106,8 +34622,8 @@ var InlineCompletionsHoverParticipant = class InlineCompletionsHoverParticipant2
     });
     context.statusBar.addAction({
       label: localize("acceptInlineSuggestion", "Accept"),
-      commandId: commitInlineSuggestionAction.id,
-      run: () => this._commandService.executeCommand(commitInlineSuggestionAction.id)
+      commandId: inlineSuggestCommitId,
+      run: () => this._commandService.executeCommand(inlineSuggestCommitId)
     });
     const actions = [previousAction, nextAction];
     for (const action of actions) {
@@ -34118,6 +34634,13 @@ var InlineCompletionsHoverParticipant = class InlineCompletionsHoverParticipant2
         action.setEnabled(hasMore);
       }
     });
+    for (const command of part.commands) {
+      context.statusBar.addAction({
+        label: command.title,
+        commandId: command.id,
+        run: () => this._commandService.executeCommand(command.id, ...command.arguments || [])
+      });
+    }
     for (const [_, group] of menu.getActions()) {
       for (const action of group) {
         if (action instanceof MenuItemAction) {
@@ -34154,21 +34677,50 @@ var InlineCompletionsHoverParticipant = class InlineCompletionsHoverParticipant2
     context.fragment.appendChild(markdownHoverElement);
   }
 };
-InlineCompletionsHoverParticipant = __decorate47([
-  __param47(1, ICommandService),
-  __param47(2, IMenuService),
-  __param47(3, IContextKeyService),
-  __param47(4, ILanguageService),
-  __param47(5, IOpenerService),
-  __param47(6, IAccessibilityService)
+InlineCompletionsHoverParticipant = __decorate51([
+  __param51(1, ICommandService),
+  __param51(2, IMenuService),
+  __param51(3, IContextKeyService),
+  __param51(4, ILanguageService),
+  __param51(5, IOpenerService),
+  __param51(6, IAccessibilityService)
 ], InlineCompletionsHoverParticipant);
 
-// ../../node_modules/monaco-editor/esm/vs/editor/contrib/inlineCompletions/browser/inlineCompletionsContribution.js
+// ../../node_modules/monaco-editor/esm/vs/editor/contrib/inlineCompletions/browser/ghostText.contribution.js
+init_contextkey();
+init_keybindingsRegistry();
 registerEditorContribution(GhostTextController.ID, GhostTextController);
 registerEditorAction(TriggerInlineSuggestionAction);
 registerEditorAction(ShowNextInlineSuggestionAction);
 registerEditorAction(ShowPreviousInlineSuggestionAction);
 HoverParticipantRegistry.register(InlineCompletionsHoverParticipant);
+var GhostTextCommand = EditorCommand.bindToContribution(GhostTextController.get);
+var commitInlineSuggestionAction = new GhostTextCommand({
+  id: inlineSuggestCommitId,
+  precondition: GhostTextController.inlineSuggestionVisible,
+  handler(x) {
+    x.commit();
+    x.editor.focus();
+  }
+});
+registerEditorCommand(commitInlineSuggestionAction);
+KeybindingsRegistry.registerKeybindingRule({
+  primary: 2,
+  weight: 200,
+  id: commitInlineSuggestionAction.id,
+  when: ContextKeyExpr.and(commitInlineSuggestionAction.precondition, EditorContextKeys.tabMovesFocus.toNegated(), GhostTextController.inlineSuggestionHasIndentationLessThanTabSize)
+});
+registerEditorCommand(new GhostTextCommand({
+  id: "editor.action.inlineSuggest.hide",
+  precondition: GhostTextController.inlineSuggestionVisible,
+  kbOpts: {
+    weight: 100,
+    primary: 9
+  },
+  handler(x) {
+    x.hide();
+  }
+}));
 
 // ../../node_modules/monaco-editor/esm/vs/editor/contrib/indentation/browser/indentation.js
 init_define_process();
@@ -34199,7 +34751,7 @@ function generateIndent(spacesCnt, tabSize, insertSpaces) {
   spacesCnt = spacesCnt < 0 ? 0 : spacesCnt;
   let result = "";
   if (!insertSpaces) {
-    let tabsCnt = Math.floor(spacesCnt / tabSize);
+    const tabsCnt = Math.floor(spacesCnt / tabSize);
     spacesCnt = spacesCnt % tabSize;
     for (let i = 0; i < tabsCnt; i++) {
       result += "	";
@@ -34214,6 +34766,21 @@ function generateIndent(spacesCnt, tabSize, insertSpaces) {
 // ../../node_modules/monaco-editor/esm/vs/editor/contrib/indentation/browser/indentation.js
 init_nls();
 init_indentation();
+var __decorate52 = function(decorators, target, key, desc) {
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function")
+    r = Reflect.decorate(decorators, target, key, desc);
+  else
+    for (var i = decorators.length - 1; i >= 0; i--)
+      if (d = decorators[i])
+        r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __param52 = function(paramIndex, decorator) {
+  return function(target, key) {
+    decorator(target, key, paramIndex);
+  };
+};
 function getReindentEditOperations(model, languageConfigurationService, startLineNumber, endLineNumber, inheritedIndent) {
   if (model.getLineCount() === 1 && model.getLineMaxColumn(1) === 1) {
     return [];
@@ -34227,8 +34794,8 @@ function getReindentEditOperations(model, languageConfigurationService, startLin
     if (!indentationRules.unIndentedLinePattern) {
       break;
     }
-    let text2 = model.getLineContent(startLineNumber);
-    if (!indentationRules.unIndentedLinePattern.test(text2)) {
+    const text = model.getLineContent(startLineNumber);
+    if (!indentationRules.unIndentedLinePattern.test(text)) {
       break;
     }
     startLineNumber++;
@@ -34245,13 +34812,13 @@ function getReindentEditOperations(model, languageConfigurationService, startLin
     count = count || 1;
     return ShiftCommand.unshiftIndent(indentation, indentation.length + count, tabSize, indentSize, insertSpaces);
   };
-  let indentEdits = [];
+  const indentEdits = [];
   let globalIndent;
-  let currentLineText = model.getLineContent(startLineNumber);
+  const currentLineText = model.getLineContent(startLineNumber);
   let adjustedLineContent = currentLineText;
   if (inheritedIndent !== void 0 && inheritedIndent !== null) {
     globalIndent = inheritedIndent;
-    let oldIndentation = getLeadingWhitespace(currentLineText);
+    const oldIndentation = getLeadingWhitespace(currentLineText);
     adjustedLineContent = globalIndent + currentLineText.substring(oldIndentation.length);
     if (indentationRules.decreaseIndentPattern && indentationRules.decreaseIndentPattern.test(adjustedLineContent)) {
       globalIndent = unshiftIndent(globalIndent);
@@ -34272,9 +34839,9 @@ function getReindentEditOperations(model, languageConfigurationService, startLin
   }
   startLineNumber++;
   for (let lineNumber = startLineNumber; lineNumber <= endLineNumber; lineNumber++) {
-    let text2 = model.getLineContent(lineNumber);
-    let oldIndentation = getLeadingWhitespace(text2);
-    let adjustedLineContent2 = idealIndentForNextLine + text2.substring(oldIndentation.length);
+    const text = model.getLineContent(lineNumber);
+    const oldIndentation = getLeadingWhitespace(text);
+    const adjustedLineContent2 = idealIndentForNextLine + text.substring(oldIndentation.length);
     if (indentationRules.decreaseIndentPattern && indentationRules.decreaseIndentPattern.test(adjustedLineContent2)) {
       idealIndentForNextLine = unshiftIndent(idealIndentForNextLine);
       globalIndent = unshiftIndent(globalIndent);
@@ -34282,7 +34849,7 @@ function getReindentEditOperations(model, languageConfigurationService, startLin
     if (oldIndentation !== idealIndentForNextLine) {
       indentEdits.push(EditOperation.replaceMove(new Selection(lineNumber, 1, lineNumber, oldIndentation.length + 1), normalizeIndentation(idealIndentForNextLine, indentSize, insertSpaces)));
     }
-    if (indentationRules.unIndentedLinePattern && indentationRules.unIndentedLinePattern.test(text2)) {
+    if (indentationRules.unIndentedLinePattern && indentationRules.unIndentedLinePattern.test(text)) {
       continue;
     } else if (indentationRules.increaseIndentPattern && indentationRules.increaseIndentPattern.test(adjustedLineContent2)) {
       globalIndent = shiftIndent(globalIndent);
@@ -34305,12 +34872,12 @@ var IndentationToSpacesAction = class extends EditorAction {
     });
   }
   run(accessor, editor2) {
-    let model = editor2.getModel();
+    const model = editor2.getModel();
     if (!model) {
       return;
     }
-    let modelOpts = model.getOptions();
-    let selection = editor2.getSelection();
+    const modelOpts = model.getOptions();
+    const selection = editor2.getSelection();
     if (!selection) {
       return;
     }
@@ -34334,12 +34901,12 @@ var IndentationToTabsAction = class extends EditorAction {
     });
   }
   run(accessor, editor2) {
-    let model = editor2.getModel();
+    const model = editor2.getModel();
     if (!model) {
       return;
     }
-    let modelOpts = model.getOptions();
-    let selection = editor2.getSelection();
+    const modelOpts = model.getOptions();
+    const selection = editor2.getSelection();
     if (!selection) {
       return;
     }
@@ -34361,7 +34928,7 @@ var ChangeIndentationSizeAction = class extends EditorAction {
   run(accessor, editor2) {
     const quickInputService = accessor.get(IQuickInputService);
     const modelService = accessor.get(IModelService);
-    let model = editor2.getModel();
+    const model = editor2.getModel();
     if (!model) {
       return;
     }
@@ -34419,7 +34986,7 @@ var DetectIndentation = class extends EditorAction {
   }
   run(accessor, editor2) {
     const modelService = accessor.get(IModelService);
-    let model = editor2.getModel();
+    const model = editor2.getModel();
     if (!model) {
       return;
     }
@@ -34439,11 +35006,11 @@ var ReindentLinesAction = class extends EditorAction {
   }
   run(accessor, editor2) {
     const languageConfigurationService = accessor.get(ILanguageConfigurationService);
-    let model = editor2.getModel();
+    const model = editor2.getModel();
     if (!model) {
       return;
     }
-    let edits = getReindentEditOperations(model, languageConfigurationService, 1, model.getLineCount());
+    const edits = getReindentEditOperations(model, languageConfigurationService, 1, model.getLineCount());
     if (edits.length > 0) {
       editor2.pushUndoStop();
       editor2.executeEdits(this.id, edits);
@@ -34462,16 +35029,16 @@ var ReindentSelectedLinesAction = class extends EditorAction {
   }
   run(accessor, editor2) {
     const languageConfigurationService = accessor.get(ILanguageConfigurationService);
-    let model = editor2.getModel();
+    const model = editor2.getModel();
     if (!model) {
       return;
     }
-    let selections = editor2.getSelections();
+    const selections = editor2.getSelections();
     if (selections === null) {
       return;
     }
-    let edits = [];
-    for (let selection of selections) {
+    const edits = [];
+    for (const selection of selections) {
       let startLineNumber = selection.startLineNumber;
       let endLineNumber = selection.endLineNumber;
       if (startLineNumber !== endLineNumber && selection.endColumn === 1) {
@@ -34484,7 +35051,7 @@ var ReindentSelectedLinesAction = class extends EditorAction {
       } else {
         startLineNumber--;
       }
-      let editOperations = getReindentEditOperations(model, languageConfigurationService, startLineNumber, endLineNumber);
+      const editOperations = getReindentEditOperations(model, languageConfigurationService, startLineNumber, endLineNumber);
       edits.push(...editOperations);
     }
     if (edits.length > 0) {
@@ -34499,14 +35066,14 @@ var AutoIndentOnPasteCommand = class {
     this._initialSelection = initialSelection;
     this._edits = [];
     this._selectionId = null;
-    for (let edit of edits) {
+    for (const edit of edits) {
       if (edit.range && typeof edit.text === "string") {
         this._edits.push(edit);
       }
     }
   }
   getEditOperations(model, builder) {
-    for (let edit of this._edits) {
+    for (const edit of this._edits) {
       builder.addEditOperation(Range.lift(edit.range), edit.text);
     }
     let selectionIsSet = false;
@@ -34527,18 +35094,19 @@ var AutoIndentOnPasteCommand = class {
     return helper.getTrackedSelection(this._selectionId);
   }
 };
-var AutoIndentOnPaste = class {
-  constructor(editor2) {
+var AutoIndentOnPaste = class AutoIndentOnPaste2 {
+  constructor(editor2, _languageConfigurationService) {
+    this.editor = editor2;
+    this._languageConfigurationService = _languageConfigurationService;
     this.callOnDispose = new DisposableStore();
     this.callOnModel = new DisposableStore();
-    this.editor = editor2;
     this.callOnDispose.add(editor2.onDidChangeConfiguration(() => this.update()));
     this.callOnDispose.add(editor2.onDidChangeModel(() => this.update()));
     this.callOnDispose.add(editor2.onDidChangeModelLanguage(() => this.update()));
   }
   update() {
     this.callOnModel.clear();
-    if (this.editor.getOption(9) < 4 || this.editor.getOption(48)) {
+    if (this.editor.getOption(9) < 4 || this.editor.getOption(49)) {
       return;
     }
     if (!this.editor.hasModel()) {
@@ -34549,7 +35117,7 @@ var AutoIndentOnPaste = class {
     }));
   }
   trigger(range) {
-    let selections = this.editor.getSelections();
+    const selections = this.editor.getSelections();
     if (selections === null || selections.length > 1) {
       return;
     }
@@ -34557,13 +35125,13 @@ var AutoIndentOnPaste = class {
     if (!model) {
       return;
     }
-    if (!model.isCheapToTokenize(range.getStartPosition().lineNumber)) {
+    if (!model.tokenization.isCheapToTokenize(range.getStartPosition().lineNumber)) {
       return;
     }
     const autoIndent = this.editor.getOption(9);
     const { tabSize, indentSize, insertSpaces } = model.getOptions();
-    let textEdits = [];
-    let indentConverter = {
+    const textEdits = [];
+    const indentConverter = {
       shiftIndent: (indentation) => {
         return ShiftCommand.shiftIndent(indentation, indentation.length + 1, tabSize, indentSize, insertSpaces);
       },
@@ -34584,20 +35152,20 @@ var AutoIndentOnPaste = class {
     }
     let firstLineText = model.getLineContent(startLineNumber);
     if (!/\S/.test(firstLineText.substring(0, range.startColumn - 1))) {
-      const indentOfFirstLine = LanguageConfigurationRegistry.getGoodIndentForLine(autoIndent, model, model.getLanguageId(), startLineNumber, indentConverter);
+      const indentOfFirstLine = getGoodIndentForLine(autoIndent, model, model.getLanguageId(), startLineNumber, indentConverter, this._languageConfigurationService);
       if (indentOfFirstLine !== null) {
-        let oldIndentation = getLeadingWhitespace(firstLineText);
-        let newSpaceCnt = getSpaceCnt(indentOfFirstLine, tabSize);
-        let oldSpaceCnt = getSpaceCnt(oldIndentation, tabSize);
+        const oldIndentation = getLeadingWhitespace(firstLineText);
+        const newSpaceCnt = getSpaceCnt(indentOfFirstLine, tabSize);
+        const oldSpaceCnt = getSpaceCnt(oldIndentation, tabSize);
         if (newSpaceCnt !== oldSpaceCnt) {
-          let newIndent = generateIndent(newSpaceCnt, tabSize, insertSpaces);
+          const newIndent = generateIndent(newSpaceCnt, tabSize, insertSpaces);
           textEdits.push({
             range: new Range(startLineNumber, 1, startLineNumber, oldIndentation.length + 1),
             text: newIndent
           });
           firstLineText = newIndent + firstLineText.substr(oldIndentation.length);
         } else {
-          let indentMetadata = LanguageConfigurationRegistry.getIndentMetadata(model, startLineNumber);
+          const indentMetadata = getIndentMetadata(model, startLineNumber, this._languageConfigurationService);
           if (indentMetadata === 0 || indentMetadata === 8) {
             return;
           }
@@ -34613,15 +35181,17 @@ var AutoIndentOnPaste = class {
       break;
     }
     if (startLineNumber !== range.endLineNumber) {
-      let virtualModel = {
-        getLineTokens: (lineNumber) => {
-          return model.getLineTokens(lineNumber);
-        },
-        getLanguageId: () => {
-          return model.getLanguageId();
-        },
-        getLanguageIdAtPosition: (lineNumber, column) => {
-          return model.getLanguageIdAtPosition(lineNumber, column);
+      const virtualModel = {
+        tokenization: {
+          getLineTokens: (lineNumber) => {
+            return model.tokenization.getLineTokens(lineNumber);
+          },
+          getLanguageId: () => {
+            return model.getLanguageId();
+          },
+          getLanguageIdAtPosition: (lineNumber, column) => {
+            return model.getLanguageIdAtPosition(lineNumber, column);
+          }
         },
         getLineContent: (lineNumber) => {
           if (lineNumber === firstLineNumber) {
@@ -34631,18 +35201,18 @@ var AutoIndentOnPaste = class {
           }
         }
       };
-      let indentOfSecondLine = LanguageConfigurationRegistry.getGoodIndentForLine(autoIndent, virtualModel, model.getLanguageId(), startLineNumber + 1, indentConverter);
+      const indentOfSecondLine = getGoodIndentForLine(autoIndent, virtualModel, model.getLanguageId(), startLineNumber + 1, indentConverter, this._languageConfigurationService);
       if (indentOfSecondLine !== null) {
-        let newSpaceCntOfSecondLine = getSpaceCnt(indentOfSecondLine, tabSize);
-        let oldSpaceCntOfSecondLine = getSpaceCnt(getLeadingWhitespace(model.getLineContent(startLineNumber + 1)), tabSize);
+        const newSpaceCntOfSecondLine = getSpaceCnt(indentOfSecondLine, tabSize);
+        const oldSpaceCntOfSecondLine = getSpaceCnt(getLeadingWhitespace(model.getLineContent(startLineNumber + 1)), tabSize);
         if (newSpaceCntOfSecondLine !== oldSpaceCntOfSecondLine) {
-          let spaceCntOffset = newSpaceCntOfSecondLine - oldSpaceCntOfSecondLine;
+          const spaceCntOffset = newSpaceCntOfSecondLine - oldSpaceCntOfSecondLine;
           for (let i = startLineNumber + 1; i <= range.endLineNumber; i++) {
-            let lineContent = model.getLineContent(i);
-            let originalIndent = getLeadingWhitespace(lineContent);
-            let originalSpacesCnt = getSpaceCnt(originalIndent, tabSize);
-            let newSpacesCnt = originalSpacesCnt + spaceCntOffset;
-            let newIndent = generateIndent(newSpacesCnt, tabSize, insertSpaces);
+            const lineContent = model.getLineContent(i);
+            const originalIndent = getLeadingWhitespace(lineContent);
+            const originalSpacesCnt = getSpaceCnt(originalIndent, tabSize);
+            const newSpacesCnt = originalSpacesCnt + spaceCntOffset;
+            const newIndent = generateIndent(newSpacesCnt, tabSize, insertSpaces);
             if (newIndent !== originalIndent) {
               textEdits.push({
                 range: new Range(i, 1, i, originalIndent.length + 1),
@@ -34655,20 +35225,20 @@ var AutoIndentOnPaste = class {
     }
     if (textEdits.length > 0) {
       this.editor.pushUndoStop();
-      let cmd = new AutoIndentOnPasteCommand(textEdits, this.editor.getSelection());
+      const cmd = new AutoIndentOnPasteCommand(textEdits, this.editor.getSelection());
       this.editor.executeCommand("autoIndentOnPaste", cmd);
       this.editor.pushUndoStop();
     }
   }
   shouldIgnoreLine(model, lineNumber) {
-    model.forceTokenization(lineNumber);
-    let nonWhitespaceColumn = model.getLineFirstNonWhitespaceColumn(lineNumber);
+    model.tokenization.forceTokenization(lineNumber);
+    const nonWhitespaceColumn = model.getLineFirstNonWhitespaceColumn(lineNumber);
     if (nonWhitespaceColumn === 0) {
       return true;
     }
-    let tokens = model.getLineTokens(lineNumber);
+    const tokens = model.tokenization.getLineTokens(lineNumber);
     if (tokens.getCount() > 0) {
-      let firstNonWhitespaceTokenIndex = tokens.findTokenIndexAtOffset(nonWhitespaceColumn);
+      const firstNonWhitespaceTokenIndex = tokens.findTokenIndexAtOffset(nonWhitespaceColumn);
       if (firstNonWhitespaceTokenIndex >= 0 && tokens.getStandardTokenType(firstNonWhitespaceTokenIndex) === 1) {
         return true;
       }
@@ -34681,6 +35251,9 @@ var AutoIndentOnPaste = class {
   }
 };
 AutoIndentOnPaste.ID = "editor.contrib.autoIndentOnPaste";
+AutoIndentOnPaste = __decorate52([
+  __param52(1, ILanguageConfigurationService)
+], AutoIndentOnPaste);
 function getIndentationEditOperations(model, builder, tabSize, tabsToSpaces) {
   if (model.getLineCount() === 1 && model.getLineMaxColumn(1) === 1) {
     return;
@@ -34689,7 +35262,7 @@ function getIndentationEditOperations(model, builder, tabSize, tabsToSpaces) {
   for (let i = 0; i < tabSize; i++) {
     spaces += " ";
   }
-  let spacesRegExp = new RegExp(spaces, "gi");
+  const spacesRegExp = new RegExp(spaces, "gi");
   for (let lineNumber = 1, lineCount = model.getLineCount(); lineNumber <= lineCount; lineNumber++) {
     let lastIndentationColumn = model.getLineFirstNonWhitespaceColumn(lineNumber);
     if (lastIndentationColumn === 0) {
@@ -34747,6 +35320,8 @@ init_editorExtensions();
 
 // ../../node_modules/monaco-editor/esm/vs/editor/contrib/inlayHints/browser/inlayHintsController.js
 init_define_process();
+init_dom();
+init_arrays();
 init_async();
 init_cancellation();
 init_errors();
@@ -34754,6 +35329,7 @@ init_lifecycle();
 init_map();
 init_types();
 init_uri();
+init_editOperation();
 init_range();
 init_languages();
 init_model();
@@ -34770,7 +35346,7 @@ init_position();
 init_range();
 init_network();
 init_uri();
-var __awaiter33 = function(thisArg, _arguments, P, generator) {
+var __awaiter37 = function(thisArg, _arguments, P, generator) {
   function adopt(value) {
     return value instanceof P ? value : new P(function(resolve) {
       resolve(value);
@@ -34817,7 +35393,7 @@ var InlayHintItem = class {
     return result;
   }
   resolve(token) {
-    return __awaiter33(this, void 0, void 0, function* () {
+    return __awaiter37(this, void 0, void 0, function* () {
       if (typeof this.provider.resolveInlayHint !== "function") {
         return;
       }
@@ -34836,7 +35412,7 @@ var InlayHintItem = class {
   }
   _doResolve(token) {
     var _a5, _b2;
-    return __awaiter33(this, void 0, void 0, function* () {
+    return __awaiter37(this, void 0, void 0, function* () {
       try {
         const newHint = yield Promise.resolve(this.provider.resolveInlayHint(this.hint, token));
         this.hint.tooltip = (_a5 = newHint === null || newHint === void 0 ? void 0 : newHint.tooltip) !== null && _a5 !== void 0 ? _a5 : this.hint.tooltip;
@@ -34859,7 +35435,7 @@ var InlayHintsFragments = class {
       this._disposables.add(list);
       this.provider.add(provider);
       for (const hint of list.hints) {
-        let position = model.validatePosition(hint.position);
+        const position = model.validatePosition(hint.position);
         let direction = "before";
         const wordRange = InlayHintsFragments._getRangeAtPosition(model, position);
         let range;
@@ -34876,9 +35452,9 @@ var InlayHintsFragments = class {
     this.items = items.sort((a, b) => Position.compare(a.hint.position, b.hint.position));
   }
   static create(registry, model, ranges, token) {
-    return __awaiter33(this, void 0, void 0, function* () {
+    return __awaiter37(this, void 0, void 0, function* () {
       const data = [];
-      const promises = registry.ordered(model).reverse().map((provider) => ranges.map((range) => __awaiter33(this, void 0, void 0, function* () {
+      const promises = registry.ordered(model).reverse().map((provider) => ranges.map((range) => __awaiter37(this, void 0, void 0, function* () {
         try {
           const result = yield provider.provideInlayHints(model, range, token);
           if (result === null || result === void 0 ? void 0 : result.hints.length) {
@@ -34904,8 +35480,8 @@ var InlayHintsFragments = class {
     if (word) {
       return new Range(line, word.startColumn, line, word.endColumn);
     }
-    model.tokenizeIfCheap(line);
-    const tokens = model.getLineTokens(line);
+    model.tokenization.tokenizeIfCheap(line);
+    const tokens = model.tokenization.getLineTokens(line);
     const offset = position.column - 1;
     const idx = tokens.findTokenIndexAtOffset(offset);
     let start = tokens.getStartOffset(idx);
@@ -34942,7 +35518,7 @@ init_actions2();
 init_commands();
 init_contextkey();
 init_instantiation();
-var __awaiter34 = function(thisArg, _arguments, P, generator) {
+var __awaiter38 = function(thisArg, _arguments, P, generator) {
   function adopt(value) {
     return value instanceof P ? value : new P(function(resolve) {
       resolve(value);
@@ -34971,7 +35547,7 @@ var __awaiter34 = function(thisArg, _arguments, P, generator) {
 };
 function showGoToContextMenu(accessor, editor2, anchor, part) {
   var _a5;
-  return __awaiter34(this, void 0, void 0, function* () {
+  return __awaiter38(this, void 0, void 0, function* () {
     const resolverService = accessor.get(ITextModelService);
     const contextMenuService = accessor.get(IContextMenuService);
     const commandService = accessor.get(ICommandService);
@@ -34986,7 +35562,7 @@ function showGoToContextMenu(accessor, editor2, anchor, part) {
     const filter = new Set(MenuRegistry.getMenuItems(MenuId.EditorContext).map((item) => isIMenuItem(item) ? item.command.id : ""));
     for (const delegate of EditorExtensionsRegistry.getEditorActions()) {
       if (delegate instanceof SymbolNavigationAction && filter.has(delegate.id)) {
-        menuActions.push(new Action(delegate.id, delegate.label, void 0, true, () => __awaiter34(this, void 0, void 0, function* () {
+        menuActions.push(new Action(delegate.id, delegate.label, void 0, true, () => __awaiter38(this, void 0, void 0, function* () {
           const ref = yield resolverService.createModelReference(location2.uri);
           try {
             yield instaService.invokeFunction(delegate.run.bind(delegate), editor2, new SymbolNavigationAnchor(ref.object.textEditorModel, Range.getStartPosition(location2.range)));
@@ -34999,7 +35575,7 @@ function showGoToContextMenu(accessor, editor2, anchor, part) {
     if (part.part.command) {
       const { command } = part.part;
       menuActions.push(new Separator());
-      menuActions.push(new Action(command.id, command.title, void 0, true, () => __awaiter34(this, void 0, void 0, function* () {
+      menuActions.push(new Action(command.id, command.title, void 0, true, () => __awaiter38(this, void 0, void 0, function* () {
         var _b2;
         try {
           yield commandService.executeCommand(command.id, ...(_b2 = command.arguments) !== null && _b2 !== void 0 ? _b2 : []);
@@ -35012,7 +35588,7 @@ function showGoToContextMenu(accessor, editor2, anchor, part) {
         }
       })));
     }
-    const useShadowDOM = editor2.getOption(115);
+    const useShadowDOM = editor2.getOption(116);
     contextMenuService.showContextMenu({
       domForShadowRoot: useShadowDOM ? (_a5 = editor2.getDomNode()) !== null && _a5 !== void 0 ? _a5 : void 0 : void 0,
       getAnchor: () => {
@@ -35028,14 +35604,14 @@ function showGoToContextMenu(accessor, editor2, anchor, part) {
   });
 }
 function goToDefinitionWithLocation(accessor, event, editor2, location2) {
-  return __awaiter34(this, void 0, void 0, function* () {
+  return __awaiter38(this, void 0, void 0, function* () {
     const resolverService = accessor.get(ITextModelService);
     const ref = yield resolverService.createModelReference(location2.uri);
-    yield editor2.invokeWithinContext((accessor2) => __awaiter34(this, void 0, void 0, function* () {
+    yield editor2.invokeWithinContext((accessor2) => __awaiter38(this, void 0, void 0, function* () {
       const openToSide = event.hasSideBySideModifier;
       const contextKeyService = accessor2.get(IContextKeyService);
       const isInPeek = PeekContext.inPeekEditor.getValue(contextKeyService);
-      const canPeek = !openToSide && editor2.getOption(78) && !isInPeek;
+      const canPeek = !openToSide && editor2.getOption(79) && !isInPeek;
       const action = new DefinitionAction({ openToSide, openInPeek: canPeek, muteMessage: true }, { alias: "", label: "", id: "", precondition: void 0 });
       return action.run(accessor2, editor2, { model: ref.object.textEditorModel, position: Range.getStartPosition(location2.range) });
     }));
@@ -35049,7 +35625,7 @@ init_extensions();
 init_instantiation();
 init_colorRegistry();
 init_themeService();
-var __decorate48 = function(decorators, target, key, desc) {
+var __decorate53 = function(decorators, target, key, desc) {
   var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
   if (typeof Reflect === "object" && typeof Reflect.decorate === "function")
     r = Reflect.decorate(decorators, target, key, desc);
@@ -35059,12 +35635,12 @@ var __decorate48 = function(decorators, target, key, desc) {
         r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
   return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __param48 = function(paramIndex, decorator) {
+var __param53 = function(paramIndex, decorator) {
   return function(target, key) {
     decorator(target, key, paramIndex);
   };
 };
-var __awaiter35 = function(thisArg, _arguments, P, generator) {
+var __awaiter39 = function(thisArg, _arguments, P, generator) {
   function adopt(value) {
     return value instanceof P ? value : new P(function(resolve) {
       resolve(value);
@@ -35141,12 +35717,13 @@ var InlayHintsController = class InlayHintsController2 {
     this._sessionDisposables = new DisposableStore();
     this._decorationsMetadata = /* @__PURE__ */ new Map();
     this._ruleFactory = new DynamicCssRules(this._editor);
+    this._activeRenderMode = 0;
     this._debounceInfo = _featureDebounce.for(_languageFeaturesService.inlayHintsProvider, "InlayHint", { min: 25 });
     this._disposables.add(_languageFeaturesService.inlayHintsProvider.onDidChange(() => this._update()));
     this._disposables.add(_editor.onDidChangeModel(() => this._update()));
     this._disposables.add(_editor.onDidChangeModelLanguage(() => this._update()));
     this._disposables.add(_editor.onDidChangeConfiguration((e) => {
-      if (e.hasChanged(127)) {
+      if (e.hasChanged(128)) {
         this._update();
       }
     }));
@@ -35164,7 +35741,8 @@ var InlayHintsController = class InlayHintsController2 {
   _update() {
     this._sessionDisposables.clear();
     this._removeAllDecorations();
-    if (!this._editor.getOption(127).enabled) {
+    const options = this._editor.getOption(128);
+    if (options.enabled === "off") {
       return;
     }
     const model = this._editor.getModel();
@@ -35181,8 +35759,8 @@ var InlayHintsController = class InlayHintsController2 {
       }
     }));
     let cts;
-    let watchedProviders = /* @__PURE__ */ new Set();
-    const scheduler = new RunOnceScheduler(() => __awaiter35(this, void 0, void 0, function* () {
+    const watchedProviders = /* @__PURE__ */ new Set();
+    const scheduler = new RunOnceScheduler(() => __awaiter39(this, void 0, void 0, function* () {
       const t1 = Date.now();
       cts === null || cts === void 0 ? void 0 : cts.dispose(true);
       cts = new CancellationTokenSource();
@@ -35227,8 +35805,35 @@ var InlayHintsController = class InlayHintsController2 {
       const delay = Math.max(scheduler.delay, 1250);
       scheduler.schedule(delay);
     }));
+    if (options.enabled === "on") {
+      this._activeRenderMode = 0;
+    } else {
+      let defaultMode;
+      let altMode;
+      if (options.enabled === "onUnlessPressed") {
+        defaultMode = 0;
+        altMode = 1;
+      } else {
+        defaultMode = 1;
+        altMode = 0;
+      }
+      this._activeRenderMode = defaultMode;
+      this._sessionDisposables.add(ModifierKeyEmitter.getInstance().event((e) => {
+        if (!this._editor.hasModel()) {
+          return;
+        }
+        const newRenderMode = e.altKey && e.ctrlKey ? altMode : defaultMode;
+        if (newRenderMode !== this._activeRenderMode) {
+          this._activeRenderMode = newRenderMode;
+          const model2 = this._editor.getModel();
+          const copies = this._copyInlayHintsWithCurrentAnchor(model2);
+          this._updateHintsDecorators([model2.getFullModelRange()], copies);
+          scheduler.schedule(0);
+        }
+      }));
+    }
+    this._sessionDisposables.add(this._installDblClickGesture(() => scheduler.schedule(0)));
     this._sessionDisposables.add(this._installLinkGesture());
-    this._sessionDisposables.add(this._installDblClickGesture());
     this._sessionDisposables.add(this._installContextMenu());
   }
   _installLinkGesture() {
@@ -35250,20 +35855,15 @@ var InlayHintsController = class InlayHintsController2 {
       this._activeInlayHintPart = labelPart.part.command || labelPart.part.location ? new ActiveInlayHintInfo(labelPart, mouseEvent.hasTriggerModifier) : void 0;
       const lineNumber = labelPart.item.hint.position.lineNumber;
       const range = new Range(lineNumber, 1, lineNumber, model.getLineMaxColumn(lineNumber));
-      const lineHints = /* @__PURE__ */ new Set();
-      for (const data of this._decorationsMetadata.values()) {
-        if (range.containsRange(data.item.anchor.range)) {
-          lineHints.add(data.item);
-        }
-      }
-      this._updateHintsDecorators([range], Array.from(lineHints));
+      const lineHints = this._getInlineHintsForRange(range);
+      this._updateHintsDecorators([range], lineHints);
       sessionStore.add(toDisposable(() => {
         this._activeInlayHintPart = void 0;
-        this._updateHintsDecorators([range], Array.from(lineHints));
+        this._updateHintsDecorators([range], lineHints);
       }));
     }));
     store.add(gesture.onCancel(() => sessionStore.clear()));
-    store.add(gesture.onExecute((e) => __awaiter35(this, void 0, void 0, function* () {
+    store.add(gesture.onExecute((e) => __awaiter39(this, void 0, void 0, function* () {
       const label = this._getInlayHintLabelPart(e);
       if (label) {
         const part = label.part;
@@ -35276,8 +35876,17 @@ var InlayHintsController = class InlayHintsController2 {
     })));
     return store;
   }
-  _installDblClickGesture() {
-    return this._editor.onMouseUp((e) => __awaiter35(this, void 0, void 0, function* () {
+  _getInlineHintsForRange(range) {
+    const lineHints = /* @__PURE__ */ new Set();
+    for (const data of this._decorationsMetadata.values()) {
+      if (range.containsRange(data.item.anchor.range)) {
+        lineHints.add(data.item);
+      }
+    }
+    return Array.from(lineHints);
+  }
+  _installDblClickGesture(updateInlayHints) {
+    return this._editor.onMouseUp((e) => __awaiter39(this, void 0, void 0, function* () {
       if (e.event.detail !== 2) {
         return;
       }
@@ -35287,13 +35896,15 @@ var InlayHintsController = class InlayHintsController2 {
       }
       e.event.preventDefault();
       yield part.item.resolve(CancellationToken.None);
-      if (part.item.hint.command) {
-        yield this._invokeCommand(part.item.hint.command, part.item);
+      if (isNonEmptyArray(part.item.hint.textEdits)) {
+        const edits = part.item.hint.textEdits.map((edit) => EditOperation.replace(Range.lift(edit.range), edit.text));
+        this._editor.executeEdits("inlayHint.default", edits);
+        updateInlayHints();
       }
     }));
   }
   _installContextMenu() {
-    return this._editor.onContextMenu((e) => __awaiter35(this, void 0, void 0, function* () {
+    return this._editor.onContextMenu((e) => __awaiter39(this, void 0, void 0, function* () {
       if (!(e.event.target instanceof HTMLElement)) {
         return;
       }
@@ -35316,7 +35927,7 @@ var InlayHintsController = class InlayHintsController2 {
   }
   _invokeCommand(command, item) {
     var _a5;
-    return __awaiter35(this, void 0, void 0, function* () {
+    return __awaiter39(this, void 0, void 0, function* () {
       try {
         yield this._commandService.executeCommand(command.id, ...(_a5 = command.arguments) !== null && _a5 !== void 0 ? _a5 : []);
       } catch (err) {
@@ -35329,20 +35940,23 @@ var InlayHintsController = class InlayHintsController2 {
     });
   }
   _cacheHintsForFastRestore(model) {
+    const hints = this._copyInlayHintsWithCurrentAnchor(model);
+    this._inlayHintsCache.set(model, hints);
+  }
+  _copyInlayHintsWithCurrentAnchor(model) {
     const items = /* @__PURE__ */ new Map();
     for (const [id, obj] of this._decorationsMetadata) {
       if (items.has(obj.item)) {
         continue;
       }
-      let value = obj.item;
       const range = model.getDecorationRange(id);
       if (range) {
         const anchor = new InlayHintAnchor(range, obj.item.anchor.direction);
-        value = obj.item.with({ anchor });
+        const copy = obj.item.with({ anchor });
+        items.set(obj.item, copy);
       }
-      items.set(obj.item, value);
     }
-    this._inlayHintsCache.set(model, Array.from(items.values()));
+    return Array.from(items.values());
   }
   _getHintsRanges() {
     const extra = 30;
@@ -35363,6 +35977,13 @@ var InlayHintsController = class InlayHintsController2 {
     var _a5, _b2;
     const newDecorationsData = [];
     const addInjectedText = (item, ref, content, cursorStops, attachedData) => {
+      const opts = {
+        content,
+        inlineClassNameAffectsLetterSpacing: true,
+        inlineClassName: ref.className,
+        cursorStops,
+        attachedData
+      };
       newDecorationsData.push({
         item,
         classNameRef: ref,
@@ -35373,13 +35994,7 @@ var InlayHintsController = class InlayHintsController2 {
             showIfCollapsed: item.anchor.range.isEmpty(),
             collapseOnReplaceEdit: !item.anchor.range.isEmpty(),
             stickiness: 0,
-            [item.anchor.direction]: {
-              content,
-              inlineClassNameAffectsLetterSpacing: true,
-              inlineClassName: ref.className,
-              cursorStops,
-              attachedData
-            }
+            [item.anchor.direction]: this._activeRenderMode === 0 ? opts : void 0
           }
         }
       });
@@ -35391,7 +36006,7 @@ var InlayHintsController = class InlayHintsController2 {
       });
       addInjectedText(item, marginRule, "\u200A", isLast ? InjectedTextCursorStops.Right : InjectedTextCursorStops.None);
     };
-    const { fontSize, fontFamily } = this._getLayoutInfo();
+    const { fontSize, fontFamily, padding, isUniform } = this._getLayoutInfo();
     const fontFamilyVar = "--code-editorInlayHintsFontFamily";
     this._editor.getContainerDomNode().style.setProperty(fontFamilyVar, fontFamily);
     for (const item of items) {
@@ -35406,10 +36021,10 @@ var InlayHintsController = class InlayHintsController2 {
         const cssProperties = {
           fontSize: `${fontSize}px`,
           fontFamily: `var(${fontFamilyVar}), ${EDITOR_FONT_DEFAULTS.fontFamily}`,
-          verticalAlign: "middle"
+          verticalAlign: isUniform ? "baseline" : "middle"
         };
-        if (item.hint.command) {
-          cssProperties.cursor = "pointer";
+        if (isNonEmptyArray(item.hint.textEdits)) {
+          cssProperties.cursor = "default";
         }
         this._fillInColors(cssProperties, item.hint);
         if ((part.command || part.location) && ((_a5 = this._activeInlayHintPart) === null || _a5 === void 0 ? void 0 : _a5.part.item) === item && this._activeInlayHintPart.part.index === i) {
@@ -35419,17 +36034,19 @@ var InlayHintsController = class InlayHintsController2 {
             cssProperties.cursor = "pointer";
           }
         }
-        if (isFirst && isLast) {
-          cssProperties.padding = `1px ${Math.max(1, fontSize / 4) | 0}px`;
-          cssProperties.borderRadius = `${fontSize / 4 | 0}px`;
-        } else if (isFirst) {
-          cssProperties.padding = `1px 0 1px ${Math.max(1, fontSize / 4) | 0}px`;
-          cssProperties.borderRadius = `${fontSize / 4 | 0}px 0 0 ${fontSize / 4 | 0}px`;
-        } else if (isLast) {
-          cssProperties.padding = `1px ${Math.max(1, fontSize / 4) | 0}px 1px 0`;
-          cssProperties.borderRadius = `0 ${fontSize / 4 | 0}px ${fontSize / 4 | 0}px 0`;
-        } else {
-          cssProperties.padding = `1px 0 1px 0`;
+        if (padding) {
+          if (isFirst && isLast) {
+            cssProperties.padding = `1px ${Math.max(1, fontSize / 4) | 0}px`;
+            cssProperties.borderRadius = `${fontSize / 4 | 0}px`;
+          } else if (isFirst) {
+            cssProperties.padding = `1px 0 1px ${Math.max(1, fontSize / 4) | 0}px`;
+            cssProperties.borderRadius = `${fontSize / 4 | 0}px 0 0 ${fontSize / 4 | 0}px`;
+          } else if (isLast) {
+            cssProperties.padding = `1px ${Math.max(1, fontSize / 4) | 0}px 1px 0`;
+            cssProperties.borderRadius = `0 ${fontSize / 4 | 0}px ${fontSize / 4 | 0}px 0`;
+          } else {
+            cssProperties.padding = `1px 0 1px 0`;
+          }
         }
         addInjectedText(item, this._ruleFactory.createClassNameRef(cssProperties), fixSpace(part.label), isLast && !item.hint.paddingRight ? InjectedTextCursorStops.Right : InjectedTextCursorStops.None, new RenderedInlayHintLabelPart(item, i));
       }
@@ -35451,11 +36068,13 @@ var InlayHintsController = class InlayHintsController2 {
         }
       }
     }
-    const newDecorationIds = this._editor.deltaDecorations(decorationIdsToReplace, newDecorationsData.map((d) => d.decoration));
-    for (let i = 0; i < newDecorationIds.length; i++) {
-      const data = newDecorationsData[i];
-      this._decorationsMetadata.set(newDecorationIds[i], { item: data.item, classNameRef: data.classNameRef });
-    }
+    this._editor.changeDecorations((accessor) => {
+      const newDecorationIds = accessor.deltaDecorations(decorationIdsToReplace, newDecorationsData.map((d) => d.decoration));
+      for (let i = 0; i < newDecorationIds.length; i++) {
+        const data = newDecorationsData[i];
+        this._decorationsMetadata.set(newDecorationIds[i], data);
+      }
+    });
   }
   _fillInColors(props, hint) {
     if (hint.kind === InlayHintKind.Parameter) {
@@ -35470,18 +36089,21 @@ var InlayHintsController = class InlayHintsController2 {
     }
   }
   _getLayoutInfo() {
-    const options = this._editor.getOption(127);
-    const editorFontSize = this._editor.getOption(46);
+    const options = this._editor.getOption(128);
+    const padding = options.padding;
+    const editorFontSize = this._editor.getOption(47);
+    const editorFontFamily = this._editor.getOption(44);
     let fontSize = options.fontSize;
     if (!fontSize || fontSize < 5 || fontSize > editorFontSize) {
-      fontSize = editorFontSize * 0.9 | 0;
+      fontSize = editorFontSize;
     }
-    const fontFamily = options.fontFamily || this._editor.getOption(43);
-    return { fontSize, fontFamily };
+    const fontFamily = options.fontFamily || editorFontFamily;
+    const isUniform = !padding && fontFamily === editorFontFamily && fontSize === editorFontSize;
+    return { fontSize, fontFamily, padding, isUniform };
   }
   _removeAllDecorations() {
-    this._editor.deltaDecorations(Array.from(this._decorationsMetadata.keys()), []);
-    for (let obj of this._decorationsMetadata.values()) {
+    this._editor.removeDecorations(Array.from(this._decorationsMetadata.keys()));
+    for (const obj of this._decorationsMetadata.values()) {
       obj.classNameRef.dispose();
     }
     this._decorationsMetadata.clear();
@@ -35489,19 +36111,19 @@ var InlayHintsController = class InlayHintsController2 {
 };
 InlayHintsController.ID = "editor.contrib.InlayHints";
 InlayHintsController._MAX_DECORATORS = 1500;
-InlayHintsController = __decorate48([
-  __param48(1, ILanguageFeaturesService),
-  __param48(2, ILanguageFeatureDebounceService),
-  __param48(3, IInlayHintsCache),
-  __param48(4, ICommandService),
-  __param48(5, INotificationService),
-  __param48(6, IInstantiationService)
+InlayHintsController = __decorate53([
+  __param53(1, ILanguageFeaturesService),
+  __param53(2, ILanguageFeatureDebounceService),
+  __param53(3, IInlayHintsCache),
+  __param53(4, ICommandService),
+  __param53(5, INotificationService),
+  __param53(6, IInstantiationService)
 ], InlayHintsController);
 function fixSpace(str) {
   const noBreakWhitespace2 = "\xA0";
   return str.replace(/[ \t]/g, noBreakWhitespace2);
 }
-CommandsRegistry.registerCommand("_executeInlayHintProvider", (accessor, ...args) => __awaiter35(void 0, void 0, void 0, function* () {
+CommandsRegistry.registerCommand("_executeInlayHintProvider", (accessor, ...args) => __awaiter39(void 0, void 0, void 0, function* () {
   const [uri, range] = args;
   assertType(URI.isUri(uri));
   assertType(Range.isIRange(range));
@@ -35529,7 +36151,8 @@ init_opener();
 init_languageFeatures();
 init_nls();
 init_platform();
-var __decorate49 = function(decorators, target, key, desc) {
+init_arrays();
+var __decorate54 = function(decorators, target, key, desc) {
   var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
   if (typeof Reflect === "object" && typeof Reflect.decorate === "function")
     r = Reflect.decorate(decorators, target, key, desc);
@@ -35539,12 +36162,12 @@ var __decorate49 = function(decorators, target, key, desc) {
         r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
   return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __param49 = function(paramIndex, decorator) {
+var __param54 = function(paramIndex, decorator) {
   return function(target, key) {
     decorator(target, key, paramIndex);
   };
 };
-var __awaiter36 = function(thisArg, _arguments, P, generator) {
+var __awaiter40 = function(thisArg, _arguments, P, generator) {
   function adopt(value) {
     return value instanceof P ? value : new P(function(resolve) {
       resolve(value);
@@ -35625,7 +36248,7 @@ var InlayHintsHover = class InlayHintsHover2 extends MarkdownHoverParticipant {
     if (!(anchor instanceof InlayHintsHoverAnchor)) {
       return AsyncIterableObject.EMPTY;
     }
-    return new AsyncIterableObject((executor) => __awaiter36(this, void 0, void 0, function* () {
+    return new AsyncIterableObject((executor) => __awaiter40(this, void 0, void 0, function* () {
       var e_1, _a5;
       const { part } = anchor;
       yield part.item.resolve(token);
@@ -35641,6 +36264,9 @@ var InlayHintsHover = class InlayHintsHover2 extends MarkdownHoverParticipant {
       if (itemTooltip) {
         executor.emitOne(new MarkdownHover(this, anchor.range, [itemTooltip], 0));
       }
+      if (isNonEmptyArray(part.item.hint.textEdits)) {
+        executor.emitOne(new MarkdownHover(this, anchor.range, [new MarkdownString().appendText(localize("hint.dbl", "Double click to insert"))], 10001));
+      }
       let partTooltip;
       if (typeof part.part.tooltip === "string") {
         partTooltip = new MarkdownString().appendText(part.part.tooltip);
@@ -35652,7 +36278,7 @@ var InlayHintsHover = class InlayHintsHover2 extends MarkdownHoverParticipant {
       }
       if (part.part.location || part.part.command) {
         let linkHint;
-        const useMetaKey = this._editor.getOption(70) === "altKey";
+        const useMetaKey = this._editor.getOption(71) === "altKey";
         const kb = useMetaKey ? isMacintosh ? localize("links.navigate.kb.meta.mac", "cmd + click") : localize("links.navigate.kb.meta", "ctrl + click") : isMacintosh ? localize("links.navigate.kb.alt.mac", "option + click") : localize("links.navigate.kb.alt", "alt + click");
         if (part.part.location && part.part.command) {
           linkHint = new MarkdownString().appendText(localize("hint.defAndCommand", "Go to Definition ({0}), right click for more", kb));
@@ -35668,7 +36294,7 @@ var InlayHintsHover = class InlayHintsHover2 extends MarkdownHoverParticipant {
       const iterable = yield this._resolveInlayHintLabelPartHover(part, token);
       try {
         for (var iterable_1 = __asyncValues2(iterable), iterable_1_1; iterable_1_1 = yield iterable_1.next(), !iterable_1_1.done; ) {
-          let item = iterable_1_1.value;
+          const item = iterable_1_1.value;
           executor.emitOne(item);
         }
       } catch (e_1_1) {
@@ -35685,7 +36311,7 @@ var InlayHintsHover = class InlayHintsHover2 extends MarkdownHoverParticipant {
     }));
   }
   _resolveInlayHintLabelPartHover(part, token) {
-    return __awaiter36(this, void 0, void 0, function* () {
+    return __awaiter40(this, void 0, void 0, function* () {
       if (!part.part.location) {
         return AsyncIterableObject.EMPTY;
       }
@@ -35703,12 +36329,12 @@ var InlayHintsHover = class InlayHintsHover2 extends MarkdownHoverParticipant {
     });
   }
 };
-InlayHintsHover = __decorate49([
-  __param49(1, ILanguageService),
-  __param49(2, IOpenerService),
-  __param49(3, IConfigurationService),
-  __param49(4, ITextModelService),
-  __param49(5, ILanguageFeaturesService)
+InlayHintsHover = __decorate54([
+  __param54(1, ILanguageService),
+  __param54(2, IOpenerService),
+  __param54(3, IConfigurationService),
+  __param54(4, ITextModelService),
+  __param54(5, ILanguageFeaturesService)
 ], InlayHintsHover);
 
 // ../../node_modules/monaco-editor/esm/vs/editor/contrib/inlayHints/browser/inlayHintsContribution.js
@@ -35852,7 +36478,7 @@ var CopyLinesCommand = class {
       this._endLineNumberDelta = 1;
       s = s.setEndPosition(s.endLineNumber - 1, model.getLineMaxColumn(s.endLineNumber - 1));
     }
-    let sourceLines = [];
+    const sourceLines = [];
     for (let i = s.startLineNumber; i <= s.endLineNumber; i++) {
       sourceLines.push(model.getLineContent(i));
     }
@@ -35903,8 +36529,24 @@ init_range();
 init_selection();
 init_languageConfiguration();
 init_languageConfigurationRegistry();
-var MoveLinesCommand = class {
-  constructor(selection, isMovingDown, autoIndent) {
+var __decorate55 = function(decorators, target, key, desc) {
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function")
+    r = Reflect.decorate(decorators, target, key, desc);
+  else
+    for (var i = decorators.length - 1; i >= 0; i--)
+      if (d = decorators[i])
+        r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __param55 = function(paramIndex, decorator) {
+  return function(target, key) {
+    decorator(target, key, paramIndex);
+  };
+};
+var MoveLinesCommand = class MoveLinesCommand2 {
+  constructor(selection, isMovingDown, autoIndent, _languageConfigurationService) {
+    this._languageConfigurationService = _languageConfigurationService;
     this._selection = selection;
     this._isMovingDown = isMovingDown;
     this._autoIndent = autoIndent;
@@ -35912,7 +36554,7 @@ var MoveLinesCommand = class {
     this._moveEndLineSelectionShrink = false;
   }
   getEditOperations(model, builder) {
-    let modelLineCount = model.getLineCount();
+    const modelLineCount = model.getLineCount();
     if (this._isMovingDown && this._selection.endLineNumber === modelLineCount) {
       this._selectionId = builder.trackSelection(this._selection);
       return;
@@ -35928,22 +36570,24 @@ var MoveLinesCommand = class {
       s = s.setEndPosition(s.endLineNumber - 1, model.getLineMaxColumn(s.endLineNumber - 1));
     }
     const { tabSize, indentSize, insertSpaces } = model.getOptions();
-    let indentConverter = this.buildIndentConverter(tabSize, indentSize, insertSpaces);
-    let virtualModel = {
-      getLineTokens: (lineNumber) => {
-        return model.getLineTokens(lineNumber);
-      },
-      getLanguageId: () => {
-        return model.getLanguageId();
-      },
-      getLanguageIdAtPosition: (lineNumber, column) => {
-        return model.getLanguageIdAtPosition(lineNumber, column);
+    const indentConverter = this.buildIndentConverter(tabSize, indentSize, insertSpaces);
+    const virtualModel = {
+      tokenization: {
+        getLineTokens: (lineNumber) => {
+          return model.tokenization.getLineTokens(lineNumber);
+        },
+        getLanguageId: () => {
+          return model.getLanguageId();
+        },
+        getLanguageIdAtPosition: (lineNumber, column) => {
+          return model.getLanguageIdAtPosition(lineNumber, column);
+        }
       },
       getLineContent: null
     };
     if (s.startLineNumber === s.endLineNumber && model.getLineMaxColumn(s.startLineNumber) === 1) {
-      let lineNumber = s.startLineNumber;
-      let otherLineNumber = this._isMovingDown ? lineNumber + 1 : lineNumber - 1;
+      const lineNumber = s.startLineNumber;
+      const otherLineNumber = this._isMovingDown ? lineNumber + 1 : lineNumber - 1;
       if (model.getLineMaxColumn(otherLineNumber) === 1) {
         builder.addEditOperation(new Range(1, 1, 1, 1), null);
       } else {
@@ -35960,11 +36604,11 @@ var MoveLinesCommand = class {
         builder.addEditOperation(new Range(movingLineNumber - 1, model.getLineMaxColumn(movingLineNumber - 1), movingLineNumber, model.getLineMaxColumn(movingLineNumber)), null);
         let insertingText = movingLineText;
         if (this.shouldAutoIndent(model, s)) {
-          let movingLineMatchResult = this.matchEnterRule(model, indentConverter, tabSize, movingLineNumber, s.startLineNumber - 1);
+          const movingLineMatchResult = this.matchEnterRule(model, indentConverter, tabSize, movingLineNumber, s.startLineNumber - 1);
           if (movingLineMatchResult !== null) {
-            let oldIndentation = getLeadingWhitespace(model.getLineContent(movingLineNumber));
-            let newSpaceCnt = movingLineMatchResult + getSpaceCnt(oldIndentation, tabSize);
-            let newIndentation = generateIndent(newSpaceCnt, tabSize, insertSpaces);
+            const oldIndentation = getLeadingWhitespace(model.getLineContent(movingLineNumber));
+            const newSpaceCnt = movingLineMatchResult + getSpaceCnt(oldIndentation, tabSize);
+            const newIndentation = generateIndent(newSpaceCnt, tabSize, insertSpaces);
             insertingText = newIndentation + this.trimLeft(movingLineText);
           } else {
             virtualModel.getLineContent = (lineNumber) => {
@@ -35974,19 +36618,19 @@ var MoveLinesCommand = class {
                 return model.getLineContent(lineNumber);
               }
             };
-            let indentOfMovingLine = LanguageConfigurationRegistry.getGoodIndentForLine(this._autoIndent, virtualModel, model.getLanguageIdAtPosition(movingLineNumber, 1), s.startLineNumber, indentConverter);
+            const indentOfMovingLine = getGoodIndentForLine(this._autoIndent, virtualModel, model.getLanguageIdAtPosition(movingLineNumber, 1), s.startLineNumber, indentConverter, this._languageConfigurationService);
             if (indentOfMovingLine !== null) {
-              let oldIndentation = getLeadingWhitespace(model.getLineContent(movingLineNumber));
-              let newSpaceCnt = getSpaceCnt(indentOfMovingLine, tabSize);
-              let oldSpaceCnt = getSpaceCnt(oldIndentation, tabSize);
+              const oldIndentation = getLeadingWhitespace(model.getLineContent(movingLineNumber));
+              const newSpaceCnt = getSpaceCnt(indentOfMovingLine, tabSize);
+              const oldSpaceCnt = getSpaceCnt(oldIndentation, tabSize);
               if (newSpaceCnt !== oldSpaceCnt) {
-                let newIndentation = generateIndent(newSpaceCnt, tabSize, insertSpaces);
+                const newIndentation = generateIndent(newSpaceCnt, tabSize, insertSpaces);
                 insertingText = newIndentation + this.trimLeft(movingLineText);
               }
             }
           }
           builder.addEditOperation(new Range(s.startLineNumber, 1, s.startLineNumber, 1), insertingText + "\n");
-          let ret = this.matchEnterRuleMovingDown(model, indentConverter, tabSize, s.startLineNumber, movingLineNumber, insertingText);
+          const ret = this.matchEnterRuleMovingDown(model, indentConverter, tabSize, s.startLineNumber, movingLineNumber, insertingText);
           if (ret !== null) {
             if (ret !== 0) {
               this.getIndentEditsOfMovingBlock(model, builder, s, tabSize, insertSpaces, ret);
@@ -36001,7 +36645,7 @@ var MoveLinesCommand = class {
                 return model.getLineContent(lineNumber);
               }
             };
-            let newIndentatOfMovingBlock = LanguageConfigurationRegistry.getGoodIndentForLine(this._autoIndent, virtualModel, model.getLanguageIdAtPosition(movingLineNumber, 1), s.startLineNumber + 1, indentConverter);
+            const newIndentatOfMovingBlock = getGoodIndentForLine(this._autoIndent, virtualModel, model.getLanguageIdAtPosition(movingLineNumber, 1), s.startLineNumber + 1, indentConverter, this._languageConfigurationService);
             if (newIndentatOfMovingBlock !== null) {
               const oldIndentation = getLeadingWhitespace(model.getLineContent(s.startLineNumber));
               const newSpaceCnt = getSpaceCnt(newIndentatOfMovingBlock, tabSize);
@@ -36028,19 +36672,19 @@ var MoveLinesCommand = class {
               return model.getLineContent(lineNumber);
             }
           };
-          let ret = this.matchEnterRule(model, indentConverter, tabSize, s.startLineNumber, s.startLineNumber - 2);
+          const ret = this.matchEnterRule(model, indentConverter, tabSize, s.startLineNumber, s.startLineNumber - 2);
           if (ret !== null) {
             if (ret !== 0) {
               this.getIndentEditsOfMovingBlock(model, builder, s, tabSize, insertSpaces, ret);
             }
           } else {
-            let indentOfFirstLine = LanguageConfigurationRegistry.getGoodIndentForLine(this._autoIndent, virtualModel, model.getLanguageIdAtPosition(s.startLineNumber, 1), movingLineNumber, indentConverter);
+            const indentOfFirstLine = getGoodIndentForLine(this._autoIndent, virtualModel, model.getLanguageIdAtPosition(s.startLineNumber, 1), movingLineNumber, indentConverter, this._languageConfigurationService);
             if (indentOfFirstLine !== null) {
-              let oldIndent = getLeadingWhitespace(model.getLineContent(s.startLineNumber));
-              let newSpaceCnt = getSpaceCnt(indentOfFirstLine, tabSize);
-              let oldSpaceCnt = getSpaceCnt(oldIndent, tabSize);
+              const oldIndent = getLeadingWhitespace(model.getLineContent(s.startLineNumber));
+              const newSpaceCnt = getSpaceCnt(indentOfFirstLine, tabSize);
+              const oldSpaceCnt = getSpaceCnt(oldIndent, tabSize);
               if (newSpaceCnt !== oldSpaceCnt) {
-                let spaceCntOffset = newSpaceCnt - oldSpaceCnt;
+                const spaceCntOffset = newSpaceCnt - oldSpaceCnt;
                 this.getIndentEditsOfMovingBlock(model, builder, s, tabSize, insertSpaces, spaceCntOffset);
               }
             }
@@ -36072,16 +36716,16 @@ var MoveLinesCommand = class {
       } else if (enter.indentAction === IndentAction.Outdent) {
         enterPrefix = indentConverter.unshiftIndent(enter.indentation) + enter.appendText;
       }
-      let movingLineText = model.getLineContent(line);
+      const movingLineText = model.getLineContent(line);
       if (this.trimLeft(movingLineText).indexOf(this.trimLeft(enterPrefix)) >= 0) {
-        let oldIndentation = getLeadingWhitespace(model.getLineContent(line));
+        const oldIndentation = getLeadingWhitespace(model.getLineContent(line));
         let newIndentation = getLeadingWhitespace(enterPrefix);
-        let indentMetadataOfMovelingLine = LanguageConfigurationRegistry.getIndentMetadata(model, line);
+        const indentMetadataOfMovelingLine = getIndentMetadata(model, line, this._languageConfigurationService);
         if (indentMetadataOfMovelingLine !== null && indentMetadataOfMovelingLine & 2) {
           newIndentation = indentConverter.unshiftIndent(newIndentation);
         }
-        let newSpaceCnt = getSpaceCnt(newIndentation, tabSize);
-        let oldSpaceCnt = getSpaceCnt(oldIndentation, tabSize);
+        const newSpaceCnt = getSpaceCnt(newIndentation, tabSize);
+        const oldSpaceCnt = getSpaceCnt(oldIndentation, tabSize);
         return newSpaceCnt - oldSpaceCnt;
       }
     }
@@ -36089,14 +36733,14 @@ var MoveLinesCommand = class {
   }
   matchEnterRuleMovingDown(model, indentConverter, tabSize, line, futureAboveLineNumber, futureAboveLineText) {
     if (lastNonWhitespaceIndex(futureAboveLineText) >= 0) {
-      let maxColumn = model.getLineMaxColumn(futureAboveLineNumber);
-      let enter = LanguageConfigurationRegistry.getEnterAction(this._autoIndent, model, new Range(futureAboveLineNumber, maxColumn, futureAboveLineNumber, maxColumn));
+      const maxColumn = model.getLineMaxColumn(futureAboveLineNumber);
+      const enter = getEnterAction(this._autoIndent, model, new Range(futureAboveLineNumber, maxColumn, futureAboveLineNumber, maxColumn), this._languageConfigurationService);
       return this.parseEnterResult(model, indentConverter, tabSize, line, enter);
     } else {
       let validPrecedingLine = line - 1;
       while (validPrecedingLine >= 1) {
-        let lineContent = model.getLineContent(validPrecedingLine);
-        let nonWhitespaceIdx = lastNonWhitespaceIndex(lineContent);
+        const lineContent = model.getLineContent(validPrecedingLine);
+        const nonWhitespaceIdx = lastNonWhitespaceIndex(lineContent);
         if (nonWhitespaceIdx >= 0) {
           break;
         }
@@ -36105,8 +36749,8 @@ var MoveLinesCommand = class {
       if (validPrecedingLine < 1 || line > model.getLineCount()) {
         return null;
       }
-      let maxColumn = model.getLineMaxColumn(validPrecedingLine);
-      let enter = LanguageConfigurationRegistry.getEnterAction(this._autoIndent, model, new Range(validPrecedingLine, maxColumn, validPrecedingLine, maxColumn));
+      const maxColumn = model.getLineMaxColumn(validPrecedingLine);
+      const enter = getEnterAction(this._autoIndent, model, new Range(validPrecedingLine, maxColumn, validPrecedingLine, maxColumn), this._languageConfigurationService);
       return this.parseEnterResult(model, indentConverter, tabSize, line, enter);
     }
   }
@@ -36119,7 +36763,7 @@ var MoveLinesCommand = class {
       } else {
         lineContent = model.getLineContent(validPrecedingLine);
       }
-      let nonWhitespaceIdx = lastNonWhitespaceIndex(lineContent);
+      const nonWhitespaceIdx = lastNonWhitespaceIndex(lineContent);
       if (nonWhitespaceIdx >= 0) {
         break;
       }
@@ -36128,8 +36772,8 @@ var MoveLinesCommand = class {
     if (validPrecedingLine < 1 || line > model.getLineCount()) {
       return null;
     }
-    let maxColumn = model.getLineMaxColumn(validPrecedingLine);
-    let enter = LanguageConfigurationRegistry.getEnterAction(this._autoIndent, model, new Range(validPrecedingLine, maxColumn, validPrecedingLine, maxColumn));
+    const maxColumn = model.getLineMaxColumn(validPrecedingLine);
+    const enter = getEnterAction(this._autoIndent, model, new Range(validPrecedingLine, maxColumn, validPrecedingLine, maxColumn), this._languageConfigurationService);
     return this.parseEnterResult(model, indentConverter, tabSize, line, enter);
   }
   trimLeft(str) {
@@ -36139,26 +36783,26 @@ var MoveLinesCommand = class {
     if (this._autoIndent < 4) {
       return false;
     }
-    if (!model.isCheapToTokenize(selection.startLineNumber)) {
+    if (!model.tokenization.isCheapToTokenize(selection.startLineNumber)) {
       return false;
     }
-    let languageAtSelectionStart = model.getLanguageIdAtPosition(selection.startLineNumber, 1);
-    let languageAtSelectionEnd = model.getLanguageIdAtPosition(selection.endLineNumber, 1);
+    const languageAtSelectionStart = model.getLanguageIdAtPosition(selection.startLineNumber, 1);
+    const languageAtSelectionEnd = model.getLanguageIdAtPosition(selection.endLineNumber, 1);
     if (languageAtSelectionStart !== languageAtSelectionEnd) {
       return false;
     }
-    if (LanguageConfigurationRegistry.getIndentRulesSupport(languageAtSelectionStart) === null) {
+    if (this._languageConfigurationService.getLanguageConfiguration(languageAtSelectionStart).indentRulesSupport === null) {
       return false;
     }
     return true;
   }
   getIndentEditsOfMovingBlock(model, builder, s, tabSize, insertSpaces, offset) {
     for (let i = s.startLineNumber; i <= s.endLineNumber; i++) {
-      let lineContent = model.getLineContent(i);
-      let originalIndent = getLeadingWhitespace(lineContent);
-      let originalSpacesCnt = getSpaceCnt(originalIndent, tabSize);
-      let newSpacesCnt = originalSpacesCnt + offset;
-      let newIndent = generateIndent(newSpacesCnt, tabSize, insertSpaces);
+      const lineContent = model.getLineContent(i);
+      const originalIndent = getLeadingWhitespace(lineContent);
+      const originalSpacesCnt = getSpaceCnt(originalIndent, tabSize);
+      const newSpacesCnt = originalSpacesCnt + offset;
+      const newIndent = generateIndent(newSpacesCnt, tabSize, insertSpaces);
       if (newIndent !== originalIndent) {
         builder.addEditOperation(new Range(i, 1, i, originalIndent.length + 1), newIndent);
         if (i === s.endLineNumber && s.endColumn <= originalIndent.length + 1 && newIndent === "") {
@@ -36178,6 +36822,9 @@ var MoveLinesCommand = class {
     return result;
   }
 };
+MoveLinesCommand = __decorate55([
+  __param55(3, ILanguageConfigurationService)
+], MoveLinesCommand);
 
 // ../../node_modules/monaco-editor/esm/vs/editor/contrib/linesOperations/browser/sortLinesCommand.js
 init_define_process();
@@ -36196,7 +36843,7 @@ var SortLinesCommand = class {
     return SortLinesCommand._COLLATOR;
   }
   getEditOperations(model, builder) {
-    let op = sortLines(model, this.selection, this.descending);
+    const op = sortLines(model, this.selection, this.descending);
     if (op) {
       builder.addEditOperation(op.range, op.text);
     }
@@ -36209,7 +36856,7 @@ var SortLinesCommand = class {
     if (model === null) {
       return false;
     }
-    let data = getSortData(model, selection, descending);
+    const data = getSortData(model, selection, descending);
     if (!data) {
       return false;
     }
@@ -36223,7 +36870,7 @@ var SortLinesCommand = class {
 };
 SortLinesCommand._COLLATOR = null;
 function getSortData(model, selection, descending) {
-  let startLineNumber = selection.startLineNumber;
+  const startLineNumber = selection.startLineNumber;
   let endLineNumber = selection.endLineNumber;
   if (selection.endColumn === 1) {
     endLineNumber--;
@@ -36231,7 +36878,7 @@ function getSortData(model, selection, descending) {
   if (startLineNumber >= endLineNumber) {
     return null;
   }
-  let linesToSort = [];
+  const linesToSort = [];
   for (let lineNumber = startLineNumber; lineNumber <= endLineNumber; lineNumber++) {
     linesToSort.push(model.getLineContent(lineNumber));
   }
@@ -36248,7 +36895,7 @@ function getSortData(model, selection, descending) {
   };
 }
 function sortLines(model, selection, descending) {
-  let data = getSortData(model, selection, descending);
+  const data = getSortData(model, selection, descending);
   if (!data) {
     return null;
   }
@@ -36258,6 +36905,7 @@ function sortLines(model, selection, descending) {
 // ../../node_modules/monaco-editor/esm/vs/editor/contrib/linesOperations/browser/linesOperations.js
 init_nls();
 init_actions2();
+init_languageConfigurationRegistry();
 var AbstractCopyLinesAction = class extends EditorAction {
   constructor(down, opts) {
     super(opts);
@@ -36374,12 +37022,13 @@ var AbstractMoveLinesAction = class extends EditorAction {
     super(opts);
     this.down = down;
   }
-  run(_accessor, editor2) {
-    let commands = [];
-    let selections = editor2.getSelections() || [];
+  run(accessor, editor2) {
+    const languageConfigurationService = accessor.get(ILanguageConfigurationService);
+    const commands = [];
+    const selections = editor2.getSelections() || [];
     const autoIndent = editor2.getOption(9);
     for (const selection of selections) {
-      commands.push(new MoveLinesCommand(selection, this.down, autoIndent));
+      commands.push(new MoveLinesCommand(selection, this.down, autoIndent, languageConfigurationService));
     }
     editor2.pushUndoStop();
     editor2.executeCommands(this.id, commands);
@@ -36442,7 +37091,7 @@ var AbstractSortLinesAction = class extends EditorAction {
         return;
       }
     }
-    let commands = [];
+    const commands = [];
     for (let i = 0, len = selections.length; i < len; i++) {
       commands[i] = new SortLinesCommand(selections[i], this.descending);
     }
@@ -36484,27 +37133,27 @@ var DeleteDuplicateLinesAction = class extends EditorAction {
     if (!editor2.hasModel()) {
       return;
     }
-    let model = editor2.getModel();
+    const model = editor2.getModel();
     if (model.getLineCount() === 1 && model.getLineMaxColumn(1) === 1) {
       return;
     }
-    let edits = [];
-    let endCursorState = [];
+    const edits = [];
+    const endCursorState = [];
     let linesDeleted = 0;
-    for (let selection of editor2.getSelections()) {
-      let uniqueLines = /* @__PURE__ */ new Set();
-      let lines = [];
+    for (const selection of editor2.getSelections()) {
+      const uniqueLines = /* @__PURE__ */ new Set();
+      const lines = [];
       for (let i = selection.startLineNumber; i <= selection.endLineNumber; i++) {
-        let line = model.getLineContent(i);
+        const line = model.getLineContent(i);
         if (uniqueLines.has(line)) {
           continue;
         }
         lines.push(line);
         uniqueLines.add(line);
       }
-      let selectionToReplace = new Selection(selection.startLineNumber, 1, selection.endLineNumber, model.getLineMaxColumn(selection.endLineNumber));
-      let adjustedSelectionStart = selection.startLineNumber - linesDeleted;
-      let finalSelection = new Selection(adjustedSelectionStart, 1, adjustedSelectionStart + lines.length - 1, lines[lines.length - 1].length);
+      const selectionToReplace = new Selection(selection.startLineNumber, 1, selection.endLineNumber, model.getLineMaxColumn(selection.endLineNumber));
+      const adjustedSelectionStart = selection.startLineNumber - linesDeleted;
+      const finalSelection = new Selection(adjustedSelectionStart, 1, adjustedSelectionStart + lines.length - 1, lines[lines.length - 1].length);
       edits.push(EditOperation.replace(selectionToReplace, lines.join("\n")));
       endCursorState.push(finalSelection);
       linesDeleted += selection.endLineNumber - selection.startLineNumber + 1 - lines.length;
@@ -36533,11 +37182,11 @@ var TrimTrailingWhitespaceAction = class extends EditorAction {
     if (args.reason === "auto-save") {
       cursors = (editor2.getSelections() || []).map((s) => new Position(s.positionLineNumber, s.positionColumn));
     }
-    let selection = editor2.getSelection();
+    const selection = editor2.getSelection();
     if (selection === null) {
       return;
     }
-    let command = new TrimTrailingWhitespaceCommand(selection, cursors);
+    const command = new TrimTrailingWhitespaceCommand(selection, cursors);
     editor2.pushUndoStop();
     editor2.executeCommands(this.id, [command]);
     editor2.pushUndoStop();
@@ -36562,14 +37211,14 @@ var DeleteLinesAction = class extends EditorAction {
     if (!editor2.hasModel()) {
       return;
     }
-    let ops = this._getLinesToRemove(editor2);
-    let model = editor2.getModel();
+    const ops = this._getLinesToRemove(editor2);
+    const model = editor2.getModel();
     if (model.getLineCount() === 1 && model.getLineMaxColumn(1) === 1) {
       return;
     }
     let linesDeleted = 0;
-    let edits = [];
-    let cursorState = [];
+    const edits = [];
+    const cursorState = [];
     for (let i = 0, len = ops.length; i < len; i++) {
       const op = ops[i];
       let startLineNumber = op.startLineNumber;
@@ -36592,7 +37241,7 @@ var DeleteLinesAction = class extends EditorAction {
     editor2.pushUndoStop();
   }
   _getLinesToRemove(editor2) {
-    let operations = editor2.getSelections().map((s) => {
+    const operations = editor2.getSelections().map((s) => {
       let endLineNumber = s.endLineNumber;
       if (s.startLineNumber < s.endLineNumber && s.endColumn === 1) {
         endLineNumber -= 1;
@@ -36610,7 +37259,7 @@ var DeleteLinesAction = class extends EditorAction {
       }
       return a.startLineNumber - b.startLineNumber;
     });
-    let mergedOperations = [];
+    const mergedOperations = [];
     let previousOperation = operations[0];
     for (let i = 1; i < operations.length; i++) {
       if (previousOperation.endLineNumber + 1 >= operations[i].startLineNumber) {
@@ -36718,11 +37367,11 @@ var AbstractDeleteAllToBoundaryAction = class extends EditorAction {
       return;
     }
     const primaryCursor = editor2.getSelection();
-    let rangesToDelete = this._getRangesToDelete(editor2);
-    let effectiveRanges = [];
+    const rangesToDelete = this._getRangesToDelete(editor2);
+    const effectiveRanges = [];
     for (let i = 0, count = rangesToDelete.length - 1; i < count; i++) {
-      let range = rangesToDelete[i];
-      let nextRange = rangesToDelete[i + 1];
+      const range = rangesToDelete[i];
+      const nextRange = rangesToDelete[i + 1];
       if (Range.intersectRanges(range, nextRange) === null) {
         effectiveRanges.push(range);
       } else {
@@ -36730,8 +37379,8 @@ var AbstractDeleteAllToBoundaryAction = class extends EditorAction {
       }
     }
     effectiveRanges.push(rangesToDelete[rangesToDelete.length - 1]);
-    let endCursorState = this._getEndCursorState(primaryCursor, effectiveRanges);
-    let edits = effectiveRanges.map((range) => {
+    const endCursorState = this._getEndCursorState(primaryCursor, effectiveRanges);
+    const edits = effectiveRanges.map((range) => {
       return EditOperation.replace(range, "");
     });
     editor2.pushUndoStop();
@@ -36756,12 +37405,12 @@ var DeleteAllLeftAction = class extends AbstractDeleteAllToBoundaryAction {
   }
   _getEndCursorState(primaryCursor, rangesToDelete) {
     let endPrimaryCursor = null;
-    let endCursorState = [];
+    const endCursorState = [];
     let deletedLines = 0;
     rangesToDelete.forEach((range) => {
       let endCursor;
       if (range.endColumn === 1 && deletedLines > 0) {
-        let newStartLine = range.startLineNumber - deletedLines;
+        const newStartLine = range.startLineNumber - deletedLines;
         endCursor = new Selection(newStartLine, range.startColumn, newStartLine, range.startColumn);
       } else {
         endCursor = new Selection(range.startLineNumber, range.startColumn, range.startLineNumber, range.startColumn);
@@ -36779,12 +37428,12 @@ var DeleteAllLeftAction = class extends AbstractDeleteAllToBoundaryAction {
     return endCursorState;
   }
   _getRangesToDelete(editor2) {
-    let selections = editor2.getSelections();
+    const selections = editor2.getSelections();
     if (selections === null) {
       return [];
     }
     let rangesToDelete = selections;
-    let model = editor2.getModel();
+    const model = editor2.getModel();
     if (model === null) {
       return [];
     }
@@ -36792,8 +37441,8 @@ var DeleteAllLeftAction = class extends AbstractDeleteAllToBoundaryAction {
     rangesToDelete = rangesToDelete.map((selection) => {
       if (selection.isEmpty()) {
         if (selection.startColumn === 1) {
-          let deleteFromLine = Math.max(1, selection.startLineNumber - 1);
-          let deleteFromColumn = selection.startLineNumber === 1 ? 1 : model.getLineContent(deleteFromLine).length + 1;
+          const deleteFromLine = Math.max(1, selection.startLineNumber - 1);
+          const deleteFromColumn = selection.startLineNumber === 1 ? 1 : model.getLineContent(deleteFromLine).length + 1;
           return new Range(deleteFromLine, deleteFromColumn, selection.startLineNumber, 1);
         } else {
           return new Range(selection.startLineNumber, 1, selection.startLineNumber, selection.startColumn);
@@ -36822,10 +37471,10 @@ var DeleteAllRightAction = class extends AbstractDeleteAllToBoundaryAction {
   }
   _getEndCursorState(primaryCursor, rangesToDelete) {
     let endPrimaryCursor = null;
-    let endCursorState = [];
+    const endCursorState = [];
     for (let i = 0, len = rangesToDelete.length, offset = 0; i < len; i++) {
-      let range = rangesToDelete[i];
-      let endCursor = new Selection(range.startLineNumber - offset, range.startColumn, range.startLineNumber - offset, range.startColumn);
+      const range = rangesToDelete[i];
+      const endCursor = new Selection(range.startLineNumber - offset, range.startColumn, range.startLineNumber - offset, range.startColumn);
       if (range.intersectRanges(primaryCursor)) {
         endPrimaryCursor = endCursor;
       } else {
@@ -36838,15 +37487,15 @@ var DeleteAllRightAction = class extends AbstractDeleteAllToBoundaryAction {
     return endCursorState;
   }
   _getRangesToDelete(editor2) {
-    let model = editor2.getModel();
+    const model = editor2.getModel();
     if (model === null) {
       return [];
     }
-    let selections = editor2.getSelections();
+    const selections = editor2.getSelections();
     if (selections === null) {
       return [];
     }
-    let rangesToDelete = selections.map((sel) => {
+    const rangesToDelete = selections.map((sel) => {
       if (sel.isEmpty()) {
         const maxColumn = model.getLineMaxColumn(sel.startLineNumber);
         if (sel.startColumn === maxColumn) {
@@ -36877,7 +37526,7 @@ var JoinLinesAction = class extends EditorAction {
     });
   }
   run(_accessor, editor2) {
-    let selections = editor2.getSelections();
+    const selections = editor2.getSelections();
     if (selections === null) {
       return;
     }
@@ -36886,8 +37535,8 @@ var JoinLinesAction = class extends EditorAction {
       return;
     }
     selections.sort(Range.compareRangesUsingStarts);
-    let reducedSelections = [];
-    let lastSelection = selections.reduce((previousValue, currentValue) => {
+    const reducedSelections = [];
+    const lastSelection = selections.reduce((previousValue, currentValue) => {
       if (previousValue.isEmpty()) {
         if (previousValue.endLineNumber === currentValue.startLineNumber) {
           if (primaryCursor.equalsSelection(previousValue)) {
@@ -36911,23 +37560,23 @@ var JoinLinesAction = class extends EditorAction {
       }
     });
     reducedSelections.push(lastSelection);
-    let model = editor2.getModel();
+    const model = editor2.getModel();
     if (model === null) {
       return;
     }
-    let edits = [];
-    let endCursorState = [];
+    const edits = [];
+    const endCursorState = [];
     let endPrimaryCursor = primaryCursor;
     let lineOffset = 0;
     for (let i = 0, len = reducedSelections.length; i < len; i++) {
-      let selection = reducedSelections[i];
-      let startLineNumber = selection.startLineNumber;
-      let startColumn = 1;
+      const selection = reducedSelections[i];
+      const startLineNumber = selection.startLineNumber;
+      const startColumn = 1;
       let columnDeltaOffset = 0;
       let endLineNumber, endColumn;
-      let selectionEndPositionOffset = model.getLineContent(selection.endLineNumber).length - selection.endColumn;
+      const selectionEndPositionOffset = model.getLineContent(selection.endLineNumber).length - selection.endColumn;
       if (selection.isEmpty() || selection.startLineNumber === selection.endLineNumber) {
-        let position = selection.getStartPosition();
+        const position = selection.getStartPosition();
         if (position.lineNumber < model.getLineCount()) {
           endLineNumber = startLineNumber + 1;
           endColumn = model.getLineMaxColumn(endLineNumber);
@@ -36941,8 +37590,8 @@ var JoinLinesAction = class extends EditorAction {
       }
       let trimmedLinesContent = model.getLineContent(startLineNumber);
       for (let i2 = startLineNumber + 1; i2 <= endLineNumber; i2++) {
-        let lineText = model.getLineContent(i2);
-        let firstNonWhitespaceIdx = model.getLineFirstNonWhitespaceColumn(i2);
+        const lineText = model.getLineContent(i2);
+        const firstNonWhitespaceIdx = model.getLineFirstNonWhitespaceColumn(i2);
         if (firstNonWhitespaceIdx >= 1) {
           let insertSpace = true;
           if (trimmedLinesContent === "") {
@@ -36952,7 +37601,7 @@ var JoinLinesAction = class extends EditorAction {
             insertSpace = false;
             trimmedLinesContent = trimmedLinesContent.replace(/[\s\uFEFF\xA0]+$/g, " ");
           }
-          let lineTextWithoutIndent = lineText.substr(firstNonWhitespaceIdx - 1);
+          const lineTextWithoutIndent = lineText.substr(firstNonWhitespaceIdx - 1);
           trimmedLinesContent += (insertSpace ? " " : "") + lineTextWithoutIndent;
           if (insertSpace) {
             columnDeltaOffset = lineTextWithoutIndent.length + 1;
@@ -36963,7 +37612,7 @@ var JoinLinesAction = class extends EditorAction {
           columnDeltaOffset = 0;
         }
       }
-      let deleteSelection = new Range(startLineNumber, startColumn, endLineNumber, endColumn);
+      const deleteSelection = new Range(startLineNumber, startColumn, endLineNumber, endColumn);
       if (!deleteSelection.isEmpty()) {
         let resultSelection;
         if (selection.isEmpty()) {
@@ -37002,32 +37651,32 @@ var TransposeAction = class extends EditorAction {
     });
   }
   run(_accessor, editor2) {
-    let selections = editor2.getSelections();
+    const selections = editor2.getSelections();
     if (selections === null) {
       return;
     }
-    let model = editor2.getModel();
+    const model = editor2.getModel();
     if (model === null) {
       return;
     }
-    let commands = [];
+    const commands = [];
     for (let i = 0, len = selections.length; i < len; i++) {
-      let selection = selections[i];
+      const selection = selections[i];
       if (!selection.isEmpty()) {
         continue;
       }
-      let cursor = selection.getStartPosition();
-      let maxColumn = model.getLineMaxColumn(cursor.lineNumber);
+      const cursor = selection.getStartPosition();
+      const maxColumn = model.getLineMaxColumn(cursor.lineNumber);
       if (cursor.column >= maxColumn) {
         if (cursor.lineNumber === model.getLineCount()) {
           continue;
         }
-        let deleteSelection = new Range(cursor.lineNumber, Math.max(1, cursor.column - 1), cursor.lineNumber + 1, 1);
-        let chars = model.getValueInRange(deleteSelection).split("").reverse().join("");
+        const deleteSelection = new Range(cursor.lineNumber, Math.max(1, cursor.column - 1), cursor.lineNumber + 1, 1);
+        const chars = model.getValueInRange(deleteSelection).split("").reverse().join("");
         commands.push(new ReplaceCommand(new Selection(cursor.lineNumber, Math.max(1, cursor.column - 1), cursor.lineNumber + 1, 1), chars));
       } else {
-        let deleteSelection = new Range(cursor.lineNumber, Math.max(1, cursor.column - 1), cursor.lineNumber, cursor.column + 1);
-        let chars = model.getValueInRange(deleteSelection).split("").reverse().join("");
+        const deleteSelection = new Range(cursor.lineNumber, Math.max(1, cursor.column - 1), cursor.lineNumber, cursor.column + 1);
+        const chars = model.getValueInRange(deleteSelection).split("").reverse().join("");
         commands.push(new ReplaceCommandThatPreservesSelection(deleteSelection, chars, new Selection(cursor.lineNumber, cursor.column + 1, cursor.lineNumber, cursor.column + 1)));
       }
     }
@@ -37046,7 +37695,7 @@ var AbstractCaseAction = class extends EditorAction {
     if (model === null) {
       return;
     }
-    const wordSeparators = editor2.getOption(117);
+    const wordSeparators = editor2.getOption(118);
     const textEdits = [];
     for (const selection of selections) {
       if (selection.isEmpty()) {
@@ -37056,11 +37705,11 @@ var AbstractCaseAction = class extends EditorAction {
           continue;
         }
         const wordRange = new Range(cursor.lineNumber, word.startColumn, cursor.lineNumber, word.endColumn);
-        const text2 = model.getValueInRange(wordRange);
-        textEdits.push(EditOperation.replace(wordRange, this._modifyText(text2, wordSeparators)));
+        const text = model.getValueInRange(wordRange);
+        textEdits.push(EditOperation.replace(wordRange, this._modifyText(text, wordSeparators)));
       } else {
-        const text2 = model.getValueInRange(selection);
-        textEdits.push(EditOperation.replace(selection, this._modifyText(text2, wordSeparators)));
+        const text = model.getValueInRange(selection);
+        textEdits.push(EditOperation.replace(selection, this._modifyText(text, wordSeparators)));
       }
     }
     editor2.pushUndoStop();
@@ -37077,8 +37726,8 @@ var UpperCaseAction = class extends AbstractCaseAction {
       precondition: EditorContextKeys.writable
     });
   }
-  _modifyText(text2, wordSeparators) {
-    return text2.toLocaleUpperCase();
+  _modifyText(text, wordSeparators) {
+    return text.toLocaleUpperCase();
   }
 };
 var LowerCaseAction = class extends AbstractCaseAction {
@@ -37090,8 +37739,8 @@ var LowerCaseAction = class extends AbstractCaseAction {
       precondition: EditorContextKeys.writable
     });
   }
-  _modifyText(text2, wordSeparators) {
-    return text2.toLocaleLowerCase();
+  _modifyText(text, wordSeparators) {
+    return text.toLocaleLowerCase();
   }
 };
 var BackwardsCompatibleRegExp = class {
@@ -37124,12 +37773,12 @@ var TitleCaseAction = class extends AbstractCaseAction {
       precondition: EditorContextKeys.writable
     });
   }
-  _modifyText(text2, wordSeparators) {
+  _modifyText(text, wordSeparators) {
     const titleBoundary = TitleCaseAction.titleBoundary.get();
     if (!titleBoundary) {
-      return text2;
+      return text;
     }
-    return text2.toLocaleLowerCase().replace(titleBoundary, (b) => b.toLocaleUpperCase());
+    return text.toLocaleLowerCase().replace(titleBoundary, (b) => b.toLocaleUpperCase());
   }
 };
 TitleCaseAction.titleBoundary = new BackwardsCompatibleRegExp("(^|[^\\p{L}\\p{N}']|((^|\\P{L})'))\\p{L}", "gmu");
@@ -37142,17 +37791,47 @@ var SnakeCaseAction = class extends AbstractCaseAction {
       precondition: EditorContextKeys.writable
     });
   }
-  _modifyText(text2, wordSeparators) {
+  _modifyText(text, wordSeparators) {
     const caseBoundary = SnakeCaseAction.caseBoundary.get();
     const singleLetters = SnakeCaseAction.singleLetters.get();
     if (!caseBoundary || !singleLetters) {
-      return text2;
+      return text;
     }
-    return text2.replace(caseBoundary, "$1_$2").replace(singleLetters, "$1_$2$3").toLocaleLowerCase();
+    return text.replace(caseBoundary, "$1_$2").replace(singleLetters, "$1_$2$3").toLocaleLowerCase();
   }
 };
 SnakeCaseAction.caseBoundary = new BackwardsCompatibleRegExp("(\\p{Ll})(\\p{Lu})", "gmu");
 SnakeCaseAction.singleLetters = new BackwardsCompatibleRegExp("(\\p{Lu}|\\p{N})(\\p{Lu})(\\p{Ll})", "gmu");
+var KebabCaseAction = class extends AbstractCaseAction {
+  constructor() {
+    super({
+      id: "editor.action.transformToKebabcase",
+      label: localize("editor.transformToKebabcase", "Transform to Kebab Case"),
+      alias: "Transform to Kebab Case",
+      precondition: EditorContextKeys.writable
+    });
+  }
+  static isSupported() {
+    const areAllRegexpsSupported = [
+      this.caseBoundary,
+      this.singleLetters,
+      this.underscoreBoundary
+    ].every((regexp) => regexp.isSupported());
+    return areAllRegexpsSupported;
+  }
+  _modifyText(text, _) {
+    const caseBoundary = KebabCaseAction.caseBoundary.get();
+    const singleLetters = KebabCaseAction.singleLetters.get();
+    const underscoreBoundary = KebabCaseAction.underscoreBoundary.get();
+    if (!caseBoundary || !singleLetters || !underscoreBoundary) {
+      return text;
+    }
+    return text.replace(underscoreBoundary, "$1-$3").replace(caseBoundary, "$1-$2").replace(singleLetters, "$1-$2").toLocaleLowerCase();
+  }
+};
+KebabCaseAction.caseBoundary = new BackwardsCompatibleRegExp("(\\p{Ll})(\\p{Lu})", "gmu");
+KebabCaseAction.singleLetters = new BackwardsCompatibleRegExp("(\\p{Lu}|\\p{N})(\\p{Lu}\\p{Ll})", "gmu");
+KebabCaseAction.underscoreBoundary = new BackwardsCompatibleRegExp("(\\S)(_)(\\S)", "gm");
 registerEditorAction(CopyLinesUpAction);
 registerEditorAction(CopyLinesDownAction);
 registerEditorAction(DuplicateSelectionAction);
@@ -37178,6 +37857,9 @@ if (SnakeCaseAction.caseBoundary.isSupported() && SnakeCaseAction.singleLetters.
 }
 if (TitleCaseAction.titleBoundary.isSupported()) {
   registerEditorAction(TitleCaseAction);
+}
+if (KebabCaseAction.isSupported()) {
+  registerEditorAction(KebabCaseAction);
 }
 
 // ../../node_modules/monaco-editor/esm/vs/editor/contrib/linkedEditing/browser/linkedEditing.js
@@ -37205,7 +37887,7 @@ init_themeService();
 init_languageFeatures();
 init_languageFeatureDebounce();
 init_stopwatch();
-var __decorate50 = function(decorators, target, key, desc) {
+var __decorate56 = function(decorators, target, key, desc) {
   var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
   if (typeof Reflect === "object" && typeof Reflect.decorate === "function")
     r = Reflect.decorate(decorators, target, key, desc);
@@ -37215,12 +37897,12 @@ var __decorate50 = function(decorators, target, key, desc) {
         r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
   return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __param50 = function(paramIndex, decorator) {
+var __param56 = function(paramIndex, decorator) {
   return function(target, key) {
     decorator(target, key, paramIndex);
   };
 };
-var __awaiter37 = function(thisArg, _arguments, P, generator) {
+var __awaiter41 = function(thisArg, _arguments, P, generator) {
   function adopt(value) {
     return value instanceof P ? value : new P(function(resolve) {
       resolve(value);
@@ -37253,13 +37935,14 @@ var LinkedEditingContribution = class LinkedEditingContribution2 extends Disposa
   constructor(editor2, contextKeyService, languageFeaturesService, languageConfigurationService, languageFeatureDebounceService) {
     super();
     this.languageConfigurationService = languageConfigurationService;
+    this._syncRangesToken = 0;
     this._localToDispose = this._register(new DisposableStore());
     this._editor = editor2;
     this._providers = languageFeaturesService.linkedEditingRangeProvider;
     this._enabled = false;
     this._visibleContextKey = CONTEXT_ONTYPE_RENAME_INPUT_VISIBLE.bindTo(contextKeyService);
     this._debounceInformation = languageFeatureDebounceService.for(this._providers, "Linked Editing", { min: 200 });
-    this._currentDecorations = [];
+    this._currentDecorations = this._editor.createDecorationsCollection();
     this._languageWordPattern = null;
     this._currentWordPattern = null;
     this._ignoreChangeEvent = false;
@@ -37271,7 +37954,7 @@ var LinkedEditingContribution = class LinkedEditingContribution2 extends Disposa
     this._currentRequestModelVersion = null;
     this._register(this._editor.onDidChangeModel(() => this.reinitialize(true)));
     this._register(this._editor.onDidChangeConfiguration((e) => {
-      if (e.hasChanged(62) || e.hasChanged(82)) {
+      if (e.hasChanged(63) || e.hasChanged(83)) {
         this.reinitialize(false);
       }
     }));
@@ -37284,7 +37967,7 @@ var LinkedEditingContribution = class LinkedEditingContribution2 extends Disposa
   }
   reinitialize(forceRefresh) {
     const model = this._editor.getModel();
-    const isEnabled = model !== null && (this._editor.getOption(62) || this._editor.getOption(82)) && this._providers.has(model);
+    const isEnabled = model !== null && (this._editor.getOption(63) || this._editor.getOption(83)) && this._providers.has(model);
     if (isEnabled === this._enabled && !forceRefresh) {
       return;
     }
@@ -37303,8 +37986,8 @@ var LinkedEditingContribution = class LinkedEditingContribution2 extends Disposa
       this._rangeUpdateTriggerPromise = rangeUpdateScheduler.trigger(() => this.updateRanges(), (_a5 = this._debounceDuration) !== null && _a5 !== void 0 ? _a5 : this._debounceInformation.get(model));
     };
     const rangeSyncScheduler = new Delayer(0);
-    const triggerRangeSync = (decorations) => {
-      this._rangeSyncTriggerPromise = rangeSyncScheduler.trigger(() => this._syncRanges(decorations));
+    const triggerRangeSync = (token) => {
+      this._rangeSyncTriggerPromise = rangeSyncScheduler.trigger(() => this._syncRanges(token));
     };
     this._localToDispose.add(this._editor.onDidChangeCursorPosition(() => {
       triggerRangeUpdate();
@@ -37312,9 +37995,9 @@ var LinkedEditingContribution = class LinkedEditingContribution2 extends Disposa
     this._localToDispose.add(this._editor.onDidChangeModelContent((e) => {
       if (!this._ignoreChangeEvent) {
         if (this._currentDecorations.length > 0) {
-          const referenceRange = model.getDecorationRange(this._currentDecorations[0]);
+          const referenceRange = this._currentDecorations.getRange(0);
           if (referenceRange && e.changes.every((c) => referenceRange.intersectRanges(c.range))) {
-            triggerRangeSync(this._currentDecorations);
+            triggerRangeSync(this._syncRangesToken);
             return;
           }
         }
@@ -37329,12 +38012,12 @@ var LinkedEditingContribution = class LinkedEditingContribution2 extends Disposa
     });
     this.updateRanges();
   }
-  _syncRanges(decorations) {
-    if (!this._editor.hasModel() || decorations !== this._currentDecorations || decorations.length === 0) {
+  _syncRanges(token) {
+    if (!this._editor.hasModel() || token !== this._syncRangesToken || this._currentDecorations.length === 0) {
       return;
     }
     const model = this._editor.getModel();
-    const referenceRange = model.getDecorationRange(decorations[0]);
+    const referenceRange = this._currentDecorations.getRange(0);
     if (!referenceRange || referenceRange.startLineNumber !== referenceRange.endLineNumber) {
       return this.clearRanges();
     }
@@ -37346,9 +38029,9 @@ var LinkedEditingContribution = class LinkedEditingContribution2 extends Disposa
         return this.clearRanges();
       }
     }
-    let edits = [];
-    for (let i = 1, len = decorations.length; i < len; i++) {
-      const mirrorRange = model.getDecorationRange(decorations[i]);
+    const edits = [];
+    for (let i = 1, len = this._currentDecorations.length; i < len; i++) {
+      const mirrorRange = this._currentDecorations.getRange(i);
       if (!mirrorRange) {
         continue;
       }
@@ -37397,7 +38080,7 @@ var LinkedEditingContribution = class LinkedEditingContribution2 extends Disposa
   }
   clearRanges() {
     this._visibleContextKey.set(false);
-    this._currentDecorations = this._editor.deltaDecorations(this._currentDecorations, []);
+    this._currentDecorations.clear();
     if (this._currentRequest) {
       this._currentRequest.cancel();
       this._currentRequest = null;
@@ -37405,7 +38088,7 @@ var LinkedEditingContribution = class LinkedEditingContribution2 extends Disposa
     }
   }
   updateRanges(force = false) {
-    return __awaiter37(this, void 0, void 0, function* () {
+    return __awaiter41(this, void 0, void 0, function* () {
       if (!this._editor.hasModel()) {
         this.clearRanges();
         return;
@@ -37421,8 +38104,8 @@ var LinkedEditingContribution = class LinkedEditingContribution2 extends Disposa
         if (position.equals(this._currentRequestPosition)) {
           return;
         }
-        if (this._currentDecorations && this._currentDecorations.length > 0) {
-          const range = model.getDecorationRange(this._currentDecorations[0]);
+        if (this._currentDecorations.length > 0) {
+          const range = this._currentDecorations.getRange(0);
           if (range && range.containsPosition(position)) {
             return;
           }
@@ -37430,7 +38113,7 @@ var LinkedEditingContribution = class LinkedEditingContribution2 extends Disposa
       }
       this._currentRequestPosition = position;
       this._currentRequestModelVersion = modelVersionId;
-      const request = createCancelablePromise((token) => __awaiter37(this, void 0, void 0, function* () {
+      const request = createCancelablePromise((token) => __awaiter41(this, void 0, void 0, function* () {
         try {
           const sw = new StopWatch(false);
           const response = yield getLinkedEditingRanges(this._providers, model, position, token);
@@ -37465,7 +38148,8 @@ var LinkedEditingContribution = class LinkedEditingContribution2 extends Disposa
           }
           const decorations = ranges.map((range) => ({ range, options: LinkedEditingContribution2.DECORATION }));
           this._visibleContextKey.set(true);
-          this._currentDecorations = this._editor.deltaDecorations(this._currentDecorations, decorations);
+          this._currentDecorations.set(decorations);
+          this._syncRangesToken++;
         } catch (err) {
           if (!isCancellationError(err)) {
             onUnexpectedError(err);
@@ -37486,11 +38170,11 @@ LinkedEditingContribution.DECORATION = ModelDecorationOptions.register({
   stickiness: 0,
   className: DECORATION_CLASS_NAME
 });
-LinkedEditingContribution = __decorate50([
-  __param50(1, IContextKeyService),
-  __param50(2, ILanguageFeaturesService),
-  __param50(3, ILanguageConfigurationService),
-  __param50(4, ILanguageFeatureDebounceService)
+LinkedEditingContribution = __decorate56([
+  __param56(1, IContextKeyService),
+  __param56(2, ILanguageFeaturesService),
+  __param56(3, ILanguageConfigurationService),
+  __param56(4, ILanguageFeatureDebounceService)
 ], LinkedEditingContribution);
 var LinkedEditingAction = class extends EditorAction {
   constructor() {
@@ -37545,7 +38229,7 @@ registerEditorCommand(new LinkedEditingCommand({
 }));
 function getLinkedEditingRanges(providers, model, position, token) {
   const orderedByScore = providers.ordered(model);
-  return first(orderedByScore.map((provider) => () => __awaiter37(this, void 0, void 0, function* () {
+  return first(orderedByScore.map((provider) => () => __awaiter41(this, void 0, void 0, function* () {
     try {
       return yield provider.provideLinkedEditingRanges(model, position, token);
     } catch (e) {
@@ -37554,7 +38238,7 @@ function getLinkedEditingRanges(providers, model, position, token) {
     }
   })), (result) => !!result && isNonEmptyArray(result === null || result === void 0 ? void 0 : result.ranges));
 }
-var editorLinkedEditingBackground = registerColor("editor.linkedEditingBackground", { dark: Color.fromHex("#f00").transparent(0.3), light: Color.fromHex("#f00").transparent(0.3), hc: Color.fromHex("#f00").transparent(0.3) }, localize("editorLinkedEditingBackground", "Background color when the editor auto renames on type."));
+var editorLinkedEditingBackground = registerColor("editor.linkedEditingBackground", { dark: Color.fromHex("#f00").transparent(0.3), light: Color.fromHex("#f00").transparent(0.3), hcDark: Color.fromHex("#f00").transparent(0.3), hcLight: Color.white }, localize("editorLinkedEditingBackground", "Background color when the editor auto renames on type."));
 registerThemingParticipant((theme, collector) => {
   const editorLinkedEditingBackgroundColor = theme.getColor(editorLinkedEditingBackground);
   if (editorLinkedEditingBackgroundColor) {
@@ -37596,7 +38280,7 @@ init_range();
 init_model2();
 init_commands();
 init_languageFeatures();
-var __awaiter38 = function(thisArg, _arguments, P, generator) {
+var __awaiter42 = function(thisArg, _arguments, P, generator) {
   function adopt(value) {
     return value instanceof P ? value : new P(function(resolve) {
       resolve(value);
@@ -37645,7 +38329,7 @@ var Link = class {
     return this._link.tooltip;
   }
   resolve(token) {
-    return __awaiter38(this, void 0, void 0, function* () {
+    return __awaiter42(this, void 0, void 0, function* () {
       if (this._link.url) {
         return this._link.url;
       }
@@ -37680,7 +38364,7 @@ var LinksList = class {
     this.links.length = 0;
   }
   static _union(oldLinks, newLinks) {
-    let result = [];
+    const result = [];
     let oldIndex;
     let oldLen;
     let newIndex;
@@ -37728,7 +38412,7 @@ function getLinks(providers, model, token) {
     return new LinksList([]);
   });
 }
-CommandsRegistry.registerCommand("_executeLinkProvider", (accessor, ...args) => __awaiter38(void 0, void 0, void 0, function* () {
+CommandsRegistry.registerCommand("_executeLinkProvider", (accessor, ...args) => __awaiter42(void 0, void 0, void 0, function* () {
   let [uri, resolveCount] = args;
   assertType(uri instanceof URI);
   if (typeof resolveCount !== "number") {
@@ -37756,7 +38440,7 @@ init_nls();
 init_opener();
 init_colorRegistry();
 init_themeService();
-var __decorate51 = function(decorators, target, key, desc) {
+var __decorate57 = function(decorators, target, key, desc) {
   var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
   if (typeof Reflect === "object" && typeof Reflect.decorate === "function")
     r = Reflect.decorate(decorators, target, key, desc);
@@ -37766,12 +38450,12 @@ var __decorate51 = function(decorators, target, key, desc) {
         r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
   return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __param51 = function(paramIndex, decorator) {
+var __param57 = function(paramIndex, decorator) {
   return function(target, key) {
     decorator(target, key, paramIndex);
   };
 };
-var __awaiter39 = function(thisArg, _arguments, P, generator) {
+var __awaiter43 = function(thisArg, _arguments, P, generator) {
   function adopt(value) {
     return value instanceof P ? value : new P(function(resolve) {
       resolve(value);
@@ -37823,7 +38507,7 @@ var LinkDetector = class LinkDetector2 extends Disposable {
       this.cleanUpActiveLinkDecoration();
     }));
     this._register(editor2.onDidChangeConfiguration((e) => {
-      if (!e.hasChanged(63)) {
+      if (!e.hasChanged(64)) {
         return;
       }
       this.updateDecorations([]);
@@ -37856,8 +38540,8 @@ var LinkDetector = class LinkDetector2 extends Disposable {
     return editor2.getContribution(LinkDetector2.ID);
   }
   computeLinksNow() {
-    return __awaiter39(this, void 0, void 0, function* () {
-      if (!this.editor.hasModel() || !this.editor.getOption(63)) {
+    return __awaiter43(this, void 0, void 0, function* () {
+      if (!this.editor.hasModel() || !this.editor.getOption(64)) {
         return;
       }
       const model = this.editor.getModel();
@@ -37885,7 +38569,7 @@ var LinkDetector = class LinkDetector2 extends Disposable {
     });
   }
   updateDecorations(links) {
-    const useMetaKey = this.editor.getOption(70) === "altKey";
+    const useMetaKey = this.editor.getOption(71) === "altKey";
     const oldDecorations = [];
     const keys = Object.keys(this.currentOccurrences);
     for (const decorationId of keys) {
@@ -37898,16 +38582,18 @@ var LinkDetector = class LinkDetector2 extends Disposable {
         newDecorations.push(LinkOccurrence.decoration(link, useMetaKey));
       }
     }
-    const decorations = this.editor.deltaDecorations(oldDecorations, newDecorations);
-    this.currentOccurrences = {};
-    this.activeLinkDecorationId = null;
-    for (let i = 0, len = decorations.length; i < len; i++) {
-      const occurence = new LinkOccurrence(links[i], decorations[i]);
-      this.currentOccurrences[occurence.decorationId] = occurence;
-    }
+    this.editor.changeDecorations((changeAccessor) => {
+      const decorations = changeAccessor.deltaDecorations(oldDecorations, newDecorations);
+      this.currentOccurrences = {};
+      this.activeLinkDecorationId = null;
+      for (let i = 0, len = decorations.length; i < len; i++) {
+        const occurence = new LinkOccurrence(links[i], decorations[i]);
+        this.currentOccurrences[occurence.decorationId] = occurence;
+      }
+    });
   }
   _onEditorMouseMove(mouseEvent, withKey) {
-    const useMetaKey = this.editor.getOption(70) === "altKey";
+    const useMetaKey = this.editor.getOption(71) === "altKey";
     if (this.isEnabled(mouseEvent, withKey)) {
       this.cleanUpActiveLinkDecoration();
       const occurrence = this.getLinkOccurrence(mouseEvent.target.position);
@@ -37922,7 +38608,7 @@ var LinkDetector = class LinkDetector2 extends Disposable {
     }
   }
   cleanUpActiveLinkDecoration() {
-    const useMetaKey = this.editor.getOption(70) === "altKey";
+    const useMetaKey = this.editor.getOption(71) === "altKey";
     if (this.activeLinkDecorationId) {
       const occurrence = this.currentOccurrences[this.activeLinkDecorationId];
       if (occurrence) {
@@ -37955,14 +38641,14 @@ var LinkDetector = class LinkDetector2 extends Disposable {
           const parsedUri = URI.parse(uri);
           if (parsedUri.scheme === Schemas.file) {
             const fsPath = originalFSPath(parsedUri);
-            let relativePath = null;
+            let relativePath2 = null;
             if (fsPath.startsWith("/./")) {
-              relativePath = `.${fsPath.substr(1)}`;
+              relativePath2 = `.${fsPath.substr(1)}`;
             } else if (fsPath.startsWith("//./")) {
-              relativePath = `.${fsPath.substr(2)}`;
+              relativePath2 = `.${fsPath.substr(2)}`;
             }
-            if (relativePath) {
-              uri = joinPath(modelUri, relativePath);
+            if (relativePath2) {
+              uri = joinPath(modelUri, relativePath2);
             }
           }
         }
@@ -38018,11 +38704,11 @@ var LinkDetector = class LinkDetector2 extends Disposable {
   }
 };
 LinkDetector.ID = "editor.linkDetector";
-LinkDetector = __decorate51([
-  __param51(1, IOpenerService),
-  __param51(2, INotificationService),
-  __param51(3, ILanguageFeaturesService),
-  __param51(4, ILanguageFeatureDebounceService)
+LinkDetector = __decorate57([
+  __param57(1, IOpenerService),
+  __param57(2, INotificationService),
+  __param57(3, ILanguageFeaturesService),
+  __param57(4, ILanguageFeatureDebounceService)
 ], LinkDetector);
 var decoration = {
   general: ModelDecorationOptions.register({
@@ -38071,11 +38757,10 @@ function getHoverMessage(link, useMetaKey) {
       const match = link.url.toString().match(/^command:([^?#]+)/);
       if (match) {
         const commandId = match[1];
-        const nativeLabelText = localize("tooltip.explanation", "Execute command {0}", commandId);
-        nativeLabel = ` "${nativeLabelText}"`;
+        nativeLabel = localize("tooltip.explanation", "Execute command {0}", commandId);
       }
     }
-    const hoverMessage = new MarkdownString("", true).appendMarkdown(`[${label}](${link.url.toString(true).replace(/ /g, "%20")}${nativeLabel}) (${kb})`);
+    const hoverMessage = new MarkdownString("", true).appendLink(link.url.toString(true).replace(/ /g, "%20"), label, nativeLabel).appendMarkdown(` (${kb})`);
     return hoverMessage;
   } else {
     return new MarkdownString().appendText(`${label} (${kb})`);
@@ -38134,7 +38819,7 @@ init_contextkey();
 init_colorRegistry();
 init_themeService();
 init_languageFeatures();
-var __decorate52 = function(decorators, target, key, desc) {
+var __decorate58 = function(decorators, target, key, desc) {
   var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
   if (typeof Reflect === "object" && typeof Reflect.decorate === "function")
     r = Reflect.decorate(decorators, target, key, desc);
@@ -38144,7 +38829,7 @@ var __decorate52 = function(decorators, target, key, desc) {
         r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
   return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __param52 = function(paramIndex, decorator) {
+var __param58 = function(paramIndex, decorator) {
   return function(target, key) {
     decorator(target, key, paramIndex);
   };
@@ -38268,7 +38953,7 @@ var InsertCursorAtEndOfEachLineSelected = class extends EditorAction {
       return;
     }
     for (let i = selection.startLineNumber; i < selection.endLineNumber; i++) {
-      let currentLineMaxColumn = model.getLineMaxColumn(i);
+      const currentLineMaxColumn = model.getLineMaxColumn(i);
       result.push(new Selection(i, currentLineMaxColumn, i, currentLineMaxColumn));
     }
     if (selection.endColumn > 1) {
@@ -38283,7 +38968,7 @@ var InsertCursorAtEndOfEachLineSelected = class extends EditorAction {
     const selections = editor2.getSelections();
     const viewModel = editor2._getViewModel();
     const previousCursorState = viewModel.getCursorStates();
-    let newSelections = [];
+    const newSelections = [];
     selections.forEach((sel) => this.getCursorsForSelection(sel, model, newSelections));
     if (newSelections.length > 0) {
       editor2.setSelections(newSelections);
@@ -38306,7 +38991,7 @@ var InsertCursorAtEndOfLineSelected = class extends EditorAction {
     }
     const selections = editor2.getSelections();
     const lineCount = editor2.getModel().getLineCount();
-    let newSelections = [];
+    const newSelections = [];
     for (let i = selections[0].startLineNumber; i <= lineCount; i++) {
       newSelections.push(new Selection(i, selections[0].startColumn, i, selections[0].endColumn));
     }
@@ -38332,7 +39017,7 @@ var InsertCursorAtTopOfLineSelected = class extends EditorAction {
       return;
     }
     const selections = editor2.getSelections();
-    let newSelections = [];
+    const newSelections = [];
     for (let i = selections[0].startLineNumber; i >= 1; i--) {
       newSelections.push(new Selection(i, selections[0].startColumn, i, selections[0].endColumn));
     }
@@ -38430,7 +39115,7 @@ var MultiCursorSession = class {
     this.findController.highlightFindOptions();
     const allSelections = this._editor.getSelections();
     const lastAddedSelection = allSelections[allSelections.length - 1];
-    const nextMatch = this._editor.getModel().findNextMatch(this.searchText, lastAddedSelection.getEndPosition(), false, this.matchCase, this.wholeWord ? this._editor.getOption(117) : null, false);
+    const nextMatch = this._editor.getModel().findNextMatch(this.searchText, lastAddedSelection.getEndPosition(), false, this.matchCase, this.wholeWord ? this._editor.getOption(118) : null, false);
     if (!nextMatch) {
       return null;
     }
@@ -38470,18 +39155,22 @@ var MultiCursorSession = class {
     this.findController.highlightFindOptions();
     const allSelections = this._editor.getSelections();
     const lastAddedSelection = allSelections[allSelections.length - 1];
-    const previousMatch = this._editor.getModel().findPreviousMatch(this.searchText, lastAddedSelection.getStartPosition(), false, this.matchCase, this.wholeWord ? this._editor.getOption(117) : null, false);
+    const previousMatch = this._editor.getModel().findPreviousMatch(this.searchText, lastAddedSelection.getStartPosition(), false, this.matchCase, this.wholeWord ? this._editor.getOption(118) : null, false);
     if (!previousMatch) {
       return null;
     }
     return new Selection(previousMatch.range.startLineNumber, previousMatch.range.startColumn, previousMatch.range.endLineNumber, previousMatch.range.endColumn);
   }
-  selectAll() {
+  selectAll(searchScope) {
     if (!this._editor.hasModel()) {
       return [];
     }
     this.findController.highlightFindOptions();
-    return this._editor.getModel().findMatches(this.searchText, true, false, this.matchCase, this.wholeWord ? this._editor.getOption(117) : null, false, 1073741824);
+    const editorModel = this._editor.getModel();
+    if (searchScope) {
+      return editorModel.findMatches(this.searchText, searchScope, false, this.matchCase, this.wholeWord ? this._editor.getOption(118) : null, false, 1073741824);
+    }
+    return editorModel.findMatches(this.searchText, true, false, this.matchCase, this.wholeWord ? this._editor.getOption(118) : null, false, 1073741824);
   }
 };
 var MultiCursorSelectionController = class extends Disposable {
@@ -38580,7 +39269,7 @@ var MultiCursorSelectionController = class extends Disposable {
         const selectionsContainSameText = modelRangesContainSameText(this._editor.getModel(), allSelections, matchCase);
         if (!selectionsContainSameText) {
           const model = this._editor.getModel();
-          let resultingSelections = [];
+          const resultingSelections = [];
           for (let i = 0, len = allSelections.length; i < len; i++) {
             resultingSelections[i] = this._expandEmptyToWord(model, allSelections[i]);
           }
@@ -38619,25 +39308,18 @@ var MultiCursorSelectionController = class extends Disposable {
     let matches = null;
     const findState = findController.getState();
     if (findState.isRevealed && findState.searchString.length > 0 && findState.isRegex) {
-      matches = this._editor.getModel().findMatches(findState.searchString, true, findState.isRegex, findState.matchCase, findState.wholeWord ? this._editor.getOption(117) : null, false, 1073741824);
+      const editorModel = this._editor.getModel();
+      if (findState.searchScope) {
+        matches = editorModel.findMatches(findState.searchString, findState.searchScope, findState.isRegex, findState.matchCase, findState.wholeWord ? this._editor.getOption(118) : null, false, 1073741824);
+      } else {
+        matches = editorModel.findMatches(findState.searchString, true, findState.isRegex, findState.matchCase, findState.wholeWord ? this._editor.getOption(118) : null, false, 1073741824);
+      }
     } else {
       this._beginSessionIfNeeded(findController);
       if (!this._session) {
         return;
       }
-      matches = this._session.selectAll();
-    }
-    if (findState.searchScope) {
-      const states = findState.searchScope;
-      let inSelection = [];
-      matches.forEach((match) => {
-        states.forEach((state) => {
-          if (match.range.endLineNumber <= state.endLineNumber && match.range.startLineNumber >= state.startLineNumber) {
-            inSelection.push(match);
-          }
-        });
-      });
-      matches = inSelection;
+      matches = this._session.selectAll(findState.searchScope);
     }
     if (matches.length > 0) {
       const editorSelection = this._editor.getSelection();
@@ -38818,12 +39500,12 @@ var SelectionHighlighter = class SelectionHighlighter2 extends Disposable {
     super();
     this._languageFeaturesService = _languageFeaturesService;
     this.editor = editor2;
-    this._isEnabled = editor2.getOption(97);
-    this.decorations = [];
+    this._isEnabled = editor2.getOption(98);
+    this._decorations = editor2.createDecorationsCollection();
     this.updateSoon = this._register(new RunOnceScheduler(() => this._update(), 300));
     this.state = null;
     this._register(editor2.onDidChangeConfiguration((e) => {
-      this._isEnabled = editor2.getOption(97);
+      this._isEnabled = editor2.getOption(98);
     }));
     this._register(editor2.onDidChangeCursorSelection((e) => {
       if (!this._isEnabled) {
@@ -38919,12 +39601,12 @@ var SelectionHighlighter = class SelectionHighlighter2 extends Disposable {
         return null;
       }
     }
-    return new SelectionHighlighterState(editor2.getModel(), r.searchText, r.matchCase, r.wholeWord ? editor2.getOption(117) : null, oldState);
+    return new SelectionHighlighterState(editor2.getModel(), r.searchText, r.matchCase, r.wholeWord ? editor2.getOption(118) : null, oldState);
   }
   _setState(newState) {
     this.state = newState;
     if (!this.state) {
-      this.decorations = this.editor.deltaDecorations(this.decorations, []);
+      this._decorations.clear();
       return;
     }
     if (!this.editor.hasModel()) {
@@ -38958,14 +39640,14 @@ var SelectionHighlighter = class SelectionHighlighter2 extends Disposable {
         }
       }
     }
-    const hasFindOccurrences = this._languageFeaturesService.documentHighlightProvider.has(model) && this.editor.getOption(72);
+    const hasFindOccurrences = this._languageFeaturesService.documentHighlightProvider.has(model) && this.editor.getOption(73);
     const decorations = matches.map((r) => {
       return {
         range: r,
         options: hasFindOccurrences ? SelectionHighlighter2._SELECTION_HIGHLIGHT : SelectionHighlighter2._SELECTION_HIGHLIGHT_OVERVIEW
       };
     });
-    this.decorations = this.editor.deltaDecorations(this.decorations, decorations);
+    this._decorations.set(decorations);
   }
   dispose() {
     this._setState(null);
@@ -38991,8 +39673,8 @@ SelectionHighlighter._SELECTION_HIGHLIGHT = ModelDecorationOptions.register({
   stickiness: 1,
   className: "selectionHighlight"
 });
-SelectionHighlighter = __decorate52([
-  __param52(1, ILanguageFeaturesService)
+SelectionHighlighter = __decorate58([
+  __param58(1, ILanguageFeaturesService)
 ], SelectionHighlighter);
 function modelRangesContainSameText(model, ranges, matchCase) {
   const selectedText = getValueInRange(model, ranges[0], !matchCase);
@@ -39009,9 +39691,75 @@ function modelRangesContainSameText(model, ranges, matchCase) {
   return true;
 }
 function getValueInRange(model, range, toLowerCase) {
-  const text2 = model.getValueInRange(range);
-  return toLowerCase ? text2.toLowerCase() : text2;
+  const text = model.getValueInRange(range);
+  return toLowerCase ? text.toLowerCase() : text;
 }
+var FocusNextCursor = class extends EditorAction {
+  constructor() {
+    super({
+      id: "editor.action.focusNextCursor",
+      label: localize("mutlicursor.focusNextCursor", "Focus Next Cursor"),
+      description: {
+        description: localize("mutlicursor.focusNextCursor.description", "Focuses the next cursor"),
+        args: []
+      },
+      alias: "Focus Next Cursor",
+      precondition: void 0
+    });
+  }
+  run(accessor, editor2, args) {
+    if (!editor2.hasModel()) {
+      return;
+    }
+    const viewModel = editor2._getViewModel();
+    if (viewModel.cursorConfig.readOnly) {
+      return;
+    }
+    viewModel.model.pushStackElement();
+    const previousCursorState = Array.from(viewModel.getCursorStates());
+    const firstCursor = previousCursorState.shift();
+    if (!firstCursor) {
+      return;
+    }
+    previousCursorState.push(firstCursor);
+    viewModel.setCursorStates(args.source, 3, previousCursorState);
+    viewModel.revealPrimaryCursor(args.source, true);
+    announceCursorChange(previousCursorState, viewModel.getCursorStates());
+  }
+};
+var FocusPreviousCursor = class extends EditorAction {
+  constructor() {
+    super({
+      id: "editor.action.focusPreviousCursor",
+      label: localize("mutlicursor.focusPreviousCursor", "Focus Previous Cursor"),
+      description: {
+        description: localize("mutlicursor.focusPreviousCursor.description", "Focuses the previous cursor"),
+        args: []
+      },
+      alias: "Focus Previous Cursor",
+      precondition: void 0
+    });
+  }
+  run(accessor, editor2, args) {
+    if (!editor2.hasModel()) {
+      return;
+    }
+    const viewModel = editor2._getViewModel();
+    if (viewModel.cursorConfig.readOnly) {
+      return;
+    }
+    viewModel.model.pushStackElement();
+    const previousCursorState = Array.from(viewModel.getCursorStates());
+    const firstCursor = previousCursorState.pop();
+    if (!firstCursor) {
+      return;
+    }
+    previousCursorState.unshift(firstCursor);
+    viewModel.setCursorStates(args.source, 3, previousCursorState);
+    viewModel.revealPrimaryCursor(args.source, true);
+    announceCursorChange(previousCursorState, viewModel.getCursorStates());
+  }
+};
 registerEditorContribution(MultiCursorSelectionController.ID, MultiCursorSelectionController);
 registerEditorContribution(SelectionHighlighter.ID, SelectionHighlighter);
 registerEditorAction(InsertCursorAbove);
@@ -39025,6 +39773,8 @@ registerEditorAction(SelectHighlightsAction);
 registerEditorAction(CompatChangeAll);
 registerEditorAction(InsertCursorAtEndOfLineSelected);
 registerEditorAction(InsertCursorAtTopOfLineSelected);
+registerEditorAction(FocusNextCursor);
+registerEditorAction(FocusPreviousCursor);
 
 // ../../node_modules/monaco-editor/esm/vs/editor/contrib/parameterHints/browser/parameterHints.js
 init_define_process();
@@ -39041,11 +39791,11 @@ init_types();
 init_uri();
 init_position();
 init_languages();
+init_languageFeatures();
 init_resolverService();
 init_commands();
 init_contextkey();
-init_languageFeatures();
-var __awaiter40 = function(thisArg, _arguments, P, generator) {
+var __awaiter44 = function(thisArg, _arguments, P, generator) {
   function adopt(value) {
     return value instanceof P ? value : new P(function(resolve) {
       resolve(value);
@@ -39077,7 +39827,7 @@ var Context2 = {
   MultipleSignatures: new RawContextKey("parameterHintsMultipleSignatures", false)
 };
 function provideSignatureHelp(registry, model, position, context, token) {
-  return __awaiter40(this, void 0, void 0, function* () {
+  return __awaiter44(this, void 0, void 0, function* () {
     const supports = registry.ordered(model);
     for (const support of supports) {
       try {
@@ -39092,7 +39842,7 @@ function provideSignatureHelp(registry, model, position, context, token) {
     return void 0;
   });
 }
-CommandsRegistry.registerCommand("_executeSignatureHelpProvider", (accessor, ...args) => __awaiter40(void 0, void 0, void 0, function* () {
+CommandsRegistry.registerCommand("_executeSignatureHelpProvider", (accessor, ...args) => __awaiter44(void 0, void 0, void 0, function* () {
   const [uri, position, triggerCharacter] = args;
   assertType(URI.isUri(uri));
   assertType(Position.isIPosition(position));
@@ -39130,6 +39880,7 @@ init_lifecycle();
 init_strings();
 init_types();
 init_language();
+init_languageFeatures();
 
 // ../../node_modules/monaco-editor/esm/vs/editor/contrib/parameterHints/browser/parameterHintsModel.js
 init_define_process();
@@ -39139,7 +39890,7 @@ init_event();
 init_lifecycle();
 init_characterClassifier();
 init_languages();
-var __awaiter41 = function(thisArg, _arguments, P, generator) {
+var __awaiter45 = function(thisArg, _arguments, P, generator) {
   function adopt(value) {
     return value instanceof P ? value : new P(function(resolve) {
       resolve(value);
@@ -39207,7 +39958,7 @@ var ParameterHintsModel = class extends Disposable {
     this._register(this.editor.onDidChangeCursorSelection((e) => this.onCursorChange(e)));
     this._register(this.editor.onDidChangeModelContent((e) => this.onModelContentChange()));
     this._register(this.providers.onDidChange(this.onModelChanged, this));
-    this._register(this.editor.onDidType((text2) => this.onDidType(text2)));
+    this._register(this.editor.onDidType((text) => this.onDidType(text)));
     this.onEditorConfigurationChange();
     this.onModelChanged();
   }
@@ -39245,7 +39996,7 @@ var ParameterHintsModel = class extends Disposable {
     const length = this.state.hints.signatures.length;
     const activeSignature = this.state.hints.activeSignature;
     const last = activeSignature % length === length - 1;
-    const cycle = this.editor.getOption(76).cycle;
+    const cycle = this.editor.getOption(77).cycle;
     if ((length < 2 || last) && !cycle) {
       this.cancel();
       return;
@@ -39259,7 +40010,7 @@ var ParameterHintsModel = class extends Disposable {
     const length = this.state.hints.signatures.length;
     const activeSignature = this.state.hints.activeSignature;
     const first2 = activeSignature === 0;
-    const cycle = this.editor.getOption(76).cycle;
+    const cycle = this.editor.getOption(77).cycle;
     if ((length < 2 || first2) && !cycle) {
       this.cancel();
       return;
@@ -39274,7 +40025,7 @@ var ParameterHintsModel = class extends Disposable {
     this._onChangedHints.fire(this.state.hints);
   }
   doTrigger(triggerId) {
-    return __awaiter41(this, void 0, void 0, function* () {
+    return __awaiter45(this, void 0, void 0, function* () {
       const isRetrigger = this.state.type === 1 || this.state.type === 2;
       const activeSignatureHelp = this.getLastActiveHints();
       this.cancel(true);
@@ -39352,16 +40103,16 @@ var ParameterHintsModel = class extends Disposable {
       }
     }
   }
-  onDidType(text2) {
+  onDidType(text) {
     if (!this.triggerOnType) {
       return;
     }
-    const lastCharIndex = text2.length - 1;
-    const triggerCharCode = text2.charCodeAt(lastCharIndex);
+    const lastCharIndex = text.length - 1;
+    const triggerCharCode = text.charCodeAt(lastCharIndex);
     if (this.triggerChars.has(triggerCharCode) || this.isTriggered && this.retriggerChars.has(triggerCharCode)) {
       this.trigger({
         triggerKind: SignatureHelpTriggerKind.TriggerCharacter,
-        triggerCharacter: text2.charAt(lastCharIndex)
+        triggerCharacter: text.charAt(lastCharIndex)
       });
     }
   }
@@ -39378,7 +40129,7 @@ var ParameterHintsModel = class extends Disposable {
     }
   }
   onEditorConfigurationChange() {
-    this.triggerOnType = this.editor.getOption(76).enabled;
+    this.triggerOnType = this.editor.getOption(77).enabled;
     if (!this.triggerOnType) {
       this.cancel();
     }
@@ -39408,8 +40159,7 @@ init_opener();
 init_colorRegistry();
 init_theme();
 init_themeService();
-init_languageFeatures();
-var __decorate53 = function(decorators, target, key, desc) {
+var __decorate59 = function(decorators, target, key, desc) {
   var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
   if (typeof Reflect === "object" && typeof Reflect.decorate === "function")
     r = Reflect.decorate(decorators, target, key, desc);
@@ -39419,7 +40169,7 @@ var __decorate53 = function(decorators, target, key, desc) {
         r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
   return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __param53 = function(paramIndex, decorator) {
+var __param59 = function(paramIndex, decorator) {
   return function(target, key) {
     decorator(target, key, paramIndex);
   };
@@ -39489,12 +40239,12 @@ var ParameterHintsWidget = class ParameterHintsWidget2 extends Disposable {
       if (!this.domNodes) {
         return;
       }
-      const fontInfo = this.editor.getOption(44);
+      const fontInfo = this.editor.getOption(45);
       this.domNodes.element.style.fontSize = `${fontInfo.fontSize}px`;
       this.domNodes.element.style.lineHeight = `${fontInfo.lineHeight / fontInfo.fontSize}`;
     };
     updateFont();
-    this._register(Event.chain(this.editor.onDidChangeConfiguration.bind(this.editor)).filter((e) => e.hasChanged(44)).on(updateFont, null));
+    this._register(Event.chain(this.editor.onDidChangeConfiguration.bind(this.editor)).filter((e) => e.hasChanged(45)).on(updateFont, null));
     this._register(this.editor.onDidLayoutChange((e) => this.updateMaxHeight()));
     this.updateMaxHeight();
   }
@@ -39508,13 +40258,13 @@ var ParameterHintsWidget = class ParameterHintsWidget2 extends Disposable {
     this.keyVisible.set(true);
     this.visible = true;
     setTimeout(() => {
-      if (this.domNodes) {
-        this.domNodes.element.classList.add("visible");
-      }
+      var _a5;
+      (_a5 = this.domNodes) === null || _a5 === void 0 ? void 0 : _a5.element.classList.add("visible");
     }, 100);
     this.editor.layoutContentWidget(this);
   }
   hide() {
+    var _a5;
     this.renderDisposeables.clear();
     if (!this.visible) {
       return;
@@ -39522,9 +40272,7 @@ var ParameterHintsWidget = class ParameterHintsWidget2 extends Disposable {
     this.keyVisible.reset();
     this.visible = false;
     this.announcedLabel = null;
-    if (this.domNodes) {
-      this.domNodes.element.classList.remove("visible");
-    }
+    (_a5 = this.domNodes) === null || _a5 === void 0 ? void 0 : _a5.element.classList.remove("visible");
     this.editor.layoutContentWidget(this);
   }
   getPosition() {
@@ -39552,7 +40300,7 @@ var ParameterHintsWidget = class ParameterHintsWidget2 extends Disposable {
       return;
     }
     const code = append(this.domNodes.signature, $8(".code"));
-    const fontInfo = this.editor.getOption(44);
+    const fontInfo = this.editor.getOption(45);
     code.style.fontSize = `${fontInfo.fontSize}px`;
     code.style.fontFamily = fontInfo.fontFamily;
     const hasParameters = signature.parameters.length > 0;
@@ -39695,17 +40443,17 @@ var ParameterHintsWidget = class ParameterHintsWidget2 extends Disposable {
   }
 };
 ParameterHintsWidget.ID = "editor.widget.parameterHintsWidget";
-ParameterHintsWidget = __decorate53([
-  __param53(1, IContextKeyService),
-  __param53(2, IOpenerService),
-  __param53(3, ILanguageService),
-  __param53(4, ILanguageFeaturesService)
+ParameterHintsWidget = __decorate59([
+  __param59(1, IContextKeyService),
+  __param59(2, IOpenerService),
+  __param59(3, ILanguageService),
+  __param59(4, ILanguageFeaturesService)
 ], ParameterHintsWidget);
-var editorHoverWidgetHighlightForeground = registerColor("editorHoverWidget.highlightForeground", { dark: listHighlightForeground, light: listHighlightForeground, hc: listHighlightForeground }, localize("editorHoverWidgetHighlightForeground", "Foreground color of the active item in the parameter hint."));
+var editorHoverWidgetHighlightForeground = registerColor("editorHoverWidget.highlightForeground", { dark: listHighlightForeground, light: listHighlightForeground, hcDark: listHighlightForeground, hcLight: listHighlightForeground }, localize("editorHoverWidgetHighlightForeground", "Foreground color of the active item in the parameter hint."));
 registerThemingParticipant((theme, collector) => {
   const border = theme.getColor(editorHoverBorder);
   if (border) {
-    const borderWidth = theme.type === ColorScheme.HIGH_CONTRAST ? 2 : 1;
+    const borderWidth = isHighContrast(theme.type) ? 2 : 1;
     collector.addRule(`.monaco-editor .parameter-hints-widget { border: ${borderWidth}px solid ${border}; }`);
     collector.addRule(`.monaco-editor .parameter-hints-widget.multiple .body { border-left: 1px solid ${border.transparent(0.5)}; }`);
     collector.addRule(`.monaco-editor .parameter-hints-widget .signature.has-docs { border-bottom: 1px solid ${border.transparent(0.5)}; }`);
@@ -39737,7 +40485,7 @@ registerThemingParticipant((theme, collector) => {
 });
 
 // ../../node_modules/monaco-editor/esm/vs/editor/contrib/parameterHints/browser/parameterHints.js
-var __decorate54 = function(decorators, target, key, desc) {
+var __decorate60 = function(decorators, target, key, desc) {
   var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
   if (typeof Reflect === "object" && typeof Reflect.decorate === "function")
     r = Reflect.decorate(decorators, target, key, desc);
@@ -39747,7 +40495,7 @@ var __decorate54 = function(decorators, target, key, desc) {
         r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
   return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __param54 = function(paramIndex, decorator) {
+var __param60 = function(paramIndex, decorator) {
   return function(target, key) {
     decorator(target, key, paramIndex);
   };
@@ -39775,8 +40523,8 @@ var ParameterHintsController = class ParameterHintsController2 extends Disposabl
   }
 };
 ParameterHintsController.ID = "editor.controller.parameterHints";
-ParameterHintsController = __decorate54([
-  __param54(1, IInstantiationService)
+ParameterHintsController = __decorate60([
+  __param60(1, IInstantiationService)
 ], ParameterHintsController);
 var TriggerParameterHintsAction = class extends EditorAction {
   constructor() {
@@ -39874,7 +40622,7 @@ init_contextkey();
 init_keybinding();
 init_colorRegistry();
 init_themeService();
-var __decorate55 = function(decorators, target, key, desc) {
+var __decorate61 = function(decorators, target, key, desc) {
   var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
   if (typeof Reflect === "object" && typeof Reflect.decorate === "function")
     r = Reflect.decorate(decorators, target, key, desc);
@@ -39884,7 +40632,7 @@ var __decorate55 = function(decorators, target, key, desc) {
         r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
   return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __param55 = function(paramIndex, decorator) {
+var __param61 = function(paramIndex, decorator) {
   return function(target, key) {
     decorator(target, key, paramIndex);
   };
@@ -39901,7 +40649,7 @@ var RenameInputField = class RenameInputField2 {
     this._visibleContextKey = CONTEXT_RENAME_INPUT_VISIBLE.bindTo(contextKeyService);
     this._editor.addContentWidget(this);
     this._disposables.add(this._editor.onDidChangeConfiguration((e) => {
-      if (e.hasChanged(44)) {
+      if (e.hasChanged(45)) {
         this._updateFont();
       }
     }));
@@ -39958,7 +40706,7 @@ var RenameInputField = class RenameInputField2 {
     if (!this._input || !this._label) {
       return;
     }
-    const fontInfo = this._editor.getOption(44);
+    const fontInfo = this._editor.getOption(45);
     this._input.style.fontFamily = fontInfo.fontFamily;
     this._input.style.fontWeight = fontInfo.fontWeight;
     this._input.style.fontSize = `${fontInfo.fontSize}px`;
@@ -39979,14 +40727,12 @@ var RenameInputField = class RenameInputField2 {
     }
   }
   acceptInput(wantsPreview) {
-    if (this._currentAcceptInput) {
-      this._currentAcceptInput(wantsPreview);
-    }
+    var _a5;
+    (_a5 = this._currentAcceptInput) === null || _a5 === void 0 ? void 0 : _a5.call(this, wantsPreview);
   }
   cancelInput(focusEditor) {
-    if (this._currentCancelInput) {
-      this._currentCancelInput(focusEditor);
-    }
+    var _a5;
+    (_a5 = this._currentCancelInput) === null || _a5 === void 0 ? void 0 : _a5.call(this, focusEditor);
   }
   getInput(where, value, selectionStart, selectionEnd, supportPreview, token) {
     this._domNode.classList.toggle("preview", supportPreview);
@@ -40039,15 +40785,15 @@ var RenameInputField = class RenameInputField2 {
     this._editor.layoutContentWidget(this);
   }
 };
-RenameInputField = __decorate55([
-  __param55(2, IThemeService),
-  __param55(3, IKeybindingService),
-  __param55(4, IContextKeyService)
+RenameInputField = __decorate61([
+  __param61(2, IThemeService),
+  __param61(3, IKeybindingService),
+  __param61(4, IContextKeyService)
 ], RenameInputField);
 
 // ../../node_modules/monaco-editor/esm/vs/editor/contrib/rename/browser/rename.js
 init_languageFeatures();
-var __decorate56 = function(decorators, target, key, desc) {
+var __decorate62 = function(decorators, target, key, desc) {
   var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
   if (typeof Reflect === "object" && typeof Reflect.decorate === "function")
     r = Reflect.decorate(decorators, target, key, desc);
@@ -40057,12 +40803,12 @@ var __decorate56 = function(decorators, target, key, desc) {
         r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
   return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __param56 = function(paramIndex, decorator) {
+var __param62 = function(paramIndex, decorator) {
   return function(target, key) {
     decorator(target, key, paramIndex);
   };
 };
-var __awaiter42 = function(thisArg, _arguments, P, generator) {
+var __awaiter46 = function(thisArg, _arguments, P, generator) {
   function adopt(value) {
     return value instanceof P ? value : new P(function(resolve) {
       resolve(value);
@@ -40100,14 +40846,14 @@ var RenameSkeleton = class {
     return this._providers.length > 0;
   }
   resolveRenameLocation(token) {
-    return __awaiter42(this, void 0, void 0, function* () {
+    return __awaiter46(this, void 0, void 0, function* () {
       const rejects = [];
       for (this._providerRenameIdx = 0; this._providerRenameIdx < this._providers.length; this._providerRenameIdx++) {
         const provider = this._providers[this._providerRenameIdx];
         if (!provider.resolveRenameLocation) {
           break;
         }
-        let res = yield provider.resolveRenameLocation(this.model, this.position, token);
+        const res = yield provider.resolveRenameLocation(this.model, this.position, token);
         if (!res) {
           continue;
         }
@@ -40133,12 +40879,12 @@ var RenameSkeleton = class {
     });
   }
   provideRenameEdits(newName, token) {
-    return __awaiter42(this, void 0, void 0, function* () {
+    return __awaiter46(this, void 0, void 0, function* () {
       return this._provideRenameEdits(newName, this._providerRenameIdx, [], token);
     });
   }
   _provideRenameEdits(newName, i, rejects, token) {
-    return __awaiter42(this, void 0, void 0, function* () {
+    return __awaiter46(this, void 0, void 0, function* () {
       const provider = this._providers[i];
       if (!provider) {
         return {
@@ -40157,7 +40903,7 @@ var RenameSkeleton = class {
   }
 };
 function rename(registry, model, position, newName) {
-  return __awaiter42(this, void 0, void 0, function* () {
+  return __awaiter46(this, void 0, void 0, function* () {
     const skeleton = new RenameSkeleton(model, position, registry);
     const loc = yield skeleton.resolveRenameLocation(CancellationToken.None);
     if (loc === null || loc === void 0 ? void 0 : loc.rejectReason) {
@@ -40176,20 +40922,20 @@ var RenameController = class RenameController2 {
     this._logService = _logService;
     this._configService = _configService;
     this._languageFeaturesService = _languageFeaturesService;
-    this._dispoableStore = new DisposableStore();
+    this._disposableStore = new DisposableStore();
     this._cts = new CancellationTokenSource();
-    this._renameInputField = this._dispoableStore.add(new IdleValue(() => this._dispoableStore.add(this._instaService.createInstance(RenameInputField, this.editor, ["acceptRenameInput", "acceptRenameInputWithPreview"]))));
+    this._renameInputField = this._disposableStore.add(new IdleValue(() => this._disposableStore.add(this._instaService.createInstance(RenameInputField, this.editor, ["acceptRenameInput", "acceptRenameInputWithPreview"]))));
   }
   static get(editor2) {
     return editor2.getContribution(RenameController2.ID);
   }
   dispose() {
-    this._dispoableStore.dispose();
+    this._disposableStore.dispose();
     this._cts.dispose(true);
   }
   run() {
     var _a5, _b2;
-    return __awaiter42(this, void 0, void 0, function* () {
+    return __awaiter46(this, void 0, void 0, function* () {
       this._cts.dispose(true);
       if (!this.editor.hasModel()) {
         return void 0;
@@ -40221,7 +40967,7 @@ var RenameController = class RenameController2 {
       }
       this._cts.dispose();
       this._cts = new EditorStateCancellationTokenSource(this.editor, 4 | 1, loc.range);
-      let selection = this.editor.getSelection();
+      const selection = this.editor.getSelection();
       let selectionStart = 0;
       let selectionEnd = loc.text.length;
       if (!Range.isEmpty(selection) && !Range.spansMultipleLines(selection) && Range.containsRange(loc.range, selection)) {
@@ -40237,7 +40983,7 @@ var RenameController = class RenameController2 {
         return void 0;
       }
       this.editor.focus();
-      const renameOperation = raceCancellation(skeleton.provideRenameEdits(inputFieldResult.newName, this._cts.token), this._cts.token).then((renameResult) => __awaiter42(this, void 0, void 0, function* () {
+      const renameOperation = raceCancellation(skeleton.provideRenameEdits(inputFieldResult.newName, this._cts.token), this._cts.token).then((renameResult) => __awaiter46(this, void 0, void 0, function* () {
         if (!renameResult || !this.editor.hasModel()) {
           return;
         }
@@ -40249,8 +40995,10 @@ var RenameController = class RenameController2 {
         this._bulkEditService.apply(ResourceEdit.convert(renameResult), {
           editor: this.editor,
           showPreview: inputFieldResult.wantsPreview,
-          label: localize("label", "Renaming '{0}'", loc === null || loc === void 0 ? void 0 : loc.text),
-          quotableLabel: localize("quotableLabel", "Renaming {0}", loc === null || loc === void 0 ? void 0 : loc.text)
+          label: localize("label", "Renaming '{0}' to '{1}'", loc === null || loc === void 0 ? void 0 : loc.text, inputFieldResult.newName),
+          code: "undoredo.rename",
+          quotableLabel: localize("quotableLabel", "Renaming {0} to {1}", loc === null || loc === void 0 ? void 0 : loc.text, inputFieldResult.newName),
+          respectAutoSaveConfig: true
         }).then((result) => {
           if (result.ariaSummary) {
             alert(localize("aria", "Successfully renamed '{0}' to '{1}'. Summary: {2}", loc.text, inputFieldResult.newName, result.ariaSummary));
@@ -40275,14 +41023,14 @@ var RenameController = class RenameController2 {
   }
 };
 RenameController.ID = "editor.contrib.renameController";
-RenameController = __decorate56([
-  __param56(1, IInstantiationService),
-  __param56(2, INotificationService),
-  __param56(3, IBulkEditService),
-  __param56(4, IEditorProgressService),
-  __param56(5, ILogService),
-  __param56(6, ITextResourceConfigurationService),
-  __param56(7, ILanguageFeaturesService)
+RenameController = __decorate62([
+  __param62(1, IInstantiationService),
+  __param62(2, INotificationService),
+  __param62(3, IBulkEditService),
+  __param62(4, IEditorProgressService),
+  __param62(5, ILogService),
+  __param62(6, ITextResourceConfigurationService),
+  __param62(7, ILanguageFeaturesService)
 ], RenameController);
 var RenameAction = class extends EditorAction {
   constructor() {
@@ -40368,7 +41116,7 @@ registerModelAndPositionCommand("_executeDocumentRenameProvider", function(acces
   return rename(renameProvider, model, position, newName);
 });
 registerModelAndPositionCommand("_executePrepareRename", function(accessor, model, position) {
-  return __awaiter42(this, void 0, void 0, function* () {
+  return __awaiter46(this, void 0, void 0, function* () {
     const { renameProvider } = accessor.get(ILanguageFeaturesService);
     const skeleton = new RenameSkeleton(model, position, renameProvider);
     const loc = yield skeleton.resolveRenameLocation(CancellationToken.None);
@@ -40423,13 +41171,13 @@ var WordSelectionRangeProvider = class {
     if (!obj) {
       return;
     }
-    let { word, startColumn } = obj;
-    let offset = pos.column - startColumn;
+    const { word, startColumn } = obj;
+    const offset = pos.column - startColumn;
     let start = offset;
     let end = offset;
     let lastCh = 0;
     for (; start >= 0; start--) {
-      let ch = word.charCodeAt(start);
+      const ch = word.charCodeAt(start);
       if (start !== offset && (ch === 95 || ch === 45)) {
         break;
       } else if (isLowerAsciiLetter(ch) && isUpperAsciiLetter(lastCh)) {
@@ -40439,7 +41187,7 @@ var WordSelectionRangeProvider = class {
     }
     start += 1;
     for (; end < word.length; end++) {
-      let ch = word.charCodeAt(end);
+      const ch = word.charCodeAt(end);
       if (isUpperAsciiLetter(ch) && isLowerAsciiLetter(lastCh)) {
         break;
       } else if (ch === 95 || ch === 45) {
@@ -40472,7 +41220,7 @@ init_languageFeatures();
 init_resolverService();
 init_types();
 init_uri();
-var __decorate57 = function(decorators, target, key, desc) {
+var __decorate63 = function(decorators, target, key, desc) {
   var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
   if (typeof Reflect === "object" && typeof Reflect.decorate === "function")
     r = Reflect.decorate(decorators, target, key, desc);
@@ -40482,12 +41230,12 @@ var __decorate57 = function(decorators, target, key, desc) {
         r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
   return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __param57 = function(paramIndex, decorator) {
+var __param63 = function(paramIndex, decorator) {
   return function(target, key) {
     decorator(target, key, paramIndex);
   };
 };
-var __awaiter43 = function(thisArg, _arguments, P, generator) {
+var __awaiter47 = function(thisArg, _arguments, P, generator) {
   function adopt(value) {
     return value instanceof P ? value : new P(function(resolve) {
       resolve(value);
@@ -40520,7 +41268,7 @@ var SelectionRanges = class {
     this.ranges = ranges;
   }
   mov(fwd) {
-    let index = this.index + (fwd ? 1 : -1);
+    const index = this.index + (fwd ? 1 : -1);
     if (index < 0 || index >= this.ranges.length) {
       return this;
     }
@@ -40545,14 +41293,14 @@ var SmartSelectController = class SmartSelectController2 {
     (_a5 = this._selectionListener) === null || _a5 === void 0 ? void 0 : _a5.dispose();
   }
   run(forward) {
-    return __awaiter43(this, void 0, void 0, function* () {
+    return __awaiter47(this, void 0, void 0, function* () {
       if (!this._editor.hasModel()) {
         return;
       }
       const selections = this._editor.getSelections();
       const model = this._editor.getModel();
       if (!this._state) {
-        yield provideSelectionRanges(this._languageFeaturesService.selectionRangeProvider, model, selections.map((s) => s.getPosition()), this._editor.getOption(102), CancellationToken.None).then((ranges) => {
+        yield provideSelectionRanges(this._languageFeaturesService.selectionRangeProvider, model, selections.map((s) => s.getPosition()), this._editor.getOption(103), CancellationToken.None).then((ranges) => {
           var _a5;
           if (!isNonEmptyArray(ranges) || ranges.length !== selections.length) {
             return;
@@ -40592,8 +41340,8 @@ var SmartSelectController = class SmartSelectController2 {
   }
 };
 SmartSelectController.ID = "editor.contrib.smartSelectController";
-SmartSelectController = __decorate57([
-  __param57(1, ILanguageFeaturesService)
+SmartSelectController = __decorate63([
+  __param63(1, ILanguageFeaturesService)
 ], SmartSelectController);
 var AbstractSmartSelect = class extends EditorAction {
   constructor(forward, opts) {
@@ -40601,8 +41349,8 @@ var AbstractSmartSelect = class extends EditorAction {
     this._forward = forward;
   }
   run(_accessor, editor2) {
-    return __awaiter43(this, void 0, void 0, function* () {
-      let controller = SmartSelectController.get(editor2);
+    return __awaiter47(this, void 0, void 0, function* () {
+      const controller = SmartSelectController.get(editor2);
       if (controller) {
         yield controller.run(this._forward);
       }
@@ -40664,13 +41412,13 @@ registerEditorContribution(SmartSelectController.ID, SmartSelectController);
 registerEditorAction(GrowSelectionAction);
 registerEditorAction(ShrinkSelectionAction);
 function provideSelectionRanges(registry, model, positions, options, token) {
-  return __awaiter43(this, void 0, void 0, function* () {
+  return __awaiter47(this, void 0, void 0, function* () {
     const providers = registry.all(model).concat(new WordSelectionRangeProvider());
     if (providers.length === 1) {
       providers.unshift(new BracketSelectionRangeProvider());
     }
-    let work = [];
-    let allRawRanges = [];
+    const work = [];
+    const allRawRanges = [];
     for (const provider of providers) {
       work.push(Promise.resolve(provider.provideSelectionRanges(model, positions, token)).then((allProviderRanges) => {
         if (isNonEmptyArray(allProviderRanges) && allProviderRanges.length === positions.length) {
@@ -40705,7 +41453,7 @@ function provideSelectionRanges(registry, model, positions, options, token) {
           return 0;
         }
       });
-      let oneRanges = [];
+      const oneRanges = [];
       let last;
       for (const range of oneRawRanges) {
         if (!last || Range.containsRange(range, last) && !Range.equalsRange(range, last)) {
@@ -40716,7 +41464,7 @@ function provideSelectionRanges(registry, model, positions, options, token) {
       if (!options.selectLeadingAndTrailingWhitespace) {
         return oneRanges;
       }
-      let oneRangesWithTrivia = [oneRanges[0]];
+      const oneRangesWithTrivia = [oneRanges[0]];
       for (let i = 1; i < oneRanges.length; i++) {
         const prev = oneRanges[i - 1];
         const cur = oneRanges[i];
@@ -40737,7 +41485,7 @@ function provideSelectionRanges(registry, model, positions, options, token) {
   });
 }
 CommandsRegistry.registerCommand("_executeSelectionRangeProvider", function(accessor, ...args) {
-  return __awaiter43(this, void 0, void 0, function* () {
+  return __awaiter47(this, void 0, void 0, function* () {
     const [resource, positions] = args;
     assertType(URI.isUri(resource));
     const registry = accessor.get(ILanguageFeaturesService).selectionRangeProvider;
@@ -40749,6 +41497,215 @@ CommandsRegistry.registerCommand("_executeSelectionRangeProvider", function(acce
     }
   });
 });
+
+// ../../node_modules/monaco-editor/esm/vs/editor/contrib/suggest/browser/suggestInlineCompletions.js
+init_define_process();
+init_cancellation();
+init_iterator();
+init_lifecycle();
+init_editorExtensions();
+init_codeEditorService();
+init_range();
+init_languageFeatures();
+init_instantiation();
+var __decorate64 = function(decorators, target, key, desc) {
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function")
+    r = Reflect.decorate(decorators, target, key, desc);
+  else
+    for (var i = decorators.length - 1; i >= 0; i--)
+      if (d = decorators[i])
+        r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __param64 = function(paramIndex, decorator) {
+  return function(target, key) {
+    decorator(target, key, paramIndex);
+  };
+};
+var __awaiter48 = function(thisArg, _arguments, P, generator) {
+  function adopt(value) {
+    return value instanceof P ? value : new P(function(resolve) {
+      resolve(value);
+    });
+  }
+  return new (P || (P = Promise))(function(resolve, reject) {
+    function fulfilled(value) {
+      try {
+        step(generator.next(value));
+      } catch (e) {
+        reject(e);
+      }
+    }
+    function rejected(value) {
+      try {
+        step(generator["throw"](value));
+      } catch (e) {
+        reject(e);
+      }
+    }
+    function step(result) {
+      result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
+    }
+    step((generator = generator.apply(thisArg, _arguments || [])).next());
+  });
+};
+var SuggestInlineCompletion = class {
+  constructor(range, insertText, filterText, additionalTextEdits, command, completion) {
+    this.range = range;
+    this.insertText = insertText;
+    this.filterText = filterText;
+    this.additionalTextEdits = additionalTextEdits;
+    this.command = command;
+    this.completion = completion;
+  }
+};
+var InlineCompletionResults = class InlineCompletionResults2 extends RefCountedDisposable {
+  constructor(model, line, word, completionModel, completions, _suggestMemoryService) {
+    super(completions.disposable);
+    this.model = model;
+    this.line = line;
+    this.word = word;
+    this.completionModel = completionModel;
+    this._suggestMemoryService = _suggestMemoryService;
+  }
+  canBeReused(model, line, word) {
+    return this.model === model && this.line === line && this.word.word.length > 0 && this.word.startColumn === word.startColumn && this.word.endColumn < word.endColumn && this.completionModel.incomplete.size === 0;
+  }
+  get items() {
+    var _a5;
+    const result = [];
+    const { items } = this.completionModel;
+    const selectedIndex = this._suggestMemoryService.select(this.model, { lineNumber: this.line, column: this.word.endColumn + this.completionModel.lineContext.characterCountDelta }, items);
+    const first2 = Iterable.slice(items, selectedIndex);
+    const second = Iterable.slice(items, 0, selectedIndex);
+    let resolveCount = 5;
+    for (const item of Iterable.concat(first2, second)) {
+      if (item.score === FuzzyScore.Default) {
+        continue;
+      }
+      const range = new Range(item.editStart.lineNumber, item.editStart.column, item.editInsertEnd.lineNumber, item.editInsertEnd.column + this.completionModel.lineContext.characterCountDelta);
+      const insertText = item.completion.insertTextRules && item.completion.insertTextRules & CompletionItemInsertTextRule.InsertAsSnippet ? { snippet: item.completion.insertText } : item.completion.insertText;
+      result.push(new SuggestInlineCompletion(range, insertText, (_a5 = item.filterTextLow) !== null && _a5 !== void 0 ? _a5 : item.labelLow, item.completion.additionalTextEdits, item.completion.command, item));
+      if (resolveCount-- >= 0) {
+        item.resolve(CancellationToken.None);
+      }
+    }
+    return result;
+  }
+};
+InlineCompletionResults = __decorate64([
+  __param64(5, ISuggestMemoryService)
+], InlineCompletionResults);
+var SuggestInlineCompletions = class SuggestInlineCompletions2 {
+  constructor(_getEditorOption, _languageFeatureService, _clipboardService, _suggestMemoryService) {
+    this._getEditorOption = _getEditorOption;
+    this._languageFeatureService = _languageFeatureService;
+    this._clipboardService = _clipboardService;
+    this._suggestMemoryService = _suggestMemoryService;
+  }
+  provideInlineCompletions(model, position, context, token) {
+    var _a5;
+    return __awaiter48(this, void 0, void 0, function* () {
+      if (context.selectedSuggestionInfo) {
+        return;
+      }
+      const config = this._getEditorOption(80, model);
+      if (QuickSuggestionsOptions.isAllOff(config)) {
+        return;
+      }
+      model.tokenization.tokenizeIfCheap(position.lineNumber);
+      const lineTokens = model.tokenization.getLineTokens(position.lineNumber);
+      const tokenType = lineTokens.getStandardTokenType(lineTokens.findTokenIndexAtOffset(Math.max(position.column - 1 - 1, 0)));
+      if (QuickSuggestionsOptions.valueFor(config, tokenType) !== "inline") {
+        return void 0;
+      }
+      let wordInfo = model.getWordAtPosition(position);
+      let triggerCharacterInfo;
+      if (!(wordInfo === null || wordInfo === void 0 ? void 0 : wordInfo.word)) {
+        triggerCharacterInfo = this._getTriggerCharacterInfo(model, position);
+      }
+      if (!(wordInfo === null || wordInfo === void 0 ? void 0 : wordInfo.word) && !triggerCharacterInfo) {
+        return;
+      }
+      if (!wordInfo) {
+        wordInfo = model.getWordUntilPosition(position);
+      }
+      if (wordInfo.endColumn !== position.column) {
+        return;
+      }
+      let result;
+      const leadingLineContents = model.getValueInRange(new Range(position.lineNumber, 1, position.lineNumber, position.column));
+      if (!triggerCharacterInfo && ((_a5 = this._lastResult) === null || _a5 === void 0 ? void 0 : _a5.canBeReused(model, position.lineNumber, wordInfo))) {
+        const newLineContext = new LineContext(leadingLineContents, position.column - this._lastResult.word.endColumn);
+        this._lastResult.completionModel.lineContext = newLineContext;
+        this._lastResult.acquire();
+        result = this._lastResult;
+      } else {
+        const completions = yield provideSuggestionItems(this._languageFeatureService.completionProvider, model, position, new CompletionOptions(void 0, void 0, triggerCharacterInfo === null || triggerCharacterInfo === void 0 ? void 0 : triggerCharacterInfo.providers), triggerCharacterInfo && { triggerKind: 1, triggerCharacter: triggerCharacterInfo.ch }, token);
+        let clipboardText;
+        if (completions.needsClipboard) {
+          clipboardText = yield this._clipboardService.readText();
+        }
+        const completionModel = new CompletionModel(completions.items, position.column, new LineContext(leadingLineContents, 0), WordDistance.None, this._getEditorOption(107, model), this._getEditorOption(102, model), { boostFullMatch: false, firstMatchCanBeWeak: false }, clipboardText);
+        result = new InlineCompletionResults(model, position.lineNumber, wordInfo, completionModel, completions, this._suggestMemoryService);
+      }
+      this._lastResult = result;
+      return result;
+    });
+  }
+  handleItemDidShow(_completions, item) {
+    item.completion.resolve(CancellationToken.None);
+  }
+  freeInlineCompletions(result) {
+    result.release();
+  }
+  _getTriggerCharacterInfo(model, position) {
+    var _a5;
+    const ch = model.getValueInRange(Range.fromPositions({ lineNumber: position.lineNumber, column: position.column - 1 }, position));
+    const providers = /* @__PURE__ */ new Set();
+    for (const provider of this._languageFeatureService.completionProvider.all(model)) {
+      if ((_a5 = provider.triggerCharacters) === null || _a5 === void 0 ? void 0 : _a5.includes(ch)) {
+        providers.add(provider);
+      }
+    }
+    if (providers.size === 0) {
+      return void 0;
+    }
+    return { providers, ch };
+  }
+};
+SuggestInlineCompletions = __decorate64([
+  __param64(1, ILanguageFeaturesService),
+  __param64(2, IClipboardService),
+  __param64(3, ISuggestMemoryService)
+], SuggestInlineCompletions);
+var EditorContribution = class EditorContribution2 {
+  constructor(_editor, languageFeatureService, editorService, instaService) {
+    if (++EditorContribution2._counter === 1) {
+      const provider = instaService.createInstance(SuggestInlineCompletions, (id, model) => {
+        var _a5;
+        const editor2 = (_a5 = editorService.listCodeEditors().find((editor3) => editor3.getModel() === model)) !== null && _a5 !== void 0 ? _a5 : _editor;
+        return editor2.getOption(id);
+      });
+      EditorContribution2._disposable = languageFeatureService.inlineCompletionsProvider.register("*", provider);
+    }
+  }
+  dispose() {
+    var _a5;
+    if (--EditorContribution2._counter === 0) {
+      (_a5 = EditorContribution2._disposable) === null || _a5 === void 0 ? void 0 : _a5.dispose();
+      EditorContribution2._disposable = void 0;
+    }
+  }
+};
+EditorContribution._counter = 0;
+EditorContribution = __decorate64([
+  __param64(1, ILanguageFeaturesService),
+  __param64(2, ICodeEditorService),
+  __param64(3, IInstantiationService)
+], EditorContribution);
+registerEditorContribution("suggest.inlineCompletionsProvider", EditorContribution);
 
 // ../../node_modules/monaco-editor/esm/vs/editor/contrib/tokenization/browser/tokenization.js
 init_define_process();
@@ -40769,9 +41726,9 @@ var ForceRetokenizeAction = class extends EditorAction {
       return;
     }
     const model = editor2.getModel();
-    model.resetTokenization();
+    model.tokenization.resetTokenization();
     const sw = new StopWatch(true);
-    model.forceTokenization(model.getLineCount());
+    model.tokenization.forceTokenization(model.getLineCount());
     sw.stop();
     console.log(`tokenization took ${sw.elapsed()}`);
   }
@@ -40810,7 +41767,7 @@ init_lifecycle();
 init_opener();
 init_colorRegistry();
 init_themeService();
-var __decorate58 = function(decorators, target, key, desc) {
+var __decorate65 = function(decorators, target, key, desc) {
   var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
   if (typeof Reflect === "object" && typeof Reflect.decorate === "function")
     r = Reflect.decorate(decorators, target, key, desc);
@@ -40820,7 +41777,7 @@ var __decorate58 = function(decorators, target, key, desc) {
         r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
   return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __param58 = function(paramIndex, decorator) {
+var __param65 = function(paramIndex, decorator) {
   return function(target, key) {
     decorator(target, key, paramIndex);
   };
@@ -40878,8 +41835,8 @@ var Link2 = class Link3 extends Disposable {
     this._enabled = enabled;
   }
 };
-Link2 = __decorate58([
-  __param58(3, IOpenerService)
+Link2 = __decorate65([
+  __param65(3, IOpenerService)
 ], Link2);
 registerThemingParticipant((theme, collector) => {
   const textLinkForegroundColor = theme.getColor(textLinkForeground);
@@ -40894,7 +41851,7 @@ registerThemingParticipant((theme, collector) => {
 
 // ../../node_modules/monaco-editor/esm/vs/editor/contrib/unicodeHighlighter/browser/bannerController.js
 init_themeService();
-var __decorate59 = function(decorators, target, key, desc) {
+var __decorate66 = function(decorators, target, key, desc) {
   var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
   if (typeof Reflect === "object" && typeof Reflect.decorate === "function")
     r = Reflect.decorate(decorators, target, key, desc);
@@ -40904,7 +41861,7 @@ var __decorate59 = function(decorators, target, key, desc) {
         r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
   return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __param59 = function(paramIndex, decorator) {
+var __param66 = function(paramIndex, decorator) {
   return function(target, key) {
     decorator(target, key, paramIndex);
   };
@@ -40923,16 +41880,15 @@ var BannerController = class BannerController2 extends Disposable {
   }
   show(item) {
     this.banner.show(Object.assign(Object.assign({}, item), { onClose: () => {
+      var _a5;
       this.hide();
-      if (item.onClose) {
-        item.onClose();
-      }
+      (_a5 = item.onClose) === null || _a5 === void 0 ? void 0 : _a5.call(item);
     } }));
     this._editor.setBanner(this.banner.element, BANNER_ELEMENT_HEIGHT);
   }
 };
-BannerController = __decorate59([
-  __param59(1, IInstantiationService)
+BannerController = __decorate66([
+  __param66(1, IInstantiationService)
 ], BannerController);
 var Banner = class Banner2 extends Disposable {
   constructor(instantiationService) {
@@ -40992,8 +41948,8 @@ var Banner = class Banner2 extends Disposable {
     this.actionBar.setFocusable(false);
   }
 };
-Banner = __decorate59([
-  __param59(0, IInstantiationService)
+Banner = __decorate66([
+  __param66(0, IInstantiationService)
 ], Banner);
 
 // ../../node_modules/monaco-editor/esm/vs/editor/contrib/unicodeHighlighter/browser/unicodeHighlighter.js
@@ -41001,7 +41957,7 @@ init_nls();
 init_configuration();
 init_instantiation();
 init_opener();
-var __decorate60 = function(decorators, target, key, desc) {
+var __decorate67 = function(decorators, target, key, desc) {
   var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
   if (typeof Reflect === "object" && typeof Reflect.decorate === "function")
     r = Reflect.decorate(decorators, target, key, desc);
@@ -41011,12 +41967,12 @@ var __decorate60 = function(decorators, target, key, desc) {
         r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
   return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __param60 = function(paramIndex, decorator) {
+var __param67 = function(paramIndex, decorator) {
   return function(target, key) {
     decorator(target, key, paramIndex);
   };
 };
-var __awaiter44 = function(thisArg, _arguments, P, generator) {
+var __awaiter49 = function(thisArg, _arguments, P, generator) {
   function adopt(value) {
     return value instanceof P ? value : new P(function(resolve) {
       resolve(value);
@@ -41100,13 +42056,13 @@ var UnicodeHighlighter = class UnicodeHighlighter2 extends Disposable {
       this._bannerClosed = false;
       this._updateHighlighter();
     }));
-    this._options = _editor.getOption(113);
+    this._options = _editor.getOption(114);
     this._register(_workspaceTrustService.onDidChangeTrust((e) => {
       this._updateHighlighter();
     }));
     this._register(_editor.onDidChangeConfiguration((e) => {
-      if (e.hasChanged(113)) {
-        this._options = _editor.getOption(113);
+      if (e.hasChanged(114)) {
+        this._options = _editor.getOption(114);
         this._updateHighlighter();
       }
     }));
@@ -41145,7 +42101,7 @@ var UnicodeHighlighter = class UnicodeHighlighter2 extends Disposable {
       allowedCodePoints: Object.keys(options.allowedCharacters).map((c) => c.codePointAt(0)),
       allowedLocales: Object.keys(options.allowedLocales).map((locale) => {
         if (locale === "_os") {
-          let osLocale = new Intl.NumberFormat().resolvedOptions().locale;
+          const osLocale = new Intl.NumberFormat().resolvedOptions().locale;
           return osLocale;
         } else if (locale === "_vscode") {
           return language;
@@ -41159,18 +42115,18 @@ var UnicodeHighlighter = class UnicodeHighlighter2 extends Disposable {
       this._highlighter = new ViewportUnicodeHighlighter(this._editor, highlightOptions, this._updateState);
     }
   }
-  getDecorationInfo(decorationId) {
+  getDecorationInfo(decoration2) {
     if (this._highlighter) {
-      return this._highlighter.getDecorationInfo(decorationId);
+      return this._highlighter.getDecorationInfo(decoration2);
     }
     return null;
   }
 };
 UnicodeHighlighter.ID = "editor.contrib.unicodeHighlighter";
-UnicodeHighlighter = __decorate60([
-  __param60(1, IEditorWorkerService),
-  __param60(2, IWorkspaceTrustManagementService),
-  __param60(3, IInstantiationService)
+UnicodeHighlighter = __decorate67([
+  __param67(1, IEditorWorkerService),
+  __param67(2, IWorkspaceTrustManagementService),
+  __param67(3, IInstantiationService)
 ], UnicodeHighlighter);
 function resolveOptions(trusted, options) {
   return {
@@ -41191,7 +42147,7 @@ var DocumentUnicodeHighlighter = class DocumentUnicodeHighlighter2 extends Dispo
     this._updateState = _updateState;
     this._editorWorkerService = _editorWorkerService;
     this._model = this._editor.getModel();
-    this._decorationIds = /* @__PURE__ */ new Set();
+    this._decorations = this._editor.createDecorationsCollection();
     this._updateSoon = this._register(new RunOnceScheduler(() => this._update(), 250));
     this._register(this._editor.onDidChangeModelContent(() => {
       this._updateSoon.schedule();
@@ -41199,7 +42155,7 @@ var DocumentUnicodeHighlighter = class DocumentUnicodeHighlighter2 extends Dispo
     this._updateSoon.schedule();
   }
   dispose() {
-    this._decorationIds = new Set(this._model.deltaDecorations(Array.from(this._decorationIds), []));
+    this._decorations.clear();
     super.dispose();
   }
   _update() {
@@ -41207,7 +42163,7 @@ var DocumentUnicodeHighlighter = class DocumentUnicodeHighlighter2 extends Dispo
       return;
     }
     if (!this._model.mightContainNonBasicASCII()) {
-      this._decorationIds = new Set(this._editor.deltaDecorations(Array.from(this._decorationIds), []));
+      this._decorations.clear();
       return;
     }
     const modelVersionId = this._model.getVersionId();
@@ -41228,34 +42184,27 @@ var DocumentUnicodeHighlighter = class DocumentUnicodeHighlighter2 extends Dispo
           });
         }
       }
-      this._decorationIds = new Set(this._editor.deltaDecorations(Array.from(this._decorationIds), decorations));
+      this._decorations.set(decorations);
     });
   }
-  getDecorationInfo(decorationId) {
-    if (!this._decorationIds.has(decorationId)) {
+  getDecorationInfo(decoration2) {
+    if (!this._decorations.has(decoration2)) {
       return null;
     }
     const model = this._editor.getModel();
-    const range = model.getDecorationRange(decorationId);
-    const decoration2 = {
-      range,
-      options: Decorations.instance.getDecorationFromOptions(this._options),
-      id: decorationId,
-      ownerId: 0
-    };
     if (!isModelDecorationVisible(model, decoration2)) {
       return null;
     }
-    const text2 = model.getValueInRange(range);
+    const text = model.getValueInRange(decoration2.range);
     return {
-      reason: computeReason(text2, this._options),
+      reason: computeReason(text, this._options),
       inComment: isModelDecorationInComment(model, decoration2),
       inString: isModelDecorationInString(model, decoration2)
     };
   }
 };
-DocumentUnicodeHighlighter = __decorate60([
-  __param60(3, IEditorWorkerService)
+DocumentUnicodeHighlighter = __decorate67([
+  __param67(3, IEditorWorkerService)
 ], DocumentUnicodeHighlighter);
 var ViewportUnicodeHighlighter = class extends Disposable {
   constructor(_editor, _options, _updateState) {
@@ -41264,7 +42213,7 @@ var ViewportUnicodeHighlighter = class extends Disposable {
     this._options = _options;
     this._updateState = _updateState;
     this._model = this._editor.getModel();
-    this._decorationIds = /* @__PURE__ */ new Set();
+    this._decorations = this._editor.createDecorationsCollection();
     this._updateSoon = this._register(new RunOnceScheduler(() => this._update(), 250));
     this._register(this._editor.onDidLayoutChange(() => {
       this._updateSoon.schedule();
@@ -41281,7 +42230,7 @@ var ViewportUnicodeHighlighter = class extends Disposable {
     this._updateSoon.schedule();
   }
   dispose() {
-    this._decorationIds = new Set(this._model.deltaDecorations(Array.from(this._decorationIds), []));
+    this._decorations.clear();
     super.dispose();
   }
   _update() {
@@ -41289,7 +42238,7 @@ var ViewportUnicodeHighlighter = class extends Disposable {
       return;
     }
     if (!this._model.mightContainNonBasicASCII()) {
-      this._decorationIds = new Set(this._editor.deltaDecorations(Array.from(this._decorationIds), []));
+      this._decorations.clear();
       return;
     }
     const ranges = this._editor.getVisibleRanges();
@@ -41317,26 +42266,19 @@ var ViewportUnicodeHighlighter = class extends Disposable {
       }
     }
     this._updateState(totalResult);
-    this._decorationIds = new Set(this._editor.deltaDecorations(Array.from(this._decorationIds), decorations));
+    this._decorations.set(decorations);
   }
-  getDecorationInfo(decorationId) {
-    if (!this._decorationIds.has(decorationId)) {
+  getDecorationInfo(decoration2) {
+    if (!this._decorations.has(decoration2)) {
       return null;
     }
     const model = this._editor.getModel();
-    const range = model.getDecorationRange(decorationId);
-    const text2 = model.getValueInRange(range);
-    const decoration2 = {
-      range,
-      options: Decorations.instance.getDecorationFromOptions(this._options),
-      id: decorationId,
-      ownerId: 0
-    };
+    const text = model.getValueInRange(decoration2.range);
     if (!isModelDecorationVisible(model, decoration2)) {
       return null;
     }
     return {
-      reason: computeReason(text2, this._options),
+      reason: computeReason(text, this._options),
       inComment: isModelDecorationInComment(model, decoration2),
       inString: isModelDecorationInString(model, decoration2)
     };
@@ -41361,7 +42303,7 @@ var UnicodeHighlighterHoverParticipant = class UnicodeHighlighterHoverParticipan
     const result = [];
     let index = 300;
     for (const d of lineDecorations) {
-      const highlightInfo = unicodeHighlighter.getDecorationInfo(d.id);
+      const highlightInfo = unicodeHighlighter.getDecorationInfo(d);
       if (!highlightInfo) {
         continue;
       }
@@ -41387,11 +42329,9 @@ var UnicodeHighlighterHoverParticipant = class UnicodeHighlighterHoverParticipan
         inString: highlightInfo.inString
       };
       const adjustSettings = localize("unicodeHighlight.adjustSettings", "Adjust settings");
-      const contents = [{
-        value: `${reason} [${adjustSettings}](command:${ShowExcludeOptions.ID}?${encodeURIComponent(JSON.stringify(adjustSettingsArgs))})`,
-        isTrusted: true
-      }];
-      result.push(new MarkdownHover(this, d.range, contents, index++));
+      const uri = `command:${ShowExcludeOptions.ID}?${encodeURIComponent(JSON.stringify(adjustSettingsArgs))}`;
+      const markdown = new MarkdownString("", true).appendMarkdown(reason).appendText(" ").appendLink(uri, adjustSettings);
+      result.push(new MarkdownHover(this, d.range, [markdown], index++));
     }
     return result;
   }
@@ -41399,9 +42339,9 @@ var UnicodeHighlighterHoverParticipant = class UnicodeHighlighterHoverParticipan
     return renderMarkdownHovers(context, hoverParts, this._editor, this._languageService, this._openerService);
   }
 };
-UnicodeHighlighterHoverParticipant = __decorate60([
-  __param60(1, ILanguageService),
-  __param60(2, IOpenerService)
+UnicodeHighlighterHoverParticipant = __decorate67([
+  __param67(1, ILanguageService),
+  __param67(2, IOpenerService)
 ], UnicodeHighlighterHoverParticipant);
 function codePointToHex(codePoint) {
   return `U+${codePoint.toString(16).padStart(4, "0")}`;
@@ -41460,15 +42400,15 @@ var DisableHighlightingInCommentsAction = class extends EditorAction {
     this.shortLabel = localize("unicodeHighlight.disableHighlightingInComments.shortLabel", "Disable Highlight In Comments");
   }
   run(accessor, editor2, args) {
-    return __awaiter44(this, void 0, void 0, function* () {
-      let configurationService = accessor === null || accessor === void 0 ? void 0 : accessor.get(IConfigurationService);
+    return __awaiter49(this, void 0, void 0, function* () {
+      const configurationService = accessor === null || accessor === void 0 ? void 0 : accessor.get(IConfigurationService);
       if (configurationService) {
         this.runAction(configurationService);
       }
     });
   }
   runAction(configurationService) {
-    return __awaiter44(this, void 0, void 0, function* () {
+    return __awaiter49(this, void 0, void 0, function* () {
       yield configurationService.updateValue(unicodeHighlightConfigKeys.includeComments, false, 1);
     });
   }
@@ -41484,15 +42424,15 @@ var DisableHighlightingInStringsAction = class extends EditorAction {
     this.shortLabel = localize("unicodeHighlight.disableHighlightingInStrings.shortLabel", "Disable Highlight In Strings");
   }
   run(accessor, editor2, args) {
-    return __awaiter44(this, void 0, void 0, function* () {
-      let configurationService = accessor === null || accessor === void 0 ? void 0 : accessor.get(IConfigurationService);
+    return __awaiter49(this, void 0, void 0, function* () {
+      const configurationService = accessor === null || accessor === void 0 ? void 0 : accessor.get(IConfigurationService);
       if (configurationService) {
         this.runAction(configurationService);
       }
     });
   }
   runAction(configurationService) {
-    return __awaiter44(this, void 0, void 0, function* () {
+    return __awaiter49(this, void 0, void 0, function* () {
       yield configurationService.updateValue(unicodeHighlightConfigKeys.includeStrings, false, 1);
     });
   }
@@ -41508,15 +42448,15 @@ var DisableHighlightingOfAmbiguousCharactersAction = class extends EditorAction 
     this.shortLabel = localize("unicodeHighlight.disableHighlightingOfAmbiguousCharacters.shortLabel", "Disable Ambiguous Highlight");
   }
   run(accessor, editor2, args) {
-    return __awaiter44(this, void 0, void 0, function* () {
-      let configurationService = accessor === null || accessor === void 0 ? void 0 : accessor.get(IConfigurationService);
+    return __awaiter49(this, void 0, void 0, function* () {
+      const configurationService = accessor === null || accessor === void 0 ? void 0 : accessor.get(IConfigurationService);
       if (configurationService) {
         this.runAction(configurationService);
       }
     });
   }
   runAction(configurationService) {
-    return __awaiter44(this, void 0, void 0, function* () {
+    return __awaiter49(this, void 0, void 0, function* () {
       yield configurationService.updateValue(unicodeHighlightConfigKeys.ambiguousCharacters, false, 1);
     });
   }
@@ -41533,15 +42473,15 @@ var DisableHighlightingOfInvisibleCharactersAction = class extends EditorAction 
     this.shortLabel = localize("unicodeHighlight.disableHighlightingOfInvisibleCharacters.shortLabel", "Disable Invisible Highlight");
   }
   run(accessor, editor2, args) {
-    return __awaiter44(this, void 0, void 0, function* () {
-      let configurationService = accessor === null || accessor === void 0 ? void 0 : accessor.get(IConfigurationService);
+    return __awaiter49(this, void 0, void 0, function* () {
+      const configurationService = accessor === null || accessor === void 0 ? void 0 : accessor.get(IConfigurationService);
       if (configurationService) {
         this.runAction(configurationService);
       }
     });
   }
   runAction(configurationService) {
-    return __awaiter44(this, void 0, void 0, function* () {
+    return __awaiter49(this, void 0, void 0, function* () {
       yield configurationService.updateValue(unicodeHighlightConfigKeys.invisibleCharacters, false, 1);
     });
   }
@@ -41558,15 +42498,15 @@ var DisableHighlightingOfNonBasicAsciiCharactersAction = class extends EditorAct
     this.shortLabel = localize("unicodeHighlight.disableHighlightingOfNonBasicAsciiCharacters.shortLabel", "Disable Non ASCII Highlight");
   }
   run(accessor, editor2, args) {
-    return __awaiter44(this, void 0, void 0, function* () {
-      let configurationService = accessor === null || accessor === void 0 ? void 0 : accessor.get(IConfigurationService);
+    return __awaiter49(this, void 0, void 0, function* () {
+      const configurationService = accessor === null || accessor === void 0 ? void 0 : accessor.get(IConfigurationService);
       if (configurationService) {
         this.runAction(configurationService);
       }
     });
   }
   runAction(configurationService) {
-    return __awaiter44(this, void 0, void 0, function* () {
+    return __awaiter49(this, void 0, void 0, function* () {
       yield configurationService.updateValue(unicodeHighlightConfigKeys.nonBasicASCII, false, 1);
     });
   }
@@ -41582,7 +42522,7 @@ var ShowExcludeOptions = class extends EditorAction {
     });
   }
   run(accessor, editor2, args) {
-    return __awaiter44(this, void 0, void 0, function* () {
+    return __awaiter49(this, void 0, void 0, function* () {
       const { codePoint, reason, inString, inComment } = args;
       const char = String.fromCodePoint(codePoint);
       const quickPickService = accessor.get(IQuickInputService);
@@ -41598,7 +42538,7 @@ var ShowExcludeOptions = class extends EditorAction {
         for (const locale of reason.notAmbiguousInLocales) {
           options.push({
             label: localize("unicodeHighlight.allowCommonCharactersInLanguage", 'Allow unicode characters that are more common in the language "{0}".', locale),
-            run: () => __awaiter44(this, void 0, void 0, function* () {
+            run: () => __awaiter49(this, void 0, void 0, function* () {
               excludeLocaleFromBeingHighlighted(configurationService, [locale]);
             })
           });
@@ -41610,28 +42550,28 @@ var ShowExcludeOptions = class extends EditorAction {
       });
       if (inComment) {
         const action = new DisableHighlightingInCommentsAction();
-        options.push({ label: action.label, run: () => __awaiter44(this, void 0, void 0, function* () {
+        options.push({ label: action.label, run: () => __awaiter49(this, void 0, void 0, function* () {
           return action.runAction(configurationService);
         }) });
       } else if (inString) {
         const action = new DisableHighlightingInStringsAction();
-        options.push({ label: action.label, run: () => __awaiter44(this, void 0, void 0, function* () {
+        options.push({ label: action.label, run: () => __awaiter49(this, void 0, void 0, function* () {
           return action.runAction(configurationService);
         }) });
       }
       if (reason.kind === 0) {
         const action = new DisableHighlightingOfAmbiguousCharactersAction();
-        options.push({ label: action.label, run: () => __awaiter44(this, void 0, void 0, function* () {
+        options.push({ label: action.label, run: () => __awaiter49(this, void 0, void 0, function* () {
           return action.runAction(configurationService);
         }) });
       } else if (reason.kind === 1) {
         const action = new DisableHighlightingOfInvisibleCharactersAction();
-        options.push({ label: action.label, run: () => __awaiter44(this, void 0, void 0, function* () {
+        options.push({ label: action.label, run: () => __awaiter49(this, void 0, void 0, function* () {
           return action.runAction(configurationService);
         }) });
       } else if (reason.kind === 2) {
         const action = new DisableHighlightingOfNonBasicAsciiCharactersAction();
-        options.push({ label: action.label, run: () => __awaiter44(this, void 0, void 0, function* () {
+        options.push({ label: action.label, run: () => __awaiter49(this, void 0, void 0, function* () {
           return action.runAction(configurationService);
         }) });
       } else {
@@ -41646,7 +42586,7 @@ var ShowExcludeOptions = class extends EditorAction {
 };
 ShowExcludeOptions.ID = "editor.action.unicodeHighlight.showExcludeOptions";
 function excludeCharFromBeingHighlighted(configurationService, charCodes) {
-  return __awaiter44(this, void 0, void 0, function* () {
+  return __awaiter49(this, void 0, void 0, function* () {
     const existingValue = configurationService.getValue(unicodeHighlightConfigKeys.allowedCharacters);
     let value;
     if (typeof existingValue === "object" && existingValue) {
@@ -41662,7 +42602,7 @@ function excludeCharFromBeingHighlighted(configurationService, charCodes) {
 }
 function excludeLocaleFromBeingHighlighted(configurationService, locales) {
   var _a5;
-  return __awaiter44(this, void 0, void 0, function* () {
+  return __awaiter49(this, void 0, void 0, function* () {
     const existingValue = (_a5 = configurationService.inspect(unicodeHighlightConfigKeys.allowedLocales).user) === null || _a5 === void 0 ? void 0 : _a5.value;
     let value;
     if (typeof existingValue === "object" && existingValue) {
@@ -41693,7 +42633,7 @@ init_resources();
 init_editorExtensions();
 init_codeEditorService();
 init_nls();
-var __decorate61 = function(decorators, target, key, desc) {
+var __decorate68 = function(decorators, target, key, desc) {
   var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
   if (typeof Reflect === "object" && typeof Reflect.decorate === "function")
     r = Reflect.decorate(decorators, target, key, desc);
@@ -41703,12 +42643,12 @@ var __decorate61 = function(decorators, target, key, desc) {
         r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
   return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __param61 = function(paramIndex, decorator) {
+var __param68 = function(paramIndex, decorator) {
   return function(target, key) {
     decorator(target, key, paramIndex);
   };
 };
-var __awaiter45 = function(thisArg, _arguments, P, generator) {
+var __awaiter50 = function(thisArg, _arguments, P, generator) {
   function adopt(value) {
     return value instanceof P ? value : new P(function(resolve) {
       resolve(value);
@@ -41748,10 +42688,10 @@ var UnusualLineTerminatorsDetector = class UnusualLineTerminatorsDetector2 exten
     this._editor = _editor;
     this._dialogService = _dialogService;
     this._codeEditorService = _codeEditorService;
-    this._config = this._editor.getOption(114);
+    this._config = this._editor.getOption(115);
     this._register(this._editor.onDidChangeConfiguration((e) => {
-      if (e.hasChanged(114)) {
-        this._config = this._editor.getOption(114);
+      if (e.hasChanged(115)) {
+        this._config = this._editor.getOption(115);
         this._checkForUnusualLineTerminators();
       }
     }));
@@ -41766,7 +42706,7 @@ var UnusualLineTerminatorsDetector = class UnusualLineTerminatorsDetector2 exten
     }));
   }
   _checkForUnusualLineTerminators() {
-    return __awaiter45(this, void 0, void 0, function* () {
+    return __awaiter50(this, void 0, void 0, function* () {
       if (this._config === "off") {
         return;
       }
@@ -41781,7 +42721,7 @@ var UnusualLineTerminatorsDetector = class UnusualLineTerminatorsDetector2 exten
       if (ignoreState === true) {
         return;
       }
-      if (this._editor.getOption(81)) {
+      if (this._editor.getOption(82)) {
         return;
       }
       if (this._config === "auto") {
@@ -41804,9 +42744,9 @@ var UnusualLineTerminatorsDetector = class UnusualLineTerminatorsDetector2 exten
   }
 };
 UnusualLineTerminatorsDetector.ID = "editor.contrib.unusualLineTerminatorsDetector";
-UnusualLineTerminatorsDetector = __decorate61([
-  __param61(1, IDialogService),
-  __param61(2, ICodeEditorService)
+UnusualLineTerminatorsDetector = __decorate68([
+  __param68(1, IDialogService),
+  __param68(2, ICodeEditorService)
 ], UnusualLineTerminatorsDetector);
 registerEditorContribution(UnusualLineTerminatorsDetector.ID, UnusualLineTerminatorsDetector);
 
@@ -41832,7 +42772,8 @@ init_contextkey();
 init_colorRegistry();
 init_themeService();
 init_languageFeatures();
-var __decorate62 = function(decorators, target, key, desc) {
+init_theme();
+var __decorate69 = function(decorators, target, key, desc) {
   var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
   if (typeof Reflect === "object" && typeof Reflect.decorate === "function")
     r = Reflect.decorate(decorators, target, key, desc);
@@ -41842,17 +42783,17 @@ var __decorate62 = function(decorators, target, key, desc) {
         r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
   return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __param62 = function(paramIndex, decorator) {
+var __param69 = function(paramIndex, decorator) {
   return function(target, key) {
     decorator(target, key, paramIndex);
   };
 };
-var editorWordHighlight = registerColor("editor.wordHighlightBackground", { dark: "#575757B8", light: "#57575740", hc: null }, localize("wordHighlight", "Background color of a symbol during read-access, like reading a variable. The color must not be opaque so as not to hide underlying decorations."), true);
-var editorWordHighlightStrong = registerColor("editor.wordHighlightStrongBackground", { dark: "#004972B8", light: "#0e639c40", hc: null }, localize("wordHighlightStrong", "Background color of a symbol during write-access, like writing to a variable. The color must not be opaque so as not to hide underlying decorations."), true);
-var editorWordHighlightBorder = registerColor("editor.wordHighlightBorder", { light: null, dark: null, hc: activeContrastBorder }, localize("wordHighlightBorder", "Border color of a symbol during read-access, like reading a variable."));
-var editorWordHighlightStrongBorder = registerColor("editor.wordHighlightStrongBorder", { light: null, dark: null, hc: activeContrastBorder }, localize("wordHighlightStrongBorder", "Border color of a symbol during write-access, like writing to a variable."));
-var overviewRulerWordHighlightForeground = registerColor("editorOverviewRuler.wordHighlightForeground", { dark: "#A0A0A0CC", light: "#A0A0A0CC", hc: "#A0A0A0CC" }, localize("overviewRulerWordHighlightForeground", "Overview ruler marker color for symbol highlights. The color must not be opaque so as not to hide underlying decorations."), true);
-var overviewRulerWordHighlightStrongForeground = registerColor("editorOverviewRuler.wordHighlightStrongForeground", { dark: "#C0A0C0CC", light: "#C0A0C0CC", hc: "#C0A0C0CC" }, localize("overviewRulerWordHighlightStrongForeground", "Overview ruler marker color for write-access symbol highlights. The color must not be opaque so as not to hide underlying decorations."), true);
+var editorWordHighlight = registerColor("editor.wordHighlightBackground", { dark: "#575757B8", light: "#57575740", hcDark: null, hcLight: null }, localize("wordHighlight", "Background color of a symbol during read-access, like reading a variable. The color must not be opaque so as not to hide underlying decorations."), true);
+var editorWordHighlightStrong = registerColor("editor.wordHighlightStrongBackground", { dark: "#004972B8", light: "#0e639c40", hcDark: null, hcLight: null }, localize("wordHighlightStrong", "Background color of a symbol during write-access, like writing to a variable. The color must not be opaque so as not to hide underlying decorations."), true);
+var editorWordHighlightBorder = registerColor("editor.wordHighlightBorder", { light: null, dark: null, hcDark: activeContrastBorder, hcLight: activeContrastBorder }, localize("wordHighlightBorder", "Border color of a symbol during read-access, like reading a variable."));
+var editorWordHighlightStrongBorder = registerColor("editor.wordHighlightStrongBorder", { light: null, dark: null, hcDark: activeContrastBorder, hcLight: activeContrastBorder }, localize("wordHighlightStrongBorder", "Border color of a symbol during write-access, like writing to a variable."));
+var overviewRulerWordHighlightForeground = registerColor("editorOverviewRuler.wordHighlightForeground", { dark: "#A0A0A0CC", light: "#A0A0A0CC", hcDark: "#A0A0A0CC", hcLight: "#A0A0A0CC" }, localize("overviewRulerWordHighlightForeground", "Overview ruler marker color for symbol highlights. The color must not be opaque so as not to hide underlying decorations."), true);
+var overviewRulerWordHighlightStrongForeground = registerColor("editorOverviewRuler.wordHighlightStrongForeground", { dark: "#C0A0C0CC", light: "#C0A0C0CC", hcDark: "#C0A0C0CC", hcLight: "#C0A0C0CC" }, localize("overviewRulerWordHighlightStrongForeground", "Overview ruler marker color for write-access symbol highlights. The color must not be opaque so as not to hide underlying decorations."), true);
 var ctxHasWordHighlights = new RawContextKey("hasWordHighlights", false);
 function getOccurrencesAtPosition(registry, model, position, token) {
   const orderedByScore = registry.ordered(model);
@@ -41881,14 +42822,14 @@ var OccurenceAtPositionRequest = class {
     }
     return null;
   }
-  isValid(model, selection, decorationIds) {
+  isValid(model, selection, decorations) {
     const lineNumber = selection.startLineNumber;
     const startColumn = selection.startColumn;
     const endColumn = selection.endColumn;
     const currentWordRange = this._getCurrentWordRange(model, selection);
     let requestIsValid = Boolean(this._wordRange && this._wordRange.equalsRange(currentWordRange));
-    for (let i = 0, len = decorationIds.length; !requestIsValid && i < len; i++) {
-      let range = model.getDecorationRange(decorationIds[i]);
+    for (let i = 0, len = decorations.length; !requestIsValid && i < len; i++) {
+      const range = decorations.getRange(i);
       if (range && range.startLineNumber === lineNumber) {
         if (range.startColumn <= startColumn && range.endColumn >= endColumn) {
           requestIsValid = true;
@@ -41933,12 +42874,12 @@ var TextualOccurenceAtPositionRequest = class extends OccurenceAtPositionRequest
       });
     });
   }
-  isValid(model, selection, decorationIds) {
+  isValid(model, selection, decorations) {
     const currentSelectionIsEmpty = selection.isEmpty();
     if (this._selectionIsEmpty !== currentSelectionIsEmpty) {
       return false;
     }
-    return super.isValid(model, selection, decorationIds);
+    return super.isValid(model, selection, decorations);
   }
 };
 function computeOccurencesAtPosition(registry, model, selection, wordSeparators) {
@@ -41963,7 +42904,7 @@ var WordHighlighter = class {
     this.providers = providers;
     this._hasWordHighlights = ctxHasWordHighlights.bindTo(contextKeyService);
     this._ignorePositionChangeEvent = false;
-    this.occurrencesHighlight = this.editor.getOption(72);
+    this.occurrencesHighlight = this.editor.getOption(73);
     this.model = this.editor.getModel();
     this.toUnhook.add(editor2.onDidChangeCursorPosition((e) => {
       if (this._ignorePositionChangeEvent) {
@@ -41978,13 +42919,13 @@ var WordHighlighter = class {
       this._stopAll();
     }));
     this.toUnhook.add(editor2.onDidChangeConfiguration((e) => {
-      let newValue = this.editor.getOption(72);
+      const newValue = this.editor.getOption(73);
       if (this.occurrencesHighlight !== newValue) {
         this.occurrencesHighlight = newValue;
         this._stopAll();
       }
     }));
-    this._decorationIds = [];
+    this.decorations = this.editor.createDecorationsCollection();
     this.workerRequestTokenId = 0;
     this.workerRequest = null;
     this.workerRequestCompleted = false;
@@ -41992,7 +42933,7 @@ var WordHighlighter = class {
     this.renderDecorationsTimer = -1;
   }
   hasDecorations() {
-    return this._decorationIds.length > 0;
+    return this.decorations.length > 0;
   }
   restore() {
     if (!this.occurrencesHighlight) {
@@ -42001,13 +42942,13 @@ var WordHighlighter = class {
     this._run();
   }
   _getSortedHighlights() {
-    return coalesce(this._decorationIds.map((id) => this.model.getDecorationRange(id)).sort(Range.compareRangesUsingStarts));
+    return this.decorations.getRanges().sort(Range.compareRangesUsingStarts);
   }
   moveNext() {
-    let highlights = this._getSortedHighlights();
-    let index = highlights.findIndex((range) => range.containsPosition(this.editor.getPosition()));
-    let newIndex = (index + 1) % highlights.length;
-    let dest = highlights[newIndex];
+    const highlights = this._getSortedHighlights();
+    const index = highlights.findIndex((range) => range.containsPosition(this.editor.getPosition()));
+    const newIndex = (index + 1) % highlights.length;
+    const dest = highlights[newIndex];
     try {
       this._ignorePositionChangeEvent = true;
       this.editor.setPosition(dest.getStartPosition());
@@ -42022,10 +42963,10 @@ var WordHighlighter = class {
     }
   }
   moveBack() {
-    let highlights = this._getSortedHighlights();
-    let index = highlights.findIndex((range) => range.containsPosition(this.editor.getPosition()));
-    let newIndex = (index - 1 + highlights.length) % highlights.length;
-    let dest = highlights[newIndex];
+    const highlights = this._getSortedHighlights();
+    const index = highlights.findIndex((range) => range.containsPosition(this.editor.getPosition()));
+    const newIndex = (index - 1 + highlights.length) % highlights.length;
+    const dest = highlights[newIndex];
     try {
       this._ignorePositionChangeEvent = true;
       this.editor.setPosition(dest.getStartPosition());
@@ -42040,8 +42981,8 @@ var WordHighlighter = class {
     }
   }
   _removeDecorations() {
-    if (this._decorationIds.length > 0) {
-      this._decorationIds = this.editor.deltaDecorations(this._decorationIds, []);
+    if (this.decorations.length > 0) {
+      this.decorations.clear();
       this._hasWordHighlights.set(false);
     }
   }
@@ -42072,28 +43013,28 @@ var WordHighlighter = class {
     this._run();
   }
   _getWord() {
-    let editorSelection = this.editor.getSelection();
-    let lineNumber = editorSelection.startLineNumber;
-    let startColumn = editorSelection.startColumn;
+    const editorSelection = this.editor.getSelection();
+    const lineNumber = editorSelection.startLineNumber;
+    const startColumn = editorSelection.startColumn;
     return this.model.getWordAtPosition({
       lineNumber,
       column: startColumn
     });
   }
   _run() {
-    let editorSelection = this.editor.getSelection();
+    const editorSelection = this.editor.getSelection();
     if (editorSelection.startLineNumber !== editorSelection.endLineNumber) {
       this._stopAll();
       return;
     }
-    let startColumn = editorSelection.startColumn;
-    let endColumn = editorSelection.endColumn;
+    const startColumn = editorSelection.startColumn;
+    const endColumn = editorSelection.endColumn;
     const word = this._getWord();
     if (!word || word.startColumn > startColumn || word.endColumn < endColumn) {
       this._stopAll();
       return;
     }
-    const workerRequestIsValid = this.workerRequest && this.workerRequest.isValid(this.model, editorSelection, this._decorationIds);
+    const workerRequestIsValid = this.workerRequest && this.workerRequest.isValid(this.model, editorSelection, this.decorations);
     this.lastCursorPositionChangeTime = new Date().getTime();
     if (workerRequestIsValid) {
       if (this.workerRequestCompleted && this.renderDecorationsTimer !== -1) {
@@ -42103,9 +43044,9 @@ var WordHighlighter = class {
       }
     } else {
       this._stopAll();
-      let myRequestId = ++this.workerRequestTokenId;
+      const myRequestId = ++this.workerRequestTokenId;
       this.workerRequestCompleted = false;
-      this.workerRequest = computeOccurencesAtPosition(this.providers, this.model, this.editor.getSelection(), this.editor.getOption(117));
+      this.workerRequest = computeOccurencesAtPosition(this.providers, this.model, this.editor.getSelection(), this.editor.getOption(118));
       this.workerRequest.result.then((data) => {
         if (myRequestId === this.workerRequestTokenId) {
           this.workerRequestCompleted = true;
@@ -42116,8 +43057,8 @@ var WordHighlighter = class {
     }
   }
   _beginRenderDecorations() {
-    let currentTime = new Date().getTime();
-    let minimumRenderTime = this.lastCursorPositionChangeTime + 250;
+    const currentTime = new Date().getTime();
+    const minimumRenderTime = this.lastCursorPositionChangeTime + 250;
     if (currentTime >= minimumRenderTime) {
       this.renderDecorationsTimer = -1;
       this.renderDecorations();
@@ -42129,7 +43070,7 @@ var WordHighlighter = class {
   }
   renderDecorations() {
     this.renderDecorationsTimer = -1;
-    let decorations = [];
+    const decorations = [];
     for (const info of this.workerRequestValue) {
       if (info.range) {
         decorations.push({
@@ -42138,7 +43079,7 @@ var WordHighlighter = class {
         });
       }
     }
-    this._decorationIds = this.editor.deltaDecorations(this._decorationIds, decorations);
+    this.decorations.set(decorations);
     this._hasWordHighlights.set(this.hasDecorations());
   }
   static _getDecorationOptions(kind) {
@@ -42245,9 +43186,9 @@ var WordHighlighterContribution = class WordHighlighterContribution2 extends Dis
   }
 };
 WordHighlighterContribution.ID = "editor.contrib.wordHighlighter";
-WordHighlighterContribution = __decorate62([
-  __param62(1, IContextKeyService),
-  __param62(2, ILanguageFeaturesService)
+WordHighlighterContribution = __decorate69([
+  __param69(1, IContextKeyService),
+  __param69(2, ILanguageFeaturesService)
 ], WordHighlighterContribution);
 var WordHighlightNavigationAction = class extends EditorAction {
   constructor(next, opts) {
@@ -42338,15 +43279,15 @@ registerThemingParticipant((theme, collector) => {
   }
   const selectionHighlightBorder = theme.getColor(editorSelectionHighlightBorder);
   if (selectionHighlightBorder) {
-    collector.addRule(`.monaco-editor .selectionHighlight { border: 1px ${theme.type === "hc" ? "dotted" : "solid"} ${selectionHighlightBorder}; box-sizing: border-box; }`);
+    collector.addRule(`.monaco-editor .selectionHighlight { border: 1px ${isHighContrast(theme.type) ? "dotted" : "solid"} ${selectionHighlightBorder}; box-sizing: border-box; }`);
   }
   const wordHighlightBorder = theme.getColor(editorWordHighlightBorder);
   if (wordHighlightBorder) {
-    collector.addRule(`.monaco-editor .wordHighlight { border: 1px ${theme.type === "hc" ? "dashed" : "solid"} ${wordHighlightBorder}; box-sizing: border-box; }`);
+    collector.addRule(`.monaco-editor .wordHighlight { border: 1px ${isHighContrast(theme.type) ? "dashed" : "solid"} ${wordHighlightBorder}; box-sizing: border-box; }`);
   }
   const wordHighlightStrongBorder = theme.getColor(editorWordHighlightStrongBorder);
   if (wordHighlightStrongBorder) {
-    collector.addRule(`.monaco-editor .wordHighlightStrong { border: 1px ${theme.type === "hc" ? "dashed" : "solid"} ${wordHighlightStrongBorder}; box-sizing: border-box; }`);
+    collector.addRule(`.monaco-editor .wordHighlightStrong { border: 1px ${isHighContrast(theme.type) ? "dashed" : "solid"} ${wordHighlightStrongBorder}; box-sizing: border-box; }`);
   }
 });
 
@@ -42371,7 +43312,7 @@ var MoveWordCommand = class extends EditorCommand {
     if (!editor2.hasModel()) {
       return;
     }
-    const wordSeparators = getMapForWordSeparators(editor2.getOption(117));
+    const wordSeparators = getMapForWordSeparators(editor2.getOption(118));
     const model = editor2.getModel();
     const selections = editor2.getSelections();
     const result = selections.map((sel) => {
@@ -42615,7 +43556,7 @@ var DeleteWordCommand = class extends EditorCommand {
     if (!editor2.hasModel()) {
       return;
     }
-    const wordSeparators = getMapForWordSeparators(editor2.getOption(117));
+    const wordSeparators = getMapForWordSeparators(editor2.getOption(118));
     const model = editor2.getModel();
     const selections = editor2.getSelections();
     const autoClosingBrackets = editor2.getOption(5);
@@ -42643,7 +43584,7 @@ var DeleteWordCommand = class extends EditorCommand {
 };
 var DeleteWordLeftCommand = class extends DeleteWordCommand {
   _delete(ctx, wordNavigationType) {
-    let r = WordOperations.deleteWordLeft(ctx, wordNavigationType);
+    const r = WordOperations.deleteWordLeft(ctx, wordNavigationType);
     if (r) {
       return r;
     }
@@ -42652,7 +43593,7 @@ var DeleteWordLeftCommand = class extends DeleteWordCommand {
 };
 var DeleteWordRightCommand = class extends DeleteWordCommand {
   _delete(ctx, wordNavigationType) {
-    let r = WordOperations.deleteWordRight(ctx, wordNavigationType);
+    const r = WordOperations.deleteWordRight(ctx, wordNavigationType);
     if (r) {
       return r;
     }
@@ -42746,7 +43687,7 @@ var DeleteInsideWord = class extends EditorAction {
     if (!editor2.hasModel()) {
       return;
     }
-    const wordSeparators = getMapForWordSeparators(editor2.getOption(117));
+    const wordSeparators = getMapForWordSeparators(editor2.getOption(118));
     const model = editor2.getModel();
     const selections = editor2.getSelections();
     const commands = selections.map((sel) => {
@@ -42804,7 +43745,7 @@ var DeleteWordPartLeft = class extends DeleteWordCommand {
     });
   }
   _delete(ctx, wordNavigationType) {
-    let r = WordPartOperations.deleteWordPartLeft(ctx);
+    const r = WordPartOperations.deleteWordPartLeft(ctx);
     if (r) {
       return r;
     }
@@ -42827,7 +43768,7 @@ var DeleteWordPartRight = class extends DeleteWordCommand {
     });
   }
   _delete(ctx, wordNavigationType) {
-    let r = WordPartOperations.deleteWordPartRight(ctx);
+    const r = WordPartOperations.deleteWordPartRight(ctx);
     if (r) {
       return r;
     }
@@ -42942,7 +43883,7 @@ var IPadShowKeyboard = class extends Disposable {
     }
   }
   update() {
-    const shouldHaveWidget = !this.editor.getOption(81);
+    const shouldHaveWidget = !this.editor.getOption(82);
     if (!this.widget && shouldHaveWidget) {
       this.widget = new ShowKeyboardWidget(this.editor);
     } else if (this.widget && !shouldHaveWidget) {
@@ -43002,10 +43943,11 @@ init_standaloneStrings();
 
 // ../../node_modules/monaco-editor/esm/vs/platform/quickinput/browser/helpQuickAccess.js
 init_define_process();
-init_lifecycle();
 init_nls();
 init_platform2();
-var __decorate63 = function(decorators, target, key, desc) {
+init_lifecycle();
+init_keybinding();
+var __decorate70 = function(decorators, target, key, desc) {
   var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
   if (typeof Reflect === "object" && typeof Reflect.decorate === "function")
     r = Reflect.decorate(decorators, target, key, desc);
@@ -43015,14 +43957,15 @@ var __decorate63 = function(decorators, target, key, desc) {
         r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
   return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __param63 = function(paramIndex, decorator) {
+var __param70 = function(paramIndex, decorator) {
   return function(target, key) {
     decorator(target, key, paramIndex);
   };
 };
 var HelpQuickAccessProvider = class HelpQuickAccessProvider2 {
-  constructor(quickInputService) {
+  constructor(quickInputService, keybindingService) {
     this.quickInputService = quickInputService;
+    this.keybindingService = keybindingService;
     this.registry = Registry.as(Extensions2.Quickaccess);
   }
   provide(picker) {
@@ -43039,20 +43982,11 @@ var HelpQuickAccessProvider = class HelpQuickAccessProvider2 {
         this.quickInputService.quickAccess.show(providerDescriptor.prefix, { preserveValue: true });
       }
     }));
-    const { editorProviders, globalProviders } = this.getQuickAccessProviders();
-    picker.items = editorProviders.length === 0 || globalProviders.length === 0 ? [
-      ...editorProviders.length === 0 ? globalProviders : editorProviders
-    ] : [
-      { label: localize("globalCommands", "global commands"), type: "separator" },
-      ...globalProviders,
-      { label: localize("editorCommands", "editor commands"), type: "separator" },
-      ...editorProviders
-    ];
+    picker.items = this.getQuickAccessProviders();
     return disposables;
   }
   getQuickAccessProviders() {
-    const globalProviders = [];
-    const editorProviders = [];
+    const providers = [];
     for (const provider of this.registry.getQuickAccessProviders().sort((providerA, providerB) => providerA.prefix.localeCompare(providerB.prefix))) {
       if (provider.prefix === HelpQuickAccessProvider2.PREFIX) {
         continue;
@@ -43060,27 +43994,29 @@ var HelpQuickAccessProvider = class HelpQuickAccessProvider2 {
       for (const helpEntry of provider.helpEntries) {
         const prefix = helpEntry.prefix || provider.prefix;
         const label = prefix || "\u2026";
-        (helpEntry.needsEditor ? editorProviders : globalProviders).push({
+        providers.push({
           prefix,
           label,
+          keybinding: helpEntry.commandId ? this.keybindingService.lookupKeybinding(helpEntry.commandId) : void 0,
           ariaLabel: localize("helpPickAriaLabel", "{0}, {1}", label, helpEntry.description),
           description: helpEntry.description
         });
       }
     }
-    return { editorProviders, globalProviders };
+    return providers;
   }
 };
 HelpQuickAccessProvider.PREFIX = "?";
-HelpQuickAccessProvider = __decorate63([
-  __param63(0, IQuickInputService)
+HelpQuickAccessProvider = __decorate70([
+  __param70(0, IQuickInputService),
+  __param70(1, IKeybindingService)
 ], HelpQuickAccessProvider);
 
 // ../../node_modules/monaco-editor/esm/vs/editor/standalone/browser/quickAccess/standaloneHelpQuickAccess.js
 Registry.as(Extensions2.Quickaccess).registerQuickAccessProvider({
   ctor: HelpQuickAccessProvider,
   prefix: "",
-  helpEntries: [{ description: QuickHelpNLS.helpQuickAccessActionLabel, needsEditor: true }]
+  helpEntries: [{ description: QuickHelpNLS.helpQuickAccessActionLabel }]
 });
 
 // ../../node_modules/monaco-editor/esm/vs/editor/standalone/browser/quickAccess/standaloneGotoLineQuickAccess.js
@@ -43255,7 +44191,7 @@ var AbstractGotoLineQuickAccessProvider = class extends AbstractEditorNavigation
     const codeEditor = getCodeEditor(editor2);
     if (codeEditor) {
       const options = codeEditor.getOptions();
-      const lineNumbers = options.get(60);
+      const lineNumbers = options.get(61);
       if (lineNumbers.renderType === 2) {
         codeEditor.updateOptions({ lineNumbers: "on" });
         disposables.add(toDisposable(() => codeEditor.updateOptions({ lineNumbers: "relative" })));
@@ -43325,7 +44261,7 @@ init_standaloneStrings();
 init_event();
 init_editorExtensions();
 init_editorContextKeys();
-var __decorate64 = function(decorators, target, key, desc) {
+var __decorate71 = function(decorators, target, key, desc) {
   var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
   if (typeof Reflect === "object" && typeof Reflect.decorate === "function")
     r = Reflect.decorate(decorators, target, key, desc);
@@ -43335,7 +44271,7 @@ var __decorate64 = function(decorators, target, key, desc) {
         r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
   return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __param64 = function(paramIndex, decorator) {
+var __param71 = function(paramIndex, decorator) {
   return function(target, key) {
     decorator(target, key, paramIndex);
   };
@@ -43350,18 +44286,13 @@ var StandaloneGotoLineQuickAccessProvider = class StandaloneGotoLineQuickAccessP
     return withNullAsUndefined(this.editorService.getFocusedCodeEditor());
   }
 };
-StandaloneGotoLineQuickAccessProvider = __decorate64([
-  __param64(0, ICodeEditorService)
+StandaloneGotoLineQuickAccessProvider = __decorate71([
+  __param71(0, ICodeEditorService)
 ], StandaloneGotoLineQuickAccessProvider);
-Registry.as(Extensions2.Quickaccess).registerQuickAccessProvider({
-  ctor: StandaloneGotoLineQuickAccessProvider,
-  prefix: StandaloneGotoLineQuickAccessProvider.PREFIX,
-  helpEntries: [{ description: GoToLineNLS.gotoLineActionLabel, needsEditor: true }]
-});
 var GotoLineAction = class extends EditorAction {
   constructor() {
     super({
-      id: "editor.action.gotoLine",
+      id: GotoLineAction.ID,
       label: GoToLineNLS.gotoLineActionLabel,
       alias: "Go to Line/Column...",
       precondition: void 0,
@@ -43377,7 +44308,13 @@ var GotoLineAction = class extends EditorAction {
     accessor.get(IQuickInputService).quickAccess.show(StandaloneGotoLineQuickAccessProvider.PREFIX);
   }
 };
+GotoLineAction.ID = "editor.action.gotoLine";
 registerEditorAction(GotoLineAction);
+Registry.as(Extensions2.Quickaccess).registerQuickAccessProvider({
+  ctor: StandaloneGotoLineQuickAccessProvider,
+  prefix: StandaloneGotoLineQuickAccessProvider.PREFIX,
+  helpEntries: [{ description: GoToLineNLS.gotoLineActionLabel, commandId: GotoLineAction.ID }]
+});
 
 // ../../node_modules/monaco-editor/esm/vs/editor/standalone/browser/quickAccess/standaloneGotoSymbolQuickAccess.js
 init_define_process();
@@ -43415,7 +44352,7 @@ function doScoreFuzzy2Multiple(target, query, patternStart, wordStart) {
   return [totalScore, normalizeMatches(totalMatches)];
 }
 function doScoreFuzzy2Single(target, query, patternStart, wordStart) {
-  const score = fuzzyScore(query.original, query.originalLowercase, patternStart, target, target.toLowerCase(), wordStart, true);
+  const score = fuzzyScore(query.original, query.originalLowercase, patternStart, target, target.toLowerCase(), wordStart, { firstMatchCanBeWeak: true, boostFullMatch: true });
   if (!score) {
     return NO_SCORE2;
   }
@@ -43512,7 +44449,7 @@ init_languages();
 init_outlineModel();
 init_nls();
 init_languageFeatures();
-var __decorate65 = function(decorators, target, key, desc) {
+var __decorate72 = function(decorators, target, key, desc) {
   var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
   if (typeof Reflect === "object" && typeof Reflect.decorate === "function")
     r = Reflect.decorate(decorators, target, key, desc);
@@ -43522,12 +44459,12 @@ var __decorate65 = function(decorators, target, key, desc) {
         r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
   return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __param65 = function(paramIndex, decorator) {
+var __param72 = function(paramIndex, decorator) {
   return function(target, key) {
     decorator(target, key, paramIndex);
   };
 };
-var __awaiter46 = function(thisArg, _arguments, P, generator) {
+var __awaiter51 = function(thisArg, _arguments, P, generator) {
   function adopt(value) {
     return value instanceof P ? value : new P(function(resolve) {
       resolve(value);
@@ -43580,7 +44517,7 @@ var AbstractGotoSymbolQuickAccessProvider = class AbstractGotoSymbolQuickAccessP
   doProvideWithoutEditorSymbols(context, model, picker, token) {
     const disposables = new DisposableStore();
     this.provideLabelPick(picker, localize("cannotRunGotoSymbolWithoutSymbolProvider", "The active text editor does not provide symbol information."));
-    (() => __awaiter46(this, void 0, void 0, function* () {
+    (() => __awaiter51(this, void 0, void 0, function* () {
       const result = yield this.waitForLanguageSymbolRegistry(model, disposables);
       if (!result || token.isCancellationRequested) {
         return;
@@ -43594,7 +44531,7 @@ var AbstractGotoSymbolQuickAccessProvider = class AbstractGotoSymbolQuickAccessP
     picker.ariaLabel = label;
   }
   waitForLanguageSymbolRegistry(model, disposables) {
-    return __awaiter46(this, void 0, void 0, function* () {
+    return __awaiter51(this, void 0, void 0, function* () {
       if (this._languageFeaturesService.documentSymbolProvider.has(model)) {
         return true;
       }
@@ -43629,7 +44566,7 @@ var AbstractGotoSymbolQuickAccessProvider = class AbstractGotoSymbolQuickAccessP
     }));
     const symbolsPromise = this.getDocumentSymbols(model, token);
     let picksCts = void 0;
-    const updatePickerItems = () => __awaiter46(this, void 0, void 0, function* () {
+    const updatePickerItems = () => __awaiter51(this, void 0, void 0, function* () {
       picksCts === null || picksCts === void 0 ? void 0 : picksCts.dispose(true);
       picker.busy = false;
       picksCts = new CancellationTokenSource(token);
@@ -43672,7 +44609,7 @@ var AbstractGotoSymbolQuickAccessProvider = class AbstractGotoSymbolQuickAccessP
     return disposables;
   }
   doGetSymbolPicks(symbolsPromise, query, options, token) {
-    return __awaiter46(this, void 0, void 0, function* () {
+    return __awaiter51(this, void 0, void 0, function* () {
       const symbols = yield symbolsPromise;
       if (token.isCancellationRequested) {
         return [];
@@ -43826,7 +44763,7 @@ var AbstractGotoSymbolQuickAccessProvider = class AbstractGotoSymbolQuickAccessP
     return result;
   }
   getDocumentSymbols(document2, token) {
-    return __awaiter46(this, void 0, void 0, function* () {
+    return __awaiter51(this, void 0, void 0, function* () {
       const model = yield this._outlineModelService.getOrCreate(document2, token);
       return token.isCancellationRequested ? [] : model.asListOfDocumentSymbols();
     });
@@ -43835,9 +44772,9 @@ var AbstractGotoSymbolQuickAccessProvider = class AbstractGotoSymbolQuickAccessP
 AbstractGotoSymbolQuickAccessProvider.PREFIX = "@";
 AbstractGotoSymbolQuickAccessProvider.SCOPE_PREFIX = ":";
 AbstractGotoSymbolQuickAccessProvider.PREFIX_BY_CATEGORY = `${AbstractGotoSymbolQuickAccessProvider.PREFIX}${AbstractGotoSymbolQuickAccessProvider.SCOPE_PREFIX}`;
-AbstractGotoSymbolQuickAccessProvider = __decorate65([
-  __param65(0, ILanguageFeaturesService),
-  __param65(1, IOutlineModelService)
+AbstractGotoSymbolQuickAccessProvider = __decorate72([
+  __param72(0, ILanguageFeaturesService),
+  __param72(1, IOutlineModelService)
 ], AbstractGotoSymbolQuickAccessProvider);
 var FALLBACK_NLS_SYMBOL_KIND = localize("property", "properties ({0})");
 var NLS_SYMBOL_KIND_CACHE = {
@@ -43878,7 +44815,7 @@ init_editorExtensions();
 init_editorContextKeys();
 init_outlineModel();
 init_languageFeatures();
-var __decorate66 = function(decorators, target, key, desc) {
+var __decorate73 = function(decorators, target, key, desc) {
   var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
   if (typeof Reflect === "object" && typeof Reflect.decorate === "function")
     r = Reflect.decorate(decorators, target, key, desc);
@@ -43888,7 +44825,7 @@ var __decorate66 = function(decorators, target, key, desc) {
         r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
   return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __param66 = function(paramIndex, decorator) {
+var __param73 = function(paramIndex, decorator) {
   return function(target, key) {
     decorator(target, key, paramIndex);
   };
@@ -43903,23 +44840,15 @@ var StandaloneGotoSymbolQuickAccessProvider = class StandaloneGotoSymbolQuickAcc
     return withNullAsUndefined(this.editorService.getFocusedCodeEditor());
   }
 };
-StandaloneGotoSymbolQuickAccessProvider = __decorate66([
-  __param66(0, ICodeEditorService),
-  __param66(1, ILanguageFeaturesService),
-  __param66(2, IOutlineModelService)
+StandaloneGotoSymbolQuickAccessProvider = __decorate73([
+  __param73(0, ICodeEditorService),
+  __param73(1, ILanguageFeaturesService),
+  __param73(2, IOutlineModelService)
 ], StandaloneGotoSymbolQuickAccessProvider);
-Registry.as(Extensions2.Quickaccess).registerQuickAccessProvider({
-  ctor: StandaloneGotoSymbolQuickAccessProvider,
-  prefix: AbstractGotoSymbolQuickAccessProvider.PREFIX,
-  helpEntries: [
-    { description: QuickOutlineNLS.quickOutlineActionLabel, prefix: AbstractGotoSymbolQuickAccessProvider.PREFIX, needsEditor: true },
-    { description: QuickOutlineNLS.quickOutlineByCategoryActionLabel, prefix: AbstractGotoSymbolQuickAccessProvider.PREFIX_BY_CATEGORY, needsEditor: true }
-  ]
-});
-var GotoLineAction2 = class extends EditorAction {
+var GotoSymbolAction = class extends EditorAction {
   constructor() {
     super({
-      id: "editor.action.quickOutline",
+      id: GotoSymbolAction.ID,
       label: QuickOutlineNLS.quickOutlineActionLabel,
       alias: "Go to Symbol...",
       precondition: EditorContextKeys.hasDocumentSymbolProvider,
@@ -43938,7 +44867,16 @@ var GotoLineAction2 = class extends EditorAction {
     accessor.get(IQuickInputService).quickAccess.show(AbstractGotoSymbolQuickAccessProvider.PREFIX);
   }
 };
-registerEditorAction(GotoLineAction2);
+GotoSymbolAction.ID = "editor.action.quickOutline";
+registerEditorAction(GotoSymbolAction);
+Registry.as(Extensions2.Quickaccess).registerQuickAccessProvider({
+  ctor: StandaloneGotoSymbolQuickAccessProvider,
+  prefix: AbstractGotoSymbolQuickAccessProvider.PREFIX,
+  helpEntries: [
+    { description: QuickOutlineNLS.quickOutlineActionLabel, prefix: AbstractGotoSymbolQuickAccessProvider.PREFIX, commandId: GotoSymbolAction.ID },
+    { description: QuickOutlineNLS.quickOutlineByCategoryActionLabel, prefix: AbstractGotoSymbolQuickAccessProvider.PREFIX_BY_CATEGORY }
+  ]
+});
 
 // ../../node_modules/monaco-editor/esm/vs/editor/standalone/browser/quickAccess/standaloneCommandsQuickAccess.js
 init_define_process();
@@ -44024,7 +44962,7 @@ init_define_process();
 init_async();
 init_cancellation();
 init_lifecycle();
-var __awaiter47 = function(thisArg, _arguments, P, generator) {
+var __awaiter52 = function(thisArg, _arguments, P, generator) {
   function adopt(value) {
     return value instanceof P ? value : new P(function(resolve) {
       resolve(value);
@@ -44079,7 +45017,7 @@ var PickerQuickAccessProvider = class extends Disposable {
     picker.matchOnLabel = picker.matchOnDescription = picker.matchOnDetail = picker.sortByLabel = false;
     let picksCts = void 0;
     const picksDisposable = disposables.add(new MutableDisposable());
-    const updatePickerItems = () => __awaiter47(this, void 0, void 0, function* () {
+    const updatePickerItems = () => __awaiter52(this, void 0, void 0, function* () {
       const picksDisposables = picksDisposable.value = new DisposableStore();
       picksCts === null || picksCts === void 0 ? void 0 : picksCts.dispose(true);
       picker.busy = false;
@@ -44116,7 +45054,7 @@ var PickerQuickAccessProvider = class extends Disposable {
         let fastPicksApplied = false;
         let slowPicksApplied = false;
         yield Promise.all([
-          (() => __awaiter47(this, void 0, void 0, function* () {
+          (() => __awaiter52(this, void 0, void 0, function* () {
             yield timeout(PickerQuickAccessProvider.FAST_PICKS_RACE_DELAY);
             if (picksToken.isCancellationRequested) {
               return;
@@ -44125,7 +45063,7 @@ var PickerQuickAccessProvider = class extends Disposable {
               fastPicksApplied = applyPicks(providedPicks.picks, true);
             }
           }))(),
-          (() => __awaiter47(this, void 0, void 0, function* () {
+          (() => __awaiter52(this, void 0, void 0, function* () {
             picker.busy = true;
             try {
               const awaitedAdditionalPicks = yield providedPicks.additionalPicks;
@@ -44197,7 +45135,7 @@ var PickerQuickAccessProvider = class extends Disposable {
         item.accept(picker.keyMods, event);
       }
     }));
-    disposables.add(picker.onDidTriggerItemButton(({ button, item }) => __awaiter47(this, void 0, void 0, function* () {
+    disposables.add(picker.onDidTriggerItemButton(({ button, item }) => __awaiter52(this, void 0, void 0, function* () {
       var _b2, _c2;
       if (typeof item.trigger === "function") {
         const buttonIndex = (_c2 = (_b2 = item.buttons) === null || _b2 === void 0 ? void 0 : _b2.indexOf(button)) !== null && _c2 !== void 0 ? _c2 : -1;
@@ -44243,7 +45181,7 @@ PickerQuickAccessProvider.FAST_PICKS_RACE_DELAY = 200;
 
 // ../../node_modules/monaco-editor/esm/vs/platform/quickinput/browser/commandsQuickAccess.js
 init_telemetry();
-var __decorate67 = function(decorators, target, key, desc) {
+var __decorate74 = function(decorators, target, key, desc) {
   var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
   if (typeof Reflect === "object" && typeof Reflect.decorate === "function")
     r = Reflect.decorate(decorators, target, key, desc);
@@ -44253,12 +45191,12 @@ var __decorate67 = function(decorators, target, key, desc) {
         r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
   return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __param67 = function(paramIndex, decorator) {
+var __param74 = function(paramIndex, decorator) {
   return function(target, key) {
     decorator(target, key, paramIndex);
   };
 };
-var __awaiter48 = function(thisArg, _arguments, P, generator) {
+var __awaiter53 = function(thisArg, _arguments, P, generator) {
   function adopt(value) {
     return value instanceof P ? value : new P(function(resolve) {
       resolve(value);
@@ -44297,7 +45235,7 @@ var AbstractCommandsQuickAccessProvider = class AbstractCommandsQuickAccessProvi
     this.options = options;
   }
   _getPicks(filter, disposables, token) {
-    return __awaiter48(this, void 0, void 0, function* () {
+    return __awaiter53(this, void 0, void 0, function* () {
       const allCommandPicks = yield this.getCommandPicks(disposables, token);
       if (token.isCancellationRequested) {
         return [];
@@ -44354,7 +45292,7 @@ var AbstractCommandsQuickAccessProvider = class AbstractCommandsQuickAccessProvi
           commandPicks.push({ type: "separator", label: localize("morecCommands", "other commands") });
           addSeparator = false;
         }
-        commandPicks.push(Object.assign(Object.assign({}, commandPick), { ariaLabel, detail: this.options.showAlias && commandPick.commandAlias !== commandPick.label ? commandPick.commandAlias : void 0, keybinding, accept: () => __awaiter48(this, void 0, void 0, function* () {
+        commandPicks.push(Object.assign(Object.assign({}, commandPick), { ariaLabel, detail: this.options.showAlias && commandPick.commandAlias !== commandPick.label ? commandPick.commandAlias : void 0, keybinding, accept: () => __awaiter53(this, void 0, void 0, function* () {
           this.commandsHistory.push(commandPick.commandId);
           this.telemetryService.publicLog2("workbenchActionExecuted", {
             id: commandPick.commandId,
@@ -44375,12 +45313,12 @@ var AbstractCommandsQuickAccessProvider = class AbstractCommandsQuickAccessProvi
 };
 AbstractCommandsQuickAccessProvider.PREFIX = ">";
 AbstractCommandsQuickAccessProvider.WORD_FILTER = or(matchesPrefix, matchesWords, matchesContiguousSubString);
-AbstractCommandsQuickAccessProvider = __decorate67([
-  __param67(1, IInstantiationService),
-  __param67(2, IKeybindingService),
-  __param67(3, ICommandService),
-  __param67(4, ITelemetryService),
-  __param67(5, IDialogService)
+AbstractCommandsQuickAccessProvider = __decorate74([
+  __param74(1, IInstantiationService),
+  __param74(2, IKeybindingService),
+  __param74(3, ICommandService),
+  __param74(4, ITelemetryService),
+  __param74(5, IDialogService)
 ], AbstractCommandsQuickAccessProvider);
 var CommandsHistory = class CommandsHistory2 extends Disposable {
   constructor(storageService, configurationService) {
@@ -44457,9 +45395,9 @@ CommandsHistory.DEFAULT_COMMANDS_HISTORY_LENGTH = 50;
 CommandsHistory.PREF_KEY_CACHE = "commandPalette.mru.cache";
 CommandsHistory.PREF_KEY_COUNTER = "commandPalette.mru.counter";
 CommandsHistory.counter = 1;
-CommandsHistory = __decorate67([
-  __param67(0, IStorageService),
-  __param67(1, IConfigurationService)
+CommandsHistory = __decorate74([
+  __param74(0, IStorageService),
+  __param74(1, IConfigurationService)
 ], CommandsHistory);
 
 // ../../node_modules/monaco-editor/esm/vs/editor/contrib/quickAccess/browser/commandsQuickAccess.js
@@ -44492,7 +45430,7 @@ init_commands();
 init_telemetry();
 init_editorExtensions();
 init_editorContextKeys();
-var __decorate68 = function(decorators, target, key, desc) {
+var __decorate75 = function(decorators, target, key, desc) {
   var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
   if (typeof Reflect === "object" && typeof Reflect.decorate === "function")
     r = Reflect.decorate(decorators, target, key, desc);
@@ -44502,12 +45440,12 @@ var __decorate68 = function(decorators, target, key, desc) {
         r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
   return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __param68 = function(paramIndex, decorator) {
+var __param75 = function(paramIndex, decorator) {
   return function(target, key) {
     decorator(target, key, paramIndex);
   };
 };
-var __awaiter49 = function(thisArg, _arguments, P, generator) {
+var __awaiter54 = function(thisArg, _arguments, P, generator) {
   function adopt(value) {
     return value instanceof P ? value : new P(function(resolve) {
       resolve(value);
@@ -44543,28 +45481,23 @@ var StandaloneCommandsQuickAccessProvider = class StandaloneCommandsQuickAccessP
     return withNullAsUndefined(this.codeEditorService.getFocusedCodeEditor());
   }
   getCommandPicks() {
-    return __awaiter49(this, void 0, void 0, function* () {
+    return __awaiter54(this, void 0, void 0, function* () {
       return this.getCodeEditorCommandPicks();
     });
   }
 };
-StandaloneCommandsQuickAccessProvider = __decorate68([
-  __param68(0, IInstantiationService),
-  __param68(1, ICodeEditorService),
-  __param68(2, IKeybindingService),
-  __param68(3, ICommandService),
-  __param68(4, ITelemetryService),
-  __param68(5, IDialogService)
+StandaloneCommandsQuickAccessProvider = __decorate75([
+  __param75(0, IInstantiationService),
+  __param75(1, ICodeEditorService),
+  __param75(2, IKeybindingService),
+  __param75(3, ICommandService),
+  __param75(4, ITelemetryService),
+  __param75(5, IDialogService)
 ], StandaloneCommandsQuickAccessProvider);
-Registry.as(Extensions2.Quickaccess).registerQuickAccessProvider({
-  ctor: StandaloneCommandsQuickAccessProvider,
-  prefix: StandaloneCommandsQuickAccessProvider.PREFIX,
-  helpEntries: [{ description: QuickCommandNLS.quickCommandHelp, needsEditor: true }]
-});
-var GotoLineAction3 = class extends EditorAction {
+var GotoLineAction2 = class extends EditorAction {
   constructor() {
     super({
-      id: "editor.action.quickCommand",
+      id: GotoLineAction2.ID,
       label: QuickCommandNLS.quickCommandActionLabel,
       alias: "Command Palette",
       precondition: void 0,
@@ -44583,7 +45516,13 @@ var GotoLineAction3 = class extends EditorAction {
     accessor.get(IQuickInputService).quickAccess.show(StandaloneCommandsQuickAccessProvider.PREFIX);
   }
 };
-registerEditorAction(GotoLineAction3);
+GotoLineAction2.ID = "editor.action.quickCommand";
+registerEditorAction(GotoLineAction2);
+Registry.as(Extensions2.Quickaccess).registerQuickAccessProvider({
+  ctor: StandaloneCommandsQuickAccessProvider,
+  prefix: StandaloneCommandsQuickAccessProvider.PREFIX,
+  helpEntries: [{ description: QuickCommandNLS.quickCommandHelp, commandId: GotoLineAction2.ID }]
+});
 
 // ../../node_modules/monaco-editor/esm/vs/editor/standalone/browser/referenceSearch/standaloneReferenceSearch.js
 init_define_process();
@@ -44592,7 +45531,7 @@ init_codeEditorService();
 init_configuration();
 init_contextkey();
 init_instantiation();
-var __decorate69 = function(decorators, target, key, desc) {
+var __decorate76 = function(decorators, target, key, desc) {
   var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
   if (typeof Reflect === "object" && typeof Reflect.decorate === "function")
     r = Reflect.decorate(decorators, target, key, desc);
@@ -44602,7 +45541,7 @@ var __decorate69 = function(decorators, target, key, desc) {
         r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
   return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __param69 = function(paramIndex, decorator) {
+var __param76 = function(paramIndex, decorator) {
   return function(target, key) {
     decorator(target, key, paramIndex);
   };
@@ -44612,13 +45551,13 @@ var StandaloneReferencesController = class StandaloneReferencesController2 exten
     super(true, editor2, contextKeyService, editorService, notificationService, instantiationService, storageService, configurationService);
   }
 };
-StandaloneReferencesController = __decorate69([
-  __param69(1, IContextKeyService),
-  __param69(2, ICodeEditorService),
-  __param69(3, INotificationService),
-  __param69(4, IInstantiationService),
-  __param69(5, IStorageService),
-  __param69(6, IConfigurationService)
+StandaloneReferencesController = __decorate76([
+  __param76(1, IContextKeyService),
+  __param76(2, ICodeEditorService),
+  __param76(3, INotificationService),
+  __param76(4, IInstantiationService),
+  __param76(5, IStorageService),
+  __param76(6, IConfigurationService)
 ], StandaloneReferencesController);
 registerEditorContribution(ReferencesController.ID, StandaloneReferencesController);
 
@@ -44627,6 +45566,7 @@ init_define_process();
 init_editorExtensions();
 init_standaloneTheme();
 init_standaloneStrings();
+init_theme();
 var ToggleHighContrast = class extends EditorAction {
   constructor() {
     super({
@@ -44639,8 +45579,8 @@ var ToggleHighContrast = class extends EditorAction {
   }
   run(accessor, editor2) {
     const standaloneThemeService = accessor.get(IStandaloneThemeService);
-    if (this._originalThemeName) {
-      standaloneThemeService.setTheme(this._originalThemeName);
+    if (isHighContrast(standaloneThemeService.getColorTheme().type)) {
+      standaloneThemeService.setTheme(this._originalThemeName || "vs");
       this._originalThemeName = null;
     } else {
       this._originalThemeName = standaloneThemeService.getColorTheme().themeName;
@@ -44651,13 +45591,13 @@ var ToggleHighContrast = class extends EditorAction {
 registerEditorAction(ToggleHighContrast);
 
 // js/monaco-editor/language/typescript/ts.worker.monaco.worker.js
-var ts_worker_monaco_worker_default = "../ts.worker.monaco.worker-XKGEPXLK.js";
+var ts_worker_monaco_worker_default = "../ts.worker.monaco.worker-CGASTB6J.js";
 
 // js/monaco-editor/editor/editor.worker.monaco.worker.js
-var editor_worker_monaco_worker_default = "../editor.worker.monaco.worker-2HCJ5OLE.js";
+var editor_worker_monaco_worker_default = "../editor.worker.monaco.worker-7ETUT2QZ.js";
 
 // ../../node_modules/monaco-editor/esm/vs/base/browser/ui/codicons/codicon/codicon.ttf
-var codicon_default = "../codicon-MO4O4W4B.ttf";
+var codicon_default = "../codicon-5LXI2CHA.ttf";
 
 // js/startMonaco.ts
 var monEnv = {
