@@ -54,7 +54,7 @@ export const AutoUpdateApp: FC<{ hash: number, codeSpace: string }> = ({ hash, c
 App = apps[result];
 
   if (!App) {
-      App = lazy(()=>import(`${location.origin}/live/${codeSpace}/index.js`));
+      return lazy(()=>import(`${location.origin}/live/${codeSpace}/index.js`));
   
   } 
 
