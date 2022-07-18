@@ -8,13 +8,9 @@ import { md5 } from "./md5";
 
 Object.assign(window, {});
 
-import "es-module-shims";
-
 const orig = location.origin.includes("localhost") ? "." : location.origin;
 
-export const initShims = async (assets: { [key: string]: string }) =>
-  location.origin.includes("localhost")
-    ? importShim.addImportMap({
+export const initShims = async (assets: { [key: string]: string }) => import("es-module-shims").then(()=>location.origin.includes("localhost")? importShim.addImportMap({
       "imports": {
         "@emotion/react": orig + "/" + assets["emotion.mjs"],
         "framer-motion": "./framer-motion",
@@ -24,8 +20,7 @@ export const initShims = async (assets: { [key: string]: string }) =>
         "react-dom/server": orig + "/" + assets["react.mjs"],
         "react/jsx-runtime": orig + "/" + assets["react.mjs"],
       },
-    })
-    : importShim.addImportMap({
+    }): importShim.addImportMap({
       "imports": {
         // ...imap,
         "framer-motion": location.origin + "/" + assets["framer-motion.mjs"],
@@ -40,7 +35,7 @@ export const initShims = async (assets: { [key: string]: string }) =>
         // "preact/compat": "https://ga.jspm.io/npm:preact@10.8.2/compat/dist/compat.module.js",
         // "preact/jsx-runtime": "https://ga.jspm.io/npm:preact@10.8.2/jsx-runtime/dist/jsxRuntime.module.js"
       },
-    });
+    }));
 
 let App: FC = () => <Fragment></Fragment>;
 const apps: { [key: string]: FC } = {};

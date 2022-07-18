@@ -1459,220 +1459,28 @@
     }
   });
 
-  // ../../node_modules/lodash/isObject.js
-  var require_isObject = __commonJS({
-    "../../node_modules/lodash/isObject.js"(exports2, module2) {
+  // ../../node_modules/lodash.throttle/index.js
+  var require_lodash = __commonJS({
+    "../../node_modules/lodash.throttle/index.js"(exports2, module2) {
       init_define_process();
-      function isObject(value) {
-        var type = typeof value;
-        return value != null && (type == "object" || type == "function");
-      }
-      module2.exports = isObject;
-    }
-  });
-
-  // ../../node_modules/lodash/_freeGlobal.js
-  var require_freeGlobal = __commonJS({
-    "../../node_modules/lodash/_freeGlobal.js"(exports2, module2) {
-      init_define_process();
-      var freeGlobal = typeof self == "object" && self && self.Object === Object && self;
-      module2.exports = freeGlobal;
-    }
-  });
-
-  // ../../node_modules/lodash/_root.js
-  var require_root = __commonJS({
-    "../../node_modules/lodash/_root.js"(exports2, module2) {
-      init_define_process();
-      var freeGlobal = require_freeGlobal();
-      var freeSelf = typeof self == "object" && self && self.Object === Object && self;
-      var root = freeGlobal || freeSelf || Function("return this")();
-      module2.exports = root;
-    }
-  });
-
-  // ../../node_modules/lodash/now.js
-  var require_now = __commonJS({
-    "../../node_modules/lodash/now.js"(exports2, module2) {
-      init_define_process();
-      var root = require_root();
-      var now = function() {
-        return root.Date.now();
-      };
-      module2.exports = now;
-    }
-  });
-
-  // ../../node_modules/lodash/_trimmedEndIndex.js
-  var require_trimmedEndIndex = __commonJS({
-    "../../node_modules/lodash/_trimmedEndIndex.js"(exports2, module2) {
-      init_define_process();
-      var reWhitespace = /\s/;
-      function trimmedEndIndex(string) {
-        var index = string.length;
-        while (index-- && reWhitespace.test(string.charAt(index))) {
-        }
-        return index;
-      }
-      module2.exports = trimmedEndIndex;
-    }
-  });
-
-  // ../../node_modules/lodash/_baseTrim.js
-  var require_baseTrim = __commonJS({
-    "../../node_modules/lodash/_baseTrim.js"(exports2, module2) {
-      init_define_process();
-      var trimmedEndIndex = require_trimmedEndIndex();
-      var reTrimStart = /^\s+/;
-      function baseTrim(string) {
-        return string ? string.slice(0, trimmedEndIndex(string) + 1).replace(reTrimStart, "") : string;
-      }
-      module2.exports = baseTrim;
-    }
-  });
-
-  // ../../node_modules/lodash/_Symbol.js
-  var require_Symbol = __commonJS({
-    "../../node_modules/lodash/_Symbol.js"(exports2, module2) {
-      init_define_process();
-      var root = require_root();
-      var Symbol2 = root.Symbol;
-      module2.exports = Symbol2;
-    }
-  });
-
-  // ../../node_modules/lodash/_getRawTag.js
-  var require_getRawTag = __commonJS({
-    "../../node_modules/lodash/_getRawTag.js"(exports2, module2) {
-      init_define_process();
-      var Symbol2 = require_Symbol();
-      var objectProto = Object.prototype;
-      var hasOwnProperty = objectProto.hasOwnProperty;
-      var nativeObjectToString = objectProto.toString;
-      var symToStringTag = Symbol2 ? Symbol2.toStringTag : void 0;
-      function getRawTag(value) {
-        var isOwn = hasOwnProperty.call(value, symToStringTag), tag = value[symToStringTag];
-        try {
-          value[symToStringTag] = void 0;
-          var unmasked = true;
-        } catch (e) {
-        }
-        var result = nativeObjectToString.call(value);
-        if (unmasked) {
-          if (isOwn) {
-            value[symToStringTag] = tag;
-          } else {
-            delete value[symToStringTag];
-          }
-        }
-        return result;
-      }
-      module2.exports = getRawTag;
-    }
-  });
-
-  // ../../node_modules/lodash/_objectToString.js
-  var require_objectToString = __commonJS({
-    "../../node_modules/lodash/_objectToString.js"(exports2, module2) {
-      init_define_process();
-      var objectProto = Object.prototype;
-      var nativeObjectToString = objectProto.toString;
-      function objectToString(value) {
-        return nativeObjectToString.call(value);
-      }
-      module2.exports = objectToString;
-    }
-  });
-
-  // ../../node_modules/lodash/_baseGetTag.js
-  var require_baseGetTag = __commonJS({
-    "../../node_modules/lodash/_baseGetTag.js"(exports2, module2) {
-      init_define_process();
-      var Symbol2 = require_Symbol();
-      var getRawTag = require_getRawTag();
-      var objectToString = require_objectToString();
-      var nullTag = "[object Null]";
-      var undefinedTag = "[object Undefined]";
-      var symToStringTag = Symbol2 ? Symbol2.toStringTag : void 0;
-      function baseGetTag(value) {
-        if (value == null) {
-          return value === void 0 ? undefinedTag : nullTag;
-        }
-        return symToStringTag && symToStringTag in Object(value) ? getRawTag(value) : objectToString(value);
-      }
-      module2.exports = baseGetTag;
-    }
-  });
-
-  // ../../node_modules/lodash/isObjectLike.js
-  var require_isObjectLike = __commonJS({
-    "../../node_modules/lodash/isObjectLike.js"(exports2, module2) {
-      init_define_process();
-      function isObjectLike(value) {
-        return value != null && typeof value == "object";
-      }
-      module2.exports = isObjectLike;
-    }
-  });
-
-  // ../../node_modules/lodash/isSymbol.js
-  var require_isSymbol = __commonJS({
-    "../../node_modules/lodash/isSymbol.js"(exports2, module2) {
-      init_define_process();
-      var baseGetTag = require_baseGetTag();
-      var isObjectLike = require_isObjectLike();
-      var symbolTag = "[object Symbol]";
-      function isSymbol(value) {
-        return typeof value == "symbol" || isObjectLike(value) && baseGetTag(value) == symbolTag;
-      }
-      module2.exports = isSymbol;
-    }
-  });
-
-  // ../../node_modules/lodash/toNumber.js
-  var require_toNumber = __commonJS({
-    "../../node_modules/lodash/toNumber.js"(exports2, module2) {
-      init_define_process();
-      var baseTrim = require_baseTrim();
-      var isObject = require_isObject();
-      var isSymbol = require_isSymbol();
+      var FUNC_ERROR_TEXT = "Expected a function";
       var NAN = 0 / 0;
+      var symbolTag = "[object Symbol]";
+      var reTrim = /^\s+|\s+$/g;
       var reIsBadHex = /^[-+]0x[0-9a-f]+$/i;
       var reIsBinary = /^0b[01]+$/i;
       var reIsOctal = /^0o[0-7]+$/i;
       var freeParseInt = parseInt;
-      function toNumber(value) {
-        if (typeof value == "number") {
-          return value;
-        }
-        if (isSymbol(value)) {
-          return NAN;
-        }
-        if (isObject(value)) {
-          var other = typeof value.valueOf == "function" ? value.valueOf() : value;
-          value = isObject(other) ? other + "" : other;
-        }
-        if (typeof value != "string") {
-          return value === 0 ? value : +value;
-        }
-        value = baseTrim(value);
-        var isBinary = reIsBinary.test(value);
-        return isBinary || reIsOctal.test(value) ? freeParseInt(value.slice(2), isBinary ? 2 : 8) : reIsBadHex.test(value) ? NAN : +value;
-      }
-      module2.exports = toNumber;
-    }
-  });
-
-  // ../../node_modules/lodash/debounce.js
-  var require_debounce = __commonJS({
-    "../../node_modules/lodash/debounce.js"(exports2, module2) {
-      init_define_process();
-      var isObject = require_isObject();
-      var now = require_now();
-      var toNumber = require_toNumber();
-      var FUNC_ERROR_TEXT = "Expected a function";
+      var freeGlobal = typeof self == "object" && self && self.Object === Object && self;
+      var freeSelf = typeof self == "object" && self && self.Object === Object && self;
+      var root = freeGlobal || freeSelf || Function("return this")();
+      var objectProto = Object.prototype;
+      var objectToString = objectProto.toString;
       var nativeMax = Math.max;
       var nativeMin = Math.min;
+      var now = function() {
+        return root.Date.now();
+      };
       function debounce2(func, wait2, options) {
         var lastArgs, lastThis, maxWait, result, timerId, lastCallTime, lastInvokeTime = 0, leading = false, maxing = false, trailing = true;
         if (typeof func != "function") {
@@ -1698,8 +1506,8 @@
           return leading ? invokeFunc(time) : result;
         }
         function remainingWait(time) {
-          var timeSinceLastCall = time - lastCallTime, timeSinceLastInvoke = time - lastInvokeTime, timeWaiting = wait2 - timeSinceLastCall;
-          return maxing ? nativeMin(timeWaiting, maxWait - timeSinceLastInvoke) : timeWaiting;
+          var timeSinceLastCall = time - lastCallTime, timeSinceLastInvoke = time - lastInvokeTime, result2 = wait2 - timeSinceLastCall;
+          return maxing ? nativeMin(result2, maxWait - timeSinceLastInvoke) : result2;
         }
         function shouldInvoke(time) {
           var timeSinceLastCall = time - lastCallTime, timeSinceLastInvoke = time - lastInvokeTime;
@@ -1740,7 +1548,6 @@
               return leadingEdge(lastCallTime);
             }
             if (maxing) {
-              clearTimeout(timerId);
               timerId = setTimeout(timerExpired, wait2);
               return invokeFunc(lastCallTime);
             }
@@ -1754,17 +1561,6 @@
         debounced.flush = flush;
         return debounced;
       }
-      module2.exports = debounce2;
-    }
-  });
-
-  // ../../node_modules/lodash/throttle.js
-  var require_throttle = __commonJS({
-    "../../node_modules/lodash/throttle.js"(exports2, module2) {
-      init_define_process();
-      var debounce2 = require_debounce();
-      var isObject = require_isObject();
-      var FUNC_ERROR_TEXT = "Expected a function";
       function throttle2(func, wait2, options) {
         var leading = true, trailing = true;
         if (typeof func != "function") {
@@ -1780,7 +1576,169 @@
           "trailing": trailing
         });
       }
+      function isObject(value) {
+        var type = typeof value;
+        return !!value && (type == "object" || type == "function");
+      }
+      function isObjectLike(value) {
+        return !!value && typeof value == "object";
+      }
+      function isSymbol(value) {
+        return typeof value == "symbol" || isObjectLike(value) && objectToString.call(value) == symbolTag;
+      }
+      function toNumber(value) {
+        if (typeof value == "number") {
+          return value;
+        }
+        if (isSymbol(value)) {
+          return NAN;
+        }
+        if (isObject(value)) {
+          var other = typeof value.valueOf == "function" ? value.valueOf() : value;
+          value = isObject(other) ? other + "" : other;
+        }
+        if (typeof value != "string") {
+          return value === 0 ? value : +value;
+        }
+        value = value.replace(reTrim, "");
+        var isBinary = reIsBinary.test(value);
+        return isBinary || reIsOctal.test(value) ? freeParseInt(value.slice(2), isBinary ? 2 : 8) : reIsBadHex.test(value) ? NAN : +value;
+      }
       module2.exports = throttle2;
+    }
+  });
+
+  // ../../node_modules/lodash.debounce/index.js
+  var require_lodash2 = __commonJS({
+    "../../node_modules/lodash.debounce/index.js"(exports2, module2) {
+      init_define_process();
+      var FUNC_ERROR_TEXT = "Expected a function";
+      var NAN = 0 / 0;
+      var symbolTag = "[object Symbol]";
+      var reTrim = /^\s+|\s+$/g;
+      var reIsBadHex = /^[-+]0x[0-9a-f]+$/i;
+      var reIsBinary = /^0b[01]+$/i;
+      var reIsOctal = /^0o[0-7]+$/i;
+      var freeParseInt = parseInt;
+      var freeGlobal = typeof self == "object" && self && self.Object === Object && self;
+      var freeSelf = typeof self == "object" && self && self.Object === Object && self;
+      var root = freeGlobal || freeSelf || Function("return this")();
+      var objectProto = Object.prototype;
+      var objectToString = objectProto.toString;
+      var nativeMax = Math.max;
+      var nativeMin = Math.min;
+      var now = function() {
+        return root.Date.now();
+      };
+      function debounce2(func, wait2, options) {
+        var lastArgs, lastThis, maxWait, result, timerId, lastCallTime, lastInvokeTime = 0, leading = false, maxing = false, trailing = true;
+        if (typeof func != "function") {
+          throw new TypeError(FUNC_ERROR_TEXT);
+        }
+        wait2 = toNumber(wait2) || 0;
+        if (isObject(options)) {
+          leading = !!options.leading;
+          maxing = "maxWait" in options;
+          maxWait = maxing ? nativeMax(toNumber(options.maxWait) || 0, wait2) : maxWait;
+          trailing = "trailing" in options ? !!options.trailing : trailing;
+        }
+        function invokeFunc(time) {
+          var args = lastArgs, thisArg = lastThis;
+          lastArgs = lastThis = void 0;
+          lastInvokeTime = time;
+          result = func.apply(thisArg, args);
+          return result;
+        }
+        function leadingEdge(time) {
+          lastInvokeTime = time;
+          timerId = setTimeout(timerExpired, wait2);
+          return leading ? invokeFunc(time) : result;
+        }
+        function remainingWait(time) {
+          var timeSinceLastCall = time - lastCallTime, timeSinceLastInvoke = time - lastInvokeTime, result2 = wait2 - timeSinceLastCall;
+          return maxing ? nativeMin(result2, maxWait - timeSinceLastInvoke) : result2;
+        }
+        function shouldInvoke(time) {
+          var timeSinceLastCall = time - lastCallTime, timeSinceLastInvoke = time - lastInvokeTime;
+          return lastCallTime === void 0 || timeSinceLastCall >= wait2 || timeSinceLastCall < 0 || maxing && timeSinceLastInvoke >= maxWait;
+        }
+        function timerExpired() {
+          var time = now();
+          if (shouldInvoke(time)) {
+            return trailingEdge(time);
+          }
+          timerId = setTimeout(timerExpired, remainingWait(time));
+        }
+        function trailingEdge(time) {
+          timerId = void 0;
+          if (trailing && lastArgs) {
+            return invokeFunc(time);
+          }
+          lastArgs = lastThis = void 0;
+          return result;
+        }
+        function cancel() {
+          if (timerId !== void 0) {
+            clearTimeout(timerId);
+          }
+          lastInvokeTime = 0;
+          lastArgs = lastCallTime = lastThis = timerId = void 0;
+        }
+        function flush() {
+          return timerId === void 0 ? result : trailingEdge(now());
+        }
+        function debounced() {
+          var time = now(), isInvoking = shouldInvoke(time);
+          lastArgs = arguments;
+          lastThis = this;
+          lastCallTime = time;
+          if (isInvoking) {
+            if (timerId === void 0) {
+              return leadingEdge(lastCallTime);
+            }
+            if (maxing) {
+              timerId = setTimeout(timerExpired, wait2);
+              return invokeFunc(lastCallTime);
+            }
+          }
+          if (timerId === void 0) {
+            timerId = setTimeout(timerExpired, wait2);
+          }
+          return result;
+        }
+        debounced.cancel = cancel;
+        debounced.flush = flush;
+        return debounced;
+      }
+      function isObject(value) {
+        var type = typeof value;
+        return !!value && (type == "object" || type == "function");
+      }
+      function isObjectLike(value) {
+        return !!value && typeof value == "object";
+      }
+      function isSymbol(value) {
+        return typeof value == "symbol" || isObjectLike(value) && objectToString.call(value) == symbolTag;
+      }
+      function toNumber(value) {
+        if (typeof value == "number") {
+          return value;
+        }
+        if (isSymbol(value)) {
+          return NAN;
+        }
+        if (isObject(value)) {
+          var other = typeof value.valueOf == "function" ? value.valueOf() : value;
+          value = isObject(other) ? other + "" : other;
+        }
+        if (typeof value != "string") {
+          return value === 0 ? value : +value;
+        }
+        value = value.replace(reTrim, "");
+        var isBinary = reIsBinary.test(value);
+        return isBinary || reIsOctal.test(value) ? freeParseInt(value.slice(2), isBinary ? 2 : 8) : reIsBadHex.test(value) ? NAN : +value;
+      }
+      module2.exports = debounce2;
     }
   });
 
@@ -3913,8 +3871,8 @@ if (cid) {
   };
 
   // sw.mjs
-  var import_throttle = __toESM(require_throttle(), 1);
-  var import_debounce = __toESM(require_debounce(), 1);
+  var import_lodash = __toESM(require_lodash(), 1);
+  var import_lodash2 = __toESM(require_lodash2(), 1);
 
   // ../../node_modules/p-map/index.js
   init_define_process();
@@ -4160,8 +4118,8 @@ if (cid) {
       cache = files;
     }
   }
-  var updateCacheNOW = (0, import_debounce.default)(update, 500);
-  var updateCache = (0, import_throttle.default)(update, 6e4);
+  var updateCacheNOW = (0, import_lodash2.default)(update, 500);
+  var updateCache = (0, import_lodash.default)(update, 6e4);
   var onactivate = async (event) => {
     event.waitUntil(event.target.clients.claim());
   };

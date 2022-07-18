@@ -58,7 +58,7 @@ await Promise.all(list.map(async (name) => await generator.install(name)));
 
 // await generator.install("@emotion/babel-plugin");
 
-// await generator.install("lodash/throttle");
+// await generator.install("lodash.throttle");
 // await generator.install("simple-text-compress");
 // await generator.install("@emotion/styled");
 // await generator.install("framer-motion");

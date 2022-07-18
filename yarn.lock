@@ -3649,13 +3649,13 @@ __metadata:
   resolution: "@spike.land/code-worker@workspace:sites/spike.land"
   dependencies:
     "@cloudflare/kv-asset-handler": 0.2.0
-    "@spike.land/code": ^0.8.2
+    "@spike.land/code": ^0.8.3
     typescript: 4.7.4
     wrangler: 2.0.22
   languageName: unknown
   linkType: soft
 
-"@spike.land/code@^0.8.2, @spike.land/code@workspace:packages/code":
+"@spike.land/code@^0.8.3, @spike.land/code@workspace:packages/code":
   version: 0.0.0-use.local
   resolution: "@spike.land/code@workspace:packages/code"
   dependencies:
@@ -3686,7 +3686,8 @@ __metadata:
     ipfs-message-port-client: 0.12.4
     ipfs-message-port-server: 0.12.1
     iso-constants: 0.1.2
-    lodash: 4.17.21
+    lodash.debounce: 4.0.8
+    lodash.throttle: 4.1.1
     microenvi: 0.3.1
     monaco-editor: 0.33.0
     msw: ^0.44.1
@@ -3712,11 +3713,11 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@spike.land/cypress@workspace:dockerhub/devimages/cypress"
   dependencies:
-    "@spike.land/devcontainer-generator": ^0.8.2
+    "@spike.land/devcontainer-generator": ^0.8.3
   languageName: unknown
   linkType: soft
 
-"@spike.land/devcontainer-generator@^0.8.2, @spike.land/devcontainer-generator@workspace:packages/devcontainer-generator":
+"@spike.land/devcontainer-generator@^0.8.3, @spike.land/devcontainer-generator@workspace:packages/devcontainer-generator":
   version: 0.0.0-use.local
   resolution: "@spike.land/devcontainer-generator@workspace:packages/devcontainer-generator"
   dependencies:
@@ -3729,7 +3730,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@spike.land/eoan-xfce-novnc@workspace:dockerhub/devimages/eoan-xfce-novnc"
   dependencies:
-    "@spike.land/devcontainer-generator": ^0.8.2
+    "@spike.land/devcontainer-generator": ^0.8.3
   languageName: unknown
   linkType: soft
 
@@ -3749,7 +3750,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@spike.land/jammy-devcontainer@workspace:dockerhub/devimages/jammy-devcontainer"
   dependencies:
-    "@spike.land/devcontainer-generator": ^0.8.2
+    "@spike.land/devcontainer-generator": ^0.8.3
   languageName: unknown
   linkType: soft
 
@@ -3763,7 +3764,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@spike.land/rolling-devcontainer@workspace:dockerhub/devimages/rolling-devcontainer"
   dependencies:
-    "@spike.land/devcontainer-generator": ^0.8.2
+    "@spike.land/devcontainer-generator": ^0.8.3
   languageName: unknown
   linkType: soft
 
@@ -11973,6 +11974,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"lodash.debounce@npm:4.0.8":
+  version: 4.0.8
+  resolution: "lodash.debounce@npm:4.0.8"
+  checksum: a3f527d22c548f43ae31c861ada88b2637eb48ac6aa3eb56e82d44917971b8aa96fbb37aa60efea674dc4ee8c42074f90f7b1f772e9db375435f6c83a19b3bc6
+  languageName: node
+  linkType: hard
+
 "lodash.foreach@npm:^4.5.0":
   version: 4.5.0
   resolution: "lodash.foreach@npm:4.5.0"
@@ -12008,6 +12016,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"lodash.throttle@npm:4.1.1":
+  version: 4.1.1
+  resolution: "lodash.throttle@npm:4.1.1"
+  checksum: 129c0a28cee48b348aef146f638ef8a8b197944d4e9ec26c1890c19d9bf5a5690fe11b655c77a4551268819b32d27f4206343e30c78961f60b561b8608c8c805
+  languageName: node
+  linkType: hard
+
 "lodash.uniq@npm:^4.5.0":
   version: 4.5.0
   resolution: "lodash.uniq@npm:4.5.0"
@@ -12015,7 +12030,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lodash@npm:4.17.21, lodash@npm:^4.17.14, lodash@npm:^4.17.15, lodash@npm:^4.17.19, lodash@npm:^4.17.21, lodash@npm:^4.7.0":
+"lodash@npm:^4.17.14, lodash@npm:^4.17.15, lodash@npm:^4.17.19, lodash@npm:^4.17.21, lodash@npm:^4.7.0":
   version: 4.17.21
   resolution: "lodash@npm:4.17.21"
   checksum: eb835a2e51d381e561e508ce932ea50a8e5a68f4ebdd771ea240d3048244a8d13658acbd502cd4829768c56f2e16bdd4340b9ea141297d472517b83868e677f7

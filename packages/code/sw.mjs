@@ -1,7 +1,7 @@
 import { defer, selectClient, toReadableStream } from "./service/util";
 import { IPFSClient } from "ipfs-message-port-client";
-import throttle from "lodash/throttle";
-import debounce from "lodash/debounce";
+import throttle from "lodash.throttle";
+import debounce from "lodash.debounce";
 import pMap from "p-map";
 //import { setupWorker, rest } from 'msw'
 

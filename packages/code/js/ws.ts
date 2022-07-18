@@ -12,7 +12,7 @@ import type { FC } from "react";
 import { renderPreviewWindow } from "./renderPreviewWindow";
 
 import type { ICodeSession } from "./session";
-import throttle from "lodash/throttle";
+import throttle from "lodash.throttle";
 import uidV4 from "./uidV4.mjs";
 import { initShims } from "starter";
 
@@ -98,10 +98,9 @@ export const run = async (startState: {
     state: startState.mST,
   }, location.origin);
 
-  const App = startState.App;
-  renderPreviewWindow(codeSpace, App);
+  renderPreviewWindow(startState.codeSpace, startState.App);
 
-  initShims(assets);
+  await initShims(assets);
 
   join();
 
