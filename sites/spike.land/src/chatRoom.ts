@@ -193,7 +193,16 @@ export class Code {
               },
             },
           );
-
+        case "request": {
+          return new Response(JSON.stringify({...request}),  {
+            status: 200,
+            headers: {
+              "Access-Control-Allow-Origin": "*",
+              "Cache-Control": "no-cache",
+              "Content-Type": "application/json; charset=UTF-8",
+            }
+          });
+        }
         case "hashCodeSession":
           return new Response(hashCode().toString(), {
             status: 200,
