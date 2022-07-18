@@ -224,6 +224,7 @@ export class Code {
               export const mST=${JSON.stringify(mST())};
               export const codeSpace="${this.codeSpace}";
               export const address="${this.address}";
+              export const importmapReplaced=${JSON.stringify({js: importMapReplace(mST().transpiled)})}
               
               `,
             {
@@ -269,7 +270,7 @@ export class Code {
           if (path[1]) {
             const session = await this.kv.get<ICodeSession>(path[1]);
             if (session && session.transpiled) {
-              return new Response(session.transpiled, {
+              return new Response( session.transpiled, {
                 status: 200,
                 headers: {
                   "Access-Control-Allow-Origin": "*",
@@ -279,7 +280,7 @@ export class Code {
               });
             }
           }
-          return new Response(mST().transpiled, {
+          return new Response(importMapReplace( mST().transpiled), {
             status: 200,
             headers: {
               "Access-Control-Allow-Origin": "*",
@@ -616,4 +617,18 @@ export class Code {
       }
     });
   }
+}
+
+type LibName =  keyof typeof importMap.imports;
+
+function importMapReplace(codeInp: string){
+ 
+ const items=  Object.keys(importMap.imports) as unknown as LibName[]
+ let returnStr = codeInp;
+
+ items.map(lib=>{
+  returnStr = returnStr.replaceAll(` from "${lib}"`, `from "${importMap.imports[lib]}"`)
+ })
+
+ return returnStr;
 }

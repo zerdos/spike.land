@@ -6,7 +6,7 @@ import {
   onSessionUpdate,
   require_debounce,
   saveCode
-} from "./chunk-3YACUCL2.mjs";
+} from "./chunk-2Z5WVUOW.mjs";
 import {
   LazyMotion,
   domAnimation,
@@ -114,7 +114,7 @@ var require_react_is_development = __commonJS({
         var Portal3 = REACT_PORTAL_TYPE;
         var Profiler = REACT_PROFILER_TYPE;
         var StrictMode = REACT_STRICT_MODE_TYPE;
-        var Suspense2 = REACT_SUSPENSE_TYPE;
+        var Suspense3 = REACT_SUSPENSE_TYPE;
         var hasWarnedAboutDeprecatedIsAsyncMode = false;
         function isAsyncMode(object) {
           {
@@ -173,7 +173,7 @@ var require_react_is_development = __commonJS({
         exports.Portal = Portal3;
         exports.Profiler = Profiler;
         exports.StrictMode = StrictMode;
-        exports.Suspense = Suspense2;
+        exports.Suspense = Suspense3;
         exports.isAsyncMode = isAsyncMode;
         exports.isConcurrentMode = isConcurrentMode;
         exports.isContextConsumer = isContextConsumer;
@@ -889,7 +889,7 @@ var require_react_is_development2 = __commonJS({
         var Portal3 = REACT_PORTAL_TYPE;
         var Profiler = REACT_PROFILER_TYPE;
         var StrictMode = REACT_STRICT_MODE_TYPE;
-        var Suspense2 = REACT_SUSPENSE_TYPE;
+        var Suspense3 = REACT_SUSPENSE_TYPE;
         var SuspenseList = REACT_SUSPENSE_LIST_TYPE;
         var hasWarnedAboutDeprecatedIsAsyncMode = false;
         var hasWarnedAboutDeprecatedIsConcurrentMode = false;
@@ -957,7 +957,7 @@ var require_react_is_development2 = __commonJS({
         exports.Portal = Portal3;
         exports.Profiler = Profiler;
         exports.StrictMode = StrictMode;
-        exports.Suspense = Suspense2;
+        exports.Suspense = Suspense3;
         exports.SuspenseList = SuspenseList;
         exports.isAsyncMode = isAsyncMode;
         exports.isConcurrentMode = isConcurrentMode;
@@ -17321,6 +17321,7 @@ height: ${60 + lines / 40 * 100}% ;
 };
 
 // js/renderPreviewWindow.tsx
+import { Suspense as Suspense2 } from "/react.mjs";
 var RainbowContainer = ({ children: children2 }) => jsx("div", {
   css: css`
 height: 100%;
@@ -17386,17 +17387,25 @@ var AppToRender = ({ codeSpace }) => {
     setTimeout(() => {
       const isStandalone2 = location.pathname.endsWith("public") || location.pathname.endsWith("hydrated");
       setIsStandalone(isStandalone2);
-    }, 500);
+    }, 2500);
   }, []);
   const portalNode = useMemo8(() => createHtmlPortalNode({
     attributes: { id: `root-${codeSpace}`, style: "height: 100%" }
   }), []);
   return jsx(Fragment10, null, jsx(InPortal, {
     node: portalNode
+  }, jsx(Suspense2, {
+    fallback: jsx("div", {
+      style: "height: 100%",
+      dangerouslySetInnerHTML: { __html: mST().html }
+    })
+  }, jsx("div", {
+    style: "height: 100%"
   }, jsx(AutoUpdateApp, {
     key: hash3,
-    hash: hash3
-  })), isStandalone ? jsx(OutPortal, {
+    hash: hash3,
+    codeSpace
+  })))), isStandalone ? jsx(OutPortal, {
     node: portalNode
   }) : jsx(RainbowContainer, null, jsx(DraggableWindow, {
     hashCode: 0,
@@ -17411,7 +17420,6 @@ var AppToRender = ({ codeSpace }) => {
 };
 var renderPreviewWindow = async (codeSpace) => {
   try {
-    await appFactory(mST().transpiled);
   } catch (e) {
     console.error({ e });
   }

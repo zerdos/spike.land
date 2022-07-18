@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { FC, Fragment } from "react";
+import { FC, Fragment, lazy } from "react";
 
 import type {} from "react-dom/next";
 
@@ -9,6 +9,7 @@ import { md5 } from "./md5";
 Object.assign(window, {});
 
 import "es-module-shims";
+
 
 const orig = location.origin.includes("localhost") ? "." : location.origin;
 
@@ -47,13 +48,16 @@ const apps: { [key: string]: FC } = {};
 
 // {[md5(starter.transpiled)]: await appFactory(starter.transpiled)};
 
-export const AutoUpdateApp: FC<{ hash: number }> = ({ hash }) => {
+export const AutoUpdateApp: FC<{ hash: number, codeSpace: string }> = ({ hash, codeSpace }) => {
   const result = md5(mST().transpiled);
 
-  if (apps[result]) {
-    App = apps[result];
-  }
-  // apps[]=result;
+App = apps[result];
+
+  if (!App) {
+      App = lazy(()=>import(`${location.origin}/live/${codeSpace}/index.js`));
+  
+  } 
+
 
   return <App key={hash} />;
 };
