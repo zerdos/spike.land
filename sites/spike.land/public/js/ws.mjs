@@ -8868,7 +8868,7 @@ var initShims = async (assets) => location.origin.includes("localhost") ? import
 });
 var App = () => jsx(Fragment, null);
 var apps = {};
-var AutoUpdateApp = ({ hash: hash4, codeSpace: codeSpace2, starter }) => {
+var AutoUpdateApp = ({ hash: hash4, starter }) => {
   const result = md5(mST().transpiled);
   if (!apps[result]) {
     apps[result] = starter;
@@ -8900,7 +8900,7 @@ import { useEffect as useEffect28, useRef as useRef28, useState as useState24 } 
 
 // js/Qr.tsx
 init_define_process();
-import { lazy as lazy2, Suspense, useState as useState23 } from "/react.mjs";
+import { lazy, Suspense, useState as useState23 } from "/react.mjs";
 
 // js/mui.tsx
 init_define_process();
@@ -24592,7 +24592,7 @@ var QrCode = createSvgIcon(jsx("path", {
 }), "QrCode");
 
 // js/Qr.tsx
-var QRious = lazy2(() => import("../lib-DE24NYV7.mjs").then(({ QRious: QRious2 }) => ({ default: QRious2 })));
+var QRious = lazy(() => import("../lib-DE24NYV7.mjs").then(({ QRious: QRious2 }) => ({ default: QRious2 })));
 var QR = ({ url }) => jsx(Suspense, null, jsx(QRious, {
   value: url
 }));
@@ -25325,7 +25325,6 @@ var AppToRender = ({ codeSpace: codeSpace2, children: children2 }) => {
     node: portalNode
   }, jsx(AutoUpdateApp, {
     hash: hash4,
-    codeSpace: codeSpace2,
     starter: children2
   })), isStandalone ? jsx(OutPortal, {
     node: portalNode

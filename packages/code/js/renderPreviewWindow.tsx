@@ -96,7 +96,7 @@ const AppToRender: FC<{ codeSpace: string, children: FC }> = ({ codeSpace, child
   return (
     <Fragment>
       <portals.InPortal node={portalNode}>
-            <AutoUpdateApp hash={hash} codeSpace={codeSpace} starter={children} />
+            <AutoUpdateApp hash={hash} starter={children}/>
 
       </portals.InPortal>
 
