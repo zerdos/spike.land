@@ -84,7 +84,7 @@ export class Code {
         session.css = s.css;
       }
       this.address = await this.kv.get<string>("address") || "";
-      this.sess=session;
+      this.sess = session;
       this.sessionStarted = false;
     });
   }
@@ -92,8 +92,12 @@ export class Code {
   async fetch(request: Request, env: CodeEnv, ctx: ExecutionContext) {
     let url = new URL(request.url);
     if (!this.sessionStarted) {
-      startSession(this.codeSpace, {name: this.codeSpace, state: this.sess}, url.origin);
-      this.sessionStarted=true;
+      startSession(
+        this.codeSpace,
+        { name: this.codeSpace, state: this.sess },
+        url.origin,
+      );
+      this.sessionStarted = true;
     }
 
     this.codeSpace = url.searchParams.get("room") || "code-main";
@@ -193,13 +197,13 @@ export class Code {
             },
           );
         case "request": {
-          return new Response(JSON.stringify({...request}),  {
+          return new Response(JSON.stringify({ ...request }), {
             status: 200,
             headers: {
               "Access-Control-Allow-Origin": "*",
               "Cache-Control": "no-cache",
               "Content-Type": "application/json; charset=UTF-8",
-            }
+            },
           });
         }
         case "hashCodeSession":
@@ -224,7 +228,9 @@ export class Code {
               export const mST=${JSON.stringify(mST())};
               export const codeSpace="${this.codeSpace}";
               export const address="${this.address}";
-              export const importmapReplaced=${JSON.stringify({js: importMapReplace(mST().transpiled)})}
+              export const importmapReplaced=${
+              JSON.stringify({ js: importMapReplace(mST().transpiled) })
+            }
               
               `,
             {
@@ -270,7 +276,7 @@ export class Code {
           if (path[1]) {
             const session = await this.kv.get<ICodeSession>(path[1]);
             if (session && session.transpiled) {
-              return new Response( session.transpiled, {
+              return new Response(session.transpiled, {
                 status: 200,
                 headers: {
                   "Access-Control-Allow-Origin": "*",
@@ -280,7 +286,7 @@ export class Code {
               });
             }
           }
-          return new Response(importMapReplace( mST().transpiled), {
+          return new Response(importMapReplace(mST().transpiled), {
             status: 200,
             headers: {
               "Access-Control-Allow-Origin": "*",
@@ -619,16 +625,18 @@ export class Code {
   }
 }
 
-type LibName =  keyof typeof importMap.imports;
+type LibName = keyof typeof importMap.imports;
 
-function importMapReplace(codeInp: string){
- 
- const items=  Object.keys(importMap.imports) as unknown as LibName[]
- let returnStr = codeInp;
+function importMapReplace(codeInp: string) {
+  const items = Object.keys(importMap.imports) as unknown as LibName[];
+  let returnStr = codeInp;
 
- items.map(lib=>{
-  returnStr = returnStr.replaceAll(` from "${lib}"`, `from "${importMap.imports[lib]}"`)
- })
+  items.map((lib) => {
+    returnStr = returnStr.replaceAll(
+      ` from "${lib}"`,
+      `from "${importMap.imports[lib]}"`,
+    );
+  });
 
- return returnStr;
+  return returnStr;
 }

@@ -10,7 +10,6 @@ Object.assign(window, {});
 
 import "es-module-shims";
 
-
 const orig = location.origin.includes("localhost") ? "." : location.origin;
 
 export const initShims = async (assets: { [key: string]: string }) =>
@@ -48,17 +47,16 @@ const apps: { [key: string]: FC } = {};
 
 // {[md5(starter.transpiled)]: await appFactory(starter.transpiled)};
 
-export const AutoUpdateApp: FC<{ hash: number, starter: FC }> = ({ hash, starter }) => {
+export const AutoUpdateApp: FC<{ hash: number; starter: FC }> = (
+  { hash, starter },
+) => {
   const result = md5(mST().transpiled);
-
 
   if (!apps[result]) {
     apps[result] = starter;
-  
-  } 
+  }
 
   App = apps[result];
-
 
   return <App key={hash} />;
 };
