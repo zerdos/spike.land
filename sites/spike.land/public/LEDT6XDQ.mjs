@@ -1,4 +1,4 @@
-import "../NB2RQBSD.mjs";
+import "./NB2RQBSD.mjs";
 import {
   $,
   AccessibilityHelpNLS,
@@ -593,14 +593,14 @@ import {
   widgetClose,
   widgetShadow,
   withNullAsUndefined
-} from "../AIIGUVZM.mjs";
+} from "./AIIGUVZM.mjs";
 import {
   __commonJS,
   __esm,
   __export,
   __toESM,
   init_define_process
-} from "../LC4ALKUC.mjs";
+} from "./LC4ALKUC.mjs";
 
 // ../../node_modules/monaco-editor/esm/vs/editor/contrib/format/browser/formatActions.js
 var require_formatActions = __commonJS({
@@ -2278,7 +2278,7 @@ registerLanguage({
         __require(["vs/basic-languages/abap/abap"], resolve, reject);
       });
     } else {
-      return import("../467PKCWK.mjs");
+      return import("./467PKCWK.mjs");
     }
   }
 });
@@ -2296,7 +2296,7 @@ registerLanguage({
         __require(["vs/basic-languages/apex/apex"], resolve, reject);
       });
     } else {
-      return import("../AC7DAZI7.mjs");
+      return import("./AC7DAZI7.mjs");
     }
   }
 });
@@ -2313,7 +2313,7 @@ registerLanguage({
         __require(["vs/basic-languages/azcli/azcli"], resolve, reject);
       });
     } else {
-      return import("../47S2FXL7.mjs");
+      return import("./47S2FXL7.mjs");
     }
   }
 });
@@ -2330,7 +2330,7 @@ registerLanguage({
         __require(["vs/basic-languages/bat/bat"], resolve, reject);
       });
     } else {
-      return import("../V4S2PWKL.mjs");
+      return import("./V4S2PWKL.mjs");
     }
   }
 });
@@ -2347,7 +2347,7 @@ registerLanguage({
         __require(["vs/basic-languages/bicep/bicep"], resolve, reject);
       });
     } else {
-      return import("../6GM2WN5X.mjs");
+      return import("./6GM2WN5X.mjs");
     }
   }
 });
@@ -2364,7 +2364,7 @@ registerLanguage({
         __require(["vs/basic-languages/cameligo/cameligo"], resolve, reject);
       });
     } else {
-      return import("../ZEOA3DAX.mjs");
+      return import("./ZEOA3DAX.mjs");
     }
   }
 });
@@ -2381,7 +2381,7 @@ registerLanguage({
         __require(["vs/basic-languages/clojure/clojure"], resolve, reject);
       });
     } else {
-      return import("../25W7T5XD.mjs");
+      return import("./25W7T5XD.mjs");
     }
   }
 });
@@ -2399,7 +2399,7 @@ registerLanguage({
         __require(["vs/basic-languages/coffee/coffee"], resolve, reject);
       });
     } else {
-      return import("../HGCIHZTN.mjs");
+      return import("./HGCIHZTN.mjs");
     }
   }
 });
@@ -2416,7 +2416,7 @@ registerLanguage({
         __require(["vs/basic-languages/cpp/cpp"], resolve, reject);
       });
     } else {
-      return import("../MGXMPYQ7.mjs");
+      return import("./MGXMPYQ7.mjs");
     }
   }
 });
@@ -2430,7 +2430,7 @@ registerLanguage({
         __require(["vs/basic-languages/cpp/cpp"], resolve, reject);
       });
     } else {
-      return import("../MGXMPYQ7.mjs");
+      return import("./MGXMPYQ7.mjs");
     }
   }
 });
@@ -2447,7 +2447,7 @@ registerLanguage({
         __require(["vs/basic-languages/csharp/csharp"], resolve, reject);
       });
     } else {
-      return import("../OEJCBKRH.mjs");
+      return import("./OEJCBKRH.mjs");
     }
   }
 });
@@ -2464,7 +2464,7 @@ registerLanguage({
         __require(["vs/basic-languages/csp/csp"], resolve, reject);
       });
     } else {
-      return import("../JOIXFJWR.mjs");
+      return import("./JOIXFJWR.mjs");
     }
   }
 });
@@ -2482,7 +2482,7 @@ registerLanguage({
         __require(["vs/basic-languages/css/css"], resolve, reject);
       });
     } else {
-      return import("../4JXQDKK3.mjs");
+      return import("./4JXQDKK3.mjs");
     }
   }
 });
@@ -2500,7 +2500,7 @@ registerLanguage({
         __require(["vs/basic-languages/dart/dart"], resolve, reject);
       });
     } else {
-      return import("../EZG6VA65.mjs");
+      return import("./EZG6VA65.mjs");
     }
   }
 });
@@ -2518,7 +2518,7 @@ registerLanguage({
         __require(["vs/basic-languages/dockerfile/dockerfile"], resolve, reject);
       });
     } else {
-      return import("../IMLFB62O.mjs");
+      return import("./IMLFB62O.mjs");
     }
   }
 });
@@ -2535,7 +2535,7 @@ registerLanguage({
         __require(["vs/basic-languages/ecl/ecl"], resolve, reject);
       });
     } else {
-      return import("../WEI3S2JI.mjs");
+      return import("./WEI3S2JI.mjs");
     }
   }
 });
@@ -2552,7 +2552,7 @@ registerLanguage({
         __require(["vs/basic-languages/elixir/elixir"], resolve, reject);
       });
     } else {
-      return import("../Z2T2X5N2.mjs");
+      return import("./Z2T2X5N2.mjs");
     }
   }
 });
@@ -2569,7 +2569,7 @@ registerLanguage({
         __require(["vs/basic-languages/flow9/flow9"], resolve, reject);
       });
     } else {
-      return import("../72GWRV4Z.mjs");
+      return import("./72GWRV4Z.mjs");
     }
   }
 });
@@ -2586,7 +2586,7 @@ registerLanguage({
         __require(["vs/basic-languages/fsharp/fsharp"], resolve, reject);
       });
     } else {
-      return import("../JHXXJ4T4.mjs");
+      return import("./JHXXJ4T4.mjs");
     }
   }
 });
@@ -2603,7 +2603,7 @@ registerLanguage({
         __require(["vs/basic-languages/freemarker2/freemarker2"], resolve, reject);
       }).then((m) => m.TagAngleInterpolationDollar);
     } else {
-      return import("../XZWAK3SR.mjs").then((m) => m.TagAutoInterpolationDollar);
+      return import("./XZWAK3SR.mjs").then((m) => m.TagAutoInterpolationDollar);
     }
   }
 });
@@ -2616,7 +2616,7 @@ registerLanguage({
         __require(["vs/basic-languages/freemarker2/freemarker2"], resolve, reject);
       }).then((m) => m.TagAngleInterpolationDollar);
     } else {
-      return import("../XZWAK3SR.mjs").then((m) => m.TagAngleInterpolationDollar);
+      return import("./XZWAK3SR.mjs").then((m) => m.TagAngleInterpolationDollar);
     }
   }
 });
@@ -2629,7 +2629,7 @@ registerLanguage({
         __require(["vs/basic-languages/freemarker2/freemarker2"], resolve, reject);
       }).then((m) => m.TagBracketInterpolationDollar);
     } else {
-      return import("../XZWAK3SR.mjs").then((m) => m.TagBracketInterpolationDollar);
+      return import("./XZWAK3SR.mjs").then((m) => m.TagBracketInterpolationDollar);
     }
   }
 });
@@ -2642,7 +2642,7 @@ registerLanguage({
         __require(["vs/basic-languages/freemarker2/freemarker2"], resolve, reject);
       }).then((m) => m.TagAngleInterpolationBracket);
     } else {
-      return import("../XZWAK3SR.mjs").then((m) => m.TagAngleInterpolationBracket);
+      return import("./XZWAK3SR.mjs").then((m) => m.TagAngleInterpolationBracket);
     }
   }
 });
@@ -2655,7 +2655,7 @@ registerLanguage({
         __require(["vs/basic-languages/freemarker2/freemarker2"], resolve, reject);
       }).then((m) => m.TagBracketInterpolationBracket);
     } else {
-      return import("../XZWAK3SR.mjs").then((m) => m.TagBracketInterpolationBracket);
+      return import("./XZWAK3SR.mjs").then((m) => m.TagBracketInterpolationBracket);
     }
   }
 });
@@ -2668,7 +2668,7 @@ registerLanguage({
         __require(["vs/basic-languages/freemarker2/freemarker2"], resolve, reject);
       }).then((m) => m.TagAutoInterpolationDollar);
     } else {
-      return import("../XZWAK3SR.mjs").then((m) => m.TagAutoInterpolationDollar);
+      return import("./XZWAK3SR.mjs").then((m) => m.TagAutoInterpolationDollar);
     }
   }
 });
@@ -2681,7 +2681,7 @@ registerLanguage({
         __require(["vs/basic-languages/freemarker2/freemarker2"], resolve, reject);
       }).then((m) => m.TagAutoInterpolationBracket);
     } else {
-      return import("../XZWAK3SR.mjs").then((m) => m.TagAutoInterpolationBracket);
+      return import("./XZWAK3SR.mjs").then((m) => m.TagAutoInterpolationBracket);
     }
   }
 });
@@ -2698,7 +2698,7 @@ registerLanguage({
         __require(["vs/basic-languages/go/go"], resolve, reject);
       });
     } else {
-      return import("../E7FISH7F.mjs");
+      return import("./E7FISH7F.mjs");
     }
   }
 });
@@ -2716,7 +2716,7 @@ registerLanguage({
         __require(["vs/basic-languages/graphql/graphql"], resolve, reject);
       });
     } else {
-      return import("../5EKE7SUX.mjs");
+      return import("./5EKE7SUX.mjs");
     }
   }
 });
@@ -2734,7 +2734,7 @@ registerLanguage({
         __require(["vs/basic-languages/handlebars/handlebars"], resolve, reject);
       });
     } else {
-      return import("../IW5CKGEG.mjs");
+      return import("./IW5CKGEG.mjs");
     }
   }
 });
@@ -2751,7 +2751,7 @@ registerLanguage({
         __require(["vs/basic-languages/hcl/hcl"], resolve, reject);
       });
     } else {
-      return import("../SH3H3P6V.mjs");
+      return import("./SH3H3P6V.mjs");
     }
   }
 });
@@ -2769,7 +2769,7 @@ registerLanguage({
         __require(["vs/basic-languages/html/html"], resolve, reject);
       });
     } else {
-      return import("../7B4LUUGZ.mjs");
+      return import("./7B4LUUGZ.mjs");
     }
   }
 });
@@ -2787,7 +2787,7 @@ registerLanguage({
         __require(["vs/basic-languages/ini/ini"], resolve, reject);
       });
     } else {
-      return import("../DL2VMP7N.mjs");
+      return import("./DL2VMP7N.mjs");
     }
   }
 });
@@ -2805,7 +2805,7 @@ registerLanguage({
         __require(["vs/basic-languages/java/java"], resolve, reject);
       });
     } else {
-      return import("../I6YZAESR.mjs");
+      return import("./I6YZAESR.mjs");
     }
   }
 });
@@ -2825,7 +2825,7 @@ registerLanguage({
         __require(["vs/basic-languages/javascript/javascript"], resolve, reject);
       });
     } else {
-      return import("../MGTVCC54.mjs");
+      return import("./MGTVCC54.mjs");
     }
   }
 });
@@ -2842,7 +2842,7 @@ registerLanguage({
         __require(["vs/basic-languages/julia/julia"], resolve, reject);
       });
     } else {
-      return import("../ZYWKNCV5.mjs");
+      return import("./ZYWKNCV5.mjs");
     }
   }
 });
@@ -2860,7 +2860,7 @@ registerLanguage({
         __require(["vs/basic-languages/kotlin/kotlin"], resolve, reject);
       });
     } else {
-      return import("../U2F3AWN2.mjs");
+      return import("./U2F3AWN2.mjs");
     }
   }
 });
@@ -2878,7 +2878,7 @@ registerLanguage({
         __require(["vs/basic-languages/less/less"], resolve, reject);
       });
     } else {
-      return import("../SQJ7ZDBU.mjs");
+      return import("./SQJ7ZDBU.mjs");
     }
   }
 });
@@ -2895,7 +2895,7 @@ registerLanguage({
         __require(["vs/basic-languages/lexon/lexon"], resolve, reject);
       });
     } else {
-      return import("../QXAXH3SI.mjs");
+      return import("./QXAXH3SI.mjs");
     }
   }
 });
@@ -2912,7 +2912,7 @@ registerLanguage({
         __require(["vs/basic-languages/lua/lua"], resolve, reject);
       });
     } else {
-      return import("../QHPL7C4X.mjs");
+      return import("./QHPL7C4X.mjs");
     }
   }
 });
@@ -2930,7 +2930,7 @@ registerLanguage({
         __require(["vs/basic-languages/liquid/liquid"], resolve, reject);
       });
     } else {
-      return import("../YVY4FPCF.mjs");
+      return import("./YVY4FPCF.mjs");
     }
   }
 });
@@ -2947,7 +2947,7 @@ registerLanguage({
         __require(["vs/basic-languages/m3/m3"], resolve, reject);
       });
     } else {
-      return import("../52SYEYMK.mjs");
+      return import("./52SYEYMK.mjs");
     }
   }
 });
@@ -2964,7 +2964,7 @@ registerLanguage({
         __require(["vs/basic-languages/markdown/markdown"], resolve, reject);
       });
     } else {
-      return import("../GVTJPBUS.mjs");
+      return import("./GVTJPBUS.mjs");
     }
   }
 });
@@ -2982,7 +2982,7 @@ registerLanguage({
         __require(["vs/basic-languages/mips/mips"], resolve, reject);
       });
     } else {
-      return import("../3MLXBUWQ.mjs");
+      return import("./3MLXBUWQ.mjs");
     }
   }
 });
@@ -2999,7 +2999,7 @@ registerLanguage({
         __require(["vs/basic-languages/msdax/msdax"], resolve, reject);
       });
     } else {
-      return import("../HBJCTRQZ.mjs");
+      return import("./HBJCTRQZ.mjs");
     }
   }
 });
@@ -3016,7 +3016,7 @@ registerLanguage({
         __require(["vs/basic-languages/mysql/mysql"], resolve, reject);
       });
     } else {
-      return import("../PGYI72EN.mjs");
+      return import("./PGYI72EN.mjs");
     }
   }
 });
@@ -3033,7 +3033,7 @@ registerLanguage({
         __require(["vs/basic-languages/objective-c/objective-c"], resolve, reject);
       });
     } else {
-      return import("../2XY5LZFV.mjs");
+      return import("./2XY5LZFV.mjs");
     }
   }
 });
@@ -3051,7 +3051,7 @@ registerLanguage({
         __require(["vs/basic-languages/pascal/pascal"], resolve, reject);
       });
     } else {
-      return import("../DCRP7ACF.mjs");
+      return import("./DCRP7ACF.mjs");
     }
   }
 });
@@ -3068,7 +3068,7 @@ registerLanguage({
         __require(["vs/basic-languages/pascaligo/pascaligo"], resolve, reject);
       });
     } else {
-      return import("../LEP3QGW7.mjs");
+      return import("./LEP3QGW7.mjs");
     }
   }
 });
@@ -3085,7 +3085,7 @@ registerLanguage({
         __require(["vs/basic-languages/perl/perl"], resolve, reject);
       });
     } else {
-      return import("../YG3GQ3MN.mjs");
+      return import("./YG3GQ3MN.mjs");
     }
   }
 });
@@ -3102,7 +3102,7 @@ registerLanguage({
         __require(["vs/basic-languages/pgsql/pgsql"], resolve, reject);
       });
     } else {
-      return import("../CA3OMXLM.mjs");
+      return import("./CA3OMXLM.mjs");
     }
   }
 });
@@ -3120,7 +3120,7 @@ registerLanguage({
         __require(["vs/basic-languages/php/php"], resolve, reject);
       });
     } else {
-      return import("../6MGFRIWP.mjs");
+      return import("./6MGFRIWP.mjs");
     }
   }
 });
@@ -3136,7 +3136,7 @@ registerLanguage({
         __require(["vs/basic-languages/pla/pla"], resolve, reject);
       });
     } else {
-      return import("../B4SODKQC.mjs");
+      return import("./B4SODKQC.mjs");
     }
   }
 });
@@ -3153,7 +3153,7 @@ registerLanguage({
         __require(["vs/basic-languages/postiats/postiats"], resolve, reject);
       });
     } else {
-      return import("../EWONOMSV.mjs");
+      return import("./EWONOMSV.mjs");
     }
   }
 });
@@ -3170,7 +3170,7 @@ registerLanguage({
         __require(["vs/basic-languages/powerquery/powerquery"], resolve, reject);
       });
     } else {
-      return import("../S5W4WT6L.mjs");
+      return import("./S5W4WT6L.mjs");
     }
   }
 });
@@ -3187,7 +3187,7 @@ registerLanguage({
         __require(["vs/basic-languages/powershell/powershell"], resolve, reject);
       });
     } else {
-      return import("../MXO75F7N.mjs");
+      return import("./MXO75F7N.mjs");
     }
   }
 });
@@ -3204,7 +3204,7 @@ registerLanguage({
         __require(["vs/basic-languages/protobuf/protobuf"], resolve, reject);
       });
     } else {
-      return import("../4MA6VJ5P.mjs");
+      return import("./4MA6VJ5P.mjs");
     }
   }
 });
@@ -3221,7 +3221,7 @@ registerLanguage({
         __require(["vs/basic-languages/pug/pug"], resolve, reject);
       });
     } else {
-      return import("../DF5QD5C7.mjs");
+      return import("./DF5QD5C7.mjs");
     }
   }
 });
@@ -3239,7 +3239,7 @@ registerLanguage({
         __require(["vs/basic-languages/python/python"], resolve, reject);
       });
     } else {
-      return import("../YSSNDCHU.mjs");
+      return import("./YSSNDCHU.mjs");
     }
   }
 });
@@ -3256,7 +3256,7 @@ registerLanguage({
         __require(["vs/basic-languages/qsharp/qsharp"], resolve, reject);
       });
     } else {
-      return import("../DSYJ5KFM.mjs");
+      return import("./DSYJ5KFM.mjs");
     }
   }
 });
@@ -3273,7 +3273,7 @@ registerLanguage({
         __require(["vs/basic-languages/r/r"], resolve, reject);
       });
     } else {
-      return import("../FIQYG4XP.mjs");
+      return import("./FIQYG4XP.mjs");
     }
   }
 });
@@ -3291,7 +3291,7 @@ registerLanguage({
         __require(["vs/basic-languages/razor/razor"], resolve, reject);
       });
     } else {
-      return import("../Q3AAVWJX.mjs");
+      return import("./Q3AAVWJX.mjs");
     }
   }
 });
@@ -3308,7 +3308,7 @@ registerLanguage({
         __require(["vs/basic-languages/redis/redis"], resolve, reject);
       });
     } else {
-      return import("../T4ZMFFUX.mjs");
+      return import("./T4ZMFFUX.mjs");
     }
   }
 });
@@ -3325,7 +3325,7 @@ registerLanguage({
         __require(["vs/basic-languages/redshift/redshift"], resolve, reject);
       });
     } else {
-      return import("../UGU2PW2S.mjs");
+      return import("./UGU2PW2S.mjs");
     }
   }
 });
@@ -3342,7 +3342,7 @@ registerLanguage({
         __require(["vs/basic-languages/restructuredtext/restructuredtext"], resolve, reject);
       });
     } else {
-      return import("../XCD4S2YG.mjs");
+      return import("./XCD4S2YG.mjs");
     }
   }
 });
@@ -3360,7 +3360,7 @@ registerLanguage({
         __require(["vs/basic-languages/ruby/ruby"], resolve, reject);
       });
     } else {
-      return import("../ADNJPHUP.mjs");
+      return import("./ADNJPHUP.mjs");
     }
   }
 });
@@ -3377,7 +3377,7 @@ registerLanguage({
         __require(["vs/basic-languages/rust/rust"], resolve, reject);
       });
     } else {
-      return import("../GLFEDVXK.mjs");
+      return import("./GLFEDVXK.mjs");
     }
   }
 });
@@ -3394,7 +3394,7 @@ registerLanguage({
         __require(["vs/basic-languages/sb/sb"], resolve, reject);
       });
     } else {
-      return import("../VCYRMVP3.mjs");
+      return import("./VCYRMVP3.mjs");
     }
   }
 });
@@ -3412,7 +3412,7 @@ registerLanguage({
         __require(["vs/basic-languages/scala/scala"], resolve, reject);
       });
     } else {
-      return import("../HIUAR36X.mjs");
+      return import("./HIUAR36X.mjs");
     }
   }
 });
@@ -3429,7 +3429,7 @@ registerLanguage({
         __require(["vs/basic-languages/scheme/scheme"], resolve, reject);
       });
     } else {
-      return import("../2WPZTOSI.mjs");
+      return import("./2WPZTOSI.mjs");
     }
   }
 });
@@ -3447,7 +3447,7 @@ registerLanguage({
         __require(["vs/basic-languages/scss/scss"], resolve, reject);
       });
     } else {
-      return import("../ZQSPBNQS.mjs");
+      return import("./ZQSPBNQS.mjs");
     }
   }
 });
@@ -3464,7 +3464,7 @@ registerLanguage({
         __require(["vs/basic-languages/shell/shell"], resolve, reject);
       });
     } else {
-      return import("../ZM5NGWB7.mjs");
+      return import("./ZM5NGWB7.mjs");
     }
   }
 });
@@ -3481,7 +3481,7 @@ registerLanguage({
         __require(["vs/basic-languages/solidity/solidity"], resolve, reject);
       });
     } else {
-      return import("../ZPO6PI7Y.mjs");
+      return import("./ZPO6PI7Y.mjs");
     }
   }
 });
@@ -3498,7 +3498,7 @@ registerLanguage({
         __require(["vs/basic-languages/sophia/sophia"], resolve, reject);
       });
     } else {
-      return import("../CTTMOR27.mjs");
+      return import("./CTTMOR27.mjs");
     }
   }
 });
@@ -3515,7 +3515,7 @@ registerLanguage({
         __require(["vs/basic-languages/sparql/sparql"], resolve, reject);
       });
     } else {
-      return import("../S3YMMCYS.mjs");
+      return import("./S3YMMCYS.mjs");
     }
   }
 });
@@ -3532,7 +3532,7 @@ registerLanguage({
         __require(["vs/basic-languages/sql/sql"], resolve, reject);
       });
     } else {
-      return import("../C2CQB4Q3.mjs");
+      return import("./C2CQB4Q3.mjs");
     }
   }
 });
@@ -3549,7 +3549,7 @@ registerLanguage({
         __require(["vs/basic-languages/st/st"], resolve, reject);
       });
     } else {
-      return import("../PFLBR3SJ.mjs");
+      return import("./PFLBR3SJ.mjs");
     }
   }
 });
@@ -3567,7 +3567,7 @@ registerLanguage({
         __require(["vs/basic-languages/swift/swift"], resolve, reject);
       });
     } else {
-      return import("../CSXHUCX7.mjs");
+      return import("./CSXHUCX7.mjs");
     }
   }
 });
@@ -3584,7 +3584,7 @@ registerLanguage({
         __require(["vs/basic-languages/systemverilog/systemverilog"], resolve, reject);
       });
     } else {
-      return import("../DCQR475S.mjs");
+      return import("./DCQR475S.mjs");
     }
   }
 });
@@ -3598,7 +3598,7 @@ registerLanguage({
         __require(["vs/basic-languages/systemverilog/systemverilog"], resolve, reject);
       });
     } else {
-      return import("../DCQR475S.mjs");
+      return import("./DCQR475S.mjs");
     }
   }
 });
@@ -3615,7 +3615,7 @@ registerLanguage({
         __require(["vs/basic-languages/tcl/tcl"], resolve, reject);
       });
     } else {
-      return import("../2SAJSQDL.mjs");
+      return import("./2SAJSQDL.mjs");
     }
   }
 });
@@ -3633,7 +3633,7 @@ registerLanguage({
         __require(["vs/basic-languages/twig/twig"], resolve, reject);
       });
     } else {
-      return import("../G2Q2JCLZ.mjs");
+      return import("./G2Q2JCLZ.mjs");
     }
   }
 });
@@ -3651,7 +3651,7 @@ registerLanguage({
         __require(["vs/basic-languages/typescript/typescript"], resolve, reject);
       });
     } else {
-      return import("../MSC4CFJV.mjs");
+      return import("./MSC4CFJV.mjs");
     }
   }
 });
@@ -3668,7 +3668,7 @@ registerLanguage({
         __require(["vs/basic-languages/vb/vb"], resolve, reject);
       });
     } else {
-      return import("../T3CNYJYP.mjs");
+      return import("./T3CNYJYP.mjs");
     }
   }
 });
@@ -3701,7 +3701,7 @@ registerLanguage({
         __require(["vs/basic-languages/xml/xml"], resolve, reject);
       });
     } else {
-      return import("../FMPYCJ3R.mjs");
+      return import("./FMPYCJ3R.mjs");
     }
   }
 });
@@ -3719,7 +3719,7 @@ registerLanguage({
         __require(["vs/basic-languages/yaml/yaml"], resolve, reject);
       });
     } else {
-      return import("../KKWMR6MH.mjs");
+      return import("./KKWMR6MH.mjs");
     }
   }
 });
@@ -3824,7 +3824,7 @@ function getMode() {
       __require(["vs/language/css/cssMode"], resolve, reject);
     });
   } else {
-    return import("../RJHIJDUM.mjs");
+    return import("./RJHIJDUM.mjs");
   }
 }
 monaco_editor_core_exports2.languages.onLanguage("less", () => {
@@ -3943,7 +3943,7 @@ function getMode2() {
       __require(["vs/language/html/htmlMode"], resolve, reject);
     });
   } else {
-    return import("../7ULHWAJY.mjs");
+    return import("./7ULHWAJY.mjs");
   }
 }
 function registerHTMLLanguageService(languageId, options = optionsDefault2, modeConfiguration = getConfigurationDefault(languageId)) {
@@ -4039,7 +4039,7 @@ function getMode3() {
       __require(["vs/language/json/jsonMode"], resolve, reject);
     });
   } else {
-    return import("../3KBDNDFC.mjs");
+    return import("./3KBDNDFC.mjs");
   }
 }
 monaco_editor_core_exports4.languages.register({
@@ -44651,13 +44651,13 @@ var ToggleHighContrast = class extends EditorAction {
 registerEditorAction(ToggleHighContrast);
 
 // js/monaco-editor/language/typescript/ts.worker.monaco.worker.js
-var ts_worker_monaco_worker_default = "../ts.worker.monaco.worker-XKGEPXLK.js";
+var ts_worker_monaco_worker_default = "./ts.worker.monaco.worker-XKGEPXLK.js";
 
 // js/monaco-editor/editor/editor.worker.monaco.worker.js
-var editor_worker_monaco_worker_default = "../editor.worker.monaco.worker-2HCJ5OLE.js";
+var editor_worker_monaco_worker_default = "./editor.worker.monaco.worker-2HCJ5OLE.js";
 
 // ../../node_modules/monaco-editor/esm/vs/base/browser/ui/codicons/codicon/codicon.ttf
-var codicon_default = "../codicon-MO4O4W4B.ttf";
+var codicon_default = "./codicon-MO4O4W4B.ttf";
 
 // js/startMonaco.ts
 var monEnv = {
@@ -44717,7 +44717,7 @@ var monacoContribution = async (typescript, editor2, code) => {
     editor2.createModel(await fetch(extraModel).then((res) => res.text()), "typescript", Uri.parse(extraModel));
   }
   (async () => {
-    const { dtsFiles } = await import("../WANYU4QA.mjs");
+    const { dtsFiles } = await import("./WANYU4QA.mjs");
     const {
       reactDts,
       jsxRuntimeDts,
@@ -44837,7 +44837,7 @@ var monacoContribution = async (typescript, editor2, code) => {
       }
     ];
     const dts = importHelper.map(({ name, url }) => async () => typescript.typescriptDefaults.addExtraLib(await (await fetch(url)).text(), location.origin + `/live/${name}.d.ts`));
-    const pAll = (await import("../74GCDS7K.mjs")).default;
+    const pAll = (await import("./74GCDS7K.mjs")).default;
     await pAll(dts, { concurrency: 2 });
     typescript.typescriptDefaults.setEagerModelSync(true);
     typescript.typescriptDefaults.setDiagnosticsOptions({
@@ -44872,7 +44872,7 @@ var startMonaco = async ({ code, container, name }) => {
 }`;
   document.head.appendChild(outerStyle);
   const innerStyle = document.createElement("style");
-  innerStyle.innerText = `@import url("${import.meta.url.replace("mjs", "css")}");
+  innerStyle.innerText = `@import url("./js/ws.css");
   @font-face {
     font-family: codicon;
     font-display: block;
