@@ -6,7 +6,7 @@ import {
   onSessionUpdate,
   require_debounce,
   saveCode
-} from "./LCW4IFNV.mjs";
+} from "./QUJ5SK7I.mjs";
 import {
   LazyMotion,
   domAnimation,
@@ -17202,7 +17202,7 @@ var Editor = ({ code, i: i2, codeSpace }) => {
     if (!ref?.current)
       return;
     const setMonaco = async () => {
-      const { startMonaco } = await import("./LEDT6XDQ.mjs");
+      const { startMonaco } = await import("./CRDEFJJ6.mjs");
       const { editor } = await startMonaco({
         container: ref.current,
         name: codeSpace,

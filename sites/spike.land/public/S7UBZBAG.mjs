@@ -1,6 +1,6 @@
 import {
   editor_api_exports
-} from "./AIIGUVZM.mjs";
+} from "./EJ3QHVHQ.mjs";
 import {
   init_define_process
 } from "./LC4ALKUC.mjs";

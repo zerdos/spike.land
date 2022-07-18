@@ -1,8 +1,8 @@
 import {
   conf,
   language
-} from "./YB2D5XHV.mjs";
-import "./AIIGUVZM.mjs";
+} from "./K3TLSHWY.mjs";
+import "./EJ3QHVHQ.mjs";
 import {
   init_define_process
 } from "./LC4ALKUC.mjs";
