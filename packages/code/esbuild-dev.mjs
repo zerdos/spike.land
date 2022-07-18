@@ -65,10 +65,10 @@ const buildOptions = {
   plugins: [
     importMapPlugin,
     jsxImportSourcePlugin({ filter: /.(tsx)/ }),
-    alias({
-      "path": "path-browserify",
-      "stream": "stream-browserify",
-    }),
+    // alias({
+    //   "path": "path-browserify"
+    //   // "stream": "stream-browserify",
+    // }),
   ],
 };
 
@@ -115,9 +115,9 @@ await esbuild.build({
   minifyWhitespace: false,
   minifyIdentifiers: false,
   minifySyntax: false,
-  treeShaking: true,
+  treeShaking: false,
 
-  ignoreAnnotations: true,
+  ignoreAnnotations: false,
   plugins: [
     alias({
       "path": new URL("./path/index.js", import.meta.url).pathname,
@@ -218,7 +218,6 @@ const build = (entryPoints, format = "esm") =>
 await build([
   "js/ws.ts",
   "react.ts",
-  "js/startMonaco.ts",
   "framer-motion.ts",
   "emotion.ts",
 ]);

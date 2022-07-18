@@ -8000,7 +8000,7 @@ var sendChannel = {
   }
 };
 async function quickStart(codeSpace2) {
-  const { renderPreviewWindow } = await import("./QWEZL334.mjs");
+  const { renderPreviewWindow } = await import("./2OS5LN7C.mjs");
   return renderPreviewWindow(codeSpace2);
 }
 var run = async (startState) => {
