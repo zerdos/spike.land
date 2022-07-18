@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { FC, Fragment, lazy } from "react";
+import { FC, Fragment } from "react";
 
 import type {} from "react-dom/next";
 
@@ -48,7 +48,7 @@ const apps: { [key: string]: FC } = {};
 
 // {[md5(starter.transpiled)]: await appFactory(starter.transpiled)};
 
-export const AutoUpdateApp: FC<{ hash: number, codeSpace: string, starter: FC }> = ({ hash, codeSpace, starter }) => {
+export const AutoUpdateApp: FC<{ hash: number, starter: FC }> = ({ hash, starter }) => {
   const result = md5(mST().transpiled);
 
 
