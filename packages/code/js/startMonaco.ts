@@ -82,7 +82,7 @@ export const monacoContribution = async (
     .replaceAll(regex2, ` from '${location.origin}/live`);
 
   const models = replaced.matchAll(search);
-  console.log("load more models", replaced, models);
+  // console.log("load more models", replaced, models);
 
   for (const match of models) {
     console.log("***** EXTRA MODELS *****");

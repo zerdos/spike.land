@@ -58,6 +58,8 @@ export class Code {
   room: string = "";
   kv: DurableObjectStorage;
   codeSpace: string;
+  sess: ICodeSession;
+  sessionStarted: boolean;
   address: string;
   sessions: WebsocketSession[];
   constructor(state: IState, private env: CodeEnv) {
@@ -82,16 +84,17 @@ export class Code {
         session.css = s.css;
       }
       this.address = await this.kv.get<string>("address") || "";
-
-      startSession(this.codeSpace, {
-        name: this.codeSpace,
-        state: session,
-      }, "");
+      this.sess=session;
+      this.sessionStarted = false;
     });
   }
 
   async fetch(request: Request, env: CodeEnv, ctx: ExecutionContext) {
     let url = new URL(request.url);
+    if (!this.sessionStarted) {
+      startSession(this.codeSpace, {name: this.codeSpace, state: this.sess}, "https://testing.spike.land");
+      this.sessionStarted=true;
+    }
     const mST = () => mSTOrig("https://testing.spike.land");
 
     this.codeSpace = url.searchParams.get("room") || "code-main";

@@ -5210,16 +5210,14 @@ var CodeSession = class {
   }
   hashCodeSession = 0;
   room;
-  originStr;
   created = new Date().toISOString();
-  constructor(room, user2, originStr) {
+  constructor(room, user2) {
     session = this;
     this.room = room;
-    this.originStr = originStr;
     const savedState = null;
     this.session = initSession(room, {
       ...user2,
-      state: savedState ? savedState : JSON.parse(str(user2.state, this.originStr))
+      state: savedState ? savedState : JSON.parse(str(user2.state))
     })();
   }
   hashOfState = () => {
@@ -5229,7 +5227,7 @@ var CodeSession = class {
     return hashCode4;
   };
   createPatchFromHashCode = async (oldHash, state) => {
-    const s = JSON.parse(str(state, this.originStr));
+    const s = JSON.parse(str(state));
     if (!hashStore[oldHash]) {
       const resp = await fetch(`/live/${this.room}
         `);
@@ -5237,9 +5235,9 @@ var CodeSession = class {
       hashStore[hashCode4] = this.session.get("state").merge(mST2);
     }
     const oldRec = hashStore[oldHash];
-    const oldStr = str(oldRec.toJSON(), this.originStr);
+    const oldStr = str(oldRec.toJSON());
     const newRec = oldRec.merge(s);
-    const newStr = str(newRec.toJSON(), this.originStr);
+    const newStr = str(newRec.toJSON());
     const newHash = newRec.hashCode();
     hashStore[newHash] = newRec;
     const patch = createPatch(oldStr, newStr);
@@ -5260,15 +5258,15 @@ var CodeSession = class {
       const resp = await fetch(`/live/${codeSpace2}/mST`);
       if (resp.ok) {
         const s = await resp.json();
-        const serverRecord = this.session.get("state").merge(JSON.parse(str(s.mST, this.originStr)));
+        const serverRecord = this.session.get("state").merge(JSON.parse(str(s.mST)));
         hashStore[serverRecord.hashCode()] = serverRecord;
       } else {
         const { mST: mST2 } = await import(location.origin + `/live/${this.room}/mst.mjs?${Date.now()}`);
-        const latestRec = this.session.get("state").merge(JSON.parse(str(mST2, this.originStr)));
+        const latestRec = this.session.get("state").merge(JSON.parse(str(mST2)));
         hashStore[latestRec.hashCode()] = latestRec;
       }
     }
-    const oldStr = str(hashStore[oldHash].toJSON(), this.originStr);
+    const oldStr = str(hashStore[oldHash].toJSON());
     const applied = applyPatch(oldStr, patch);
     const newState = JSON.parse(applied);
     const newRec = this.session.get("state").merge(newState);
@@ -5292,7 +5290,7 @@ var CodeSession = class {
   }
 };
 var hashCode3 = () => session ? session.hashOfState() : 0;
-var mST = (originStr) => {
+var mST = () => {
   if (!session) {
     return {
       i: 0,
@@ -5302,8 +5300,6 @@ var mST = (originStr) => {
       css: ""
     };
   }
-  if (originStr)
-    return addOrigin(session.json().state, originStr);
   const { i, transpiled, code, html, css } = session.json().state;
   return { i, transpiled, code, html, css };
 };
@@ -5316,8 +5312,9 @@ function addOrigin(s, originStr) {
   mst.transpiled = mst.transpiled.replace(`from "./`, `from "${originStr}/live/`);
   return mst;
 }
-function str(s, originStr) {
-  return JSON.stringify(addOrigin(s, originStr));
+function str(s) {
+  const { i, transpiled, code, html, css } = s;
+  return JSON.stringify({ i, transpiled, code, html, css });
 }
 var applyPatch2 = async (x) => {
   await session?.applyPatch(x);
@@ -5326,7 +5323,7 @@ var applyPatch2 = async (x) => {
 var onSessionUpdate = (fn, regId = "default") => session?.onUpdate(fn, regId);
 var makePatchFrom = (n, st) => session.createPatchFromHashCode(n, st);
 var makePatch = (st) => makePatchFrom(hashCode3(), st);
-var startSession = (room, u, originStr) => session || new CodeSession(room, u, originStr);
+var startSession = (room, u, originStr) => session || new CodeSession(room, { name: u.name, state: addOrigin(u.state, originStr) });
 function createPatch(oldCode, newCode) {
   return createDelta(oldCode, newCode);
 }
@@ -8000,7 +7997,7 @@ var sendChannel = {
   }
 };
 async function quickStart(codeSpace2) {
-  const { renderPreviewWindow } = await import("./renderPreviewWindow-QJ2NCEG6.mjs");
+  const { renderPreviewWindow } = await import("./renderPreviewWindow-IM37M4LQ.mjs");
   return renderPreviewWindow(codeSpace2);
 }
 var run = async (startState) => {
@@ -8066,40 +8063,36 @@ async function saveCode(sess) {
     return;
   bc.postMessage({ ignoreUser: user, sess, codeSpace, address, messageData });
   try {
-    (async () => {
-      if (Object.keys(rtcConns).length == 0)
-        return;
-      try {
+    try {
+      if (Object.keys(rtcConns).length > 0) {
         const message = webRTCLastSeenHashCode ? await makePatchFrom(webRTCLastSeenHashCode, sess) : await makePatch(sess);
         if (message && message.patch) {
           console.log("sendRTC");
           sendChannel.send(message);
         }
-      } catch (e) {
-        console.error("Error sending RTC...", { e });
       }
-    })();
+    } catch (e) {
+      console.error("Error sending RTC...", { e });
+    }
   } catch (e) {
     console.log("Error 1");
   }
   try {
-    (async () => {
-      if (ws) {
-        console.log({ wsLastHashCode });
-        const message = await makePatchFrom(wsLastHashCode, sess);
-        if (!message)
-          return;
-        if (message.newHash !== hashCode3()) {
-          console.error("NEW hash is not even hashCode", hashCode3());
-          return;
-        }
-        const messageString = JSON.stringify({ ...message, name: user });
-        sendWS(messageString);
-      } else {
-        rejoined = false;
-        await rejoin();
+    if (ws) {
+      console.log({ wsLastHashCode });
+      const message = await makePatchFrom(wsLastHashCode, sess);
+      if (!message)
+        return;
+      if (message.newHash !== hashCode3()) {
+        console.error("NEW hash is not even hashCode", hashCode3());
+        return;
       }
-    })();
+      const messageString = JSON.stringify({ ...message, name: user });
+      sendWS(messageString);
+    } else {
+      rejoined = false;
+      await rejoin();
+    }
   } catch (e) {
     console.error("error 2", { e });
   }
