@@ -116,9 +116,7 @@ export class CodeSession implements ICodeSess {
 
     this.session = initSession(room, {
       ...user,
-      state: savedState
-        ? savedState
-        : JSON.parse(str(user.state)),
+      state: savedState ? savedState : JSON.parse(str(user.state)),
     })();
   }
 
@@ -269,7 +267,7 @@ function addOrigin(s: ICodeSession, originStr: string) {
   return mst;
 }
 function str(s: ICodeSession) {
-  const { i, transpiled, code, html, css } = s
+  const { i, transpiled, code, html, css } = s;
   return JSON.stringify({ i, transpiled, code, html, css });
 }
 
@@ -289,7 +287,9 @@ export const startSession = (
   room: string,
   u: IUserJSON,
   originStr: string,
-): CodeSession => session || new CodeSession(room, {name: u.name, state: addOrigin(u.state, originStr)});  
+): CodeSession =>
+  session ||
+  new CodeSession(room, { name: u.name, state: addOrigin(u.state, originStr) });
 
 function createPatch(oldCode: string, newCode: string) {
   return createDelta(oldCode, newCode);

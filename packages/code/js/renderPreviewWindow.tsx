@@ -61,7 +61,9 @@ background:  repeating-radial-gradient(circle at bottom left,
   </div>
 );
 
-const AppToRender: FC<{ codeSpace: string, children: FC }> = ({ codeSpace, children }) => {
+const AppToRender: FC<{ codeSpace: string; children: FC }> = (
+  { codeSpace, children },
+) => {
   const [hash, setHash] = useState(() => hashCode());
   const [isStandalone, setIsStandalone] = useState(true);
 
@@ -90,14 +92,13 @@ const AppToRender: FC<{ codeSpace: string, children: FC }> = ({ codeSpace, child
 
   const portalNode = useMemo(() =>
     portals.createHtmlPortalNode({
-      attributes: { id: `root-${codeSpace}`, style: "height: 100%" }
+      attributes: { id: `root-${codeSpace}`, style: "height: 100%" },
     }), []);
 
   return (
     <Fragment>
       <portals.InPortal node={portalNode}>
-            <AutoUpdateApp hash={hash} starter={children}/>
-
+        <AutoUpdateApp hash={hash} starter={children} />
       </portals.InPortal>
 
       {isStandalone
@@ -133,11 +134,10 @@ const AppToRender: FC<{ codeSpace: string, children: FC }> = ({ codeSpace, child
   );
 };
 
-export const renderPreviewWindow =  (
+export const renderPreviewWindow = (
   codeSpace: string,
-  App: FC
+  App: FC,
 ) => {
-
   return hydrateRoot(
     document.getElementById("root")!,
     <AppToRender codeSpace={codeSpace}>{App}</AppToRender>,

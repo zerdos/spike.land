@@ -84,7 +84,7 @@ await esbuild.build({
   minifySyntax: !isDevelopment,
   treeShaking: true,
   ignoreAnnotations: true,
-  plugins: [ jsxImportSourcePlugin({ filter: /.(tsx)/ })],
+  plugins: [jsxImportSourcePlugin({ filter: /.(tsx)/ })],
   outExtension: { ".js": ".monaco.worker.js" },
   format: "iife",
   loader: {

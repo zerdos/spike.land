@@ -1,16 +1,15 @@
 /** @jsxImportSource @emotion/react */
 
-export {default as Fab} from "@mui/material/Fab/Fab";
-export {default as Button} from "@mui/material/Button/Button";
+export { default as Fab } from "@mui/material/Fab/Fab";
+export { default as Button } from "@mui/material/Button/Button";
 
-export {default as Box} from "@mui/material/Box/Box";
-export {default as Slider} from "@mui/material/Slider/Slider";
+export { default as Box } from "@mui/material/Box/Box";
+export { default as Slider } from "@mui/material/Slider/Slider";
 
 import createSvgIcon from "@mui/material/utils/createSvgIcon";
 
-export {default as ToggleButton} from "@mui/material/ToggleButton/ToggleButton";
-export {default as ToggleButtonGroup} from "@mui/material/ToggleButtonGroup/ToggleButtonGroup";
-
+export { default as ToggleButton } from "@mui/material/ToggleButton/ToggleButton";
+export { default as ToggleButtonGroup } from "@mui/material/ToggleButtonGroup/ToggleButtonGroup";
 
 export const FullscreenIcon = createSvgIcon(
   <path d="M17 4h5v5h-2V6h-3V4zM4 9V6h3V4H2v5h2zm16 6v3h-3v2h5v-5h-2zM7 18H4v-3H2v5h5v-2zM18 8H6v8h12V8z">
@@ -35,7 +34,6 @@ export const Share = createSvgIcon(
   </path>,
   "Share",
 );
-
 
 export const Tablet = createSvgIcon(
   <path

@@ -8,8 +8,8 @@ import {
   mST,
   startSession,
 } from "./session";
-import type {FC} from "react";
-import {renderPreviewWindow}  from "./renderPreviewWindow";
+import type { FC } from "react";
+import { renderPreviewWindow } from "./renderPreviewWindow";
 
 import type { ICodeSession } from "./session";
 import throttle from "lodash/throttle";
@@ -86,7 +86,7 @@ export const run = async (startState: {
   mST: ICodeSession;
   codeSpace: string;
   address: string;
-  App: FC, 
+  App: FC;
   assets: { [key: string]: string };
 }) => {
   codeSpace = startState.codeSpace;
@@ -102,7 +102,6 @@ export const run = async (startState: {
   renderPreviewWindow(codeSpace, App);
 
   initShims(assets);
-
 
   join();
 
@@ -184,10 +183,8 @@ export async function saveCode(sess: ICodeSession) {
   bc.postMessage({ ignoreUser: user, sess, codeSpace, address, messageData });
 
   try {
-
-
-      try {
-        if (Object.keys(rtcConns).length>0) {
+    try {
+      if (Object.keys(rtcConns).length > 0) {
         const message = webRTCLastSeenHashCode
           ? await makePatchFrom(
             webRTCLastSeenHashCode,
@@ -199,35 +196,34 @@ export async function saveCode(sess: ICodeSession) {
           sendChannel.send(message);
         }
       }
-      } catch (e) {
-        console.error("Error sending RTC...", { e });
-      }
-
+    } catch (e) {
+      console.error("Error sending RTC...", { e });
+    }
   } catch (e) {
     console.log("Error 1");
   }
 
   try {
-      if (ws) {
-        console.log({ wsLastHashCode });
-        const message = await makePatchFrom(
-          wsLastHashCode,
-          sess,
-        );
+    if (ws) {
+      console.log({ wsLastHashCode });
+      const message = await makePatchFrom(
+        wsLastHashCode,
+        sess,
+      );
 
-        if (!message) return;
+      if (!message) return;
 
-        if (message.newHash !== hashCode()) {
-          console.error("NEW hash is not even hashCode", hashCode());
-          return;
-        }
-
-        const messageString = JSON.stringify({ ...message, name: user });
-        sendWS(messageString);
-      } else {
-        rejoined = false;
-        await rejoin();
+      if (message.newHash !== hashCode()) {
+        console.error("NEW hash is not even hashCode", hashCode());
+        return;
       }
+
+      const messageString = JSON.stringify({ ...message, name: user });
+      sendWS(messageString);
+    } else {
+      rejoined = false;
+      await rejoin();
+    }
   } catch (e) {
     console.error("error 2", { e });
   }
@@ -344,7 +340,6 @@ async function processWsMessage(
     wsLastHashCode = data.hashCode;
   }
 
-
   if (source === "rtc" && data.hashCode || data.newHash) {
     webRTCLastSeenHashCode = data.hashCode || data.newHash;
   }
@@ -412,7 +407,7 @@ async function processWsMessage(
   }
 
   if (data.patch && data.name === user) {
-   wsLastHashCode = data.newHash;
+    wsLastHashCode = data.newHash;
 
     return;
   }
@@ -428,7 +423,6 @@ async function processWsMessage(
     const codePatch = await makePatch(state.mST);
     if (codePatch.newHash === wsLastHashCode) await applyPatch(codePatch);
   }
-
 
   function createPeerConnection(target: string) {
     log(`Setting up a connection with ${target}`);

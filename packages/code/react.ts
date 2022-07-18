@@ -2,9 +2,9 @@ import * as Preact from "preact";
 import PreactCompat from "preact/compat";
 import {
   hydrate as hy,
-  render as rend,
   lazy as laz,
-  Suspense as Sus, 
+  render as rend,
+  Suspense as Sus,
   SuspenseList as SusL,
   unmountComponentAtNode as unm,
 } from "preact/compat";
@@ -29,9 +29,8 @@ window.ReactDOM = window.ReactDOM ||
 window.PreactJSX = window.PreactJSX || { jsx: j, jsxDEV: jd, jsxs: js };
 window.renderToString = window.renderToString || renderToStr;
 
-window.React = window.React || {...PreactCompat,  lazy: laz,
-  Suspense: Sus, 
-  SuspenseList: SusL};
+window.React = window.React ||
+  { ...PreactCompat, lazy: laz, Suspense: Sus, SuspenseList: SusL };
 
 window.MyPreact = window.MyPreact || Preact;
 
