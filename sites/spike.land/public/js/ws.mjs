@@ -3,7 +3,7 @@ import {
   quickStart,
   run,
   saveCode
-} from "../ZPYZNP6W.mjs";
+} from "../UDZY4OZH.mjs";
 import "../D4S3JOF6.mjs";
 import "../LC4ALKUC.mjs";
 export {
