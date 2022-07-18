@@ -9,7 +9,7 @@ import type { ICodeSession } from "@spike.land/code/js/session";
 import {
   applyPatch,
   hashCode,
-  mST as mSTOrig,
+  mST,
   startSession,
 } from "@spike.land/code/js/session";
 import { Delta } from "@spike.land/code/js/textDiff";
@@ -92,10 +92,9 @@ export class Code {
   async fetch(request: Request, env: CodeEnv, ctx: ExecutionContext) {
     let url = new URL(request.url);
     if (!this.sessionStarted) {
-      startSession(this.codeSpace, {name: this.codeSpace, state: this.sess}, "https://testing.spike.land");
+      startSession(this.codeSpace, {name: this.codeSpace, state: this.sess}, url.origin);
       this.sessionStarted=true;
     }
-    const mST = () => mSTOrig("https://testing.spike.land");
 
     this.codeSpace = url.searchParams.get("room") || "code-main";
 
