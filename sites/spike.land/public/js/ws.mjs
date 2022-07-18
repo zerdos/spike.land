@@ -10855,7 +10855,7 @@ function handleOptionSelection(option, state, props) {
   const {
     selectedValue
   } = state;
-  const optionIndex = props.options.indexOf(option);
+  const optionIndex = props.options.findIndex((o) => props.optionComparer(option, o));
   if (isOptionDisabled(option, optionIndex)) {
     return state;
   }
@@ -11016,77 +11016,86 @@ function defaultListboxReducer(state, action) {
 // ../../node_modules/@mui/base/ListboxUnstyled/useControllableReducer.js
 init_define_process();
 import * as React19 from "/react.mjs";
-function useReducerReturnValueHandler(state, value, options, optionComparer, setValueState, onValueChange, onHighlightChange) {
-  const valueRef = React19.useRef(value);
-  valueRef.current = value;
-  const onValueChangeRef = React19.useRef(onValueChange);
+function getControlledState(internalState, props) {
+  if (props.value !== void 0) {
+    return _extends({}, internalState, {
+      selectedValue: props.value
+    });
+  }
+  return internalState;
+}
+function areOptionsEqual(option1, option2, optionComparer) {
+  if (option1 === option2) {
+    return true;
+  }
+  if (option1 === null || option2 === null) {
+    return false;
+  }
+  return optionComparer(option1, option2);
+}
+function useStateChangeDetection(nextState, internalPreviousState, propsRef) {
   React19.useEffect(() => {
-    onValueChangeRef.current = onValueChange;
-  }, [onValueChange]);
-  const onHighlightChangeRef = React19.useRef(onHighlightChange);
-  React19.useEffect(() => {
-    onHighlightChangeRef.current = onHighlightChange;
-  }, [onHighlightChange]);
-  React19.useEffect(() => {
-    if (Array.isArray(state.selectedValue)) {
-      if (areArraysEqual(state.selectedValue, valueRef.current)) {
-        return;
-      }
-    } else if (state.selectedValue == null && valueRef.current == null || state.selectedValue != null && valueRef.current != null && optionComparer.current(state.selectedValue, valueRef.current)) {
+    if (!propsRef.current) {
       return;
     }
-    setValueState(state.selectedValue);
-    if (state.selectedValue != null) {
-      var _onValueChangeRef$cur;
-      (_onValueChangeRef$cur = onValueChangeRef.current) == null ? void 0 : _onValueChangeRef$cur.call(onValueChangeRef, state.selectedValue);
+    const previousState = getControlledState(internalPreviousState, propsRef.current);
+    const {
+      multiple,
+      optionComparer
+    } = propsRef.current;
+    if (multiple) {
+      var _previousState$select;
+      const previousSelectedValues = (_previousState$select = previousState == null ? void 0 : previousState.selectedValue) != null ? _previousState$select : [];
+      const nextSelectedValues = nextState.selectedValue;
+      const onChange = propsRef.current.onChange;
+      if (!areArraysEqual(nextSelectedValues, previousSelectedValues, optionComparer)) {
+        onChange == null ? void 0 : onChange(nextSelectedValues);
+      }
+    } else {
+      const previousSelectedValue = previousState == null ? void 0 : previousState.selectedValue;
+      const nextSelectedValue = nextState.selectedValue;
+      const onChange = propsRef.current.onChange;
+      if (!areOptionsEqual(nextSelectedValue, previousSelectedValue, optionComparer)) {
+        onChange == null ? void 0 : onChange(nextSelectedValue);
+      }
     }
-  }, [state.selectedValue, setValueState, optionComparer]);
+  }, [nextState.selectedValue, internalPreviousState, propsRef]);
   React19.useEffect(() => {
-    var _onHighlightChangeRef;
-    (_onHighlightChangeRef = onHighlightChangeRef.current) == null ? void 0 : _onHighlightChangeRef.call(onHighlightChangeRef, state.highlightedValue);
-  }, [state.highlightedValue]);
+    if (!propsRef.current) {
+      return;
+    }
+    if (!areOptionsEqual(internalPreviousState.highlightedValue, nextState.highlightedValue, propsRef.current.optionComparer)) {
+      var _propsRef$current, _propsRef$current$onH;
+      (_propsRef$current = propsRef.current) == null ? void 0 : (_propsRef$current$onH = _propsRef$current.onHighlightChange) == null ? void 0 : _propsRef$current$onH.call(_propsRef$current, nextState.highlightedValue);
+    }
+  }, [nextState.highlightedValue, internalPreviousState.highlightedValue, propsRef]);
 }
 function useControllableReducer(internalReducer, externalReducer, props) {
+  var _ref;
   const {
-    value: controlledValue,
-    defaultValue,
-    onChange: onValueChange,
-    onHighlightChange,
-    options,
-    optionComparer
+    value,
+    defaultValue
   } = props;
   const propsRef = React19.useRef(props);
   propsRef.current = props;
-  const [value, setValueState] = useControlled({
-    controlled: controlledValue,
-    default: defaultValue,
-    name: "useListbox"
-  });
-  const previousValueRef = React19.useRef(null);
-  const [state, dispatch] = React19.useReducer(externalReducer != null ? externalReducer : internalReducer, {
+  const initialSelectedValue = (_ref = value === void 0 ? defaultValue : value) != null ? _ref : props.multiple ? [] : null;
+  const initalState = {
     highlightedValue: null,
-    selectedValue: value
-  });
-  const optionComparerRef = React19.useRef(optionComparer);
-  optionComparerRef.current = optionComparer;
+    selectedValue: initialSelectedValue
+  };
+  const combinedReducer = React19.useCallback((state, action) => {
+    if (externalReducer) {
+      return externalReducer(getControlledState(state, propsRef.current), action);
+    }
+    return internalReducer(getControlledState(state, propsRef.current), action);
+  }, [externalReducer, internalReducer, propsRef]);
+  const [nextState, dispatch] = React19.useReducer(combinedReducer, initalState);
+  const previousState = React19.useRef(initalState);
   React19.useEffect(() => {
-    if (controlledValue === void 0) {
-      return;
-    }
-    if (Array.isArray(controlledValue) && Array.isArray(previousValueRef.current) && areArraysEqual(previousValueRef.current, controlledValue, optionComparerRef.current)) {
-      return;
-    }
-    if (!Array.isArray(controlledValue) && controlledValue != null && previousValueRef.current != null && optionComparerRef.current(controlledValue, previousValueRef.current)) {
-      return;
-    }
-    previousValueRef.current = controlledValue;
-    dispatch({
-      type: ActionTypes.setValue,
-      value: controlledValue
-    });
-  }, [controlledValue]);
-  useReducerReturnValueHandler(state, value, options, optionComparerRef, setValueState, onValueChange, onHighlightChange);
-  return [state, dispatch];
+    previousState.current = nextState;
+  }, [previousState, nextState]);
+  useStateChangeDetection(nextState, previousState.current, propsRef);
+  return [getControlledState(nextState, propsRef.current), dispatch];
 }
 
 // ../../node_modules/@mui/base/ListboxUnstyled/useListbox.js
@@ -11206,7 +11215,7 @@ function useListbox(props) {
       event,
       props: propsWithDefaults
     });
-    if (event.key.length === 1) {
+    if (event.key.length === 1 && event.key !== " ") {
       const textCriteria = textCriteriaRef.current;
       const lowerKey = event.key.toLowerCase();
       const currentTime = performance.now();
@@ -14458,7 +14467,6 @@ function useSelect(props) {
   const buttonRef = React31.useRef(null);
   const handleButtonRef = useForkRef(buttonRefProp, buttonRef);
   const listboxRef = React31.useRef(null);
-  const intermediaryListboxRef = useForkRef(listboxRefProp, listboxRef);
   const [value, setValue] = useControlled({
     controlled: valueProp,
     default: defaultValue,
@@ -14478,7 +14486,7 @@ function useSelect(props) {
     listboxRef.current = listboxElement;
     focusListboxIfRequested();
   };
-  const handleListboxRef = useForkRef(intermediaryListboxRef, updateListboxRef);
+  const handleListboxRef = useForkRef(useForkRef(listboxRefProp, listboxRef), updateListboxRef);
   React31.useEffect(() => {
     focusListboxIfRequested();
   }, [focusListboxIfRequested]);
@@ -14582,8 +14590,9 @@ function useSelect(props) {
       listboxRef: handleListboxRef,
       multiple: true,
       onChange: (newOptions) => {
-        setValue(newOptions.map((o) => o.value));
-        onChange == null ? void 0 : onChange(newOptions.map((o) => o.value));
+        const newValues = newOptions.map((o) => o.value);
+        setValue(newValues);
+        onChange == null ? void 0 : onChange(newValues);
       },
       options,
       optionStringifier,
@@ -14638,8 +14647,8 @@ function useSelect(props) {
   };
   React31.useDebugValue({
     selectedOption: listboxSelectedOption,
-    open: open2,
-    highlightedOption
+    highlightedOption,
+    open: open2
   });
   return {
     buttonActive,
@@ -17724,7 +17733,7 @@ function handleBreakpoints(props, propValue, styleFromPropValue) {
 }
 function createEmptyBreakpointObject(breakpointsInput = {}) {
   var _breakpointsInput$key;
-  const breakpointsInOrder = breakpointsInput == null ? void 0 : (_breakpointsInput$key = breakpointsInput.keys) == null ? void 0 : _breakpointsInput$key.reduce((acc, key) => {
+  const breakpointsInOrder = (_breakpointsInput$key = breakpointsInput.keys) == null ? void 0 : _breakpointsInput$key.reduce((acc, key) => {
     const breakpointStyleKey = breakpointsInput.up(key);
     acc[breakpointStyleKey] = {};
     return acc;
@@ -20109,14 +20118,20 @@ var generateGridStyles = ({
     flexWrap: ownerState.wrap
   }, {
     margin: `calc(var(--Grid-rowSpacing) / -2) calc(var(--Grid-columnSpacing) / -2)`
-  }, ownerState.nested ? {
+  }, ownerState.disableEqualOverflow && {
+    margin: `calc(var(--Grid-rowSpacing) * -1) 0px 0px calc(var(--Grid-columnSpacing) * -1)`
+  }, ownerState.nested ? _extends({
     padding: `calc(var(--Grid-nested-rowSpacing) / 2) calc(var(--Grid-nested-columnSpacing) / 2)`
-  } : {
+  }, (ownerState.disableEqualOverflow || ownerState.parentDisableEqualOverflow) && {
+    padding: `calc(var(--Grid-nested-rowSpacing)) 0px 0px calc(var(--Grid-nested-columnSpacing))`
+  }) : {
     "--Grid-nested-rowSpacing": "var(--Grid-rowSpacing)",
     "--Grid-nested-columnSpacing": "var(--Grid-columnSpacing)"
-  }) : {
+  }) : _extends({
     padding: `calc(var(--Grid-rowSpacing) / 2) calc(var(--Grid-columnSpacing) / 2)`
-  });
+  }, ownerState.disableEqualOverflow && {
+    padding: `calc(var(--Grid-rowSpacing)) 0px 0px calc(var(--Grid-columnSpacing))`
+  }));
 };
 var generateSizeClassNames = (gridSize) => {
   const classNames = [];
@@ -20151,7 +20166,7 @@ var generateSpacingClassNames = (spacing2, smallestBreakpoint = "xs") => {
 
 // ../../node_modules/@mui/system/esm/Unstable_Grid/createGrid.js
 import { jsx as _jsx32 } from "/react.mjs";
-var _excluded33 = ["className", "columns", "container", "component", "direction", "wrap", "spacing", "rowSpacing", "columnSpacing"];
+var _excluded33 = ["className", "columns", "container", "component", "direction", "wrap", "spacing", "rowSpacing", "columnSpacing", "disableEqualOverflow"];
 var defaultTheme2 = createTheme_default();
 var defaultCreateStyledComponent2 = styled_default("div", {
   name: "MuiGrid",
@@ -20172,6 +20187,7 @@ function createGrid(options = {}) {
     componentName = "MuiGrid"
   } = options;
   const NestedContext = React63.createContext(false);
+  const OverflowContext = React63.createContext(void 0);
   const useUtilityClasses23 = (ownerState, theme) => {
     const {
       container,
@@ -20187,11 +20203,12 @@ function createGrid(options = {}) {
   };
   const GridRoot = createStyledComponent(generateGridColumnsStyles, generateGridColumnSpacingStyles, generateGridRowSpacingStyles, generateGridSizeStyles, generateGridDirectionStyles, generateGridStyles, generateGridOffsetStyles);
   const Grid2 = React63.forwardRef(function Grid3(inProps, ref) {
-    var _inProps$columns, _inProps$spacing, _ref, _inProps$rowSpacing, _ref2, _inProps$columnSpacin;
+    var _inProps$columns, _inProps$spacing, _ref, _inProps$rowSpacing, _ref2, _inProps$columnSpacin, _ref3, _disableEqualOverflow;
     const theme = useTheme_default();
     const themeProps = useThemeProps3(inProps);
     const props = extendSxProp(themeProps);
     const nested = React63.useContext(NestedContext);
+    const overflow2 = React63.useContext(OverflowContext);
     const {
       className,
       columns: columnsProp = 12,
@@ -20201,8 +20218,13 @@ function createGrid(options = {}) {
       wrap = "wrap",
       spacing: spacingProp = 0,
       rowSpacing: rowSpacingProp = spacingProp,
-      columnSpacing: columnSpacingProp = spacingProp
+      columnSpacing: columnSpacingProp = spacingProp,
+      disableEqualOverflow: themeDisableEqualOverflow
     } = props, rest2 = _objectWithoutPropertiesLoose(props, _excluded33);
+    let disableEqualOverflow = themeDisableEqualOverflow;
+    if (nested && themeDisableEqualOverflow !== void 0) {
+      disableEqualOverflow = inProps.disableEqualOverflow;
+    }
     const gridSize = {};
     const gridOffset = {};
     const other = {};
@@ -20229,7 +20251,9 @@ function createGrid(options = {}) {
       rowSpacing,
       columnSpacing,
       gridSize,
-      gridOffset
+      gridOffset,
+      disableEqualOverflow: (_ref3 = (_disableEqualOverflow = disableEqualOverflow) != null ? _disableEqualOverflow : overflow2) != null ? _ref3 : false,
+      parentDisableEqualOverflow: overflow2
     });
     const classes = useUtilityClasses23(ownerState, theme);
     let result = _jsx32(GridRoot, _extends({
@@ -20244,6 +20268,12 @@ function createGrid(options = {}) {
         children: result
       });
     }
+    if (disableEqualOverflow !== void 0 && disableEqualOverflow !== (overflow2 != null ? overflow2 : false)) {
+      result = _jsx32(OverflowContext.Provider, {
+        value: disableEqualOverflow,
+        children: result
+      });
+    }
     return result;
   });
   true ? Grid2.propTypes = {
@@ -20254,6 +20284,7 @@ function createGrid(options = {}) {
     component: import_prop_types38.default.elementType,
     container: import_prop_types38.default.bool,
     direction: import_prop_types38.default.oneOfType([import_prop_types38.default.oneOf(["column-reverse", "column", "row-reverse", "row"]), import_prop_types38.default.arrayOf(import_prop_types38.default.oneOf(["column-reverse", "column", "row-reverse", "row"])), import_prop_types38.default.object]),
+    disableEqualOverflow: import_prop_types38.default.bool,
     lg: import_prop_types38.default.oneOfType([import_prop_types38.default.oneOf(["auto"]), import_prop_types38.default.number, import_prop_types38.default.bool]),
     lgOffset: import_prop_types38.default.oneOfType([import_prop_types38.default.oneOf(["auto"]), import_prop_types38.default.number]),
     md: import_prop_types38.default.oneOfType([import_prop_types38.default.oneOf(["auto"]), import_prop_types38.default.number, import_prop_types38.default.bool]),
@@ -20280,6 +20311,7 @@ true ? Grid.propTypes = {
   columnSpacing: import_prop_types39.default.oneOfType([import_prop_types39.default.arrayOf(import_prop_types39.default.oneOfType([import_prop_types39.default.number, import_prop_types39.default.string])), import_prop_types39.default.number, import_prop_types39.default.object, import_prop_types39.default.string]),
   container: import_prop_types39.default.bool,
   direction: import_prop_types39.default.oneOfType([import_prop_types39.default.oneOf(["column-reverse", "column", "row-reverse", "row"]), import_prop_types39.default.arrayOf(import_prop_types39.default.oneOf(["column-reverse", "column", "row-reverse", "row"])), import_prop_types39.default.object]),
+  disableEqualOverflow: import_prop_types39.default.bool,
   lg: import_prop_types39.default.oneOfType([import_prop_types39.default.oneOf(["auto"]), import_prop_types39.default.number, import_prop_types39.default.bool]),
   lgOffset: import_prop_types39.default.oneOfType([import_prop_types39.default.oneOf(["auto"]), import_prop_types39.default.number]),
   md: import_prop_types39.default.oneOfType([import_prop_types39.default.oneOf(["auto"]), import_prop_types39.default.number, import_prop_types39.default.bool]),
@@ -22238,7 +22270,7 @@ var TouchRipple = React71.forwardRef(function TouchRipple2(inProps, ref) {
       const {
         clientX,
         clientY
-      } = event.touches ? event.touches[0] : event;
+      } = event.touches && event.touches.length > 0 ? event.touches[0] : event;
       rippleX = Math.round(clientX - rect.left);
       rippleY = Math.round(clientY - rect.top);
     }
@@ -23795,7 +23827,6 @@ var SliderValueLabel = styled_default2(SliderValueLabelUnstyled, {
   transition: theme.transitions.create(["transform"], {
     duration: theme.transitions.duration.shortest
   }),
-  transformOrigin: "bottom center",
   transform: "translateY(-100%) scale(0)",
   position: "absolute",
   backgroundColor: (theme.vars || theme).palette.grey[600],
@@ -23807,6 +23838,7 @@ var SliderValueLabel = styled_default2(SliderValueLabelUnstyled, {
   padding: "0.25rem 0.75rem"
 }, ownerState.orientation === "horizontal" && {
   top: "-10px",
+  transformOrigin: "bottom center",
   "&:before": {
     position: "absolute",
     content: '""',
@@ -23819,7 +23851,8 @@ var SliderValueLabel = styled_default2(SliderValueLabelUnstyled, {
   }
 }, ownerState.orientation === "vertical" && {
   right: "30px",
-  top: "25px",
+  top: "24px",
+  transformOrigin: "right center",
   "&:before": {
     position: "absolute",
     content: '""',
@@ -25057,10 +25090,10 @@ function isMobile() {
 
 // js/Editor.tsx
 var import_debounce3 = __toESM(require_debounce(), 1);
-var runnerDebounced = (0, import_debounce3.default)(runner, 200, {
+var runnerDebounced = (0, import_debounce3.default)(runner, 500, {
   trailing: true,
   leading: true,
-  maxWait: 500
+  maxWait: 1500
 });
 var mod = {
   CH: () => {
