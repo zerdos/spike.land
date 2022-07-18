@@ -3668,7 +3668,6 @@ __metadata:
     "@types/prettier": 2.6.3
     "@types/react": 18.0.15
     "@types/react-dom": 18.0.6
-    "@yarnpkg/esbuild-plugin-pnp": 3.0.0-rc.12
     ace-builds: 1.7.1
     assert: 2.0.0
     async-mutex: 0.3.2
@@ -4214,17 +4213,6 @@ __metadata:
   version: 0.7.5
   resolution: "@xmldom/xmldom@npm:0.7.5"
   checksum: 8d7ec35c1ef6183b4f621df08e01d7e61f244fb964a4719025e65fe6ac06fac418919be64fb40fe5908e69158ef728f2d936daa082db326fe04603012b5f2a84
-  languageName: node
-  linkType: hard
-
-"@yarnpkg/esbuild-plugin-pnp@npm:3.0.0-rc.12":
-  version: 3.0.0-rc.12
-  resolution: "@yarnpkg/esbuild-plugin-pnp@npm:3.0.0-rc.12"
-  dependencies:
-    tslib: ^1.13.0
-  peerDependencies:
-    esbuild: ">=0.10.0"
-  checksum: cc3a5349d66ee405eb930e130356c01cda8f6785b49c58ebee539d02995f17aae798f67851f0922881bf3d46dc2e0d87441f3eac0233c8c3194a959eb73c5474
   languageName: node
   linkType: hard
 
@@ -17882,7 +17870,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tslib@npm:^1.13.0, tslib@npm:^1.9.0":
+"tslib@npm:^1.9.0":
   version: 1.14.1
   resolution: "tslib@npm:1.14.1"
   checksum: dbe628ef87f66691d5d2959b3e41b9ca0045c3ee3c7c7b906cc1e328b39f199bb1ad9e671c39025bd56122ac57dfbf7385a94843b1cc07c60a4db74795829acd
