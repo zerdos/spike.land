@@ -77,7 +77,6 @@
     "@types/prettier": "2.6.3",
     "@types/react": "18.0.15",
     "@types/react-dom": "18.0.6",
-    "@yarnpkg/esbuild-plugin-pnp": "3.0.0-rc.12",
     "ace-builds": "1.7.1",
     "assert": "2.0.0",
     "async-mutex": "0.3.2",

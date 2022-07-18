@@ -1,7 +1,4 @@
 import esbuild from "esbuild";
-import { dirname, resolve } from "path";
-import { fileURLToPath } from "url";
-import { pnpPlugin } from "@yarnpkg/esbuild-plugin-pnp";
 
 import * as importMap from "esbuild-plugin-import-map";
 import { jsxImportSourcePlugin } from "esbuild-plugin-jsximportsource";
@@ -66,7 +63,6 @@ const buildOptions = {
   external: ["./mST"],
   legalComments: "none",
   plugins: [
-    pnpPlugin(),
     importMapPlugin,
     jsxImportSourcePlugin({ filter: /.(tsx)/ }),
     alias({
@@ -88,7 +84,7 @@ await esbuild.build({
   minifySyntax: !isDevelopment,
   treeShaking: true,
   ignoreAnnotations: true,
-  plugins: [pnpPlugin(), jsxImportSourcePlugin({ filter: /.(tsx)/ })],
+  plugins: [ jsxImportSourcePlugin({ filter: /.(tsx)/ })],
   outExtension: { ".js": ".monaco.worker.js" },
   format: "iife",
   loader: {
@@ -130,7 +126,6 @@ await esbuild.build({
         import.meta.url,
       ).pathname,
     }),
-    pnpPlugin(),
     jsxImportSourcePlugin({ filter: /.(tsx)/ }),
   ],
   ignoreAnnotations: true,
