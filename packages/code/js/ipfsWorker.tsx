@@ -2,7 +2,6 @@
 
 Object.assign(self, require("buffer"));
 Object.assign(self, require("path-browserify"));
-Object.assign(self, require("big-integer"));
 
 const OrbitDB = require("orbit-db");
 const bc = new BroadcastChannel("spike.land");
