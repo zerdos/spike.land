@@ -1,6 +1,6 @@
 import {
   editor_api_exports
-} from "./AIIGUVZM.mjs";
+} from "./EJ3QHVHQ.mjs";
 import {
   init_define_process
 } from "./LC4ALKUC.mjs";
@@ -229,7 +229,7 @@ function getMode() {
       __require(["vs/language/typescript/tsMode"], resolve, reject);
     });
   } else {
-    return import("./SZ3VGHOE.mjs");
+    return import("./KUWO7FA7.mjs");
   }
 }
 monaco_editor_core_exports.languages.onLanguage("typescript", () => {

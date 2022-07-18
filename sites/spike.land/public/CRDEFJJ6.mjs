@@ -1,4 +1,4 @@
-import "./NB2RQBSD.mjs";
+import "./FOGJARM4.mjs";
 import {
   $,
   AccessibilityHelpNLS,
@@ -593,7 +593,7 @@ import {
   widgetClose,
   widgetShadow,
   withNullAsUndefined
-} from "./AIIGUVZM.mjs";
+} from "./EJ3QHVHQ.mjs";
 import {
   __commonJS,
   __esm,
@@ -2603,7 +2603,7 @@ registerLanguage({
         __require(["vs/basic-languages/freemarker2/freemarker2"], resolve, reject);
       }).then((m) => m.TagAngleInterpolationDollar);
     } else {
-      return import("./XZWAK3SR.mjs").then((m) => m.TagAutoInterpolationDollar);
+      return import("./YVK3PWQF.mjs").then((m) => m.TagAutoInterpolationDollar);
     }
   }
 });
@@ -2616,7 +2616,7 @@ registerLanguage({
         __require(["vs/basic-languages/freemarker2/freemarker2"], resolve, reject);
       }).then((m) => m.TagAngleInterpolationDollar);
     } else {
-      return import("./XZWAK3SR.mjs").then((m) => m.TagAngleInterpolationDollar);
+      return import("./YVK3PWQF.mjs").then((m) => m.TagAngleInterpolationDollar);
     }
   }
 });
@@ -2629,7 +2629,7 @@ registerLanguage({
         __require(["vs/basic-languages/freemarker2/freemarker2"], resolve, reject);
       }).then((m) => m.TagBracketInterpolationDollar);
     } else {
-      return import("./XZWAK3SR.mjs").then((m) => m.TagBracketInterpolationDollar);
+      return import("./YVK3PWQF.mjs").then((m) => m.TagBracketInterpolationDollar);
     }
   }
 });
@@ -2642,7 +2642,7 @@ registerLanguage({
         __require(["vs/basic-languages/freemarker2/freemarker2"], resolve, reject);
       }).then((m) => m.TagAngleInterpolationBracket);
     } else {
-      return import("./XZWAK3SR.mjs").then((m) => m.TagAngleInterpolationBracket);
+      return import("./YVK3PWQF.mjs").then((m) => m.TagAngleInterpolationBracket);
     }
   }
 });
@@ -2655,7 +2655,7 @@ registerLanguage({
         __require(["vs/basic-languages/freemarker2/freemarker2"], resolve, reject);
       }).then((m) => m.TagBracketInterpolationBracket);
     } else {
-      return import("./XZWAK3SR.mjs").then((m) => m.TagBracketInterpolationBracket);
+      return import("./YVK3PWQF.mjs").then((m) => m.TagBracketInterpolationBracket);
     }
   }
 });
@@ -2668,7 +2668,7 @@ registerLanguage({
         __require(["vs/basic-languages/freemarker2/freemarker2"], resolve, reject);
       }).then((m) => m.TagAutoInterpolationDollar);
     } else {
-      return import("./XZWAK3SR.mjs").then((m) => m.TagAutoInterpolationDollar);
+      return import("./YVK3PWQF.mjs").then((m) => m.TagAutoInterpolationDollar);
     }
   }
 });
@@ -2681,7 +2681,7 @@ registerLanguage({
         __require(["vs/basic-languages/freemarker2/freemarker2"], resolve, reject);
       }).then((m) => m.TagAutoInterpolationBracket);
     } else {
-      return import("./XZWAK3SR.mjs").then((m) => m.TagAutoInterpolationBracket);
+      return import("./YVK3PWQF.mjs").then((m) => m.TagAutoInterpolationBracket);
     }
   }
 });
@@ -2734,7 +2734,7 @@ registerLanguage({
         __require(["vs/basic-languages/handlebars/handlebars"], resolve, reject);
       });
     } else {
-      return import("./IW5CKGEG.mjs");
+      return import("./MNAXHH4B.mjs");
     }
   }
 });
@@ -2769,7 +2769,7 @@ registerLanguage({
         __require(["vs/basic-languages/html/html"], resolve, reject);
       });
     } else {
-      return import("./7B4LUUGZ.mjs");
+      return import("./ODD7SGJ3.mjs");
     }
   }
 });
@@ -2825,7 +2825,7 @@ registerLanguage({
         __require(["vs/basic-languages/javascript/javascript"], resolve, reject);
       });
     } else {
-      return import("./MGTVCC54.mjs");
+      return import("./U4WRLNAR.mjs");
     }
   }
 });
@@ -2930,7 +2930,7 @@ registerLanguage({
         __require(["vs/basic-languages/liquid/liquid"], resolve, reject);
       });
     } else {
-      return import("./YVY4FPCF.mjs");
+      return import("./7YLOGDCW.mjs");
     }
   }
 });
@@ -3239,7 +3239,7 @@ registerLanguage({
         __require(["vs/basic-languages/python/python"], resolve, reject);
       });
     } else {
-      return import("./YSSNDCHU.mjs");
+      return import("./S7UBZBAG.mjs");
     }
   }
 });
@@ -3291,7 +3291,7 @@ registerLanguage({
         __require(["vs/basic-languages/razor/razor"], resolve, reject);
       });
     } else {
-      return import("./Q3AAVWJX.mjs");
+      return import("./TJISV4SP.mjs");
     }
   }
 });
@@ -3651,7 +3651,7 @@ registerLanguage({
         __require(["vs/basic-languages/typescript/typescript"], resolve, reject);
       });
     } else {
-      return import("./MSC4CFJV.mjs");
+      return import("./DYSP6WXJ.mjs");
     }
   }
 });
@@ -3701,7 +3701,7 @@ registerLanguage({
         __require(["vs/basic-languages/xml/xml"], resolve, reject);
       });
     } else {
-      return import("./FMPYCJ3R.mjs");
+      return import("./OITT7JST.mjs");
     }
   }
 });
@@ -3824,7 +3824,7 @@ function getMode() {
       __require(["vs/language/css/cssMode"], resolve, reject);
     });
   } else {
-    return import("./RJHIJDUM.mjs");
+    return import("./PWZJWUGC.mjs");
   }
 }
 monaco_editor_core_exports2.languages.onLanguage("less", () => {
@@ -3943,7 +3943,7 @@ function getMode2() {
       __require(["vs/language/html/htmlMode"], resolve, reject);
     });
   } else {
-    return import("./7ULHWAJY.mjs");
+    return import("./6COHYYWZ.mjs");
   }
 }
 function registerHTMLLanguageService(languageId, options = optionsDefault2, modeConfiguration = getConfigurationDefault(languageId)) {
@@ -4039,7 +4039,7 @@ function getMode3() {
       __require(["vs/language/json/jsonMode"], resolve, reject);
     });
   } else {
-    return import("./3KBDNDFC.mjs");
+    return import("./DPDLZ5IZ.mjs");
   }
 }
 monaco_editor_core_exports4.languages.register({
