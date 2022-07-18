@@ -6,7 +6,7 @@ import {
   onSessionUpdate,
   require_debounce,
   saveCode
-} from "./chunk-WM42H5EJ.mjs";
+} from "./chunk-3YACUCL2.mjs";
 import {
   LazyMotion,
   domAnimation,
@@ -17202,7 +17202,7 @@ var Editor = ({ code, i: i2, codeSpace }) => {
     if (!ref?.current)
       return;
     const setMonaco = async () => {
-      const { startMonaco } = await import("./startMonaco-SLP342F4.mjs");
+      const { startMonaco } = await import("./startMonaco-ZTFYM7IU.mjs");
       const { editor } = await startMonaco({
         container: ref.current,
         name: codeSpace,

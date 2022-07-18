@@ -184,9 +184,10 @@ export async function saveCode(sess: ICodeSession) {
   bc.postMessage({ ignoreUser: user, sess, codeSpace, address, messageData });
 
   try {
-    (async () => {
-      if (Object.keys(rtcConns).length == 0) return;
+
+
       try {
+        if (Object.keys(rtcConns).length>0) {
         const message = webRTCLastSeenHashCode
           ? await makePatchFrom(
             webRTCLastSeenHashCode,
@@ -197,16 +198,16 @@ export async function saveCode(sess: ICodeSession) {
           console.log("sendRTC");
           sendChannel.send(message);
         }
+      }
       } catch (e) {
         console.error("Error sending RTC...", { e });
       }
-    })();
+
   } catch (e) {
     console.log("Error 1");
   }
 
   try {
-    (async () => {
       if (ws) {
         console.log({ wsLastHashCode });
         const message = await makePatchFrom(
@@ -227,7 +228,6 @@ export async function saveCode(sess: ICodeSession) {
         rejoined = false;
         await rejoin();
       }
-    })();
   } catch (e) {
     console.error("error 2", { e });
   }
