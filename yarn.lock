@@ -3703,7 +3703,7 @@ __metadata:
     stream-browserify: 3.0.0
     typescript: 4.7.4
     uvu: 0.5.6
-    vite: 3.0.1
+    vite: 3.0.2
     vite-plugin-import-maps: 0.1.2
   languageName: unknown
   linkType: soft
@@ -6563,9 +6563,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cypress@npm:10.3.0":
-  version: 10.3.0
-  resolution: "cypress@npm:10.3.0"
+"cypress@npm:10.3.1":
+  version: 10.3.1
+  resolution: "cypress@npm:10.3.1"
   dependencies:
     "@cypress/request": ^2.88.10
     "@cypress/xvfb": ^1.2.4
@@ -6611,7 +6611,7 @@ __metadata:
     yauzl: ^2.10.0
   bin:
     cypress: bin/cypress
-  checksum: 9cc6d8cd087d7c79f07ad83b8ef9b183f44cf816499bba53e1cee2b6f987d0a6893be209fcd47660cdd0e8456bd132813abe8a6bd15f446d9c96e0129be2de29
+  checksum: 7c76157195ec9409b9665aa9f7698ffd221c74c17f5026769fa20f90a60869cc8274282fa5b9b65e495429839f7a0ba05d69cf12a8af7a318ebcd704f96156c2
   languageName: node
   linkType: hard
 
@@ -7833,7 +7833,7 @@ __metadata:
     miniflare: 2.6.0
     react: 18.2.0
     typescript: 4.7.4
-    vite: 3.0.1
+    vite: 3.0.2
   languageName: unknown
   linkType: soft
 
@@ -8893,7 +8893,7 @@ __metadata:
     "@cloudflare/kv-asset-handler": 0.2.0
     "@cloudflare/workers-types": 3.14.1
     "@playwright/test": 1.23.4
-    cypress: 10.3.0
+    cypress: 10.3.1
     lerna: 5.1.8
     preact: 10.10.0
     typescript: 4.7.4
@@ -18371,9 +18371,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vite@npm:3.0.1":
-  version: 3.0.1
-  resolution: "vite@npm:3.0.1"
+"vite@npm:3.0.2":
+  version: 3.0.2
+  resolution: "vite@npm:3.0.2"
   dependencies:
     esbuild: ^0.14.47
     fsevents: ~2.3.2
@@ -18399,7 +18399,7 @@ __metadata:
       optional: true
   bin:
     vite: bin/vite.js
-  checksum: 33660b4b116e0c0b730f493f8ab7a3e5fff6d7b7728f25354ab13b32fec587f231748448655334980039951abaac3b6d221a6844c2765d4fe8c0601d7f8420b9
+  checksum: 10aebec0df89bbdba9a0c72dc35ec3ec5be0b50216fc7a1e04b5da11de244033b1cbe83a95b1af67be176fc09e05698387d3cc9dcbee64e009dd43811f8717e9
   languageName: node
   linkType: hard
 

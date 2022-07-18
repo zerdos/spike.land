@@ -131,7 +131,7 @@ RUN apt-get update \
 
 USER ${USER}
  
-RUN yarn global add cypress@10.3.0
+RUN yarn global add cypress@10.3.1
 
 USER 0
 ### noVNC.Dockerfile
