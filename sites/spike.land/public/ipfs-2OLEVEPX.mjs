@@ -55202,7 +55202,7 @@ var symbol2 = Symbol.for("@libp2p/peer-id");
 var baseDecoder = Object.values(bases).map((codec) => codec.decoder).reduce((acc, curr) => acc.or(curr), bases.identity.decoder);
 var LIBP2P_KEY_CODE = 114;
 var MARSHALLED_ED225519_PUBLIC_KEY_LENGTH = 36;
-var MARSHALLED_SECP258K1_PUBLIC_KEY_LENGTH = 37;
+var MARSHALLED_SECP256K1_PUBLIC_KEY_LENGTH = 37;
 var PeerIdImpl = class {
   constructor(init) {
     this.type = init.type;
@@ -55287,7 +55287,7 @@ function peerIdFromBytes(buf) {
     if (multihash.code === identity3.code) {
       if (multihash.digest.length === MARSHALLED_ED225519_PUBLIC_KEY_LENGTH) {
         return new Ed25519PeerIdImpl({ multihash });
-      } else if (multihash.digest.length === MARSHALLED_SECP258K1_PUBLIC_KEY_LENGTH) {
+      } else if (multihash.digest.length === MARSHALLED_SECP256K1_PUBLIC_KEY_LENGTH) {
         return new Secp256k1PeerIdImpl({ multihash });
       }
     }
@@ -55309,7 +55309,7 @@ function peerIdFromCID(cid) {
   } else if (multihash.code === identity3.code) {
     if (multihash.digest.length === MARSHALLED_ED225519_PUBLIC_KEY_LENGTH) {
       return new Ed25519PeerIdImpl({ multihash: cid.multihash });
-    } else if (multihash.digest.length === MARSHALLED_SECP258K1_PUBLIC_KEY_LENGTH) {
+    } else if (multihash.digest.length === MARSHALLED_SECP256K1_PUBLIC_KEY_LENGTH) {
       return new Secp256k1PeerIdImpl({ multihash: cid.multihash });
     }
   }

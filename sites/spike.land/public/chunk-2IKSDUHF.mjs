@@ -7452,10 +7452,14 @@ init_define_process();
 // ../../node_modules/@motionone/utils/dist/easing.es.js
 init_define_process();
 
-// ../../node_modules/@motionone/utils/dist/is.es.js
+// ../../node_modules/@motionone/utils/dist/is-easing-list.es.js
+init_define_process();
+
+// ../../node_modules/@motionone/utils/dist/is-number.es.js
 init_define_process();
 var isNumber = (value) => typeof value === "number";
-var isString2 = (value) => typeof value === "string";
+
+// ../../node_modules/@motionone/utils/dist/is-easing-list.es.js
 var isEasingList = (easing) => Array.isArray(easing) && !isNumber(easing[0]);
 
 // ../../node_modules/@motionone/utils/dist/wrap.es.js
@@ -7519,6 +7523,19 @@ function interpolate2(output, input = defaultOffset2(output.length), easing = no
     return mix2(output[i], output[i + 1], progressInRange);
   };
 }
+
+// ../../node_modules/@motionone/utils/dist/is-cubic-bezier.es.js
+init_define_process();
+
+// ../../node_modules/@motionone/utils/dist/is-easing-generator.es.js
+init_define_process();
+
+// ../../node_modules/@motionone/utils/dist/is-function.es.js
+init_define_process();
+
+// ../../node_modules/@motionone/utils/dist/is-string.es.js
+init_define_process();
+var isString2 = (value) => typeof value === "string";
 
 // ../../node_modules/@motionone/utils/dist/time.es.js
 init_define_process();
