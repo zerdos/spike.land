@@ -10,7 +10,6 @@ import { hydrateRoot } from "react-dom/client";
 import { hashCode, mST, onSessionUpdate } from "session";
 import * as portals from "react-reverse-portal";
 import { Editor } from "./Editor";
-import { Suspense } from "react";
 
 const RainbowContainer: FC<{ children: ReactNode }> = ({ children }) => (
   <div
@@ -62,7 +61,7 @@ background:  repeating-radial-gradient(circle at bottom left,
   </div>
 );
 
-const AppToRender: FC<{ codeSpace: string }> = ({ codeSpace }) => {
+const AppToRender: FC<{ codeSpace: string, children: FC }> = ({ codeSpace, children }) => {
   const [hash, setHash] = useState(() => hashCode());
   const [isStandalone, setIsStandalone] = useState(true);
 
@@ -86,7 +85,7 @@ const AppToRender: FC<{ codeSpace: string }> = ({ codeSpace }) => {
         location.pathname.endsWith("hydrated");
 
       setIsStandalone(isStandalone);
-    }, 2500);
+    }, 800);
   }, []);
 
   const portalNode = useMemo(() =>
@@ -97,9 +96,8 @@ const AppToRender: FC<{ codeSpace: string }> = ({ codeSpace }) => {
   return (
     <Fragment>
       <portals.InPortal node={portalNode}>
-        <Suspense fallback={<div style= "height: 100%"   dangerouslySetInnerHTML={{__html: mST().html}} />}>
-           <div style= "height: 100%"  ><AutoUpdateApp key={hash} hash={hash} codeSpace={codeSpace} /></div>
-        </Suspense>
+            <AutoUpdateApp hash={hash} codeSpace={codeSpace} starter={children} />
+
       </portals.InPortal>
 
       {isStandalone
@@ -135,17 +133,13 @@ const AppToRender: FC<{ codeSpace: string }> = ({ codeSpace }) => {
   );
 };
 
-export const renderPreviewWindow = async (
+export const renderPreviewWindow =  (
   codeSpace: string,
+  App: FC
 ) => {
-  try {
-    // await appFactory(mST().transpiled);
-  } catch (e) {
-    console.error({ e });
-  }
 
   return hydrateRoot(
     document.getElementById("root")!,
-    <AppToRender codeSpace={codeSpace} />,
+    <AppToRender codeSpace={codeSpace}>{App}</AppToRender>,
   );
 };

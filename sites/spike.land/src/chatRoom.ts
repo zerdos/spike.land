@@ -326,9 +326,9 @@ export class Code {
           };
 
           return new Response(
-            HTML.replace(
-              "/live/coder/mST.mjs",
-              `/live/${this.codeSpace}/mST.mjs`,
+            HTML.replaceAll(
+              "/live/coder/",
+              `/live/${this.codeSpace}/`,
             )
               .replace("js/ws.mjs", a["js/ws.mjs"])
               .replace(
@@ -567,7 +567,7 @@ export class Code {
               });
             }
 
-            await this.kv.put<ICodeSession>("session", { ...mSTOrig() });
+            await this.kv.put<ICodeSession>("session", { ...mST() });
             await this.kv.put(
               String(newHash),
               JSON.stringify({
