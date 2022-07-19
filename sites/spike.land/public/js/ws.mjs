@@ -22644,10 +22644,10 @@ function isMobile() {
 
 // js/Editor.tsx
 var import_lodash = __toESM(require_lodash(), 1);
-var runnerDebounced = (0, import_lodash.default)(runner, 500, {
+var runnerDebounced = (0, import_lodash.default)(runner, 100, {
   trailing: true,
   leading: true,
-  maxWait: 1500
+  maxWait: 500
 });
 var mod = {
   CH: () => {
