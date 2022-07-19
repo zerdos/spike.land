@@ -9,10 +9,10 @@ import { css } from "@emotion/react";
 import debounce from "lodash.debounce";
 import { wait } from "wait";
 
-const runnerDebounced = debounce(runner, 500, {
+const runnerDebounced = debounce(runner, 100, {
   trailing: true,
   leading: true,
-  maxWait: 1500,
+  maxWait: 500,
 });
 
 const mod = {

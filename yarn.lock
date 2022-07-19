@@ -3664,6 +3664,7 @@ __metadata:
     "@jspm/generator": 1.0.0-beta.33
     "@mui/material": 5.9.1
     "@types/lodash": 4.14.182
+    "@types/lodash.debounce": ^4.0.7
     "@types/node": 18.0.6
     "@types/prettier": 2.6.3
     "@types/react": 18.0.15
@@ -3995,7 +3996,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/lodash@npm:4.14.182":
+"@types/lodash.debounce@npm:^4.0.7":
+  version: 4.0.7
+  resolution: "@types/lodash.debounce@npm:4.0.7"
+  dependencies:
+    "@types/lodash": "*"
+  checksum: e873b2d77f89010876baba3437ef826b17221b98948e00b5590828334a481dea1c8f9d28543210e564adc53199584f42c3cb171f8b6c3614fefc0b4e0888679c
+  languageName: node
+  linkType: hard
+
+"@types/lodash@npm:*, @types/lodash@npm:4.14.182":
   version: 4.14.182
   resolution: "@types/lodash@npm:4.14.182"
   checksum: 7dd137aa9dbabd632408bd37009d984655164fa1ecc3f2b6eb94afe35bf0a5852cbab6183148d883e9c73a958b7fec9a9bcf7c8e45d41195add6a18c34958209
