@@ -1,14 +1,15 @@
 import {
   __commonJS,
+  __toESM,
   init_define_process
 } from "./chunk-LVJWQ4UB.mjs";
 
-// ../../node_modules/ace-builds/src/ace.js
+// ../../node_modules/ace-builds/src-noconflict/ace.js
 var require_ace = __commonJS({
-  "../../node_modules/ace-builds/src/ace.js"(exports, module) {
+  "../../node_modules/ace-builds/src-noconflict/ace.js"(exports, module) {
     init_define_process();
     (function() {
-      var ACE_NAMESPACE = "";
+      var ACE_NAMESPACE = "ace";
       var global = function() {
         return this;
       }();
@@ -119,7 +120,7 @@ var require_ace = __commonJS({
       }
       exportAce(ACE_NAMESPACE);
     })();
-    define("ace/lib/es6-shim", ["require", "exports", "module"], function(require2, exports2, module2) {
+    ace.define("ace/lib/es6-shim", ["require", "exports", "module"], function(require2, exports2, module2) {
       function defineProp(obj, name, val) {
         Object.defineProperty(obj, name, {
           value: val,
@@ -239,11 +240,188 @@ var require_ace = __commonJS({
         });
       }
     });
-    define("ace/lib/fixoldbrowsers", ["require", "exports", "module", "ace/lib/es6-shim"], function(require2, exports2, module2) {
+    ace.define("ace/lib/fixoldbrowsers", ["require", "exports", "module", "ace/lib/es6-shim"], function(require2, exports2, module2) {
       "use strict";
       require2("./es6-shim");
     });
-    define("ace/lib/useragent", ["require", "exports", "module"], function(require2, exports2, module2) {
+    ace.define("ace/lib/lang", ["require", "exports", "module"], function(require2, exports2, module2) {
+      "use strict";
+      exports2.last = function(a) {
+        return a[a.length - 1];
+      };
+      exports2.stringReverse = function(string) {
+        return string.split("").reverse().join("");
+      };
+      exports2.stringRepeat = function(string, count) {
+        var result = "";
+        while (count > 0) {
+          if (count & 1)
+            result += string;
+          if (count >>= 1)
+            string += string;
+        }
+        return result;
+      };
+      var trimBeginRegexp = /^\s\s*/;
+      var trimEndRegexp = /\s\s*$/;
+      exports2.stringTrimLeft = function(string) {
+        return string.replace(trimBeginRegexp, "");
+      };
+      exports2.stringTrimRight = function(string) {
+        return string.replace(trimEndRegexp, "");
+      };
+      exports2.copyObject = function(obj) {
+        var copy = {};
+        for (var key in obj) {
+          copy[key] = obj[key];
+        }
+        return copy;
+      };
+      exports2.copyArray = function(array) {
+        var copy = [];
+        for (var i = 0, l = array.length; i < l; i++) {
+          if (array[i] && typeof array[i] == "object")
+            copy[i] = this.copyObject(array[i]);
+          else
+            copy[i] = array[i];
+        }
+        return copy;
+      };
+      exports2.deepCopy = function deepCopy(obj) {
+        if (typeof obj !== "object" || !obj)
+          return obj;
+        var copy;
+        if (Array.isArray(obj)) {
+          copy = [];
+          for (var key = 0; key < obj.length; key++) {
+            copy[key] = deepCopy(obj[key]);
+          }
+          return copy;
+        }
+        if (Object.prototype.toString.call(obj) !== "[object Object]")
+          return obj;
+        copy = {};
+        for (var key in obj)
+          copy[key] = deepCopy(obj[key]);
+        return copy;
+      };
+      exports2.arrayToMap = function(arr) {
+        var map = {};
+        for (var i = 0; i < arr.length; i++) {
+          map[arr[i]] = 1;
+        }
+        return map;
+      };
+      exports2.createMap = function(props) {
+        var map = /* @__PURE__ */ Object.create(null);
+        for (var i in props) {
+          map[i] = props[i];
+        }
+        return map;
+      };
+      exports2.arrayRemove = function(array, value) {
+        for (var i = 0; i <= array.length; i++) {
+          if (value === array[i]) {
+            array.splice(i, 1);
+          }
+        }
+      };
+      exports2.escapeRegExp = function(str) {
+        return str.replace(/([.*+?^${}()|[\]\/\\])/g, "\\$1");
+      };
+      exports2.escapeHTML = function(str) {
+        return ("" + str).replace(/&/g, "&#38;").replace(/"/g, "&#34;").replace(/'/g, "&#39;").replace(/</g, "&#60;");
+      };
+      exports2.getMatchOffsets = function(string, regExp) {
+        var matches = [];
+        string.replace(regExp, function(str) {
+          matches.push({
+            offset: arguments[arguments.length - 2],
+            length: str.length
+          });
+        });
+        return matches;
+      };
+      exports2.deferredCall = function(fcn) {
+        var timer = null;
+        var callback = function() {
+          timer = null;
+          fcn();
+        };
+        var deferred = function(timeout) {
+          deferred.cancel();
+          timer = setTimeout(callback, timeout || 0);
+          return deferred;
+        };
+        deferred.schedule = deferred;
+        deferred.call = function() {
+          this.cancel();
+          fcn();
+          return deferred;
+        };
+        deferred.cancel = function() {
+          clearTimeout(timer);
+          timer = null;
+          return deferred;
+        };
+        deferred.isPending = function() {
+          return timer;
+        };
+        return deferred;
+      };
+      exports2.delayedCall = function(fcn, defaultTimeout) {
+        var timer = null;
+        var callback = function() {
+          timer = null;
+          fcn();
+        };
+        var _self = function(timeout) {
+          if (timer == null)
+            timer = setTimeout(callback, timeout || defaultTimeout);
+        };
+        _self.delay = function(timeout) {
+          timer && clearTimeout(timer);
+          timer = setTimeout(callback, timeout || defaultTimeout);
+        };
+        _self.schedule = _self;
+        _self.call = function() {
+          this.cancel();
+          fcn();
+        };
+        _self.cancel = function() {
+          timer && clearTimeout(timer);
+          timer = null;
+        };
+        _self.isPending = function() {
+          return timer;
+        };
+        return _self;
+      };
+    });
+    ace.define("ace/lib/oop", ["require", "exports", "module"], function(require2, exports2, module2) {
+      "use strict";
+      exports2.inherits = function(ctor, superCtor) {
+        ctor.super_ = superCtor;
+        ctor.prototype = Object.create(superCtor.prototype, {
+          constructor: {
+            value: ctor,
+            enumerable: false,
+            writable: true,
+            configurable: true
+          }
+        });
+      };
+      exports2.mixin = function(obj, mixin) {
+        for (var key in mixin) {
+          obj[key] = mixin[key];
+        }
+        return obj;
+      };
+      exports2.implement = function(proto, mixin) {
+        exports2.mixin(proto, mixin);
+      };
+    });
+    ace.define("ace/lib/useragent", ["require", "exports", "module"], function(require2, exports2, module2) {
       "use strict";
       exports2.OS = {
         LINUX: "LINUX",
@@ -281,7 +459,7 @@ var require_ace = __commonJS({
         exports2.isMac = true;
       exports2.isMobile = exports2.isIOS || exports2.isAndroid;
     });
-    define("ace/lib/dom", ["require", "exports", "module", "ace/lib/useragent"], function(require2, exports2, module2) {
+    ace.define("ace/lib/dom", ["require", "exports", "module", "ace/lib/useragent"], function(require2, exports2, module2) {
       "use strict";
       var useragent = require2("./useragent");
       var XHTML_NS = "http://www.w3.org/1999/xhtml";
@@ -524,30 +702,446 @@ var require_ace = __commonJS({
         };
       }
     });
-    define("ace/lib/oop", ["require", "exports", "module"], function(require2, exports2, module2) {
+    ace.define("ace/lib/net", ["require", "exports", "module", "ace/lib/dom"], function(require2, exports2, module2) {
       "use strict";
-      exports2.inherits = function(ctor, superCtor) {
-        ctor.super_ = superCtor;
-        ctor.prototype = Object.create(superCtor.prototype, {
-          constructor: {
-            value: ctor,
-            enumerable: false,
-            writable: true,
-            configurable: true
+      var dom = require2("./dom");
+      exports2.get = function(url, callback) {
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", url, true);
+        xhr.onreadystatechange = function() {
+          if (xhr.readyState === 4) {
+            callback(xhr.responseText);
           }
-        });
+        };
+        xhr.send(null);
       };
-      exports2.mixin = function(obj, mixin) {
-        for (var key in mixin) {
-          obj[key] = mixin[key];
-        }
-        return obj;
+      exports2.loadScript = function(path, callback) {
+        var head = dom.getDocumentHead();
+        var s = document.createElement("script");
+        s.src = path;
+        head.appendChild(s);
+        s.onload = s.onreadystatechange = function(_, isAbort) {
+          if (isAbort || !s.readyState || s.readyState == "loaded" || s.readyState == "complete") {
+            s = s.onload = s.onreadystatechange = null;
+            if (!isAbort)
+              callback();
+          }
+        };
       };
-      exports2.implement = function(proto, mixin) {
-        exports2.mixin(proto, mixin);
+      exports2.qualifyURL = function(url) {
+        var a = document.createElement("a");
+        a.href = url;
+        return a.href;
       };
     });
-    define("ace/lib/keys", ["require", "exports", "module", "ace/lib/oop"], function(require2, exports2, module2) {
+    ace.define("ace/lib/event_emitter", ["require", "exports", "module"], function(require2, exports2, module2) {
+      "use strict";
+      var EventEmitter = {};
+      var stopPropagation = function() {
+        this.propagationStopped = true;
+      };
+      var preventDefault = function() {
+        this.defaultPrevented = true;
+      };
+      EventEmitter._emit = EventEmitter._dispatchEvent = function(eventName, e) {
+        this._eventRegistry || (this._eventRegistry = {});
+        this._defaultHandlers || (this._defaultHandlers = {});
+        var listeners = this._eventRegistry[eventName] || [];
+        var defaultHandler = this._defaultHandlers[eventName];
+        if (!listeners.length && !defaultHandler)
+          return;
+        if (typeof e != "object" || !e)
+          e = {};
+        if (!e.type)
+          e.type = eventName;
+        if (!e.stopPropagation)
+          e.stopPropagation = stopPropagation;
+        if (!e.preventDefault)
+          e.preventDefault = preventDefault;
+        listeners = listeners.slice();
+        for (var i = 0; i < listeners.length; i++) {
+          listeners[i](e, this);
+          if (e.propagationStopped)
+            break;
+        }
+        if (defaultHandler && !e.defaultPrevented)
+          return defaultHandler(e, this);
+      };
+      EventEmitter._signal = function(eventName, e) {
+        var listeners = (this._eventRegistry || {})[eventName];
+        if (!listeners)
+          return;
+        listeners = listeners.slice();
+        for (var i = 0; i < listeners.length; i++)
+          listeners[i](e, this);
+      };
+      EventEmitter.once = function(eventName, callback) {
+        var _self = this;
+        this.on(eventName, function newCallback() {
+          _self.off(eventName, newCallback);
+          callback.apply(null, arguments);
+        });
+        if (!callback) {
+          return new Promise(function(resolve) {
+            callback = resolve;
+          });
+        }
+      };
+      EventEmitter.setDefaultHandler = function(eventName, callback) {
+        var handlers = this._defaultHandlers;
+        if (!handlers)
+          handlers = this._defaultHandlers = { _disabled_: {} };
+        if (handlers[eventName]) {
+          var old = handlers[eventName];
+          var disabled = handlers._disabled_[eventName];
+          if (!disabled)
+            handlers._disabled_[eventName] = disabled = [];
+          disabled.push(old);
+          var i = disabled.indexOf(callback);
+          if (i != -1)
+            disabled.splice(i, 1);
+        }
+        handlers[eventName] = callback;
+      };
+      EventEmitter.removeDefaultHandler = function(eventName, callback) {
+        var handlers = this._defaultHandlers;
+        if (!handlers)
+          return;
+        var disabled = handlers._disabled_[eventName];
+        if (handlers[eventName] == callback) {
+          if (disabled)
+            this.setDefaultHandler(eventName, disabled.pop());
+        } else if (disabled) {
+          var i = disabled.indexOf(callback);
+          if (i != -1)
+            disabled.splice(i, 1);
+        }
+      };
+      EventEmitter.on = EventEmitter.addEventListener = function(eventName, callback, capturing) {
+        this._eventRegistry = this._eventRegistry || {};
+        var listeners = this._eventRegistry[eventName];
+        if (!listeners)
+          listeners = this._eventRegistry[eventName] = [];
+        if (listeners.indexOf(callback) == -1)
+          listeners[capturing ? "unshift" : "push"](callback);
+        return callback;
+      };
+      EventEmitter.off = EventEmitter.removeListener = EventEmitter.removeEventListener = function(eventName, callback) {
+        this._eventRegistry = this._eventRegistry || {};
+        var listeners = this._eventRegistry[eventName];
+        if (!listeners)
+          return;
+        var index = listeners.indexOf(callback);
+        if (index !== -1)
+          listeners.splice(index, 1);
+      };
+      EventEmitter.removeAllListeners = function(eventName) {
+        if (!eventName)
+          this._eventRegistry = this._defaultHandlers = void 0;
+        if (this._eventRegistry)
+          this._eventRegistry[eventName] = void 0;
+        if (this._defaultHandlers)
+          this._defaultHandlers[eventName] = void 0;
+      };
+      exports2.EventEmitter = EventEmitter;
+    });
+    ace.define("ace/lib/app_config", ["require", "exports", "module", "ace/lib/oop", "ace/lib/event_emitter"], function(require2, exports2, module2) {
+      "no use strict";
+      var oop = require2("./oop");
+      var EventEmitter = require2("./event_emitter").EventEmitter;
+      var optionsProvider = {
+        setOptions: function(optList) {
+          Object.keys(optList).forEach(function(key) {
+            this.setOption(key, optList[key]);
+          }, this);
+        },
+        getOptions: function(optionNames) {
+          var result = {};
+          if (!optionNames) {
+            var options = this.$options;
+            optionNames = Object.keys(options).filter(function(key) {
+              return !options[key].hidden;
+            });
+          } else if (!Array.isArray(optionNames)) {
+            result = optionNames;
+            optionNames = Object.keys(result);
+          }
+          optionNames.forEach(function(key) {
+            result[key] = this.getOption(key);
+          }, this);
+          return result;
+        },
+        setOption: function(name, value) {
+          if (this["$" + name] === value)
+            return;
+          var opt = this.$options[name];
+          if (!opt) {
+            return warn('misspelled option "' + name + '"');
+          }
+          if (opt.forwardTo)
+            return this[opt.forwardTo] && this[opt.forwardTo].setOption(name, value);
+          if (!opt.handlesSet)
+            this["$" + name] = value;
+          if (opt && opt.set)
+            opt.set.call(this, value);
+        },
+        getOption: function(name) {
+          var opt = this.$options[name];
+          if (!opt) {
+            return warn('misspelled option "' + name + '"');
+          }
+          if (opt.forwardTo)
+            return this[opt.forwardTo] && this[opt.forwardTo].getOption(name);
+          return opt && opt.get ? opt.get.call(this) : this["$" + name];
+        }
+      };
+      function warn(message) {
+        if (typeof console != "undefined" && console.warn)
+          console.warn.apply(console, arguments);
+      }
+      function reportError(msg, data) {
+        var e = new Error(msg);
+        e.data = data;
+        if (typeof console == "object" && console.error)
+          console.error(e);
+        setTimeout(function() {
+          throw e;
+        });
+      }
+      var AppConfig = function() {
+        this.$defaultOptions = {};
+      };
+      (function() {
+        oop.implement(this, EventEmitter);
+        this.defineOptions = function(obj, path, options) {
+          if (!obj.$options)
+            this.$defaultOptions[path] = obj.$options = {};
+          Object.keys(options).forEach(function(key) {
+            var opt = options[key];
+            if (typeof opt == "string")
+              opt = { forwardTo: opt };
+            opt.name || (opt.name = key);
+            obj.$options[opt.name] = opt;
+            if ("initialValue" in opt)
+              obj["$" + opt.name] = opt.initialValue;
+          });
+          oop.implement(obj, optionsProvider);
+          return this;
+        };
+        this.resetOptions = function(obj) {
+          Object.keys(obj.$options).forEach(function(key) {
+            var opt = obj.$options[key];
+            if ("value" in opt)
+              obj.setOption(key, opt.value);
+          });
+        };
+        this.setDefaultValue = function(path, name, value) {
+          if (!path) {
+            for (path in this.$defaultOptions)
+              if (this.$defaultOptions[path][name])
+                break;
+            if (!this.$defaultOptions[path][name])
+              return false;
+          }
+          var opts = this.$defaultOptions[path] || (this.$defaultOptions[path] = {});
+          if (opts[name]) {
+            if (opts.forwardTo)
+              this.setDefaultValue(opts.forwardTo, name, value);
+            else
+              opts[name].value = value;
+          }
+        };
+        this.setDefaultValues = function(path, optionHash) {
+          Object.keys(optionHash).forEach(function(key) {
+            this.setDefaultValue(path, key, optionHash[key]);
+          }, this);
+        };
+        this.warn = warn;
+        this.reportError = reportError;
+      }).call(AppConfig.prototype);
+      exports2.AppConfig = AppConfig;
+    });
+    ace.define("ace/theme/textmate", ["require", "exports", "module", "ace/lib/dom"], function(require2, exports2, module2) {
+      "use strict";
+      exports2.isDark = false;
+      exports2.cssClass = "ace-tm";
+      exports2.cssText = '.ace-tm .ace_gutter {background: #f0f0f0;color: #333;}.ace-tm .ace_print-margin {width: 1px;background: #e8e8e8;}.ace-tm .ace_fold {background-color: #6B72E6;}.ace-tm {background-color: #FFFFFF;color: black;}.ace-tm .ace_cursor {color: black;}.ace-tm .ace_invisible {color: rgb(191, 191, 191);}.ace-tm .ace_storage,.ace-tm .ace_keyword {color: blue;}.ace-tm .ace_constant {color: rgb(197, 6, 11);}.ace-tm .ace_constant.ace_buildin {color: rgb(88, 72, 246);}.ace-tm .ace_constant.ace_language {color: rgb(88, 92, 246);}.ace-tm .ace_constant.ace_library {color: rgb(6, 150, 14);}.ace-tm .ace_invalid {background-color: rgba(255, 0, 0, 0.1);color: red;}.ace-tm .ace_support.ace_function {color: rgb(60, 76, 114);}.ace-tm .ace_support.ace_constant {color: rgb(6, 150, 14);}.ace-tm .ace_support.ace_type,.ace-tm .ace_support.ace_class {color: rgb(109, 121, 222);}.ace-tm .ace_keyword.ace_operator {color: rgb(104, 118, 135);}.ace-tm .ace_string {color: rgb(3, 106, 7);}.ace-tm .ace_comment {color: rgb(76, 136, 107);}.ace-tm .ace_comment.ace_doc {color: rgb(0, 102, 255);}.ace-tm .ace_comment.ace_doc.ace_tag {color: rgb(128, 159, 191);}.ace-tm .ace_constant.ace_numeric {color: rgb(0, 0, 205);}.ace-tm .ace_variable {color: rgb(49, 132, 149);}.ace-tm .ace_xml-pe {color: rgb(104, 104, 91);}.ace-tm .ace_entity.ace_name.ace_function {color: #0000A2;}.ace-tm .ace_heading {color: rgb(12, 7, 255);}.ace-tm .ace_list {color:rgb(185, 6, 144);}.ace-tm .ace_meta.ace_tag {color:rgb(0, 22, 142);}.ace-tm .ace_string.ace_regex {color: rgb(255, 0, 0)}.ace-tm .ace_marker-layer .ace_selection {background: rgb(181, 213, 255);}.ace-tm.ace_multiselect .ace_selection.ace_start {box-shadow: 0 0 3px 0px white;}.ace-tm .ace_marker-layer .ace_step {background: rgb(252, 255, 0);}.ace-tm .ace_marker-layer .ace_stack {background: rgb(164, 229, 101);}.ace-tm .ace_marker-layer .ace_bracket {margin: -1px 0 0 -1px;border: 1px solid rgb(192, 192, 192);}.ace-tm .ace_marker-layer .ace_active-line {background: rgba(0, 0, 0, 0.07);}.ace-tm .ace_gutter-active-line {background-color : #dcdcdc;}.ace-tm .ace_marker-layer .ace_selected-word {background: rgb(250, 250, 255);border: 1px solid rgb(200, 200, 250);}.ace-tm .ace_indent-guide {background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAACCAYAAACZgbYnAAAAE0lEQVQImWP4////f4bLly//BwAmVgd1/w11/gAAAABJRU5ErkJggg==") right repeat-y;}';
+      exports2.$id = "ace/theme/textmate";
+      var dom = require2("../lib/dom");
+      dom.importCssString(exports2.cssText, exports2.cssClass, false);
+    });
+    ace.define("ace/config", ["require", "exports", "module", "ace/lib/lang", "ace/lib/oop", "ace/lib/net", "ace/lib/dom", "ace/lib/app_config", "ace/theme/textmate"], function(require2, exports2, module2) {
+      "no use strict";
+      var lang = require2("./lib/lang");
+      var oop = require2("./lib/oop");
+      var net = require2("./lib/net");
+      var dom = require2("./lib/dom");
+      var AppConfig = require2("./lib/app_config").AppConfig;
+      module2.exports = exports2 = new AppConfig();
+      var options = {
+        packaged: false,
+        workerPath: null,
+        modePath: null,
+        themePath: null,
+        basePath: "",
+        suffix: ".js",
+        $moduleUrls: {},
+        loadWorkerFromBlob: true,
+        sharedPopups: false,
+        useStrictCSP: null
+      };
+      exports2.get = function(key) {
+        if (!options.hasOwnProperty(key))
+          throw new Error("Unknown config key: " + key);
+        return options[key];
+      };
+      exports2.set = function(key, value) {
+        if (options.hasOwnProperty(key))
+          options[key] = value;
+        else if (this.setDefaultValue("", key, value) == false)
+          throw new Error("Unknown config key: " + key);
+        if (key == "useStrictCSP")
+          dom.useStrictCSP(value);
+      };
+      exports2.all = function() {
+        return lang.copyObject(options);
+      };
+      exports2.$modes = {};
+      exports2.moduleUrl = function(name, component) {
+        if (options.$moduleUrls[name])
+          return options.$moduleUrls[name];
+        var parts = name.split("/");
+        component = component || parts[parts.length - 2] || "";
+        var sep = component == "snippets" ? "/" : "-";
+        var base = parts[parts.length - 1];
+        if (component == "worker" && sep == "-") {
+          var re = new RegExp("^" + component + "[\\-_]|[\\-_]" + component + "$", "g");
+          base = base.replace(re, "");
+        }
+        if ((!base || base == component) && parts.length > 1)
+          base = parts[parts.length - 2];
+        var path = options[component + "Path"];
+        if (path == null) {
+          path = options.basePath;
+        } else if (sep == "/") {
+          component = sep = "";
+        }
+        if (path && path.slice(-1) != "/")
+          path += "/";
+        return path + component + sep + base + this.get("suffix");
+      };
+      exports2.setModuleUrl = function(name, subst) {
+        return options.$moduleUrls[name] = subst;
+      };
+      var loader = function(moduleName, cb) {
+        if (moduleName == "ace/theme/textmate")
+          return cb(null, require2("./theme/textmate"));
+        return console.error("loader is not configured");
+      };
+      exports2.setLoader = function(cb) {
+        loader = cb;
+      };
+      exports2.$loading = {};
+      exports2.loadModule = function(moduleName, onLoad) {
+        var module3, moduleType;
+        if (Array.isArray(moduleName)) {
+          moduleType = moduleName[0];
+          moduleName = moduleName[1];
+        }
+        try {
+          module3 = require2(moduleName);
+        } catch (e) {
+        }
+        if (module3 && !exports2.$loading[moduleName])
+          return onLoad && onLoad(module3);
+        if (!exports2.$loading[moduleName])
+          exports2.$loading[moduleName] = [];
+        exports2.$loading[moduleName].push(onLoad);
+        if (exports2.$loading[moduleName].length > 1)
+          return;
+        var afterLoad = function() {
+          require2([moduleName], function(module4) {
+            exports2._emit("load.module", { name: moduleName, module: module4 });
+            var listeners = exports2.$loading[moduleName];
+            exports2.$loading[moduleName] = null;
+            listeners.forEach(function(onLoad2) {
+              onLoad2 && onLoad2(module4);
+            });
+          });
+        };
+        if (!exports2.get("packaged"))
+          return afterLoad();
+        net.loadScript(exports2.moduleUrl(moduleName, moduleType), afterLoad);
+        reportErrorIfPathIsNotConfigured();
+      };
+      var reportErrorIfPathIsNotConfigured = function() {
+        if (!options.basePath && !options.workerPath && !options.modePath && !options.themePath && !Object.keys(options.$moduleUrls).length) {
+          console.error("Unable to infer path to ace from script src,", "use ace.config.set('basePath', 'path') to enable dynamic loading of modes and themes", "or with webpack use ace/webpack-resolver");
+          reportErrorIfPathIsNotConfigured = function() {
+          };
+        }
+      };
+      exports2.version = "1.8.0";
+    });
+    ace.define("ace/loader_build", ["require", "exports", "module", "ace/lib/fixoldbrowsers", "ace/config"], function(require2, exports2, module2) {
+      "use strict";
+      require2("./lib/fixoldbrowsers");
+      var config = require2("./config");
+      var global = function() {
+        return this || typeof window != "undefined" && window;
+      }();
+      module2.exports = function(ace2) {
+        config.init = init;
+        ace2.require = require2;
+        if (typeof define === "function")
+          ace2.define = define;
+      };
+      init(true);
+      function init(packaged) {
+        if (!global || !global.document)
+          return;
+        config.set("packaged", packaged || require2.packaged || module2.packaged || global.define && define.packaged);
+        var scriptOptions = {};
+        var scriptUrl = "";
+        var currentScript = document.currentScript || document._currentScript;
+        var currentDocument = currentScript && currentScript.ownerDocument || document;
+        var scripts = currentDocument.getElementsByTagName("script");
+        for (var i = 0; i < scripts.length; i++) {
+          var script = scripts[i];
+          var src = script.src || script.getAttribute("src");
+          if (!src)
+            continue;
+          var attributes = script.attributes;
+          for (var j = 0, l = attributes.length; j < l; j++) {
+            var attr = attributes[j];
+            if (attr.name.indexOf("data-ace-") === 0) {
+              scriptOptions[deHyphenate(attr.name.replace(/^data-ace-/, ""))] = attr.value;
+            }
+          }
+          var m = src.match(/^(.*)\/ace(\-\w+)?\.js(\?|$)/);
+          if (m)
+            scriptUrl = m[1];
+        }
+        if (scriptUrl) {
+          scriptOptions.base = scriptOptions.base || scriptUrl;
+          scriptOptions.packaged = true;
+        }
+        scriptOptions.basePath = scriptOptions.base;
+        scriptOptions.workerPath = scriptOptions.workerPath || scriptOptions.base;
+        scriptOptions.modePath = scriptOptions.modePath || scriptOptions.base;
+        scriptOptions.themePath = scriptOptions.themePath || scriptOptions.base;
+        delete scriptOptions.base;
+        for (var key in scriptOptions)
+          if (typeof scriptOptions[key] !== "undefined")
+            config.set(key, scriptOptions[key]);
+      }
+      function deHyphenate(str) {
+        return str.replace(/-(.)/g, function(m, m1) {
+          return m1.toUpperCase();
+        });
+      }
+    });
+    ace.define("ace/lib/keys", ["require", "exports", "module", "ace/lib/oop"], function(require2, exports2, module2) {
       "use strict";
       var oop = require2("./oop");
       var Keys = function() {
@@ -710,7 +1304,7 @@ var require_ace = __commonJS({
         return keyString.toLowerCase();
       };
     });
-    define("ace/lib/event", ["require", "exports", "module", "ace/lib/keys", "ace/lib/useragent"], function(require2, exports2, module2) {
+    ace.define("ace/lib/event", ["require", "exports", "module", "ace/lib/keys", "ace/lib/useragent"], function(require2, exports2, module2) {
       "use strict";
       var keys = require2("./keys");
       var useragent = require2("./useragent");
@@ -984,7 +1578,7 @@ var require_ace = __commonJS({
           setTimeout(callback, 17);
         };
     });
-    define("ace/range", ["require", "exports", "module"], function(require2, exports2, module2) {
+    ace.define("ace/range", ["require", "exports", "module"], function(require2, exports2, module2) {
       "use strict";
       var comparePoints = function(p1, p2) {
         return p1.row - p2.row || p1.column - p2.column;
@@ -1194,161 +1788,7 @@ var require_ace = __commonJS({
       };
       exports2.Range = Range;
     });
-    define("ace/lib/lang", ["require", "exports", "module"], function(require2, exports2, module2) {
-      "use strict";
-      exports2.last = function(a) {
-        return a[a.length - 1];
-      };
-      exports2.stringReverse = function(string) {
-        return string.split("").reverse().join("");
-      };
-      exports2.stringRepeat = function(string, count) {
-        var result = "";
-        while (count > 0) {
-          if (count & 1)
-            result += string;
-          if (count >>= 1)
-            string += string;
-        }
-        return result;
-      };
-      var trimBeginRegexp = /^\s\s*/;
-      var trimEndRegexp = /\s\s*$/;
-      exports2.stringTrimLeft = function(string) {
-        return string.replace(trimBeginRegexp, "");
-      };
-      exports2.stringTrimRight = function(string) {
-        return string.replace(trimEndRegexp, "");
-      };
-      exports2.copyObject = function(obj) {
-        var copy = {};
-        for (var key in obj) {
-          copy[key] = obj[key];
-        }
-        return copy;
-      };
-      exports2.copyArray = function(array) {
-        var copy = [];
-        for (var i = 0, l = array.length; i < l; i++) {
-          if (array[i] && typeof array[i] == "object")
-            copy[i] = this.copyObject(array[i]);
-          else
-            copy[i] = array[i];
-        }
-        return copy;
-      };
-      exports2.deepCopy = function deepCopy(obj) {
-        if (typeof obj !== "object" || !obj)
-          return obj;
-        var copy;
-        if (Array.isArray(obj)) {
-          copy = [];
-          for (var key = 0; key < obj.length; key++) {
-            copy[key] = deepCopy(obj[key]);
-          }
-          return copy;
-        }
-        if (Object.prototype.toString.call(obj) !== "[object Object]")
-          return obj;
-        copy = {};
-        for (var key in obj)
-          copy[key] = deepCopy(obj[key]);
-        return copy;
-      };
-      exports2.arrayToMap = function(arr) {
-        var map = {};
-        for (var i = 0; i < arr.length; i++) {
-          map[arr[i]] = 1;
-        }
-        return map;
-      };
-      exports2.createMap = function(props) {
-        var map = /* @__PURE__ */ Object.create(null);
-        for (var i in props) {
-          map[i] = props[i];
-        }
-        return map;
-      };
-      exports2.arrayRemove = function(array, value) {
-        for (var i = 0; i <= array.length; i++) {
-          if (value === array[i]) {
-            array.splice(i, 1);
-          }
-        }
-      };
-      exports2.escapeRegExp = function(str) {
-        return str.replace(/([.*+?^${}()|[\]\/\\])/g, "\\$1");
-      };
-      exports2.escapeHTML = function(str) {
-        return ("" + str).replace(/&/g, "&#38;").replace(/"/g, "&#34;").replace(/'/g, "&#39;").replace(/</g, "&#60;");
-      };
-      exports2.getMatchOffsets = function(string, regExp) {
-        var matches = [];
-        string.replace(regExp, function(str) {
-          matches.push({
-            offset: arguments[arguments.length - 2],
-            length: str.length
-          });
-        });
-        return matches;
-      };
-      exports2.deferredCall = function(fcn) {
-        var timer = null;
-        var callback = function() {
-          timer = null;
-          fcn();
-        };
-        var deferred = function(timeout) {
-          deferred.cancel();
-          timer = setTimeout(callback, timeout || 0);
-          return deferred;
-        };
-        deferred.schedule = deferred;
-        deferred.call = function() {
-          this.cancel();
-          fcn();
-          return deferred;
-        };
-        deferred.cancel = function() {
-          clearTimeout(timer);
-          timer = null;
-          return deferred;
-        };
-        deferred.isPending = function() {
-          return timer;
-        };
-        return deferred;
-      };
-      exports2.delayedCall = function(fcn, defaultTimeout) {
-        var timer = null;
-        var callback = function() {
-          timer = null;
-          fcn();
-        };
-        var _self = function(timeout) {
-          if (timer == null)
-            timer = setTimeout(callback, timeout || defaultTimeout);
-        };
-        _self.delay = function(timeout) {
-          timer && clearTimeout(timer);
-          timer = setTimeout(callback, timeout || defaultTimeout);
-        };
-        _self.schedule = _self;
-        _self.call = function() {
-          this.cancel();
-          fcn();
-        };
-        _self.cancel = function() {
-          timer && clearTimeout(timer);
-          timer = null;
-        };
-        _self.isPending = function() {
-          return timer;
-        };
-        return _self;
-      };
-    });
-    define("ace/clipboard", ["require", "exports", "module"], function(require2, exports2, module2) {
+    ace.define("ace/clipboard", ["require", "exports", "module"], function(require2, exports2, module2) {
       "use strict";
       var $cancelT;
       module2.exports = {
@@ -1363,7 +1803,7 @@ var require_ace = __commonJS({
         }
       };
     });
-    define("ace/keyboard/textinput", ["require", "exports", "module", "ace/lib/event", "ace/lib/useragent", "ace/lib/dom", "ace/lib/lang", "ace/clipboard", "ace/lib/keys"], function(require2, exports2, module2) {
+    ace.define("ace/keyboard/textinput", ["require", "exports", "module", "ace/lib/event", "ace/lib/useragent", "ace/lib/dom", "ace/lib/lang", "ace/clipboard", "ace/lib/keys"], function(require2, exports2, module2) {
       "use strict";
       var event = require2("../lib/event");
       var useragent = require2("../lib/useragent");
@@ -1966,7 +2406,7 @@ var require_ace = __commonJS({
         isIOS = _isIOS;
       };
     });
-    define("ace/mouse/default_handlers", ["require", "exports", "module", "ace/lib/useragent"], function(require2, exports2, module2) {
+    ace.define("ace/mouse/default_handlers", ["require", "exports", "module", "ace/lib/useragent"], function(require2, exports2, module2) {
       "use strict";
       var useragent = require2("../lib/useragent");
       var DRAG_OFFSET = 0;
@@ -2204,7 +2644,7 @@ var require_ace = __commonJS({
           return { cursor: range.end, anchor: range.start };
       }
     });
-    define("ace/tooltip", ["require", "exports", "module", "ace/lib/oop", "ace/lib/dom"], function(require2, exports2, module2) {
+    ace.define("ace/tooltip", ["require", "exports", "module", "ace/lib/oop", "ace/lib/dom"], function(require2, exports2, module2) {
       "use strict";
       var oop = require2("./lib/oop");
       var dom = require2("./lib/dom");
@@ -2270,7 +2710,7 @@ var require_ace = __commonJS({
       }).call(Tooltip.prototype);
       exports2.Tooltip = Tooltip;
     });
-    define("ace/mouse/default_gutter_handler", ["require", "exports", "module", "ace/lib/dom", "ace/lib/oop", "ace/lib/event", "ace/tooltip"], function(require2, exports2, module2) {
+    ace.define("ace/mouse/default_gutter_handler", ["require", "exports", "module", "ace/lib/dom", "ace/lib/oop", "ace/lib/event", "ace/tooltip"], function(require2, exports2, module2) {
       "use strict";
       var dom = require2("../lib/dom");
       var oop = require2("../lib/oop");
@@ -2399,7 +2839,7 @@ var require_ace = __commonJS({
       }).call(GutterTooltip.prototype);
       exports2.GutterHandler = GutterHandler;
     });
-    define("ace/mouse/mouse_event", ["require", "exports", "module", "ace/lib/event", "ace/lib/useragent"], function(require2, exports2, module2) {
+    ace.define("ace/mouse/mouse_event", ["require", "exports", "module", "ace/lib/event", "ace/lib/useragent"], function(require2, exports2, module2) {
       "use strict";
       var event = require2("../lib/event");
       var useragent = require2("../lib/useragent");
@@ -2458,7 +2898,7 @@ var require_ace = __commonJS({
         };
       }).call(MouseEvent.prototype);
     });
-    define("ace/mouse/dragdrop_handler", ["require", "exports", "module", "ace/lib/dom", "ace/lib/event", "ace/lib/useragent"], function(require2, exports2, module2) {
+    ace.define("ace/mouse/dragdrop_handler", ["require", "exports", "module", "ace/lib/dom", "ace/lib/event", "ace/lib/useragent"], function(require2, exports2, module2) {
       "use strict";
       var dom = require2("../lib/dom");
       var event = require2("../lib/event");
@@ -2790,7 +3230,7 @@ var require_ace = __commonJS({
       }
       exports2.DragdropHandler = DragdropHandler;
     });
-    define("ace/mouse/touch_handler", ["require", "exports", "module", "ace/mouse/mouse_event", "ace/lib/event", "ace/lib/dom"], function(require2, exports2, module2) {
+    ace.define("ace/mouse/touch_handler", ["require", "exports", "module", "ace/mouse/mouse_event", "ace/lib/event", "ace/lib/dom"], function(require2, exports2, module2) {
       "use strict";
       var MouseEvent = require2("./mouse_event").MouseEvent;
       var event = require2("../lib/event");
@@ -3083,419 +3523,7 @@ var require_ace = __commonJS({
         }
       };
     });
-    define("ace/lib/net", ["require", "exports", "module", "ace/lib/dom"], function(require2, exports2, module2) {
-      "use strict";
-      var dom = require2("./dom");
-      exports2.get = function(url, callback) {
-        var xhr = new XMLHttpRequest();
-        xhr.open("GET", url, true);
-        xhr.onreadystatechange = function() {
-          if (xhr.readyState === 4) {
-            callback(xhr.responseText);
-          }
-        };
-        xhr.send(null);
-      };
-      exports2.loadScript = function(path, callback) {
-        var head = dom.getDocumentHead();
-        var s = document.createElement("script");
-        s.src = path;
-        head.appendChild(s);
-        s.onload = s.onreadystatechange = function(_, isAbort) {
-          if (isAbort || !s.readyState || s.readyState == "loaded" || s.readyState == "complete") {
-            s = s.onload = s.onreadystatechange = null;
-            if (!isAbort)
-              callback();
-          }
-        };
-      };
-      exports2.qualifyURL = function(url) {
-        var a = document.createElement("a");
-        a.href = url;
-        return a.href;
-      };
-    });
-    define("ace/lib/event_emitter", ["require", "exports", "module"], function(require2, exports2, module2) {
-      "use strict";
-      var EventEmitter = {};
-      var stopPropagation = function() {
-        this.propagationStopped = true;
-      };
-      var preventDefault = function() {
-        this.defaultPrevented = true;
-      };
-      EventEmitter._emit = EventEmitter._dispatchEvent = function(eventName, e) {
-        this._eventRegistry || (this._eventRegistry = {});
-        this._defaultHandlers || (this._defaultHandlers = {});
-        var listeners = this._eventRegistry[eventName] || [];
-        var defaultHandler = this._defaultHandlers[eventName];
-        if (!listeners.length && !defaultHandler)
-          return;
-        if (typeof e != "object" || !e)
-          e = {};
-        if (!e.type)
-          e.type = eventName;
-        if (!e.stopPropagation)
-          e.stopPropagation = stopPropagation;
-        if (!e.preventDefault)
-          e.preventDefault = preventDefault;
-        listeners = listeners.slice();
-        for (var i = 0; i < listeners.length; i++) {
-          listeners[i](e, this);
-          if (e.propagationStopped)
-            break;
-        }
-        if (defaultHandler && !e.defaultPrevented)
-          return defaultHandler(e, this);
-      };
-      EventEmitter._signal = function(eventName, e) {
-        var listeners = (this._eventRegistry || {})[eventName];
-        if (!listeners)
-          return;
-        listeners = listeners.slice();
-        for (var i = 0; i < listeners.length; i++)
-          listeners[i](e, this);
-      };
-      EventEmitter.once = function(eventName, callback) {
-        var _self = this;
-        this.on(eventName, function newCallback() {
-          _self.off(eventName, newCallback);
-          callback.apply(null, arguments);
-        });
-        if (!callback) {
-          return new Promise(function(resolve) {
-            callback = resolve;
-          });
-        }
-      };
-      EventEmitter.setDefaultHandler = function(eventName, callback) {
-        var handlers = this._defaultHandlers;
-        if (!handlers)
-          handlers = this._defaultHandlers = { _disabled_: {} };
-        if (handlers[eventName]) {
-          var old = handlers[eventName];
-          var disabled = handlers._disabled_[eventName];
-          if (!disabled)
-            handlers._disabled_[eventName] = disabled = [];
-          disabled.push(old);
-          var i = disabled.indexOf(callback);
-          if (i != -1)
-            disabled.splice(i, 1);
-        }
-        handlers[eventName] = callback;
-      };
-      EventEmitter.removeDefaultHandler = function(eventName, callback) {
-        var handlers = this._defaultHandlers;
-        if (!handlers)
-          return;
-        var disabled = handlers._disabled_[eventName];
-        if (handlers[eventName] == callback) {
-          if (disabled)
-            this.setDefaultHandler(eventName, disabled.pop());
-        } else if (disabled) {
-          var i = disabled.indexOf(callback);
-          if (i != -1)
-            disabled.splice(i, 1);
-        }
-      };
-      EventEmitter.on = EventEmitter.addEventListener = function(eventName, callback, capturing) {
-        this._eventRegistry = this._eventRegistry || {};
-        var listeners = this._eventRegistry[eventName];
-        if (!listeners)
-          listeners = this._eventRegistry[eventName] = [];
-        if (listeners.indexOf(callback) == -1)
-          listeners[capturing ? "unshift" : "push"](callback);
-        return callback;
-      };
-      EventEmitter.off = EventEmitter.removeListener = EventEmitter.removeEventListener = function(eventName, callback) {
-        this._eventRegistry = this._eventRegistry || {};
-        var listeners = this._eventRegistry[eventName];
-        if (!listeners)
-          return;
-        var index = listeners.indexOf(callback);
-        if (index !== -1)
-          listeners.splice(index, 1);
-      };
-      EventEmitter.removeAllListeners = function(eventName) {
-        if (!eventName)
-          this._eventRegistry = this._defaultHandlers = void 0;
-        if (this._eventRegistry)
-          this._eventRegistry[eventName] = void 0;
-        if (this._defaultHandlers)
-          this._defaultHandlers[eventName] = void 0;
-      };
-      exports2.EventEmitter = EventEmitter;
-    });
-    define("ace/lib/app_config", ["require", "exports", "module", "ace/lib/oop", "ace/lib/event_emitter"], function(require2, exports2, module2) {
-      "no use strict";
-      var oop = require2("./oop");
-      var EventEmitter = require2("./event_emitter").EventEmitter;
-      var optionsProvider = {
-        setOptions: function(optList) {
-          Object.keys(optList).forEach(function(key) {
-            this.setOption(key, optList[key]);
-          }, this);
-        },
-        getOptions: function(optionNames) {
-          var result = {};
-          if (!optionNames) {
-            var options = this.$options;
-            optionNames = Object.keys(options).filter(function(key) {
-              return !options[key].hidden;
-            });
-          } else if (!Array.isArray(optionNames)) {
-            result = optionNames;
-            optionNames = Object.keys(result);
-          }
-          optionNames.forEach(function(key) {
-            result[key] = this.getOption(key);
-          }, this);
-          return result;
-        },
-        setOption: function(name, value) {
-          if (this["$" + name] === value)
-            return;
-          var opt = this.$options[name];
-          if (!opt) {
-            return warn('misspelled option "' + name + '"');
-          }
-          if (opt.forwardTo)
-            return this[opt.forwardTo] && this[opt.forwardTo].setOption(name, value);
-          if (!opt.handlesSet)
-            this["$" + name] = value;
-          if (opt && opt.set)
-            opt.set.call(this, value);
-        },
-        getOption: function(name) {
-          var opt = this.$options[name];
-          if (!opt) {
-            return warn('misspelled option "' + name + '"');
-          }
-          if (opt.forwardTo)
-            return this[opt.forwardTo] && this[opt.forwardTo].getOption(name);
-          return opt && opt.get ? opt.get.call(this) : this["$" + name];
-        }
-      };
-      function warn(message) {
-        if (typeof console != "undefined" && console.warn)
-          console.warn.apply(console, arguments);
-      }
-      function reportError(msg, data) {
-        var e = new Error(msg);
-        e.data = data;
-        if (typeof console == "object" && console.error)
-          console.error(e);
-        setTimeout(function() {
-          throw e;
-        });
-      }
-      var AppConfig = function() {
-        this.$defaultOptions = {};
-      };
-      (function() {
-        oop.implement(this, EventEmitter);
-        this.defineOptions = function(obj, path, options) {
-          if (!obj.$options)
-            this.$defaultOptions[path] = obj.$options = {};
-          Object.keys(options).forEach(function(key) {
-            var opt = options[key];
-            if (typeof opt == "string")
-              opt = { forwardTo: opt };
-            opt.name || (opt.name = key);
-            obj.$options[opt.name] = opt;
-            if ("initialValue" in opt)
-              obj["$" + opt.name] = opt.initialValue;
-          });
-          oop.implement(obj, optionsProvider);
-          return this;
-        };
-        this.resetOptions = function(obj) {
-          Object.keys(obj.$options).forEach(function(key) {
-            var opt = obj.$options[key];
-            if ("value" in opt)
-              obj.setOption(key, opt.value);
-          });
-        };
-        this.setDefaultValue = function(path, name, value) {
-          if (!path) {
-            for (path in this.$defaultOptions)
-              if (this.$defaultOptions[path][name])
-                break;
-            if (!this.$defaultOptions[path][name])
-              return false;
-          }
-          var opts = this.$defaultOptions[path] || (this.$defaultOptions[path] = {});
-          if (opts[name]) {
-            if (opts.forwardTo)
-              this.setDefaultValue(opts.forwardTo, name, value);
-            else
-              opts[name].value = value;
-          }
-        };
-        this.setDefaultValues = function(path, optionHash) {
-          Object.keys(optionHash).forEach(function(key) {
-            this.setDefaultValue(path, key, optionHash[key]);
-          }, this);
-        };
-        this.warn = warn;
-        this.reportError = reportError;
-      }).call(AppConfig.prototype);
-      exports2.AppConfig = AppConfig;
-    });
-    define("ace/config", ["require", "exports", "module", "ace/lib/lang", "ace/lib/oop", "ace/lib/net", "ace/lib/dom", "ace/lib/app_config"], function(require2, exports2, module2) {
-      "no use strict";
-      var lang = require2("./lib/lang");
-      var oop = require2("./lib/oop");
-      var net = require2("./lib/net");
-      var dom = require2("./lib/dom");
-      var AppConfig = require2("./lib/app_config").AppConfig;
-      module2.exports = exports2 = new AppConfig();
-      var global = function() {
-        return this || typeof window != "undefined" && window;
-      }();
-      var options = {
-        packaged: false,
-        workerPath: null,
-        modePath: null,
-        themePath: null,
-        basePath: "",
-        suffix: ".js",
-        $moduleUrls: {},
-        loadWorkerFromBlob: true,
-        sharedPopups: false,
-        useStrictCSP: null
-      };
-      exports2.get = function(key) {
-        if (!options.hasOwnProperty(key))
-          throw new Error("Unknown config key: " + key);
-        return options[key];
-      };
-      exports2.set = function(key, value) {
-        if (options.hasOwnProperty(key))
-          options[key] = value;
-        else if (this.setDefaultValue("", key, value) == false)
-          throw new Error("Unknown config key: " + key);
-        if (key == "useStrictCSP")
-          dom.useStrictCSP(value);
-      };
-      exports2.all = function() {
-        return lang.copyObject(options);
-      };
-      exports2.$modes = {};
-      exports2.moduleUrl = function(name, component) {
-        if (options.$moduleUrls[name])
-          return options.$moduleUrls[name];
-        var parts = name.split("/");
-        component = component || parts[parts.length - 2] || "";
-        var sep = component == "snippets" ? "/" : "-";
-        var base = parts[parts.length - 1];
-        if (component == "worker" && sep == "-") {
-          var re = new RegExp("^" + component + "[\\-_]|[\\-_]" + component + "$", "g");
-          base = base.replace(re, "");
-        }
-        if ((!base || base == component) && parts.length > 1)
-          base = parts[parts.length - 2];
-        var path = options[component + "Path"];
-        if (path == null) {
-          path = options.basePath;
-        } else if (sep == "/") {
-          component = sep = "";
-        }
-        if (path && path.slice(-1) != "/")
-          path += "/";
-        return path + component + sep + base + this.get("suffix");
-      };
-      exports2.setModuleUrl = function(name, subst) {
-        return options.$moduleUrls[name] = subst;
-      };
-      exports2.$loading = {};
-      exports2.loadModule = function(moduleName, onLoad) {
-        var module3, moduleType;
-        if (Array.isArray(moduleName)) {
-          moduleType = moduleName[0];
-          moduleName = moduleName[1];
-        }
-        try {
-          module3 = require2(moduleName);
-        } catch (e) {
-        }
-        if (module3 && !exports2.$loading[moduleName])
-          return onLoad && onLoad(module3);
-        if (!exports2.$loading[moduleName])
-          exports2.$loading[moduleName] = [];
-        exports2.$loading[moduleName].push(onLoad);
-        if (exports2.$loading[moduleName].length > 1)
-          return;
-        var afterLoad = function() {
-          require2([moduleName], function(module4) {
-            exports2._emit("load.module", { name: moduleName, module: module4 });
-            var listeners = exports2.$loading[moduleName];
-            exports2.$loading[moduleName] = null;
-            listeners.forEach(function(onLoad2) {
-              onLoad2 && onLoad2(module4);
-            });
-          });
-        };
-        if (!exports2.get("packaged"))
-          return afterLoad();
-        net.loadScript(exports2.moduleUrl(moduleName, moduleType), afterLoad);
-        reportErrorIfPathIsNotConfigured();
-      };
-      var reportErrorIfPathIsNotConfigured = function() {
-        if (!options.basePath && !options.workerPath && !options.modePath && !options.themePath && !Object.keys(options.$moduleUrls).length) {
-          console.error("Unable to infer path to ace from script src,", "use ace.config.set('basePath', 'path') to enable dynamic loading of modes and themes", "or with webpack use ace/webpack-resolver");
-          reportErrorIfPathIsNotConfigured = function() {
-          };
-        }
-      };
-      init(true);
-      function init(packaged) {
-        if (!global || !global.document)
-          return;
-        options.packaged = packaged || require2.packaged || module2.packaged || global.define && define.packaged;
-        var scriptOptions = {};
-        var scriptUrl = "";
-        var currentScript = document.currentScript || document._currentScript;
-        var currentDocument = currentScript && currentScript.ownerDocument || document;
-        var scripts = currentDocument.getElementsByTagName("script");
-        for (var i = 0; i < scripts.length; i++) {
-          var script = scripts[i];
-          var src = script.src || script.getAttribute("src");
-          if (!src)
-            continue;
-          var attributes = script.attributes;
-          for (var j = 0, l = attributes.length; j < l; j++) {
-            var attr = attributes[j];
-            if (attr.name.indexOf("data-ace-") === 0) {
-              scriptOptions[deHyphenate(attr.name.replace(/^data-ace-/, ""))] = attr.value;
-            }
-          }
-          var m = src.match(/^(.*)\/ace(\-\w+)?\.js(\?|$)/);
-          if (m)
-            scriptUrl = m[1];
-        }
-        if (scriptUrl) {
-          scriptOptions.base = scriptOptions.base || scriptUrl;
-          scriptOptions.packaged = true;
-        }
-        scriptOptions.basePath = scriptOptions.base;
-        scriptOptions.workerPath = scriptOptions.workerPath || scriptOptions.base;
-        scriptOptions.modePath = scriptOptions.modePath || scriptOptions.base;
-        scriptOptions.themePath = scriptOptions.themePath || scriptOptions.base;
-        delete scriptOptions.base;
-        for (var key in scriptOptions)
-          if (typeof scriptOptions[key] !== "undefined")
-            exports2.set(key, scriptOptions[key]);
-      }
-      exports2.init = init;
-      function deHyphenate(str) {
-        return str.replace(/-(.)/g, function(m, m1) {
-          return m1.toUpperCase();
-        });
-      }
-      exports2.version = "1.7.1";
-    });
-    define("ace/mouse/mouse_handler", ["require", "exports", "module", "ace/lib/event", "ace/lib/useragent", "ace/mouse/default_handlers", "ace/mouse/default_gutter_handler", "ace/mouse/mouse_event", "ace/mouse/dragdrop_handler", "ace/mouse/touch_handler", "ace/config"], function(require2, exports2, module2) {
+    ace.define("ace/mouse/mouse_handler", ["require", "exports", "module", "ace/lib/event", "ace/lib/useragent", "ace/mouse/default_handlers", "ace/mouse/default_gutter_handler", "ace/mouse/mouse_event", "ace/mouse/dragdrop_handler", "ace/mouse/touch_handler", "ace/config"], function(require2, exports2, module2) {
       "use strict";
       var event = require2("../lib/event");
       var useragent = require2("../lib/useragent");
@@ -3661,7 +3689,7 @@ var require_ace = __commonJS({
       });
       exports2.MouseHandler = MouseHandler;
     });
-    define("ace/mouse/fold_handler", ["require", "exports", "module", "ace/lib/dom"], function(require2, exports2, module2) {
+    ace.define("ace/mouse/fold_handler", ["require", "exports", "module", "ace/lib/dom"], function(require2, exports2, module2) {
       "use strict";
       var dom = require2("../lib/dom");
       function FoldHandler(editor) {
@@ -3719,7 +3747,7 @@ var require_ace = __commonJS({
       }
       exports2.FoldHandler = FoldHandler;
     });
-    define("ace/keyboard/keybinding", ["require", "exports", "module", "ace/lib/keys", "ace/lib/event"], function(require2, exports2, module2) {
+    ace.define("ace/keyboard/keybinding", ["require", "exports", "module", "ace/lib/keys", "ace/lib/event"], function(require2, exports2, module2) {
       "use strict";
       var keyUtil = require2("../lib/keys");
       var event = require2("../lib/event");
@@ -3813,7 +3841,7 @@ var require_ace = __commonJS({
       }).call(KeyBinding.prototype);
       exports2.KeyBinding = KeyBinding;
     });
-    define("ace/lib/bidiutil", ["require", "exports", "module"], function(require2, exports2, module2) {
+    ace.define("ace/lib/bidiutil", ["require", "exports", "module"], function(require2, exports2, module2) {
       "use strict";
       var ArabicAlefBetIntervalsBegine = ["\u0621", "\u0641"];
       var ArabicAlefBetIntervalsEnd = ["\u063A", "\u064A"];
@@ -4395,7 +4423,7 @@ var require_ace = __commonJS({
         return 0;
       };
     });
-    define("ace/bidihandler", ["require", "exports", "module", "ace/lib/bidiutil", "ace/lib/lang"], function(require2, exports2, module2) {
+    ace.define("ace/bidihandler", ["require", "exports", "module", "ace/lib/bidiutil", "ace/lib/lang"], function(require2, exports2, module2) {
       "use strict";
       var bidiUtil = require2("./lib/bidiutil");
       var lang = require2("./lib/lang");
@@ -4488,9 +4516,10 @@ var require_ace = __commonJS({
               } else {
                 this.line = this.line.substring(0, splits[splitIndex]);
               }
+              if (splitIndex == splits.length) {
+                this.line += this.showInvisibles ? endOfLine : bidiUtil.DOT;
+              }
             }
-            if (splitIndex == splits.length)
-              this.line += this.showInvisibles ? endOfLine : bidiUtil.DOT;
           } else {
             this.line += this.showInvisibles ? endOfLine : bidiUtil.DOT;
           }
@@ -4636,7 +4665,7 @@ var require_ace = __commonJS({
       }).call(BidiHandler.prototype);
       exports2.BidiHandler = BidiHandler;
     });
-    define("ace/selection", ["require", "exports", "module", "ace/lib/oop", "ace/lib/lang", "ace/lib/event_emitter", "ace/range"], function(require2, exports2, module2) {
+    ace.define("ace/selection", ["require", "exports", "module", "ace/lib/oop", "ace/lib/lang", "ace/lib/event_emitter", "ace/range"], function(require2, exports2, module2) {
       "use strict";
       var oop = require2("./lib/oop");
       var lang = require2("./lib/lang");
@@ -5183,7 +5212,7 @@ var require_ace = __commonJS({
       }).call(Selection.prototype);
       exports2.Selection = Selection;
     });
-    define("ace/tokenizer", ["require", "exports", "module", "ace/config"], function(require2, exports2, module2) {
+    ace.define("ace/tokenizer", ["require", "exports", "module", "ace/config"], function(require2, exports2, module2) {
       "use strict";
       var config = require2("./config");
       var MAX_TOKEN_COUNT = 2e3;
@@ -5458,7 +5487,7 @@ var require_ace = __commonJS({
       }).call(Tokenizer.prototype);
       exports2.Tokenizer = Tokenizer;
     });
-    define("ace/mode/text_highlight_rules", ["require", "exports", "module", "ace/lib/lang"], function(require2, exports2, module2) {
+    ace.define("ace/mode/text_highlight_rules", ["require", "exports", "module", "ace/lib/lang"], function(require2, exports2, module2) {
       "use strict";
       var lang = require2("../lib/lang");
       var TextHighlightRules = function() {
@@ -5640,7 +5669,7 @@ var require_ace = __commonJS({
       }).call(TextHighlightRules.prototype);
       exports2.TextHighlightRules = TextHighlightRules;
     });
-    define("ace/mode/behaviour", ["require", "exports", "module"], function(require2, exports2, module2) {
+    ace.define("ace/mode/behaviour", ["require", "exports", "module"], function(require2, exports2, module2) {
       "use strict";
       var Behaviour = function() {
         this.$behaviours = {};
@@ -5691,7 +5720,7 @@ var require_ace = __commonJS({
       }).call(Behaviour.prototype);
       exports2.Behaviour = Behaviour;
     });
-    define("ace/token_iterator", ["require", "exports", "module", "ace/range"], function(require2, exports2, module2) {
+    ace.define("ace/token_iterator", ["require", "exports", "module", "ace/range"], function(require2, exports2, module2) {
       "use strict";
       var Range = require2("./range").Range;
       var TokenIterator = function(session, initialRow, initialColumn) {
@@ -5761,7 +5790,7 @@ var require_ace = __commonJS({
       }).call(TokenIterator.prototype);
       exports2.TokenIterator = TokenIterator;
     });
-    define("ace/mode/behaviour/cstyle", ["require", "exports", "module", "ace/lib/oop", "ace/mode/behaviour", "ace/token_iterator", "ace/lib/lang"], function(require2, exports2, module2) {
+    ace.define("ace/mode/behaviour/cstyle", ["require", "exports", "module", "ace/lib/oop", "ace/mode/behaviour", "ace/token_iterator", "ace/lib/lang"], function(require2, exports2, module2) {
       "use strict";
       var oop = require2("../../lib/oop");
       var Behaviour = require2("../behaviour").Behaviour;
@@ -6090,7 +6119,7 @@ var require_ace = __commonJS({
       oop.inherits(CstyleBehaviour, Behaviour);
       exports2.CstyleBehaviour = CstyleBehaviour;
     });
-    define("ace/unicode", ["require", "exports", "module"], function(require2, exports2, module2) {
+    ace.define("ace/unicode", ["require", "exports", "module"], function(require2, exports2, module2) {
       "use strict";
       var wordChars = [48, 9, 8, 25, 5, 0, 2, 25, 48, 0, 11, 0, 5, 0, 6, 22, 2, 30, 2, 457, 5, 11, 15, 4, 8, 0, 2, 0, 18, 116, 2, 1, 3, 3, 9, 0, 2, 2, 2, 0, 2, 19, 2, 82, 2, 138, 2, 4, 3, 155, 12, 37, 3, 0, 8, 38, 10, 44, 2, 0, 2, 1, 2, 1, 2, 0, 9, 26, 6, 2, 30, 10, 7, 61, 2, 9, 5, 101, 2, 7, 3, 9, 2, 18, 3, 0, 17, 58, 3, 100, 15, 53, 5, 0, 6, 45, 211, 57, 3, 18, 2, 5, 3, 11, 3, 9, 2, 1, 7, 6, 2, 2, 2, 7, 3, 1, 3, 21, 2, 6, 2, 0, 4, 3, 3, 8, 3, 1, 3, 3, 9, 0, 5, 1, 2, 4, 3, 11, 16, 2, 2, 5, 5, 1, 3, 21, 2, 6, 2, 1, 2, 1, 2, 1, 3, 0, 2, 4, 5, 1, 3, 2, 4, 0, 8, 3, 2, 0, 8, 15, 12, 2, 2, 8, 2, 2, 2, 21, 2, 6, 2, 1, 2, 4, 3, 9, 2, 2, 2, 2, 3, 0, 16, 3, 3, 9, 18, 2, 2, 7, 3, 1, 3, 21, 2, 6, 2, 1, 2, 4, 3, 8, 3, 1, 3, 2, 9, 1, 5, 1, 2, 4, 3, 9, 2, 0, 17, 1, 2, 5, 4, 2, 2, 3, 4, 1, 2, 0, 2, 1, 4, 1, 4, 2, 4, 11, 5, 4, 4, 2, 2, 3, 3, 0, 7, 0, 15, 9, 18, 2, 2, 7, 2, 2, 2, 22, 2, 9, 2, 4, 4, 7, 2, 2, 2, 3, 8, 1, 2, 1, 7, 3, 3, 9, 19, 1, 2, 7, 2, 2, 2, 22, 2, 9, 2, 4, 3, 8, 2, 2, 2, 3, 8, 1, 8, 0, 2, 3, 3, 9, 19, 1, 2, 7, 2, 2, 2, 22, 2, 15, 4, 7, 2, 2, 2, 3, 10, 0, 9, 3, 3, 9, 11, 5, 3, 1, 2, 17, 4, 23, 2, 8, 2, 0, 3, 6, 4, 0, 5, 5, 2, 0, 2, 7, 19, 1, 14, 57, 6, 14, 2, 9, 40, 1, 2, 0, 3, 1, 2, 0, 3, 0, 7, 3, 2, 6, 2, 2, 2, 0, 2, 0, 3, 1, 2, 12, 2, 2, 3, 4, 2, 0, 2, 5, 3, 9, 3, 1, 35, 0, 24, 1, 7, 9, 12, 0, 2, 0, 2, 0, 5, 9, 2, 35, 5, 19, 2, 5, 5, 7, 2, 35, 10, 0, 58, 73, 7, 77, 3, 37, 11, 42, 2, 0, 4, 328, 2, 3, 3, 6, 2, 0, 2, 3, 3, 40, 2, 3, 3, 32, 2, 3, 3, 6, 2, 0, 2, 3, 3, 14, 2, 56, 2, 3, 3, 66, 5, 0, 33, 15, 17, 84, 13, 619, 3, 16, 2, 25, 6, 74, 22, 12, 2, 6, 12, 20, 12, 19, 13, 12, 2, 2, 2, 1, 13, 51, 3, 29, 4, 0, 5, 1, 3, 9, 34, 2, 3, 9, 7, 87, 9, 42, 6, 69, 11, 28, 4, 11, 5, 11, 11, 39, 3, 4, 12, 43, 5, 25, 7, 10, 38, 27, 5, 62, 2, 28, 3, 10, 7, 9, 14, 0, 89, 75, 5, 9, 18, 8, 13, 42, 4, 11, 71, 55, 9, 9, 4, 48, 83, 2, 2, 30, 14, 230, 23, 280, 3, 5, 3, 37, 3, 5, 3, 7, 2, 0, 2, 0, 2, 0, 2, 30, 3, 52, 2, 6, 2, 0, 4, 2, 2, 6, 4, 3, 3, 5, 5, 12, 6, 2, 2, 6, 67, 1, 20, 0, 29, 0, 14, 0, 17, 4, 60, 12, 5, 0, 4, 11, 18, 0, 5, 0, 3, 9, 2, 0, 4, 4, 7, 0, 2, 0, 2, 0, 2, 3, 2, 10, 3, 3, 6, 4, 5, 0, 53, 1, 2684, 46, 2, 46, 2, 132, 7, 6, 15, 37, 11, 53, 10, 0, 17, 22, 10, 6, 2, 6, 2, 6, 2, 6, 2, 6, 2, 6, 2, 6, 2, 6, 2, 31, 48, 0, 470, 1, 36, 5, 2, 4, 6, 1, 5, 85, 3, 1, 3, 2, 2, 89, 2, 3, 6, 40, 4, 93, 18, 23, 57, 15, 513, 6581, 75, 20939, 53, 1164, 68, 45, 3, 268, 4, 27, 21, 31, 3, 13, 13, 1, 2, 24, 9, 69, 11, 1, 38, 8, 3, 102, 3, 1, 111, 44, 25, 51, 13, 68, 12, 9, 7, 23, 4, 0, 5, 45, 3, 35, 13, 28, 4, 64, 15, 10, 39, 54, 10, 13, 3, 9, 7, 22, 4, 1, 5, 66, 25, 2, 227, 42, 2, 1, 3, 9, 7, 11171, 13, 22, 5, 48, 8453, 301, 3, 61, 3, 105, 39, 6, 13, 4, 6, 11, 2, 12, 2, 4, 2, 0, 2, 1, 2, 1, 2, 107, 34, 362, 19, 63, 3, 53, 41, 11, 5, 15, 17, 6, 13, 1, 25, 2, 33, 4, 2, 134, 20, 9, 8, 25, 5, 0, 2, 25, 12, 88, 4, 5, 3, 5, 3, 5, 3, 2];
       var code = 0;
@@ -6102,7 +6131,7 @@ var require_ace = __commonJS({
       }
       exports2.wordChars = String.fromCharCode.apply(null, str);
     });
-    define("ace/mode/text", ["require", "exports", "module", "ace/config", "ace/tokenizer", "ace/mode/text_highlight_rules", "ace/mode/behaviour/cstyle", "ace/unicode", "ace/lib/lang", "ace/token_iterator", "ace/range"], function(require2, exports2, module2) {
+    ace.define("ace/mode/text", ["require", "exports", "module", "ace/config", "ace/tokenizer", "ace/mode/text_highlight_rules", "ace/mode/behaviour/cstyle", "ace/unicode", "ace/lib/lang", "ace/token_iterator", "ace/range"], function(require2, exports2, module2) {
       "use strict";
       var config = require2("../config");
       var Tokenizer = require2("../tokenizer").Tokenizer;
@@ -6423,7 +6452,7 @@ var require_ace = __commonJS({
       }).call(Mode.prototype);
       exports2.Mode = Mode;
     });
-    define("ace/apply_delta", ["require", "exports", "module"], function(require2, exports2, module2) {
+    ace.define("ace/apply_delta", ["require", "exports", "module"], function(require2, exports2, module2) {
       "use strict";
       function throwDeltaError(delta, errorText) {
         console.log("Invalid Delta:", delta);
@@ -6478,7 +6507,7 @@ var require_ace = __commonJS({
         }
       };
     });
-    define("ace/anchor", ["require", "exports", "module", "ace/lib/oop", "ace/lib/event_emitter"], function(require2, exports2, module2) {
+    ace.define("ace/anchor", ["require", "exports", "module", "ace/lib/oop", "ace/lib/event_emitter"], function(require2, exports2, module2) {
       "use strict";
       var oop = require2("./lib/oop");
       var EventEmitter = require2("./lib/event_emitter").EventEmitter;
@@ -6582,7 +6611,7 @@ var require_ace = __commonJS({
         };
       }).call(Anchor.prototype);
     });
-    define("ace/document", ["require", "exports", "module", "ace/lib/oop", "ace/apply_delta", "ace/lib/event_emitter", "ace/range", "ace/anchor"], function(require2, exports2, module2) {
+    ace.define("ace/document", ["require", "exports", "module", "ace/lib/oop", "ace/apply_delta", "ace/lib/event_emitter", "ace/range", "ace/anchor"], function(require2, exports2, module2) {
       "use strict";
       var oop = require2("./lib/oop");
       var applyDelta = require2("./apply_delta").applyDelta;
@@ -6912,7 +6941,7 @@ var require_ace = __commonJS({
       }).call(Document.prototype);
       exports2.Document = Document;
     });
-    define("ace/background_tokenizer", ["require", "exports", "module", "ace/lib/oop", "ace/lib/event_emitter"], function(require2, exports2, module2) {
+    ace.define("ace/background_tokenizer", ["require", "exports", "module", "ace/lib/oop", "ace/lib/event_emitter"], function(require2, exports2, module2) {
       "use strict";
       var oop = require2("./lib/oop");
       var EventEmitter = require2("./lib/event_emitter").EventEmitter;
@@ -7042,7 +7071,7 @@ var require_ace = __commonJS({
       }).call(BackgroundTokenizer.prototype);
       exports2.BackgroundTokenizer = BackgroundTokenizer;
     });
-    define("ace/search_highlight", ["require", "exports", "module", "ace/lib/lang", "ace/lib/oop", "ace/range"], function(require2, exports2, module2) {
+    ace.define("ace/search_highlight", ["require", "exports", "module", "ace/lib/lang", "ace/lib/oop", "ace/range"], function(require2, exports2, module2) {
       "use strict";
       var lang = require2("./lib/lang");
       var oop = require2("./lib/oop");
@@ -7089,7 +7118,7 @@ var require_ace = __commonJS({
       }).call(SearchHighlight.prototype);
       exports2.SearchHighlight = SearchHighlight;
     });
-    define("ace/edit_session/fold_line", ["require", "exports", "module", "ace/range"], function(require2, exports2, module2) {
+    ace.define("ace/edit_session/fold_line", ["require", "exports", "module", "ace/range"], function(require2, exports2, module2) {
       "use strict";
       var Range = require2("../range").Range;
       function FoldLine(foldData, folds) {
@@ -7271,7 +7300,7 @@ var require_ace = __commonJS({
       }).call(FoldLine.prototype);
       exports2.FoldLine = FoldLine;
     });
-    define("ace/range_list", ["require", "exports", "module", "ace/range"], function(require2, exports2, module2) {
+    ace.define("ace/range_list", ["require", "exports", "module", "ace/range"], function(require2, exports2, module2) {
       "use strict";
       var Range = require2("./range").Range;
       var comparePoints = Range.comparePoints;
@@ -7480,7 +7509,7 @@ var require_ace = __commonJS({
       }).call(RangeList.prototype);
       exports2.RangeList = RangeList;
     });
-    define("ace/edit_session/fold", ["require", "exports", "module", "ace/range_list", "ace/lib/oop"], function(require2, exports2, module2) {
+    ace.define("ace/edit_session/fold", ["require", "exports", "module", "ace/range_list", "ace/lib/oop"], function(require2, exports2, module2) {
       "use strict";
       var RangeList = require2("../range_list").RangeList;
       var oop = require2("../lib/oop");
@@ -7570,7 +7599,7 @@ var require_ace = __commonJS({
         restorePoint(range.end, anchor);
       }
     });
-    define("ace/edit_session/folding", ["require", "exports", "module", "ace/range", "ace/edit_session/fold_line", "ace/edit_session/fold", "ace/token_iterator"], function(require2, exports2, module2) {
+    ace.define("ace/edit_session/folding", ["require", "exports", "module", "ace/range", "ace/edit_session/fold_line", "ace/edit_session/fold", "ace/token_iterator"], function(require2, exports2, module2) {
       "use strict";
       var Range = require2("../range").Range;
       var FoldLine = require2("./fold_line").FoldLine;
@@ -8239,7 +8268,7 @@ var require_ace = __commonJS({
       }
       exports2.Folding = Folding;
     });
-    define("ace/edit_session/bracket_match", ["require", "exports", "module", "ace/token_iterator", "ace/range"], function(require2, exports2, module2) {
+    ace.define("ace/edit_session/bracket_match", ["require", "exports", "module", "ace/token_iterator", "ace/range"], function(require2, exports2, module2) {
       "use strict";
       var TokenIterator = require2("../token_iterator").TokenIterator;
       var Range = require2("../range").Range;
@@ -8405,7 +8434,7 @@ var require_ace = __commonJS({
       }
       exports2.BracketMatch = BracketMatch;
     });
-    define("ace/edit_session", ["require", "exports", "module", "ace/lib/oop", "ace/lib/lang", "ace/bidihandler", "ace/config", "ace/lib/event_emitter", "ace/selection", "ace/mode/text", "ace/range", "ace/document", "ace/background_tokenizer", "ace/search_highlight", "ace/edit_session/folding", "ace/edit_session/bracket_match"], function(require2, exports2, module2) {
+    ace.define("ace/edit_session", ["require", "exports", "module", "ace/lib/oop", "ace/lib/lang", "ace/bidihandler", "ace/config", "ace/lib/event_emitter", "ace/selection", "ace/mode/text", "ace/range", "ace/document", "ace/background_tokenizer", "ace/search_highlight", "ace/edit_session/folding", "ace/edit_session/bracket_match"], function(require2, exports2, module2) {
       "use strict";
       var oop = require2("./lib/oop");
       var lang = require2("./lib/lang");
@@ -8454,7 +8483,7 @@ var require_ace = __commonJS({
           if (this.doc)
             this.doc.off("change", this.$onChange);
           this.doc = doc;
-          doc.on("change", this.$onChange);
+          doc.on("change", this.$onChange, true);
           this.bgTokenizer.setDocument(this.getDocument());
           this.resetCaches();
         };
@@ -9946,7 +9975,7 @@ var require_ace = __commonJS({
       });
       exports2.EditSession = EditSession;
     });
-    define("ace/search", ["require", "exports", "module", "ace/lib/lang", "ace/lib/oop", "ace/range"], function(require2, exports2, module2) {
+    ace.define("ace/search", ["require", "exports", "module", "ace/lib/lang", "ace/lib/oop", "ace/range"], function(require2, exports2, module2) {
       "use strict";
       var lang = require2("./lib/lang");
       var oop = require2("./lib/oop");
@@ -10212,7 +10241,7 @@ var require_ace = __commonJS({
       }
       exports2.Search = Search;
     });
-    define("ace/keyboard/hash_handler", ["require", "exports", "module", "ace/lib/keys", "ace/lib/useragent"], function(require2, exports2, module2) {
+    ace.define("ace/keyboard/hash_handler", ["require", "exports", "module", "ace/lib/keys", "ace/lib/useragent"], function(require2, exports2, module2) {
       "use strict";
       var keyUtil = require2("../lib/keys");
       var useragent = require2("../lib/useragent");
@@ -10400,7 +10429,7 @@ var require_ace = __commonJS({
       exports2.HashHandler = HashHandler;
       exports2.MultiHashHandler = MultiHashHandler;
     });
-    define("ace/commands/command_manager", ["require", "exports", "module", "ace/lib/oop", "ace/keyboard/hash_handler", "ace/lib/event_emitter"], function(require2, exports2, module2) {
+    ace.define("ace/commands/command_manager", ["require", "exports", "module", "ace/lib/oop", "ace/keyboard/hash_handler", "ace/lib/event_emitter"], function(require2, exports2, module2) {
       "use strict";
       var oop = require2("../lib/oop");
       var MultiHashHandler = require2("../keyboard/hash_handler").MultiHashHandler;
@@ -10489,7 +10518,7 @@ var require_ace = __commonJS({
       }).call(CommandManager.prototype);
       exports2.CommandManager = CommandManager;
     });
-    define("ace/commands/default_commands", ["require", "exports", "module", "ace/lib/lang", "ace/config", "ace/range"], function(require2, exports2, module2) {
+    ace.define("ace/commands/default_commands", ["require", "exports", "module", "ace/lib/lang", "ace/config", "ace/range"], function(require2, exports2, module2) {
       "use strict";
       var lang = require2("../lib/lang");
       var config = require2("../config");
@@ -11600,9 +11629,8 @@ var require_ace = __commonJS({
         });
       }
     });
-    define("ace/editor", ["require", "exports", "module", "ace/lib/fixoldbrowsers", "ace/lib/oop", "ace/lib/dom", "ace/lib/lang", "ace/lib/useragent", "ace/keyboard/textinput", "ace/mouse/mouse_handler", "ace/mouse/fold_handler", "ace/keyboard/keybinding", "ace/edit_session", "ace/search", "ace/range", "ace/lib/event_emitter", "ace/commands/command_manager", "ace/commands/default_commands", "ace/config", "ace/token_iterator", "ace/clipboard"], function(require2, exports2, module2) {
+    ace.define("ace/editor", ["require", "exports", "module", "ace/lib/oop", "ace/lib/dom", "ace/lib/lang", "ace/lib/useragent", "ace/keyboard/textinput", "ace/mouse/mouse_handler", "ace/mouse/fold_handler", "ace/keyboard/keybinding", "ace/edit_session", "ace/search", "ace/range", "ace/lib/event_emitter", "ace/commands/command_manager", "ace/commands/default_commands", "ace/config", "ace/token_iterator", "ace/clipboard"], function(require2, exports2, module2) {
       "use strict";
-      require2("./lib/fixoldbrowsers");
       var oop = require2("./lib/oop");
       var dom = require2("./lib/dom");
       var lang = require2("./lib/lang");
@@ -13548,7 +13576,7 @@ var require_ace = __commonJS({
       };
       exports2.Editor = Editor;
     });
-    define("ace/undomanager", ["require", "exports", "module", "ace/range"], function(require2, exports2, module2) {
+    ace.define("ace/undomanager", ["require", "exports", "module", "ace/range"], function(require2, exports2, module2) {
       "use strict";
       var UndoManager = function() {
         this.$maxRev = 0;
@@ -13987,7 +14015,7 @@ var require_ace = __commonJS({
       }
       exports2.UndoManager = UndoManager;
     });
-    define("ace/layer/lines", ["require", "exports", "module", "ace/lib/dom"], function(require2, exports2, module2) {
+    ace.define("ace/layer/lines", ["require", "exports", "module", "ace/lib/dom"], function(require2, exports2, module2) {
       "use strict";
       var dom = require2("../lib/dom");
       var Lines = function(element, canvasHeight) {
@@ -14086,7 +14114,7 @@ var require_ace = __commonJS({
       }).call(Lines.prototype);
       exports2.Lines = Lines;
     });
-    define("ace/layer/gutter", ["require", "exports", "module", "ace/lib/dom", "ace/lib/oop", "ace/lib/lang", "ace/lib/event_emitter", "ace/layer/lines"], function(require2, exports2, module2) {
+    ace.define("ace/layer/gutter", ["require", "exports", "module", "ace/lib/dom", "ace/lib/oop", "ace/lib/lang", "ace/lib/event_emitter", "ace/layer/lines"], function(require2, exports2, module2) {
       "use strict";
       var dom = require2("../lib/dom");
       var oop = require2("../lib/oop");
@@ -14420,7 +14448,7 @@ var require_ace = __commonJS({
       }
       exports2.Gutter = Gutter;
     });
-    define("ace/layer/marker", ["require", "exports", "module", "ace/range", "ace/lib/dom"], function(require2, exports2, module2) {
+    ace.define("ace/layer/marker", ["require", "exports", "module", "ace/range", "ace/lib/dom"], function(require2, exports2, module2) {
       "use strict";
       var Range = require2("../range").Range;
       var dom = require2("../lib/dom");
@@ -14577,7 +14605,7 @@ var require_ace = __commonJS({
       }).call(Marker.prototype);
       exports2.Marker = Marker;
     });
-    define("ace/layer/text", ["require", "exports", "module", "ace/lib/oop", "ace/lib/dom", "ace/lib/lang", "ace/layer/lines", "ace/lib/event_emitter"], function(require2, exports2, module2) {
+    ace.define("ace/layer/text", ["require", "exports", "module", "ace/lib/oop", "ace/lib/dom", "ace/lib/lang", "ace/layer/lines", "ace/lib/event_emitter"], function(require2, exports2, module2) {
       "use strict";
       var oop = require2("../lib/oop");
       var dom = require2("../lib/dom");
@@ -15072,7 +15100,7 @@ var require_ace = __commonJS({
       }).call(Text.prototype);
       exports2.Text = Text;
     });
-    define("ace/layer/cursor", ["require", "exports", "module", "ace/lib/dom"], function(require2, exports2, module2) {
+    ace.define("ace/layer/cursor", ["require", "exports", "module", "ace/lib/dom"], function(require2, exports2, module2) {
       "use strict";
       var dom = require2("../lib/dom");
       var Cursor = function(parentEl) {
@@ -15261,7 +15289,7 @@ var require_ace = __commonJS({
       }).call(Cursor.prototype);
       exports2.Cursor = Cursor;
     });
-    define("ace/scrollbar", ["require", "exports", "module", "ace/lib/oop", "ace/lib/dom", "ace/lib/event", "ace/lib/event_emitter"], function(require2, exports2, module2) {
+    ace.define("ace/scrollbar", ["require", "exports", "module", "ace/lib/oop", "ace/lib/dom", "ace/lib/event", "ace/lib/event_emitter"], function(require2, exports2, module2) {
       "use strict";
       var oop = require2("./lib/oop");
       var dom = require2("./lib/dom");
@@ -15376,7 +15404,7 @@ var require_ace = __commonJS({
       exports2.VScrollBar = VScrollBar;
       exports2.HScrollBar = HScrollBar;
     });
-    define("ace/renderloop", ["require", "exports", "module", "ace/lib/event"], function(require2, exports2, module2) {
+    ace.define("ace/renderloop", ["require", "exports", "module", "ace/lib/event"], function(require2, exports2, module2) {
       "use strict";
       var event = require2("./lib/event");
       var RenderLoop = function(onRender, win) {
@@ -15419,7 +15447,7 @@ var require_ace = __commonJS({
       }).call(RenderLoop.prototype);
       exports2.RenderLoop = RenderLoop;
     });
-    define("ace/layer/font_metrics", ["require", "exports", "module", "ace/lib/oop", "ace/lib/dom", "ace/lib/lang", "ace/lib/event", "ace/lib/useragent", "ace/lib/event_emitter"], function(require2, exports2, module2) {
+    ace.define("ace/layer/font_metrics", ["require", "exports", "module", "ace/lib/oop", "ace/lib/dom", "ace/lib/lang", "ace/lib/event", "ace/lib/useragent", "ace/lib/event_emitter"], function(require2, exports2, module2) {
       var oop = require2("../lib/oop");
       var dom = require2("../lib/dom");
       var lang = require2("../lib/lang");
@@ -15586,7 +15614,7 @@ var require_ace = __commonJS({
         };
       }).call(FontMetrics.prototype);
     });
-    define("ace/virtual_renderer", ["require", "exports", "module", "ace/lib/oop", "ace/lib/dom", "ace/config", "ace/layer/gutter", "ace/layer/marker", "ace/layer/text", "ace/layer/cursor", "ace/scrollbar", "ace/scrollbar", "ace/renderloop", "ace/layer/font_metrics", "ace/lib/event_emitter", "ace/lib/useragent"], function(require2, exports2, module2) {
+    ace.define("ace/virtual_renderer", ["require", "exports", "module", "ace/lib/oop", "ace/lib/dom", "ace/config", "ace/layer/gutter", "ace/layer/marker", "ace/layer/text", "ace/layer/cursor", "ace/scrollbar", "ace/scrollbar", "ace/renderloop", "ace/layer/font_metrics", "ace/lib/event_emitter", "ace/lib/useragent"], function(require2, exports2, module2) {
       "use strict";
       var oop = require2("./lib/oop");
       var dom = require2("./lib/dom");
@@ -16801,7 +16829,7 @@ var require_ace = __commonJS({
       });
       exports2.VirtualRenderer = VirtualRenderer;
     });
-    define("ace/worker/worker_client", ["require", "exports", "module", "ace/lib/oop", "ace/lib/net", "ace/lib/event_emitter", "ace/config"], function(require2, exports2, module2) {
+    ace.define("ace/worker/worker_client", ["require", "exports", "module", "ace/lib/oop", "ace/lib/net", "ace/lib/event_emitter", "ace/config"], function(require2, exports2, module2) {
       "use strict";
       var oop = require2("../lib/oop");
       var net = require2("../lib/net");
@@ -17002,7 +17030,7 @@ var require_ace = __commonJS({
       exports2.WorkerClient = WorkerClient;
       exports2.createWorker = createWorker;
     });
-    define("ace/placeholder", ["require", "exports", "module", "ace/range", "ace/lib/event_emitter", "ace/lib/oop"], function(require2, exports2, module2) {
+    ace.define("ace/placeholder", ["require", "exports", "module", "ace/range", "ace/lib/event_emitter", "ace/lib/oop"], function(require2, exports2, module2) {
       "use strict";
       var Range = require2("./range").Range;
       var EventEmitter = require2("./lib/event_emitter").EventEmitter;
@@ -17015,7 +17043,7 @@ var require_ace = __commonJS({
         this.mainClass = mainClass;
         this.othersClass = othersClass;
         this.$onUpdate = this.onUpdate.bind(this);
-        this.doc.on("change", this.$onUpdate);
+        this.doc.on("change", this.$onUpdate, true);
         this.$others = others;
         this.$onCursorChange = function() {
           setTimeout(function() {
@@ -17155,7 +17183,7 @@ var require_ace = __commonJS({
       }).call(PlaceHolder.prototype);
       exports2.PlaceHolder = PlaceHolder;
     });
-    define("ace/mouse/multi_select_handler", ["require", "exports", "module", "ace/lib/event", "ace/lib/useragent"], function(require2, exports2, module2) {
+    ace.define("ace/mouse/multi_select_handler", ["require", "exports", "module", "ace/lib/event", "ace/lib/useragent"], function(require2, exports2, module2) {
       var event = require2("../lib/event");
       var useragent = require2("../lib/useragent");
       function isSamePoint(p1, p2) {
@@ -17298,7 +17326,7 @@ var require_ace = __commonJS({
       }
       exports2.onMouseDown = onMouseDown;
     });
-    define("ace/commands/multi_select_commands", ["require", "exports", "module", "ace/keyboard/hash_handler"], function(require2, exports2, module2) {
+    ace.define("ace/commands/multi_select_commands", ["require", "exports", "module", "ace/keyboard/hash_handler"], function(require2, exports2, module2) {
       exports2.defaultCommands = [{
         name: "addCursorAbove",
         description: "Add cursor above",
@@ -17423,7 +17451,7 @@ var require_ace = __commonJS({
       var HashHandler = require2("../keyboard/hash_handler").HashHandler;
       exports2.keyboardHandler = new HashHandler(exports2.multiSelectCommands);
     });
-    define("ace/multi_select", ["require", "exports", "module", "ace/range_list", "ace/range", "ace/selection", "ace/mouse/multi_select_handler", "ace/lib/event", "ace/lib/lang", "ace/commands/multi_select_commands", "ace/search", "ace/edit_session", "ace/editor", "ace/config"], function(require2, exports2, module2) {
+    ace.define("ace/multi_select", ["require", "exports", "module", "ace/range_list", "ace/range", "ace/selection", "ace/mouse/multi_select_handler", "ace/lib/event", "ace/lib/lang", "ace/commands/multi_select_commands", "ace/search", "ace/edit_session", "ace/editor", "ace/config"], function(require2, exports2, module2) {
       var RangeList = require2("./range_list").RangeList;
       var Range = require2("./range").Range;
       var Selection = require2("./selection").Selection;
@@ -18115,7 +18143,7 @@ var require_ace = __commonJS({
         }
       });
     });
-    define("ace/mode/folding/fold_mode", ["require", "exports", "module", "ace/range"], function(require2, exports2, module2) {
+    ace.define("ace/mode/folding/fold_mode", ["require", "exports", "module", "ace/range"], function(require2, exports2, module2) {
       "use strict";
       var Range = require2("../../range").Range;
       var FoldMode = exports2.FoldMode = function() {
@@ -18185,16 +18213,7 @@ var require_ace = __commonJS({
         };
       }).call(FoldMode.prototype);
     });
-    define("ace/theme/textmate", ["require", "exports", "module", "ace/lib/dom"], function(require2, exports2, module2) {
-      "use strict";
-      exports2.isDark = false;
-      exports2.cssClass = "ace-tm";
-      exports2.cssText = '.ace-tm .ace_gutter {background: #f0f0f0;color: #333;}.ace-tm .ace_print-margin {width: 1px;background: #e8e8e8;}.ace-tm .ace_fold {background-color: #6B72E6;}.ace-tm {background-color: #FFFFFF;color: black;}.ace-tm .ace_cursor {color: black;}.ace-tm .ace_invisible {color: rgb(191, 191, 191);}.ace-tm .ace_storage,.ace-tm .ace_keyword {color: blue;}.ace-tm .ace_constant {color: rgb(197, 6, 11);}.ace-tm .ace_constant.ace_buildin {color: rgb(88, 72, 246);}.ace-tm .ace_constant.ace_language {color: rgb(88, 92, 246);}.ace-tm .ace_constant.ace_library {color: rgb(6, 150, 14);}.ace-tm .ace_invalid {background-color: rgba(255, 0, 0, 0.1);color: red;}.ace-tm .ace_support.ace_function {color: rgb(60, 76, 114);}.ace-tm .ace_support.ace_constant {color: rgb(6, 150, 14);}.ace-tm .ace_support.ace_type,.ace-tm .ace_support.ace_class {color: rgb(109, 121, 222);}.ace-tm .ace_keyword.ace_operator {color: rgb(104, 118, 135);}.ace-tm .ace_string {color: rgb(3, 106, 7);}.ace-tm .ace_comment {color: rgb(76, 136, 107);}.ace-tm .ace_comment.ace_doc {color: rgb(0, 102, 255);}.ace-tm .ace_comment.ace_doc.ace_tag {color: rgb(128, 159, 191);}.ace-tm .ace_constant.ace_numeric {color: rgb(0, 0, 205);}.ace-tm .ace_variable {color: rgb(49, 132, 149);}.ace-tm .ace_xml-pe {color: rgb(104, 104, 91);}.ace-tm .ace_entity.ace_name.ace_function {color: #0000A2;}.ace-tm .ace_heading {color: rgb(12, 7, 255);}.ace-tm .ace_list {color:rgb(185, 6, 144);}.ace-tm .ace_meta.ace_tag {color:rgb(0, 22, 142);}.ace-tm .ace_string.ace_regex {color: rgb(255, 0, 0)}.ace-tm .ace_marker-layer .ace_selection {background: rgb(181, 213, 255);}.ace-tm.ace_multiselect .ace_selection.ace_start {box-shadow: 0 0 3px 0px white;}.ace-tm .ace_marker-layer .ace_step {background: rgb(252, 255, 0);}.ace-tm .ace_marker-layer .ace_stack {background: rgb(164, 229, 101);}.ace-tm .ace_marker-layer .ace_bracket {margin: -1px 0 0 -1px;border: 1px solid rgb(192, 192, 192);}.ace-tm .ace_marker-layer .ace_active-line {background: rgba(0, 0, 0, 0.07);}.ace-tm .ace_gutter-active-line {background-color : #dcdcdc;}.ace-tm .ace_marker-layer .ace_selected-word {background: rgb(250, 250, 255);border: 1px solid rgb(200, 200, 250);}.ace-tm .ace_indent-guide {background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAACCAYAAACZgbYnAAAAE0lEQVQImWP4////f4bLly//BwAmVgd1/w11/gAAAABJRU5ErkJggg==") right repeat-y;}';
-      exports2.$id = "ace/theme/textmate";
-      var dom = require2("../lib/dom");
-      dom.importCssString(exports2.cssText, exports2.cssClass, false);
-    });
-    define("ace/line_widgets", ["require", "exports", "module", "ace/lib/dom"], function(require2, exports2, module2) {
+    ace.define("ace/line_widgets", ["require", "exports", "module", "ace/lib/dom"], function(require2, exports2, module2) {
       "use strict";
       var dom = require2("./lib/dom");
       function LineWidgets(session) {
@@ -18518,7 +18537,7 @@ var require_ace = __commonJS({
       }).call(LineWidgets.prototype);
       exports2.LineWidgets = LineWidgets;
     });
-    define("ace/ext/error_marker", ["require", "exports", "module", "ace/line_widgets", "ace/lib/dom", "ace/range"], function(require2, exports2, module2) {
+    ace.define("ace/ext/error_marker", ["require", "exports", "module", "ace/line_widgets", "ace/lib/dom", "ace/range"], function(require2, exports2, module2) {
       "use strict";
       var LineWidgets = require2("../line_widgets").LineWidgets;
       var dom = require2("../lib/dom");
@@ -18643,9 +18662,9 @@ var require_ace = __commonJS({
       };
       dom.importCssString("    .error_widget_wrapper {        background: inherit;        color: inherit;        border:none    }    .error_widget {        border-top: solid 2px;        border-bottom: solid 2px;        margin: 5px 0;        padding: 10px 40px;        white-space: pre-wrap;    }    .error_widget.ace_error, .error_widget_arrow.ace_error{        border-color: #ff5a5a    }    .error_widget.ace_warning, .error_widget_arrow.ace_warning{        border-color: #F1D817    }    .error_widget.ace_info, .error_widget_arrow.ace_info{        border-color: #5a5a5a    }    .error_widget.ace_ok, .error_widget_arrow.ace_ok{        border-color: #5aaa5a    }    .error_widget_arrow {        position: absolute;        border: solid 5px;        border-top-color: transparent!important;        border-right-color: transparent!important;        border-left-color: transparent!important;        top: -5px;    }", "error_marker.css", false);
     });
-    define("ace/ace", ["require", "exports", "module", "ace/lib/fixoldbrowsers", "ace/lib/dom", "ace/lib/event", "ace/range", "ace/editor", "ace/edit_session", "ace/undomanager", "ace/virtual_renderer", "ace/worker/worker_client", "ace/keyboard/hash_handler", "ace/placeholder", "ace/multi_select", "ace/mode/folding/fold_mode", "ace/theme/textmate", "ace/ext/error_marker", "ace/config"], function(require2, exports2, module2) {
+    ace.define("ace/ace", ["require", "exports", "module", "ace/lib/dom", "ace/lib/event", "ace/range", "ace/editor", "ace/edit_session", "ace/undomanager", "ace/virtual_renderer", "ace/worker/worker_client", "ace/keyboard/hash_handler", "ace/placeholder", "ace/multi_select", "ace/mode/folding/fold_mode", "ace/theme/textmate", "ace/ext/error_marker", "ace/config", "ace/loader_build"], function(require2, exports2, module2) {
       "use strict";
-      require2("./lib/fixoldbrowsers");
+      require2("./loader_build")(exports2);
       var dom = require2("./lib/dom");
       var event = require2("./lib/event");
       var Range = require2("./range").Range;
@@ -18661,9 +18680,6 @@ var require_ace = __commonJS({
       require2("./theme/textmate");
       require2("./ext/error_marker");
       exports2.config = require2("./config");
-      exports2.require = require2;
-      if (typeof define === "function")
-        exports2.define = define;
       exports2.edit = function(el, options) {
         if (typeof el == "string") {
           var _id = el;
@@ -18713,10 +18729,10 @@ var require_ace = __commonJS({
       exports2.version = exports2.config.version;
     });
     (function() {
-      window.require(["ace/ace"], function(a) {
+      ace.require(["ace/ace"], function(a) {
         if (a) {
           a.config.init(true);
-          a.define = window.define;
+          a.define = ace.define;
         }
         if (!window.ace)
           window.ace = a;
@@ -18731,4 +18747,905 @@ var require_ace = __commonJS({
     })();
   }
 });
-export default require_ace();
+
+// ../../node_modules/ace-builds/src-noconflict/theme-monokai.js
+var require_theme_monokai = __commonJS({
+  "../../node_modules/ace-builds/src-noconflict/theme-monokai.js"(exports, module) {
+    init_define_process();
+    ace.define("ace/theme/monokai", ["require", "exports", "module", "ace/lib/dom"], function(require2, exports2, module2) {
+      exports2.isDark = true;
+      exports2.cssClass = "ace-monokai";
+      exports2.cssText = ".ace-monokai .ace_gutter {background: #2F3129;color: #8F908A}.ace-monokai .ace_print-margin {width: 1px;background: #555651}.ace-monokai {background-color: #272822;color: #F8F8F2}.ace-monokai .ace_cursor {color: #F8F8F0}.ace-monokai .ace_marker-layer .ace_selection {background: #49483E}.ace-monokai.ace_multiselect .ace_selection.ace_start {box-shadow: 0 0 3px 0px #272822;}.ace-monokai .ace_marker-layer .ace_step {background: rgb(102, 82, 0)}.ace-monokai .ace_marker-layer .ace_bracket {margin: -1px 0 0 -1px;border: 1px solid #49483E}.ace-monokai .ace_marker-layer .ace_active-line {background: #202020}.ace-monokai .ace_gutter-active-line {background-color: #272727}.ace-monokai .ace_marker-layer .ace_selected-word {border: 1px solid #49483E}.ace-monokai .ace_invisible {color: #52524d}.ace-monokai .ace_entity.ace_name.ace_tag,.ace-monokai .ace_keyword,.ace-monokai .ace_meta.ace_tag,.ace-monokai .ace_storage {color: #F92672}.ace-monokai .ace_punctuation,.ace-monokai .ace_punctuation.ace_tag {color: #fff}.ace-monokai .ace_constant.ace_character,.ace-monokai .ace_constant.ace_language,.ace-monokai .ace_constant.ace_numeric,.ace-monokai .ace_constant.ace_other {color: #AE81FF}.ace-monokai .ace_invalid {color: #F8F8F0;background-color: #F92672}.ace-monokai .ace_invalid.ace_deprecated {color: #F8F8F0;background-color: #AE81FF}.ace-monokai .ace_support.ace_constant,.ace-monokai .ace_support.ace_function {color: #66D9EF}.ace-monokai .ace_fold {background-color: #A6E22E;border-color: #F8F8F2}.ace-monokai .ace_storage.ace_type,.ace-monokai .ace_support.ace_class,.ace-monokai .ace_support.ace_type {font-style: italic;color: #66D9EF}.ace-monokai .ace_entity.ace_name.ace_function,.ace-monokai .ace_entity.ace_other,.ace-monokai .ace_entity.ace_other.ace_attribute-name,.ace-monokai .ace_variable {color: #A6E22E}.ace-monokai .ace_variable.ace_parameter {font-style: italic;color: #FD971F}.ace-monokai .ace_string {color: #E6DB74}.ace-monokai .ace_comment {color: #75715E}.ace-monokai .ace_indent-guide {background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAACCAYAAACZgbYnAAAAEklEQVQImWPQ0FD0ZXBzd/wPAAjVAoxeSgNeAAAAAElFTkSuQmCC) right repeat-y}";
+      var dom = require2("../lib/dom");
+      dom.importCssString(exports2.cssText, exports2.cssClass, false);
+    });
+    (function() {
+      ace.require(["ace/theme/monokai"], function(m) {
+        if (typeof module == "object" && typeof exports == "object" && module) {
+          module.exports = m;
+        }
+      });
+    })();
+  }
+});
+
+// ../../node_modules/ace-builds/src-noconflict/mode-typescript.js
+var require_mode_typescript = __commonJS({
+  "../../node_modules/ace-builds/src-noconflict/mode-typescript.js"(exports, module) {
+    init_define_process();
+    ace.define("ace/mode/doc_comment_highlight_rules", ["require", "exports", "module", "ace/lib/oop", "ace/mode/text_highlight_rules"], function(require2, exports2, module2) {
+      "use strict";
+      var oop = require2("../lib/oop");
+      var TextHighlightRules = require2("./text_highlight_rules").TextHighlightRules;
+      var DocCommentHighlightRules = function() {
+        this.$rules = {
+          "start": [
+            {
+              token: "comment.doc.tag",
+              regex: "@[\\w\\d_]+"
+            },
+            DocCommentHighlightRules.getTagRule(),
+            {
+              defaultToken: "comment.doc",
+              caseInsensitive: true
+            }
+          ]
+        };
+      };
+      oop.inherits(DocCommentHighlightRules, TextHighlightRules);
+      DocCommentHighlightRules.getTagRule = function(start) {
+        return {
+          token: "comment.doc.tag.storage.type",
+          regex: "\\b(?:TODO|FIXME|XXX|HACK)\\b"
+        };
+      };
+      DocCommentHighlightRules.getStartRule = function(start) {
+        return {
+          token: "comment.doc",
+          regex: "\\/\\*(?=\\*)",
+          next: start
+        };
+      };
+      DocCommentHighlightRules.getEndRule = function(start) {
+        return {
+          token: "comment.doc",
+          regex: "\\*\\/",
+          next: start
+        };
+      };
+      exports2.DocCommentHighlightRules = DocCommentHighlightRules;
+    });
+    ace.define("ace/mode/javascript_highlight_rules", ["require", "exports", "module", "ace/lib/oop", "ace/mode/doc_comment_highlight_rules", "ace/mode/text_highlight_rules"], function(require2, exports2, module2) {
+      "use strict";
+      var oop = require2("../lib/oop");
+      var DocCommentHighlightRules = require2("./doc_comment_highlight_rules").DocCommentHighlightRules;
+      var TextHighlightRules = require2("./text_highlight_rules").TextHighlightRules;
+      var identifierRe = "[a-zA-Z\\$_\xA1-\uFFFF][a-zA-Z\\d\\$_\xA1-\uFFFF]*";
+      var JavaScriptHighlightRules = function(options) {
+        var keywordMapper = this.createKeywordMapper({
+          "variable.language": "Array|Boolean|Date|Function|Iterator|Number|Object|RegExp|String|Proxy|Namespace|QName|XML|XMLList|ArrayBuffer|Float32Array|Float64Array|Int16Array|Int32Array|Int8Array|Uint16Array|Uint32Array|Uint8Array|Uint8ClampedArray|Error|EvalError|InternalError|RangeError|ReferenceError|StopIteration|SyntaxError|TypeError|URIError|decodeURI|decodeURIComponent|encodeURI|encodeURIComponent|eval|isFinite|isNaN|parseFloat|parseInt|JSON|Math|this|arguments|prototype|window|document",
+          "keyword": "const|yield|import|get|set|async|await|break|case|catch|continue|default|delete|do|else|finally|for|function|if|in|of|instanceof|new|return|switch|throw|try|typeof|let|var|while|with|debugger|__parent__|__count__|escape|unescape|with|__proto__|class|enum|extends|super|export|implements|private|public|interface|package|protected|static",
+          "storage.type": "const|let|var|function",
+          "constant.language": "null|Infinity|NaN|undefined",
+          "support.function": "alert",
+          "constant.language.boolean": "true|false"
+        }, "identifier");
+        var kwBeforeRe = "case|do|else|finally|in|instanceof|return|throw|try|typeof|yield|void";
+        var escapedRe = "\\\\(?:x[0-9a-fA-F]{2}|u[0-9a-fA-F]{4}|u{[0-9a-fA-F]{1,6}}|[0-2][0-7]{0,2}|3[0-7][0-7]?|[4-7][0-7]?|.)";
+        this.$rules = {
+          "no_regex": [
+            DocCommentHighlightRules.getStartRule("doc-start"),
+            comments("no_regex"),
+            {
+              token: "string",
+              regex: "'(?=.)",
+              next: "qstring"
+            },
+            {
+              token: "string",
+              regex: '"(?=.)',
+              next: "qqstring"
+            },
+            {
+              token: "constant.numeric",
+              regex: /0(?:[xX][0-9a-fA-F]+|[oO][0-7]+|[bB][01]+)\b/
+            },
+            {
+              token: "constant.numeric",
+              regex: /(?:\d\d*(?:\.\d*)?|\.\d+)(?:[eE][+-]?\d+\b)?/
+            },
+            {
+              token: [
+                "storage.type",
+                "punctuation.operator",
+                "support.function",
+                "punctuation.operator",
+                "entity.name.function",
+                "text",
+                "keyword.operator"
+              ],
+              regex: "(" + identifierRe + ")(\\.)(prototype)(\\.)(" + identifierRe + ")(\\s*)(=)",
+              next: "function_arguments"
+            },
+            {
+              token: [
+                "storage.type",
+                "punctuation.operator",
+                "entity.name.function",
+                "text",
+                "keyword.operator",
+                "text",
+                "storage.type",
+                "text",
+                "paren.lparen"
+              ],
+              regex: "(" + identifierRe + ")(\\.)(" + identifierRe + ")(\\s*)(=)(\\s*)(function)(\\s*)(\\()",
+              next: "function_arguments"
+            },
+            {
+              token: [
+                "entity.name.function",
+                "text",
+                "keyword.operator",
+                "text",
+                "storage.type",
+                "text",
+                "paren.lparen"
+              ],
+              regex: "(" + identifierRe + ")(\\s*)(=)(\\s*)(function)(\\s*)(\\()",
+              next: "function_arguments"
+            },
+            {
+              token: [
+                "storage.type",
+                "punctuation.operator",
+                "entity.name.function",
+                "text",
+                "keyword.operator",
+                "text",
+                "storage.type",
+                "text",
+                "entity.name.function",
+                "text",
+                "paren.lparen"
+              ],
+              regex: "(" + identifierRe + ")(\\.)(" + identifierRe + ")(\\s*)(=)(\\s*)(function)(\\s+)(\\w+)(\\s*)(\\()",
+              next: "function_arguments"
+            },
+            {
+              token: [
+                "storage.type",
+                "text",
+                "entity.name.function",
+                "text",
+                "paren.lparen"
+              ],
+              regex: "(function)(\\s+)(" + identifierRe + ")(\\s*)(\\()",
+              next: "function_arguments"
+            },
+            {
+              token: [
+                "entity.name.function",
+                "text",
+                "punctuation.operator",
+                "text",
+                "storage.type",
+                "text",
+                "paren.lparen"
+              ],
+              regex: "(" + identifierRe + ")(\\s*)(:)(\\s*)(function)(\\s*)(\\()",
+              next: "function_arguments"
+            },
+            {
+              token: [
+                "text",
+                "text",
+                "storage.type",
+                "text",
+                "paren.lparen"
+              ],
+              regex: "(:)(\\s*)(function)(\\s*)(\\()",
+              next: "function_arguments"
+            },
+            {
+              token: "keyword",
+              regex: `from(?=\\s*('|"))`
+            },
+            {
+              token: "keyword",
+              regex: "(?:" + kwBeforeRe + ")\\b",
+              next: "start"
+            },
+            {
+              token: ["support.constant"],
+              regex: /that\b/
+            },
+            {
+              token: ["storage.type", "punctuation.operator", "support.function.firebug"],
+              regex: /(console)(\.)(warn|info|log|error|time|trace|timeEnd|assert)\b/
+            },
+            {
+              token: keywordMapper,
+              regex: identifierRe
+            },
+            {
+              token: "punctuation.operator",
+              regex: /[.](?![.])/,
+              next: "property"
+            },
+            {
+              token: "storage.type",
+              regex: /=>/,
+              next: "start"
+            },
+            {
+              token: "keyword.operator",
+              regex: /--|\+\+|\.{3}|===|==|=|!=|!==|<+=?|>+=?|!|&&|\|\||\?:|[!$%&*+\-~\/^]=?/,
+              next: "start"
+            },
+            {
+              token: "punctuation.operator",
+              regex: /[?:,;.]/,
+              next: "start"
+            },
+            {
+              token: "paren.lparen",
+              regex: /[\[({]/,
+              next: "start"
+            },
+            {
+              token: "paren.rparen",
+              regex: /[\])}]/
+            },
+            {
+              token: "comment",
+              regex: /^#!.*$/
+            }
+          ],
+          property: [
+            {
+              token: "text",
+              regex: "\\s+"
+            },
+            {
+              token: [
+                "storage.type",
+                "punctuation.operator",
+                "entity.name.function",
+                "text",
+                "keyword.operator",
+                "text",
+                "storage.type",
+                "text",
+                "entity.name.function",
+                "text",
+                "paren.lparen"
+              ],
+              regex: "(" + identifierRe + ")(\\.)(" + identifierRe + ")(\\s*)(=)(\\s*)(function)(?:(\\s+)(\\w+))?(\\s*)(\\()",
+              next: "function_arguments"
+            },
+            {
+              token: "punctuation.operator",
+              regex: /[.](?![.])/
+            },
+            {
+              token: "support.function",
+              regex: /(s(?:h(?:ift|ow(?:Mod(?:elessDialog|alDialog)|Help))|croll(?:X|By(?:Pages|Lines)?|Y|To)?|t(?:op|rike)|i(?:n|zeToContent|debar|gnText)|ort|u(?:p|b(?:str(?:ing)?)?)|pli(?:ce|t)|e(?:nd|t(?:Re(?:sizable|questHeader)|M(?:i(?:nutes|lliseconds)|onth)|Seconds|Ho(?:tKeys|urs)|Year|Cursor|Time(?:out)?|Interval|ZOptions|Date|UTC(?:M(?:i(?:nutes|lliseconds)|onth)|Seconds|Hours|Date|FullYear)|FullYear|Active)|arch)|qrt|lice|avePreferences|mall)|h(?:ome|andleEvent)|navigate|c(?:har(?:CodeAt|At)|o(?:s|n(?:cat|textual|firm)|mpile)|eil|lear(?:Timeout|Interval)?|a(?:ptureEvents|ll)|reate(?:StyleSheet|Popup|EventObject))|t(?:o(?:GMTString|S(?:tring|ource)|U(?:TCString|pperCase)|Lo(?:caleString|werCase))|est|a(?:n|int(?:Enabled)?))|i(?:s(?:NaN|Finite)|ndexOf|talics)|d(?:isableExternalCapture|ump|etachEvent)|u(?:n(?:shift|taint|escape|watch)|pdateCommands)|j(?:oin|avaEnabled)|p(?:o(?:p|w)|ush|lugins.refresh|a(?:ddings|rse(?:Int|Float)?)|r(?:int|ompt|eference))|e(?:scape|nableExternalCapture|val|lementFromPoint|x(?:p|ec(?:Script|Command)?))|valueOf|UTC|queryCommand(?:State|Indeterm|Enabled|Value)|f(?:i(?:nd|le(?:ModifiedDate|Size|CreatedDate|UpdatedDate)|xed)|o(?:nt(?:size|color)|rward)|loor|romCharCode)|watch|l(?:ink|o(?:ad|g)|astIndexOf)|a(?:sin|nchor|cos|t(?:tachEvent|ob|an(?:2)?)|pply|lert|b(?:s|ort))|r(?:ou(?:nd|teEvents)|e(?:size(?:By|To)|calc|turnValue|place|verse|l(?:oad|ease(?:Capture|Events)))|andom)|g(?:o|et(?:ResponseHeader|M(?:i(?:nutes|lliseconds)|onth)|Se(?:conds|lection)|Hours|Year|Time(?:zoneOffset)?|Da(?:y|te)|UTC(?:M(?:i(?:nutes|lliseconds)|onth)|Seconds|Hours|Da(?:y|te)|FullYear)|FullYear|A(?:ttention|llResponseHeaders)))|m(?:in|ove(?:B(?:y|elow)|To(?:Absolute)?|Above)|ergeAttributes|a(?:tch|rgins|x))|b(?:toa|ig|o(?:ld|rderWidths)|link|ack))\b(?=\()/
+            },
+            {
+              token: "support.function.dom",
+              regex: /(s(?:ub(?:stringData|mit)|plitText|e(?:t(?:NamedItem|Attribute(?:Node)?)|lect))|has(?:ChildNodes|Feature)|namedItem|c(?:l(?:ick|o(?:se|neNode))|reate(?:C(?:omment|DATASection|aption)|T(?:Head|extNode|Foot)|DocumentFragment|ProcessingInstruction|E(?:ntityReference|lement)|Attribute))|tabIndex|i(?:nsert(?:Row|Before|Cell|Data)|tem)|open|delete(?:Row|C(?:ell|aption)|T(?:Head|Foot)|Data)|focus|write(?:ln)?|a(?:dd|ppend(?:Child|Data))|re(?:set|place(?:Child|Data)|move(?:NamedItem|Child|Attribute(?:Node)?)?)|get(?:NamedItem|Element(?:sBy(?:Name|TagName|ClassName)|ById)|Attribute(?:Node)?)|blur)\b(?=\()/
+            },
+            {
+              token: "support.constant",
+              regex: /(s(?:ystemLanguage|cr(?:ipts|ollbars|een(?:X|Y|Top|Left))|t(?:yle(?:Sheets)?|atus(?:Text|bar)?)|ibling(?:Below|Above)|ource|uffixes|e(?:curity(?:Policy)?|l(?:ection|f)))|h(?:istory|ost(?:name)?|as(?:h|Focus))|y|X(?:MLDocument|SLDocument)|n(?:ext|ame(?:space(?:s|URI)|Prop))|M(?:IN_VALUE|AX_VALUE)|c(?:haracterSet|o(?:n(?:structor|trollers)|okieEnabled|lorDepth|mp(?:onents|lete))|urrent|puClass|l(?:i(?:p(?:boardData)?|entInformation)|osed|asses)|alle(?:e|r)|rypto)|t(?:o(?:olbar|p)|ext(?:Transform|Indent|Decoration|Align)|ags)|SQRT(?:1_2|2)|i(?:n(?:ner(?:Height|Width)|put)|ds|gnoreCase)|zIndex|o(?:scpu|n(?:readystatechange|Line)|uter(?:Height|Width)|p(?:sProfile|ener)|ffscreenBuffering)|NEGATIVE_INFINITY|d(?:i(?:splay|alog(?:Height|Top|Width|Left|Arguments)|rectories)|e(?:scription|fault(?:Status|Ch(?:ecked|arset)|View)))|u(?:ser(?:Profile|Language|Agent)|n(?:iqueID|defined)|pdateInterval)|_content|p(?:ixelDepth|ort|ersonalbar|kcs11|l(?:ugins|atform)|a(?:thname|dding(?:Right|Bottom|Top|Left)|rent(?:Window|Layer)?|ge(?:X(?:Offset)?|Y(?:Offset)?))|r(?:o(?:to(?:col|type)|duct(?:Sub)?|mpter)|e(?:vious|fix)))|e(?:n(?:coding|abledPlugin)|x(?:ternal|pando)|mbeds)|v(?:isibility|endor(?:Sub)?|Linkcolor)|URLUnencoded|P(?:I|OSITIVE_INFINITY)|f(?:ilename|o(?:nt(?:Size|Family|Weight)|rmName)|rame(?:s|Element)|gColor)|E|whiteSpace|l(?:i(?:stStyleType|n(?:eHeight|kColor))|o(?:ca(?:tion(?:bar)?|lName)|wsrc)|e(?:ngth|ft(?:Context)?)|a(?:st(?:M(?:odified|atch)|Index|Paren)|yer(?:s|X)|nguage))|a(?:pp(?:MinorVersion|Name|Co(?:deName|re)|Version)|vail(?:Height|Top|Width|Left)|ll|r(?:ity|guments)|Linkcolor|bove)|r(?:ight(?:Context)?|e(?:sponse(?:XML|Text)|adyState))|global|x|m(?:imeTypes|ultiline|enubar|argin(?:Right|Bottom|Top|Left))|L(?:N(?:10|2)|OG(?:10E|2E))|b(?:o(?:ttom|rder(?:Width|RightWidth|BottomWidth|Style|Color|TopWidth|LeftWidth))|ufferDepth|elow|ackground(?:Color|Image)))\b/
+            },
+            {
+              token: "identifier",
+              regex: identifierRe
+            },
+            {
+              regex: "",
+              token: "empty",
+              next: "no_regex"
+            }
+          ],
+          "start": [
+            DocCommentHighlightRules.getStartRule("doc-start"),
+            comments("start"),
+            {
+              token: "string.regexp",
+              regex: "\\/",
+              next: "regex"
+            },
+            {
+              token: "text",
+              regex: "\\s+|^$",
+              next: "start"
+            },
+            {
+              token: "empty",
+              regex: "",
+              next: "no_regex"
+            }
+          ],
+          "regex": [
+            {
+              token: "regexp.keyword.operator",
+              regex: "\\\\(?:u[\\da-fA-F]{4}|x[\\da-fA-F]{2}|.)"
+            },
+            {
+              token: "string.regexp",
+              regex: "/[sxngimy]*",
+              next: "no_regex"
+            },
+            {
+              token: "invalid",
+              regex: /\{\d+\b,?\d*\}[+*]|[+*$^?][+*]|[$^][?]|\?{3,}/
+            },
+            {
+              token: "constant.language.escape",
+              regex: /\(\?[:=!]|\)|\{\d+\b,?\d*\}|[+*]\?|[()$^+*?.]/
+            },
+            {
+              token: "constant.language.delimiter",
+              regex: /\|/
+            },
+            {
+              token: "constant.language.escape",
+              regex: /\[\^?/,
+              next: "regex_character_class"
+            },
+            {
+              token: "empty",
+              regex: "$",
+              next: "no_regex"
+            },
+            {
+              defaultToken: "string.regexp"
+            }
+          ],
+          "regex_character_class": [
+            {
+              token: "regexp.charclass.keyword.operator",
+              regex: "\\\\(?:u[\\da-fA-F]{4}|x[\\da-fA-F]{2}|.)"
+            },
+            {
+              token: "constant.language.escape",
+              regex: "]",
+              next: "regex"
+            },
+            {
+              token: "constant.language.escape",
+              regex: "-"
+            },
+            {
+              token: "empty",
+              regex: "$",
+              next: "no_regex"
+            },
+            {
+              defaultToken: "string.regexp.charachterclass"
+            }
+          ],
+          "function_arguments": [
+            {
+              token: "variable.parameter",
+              regex: identifierRe
+            },
+            {
+              token: "punctuation.operator",
+              regex: "[, ]+"
+            },
+            {
+              token: "punctuation.operator",
+              regex: "$"
+            },
+            {
+              token: "empty",
+              regex: "",
+              next: "no_regex"
+            }
+          ],
+          "qqstring": [
+            {
+              token: "constant.language.escape",
+              regex: escapedRe
+            },
+            {
+              token: "string",
+              regex: "\\\\$",
+              consumeLineEnd: true
+            },
+            {
+              token: "string",
+              regex: '"|$',
+              next: "no_regex"
+            },
+            {
+              defaultToken: "string"
+            }
+          ],
+          "qstring": [
+            {
+              token: "constant.language.escape",
+              regex: escapedRe
+            },
+            {
+              token: "string",
+              regex: "\\\\$",
+              consumeLineEnd: true
+            },
+            {
+              token: "string",
+              regex: "'|$",
+              next: "no_regex"
+            },
+            {
+              defaultToken: "string"
+            }
+          ]
+        };
+        if (!options || !options.noES6) {
+          this.$rules.no_regex.unshift({
+            regex: "[{}]",
+            onMatch: function(val, state, stack) {
+              this.next = val == "{" ? this.nextState : "";
+              if (val == "{" && stack.length) {
+                stack.unshift("start", state);
+              } else if (val == "}" && stack.length) {
+                stack.shift();
+                this.next = stack.shift();
+                if (this.next.indexOf("string") != -1 || this.next.indexOf("jsx") != -1)
+                  return "paren.quasi.end";
+              }
+              return val == "{" ? "paren.lparen" : "paren.rparen";
+            },
+            nextState: "start"
+          }, {
+            token: "string.quasi.start",
+            regex: /`/,
+            push: [{
+              token: "constant.language.escape",
+              regex: escapedRe
+            }, {
+              token: "paren.quasi.start",
+              regex: /\${/,
+              push: "start"
+            }, {
+              token: "string.quasi.end",
+              regex: /`/,
+              next: "pop"
+            }, {
+              defaultToken: "string.quasi"
+            }]
+          });
+          if (!options || options.jsx != false)
+            JSX.call(this);
+        }
+        this.embedRules(DocCommentHighlightRules, "doc-", [DocCommentHighlightRules.getEndRule("no_regex")]);
+        this.normalizeRules();
+      };
+      oop.inherits(JavaScriptHighlightRules, TextHighlightRules);
+      function JSX() {
+        var tagRegex = identifierRe.replace("\\d", "\\d\\-");
+        var jsxTag = {
+          onMatch: function(val, state, stack) {
+            var offset = val.charAt(1) == "/" ? 2 : 1;
+            if (offset == 1) {
+              if (state != this.nextState)
+                stack.unshift(this.next, this.nextState, 0);
+              else
+                stack.unshift(this.next);
+              stack[2]++;
+            } else if (offset == 2) {
+              if (state == this.nextState) {
+                stack[1]--;
+                if (!stack[1] || stack[1] < 0) {
+                  stack.shift();
+                  stack.shift();
+                }
+              }
+            }
+            return [{
+              type: "meta.tag.punctuation." + (offset == 1 ? "" : "end-") + "tag-open.xml",
+              value: val.slice(0, offset)
+            }, {
+              type: "meta.tag.tag-name.xml",
+              value: val.substr(offset)
+            }];
+          },
+          regex: "</?" + tagRegex,
+          next: "jsxAttributes",
+          nextState: "jsx"
+        };
+        this.$rules.start.unshift(jsxTag);
+        var jsxJsRule = {
+          regex: "{",
+          token: "paren.quasi.start",
+          push: "start"
+        };
+        this.$rules.jsx = [
+          jsxJsRule,
+          jsxTag,
+          { include: "reference" },
+          { defaultToken: "string" }
+        ];
+        this.$rules.jsxAttributes = [
+          {
+            token: "meta.tag.punctuation.tag-close.xml",
+            regex: "/?>",
+            onMatch: function(value, currentState, stack) {
+              if (currentState == stack[0])
+                stack.shift();
+              if (value.length == 2) {
+                if (stack[0] == this.nextState)
+                  stack[1]--;
+                if (!stack[1] || stack[1] < 0) {
+                  stack.splice(0, 2);
+                }
+              }
+              this.next = stack[0] || "start";
+              return [{ type: this.token, value }];
+            },
+            nextState: "jsx"
+          },
+          jsxJsRule,
+          comments("jsxAttributes"),
+          {
+            token: "entity.other.attribute-name.xml",
+            regex: tagRegex
+          },
+          {
+            token: "keyword.operator.attribute-equals.xml",
+            regex: "="
+          },
+          {
+            token: "text.tag-whitespace.xml",
+            regex: "\\s+"
+          },
+          {
+            token: "string.attribute-value.xml",
+            regex: "'",
+            stateName: "jsx_attr_q",
+            push: [
+              { token: "string.attribute-value.xml", regex: "'", next: "pop" },
+              { include: "reference" },
+              { defaultToken: "string.attribute-value.xml" }
+            ]
+          },
+          {
+            token: "string.attribute-value.xml",
+            regex: '"',
+            stateName: "jsx_attr_qq",
+            push: [
+              { token: "string.attribute-value.xml", regex: '"', next: "pop" },
+              { include: "reference" },
+              { defaultToken: "string.attribute-value.xml" }
+            ]
+          },
+          jsxTag
+        ];
+        this.$rules.reference = [{
+          token: "constant.language.escape.reference.xml",
+          regex: "(?:&#[0-9]+;)|(?:&#x[0-9a-fA-F]+;)|(?:&[a-zA-Z0-9_:\\.-]+;)"
+        }];
+      }
+      function comments(next) {
+        return [
+          {
+            token: "comment",
+            regex: /\/\*/,
+            next: [
+              DocCommentHighlightRules.getTagRule(),
+              { token: "comment", regex: "\\*\\/", next: next || "pop" },
+              { defaultToken: "comment", caseInsensitive: true }
+            ]
+          },
+          {
+            token: "comment",
+            regex: "\\/\\/",
+            next: [
+              DocCommentHighlightRules.getTagRule(),
+              { token: "comment", regex: "$|^", next: next || "pop" },
+              { defaultToken: "comment", caseInsensitive: true }
+            ]
+          }
+        ];
+      }
+      exports2.JavaScriptHighlightRules = JavaScriptHighlightRules;
+    });
+    ace.define("ace/mode/matching_brace_outdent", ["require", "exports", "module", "ace/range"], function(require2, exports2, module2) {
+      "use strict";
+      var Range = require2("../range").Range;
+      var MatchingBraceOutdent = function() {
+      };
+      (function() {
+        this.checkOutdent = function(line, input) {
+          if (!/^\s+$/.test(line))
+            return false;
+          return /^\s*\}/.test(input);
+        };
+        this.autoOutdent = function(doc, row) {
+          var line = doc.getLine(row);
+          var match = line.match(/^(\s*\})/);
+          if (!match)
+            return 0;
+          var column = match[1].length;
+          var openBracePos = doc.findMatchingBracket({ row, column });
+          if (!openBracePos || openBracePos.row == row)
+            return 0;
+          var indent = this.$getIndent(doc.getLine(openBracePos.row));
+          doc.replace(new Range(row, 0, row, column - 1), indent);
+        };
+        this.$getIndent = function(line) {
+          return line.match(/^\s*/)[0];
+        };
+      }).call(MatchingBraceOutdent.prototype);
+      exports2.MatchingBraceOutdent = MatchingBraceOutdent;
+    });
+    ace.define("ace/mode/folding/cstyle", ["require", "exports", "module", "ace/lib/oop", "ace/range", "ace/mode/folding/fold_mode"], function(require2, exports2, module2) {
+      "use strict";
+      var oop = require2("../../lib/oop");
+      var Range = require2("../../range").Range;
+      var BaseFoldMode = require2("./fold_mode").FoldMode;
+      var FoldMode = exports2.FoldMode = function(commentRegex) {
+        if (commentRegex) {
+          this.foldingStartMarker = new RegExp(this.foldingStartMarker.source.replace(/\|[^|]*?$/, "|" + commentRegex.start));
+          this.foldingStopMarker = new RegExp(this.foldingStopMarker.source.replace(/\|[^|]*?$/, "|" + commentRegex.end));
+        }
+      };
+      oop.inherits(FoldMode, BaseFoldMode);
+      (function() {
+        this.foldingStartMarker = /([\{\[\(])[^\}\]\)]*$|^\s*(\/\*)/;
+        this.foldingStopMarker = /^[^\[\{\(]*([\}\]\)])|^[\s\*]*(\*\/)/;
+        this.singleLineBlockCommentRe = /^\s*(\/\*).*\*\/\s*$/;
+        this.tripleStarBlockCommentRe = /^\s*(\/\*\*\*).*\*\/\s*$/;
+        this.startRegionRe = /^\s*(\/\*|\/\/)#?region\b/;
+        this._getFoldWidgetBase = this.getFoldWidget;
+        this.getFoldWidget = function(session, foldStyle, row) {
+          var line = session.getLine(row);
+          if (this.singleLineBlockCommentRe.test(line)) {
+            if (!this.startRegionRe.test(line) && !this.tripleStarBlockCommentRe.test(line))
+              return "";
+          }
+          var fw = this._getFoldWidgetBase(session, foldStyle, row);
+          if (!fw && this.startRegionRe.test(line))
+            return "start";
+          return fw;
+        };
+        this.getFoldWidgetRange = function(session, foldStyle, row, forceMultiline) {
+          var line = session.getLine(row);
+          if (this.startRegionRe.test(line))
+            return this.getCommentRegionBlock(session, line, row);
+          var match = line.match(this.foldingStartMarker);
+          if (match) {
+            var i = match.index;
+            if (match[1])
+              return this.openingBracketBlock(session, match[1], row, i);
+            var range = session.getCommentFoldRange(row, i + match[0].length, 1);
+            if (range && !range.isMultiLine()) {
+              if (forceMultiline) {
+                range = this.getSectionRange(session, row);
+              } else if (foldStyle != "all")
+                range = null;
+            }
+            return range;
+          }
+          if (foldStyle === "markbegin")
+            return;
+          var match = line.match(this.foldingStopMarker);
+          if (match) {
+            var i = match.index + match[0].length;
+            if (match[1])
+              return this.closingBracketBlock(session, match[1], row, i);
+            return session.getCommentFoldRange(row, i, -1);
+          }
+        };
+        this.getSectionRange = function(session, row) {
+          var line = session.getLine(row);
+          var startIndent = line.search(/\S/);
+          var startRow = row;
+          var startColumn = line.length;
+          row = row + 1;
+          var endRow = row;
+          var maxRow = session.getLength();
+          while (++row < maxRow) {
+            line = session.getLine(row);
+            var indent = line.search(/\S/);
+            if (indent === -1)
+              continue;
+            if (startIndent > indent)
+              break;
+            var subRange = this.getFoldWidgetRange(session, "all", row);
+            if (subRange) {
+              if (subRange.start.row <= startRow) {
+                break;
+              } else if (subRange.isMultiLine()) {
+                row = subRange.end.row;
+              } else if (startIndent == indent) {
+                break;
+              }
+            }
+            endRow = row;
+          }
+          return new Range(startRow, startColumn, endRow, session.getLine(endRow).length);
+        };
+        this.getCommentRegionBlock = function(session, line, row) {
+          var startColumn = line.search(/\s*$/);
+          var maxRow = session.getLength();
+          var startRow = row;
+          var re = /^\s*(?:\/\*|\/\/|--)#?(end)?region\b/;
+          var depth = 1;
+          while (++row < maxRow) {
+            line = session.getLine(row);
+            var m = re.exec(line);
+            if (!m)
+              continue;
+            if (m[1])
+              depth--;
+            else
+              depth++;
+            if (!depth)
+              break;
+          }
+          var endRow = row;
+          if (endRow > startRow) {
+            return new Range(startRow, startColumn, endRow, line.length);
+          }
+        };
+      }).call(FoldMode.prototype);
+    });
+    ace.define("ace/mode/javascript", ["require", "exports", "module", "ace/lib/oop", "ace/mode/text", "ace/mode/javascript_highlight_rules", "ace/mode/matching_brace_outdent", "ace/worker/worker_client", "ace/mode/behaviour/cstyle", "ace/mode/folding/cstyle"], function(require2, exports2, module2) {
+      "use strict";
+      var oop = require2("../lib/oop");
+      var TextMode = require2("./text").Mode;
+      var JavaScriptHighlightRules = require2("./javascript_highlight_rules").JavaScriptHighlightRules;
+      var MatchingBraceOutdent = require2("./matching_brace_outdent").MatchingBraceOutdent;
+      var WorkerClient = require2("../worker/worker_client").WorkerClient;
+      var CstyleBehaviour = require2("./behaviour/cstyle").CstyleBehaviour;
+      var CStyleFoldMode = require2("./folding/cstyle").FoldMode;
+      var Mode = function() {
+        this.HighlightRules = JavaScriptHighlightRules;
+        this.$outdent = new MatchingBraceOutdent();
+        this.$behaviour = new CstyleBehaviour();
+        this.foldingRules = new CStyleFoldMode();
+      };
+      oop.inherits(Mode, TextMode);
+      (function() {
+        this.lineCommentStart = "//";
+        this.blockComment = { start: "/*", end: "*/" };
+        this.$quotes = { '"': '"', "'": "'", "`": "`" };
+        this.getNextLineIndent = function(state, line, tab) {
+          var indent = this.$getIndent(line);
+          var tokenizedLine = this.getTokenizer().getLineTokens(line, state);
+          var tokens = tokenizedLine.tokens;
+          var endState = tokenizedLine.state;
+          if (tokens.length && tokens[tokens.length - 1].type == "comment") {
+            return indent;
+          }
+          if (state == "start" || state == "no_regex") {
+            var match = line.match(/^.*(?:\bcase\b.*:|[\{\(\[])\s*$/);
+            if (match) {
+              indent += tab;
+            }
+          } else if (state == "doc-start") {
+            if (endState == "start" || endState == "no_regex") {
+              return "";
+            }
+            var match = line.match(/^\s*(\/?)\*/);
+            if (match) {
+              if (match[1]) {
+                indent += " ";
+              }
+              indent += "* ";
+            }
+          }
+          return indent;
+        };
+        this.checkOutdent = function(state, line, input) {
+          return this.$outdent.checkOutdent(line, input);
+        };
+        this.autoOutdent = function(state, doc, row) {
+          this.$outdent.autoOutdent(doc, row);
+        };
+        this.createWorker = function(session) {
+          var worker = new WorkerClient(["ace"], "ace/mode/javascript_worker", "JavaScriptWorker");
+          worker.attachToDocument(session.getDocument());
+          worker.on("annotate", function(results) {
+            session.setAnnotations(results.data);
+          });
+          worker.on("terminate", function() {
+            session.clearAnnotations();
+          });
+          return worker;
+        };
+        this.$id = "ace/mode/javascript";
+        this.snippetFileId = "ace/snippets/javascript";
+      }).call(Mode.prototype);
+      exports2.Mode = Mode;
+    });
+    ace.define("ace/mode/typescript_highlight_rules", ["require", "exports", "module", "ace/lib/oop", "ace/mode/javascript_highlight_rules"], function(require2, exports2, module2) {
+      "use strict";
+      var oop = require2("../lib/oop");
+      var JavaScriptHighlightRules = require2("./javascript_highlight_rules").JavaScriptHighlightRules;
+      var TypeScriptHighlightRules = function(options) {
+        var tsRules = [
+          {
+            token: ["storage.type", "text", "entity.name.function.ts"],
+            regex: "(function)(\\s+)([a-zA-Z0-9$_\xA1-\uFFFF][a-zA-Z0-9d$_\xA1-\uFFFF]*)"
+          },
+          {
+            token: "keyword",
+            regex: "(?:\\b(constructor|declare|interface|as|AS|public|private|extends|export|super|readonly|module|namespace|abstract|implements)\\b)"
+          },
+          {
+            token: ["keyword", "storage.type.variable.ts"],
+            regex: "(class|type)(\\s+[a-zA-Z0-9_?.$][\\w?.$]*)"
+          },
+          {
+            token: "keyword",
+            regex: "\\b(?:super|export|import|keyof|infer)\\b"
+          },
+          {
+            token: ["storage.type.variable.ts"],
+            regex: "(?:\\b(this\\.|string\\b|bool\\b|boolean\\b|number\\b|true\\b|false\\b|undefined\\b|any\\b|null\\b|(?:unique )?symbol\\b|object\\b|never\\b|enum\\b))"
+          }
+        ];
+        var JSRules = new JavaScriptHighlightRules({ jsx: (options && options.jsx) == true }).getRules();
+        JSRules.no_regex = tsRules.concat(JSRules.no_regex);
+        this.$rules = JSRules;
+      };
+      oop.inherits(TypeScriptHighlightRules, JavaScriptHighlightRules);
+      exports2.TypeScriptHighlightRules = TypeScriptHighlightRules;
+    });
+    ace.define("ace/mode/typescript", ["require", "exports", "module", "ace/lib/oop", "ace/mode/javascript", "ace/mode/typescript_highlight_rules", "ace/mode/behaviour/cstyle", "ace/mode/folding/cstyle", "ace/mode/matching_brace_outdent"], function(require2, exports2, module2) {
+      "use strict";
+      var oop = require2("../lib/oop");
+      var jsMode = require2("./javascript").Mode;
+      var TypeScriptHighlightRules = require2("./typescript_highlight_rules").TypeScriptHighlightRules;
+      var CstyleBehaviour = require2("./behaviour/cstyle").CstyleBehaviour;
+      var CStyleFoldMode = require2("./folding/cstyle").FoldMode;
+      var MatchingBraceOutdent = require2("./matching_brace_outdent").MatchingBraceOutdent;
+      var Mode = function() {
+        this.HighlightRules = TypeScriptHighlightRules;
+        this.$outdent = new MatchingBraceOutdent();
+        this.$behaviour = new CstyleBehaviour();
+        this.foldingRules = new CStyleFoldMode();
+      };
+      oop.inherits(Mode, jsMode);
+      (function() {
+        this.createWorker = function(session) {
+          return null;
+        };
+        this.$id = "ace/mode/typescript";
+      }).call(Mode.prototype);
+      exports2.Mode = Mode;
+    });
+    (function() {
+      ace.require(["ace/mode/typescript"], function(m) {
+        if (typeof module == "object" && typeof exports == "object" && module) {
+          module.exports = m;
+        }
+      });
+    })();
+  }
+});
+
+// js/startAce.ts
+init_define_process();
+var import_ace_builds = __toESM(require_ace(), 1);
+var import_theme_monokai = __toESM(require_theme_monokai(), 1);
+var import_mode_typescript = __toESM(require_mode_typescript(), 1);
+async function startAce(code) {
+  const editor = (0, import_ace_builds.edit)("editor");
+  editor.setTheme("ace/theme/monokai");
+  editor.session.setMode("ace/mode/typescript", () => ({ jsx: true }));
+  const mode = editor.session.getMode();
+  const js = (0, import_ace_builds.createEditSession)(code, mode);
+  editor.setSession(js);
+  return editor;
+}
+export {
+  startAce
+};
