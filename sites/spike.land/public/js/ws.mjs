@@ -22530,6 +22530,7 @@ var OutPortal = function(_super) {
     var node = this.props.node;
     if (this.currentPortalNode && node !== this.currentPortalNode) {
       this.currentPortalNode.unmount(this.placeholderNode.current);
+      this.currentPortalNode.setPortalProps({});
       this.currentPortalNode = node;
     }
     var placeholder = this.placeholderNode.current;
@@ -22540,6 +22541,7 @@ var OutPortal = function(_super) {
   OutPortal2.prototype.componentWillUnmount = function() {
     var node = this.props.node;
     node.unmount(this.placeholderNode.current);
+    node.setPortalProps({});
   };
   OutPortal2.prototype.render = function() {
     return React83.createElement("div", { ref: this.placeholderNode });
