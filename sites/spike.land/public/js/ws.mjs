@@ -22713,7 +22713,7 @@ var Editor = ({ code, i: i2, codeSpace: codeSpace2 }) => {
       }));
     };
     const setAce = async () => {
-      const { startAce } = await import("../startAce-EXVN4W2Z.mjs");
+      const { startAce } = await import("../startAce-J2WILAHA.mjs");
       const editor = await startAce(mST().code);
       changeContent((x) => ({
         ...x,

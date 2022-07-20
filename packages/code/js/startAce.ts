@@ -1,8 +1,8 @@
-import {edit, createEditSession} from "ace-builds"
+import {edit, createEditSession} from "ace-builds/src-min-noconflict/ace"
 
-import "ace-builds/src-noconflict/theme-monokai";
+import "ace-builds/src-min-noconflict/theme-monokai";
 
-import "ace-builds/src-noconflict/mode-typescript";
+import "ace-builds/src-min-noconflict/mode-typescript";
 
 export async function startAce(code: string) {
   // const {ace} = window;
