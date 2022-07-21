@@ -17,6 +17,7 @@ const runnerDebounced = debounce(runner, 100, {
 
 const mod = {
   CH: () => {},
+  code: ""
 };
 
 // export type IStandaloneCodeEditor = editor.Ist;
@@ -44,6 +45,7 @@ export const Editor: FC<{ code: string; i: number; codeSpace: string }> = (
   });
 
   mod.CH = () => changeContent;
+  
 
   const {
     counter,
@@ -55,6 +57,8 @@ export const Editor: FC<{ code: string; i: number; codeSpace: string }> = (
     setValue,
     onChange,
   } = mySession;
+
+  mod.code = myCode;
 
   const lines = code?.split("\n").length || 0;
 
@@ -140,8 +144,7 @@ export const Editor: FC<{ code: string; i: number; codeSpace: string }> = (
       const code = getValue();
       const newCode = prettierJs(code);
 
-      if (code === myCode) return;
-      if (newCode === myCode) return;
+      if (newCode === mod.code) return;
       if (newCode === mST().code) return;
       // if (i === mST().i) return;
 
