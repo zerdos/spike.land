@@ -22652,7 +22652,8 @@ var runnerDebounced = (0, import_lodash.default)(runner, 100, {
 });
 var mod = {
   CH: () => {
-  }
+  },
+  code: ""
 };
 var Editor = ({ code, i: i2, codeSpace: codeSpace2 }) => {
   const ref = useRef29(null);
@@ -22682,6 +22683,7 @@ var Editor = ({ code, i: i2, codeSpace: codeSpace2 }) => {
     setValue,
     onChange
   } = mySession;
+  mod.code = myCode;
   const lines = (code == null ? void 0 : code.split("\n").length) || 0;
   useEffect29(() => {
     if (!(ref == null ? void 0 : ref.current))
@@ -22742,9 +22744,7 @@ var Editor = ({ code, i: i2, codeSpace: codeSpace2 }) => {
     const cb = async () => {
       const code2 = getValue3();
       const newCode = prettierJs(code2);
-      if (code2 === myCode)
-        return;
-      if (newCode === myCode)
+      if (newCode === mod.code)
         return;
       if (newCode === mST().code)
         return;
