@@ -3,7 +3,7 @@ import {
   domAnimation,
   domMax,
   m
-} from "../chunk-2IKSDUHF.mjs";
+} from "../chunk-S55TLUGI.mjs";
 import {
   CacheProvider,
   Global,
@@ -19,16 +19,16 @@ import {
   registerStyles,
   serializeStyles,
   withEmotionCache
-} from "../chunk-WFFIWF7G.mjs";
-import "../chunk-K5MVM6CZ.mjs";
+} from "../chunk-P2RQOFJ7.mjs";
+import "../chunk-UNXTUMY6.mjs";
 import {
   wait
-} from "../chunk-M3LHSW6L.mjs";
+} from "../chunk-UP4C4HKU.mjs";
 import {
   __commonJS,
   __toESM,
   init_define_process
-} from "../chunk-LVJWQ4UB.mjs";
+} from "../chunk-5BXN6RND.mjs";
 
 // ../../node_modules/fast-diff/diff.js
 var require_diff = __commonJS({
@@ -6129,7 +6129,77 @@ function initSession(room, u) {
 var session = null;
 var hashStore = {};
 var CodeSession = class {
-  session;
+  constructor(room, user2) {
+    this.cb = {};
+    this.hashCodeSession = 0;
+    this.created = new Date().toISOString();
+    this.hashOfState = () => {
+      const state = this.session.get("state");
+      const hashCode4 = state.hashCode();
+      hashStore[hashCode4] = state;
+      return hashCode4;
+    };
+    this.createPatchFromHashCode = async (oldHash, state) => {
+      const s = JSON.parse(str(state));
+      if (!hashStore[oldHash]) {
+        const resp = await fetch(`/live/${this.room}
+        `);
+        const { mST: mST2, hashCode: hashCode4 } = await resp.json();
+        hashStore[hashCode4] = this.session.get("state").merge(mST2);
+      }
+      const oldRec = hashStore[oldHash];
+      const oldStr = str(oldRec.toJSON());
+      const newRec = oldRec.merge(s);
+      const newStr = str(newRec.toJSON());
+      const newHash = newRec.hashCode();
+      hashStore[newHash] = newRec;
+      const patch = createPatch(oldStr, newStr);
+      return {
+        oldHash,
+        newHash,
+        patch
+      };
+    };
+    this.applyPatch = async ({
+      oldHash,
+      newHash,
+      patch
+    }) => {
+      const codeSpace2 = this.room || "";
+      if (!Object.keys(hashStore).map((x) => Number(x)).includes(Number(oldHash)) && codeSpace2) {
+        console.log(Object.keys(hashStore));
+        const resp = await fetch(`/live/${codeSpace2}/mST`);
+        if (resp.ok) {
+          const s = await resp.json();
+          const serverRecord = this.session.get("state").merge(JSON.parse(str(s.mST)));
+          hashStore[serverRecord.hashCode()] = serverRecord;
+        } else {
+          const { mST: mST2 } = await import(location.origin + `/live/${this.room}/mst.mjs?${Date.now()}`);
+          const latestRec = this.session.get("state").merge(JSON.parse(str(mST2)));
+          hashStore[latestRec.hashCode()] = latestRec;
+        }
+      }
+      const oldStr = str(hashStore[oldHash].toJSON());
+      const applied = applyPatch(oldStr, patch);
+      const newState = JSON.parse(applied);
+      const newRec = this.session.get("state").merge(newState);
+      const newRecord = this.session.get("state").merge(newRec);
+      const newHashCheck = newRecord.hashCode();
+      if (newHashCheck === newHash) {
+        this.session = this.session.set("state", newRecord);
+      } else {
+        new Error("Wrong patch");
+        return;
+      }
+    };
+    session = this;
+    this.room = room;
+    const savedState = null;
+    this.session = initSession(room, {
+      ...user2,
+      state: savedState ? savedState : JSON.parse(str(user2.state))
+    })();
+  }
   update() {
     Object.keys(this.cb).map((k) => this.cb[k]).map((x) => {
       try {
@@ -6139,81 +6209,9 @@ var CodeSession = class {
       }
     });
   }
-  cb = {};
   onUpdate(fn2, regId) {
     this.cb[regId] = fn2;
   }
-  hashCodeSession = 0;
-  room;
-  created = new Date().toISOString();
-  constructor(room, user2) {
-    session = this;
-    this.room = room;
-    const savedState = null;
-    this.session = initSession(room, {
-      ...user2,
-      state: savedState ? savedState : JSON.parse(str(user2.state))
-    })();
-  }
-  hashOfState = () => {
-    const state = this.session.get("state");
-    const hashCode4 = state.hashCode();
-    hashStore[hashCode4] = state;
-    return hashCode4;
-  };
-  createPatchFromHashCode = async (oldHash, state) => {
-    const s = JSON.parse(str(state));
-    if (!hashStore[oldHash]) {
-      const resp = await fetch(`/live/${this.room}
-        `);
-      const { mST: mST2, hashCode: hashCode4 } = await resp.json();
-      hashStore[hashCode4] = this.session.get("state").merge(mST2);
-    }
-    const oldRec = hashStore[oldHash];
-    const oldStr = str(oldRec.toJSON());
-    const newRec = oldRec.merge(s);
-    const newStr = str(newRec.toJSON());
-    const newHash = newRec.hashCode();
-    hashStore[newHash] = newRec;
-    const patch = createPatch(oldStr, newStr);
-    return {
-      oldHash,
-      newHash,
-      patch
-    };
-  };
-  applyPatch = async ({
-    oldHash,
-    newHash,
-    patch
-  }) => {
-    const codeSpace2 = this.room || "";
-    if (!Object.keys(hashStore).map((x) => Number(x)).includes(Number(oldHash)) && codeSpace2) {
-      console.log(Object.keys(hashStore));
-      const resp = await fetch(`/live/${codeSpace2}/mST`);
-      if (resp.ok) {
-        const s = await resp.json();
-        const serverRecord = this.session.get("state").merge(JSON.parse(str(s.mST)));
-        hashStore[serverRecord.hashCode()] = serverRecord;
-      } else {
-        const { mST: mST2 } = await import(location.origin + `/live/${this.room}/mst.mjs?${Date.now()}`);
-        const latestRec = this.session.get("state").merge(JSON.parse(str(mST2)));
-        hashStore[latestRec.hashCode()] = latestRec;
-      }
-    }
-    const oldStr = str(hashStore[oldHash].toJSON());
-    const applied = applyPatch(oldStr, patch);
-    const newState = JSON.parse(applied);
-    const newRec = this.session.get("state").merge(newState);
-    const newRecord = this.session.get("state").merge(newRec);
-    const newHashCheck = newRecord.hashCode();
-    if (newHashCheck === newHash) {
-      this.session = this.session.set("state", newRecord);
-    } else {
-      new Error("Wrong patch");
-      return;
-    }
-  };
   json() {
     const user2 = this.session.toJSON();
     const state = user2.state.toJSON();
@@ -6252,10 +6250,10 @@ function str(s) {
   return JSON.stringify({ i: i2, transpiled, code, html, css: css2 });
 }
 var applyPatch2 = async (x) => {
-  await session?.applyPatch(x);
-  session?.update();
+  await (session == null ? void 0 : session.applyPatch(x));
+  session == null ? void 0 : session.update();
 };
-var onSessionUpdate = (fn2, regId = "default") => session?.onUpdate(fn2, regId);
+var onSessionUpdate = (fn2, regId = "default") => session == null ? void 0 : session.onUpdate(fn2, regId);
 var makePatchFrom = (n, st) => session.createPatchFromHashCode(n, st);
 var makePatch = (st) => makePatchFrom(hashCode3(), st);
 var startSession = (room, u, originStr) => session || new CodeSession(room, { name: u.name, state: addOrigin(u.state, originStr) });
@@ -6399,7 +6397,7 @@ function md5(inputString) {
 // js/starter.tsx
 Object.assign(window, {});
 var orig = location.origin.includes("localhost") ? "." : location.origin;
-var initShims = async (assets) => import("../es-module-shims-LVR3YXDV.mjs").then(() => location.origin.includes("localhost") ? importShim.addImportMap({
+var initShims = async (assets) => import("../es-module-shims-AS2G3RSO.mjs").then(() => location.origin.includes("localhost") ? importShim.addImportMap({
   "imports": {
     "@emotion/react": orig + "/" + assets["emotion.mjs"],
     "framer-motion": "./framer-motion",
@@ -22146,7 +22144,7 @@ var QrCode = createSvgIcon(jsx("path", {
 }), "QrCode");
 
 // js/Qr.tsx
-var QRious = lazy(() => import("../lib-DE24NYV7.mjs").then(({ QRious: QRious2 }) => ({ default: QRious2 })));
+var QRious = lazy(() => import("../lib-JE6RBS7A.mjs").then(({ QRious: QRious2 }) => ({ default: QRious2 })));
 var QR = ({ url }) => jsx(Suspense, null, jsx(QRious, {
   value: url
 }));
@@ -22368,7 +22366,8 @@ var DraggableWindow = ({
   }, jsx(Fab_default, {
     key: "fullscreen",
     onClick: () => {
-      document.getElementById("root")?.requestFullscreen();
+      var _a;
+      (_a = document.getElementById("root")) == null ? void 0 : _a.requestFullscreen();
     }
   }, jsx(FullscreenIcon, {
     key: "fs"
@@ -22594,7 +22593,7 @@ async function runner({ code, counter }) {
     return;
   }
   i = counter;
-  const { init } = await import("../esbuildEsm-ORJ6T7HK.mjs");
+  const { init } = await import("../esbuildEsm-5CTRQ4UJ.mjs");
   transform2 = transform2 || await init();
   if (code === mST().code)
     return;
@@ -22683,12 +22682,12 @@ var Editor = ({ code, i: i2, codeSpace: codeSpace2 }) => {
     setValue,
     onChange
   } = mySession;
-  const lines = code?.split("\n").length || 0;
+  const lines = (code == null ? void 0 : code.split("\n").length) || 0;
   useEffect29(() => {
-    if (!ref?.current)
+    if (!(ref == null ? void 0 : ref.current))
       return;
     const setMonaco = async () => {
-      const { startMonaco } = await import("../startMonaco-DQXJR6IJ.mjs");
+      const { startMonaco } = await import("../startMonaco-CIUGXWV6.mjs");
       const { editor } = await startMonaco({
         container: ref.current,
         name: codeSpace2,
@@ -22708,12 +22707,12 @@ var Editor = ({ code, i: i2, codeSpace: codeSpace2 }) => {
             editor.restoreViewState(state);
         },
         getValue: () => editor.getModel().getValue(),
-        onChange: (cb) => editor?.onDidChangeModelContent(cb).dispose,
+        onChange: (cb) => editor == null ? void 0 : editor.onDidChangeModelContent(cb).dispose,
         myId: "editor"
       }));
     };
     const setAce = async () => {
-      const { startAce } = await import("../startAce-J2WILAHA.mjs");
+      const { startAce } = await import("../startAce-33M2K56W.mjs");
       const editor = await startAce(mST().code);
       changeContent((x) => ({
         ...x,
@@ -22728,7 +22727,7 @@ var Editor = ({ code, i: i2, codeSpace: codeSpace2 }) => {
     };
     const loadEditors = async () => {
       engine === "monaco" ? await setMonaco() : await setAce();
-      const { prettierJs: prettierJs2 } = await import("../prettierEsm-GUT5IHQM.mjs");
+      const { prettierJs: prettierJs2 } = await import("../prettierEsm-CPO46JHB.mjs");
       changeContent((x) => ({ ...x, prettierJs: prettierJs2 }));
       await wait(1e3);
       runnerDebounced({ code: code + " ", counter });
@@ -23002,7 +23001,7 @@ var run = async (startState) => {
       return;
     console.log({ event });
     if (event.data.codeSpace === codeSpace && event.data.address && !address) {
-      ws?.send(JSON.stringify({ codeSpace, address: event.data.address }));
+      ws == null ? void 0 : ws.send(JSON.stringify({ codeSpace, address: event.data.address }));
     }
     if (event.data.ignoreUser) {
       !ignoreUsers.includes(event.data.ignoreUser) && ignoreUsers.push(event.data.ignoreUser);
@@ -23014,7 +23013,7 @@ var run = async (startState) => {
   };
 };
 (async () => {
-  if (navigator && navigator?.serviceWorker) {
+  if (navigator && (navigator == null ? void 0 : navigator.serviceWorker)) {
     navigator.serviceWorker.register("/sw.js", {
       scope: "/"
     });
@@ -23096,7 +23095,7 @@ async function join2() {
     ws = wsConnection;
     const mess = (data) => {
       try {
-        ws && ws?.send && ws?.send(data);
+        ws && (ws == null ? void 0 : ws.send) && (ws == null ? void 0 : ws.send(data));
       } catch (e) {
         ws = null;
         rejoined = false;
@@ -23117,14 +23116,14 @@ async function join2() {
       if (diff2 > 4e4) {
         try {
           if (wsConnection.readyState === wsConnection.OPEN) {
-            return wsConnection?.send(JSON.stringify({
+            return wsConnection == null ? void 0 : wsConnection.send(JSON.stringify({
               name: user,
               timestamp: lastSeenTimestamp + diff2
             }));
           }
           rejoined = false;
           rejoin();
-        } catch {
+        } catch (e) {
           rejoined = false;
           rejoin();
         }
@@ -23228,7 +23227,7 @@ async function processWsMessage(event, source) {
     rtcConns[target].onicecandidate = (event2) => {
       if (event2.candidate) {
         log("*** Outgoing ICE candidate: " + event2.candidate);
-        ws?.send(JSON.stringify({
+        ws == null ? void 0 : ws.send(JSON.stringify({
           type: "new-ice-candidate",
           target,
           name: user,
@@ -23303,13 +23302,13 @@ async function processWsMessage(event, source) {
         log("---> Setting local description to the offer");
         await rtcConns[target].setLocalDescription(offer);
         log("---> Sending the offer to the remote peer");
-        ws?.send(JSON.stringify({
+        ws == null ? void 0 : ws.send(JSON.stringify({
           target,
           name: user,
           type: "offer",
           offer: rtcConns[target].localDescription
         }));
-      } catch {
+      } catch (e) {
         log("*** The following error occurred while handling the negotiationneeded event:");
       }
     }
@@ -23337,7 +23336,7 @@ async function processWsMessage(event, source) {
     log("---> Creating and sending answer to caller");
     const answer = await rtcConns[target].createAnswer();
     await rtcConns[target].setLocalDescription(answer);
-    ws?.send(JSON.stringify({
+    ws == null ? void 0 : ws.send(JSON.stringify({
       target,
       name: user,
       type: "answer",
@@ -23376,7 +23375,7 @@ async function sw() {
       switch (event.data.method) {
         case "ipfs-message-port":
           console.log("Message port request");
-          const { connect } = await import("../ipfs-2OLEVEPX.mjs");
+          const { connect } = await import("../ipfs-GTTTAJEX.mjs");
           console.log("can connect trough", { connect });
           const channel = new MessageChannel();
           await connect(channel);
@@ -23401,7 +23400,7 @@ async function sw() {
       };
       return load(location.pathname);
     }
-  } catch {
+  } catch (e) {
     console.log("ipfs load error");
   }
 }

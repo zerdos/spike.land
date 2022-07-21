@@ -1,5 +1,5 @@
 import { defer, selectClient, toReadableStream } from "./service/util";
-import { IPFSClient } from "ipfs-message-port-client";
+// import { IPFSClient } from "ipfs-message-port-client";
 import throttle from "lodash.throttle";
 import debounce from "lodash.debounce";
 import pMap from "p-map";
@@ -266,7 +266,7 @@ const fetchIPNSContent = async ({/* path, event */}) => {
 const fetchIPFSContent = async ({ event, path }) => {
   // Obtains IPFS inst.statance
   console.log("IPFS");
-  const ipfs = await createIPFSClient(event);
+  // const ipfs = await createIPFSClient(event);
   console.log({ ipfs });
   try {
     const stat = await ipfs.files.stat(path);

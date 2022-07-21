@@ -58,7 +58,7 @@ const define = {
 
 const buildOptions = {
   define,
-  target: "es2022",
+  target: "es2018",
   platform: "browser",
   external: ["./mST"],
   legalComments: "none",
@@ -106,7 +106,7 @@ await esbuild.build({
   ...buildOptions,
   entryPoints: [
     // "monaco-jsx-syntax-highlight/lib/worker/index.js",
-    "./js/ipfsWorker.tsx",
+    // "./js/ipfsWorker.tsx",
     "./main.ts",
     "./sw.mjs",
   ],
@@ -115,7 +115,7 @@ await esbuild.build({
   minifyWhitespace: false,
   minifyIdentifiers: false,
   minifySyntax: false,
-  treeShaking: false,
+  treeShaking: true,
 
   ignoreAnnotations: false,
   plugins: [
