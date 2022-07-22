@@ -334,4 +334,4 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
   );
 };
 
-export default DraggableWindow;ya
+export default DraggableWindow;
