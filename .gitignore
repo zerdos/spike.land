@@ -1,5 +1,7 @@
 .yarn/install-state.gz
+.yarn/global
 # ignore haters
+
 haters/
 .env
 .yarn/cache

@@ -29,7 +29,6 @@
     "docker:build": "lerna docker:build",
     "docker:push": "lerna docker:push",
     "push": "git pull && yarn && git add . && git commit -m push && git push && cd sites/spike.land && NODE_ENV=production  yarn deploy",
-    "open-cli": "open-cli",
     "test": "playwright test tests/*.spec.ts"
   },
   "devDependencies": {
