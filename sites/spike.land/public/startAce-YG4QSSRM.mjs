@@ -627,7 +627,7 @@ var require_ace = __commonJS({
         !a.basePath && !a.workerPath && !a.modePath && !a.themePath && !Object.keys(a.$moduleUrls).length && (console.error("Unable to infer path to ace from script src,", "use ace.config.set('basePath', 'path') to enable dynamic loading of modes and themes", "or with webpack use ace/webpack-resolver"), l = function() {
         });
       };
-      t.version = "1.8.0";
+      t.version = "1.8.1";
     }), ace.define("ace/loader_build", ["require", "exports", "module", "ace/lib/fixoldbrowsers", "ace/config"], function(e, t, n) {
       "use strict";
       function s(t2) {

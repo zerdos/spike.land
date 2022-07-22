@@ -22714,7 +22714,7 @@ var Editor = ({ code, i: i2, codeSpace: codeSpace2 }) => {
       }));
     };
     const setAce = async () => {
-      const { startAce } = await import("../startAce-33M2K56W.mjs");
+      const { startAce } = await import("../startAce-YG4QSSRM.mjs");
       const editor = await startAce(mST().code);
       changeContent((x) => ({
         ...x,
