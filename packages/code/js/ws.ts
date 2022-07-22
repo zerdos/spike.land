@@ -724,14 +724,14 @@ async function sw() {
       switch (event.data.method) {
         case "ipfs-message-port":
           console.log("Message port request");
-          const { connect } = await import("./ipfs.mjs");
+          // const { connect } = await import("./ipfs.mjs");
 
-          console.log("can connect trough", { connect });
+          // console.log("can connect trough", { connect });
           // await ipfsWorker();
           //
           const channel = new MessageChannel();
-          await connect(channel);
-          console.log({ channel });
+          // await connect(channel);
+          // console.log({ channel });
 
           return serviceWorker.postMessage({
             method: "ipfs-message-port",

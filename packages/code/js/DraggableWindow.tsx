@@ -333,3 +333,5 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
     </LazyMotion>
   );
 };
+
+export default DraggableWindow;ya

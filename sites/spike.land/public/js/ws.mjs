@@ -1,9 +1,10 @@
 import {
   LazyMotion,
+  __rest,
   domAnimation,
   domMax,
   m
-} from "../chunk-S55TLUGI.mjs";
+} from "../chunk-RZZW2CUR.mjs";
 import {
   CacheProvider,
   Global,
@@ -20,7 +21,6 @@ import {
   serializeStyles,
   withEmotionCache
 } from "../chunk-P2RQOFJ7.mjs";
-import "../chunk-UNXTUMY6.mjs";
 import {
   wait
 } from "../chunk-UP4C4HKU.mjs";
@@ -552,6 +552,2339 @@ var require_diff = __commonJS({
   }
 });
 
+// ../../node_modules/qrious/dist/qrious.js
+var require_qrious = __commonJS({
+  "../../node_modules/qrious/dist/qrious.js"(exports, module) {
+    init_define_process();
+    (function(global2, factory) {
+      typeof exports === "object" && typeof module !== "undefined" ? module.exports = factory() : typeof define === "function" && define.amd ? define(factory) : global2.QRious = factory();
+    })(exports, function() {
+      "use strict";
+      var Constructor = function() {
+      };
+      var hasOwnProperty2 = Object.prototype.hasOwnProperty;
+      var slice3 = Array.prototype.slice;
+      function createObject(prototype, properties2) {
+        var result;
+        if (typeof Object.create === "function") {
+          result = Object.create(prototype);
+        } else {
+          Constructor.prototype = prototype;
+          result = new Constructor();
+          Constructor.prototype = null;
+        }
+        if (properties2) {
+          extendObject(true, result, properties2);
+        }
+        return result;
+      }
+      function extend(name, constructor, prototype, statics) {
+        var superConstructor = this;
+        if (typeof name !== "string") {
+          statics = prototype;
+          prototype = constructor;
+          constructor = name;
+          name = null;
+        }
+        if (typeof constructor !== "function") {
+          statics = prototype;
+          prototype = constructor;
+          constructor = function() {
+            return superConstructor.apply(this, arguments);
+          };
+        }
+        extendObject(false, constructor, superConstructor, statics);
+        constructor.prototype = createObject(superConstructor.prototype, prototype);
+        constructor.prototype.constructor = constructor;
+        constructor.class_ = name || superConstructor.class_;
+        constructor.super_ = superConstructor;
+        return constructor;
+      }
+      function extendObject(own, target, sources) {
+        sources = slice3.call(arguments, 2);
+        var property;
+        var source;
+        for (var i2 = 0, length = sources.length; i2 < length; i2++) {
+          source = sources[i2];
+          for (property in source) {
+            if (!own || hasOwnProperty2.call(source, property)) {
+              target[property] = source[property];
+            }
+          }
+        }
+      }
+      var extend_1 = extend;
+      function Nevis() {
+      }
+      Nevis.class_ = "Nevis";
+      Nevis.super_ = Object;
+      Nevis.extend = extend_1;
+      var nevis = Nevis;
+      var lite = nevis;
+      var Renderer = lite.extend(function(qrious, element, enabled) {
+        this.qrious = qrious;
+        this.element = element;
+        this.element.qrious = qrious;
+        this.enabled = Boolean(enabled);
+      }, {
+        draw: function(frame) {
+        },
+        getElement: function() {
+          if (!this.enabled) {
+            this.enabled = true;
+            this.render();
+          }
+          return this.element;
+        },
+        getModuleSize: function(frame) {
+          var qrious = this.qrious;
+          var padding2 = qrious.padding || 0;
+          var pixels = Math.floor((qrious.size - padding2 * 2) / frame.width);
+          return Math.max(1, pixels);
+        },
+        getOffset: function(frame) {
+          var qrious = this.qrious;
+          var padding2 = qrious.padding;
+          if (padding2 != null) {
+            return padding2;
+          }
+          var moduleSize = this.getModuleSize(frame);
+          var offset2 = Math.floor((qrious.size - moduleSize * frame.width) / 2);
+          return Math.max(0, offset2);
+        },
+        render: function(frame) {
+          if (this.enabled) {
+            this.resize();
+            this.reset();
+            this.draw(frame);
+          }
+        },
+        reset: function() {
+        },
+        resize: function() {
+        }
+      });
+      var Renderer_1 = Renderer;
+      var CanvasRenderer = Renderer_1.extend({
+        draw: function(frame) {
+          var i2, j;
+          var qrious = this.qrious;
+          var moduleSize = this.getModuleSize(frame);
+          var offset2 = this.getOffset(frame);
+          var context = this.element.getContext("2d");
+          context.fillStyle = qrious.foreground;
+          context.globalAlpha = qrious.foregroundAlpha;
+          for (i2 = 0; i2 < frame.width; i2++) {
+            for (j = 0; j < frame.width; j++) {
+              if (frame.buffer[j * frame.width + i2]) {
+                context.fillRect(moduleSize * i2 + offset2, moduleSize * j + offset2, moduleSize, moduleSize);
+              }
+            }
+          }
+        },
+        reset: function() {
+          var qrious = this.qrious;
+          var context = this.element.getContext("2d");
+          var size = qrious.size;
+          context.lineWidth = 1;
+          context.clearRect(0, 0, size, size);
+          context.fillStyle = qrious.background;
+          context.globalAlpha = qrious.backgroundAlpha;
+          context.fillRect(0, 0, size, size);
+        },
+        resize: function() {
+          var element = this.element;
+          element.width = element.height = this.qrious.size;
+        }
+      });
+      var CanvasRenderer_1 = CanvasRenderer;
+      var Alignment = lite.extend(null, {
+        BLOCK: [
+          0,
+          11,
+          15,
+          19,
+          23,
+          27,
+          31,
+          16,
+          18,
+          20,
+          22,
+          24,
+          26,
+          28,
+          20,
+          22,
+          24,
+          24,
+          26,
+          28,
+          28,
+          22,
+          24,
+          24,
+          26,
+          26,
+          28,
+          28,
+          24,
+          24,
+          26,
+          26,
+          26,
+          28,
+          28,
+          24,
+          26,
+          26,
+          26,
+          28,
+          28
+        ]
+      });
+      var Alignment_1 = Alignment;
+      var ErrorCorrection = lite.extend(null, {
+        BLOCKS: [
+          1,
+          0,
+          19,
+          7,
+          1,
+          0,
+          16,
+          10,
+          1,
+          0,
+          13,
+          13,
+          1,
+          0,
+          9,
+          17,
+          1,
+          0,
+          34,
+          10,
+          1,
+          0,
+          28,
+          16,
+          1,
+          0,
+          22,
+          22,
+          1,
+          0,
+          16,
+          28,
+          1,
+          0,
+          55,
+          15,
+          1,
+          0,
+          44,
+          26,
+          2,
+          0,
+          17,
+          18,
+          2,
+          0,
+          13,
+          22,
+          1,
+          0,
+          80,
+          20,
+          2,
+          0,
+          32,
+          18,
+          2,
+          0,
+          24,
+          26,
+          4,
+          0,
+          9,
+          16,
+          1,
+          0,
+          108,
+          26,
+          2,
+          0,
+          43,
+          24,
+          2,
+          2,
+          15,
+          18,
+          2,
+          2,
+          11,
+          22,
+          2,
+          0,
+          68,
+          18,
+          4,
+          0,
+          27,
+          16,
+          4,
+          0,
+          19,
+          24,
+          4,
+          0,
+          15,
+          28,
+          2,
+          0,
+          78,
+          20,
+          4,
+          0,
+          31,
+          18,
+          2,
+          4,
+          14,
+          18,
+          4,
+          1,
+          13,
+          26,
+          2,
+          0,
+          97,
+          24,
+          2,
+          2,
+          38,
+          22,
+          4,
+          2,
+          18,
+          22,
+          4,
+          2,
+          14,
+          26,
+          2,
+          0,
+          116,
+          30,
+          3,
+          2,
+          36,
+          22,
+          4,
+          4,
+          16,
+          20,
+          4,
+          4,
+          12,
+          24,
+          2,
+          2,
+          68,
+          18,
+          4,
+          1,
+          43,
+          26,
+          6,
+          2,
+          19,
+          24,
+          6,
+          2,
+          15,
+          28,
+          4,
+          0,
+          81,
+          20,
+          1,
+          4,
+          50,
+          30,
+          4,
+          4,
+          22,
+          28,
+          3,
+          8,
+          12,
+          24,
+          2,
+          2,
+          92,
+          24,
+          6,
+          2,
+          36,
+          22,
+          4,
+          6,
+          20,
+          26,
+          7,
+          4,
+          14,
+          28,
+          4,
+          0,
+          107,
+          26,
+          8,
+          1,
+          37,
+          22,
+          8,
+          4,
+          20,
+          24,
+          12,
+          4,
+          11,
+          22,
+          3,
+          1,
+          115,
+          30,
+          4,
+          5,
+          40,
+          24,
+          11,
+          5,
+          16,
+          20,
+          11,
+          5,
+          12,
+          24,
+          5,
+          1,
+          87,
+          22,
+          5,
+          5,
+          41,
+          24,
+          5,
+          7,
+          24,
+          30,
+          11,
+          7,
+          12,
+          24,
+          5,
+          1,
+          98,
+          24,
+          7,
+          3,
+          45,
+          28,
+          15,
+          2,
+          19,
+          24,
+          3,
+          13,
+          15,
+          30,
+          1,
+          5,
+          107,
+          28,
+          10,
+          1,
+          46,
+          28,
+          1,
+          15,
+          22,
+          28,
+          2,
+          17,
+          14,
+          28,
+          5,
+          1,
+          120,
+          30,
+          9,
+          4,
+          43,
+          26,
+          17,
+          1,
+          22,
+          28,
+          2,
+          19,
+          14,
+          28,
+          3,
+          4,
+          113,
+          28,
+          3,
+          11,
+          44,
+          26,
+          17,
+          4,
+          21,
+          26,
+          9,
+          16,
+          13,
+          26,
+          3,
+          5,
+          107,
+          28,
+          3,
+          13,
+          41,
+          26,
+          15,
+          5,
+          24,
+          30,
+          15,
+          10,
+          15,
+          28,
+          4,
+          4,
+          116,
+          28,
+          17,
+          0,
+          42,
+          26,
+          17,
+          6,
+          22,
+          28,
+          19,
+          6,
+          16,
+          30,
+          2,
+          7,
+          111,
+          28,
+          17,
+          0,
+          46,
+          28,
+          7,
+          16,
+          24,
+          30,
+          34,
+          0,
+          13,
+          24,
+          4,
+          5,
+          121,
+          30,
+          4,
+          14,
+          47,
+          28,
+          11,
+          14,
+          24,
+          30,
+          16,
+          14,
+          15,
+          30,
+          6,
+          4,
+          117,
+          30,
+          6,
+          14,
+          45,
+          28,
+          11,
+          16,
+          24,
+          30,
+          30,
+          2,
+          16,
+          30,
+          8,
+          4,
+          106,
+          26,
+          8,
+          13,
+          47,
+          28,
+          7,
+          22,
+          24,
+          30,
+          22,
+          13,
+          15,
+          30,
+          10,
+          2,
+          114,
+          28,
+          19,
+          4,
+          46,
+          28,
+          28,
+          6,
+          22,
+          28,
+          33,
+          4,
+          16,
+          30,
+          8,
+          4,
+          122,
+          30,
+          22,
+          3,
+          45,
+          28,
+          8,
+          26,
+          23,
+          30,
+          12,
+          28,
+          15,
+          30,
+          3,
+          10,
+          117,
+          30,
+          3,
+          23,
+          45,
+          28,
+          4,
+          31,
+          24,
+          30,
+          11,
+          31,
+          15,
+          30,
+          7,
+          7,
+          116,
+          30,
+          21,
+          7,
+          45,
+          28,
+          1,
+          37,
+          23,
+          30,
+          19,
+          26,
+          15,
+          30,
+          5,
+          10,
+          115,
+          30,
+          19,
+          10,
+          47,
+          28,
+          15,
+          25,
+          24,
+          30,
+          23,
+          25,
+          15,
+          30,
+          13,
+          3,
+          115,
+          30,
+          2,
+          29,
+          46,
+          28,
+          42,
+          1,
+          24,
+          30,
+          23,
+          28,
+          15,
+          30,
+          17,
+          0,
+          115,
+          30,
+          10,
+          23,
+          46,
+          28,
+          10,
+          35,
+          24,
+          30,
+          19,
+          35,
+          15,
+          30,
+          17,
+          1,
+          115,
+          30,
+          14,
+          21,
+          46,
+          28,
+          29,
+          19,
+          24,
+          30,
+          11,
+          46,
+          15,
+          30,
+          13,
+          6,
+          115,
+          30,
+          14,
+          23,
+          46,
+          28,
+          44,
+          7,
+          24,
+          30,
+          59,
+          1,
+          16,
+          30,
+          12,
+          7,
+          121,
+          30,
+          12,
+          26,
+          47,
+          28,
+          39,
+          14,
+          24,
+          30,
+          22,
+          41,
+          15,
+          30,
+          6,
+          14,
+          121,
+          30,
+          6,
+          34,
+          47,
+          28,
+          46,
+          10,
+          24,
+          30,
+          2,
+          64,
+          15,
+          30,
+          17,
+          4,
+          122,
+          30,
+          29,
+          14,
+          46,
+          28,
+          49,
+          10,
+          24,
+          30,
+          24,
+          46,
+          15,
+          30,
+          4,
+          18,
+          122,
+          30,
+          13,
+          32,
+          46,
+          28,
+          48,
+          14,
+          24,
+          30,
+          42,
+          32,
+          15,
+          30,
+          20,
+          4,
+          117,
+          30,
+          40,
+          7,
+          47,
+          28,
+          43,
+          22,
+          24,
+          30,
+          10,
+          67,
+          15,
+          30,
+          19,
+          6,
+          118,
+          30,
+          18,
+          31,
+          47,
+          28,
+          34,
+          34,
+          24,
+          30,
+          20,
+          61,
+          15,
+          30
+        ],
+        FINAL_FORMAT: [
+          30660,
+          29427,
+          32170,
+          30877,
+          26159,
+          25368,
+          27713,
+          26998,
+          21522,
+          20773,
+          24188,
+          23371,
+          17913,
+          16590,
+          20375,
+          19104,
+          13663,
+          12392,
+          16177,
+          14854,
+          9396,
+          8579,
+          11994,
+          11245,
+          5769,
+          5054,
+          7399,
+          6608,
+          1890,
+          597,
+          3340,
+          2107
+        ],
+        LEVELS: {
+          L: 1,
+          M: 2,
+          Q: 3,
+          H: 4
+        }
+      });
+      var ErrorCorrection_1 = ErrorCorrection;
+      var Galois = lite.extend(null, {
+        EXPONENT: [
+          1,
+          2,
+          4,
+          8,
+          16,
+          32,
+          64,
+          128,
+          29,
+          58,
+          116,
+          232,
+          205,
+          135,
+          19,
+          38,
+          76,
+          152,
+          45,
+          90,
+          180,
+          117,
+          234,
+          201,
+          143,
+          3,
+          6,
+          12,
+          24,
+          48,
+          96,
+          192,
+          157,
+          39,
+          78,
+          156,
+          37,
+          74,
+          148,
+          53,
+          106,
+          212,
+          181,
+          119,
+          238,
+          193,
+          159,
+          35,
+          70,
+          140,
+          5,
+          10,
+          20,
+          40,
+          80,
+          160,
+          93,
+          186,
+          105,
+          210,
+          185,
+          111,
+          222,
+          161,
+          95,
+          190,
+          97,
+          194,
+          153,
+          47,
+          94,
+          188,
+          101,
+          202,
+          137,
+          15,
+          30,
+          60,
+          120,
+          240,
+          253,
+          231,
+          211,
+          187,
+          107,
+          214,
+          177,
+          127,
+          254,
+          225,
+          223,
+          163,
+          91,
+          182,
+          113,
+          226,
+          217,
+          175,
+          67,
+          134,
+          17,
+          34,
+          68,
+          136,
+          13,
+          26,
+          52,
+          104,
+          208,
+          189,
+          103,
+          206,
+          129,
+          31,
+          62,
+          124,
+          248,
+          237,
+          199,
+          147,
+          59,
+          118,
+          236,
+          197,
+          151,
+          51,
+          102,
+          204,
+          133,
+          23,
+          46,
+          92,
+          184,
+          109,
+          218,
+          169,
+          79,
+          158,
+          33,
+          66,
+          132,
+          21,
+          42,
+          84,
+          168,
+          77,
+          154,
+          41,
+          82,
+          164,
+          85,
+          170,
+          73,
+          146,
+          57,
+          114,
+          228,
+          213,
+          183,
+          115,
+          230,
+          209,
+          191,
+          99,
+          198,
+          145,
+          63,
+          126,
+          252,
+          229,
+          215,
+          179,
+          123,
+          246,
+          241,
+          255,
+          227,
+          219,
+          171,
+          75,
+          150,
+          49,
+          98,
+          196,
+          149,
+          55,
+          110,
+          220,
+          165,
+          87,
+          174,
+          65,
+          130,
+          25,
+          50,
+          100,
+          200,
+          141,
+          7,
+          14,
+          28,
+          56,
+          112,
+          224,
+          221,
+          167,
+          83,
+          166,
+          81,
+          162,
+          89,
+          178,
+          121,
+          242,
+          249,
+          239,
+          195,
+          155,
+          43,
+          86,
+          172,
+          69,
+          138,
+          9,
+          18,
+          36,
+          72,
+          144,
+          61,
+          122,
+          244,
+          245,
+          247,
+          243,
+          251,
+          235,
+          203,
+          139,
+          11,
+          22,
+          44,
+          88,
+          176,
+          125,
+          250,
+          233,
+          207,
+          131,
+          27,
+          54,
+          108,
+          216,
+          173,
+          71,
+          142,
+          0
+        ],
+        LOG: [
+          255,
+          0,
+          1,
+          25,
+          2,
+          50,
+          26,
+          198,
+          3,
+          223,
+          51,
+          238,
+          27,
+          104,
+          199,
+          75,
+          4,
+          100,
+          224,
+          14,
+          52,
+          141,
+          239,
+          129,
+          28,
+          193,
+          105,
+          248,
+          200,
+          8,
+          76,
+          113,
+          5,
+          138,
+          101,
+          47,
+          225,
+          36,
+          15,
+          33,
+          53,
+          147,
+          142,
+          218,
+          240,
+          18,
+          130,
+          69,
+          29,
+          181,
+          194,
+          125,
+          106,
+          39,
+          249,
+          185,
+          201,
+          154,
+          9,
+          120,
+          77,
+          228,
+          114,
+          166,
+          6,
+          191,
+          139,
+          98,
+          102,
+          221,
+          48,
+          253,
+          226,
+          152,
+          37,
+          179,
+          16,
+          145,
+          34,
+          136,
+          54,
+          208,
+          148,
+          206,
+          143,
+          150,
+          219,
+          189,
+          241,
+          210,
+          19,
+          92,
+          131,
+          56,
+          70,
+          64,
+          30,
+          66,
+          182,
+          163,
+          195,
+          72,
+          126,
+          110,
+          107,
+          58,
+          40,
+          84,
+          250,
+          133,
+          186,
+          61,
+          202,
+          94,
+          155,
+          159,
+          10,
+          21,
+          121,
+          43,
+          78,
+          212,
+          229,
+          172,
+          115,
+          243,
+          167,
+          87,
+          7,
+          112,
+          192,
+          247,
+          140,
+          128,
+          99,
+          13,
+          103,
+          74,
+          222,
+          237,
+          49,
+          197,
+          254,
+          24,
+          227,
+          165,
+          153,
+          119,
+          38,
+          184,
+          180,
+          124,
+          17,
+          68,
+          146,
+          217,
+          35,
+          32,
+          137,
+          46,
+          55,
+          63,
+          209,
+          91,
+          149,
+          188,
+          207,
+          205,
+          144,
+          135,
+          151,
+          178,
+          220,
+          252,
+          190,
+          97,
+          242,
+          86,
+          211,
+          171,
+          20,
+          42,
+          93,
+          158,
+          132,
+          60,
+          57,
+          83,
+          71,
+          109,
+          65,
+          162,
+          31,
+          45,
+          67,
+          216,
+          183,
+          123,
+          164,
+          118,
+          196,
+          23,
+          73,
+          236,
+          127,
+          12,
+          111,
+          246,
+          108,
+          161,
+          59,
+          82,
+          41,
+          157,
+          85,
+          170,
+          251,
+          96,
+          134,
+          177,
+          187,
+          204,
+          62,
+          90,
+          203,
+          89,
+          95,
+          176,
+          156,
+          169,
+          160,
+          81,
+          11,
+          245,
+          22,
+          235,
+          122,
+          117,
+          44,
+          215,
+          79,
+          174,
+          213,
+          233,
+          230,
+          231,
+          173,
+          232,
+          116,
+          214,
+          244,
+          234,
+          168,
+          80,
+          88,
+          175
+        ]
+      });
+      var Galois_1 = Galois;
+      var Version = lite.extend(null, {
+        BLOCK: [
+          3220,
+          1468,
+          2713,
+          1235,
+          3062,
+          1890,
+          2119,
+          1549,
+          2344,
+          2936,
+          1117,
+          2583,
+          1330,
+          2470,
+          1667,
+          2249,
+          2028,
+          3780,
+          481,
+          4011,
+          142,
+          3098,
+          831,
+          3445,
+          592,
+          2517,
+          1776,
+          2234,
+          1951,
+          2827,
+          1070,
+          2660,
+          1345,
+          3177
+        ]
+      });
+      var Version_1 = Version;
+      var Frame = lite.extend(function(options) {
+        var dataBlock, eccBlock, index2, neccBlock1, neccBlock2;
+        var valueLength = options.value.length;
+        this._badness = [];
+        this._level = ErrorCorrection_1.LEVELS[options.level];
+        this._polynomial = [];
+        this._value = options.value;
+        this._version = 0;
+        this._stringBuffer = [];
+        while (this._version < 40) {
+          this._version++;
+          index2 = (this._level - 1) * 4 + (this._version - 1) * 16;
+          neccBlock1 = ErrorCorrection_1.BLOCKS[index2++];
+          neccBlock2 = ErrorCorrection_1.BLOCKS[index2++];
+          dataBlock = ErrorCorrection_1.BLOCKS[index2++];
+          eccBlock = ErrorCorrection_1.BLOCKS[index2];
+          index2 = dataBlock * (neccBlock1 + neccBlock2) + neccBlock2 - 3 + (this._version <= 9);
+          if (valueLength <= index2) {
+            break;
+          }
+        }
+        this._dataBlock = dataBlock;
+        this._eccBlock = eccBlock;
+        this._neccBlock1 = neccBlock1;
+        this._neccBlock2 = neccBlock2;
+        var width2 = this.width = 17 + 4 * this._version;
+        this.buffer = Frame._createArray(width2 * width2);
+        this._ecc = Frame._createArray(dataBlock + (dataBlock + eccBlock) * (neccBlock1 + neccBlock2) + neccBlock2);
+        this._mask = Frame._createArray((width2 * (width2 + 1) + 1) / 2);
+        this._insertFinders();
+        this._insertAlignments();
+        this.buffer[8 + width2 * (width2 - 8)] = 1;
+        this._insertTimingGap();
+        this._reverseMask();
+        this._insertTimingRowAndColumn();
+        this._insertVersion();
+        this._syncMask();
+        this._convertBitStream(valueLength);
+        this._calculatePolynomial();
+        this._appendEccToData();
+        this._interleaveBlocks();
+        this._pack();
+        this._finish();
+      }, {
+        _addAlignment: function(x, y) {
+          var i2;
+          var buffer = this.buffer;
+          var width2 = this.width;
+          buffer[x + width2 * y] = 1;
+          for (i2 = -2; i2 < 2; i2++) {
+            buffer[x + i2 + width2 * (y - 2)] = 1;
+            buffer[x - 2 + width2 * (y + i2 + 1)] = 1;
+            buffer[x + 2 + width2 * (y + i2)] = 1;
+            buffer[x + i2 + 1 + width2 * (y + 2)] = 1;
+          }
+          for (i2 = 0; i2 < 2; i2++) {
+            this._setMask(x - 1, y + i2);
+            this._setMask(x + 1, y - i2);
+            this._setMask(x - i2, y - 1);
+            this._setMask(x + i2, y + 1);
+          }
+        },
+        _appendData: function(data, dataLength, ecc, eccLength) {
+          var bit, i2, j;
+          var polynomial = this._polynomial;
+          var stringBuffer = this._stringBuffer;
+          for (i2 = 0; i2 < eccLength; i2++) {
+            stringBuffer[ecc + i2] = 0;
+          }
+          for (i2 = 0; i2 < dataLength; i2++) {
+            bit = Galois_1.LOG[stringBuffer[data + i2] ^ stringBuffer[ecc]];
+            if (bit !== 255) {
+              for (j = 1; j < eccLength; j++) {
+                stringBuffer[ecc + j - 1] = stringBuffer[ecc + j] ^ Galois_1.EXPONENT[Frame._modN(bit + polynomial[eccLength - j])];
+              }
+            } else {
+              for (j = ecc; j < ecc + eccLength; j++) {
+                stringBuffer[j] = stringBuffer[j + 1];
+              }
+            }
+            stringBuffer[ecc + eccLength - 1] = bit === 255 ? 0 : Galois_1.EXPONENT[Frame._modN(bit + polynomial[0])];
+          }
+        },
+        _appendEccToData: function() {
+          var i2;
+          var data = 0;
+          var dataBlock = this._dataBlock;
+          var ecc = this._calculateMaxLength();
+          var eccBlock = this._eccBlock;
+          for (i2 = 0; i2 < this._neccBlock1; i2++) {
+            this._appendData(data, dataBlock, ecc, eccBlock);
+            data += dataBlock;
+            ecc += eccBlock;
+          }
+          for (i2 = 0; i2 < this._neccBlock2; i2++) {
+            this._appendData(data, dataBlock + 1, ecc, eccBlock);
+            data += dataBlock + 1;
+            ecc += eccBlock;
+          }
+        },
+        _applyMask: function(mask) {
+          var r3x, r3y, x, y;
+          var buffer = this.buffer;
+          var width2 = this.width;
+          switch (mask) {
+            case 0:
+              for (y = 0; y < width2; y++) {
+                for (x = 0; x < width2; x++) {
+                  if (!(x + y & 1) && !this._isMasked(x, y)) {
+                    buffer[x + y * width2] ^= 1;
+                  }
+                }
+              }
+              break;
+            case 1:
+              for (y = 0; y < width2; y++) {
+                for (x = 0; x < width2; x++) {
+                  if (!(y & 1) && !this._isMasked(x, y)) {
+                    buffer[x + y * width2] ^= 1;
+                  }
+                }
+              }
+              break;
+            case 2:
+              for (y = 0; y < width2; y++) {
+                for (r3x = 0, x = 0; x < width2; x++, r3x++) {
+                  if (r3x === 3) {
+                    r3x = 0;
+                  }
+                  if (!r3x && !this._isMasked(x, y)) {
+                    buffer[x + y * width2] ^= 1;
+                  }
+                }
+              }
+              break;
+            case 3:
+              for (r3y = 0, y = 0; y < width2; y++, r3y++) {
+                if (r3y === 3) {
+                  r3y = 0;
+                }
+                for (r3x = r3y, x = 0; x < width2; x++, r3x++) {
+                  if (r3x === 3) {
+                    r3x = 0;
+                  }
+                  if (!r3x && !this._isMasked(x, y)) {
+                    buffer[x + y * width2] ^= 1;
+                  }
+                }
+              }
+              break;
+            case 4:
+              for (y = 0; y < width2; y++) {
+                for (r3x = 0, r3y = y >> 1 & 1, x = 0; x < width2; x++, r3x++) {
+                  if (r3x === 3) {
+                    r3x = 0;
+                    r3y = !r3y;
+                  }
+                  if (!r3y && !this._isMasked(x, y)) {
+                    buffer[x + y * width2] ^= 1;
+                  }
+                }
+              }
+              break;
+            case 5:
+              for (r3y = 0, y = 0; y < width2; y++, r3y++) {
+                if (r3y === 3) {
+                  r3y = 0;
+                }
+                for (r3x = 0, x = 0; x < width2; x++, r3x++) {
+                  if (r3x === 3) {
+                    r3x = 0;
+                  }
+                  if (!((x & y & 1) + !(!r3x | !r3y)) && !this._isMasked(x, y)) {
+                    buffer[x + y * width2] ^= 1;
+                  }
+                }
+              }
+              break;
+            case 6:
+              for (r3y = 0, y = 0; y < width2; y++, r3y++) {
+                if (r3y === 3) {
+                  r3y = 0;
+                }
+                for (r3x = 0, x = 0; x < width2; x++, r3x++) {
+                  if (r3x === 3) {
+                    r3x = 0;
+                  }
+                  if (!((x & y & 1) + (r3x && r3x === r3y) & 1) && !this._isMasked(x, y)) {
+                    buffer[x + y * width2] ^= 1;
+                  }
+                }
+              }
+              break;
+            case 7:
+              for (r3y = 0, y = 0; y < width2; y++, r3y++) {
+                if (r3y === 3) {
+                  r3y = 0;
+                }
+                for (r3x = 0, x = 0; x < width2; x++, r3x++) {
+                  if (r3x === 3) {
+                    r3x = 0;
+                  }
+                  if (!((r3x && r3x === r3y) + (x + y & 1) & 1) && !this._isMasked(x, y)) {
+                    buffer[x + y * width2] ^= 1;
+                  }
+                }
+              }
+              break;
+          }
+        },
+        _calculateMaxLength: function() {
+          return this._dataBlock * (this._neccBlock1 + this._neccBlock2) + this._neccBlock2;
+        },
+        _calculatePolynomial: function() {
+          var i2, j;
+          var eccBlock = this._eccBlock;
+          var polynomial = this._polynomial;
+          polynomial[0] = 1;
+          for (i2 = 0; i2 < eccBlock; i2++) {
+            polynomial[i2 + 1] = 1;
+            for (j = i2; j > 0; j--) {
+              polynomial[j] = polynomial[j] ? polynomial[j - 1] ^ Galois_1.EXPONENT[Frame._modN(Galois_1.LOG[polynomial[j]] + i2)] : polynomial[j - 1];
+            }
+            polynomial[0] = Galois_1.EXPONENT[Frame._modN(Galois_1.LOG[polynomial[0]] + i2)];
+          }
+          for (i2 = 0; i2 <= eccBlock; i2++) {
+            polynomial[i2] = Galois_1.LOG[polynomial[i2]];
+          }
+        },
+        _checkBadness: function() {
+          var b, b1, h2, x, y;
+          var bad = 0;
+          var badness = this._badness;
+          var buffer = this.buffer;
+          var width2 = this.width;
+          for (y = 0; y < width2 - 1; y++) {
+            for (x = 0; x < width2 - 1; x++) {
+              if (buffer[x + width2 * y] && buffer[x + 1 + width2 * y] && buffer[x + width2 * (y + 1)] && buffer[x + 1 + width2 * (y + 1)] || !(buffer[x + width2 * y] || buffer[x + 1 + width2 * y] || buffer[x + width2 * (y + 1)] || buffer[x + 1 + width2 * (y + 1)])) {
+                bad += Frame.N2;
+              }
+            }
+          }
+          var bw = 0;
+          for (y = 0; y < width2; y++) {
+            h2 = 0;
+            badness[0] = 0;
+            for (b = 0, x = 0; x < width2; x++) {
+              b1 = buffer[x + width2 * y];
+              if (b === b1) {
+                badness[h2]++;
+              } else {
+                badness[++h2] = 1;
+              }
+              b = b1;
+              bw += b ? 1 : -1;
+            }
+            bad += this._getBadness(h2);
+          }
+          if (bw < 0) {
+            bw = -bw;
+          }
+          var count2 = 0;
+          var big = bw;
+          big += big << 2;
+          big <<= 1;
+          while (big > width2 * width2) {
+            big -= width2 * width2;
+            count2++;
+          }
+          bad += count2 * Frame.N4;
+          for (x = 0; x < width2; x++) {
+            h2 = 0;
+            badness[0] = 0;
+            for (b = 0, y = 0; y < width2; y++) {
+              b1 = buffer[x + width2 * y];
+              if (b === b1) {
+                badness[h2]++;
+              } else {
+                badness[++h2] = 1;
+              }
+              b = b1;
+            }
+            bad += this._getBadness(h2);
+          }
+          return bad;
+        },
+        _convertBitStream: function(length) {
+          var bit, i2;
+          var ecc = this._ecc;
+          var version = this._version;
+          for (i2 = 0; i2 < length; i2++) {
+            ecc[i2] = this._value.charCodeAt(i2);
+          }
+          var stringBuffer = this._stringBuffer = ecc.slice();
+          var maxLength = this._calculateMaxLength();
+          if (length >= maxLength - 2) {
+            length = maxLength - 2;
+            if (version > 9) {
+              length--;
+            }
+          }
+          var index2 = length;
+          if (version > 9) {
+            stringBuffer[index2 + 2] = 0;
+            stringBuffer[index2 + 3] = 0;
+            while (index2--) {
+              bit = stringBuffer[index2];
+              stringBuffer[index2 + 3] |= 255 & bit << 4;
+              stringBuffer[index2 + 2] = bit >> 4;
+            }
+            stringBuffer[2] |= 255 & length << 4;
+            stringBuffer[1] = length >> 4;
+            stringBuffer[0] = 64 | length >> 12;
+          } else {
+            stringBuffer[index2 + 1] = 0;
+            stringBuffer[index2 + 2] = 0;
+            while (index2--) {
+              bit = stringBuffer[index2];
+              stringBuffer[index2 + 2] |= 255 & bit << 4;
+              stringBuffer[index2 + 1] = bit >> 4;
+            }
+            stringBuffer[1] |= 255 & length << 4;
+            stringBuffer[0] = 64 | length >> 4;
+          }
+          index2 = length + 3 - (version < 10);
+          while (index2 < maxLength) {
+            stringBuffer[index2++] = 236;
+            stringBuffer[index2++] = 17;
+          }
+        },
+        _getBadness: function(length) {
+          var i2;
+          var badRuns = 0;
+          var badness = this._badness;
+          for (i2 = 0; i2 <= length; i2++) {
+            if (badness[i2] >= 5) {
+              badRuns += Frame.N1 + badness[i2] - 5;
+            }
+          }
+          for (i2 = 3; i2 < length - 1; i2 += 2) {
+            if (badness[i2 - 2] === badness[i2 + 2] && badness[i2 + 2] === badness[i2 - 1] && badness[i2 - 1] === badness[i2 + 1] && badness[i2 - 1] * 3 === badness[i2] && (badness[i2 - 3] === 0 || i2 + 3 > length || badness[i2 - 3] * 3 >= badness[i2] * 4 || badness[i2 + 3] * 3 >= badness[i2] * 4)) {
+              badRuns += Frame.N3;
+            }
+          }
+          return badRuns;
+        },
+        _finish: function() {
+          this._stringBuffer = this.buffer.slice();
+          var currentMask, i2;
+          var bit = 0;
+          var mask = 3e4;
+          for (i2 = 0; i2 < 8; i2++) {
+            this._applyMask(i2);
+            currentMask = this._checkBadness();
+            if (currentMask < mask) {
+              mask = currentMask;
+              bit = i2;
+            }
+            if (bit === 7) {
+              break;
+            }
+            this.buffer = this._stringBuffer.slice();
+          }
+          if (bit !== i2) {
+            this._applyMask(bit);
+          }
+          mask = ErrorCorrection_1.FINAL_FORMAT[bit + (this._level - 1 << 3)];
+          var buffer = this.buffer;
+          var width2 = this.width;
+          for (i2 = 0; i2 < 8; i2++, mask >>= 1) {
+            if (mask & 1) {
+              buffer[width2 - 1 - i2 + width2 * 8] = 1;
+              if (i2 < 6) {
+                buffer[8 + width2 * i2] = 1;
+              } else {
+                buffer[8 + width2 * (i2 + 1)] = 1;
+              }
+            }
+          }
+          for (i2 = 0; i2 < 7; i2++, mask >>= 1) {
+            if (mask & 1) {
+              buffer[8 + width2 * (width2 - 7 + i2)] = 1;
+              if (i2) {
+                buffer[6 - i2 + width2 * 8] = 1;
+              } else {
+                buffer[7 + width2 * 8] = 1;
+              }
+            }
+          }
+        },
+        _interleaveBlocks: function() {
+          var i2, j;
+          var dataBlock = this._dataBlock;
+          var ecc = this._ecc;
+          var eccBlock = this._eccBlock;
+          var k = 0;
+          var maxLength = this._calculateMaxLength();
+          var neccBlock1 = this._neccBlock1;
+          var neccBlock2 = this._neccBlock2;
+          var stringBuffer = this._stringBuffer;
+          for (i2 = 0; i2 < dataBlock; i2++) {
+            for (j = 0; j < neccBlock1; j++) {
+              ecc[k++] = stringBuffer[i2 + j * dataBlock];
+            }
+            for (j = 0; j < neccBlock2; j++) {
+              ecc[k++] = stringBuffer[neccBlock1 * dataBlock + i2 + j * (dataBlock + 1)];
+            }
+          }
+          for (j = 0; j < neccBlock2; j++) {
+            ecc[k++] = stringBuffer[neccBlock1 * dataBlock + i2 + j * (dataBlock + 1)];
+          }
+          for (i2 = 0; i2 < eccBlock; i2++) {
+            for (j = 0; j < neccBlock1 + neccBlock2; j++) {
+              ecc[k++] = stringBuffer[maxLength + i2 + j * eccBlock];
+            }
+          }
+          this._stringBuffer = ecc;
+        },
+        _insertAlignments: function() {
+          var i2, x, y;
+          var version = this._version;
+          var width2 = this.width;
+          if (version > 1) {
+            i2 = Alignment_1.BLOCK[version];
+            y = width2 - 7;
+            for (; ; ) {
+              x = width2 - 7;
+              while (x > i2 - 3) {
+                this._addAlignment(x, y);
+                if (x < i2) {
+                  break;
+                }
+                x -= i2;
+              }
+              if (y <= i2 + 9) {
+                break;
+              }
+              y -= i2;
+              this._addAlignment(6, y);
+              this._addAlignment(y, 6);
+            }
+          }
+        },
+        _insertFinders: function() {
+          var i2, j, x, y;
+          var buffer = this.buffer;
+          var width2 = this.width;
+          for (i2 = 0; i2 < 3; i2++) {
+            j = 0;
+            y = 0;
+            if (i2 === 1) {
+              j = width2 - 7;
+            }
+            if (i2 === 2) {
+              y = width2 - 7;
+            }
+            buffer[y + 3 + width2 * (j + 3)] = 1;
+            for (x = 0; x < 6; x++) {
+              buffer[y + x + width2 * j] = 1;
+              buffer[y + width2 * (j + x + 1)] = 1;
+              buffer[y + 6 + width2 * (j + x)] = 1;
+              buffer[y + x + 1 + width2 * (j + 6)] = 1;
+            }
+            for (x = 1; x < 5; x++) {
+              this._setMask(y + x, j + 1);
+              this._setMask(y + 1, j + x + 1);
+              this._setMask(y + 5, j + x);
+              this._setMask(y + x + 1, j + 5);
+            }
+            for (x = 2; x < 4; x++) {
+              buffer[y + x + width2 * (j + 2)] = 1;
+              buffer[y + 2 + width2 * (j + x + 1)] = 1;
+              buffer[y + 4 + width2 * (j + x)] = 1;
+              buffer[y + x + 1 + width2 * (j + 4)] = 1;
+            }
+          }
+        },
+        _insertTimingGap: function() {
+          var x, y;
+          var width2 = this.width;
+          for (y = 0; y < 7; y++) {
+            this._setMask(7, y);
+            this._setMask(width2 - 8, y);
+            this._setMask(7, y + width2 - 7);
+          }
+          for (x = 0; x < 8; x++) {
+            this._setMask(x, 7);
+            this._setMask(x + width2 - 8, 7);
+            this._setMask(x, width2 - 8);
+          }
+        },
+        _insertTimingRowAndColumn: function() {
+          var x;
+          var buffer = this.buffer;
+          var width2 = this.width;
+          for (x = 0; x < width2 - 14; x++) {
+            if (x & 1) {
+              this._setMask(8 + x, 6);
+              this._setMask(6, 8 + x);
+            } else {
+              buffer[8 + x + width2 * 6] = 1;
+              buffer[6 + width2 * (8 + x)] = 1;
+            }
+          }
+        },
+        _insertVersion: function() {
+          var i2, j, x, y;
+          var buffer = this.buffer;
+          var version = this._version;
+          var width2 = this.width;
+          if (version > 6) {
+            i2 = Version_1.BLOCK[version - 7];
+            j = 17;
+            for (x = 0; x < 6; x++) {
+              for (y = 0; y < 3; y++, j--) {
+                if (1 & (j > 11 ? version >> j - 12 : i2 >> j)) {
+                  buffer[5 - x + width2 * (2 - y + width2 - 11)] = 1;
+                  buffer[2 - y + width2 - 11 + width2 * (5 - x)] = 1;
+                } else {
+                  this._setMask(5 - x, 2 - y + width2 - 11);
+                  this._setMask(2 - y + width2 - 11, 5 - x);
+                }
+              }
+            }
+          }
+        },
+        _isMasked: function(x, y) {
+          var bit = Frame._getMaskBit(x, y);
+          return this._mask[bit] === 1;
+        },
+        _pack: function() {
+          var bit, i2, j;
+          var k = 1;
+          var v = 1;
+          var width2 = this.width;
+          var x = width2 - 1;
+          var y = width2 - 1;
+          var length = (this._dataBlock + this._eccBlock) * (this._neccBlock1 + this._neccBlock2) + this._neccBlock2;
+          for (i2 = 0; i2 < length; i2++) {
+            bit = this._stringBuffer[i2];
+            for (j = 0; j < 8; j++, bit <<= 1) {
+              if (128 & bit) {
+                this.buffer[x + width2 * y] = 1;
+              }
+              do {
+                if (v) {
+                  x--;
+                } else {
+                  x++;
+                  if (k) {
+                    if (y !== 0) {
+                      y--;
+                    } else {
+                      x -= 2;
+                      k = !k;
+                      if (x === 6) {
+                        x--;
+                        y = 9;
+                      }
+                    }
+                  } else if (y !== width2 - 1) {
+                    y++;
+                  } else {
+                    x -= 2;
+                    k = !k;
+                    if (x === 6) {
+                      x--;
+                      y -= 8;
+                    }
+                  }
+                }
+                v = !v;
+              } while (this._isMasked(x, y));
+            }
+          }
+        },
+        _reverseMask: function() {
+          var x, y;
+          var width2 = this.width;
+          for (x = 0; x < 9; x++) {
+            this._setMask(x, 8);
+          }
+          for (x = 0; x < 8; x++) {
+            this._setMask(x + width2 - 8, 8);
+            this._setMask(8, x);
+          }
+          for (y = 0; y < 7; y++) {
+            this._setMask(8, y + width2 - 7);
+          }
+        },
+        _setMask: function(x, y) {
+          var bit = Frame._getMaskBit(x, y);
+          this._mask[bit] = 1;
+        },
+        _syncMask: function() {
+          var x, y;
+          var width2 = this.width;
+          for (y = 0; y < width2; y++) {
+            for (x = 0; x <= y; x++) {
+              if (this.buffer[x + width2 * y]) {
+                this._setMask(x, y);
+              }
+            }
+          }
+        }
+      }, {
+        _createArray: function(length) {
+          var i2;
+          var array = [];
+          for (i2 = 0; i2 < length; i2++) {
+            array[i2] = 0;
+          }
+          return array;
+        },
+        _getMaskBit: function(x, y) {
+          var bit;
+          if (x > y) {
+            bit = x;
+            x = y;
+            y = bit;
+          }
+          bit = y;
+          bit += y * y;
+          bit >>= 1;
+          bit += x;
+          return bit;
+        },
+        _modN: function(x) {
+          while (x >= 255) {
+            x -= 255;
+            x = (x >> 8) + (x & 255);
+          }
+          return x;
+        },
+        N1: 3,
+        N2: 3,
+        N3: 40,
+        N4: 10
+      });
+      var Frame_1 = Frame;
+      var ImageRenderer = Renderer_1.extend({
+        draw: function() {
+          this.element.src = this.qrious.toDataURL();
+        },
+        reset: function() {
+          this.element.src = "";
+        },
+        resize: function() {
+          var element = this.element;
+          element.width = element.height = this.qrious.size;
+        }
+      });
+      var ImageRenderer_1 = ImageRenderer;
+      var Option = lite.extend(function(name, modifiable, defaultValue, valueTransformer) {
+        this.name = name;
+        this.modifiable = Boolean(modifiable);
+        this.defaultValue = defaultValue;
+        this._valueTransformer = valueTransformer;
+      }, {
+        transform: function(value) {
+          var transformer = this._valueTransformer;
+          if (typeof transformer === "function") {
+            return transformer(value, this);
+          }
+          return value;
+        }
+      });
+      var Option_1 = Option;
+      var Utilities = lite.extend(null, {
+        abs: function(value) {
+          return value != null ? Math.abs(value) : null;
+        },
+        hasOwn: function(object, name) {
+          return Object.prototype.hasOwnProperty.call(object, name);
+        },
+        noop: function() {
+        },
+        toUpperCase: function(string) {
+          return string != null ? string.toUpperCase() : null;
+        }
+      });
+      var Utilities_1 = Utilities;
+      var OptionManager = lite.extend(function(options) {
+        this.options = {};
+        options.forEach(function(option) {
+          this.options[option.name] = option;
+        }, this);
+      }, {
+        exists: function(name) {
+          return this.options[name] != null;
+        },
+        get: function(name, target) {
+          return OptionManager._get(this.options[name], target);
+        },
+        getAll: function(target) {
+          var name;
+          var options = this.options;
+          var result = {};
+          for (name in options) {
+            if (Utilities_1.hasOwn(options, name)) {
+              result[name] = OptionManager._get(options[name], target);
+            }
+          }
+          return result;
+        },
+        init: function(options, target, changeHandler) {
+          if (typeof changeHandler !== "function") {
+            changeHandler = Utilities_1.noop;
+          }
+          var name, option;
+          for (name in this.options) {
+            if (Utilities_1.hasOwn(this.options, name)) {
+              option = this.options[name];
+              OptionManager._set(option, option.defaultValue, target);
+              OptionManager._createAccessor(option, target, changeHandler);
+            }
+          }
+          this._setAll(options, target, true);
+        },
+        set: function(name, value, target) {
+          return this._set(name, value, target);
+        },
+        setAll: function(options, target) {
+          return this._setAll(options, target);
+        },
+        _set: function(name, value, target, allowUnmodifiable) {
+          var option = this.options[name];
+          if (!option) {
+            throw new Error("Invalid option: " + name);
+          }
+          if (!option.modifiable && !allowUnmodifiable) {
+            throw new Error("Option cannot be modified: " + name);
+          }
+          return OptionManager._set(option, value, target);
+        },
+        _setAll: function(options, target, allowUnmodifiable) {
+          if (!options) {
+            return false;
+          }
+          var name;
+          var changed = false;
+          for (name in options) {
+            if (Utilities_1.hasOwn(options, name) && this._set(name, options[name], target, allowUnmodifiable)) {
+              changed = true;
+            }
+          }
+          return changed;
+        }
+      }, {
+        _createAccessor: function(option, target, changeHandler) {
+          var descriptor = {
+            get: function() {
+              return OptionManager._get(option, target);
+            }
+          };
+          if (option.modifiable) {
+            descriptor.set = function(value) {
+              if (OptionManager._set(option, value, target)) {
+                changeHandler(value, option);
+              }
+            };
+          }
+          Object.defineProperty(target, option.name, descriptor);
+        },
+        _get: function(option, target) {
+          return target["_" + option.name];
+        },
+        _set: function(option, value, target) {
+          var fieldName = "_" + option.name;
+          var oldValue = target[fieldName];
+          var newValue = option.transform(value != null ? value : option.defaultValue);
+          target[fieldName] = newValue;
+          return newValue !== oldValue;
+        }
+      });
+      var OptionManager_1 = OptionManager;
+      var ServiceManager = lite.extend(function() {
+        this._services = {};
+      }, {
+        getService: function(name) {
+          var service = this._services[name];
+          if (!service) {
+            throw new Error("Service is not being managed with name: " + name);
+          }
+          return service;
+        },
+        setService: function(name, service) {
+          if (this._services[name]) {
+            throw new Error("Service is already managed with name: " + name);
+          }
+          if (service) {
+            this._services[name] = service;
+          }
+        }
+      });
+      var ServiceManager_1 = ServiceManager;
+      var optionManager = new OptionManager_1([
+        new Option_1("background", true, "white"),
+        new Option_1("backgroundAlpha", true, 1, Utilities_1.abs),
+        new Option_1("element"),
+        new Option_1("foreground", true, "black"),
+        new Option_1("foregroundAlpha", true, 1, Utilities_1.abs),
+        new Option_1("level", true, "L", Utilities_1.toUpperCase),
+        new Option_1("mime", true, "image/png"),
+        new Option_1("padding", true, null, Utilities_1.abs),
+        new Option_1("size", true, 100, Utilities_1.abs),
+        new Option_1("value", true, "")
+      ]);
+      var serviceManager = new ServiceManager_1();
+      var QRious3 = lite.extend(function(options) {
+        optionManager.init(options, this, this.update.bind(this));
+        var element = optionManager.get("element", this);
+        var elementService = serviceManager.getService("element");
+        var canvas = element && elementService.isCanvas(element) ? element : elementService.createCanvas();
+        var image = element && elementService.isImage(element) ? element : elementService.createImage();
+        this._canvasRenderer = new CanvasRenderer_1(this, canvas, true);
+        this._imageRenderer = new ImageRenderer_1(this, image, image === element);
+        this.update();
+      }, {
+        get: function() {
+          return optionManager.getAll(this);
+        },
+        set: function(options) {
+          if (optionManager.setAll(options, this)) {
+            this.update();
+          }
+        },
+        toDataURL: function(mime) {
+          return this.canvas.toDataURL(mime || this.mime);
+        },
+        update: function() {
+          var frame = new Frame_1({
+            level: this.level,
+            value: this.value
+          });
+          this._canvasRenderer.render(frame);
+          this._imageRenderer.render(frame);
+        }
+      }, {
+        use: function(service) {
+          serviceManager.setService(service.getName(), service);
+        }
+      });
+      Object.defineProperties(QRious3.prototype, {
+        canvas: {
+          get: function() {
+            return this._canvasRenderer.getElement();
+          }
+        },
+        image: {
+          get: function() {
+            return this._imageRenderer.getElement();
+          }
+        }
+      });
+      var QRious_1$2 = QRious3;
+      var index = QRious_1$2;
+      var Service = lite.extend({
+        getName: function() {
+        }
+      });
+      var Service_1 = Service;
+      var ElementService = Service_1.extend({
+        createCanvas: function() {
+        },
+        createImage: function() {
+        },
+        getName: function() {
+          return "element";
+        },
+        isCanvas: function(element) {
+        },
+        isImage: function(element) {
+        }
+      });
+      var ElementService_1 = ElementService;
+      var BrowserElementService = ElementService_1.extend({
+        createCanvas: function() {
+          return document.createElement("canvas");
+        },
+        createImage: function() {
+          return document.createElement("img");
+        },
+        isCanvas: function(element) {
+          return element instanceof HTMLCanvasElement;
+        },
+        isImage: function(element) {
+          return element instanceof HTMLImageElement;
+        }
+      });
+      var BrowserElementService_1 = BrowserElementService;
+      index.use(new BrowserElementService_1());
+      var QRious_1 = index;
+      return QRious_1;
+    });
+  }
+});
+
 // ../../node_modules/prop-types/node_modules/react-is/cjs/react-is.development.js
 var require_react_is_development = __commonJS({
   "../../node_modules/prop-types/node_modules/react-is/cjs/react-is.development.js"(exports) {
@@ -627,7 +2960,7 @@ var require_react_is_development = __commonJS({
         var Portal3 = REACT_PORTAL_TYPE;
         var Profiler = REACT_PROFILER_TYPE;
         var StrictMode = REACT_STRICT_MODE_TYPE;
-        var Suspense2 = REACT_SUSPENSE_TYPE;
+        var Suspense = REACT_SUSPENSE_TYPE;
         var hasWarnedAboutDeprecatedIsAsyncMode = false;
         function isAsyncMode(object) {
           {
@@ -686,7 +3019,7 @@ var require_react_is_development = __commonJS({
         exports.Portal = Portal3;
         exports.Profiler = Profiler;
         exports.StrictMode = StrictMode;
-        exports.Suspense = Suspense2;
+        exports.Suspense = Suspense;
         exports.isAsyncMode = isAsyncMode;
         exports.isConcurrentMode = isConcurrentMode;
         exports.isContextConsumer = isContextConsumer;
@@ -1402,7 +3735,7 @@ var require_react_is_development2 = __commonJS({
         var Portal3 = REACT_PORTAL_TYPE;
         var Profiler = REACT_PROFILER_TYPE;
         var StrictMode = REACT_STRICT_MODE_TYPE;
-        var Suspense2 = REACT_SUSPENSE_TYPE;
+        var Suspense = REACT_SUSPENSE_TYPE;
         var SuspenseList = REACT_SUSPENSE_LIST_TYPE;
         var hasWarnedAboutDeprecatedIsAsyncMode = false;
         var hasWarnedAboutDeprecatedIsConcurrentMode = false;
@@ -1470,7 +3803,7 @@ var require_react_is_development2 = __commonJS({
         exports.Portal = Portal3;
         exports.Profiler = Profiler;
         exports.StrictMode = StrictMode;
-        exports.Suspense = Suspense2;
+        exports.Suspense = Suspense;
         exports.SuspenseList = SuspenseList;
         exports.isAsyncMode = isAsyncMode;
         exports.isConcurrentMode = isConcurrentMode;
@@ -6263,10 +8596,2416 @@ function createPatch(oldCode, newCode) {
 
 // js/renderPreviewWindow.tsx
 init_define_process();
-import { Fragment as Fragment11, useEffect as useEffect30, useMemo as useMemo8, useState as useState26 } from "/react.mjs";
+import { Fragment as Fragment11, useEffect as useEffect31, useMemo as useMemo8, useState as useState27 } from "/react.mjs";
 
 // js/starter.tsx
 init_define_process();
+
+// ../../node_modules/es-module-shims/dist/es-module-shims.js
+init_define_process();
+(function() {
+  const hasWindow = typeof window !== "undefined";
+  const hasDocument = typeof document !== "undefined";
+  const noop2 = () => {
+  };
+  const optionsScript = hasDocument ? document.querySelector("script[type=esms-options]") : void 0;
+  const esmsInitOptions = optionsScript ? JSON.parse(optionsScript.innerHTML) : {};
+  Object.assign(esmsInitOptions, self.esmsInitOptions || {});
+  let shimMode = hasDocument ? !!esmsInitOptions.shimMode : true;
+  const importHook = globalHook(shimMode && esmsInitOptions.onimport);
+  const resolveHook = globalHook(shimMode && esmsInitOptions.resolve);
+  let fetchHook = esmsInitOptions.fetch ? globalHook(esmsInitOptions.fetch) : fetch;
+  const metaHook = esmsInitOptions.meta ? globalHook(shimMode && esmsInitOptions.meta) : noop2;
+  const skip2 = esmsInitOptions.skip ? new RegExp(esmsInitOptions.skip) : null;
+  const mapOverrides = esmsInitOptions.mapOverrides;
+  let nonce = esmsInitOptions.nonce;
+  if (!nonce && hasDocument) {
+    const nonceElement = document.querySelector("script[nonce]");
+    if (nonceElement)
+      nonce = nonceElement.nonce || nonceElement.getAttribute("nonce");
+  }
+  const onerror = globalHook(esmsInitOptions.onerror || noop2);
+  const onpolyfill = esmsInitOptions.onpolyfill ? globalHook(esmsInitOptions.onpolyfill) : () => {
+    console.log("%c^^ Module TypeError above is polyfilled and can be ignored ^^", "font-weight:900;color:#391");
+  };
+  const { revokeBlobURLs, noLoadEventRetriggers, enforceIntegrity } = esmsInitOptions;
+  function globalHook(name) {
+    return typeof name === "string" ? self[name] : name;
+  }
+  const enable = Array.isArray(esmsInitOptions.polyfillEnable) ? esmsInitOptions.polyfillEnable : [];
+  const cssModulesEnabled = enable.includes("css-modules");
+  const jsonModulesEnabled = enable.includes("json-modules");
+  const edge = !navigator.userAgentData && !!navigator.userAgent.match(/Edge\/\d+\.\d+/);
+  const baseUrl = hasDocument ? document.baseURI : `${location.protocol}//${location.host}${location.pathname.includes("/") ? location.pathname.slice(0, location.pathname.lastIndexOf("/") + 1) : location.pathname}`;
+  function createBlob(source, type = "text/javascript") {
+    return URL.createObjectURL(new Blob([source], { type }));
+  }
+  const eoop = (err2) => setTimeout(() => {
+    throw err2;
+  });
+  const throwError = (err2) => {
+    (self.reportError || hasWindow && window.safari && console.error || eoop)(err2), void onerror(err2);
+  };
+  function fromParent(parent) {
+    return parent ? ` imported from ${parent}` : "";
+  }
+  let importMapSrcOrLazy = false;
+  function setImportMapSrcOrLazy() {
+    importMapSrcOrLazy = true;
+  }
+  if (!shimMode) {
+    if (document.querySelectorAll("script[type=module-shim],script[type=importmap-shim],link[rel=modulepreload-shim]").length) {
+      shimMode = true;
+    } else {
+      let seenScript = false;
+      for (const script of document.querySelectorAll("script[type=module],script[type=importmap]")) {
+        if (!seenScript) {
+          if (script.type === "module" && !script.ep)
+            seenScript = true;
+        } else if (script.type === "importmap" && seenScript) {
+          importMapSrcOrLazy = true;
+          break;
+        }
+      }
+    }
+  }
+  const backslashRegEx = /\\/g;
+  function isURL(url) {
+    if (url.indexOf(":") === -1)
+      return false;
+    try {
+      new URL(url);
+      return true;
+    } catch (_2) {
+      return false;
+    }
+  }
+  function resolveUrl(relUrl, parentUrl) {
+    return resolveIfNotPlainOrUrl(relUrl, parentUrl) || (isURL(relUrl) ? relUrl : resolveIfNotPlainOrUrl("./" + relUrl, parentUrl));
+  }
+  function resolveIfNotPlainOrUrl(relUrl, parentUrl) {
+    const queryHashIndex = parentUrl.indexOf("?", parentUrl.indexOf("#") === -1 ? parentUrl.indexOf("#") : parentUrl.length);
+    if (queryHashIndex !== -1)
+      parentUrl = parentUrl.slice(0, queryHashIndex);
+    if (relUrl.indexOf("\\") !== -1)
+      relUrl = relUrl.replace(backslashRegEx, "/");
+    if (relUrl[0] === "/" && relUrl[1] === "/") {
+      return parentUrl.slice(0, parentUrl.indexOf(":") + 1) + relUrl;
+    } else if (relUrl[0] === "." && (relUrl[1] === "/" || relUrl[1] === "." && (relUrl[2] === "/" || relUrl.length === 2 && (relUrl += "/")) || relUrl.length === 1 && (relUrl += "/")) || relUrl[0] === "/") {
+      const parentProtocol = parentUrl.slice(0, parentUrl.indexOf(":") + 1);
+      let pathname;
+      if (parentUrl[parentProtocol.length + 1] === "/") {
+        if (parentProtocol !== "file:") {
+          pathname = parentUrl.slice(parentProtocol.length + 2);
+          pathname = pathname.slice(pathname.indexOf("/") + 1);
+        } else {
+          pathname = parentUrl.slice(8);
+        }
+      } else {
+        pathname = parentUrl.slice(parentProtocol.length + (parentUrl[parentProtocol.length] === "/"));
+      }
+      if (relUrl[0] === "/")
+        return parentUrl.slice(0, parentUrl.length - pathname.length - 1) + relUrl;
+      const segmented = pathname.slice(0, pathname.lastIndexOf("/") + 1) + relUrl;
+      const output = [];
+      let segmentIndex = -1;
+      for (let i3 = 0; i3 < segmented.length; i3++) {
+        if (segmentIndex !== -1) {
+          if (segmented[i3] === "/") {
+            output.push(segmented.slice(segmentIndex, i3 + 1));
+            segmentIndex = -1;
+          }
+          continue;
+        } else if (segmented[i3] === ".") {
+          if (segmented[i3 + 1] === "." && (segmented[i3 + 2] === "/" || i3 + 2 === segmented.length)) {
+            output.pop();
+            i3 += 2;
+            continue;
+          } else if (segmented[i3 + 1] === "/" || i3 + 1 === segmented.length) {
+            i3 += 1;
+            continue;
+          }
+        }
+        while (segmented[i3] === "/")
+          i3++;
+        segmentIndex = i3;
+      }
+      if (segmentIndex !== -1)
+        output.push(segmented.slice(segmentIndex));
+      return parentUrl.slice(0, parentUrl.length - pathname.length) + output.join("");
+    }
+  }
+  function resolveAndComposeImportMap(json, baseUrl2, parentMap) {
+    const outMap = { imports: Object.assign({}, parentMap.imports), scopes: Object.assign({}, parentMap.scopes) };
+    if (json.imports)
+      resolveAndComposePackages(json.imports, outMap.imports, baseUrl2, parentMap);
+    if (json.scopes)
+      for (let s2 in json.scopes) {
+        const resolvedScope = resolveUrl(s2, baseUrl2);
+        resolveAndComposePackages(json.scopes[s2], outMap.scopes[resolvedScope] || (outMap.scopes[resolvedScope] = {}), baseUrl2, parentMap);
+      }
+    return outMap;
+  }
+  function getMatch(path, matchObj) {
+    if (matchObj[path])
+      return path;
+    let sepIndex = path.length;
+    do {
+      const segment = path.slice(0, sepIndex + 1);
+      if (segment in matchObj)
+        return segment;
+    } while ((sepIndex = path.lastIndexOf("/", sepIndex - 1)) !== -1);
+  }
+  function applyPackages(id, packages) {
+    const pkgName = getMatch(id, packages);
+    if (pkgName) {
+      const pkg = packages[pkgName];
+      if (pkg === null)
+        return;
+      return pkg + id.slice(pkgName.length);
+    }
+  }
+  function resolveImportMap(importMap2, resolvedOrPlain, parentUrl) {
+    let scopeUrl = parentUrl && getMatch(parentUrl, importMap2.scopes);
+    while (scopeUrl) {
+      const packageResolution = applyPackages(resolvedOrPlain, importMap2.scopes[scopeUrl]);
+      if (packageResolution)
+        return packageResolution;
+      scopeUrl = getMatch(scopeUrl.slice(0, scopeUrl.lastIndexOf("/")), importMap2.scopes);
+    }
+    return applyPackages(resolvedOrPlain, importMap2.imports) || resolvedOrPlain.indexOf(":") !== -1 && resolvedOrPlain;
+  }
+  function resolveAndComposePackages(packages, outPackages, baseUrl2, parentMap) {
+    for (let p2 in packages) {
+      const resolvedLhs = resolveIfNotPlainOrUrl(p2, baseUrl2) || p2;
+      if ((!shimMode || !mapOverrides) && outPackages[resolvedLhs] && outPackages[resolvedLhs] !== packages[resolvedLhs]) {
+        throw Error(`Rejected map override "${resolvedLhs}" from ${outPackages[resolvedLhs]} to ${packages[resolvedLhs]}.`);
+      }
+      let target = packages[p2];
+      if (typeof target !== "string")
+        continue;
+      const mapped = resolveImportMap(parentMap, resolveIfNotPlainOrUrl(target, baseUrl2) || target, baseUrl2);
+      if (mapped) {
+        outPackages[resolvedLhs] = mapped;
+        continue;
+      }
+      console.warn(`Mapping "${p2}" -> "${packages[p2]}" does not resolve`);
+    }
+  }
+  let err;
+  window.addEventListener("error", (_err) => err = _err);
+  function dynamicImportScript(url, { errUrl = url } = {}) {
+    err = void 0;
+    const src = createBlob(`import*as m from'${url}';self._esmsi=m`);
+    const s2 = Object.assign(document.createElement("script"), { type: "module", src, ep: true });
+    s2.setAttribute("nonce", nonce);
+    s2.setAttribute("noshim", "");
+    const p2 = new Promise((resolve2, reject) => {
+      s2.addEventListener("error", cb);
+      s2.addEventListener("load", cb);
+      function cb(_err) {
+        document.head.removeChild(s2);
+        if (self._esmsi) {
+          resolve2(self._esmsi, baseUrl);
+          self._esmsi = void 0;
+        } else {
+          reject(!(_err instanceof Event) && _err || err && err.error || new Error(`Error loading or executing the graph of ${errUrl} (check the console for ${src}).`));
+          err = void 0;
+        }
+      }
+    });
+    document.head.appendChild(s2);
+    return p2;
+  }
+  let dynamicImport = dynamicImportScript;
+  const supportsDynamicImportCheck = dynamicImportScript(createBlob("export default u=>import(u)")).then((_dynamicImport) => {
+    if (_dynamicImport)
+      dynamicImport = _dynamicImport.default;
+    return !!_dynamicImport;
+  }, noop2);
+  let supportsJsonAssertions = false;
+  let supportsCssAssertions = false;
+  let supportsImportMaps = hasDocument && HTMLScriptElement.supports ? HTMLScriptElement.supports("importmap") : false;
+  let supportsImportMeta = supportsImportMaps;
+  let supportsDynamicImport = false;
+  const featureDetectionPromise = Promise.resolve(supportsImportMaps || supportsDynamicImportCheck).then((_supportsDynamicImport) => {
+    if (!_supportsDynamicImport)
+      return;
+    supportsDynamicImport = true;
+    return Promise.all([
+      supportsImportMaps || dynamicImport(createBlob("import.meta")).then(() => supportsImportMeta = true, noop2),
+      cssModulesEnabled && dynamicImport(createBlob(`import"${createBlob("", "text/css")}"assert{type:"css"}`)).then(() => supportsCssAssertions = true, noop2),
+      jsonModulesEnabled && dynamicImport(createBlob(`import"${createBlob("{}", "text/json")}"assert{type:"json"}`)).then(() => supportsJsonAssertions = true, noop2),
+      supportsImportMaps || hasDocument && (HTMLScriptElement.supports || new Promise((resolve2) => {
+        const iframe = document.createElement("iframe");
+        iframe.style.display = "none";
+        iframe.setAttribute("nonce", nonce);
+        iframe.srcdoc = `<!doctype html><script nonce="${nonce}"><${""}/script>`;
+        document.head.appendChild(iframe);
+        iframe.onload = () => {
+          self._$s = (v) => {
+            document.head.removeChild(iframe);
+            supportsImportMaps = v;
+            delete self._$s;
+            resolve2();
+          };
+          const supportsSrcDoc = iframe.contentDocument.head.childNodes.length > 0;
+          const importMapTest = `<!doctype html><script type=importmap nonce="${nonce}">{"imports":{"x":"${createBlob("")}"}<${""}/script><script nonce="${nonce}">import('x').catch(() => {}).then(v=>parent._$s(!!v))<${""}/script>`;
+          if (supportsSrcDoc)
+            iframe.srcdoc = importMapTest;
+          else
+            iframe.contentDocument.write(importMapTest);
+        };
+      }))
+    ]);
+  });
+  let e, a, r2, s = 2 << 19;
+  const i2 = 1 === new Uint8Array(new Uint16Array([1]).buffer)[0] ? function(e2, a2) {
+    const r3 = e2.length;
+    let s2 = 0;
+    for (; s2 < r3; )
+      a2[s2] = e2.charCodeAt(s2++);
+  } : function(e2, a2) {
+    const r3 = e2.length;
+    let s2 = 0;
+    for (; s2 < r3; ) {
+      const r4 = e2.charCodeAt(s2);
+      a2[s2++] = (255 & r4) << 8 | r4 >>> 8;
+    }
+  }, t = "xportmportlassetafromssertvoyiedeleinstantyreturdebuggeawaithrwhileforifcatcfinallels";
+  let c$1, f, n;
+  function parse(k2, l2 = "@") {
+    c$1 = k2, f = l2;
+    const u2 = 2 * c$1.length + (2 << 18);
+    if (u2 > s || !e) {
+      for (; u2 > s; )
+        s *= 2;
+      a = new ArrayBuffer(s), i2(t, new Uint16Array(a, 16, 85)), e = function(e2, a2, r3) {
+        ;
+        var s2 = new e2.Int8Array(r3), i3 = new e2.Int16Array(r3), t2 = new e2.Int32Array(r3), c2 = new e2.Uint8Array(r3), f2 = new e2.Uint16Array(r3), n2 = 992;
+        function b2(e3) {
+          e3 = e3 | 0;
+          var a3 = 0, r4 = 0, c3 = 0, b3 = 0, u4 = 0, w3 = 0, v2 = 0;
+          v2 = n2;
+          n2 = n2 + 11520 | 0;
+          u4 = v2 + 2048 | 0;
+          s2[763] = 1;
+          i3[377] = 0;
+          i3[378] = 0;
+          i3[379] = 0;
+          i3[380] = -1;
+          t2[57] = t2[2];
+          s2[764] = 0;
+          t2[56] = 0;
+          s2[762] = 0;
+          t2[58] = v2 + 10496;
+          t2[59] = v2 + 2304;
+          t2[60] = v2;
+          s2[765] = 0;
+          e3 = (t2[3] | 0) + -2 | 0;
+          t2[61] = e3;
+          a3 = e3 + (t2[54] << 1) | 0;
+          t2[62] = a3;
+          e:
+            while (1) {
+              r4 = e3 + 2 | 0;
+              t2[61] = r4;
+              if (e3 >>> 0 >= a3 >>> 0) {
+                b3 = 18;
+                break;
+              }
+              a:
+                do {
+                  switch (i3[r4 >> 1] | 0) {
+                    case 9:
+                    case 10:
+                    case 11:
+                    case 12:
+                    case 13:
+                    case 32:
+                      break;
+                    case 101: {
+                      if ((((i3[379] | 0) == 0 ? D(r4) | 0 : 0) ? (m2(e3 + 4 | 0, 16, 10) | 0) == 0 : 0) ? (k3(), (s2[763] | 0) == 0) : 0) {
+                        b3 = 9;
+                        break e;
+                      } else
+                        b3 = 17;
+                      break;
+                    }
+                    case 105: {
+                      if (D(r4) | 0 ? (m2(e3 + 4 | 0, 26, 10) | 0) == 0 : 0) {
+                        l3();
+                        b3 = 17;
+                      } else
+                        b3 = 17;
+                      break;
+                    }
+                    case 59: {
+                      b3 = 17;
+                      break;
+                    }
+                    case 47:
+                      switch (i3[e3 + 4 >> 1] | 0) {
+                        case 47: {
+                          j();
+                          break a;
+                        }
+                        case 42: {
+                          y(1);
+                          break a;
+                        }
+                        default: {
+                          b3 = 16;
+                          break e;
+                        }
+                      }
+                    default: {
+                      b3 = 16;
+                      break e;
+                    }
+                  }
+                } while (0);
+              if ((b3 | 0) == 17) {
+                b3 = 0;
+                t2[57] = t2[61];
+              }
+              e3 = t2[61] | 0;
+              a3 = t2[62] | 0;
+            }
+          if ((b3 | 0) == 9) {
+            e3 = t2[61] | 0;
+            t2[57] = e3;
+            b3 = 19;
+          } else if ((b3 | 0) == 16) {
+            s2[763] = 0;
+            t2[61] = e3;
+            b3 = 19;
+          } else if ((b3 | 0) == 18)
+            if (!(s2[762] | 0)) {
+              e3 = r4;
+              b3 = 19;
+            } else
+              e3 = 0;
+          do {
+            if ((b3 | 0) == 19) {
+              e:
+                while (1) {
+                  a3 = e3 + 2 | 0;
+                  t2[61] = a3;
+                  c3 = a3;
+                  if (e3 >>> 0 >= (t2[62] | 0) >>> 0) {
+                    b3 = 75;
+                    break;
+                  }
+                  a:
+                    do {
+                      switch (i3[a3 >> 1] | 0) {
+                        case 9:
+                        case 10:
+                        case 11:
+                        case 12:
+                        case 13:
+                        case 32:
+                          break;
+                        case 101: {
+                          if (((i3[379] | 0) == 0 ? D(a3) | 0 : 0) ? (m2(e3 + 4 | 0, 16, 10) | 0) == 0 : 0) {
+                            k3();
+                            b3 = 74;
+                          } else
+                            b3 = 74;
+                          break;
+                        }
+                        case 105: {
+                          if (D(a3) | 0 ? (m2(e3 + 4 | 0, 26, 10) | 0) == 0 : 0) {
+                            l3();
+                            b3 = 74;
+                          } else
+                            b3 = 74;
+                          break;
+                        }
+                        case 99: {
+                          if ((D(a3) | 0 ? (m2(e3 + 4 | 0, 36, 8) | 0) == 0 : 0) ? M(i3[e3 + 12 >> 1] | 0) | 0 : 0) {
+                            s2[765] = 1;
+                            b3 = 74;
+                          } else
+                            b3 = 74;
+                          break;
+                        }
+                        case 40: {
+                          r4 = t2[57] | 0;
+                          c3 = t2[59] | 0;
+                          b3 = i3[379] | 0;
+                          i3[379] = b3 + 1 << 16 >> 16;
+                          t2[c3 + ((b3 & 65535) << 2) >> 2] = r4;
+                          b3 = 74;
+                          break;
+                        }
+                        case 41: {
+                          a3 = i3[379] | 0;
+                          if (!(a3 << 16 >> 16)) {
+                            b3 = 36;
+                            break e;
+                          }
+                          a3 = a3 + -1 << 16 >> 16;
+                          i3[379] = a3;
+                          r4 = i3[378] | 0;
+                          if (r4 << 16 >> 16 != 0 ? (w3 = t2[(t2[60] | 0) + ((r4 & 65535) + -1 << 2) >> 2] | 0, (t2[w3 + 20 >> 2] | 0) == (t2[(t2[59] | 0) + ((a3 & 65535) << 2) >> 2] | 0)) : 0) {
+                            a3 = w3 + 4 | 0;
+                            if (!(t2[a3 >> 2] | 0))
+                              t2[a3 >> 2] = c3;
+                            t2[w3 + 12 >> 2] = e3 + 4;
+                            i3[378] = r4 + -1 << 16 >> 16;
+                            b3 = 74;
+                          } else
+                            b3 = 74;
+                          break;
+                        }
+                        case 123: {
+                          b3 = t2[57] | 0;
+                          c3 = t2[51] | 0;
+                          e3 = b3;
+                          do {
+                            if ((i3[b3 >> 1] | 0) == 41 & (c3 | 0) != 0 ? (t2[c3 + 4 >> 2] | 0) == (b3 | 0) : 0) {
+                              a3 = t2[52] | 0;
+                              t2[51] = a3;
+                              if (!a3) {
+                                t2[47] = 0;
+                                break;
+                              } else {
+                                t2[a3 + 28 >> 2] = 0;
+                                break;
+                              }
+                            }
+                          } while (0);
+                          r4 = i3[379] | 0;
+                          b3 = r4 & 65535;
+                          s2[u4 + b3 >> 0] = s2[765] | 0;
+                          s2[765] = 0;
+                          c3 = t2[59] | 0;
+                          i3[379] = r4 + 1 << 16 >> 16;
+                          t2[c3 + (b3 << 2) >> 2] = e3;
+                          b3 = 74;
+                          break;
+                        }
+                        case 125: {
+                          e3 = i3[379] | 0;
+                          if (!(e3 << 16 >> 16)) {
+                            b3 = 49;
+                            break e;
+                          }
+                          r4 = e3 + -1 << 16 >> 16;
+                          i3[379] = r4;
+                          a3 = i3[380] | 0;
+                          if (e3 << 16 >> 16 != a3 << 16 >> 16)
+                            if (a3 << 16 >> 16 != -1 & (r4 & 65535) < (a3 & 65535)) {
+                              b3 = 53;
+                              break e;
+                            } else {
+                              b3 = 74;
+                              break a;
+                            }
+                          else {
+                            c3 = t2[58] | 0;
+                            b3 = (i3[377] | 0) + -1 << 16 >> 16;
+                            i3[377] = b3;
+                            i3[380] = i3[c3 + ((b3 & 65535) << 1) >> 1] | 0;
+                            h3();
+                            b3 = 74;
+                            break a;
+                          }
+                        }
+                        case 39: {
+                          d2(39);
+                          b3 = 74;
+                          break;
+                        }
+                        case 34: {
+                          d2(34);
+                          b3 = 74;
+                          break;
+                        }
+                        case 47:
+                          switch (i3[e3 + 4 >> 1] | 0) {
+                            case 47: {
+                              j();
+                              break a;
+                            }
+                            case 42: {
+                              y(1);
+                              break a;
+                            }
+                            default: {
+                              a3 = t2[57] | 0;
+                              r4 = i3[a3 >> 1] | 0;
+                              r:
+                                do {
+                                  if (!(U(r4) | 0)) {
+                                    switch (r4 << 16 >> 16) {
+                                      case 41:
+                                        if (q(t2[(t2[59] | 0) + (f2[379] << 2) >> 2] | 0) | 0) {
+                                          b3 = 71;
+                                          break r;
+                                        } else {
+                                          b3 = 68;
+                                          break r;
+                                        }
+                                      case 125:
+                                        break;
+                                      default: {
+                                        b3 = 68;
+                                        break r;
+                                      }
+                                    }
+                                    e3 = f2[379] | 0;
+                                    if (!(p2(t2[(t2[59] | 0) + (e3 << 2) >> 2] | 0) | 0) ? (s2[u4 + e3 >> 0] | 0) == 0 : 0)
+                                      b3 = 68;
+                                    else
+                                      b3 = 71;
+                                  } else
+                                    switch (r4 << 16 >> 16) {
+                                      case 46:
+                                        if (((i3[a3 + -2 >> 1] | 0) + -48 & 65535) < 10) {
+                                          b3 = 68;
+                                          break r;
+                                        } else {
+                                          b3 = 71;
+                                          break r;
+                                        }
+                                      case 43:
+                                        if ((i3[a3 + -2 >> 1] | 0) == 43) {
+                                          b3 = 68;
+                                          break r;
+                                        } else {
+                                          b3 = 71;
+                                          break r;
+                                        }
+                                      case 45:
+                                        if ((i3[a3 + -2 >> 1] | 0) == 45) {
+                                          b3 = 68;
+                                          break r;
+                                        } else {
+                                          b3 = 71;
+                                          break r;
+                                        }
+                                      default: {
+                                        b3 = 71;
+                                        break r;
+                                      }
+                                    }
+                                } while (0);
+                              r:
+                                do {
+                                  if ((b3 | 0) == 68) {
+                                    b3 = 0;
+                                    if (!(o2(a3) | 0)) {
+                                      switch (r4 << 16 >> 16) {
+                                        case 0: {
+                                          b3 = 71;
+                                          break r;
+                                        }
+                                        case 47:
+                                          break;
+                                        default: {
+                                          e3 = 1;
+                                          break r;
+                                        }
+                                      }
+                                      if (!(s2[764] | 0))
+                                        e3 = 1;
+                                      else
+                                        b3 = 71;
+                                    } else
+                                      b3 = 71;
+                                  }
+                                } while (0);
+                              if ((b3 | 0) == 71) {
+                                g();
+                                e3 = 0;
+                              }
+                              s2[764] = e3;
+                              b3 = 74;
+                              break a;
+                            }
+                          }
+                        case 96: {
+                          h3();
+                          b3 = 74;
+                          break;
+                        }
+                        default:
+                          b3 = 74;
+                      }
+                    } while (0);
+                  if ((b3 | 0) == 74) {
+                    b3 = 0;
+                    t2[57] = t2[61];
+                  }
+                  e3 = t2[61] | 0;
+                }
+              if ((b3 | 0) == 36) {
+                L();
+                e3 = 0;
+                break;
+              } else if ((b3 | 0) == 49) {
+                L();
+                e3 = 0;
+                break;
+              } else if ((b3 | 0) == 53) {
+                L();
+                e3 = 0;
+                break;
+              } else if ((b3 | 0) == 75) {
+                e3 = (i3[380] | 0) == -1 & (i3[379] | 0) == 0 & (s2[762] | 0) == 0 & (i3[378] | 0) == 0;
+                break;
+              }
+            }
+          } while (0);
+          n2 = v2;
+          return e3 | 0;
+        }
+        function k3() {
+          var e3 = 0, a3 = 0, r4 = 0, c3 = 0, f3 = 0, n3 = 0;
+          f3 = t2[61] | 0;
+          n3 = f3 + 12 | 0;
+          t2[61] = n3;
+          a3 = w2(1) | 0;
+          e3 = t2[61] | 0;
+          if (!((e3 | 0) == (n3 | 0) ? !(I(a3) | 0) : 0))
+            c3 = 3;
+          e:
+            do {
+              if ((c3 | 0) == 3) {
+                a:
+                  do {
+                    switch (a3 << 16 >> 16) {
+                      case 100: {
+                        B(e3, e3 + 14 | 0);
+                        break e;
+                      }
+                      case 97: {
+                        t2[61] = e3 + 10;
+                        w2(1) | 0;
+                        e3 = t2[61] | 0;
+                        c3 = 6;
+                        break;
+                      }
+                      case 102: {
+                        c3 = 6;
+                        break;
+                      }
+                      case 99: {
+                        if ((m2(e3 + 2 | 0, 36, 8) | 0) == 0 ? (r4 = e3 + 10 | 0, $(i3[r4 >> 1] | 0) | 0) : 0) {
+                          t2[61] = r4;
+                          f3 = w2(1) | 0;
+                          n3 = t2[61] | 0;
+                          E(f3) | 0;
+                          B(n3, t2[61] | 0);
+                          t2[61] = (t2[61] | 0) + -2;
+                          break e;
+                        }
+                        e3 = e3 + 4 | 0;
+                        t2[61] = e3;
+                        c3 = 13;
+                        break;
+                      }
+                      case 108:
+                      case 118: {
+                        c3 = 13;
+                        break;
+                      }
+                      case 123: {
+                        t2[61] = e3 + 2;
+                        e3 = w2(1) | 0;
+                        r4 = t2[61] | 0;
+                        while (1) {
+                          if (N(e3) | 0) {
+                            d2(e3);
+                            e3 = (t2[61] | 0) + 2 | 0;
+                            t2[61] = e3;
+                          } else {
+                            E(e3) | 0;
+                            e3 = t2[61] | 0;
+                          }
+                          w2(1) | 0;
+                          e3 = C(r4, e3) | 0;
+                          if (e3 << 16 >> 16 == 44) {
+                            t2[61] = (t2[61] | 0) + 2;
+                            e3 = w2(1) | 0;
+                          }
+                          a3 = r4;
+                          r4 = t2[61] | 0;
+                          if (e3 << 16 >> 16 == 125) {
+                            c3 = 32;
+                            break;
+                          }
+                          if ((r4 | 0) == (a3 | 0)) {
+                            c3 = 29;
+                            break;
+                          }
+                          if (r4 >>> 0 > (t2[62] | 0) >>> 0) {
+                            c3 = 31;
+                            break;
+                          }
+                        }
+                        if ((c3 | 0) == 29) {
+                          L();
+                          break e;
+                        } else if ((c3 | 0) == 31) {
+                          L();
+                          break e;
+                        } else if ((c3 | 0) == 32) {
+                          t2[61] = r4 + 2;
+                          c3 = 34;
+                          break a;
+                        }
+                        break;
+                      }
+                      case 42: {
+                        t2[61] = e3 + 2;
+                        w2(1) | 0;
+                        c3 = t2[61] | 0;
+                        C(c3, c3) | 0;
+                        c3 = 34;
+                        break;
+                      }
+                      default: {
+                      }
+                    }
+                  } while (0);
+                if ((c3 | 0) == 6) {
+                  t2[61] = e3 + 16;
+                  e3 = w2(1) | 0;
+                  if (e3 << 16 >> 16 == 42) {
+                    t2[61] = (t2[61] | 0) + 2;
+                    e3 = w2(1) | 0;
+                  }
+                  n3 = t2[61] | 0;
+                  E(e3) | 0;
+                  B(n3, t2[61] | 0);
+                  t2[61] = (t2[61] | 0) + -2;
+                  break;
+                } else if ((c3 | 0) == 13) {
+                  e3 = e3 + 4 | 0;
+                  t2[61] = e3;
+                  s2[763] = 0;
+                  a:
+                    while (1) {
+                      t2[61] = e3 + 2;
+                      n3 = w2(1) | 0;
+                      e3 = t2[61] | 0;
+                      switch ((E(n3) | 0) << 16 >> 16) {
+                        case 91:
+                        case 123: {
+                          c3 = 15;
+                          break a;
+                        }
+                        default: {
+                        }
+                      }
+                      a3 = t2[61] | 0;
+                      if ((a3 | 0) == (e3 | 0))
+                        break e;
+                      B(e3, a3);
+                      switch ((w2(1) | 0) << 16 >> 16) {
+                        case 61: {
+                          c3 = 19;
+                          break a;
+                        }
+                        case 44:
+                          break;
+                        default: {
+                          c3 = 20;
+                          break a;
+                        }
+                      }
+                      e3 = t2[61] | 0;
+                    }
+                  if ((c3 | 0) == 15) {
+                    t2[61] = (t2[61] | 0) + -2;
+                    break;
+                  } else if ((c3 | 0) == 19) {
+                    t2[61] = (t2[61] | 0) + -2;
+                    break;
+                  } else if ((c3 | 0) == 20) {
+                    t2[61] = (t2[61] | 0) + -2;
+                    break;
+                  }
+                } else if ((c3 | 0) == 34)
+                  a3 = w2(1) | 0;
+                e3 = t2[61] | 0;
+                if (a3 << 16 >> 16 == 102 ? (m2(e3 + 2 | 0, 52, 6) | 0) == 0 : 0) {
+                  t2[61] = e3 + 8;
+                  u3(f3, w2(1) | 0);
+                  break;
+                }
+                t2[61] = e3 + -2;
+              }
+            } while (0);
+          return;
+        }
+        function l3() {
+          var e3 = 0, a3 = 0, r4 = 0, c3 = 0, f3 = 0;
+          f3 = t2[61] | 0;
+          a3 = f3 + 12 | 0;
+          t2[61] = a3;
+          e:
+            do {
+              switch ((w2(1) | 0) << 16 >> 16) {
+                case 40: {
+                  e3 = t2[61] | 0;
+                  a3 = t2[59] | 0;
+                  r4 = i3[379] | 0;
+                  i3[379] = r4 + 1 << 16 >> 16;
+                  t2[a3 + ((r4 & 65535) << 2) >> 2] = e3;
+                  if ((i3[t2[57] >> 1] | 0) != 46) {
+                    e3 = t2[61] | 0;
+                    t2[61] = e3 + 2;
+                    r4 = w2(1) | 0;
+                    v(f3, t2[61] | 0, 0, e3);
+                    e3 = t2[51] | 0;
+                    a3 = t2[60] | 0;
+                    f3 = i3[378] | 0;
+                    i3[378] = f3 + 1 << 16 >> 16;
+                    t2[a3 + ((f3 & 65535) << 2) >> 2] = e3;
+                    switch (r4 << 16 >> 16) {
+                      case 39: {
+                        d2(39);
+                        break;
+                      }
+                      case 34: {
+                        d2(34);
+                        break;
+                      }
+                      default: {
+                        t2[61] = (t2[61] | 0) + -2;
+                        break e;
+                      }
+                    }
+                    e3 = (t2[61] | 0) + 2 | 0;
+                    t2[61] = e3;
+                    switch ((w2(1) | 0) << 16 >> 16) {
+                      case 44: {
+                        t2[61] = (t2[61] | 0) + 2;
+                        w2(1) | 0;
+                        r4 = t2[51] | 0;
+                        t2[r4 + 4 >> 2] = e3;
+                        f3 = t2[61] | 0;
+                        t2[r4 + 16 >> 2] = f3;
+                        s2[r4 + 24 >> 0] = 1;
+                        t2[61] = f3 + -2;
+                        break e;
+                      }
+                      case 41: {
+                        i3[379] = (i3[379] | 0) + -1 << 16 >> 16;
+                        f3 = t2[51] | 0;
+                        t2[f3 + 4 >> 2] = e3;
+                        t2[f3 + 12 >> 2] = (t2[61] | 0) + 2;
+                        s2[f3 + 24 >> 0] = 1;
+                        i3[378] = (i3[378] | 0) + -1 << 16 >> 16;
+                        break e;
+                      }
+                      default: {
+                        t2[61] = (t2[61] | 0) + -2;
+                        break e;
+                      }
+                    }
+                  }
+                  break;
+                }
+                case 46: {
+                  t2[61] = (t2[61] | 0) + 2;
+                  if (((w2(1) | 0) << 16 >> 16 == 109 ? (e3 = t2[61] | 0, (m2(e3 + 2 | 0, 44, 6) | 0) == 0) : 0) ? (i3[t2[57] >> 1] | 0) != 46 : 0)
+                    v(f3, f3, e3 + 8 | 0, 2);
+                  break;
+                }
+                case 42:
+                case 39:
+                case 34: {
+                  c3 = 16;
+                  break;
+                }
+                case 123: {
+                  e3 = t2[61] | 0;
+                  if (i3[379] | 0) {
+                    t2[61] = e3 + -2;
+                    break e;
+                  }
+                  while (1) {
+                    if (e3 >>> 0 >= (t2[62] | 0) >>> 0)
+                      break;
+                    e3 = w2(1) | 0;
+                    if (!(N(e3) | 0)) {
+                      if (e3 << 16 >> 16 == 125) {
+                        c3 = 31;
+                        break;
+                      }
+                    } else
+                      d2(e3);
+                    e3 = (t2[61] | 0) + 2 | 0;
+                    t2[61] = e3;
+                  }
+                  if ((c3 | 0) == 31)
+                    t2[61] = (t2[61] | 0) + 2;
+                  w2(1) | 0;
+                  e3 = t2[61] | 0;
+                  if (m2(e3, 50, 8) | 0) {
+                    L();
+                    break e;
+                  }
+                  t2[61] = e3 + 8;
+                  e3 = w2(1) | 0;
+                  if (N(e3) | 0) {
+                    u3(f3, e3);
+                    break e;
+                  } else {
+                    L();
+                    break e;
+                  }
+                }
+                default:
+                  if ((t2[61] | 0) != (a3 | 0))
+                    c3 = 16;
+              }
+            } while (0);
+          do {
+            if ((c3 | 0) == 16) {
+              if (i3[379] | 0) {
+                t2[61] = (t2[61] | 0) + -2;
+                break;
+              }
+              e3 = t2[62] | 0;
+              a3 = t2[61] | 0;
+              while (1) {
+                if (a3 >>> 0 >= e3 >>> 0) {
+                  c3 = 23;
+                  break;
+                }
+                r4 = i3[a3 >> 1] | 0;
+                if (N(r4) | 0) {
+                  c3 = 21;
+                  break;
+                }
+                c3 = a3 + 2 | 0;
+                t2[61] = c3;
+                a3 = c3;
+              }
+              if ((c3 | 0) == 21) {
+                u3(f3, r4);
+                break;
+              } else if ((c3 | 0) == 23) {
+                L();
+                break;
+              }
+            }
+          } while (0);
+          return;
+        }
+        function u3(e3, a3) {
+          e3 = e3 | 0;
+          a3 = a3 | 0;
+          var r4 = 0, s3 = 0;
+          r4 = (t2[61] | 0) + 2 | 0;
+          switch (a3 << 16 >> 16) {
+            case 39: {
+              d2(39);
+              s3 = 5;
+              break;
+            }
+            case 34: {
+              d2(34);
+              s3 = 5;
+              break;
+            }
+            default:
+              L();
+          }
+          do {
+            if ((s3 | 0) == 5) {
+              v(e3, r4, t2[61] | 0, 1);
+              t2[61] = (t2[61] | 0) + 2;
+              s3 = (w2(0) | 0) << 16 >> 16 == 97;
+              a3 = t2[61] | 0;
+              if (s3 ? (m2(a3 + 2 | 0, 58, 10) | 0) == 0 : 0) {
+                t2[61] = a3 + 12;
+                if ((w2(1) | 0) << 16 >> 16 != 123) {
+                  t2[61] = a3;
+                  break;
+                }
+                e3 = t2[61] | 0;
+                r4 = e3;
+                e:
+                  while (1) {
+                    t2[61] = r4 + 2;
+                    r4 = w2(1) | 0;
+                    switch (r4 << 16 >> 16) {
+                      case 39: {
+                        d2(39);
+                        t2[61] = (t2[61] | 0) + 2;
+                        r4 = w2(1) | 0;
+                        break;
+                      }
+                      case 34: {
+                        d2(34);
+                        t2[61] = (t2[61] | 0) + 2;
+                        r4 = w2(1) | 0;
+                        break;
+                      }
+                      default:
+                        r4 = E(r4) | 0;
+                    }
+                    if (r4 << 16 >> 16 != 58) {
+                      s3 = 16;
+                      break;
+                    }
+                    t2[61] = (t2[61] | 0) + 2;
+                    switch ((w2(1) | 0) << 16 >> 16) {
+                      case 39: {
+                        d2(39);
+                        break;
+                      }
+                      case 34: {
+                        d2(34);
+                        break;
+                      }
+                      default: {
+                        s3 = 20;
+                        break e;
+                      }
+                    }
+                    t2[61] = (t2[61] | 0) + 2;
+                    switch ((w2(1) | 0) << 16 >> 16) {
+                      case 125: {
+                        s3 = 25;
+                        break e;
+                      }
+                      case 44:
+                        break;
+                      default: {
+                        s3 = 24;
+                        break e;
+                      }
+                    }
+                    t2[61] = (t2[61] | 0) + 2;
+                    if ((w2(1) | 0) << 16 >> 16 == 125) {
+                      s3 = 25;
+                      break;
+                    }
+                    r4 = t2[61] | 0;
+                  }
+                if ((s3 | 0) == 16) {
+                  t2[61] = a3;
+                  break;
+                } else if ((s3 | 0) == 20) {
+                  t2[61] = a3;
+                  break;
+                } else if ((s3 | 0) == 24) {
+                  t2[61] = a3;
+                  break;
+                } else if ((s3 | 0) == 25) {
+                  s3 = t2[51] | 0;
+                  t2[s3 + 16 >> 2] = e3;
+                  t2[s3 + 12 >> 2] = (t2[61] | 0) + 2;
+                  break;
+                }
+              }
+              t2[61] = a3 + -2;
+            }
+          } while (0);
+          return;
+        }
+        function o2(e3) {
+          e3 = e3 | 0;
+          e:
+            do {
+              switch (i3[e3 >> 1] | 0) {
+                case 100:
+                  switch (i3[e3 + -2 >> 1] | 0) {
+                    case 105: {
+                      e3 = S(e3 + -4 | 0, 68, 2) | 0;
+                      break e;
+                    }
+                    case 108: {
+                      e3 = S(e3 + -4 | 0, 72, 3) | 0;
+                      break e;
+                    }
+                    default: {
+                      e3 = 0;
+                      break e;
+                    }
+                  }
+                case 101: {
+                  switch (i3[e3 + -2 >> 1] | 0) {
+                    case 115:
+                      break;
+                    case 116: {
+                      e3 = S(e3 + -4 | 0, 78, 4) | 0;
+                      break e;
+                    }
+                    default: {
+                      e3 = 0;
+                      break e;
+                    }
+                  }
+                  switch (i3[e3 + -4 >> 1] | 0) {
+                    case 108: {
+                      e3 = O(e3 + -6 | 0, 101) | 0;
+                      break e;
+                    }
+                    case 97: {
+                      e3 = O(e3 + -6 | 0, 99) | 0;
+                      break e;
+                    }
+                    default: {
+                      e3 = 0;
+                      break e;
+                    }
+                  }
+                }
+                case 102: {
+                  if ((i3[e3 + -2 >> 1] | 0) == 111 ? (i3[e3 + -4 >> 1] | 0) == 101 : 0)
+                    switch (i3[e3 + -6 >> 1] | 0) {
+                      case 99: {
+                        e3 = S(e3 + -8 | 0, 86, 6) | 0;
+                        break e;
+                      }
+                      case 112: {
+                        e3 = S(e3 + -8 | 0, 98, 2) | 0;
+                        break e;
+                      }
+                      default: {
+                        e3 = 0;
+                        break e;
+                      }
+                    }
+                  else
+                    e3 = 0;
+                  break;
+                }
+                case 110: {
+                  e3 = e3 + -2 | 0;
+                  if (O(e3, 105) | 0)
+                    e3 = 1;
+                  else
+                    e3 = S(e3, 102, 5) | 0;
+                  break;
+                }
+                case 111: {
+                  e3 = O(e3 + -2 | 0, 100) | 0;
+                  break;
+                }
+                case 114: {
+                  e3 = S(e3 + -2 | 0, 112, 7) | 0;
+                  break;
+                }
+                case 116: {
+                  e3 = S(e3 + -2 | 0, 126, 4) | 0;
+                  break;
+                }
+                case 119:
+                  switch (i3[e3 + -2 >> 1] | 0) {
+                    case 101: {
+                      e3 = O(e3 + -4 | 0, 110) | 0;
+                      break e;
+                    }
+                    case 111: {
+                      e3 = S(e3 + -4 | 0, 134, 3) | 0;
+                      break e;
+                    }
+                    default: {
+                      e3 = 0;
+                      break e;
+                    }
+                  }
+                default:
+                  e3 = 0;
+              }
+            } while (0);
+          return e3 | 0;
+        }
+        function h3() {
+          var e3 = 0, a3 = 0, r4 = 0;
+          a3 = t2[62] | 0;
+          r4 = t2[61] | 0;
+          e:
+            while (1) {
+              e3 = r4 + 2 | 0;
+              if (r4 >>> 0 >= a3 >>> 0) {
+                a3 = 8;
+                break;
+              }
+              switch (i3[e3 >> 1] | 0) {
+                case 96: {
+                  a3 = 9;
+                  break e;
+                }
+                case 36: {
+                  if ((i3[r4 + 4 >> 1] | 0) == 123) {
+                    a3 = 6;
+                    break e;
+                  }
+                  break;
+                }
+                case 92: {
+                  e3 = r4 + 4 | 0;
+                  break;
+                }
+                default: {
+                }
+              }
+              r4 = e3;
+            }
+          if ((a3 | 0) == 6) {
+            t2[61] = r4 + 4;
+            e3 = i3[380] | 0;
+            a3 = t2[58] | 0;
+            r4 = i3[377] | 0;
+            i3[377] = r4 + 1 << 16 >> 16;
+            i3[a3 + ((r4 & 65535) << 1) >> 1] = e3;
+            r4 = (i3[379] | 0) + 1 << 16 >> 16;
+            i3[379] = r4;
+            i3[380] = r4;
+          } else if ((a3 | 0) == 8) {
+            t2[61] = e3;
+            L();
+          } else if ((a3 | 0) == 9)
+            t2[61] = e3;
+          return;
+        }
+        function w2(e3) {
+          e3 = e3 | 0;
+          var a3 = 0, r4 = 0, s3 = 0;
+          r4 = t2[61] | 0;
+          e:
+            do {
+              a3 = i3[r4 >> 1] | 0;
+              a:
+                do {
+                  if (a3 << 16 >> 16 != 47)
+                    if (e3)
+                      if (M(a3) | 0)
+                        break;
+                      else
+                        break e;
+                    else if (z(a3) | 0)
+                      break;
+                    else
+                      break e;
+                  else
+                    switch (i3[r4 + 2 >> 1] | 0) {
+                      case 47: {
+                        j();
+                        break a;
+                      }
+                      case 42: {
+                        y(e3);
+                        break a;
+                      }
+                      default: {
+                        a3 = 47;
+                        break e;
+                      }
+                    }
+                } while (0);
+              s3 = t2[61] | 0;
+              r4 = s3 + 2 | 0;
+              t2[61] = r4;
+            } while (s3 >>> 0 < (t2[62] | 0) >>> 0);
+          return a3 | 0;
+        }
+        function d2(e3) {
+          e3 = e3 | 0;
+          var a3 = 0, r4 = 0, s3 = 0, c3 = 0;
+          c3 = t2[62] | 0;
+          a3 = t2[61] | 0;
+          while (1) {
+            s3 = a3 + 2 | 0;
+            if (a3 >>> 0 >= c3 >>> 0) {
+              a3 = 9;
+              break;
+            }
+            r4 = i3[s3 >> 1] | 0;
+            if (r4 << 16 >> 16 == e3 << 16 >> 16) {
+              a3 = 10;
+              break;
+            }
+            if (r4 << 16 >> 16 == 92) {
+              r4 = a3 + 4 | 0;
+              if ((i3[r4 >> 1] | 0) == 13) {
+                a3 = a3 + 6 | 0;
+                a3 = (i3[a3 >> 1] | 0) == 10 ? a3 : r4;
+              } else
+                a3 = r4;
+            } else if (T(r4) | 0) {
+              a3 = 9;
+              break;
+            } else
+              a3 = s3;
+          }
+          if ((a3 | 0) == 9) {
+            t2[61] = s3;
+            L();
+          } else if ((a3 | 0) == 10)
+            t2[61] = s3;
+          return;
+        }
+        function v(e3, a3, r4, i4) {
+          e3 = e3 | 0;
+          a3 = a3 | 0;
+          r4 = r4 | 0;
+          i4 = i4 | 0;
+          var c3 = 0, f3 = 0;
+          c3 = t2[55] | 0;
+          t2[55] = c3 + 32;
+          f3 = t2[51] | 0;
+          t2[((f3 | 0) == 0 ? 188 : f3 + 28 | 0) >> 2] = c3;
+          t2[52] = f3;
+          t2[51] = c3;
+          t2[c3 + 8 >> 2] = e3;
+          if (2 == (i4 | 0))
+            e3 = r4;
+          else
+            e3 = 1 == (i4 | 0) ? r4 + 2 | 0 : 0;
+          t2[c3 + 12 >> 2] = e3;
+          t2[c3 >> 2] = a3;
+          t2[c3 + 4 >> 2] = r4;
+          t2[c3 + 16 >> 2] = 0;
+          t2[c3 + 20 >> 2] = i4;
+          s2[c3 + 24 >> 0] = 1 == (i4 | 0) & 1;
+          t2[c3 + 28 >> 2] = 0;
+          return;
+        }
+        function A() {
+          var e3 = 0, a3 = 0, r4 = 0;
+          r4 = t2[62] | 0;
+          a3 = t2[61] | 0;
+          e:
+            while (1) {
+              e3 = a3 + 2 | 0;
+              if (a3 >>> 0 >= r4 >>> 0) {
+                a3 = 6;
+                break;
+              }
+              switch (i3[e3 >> 1] | 0) {
+                case 13:
+                case 10: {
+                  a3 = 6;
+                  break e;
+                }
+                case 93: {
+                  a3 = 7;
+                  break e;
+                }
+                case 92: {
+                  e3 = a3 + 4 | 0;
+                  break;
+                }
+                default: {
+                }
+              }
+              a3 = e3;
+            }
+          if ((a3 | 0) == 6) {
+            t2[61] = e3;
+            L();
+            e3 = 0;
+          } else if ((a3 | 0) == 7) {
+            t2[61] = e3;
+            e3 = 93;
+          }
+          return e3 | 0;
+        }
+        function C(e3, a3) {
+          e3 = e3 | 0;
+          a3 = a3 | 0;
+          var r4 = 0, s3 = 0;
+          r4 = t2[61] | 0;
+          s3 = i3[r4 >> 1] | 0;
+          if (s3 << 16 >> 16 == 97) {
+            t2[61] = r4 + 4;
+            r4 = w2(1) | 0;
+            e3 = t2[61] | 0;
+            if (N(r4) | 0) {
+              d2(r4);
+              a3 = (t2[61] | 0) + 2 | 0;
+              t2[61] = a3;
+            } else {
+              E(r4) | 0;
+              a3 = t2[61] | 0;
+            }
+            s3 = w2(1) | 0;
+            r4 = t2[61] | 0;
+          }
+          if ((r4 | 0) != (e3 | 0))
+            B(e3, a3);
+          return s3 | 0;
+        }
+        function g() {
+          var e3 = 0, a3 = 0, r4 = 0;
+          e:
+            while (1) {
+              e3 = t2[61] | 0;
+              a3 = e3 + 2 | 0;
+              t2[61] = a3;
+              if (e3 >>> 0 >= (t2[62] | 0) >>> 0) {
+                r4 = 7;
+                break;
+              }
+              switch (i3[a3 >> 1] | 0) {
+                case 13:
+                case 10: {
+                  r4 = 7;
+                  break e;
+                }
+                case 47:
+                  break e;
+                case 91: {
+                  A() | 0;
+                  break;
+                }
+                case 92: {
+                  t2[61] = e3 + 4;
+                  break;
+                }
+                default: {
+                }
+              }
+            }
+          if ((r4 | 0) == 7)
+            L();
+          return;
+        }
+        function p2(e3) {
+          e3 = e3 | 0;
+          switch (i3[e3 >> 1] | 0) {
+            case 62: {
+              e3 = (i3[e3 + -2 >> 1] | 0) == 61;
+              break;
+            }
+            case 41:
+            case 59: {
+              e3 = 1;
+              break;
+            }
+            case 104: {
+              e3 = S(e3 + -2 | 0, 160, 4) | 0;
+              break;
+            }
+            case 121: {
+              e3 = S(e3 + -2 | 0, 168, 6) | 0;
+              break;
+            }
+            case 101: {
+              e3 = S(e3 + -2 | 0, 180, 3) | 0;
+              break;
+            }
+            default:
+              e3 = 0;
+          }
+          return e3 | 0;
+        }
+        function y(e3) {
+          e3 = e3 | 0;
+          var a3 = 0, r4 = 0, s3 = 0, c3 = 0, f3 = 0;
+          c3 = (t2[61] | 0) + 2 | 0;
+          t2[61] = c3;
+          r4 = t2[62] | 0;
+          while (1) {
+            a3 = c3 + 2 | 0;
+            if (c3 >>> 0 >= r4 >>> 0)
+              break;
+            s3 = i3[a3 >> 1] | 0;
+            if (!e3 ? T(s3) | 0 : 0)
+              break;
+            if (s3 << 16 >> 16 == 42 ? (i3[c3 + 4 >> 1] | 0) == 47 : 0) {
+              f3 = 8;
+              break;
+            }
+            c3 = a3;
+          }
+          if ((f3 | 0) == 8) {
+            t2[61] = a3;
+            a3 = c3 + 4 | 0;
+          }
+          t2[61] = a3;
+          return;
+        }
+        function m2(e3, a3, r4) {
+          e3 = e3 | 0;
+          a3 = a3 | 0;
+          r4 = r4 | 0;
+          var i4 = 0, t3 = 0;
+          e:
+            do {
+              if (!r4)
+                e3 = 0;
+              else {
+                while (1) {
+                  i4 = s2[e3 >> 0] | 0;
+                  t3 = s2[a3 >> 0] | 0;
+                  if (i4 << 24 >> 24 != t3 << 24 >> 24)
+                    break;
+                  r4 = r4 + -1 | 0;
+                  if (!r4) {
+                    e3 = 0;
+                    break e;
+                  } else {
+                    e3 = e3 + 1 | 0;
+                    a3 = a3 + 1 | 0;
+                  }
+                }
+                e3 = (i4 & 255) - (t3 & 255) | 0;
+              }
+            } while (0);
+          return e3 | 0;
+        }
+        function I(e3) {
+          e3 = e3 | 0;
+          e:
+            do {
+              switch (e3 << 16 >> 16) {
+                case 38:
+                case 37:
+                case 33: {
+                  e3 = 1;
+                  break;
+                }
+                default:
+                  if ((e3 & -8) << 16 >> 16 == 40 | (e3 + -58 & 65535) < 6)
+                    e3 = 1;
+                  else {
+                    switch (e3 << 16 >> 16) {
+                      case 91:
+                      case 93:
+                      case 94: {
+                        e3 = 1;
+                        break e;
+                      }
+                      default: {
+                      }
+                    }
+                    e3 = (e3 + -123 & 65535) < 4;
+                  }
+              }
+            } while (0);
+          return e3 | 0;
+        }
+        function U(e3) {
+          e3 = e3 | 0;
+          e:
+            do {
+              switch (e3 << 16 >> 16) {
+                case 38:
+                case 37:
+                case 33:
+                  break;
+                default:
+                  if (!((e3 + -58 & 65535) < 6 | (e3 + -40 & 65535) < 7 & e3 << 16 >> 16 != 41)) {
+                    switch (e3 << 16 >> 16) {
+                      case 91:
+                      case 94:
+                        break e;
+                      default: {
+                      }
+                    }
+                    return e3 << 16 >> 16 != 125 & (e3 + -123 & 65535) < 4 | 0;
+                  }
+              }
+            } while (0);
+          return 1;
+        }
+        function x(e3) {
+          e3 = e3 | 0;
+          var a3 = 0, r4 = 0, s3 = 0, c3 = 0;
+          r4 = n2;
+          n2 = n2 + 16 | 0;
+          s3 = r4;
+          t2[s3 >> 2] = 0;
+          t2[54] = e3;
+          a3 = t2[3] | 0;
+          c3 = a3 + (e3 << 1) | 0;
+          e3 = c3 + 2 | 0;
+          i3[c3 >> 1] = 0;
+          t2[s3 >> 2] = e3;
+          t2[55] = e3;
+          t2[47] = 0;
+          t2[51] = 0;
+          t2[49] = 0;
+          t2[48] = 0;
+          t2[53] = 0;
+          t2[50] = 0;
+          n2 = r4;
+          return a3 | 0;
+        }
+        function S(e3, a3, r4) {
+          e3 = e3 | 0;
+          a3 = a3 | 0;
+          r4 = r4 | 0;
+          var s3 = 0, c3 = 0;
+          s3 = e3 + (0 - r4 << 1) | 0;
+          c3 = s3 + 2 | 0;
+          e3 = t2[3] | 0;
+          if (c3 >>> 0 >= e3 >>> 0 ? (m2(c3, a3, r4 << 1) | 0) == 0 : 0)
+            if ((c3 | 0) == (e3 | 0))
+              e3 = 1;
+            else
+              e3 = $(i3[s3 >> 1] | 0) | 0;
+          else
+            e3 = 0;
+          return e3 | 0;
+        }
+        function O(e3, a3) {
+          e3 = e3 | 0;
+          a3 = a3 | 0;
+          var r4 = 0;
+          r4 = t2[3] | 0;
+          if (r4 >>> 0 <= e3 >>> 0 ? (i3[e3 >> 1] | 0) == a3 << 16 >> 16 : 0)
+            if ((r4 | 0) == (e3 | 0))
+              r4 = 1;
+            else
+              r4 = $(i3[e3 + -2 >> 1] | 0) | 0;
+          else
+            r4 = 0;
+          return r4 | 0;
+        }
+        function $(e3) {
+          e3 = e3 | 0;
+          e:
+            do {
+              if ((e3 + -9 & 65535) < 5)
+                e3 = 1;
+              else {
+                switch (e3 << 16 >> 16) {
+                  case 32:
+                  case 160: {
+                    e3 = 1;
+                    break e;
+                  }
+                  default: {
+                  }
+                }
+                e3 = e3 << 16 >> 16 != 46 & (I(e3) | 0);
+              }
+            } while (0);
+          return e3 | 0;
+        }
+        function j() {
+          var e3 = 0, a3 = 0, r4 = 0;
+          e3 = t2[62] | 0;
+          r4 = t2[61] | 0;
+          e:
+            while (1) {
+              a3 = r4 + 2 | 0;
+              if (r4 >>> 0 >= e3 >>> 0)
+                break;
+              switch (i3[a3 >> 1] | 0) {
+                case 13:
+                case 10:
+                  break e;
+                default:
+                  r4 = a3;
+              }
+            }
+          t2[61] = a3;
+          return;
+        }
+        function B(e3, a3) {
+          e3 = e3 | 0;
+          a3 = a3 | 0;
+          var r4 = 0, s3 = 0;
+          r4 = t2[55] | 0;
+          t2[55] = r4 + 12;
+          s3 = t2[53] | 0;
+          t2[((s3 | 0) == 0 ? 192 : s3 + 8 | 0) >> 2] = r4;
+          t2[53] = r4;
+          t2[r4 >> 2] = e3;
+          t2[r4 + 4 >> 2] = a3;
+          t2[r4 + 8 >> 2] = 0;
+          return;
+        }
+        function E(e3) {
+          e3 = e3 | 0;
+          while (1) {
+            if (M(e3) | 0)
+              break;
+            if (I(e3) | 0)
+              break;
+            e3 = (t2[61] | 0) + 2 | 0;
+            t2[61] = e3;
+            e3 = i3[e3 >> 1] | 0;
+            if (!(e3 << 16 >> 16)) {
+              e3 = 0;
+              break;
+            }
+          }
+          return e3 | 0;
+        }
+        function P() {
+          var e3 = 0;
+          e3 = t2[(t2[49] | 0) + 20 >> 2] | 0;
+          switch (e3 | 0) {
+            case 1: {
+              e3 = -1;
+              break;
+            }
+            case 2: {
+              e3 = -2;
+              break;
+            }
+            default:
+              e3 = e3 - (t2[3] | 0) >> 1;
+          }
+          return e3 | 0;
+        }
+        function q(e3) {
+          e3 = e3 | 0;
+          if (!(S(e3, 140, 5) | 0) ? !(S(e3, 150, 3) | 0) : 0)
+            e3 = S(e3, 156, 2) | 0;
+          else
+            e3 = 1;
+          return e3 | 0;
+        }
+        function z(e3) {
+          e3 = e3 | 0;
+          switch (e3 << 16 >> 16) {
+            case 160:
+            case 32:
+            case 12:
+            case 11:
+            case 9: {
+              e3 = 1;
+              break;
+            }
+            default:
+              e3 = 0;
+          }
+          return e3 | 0;
+        }
+        function D(e3) {
+          e3 = e3 | 0;
+          if ((t2[3] | 0) == (e3 | 0))
+            e3 = 1;
+          else
+            e3 = $(i3[e3 + -2 >> 1] | 0) | 0;
+          return e3 | 0;
+        }
+        function F() {
+          var e3 = 0;
+          e3 = t2[(t2[49] | 0) + 12 >> 2] | 0;
+          if (!e3)
+            e3 = -1;
+          else
+            e3 = e3 - (t2[3] | 0) >> 1;
+          return e3 | 0;
+        }
+        function G() {
+          var e3 = 0;
+          e3 = t2[(t2[49] | 0) + 16 >> 2] | 0;
+          if (!e3)
+            e3 = -1;
+          else
+            e3 = e3 - (t2[3] | 0) >> 1;
+          return e3 | 0;
+        }
+        function H() {
+          var e3 = 0;
+          e3 = t2[(t2[49] | 0) + 4 >> 2] | 0;
+          if (!e3)
+            e3 = -1;
+          else
+            e3 = e3 - (t2[3] | 0) >> 1;
+          return e3 | 0;
+        }
+        function J() {
+          var e3 = 0;
+          e3 = t2[49] | 0;
+          e3 = t2[((e3 | 0) == 0 ? 188 : e3 + 28 | 0) >> 2] | 0;
+          t2[49] = e3;
+          return (e3 | 0) != 0 | 0;
+        }
+        function K() {
+          var e3 = 0;
+          e3 = t2[50] | 0;
+          e3 = t2[((e3 | 0) == 0 ? 192 : e3 + 8 | 0) >> 2] | 0;
+          t2[50] = e3;
+          return (e3 | 0) != 0 | 0;
+        }
+        function L() {
+          s2[762] = 1;
+          t2[56] = (t2[61] | 0) - (t2[3] | 0) >> 1;
+          t2[61] = (t2[62] | 0) + 2;
+          return;
+        }
+        function M(e3) {
+          e3 = e3 | 0;
+          return (e3 | 128) << 16 >> 16 == 160 | (e3 + -9 & 65535) < 5 | 0;
+        }
+        function N(e3) {
+          e3 = e3 | 0;
+          return e3 << 16 >> 16 == 39 | e3 << 16 >> 16 == 34 | 0;
+        }
+        function Q() {
+          return (t2[(t2[49] | 0) + 8 >> 2] | 0) - (t2[3] | 0) >> 1 | 0;
+        }
+        function R() {
+          return (t2[(t2[50] | 0) + 4 >> 2] | 0) - (t2[3] | 0) >> 1 | 0;
+        }
+        function T(e3) {
+          e3 = e3 | 0;
+          return e3 << 16 >> 16 == 13 | e3 << 16 >> 16 == 10 | 0;
+        }
+        function V() {
+          return (t2[t2[49] >> 2] | 0) - (t2[3] | 0) >> 1 | 0;
+        }
+        function W() {
+          return (t2[t2[50] >> 2] | 0) - (t2[3] | 0) >> 1 | 0;
+        }
+        function X() {
+          return c2[(t2[49] | 0) + 24 >> 0] | 0 | 0;
+        }
+        function Y(e3) {
+          e3 = e3 | 0;
+          t2[3] = e3;
+          return;
+        }
+        function Z() {
+          return (s2[763] | 0) != 0 | 0;
+        }
+        function _2() {
+          return t2[56] | 0;
+        }
+        function ee(e3) {
+          e3 = e3 | 0;
+          n2 = e3 + 992 + 15 & -16;
+          return 992;
+        }
+        return { su: ee, ai: G, e: _2, ee: R, es: W, f: Z, id: P, ie: H, ip: X, is: V, p: b2, re: K, ri: J, sa: x, se: F, ses: Y, ss: Q };
+      }("undefined" != typeof self ? self : self, {}, a), r2 = e.su(s - (2 << 17));
+    }
+    const h2 = c$1.length + 1;
+    e.ses(r2), e.sa(h2 - 1), i2(c$1, new Uint16Array(a, r2, h2)), e.p() || (n = e.e(), o());
+    const w = [], d = [];
+    for (; e.ri(); ) {
+      const a2 = e.is(), r3 = e.ie(), s2 = e.ai(), i3 = e.id(), t2 = e.ss(), f2 = e.se();
+      let n2;
+      e.ip() && (n2 = b(-1 === i3 ? a2 : a2 + 1, c$1.charCodeAt(-1 === i3 ? a2 - 1 : a2))), w.push({ n: n2, s: a2, e: r3, ss: t2, se: f2, d: i3, a: s2 });
+    }
+    for (; e.re(); ) {
+      const a2 = e.es(), r3 = c$1.charCodeAt(a2);
+      d.push(34 === r3 || 39 === r3 ? b(a2 + 1, r3) : c$1.slice(e.es(), e.ee()));
+    }
+    return [w, d, !!e.f()];
+  }
+  function b(e2, a2) {
+    n = e2;
+    let r3 = "", s2 = n;
+    for (; ; ) {
+      n >= c$1.length && o();
+      const e3 = c$1.charCodeAt(n);
+      if (e3 === a2)
+        break;
+      92 === e3 ? (r3 += c$1.slice(s2, n), r3 += k(), s2 = n) : (8232 === e3 || 8233 === e3 || u(e3) && o(), ++n);
+    }
+    return r3 += c$1.slice(s2, n++), r3;
+  }
+  function k() {
+    let e2 = c$1.charCodeAt(++n);
+    switch (++n, e2) {
+      case 110:
+        return "\n";
+      case 114:
+        return "\r";
+      case 120:
+        return String.fromCharCode(l(2));
+      case 117:
+        return function() {
+          let e3;
+          123 === c$1.charCodeAt(n) ? (++n, e3 = l(c$1.indexOf("}", n) - n), ++n, e3 > 1114111 && o()) : e3 = l(4);
+          return e3 <= 65535 ? String.fromCharCode(e3) : (e3 -= 65536, String.fromCharCode(55296 + (e3 >> 10), 56320 + (1023 & e3)));
+        }();
+      case 116:
+        return "	";
+      case 98:
+        return "\b";
+      case 118:
+        return "\v";
+      case 102:
+        return "\f";
+      case 13:
+        10 === c$1.charCodeAt(n) && ++n;
+      case 10:
+        return "";
+      case 56:
+      case 57:
+        o();
+      default:
+        if (e2 >= 48 && e2 <= 55) {
+          let a2 = c$1.substr(n - 1, 3).match(/^[0-7]+/)[0], r3 = parseInt(a2, 8);
+          return r3 > 255 && (a2 = a2.slice(0, -1), r3 = parseInt(a2, 8)), n += a2.length - 1, e2 = c$1.charCodeAt(n), "0" === a2 && 56 !== e2 && 57 !== e2 || o(), String.fromCharCode(r3);
+        }
+        return u(e2) ? "" : String.fromCharCode(e2);
+    }
+  }
+  function l(e2) {
+    const a2 = n;
+    let r3 = 0, s2 = 0;
+    for (let a3 = 0; a3 < e2; ++a3, ++n) {
+      let e3, i3 = c$1.charCodeAt(n);
+      if (95 !== i3) {
+        if (i3 >= 97)
+          e3 = i3 - 97 + 10;
+        else if (i3 >= 65)
+          e3 = i3 - 65 + 10;
+        else {
+          if (!(i3 >= 48 && i3 <= 57))
+            break;
+          e3 = i3 - 48;
+        }
+        if (e3 >= 16)
+          break;
+        s2 = i3, r3 = 16 * r3 + e3;
+      } else
+        95 !== s2 && 0 !== a3 || o(), s2 = i3;
+    }
+    return 95 !== s2 && n - a2 === e2 || o(), r3;
+  }
+  function u(e2) {
+    return 13 === e2 || 10 === e2;
+  }
+  function o() {
+    throw Object.assign(Error(`Parse error ${f}:${c$1.slice(0, n).split("\n").length}:${n - c$1.lastIndexOf("\n", n - 1)}`), { idx: n });
+  }
+  async function _resolve(id, parentUrl) {
+    const urlResolved = resolveIfNotPlainOrUrl(id, parentUrl);
+    return {
+      r: resolveImportMap(importMap, urlResolved || id, parentUrl) || throwUnresolved(id, parentUrl),
+      b: !urlResolved && !isURL(id)
+    };
+  }
+  const resolve = resolveHook ? async (id, parentUrl) => {
+    let result = resolveHook(id, parentUrl, defaultResolve);
+    if (result && result.then)
+      result = await result;
+    return result ? { r: result, b: !resolveIfNotPlainOrUrl(id, parentUrl) && !isURL(id) } : _resolve(id, parentUrl);
+  } : _resolve;
+  async function importShim2(id, ...args) {
+    let parentUrl = args[args.length - 1];
+    if (typeof parentUrl !== "string")
+      parentUrl = baseUrl;
+    await initPromise;
+    if (importHook)
+      await importHook(id, typeof args[1] !== "string" ? args[1] : {}, parentUrl);
+    if (acceptingImportMaps || shimMode || !baselinePassthrough) {
+      if (hasDocument)
+        processImportMaps();
+      if (!shimMode)
+        acceptingImportMaps = false;
+    }
+    await importMapPromise;
+    return topLevelLoad((await resolve(id, parentUrl)).r, { credentials: "same-origin" });
+  }
+  self.importShim = importShim2;
+  function defaultResolve(id, parentUrl) {
+    return resolveImportMap(importMap, resolveIfNotPlainOrUrl(id, parentUrl) || id, parentUrl) || throwUnresolved(id, parentUrl);
+  }
+  function throwUnresolved(id, parentUrl) {
+    throw Error(`Unable to resolve specifier '${id}'${fromParent(parentUrl)}`);
+  }
+  const resolveSync = (id, parentUrl = baseUrl) => {
+    parentUrl = `${parentUrl}`;
+    const result = resolveHook && resolveHook(id, parentUrl, defaultResolve);
+    return result && !result.then ? result : defaultResolve(id, parentUrl);
+  };
+  function metaResolve(id, parentUrl = this.url) {
+    return resolveSync(id, parentUrl);
+  }
+  importShim2.resolve = resolveSync;
+  importShim2.getImportMap = () => JSON.parse(JSON.stringify(importMap));
+  importShim2.addImportMap = (importMapIn) => {
+    if (!shimMode)
+      throw new Error("Unsupported in polyfill mode.");
+    importMap = resolveAndComposeImportMap(importMapIn, baseUrl, importMap);
+  };
+  const registry = importShim2._r = {};
+  async function loadAll(load, seen) {
+    if (load.b || seen[load.u])
+      return;
+    seen[load.u] = 1;
+    await load.L;
+    await Promise.all(load.d.map((dep) => loadAll(dep, seen)));
+    if (!load.n)
+      load.n = load.d.some((dep) => dep.n);
+  }
+  let importMap = { imports: {}, scopes: {} };
+  let baselinePassthrough;
+  const initPromise = featureDetectionPromise.then(() => {
+    baselinePassthrough = esmsInitOptions.polyfillEnable !== true && supportsDynamicImport && supportsImportMeta && supportsImportMaps && (!jsonModulesEnabled || supportsJsonAssertions) && (!cssModulesEnabled || supportsCssAssertions) && !importMapSrcOrLazy && true;
+    if (hasDocument) {
+      if (!supportsImportMaps) {
+        const supports = HTMLScriptElement.supports || ((type) => type === "classic" || type === "module");
+        HTMLScriptElement.supports = (type) => type === "importmap" || supports(type);
+      }
+      if (shimMode || !baselinePassthrough) {
+        new MutationObserver((mutations) => {
+          for (const mutation of mutations) {
+            if (mutation.type !== "childList")
+              continue;
+            for (const node of mutation.addedNodes) {
+              if (node.tagName === "SCRIPT") {
+                if (node.type === (shimMode ? "module-shim" : "module"))
+                  processScript(node);
+                if (node.type === (shimMode ? "importmap-shim" : "importmap"))
+                  processImportMap(node);
+              } else if (node.tagName === "LINK" && node.rel === (shimMode ? "modulepreload-shim" : "modulepreload"))
+                processPreload(node);
+            }
+          }
+        }).observe(document, { childList: true, subtree: true });
+        processImportMaps();
+        processScriptsAndPreloads();
+        if (document.readyState === "complete") {
+          readyStateCompleteCheck();
+        } else {
+          async function readyListener() {
+            await initPromise;
+            processImportMaps();
+            if (document.readyState === "complete") {
+              readyStateCompleteCheck();
+              document.removeEventListener("readystatechange", readyListener);
+            }
+          }
+          document.addEventListener("readystatechange", readyListener);
+        }
+      }
+    }
+    return void 0;
+  });
+  let importMapPromise = initPromise;
+  let firstPolyfillLoad = true;
+  let acceptingImportMaps = true;
+  async function topLevelLoad(url, fetchOpts, source, nativelyLoaded, lastStaticLoadPromise2) {
+    if (!shimMode)
+      acceptingImportMaps = false;
+    await importMapPromise;
+    if (importHook)
+      await importHook(url, typeof fetchOpts !== "string" ? fetchOpts : {}, "");
+    if (!shimMode && baselinePassthrough) {
+      if (nativelyLoaded)
+        return null;
+      await lastStaticLoadPromise2;
+      return dynamicImport(source ? createBlob(source) : url, { errUrl: url || source });
+    }
+    const load = getOrCreateLoad(url, fetchOpts, null, source);
+    const seen = {};
+    await loadAll(load, seen);
+    lastLoad = void 0;
+    resolveDeps(load, seen);
+    await lastStaticLoadPromise2;
+    if (source && !shimMode && !load.n && true) {
+      const module2 = await dynamicImport(createBlob(source), { errUrl: source });
+      if (revokeBlobURLs)
+        revokeObjectURLs(Object.keys(seen));
+      return module2;
+    }
+    if (firstPolyfillLoad && !shimMode && load.n && nativelyLoaded) {
+      onpolyfill();
+      firstPolyfillLoad = false;
+    }
+    const module = await dynamicImport(!shimMode && !load.n && nativelyLoaded ? load.u : load.b, { errUrl: load.u });
+    if (load.s)
+      (await dynamicImport(load.s)).u$_(module);
+    if (revokeBlobURLs)
+      revokeObjectURLs(Object.keys(seen));
+    return module;
+  }
+  function revokeObjectURLs(registryKeys) {
+    let batch = 0;
+    const keysLength = registryKeys.length;
+    const schedule = self.requestIdleCallback ? self.requestIdleCallback : self.requestAnimationFrame;
+    schedule(cleanup);
+    function cleanup() {
+      const batchStartIndex = batch * 100;
+      if (batchStartIndex > keysLength)
+        return;
+      for (const key of registryKeys.slice(batchStartIndex, batchStartIndex + 100)) {
+        const load = registry[key];
+        if (load)
+          URL.revokeObjectURL(load.b);
+      }
+      batch++;
+      schedule(cleanup);
+    }
+  }
+  function urlJsString(url) {
+    return `'${url.replace(/'/g, "\\'")}'`;
+  }
+  let lastLoad;
+  function resolveDeps(load, seen) {
+    if (load.b || !seen[load.u])
+      return;
+    seen[load.u] = 0;
+    for (const dep of load.d)
+      resolveDeps(dep, seen);
+    const [imports] = load.a;
+    const source = load.S;
+    let resolvedSource = edge && lastLoad ? `import '${lastLoad}';` : "";
+    if (!imports.length) {
+      resolvedSource += source;
+    } else {
+      let pushStringTo = function(originalIndex) {
+        while (dynamicImportEndStack[dynamicImportEndStack.length - 1] < originalIndex) {
+          const dynamicImportEnd = dynamicImportEndStack.pop();
+          resolvedSource += `${source.slice(lastIndex, dynamicImportEnd)}, ${urlJsString(load.r)}`;
+          lastIndex = dynamicImportEnd;
+        }
+        resolvedSource += source.slice(lastIndex, originalIndex);
+        lastIndex = originalIndex;
+      };
+      let lastIndex = 0, depIndex = 0, dynamicImportEndStack = [];
+      for (const { s: start2, ss: statementStart, se: statementEnd, d: dynamicImportIndex } of imports) {
+        if (dynamicImportIndex === -1) {
+          let depLoad = load.d[depIndex++], blobUrl = depLoad.b, cycleShell = !blobUrl;
+          if (cycleShell) {
+            if (!(blobUrl = depLoad.s)) {
+              blobUrl = depLoad.s = createBlob(`export function u$_(m){${depLoad.a[1].map((name) => name === "default" ? `d$_=m.default` : `${name}=m.${name}`).join(",")}}${depLoad.a[1].map((name) => name === "default" ? `let d$_;export{d$_ as default}` : `export let ${name}`).join(";")}
+//# sourceURL=${depLoad.r}?cycle`);
+            }
+          }
+          pushStringTo(start2 - 1);
+          resolvedSource += `/*${source.slice(start2 - 1, statementEnd)}*/${urlJsString(blobUrl)}`;
+          if (!cycleShell && depLoad.s) {
+            resolvedSource += `;import*as m$_${depIndex} from'${depLoad.b}';import{u$_ as u$_${depIndex}}from'${depLoad.s}';u$_${depIndex}(m$_${depIndex})`;
+            depLoad.s = void 0;
+          }
+          lastIndex = statementEnd;
+        } else if (dynamicImportIndex === -2) {
+          load.m = { url: load.r, resolve: metaResolve };
+          metaHook(load.m, load.u);
+          pushStringTo(start2);
+          resolvedSource += `importShim._r[${urlJsString(load.u)}].m`;
+          lastIndex = statementEnd;
+        } else {
+          pushStringTo(statementStart + 6);
+          resolvedSource += `Shim(`;
+          dynamicImportEndStack.push(statementEnd - 1);
+          lastIndex = start2;
+        }
+      }
+      pushStringTo(source.length);
+    }
+    let hasSourceURL = false;
+    resolvedSource = resolvedSource.replace(sourceMapURLRegEx, (match, isMapping, url) => (hasSourceURL = !isMapping, match.replace(url, () => new URL(url, load.r))));
+    if (!hasSourceURL)
+      resolvedSource += "\n//# sourceURL=" + load.r;
+    load.b = lastLoad = createBlob(resolvedSource);
+    load.S = void 0;
+  }
+  const sourceMapURLRegEx = /\n\/\/# source(Mapping)?URL=([^\n]+)\s*((;|\/\/[^#][^\n]*)\s*)*$/;
+  const jsContentType = /^(text|application)\/(x-)?javascript(;|$)/;
+  const jsonContentType = /^(text|application)\/json(;|$)/;
+  const cssContentType = /^(text|application)\/css(;|$)/;
+  const cssUrlRegEx = /url\(\s*(?:(["'])((?:\\.|[^\n\\"'])+)\1|((?:\\.|[^\s,"'()\\])+))\s*\)/g;
+  let p = [];
+  let c = 0;
+  function pushFetchPool() {
+    if (++c > 100)
+      return new Promise((r3) => p.push(r3));
+  }
+  function popFetchPool() {
+    c--;
+    if (p.length)
+      p.shift()();
+  }
+  async function doFetch(url, fetchOpts, parent) {
+    if (enforceIntegrity && !fetchOpts.integrity)
+      throw Error(`No integrity for ${url}${fromParent(parent)}.`);
+    const poolQueue = pushFetchPool();
+    if (poolQueue)
+      await poolQueue;
+    try {
+      var res = await fetchHook(url, fetchOpts);
+    } catch (e2) {
+      e2.message = `Unable to fetch ${url}${fromParent(parent)} - see network log for details.
+` + e2.message;
+      throw e2;
+    } finally {
+      popFetchPool();
+    }
+    if (!res.ok)
+      throw Error(`${res.status} ${res.statusText} ${res.url}${fromParent(parent)}`);
+    return res;
+  }
+  async function fetchModule(url, fetchOpts, parent) {
+    const res = await doFetch(url, fetchOpts, parent);
+    const contentType = res.headers.get("content-type");
+    if (jsContentType.test(contentType))
+      return { r: res.url, s: await res.text(), t: "js" };
+    else if (jsonContentType.test(contentType))
+      return { r: res.url, s: `export default ${await res.text()}`, t: "json" };
+    else if (cssContentType.test(contentType)) {
+      return { r: res.url, s: `var s=new CSSStyleSheet();s.replaceSync(${JSON.stringify((await res.text()).replace(cssUrlRegEx, (_match, quotes = "", relUrl1, relUrl2) => `url(${quotes}${resolveUrl(relUrl1 || relUrl2, url)}${quotes})`))});export default s;`, t: "css" };
+    } else
+      throw Error(`Unsupported Content-Type "${contentType}" loading ${url}${fromParent(parent)}. Modules must be served with a valid MIME type like application/javascript.`);
+  }
+  function getOrCreateLoad(url, fetchOpts, parent, source) {
+    let load = registry[url];
+    if (load && !source)
+      return load;
+    load = {
+      u: url,
+      r: source ? url : void 0,
+      f: void 0,
+      S: void 0,
+      L: void 0,
+      a: void 0,
+      d: void 0,
+      b: void 0,
+      s: void 0,
+      n: false,
+      t: null,
+      m: null
+    };
+    if (registry[url]) {
+      let i3 = 0;
+      while (registry[load.u + ++i3])
+        ;
+      load.u += i3;
+    }
+    registry[load.u] = load;
+    load.f = (async () => {
+      if (!source) {
+        let t2;
+        ({ r: load.r, s: source, t: t2 } = await (fetchCache[url] || fetchModule(url, fetchOpts, parent)));
+        if (t2 && !shimMode) {
+          if (t2 === "css" && !cssModulesEnabled || t2 === "json" && !jsonModulesEnabled)
+            throw Error(`${t2}-modules require <script type="esms-options">{ "polyfillEnable": ["${t2}-modules"] }<${""}/script>`);
+          if (t2 === "css" && !supportsCssAssertions || t2 === "json" && !supportsJsonAssertions)
+            load.n = true;
+        }
+      }
+      try {
+        load.a = parse(source, load.u);
+      } catch (e2) {
+        throwError(e2);
+        load.a = [[], [], false];
+      }
+      load.S = source;
+      return load;
+    })();
+    load.L = load.f.then(async () => {
+      let childFetchOpts = fetchOpts;
+      load.d = (await Promise.all(load.a[0].map(async ({ n: n2, d }) => {
+        if (d >= 0 && !supportsDynamicImport || d === -2 && !supportsImportMeta)
+          load.n = true;
+        if (d !== -1 || !n2)
+          return;
+        const { r: r3, b: b2 } = await resolve(n2, load.r || load.u);
+        if (b2 && (!supportsImportMaps || importMapSrcOrLazy))
+          load.n = true;
+        if (skip2 && skip2.test(r3))
+          return { b: r3 };
+        if (childFetchOpts.integrity)
+          childFetchOpts = Object.assign({}, childFetchOpts, { integrity: void 0 });
+        return getOrCreateLoad(r3, childFetchOpts, load.r).f;
+      }))).filter((l2) => l2);
+    });
+    return load;
+  }
+  function processScriptsAndPreloads() {
+    for (const script of document.querySelectorAll(shimMode ? "script[type=module-shim]" : "script[type=module]"))
+      processScript(script);
+    for (const link of document.querySelectorAll(shimMode ? "link[rel=modulepreload-shim]" : "link[rel=modulepreload]"))
+      processPreload(link);
+  }
+  function processImportMaps() {
+    for (const script of document.querySelectorAll(shimMode ? 'script[type="importmap-shim"]' : 'script[type="importmap"]'))
+      processImportMap(script);
+  }
+  function getFetchOpts(script) {
+    const fetchOpts = {};
+    if (script.integrity)
+      fetchOpts.integrity = script.integrity;
+    if (script.referrerpolicy)
+      fetchOpts.referrerPolicy = script.referrerpolicy;
+    if (script.crossorigin === "use-credentials")
+      fetchOpts.credentials = "include";
+    else if (script.crossorigin === "anonymous")
+      fetchOpts.credentials = "omit";
+    else
+      fetchOpts.credentials = "same-origin";
+    return fetchOpts;
+  }
+  let lastStaticLoadPromise = Promise.resolve();
+  let domContentLoadedCnt = 1;
+  function domContentLoadedCheck() {
+    if (--domContentLoadedCnt === 0 && !noLoadEventRetriggers)
+      document.dispatchEvent(new Event("DOMContentLoaded"));
+  }
+  if (hasDocument) {
+    document.addEventListener("DOMContentLoaded", async () => {
+      await initPromise;
+      domContentLoadedCheck();
+      if (shimMode || !baselinePassthrough) {
+        processImportMaps();
+        processScriptsAndPreloads();
+      }
+    });
+  }
+  let readyStateCompleteCnt = 1;
+  function readyStateCompleteCheck() {
+    if (--readyStateCompleteCnt === 0 && !noLoadEventRetriggers)
+      document.dispatchEvent(new Event("readystatechange"));
+  }
+  function processImportMap(script) {
+    if (script.ep)
+      return;
+    if (!script.src && !script.innerHTML)
+      return;
+    script.ep = true;
+    if (script.src) {
+      if (!shimMode)
+        return;
+      setImportMapSrcOrLazy();
+    }
+    if (acceptingImportMaps) {
+      importMapPromise = importMapPromise.then(async () => {
+        importMap = resolveAndComposeImportMap(script.src ? await (await doFetch(script.src, getFetchOpts(script))).json() : JSON.parse(script.innerHTML), script.src || baseUrl, importMap);
+      }).catch(throwError);
+      if (!shimMode)
+        acceptingImportMaps = false;
+    }
+  }
+  function processScript(script) {
+    if (script.ep)
+      return;
+    if (script.getAttribute("noshim") !== null)
+      return;
+    if (!script.src && !script.innerHTML)
+      return;
+    script.ep = true;
+    const isBlockingReadyScript = script.getAttribute("async") === null && readyStateCompleteCnt > 0;
+    const isDomContentLoadedScript = domContentLoadedCnt > 0;
+    if (isBlockingReadyScript)
+      readyStateCompleteCnt++;
+    if (isDomContentLoadedScript)
+      domContentLoadedCnt++;
+    const loadPromise = topLevelLoad(script.src || baseUrl, getFetchOpts(script), !script.src && script.innerHTML, !shimMode, isBlockingReadyScript && lastStaticLoadPromise).catch(throwError);
+    if (isBlockingReadyScript)
+      lastStaticLoadPromise = loadPromise.then(readyStateCompleteCheck);
+    if (isDomContentLoadedScript)
+      loadPromise.then(domContentLoadedCheck);
+  }
+  const fetchCache = {};
+  function processPreload(link) {
+    if (link.ep)
+      return;
+    link.ep = true;
+    if (fetchCache[link.href])
+      return;
+    fetchCache[link.href] = fetchModule(link.href, getFetchOpts(link));
+  }
+})();
+
+// js/starter.tsx
 import { Fragment } from "/react.mjs";
 
 // js/md5.js
@@ -6397,7 +11136,7 @@ function md5(inputString) {
 // js/starter.tsx
 Object.assign(window, {});
 var orig = location.origin.includes("localhost") ? "." : location.origin;
-var initShims = async (assets) => import("../es-module-shims-AS2G3RSO.mjs").then(() => location.origin.includes("localhost") ? importShim.addImportMap({
+var initShims = async (assets) => location.origin.includes("localhost") ? importShim.addImportMap({
   "imports": {
     "@emotion/react": orig + "/" + assets["emotion.mjs"],
     "framer-motion": "./framer-motion",
@@ -6417,7 +11156,7 @@ var initShims = async (assets) => import("../es-module-shims-AS2G3RSO.mjs").then
     "react-dom/server": location.origin + "/" + assets["react.mjs"],
     "react/jsx-runtime": location.origin + "/" + assets["react.mjs"]
   }
-}));
+});
 var App = () => jsx(Fragment, null);
 var apps = {};
 var AutoUpdateApp = ({ hash: hash4, starter }) => {
@@ -6448,11 +11187,49 @@ function createJsBlob(code) {
 
 // js/DraggableWindow.tsx
 init_define_process();
-import { useEffect as useEffect28, useRef as useRef28, useState as useState24 } from "/react.mjs";
+import { useEffect as useEffect29, useRef as useRef28, useState as useState25 } from "/react.mjs";
 
 // js/Qr.tsx
 init_define_process();
-import { lazy, Suspense, useState as useState23 } from "/react.mjs";
+import { useState as useState24 } from "/react.mjs";
+
+// ../../node_modules/react-qrious/lib/index.js
+init_define_process();
+
+// ../../node_modules/react-qrious/lib/QRious.js
+init_define_process();
+import { createElement } from "/react.mjs";
+
+// ../../node_modules/react-qrious/lib/use-qrious.js
+init_define_process();
+var import_qrious = __toESM(require_qrious(), 1);
+import { useEffect, useState } from "/react.mjs";
+var useQrious = (options) => {
+  const [qrious] = useState(() => new import_qrious.default(options));
+  const [dataUrl, setDataUrl] = useState(() => qrious.toDataURL(options.mime));
+  useEffect(() => {
+    qrious.set(options);
+    setDataUrl(qrious.toDataURL(options.mime));
+  }, [options, qrious]);
+  return [dataUrl, qrious];
+};
+
+// ../../node_modules/react-qrious/lib/QRious.js
+var QRious2 = (_a) => {
+  var { background, backgroundAlpha, foreground, foregroundAlpha, level, mime, padding: padding2, value, size } = _a, props = __rest(_a, ["background", "backgroundAlpha", "foreground", "foregroundAlpha", "level", "mime", "padding", "value", "size"]);
+  const [dataUrl] = useQrious({
+    background,
+    backgroundAlpha,
+    foreground,
+    foregroundAlpha,
+    level,
+    mime,
+    padding: padding2,
+    size,
+    value
+  });
+  return createElement("img", Object.assign(Object.assign({}, props), { src: dataUrl }));
+};
 
 // js/mui.tsx
 init_define_process();
@@ -14864,7 +19641,7 @@ var emotion_is_prop_valid_browser_esm_default = isPropValid;
 // ../../node_modules/@emotion/styled/base/dist/emotion-styled-base.browser.esm.js
 init_define_process();
 import * as React51 from "/react.mjs";
-import { useContext as useContext4, createElement, Fragment as Fragment10 } from "/react.mjs";
+import { useContext as useContext4, createElement as createElement2, Fragment as Fragment10 } from "/react.mjs";
 var testOmitPropsOnStringTag = emotion_is_prop_valid_browser_esm_default;
 var testOmitPropsOnComponent = function testOmitPropsOnComponent2(key) {
   return key !== "theme";
@@ -14975,11 +19752,11 @@ var createStyled = function createStyled2(tag, options) {
       }
       newProps.className = className;
       newProps.ref = ref;
-      return createElement(Fragment10, null, createElement(Insertion, {
+      return createElement2(Fragment10, null, createElement2(Insertion, {
         cache: cache2,
         serialized,
         isStringTag: typeof FinalTag === "string"
-      }), createElement(FinalTag, newProps));
+      }), createElement2(FinalTag, newProps));
     });
     Styled.displayName = identifierName !== void 0 ? identifierName : "Styled(" + (typeof baseTag === "string" ? baseTag : baseTag.displayName || baseTag.name || "Component") + ")";
     Styled.defaultProps = tag.defaultProps;
@@ -22144,12 +26921,11 @@ var QrCode = createSvgIcon(jsx("path", {
 }), "QrCode");
 
 // js/Qr.tsx
-var QRious = lazy(() => import("../lib-JE6RBS7A.mjs").then(({ QRious: QRious2 }) => ({ default: QRious2 })));
-var QR = ({ url }) => jsx(Suspense, null, jsx(QRious, {
+var QR = ({ url }) => jsx(QRious2, {
   value: url
-}));
+});
 var QRButton = ({ url }) => {
-  const [showQR, setQR] = useState23(false);
+  const [showQR, setQR] = useState24(false);
   return jsx(LazyMotion, {
     features: domAnimation
   }, jsx(m.div, {
@@ -22182,14 +26958,14 @@ var DraggableWindow = ({
   room,
   hashCode: hashCode4
 }) => {
-  const [scaleRange, changeScaleRange] = useState24(100);
+  const [scaleRange, changeScaleRange] = useState25(100);
   const startPositions = { bottom: 0, right: 0 };
-  const [{ bottom: bottom3, right: right3 }, setPositions] = useState24(startPositions);
-  const [width2, setWidth] = useState24(window.innerWidth * devicePixelRatio);
-  const [height2, setHeight] = useState24(window.innerHeight * devicePixelRatio);
+  const [{ bottom: bottom3, right: right3 }, setPositions] = useState25(startPositions);
+  const [width2, setWidth] = useState25(window.innerWidth * devicePixelRatio);
+  const [height2, setHeight] = useState25(window.innerHeight * devicePixelRatio);
   const ref = useRef28(null);
   const scale = scaleRange / 100;
-  useEffect28(() => {
+  useEffect29(() => {
     const reveal = async () => {
       setPositions({
         bottom: window.innerHeight * 0.2,
@@ -22552,7 +27328,7 @@ var createSvgPortalNode = createPortalNode.bind(null, ELEMENT_TYPE_SVG);
 
 // js/Editor.tsx
 init_define_process();
-import { useEffect as useEffect29, useRef as useRef29, useState as useState25 } from "/react.mjs";
+import { useEffect as useEffect30, useRef as useRef29, useState as useState26 } from "/react.mjs";
 
 // js/runner.tsx
 init_define_process();
@@ -22660,7 +27436,7 @@ var Editor = ({ code, i: i2, codeSpace: codeSpace2 }) => {
   const [
     mySession,
     changeContent
-  ] = useState25({
+  ] = useState26({
     myCode: code,
     counter: i2,
     myId: "loading",
@@ -22685,11 +27461,11 @@ var Editor = ({ code, i: i2, codeSpace: codeSpace2 }) => {
   } = mySession;
   mod.code = myCode;
   const lines = (code == null ? void 0 : code.split("\n").length) || 0;
-  useEffect29(() => {
+  useEffect30(() => {
     if (!(ref == null ? void 0 : ref.current))
       return;
     const setMonaco = async () => {
-      const { startMonaco } = await import("../startMonaco-CIUGXWV6.mjs");
+      const { startMonaco } = await import("../startMonaco-KW6JB3FU.mjs");
       const { editor } = await startMonaco({
         container: ref.current,
         name: codeSpace2,
@@ -22714,7 +27490,7 @@ var Editor = ({ code, i: i2, codeSpace: codeSpace2 }) => {
       }));
     };
     const setAce = async () => {
-      const { startAce } = await import("../startAce-YG4QSSRM.mjs");
+      const { startAce } = await import("../startAce-SUBWE4CO.mjs");
       const editor = await startAce(mST().code);
       changeContent((x) => ({
         ...x,
@@ -22736,7 +27512,7 @@ var Editor = ({ code, i: i2, codeSpace: codeSpace2 }) => {
     };
     loadEditors();
   }, [ref]);
-  useEffect29(() => {
+  useEffect30(() => {
     if (i2 > counter) {
       changeContent((x) => ({ ...x, myCode: code, counter: i2 }));
       return;
@@ -22852,9 +27628,9 @@ background:  repeating-radial-gradient(circle at bottom left,
 `
 }, children2);
 var AppToRender = ({ codeSpace: codeSpace2, children: children2 }) => {
-  const [hash4, setHash] = useState26(() => hashCode3());
-  const [isStandalone, setIsStandalone] = useState26(true);
-  useEffect30(() => {
+  const [hash4, setHash] = useState27(() => hashCode3());
+  const [isStandalone, setIsStandalone] = useState27(true);
+  useEffect31(() => {
     onSessionUpdate(async () => {
       const newHash = hashCode3();
       if (hash4 !== newHash) {
@@ -22867,7 +27643,7 @@ var AppToRender = ({ codeSpace: codeSpace2, children: children2 }) => {
       }
     }, "myApp");
   }, [hash4, setHash]);
-  useEffect30(() => {
+  useEffect31(() => {
     setTimeout(() => {
       const isStandalone2 = location.pathname.endsWith("public") || location.pathname.endsWith("hydrated");
       setIsStandalone(isStandalone2);
@@ -23375,11 +28151,7 @@ async function sw() {
       switch (event.data.method) {
         case "ipfs-message-port":
           console.log("Message port request");
-          const { connect } = await import("../ipfs-GTTTAJEX.mjs");
-          console.log("can connect trough", { connect });
           const channel = new MessageChannel();
-          await connect(channel);
-          console.log({ channel });
           return serviceWorker.postMessage({
             method: "ipfs-message-port",
             id: event.data.id,

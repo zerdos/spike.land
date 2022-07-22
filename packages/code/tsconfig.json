@@ -61,8 +61,9 @@
     "composite": true,
     "importHelpers": false,
     "incremental": true,
+    "skipDefaultLibCheck": true,
     /* Advanced Options */
-    "skipLibCheck": false, /* Skip type checking of declaration files. */
+    "skipLibCheck": true, /* Skip type checking of declaration files. */
     "forceConsistentCasingInFileNames": true, /* Disallow inconsistently-cased references to the same file. */
     "baseUrl": "js"
   },

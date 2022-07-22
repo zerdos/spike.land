@@ -70,8 +70,7 @@ import {
   useVisualElementContext,
   visualElement,
   wrapHandler
-} from "./chunk-S55TLUGI.mjs";
-import "./chunk-UNXTUMY6.mjs";
+} from "./chunk-RZZW2CUR.mjs";
 import {
   init_define_process
 } from "./chunk-5BXN6RND.mjs";
