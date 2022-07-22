@@ -1107,7 +1107,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@ipld/dag-cbor@npm:^6.0.10, @ipld/dag-cbor@npm:^6.0.3":
+"@ipld/dag-cbor@npm:^6.0.3":
   version: 6.0.15
   resolution: "@ipld/dag-cbor@npm:6.0.15"
   dependencies:
@@ -1117,7 +1117,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@ipld/dag-cbor@npm:^7.0.0":
+"@ipld/dag-cbor@npm:^7.0.0, @ipld/dag-cbor@npm:^7.0.2":
   version: 7.0.2
   resolution: "@ipld/dag-cbor@npm:7.0.2"
   dependencies:
@@ -2551,12 +2551,12 @@ __metadata:
   linkType: hard
 
 "@npmcli/fs@npm:^2.1.0":
-  version: 2.1.0
-  resolution: "@npmcli/fs@npm:2.1.0"
+  version: 2.1.1
+  resolution: "@npmcli/fs@npm:2.1.1"
   dependencies:
     "@gar/promisify": ^1.1.3
     semver: ^7.3.5
-  checksum: 6ec6d678af6da49f9dac50cd882d7f661934dd278972ffbaacde40d9eaa2871292d634000a0cca9510f6fc29855fbd4af433e1adbff90a524ec3eaf140f1219b
+  checksum: 4944a0545d38d3e6e29780eeb3cd4be6059c1e9627509d2c9ced635c53b852d28b37cdc615a2adf815b51ab8673adb6507e370401a20a7e90c8a6dc4fac02389
   languageName: node
   linkType: hard
 
@@ -2751,13 +2751,13 @@ __metadata:
   linkType: hard
 
 "@octokit/plugin-paginate-rest@npm:^2.16.8":
-  version: 2.21.2
-  resolution: "@octokit/plugin-paginate-rest@npm:2.21.2"
+  version: 2.21.3
+  resolution: "@octokit/plugin-paginate-rest@npm:2.21.3"
   dependencies:
-    "@octokit/types": ^6.39.0
+    "@octokit/types": ^6.40.0
   peerDependencies:
-    "@octokit/core": ">=4"
-  checksum: 386727fb2e39be589dc66e2de31da6a4b7f2039ec1829552b64165b435cbb0bddd8431578c8b73ea063209d2f695a5391ad0d3214027349480c39ebdd5fdf09a
+    "@octokit/core": ">=2"
+  checksum: acf31de2ba4021bceec7ff49c5b0e25309fc3c009d407f153f928ddf436ab66cd4217344138378d5523f5fb233896e1db58c9c7b3ffd9612a66d760bc5d319ed
   languageName: node
   linkType: hard
 
@@ -2819,7 +2819,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@octokit/types@npm:^6.0.3, @octokit/types@npm:^6.16.1, @octokit/types@npm:^6.39.0":
+"@octokit/types@npm:^6.0.3, @octokit/types@npm:^6.16.1, @octokit/types@npm:^6.39.0, @octokit/types@npm:^6.40.0":
   version: 6.40.0
   resolution: "@octokit/types@npm:6.40.0"
   dependencies:
@@ -3481,11 +3481,11 @@ __metadata:
   linkType: hard
 
 "acorn@npm:^8.5.0":
-  version: 8.7.1
-  resolution: "acorn@npm:8.7.1"
+  version: 8.8.0
+  resolution: "acorn@npm:8.8.0"
   bin:
     acorn: bin/acorn
-  checksum: aca0aabf98826717920ac2583fdcad0a6fbe4e583fdb6e843af2594e907455aeafe30b1e14f1757cd83ce1776773cf8296ffc3a4acf13f0bd3dfebcf1db6ae80
+  checksum: 7270ca82b242eafe5687a11fea6e088c960af712683756abf0791b68855ea9cace3057bd5e998ffcef50c944810c1e0ca1da526d02b32110e13c722aa959afdc
   languageName: node
   linkType: hard
 
@@ -4603,16 +4603,16 @@ __metadata:
   linkType: hard
 
 "caniuse-db@npm:^1.0.30000529, caniuse-db@npm:^1.0.30000634, caniuse-db@npm:^1.0.30000639":
-  version: 1.0.30001367
-  resolution: "caniuse-db@npm:1.0.30001367"
-  checksum: 57ce6976025bc319373e7fc0ca23f337f2f00681591ddf09efaae68879fc2c500341ebabf5b69d3aeff1828f9e491fbb722d22b713844a9378e0c3051ee4dc23
+  version: 1.0.30001368
+  resolution: "caniuse-db@npm:1.0.30001368"
+  checksum: c26f6650e879714ffcfbf2bd330ffca615eb104026329978e59bb29bef4da5bac5626045055cf2e6f15c381f166ffff880779f99da9ef804b878f818bf08fbab
   languageName: node
   linkType: hard
 
 "caniuse-lite@npm:^1.0.0, caniuse-lite@npm:^1.0.30001109, caniuse-lite@npm:^1.0.30001366":
-  version: 1.0.30001367
-  resolution: "caniuse-lite@npm:1.0.30001367"
-  checksum: 9912aed182b8b3a834787424b56a0e71b5ecb5d2cb7235fb022227bc3a81202e8a34bebc5dc9cc504c515b4e052f825c36c2db4b0b880c10e195fe63673edfc6
+  version: 1.0.30001368
+  resolution: "caniuse-lite@npm:1.0.30001368"
+  checksum: e2a763e7bca8f7a2494f752d0e1a5c0cd1c70ebd18df2eda2bdcf2f908901bbff14f78961ad1cada3eb7af32120ce95aa93f06c5a093d721e787816dc7f5bfaa
   languageName: node
   linkType: hard
 
@@ -5805,9 +5805,9 @@ __metadata:
   linkType: hard
 
 "dayjs@npm:^1.10.4":
-  version: 1.11.3
-  resolution: "dayjs@npm:1.11.3"
-  checksum: c87e06b562a51ae6568cc5b840c7579d82a0f8af7163128c858fe512d3d71d07bd8e8e464b8cc41b8698a9e26b80ab2c082d14a1cd4c33df5692d77ccdfc5a43
+  version: 1.11.4
+  resolution: "dayjs@npm:1.11.4"
+  checksum: 478c8a2db9e3fc752db9f02ef23f00e12308eebbeb85569913731ea78e8d5616f2335e14f25af48e9f16bbcbd796653092eca4d2f42c0218a948402c31735f59
   languageName: node
   linkType: hard
 
@@ -6190,9 +6190,9 @@ __metadata:
   linkType: hard
 
 "electron-to-chromium@npm:^1.2.7, electron-to-chromium@npm:^1.4.188":
-  version: 1.4.192
-  resolution: "electron-to-chromium@npm:1.4.192"
-  checksum: b4c59ecdfa3c19a3d350a28129bc4162a9707378f69dbf00ea87d138e86696196e4ffcb1b23ba979368117f83333ed1bb26524749994134a06ec6ac9b9800847
+  version: 1.4.198
+  resolution: "electron-to-chromium@npm:1.4.198"
+  checksum: 4ef3e595539779711cbc21fda244825ec344897a2d1e82451b1b8b6d24bc49caab58166aa8ea26fc5fa58f8ae35ffd44fd27c7f0aba65249aaad8e2f3267a7a1
   languageName: node
   linkType: hard
 
@@ -10474,8 +10474,8 @@ __metadata:
   linkType: hard
 
 "make-fetch-happen@npm:^10.0.3, make-fetch-happen@npm:^10.0.6":
-  version: 10.1.8
-  resolution: "make-fetch-happen@npm:10.1.8"
+  version: 10.2.0
+  resolution: "make-fetch-happen@npm:10.2.0"
   dependencies:
     agentkeepalive: ^4.2.1
     cacache: ^16.1.0
@@ -10493,7 +10493,7 @@ __metadata:
     promise-retry: ^2.0.1
     socks-proxy-agent: ^7.0.0
     ssri: ^9.0.0
-  checksum: 5fe9fd9da5368a8a4fe9a3ea5b9aa15f1e91c9ab703cd9027a6b33840ecc8a57c182fbe1c767c139330a88c46a448b1f00da5e32065cec373aff2450b3da54ee
+  checksum: 2f6c294179972f56fab40fd8618f07841e06550692bb78f6da16e7afaa9dca78c345b08cf44a77a8907ef3948e4dc77e93eb7492b8381f1217d7ac057a7522f8
   languageName: node
   linkType: hard
 
@@ -11784,8 +11784,8 @@ __metadata:
   linkType: hard
 
 "npm-registry-fetch@npm:^13.0.0, npm-registry-fetch@npm:^13.0.1":
-  version: 13.2.0
-  resolution: "npm-registry-fetch@npm:13.2.0"
+  version: 13.3.0
+  resolution: "npm-registry-fetch@npm:13.3.0"
   dependencies:
     make-fetch-happen: ^10.0.6
     minipass: ^3.1.6
@@ -11794,7 +11794,7 @@ __metadata:
     minizlib: ^2.1.2
     npm-package-arg: ^9.0.1
     proc-log: ^2.0.0
-  checksum: be5f53dede252d051137897c4efc615102c27fb250671564feaf03394d0532c24d57c7b3e374b943b28988f2e9381c0b10a57146b0f5adb68d93ccfcbfb802ed
+  checksum: f153e471b7204eef260d4b774087291981a0d2909db7568540d77759409300d10f8e2a464af0da15ab1c4da4d6285c5d746ba09707dd55a4bd66f5f0ceafcf64
   languageName: node
   linkType: hard
 
@@ -12098,17 +12098,17 @@ __metadata:
   linkType: hard
 
 "orbit-db-io@npm:^1.0.1":
-  version: 1.0.2
-  resolution: "orbit-db-io@npm:1.0.2"
+  version: 1.1.0
+  resolution: "orbit-db-io@npm:1.1.0"
   dependencies:
-    "@ipld/dag-cbor": ^6.0.10
+    "@ipld/dag-cbor": ^7.0.2
     "@ipld/dag-pb": ^2.1.9
     multiformats: ^9.4.7
   peerDependencies:
     go-ipfs: "*"
     ipfs: "*"
     ipfsd-ctl: "*"
-  checksum: 42a5bac3451077f19ca99176dd2ff391c687b0f5a4fccf45d6de9b1acf6dad34ff560fc9c097af09e41818b56b438f03819a81ceff6a7a22b40adc4d4031e688
+  checksum: 0b407ccc3c563b38b2f32246b4f90cd7a7900714fa284ae73fdb9f2952e28a8ac774d27f0df48bf85c0be71f9aa8ec7f952897c66d2872745a44deec50cbb9cc
   languageName: node
   linkType: hard
 
