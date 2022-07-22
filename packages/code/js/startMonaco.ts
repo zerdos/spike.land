@@ -231,14 +231,13 @@ export const monacoContribution = async (
       },
     ];
 
-    const dts = importHelper.map(({ name, url }) =>
-      async () =>
-        typescript.typescriptDefaults.addExtraLib(
-          await (await fetch(
-            url,
-          )).text(),
-          location.origin + `/live/${name}.d.ts`,
-        )
+    const dts = importHelper.map(({ name, url }) => async () =>
+      typescript.typescriptDefaults.addExtraLib(
+        await (await fetch(
+          url,
+        )).text(),
+        location.origin + `/live/${name}.d.ts`,
+      )
     );
 
     const pAll = (await (import("p-all"))).default;

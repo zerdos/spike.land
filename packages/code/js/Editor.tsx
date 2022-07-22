@@ -17,7 +17,7 @@ const runnerDebounced = debounce(runner, 100, {
 
 const mod = {
   CH: () => {},
-  code: ""
+  code: "",
 };
 
 // export type IStandaloneCodeEditor = editor.Ist;
@@ -45,7 +45,6 @@ export const Editor: FC<{ code: string; i: number; codeSpace: string }> = (
   });
 
   mod.CH = () => changeContent;
-  
 
   const {
     counter,
