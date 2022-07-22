@@ -2963,6 +2963,7 @@ __metadata:
     "@mui/material": 5.9.1
     "@types/lodash": 4.14.182
     "@types/lodash.debounce": ^4.0.7
+    "@types/lodash.throttle": ^4.1.7
     "@types/node": 18.0.6
     "@types/prettier": 2.6.3
     "@types/react": 18.0.15
@@ -2995,7 +2996,7 @@ __metadata:
     preact: 10.10.0
     preact-render-to-string: 5.2.1
     prettier: 2.7.1
-    qrious: 4.0.2
+    qrious: ^4.0.2
     react-qrious: 2.5.5
     react-reverse-portal: ^2.1.1
     stream-browserify: 3.0.0
@@ -3124,6 +3125,15 @@ __metadata:
   dependencies:
     "@types/lodash": "*"
   checksum: e873b2d77f89010876baba3437ef826b17221b98948e00b5590828334a481dea1c8f9d28543210e564adc53199584f42c3cb171f8b6c3614fefc0b4e0888679c
+  languageName: node
+  linkType: hard
+
+"@types/lodash.throttle@npm:^4.1.7":
+  version: 4.1.7
+  resolution: "@types/lodash.throttle@npm:4.1.7"
+  dependencies:
+    "@types/lodash": "*"
+  checksum: 6e1b3836488fecbdc537b6ad9b3fe4855c7336b0fa388773cd57d486619f565a48cabc04b28677fd3819be3f2d13d2bb8f9d4428aa5632885c86cb99729bfd69
   languageName: node
   linkType: hard
 
@@ -13863,7 +13873,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"qrious@npm:4.0.2":
+"qrious@npm:^4.0.2":
   version: 4.0.2
   resolution: "qrious@npm:4.0.2"
   checksum: 13c72ca7d2738cb73bcda25fb98b32004e136bfbfb154355ebbccac396fa3e2d46ecf6b298abd745c8cbc60e839868a8ec3aef1995c65983ad74bdbde43bc56c

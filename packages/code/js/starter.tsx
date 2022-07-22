@@ -1,4 +1,6 @@
 /** @jsxImportSource @emotion/react */
+import "es-module-shims"
+
 import { FC, Fragment } from "react";
 
 import type {} from "react-dom/next";
@@ -10,9 +12,7 @@ Object.assign(window, {});
 
 const orig = location.origin.includes("localhost") ? "." : location.origin;
 
-export const initShims = async (assets: { [key: string]: string }) =>
-  import("es-module-shims").then(() =>
-    location.origin.includes("localhost")
+export const initShims = async (assets: { [key: string]: string }) => location.origin.includes("localhost")
       ? importShim.addImportMap({
         "imports": {
           "@emotion/react": orig + "/" + assets["emotion.mjs"],
@@ -40,7 +40,7 @@ export const initShims = async (assets: { [key: string]: string }) =>
           // "preact/jsx-runtime": "https://ga.jspm.io/npm:preact@10.8.2/jsx-runtime/dist/jsxRuntime.module.js"
         },
       })
-  );
+
 
 let App: FC = () => <Fragment></Fragment>;
 const apps: { [key: string]: FC } = {};
