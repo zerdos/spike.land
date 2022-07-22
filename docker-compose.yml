@@ -10,7 +10,9 @@ services:
   #     - ipfs:/data/ipfs
   #     - .:/exportdevcontainer
   devcontainer: 
-    image: devimages/gitpod:latest
+    build: 
+      context: .
+      target: devcontainer
     # build: 
     #   context: .
     #   dockerfile: ./monorepo/dockerhub/devimages/jammy-devcontainer/Dockerfile
@@ -23,8 +25,7 @@ services:
     shm_size: 4gb
     volumes:
       # - $HOME:/home/$USER/host:delegated
-      # - .:/workspace
-      - node:/workspace/node_modules
+      - .:/app
       - /var/run/docker.sock:/var/run/docker.sock
 volumes: 
   ipfs:

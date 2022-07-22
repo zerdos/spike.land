@@ -27513,6 +27513,16 @@ var Editor = ({ code, i: i2, codeSpace: codeSpace2 }) => {
     loadEditors();
   }, [ref]);
   useEffect30(() => {
+    const lastCode = mod.code;
+    const handler = setInterval(() => {
+      if (getValue3() !== lastCode) {
+        changeContent((x) => ({ ...x, myCode: code, i: i2 + 1 }));
+        runnerDebounced({ code, counter });
+      }
+    }, 500);
+    return () => clearInterval(handler);
+  }, [changeContent, i2]);
+  useEffect30(() => {
     if (i2 > counter) {
       changeContent((x) => ({ ...x, myCode: code, counter: i2 }));
       return;
