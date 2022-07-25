@@ -57,7 +57,7 @@ FROM node as node-builder
 
 WORKDIR /home/node
 
-RUN mkdir node && cd node && yarn add node@18.6.0
+RUN mkdir node && cd node && yarn add node@16.16.0
 
 FROM devimage as devimage_with_node
 
