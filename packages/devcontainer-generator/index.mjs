@@ -68,16 +68,30 @@ var DevcontainerGenerator = class {
     this._zsh = false;
     this._chromium = false;
     this._chrome = false;
-    this.loadTemplate = async (filename, extension) => await fs.readFile(`../../../packages/devcontainer-generator/templates/${filename}.${extension}`).catch((e) => {
+    this.loadTemplate = async (filename, extension) => await fs.readFile(
+      `../../../packages/devcontainer-generator/templates/${filename}.${extension}`
+    ).catch((e) => {
       console.error({ e });
       return "";
     });
   }
   async init() {
-    const bufferDockerfiles = await Promise.all(this._templateInputs.map(async (fileName) => await this.loadTemplate(fileName, "Dockerfile")));
-    const bufferReadmeFiles = await Promise.all(this._templateInputs.map(async (fileName) => await this.loadTemplate(fileName, "README")));
-    this._templateInputs.forEach((input, index) => this._dockerTemplates[input] = String(bufferDockerfiles[index]));
-    this._templateInputs.forEach((input, index) => this._readmeTemplates[input] = String(bufferReadmeFiles[index]));
+    const bufferDockerfiles = await Promise.all(
+      this._templateInputs.map(
+        async (fileName) => await this.loadTemplate(fileName, "Dockerfile")
+      )
+    );
+    const bufferReadmeFiles = await Promise.all(
+      this._templateInputs.map(
+        async (fileName) => await this.loadTemplate(fileName, "README")
+      )
+    );
+    this._templateInputs.forEach(
+      (input, index) => this._dockerTemplates[input] = String(bufferDockerfiles[index])
+    );
+    this._templateInputs.forEach(
+      (input, index) => this._readmeTemplates[input] = String(bufferReadmeFiles[index])
+    );
     return {
       dockerTemplates: this._dockerTemplates,
       readmeTemplates: this._readmeTemplates
@@ -137,7 +151,10 @@ var DevcontainerGenerator = class {
   }
   async generate() {
     const { dockerTemplates, readmeTemplates } = await this.init();
-    this._dockerfile += dockerTemplates["base"].replace("{DISTRO}", getDistro(this.base) + ":" + this.base);
+    this._dockerfile += dockerTemplates["base"].replace(
+      "{DISTRO}",
+      getDistro(this.base) + ":" + this.base
+    );
     this._readme += readmeTemplates["base"].replace("{DISTRO}", this.base);
     if (this._debianBackports) {
       this._dockerfile += dockerTemplates["debianBackports"].replace("{DISTRO}", this.base).replace("{DISTRO}", this.base);
@@ -146,7 +163,10 @@ var DevcontainerGenerator = class {
       if (this._gitVersion === "ubuntu") {
         this._dockerfile += dockerTemplates["gitUbuntu"];
       } else {
-        this._dockerfile += dockerTemplates["git"].replace("{GIT_VERSION}", this._gitVersion);
+        this._dockerfile += dockerTemplates["git"].replace(
+          "{GIT_VERSION}",
+          this._gitVersion
+        );
       }
     }
     if (this._nodeVersion) {
@@ -155,19 +175,37 @@ var DevcontainerGenerator = class {
     }
     if (this._dotnet) {
       if (this._dotnet === "6") {
-        this._dockerfile += dockerTemplates["dotnet6"].replace("{DOTNET_SDK_VERSION}", dotnet6).replace("{dotnet_sha512}", sha.dotnet_sha512[dotnet6]);
+        this._dockerfile += dockerTemplates["dotnet6"].replace("{DOTNET_SDK_VERSION}", dotnet6).replace(
+          "{dotnet_sha512}",
+          sha.dotnet_sha512[dotnet6]
+        );
       } else if (this._dotnet === "3") {
-        this._dockerfile += dockerTemplates["dotnet3"].replace("{DOTNET_SDK_VERSION}", dotnet3).replace("{dotnet_sha512}", sha.dotnet_sha512[dotnet3]);
+        this._dockerfile += dockerTemplates["dotnet3"].replace("{DOTNET_SDK_VERSION}", dotnet3).replace(
+          "{dotnet_sha512}",
+          sha.dotnet_sha512[dotnet3]
+        );
       } else {
-        this._dockerfile += dockerTemplates["dotnet5"].replace("{DOTNET_SDK_VERSION}", dotnet5).replace("{dotnet_sha512}", sha.dotnet_sha512[dotnet5]);
+        this._dockerfile += dockerTemplates["dotnet5"].replace("{DOTNET_SDK_VERSION}", dotnet5).replace(
+          "{dotnet_sha512}",
+          sha.dotnet_sha512[dotnet5]
+        );
       }
     }
     if (this._cypressVersion) {
-      this._dockerfile += dockerTemplates["cypress"].replace("{CYPRESS_VERSION}", this._cypressVersion);
-      this._readme += readmeTemplates["cypress"].replace("{CYPRESS_VERSION}", this._cypressVersion);
+      this._dockerfile += dockerTemplates["cypress"].replace(
+        "{CYPRESS_VERSION}",
+        this._cypressVersion
+      );
+      this._readme += readmeTemplates["cypress"].replace(
+        "{CYPRESS_VERSION}",
+        this._cypressVersion
+      );
     }
     if (this._xpra) {
-      this._dockerfile += dockerTemplates["xpra"].replace(/{XPRADISTRO}/g, this.base);
+      this._dockerfile += dockerTemplates["xpra"].replace(
+        /{XPRADISTRO}/g,
+        this.base
+      );
       this._readme += readmeTemplates["xpra"];
       let xpraStart = "xpra start --start=xterm";
       if (this._xfce) {
@@ -191,11 +229,17 @@ RUN echo "${xpraStart} --html=on --bind-tcp=0.0.0.0:14500 --daemon=no --encoding
       }
     }
     if (this._chrome) {
-      this._dockerfile += dockerTemplates["google-chrome"].replace("{CHROMIUM}", getDistro(this.base) === "debian" ? "chromium" : "firefox");
+      this._dockerfile += dockerTemplates["google-chrome"].replace(
+        "{CHROMIUM}",
+        getDistro(this.base) === "debian" ? "chromium" : "firefox"
+      );
       this._readme += readmeTemplates["google-chrome"];
     }
     if (this._chromium) {
-      this._dockerfile += dockerTemplates["chromium"].replace("{CHROMIUM}", getDistro(this.base) === "debian" ? "chromium" : "firefox");
+      this._dockerfile += dockerTemplates["chromium"].replace(
+        "{CHROMIUM}",
+        getDistro(this.base) === "debian" ? "chromium" : "firefox"
+      );
       this._readme += readmeTemplates["chromium"];
     }
     if (this._android) {
@@ -207,10 +251,16 @@ RUN echo "${xpraStart} --html=on --bind-tcp=0.0.0.0:14500 --daemon=no --encoding
       this._readme += readmeTemplates["vscode"];
     }
     if (this._docker || this._k8s) {
-      this._dockerfile += dockerTemplates["docker"].replace("{DISTRO}", getDistro(this.base));
+      this._dockerfile += dockerTemplates["docker"].replace(
+        "{DISTRO}",
+        getDistro(this.base)
+      );
       this._readme += readmeTemplates["docker"];
       if (this._k8s) {
-        this._dockerfile += dockerTemplates["kubernetes"].replace("{DISTRO}", getDistro(this.base));
+        this._dockerfile += dockerTemplates["kubernetes"].replace(
+          "{DISTRO}",
+          getDistro(this.base)
+        );
         this._readme += readmeTemplates["kubernetes"];
       }
     }

@@ -1,7 +1,7 @@
 import {
   __export,
   init_define_process
-} from "./chunk-5BXN6RND.mjs";
+} from "./chunk-CY4CZGSG.mjs";
 
 // react.ts
 init_define_process();

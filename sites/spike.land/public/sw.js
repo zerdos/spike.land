@@ -21,7 +21,10 @@
     }
     return to;
   };
-  var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target, mod));
+  var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(
+    isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
+    mod
+  ));
   var __publicField = (obj, key, value) => {
     __defNormalProp(obj, typeof key !== "symbol" ? key + "" : key, value);
     return value;
@@ -387,16 +390,24 @@
       includeEmptyLines = false
     } = options;
     if (typeof string !== "string") {
-      throw new TypeError(`Expected \`input\` to be a \`string\`, got \`${typeof string}\``);
+      throw new TypeError(
+        `Expected \`input\` to be a \`string\`, got \`${typeof string}\``
+      );
     }
     if (typeof count !== "number") {
-      throw new TypeError(`Expected \`count\` to be a \`number\`, got \`${typeof count}\``);
+      throw new TypeError(
+        `Expected \`count\` to be a \`number\`, got \`${typeof count}\``
+      );
     }
     if (count < 0) {
-      throw new RangeError(`Expected \`count\` to be at least 0, got \`${count}\``);
+      throw new RangeError(
+        `Expected \`count\` to be at least 0, got \`${count}\``
+      );
     }
     if (typeof indent !== "string") {
-      throw new TypeError(`Expected \`options.indent\` to be a \`string\`, got \`${typeof indent}\``);
+      throw new TypeError(
+        `Expected \`options.indent\` to be a \`string\`, got \`${typeof indent}\``
+      );
     }
     if (count === 0) {
       return string;
@@ -687,21 +698,27 @@
                 return event.respondWith(fetchViewer(url));
               }
               case "view": {
-                console.log("VIEW! Fetching the content: " + url.pathname.slice(protocol.length + 1));
+                console.log(
+                  "VIEW! Fetching the content: " + url.pathname.slice(protocol.length + 1)
+                );
                 return fetchContent({
                   event,
                   path: url.pathname.slice(protocol.length + 1)
                 });
               }
               default:
-                return event.respondWith(fetch(event.request).catch((e) => console.log({ url, event })));
+                return event.respondWith(
+                  fetch(event.request).catch((e) => console.log({ url, event }))
+                );
             }
           }
         }
         default:
           try {
             const req = event.request.clone();
-            return event.respondWith(fetch(req).catch((e) => console.log({ url, req })));
+            return event.respondWith(
+              fetch(req).catch((e) => console.log({ url, req }))
+            );
           } catch (err2) {
             console.log({ err2 });
             console.error(url);
@@ -746,15 +763,18 @@
     }
   };
   var fetchIPNSContent = async ({}) => {
-    return new Response(`<html>
+    return new Response(
+      `<html>
   <body>
     <h1>IPNS protocol support is not implemented</h1>
     <p>It is left as an excercise to the viewer</p>
   </body>
-</html>`, {
-      statusText: "IPNS support is not implemented",
-      status: 502
-    });
+</html>`,
+      {
+        statusText: "IPNS support is not implemented",
+        status: 502
+      }
+    );
   };
   var fetchIPFSContent = async ({ event, path }) => {
     console.log("IPFS");
@@ -840,14 +860,17 @@
   <details><pre>${JSON.stringify(entry, null, 2)}</pre></details>
 </li>`;
   var unsupportedProtocol = async (protocol) => {
-    return new Response(`<html>
+    return new Response(
+      `<html>
     <body>
       <h1>Protocol ${protocol} is not supported</h1>
     </body>
-</html>`, {
-      statusText: `Unsupported protocol ${protocol}`,
-      status: 405
-    });
+</html>`,
+      {
+        statusText: `Unsupported protocol ${protocol}`,
+        status: 405
+      }
+    );
   };
   var portRequests = {};
   var onmessage = ({ data }) => {
