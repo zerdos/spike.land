@@ -1,4 +1,4 @@
-FROM ubuntu:rolling
+FROM ubuntu:rolling as devimage
 
 ### base.Dockerfile
 ### Generator: https://github.com/zerdos/spike.land/tree/main/dockerhub/devimages
@@ -59,7 +59,7 @@ WORKDIR /home/node
 
 RUN mkdir node && cd node && yarn add node@18.6.0
 
-
+FROM devimage as devimage_with_node
 
 
 ENV NODE_VERSION {NODE_VERSION}
