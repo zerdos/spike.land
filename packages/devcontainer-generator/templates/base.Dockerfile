@@ -1,4 +1,4 @@
-FROM {DISTRO}
+FROM {DISTRO} as devimage
 
 ### base.Dockerfile
 ### Generator: https://github.com/zerdos/spike.land/tree/main/dockerhub/devimages

@@ -4,8 +4,7 @@ WORKDIR /home/node
 
 RUN mkdir node && cd node && yarn add node@{NODE_VERSION}
 
-
-FROM devimage
+FROM devimage as devimage_with_node
 
 
 ENV NODE_VERSION {NODE_VERSION}
