@@ -4,7 +4,7 @@ import {
   domAnimation,
   domMax,
   m
-} from "../chunk-RZZW2CUR.mjs";
+} from "../chunk-I6QWJWQB.mjs";
 import {
   CacheProvider,
   Global,
@@ -20,15 +20,15 @@ import {
   registerStyles,
   serializeStyles,
   withEmotionCache
-} from "../chunk-P2RQOFJ7.mjs";
+} from "../chunk-SEPAUOVB.mjs";
 import {
   wait
-} from "../chunk-UP4C4HKU.mjs";
+} from "../chunk-KDU57TYQ.mjs";
 import {
   __commonJS,
   __toESM,
   init_define_process
-} from "../chunk-5BXN6RND.mjs";
+} from "../chunk-CY4CZGSG.mjs";
 
 // ../../node_modules/fast-diff/diff.js
 var require_diff = __commonJS({
@@ -253,10 +253,19 @@ var require_diff = __commonJS({
         var best_common = "";
         var best_longtext_a, best_longtext_b, best_shorttext_a, best_shorttext_b;
         while ((j = shorttext2.indexOf(seed, j + 1)) !== -1) {
-          var prefixLength = diff_commonPrefix(longtext2.substring(i2), shorttext2.substring(j));
-          var suffixLength = diff_commonSuffix(longtext2.substring(0, i2), shorttext2.substring(0, j));
+          var prefixLength = diff_commonPrefix(
+            longtext2.substring(i2),
+            shorttext2.substring(j)
+          );
+          var suffixLength = diff_commonSuffix(
+            longtext2.substring(0, i2),
+            shorttext2.substring(0, j)
+          );
           if (best_common.length < suffixLength + prefixLength) {
-            best_common = shorttext2.substring(j - suffixLength, j) + shorttext2.substring(j, j + prefixLength);
+            best_common = shorttext2.substring(
+              j - suffixLength,
+              j
+            ) + shorttext2.substring(j, j + prefixLength);
             best_longtext_a = longtext2.substring(0, i2 - suffixLength);
             best_longtext_b = longtext2.substring(i2 + prefixLength);
             best_shorttext_a = shorttext2.substring(0, j - suffixLength);
@@ -3174,7 +3183,9 @@ var require_checkPropTypes = __commonJS({
             var error;
             try {
               if (typeof typeSpecs[typeSpecName] !== "function") {
-                var err = Error((componentName || "React class") + ": " + location2 + " type `" + typeSpecName + "` is invalid; it must be a function, usually from the `prop-types` package, but received `" + typeof typeSpecs[typeSpecName] + "`.This often happens because of typos such as `PropTypes.function` instead of `PropTypes.func`.");
+                var err = Error(
+                  (componentName || "React class") + ": " + location2 + " type `" + typeSpecName + "` is invalid; it must be a function, usually from the `prop-types` package, but received `" + typeof typeSpecs[typeSpecName] + "`.This often happens because of typos such as `PropTypes.function` instead of `PropTypes.func`."
+                );
                 err.name = "Invariant Violation";
                 throw err;
               }
@@ -3183,12 +3194,16 @@ var require_checkPropTypes = __commonJS({
               error = ex;
             }
             if (error && !(error instanceof Error)) {
-              printWarning((componentName || "React class") + ": type specification of " + location2 + " `" + typeSpecName + "` is invalid; the type checker function must return `null` or an `Error` but returned a " + typeof error + ". You may have forgotten to pass an argument to the type checker creator (arrayOf, instanceOf, objectOf, oneOf, oneOfType, and shape all require an argument).");
+              printWarning(
+                (componentName || "React class") + ": type specification of " + location2 + " `" + typeSpecName + "` is invalid; the type checker function must return `null` or an `Error` but returned a " + typeof error + ". You may have forgotten to pass an argument to the type checker creator (arrayOf, instanceOf, objectOf, oneOf, oneOfType, and shape all require an argument)."
+              );
             }
             if (error instanceof Error && !(error.message in loggedTypeFailures)) {
               loggedTypeFailures[error.message] = true;
               var stack = getStack ? getStack() : "";
-              printWarning("Failed " + location2 + " type: " + error.message + (stack != null ? stack : ""));
+              printWarning(
+                "Failed " + location2 + " type: " + error.message + (stack != null ? stack : "")
+              );
             }
           }
         }
@@ -3284,13 +3299,17 @@ var require_factoryWithTypeCheckers = __commonJS({
           propFullName = propFullName || propName;
           if (secret !== ReactPropTypesSecret) {
             if (throwOnDirectAccess) {
-              var err = new Error("Calling PropTypes validators directly is not supported by the `prop-types` package. Use `PropTypes.checkPropTypes()` to call them. Read more at http://fb.me/use-check-prop-types");
+              var err = new Error(
+                "Calling PropTypes validators directly is not supported by the `prop-types` package. Use `PropTypes.checkPropTypes()` to call them. Read more at http://fb.me/use-check-prop-types"
+              );
               err.name = "Invariant Violation";
               throw err;
             } else if (typeof console !== "undefined") {
               var cacheKey = componentName + ":" + propName;
               if (!manualPropTypeCallCache[cacheKey] && manualPropTypeWarningCount < 3) {
-                printWarning("You are manually calling a React.PropTypes validation function for the `" + propFullName + "` prop on `" + componentName + "`. This is deprecated and will throw in the standalone `prop-types` package. You may be seeing this warning due to a third-party PropTypes library. See https://fb.me/react-warning-dont-call-proptypes for details.");
+                printWarning(
+                  "You are manually calling a React.PropTypes validation function for the `" + propFullName + "` prop on `" + componentName + "`. This is deprecated and will throw in the standalone `prop-types` package. You may be seeing this warning due to a third-party PropTypes library. See https://fb.me/react-warning-dont-call-proptypes for details."
+                );
                 manualPropTypeCallCache[cacheKey] = true;
                 manualPropTypeWarningCount++;
               }
@@ -3318,7 +3337,10 @@ var require_factoryWithTypeCheckers = __commonJS({
           var propType = getPropType(propValue);
           if (propType !== expectedType) {
             var preciseType = getPreciseType(propValue);
-            return new PropTypeError("Invalid " + location2 + " `" + propFullName + "` of type " + ("`" + preciseType + "` supplied to `" + componentName + "`, expected ") + ("`" + expectedType + "`."), { expectedType });
+            return new PropTypeError(
+              "Invalid " + location2 + " `" + propFullName + "` of type " + ("`" + preciseType + "` supplied to `" + componentName + "`, expected ") + ("`" + expectedType + "`."),
+              { expectedType }
+            );
           }
           return null;
         }
@@ -3384,7 +3406,9 @@ var require_factoryWithTypeCheckers = __commonJS({
         if (!Array.isArray(expectedValues)) {
           if (true) {
             if (arguments.length > 1) {
-              printWarning("Invalid arguments supplied to oneOf, expected an array, got " + arguments.length + " arguments. A common mistake is to write oneOf(x, y, z) instead of oneOf([x, y, z]).");
+              printWarning(
+                "Invalid arguments supplied to oneOf, expected an array, got " + arguments.length + " arguments. A common mistake is to write oneOf(x, y, z) instead of oneOf([x, y, z])."
+              );
             } else {
               printWarning("Invalid argument supplied to oneOf, expected an array.");
             }
@@ -3439,7 +3463,9 @@ var require_factoryWithTypeCheckers = __commonJS({
         for (var i2 = 0; i2 < arrayOfTypeCheckers.length; i2++) {
           var checker = arrayOfTypeCheckers[i2];
           if (typeof checker !== "function") {
-            printWarning("Invalid argument supplied to oneOfType. Expected an array of check functions, but received " + getPostfixForTypeWarning(checker) + " at index " + i2 + ".");
+            printWarning(
+              "Invalid argument supplied to oneOfType. Expected an array of check functions, but received " + getPostfixForTypeWarning(checker) + " at index " + i2 + "."
+            );
             return emptyFunctionThatReturnsNull;
           }
         }
@@ -3470,7 +3496,9 @@ var require_factoryWithTypeCheckers = __commonJS({
         return createChainableTypeChecker(validate2);
       }
       function invalidValidatorError(componentName, location2, propFullName, key, type) {
-        return new PropTypeError((componentName || "React class") + ": " + location2 + " type `" + propFullName + "." + key + "` is invalid; it must be a function, usually from the `prop-types` package, but received `" + type + "`.");
+        return new PropTypeError(
+          (componentName || "React class") + ": " + location2 + " type `" + propFullName + "." + key + "` is invalid; it must be a function, usually from the `prop-types` package, but received `" + type + "`."
+        );
       }
       function createShapeTypeChecker(shapeTypes) {
         function validate2(props, propName, componentName, location2, propFullName) {
@@ -3507,7 +3535,9 @@ var require_factoryWithTypeCheckers = __commonJS({
               return invalidValidatorError(componentName, location2, propFullName, key, getPreciseType(checker));
             }
             if (!checker) {
-              return new PropTypeError("Invalid " + location2 + " `" + propFullName + "` key `" + key + "` supplied to `" + componentName + "`.\nBad object: " + JSON.stringify(props[propName], null, "  ") + "\nValid keys: " + JSON.stringify(Object.keys(shapeTypes), null, "  "));
+              return new PropTypeError(
+                "Invalid " + location2 + " `" + propFullName + "` key `" + key + "` supplied to `" + componentName + "`.\nBad object: " + JSON.stringify(props[propName], null, "  ") + "\nValid keys: " + JSON.stringify(Object.keys(shapeTypes), null, "  ")
+              );
             }
             var error = checker(propValue, key, componentName, location2, propFullName + "." + key, ReactPropTypesSecret);
             if (error) {
@@ -4457,7 +4487,9 @@ var ArraySeq = function(IndexedSeq2) {
 }(IndexedSeq);
 var ObjectSeq = function(KeyedSeq2) {
   function ObjectSeq2(object) {
-    var keys2 = Object.keys(object).concat(Object.getOwnPropertySymbols ? Object.getOwnPropertySymbols(object) : []);
+    var keys2 = Object.keys(object).concat(
+      Object.getOwnPropertySymbols ? Object.getOwnPropertySymbols(object) : []
+    );
     this._object = object;
     this._keys = keys2;
     this.size = keys2.length;
@@ -4559,14 +4591,18 @@ function keyedSeqFromValue(value) {
   if (typeof value === "object") {
     return new ObjectSeq(value);
   }
-  throw new TypeError("Expected Array or collection object of [k, v] entries, or keyed object: " + value);
+  throw new TypeError(
+    "Expected Array or collection object of [k, v] entries, or keyed object: " + value
+  );
 }
 function indexedSeqFromValue(value) {
   var seq = maybeIndexedSeqFromValue(value);
   if (seq) {
     return seq;
   }
-  throw new TypeError("Expected Array or collection object of values: " + value);
+  throw new TypeError(
+    "Expected Array or collection object of values: " + value
+  );
 }
 function seqFromValue(value) {
   var seq = maybeIndexedSeqFromValue(value);
@@ -4576,7 +4612,9 @@ function seqFromValue(value) {
   if (typeof value === "object") {
     return new ObjectSeq(value);
   }
-  throw new TypeError("Expected Array or collection object of values, or keyed object: " + value);
+  throw new TypeError(
+    "Expected Array or collection object of values, or keyed object: " + value
+  );
 }
 function maybeIndexedSeqFromValue(value) {
   return isArrayLike(value) ? new ArraySeq(value) : hasIterator(value) ? new CollectionSeq(value) : void 0;
@@ -4589,7 +4627,9 @@ function isOrderedMap(maybeOrderedMap) {
   return isMap(maybeOrderedMap) && isOrdered(maybeOrderedMap);
 }
 function isValueObject(maybeValue) {
-  return Boolean(maybeValue && typeof maybeValue.equals === "function" && typeof maybeValue.hashCode === "function");
+  return Boolean(
+    maybeValue && typeof maybeValue.equals === "function" && typeof maybeValue.hashCode === "function"
+  );
 }
 function is(valueA, valueB) {
   if (valueA === valueB || valueA !== valueA && valueB !== valueB) {
@@ -4733,7 +4773,10 @@ function hashJSObj(obj) {
     });
   } else if (obj.propertyIsEnumerable !== void 0 && obj.propertyIsEnumerable === obj.constructor.prototype.propertyIsEnumerable) {
     obj.propertyIsEnumerable = function() {
-      return this.constructor.prototype.propertyIsEnumerable.apply(this, arguments);
+      return this.constructor.prototype.propertyIsEnumerable.apply(
+        this,
+        arguments
+      );
     };
     obj.propertyIsEnumerable[UID_HASH_KEY] = hashed;
   } else if (obj.nodeType !== void 0) {
@@ -4854,9 +4897,12 @@ var ToIndexedSequence = function(IndexedSeq2) {
     var this$1$1 = this;
     var i2 = 0;
     reverse3 && ensureSize(this);
-    return this._iter.__iterate(function(v) {
-      return fn2(v, reverse3 ? this$1$1.size - ++i2 : i2++, this$1$1);
-    }, reverse3);
+    return this._iter.__iterate(
+      function(v) {
+        return fn2(v, reverse3 ? this$1$1.size - ++i2 : i2++, this$1$1);
+      },
+      reverse3
+    );
   };
   ToIndexedSequence2.prototype.__iterator = function __iterator2(type, reverse3) {
     var this$1$1 = this;
@@ -4865,7 +4911,12 @@ var ToIndexedSequence = function(IndexedSeq2) {
     reverse3 && ensureSize(this);
     return new Iterator(function() {
       var step = iterator.next();
-      return step.done ? step : iteratorValue(type, reverse3 ? this$1$1.size - ++i2 : i2++, step.value, step);
+      return step.done ? step : iteratorValue(
+        type,
+        reverse3 ? this$1$1.size - ++i2 : i2++,
+        step.value,
+        step
+      );
     });
   };
   return ToIndexedSequence2;
@@ -4915,7 +4966,11 @@ var FromEntriesSequence = function(KeyedSeq2) {
       if (entry) {
         validateEntry(entry);
         var indexedCollection = isCollection(entry);
-        return fn2(indexedCollection ? entry.get(1) : entry[1], indexedCollection ? entry.get(0) : entry[0], this$1$1);
+        return fn2(
+          indexedCollection ? entry.get(1) : entry[1],
+          indexedCollection ? entry.get(0) : entry[0],
+          this$1$1
+        );
       }
     }, reverse3);
   };
@@ -4931,7 +4986,12 @@ var FromEntriesSequence = function(KeyedSeq2) {
         if (entry) {
           validateEntry(entry);
           var indexedCollection = isCollection(entry);
-          return iteratorValue(type, indexedCollection ? entry.get(0) : entry[0], indexedCollection ? entry.get(1) : entry[1], step);
+          return iteratorValue(
+            type,
+            indexedCollection ? entry.get(0) : entry[0],
+            indexedCollection ? entry.get(1) : entry[1],
+            step
+          );
         }
       }
     });
@@ -4979,7 +5039,10 @@ function flipFactory(collection) {
         return step;
       });
     }
-    return collection.__iterator(type === ITERATE_VALUES ? ITERATE_KEYS : ITERATE_VALUES, reverse3);
+    return collection.__iterator(
+      type === ITERATE_VALUES ? ITERATE_KEYS : ITERATE_VALUES,
+      reverse3
+    );
   };
   return flipSequence;
 }
@@ -4995,9 +5058,12 @@ function mapFactory(collection, mapper, context) {
   };
   mappedSequence.__iterateUncached = function(fn2, reverse3) {
     var this$1$1 = this;
-    return collection.__iterate(function(v, k, c) {
-      return fn2(mapper.call(context, v, k, c), k, this$1$1) !== false;
-    }, reverse3);
+    return collection.__iterate(
+      function(v, k, c) {
+        return fn2(mapper.call(context, v, k, c), k, this$1$1) !== false;
+      },
+      reverse3
+    );
   };
   mappedSequence.__iteratorUncached = function(type, reverse3) {
     var iterator = collection.__iterator(ITERATE_ENTRIES, reverse3);
@@ -5008,7 +5074,12 @@ function mapFactory(collection, mapper, context) {
       }
       var entry = step.value;
       var key = entry[0];
-      return iteratorValue(type, key, mapper.call(context, entry[1], key, collection), step);
+      return iteratorValue(
+        type,
+        key,
+        mapper.call(context, entry[1], key, collection),
+        step
+      );
     });
   };
   return mappedSequence;
@@ -5044,9 +5115,12 @@ function reverseFactory(collection, useKeys) {
     var this$1$12 = this;
     var i2 = 0;
     reverse3 && ensureSize(collection);
-    return collection.__iterate(function(v, k) {
-      return fn2(v, useKeys ? k : reverse3 ? this$1$12.size - ++i2 : i2++, this$1$12);
-    }, !reverse3);
+    return collection.__iterate(
+      function(v, k) {
+        return fn2(v, useKeys ? k : reverse3 ? this$1$12.size - ++i2 : i2++, this$1$12);
+      },
+      !reverse3
+    );
   };
   reversedSequence.__iterator = function(type, reverse3) {
     var i2 = 0;
@@ -5058,7 +5132,12 @@ function reverseFactory(collection, useKeys) {
         return step;
       }
       var entry = step.value;
-      return iteratorValue(type, useKeys ? entry[0] : reverse3 ? this$1$1.size - ++i2 : i2++, entry[1], step);
+      return iteratorValue(
+        type,
+        useKeys ? entry[0] : reverse3 ? this$1$1.size - ++i2 : i2++,
+        entry[1],
+        step
+      );
     });
   };
   return reversedSequence;
@@ -5119,9 +5198,12 @@ function groupByFactory(collection, grouper, context) {
   var isKeyedIter = isKeyed(collection);
   var groups = (isOrdered(collection) ? OrderedMap() : Map2()).asMutable();
   collection.__iterate(function(v, k) {
-    groups.update(grouper.call(context, v, k, collection), function(a) {
-      return a = a || [], a.push(isKeyedIter ? [k, v] : v), a;
-    });
+    groups.update(
+      grouper.call(context, v, k, collection),
+      function(a) {
+        return a = a || [], a.push(isKeyedIter ? [k, v] : v), a;
+      }
+    );
   });
   var coerce = collectionClass(collection);
   return groups.map(function(arr) {
@@ -5207,9 +5289,11 @@ function takeWhileFactory(collection, predicate, context) {
       return this.cacheResult().__iterate(fn2, reverse3);
     }
     var iterations = 0;
-    collection.__iterate(function(v, k, c) {
-      return predicate.call(context, v, k, c) && ++iterations && fn2(v, k, this$1$1);
-    });
+    collection.__iterate(
+      function(v, k, c) {
+        return predicate.call(context, v, k, c) && ++iterations && fn2(v, k, this$1$1);
+      }
+    );
     return iterations;
   };
   takeSequence.__iteratorUncached = function(type, reverse3) {
@@ -5393,9 +5477,12 @@ function interposeFactory(collection, separator) {
   interposedSequence.__iterateUncached = function(fn2, reverse3) {
     var this$1$1 = this;
     var iterations = 0;
-    collection.__iterate(function(v) {
-      return (!iterations || fn2(separator, iterations++, this$1$1) !== false) && fn2(v, iterations++, this$1$1) !== false;
-    }, reverse3);
+    collection.__iterate(
+      function(v) {
+        return (!iterations || fn2(separator, iterations++, this$1$1) !== false) && fn2(v, iterations++, this$1$1) !== false;
+      },
+      reverse3
+    );
     return iterations;
   };
   interposedSequence.__iteratorUncached = function(type, reverse3) {
@@ -5425,11 +5512,13 @@ function sortFactory(collection, comparator, mapper) {
   }).valueSeq().toArray();
   entries3.sort(function(a, b) {
     return comparator(a[3], b[3]) || a[2] - b[2];
-  }).forEach(isKeyedCollection ? function(v, i2) {
-    entries3[i2].length = 2;
-  } : function(v, i2) {
-    entries3[i2] = v[1];
-  });
+  }).forEach(
+    isKeyedCollection ? function(v, i2) {
+      entries3[i2].length = 2;
+    } : function(v, i2) {
+      entries3[i2] = v[1];
+    }
+  );
   return isKeyedCollection ? KeyedSeq(entries3) : isIndexed(collection) ? IndexedSeq(entries3) : SetSeq(entries3);
 }
 function maxFactory(collection, comparator, mapper) {
@@ -5470,9 +5559,11 @@ function zipWithFactory(keyIter, zipper, iters, zipAll2) {
     return iterations;
   };
   zipSequence.__iteratorUncached = function(type, reverse3) {
-    var iterators = iters.map(function(i2) {
-      return i2 = Collection(i2), getIterator(reverse3 ? i2.reverse() : i2);
-    });
+    var iterators = iters.map(
+      function(i2) {
+        return i2 = Collection(i2), getIterator(reverse3 ? i2.reverse() : i2);
+      }
+    );
     var iterations = 0;
     var isDone = false;
     return new Iterator(function() {
@@ -5490,9 +5581,16 @@ function zipWithFactory(keyIter, zipper, iters, zipAll2) {
       if (isDone) {
         return iteratorDone();
       }
-      return iteratorValue(type, iterations++, zipper.apply(null, steps.map(function(s) {
-        return s.value;
-      })));
+      return iteratorValue(
+        type,
+        iterations++,
+        zipper.apply(
+          null,
+          steps.map(function(s) {
+            return s.value;
+          })
+        )
+      );
     });
   };
   return zipSequence;
@@ -5509,7 +5607,9 @@ function collectionClass(collection) {
   return isKeyed(collection) ? KeyedCollection : isIndexed(collection) ? IndexedCollection : SetCollection;
 }
 function makeSequence(collection) {
-  return Object.create((isKeyed(collection) ? KeyedSeq : isIndexed(collection) ? IndexedSeq : SetSeq).prototype);
+  return Object.create(
+    (isKeyed(collection) ? KeyedSeq : isIndexed(collection) ? IndexedSeq : SetSeq).prototype
+  );
 }
 function cacheResultThrough() {
   if (this._iter.cacheResult) {
@@ -5546,7 +5646,10 @@ function invariant(condition, error) {
   }
 }
 function assertNotInfinite(size) {
-  invariant(size !== Infinity, "Cannot perform this action with an infinite size.");
+  invariant(
+    size !== Infinity,
+    "Cannot perform this action with an infinite size."
+  );
 }
 function coerceKeyPath(keyPath) {
   if (isArrayLike(keyPath) && typeof keyPath !== "string") {
@@ -5555,7 +5658,9 @@ function coerceKeyPath(keyPath) {
   if (isOrdered(keyPath)) {
     return keyPath.toArray();
   }
-  throw new TypeError("Invalid keyPath: expected Ordered Collection or Array: " + keyPath);
+  throw new TypeError(
+    "Invalid keyPath: expected Ordered Collection or Array: " + keyPath
+  );
 }
 var toString2 = Object.prototype.toString;
 function isPlainObject(value) {
@@ -5604,11 +5709,15 @@ function shallowCopy(from) {
 }
 function remove(collection, key) {
   if (!isDataStructure(collection)) {
-    throw new TypeError("Cannot update non-data-structure value: " + collection);
+    throw new TypeError(
+      "Cannot update non-data-structure value: " + collection
+    );
   }
   if (isImmutable(collection)) {
     if (!collection.remove) {
-      throw new TypeError("Cannot update immutable value without .remove() method: " + collection);
+      throw new TypeError(
+        "Cannot update immutable value without .remove() method: " + collection
+      );
     }
     return collection.remove(key);
   }
@@ -5625,11 +5734,15 @@ function remove(collection, key) {
 }
 function set(collection, key, value) {
   if (!isDataStructure(collection)) {
-    throw new TypeError("Cannot update non-data-structure value: " + collection);
+    throw new TypeError(
+      "Cannot update non-data-structure value: " + collection
+    );
   }
   if (isImmutable(collection)) {
     if (!collection.set) {
-      throw new TypeError("Cannot update immutable value without .set() method: " + collection);
+      throw new TypeError(
+        "Cannot update immutable value without .set() method: " + collection
+      );
     }
     return collection.set(key, value);
   }
@@ -5645,7 +5758,14 @@ function updateIn$1(collection, keyPath, notSetValue, updater) {
     updater = notSetValue;
     notSetValue = void 0;
   }
-  var updatedValue = updateInDeeply(isImmutable(collection), collection, coerceKeyPath(keyPath), 0, notSetValue, updater);
+  var updatedValue = updateInDeeply(
+    isImmutable(collection),
+    collection,
+    coerceKeyPath(keyPath),
+    0,
+    notSetValue,
+    updater
+  );
   return updatedValue === NOT_SET ? notSetValue : updatedValue;
 }
 function updateInDeeply(inImmutable, existing, keyPath, i2, notSetValue, updater) {
@@ -5656,12 +5776,25 @@ function updateInDeeply(inImmutable, existing, keyPath, i2, notSetValue, updater
     return newValue === existingValue ? existing : newValue;
   }
   if (!wasNotSet && !isDataStructure(existing)) {
-    throw new TypeError("Cannot update within non-data-structure value in path [" + keyPath.slice(0, i2).map(quoteString) + "]: " + existing);
+    throw new TypeError(
+      "Cannot update within non-data-structure value in path [" + keyPath.slice(0, i2).map(quoteString) + "]: " + existing
+    );
   }
   var key = keyPath[i2];
   var nextExisting = wasNotSet ? NOT_SET : get(existing, key, NOT_SET);
-  var nextUpdated = updateInDeeply(nextExisting === NOT_SET ? inImmutable : isImmutable(nextExisting), nextExisting, keyPath, i2 + 1, notSetValue, updater);
-  return nextUpdated === nextExisting ? existing : nextUpdated === NOT_SET ? remove(existing, key) : set(wasNotSet ? inImmutable ? emptyMap() : {} : existing, key, nextUpdated);
+  var nextUpdated = updateInDeeply(
+    nextExisting === NOT_SET ? inImmutable : isImmutable(nextExisting),
+    nextExisting,
+    keyPath,
+    i2 + 1,
+    notSetValue,
+    updater
+  );
+  return nextUpdated === nextExisting ? existing : nextUpdated === NOT_SET ? remove(existing, key) : set(
+    wasNotSet ? inImmutable ? emptyMap() : {} : existing,
+    key,
+    nextUpdated
+  );
 }
 function setIn$1(collection, keyPath, value) {
   return updateIn$1(collection, keyPath, NOT_SET, function() {
@@ -5719,9 +5852,14 @@ function mergeIntoKeyedWith(collection, collections, merger) {
   }
   return collection.withMutations(function(collection2) {
     var mergeIntoCollection = merger ? function(value, key) {
-      update$1(collection2, key, NOT_SET, function(oldVal) {
-        return oldVal === NOT_SET ? value : merger(oldVal, value, key);
-      });
+      update$1(
+        collection2,
+        key,
+        NOT_SET,
+        function(oldVal) {
+          return oldVal === NOT_SET ? value : merger(oldVal, value, key);
+        }
+      );
     } : function(value, key) {
       collection2.set(key, value);
     };
@@ -5735,7 +5873,9 @@ function mergeDeepWithSources(collection, sources, merger) {
 }
 function mergeWithSources(collection, sources, merger) {
   if (!isDataStructure(collection)) {
-    throw new TypeError("Cannot merge into non-data-structure value: " + collection);
+    throw new TypeError(
+      "Cannot merge into non-data-structure value: " + collection
+    );
   }
   if (isImmutable(collection)) {
     return typeof merger === "function" && collection.mergeWith ? collection.mergeWith.apply(collection, [merger].concat(sources)) : collection.merge ? collection.merge.apply(collection, sources) : collection.concat.apply(collection, sources);
@@ -5798,9 +5938,14 @@ function mergeDeepIn(keyPath) {
   var iters = [], len = arguments.length - 1;
   while (len-- > 0)
     iters[len] = arguments[len + 1];
-  return updateIn$1(this, keyPath, emptyMap(), function(m2) {
-    return mergeDeepWithSources(m2, iters);
-  });
+  return updateIn$1(
+    this,
+    keyPath,
+    emptyMap(),
+    function(m2) {
+      return mergeDeepWithSources(m2, iters);
+    }
+  );
 }
 function withMutations(fn2) {
   var mutable = this.asMutable();
@@ -6009,7 +6154,12 @@ BitmapIndexedNode.prototype.get = function get3(shift, keyHash, key, notSetValue
   }
   var bit = 1 << ((shift === 0 ? keyHash : keyHash >>> shift) & MASK);
   var bitmap = this.bitmap;
-  return (bitmap & bit) === 0 ? notSetValue : this.nodes[popCount(bitmap & bit - 1)].get(shift + SHIFT, keyHash, key, notSetValue);
+  return (bitmap & bit) === 0 ? notSetValue : this.nodes[popCount(bitmap & bit - 1)].get(
+    shift + SHIFT,
+    keyHash,
+    key,
+    notSetValue
+  );
 };
 BitmapIndexedNode.prototype.update = function update3(ownerID, shift, keyHash, key, value, didChangeSize, didAlter) {
   if (keyHash === void 0) {
@@ -6025,7 +6175,16 @@ BitmapIndexedNode.prototype.update = function update3(ownerID, shift, keyHash, k
   var idx = popCount(bitmap & bit - 1);
   var nodes = this.nodes;
   var node = exists ? nodes[idx] : void 0;
-  var newNode = updateNode(node, ownerID, shift + SHIFT, keyHash, key, value, didChangeSize, didAlter);
+  var newNode = updateNode(
+    node,
+    ownerID,
+    shift + SHIFT,
+    keyHash,
+    key,
+    value,
+    didChangeSize,
+    didAlter
+  );
   if (newNode === node) {
     return this;
   }
@@ -6072,7 +6231,16 @@ HashArrayMapNode.prototype.update = function update4(ownerID, shift, keyHash, ke
   if (removed && !node) {
     return this;
   }
-  var newNode = updateNode(node, ownerID, shift + SHIFT, keyHash, key, value, didChangeSize, didAlter);
+  var newNode = updateNode(
+    node,
+    ownerID,
+    shift + SHIFT,
+    keyHash,
+    key,
+    value,
+    didChangeSize,
+    didAlter
+  );
   if (newNode === node) {
     return this;
   }
@@ -6228,7 +6396,10 @@ var MapIterator = function(Iterator3) {
       } else if (node.entries) {
         maxIndex = node.entries.length - 1;
         if (index <= maxIndex) {
-          return mapIteratorValue(type, node.entries[this._reverse ? maxIndex - index : index]);
+          return mapIteratorValue(
+            type,
+            node.entries[this._reverse ? maxIndex - index : index]
+          );
         }
       } else {
         maxIndex = node.nodes.length - 1;
@@ -6284,7 +6455,16 @@ function updateMap(map2, k, v) {
   } else {
     var didChangeSize = MakeRef();
     var didAlter = MakeRef();
-    newRoot = updateNode(map2._root, map2.__ownerID, 0, void 0, k, v, didChangeSize, didAlter);
+    newRoot = updateNode(
+      map2._root,
+      map2.__ownerID,
+      0,
+      void 0,
+      k,
+      v,
+      didChangeSize,
+      didAlter
+    );
     if (!didAlter.value) {
       return map2;
     }
@@ -6308,7 +6488,15 @@ function updateNode(node, ownerID, shift, keyHash, key, value, didChangeSize, di
     SetRef(didChangeSize);
     return new ValueNode(ownerID, keyHash, [key, value]);
   }
-  return node.update(ownerID, shift, keyHash, key, value, didChangeSize, didAlter);
+  return node.update(
+    ownerID,
+    shift,
+    keyHash,
+    key,
+    value,
+    didChangeSize,
+    didAlter
+  );
 }
 function isLeafNode(node) {
   return node.constructor === ValueNode || node.constructor === HashCollisionNode;
@@ -6506,7 +6694,9 @@ var List = function(IndexedCollection2) {
     var seqs = [];
     for (var i2 = 0; i2 < arguments.length; i2++) {
       var argument = arguments$1[i2];
-      var seq = IndexedCollection2(typeof argument !== "string" && hasIterator(argument) ? argument : [argument]);
+      var seq = IndexedCollection2(
+        typeof argument !== "string" && hasIterator(argument) ? argument : [argument]
+      );
       if (seq.size !== 0) {
         seqs.push(seq);
       }
@@ -6541,7 +6731,11 @@ var List = function(IndexedCollection2) {
     if (wholeSlice(begin, end2, size)) {
       return this;
     }
-    return setListBounds(this, resolveBegin(begin, size), resolveEnd(end2, size));
+    return setListBounds(
+      this,
+      resolveBegin(begin, size),
+      resolveEnd(end2, size)
+    );
   };
   List2.prototype.__iterator = function __iterator2(type, reverse3) {
     var index = reverse3 ? this.size : 0;
@@ -6574,7 +6768,15 @@ var List = function(IndexedCollection2) {
       this.__altered = false;
       return this;
     }
-    return makeList(this._origin, this._capacity, this._level, this._root, this._tail, ownerID, this.__hash);
+    return makeList(
+      this._origin,
+      this._capacity,
+      this._level,
+      this._root,
+      this._tail,
+      ownerID,
+      this.__hash
+    );
   };
   return List2;
 }(IndexedCollection);
@@ -6703,7 +6905,11 @@ function iterateList(list, reverse3) {
           return DONE;
         }
         var idx = reverse3 ? --to : from++;
-        values4 = iterateNodeOrLeaf(array && array[idx], level - SHIFT, offset2 + (idx << level));
+        values4 = iterateNodeOrLeaf(
+          array && array[idx],
+          level - SHIFT,
+          offset2 + (idx << level)
+        );
       }
     };
   }
@@ -6742,7 +6948,14 @@ function updateList(list, index, value) {
   if (index >= getTailOffset(list._capacity)) {
     newTail = updateVNode(newTail, list.__ownerID, 0, index, value, didAlter);
   } else {
-    newRoot = updateVNode(newRoot, list.__ownerID, list._level, index, value, didAlter);
+    newRoot = updateVNode(
+      newRoot,
+      list.__ownerID,
+      list._level,
+      index,
+      value,
+      didAlter
+    );
   }
   if (!didAlter.value) {
     return list;
@@ -6765,7 +6978,14 @@ function updateVNode(node, ownerID, level, index, value, didAlter) {
   var newNode;
   if (level > 0) {
     var lowerNode = node && node.array[idx];
-    var newLowerNode = updateVNode(lowerNode, ownerID, level - SHIFT, index, value, didAlter);
+    var newLowerNode = updateVNode(
+      lowerNode,
+      ownerID,
+      level - SHIFT,
+      index,
+      value,
+      didAlter
+    );
     if (newLowerNode === lowerNode) {
       return node;
     }
@@ -6829,7 +7049,10 @@ function setListBounds(list, begin, end2) {
   var newRoot = list._root;
   var offsetShift = 0;
   while (newOrigin + offsetShift < 0) {
-    newRoot = new VNode(newRoot && newRoot.array.length ? [void 0, newRoot] : [], owner);
+    newRoot = new VNode(
+      newRoot && newRoot.array.length ? [void 0, newRoot] : [],
+      owner
+    );
     newLevel += SHIFT;
     offsetShift += 1 << newLevel;
   }
@@ -6842,7 +7065,10 @@ function setListBounds(list, begin, end2) {
   var oldTailOffset = getTailOffset(oldCapacity);
   var newTailOffset = getTailOffset(newCapacity);
   while (newTailOffset >= 1 << newLevel + SHIFT) {
-    newRoot = new VNode(newRoot && newRoot.array.length ? [newRoot] : [], owner);
+    newRoot = new VNode(
+      newRoot && newRoot.array.length ? [newRoot] : [],
+      owner
+    );
     newLevel += SHIFT;
   }
   var oldTail = list._tail;
@@ -6882,7 +7108,11 @@ function setListBounds(list, begin, end2) {
       newRoot = newRoot.removeBefore(owner, newLevel, newOrigin - offsetShift);
     }
     if (newRoot && newTailOffset < oldTailOffset) {
-      newRoot = newRoot.removeAfter(owner, newLevel, newTailOffset - offsetShift);
+      newRoot = newRoot.removeAfter(
+        owner,
+        newLevel,
+        newTailOffset - offsetShift
+      );
     }
     if (offsetShift) {
       newOrigin -= offsetShift;
@@ -6950,9 +7180,12 @@ var OrderedMap = function(Map3) {
   };
   OrderedMap2.prototype.__iterate = function __iterate2(fn2, reverse3) {
     var this$1$1 = this;
-    return this._list.__iterate(function(entry) {
-      return entry && fn2(entry[1], entry[0], this$1$1);
-    }, reverse3);
+    return this._list.__iterate(
+      function(entry) {
+        return entry && fn2(entry[1], entry[0], this$1$1);
+      },
+      reverse3
+    );
   };
   OrderedMap2.prototype.__iterator = function __iterator2(type, reverse3) {
     return this._list.fromEntrySeq().__iterator(type, reverse3);
@@ -7173,9 +7406,12 @@ var Stack = function(IndexedCollection2) {
   Stack2.prototype.__iterate = function __iterate2(fn2, reverse3) {
     var this$1$1 = this;
     if (reverse3) {
-      return new ArraySeq(this.toArray()).__iterate(function(v, k) {
-        return fn2(v, k, this$1$1);
-      }, reverse3);
+      return new ArraySeq(this.toArray()).__iterate(
+        function(v, k) {
+          return fn2(v, k, this$1$1);
+        },
+        reverse3
+      );
     }
     var iterations = 0;
     var node = this._head;
@@ -7357,14 +7593,17 @@ var Set2 = function(SetCollection2) {
   Set3.prototype.map = function map2(mapper, context) {
     var this$1$1 = this;
     var didChanges = false;
-    var newMap = updateSet(this, this._map.mapEntries(function(ref) {
-      var v = ref[1];
-      var mapped = mapper.call(context, v, v, this$1$1);
-      if (mapped !== v) {
-        didChanges = true;
-      }
-      return [mapped, mapped];
-    }, context));
+    var newMap = updateSet(
+      this,
+      this._map.mapEntries(function(ref) {
+        var v = ref[1];
+        var mapped = mapper.call(context, v, v, this$1$1);
+        if (mapped !== v) {
+          didChanges = true;
+        }
+        return [mapped, mapped];
+      }, context)
+    );
     return didChanges ? newMap : this;
   };
   Set3.prototype.union = function union() {
@@ -7557,7 +7796,11 @@ var Range = function(IndexedSeq2) {
     if (end2 <= begin) {
       return new Range2(0, 0);
     }
-    return new Range2(this.get(begin, this._end), this.get(end2, this._end), this._step);
+    return new Range2(
+      this.get(begin, this._end),
+      this.get(end2, this._end),
+      this._step
+    );
   };
   Range2.prototype.indexOf = function indexOf2(searchValue) {
     var offsetValue = searchValue - this._start;
@@ -7747,10 +7990,24 @@ mixin(Collection, {
     return reify(this, mapFactory(this, mapper, context));
   },
   reduce: function reduce$1(reducer, initialReduction, context) {
-    return reduce(this, reducer, initialReduction, context, arguments.length < 2, false);
+    return reduce(
+      this,
+      reducer,
+      initialReduction,
+      context,
+      arguments.length < 2,
+      false
+    );
   },
   reduceRight: function reduceRight(reducer, initialReduction, context) {
-    return reduce(this, reducer, initialReduction, context, arguments.length < 2, true);
+    return reduce(
+      this,
+      reducer,
+      initialReduction,
+      context,
+      arguments.length < 2,
+      true
+    );
   },
   reverse: function reverse() {
     return reify(this, reverseFactory(this, true));
@@ -7776,7 +8033,9 @@ mixin(Collection, {
     });
   },
   count: function count(predicate, context) {
-    return ensureSize(predicate ? this.toSeq().filter(predicate, context) : this);
+    return ensureSize(
+      predicate ? this.toSeq().filter(predicate, context) : this
+    );
   },
   countBy: function countBy(grouper, context) {
     return countByFactory(this, grouper, context);
@@ -7877,10 +8136,17 @@ mixin(Collection, {
     return maxFactory(this, comparator, mapper);
   },
   min: function min(comparator) {
-    return maxFactory(this, comparator ? neg(comparator) : defaultNegComparator);
+    return maxFactory(
+      this,
+      comparator ? neg(comparator) : defaultNegComparator
+    );
   },
   minBy: function minBy(mapper, comparator) {
-    return maxFactory(this, comparator ? neg(comparator) : defaultNegComparator, mapper);
+    return maxFactory(
+      this,
+      comparator ? neg(comparator) : defaultNegComparator,
+      mapper
+    );
   },
   rest: function rest() {
     return this.slice(1);
@@ -7939,15 +8205,21 @@ mixin(KeyedCollection, {
   mapEntries: function mapEntries(mapper, context) {
     var this$1$1 = this;
     var iterations = 0;
-    return reify(this, this.toSeq().map(function(v, k) {
-      return mapper.call(context, [k, v], iterations++, this$1$1);
-    }).fromEntrySeq());
+    return reify(
+      this,
+      this.toSeq().map(function(v, k) {
+        return mapper.call(context, [k, v], iterations++, this$1$1);
+      }).fromEntrySeq()
+    );
   },
   mapKeys: function mapKeys(mapper, context) {
     var this$1$1 = this;
-    return reify(this, this.toSeq().flip().map(function(k, v) {
-      return mapper.call(context, k, v, this$1$1);
-    }).flip());
+    return reify(
+      this,
+      this.toSeq().flip().map(function(k, v) {
+        return mapper.call(context, k, v, this$1$1);
+      }).flip()
+    );
   }
 });
 var KeyedCollectionPrototype = KeyedCollection.prototype;
@@ -7990,7 +8262,10 @@ mixin(IndexedCollection, {
     }
     index = resolveBegin(index, index < 0 ? this.count() : this.size);
     var spliced = this.slice(0, index);
-    return reify(this, numArgs === 1 ? spliced : spliced.concat(arrCopy(arguments, 2), this.slice(index + removeNum)));
+    return reify(
+      this,
+      numArgs === 1 ? spliced : spliced.concat(arrCopy(arguments, 2), this.slice(index + removeNum))
+    );
   },
   findLastIndex: function findLastIndex(predicate, context) {
     var entry = this.findLastEntry(predicate, context);
@@ -8109,15 +8384,17 @@ function hashCollection(collection) {
   var ordered = isOrdered(collection);
   var keyed = isKeyed(collection);
   var h2 = ordered ? 1 : 0;
-  var size = collection.__iterate(keyed ? ordered ? function(v, k) {
-    h2 = 31 * h2 + hashMerge(hash(v), hash(k)) | 0;
-  } : function(v, k) {
-    h2 = h2 + hashMerge(hash(v), hash(k)) | 0;
-  } : ordered ? function(v) {
-    h2 = 31 * h2 + hash(v) | 0;
-  } : function(v) {
-    h2 = h2 + hash(v) | 0;
-  });
+  var size = collection.__iterate(
+    keyed ? ordered ? function(v, k) {
+      h2 = 31 * h2 + hashMerge(hash(v), hash(k)) | 0;
+    } : function(v, k) {
+      h2 = h2 + hashMerge(hash(v), hash(k)) | 0;
+    } : ordered ? function(v) {
+      h2 = 31 * h2 + hash(v) | 0;
+    } : function(v) {
+      h2 = h2 + hash(v) | 0;
+    }
+  );
   return murmurHashOfSize(size, h2);
 }
 function murmurHashOfSize(size, h2) {
@@ -8179,13 +8456,19 @@ function emptyOrderedSet() {
 }
 function throwOnInvalidDefaultValues(defaultValues) {
   if (isRecord(defaultValues)) {
-    throw new Error("Can not call `Record` with an immutable Record as default values. Use a plain javascript object instead.");
+    throw new Error(
+      "Can not call `Record` with an immutable Record as default values. Use a plain javascript object instead."
+    );
   }
   if (isImmutable(defaultValues)) {
-    throw new Error("Can not call `Record` with an immutable Collection as default values. Use a plain javascript object instead.");
+    throw new Error(
+      "Can not call `Record` with an immutable Collection as default values. Use a plain javascript object instead."
+    );
   }
   if (defaultValues === null || typeof defaultValues !== "object") {
-    throw new Error("Can not call `Record` with a non-object as default values. Use a plain javascript object instead.");
+    throw new Error(
+      "Can not call `Record` with a non-object as default values. Use a plain javascript object instead."
+    );
   }
 }
 var Record = function Record2(defaultValues, name) {
@@ -8210,7 +8493,9 @@ var Record = function Record2(defaultValues, name) {
         var propName = keys2[i2];
         indices[propName] = i2;
         if (RecordTypePrototype[propName]) {
-          typeof console === "object" && console.warn && console.warn("Cannot define " + recordName(this) + ' with property "' + propName + '" since that property name is part of the Record API.');
+          typeof console === "object" && console.warn && console.warn(
+            "Cannot define " + recordName(this) + ' with property "' + propName + '" since that property name is part of the Record API.'
+          );
         } else {
           setProp(RecordTypePrototype, propName);
         }
@@ -8261,7 +8546,10 @@ Record.prototype.get = function get10(k, notSetValue) {
 };
 Record.prototype.set = function set2(k, v) {
   if (this.has(k)) {
-    var newValues = this._values.set(this._indices[k], v === this._defaultValues[k] ? void 0 : v);
+    var newValues = this._values.set(
+      this._indices[k],
+      v === this._defaultValues[k] ? void 0 : v
+    );
     if (newValues !== this._values && !this.__ownerID) {
       return makeRecord(this, newValues);
     }
@@ -8390,7 +8678,10 @@ var Repeat = function(IndexedSeq2) {
   };
   Repeat2.prototype.slice = function slice3(begin, end2) {
     var size = this.size;
-    return wholeSlice(begin, end2, size) ? this : new Repeat2(this._value, resolveEnd(end2, size) - resolveBegin(begin, size));
+    return wholeSlice(begin, end2, size) ? this : new Repeat2(
+      this._value,
+      resolveEnd(end2, size) - resolveBegin(begin, size)
+    );
   };
   Repeat2.prototype.reverse = function reverse3() {
     return this;
@@ -8421,9 +8712,11 @@ var Repeat = function(IndexedSeq2) {
     var this$1$1 = this;
     var size = this.size;
     var i2 = 0;
-    return new Iterator(function() {
-      return i2 === size ? iteratorDone() : iteratorValue(type, reverse3 ? size - ++i2 : i2++, this$1$1._value);
-    });
+    return new Iterator(
+      function() {
+        return i2 === size ? iteratorDone() : iteratorValue(type, reverse3 ? size - ++i2 : i2++, this$1$1._value);
+      }
+    );
   };
   Repeat2.prototype.equals = function equals3(other) {
     return other instanceof Repeat2 ? is(this._value, other._value) : deepEqual(other);
@@ -8437,7 +8730,9 @@ init_define_process();
 var import_fast_diff = __toESM(require_diff(), 1);
 function createDelta(original, revision) {
   var result = (0, import_fast_diff.default)(original, revision);
-  const delta = result.map((r2) => r2[0] === 1 ? r2 : [r2[0], r2[1].length]);
+  const delta = result.map(
+    (r2) => r2[0] === 1 ? r2 : [r2[0], r2[1].length]
+  );
   return delta;
 }
 function applyPatch(original, delta) {
@@ -8475,8 +8770,10 @@ var CodeSession = class {
     this.createPatchFromHashCode = async (oldHash, state) => {
       const s = JSON.parse(str(state));
       if (!hashStore[oldHash]) {
-        const resp = await fetch(`/live/${this.room}
-        `);
+        const resp = await fetch(
+          `/live/${this.room}
+        `
+        );
         const { mST: mST2, hashCode: hashCode4 } = await resp.json();
         hashStore[hashCode4] = this.session.get("state").merge(mST2);
       }
@@ -8499,23 +8796,33 @@ var CodeSession = class {
       patch
     }) => {
       const codeSpace2 = this.room || "";
-      if (!Object.keys(hashStore).map((x) => Number(x)).includes(Number(oldHash)) && codeSpace2) {
+      if (!Object.keys(hashStore).map((x) => Number(x)).includes(
+        Number(oldHash)
+      ) && codeSpace2) {
         console.log(Object.keys(hashStore));
-        const resp = await fetch(`/live/${codeSpace2}/mST`);
+        const resp = await fetch(
+          `/live/${codeSpace2}/mST`
+        );
         if (resp.ok) {
           const s = await resp.json();
-          const serverRecord = this.session.get("state").merge(JSON.parse(str(s.mST)));
+          const serverRecord = this.session.get("state").merge(
+            JSON.parse(str(s.mST))
+          );
           hashStore[serverRecord.hashCode()] = serverRecord;
         } else {
           const { mST: mST2 } = await import(location.origin + `/live/${this.room}/mst.mjs?${Date.now()}`);
-          const latestRec = this.session.get("state").merge(JSON.parse(str(mST2)));
+          const latestRec = this.session.get("state").merge(
+            JSON.parse(str(mST2))
+          );
           hashStore[latestRec.hashCode()] = latestRec;
         }
       }
       const oldStr = str(hashStore[oldHash].toJSON());
       const applied = applyPatch(oldStr, patch);
       const newState = JSON.parse(applied);
-      const newRec = this.session.get("state").merge(newState);
+      const newRec = this.session.get("state").merge(
+        newState
+      );
       const newRecord = this.session.get("state").merge(newRec);
       const newHashCheck = newRecord.hashCode();
       if (newHashCheck === newHash) {
@@ -8574,8 +8881,14 @@ function addOrigin(s, originStr) {
   const mst = { i: i2, transpiled, code, html, css: css2 };
   mst.code = mst.code.replace(`from '/live`, `from '${originStr}/live`);
   mst.code = mst.code.replace(`from './`, `from '${originStr}/live/`);
-  mst.transpiled = mst.transpiled.replace(`from "/live`, `from "${originStr}/live`);
-  mst.transpiled = mst.transpiled.replace(`from "./`, `from "${originStr}/live/`);
+  mst.transpiled = mst.transpiled.replace(
+    `from "/live`,
+    `from "${originStr}/live`
+  );
+  mst.transpiled = mst.transpiled.replace(
+    `from "./`,
+    `from "${originStr}/live/`
+  );
   return mst;
 }
 function str(s) {
@@ -10766,7 +11079,11 @@ init_define_process();
           let depLoad = load.d[depIndex++], blobUrl = depLoad.b, cycleShell = !blobUrl;
           if (cycleShell) {
             if (!(blobUrl = depLoad.s)) {
-              blobUrl = depLoad.s = createBlob(`export function u$_(m){${depLoad.a[1].map((name) => name === "default" ? `d$_=m.default` : `${name}=m.${name}`).join(",")}}${depLoad.a[1].map((name) => name === "default" ? `let d$_;export{d$_ as default}` : `export let ${name}`).join(";")}
+              blobUrl = depLoad.s = createBlob(`export function u$_(m){${depLoad.a[1].map(
+                (name) => name === "default" ? `d$_=m.default` : `${name}=m.${name}`
+              ).join(",")}}${depLoad.a[1].map(
+                (name) => name === "default" ? `let d$_;export{d$_ as default}` : `export let ${name}`
+              ).join(";")}
 //# sourceURL=${depLoad.r}?cycle`);
             }
           }
@@ -11898,17 +12215,19 @@ init_define_process();
 init_define_process();
 function composeClasses(slots, getUtilityClass, classes) {
   const output = {};
-  Object.keys(slots).forEach((slot) => {
-    output[slot] = slots[slot].reduce((acc, key) => {
-      if (key) {
-        if (classes && classes[key]) {
-          acc.push(classes[key]);
+  Object.keys(slots).forEach(
+    (slot) => {
+      output[slot] = slots[slot].reduce((acc, key) => {
+        if (key) {
+          if (classes && classes[key]) {
+            acc.push(classes[key]);
+          }
+          acc.push(getUtilityClass(key));
         }
-        acc.push(getUtilityClass(key));
-      }
-      return acc;
-    }, []).join(" ");
-  });
+        return acc;
+      }, []).join(" ");
+    }
+  );
   return output;
 }
 
@@ -12536,7 +12855,10 @@ function ClickAwayListener(props) {
       activatedRef.current = false;
     };
   }, []);
-  const handleRef = useForkRef(children2.ref, nodeRef);
+  const handleRef = useForkRef(
+    children2.ref,
+    nodeRef
+  );
   const handleClickAway = useEventCallback((event) => {
     const insideReactTree = syntheticEventRef.current;
     syntheticEventRef.current = false;
@@ -12552,7 +12874,11 @@ function ClickAwayListener(props) {
     if (event.composedPath) {
       insideDOM = event.composedPath().indexOf(nodeRef.current) > -1;
     } else {
-      insideDOM = !doc.documentElement.contains(event.target) || nodeRef.current.contains(event.target);
+      insideDOM = !doc.documentElement.contains(
+        event.target
+      ) || nodeRef.current.contains(
+        event.target
+      );
     }
     if (!insideDOM && (disableReactTree || !insideReactTree)) {
       onClickAway(event);
@@ -19633,9 +19959,11 @@ import "/react.mjs";
 // ../../node_modules/@emotion/is-prop-valid/dist/emotion-is-prop-valid.browser.esm.js
 init_define_process();
 var reactPropsRegex = /^((children|dangerouslySetInnerHTML|key|ref|autoFocus|defaultValue|defaultChecked|innerHTML|suppressContentEditableWarning|suppressHydrationWarning|valueLink|abbr|accept|acceptCharset|accessKey|action|allow|allowUserMedia|allowPaymentRequest|allowFullScreen|allowTransparency|alt|async|autoComplete|autoPlay|capture|cellPadding|cellSpacing|challenge|charSet|checked|cite|classID|className|cols|colSpan|content|contentEditable|contextMenu|controls|controlsList|coords|crossOrigin|data|dateTime|decoding|default|defer|dir|disabled|disablePictureInPicture|download|draggable|encType|enterKeyHint|form|formAction|formEncType|formMethod|formNoValidate|formTarget|frameBorder|headers|height|hidden|high|href|hrefLang|htmlFor|httpEquiv|id|inputMode|integrity|is|keyParams|keyType|kind|label|lang|list|loading|loop|low|marginHeight|marginWidth|max|maxLength|media|mediaGroup|method|min|minLength|multiple|muted|name|nonce|noValidate|open|optimum|pattern|placeholder|playsInline|poster|preload|profile|radioGroup|readOnly|referrerPolicy|rel|required|reversed|role|rows|rowSpan|sandbox|scope|scoped|scrolling|seamless|selected|shape|size|sizes|slot|span|spellCheck|src|srcDoc|srcLang|srcSet|start|step|style|summary|tabIndex|target|title|translate|type|useMap|value|width|wmode|wrap|about|datatype|inlist|prefix|property|resource|typeof|vocab|autoCapitalize|autoCorrect|autoSave|color|incremental|fallback|inert|itemProp|itemScope|itemType|itemID|itemRef|on|option|results|security|unselectable|accentHeight|accumulate|additive|alignmentBaseline|allowReorder|alphabetic|amplitude|arabicForm|ascent|attributeName|attributeType|autoReverse|azimuth|baseFrequency|baselineShift|baseProfile|bbox|begin|bias|by|calcMode|capHeight|clip|clipPathUnits|clipPath|clipRule|colorInterpolation|colorInterpolationFilters|colorProfile|colorRendering|contentScriptType|contentStyleType|cursor|cx|cy|d|decelerate|descent|diffuseConstant|direction|display|divisor|dominantBaseline|dur|dx|dy|edgeMode|elevation|enableBackground|end|exponent|externalResourcesRequired|fill|fillOpacity|fillRule|filter|filterRes|filterUnits|floodColor|floodOpacity|focusable|fontFamily|fontSize|fontSizeAdjust|fontStretch|fontStyle|fontVariant|fontWeight|format|from|fr|fx|fy|g1|g2|glyphName|glyphOrientationHorizontal|glyphOrientationVertical|glyphRef|gradientTransform|gradientUnits|hanging|horizAdvX|horizOriginX|ideographic|imageRendering|in|in2|intercept|k|k1|k2|k3|k4|kernelMatrix|kernelUnitLength|kerning|keyPoints|keySplines|keyTimes|lengthAdjust|letterSpacing|lightingColor|limitingConeAngle|local|markerEnd|markerMid|markerStart|markerHeight|markerUnits|markerWidth|mask|maskContentUnits|maskUnits|mathematical|mode|numOctaves|offset|opacity|operator|order|orient|orientation|origin|overflow|overlinePosition|overlineThickness|panose1|paintOrder|pathLength|patternContentUnits|patternTransform|patternUnits|pointerEvents|points|pointsAtX|pointsAtY|pointsAtZ|preserveAlpha|preserveAspectRatio|primitiveUnits|r|radius|refX|refY|renderingIntent|repeatCount|repeatDur|requiredExtensions|requiredFeatures|restart|result|rotate|rx|ry|scale|seed|shapeRendering|slope|spacing|specularConstant|specularExponent|speed|spreadMethod|startOffset|stdDeviation|stemh|stemv|stitchTiles|stopColor|stopOpacity|strikethroughPosition|strikethroughThickness|string|stroke|strokeDasharray|strokeDashoffset|strokeLinecap|strokeLinejoin|strokeMiterlimit|strokeOpacity|strokeWidth|surfaceScale|systemLanguage|tableValues|targetX|targetY|textAnchor|textDecoration|textRendering|textLength|to|transform|u1|u2|underlinePosition|underlineThickness|unicode|unicodeBidi|unicodeRange|unitsPerEm|vAlphabetic|vHanging|vIdeographic|vMathematical|values|vectorEffect|version|vertAdvY|vertOriginX|vertOriginY|viewBox|viewTarget|visibility|widths|wordSpacing|writingMode|x|xHeight|x1|x2|xChannelSelector|xlinkActuate|xlinkArcrole|xlinkHref|xlinkRole|xlinkShow|xlinkTitle|xlinkType|xmlBase|xmlns|xmlnsXlink|xmlLang|xmlSpace|y|y1|y2|yChannelSelector|z|zoomAndPan|for|class|autofocus)|(([Dd][Aa][Tt][Aa]|[Aa][Rr][Ii][Aa]|x)-.*))$/;
-var isPropValid = emotion_memoize_browser_esm_default(function(prop) {
-  return reactPropsRegex.test(prop) || prop.charCodeAt(0) === 111 && prop.charCodeAt(1) === 110 && prop.charCodeAt(2) < 91;
-});
+var isPropValid = emotion_memoize_browser_esm_default(
+  function(prop) {
+    return reactPropsRegex.test(prop) || prop.charCodeAt(0) === 111 && prop.charCodeAt(1) === 110 && prop.charCodeAt(2) < 91;
+  }
+);
 var emotion_is_prop_valid_browser_esm_default = isPropValid;
 
 // ../../node_modules/@emotion/styled/base/dist/emotion-styled-base.browser.esm.js
@@ -21629,18 +21957,22 @@ function cssVarsParser(theme, options) {
   const css2 = {};
   const vars = {};
   const parsedTheme = {};
-  walkObjectDeep(theme, (keys2, value, arrayKeys) => {
-    if (typeof value === "string" || typeof value === "number") {
-      if (!shouldSkipGeneratingVar2 || shouldSkipGeneratingVar2 && !shouldSkipGeneratingVar2(keys2, value)) {
-        const cssVar = `--${prefix ? `${prefix}-` : ""}${keys2.join("-")}`;
-        Object.assign(css2, {
-          [cssVar]: getCssValue(keys2, value)
-        });
-        assignNestedKeys(vars, keys2, `var(${cssVar})`, arrayKeys);
+  walkObjectDeep(
+    theme,
+    (keys2, value, arrayKeys) => {
+      if (typeof value === "string" || typeof value === "number") {
+        if (!shouldSkipGeneratingVar2 || shouldSkipGeneratingVar2 && !shouldSkipGeneratingVar2(keys2, value)) {
+          const cssVar = `--${prefix ? `${prefix}-` : ""}${keys2.join("-")}`;
+          Object.assign(css2, {
+            [cssVar]: getCssValue(keys2, value)
+          });
+          assignNestedKeys(vars, keys2, `var(${cssVar})`, arrayKeys);
+        }
       }
-    }
-    assignNestedKeys(parsedTheme, keys2, value, arrayKeys);
-  }, (keys2) => keys2[0] === "vars");
+      assignNestedKeys(parsedTheme, keys2, value, arrayKeys);
+    },
+    (keys2) => keys2[0] === "vars"
+  );
   return {
     css: css2,
     vars,
@@ -26896,29 +27228,47 @@ true ? ToggleButtonGroup.propTypes = {
 var ToggleButtonGroup_default = ToggleButtonGroup;
 
 // js/mui.tsx
-var FullscreenIcon = createSvgIcon(jsx("path", {
-  d: "M17 4h5v5h-2V6h-3V4zM4 9V6h3V4H2v5h2zm16 6v3h-3v2h5v-5h-2zM7 18H4v-3H2v5h5v-2zM18 8H6v8h12V8z"
-}), "Fullscreen");
-var Phone = createSvgIcon(jsx("path", {
-  key: "12",
-  d: "M16 1H8C6.34 1 5 2.34 5 4v16c0 1.66 1.34 3 3 3h8c1.66 0 3-1.34 3-3V4c0-1.66-1.34-3-3-3zm-2 20h-4v-1h4v1zm3.25-3H6.75V4h10.5v14z"
-}), "PhoneAndroid");
-var Share = createSvgIcon(jsx("path", {
-  key: "12",
-  d: "M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92 1.61 0 2.92-1.31 2.92-2.92s-1.31-2.92-2.92-2.92z"
-}), "Share");
-var Tablet = createSvgIcon(jsx("path", {
-  key: "12",
-  d: "M18 0H6C4.34 0 3 1.34 3 3v18c0 1.66 1.34 3 3 3h12c1.66 0 3-1.34 3-3V3c0-1.66-1.34-3-3-3zm-4 22h-4v-1h4v1zm5.25-3H4.75V3h14.5v16z"
-}), "TabletAndroid");
-var Tv = createSvgIcon(jsx("path", {
-  key: "12",
-  d: "M21 3H3c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h5v2h8v-2h5c1.1 0 1.99-.9 1.99-2L23 5c0-1.1-.9-2-2-2zm0 14H3V5h18v12z"
-}), "Tv");
-var QrCode = createSvgIcon(jsx("path", {
-  key: "12",
-  d: "M3 11h8V3H3v8zm2-6h4v4H5V5zM3 21h8v-8H3v8zm2-6h4v4H5v-4zm8-12v8h8V3h-8zm6 6h-4V5h4v4zm0 10h2v2h-2zm-6-6h2v2h-2zm2 2h2v2h-2zm-2 2h2v2h-2zm2 2h2v2h-2zm2-2h2v2h-2zm0-4h2v2h-2zm2 2h2v2h-2z"
-}), "QrCode");
+var FullscreenIcon = createSvgIcon(
+  jsx("path", {
+    d: "M17 4h5v5h-2V6h-3V4zM4 9V6h3V4H2v5h2zm16 6v3h-3v2h5v-5h-2zM7 18H4v-3H2v5h5v-2zM18 8H6v8h12V8z"
+  }),
+  "Fullscreen"
+);
+var Phone = createSvgIcon(
+  jsx("path", {
+    key: "12",
+    d: "M16 1H8C6.34 1 5 2.34 5 4v16c0 1.66 1.34 3 3 3h8c1.66 0 3-1.34 3-3V4c0-1.66-1.34-3-3-3zm-2 20h-4v-1h4v1zm3.25-3H6.75V4h10.5v14z"
+  }),
+  "PhoneAndroid"
+);
+var Share = createSvgIcon(
+  jsx("path", {
+    key: "12",
+    d: "M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92 1.61 0 2.92-1.31 2.92-2.92s-1.31-2.92-2.92-2.92z"
+  }),
+  "Share"
+);
+var Tablet = createSvgIcon(
+  jsx("path", {
+    key: "12",
+    d: "M18 0H6C4.34 0 3 1.34 3 3v18c0 1.66 1.34 3 3 3h12c1.66 0 3-1.34 3-3V3c0-1.66-1.34-3-3-3zm-4 22h-4v-1h4v1zm5.25-3H4.75V3h14.5v16z"
+  }),
+  "TabletAndroid"
+);
+var Tv = createSvgIcon(
+  jsx("path", {
+    key: "12",
+    d: "M21 3H3c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h5v2h8v-2h5c1.1 0 1.99-.9 1.99-2L23 5c0-1.1-.9-2-2-2zm0 14H3V5h18v12z"
+  }),
+  "Tv"
+);
+var QrCode = createSvgIcon(
+  jsx("path", {
+    key: "12",
+    d: "M3 11h8V3H3v8zm2-6h4v4H5V5zM3 21h8v-8H3v8zm2-6h4v4H5v-4zm8-12v8h8V3h-8zm6 6h-4V5h4v4zm0 10h2v2h-2zm-6-6h2v2h-2zm2 2h2v2h-2zm-2 2h2v2h-2zm2 2h2v2h-2zm2-2h2v2h-2zm0-4h2v2h-2zm2 2h2v2h-2z"
+  }),
+  "QrCode"
+);
 
 // js/Qr.tsx
 var QR = ({ url }) => jsx(QRious2, {
@@ -27369,7 +27719,7 @@ async function runner({ code, counter }) {
     return;
   }
   i = counter;
-  const { init } = await import("../esbuildEsm-5CTRQ4UJ.mjs");
+  const { init } = await import("../esbuildEsm-VAMQ7MUA.mjs");
   transform2 = transform2 || await init();
   if (code === mST().code)
     return;
@@ -27465,12 +27815,14 @@ var Editor = ({ code, i: i2, codeSpace: codeSpace2 }) => {
     if (!(ref == null ? void 0 : ref.current))
       return;
     const setMonaco = async () => {
-      const { startMonaco } = await import("../startMonaco-KW6JB3FU.mjs");
-      const { editor } = await startMonaco({
-        container: ref.current,
-        name: codeSpace2,
-        code: mST().code
-      });
+      const { startMonaco } = await import("../startMonaco-WJHZDWNL.mjs");
+      const { editor } = await startMonaco(
+        {
+          container: ref.current,
+          name: codeSpace2,
+          code: mST().code
+        }
+      );
       changeContent((x) => ({
         ...x,
         setValue: (code2) => {
@@ -27490,7 +27842,7 @@ var Editor = ({ code, i: i2, codeSpace: codeSpace2 }) => {
       }));
     };
     const setAce = async () => {
-      const { startAce } = await import("../startAce-SUBWE4CO.mjs");
+      const { startAce } = await import("../startAce-74FVS7LU.mjs");
       const editor = await startAce(mST().code);
       changeContent((x) => ({
         ...x,
@@ -27505,7 +27857,7 @@ var Editor = ({ code, i: i2, codeSpace: codeSpace2 }) => {
     };
     const loadEditors = async () => {
       engine === "monaco" ? await setMonaco() : await setAce();
-      const { prettierJs: prettierJs2 } = await import("../prettierEsm-CPO46JHB.mjs");
+      const { prettierJs: prettierJs2 } = await import("../prettierEsm-FMWLMPED.mjs");
       changeContent((x) => ({ ...x, prettierJs: prettierJs2 }));
       await wait(1e3);
       runnerDebounced({ code: code + " ", counter });
@@ -27681,9 +28033,12 @@ var AppToRender = ({ codeSpace: codeSpace2, children: children2 }) => {
   })));
 };
 var renderPreviewWindow = (codeSpace2, App2) => {
-  return hydrateRoot(document.getElementById("root"), jsx(AppToRender, {
-    codeSpace: codeSpace2
-  }, App2));
+  return hydrateRoot(
+    document.getElementById("root"),
+    jsx(AppToRender, {
+      codeSpace: codeSpace2
+    }, App2)
+  );
 };
 
 // js/ws.ts
@@ -27697,7 +28052,9 @@ function rng() {
   if (!getRandomValues) {
     getRandomValues = typeof crypto !== "undefined" && crypto.getRandomValues && crypto.getRandomValues.bind(crypto) || typeof msCrypto !== "undefined" && typeof msCrypto.getRandomValues === "function" && msCrypto.getRandomValues.bind(msCrypto);
     if (!getRandomValues) {
-      throw new Error("crypto.getRandomValues() not supported. See https://github.com/uuidjs/uuid#getrandomvalues-not-supported");
+      throw new Error(
+        "crypto.getRandomValues() not supported. See https://github.com/uuidjs/uuid#getrandomvalues-not-supported"
+      );
     }
   }
   return getRandomValues(rnds8);
@@ -27735,7 +28092,10 @@ function v4(options, buf, offset2) {
 
 // js/ws.ts
 var webRtcArray = [];
-var user = (self && self.crypto && self.crypto.randomUUID && self.crypto.randomUUID() || v4()).slice(0, 8);
+var user = (self && self.crypto && self.crypto.randomUUID && self.crypto.randomUUID() || v4()).slice(
+  0,
+  8
+);
 var rtcConns = {};
 var bc;
 var codeSpace;
@@ -27835,7 +28195,10 @@ async function saveCode(sess) {
   try {
     try {
       if (Object.keys(rtcConns).length > 0) {
-        const message = webRTCLastSeenHashCode ? await makePatchFrom(webRTCLastSeenHashCode, sess) : await makePatch(sess);
+        const message = webRTCLastSeenHashCode ? await makePatchFrom(
+          webRTCLastSeenHashCode,
+          sess
+        ) : await makePatch(sess);
         if (message && message.patch) {
           console.log("sendRTC");
           sendChannel.send(message);
@@ -27850,7 +28213,10 @@ async function saveCode(sess) {
   try {
     if (ws) {
       console.log({ wsLastHashCode });
-      const message = await makePatchFrom(wsLastHashCode, sess);
+      const message = await makePatchFrom(
+        wsLastHashCode,
+        sess
+      );
       if (!message)
         return;
       if (message.newHash !== hashCode3()) {
@@ -27874,7 +28240,9 @@ async function join2() {
   console.log("WS connect!");
   if (location.host.includes("localhost"))
     return;
-  const wsConnection = new WebSocket(`wss://${location.host}/live/` + codeSpace + "/websocket");
+  const wsConnection = new WebSocket(
+    `wss://${location.host}/live/` + codeSpace + "/websocket"
+  );
   rejoined = false;
   wsConnection.addEventListener("open", () => {
     console.log("NEW WS CONNECTION");
@@ -27892,7 +28260,10 @@ async function join2() {
       leading: true,
       trailing: true
     });
-    ws.addEventListener("message", (message) => processWsMessage(message, "ws"));
+    ws.addEventListener(
+      "message",
+      (message) => processWsMessage(message, "ws")
+    );
     if (intervalHandler) {
       clearInterval(intervalHandler);
     }
@@ -27902,10 +28273,12 @@ async function join2() {
       if (diff2 > 4e4) {
         try {
           if (wsConnection.readyState === wsConnection.OPEN) {
-            return wsConnection == null ? void 0 : wsConnection.send(JSON.stringify({
-              name: user,
-              timestamp: lastSeenTimestamp + diff2
-            }));
+            return wsConnection == null ? void 0 : wsConnection.send(
+              JSON.stringify({
+                name: user,
+                timestamp: lastSeenTimestamp + diff2
+              })
+            );
           }
           rejoined = false;
           rejoin();
@@ -28009,7 +28382,9 @@ async function processWsMessage(event, source) {
       log(`Aborting, since we have connection with this ${target}`);
       return;
     }
-    rtcConns[target] = new RTCPeerConnection(rcpOptions);
+    rtcConns[target] = new RTCPeerConnection(
+      rcpOptions
+    );
     rtcConns[target].onicecandidate = (event2) => {
       if (event2.candidate) {
         log("*** Outgoing ICE candidate: " + event2.candidate);
@@ -28024,7 +28399,9 @@ async function processWsMessage(event, source) {
     rtcConns[target].oniceconnectionstatechange = handleICEConnectionStateChangeEvent;
     rtcConns[target].onicegatheringstatechange = handleICEGatheringStateChangeEvent;
     rtcConns[target].onsignalingstatechange = () => {
-      log("*** rtcConns[target].signalingState  changed to: " + rtcConns[target].signalingState);
+      log(
+        "*** rtcConns[target].signalingState  changed to: " + rtcConns[target].signalingState
+      );
       switch (rtcConns[target].signalingState) {
         case "closed":
           break;
@@ -28037,7 +28414,10 @@ async function processWsMessage(event, source) {
       const rtc2 = event2.channel;
       rtc2.binaryType = "arraybuffer";
       rtc2.addEventListener("close", onReceiveChannelClosed);
-      rtc2.addEventListener("message", (message) => processWsMessage(message, "rtc"));
+      rtc2.addEventListener(
+        "message",
+        (message) => processWsMessage(message, "rtc")
+      );
       const rtcWithTarget = Object.assign(rtc2, { target });
       webRtcArray.push(rtcWithTarget);
     };
@@ -28046,7 +28426,13 @@ async function processWsMessage(event, source) {
       reliable: true,
       maxPacketLifeTime: 3e3
     };
-    const rtc = Object.assign(rtcConns[target].createDataChannel(target, dataChannelOptions), { target });
+    const rtc = Object.assign(
+      rtcConns[target].createDataChannel(
+        target,
+        dataChannelOptions
+      ),
+      { target }
+    );
     rtc.binaryType = "arraybuffer";
     rtc.addEventListener("message", (message) => {
       console.log("***********RTC***", { msg: message });
@@ -28095,11 +28481,15 @@ async function processWsMessage(event, source) {
           offer: rtcConns[target].localDescription
         }));
       } catch (e) {
-        log("*** The following error occurred while handling the negotiationneeded event:");
+        log(
+          "*** The following error occurred while handling the negotiationneeded event:"
+        );
       }
     }
     function handleICEConnectionStateChangeEvent() {
-      log("*** ICE connection state changed to " + rtcConns[target].iceConnectionState);
+      log(
+        "*** ICE connection state changed to " + rtcConns[target].iceConnectionState
+      );
       switch (rtcConns[target].iceConnectionState) {
         case "closed":
         case "failed":
@@ -28108,20 +28498,30 @@ async function processWsMessage(event, source) {
       }
     }
     function handleICEGatheringStateChangeEvent() {
-      log("*** rtcConns[target].iceGatheringState changed to: " + rtcConns[target].iceGatheringState);
+      log(
+        "*** rtcConns[target].iceGatheringState changed to: " + rtcConns[target].iceGatheringState
+      );
     }
   }
   async function handleChatAnswerMessage(answer, target) {
     log("*** Call recipient has accepted our call");
-    await rtcConns[target].setRemoteDescription(new RTCSessionDescription(answer)).catch(console.error);
+    await rtcConns[target].setRemoteDescription(
+      new RTCSessionDescription(
+        answer
+      )
+    ).catch(console.error);
   }
   async function handleChatOffer(offer, target) {
     if (!rtcConns[target])
       createPeerConnection(target);
-    await rtcConns[target].setRemoteDescription(new RTCSessionDescription(offer));
+    await rtcConns[target].setRemoteDescription(
+      new RTCSessionDescription(offer)
+    );
     log("---> Creating and sending answer to caller");
     const answer = await rtcConns[target].createAnswer();
-    await rtcConns[target].setLocalDescription(answer);
+    await rtcConns[target].setLocalDescription(
+      answer
+    );
     ws == null ? void 0 : ws.send(JSON.stringify({
       target,
       name: user,
@@ -28147,7 +28547,9 @@ rcpOptions.iceServers = [{ urls: "stun:stun.stunprotocol.org:3478" }, {
   urls: "stun:stun.l.google.com:19302"
 }];
 async function handleNewICECandidateMessage(init, target) {
-  log("*** Adding received ICE candidate: " + JSON.stringify(init));
+  log(
+    "*** Adding received ICE candidate: " + JSON.stringify(init)
+  );
   const candidate = new RTCIceCandidate(init);
   console.log(rtcConns[target]);
   await rtcConns[target].addIceCandidate(candidate);
