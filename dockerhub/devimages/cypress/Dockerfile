@@ -144,8 +144,10 @@ RUN apt-get update \
 
 
 USER ${USER}
- 
-RUN yarn global add cypress@10.3.1
+
+WORKDIR /home/node
+
+RUN mkdir cy && cd cy && yarn init &&  yarn add cypress@10.3.1 --mode=skip-build
 
 USER 0
 ### noVNC.Dockerfile
