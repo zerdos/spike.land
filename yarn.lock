@@ -3019,7 +3019,7 @@ __metadata:
     lodash.debounce: 4.0.8
     lodash.throttle: 4.1.1
     microenvi: 0.3.1
-    monaco-editor: 0.33.0
+    monaco-editor: 0.34.0-dev.20220726
     msw: ^0.44.2
     orbit-db: ^0.28.6
     p-all: 4.0.0
@@ -11225,10 +11225,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"monaco-editor@npm:0.33.0":
-  version: 0.33.0
-  resolution: "monaco-editor@npm:0.33.0"
-  checksum: f88fd1c9be0d6845436aa92ee7f7bcc49f9e9bf452f73bb5efbbe52e50678d1c2aec4d612a943310f5e2282c1d9fcc41b792b65a5b9008e6054908e7e10311ea
+"monaco-editor@npm:0.34.0-dev.20220726":
+  version: 0.34.0-dev.20220726
+  resolution: "monaco-editor@npm:0.34.0-dev.20220726"
+  checksum: 1a18d78d7f78350b9da461a66d034252061b9b573b14bc32585f82924b3a75f559efb7d6bce98ec7e5d56feb669a211d847815517de20109f1184e71fb79f3f0
   languageName: node
   linkType: hard
 
