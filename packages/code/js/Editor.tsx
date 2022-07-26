@@ -133,15 +133,16 @@ export const Editor: FC<{ code: string; i: number; codeSpace: string }> = (
     loadEditors();
   }, [ref]);
 
-  useEffect(()=>{
-    const lastCode= mod.code;
-    const handler = setInterval(()=>{
-      if (getValue()!==lastCode) {
-        changeContent(x=>({...x, myCode: code, i:i+1}))
-        runnerDebounced({code, counter});
+  useEffect(() => {
+    const lastCode = mod.code;
+    const handler = setInterval(() => {
+      if (getValue() !== lastCode) {
+        changeContent((x) => ({ ...x, myCode: code, i: i + 1 }));
+        runnerDebounced({ code, counter });
       }
     }, 500);
-    return ()=>clearInterval(handler)}, [changeContent, i]);
+    return () => clearInterval(handler);
+  }, [changeContent, i]);
 
   useEffect(() => {
     if (i > counter) {
