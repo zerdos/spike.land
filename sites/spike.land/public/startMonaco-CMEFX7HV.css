@@ -918,7 +918,7 @@
 @font-face {
   font-family: "codicon";
   font-display: block;
-  src: url(../codicon-BEBTMDKB.ttf) format("truetype");
+  src: url(./codicon-BEBTMDKB.ttf) format("truetype");
 }
 .codicon[class*=codicon-] {
   font: normal normal normal 16px/1 codicon;

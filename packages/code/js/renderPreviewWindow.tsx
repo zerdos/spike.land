@@ -7,8 +7,8 @@ import { DraggableWindow } from "./DraggableWindow";
 import type { FC } from "react";
 import { hydrateRoot } from "react-dom/client";
 
-import { hashCode, mST, onSessionUpdate } from "session";
-import * as portals from "react-reverse-portal";
+import { hashCode, mST, onSessionUpdate } from "./session";
+import {InPortal, OutPortal, createHtmlPortalNode } from "react-reverse-portal";
 import { Editor } from "./Editor";
 
 const RainbowContainer: FC<{ children: ReactNode }> = ({ children }) => (
@@ -91,19 +91,19 @@ const AppToRender: FC<{ codeSpace: string; children: FC }> = (
   }, []);
 
   const portalNode = useMemo(() =>
-    portals.createHtmlPortalNode({
+    createHtmlPortalNode({
       attributes: { id: `root-${codeSpace}`, style: "height: 100%" },
     }), []);
 
   return (
     <Fragment>
-      <portals.InPortal node={portalNode}>
+      <InPortal node={portalNode}>
         <AutoUpdateApp hash={hash} starter={children} />
-      </portals.InPortal>
+      </InPortal>
 
       {isStandalone
         ? (
-          <portals.OutPortal
+          <OutPortal
             node={portalNode}
             // These props go back to the content of the InPortal, and trigger a
             // component render (but on the same component instance) as if they
@@ -120,7 +120,7 @@ const AppToRender: FC<{ codeSpace: string; children: FC }> = (
               hashCode={0}
               room={codeSpace}
             >
-              <portals.OutPortal
+              <OutPortal
                 node={portalNode}
                 // These props go back to the content of the InPortal, and trigger a
                 // component render (but on the same component instance) as if they

@@ -14,7 +14,7 @@ import { renderPreviewWindow } from "./renderPreviewWindow";
 import type { ICodeSession } from "./session";
 import throttle from "lodash.throttle";
 import uidV4 from "./uidV4.mjs";
-import { initShims } from "starter";
+import { initShims } from "./starter";
 
 const webRtcArray: (RTCDataChannel & { target: string })[] = [];
 

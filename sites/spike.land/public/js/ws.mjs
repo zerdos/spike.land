@@ -27939,7 +27939,7 @@ var Editor = ({ code, i: i2, codeSpace: codeSpace2 }) => {
     if (!(ref == null ? void 0 : ref.current))
       return;
     const setMonaco = async () => {
-      const { startMonaco } = await import("../startMonaco-FFL3YVLA.mjs");
+      const { startMonaco } = await import("../startMonaco-T4ZJKYRI.mjs");
       const { editor } = await startMonaco(
         {
           container: ref.current,
