@@ -2849,15 +2849,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@playwright/test@npm:1.24.1":
-  version: 1.24.1
-  resolution: "@playwright/test@npm:1.24.1"
+"@playwright/test@npm:1.24.2":
+  version: 1.24.2
+  resolution: "@playwright/test@npm:1.24.2"
   dependencies:
     "@types/node": "*"
-    playwright-core: 1.24.1
+    playwright-core: 1.24.2
   bin:
     playwright: cli.js
-  checksum: ae13a0f074434be723e325168a47dfde5092db18bda29e6c3bd1ec8c23958918995f3a4eea6eb7ab23a72ee4ccd42f2613aa744d194daafc4637589edea8b2ae
+  checksum: 3d24ae59572977a6ad4ef20efbfa029ed3cce45707496838729ff0b6df4d5526e7caa3f24cbbe02a42762fd7c997444fd5fd241f3e49578b320603d29b0cd370
   languageName: node
   linkType: hard
 
@@ -2978,7 +2978,7 @@ __metadata:
     "@types/lodash": 4.14.182
     "@types/lodash.debounce": ^4.0.7
     "@types/lodash.throttle": ^4.1.7
-    "@types/node": 18.6.2
+    "@types/node": 18.6.3
     "@types/prettier": 2.6.4
     "@types/react": 18.0.15
     "@types/react-dom": 18.0.6
@@ -3001,7 +3001,7 @@ __metadata:
     lodash.debounce: 4.0.8
     lodash.throttle: 4.1.1
     microenvi: 0.3.1
-    monaco-editor: 0.34.0-dev.20220729
+    monaco-editor: 0.34.0-dev.20220731
     msw: ^0.44.2
     orbit-db: ^0.28.6
     p-all: 4.0.0
@@ -3200,10 +3200,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:18.6.2":
-  version: 18.6.2
-  resolution: "@types/node@npm:18.6.2"
-  checksum: 644c460baedb1fbbd55369ab621167cb39ddaa727fd4fcf4bc7080183cf936d7ff8c2c886ba93ff42768d6f7a579a540e6d1e63d3adba4e5758fb13671ae68ce
+"@types/node@npm:18.6.3":
+  version: 18.6.3
+  resolution: "@types/node@npm:18.6.3"
+  checksum: 38495b8fd27200d2b7ab9ccd8c1e2475d2411fba15330f2cba869a85ef79dd42382a2658c8dd298ace8c21ed3bfafcdea408faecd74928b144377d07d00e7c8c
   languageName: node
   linkType: hard
 
@@ -8231,7 +8231,7 @@ __metadata:
   dependencies:
     "@cloudflare/kv-asset-handler": 0.2.0
     "@cloudflare/workers-types": 3.14.1
-    "@playwright/test": 1.24.1
+    "@playwright/test": 1.24.2
     cypress: 10.3.1
     lerna: 5.3.0
     preact: 10.10.0
@@ -11401,10 +11401,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"monaco-editor@npm:0.34.0-dev.20220729":
-  version: 0.34.0-dev.20220729
-  resolution: "monaco-editor@npm:0.34.0-dev.20220729"
-  checksum: 5a8a0226b37f61c74d001ab98516addb05c2c9287f99acd275420ea88aca777ea8eb5d79c5df24e9483296f4e8469b0c70a9ff8d46dffd21d8ffce7d6627ae22
+"monaco-editor@npm:0.34.0-dev.20220731":
+  version: 0.34.0-dev.20220731
+  resolution: "monaco-editor@npm:0.34.0-dev.20220731"
+  checksum: 49e1e99a3ae4314cbf45ee271bfdc7ef2244577d23461b5fd81c389fa80663aa3dd34d2ae949a6543b8485310410a86cafa4b55e34483a10100631dfbce348da
   languageName: node
   linkType: hard
 
@@ -13131,12 +13131,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"playwright-core@npm:1.24.1":
-  version: 1.24.1
-  resolution: "playwright-core@npm:1.24.1"
+"playwright-core@npm:1.24.2":
+  version: 1.24.2
+  resolution: "playwright-core@npm:1.24.2"
   bin:
     playwright: cli.js
-  checksum: cad6a43ebb12c99e13c8f5a105ba558cfdd8e5e72e36e2afe47e9f834abd42eab04beb0a73ffcbff28bf0d0ae95e59dc005bc123f6eb562c6f1866cc90f3ed76
+  checksum: b52f9b0cf61c03bb616de889ddbbe88b66ed68c556d3ef1f1148d1a832fa6edec9132cd8aa28e63926b05629fafa78ba419ce0412da91e97e135e66376b457f7
   languageName: node
   linkType: hard
 

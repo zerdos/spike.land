@@ -8,7 +8,11 @@ import type { FC } from "react";
 import { hydrateRoot } from "react-dom/client";
 
 import { hashCode, mST, onSessionUpdate } from "./session";
-import {InPortal, OutPortal, createHtmlPortalNode } from "react-reverse-portal";
+import {
+  createHtmlPortalNode,
+  InPortal,
+  OutPortal,
+} from "react-reverse-portal";
 import { Editor } from "./Editor";
 
 const RainbowContainer: FC<{ children: ReactNode }> = ({ children }) => (
