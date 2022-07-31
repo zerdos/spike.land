@@ -1,7 +1,6 @@
 import esbuild from "esbuild";
 
 import * as importMap from "esbuild-plugin-import-map";
-import { jsxImportSourcePlugin } from "esbuild-plugin-jsximportsource";
 import alias from "esbuild-plugin-alias";
 
 const jsonData = {
@@ -64,7 +63,6 @@ const buildOptions = {
   legalComments: "none",
   plugins: [
     importMapPlugin,
-    jsxImportSourcePlugin({ filter: /.(tsx)/ }),
     // alias({
     //   "path": "path-browserify"
     //   // "stream": "stream-browserify",
@@ -84,7 +82,6 @@ await esbuild.build({
   minifySyntax: !isDevelopment,
   treeShaking: true,
   ignoreAnnotations: true,
-  plugins: [jsxImportSourcePlugin({ filter: /.(tsx)/ })],
   outExtension: { ".js": ".monaco.worker.js" },
   format: "iife",
   loader: {
@@ -125,8 +122,7 @@ await esbuild.build({
         "../../node_modules/stream-browserify/index.js",
         import.meta.url,
       ).pathname,
-    }),
-    jsxImportSourcePlugin({ filter: /.(tsx)/ }),
+    })
   ],
   ignoreAnnotations: true,
   treeShaking: true,
