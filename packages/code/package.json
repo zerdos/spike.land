@@ -88,7 +88,6 @@
     "esbuild": "^0.14.51",
     "esbuild-plugin-alias": "0.2.1",
     "esbuild-plugin-import-map": "2.1.0",
-    "esbuild-plugin-jsximportsource": "1.0.0",
     "esbuild-register": "3.3.3",
     "esbuild-wasm": "0.14.51",
     "fast-diff": "1.2.0",

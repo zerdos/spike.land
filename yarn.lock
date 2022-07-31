@@ -2991,7 +2991,6 @@ __metadata:
     esbuild: ^0.14.51
     esbuild-plugin-alias: 0.2.1
     esbuild-plugin-import-map: 2.1.0
-    esbuild-plugin-jsximportsource: 1.0.0
     esbuild-register: 3.3.3
     esbuild-wasm: 0.14.51
     fast-diff: 1.2.0
@@ -6912,15 +6911,6 @@ __metadata:
   version: 2.1.0
   resolution: "esbuild-plugin-import-map@npm:2.1.0"
   checksum: 9f12358c1d543e6b3cc7801d485f50b282ee292c4497f5e3d2b8f8a0a0d192fde1946026a13ca72d4bac1b75b96747523b79b0a5cdbd2c7ee74f44d4c6b11eb0
-  languageName: node
-  linkType: hard
-
-"esbuild-plugin-jsximportsource@npm:1.0.0":
-  version: 1.0.0
-  resolution: "esbuild-plugin-jsximportsource@npm:1.0.0"
-  peerDependencies:
-    esbuild: ^0.14.38
-  checksum: 9eefa1737b8fc96393aba9ad77b0fcab058eaae1c61b366c5c5a460fb3a99c9e2fbe960787e35387c4a690d52077a3e69ba05f34d3bee3f06bad1b97c5c123f2
   languageName: node
   linkType: hard
 
