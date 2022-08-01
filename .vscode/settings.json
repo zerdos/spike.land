@@ -24,6 +24,7 @@
   "cSpell.words": [
     "axax",
     "codicon",
+    "devimages",
     "dockerhub",
     "Erdos",
     "esbuild",
@@ -40,7 +41,8 @@
     "shadowroot",
     "silvenon",
     "stunprotocol",
-    "versionlens"
+    "versionlens",
+    "Zoltan"
   ],
   "files.watcherExclude": {
     "**/.git/objects/**": true,
