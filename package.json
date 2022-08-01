@@ -42,6 +42,7 @@
     "node": "18.6.0"
   },
   "dependencies": {
+    "@yarnpkg/plugin-compat": "^4.0.0-rc.14",
     "cypress": "10.3.1",
     "preact": "10.10.0"
   },
