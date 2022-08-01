@@ -55,8 +55,12 @@ test("rca test", async ({ page }) => {
   const rcaTrimmed = rca.split("\n").map((x) => x.trim()).join("\n ");
   const message = rcaTrimmed;
   await editor.dblclick();
+  await wait(500);
+
   await page.keyboard.press("Control+A");
   await page.keyboard.press("Delete");
+  await wait(500);
+
   await editor.type(`export default ()=><div><h1>Hello You</h1></div>`);
 
   await expect(page.locator("[data-test-id=z-body]")).toContainText("Hello", {
