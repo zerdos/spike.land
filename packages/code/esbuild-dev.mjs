@@ -122,7 +122,7 @@ await esbuild.build({
         "../../node_modules/stream-browserify/index.js",
         import.meta.url,
       ).pathname,
-    })
+    }),
   ],
   ignoreAnnotations: true,
   treeShaking: true,

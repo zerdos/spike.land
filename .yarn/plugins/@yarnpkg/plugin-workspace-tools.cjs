@@ -30,8 +30,8 @@ module.exports = {
         },
         Q = (e, t) => Sr(e, Hr(t)),
         Lr = (e) => me(e, "__esModule", { value: !0 });
-      var K = (e, t) =>
-          () => (t || e((t = { exports: {} }).exports, t), t.exports),
+      var K =
+          (e, t) => () => (t || e((t = { exports: {} }).exports, t), t.exports),
         Or = (e, t) => {
           for (var r in t) me(e, r, { get: t[r], enumerable: !0 });
         },

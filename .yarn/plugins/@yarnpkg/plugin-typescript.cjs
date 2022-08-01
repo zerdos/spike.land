@@ -40,8 +40,8 @@ module.exports = {
         }
         return r;
       };
-      var I = (e, t) =>
-          () => (t || e((t = { exports: {} }).exports, t), t.exports),
+      var I =
+          (e, t) => () => (t || e((t = { exports: {} }).exports, t), t.exports),
         Vt = (e, t) => {
           for (var r in t) H(e, r, { get: t[r], enumerable: !0 });
         },
@@ -567,37 +567,32 @@ module.exports = {
               n = e.appId;
             return N.addMethods({ appId: n, transporter: s }, e.methods);
           },
-          yr = (e) =>
-            (t, r) =>
-              e.transporter.write({
-                method: z.MethodEnum.Post,
-                path: "2/abtests",
-                data: t,
-              }, r),
-          gr = (e) =>
-            (t, r) =>
-              e.transporter.write({
-                method: z.MethodEnum.Delete,
-                path: N.encode("2/abtests/%s", t),
-              }, r),
-          fr = (e) =>
-            (t, r) =>
-              e.transporter.read({
-                method: z.MethodEnum.Get,
-                path: N.encode("2/abtests/%s", t),
-              }, r),
-          br = (e) =>
-            (t) =>
-              e.transporter.read({
-                method: z.MethodEnum.Get,
-                path: "2/abtests",
-              }, t),
-          Pr = (e) =>
-            (t, r) =>
-              e.transporter.write({
-                method: z.MethodEnum.Post,
-                path: N.encode("2/abtests/%s/stop", t),
-              }, r);
+          yr = (e) => (t, r) =>
+            e.transporter.write({
+              method: z.MethodEnum.Post,
+              path: "2/abtests",
+              data: t,
+            }, r),
+          gr = (e) => (t, r) =>
+            e.transporter.write({
+              method: z.MethodEnum.Delete,
+              path: N.encode("2/abtests/%s", t),
+            }, r),
+          fr = (e) => (t, r) =>
+            e.transporter.read({
+              method: z.MethodEnum.Get,
+              path: N.encode("2/abtests/%s", t),
+            }, r),
+          br = (e) => (t) =>
+            e.transporter.read({
+              method: z.MethodEnum.Get,
+              path: "2/abtests",
+            }, t),
+          Pr = (e) => (t, r) =>
+            e.transporter.write({
+              method: z.MethodEnum.Post,
+              path: N.encode("2/abtests/%s/stop", t),
+            }, r);
         w.addABTest = yr;
         w.createAnalyticsClient = hr;
         w.deleteABTest = gr;
@@ -636,19 +631,17 @@ module.exports = {
               );
             return me.addMethods({ appId: e.appId, transporter: s }, e.methods);
           },
-          Ir = (e) =>
-            (t) =>
-              e.transporter.read({
-                method: nt.MethodEnum.Get,
-                path: "1/strategies/personalization",
-              }, t),
-          Ar = (e) =>
-            (t, r) =>
-              e.transporter.write({
-                method: nt.MethodEnum.Post,
-                path: "1/strategies/personalization",
-                data: t,
-              }, r);
+          Ir = (e) => (t) =>
+            e.transporter.read({
+              method: nt.MethodEnum.Get,
+              path: "1/strategies/personalization",
+            }, t),
+          Ar = (e) => (t, r) =>
+            e.transporter.write({
+              method: nt.MethodEnum.Post,
+              path: "1/strategies/personalization",
+              data: t,
+            }, r);
         G.createRecommendationClient = Or;
         G.getPersonalizationStrategy = Ir;
         G.setPersonalizationStrategy = Ar;
@@ -736,757 +729,694 @@ module.exports = {
             message: "ValidUntil not found in given secured api key.",
           };
         }
-        var Rr = (e) =>
-            (t, r) => {
-              let d = r || {},
-                { queryParameters: s } = d,
-                n = R(d, ["queryParameters"]),
-                a = u({ acl: t }, s !== void 0 ? { queryParameters: s } : {}),
-                o = (y, b) =>
-                  l.createRetryablePromise((f) =>
-                    $(e)(y.key, b).catch((p) => {
-                      if (p.status !== 404) throw p;
-                      return f();
-                    })
-                  );
-              return l.createWaitablePromise(
-                e.transporter.write({
-                  method: m.MethodEnum.Post,
-                  path: "1/keys",
-                  data: a,
-                }, n),
-                o,
-              );
-            },
-          vr = (e) =>
-            (t, r, s) => {
-              let n = q.createMappedRequestOptions(s);
-              return n.queryParameters["X-Algolia-User-ID"] = t,
-                e.transporter.write({
-                  method: m.MethodEnum.Post,
-                  path: "1/clusters/mapping",
-                  data: { cluster: r },
-                }, n);
-            },
-          xr = (e) =>
-            (t, r, s) =>
+        var Rr = (e) => (t, r) => {
+            let d = r || {},
+              { queryParameters: s } = d,
+              n = R(d, ["queryParameters"]),
+              a = u({ acl: t }, s !== void 0 ? { queryParameters: s } : {}),
+              o = (y, b) =>
+                l.createRetryablePromise((f) =>
+                  $(e)(y.key, b).catch((p) => {
+                    if (p.status !== 404) throw p;
+                    return f();
+                  })
+                );
+            return l.createWaitablePromise(
               e.transporter.write({
                 method: m.MethodEnum.Post,
-                path: "1/clusters/mapping/batch",
-                data: { users: t, cluster: r },
-              }, s),
-          Z = (e) =>
-            (t, r, s) => {
-              let n = (a, o) =>
-                L(e)(t, { methods: { waitTask: D } }).waitTask(a.taskID, o);
-              return l.createWaitablePromise(
-                e.transporter.write({
-                  method: m.MethodEnum.Post,
-                  path: l.encode("1/indexes/%s/operation", t),
-                  data: { operation: "copy", destination: r },
-                }, s),
-                n,
-              );
-            },
-          qr = (e) =>
-            (t, r, s) => Z(e)(t, r, g(u({}, s), { scope: [ee.Rules] })),
-          Er = (e) =>
-            (t, r, s) => Z(e)(t, r, g(u({}, s), { scope: [ee.Settings] })),
-          Tr = (e) =>
-            (t, r, s) => Z(e)(t, r, g(u({}, s), { scope: [ee.Synonyms] })),
-          Mr = (e) =>
-            (t, r) => {
-              let s = (n, a) =>
-                l.createRetryablePromise((o) =>
-                  $(e)(t, a).then(o).catch((d) => {
-                    if (d.status !== 404) throw d;
-                  })
-                );
-              return l.createWaitablePromise(
-                e.transporter.write({
-                  method: m.MethodEnum.Delete,
-                  path: l.encode("1/keys/%s", t),
-                }, r),
-                s,
-              );
-            },
-          wr = () =>
-            (e, t) => {
-              let r = q.serializeQueryParameters(t),
-                s = Sr.createHmac("sha256", e).update(r).digest("hex");
-              return Buffer.from(s + r).toString("base64");
-            },
-          $ = (e) =>
-            (t, r) =>
-              e.transporter.read({
-                method: m.MethodEnum.Get,
-                path: l.encode("1/keys/%s", t),
-              }, r),
-          kr = (e) =>
-            (t) =>
-              e.transporter.read(
-                { method: m.MethodEnum.Get, path: "1/logs" },
-                t,
-              ),
-          Cr = () =>
-            (e) => {
-              let t = Buffer.from(e, "base64").toString("ascii"),
-                r = /validUntil=(\d+)/,
-                s = t.match(r);
-              if (s === null) throw lt();
-              return parseInt(s[1], 10) -
-                Math.round(new Date().getTime() / 1e3);
-            },
-          Ur = (e) =>
-            (t) =>
-              e.transporter.read({
-                method: m.MethodEnum.Get,
-                path: "1/clusters/mapping/top",
-              }, t),
-          Nr = (e) =>
-            (t, r) =>
-              e.transporter.read({
-                method: m.MethodEnum.Get,
-                path: l.encode("1/clusters/mapping/%s", t),
-              }, r),
-          Wr = (e) =>
-            (t) => {
-              let n = t || {},
-                { retrieveMappings: r } = n,
-                s = R(n, ["retrieveMappings"]);
-              return r === !0 && (s.getClusters = !0),
-                e.transporter.read({
-                  method: m.MethodEnum.Get,
-                  path: "1/clusters/mapping/pending",
-                }, s);
-            },
-          L = (e) =>
-            (t, r = {}) => {
-              let s = {
-                transporter: e.transporter,
-                appId: e.appId,
-                indexName: t,
-              };
-              return l.addMethods(s, r.methods);
-            },
-          Hr = (e) =>
-            (t) =>
-              e.transporter.read(
-                { method: m.MethodEnum.Get, path: "1/keys" },
-                t,
-              ),
-          _r = (e) =>
-            (t) =>
-              e.transporter.read({
-                method: m.MethodEnum.Get,
-                path: "1/clusters",
-              }, t),
-          Fr = (e) =>
-            (t) =>
-              e.transporter.read({
-                method: m.MethodEnum.Get,
-                path: "1/indexes",
-              }, t),
-          Br = (e) =>
-            (t) =>
-              e.transporter.read({
-                method: m.MethodEnum.Get,
-                path: "1/clusters/mapping",
-              }, t),
-          Kr = (e) =>
-            (t, r, s) => {
-              let n = (a, o) =>
-                L(e)(t, { methods: { waitTask: D } }).waitTask(a.taskID, o);
-              return l.createWaitablePromise(
-                e.transporter.write({
-                  method: m.MethodEnum.Post,
-                  path: l.encode("1/indexes/%s/operation", t),
-                  data: { operation: "move", destination: r },
-                }, s),
-                n,
-              );
-            },
-          zr = (e) =>
-            (t, r) => {
-              let s = (n, a) =>
-                Promise.all(
-                  Object.keys(n.taskID).map((o) =>
-                    L(e)(o, { methods: { waitTask: D } }).waitTask(
-                      n.taskID[o],
-                      a,
-                    )
-                  ),
-                );
-              return l.createWaitablePromise(
-                e.transporter.write({
-                  method: m.MethodEnum.Post,
-                  path: "1/indexes/*/batch",
-                  data: { requests: t },
-                }, r),
-                s,
-              );
-            },
-          Gr = (e) =>
-            (t, r) =>
-              e.transporter.read({
+                path: "1/keys",
+                data: a,
+              }, n),
+              o,
+            );
+          },
+          vr = (e) => (t, r, s) => {
+            let n = q.createMappedRequestOptions(s);
+            return n.queryParameters["X-Algolia-User-ID"] = t,
+              e.transporter.write({
                 method: m.MethodEnum.Post,
-                path: "1/indexes/*/objects",
-                data: { requests: t },
-              }, r),
-          $r = (e) =>
-            (t, r) => {
-              let s = t.map((n) =>
-                g(u({}, n), {
-                  params: q.serializeQueryParameters(n.params || {}),
+                path: "1/clusters/mapping",
+                data: { cluster: r },
+              }, n);
+          },
+          xr = (e) => (t, r, s) =>
+            e.transporter.write({
+              method: m.MethodEnum.Post,
+              path: "1/clusters/mapping/batch",
+              data: { users: t, cluster: r },
+            }, s),
+          Z = (e) => (t, r, s) => {
+            let n = (a, o) =>
+              L(e)(t, { methods: { waitTask: D } }).waitTask(a.taskID, o);
+            return l.createWaitablePromise(
+              e.transporter.write({
+                method: m.MethodEnum.Post,
+                path: l.encode("1/indexes/%s/operation", t),
+                data: { operation: "copy", destination: r },
+              }, s),
+              n,
+            );
+          },
+          qr = (e) => (t, r, s) =>
+            Z(e)(t, r, g(u({}, s), { scope: [ee.Rules] })),
+          Er = (e) => (t, r, s) =>
+            Z(e)(t, r, g(u({}, s), { scope: [ee.Settings] })),
+          Tr = (e) => (t, r, s) =>
+            Z(e)(t, r, g(u({}, s), { scope: [ee.Synonyms] })),
+          Mr = (e) => (t, r) => {
+            let s = (n, a) =>
+              l.createRetryablePromise((o) =>
+                $(e)(t, a).then(o).catch((d) => {
+                  if (d.status !== 404) throw d;
                 })
               );
-              return e.transporter.read({
-                method: m.MethodEnum.Post,
-                path: "1/indexes/*/queries",
-                data: { requests: s },
-                cacheable: !0,
-              }, r);
-            },
-          Lr = (e) =>
-            (t, r) =>
-              Promise.all(t.map((s) => {
-                let d = s.params,
-                  { facetName: n, facetQuery: a } = d,
-                  o = R(d, ["facetName", "facetQuery"]);
-                return L(e)(s.indexName, {
-                  methods: { searchForFacetValues: dt },
-                }).searchForFacetValues(n, a, u(u({}, r), o));
-              })),
-          Vr = (e) =>
-            (t, r) => {
-              let s = q.createMappedRequestOptions(r);
-              return s.queryParameters["X-Algolia-User-ID"] = t,
-                e.transporter.write({
-                  method: m.MethodEnum.Delete,
-                  path: "1/clusters/mapping",
-                }, s);
-            },
-          Qr = (e) =>
-            (t, r) => {
-              let s = (n, a) =>
-                l.createRetryablePromise((o) =>
-                  $(e)(t, a).catch((d) => {
-                    if (d.status !== 404) throw d;
-                    return o();
-                  })
-                );
-              return l.createWaitablePromise(
-                e.transporter.write({
-                  method: m.MethodEnum.Post,
-                  path: l.encode("1/keys/%s/restore", t),
-                }, r),
-                s,
-              );
-            },
-          Jr = (e) =>
-            (t, r) =>
-              e.transporter.read({
-                method: m.MethodEnum.Post,
-                path: "1/clusters/mapping/search",
-                data: { query: t },
+            return l.createWaitablePromise(
+              e.transporter.write({
+                method: m.MethodEnum.Delete,
+                path: l.encode("1/keys/%s", t),
               }, r),
-          Xr = (e) =>
-            (t, r) => {
-              let s = Object.assign({}, r),
-                f = r || {},
-                { queryParameters: n } = f,
-                a = R(f, ["queryParameters"]),
-                o = n ? { queryParameters: n } : {},
-                d = [
-                  "acl",
-                  "indexes",
-                  "referers",
-                  "restrictSources",
-                  "queryParameters",
-                  "description",
-                  "maxQueriesPerIPPerHour",
-                  "maxHitsPerQuery",
-                ],
-                y = (p) =>
-                  Object.keys(s).filter((h) => d.indexOf(h) !== -1).every((h) =>
-                    p[h] === s[h]
-                  ),
-                b = (p, h) =>
-                  l.createRetryablePromise((S) =>
-                    $(e)(t, h).then((O) => y(O) ? Promise.resolve() : S())
-                  );
-              return l.createWaitablePromise(
-                e.transporter.write({
-                  method: m.MethodEnum.Put,
-                  path: l.encode("1/keys/%s", t),
-                  data: o,
-                }, a),
-                b,
-              );
-            },
-          pt = (e) =>
-            (t, r) => {
-              let s = (n, a) => D(e)(n.taskID, a);
-              return l.createWaitablePromise(
-                e.transporter.write({
-                  method: m.MethodEnum.Post,
-                  path: l.encode("1/indexes/%s/batch", e.indexName),
-                  data: { requests: t },
-                }, r),
-                s,
-              );
-            },
-          Yr = (e) =>
-            (t) =>
-              Y(g(u({}, t), {
-                shouldStop: (r) => r.cursor === void 0,
-                request: (r) =>
-                  e.transporter.read({
-                    method: m.MethodEnum.Post,
-                    path: l.encode("1/indexes/%s/browse", e.indexName),
-                    data: r,
-                  }, t),
-              })),
-          Zr = (e) =>
-            (t) => {
-              let r = u({ hitsPerPage: 1e3 }, t);
-              return Y(
-                g(u({}, r), {
-                  shouldStop: (s) => s.hits.length < r.hitsPerPage,
-                  request(s) {
-                    return mt(e)("", u(u({}, r), s)).then((n) =>
-                      g(u({}, n), {
-                        hits: n.hits.map((a) => (delete a._highlightResult, a)),
-                      })
-                    );
-                  },
-                }),
-              );
-            },
-          es = (e) =>
-            (t) => {
-              let r = u({ hitsPerPage: 1e3 }, t);
-              return Y(
-                g(u({}, r), {
-                  shouldStop: (s) => s.hits.length < r.hitsPerPage,
-                  request(s) {
-                    return ht(e)("", u(u({}, r), s)).then((n) =>
-                      g(u({}, n), {
-                        hits: n.hits.map((a) => (delete a._highlightResult, a)),
-                      })
-                    );
-                  },
-                }),
-              );
-            },
-          te = (e) =>
-            (t, r, s) => {
-              let y = s || {},
-                { batchSize: n } = y,
-                a = R(y, ["batchSize"]),
-                o = { taskIDs: [], objectIDs: [] },
-                d = (b = 0) => {
-                  let f = [], p;
-                  for (
-                    p = b;
-                    p < t.length && (f.push(t[p]), f.length !== (n || 1e3));
-                    p++
-                  );
-                  return f.length === 0
-                    ? Promise.resolve(o)
-                    : pt(e)(f.map((h) => ({ action: r, body: h })), a).then(
-                      (
-                        h,
-                      ) => (o.objectIDs = o.objectIDs.concat(h.objectIDs),
-                        o.taskIDs.push(h.taskID),
-                        p++,
-                        d(p)),
-                    );
-                };
-              return l.createWaitablePromise(
-                d(),
-                (b, f) => Promise.all(b.taskIDs.map((p) => D(e)(p, f))),
-              );
-            },
-          ts = (e) =>
-            (t) =>
-              l.createWaitablePromise(
-                e.transporter.write({
-                  method: m.MethodEnum.Post,
-                  path: l.encode("1/indexes/%s/clear", e.indexName),
-                }, t),
-                (r, s) => D(e)(r.taskID, s),
-              ),
-          rs = (e) =>
-            (t) => {
-              let a = t || {},
-                { forwardToReplicas: r } = a,
-                s = R(a, ["forwardToReplicas"]),
-                n = q.createMappedRequestOptions(s);
-              return r && (n.queryParameters.forwardToReplicas = 1),
-                l.createWaitablePromise(
-                  e.transporter.write({
-                    method: m.MethodEnum.Post,
-                    path: l.encode("1/indexes/%s/rules/clear", e.indexName),
-                  }, n),
-                  (o, d) => D(e)(o.taskID, d),
-                );
-            },
-          ss = (e) =>
-            (t) => {
-              let a = t || {},
-                { forwardToReplicas: r } = a,
-                s = R(a, ["forwardToReplicas"]),
-                n = q.createMappedRequestOptions(s);
-              return r && (n.queryParameters.forwardToReplicas = 1),
-                l.createWaitablePromise(
-                  e.transporter.write({
-                    method: m.MethodEnum.Post,
-                    path: l.encode("1/indexes/%s/synonyms/clear", e.indexName),
-                  }, n),
-                  (o, d) => D(e)(o.taskID, d),
-                );
-            },
-          ns = (e) =>
-            (t, r) =>
-              l.createWaitablePromise(
-                e.transporter.write({
-                  method: m.MethodEnum.Post,
-                  path: l.encode("1/indexes/%s/deleteByQuery", e.indexName),
-                  data: t,
-                }, r),
-                (s, n) => D(e)(s.taskID, n),
-              ),
-          as = (e) =>
-            (t) =>
-              l.createWaitablePromise(
-                e.transporter.write({
-                  method: m.MethodEnum.Delete,
-                  path: l.encode("1/indexes/%s", e.indexName),
-                }, t),
-                (r, s) => D(e)(r.taskID, s),
-              ),
-          os = (e) =>
-            (t, r) =>
-              l.createWaitablePromise(
-                yt(e)([t], r).then((s) => ({ taskID: s.taskIDs[0] })),
-                (s, n) => D(e)(s.taskID, n),
-              ),
-          yt = (e) =>
-            (t, r) => {
-              let s = t.map((n) => ({ objectID: n }));
-              return te(e)(s, k.DeleteObject, r);
-            },
-          is = (e) =>
-            (t, r) => {
-              let o = r || {},
-                { forwardToReplicas: s } = o,
-                n = R(o, ["forwardToReplicas"]),
-                a = q.createMappedRequestOptions(n);
-              return s && (a.queryParameters.forwardToReplicas = 1),
-                l.createWaitablePromise(
-                  e.transporter.write({
-                    method: m.MethodEnum.Delete,
-                    path: l.encode("1/indexes/%s/rules/%s", e.indexName, t),
-                  }, a),
-                  (d, y) => D(e)(d.taskID, y),
-                );
-            },
-          cs = (e) =>
-            (t, r) => {
-              let o = r || {},
-                { forwardToReplicas: s } = o,
-                n = R(o, ["forwardToReplicas"]),
-                a = q.createMappedRequestOptions(n);
-              return s && (a.queryParameters.forwardToReplicas = 1),
-                l.createWaitablePromise(
-                  e.transporter.write({
-                    method: m.MethodEnum.Delete,
-                    path: l.encode("1/indexes/%s/synonyms/%s", e.indexName, t),
-                  }, a),
-                  (d, y) => D(e)(d.taskID, y),
-                );
-            },
-          us = (e) =>
-            (t) =>
-              gt(e)(t).then(() => !0).catch((r) => {
-                if (r.status !== 404) throw r;
-                return !1;
-              }),
-          ls = (e) =>
-            (t, r) => {
-              let y = r || {},
-                { query: s, paginate: n } = y,
-                a = R(y, ["query", "paginate"]),
-                o = 0,
-                d = () =>
-                  ft(e)(s || "", g(u({}, a), { page: o })).then((b) => {
-                    for (let [f, p] of Object.entries(b.hits)) {
-                      if (t(p)) {
-                        return {
-                          object: p,
-                          position: parseInt(f, 10),
-                          page: o,
-                        };
-                      }
-                    }
-                    if (o++, n === !1 || o >= b.nbPages) throw ut();
-                    return d();
-                  });
-              return d();
-            },
-          ds = (e) =>
-            (t, r) =>
+              s,
+            );
+          },
+          wr = () => (e, t) => {
+            let r = q.serializeQueryParameters(t),
+              s = Sr.createHmac("sha256", e).update(r).digest("hex");
+            return Buffer.from(s + r).toString("base64");
+          },
+          $ = (e) => (t, r) =>
+            e.transporter.read({
+              method: m.MethodEnum.Get,
+              path: l.encode("1/keys/%s", t),
+            }, r),
+          kr = (e) => (t) =>
+            e.transporter.read(
+              { method: m.MethodEnum.Get, path: "1/logs" },
+              t,
+            ),
+          Cr = () => (e) => {
+            let t = Buffer.from(e, "base64").toString("ascii"),
+              r = /validUntil=(\d+)/,
+              s = t.match(r);
+            if (s === null) throw lt();
+            return parseInt(s[1], 10) -
+              Math.round(new Date().getTime() / 1e3);
+          },
+          Ur = (e) => (t) =>
+            e.transporter.read({
+              method: m.MethodEnum.Get,
+              path: "1/clusters/mapping/top",
+            }, t),
+          Nr = (e) => (t, r) =>
+            e.transporter.read({
+              method: m.MethodEnum.Get,
+              path: l.encode("1/clusters/mapping/%s", t),
+            }, r),
+          Wr = (e) => (t) => {
+            let n = t || {},
+              { retrieveMappings: r } = n,
+              s = R(n, ["retrieveMappings"]);
+            return r === !0 && (s.getClusters = !0),
               e.transporter.read({
                 method: m.MethodEnum.Get,
-                path: l.encode("1/indexes/%s/%s", e.indexName, t),
-              }, r),
-          ps = () =>
-            (e, t) => {
-              for (
-                let [r, s] of Object.entries(e.hits)
-              ) {
-                if (s.objectID === t) return parseInt(r, 10);
-              }
-              return -1;
-            },
-          ms = (e) =>
-            (t, r) => {
-              let o = r || {},
-                { attributesToRetrieve: s } = o,
-                n = R(o, ["attributesToRetrieve"]),
-                a = t.map((d) =>
-                  u(
-                    { indexName: e.indexName, objectID: d },
-                    s ? { attributesToRetrieve: s } : {},
+                path: "1/clusters/mapping/pending",
+              }, s);
+          },
+          L = (e) => (t, r = {}) => {
+            let s = {
+              transporter: e.transporter,
+              appId: e.appId,
+              indexName: t,
+            };
+            return l.addMethods(s, r.methods);
+          },
+          Hr = (e) => (t) =>
+            e.transporter.read(
+              { method: m.MethodEnum.Get, path: "1/keys" },
+              t,
+            ),
+          _r = (e) => (t) =>
+            e.transporter.read({
+              method: m.MethodEnum.Get,
+              path: "1/clusters",
+            }, t),
+          Fr = (e) => (t) =>
+            e.transporter.read({
+              method: m.MethodEnum.Get,
+              path: "1/indexes",
+            }, t),
+          Br = (e) => (t) =>
+            e.transporter.read({
+              method: m.MethodEnum.Get,
+              path: "1/clusters/mapping",
+            }, t),
+          Kr = (e) => (t, r, s) => {
+            let n = (a, o) =>
+              L(e)(t, { methods: { waitTask: D } }).waitTask(a.taskID, o);
+            return l.createWaitablePromise(
+              e.transporter.write({
+                method: m.MethodEnum.Post,
+                path: l.encode("1/indexes/%s/operation", t),
+                data: { operation: "move", destination: r },
+              }, s),
+              n,
+            );
+          },
+          zr = (e) => (t, r) => {
+            let s = (n, a) =>
+              Promise.all(
+                Object.keys(n.taskID).map((o) =>
+                  L(e)(o, { methods: { waitTask: D } }).waitTask(
+                    n.taskID[o],
+                    a,
                   )
-                );
-              return e.transporter.read({
-                method: m.MethodEnum.Post,
-                path: "1/indexes/*/objects",
-                data: { requests: a },
-              }, n);
-            },
-          hs = (e) =>
-            (t, r) =>
-              e.transporter.read({
-                method: m.MethodEnum.Get,
-                path: l.encode("1/indexes/%s/rules/%s", e.indexName, t),
-              }, r),
-          gt = (e) =>
-            (t) =>
-              e.transporter.read({
-                method: m.MethodEnum.Get,
-                path: l.encode("1/indexes/%s/settings", e.indexName),
-                data: { getVersion: 2 },
-              }, t),
-          ys = (e) =>
-            (t, r) =>
-              e.transporter.read({
-                method: m.MethodEnum.Get,
-                path: l.encode("1/indexes/%s/synonyms/%s", e.indexName, t),
-              }, r),
-          bt = (e) =>
-            (t, r) =>
-              e.transporter.read({
-                method: m.MethodEnum.Get,
-                path: l.encode(
-                  "1/indexes/%s/task/%s",
-                  e.indexName,
-                  t.toString(),
                 ),
-              }, r),
-          gs = (e) =>
-            (t, r) =>
-              l.createWaitablePromise(
-                Pt(e)([t], r).then((s) => ({
-                  objectID: s.objectIDs[0],
-                  taskID: s.taskIDs[0],
-                })),
-                (s, n) => D(e)(s.taskID, n),
-              ),
-          Pt = (e) =>
-            (t, r) => {
-              let o = r || {},
-                { createIfNotExists: s } = o,
-                n = R(o, ["createIfNotExists"]),
-                a = s ? k.PartialUpdateObject : k.PartialUpdateObjectNoCreate;
-              return te(e)(t, a, n);
-            },
-          fs = (e) =>
-            (t, r) => {
-              let O = r || {},
-                { safe: s, autoGenerateObjectIDIfNotExist: n, batchSize: a } =
-                  O,
-                o = R(O, [
-                  "safe",
-                  "autoGenerateObjectIDIfNotExist",
-                  "batchSize",
-                ]),
-                d = (P, x, v, j) =>
-                  l.createWaitablePromise(
-                    e.transporter.write({
-                      method: m.MethodEnum.Post,
-                      path: l.encode("1/indexes/%s/operation", P),
-                      data: { operation: v, destination: x },
-                    }, j),
-                    (T, V) => D(e)(T.taskID, V),
-                  ),
-                y = Math.random().toString(36).substring(7),
-                b = `${e.indexName}_tmp_${y}`,
-                f = he({
-                  appId: e.appId,
-                  transporter: e.transporter,
-                  indexName: b,
-                }),
-                p = [],
-                h = d(
-                  e.indexName,
-                  b,
-                  "copy",
-                  g(u({}, o), { scope: ["settings", "synonyms", "rules"] }),
-                );
-              p.push(h);
-              let S = (s ? h.wait(o) : h).then(() => {
-                let P = f(
-                  t,
-                  g(u({}, o), {
-                    autoGenerateObjectIDIfNotExist: n,
-                    batchSize: a,
-                  }),
-                );
-                return p.push(P), s ? P.wait(o) : P;
-              }).then(() => {
-                let P = d(b, e.indexName, "move", o);
-                return p.push(P), s ? P.wait(o) : P;
-              }).then(() => Promise.all(p)).then(([P, x, v]) => ({
-                objectIDs: x.objectIDs,
-                taskIDs: [P.taskID, ...x.taskIDs, v.taskID],
-              }));
-              return l.createWaitablePromise(
-                S,
-                (P, x) => Promise.all(p.map((v) => v.wait(x))),
               );
-            },
-          bs = (e) =>
-            (t, r) => ye(e)(t, g(u({}, r), { clearExistingRules: !0 })),
-          Ps = (e) =>
-            (t, r) => ge(e)(t, g(u({}, r), { replaceExistingSynonyms: !0 })),
-          js = (e) =>
-            (t, r) =>
-              l.createWaitablePromise(
-                he(e)([t], r).then((s) => ({
-                  objectID: s.objectIDs[0],
-                  taskID: s.taskIDs[0],
-                })),
-                (s, n) => D(e)(s.taskID, n),
-              ),
-          he = (e) =>
-            (t, r) => {
-              let o = r || {},
-                { autoGenerateObjectIDIfNotExist: s } = o,
-                n = R(o, ["autoGenerateObjectIDIfNotExist"]),
-                a = s ? k.AddObject : k.UpdateObject;
-              if (a === k.UpdateObject) {
+            return l.createWaitablePromise(
+              e.transporter.write({
+                method: m.MethodEnum.Post,
+                path: "1/indexes/*/batch",
+                data: { requests: t },
+              }, r),
+              s,
+            );
+          },
+          Gr = (e) => (t, r) =>
+            e.transporter.read({
+              method: m.MethodEnum.Post,
+              path: "1/indexes/*/objects",
+              data: { requests: t },
+            }, r),
+          $r = (e) => (t, r) => {
+            let s = t.map((n) =>
+              g(u({}, n), {
+                params: q.serializeQueryParameters(n.params || {}),
+              })
+            );
+            return e.transporter.read({
+              method: m.MethodEnum.Post,
+              path: "1/indexes/*/queries",
+              data: { requests: s },
+              cacheable: !0,
+            }, r);
+          },
+          Lr = (e) => (t, r) =>
+            Promise.all(t.map((s) => {
+              let d = s.params,
+                { facetName: n, facetQuery: a } = d,
+                o = R(d, ["facetName", "facetQuery"]);
+              return L(e)(s.indexName, {
+                methods: { searchForFacetValues: dt },
+              }).searchForFacetValues(n, a, u(u({}, r), o));
+            })),
+          Vr = (e) => (t, r) => {
+            let s = q.createMappedRequestOptions(r);
+            return s.queryParameters["X-Algolia-User-ID"] = t,
+              e.transporter.write({
+                method: m.MethodEnum.Delete,
+                path: "1/clusters/mapping",
+              }, s);
+          },
+          Qr = (e) => (t, r) => {
+            let s = (n, a) =>
+              l.createRetryablePromise((o) =>
+                $(e)(t, a).catch((d) => {
+                  if (d.status !== 404) throw d;
+                  return o();
+                })
+              );
+            return l.createWaitablePromise(
+              e.transporter.write({
+                method: m.MethodEnum.Post,
+                path: l.encode("1/keys/%s/restore", t),
+              }, r),
+              s,
+            );
+          },
+          Jr = (e) => (t, r) =>
+            e.transporter.read({
+              method: m.MethodEnum.Post,
+              path: "1/clusters/mapping/search",
+              data: { query: t },
+            }, r),
+          Xr = (e) => (t, r) => {
+            let s = Object.assign({}, r),
+              f = r || {},
+              { queryParameters: n } = f,
+              a = R(f, ["queryParameters"]),
+              o = n ? { queryParameters: n } : {},
+              d = [
+                "acl",
+                "indexes",
+                "referers",
+                "restrictSources",
+                "queryParameters",
+                "description",
+                "maxQueriesPerIPPerHour",
+                "maxHitsPerQuery",
+              ],
+              y = (p) =>
+                Object.keys(s).filter((h) => d.indexOf(h) !== -1).every((h) =>
+                  p[h] === s[h]
+                ),
+              b = (p, h) =>
+                l.createRetryablePromise((S) =>
+                  $(e)(t, h).then((O) => y(O) ? Promise.resolve() : S())
+                );
+            return l.createWaitablePromise(
+              e.transporter.write({
+                method: m.MethodEnum.Put,
+                path: l.encode("1/keys/%s", t),
+                data: o,
+              }, a),
+              b,
+            );
+          },
+          pt = (e) => (t, r) => {
+            let s = (n, a) => D(e)(n.taskID, a);
+            return l.createWaitablePromise(
+              e.transporter.write({
+                method: m.MethodEnum.Post,
+                path: l.encode("1/indexes/%s/batch", e.indexName),
+                data: { requests: t },
+              }, r),
+              s,
+            );
+          },
+          Yr = (e) => (t) =>
+            Y(g(u({}, t), {
+              shouldStop: (r) => r.cursor === void 0,
+              request: (r) =>
+                e.transporter.read({
+                  method: m.MethodEnum.Post,
+                  path: l.encode("1/indexes/%s/browse", e.indexName),
+                  data: r,
+                }, t),
+            })),
+          Zr = (e) => (t) => {
+            let r = u({ hitsPerPage: 1e3 }, t);
+            return Y(
+              g(u({}, r), {
+                shouldStop: (s) => s.hits.length < r.hitsPerPage,
+                request(s) {
+                  return mt(e)("", u(u({}, r), s)).then((n) =>
+                    g(u({}, n), {
+                      hits: n.hits.map((a) => (delete a._highlightResult, a)),
+                    })
+                  );
+                },
+              }),
+            );
+          },
+          es = (e) => (t) => {
+            let r = u({ hitsPerPage: 1e3 }, t);
+            return Y(
+              g(u({}, r), {
+                shouldStop: (s) => s.hits.length < r.hitsPerPage,
+                request(s) {
+                  return ht(e)("", u(u({}, r), s)).then((n) =>
+                    g(u({}, n), {
+                      hits: n.hits.map((a) => (delete a._highlightResult, a)),
+                    })
+                  );
+                },
+              }),
+            );
+          },
+          te = (e) => (t, r, s) => {
+            let y = s || {},
+              { batchSize: n } = y,
+              a = R(y, ["batchSize"]),
+              o = { taskIDs: [], objectIDs: [] },
+              d = (b = 0) => {
+                let f = [], p;
                 for (
-                  let d of t
-                ) {
-                  if (d.objectID === void 0) {
-                    return l.createWaitablePromise(
-                      Promise.reject(ct()),
-                    );
+                  p = b;
+                  p < t.length && (f.push(t[p]), f.length !== (n || 1e3));
+                  p++
+                );
+                return f.length === 0
+                  ? Promise.resolve(o)
+                  : pt(e)(f.map((h) => ({ action: r, body: h })), a).then(
+                    (
+                      h,
+                    ) => (o.objectIDs = o.objectIDs.concat(h.objectIDs),
+                      o.taskIDs.push(h.taskID),
+                      p++,
+                      d(p)),
+                  );
+              };
+            return l.createWaitablePromise(
+              d(),
+              (b, f) => Promise.all(b.taskIDs.map((p) => D(e)(p, f))),
+            );
+          },
+          ts = (e) => (t) =>
+            l.createWaitablePromise(
+              e.transporter.write({
+                method: m.MethodEnum.Post,
+                path: l.encode("1/indexes/%s/clear", e.indexName),
+              }, t),
+              (r, s) => D(e)(r.taskID, s),
+            ),
+          rs = (e) => (t) => {
+            let a = t || {},
+              { forwardToReplicas: r } = a,
+              s = R(a, ["forwardToReplicas"]),
+              n = q.createMappedRequestOptions(s);
+            return r && (n.queryParameters.forwardToReplicas = 1),
+              l.createWaitablePromise(
+                e.transporter.write({
+                  method: m.MethodEnum.Post,
+                  path: l.encode("1/indexes/%s/rules/clear", e.indexName),
+                }, n),
+                (o, d) => D(e)(o.taskID, d),
+              );
+          },
+          ss = (e) => (t) => {
+            let a = t || {},
+              { forwardToReplicas: r } = a,
+              s = R(a, ["forwardToReplicas"]),
+              n = q.createMappedRequestOptions(s);
+            return r && (n.queryParameters.forwardToReplicas = 1),
+              l.createWaitablePromise(
+                e.transporter.write({
+                  method: m.MethodEnum.Post,
+                  path: l.encode("1/indexes/%s/synonyms/clear", e.indexName),
+                }, n),
+                (o, d) => D(e)(o.taskID, d),
+              );
+          },
+          ns = (e) => (t, r) =>
+            l.createWaitablePromise(
+              e.transporter.write({
+                method: m.MethodEnum.Post,
+                path: l.encode("1/indexes/%s/deleteByQuery", e.indexName),
+                data: t,
+              }, r),
+              (s, n) => D(e)(s.taskID, n),
+            ),
+          as = (e) => (t) =>
+            l.createWaitablePromise(
+              e.transporter.write({
+                method: m.MethodEnum.Delete,
+                path: l.encode("1/indexes/%s", e.indexName),
+              }, t),
+              (r, s) => D(e)(r.taskID, s),
+            ),
+          os = (e) => (t, r) =>
+            l.createWaitablePromise(
+              yt(e)([t], r).then((s) => ({ taskID: s.taskIDs[0] })),
+              (s, n) => D(e)(s.taskID, n),
+            ),
+          yt = (e) => (t, r) => {
+            let s = t.map((n) => ({ objectID: n }));
+            return te(e)(s, k.DeleteObject, r);
+          },
+          is = (e) => (t, r) => {
+            let o = r || {},
+              { forwardToReplicas: s } = o,
+              n = R(o, ["forwardToReplicas"]),
+              a = q.createMappedRequestOptions(n);
+            return s && (a.queryParameters.forwardToReplicas = 1),
+              l.createWaitablePromise(
+                e.transporter.write({
+                  method: m.MethodEnum.Delete,
+                  path: l.encode("1/indexes/%s/rules/%s", e.indexName, t),
+                }, a),
+                (d, y) => D(e)(d.taskID, y),
+              );
+          },
+          cs = (e) => (t, r) => {
+            let o = r || {},
+              { forwardToReplicas: s } = o,
+              n = R(o, ["forwardToReplicas"]),
+              a = q.createMappedRequestOptions(n);
+            return s && (a.queryParameters.forwardToReplicas = 1),
+              l.createWaitablePromise(
+                e.transporter.write({
+                  method: m.MethodEnum.Delete,
+                  path: l.encode("1/indexes/%s/synonyms/%s", e.indexName, t),
+                }, a),
+                (d, y) => D(e)(d.taskID, y),
+              );
+          },
+          us = (e) => (t) =>
+            gt(e)(t).then(() => !0).catch((r) => {
+              if (r.status !== 404) throw r;
+              return !1;
+            }),
+          ls = (e) => (t, r) => {
+            let y = r || {},
+              { query: s, paginate: n } = y,
+              a = R(y, ["query", "paginate"]),
+              o = 0,
+              d = () =>
+                ft(e)(s || "", g(u({}, a), { page: o })).then((b) => {
+                  for (let [f, p] of Object.entries(b.hits)) {
+                    if (t(p)) {
+                      return {
+                        object: p,
+                        position: parseInt(f, 10),
+                        page: o,
+                      };
+                    }
                   }
+                  if (o++, n === !1 || o >= b.nbPages) throw ut();
+                  return d();
+                });
+            return d();
+          },
+          ds = (e) => (t, r) =>
+            e.transporter.read({
+              method: m.MethodEnum.Get,
+              path: l.encode("1/indexes/%s/%s", e.indexName, t),
+            }, r),
+          ps = () => (e, t) => {
+            for (
+              let [r, s] of Object.entries(e.hits)
+            ) {
+              if (s.objectID === t) return parseInt(r, 10);
+            }
+            return -1;
+          },
+          ms = (e) => (t, r) => {
+            let o = r || {},
+              { attributesToRetrieve: s } = o,
+              n = R(o, ["attributesToRetrieve"]),
+              a = t.map((d) =>
+                u(
+                  { indexName: e.indexName, objectID: d },
+                  s ? { attributesToRetrieve: s } : {},
+                )
+              );
+            return e.transporter.read({
+              method: m.MethodEnum.Post,
+              path: "1/indexes/*/objects",
+              data: { requests: a },
+            }, n);
+          },
+          hs = (e) => (t, r) =>
+            e.transporter.read({
+              method: m.MethodEnum.Get,
+              path: l.encode("1/indexes/%s/rules/%s", e.indexName, t),
+            }, r),
+          gt = (e) => (t) =>
+            e.transporter.read({
+              method: m.MethodEnum.Get,
+              path: l.encode("1/indexes/%s/settings", e.indexName),
+              data: { getVersion: 2 },
+            }, t),
+          ys = (e) => (t, r) =>
+            e.transporter.read({
+              method: m.MethodEnum.Get,
+              path: l.encode("1/indexes/%s/synonyms/%s", e.indexName, t),
+            }, r),
+          bt = (e) => (t, r) =>
+            e.transporter.read({
+              method: m.MethodEnum.Get,
+              path: l.encode(
+                "1/indexes/%s/task/%s",
+                e.indexName,
+                t.toString(),
+              ),
+            }, r),
+          gs = (e) => (t, r) =>
+            l.createWaitablePromise(
+              Pt(e)([t], r).then((s) => ({
+                objectID: s.objectIDs[0],
+                taskID: s.taskIDs[0],
+              })),
+              (s, n) => D(e)(s.taskID, n),
+            ),
+          Pt = (e) => (t, r) => {
+            let o = r || {},
+              { createIfNotExists: s } = o,
+              n = R(o, ["createIfNotExists"]),
+              a = s ? k.PartialUpdateObject : k.PartialUpdateObjectNoCreate;
+            return te(e)(t, a, n);
+          },
+          fs = (e) => (t, r) => {
+            let O = r || {},
+              { safe: s, autoGenerateObjectIDIfNotExist: n, batchSize: a } = O,
+              o = R(O, [
+                "safe",
+                "autoGenerateObjectIDIfNotExist",
+                "batchSize",
+              ]),
+              d = (P, x, v, j) =>
+                l.createWaitablePromise(
+                  e.transporter.write({
+                    method: m.MethodEnum.Post,
+                    path: l.encode("1/indexes/%s/operation", P),
+                    data: { operation: v, destination: x },
+                  }, j),
+                  (T, V) => D(e)(T.taskID, V),
+                ),
+              y = Math.random().toString(36).substring(7),
+              b = `${e.indexName}_tmp_${y}`,
+              f = he({
+                appId: e.appId,
+                transporter: e.transporter,
+                indexName: b,
+              }),
+              p = [],
+              h = d(
+                e.indexName,
+                b,
+                "copy",
+                g(u({}, o), { scope: ["settings", "synonyms", "rules"] }),
+              );
+            p.push(h);
+            let S = (s ? h.wait(o) : h).then(() => {
+              let P = f(
+                t,
+                g(u({}, o), {
+                  autoGenerateObjectIDIfNotExist: n,
+                  batchSize: a,
+                }),
+              );
+              return p.push(P), s ? P.wait(o) : P;
+            }).then(() => {
+              let P = d(b, e.indexName, "move", o);
+              return p.push(P), s ? P.wait(o) : P;
+            }).then(() => Promise.all(p)).then(([P, x, v]) => ({
+              objectIDs: x.objectIDs,
+              taskIDs: [P.taskID, ...x.taskIDs, v.taskID],
+            }));
+            return l.createWaitablePromise(
+              S,
+              (P, x) => Promise.all(p.map((v) => v.wait(x))),
+            );
+          },
+          bs = (e) => (t, r) =>
+            ye(e)(t, g(u({}, r), { clearExistingRules: !0 })),
+          Ps = (e) => (t, r) =>
+            ge(e)(t, g(u({}, r), { replaceExistingSynonyms: !0 })),
+          js = (e) => (t, r) =>
+            l.createWaitablePromise(
+              he(e)([t], r).then((s) => ({
+                objectID: s.objectIDs[0],
+                taskID: s.taskIDs[0],
+              })),
+              (s, n) => D(e)(s.taskID, n),
+            ),
+          he = (e) => (t, r) => {
+            let o = r || {},
+              { autoGenerateObjectIDIfNotExist: s } = o,
+              n = R(o, ["autoGenerateObjectIDIfNotExist"]),
+              a = s ? k.AddObject : k.UpdateObject;
+            if (a === k.UpdateObject) {
+              for (
+                let d of t
+              ) {
+                if (d.objectID === void 0) {
+                  return l.createWaitablePromise(
+                    Promise.reject(ct()),
+                  );
                 }
               }
-              return te(e)(t, a, n);
-            },
+            }
+            return te(e)(t, a, n);
+          },
           Os = (e) => (t, r) => ye(e)([t], r),
-          ye = (e) =>
-            (t, r) => {
-              let d = r || {},
-                { forwardToReplicas: s, clearExistingRules: n } = d,
-                a = R(d, ["forwardToReplicas", "clearExistingRules"]),
-                o = q.createMappedRequestOptions(a);
-              return s && (o.queryParameters.forwardToReplicas = 1),
-                n && (o.queryParameters.clearExistingRules = 1),
-                l.createWaitablePromise(
-                  e.transporter.write({
-                    method: m.MethodEnum.Post,
-                    path: l.encode("1/indexes/%s/rules/batch", e.indexName),
-                    data: t,
-                  }, o),
-                  (y, b) => D(e)(y.taskID, b),
-                );
-            },
+          ye = (e) => (t, r) => {
+            let d = r || {},
+              { forwardToReplicas: s, clearExistingRules: n } = d,
+              a = R(d, ["forwardToReplicas", "clearExistingRules"]),
+              o = q.createMappedRequestOptions(a);
+            return s && (o.queryParameters.forwardToReplicas = 1),
+              n && (o.queryParameters.clearExistingRules = 1),
+              l.createWaitablePromise(
+                e.transporter.write({
+                  method: m.MethodEnum.Post,
+                  path: l.encode("1/indexes/%s/rules/batch", e.indexName),
+                  data: t,
+                }, o),
+                (y, b) => D(e)(y.taskID, b),
+              );
+          },
           Is = (e) => (t, r) => ge(e)([t], r),
-          ge = (e) =>
-            (t, r) => {
-              let d = r || {},
-                { forwardToReplicas: s, replaceExistingSynonyms: n } = d,
-                a = R(d, ["forwardToReplicas", "replaceExistingSynonyms"]),
-                o = q.createMappedRequestOptions(a);
-              return s && (o.queryParameters.forwardToReplicas = 1),
-                n && (o.queryParameters.replaceExistingSynonyms = 1),
-                l.createWaitablePromise(
-                  e.transporter.write({
-                    method: m.MethodEnum.Post,
-                    path: l.encode("1/indexes/%s/synonyms/batch", e.indexName),
-                    data: t,
-                  }, o),
-                  (y, b) => D(e)(y.taskID, b),
-                );
-            },
-          ft = (e) =>
-            (t, r) =>
-              e.transporter.read({
-                method: m.MethodEnum.Post,
-                path: l.encode("1/indexes/%s/query", e.indexName),
-                data: { query: t },
-                cacheable: !0,
-              }, r),
-          dt = (e) =>
-            (t, r, s) =>
-              e.transporter.read({
-                method: m.MethodEnum.Post,
-                path: l.encode("1/indexes/%s/facets/%s/query", e.indexName, t),
-                data: { facetQuery: r },
-                cacheable: !0,
-              }, s),
-          mt = (e) =>
-            (t, r) =>
-              e.transporter.read({
-                method: m.MethodEnum.Post,
-                path: l.encode("1/indexes/%s/rules/search", e.indexName),
-                data: { query: t },
-              }, r),
-          ht = (e) =>
-            (t, r) =>
-              e.transporter.read({
-                method: m.MethodEnum.Post,
-                path: l.encode("1/indexes/%s/synonyms/search", e.indexName),
-                data: { query: t },
-              }, r),
-          As = (e) =>
-            (t, r) => {
-              let o = r || {},
-                { forwardToReplicas: s } = o,
-                n = R(o, ["forwardToReplicas"]),
-                a = q.createMappedRequestOptions(n);
-              return s && (a.queryParameters.forwardToReplicas = 1),
-                l.createWaitablePromise(
-                  e.transporter.write({
-                    method: m.MethodEnum.Put,
-                    path: l.encode("1/indexes/%s/settings", e.indexName),
-                    data: t,
-                  }, a),
-                  (d, y) => D(e)(d.taskID, y),
-                );
-            },
-          D = (e) =>
-            (t, r) =>
-              l.createRetryablePromise((s) =>
-                bt(e)(t, r).then((n) => n.status !== "published" ? s() : void 0)
-              ),
+          ge = (e) => (t, r) => {
+            let d = r || {},
+              { forwardToReplicas: s, replaceExistingSynonyms: n } = d,
+              a = R(d, ["forwardToReplicas", "replaceExistingSynonyms"]),
+              o = q.createMappedRequestOptions(a);
+            return s && (o.queryParameters.forwardToReplicas = 1),
+              n && (o.queryParameters.replaceExistingSynonyms = 1),
+              l.createWaitablePromise(
+                e.transporter.write({
+                  method: m.MethodEnum.Post,
+                  path: l.encode("1/indexes/%s/synonyms/batch", e.indexName),
+                  data: t,
+                }, o),
+                (y, b) => D(e)(y.taskID, b),
+              );
+          },
+          ft = (e) => (t, r) =>
+            e.transporter.read({
+              method: m.MethodEnum.Post,
+              path: l.encode("1/indexes/%s/query", e.indexName),
+              data: { query: t },
+              cacheable: !0,
+            }, r),
+          dt = (e) => (t, r, s) =>
+            e.transporter.read({
+              method: m.MethodEnum.Post,
+              path: l.encode("1/indexes/%s/facets/%s/query", e.indexName, t),
+              data: { facetQuery: r },
+              cacheable: !0,
+            }, s),
+          mt = (e) => (t, r) =>
+            e.transporter.read({
+              method: m.MethodEnum.Post,
+              path: l.encode("1/indexes/%s/rules/search", e.indexName),
+              data: { query: t },
+            }, r),
+          ht = (e) => (t, r) =>
+            e.transporter.read({
+              method: m.MethodEnum.Post,
+              path: l.encode("1/indexes/%s/synonyms/search", e.indexName),
+              data: { query: t },
+            }, r),
+          As = (e) => (t, r) => {
+            let o = r || {},
+              { forwardToReplicas: s } = o,
+              n = R(o, ["forwardToReplicas"]),
+              a = q.createMappedRequestOptions(n);
+            return s && (a.queryParameters.forwardToReplicas = 1),
+              l.createWaitablePromise(
+                e.transporter.write({
+                  method: m.MethodEnum.Put,
+                  path: l.encode("1/indexes/%s/settings", e.indexName),
+                  data: t,
+                }, a),
+                (d, y) => D(e)(d.taskID, y),
+              );
+          },
+          D = (e) => (t, r) =>
+            l.createRetryablePromise((s) =>
+              bt(e)(t, r).then((n) => n.status !== "published" ? s() : void 0)
+            ),
           Ss = {
             AddObject: "addObject",
             Analytics: "analytics",
@@ -1746,75 +1676,72 @@ module.exports = {
                 getSecuredApiKeyRemainingValidity:
                   c.getSecuredApiKeyRemainingValidity,
                 destroy: be.destroy,
-                initIndex: (n) =>
-                  (a) =>
-                    c.initIndex(n)(a, {
+                initIndex: (n) => (a) =>
+                  c.initIndex(n)(a, {
+                    methods: {
+                      batch: c.batch,
+                      delete: c.deleteIndex,
+                      getObject: c.getObject,
+                      getObjects: c.getObjects,
+                      saveObject: c.saveObject,
+                      saveObjects: c.saveObjects,
+                      search: c.search,
+                      searchForFacetValues: c.searchForFacetValues,
+                      waitTask: c.waitTask,
+                      setSettings: c.setSettings,
+                      getSettings: c.getSettings,
+                      partialUpdateObject: c.partialUpdateObject,
+                      partialUpdateObjects: c.partialUpdateObjects,
+                      deleteObject: c.deleteObject,
+                      deleteObjects: c.deleteObjects,
+                      deleteBy: c.deleteBy,
+                      clearObjects: c.clearObjects,
+                      browseObjects: c.browseObjects,
+                      getObjectPosition: c.getObjectPosition,
+                      findObject: c.findObject,
+                      exists: c.exists,
+                      saveSynonym: c.saveSynonym,
+                      saveSynonyms: c.saveSynonyms,
+                      getSynonym: c.getSynonym,
+                      searchSynonyms: c.searchSynonyms,
+                      browseSynonyms: c.browseSynonyms,
+                      deleteSynonym: c.deleteSynonym,
+                      clearSynonyms: c.clearSynonyms,
+                      replaceAllObjects: c.replaceAllObjects,
+                      replaceAllSynonyms: c.replaceAllSynonyms,
+                      searchRules: c.searchRules,
+                      getRule: c.getRule,
+                      deleteRule: c.deleteRule,
+                      saveRule: c.saveRule,
+                      saveRules: c.saveRules,
+                      replaceAllRules: c.replaceAllRules,
+                      browseRules: c.browseRules,
+                      clearRules: c.clearRules,
+                    },
+                  }),
+                initAnalytics: () => (n) =>
+                  W.createAnalyticsClient(
+                    g(u(u({}, s), n), {
                       methods: {
-                        batch: c.batch,
-                        delete: c.deleteIndex,
-                        getObject: c.getObject,
-                        getObjects: c.getObjects,
-                        saveObject: c.saveObject,
-                        saveObjects: c.saveObjects,
-                        search: c.search,
-                        searchForFacetValues: c.searchForFacetValues,
-                        waitTask: c.waitTask,
-                        setSettings: c.setSettings,
-                        getSettings: c.getSettings,
-                        partialUpdateObject: c.partialUpdateObject,
-                        partialUpdateObjects: c.partialUpdateObjects,
-                        deleteObject: c.deleteObject,
-                        deleteObjects: c.deleteObjects,
-                        deleteBy: c.deleteBy,
-                        clearObjects: c.clearObjects,
-                        browseObjects: c.browseObjects,
-                        getObjectPosition: c.getObjectPosition,
-                        findObject: c.findObject,
-                        exists: c.exists,
-                        saveSynonym: c.saveSynonym,
-                        saveSynonyms: c.saveSynonyms,
-                        getSynonym: c.getSynonym,
-                        searchSynonyms: c.searchSynonyms,
-                        browseSynonyms: c.browseSynonyms,
-                        deleteSynonym: c.deleteSynonym,
-                        clearSynonyms: c.clearSynonyms,
-                        replaceAllObjects: c.replaceAllObjects,
-                        replaceAllSynonyms: c.replaceAllSynonyms,
-                        searchRules: c.searchRules,
-                        getRule: c.getRule,
-                        deleteRule: c.deleteRule,
-                        saveRule: c.saveRule,
-                        saveRules: c.saveRules,
-                        replaceAllRules: c.replaceAllRules,
-                        browseRules: c.browseRules,
-                        clearRules: c.clearRules,
+                        addABTest: W.addABTest,
+                        getABTest: W.getABTest,
+                        getABTests: W.getABTests,
+                        stopABTest: W.stopABTest,
+                        deleteABTest: W.deleteABTest,
                       },
                     }),
-                initAnalytics: () =>
-                  (n) =>
-                    W.createAnalyticsClient(
-                      g(u(u({}, s), n), {
-                        methods: {
-                          addABTest: W.addABTest,
-                          getABTest: W.getABTest,
-                          getABTests: W.getABTests,
-                          stopABTest: W.stopABTest,
-                          deleteABTest: W.deleteABTest,
-                        },
-                      }),
-                    ),
-                initRecommendation: () =>
-                  (n) =>
-                    Pe.createRecommendationClient(
-                      g(u(u({}, s), n), {
-                        methods: {
-                          getPersonalizationStrategy:
-                            Pe.getPersonalizationStrategy,
-                          setPersonalizationStrategy:
-                            Pe.setPersonalizationStrategy,
-                        },
-                      }),
-                    ),
+                  ),
+                initRecommendation: () => (n) =>
+                  Pe.createRecommendationClient(
+                    g(u(u({}, s), n), {
+                      methods: {
+                        getPersonalizationStrategy:
+                          Pe.getPersonalizationStrategy,
+                        setPersonalizationStrategy:
+                          Pe.setPersonalizationStrategy,
+                      },
+                    }),
+                  ),
               },
             }),
           );
