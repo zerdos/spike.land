@@ -3374,6 +3374,27 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@yarnpkg/extensions@npm:^1.2.0-rc.1":
+  version: 1.2.0-rc.1
+  resolution: "@yarnpkg/extensions@npm:1.2.0-rc.1"
+  peerDependencies:
+    "@yarnpkg/core": ^4.0.0-rc.14
+  checksum: 5495e093da4602c0942806a6fb727d87adc84d8eea3c2d73c790493d1b16c5f2c1d5653ff1b05842b1b22b339efc0140d5a61a29c63996b2a3ac1aa486d0e142
+  languageName: node
+  linkType: hard
+
+"@yarnpkg/plugin-compat@npm:^4.0.0-rc.14":
+  version: 4.0.0-rc.14
+  resolution: "@yarnpkg/plugin-compat@npm:4.0.0-rc.14"
+  dependencies:
+    "@yarnpkg/extensions": ^1.2.0-rc.1
+  peerDependencies:
+    "@yarnpkg/core": ^4.0.0-rc.14
+    "@yarnpkg/plugin-patch": ^4.0.0-rc.14
+  checksum: 91ce72462fed0ec85f2d071ff3dd0110e48d05d44ebcdf0f0192796d83d718357d3af0750f01091be522cbc633cab0bc2904cd47d4e74481cc524a8ccd8ca4c4
+  languageName: node
+  linkType: hard
+
 "@zxing/text-encoding@npm:0.9.0":
   version: 0.9.0
   resolution: "@zxing/text-encoding@npm:0.9.0"
@@ -7998,6 +8019,7 @@ __metadata:
     "@cloudflare/kv-asset-handler": 0.2.0
     "@cloudflare/workers-types": 3.14.1
     "@playwright/test": 1.24.2
+    "@yarnpkg/plugin-compat": ^4.0.0-rc.14
     cypress: 10.3.1
     lerna: 5.3.0
     preact: 10.10.0
