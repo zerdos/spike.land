@@ -114,3 +114,4 @@ extension/
 .pnp.*
 importmap.json5
 .yarn/install-state.gz
+.DS_Store
