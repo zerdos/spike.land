@@ -11,9 +11,7 @@ test("basic test", async ({ page }) => {
   await expect(page).toHaveURL("https://testing.spike.land/live/coder/ ");
 
   await page.screenshot({ path: `editor.png` });
-
 });
-
 
 test("screens test", async ({ page }) => {
   await page.goto("https://testing.spike.land/live/pwtest/");
@@ -66,7 +64,6 @@ test("rca test", async ({ page }) => {
   await expect(page.locator("[data-test-id=z-body]")).toContainText("Hello", {
     timeout: 10000,
   });
-
 });
 
 export async function wait(delay: number): Promise<void> {
