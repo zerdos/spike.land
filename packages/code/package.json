@@ -63,7 +63,7 @@
   "dependencies": {
     "@emotion/react": "11.9.3",
     "@emotion/styled": "11.9.3",
-    "@mui/material": "5.9.2",
+    "@mui/material": "5.9.3",
     "@types/react": "18.0.15",
     "@types/react-dom": "18.0.6",
     "ace-builds": "1.8.1",
@@ -76,7 +76,7 @@
     "immutable": "4.1.0",
     "lodash.debounce": "4.0.8",
     "lodash.throttle": "4.1.1",
-    "monaco-editor": "0.34.0-dev.20220731",
+    "monaco-editor": "0.34.0-dev.20220802",
     "msw": "^0.44.2",
     "p-all": "4.0.0",
     "p-map": "5.5.0",
@@ -90,7 +90,7 @@
     "stream-browserify": "3.0.0"
   },
   "devDependencies": {
-    "@jspm/generator": "1.0.0-beta.33",
+    "@jspm/generator": "1.0.0-beta.34",
     "@types/lodash": "4.14.182",
     "@types/lodash.debounce": "^4.0.7",
     "@types/lodash.throttle": "^4.1.7",
