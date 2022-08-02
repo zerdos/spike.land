@@ -54,9 +54,9 @@
     }
   });
 
-  // ../../node_modules/.store/lodash.throttle-npm-4.1.1-856641af92/node_modules/lodash.throttle/index.js
+  // ../../node_modules/lodash.throttle/index.js
   var require_lodash = __commonJS({
-    "../../node_modules/.store/lodash.throttle-npm-4.1.1-856641af92/node_modules/lodash.throttle/index.js"(exports, module) {
+    "../../node_modules/lodash.throttle/index.js"(exports, module) {
       init_define_process();
       var FUNC_ERROR_TEXT = "Expected a function";
       var NAN = 0 / 0;
@@ -203,9 +203,9 @@
     }
   });
 
-  // ../../node_modules/.store/lodash.debounce-npm-4.0.8-f1d6e09799/node_modules/lodash.debounce/index.js
+  // ../../node_modules/lodash.debounce/index.js
   var require_lodash2 = __commonJS({
-    "../../node_modules/.store/lodash.debounce-npm-4.0.8-f1d6e09799/node_modules/lodash.debounce/index.js"(exports, module) {
+    "../../node_modules/lodash.debounce/index.js"(exports, module) {
       init_define_process();
       var FUNC_ERROR_TEXT = "Expected a function";
       var NAN = 0 / 0;
@@ -376,13 +376,13 @@
   var import_lodash = __toESM(require_lodash(), 1);
   var import_lodash2 = __toESM(require_lodash2(), 1);
 
-  // ../../node_modules/.store/p-map-npm-5.5.0-9758eb14ee/node_modules/p-map/index.js
+  // ../../node_modules/p-map/index.js
   init_define_process();
 
-  // ../../node_modules/.store/aggregate-error-npm-4.0.1-12d0501fb7/node_modules/aggregate-error/index.js
+  // ../../node_modules/p-map/node_modules/aggregate-error/index.js
   init_define_process();
 
-  // ../../node_modules/.store/indent-string-npm-5.0.0-35eaa3b052/node_modules/indent-string/index.js
+  // ../../node_modules/p-map/node_modules/indent-string/index.js
   init_define_process();
   function indentString(string, count = 1, options = {}) {
     const {
@@ -416,11 +416,11 @@
     return string.replace(regex, indent.repeat(count));
   }
 
-  // ../../node_modules/.store/clean-stack-npm-4.2.0-bb0dff47b2/node_modules/clean-stack/index.js
+  // ../../node_modules/p-map/node_modules/clean-stack/index.js
   init_define_process();
   var import_os = __toESM(require_os(), 1);
 
-  // ../../node_modules/.store/escape-string-regexp-npm-5.0.0-a663e825ce/node_modules/escape-string-regexp/index.js
+  // ../../node_modules/p-map/node_modules/escape-string-regexp/index.js
   init_define_process();
   function escapeStringRegexp(string) {
     if (typeof string !== "string") {
@@ -429,7 +429,7 @@
     return string.replace(/[|\\{}()[\]^$+*?.]/g, "\\$&").replace(/-/g, "\\x2d");
   }
 
-  // ../../node_modules/.store/clean-stack-npm-4.2.0-bb0dff47b2/node_modules/clean-stack/index.js
+  // ../../node_modules/p-map/node_modules/clean-stack/index.js
   var extractPathRegex = /\s+at.*[(\s](.*)\)?/;
   var pathRegex = /^(?:(?:(?:node|node:[\w/]+|(?:(?:node:)?internal\/[\w/]*|.*node_modules\/(?:babel-polyfill|pirates)\/.*)?\w+)(?:\.js)?:\d+:\d+)|native)/;
   var homeDir = typeof import_os.default.homedir === "undefined" ? "" : import_os.default.homedir().replace(/\\/g, "/");
@@ -459,7 +459,7 @@
     }).join("\n");
   }
 
-  // ../../node_modules/.store/aggregate-error-npm-4.0.1-12d0501fb7/node_modules/aggregate-error/index.js
+  // ../../node_modules/p-map/node_modules/aggregate-error/index.js
   var cleanInternalStack = (stack) => stack.replace(/\s+at .*aggregate-error\/index.js:\d+:\d+\)?/g, "");
   var _errors;
   var AggregateError = class extends Error {
@@ -491,7 +491,7 @@
   };
   _errors = new WeakMap();
 
-  // ../../node_modules/.store/p-map-npm-5.5.0-9758eb14ee/node_modules/p-map/index.js
+  // ../../node_modules/p-map/index.js
   var AbortError = class extends Error {
     constructor(message) {
       super();

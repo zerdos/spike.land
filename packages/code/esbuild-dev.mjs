@@ -2,28 +2,7 @@ import esbuild from "esbuild";
 
 import * as importMap from "esbuild-plugin-import-map";
 import alias from "esbuild-plugin-alias";
-
-const jsonData = {
-  "imports": {
-    // ...imap,
-    // "framer-motion": "/framer-motion.mjs",
-    // "@emotion/react": "/emotion.mjs",
-    "react": "/react.mjs",
-    "react-dom": "/react.mjs",
-    "react-dom/client": "/react.mjs",
-    "react-dom/server": "/react.mjs",
-    "react/jsx-runtime": "/react.mjs",
-    // "preact": "https://ga.jspm.io/npm:preact@10.8.2/dist/preact.module.js",
-    // "preact-render-to-string": "https://ga.jspm.io/npm:preact-render-to-string@5.2.0/dist/index.mjs",
-    // "preact/compat": "https://ga.jspm.io/npm:preact@10.8.2/compat/dist/compat.module.js",
-    // "preact/jsx-runtime": "https://ga.jspm.io/npm:preact@10.8.2/jsx-runtime/dist/jsxRuntime.module.js"
-  },
-  // "scopes": {
-  //   "https://ga.jspm.io/": {
-  //     "preact/hooks": "https://ga.jspm.io/npm:preact@10.8.2/hooks/dist/hooks.module.js"
-  //   }
-  // }
-};
+import jsonData from "./js/importmap.json" assert { type: "json" };
 
 const environment = process.env.NODE_ENV === "production"
   ? "production"
