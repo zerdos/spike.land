@@ -78,11 +78,8 @@ html, body {margin: 0; height: 100%}
   
   
   
-    <script async src="https://ga.jspm.io/npm:es-module-shims@1.5.10/dist/es-module-shims.js"></script>
-    <script type="importmap-shim" src="/importmap.json"></script>
 
 <script>     
-
 
 window.esmsInitOptions = {
     shimMode: true,
@@ -115,10 +112,10 @@ window.addEventListener('pageshow', (event) => {
 
 <div id="root"></div>
 
-<script type="module-shim">
+<script type="module">
     import {mST, assets, codeSpace, address} from "/live/coder/mST.mjs" 
     import App from "/live/coder/index.js"
-    import {run } from "https://testing.spike.land/js/ws.mjs"
+    import {run } from "./js/ws.mjs"
 
     run({
       mST,

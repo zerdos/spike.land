@@ -1718,7 +1718,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@motionone/animation@npm:^10.12.0":
+"@motionone/animation@npm:^10.13.1":
   version: 10.13.1
   resolution: "@motionone/animation@npm:10.13.1"
   dependencies:
@@ -1730,17 +1730,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@motionone/dom@npm:10.12.0":
-  version: 10.12.0
-  resolution: "@motionone/dom@npm:10.12.0"
+"@motionone/dom@npm:10.13.1":
+  version: 10.13.1
+  resolution: "@motionone/dom@npm:10.13.1"
   dependencies:
-    "@motionone/animation": ^10.12.0
-    "@motionone/generators": ^10.12.0
-    "@motionone/types": ^10.12.0
-    "@motionone/utils": ^10.12.0
+    "@motionone/animation": ^10.13.1
+    "@motionone/generators": ^10.13.1
+    "@motionone/types": ^10.13.0
+    "@motionone/utils": ^10.13.1
     hey-listen: ^1.0.8
     tslib: ^2.3.1
-  checksum: 123356f28e44362c4f081aae3df22e576f46bfcb07e01257b2ac64a115668448f29b8de67e4b6e692c5407cffb78ffe7cf9fa1bc064007482bab5dd23a69d380
+  checksum: cbf7e9f4f23eb6dc0ae7fb7d19b4ad9c3fab51b161c9ad309dbe7e50de676002ffad35d5123d610d3a9d2bdc717cfbc79909facc32fbf2ca871287861bca6e6d
   languageName: node
   linkType: hard
 
@@ -1754,7 +1754,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@motionone/generators@npm:^10.12.0":
+"@motionone/generators@npm:^10.13.1":
   version: 10.13.1
   resolution: "@motionone/generators@npm:10.13.1"
   dependencies:
@@ -1765,14 +1765,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@motionone/types@npm:^10.12.0, @motionone/types@npm:^10.13.0":
+"@motionone/types@npm:^10.13.0":
   version: 10.13.0
   resolution: "@motionone/types@npm:10.13.0"
   checksum: 4c0a4593562f3c8fa30660a3b796ec012d592029137fc35f3029b34e69e5c364efa24c2016dd66b21db580d0a9d4107730b30f55496b416b2ed9dbe437865eab
   languageName: node
   linkType: hard
 
-"@motionone/utils@npm:^10.12.0, @motionone/utils@npm:^10.13.1":
+"@motionone/utils@npm:^10.13.1":
   version: 10.13.1
   resolution: "@motionone/utils@npm:10.13.1"
   dependencies:
@@ -2464,7 +2464,7 @@ __metadata:
     "@types/lodash": 4.14.182
     "@types/lodash.debounce": ^4.0.7
     "@types/lodash.throttle": ^4.1.7
-    "@types/node": 18.6.3
+    "@types/node": 18.6.4
     "@types/prettier": 2.6.4
     "@types/react": 18.0.15
     "@types/react-dom": 18.0.6
@@ -2479,12 +2479,12 @@ __metadata:
     esbuild-register: 3.3.3
     esbuild-wasm: 0.14.53
     fast-diff: 1.2.0
-    framer-motion: 6.5.1
+    framer-motion: 7.0.0
     immutable: 4.1.0
     iso-constants: 0.1.2
     lodash.debounce: 4.0.8
     lodash.throttle: 4.1.1
-    monaco-editor: 0.34.0-dev.20220803
+    monaco-editor: 0.34.0
     msw: ^0.44.2
     p-all: 4.0.0
     p-map: 5.5.0
@@ -2668,10 +2668,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:*, @types/node@npm:18.6.3, @types/node@npm:>=13.7.0":
+"@types/node@npm:*, @types/node@npm:>=13.7.0":
   version: 18.6.3
   resolution: "@types/node@npm:18.6.3"
   checksum: 38495b8fd27200d2b7ab9ccd8c1e2475d2411fba15330f2cba869a85ef79dd42382a2658c8dd298ace8c21ed3bfafcdea408faecd74928b144377d07d00e7c8c
+  languageName: node
+  linkType: hard
+
+"@types/node@npm:18.6.4":
+  version: 18.6.4
+  resolution: "@types/node@npm:18.6.4"
+  checksum: fc453dd2b541f5812ba1a8f957f577727cf2d8aee886f1d5c03eb153b2b3373d2e0953c5bd2b7a5b184073bc317f54ec91f1ec4830a58eda4a833e90654021de
   languageName: node
   linkType: hard
 
@@ -4830,24 +4837,24 @@ __metadata:
   languageName: node
   linkType: hard
 
-"framer-motion@npm:6.5.1":
-  version: 6.5.1
-  resolution: "framer-motion@npm:6.5.1"
+"framer-motion@npm:7.0.0":
+  version: 7.0.0
+  resolution: "framer-motion@npm:7.0.0"
   dependencies:
     "@emotion/is-prop-valid": ^0.8.2
-    "@motionone/dom": 10.12.0
+    "@motionone/dom": 10.13.1
     framesync: 6.0.1
     hey-listen: ^1.0.8
     popmotion: 11.0.3
-    style-value-types: 5.0.0
+    style-value-types: 5.1.0
     tslib: ^2.1.0
   peerDependencies:
-    react: ">=16.8 || ^17.0.0 || ^18.0.0"
-    react-dom: ">=16.8 || ^17.0.0 || ^18.0.0"
+    react: ^18.0.0
+    react-dom: ^18.0.0
   dependenciesMeta:
     "@emotion/is-prop-valid":
       optional: true
-  checksum: 737959063137b4ccafe01e0ac0c9e5a9531bf3f729f62c34ca7a5d7955e6664f70affd22b044f7db51df41acb21d120a4f71a860e17a80c4db766ad66f2153a1
+  checksum: 13d4f1e0a74025404fc09665f5e54ed99a7f0a33a89accdd9f96be1686725620b73a92f922ecb2a48618529aca61b0a95be1de06f823ee784442caba88c38064
   languageName: node
   linkType: hard
 
@@ -6878,10 +6885,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"monaco-editor@npm:0.34.0-dev.20220803":
-  version: 0.34.0-dev.20220803
-  resolution: "monaco-editor@npm:0.34.0-dev.20220803"
-  checksum: a8fd2520e24783d28f6097799a70b7fb87b008dbef18d6c0d4c6bdf6d42447aebfccce32694c6c0850b2509db1f4eb322bb2f03184ed9a5c3a1c99062cbb4a17
+"monaco-editor@npm:0.34.0":
+  version: 0.34.0
+  resolution: "monaco-editor@npm:0.34.0"
+  checksum: 10a28c1fe07268a23106ec9b743339af603e00c3ce646de72bf74f77e3d44065536f1a11f1a86ed459dfd9cb891261e6c7974377fc511eb65f354d6ddc89275b
   languageName: node
   linkType: hard
 
@@ -8892,6 +8899,16 @@ __metadata:
     hey-listen: ^1.0.8
     tslib: ^2.1.0
   checksum: 16d198302cd102edf9dba94e7752a2364c93b1eaa5cc7c32b42b28eef4af4ccb5149a3f16bc2a256adc02616a2404f4612bd15f3081c1e8ca06132cae78be6c0
+  languageName: node
+  linkType: hard
+
+"style-value-types@npm:5.1.0":
+  version: 5.1.0
+  resolution: "style-value-types@npm:5.1.0"
+  dependencies:
+    hey-listen: ^1.0.8
+    tslib: ^2.3.1
+  checksum: 25af60d2ea8e2c64a405f377e3208fe3cad672a115417748d72c3d515809655d8468b3ee2dbdef19bade4aa0dc4a07086c63faa2b10ef39673a2ab01a35b9cfa
   languageName: node
   linkType: hard
 

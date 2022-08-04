@@ -1,8 +1,9 @@
 {
   "imports": {
+    "@emotion/cache": "https://ga.jspm.io/npm:@emotion/cache@11.10.1/dist/emotion-cache.browser.esm.js",
     "@emotion/react": "https://ga.jspm.io/npm:@emotion/react@11.10.0/dist/emotion-react.browser.esm.js",
     "@emotion/styled": "https://ga.jspm.io/npm:@emotion/styled@11.10.0/dist/emotion-styled.browser.esm.js",
-    "framer-motion": "https://ga.jspm.io/npm:framer-motion@6.5.1/dist/es/index.mjs",
+    "framer-motion": "https://ga.jspm.io/npm:framer-motion@7.0.0/dist/es/index.mjs",
     "preact": "https://ga.jspm.io/npm:preact@10.10.0/dist/preact.module.js",
     "preact-render-to-string": "https://ga.jspm.io/npm:preact-render-to-string@5.2.1/dist/index.mjs",
     "preact/compat": "https://ga.jspm.io/npm:preact@10.10.0/compat/dist/compat.module.js",
@@ -18,7 +19,6 @@
     "https://ga.jspm.io/": {
       "@babel/runtime/helpers/esm/extends": "https://ga.jspm.io/npm:@babel/runtime@7.18.9/helpers/esm/extends.js",
       "@babel/runtime/helpers/extends": "https://ga.jspm.io/npm:@babel/runtime@7.18.9/helpers/esm/extends.js",
-      "@emotion/cache": "https://ga.jspm.io/npm:@emotion/cache@11.10.1/dist/emotion-cache.browser.esm.js",
       "@emotion/hash": "https://ga.jspm.io/npm:@emotion/hash@0.9.0/dist/emotion-hash.esm.js",
       "@emotion/is-prop-valid": "https://ga.jspm.io/npm:@emotion/is-prop-valid@1.2.0/dist/emotion-is-prop-valid.esm.js",
       "@emotion/memoize": "https://ga.jspm.io/npm:@emotion/memoize@0.8.0/dist/emotion-memoize.esm.js",
@@ -28,7 +28,7 @@
       "@emotion/utils": "https://ga.jspm.io/npm:@emotion/utils@1.2.0/dist/emotion-utils.browser.esm.js",
       "@emotion/weak-memoize": "https://ga.jspm.io/npm:@emotion/weak-memoize@0.3.0/dist/emotion-weak-memoize.esm.js",
       "@motionone/animation": "https://ga.jspm.io/npm:@motionone/animation@10.13.1/dist/index.es.js",
-      "@motionone/dom": "https://ga.jspm.io/npm:@motionone/dom@10.12.0/dist/index.es.js",
+      "@motionone/dom": "https://ga.jspm.io/npm:@motionone/dom@10.13.1/dist/index.es.js",
       "@motionone/easing": "https://ga.jspm.io/npm:@motionone/easing@10.13.1/dist/index.es.js",
       "@motionone/generators": "https://ga.jspm.io/npm:@motionone/generators@10.13.1/dist/index.es.js",
       "@motionone/types": "https://ga.jspm.io/npm:@motionone/types@10.13.0/dist/index.es.js",
@@ -41,9 +41,12 @@
       "process": "https://ga.jspm.io/npm:@jspm/core@2.0.0-beta.24/nodelibs/browser/process-production.js",
       "react-is": "https://ga.jspm.io/npm:react-is@16.13.1/index.js",
       "scheduler": "https://ga.jspm.io/npm:scheduler@0.23.0/index.js",
-      "style-value-types": "https://ga.jspm.io/npm:style-value-types@5.0.0/dist/es/index.mjs",
+      "style-value-types": "https://ga.jspm.io/npm:style-value-types@5.1.0/dist/es/index.mjs",
       "stylis": "https://ga.jspm.io/npm:stylis@4.0.13/index.js",
       "tslib": "https://ga.jspm.io/npm:tslib@2.4.0/tslib.es6.js"
+    },
+    "https://ga.jspm.io/npm:popmotion@11.0.3/": {
+      "style-value-types": "https://ga.jspm.io/npm:style-value-types@5.0.0/dist/es/index.mjs"
     }
   }
 }
