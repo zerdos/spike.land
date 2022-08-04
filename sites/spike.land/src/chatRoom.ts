@@ -357,7 +357,7 @@ export class Code {
               "/live/coder/",
               `/live/${this.codeSpace}/`,
             )
-              .replace("js/ws.mjs", a["js/ws.mjs"])
+              .replace("js/ws.mjs",  a["js/ws.mjs"])
               .replace(
                 `/* #root{} */`,
                 `
