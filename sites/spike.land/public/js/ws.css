@@ -2058,10 +2058,10 @@
   z-index: 5;
   content: "";
   pointer-events: none;
-  outline: 0px solid;
-  outline-width: 0px;
-  outline-style: none;
-  outline-offset: 0px;
+  outline: 0px solid !important;
+  outline-width: 0px !important;
+  outline-style: none !important;
+  outline-offset: 0px !important;
 }
 .codeActionMenuWidget .monaco-list {
   user-select: none;
@@ -2094,19 +2094,15 @@
   background-color: var(--vscode-menu-selectionBackground) !important;
 }
 .codeActionMenuWidget .monaco-list .option-disabled,
-.codeActionMenuWidget .monaco-list .option-disabled:before,
-.codeActionMenuWidget .monaco-list .option-disabled .focused,
-.codeActionMenuWidget .monaco-list .option-disabled .focused:before {
-  cursor: default !important;
+.codeActionMenuWidget .monaco-list .option-disabled .focused {
+  pointer-events: none;
   -webkit-touch-callout: none;
   -webkit-user-select: none;
   -khtml-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
-  background-color: var(--vscode-menu-background) !important;
   color: var(--vscode-disabledForeground) !important;
-  outline: 0px solid !important;
 }
 .codeActionMenuWidget .monaco-list .separator {
   border-bottom: 1px solid var(--vscode-menu-separatorBackground);
@@ -3458,34 +3454,6 @@
 }
 .monaco-editor .rename-box.preview .rename-label {
   display: inherit;
-}
-
-/* ../../node_modules/monaco-editor/esm/vs/editor/contrib/stickyScroll/browser/stickyScroll.css */
-.monaco-editor .sticky-line {
-  color: var(--vscode-editorLineNumber-foreground);
-  overflow: hidden;
-  white-space: nowrap;
-  display: inline-block;
-}
-.monaco-editor .sticky-line-number {
-  text-align: right;
-  float: left;
-}
-.monaco-editor .sticky-line-root {
-  background-color: var(--vscode-editorStickyScroll-background);
-  overflow: hidden;
-  white-space: nowrap;
-  width: 100%;
-}
-.monaco-editor .sticky-line-root:hover {
-  background-color: var(--vscode-editorStickyScrollHover-background);
-  cursor: pointer;
-}
-.monaco-editor .sticky-widget {
-  width: 100%;
-  box-shadow: var(--vscode-scrollbar-shadow) 0 6px 6px -6px;
-  z-index: 2;
-  background-color: var(--vscode-editorStickyScroll-background);
 }
 
 /* ../../node_modules/monaco-editor/esm/vs/editor/contrib/unicodeHighlighter/browser/unicodeHighlighter.css */

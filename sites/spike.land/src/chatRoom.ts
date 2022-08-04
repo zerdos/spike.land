@@ -13,7 +13,7 @@ import {
   startSession,
 } from "@spike.land/code/js/session";
 import { Delta } from "@spike.land/code/js/textDiff";
-import importMap from "@spike.land/code/js/importmap.json";
+// import importMap from "@spike.land/code/js/importmap.json";
 import { getBackupSession } from "./getBackupSession";
 
 // const importMap = {
@@ -25,43 +25,22 @@ import { getBackupSession } from "./getBackupSession";
 
 // }
 
-// const importMap = {
-//   "imports": {
-//     "@emotion/react": "https://ga.jspm.io/npm:@emotion/react@11.10.0/dist/emotion-react.browser.esm.js",
-//     "@emotion/styled": "https://ga.jspm.io/npm:@emotion/styled@11.10.0/dist/emotion-styled.browser.esm.js",
-//     "preact": "https://ga.jspm.io/npm:preact@10.10.0/dist/preact.module.js",
-//     "preact-render-to-string": "https://ga.jspm.io/npm:preact-render-to-string@5.2.1/dist/index.mjs",
-//     "preact/compat": "https://ga.jspm.io/npm:preact@10.10.0/compat/dist/compat.module.js",
-//     "preact/jsx-runtime": "https://ga.jspm.io/npm:preact@10.10.0/jsx-runtime/dist/jsxRuntime.module.js",
-//     "react": "https://ga.jspm.io/npm:react@18.2.0/dev.index.js",
-//     "react-dom": "https://ga.jspm.io/npm:react-dom@18.2.0/dev.index.js",
-//     "react-dom/client": "https://ga.jspm.io/npm:react-dom@18.2.0/dev.client.js",
-//     "react-dom/server": "https://ga.jspm.io/npm:react-dom@18.2.0/dev.server.browser.js",
-//     "react/jsx-runtime": "https://ga.jspm.io/npm:react@18.2.0/dev.jsx-runtime.js"
-//   },
-//   "scopes": {
-//     "https://ga.jspm.io/": {
-//       "@babel/runtime/helpers/esm/extends": "https://ga.jspm.io/npm:@babel/runtime@7.18.9/helpers/esm/extends.js",
-//       "@babel/runtime/helpers/extends": "https://ga.jspm.io/npm:@babel/runtime@7.18.9/helpers/esm/extends.js",
-//       "@emotion/cache": "https://ga.jspm.io/npm:@emotion/cache@11.10.1/dist/emotion-cache.browser.esm.js",
-//       "@emotion/hash": "https://ga.jspm.io/npm:@emotion/hash@0.9.0/dist/emotion-hash.esm.js",
-//       "@emotion/is-prop-valid": "https://ga.jspm.io/npm:@emotion/is-prop-valid@1.2.0/dist/emotion-is-prop-valid.esm.js",
-//       "@emotion/memoize": "https://ga.jspm.io/npm:@emotion/memoize@0.8.0/dist/emotion-memoize.esm.js",
-//       "@emotion/serialize": "https://ga.jspm.io/npm:@emotion/serialize@1.1.0/dist/emotion-serialize.browser.esm.js",
-//       "@emotion/sheet": "https://ga.jspm.io/npm:@emotion/sheet@1.2.0/dist/emotion-sheet.browser.esm.js",
-//       "@emotion/unitless": "https://ga.jspm.io/npm:@emotion/unitless@0.8.0/dist/emotion-unitless.esm.js",
-//       "@emotion/utils": "https://ga.jspm.io/npm:@emotion/utils@1.2.0/dist/emotion-utils.browser.esm.js",
-//       "@emotion/weak-memoize": "https://ga.jspm.io/npm:@emotion/weak-memoize@0.3.0/dist/emotion-weak-memoize.esm.js",
-//       "hoist-non-react-statics": "https://ga.jspm.io/npm:hoist-non-react-statics@3.3.2/dist/hoist-non-react-statics.cjs.js",
-//       "preact/hooks": "https://ga.jspm.io/npm:preact@10.10.0/hooks/dist/hooks.module.js",
-//       "process": "https://ga.jspm.io/npm:@jspm/core@2.0.0-beta.24/nodelibs/browser/process.js",
-//       "react-is": "https://ga.jspm.io/npm:react-is@16.13.1/dev.index.js",
-//       "scheduler": "https://ga.jspm.io/npm:scheduler@0.23.0/dev.index.js",
-//       "stylis": "https://ga.jspm.io/npm:stylis@4.0.13/index.js"
-//     }
-//   }
-// }
-// ;
+const importMap = {
+  "imports": {
+    // ...imap,
+    "framer-motion": "/framer-motion.mjs",
+    "@emotion/react": "/emotion.mjs",
+    "react": "/react.mjs",
+    "react-dom": "/react.mjs",
+    "react-dom/client": "/react.mjs",
+    "react-dom/server": "/react.mjs",
+    "react/jsx-runtime": "/react.mjs",
+    // "preact": "https://ga.jspm.io/npm:preact@10.8.2/dist/preact.module.js",
+    // "preact-render-to-string": "https://ga.jspm.io/npm:preact-render-to-string@5.2.0/dist/index.mjs",
+    // "preact/compat": "https://ga.jspm.io/npm:preact@10.8.2/compat/dist/compat.module.js",
+    // "preact/jsx-runtime": "https://ga.jspm.io/npm:preact@10.8.2/jsx-runtime/dist/jsxRuntime.module.js"
+  },
+};
 
 interface IState extends DurableObjectState {
 }
@@ -357,7 +336,7 @@ export class Code {
               "/live/coder/",
               `/live/${this.codeSpace}/`,
             )
-              .replace("js/ws.mjs",  a["js/ws.mjs"])
+              .replace("js/ws.mjs", a["js/ws.mjs"])
               .replace(
                 `/* #root{} */`,
                 `

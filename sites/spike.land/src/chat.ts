@@ -5,7 +5,23 @@ import manifestJSON from "__STATIC_CONTENT_MANIFEST";
 import { handleErrors } from "./handleErrors";
 import { CodeEnv } from "./env";
 
-import imap from "@spike.land/code/js/importmap.json";
+
+const imap = {
+  "imports": {
+    // ...imap,
+    "framer-motion": "/framer-motion.mjs",
+    "@emotion/react": "/emotion.mjs",
+    "react": "/react.mjs",
+    "react-dom": "/react.mjs",
+    "react-dom/client": "/react.mjs",
+    "react-dom/server": "/react.mjs",
+    "react/jsx-runtime": "/react.mjs",
+    // "preact": "https://ga.jspm.io/npm:preact@10.8.2/dist/preact.module.js",
+    // "preact-render-to-string": "https://ga.jspm.io/npm:preact-render-to-string@5.2.0/dist/index.mjs",
+    // "preact/compat": "https://ga.jspm.io/npm:preact@10.8.2/compat/dist/compat.module.js",
+    // "preact/jsx-runtime": "https://ga.jspm.io/npm:preact@10.8.2/jsx-runtime/dist/jsxRuntime.module.js"
+  },
+};
 
 export default {
   async fetch(
