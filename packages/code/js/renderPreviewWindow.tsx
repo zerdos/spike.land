@@ -1,4 +1,4 @@
-/** @jsxImportSource @emotion/react */
+
 
 import { Fragment, ReactNode, useEffect, useMemo, useState } from "react";
 import { appFactory, AutoUpdateApp } from "./starter";

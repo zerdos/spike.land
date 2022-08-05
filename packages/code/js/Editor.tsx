@@ -1,4 +1,4 @@
-/** @jsxImportSource @emotion/react */
+
 
 import { FC, useEffect, useRef, useState } from "react";
 import { runner } from "./runner";
