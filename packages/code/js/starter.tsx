@@ -1,4 +1,4 @@
-/** @jsxImportSource @emotion/react */
+
 import "es-module-shims";
 
 import { FC, Fragment } from "react";
