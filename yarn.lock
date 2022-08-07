@@ -2474,13 +2474,13 @@ __metadata:
     "@types/lodash.throttle": ^4.1.7
     "@types/node": 18.6.4
     "@types/prettier": 2.7.0
-    "@types/react": 18.0.15
+    "@types/react": 18.0.16
     "@types/react-dom": 18.0.6
     "@types/rimraf": ^3.0.2
     ace-builds: 1.8.1
     async-mutex: 0.3.2
     big-integer: 1.6.51
-    es-module-shims: 1.5.12
+    es-module-shims: 1.5.13
     esbuild: ^0.14.53
     esbuild-plugin-alias: 0.2.1
     esbuild-plugin-import-map: 2.1.0
@@ -2497,7 +2497,7 @@ __metadata:
     p-all: 4.0.0
     p-map: 5.5.0
     path-browserify: 1.0.1
-    preact: 10.10.0
+    preact: 10.10.1
     preact-render-to-string: 5.2.1
     prettier: 2.7.1
     qrious: ^4.0.2
@@ -2738,7 +2738,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react@npm:*, @types/react@npm:18.0.15":
+"@types/react@npm:*":
   version: 18.0.15
   resolution: "@types/react@npm:18.0.15"
   dependencies:
@@ -2746,6 +2746,17 @@ __metadata:
     "@types/scheduler": "*"
     csstype: ^3.0.2
   checksum: e22cc388d1c145aa184787e44dc28db4789976c704cd5db475c170bb76a560eb81def5f346cfe750949bb3d43ad88822b8cbb9f19b1286e3795892a8263e7715
+  languageName: node
+  linkType: hard
+
+"@types/react@npm:18.0.16":
+  version: 18.0.16
+  resolution: "@types/react@npm:18.0.16"
+  dependencies:
+    "@types/prop-types": "*"
+    "@types/scheduler": "*"
+    csstype: ^3.0.2
+  checksum: 47853419adbf7f35f302cd4ef804c5a50498a0917a34e696caa693fc60b9c52c644ca2ecf64cbba4a5efd963771167d241906f117d16d59e20e84b882215b6bd
   languageName: node
   linkType: hard
 
@@ -4163,10 +4174,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"es-module-shims@npm:1.5.12":
-  version: 1.5.12
-  resolution: "es-module-shims@npm:1.5.12"
-  checksum: 53ce806afb914c0d5d595c6f828a087b99a9bb07f6a1b6289eea51e8da849399c0e3365679ccc0c98527764b0fbb67e5c8ef4abaafeb96acc2741fdf1e658031
+"es-module-shims@npm:1.5.13":
+  version: 1.5.13
+  resolution: "es-module-shims@npm:1.5.13"
+  checksum: cf90ed23c0ab4a7c38cc680e688d78181417eb8538439c44167037095ca8bd430ddad44c02fcd84233067a730497fccb16c6315ca1a9b6bfe9ac3b8730e149b4
   languageName: node
   linkType: hard
 
@@ -4498,7 +4509,7 @@ __metadata:
   resolution: "esbuild-worker@workspace:sites/esbuild-worker"
   dependencies:
     "@cloudflare/workers-types": 3.14.1
-    "@types/react": 18.0.15
+    "@types/react": 18.0.16
     "@types/react-dom": 18.0.6
     esbuild: 0.14.53
     typescript: 4.7.4
@@ -7866,10 +7877,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"preact@npm:10.10.0":
-  version: 10.10.0
-  resolution: "preact@npm:10.10.0"
-  checksum: ec34f0e7a8677080debb5e7035a749d30a23694a68389e6f577e051e91a1e1014913c56845a615d1f9a4f2cd0321c46faaded4d4a0457c755d637a3a811fd69e
+"preact@npm:10.10.1":
+  version: 10.10.1
+  resolution: "preact@npm:10.10.1"
+  checksum: a79a196770064eb4d5a533e5b407f5eb842e47ea143bd4687e436ad3faf634efd4fda1185fab7b8c687a0889f1dea61349f1a01d6d6dfe1db3e0f4361f65c1d3
   languageName: node
   linkType: hard
 
