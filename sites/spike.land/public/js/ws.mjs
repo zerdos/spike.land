@@ -7,19 +7,21 @@ import {
 } from "../chunk-J3ACSPWQ.mjs";
 import {
   CacheProvider,
+  Emotion,
   Global,
   ThemeContext,
   _extends,
+  createEmotionProps,
   css,
-  jsx,
-  jsxs,
+  hasOwnProperty,
   keyframes,
   require_emotion_cache_cjs,
   require_emotion_memoize_cjs,
   require_emotion_serialize_cjs,
   require_emotion_utils_cjs,
+  require_hoist_non_react_statics_cjs,
   withEmotionCache
-} from "../chunk-FUE4MXMT.mjs";
+} from "../chunk-YGLY5MDB.mjs";
 import {
   wait
 } from "../chunk-KDU57TYQ.mjs";
@@ -570,7 +572,7 @@ var require_qrious = __commonJS({
       "use strict";
       var Constructor = function() {
       };
-      var hasOwnProperty2 = Object.prototype.hasOwnProperty;
+      var hasOwnProperty3 = Object.prototype.hasOwnProperty;
       var slice3 = Array.prototype.slice;
       function createObject(prototype, properties2) {
         var result;
@@ -615,7 +617,7 @@ var require_qrious = __commonJS({
         for (var i2 = 0, length = sources.length; i2 < length; i2++) {
           source = sources[i2];
           for (property in source) {
-            if (!own || hasOwnProperty2.call(source, property)) {
+            if (!own || hasOwnProperty3.call(source, property)) {
               target[property] = source[property];
             }
           }
@@ -3067,7 +3069,7 @@ var require_object_assign = __commonJS({
     "use strict";
     init_define_process();
     var getOwnPropertySymbols = Object.getOwnPropertySymbols;
-    var hasOwnProperty2 = Object.prototype.hasOwnProperty;
+    var hasOwnProperty3 = Object.prototype.hasOwnProperty;
     var propIsEnumerable = Object.prototype.propertyIsEnumerable;
     function toObject2(val) {
       if (val === null || val === void 0) {
@@ -3114,7 +3116,7 @@ var require_object_assign = __commonJS({
       for (var s = 1; s < arguments.length; s++) {
         from = Object(arguments[s]);
         for (var key in from) {
-          if (hasOwnProperty2.call(from, key)) {
+          if (hasOwnProperty3.call(from, key)) {
             to[key] = from[key];
           }
         }
@@ -4367,7 +4369,7 @@ function isKeysIterable(maybeIterable) {
   var iteratorFn = getIteratorFn(maybeIterable);
   return iteratorFn && iteratorFn === maybeIterable.keys;
 }
-var hasOwnProperty = Object.prototype.hasOwnProperty;
+var hasOwnProperty2 = Object.prototype.hasOwnProperty;
 function isArrayLike(value) {
   if (Array.isArray(value) || typeof value === "string") {
     return true;
@@ -4538,7 +4540,7 @@ var ObjectSeq = function(KeyedSeq2) {
     return this._object[key];
   };
   ObjectSeq2.prototype.has = function has5(key) {
-    return hasOwnProperty.call(this._object, key);
+    return hasOwnProperty2.call(this._object, key);
   };
   ObjectSeq2.prototype.__iterate = function __iterate2(fn2, reverse3) {
     var object = this._object;
@@ -5723,7 +5725,7 @@ function quoteString(value) {
   }
 }
 function has(collection, key) {
-  return isImmutable(collection) ? collection.has(key) : isDataStructure(collection) && hasOwnProperty.call(collection, key);
+  return isImmutable(collection) ? collection.has(key) : isDataStructure(collection) && hasOwnProperty2.call(collection, key);
 }
 function get(collection, key, notSetValue) {
   return isImmutable(collection) ? collection.get(key, notSetValue) : !has(collection, key) ? notSetValue : typeof collection.get === "function" ? collection.get(key) : collection[key];
@@ -5734,7 +5736,7 @@ function shallowCopy(from) {
   }
   var to = {};
   for (var key in from) {
-    if (hasOwnProperty.call(from, key)) {
+    if (hasOwnProperty2.call(from, key)) {
       to[key] = from[key];
     }
   }
@@ -5754,7 +5756,7 @@ function remove(collection, key) {
     }
     return collection.remove(key);
   }
-  if (!hasOwnProperty.call(collection, key)) {
+  if (!hasOwnProperty2.call(collection, key)) {
     return collection;
   }
   var collectionCopy = shallowCopy(collection);
@@ -5779,7 +5781,7 @@ function set(collection, key, value) {
     }
     return collection.set(key, value);
   }
-  if (hasOwnProperty.call(collection, key) && value === collection[key]) {
+  if (hasOwnProperty2.call(collection, key) && value === collection[key]) {
     return collection;
   }
   var collectionCopy = shallowCopy(collection);
@@ -5922,7 +5924,7 @@ function mergeWithSources(collection, sources, merger) {
     }
     merged.push(value);
   } : function(value, key) {
-    var hasVal = hasOwnProperty.call(merged, key);
+    var hasVal = hasOwnProperty2.call(merged, key);
     var nextVal = hasVal && merger ? merger(merged[key], value, key) : value;
     if (!hasVal || nextVal !== merged[key]) {
       if (merged === collection) {
@@ -11542,6 +11544,27 @@ function md5(inputString) {
     d = ad(d, oldd);
   }
   return rh(a) + rh(b) + rh(c) + rh(d);
+}
+
+// ../../node_modules/@emotion/react/jsx-runtime/dist/emotion-react-jsx-runtime.browser.esm.js
+init_define_process();
+var import_cache = __toESM(require_emotion_cache_cjs());
+import "/react.mjs";
+var import_hoist_non_react_statics = __toESM(require_hoist_non_react_statics_cjs());
+var import_utils = __toESM(require_emotion_utils_cjs());
+var import_serialize = __toESM(require_emotion_serialize_cjs());
+import { Fragment as Fragment$1, jsx as jsx$1, jsxs as jsxs$1 } from "/react.mjs";
+function jsx(type, props, key) {
+  if (!hasOwnProperty.call(props, "css")) {
+    return jsx$1(type, props, key);
+  }
+  return jsx$1(Emotion, createEmotionProps(type, props), key);
+}
+function jsxs(type, props, key) {
+  if (!hasOwnProperty.call(props, "css")) {
+    return jsxs$1(type, props, key);
+  }
+  return jsxs$1(Emotion, createEmotionProps(type, props), key);
 }
 
 // js/starter.tsx
@@ -20095,8 +20118,8 @@ init_define_process();
 var import_is_prop_valid = __toESM(require_emotion_is_prop_valid_cjs());
 import * as React51 from "/react.mjs";
 import { useContext as useContext4, createElement as createElement2, Fragment as Fragment10 } from "/react.mjs";
-var import_utils50 = __toESM(require_emotion_utils_cjs());
-var import_serialize = __toESM(require_emotion_serialize_cjs());
+var import_utils51 = __toESM(require_emotion_utils_cjs());
+var import_serialize2 = __toESM(require_emotion_serialize_cjs());
 var testOmitPropsOnStringTag = import_is_prop_valid.default;
 var testOmitPropsOnComponent = function testOmitPropsOnComponent2(key) {
   return key !== "theme";
@@ -20129,9 +20152,9 @@ You can read more about this here:
 https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals#ES2018_revision_of_illegal_escape_sequences`;
 var Insertion = function Insertion2(_ref) {
   var cache2 = _ref.cache, serialized = _ref.serialized, isStringTag = _ref.isStringTag;
-  (0, import_utils50.registerStyles)(cache2, serialized, isStringTag);
+  (0, import_utils51.registerStyles)(cache2, serialized, isStringTag);
   var rules = useInsertionEffectMaybe(function() {
-    return (0, import_utils50.insertStyles)(cache2, serialized, isStringTag);
+    return (0, import_utils51.insertStyles)(cache2, serialized, isStringTag);
   });
   return null;
 };
@@ -20187,11 +20210,11 @@ var createStyled = function createStyled2(tag, options) {
         mergedProps.theme = useContext4(ThemeContext);
       }
       if (typeof props.className === "string") {
-        className = (0, import_utils50.getRegisteredStyles)(cache2.registered, classInterpolations, props.className);
+        className = (0, import_utils51.getRegisteredStyles)(cache2.registered, classInterpolations, props.className);
       } else if (props.className != null) {
         className = props.className + " ";
       }
-      var serialized = (0, import_serialize.serializeStyles)(styles2.concat(classInterpolations), cache2.registered, mergedProps);
+      var serialized = (0, import_serialize2.serializeStyles)(styles2.concat(classInterpolations), cache2.registered, mergedProps);
       className += cache2.key + "-" + serialized.name;
       if (targetClassName !== void 0) {
         className += " " + targetClassName;
@@ -20238,8 +20261,8 @@ var createStyled = function createStyled2(tag, options) {
 var emotion_styled_base_browser_esm_default = createStyled;
 
 // ../../node_modules/@emotion/styled/dist/emotion-styled.browser.esm.js
-var import_utils51 = __toESM(require_emotion_utils_cjs());
-var import_serialize2 = __toESM(require_emotion_serialize_cjs());
+var import_utils52 = __toESM(require_emotion_utils_cjs());
+var import_serialize3 = __toESM(require_emotion_serialize_cjs());
 var tags = [
   "a",
   "abbr",
@@ -20389,9 +20412,9 @@ init_define_process();
 init_define_process();
 var import_prop_types28 = __toESM(require_prop_types());
 import * as React52 from "/react.mjs";
-var import_cache = __toESM(require_emotion_cache_cjs());
+var import_cache2 = __toESM(require_emotion_cache_cjs());
 import { jsx as _jsx24 } from "/react.mjs";
-var cache = (0, import_cache.default)({
+var cache = (0, import_cache2.default)({
   key: "css",
   prepend: true
 });
