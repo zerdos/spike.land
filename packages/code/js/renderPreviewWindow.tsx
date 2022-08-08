@@ -1,5 +1,3 @@
-
-
 import { Fragment, ReactNode, useEffect, useMemo, useState } from "react";
 import { appFactory, AutoUpdateApp } from "./starter";
 import { css } from "@emotion/react";

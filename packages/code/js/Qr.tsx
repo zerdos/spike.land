@@ -1,5 +1,3 @@
-
-
 import { css } from "@emotion/react";
 import { domAnimation, LazyMotion, m } from "framer-motion";
 import { FC, useState } from "react";

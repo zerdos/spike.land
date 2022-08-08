@@ -21,7 +21,23 @@ const generator = new Generator({
 // Install a new package into the import map
 
 // await generator.install(");
-const list = ["preact/compat","preact-render-to-string", "preact/jsx-runtime", "preact","react","react-dom","react-dom/client","react-dom/server", , "react/jsx-runtime","react/jsx-dev-runtime", "@emotion/react","@emotion/cache",  "@emotion/styled", "framer-motion"];
+const list = [
+  "preact/compat",
+  "preact-render-to-string",
+  "preact/jsx-runtime",
+  "preact",
+  "react",
+  "react-dom",
+  "react-dom/client",
+  "react-dom/server",
+  ,
+  "react/jsx-runtime",
+  "react/jsx-dev-runtime",
+  "@emotion/react",
+  "@emotion/cache",
+  "@emotion/styled",
+  "framer-motion",
+];
 await Promise.all(list.map(async (name) => await generator.install(name)));
 
 // await generator.install("orbit-db");

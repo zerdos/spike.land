@@ -46277,6 +46277,7 @@ var monacoContribution = async (typescript, editor2, code) => {
     module: typescript.ModuleKind.ESNext,
     noEmitOnError: true,
     maxNodeModuleJsDepth: 10,
+    jsxImportSource: "@emotion/react",
     jsx: typescript.JsxEmit.ReactJSX,
     allowUmdGlobalAccess: true
   });
