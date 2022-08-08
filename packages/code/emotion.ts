@@ -4,12 +4,15 @@ import  * as emotionReact from "@emotion/react";
 
 // import createCache from "@emotion/cache";
 
-// export type { JSX } from "@emotion/react/jsx-runtime";
+import  { jsxs } from "@emotion/react/jsx-runtime/dist/emotion-react-jsx-runtime.browser.esm";
 //
 // export { JSX } from "@emotion/react/jsx-runtime";
 
 // export const ss = JSX.
-export const { jsx } = emotionReact;
+export const  { jsx } = emotionReact ;
+export  { jsxs };
+
+
 
 export const { css } = emotionReact;
 // export const { CacheProvider } = emotionReact;

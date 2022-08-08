@@ -7,19 +7,15 @@ import {
 } from "../chunk-J3ACSPWQ.mjs";
 import {
   CacheProvider,
-  Emotion,
   Global,
   ThemeContext,
   _extends,
-  createEmotionProps,
   css,
-  hasOwnProperty,
   keyframes,
   require_emotion_cache_cjs,
   require_emotion_memoize_cjs,
   require_emotion_serialize_cjs,
   require_emotion_utils_cjs,
-  require_hoist_non_react_statics_cjs,
   withEmotionCache
 } from "../chunk-YGLY5MDB.mjs";
 import {
@@ -572,7 +568,7 @@ var require_qrious = __commonJS({
       "use strict";
       var Constructor = function() {
       };
-      var hasOwnProperty3 = Object.prototype.hasOwnProperty;
+      var hasOwnProperty2 = Object.prototype.hasOwnProperty;
       var slice3 = Array.prototype.slice;
       function createObject(prototype, properties2) {
         var result;
@@ -617,7 +613,7 @@ var require_qrious = __commonJS({
         for (var i2 = 0, length = sources.length; i2 < length; i2++) {
           source = sources[i2];
           for (property in source) {
-            if (!own || hasOwnProperty3.call(source, property)) {
+            if (!own || hasOwnProperty2.call(source, property)) {
               target[property] = source[property];
             }
           }
@@ -3069,7 +3065,7 @@ var require_object_assign = __commonJS({
     "use strict";
     init_define_process();
     var getOwnPropertySymbols = Object.getOwnPropertySymbols;
-    var hasOwnProperty3 = Object.prototype.hasOwnProperty;
+    var hasOwnProperty2 = Object.prototype.hasOwnProperty;
     var propIsEnumerable = Object.prototype.propertyIsEnumerable;
     function toObject2(val) {
       if (val === null || val === void 0) {
@@ -3116,7 +3112,7 @@ var require_object_assign = __commonJS({
       for (var s = 1; s < arguments.length; s++) {
         from = Object(arguments[s]);
         for (var key in from) {
-          if (hasOwnProperty3.call(from, key)) {
+          if (hasOwnProperty2.call(from, key)) {
             to[key] = from[key];
           }
         }
@@ -4369,7 +4365,7 @@ function isKeysIterable(maybeIterable) {
   var iteratorFn = getIteratorFn(maybeIterable);
   return iteratorFn && iteratorFn === maybeIterable.keys;
 }
-var hasOwnProperty2 = Object.prototype.hasOwnProperty;
+var hasOwnProperty = Object.prototype.hasOwnProperty;
 function isArrayLike(value) {
   if (Array.isArray(value) || typeof value === "string") {
     return true;
@@ -4540,7 +4536,7 @@ var ObjectSeq = function(KeyedSeq2) {
     return this._object[key];
   };
   ObjectSeq2.prototype.has = function has5(key) {
-    return hasOwnProperty2.call(this._object, key);
+    return hasOwnProperty.call(this._object, key);
   };
   ObjectSeq2.prototype.__iterate = function __iterate2(fn2, reverse3) {
     var object = this._object;
@@ -5725,7 +5721,7 @@ function quoteString(value) {
   }
 }
 function has(collection, key) {
-  return isImmutable(collection) ? collection.has(key) : isDataStructure(collection) && hasOwnProperty2.call(collection, key);
+  return isImmutable(collection) ? collection.has(key) : isDataStructure(collection) && hasOwnProperty.call(collection, key);
 }
 function get(collection, key, notSetValue) {
   return isImmutable(collection) ? collection.get(key, notSetValue) : !has(collection, key) ? notSetValue : typeof collection.get === "function" ? collection.get(key) : collection[key];
@@ -5736,7 +5732,7 @@ function shallowCopy(from) {
   }
   var to = {};
   for (var key in from) {
-    if (hasOwnProperty2.call(from, key)) {
+    if (hasOwnProperty.call(from, key)) {
       to[key] = from[key];
     }
   }
@@ -5756,7 +5752,7 @@ function remove(collection, key) {
     }
     return collection.remove(key);
   }
-  if (!hasOwnProperty2.call(collection, key)) {
+  if (!hasOwnProperty.call(collection, key)) {
     return collection;
   }
   var collectionCopy = shallowCopy(collection);
@@ -5781,7 +5777,7 @@ function set(collection, key, value) {
     }
     return collection.set(key, value);
   }
-  if (hasOwnProperty2.call(collection, key) && value === collection[key]) {
+  if (hasOwnProperty.call(collection, key) && value === collection[key]) {
     return collection;
   }
   var collectionCopy = shallowCopy(collection);
@@ -5924,7 +5920,7 @@ function mergeWithSources(collection, sources, merger) {
     }
     merged.push(value);
   } : function(value, key) {
-    var hasVal = hasOwnProperty2.call(merged, key);
+    var hasVal = hasOwnProperty.call(merged, key);
     var nextVal = hasVal && merger ? merger(merged[key], value, key) : value;
     if (!hasVal || nextVal !== merged[key]) {
       if (merged === collection) {
@@ -11546,28 +11542,8 @@ function md5(inputString) {
   return rh(a) + rh(b) + rh(c) + rh(d);
 }
 
-// ../../node_modules/@emotion/react/jsx-runtime/dist/emotion-react-jsx-runtime.browser.esm.js
-init_define_process();
-var import_cache = __toESM(require_emotion_cache_cjs());
-import "/react.mjs";
-var import_hoist_non_react_statics = __toESM(require_hoist_non_react_statics_cjs());
-var import_utils = __toESM(require_emotion_utils_cjs());
-var import_serialize = __toESM(require_emotion_serialize_cjs());
-import { Fragment as Fragment$1, jsx as jsx$1, jsxs as jsxs$1 } from "/react.mjs";
-function jsx(type, props, key) {
-  if (!hasOwnProperty.call(props, "css")) {
-    return jsx$1(type, props, key);
-  }
-  return jsx$1(Emotion, createEmotionProps(type, props), key);
-}
-function jsxs(type, props, key) {
-  if (!hasOwnProperty.call(props, "css")) {
-    return jsxs$1(type, props, key);
-  }
-  return jsxs$1(Emotion, createEmotionProps(type, props), key);
-}
-
 // js/starter.tsx
+import { jsx } from "/emotion.mjs";
 Object.assign(window, {});
 var orig = location.origin.includes("localhost") ? "." : location.origin;
 var initShims = async (assets) => location.origin.includes("localhost") ? importShim.addImportMap({
@@ -20118,8 +20094,8 @@ init_define_process();
 var import_is_prop_valid = __toESM(require_emotion_is_prop_valid_cjs());
 import * as React51 from "/react.mjs";
 import { useContext as useContext4, createElement as createElement2, Fragment as Fragment10 } from "/react.mjs";
-var import_utils51 = __toESM(require_emotion_utils_cjs());
-var import_serialize2 = __toESM(require_emotion_serialize_cjs());
+var import_utils50 = __toESM(require_emotion_utils_cjs());
+var import_serialize = __toESM(require_emotion_serialize_cjs());
 var testOmitPropsOnStringTag = import_is_prop_valid.default;
 var testOmitPropsOnComponent = function testOmitPropsOnComponent2(key) {
   return key !== "theme";
@@ -20152,9 +20128,9 @@ You can read more about this here:
 https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals#ES2018_revision_of_illegal_escape_sequences`;
 var Insertion = function Insertion2(_ref) {
   var cache2 = _ref.cache, serialized = _ref.serialized, isStringTag = _ref.isStringTag;
-  (0, import_utils51.registerStyles)(cache2, serialized, isStringTag);
+  (0, import_utils50.registerStyles)(cache2, serialized, isStringTag);
   var rules = useInsertionEffectMaybe(function() {
-    return (0, import_utils51.insertStyles)(cache2, serialized, isStringTag);
+    return (0, import_utils50.insertStyles)(cache2, serialized, isStringTag);
   });
   return null;
 };
@@ -20210,11 +20186,11 @@ var createStyled = function createStyled2(tag, options) {
         mergedProps.theme = useContext4(ThemeContext);
       }
       if (typeof props.className === "string") {
-        className = (0, import_utils51.getRegisteredStyles)(cache2.registered, classInterpolations, props.className);
+        className = (0, import_utils50.getRegisteredStyles)(cache2.registered, classInterpolations, props.className);
       } else if (props.className != null) {
         className = props.className + " ";
       }
-      var serialized = (0, import_serialize2.serializeStyles)(styles2.concat(classInterpolations), cache2.registered, mergedProps);
+      var serialized = (0, import_serialize.serializeStyles)(styles2.concat(classInterpolations), cache2.registered, mergedProps);
       className += cache2.key + "-" + serialized.name;
       if (targetClassName !== void 0) {
         className += " " + targetClassName;
@@ -20261,8 +20237,8 @@ var createStyled = function createStyled2(tag, options) {
 var emotion_styled_base_browser_esm_default = createStyled;
 
 // ../../node_modules/@emotion/styled/dist/emotion-styled.browser.esm.js
-var import_utils52 = __toESM(require_emotion_utils_cjs());
-var import_serialize3 = __toESM(require_emotion_serialize_cjs());
+var import_utils51 = __toESM(require_emotion_utils_cjs());
+var import_serialize2 = __toESM(require_emotion_serialize_cjs());
 var tags = [
   "a",
   "abbr",
@@ -20412,9 +20388,9 @@ init_define_process();
 init_define_process();
 var import_prop_types28 = __toESM(require_prop_types());
 import * as React52 from "/react.mjs";
-var import_cache2 = __toESM(require_emotion_cache_cjs());
+var import_cache = __toESM(require_emotion_cache_cjs());
 import { jsx as _jsx24 } from "/react.mjs";
-var cache = (0, import_cache2.default)({
+var cache = (0, import_cache.default)({
   key: "css",
   prepend: true
 });
@@ -27400,52 +27376,54 @@ true ? ToggleButtonGroup.propTypes = {
 var ToggleButtonGroup_default = ToggleButtonGroup;
 
 // js/mui.tsx
+import { jsx as jsx2 } from "/emotion.mjs";
 var FullscreenIcon = createSvgIcon(
-  jsx("path", {
+  jsx2("path", {
     d: "M17 4h5v5h-2V6h-3V4zM4 9V6h3V4H2v5h2zm16 6v3h-3v2h5v-5h-2zM7 18H4v-3H2v5h5v-2zM18 8H6v8h12V8z"
   }),
   "Fullscreen"
 );
 var Phone = createSvgIcon(
-  jsx("path", {
+  jsx2("path", {
     d: "M16 1H8C6.34 1 5 2.34 5 4v16c0 1.66 1.34 3 3 3h8c1.66 0 3-1.34 3-3V4c0-1.66-1.34-3-3-3zm-2 20h-4v-1h4v1zm3.25-3H6.75V4h10.5v14z"
   }, "12"),
   "PhoneAndroid"
 );
 var Share = createSvgIcon(
-  jsx("path", {
+  jsx2("path", {
     d: "M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92 1.61 0 2.92-1.31 2.92-2.92s-1.31-2.92-2.92-2.92z"
   }, "12"),
   "Share"
 );
 var Tablet = createSvgIcon(
-  jsx("path", {
+  jsx2("path", {
     d: "M18 0H6C4.34 0 3 1.34 3 3v18c0 1.66 1.34 3 3 3h12c1.66 0 3-1.34 3-3V3c0-1.66-1.34-3-3-3zm-4 22h-4v-1h4v1zm5.25-3H4.75V3h14.5v16z"
   }, "12"),
   "TabletAndroid"
 );
 var Tv = createSvgIcon(
-  jsx("path", {
+  jsx2("path", {
     d: "M21 3H3c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h5v2h8v-2h5c1.1 0 1.99-.9 1.99-2L23 5c0-1.1-.9-2-2-2zm0 14H3V5h18v12z"
   }, "12"),
   "Tv"
 );
 var QrCode = createSvgIcon(
-  jsx("path", {
+  jsx2("path", {
     d: "M3 11h8V3H3v8zm2-6h4v4H5V5zM3 21h8v-8H3v8zm2-6h4v4H5v-4zm8-12v8h8V3h-8zm6 6h-4V5h4v4zm0 10h2v2h-2zm-6-6h2v2h-2zm2 2h2v2h-2zm-2 2h2v2h-2zm2 2h2v2h-2zm2-2h2v2h-2zm0-4h2v2h-2zm2 2h2v2h-2z"
   }, "12"),
   "QrCode"
 );
 
 // js/Qr.tsx
-var QR = ({ url }) => jsx(QRious2, {
+import { jsx as jsx3 } from "/emotion.mjs";
+var QR = ({ url }) => jsx3(QRious2, {
   value: url
 });
 var QRButton = ({ url }) => {
   const [showQR, setQR] = useState24(false);
-  return jsx(LazyMotion, {
+  return jsx3(LazyMotion, {
     features: domAnimation,
-    children: jsx(m.div, {
+    children: jsx3(m.div, {
       animate: {
         width: showQR ? 200 : 56,
         height: showQR ? 220 : 48
@@ -27457,16 +27435,17 @@ var QRButton = ({ url }) => {
           margin-top: 12px;
           margin-bottom: 12px;
               `,
-      children: showQR ? jsx(QR, {
+      children: showQR ? jsx3(QR, {
         url: url || "/live/coder/public"
-      }, url || "http://spike.land") : jsx(Fab_default, {
-        children: jsx(QrCode, {})
+      }, url || "http://spike.land") : jsx3(Fab_default, {
+        children: jsx3(QrCode, {})
       })
     })
   });
 };
 
 // js/DraggableWindow.tsx
+import { jsx as jsx4, jsxs } from "/emotion.mjs";
 var ToggleButtonGroup3 = ToggleButtonGroup_default;
 var ToggleButton3 = ToggleButton_default;
 var breakPoints = [680, 768, 1920];
@@ -27520,9 +27499,9 @@ var DraggableWindow = ({
     };
     reveal();
   }, []);
-  return jsx(LazyMotion, {
+  return jsx4(LazyMotion, {
     features: domMax,
-    children: jsx(m.div, {
+    children: jsx4(m.div, {
       transition: { delay: 0, duration: 0.4 },
       ref,
       initial: {
@@ -27566,18 +27545,18 @@ var DraggableWindow = ({
             align-items: center;
           `,
             children: [
-              jsx(m.div, {
+              jsx4(m.div, {
                 transition: { delay: 0, duration: 0.4 },
                 initial: { height: 0, width: 0 },
                 animate: { height: "auto", width: "auto" },
-                children: jsx(ToggleButtonGroup3, {
+                children: jsx4(ToggleButtonGroup3, {
                   value: scaleRange,
                   size: "small",
                   exclusive: true,
                   onChange: (_e, newScale) => {
                     newScale && changeScaleRange(newScale);
                   },
-                  children: sizes.map((size) => jsx(ToggleButton3, {
+                  children: sizes.map((size) => jsx4(ToggleButton3, {
                     value: size,
                     children: jsxs("span", {
                       css: css`
@@ -27591,7 +27570,7 @@ var DraggableWindow = ({
                   }, size))
                 })
               }),
-              jsx(m.div, {
+              jsx4(m.div, {
                 transition: { delay: 0, duration: 0.4 },
                 initial: {
                   width: window.innerWidth,
@@ -27609,7 +27588,7 @@ var DraggableWindow = ({
                 overflow: hidden;
                 overflow-y: hidden;
             `,
-                children: jsx(m.div, {
+                children: jsx4(m.div, {
                   transition: { delay: 0, duration: 0.4 },
                   initial: {
                     width: window.innerWidth,
@@ -27632,9 +27611,9 @@ var DraggableWindow = ({
                   children: children2
                 })
               }),
-              jsx(m.div, {
+              jsx4(m.div, {
                 transition: { delay: 0, duration: 0.4 },
-                children: jsx(ToggleButtonGroup3, {
+                children: jsx4(ToggleButtonGroup3, {
                   value: width2,
                   size: "small",
                   exclusive: true,
@@ -27644,17 +27623,17 @@ var DraggableWindow = ({
                       setWidth(newSize);
                     }
                   },
-                  children: breakPoints.map((size) => jsx(ToggleButton3, {
+                  children: breakPoints.map((size) => jsx4(ToggleButton3, {
                     value: size,
-                    children: size === 680 ? jsx(Phone, {
+                    children: size === 680 ? jsx4(Phone, {
                       css: css`
                         color: ${width2 === 680 ? "rgba(255,255,255,.8)" : "rgba(0,0,0,.3)"};
                         `
-                    }) : size === 768 ? jsx(Tablet, {
+                    }) : size === 768 ? jsx4(Tablet, {
                       css: css`
                         color: ${width2 === 768 ? "rgba(255,255,255,.8)" : "rgba(0,0,0,.3)"};
                         `
-                    }) : jsx(Tv, {
+                    }) : jsx4(Tv, {
                       css: css`
                         color: ${width2 === 1920 ? "rgba(255,255,255,.8)" : "rgba(0,0,0,.3)"};
                       `
@@ -27664,7 +27643,7 @@ var DraggableWindow = ({
               })
             ]
           }),
-          jsx(m.div, {
+          jsx4(m.div, {
             transition: { delay: 0, duration: 0.4 },
             initial: { height: 0, width: 0 },
             animate: { height: "100%", width: "auto" },
@@ -27677,19 +27656,19 @@ var DraggableWindow = ({
               flex-direction: column;
               `,
               children: [
-                jsx(Fab_default, {
+                jsx4(Fab_default, {
                   onClick: () => {
                     var _a;
                     (_a = document.getElementById("root")) == null ? void 0 : _a.requestFullscreen();
                   },
-                  children: jsx(FullscreenIcon, {}, "fs")
+                  children: jsx4(FullscreenIcon, {}, "fs")
                 }, "fullscreen"),
-                jsx(QRButton, {
+                jsx4(QRButton, {
                   url: location.origin + `/live/${room}/public`
                 }, `qr-${hashCode4}`),
-                jsx(Fab_default, {
+                jsx4(Fab_default, {
                   onClick: () => open(`/live/${room}/public`),
-                  children: jsx(Share, {})
+                  children: jsx4(Share, {})
                 }, "Share")
               ]
             })
@@ -27880,8 +27859,9 @@ init_define_process();
 // js/renderToString.tsx
 init_define_process();
 import { renderToString } from "/react.mjs";
+import { jsx as jsx5 } from "/emotion.mjs";
 var renderFromString = (App2) => {
-  const html = renderToString(jsx(App2, {}));
+  const html = renderToString(jsx5(App2, {}));
   return {
     html,
     css: extractCritical(html)
@@ -27965,6 +27945,7 @@ function isMobile() {
 
 // js/Editor.tsx
 var import_lodash = __toESM(require_lodash(), 1);
+import { jsx as jsx6 } from "/emotion.mjs";
 var runnerDebounced = (0, import_lodash.default)(runner, 100, {
   trailing: true,
   leading: true,
@@ -28115,14 +28096,14 @@ var Editor = ({ code, i: i2, codeSpace: codeSpace2 }) => {
       }));
     }, 300);
   }, "editor");
-  return engine === "monaco" ? jsx("div", {
+  return engine === "monaco" ? jsx6("div", {
     "data-test-id": myId,
     css: css`
 max-width: 640px;
 height: ${60 + lines / 40 * 100}% ;
 `,
     ref
-  }) : jsx("div", {
+  }) : jsx6("div", {
     "data-test-id": myId,
     css: css`
   margin: 0;
@@ -28138,7 +28119,8 @@ height: ${60 + lines / 40 * 100}% ;
 };
 
 // js/renderPreviewWindow.tsx
-var RainbowContainer = ({ children: children2 }) => jsx("div", {
+import { jsx as jsx7, jsxs as jsxs2 } from "/emotion.mjs";
+var RainbowContainer = ({ children: children2 }) => jsx7("div", {
   css: css`
 height: 100%;
 width: 100%;
@@ -28209,27 +28191,27 @@ var AppToRender = ({ codeSpace: codeSpace2, children: children2 }) => {
   const portalNode = useMemo8(() => createHtmlPortalNode({
     attributes: { id: `root-${codeSpace2}`, style: "height: 100%" }
   }), []);
-  return jsxs(Fragment11, {
+  return jsxs2(Fragment11, {
     children: [
-      jsx(InPortal, {
+      jsx7(InPortal, {
         node: portalNode,
-        children: jsx(AutoUpdateApp, {
+        children: jsx7(AutoUpdateApp, {
           hash: hash4,
           starter: children2
         })
       }),
-      isStandalone ? jsx(OutPortal, {
+      isStandalone ? jsx7(OutPortal, {
         node: portalNode
-      }) : jsxs(RainbowContainer, {
+      }) : jsxs2(RainbowContainer, {
         children: [
-          jsx(DraggableWindow, {
+          jsx7(DraggableWindow, {
             hashCode: 0,
             room: codeSpace2,
-            children: jsx(OutPortal, {
+            children: jsx7(OutPortal, {
               node: portalNode
             })
           }),
-          jsx(Editor, {
+          jsx7(Editor, {
             code: mST().code,
             i: mST().i,
             codeSpace: codeSpace2
@@ -28242,7 +28224,7 @@ var AppToRender = ({ codeSpace: codeSpace2, children: children2 }) => {
 var renderPreviewWindow = (codeSpace2, App2) => {
   return hydrateRoot(
     document.getElementById("root"),
-    jsx(AppToRender, {
+    jsx7(AppToRender, {
       codeSpace: codeSpace2,
       children: App2
     })
