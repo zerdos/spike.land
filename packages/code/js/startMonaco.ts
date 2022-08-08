@@ -68,8 +68,8 @@ export const monacoContribution = async (
     noEmitOnError: true,
     maxNodeModuleJsDepth: 10,
 
-    jsxImportSource: "@emotion/react",
-    jsx: typescript.JsxEmit.ReactJSX,
+    // jsxImportSource: "@emo   xx       tion/react",
+    jsx: typescript.JsxEmit. ReactJSX,
     allowUmdGlobalAccess: true,
   });
 
