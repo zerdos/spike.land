@@ -70,10 +70,11 @@ import {
   useVisualElementContext,
   visualElement,
   wrapHandler
-} from "./chunk-J3ACSPWQ.mjs";
+} from "./chunk-ZJEJGAAQ.mjs";
+import "./chunk-SJTURW5B.mjs";
 import {
   init_define_process
-} from "./chunk-CY4CZGSG.mjs";
+} from "./chunk-T3CEAVR4.mjs";
 
 // framer-motion.ts
 init_define_process();

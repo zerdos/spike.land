@@ -1,3 +1,4 @@
+
 import * as Preact from "preact";
 import PreactCompat from "preact/compat";
 import {
@@ -5,7 +6,7 @@ import {
   lazy as laz,
   render as rend,
   Suspense as Sus,
-  SuspenseList as SusL,
+  SuspenseList as SusL,  
   unmountComponentAtNode as unm,
 } from "preact/compat";
 
@@ -17,6 +18,8 @@ import {
   jsxDEV as jd,
   jsxs as js,
 } from "preact/jsx-runtime";
+
+
 
 window.ReactDOM = window.ReactDOM ||
   {

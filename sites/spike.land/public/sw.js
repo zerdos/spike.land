@@ -6,7 +6,6 @@
   var __getOwnPropNames = Object.getOwnPropertyNames;
   var __getProtoOf = Object.getPrototypeOf;
   var __hasOwnProp = Object.prototype.hasOwnProperty;
-  var __defNormalProp = (obj, key, value) => key in obj ? __defProp(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
   var __esm = (fn, res) => function __init() {
     return fn && (res = (0, fn[__getOwnPropNames(fn)[0]])(fn = 0)), res;
   };
@@ -25,28 +24,6 @@
     isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
     mod
   ));
-  var __publicField = (obj, key, value) => {
-    __defNormalProp(obj, typeof key !== "symbol" ? key + "" : key, value);
-    return value;
-  };
-  var __accessCheck = (obj, member, msg) => {
-    if (!member.has(obj))
-      throw TypeError("Cannot " + msg);
-  };
-  var __privateGet = (obj, member, getter) => {
-    __accessCheck(obj, member, "read from private field");
-    return getter ? getter.call(obj) : member.get(obj);
-  };
-  var __privateAdd = (obj, member, value) => {
-    if (member.has(obj))
-      throw TypeError("Cannot add the same private member more than once");
-    member instanceof WeakSet ? member.add(obj) : member.set(obj, value);
-  };
-  var __privateSet = (obj, member, value, setter) => {
-    __accessCheck(obj, member, "write to private field");
-    setter ? setter.call(obj, value) : member.set(obj, value);
-    return value;
-  };
 
   // <define:process>
   var init_define_process = __esm({
@@ -461,8 +438,9 @@
 
   // ../../node_modules/p-map/node_modules/aggregate-error/index.js
   var cleanInternalStack = (stack) => stack.replace(/\s+at .*aggregate-error\/index.js:\d+:\d+\)?/g, "");
-  var _errors;
   var AggregateError = class extends Error {
+    #errors;
+    name = "AggregateError";
     constructor(errors) {
       if (!Array.isArray(errors)) {
         throw new TypeError(`Expected input to be an Array, got ${typeof errors}`);
@@ -481,15 +459,12 @@
       }).join("\n");
       message = "\n" + indentString(message, 4);
       super(message);
-      __privateAdd(this, _errors, void 0);
-      __publicField(this, "name", "AggregateError");
-      __privateSet(this, _errors, errors);
+      this.#errors = errors;
     }
     get errors() {
-      return __privateGet(this, _errors).slice();
+      return this.#errors.slice();
     }
   };
-  _errors = new WeakMap();
 
   // ../../node_modules/p-map/index.js
   var AbortError = class extends Error {
