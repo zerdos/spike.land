@@ -13,6 +13,12 @@ const jsonData = {
     "react-dom/client": "/react.mjs",
     "react-dom/server": "/react.mjs",
     "react/jsx-runtime": "/react.mjs",
+    "react/jsx-dev-runtime": "/react.mjs",
+
+    "@emotion/react/jsx-runtime": "/emotion.mjs",
+
+    "@emotion/react/jsx-dev-runtime": "/emotion.mjs",
+    
     // "preact": "https://ga.jspm.io/npm:preact@10.8.2/dist/preact.module.js",
     // "preact-render-to-string": "https://ga.jspm.io/npm:preact-render-to-string@5.2.0/dist/index.mjs",
     // "preact/compat": "https://ga.jspm.io/npm:preact@10.8.2/compat/dist/compat.module.js",

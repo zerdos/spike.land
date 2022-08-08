@@ -5,7 +5,6 @@ import manifestJSON from "__STATIC_CONTENT_MANIFEST";
 import { handleErrors } from "./handleErrors";
 import { CodeEnv } from "./env";
 
-
 const imap = {
   "imports": {
     // ...imap,
