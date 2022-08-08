@@ -1,59 +1,56 @@
 
-import * as Preact from "preact";
-import PreactCompat from "preact/compat";
-import {
-  hydrate as hy,
-  lazy as laz,
-  render as rend,
-  Suspense as Sus,
-  SuspenseList as SusL,  
-  unmountComponentAtNode as unm,
-} from "preact/compat";
+import * as  Preact from "preact"
 
-import { renderToString as renderToStr } from "preact-render-to-string";
+// import { createContext  } from "preact/compat"
+
+
+import {createPortal, SuspenseList,
+  findDOMNode} from "preact/compat"
+
+import PreactCompat from "preact/compat"
+
+const React = window.React = window.React || {...Preact, ...PreactCompat, createPortal, SuspenseList,
+  findDOMNode};
+
+  export const {createContext} = React;
+
+
+import { renderToString  } from "preact-render-to-string";
 
 import {
-  JSX as jjx,
-  jsx as j,
-  jsxDEV as jd,
-  jsxs as js,
+  JSX,
+  jsx,
+  jsxDEV,
+  jsxs
 } from "preact/jsx-runtime";
 
 
 
-window.ReactDOM = window.ReactDOM ||
-  {
-    hydrate: hy,
-    render: rend,
-    unmountComponentAtNode: unm,
-    renderToString: renderToStr,
-  };
 
-window.PreactJSX = window.PreactJSX || { jsx: j, jsxDEV: jd, jsxs: js };
-window.renderToString = window.renderToString || renderToStr;
+// window.PreactJSX = window.PreactJSX || { jsx: j, jsxDEV: jd, jsxs: js };
+// window.renderToString = window.renderToString || renderToStr;
 
-window.React = window.React ||
-  { ...PreactCompat, lazy: laz, Suspense: Sus, SuspenseList: SusL };
 
-window.MyPreact = window.MyPreact || Preact;
+export  { jsx, jsxDEV, jsxs }
 
-export const { jsx, jsxDEV, jsxs } = window.PreactJSX;
+export const { Fragment } = React;
 
-export const { Fragment } = Preact;
-
-export const { hydrate, render, unmountComponentAtNode } = window.ReactDOM;
+export const { hydrate, render, unmountComponentAtNode } = React;
 // @ts-ignore
-export const { renderToString } = window;
+export  { renderToString } ;
 
-export const { toChildArray } = Preact;
-export default PreactCompat;
+// export const { toChildArray } = PreactCompat;
+export default React;
+
+export {createPortal,   SuspenseList,
+  findDOMNode
+};
 
 export const {
-  createContext,
   createElement,
   cloneElement,
   createFactory,
-  createPortal,
+
   createRef,
   useCallback,
   useContext,
@@ -69,15 +66,13 @@ export const {
   lazy,
   Suspense,
   StrictMode,
-  SuspenseList,
-  findDOMNode,
   forwardRef,
   memo,
   Children,
   PureComponent,
   Component,
   version,
-} = window.React;
+} = React;
 
 export const flushSync = (callback: (arg: boolean) => void, arg: boolean) =>
   callback(arg);

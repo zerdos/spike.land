@@ -7,7 +7,7 @@ import { isMobile } from "./isMobile.mjs";
 
 import { css } from "@emotion/react";
 import debounce from "lodash.debounce";
-import { wait } from "wait";
+import { wait } from "./wait";
 
 const runnerDebounced = debounce(runner, 100, {
   trailing: true,
