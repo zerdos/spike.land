@@ -1,6 +1,6 @@
 // export * from "@emotion/react";
 
-window.EmotionReact = window.EmotionReact || await import("@emotion/react");
+window.EmotionReact = window.EmotionReact || (await import("@emotion/react")).default;
 
 // import createCache from "@emotion/cache";
 
