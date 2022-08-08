@@ -1,5 +1,3 @@
-
-
 import { Record } from "immutable";
 
 import { applyPatch as aPatch, createDelta, Delta } from "./textDiff";

@@ -1,50 +1,35 @@
-
-import * as  Preact from "preact"
+import * as Preact from "preact";
 
 // import { createContext  } from "preact/compat"
 
+import { createPortal, findDOMNode, SuspenseList } from "preact/compat";
 
-import {createPortal, SuspenseList,
-  findDOMNode} from "preact/compat"
+import PreactCompat from "preact/compat";
 
-import PreactCompat from "preact/compat"
+const React = window.React = window.React ||
+  { ...Preact, ...PreactCompat, createPortal, SuspenseList, findDOMNode };
 
-const React = window.React = window.React || {...Preact, ...PreactCompat, createPortal, SuspenseList,
-  findDOMNode};
+export const { createContext } = React;
 
-  export const {createContext} = React;
+import { renderToString } from "preact-render-to-string";
 
-
-import { renderToString  } from "preact-render-to-string";
-
-import {
-  JSX,
-  jsx,
-  jsxDEV,
-  jsxs
-} from "preact/jsx-runtime";
-
-
-
+import { JSX, jsx, jsxDEV, jsxs } from "preact/jsx-runtime";
 
 // window.PreactJSX = window.PreactJSX || { jsx: j, jsxDEV: jd, jsxs: js };
 // window.renderToString = window.renderToString || renderToStr;
 
-
-export  { jsx, jsxDEV, jsxs }
+export { jsx, jsxDEV, jsxs };
 
 export const { Fragment } = React;
 
 export const { hydrate, render, unmountComponentAtNode } = React;
 // @ts-ignore
-export  { renderToString } ;
+export { renderToString };
 
 // export const { toChildArray } = PreactCompat;
 export default React;
 
-export {createPortal,   SuspenseList,
-  findDOMNode
-};
+export { createPortal, findDOMNode, SuspenseList };
 
 export const {
   createElement,

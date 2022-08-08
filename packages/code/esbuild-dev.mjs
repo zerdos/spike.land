@@ -2,7 +2,7 @@ import esbuild from "esbuild";
 
 import * as importMap from "esbuild-plugin-import-map";
 import alias from "esbuild-plugin-alias";
-import { viteCommonjs, esbuildCommonjs } from '@originjs/vite-plugin-commonjs';
+import { esbuildCommonjs, viteCommonjs } from "@originjs/vite-plugin-commonjs";
 
 const jsonData = {
   "imports": {
@@ -19,7 +19,7 @@ const jsonData = {
     // "../../node_modules/@emotion/react/jsx-runtime/dist/emotion-react-jsx-runtime.cjs.js": "/emotion.mjs",
 
     // "@emotion/react/jsx-dev-runtime": "/emotion.mjs",
-    
+
     // "preact": "https://ga.jspm.io/npm:preact@10.8.2/dist/preact.module.js",
     // "preact-render-to-string": "https://ga.jspm.io/npm:preact-render-to-string@5.2.0/dist/index.mjs",
     // "preact/compat": "https://ga.jspm.io/npm:preact@10.8.2/compat/dist/compat.module.js",
@@ -70,9 +70,9 @@ const buildOptions = {
   legalComments: "none",
   plugins: [
     alias({
-      "react":  new URL("./react.ts", import.meta.url).pathname,
-      "react-dom":  new URL("./react.ts", import.meta.url).pathname,
-      "react-dom/server":  new URL("./react.ts", import.meta.url).pathname,
+      "react": new URL("./react.ts", import.meta.url).pathname,
+      "react-dom": new URL("./react.ts", import.meta.url).pathname,
+      "react-dom/server": new URL("./react.ts", import.meta.url).pathname,
       "react-dom/client": new URL("./react.ts", import.meta.url).pathname,
       "react/jsx-runtime": new URL("./react.ts", import.meta.url).pathname,
       "react/jsx-dev-runtime": new URL("./react.ts", import.meta.url).pathname,
@@ -83,7 +83,7 @@ const buildOptions = {
       ).pathname,
     }),
     importMapPlugin,
-    esbuildCommonjs(['/react.mjs']),
+    esbuildCommonjs(["/react.mjs"]),
     // alias({
     //   "path": "path-browserify"
     //   // "stream": "stream-browserify",
@@ -138,9 +138,9 @@ await esbuild.build({
   ignoreAnnotations: false,
   plugins: [
     alias({
-      "react":  new URL("./react.ts", import.meta.url).pathname,
-      "react-dom":  new URL("./react.ts", import.meta.url).pathname,
-      "react-dom/server":  new URL("./react.ts", import.meta.url).pathname,
+      "react": new URL("./react.ts", import.meta.url).pathname,
+      "react-dom": new URL("./react.ts", import.meta.url).pathname,
+      "react-dom/server": new URL("./react.ts", import.meta.url).pathname,
       "react-dom/client": new URL("./react.ts", import.meta.url).pathname,
       "react/jsx-runtime": new URL("./react.ts", import.meta.url).pathname,
       "react/jsx-dev-runtime": new URL("./react.ts", import.meta.url).pathname,

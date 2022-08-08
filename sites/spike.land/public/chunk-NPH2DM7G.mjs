@@ -1061,13 +1061,7 @@ var init_react = __esm({
     init_compat_module();
     init_dist();
     init_jsxRuntime_module();
-    React = window.React = window.React || {
-      ...preact_module_exports,
-      ...compat_module_default,
-      createPortal: V,
-      SuspenseList: D,
-      findDOMNode: on
-    };
+    React = window.React = window.React || { ...preact_module_exports, ...compat_module_default, createPortal: V, SuspenseList: D, findDOMNode: on };
     ({ createContext } = React);
     ({ Fragment } = React);
     ({ hydrate, render, unmountComponentAtNode } = React);
