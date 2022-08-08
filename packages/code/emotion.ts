@@ -9,12 +9,12 @@ import  { jsxs } from "@emotion/react/jsx-runtime";
 // export { JSX } from "@emotion/react/jsx-runtime";
 
 // export const ss = JSX.
-export const  { jsx } = EmotionReact ;
+export const  { jsx } = window.EmotionReact ;
 export  { jsxs };
 
 
 
-export const { css } = EmotionReact;
+export const { css } = window.EmotionReact;
 // export const { CacheProvider } = emotionReact;
 // export const { ClassNames } = emotionReact;
 // export const { Global } = emotionReact;
@@ -27,4 +27,4 @@ export const { css } = EmotionReact;
 // export const { withEmotionCache } = emotionReact;
 // export const { withTheme } = emotionReact;
 
-export default EmotionReact;
+export default window.EmotionReact;
