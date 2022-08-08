@@ -2,22 +2,23 @@ import esbuild from "esbuild";
 
 import * as importMap from "esbuild-plugin-import-map";
 import alias from "esbuild-plugin-alias";
+import { viteCommonjs, esbuildCommonjs } from '@originjs/vite-plugin-commonjs';
 
 const jsonData = {
   "imports": {
     // ...imap,
     // "framer-motion": "/framer-motion.mjs",
     // "@emotion/react": "/emotion.mjs",
-    "react": "/react.mjs",
-    "react-dom": "/react.mjs",
-    "react-dom/client": "/react.mjs",
-    "react-dom/server": "/react.mjs",
-    "react/jsx-runtime": "/react.mjs",
-    "react/jsx-dev-runtime": "/react.mjs",
+    // "react": "/react.mjs",
+    // "react-dom": "/react.mjs",
+    // "react-dom/client": "/react.mjs",
+    // "react-dom/server": "/react.mjs",
+    // "react/jsx-runtime": "/react.mjs",
+    // "react/jsx-dev-runtime": "/react.mjs",
 
-    "@emotion/react/jsx-runtime": "/emotion.mjs",
+    // "../../node_modules/@emotion/react/jsx-runtime/dist/emotion-react-jsx-runtime.cjs.js": "/emotion.mjs",
 
-    "@emotion/react/jsx-dev-runtime": "/emotion.mjs",
+    // "@emotion/react/jsx-dev-runtime": "/emotion.mjs",
     
     // "preact": "https://ga.jspm.io/npm:preact@10.8.2/dist/preact.module.js",
     // "preact-render-to-string": "https://ga.jspm.io/npm:preact-render-to-string@5.2.0/dist/index.mjs",
@@ -63,12 +64,26 @@ const define = {
 
 const buildOptions = {
   define,
-  target: "es2018",
+  target: "es2022",
   platform: "browser",
   external: ["./mST"],
   legalComments: "none",
   plugins: [
+    alias({
+      "react":  new URL("./react.ts", import.meta.url).pathname,
+      "react-dom":  new URL("./react.ts", import.meta.url).pathname,
+      "react-dom/server":  new URL("./react.ts", import.meta.url).pathname,
+      "react-dom/client": new URL("./react.ts", import.meta.url).pathname,
+      "react/jsx-runtime": new URL("./react.ts", import.meta.url).pathname,
+      "react/jsx-dev-runtime": new URL("./react.ts", import.meta.url).pathname,
+      "path": new URL("./path/index.js", import.meta.url).pathname,
+      "stream": new URL(
+        "../../node_modules/stream-browserify/index.js",
+        import.meta.url,
+      ).pathname,
+    }),
     importMapPlugin,
+    esbuildCommonjs(['/react.mjs']),
     // alias({
     //   "path": "path-browserify"
     //   // "stream": "stream-browserify",
@@ -123,6 +138,12 @@ await esbuild.build({
   ignoreAnnotations: false,
   plugins: [
     alias({
+      "react":  new URL("./react.ts", import.meta.url).pathname,
+      "react-dom":  new URL("./react.ts", import.meta.url).pathname,
+      "react-dom/server":  new URL("./react.ts", import.meta.url).pathname,
+      "react-dom/client": new URL("./react.ts", import.meta.url).pathname,
+      "react/jsx-runtime": new URL("./react.ts", import.meta.url).pathname,
+      "react/jsx-dev-runtime": new URL("./react.ts", import.meta.url).pathname,
       "path": new URL("./path/index.js", import.meta.url).pathname,
       "stream": new URL(
         "../../node_modules/stream-browserify/index.js",

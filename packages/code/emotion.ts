@@ -4,7 +4,7 @@ import  * as emotionReact from "@emotion/react";
 
 // import createCache from "@emotion/cache";
 
-import  { jsxs } from "@emotion/react/jsx-runtime/dist/emotion-react-jsx-runtime.browser.esm";
+import  { jsxs } from "@emotion/react/jsx-runtime";
 //
 // export { JSX } from "@emotion/react/jsx-runtime";
 
