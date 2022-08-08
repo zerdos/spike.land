@@ -28020,7 +28020,7 @@ async function runner({ code, counter }) {
     return;
   }
   i = counter;
-  const { init } = await import("../esbuildEsm-JVICRXXD.mjs");
+  const { init } = await import("../esbuildEsm-RCZNQID5.mjs");
   transform2 = transform2 || await init();
   if (code === mST().code)
     return;
@@ -28145,7 +28145,7 @@ var Editor = ({ code, i: i2, codeSpace: codeSpace2 }) => {
       }));
     };
     const setAce = async () => {
-      const { startAce } = await import("../startAce-Y6YSFYX6.mjs");
+      const { startAce } = await import("../startAce-ZTLOTYEQ.mjs");
       const editor = await startAce(mST().code);
       changeContent((x) => ({
         ...x,
