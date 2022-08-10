@@ -63,7 +63,7 @@
     "skipLibCheck": false, /* Skip type checking of declaration files. */
     "forceConsistentCasingInFileNames": true, /* Disallow inconsistently-cased references to the same file. */
 
-    "types": ["@cloudflare/workers-types", "@cloudflare/kv-asset-handler"]
+    "types": ["@cloudflare/workers-types"]
   },
   "include": [
     "packages/code/js",

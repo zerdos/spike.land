@@ -11,7 +11,7 @@ import {
   mST,
   startSession,
 } from "@spike.land/code/js/session";
-import { Delta } from "@spike.land/code/js/textDif";
+// import { Delta } from "@spike.land/code/js/";
 // import importMap from "@spike.land/code/js/importmap.json";
 import { getBackupSession } from "./getBackupSession";
 
@@ -153,30 +153,30 @@ export class Code {
         //     },
         //   });
         // }
-        case "delta":
-          type Diff = [-1 | 0 | 1, string];
+        // case "delta":
+        //   type Diff = [-1 | 0 | 1, string];
 
-          const delta = await this.kv.get<{
-            hashCode: number;
-            delta: Diff[][];
-          }>("delta");
+        //   const delta = await this.kv.get<{
+        //     hashCode: number;
+        //     delta: Diff[][];
+        //   }>("delta");
 
-          let deltaDiffs: Diff[][];
+        //   let deltaDiffs: Diff[][];
 
-          if (!delta || delta.hashCode !== hashCode()) {
-            deltaDiffs = [];
-          } else {
-            deltaDiffs = delta.delta;
-          }
+        //   if (!delta || delta.hashCode !== hashCode()) {
+        //     deltaDiffs = [];
+        //   } else {
+        //     deltaDiffs = delta.delta;
+        //   }
 
-          return new Response(JSON.stringify(deltaDiffs || []), {
-            status: 200,
-            headers: {
-              "Access-Control-Allow-Origin": "*",
-              "Cache-Control": "no-cache",
-              "Content-Type": "application/json; charset=UTF-8",
-            },
-          });
+        //   return new Response(JSON.stringify(deltaDiffs || []), {
+        //     status: 200,
+        //     headers: {
+        //       "Access-Control-Allow-Origin": "*",
+        //       "Cache-Control": "no-cache",
+        //       "Content-Type": "application/json; charset=UTF-8",
+        //     },
+        //   });
         case "lazy":
           const { html, css, transpiled } = mST();
           const hash = hashCode();

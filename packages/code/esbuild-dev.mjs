@@ -40,7 +40,7 @@ const isDevelopment = environment === "development";
 importMap.load(jsonData);
 const importMapPlugin = importMap.plugin();
 
-const outDir = "../../sites/spike.land/public";
+const outDir = "./dist";
 console.log(`
 -------------------------------------------------
 --------------${environment}---------------------
@@ -115,6 +115,8 @@ await esbuild.build({
     ".d.ts": "dataurl",
     ".css": "css",
     ".ttf": "file",
+    ".wasm": "file",
+
   },
 
   outdir: "./js/monaco-editor",
@@ -232,18 +234,20 @@ const build = (entryPoints, format = "esm") =>
       ".monaco.worker.js": "file",
       ".wasm": "file",
     },
-    outdir: "../../sites/spike.land/public",
+    outdir: "./dist",
   }).catch((e) => {
     console.error(e);
     process.exit(1);
   });
 
-await build([
-  "js/ws.ts",
-  // "js/rtc.ts",     
-  "react.ts",
-  "framer-motion.ts",
-  "emotion.ts",
+await build([ 
+    "./js/session.ts",
+    "js/ws.ts",
+    // "js/rtc.ts",     
+    "react.ts",
+    "framer-motion.ts",
+    "emotion.ts",
 ]);
+// ]);
 
-await build;
+// await build;

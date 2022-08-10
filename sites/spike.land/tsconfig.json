@@ -2,9 +2,11 @@
   "compilerOptions": {
     "allowJs": true,
     "target": "es2021",
-    "module": "esnext",
+    "module": "ESNext",
     "lib": ["ES2021", "ESNext.String", "ES5", "ES2015"],
     "alwaysStrict": true,
+    "importHelpers": true,
+    "downlevelIteration": true,
     "strict": true,
     "noEmit": false,
     "forceConsistentCasingInFileNames": true,
@@ -18,6 +20,5 @@
     "types": ["@cloudflare/workers-types", "@cloudflare/kv-asset-handler"]
   },
   "include": [
-    "./src/*.ts"
-, "src/rtc.mjs"  ]
+    "src"  ]
 }
