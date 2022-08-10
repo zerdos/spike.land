@@ -1,7 +1,7 @@
 import esbuild from "esbuild";
 
 import * as importMap from "esbuild-plugin-import-map";
-import alias from "esbuild-plugin-alias";
+import alias from "esbuild-plugin-alias";   
 import { esbuildCommonjs, viteCommonjs } from "@originjs/vite-plugin-commonjs";
 
 const jsonData = {
