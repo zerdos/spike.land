@@ -4,23 +4,22 @@ import {
   domAnimation,
   domMax,
   m as m2
-} from "../chunk-JKKQ6IWT.mjs";
+} from "../chunk-YJO64AIT.mjs";
 import {
   require_emotion_react_jsx_runtime_cjs
-} from "../chunk-HZNUKSYZ.mjs";
+} from "../chunk-GSP6SU4D.mjs";
 import {
   require_emotion_react_cjs
-} from "../chunk-JSVCPUOT.mjs";
+} from "../chunk-4P5K7ATA.mjs";
 import {
   require_emotion_cache_cjs,
   require_emotion_memoize_cjs,
   require_emotion_serialize_cjs,
   require_emotion_utils_cjs,
   require_extends
-} from "../chunk-DKHFQNQ5.mjs";
+} from "../chunk-BLB2DSDB.mjs";
 import {
   Children,
-  Fragment,
   PureComponent,
   V,
   cloneElement,
@@ -35,19 +34,21 @@ import {
   isValidElement,
   m,
   memo,
+  p,
   react_default,
   react_exports,
   useCallback,
   useContext,
   useDebugValue,
   useEffect,
+  useId,
   useImperativeHandle,
   useLayoutEffect,
   useMemo,
   useReducer,
   useRef,
   useState
-} from "../chunk-NPH2DM7G.mjs";
+} from "../chunk-RZXEG3RS.mjs";
 import {
   wait
 } from "../chunk-CUFA5RQS.mjs";
@@ -2991,7 +2992,7 @@ var require_react_is_development = __commonJS({
         var ContextProvider = REACT_PROVIDER_TYPE;
         var Element2 = REACT_ELEMENT_TYPE;
         var ForwardRef2 = REACT_FORWARD_REF_TYPE;
-        var Fragment2 = REACT_FRAGMENT_TYPE;
+        var Fragment = REACT_FRAGMENT_TYPE;
         var Lazy = REACT_LAZY_TYPE;
         var Memo2 = REACT_MEMO_TYPE;
         var Portal3 = REACT_PORTAL_TYPE;
@@ -3050,7 +3051,7 @@ var require_react_is_development = __commonJS({
         exports.ContextProvider = ContextProvider;
         exports.Element = Element2;
         exports.ForwardRef = ForwardRef2;
-        exports.Fragment = Fragment2;
+        exports.Fragment = Fragment;
         exports.Lazy = Lazy;
         exports.Memo = Memo2;
         exports.Portal = Portal3;
@@ -3787,7 +3788,7 @@ var require_react_is_development2 = __commonJS({
         var ContextProvider = REACT_PROVIDER_TYPE;
         var Element2 = REACT_ELEMENT_TYPE;
         var ForwardRef2 = REACT_FORWARD_REF_TYPE;
-        var Fragment2 = REACT_FRAGMENT_TYPE;
+        var Fragment = REACT_FRAGMENT_TYPE;
         var Lazy = REACT_LAZY_TYPE;
         var Memo2 = REACT_MEMO_TYPE;
         var Portal3 = REACT_PORTAL_TYPE;
@@ -3855,7 +3856,7 @@ var require_react_is_development2 = __commonJS({
         exports.ContextProvider = ContextProvider;
         exports.Element = Element2;
         exports.ForwardRef = ForwardRef2;
-        exports.Fragment = Fragment2;
+        exports.Fragment = Fragment;
         exports.Lazy = Lazy;
         exports.Memo = Memo2;
         exports.Portal = Portal3;
@@ -9519,12 +9520,12 @@ init_define_process();
     return applyPackages(resolvedOrPlain, importMap2.imports) || resolvedOrPlain.indexOf(":") !== -1 && resolvedOrPlain;
   }
   function resolveAndComposePackages(packages, outPackages, baseUrl2, parentMap) {
-    for (let p2 in packages) {
-      const resolvedLhs = resolveIfNotPlainOrUrl(p2, baseUrl2) || p2;
+    for (let p3 in packages) {
+      const resolvedLhs = resolveIfNotPlainOrUrl(p3, baseUrl2) || p3;
       if ((!shimMode || !mapOverrides) && outPackages[resolvedLhs] && outPackages[resolvedLhs] !== packages[resolvedLhs]) {
         throw Error(`Rejected map override "${resolvedLhs}" from ${outPackages[resolvedLhs]} to ${packages[resolvedLhs]}.`);
       }
-      let target = packages[p2];
+      let target = packages[p3];
       if (typeof target !== "string")
         continue;
       const mapped = resolveImportMap(parentMap, resolveIfNotPlainOrUrl(target, baseUrl2) || target, baseUrl2);
@@ -9532,7 +9533,7 @@ init_define_process();
         outPackages[resolvedLhs] = mapped;
         continue;
       }
-      console.warn(`Mapping "${p2}" -> "${packages[p2]}" does not resolve`);
+      console.warn(`Mapping "${p3}" -> "${packages[p3]}" does not resolve`);
     }
   }
   let err;
@@ -9597,7 +9598,7 @@ init_define_process();
             resolve2();
           };
           const supportsSrcDoc = iframe.contentDocument.head.childNodes.length > 0;
-          const importMapTest = `<!doctype html><script type=importmap nonce="${nonce}">{"imports":{"x":"${createBlob("")}"}<${""}/script><script nonce="${nonce}">Promise.all([${supportsImportMaps ? "true, true" : `'x', '${importMetaCheck}'`}, ${cssModulesEnabled ? `'${cssModulesCheck}'` : "false"}, ${jsonModulesEnabled ? `'${jsonModulesCheck}'` : "false"}].map(x => typeof x === 'string' ? import(x).then(x => !!x, () => false) : x)).then(a=>parent._$s.apply(null, a))<${""}/script>`;
+          const importMapTest = `<!doctype html><script type=importmap nonce="${nonce}">{"imports":{"x":"${createBlob("")}"}}<${""}/script><script nonce="${nonce}">Promise.all([${supportsImportMaps ? "true, true" : `'x', '${importMetaCheck}'`}, ${cssModulesEnabled ? `'${cssModulesCheck}'` : "false"}, ${jsonModulesEnabled ? `'${jsonModulesCheck}'` : "false"}].map(x => typeof x === 'string' ? import(x).then(x => !!x, () => false) : x)).then(a=>parent._$s.apply(null, a))<${""}/script>`;
           if (supportsSrcDoc)
             iframe.srcdoc = importMapTest;
           else
@@ -9892,7 +9893,7 @@ init_define_process();
                                     }
                                     a3 = t2[63] | 0;
                                     r4 = f2[386] | 0;
-                                    if (!(p2(t2[a3 + (r4 << 3) + 4 >> 2] | 0) | 0) ? (t2[a3 + (r4 << 3) >> 2] | 0) != 6 : 0)
+                                    if (!(p3(t2[a3 + (r4 << 3) + 4 >> 2] | 0) | 0) ? (t2[a3 + (r4 << 3) >> 2] | 0) != 6 : 0)
                                       b3 = 66;
                                     else
                                       b3 = 69;
@@ -10840,7 +10841,7 @@ init_define_process();
             Q();
           return;
         }
-        function p2(e4) {
+        function p3(e4) {
           e4 = e4 | 0;
           switch (s2[e4 >> 1] | 0) {
             case 62: {
@@ -11459,9 +11460,9 @@ init_define_process();
             for (const node of mutation.addedNodes) {
               if (node.tagName === "SCRIPT") {
                 if (node.type === (shimMode ? "module-shim" : "module"))
-                  processScript(node);
+                  processScript(node, true);
                 if (node.type === (shimMode ? "importmap-shim" : "importmap"))
-                  processImportMap(node);
+                  processImportMap(node, true);
               } else if (node.tagName === "LINK" && node.rel === (shimMode ? "modulepreload-shim" : "modulepreload")) {
                 processPreload(node);
               }
@@ -11619,16 +11620,16 @@ init_define_process();
   const jsonContentType = /^(text|application)\/json(;|$)/;
   const cssContentType = /^(text|application)\/css(;|$)/;
   const cssUrlRegEx = /url\(\s*(?:(["'])((?:\\.|[^\n\\"'])+)\1|((?:\\.|[^\s,"'()\\])+))\s*\)/g;
-  let p = [];
+  let p2 = [];
   let c = 0;
   function pushFetchPool() {
     if (++c > 100)
-      return new Promise((r3) => p.push(r3));
+      return new Promise((r3) => p2.push(r3));
   }
   function popFetchPool() {
     c--;
-    if (p.length)
-      p.shift()();
+    if (p2.length)
+      p2.shift()();
   }
   async function doFetch(url, fetchOpts, parent) {
     if (enforceIntegrity && !fetchOpts.integrity)
@@ -11767,10 +11768,11 @@ init_define_process();
     if (--readyStateCompleteCnt === 0 && !noLoadEventRetriggers)
       document.dispatchEvent(new Event("readystatechange"));
   }
-  function processImportMap(script) {
-    if (script.ep || !script.src && !script.innerHTML)
+  const hasNext = (script) => script.nextSibling || script.parentNode && hasNext(script.parentNode);
+  const epCheck = (script, ready) => script.ep || !ready && (!script.src && !script.innerHTML || !hasNext(script)) || script.getAttribute("noshim") !== null || !(script.ep = true);
+  function processImportMap(script, ready = readyStateCompleteCnt > 0) {
+    if (epCheck(script, ready))
       return;
-    script.ep = true;
     if (script.src) {
       if (!shimMode)
         return;
@@ -11779,16 +11781,18 @@ init_define_process();
     if (acceptingImportMaps) {
       importMapPromise = importMapPromise.then(async () => {
         importMap = resolveAndComposeImportMap(script.src ? await (await doFetch(script.src, getFetchOpts(script))).json() : JSON.parse(script.innerHTML), script.src || baseUrl, importMap);
-      }).catch(throwError);
+      }).catch((e3) => {
+        console.log(e3);
+        if (e3 instanceof SyntaxError)
+          e3 = new Error(`Unable to parse import map ${e3.message} in: ${script.src || script.innerHTML}`);
+        throwError(e3);
+      });
       if (!shimMode)
         acceptingImportMaps = false;
     }
   }
-  function processScript(script) {
-    if (script.ep || !script.src && !script.innerHTML)
-      return;
-    script.ep = true;
-    if (script.getAttribute("noshim") !== null)
+  function processScript(script, ready = readyStateCompleteCnt > 0) {
+    if (epCheck(script, ready))
       return;
     const isBlockingReadyScript = script.getAttribute("async") === null && readyStateCompleteCnt > 0;
     const isDomContentLoadedScript = domContentLoadedCnt > 0;
@@ -11966,7 +11970,7 @@ var initShims = async (assets) => location.origin.includes("localhost") ? import
     "react/jsx-runtime": location.origin + "/" + assets["react.mjs"]
   }
 });
-var App = () => (0, import_jsx_runtime.jsx)(Fragment, {});
+var App = () => (0, import_jsx_runtime.jsx)(p, {});
 var apps = {};
 var AutoUpdateApp = ({ hash: hash4, starter }) => {
   const result = md5(mST().transpiled);
@@ -12441,7 +12445,7 @@ function useGlobalId(idOverride) {
   }, [defaultId]);
   return id;
 }
-var maybeReactUseId = void 0;
+var maybeReactUseId = useId;
 function useId2(idOverride) {
   if (maybeReactUseId !== void 0) {
     const reactId = maybeReactUseId();
@@ -13445,7 +13449,7 @@ function ClickAwayListener(props) {
     }
     return void 0;
   }, [handleClickAway, mouseEvent]);
-  return e(Fragment, {
+  return e(p, {
     children: cloneElement(children2, childrenProps)
   });
 }
@@ -16031,8 +16035,8 @@ function format(str2) {
   for (var _len = arguments.length, args = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
     args[_key - 1] = arguments[_key];
   }
-  return [].concat(args).reduce(function(p, c) {
-    return p.replace(/%s/, c);
+  return [].concat(args).reduce(function(p2, c) {
+    return p2.replace(/%s/, c);
   }, str2);
 }
 
@@ -17304,7 +17308,7 @@ function TrapFocus(props) {
     }
     activated.current = true;
   };
-  return e(Fragment, {
+  return e(p, {
     children: [e("div", {
       tabIndex: 0,
       onFocus: handleFocusSentinel,
@@ -17888,7 +17892,7 @@ init_react();
 init_react();
 var _excluded10 = ["autoFocus", "children", "component", "components", "componentsProps", "defaultListboxOpen", "defaultValue", "disabled", "listboxId", "listboxOpen", "onChange", "onListboxOpenChange", "value"];
 function defaultRenderMultipleValues(selectedOptions) {
-  return e(Fragment, {
+  return e(p, {
     children: selectedOptions.map((o) => o.label).join(", ")
   });
 }
@@ -18030,7 +18034,7 @@ var MultiSelectUnstyled = forwardRef(function MultiSelectUnstyled2(props, ref) {
     getOptionState,
     listboxRef
   };
-  return e(Fragment, {
+  return e(p, {
     children: [e(Button3, _extends({}, buttonProps, {
       children: renderValue(selectedOptions)
     })), buttonDefined && e(Popper, _extends({}, popperProps, {
@@ -18096,7 +18100,7 @@ function NoSsr(props) {
       setMountedState(true);
     }
   }, [defer]);
-  return e(Fragment, {
+  return e(p, {
     children: mountedState ? children2 : fallback
   });
 }
@@ -18449,7 +18453,7 @@ var SelectUnstyled = forwardRef(function SelectUnstyled2(props, ref) {
     getOptionState,
     listboxRef
   };
-  return e(Fragment, {
+  return e(p, {
     children: [e(Button3, _extends({}, buttonProps, {
       children: renderValue(selectedOptions)
     })), buttonDefined && e(Popper, _extends({}, popperProps, {
@@ -18533,7 +18537,7 @@ function SliderValueLabelUnstyled(props) {
   const classes = useValueLabelClasses(props);
   return cloneElement(children2, {
     className: clsx_m_default(children2.props.className)
-  }, e(Fragment, {
+  }, e(p, {
     children: [children2.props.children, e("span", {
       className: clsx_m_default(classes.offset, className),
       theme,
@@ -19270,7 +19274,7 @@ var SliderUnstyled = forwardRef(function SliderUnstyled2(props, ref) {
       } else {
         markActive = track === "normal" && (range ? mark.value >= values4[0] && mark.value <= values4[values4.length - 1] : mark.value <= values4[0]) || track === "inverted" && (range ? mark.value <= values4[0] || mark.value >= values4[values4.length - 1] : mark.value >= values4[0]);
       }
-      return e(Fragment, {
+      return e(p, {
         children: [e(Mark, _extends({
           "data-index": index
         }, markProps, !isHostComponent_default(Mark) && {
@@ -19293,7 +19297,7 @@ var SliderUnstyled = forwardRef(function SliderUnstyled2(props, ref) {
       const percent = valueToPercent(value, min3, max3);
       const style4 = axisProps2[axis].offset(percent);
       const ValueLabelComponent = valueLabelDisplay === "off" ? Forward : ValueLabel;
-      return e(Fragment, {
+      return e(p, {
         children: e(ValueLabelComponent, _extends({}, !isHostComponent_default(ValueLabelComponent) && {
           valueLabelFormat,
           valueLabelDisplay,
@@ -20456,7 +20460,7 @@ var TextareaAutosize = forwardRef(function TextareaAutosize2(props, ref) {
       onChange(event);
     }
   };
-  return e(Fragment, {
+  return e(p, {
     children: [e("textarea", _extends({
       value,
       onChange: handleChange,
@@ -24206,12 +24210,12 @@ init_define_process();
 
 // ../../node_modules/@babel/runtime/helpers/esm/setPrototypeOf.js
 init_define_process();
-function _setPrototypeOf(o, p) {
-  _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf2(o2, p2) {
-    o2.__proto__ = p2;
+function _setPrototypeOf(o, p2) {
+  _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf2(o2, p3) {
+    o2.__proto__ = p3;
     return o2;
   };
-  return _setPrototypeOf(o, p);
+  return _setPrototypeOf(o, p2);
 }
 
 // ../../node_modules/@babel/runtime/helpers/esm/inheritsLoose.js
@@ -28049,9 +28053,9 @@ var __extends = function() {
     extendStatics = Object.setPrototypeOf || { __proto__: [] } instanceof Array && function(d2, b2) {
       d2.__proto__ = b2;
     } || function(d2, b2) {
-      for (var p in b2)
-        if (b2.hasOwnProperty(p))
-          d2[p] = b2[p];
+      for (var p2 in b2)
+        if (b2.hasOwnProperty(p2))
+          d2[p2] = b2[p2];
     };
     return extendStatics(d, b);
   };
@@ -28251,7 +28255,7 @@ async function runner({ code, counter }) {
     return;
   }
   i = counter;
-  const { init } = await import("../esbuildEsm-RCZNQID5.mjs");
+  const { init } = await import("../esbuildEsm-P4QDVAIT.mjs");
   transform2 = transform2 || await init();
   if (code === mST().code)
     return;
@@ -28376,7 +28380,7 @@ var Editor = ({ code, i: i2, codeSpace: codeSpace2 }) => {
       }));
     };
     const setAce = async () => {
-      const { startAce } = await import("../startAce-L2NPKTE6.mjs");
+      const { startAce } = await import("../startAce-KVN3ILE4.mjs");
       const editor = await startAce(mST().code);
       changeContent((x) => ({
         ...x,
@@ -28550,7 +28554,7 @@ var AppToRender = ({ codeSpace: codeSpace2, children: children2 }) => {
   const portalNode = useMemo(() => createHtmlPortalNode({
     attributes: { id: `root-${codeSpace2}`, style: "height: 100%" }
   }), []);
-  return (0, import_jsx_runtime.jsxs)(Fragment, {
+  return (0, import_jsx_runtime.jsxs)(p, {
     children: [
       (0, import_jsx_runtime.jsx)(InPortal, {
         node: portalNode,
