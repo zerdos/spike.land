@@ -2,7 +2,6 @@ import {
   Children,
   Component,
   D,
-  Fragment,
   PureComponent,
   StrictMode,
   Suspense,
@@ -24,6 +23,7 @@ import {
   m,
   memo,
   on,
+  p,
   react_default,
   render,
   unmountComponentAtNode,
@@ -31,6 +31,7 @@ import {
   useContext,
   useDebugValue,
   useEffect,
+  useId,
   useImperativeHandle,
   useLayoutEffect,
   useMemo,
@@ -38,13 +39,13 @@ import {
   useRef,
   useState,
   version
-} from "./chunk-NPH2DM7G.mjs";
+} from "./chunk-RZXEG3RS.mjs";
 import "./chunk-T3CEAVR4.mjs";
 init_react();
 export {
   Children,
   Component,
-  Fragment,
+  p as Fragment,
   PureComponent,
   StrictMode,
   Suspense,
@@ -75,6 +76,7 @@ export {
   useContext,
   useDebugValue,
   useEffect,
+  useId,
   useImperativeHandle,
   useLayoutEffect,
   useMemo,
