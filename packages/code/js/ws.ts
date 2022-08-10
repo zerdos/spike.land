@@ -101,8 +101,18 @@ export const run = async (startState: {
   renderPreviewWindow(startState.codeSpace, startState.App);
 
   await initShims(assets);
+  // const {join} = await import("./rtc");
 
-  join();
+  // const conn = join(codeSpace, user, (message)=>{
+    
+  //   processData(message, "rtc")
+  // })
+
+  // sendChannel.send = (message: object)=> conn.broadcast(message);
+
+
+
+ // join();
 
   bc = new BroadcastChannel("spike.land");
   bc.onmessage = async (event) => {
@@ -129,6 +139,7 @@ export const run = async (startState: {
     }
   };
 };
+
 (async () => {
   if (navigator && navigator?.serviceWorker) {
     navigator.serviceWorker.register("/sw.js", {
@@ -321,6 +332,14 @@ async function processWsMessage(
   lastSeenNow = Date.now();
 
   const data = JSON.parse(event.data);
+  processData(data);
+}
+  
+async function processData (data,source){
+    
+  
+
+
 
   console.log("ws", data.name, data.oldHash, data.newHash);
 
@@ -650,6 +669,7 @@ async function processWsMessage(
       answer: answer,
     }));
   }
+
 }
 
 // Create the RTCPeerConnection which knows how to talk to our

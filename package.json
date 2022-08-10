@@ -33,7 +33,11 @@
   },
   "devDependencies": {
     "@playwright/test": "^1.24.2",
+    "@types/events": "^3.0.0",
     "lerna": "5.4.0"
   },
-  "packageManager": "yarn@3.2.2"
+  "packageManager": "yarn@3.2.2",
+  "dependencies": {
+    "events": "^3.3.0"
+  }
 }
