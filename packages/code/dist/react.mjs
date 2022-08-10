@@ -17,6 +17,7 @@ import {
   forwardRef,
   hydrate,
   hydrateRoot,
+  init_react,
   isValidElement,
   lazy,
   m,
@@ -38,8 +39,9 @@ import {
   useRef,
   useState,
   version
-} from "./chunk-OJOY736T.mjs";
-import "./chunk-VRTUUBI3.mjs";
+} from "./chunk-RZXEG3RS.mjs";
+import "./chunk-T3CEAVR4.mjs";
+init_react();
 export {
   Children,
   Component,
