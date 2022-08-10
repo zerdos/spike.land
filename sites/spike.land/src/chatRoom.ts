@@ -11,7 +11,7 @@ import {
   mST,
   startSession,
 } from "@spike.land/code/js/session";
-import { Delta } from "@spike.land/code/js/textDiff";
+import { Delta } from "@spike.land/code/js/textDif";
 // import importMap from "@spike.land/code/js/importmap.json";
 import { getBackupSession } from "./getBackupSession";
 

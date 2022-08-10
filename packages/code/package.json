@@ -14,6 +14,7 @@
     "./js/starter.ts": "./js/starter.ts",
     "./js/rtc.ts": "./js/rtc.ts",
     "./js/session": "./js/session.ts",
+    "./js/textDiff": "./js/textDiff.ts",
     "./js/esbuildEsm": "./js/esbuildEsm.ts",
     "./js/binary": "./js/binary.ts",
     "./js/importmap.json": "./js/importmap.json",
@@ -72,6 +73,7 @@
     "big-integer": "1.6.51",
     "es-module-shims": "1.5.14",
     "esbuild-wasm": "0.15.0",
+    "events": "^3.3.0",
     "fast-diff": "1.2.0",
     "framer-motion": "7.0.1",
     "immutable": "4.1.0",
@@ -93,6 +95,7 @@
   "devDependencies": {
     "@jspm/generator": "1.0.0-beta.34",
     "@originjs/vite-plugin-commonjs": "^1.0.3",
+    "@types/events": "^3.0.0",
     "@types/lodash": "4.14.182",
     "@types/lodash.debounce": "^4.0.7",
     "@types/lodash.throttle": "^4.1.7",
