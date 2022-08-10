@@ -13,7 +13,10 @@
     "./package.json": "./package.json",
     "./js/starter.ts": "./js/starter.ts",
     "./js/rtc.ts": "./js/rtc.ts",
-    "./js/session": "./js/session.ts",
+    "./js/session": {
+      "import": "./dist/js/session.mjs",
+      "node": "./dist/js/session.js"
+    },
     "./js/textDiff": "./js/textDiff.ts",
     "./js/esbuildEsm": "./js/esbuildEsm.ts",
     "./js/binary": "./js/binary.ts",
@@ -22,7 +25,6 @@
     "./shasums": "./shasums.ts"
   },
   "scripts": {
-    "dev": "microenvi",
     "test": "uvu -r esbuild-register tests",
     "typecheck": "cd monorepo/packages/code && yarn tsc",
     "clean": "rm -rf .tsBuildInfo js/vendor ../../sites/spike.land/public && mkdir ../../sites/spike.land/public js/vendor && yarn favicons && yarn importmap",

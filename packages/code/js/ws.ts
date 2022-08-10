@@ -112,7 +112,7 @@ export const run = async (startState: {
 
 
 
- // join();
+ join();
 
   bc = new BroadcastChannel("spike.land");
   bc.onmessage = async (event) => {

@@ -4,7 +4,7 @@ account_id = "1f98921051196545ebe79a450d3c71ed"
 route = "https://spike.land/*"  
 compatibility_date = "2021-10-16"
 usage_model = "bundled"
-main = "dist/worker.mjs"
+main = " dist/index.js"
 
 [durable_objects]
 bindings = [
@@ -24,7 +24,7 @@ new_classes = ["Users"] # Array of new classes
 
 
 [site]
-bucket = "./public" # Add the directory with your static assets
+bucket = "../../packages/code/dist" # Add the directory with your static assets
 
 
 [env.testing]

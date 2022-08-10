@@ -4,8 +4,8 @@
     "pflannery.vscode-versionlens",
     "silvenon.mdx",
     "xyc.vscode-mdx-preview",
-    "styled-components.vscode-styled-components"
+    "styled-components.vscode-styled-components",
+    "arcanis.vscode-zipfs"
   ],
-
   "unwantedRecommendations": []
 }
