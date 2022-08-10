@@ -1,12 +1,16 @@
-import { getAssetFromKV } from "@cloudflare/kv-asset-handler";
+ import { getAssetFromKV } from "@cloudflare/kv-asset-handler";
 import manifestJSON from "__STATIC_CONTENT_MANIFEST";
+// import {join} from "./rtc.mjs"
+// import  {  join } from "@spike.land/code/js/rtc.ts";
+
 // import imap from "@spike.land/code/js/importmap.json";
+ 
 
 import { handleErrors } from "./handleErrors";
 import { CodeEnv } from "./env";
 
 const imap = {
-  "imports": {
+  "imports": { 
     // ...imap,
     "framer-motion": "/framer-motion.mjs",
     "@emotion/react": "/emotion.mjs",
@@ -193,6 +197,19 @@ async function handleApiRequest(
       newUrl.pathname = "/" + path.slice(2).join("/");
       newUrl.searchParams.append("room", name);
       return roomObject.fetch(newUrl.toString(), request);
+    }
+
+    case "rtc": {
+     
+      const room = path[1];
+      const user = path[2];
+
+
+      
+      // return join(room, user, (message: object )=>{
+
+      //   console.log({message})
+      // });
     }
 
     default:

@@ -4004,10 +4004,10 @@ You can read more about this here:
 https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals#ES2018_revision_of_illegal_escape_sequences`;
     var isBrowser$1 = typeof document !== "undefined";
     var Insertion = function Insertion2(_ref) {
-      var cache2 = _ref.cache, serialized = _ref.serialized, isStringTag = _ref.isStringTag;
-      utils.registerStyles(cache2, serialized, isStringTag);
+      var cache2 = _ref.cache, serialized = _ref.serialized, isStringTag2 = _ref.isStringTag;
+      utils.registerStyles(cache2, serialized, isStringTag2);
       var rules = useInsertionEffectMaybe(function() {
-        return utils.insertStyles(cache2, serialized, isStringTag);
+        return utils.insertStyles(cache2, serialized, isStringTag2);
       });
       if (!isBrowser$1 && rules !== void 0) {
         var _ref2;
@@ -7705,20 +7705,20 @@ function isStack(maybeStack) {
   return Boolean(maybeStack && maybeStack[IS_STACK_SYMBOL]);
 }
 var Stack = function(IndexedCollection2) {
-  function Stack2(value) {
+  function Stack3(value) {
     return value === void 0 || value === null ? emptyStack() : isStack(value) ? value : emptyStack().pushAll(value);
   }
   if (IndexedCollection2)
-    Stack2.__proto__ = IndexedCollection2;
-  Stack2.prototype = Object.create(IndexedCollection2 && IndexedCollection2.prototype);
-  Stack2.prototype.constructor = Stack2;
-  Stack2.of = function of() {
+    Stack3.__proto__ = IndexedCollection2;
+  Stack3.prototype = Object.create(IndexedCollection2 && IndexedCollection2.prototype);
+  Stack3.prototype.constructor = Stack3;
+  Stack3.of = function of() {
     return this(arguments);
   };
-  Stack2.prototype.toString = function toString5() {
+  Stack3.prototype.toString = function toString5() {
     return this.__toString("Stack [", "]");
   };
-  Stack2.prototype.get = function get11(index, notSetValue) {
+  Stack3.prototype.get = function get11(index, notSetValue) {
     var head = this._head;
     index = wrapIndex(this, index);
     while (head && index--) {
@@ -7726,10 +7726,10 @@ var Stack = function(IndexedCollection2) {
     }
     return head ? head.value : notSetValue;
   };
-  Stack2.prototype.peek = function peek() {
+  Stack3.prototype.peek = function peek() {
     return this._head && this._head.value;
   };
-  Stack2.prototype.push = function push() {
+  Stack3.prototype.push = function push() {
     var arguments$1 = arguments;
     if (arguments.length === 0) {
       return this;
@@ -7751,7 +7751,7 @@ var Stack = function(IndexedCollection2) {
     }
     return makeStack(newSize, head);
   };
-  Stack2.prototype.pushAll = function pushAll(iter) {
+  Stack3.prototype.pushAll = function pushAll(iter) {
     iter = IndexedCollection2(iter);
     if (iter.size === 0) {
       return this;
@@ -7778,10 +7778,10 @@ var Stack = function(IndexedCollection2) {
     }
     return makeStack(newSize, head);
   };
-  Stack2.prototype.pop = function pop() {
+  Stack3.prototype.pop = function pop() {
     return this.slice(1);
   };
-  Stack2.prototype.clear = function clear2() {
+  Stack3.prototype.clear = function clear2() {
     if (this.size === 0) {
       return this;
     }
@@ -7794,7 +7794,7 @@ var Stack = function(IndexedCollection2) {
     }
     return emptyStack();
   };
-  Stack2.prototype.slice = function slice3(begin, end2) {
+  Stack3.prototype.slice = function slice3(begin, end2) {
     if (wholeSlice(begin, end2, this.size)) {
       return this;
     }
@@ -7817,7 +7817,7 @@ var Stack = function(IndexedCollection2) {
     }
     return makeStack(newSize, head);
   };
-  Stack2.prototype.__ensureOwner = function __ensureOwner2(ownerID) {
+  Stack3.prototype.__ensureOwner = function __ensureOwner2(ownerID) {
     if (ownerID === this.__ownerID) {
       return this;
     }
@@ -7831,7 +7831,7 @@ var Stack = function(IndexedCollection2) {
     }
     return makeStack(this.size, this._head, ownerID, this.__hash);
   };
-  Stack2.prototype.__iterate = function __iterate2(fn2, reverse3) {
+  Stack3.prototype.__iterate = function __iterate2(fn2, reverse3) {
     var this$1$1 = this;
     if (reverse3) {
       return new ArraySeq(this.toArray()).__iterate(
@@ -7851,7 +7851,7 @@ var Stack = function(IndexedCollection2) {
     }
     return iterations;
   };
-  Stack2.prototype.__iterator = function __iterator2(type, reverse3) {
+  Stack3.prototype.__iterator = function __iterator2(type, reverse3) {
     if (reverse3) {
       return new ArraySeq(this.toArray()).__iterator(type, reverse3);
     }
@@ -7866,7 +7866,7 @@ var Stack = function(IndexedCollection2) {
       return iteratorDone();
     });
   };
-  return Stack2;
+  return Stack3;
 }(IndexedCollection);
 Stack.isStack = isStack;
 var StackPrototype = Stack.prototype;
@@ -12085,7 +12085,7 @@ function _extends() {
 
 // ../../node_modules/@mui/material/Fab/Fab.js
 init_react();
-var import_prop_types49 = __toESM(require_prop_types());
+var import_prop_types51 = __toESM(require_prop_types());
 
 // ../../node_modules/clsx/dist/clsx.m.js
 init_define_process();
@@ -14735,13 +14735,13 @@ function isShadowRoot(node) {
 function applyStyles(_ref) {
   var state = _ref.state;
   Object.keys(state.elements).forEach(function(name) {
-    var style3 = state.styles[name] || {};
+    var style4 = state.styles[name] || {};
     var attributes = state.attributes[name] || {};
     var element = state.elements[name];
     if (!isHTMLElement(element) || !getNodeName(element)) {
       return;
     }
-    Object.assign(element.style, style3);
+    Object.assign(element.style, style4);
     Object.keys(attributes).forEach(function(name2) {
       var value = attributes[name2];
       if (value === false) {
@@ -14776,14 +14776,14 @@ function effect(_ref2) {
       var element = state.elements[name];
       var attributes = state.attributes[name] || {};
       var styleProperties = Object.keys(state.styles.hasOwnProperty(name) ? state.styles[name] : initialStyles[name]);
-      var style3 = styleProperties.reduce(function(style4, property) {
-        style4[property] = "";
-        return style4;
+      var style4 = styleProperties.reduce(function(style5, property) {
+        style5[property] = "";
+        return style5;
       }, {});
       if (!isHTMLElement(element) || !getNodeName(element)) {
         return;
       }
-      Object.assign(element.style, style3);
+      Object.assign(element.style, style4);
       Object.keys(attributes).forEach(function(attribute) {
         element.removeAttribute(attribute);
       });
@@ -16534,7 +16534,7 @@ var PopperUnstyled = forwardRef(function PopperUnstyled2(props, ref) {
     placement = "bottom",
     popperOptions = defaultPopperOptions,
     popperRef,
-    style: style3,
+    style: style4,
     transition = false
   } = props, other = _objectWithoutPropertiesLoose(props, _excluded23);
   const [exited, setExited] = useState(true);
@@ -16567,7 +16567,7 @@ var PopperUnstyled = forwardRef(function PopperUnstyled2(props, ref) {
         top: 0,
         left: 0,
         display: !open2 && keepMounted && (!transition || exited) ? "none" : null
-      }, style3),
+      }, style4),
       TransitionProps: transition ? {
         in: open2,
         onEnter: handleEnter,
@@ -19263,7 +19263,7 @@ var SliderUnstyled = forwardRef(function SliderUnstyled2(props, ref) {
   return e(Root, _extends({}, rootProps, {
     children: [e(Rail, _extends({}, railProps)), e(Track, _extends({}, trackProps)), marks.filter((mark) => mark.value >= min3 && mark.value <= max3).map((mark, index) => {
       const percent = valueToPercent(mark.value, min3, max3);
-      const style3 = axisProps2[axis].offset(percent);
+      const style4 = axisProps2[axis].offset(percent);
       let markActive;
       if (track === false) {
         markActive = values4.indexOf(mark.value) !== -1;
@@ -19276,7 +19276,7 @@ var SliderUnstyled = forwardRef(function SliderUnstyled2(props, ref) {
         }, markProps, !isHostComponent_default(Mark) && {
           markActive
         }, {
-          style: _extends({}, style3, markProps.style),
+          style: _extends({}, style4, markProps.style),
           className: clsx_m_default(markProps.className, markActive && classes.markActive)
         })), mark.label != null ? e(MarkLabel, _extends({
           "aria-hidden": true,
@@ -19284,14 +19284,14 @@ var SliderUnstyled = forwardRef(function SliderUnstyled2(props, ref) {
         }, markLabelProps, !isHostComponent_default(MarkLabel) && {
           markLabelActive: markActive
         }, {
-          style: _extends({}, style3, markLabelProps.style),
+          style: _extends({}, style4, markLabelProps.style),
           className: clsx_m_default(classes.markLabel, markLabelProps.className, markActive && classes.markLabelActive),
           children: mark.label
         })) : null]
       }, mark.value);
     }), values4.map((value, index) => {
       const percent = valueToPercent(value, min3, max3);
-      const style3 = axisProps2[axis].offset(percent);
+      const style4 = axisProps2[axis].offset(percent);
       const ValueLabelComponent = valueLabelDisplay === "off" ? Forward : ValueLabel;
       return e(Fragment, {
         children: e(ValueLabelComponent, _extends({}, !isHostComponent_default(ValueLabelComponent) && {
@@ -19308,7 +19308,7 @@ var SliderUnstyled = forwardRef(function SliderUnstyled2(props, ref) {
             "data-focusvisible": focusedThumbIndex === index
           }, thumbProps, {
             className: clsx_m_default(classes.thumb, thumbProps.className, active === index && classes.active, focusedThumbIndex === index && classes.focusVisible),
-            style: _extends({}, style3, {
+            style: _extends({}, style4, {
               pointerEvents: disableSwap && active !== index ? "none" : void 0
             }, thumbProps.style),
             children: e(Input, _extends({
@@ -20335,7 +20335,7 @@ var TextareaAutosize = forwardRef(function TextareaAutosize2(props, ref) {
     onChange,
     maxRows,
     minRows = 1,
-    style: style3,
+    style: style4,
     value
   } = props, other = _objectWithoutPropertiesLoose(props, _excluded21);
   const {
@@ -20465,14 +20465,14 @@ var TextareaAutosize = forwardRef(function TextareaAutosize2(props, ref) {
       style: _extends({
         height: state.outerHeightStyle,
         overflow: state.overflow ? "hidden" : null
-      }, style3)
+      }, style4)
     }, other)), e("textarea", {
       "aria-hidden": true,
       className: props.className,
       readOnly: true,
       ref: shadowRef,
       tabIndex: -1,
-      style: _extends({}, styles.shadow, style3, {
+      style: _extends({}, styles.shadow, style4, {
         padding: 0
       })
     })]
@@ -20494,7 +20494,7 @@ init_define_process();
 // ../../node_modules/@mui/material/ButtonBase/ButtonBase.js
 init_define_process();
 init_react();
-var import_prop_types48 = __toESM(require_prop_types());
+var import_prop_types50 = __toESM(require_prop_types());
 
 // ../../node_modules/@mui/material/styles/styled.js
 init_define_process();
@@ -20551,9 +20551,9 @@ function isEmpty3(obj) {
 function GlobalStyles(props) {
   const {
     styles: styles2,
-    defaultTheme: defaultTheme6 = {}
+    defaultTheme: defaultTheme7 = {}
   } = props;
-  const globalStyles = typeof styles2 === "function" ? (themeInput) => styles2(isEmpty3(themeInput) ? defaultTheme6 : themeInput) : styles2;
+  const globalStyles = typeof styles2 === "function" ? (themeInput) => styles2(isEmpty3(themeInput) ? defaultTheme7 : themeInput) : styles2;
   return e(import_react8.Global, {
     styles: globalStyles
   });
@@ -20571,7 +20571,7 @@ function styled(tag, options) {
       const component = typeof tag === "string" ? `"${tag}"` : "component";
       if (styles2.length === 0) {
         console.error([`MUI: Seems like you called \`styled(${component})()\` without a \`style\` argument.`, 'You must provide a `styles` argument: `styled("div")(styleYouForgotToPass)`.'].join("\n"));
-      } else if (styles2.some((style3) => style3 === void 0)) {
+      } else if (styles2.some((style4) => style4 === void 0)) {
         console.error(`MUI: the styled(${component})(...args) API requires all its args to be defined.`);
       }
       return stylesFactory(...styles2);
@@ -20579,6 +20579,11 @@ function styled(tag, options) {
   }
   return stylesFactory;
 }
+var internal_processStyles = (tag, processor) => {
+  if (Array.isArray(tag.__emotion_styles)) {
+    tag.__emotion_styles = processor(tag.__emotion_styles);
+  }
+};
 
 // ../../node_modules/@mui/system/esm/borders.js
 init_define_process();
@@ -20654,7 +20659,7 @@ function createEmptyBreakpointObject(breakpointsInput = {}) {
   }, {});
   return breakpointsInOrder || {};
 }
-function removeUnusedBreakpoints(breakpointKeys, style3) {
+function removeUnusedBreakpoints(breakpointKeys, style4) {
   return breakpointKeys.reduce((acc, key) => {
     const breakpointOutput = acc[key];
     const isBreakpointUnused = !breakpointOutput || Object.keys(breakpointOutput).length === 0;
@@ -20662,7 +20667,57 @@ function removeUnusedBreakpoints(breakpointKeys, style3) {
       delete acc[key];
     }
     return acc;
-  }, style3);
+  }, style4);
+}
+function mergeBreakpointsInOrder(breakpointsInput, ...styles2) {
+  const emptyBreakpoints = createEmptyBreakpointObject(breakpointsInput);
+  const mergedOutput = [emptyBreakpoints, ...styles2].reduce((prev, next) => deepmerge(prev, next), {});
+  return removeUnusedBreakpoints(Object.keys(emptyBreakpoints), mergedOutput);
+}
+function computeBreakpointsBase(breakpointValues, themeBreakpoints) {
+  if (typeof breakpointValues !== "object") {
+    return {};
+  }
+  const base = {};
+  const breakpointsKeys = Object.keys(themeBreakpoints);
+  if (Array.isArray(breakpointValues)) {
+    breakpointsKeys.forEach((breakpoint, i2) => {
+      if (i2 < breakpointValues.length) {
+        base[breakpoint] = true;
+      }
+    });
+  } else {
+    breakpointsKeys.forEach((breakpoint) => {
+      if (breakpointValues[breakpoint] != null) {
+        base[breakpoint] = true;
+      }
+    });
+  }
+  return base;
+}
+function resolveBreakpointValues({
+  values: breakpointValues,
+  breakpoints: themeBreakpoints,
+  base: customBase
+}) {
+  const base = customBase || computeBreakpointsBase(breakpointValues, themeBreakpoints);
+  const keys2 = Object.keys(base);
+  if (keys2.length === 0) {
+    return breakpointValues;
+  }
+  let previous;
+  return keys2.reduce((acc, breakpoint, i2) => {
+    if (Array.isArray(breakpointValues)) {
+      acc[breakpoint] = breakpointValues[i2] != null ? breakpointValues[i2] : breakpointValues[previous];
+      previous = i2;
+    } else if (typeof breakpointValues === "object") {
+      acc[breakpoint] = breakpointValues[breakpoint] != null ? breakpointValues[breakpoint] : breakpointValues[previous];
+      previous = breakpoint;
+    } else {
+      acc[breakpoint] = breakpointValues;
+    }
+    return acc;
+  }, {});
 }
 
 // ../../node_modules/@mui/system/esm/style.js
@@ -20736,9 +20791,9 @@ var style_default = style;
 // ../../node_modules/@mui/system/esm/compose.js
 init_define_process();
 function compose(...styles2) {
-  const handlers = styles2.reduce((acc, style3) => {
-    style3.filterProps.forEach((prop) => {
-      acc[prop] = style3;
+  const handlers = styles2.reduce((acc, style4) => {
+    style4.filterProps.forEach((prop) => {
+      acc[prop] = style4;
     });
     return acc;
   }, {});
@@ -20750,8 +20805,8 @@ function compose(...styles2) {
       return acc;
     }, {});
   };
-  fn2.propTypes = true ? styles2.reduce((acc, style3) => Object.assign(acc, style3.propTypes), {}) : {};
-  fn2.filterProps = styles2.reduce((acc, style3) => acc.concat(style3.filterProps), []);
+  fn2.propTypes = true ? styles2.reduce((acc, style4) => Object.assign(acc, style4.propTypes), {}) : {};
+  fn2.filterProps = styles2.reduce((acc, style4) => acc.concat(style4.filterProps), []);
   return fn2;
 }
 var compose_default = compose;
@@ -21675,16 +21730,16 @@ var ThemeProvider_default = ThemeProvider;
 function isObjectEmpty(obj) {
   return Object.keys(obj).length === 0;
 }
-function useTheme2(defaultTheme6 = null) {
+function useTheme2(defaultTheme7 = null) {
   const contextTheme = useTheme();
-  return !contextTheme || isObjectEmpty(contextTheme) ? defaultTheme6 : contextTheme;
+  return !contextTheme || isObjectEmpty(contextTheme) ? defaultTheme7 : contextTheme;
 }
 var useThemeWithoutDefault_default = useTheme2;
 
 // ../../node_modules/@mui/system/esm/useTheme.js
 var systemDefaultTheme = createTheme_default();
-function useTheme3(defaultTheme6 = systemDefaultTheme) {
-  return useThemeWithoutDefault_default(defaultTheme6);
+function useTheme3(defaultTheme7 = systemDefaultTheme) {
+  return useThemeWithoutDefault_default(defaultTheme7);
 }
 var useTheme_default = useTheme3;
 
@@ -21693,14 +21748,16 @@ init_react();
 var _excluded27 = ["className", "component"];
 function createBox(options = {}) {
   const {
-    defaultTheme: defaultTheme6,
+    defaultTheme: defaultTheme7,
     defaultClassName = "MuiBox-root",
     generateClassName,
     styleFunctionSx: styleFunctionSx2 = styleFunctionSx_default
   } = options;
-  const BoxRoot = styled("div")(styleFunctionSx2);
+  const BoxRoot = styled("div", {
+    shouldForwardProp: (prop) => prop !== "theme" && prop !== "sx" && prop !== "as"
+  })(styleFunctionSx2);
   const Box3 = forwardRef(function Box4(inProps, ref) {
-    const theme = useTheme_default(defaultTheme6);
+    const theme = useTheme_default(defaultTheme7);
     const _extendSxProp = extendSxProp(inProps), {
       className,
       component = "div"
@@ -21754,6 +21811,9 @@ var _excluded32 = ["theme"];
 function isEmpty5(obj) {
   return Object.keys(obj).length === 0;
 }
+function isStringTag(tag) {
+  return typeof tag === "string" && tag.charCodeAt(0) > 96;
+}
 var getStyleOverrides = (name, theme) => {
   if (theme.components && theme.components[name] && theme.components[name].styleOverrides) {
     return theme.components[name].styleOverrides;
@@ -21803,12 +21863,20 @@ var lowercaseFirstLetter = (string) => {
 };
 function createStyled(input = {}) {
   const {
-    defaultTheme: defaultTheme6 = systemDefaultTheme2,
+    defaultTheme: defaultTheme7 = systemDefaultTheme2,
     rootShouldForwardProp: rootShouldForwardProp2 = shouldForwardProp,
     slotShouldForwardProp: slotShouldForwardProp2 = shouldForwardProp,
     styleFunctionSx: styleFunctionSx2 = styleFunctionSx_default
   } = input;
+  const systemSx = (props) => {
+    const theme = isEmpty5(props.theme) ? defaultTheme7 : props.theme;
+    return styleFunctionSx2(_extends({}, props, {
+      theme
+    }));
+  };
+  systemSx.__mui_systemSx = true;
   return (tag, inputOptions = {}) => {
+    internal_processStyles(tag, (styles2) => styles2.filter((style4) => !(style4 != null && style4.__mui_systemSx)));
     const {
       name: componentName,
       slot: componentSlot,
@@ -21829,6 +21897,8 @@ function createStyled(input = {}) {
       shouldForwardPropOption = rootShouldForwardProp2;
     } else if (componentSlot) {
       shouldForwardPropOption = slotShouldForwardProp2;
+    } else if (isStringTag(tag)) {
+      shouldForwardPropOption = void 0;
     }
     const defaultStyledResolver = styled(tag, _extends({
       shouldForwardProp: shouldForwardPropOption,
@@ -21841,14 +21911,14 @@ function createStyled(input = {}) {
             theme: themeInput
           } = _ref, other = _objectWithoutPropertiesLoose(_ref, _excluded210);
           return stylesArg(_extends({
-            theme: isEmpty5(themeInput) ? defaultTheme6 : themeInput
+            theme: isEmpty5(themeInput) ? defaultTheme7 : themeInput
           }, other));
         } : stylesArg;
       }) : [];
       let transformedStyleArg = styleArg;
       if (componentName && overridesResolver) {
         expressionsWithDefaultTheme.push((props) => {
-          const theme = isEmpty5(props.theme) ? defaultTheme6 : props.theme;
+          const theme = isEmpty5(props.theme) ? defaultTheme7 : props.theme;
           const styleOverrides = getStyleOverrides(componentName, theme);
           if (styleOverrides) {
             const resolvedStyleOverrides = {};
@@ -21864,17 +21934,12 @@ function createStyled(input = {}) {
       }
       if (componentName && !skipVariantsResolver) {
         expressionsWithDefaultTheme.push((props) => {
-          const theme = isEmpty5(props.theme) ? defaultTheme6 : props.theme;
+          const theme = isEmpty5(props.theme) ? defaultTheme7 : props.theme;
           return variantsResolver(props, getVariantStyles(componentName, theme), theme, componentName);
         });
       }
       if (!skipSx) {
-        expressionsWithDefaultTheme.push((props) => {
-          const theme = isEmpty5(props.theme) ? defaultTheme6 : props.theme;
-          return styleFunctionSx2(_extends({}, props, {
-            theme
-          }));
-        });
+        expressionsWithDefaultTheme.push(systemSx);
       }
       const numOfCustomFnsApplied = expressionsWithDefaultTheme.length - expressions.length;
       if (Array.isArray(styleArg) && numOfCustomFnsApplied > 0) {
@@ -21887,7 +21952,7 @@ function createStyled(input = {}) {
             theme: themeInput
           } = _ref2, other = _objectWithoutPropertiesLoose(_ref2, _excluded32);
           return styleArg(_extends({
-            theme: isEmpty5(themeInput) ? defaultTheme6 : themeInput
+            theme: isEmpty5(themeInput) ? defaultTheme7 : themeInput
           }, other));
         };
       }
@@ -21940,9 +22005,9 @@ function getThemeProps(params) {
 function useThemeProps({
   props,
   name,
-  defaultTheme: defaultTheme6
+  defaultTheme: defaultTheme7
 }) {
-  const theme = useTheme_default(defaultTheme6);
+  const theme = useTheme_default(defaultTheme7);
   const mergedProps = getThemeProps({
     theme,
     name,
@@ -22482,7 +22547,7 @@ var _excluded30 = ["colorSchemes", "components", "cssVarPrefix"];
 var DISABLE_CSS_TRANSITION = "*{-webkit-transition:none!important;-moz-transition:none!important;-o-transition:none!important;-ms-transition:none!important;transition:none!important}";
 function createCssVarsProvider(options) {
   const {
-    theme: defaultTheme6 = {},
+    theme: defaultTheme7 = {},
     attribute: defaultAttribute = DEFAULT_ATTRIBUTE,
     modeStorageKey: defaultModeStorageKey = DEFAULT_MODE_STORAGE_KEY,
     colorSchemeStorageKey: defaultColorSchemeStorageKey = DEFAULT_COLOR_SCHEME_STORAGE_KEY,
@@ -22493,7 +22558,7 @@ function createCssVarsProvider(options) {
     shouldSkipGeneratingVar: designSystemShouldSkipGeneratingVar,
     resolveTheme
   } = options;
-  if (!defaultTheme6.colorSchemes || typeof designSystemColorScheme === "string" && !defaultTheme6.colorSchemes[designSystemColorScheme] || typeof designSystemColorScheme === "object" && !defaultTheme6.colorSchemes[designSystemColorScheme == null ? void 0 : designSystemColorScheme.light] || typeof designSystemColorScheme === "object" && !defaultTheme6.colorSchemes[designSystemColorScheme == null ? void 0 : designSystemColorScheme.dark]) {
+  if (!defaultTheme7.colorSchemes || typeof designSystemColorScheme === "string" && !defaultTheme7.colorSchemes[designSystemColorScheme] || typeof designSystemColorScheme === "object" && !defaultTheme7.colorSchemes[designSystemColorScheme == null ? void 0 : designSystemColorScheme.light] || typeof designSystemColorScheme === "object" && !defaultTheme7.colorSchemes[designSystemColorScheme == null ? void 0 : designSystemColorScheme.dark]) {
     console.error(`MUI: \`${designSystemColorScheme}\` does not exist in \`theme.colorSchemes\`.`);
   }
   const ColorSchemeContext = createContext(void 0);
@@ -22506,7 +22571,7 @@ function createCssVarsProvider(options) {
   };
   function CssVarsProvider2({
     children: children2,
-    theme: themeProp = defaultTheme6,
+    theme: themeProp = defaultTheme7,
     modeStorageKey = defaultModeStorageKey,
     colorSchemeStorageKey = defaultColorSchemeStorageKey,
     attribute = defaultAttribute,
@@ -22872,12 +22937,12 @@ var traverseBreakpoints = (breakpoints, responsize, iterator) => {
   const smallestBreakpoint = breakpoints.keys[0];
   if (Array.isArray(responsize)) {
     responsize.forEach((breakpointValue, index) => {
-      iterator((responsizeStyles, style3) => {
+      iterator((responsizeStyles, style4) => {
         if (index <= breakpoints.keys.length - 1) {
           if (index === 0) {
-            Object.assign(responsizeStyles, style3);
+            Object.assign(responsizeStyles, style4);
           } else {
-            responsizeStyles[breakpoints.up(breakpoints.keys[index])] = style3;
+            responsizeStyles[breakpoints.up(breakpoints.keys[index])] = style4;
           }
         }
       }, breakpointValue);
@@ -22888,19 +22953,19 @@ var traverseBreakpoints = (breakpoints, responsize, iterator) => {
       if (breakpoints.keys.indexOf(key) !== -1) {
         const breakpointValue = responsize[key];
         if (breakpointValue !== void 0) {
-          iterator((responsizeStyles, style3) => {
+          iterator((responsizeStyles, style4) => {
             if (smallestBreakpoint === key) {
-              Object.assign(responsizeStyles, style3);
+              Object.assign(responsizeStyles, style4);
             } else {
-              responsizeStyles[breakpoints.up(key)] = style3;
+              responsizeStyles[breakpoints.up(key)] = style4;
             }
           }, breakpointValue);
         }
       }
     });
   } else if (typeof responsize === "number" || typeof responsize === "string") {
-    iterator((responsizeStyles, style3) => {
-      Object.assign(responsizeStyles, style3);
+    iterator((responsizeStyles, style4) => {
+      Object.assign(responsizeStyles, style4);
     }, responsize);
   }
 };
@@ -22910,16 +22975,16 @@ var generateGridSizeStyles = ({
 }) => {
   const styles2 = {};
   traverseBreakpoints(theme.breakpoints, ownerState.gridSize, (appendStyle, value) => {
-    let style3 = {};
+    let style4 = {};
     if (value === true) {
-      style3 = {
+      style4 = {
         flexBasis: 0,
         flexGrow: 1,
         maxWidth: "100%"
       };
     }
     if (value === "auto") {
-      style3 = {
+      style4 = {
         flexBasis: "auto",
         flexGrow: 0,
         flexShrink: 0,
@@ -22928,13 +22993,13 @@ var generateGridSizeStyles = ({
       };
     }
     if (typeof value === "number") {
-      style3 = {
+      style4 = {
         flexGrow: 0,
         flexBasis: "auto",
         width: `calc(100% * ${value} / var(--Grid-columns)${ownerState.nested && ownerState.container ? ` + var(--Grid-columnSpacing)` : ""})`
       };
     }
-    appendStyle(styles2, style3);
+    appendStyle(styles2, style4);
   });
   return styles2;
 };
@@ -22944,18 +23009,18 @@ var generateGridOffsetStyles = ({
 }) => {
   const styles2 = {};
   traverseBreakpoints(theme.breakpoints, ownerState.gridOffset, (appendStyle, value) => {
-    let style3 = {};
+    let style4 = {};
     if (value === "auto") {
-      style3 = {
+      style4 = {
         marginLeft: "auto"
       };
     }
     if (typeof value === "number") {
-      style3 = {
+      style4 = {
         marginLeft: value === 0 ? "0px" : `calc(100% * ${value} / var(--Grid-columns))`
       };
     }
-    appendStyle(styles2, style3);
+    appendStyle(styles2, style4);
   });
   return styles2;
 };
@@ -23272,6 +23337,172 @@ var gridClasses = generateUtilityClasses("MuiGrid", [
   ...GRID_SIZES.map((size) => `grid-xl-${size}`)
 ]);
 
+// ../../node_modules/@mui/system/esm/Stack/Stack.js
+init_define_process();
+var import_prop_types41 = __toESM(require_prop_types());
+
+// ../../node_modules/@mui/system/esm/Stack/createStack.js
+init_define_process();
+init_react();
+var import_prop_types40 = __toESM(require_prop_types());
+init_react();
+var _excluded34 = ["component", "direction", "spacing", "divider", "children", "className"];
+var defaultTheme3 = createTheme_default();
+var defaultCreateStyledComponent3 = styled_default("div", {
+  name: "MuiStack",
+  slot: "Root",
+  overridesResolver: (props, styles2) => styles2.root
+});
+function useThemePropsDefault3(props) {
+  return useThemeProps({
+    props,
+    name: "MuiStack",
+    defaultTheme: defaultTheme3
+  });
+}
+function joinChildren(children2, separator) {
+  const childrenArray = Children.toArray(children2).filter(Boolean);
+  return childrenArray.reduce((output, child, index) => {
+    output.push(child);
+    if (index < childrenArray.length - 1) {
+      output.push(cloneElement(separator, {
+        key: `separator-${index}`
+      }));
+    }
+    return output;
+  }, []);
+}
+var getSideFromDirection = (direction) => {
+  return {
+    row: "Left",
+    "row-reverse": "Right",
+    column: "Top",
+    "column-reverse": "Bottom"
+  }[direction];
+};
+var style3 = ({
+  ownerState,
+  theme
+}) => {
+  let styles2 = _extends({
+    display: "flex",
+    flexDirection: "column"
+  }, handleBreakpoints({
+    theme
+  }, resolveBreakpointValues({
+    values: ownerState.direction,
+    breakpoints: theme.breakpoints.values
+  }), (propValue) => ({
+    flexDirection: propValue
+  })));
+  if (ownerState.spacing) {
+    const transformer = createUnarySpacing(theme);
+    const base = Object.keys(theme.breakpoints.values).reduce((acc, breakpoint) => {
+      if (typeof ownerState.spacing === "object" && ownerState.spacing[breakpoint] != null || typeof ownerState.direction === "object" && ownerState.direction[breakpoint] != null) {
+        acc[breakpoint] = true;
+      }
+      return acc;
+    }, {});
+    const directionValues = resolveBreakpointValues({
+      values: ownerState.direction,
+      base
+    });
+    const spacingValues = resolveBreakpointValues({
+      values: ownerState.spacing,
+      base
+    });
+    if (typeof directionValues === "object") {
+      Object.keys(directionValues).forEach((breakpoint, index, breakpoints) => {
+        const directionValue = directionValues[breakpoint];
+        if (!directionValue) {
+          const previousDirectionValue = index > 0 ? directionValues[breakpoints[index - 1]] : "column";
+          directionValues[breakpoint] = previousDirectionValue;
+        }
+      });
+    }
+    const styleFromPropValue = (propValue, breakpoint) => {
+      return {
+        "& > :not(style) + :not(style)": {
+          margin: 0,
+          [`margin${getSideFromDirection(breakpoint ? directionValues[breakpoint] : ownerState.direction)}`]: getValue2(transformer, propValue)
+        }
+      };
+    };
+    styles2 = deepmerge(styles2, handleBreakpoints({
+      theme
+    }, spacingValues, styleFromPropValue));
+  }
+  styles2 = mergeBreakpointsInOrder(theme.breakpoints, styles2);
+  return styles2;
+};
+function createStack(options = {}) {
+  const {
+    createStyledComponent = defaultCreateStyledComponent3,
+    useThemeProps: useThemeProps3 = useThemePropsDefault3,
+    componentName = "MuiStack"
+  } = options;
+  const useUtilityClasses24 = () => {
+    const slots = {
+      root: ["root"]
+    };
+    return composeClasses(slots, (slot) => generateUtilityClass(componentName, slot), {});
+  };
+  const StackRoot = createStyledComponent(style3);
+  const Stack3 = forwardRef(function Grid2(inProps, ref) {
+    const themeProps = useThemeProps3(inProps);
+    const props = extendSxProp(themeProps);
+    const {
+      component = "div",
+      direction = "column",
+      spacing: spacing2 = 0,
+      divider,
+      children: children2,
+      className
+    } = props, other = _objectWithoutPropertiesLoose(props, _excluded34);
+    const ownerState = {
+      direction,
+      spacing: spacing2
+    };
+    const classes = useUtilityClasses24();
+    return e(StackRoot, _extends({
+      as: component,
+      ownerState,
+      ref,
+      className: clsx_m_default(classes.root, className)
+    }, other, {
+      children: divider ? joinChildren(children2, divider) : children2
+    }));
+  });
+  true ? Stack3.propTypes = {
+    children: import_prop_types40.default.node,
+    direction: import_prop_types40.default.oneOfType([import_prop_types40.default.oneOf(["column-reverse", "column", "row-reverse", "row"]), import_prop_types40.default.arrayOf(import_prop_types40.default.oneOf(["column-reverse", "column", "row-reverse", "row"])), import_prop_types40.default.object]),
+    divider: import_prop_types40.default.node,
+    spacing: import_prop_types40.default.oneOfType([import_prop_types40.default.arrayOf(import_prop_types40.default.oneOfType([import_prop_types40.default.number, import_prop_types40.default.string])), import_prop_types40.default.number, import_prop_types40.default.object, import_prop_types40.default.string]),
+    sx: import_prop_types40.default.oneOfType([import_prop_types40.default.arrayOf(import_prop_types40.default.oneOfType([import_prop_types40.default.func, import_prop_types40.default.object, import_prop_types40.default.bool])), import_prop_types40.default.func, import_prop_types40.default.object])
+  } : void 0;
+  return Stack3;
+}
+
+// ../../node_modules/@mui/system/esm/Stack/Stack.js
+var Stack2 = createStack();
+true ? Stack2.propTypes = {
+  children: import_prop_types41.default.node,
+  direction: import_prop_types41.default.oneOfType([import_prop_types41.default.oneOf(["column-reverse", "column", "row-reverse", "row"]), import_prop_types41.default.arrayOf(import_prop_types41.default.oneOf(["column-reverse", "column", "row-reverse", "row"])), import_prop_types41.default.object]),
+  divider: import_prop_types41.default.node,
+  spacing: import_prop_types41.default.oneOfType([import_prop_types41.default.arrayOf(import_prop_types41.default.oneOfType([import_prop_types41.default.number, import_prop_types41.default.string])), import_prop_types41.default.number, import_prop_types41.default.object, import_prop_types41.default.string]),
+  sx: import_prop_types41.default.oneOfType([import_prop_types41.default.arrayOf(import_prop_types41.default.oneOfType([import_prop_types41.default.func, import_prop_types41.default.object, import_prop_types41.default.bool])), import_prop_types41.default.func, import_prop_types41.default.object])
+} : void 0;
+
+// ../../node_modules/@mui/system/esm/Stack/index.js
+init_define_process();
+
+// ../../node_modules/@mui/system/esm/Stack/StackProps.js
+init_define_process();
+
+// ../../node_modules/@mui/system/esm/Stack/stackClasses.js
+init_define_process();
+var stackClasses = generateUtilityClasses("MuiStack", ["root"]);
+
 // ../../node_modules/@mui/material/styles/defaultTheme.js
 init_define_process();
 
@@ -23448,7 +23679,7 @@ var green = {
 var green_default = green;
 
 // ../../node_modules/@mui/material/styles/createPalette.js
-var _excluded34 = ["mode", "contrastThreshold", "tonalOffset"];
+var _excluded35 = ["mode", "contrastThreshold", "tonalOffset"];
 var light = {
   text: {
     primary: "rgba(0, 0, 0, 0.87)",
@@ -23602,7 +23833,7 @@ function createPalette(palette2) {
     mode = "light",
     contrastThreshold = 3,
     tonalOffset = 0.2
-  } = palette2, other = _objectWithoutPropertiesLoose(palette2, _excluded34);
+  } = palette2, other = _objectWithoutPropertiesLoose(palette2, _excluded35);
   const primary = palette2.primary || getDefaultPrimary(mode);
   const secondary = palette2.secondary || getDefaultSecondary(mode);
   const error = palette2.error || getDefaultError(mode);
@@ -23707,7 +23938,7 @@ const theme2 = createTheme({ palette: {
 
 // ../../node_modules/@mui/material/styles/createTypography.js
 init_define_process();
-var _excluded35 = ["fontFamily", "fontSize", "fontWeightLight", "fontWeightRegular", "fontWeightMedium", "fontWeightBold", "htmlFontSize", "allVariants", "pxToRem"];
+var _excluded36 = ["fontFamily", "fontSize", "fontWeightLight", "fontWeightRegular", "fontWeightMedium", "fontWeightBold", "htmlFontSize", "allVariants", "pxToRem"];
 function round2(value) {
   return Math.round(value * 1e5) / 1e5;
 }
@@ -23726,7 +23957,7 @@ function createTypography(palette2, typography2) {
     htmlFontSize = 16,
     allVariants,
     pxToRem: pxToRem2
-  } = _ref, other = _objectWithoutPropertiesLoose(_ref, _excluded35);
+  } = _ref, other = _objectWithoutPropertiesLoose(_ref, _excluded36);
   if (true) {
     if (typeof fontSize2 !== "number") {
       console.error("MUI: `fontSize` is required to be a number.");
@@ -23787,7 +24018,7 @@ var shadows_default2 = shadows;
 
 // ../../node_modules/@mui/material/styles/createTransitions.js
 init_define_process();
-var _excluded36 = ["duration", "easing", "delay"];
+var _excluded37 = ["duration", "easing", "delay"];
 var easing = {
   easeInOut: "cubic-bezier(0.4, 0, 0.2, 1)",
   easeOut: "cubic-bezier(0.0, 0, 0.2, 1)",
@@ -23821,7 +24052,7 @@ function createTransitions(inputTransitions) {
       duration: durationOption = mergedDuration.standard,
       easing: easingOption = mergedEasing.easeInOut,
       delay = 0
-    } = options, other = _objectWithoutPropertiesLoose(options, _excluded36);
+    } = options, other = _objectWithoutPropertiesLoose(options, _excluded37);
     if (true) {
       const isString = (value) => typeof value === "string";
       const isNumber = (value) => !isNaN(parseFloat(value));
@@ -23867,14 +24098,14 @@ var zIndex2 = {
 var zIndex_default = zIndex2;
 
 // ../../node_modules/@mui/material/styles/createTheme.js
-var _excluded37 = ["breakpoints", "mixins", "spacing", "palette", "transitions", "typography", "shape"];
+var _excluded38 = ["breakpoints", "mixins", "spacing", "palette", "transitions", "typography", "shape"];
 function createTheme2(options = {}, ...args) {
   const {
     mixins: mixinsInput = {},
     palette: paletteInput = {},
     transitions: transitionsInput = {},
     typography: typographyInput = {}
-  } = options, other = _objectWithoutPropertiesLoose(options, _excluded37);
+  } = options, other = _objectWithoutPropertiesLoose(options, _excluded38);
   if (options.vars) {
     throw new Error(true ? `MUI: \`vars\` is a private field used for CSS variables support.
 Please use another name.` : formatMuiErrorMessage(18));
@@ -23922,8 +24153,8 @@ Please use another name.` : formatMuiErrorMessage(18));
 var createTheme_default2 = createTheme2;
 
 // ../../node_modules/@mui/material/styles/defaultTheme.js
-var defaultTheme3 = createTheme_default2();
-var defaultTheme_default = defaultTheme3;
+var defaultTheme4 = createTheme_default2();
+var defaultTheme_default = defaultTheme4;
 
 // ../../node_modules/@mui/material/styles/styled.js
 var rootShouldForwardProp = (prop) => shouldForwardProp(prop) && prop !== "classes";
@@ -23962,7 +24193,7 @@ var useIsFocusVisible_default = useIsFocusVisible;
 // ../../node_modules/@mui/material/ButtonBase/TouchRipple.js
 init_define_process();
 init_react();
-var import_prop_types47 = __toESM(require_prop_types());
+var import_prop_types49 = __toESM(require_prop_types());
 
 // ../../node_modules/react-transition-group/esm/index.js
 init_define_process();
@@ -23991,7 +24222,7 @@ function _inheritsLoose(subClass, superClass) {
 }
 
 // ../../node_modules/react-transition-group/esm/CSSTransition.js
-var import_prop_types42 = __toESM(require_prop_types());
+var import_prop_types44 = __toESM(require_prop_types());
 
 // ../../node_modules/dom-helpers/esm/addClass.js
 init_define_process();
@@ -24035,7 +24266,7 @@ init_react();
 
 // ../../node_modules/react-transition-group/esm/Transition.js
 init_define_process();
-var import_prop_types41 = __toESM(require_prop_types());
+var import_prop_types43 = __toESM(require_prop_types());
 init_react();
 init_react();
 
@@ -24047,23 +24278,23 @@ var config_default = {
 
 // ../../node_modules/react-transition-group/esm/utils/PropTypes.js
 init_define_process();
-var import_prop_types40 = __toESM(require_prop_types());
-var timeoutsShape = true ? import_prop_types40.default.oneOfType([import_prop_types40.default.number, import_prop_types40.default.shape({
-  enter: import_prop_types40.default.number,
-  exit: import_prop_types40.default.number,
-  appear: import_prop_types40.default.number
+var import_prop_types42 = __toESM(require_prop_types());
+var timeoutsShape = true ? import_prop_types42.default.oneOfType([import_prop_types42.default.number, import_prop_types42.default.shape({
+  enter: import_prop_types42.default.number,
+  exit: import_prop_types42.default.number,
+  appear: import_prop_types42.default.number
 }).isRequired]) : null;
-var classNamesShape = true ? import_prop_types40.default.oneOfType([import_prop_types40.default.string, import_prop_types40.default.shape({
-  enter: import_prop_types40.default.string,
-  exit: import_prop_types40.default.string,
-  active: import_prop_types40.default.string
-}), import_prop_types40.default.shape({
-  enter: import_prop_types40.default.string,
-  enterDone: import_prop_types40.default.string,
-  enterActive: import_prop_types40.default.string,
-  exit: import_prop_types40.default.string,
-  exitDone: import_prop_types40.default.string,
-  exitActive: import_prop_types40.default.string
+var classNamesShape = true ? import_prop_types42.default.oneOfType([import_prop_types42.default.string, import_prop_types42.default.shape({
+  enter: import_prop_types42.default.string,
+  exit: import_prop_types42.default.string,
+  active: import_prop_types42.default.string
+}), import_prop_types42.default.shape({
+  enter: import_prop_types42.default.string,
+  enterDone: import_prop_types42.default.string,
+  enterActive: import_prop_types42.default.string,
+  exit: import_prop_types42.default.string,
+  exitDone: import_prop_types42.default.string,
+  exitActive: import_prop_types42.default.string
 })]) : null;
 
 // ../../node_modules/react-transition-group/esm/TransitionGroupContext.js
@@ -24292,19 +24523,19 @@ var Transition = function(_React$Component) {
 }(react_default.Component);
 Transition.contextType = TransitionGroupContext_default;
 Transition.propTypes = true ? {
-  nodeRef: import_prop_types41.default.shape({
-    current: typeof Element === "undefined" ? import_prop_types41.default.any : function(propValue, key, componentName, location2, propFullName, secret) {
+  nodeRef: import_prop_types43.default.shape({
+    current: typeof Element === "undefined" ? import_prop_types43.default.any : function(propValue, key, componentName, location2, propFullName, secret) {
       var value = propValue[key];
-      return import_prop_types41.default.instanceOf(value && "ownerDocument" in value ? value.ownerDocument.defaultView.Element : Element)(propValue, key, componentName, location2, propFullName, secret);
+      return import_prop_types43.default.instanceOf(value && "ownerDocument" in value ? value.ownerDocument.defaultView.Element : Element)(propValue, key, componentName, location2, propFullName, secret);
     }
   }),
-  children: import_prop_types41.default.oneOfType([import_prop_types41.default.func.isRequired, import_prop_types41.default.element.isRequired]).isRequired,
-  in: import_prop_types41.default.bool,
-  mountOnEnter: import_prop_types41.default.bool,
-  unmountOnExit: import_prop_types41.default.bool,
-  appear: import_prop_types41.default.bool,
-  enter: import_prop_types41.default.bool,
-  exit: import_prop_types41.default.bool,
+  children: import_prop_types43.default.oneOfType([import_prop_types43.default.func.isRequired, import_prop_types43.default.element.isRequired]).isRequired,
+  in: import_prop_types43.default.bool,
+  mountOnEnter: import_prop_types43.default.bool,
+  unmountOnExit: import_prop_types43.default.bool,
+  appear: import_prop_types43.default.bool,
+  enter: import_prop_types43.default.bool,
+  exit: import_prop_types43.default.bool,
   timeout: function timeout(props) {
     var pt = timeoutsShape;
     if (!props.addEndListener)
@@ -24314,13 +24545,13 @@ Transition.propTypes = true ? {
     }
     return pt.apply(void 0, [props].concat(args));
   },
-  addEndListener: import_prop_types41.default.func,
-  onEnter: import_prop_types41.default.func,
-  onEntering: import_prop_types41.default.func,
-  onEntered: import_prop_types41.default.func,
-  onExit: import_prop_types41.default.func,
-  onExiting: import_prop_types41.default.func,
-  onExited: import_prop_types41.default.func
+  addEndListener: import_prop_types43.default.func,
+  onEnter: import_prop_types43.default.func,
+  onEntering: import_prop_types43.default.func,
+  onEntered: import_prop_types43.default.func,
+  onExit: import_prop_types43.default.func,
+  onExiting: import_prop_types43.default.func,
+  onExited: import_prop_types43.default.func
 } : {};
 function noop() {
 }
@@ -24483,17 +24714,17 @@ CSSTransition.defaultProps = {
 };
 CSSTransition.propTypes = true ? _extends({}, Transition_default.propTypes, {
   classNames: classNamesShape,
-  onEnter: import_prop_types42.default.func,
-  onEntering: import_prop_types42.default.func,
-  onEntered: import_prop_types42.default.func,
-  onExit: import_prop_types42.default.func,
-  onExiting: import_prop_types42.default.func,
-  onExited: import_prop_types42.default.func
+  onEnter: import_prop_types44.default.func,
+  onEntering: import_prop_types44.default.func,
+  onEntered: import_prop_types44.default.func,
+  onExit: import_prop_types44.default.func,
+  onExiting: import_prop_types44.default.func,
+  onExited: import_prop_types44.default.func
 }) : {};
 
 // ../../node_modules/react-transition-group/esm/ReplaceTransition.js
 init_define_process();
-var import_prop_types44 = __toESM(require_prop_types());
+var import_prop_types46 = __toESM(require_prop_types());
 init_react();
 init_react();
 
@@ -24510,7 +24741,7 @@ function _assertThisInitialized(self2) {
 }
 
 // ../../node_modules/react-transition-group/esm/TransitionGroup.js
-var import_prop_types43 = __toESM(require_prop_types());
+var import_prop_types45 = __toESM(require_prop_types());
 init_react();
 
 // ../../node_modules/react-transition-group/esm/utils/ChildMapping.js
@@ -24693,12 +24924,12 @@ var TransitionGroup = function(_React$Component) {
   return TransitionGroup2;
 }(react_default.Component);
 TransitionGroup.propTypes = true ? {
-  component: import_prop_types43.default.any,
-  children: import_prop_types43.default.node,
-  appear: import_prop_types43.default.bool,
-  enter: import_prop_types43.default.bool,
-  exit: import_prop_types43.default.bool,
-  childFactory: import_prop_types43.default.func
+  component: import_prop_types45.default.any,
+  children: import_prop_types45.default.node,
+  appear: import_prop_types45.default.bool,
+  enter: import_prop_types45.default.bool,
+  exit: import_prop_types45.default.bool,
+  childFactory: import_prop_types45.default.func
 } : {};
 TransitionGroup.defaultProps = defaultProps;
 var TransitionGroup_default = TransitionGroup;
@@ -24786,7 +25017,7 @@ var ReplaceTransition = function(_React$Component) {
   return ReplaceTransition2;
 }(react_default.Component);
 ReplaceTransition.propTypes = true ? {
-  in: import_prop_types44.default.bool.isRequired,
+  in: import_prop_types46.default.bool.isRequired,
   children: function children(props, propName) {
     if (react_default.Children.count(props[propName]) !== 2)
       return new Error('"' + propName + '" must be exactly two transition components.');
@@ -24797,7 +25028,7 @@ ReplaceTransition.propTypes = true ? {
 // ../../node_modules/react-transition-group/esm/SwitchTransition.js
 init_define_process();
 init_react();
-var import_prop_types45 = __toESM(require_prop_types());
+var import_prop_types47 = __toESM(require_prop_types());
 var _leaveRenders;
 var _enterRenders;
 function areChildrenDifferent(oldChildren, newChildren) {
@@ -24937,8 +25168,8 @@ var SwitchTransition = function(_React$Component) {
   return SwitchTransition2;
 }(react_default.Component);
 SwitchTransition.propTypes = true ? {
-  mode: import_prop_types45.default.oneOf([modes.in, modes.out]),
-  children: import_prop_types45.default.oneOfType([import_prop_types45.default.element.isRequired])
+  mode: import_prop_types47.default.oneOf([modes.in, modes.out]),
+  children: import_prop_types47.default.oneOfType([import_prop_types47.default.element.isRequired])
 } : {};
 SwitchTransition.defaultProps = {
   mode: modes.out
@@ -24947,7 +25178,7 @@ SwitchTransition.defaultProps = {
 // ../../node_modules/@mui/material/ButtonBase/Ripple.js
 init_define_process();
 init_react();
-var import_prop_types46 = __toESM(require_prop_types());
+var import_prop_types48 = __toESM(require_prop_types());
 init_react();
 function Ripple(props) {
   const {
@@ -24991,15 +25222,15 @@ function Ripple(props) {
   });
 }
 true ? Ripple.propTypes = {
-  classes: import_prop_types46.default.object.isRequired,
-  className: import_prop_types46.default.string,
-  in: import_prop_types46.default.bool,
-  onExited: import_prop_types46.default.func,
-  pulsate: import_prop_types46.default.bool,
-  rippleSize: import_prop_types46.default.number,
-  rippleX: import_prop_types46.default.number,
-  rippleY: import_prop_types46.default.number,
-  timeout: import_prop_types46.default.number.isRequired
+  classes: import_prop_types48.default.object.isRequired,
+  className: import_prop_types48.default.string,
+  in: import_prop_types48.default.bool,
+  onExited: import_prop_types48.default.func,
+  pulsate: import_prop_types48.default.bool,
+  rippleSize: import_prop_types48.default.number,
+  rippleX: import_prop_types48.default.number,
+  rippleY: import_prop_types48.default.number,
+  timeout: import_prop_types48.default.number.isRequired
 } : void 0;
 var Ripple_default = Ripple;
 
@@ -25010,7 +25241,7 @@ var touchRippleClasses_default = touchRippleClasses;
 
 // ../../node_modules/@mui/material/ButtonBase/TouchRipple.js
 init_react();
-var _excluded38 = ["center", "classes", "className"];
+var _excluded39 = ["center", "classes", "className"];
 var _ = (t) => t;
 var _t;
 var _t2;
@@ -25129,7 +25360,7 @@ var TouchRipple = forwardRef(function TouchRipple2(inProps, ref) {
     center: centerProp = false,
     classes = {},
     className
-  } = props, other = _objectWithoutPropertiesLoose(props, _excluded38);
+  } = props, other = _objectWithoutPropertiesLoose(props, _excluded39);
   const [ripples, setRipples] = useState([]);
   const nextKey = useRef(0);
   const rippleCallback = useRef(null);
@@ -25287,9 +25518,9 @@ var TouchRipple = forwardRef(function TouchRipple2(inProps, ref) {
   }));
 });
 true ? TouchRipple.propTypes = {
-  center: import_prop_types47.default.bool,
-  classes: import_prop_types47.default.object,
-  className: import_prop_types47.default.string
+  center: import_prop_types49.default.bool,
+  classes: import_prop_types49.default.object,
+  className: import_prop_types49.default.string
 } : void 0;
 var TouchRipple_default = TouchRipple;
 
@@ -25304,7 +25535,7 @@ var buttonBaseClasses_default = buttonBaseClasses;
 // ../../node_modules/@mui/material/ButtonBase/ButtonBase.js
 init_react();
 init_react();
-var _excluded39 = ["action", "centerRipple", "children", "className", "component", "disabled", "disableRipple", "disableTouchRipple", "focusRipple", "focusVisibleClassName", "LinkComponent", "onBlur", "onClick", "onContextMenu", "onDragLeave", "onFocus", "onFocusVisible", "onKeyDown", "onKeyUp", "onMouseDown", "onMouseLeave", "onMouseUp", "onTouchEnd", "onTouchMove", "onTouchStart", "tabIndex", "TouchRippleProps", "touchRippleRef", "type"];
+var _excluded40 = ["action", "centerRipple", "children", "className", "component", "disabled", "disableRipple", "disableTouchRipple", "focusRipple", "focusVisibleClassName", "LinkComponent", "onBlur", "onClick", "onContextMenu", "onDragLeave", "onFocus", "onFocusVisible", "onKeyDown", "onKeyUp", "onMouseDown", "onMouseLeave", "onMouseUp", "onTouchEnd", "onTouchMove", "onTouchStart", "tabIndex", "TouchRippleProps", "touchRippleRef", "type"];
 var useUtilityClasses17 = (ownerState) => {
   const {
     disabled,
@@ -25390,7 +25621,7 @@ var ButtonBase = forwardRef(function ButtonBase2(inProps, ref) {
     TouchRippleProps,
     touchRippleRef,
     type
-  } = props, other = _objectWithoutPropertiesLoose(props, _excluded39);
+  } = props, other = _objectWithoutPropertiesLoose(props, _excluded40);
   const buttonRef = useRef(null);
   const rippleRef = useRef(null);
   const handleRippleRef = useForkRef_default(rippleRef, touchRippleRef);
@@ -25575,43 +25806,43 @@ var ButtonBase = forwardRef(function ButtonBase2(inProps, ref) {
 });
 true ? ButtonBase.propTypes = {
   action: refType_default,
-  centerRipple: import_prop_types48.default.bool,
-  children: import_prop_types48.default.node,
-  classes: import_prop_types48.default.object,
-  className: import_prop_types48.default.string,
+  centerRipple: import_prop_types50.default.bool,
+  children: import_prop_types50.default.node,
+  classes: import_prop_types50.default.object,
+  className: import_prop_types50.default.string,
   component: elementTypeAcceptingRef_default,
-  disabled: import_prop_types48.default.bool,
-  disableRipple: import_prop_types48.default.bool,
-  disableTouchRipple: import_prop_types48.default.bool,
-  focusRipple: import_prop_types48.default.bool,
-  focusVisibleClassName: import_prop_types48.default.string,
-  href: import_prop_types48.default.any,
-  LinkComponent: import_prop_types48.default.elementType,
-  onBlur: import_prop_types48.default.func,
-  onClick: import_prop_types48.default.func,
-  onContextMenu: import_prop_types48.default.func,
-  onDragLeave: import_prop_types48.default.func,
-  onFocus: import_prop_types48.default.func,
-  onFocusVisible: import_prop_types48.default.func,
-  onKeyDown: import_prop_types48.default.func,
-  onKeyUp: import_prop_types48.default.func,
-  onMouseDown: import_prop_types48.default.func,
-  onMouseLeave: import_prop_types48.default.func,
-  onMouseUp: import_prop_types48.default.func,
-  onTouchEnd: import_prop_types48.default.func,
-  onTouchMove: import_prop_types48.default.func,
-  onTouchStart: import_prop_types48.default.func,
-  sx: import_prop_types48.default.oneOfType([import_prop_types48.default.arrayOf(import_prop_types48.default.oneOfType([import_prop_types48.default.func, import_prop_types48.default.object, import_prop_types48.default.bool])), import_prop_types48.default.func, import_prop_types48.default.object]),
-  tabIndex: import_prop_types48.default.number,
-  TouchRippleProps: import_prop_types48.default.object,
-  touchRippleRef: import_prop_types48.default.oneOfType([import_prop_types48.default.func, import_prop_types48.default.shape({
-    current: import_prop_types48.default.shape({
-      pulsate: import_prop_types48.default.func.isRequired,
-      start: import_prop_types48.default.func.isRequired,
-      stop: import_prop_types48.default.func.isRequired
+  disabled: import_prop_types50.default.bool,
+  disableRipple: import_prop_types50.default.bool,
+  disableTouchRipple: import_prop_types50.default.bool,
+  focusRipple: import_prop_types50.default.bool,
+  focusVisibleClassName: import_prop_types50.default.string,
+  href: import_prop_types50.default.any,
+  LinkComponent: import_prop_types50.default.elementType,
+  onBlur: import_prop_types50.default.func,
+  onClick: import_prop_types50.default.func,
+  onContextMenu: import_prop_types50.default.func,
+  onDragLeave: import_prop_types50.default.func,
+  onFocus: import_prop_types50.default.func,
+  onFocusVisible: import_prop_types50.default.func,
+  onKeyDown: import_prop_types50.default.func,
+  onKeyUp: import_prop_types50.default.func,
+  onMouseDown: import_prop_types50.default.func,
+  onMouseLeave: import_prop_types50.default.func,
+  onMouseUp: import_prop_types50.default.func,
+  onTouchEnd: import_prop_types50.default.func,
+  onTouchMove: import_prop_types50.default.func,
+  onTouchStart: import_prop_types50.default.func,
+  sx: import_prop_types50.default.oneOfType([import_prop_types50.default.arrayOf(import_prop_types50.default.oneOfType([import_prop_types50.default.func, import_prop_types50.default.object, import_prop_types50.default.bool])), import_prop_types50.default.func, import_prop_types50.default.object]),
+  tabIndex: import_prop_types50.default.number,
+  TouchRippleProps: import_prop_types50.default.object,
+  touchRippleRef: import_prop_types50.default.oneOfType([import_prop_types50.default.func, import_prop_types50.default.shape({
+    current: import_prop_types50.default.shape({
+      pulsate: import_prop_types50.default.func.isRequired,
+      start: import_prop_types50.default.func.isRequired,
+      stop: import_prop_types50.default.func.isRequired
     })
   })]),
-  type: import_prop_types48.default.oneOfType([import_prop_types48.default.oneOf(["button", "reset", "submit"]), import_prop_types48.default.string])
+  type: import_prop_types50.default.oneOfType([import_prop_types50.default.oneOf(["button", "reset", "submit"]), import_prop_types50.default.string])
 } : void 0;
 var ButtonBase_default = ButtonBase;
 
@@ -25629,7 +25860,7 @@ var fabClasses_default = fabClasses;
 
 // ../../node_modules/@mui/material/Fab/Fab.js
 init_react();
-var _excluded40 = ["children", "className", "color", "component", "disabled", "disableFocusRipple", "focusVisibleClassName", "size", "variant"];
+var _excluded41 = ["children", "className", "color", "component", "disabled", "disableFocusRipple", "focusVisibleClassName", "size", "variant"];
 var useUtilityClasses18 = (ownerState) => {
   const {
     color: color2,
@@ -25744,7 +25975,7 @@ var Fab = forwardRef(function Fab2(inProps, ref) {
     focusVisibleClassName,
     size = "large",
     variant = "circular"
-  } = props, other = _objectWithoutPropertiesLoose(props, _excluded40);
+  } = props, other = _objectWithoutPropertiesLoose(props, _excluded41);
   const ownerState = _extends({}, props, {
     color: color2,
     component,
@@ -25767,26 +25998,26 @@ var Fab = forwardRef(function Fab2(inProps, ref) {
   }));
 });
 true ? Fab.propTypes = {
-  children: import_prop_types49.default.node,
-  classes: import_prop_types49.default.object,
-  className: import_prop_types49.default.string,
-  color: import_prop_types49.default.oneOfType([import_prop_types49.default.oneOf(["default", "error", "info", "inherit", "primary", "secondary", "success", "warning"]), import_prop_types49.default.string]),
-  component: import_prop_types49.default.elementType,
-  disabled: import_prop_types49.default.bool,
-  disableFocusRipple: import_prop_types49.default.bool,
-  disableRipple: import_prop_types49.default.bool,
-  focusVisibleClassName: import_prop_types49.default.string,
-  href: import_prop_types49.default.string,
-  size: import_prop_types49.default.oneOfType([import_prop_types49.default.oneOf(["small", "medium", "large"]), import_prop_types49.default.string]),
-  sx: import_prop_types49.default.oneOfType([import_prop_types49.default.arrayOf(import_prop_types49.default.oneOfType([import_prop_types49.default.func, import_prop_types49.default.object, import_prop_types49.default.bool])), import_prop_types49.default.func, import_prop_types49.default.object]),
-  variant: import_prop_types49.default.oneOfType([import_prop_types49.default.oneOf(["circular", "extended"]), import_prop_types49.default.string])
+  children: import_prop_types51.default.node,
+  classes: import_prop_types51.default.object,
+  className: import_prop_types51.default.string,
+  color: import_prop_types51.default.oneOfType([import_prop_types51.default.oneOf(["default", "error", "info", "inherit", "primary", "secondary", "success", "warning"]), import_prop_types51.default.string]),
+  component: import_prop_types51.default.elementType,
+  disabled: import_prop_types51.default.bool,
+  disableFocusRipple: import_prop_types51.default.bool,
+  disableRipple: import_prop_types51.default.bool,
+  focusVisibleClassName: import_prop_types51.default.string,
+  href: import_prop_types51.default.string,
+  size: import_prop_types51.default.oneOfType([import_prop_types51.default.oneOf(["small", "medium", "large"]), import_prop_types51.default.string]),
+  sx: import_prop_types51.default.oneOfType([import_prop_types51.default.arrayOf(import_prop_types51.default.oneOfType([import_prop_types51.default.func, import_prop_types51.default.object, import_prop_types51.default.bool])), import_prop_types51.default.func, import_prop_types51.default.object]),
+  variant: import_prop_types51.default.oneOfType([import_prop_types51.default.oneOf(["circular", "extended"]), import_prop_types51.default.string])
 } : void 0;
 var Fab_default = Fab;
 
 // ../../node_modules/@mui/material/Button/Button.js
 init_define_process();
 init_react();
-var import_prop_types50 = __toESM(require_prop_types());
+var import_prop_types52 = __toESM(require_prop_types());
 
 // ../../node_modules/@mui/material/Button/buttonClasses.js
 init_define_process();
@@ -25808,7 +26039,7 @@ var ButtonGroupContext_default = ButtonGroupContext;
 // ../../node_modules/@mui/material/Button/Button.js
 init_react();
 init_react();
-var _excluded41 = ["children", "color", "component", "className", "disabled", "disableElevation", "disableFocusRipple", "endIcon", "focusVisibleClassName", "fullWidth", "size", "startIcon", "type", "variant"];
+var _excluded42 = ["children", "color", "component", "className", "disabled", "disableElevation", "disableFocusRipple", "endIcon", "focusVisibleClassName", "fullWidth", "size", "startIcon", "type", "variant"];
 var _excluded211 = ["root"];
 var useUtilityClasses19 = (ownerState) => {
   const {
@@ -26026,7 +26257,7 @@ var Button = forwardRef(function Button2(inProps, ref) {
     startIcon: startIconProp,
     type,
     variant = "text"
-  } = props, other = _objectWithoutPropertiesLoose(props, _excluded41);
+  } = props, other = _objectWithoutPropertiesLoose(props, _excluded42);
   const ownerState = _extends({}, props, {
     color: color2,
     component,
@@ -26066,29 +26297,29 @@ var Button = forwardRef(function Button2(inProps, ref) {
   }));
 });
 true ? Button.propTypes = {
-  children: import_prop_types50.default.node,
-  classes: import_prop_types50.default.object,
-  className: import_prop_types50.default.string,
-  color: import_prop_types50.default.oneOfType([import_prop_types50.default.oneOf(["inherit", "primary", "secondary", "success", "error", "info", "warning"]), import_prop_types50.default.string]),
-  component: import_prop_types50.default.elementType,
-  disabled: import_prop_types50.default.bool,
-  disableElevation: import_prop_types50.default.bool,
-  disableFocusRipple: import_prop_types50.default.bool,
-  disableRipple: import_prop_types50.default.bool,
-  endIcon: import_prop_types50.default.node,
-  focusVisibleClassName: import_prop_types50.default.string,
-  fullWidth: import_prop_types50.default.bool,
-  href: import_prop_types50.default.string,
-  size: import_prop_types50.default.oneOfType([import_prop_types50.default.oneOf(["small", "medium", "large"]), import_prop_types50.default.string]),
-  startIcon: import_prop_types50.default.node,
-  sx: import_prop_types50.default.oneOfType([import_prop_types50.default.arrayOf(import_prop_types50.default.oneOfType([import_prop_types50.default.func, import_prop_types50.default.object, import_prop_types50.default.bool])), import_prop_types50.default.func, import_prop_types50.default.object]),
-  type: import_prop_types50.default.oneOfType([import_prop_types50.default.oneOf(["button", "reset", "submit"]), import_prop_types50.default.string]),
-  variant: import_prop_types50.default.oneOfType([import_prop_types50.default.oneOf(["contained", "outlined", "text"]), import_prop_types50.default.string])
+  children: import_prop_types52.default.node,
+  classes: import_prop_types52.default.object,
+  className: import_prop_types52.default.string,
+  color: import_prop_types52.default.oneOfType([import_prop_types52.default.oneOf(["inherit", "primary", "secondary", "success", "error", "info", "warning"]), import_prop_types52.default.string]),
+  component: import_prop_types52.default.elementType,
+  disabled: import_prop_types52.default.bool,
+  disableElevation: import_prop_types52.default.bool,
+  disableFocusRipple: import_prop_types52.default.bool,
+  disableRipple: import_prop_types52.default.bool,
+  endIcon: import_prop_types52.default.node,
+  focusVisibleClassName: import_prop_types52.default.string,
+  fullWidth: import_prop_types52.default.bool,
+  href: import_prop_types52.default.string,
+  size: import_prop_types52.default.oneOfType([import_prop_types52.default.oneOf(["small", "medium", "large"]), import_prop_types52.default.string]),
+  startIcon: import_prop_types52.default.node,
+  sx: import_prop_types52.default.oneOfType([import_prop_types52.default.arrayOf(import_prop_types52.default.oneOfType([import_prop_types52.default.func, import_prop_types52.default.object, import_prop_types52.default.bool])), import_prop_types52.default.func, import_prop_types52.default.object]),
+  type: import_prop_types52.default.oneOfType([import_prop_types52.default.oneOf(["button", "reset", "submit"]), import_prop_types52.default.string]),
+  variant: import_prop_types52.default.oneOfType([import_prop_types52.default.oneOf(["contained", "outlined", "text"]), import_prop_types52.default.string])
 } : void 0;
 
 // ../../node_modules/@mui/material/Box/Box.js
 init_define_process();
-var import_prop_types52 = __toESM(require_prop_types());
+var import_prop_types54 = __toESM(require_prop_types());
 
 // ../../node_modules/@mui/material/className/index.js
 init_define_process();
@@ -26143,7 +26374,7 @@ init_define_process();
 // ../../node_modules/@mui/material/Paper/Paper.js
 init_define_process();
 init_react();
-var import_prop_types51 = __toESM(require_prop_types());
+var import_prop_types53 = __toESM(require_prop_types());
 
 // ../../node_modules/@mui/material/Paper/paperClasses.js
 init_define_process();
@@ -26154,7 +26385,7 @@ var paperClasses = generateUtilityClasses("MuiPaper", ["root", "rounded", "outli
 
 // ../../node_modules/@mui/material/Paper/Paper.js
 init_react();
-var _excluded42 = ["className", "component", "elevation", "square", "variant"];
+var _excluded43 = ["className", "component", "elevation", "square", "variant"];
 var getOverlayAlpha = (elevation) => {
   let alphaValue;
   if (elevation < 1) {
@@ -26217,7 +26448,7 @@ var Paper = forwardRef(function Paper2(inProps, ref) {
     elevation = 1,
     square = false,
     variant = "elevation"
-  } = props, other = _objectWithoutPropertiesLoose(props, _excluded42);
+  } = props, other = _objectWithoutPropertiesLoose(props, _excluded43);
   const ownerState = _extends({}, props, {
     component,
     elevation,
@@ -26239,10 +26470,10 @@ var Paper = forwardRef(function Paper2(inProps, ref) {
   }, other));
 });
 true ? Paper.propTypes = {
-  children: import_prop_types51.default.node,
-  classes: import_prop_types51.default.object,
-  className: import_prop_types51.default.string,
-  component: import_prop_types51.default.elementType,
+  children: import_prop_types53.default.node,
+  classes: import_prop_types53.default.object,
+  className: import_prop_types53.default.string,
+  component: import_prop_types53.default.elementType,
   elevation: chainPropTypes(integerPropType_default, (props) => {
     const {
       elevation,
@@ -26253,13 +26484,13 @@ true ? Paper.propTypes = {
     }
     return null;
   }),
-  square: import_prop_types51.default.bool,
-  sx: import_prop_types51.default.oneOfType([import_prop_types51.default.arrayOf(import_prop_types51.default.oneOfType([import_prop_types51.default.func, import_prop_types51.default.object, import_prop_types51.default.bool])), import_prop_types51.default.func, import_prop_types51.default.object]),
-  variant: import_prop_types51.default.oneOfType([import_prop_types51.default.oneOf(["elevation", "outlined"]), import_prop_types51.default.string])
+  square: import_prop_types53.default.bool,
+  sx: import_prop_types53.default.oneOfType([import_prop_types53.default.arrayOf(import_prop_types53.default.oneOfType([import_prop_types53.default.func, import_prop_types53.default.object, import_prop_types53.default.bool])), import_prop_types53.default.func, import_prop_types53.default.object]),
+  variant: import_prop_types53.default.oneOfType([import_prop_types53.default.oneOf(["elevation", "outlined"]), import_prop_types53.default.string])
 } : void 0;
 
 // ../../node_modules/@mui/material/styles/experimental_extendTheme.js
-var _excluded43 = ["colorSchemes", "cssVarPrefix"];
+var _excluded44 = ["colorSchemes", "cssVarPrefix"];
 var _excluded212 = ["palette"];
 var defaultDarkOverlays = [...Array(25)].map((_2, index) => {
   if (index === 0) {
@@ -26284,7 +26515,7 @@ function extendTheme(options = {}, ...args) {
   const {
     colorSchemes: colorSchemesInput = {},
     cssVarPrefix = "mui"
-  } = options, input = _objectWithoutPropertiesLoose(options, _excluded43);
+  } = options, input = _objectWithoutPropertiesLoose(options, _excluded44);
   const getCssVar = createGetCssVar2(cssVarPrefix);
   const _createThemeWithoutVa = createTheme_default2(_extends({}, input, colorSchemesInput.light && {
     palette: (_colorSchemesInput$li = colorSchemesInput.light) == null ? void 0 : _colorSchemesInput$li.palette
@@ -26493,13 +26724,13 @@ var shouldSkipGeneratingVar = (keys2) => {
   var _keys$;
   return !!keys2[0].match(/(typography|mixins|breakpoints|direction|transitions)/) || keys2[0] === "palette" && !!((_keys$ = keys2[1]) != null && _keys$.match(/(mode|contrastThreshold|tonalOffset)/));
 };
-var defaultTheme4 = extendTheme();
+var defaultTheme5 = extendTheme();
 var {
   CssVarsProvider,
   useColorScheme,
   getInitColorSchemeScript: getInitColorSchemeScript2
 } = createCssVarsProvider({
-  theme: defaultTheme4,
+  theme: defaultTheme5,
   attribute: "data-mui-color-scheme",
   modeStorageKey: "mui-mode",
   colorSchemeStorageKey: "mui-color-scheme",
@@ -26517,22 +26748,22 @@ var {
 });
 
 // ../../node_modules/@mui/material/Box/Box.js
-var defaultTheme5 = createTheme_default2();
+var defaultTheme6 = createTheme_default2();
 var Box2 = createBox({
-  defaultTheme: defaultTheme5,
+  defaultTheme: defaultTheme6,
   defaultClassName: "MuiBox-root",
   generateClassName: ClassNameGenerator_default.generate
 });
 true ? Box2.propTypes = {
-  children: import_prop_types52.default.node,
-  component: import_prop_types52.default.elementType,
-  sx: import_prop_types52.default.oneOfType([import_prop_types52.default.arrayOf(import_prop_types52.default.oneOfType([import_prop_types52.default.func, import_prop_types52.default.object, import_prop_types52.default.bool])), import_prop_types52.default.func, import_prop_types52.default.object])
+  children: import_prop_types54.default.node,
+  component: import_prop_types54.default.elementType,
+  sx: import_prop_types54.default.oneOfType([import_prop_types54.default.arrayOf(import_prop_types54.default.oneOfType([import_prop_types54.default.func, import_prop_types54.default.object, import_prop_types54.default.bool])), import_prop_types54.default.func, import_prop_types54.default.object])
 } : void 0;
 
 // ../../node_modules/@mui/material/Slider/Slider.js
 init_define_process();
 init_react();
-var import_prop_types53 = __toESM(require_prop_types());
+var import_prop_types55 = __toESM(require_prop_types());
 
 // ../../node_modules/@mui/material/utils/shouldSpreadAdditionalProps.js
 init_define_process();
@@ -26543,7 +26774,7 @@ var shouldSpreadAdditionalProps_default = shouldSpreadAdditionalProps;
 
 // ../../node_modules/@mui/material/Slider/Slider.js
 init_react();
-var _excluded44 = ["component", "components", "componentsProps", "color", "size"];
+var _excluded45 = ["component", "components", "componentsProps", "color", "size"];
 var sliderClasses = _extends({}, sliderUnstyledClasses_default, generateUtilityClasses("MuiSlider", ["colorPrimary", "colorSecondary", "thumbColorPrimary", "thumbColorSecondary", "sizeSmall", "thumbSizeSmall"]));
 var SliderRoot = styled_default2("span", {
   name: "MuiSlider",
@@ -26604,7 +26835,7 @@ var SliderRoot = styled_default2("span", {
   }
 }));
 true ? SliderRoot.propTypes = {
-  children: import_prop_types53.default.node
+  children: import_prop_types55.default.node
 } : void 0;
 var SliderRail = styled_default2("span", {
   name: "MuiSlider",
@@ -26632,7 +26863,7 @@ var SliderRail = styled_default2("span", {
   opacity: 1
 }));
 true ? SliderRail.propTypes = {
-  children: import_prop_types53.default.node
+  children: import_prop_types55.default.node
 } : void 0;
 var SliderTrack = styled_default2("span", {
   name: "MuiSlider",
@@ -26670,7 +26901,7 @@ var SliderTrack = styled_default2("span", {
   });
 });
 true ? SliderTrack.propTypes = {
-  children: import_prop_types53.default.node
+  children: import_prop_types55.default.node
 } : void 0;
 var SliderThumb = styled_default2("span", {
   name: "MuiSlider",
@@ -26744,7 +26975,7 @@ var SliderThumb = styled_default2("span", {
   }
 }));
 true ? SliderThumb.propTypes = {
-  children: import_prop_types53.default.node
+  children: import_prop_types55.default.node
 } : void 0;
 var SliderValueLabel = styled_default2(SliderValueLabelUnstyled, {
   name: "MuiSlider",
@@ -26805,7 +27036,7 @@ var SliderValueLabel = styled_default2(SliderValueLabelUnstyled, {
   padding: "0.25rem 0.5rem"
 }));
 true ? SliderValueLabel.propTypes = {
-  children: import_prop_types53.default.node
+  children: import_prop_types55.default.node
 } : void 0;
 var SliderMark = styled_default2("span", {
   name: "MuiSlider",
@@ -26833,7 +27064,7 @@ var SliderMark = styled_default2("span", {
   opacity: 0.8
 }));
 true ? SliderMark.propTypes = {
-  children: import_prop_types53.default.node
+  children: import_prop_types55.default.node
 } : void 0;
 var SliderMarkLabel = styled_default2("span", {
   name: "MuiSlider",
@@ -26864,7 +27095,7 @@ var SliderMarkLabel = styled_default2("span", {
   color: (theme.vars || theme).palette.text.primary
 }));
 true ? SliderMarkLabel.propTypes = {
-  children: import_prop_types53.default.node
+  children: import_prop_types55.default.node
 } : void 0;
 var extendUtilityClasses = (ownerState) => {
   const {
@@ -26891,7 +27122,7 @@ var Slider = forwardRef(function Slider2(inputProps, ref) {
     componentsProps = {},
     color: color2 = "primary",
     size = "medium"
-  } = props, other = _objectWithoutPropertiesLoose(props, _excluded44);
+  } = props, other = _objectWithoutPropertiesLoose(props, _excluded45);
   const ownerState = _extends({}, props, {
     color: color2,
     size
@@ -26940,79 +27171,79 @@ var Slider = forwardRef(function Slider2(inputProps, ref) {
   }));
 });
 true ? Slider.propTypes = {
-  "aria-label": chainPropTypes(import_prop_types53.default.string, (props) => {
+  "aria-label": chainPropTypes(import_prop_types55.default.string, (props) => {
     const range = Array.isArray(props.value || props.defaultValue);
     if (range && props["aria-label"] != null) {
       return new Error("MUI: You need to use the `getAriaLabel` prop instead of `aria-label` when using a range slider.");
     }
     return null;
   }),
-  "aria-labelledby": import_prop_types53.default.string,
-  "aria-valuetext": chainPropTypes(import_prop_types53.default.string, (props) => {
+  "aria-labelledby": import_prop_types55.default.string,
+  "aria-valuetext": chainPropTypes(import_prop_types55.default.string, (props) => {
     const range = Array.isArray(props.value || props.defaultValue);
     if (range && props["aria-valuetext"] != null) {
       return new Error("MUI: You need to use the `getAriaValueText` prop instead of `aria-valuetext` when using a range slider.");
     }
     return null;
   }),
-  children: import_prop_types53.default.node,
-  classes: import_prop_types53.default.object,
-  color: import_prop_types53.default.oneOfType([import_prop_types53.default.oneOf(["primary", "secondary"]), import_prop_types53.default.string]),
-  components: import_prop_types53.default.shape({
-    Input: import_prop_types53.default.elementType,
-    Mark: import_prop_types53.default.elementType,
-    MarkLabel: import_prop_types53.default.elementType,
-    Rail: import_prop_types53.default.elementType,
-    Root: import_prop_types53.default.elementType,
-    Thumb: import_prop_types53.default.elementType,
-    Track: import_prop_types53.default.elementType,
-    ValueLabel: import_prop_types53.default.elementType
+  children: import_prop_types55.default.node,
+  classes: import_prop_types55.default.object,
+  color: import_prop_types55.default.oneOfType([import_prop_types55.default.oneOf(["primary", "secondary"]), import_prop_types55.default.string]),
+  components: import_prop_types55.default.shape({
+    Input: import_prop_types55.default.elementType,
+    Mark: import_prop_types55.default.elementType,
+    MarkLabel: import_prop_types55.default.elementType,
+    Rail: import_prop_types55.default.elementType,
+    Root: import_prop_types55.default.elementType,
+    Thumb: import_prop_types55.default.elementType,
+    Track: import_prop_types55.default.elementType,
+    ValueLabel: import_prop_types55.default.elementType
   }),
-  componentsProps: import_prop_types53.default.shape({
-    input: import_prop_types53.default.oneOfType([import_prop_types53.default.func, import_prop_types53.default.object]),
-    mark: import_prop_types53.default.oneOfType([import_prop_types53.default.func, import_prop_types53.default.object]),
-    markLabel: import_prop_types53.default.oneOfType([import_prop_types53.default.func, import_prop_types53.default.object]),
-    rail: import_prop_types53.default.oneOfType([import_prop_types53.default.func, import_prop_types53.default.object]),
-    root: import_prop_types53.default.oneOfType([import_prop_types53.default.func, import_prop_types53.default.object]),
-    thumb: import_prop_types53.default.oneOfType([import_prop_types53.default.func, import_prop_types53.default.object]),
-    track: import_prop_types53.default.oneOfType([import_prop_types53.default.func, import_prop_types53.default.object]),
-    valueLabel: import_prop_types53.default.oneOfType([import_prop_types53.default.func, import_prop_types53.default.shape({
-      children: import_prop_types53.default.element,
-      className: import_prop_types53.default.string,
-      components: import_prop_types53.default.shape({
-        Root: import_prop_types53.default.elementType
+  componentsProps: import_prop_types55.default.shape({
+    input: import_prop_types55.default.oneOfType([import_prop_types55.default.func, import_prop_types55.default.object]),
+    mark: import_prop_types55.default.oneOfType([import_prop_types55.default.func, import_prop_types55.default.object]),
+    markLabel: import_prop_types55.default.oneOfType([import_prop_types55.default.func, import_prop_types55.default.object]),
+    rail: import_prop_types55.default.oneOfType([import_prop_types55.default.func, import_prop_types55.default.object]),
+    root: import_prop_types55.default.oneOfType([import_prop_types55.default.func, import_prop_types55.default.object]),
+    thumb: import_prop_types55.default.oneOfType([import_prop_types55.default.func, import_prop_types55.default.object]),
+    track: import_prop_types55.default.oneOfType([import_prop_types55.default.func, import_prop_types55.default.object]),
+    valueLabel: import_prop_types55.default.oneOfType([import_prop_types55.default.func, import_prop_types55.default.shape({
+      children: import_prop_types55.default.element,
+      className: import_prop_types55.default.string,
+      components: import_prop_types55.default.shape({
+        Root: import_prop_types55.default.elementType
       }),
-      open: import_prop_types53.default.bool,
-      style: import_prop_types53.default.object,
-      value: import_prop_types53.default.number,
-      valueLabelDisplay: import_prop_types53.default.oneOf(["auto", "off", "on"])
+      open: import_prop_types55.default.bool,
+      style: import_prop_types55.default.object,
+      value: import_prop_types55.default.number,
+      valueLabelDisplay: import_prop_types55.default.oneOf(["auto", "off", "on"])
     })])
   }),
-  defaultValue: import_prop_types53.default.oneOfType([import_prop_types53.default.arrayOf(import_prop_types53.default.number), import_prop_types53.default.number]),
-  disabled: import_prop_types53.default.bool,
-  disableSwap: import_prop_types53.default.bool,
-  getAriaLabel: import_prop_types53.default.func,
-  getAriaValueText: import_prop_types53.default.func,
-  isRtl: import_prop_types53.default.bool,
-  marks: import_prop_types53.default.oneOfType([import_prop_types53.default.arrayOf(import_prop_types53.default.shape({
-    label: import_prop_types53.default.node,
-    value: import_prop_types53.default.number.isRequired
-  })), import_prop_types53.default.bool]),
-  max: import_prop_types53.default.number,
-  min: import_prop_types53.default.number,
-  name: import_prop_types53.default.string,
-  onChange: import_prop_types53.default.func,
-  onChangeCommitted: import_prop_types53.default.func,
-  orientation: import_prop_types53.default.oneOf(["horizontal", "vertical"]),
-  scale: import_prop_types53.default.func,
-  size: import_prop_types53.default.oneOfType([import_prop_types53.default.oneOf(["small", "medium"]), import_prop_types53.default.string]),
-  step: import_prop_types53.default.number,
-  sx: import_prop_types53.default.oneOfType([import_prop_types53.default.arrayOf(import_prop_types53.default.oneOfType([import_prop_types53.default.func, import_prop_types53.default.object, import_prop_types53.default.bool])), import_prop_types53.default.func, import_prop_types53.default.object]),
-  tabIndex: import_prop_types53.default.number,
-  track: import_prop_types53.default.oneOf(["inverted", "normal", false]),
-  value: import_prop_types53.default.oneOfType([import_prop_types53.default.arrayOf(import_prop_types53.default.number), import_prop_types53.default.number]),
-  valueLabelDisplay: import_prop_types53.default.oneOf(["auto", "off", "on"]),
-  valueLabelFormat: import_prop_types53.default.oneOfType([import_prop_types53.default.func, import_prop_types53.default.string])
+  defaultValue: import_prop_types55.default.oneOfType([import_prop_types55.default.arrayOf(import_prop_types55.default.number), import_prop_types55.default.number]),
+  disabled: import_prop_types55.default.bool,
+  disableSwap: import_prop_types55.default.bool,
+  getAriaLabel: import_prop_types55.default.func,
+  getAriaValueText: import_prop_types55.default.func,
+  isRtl: import_prop_types55.default.bool,
+  marks: import_prop_types55.default.oneOfType([import_prop_types55.default.arrayOf(import_prop_types55.default.shape({
+    label: import_prop_types55.default.node,
+    value: import_prop_types55.default.number.isRequired
+  })), import_prop_types55.default.bool]),
+  max: import_prop_types55.default.number,
+  min: import_prop_types55.default.number,
+  name: import_prop_types55.default.string,
+  onChange: import_prop_types55.default.func,
+  onChangeCommitted: import_prop_types55.default.func,
+  orientation: import_prop_types55.default.oneOf(["horizontal", "vertical"]),
+  scale: import_prop_types55.default.func,
+  size: import_prop_types55.default.oneOfType([import_prop_types55.default.oneOf(["small", "medium"]), import_prop_types55.default.string]),
+  step: import_prop_types55.default.number,
+  sx: import_prop_types55.default.oneOfType([import_prop_types55.default.arrayOf(import_prop_types55.default.oneOfType([import_prop_types55.default.func, import_prop_types55.default.object, import_prop_types55.default.bool])), import_prop_types55.default.func, import_prop_types55.default.object]),
+  tabIndex: import_prop_types55.default.number,
+  track: import_prop_types55.default.oneOf(["inverted", "normal", false]),
+  value: import_prop_types55.default.oneOfType([import_prop_types55.default.arrayOf(import_prop_types55.default.number), import_prop_types55.default.number]),
+  valueLabelDisplay: import_prop_types55.default.oneOf(["auto", "off", "on"]),
+  valueLabelFormat: import_prop_types55.default.oneOfType([import_prop_types55.default.func, import_prop_types55.default.string])
 } : void 0;
 
 // ../../node_modules/@mui/material/utils/createSvgIcon.js
@@ -27025,7 +27256,7 @@ init_define_process();
 // ../../node_modules/@mui/material/SvgIcon/SvgIcon.js
 init_define_process();
 init_react();
-var import_prop_types54 = __toESM(require_prop_types());
+var import_prop_types56 = __toESM(require_prop_types());
 
 // ../../node_modules/@mui/material/SvgIcon/svgIconClasses.js
 init_define_process();
@@ -27037,7 +27268,7 @@ var svgIconClasses = generateUtilityClasses("MuiSvgIcon", ["root", "colorPrimary
 // ../../node_modules/@mui/material/SvgIcon/SvgIcon.js
 init_react();
 init_react();
-var _excluded45 = ["children", "className", "color", "component", "fontSize", "htmlColor", "inheritViewBox", "titleAccess", "viewBox"];
+var _excluded46 = ["children", "className", "color", "component", "fontSize", "htmlColor", "inheritViewBox", "titleAccess", "viewBox"];
 var useUtilityClasses21 = (ownerState) => {
   const {
     color: color2,
@@ -27101,7 +27332,7 @@ var SvgIcon = forwardRef(function SvgIcon2(inProps, ref) {
     inheritViewBox = false,
     titleAccess,
     viewBox = "0 0 24 24"
-  } = props, other = _objectWithoutPropertiesLoose(props, _excluded45);
+  } = props, other = _objectWithoutPropertiesLoose(props, _excluded46);
   const ownerState = _extends({}, props, {
     color: color2,
     component,
@@ -27131,18 +27362,18 @@ var SvgIcon = forwardRef(function SvgIcon2(inProps, ref) {
   }));
 });
 true ? SvgIcon.propTypes = {
-  children: import_prop_types54.default.node,
-  classes: import_prop_types54.default.object,
-  className: import_prop_types54.default.string,
-  color: import_prop_types54.default.oneOfType([import_prop_types54.default.oneOf(["inherit", "action", "disabled", "primary", "secondary", "error", "info", "success", "warning"]), import_prop_types54.default.string]),
-  component: import_prop_types54.default.elementType,
-  fontSize: import_prop_types54.default.oneOfType([import_prop_types54.default.oneOf(["inherit", "large", "medium", "small"]), import_prop_types54.default.string]),
-  htmlColor: import_prop_types54.default.string,
-  inheritViewBox: import_prop_types54.default.bool,
-  shapeRendering: import_prop_types54.default.string,
-  sx: import_prop_types54.default.oneOfType([import_prop_types54.default.arrayOf(import_prop_types54.default.oneOfType([import_prop_types54.default.func, import_prop_types54.default.object, import_prop_types54.default.bool])), import_prop_types54.default.func, import_prop_types54.default.object]),
-  titleAccess: import_prop_types54.default.string,
-  viewBox: import_prop_types54.default.string
+  children: import_prop_types56.default.node,
+  classes: import_prop_types56.default.object,
+  className: import_prop_types56.default.string,
+  color: import_prop_types56.default.oneOfType([import_prop_types56.default.oneOf(["inherit", "action", "disabled", "primary", "secondary", "error", "info", "success", "warning"]), import_prop_types56.default.string]),
+  component: import_prop_types56.default.elementType,
+  fontSize: import_prop_types56.default.oneOfType([import_prop_types56.default.oneOf(["inherit", "large", "medium", "small"]), import_prop_types56.default.string]),
+  htmlColor: import_prop_types56.default.string,
+  inheritViewBox: import_prop_types56.default.bool,
+  shapeRendering: import_prop_types56.default.string,
+  sx: import_prop_types56.default.oneOfType([import_prop_types56.default.arrayOf(import_prop_types56.default.oneOfType([import_prop_types56.default.func, import_prop_types56.default.object, import_prop_types56.default.bool])), import_prop_types56.default.func, import_prop_types56.default.object]),
+  titleAccess: import_prop_types56.default.string,
+  viewBox: import_prop_types56.default.string
 } : void 0;
 SvgIcon.muiName = "SvgIcon";
 var SvgIcon_default = SvgIcon;
@@ -27166,7 +27397,7 @@ function createSvgIcon(path, displayName) {
 // ../../node_modules/@mui/material/ToggleButton/ToggleButton.js
 init_define_process();
 init_react();
-var import_prop_types55 = __toESM(require_prop_types());
+var import_prop_types57 = __toESM(require_prop_types());
 
 // ../../node_modules/@mui/material/ToggleButton/toggleButtonClasses.js
 init_define_process();
@@ -27178,7 +27409,7 @@ var toggleButtonClasses_default = toggleButtonClasses;
 
 // ../../node_modules/@mui/material/ToggleButton/ToggleButton.js
 init_react();
-var _excluded46 = ["children", "className", "color", "disabled", "disableFocusRipple", "fullWidth", "onChange", "onClick", "selected", "size", "value"];
+var _excluded47 = ["children", "className", "color", "disabled", "disableFocusRipple", "fullWidth", "onChange", "onClick", "selected", "size", "value"];
 var useUtilityClasses22 = (ownerState) => {
   const {
     classes,
@@ -27266,7 +27497,7 @@ var ToggleButton = forwardRef(function ToggleButton2(inProps, ref) {
     selected,
     size = "medium",
     value
-  } = props, other = _objectWithoutPropertiesLoose(props, _excluded46);
+  } = props, other = _objectWithoutPropertiesLoose(props, _excluded47);
   const ownerState = _extends({}, props, {
     color: color2,
     disabled,
@@ -27301,20 +27532,20 @@ var ToggleButton = forwardRef(function ToggleButton2(inProps, ref) {
   }));
 });
 true ? ToggleButton.propTypes = {
-  children: import_prop_types55.default.node,
-  classes: import_prop_types55.default.object,
-  className: import_prop_types55.default.string,
-  color: import_prop_types55.default.oneOfType([import_prop_types55.default.oneOf(["standard", "primary", "secondary", "error", "info", "success", "warning"]), import_prop_types55.default.string]),
-  disabled: import_prop_types55.default.bool,
-  disableFocusRipple: import_prop_types55.default.bool,
-  disableRipple: import_prop_types55.default.bool,
-  fullWidth: import_prop_types55.default.bool,
-  onChange: import_prop_types55.default.func,
-  onClick: import_prop_types55.default.func,
-  selected: import_prop_types55.default.bool,
-  size: import_prop_types55.default.oneOfType([import_prop_types55.default.oneOf(["small", "medium", "large"]), import_prop_types55.default.string]),
-  sx: import_prop_types55.default.oneOfType([import_prop_types55.default.arrayOf(import_prop_types55.default.oneOfType([import_prop_types55.default.func, import_prop_types55.default.object, import_prop_types55.default.bool])), import_prop_types55.default.func, import_prop_types55.default.object]),
-  value: import_prop_types55.default.any.isRequired
+  children: import_prop_types57.default.node,
+  classes: import_prop_types57.default.object,
+  className: import_prop_types57.default.string,
+  color: import_prop_types57.default.oneOfType([import_prop_types57.default.oneOf(["standard", "primary", "secondary", "error", "info", "success", "warning"]), import_prop_types57.default.string]),
+  disabled: import_prop_types57.default.bool,
+  disableFocusRipple: import_prop_types57.default.bool,
+  disableRipple: import_prop_types57.default.bool,
+  fullWidth: import_prop_types57.default.bool,
+  onChange: import_prop_types57.default.func,
+  onClick: import_prop_types57.default.func,
+  selected: import_prop_types57.default.bool,
+  size: import_prop_types57.default.oneOfType([import_prop_types57.default.oneOf(["small", "medium", "large"]), import_prop_types57.default.string]),
+  sx: import_prop_types57.default.oneOfType([import_prop_types57.default.arrayOf(import_prop_types57.default.oneOfType([import_prop_types57.default.func, import_prop_types57.default.object, import_prop_types57.default.bool])), import_prop_types57.default.func, import_prop_types57.default.object]),
+  value: import_prop_types57.default.any.isRequired
 } : void 0;
 var ToggleButton_default = ToggleButton;
 
@@ -27322,7 +27553,7 @@ var ToggleButton_default = ToggleButton;
 init_define_process();
 init_react();
 var import_react_is3 = __toESM(require_react_is2());
-var import_prop_types56 = __toESM(require_prop_types());
+var import_prop_types58 = __toESM(require_prop_types());
 
 // ../../node_modules/@mui/material/ToggleButtonGroup/isValueSelected.js
 init_define_process();
@@ -27346,7 +27577,7 @@ var toggleButtonGroupClasses_default = toggleButtonGroupClasses;
 
 // ../../node_modules/@mui/material/ToggleButtonGroup/ToggleButtonGroup.js
 init_react();
-var _excluded47 = ["children", "className", "color", "disabled", "exclusive", "fullWidth", "onChange", "orientation", "size", "value"];
+var _excluded48 = ["children", "className", "color", "disabled", "exclusive", "fullWidth", "onChange", "orientation", "size", "value"];
 var useUtilityClasses23 = (ownerState) => {
   const {
     classes,
@@ -27432,7 +27663,7 @@ var ToggleButtonGroup = forwardRef(function ToggleButtonGroup2(inProps, ref) {
     orientation = "horizontal",
     size = "medium",
     value
-  } = props, other = _objectWithoutPropertiesLoose(props, _excluded47);
+  } = props, other = _objectWithoutPropertiesLoose(props, _excluded48);
   const ownerState = _extends({}, props, {
     disabled,
     fullWidth,
@@ -27488,18 +27719,18 @@ var ToggleButtonGroup = forwardRef(function ToggleButtonGroup2(inProps, ref) {
   }));
 });
 true ? ToggleButtonGroup.propTypes = {
-  children: import_prop_types56.default.node,
-  classes: import_prop_types56.default.object,
-  className: import_prop_types56.default.string,
-  color: import_prop_types56.default.oneOfType([import_prop_types56.default.oneOf(["standard", "primary", "secondary", "error", "info", "success", "warning"]), import_prop_types56.default.string]),
-  disabled: import_prop_types56.default.bool,
-  exclusive: import_prop_types56.default.bool,
-  fullWidth: import_prop_types56.default.bool,
-  onChange: import_prop_types56.default.func,
-  orientation: import_prop_types56.default.oneOf(["horizontal", "vertical"]),
-  size: import_prop_types56.default.oneOfType([import_prop_types56.default.oneOf(["small", "medium", "large"]), import_prop_types56.default.string]),
-  sx: import_prop_types56.default.oneOfType([import_prop_types56.default.arrayOf(import_prop_types56.default.oneOfType([import_prop_types56.default.func, import_prop_types56.default.object, import_prop_types56.default.bool])), import_prop_types56.default.func, import_prop_types56.default.object]),
-  value: import_prop_types56.default.any
+  children: import_prop_types58.default.node,
+  classes: import_prop_types58.default.object,
+  className: import_prop_types58.default.string,
+  color: import_prop_types58.default.oneOfType([import_prop_types58.default.oneOf(["standard", "primary", "secondary", "error", "info", "success", "warning"]), import_prop_types58.default.string]),
+  disabled: import_prop_types58.default.bool,
+  exclusive: import_prop_types58.default.bool,
+  fullWidth: import_prop_types58.default.bool,
+  onChange: import_prop_types58.default.func,
+  orientation: import_prop_types58.default.oneOf(["horizontal", "vertical"]),
+  size: import_prop_types58.default.oneOfType([import_prop_types58.default.oneOf(["small", "medium", "large"]), import_prop_types58.default.string]),
+  sx: import_prop_types58.default.oneOfType([import_prop_types58.default.arrayOf(import_prop_types58.default.oneOfType([import_prop_types58.default.func, import_prop_types58.default.object, import_prop_types58.default.bool])), import_prop_types58.default.func, import_prop_types58.default.object]),
+  value: import_prop_types58.default.any
 } : void 0;
 var ToggleButtonGroup_default = ToggleButtonGroup;
 
@@ -28145,7 +28376,7 @@ var Editor = ({ code, i: i2, codeSpace: codeSpace2 }) => {
       }));
     };
     const setAce = async () => {
-      const { startAce } = await import("../startAce-ZTLOTYEQ.mjs");
+      const { startAce } = await import("../startAce-L2NPKTE6.mjs");
       const editor = await startAce(mST().code);
       changeContent((x) => ({
         ...x,
@@ -28458,7 +28689,6 @@ var run = async (startState) => {
   }, location.origin);
   renderPreviewWindow(startState.codeSpace, startState.App);
   await initShims(assets);
-  join2();
   bc = new BroadcastChannel("spike.land");
   bc.onmessage = async (event) => {
     if (event.data.ignoreUser && event.data.ignoreUser === user)
@@ -28617,6 +28847,9 @@ async function processWsMessage(event, source) {
     return;
   lastSeenNow = Date.now();
   const data = JSON.parse(event.data);
+  processData(data);
+}
+async function processData(data, source) {
   console.log("ws", data.name, data.oldHash, data.newHash);
   if (source === "ws" && data.timestamp) {
     lastSeenNow = Date.now();
@@ -28703,14 +28936,14 @@ async function processWsMessage(event, source) {
     rtcConns[target] = new RTCPeerConnection(
       rcpOptions
     );
-    rtcConns[target].onicecandidate = (event2) => {
-      if (event2.candidate) {
-        log("*** Outgoing ICE candidate: " + event2.candidate);
+    rtcConns[target].onicecandidate = (event) => {
+      if (event.candidate) {
+        log("*** Outgoing ICE candidate: " + event.candidate);
         ws?.send(JSON.stringify({
           type: "new-ice-candidate",
           target,
           name: user,
-          candidate: event2.candidate.toJSON()
+          candidate: event.candidate.toJSON()
         }));
       }
     };
@@ -28727,9 +28960,9 @@ async function processWsMessage(event, source) {
     };
     rtcConns[target].onnegotiationneeded = handleNegotiationNeededEvent;
     rtcConns[target].ontrack = (ev) => console.log(ev);
-    rtcConns[target].ondatachannel = (event2) => {
+    rtcConns[target].ondatachannel = (event) => {
       console.log("Receive Channel Callback");
-      const rtc2 = event2.channel;
+      const rtc2 = event.channel;
       rtc2.binaryType = "arraybuffer";
       rtc2.addEventListener("close", onReceiveChannelClosed);
       rtc2.addEventListener(

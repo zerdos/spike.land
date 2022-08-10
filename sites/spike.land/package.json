@@ -17,7 +17,8 @@
   },
   "dependencies": {
     "@cloudflare/kv-asset-handler": "0.2.0",
-    "@spike.land/code": "^0.8.3"
+    "@spike.land/code": "^0.8.3",
+    "p2pcf": "^1.3.6"
   },
   "publishConfig": {
     "access": "public"

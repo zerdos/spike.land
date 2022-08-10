@@ -3,8 +3,7 @@ import { RateLimiterClient } from "./rateLimiterClient";
 import HTML from "./index.html";
 import IIFE from "./iife.html";
 import manifestJSON from "__STATIC_CONTENT_MANIFEST";
-
-import { CodeEnv } from "./env";
+ import { CodeEnv } from "./env";
 import type { ICodeSession } from "@spike.land/code/js/session";
 import {
   applyPatch,
