@@ -38,7 +38,7 @@ const list = [
   "@emotion/styled",
   "framer-motion",
 ];
-await Promise.all(list.map(async (name) => await generator.install(name)));
+// await Promise.all(list.map(async (name) => await generator.install(name)));
 
 // await generator.install("orbit-db");
 // await generator.install("tslib");

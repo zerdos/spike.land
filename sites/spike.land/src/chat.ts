@@ -148,6 +148,15 @@ export default {
                   },
                 },
                 {
+                  cacheControl: u.includes("chunk-")?{
+                    browserTTL:  2 * 60 * 60 * 24,
+                    edgeTTL: 2 * 60 * 60 * 24,
+                    bypassCache: false 
+                  }: {
+                    browserTTL: null,
+                    edgeTTL: null, 
+                    bypassCache: true
+                  },
                   ASSET_NAMESPACE: env.__STATIC_CONTENT,
                   ASSET_MANIFEST: manifestJSON,
                 },
