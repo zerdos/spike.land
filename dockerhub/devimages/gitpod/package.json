@@ -1,7 +1,7 @@
 {
   "name": "@spike.land/gitpod",
   "tagname": "gitpod",
-  "version": "0.8.1",
+  "version": "0.8.4",
   "description": "devcontainer vscode docker xfce remoteDesktop",
   "main": "index.js",
   "repository": "https://github.com/zerdos/spike.land",
