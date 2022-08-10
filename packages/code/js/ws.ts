@@ -140,19 +140,19 @@ export const run = async (startState: {
   };
 };
 
-(async () => {
-  if (navigator && navigator?.serviceWorker) {
-    navigator.serviceWorker.register("/sw.js", {
-      scope: "/",
-    });
-    const current = await navigator.serviceWorker.ready;
-    await sw();
+// (async (.) => {
+  // if (navigator && navigator?.serviceWorker) {
+  //   navigator.serviceWorker.register("/sw.js", {
+  //     scope: "/",
+  //   });
+    // const current = await navigator.serviceWorker.ready;
+    // await sw();
 
-    Promise.all((await navigator.serviceWorker.getRegistrations()).map((sw) => {
-      if (current !== sw) sw.unregister();
-    }));
-  }
-})();
+    // Promise.all((await navigator.serviceWorker.getRegistrations()).map((sw) => {
+    //   if (current !== sw) sw.unregister();
+    // }));
+  //}
+//})();
 let intervalHandler: NodeJS.Timer | null = null;
 
 // const w = window as unknown as {
@@ -332,10 +332,11 @@ async function processWsMessage(
   lastSeenNow = Date.now();
 
   const data = JSON.parse(event.data);
-  processData(data);
+  
+  processData(data, source);
 }
   
-async function processData (data,source){
+async function processData (data, source) {
     
   
 

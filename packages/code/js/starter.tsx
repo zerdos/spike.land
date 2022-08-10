@@ -1,4 +1,4 @@
-import "es-module-shims";
+
 
 import { FC, Fragment } from "react";
 
@@ -10,8 +10,13 @@ import { md5 } from "./md5";
 Object.assign(window, {});
 
 const orig = location.origin.includes("localhost") ? "." : location.origin;
-
+let importmapped = false;
 export const initShims = async (assets: { [key: string]: string }) =>
+  {
+    if (importmapped ) return;
+    importmapped = true;
+    await import("es-module-shims");
+
   location.origin.includes("localhost")
     ? importShim.addImportMap({
       "imports": {
@@ -39,7 +44,8 @@ export const initShims = async (assets: { [key: string]: string }) =>
         // "preact/compat": "https://ga.jspm.io/npm:preact@10.8.2/compat/dist/compat.module.js",
         // "preact/jsx-runtime": "https://ga.jspm.io/npm:preact@10.8.2/jsx-runtime/dist/jsxRuntime.module.js"
       },
-    });
+    })
+  };
 
 let App: FC = () => <Fragment></Fragment>;
 const apps: { [key: string]: FC } = {};
