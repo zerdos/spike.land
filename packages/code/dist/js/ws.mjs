@@ -20508,7 +20508,7 @@ async function runner({ code, counter }) {
     return;
   }
   i = counter;
-  const { init } = await import("../chunk-esbuildEsm-J5GOH2WZ.mjs");
+  const { init } = await import("../chunk-esbuildEsm-LV7Z6X62.mjs");
   transform2 = transform2 || await init();
   if (code === mST().code)
     return;

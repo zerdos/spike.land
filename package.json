@@ -32,7 +32,7 @@
     "test": "playwright test tests/*.spec.ts"
   },
   "devDependencies": {
-    "@playwright/test": "^1.24.2",
+    "@playwright/test": "^1.25.0",
     "@types/events": "^3.0.0",
     "@yarnpkg/sdks": "^3.0.0-rc.14",
     "lerna": "5.4.0"
