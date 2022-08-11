@@ -1,4 +1,4 @@
-import "./chunk-chunk-YIRYBPN2.mjs";
+import "./chunk-chunk-BZIBS55F.mjs";
 import {
   $,
   AccessibilityHelpNLS,
@@ -482,7 +482,7 @@ import {
   unicodeHighlightConfigKeys,
   widgetClose,
   widgetShadow
-} from "./chunk-chunk-G2FVUMMX.mjs";
+} from "./chunk-chunk-RONYOCVK.mjs";
 import {
   CSSIcon,
   CancellationError,
@@ -623,7 +623,7 @@ import {
   toDisposable,
   trim,
   withNullAsUndefined
-} from "./chunk-chunk-I3P7REVB.mjs";
+} from "./chunk-chunk-I2CH3II5.mjs";
 import {
   __commonJS,
   __esm,
@@ -3046,7 +3046,7 @@ registerLanguage({
         __require(["vs/basic-languages/freemarker2/freemarker2"], resolve, reject);
       }).then((m) => m.TagAngleInterpolationDollar);
     } else {
-      return import("./chunk-freemarker2-4VK6FL33.mjs").then((m) => m.TagAutoInterpolationDollar);
+      return import("./chunk-freemarker2-YI5K7M6M.mjs").then((m) => m.TagAutoInterpolationDollar);
     }
   }
 });
@@ -3059,7 +3059,7 @@ registerLanguage({
         __require(["vs/basic-languages/freemarker2/freemarker2"], resolve, reject);
       }).then((m) => m.TagAngleInterpolationDollar);
     } else {
-      return import("./chunk-freemarker2-4VK6FL33.mjs").then((m) => m.TagAngleInterpolationDollar);
+      return import("./chunk-freemarker2-YI5K7M6M.mjs").then((m) => m.TagAngleInterpolationDollar);
     }
   }
 });
@@ -3072,7 +3072,7 @@ registerLanguage({
         __require(["vs/basic-languages/freemarker2/freemarker2"], resolve, reject);
       }).then((m) => m.TagBracketInterpolationDollar);
     } else {
-      return import("./chunk-freemarker2-4VK6FL33.mjs").then((m) => m.TagBracketInterpolationDollar);
+      return import("./chunk-freemarker2-YI5K7M6M.mjs").then((m) => m.TagBracketInterpolationDollar);
     }
   }
 });
@@ -3085,7 +3085,7 @@ registerLanguage({
         __require(["vs/basic-languages/freemarker2/freemarker2"], resolve, reject);
       }).then((m) => m.TagAngleInterpolationBracket);
     } else {
-      return import("./chunk-freemarker2-4VK6FL33.mjs").then((m) => m.TagAngleInterpolationBracket);
+      return import("./chunk-freemarker2-YI5K7M6M.mjs").then((m) => m.TagAngleInterpolationBracket);
     }
   }
 });
@@ -3098,7 +3098,7 @@ registerLanguage({
         __require(["vs/basic-languages/freemarker2/freemarker2"], resolve, reject);
       }).then((m) => m.TagBracketInterpolationBracket);
     } else {
-      return import("./chunk-freemarker2-4VK6FL33.mjs").then((m) => m.TagBracketInterpolationBracket);
+      return import("./chunk-freemarker2-YI5K7M6M.mjs").then((m) => m.TagBracketInterpolationBracket);
     }
   }
 });
@@ -3111,7 +3111,7 @@ registerLanguage({
         __require(["vs/basic-languages/freemarker2/freemarker2"], resolve, reject);
       }).then((m) => m.TagAutoInterpolationDollar);
     } else {
-      return import("./chunk-freemarker2-4VK6FL33.mjs").then((m) => m.TagAutoInterpolationDollar);
+      return import("./chunk-freemarker2-YI5K7M6M.mjs").then((m) => m.TagAutoInterpolationDollar);
     }
   }
 });
@@ -3124,7 +3124,7 @@ registerLanguage({
         __require(["vs/basic-languages/freemarker2/freemarker2"], resolve, reject);
       }).then((m) => m.TagAutoInterpolationBracket);
     } else {
-      return import("./chunk-freemarker2-4VK6FL33.mjs").then((m) => m.TagAutoInterpolationBracket);
+      return import("./chunk-freemarker2-YI5K7M6M.mjs").then((m) => m.TagAutoInterpolationBracket);
     }
   }
 });
@@ -3177,7 +3177,7 @@ registerLanguage({
         __require(["vs/basic-languages/handlebars/handlebars"], resolve, reject);
       });
     } else {
-      return import("./chunk-handlebars-GR3MBXLO.mjs");
+      return import("./chunk-handlebars-QWIYL6OT.mjs");
     }
   }
 });
@@ -3212,7 +3212,7 @@ registerLanguage({
         __require(["vs/basic-languages/html/html"], resolve, reject);
       });
     } else {
-      return import("./chunk-html-7BFYPZGC.mjs");
+      return import("./chunk-html-XXISXGHY.mjs");
     }
   }
 });
@@ -3268,7 +3268,7 @@ registerLanguage({
         __require(["vs/basic-languages/javascript/javascript"], resolve, reject);
       });
     } else {
-      return import("./chunk-javascript-M4CZCPUX.mjs");
+      return import("./chunk-javascript-DM5LKMBY.mjs");
     }
   }
 });
@@ -3373,7 +3373,7 @@ registerLanguage({
         __require(["vs/basic-languages/liquid/liquid"], resolve, reject);
       });
     } else {
-      return import("./chunk-liquid-YQD3RJCJ.mjs");
+      return import("./chunk-liquid-2ETB2CBM.mjs");
     }
   }
 });
@@ -3682,7 +3682,7 @@ registerLanguage({
         __require(["vs/basic-languages/python/python"], resolve, reject);
       });
     } else {
-      return import("./chunk-python-2DROOCET.mjs");
+      return import("./chunk-python-QZSOOERM.mjs");
     }
   }
 });
@@ -3734,7 +3734,7 @@ registerLanguage({
         __require(["vs/basic-languages/razor/razor"], resolve, reject);
       });
     } else {
-      return import("./chunk-razor-GALCWD47.mjs");
+      return import("./chunk-razor-RCW5VOVA.mjs");
     }
   }
 });
@@ -4094,7 +4094,7 @@ registerLanguage({
         __require(["vs/basic-languages/typescript/typescript"], resolve, reject);
       });
     } else {
-      return import("./chunk-typescript-EXXBVCFF.mjs");
+      return import("./chunk-typescript-FLCPP2PN.mjs");
     }
   }
 });
@@ -4144,7 +4144,7 @@ registerLanguage({
         __require(["vs/basic-languages/xml/xml"], resolve, reject);
       });
     } else {
-      return import("./chunk-xml-YG5WR5BP.mjs");
+      return import("./chunk-xml-FF4F5KH3.mjs");
     }
   }
 });
@@ -4162,7 +4162,7 @@ registerLanguage({
         __require(["vs/basic-languages/yaml/yaml"], resolve, reject);
       });
     } else {
-      return import("./chunk-yaml-ELRG65MG.mjs");
+      return import("./chunk-yaml-PMZHNFE2.mjs");
     }
   }
 });
@@ -4278,7 +4278,7 @@ function getMode() {
       __require(["vs/language/css/cssMode"], resolve, reject);
     });
   } else {
-    return import("./chunk-cssMode-B4DL2AMY.mjs");
+    return import("./chunk-cssMode-2SNQ422E.mjs");
   }
 }
 monaco_editor_core_exports2.languages.onLanguage("less", () => {
@@ -4398,7 +4398,7 @@ function getMode2() {
       __require(["vs/language/html/htmlMode"], resolve, reject);
     });
   } else {
-    return import("./chunk-htmlMode-3BGE6ZUY.mjs");
+    return import("./chunk-htmlMode-PDWZJ355.mjs");
   }
 }
 function registerHTMLLanguageService(languageId, options = optionsDefault2, modeConfiguration = getConfigurationDefault(languageId)) {
@@ -4495,7 +4495,7 @@ function getMode3() {
       __require(["vs/language/json/jsonMode"], resolve, reject);
     });
   } else {
-    return import("./chunk-jsonMode-KIFCLDYK.mjs");
+    return import("./chunk-jsonMode-VP5C2QG7.mjs");
   }
 }
 monaco_editor_core_exports4.languages.register({
@@ -46234,13 +46234,19 @@ var codicon_default = "./codicon-BEBTMDKB.ttf";
 
 // js/startMonaco.ts
 var monEnv = {
-  getWorkerUrl: async function(_workerId, label) {
-    if (label === "typescript" || label === "javascript") {
-      const tsWorker = await import("./chunk-monacoTsWorker-RWUKCX4H.mjs");
-      return tsWorker;
+  tsWorker: null,
+  edWorker: null,
+  getWorker: async function(_workerId, label) {
+    if (!monEnv.tsWorker) {
+      const { createWorkers } = await import("./chunk-monacoTsWorker-76KVP56P.mjs");
+      const { tsWorker, edWorker } = await createWorkers();
+      monEnv.tsWorker = tsWorker;
+      monEnv.edWorker = edWorker;
     }
-    const worker = await import("./chunk-editor.worker-4ECUEF5Q.mjs");
-    return worker;
+    if (label === "typescript" || label === "javascript") {
+      return monEnv.tsWorker;
+    }
+    return monEnv.edWorker;
   }
 };
 Object.assign(globalThis, { MonacoEnvironment: monEnv });
