@@ -213,7 +213,7 @@ USER ${USER}
 
 WORKDIR /home/${USER}
 
-RUN mkdir cy && cd cy && yarn init &&  yarn add cypress@10.4.0 --mode=skip-build
+RUN mkdir cy && cd cy && yarn init &&  yarn add cypress@10.4.0 --mode=skip-build && yarn cypress install && yarn cypress verify
 
 USER 0
 ### noVNC.Dockerfile
