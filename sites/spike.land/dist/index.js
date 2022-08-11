@@ -487,6 +487,15 @@ var chat_default = {
                   }
                 },
                 {
+                  cacheControl: u2.includes("chunk-") ? {
+                    browserTTL: 2 * 60 * 60 * 24,
+                    edgeTTL: 2 * 60 * 60 * 24,
+                    bypassCache: false
+                  } : {
+                    browserTTL: null,
+                    edgeTTL: null,
+                    bypassCache: true
+                  },
                   ASSET_NAMESPACE: env.__STATIC_CONTENT,
                   ASSET_MANIFEST: manifestJSON
                 }
@@ -665,7 +674,7 @@ html, body {margin: 0; height: 100%}
 
 window.esmsInitOptions = {
     shimMode: true,
-    polyfillEnable: ["css-modules", "json-modules"], // default empty
+    polyfillEnable: [], // default empty
   };
   
   if (location.href.indexOf(".tsx")!==-1) {
@@ -820,7 +829,7 @@ window.addEventListener('pageshow', (event) => {
 // src/chatRoom.ts
 import manifestJSON2 from "__STATIC_CONTENT_MANIFEST";
 
-// ../../packages/code/dist/chunk-VRTUUBI3.mjs
+// ../../packages/code/dist/chunk-chunk-RVPM6HJ7.mjs
 var __create2 = Object.create;
 var __defProp2 = Object.defineProperty;
 var __getOwnPropDesc2 = Object.getOwnPropertyDescriptor;
@@ -852,7 +861,7 @@ var init_define_process = __esm({
   }
 });
 
-// ../../packages/code/dist/chunk-IRU3M6XI.mjs
+// ../../packages/code/dist/chunk-chunk-SMXJCDU6.mjs
 var require_diff = __commonJS2({
   "../../.yarn/global/cache/fast-diff-npm-1.2.0-5ba4171bb6-9.zip/node_modules/fast-diff/diff.js"(exports, module) {
     init_define_process();
