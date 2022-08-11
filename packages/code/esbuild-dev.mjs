@@ -210,6 +210,7 @@ const build = (entryPoints, format = "esm") =>
     // external: ["react", "react-dom/client", "framer-motion", "tslib", "@emotion/react"],
     platform: "browser",
     chunkNames: "chunk-[name]-[hash]",
+    // treeShaking: true,
     // entryNames: "[name]-[hash]",
     resolveExtensions: [
       ".tsx",
