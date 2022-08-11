@@ -2,9 +2,9 @@ import * as monaco from "monaco-editor";
 import "monaco-editor/esm/vs/editor/standalone/browser/standaloneCodeEditor";
 
 //@ts-ignore
-import tsWorker from "./monaco-editor/language/typescript/ts.worker.monaco.worker";
+// import tsWorker from "./monaco-editor/language/typescript/ts.worker.monaco.worker";
 //@ts-ignore
-import editorWorker from "./monaco-editor/editor/editor.worker.monaco.worker";
+// import editorWorker from "./monaco-editor/editor/editor.worker.monaco.worker";
 
 // import { MonacoJsxSyntaxHighlight } from "monaco-jsx-syntax-highlight";
 
@@ -17,11 +17,17 @@ import codicon from "monaco-editor/esm/vs/base/browser/ui/codicons/codicon/codic
 // globalThis.Buffer = Buffer;
 
 const monEnv = {
-  getWorkerUrl: function (_workerId: string, label: string) {
+  getWorkerUrl: async function (_workerId: string, label: string) {
     if (label === "typescript" || label === "javascript") {
-      return tsWorker;
+    
+      // const tsWorker  = await import("./ "monaco-editor/esm/vs/language/typescript/ts.worker"");
+    
+      return "";
     }
-    return editorWorker;
+
+
+    // const worker = await import("monaco-editor/esm/vs/editor/editor.worker")
+    return "";
   },
 };
 

@@ -20606,7 +20606,7 @@ var Editor = ({ code, i: i2, codeSpace: codeSpace2 }) => {
     if (!ref?.current)
       return;
     const setMonaco = async () => {
-      const { startMonaco } = await import("../chunk-startMonaco-AK2CMIMP.mjs");
+      const { startMonaco } = await import("../chunk-startMonaco-VKLNEUQQ.mjs");
       const { editor } = await startMonaco(
         {
           container: ref.current,
