@@ -32,6 +32,7 @@
     "test": "playwright test tests/*.spec.ts"
   },
   "devDependencies": {
+    "@cloudflare/kv-asset-handler": "^0.2.0",
     "@cloudflare/workers-types": "^3.14.1",
     "@playwright/test": "^1.25.0",
     "@types/events": "^3.0.0",
