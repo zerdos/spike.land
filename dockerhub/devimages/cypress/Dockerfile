@@ -145,7 +145,7 @@ RUN apt-get update \
 
 USER ${USER}
 
-WORKDIR /home/node
+WORKDIR /home/${USER}
 
 RUN mkdir cy && cd cy && yarn init &&  yarn add cypress@10.4.0 --mode=skip-build
 
