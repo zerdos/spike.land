@@ -13,7 +13,7 @@ COPY --from=node-builder /home/node/node/node_modules/node/bin/node /usr/local/b
 ADD https://raw.githubusercontent.com/yarnpkg/berry/master/packages/yarnpkg-cli/bin/yarn.js /usr/local/bin/yarn
 
 RUN node --version
-RUN chmod +x /usr/local/bin/yarn &&   yarn --version
+RUN chmod 755 /usr/local/bin/yarn &&   yarn --version
 
 # RUN ARCH= && dpkgArch="$(dpkg --print-architecture)" \
 #   && case "${dpkgArch##*-}" in \
