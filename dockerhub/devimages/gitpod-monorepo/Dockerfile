@@ -8,7 +8,7 @@ RUN git clone --depth 1 --recurse-submodules --shallow-submodules https://github
 
 FROM devimages/gitpod
 
-COPY --link --chown=node:node --from=devimages/monorepo-modules /home/node /home/node
+COPY --link --chown=gitpod:gitpod --from=devimages/monorepo-modules /home/node /home/gitpod
 
 USER gitpod
 WORKDIR /workspace/monorepo
