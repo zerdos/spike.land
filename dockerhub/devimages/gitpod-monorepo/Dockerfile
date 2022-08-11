@@ -8,10 +8,10 @@ RUN git clone --depth 1 --recurse-submodules --shallow-submodules https://github
 
 FROM devimages/gitpod
 
-COPY --link --chown=gitpod:gitpod --from=devimages/monorepo-modules /home/node /home/gitpod
+COPY --link --chown=node:node --from=devimages/monorepo-modules /home/node /home/node
 
 USER gitpod
 WORKDIR /workspace/monorepo
-COPY --chown=gitpod:gitpod --from=helper --link /app/spike.land/  /workspace/monorepo
+COPY --chown=gitpod:gitpod --from=helper /app/spike.land/  /workspace/monorepo
 RUN yarn
 
