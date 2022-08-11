@@ -48,7 +48,7 @@ console.log(`
 -------------------------------------------------`);
 
 const workerEntryPoints = [
-  "vs/language/typescript/ts.worker.js",
+  // "vs/language/typescript/ts.worker.js",
   "vs/editor/editor.worker.js",
 ].map((entry) => `monaco-editor/esm/${entry}`);
 
