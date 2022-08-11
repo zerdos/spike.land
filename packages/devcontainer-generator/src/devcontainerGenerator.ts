@@ -214,18 +214,21 @@ export class DevcontainerGenerator {
         this._dockerfile += dockerTemplates["dotnet6"]
           .replace("{DOTNET_SDK_VERSION}", softwareVersions.dotnet6)
           .replace(
-            "{dotnet_sha512}",
+            "{arm_dotnet_sha512}",
             softwareVersions.sha
               .dotnet_sha512[
-                softwareVersions
-                  .dotnet6 as keyof typeof softwareVersions.sha.dotnet_sha512
-              ],
+"6.0.400"].arm
+          ).replace(
+            "{amd_dotnet_sha512}",
+            softwareVersions.sha
+              .dotnet_sha512[
+"6.0.400"].amd
           );
       } else if (this._dotnet === "3") {
         this._dockerfile += dockerTemplates["dotnet3"]
           .replace("{DOTNET_SDK_VERSION}", softwareVersions.dotnet3)
           .replace(
-            "{dotnet_sha512}",
+            "{amd_dotnet_sha512}",
             softwareVersions.sha
               .dotnet_sha512[
                 softwareVersions
