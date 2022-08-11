@@ -65,7 +65,7 @@ FROM devimage as devimage_with_node
 ENV NODE_VERSION {NODE_VERSION}
 
 COPY --from=node-builder /home/node/node/node_modules/node/bin/node /usr/local/bin/node
-COPY .yarn/releases/yarn-3.2.2.cjs /usr/local/bin/yarn
+COPY https://raw.githubusercontent.com/yarnpkg/berry/master/packages/yarnpkg-cli/bin/yarn.js /usr/local/bin/yarn
 
 RUN node --version
 RUN yarn --version
