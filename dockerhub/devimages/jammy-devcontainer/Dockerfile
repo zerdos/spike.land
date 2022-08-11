@@ -153,7 +153,7 @@ RUN (curl -fSL --output dotnet.tar.gz https://dotnetcli.azureedge.net/dotnet/Sdk
     && rm dotnet.tar.gz \
     && ln -s /usr/share/dotnet/dotnet /usr/bin/dotnet \
     # Trigger firstgit  run experience by running arbitrary cmd
-    && dotnet help) || ( rm -rf dotnet*  /usr/share/dotnet && curl -fSL --output dotnet.tar.gz https://dotnetcli.azureedge.net/dotnet/Sdk/$DOTNET_SDK_VERSION/dotnet-sdk-$DOTNET_SDK_VERSION-linux-arm64.tar.gz  \
+    && dotnet help) || ( rm -rf dotnet*  /usr/share/dotnet/dotnet /usr/bin/dotnet  /usr/share/dotnet && curl -fSL --output dotnet.tar.gz https://dotnetcli.azureedge.net/dotnet/Sdk/$DOTNET_SDK_VERSION/dotnet-sdk-$DOTNET_SDK_VERSION-linux-arm64.tar.gz  \
     && dotnet_sha512='a21010f9e0e091bf0a4df9dfc4ec9893c056c2b07b10be093ea392a4fa5c8a38bad9535f66e570b45dc25165b685199fb729434b845bcfb35f8b79cceb22c632' \
     # && echo "8decbba0a6b09501daede52cbb5a9ae9e5f31ade201918c03efcd1b4cc345ec934f88321704ec3beb1f90f2204934be7259c76f66d9204cbdd15933582602763  dotnet.tar.gz" | sha512sum -c - \
     && mkdir -p /usr/share/dotnet \
@@ -213,7 +213,7 @@ USER ${USER}
 
 WORKDIR /home/node
 
-RUN mkdir cy && cd cy && yarn init &&  yarn add cypress@10.4.0 --mode=skip-buil
+RUN mkdir cy && cd cy && yarn init &&  yarn add cypress@10.4.0 --mode=skip-build
 
 USER 0
 ### noVNC.Dockerfile
