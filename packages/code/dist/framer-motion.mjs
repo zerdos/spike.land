@@ -70,7 +70,7 @@ import {
   useVisualElementContext,
   visualElement,
   wrapHandler
-} from "./chunk-chunk-6LRSDY2R.mjs";
+} from "./chunk-chunk-X7IYS4B5.mjs";
 import "./chunk-chunk-W3X7RECQ.mjs";
 import "./chunk-chunk-KCPADY5M.mjs";
 import {

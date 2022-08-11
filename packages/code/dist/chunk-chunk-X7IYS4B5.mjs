@@ -64,7 +64,7 @@ var require_is_prop_valid_browser_cjs = __commonJS({
   }
 });
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/context/MotionConfigContext.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/context/MotionConfigContext.mjs
 init_define_process();
 var MotionConfigContext = createContext({
   transformPagePoint: function(p2) {
@@ -74,26 +74,26 @@ var MotionConfigContext = createContext({
   reducedMotion: "never"
 });
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/context/MotionContext/index.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/context/MotionContext/index.mjs
 init_define_process();
 var MotionContext = createContext({});
 function useVisualElementContext() {
   return useContext(MotionContext).visualElement;
 }
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/context/PresenceContext.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/context/PresenceContext.mjs
 init_define_process();
 var PresenceContext = createContext(null);
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/utils/is-browser.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/utils/is-browser.mjs
 init_define_process();
 var isBrowser = typeof document !== "undefined";
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/utils/use-isomorphic-effect.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/utils/use-isomorphic-effect.mjs
 init_define_process();
 var useIsomorphicLayoutEffect = isBrowser ? useLayoutEffect : useEffect;
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/utils/use-reduced-motion.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/utils/use-reduced-motion.mjs
 init_define_process();
 var import_tslib = __toESM(require_tslib(), 1);
 var prefersReducedMotion = { current: null };
@@ -130,28 +130,28 @@ function useReducedMotionConfig() {
   }
 }
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/context/LayoutGroupContext.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/context/LayoutGroupContext.mjs
 init_define_process();
 var LayoutGroupContext = createContext({});
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/context/SwitchLayoutGroupContext.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/context/SwitchLayoutGroupContext.mjs
 init_define_process();
 var SwitchLayoutGroupContext = createContext({});
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/motion/index.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/motion/index.mjs
 init_define_process();
 var import_tslib4 = __toESM(require_tslib(), 1);
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/motion/features/use-features.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/motion/features/use-features.mjs
 init_define_process();
 var import_tslib2 = __toESM(require_tslib(), 1);
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/utils/process.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/utils/process.mjs
 init_define_process();
 var defaultEnvironment = "production";
 var env = typeof define_process_default === "undefined" || define_process_default.env === void 0 ? defaultEnvironment : "development";
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/motion/features/definitions.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/motion/features/definitions.mjs
 init_define_process();
 var createDefinition = function(propNames) {
   return {
@@ -222,11 +222,11 @@ if (true) {
   };
 }
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/context/LazyContext.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/context/LazyContext.mjs
 init_define_process();
 var LazyContext = createContext({ strict: false });
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/motion/features/use-features.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/motion/features/use-features.mjs
 var featureNames = Object.keys(featureDefinitions);
 var numFeatures = featureNames.length;
 function useFeatures(props, visualElement2, preloadedFeatures) {
@@ -247,7 +247,7 @@ function useFeatures(props, visualElement2, preloadedFeatures) {
   return features;
 }
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/motion/utils/use-visual-element.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/motion/utils/use-visual-element.mjs
 init_define_process();
 function useVisualElement(Component, visualState, props, createVisualElement) {
   var lazyContext = useContext(LazyContext);
@@ -283,16 +283,16 @@ function useVisualElement(Component, visualState, props, createVisualElement) {
   return visualElement2;
 }
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/motion/utils/use-motion-ref.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/motion/utils/use-motion-ref.mjs
 init_define_process();
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/utils/is-ref-object.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/utils/is-ref-object.mjs
 init_define_process();
 function isRefObject(ref) {
   return typeof ref === "object" && Object.prototype.hasOwnProperty.call(ref, "current");
 }
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/motion/utils/use-motion-ref.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/motion/utils/use-motion-ref.mjs
 function useMotionRef(visualState, visualElement2, externalRef) {
   return useCallback(
     function(instance) {
@@ -313,13 +313,13 @@ function useMotionRef(visualState, visualElement2, externalRef) {
   );
 }
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/context/MotionContext/create.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/context/MotionContext/create.mjs
 init_define_process();
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/context/MotionContext/utils.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/context/MotionContext/utils.mjs
 init_define_process();
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/render/utils/variants.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/render/utils/variants.mjs
 init_define_process();
 function isVariantLabels(v) {
   return Array.isArray(v);
@@ -372,7 +372,7 @@ function checkIfVariantNode(props) {
   return Boolean(checkIfControllingVariants(props) || props.variants);
 }
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/context/MotionContext/utils.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/context/MotionContext/utils.mjs
 function getCurrentTreeVariants(props, context) {
   if (checkIfControllingVariants(props)) {
     var initial = props.initial, animate4 = props.animate;
@@ -384,7 +384,7 @@ function getCurrentTreeVariants(props, context) {
   return props.inherit !== false ? context : {};
 }
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/context/MotionContext/create.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/context/MotionContext/create.mjs
 function useCreateMotionContext(props) {
   var _a = getCurrentTreeVariants(props, useContext(MotionContext)), initial = _a.initial, animate4 = _a.animate;
   return useMemo(function() {
@@ -395,10 +395,10 @@ function variantLabelsAsDependency(prop) {
   return Array.isArray(prop) ? prop.join(" ") : prop;
 }
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/projection/node/id.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/projection/node/id.mjs
 init_define_process();
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/utils/use-constant.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/utils/use-constant.mjs
 init_define_process();
 function useConstant(init) {
   var ref = useRef(null);
@@ -408,14 +408,14 @@ function useConstant(init) {
   return ref.current;
 }
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/projection/node/state.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/projection/node/state.mjs
 init_define_process();
 var globalProjectionState = {
   hasAnimatedSinceResize: true,
   hasEverUpdated: false
 };
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/projection/node/id.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/projection/node/id.mjs
 var id = 1;
 function useProjectionId() {
   return useConstant(function() {
@@ -425,7 +425,7 @@ function useProjectionId() {
   });
 }
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/motion/features/use-projection.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/motion/features/use-projection.mjs
 init_define_process();
 function useProjection(projectionId, _a, visualElement2, ProjectionNodeConstructor) {
   var _b;
@@ -449,7 +449,7 @@ function useProjection(projectionId, _a, visualElement2, ProjectionNodeConstruct
   });
 }
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/motion/utils/VisualElementHandler.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/motion/utils/VisualElementHandler.mjs
 init_define_process();
 var import_tslib3 = __toESM(require_tslib(), 1);
 var VisualElementHandler = function(_super) {
@@ -474,7 +474,7 @@ var VisualElementHandler = function(_super) {
   return VisualElementHandler2;
 }(react_default.Component);
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/motion/index.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/motion/index.mjs
 function createMotionComponent(_a) {
   var preloadedFeatures = _a.preloadedFeatures, createVisualElement = _a.createVisualElement, projectionNodeConstructor = _a.projectionNodeConstructor, useRender = _a.useRender, useVisualState2 = _a.useVisualState, Component = _a.Component;
   preloadedFeatures && loadFeatures(preloadedFeatures);
@@ -507,20 +507,20 @@ function useLayoutId(_a) {
   return layoutGroupId && layoutId !== void 0 ? layoutGroupId + "-" + layoutId : layoutId;
 }
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/projection/styles/scale-correction.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/projection/styles/scale-correction.mjs
 init_define_process();
 var scaleCorrectors = {};
 function addScaleCorrector(correctors) {
   Object.assign(scaleCorrectors, correctors);
 }
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/value/utils/is-motion-value.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/value/utils/is-motion-value.mjs
 init_define_process();
 var isMotionValue = function(value) {
   return Boolean(value !== null && typeof value === "object" && value.getVelocity);
 };
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/motion/utils/valid-prop.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/motion/utils/valid-prop.mjs
 init_define_process();
 var validMotionProps = /* @__PURE__ */ new Set([
   "initial",
@@ -584,7 +584,7 @@ function isValidMotionProp(key) {
   return validMotionProps.has(key);
 }
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/render/dom/utils/filter-props.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/render/dom/utils/filter-props.mjs
 init_define_process();
 var shouldForward = function(key) {
   return !isValidMotionProp(key);
@@ -610,19 +610,19 @@ function filterProps(props, isDom, forwardMotionProps) {
   return filteredProps;
 }
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/value/utils/resolve-motion-value.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/value/utils/resolve-motion-value.mjs
 init_define_process();
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/utils/resolve-value.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/utils/resolve-value.mjs
 init_define_process();
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/animation/utils/is-keyframes-target.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/animation/utils/is-keyframes-target.mjs
 init_define_process();
 var isKeyframesTarget = function(v) {
   return Array.isArray(v);
 };
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/utils/resolve-value.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/utils/resolve-value.mjs
 var isCustomValue = function(v) {
   return Boolean(v && typeof v === "object" && v.mix && v.toValue);
 };
@@ -630,23 +630,23 @@ var resolveFinalValueInKeyframes = function(v) {
   return isKeyframesTarget(v) ? v[v.length - 1] || 0 : v;
 };
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/value/utils/resolve-motion-value.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/value/utils/resolve-motion-value.mjs
 function resolveMotionValue(value) {
   var unwrappedValue = isMotionValue(value) ? value.get() : value;
   return isCustomValue(unwrappedValue) ? unwrappedValue.toValue() : unwrappedValue;
 }
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/motion/utils/use-visual-state.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/motion/utils/use-visual-state.mjs
 init_define_process();
 var import_tslib5 = __toESM(require_tslib(), 1);
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/animation/utils/is-animation-controls.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/animation/utils/is-animation-controls.mjs
 init_define_process();
 function isAnimationControls(v) {
   return typeof v === "object" && typeof v.start === "function";
 }
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/motion/utils/use-visual-state.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/motion/utils/use-visual-state.mjs
 function makeState(_a, props, context, presenceContext) {
   var scrapeMotionValuesFromProps3 = _a.scrapeMotionValuesFromProps, createRenderState = _a.createRenderState, onMount = _a.onMount;
   var state = {
@@ -711,7 +711,7 @@ function makeLatestValues(props, context, presenceContext, scrapeMotionValues) {
   return values;
 }
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/render/utils/types.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/render/utils/types.mjs
 init_define_process();
 var AnimationType;
 (function(AnimationType2) {
@@ -724,7 +724,7 @@ var AnimationType;
   AnimationType2["Exit"] = "exit";
 })(AnimationType || (AnimationType = {}));
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/events/use-dom-event.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/events/use-dom-event.mjs
 init_define_process();
 function addDomEvent(target, eventName, handler, options) {
   if (options === void 0) {
@@ -744,10 +744,10 @@ function useDomEvent(ref, eventName, handler, options) {
   }, [ref, eventName, handler, options]);
 }
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/events/event-info.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/events/event-info.mjs
 init_define_process();
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/gestures/utils/event-type.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/gestures/utils/event-type.mjs
 init_define_process();
 function isMouseEvent(event) {
   if (typeof PointerEvent !== "undefined" && event instanceof PointerEvent) {
@@ -760,7 +760,7 @@ function isTouchEvent(event) {
   return hasTouches;
 }
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/events/event-info.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/events/event-info.mjs
 function filterPrimaryPointer(eventHandler) {
   return function(event) {
     var isMouseEvent2 = event instanceof MouseEvent;
@@ -809,10 +809,10 @@ var wrapHandler = function(handler, shouldFilterPrimaryPointer) {
   return shouldFilterPrimaryPointer ? filterPrimaryPointer(listener) : listener;
 };
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/events/use-pointer-event.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/events/use-pointer-event.mjs
 init_define_process();
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/events/utils.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/events/utils.mjs
 init_define_process();
 var supportsPointerEvents = function() {
   return isBrowser && window.onpointerdown === null;
@@ -824,7 +824,7 @@ var supportsMouseEvents = function() {
   return isBrowser && window.onmousedown === null;
 };
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/events/use-pointer-event.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/events/use-pointer-event.mjs
 var mouseEventNames = {
   pointerdown: "mousedown",
   pointermove: "mousemove",
@@ -858,7 +858,7 @@ function usePointerEvent(ref, eventName, handler, options) {
   return useDomEvent(ref, getPointerEventName(eventName), handler && wrapHandler(handler, eventName === "pointerdown"), options);
 }
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/gestures/drag/utils/lock.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/gestures/drag/utils/lock.mjs
 init_define_process();
 function createLock(name) {
   var lock = null;
@@ -906,7 +906,7 @@ function isDragActive() {
   return false;
 }
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/utils/use-unmount-effect.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/utils/use-unmount-effect.mjs
 init_define_process();
 function useUnmountEffect(callback) {
   return useEffect(function() {
@@ -916,7 +916,7 @@ function useUnmountEffect(callback) {
   }, []);
 }
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/components/AnimatePresence/use-presence.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/components/AnimatePresence/use-presence.mjs
 init_define_process();
 function usePresence() {
   var context = useContext(PresenceContext);
@@ -939,7 +939,7 @@ function isPresent(context) {
   return context === null ? true : context.isPresent;
 }
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/value/index.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/value/index.mjs
 init_define_process();
 
 // ../../.yarn/global/cache/framesync-npm-6.1.1-0a629abcc6-9.zip/node_modules/framesync/dist/es/index.mjs
@@ -2110,18 +2110,20 @@ function cubicBezier(mX1, mY1, mX2, mY2) {
 // ../../.yarn/global/cache/popmotion-npm-11.0.4-c8902b1562-9.zip/node_modules/popmotion/dist/es/easing/steps.mjs
 init_define_process();
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/utils/subscription-manager.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/utils/subscription-manager.mjs
 init_define_process();
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/utils/array.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/utils/array.mjs
 init_define_process();
 var import_tslib8 = __toESM(require_tslib(), 1);
 function addUniqueItem(arr, item) {
-  arr.indexOf(item) === -1 && arr.push(item);
+  if (arr.indexOf(item) === -1)
+    arr.push(item);
 }
 function removeItem(arr, item) {
   var index = arr.indexOf(item);
-  index > -1 && arr.splice(index, 1);
+  if (index > -1)
+    arr.splice(index, 1);
 }
 function moveItem(_a, fromIndex, toIndex) {
   var _b = (0, import_tslib8.__read)(_a), arr = _b.slice(0);
@@ -2134,7 +2136,7 @@ function moveItem(_a, fromIndex, toIndex) {
   return arr;
 }
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/utils/subscription-manager.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/utils/subscription-manager.mjs
 var SubscriptionManager = function() {
   function SubscriptionManager2() {
     this.subscriptions = [];
@@ -2168,14 +2170,14 @@ var SubscriptionManager = function() {
   return SubscriptionManager2;
 }();
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/value/index.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/value/index.mjs
 var isFloat = function(value) {
   return !isNaN(parseFloat(value));
 };
 var MotionValue = function() {
   function MotionValue3(init) {
     var _this = this;
-    this.version = "7.0.2";
+    this.version = "7.1.0";
     this.timeDelta = 0;
     this.lastUpdated = 0;
     this.updateSubscribers = new SubscriptionManager();
@@ -2282,38 +2284,38 @@ function motionValue(init) {
   return new MotionValue(init);
 }
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/render/utils/setters.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/render/utils/setters.mjs
 init_define_process();
 var import_tslib12 = __toESM(require_tslib(), 1);
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/utils/is-numerical-string.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/utils/is-numerical-string.mjs
 init_define_process();
 var isNumericalString = function(v) {
   return /^\-?\d*\.?\d+$/.test(v);
 };
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/utils/is-zero-value-string.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/utils/is-zero-value-string.mjs
 init_define_process();
 var isZeroValueString = function(v) {
   return /^0[^.\s]+$/.test(v);
 };
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/render/dom/value-types/animatable-none.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/render/dom/value-types/animatable-none.mjs
 init_define_process();
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/render/dom/value-types/defaults.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/render/dom/value-types/defaults.mjs
 init_define_process();
 var import_tslib10 = __toESM(require_tslib(), 1);
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/render/dom/value-types/number.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/render/dom/value-types/number.mjs
 init_define_process();
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/render/dom/value-types/type-int.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/render/dom/value-types/type-int.mjs
 init_define_process();
 var import_tslib9 = __toESM(require_tslib(), 1);
 var int = (0, import_tslib9.__assign)((0, import_tslib9.__assign)({}, number), { transform: Math.round });
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/render/dom/value-types/number.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/render/dom/value-types/number.mjs
 var numberValueTypes = {
   borderWidth: px,
   borderTopWidth: px,
@@ -2375,7 +2377,7 @@ var numberValueTypes = {
   numOctaves: int
 };
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/render/dom/value-types/defaults.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/render/dom/value-types/defaults.mjs
 var defaultValueTypes = (0, import_tslib10.__assign)((0, import_tslib10.__assign)({}, numberValueTypes), {
   color,
   backgroundColor: color,
@@ -2394,7 +2396,7 @@ var getDefaultValueType = function(key) {
   return defaultValueTypes[key];
 };
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/render/dom/value-types/animatable-none.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/render/dom/value-types/animatable-none.mjs
 function getAnimatableNone2(key, value) {
   var _a;
   var defaultValueType = getDefaultValueType(key);
@@ -2403,14 +2405,14 @@ function getAnimatableNone2(key, value) {
   return (_a = defaultValueType.getAnimatableNone) === null || _a === void 0 ? void 0 : _a.call(defaultValueType, value);
 }
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/render/dom/value-types/find.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/render/dom/value-types/find.mjs
 init_define_process();
 var import_tslib11 = __toESM(require_tslib(), 1);
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/render/dom/value-types/dimensions.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/render/dom/value-types/dimensions.mjs
 init_define_process();
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/render/dom/value-types/test.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/render/dom/value-types/test.mjs
 init_define_process();
 var testValueType = function(v) {
   return function(type) {
@@ -2418,7 +2420,7 @@ var testValueType = function(v) {
   };
 };
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/render/dom/value-types/type-auto.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/render/dom/value-types/type-auto.mjs
 init_define_process();
 var auto = {
   test: function(v) {
@@ -2429,19 +2431,19 @@ var auto = {
   }
 };
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/render/dom/value-types/dimensions.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/render/dom/value-types/dimensions.mjs
 var dimensionValueTypes = [number, px, percent, degrees, vw, vh, auto];
 var findDimensionValueType = function(v) {
   return dimensionValueTypes.find(testValueType(v));
 };
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/render/dom/value-types/find.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/render/dom/value-types/find.mjs
 var valueTypes = (0, import_tslib11.__spreadArray)((0, import_tslib11.__spreadArray)([], (0, import_tslib11.__read)(dimensionValueTypes), false), [color, complex], false);
 var findValueType = function(v) {
   return valueTypes.find(testValueType(v));
 };
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/render/utils/setters.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/render/utils/setters.mjs
 function setMotionValue(visualElement2, key, value) {
   if (visualElement2.hasValue(key)) {
     visualElement2.getValue(key).set(value);
@@ -2526,21 +2528,21 @@ function getOrigin(target, transition, visualElement2) {
   return origin;
 }
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/render/utils/animation.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/render/utils/animation.mjs
 init_define_process();
 var import_tslib16 = __toESM(require_tslib(), 1);
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/animation/utils/transitions.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/animation/utils/transitions.mjs
 init_define_process();
 var import_tslib15 = __toESM(require_tslib(), 1);
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/utils/time-conversion.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/utils/time-conversion.mjs
 init_define_process();
 var secondsToMilliseconds = function(seconds) {
   return seconds * 1e3;
 };
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/animation/utils/easing.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/animation/utils/easing.mjs
 init_define_process();
 var import_tslib13 = __toESM(require_tslib(), 1);
 var easingLookup = {
@@ -2574,7 +2576,7 @@ var isEasingArray = function(ease) {
   return Array.isArray(ease) && typeof ease[0] !== "number";
 };
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/animation/utils/is-animatable.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/animation/utils/is-animatable.mjs
 init_define_process();
 var isAnimatable = function(key, value) {
   if (key === "zIndex")
@@ -2587,7 +2589,7 @@ var isAnimatable = function(key, value) {
   return false;
 };
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/animation/utils/default-transitions.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/animation/utils/default-transitions.mjs
 init_define_process();
 var import_tslib14 = __toESM(require_tslib(), 1);
 var underDampedSpring = function() {
@@ -2646,13 +2648,13 @@ var getDefaultTransition = function(valueKey, to) {
   return (0, import_tslib14.__assign)({ to }, transitionFactory(to));
 };
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/utils/use-instant-transition-state.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/utils/use-instant-transition-state.mjs
 init_define_process();
 var instantAnimationState = {
   current: false
 };
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/animation/utils/transitions.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/animation/utils/transitions.mjs
 function isTransitionDefined(_a) {
   _a.when;
   _a.delay;
@@ -2802,7 +2804,7 @@ function startAnimation(key, value, target, transition) {
   });
 }
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/render/html/utils/transform.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/render/html/utils/transform.mjs
 init_define_process();
 var transformAxes = ["", "X", "Y", "Z"];
 var order = ["translate", "scale", "rotate", "skew"];
@@ -2824,7 +2826,13 @@ function isTransformOriginProp(key) {
   return transformOriginProps.has(key);
 }
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/render/utils/animation.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/value/use-will-change/is.mjs
+init_define_process();
+function isWillChangeMotionValue(value) {
+  return Boolean(isMotionValue(value) && value.add);
+}
+
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/render/utils/animation.mjs
 function animateVisualElement(visualElement2, definition, options) {
   if (options === void 0) {
     options = {};
@@ -2882,22 +2890,32 @@ function animateTarget(visualElement2, definition, _a) {
   var _b;
   var _c = _a === void 0 ? {} : _a, _d = _c.delay, delay = _d === void 0 ? 0 : _d, transitionOverride = _c.transitionOverride, type = _c.type;
   var _e = visualElement2.makeTargetAnimatable(definition), _f = _e.transition, transition = _f === void 0 ? visualElement2.getDefaultTransition() : _f, transitionEnd = _e.transitionEnd, target = (0, import_tslib16.__rest)(_e, ["transition", "transitionEnd"]);
+  var willChange = visualElement2.getValue("willChange");
   if (transitionOverride)
     transition = transitionOverride;
   var animations2 = [];
   var animationTypeState = type && ((_b = visualElement2.animationState) === null || _b === void 0 ? void 0 : _b.getState()[type]);
-  for (var key in target) {
-    var value = visualElement2.getValue(key);
-    var valueTarget = target[key];
-    if (!value || valueTarget === void 0 || animationTypeState && shouldBlockAnimation(animationTypeState, key)) {
-      continue;
+  var _loop_1 = function(key2) {
+    var value = visualElement2.getValue(key2);
+    var valueTarget = target[key2];
+    if (!value || valueTarget === void 0 || animationTypeState && shouldBlockAnimation(animationTypeState, key2)) {
+      return "continue";
     }
     var valueTransition = (0, import_tslib16.__assign)({ delay }, transition);
-    if (visualElement2.shouldReduceMotion && isTransformProp(key)) {
+    if (visualElement2.shouldReduceMotion && isTransformProp(key2)) {
       valueTransition = (0, import_tslib16.__assign)((0, import_tslib16.__assign)({}, valueTransition), { type: false, delay: 0 });
     }
-    var animation = startAnimation(key, value, valueTarget, valueTransition);
+    var animation = startAnimation(key2, value, valueTarget, valueTransition);
+    if (isWillChangeMotionValue(willChange)) {
+      willChange.add(key2);
+      animation = animation.then(function() {
+        return willChange.remove(key2);
+      });
+    }
     animations2.push(animation);
+  };
+  for (var key in target) {
+    _loop_1(key);
   }
   return Promise.all(animations2).then(function() {
     transitionEnd && setTarget(visualElement2, transitionEnd);
@@ -2948,15 +2966,15 @@ function shouldBlockAnimation(_a, key) {
   return shouldBlock;
 }
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/motion/features/animations.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/motion/features/animations.mjs
 init_define_process();
 var import_tslib18 = __toESM(require_tslib(), 1);
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/render/utils/animation-state.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/render/utils/animation-state.mjs
 init_define_process();
 var import_tslib17 = __toESM(require_tslib(), 1);
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/utils/shallow-compare.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/utils/shallow-compare.mjs
 init_define_process();
 function shallowCompare(next, prev) {
   if (!Array.isArray(prev))
@@ -2971,7 +2989,7 @@ function shallowCompare(next, prev) {
   return true;
 }
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/render/utils/animation-state.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/render/utils/animation-state.mjs
 var variantPriorityOrder = [
   AnimationType.Animate,
   AnimationType.InView,
@@ -2994,7 +3012,6 @@ function animateList(visualElement2) {
 function createAnimationState(visualElement2) {
   var animate4 = animateList(visualElement2);
   var state = createState();
-  var allAnimatedKeys = {};
   var isInitialRender = true;
   var buildResolvedTypeValues = function(acc, definition) {
     var resolved = resolveVariant(visualElement2, definition);
@@ -3005,9 +3022,6 @@ function createAnimationState(visualElement2) {
     }
     return acc;
   };
-  function isAnimated(key) {
-    return allAnimatedKeys[key] !== void 0;
-  }
   function setAnimateFunction(makeAnimator) {
     animate4 = makeAnimator(visualElement2);
   }
@@ -3091,7 +3105,6 @@ function createAnimationState(visualElement2) {
     for (var i = 0; i < numAnimationTypes; i++) {
       _loop_1(i);
     }
-    allAnimatedKeys = (0, import_tslib17.__assign)({}, encounteredKeys);
     if (removedKeys.size) {
       var fallbackAnimation_1 = {};
       removedKeys.forEach(function(key) {
@@ -3125,7 +3138,6 @@ function createAnimationState(visualElement2) {
     return animations2;
   }
   return {
-    isAnimated,
     animateChanges,
     setActive,
     setAnimateFunction,
@@ -3158,7 +3170,7 @@ function createState() {
   return _a = {}, _a[AnimationType.Animate] = createTypeState(true), _a[AnimationType.InView] = createTypeState(), _a[AnimationType.Hover] = createTypeState(), _a[AnimationType.Tap] = createTypeState(), _a[AnimationType.Drag] = createTypeState(), _a[AnimationType.Focus] = createTypeState(), _a[AnimationType.Exit] = createTypeState(), _a;
 }
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/motion/utils/make-renderless-component.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/motion/utils/make-renderless-component.mjs
 init_define_process();
 var makeRenderlessComponent = function(hook) {
   return function(props) {
@@ -3167,7 +3179,7 @@ var makeRenderlessComponent = function(hook) {
   };
 };
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/motion/features/animations.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/motion/features/animations.mjs
 var animations = {
   animation: makeRenderlessComponent(function(_a) {
     var visualElement2 = _a.visualElement, animate4 = _a.animate;
@@ -3191,7 +3203,7 @@ var animations = {
   })
 };
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/projection/geometry/delta-calc.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/projection/geometry/delta-calc.mjs
 init_define_process();
 function calcLength(axis) {
   return axis.max - axis.min;
@@ -3239,7 +3251,7 @@ function calcRelativePosition(target, layout, parent) {
   calcRelativeAxisPosition(target.y, layout.y, parent.y);
 }
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/projection/geometry/models.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/projection/geometry/models.mjs
 init_define_process();
 var createAxisDelta = function() {
   return {
@@ -3265,11 +3277,11 @@ var createBox = function() {
   };
 };
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/render/index.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/render/index.mjs
 init_define_process();
 var import_tslib20 = __toESM(require_tslib(), 1);
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/render/utils/lifecycles.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/render/utils/lifecycles.mjs
 init_define_process();
 var import_tslib19 = __toESM(require_tslib(), 1);
 var names = [
@@ -3324,10 +3336,10 @@ function createLifecycles() {
   return lifecycles;
 }
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/render/utils/motion-values.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/render/utils/motion-values.mjs
 init_define_process();
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/utils/warn-once.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/utils/warn-once.mjs
 init_define_process();
 var warned = /* @__PURE__ */ new Set();
 function warnOnce(condition, message, element) {
@@ -3339,19 +3351,26 @@ function warnOnce(condition, message, element) {
   warned.add(message);
 }
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/render/utils/motion-values.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/render/utils/motion-values.mjs
 function updateMotionValuesFromProps(element, next, prev) {
   var _a;
+  var willChange = next.willChange;
   for (var key in next) {
     var nextValue = next[key];
     var prevValue = prev[key];
     if (isMotionValue(nextValue)) {
       element.addValue(key, nextValue);
+      if (isWillChangeMotionValue(willChange)) {
+        willChange.add(key);
+      }
       if (true) {
-        warnOnce(nextValue.version === "7.0.2", "Attempting to mix Framer Motion versions ".concat(nextValue.version, " with 7.0.2 may not work as expected."));
+        warnOnce(nextValue.version === "7.1.0", "Attempting to mix Framer Motion versions ".concat(nextValue.version, " with 7.1.0 may not work as expected."));
       }
     } else if (isMotionValue(prevValue)) {
       element.addValue(key, motionValue(nextValue));
+      if (isWillChangeMotionValue(willChange)) {
+        willChange.remove(key);
+      }
     } else if (prevValue !== nextValue) {
       if (element.hasValue(key)) {
         var existingValue = element.getValue(key);
@@ -3368,7 +3387,7 @@ function updateMotionValuesFromProps(element, next, prev) {
   return next;
 }
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/render/index.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/render/index.mjs
 var visualElement = function(_a) {
   var _b = _a.treeType, treeType = _b === void 0 ? "" : _b, build = _a.build, getBaseTarget = _a.getBaseTarget, makeTargetAnimatable = _a.makeTargetAnimatable, measureViewportBox2 = _a.measureViewportBox, renderInstance = _a.render, readValueFromInstance = _a.readValueFromInstance, removeValueFromRenderState = _a.removeValueFromRenderState, sortNodePosition = _a.sortNodePosition, scrapeMotionValuesFromProps3 = _a.scrapeMotionValuesFromProps;
   return function(_a2, options) {
@@ -3408,11 +3427,14 @@ var visualElement = function(_a) {
         removeOnRenderRequest();
       });
     }
-    var initialMotionValues = scrapeMotionValuesFromProps3(props);
+    var _b2 = scrapeMotionValuesFromProps3(props), willChange = _b2.willChange, initialMotionValues = (0, import_tslib20.__rest)(_b2, ["willChange"]);
     for (var key in initialMotionValues) {
       var value = initialMotionValues[key];
       if (latestValues[key] !== void 0 && isMotionValue(value)) {
         value.set(latestValues[key], false);
+        if (isWillChangeMotionValue(willChange)) {
+          willChange.add(key);
+        }
       }
     }
     var isControllingVariants = checkIfControllingVariants(props);
@@ -3613,7 +3635,7 @@ var visualElement = function(_a) {
 var variantProps = (0, import_tslib20.__spreadArray)(["initial"], (0, import_tslib20.__read)(variantPriorityOrder), false);
 var numVariantProps = variantProps.length;
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/animation/animate.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/animation/animate.mjs
 init_define_process();
 function animate2(from, to, transition) {
   if (transition === void 0) {
@@ -3631,16 +3653,16 @@ function animate2(from, to, transition) {
   };
 }
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/render/utils/flat-tree.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/render/utils/flat-tree.mjs
 init_define_process();
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/render/utils/compare-by-depth.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/render/utils/compare-by-depth.mjs
 init_define_process();
 var compareByDepth = function(a2, b2) {
   return a2.depth - b2.depth;
 };
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/render/utils/flat-tree.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/render/utils/flat-tree.mjs
 var FlatTree = function() {
   function FlatTree2() {
     this.children = [];
@@ -3662,11 +3684,11 @@ var FlatTree = function() {
   return FlatTree2;
 }();
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/render/dom/motion.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/render/dom/motion.mjs
 init_define_process();
 var import_tslib39 = __toESM(require_tslib(), 1);
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/render/dom/motion-proxy.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/render/dom/motion-proxy.mjs
 init_define_process();
 function createMotionProxy(createConfig) {
   function custom(Component, customMotionComponentConfig) {
@@ -3689,14 +3711,14 @@ function createMotionProxy(createConfig) {
   });
 }
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/render/dom/utils/create-config.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/render/dom/utils/create-config.mjs
 init_define_process();
 var import_tslib26 = __toESM(require_tslib(), 1);
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/render/dom/utils/is-svg-component.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/render/dom/utils/is-svg-component.mjs
 init_define_process();
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/render/svg/lowercase-elements.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/render/svg/lowercase-elements.mjs
 init_define_process();
 var lowercaseSVGElements = [
   "animate",
@@ -3726,7 +3748,7 @@ var lowercaseSVGElements = [
   "view"
 ];
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/render/dom/utils/is-svg-component.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/render/dom/utils/is-svg-component.mjs
 function isSVGComponent(Component) {
   if (typeof Component !== "string" || Component.includes("-")) {
     return false;
@@ -3736,25 +3758,25 @@ function isSVGComponent(Component) {
   return false;
 }
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/render/dom/use-render.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/render/dom/use-render.mjs
 init_define_process();
 var import_tslib25 = __toESM(require_tslib(), 1);
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/render/html/use-props.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/render/html/use-props.mjs
 init_define_process();
 var import_tslib21 = __toESM(require_tslib(), 1);
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/motion/utils/is-forced-motion-value.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/motion/utils/is-forced-motion-value.mjs
 init_define_process();
 function isForcedMotionValue(key, _a) {
   var layout = _a.layout, layoutId = _a.layoutId;
   return isTransformProp(key) || isTransformOriginProp(key) || (layout || layoutId !== void 0) && (!!scaleCorrectors[key] || key === "opacity");
 }
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/render/html/utils/build-styles.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/render/html/utils/build-styles.mjs
 init_define_process();
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/render/html/utils/build-transform.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/render/html/utils/build-transform.mjs
 init_define_process();
 var translateAlias = {
   x: "translateX",
@@ -3777,9 +3799,8 @@ function buildTransform(_a, _b, transformIsDefault, transformTemplate) {
   }
   if (!transformHasZ && enableHardwareAcceleration) {
     transformString += "translateZ(0)";
-  } else {
-    transformString = transformString.trim();
   }
+  transformString = transformString.trim();
   if (transformTemplate) {
     transformString = transformTemplate(transform2, transformIsDefault ? "" : transformString);
   } else if (allowTransformNone && transformIsDefault) {
@@ -3792,19 +3813,19 @@ function buildTransformOrigin(_a) {
   return "".concat(originX, " ").concat(originY, " ").concat(originZ);
 }
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/render/dom/utils/is-css-variable.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/render/dom/utils/is-css-variable.mjs
 init_define_process();
 function isCSSVariable(key) {
   return key.startsWith("--");
 }
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/render/dom/value-types/get-as-type.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/render/dom/value-types/get-as-type.mjs
 init_define_process();
 var getValueAsType = function(value, type) {
   return type && typeof value === "number" ? type.transform(value) : value;
 };
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/render/html/utils/build-styles.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/render/html/utils/build-styles.mjs
 function buildHTMLStyles(state, latestValues, options, transformTemplate) {
   var _a;
   var style2 = state.style, vars = state.vars, transform2 = state.transform, transformKeys2 = state.transformKeys, transformOrigin = state.transformOrigin;
@@ -3847,7 +3868,7 @@ function buildHTMLStyles(state, latestValues, options, transformTemplate) {
   }
 }
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/render/html/utils/create-render-state.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/render/html/utils/create-render-state.mjs
 init_define_process();
 var createHtmlRenderState = function() {
   return {
@@ -3859,7 +3880,7 @@ var createHtmlRenderState = function() {
   };
 };
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/render/html/use-props.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/render/html/use-props.mjs
 function copyRawValuesOnly(target, source, props) {
   for (var key in source) {
     if (!isMotionValue(source[key]) && !isForcedMotionValue(key, props)) {
@@ -3898,15 +3919,15 @@ function useHTMLProps(props, visualState, isStatic) {
   return htmlProps;
 }
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/render/svg/use-props.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/render/svg/use-props.mjs
 init_define_process();
 var import_tslib24 = __toESM(require_tslib(), 1);
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/render/svg/utils/build-attrs.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/render/svg/utils/build-attrs.mjs
 init_define_process();
 var import_tslib22 = __toESM(require_tslib(), 1);
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/render/svg/utils/transform-origin.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/render/svg/utils/transform-origin.mjs
 init_define_process();
 function calcOrigin(origin, offset, size) {
   return typeof origin === "string" ? origin : px.transform(offset + size * origin);
@@ -3917,7 +3938,7 @@ function calcSVGTransformOrigin(dimensions, originX, originY) {
   return "".concat(pxOriginX, " ").concat(pxOriginY);
 }
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/render/svg/utils/path.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/render/svg/utils/path.mjs
 init_define_process();
 var dashKeys = {
   offset: "stroke-dashoffset",
@@ -3945,7 +3966,7 @@ function buildSVGPath(attrs, length2, spacing, offset, useDashCase) {
   attrs[keys2.array] = "".concat(pathLength, " ").concat(pathSpacing);
 }
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/render/svg/utils/build-attrs.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/render/svg/utils/build-attrs.mjs
 function buildSVGAttrs(state, _a, options, transformTemplate) {
   var attrX = _a.attrX, attrY = _a.attrY, originX = _a.originX, originY = _a.originY, pathLength = _a.pathLength, _b = _a.pathSpacing, pathSpacing = _b === void 0 ? 1 : _b, _c = _a.pathOffset, pathOffset = _c === void 0 ? 0 : _c, latest = (0, import_tslib22.__rest)(_a, ["attrX", "attrY", "originX", "originY", "pathLength", "pathSpacing", "pathOffset"]);
   buildHTMLStyles(state, latest, options, transformTemplate);
@@ -3969,14 +3990,14 @@ function buildSVGAttrs(state, _a, options, transformTemplate) {
   }
 }
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/render/svg/utils/create-render-state.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/render/svg/utils/create-render-state.mjs
 init_define_process();
 var import_tslib23 = __toESM(require_tslib(), 1);
 var createSvgRenderState = function() {
   return (0, import_tslib23.__assign)((0, import_tslib23.__assign)({}, createHtmlRenderState()), { attrs: {} });
 };
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/render/svg/use-props.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/render/svg/use-props.mjs
 function useSVGProps(props, visualState) {
   var visualProps = useMemo(function() {
     var state = createSvgRenderState();
@@ -3991,7 +4012,7 @@ function useSVGProps(props, visualState) {
   return visualProps;
 }
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/render/dom/use-render.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/render/dom/use-render.mjs
 function createUseRender(forwardMotionProps) {
   if (forwardMotionProps === void 0) {
     forwardMotionProps = false;
@@ -4010,13 +4031,13 @@ function createUseRender(forwardMotionProps) {
   return useRender;
 }
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/render/svg/config-motion.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/render/svg/config-motion.mjs
 init_define_process();
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/render/svg/utils/render.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/render/svg/utils/render.mjs
 init_define_process();
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/render/dom/utils/camel-to-dash.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/render/dom/utils/camel-to-dash.mjs
 init_define_process();
 var CAMEL_CASE_PATTERN = /([a-z])([A-Z])/g;
 var REPLACE_TEMPLATE = "$1-$2";
@@ -4024,7 +4045,7 @@ var camelToDash = function(str) {
   return str.replace(CAMEL_CASE_PATTERN, REPLACE_TEMPLATE).toLowerCase();
 };
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/render/html/utils/render.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/render/html/utils/render.mjs
 init_define_process();
 function renderHTML(element, _a, styleProp, projection) {
   var style2 = _a.style, vars = _a.vars;
@@ -4034,7 +4055,7 @@ function renderHTML(element, _a, styleProp, projection) {
   }
 }
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/render/svg/utils/camel-case-attrs.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/render/svg/utils/camel-case-attrs.mjs
 init_define_process();
 var camelCaseAttributes = /* @__PURE__ */ new Set([
   "baseFrequency",
@@ -4059,7 +4080,7 @@ var camelCaseAttributes = /* @__PURE__ */ new Set([
   "pathLength"
 ]);
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/render/svg/utils/render.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/render/svg/utils/render.mjs
 function renderSVG(element, renderState, _styleProp, projection) {
   renderHTML(element, renderState, void 0, projection);
   for (var key in renderState.attrs) {
@@ -4067,10 +4088,10 @@ function renderSVG(element, renderState, _styleProp, projection) {
   }
 }
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/render/svg/utils/scrape-motion-values.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/render/svg/utils/scrape-motion-values.mjs
 init_define_process();
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/render/html/utils/scrape-motion-values.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/render/html/utils/scrape-motion-values.mjs
 init_define_process();
 function scrapeMotionValuesFromProps(props) {
   var style2 = props.style;
@@ -4083,7 +4104,7 @@ function scrapeMotionValuesFromProps(props) {
   return newValues;
 }
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/render/svg/utils/scrape-motion-values.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/render/svg/utils/scrape-motion-values.mjs
 function scrapeMotionValuesFromProps2(props) {
   var newValues = scrapeMotionValuesFromProps(props);
   for (var key in props) {
@@ -4095,7 +4116,7 @@ function scrapeMotionValuesFromProps2(props) {
   return newValues;
 }
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/render/svg/config-motion.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/render/svg/config-motion.mjs
 var svgMotionConfig = {
   useVisualState: makeUseVisualState({
     scrapeMotionValuesFromProps: scrapeMotionValuesFromProps2,
@@ -4118,7 +4139,7 @@ var svgMotionConfig = {
   })
 };
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/render/html/config-motion.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/render/html/config-motion.mjs
 init_define_process();
 var htmlMotionConfig = {
   useVisualState: makeUseVisualState({
@@ -4127,17 +4148,17 @@ var htmlMotionConfig = {
   })
 };
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/render/dom/utils/create-config.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/render/dom/utils/create-config.mjs
 function createDomMotionConfig(Component, _a, preloadedFeatures, createVisualElement, projectionNodeConstructor) {
   var _b = _a.forwardMotionProps, forwardMotionProps = _b === void 0 ? false : _b;
   var baseConfig = isSVGComponent(Component) ? svgMotionConfig : htmlMotionConfig;
   return (0, import_tslib26.__assign)((0, import_tslib26.__assign)({}, baseConfig), { preloadedFeatures, useRender: createUseRender(forwardMotionProps), createVisualElement, projectionNodeConstructor, Component });
 }
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/motion/features/gestures.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/motion/features/gestures.mjs
 init_define_process();
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/gestures/use-focus-gesture.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/gestures/use-focus-gesture.mjs
 init_define_process();
 function useFocusGesture(_a) {
   var whileFocus = _a.whileFocus, visualElement2 = _a.visualElement;
@@ -4153,7 +4174,7 @@ function useFocusGesture(_a) {
   useDomEvent(visualElement2, "blur", whileFocus ? onBlur : void 0);
 }
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/gestures/use-hover-gesture.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/gestures/use-hover-gesture.mjs
 init_define_process();
 function createHoverEvent(visualElement2, isActive, callback) {
   return function(event, info) {
@@ -4170,10 +4191,10 @@ function useHoverGesture(_a) {
   usePointerEvent(visualElement2, "pointerleave", onHoverEnd || whileHover ? createHoverEvent(visualElement2, false, onHoverEnd) : void 0, { passive: !onHoverEnd });
 }
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/gestures/use-tap-gesture.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/gestures/use-tap-gesture.mjs
 init_define_process();
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/gestures/utils/is-node-or-child.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/gestures/utils/is-node-or-child.mjs
 init_define_process();
 var isNodeOrChild = function(parent, child) {
   if (!child) {
@@ -4185,7 +4206,7 @@ var isNodeOrChild = function(parent, child) {
   }
 };
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/gestures/use-tap-gesture.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/gestures/use-tap-gesture.mjs
 function useTapGesture(_a) {
   var onTap = _a.onTap, onTapStart = _a.onTapStart, onTapCancel = _a.onTapCancel, whileTap = _a.whileTap, visualElement2 = _a.visualElement;
   var hasPressListeners = onTap || onTapStart || onTapCancel || whileTap;
@@ -4230,10 +4251,10 @@ function useTapGesture(_a) {
   useUnmountEffect(removePointerEndListener);
 }
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/motion/features/viewport/use-viewport.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/motion/features/viewport/use-viewport.mjs
 init_define_process();
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/motion/features/viewport/observers.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/motion/features/viewport/observers.mjs
 init_define_process();
 var import_tslib27 = __toESM(require_tslib(), 1);
 var observerCallbacks = /* @__PURE__ */ new WeakMap();
@@ -4268,7 +4289,7 @@ function observeIntersection(element, options, callback) {
   };
 }
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/motion/features/viewport/use-viewport.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/motion/features/viewport/use-viewport.mjs
 function useViewport(_a) {
   var visualElement2 = _a.visualElement, whileInView = _a.whileInView, onViewportEnter = _a.onViewportEnter, onViewportLeave = _a.onViewportLeave, _b = _a.viewport, viewport = _b === void 0 ? {} : _b;
   var state = useRef({
@@ -4332,7 +4353,7 @@ function useMissingIntersectionObserver(shouldObserve, state, visualElement2, _a
   }, [shouldObserve]);
 }
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/motion/features/gestures.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/motion/features/gestures.mjs
 var gestureAnimations = {
   inView: makeRenderlessComponent(useViewport),
   tap: makeRenderlessComponent(useTapGesture),
@@ -4340,17 +4361,17 @@ var gestureAnimations = {
   hover: makeRenderlessComponent(useHoverGesture)
 };
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/motion/features/drag.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/motion/features/drag.mjs
 init_define_process();
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/gestures/drag/use-drag.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/gestures/drag/use-drag.mjs
 init_define_process();
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/gestures/drag/VisualElementDragControls.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/gestures/drag/VisualElementDragControls.mjs
 init_define_process();
 var import_tslib31 = __toESM(require_tslib(), 1);
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/gestures/PanSession.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/gestures/PanSession.mjs
 init_define_process();
 var import_tslib28 = __toESM(require_tslib(), 1);
 var PanSession = function() {
@@ -4474,7 +4495,7 @@ function getVelocity2(history, timeDelta) {
   return currentVelocity;
 }
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/gestures/drag/utils/constraints.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/gestures/drag/utils/constraints.mjs
 init_define_process();
 var import_tslib29 = __toESM(require_tslib(), 1);
 function applyConstraints(point2, _a, elastic) {
@@ -4561,16 +4582,16 @@ function resolvePointElastic(dragElastic, label) {
   return typeof dragElastic === "number" ? dragElastic : (_a = dragElastic[label]) !== null && _a !== void 0 ? _a : 0;
 }
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/projection/utils/each-axis.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/projection/utils/each-axis.mjs
 init_define_process();
 function eachAxis(callback) {
   return [callback("x"), callback("y")];
 }
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/projection/utils/measure.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/projection/utils/measure.mjs
 init_define_process();
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/projection/geometry/conversion.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/projection/geometry/conversion.mjs
 init_define_process();
 function convertBoundingBoxToBox(_a) {
   var top = _a.top, left = _a.left, right = _a.right, bottom = _a.bottom;
@@ -4596,11 +4617,11 @@ function transformBoxPoints(point2, transformPoint2) {
   };
 }
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/projection/geometry/delta-apply.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/projection/geometry/delta-apply.mjs
 init_define_process();
 var import_tslib30 = __toESM(require_tslib(), 1);
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/projection/utils/has-transform.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/projection/utils/has-transform.mjs
 init_define_process();
 function isIdentityScale(scale2) {
   return scale2 === void 0 || scale2 === 1;
@@ -4616,7 +4637,7 @@ function hasTranslate(value) {
   return value && value !== "0%";
 }
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/projection/geometry/delta-apply.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/projection/geometry/delta-apply.mjs
 function scalePoint(point2, scale2, originPoint) {
   var distanceFromOrigin = point2 - originPoint;
   var scaled = scale2 * distanceFromOrigin;
@@ -4689,7 +4710,7 @@ function transformBox(box, transform2) {
   transformAxis(box.y, transform2, yKeys);
 }
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/projection/utils/measure.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/projection/utils/measure.mjs
 function measureViewportBox(instance, transformPoint2) {
   return convertBoundingBoxToBox(transformBoxPoints(instance.getBoundingClientRect(), transformPoint2));
 }
@@ -4703,7 +4724,7 @@ function measurePageBox(element, rootProjectionNode2, transformPagePoint) {
   return viewportBox;
 }
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/gestures/drag/VisualElementDragControls.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/gestures/drag/VisualElementDragControls.mjs
 var elementDragControls = /* @__PURE__ */ new WeakMap();
 var VisualElementDragControls = function() {
   function VisualElementDragControls2(visualElement2) {
@@ -5013,7 +5034,7 @@ function getCurrentDirection(offset, lockThreshold) {
   return direction;
 }
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/gestures/drag/use-drag.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/gestures/drag/use-drag.mjs
 function useDrag(props) {
   var groupDragControls = props.dragControls, visualElement2 = props.visualElement;
   var dragControls = useConstant(function() {
@@ -5027,7 +5048,7 @@ function useDrag(props) {
   }, [dragControls]);
 }
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/gestures/use-pan-gesture.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/gestures/use-pan-gesture.mjs
 init_define_process();
 function usePanGesture(_a) {
   var onPan = _a.onPan, onPanStart = _a.onPanStart, onPanEnd = _a.onPanEnd, onPanSessionStart = _a.onPanSessionStart, visualElement2 = _a.visualElement;
@@ -5059,23 +5080,23 @@ function usePanGesture(_a) {
   });
 }
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/motion/features/drag.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/motion/features/drag.mjs
 var drag = {
   pan: makeRenderlessComponent(usePanGesture),
   drag: makeRenderlessComponent(useDrag)
 };
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/render/dom/create-visual-element.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/render/dom/create-visual-element.mjs
 init_define_process();
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/render/html/visual-element.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/render/html/visual-element.mjs
 init_define_process();
 var import_tslib34 = __toESM(require_tslib(), 1);
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/render/dom/utils/parse-dom-variant.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/render/dom/utils/parse-dom-variant.mjs
 init_define_process();
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/render/dom/utils/css-variables-conversion.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/render/dom/utils/css-variables-conversion.mjs
 init_define_process();
 var import_tslib32 = __toESM(require_tslib(), 1);
 function isCSSVariable2(value) {
@@ -5138,7 +5159,7 @@ function resolveCSSVariables(visualElement2, _a, transitionEnd) {
   return { target, transitionEnd };
 }
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/render/dom/utils/unit-conversion.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/render/dom/utils/unit-conversion.mjs
 init_define_process();
 var import_tslib33 = __toESM(require_tslib(), 1);
 var positionalKeys = /* @__PURE__ */ new Set([
@@ -5339,7 +5360,7 @@ var checkAndConvertChangedValueTypes = function(visualElement2, target, origin, 
       });
     }
     visualElement2.syncRender();
-    if (scrollY_1 !== null)
+    if (isBrowser && scrollY_1 !== null)
       window.scrollTo({ top: scrollY_1 });
     return { target: convertedTarget, transitionEnd };
   } else {
@@ -5350,7 +5371,7 @@ function unitConversion(visualElement2, target, origin, transitionEnd) {
   return hasPositionalKey(target) ? checkAndConvertChangedValueTypes(visualElement2, target, origin, transitionEnd) : { target, transitionEnd };
 }
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/render/dom/utils/parse-dom-variant.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/render/dom/utils/parse-dom-variant.mjs
 var parseDomVariant = function(visualElement2, target, origin, transitionEnd) {
   var resolved = resolveCSSVariables(visualElement2, target, transitionEnd);
   target = resolved.target;
@@ -5358,7 +5379,7 @@ var parseDomVariant = function(visualElement2, target, origin, transitionEnd) {
   return unitConversion(visualElement2, target, origin, transitionEnd);
 };
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/render/html/visual-element.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/render/html/visual-element.mjs
 function getComputedStyle2(element) {
   return window.getComputedStyle(element);
 }
@@ -5370,7 +5391,8 @@ var htmlConfig = {
       return defaultType ? defaultType.default || 0 : 0;
     } else {
       var computedStyle = getComputedStyle2(domElement);
-      return (isCSSVariable(key) ? computedStyle.getPropertyValue(key) : computedStyle[key]) || 0;
+      var value = (isCSSVariable(key) ? computedStyle.getPropertyValue(key) : computedStyle[key]) || 0;
+      return typeof value === "string" ? value.trim() : value;
     }
   },
   sortNodePosition: function(a2, b2) {
@@ -5431,7 +5453,7 @@ var htmlConfig = {
 };
 var htmlVisualElement = visualElement(htmlConfig);
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/render/svg/visual-element.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/render/svg/visual-element.mjs
 init_define_process();
 var import_tslib35 = __toESM(require_tslib(), 1);
 var svgVisualElement = visualElement((0, import_tslib35.__assign)((0, import_tslib35.__assign)({}, htmlConfig), { getBaseTarget: function(props, key) {
@@ -5447,19 +5469,19 @@ var svgVisualElement = visualElement((0, import_tslib35.__assign)((0, import_tsl
   buildSVGAttrs(renderState, latestValues, options, props.transformTemplate);
 }, render: renderSVG }));
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/render/dom/create-visual-element.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/render/dom/create-visual-element.mjs
 var createDomVisualElement = function(Component, options) {
   return isSVGComponent(Component) ? svgVisualElement(options, { enableHardwareAcceleration: false }) : htmlVisualElement(options, { enableHardwareAcceleration: true });
 };
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/motion/features/layout/index.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/motion/features/layout/index.mjs
 init_define_process();
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/motion/features/layout/MeasureLayout.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/motion/features/layout/MeasureLayout.mjs
 init_define_process();
 var import_tslib36 = __toESM(require_tslib(), 1);
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/projection/styles/scale-border-radius.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/projection/styles/scale-border-radius.mjs
 init_define_process();
 function pixelsToPercent(pixels, axis) {
   if (axis.max === axis.min)
@@ -5483,7 +5505,7 @@ var correctBorderRadius = {
   }
 };
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/projection/styles/scale-box-shadow.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/projection/styles/scale-box-shadow.mjs
 init_define_process();
 var varToken = "_$css";
 var correctBoxShadow = {
@@ -5525,7 +5547,7 @@ var correctBoxShadow = {
   }
 };
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/motion/features/layout/MeasureLayout.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/motion/features/layout/MeasureLayout.mjs
 var MeasureLayoutWithContext = function(_super) {
   (0, import_tslib36.__extends)(MeasureLayoutWithContext2, _super);
   function MeasureLayoutWithContext2() {
@@ -5626,19 +5648,19 @@ var defaultScaleCorrectors = {
   boxShadow: correctBoxShadow
 };
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/motion/features/layout/index.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/motion/features/layout/index.mjs
 var layoutFeatures = {
   measureLayout: MeasureLayout
 };
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/projection/node/HTMLProjectionNode.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/projection/node/HTMLProjectionNode.mjs
 init_define_process();
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/projection/node/create-projection-node.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/projection/node/create-projection-node.mjs
 init_define_process();
 var import_tslib38 = __toESM(require_tslib(), 1);
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/projection/animation/mix-values.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/projection/animation/mix-values.mjs
 init_define_process();
 var borders = ["TopLeft", "TopRight", "BottomLeft", "BottomRight"];
 var numBorders = borders.length;
@@ -5698,7 +5720,7 @@ function compress(min, max, easing) {
   };
 }
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/projection/geometry/copy.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/projection/geometry/copy.mjs
 init_define_process();
 function copyAxisInto(axis, originAxis) {
   axis.min = originAxis.min;
@@ -5709,7 +5731,7 @@ function copyBoxInto(box, originBox) {
   copyAxisInto(box.y, originBox.y);
 }
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/projection/geometry/delta-remove.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/projection/geometry/delta-remove.mjs
 init_define_process();
 var import_tslib37 = __toESM(require_tslib(), 1);
 function removePointDelta(point2, translate, scale2, originPoint, boxScale) {
@@ -5760,7 +5782,7 @@ function removeBoxTransforms(box, transforms2, originBox, sourceBox) {
   removeAxisTransforms(box.y, transforms2, yKeys2, originBox === null || originBox === void 0 ? void 0 : originBox.y, sourceBox === null || sourceBox === void 0 ? void 0 : sourceBox.y);
 }
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/projection/geometry/utils.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/projection/geometry/utils.mjs
 init_define_process();
 function isAxisDeltaZero(delta) {
   return delta.translate === 0 && delta.scale === 1;
@@ -5772,7 +5794,7 @@ function boxEquals(a2, b2) {
   return a2.x.min === b2.x.min && a2.x.max === b2.x.max && a2.y.min === b2.y.min && a2.y.max === b2.y.max;
 }
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/projection/shared/stack.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/projection/shared/stack.mjs
 init_define_process();
 var NodeStack = function() {
   function NodeStack2() {
@@ -5864,7 +5886,7 @@ var NodeStack = function() {
   return NodeStack2;
 }();
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/projection/styles/transform.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/projection/styles/transform.mjs
 init_define_process();
 var identityProjection = "translate3d(0px, 0px, 0) scale(1, 1) scale(1, 1)";
 function buildProjectionTransform(delta, treeScale, latestTransform) {
@@ -5887,7 +5909,7 @@ function buildProjectionTransform(delta, treeScale, latestTransform) {
   return transform2 === identityProjection ? "none" : transform2;
 }
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/projection/node/create-projection-node.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/projection/node/create-projection-node.mjs
 var animationTarget = 1e3;
 function createProjectionNode(_a) {
   var attachResizeListener = _a.attachResizeListener, defaultParent = _a.defaultParent, measureScroll = _a.measureScroll, checkIsScrollRoot = _a.checkIsScrollRoot, resetTransform = _a.resetTransform;
@@ -6761,7 +6783,7 @@ function roundBox(box) {
   roundAxis(box.y);
 }
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/projection/node/DocumentProjectionNode.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/projection/node/DocumentProjectionNode.mjs
 init_define_process();
 var DocumentProjectionNode = createProjectionNode({
   attachResizeListener: function(ref, notify2) {
@@ -6778,7 +6800,7 @@ var DocumentProjectionNode = createProjectionNode({
   }
 });
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/projection/node/HTMLProjectionNode.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/projection/node/HTMLProjectionNode.mjs
 var rootProjectionNode = {
   current: void 0
 };
@@ -6806,7 +6828,7 @@ var HTMLProjectionNode = createProjectionNode({
   }
 });
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/render/dom/motion.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/render/dom/motion.mjs
 var featureBundle = (0, import_tslib39.__assign)((0, import_tslib39.__assign)((0, import_tslib39.__assign)((0, import_tslib39.__assign)({}, animations), gestureAnimations), drag), layoutFeatures);
 var motion = createMotionProxy(function(Component, config) {
   return createDomMotionConfig(Component, config, featureBundle, createDomVisualElement, HTMLProjectionNode);
@@ -6815,15 +6837,15 @@ function createDomMotionComponent(key) {
   return createMotionComponent(createDomMotionConfig(key, { forwardMotionProps: false }, featureBundle, createDomVisualElement, HTMLProjectionNode));
 }
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/render/dom/motion-minimal.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/render/dom/motion-minimal.mjs
 init_define_process();
 var m = createMotionProxy(createDomMotionConfig);
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/utils/use-force-update.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/utils/use-force-update.mjs
 init_define_process();
 var import_tslib40 = __toESM(require_tslib(), 1);
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/utils/use-is-mounted.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/utils/use-is-mounted.mjs
 init_define_process();
 function useIsMounted() {
   var isMounted = useRef(false);
@@ -6836,7 +6858,7 @@ function useIsMounted() {
   return isMounted;
 }
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/utils/use-force-update.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/utils/use-force-update.mjs
 function useForceUpdate() {
   var isMounted = useIsMounted();
   var _a = (0, import_tslib40.__read)(useState(0), 2), forcedRenderCount = _a[0], setForcedRenderCount = _a[1];
@@ -6849,11 +6871,11 @@ function useForceUpdate() {
   return [deferredForceRender, forcedRenderCount];
 }
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/components/AnimatePresence/index.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/components/AnimatePresence/index.mjs
 init_define_process();
 var import_tslib42 = __toESM(require_tslib(), 1);
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/components/AnimatePresence/PresenceChild.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/components/AnimatePresence/PresenceChild.mjs
 init_define_process();
 var import_tslib41 = __toESM(require_tslib(), 1);
 var PresenceChild = function(_a) {
@@ -6913,7 +6935,7 @@ function newChildrenMap() {
   return /* @__PURE__ */ new Map();
 }
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/components/AnimatePresence/index.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/components/AnimatePresence/index.mjs
 var getChildKey = function(child) {
   return child.key || "";
 };
@@ -7008,15 +7030,15 @@ var AnimatePresence = function(_a) {
   }));
 };
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/context/DeprecatedLayoutGroupContext.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/context/DeprecatedLayoutGroupContext.mjs
 init_define_process();
 var DeprecatedLayoutGroupContext = createContext(null);
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/components/LayoutGroup/index.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/components/LayoutGroup/index.mjs
 init_define_process();
 var import_tslib43 = __toESM(require_tslib(), 1);
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/projection/node/group.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/projection/node/group.mjs
 init_define_process();
 var notify = function(node) {
   return !node.isLayoutDirty && node.willUpdate(false);
@@ -7043,7 +7065,7 @@ function nodeGroup() {
   };
 }
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/components/LayoutGroup/index.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/components/LayoutGroup/index.mjs
 var shouldInheritGroup = function(inherit) {
   return inherit === true;
 };
@@ -7075,7 +7097,7 @@ var LayoutGroup = function(_a) {
   return createElement(LayoutGroupContext.Provider, { value: memoizedContext }, children);
 };
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/components/AnimateSharedLayout.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/components/AnimateSharedLayout.mjs
 init_define_process();
 var id2 = 0;
 var AnimateSharedLayout = function(_a) {
@@ -7088,7 +7110,7 @@ var AnimateSharedLayout = function(_a) {
   }) }, children);
 };
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/components/MotionConfig/index.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/components/MotionConfig/index.mjs
 init_define_process();
 var import_tslib44 = __toESM(require_tslib(), 1);
 function MotionConfig(_a) {
@@ -7104,7 +7126,7 @@ function MotionConfig(_a) {
   return createElement(MotionConfigContext.Provider, { value: context }, children);
 }
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/components/LazyMotion/index.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/components/LazyMotion/index.mjs
 init_define_process();
 var import_tslib45 = __toESM(require_tslib(), 1);
 function LazyMotion(_a) {
@@ -7132,7 +7154,7 @@ function isLazyBundle(features) {
   return typeof features === "function";
 }
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/value/use-motion-value.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/value/use-motion-value.mjs
 init_define_process();
 var import_tslib46 = __toESM(require_tslib(), 1);
 function useMotionValue(initial) {
@@ -7149,7 +7171,7 @@ function useMotionValue(initial) {
   return value;
 }
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/utils/transform.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/utils/transform.mjs
 init_define_process();
 var import_tslib47 = __toESM(require_tslib(), 1);
 var isCustomValueType = function(v) {
@@ -7173,14 +7195,14 @@ function transform() {
   return useImmediate ? interpolator(inputValue) : interpolator;
 }
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/value/use-transform.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/value/use-transform.mjs
 init_define_process();
 var import_tslib48 = __toESM(require_tslib(), 1);
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/value/use-combine-values.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/value/use-combine-values.mjs
 init_define_process();
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/value/use-on-change.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/value/use-on-change.mjs
 init_define_process();
 function useOnChange(value, callback) {
   useIsomorphicLayoutEffect(function() {
@@ -7201,7 +7223,7 @@ function useMultiOnChange(values, handler) {
   });
 }
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/value/use-combine-values.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/value/use-combine-values.mjs
 function useCombineMotionValues(values, combineValues) {
   var value = useMotionValue(combineValues());
   var updateValue = function() {
@@ -7214,7 +7236,7 @@ function useCombineMotionValues(values, combineValues) {
   return value;
 }
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/value/use-transform.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/value/use-transform.mjs
 function useTransform(input, inputRangeOrTransformer, outputRange, options) {
   var transformer = typeof inputRangeOrTransformer === "function" ? inputRangeOrTransformer : transform(inputRangeOrTransformer, outputRange, options);
   return Array.isArray(input) ? useListTransform(input, transformer) : useListTransform([input], function(_a) {
@@ -7236,18 +7258,18 @@ function useListTransform(values, transformer) {
   });
 }
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/components/Reorder/index.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/components/Reorder/index.mjs
 init_define_process();
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/components/Reorder/Group.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/components/Reorder/Group.mjs
 init_define_process();
 var import_tslib49 = __toESM(require_tslib(), 1);
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/context/ReorderContext.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/context/ReorderContext.mjs
 init_define_process();
 var ReorderContext = createContext(null);
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/components/Reorder/utils/check-reorder.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/components/Reorder/utils/check-reorder.mjs
 init_define_process();
 function checkReorder(order3, value, offset, velocity) {
   if (!velocity)
@@ -7270,7 +7292,7 @@ function checkReorder(order3, value, offset, velocity) {
   return order3;
 }
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/components/Reorder/Group.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/components/Reorder/Group.mjs
 function ReorderGroup(_a, externalRef) {
   var children = _a.children, _b = _a.as, as = _b === void 0 ? "ul" : _b, _c = _a.axis, axis = _c === void 0 ? "y" : _c, onReorder = _a.onReorder, values = _a.values, props = (0, import_tslib49.__rest)(_a, ["children", "as", "axis", "onReorder", "values"]);
   var Component = useConstant(function() {
@@ -7318,7 +7340,7 @@ function compareMin(a2, b2) {
   return a2.layout.min - b2.layout.min;
 }
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/components/Reorder/Item.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/components/Reorder/Item.mjs
 init_define_process();
 var import_tslib50 = __toESM(require_tslib(), 1);
 function useDefaultMotionValue(value, defaultValue) {
@@ -7357,23 +7379,23 @@ function ReorderItem(_a, externalRef) {
 }
 var Item = forwardRef(ReorderItem);
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/components/Reorder/index.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/components/Reorder/index.mjs
 var Reorder = {
   Group,
   Item
 };
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/render/dom/features-animation.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/render/dom/features-animation.mjs
 init_define_process();
 var import_tslib51 = __toESM(require_tslib(), 1);
 var domAnimation = (0, import_tslib51.__assign)((0, import_tslib51.__assign)({ renderer: createDomVisualElement }, animations), gestureAnimations);
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/render/dom/features-max.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/render/dom/features-max.mjs
 init_define_process();
 var import_tslib52 = __toESM(require_tslib(), 1);
 var domMax = (0, import_tslib52.__assign)((0, import_tslib52.__assign)((0, import_tslib52.__assign)((0, import_tslib52.__assign)({}, domAnimation), drag), layoutFeatures), { projectionNodeConstructor: HTMLProjectionNode });
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/value/use-motion-template.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/value/use-motion-template.mjs
 init_define_process();
 function useMotionTemplate(fragments) {
   var values = [];
@@ -7394,7 +7416,7 @@ function useMotionTemplate(fragments) {
   return useCombineMotionValues(values, buildValue);
 }
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/value/use-spring.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/value/use-spring.mjs
 init_define_process();
 var import_tslib53 = __toESM(require_tslib(), 1);
 function useSpring(source, config) {
@@ -7421,7 +7443,7 @@ function useSpring(source, config) {
   return value;
 }
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/value/use-velocity.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/value/use-velocity.mjs
 init_define_process();
 function useVelocity(value) {
   var velocity = useMotionValue(value.getVelocity());
@@ -7433,7 +7455,7 @@ function useVelocity(value) {
   return velocity;
 }
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/value/use-scroll.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/value/use-scroll.mjs
 init_define_process();
 var import_tslib58 = __toESM(require_tslib(), 1);
 
@@ -8521,7 +8543,7 @@ init_define_process();
 // ../../.yarn/global/cache/@motionone-dom-npm-10.13.1-2b54608f7c-9.zip/node_modules/@motionone/dom/dist/animate/utils/style-string.es.js
 init_define_process();
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/value/use-scroll.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/value/use-scroll.mjs
 var createScrollMotionValues = function() {
   return {
     scrollX: motionValue(0),
@@ -8548,21 +8570,21 @@ function useScroll(_a) {
   return values;
 }
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/value/scroll/use-element-scroll.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/value/scroll/use-element-scroll.mjs
 init_define_process();
 function useElementScroll(ref) {
   warnOnce(false, "useElementScroll is deprecated. Convert to useScroll({ container: ref }).");
   return useScroll({ container: ref });
 }
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/value/scroll/use-viewport-scroll.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/value/scroll/use-viewport-scroll.mjs
 init_define_process();
 function useViewportScroll() {
   warnOnce(false, "useViewportScroll is deprecated. Convert to useScroll().");
   return useScroll();
 }
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/utils/use-animation-frame.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/utils/use-animation-frame.mjs
 init_define_process();
 function useAnimationFrame(callback) {
   var initialTimestamp = useRef(0);
@@ -8583,7 +8605,7 @@ function useAnimationFrame(callback) {
   }, [callback]);
 }
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/value/use-time.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/value/use-time.mjs
 init_define_process();
 function useTime() {
   var time2 = useMotionValue(0);
@@ -8593,7 +8615,7 @@ function useTime() {
   return time2;
 }
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/animation/animation-controls.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/animation/animation-controls.mjs
 init_define_process();
 var import_tslib59 = __toESM(require_tslib(), 1);
 function animationControls() {
@@ -8651,7 +8673,7 @@ function animationControls() {
   return controls;
 }
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/animation/use-animation.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/animation/use-animation.mjs
 init_define_process();
 function useAnimationControls() {
   var controls = useConstant(animationControls);
@@ -8660,7 +8682,7 @@ function useAnimationControls() {
 }
 var useAnimation = useAnimationControls;
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/utils/use-cycle.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/utils/use-cycle.mjs
 init_define_process();
 var import_tslib60 = __toESM(require_tslib(), 1);
 function useCycle() {
@@ -8677,7 +8699,7 @@ function useCycle() {
   return [item, runCycle];
 }
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/utils/use-in-view.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/utils/use-in-view.mjs
 init_define_process();
 var import_tslib61 = __toESM(require_tslib(), 1);
 function useInView(ref, _a) {
@@ -8703,7 +8725,7 @@ function useInView(ref, _a) {
   return isInView;
 }
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/gestures/drag/use-drag-controls.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/gestures/drag/use-drag-controls.mjs
 init_define_process();
 var DragControls = function() {
   function DragControls2() {
@@ -8730,7 +8752,7 @@ function useDragControls() {
   return useConstant(createDragControls);
 }
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/projection/use-instant-layout-transition.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/projection/use-instant-layout-transition.mjs
 init_define_process();
 function useInstantLayoutTransition() {
   return startTransition;
@@ -8743,7 +8765,7 @@ function startTransition(cb2) {
   cb2 === null || cb2 === void 0 ? void 0 : cb2();
 }
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/utils/use-instant-transition.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/utils/use-instant-transition.mjs
 init_define_process();
 var import_tslib62 = __toESM(require_tslib(), 1);
 function useInstantTransition() {
@@ -8765,7 +8787,7 @@ function useInstantTransition() {
   };
 }
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/projection/use-reset-projection.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/projection/use-reset-projection.mjs
 init_define_process();
 function useResetProjection() {
   var reset = useCallback(function() {
@@ -8777,7 +8799,7 @@ function useResetProjection() {
   return reset;
 }
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/animation/use-animated-state.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/animation/use-animated-state.mjs
 init_define_process();
 var import_tslib63 = __toESM(require_tslib(), 1);
 var createObject = function() {
@@ -8835,7 +8857,7 @@ function useAnimatedState(initialState) {
   return [animationState, startAnimation2];
 }
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/value/use-inverted-scale.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/value/use-inverted-scale.mjs
 init_define_process();
 var maxScale = 1e5;
 var invertScale = function(scale2) {
@@ -8861,7 +8883,7 @@ function useInvertedScale(scale2) {
   return { scaleX, scaleY };
 }
 
-// ../../.yarn/__virtual__/framer-motion-virtual-e0877ceace/0/global/cache/framer-motion-npm-7.0.2-75d25ae3ef-9.zip/node_modules/framer-motion/dist/es/index.mjs
+// ../../.yarn/__virtual__/framer-motion-virtual-d2b53f3934/0/global/cache/framer-motion-npm-7.1.0-e338923fda-9.zip/node_modules/framer-motion/dist/es/index.mjs
 init_define_process();
 
 export {

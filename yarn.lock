@@ -2517,7 +2517,7 @@ __metadata:
     esbuild-wasm: "npm:0.15.1"
     events: "npm:^3.3.0"
     fast-diff: "npm:1.2.0"
-    framer-motion: "npm:7.0.2"
+    framer-motion: "npm:7.1.0"
     immutable: "npm:4.1.0"
     iso-constants: "npm:0.1.2"
     lodash.debounce: "npm:4.0.8"
@@ -5397,9 +5397,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"framer-motion@npm:7.0.2":
-  version: 7.0.2
-  resolution: "framer-motion@npm:7.0.2"
+"framer-motion@npm:7.1.0":
+  version: 7.1.0
+  resolution: "framer-motion@npm:7.1.0"
   dependencies:
     "@emotion/is-prop-valid": "npm:^0.8.2"
     "@motionone/dom": "npm:10.13.1"
@@ -5414,7 +5414,7 @@ __metadata:
   dependenciesMeta:
     "@emotion/is-prop-valid":
       optional: true
-  checksum: 8df95459f8c5efacfcbfe25948a73c94e3a2f9e4359fdabd289689641b38410f7f99101367e6d3cfa93c13c8a4386734ddda39d3b3d69366fd6bf9da8802345a
+  checksum: ed954e29dbb34bd38c0186a537d51d2c87cedc08f284dccf5f61e4ceb9a9e93ab95c201bc871a5fdc5298700bc5560fb719d5c00458ee393493f3ac1ad616dbb
   languageName: node
   linkType: hard
 

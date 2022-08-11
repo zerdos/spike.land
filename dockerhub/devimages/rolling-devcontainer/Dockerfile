@@ -208,7 +208,7 @@ RUN (curl -fsSL https://deno.land/x/install/install.sh | sh -s v1.24.1 \
   && echo "export PATH=\"\$DENO_INSTALL/bin:\$PATH\"" >> ${HOME}/.zshrc) || echo no-deno
 
 USER 0
-RUN ln /home/${USER}/.deno/bin/deno /usr/bin
+RUN (ln /home/${USER}/.deno/bin/deno /usr/bin) || echo no-deno
 
 USER ${USER}
 
