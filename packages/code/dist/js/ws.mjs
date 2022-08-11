@@ -12,7 +12,7 @@ import {
   domAnimation,
   domMax,
   m as m2
-} from "../chunk-chunk-JBEMBRZG.mjs";
+} from "../chunk-chunk-6LRSDY2R.mjs";
 import {
   CacheProvider,
   Global,
