@@ -82,6 +82,7 @@
     "lodash.debounce": "4.0.8",
     "lodash.throttle": "4.1.1",
     "monaco-editor": "0.34.0",
+    "monaco-editor-core": "^0.34.0",
     "msw": "^0.44.2",
     "p-all": "4.0.0",
     "p-map": "5.5.0",
