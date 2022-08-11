@@ -35,7 +35,7 @@ RUN (curl -fSL --output dotnet.tar.gz https://dotnetcli.azureedge.net/dotnet/Sdk
     && tar -zxf dotnet.tar.gz -C /usr/share/dotnet \
     && rm dotnet.tar.gz \
     && ln -s /usr/share/dotnet/dotnet /usr/bin/dotnet \
-    # Trigger first run experience by running arbitrary cmd
+    # Trigger firstgit  run experience by running arbitrary cmd
     && dotnet help) || ( rm -rf dotnet*  /usr/share/dotnet && curl -fSL --output dotnet.tar.gz https://dotnetcli.azureedge.net/dotnet/Sdk/$DOTNET_SDK_VERSION/dotnet-sdk-$DOTNET_SDK_VERSION-linux-arm64.tar.gz  \
     && dotnet_sha512='{arm_dotnet_sha512}' \
     && echo "$dotnet_sha512  dotnet.tar.gz" | sha512sum -c - \
