@@ -16,7 +16,7 @@ import codicon from "monaco-editor/esm/vs/base/browser/ui/codicons/codicon/codic
 
 // globalThis.Buffer = Buffer;
 
-const { edWorker, tsWorker } = await import("./monacoTsWorker");
+
 
 const monEnv = {
   tsWorker: null,

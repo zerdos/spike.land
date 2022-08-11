@@ -181,7 +181,7 @@ const build = (entryPoints, format = "esm") =>
     bundle: true,
     format: "esm",
     splitting: true,
-
+    target:"esnext",
     sourcemap: false,
 
     minify: !isDevelopment,
@@ -210,7 +210,8 @@ const build = (entryPoints, format = "esm") =>
     // external: ["react", "react-dom/client", "framer-motion", "tslib", "@emotion/react"],
     platform: "browser",
     chunkNames: "chunk-[name]-[hash]",
-    // treeShaking: true,
+    treeShaking: true,
+    ignoreAnnotations: true,
     // entryNames: "[name]-[hash]",
     resolveExtensions: [
       ".tsx",
