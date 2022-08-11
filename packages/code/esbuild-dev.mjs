@@ -47,10 +47,10 @@ console.log(`
 === ----
 -------------------------------------------------`);
 
-const workerEntryPoints = [
+// const workerEntryPoints = [
   // "vs/language/typescript/ts.worker.js",
-  "vs/editor/editor.worker.js",
-].map((entry) => `monaco-editor/esm/${entry}`);
+  // "vs/editor/editor.worker.js",
+// ].map((entry) => `monaco-editor/esm/${entry}`);
 
 const define = {
   "process.env.NODE_ENV": `"${environment}"`,
@@ -82,8 +82,8 @@ const buildOptions = {
         import.meta.url,
       ).pathname,
     }),
-    importMapPlugin,
-    esbuildCommonjs(["/react.mjs"]),
+    // importMapPlugin,
+    // esbuildCommonjs(["/react.mjs"]),
     // alias({
     //   "path": "path-browserify"
     //   // "stream": "stream-browserify",
@@ -91,87 +91,87 @@ const buildOptions = {
   ],
 };
 
-await esbuild.build({
-  ...buildOptions,
-  entryPoints: [
-    ...workerEntryPoints,
-  ],
-  bundle: true,
-  minify: !isDevelopment,
-  minifyWhitespace: !isDevelopment,
-  minifyIdentifiers: !isDevelopment,
-  minifySyntax: !isDevelopment,
-  treeShaking: true,
-  ignoreAnnotations: true,
-  outExtension: { ".js": ".monaco.worker.js" },
-  format: "iife",
-  loader: {
-    ".ttf": "file",
-    ".webp": "file",
-    ".tsx": "tsx",
-    ".jsx": "tsx",
-    ".ts:": "ts",
-    ".css": "css",
-    ".d.ts": "dataurl",
-    ".css": "css",
-    ".ttf": "file",
-    ".wasm": "file",
+// await esbuild.build({
+//   ...buildOptions,
+//   entryPoints: [
+//     // ...workerEntryPoints,
+//   ],
+//   bundle: true,
+//   minify: !isDevelopment,
+//   minifyWhitespace: !isDevelopment,
+//   minifyIdentifiers: !isDevelopment,
+//   minifySyntax: !isDevelopment,
+//   treeShaking: true,
+//   ignoreAnnotations: true,
+//   outExtension: { ".js": ".monaco.worker.js" },
+//   format: "iife",
+//   loader: {
+//     ".ttf": "file",
+//     ".webp": "file",
+//     ".tsx": "tsx",
+//     ".jsx": "tsx",
+//     ".ts:": "ts",
+//     ".css": "css",
+//     ".d.ts": "dataurl",
+//     ".css": "css",
+//     ".ttf": "file",
+//     ".wasm": "file",
 
-  },
+//   },
 
-  outdir: "./js/monaco-editor",
-});
+//   outdir: "./js/monaco-editor",
+// });
 
-await esbuild.build({
-  ...buildOptions,
-  entryPoints: [
-    // "monaco-jsx-syntax-highlight/lib/worker/index.js",
-    // "./js/ipfsWorker.tsx",
-    "./main.ts",
-    "./sw.mjs",
-  ],
-  bundle: true,
-  minify: false,
-  minifyWhitespace: false,
-  minifyIdentifiers: false,
-  minifySyntax: false,
-  treeShaking: true,
+// await esbuild.build({
+//   ...buildOptions,
+//   entryPoints: [
+//     // "monaco-jsx-syntax-highlight/lib/worker/index.js",
+//     // "./js/ipfsWorker.tsx",
+//     "./main.ts",
+//     "./sw.mjs",
+//   ],
+//   bundle: true,
+//   minify: false,
+//   minifyWhitespace: false,
+//   minifyIdentifiers: false,
+//   minifySyntax: false,
+//   treeShaking: true,
 
-  ignoreAnnotations: false,
-  plugins: [
-    alias({
-      "react": new URL("./react.ts", import.meta.url).pathname,
-      "react-dom": new URL("./react.ts", import.meta.url).pathname,
-      "react-dom/server": new URL("./react.ts", import.meta.url).pathname,
-      "react-dom/client": new URL("./react.ts", import.meta.url).pathname,
-      "react/jsx-runtime": new URL("./react.ts", import.meta.url).pathname,
-      "react/jsx-dev-runtime": new URL("./react.ts", import.meta.url).pathname,
-      "path": new URL("./path/index.js", import.meta.url).pathname,
-      "stream": new URL(
-        "../../node_modules/stream-browserify/index.js",
-        import.meta.url,
-      ).pathname,
-    }),
-  ],
-  ignoreAnnotations: true,
-  treeShaking: true,
-  // outExtension: {".js": ".workerJS"},
-  format: "iife",
-  loader: {
-    ".webp": "file",
-    ".tsx": "tsx",
-    ".jsx": "tsx",
-    ".mjs": "ts",
-    ".ts:": "ts",
-    ".js:": "ts",
-    ".css": "css",
-    ".d.ts": "dataurl",
-    ".css": "css",
-    ".monaco.worker.js": "file",
-  },
+//   ignoreAnnotations: false,
+//   plugins: [
+//     alias({
+//       "react": new URL("./react.ts", import.meta.url).pathname,
+//       "react-dom": new URL("./react.ts", import.meta.url).pathname,
+//       "react-dom/server": new URL("./react.ts", import.meta.url).pathname,
+//       "react-dom/client": new URL("./react.ts", import.meta.url).pathname,
+//       "react/jsx-runtime": new URL("./react.ts", import.meta.url).pathname,
+//       "react/jsx-dev-runtime": new URL("./react.ts", import.meta.url).pathname,
+//       "path": new URL("./path/index.js", import.meta.url).pathname,
+//       "stream": new URL(
+//         "../../node_modules/stream-browserify/index.js",
+//         import.meta.url,
+//       ).pathname,
+//     }),
+//   ],
+//   ignoreAnnotations: true,
+//   treeShaking: true,
+//   // outExtension: {".js": ".workerJS"},
+//   format: "iife",
+//   loader: {
+//     ".webp": "file",
+//     ".tsx": "tsx",
+//     ".jsx": "tsx",
+//     ".mjs": "ts",
+//     ".ts:": "ts",
+//     ".js:": "ts",
+//     ".css": "css",
+//     ".d.ts": "dataurl",
+//     ".css": "css",
+//     ".monaco.worker.js": "file",
+//   },
 
-  outdir: outDir,
-});
+//   outdir: outDir,
+// });
 
 const build = (entryPoints, format = "esm") =>
   esbuild.build({

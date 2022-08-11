@@ -2729,6 +2729,7 @@ __metadata:
     lodash.debounce: "npm:4.0.8"
     lodash.throttle: "npm:4.1.1"
     monaco-editor: "npm:0.34.0"
+    monaco-editor-core: "npm:^0.34.0"
     msw: "npm:^0.44.2"
     p-all: "npm:4.0.0"
     p-map: "npm:5.5.0"
@@ -11678,6 +11679,13 @@ __metadata:
   bin:
     module-deps: bin/cmd.js
   checksum: 473671393ab7dde2e09b82e5813ea8b0f1c1718555cd749e611cb2c93929b26d5a8347ef647cbb0dbbe541e888b7953f4ea28cfd88cb848bd3b794bcdd5c5ad2
+  languageName: node
+  linkType: hard
+
+"monaco-editor-core@npm:^0.34.0":
+  version: 0.34.0
+  resolution: "monaco-editor-core@npm:0.34.0"
+  checksum: 8892ab7f0e6d3ff604144a2458b5301fec4d0b5fac12d327c7a9a751337e5281fcf4679d83b754bd97f0069c620828c1401c8473c183ce9e7ec9a0ef0a21d29c
   languageName: node
   linkType: hard
 

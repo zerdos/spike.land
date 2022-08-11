@@ -16,18 +16,33 @@ import codicon from "monaco-editor/esm/vs/base/browser/ui/codicons/codicon/codic
 
 // globalThis.Buffer = Buffer;
 
+const { edWorker, tsWorker } = await import("./monacoTsWorker");
+
 const monEnv = {
-  getWorkerUrl: async function (_workerId: string, label: string) {
+  tsWorker: null,
+  edWorker: null,
+  getWorker: async function (_workerId: string, label: string) {
+    
+    if (!monEnv.tsWorker) {
+      const {   createWorkers } = await import("./monacoTsWorker")
+      const {tsWorker, edWorker} =  await createWorkers()
+      monEnv.tsWorker = tsWorker;
+      monEnv.edWorker = edWorker      
+    }
+    
+
+    
+
     if (label === "typescript" || label === "javascript") {
     
-      // const tsWorker  = await import("./ "monaco-editor/esm/vs/language/typescript/ts.worker"");
+      
     
-      return "";
+      return monEnv.tsWorker;
     }
 
 
     // const worker = await import("monaco-editor/esm/vs/editor/editor.worker")
-    return "";
+    return monEnv.edWorker;
   },
 };
 
@@ -78,7 +93,7 @@ export const monacoContribution = async (
     jsx: typescript.JsxEmit.ReactJSX,
     allowUmdGlobalAccess: true,
   });
-
+ 
   const regex1 = / from \'\.\./ig;
 
   const regex2 = / from \'\./ig;
