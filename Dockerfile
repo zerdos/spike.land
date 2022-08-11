@@ -1,4 +1,4 @@
-#syntax=docker/dockerfile:1.4.1
+# syntax=docker/dockerfile:1.4.1
 
 FROM node as node-builder
 
