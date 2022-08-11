@@ -2482,7 +2482,6 @@ __metadata:
     "@cloudflare/kv-asset-handler": "npm:^0.2.0"
     "@spike.land/code": "npm:^0.8.4"
     esbuild: "npm:^0.15.1"
-    mime: "npm:^3.0.0"
     typescript: "npm:4.7.4"
     wrangler: "npm:2.0.25"
   languageName: unknown
@@ -5682,6 +5681,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "github.com-spike.land@workspace:."
   dependencies:
+    "@cloudflare/kv-asset-handler": "npm:^0.2.0"
     "@cloudflare/workers-types": "npm:^3.14.1"
     "@playwright/test": "npm:^1.25.0"
     "@types/events": "npm:^3.0.0"
