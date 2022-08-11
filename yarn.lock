@@ -390,7 +390,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@cloudflare/workers-types@npm:3.14.1":
+"@cloudflare/workers-types@npm:3.14.1, @cloudflare/workers-types@npm:^3.14.1":
   version: 3.14.1
   resolution: "@cloudflare/workers-types@npm:3.14.1"
   checksum: 2e6199bb1c1994bfe05dd4b3cfe622cda27eefcf01b212768cf7a62054e63956f38caa8c21ca37af62c013f56b95b6b71b538a0c74d8e11b5d6587b50c6e4733
@@ -5682,6 +5682,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "github.com-spike.land@workspace:."
   dependencies:
+    "@cloudflare/workers-types": "npm:^3.14.1"
     "@playwright/test": "npm:^1.25.0"
     "@types/events": "npm:^3.0.0"
     "@yarnpkg/sdks": "npm:^3.0.0-rc.14"
