@@ -34,7 +34,7 @@ RUN apt-get update \
 
 USER ${USER}
 
-WORKDIR /home/node
+WORKDIR /home/${USER}
 
 RUN mkdir cy && cd cy && yarn init &&  yarn add cypress@{CYPRESS_VERSION} --mode=skip-build
 
