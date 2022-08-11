@@ -1,0 +1,10 @@
+{
+  "name": "test",
+  "packageManager": "yarn@4.0.0-rc.14",
+  "dependencies": {
+    "mime": "^3.0.0"
+  },
+  "devDependencies": {
+    "esbuild": "^0.15.1"
+  }
+}
