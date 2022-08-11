@@ -12,12 +12,16 @@ var cypress = "10.4.0";
 var yarn = "1.22.19";
 var dotnet3 = "3.1.417";
 var dotnet5 = "5.0.406";
-var dotnet6 = "6.0.300";
+var dotnet6 = "6.0.400";
 var sha = {
   dotnet_sha512: {
     "3.1.417": "8eb1002ad829ddd17638b942d3f8da24ad71ccab268a92a1fa6af6a65d86a4ab7f885f663ea9c68127bb356462bce125222ec4f04dc928005cbbbb1a8658f107",
     "5.0.406": "21f0617d359d5c333a8925af71b359c0e9e371eaa6e4b20faf0f699296cebaacc56cb9660fa310b2ed99ca636f241f2df999698a883cf7899dd670bdf92bdd29",
-    "6.0.300": "52d720e90cfb889a92d605d64e6d0e90b96209e1bd7eab00dab1d567017d7a5a4ff4adbc55aff4cffcea4b1bf92bb8d351859d00d8eb65059eec5e449886c938"
+    "6.0.300": "52d720e90cfb889a92d605d64e6d0e90b96209e1bd7eab00dab1d567017d7a5a4ff4adbc55aff4cffcea4b1bf92bb8d351859d00d8eb65059eec5e449886c938",
+    "6.0.400": {
+      amd: "8decbba0a6b09501daede52cbb5a9ae9e5f31ade201918c03efcd1b4cc345ec934f88321704ec3beb1f90f2204934be7259c76f66d9204cbdd15933582602763",
+      arm: "a21010f9e0e091bf0a4df9dfc4ec9893c056c2b07b10be093ea392a4fa5c8a38bad9535f66e570b45dc25165b685199fb729434b845bcfb35f8b79cceb22c632"
+    }
   }
 };
 
@@ -176,12 +180,15 @@ var DevcontainerGenerator = class {
     if (this._dotnet) {
       if (this._dotnet === "6") {
         this._dockerfile += dockerTemplates["dotnet6"].replace("{DOTNET_SDK_VERSION}", dotnet6).replace(
-          "{dotnet_sha512}",
-          sha.dotnet_sha512[dotnet6]
+          "{arm_dotnet_sha512}",
+          sha.dotnet_sha512["6.0.400"].arm
+        ).replace(
+          "{amd_dotnet_sha512}",
+          sha.dotnet_sha512["6.0.400"].amd
         );
       } else if (this._dotnet === "3") {
         this._dockerfile += dockerTemplates["dotnet3"].replace("{DOTNET_SDK_VERSION}", dotnet3).replace(
-          "{dotnet_sha512}",
+          "{amd_dotnet_sha512}",
           sha.dotnet_sha512[dotnet3]
         );
       } else {

@@ -2723,7 +2723,7 @@ __metadata:
     esbuild-wasm: "npm:0.15.1"
     events: "npm:^3.3.0"
     fast-diff: "npm:1.2.0"
-    framer-motion: "npm:7.0.1"
+    framer-motion: "npm:7.0.2"
     immutable: "npm:4.1.0"
     iso-constants: "npm:0.1.2"
     lodash.debounce: "npm:4.0.8"
@@ -8193,16 +8193,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"framer-motion@npm:7.0.1":
-  version: 7.0.1
-  resolution: "framer-motion@npm:7.0.1"
+"framer-motion@npm:7.0.2":
+  version: 7.0.2
+  resolution: "framer-motion@npm:7.0.2"
   dependencies:
     "@emotion/is-prop-valid": "npm:^0.8.2"
     "@motionone/dom": "npm:10.13.1"
-    framesync: "npm:6.0.1"
+    framesync: "npm:6.1.1"
     hey-listen: "npm:^1.0.8"
-    popmotion: "npm:11.0.3"
-    style-value-types: "npm:5.1.0"
+    popmotion: "npm:11.0.4"
+    style-value-types: "npm:5.1.1"
     tslib: "npm:^2.1.0"
   peerDependencies:
     react: ^18.0.0
@@ -8210,16 +8210,16 @@ __metadata:
   dependenciesMeta:
     "@emotion/is-prop-valid":
       optional: true
-  checksum: 0effad45265091b78d2e819cd8eaa111d5bb9c767d18c72832625c8cf12a9ec33cfbed22289201a6d53a5a7bb4eb0264fc2b5fc19da7d92458dd800947a35766
+  checksum: 8df95459f8c5efacfcbfe25948a73c94e3a2f9e4359fdabd289689641b38410f7f99101367e6d3cfa93c13c8a4386734ddda39d3b3d69366fd6bf9da8802345a
   languageName: node
   linkType: hard
 
-"framesync@npm:6.0.1":
-  version: 6.0.1
-  resolution: "framesync@npm:6.0.1"
+"framesync@npm:6.1.1":
+  version: 6.1.1
+  resolution: "framesync@npm:6.1.1"
   dependencies:
-    tslib: "npm:^2.1.0"
-  checksum: 463d53c49ea4eb0332fbdfff3a11a0c8c247434b211ed98e982b9128b9e878cd7403d52cc6a0d52de251c92fe3e7b12ea0c0ca4451c58dde65a3cbed66911a66
+    tslib: "npm:^2.3.1"
+  checksum: cfa382d96966d3800ea2c5ef69c4bd1f49c9ad6c508f2bb093cd7894ac6ad9d31a102563a1fb9020f890900824fcad22094a334b95783d76e17db6a20fe52d5d
   languageName: node
   linkType: hard
 
@@ -13200,15 +13200,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"popmotion@npm:11.0.3":
-  version: 11.0.3
-  resolution: "popmotion@npm:11.0.3"
+"popmotion@npm:11.0.4":
+  version: 11.0.4
+  resolution: "popmotion@npm:11.0.4"
   dependencies:
-    framesync: "npm:6.0.1"
+    framesync: "npm:6.1.1"
     hey-listen: "npm:^1.0.8"
-    style-value-types: "npm:5.0.0"
+    style-value-types: "npm:5.1.1"
     tslib: "npm:^2.1.0"
-  checksum: 11c34fe0a7e1caed32e6f289349e6cdc29371a77e4dfef1eef9890cfc82005a7c26e9fe908a93d1d4d67bc7100022f755c16bb95513e2aeb1f3434e482a66503
+  checksum: 02b6ee81ebd01d2464b65762d02fd788a99b4d3cd38fd4c6ee3e72fcd1175a9e85c14f6714e56ba7ea70361a8acd16c085700925fc6a99fc5ddb35f94ff5cd28
   languageName: node
   linkType: hard
 
@@ -15318,23 +15318,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"style-value-types@npm:5.0.0":
-  version: 5.0.0
-  resolution: "style-value-types@npm:5.0.0"
-  dependencies:
-    hey-listen: "npm:^1.0.8"
-    tslib: "npm:^2.1.0"
-  checksum: b9b09a935af810c0470bbe005e1cee1211088bc242dbb0f5ec03b7bd08ce7b3edb452096990ed09415aeb340012d8b826990b34639b4b058bbd3b8d82f35ccfb
-  languageName: node
-  linkType: hard
-
-"style-value-types@npm:5.1.0":
-  version: 5.1.0
-  resolution: "style-value-types@npm:5.1.0"
+"style-value-types@npm:5.1.1":
+  version: 5.1.1
+  resolution: "style-value-types@npm:5.1.1"
   dependencies:
     hey-listen: "npm:^1.0.8"
     tslib: "npm:^2.3.1"
-  checksum: f156f952d39a41444ce50c6163a2441485c5e98bd88081f103a7ca2c1138d4677154cae461d2924be324a9137548bad915f4e8e432d77e3fc3368a961a0c7433
+  checksum: 77be4574930dad4ba692b4d1a0c94aa0cacd5ff072a929ade6a62171c5d7dff5fcbc2b6f956668f26040d5b3ad1b076c9bc3eeeef5f8babb96e7d13c38928700
   languageName: node
   linkType: hard
 
