@@ -4,7 +4,6 @@ services:
     image: devimages/jammy-devcontainer:latest
     tmpfs:
       - /home/$USER/tmpfs:exec
-    user: $USER
     shm_size: 4gb
     privileged: true
     volumes:

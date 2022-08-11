@@ -36,6 +36,6 @@ USER ${USER}
 
 WORKDIR /home/${USER}
 
-RUN mkdir cy && cd cy && yarn init &&  yarn add cypress@{CYPRESS_VERSION} --mode=skip-build
+RUN mkdir cy && cd cy && yarn init &&  yarn add cypress@{CYPRESS_VERSION} --mode=skip-build && yarn cypress install && yarn cypress verify
 
 USER 0
