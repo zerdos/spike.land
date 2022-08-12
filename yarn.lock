@@ -729,20 +729,20 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@jspm/generator@npm:1.0.0-beta.34":
-  version: 1.0.0-beta.34
-  resolution: "@jspm/generator@npm:1.0.0-beta.34"
+"@jspm/generator@npm:1.0.0-beta.35":
+  version: 1.0.0-beta.35
+  resolution: "@jspm/generator@npm:1.0.0-beta.35"
   dependencies:
     "@babel/core": "npm:^7.18.2"
     "@babel/plugin-syntax-import-assertions": "npm:^7.17.12"
     "@babel/preset-typescript": "npm:^7.17.2"
     "@jspm/core": "npm:^2.0.0-beta.8"
     "@jspm/import-map": "npm:^1.0.4"
-    es-module-lexer: "npm:^0.10.4"
+    es-module-lexer: "npm:^1.0.3"
     ipfs-client: "npm:^0.7.1"
     make-fetch-happen: "npm:^8.0.3"
     sver: "npm:^1.8.3"
-  checksum: 06f4b900d3f818f35867dbd051217af9adc527b7e6e79a6c8f34a3b9cf77ab3a83aab64e9e0da0c34921399f992695a354152d4b6d9aba55e371b77479f4ff8d
+  checksum: 3fb2c46038e9b26a3052673a83ed9ed2f1936cfff08d637129196efff35c920dfd10874e987d81915b7d444680a9b16959480fe1c2b3367696966e8beafb8fab
   languageName: node
   linkType: hard
 
@@ -2493,14 +2493,14 @@ __metadata:
   dependencies:
     "@emotion/react": "npm:11.10.0"
     "@emotion/styled": "npm:11.10.0"
-    "@jspm/generator": "npm:1.0.0-beta.34"
+    "@jspm/generator": "npm:1.0.0-beta.35"
     "@mui/material": "npm:5.10.0"
     "@originjs/vite-plugin-commonjs": "npm:^1.0.3"
     "@types/events": "npm:^3.0.0"
     "@types/lodash": "npm:4.14.182"
     "@types/lodash.debounce": "npm:^4.0.7"
     "@types/lodash.throttle": "npm:^4.1.7"
-    "@types/node": "npm:18.7.1"
+    "@types/node": "npm:18.7.2"
     "@types/prettier": "npm:2.7.0"
     "@types/react": "npm:18.0.17"
     "@types/react-dom": "npm:18.0.6"
@@ -2771,10 +2771,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:18.7.1":
-  version: 18.7.1
-  resolution: "@types/node@npm:18.7.1"
-  checksum: f53d217db982c3855765a422a3a7fb375a5584cfcbd8ace601dafc3c093c552e2a3f4123d5290797f9b198a91871d8517c58ddc6b54ac6ed1581d93bb4ad7bca
+"@types/node@npm:18.7.2":
+  version: 18.7.2
+  resolution: "@types/node@npm:18.7.2"
+  checksum: 17c200f060504176b64bb407e673a4e2c53b3e67a0e0baae22ef3da6ac756bdae045329b2848797f73f33d710fb8824c98d3a351c40620257275f60ea381cd04
   languageName: node
   linkType: hard
 
@@ -4490,10 +4490,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"es-module-lexer@npm:^0.10.4":
-  version: 0.10.5
-  resolution: "es-module-lexer@npm:0.10.5"
-  checksum: e6ae305aa389aa39c2372055a28c3cf7d18c6d2a53784f7aa94e9a092c8c75ff33e8eefab7a169aed7842c69e062462d340209671b7d3c9eae58629c948f8dc4
+"es-module-lexer@npm:^1.0.3":
+  version: 1.0.3
+  resolution: "es-module-lexer@npm:1.0.3"
+  checksum: 81dd063218109f12706a692a961c058b23aa0f0f62c567fa2648c46fdfd1e07c4443a8b0ead34784bff7069496c20b89332ebe6de8e0a1eaed6f819dce7c2715
   languageName: node
   linkType: hard
 
