@@ -1,47 +1,47 @@
 {
   "inputs": {
-    "../../.yarn/global/cache/mime-npm-3.0.0-8d911e4c06-9.zip/node_modules/mime/Mime.js": {
+    "../../.yarn/cache/mime-npm-3.0.0-8d911e4c06-f43f9b7bfa.zip/node_modules/mime/Mime.js": {
       "bytes": 2892,
       "imports": []
     },
-    "../../.yarn/global/cache/mime-npm-3.0.0-8d911e4c06-9.zip/node_modules/mime/types/standard.js": {
+    "../../.yarn/cache/mime-npm-3.0.0-8d911e4c06-f43f9b7bfa.zip/node_modules/mime/types/standard.js": {
       "bytes": 9530,
       "imports": []
     },
-    "../../.yarn/global/cache/mime-npm-3.0.0-8d911e4c06-9.zip/node_modules/mime/types/other.js": {
+    "../../.yarn/cache/mime-npm-3.0.0-8d911e4c06-f43f9b7bfa.zip/node_modules/mime/types/other.js": {
       "bytes": 25894,
       "imports": []
     },
-    "../../.yarn/global/cache/mime-npm-3.0.0-8d911e4c06-9.zip/node_modules/mime/index.js": {
+    "../../.yarn/cache/mime-npm-3.0.0-8d911e4c06-f43f9b7bfa.zip/node_modules/mime/index.js": {
       "bytes": 127,
       "imports": [
         {
-          "path": "../../.yarn/global/cache/mime-npm-3.0.0-8d911e4c06-9.zip/node_modules/mime/Mime.js",
+          "path": "../../.yarn/cache/mime-npm-3.0.0-8d911e4c06-f43f9b7bfa.zip/node_modules/mime/Mime.js",
           "kind": "require-call"
         },
         {
-          "path": "../../.yarn/global/cache/mime-npm-3.0.0-8d911e4c06-9.zip/node_modules/mime/types/standard.js",
+          "path": "../../.yarn/cache/mime-npm-3.0.0-8d911e4c06-f43f9b7bfa.zip/node_modules/mime/types/standard.js",
           "kind": "require-call"
         },
         {
-          "path": "../../.yarn/global/cache/mime-npm-3.0.0-8d911e4c06-9.zip/node_modules/mime/types/other.js",
+          "path": "../../.yarn/cache/mime-npm-3.0.0-8d911e4c06-f43f9b7bfa.zip/node_modules/mime/types/other.js",
           "kind": "require-call"
         }
       ]
     },
-    "../../.yarn/global/cache/@cloudflare-kv-asset-handler-npm-0.2.0-683fd99c2f-9.zip/node_modules/@cloudflare/kv-asset-handler/dist/types.js": {
+    "../../.yarn/cache/@cloudflare-kv-asset-handler-npm-0.2.0-683fd99c2f-bc6a02a9c8.zip/node_modules/@cloudflare/kv-asset-handler/dist/types.js": {
       "bytes": 1166,
       "imports": []
     },
-    "../../.yarn/global/cache/@cloudflare-kv-asset-handler-npm-0.2.0-683fd99c2f-9.zip/node_modules/@cloudflare/kv-asset-handler/dist/index.js": {
+    "../../.yarn/cache/@cloudflare-kv-asset-handler-npm-0.2.0-683fd99c2f-bc6a02a9c8.zip/node_modules/@cloudflare/kv-asset-handler/dist/index.js": {
       "bytes": 11622,
       "imports": [
         {
-          "path": "../../.yarn/global/cache/mime-npm-3.0.0-8d911e4c06-9.zip/node_modules/mime/index.js",
+          "path": "../../.yarn/cache/mime-npm-3.0.0-8d911e4c06-f43f9b7bfa.zip/node_modules/mime/index.js",
           "kind": "require-call"
         },
         {
-          "path": "../../.yarn/global/cache/@cloudflare-kv-asset-handler-npm-0.2.0-683fd99c2f-9.zip/node_modules/@cloudflare/kv-asset-handler/dist/types.js",
+          "path": "../../.yarn/cache/@cloudflare-kv-asset-handler-npm-0.2.0-683fd99c2f-bc6a02a9c8.zip/node_modules/@cloudflare/kv-asset-handler/dist/types.js",
           "kind": "require-call"
         }
       ]
@@ -54,7 +54,7 @@
       "bytes": 7440,
       "imports": [
         {
-          "path": "../../.yarn/global/cache/@cloudflare-kv-asset-handler-npm-0.2.0-683fd99c2f-9.zip/node_modules/@cloudflare/kv-asset-handler/dist/index.js",
+          "path": "../../.yarn/cache/@cloudflare-kv-asset-handler-npm-0.2.0-683fd99c2f-bc6a02a9c8.zip/node_modules/@cloudflare/kv-asset-handler/dist/index.js",
           "kind": "import-statement"
         },
         {
@@ -75,11 +75,11 @@
       "bytes": 2244,
       "imports": []
     },
-    "../../.yarn/global/cache/immutable-npm-4.1.0-f6635927b8-9.zip/node_modules/immutable/dist/immutable.es.js": {
+    "../../.yarn/cache/immutable-npm-4.1.0-f6635927b8-b9bc1f14fb.zip/node_modules/immutable/dist/immutable.es.js": {
       "bytes": 159095,
       "imports": []
     },
-    "../../.yarn/global/cache/fast-diff-npm-1.2.0-5ba4171bb6-9.zip/node_modules/fast-diff/diff.js": {
+    "../../.yarn/cache/fast-diff-npm-1.2.0-5ba4171bb6-1b5306eaa9.zip/node_modules/fast-diff/diff.js": {
       "bytes": 27285,
       "imports": []
     },
@@ -87,7 +87,7 @@
       "bytes": 848,
       "imports": [
         {
-          "path": "../../.yarn/global/cache/fast-diff-npm-1.2.0-5ba4171bb6-9.zip/node_modules/fast-diff/diff.js",
+          "path": "../../.yarn/cache/fast-diff-npm-1.2.0-5ba4171bb6-1b5306eaa9.zip/node_modules/fast-diff/diff.js",
           "kind": "import-statement"
         }
       ]
@@ -96,7 +96,7 @@
       "bytes": 7409,
       "imports": [
         {
-          "path": "../../.yarn/global/cache/immutable-npm-4.1.0-f6635927b8-9.zip/node_modules/immutable/dist/immutable.es.js",
+          "path": "../../.yarn/cache/immutable-npm-4.1.0-f6635927b8-b9bc1f14fb.zip/node_modules/immutable/dist/immutable.es.js",
           "kind": "import-statement"
         },
         {
@@ -184,26 +184,26 @@
       ],
       "entryPoint": "src/index.ts",
       "inputs": {
-        "../../.yarn/global/cache/mime-npm-3.0.0-8d911e4c06-9.zip/node_modules/mime/Mime.js": {
-          "bytesInOutput": 2065
+        "../../.yarn/cache/mime-npm-3.0.0-8d911e4c06-f43f9b7bfa.zip/node_modules/mime/Mime.js": {
+          "bytesInOutput": 2067
         },
-        "../../.yarn/global/cache/mime-npm-3.0.0-8d911e4c06-9.zip/node_modules/mime/types/standard.js": {
-          "bytesInOutput": 10410
+        "../../.yarn/cache/mime-npm-3.0.0-8d911e4c06-f43f9b7bfa.zip/node_modules/mime/types/standard.js": {
+          "bytesInOutput": 10412
         },
-        "../../.yarn/global/cache/mime-npm-3.0.0-8d911e4c06-9.zip/node_modules/mime/types/other.js": {
-          "bytesInOutput": 27507
+        "../../.yarn/cache/mime-npm-3.0.0-8d911e4c06-f43f9b7bfa.zip/node_modules/mime/types/other.js": {
+          "bytesInOutput": 27509
         },
-        "../../.yarn/global/cache/mime-npm-3.0.0-8d911e4c06-9.zip/node_modules/mime/index.js": {
-          "bytesInOutput": 264
+        "../../.yarn/cache/mime-npm-3.0.0-8d911e4c06-f43f9b7bfa.zip/node_modules/mime/index.js": {
+          "bytesInOutput": 266
         },
-        "../../.yarn/global/cache/@cloudflare-kv-asset-handler-npm-0.2.0-683fd99c2f-9.zip/node_modules/@cloudflare/kv-asset-handler/dist/types.js": {
-          "bytesInOutput": 1315
+        "../../.yarn/cache/@cloudflare-kv-asset-handler-npm-0.2.0-683fd99c2f-bc6a02a9c8.zip/node_modules/@cloudflare/kv-asset-handler/dist/types.js": {
+          "bytesInOutput": 1317
         },
-        "../../.yarn/global/cache/@cloudflare-kv-asset-handler-npm-0.2.0-683fd99c2f-9.zip/node_modules/@cloudflare/kv-asset-handler/dist/index.js": {
-          "bytesInOutput": 8916
+        "../../.yarn/cache/@cloudflare-kv-asset-handler-npm-0.2.0-683fd99c2f-bc6a02a9c8.zip/node_modules/@cloudflare/kv-asset-handler/dist/index.js": {
+          "bytesInOutput": 8918
         },
-        "../../.yarn/global/cache/fast-diff-npm-1.2.0-5ba4171bb6-9.zip/node_modules/fast-diff/diff.js": {
-          "bytesInOutput": 20438
+        "../../.yarn/cache/fast-diff-npm-1.2.0-5ba4171bb6-1b5306eaa9.zip/node_modules/fast-diff/diff.js": {
+          "bytesInOutput": 20440
         },
         "src/chat.ts": {
           "bytesInOutput": 5435
@@ -223,7 +223,7 @@
         "src/chatRoom.ts": {
           "bytesInOutput": 14723
         },
-        "../../.yarn/global/cache/immutable-npm-4.1.0-f6635927b8-9.zip/node_modules/immutable/dist/immutable.es.js": {
+        "../../.yarn/cache/immutable-npm-4.1.0-f6635927b8-b9bc1f14fb.zip/node_modules/immutable/dist/immutable.es.js": {
           "bytesInOutput": 137809
         },
         "../../packages/code/js/textDiff.ts": {
@@ -245,7 +245,7 @@
           "bytesInOutput": 478
         }
       },
-      "bytes": 246686
+      "bytes": 246716
     }
   }
 }
