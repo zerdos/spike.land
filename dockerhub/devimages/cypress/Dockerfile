@@ -155,7 +155,7 @@ USER ${USER}
 
 WORKDIR /home/${USER}
 
-COPY --link --from=cy-builder --chown=${USER}:${USER} /home/node/cy /home/4{USER}/cy
+COPY --link --from=cy-builder --chown=${USER}:${USER} /home/node/cy /home/${USER}/cy
 
 USER 0
 ### noVNC.Dockerfile
