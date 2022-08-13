@@ -104,15 +104,13 @@ export const run = async (startState: {
   // const {join} = await import("./rtc");
 
   // const conn = join(codeSpace, user, (message)=>{
-    
+
   //   processData(message, "rtc")
   // })
 
   // sendChannel.send = (message: object)=> conn.broadcast(message);
 
-
-
- join();
+  join();
 
   bc = new BroadcastChannel("spike.land");
   bc.onmessage = async (event) => {
@@ -141,17 +139,17 @@ export const run = async (startState: {
 };
 
 // (async (.) => {
-  // if (navigator && navigator?.serviceWorker) {
-  //   navigator.serviceWorker.register("/sw.js", {
-  //     scope: "/",
-  //   });
-    // const current = await navigator.serviceWorker.ready;
-    // await sw();
+// if (navigator && navigator?.serviceWorker) {
+//   navigator.serviceWorker.register("/sw.js", {
+//     scope: "/",
+//   });
+// const current = await navigator.serviceWorker.ready;
+// await sw();
 
-    // Promise.all((await navigator.serviceWorker.getRegistrations()).map((sw) => {
-    //   if (current !== sw) sw.unregister();
-    // }));
-  //}
+// Promise.all((await navigator.serviceWorker.getRegistrations()).map((sw) => {
+//   if (current !== sw) sw.unregister();
+// }));
+//}
 //})();
 let intervalHandler: NodeJS.Timer | null = null;
 
@@ -332,16 +330,11 @@ async function processWsMessage(
   lastSeenNow = Date.now();
 
   const data = JSON.parse(event.data);
-  
+
   processData(data, source);
 }
-  
-async function processData (data, source) {
-    
-  
 
-
-
+async function processData(data, source) {
   console.log("ws", data.name, data.oldHash, data.newHash);
 
   // MySession.addEvent(data);
@@ -670,7 +663,6 @@ async function processData (data, source) {
       answer: answer,
     }));
   }
-
 }
 
 // Create the RTCPeerConnection which knows how to talk to our

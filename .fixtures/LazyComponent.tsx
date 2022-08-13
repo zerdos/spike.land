@@ -1,5 +1,3 @@
-
-
 import { lazy, Suspense, useEffect, useState } from "react";
 import type { FC, ReactNode } from "react";
 

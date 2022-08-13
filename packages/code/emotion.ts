@@ -1,6 +1,6 @@
-import * as  ea from "@emotion/react";
+import * as ea from "@emotion/react";
 
-const EmotionReact = window.EmotionReact = window.EmotionReact || ea
+const EmotionReact = window.EmotionReact = window.EmotionReact || ea;
 
 // import createCache from "@emotion/cache";
 

@@ -20,5 +20,6 @@
     "types": ["@cloudflare/workers-types", "@cloudflare/kv-asset-handler"]
   },
   "include": [
-    "src"  ]
+    "src"
+  ]
 }
