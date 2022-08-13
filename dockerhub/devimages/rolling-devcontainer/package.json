@@ -15,9 +15,9 @@
     "README.md"
   ],
   "devDependencies": {
-    "@spike.land/devcontainer-generator": "^0.8.4"
+    "@spike.land/devcontainer-generator": "^0.9.0"
   },
-  "version": "0.8.4",
+  "version": "0.9.0",
   "description": "devcontainer vscode docker xfce remoteDesktop",
   "main": "index.js",
   "repository": "https://github.com/zerdos/spike.land",
