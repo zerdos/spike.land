@@ -9,9 +9,6 @@ services:
     volumes:
       # - $HOME:/home/$USER/host:delegated
       - /var/run/docker.sock:/var/run/docker.sock
-      - yarn:/yarn
     ports:s
       - "6080:6080"
       - "5901:5901"
-volumes:
-  yarn:
