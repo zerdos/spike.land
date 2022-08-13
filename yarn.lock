@@ -2467,6 +2467,14 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@spike.land/bookworm-devcontainer@workspace:dockerhub/devimages/bookworm-devcontainer":
+  version: 0.0.0-use.local
+  resolution: "@spike.land/bookworm-devcontainer@workspace:dockerhub/devimages/bookworm-devcontainer"
+  dependencies:
+    "@spike.land/devcontainer-generator": "npm:^0.8.4"
+  languageName: unknown
+  linkType: soft
+
 "@spike.land/cf-npm-site@workspace:packages/cf-npm-site":
   version: 0.0.0-use.local
   resolution: "@spike.land/cf-npm-site@workspace:packages/cf-npm-site"

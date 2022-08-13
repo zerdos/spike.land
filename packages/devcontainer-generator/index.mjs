@@ -26,7 +26,7 @@ var sha = {
 };
 
 // src/devcontainerGenerator.ts
-var getDistro = (b) => b === "gitpod/workspace-full" ? "gitpod/workspace-full" : b === "stretch" || b === "buster" ? "debian" : "ubuntu";
+var getDistro = (b) => b === "gitpod/workspace-full" ? "gitpod/workspace-full" : b === "stretch" || b === "buster" || b === "bullseye" || b === "bookworm" ? "debian" : "ubuntu";
 var DevcontainerGenerator = class {
   constructor(base) {
     this.base = base;

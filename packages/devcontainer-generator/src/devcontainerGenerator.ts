@@ -11,6 +11,8 @@ type Base =
   | "groovy"
   | "focal"
   | "hirsute"
+  | "bullseye"
+  | "bookworm"
   | "implish"
   | "rolling"
   | "jammy"
@@ -20,7 +22,7 @@ type nodeVersion = "lts" | "current";
 const getDistro = (b: Base) =>
   b === "gitpod/workspace-full"
     ? "gitpod/workspace-full"
-    : b === "stretch" || b === "buster"
+    : b === "stretch" || b === "buster" || b === "bullseye" || b ==="bookworm"
     ? "debian"
     : "ubuntu";
 
