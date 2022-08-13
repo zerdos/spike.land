@@ -10,6 +10,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 USER 0
 
 RUN apt-get update \
+  && apt-get dist-upgrade -y \
   && apt-get install --no-install-recommends -y \
   apt-transport-https \
   apt-utils \
