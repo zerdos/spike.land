@@ -149,7 +149,7 @@ USER ${USER}
 
 WORKDIR /home/${USER}
 
-RUN mkdir cy && cd cy && yarn init &&  yarn add cypress@10.4.0 &&  (yarn run cypress verify || yarn run cypress install --force && yarn run cypress verify)
+RUN mkdir cy && cd cy && yarn init &&  yarn add cypress@10.4.0 &&  (yarn run cypress verify || yarn run cypress install --force)
 
 USER 0
 ### noVNC.Dockerfile
