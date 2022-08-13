@@ -1,10 +1,5 @@
-FROM node as node-builder
+FROM devimage
 
-WORKDIR /home/node
-
-RUN mkdir node && cd node && yarn add node@{NODE_VERSION}
-
-FROM devimage as devimage_with_node
 
 
 ENV NODE_VERSION {NODE_VERSION}
