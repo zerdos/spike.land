@@ -73,6 +73,7 @@
     "ace-builds": "1.9.5",
     "async-mutex": "0.3.2",
     "big-integer": "1.6.51",
+    "clsx": "^1.2.1",
     "es-module-shims": "1.5.14",
     "esbuild-wasm": "0.15.2",
     "events": "^3.3.0",
@@ -90,10 +91,12 @@
     "preact": "10.10.2",
     "preact-render-to-string": "5.2.1",
     "prettier": "2.7.1",
+    "prop-types": "^15.8.1",
     "qrious": "^4.0.2",
     "react-qrious": "2.5.5",
     "react-reverse-portal": "^2.1.1",
-    "stream-browserify": "3.0.0"
+    "stream-browserify": "3.0.0",
+    "tslib": "^2.4.0"
   },
   "devDependencies": {
     "@jspm/generator": "1.0.0-beta.35",

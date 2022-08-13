@@ -2482,6 +2482,7 @@ __metadata:
     "@cloudflare/kv-asset-handler": "npm:^0.2.0"
     "@spike.land/code": "npm:^0.8.4"
     esbuild: "npm:^0.15.2"
+    mime: "npm:^3.0.0"
     typescript: "npm:4.7.4"
     wrangler: "npm:2.0.25"
   languageName: unknown
@@ -2508,6 +2509,7 @@ __metadata:
     ace-builds: "npm:1.9.5"
     async-mutex: "npm:0.3.2"
     big-integer: "npm:1.6.51"
+    clsx: "npm:^1.2.1"
     es-module-shims: "npm:1.5.14"
     esbuild: "npm:^0.15.2"
     esbuild-plugin-alias: "npm:0.2.1"
@@ -2530,11 +2532,13 @@ __metadata:
     preact: "npm:10.10.2"
     preact-render-to-string: "npm:5.2.1"
     prettier: "npm:2.7.1"
+    prop-types: "npm:^15.8.1"
     qrious: "npm:^4.0.2"
     react-qrious: "npm:2.5.5"
     react-reverse-portal: "npm:^2.1.1"
     rimraf: "npm:^3.0.2"
     stream-browserify: "npm:3.0.0"
+    tslib: "npm:^2.4.0"
     typescript: "npm:4.7.4"
     uvu: "npm:0.5.6"
   languageName: unknown
@@ -5687,7 +5691,7 @@ __metadata:
     "@types/events": "npm:^3.0.0"
     "@yarnpkg/sdks": "npm:^3.0.0-rc.14"
     events: "npm:^3.3.0"
-    lerna: "npm:5.4.1"
+    lerna: "npm:^5.4.1"
   languageName: unknown
   linkType: soft
 
@@ -6974,7 +6978,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lerna@npm:5.4.1":
+"lerna@npm:^5.4.1":
   version: 5.4.1
   resolution: "lerna@npm:5.4.1"
   dependencies:

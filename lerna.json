@@ -6,5 +6,7 @@
     "packages/*",
     "dockerhub/devimages/*",
     "sites/*"
-  ]
+  ],
+  "$schema": "node_modules/lerna/schemas/lerna-schema.json",
+  "useNx": false
 }
