@@ -11,7 +11,7 @@
     "xbuild": "esbuild  --bundle --tree-shaking=true --metafile=good.json --format=esm --loader:.html=text --external:__STATIC_CONTENT_MANIFEST --target=es2021 src/index.ts --outdir=dist"
   },
   "devDependencies": {
-    "esbuild": "^0.15.1"
+    "esbuild": "^0.15.2"
   },
   "dependencies": {
     "@cloudflare/kv-asset-handler": "^0.2.0",
