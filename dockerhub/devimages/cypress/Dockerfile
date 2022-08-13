@@ -1,3 +1,9 @@
+# syntax=docker/dockerfile:1.4.1
+
+FROM node:alpine as cy-builder
+USER node
+RUN cd && mkdir cy && cd cy && yarn add --dev cypress
+
 FROM ubuntu:jammy as devimage
 
 ### base.Dockerfile
@@ -149,7 +155,7 @@ USER ${USER}
 
 WORKDIR /home/${USER}
 
-RUN mkdir cy && cd cy && yarn init &&  yarn add cypress@10.4.0 &&  (yarn run cypress verify || yarn run cypress install --force)
+COPY --link --from=cy-builder --chown=${USER}:${USER} /home/node/cy /home/4{USER}/cy
 
 USER 0
 ### noVNC.Dockerfile

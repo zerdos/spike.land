@@ -27,30 +27,13 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/*
 
 
-    #   "6.0.400": {
-    #     "amd": "8decbba0a6b09501daede52cbb5a9ae9e5f31ade201918c03efcd1b4cc345ec934f88321704ec3beb1f90f2204934be7259c76f66d9204cbdd15933582602763",
-    #     "arm": "8decbba0a6b09501daede52cbb5a9ae9e5f31ade201918c03efcd1b4cc345ec934f88321704ec3beb1f90f2204934be7259c76f66d9204cbdd15933582602763"
-    #   }
-
 ENV DOTNET_SDK_VERSION="6.0.400"
 
-RUN (curl -fSL --output dotnet.tar.gz https://dotnetcli.azureedge.net/dotnet/Sdk/$DOTNET_SDK_VERSION/dotnet-sdk-$DOTNET_SDK_VERSION-linux-x64.tar.gz \
-    && dotnet_sha512='{amd_dotnet_sha512}' \
-    # && echo "8decbba0a6b09501daede52cbb5a9ae9e5f31ade201918c03efcd1b4cc345ec934f88321704ec3beb1f90f2204934be7259c76f66d9204cbdd15933582602763  dotnet.tar.gz" | sha512sum -c - \
-    && mkdir -p /usr/share/dotnet \
-    && tar -zxf dotnet.tar.gz -C /usr/share/dotnet \
-    && rm dotnet.tar.gz \
-    && ln -s /usr/share/dotnet/dotnet /usr/bin/dotnet \
-    # Trigger firstgit  run experience by running arbitrary cmd
-    && dotnet help) || ( rm -rf dotnet*  /usr/share/dotnet/dotnet /usr/bin/dotnet  /usr/share/dotnet && curl -fSL --output dotnet.tar.gz https://dotnetcli.azureedge.net/dotnet/Sdk/$DOTNET_SDK_VERSION/dotnet-sdk-$DOTNET_SDK_VERSION-linux-arm64.tar.gz  \
-    && dotnet_sha512='{arm_dotnet_sha512}' \
-    # && echo "8decbba0a6b09501daede52cbb5a9ae9e5f31ade201918c03efcd1b4cc345ec934f88321704ec3beb1f90f2204934be7259c76f66d9204cbdd15933582602763  dotnet.tar.gz" | sha512sum -c - \
-    && mkdir -p /usr/share/dotnet \
-    && tar -zxf dotnet.tar.gz -C /usr/share/dotnet \
-    && rm dotnet.tar.gz \
-    && ln -s /usr/share/dotnet/dotnet /usr/bin/dotnet \
-    # Trigger first run experience by running arbitrary cmd
-    && dotnet help)
+COPY --link --from=mcr.microsoft.com/dotnet/sdk:6.0-jammy  /usr/share/dotnet /usr/share/dotnet
+# COPY --link --from=mcr.microsoft.com/dotnet/sdk:6.0-jammy  /usr/share/powershell /usr/share/powershell
+
+
+RUN  ln -s /usr/share/dotnet/dotnet /usr/bin/dotnet 
 
 # # Install PowerShell global tool
 # RUN powershell_version=7.2.3 \
