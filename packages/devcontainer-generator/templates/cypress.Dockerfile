@@ -11,7 +11,7 @@ RUN apt-get update \
   libgtk-3-0 \
   libnotify-dev \
   libgconf-2-4 \
-  libgbm1 \
+  libgbm-dev \
   libnss3 \
   libxss1 \
   bzip2 \
