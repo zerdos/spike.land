@@ -23,14 +23,16 @@
 
   // Add the IDs of extensions you want installed when the container is created.
   "extensions": [
-    "xyc.vscode-mdx-preview",
-    "silvenon.mdx",
-    "pflannery.vscode-versionlens",
     "streetsidesoftware.code-spell-checker",
-    "styled-components.vscode-styled-components"
-  ]
+    "pflannery.vscode-versionlens",
+    "silvenon.mdx",
+    "unifiedjs.vscode-mdx",
+    "xyc.vscode-mdx-preview",
+    "styled-components.vscode-styled-components",
+    "arcanis.vscode-zipfs"
+  ],
   // Use 'forwardPorts' to make a l ist of ports inside the container available locally.
-  // "forwardPorts": [],
+  "forwardPorts": [6080],
 
   // Uncomment the next line if you want start specific services in your Docker Compose config.
   // "runServices": [],
@@ -42,5 +44,5 @@
   // "postCreateCommand": "apt-get update && apt-get install -y curl",
 
   // Uncomment to connect as a non-root user if you've added one. See https://aka.ms/vscode-remote/containers/non-root.
-  // "remoteUser": "vscode"
+  "remoteUser": "gitpod"
 }
