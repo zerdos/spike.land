@@ -1,14 +1,13 @@
 # syntax=docker/dockerfile:1.4.1
 
-FROM node:alpine as node-builder
+FROM node as node-builder
+ADD https://raw.githubusercontent.com/yarnpkg/berry/master/packages/yarnpkg-cli/bin/yarn.js /usr/local/bin/yarn
 
+RUN chmod 755 /usr/local/bin/yarn
 WORKDIR /home/node
-
-RUN mkdir node && cd node && yarn add node@16.16.0
-
-FROM node:alpine as cy-builder
 USER node
-RUN cd && mkdir cy && cd cy && yarn add --dev cypress
+
+RUN cd && mkdir cy && cd cy && yarn init  && yarn add --dev cypress && yarn run cypress install --force
 
 FROM ubuntu:jammy as devimage
 
@@ -98,8 +97,10 @@ RUN (addgroup --gid 1000 ${USER}  \
 
 ENV NODE_VERSION 16.16.0
 
-COPY --from=node-builder /home/node/node/node_modules/node/bin/node /usr/local/bin/node
-ADD https://raw.githubusercontent.com/yarnpkg/berry/master/packages/yarnpkg-cli/bin/yarn.js /usr/local/bin/yarn
+COPY --from=node-builder --link /usr/local/bin/node /usr/local/bin/node
+COPY --from=node-builder --link  /usr/local/bin/yarn /usr/local/bin/yarn
+
+
 
 RUN node --version
 RUN chmod 755 /usr/local/bin/yarn &&   yarn --version
@@ -146,7 +147,7 @@ RUN chmod 755 /usr/local/bin/yarn &&   yarn --version
 #   && npm --version  \
 #   && npm i -g npm yarn
 
-COPY --link --from=cy-builder  /home/node/cy /home/node/cy
+COPY --link --from=node-builder  /home/node/cy /home/node/cy
 
 ### noVNC.Dockerfile
 

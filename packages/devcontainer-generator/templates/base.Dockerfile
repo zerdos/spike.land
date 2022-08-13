@@ -1,14 +1,13 @@
 # syntax=docker/dockerfile:1.4.1
 
-FROM node:alpine as node-builder
+FROM node as node-builder
+ADD https://raw.githubusercontent.com/yarnpkg/berry/master/packages/yarnpkg-cli/bin/yarn.js /usr/local/bin/yarn
 
+RUN chmod 755 /usr/local/bin/yarn
 WORKDIR /home/node
-
-RUN mkdir node && cd node && yarn add node@16.16.0
-
-FROM node:alpine as cy-builder
 USER node
-RUN cd && mkdir cy && cd cy && yarn add --dev cypress
+
+RUN cd && mkdir cy && cd cy && yarn init  && yarn add --dev cypress && yarn run cypress install --force
 
 FROM {DISTRO} as devimage
 
