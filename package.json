@@ -39,7 +39,7 @@
     "@yarnpkg/sdks": "^3.0.0-rc.14",
     "lerna": "^5.4.1"
   },
-  "packageManager": "yarn@4.0.0-rc.14",
+  "packageManager": "yarn@3.2.2",
   "dependencies": {
     "events": "^3.3.0"
   }
