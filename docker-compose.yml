@@ -9,6 +9,6 @@ services:
     volumes:
       # - $HOME:/home/$USER/host:delegated
       - /var/run/docker.sock:/var/run/docker.sock
-    ports:s
+    ports:
       - "6080:6080"
       - "5901:5901"
