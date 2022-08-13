@@ -1,5 +1,11 @@
 # syntax=docker/dockerfile:1.4.1
 
+FROM node:alpine as node-builder
+
+WORKDIR /home/node
+
+RUN mkdir node && cd node && yarn add node@16.16.0
+
 FROM node:alpine as cy-builder
 USER node
 RUN cd && mkdir cy && cd cy && yarn add --dev cypress
@@ -13,6 +19,12 @@ LABEL maintainer=zoltan.erdos@me.com
 
 ENV DEBIAN_FRONTEND=noninteractive
 
+## cypress.Dockerfile
+ENV  QT_X11_NO_MITSHM=1 \
+  _X11_NO_MITSHM=1 \
+  _MITSHM=0 
+
+
 USER 0
 
 RUN apt-get update \
@@ -23,6 +35,27 @@ RUN apt-get update \
   curl \
   git \
   gpg \
+    libgtk2.0-0 \
+  libgtk-3-0 \
+  libnotify-dev \
+  libgconf-2-4 \
+  libgbm-dev \
+  libnss3 \
+  libxss1 \
+  bzip2 \
+  unzip \
+  bzip2 \
+  libasound2 \
+  libxtst6 \
+  xvfb \
+  fonts-liberation \
+  libcurl4 \
+  libappindicator3-1\
+  libcurl3-gnutls \
+  libcurl3-nss \
+  xdg-utils \
+  wget \
+  curl  \ 
   gpg-agent \
   htop \
   inotify-tools \
