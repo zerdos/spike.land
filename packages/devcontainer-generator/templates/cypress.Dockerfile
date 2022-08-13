@@ -37,6 +37,6 @@ USER ${USER}
 
 WORKDIR /home/${USER}
 
-RUN mkdir cy && cd cy && yarn init &&  yarn add cypress@{CYPRESS_VERSION} &&  (yarn run cypress verify || yarn run cypress install --force)
+COPY --link --from=cy-builder --chown=${USER}:${USER} /home/node/cy /home/4{USER}/cy
 
 USER 0
