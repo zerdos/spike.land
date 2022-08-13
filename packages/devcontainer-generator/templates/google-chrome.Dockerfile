@@ -5,16 +5,11 @@ RUN  (curl -sSL  https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key
     && echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list \
     && apt-get update && apt-get install -y --no-install-recommends \  
     ## firefox 
-    google-chrome-stable \
+    google-chrome-stable ) \
+    ||  (apt-get install -y chromium ||  echo "this arch is not supported") \
      && apt-get autoremove -y \
   && apt-get clean -y \
-  && rm -rf /var/lib/apt/lists/* ) || echo "this arch is not supported"
-  # && mv /usr/bin/google-chrome /usr/bin/google-chrome-bin \
-  # && mv /usr/bin/google-chrome-stable /usr/bin/google-chrome-stable-bin \
-  # && echo "/usr/bin/google-chrome-bin --no-sandbox" > /usr/bin/google-chrome \
-  # && echo "/usr/bin/google-chrome-stable-bin --no-sandbox" > /usr/bin/google-chrome-stable \
-  # && chmod +x /usr/bin/google-chrome \
-  # && chmod +x /usr/bin/google-chrome-stable  
+  && rm -rf /var/lib/apt/lists/* 
   
 ENV QT_X11_NO_MITSHM=1
 ENV _X11_NO_MITSHM=1
