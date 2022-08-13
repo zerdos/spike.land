@@ -22,7 +22,7 @@ type nodeVersion = "lts" | "current";
 const getDistro = (b: Base) =>
   b === "gitpod/workspace-full"
     ? "gitpod/workspace-full"
-    : b === "stretch" || b === "buster" || b === "bullseye" || b ==="bookworm"
+    : b === "stretch" || b === "buster" || b === "bullseye" || b === "bookworm"
     ? "debian"
     : "ubuntu";
 
@@ -219,12 +219,14 @@ export class DevcontainerGenerator {
             "{arm_dotnet_sha512}",
             softwareVersions.sha
               .dotnet_sha512[
-"6.0.400"].arm
+                "6.0.400"
+              ].arm,
           ).replace(
             "{amd_dotnet_sha512}",
             softwareVersions.sha
               .dotnet_sha512[
-"6.0.400"].amd
+                "6.0.400"
+              ].amd,
           );
       } else if (this._dotnet === "3") {
         this._dockerfile += dockerTemplates["dotnet3"]

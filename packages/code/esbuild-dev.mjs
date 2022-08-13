@@ -1,7 +1,7 @@
 import esbuild from "esbuild";
 
 import * as importMap from "esbuild-plugin-import-map";
-import alias from "esbuild-plugin-alias";   
+import alias from "esbuild-plugin-alias";
 import { esbuildCommonjs, viteCommonjs } from "@originjs/vite-plugin-commonjs";
 
 const jsonData = {
@@ -48,8 +48,8 @@ console.log(`
 -------------------------------------------------`);
 
 // const workerEntryPoints = [
-  // "vs/language/typescript/ts.worker.js",
-  // "vs/editor/editor.worker.js",
+// "vs/language/typescript/ts.worker.js",
+// "vs/editor/editor.worker.js",
 // ].map((entry) => `monaco-editor/esm/${entry}`);
 
 const define = {
@@ -181,7 +181,7 @@ const build = (entryPoints, format = "esm") =>
     bundle: true,
     format: "esm",
     splitting: true,
-    target:"esnext",
+    target: "esnext",
     sourcemap: false,
 
     minify: !isDevelopment,
@@ -242,13 +242,13 @@ const build = (entryPoints, format = "esm") =>
     process.exit(1);
   });
 
-await build([ 
-    "./js/session.ts",
-    "js/ws.ts",
-    // "js/rtc.ts",     
-    "react.ts",
-    "framer-motion.ts",
-    "emotion.ts",
+await build([
+  "./js/session.ts",
+  "js/ws.ts",
+  // "js/rtc.ts",
+  "react.ts",
+  "framer-motion.ts",
+  "emotion.ts",
 ]);
 // ]);
 
