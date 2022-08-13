@@ -14,7 +14,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        image-name: [cypress,  eoan-xfce-novnc, gitpod, gitpod-monorepo, monorepo-modules, rolling-devcontainer,  jammy-devcontainer]
+        image-name: [cypress,  eoan-xfce-novnc, gitpod, gitpod-monorepo, monorepo-modules, rolling-devcontainer, bookworm-devcontainer,  jammy-devcontainer]
 
     steps:
       - uses: actions/checkout@v3
