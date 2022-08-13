@@ -32,11 +32,6 @@ RUN apt-get update \
 && apt-get clean -y \
 && rm -rf /var/lib/apt/lists/* 
 
-
-USER ${USER}
-
-WORKDIR /home/${USER}
-
-COPY --link --from=cy-builder --chown=${USER}:${USER} /home/node/cy /home/${USER}/cy
+COPY --link --from=cy-builder  /home/node/cy /home/node/cy
 
 USER 0
