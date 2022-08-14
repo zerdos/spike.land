@@ -4,10 +4,8 @@ FROM node as node-builder
 ADD https://raw.githubusercontent.com/yarnpkg/berry/master/packages/yarnpkg-cli/bin/yarn.js /usr/local/bin/yarn
 
 RUN chmod 755 /usr/local/bin/yarn
-WORKDIR /home/node
-USER node
 
-RUN cd && mkdir cy && cd cy && yarn init  && yarn add --dev cypress && yarn run cypress install --force
+XERUN cd && mkdir cy && cd cy && yarn init  && yarn add --dev cypress && yarn run cypress install --force
 
 FROM debian:bookworm as devimage
 
@@ -195,8 +193,7 @@ RUN  ln -s /usr/share/dotnet/dotnet /usr/bin/dotnet
 #     # To reduce image size, remove the copy nupkg that nuget keeps.
 #     && find /usr/share/powershell -print | grep -i '.*[.]nupkg$' | xargs rm
 
-
-COPY --link --from=node-builder  /home/node/cy /home/node/cy
+COPY --link --from=node-builder /root/.cache/Cypress /root/.cache/Cypress
 
 ### noVNC.Dockerfile
 

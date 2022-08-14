@@ -4,10 +4,8 @@ FROM node as node-builder
 ADD https://raw.githubusercontent.com/yarnpkg/berry/master/packages/yarnpkg-cli/bin/yarn.js /usr/local/bin/yarn
 
 RUN chmod 755 /usr/local/bin/yarn
-WORKDIR /home/node
-USER node
 
-RUN cd && mkdir cy && cd cy && yarn init  && yarn add --dev cypress && yarn run cypress install --force
+XERUN cd && mkdir cy && cd cy && yarn init  && yarn add --dev cypress && yarn run cypress install --force
 
 FROM ubuntu:jammy as devimage
 
@@ -146,8 +144,7 @@ RUN chmod 755 /usr/local/bin/yarn &&   yarn --version
 #   # && npm i -g npm \
 #   && npm --version  \
 #   && npm i -g npm yarn
-
-COPY --link --from=node-builder  /home/node/cy /home/node/cy
+COPY --link --from=node-builder /root/.cache/Cypress /root/.cache/Cypress
 
 ### noVNC.Dockerfile
 
