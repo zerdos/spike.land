@@ -1,4 +1,3 @@
 FROM devimage
 
-
-COPY --link --from=node-builder  /home/node/cy /home/node/cy
+COPY --link --from=node-builder /root/.cache/Cypress /root/.cache/Cypress
