@@ -5,7 +5,7 @@ ADD https://raw.githubusercontent.com/yarnpkg/berry/master/packages/yarnpkg-cli/
 
 RUN chmod 755 /usr/local/bin/yarn
 
-XERUN cd && mkdir cy && cd cy && yarn init  && yarn add --dev cypress && yarn run cypress install --force
+RUN cd && mkdir cy && cd cy && yarn init  && yarn add --dev cypress && yarn run cypress install --force
 
 FROM {DISTRO} as devimage
 
