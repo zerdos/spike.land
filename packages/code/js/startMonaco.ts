@@ -1,10 +1,8 @@
 import * as monaco from "monaco-editor";
-import "monaco-editor/esm/vs/editor/standalone/browser/standaloneCodeEditor";
-
 //@ts-ignore
-// import tsWorker from "./monaco-editor/language/typescript/ts.worker.monaco.worker";
+import tsWorker from "./monaco-editor/language/typescript/ts.worker.monaco.worker";
 //@ts-ignore
-// import editorWorker from "./monaco-editor/editor/editor.worker.monaco.worker";
+import editorWorker from "./monaco-editor/editor/editor.worker.monaco.worker";
 
 // import { MonacoJsxSyntaxHighlight } from "monaco-jsx-syntax-highlight";
 
@@ -16,27 +14,6 @@ import codicon from "monaco-editor/esm/vs/base/browser/ui/codicons/codicon/codic
 
 // globalThis.Buffer = Buffer;
 
-const monEnv = {
-  tsWorker: null,
-  edWorker: null,
-  getWorker: async function (_workerId: string, label: string) {
-    if (!monEnv.tsWorker) {
-      const { createWorkers } = await import("./monacoTsWorker");
-      const { tsWorker, edWorker } = await createWorkers();
-      monEnv.tsWorker = tsWorker;
-      monEnv.edWorker = edWorker;
-    }
-
-    if (label === "typescript" || label === "javascript") {
-      return monEnv.tsWorker;
-    }
-
-    // const worker = await import("monaco-editor/esm/vs/editor/editor.worker")
-    return monEnv.edWorker;
-  },
-};
-
-Object.assign(globalThis, { MonacoEnvironment: monEnv });
 
 let started = false;
 
@@ -268,6 +245,22 @@ const returnModules = {
   monaco,
 };
 
+window.MonacoEnvironment = {
+
+  getWorkerUrl:  function (_workerId: string, label: string) {
+
+
+    if (label === "typescript" || label === "javascript") {
+        return tsWorker
+      }
+
+    // const worker = await 
+    // const {TypeScriptWorker}=  await import("monaco-editor/esm/vs/language/typescript/ts.worker")
+    return  editorWorker
+  },
+};
+
+
 export const startMonaco = async (
   { code, container, name }: {
     code: string;
@@ -275,6 +268,8 @@ export const startMonaco = async (
     name: string;
   },
 ) => {
+
+  
   console.log("monaco-editor");
   if (!started) started = true;
   else return returnModules;
