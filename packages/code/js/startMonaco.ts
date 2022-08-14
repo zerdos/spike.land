@@ -220,6 +220,8 @@ export const monacoContribution = async (
       },
     ];
 
+    try{
+
     const mapper= async ({ name, url }) => typescript.typescriptDefaults.addExtraLib(
         await (await fetch(
           url,
@@ -228,7 +230,9 @@ export const monacoContribution = async (
     
 
     await pMap(importHelper, mapper, { concurrency: 2 });
-
+    } catch{
+      console.error("Error in loading d.td")
+    }
     typescript.typescriptDefaults.setEagerModelSync(true);
     typescript.typescriptDefaults.setDiagnosticsOptions({
       noSuggestionDiagnostics: false,
@@ -307,119 +311,123 @@ export const startMonaco = async (
       "typescript",
       monaco.Uri.parse(location.origin + "/live/" + name + ".tsx"),
     ),
-    language: "typescript",
-    useShadowDOM: true,
-    scrollbar: {
-      scrollByPage: false,
-      alwaysConsumeMouseWheel: false,
-    },
-    scrollBeyondLastLine: false,
-    scrollPredominantAxis: false,
+    language:   "typescript",
 
-    smoothScrolling: true,
+  scrollbar: {
+    scrollByPage: false,
+    alwaysConsumeMouseWheel: false,
+  },
+  scrollBeyondLastLine: false,
+  scrollPredominantAxis: false,
 
-  //  `` suggest: {
-  //     /**
-  //      * Overwrite word ends on accept. Default to false.
-  //      */
-  //     insertMode: "replace",
-  //     /**
-  //      * Enable graceful matching. Defaults to true.
-  //      */
-  //     filterGraceful: true,
-  //     /**
-  //      * Prevent quick suggestions when a snippet is active. Defaults to true.
-  //      */
-  //     snippetsPreventQuickSuggestions: true,
-  //     /**
-  //      * Favors words that appear close to the cursor.
-  //      */
-  //     localityBonus: true,
-  //     /**
-  //      * Enable using global storage for remembering suggestions.
-  //      */
-  //     shareSuggestSelections: true,
-  //     /**
-  //      * Enable or disable icons in suggestions. Defaults to true.
-  //      */
-  //     showIcons: true,
-  //     /**
-  //      * Enable or disable the suggest status bar.
-  //      */
-  //     showStatusBar: false,
-  //     /**
-  //      * Enable or disable the rendering of the suggestion preview.
-  //      */
-  //     preview: true,
-  //     /**
-  //      * Configures the mode of the preview.
-  //      */
-  //     previewMode: "prefix",
-  //     /**
-  //      * Show details inline with the label. Defaults to true.
-  //      */
-  //     showInlineDetails: true,
+  smoothScrolling: true,
 
-  //     /**
-  //      * Show method-suggestions.
-  //      */
-  //     showMethods: true,
-  //     /**
-  //      * Show function-suggestions.
-  //      */
-  //     showFunctions: true,
-  //     /**
-  //      * Show constructor-suggestions.
-  //      */
-  //     showConstructors: true,
-  //     /**
-  //      * Show deprecated-suggestions.
-  //      */
+ suggest: {
+    /**
+     * Overwrite word ends on accept. Default to false.
+     */
+    insertMode: "replace",
+    /**
+     * Enable graceful matching. Defaults to true.
+     */
+    filterGraceful: true,
+    /**
+     * Prevent quick suggestions when a snippet is active. Defaults to true.
+     */
+    snippetsPreventQuickSuggestions: true,
+    /**
+     * Favors words that appear close to the cursor.
+     */
+    localityBonus: true,
+    /**
+     * Enable using global storage for remembering suggestions.
+     */
+    shareSuggestSelections: true,
+    /**
+     * Enable or disable icons in suggestions. Defaults to true.
+     */
+    showIcons: true,
+    /**
+     * Enable or disable the suggest status bar.
+     */
+    showStatusBar: false,
+    /**
+     * Enable or disable the rendering of the suggestion preview.
+     */
+    preview: true,
+    /**
+     * Configures the mode of the preview.
+     */
+    previewMode: "prefix",
+    /**
+     * Show details inline with the label. Defaults to true.
+     */
+    showInlineDetails: true,
 
-  //     /**
-  //      * Show field-suggestions.
-  //      */
+    /**
+     * Show method-suggestions.
+     */
+    showMethods: true,
+    /**
+     * Show function-suggestions.
+     */
+    showFunctions: true,
+    /**
+     * Show constructor-suggestions.
+     */
+    showConstructors: true,
+    /**
+     * Show deprecated-suggestions.
+     */
 
-  //     /**
-  //      * Show color-suggestions.
-  //      */
-  //     showColors: true,
-  //     /**
-  //      * Show file-suggestions.
-  //      */
-  //     showFiles: true,
-  //     /**
-  //      * Show reference-suggestions.
-  //      */
-  //     showReferences: true,
-  //     /**
-  //      * Show folder-suggestions.
-  //      */
-  //     showFolders: true,
-  //     /**
-  //      * Show typeParameter-suggestions.
-  //      */
-  //     showTypeParameters: true,
-  //     /**
-  //      * Show issue-suggestions.
-  //      */
-  //     showIssues: true,
-  //     /**
-  //      * Show user-suggestions.
-  //      */
-  //     showUsers: true,
-  //     /**
-  //      * Show snippet-suggestions.
-  //      */
-  //     showSnippets: true,
-  //   },
+    /**
+     * Show field-suggestions.
+     */
 
-    automaticLayout: true,
+    /**
+     * Show color-suggestions.
+     */
+    showColors: true,
+    /**
+     * Show file-suggestions.
+     */
+    showFiles: true,
+    /**
+     * Show reference-suggestions.
+     */
+    showReferences: true,
+    /**
+     * Show folder-suggestions.
+     */
+    showFolders: true,
+    /**
+     * Show typeParameter-suggestions.
+     */
+    showTypeParameters: true,
+    /**
+     * Show issue-suggestions.
+     */
+    showIssues: true,
+    /**
+     * Show user-suggestions.
+     */
+    showUsers: true,
+    /**
+     * Show snippet-suggestions.
+     */
+    showSnippets: true,
+  },
 
-    theme: "vs-dark",
+  automaticLayout: true,
+  definitionLinkOpensInPeek: true,
 
-    autoClosingBrackets: "beforeWhitespace",
+  theme: "vs-dark",
+
+  autoClosingBrackets: "beforeWhitespace"
   });
+
+
+
 
   return returnModules;
 };
