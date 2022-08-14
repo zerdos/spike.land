@@ -1,11 +1,11 @@
 # syntax=docker/dockerfile:1.4.1
 
-FROM node as node-builder
+FROM node:alpine as node-builder
 ADD https://raw.githubusercontent.com/yarnpkg/berry/master/packages/yarnpkg-cli/bin/yarn.js /usr/local/bin/yarn
 
-RUN chmod 755 /usr/local/bin/yarn
+RUN chmod 755 /usr/local/bin/yarn && apk add --no-cache git unzip
 
-RUN cd && mkdir cy && cd cy && yarn init  && yarn add --dev cypress && yarn run cypress install --force
+RUN cd && mkdir cy && cd cy && yarn init  && yarn add --dev cypress --mode=skip-build && yarn run cypress install --force
 
 FROM {DISTRO} as devimage
 
@@ -32,6 +32,9 @@ RUN apt-get update \
   curl \
   git \
   gpg \
+          curl \
+        git \
+        wget \
     libgtk2.0-0 \
   libgtk-3-0 \
   libnotify-dev \
@@ -67,6 +70,19 @@ RUN apt-get update \
   sudo \
   tzdata \
   xz-utils \
+  && apt-get install --install-recommends -y \
+  autocutsel \
+  dbus \
+  dbus-x11 \
+  xfwm4 \
+  zsh \
+  fonts-noto-color-emoji \
+  # xvfb \
+  novnc \
+  g++ \
+  # websockify \
+  tigervnc-standalone-server \
+  tigervnc-xorg-extension \
   && apt-get autoremove -y \
   && apt-get clean -y \
   && rm -rf /var/lib/apt/lists/* 
