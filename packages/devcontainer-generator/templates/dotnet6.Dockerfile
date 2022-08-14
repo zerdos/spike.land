@@ -19,12 +19,7 @@ ENV \
     POWERSHELL_DISTRIBUTION_CHANNEL=PSDocker-DotnetSDK-Ubuntu-22.04 
 
 
-RUN apt-get update \
-    && apt-get install -y --no-install-recommends \
-        curl \
-        git \
-        wget \
-    && rm -rf /var/lib/apt/lists/*
+
 
 
 ENV DOTNET_SDK_VERSION="6.0.400"

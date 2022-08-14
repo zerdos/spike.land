@@ -1,11 +1,11 @@
 # syntax=docker/dockerfile:1.4.1
 
-FROM node as node-builder
+FROM node:alpine as node-builder
 ADD https://raw.githubusercontent.com/yarnpkg/berry/master/packages/yarnpkg-cli/bin/yarn.js /usr/local/bin/yarn
 
-RUN chmod 755 /usr/local/bin/yarn
+RUN chmod 755 /usr/local/bin/yarn && apk add --no-cache git unzip
 
-RUN cd && mkdir cy && cd cy && yarn init  && yarn add --dev cypress && yarn run cypress install --force
+RUN cd && mkdir cy && cd cy && yarn init  && yarn add --dev cypress --mode=skip-build && yarn run cypress install --force
 
 FROM ubuntu:jammy as devimage
 
@@ -32,6 +32,9 @@ RUN apt-get update \
   curl \
   git \
   gpg \
+          curl \
+        git \
+        wget \
     libgtk2.0-0 \
   libgtk-3-0 \
   libnotify-dev \
@@ -67,6 +70,19 @@ RUN apt-get update \
   sudo \
   tzdata \
   xz-utils \
+  && apt-get install --install-recommends -y \
+  autocutsel \
+  dbus \
+  dbus-x11 \
+  xfwm4 \
+  zsh \
+  fonts-noto-color-emoji \
+  # xvfb \
+  novnc \
+  g++ \
+  # websockify \
+  tigervnc-standalone-server \
+  tigervnc-xorg-extension \
   && apt-get autoremove -y \
   && apt-get clean -y \
   && rm -rf /var/lib/apt/lists/* 
@@ -93,12 +109,9 @@ RUN (addgroup --gid 1000 ${USER}  \
 
 
 
-ENV NODE_VERSION 16.16.0
-
-COPY --from=node-builder --link /usr/local/bin/node /usr/local/bin/node
-COPY --from=node-builder --link  /usr/local/bin/yarn /usr/local/bin/yarn
-
-
+COPY --from=node:16.16.0-bullseye-slim --link /usr/local/bin/node /usr/local/bin/node
+COPY --from=node-builder --link /usr/local/bin/yarn /usr/local/bin/yarn
+                                                    
 
 RUN node --version
 RUN chmod 755 /usr/local/bin/yarn &&   yarn --version
@@ -163,12 +176,7 @@ ENV \
     POWERSHELL_DISTRIBUTION_CHANNEL=PSDocker-DotnetSDK-Ubuntu-22.04 
 
 
-RUN apt-get update \
-    && apt-get install -y --no-install-recommends \
-        curl \
-        git \
-        wget \
-    && rm -rf /var/lib/apt/lists/*
+
 
 
 ENV DOTNET_SDK_VERSION="6.0.400"
@@ -198,20 +206,7 @@ COPY --link --from=node-builder  /root/.cache/Cypress /home/${USER}/.cache/Cypre
 
 ### noVNC.Dockerfile
 
-RUN  apt-get update \
-  && apt-get install --install-recommends -y \
-  autocutsel \
-  dbus \
-  dbus-x11 \
-  xfwm4 \
-  fonts-noto-color-emoji \
-  # xvfb \
-  novnc \
-  g++ \
-  # websockify \
-  tigervnc-standalone-server \
-  tigervnc-xorg-extension \
-  && git clone https://github.com/novnc/noVNC.git  --depth=1 \
+RUN  git clone https://github.com/novnc/noVNC.git  --depth=1 \
   && cp -af ./noVNC/.  /usr/share/novnc/ \
   && rm -rf ./noVNC \
   && cp /usr/share/novnc/vnc.html /usr/share/novnc/index.html \
@@ -223,9 +218,6 @@ RUN  apt-get update \
   && sed -i -e '1 aterminator &' /etc/X11/Xtigervnc-session ) \
   && sed -i -e 's/workspace_count=4/workspace_count=1/g' /usr/share/xfwm4/defaults \
   && sed -i -e 's/use_compositing=true/use_compositing=false/g' /usr/share/xfwm4/defaults \
-  && apt-get autoremove -y \
-  && apt-get clean -y \
-  && rm -rf /var/lib/apt/lists/* \
   && echo "((chmod 644 ~/.ssh/*.pub && chmod 600 ~/.ssh/id_rsa && chmod 600 ~/.gitconfig) || true ) && (vncserver -SecurityTypes none -cleanstale -useold :1 -localhost no --I-KNOW-THIS-IS-INSECURE && websockify --web=/usr/share/novnc/ --wrap-mode=ignore 6080 localhost:5901 || echo ok)" >> /usr/bin/startx
 
 ### xfce.Dockerfile
@@ -266,12 +258,6 @@ RUN  (curl -sSL https://packages.microsoft.com/keys/microsoft.asc | apt-key add 
 #   && sed -i -e 's/\/usr\/bin\/code/\/usr\/share\/code\/code --user-data-dir /g' /usr/share/applications/code.desktop 
 ### zsh.Dockerfie
 
-RUN apt-get update && apt-get install -y --no-install-recommends zsh \
-     && apt-get autoremove -y \
-  && apt-get clean -y \
-  && rm -rf /var/lib/apt/lists/* 
-# \
-#  && chsh -s /usr/bin/zsh ${USER}
 
 RUN mkdir -p /workspace/node_modules && chown  ${USER}:${USER} /workspace  /workspace/node_modules
 USER ${USER}
@@ -281,12 +267,6 @@ RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master
     && sed -i -e 's/plugins=(git)/plugins=(git gitfast git-extras npm yarn)/g'  ~/.zshrc \
     && touch  ~/.bashrc && echo ":)" >  ~/.mood
 ### deno.Dockerfile
-
-USER 0
-RUN apt-get update && apt-get install -y --no-install-recommends unzip \
-     && apt-get autoremove -y \
-  && apt-get clean -y \
-  && rm -rf /var/lib/apt/lists/* 
 
 USER ${USER}
 RUN (curl -fsSL https://deno.land/x/install/install.sh | sh -s v1.24.1 \

@@ -2,12 +2,9 @@ FROM devimage
 
 
 
-ENV NODE_VERSION {NODE_VERSION}
-
-COPY --from=node-builder --link /usr/local/bin/node /usr/local/bin/node
-COPY --from=node-builder --link  /usr/local/bin/yarn /usr/local/bin/yarn
-
-
+COPY --from=node:{NODE_VERSION}-bullseye-slim --link /usr/local/bin/node /usr/local/bin/node
+COPY --from=node-builder --link /usr/local/bin/yarn /usr/local/bin/yarn
+                                                    
 
 RUN node --version
 RUN chmod 755 /usr/local/bin/yarn &&   yarn --version

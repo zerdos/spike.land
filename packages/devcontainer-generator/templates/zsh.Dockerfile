@@ -2,12 +2,6 @@ FROM devimage
 
 ### zsh.Dockerfie
 
-RUN apt-get update && apt-get install -y --no-install-recommends zsh \
-     && apt-get autoremove -y \
-  && apt-get clean -y \
-  && rm -rf /var/lib/apt/lists/* 
-# \
-#  && chsh -s /usr/bin/zsh ${USER}
 
 RUN mkdir -p /workspace/node_modules && chown  ${USER}:${USER} /workspace  /workspace/node_modules
 USER ${USER}
