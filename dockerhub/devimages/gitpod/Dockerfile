@@ -1,4 +1,4 @@
-FROM devimages/focal-devcontainer:latest as devimage
+FROM devimages/jammy-devcontainer:latest as devimage
 
 USER 0
 
