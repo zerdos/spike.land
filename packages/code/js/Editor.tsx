@@ -7,6 +7,8 @@ import { css } from "@emotion/react";
 import debounce from "lodash.debounce";
 import { wait } from "./wait";
 
+
+
 const runnerDebounced = debounce(runner, 100, {
   trailing: true,
   leading: true,
@@ -65,7 +67,7 @@ export const Editor: FC<{ code: string; i: number; codeSpace: string }> = (
     const setMonaco = async () => {
       const { startMonaco } = await import("./startMonaco");
 
-      const { editor } = await startMonaco(
+      const { editor, monaco } = await startMonaco(
         /**
          * @param {any} code
          */
@@ -75,11 +77,14 @@ export const Editor: FC<{ code: string; i: number; codeSpace: string }> = (
           code: mST().code,
         },
       );
+      globalThis.monaco = monaco;
       // globalThis.editor = editor;
 
+    
       changeContent((x) => ({
         ...x,
         setValue: (code: string) => {
+       
           let state = null;
           try {
             state = editor.saveViewState();
@@ -91,7 +96,19 @@ export const Editor: FC<{ code: string; i: number; codeSpace: string }> = (
 
           if (state) editor.restoreViewState(state);
         },
-        getValue: () => editor.getModel()!.getValue() as string,
+        getValue: () => {
+          try {
+            (async () =>{
+              const tsWorker =await (await globalThis.monaco.languages.typescript.getTypeScriptWorker())([location.origin + "/live/" + codeSpace + ".tsx"]);
+
+       const diag = await tsWorker.getSemanticDiagnostics(location.origin + "/live/" + codeSpace + ".tsx");
+     console.log({diag})    
+            })(); 
+     } catch {
+       console.error("ts diag error");
+     }
+          return editor.getModel()!.getValue() as string;
+        },
         onChange: (cb: () => void) =>
           editor?.onDidChangeModelContent(cb).dispose,
         myId: "editor",

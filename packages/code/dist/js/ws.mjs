@@ -20151,14 +20151,15 @@ var Editor = ({ code, i: i2, codeSpace: codeSpace2 }) => {
     if (!ref?.current)
       return;
     const setMonaco = async () => {
-      const { startMonaco } = await import("../chunk-startMonaco-AKWPGNAT.mjs");
-      const { editor } = await startMonaco(
+      const { startMonaco } = await import("../chunk-startMonaco-7ZEVZLMS.mjs");
+      const { editor, monaco } = await startMonaco(
         {
           container: ref.current,
           name: codeSpace2,
           code: mST().code
         }
       );
+      globalThis.monaco = monaco;
       changeContent((x) => ({
         ...x,
         setValue: (code2) => {
@@ -20172,7 +20173,18 @@ var Editor = ({ code, i: i2, codeSpace: codeSpace2 }) => {
           if (state)
             editor.restoreViewState(state);
         },
-        getValue: () => editor.getModel().getValue(),
+        getValue: () => {
+          try {
+            (async () => {
+              const tsWorker = await (await globalThis.monaco.languages.typescript.getTypeScriptWorker())([location.origin + "/live/" + codeSpace2 + ".tsx"]);
+              const diag = await tsWorker.getSemanticDiagnostics(location.origin + "/live/" + codeSpace2 + ".tsx");
+              console.log({ diag });
+            })();
+          } catch {
+            console.error("ts diag error");
+          }
+          return editor.getModel().getValue();
+        },
         onChange: (cb) => editor?.onDidChangeModelContent(cb).dispose,
         myId: "editor"
       }));

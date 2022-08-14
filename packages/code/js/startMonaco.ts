@@ -1,4 +1,5 @@
 import * as monaco from "monaco-editor";
+import pMap from "p-map";
 //@ts-ignore
 import tsWorker from "./monaco-editor/language/typescript/ts.worker.monaco.worker";
 //@ts-ignore
@@ -219,17 +220,14 @@ export const monacoContribution = async (
       },
     ];
 
-    const dts = importHelper.map(({ name, url }) => async () =>
-      typescript.typescriptDefaults.addExtraLib(
+    const mapper= async ({ name, url }) => typescript.typescriptDefaults.addExtraLib(
         await (await fetch(
           url,
         )).text(),
-        location.origin + `/live/${name}.d.ts`,
-      )
-    );
+        location.origin + `/live/${name}.d.ts`)
+    
 
-    const pAll = (await (import("p-all"))).default;
-    await pAll(dts, { concurrency: 2 });
+    await pMap(importHelper, mapper, { concurrency: 2 });
 
     typescript.typescriptDefaults.setEagerModelSync(true);
     typescript.typescriptDefaults.setDiagnosticsOptions({
@@ -241,6 +239,7 @@ export const monacoContribution = async (
 };
 
 const returnModules = {
+ 
   editor: {} as unknown as ReturnType<typeof monaco.editor.create>,
   monaco,
 };
@@ -317,104 +316,103 @@ export const startMonaco = async (
     scrollBeyondLastLine: false,
     scrollPredominantAxis: false,
 
-    // smoothScrolling: true,
+    smoothScrolling: true,
 
-    codeLens: true,
-    suggest: {
-      /**
-       * Overwrite word ends on accept. Default to false.
-       */
-      insertMode: "replace",
-      /**
-       * Enable graceful matching. Defaults to true.
-       */
-      filterGraceful: true,
-      /**
-       * Prevent quick suggestions when a snippet is active. Defaults to true.
-       */
-      snippetsPreventQuickSuggestions: true,
-      /**
-       * Favors words that appear close to the cursor.
-       */
-      localityBonus: true,
-      /**
-       * Enable using global storage for remembering suggestions.
-       */
-      shareSuggestSelections: true,
-      /**
-       * Enable or disable icons in suggestions. Defaults to true.
-       */
-      showIcons: true,
-      /**
-       * Enable or disable the suggest status bar.
-       */
-      showStatusBar: false,
-      /**
-       * Enable or disable the rendering of the suggestion preview.
-       */
-      preview: true,
-      /**
-       * Configures the mode of the preview.
-       */
-      previewMode: "prefix",
-      /**
-       * Show details inline with the label. Defaults to true.
-       */
-      showInlineDetails: true,
+  //  `` suggest: {
+  //     /**
+  //      * Overwrite word ends on accept. Default to false.
+  //      */
+  //     insertMode: "replace",
+  //     /**
+  //      * Enable graceful matching. Defaults to true.
+  //      */
+  //     filterGraceful: true,
+  //     /**
+  //      * Prevent quick suggestions when a snippet is active. Defaults to true.
+  //      */
+  //     snippetsPreventQuickSuggestions: true,
+  //     /**
+  //      * Favors words that appear close to the cursor.
+  //      */
+  //     localityBonus: true,
+  //     /**
+  //      * Enable using global storage for remembering suggestions.
+  //      */
+  //     shareSuggestSelections: true,
+  //     /**
+  //      * Enable or disable icons in suggestions. Defaults to true.
+  //      */
+  //     showIcons: true,
+  //     /**
+  //      * Enable or disable the suggest status bar.
+  //      */
+  //     showStatusBar: false,
+  //     /**
+  //      * Enable or disable the rendering of the suggestion preview.
+  //      */
+  //     preview: true,
+  //     /**
+  //      * Configures the mode of the preview.
+  //      */
+  //     previewMode: "prefix",
+  //     /**
+  //      * Show details inline with the label. Defaults to true.
+  //      */
+  //     showInlineDetails: true,
 
-      /**
-       * Show method-suggestions.
-       */
-      showMethods: true,
-      /**
-       * Show function-suggestions.
-       */
-      showFunctions: true,
-      /**
-       * Show constructor-suggestions.
-       */
-      showConstructors: true,
-      /**
-       * Show deprecated-suggestions.
-       */
+  //     /**
+  //      * Show method-suggestions.
+  //      */
+  //     showMethods: true,
+  //     /**
+  //      * Show function-suggestions.
+  //      */
+  //     showFunctions: true,
+  //     /**
+  //      * Show constructor-suggestions.
+  //      */
+  //     showConstructors: true,
+  //     /**
+  //      * Show deprecated-suggestions.
+  //      */
 
-      /**
-       * Show field-suggestions.
-       */
+  //     /**
+  //      * Show field-suggestions.
+  //      */
 
-      /**
-       * Show color-suggestions.
-       */
-      showColors: true,
-      /**
-       * Show file-suggestions.
-       */
-      showFiles: true,
-      /**
-       * Show reference-suggestions.
-       */
-      showReferences: true,
-      /**
-       * Show folder-suggestions.
-       */
-      showFolders: true,
-      /**
-       * Show typeParameter-suggestions.
-       */
-      showTypeParameters: true,
-      /**
-       * Show issue-suggestions.
-       */
-      showIssues: true,
-      /**
-       * Show user-suggestions.
-       */
-      showUsers: true,
-      /**
-       * Show snippet-suggestions.
-       */
-      showSnippets: true,
-    },
+  //     /**
+  //      * Show color-suggestions.
+  //      */
+  //     showColors: true,
+  //     /**
+  //      * Show file-suggestions.
+  //      */
+  //     showFiles: true,
+  //     /**
+  //      * Show reference-suggestions.
+  //      */
+  //     showReferences: true,
+  //     /**
+  //      * Show folder-suggestions.
+  //      */
+  //     showFolders: true,
+  //     /**
+  //      * Show typeParameter-suggestions.
+  //      */
+  //     showTypeParameters: true,
+  //     /**
+  //      * Show issue-suggestions.
+  //      */
+  //     showIssues: true,
+  //     /**
+  //      * Show user-suggestions.
+  //      */
+  //     showUsers: true,
+  //     /**
+  //      * Show snippet-suggestions.
+  //      */
+  //     showSnippets: true,
+  //   },
 
     automaticLayout: true,
 
