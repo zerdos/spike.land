@@ -47,10 +47,10 @@ console.log(`
 === ----
 -------------------------------------------------`);
 
-// const workerEntryPoints = [
-// "vs/language/typescript/ts.worker.js",
-// "vs/editor/editor.worker.js",
-// ].map((entry) => `monaco-editor/esm/${entry}`);
+const workerEntryPoints = [
+"vs/language/typescript/ts.worker.js",
+"vs/editor/editor.worker.js",
+].map((entry) => `monaco-editor/esm/${entry}`);
 
 const define = {
   "process.env.NODE_ENV": `"${environment}"`,
@@ -91,36 +91,36 @@ const buildOptions = {
   ],
 };
 
-// await esbuild.build({
-//   ...buildOptions,
-//   entryPoints: [
-//     // ...workerEntryPoints,
-//   ],
-//   bundle: true,
-//   minify: !isDevelopment,
-//   minifyWhitespace: !isDevelopment,
-//   minifyIdentifiers: !isDevelopment,
-//   minifySyntax: !isDevelopment,
-//   treeShaking: true,
-//   ignoreAnnotations: true,
-//   outExtension: { ".js": ".monaco.worker.js" },
-//   format: "iife",
-//   loader: {
-//     ".ttf": "file",
-//     ".webp": "file",
-//     ".tsx": "tsx",
-//     ".jsx": "tsx",
-//     ".ts:": "ts",
-//     ".css": "css",
-//     ".d.ts": "dataurl",
-//     ".css": "css",
-//     ".ttf": "file",
-//     ".wasm": "file",
+await esbuild.build({
+  ...buildOptions,
+  entryPoints: [
+    ...workerEntryPoints,
+  ],
+  bundle: true,
+  minify: !isDevelopment,
+  minifyWhitespace: !isDevelopment,
+  minifyIdentifiers: !isDevelopment,
+  minifySyntax: !isDevelopment,
+  treeShaking: true,
+  ignoreAnnotations: true,
+  outExtension: { ".js": ".monaco.worker.js" },
+  format: "iife",
+  loader: {
+    ".ttf": "file",
+    ".webp": "file",
+    ".tsx": "tsx",
+    ".jsx": "tsx",
+    ".ts:": "ts",
+    ".css": "css",
+    ".d.ts": "dataurl",
+    ".css": "css",
+    ".ttf": "file",
+    ".wasm": "file",
 
-//   },
+  },
 
-//   outdir: "./js/monaco-editor",
-// });
+  outdir: "./js/monaco-editor",
+});
 
 // await esbuild.build({
 //   ...buildOptions,
@@ -223,7 +223,7 @@ const build = (entryPoints, format = "esm") =>
       ".mjs",
       ".js",
       ".wasm",
-      ".monaco.worker.js",
+      ".worker.js",
     ],
 
     define,
@@ -233,7 +233,7 @@ const build = (entryPoints, format = "esm") =>
       ".tsx": "tsx",
       ".jsx": "tsx",
       ".d.ts": "dataurl",
-      ".monaco.worker.js": "file",
+      ".worker.js": "file",
       ".wasm": "file",
     },
     outdir: "./dist",
