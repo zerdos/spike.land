@@ -2484,6 +2484,7 @@ __metadata:
     async-mutex: 0.3.2
     big-integer: 1.6.51
     clsx: ^1.2.1
+    csstype: ^3.1.0
     es-module-shims: 1.5.14
     esbuild: ^0.15.2
     esbuild-plugin-alias: 0.2.1
