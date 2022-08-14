@@ -193,7 +193,8 @@ RUN  ln -s /usr/share/dotnet/dotnet /usr/bin/dotnet
 #     # To reduce image size, remove the copy nupkg that nuget keeps.
 #     && find /usr/share/powershell -print | grep -i '.*[.]nupkg$' | xargs rm
 
-COPY --link --from=node-builder /root/.cache/Cypress /root/.cache/Cypress
+
+COPY --link --from=node-builder  /root/.cache/Cypress /home/${USER}/.cache/Cypress
 
 ### noVNC.Dockerfile
 

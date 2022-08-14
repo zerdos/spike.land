@@ -144,7 +144,8 @@ RUN chmod 755 /usr/local/bin/yarn &&   yarn --version
 #   # && npm i -g npm \
 #   && npm --version  \
 #   && npm i -g npm yarn
-COPY --link --from=node-builder /root/.cache/Cypress /root/.cache/Cypress
+
+COPY --link --from=node-builder --chown=${USER}:${USER}  /root/.cache/Cypress /home/${USER}/.cache/Cypress
 
 ### noVNC.Dockerfile
 
