@@ -471,7 +471,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@emotion/react@npm:11.10.0":
+"@emotion/react@npm:^11.10.0":
   version: 11.10.0
   resolution: "@emotion/react@npm:11.10.0"
   dependencies:
@@ -2466,7 +2466,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@spike.land/code@workspace:packages/code"
   dependencies:
-    "@emotion/react": 11.10.0
+    "@emotion/react": ^11.10.0
     "@emotion/styled": 11.10.0
     "@jspm/generator": 1.0.0-beta.35
     "@mui/material": 5.10.0
@@ -5477,6 +5477,7 @@ __metadata:
   dependencies:
     "@cloudflare/kv-asset-handler": ^0.2.0
     "@cloudflare/workers-types": ^3.14.1
+    "@emotion/react": ^11.10.0
     "@playwright/test": ^1.25.0
     "@types/events": ^3.0.0
     "@yarnpkg/sdks": ^3.0.0-rc.14
