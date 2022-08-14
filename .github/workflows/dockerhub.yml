@@ -15,6 +15,7 @@ jobs:
       fail-fast: false
       matrix:
         image-name: [cypress,  eoan-xfce-novnc, gitpod, gitpod-monorepo, monorepo-modules, rolling-devcontainer, bookworm-devcontainer,  jammy-devcontainer]
+        platform: [ linux/amd64, linux/arm64]
 
     steps:
       - uses: actions/checkout@v3
@@ -43,7 +44,7 @@ jobs:
           context: ./
           file: ./dockerhub/devimages/${{ matrix.image-name }}/Dockerfile
           push: true
-          platforms: linux/amd64,linux/arm64
+          platforms: ${{ matrix.platform }}
           tags: devimages/${{ matrix.image-name }}:${{ steps.extract_version.outputs.version }},devimages/${{ matrix.image-name }}:latest
           cache-from: type=registry,ref=devimages/${{ matrix.image-name }}:buildcache
           cache-to: type=registry,ref=devimages/${{ matrix.image-name }}:buildcache,mode=max
