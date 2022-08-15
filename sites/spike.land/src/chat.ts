@@ -82,13 +82,25 @@ export default {
 
           if(path[0].startsWith("npm:")){
 
-            const url = new URL(newUrl);
+            const url = new URL(request.url);
 
-           const resp =  await fetch(new URL(url.pathname, "https://esm.sh"))
+           const resp =  await fetch(u.toString().replace("https://testing.spike.land/npm:", "https://esm.sh/"))
 
-          //  const body = await resp.body();
-          //  body.replace("https://esm.sm", "https://testing.spike.land/npm:")
-            return resp;
+           const org = resp.clone();
+           const body = await resp.text();
+           const regex = /https:\/\/esm.sh\//gm
+           const regex2 = / from "\//gm
+
+           const newBody = body.replaceAll(regex, "https://testing.spike.land/npm:")
+           .replaceAll(regex2, " from \"/npm:");
+            return new Response(newBody, {
+              status: 200,
+              headers:  {
+                "Access-Control-Allow-Origin": "*",
+                "Cache-Control": "no-cache",
+                "Content-Type": org.headers.get("Content-Type")
+              },
+            });
           }
 
 
