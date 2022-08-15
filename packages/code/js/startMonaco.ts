@@ -1,4 +1,4 @@
-import * as monaco from "/npm:monaco-editor@0.34.0?bundle";
+import * as monaco from "https://testing.spike.land/npm:monaco-editor@0.34.0?bundle";
 import pMap from "p-map";
 //@ts-ignore
 //@ts-ignore
@@ -7,8 +7,8 @@ import pMap from "p-map";
 
 import codicon from "monaco-editor/esm/vs/base/browser/ui/codicons/codicon/codicon.ttf";
 
-import EditorWorker from "/npm:monaco-editor@0.34.0/esm/vs/editor/editor.worker?worker"
-import TSWorker from "/npm:monaco-editor@0.34.0/esm/vs/language/typescript/ts.worker?worker";
+import EditorWorker from "https://testing.spike.land/npm:monaco-editor@0.34.0/esm/vs/editor/editor.worker?worker"
+import TSWorker from "https://testing.spike.land/npm:monaco-editor@0.34.0/esm/vs/language/typescript/ts.worker?worker";
 
 
 // import { parse } from "@babel/parser";
@@ -303,7 +303,7 @@ export const startMonaco = async (
   document.head.appendChild(outerStyle);
 
   const innerStyle = document.createElement("style");
-  innerStyle.innerText = `@import url("./js/ws.css");
+  innerStyle.innerText = `@import url("/npm:monaco-editor@0.34.0?css");
   @font-face {
     font-family: codicon;
     font-display: block;
