@@ -954,7 +954,8 @@ var chat_default = {
         return (async (request2) => {
           if (path2[0].startsWith("npm:")) {
             const url2 = new URL(newUrl);
-            return fetch(new URL(url2.pathname.slice(4), "https://esm.sh"));
+            const resp = await fetch(new URL(url2.pathname.slice(4), "https://esm.sh"));
+            return resp;
           }
           switch (path2[0]) {
             case "ping":
