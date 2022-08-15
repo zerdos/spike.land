@@ -11,7 +11,7 @@ import { CodeEnv } from "./env";
 const imap = {
   "imports": {
     // ...imap,
-    "framer-motion": "/framer-motion.mjs",
+    "framer-motion": "/npm:framer-motion?target=es2021&external=react",
     "@emotion/react": "/emotion.mjs",
     "react": "/react.mjs",
     "react-dom": "/react.mjs",
