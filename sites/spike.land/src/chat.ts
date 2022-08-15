@@ -84,8 +84,11 @@ export default {
 
             const url = new URL(newUrl);
 
+           const resp =  await fetch(new URL(url.pathname.slice(4), "https://esm.sh"))
 
-            return  fetch(new URL(url.pathname.slice(4), "https://esm.sh"));
+          //  const body = await resp.body();
+          //  body.replace("https://esm.sm", "https://testing.spike.land/npm:")
+            return resp;
           }
 
 
