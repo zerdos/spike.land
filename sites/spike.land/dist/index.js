@@ -912,7 +912,7 @@ async function handleErrors(request, func) {
 // src/chat.ts
 var imap = {
   "imports": {
-    "framer-motion": "/framer-motion.mjs",
+    "framer-motion": "/npm:framer-motion?target=es2021&external=react",
     "@emotion/react": "/emotion.mjs",
     "react": "/react.mjs",
     "react-dom": "/react.mjs",
