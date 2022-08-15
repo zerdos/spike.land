@@ -170,11 +170,12 @@ const build = (entryPoints, format = "esm") =>
       ".tsx",
       ".ts",
       ".jsx",
-      ".js", ".d.ts?text",
+      ".js",
       ".css",
       ".json",
       ".mjs",
       ".js",
+      ".d.ts",
       
       ".wasm",
       ".monaco.worker.js",
@@ -191,7 +192,7 @@ const build = (entryPoints, format = "esm") =>
       ".ts",
       ".jsx",
       ".js",
-      ".d.ts?text",
+      ".d.ts",
       ".css",
       ".json",
       ".mjs",
@@ -206,9 +207,8 @@ const build = (entryPoints, format = "esm") =>
       ".webp": "file",
       ".tsx": "tsx",
       ".jsx": "tsx",
-      ".d.ts?text": "dataurl",
+      ".d.ts": "file",
 
-      ".d.ts": "dataurl",
       ".worker.js": "file",
 
 

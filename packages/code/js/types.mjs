@@ -2,6 +2,8 @@ import emotionReactDts from "@emotion/react/types/index.d.ts"
 import emotionReactHelperDts from "@emotion/react/types/helper.d.ts";
 import reactDts from "@types/react/index.d.ts";
 import cssTypeDts from "csstype/index.d.ts";
+import emotionThemingDts from  "@emotion/react/types/theming.d.ts";
+import emotionSerializeDts from "@emotion/serialize/types/index.d.ts";
 
 
 // const reactDts = "https://unpkg.com/../../../node_modules/@types/react/index.d.ts?text";
@@ -25,10 +27,6 @@ const emotionJSXNameSpaceDTS =
   "https://unpkg.com/@emotion/react/types/jsx-namespace.d.ts?text";
 const emotionReactCssPropDts =
   "https://unpkg.com/@emotion/react/types/css-prop.d.ts?text";
-const emotionThemingDts =
-  "https://unpkg.com/@emotion/react/types/theming.d.ts?text";
-const emotionSerializeDts =
-  "https://unpkg.com/@emotion/serialize/types/index.d.ts?text";
 const emotionUtilsDts =
   "https://unpkg.com/@emotion/utils/types/index.d.ts?text";
 
