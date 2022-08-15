@@ -1,4 +1,4 @@
-import * as monaco from "https://esm.sh/monaco-editor@0.34.0?bundle";
+import * as monaco from "/npm:monaco-editor@0.34.0?bundle";
 import pMap from "p-map";
 //@ts-ignore
 //@ts-ignore
@@ -7,8 +7,8 @@ import pMap from "p-map";
 
 import codicon from "monaco-editor/esm/vs/base/browser/ui/codicons/codicon/codicon.ttf";
 
-import EditorWorker from "https://esm.sh/monaco-editor@0.34.0/esm/vs/editor/editor.worker?worker"
-import TSWorker from "https://esm.sh/monaco-editor@0.34.0/esm/vs/language/typescript/ts.worker?worker";
+import EditorWorker from "/npm:monaco-editor@0.34.0/esm/vs/editor/editor.worker?worker"
+import TSWorker from "/npm:monaco-editor@0.34.0/esm/vs/language/typescript/ts.worker?worker";
 
 
 // import { parse } from "@babel/parser";
