@@ -1,46 +1,18 @@
 import esbuild from "esbuild";
 
-import * as importMap from "esbuild-plugin-import-map";
+
 import alias from "esbuild-plugin-alias";
-import { esbuildCommonjs, viteCommonjs } from "@originjs/vite-plugin-commonjs";
 
-const jsonData = {
-  "imports": {
-    // ...imap,
-    // "framer-motion": "/framer-motion.mjs",
-    // "@emotion/react": "/emotion.mjs",
-    // "react": "/react.mjs",
-    // "react-dom": "/react.mjs",
-    // "react-dom/client": "/react.mjs",
-    // "react-dom/server": "/react.mjs",
-    // "react/jsx-runtime": "/react.mjs",
-    // "react/jsx-dev-runtime": "/react.mjs",
-
-    // "../../node_modules/@emotion/react/jsx-runtime/dist/emotion-react-jsx-runtime.cjs.js": "/emotion.mjs",
-
-    // "@emotion/react/jsx-dev-runtime": "/emotion.mjs",
-
-    // "preact": "https://ga.jspm.io/npm:preact@10.8.2/dist/preact.module.js",
-    // "preact-render-to-string": "https://ga.jspm.io/npm:preact-render-to-string@5.2.0/dist/index.mjs",
-    // "preact/compat": "https://ga.jspm.io/npm:preact@10.8.2/compat/dist/compat.module.js",
-    // "preact/jsx-runtime": "https://ga.jspm.io/npm:preact@10.8.2/jsx-runtime/dist/jsxRuntime.module.js"
-  },
-  // "scopes": {
-  //   "https://ga.jspm.io/": {
-  //     "preact/hooks": "https://ga.jspm.io/npm:preact@10.8.2/hooks/dist/hooks.module.js"
-  //   }
-  // }
-};
 
 const environment = process.env.NODE_ENV === "production"
   ? "production"
   : "development";
 
 const isDevelopment = environment === "development";
-importMap.load(jsonData);
-const importMapPlugin = importMap.plugin();
 
-const outDir = "./dist";
+const outdir = "./dist";
+const target = "es2021";
+
 console.log(`
 -------------------------------------------------
 --------------${environment}---------------------
@@ -64,7 +36,7 @@ const define = {
 
 const buildOptions = {
   define,
-  target: "es2022",
+  target,
   platform: "browser",
   external: ["./mST"],
   legalComments: "none",
@@ -101,7 +73,7 @@ await esbuild.build({
   minifyWhitespace: true,
   minifyIdentifiers: true,
   minifySyntax: true,
-  target: "es2022",
+  target,
   treeShaking: true,
   ignoreAnnotations: true,
   outExtension: { ".js": ".monaco.worker.js" },
@@ -181,7 +153,7 @@ const build = (entryPoints, format = "esm") =>
     bundle: true,
     format: "esm",
     splitting: true,
-    target: "esnext",
+    target,
     sourcemap: false,
 
     minify: !isDevelopment,
@@ -235,11 +207,14 @@ const build = (entryPoints, format = "esm") =>
       ".tsx": "tsx",
       ".jsx": "tsx",
       ".d.ts?text": "dataurl",
+
       ".d.ts": "dataurl",
       ".worker.js": "file",
+
+
       ".wasm": "file",
     },
-    outdir: "./dist",
+    outdir,
   }).catch((e) => {
     console.error(e);
     process.exit(1);
