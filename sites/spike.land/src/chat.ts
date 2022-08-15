@@ -75,7 +75,20 @@ export default {
         const newUrl = new URL(path.join("/"), url.origin).toString();
         const _request = new Request(newUrl, { ...request, url: newUrl });
 
+      
+
+
         return (async (request) => {
+
+          if(path[0].startsWith("npm:")){
+
+            const url = new URL(newUrl);
+
+
+            return  fetch(new URL(url.pathname.slice(4), "https://esm.sh"));
+          }
+
+
           switch (path[0]) {
             case "ping":
               return new Response("ping" + Math.random(), {
