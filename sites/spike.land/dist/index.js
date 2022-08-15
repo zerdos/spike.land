@@ -952,6 +952,9 @@ var chat_default = {
         const newUrl = new URL(path2.join("/"), url.origin).toString();
         const _request = new Request(newUrl, { ...request, url: newUrl });
         return (async (request2) => {
+          if (path2[0].startsWith("npm:")) {
+            return fetch(new URL(newUrl, "esm.sh"));
+          }
           switch (path2[0]) {
             case "ping":
               return new Response("ping" + Math.random(), {

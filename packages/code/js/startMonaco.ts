@@ -1,13 +1,16 @@
-import * as monaco from "monaco-editor";
+import * as monaco from "https://esm.sh/monaco-editor@0.34.0?bundle";
 import pMap from "p-map";
 //@ts-ignore
-import tsWorker from "./monaco-editor/language/typescript/ts.worker.monaco.worker";
 //@ts-ignore
-import editorWorker from "./monaco-editor/editor/editor.worker.monaco.worker";
 
 // import { MonacoJsxSyntaxHighlight } from "monaco-jsx-syntax-highlight";
 
 import codicon from "monaco-editor/esm/vs/base/browser/ui/codicons/codicon/codicon.ttf";
+
+import EditorWorker from "https://esm.sh/monaco-editor@0.34.0/esm/vs/editor/editor.worker?worker"
+import TSWorker from "https://esm.sh/monaco-editor@0.34.0/esm/vs/language/typescript/ts.worker?worker";
+
+
 // import { parse } from "@babel/parser";
 // import traverse from "@babel/traverse";
 // import MonacoJSXHighlighter from "monaco-jsx-highlighter";
@@ -248,18 +251,25 @@ const returnModules = {
   monaco,
 };
 
+const tsWorker= TSWorker();
+const ediWorker = EditorWorker();
+
 window.MonacoEnvironment = {
 
-  getWorkerUrl:  function (_workerId: string, label: string) {
+  getWorker:  function (_workerId: string, label: string) {
+
+
+
 
 
     if (label === "typescript" || label === "javascript") {
+
         return tsWorker
       }
 
     // const worker = await 
     // const {TypeScriptWorker}=  await import("monaco-editor/esm/vs/language/typescript/ts.worker")
-    return  editorWorker
+    return  ediWorker
   },
 };
 
