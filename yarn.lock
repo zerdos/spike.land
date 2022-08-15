@@ -2467,6 +2467,7 @@ __metadata:
   resolution: "@spike.land/code@workspace:packages/code"
   dependencies:
     "@emotion/react": ^11.10.0
+    "@emotion/serialize": ^1.1.0
     "@emotion/styled": 11.10.0
     "@jspm/generator": 1.0.0-beta.36
     "@mui/material": 5.10.0
