@@ -52,7 +52,7 @@ init_define_process();
   function setImportMapSrcOrLazy() {
     importMapSrcOrLazy = true;
   }
-  if (!ya) {
+  if (!shimMode) {
     if (document.querySelectorAll("script[type=module-shim],script[type=importmap-shim],link[rel=modulepreload-shim]").length) {
       shimMode = true;
     } else {
