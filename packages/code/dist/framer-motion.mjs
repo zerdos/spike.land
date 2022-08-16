@@ -68,9 +68,10 @@ import {
   useVelocity,
   useViewportScroll,
   useVisualElementContext,
+  useWillChange,
   visualElement,
   wrapHandler
-} from "./chunk-chunk-JJI7ZSDH.mjs";
+} from "./chunk-chunk-STPWADXK.mjs";
 import "./chunk-chunk-UC4RMGLP.mjs";
 import "./chunk-chunk-FHIMN3AG.mjs";
 import {
@@ -149,6 +150,7 @@ export {
   useVelocity,
   useViewportScroll,
   useVisualElementContext,
+  useWillChange,
   visualElement,
   wrapHandler
 };
