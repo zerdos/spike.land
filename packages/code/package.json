@@ -87,7 +87,7 @@
     "monaco-editor": "0.34.0",
     "p-map": "5.5.0",
     "path-browserify": "1.0.1",
-    "preact": "10.10.2",
+    "preact": "10.10.3",
     "preact-render-to-string": "5.2.1",
     "prettier": "2.7.1",
     "prop-types": "^15.8.1",
