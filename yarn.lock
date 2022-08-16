@@ -5485,6 +5485,7 @@ __metadata:
     "@yarnpkg/sdks": ^3.0.0-rc.14
     events: ^3.3.0
     lerna: ^5.4.2
+    monaco-editor: ^0.34.0
   languageName: unknown
   linkType: soft
 
@@ -7148,7 +7149,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"monaco-editor@npm:0.34.0":
+"monaco-editor@npm:0.34.0, monaco-editor@npm:^0.34.0":
   version: 0.34.0
   resolution: "monaco-editor@npm:0.34.0"
   checksum: 10a28c1fe07268a23106ec9b743339af603e00c3ce646de72bf74f77e3d44065536f1a11f1a86ed459dfd9cb891261e6c7974377fc511eb65f354d6ddc89275b
