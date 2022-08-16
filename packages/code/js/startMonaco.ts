@@ -247,7 +247,6 @@ const returnModules = {
   monaco,
 };
 
-
 window.MonacoEnvironment = {
 
   getWorker: async function (_workerId: string, label: string) {
@@ -257,18 +256,18 @@ window.MonacoEnvironment = {
 
     if (label === "typescript" || label === "javascript") {
 
-      const TSWorker = (await import("https://testing.spike.land/npm:monaco-editor@0.34.0/esm/vs/language/typescript/ts.worker?worker&target=es2021")).default;
+      globalThis.twWorker =   globalThis.twWorker ||  ((await import("https://testing.spike.land/npm:monaco-editor@0.34.0/esm/vs/language/typescript/ts.worker?worker&target=es2021")).default)();
 
 
-        return TSWorker()
+        return twWorker;
       }
 
-      const EditorWorker = (await import("https://testing.spike.land/npm:monaco-editor@0.34.0/esm/vs/editor/editor.worker?worker&target=es2021")).default;
+      globalThis .ediWorker = (   globalThis .ediWorker  || (await import("https://testing.spike.land/npm:monaco-editor@0.34.0/esm/vs/editor/editor.worker?worker&target=es2021")).default)();
 
 
     // const worker = await 
     // const {TypeScriptWorker}=  await import("monaco-editor/esm/vs/language/typescript/ts.worker")
-    return  EditorWorker()
+    return ediWorker;
   },
 };
 
