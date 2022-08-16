@@ -1,7 +1,8 @@
 version: "3.9"
 services:
   devcontainer:
-    image: devimages/jammy-devcontainer:latest
+    image: devimages/jammy-devcontainer
+    build: .
     tmpfs:
       - /home/$USER/tmpfs:exec
     shm_size: 4gb
