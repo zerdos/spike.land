@@ -2486,7 +2486,7 @@ __metadata:
     big-integer: 1.6.51
     clsx: ^1.2.1
     csstype: ^3.1.0
-    es-module-shims: 1.5.15
+    es-module-shims: 1.5.16
     esbuild: ^0.15.3
     esbuild-plugin-alias: 0.2.1
     esbuild-plugin-import-map: 2.1.0
@@ -4353,10 +4353,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"es-module-shims@npm:1.5.15":
-  version: 1.5.15
-  resolution: "es-module-shims@npm:1.5.15"
-  checksum: 50f62d43bf7848077bd04afffd0f34abeb930f60a687e6b02a821a0cd4aadb08999fdbfe938e1e71d99d95caa922949bbe09ad1dffcdc5de6afff263b35ca505
+"es-module-shims@npm:1.5.16":
+  version: 1.5.16
+  resolution: "es-module-shims@npm:1.5.16"
+  checksum: e04fdb4ca0756f09c7bc46dc0b54908a3e7b1ae80e0caf2f416faebe5098d6228156aa0d082f993930b16a9bed542c8a1b59717545ed2d763d306551dddb6dfc
   languageName: node
   linkType: hard
 
