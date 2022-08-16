@@ -1,19 +1,10 @@
 import { FC, useEffect, useRef, useState } from "react";
-import { runner } from "./runner";
 import { mST, onSessionUpdate } from "./session";
 import { isMobile } from "./isMobile.mjs";
 
 import { css } from "@emotion/react";
-import debounce from "lodash.debounce";
 import { wait } from "./wait";
 
-
-
-const runnerDebounced = debounce(runner, 100, {
-  trailing: true,
-  leading: true,
-  maxWait: 500,
-});
 
 const mod = {
   CH: () => {},
@@ -36,6 +27,11 @@ export const Editor: FC<{ code: string; i: number; codeSpace: string }> = (
   ] = useState({
     myCode: code,
     counter: i,
+    runner: async({code, counter}: {code: string, counter: number})=> {
+      const {runner} = await import("./runner");
+      runner({code, counter});
+      changeContent((x: typeof mySession) =>({...x, runner, code, counter})) ;
+    },
     myId: "loading",
     getValue: () => "" as string,
     setValue: (_code: string) => {},
@@ -50,6 +46,7 @@ export const Editor: FC<{ code: string; i: number; codeSpace: string }> = (
     counter,
     myCode,
     myId,
+    runner,
     engine,
     prettierJs,
     getValue,
@@ -142,7 +139,7 @@ export const Editor: FC<{ code: string; i: number; codeSpace: string }> = (
       changeContent((x) => ({ ...x, prettierJs }));
       await wait(1000);
       // console.log("RUN THE RUNNER");
-      runnerDebounced({ code: code + " ", counter });
+      runner({ code: code + " ", counter });
     };
 
     loadEditors();
@@ -153,7 +150,7 @@ export const Editor: FC<{ code: string; i: number; codeSpace: string }> = (
     const handler = setInterval(() => {
       if (getValue() !== lastCode) {
         changeContent((x) => ({ ...x, myCode: code, i: i + 1 }));
-        runnerDebounced({ code, counter });
+        runner({ code, counter });
       }
     }, 500);
     return () => clearInterval(handler);
@@ -179,7 +176,7 @@ export const Editor: FC<{ code: string; i: number; codeSpace: string }> = (
         changeContent((x) => ({ ...x, counter: counter + 1, myCode: newCode }));
 
         // console.log("RUN THE RUNNER AGAIN");
-        await runnerDebounced({ code: newCode, counter: counter + 1 });
+        await runner({ code: newCode, counter: counter + 1 });
       } catch (err) {
         console.error({ err });
         console.error("restore editor");
@@ -238,21 +235,19 @@ height: ${60 + lines / 40 * 100}% ;
 `}
           ref={ref}
         />
-      )
-      : (
+      ) : (
         <div
           data-test-id={myId}
           css={css`
-  margin: 0;
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-`}
+                margin: 0;
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                right: 0;
+              `}
           id="editor"
           ref={ref}
-        />
+        ></div>
       )
   );
 };

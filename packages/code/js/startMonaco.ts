@@ -1,4 +1,4 @@
-import * as monaco from "https://testing.spike.land/npm:monaco-editor?bundle&target=es2021";
+import * as monaco from "https://testing.spike.land/npm:monaco-editor?target=es2021";
 import pMap from "p-map";
 //@ts-ignore
 //@ts-ignore
