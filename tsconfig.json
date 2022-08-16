@@ -63,30 +63,11 @@
     "skipLibCheck": false, /* Skip type checking of declaration files. */
     "forceConsistentCasingInFileNames": true, /* Disallow inconsistently-cased references to the same file. */
 
-    "types": ["@cloudflare/workers-types"]
+    "types": ["@cloudflare/workers-types", "monaco-editor"]
   },
   "include": [
-    "packages/code/js",
-    "sites/spike.land/src",
-    "packages/code/react.ts",
-    "packages/code/framer-motion.ts",
-    "packages/code/motion.tsx",
-    "packages/code/emotion.ts",
-    ".fixtures/LazyComponent.tsx"
   ],
-  "exclude": ["./js/vendor/**", "**node_modules", "node_modules"],
+
   "paths": {
-    "path": ["path-browserify"],
-    "buffer": ["buffer"],
-    "stream": ["stream-browserify"],
-    "react": ["preact-compat"],
-    "react-dom/client": ["preact-compat"],
-    "react/jsx-runtime": ["preact-compat/jsx-runtime"],
-    // Not necessary unless you consume a module using `createClass`
-    "create-react-class": ["preact-compat/lib/create-react-class"],
-    // Not necessary unless you consume a module requiring `react-dom-factories`
-    "react-dom-factories": ["preact-compat/lib/react-dom-factories"],
-    "*.ts": ["*"],
-    "*.tsx": ["*"]
   }
 }

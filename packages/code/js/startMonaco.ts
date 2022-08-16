@@ -1,4 +1,4 @@
-import * as monaco from "monaco-editor";
+import * as monaco from "https://testing.spike.land/npm:monaco-editor?bundle&target=es2021";
 import pMap from "p-map";
 //@ts-ignore
 //@ts-ignore
@@ -6,10 +6,6 @@ import pMap from "p-map";
 // import { MonacoJsxSyntaxHighlight } from "monaco-jsx-syntax-highlight";
 
 import codicon from "monaco-editor/esm/vs/base/browser/ui/codicons/codicon/codicon.ttf";
-
-import EditorWorker from "https://testing.spike.land/npm:monaco-editor@0.34.0/esm/vs/editor/editor.worker?worker&target=es2021"
-import TSWorker from "https://testing.spike.land/npm:monaco-editor@0.34.0/esm/vs/language/typescript/ts.worker?worker&target=es2021";
-
 
 // import { parse } from "@babel/parser";
 // import traverse from "@babel/traverse";
@@ -251,25 +247,28 @@ const returnModules = {
   monaco,
 };
 
-const tsWorker= TSWorker();
-const ediWorker = EditorWorker();
 
 window.MonacoEnvironment = {
 
-  getWorker:  function (_workerId: string, label: string) {
-
+  getWorker: async function (_workerId: string, label: string) {
 
 
 
 
     if (label === "typescript" || label === "javascript") {
 
-        return tsWorker
+      const TSWorker = (await import("https://testing.spike.land/npm:monaco-editor@0.34.0/esm/vs/language/typescript/ts.worker?worker&target=es2021")).default;
+
+
+        return TSWorker()
       }
+
+      const EditorWorker = (await import("https://testing.spike.land/npm:monaco-editor@0.34.0/esm/vs/editor/editor.worker?worker&target=es2021")).default;
+
 
     // const worker = await 
     // const {TypeScriptWorker}=  await import("monaco-editor/esm/vs/language/typescript/ts.worker")
-    return  ediWorker
+    return  EditorWorker()
   },
 };
 
