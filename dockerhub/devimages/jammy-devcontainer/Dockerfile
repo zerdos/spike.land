@@ -270,7 +270,7 @@ RUN  cd && rm -rf /home/${USER}/.oh-my-zsh && sh -c "$(wget -O- https://github.c
 ### deno.Dockerfile
 
 USER ${USER}
-RUN (curl -fsSL https://deno.land/x/install/install.sh | sh -s v1.24.1 \
+RUN (curl -fsSL https://deno.land/x/install/install.sh | sh -s v1.24.3 \
   && echo "export DENO_INSTALL=\"\${HOME}/.deno\"" >> ${HOME}/.zshrc \
   && echo "export DENO_INSTALL=\"\${HOME}/.deno\"" >> ${HOME}/.bashrc \
   && echo "export PATH=\"\$DENO_INSTALL/bin:\$PATH\"" >> ${HOME}/.bashrc \
