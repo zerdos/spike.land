@@ -1,4 +1,4 @@
-import * as monaco from "https://testing.spike.land/npm:monaco-editor@0.34.0?bundle";
+import * as monaco from "monaco-editor";
 import pMap from "p-map";
 //@ts-ignore
 //@ts-ignore
@@ -7,8 +7,8 @@ import pMap from "p-map";
 
 import codicon from "monaco-editor/esm/vs/base/browser/ui/codicons/codicon/codicon.ttf";
 
-import EditorWorker from "https://testing.spike.land/npm:monaco-editor@0.34.0/esm/vs/editor/editor.worker?worker"
-import TSWorker from "https://testing.spike.land/npm:monaco-editor@0.34.0/esm/vs/language/typescript/ts.worker?worker";
+import EditorWorker from "https://testing.spike.land/npm:monaco-editor@0.34.0/esm/vs/editor/editor.worker?worker&target=es2021"
+import TSWorker from "https://testing.spike.land/npm:monaco-editor@0.34.0/esm/vs/language/typescript/ts.worker?worker&target=es2021";
 
 
 // import { parse } from "@babel/parser";

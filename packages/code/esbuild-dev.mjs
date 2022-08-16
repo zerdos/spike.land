@@ -1,7 +1,8 @@
 import esbuild from "esbuild";
-
+//import {version} from 'monaco-editor';
 
 import alias from "esbuild-plugin-alias";
+
 
 
 const environment = process.env.NODE_ENV === "production"
@@ -12,6 +13,32 @@ const isDevelopment = environment === "development";
 
 const outdir = "./dist";
 const target = "es2021";
+
+
+
+// let exampleOnResolvePlugin = {
+//   name: 'example',
+//   setup(build) {
+//     let path = require('path')
+
+//     // Redirect all paths starting with "images/" to "./public/images/"
+//     build.onResolve(  { filter: /^monaco-editor/ }, args => {
+
+// console.log(args);
+//     return { path: `/npm:monaco-editor@$${version}?target=${target}`, external: true };
+
+//     //  return { path: path.join(args.resolveDir, 'public', args.path) }
+//     })
+
+//     // Mark all paths starting with "http://" or "https://" as external
+//     build.onResolve({ filter: /^https?:\/\// }, args => {
+//       return { path: args.path, external: true }
+//     })
+//   },
+// }
+
+
+
 
 console.log(`
 -------------------------------------------------
@@ -41,6 +68,7 @@ const buildOptions = {
   external: ["./mST"],
   legalComments: "none",
   plugins: [
+   // exampleOnResolvePlugin,
     alias({
       "react": new URL("./react.ts", import.meta.url).pathname,
       "react-dom": new URL("./react.ts", import.meta.url).pathname,
