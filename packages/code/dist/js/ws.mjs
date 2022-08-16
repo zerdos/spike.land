@@ -3638,7 +3638,7 @@ var initShims = async (assets) => {
   if (importmapped)
     return;
   importmapped = true;
-  await import("../chunk-es-module-shims-Z7QL2KLK.mjs");
+  await import("../chunk-es-module-shims-I37UTXQT.mjs");
   location.origin.includes("localhost") ? importShim.addImportMap({
     "imports": {
       "@emotion/react": orig + "/" + assets["emotion.mjs"],
