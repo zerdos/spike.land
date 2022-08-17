@@ -175,7 +175,7 @@ ENV \
 
 
 
-ENV DOTNET_SDK_VERSION="6.0.400"
+ENV DOTNET_SDK_VERSION="6.0.400-1"
 
 COPY --link --from=mcr.microsoft.com/dotnet/sdk:6.0-jammy  /usr/share/dotnet /usr/share/dotnet
 # COPY --link --from=mcr.microsoft.com/dotnet/sdk:6.0-jammy  /usr/share/powershell /usr/share/powershell
