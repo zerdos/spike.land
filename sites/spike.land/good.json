@@ -223,7 +223,7 @@
           "bytesInOutput": 165601
         },
         "src/getBackupSession.ts": {
-          "bytesInOutput": 2832
+          "bytesInOutput": 2836
         },
         "src/index.ts": {
           "bytesInOutput": 33
@@ -235,7 +235,7 @@
           "bytesInOutput": 478
         }
       },
-      "bytes": 250804
+      "bytes": 250808
     }
   }
 }
