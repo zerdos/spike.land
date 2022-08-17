@@ -31,6 +31,7 @@ import {
   useEffect,
   useId,
   useImperativeHandle,
+  useInsertionEffect,
   useLayoutEffect,
   useMemo,
   useReducer,
@@ -38,7 +39,7 @@ import {
   useState,
   version,
   y
-} from "./chunk-chunk-C24JS35G.mjs";
+} from "./chunk-chunk-7QQ4EGN4.mjs";
 import "./chunk-chunk-IUWUEL4A.mjs";
 export {
   Children,
@@ -76,6 +77,7 @@ export {
   useEffect,
   useId,
   useImperativeHandle,
+  useInsertionEffect,
   useLayoutEffect,
   useMemo,
   useReducer,
