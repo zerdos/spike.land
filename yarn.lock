@@ -2458,7 +2458,7 @@ __metadata:
     "@spike.land/code": ^0.9.1
     esbuild: ^0.15.3
     typescript: 4.7.4
-    wrangler: 2.0.25
+    wrangler: 2.0.26
   languageName: unknown
   linkType: soft
 
@@ -2473,10 +2473,10 @@ __metadata:
     "@mui/material": 5.10.0
     "@originjs/vite-plugin-commonjs": ^1.0.3
     "@types/events": ^3.0.0
-    "@types/lodash": 4.14.182
+    "@types/lodash": 4.14.183
     "@types/lodash.debounce": ^4.0.7
     "@types/lodash.throttle": ^4.1.7
-    "@types/node": 18.7.5
+    "@types/node": 18.7.6
     "@types/prettier": 2.7.0
     "@types/react": 18.0.17
     "@types/react-dom": 18.0.6
@@ -2683,10 +2683,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/lodash@npm:*, @types/lodash@npm:4.14.182":
+"@types/lodash@npm:*":
   version: 4.14.182
   resolution: "@types/lodash@npm:4.14.182"
   checksum: 7dd137aa9dbabd632408bd37009d984655164fa1ecc3f2b6eb94afe35bf0a5852cbab6183148d883e9c73a958b7fec9a9bcf7c8e45d41195add6a18c34958209
+  languageName: node
+  linkType: hard
+
+"@types/lodash@npm:4.14.183":
+  version: 4.14.183
+  resolution: "@types/lodash@npm:4.14.183"
+  checksum: 9c754dc7a2e5f26f9c67e494cffbe5447135a4e30eb2fcbc9da05dd5fa5fbf8579059bcf15014307c1c5d1c6d1b7870860618990d96abee9389d8cb79b3ac93c
   languageName: node
   linkType: hard
 
@@ -2718,10 +2725,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:18.7.5":
-  version: 18.7.5
-  resolution: "@types/node@npm:18.7.5"
-  checksum: f74426f2c9e81ab00e35ddca8db84efb6eb6c77e6d120bbe84d462073c371fa46e4744bd87773d9f7cf9074cf575df573bb89c3335f38f4ecbef2f03b407f35f
+"@types/node@npm:18.7.6":
+  version: 18.7.6
+  resolution: "@types/node@npm:18.7.6"
+  checksum: 5122988c325eda8d1f5cbe4494916036aae1758f9d5bb2d8139a800b8bad1540fbb167cd3c759da9a5cb4600cd3507609ac7969747113c1549a3e4320a17b1a9
   languageName: node
   linkType: hard
 
@@ -5318,7 +5325,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"fsevents@patch:fsevents@npm%3A~2.3.2#~builtin<compat/fsevents>":
+"fsevents@patch:fsevents@npm%3A~2.3.2#~builtin<compat/fsevents>, fsevents@patch:fsevents@~2.3.2#~builtin<compat/fsevents>":
   version: 2.3.2
   resolution: "fsevents@patch:fsevents@npm%3A2.3.2#~builtin<compat/fsevents>::version=2.3.2&hash=18f3a7"
   dependencies:
@@ -9654,30 +9661,30 @@ __metadata:
   languageName: node
   linkType: hard
 
-"wrangler@npm:2.0.25":
-  version: 2.0.25
-  resolution: "wrangler@npm:2.0.25"
+"wrangler@npm:2.0.26":
+  version: 2.0.26
+  resolution: "wrangler@npm:2.0.26"
   dependencies:
-    "@cloudflare/kv-asset-handler": "npm:^0.2.0"
-    "@esbuild-plugins/node-globals-polyfill": "npm:^0.1.1"
-    "@esbuild-plugins/node-modules-polyfill": "npm:^0.1.4"
-    blake3-wasm: "npm:^2.1.5"
-    chokidar: "npm:^3.5.3"
-    esbuild: "npm:0.14.51"
-    fsevents: "npm:~2.3.2"
-    miniflare: "npm:^2.6.0"
-    nanoid: "npm:^3.3.3"
-    path-to-regexp: "npm:^6.2.0"
-    selfsigned: "npm:^2.0.1"
-    source-map: "npm:^0.7.4"
-    xxhash-wasm: "npm:^1.0.1"
+    "@cloudflare/kv-asset-handler": ^0.2.0
+    "@esbuild-plugins/node-globals-polyfill": ^0.1.1
+    "@esbuild-plugins/node-modules-polyfill": ^0.1.4
+    blake3-wasm: ^2.1.5
+    chokidar: ^3.5.3
+    esbuild: 0.14.51
+    fsevents: ~2.3.2
+    miniflare: ^2.6.0
+    nanoid: ^3.3.3
+    path-to-regexp: ^6.2.0
+    selfsigned: ^2.0.1
+    source-map: ^0.7.4
+    xxhash-wasm: ^1.0.1
   dependenciesMeta:
     fsevents:
       optional: true
   bin:
     wrangler: bin/wrangler.js
     wrangler2: bin/wrangler.js
-  checksum: e5b20d513b57e8fa8d8251ee1613d9d247a9f933f9e648596433945a8a7a7f555f5108a21c020be67f0e8794e6f0effda1796a9f0914f7c21c218eeba5dd7ed1
+  checksum: 9164ff3c92e966918004efa8ab26ff42af80d4b32c5590892372bd6c7a9b612c672baba00d195d0b9105249e0a64dce2434640f08dad1bd08e5597f12fd8e1b2
   languageName: node
   linkType: hard
 
