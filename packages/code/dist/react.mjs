@@ -19,7 +19,6 @@ import {
   hydrateRoot,
   isValidElement,
   lazy,
-  m,
   memo,
   on,
   p,
@@ -37,8 +36,9 @@ import {
   useReducer,
   useRef,
   useState,
-  version
-} from "./chunk-chunk-GNTXB2MA.mjs";
+  version,
+  y
+} from "./chunk-chunk-C24JS35G.mjs";
 import "./chunk-chunk-IUWUEL4A.mjs";
 export {
   Children,
@@ -68,7 +68,7 @@ export {
   lazy,
   memo,
   render,
-  m as renderToString,
+  y as renderToString,
   unmountComponentAtNode,
   useCallback,
   useContext,
