@@ -75,32 +75,28 @@
       "bytes": 2244,
       "imports": []
     },
-    "../../.yarn/cache/immutable-npm-4.1.0-f6635927b8-b9bc1f14fb.zip/node_modules/immutable/dist/immutable.es.js": {
-      "bytes": 159095,
+    "../../packages/code/dist/chunk-chunk-E5P5SGZK.mjs": {
+      "bytes": 2723,
       "imports": []
     },
-    "../../.yarn/cache/fast-diff-npm-1.2.0-5ba4171bb6-1b5306eaa9.zip/node_modules/fast-diff/diff.js": {
-      "bytes": 27285,
-      "imports": []
-    },
-    "../../packages/code/js/textDiff.ts": {
-      "bytes": 848,
+    "../../packages/code/dist/chunk-chunk-QMRL7GTW.mjs": {
+      "bytes": 166332,
       "imports": [
         {
-          "path": "../../.yarn/cache/fast-diff-npm-1.2.0-5ba4171bb6-1b5306eaa9.zip/node_modules/fast-diff/diff.js",
+          "path": "../../packages/code/dist/chunk-chunk-E5P5SGZK.mjs",
           "kind": "import-statement"
         }
       ]
     },
-    "../../packages/code/js/session.ts": {
-      "bytes": 7409,
+    "../../packages/code/dist/js/session.mjs": {
+      "bytes": 351,
       "imports": [
         {
-          "path": "../../.yarn/cache/immutable-npm-4.1.0-f6635927b8-b9bc1f14fb.zip/node_modules/immutable/dist/immutable.es.js",
+          "path": "../../packages/code/dist/chunk-chunk-QMRL7GTW.mjs",
           "kind": "import-statement"
         },
         {
-          "path": "../../packages/code/js/textDiff.ts",
+          "path": "../../packages/code/dist/chunk-chunk-E5P5SGZK.mjs",
           "kind": "import-statement"
         }
       ]
@@ -129,7 +125,7 @@
           "kind": "import-statement"
         },
         {
-          "path": "../../packages/code/js/session.ts",
+          "path": "../../packages/code/dist/js/session.mjs",
           "kind": "import-statement"
         },
         {
@@ -202,9 +198,6 @@
         "../../.yarn/cache/@cloudflare-kv-asset-handler-npm-0.2.0-683fd99c2f-bc6a02a9c8.zip/node_modules/@cloudflare/kv-asset-handler/dist/index.js": {
           "bytesInOutput": 8918
         },
-        "../../.yarn/cache/fast-diff-npm-1.2.0-5ba4171bb6-1b5306eaa9.zip/node_modules/fast-diff/diff.js": {
-          "bytesInOutput": 20440
-        },
         "src/chat.ts": {
           "bytesInOutput": 6267
         },
@@ -223,14 +216,11 @@
         "src/chatRoom.ts": {
           "bytesInOutput": 14723
         },
-        "../../.yarn/cache/immutable-npm-4.1.0-f6635927b8-b9bc1f14fb.zip/node_modules/immutable/dist/immutable.es.js": {
-          "bytesInOutput": 137809
+        "../../packages/code/dist/chunk-chunk-E5P5SGZK.mjs": {
+          "bytesInOutput": 1342
         },
-        "../../packages/code/js/textDiff.ts": {
-          "bytesInOutput": 693
-        },
-        "../../packages/code/js/session.ts": {
-          "bytesInOutput": 4561
+        "../../packages/code/dist/chunk-chunk-QMRL7GTW.mjs": {
+          "bytesInOutput": 165601
         },
         "src/getBackupSession.ts": {
           "bytesInOutput": 2836
@@ -245,7 +235,7 @@
           "bytesInOutput": 478
         }
       },
-      "bytes": 247548
+      "bytes": 250808
     }
   }
 }

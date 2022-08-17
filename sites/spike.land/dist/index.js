@@ -348,9 +348,526 @@ var require_dist = __commonJS({
   }
 });
 
-// ../../.yarn/cache/fast-diff-npm-1.2.0-5ba4171bb6-1b5306eaa9.zip/node_modules/fast-diff/diff.js
-var require_diff = __commonJS({
+// src/chat.ts
+var import_kv_asset_handler = __toESM(require_dist());
+import manifestJSON from "__STATIC_CONTENT_MANIFEST";
+
+// src/handleErrors.ts
+async function handleErrors(request, func) {
+  try {
+    return await func();
+  } catch (err) {
+    if (request.headers.get("Upgrade") === "websocket") {
+      let stack = null;
+      if (err instanceof Error) {
+        stack = err.stack;
+        console.log({ error: err.stack, message: err.message });
+      }
+      let pair = new WebSocketPair();
+      pair[1].accept();
+      pair[1].send(JSON.stringify({ error: stack }));
+      pair[1].close(1011, "Uncaught exception during session setup");
+      return new Response(null, { status: 101, webSocket: pair[0] });
+    } else {
+      let stack = "We have no idea what happened";
+      if (err instanceof Error) {
+        stack = err.stack || stack;
+        console.log({ error: err.stack, message: err.message });
+      }
+      return new Response(stack, { status: 500 });
+    }
+  }
+}
+
+// src/chat.ts
+var imap = {
+  "imports": {
+    "framer-motion": "/npm:framer-motion?target=es2021&external=react",
+    "@emotion/react": "/emotion.mjs",
+    "react": "/react.mjs",
+    "react-dom": "/react.mjs",
+    "react-dom/client": "/react.mjs",
+    "react-dom/server": "/react.mjs",
+    "react/jsx-runtime": "/react.mjs"
+  }
+};
+var chat_default = {
+  async fetch(request, env, ctx) {
+    return handleErrors(request, async () => {
+      console.log(`handling request: ${request.url}`);
+      const u = new URL(request.url);
+      let url = u;
+      const accept = request.headers.get("accept");
+      const serveJs = !(accept && accept.includes("html"));
+      if (serveJs && u.pathname.endsWith(".tsx") && !u.pathname.endsWith(".index.tsx")) {
+        url = new URL(request.url.replace(".tsx", "/index.tsx"));
+      }
+      if (serveJs && !url.pathname.includes(".")) {
+        url = new URL(request.url + "/index.js");
+      }
+      const path = url.pathname.slice(1).split("/");
+      if (!path[0]) {
+        return new Response(
+          `<meta http-equiv="refresh" content="0; URL=${u.protocol + "//" + u.hostname + ":" + u.port}/live/coder/" />`,
+          {
+            headers: {
+              "Location": `${u.protocol}//${u.hostname}:${u.port}/live/coder`,
+              "Content-Type": "text/html;charset=UTF-8",
+              "Cache-Control": "no- cache"
+            }
+          }
+        );
+      }
+      const handleFetchApi = async (path2) => {
+        const newUrl = new URL(path2.join("/"), url.origin).toString();
+        const _request = new Request(newUrl, { ...request, url: newUrl });
+        return (async (request2) => {
+          if (path2[0].startsWith("npm:")) {
+            const url2 = new URL(request2.url);
+            const resp = await fetch(u.toString().replace("https://testing.spike.land/npm:", "https://esm.sh/"));
+            const org = resp.clone();
+            const body = await resp.text();
+            const regex = /https:\/\/esm.sh\//gm;
+            const regex2 = / from "\//gm;
+            const newBody = body.replaceAll(regex, "https://testing.spike.land/npm:").replaceAll(regex2, ' from "/npm:');
+            return new Response(newBody, {
+              status: 200,
+              headers: {
+                "Access-Control-Allow-Origin": "*",
+                "Cache-Control": "no-cache",
+                "Content-Type": org.headers.get("Content-Type")
+              }
+            });
+          }
+          switch (path2[0]) {
+            case "ping":
+              return new Response("ping" + Math.random(), {
+                headers: {
+                  "Content-Type": "text/html;charset=UTF-8",
+                  "Cache-Control": "no-cache"
+                }
+              });
+            case "env":
+              return new Response(JSON.stringify({ env, accept }), {
+                headers: {
+                  "Content-Type": "text/html;charset=UTF-8",
+                  "Cache-Control": "no-cache"
+                }
+              });
+            case "files.json":
+              return new Response(manifestJSON, {
+                headers: {
+                  "Content-Type": "application/json;charset=UTF-8",
+                  "Cache-Control": "no-cache"
+                }
+              });
+            case "importmap.json":
+              return new Response(JSON.stringify(imap), {
+                headers: {
+                  "Content-Type": "application/json;charset=UTF-8",
+                  "Cache-Control": "no-cache"
+                }
+              });
+            case "api":
+              return handleApiRequest(path2.slice(1), request2, env);
+            case "ipns":
+            case "ipfs":
+              const u2 = new URL(request2.url, "https://cloudflare-ipfs.com");
+              const new1 = new URL(u2.pathname, "https://cloudflare-ipfs.com");
+              const resp = await fetch(new1.toString());
+              if (resp.ok)
+                return resp;
+              const new2 = new URL(u2.pathname, "https://ipfs.io");
+              const resp2 = await fetch(new2.toString());
+              return resp2;
+            case "live":
+              const paths = [...path2.slice(1)];
+              return Promise.any([
+                handleApiRequest(
+                  ["room", ...paths, "public"],
+                  request2,
+                  env
+                ),
+                path2.length > 2 ? handleFetchApi([...path2.slice(2)]) : Promise.reject()
+              ]).catch(() => new Response("Error"));
+            default:
+              return (0, import_kv_asset_handler.getAssetFromKV)(
+                {
+                  request: request2,
+                  waitUntil(promise) {
+                    return ctx.waitUntil(promise);
+                  }
+                },
+                {
+                  ASSET_NAMESPACE: env.__STATIC_CONTENT,
+                  ASSET_MANIFEST: manifestJSON
+                }
+              );
+          }
+        })(_request);
+      };
+      return handleFetchApi(path);
+    });
+  }
+};
+async function handleApiRequest(path, request, env) {
+  switch (path[0]) {
+    case "room": {
+      if (!path[1]) {
+        if (request.method === "POST") {
+          const id2 = env.CODE.newUniqueId();
+          return new Response(id2.toString(), {
+            headers: { "Access-Control-Allow-Origin": "*" }
+          });
+        } else {
+          return new Response("Method not allowed", { status: 405 });
+        }
+      }
+      const name = path[1].replace(".tsx", "");
+      let id;
+      if (name.match(/^[0-9a-f]{64}$/)) {
+        id = env.CODE.idFromString(name);
+      } else if (name.length <= 32) {
+        id = env.CODE.idFromName(name);
+      } else {
+        return new Response("Name too long", { status: 404 });
+      }
+      const roomObject = env.CODE.get(id);
+      const newUrl = new URL(request.url);
+      newUrl.pathname = "/" + path.slice(2).join("/");
+      newUrl.searchParams.append("room", name);
+      return roomObject.fetch(newUrl.toString(), request);
+    }
+    case "rtc": {
+      const room = path[1];
+      const user = path[2];
+    }
+    default:
+      return new Response("Not found", { status: 404 });
+  }
+}
+
+// src/rateLimiterClient.ts
+var RateLimiterClient = class {
+  constructor(getLimiterStub, reportError) {
+    this.getLimiterStub = getLimiterStub;
+    this.reportError = reportError;
+    this.getLimiterStub = getLimiterStub;
+    this.reportError = reportError;
+    this.limiter = getLimiterStub();
+    this.inCoolDown = false;
+  }
+  checkLimit() {
+    if (this.inCoolDown) {
+      return false;
+    }
+    this.inCoolDown = true;
+    this.callLimiter();
+    return true;
+  }
+  async callLimiter() {
+    try {
+      let response;
+      try {
+        response = await this.limiter.fetch(
+          new Request("https://dummy-url", {
+            method: "POST"
+          })
+        );
+      } catch (err) {
+        this.limiter = this.getLimiterStub();
+        response = await this.limiter.fetch(
+          new Request("https://dummy-url", {
+            method: "POST"
+          })
+        );
+      }
+      let coolDown = +await response.text() * 100;
+      await new Promise((resolve) => setTimeout(() => resolve(true), coolDown));
+      this.inCoolDown = false;
+    } catch (err) {
+      this.reportError(err);
+    }
+  }
+};
+
+// src/index.html
+var src_default = `<!DOCTYPE html>
+<html lang="en">
+<head profile="http://www.w3.org/2005/10/profile">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width" />
+  <base href="/">
+  <title>Instant React Editor</title>
+
+<style>
+  html,
+body {
+  color: white;
+  overflow: overlay;
+}
+
+html[data-theme='dark'] {
+  --text-color-normal: hsl(210, 10%, 62%);
+  --text-color-light: hsl(210, 15%, 35%);
+  --text-color-richer: hsl(210, 50%, 72%);
+  --text-color-highlight: hsl(25, 70%, 45%);
+}
+@media screen and (prefers-color-scheme: light) {
+  body {
+    background-color: white;
+    color: black;
+    --text-color-normal: #0a244d;
+    --text-color-light: #8cabd9;
+  }
+}
+html, body {margin: 0; height: 100%}
+
+ /* #root{} */
+ /* Remove all the styles of the "User-Agent-Stylesheet", except for the 'display' property */
+ *:where(:not(iframe, canvas, img, svg, video):not(svg *)) {
+   all: unset;
+   display: revert;
+ }
+ 
+ /* Preferred box-sizing value */
+ *,
+ *::before,
+ *::after {
+   box-sizing: border-box;
+ }
+ 
+ /*
+   Remove list styles (bullets/numbers)
+   in case you use it with normalize.css
+ */
+ ol, ul {
+   list-style: none;
+ }
+ 
+ /* For images to not be able to exceed their container */
+ img {
+   max-width: 100%;
+ }
+ 
+ /* Removes spacing between cells in tables */
+ table {
+   border-collapse: collapse;
+ }
+ 
+ /* Revert the 'white-space' property for textarea elements on Safari */
+ textarea {
+   white-space: revert;
+ }
+ 
+ 
+   </style>
+   </head>
+   
+   
+  <body>
+  
+  
+  
+  
+  
+  
+
+<script>     
+
+window.esmsInitOptions = {
+    shimMode: true,
+    polyfillEnable: [], // default empty
+  };
+  
+  if (location.href.indexOf(".tsx")!==-1) {
+    const loc = location.href.indexOf(".tsx");
+
+    location.href = location.href.slice(0,loc);
+  }
+
+  window.process = {
+    env: {
+      "NODE_ENV": "production"
+    }};
+    
+
+
+
+window.addEventListener('pageshow', (event) => {
+  if (event.persisted) {
+    console.log('This page was restored from the background cache.');
+  } else {
+    console.log('This page was loaded normally.');
+  }
+});
+ 
+ <\/script>
+
+<div id="root"></div>
+
+<script type="module">
+    import {mST, assets, codeSpace, address} from "/live/coder/mST.mjs" 
+    import App from "/live/coder/index.js"
+    import {run } from "./js/ws.mjs"
+
+    run({
+      mST,
+      App,
+      codeSpace,
+      address,
+      assets
+    });
+<\/script>
+
+  <!-- Cloudflare Web Analytics -->
+  <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "cc7e2ceaa75d4111b26b0ec989795375"}'><\/script>
+  <!-- End Cloudflare Web Analytics -->
+</body>
+</html>`;
+
+// src/iife.html
+var iife_default = `
+<!DOCTYPE html>
+<html lang="en">
+<head profile="http://www.w3.org/2005/10/profile">
+  <meta http-equiv="Content-Type" content="text/html,charset=utf-8" />
+  <meta name="viewport" content="width=device-width" />
+  <base href="//">
+  <title>Instant React Editor</title>
+  <style>
+    html,
+body,
+#root,
+#zbody {
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%; 
+ }
+
+
+*, *::before, *::after {
+  box-sizing: inherit;
+}
+body {
+  border: 0;
+  padding: 0;
+  margin: 0;
+  background: fixed;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  background-position: top;
+  overscroll-behavior-y: contain;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  min-height: -webkit-fill-available;
+  height: 100%;
+  /* prevent overscroll bounce*/
+  /* overflow-y: scroll; */
+  --webkit-overflow-scrolling: touch;
+  padding-bottom: 0 !important;
+  overflow: hidden;
+  /* overflow-x: hidden; */
+  /* overflow-y: hidden; */
+}
+  </style>
+</head>
+<body>
+  <script>     
+  window.startedWithNativeEsmModules = false;
+  if (location.href.indexOf(".tsx")!==-1) {
+    const loc = location.href.indexOf(".tsx");
+
+    location.href = location.href.slice(0,loc);
+  }
+  window.process = {
+    env: {
+      "NODE_ENV": "production"
+    }};
+  <\/script>
+  <div id="root"></div>
+  <script>
+
+
+   /** startState **/
+
+
+window.addEventListener('pageshow', (event) => {
+  if (event.persisted) {
+    console.log('This page was restored from the bg cache.');
+  } else {
+    console.log('This page was loaded normally.');
+  }
+});
+ 
+ <\/script>
+
+  <script type="importmap">
+{
+  "imports": {
+    "react/jsx-runtime": "/react.mjs",
+    "react": "/react.mjs",
+    "preact": "/react.mjs",
+    "react-dom/client": "/react.mjs",
+    "react-dom/server": "/react.mjs",
+    "framer-motion": "/framer-motion.mjs",
+    "@emotion/react": "/emotion.mjs",
+    "@emotion/react/jsx-runtime": "/emotion.mjs",
+    "@emotion/cache": "/emotion.mjs"
+  }
+}
+    <\/script>
+  
+    <script defer src="/iife.js"><\/script>
+
+
+  <!-- Cloudflare Web Analytics -->
+  <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "cc7e2ceaa75d4111b26b0ec989795375"}'><\/script><!-- End Cloudflare Web Analytics -->
+</body>
+</html>`;
+
+// src/chatRoom.ts
+import manifestJSON2 from "__STATIC_CONTENT_MANIFEST";
+
+// ../../packages/code/dist/chunk-chunk-E5P5SGZK.mjs
+var __create2 = Object.create;
+var __defProp2 = Object.defineProperty;
+var __getOwnPropDesc2 = Object.getOwnPropertyDescriptor;
+var __getOwnPropNames2 = Object.getOwnPropertyNames;
+var __getProtoOf2 = Object.getPrototypeOf;
+var __hasOwnProp2 = Object.prototype.hasOwnProperty;
+var __esm = (fn, res) => function __init() {
+  return fn && (res = (0, fn[__getOwnPropNames2(fn)[0]])(fn = 0)), res;
+};
+var __commonJS2 = (cb, mod) => function __require() {
+  return mod || (0, cb[__getOwnPropNames2(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
+};
+var __copyProps2 = (to, from, except, desc) => {
+  if (from && typeof from === "object" || typeof from === "function") {
+    for (let key of __getOwnPropNames2(from))
+      if (!__hasOwnProp2.call(to, key) && key !== except)
+        __defProp2(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc2(from, key)) || desc.enumerable });
+  }
+  return to;
+};
+var __toESM2 = (mod, isNodeMode, target) => (target = mod != null ? __create2(__getProtoOf2(mod)) : {}, __copyProps2(
+  isNodeMode || !mod || !mod.__esModule ? __defProp2(target, "default", { value: mod, enumerable: true }) : target,
+  mod
+));
+var define_process_default;
+var init_define_process = __esm({
+  "<define:process>"() {
+    define_process_default = { env: {}, version: "1.1.1", browser: true };
+  }
+});
+
+// ../../packages/code/dist/chunk-chunk-QMRL7GTW.mjs
+var require_diff = __commonJS2({
   "../../.yarn/cache/fast-diff-npm-1.2.0-5ba4171bb6-1b5306eaa9.zip/node_modules/fast-diff/diff.js"(exports, module) {
+    init_define_process();
     var DIFF_DELETE = -1;
     var DIFF_INSERT = 1;
     var DIFF_EQUAL = 0;
@@ -877,492 +1394,8 @@ var require_diff = __commonJS({
     module.exports = diff2;
   }
 });
-
-// src/chat.ts
-var import_kv_asset_handler = __toESM(require_dist());
-import manifestJSON from "__STATIC_CONTENT_MANIFEST";
-
-// src/handleErrors.ts
-async function handleErrors(request, func) {
-  try {
-    return await func();
-  } catch (err) {
-    if (request.headers.get("Upgrade") === "websocket") {
-      let stack = null;
-      if (err instanceof Error) {
-        stack = err.stack;
-        console.log({ error: err.stack, message: err.message });
-      }
-      let pair = new WebSocketPair();
-      pair[1].accept();
-      pair[1].send(JSON.stringify({ error: stack }));
-      pair[1].close(1011, "Uncaught exception during session setup");
-      return new Response(null, { status: 101, webSocket: pair[0] });
-    } else {
-      let stack = "We have no idea what happened";
-      if (err instanceof Error) {
-        stack = err.stack || stack;
-        console.log({ error: err.stack, message: err.message });
-      }
-      return new Response(stack, { status: 500 });
-    }
-  }
-}
-
-// src/chat.ts
-var imap = {
-  "imports": {
-    "framer-motion": "/npm:framer-motion?target=es2021&external=react",
-    "@emotion/react": "/emotion.mjs",
-    "react": "/react.mjs",
-    "react-dom": "/react.mjs",
-    "react-dom/client": "/react.mjs",
-    "react-dom/server": "/react.mjs",
-    "react/jsx-runtime": "/react.mjs"
-  }
-};
-var chat_default = {
-  async fetch(request, env, ctx) {
-    return handleErrors(request, async () => {
-      console.log(`handling request: ${request.url}`);
-      const u = new URL(request.url);
-      let url = u;
-      const accept = request.headers.get("accept");
-      const serveJs = !(accept && accept.includes("html"));
-      if (serveJs && u.pathname.endsWith(".tsx") && !u.pathname.endsWith(".index.tsx")) {
-        url = new URL(request.url.replace(".tsx", "/index.tsx"));
-      }
-      if (serveJs && !url.pathname.includes(".")) {
-        url = new URL(request.url + "/index.js");
-      }
-      const path = url.pathname.slice(1).split("/");
-      if (!path[0]) {
-        return new Response(
-          `<meta http-equiv="refresh" content="0; URL=${u.protocol + "//" + u.hostname + ":" + u.port}/live/coder/" />`,
-          {
-            headers: {
-              "Location": `${u.protocol}//${u.hostname}:${u.port}/live/coder`,
-              "Content-Type": "text/html;charset=UTF-8",
-              "Cache-Control": "no- cache"
-            }
-          }
-        );
-      }
-      const handleFetchApi = async (path2) => {
-        const newUrl = new URL(path2.join("/"), url.origin).toString();
-        const _request = new Request(newUrl, { ...request, url: newUrl });
-        return (async (request2) => {
-          if (path2[0].startsWith("npm:")) {
-            const url2 = new URL(request2.url);
-            const resp = await fetch(u.toString().replace("https://testing.spike.land/npm:", "https://esm.sh/"));
-            const org = resp.clone();
-            const body = await resp.text();
-            const regex = /https:\/\/esm.sh\//gm;
-            const regex2 = / from "\//gm;
-            const newBody = body.replaceAll(regex, "https://testing.spike.land/npm:").replaceAll(regex2, ' from "/npm:');
-            return new Response(newBody, {
-              status: 200,
-              headers: {
-                "Access-Control-Allow-Origin": "*",
-                "Cache-Control": "no-cache",
-                "Content-Type": org.headers.get("Content-Type")
-              }
-            });
-          }
-          switch (path2[0]) {
-            case "ping":
-              return new Response("ping" + Math.random(), {
-                headers: {
-                  "Content-Type": "text/html;charset=UTF-8",
-                  "Cache-Control": "no-cache"
-                }
-              });
-            case "env":
-              return new Response(JSON.stringify({ env, accept }), {
-                headers: {
-                  "Content-Type": "text/html;charset=UTF-8",
-                  "Cache-Control": "no-cache"
-                }
-              });
-            case "files.json":
-              return new Response(manifestJSON, {
-                headers: {
-                  "Content-Type": "application/json;charset=UTF-8",
-                  "Cache-Control": "no-cache"
-                }
-              });
-            case "importmap.json":
-              return new Response(JSON.stringify(imap), {
-                headers: {
-                  "Content-Type": "application/json;charset=UTF-8",
-                  "Cache-Control": "no-cache"
-                }
-              });
-            case "api":
-              return handleApiRequest(path2.slice(1), request2, env);
-            case "ipns":
-            case "ipfs":
-              const u2 = new URL(request2.url, "https://cloudflare-ipfs.com");
-              const new1 = new URL(u2.pathname, "https://cloudflare-ipfs.com");
-              const resp = await fetch(new1.toString());
-              if (resp.ok)
-                return resp;
-              const new2 = new URL(u2.pathname, "https://ipfs.io");
-              const resp2 = await fetch(new2.toString());
-              return resp2;
-            case "live":
-              const paths = [...path2.slice(1)];
-              return Promise.any([
-                handleApiRequest(
-                  ["room", ...paths, "public"],
-                  request2,
-                  env
-                ),
-                path2.length > 2 ? handleFetchApi([...path2.slice(2)]) : Promise.reject()
-              ]).catch(() => new Response("Error"));
-            default:
-              return (0, import_kv_asset_handler.getAssetFromKV)(
-                {
-                  request: request2,
-                  waitUntil(promise) {
-                    return ctx.waitUntil(promise);
-                  }
-                },
-                {
-                  ASSET_NAMESPACE: env.__STATIC_CONTENT,
-                  ASSET_MANIFEST: manifestJSON
-                }
-              );
-          }
-        })(_request);
-      };
-      return handleFetchApi(path);
-    });
-  }
-};
-async function handleApiRequest(path, request, env) {
-  switch (path[0]) {
-    case "room": {
-      if (!path[1]) {
-        if (request.method === "POST") {
-          const id2 = env.CODE.newUniqueId();
-          return new Response(id2.toString(), {
-            headers: { "Access-Control-Allow-Origin": "*" }
-          });
-        } else {
-          return new Response("Method not allowed", { status: 405 });
-        }
-      }
-      const name = path[1].replace(".tsx", "");
-      let id;
-      if (name.match(/^[0-9a-f]{64}$/)) {
-        id = env.CODE.idFromString(name);
-      } else if (name.length <= 32) {
-        id = env.CODE.idFromName(name);
-      } else {
-        return new Response("Name too long", { status: 404 });
-      }
-      const roomObject = env.CODE.get(id);
-      const newUrl = new URL(request.url);
-      newUrl.pathname = "/" + path.slice(2).join("/");
-      newUrl.searchParams.append("room", name);
-      return roomObject.fetch(newUrl.toString(), request);
-    }
-    case "rtc": {
-      const room = path[1];
-      const user = path[2];
-    }
-    default:
-      return new Response("Not found", { status: 404 });
-  }
-}
-
-// src/rateLimiterClient.ts
-var RateLimiterClient = class {
-  constructor(getLimiterStub, reportError) {
-    this.getLimiterStub = getLimiterStub;
-    this.reportError = reportError;
-    this.getLimiterStub = getLimiterStub;
-    this.reportError = reportError;
-    this.limiter = getLimiterStub();
-    this.inCoolDown = false;
-  }
-  checkLimit() {
-    if (this.inCoolDown) {
-      return false;
-    }
-    this.inCoolDown = true;
-    this.callLimiter();
-    return true;
-  }
-  async callLimiter() {
-    try {
-      let response;
-      try {
-        response = await this.limiter.fetch(
-          new Request("https://dummy-url", {
-            method: "POST"
-          })
-        );
-      } catch (err) {
-        this.limiter = this.getLimiterStub();
-        response = await this.limiter.fetch(
-          new Request("https://dummy-url", {
-            method: "POST"
-          })
-        );
-      }
-      let coolDown = +await response.text() * 100;
-      await new Promise((resolve) => setTimeout(() => resolve(true), coolDown));
-      this.inCoolDown = false;
-    } catch (err) {
-      this.reportError(err);
-    }
-  }
-};
-
-// src/index.html
-var src_default = `<!DOCTYPE html>
-<html lang="en">
-<head profile="http://www.w3.org/2005/10/profile">
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width" />
-  <base href="/">
-  <title>Instant React Editor</title>
-
-<style>
-  html,
-body {
-  color: white;
-  overflow: overlay;
-}
-
-html[data-theme='dark'] {
-  --text-color-normal: hsl(210, 10%, 62%);
-  --text-color-light: hsl(210, 15%, 35%);
-  --text-color-richer: hsl(210, 50%, 72%);
-  --text-color-highlight: hsl(25, 70%, 45%);
-}
-@media screen and (prefers-color-scheme: light) {
-  body {
-    background-color: white;
-    color: black;
-    --text-color-normal: #0a244d;
-    --text-color-light: #8cabd9;
-  }
-}
-html, body {margin: 0; height: 100%}
-
- /* #root{} */
- /* Remove all the styles of the "User-Agent-Stylesheet", except for the 'display' property */
- *:where(:not(iframe, canvas, img, svg, video):not(svg *)) {
-   all: unset;
-   display: revert;
- }
- 
- /* Preferred box-sizing value */
- *,
- *::before,
- *::after {
-   box-sizing: border-box;
- }
- 
- /*
-   Remove list styles (bullets/numbers)
-   in case you use it with normalize.css
- */
- ol, ul {
-   list-style: none;
- }
- 
- /* For images to not be able to exceed their container */
- img {
-   max-width: 100%;
- }
- 
- /* Removes spacing between cells in tables */
- table {
-   border-collapse: collapse;
- }
- 
- /* Revert the 'white-space' property for textarea elements on Safari */
- textarea {
-   white-space: revert;
- }
- 
- 
-   </style>
-   </head>
-   
-   
-  <body>
-  
-  
-  
-  
-  
-  
-
-<script>     
-
-window.esmsInitOptions = {
-    shimMode: true,
-    polyfillEnable: [], // default empty
-  };
-  
-  if (location.href.indexOf(".tsx")!==-1) {
-    const loc = location.href.indexOf(".tsx");
-
-    location.href = location.href.slice(0,loc);
-  }
-
-  window.process = {
-    env: {
-      "NODE_ENV": "production"
-    }};
-    
-
-
-
-window.addEventListener('pageshow', (event) => {
-  if (event.persisted) {
-    console.log('This page was restored from the background cache.');
-  } else {
-    console.log('This page was loaded normally.');
-  }
-});
- 
- <\/script>
-
-<div id="root"></div>
-
-<script type="module">
-    import {mST, assets, codeSpace, address} from "/live/coder/mST.mjs" 
-    import App from "/live/coder/index.js"
-    import {run } from "./js/ws.mjs"
-
-    run({
-      mST,
-      App,
-      codeSpace,
-      address,
-      assets
-    });
-<\/script>
-
-  <!-- Cloudflare Web Analytics -->
-  <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "cc7e2ceaa75d4111b26b0ec989795375"}'><\/script>
-  <!-- End Cloudflare Web Analytics -->
-</body>
-</html>`;
-
-// src/iife.html
-var iife_default = `
-<!DOCTYPE html>
-<html lang="en">
-<head profile="http://www.w3.org/2005/10/profile">
-  <meta http-equiv="Content-Type" content="text/html,charset=utf-8" />
-  <meta name="viewport" content="width=device-width" />
-  <base href="//">
-  <title>Instant React Editor</title>
-  <style>
-    html,
-body,
-#root,
-#zbody {
-  box-sizing: border-box;
-  width: 100%;
-  height: 100%; 
- }
-
-
-*, *::before, *::after {
-  box-sizing: inherit;
-}
-body {
-  border: 0;
-  padding: 0;
-  margin: 0;
-  background: fixed;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  background-size: cover;
-  background-position: top;
-  overscroll-behavior-y: contain;
-  width: 100%;
-  margin: 0;
-  padding: 0;
-  border: 0;
-  min-height: -webkit-fill-available;
-  height: 100%;
-  /* prevent overscroll bounce*/
-  /* overflow-y: scroll; */
-  --webkit-overflow-scrolling: touch;
-  padding-bottom: 0 !important;
-  overflow: hidden;
-  /* overflow-x: hidden; */
-  /* overflow-y: hidden; */
-}
-  </style>
-</head>
-<body>
-  <script>     
-  window.startedWithNativeEsmModules = false;
-  if (location.href.indexOf(".tsx")!==-1) {
-    const loc = location.href.indexOf(".tsx");
-
-    location.href = location.href.slice(0,loc);
-  }
-  window.process = {
-    env: {
-      "NODE_ENV": "production"
-    }};
-  <\/script>
-  <div id="root"></div>
-  <script>
-
-
-   /** startState **/
-
-
-window.addEventListener('pageshow', (event) => {
-  if (event.persisted) {
-    console.log('This page was restored from the bg cache.');
-  } else {
-    console.log('This page was loaded normally.');
-  }
-});
- 
- <\/script>
-
-  <script type="importmap">
-{
-  "imports": {
-    "react/jsx-runtime": "/react.mjs",
-    "react": "/react.mjs",
-    "preact": "/react.mjs",
-    "react-dom/client": "/react.mjs",
-    "react-dom/server": "/react.mjs",
-    "framer-motion": "/framer-motion.mjs",
-    "@emotion/react": "/emotion.mjs",
-    "@emotion/react/jsx-runtime": "/emotion.mjs",
-    "@emotion/cache": "/emotion.mjs"
-  }
-}
-    <\/script>
-  
-    <script defer src="/iife.js"><\/script>
-
-
-  <!-- Cloudflare Web Analytics -->
-  <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "cc7e2ceaa75d4111b26b0ec989795375"}'><\/script><!-- End Cloudflare Web Analytics -->
-</body>
-</html>`;
-
-// src/chatRoom.ts
-import manifestJSON2 from "__STATIC_CONTENT_MANIFEST";
-
-// ../../.yarn/cache/immutable-npm-4.1.0-f6635927b8-b9bc1f14fb.zip/node_modules/immutable/dist/immutable.es.js
+init_define_process();
+init_define_process();
 var DELETE = "delete";
 var SHIFT = 5;
 var SIZE = 1 << SHIFT;
@@ -1430,7 +1463,7 @@ function isAssociative(maybeAssociative) {
 var Collection = function Collection2(value) {
   return isCollection(value) ? value : Seq(value);
 };
-var KeyedCollection = /* @__PURE__ */ function(Collection3) {
+var KeyedCollection = function(Collection3) {
   function KeyedCollection2(value) {
     return isKeyed(value) ? value : KeyedSeq(value);
   }
@@ -1440,7 +1473,7 @@ var KeyedCollection = /* @__PURE__ */ function(Collection3) {
   KeyedCollection2.prototype.constructor = KeyedCollection2;
   return KeyedCollection2;
 }(Collection);
-var IndexedCollection = /* @__PURE__ */ function(Collection3) {
+var IndexedCollection = function(Collection3) {
   function IndexedCollection2(value) {
     return isIndexed(value) ? value : IndexedSeq(value);
   }
@@ -1450,7 +1483,7 @@ var IndexedCollection = /* @__PURE__ */ function(Collection3) {
   IndexedCollection2.prototype.constructor = IndexedCollection2;
   return IndexedCollection2;
 }(Collection);
-var SetCollection = /* @__PURE__ */ function(Collection3) {
+var SetCollection = function(Collection3) {
   function SetCollection2(value) {
     return isCollection(value) && !isAssociative(value) ? value : SetSeq(value);
   }
@@ -1544,7 +1577,7 @@ function isArrayLike(value) {
   }
   return value && typeof value === "object" && Number.isInteger(value.length) && value.length >= 0 && (value.length === 0 ? Object.keys(value).length === 1 : value.hasOwnProperty(value.length - 1));
 }
-var Seq = /* @__PURE__ */ function(Collection3) {
+var Seq = function(Collection3) {
   function Seq2(value) {
     return value === void 0 || value === null ? emptySequence() : isImmutable(value) ? value.toSeq() : seqFromValue(value);
   }
@@ -1597,7 +1630,7 @@ var Seq = /* @__PURE__ */ function(Collection3) {
   };
   return Seq2;
 }(Collection);
-var KeyedSeq = /* @__PURE__ */ function(Seq2) {
+var KeyedSeq = function(Seq2) {
   function KeyedSeq2(value) {
     return value === void 0 || value === null ? emptySequence().toKeyedSeq() : isCollection(value) ? isKeyed(value) ? value.toSeq() : value.fromEntrySeq() : isRecord(value) ? value.toSeq() : keyedSeqFromValue(value);
   }
@@ -1610,7 +1643,7 @@ var KeyedSeq = /* @__PURE__ */ function(Seq2) {
   };
   return KeyedSeq2;
 }(Seq);
-var IndexedSeq = /* @__PURE__ */ function(Seq2) {
+var IndexedSeq = function(Seq2) {
   function IndexedSeq2(value) {
     return value === void 0 || value === null ? emptySequence() : isCollection(value) ? isKeyed(value) ? value.entrySeq() : value.toIndexedSeq() : isRecord(value) ? value.toSeq().entrySeq() : indexedSeqFromValue(value);
   }
@@ -1629,7 +1662,7 @@ var IndexedSeq = /* @__PURE__ */ function(Seq2) {
   };
   return IndexedSeq2;
 }(Seq);
-var SetSeq = /* @__PURE__ */ function(Seq2) {
+var SetSeq = function(Seq2) {
   function SetSeq2(value) {
     return (isCollection(value) && !isAssociative(value) ? value : IndexedSeq(value)).toSetSeq();
   }
@@ -1650,7 +1683,7 @@ Seq.Keyed = KeyedSeq;
 Seq.Set = SetSeq;
 Seq.Indexed = IndexedSeq;
 Seq.prototype[IS_SEQ_SYMBOL] = true;
-var ArraySeq = /* @__PURE__ */ function(IndexedSeq2) {
+var ArraySeq = function(IndexedSeq2) {
   function ArraySeq2(array) {
     this._array = array;
     this.size = array.length;
@@ -1688,7 +1721,7 @@ var ArraySeq = /* @__PURE__ */ function(IndexedSeq2) {
   };
   return ArraySeq2;
 }(IndexedSeq);
-var ObjectSeq = /* @__PURE__ */ function(KeyedSeq2) {
+var ObjectSeq = function(KeyedSeq2) {
   function ObjectSeq2(object) {
     var keys2 = Object.keys(object).concat(
       Object.getOwnPropertySymbols ? Object.getOwnPropertySymbols(object) : []
@@ -1739,7 +1772,7 @@ var ObjectSeq = /* @__PURE__ */ function(KeyedSeq2) {
   return ObjectSeq2;
 }(KeyedSeq);
 ObjectSeq.prototype[IS_ORDERED_SYMBOL] = true;
-var CollectionSeq = /* @__PURE__ */ function(IndexedSeq2) {
+var CollectionSeq = function(IndexedSeq2) {
   function CollectionSeq2(collection) {
     this._collection = collection;
     this.size = collection.length || collection.size;
@@ -2033,7 +2066,7 @@ var STRING_HASH_CACHE_MIN_STRLEN = 16;
 var STRING_HASH_CACHE_MAX_SIZE = 255;
 var STRING_HASH_CACHE_SIZE = 0;
 var stringHashCache = {};
-var ToKeyedSequence = /* @__PURE__ */ function(KeyedSeq2) {
+var ToKeyedSequence = function(KeyedSeq2) {
   function ToKeyedSequence2(indexed, useKeys) {
     this._iter = indexed;
     this._useKeys = useKeys;
@@ -2084,7 +2117,7 @@ var ToKeyedSequence = /* @__PURE__ */ function(KeyedSeq2) {
   return ToKeyedSequence2;
 }(KeyedSeq);
 ToKeyedSequence.prototype[IS_ORDERED_SYMBOL] = true;
-var ToIndexedSequence = /* @__PURE__ */ function(IndexedSeq2) {
+var ToIndexedSequence = function(IndexedSeq2) {
   function ToIndexedSequence2(iter) {
     this._iter = iter;
     this.size = iter.size;
@@ -2124,7 +2157,7 @@ var ToIndexedSequence = /* @__PURE__ */ function(IndexedSeq2) {
   };
   return ToIndexedSequence2;
 }(IndexedSeq);
-var ToSetSequence = /* @__PURE__ */ function(SetSeq2) {
+var ToSetSequence = function(SetSeq2) {
   function ToSetSequence2(iter) {
     this._iter = iter;
     this.size = iter.size;
@@ -2151,7 +2184,7 @@ var ToSetSequence = /* @__PURE__ */ function(SetSeq2) {
   };
   return ToSetSequence2;
 }(SetSeq);
-var FromEntriesSequence = /* @__PURE__ */ function(KeyedSeq2) {
+var FromEntriesSequence = function(KeyedSeq2) {
   function FromEntriesSequence2(entries3) {
     this._iter = entries3;
     this.size = entries3.size;
@@ -3164,7 +3197,7 @@ function asImmutable() {
 function wasAltered() {
   return this.__altered;
 }
-var Map = /* @__PURE__ */ function(KeyedCollection2) {
+var Map = function(KeyedCollection2) {
   function Map2(value) {
     return value === void 0 || value === null ? emptyMap() : isMap(value) && !isOrdered(value) ? value : emptyMap().withMutations(function(map2) {
       var iter = KeyedCollection2(value);
@@ -3575,7 +3608,7 @@ BitmapIndexedNode.prototype.iterate = HashArrayMapNode.prototype.iterate = funct
 ValueNode.prototype.iterate = function(fn, reverse3) {
   return fn(this.entry);
 };
-var MapIterator = /* @__PURE__ */ function(Iterator3) {
+var MapIterator = function(Iterator3) {
   function MapIterator2(map2, type, reverse3) {
     this._type = type;
     this._reverse = reverse3;
@@ -3801,7 +3834,7 @@ var IS_LIST_SYMBOL = "@@__IMMUTABLE_LIST__@@";
 function isList(maybeList) {
   return Boolean(maybeList && maybeList[IS_LIST_SYMBOL]);
 }
-var List = /* @__PURE__ */ function(IndexedCollection2) {
+var List = function(IndexedCollection2) {
   function List2(value) {
     var empty = emptyList();
     if (value === void 0 || value === null) {
@@ -4338,7 +4371,7 @@ function setListBounds(list, begin, end) {
 function getTailOffset(size) {
   return size < SIZE ? 0 : size - 1 >>> SHIFT << SHIFT;
 }
-var OrderedMap = /* @__PURE__ */ function(Map2) {
+var OrderedMap = function(Map2) {
   function OrderedMap2(value) {
     return value === void 0 || value === null ? emptyOrderedMap() : isOrderedMap(value) ? value : emptyOrderedMap().withMutations(function(map2) {
       var iter = KeyedCollection(value);
@@ -4479,7 +4512,7 @@ var IS_STACK_SYMBOL = "@@__IMMUTABLE_STACK__@@";
 function isStack(maybeStack) {
   return Boolean(maybeStack && maybeStack[IS_STACK_SYMBOL]);
 }
-var Stack = /* @__PURE__ */ function(IndexedCollection2) {
+var Stack = function(IndexedCollection2) {
   function Stack2(value) {
     return value === void 0 || value === null ? emptyStack() : isStack(value) ? value : emptyStack().pushAll(value);
   }
@@ -4750,7 +4783,7 @@ function toJS(value) {
   });
   return result;
 }
-var Set = /* @__PURE__ */ function(SetCollection2) {
+var Set = function(SetCollection2) {
   function Set2(value) {
     return value === void 0 || value === null ? emptySet() : isSet(value) && !isOrdered(value) ? value : emptySet().withMutations(function(set3) {
       var iter = SetCollection2(value);
@@ -4948,7 +4981,7 @@ var EMPTY_SET;
 function emptySet() {
   return EMPTY_SET || (EMPTY_SET = makeSet(emptyMap()));
 }
-var Range = /* @__PURE__ */ function(IndexedSeq2) {
+var Range = function(IndexedSeq2) {
   function Range2(start, end, step) {
     if (!(this instanceof Range2)) {
       return new Range2(start, end, step);
@@ -5613,7 +5646,7 @@ function murmurHashOfSize(size, h) {
 function hashMerge(a, b) {
   return a ^ b + 2654435769 + (a << 6) + (a >> 2) | 0;
 }
-var OrderedSet = /* @__PURE__ */ function(Set2) {
+var OrderedSet = function(Set2) {
   function OrderedSet2(value) {
     return value === void 0 || value === null ? emptyOrderedSet() : isOrderedSet(value) ? value : emptyOrderedSet().withMutations(function(set3) {
       var iter = SetCollection(value);
@@ -5849,9 +5882,86 @@ function setProp(prototype, name) {
   } catch (error) {
   }
 }
-
-// ../../packages/code/js/textDiff.ts
-var import_fast_diff = __toESM(require_diff(), 1);
+var Repeat = function(IndexedSeq2) {
+  function Repeat2(value, times) {
+    if (!(this instanceof Repeat2)) {
+      return new Repeat2(value, times);
+    }
+    this._value = value;
+    this.size = times === void 0 ? Infinity : Math.max(0, times);
+    if (this.size === 0) {
+      if (EMPTY_REPEAT) {
+        return EMPTY_REPEAT;
+      }
+      EMPTY_REPEAT = this;
+    }
+  }
+  if (IndexedSeq2)
+    Repeat2.__proto__ = IndexedSeq2;
+  Repeat2.prototype = Object.create(IndexedSeq2 && IndexedSeq2.prototype);
+  Repeat2.prototype.constructor = Repeat2;
+  Repeat2.prototype.toString = function toString5() {
+    if (this.size === 0) {
+      return "Repeat []";
+    }
+    return "Repeat [ " + this._value + " " + this.size + " times ]";
+  };
+  Repeat2.prototype.get = function get11(index, notSetValue) {
+    return this.has(index) ? this._value : notSetValue;
+  };
+  Repeat2.prototype.includes = function includes3(searchValue) {
+    return is(this._value, searchValue);
+  };
+  Repeat2.prototype.slice = function slice3(begin, end) {
+    var size = this.size;
+    return wholeSlice(begin, end, size) ? this : new Repeat2(
+      this._value,
+      resolveEnd(end, size) - resolveBegin(begin, size)
+    );
+  };
+  Repeat2.prototype.reverse = function reverse3() {
+    return this;
+  };
+  Repeat2.prototype.indexOf = function indexOf2(searchValue) {
+    if (is(this._value, searchValue)) {
+      return 0;
+    }
+    return -1;
+  };
+  Repeat2.prototype.lastIndexOf = function lastIndexOf2(searchValue) {
+    if (is(this._value, searchValue)) {
+      return this.size;
+    }
+    return -1;
+  };
+  Repeat2.prototype.__iterate = function __iterate2(fn, reverse3) {
+    var size = this.size;
+    var i = 0;
+    while (i !== size) {
+      if (fn(this._value, reverse3 ? size - ++i : i++, this) === false) {
+        break;
+      }
+    }
+    return i;
+  };
+  Repeat2.prototype.__iterator = function __iterator2(type, reverse3) {
+    var this$1$1 = this;
+    var size = this.size;
+    var i = 0;
+    return new Iterator(
+      function() {
+        return i === size ? iteratorDone() : iteratorValue(type, reverse3 ? size - ++i : i++, this$1$1._value);
+      }
+    );
+  };
+  Repeat2.prototype.equals = function equals3(other) {
+    return other instanceof Repeat2 ? is(this._value, other._value) : deepEqual(other);
+  };
+  return Repeat2;
+}(IndexedSeq);
+var EMPTY_REPEAT;
+init_define_process();
+var import_fast_diff = __toESM2(require_diff(), 1);
 function createDelta(original, revision) {
   var result = (0, import_fast_diff.default)(original, revision);
   const delta = result.map(
@@ -5873,8 +5983,6 @@ function applyPatch(original, delta) {
   }
   return result;
 }
-
-// ../../packages/code/js/session.ts
 function initSession(room, u) {
   return Record({ ...u, room, state: Record(u.state)() });
 }
