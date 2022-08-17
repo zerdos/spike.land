@@ -154,7 +154,7 @@ export const Editor: FC<{ code: string; i: number; codeSpace: string }> = (
       }
     }, 500);
     return () => clearInterval(handler);
-  }, [changeContent, i]);
+  }, [changeContent, i, runner]);
 
   useEffect(() => {
     if (i > counter) {
