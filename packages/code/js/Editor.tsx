@@ -242,6 +242,7 @@ height: ${60 + lines / 40 * 100}% ;
                 margin: 0;
                 position: absolute;
                 bottom: 0;
+                top: 0;
                 left: 0;
                 right: 0;
               `}
