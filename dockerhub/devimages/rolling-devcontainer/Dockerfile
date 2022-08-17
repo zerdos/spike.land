@@ -105,7 +105,7 @@ RUN (addgroup --gid 1000 ${USER}  \
 
 
 
-COPY --from=node:16.16.0-bullseye-slim --link /usr/local/bin/node /usr/local/bin/node
+COPY --from=node:16.17.0-bullseye-slim --link /usr/local/bin/node /usr/local/bin/node
 COPY --from=node-builder --link /usr/local/bin/yarn /usr/local/bin/yarn
                                                     
 
