@@ -10,10 +10,10 @@ import { CodeEnv } from "./env";
 
 const imap = {
   "imports": {
-    // ...imap,
     "framer-motion": "/npm:framer-motion?target=es2021&external=react",
     "@emotion/react": "/npm:@emotion/react?target=es2021&external=react",
-    "@emotion/react/jsx-runtime": "/npm:@emotion/react/jsx-runtime?target=es2021&external=react",
+    "@emotion/react/jsx-runtime":
+      "/npm:@emotion/react/jsx-runtime?target=es2021&external=react",
     "react": "/npm:@preact/compat",
     "react-dom": "/npm:@preact/compat",
     "react-dom/client": "/npm:@preact/compat",
@@ -66,7 +66,7 @@ export default {
             headers: {
               "Location": `${u.protocol}//${u.hostname}:${u.port}/live/coder`,
               "Content-Type": "text/html;charset=UTF-8",
-              "Cache-Control": "no- cache",
+              "Cache-Control": "no-cache",
             },
           },
         );
@@ -76,37 +76,53 @@ export default {
         const newUrl = new URL(path.join("/"), url.origin).toString();
         const _request = new Request(newUrl, { ...request, url: newUrl });
 
-      
-
-
         return (async (request) => {
+          if (path[0].startsWith("npm:")) {
+            const cacheUrl = new URL(request.url);
 
-          if(path[0].startsWith("npm:")){
+            // Construct the cache key from the cache URL
+            const cacheKey = new Request(cacheUrl.toString());
+            const cache = caches.default;
 
-            const url = new URL(request.url);
+            // Check whether the value is already available in the cache
+            // if not, you will need to fetch it from origin, and store it in the cache
+            // for future access
+            const cachedResponse = await cache.match(cacheKey);
+            if (cachedResponse && cachedResponse.ok) {
+              return cachedResponse.clone();
+            }
 
-           const resp =  await fetch(u.toString().replace("https://testing.spike.land/npm:", "https://esm.sh/"))
+            const esmUrl =  u.toString().replace("https://testing.spike.land/npm:",
+              "https://esm.sh/");
 
-           if (!resp.ok) return resp
-           const org = resp.clone();
-           
-           const isText = resp.headers.get("Content-Type").includes("charset");
-           const body = await (isText? resp.text(): resp.blob() );
-           const regex = /https:\/\/esm.sh\//gm
-           const regex2 = / from "\//gm
+            const resp = await fetch(esmUrl, {...request, url: esmUrl});
 
+            if (resp !== null && !resp.ok) return resp;
 
-            return new Response(isText?body.replaceAll(regex, "https://testing.spike.land/npm:")
-            .replaceAll(regex2, " from \"/npm:"):body, {
-              status: 200,
-              headers:  {
-                "Access-Control-Allow-Origin": "*",
-                "Cache-Control": "immutable",
-                "Content-Type": org.headers.get("Content-Type")
+            const isText = !!resp?.headers?.get("Content-Type")?.includes(
+              "charset",
+            );
+            const bodyStr = await (isText ? resp.text() : null);
+            const regex = /https:\/\/esm.sh\//gm;
+            const regex2 = / from "\//gm;
+
+            const responseToCache = new Response(
+              bodyStr
+                ? bodyStr.replaceAll(regex, "https://testing.spike.land/npm:")
+                  .replaceAll(regex2, ' from "/npm:')
+                : await resp.blob(),
+              {
+                status: 200,
+                headers: {
+                  "Access-Control-Allow-Origin": "*",
+                  "Cache-Control": "immutable",
+                  "Content-Type": resp.headers.get("Content-Type")!,
+                },
               },
-            });
+            );
+            await cache.put(cacheKey, responseToCache.clone());
+            return responseToCache;
           }
-
 
           switch (path[0]) {
             case "ping":
@@ -171,7 +187,7 @@ export default {
               ]).catch(() => new Response("Error"));
 
             default:
-              return getAssetFromKV(
+              const kvResp = await getAssetFromKV(
                 {
                   request,
                   waitUntil(promise) {
@@ -179,19 +195,25 @@ export default {
                   },
                 },
                 {
-                  // cacheControl: (u.includes("chunk-")? {
-                  //   browserTTL:  2 * 60 * 60 * 24,
-                  //   edgeTTL: 2 * 60 * 60 * 24,
-                  //   bypassCache: false
-                  // }: {
-                  //   browserTTL: null,
-                  //   edgeTTL: null,
-                  //   bypassCache: true
-                  // }),
+                  cacheControl: (url.href.includes("chunk-")? {
+                    browserTTL:  2 * 60 * 60 * 24,
+                    edgeTTL: 2 * 60 * 60 * 24,
+                    bypassCache: false
+                  }: {
+                    browserTTL: 0,
+                    edgeTTL: 0,
+                    bypassCache: true
+                  }),
                   ASSET_NAMESPACE: env.__STATIC_CONTENT,
                   ASSET_MANIFEST: manifestJSON,
                 },
               );
+
+              if(url.href.includes("chunk-")) {
+                kvResp.headers.append("Cache-Control", "immutable");
+              }
+
+              return kvResp;
           }
         })(_request);
       };

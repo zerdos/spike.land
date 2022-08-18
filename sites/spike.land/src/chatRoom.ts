@@ -11,17 +11,17 @@ import {
   mST,
   startSession,
 } from "@spike.land/code/js/session";
-// import { Delta } from "@spike.land/code/js/";
+import { Delta } from "@spike.land/code/js/session";
 // import importMap from "@spike.land/code/js/importmap.json";
 import { getBackupSession } from "./getBackupSession";
-
 
 const imap = {
   "imports": {
     // ...imap,
     "framer-motion": "/npm:framer-motion?target=es2021&external=react",
     "@emotion/react": "/npm:@emotion/react?target=es2021&external=react",
-    "@emotion/react/jsx-runtime": "/npm:@emotion/react/jsx-runtime?target=es2021&external=react",
+    "@emotion/react/jsx-runtime":
+      "/npm:@emotion/react/jsx-runtime?target=es2021&external=react",
     "react": "/npm:@preact/compat",
     "react-dom": "/npm:@preact/compat",
     "react-dom/client": "/npm:@preact/compat",
@@ -76,14 +76,16 @@ export class Code {
   room: string = "";
   kv: DurableObjectStorage;
   codeSpace: string;
-  sess: ICodeSession;
+  sess: ICodeSession | null;
   sessionStarted: boolean;
   address: string;
   sessions: WebsocketSession[];
   constructor(state: IState, private env: CodeEnv) {
     this.kv = state.storage;
     this.state = state;
+    this.sessionStarted = false;
     this.sessions = [];
+    this.sess = null;
     this.env = env;
     this.codeSpace = "";
     this.address = "";
@@ -108,11 +110,13 @@ export class Code {
   }
 
   async fetch(request: Request, env: CodeEnv, ctx: ExecutionContext) {
+    const state = this.sess!;
     let url = new URL(request.url);
+
     if (!this.sessionStarted) {
       startSession(
         this.codeSpace,
-        { name: this.codeSpace, state: this.sess },
+        { name: this.codeSpace, state },
         url.origin,
       );
       this.sessionStarted = true;
@@ -353,7 +357,10 @@ export class Code {
             HTML.replaceAll(
               "/live/coder/",
               `/live/${this.codeSpace}/`,
-            ).replace(`<script type="importmap"></script>`, ` <script type="importmap">${JSON.stringify(imap)}</script>`)
+            ).replace(
+              `<script type="importmap"></script>`,
+              ` <script type="importmap">${JSON.stringify(imap)}</script>`,
+            )
               .replace("js/ws.mjs", a["js/ws.mjs"])
               .replace(
                 `/* #root{} */`,

@@ -17,9 +17,9 @@
     "resolveJsonModule": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
-    "types": ["@cloudflare/workers-types", "@cloudflare/kv-asset-handler"]
+    "types": ["@cloudflare/workers-types"]
   },
   "include": [
-    "src"
+    "src/*"
   ]
 }
