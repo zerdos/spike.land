@@ -804,10 +804,10 @@ function checkIfVariantNode(props) {
 // ../../node_modules/framer-motion/dist/es/context/MotionContext/utils.mjs
 function getCurrentTreeVariants(props, context) {
   if (checkIfControllingVariants(props)) {
-    const { initial, animate: animate4 } = props;
+    const { initial, animate: animate3 } = props;
     return {
       initial: initial === false || isVariantLabel(initial) ? initial : void 0,
-      animate: isVariantLabel(animate4) ? animate4 : void 0
+      animate: isVariantLabel(animate3) ? animate3 : void 0
     };
   }
   return props.inherit !== false ? context : {};
@@ -815,8 +815,8 @@ function getCurrentTreeVariants(props, context) {
 
 // ../../node_modules/framer-motion/dist/es/context/MotionContext/create.mjs
 function useCreateMotionContext(props) {
-  const { initial, animate: animate4 } = getCurrentTreeVariants(props, useContext(MotionContext));
-  return useMemo(() => ({ initial, animate: animate4 }), [variantLabelsAsDependency(initial), variantLabelsAsDependency(animate4)]);
+  const { initial, animate: animate3 } = getCurrentTreeVariants(props, useContext(MotionContext));
+  return useMemo(() => ({ initial, animate: animate3 }), [variantLabelsAsDependency(initial), variantLabelsAsDependency(animate3)]);
 }
 function variantLabelsAsDependency(prop) {
   return Array.isArray(prop) ? prop.join(" ") : prop;
@@ -1117,15 +1117,15 @@ function makeLatestValues(props, context, presenceContext, scrapeMotionValues) {
   for (const key in motionValues) {
     values[key] = resolveMotionValue(motionValues[key]);
   }
-  let { initial, animate: animate4 } = props;
+  let { initial, animate: animate3 } = props;
   const isControllingVariants = checkIfControllingVariants(props);
   const isVariantNode = checkIfVariantNode(props);
   if (context && isVariantNode && !isControllingVariants && props.inherit !== false) {
     initial !== null && initial !== void 0 ? initial : initial = context.initial;
-    animate4 !== null && animate4 !== void 0 ? animate4 : animate4 = context.animate;
+    animate3 !== null && animate3 !== void 0 ? animate3 : animate3 = context.animate;
   }
   const initialAnimationIsBlocked = blockInitialAnimation || initial === false;
-  const variantToSet = initialAnimationIsBlocked ? animate4 : initial;
+  const variantToSet = initialAnimationIsBlocked ? animate3 : initial;
   if (variantToSet && typeof variantToSet !== "boolean" && !isAnimationControls(variantToSet)) {
     const list = Array.isArray(variantToSet) ? variantToSet : [variantToSet];
     list.forEach((definition) => {
@@ -2374,29 +2374,6 @@ function inertia({ from = 0, velocity = 0, min, max, power = 0.8, timeConstant =
   };
 }
 
-// ../../node_modules/popmotion/dist/es/utils/angle.mjs
-init_define_process();
-
-// ../../node_modules/popmotion/dist/es/utils/radians-to-degrees.mjs
-init_define_process();
-
-// ../../node_modules/popmotion/dist/es/utils/apply-offset.mjs
-init_define_process();
-
-// ../../node_modules/popmotion/dist/es/utils/attract.mjs
-init_define_process();
-var identity = (v) => v;
-var createAttractor = (alterDisplacement = identity) => (constant, origin, v) => {
-  const displacement = origin - v;
-  const springModifiedDisplacement = -(0 - constant + 1) * (0 - alterDisplacement(Math.abs(displacement)));
-  return displacement <= 0 ? origin + springModifiedDisplacement : origin - springModifiedDisplacement;
-};
-var attract = createAttractor();
-var attractExpo = createAttractor(Math.sqrt);
-
-// ../../node_modules/popmotion/dist/es/utils/degrees-to-radians.mjs
-init_define_process();
-
 // ../../node_modules/popmotion/dist/es/utils/distance.mjs
 init_define_process();
 
@@ -2420,24 +2397,6 @@ function distance(a2, b2) {
     return Math.sqrt(Math.pow(xDelta, 2) + Math.pow(yDelta, 2) + Math.pow(zDelta, 2));
   }
 }
-
-// ../../node_modules/popmotion/dist/es/utils/point-from-vector.mjs
-init_define_process();
-
-// ../../node_modules/popmotion/dist/es/utils/smooth-frame.mjs
-init_define_process();
-
-// ../../node_modules/popmotion/dist/es/utils/to-decimal.mjs
-init_define_process();
-
-// ../../node_modules/popmotion/dist/es/utils/smooth.mjs
-init_define_process();
-
-// ../../node_modules/popmotion/dist/es/utils/snap.mjs
-init_define_process();
-
-// ../../node_modules/popmotion/dist/es/utils/velocity-per-frame.mjs
-init_define_process();
 
 // ../../node_modules/popmotion/dist/es/utils/wrap.mjs
 init_define_process();
@@ -2513,9 +2472,6 @@ function cubicBezier(mX1, mY1, mX2, mY2) {
   }
   return (t) => t === 0 || t === 1 ? t : calcBezier(getTForX(t), mY1, mY2);
 }
-
-// ../../node_modules/popmotion/dist/es/easing/steps.mjs
-init_define_process();
 
 // ../../node_modules/framer-motion/dist/es/utils/subscription-manager.mjs
 init_define_process();
@@ -3282,7 +3238,7 @@ function animateList(visualElement2) {
   return (animations2) => Promise.all(animations2.map(({ animation, options }) => animateVisualElement(visualElement2, animation, options)));
 }
 function createAnimationState(visualElement2) {
-  let animate4 = animateList(visualElement2);
+  let animate3 = animateList(visualElement2);
   const state = createState();
   let isInitialRender = true;
   const buildResolvedTypeValues = (acc, definition) => {
@@ -3294,7 +3250,7 @@ function createAnimationState(visualElement2) {
     return acc;
   };
   function setAnimateFunction(makeAnimator) {
-    animate4 = makeAnimator(visualElement2);
+    animate3 = makeAnimator(visualElement2);
   }
   function animateChanges(options, changedActiveType) {
     var _a;
@@ -3386,7 +3342,7 @@ function createAnimationState(visualElement2) {
       shouldAnimate = false;
     }
     isInitialRender = false;
-    return shouldAnimate ? animate4(animations2) : Promise.resolve();
+    return shouldAnimate ? animate3(animations2) : Promise.resolve();
   }
   function setActive(type, isActive, options) {
     var _a;
@@ -3447,10 +3403,10 @@ var makeRenderlessComponent = (hook) => (props) => {
 
 // ../../node_modules/framer-motion/dist/es/motion/features/animations.mjs
 var animations = {
-  animation: makeRenderlessComponent(({ visualElement: visualElement2, animate: animate4 }) => {
+  animation: makeRenderlessComponent(({ visualElement: visualElement2, animate: animate3 }) => {
     visualElement2.animationState || (visualElement2.animationState = createAnimationState(visualElement2));
-    if (isAnimationControls(animate4)) {
-      useEffect(() => animate4.subscribe(visualElement2), [animate4]);
+    if (isAnimationControls(animate3)) {
+      useEffect(() => animate3.subscribe(visualElement2), [animate3]);
     }
   }),
   exit: makeRenderlessComponent((props) => {
@@ -3998,7 +3954,7 @@ var getValueAsType = (value, type) => {
 // ../../node_modules/framer-motion/dist/es/render/html/utils/build-styles.mjs
 function buildHTMLStyles(state, latestValues, options, transformTemplate) {
   var _a;
-  const { style: style2, vars, transform: transform2, transformKeys: transformKeys2, transformOrigin } = state;
+  const { style, vars, transform: transform2, transformKeys: transformKeys2, transformOrigin } = state;
   transformKeys2.length = 0;
   let hasTransform2 = false;
   let hasTransformOrigin = false;
@@ -4023,18 +3979,18 @@ function buildHTMLStyles(state, latestValues, options, transformTemplate) {
       transformOrigin[key] = valueAsType;
       hasTransformOrigin = true;
     } else {
-      style2[key] = valueAsType;
+      style[key] = valueAsType;
     }
   }
   if (hasTransform2) {
-    style2.transform = buildTransform(state, options, transformIsNone, transformTemplate);
+    style.transform = buildTransform(state, options, transformIsNone, transformTemplate);
   } else if (transformTemplate) {
-    style2.transform = transformTemplate({}, "");
-  } else if (!latestValues.transform && style2.transform) {
-    style2.transform = "none";
+    style.transform = transformTemplate({}, "");
+  } else if (!latestValues.transform && style.transform) {
+    style.transform = "none";
   }
   if (hasTransformOrigin) {
-    style2.transformOrigin = buildTransformOrigin(transformOrigin);
+    style.transformOrigin = buildTransformOrigin(transformOrigin);
   }
 }
 
@@ -4060,29 +4016,29 @@ function useInitialMotionValues({ transformTemplate }, visualState, isStatic) {
   return useMemo(() => {
     const state = createHtmlRenderState();
     buildHTMLStyles(state, visualState, { enableHardwareAcceleration: !isStatic }, transformTemplate);
-    const { vars, style: style2 } = state;
-    return Object.assign(Object.assign({}, vars), style2);
+    const { vars, style } = state;
+    return Object.assign(Object.assign({}, vars), style);
   }, [visualState]);
 }
 function useStyle(props, visualState, isStatic) {
   const styleProp = props.style || {};
-  let style2 = {};
-  copyRawValuesOnly(style2, styleProp, props);
-  Object.assign(style2, useInitialMotionValues(props, visualState, isStatic));
+  let style = {};
+  copyRawValuesOnly(style, styleProp, props);
+  Object.assign(style, useInitialMotionValues(props, visualState, isStatic));
   if (props.transformValues) {
-    style2 = props.transformValues(style2);
+    style = props.transformValues(style);
   }
-  return style2;
+  return style;
 }
 function useHTMLProps(props, visualState, isStatic) {
   const htmlProps = {};
-  const style2 = useStyle(props, visualState, isStatic);
+  const style = useStyle(props, visualState, isStatic);
   if (Boolean(props.drag) && props.dragListener !== false) {
     htmlProps.draggable = false;
-    style2.userSelect = style2.WebkitUserSelect = style2.WebkitTouchCallout = "none";
-    style2.touchAction = props.drag === true ? "none" : `pan-${props.drag === "x" ? "y" : "x"}`;
+    style.userSelect = style.WebkitUserSelect = style.WebkitTouchCallout = "none";
+    style.touchAction = props.drag === true ? "none" : `pan-${props.drag === "x" ? "y" : "x"}`;
   }
-  htmlProps.style = style2;
+  htmlProps.style = style;
   return htmlProps;
 }
 
@@ -4114,11 +4070,11 @@ var camelKeys = {
   offset: "strokeDashoffset",
   array: "strokeDasharray"
 };
-function buildSVGPath(attrs, length2, spacing = 1, offset = 0, useDashCase = true) {
+function buildSVGPath(attrs, length, spacing = 1, offset = 0, useDashCase = true) {
   attrs.pathLength = 1;
   const keys2 = useDashCase ? dashKeys : camelKeys;
   attrs[keys2.offset] = px.transform(-offset);
-  const pathLength = px.transform(length2);
+  const pathLength = px.transform(length);
   const pathSpacing = px.transform(spacing);
   attrs[keys2.array] = `${pathLength} ${pathSpacing}`;
 }
@@ -4129,14 +4085,14 @@ function buildSVGAttrs(state, _a, options, transformTemplate) {
   buildHTMLStyles(state, latest, options, transformTemplate);
   state.attrs = state.style;
   state.style = {};
-  const { attrs, style: style2, dimensions } = state;
+  const { attrs, style, dimensions } = state;
   if (attrs.transform) {
     if (dimensions)
-      style2.transform = attrs.transform;
+      style.transform = attrs.transform;
     delete attrs.transform;
   }
-  if (dimensions && (originX !== void 0 || originY !== void 0 || style2.transform)) {
-    style2.transformOrigin = calcSVGTransformOrigin(dimensions, originX !== void 0 ? originX : 0.5, originY !== void 0 ? originY : 0.5);
+  if (dimensions && (originX !== void 0 || originY !== void 0 || style.transform)) {
+    style.transformOrigin = calcSVGTransformOrigin(dimensions, originX !== void 0 ? originX : 0.5, originY !== void 0 ? originY : 0.5);
   }
   if (attrX !== void 0)
     attrs.x = attrX;
@@ -4195,8 +4151,8 @@ var camelToDash = (str) => str.replace(CAMEL_CASE_PATTERN, REPLACE_TEMPLATE).toL
 
 // ../../node_modules/framer-motion/dist/es/render/html/utils/render.mjs
 init_define_process();
-function renderHTML(element, { style: style2, vars }, styleProp, projection) {
-  Object.assign(element.style, style2, projection && projection.getProjectionStyles(styleProp));
+function renderHTML(element, { style, vars }, styleProp, projection) {
+  Object.assign(element.style, style, projection && projection.getProjectionStyles(styleProp));
   for (const key in vars) {
     element.style.setProperty(key, vars[key]);
   }
@@ -4241,11 +4197,11 @@ init_define_process();
 // ../../node_modules/framer-motion/dist/es/render/html/utils/scrape-motion-values.mjs
 init_define_process();
 function scrapeMotionValuesFromProps(props) {
-  const { style: style2 } = props;
+  const { style } = props;
   const newValues = {};
-  for (const key in style2) {
-    if (isMotionValue(style2[key]) || isForcedMotionValue(key, props)) {
-      newValues[key] = style2[key];
+  for (const key in style) {
+    if (isMotionValue(style[key]) || isForcedMotionValue(key, props)) {
+      newValues[key] = style[key];
     }
   }
   return newValues;
@@ -4619,13 +4575,13 @@ function getVelocity2(history, timeDelta) {
   if (!timestampedPoint) {
     return { x: 0, y: 0 };
   }
-  const time2 = (lastPoint.timestamp - timestampedPoint.timestamp) / 1e3;
-  if (time2 === 0) {
+  const time = (lastPoint.timestamp - timestampedPoint.timestamp) / 1e3;
+  if (time === 0) {
     return { x: 0, y: 0 };
   }
   const currentVelocity = {
-    x: (lastPoint.x - timestampedPoint.x) / time2,
-    y: (lastPoint.y - timestampedPoint.y) / time2
+    x: (lastPoint.x - timestampedPoint.x) / time,
+    y: (lastPoint.y - timestampedPoint.y) / time
   };
   if (currentVelocity.x === Infinity) {
     currentVelocity.x = 0;
@@ -4817,10 +4773,10 @@ function translateAxis(axis, distance2) {
   axis.min = axis.min + distance2;
   axis.max = axis.max + distance2;
 }
-function transformAxis(axis, transforms2, [key, scaleKey, originKey]) {
-  const axisOrigin = transforms2[originKey] !== void 0 ? transforms2[originKey] : 0.5;
+function transformAxis(axis, transforms, [key, scaleKey, originKey]) {
+  const axisOrigin = transforms[originKey] !== void 0 ? transforms[originKey] : 0.5;
   const originPoint = mix(axis.min, axis.max, axisOrigin);
-  applyAxisDelta(axis, transforms2[key], transforms2[scaleKey], originPoint, transforms2.scale);
+  applyAxisDelta(axis, transforms[key], transforms[scaleKey], originPoint, transforms.scale);
 }
 var xKeys = ["x", "scaleX", "originX"];
 var yKeys = ["y", "scaleY", "originY"];
@@ -4888,8 +4844,8 @@ var VisualElementDragControls = class {
         if (percent.test(current)) {
           const measuredAxis = (_b = (_a2 = this.visualElement.projection) === null || _a2 === void 0 ? void 0 : _a2.layout) === null || _b === void 0 ? void 0 : _b.actual[axis];
           if (measuredAxis) {
-            const length2 = calcLength(measuredAxis);
-            current = length2 * (parseFloat(current) / 100);
+            const length = calcLength(measuredAxis);
+            current = length * (parseFloat(current) / 100);
           }
         }
         this.originPoint[axis] = current;
@@ -5475,9 +5431,9 @@ var htmlConfig = {
   restoreTransform(instance, mutableState) {
     instance.style.transform = mutableState.style.transform;
   },
-  removeValueFromRenderState(key, { vars, style: style2 }) {
+  removeValueFromRenderState(key, { vars, style }) {
     delete vars[key];
-    delete style2[key];
+    delete style[key];
   },
   makeTargetAnimatable(element, _a, _b, isMounted) {
     var { transition, transitionEnd } = _a, target = __rest(_a, ["transition", "transitionEnd"]);
@@ -5808,14 +5764,14 @@ function removeAxisDelta(axis, translate = 0, scale2 = 1, origin = 0.5, boxScale
   axis.min = removePointDelta(axis.min, translate, scale2, originPoint, boxScale);
   axis.max = removePointDelta(axis.max, translate, scale2, originPoint, boxScale);
 }
-function removeAxisTransforms(axis, transforms2, [key, scaleKey, originKey], origin, sourceAxis) {
-  removeAxisDelta(axis, transforms2[key], transforms2[scaleKey], transforms2[originKey], transforms2.scale, origin, sourceAxis);
+function removeAxisTransforms(axis, transforms, [key, scaleKey, originKey], origin, sourceAxis) {
+  removeAxisDelta(axis, transforms[key], transforms[scaleKey], transforms[originKey], transforms.scale, origin, sourceAxis);
 }
 var xKeys2 = ["x", "scaleX", "originX"];
 var yKeys2 = ["y", "scaleY", "originY"];
-function removeBoxTransforms(box, transforms2, originBox, sourceBox) {
-  removeAxisTransforms(box.x, transforms2, xKeys2, originBox === null || originBox === void 0 ? void 0 : originBox.x, sourceBox === null || sourceBox === void 0 ? void 0 : sourceBox.x);
-  removeAxisTransforms(box.y, transforms2, yKeys2, originBox === null || originBox === void 0 ? void 0 : originBox.y, sourceBox === null || sourceBox === void 0 ? void 0 : sourceBox.y);
+function removeBoxTransforms(box, transforms, originBox, sourceBox) {
+  removeAxisTransforms(box.x, transforms, xKeys2, originBox === null || originBox === void 0 ? void 0 : originBox.x, sourceBox === null || sourceBox === void 0 ? void 0 : sourceBox.x);
+  removeAxisTransforms(box.y, transforms, yKeys2, originBox === null || originBox === void 0 ? void 0 : originBox.y, sourceBox === null || sourceBox === void 0 ? void 0 : sourceBox.y);
 }
 
 // ../../node_modules/framer-motion/dist/es/projection/geometry/utils.mjs
@@ -6656,15 +6612,15 @@ function notifyLayoutUpdate(node) {
     if (node.options.animationType === "size") {
       eachAxis((axis) => {
         const axisSnapshot = snapshot.isShared ? snapshot.measured[axis] : snapshot.layout[axis];
-        const length2 = calcLength(axisSnapshot);
+        const length = calcLength(axisSnapshot);
         axisSnapshot.min = layout[axis].min;
-        axisSnapshot.max = axisSnapshot.min + length2;
+        axisSnapshot.max = axisSnapshot.min + length;
       });
     } else if (node.options.animationType === "position") {
       eachAxis((axis) => {
         const axisSnapshot = snapshot.isShared ? snapshot.measured[axis] : snapshot.layout[axis];
-        const length2 = calcLength(layout[axis]);
-        axisSnapshot.max = axisSnapshot.min + length2;
+        const length = calcLength(layout[axis]);
+        axisSnapshot.max = axisSnapshot.min + length;
       });
     }
     const layoutDelta = createDelta();
@@ -6814,7 +6770,7 @@ var HTMLProjectionNode = createProjectionNode({
 
 // ../../node_modules/framer-motion/dist/es/render/dom/motion.mjs
 var featureBundle = Object.assign(Object.assign(Object.assign(Object.assign({}, animations), gestureAnimations), drag), layoutFeatures);
-var motion = createMotionProxy((Component2, config) => createDomMotionConfig(Component2, config, featureBundle, createDomVisualElement, HTMLProjectionNode));
+var motion = /* @__PURE__ */ createMotionProxy((Component2, config) => createDomMotionConfig(Component2, config, featureBundle, createDomVisualElement, HTMLProjectionNode));
 function createDomMotionComponent(key) {
   return createMotionComponent(createDomMotionConfig(key, { forwardMotionProps: false }, featureBundle, createDomVisualElement, HTMLProjectionNode));
 }
@@ -6899,9 +6855,9 @@ function PopChild({ children, isPresent: isPresent2 }) {
     if (isPresent2 || !ref.current || !width || !height)
       return;
     ref.current.dataset.motionPopId = id3;
-    const style2 = document.createElement("style");
-    document.head.appendChild(style2);
-    (_a = style2.sheet) === null || _a === void 0 ? void 0 : _a.insertRule(`
+    const style = document.createElement("style");
+    document.head.appendChild(style);
+    (_a = style.sheet) === null || _a === void 0 ? void 0 : _a.insertRule(`
           [data-motion-pop-id="${id3}"] {
             position: absolute !important;
             width: ${width}px !important;
@@ -6911,7 +6867,7 @@ function PopChild({ children, isPresent: isPresent2 }) {
           }
         `);
     return () => {
-      document.head.removeChild(style2);
+      document.head.removeChild(style);
     };
   }, [isPresent2]);
   return createElement(PopChildMeasure, { isPresent: isPresent2, childRef: ref, sizeRef: size }, cloneElement(children, { ref }));
@@ -7249,45 +7205,45 @@ var ReorderContext = createContext(null);
 
 // ../../node_modules/framer-motion/dist/es/components/Reorder/utils/check-reorder.mjs
 init_define_process();
-function checkReorder(order3, value, offset, velocity) {
+function checkReorder(order2, value, offset, velocity) {
   if (!velocity)
-    return order3;
-  const index = order3.findIndex((item2) => item2.value === value);
+    return order2;
+  const index = order2.findIndex((item2) => item2.value === value);
   if (index === -1)
-    return order3;
+    return order2;
   const nextOffset = velocity > 0 ? 1 : -1;
-  const nextItem = order3[index + nextOffset];
+  const nextItem = order2[index + nextOffset];
   if (!nextItem)
-    return order3;
-  const item = order3[index];
+    return order2;
+  const item = order2[index];
   const nextLayout = nextItem.layout;
   const nextItemCenter = mix(nextLayout.min, nextLayout.max, 0.5);
   if (nextOffset === 1 && item.layout.max + offset > nextItemCenter || nextOffset === -1 && item.layout.min + offset < nextItemCenter) {
-    return moveItem(order3, index, index + nextOffset);
+    return moveItem(order2, index, index + nextOffset);
   }
-  return order3;
+  return order2;
 }
 
 // ../../node_modules/framer-motion/dist/es/components/Reorder/Group.mjs
 function ReorderGroup(_a, externalRef) {
   var { children, as = "ul", axis = "y", onReorder, values } = _a, props = __rest(_a, ["children", "as", "axis", "onReorder", "values"]);
   const Component2 = useConstant(() => motion(as));
-  const order3 = [];
+  const order2 = [];
   const isReordering = useRef(false);
   invariant(Boolean(values), "Reorder.Group must be provided a values prop");
   const context = {
     axis,
     registerItem: (value, layout) => {
-      if (layout && order3.findIndex((entry) => value === entry.value) === -1) {
-        order3.push({ value, layout: layout[axis] });
-        order3.sort(compareMin);
+      if (layout && order2.findIndex((entry) => value === entry.value) === -1) {
+        order2.push({ value, layout: layout[axis] });
+        order2.sort(compareMin);
       }
     },
     updateOrder: (id3, offset, velocity) => {
       if (isReordering.current)
         return;
-      const newOrder = checkReorder(order3, id3, offset, velocity);
-      if (order3 !== newOrder) {
+      const newOrder = checkReorder(order2, id3, offset, velocity);
+      if (order2 !== newOrder) {
         isReordering.current = true;
         onReorder(newOrder.map(getValue).filter((value) => values.indexOf(value) !== -1));
       }
@@ -7318,12 +7274,12 @@ function useDefaultMotionValue(value, defaultValue = 0) {
   return isMotionValue(value) ? value : useMotionValue(defaultValue);
 }
 function ReorderItem(_a, externalRef) {
-  var { children, style: style2, value, as = "li", onDrag, layout = true } = _a, props = __rest(_a, ["children", "style", "value", "as", "onDrag", "layout"]);
+  var { children, style, value, as = "li", onDrag, layout = true } = _a, props = __rest(_a, ["children", "style", "value", "as", "onDrag", "layout"]);
   const Component2 = useConstant(() => motion(as));
   const context = useContext(ReorderContext);
   const point2 = {
-    x: useDefaultMotionValue(style2 === null || style2 === void 0 ? void 0 : style2.x),
-    y: useDefaultMotionValue(style2 === null || style2 === void 0 ? void 0 : style2.y)
+    x: useDefaultMotionValue(style === null || style === void 0 ? void 0 : style.x),
+    y: useDefaultMotionValue(style === null || style === void 0 ? void 0 : style.y)
   };
   const zIndex = useTransform([point2.x, point2.y], ([latestX, latestY]) => latestX || latestY ? 1 : "unset");
   const measuredLayout = useRef(null);
@@ -7332,7 +7288,7 @@ function ReorderItem(_a, externalRef) {
   useEffect(() => {
     registerItem(value, measuredLayout.current);
   }, [context]);
-  return createElement(Component2, Object.assign({ drag: axis }, props, { dragSnapToOrigin: true, style: Object.assign(Object.assign({}, style2), { x: point2.x, y: point2.y, zIndex }), layout, onDrag: (event, gesturePoint) => {
+  return createElement(Component2, Object.assign({ drag: axis }, props, { dragSnapToOrigin: true, style: Object.assign(Object.assign({}, style), { x: point2.x, y: point2.y, zIndex }), layout, onDrag: (event, gesturePoint) => {
     const { velocity } = gesturePoint;
     velocity[axis] && updateOrder(value, point2[axis].get(), velocity[axis]);
     onDrag === null || onDrag === void 0 ? void 0 : onDrag(event, gesturePoint);
@@ -7414,39 +7370,12 @@ init_define_process();
 // ../../node_modules/@motionone/dom/dist/index.es.js
 init_define_process();
 
-// ../../node_modules/@motionone/dom/dist/animate/index.es.js
-init_define_process();
-
-// ../../node_modules/@motionone/dom/dist/animate/animate-style.es.js
-init_define_process();
-
-// ../../node_modules/@motionone/dom/dist/animate/data.es.js
-init_define_process();
-
-// ../../node_modules/@motionone/types/dist/index.es.js
-init_define_process();
-
-// ../../node_modules/@motionone/types/dist/MotionValue.es.js
-init_define_process();
-
-// ../../node_modules/@motionone/dom/dist/animate/utils/css-var.es.js
-init_define_process();
-
-// ../../node_modules/@motionone/dom/dist/animate/utils/transforms.es.js
-init_define_process();
-
 // ../../node_modules/@motionone/utils/dist/index.es.js
-init_define_process();
-
-// ../../node_modules/@motionone/utils/dist/array.es.js
 init_define_process();
 
 // ../../node_modules/@motionone/utils/dist/clamp.es.js
 init_define_process();
 var clamp3 = (min, max, v) => Math.min(Math.max(v, min), max);
-
-// ../../node_modules/@motionone/utils/dist/defaults.es.js
-init_define_process();
 
 // ../../node_modules/@motionone/utils/dist/easing.es.js
 init_define_process();
@@ -7499,20 +7428,20 @@ function fillOffset(offset, remaining) {
     offset.push(mix2(min, 1, offsetProgress));
   }
 }
-function defaultOffset2(length2) {
+function defaultOffset2(length) {
   const offset = [0];
-  fillOffset(offset, length2 - 1);
+  fillOffset(offset, length - 1);
   return offset;
 }
 
 // ../../node_modules/@motionone/utils/dist/interpolate.es.js
 function interpolate2(output, input = defaultOffset2(output.length), easing = noopReturn) {
-  const length2 = output.length;
-  const remainder = length2 - input.length;
+  const length = output.length;
+  const remainder = length - input.length;
   remainder > 0 && fillOffset(input, remainder);
   return (t) => {
     let i = 0;
-    for (; i < length2 - 2; i++) {
+    for (; i < length - 2; i++) {
       if (t < input[i + 1])
         break;
     }
@@ -7523,12 +7452,6 @@ function interpolate2(output, input = defaultOffset2(output.length), easing = no
   };
 }
 
-// ../../node_modules/@motionone/utils/dist/is-cubic-bezier.es.js
-init_define_process();
-
-// ../../node_modules/@motionone/utils/dist/is-easing-generator.es.js
-init_define_process();
-
 // ../../node_modules/@motionone/utils/dist/is-function.es.js
 init_define_process();
 var isFunction = (value) => typeof value === "function";
@@ -7537,153 +7460,11 @@ var isFunction = (value) => typeof value === "function";
 init_define_process();
 var isString2 = (value) => typeof value === "string";
 
-// ../../node_modules/@motionone/utils/dist/time.es.js
-init_define_process();
-var time = {
-  ms: (seconds) => seconds * 1e3,
-  s: (milliseconds) => milliseconds / 1e3
-};
-
 // ../../node_modules/@motionone/utils/dist/velocity.es.js
 init_define_process();
 function velocityPerSecond2(velocity, frameDuration) {
   return frameDuration ? velocity * (1e3 / frameDuration) : 0;
 }
-
-// ../../node_modules/@motionone/dom/dist/animate/utils/transforms.es.js
-var axes = ["", "X", "Y", "Z"];
-var order2 = ["translate", "scale", "rotate", "skew"];
-var rotation = {
-  syntax: "<angle>",
-  initialValue: "0deg",
-  toDefaultUnit: (v) => v + "deg"
-};
-var baseTransformProperties = {
-  translate: {
-    syntax: "<length-percentage>",
-    initialValue: "0px",
-    toDefaultUnit: (v) => v + "px"
-  },
-  rotate: rotation,
-  scale: {
-    syntax: "<number>",
-    initialValue: 1,
-    toDefaultUnit: noopReturn
-  },
-  skew: rotation
-};
-var transformDefinitions = /* @__PURE__ */ new Map();
-var asTransformCssVar = (name) => `--motion-${name}`;
-var transforms = ["x", "y", "z"];
-order2.forEach((name) => {
-  axes.forEach((axis) => {
-    transforms.push(name + axis);
-    transformDefinitions.set(asTransformCssVar(name + axis), baseTransformProperties[name]);
-  });
-});
-var transformLookup = new Set(transforms);
-
-// ../../node_modules/@motionone/animation/dist/index.es.js
-init_define_process();
-
-// ../../node_modules/@motionone/animation/dist/Animation.es.js
-init_define_process();
-
-// ../../node_modules/@motionone/animation/dist/utils/easing.es.js
-init_define_process();
-
-// ../../node_modules/@motionone/easing/dist/index.es.js
-init_define_process();
-
-// ../../node_modules/@motionone/easing/dist/cubic-bezier.es.js
-init_define_process();
-var calcBezier2 = (t, a1, a2) => (((1 - 3 * a2 + 3 * a1) * t + (3 * a2 - 6 * a1)) * t + 3 * a1) * t;
-var subdivisionPrecision2 = 1e-7;
-var subdivisionMaxIterations2 = 12;
-function binarySubdivide2(x, lowerBound, upperBound, mX1, mX2) {
-  let currentX;
-  let currentT;
-  let i = 0;
-  do {
-    currentT = lowerBound + (upperBound - lowerBound) / 2;
-    currentX = calcBezier2(currentT, mX1, mX2) - x;
-    if (currentX > 0) {
-      upperBound = currentT;
-    } else {
-      lowerBound = currentT;
-    }
-  } while (Math.abs(currentX) > subdivisionPrecision2 && ++i < subdivisionMaxIterations2);
-  return currentT;
-}
-function cubicBezier2(mX1, mY1, mX2, mY2) {
-  if (mX1 === mY1 && mX2 === mY2)
-    return noopReturn;
-  const getTForX = (aX) => binarySubdivide2(aX, 0, 1, mX1, mX2);
-  return (t) => t === 0 || t === 1 ? t : calcBezier2(getTForX(t), mY1, mY2);
-}
-
-// ../../node_modules/@motionone/easing/dist/steps.es.js
-init_define_process();
-
-// ../../node_modules/@motionone/animation/dist/utils/easing.es.js
-var namedEasings = {
-  ease: cubicBezier2(0.25, 0.1, 0.25, 1),
-  "ease-in": cubicBezier2(0.42, 0, 1, 1),
-  "ease-in-out": cubicBezier2(0.42, 0, 0.58, 1),
-  "ease-out": cubicBezier2(0, 0, 0.58, 1)
-};
-
-// ../../node_modules/@motionone/dom/dist/animate/utils/easing.es.js
-init_define_process();
-
-// ../../node_modules/@motionone/dom/dist/animate/utils/feature-detection.es.js
-init_define_process();
-var testAnimation = (keyframes3, options) => document.createElement("div").animate(keyframes3, options);
-var featureTests = {
-  cssRegisterProperty: () => typeof CSS !== "undefined" && Object.hasOwnProperty.call(CSS, "registerProperty"),
-  waapi: () => Object.hasOwnProperty.call(Element.prototype, "animate"),
-  partialKeyframes: () => {
-    try {
-      testAnimation({ opacity: [1] });
-    } catch (e) {
-      return false;
-    }
-    return true;
-  },
-  finished: () => Boolean(testAnimation({ opacity: [0, 1] }, { duration: 1e-3 }).finished),
-  linearEasing: () => {
-    try {
-      testAnimation({ opacity: 0 }, { easing: "linear(0, 1)" });
-    } catch (e) {
-      return false;
-    }
-    return true;
-  }
-};
-var results = {};
-var supports = {};
-for (const key in featureTests) {
-  supports[key] = () => {
-    if (results[key] === void 0)
-      results[key] = featureTests[key]();
-    return results[key];
-  };
-}
-
-// ../../node_modules/@motionone/dom/dist/animate/utils/keyframes.es.js
-init_define_process();
-
-// ../../node_modules/@motionone/dom/dist/animate/style.es.js
-init_define_process();
-
-// ../../node_modules/@motionone/dom/dist/animate/utils/get-style-name.es.js
-init_define_process();
-
-// ../../node_modules/@motionone/dom/dist/animate/utils/stop-animation.es.js
-init_define_process();
-
-// ../../node_modules/@motionone/dom/dist/animate/utils/options.es.js
-init_define_process();
 
 // ../../node_modules/@motionone/dom/dist/utils/resolve-elements.es.js
 init_define_process();
@@ -7701,264 +7482,6 @@ function resolveElements(elements, selectorCache) {
   }
   return Array.from(elements || []);
 }
-
-// ../../node_modules/@motionone/dom/dist/animate/utils/controls.es.js
-init_define_process();
-
-// ../../node_modules/@motionone/dom/dist/utils/stagger.es.js
-init_define_process();
-
-// ../../node_modules/@motionone/dom/dist/timeline/index.es.js
-init_define_process();
-
-// ../../node_modules/@motionone/dom/dist/timeline/utils/calc-time.es.js
-init_define_process();
-
-// ../../node_modules/@motionone/dom/dist/timeline/utils/edit.es.js
-init_define_process();
-
-// ../../node_modules/@motionone/dom/dist/timeline/utils/sort.es.js
-init_define_process();
-
-// ../../node_modules/@motionone/dom/dist/easing/spring/index.es.js
-init_define_process();
-
-// ../../node_modules/@motionone/generators/dist/index.es.js
-init_define_process();
-
-// ../../node_modules/@motionone/generators/dist/glide/index.es.js
-init_define_process();
-
-// ../../node_modules/@motionone/generators/dist/utils/velocity.es.js
-init_define_process();
-var sampleT = 5;
-function calcGeneratorVelocity(resolveValue, t, current) {
-  const prevT = Math.max(t - sampleT, 0);
-  return velocityPerSecond2(current - resolveValue(prevT), t - prevT);
-}
-
-// ../../node_modules/@motionone/generators/dist/spring/index.es.js
-init_define_process();
-
-// ../../node_modules/@motionone/generators/dist/spring/defaults.es.js
-init_define_process();
-var defaults2 = {
-  stiffness: 100,
-  damping: 10,
-  mass: 1
-};
-
-// ../../node_modules/@motionone/generators/dist/spring/utils.es.js
-init_define_process();
-var calcDampingRatio = (stiffness = defaults2.stiffness, damping = defaults2.damping, mass = defaults2.mass) => damping / (2 * Math.sqrt(stiffness * mass));
-
-// ../../node_modules/@motionone/generators/dist/utils/has-reached-target.es.js
-init_define_process();
-function hasReachedTarget(origin, target, current) {
-  return origin < target && current >= target || origin > target && current <= target;
-}
-
-// ../../node_modules/@motionone/generators/dist/spring/index.es.js
-var spring2 = ({ stiffness = defaults2.stiffness, damping = defaults2.damping, mass = defaults2.mass, from = 0, to = 1, velocity = 0, restSpeed = 2, restDistance = 0.5 } = {}) => {
-  velocity = velocity ? time.s(velocity) : 0;
-  const state = {
-    done: false,
-    hasReachedTarget: false,
-    current: from,
-    target: to
-  };
-  const initialDelta = to - from;
-  const undampedAngularFreq = Math.sqrt(stiffness / mass) / 1e3;
-  const dampingRatio = calcDampingRatio(stiffness, damping, mass);
-  let resolveSpring;
-  if (dampingRatio < 1) {
-    const angularFreq = undampedAngularFreq * Math.sqrt(1 - dampingRatio * dampingRatio);
-    resolveSpring = (t) => to - Math.exp(-dampingRatio * undampedAngularFreq * t) * ((-velocity + dampingRatio * undampedAngularFreq * initialDelta) / angularFreq * Math.sin(angularFreq * t) + initialDelta * Math.cos(angularFreq * t));
-  } else {
-    resolveSpring = (t) => {
-      return to - Math.exp(-undampedAngularFreq * t) * (initialDelta + (-velocity + undampedAngularFreq * initialDelta) * t);
-    };
-  }
-  return (t) => {
-    state.current = resolveSpring(t);
-    const currentVelocity = t === 0 ? velocity : calcGeneratorVelocity(resolveSpring, t, state.current);
-    const isBelowVelocityThreshold = Math.abs(currentVelocity) <= restSpeed;
-    const isBelowDisplacementThreshold = Math.abs(to - state.current) <= restDistance;
-    state.done = isBelowVelocityThreshold && isBelowDisplacementThreshold;
-    state.hasReachedTarget = hasReachedTarget(from, to, state.current);
-    return state;
-  };
-};
-
-// ../../node_modules/@motionone/generators/dist/glide/index.es.js
-var glide = ({ from = 0, velocity = 0, power = 0.8, decay: decay2 = 0.325, bounceDamping, bounceStiffness, changeTarget, min, max, restDistance = 0.5, restSpeed }) => {
-  decay2 = time.ms(decay2);
-  const state = {
-    hasReachedTarget: false,
-    done: false,
-    current: from,
-    target: from
-  };
-  const isOutOfBounds = (v) => min !== void 0 && v < min || max !== void 0 && v > max;
-  const nearestBoundary = (v) => {
-    if (min === void 0)
-      return max;
-    if (max === void 0)
-      return min;
-    return Math.abs(min - v) < Math.abs(max - v) ? min : max;
-  };
-  let amplitude = power * velocity;
-  const ideal = from + amplitude;
-  const target = changeTarget === void 0 ? ideal : changeTarget(ideal);
-  state.target = target;
-  if (target !== ideal)
-    amplitude = target - from;
-  const calcDelta = (t) => -amplitude * Math.exp(-t / decay2);
-  const calcLatest = (t) => target + calcDelta(t);
-  const applyFriction = (t) => {
-    const delta = calcDelta(t);
-    const latest = calcLatest(t);
-    state.done = Math.abs(delta) <= restDistance;
-    state.current = state.done ? target : latest;
-  };
-  let timeReachedBoundary;
-  let spring$1;
-  const checkCatchBoundary = (t) => {
-    if (!isOutOfBounds(state.current))
-      return;
-    timeReachedBoundary = t;
-    spring$1 = spring2({
-      from: state.current,
-      to: nearestBoundary(state.current),
-      velocity: calcGeneratorVelocity(calcLatest, t, state.current),
-      damping: bounceDamping,
-      stiffness: bounceStiffness,
-      restDistance,
-      restSpeed
-    });
-  };
-  checkCatchBoundary(0);
-  return (t) => {
-    let hasUpdatedFrame = false;
-    if (!spring$1 && timeReachedBoundary === void 0) {
-      hasUpdatedFrame = true;
-      applyFriction(t);
-      checkCatchBoundary(t);
-    }
-    if (timeReachedBoundary !== void 0 && t > timeReachedBoundary) {
-      state.hasReachedTarget = true;
-      return spring$1(t - timeReachedBoundary);
-    } else {
-      state.hasReachedTarget = false;
-      !hasUpdatedFrame && applyFriction(t);
-      return state;
-    }
-  };
-};
-
-// ../../node_modules/@motionone/generators/dist/utils/pregenerate-keyframes.es.js
-init_define_process();
-var timeStep = 10;
-var maxDuration2 = 1e4;
-function pregenerateKeyframes(generator, toUnit = noopReturn) {
-  let overshootDuration = void 0;
-  let timestamp = timeStep;
-  let state = generator(0);
-  const keyframes3 = [toUnit(state.current)];
-  while (!state.done && timestamp < maxDuration2) {
-    state = generator(timestamp);
-    keyframes3.push(toUnit(state.done ? state.target : state.current));
-    if (overshootDuration === void 0 && state.hasReachedTarget) {
-      overshootDuration = timestamp;
-    }
-    timestamp += timeStep;
-  }
-  const duration = timestamp - timeStep;
-  if (keyframes3.length === 1)
-    keyframes3.push(state.current);
-  return {
-    keyframes: keyframes3,
-    duration: duration / 1e3,
-    overshootDuration: (overshootDuration !== null && overshootDuration !== void 0 ? overshootDuration : duration) / 1e3
-  };
-}
-
-// ../../node_modules/@motionone/dom/dist/easing/create-generator-easing.es.js
-init_define_process();
-function createGeneratorEasing(createGenerator) {
-  const keyframesCache = /* @__PURE__ */ new WeakMap();
-  return (options = {}) => {
-    const generatorCache = /* @__PURE__ */ new Map();
-    const getGenerator = (from = 0, to = 100, velocity = 0, isScale = false) => {
-      const key = `${from}-${to}-${velocity}-${isScale}`;
-      if (!generatorCache.has(key)) {
-        generatorCache.set(key, createGenerator(Object.assign({
-          from,
-          to,
-          velocity,
-          restSpeed: isScale ? 0.05 : 2,
-          restDistance: isScale ? 0.01 : 0.5
-        }, options)));
-      }
-      return generatorCache.get(key);
-    };
-    const getKeyframes = (generator) => {
-      if (!keyframesCache.has(generator)) {
-        keyframesCache.set(generator, pregenerateKeyframes(generator));
-      }
-      return keyframesCache.get(generator);
-    };
-    return {
-      createAnimation: (keyframes3, getOrigin2, canUseGenerator, name, motionValue2) => {
-        var _a, _b;
-        let settings;
-        const numKeyframes = keyframes3.length;
-        let shouldUseGenerator = canUseGenerator && numKeyframes <= 2 && keyframes3.every(isNumberOrNull);
-        if (shouldUseGenerator) {
-          const target = keyframes3[numKeyframes - 1];
-          const unresolvedOrigin = numKeyframes === 1 ? null : keyframes3[0];
-          let velocity = 0;
-          let origin = 0;
-          const prevGenerator = motionValue2 === null || motionValue2 === void 0 ? void 0 : motionValue2.generator;
-          if (prevGenerator) {
-            const { animation, generatorStartTime } = motionValue2;
-            const startTime = (animation === null || animation === void 0 ? void 0 : animation.startTime) || generatorStartTime || 0;
-            const currentTime = (animation === null || animation === void 0 ? void 0 : animation.currentTime) || performance.now() - startTime;
-            const prevGeneratorCurrent = prevGenerator(currentTime).current;
-            origin = (_a = unresolvedOrigin) !== null && _a !== void 0 ? _a : prevGeneratorCurrent;
-            if (numKeyframes === 1 || numKeyframes === 2 && keyframes3[0] === null) {
-              velocity = calcGeneratorVelocity((t) => prevGenerator(t).current, currentTime, prevGeneratorCurrent);
-            }
-          } else {
-            origin = (_b = unresolvedOrigin) !== null && _b !== void 0 ? _b : parseFloat(getOrigin2());
-          }
-          const generator = getGenerator(origin, target, velocity, name === null || name === void 0 ? void 0 : name.includes("scale"));
-          const keyframesMetadata = getKeyframes(generator);
-          settings = Object.assign(Object.assign({}, keyframesMetadata), { easing: "linear" });
-          if (motionValue2) {
-            motionValue2.generator = generator;
-            motionValue2.generatorStartTime = performance.now();
-          }
-        } else {
-          const keyframesMetadata = getKeyframes(getGenerator(0, 100));
-          settings = {
-            easing: "ease",
-            duration: keyframesMetadata.overshootDuration
-          };
-        }
-        return settings;
-      }
-    };
-  };
-}
-var isNumberOrNull = (value) => typeof value !== "string";
-
-// ../../node_modules/@motionone/dom/dist/easing/spring/index.es.js
-var spring3 = createGeneratorEasing(spring2);
-
-// ../../node_modules/@motionone/dom/dist/easing/glide/index.es.js
-init_define_process();
-var glide2 = createGeneratorEasing(glide);
 
 // ../../node_modules/@motionone/dom/dist/gestures/in-view.es.js
 init_define_process();
@@ -8131,24 +7654,24 @@ var keys = {
     position: "Top"
   }
 };
-function updateAxisInfo(element, axisName, info, time2) {
+function updateAxisInfo(element, axisName, info, time) {
   const axis = info[axisName];
-  const { length: length2, position } = keys[axisName];
+  const { length, position } = keys[axisName];
   const prev = axis.current;
   const prevTime = info.time;
   axis.current = element["scroll" + position];
-  axis.scrollLength = element["scroll" + length2] - element["client" + length2];
+  axis.scrollLength = element["scroll" + length] - element["client" + length];
   axis.offset.length = 0;
   axis.offset[0] = 0;
   axis.offset[1] = axis.scrollLength;
   axis.progress = progress2(0, axis.scrollLength, axis.current);
-  const elapsed = time2 - prevTime;
+  const elapsed = time - prevTime;
   axis.velocity = elapsed > maxElapsed2 ? 0 : velocityPerSecond2(axis.current - prev, elapsed);
 }
-function updateScrollInfo(element, info, time2) {
-  updateAxisInfo(element, "x", info, time2);
-  updateAxisInfo(element, "y", info, time2);
-  info.time = time2;
+function updateScrollInfo(element, info, time) {
+  updateAxisInfo(element, "x", info, time);
+  updateAxisInfo(element, "y", info, time);
+  info.time = time;
 }
 
 // ../../node_modules/@motionone/dom/dist/gestures/scroll/on-scroll-handler.es.js
@@ -8210,7 +7733,7 @@ var namedEdges = {
   center: 0.5,
   end: 1
 };
-function resolveEdge(edge, length2, inset = 0) {
+function resolveEdge(edge, length, inset = 0) {
   let delta = 0;
   if (namedEdges[edge] !== void 0) {
     edge = namedEdges[edge];
@@ -8230,7 +7753,7 @@ function resolveEdge(edge, length2, inset = 0) {
     }
   }
   if (isNumber(edge)) {
-    delta = length2 * edge;
+    delta = length * edge;
   }
   return inset + delta;
 }
@@ -8269,16 +7792,16 @@ function resolveOffsets(container, info, options) {
     height: container.clientHeight
   };
   info[axis].offset.length = 0;
-  let hasChanged2 = !info[axis].interpolate;
+  let hasChanged = !info[axis].interpolate;
   const numOffsets = offsetDefinition.length;
   for (let i = 0; i < numOffsets; i++) {
     const offset = resolveOffset(offsetDefinition[i], containerSize[lengthLabel], targetSize[lengthLabel], inset[axis]);
-    if (!hasChanged2 && offset !== info[axis].interpolatorOffsets[i]) {
-      hasChanged2 = true;
+    if (!hasChanged && offset !== info[axis].interpolatorOffsets[i]) {
+      hasChanged = true;
     }
     info[axis].offset[i] = offset;
   }
-  if (hasChanged2) {
+  if (hasChanged) {
     info[axis].interpolate = interpolate2(defaultOffset2(numOffsets), info[axis].offset);
     info[axis].interpolatorOffsets = [...info[axis].offset];
   }
@@ -8306,8 +7829,8 @@ function createOnScrollHandler(element, onScroll, info, options = {}) {
   const axis = options.axis || "y";
   return {
     measure: () => measure(element, options.target, info),
-    update: (time2) => {
-      updateScrollInfo(element, info, time2);
+    update: (time) => {
+      updateScrollInfo(element, info, time);
       if (options.offset || options.target) {
         resolveOffsets(element, info, options);
       }
@@ -8352,11 +7875,11 @@ function scroll(onScroll, _a = {}) {
   containerHandlers.add(containerHandler);
   if (!scrollListeners.has(container)) {
     const listener2 = () => {
-      const time2 = performance.now();
+      const time = performance.now();
       for (const handler of containerHandlers)
         handler.measure();
       for (const handler of containerHandlers)
-        handler.update(time2);
+        handler.update(time);
       for (const handler of containerHandlers)
         handler.notify();
     };
@@ -8390,106 +7913,6 @@ function scroll(onScroll, _a = {}) {
     }
   };
 }
-
-// ../../node_modules/@motionone/dom/dist/state/index.es.js
-init_define_process();
-
-// ../../node_modules/@motionone/dom/dist/state/utils/has-changed.es.js
-init_define_process();
-
-// ../../node_modules/@motionone/dom/dist/state/utils/resolve-variant.es.js
-init_define_process();
-
-// ../../node_modules/@motionone/dom/dist/state/utils/is-variant.es.js
-init_define_process();
-
-// ../../node_modules/@motionone/dom/dist/state/utils/schedule.es.js
-init_define_process();
-
-// ../../node_modules/@motionone/dom/dist/state/gestures/in-view.es.js
-init_define_process();
-
-// ../../node_modules/@motionone/dom/dist/state/utils/events.es.js
-init_define_process();
-function dispatchPointerEvent(element, name, event) {
-  element.dispatchEvent(new CustomEvent(name, { detail: { originalEvent: event } }));
-}
-function dispatchViewEvent(element, name, entry) {
-  element.dispatchEvent(new CustomEvent(name, { detail: { originalEntry: entry } }));
-}
-
-// ../../node_modules/@motionone/dom/dist/state/gestures/in-view.es.js
-var inView2 = {
-  isActive: (options) => Boolean(options.inView),
-  subscribe: (element, { enable, disable }, { inViewOptions = {} }) => {
-    const { once } = inViewOptions, viewOptions = __rest(inViewOptions, ["once"]);
-    return inView(element, (enterEntry) => {
-      enable();
-      dispatchViewEvent(element, "viewenter", enterEntry);
-      if (!once) {
-        return (leaveEntry) => {
-          disable();
-          dispatchViewEvent(element, "viewleave", leaveEntry);
-        };
-      }
-    }, viewOptions);
-  }
-};
-
-// ../../node_modules/@motionone/dom/dist/state/gestures/hover.es.js
-init_define_process();
-var mouseEvent = (element, name, action) => (event) => {
-  if (event.pointerType && event.pointerType !== "mouse")
-    return;
-  action();
-  dispatchPointerEvent(element, name, event);
-};
-var hover = {
-  isActive: (options) => Boolean(options.hover),
-  subscribe: (element, { enable, disable }) => {
-    const onEnter = mouseEvent(element, "hoverstart", enable);
-    const onLeave = mouseEvent(element, "hoverend", disable);
-    element.addEventListener("pointerenter", onEnter);
-    element.addEventListener("pointerleave", onLeave);
-    return () => {
-      element.removeEventListener("pointerenter", onEnter);
-      element.removeEventListener("pointerleave", onLeave);
-    };
-  }
-};
-
-// ../../node_modules/@motionone/dom/dist/state/gestures/press.es.js
-init_define_process();
-var press = {
-  isActive: (options) => Boolean(options.press),
-  subscribe: (element, { enable, disable }) => {
-    const onPointerUp = (event) => {
-      disable();
-      dispatchPointerEvent(element, "pressend", event);
-      window.removeEventListener("pointerup", onPointerUp);
-    };
-    const onPointerDown = (event) => {
-      enable();
-      dispatchPointerEvent(element, "pressstart", event);
-      window.addEventListener("pointerup", onPointerUp);
-    };
-    element.addEventListener("pointerdown", onPointerDown);
-    return () => {
-      element.removeEventListener("pointerdown", onPointerDown);
-      window.removeEventListener("pointerup", onPointerUp);
-    };
-  }
-};
-
-// ../../node_modules/@motionone/dom/dist/state/index.es.js
-var gestures = { inView: inView2, hover, press };
-var stateTypes = ["initial", "animate", ...Object.keys(gestures), "exit"];
-
-// ../../node_modules/@motionone/dom/dist/animate/utils/style-object.es.js
-init_define_process();
-
-// ../../node_modules/@motionone/dom/dist/animate/utils/style-string.es.js
-init_define_process();
 
 // ../../node_modules/framer-motion/dist/es/value/use-scroll.mjs
 var createScrollMotionValues = () => ({
@@ -8548,9 +7971,9 @@ function useAnimationFrame(callback) {
 // ../../node_modules/framer-motion/dist/es/value/use-time.mjs
 init_define_process();
 function useTime() {
-  const time2 = useMotionValue(0);
-  useAnimationFrame((t) => time2.set(t));
-  return time2;
+  const time = useMotionValue(0);
+  useAnimationFrame((t) => time.set(t));
+  return time;
 }
 
 // ../../node_modules/framer-motion/dist/es/value/use-will-change/index.mjs
