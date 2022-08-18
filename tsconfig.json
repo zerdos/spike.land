@@ -66,6 +66,8 @@
     "types": ["@cloudflare/workers-types", "monaco-editor"]
   },
   "include": [
+    "packages/code/js",
+    "sites/spike.land/src"
   ],
 
   "paths": {

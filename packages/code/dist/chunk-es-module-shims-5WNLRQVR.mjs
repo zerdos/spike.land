@@ -2,7 +2,7 @@ import {
   init_define_process
 } from "./chunk-chunk-E5P5SGZK.mjs";
 
-// ../../.yarn/cache/es-module-shims-npm-1.5.16-7f7d01c22c-e04fdb4ca0.zip/node_modules/es-module-shims/dist/es-module-shims.js
+// ../../node_modules/es-module-shims/dist/es-module-shims.js
 init_define_process();
 (function() {
   const hasWindow = typeof window !== "undefined";

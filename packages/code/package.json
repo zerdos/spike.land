@@ -36,7 +36,7 @@
     "build:framer-motion": "yarn esbuild --bundle js/motion.tsx  --target=esnext --minify --format=esm  --platform=browser  --define:process.env.NODE_ENV=\\\"production\\\" --external:react --external:@emotion/is-prop-valid  --external:react --outfile=../../sites/spike.land/public/framer-motion.mjs",
     "build:emotion": "esbuild --bundle js/emotion.tsx  --target=esnext --format=esm --external:react --external:react/jsx-runtime --platform=browser --define:process.env.NODE_ENV=\\\"production\\\" --outfile=../../sites/spike.land/public/emotion.mjs",
     "prebuild": "yarn test || echo FAILED",
-    "build": "yarn favicons && node esbuild-dev.mjs",
+    "build": "rm -rf dist && yarn favicons && node esbuild-dev.mjs",
     "favicons": "cp -af js/assets/favicons/. ./dist && mkdir -p  ../../sites/spike.land/public/assets && cp js/assets/synthwave.webp   ../../sites/spike.land/public/assets/",
     "importmap": "node --experimental-json-modules --experimental-fetch generate.mjs > ./importmap_NEW.json && mv importmap_NEW.json js/importmap.json",
     "workbox-cli": "workbox-cli",

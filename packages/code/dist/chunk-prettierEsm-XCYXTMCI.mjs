@@ -4,9 +4,9 @@ import {
   init_define_process
 } from "./chunk-chunk-E5P5SGZK.mjs";
 
-// ../../.yarn/cache/prettier-npm-2.7.1-d1f40f5e1a-55a4409182.zip/node_modules/prettier/standalone.js
+// ../../node_modules/prettier/standalone.js
 var require_standalone = __commonJS({
-  "../../.yarn/cache/prettier-npm-2.7.1-d1f40f5e1a-55a4409182.zip/node_modules/prettier/standalone.js"(exports, module) {
+  "../../node_modules/prettier/standalone.js"(exports, module) {
     init_define_process();
     (function(e) {
       if (typeof exports == "object" && typeof module == "object")
@@ -11479,9 +11479,9 @@ var require_standalone = __commonJS({
   }
 });
 
-// ../../.yarn/cache/prettier-npm-2.7.1-d1f40f5e1a-55a4409182.zip/node_modules/prettier/parser-babel.js
+// ../../node_modules/prettier/parser-babel.js
 var require_parser_babel = __commonJS({
-  "../../.yarn/cache/prettier-npm-2.7.1-d1f40f5e1a-55a4409182.zip/node_modules/prettier/parser-babel.js"(exports, module) {
+  "../../node_modules/prettier/parser-babel.js"(exports, module) {
     init_define_process();
     (function(e) {
       if (typeof exports == "object" && typeof module == "object")
@@ -19599,9 +19599,9 @@ var require_parser_babel = __commonJS({
   }
 });
 
-// ../../.yarn/cache/prettier-npm-2.7.1-d1f40f5e1a-55a4409182.zip/node_modules/prettier/parser-html.js
+// ../../node_modules/prettier/parser-html.js
 var require_parser_html = __commonJS({
-  "../../.yarn/cache/prettier-npm-2.7.1-d1f40f5e1a-55a4409182.zip/node_modules/prettier/parser-html.js"(exports, module) {
+  "../../node_modules/prettier/parser-html.js"(exports, module) {
     init_define_process();
     (function(e) {
       if (typeof exports == "object" && typeof module == "object")
@@ -22778,9 +22778,9 @@ var require_parser_html = __commonJS({
   }
 });
 
-// ../../.yarn/cache/prettier-npm-2.7.1-d1f40f5e1a-55a4409182.zip/node_modules/prettier/parser-postcss.js
+// ../../node_modules/prettier/parser-postcss.js
 var require_parser_postcss = __commonJS({
-  "../../.yarn/cache/prettier-npm-2.7.1-d1f40f5e1a-55a4409182.zip/node_modules/prettier/parser-postcss.js"(exports, module) {
+  "../../node_modules/prettier/parser-postcss.js"(exports, module) {
     init_define_process();
     (function(e) {
       if (typeof exports == "object" && typeof module == "object")

@@ -8,7 +8,7 @@ import {
   makePatchFrom,
   onSessionUpdate,
   startSession
-} from "../chunk-chunk-QMRL7GTW.mjs";
+} from "../chunk-chunk-57DRPKNX.mjs";
 import "../chunk-chunk-E5P5SGZK.mjs";
 export {
   CodeSession,

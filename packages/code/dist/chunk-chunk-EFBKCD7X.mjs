@@ -4,7 +4,7 @@ import {
   init_define_process
 } from "./chunk-chunk-E5P5SGZK.mjs";
 
-// ../../.yarn/cache/preact-npm-10.10.3-e4aa11e764-f62762c45d.zip/node_modules/preact/dist/preact.module.js
+// ../../node_modules/preact/dist/preact.module.js
 var preact_module_exports = {};
 __export(preact_module_exports, {
   Component: () => d,
@@ -312,7 +312,7 @@ function B(n3, l4) {
 }
 var n, l, u, i, t, o, r, f, e, c;
 var init_preact_module = __esm({
-  "../../.yarn/cache/preact-npm-10.10.3-e4aa11e764-f62762c45d.zip/node_modules/preact/dist/preact.module.js"() {
+  "../../node_modules/preact/dist/preact.module.js"() {
     init_define_process();
     f = {};
     e = [];
@@ -338,7 +338,7 @@ var init_preact_module = __esm({
   }
 });
 
-// ../../.yarn/cache/preact-npm-10.10.3-e4aa11e764-f62762c45d.zip/node_modules/preact/hooks/dist/hooks.module.js
+// ../../node_modules/preact/hooks/dist/hooks.module.js
 function d2(t3, u4) {
   l.__h && l.__h(r2, t3, o2 || u4), o2 = 0;
   var i4 = r2.__H || (r2.__H = { __: [], __h: [] });
@@ -438,7 +438,7 @@ function z2(n3, t3) {
 }
 var t2, r2, u2, i2, o2, c2, f2, e2, a2, v2, l2, m2, g2;
 var init_hooks_module = __esm({
-  "../../.yarn/cache/preact-npm-10.10.3-e4aa11e764-f62762c45d.zip/node_modules/preact/hooks/dist/hooks.module.js"() {
+  "../../node_modules/preact/hooks/dist/hooks.module.js"() {
     init_define_process();
     init_preact_module();
     o2 = 0;
@@ -495,7 +495,7 @@ var init_hooks_module = __esm({
   }
 });
 
-// ../../.yarn/cache/preact-npm-10.10.3-e4aa11e764-f62762c45d.zip/node_modules/preact/compat/dist/compat.module.js
+// ../../node_modules/preact/compat/dist/compat.module.js
 function S2(n3, t3) {
   for (var e4 in t3)
     n3[e4] = t3[e4];
@@ -626,7 +626,7 @@ function dn(t3, u4) {
 }
 var w3, x3, N2, k3, A3, O2, F2, W, P2, $2, j3, H2, G, J, K, Q, X, ln, cn, compat_module_default;
 var init_compat_module = __esm({
-  "../../.yarn/cache/preact-npm-10.10.3-e4aa11e764-f62762c45d.zip/node_modules/preact/compat/dist/compat.module.js"() {
+  "../../node_modules/preact/compat/dist/compat.module.js"() {
     init_define_process();
     init_hooks_module();
     init_hooks_module();
@@ -791,7 +791,7 @@ var init_compat_module = __esm({
   }
 });
 
-// ../../.yarn/__virtual__/preact-render-to-string-virtual-ce4f098cc4/0/cache/preact-render-to-string-npm-5.2.2-b8f2c0c74e-2068b8ce48.zip/node_modules/preact-render-to-string/dist/index.mjs
+// ../../node_modules/preact-render-to-string/dist/index.mjs
 function o3(e4) {
   if (false === n2.test(e4 += ""))
     return e4;
@@ -1071,7 +1071,7 @@ function k4(e4) {
 }
 var r3, n2, i3, a3, l3, c3, u3, _3, p3, d3, h3, g4;
 var init_dist = __esm({
-  "../../.yarn/__virtual__/preact-render-to-string-virtual-ce4f098cc4/0/cache/preact-render-to-string-npm-5.2.2-b8f2c0c74e-2068b8ce48.zip/node_modules/preact-render-to-string/dist/index.mjs"() {
+  "../../node_modules/preact-render-to-string/dist/index.mjs"() {
     init_define_process();
     init_preact_module();
     r3 = /acit|ex(?:s|g|n|p|$)|rph|grid|ows|mnc|ntw|ine[ch]|zoo|^ord|^--/i;
@@ -1097,7 +1097,7 @@ var init_dist = __esm({
   }
 });
 
-// ../../.yarn/cache/preact-npm-10.10.3-e4aa11e764-f62762c45d.zip/node_modules/preact/jsx-runtime/dist/jsxRuntime.module.js
+// ../../node_modules/preact/jsx-runtime/dist/jsxRuntime.module.js
 function e3(_4, e4, n3, t3, f4) {
   var l4, s4, u4 = {};
   for (s4 in e4)
@@ -1110,7 +1110,7 @@ function e3(_4, e4, n3, t3, f4) {
 }
 var o4;
 var init_jsxRuntime_module = __esm({
-  "../../.yarn/cache/preact-npm-10.10.3-e4aa11e764-f62762c45d.zip/node_modules/preact/jsx-runtime/dist/jsxRuntime.module.js"() {
+  "../../node_modules/preact/jsx-runtime/dist/jsxRuntime.module.js"() {
     init_define_process();
     init_preact_module();
     init_preact_module();

@@ -4,9 +4,9 @@ import {
   init_define_process
 } from "./chunk-chunk-E5P5SGZK.mjs";
 
-// ../../.yarn/cache/fast-diff-npm-1.2.0-5ba4171bb6-1b5306eaa9.zip/node_modules/fast-diff/diff.js
+// ../../node_modules/fast-diff/diff.js
 var require_diff = __commonJS({
-  "../../.yarn/cache/fast-diff-npm-1.2.0-5ba4171bb6-1b5306eaa9.zip/node_modules/fast-diff/diff.js"(exports, module) {
+  "../../node_modules/fast-diff/diff.js"(exports, module) {
     init_define_process();
     var DIFF_DELETE = -1;
     var DIFF_INSERT = 1;
@@ -538,7 +538,7 @@ var require_diff = __commonJS({
 // js/session.ts
 init_define_process();
 
-// ../../.yarn/cache/immutable-npm-4.1.0-f6635927b8-b9bc1f14fb.zip/node_modules/immutable/dist/immutable.es.js
+// ../../node_modules/immutable/dist/immutable.es.js
 init_define_process();
 var DELETE = "delete";
 var SHIFT = 5;

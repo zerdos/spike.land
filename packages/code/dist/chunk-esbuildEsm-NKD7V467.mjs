@@ -7,9 +7,9 @@ import {
   init_define_process
 } from "./chunk-chunk-E5P5SGZK.mjs";
 
-// ../../.yarn/cache/esbuild-wasm-npm-0.15.5-bc4c954bca-eed3f81dc0.zip/node_modules/esbuild-wasm/lib/browser.js
+// ../../node_modules/esbuild-wasm/lib/browser.js
 var require_browser = __commonJS({
-  "../../.yarn/cache/esbuild-wasm-npm-0.15.5-bc4c954bca-eed3f81dc0.zip/node_modules/esbuild-wasm/lib/browser.js"(exports, module) {
+  "../../node_modules/esbuild-wasm/lib/browser.js"(exports, module) {
     init_define_process();
     ((module2) => {
       "use strict";
@@ -2488,7 +2488,7 @@ ${file}:${line}:${column}: ERROR: ${pluginText}${e.text}`;
 // js/esbuildEsm.ts
 init_define_process();
 
-// ../../.yarn/cache/async-mutex-npm-0.3.2-600f6c46a1-620b771dfd.zip/node_modules/async-mutex/index.mjs
+// ../../node_modules/async-mutex/index.mjs
 init_define_process();
 var E_TIMEOUT = new Error("timeout while waiting for mutex to become available");
 var E_ALREADY_LOCKED = new Error("mutex already locked");
@@ -2651,7 +2651,7 @@ var Mutex = class {
 // js/esbuildEsm.ts
 var esbuild = __toESM(require_browser(), 1);
 
-// ../../.yarn/cache/esbuild-wasm-npm-0.15.5-bc4c954bca-eed3f81dc0.zip/node_modules/esbuild-wasm/esbuild.wasm
+// ../../node_modules/esbuild-wasm/esbuild.wasm
 var esbuild_default = "./esbuild-C5LYP4UP.wasm";
 
 // js/esbuildEsm.ts

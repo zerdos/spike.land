@@ -18,16 +18,16 @@ var require_os = __commonJS({
 // js/startMonaco.ts
 init_define_process();
 
-// ../../.yarn/cache/monaco-editor-npm-0.34.0-2a8aa5269e-10a28c1fe0.zip/node_modules/monaco-editor/package.json
+// ../../node_modules/monaco-editor/package.json
 var version = "0.34.0";
 
-// ../../.yarn/cache/p-map-npm-5.5.0-9758eb14ee-065cb6fca6.zip/node_modules/p-map/index.js
+// ../../node_modules/p-map/index.js
 init_define_process();
 
-// ../../.yarn/cache/aggregate-error-npm-4.0.1-12d0501fb7-bb3ffdfd13.zip/node_modules/aggregate-error/index.js
+// ../../node_modules/p-map/node_modules/aggregate-error/index.js
 init_define_process();
 
-// ../../.yarn/cache/indent-string-npm-5.0.0-35eaa3b052-e466c27b63.zip/node_modules/indent-string/index.js
+// ../../node_modules/p-map/node_modules/indent-string/index.js
 init_define_process();
 function indentString(string, count = 1, options = {}) {
   const {
@@ -61,11 +61,11 @@ function indentString(string, count = 1, options = {}) {
   return string.replace(regex, indent.repeat(count));
 }
 
-// ../../.yarn/cache/clean-stack-npm-4.2.0-bb0dff47b2-373f656a31.zip/node_modules/clean-stack/index.js
+// ../../node_modules/p-map/node_modules/clean-stack/index.js
 init_define_process();
 var import_os = __toESM(require_os(), 1);
 
-// ../../.yarn/cache/escape-string-regexp-npm-5.0.0-a663e825ce-20daabe197.zip/node_modules/escape-string-regexp/index.js
+// ../../node_modules/p-map/node_modules/escape-string-regexp/index.js
 init_define_process();
 function escapeStringRegexp(string) {
   if (typeof string !== "string") {
@@ -74,7 +74,7 @@ function escapeStringRegexp(string) {
   return string.replace(/[|\\{}()[\]^$+*?.]/g, "\\$&").replace(/-/g, "\\x2d");
 }
 
-// ../../.yarn/cache/clean-stack-npm-4.2.0-bb0dff47b2-373f656a31.zip/node_modules/clean-stack/index.js
+// ../../node_modules/p-map/node_modules/clean-stack/index.js
 var extractPathRegex = /\s+at.*[(\s](.*)\)?/;
 var pathRegex = /^(?:(?:(?:node|node:[\w/]+|(?:(?:node:)?internal\/[\w/]*|.*node_modules\/(?:babel-polyfill|pirates)\/.*)?\w+)(?:\.js)?:\d+:\d+)|native)/;
 var homeDir = typeof import_os.default.homedir === "undefined" ? "" : import_os.default.homedir().replace(/\\/g, "/");
@@ -104,7 +104,7 @@ function cleanStack(stack, { pretty = false, basePath } = {}) {
   }).join("\n");
 }
 
-// ../../.yarn/cache/aggregate-error-npm-4.0.1-12d0501fb7-bb3ffdfd13.zip/node_modules/aggregate-error/index.js
+// ../../node_modules/p-map/node_modules/aggregate-error/index.js
 var cleanInternalStack = (stack) => stack.replace(/\s+at .*aggregate-error\/index.js:\d+:\d+\)?/g, "");
 var _errors;
 var AggregateError = class extends Error {
@@ -136,7 +136,7 @@ var AggregateError = class extends Error {
 };
 _errors = new WeakMap();
 
-// ../../.yarn/cache/p-map-npm-5.5.0-9758eb14ee-065cb6fca6.zip/node_modules/p-map/index.js
+// ../../node_modules/p-map/index.js
 var AbortError = class extends Error {
   constructor(message) {
     super();
