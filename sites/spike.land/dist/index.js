@@ -435,9 +435,15 @@ var chat_default = {
               "https://testing.spike.land/npm:",
               "https://esm.sh/"
             );
-            const resp = await fetch(esmUrl, { ...request2, url: esmUrl });
-            if (resp !== null && !resp.ok)
-              return resp;
+            let resp = await fetch(esmUrl, { ...request2, url: esmUrl });
+            if (resp !== null && !resp.ok || resp.status === 307) {
+              const redirectUrl = resp.headers.get("location");
+              if (redirectUrl) {
+                resp = await fetch(redirectUrl, { ...request2, url: redirectUrl });
+              }
+              if (resp !== null && !resp.ok)
+                return resp;
+            }
             const isText = !!resp?.headers?.get("Content-Type")?.includes(
               "charset"
             );
@@ -531,7 +537,8 @@ var chat_default = {
                   ASSET_MANIFEST: manifestJSON
                 }
               );
-              if (url.href.includes("chunk-")) {
+              const chunkRegx = /[.]{1}[a-f0-9]{10}[.]+/gm;
+              if (url.href.includes("chunk-") || chunkRegx.test(url.href)) {
                 kvResp.headers.append("Cache-Control", "immutable");
               }
               return kvResp;

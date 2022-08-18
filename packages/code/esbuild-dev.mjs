@@ -213,7 +213,7 @@ const build = (entryPoints, format = "esm") =>
     platform: "browser",
     chunkNames: "chunk-[name]-[hash]",
     treeShaking: true,
-    assetNames: 'assets/[name]-[hash]',
+    assetNames: 'chunk-[name]-[hash]',
     ignoreAnnotations: true,
     // entryNames: "[name]-[hash]",
     resolveExtensions: [

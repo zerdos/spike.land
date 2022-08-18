@@ -310,7 +310,7 @@ const returnModules = {
   document.head.appendChild(outerStyle);
 
   const innerStyle = document.createElement("style");
-  innerStyle.innerText = `@import url(/npm:monaco-editor@${version}?css);
+  innerStyle.innerText = `@import url(/npm:monaco-editor@${version}/esm/vs/editor/editor.main?css);
 //   @font-face {
 //     font-family: codicon;
 //     font-display: block;

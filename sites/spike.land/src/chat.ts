@@ -95,9 +95,15 @@ export default {
             const esmUrl =  u.toString().replace("https://testing.spike.land/npm:",
               "https://esm.sh/");
 
-            const resp = await fetch(esmUrl, {...request, url: esmUrl});
+            let resp = await fetch(esmUrl, {...request, url: esmUrl});
 
-            if (resp !== null && !resp.ok) return resp;
+            if (resp !== null && !resp.ok || resp.status===307) {
+              const redirectUrl = resp.headers.get("location");
+              if (redirectUrl) {
+                resp = await fetch(redirectUrl, {...request, url: redirectUrl});
+              }
+              if (resp !== null && !resp.ok) return resp;
+            }
 
             const isText = !!resp?.headers?.get("Content-Type")?.includes(
               "charset",
@@ -163,6 +169,8 @@ export default {
               const new1 = new URL(u.pathname, "https://cloudflare-ipfs.com");
               const resp = await fetch(new1.toString());
               if (resp.ok) return resp;
+            
+
               const new2 = new URL(u.pathname, "https://ipfs.io");
               const resp2 = await fetch(new2.toString());
               return resp2;
@@ -209,7 +217,9 @@ export default {
                 },
               );
 
-              if(url.href.includes("chunk-")) {
+              const chunkRegx = /[.]{1}[a-f0-9]{10}[.]+/gm
+
+              if(url.href.includes("chunk-") || chunkRegx.test(url.href)) {
                 kvResp.headers.append("Cache-Control", "immutable");
               }
 
