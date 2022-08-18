@@ -254,13 +254,13 @@ window.MonacoEnvironment = {
 
     if (label === "typescript" || label === "javascript") {
 
-      globalThis.twWorker =   globalThis.twWorker ||  ((await import(`/npm:monaco-editor@${version}/esm/vs/language/typescript/ts.worker?worker&target=es2021`)).default)();
+      globalThis.twWorker =   globalThis.twWorker ||  ((await import(`/npm:m onaco-editor@${version}/min/vs/language/typescript/ts.worker?worker&target=es2021`)).default)();
 
 
         return twWorker;
       }
 
-      globalThis .ediWorker = (   globalThis .ediWorker  || (await import(`/npm:monaco-editor@${version}/esm/vs/editor/editor.worker?worker&target=es2021`)).default)();
+      globalThis .ediWorker = (   globalThis .ediWorker  || (await import(`/npm:monaco-editor@${version}/min/vs/editor/editor.worker?worker&target=es2021`)).default)();
 
 
     // const worker = await 
