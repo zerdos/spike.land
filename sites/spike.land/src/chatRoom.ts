@@ -15,6 +15,25 @@ import {
 // import importMap from "@spike.land/code/js/importmap.json";
 import { getBackupSession } from "./getBackupSession";
 
+
+const imap = {
+  "imports": {
+    // ...imap,
+    "framer-motion": "/npm:framer-motion?target=es2021&external=react",
+    "@emotion/react": "/npm:@emotion/react?target=es2021&external=react",
+    "@emotion/react/jsx-runtime": "/npm:@emotion/react/jsx-runtime?target=es2021&external=react",
+    "react": "/npm:@preact/compat",
+    "react-dom": "/npm:@preact/compat",
+    "react-dom/client": "/npm:@preact/compat",
+    "react-dom/server": "/npm:@preact/compat",
+    "react/jsx-runtime": "/npm:@preact/compat",
+    // "preact": "https://ga.jspm.io/npm:preact@10.8.2/dist/preact.module.js",
+    // "preact-render-to-string": "https://ga.jspm.io/npm:preact-render-to-string@5.2.0/dist/index.mjs",
+    // "preact/compat": "https://ga.jspm.io/npm:preact@10.8.2/compat/dist/compat.module.js",
+    // "preact/jsx-runtime": "https://ga.jspm.io/npm:preact@10.8.2/jsx-runtime/dist/jsxRuntime.module.js"
+  },
+};
+
 // const importMap = {
 //   imports: {
 //     ...imap.imports,
@@ -334,7 +353,7 @@ export class Code {
             HTML.replaceAll(
               "/live/coder/",
               `/live/${this.codeSpace}/`,
-            )
+            ).replace(`<script type="importmap"></script>`, ` <script type="importmap">${JSON.stringify(imap)}</script>`)
               .replace("js/ws.mjs", a["js/ws.mjs"])
               .replace(
                 `/* #root{} */`,

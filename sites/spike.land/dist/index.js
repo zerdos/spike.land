@@ -383,12 +383,13 @@ async function handleErrors(request, func) {
 var imap = {
   "imports": {
     "framer-motion": "/npm:framer-motion?target=es2021&external=react",
-    "@emotion/react": "/emotion.mjs",
-    "react": "/react.mjs",
-    "react-dom": "/react.mjs",
-    "react-dom/client": "/react.mjs",
-    "react-dom/server": "/react.mjs",
-    "react/jsx-runtime": "/react.mjs"
+    "@emotion/react": "/npm:@emotion/react?target=es2021&external=react",
+    "@emotion/react/jsx-runtime": "/npm:@emotion/react/jsx-runtime?target=es2021&external=react",
+    "react": "/npm:@preact/compat",
+    "react-dom": "/npm:@preact/compat",
+    "react-dom/client": "/npm:@preact/compat",
+    "react-dom/server": "/npm:@preact/compat",
+    "react/jsx-runtime": "/npm:@preact/compat"
   }
 };
 var chat_default = {
@@ -425,16 +426,18 @@ var chat_default = {
           if (path2[0].startsWith("npm:")) {
             const url2 = new URL(request2.url);
             const resp = await fetch(u.toString().replace("https://testing.spike.land/npm:", "https://esm.sh/"));
+            if (!resp.ok)
+              return resp;
             const org = resp.clone();
-            const body = await resp.text();
+            const isText = resp.headers.get("Content-Type").includes("charset");
+            const body = await (isText ? resp.text() : resp.blob());
             const regex = /https:\/\/esm.sh\//gm;
             const regex2 = / from "\//gm;
-            const newBody = body.replaceAll(regex, "https://testing.spike.land/npm:").replaceAll(regex2, ' from "/npm:');
-            return new Response(newBody, {
+            return new Response(isText ? body.replaceAll(regex, "https://testing.spike.land/npm:").replaceAll(regex2, ' from "/npm:') : body, {
               status: 200,
               headers: {
                 "Access-Control-Allow-Origin": "*",
-                "Cache-Control": "no-cache",
+                "Cache-Control": "immutable",
                 "Content-Type": org.headers.get("Content-Type")
               }
             });
@@ -662,6 +665,7 @@ html, body {margin: 0; height: 100%}
  
  
    </style>
+   <script type="importmap"><\/script>
    </head>
    
    
@@ -6148,6 +6152,18 @@ function getBackupSession() {
 }
 
 // src/chatRoom.ts
+var imap2 = {
+  "imports": {
+    "framer-motion": "/npm:framer-motion?target=es2021&external=react",
+    "@emotion/react": "/npm:@emotion/react?target=es2021&external=react",
+    "@emotion/react/jsx-runtime": "/npm:@emotion/react/jsx-runtime?target=es2021&external=react",
+    "react": "/npm:@preact/compat",
+    "react-dom": "/npm:@preact/compat",
+    "react-dom/client": "/npm:@preact/compat",
+    "react-dom/server": "/npm:@preact/compat",
+    "react/jsx-runtime": "/npm:@preact/compat"
+  }
+};
 var importMap = {
   "imports": {
     "framer-motion": "/framer-motion.mjs",
@@ -6382,7 +6398,7 @@ var Code = class {
             src_default.replaceAll(
               "/live/coder/",
               `/live/${this.codeSpace}/`
-            ).replace("js/ws.mjs", a2["js/ws.mjs"]).replace(
+            ).replace(`<script type="importmap"><\/script>`, ` <script type="importmap">${JSON.stringify(imap2)}<\/script>`).replace("js/ws.mjs", a2["js/ws.mjs"]).replace(
               `/* #root{} */`,
               `
           #root{

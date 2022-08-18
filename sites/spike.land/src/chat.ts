@@ -12,12 +12,13 @@ const imap = {
   "imports": {
     // ...imap,
     "framer-motion": "/npm:framer-motion?target=es2021&external=react",
-    "@emotion/react": "/emotion.mjs",
-    "react": "/react.mjs",
-    "react-dom": "/react.mjs",
-    "react-dom/client": "/react.mjs",
-    "react-dom/server": "/react.mjs",
-    "react/jsx-runtime": "/react.mjs",
+    "@emotion/react": "/npm:@emotion/react?target=es2021&external=react",
+    "@emotion/react/jsx-runtime": "/npm:@emotion/react/jsx-runtime?target=es2021&external=react",
+    "react": "/npm:@preact/compat",
+    "react-dom": "/npm:@preact/compat",
+    "react-dom/client": "/npm:@preact/compat",
+    "react-dom/server": "/npm:@preact/compat",
+    "react/jsx-runtime": "/npm:@preact/compat",
     // "preact": "https://ga.jspm.io/npm:preact@10.8.2/dist/preact.module.js",
     // "preact-render-to-string": "https://ga.jspm.io/npm:preact-render-to-string@5.2.0/dist/index.mjs",
     // "preact/compat": "https://ga.jspm.io/npm:preact@10.8.2/compat/dist/compat.module.js",
@@ -86,18 +87,21 @@ export default {
 
            const resp =  await fetch(u.toString().replace("https://testing.spike.land/npm:", "https://esm.sh/"))
 
+           if (!resp.ok) return resp
            const org = resp.clone();
-           const body = await resp.text();
+           
+           const isText = resp.headers.get("Content-Type").includes("charset");
+           const body = await (isText? resp.text(): resp.blob() );
            const regex = /https:\/\/esm.sh\//gm
            const regex2 = / from "\//gm
 
-           const newBody = body.replaceAll(regex, "https://testing.spike.land/npm:")
-           .replaceAll(regex2, " from \"/npm:");
-            return new Response(newBody, {
+
+            return new Response(isText?body.replaceAll(regex, "https://testing.spike.land/npm:")
+            .replaceAll(regex2, " from \"/npm:"):body, {
               status: 200,
               headers:  {
                 "Access-Control-Allow-Origin": "*",
-                "Cache-Control": "no-cache",
+                "Cache-Control": "immutable",
                 "Content-Type": org.headers.get("Content-Type")
               },
             });
