@@ -785,7 +785,10 @@ window.addEventListener('pageshow', (event) => {
  
  <\/script>
 
+
+
 <div id="root"></div>
+<div id="app-root"></div>
 
 <script type="module">
     import {mST, assets, codeSpace, address} from "/live/coder/mST.mjs" 

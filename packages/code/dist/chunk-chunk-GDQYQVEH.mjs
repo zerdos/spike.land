@@ -24,15 +24,14 @@ import {
 } from "./chunk-chunk-PR4DLIFC.mjs";
 import {
   Children,
-  PureComponent,
+  Component,
   V,
   cloneElement,
   createContext,
   createElement,
-  createRef,
+  createRoot,
   e,
   forwardRef,
-  hydrateRoot,
   init_react,
   isValidElement,
   memo,
@@ -3408,7 +3407,7 @@ var require_emotion_styled_base_cjs_dev = __commonJS({
     init_define_process();
     Object.defineProperty(exports, "__esModule", { value: true });
     var _extends2 = require_extends();
-    var React = (init_react(), __toCommonJS(react_exports));
+    var React3 = (init_react(), __toCommonJS(react_exports));
     var isPropValid = require_emotion_is_prop_valid_cjs();
     var react = require_emotion_react_cjs();
     var utils = require_emotion_utils_cjs();
@@ -3436,7 +3435,7 @@ var require_emotion_styled_base_cjs_dev = __commonJS({
       n["default"] = e2;
       return Object.freeze(n);
     }
-    var React__namespace = /* @__PURE__ */ _interopNamespace(React);
+    var React__namespace = /* @__PURE__ */ _interopNamespace(React3);
     var isPropValid__default = /* @__PURE__ */ _interopDefault(isPropValid);
     var testOmitPropsOnStringTag = isPropValid__default["default"];
     var testOmitPropsOnComponent = function testOmitPropsOnComponent2(key) {
@@ -3487,7 +3486,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           serializedNames += " " + next.name;
           next = next.next;
         }
-        return /* @__PURE__ */ React.createElement("style", (_ref2 = {}, _ref2["data-emotion"] = cache.key + " " + serializedNames, _ref2.dangerouslySetInnerHTML = {
+        return /* @__PURE__ */ React3.createElement("style", (_ref2 = {}, _ref2["data-emotion"] = cache.key + " " + serializedNames, _ref2.dangerouslySetInnerHTML = {
           __html: rules
         }, _ref2.nonce = cache.sheet.nonce, _ref2));
       }
@@ -3542,7 +3541,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
             for (var key in props) {
               mergedProps[key] = props[key];
             }
-            mergedProps.theme = React.useContext(react.ThemeContext);
+            mergedProps.theme = React3.useContext(react.ThemeContext);
           }
           if (typeof props.className === "string") {
             className = utils.getRegisteredStyles(cache.registered, classInterpolations, props.className);
@@ -3565,11 +3564,11 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
           }
           newProps.className = className;
           newProps.ref = ref;
-          return /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement(Insertion, {
+          return /* @__PURE__ */ React3.createElement(React3.Fragment, null, /* @__PURE__ */ React3.createElement(Insertion, {
             cache,
             serialized,
             isStringTag: typeof FinalTag === "string"
-          }), /* @__PURE__ */ React.createElement(FinalTag, newProps));
+          }), /* @__PURE__ */ React3.createElement(FinalTag, newProps));
         });
         Styled.displayName = identifierName !== void 0 ? identifierName : "Styled(" + (typeof baseTag === "string" ? baseTag : baseTag.displayName || baseTag.name || "Component") + ")";
         Styled.defaultProps = tag.defaultProps;
@@ -3922,9 +3921,12 @@ init_define_process();
 // js/renderPreviewWindow.tsx
 init_define_process();
 init_react();
+init_react();
+init_react();
 
 // js/starter.tsx
 init_define_process();
+init_react();
 init_react();
 
 // js/md5.js
@@ -4052,9 +4054,58 @@ function md5(inputString) {
   return rh(a) + rh(b) + rh(c) + rh(d);
 }
 
+// js/ErrorBoundary.tsx
+init_define_process();
+init_react();
+var import_jsx_runtime = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
+var ErrorBoundary = class extends Component {
+  constructor() {
+    super(...arguments);
+    this.state = {
+      hasError: false
+    };
+  }
+  static getDerivedStateFromError(_2) {
+    return { hasError: true };
+  }
+  componentDidCatch(error, errorInfo) {
+    console.error("Uncaught error:", error, errorInfo);
+  }
+  render() {
+    if (this.state.hasError) {
+      return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("h1", {
+        children: "Sorry.. there was an error"
+      });
+    }
+    return this.props.children;
+  }
+};
+var ErrorBoundary_default = ErrorBoundary;
+
 // js/starter.tsx
 var import_jsx_runtime = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
 Object.assign(window, {});
+var modalRoot = document.getElementById("root");
+var Root = class extends react_default.Component {
+  constructor(props) {
+    super(props);
+    this.el = document.createElement("div");
+    this.el.style.height = "100%";
+  }
+  componentDidMount() {
+    modalRoot.innerHTML = "";
+    modalRoot.append(this.el);
+  }
+  componentWillUnmount() {
+    modalRoot.appendChild(this.el);
+  }
+  render() {
+    return V(
+      this.props.children,
+      this.el
+    );
+  }
+};
 var orig = location.origin.includes("localhost") ? "." : location.origin;
 var importmapped = false;
 var initShims = async (assets) => {
@@ -4076,30 +4127,34 @@ var initShims = async (assets) => {
     "imports": {
       "framer-motion": location.origin + "/" + assets["framer-motion.mjs"],
       "@emotion/react": location.origin + "/" + assets["emotion.mjs"],
-      "react": location.origin + "/" + assets["react.mjs"],
-      "react-dom": location.origin + "/" + assets["react.mjs"],
+      "react": location.origin + "/npm:million/react",
+      "react-dom": location.origin + "/npm:million/react",
       "react-dom/client": location.origin + "/" + assets["react.mjs"],
       "react-dom/server": location.origin + "/" + assets["react.mjs"],
       "react/jsx-runtime": location.origin + "/" + assets["react.mjs"]
     }
   });
 };
-var App = () => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(p, {});
 var apps = {};
 var AutoUpdateApp = ({ hash, starter }) => {
   const result = md5(mST().transpiled);
   if (!apps[result]) {
     apps[result] = starter;
   }
-  App = apps[result];
-  return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(App, {}, hash);
+  const App = apps[result];
+  return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Root, {
+    children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ErrorBoundary_default, {
+      children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(App, {
+        hash
+      })
+    })
+  });
 };
 async function appFactory(transpiled) {
   const result = md5(transpiled);
   if (!apps[result]) {
     apps[result] = (await importShim(createJsBlob(transpiled))).default;
   }
-  App = apps[result];
   return apps[result];
 }
 function createJsBlob(code) {
@@ -4111,16 +4166,16 @@ function createJsBlob(code) {
 }
 
 // js/renderPreviewWindow.tsx
-var import_react15 = __toESM(require_emotion_react_cjs(), 1);
+var import_react17 = __toESM(require_emotion_react_cjs(), 1);
 
 // js/DraggableWindow.tsx
 init_define_process();
-var import_react10 = __toESM(require_emotion_react_cjs(), 1);
+var import_react11 = __toESM(require_emotion_react_cjs(), 1);
 init_react();
 
 // js/Qr.tsx
 init_define_process();
-var import_react8 = __toESM(require_emotion_react_cjs(), 1);
+var import_react9 = __toESM(require_emotion_react_cjs(), 1);
 init_react();
 
 // ../../node_modules/react-qrious/lib/QRious.js
@@ -4300,29 +4355,29 @@ function getFunctionName(fn) {
   const name = match && match[1];
   return name || "";
 }
-function getFunctionComponentName(Component, fallback = "") {
-  return Component.displayName || Component.name || getFunctionName(Component) || fallback;
+function getFunctionComponentName(Component2, fallback = "") {
+  return Component2.displayName || Component2.name || getFunctionName(Component2) || fallback;
 }
 function getWrappedName(outerType, innerType, wrapperName) {
   const functionName = getFunctionComponentName(innerType);
   return outerType.displayName || (functionName !== "" ? `${wrapperName}(${functionName})` : wrapperName);
 }
-function getDisplayName(Component) {
-  if (Component == null) {
+function getDisplayName(Component2) {
+  if (Component2 == null) {
     return void 0;
   }
-  if (typeof Component === "string") {
-    return Component;
+  if (typeof Component2 === "string") {
+    return Component2;
   }
-  if (typeof Component === "function") {
-    return getFunctionComponentName(Component, "Component");
+  if (typeof Component2 === "function") {
+    return getFunctionComponentName(Component2, "Component");
   }
-  if (typeof Component === "object") {
-    switch (Component.$$typeof) {
+  if (typeof Component2 === "object") {
+    switch (Component2.$$typeof) {
       case import_react_is.ForwardRef:
-        return getWrappedName(Component, Component.render, "ForwardRef");
+        return getWrappedName(Component2, Component2.render, "ForwardRef");
       case import_react_is.Memo:
-        return getWrappedName(Component, Component.type, "memo");
+        return getWrappedName(Component2, Component2.type, "memo");
       default:
         return void 0;
     }
@@ -4612,7 +4667,7 @@ init_define_process();
 // ../../node_modules/@mui/styled-engine/index.js
 init_define_process();
 var import_styled = __toESM(require_emotion_styled_cjs());
-var import_react4 = __toESM(require_emotion_react_cjs());
+var import_react5 = __toESM(require_emotion_react_cjs());
 function styled(tag, options) {
   const stylesFactory = (0, import_styled.default)(tag, options);
   if (true) {
@@ -5797,7 +5852,7 @@ function createStyled(input = {}) {
           }, other));
         };
       }
-      const Component = defaultStyledResolver(transformedStyleArg, ...expressionsWithDefaultTheme);
+      const Component2 = defaultStyledResolver(transformedStyleArg, ...expressionsWithDefaultTheme);
       if (true) {
         let displayName;
         if (componentName) {
@@ -5806,9 +5861,9 @@ function createStyled(input = {}) {
         if (displayName === void 0) {
           displayName = `Styled(${getDisplayName(tag)})`;
         }
-        Component.displayName = displayName;
+        Component2.displayName = displayName;
       }
-      return Component;
+      return Component2;
     };
     if (defaultStyledResolver.withConfig) {
       muiStyledResolver.withConfig = defaultStyledResolver.withConfig;
@@ -6905,20 +6960,20 @@ var TransitionGroup = /* @__PURE__ */ function(_React$Component) {
     }
   };
   _proto.render = function render() {
-    var _this$props = this.props, Component = _this$props.component, childFactory2 = _this$props.childFactory, props = _objectWithoutPropertiesLoose(_this$props, ["component", "childFactory"]);
+    var _this$props = this.props, Component2 = _this$props.component, childFactory2 = _this$props.childFactory, props = _objectWithoutPropertiesLoose(_this$props, ["component", "childFactory"]);
     var contextValue = this.state.contextValue;
     var children = values2(this.state.children).map(childFactory2);
     delete props.appear;
     delete props.enter;
     delete props.exit;
-    if (Component === null) {
+    if (Component2 === null) {
       return /* @__PURE__ */ react_default.createElement(TransitionGroupContext_default.Provider, {
         value: contextValue
       }, children);
     }
     return /* @__PURE__ */ react_default.createElement(TransitionGroupContext_default.Provider, {
       value: contextValue
-    }, /* @__PURE__ */ react_default.createElement(Component, props, children));
+    }, /* @__PURE__ */ react_default.createElement(Component2, props, children));
   };
   return TransitionGroup2;
 }(react_default.Component);
@@ -7007,7 +7062,7 @@ var _t3;
 var _t4;
 var DURATION = 550;
 var DELAY_RIPPLE = 80;
-var enterKeyframe = (0, import_react4.keyframes)(_t || (_t = _`
+var enterKeyframe = (0, import_react5.keyframes)(_t || (_t = _`
   0% {
     transform: scale(0);
     opacity: 0.1;
@@ -7018,7 +7073,7 @@ var enterKeyframe = (0, import_react4.keyframes)(_t || (_t = _`
     opacity: 0.3;
   }
 `));
-var exitKeyframe = (0, import_react4.keyframes)(_t2 || (_t2 = _`
+var exitKeyframe = (0, import_react5.keyframes)(_t2 || (_t2 = _`
   0% {
     opacity: 1;
   }
@@ -7027,7 +7082,7 @@ var exitKeyframe = (0, import_react4.keyframes)(_t2 || (_t2 = _`
     opacity: 0;
   }
 `));
-var pulsateKeyframe = (0, import_react4.keyframes)(_t3 || (_t3 = _`
+var pulsateKeyframe = (0, import_react5.keyframes)(_t3 || (_t3 = _`
   0% {
     transform: scale(1);
   }
@@ -7910,17 +7965,17 @@ var SvgIcon_default = SvgIcon;
 // ../../node_modules/@mui/material/utils/createSvgIcon.js
 init_react();
 function createSvgIcon(path, displayName) {
-  const Component = (props, ref) => /* @__PURE__ */ e(SvgIcon_default, _extends({
+  const Component2 = (props, ref) => /* @__PURE__ */ e(SvgIcon_default, _extends({
     "data-testid": `${displayName}Icon`,
     ref
   }, props, {
     children: path
   }));
   if (true) {
-    Component.displayName = `${displayName}Icon`;
+    Component2.displayName = `${displayName}Icon`;
   }
-  Component.muiName = SvgIcon_default.muiName;
-  return /* @__PURE__ */ memo(/* @__PURE__ */ forwardRef(Component));
+  Component2.muiName = SvgIcon_default.muiName;
+  return /* @__PURE__ */ memo(/* @__PURE__ */ forwardRef(Component2));
 }
 
 // ../../node_modules/@mui/material/ToggleButton/ToggleButton.js
@@ -8319,7 +8374,7 @@ var QRButton = ({ url }) => {
       onClick: () => {
         setQR(!showQR);
       },
-      css: import_react8.css`
+      css: import_react9.css`
           margin-top: 12px;
           margin-bottom: 12px;
               `,
@@ -8352,6 +8407,12 @@ var DraggableWindow = ({
   const [height2, setHeight] = useState(window.innerHeight * devicePixelRatio);
   const ref = useRef(null);
   const scale = scaleRange / 100;
+  useEffect(
+    () => {
+      ref.current?.appendChild(document.getElementById("root"));
+    },
+    [ref]
+  );
   useEffect(() => {
     const reveal = async () => {
       setPositions({
@@ -8391,7 +8452,6 @@ var DraggableWindow = ({
     features: domMax,
     children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(m.div, {
       transition: { delay: 0, duration: 0.4 },
-      ref,
       initial: {
         top: 0,
         padding: 0,
@@ -8404,7 +8464,7 @@ var DraggableWindow = ({
         right: right2,
         borderRadius: 16
       },
-      css: import_react10.css`
+      css: import_react11.css`
             background-color:${bg};
             backdrop-filter: blur(15px);
             z-index: 10;
@@ -8421,13 +8481,13 @@ var DraggableWindow = ({
       },
       dragElastic: 0.5,
       children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-        css: import_react10.css` 
+        css: import_react11.css` 
               display: flex;
               
                 `,
         children: [
           /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-            css: import_react10.css`
+            css: import_react11.css`
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -8447,7 +8507,7 @@ var DraggableWindow = ({
                   children: sizes.map((size) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ToggleButton3, {
                     value: size,
                     children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
-                      css: import_react10.css`
+                      css: import_react11.css`
                        color: ${size === scaleRange ? "rgba(255,255,255,.8)" : "rgba(0,0,0,.3)"};
                        `,
                       children: [
@@ -8470,7 +8530,7 @@ var DraggableWindow = ({
                   height: height2 * scale / devicePixelRatio,
                   borderRadius: 8
                 },
-                css: import_react10.css`
+                css: import_react11.css`
 
                 display: block;
                 overflow: hidden;
@@ -8492,11 +8552,15 @@ var DraggableWindow = ({
                     scale: scaleRange / 100
                   },
                   "data-test-id": "z-body",
-                  css: import_react10.css`
+                  css: import_react11.css`
                   overflow:overlay;
                   overflow-y: hidden;
               `,
-                  children
+                  children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+                    style: { height: "100%" },
+                    ref,
+                    children
+                  })
                 })
               }),
               /* @__PURE__ */ (0, import_jsx_runtime.jsx)(m.div, {
@@ -8514,15 +8578,15 @@ var DraggableWindow = ({
                   children: breakPoints.map((size) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ToggleButton3, {
                     value: size,
                     children: size === 680 ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Phone, {
-                      css: import_react10.css`
+                      css: import_react11.css`
                         color: ${width2 === 680 ? "rgba(255,255,255,.8)" : "rgba(0,0,0,.3)"};
                         `
                     }) : size === 768 ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Tablet, {
-                      css: import_react10.css`
+                      css: import_react11.css`
                         color: ${width2 === 768 ? "rgba(255,255,255,.8)" : "rgba(0,0,0,.3)"};
                         `
                     }) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Tv, {
-                      css: import_react10.css`
+                      css: import_react11.css`
                         color: ${width2 === 1920 ? "rgba(255,255,255,.8)" : "rgba(0,0,0,.3)"};
                       `
                     })
@@ -8536,7 +8600,7 @@ var DraggableWindow = ({
             initial: { height: 0, width: 0 },
             animate: { height: "100%", width: "auto" },
             children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-              css: import_react10.css`
+              css: import_react11.css`
               padding: 16px;
               display: flex;
               overflow: "hidden";
@@ -8566,176 +8630,6 @@ var DraggableWindow = ({
   });
 };
 
-// js/renderPreviewWindow.tsx
-init_react();
-
-// ../../node_modules/react-reverse-portal/dist/web/index.js
-init_define_process();
-init_react();
-init_react();
-var __extends = function() {
-  var extendStatics = function(d, b) {
-    extendStatics = Object.setPrototypeOf || { __proto__: [] } instanceof Array && function(d2, b2) {
-      d2.__proto__ = b2;
-    } || function(d2, b2) {
-      for (var p2 in b2)
-        if (b2.hasOwnProperty(p2))
-          d2[p2] = b2[p2];
-    };
-    return extendStatics(d, b);
-  };
-  return function(d, b) {
-    extendStatics(d, b);
-    function __() {
-      this.constructor = d;
-    }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-  };
-}();
-var ELEMENT_TYPE_HTML = "html";
-var ELEMENT_TYPE_SVG = "svg";
-var SVG_NAMESPACE = "http://www.w3.org/2000/svg";
-var validateElementType = function(domElement, elementType) {
-  if (elementType === ELEMENT_TYPE_HTML) {
-    return domElement instanceof HTMLElement;
-  }
-  if (elementType === ELEMENT_TYPE_SVG) {
-    return domElement instanceof SVGElement;
-  }
-  throw new Error('Unrecognized element type "' + elementType + '" for validateElementType.');
-};
-var createPortalNode = function(elementType, options) {
-  var initialProps = {};
-  var parent;
-  var lastPlaceholder;
-  var element;
-  if (elementType === ELEMENT_TYPE_HTML) {
-    element = document.createElement("div");
-  } else if (elementType === ELEMENT_TYPE_SVG) {
-    element = document.createElementNS(SVG_NAMESPACE, "g");
-  } else {
-    throw new Error('Invalid element type "' + elementType + '" for createPortalNode: must be "html" or "svg".');
-  }
-  if (options && typeof options === "object") {
-    for (var _i = 0, _a = Object.entries(options.attributes); _i < _a.length; _i++) {
-      var _b = _a[_i], key = _b[0], value = _b[1];
-      element.setAttribute(key, value);
-    }
-  }
-  var portalNode = {
-    element,
-    elementType,
-    setPortalProps: function(props) {
-      initialProps = props;
-    },
-    getInitialPortalProps: function() {
-      return initialProps;
-    },
-    mount: function(newParent, newPlaceholder) {
-      if (newPlaceholder === lastPlaceholder) {
-        return;
-      }
-      portalNode.unmount();
-      if (newParent !== parent) {
-        if (!validateElementType(newParent, elementType)) {
-          throw new Error('Invalid element type for portal: "' + elementType + '" portalNodes must be used with ' + elementType + " elements, but OutPortal is within <" + newParent.tagName + ">.");
-        }
-      }
-      newParent.replaceChild(portalNode.element, newPlaceholder);
-      parent = newParent;
-      lastPlaceholder = newPlaceholder;
-    },
-    unmount: function(expectedPlaceholder) {
-      if (expectedPlaceholder && expectedPlaceholder !== lastPlaceholder) {
-        return;
-      }
-      if (parent && lastPlaceholder) {
-        parent.replaceChild(lastPlaceholder, portalNode.element);
-        parent = void 0;
-        lastPlaceholder = void 0;
-      }
-    }
-  };
-  return portalNode;
-};
-var InPortal = function(_super) {
-  __extends(InPortal2, _super);
-  function InPortal2(props) {
-    var _this = _super.call(this, props) || this;
-    _this.addPropsChannel = function() {
-      Object.assign(_this.props.node, {
-        setPortalProps: function(props2) {
-          _this.setState({ nodeProps: props2 });
-        }
-      });
-    };
-    _this.state = {
-      nodeProps: _this.props.node.getInitialPortalProps()
-    };
-    return _this;
-  }
-  InPortal2.prototype.componentDidMount = function() {
-    this.addPropsChannel();
-  };
-  InPortal2.prototype.componentDidUpdate = function() {
-    this.addPropsChannel();
-  };
-  InPortal2.prototype.render = function() {
-    var _this = this;
-    var _a = this.props, children = _a.children, node = _a.node;
-    return V(Children.map(children, function(child) {
-      if (!isValidElement(child))
-        return child;
-      return cloneElement(child, _this.state.nodeProps);
-    }), node.element);
-  };
-  return InPortal2;
-}(PureComponent);
-var OutPortal = function(_super) {
-  __extends(OutPortal2, _super);
-  function OutPortal2(props) {
-    var _this = _super.call(this, props) || this;
-    _this.placeholderNode = createRef();
-    _this.passPropsThroughPortal();
-    return _this;
-  }
-  OutPortal2.prototype.passPropsThroughPortal = function() {
-    var propsForTarget = Object.assign({}, this.props, { node: void 0 });
-    this.props.node.setPortalProps(propsForTarget);
-  };
-  OutPortal2.prototype.componentDidMount = function() {
-    var node = this.props.node;
-    this.currentPortalNode = node;
-    var placeholder = this.placeholderNode.current;
-    var parent = placeholder.parentNode;
-    node.mount(parent, placeholder);
-    this.passPropsThroughPortal();
-  };
-  OutPortal2.prototype.componentDidUpdate = function() {
-    var node = this.props.node;
-    if (this.currentPortalNode && node !== this.currentPortalNode) {
-      this.currentPortalNode.unmount(this.placeholderNode.current);
-      this.currentPortalNode.setPortalProps({});
-      this.currentPortalNode = node;
-    }
-    var placeholder = this.placeholderNode.current;
-    var parent = placeholder.parentNode;
-    node.mount(parent, placeholder);
-    this.passPropsThroughPortal();
-  };
-  OutPortal2.prototype.componentWillUnmount = function() {
-    var node = this.props.node;
-    node.unmount(this.placeholderNode.current);
-    node.setPortalProps({});
-  };
-  OutPortal2.prototype.render = function() {
-    return createElement("div", { ref: this.placeholderNode });
-  };
-  return OutPortal2;
-}(PureComponent);
-var createHtmlPortalNode = createPortalNode.bind(null, ELEMENT_TYPE_HTML);
-var createSvgPortalNode = createPortalNode.bind(null, ELEMENT_TYPE_SVG);
-
 // js/Editor.tsx
 init_define_process();
 init_react();
@@ -8753,7 +8647,7 @@ function isMobile() {
 }
 
 // js/Editor.tsx
-var import_react13 = __toESM(require_emotion_react_cjs(), 1);
+var import_react14 = __toESM(require_emotion_react_cjs(), 1);
 var import_jsx_runtime = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
 var mod = {
   CH: () => {
@@ -8769,7 +8663,7 @@ var Editor = ({ code, i, codeSpace: codeSpace2 }) => {
     myCode: code,
     counter: i,
     runner: async ({ code: code2, counter: counter2 }) => {
-      const { runner: runner2 } = await import("./chunk-runner-WBDSPWS7.mjs");
+      const { runner: runner2 } = await import("./chunk-runner-OGWWRROE.mjs");
       runner2({ code: code2, counter: counter2 });
       changeContent((x) => ({ ...x, runner: runner2, code: code2, counter: counter2 }));
     },
@@ -8924,14 +8818,14 @@ var Editor = ({ code, i, codeSpace: codeSpace2 }) => {
   }, "editor");
   return engine === "monaco" ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
     "data-test-id": myId,
-    css: import_react13.css`
+    css: import_react14.css`
 max-width: 640px;
 height: ${60 + lines / 40 * 100}% ;
 `,
     ref
   }) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
     "data-test-id": myId,
-    css: import_react13.css`
+    css: import_react14.css`
                 margin: 0;
                 position: absolute;
                 bottom: 0;
@@ -8947,7 +8841,7 @@ height: ${60 + lines / 40 * 100}% ;
 // js/renderPreviewWindow.tsx
 var import_jsx_runtime = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
 var RainbowContainer = ({ children }) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-  css: import_react15.css`
+  css: import_react17.css`
 height: 100%;
 width: 100%;
 background-blend-mode: overlay;
@@ -9014,47 +8908,39 @@ var AppToRender = ({ codeSpace: codeSpace2, children }) => {
       setIsStandalone(isStandalone2);
     }, 800);
   }, []);
-  const portalNode = useMemo(() => createHtmlPortalNode({
-    attributes: { id: `root-${codeSpace2}`, style: "height: 100%" }
-  }), []);
-  return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(p, {
+  if (isStandalone)
+    return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(AutoUpdateApp, {
+      hash,
+      starter: children
+    });
+  return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(RainbowContainer, {
     children: [
-      /* @__PURE__ */ (0, import_jsx_runtime.jsx)(InPortal, {
-        node: portalNode,
+      /* @__PURE__ */ (0, import_jsx_runtime.jsx)(DraggableWindow, {
+        hashCode: 0,
+        room: codeSpace2,
         children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(AutoUpdateApp, {
           hash,
           starter: children
         })
       }),
-      isStandalone ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)(OutPortal, {
-        node: portalNode
-      }) : /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(RainbowContainer, {
-        children: [
-          /* @__PURE__ */ (0, import_jsx_runtime.jsx)(DraggableWindow, {
-            hashCode: 0,
-            room: codeSpace2,
-            children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(OutPortal, {
-              node: portalNode
-            })
-          }),
-          /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Editor, {
-            code: mST().code,
-            i: mST().i,
-            codeSpace: codeSpace2
-          })
-        ]
+      /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Editor, {
+        code: mST().code,
+        i: mST().i,
+        codeSpace: codeSpace2
       })
     ]
   });
 };
-var renderPreviewWindow = (codeSpace2, App2) => {
-  return hydrateRoot(
-    document.getElementById("root"),
-    /* @__PURE__ */ (0, import_jsx_runtime.jsx)(AppToRender, {
+var renderPreviewWindow = (codeSpace2, child) => {
+  const div = document.getElementById("app-root");
+  div.style.height = "100%";
+  const root = globalThis.appRoot = createRoot(div);
+  root.render(/* @__PURE__ */ (0, import_jsx_runtime.jsx)(p, {
+    children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(AppToRender, {
       codeSpace: codeSpace2,
-      children: App2
+      children: child
     })
-  );
+  }));
 };
 
 // js/ws.ts

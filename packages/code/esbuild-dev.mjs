@@ -63,10 +63,10 @@ const buildOptions = {
   plugins: [
     // exampleOnResolvePlugin,
     alias({
-      "react": new URL("./react.ts", import.meta.url).pathname,
-      "react-dom": new URL("./react.ts", import.meta.url).pathname,
-      "react-dom/server": new URL("./react.ts", import.meta.url).pathname,
+      "react":  new URL("./react.ts", import.meta.url).pathname,
+      "react-dom": new URL("./react.ts", import.meta.url).pathname, 
       "react-dom/client": new URL("./react.ts", import.meta.url).pathname,
+      "react-dom/server": new URL("./react.ts", import.meta.url).pathname,
       "react/jsx-runtime": new URL("./react.ts", import.meta.url).pathname,
       "react/jsx-dev-runtime": new URL("./react.ts", import.meta.url).pathname,
       "path": new URL("./path/index.js", import.meta.url).pathname,
@@ -76,7 +76,7 @@ const buildOptions = {
       ).pathname,
     }),
     // importMapPlugin,
-    // esbuildCommonjs(["/react.mjs"]),
+    // esbuildCommonjs(["/react.ts"]),
     // alias({
     //   "path": "path-browserify"
     //   // "stream": "stream-browserify",
@@ -108,7 +108,6 @@ await esbuild.build({
     ".css": "file",
     ".ttf": "file",
     ".wasm": "file",
-
   },
 
   outdir: "./js/monaco-editor",
@@ -195,7 +194,6 @@ const build = (entryPoints, format = "esm") =>
       ".mjs",
       ".js",
       ".d.ts",
-
       ".wasm",
       ".monaco.worker.js",
     ],
