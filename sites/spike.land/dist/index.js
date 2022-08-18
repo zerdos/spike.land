@@ -432,7 +432,7 @@ var chat_default = {
               return cachedResponse.clone();
             }
             const esmUrl = u.toString().replace(
-              "https://testing.spike.land/npm:",
+              u.origin + "/npm:",
               "https://esm.sh/"
             );
             let resp = await fetch(esmUrl, { ...request2, url: esmUrl });
@@ -451,7 +451,7 @@ var chat_default = {
             const regex = /https:\/\/esm.sh\//gm;
             const regex2 = / from "\//gm;
             const responseToCache = new Response(
-              bodyStr ? bodyStr.replaceAll(regex, "https://testing.spike.land/npm:").replaceAll(regex2, ' from "/npm:') : await resp.blob(),
+              bodyStr ? bodyStr.replaceAll(regex, u.origin + "/npm:").replaceAll(regex2, ' from "/npm:') : await resp.blob(),
               {
                 status: 200,
                 headers: {
@@ -473,7 +473,7 @@ var chat_default = {
               return cachedResponse.clone();
             }
             const esmUrl = u.toString().replace(
-              "https://testing.spike.land/unpkg:",
+              u.origin + "/unpkg:",
               "https://unpkg.com/"
             );
             let resp = await fetch(esmUrl, { ...request2, url: esmUrl });
@@ -492,7 +492,7 @@ var chat_default = {
             const regex = /https:\/\/unpkg.com\//gm;
             const regex2 = / from "\//gm;
             const responseToCache = new Response(
-              bodyStr ? bodyStr.replaceAll(regex, "https://testing.spike.land/unpkg:").replaceAll(regex2, ' from "/unpkg:') : await resp.blob(),
+              bodyStr ? bodyStr.replaceAll(regex, u.origin + "/unpkg:").replaceAll(regex2, ' from "/unpkg:') : await resp.blob(),
               {
                 status: 200,
                 headers: {
