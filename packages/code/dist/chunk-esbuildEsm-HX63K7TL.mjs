@@ -2652,7 +2652,7 @@ var Mutex = class {
 var esbuild = __toESM(require_browser(), 1);
 
 // ../../node_modules/esbuild-wasm/esbuild.wasm
-var esbuild_default = "./esbuild-C5LYP4UP.wasm";
+var esbuild_default = "./chunk-esbuild-C5LYP4UP.wasm";
 
 // js/esbuildEsm.ts
 var mod = { initFinished: false };

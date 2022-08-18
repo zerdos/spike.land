@@ -20797,7 +20797,7 @@ var Editor = ({ code, i, codeSpace: codeSpace2 }) => {
     myCode: code,
     counter: i,
     runner: async ({ code: code2, counter: counter2 }) => {
-      const { runner: runner2 } = await import("./chunk-runner-MHEXFNA5.mjs");
+      const { runner: runner2 } = await import("./chunk-runner-WAUDVJML.mjs");
       runner2({ code: code2, counter: counter2 });
       changeContent((x) => ({ ...x, runner: runner2, code: code2, counter: counter2 }));
     },
@@ -20828,7 +20828,7 @@ var Editor = ({ code, i, codeSpace: codeSpace2 }) => {
     if (!ref?.current)
       return;
     const setMonaco = async () => {
-      const { startMonaco } = await import("./chunk-startMonaco-ANMEWJNJ.mjs");
+      const { startMonaco } = await import("./chunk-startMonaco-I5KLJXYN.mjs");
       const { editor, monaco } = await startMonaco(
         {
           container: ref.current,
