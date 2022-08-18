@@ -74,6 +74,5 @@
     "buffer": ["buffer"],
     "stream": ["stream-browserify"],
     "react": ["preact-compat"]
- 
   }
 }

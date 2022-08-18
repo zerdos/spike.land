@@ -1,12 +1,19 @@
-import {version} from "monaco-editor/package.json"
+import { version } from "monaco-editor/package.json";
 import type monaco from "monaco-editor";
 import pMap from "p-map";
+
+// import { createJsBlob } from "./starter";
+import editorWorker  from "./monaco-editor/editor/editor.worker.monaco.worker.js";
+import tsWorker  from './monaco-editor/language/typescript/ts.worker.monaco.worker.js'
+
+
+// import wfile from "monaco-editor/min/vs/language/typescript/tsWorker.js";
+// import efile from "monaco-editor/min/vs/editor/editor.main.js";
 
 //@ts-ignore
 //@ts-ignore
 
 // import { MonacoJsxSyntaxHighlight } from "monaco-jsx-syntax-highlight";
-
 
 // import { parse } from "@babel/parser";
 // import traverse from "@babel/traverse";
@@ -15,12 +22,11 @@ import pMap from "p-map";
 
 // globalThis.Buffer = Buffer;
 
-
 let started = false;
 
 const monacoContribution = async (
-  typescript:  monaco.languages.typescript,
-  editor:  monaco.editor,
+  typescript: monaco.languages.typescript,
+  editor: monaco.editor,
   Uri: monaco.Uri,
   code: string,
 ) => {
@@ -221,20 +227,18 @@ const monacoContribution = async (
       },
     ];
 
-    try{
+    try {
+      const mapper = async ({ name, url }: { name: string; url: string }) =>
+        typescript.typescriptDefaults.addExtraLib(
+          await (await fetch(
+            url,
+          )).text(),
+          location.origin + `/live/${name}.d.ts`,
+        );
 
-    const mapper= async ({ name, url }: {name: string, url: string}) => typescript.typescriptDefaults.addExtraLib(
-        await (await fetch(
-          url,
-        )).text(),
-        location.origin + `/live/${name}.d.ts`);
-    
-
-
-
-    await pMap(importHelper, mapper, { concurrency: 2 });
-    } catch{
-      console.error("Error in loading d.td")
+      await pMap(importHelper, mapper, { concurrency: 2 });
+    } catch {
+      console.error("Error in loading d.td");
     }
     typescript.typescriptDefaults.setEagerModelSync(true);
     typescript.typescriptDefaults.setDiagnosticsOptions({
@@ -246,29 +250,22 @@ const monacoContribution = async (
 };
 
 window.MonacoEnvironment = {
-
-  getWorker: async function (_workerId: string, label: string) {
-
-
-
+  getWorker: function (_workerId: string, label: string) {
+ 
+    
 
     if (label === "typescript" || label === "javascript") {
+    
 
-      globalThis.twWorker =   globalThis.twWorker ||  ((await import(`/npm:monaco-editor@${version}/min/vs/language/typescript/tsWorker?worker`)).default)();
-
-
-        return twWorker;
-      }
-
-      globalThis .ediWorker = (   globalThis .ediWorker  || (await import(`/npm:monaco-editor@${version}/min/vs/editor/editor.main?worker`)).default)();
+    return  new Worker(tsWorker);
 
 
-    // const worker = await 
-    // const {TypeScriptWorker}=  await import("monaco-editor/esm/vs/language/typescript/ts.worker")
-    return ediWorker;
+    }
+ return new Worker(editorWorker);
+   
+
   },
 };
-
 
 export const startMonaco = async (
   { code, container, name }: {
@@ -277,17 +274,14 @@ export const startMonaco = async (
     name: string;
   },
 ) => {
+  const { languages, editor, Uri } = await import(
+    `/npm:monaco-editor@${version}?target=es2021`
+  ) as unknown as monaco;
 
-  const  {languages, editor, Uri}  = await import(`/npm:monaco-editor@${version}?target=es2021`) as unknown as monaco; 
-  
-
-
-const returnModules = {
-  editor: {} as unknown as ReturnType<monaco.editor.create>,
-  monaco: {editor,languages, Uri},
-};
-
-
+  const returnModules = {
+    editor: {} as unknown as ReturnType<monaco.editor.create>,
+    monaco: { editor, languages, Uri },
+  };
 
   console.log("monaco-editor");
   if (!started) started = true;
@@ -328,123 +322,120 @@ const returnModules = {
       "typescript",
       Uri.parse(location.origin + "/live/" + name + ".tsx"),
     ),
-    language:   "typescript",
+    language: "typescript",
 
-  scrollbar: {
-    scrollByPage: false,
-    alwaysConsumeMouseWheel: false,
-  },
-  scrollBeyondLastLine: false,
-  scrollPredominantAxis: false,
+    scrollbar: {
+      scrollByPage: false,
+      alwaysConsumeMouseWheel: false,
+    },
+    scrollBeyondLastLine: false,
+    scrollPredominantAxis: false,
 
-  smoothScrolling: true,
+    smoothScrolling: true,
 
- suggest: {
-    /**
-     * Overwrite word ends on accept. Default to false.
-     */
-    insertMode: "replace",
-    /**
-     * Enable graceful matching. Defaults to true.
-     */
-    filterGraceful: true,
-    /**
-     * Prevent quick suggestions when a snippet is active. Defaults to true.
-     */
-    snippetsPreventQuickSuggestions: true,
-    /**
-     * Favors words that appear close to the cursor.
-     */
-    localityBonus: true,
-    /**
-     * Enable using global storage for remembering suggestions.
-     */
-    shareSuggestSelections: true,
-    /**
-     * Enable or disable icons in suggestions. Defaults to true.
-     */
-    showIcons: true,
-    /**
-     * Enable or disable the suggest status bar.
-     */
-    showStatusBar: false,
-    /**
-     * Enable or disable the rendering of the suggestion preview.
-     */
-    preview: true,
-    /**
-     * Configures the mode of the preview.
-     */
-    previewMode: "prefix",
-    /**
-     * Show details inline with the label. Defaults to true.
-     */
-    showInlineDetails: true,
+    suggest: {
+      /**
+       * Overwrite word ends on accept. Default to false.
+       */
+      insertMode: "replace",
+      /**
+       * Enable graceful matching. Defaults to true.
+       */
+      filterGraceful: true,
+      /**
+       * Prevent quick suggestions when a snippet is active. Defaults to true.
+       */
+      snippetsPreventQuickSuggestions: true,
+      /**
+       * Favors words that appear close to the cursor.
+       */
+      localityBonus: true,
+      /**
+       * Enable using global storage for remembering suggestions.
+       */
+      shareSuggestSelections: true,
+      /**
+       * Enable or disable icons in suggestions. Defaults to true.
+       */
+      showIcons: true,
+      /**
+       * Enable or disable the suggest status bar.
+       */
+      showStatusBar: false,
+      /**
+       * Enable or disable the rendering of the suggestion preview.
+       */
+      preview: true,
+      /**
+       * Configures the mode of the preview.
+       */
+      previewMode: "prefix",
+      /**
+       * Show details inline with the label. Defaults to true.
+       */
+      showInlineDetails: true,
 
-    /**
-     * Show method-suggestions.
-     */
-    showMethods: true,
-    /**
-     * Show function-suggestions.
-     */
-    showFunctions: true,
-    /**
-     * Show constructor-suggestions.
-     */
-    showConstructors: true,
-    /**
-     * Show deprecated-suggestions.
-     */
+      /**
+       * Show method-suggestions.
+       */
+      showMethods: true,
+      /**
+       * Show function-suggestions.
+       */
+      showFunctions: true,
+      /**
+       * Show constructor-suggestions.
+       */
+      showConstructors: true,
+      /**
+       * Show deprecated-suggestions.
+       */
 
-    /**
-     * Show field-suggestions.
-     */
+      /**
+       * Show field-suggestions.
+       */
 
-    /**
-     * Show color-suggestions.
-     */
-    showColors: true,
-    /**
-     * Show file-suggestions.
-     */
-    showFiles: true,
-    /**
-     * Show reference-suggestions.
-     */
-    showReferences: true,
-    /**
-     * Show folder-suggestions.
-     */
-    showFolders: true,
-    /**
-     * Show typeParameter-suggestions.
-     */
-    showTypeParameters: true,
-    /**
-     * Show issue-suggestions.
-     */
-    showIssues: true,
-    /**
-     * Show user-suggestions.
-     */
-    showUsers: true,
-    /**
-     * Show snippet-suggestions.
-     */
-    showSnippets: true,
-  },
+      /**
+       * Show color-suggestions.
+       */
+      showColors: true,
+      /**
+       * Show file-suggestions.
+       */
+      showFiles: true,
+      /**
+       * Show reference-suggestions.
+       */
+      showReferences: true,
+      /**
+       * Show folder-suggestions.
+       */
+      showFolders: true,
+      /**
+       * Show typeParameter-suggestions.
+       */
+      showTypeParameters: true,
+      /**
+       * Show issue-suggestions.
+       */
+      showIssues: true,
+      /**
+       * Show user-suggestions.
+       */
+      showUsers: true,
+      /**
+       * Show snippet-suggestions.
+       */
+      showSnippets: true,
+    },
 
-  automaticLayout: true,
-  definitionLinkOpensInPeek: true,
+    automaticLayout: true,
+    definitionLinkOpensInPeek: true,
 
-  theme: "vs-dark",
+    theme: "vs-dark",
 
-  autoClosingBrackets: "beforeWhitespace"
+    autoClosingBrackets: "beforeWhitespace",
   });
-
-
-
 
   return returnModules;
 };
