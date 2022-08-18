@@ -60,6 +60,13 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
 
   const scale = scaleRange / 100;
 
+  useEffect(()=> {
+    
+    ref.current?.appendChild(document.getElementById("root")!)
+    
+  } 
+    , [ref]);
+
   useEffect(() => {
     const reveal = async () => {
       setPositions({
@@ -107,7 +114,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
     <LazyMotion features={domMax}>
       <m.div
         transition={{ delay: 0, duration: 0.4 }}
-        ref={ref}
+      
         initial={{
           top: 0,
           padding: 0,
@@ -227,8 +234,12 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
                   overflow-y: hidden;
               `}
               >
-                {children}
-              </m.div>
+                  <div 
+                  style={{height: "100%"}} ref={ref}>
+                  {children}
+                </div>
+
+                </m.div>
             </m.div>
             <m.div
               transition={{ delay: 0, duration: 0.4 }}

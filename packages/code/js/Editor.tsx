@@ -2,7 +2,6 @@ import { FC, useEffect, useRef, useState } from "react";
 import { mST, onSessionUpdate } from "./session";
 import { isMobile } from "./isMobile.mjs";
 
-
 import { css } from "@emotion/react";
 import { wait } from "./wait";
 

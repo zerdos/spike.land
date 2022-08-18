@@ -68,7 +68,7 @@
   "include": [
     "packages/code/js",
     "sites/spike.land/src"
-  ],
+, "packages/code/million.ts"  ],
 
   "paths": {
   }

@@ -1,16 +1,13 @@
-import { Fragment, ReactNode, useEffect, useMemo, useState } from "react";
+import React, { Fragment, ReactElement } from "react";
+import {createRoot} from "react-dom/client";
+import { ReactNode, useEffect, useState } from "react";
 import { appFactory, AutoUpdateApp } from "./starter";
 import { css } from "@emotion/react";
 import { DraggableWindow } from "./DraggableWindow";
 import type { FC } from "react";
-import { hydrateRoot } from "react-dom/client";
 
 import { hashCode, mST, onSessionUpdate } from "./session";
-import {
-  createHtmlPortalNode,
-  InPortal,
-  OutPortal,
-} from "react-reverse-portal";
+
 import { Editor } from "./Editor";
 
 const RainbowContainer: FC<{ children: ReactNode }> = ({ children }) => (
@@ -63,7 +60,7 @@ background:  repeating-radial-gradient(circle at bottom left,
   </div>
 );
 
-const AppToRender: FC<{ codeSpace: string; children: FC }> = (
+const AppToRender: FC<{ codeSpace: string; children: ReactElement }> = (
   { codeSpace, children },
 ) => {
   const [hash, setHash] = useState(() => hashCode());
@@ -92,56 +89,34 @@ const AppToRender: FC<{ codeSpace: string; children: FC }> = (
     }, 800);
   }, []);
 
-  const portalNode = useMemo(() =>
-    createHtmlPortalNode({
-      attributes: { id: `root-${codeSpace}`, style: "height: 100%" },
-    }), []);
+  if (isStandalone) return <AutoUpdateApp hash={hash} starter={children} />;
 
   return (
-    <Fragment>
-      <InPortal node={portalNode}>
+    <RainbowContainer>
+      <DraggableWindow
+        // onRestore={() => {
+        //   const model = globalThis.model;
+        //   model.setValue(mST().code);
+        // }}
+        hashCode={0}
+        room={codeSpace}
+      >
         <AutoUpdateApp hash={hash} starter={children} />
-      </InPortal>
-
-      {isStandalone
-        ? (
-          <OutPortal
-            node={portalNode}
-            // These props go back to the content of the InPortal, and trigger a
-            // component render (but on the same component instance) as if they
-            // had been passed to MyExpensiveComponent directly.
-          />
-        )
-        : (
-          <RainbowContainer>
-            <DraggableWindow
-              // onRestore={() => {
-              //   const model = globalThis.model;
-              //   model.setValue(mST().code);
-              // }}
-              hashCode={0}
-              room={codeSpace}
-            >
-              <OutPortal
-                node={portalNode}
-                // These props go back to the content of the InPortal, and trigger a
-                // component render (but on the same component instance) as if they
-                // had been passed to MyExpensiveComponent directly.
-              />
-            </DraggableWindow>
-            <Editor code={mST().code} i={mST().i} codeSpace={codeSpace} />
-          </RainbowContainer>
-        )}
-    </Fragment>
+      </DraggableWindow>
+      <Editor code={mST().code} i={mST().i} codeSpace={codeSpace} />
+    </RainbowContainer>
   );
 };
 
 export const renderPreviewWindow = (
   codeSpace: string,
-  App: FC,
+  child: React.ReactElement,
 ) => {
-  return hydrateRoot(
-    document.getElementById("root")!,
-    <AppToRender codeSpace={codeSpace}>{App}</AppToRender>,
-  );
-};
+  const div =document.getElementById("app-root");
+  div.style.height='100%';
+const root = globalThis.appRoot = createRoot(div);
+root.render(<Fragment>
+<AppToRender codeSpace={codeSpace}>{child}</AppToRender>
+</Fragment>);
+}
+
