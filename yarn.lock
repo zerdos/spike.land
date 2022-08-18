@@ -2232,9 +2232,9 @@ __metadata:
   linkType: hard
 
 "@octokit/openapi-types@npm:^13.1.0":
-  version: 13.1.0
-  resolution: "@octokit/openapi-types@npm:13.1.0"
-  checksum: 705fcca5bb437608775da3461eddd78b1f9e8bb39c2a059389f65fdefc7b2d783d8edc328446beb16b42f1c16a583a1b481b5f3883657693a1097eceb47552aa
+  version: 13.2.0
+  resolution: "@octokit/openapi-types@npm:13.2.0"
+  checksum: df32cc26f02af98cbbb11e01907dddfc3b5b31f5ee65e93ddf7bc20a067c169446c565751a4b84e79d45385496ba62dc7e1b117520298e19e413fa433f96cbb3
   languageName: node
   linkType: hard
 
@@ -9365,7 +9365,7 @@ __metadata:
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: 50721be86ea612bd453a5d10b58e861f917d39a1ab872b2f4c380fd5e7f08254214089736a218e66472dbd8b2b2504fb1fbbda9bab61633b5b3df9a5dee4ddce
+  checksum: 19bcd9153bbacaabed753b39fbd6adb5417690230b07db63f02e22588865b444b7504da9b9fcdcca5b4ac34be19904271a266bfa54d75fcfb0f5d699cb1e2314
   languageName: node
   linkType: hard
 
