@@ -190,7 +190,6 @@ const build = (entryPoints, format = "esm") =>
     minifySyntax: !isDevelopment,
     legalComments: "none",
     treeShaking: true,
-    ignoreAnnotations: true,
     format,
     tsconfig: "./tsconfig.json",
     allowOverwrite: true,
@@ -214,7 +213,6 @@ const build = (entryPoints, format = "esm") =>
     chunkNames: "chunk-[name]-[hash]",
     treeShaking: true,
     assetNames: 'chunk-[name]-[hash]',
-    ignoreAnnotations: true,
     // entryNames: "[name]-[hash]",
     resolveExtensions: [
       ".tsx",
