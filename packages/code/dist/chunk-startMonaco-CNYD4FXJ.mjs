@@ -455,10 +455,10 @@ var monacoContribution = async (typescript, editor, Uri, code) => {
 window.MonacoEnvironment = {
   getWorker: async function(_workerId, label) {
     if (label === "typescript" || label === "javascript") {
-      globalThis.twWorker = globalThis.twWorker || (await import(`/npm:monaco-editor@${version}/esm/vs/language/typescript/ts.worker?worker&target=es2021`)).default();
+      globalThis.twWorker = globalThis.twWorker || (await import(`/npm:monaco-editor@${version}/min/vs/language/typescript/ts.worker?worker&target=es2021`)).default();
       return twWorker;
     }
-    globalThis.ediWorker = (globalThis.ediWorker || (await import(`/npm:monaco-editor@${version}/esm/vs/editor/editor.worker?worker&target=es2021`)).default)();
+    globalThis.ediWorker = (globalThis.ediWorker || (await import(`/npm:monaco-editor@${version}/min/vs/editor/editor.worker?worker&target=es2021`)).default)();
     return ediWorker;
   }
 };
@@ -489,7 +489,7 @@ var startMonaco = async ({ code, container, name }) => {
 }`;
   document.head.appendChild(outerStyle);
   const innerStyle = document.createElement("style");
-  innerStyle.innerText = `@import url(/npm:monaco-editor@${version}/esm/vs/editor/editor.main?css);
+  innerStyle.innerText = `@import url(/npm:monaco-editor@${version}/?css);
 //   @font-face {
 //     font-family: codicon;
 //     font-display: block;
