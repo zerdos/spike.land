@@ -92,7 +92,7 @@ export default {
               return cachedResponse.clone();
             }
 
-            const esmUrl =  u.toString().replace("https://testing.spike.land/npm:",
+            const esmUrl =  u.toString().replace(u.origin+ "/npm:",
               "https://esm.sh/");
 
             let resp = await fetch(esmUrl, {...request, url: esmUrl});
@@ -114,7 +114,7 @@ export default {
 
             const responseToCache = new Response(
               bodyStr
-                ? bodyStr.replaceAll(regex, "https://testing.spike.land/npm:")
+                ? bodyStr.replaceAll(regex, u.origin+ "/npm:")
                   .replaceAll(regex2, ' from "/npm:')
                 : await resp.blob(),
               {
@@ -146,7 +146,7 @@ export default {
               return cachedResponse.clone();
             }
 
-            const esmUrl =  u.toString().replace("https://testing.spike.land/unpkg:",
+            const esmUrl =  u.toString().replace(u.origin+ "/unpkg:",
               "https://unpkg.com/");
 
             let resp = await fetch(esmUrl, {...request, url: esmUrl});
@@ -168,7 +168,7 @@ export default {
 
             const responseToCache = new Response(
               bodyStr
-                ? bodyStr.replaceAll(regex, "https://testing.spike.land/unpkg:")
+                ? bodyStr.replaceAll(regex, u.origin+ "/unpkg:")
                   .replaceAll(regex2, ' from "/unpkg:')
                 : await resp.blob(),
               {
