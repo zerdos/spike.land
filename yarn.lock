@@ -2517,7 +2517,6 @@ __metadata:
     prop-types: "npm:^15.8.1"
     qrious: "npm:^4.0.2"
     react-qrious: "npm:2.5.5"
-    react-reverse-portal: "npm:^2.1.1"
     rimraf: "npm:^3.0.2"
     stream-browserify: "npm:3.0.0"
     tslib: "npm:^2.4.0"
@@ -8257,16 +8256,6 @@ __metadata:
     qrious: ">=4.0.0"
     react: ">=16.8.0"
   checksum: 0e37440177eac3bc8fdc3f324cf88dbc30bb673e0598e925b687061a0f3a8a5c062b3e05ae6e3c626a428c9036e2b6e5f4f03ba54807864d40ddeff91cc318ed
-  languageName: node
-  linkType: hard
-
-"react-reverse-portal@npm:^2.1.1":
-  version: 2.1.1
-  resolution: "react-reverse-portal@npm:2.1.1"
-  peerDependencies:
-    react: ^16.0.0 || ^17.0.0 || ^18.0.0
-    react-dom: ^16.0.0 || ^17.0.0 || ^18.0.0
-  checksum: baa8761e8ef5fe6356abc19afada8dc06f32febb7c71f5867d473796f46599c0ccd69f81278dd2761a051de4fb99669b2e8c379f5b4967df030b2fdd72c8b649
   languageName: node
   linkType: hard
 
