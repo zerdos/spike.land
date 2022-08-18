@@ -130,6 +130,61 @@ export default {
             return responseToCache;
           }
 
+          if (path[0].startsWith("unpkg:")) {
+
+            const cacheUrl = new URL(request.url);
+
+            // Construct the cache key from the cache URL
+            const cacheKey = new Request(cacheUrl.toString());
+            const cache = caches.default;
+
+            // Check whether the value is already available in the cache
+            // if not, you will need to fetch it from origin, and store it in the cache
+            // for future access
+            const cachedResponse = await cache.match(cacheKey);
+            if (cachedResponse && cachedResponse.ok) {
+              return cachedResponse.clone();
+            }
+
+            const esmUrl =  u.toString().replace("https://testing.spike.land/unpkg:",
+              "https://unpkg.com/");
+
+            let resp = await fetch(esmUrl, {...request, url: esmUrl});
+
+            if (resp !== null && !resp.ok || resp.status===307) {
+              const redirectUrl = resp.headers.get("location");
+              if (redirectUrl) {
+                resp = await fetch(redirectUrl, {...request, url: redirectUrl});
+              }
+              if (resp !== null && !resp.ok) return resp;
+            }
+
+            const isText = !!resp?.headers?.get("Content-Type")?.includes(
+              "charset",
+            );
+            const bodyStr = await (isText ? resp.text() : null);
+            const regex = /https:\/\/unpkg.com\//gm;
+            const regex2 = / from "\//gm;
+
+            const responseToCache = new Response(
+              bodyStr
+                ? bodyStr.replaceAll(regex, "https://testing.spike.land/unpkg:")
+                  .replaceAll(regex2, ' from "/unpkg:')
+                : await resp.blob(),
+              {
+                status: 200,
+                headers: {
+                  "Access-Control-Allow-Origin": "*",
+                  "Cache-Control": "immutable",
+                  "Content-Type": resp.headers.get("Content-Type")!,
+                },
+              },
+            );
+            await cache.put(cacheKey, responseToCache.clone());
+            return responseToCache;
+
+          }
+
           switch (path[0]) {
             case "ping":
               return new Response("ping" + Math.random(), {

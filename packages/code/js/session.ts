@@ -3,7 +3,7 @@ import { Record } from "immutable";
 import { applyPatch as aPatch, createDelta, Delta } from "./textDiff";
 // Import * as Immutable from "immutable"
 
-export type {Delta}
+export type { Delta };
 type IUsername = string;
 
 export interface ICodeSession {

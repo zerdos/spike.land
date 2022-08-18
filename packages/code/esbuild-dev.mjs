@@ -3,8 +3,6 @@ import esbuild from "esbuild";
 
 import alias from "esbuild-plugin-alias";
 
-
-
 const environment = process.env.NODE_ENV === "production"
   ? "production"
   : "development";
@@ -13,8 +11,6 @@ const isDevelopment = environment === "development";
 
 const outdir = "./dist";
 const target = "es2021";
-
-
 
 // let exampleOnResolvePlugin = {
 //   name: 'example',
@@ -37,9 +33,6 @@ const target = "es2021";
 //   },
 // }
 
-
-
-
 console.log(`
 -------------------------------------------------
 --------------${environment}---------------------
@@ -47,8 +40,8 @@ console.log(`
 -------------------------------------------------`);
 
 const workerEntryPoints = [
-"vs/language/typescript/ts.worker.js",
-"vs/editor/editor.worker.js",
+  "vs/language/typescript/ts.worker.js",
+  "vs/editor/editor.worker.js",
 ].map((entry) => `monaco-editor/esm/${entry}`);
 
 const define = {
@@ -68,7 +61,7 @@ const buildOptions = {
   external: ["./mST"],
   legalComments: "none",
   plugins: [
-   // exampleOnResolvePlugin,
+    // exampleOnResolvePlugin,
     alias({
       "react": new URL("./react.ts", import.meta.url).pathname,
       "react-dom": new URL("./react.ts", import.meta.url).pathname,
@@ -91,36 +84,35 @@ const buildOptions = {
   ],
 };
 
-// await esbuild.build({
-//   ...buildOptions,
-//   entryPoints: [
-//     ...workerEntryPoints,
-//   ],
-//   bundle: true,
-//   minify: true,
-//   minifyWhitespace: true,
-//   minifyIdentifiers: true,
-//   minifySyntax: true,
-//   target,
-//   treeShaking: true,
-//   ignoreAnnotations: true,
-//   outExtension: { ".js": ".monaco.worker.js" },
-//   format: "iife",
-//   loader: {
-//     ".ttf": "file",
-//     ".webp": "file",
-//     ".tsx": "tsx",
-//     ".jsx": "tsx",
-//     ".ts:": "ts",
-//     ".css": "file",
-//     ".css": "file",
-//     ".ttf": "file",
-//     ".wasm": "file",
+await esbuild.build({
+  ...buildOptions,
+  entryPoints: [
+    ...workerEntryPoints,
+  ],
+  bundle: true,
+  minify: false,
+  // minifyWhitespace: true,
+  // minifyIdentifiers: true,
+  // minifySyntax: true,
+  target,
+  // treeShaking: true,
+  outExtension: { ".js": ".monaco.worker.js" },
+  format: "iife",
+  loader: {
+    ".ttf": "file",
+    ".webp": "file",
+    ".tsx": "tsx",
+    ".jsx": "tsx",
+    ".ts:": "ts",
+    ".css": "file",
+    ".css": "file",
+    ".ttf": "file",
+    ".wasm": "file",
 
-//   },
+  },
 
-//   outdir: "./js/monaco-editor",
-// });
+  outdir: "./js/monaco-editor",
+});
 
 // await esbuild.build({
 //   ...buildOptions,
@@ -203,7 +195,7 @@ const build = (entryPoints, format = "esm") =>
       ".mjs",
       ".js",
       ".d.ts",
-      
+
       ".wasm",
       ".monaco.worker.js",
     ],
@@ -212,7 +204,7 @@ const build = (entryPoints, format = "esm") =>
     platform: "browser",
     chunkNames: "chunk-[name]-[hash]",
     treeShaking: true,
-    assetNames: 'chunk-[name]-[hash]',
+    assetNames: "chunk-[name]-[hash]",
     // entryNames: "[name]-[hash]",
     resolveExtensions: [
       ".tsx",
@@ -225,7 +217,8 @@ const build = (entryPoints, format = "esm") =>
       ".mjs",
       ".js",
       ".wasm",
-      ".worker.js",
+      ".tsWorker.js",
+      ".editor.main.js",
     ],
 
     define,
@@ -235,10 +228,7 @@ const build = (entryPoints, format = "esm") =>
       ".tsx": "tsx",
       ".jsx": "tsx",
       ".d.ts": "file",
-
       ".worker.js": "file",
-
-
       ".wasm": "file",
     },
     outdir,

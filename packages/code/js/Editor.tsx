@@ -2,9 +2,9 @@ import { FC, useEffect, useRef, useState } from "react";
 import { mST, onSessionUpdate } from "./session";
 import { isMobile } from "./isMobile.mjs";
 
+
 import { css } from "@emotion/react";
 import { wait } from "./wait";
-
 
 const mod = {
   CH: () => {},
@@ -27,10 +27,10 @@ export const Editor: FC<{ code: string; i: number; codeSpace: string }> = (
   ] = useState({
     myCode: code,
     counter: i,
-    runner: async({code, counter}: {code: string, counter: number})=> {
-      const {runner} = await import("./runner");
-      runner({code, counter});
-      changeContent((x: typeof mySession) =>({...x, runner, code, counter})) ;
+    runner: async ({ code, counter }: { code: string; counter: number }) => {
+      const { runner } = await import("./runner");
+      runner({ code, counter });
+      changeContent((x: typeof mySession) => ({ ...x, runner, code, counter }));
     },
     myId: "loading",
     getValue: () => "" as string,
@@ -77,11 +77,9 @@ export const Editor: FC<{ code: string; i: number; codeSpace: string }> = (
       globalThis.monaco = monaco;
       // globalThis.editor = editor;
 
-    
       changeContent((x) => ({
         ...x,
         setValue: (code: string) => {
-       
           let state = null;
           try {
             state = editor.saveViewState();
@@ -95,15 +93,21 @@ export const Editor: FC<{ code: string; i: number; codeSpace: string }> = (
         },
         getValue: () => {
           try {
-            (async () =>{
-              const tsWorker =await (await globalThis.monaco.languages.typescript.getTypeScriptWorker())([location.origin + "/live/" + codeSpace + ".tsx"]);
+            (async () => {
+              const tsWorker =
+                await (await globalThis.monaco.languages.typescript
+                  .getTypeScriptWorker())([
+                    location.origin + "/live/" + codeSpace + ".tsx",
+                  ]);
 
-       const diag = await tsWorker.getSemanticDiagnostics(location.origin + "/live/" + codeSpace + ".tsx");
-     console.log({diag})    
-            })(); 
-     } catch {
-       console.error("ts diag error");
-     }
+              const diag = await tsWorker.getSemanticDiagnostics(
+                location.origin + "/live/" + codeSpace + ".tsx",
+              );
+              console.log({ diag });
+            })();
+          } catch {
+            console.error("ts diag error");
+          }
           return editor.getModel()!.getValue() as string;
         },
         onChange: (cb: () => void) =>
@@ -235,7 +239,8 @@ height: ${60 + lines / 40 * 100}% ;
 `}
           ref={ref}
         />
-      ) : (
+      )
+      : (
         <div
           data-test-id={myId}
           css={css`
@@ -248,7 +253,8 @@ height: ${60 + lines / 40 * 100}% ;
               `}
           id="editor"
           ref={ref}
-        ></div>
+        >
+        </div>
       )
   );
 };

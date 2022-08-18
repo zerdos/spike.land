@@ -17,7 +17,8 @@ export const initShims = async (assets: { [key: string]: string }) => {
   location.origin.includes("localhost")
     ? importShim.addImportMap({
       "imports": {
-        "@emotion/react": "https://esm.sh/@emotion/react@11.10.0?alias=react:/react.mjs",
+        "@emotion/react":
+          "https://esm.sh/@emotion/react@11.10.0?alias=react:/react.mjs",
         "framer-motion": "./framer-motion",
         "react": orig + "/" + assets["react.mjs"],
         "react-dom": orig + "/" + assets["react.mjs"],
