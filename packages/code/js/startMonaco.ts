@@ -1,11 +1,12 @@
-import * as monaco from "https://testing.spike.land/npm:monaco-editor?target=es2021";
+import {version} from "monaco-editor/package.json"
+import type monaco from "monaco-editor";
 import pMap from "p-map";
+
 //@ts-ignore
 //@ts-ignore
 
 // import { MonacoJsxSyntaxHighlight } from "monaco-jsx-syntax-highlight";
 
-import codicon from "monaco-editor/esm/vs/base/browser/ui/codicons/codicon/codicon.ttf";
 
 // import { parse } from "@babel/parser";
 // import traverse from "@babel/traverse";
@@ -17,9 +18,10 @@ import codicon from "monaco-editor/esm/vs/base/browser/ui/codicons/codicon/codic
 
 let started = false;
 
-export const monacoContribution = async (
-  typescript: typeof monaco.languages.typescript,
-  editor: typeof monaco.editor,
+const monacoContribution = async (
+  typescript:  monaco.languages.typescript,
+  editor:  monaco.editor,
+  Uri: monaco.Uri,
   code: string,
 ) => {
   // const {typescript} = languages;
@@ -80,7 +82,7 @@ export const monacoContribution = async (
     editor.createModel(
       await fetch(extraModel).then((res) => res.text()),
       "typescript",
-      monaco.Uri.parse(extraModel),
+      Uri.parse(extraModel),
     );
   }
 
@@ -221,12 +223,14 @@ export const monacoContribution = async (
 
     try{
 
-    const mapper= async ({ name, url }) => typescript.typescriptDefaults.addExtraLib(
+    const mapper= async ({ name, url }: {name: string, url: string}) => typescript.typescriptDefaults.addExtraLib(
         await (await fetch(
           url,
         )).text(),
-        location.origin + `/live/${name}.d.ts`)
+        location.origin + `/live/${name}.d.ts`);
     
+
+
 
     await pMap(importHelper, mapper, { concurrency: 2 });
     } catch{
@@ -241,12 +245,6 @@ export const monacoContribution = async (
   })();
 };
 
-const returnModules = {
- 
-  editor: {} as unknown as ReturnType<typeof monaco.editor.create>,
-  monaco,
-};
-
 window.MonacoEnvironment = {
 
   getWorker: async function (_workerId: string, label: string) {
@@ -256,13 +254,13 @@ window.MonacoEnvironment = {
 
     if (label === "typescript" || label === "javascript") {
 
-      globalThis.twWorker =   globalThis.twWorker ||  ((await import("https://testing.spike.land/npm:monaco-editor@0.34.0/esm/vs/language/typescript/ts.worker?worker&target=es2021")).default)();
+      globalThis.twWorker =   globalThis.twWorker ||  ((await import(`/npm:monaco-editor@${version}/esm/vs/language/typescript/ts.worker?worker&target=es2021`)).default)();
 
 
         return twWorker;
       }
 
-      globalThis .ediWorker = (   globalThis .ediWorker  || (await import("https://testing.spike.land/npm:monaco-editor@0.34.0/esm/vs/editor/editor.worker?worker&target=es2021")).default)();
+      globalThis .ediWorker = (   globalThis .ediWorker  || (await import(`/npm:monaco-editor@${version}/esm/vs/editor/editor.worker?worker&target=es2021`)).default)();
 
 
     // const worker = await 
@@ -280,7 +278,17 @@ export const startMonaco = async (
   },
 ) => {
 
+  const  {languages, editor, Uri}  = await import(`/npm:monaco-editor@${version}?target=es2021`) as unknown as monaco; 
   
+
+
+const returnModules = {
+  editor: {} as unknown as ReturnType<monaco.editor.create>,
+  monaco: {editor,languages, Uri},
+};
+
+
+
   console.log("monaco-editor");
   if (!started) started = true;
   else return returnModules;
@@ -294,30 +302,31 @@ export const startMonaco = async (
 
   const outerStyle = document.createElement("style");
   outerStyle.innerText = ` @font-face {
-    font-family: codicon;
-    font-display: block;
-    src: url(${codicon}) format("truetype");
+     font-family: codicon;
+     font-display: block;
+      src: url(/npm:monaco-editor@${version}/esm/vs/base/browser/ui/codicons/codicon/codicon.ttf) format("truetype");
+
 }`;
   document.head.appendChild(outerStyle);
 
   const innerStyle = document.createElement("style");
-  innerStyle.innerText = `@import url("/npm:monaco-editor@0.34.0?css");
-  @font-face {
-    font-family: codicon;
-    font-display: block;
-    src: url(${codicon}) format("truetype");
-}
+  innerStyle.innerText = `@import url(/npm:monaco-editor@${version}?css);
+//   @font-face {
+//     font-family: codicon;
+//     font-display: block;
+//     src: url(/npm:monaco-editor@${version}/esm/vs/base/browser/ui/codicons/codicon/codicon.ttf) format("truetype");
+// }
   
   `;
   shadowRoot.appendChild(innerStyle);
 
-  await monacoContribution(monaco.languages.typescript, monaco.editor, code);
+  await monacoContribution(languages.typescript, editor, Uri, code);
 
-  returnModules.editor = monaco.editor.create(innerContainer, {
-    model: monaco.editor.createModel(
+  returnModules.editor = editor.create(innerContainer, {
+    model: editor.createModel(
       code,
       "typescript",
-      monaco.Uri.parse(location.origin + "/live/" + name + ".tsx"),
+      Uri.parse(location.origin + "/live/" + name + ".tsx"),
     ),
     language:   "typescript",
 

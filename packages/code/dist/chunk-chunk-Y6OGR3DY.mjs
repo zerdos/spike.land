@@ -3901,7 +3901,7 @@ var initShims = async (assets) => {
   await import("./chunk-es-module-shims-MX7MMAQY.mjs");
   location.origin.includes("localhost") ? importShim.addImportMap({
     "imports": {
-      "@emotion/react": orig + "/" + assets["emotion.mjs"],
+      "@emotion/react": "https://esm.sh/@emotion/react@11.10.0?alias=react:/react.mjs",
       "framer-motion": "./framer-motion",
       "react": orig + "/" + assets["react.mjs"],
       "react-dom": orig + "/" + assets["react.mjs"],
@@ -20630,7 +20630,7 @@ var Editor = ({ code, i, codeSpace: codeSpace2 }) => {
     myCode: code,
     counter: i,
     runner: async ({ code: code2, counter: counter2 }) => {
-      const { runner: runner2 } = await import("./chunk-runner-VS4L6LJU.mjs");
+      const { runner: runner2 } = await import("./chunk-runner-VCZ4IOA4.mjs");
       runner2({ code: code2, counter: counter2 });
       changeContent((x) => ({ ...x, runner: runner2, code: code2, counter: counter2 }));
     },
@@ -20661,7 +20661,7 @@ var Editor = ({ code, i, codeSpace: codeSpace2 }) => {
     if (!ref?.current)
       return;
     const setMonaco = async () => {
-      const { startMonaco } = await import("./chunk-startMonaco-NDTBNMKK.mjs");
+      const { startMonaco } = await import("./chunk-startMonaco-ENYSZPLD.mjs");
       const { editor, monaco } = await startMonaco(
         {
           container: ref.current,
