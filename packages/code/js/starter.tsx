@@ -1,12 +1,13 @@
 import React, { FC, Fragment, ReactNode , useRef} from "react";
 import { createPortal } from "react-dom";
+// import { prefixer } from 'stylis';
 
 import type {} from "react-dom/next";
 
+// import {CacheProvider, createCache } from "@emotion/react"
 import { mST } from "./session";
 import { md5 } from "./md5";
-import ErrorBoundary from "ErrorBoundary";
-
+import ErrorBoundary from "./ErrorBoundary";
 
 Object.assign(window, {});
 
@@ -103,19 +104,17 @@ export const AutoUpdateApp: FC<{ hash: number; starter: ReactNode }> = (
 
   const App = apps[result];
 
-  return (
 
-      <Root>
+
+  return <Root>
         <ErrorBoundary>
-        <App hash={hash} />
-      
+        {/* <CacheProvider value={cache}> */}
+       <App hash={hash} />
+       {/* </CacheProvider> */}
         </ErrorBoundary>
      
-        </Root>
-   
-  );
+        </Root> ;
 }
-
 
 
 
