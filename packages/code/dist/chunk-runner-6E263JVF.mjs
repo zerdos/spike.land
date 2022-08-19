@@ -1,14 +1,16 @@
 import {
   appFactory,
   saveCode
-} from "./chunk-chunk-RBNSFFIU.mjs";
+} from "./chunk-chunk-G3HANDOA.mjs";
 import {
-  mST
-} from "./chunk-chunk-EJRBJW3W.mjs";
+  hashCode,
+  mST,
+  patchSync
+} from "./chunk-chunk-4JZ3EQ5K.mjs";
 import "./chunk-chunk-5TB3UXDY.mjs";
 import {
   require_emotion_react_jsx_runtime_cjs
-} from "./chunk-chunk-3ZGYVGKO.mjs";
+} from "./chunk-chunk-B634UVEL.mjs";
 import {
   init_react,
   render
@@ -30,6 +32,24 @@ var renderFromString = (App) => {
   const temp = document.createElement("div");
   render(/* @__PURE__ */ (0, import_jsx_runtime.jsx)(App, {}), temp);
   const html = temp.innerHTML;
+  setTimeout(() => {
+    const hash = hashCode();
+    setTimeout(() => {
+      if (hash !== hashCode())
+        return;
+      const { css, html: html2 } = mST();
+      const temp2 = document.getElementById("root-" + globalThis.codeSpace);
+      const htmlHtml = temp2.innerHTML;
+      const newCss = extractCritical(htmlHtml);
+      if (css !== newCss || html2 !== htmlHtml) {
+        patchSync({
+          ...mST(),
+          html: htmlHtml,
+          css: newCss
+        });
+      }
+    }, 50);
+  }, 100);
   return {
     html,
     css: extractCritical(html)
@@ -78,8 +98,6 @@ async function runner({ code, counter }) {
       try {
         const App = await appFactory();
         const { html, css } = renderFromString(App);
-        if (i > counter)
-          return;
         await saveCode({
           code,
           transpiled,

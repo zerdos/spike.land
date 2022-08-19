@@ -5092,6 +5092,10 @@ var CodeSession = class {
         patch
       };
     };
+    this.patchSync = (sess) => {
+      this.session = this.session.set("state", this.session.get("state").merge(sess));
+      this.update();
+    };
     this.applyPatch = async ({
       oldHash,
       newHash,
@@ -5208,6 +5212,7 @@ var startSession = (room, u, originStr) => session || new CodeSession(room, { na
 function createPatch(oldCode, newCode) {
   return createDelta(oldCode, newCode);
 }
+var patchSync = (sess) => session?.patchSync(sess);
 
 export {
   initSession,
@@ -5218,5 +5223,6 @@ export {
   onSessionUpdate,
   makePatchFrom,
   makePatch,
-  startSession
+  startSession,
+  patchSync
 };

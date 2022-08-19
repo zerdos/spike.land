@@ -13,13 +13,15 @@ Object.assign(window, {});
 
 const modalRoot = document.getElementById("root")!;
 
-export class Root extends React.Component<{children: ReactNode}> {
+export class Root extends React.Component<{children: ReactNode, codeSpace: string}> {
   #el: HTMLDivElement;
+  #codeSpace: string;
   children: ReactNode
-  constructor(props: {children: ReactNode}) {
+  constructor(props: {children: ReactNode, codeSpace: string}) {
      super(props);
-    
+    this.#codeSpace=props.codeSpace; 
      this.#el=document.createElement("div");
+     this.#el.id=`root-${this.#codeSpace}`;
      this.#el.style.height='100%';
 
   }
@@ -92,8 +94,8 @@ const apps: { [key: string]: FC } = {};
 
 // {[md5(starter.transpiled)]: await appFactory(starter.transpiled)};
 
-export const AutoUpdateApp: FC<{ hash: number; starter: FC }> = (
-  { hash, starter }
+export const AutoUpdateApp: FC<{ hash: number; starter: FC, codeSpace: string }> = (
+  { hash, starter, codeSpace }
 ) => {
 
   // const result = md5(mST().transpiled);
@@ -107,7 +109,7 @@ export const AutoUpdateApp: FC<{ hash: number; starter: FC }> = (
   const App = apps[hash];
 
 
-  return <Root>
+  return <Root codeSpace={codeSpace}>
     <ErrorBoundary>
     {/* <CacheProvider value={cache}> */}
       <App/>

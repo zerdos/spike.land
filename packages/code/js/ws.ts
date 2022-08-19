@@ -12,7 +12,7 @@ import type { FC } from "react";
 import { renderPreviewWindow } from "./renderPreviewWindow";
 
 import type { ICodeSession } from "./session";
-import throttle from "lodash.throttle";
+import debounce from "lodash.debounce";
 import uidV4 from "./uidV4.mjs";
 import { initShims } from "./starter";
 
@@ -89,7 +89,8 @@ export const run = async (startState: {
   App: FC;
   assets: { [key: string]: string };
 }) => {
-  codeSpace = startState.codeSpace;
+
+  globalThis.codeSpace =    codeSpace = startState.codeSpace;
   address = startState.address;
 
   const { assets } = startState;
@@ -190,30 +191,30 @@ export async function saveCode(sess: ICodeSession) {
   if (sess.i !== mST().i) return;
   bc.postMessage({ ignoreUser: user, sess, codeSpace, address, messageData });
 
-  try {
-    try {
-      if (Object.keys(rtcConns).length > 0) {
-        const message = webRTCLastSeenHashCode
-          ? await makePatchFrom(
-            webRTCLastSeenHashCode,
-            sess,
-          )
-          : await makePatch(sess);
-        if (message && message.patch) {
-          console.log("sendRTC");
-          sendChannel.send(message);
-        }
-      }
-    } catch (e) {
-      console.error("Error sending RTC...", { e });
-    }
-  } catch (e) {
-    console.log("Error 1");
-  }
+  debouncedSyncWs();
+  debouncedSyncRTC();
+}
 
+const debouncedSyncRTC =debounce(syncRTC, 100, {
+  trailing: true,
+  leading: true,
+  maxWait: 500
+});
+
+const debouncedSyncWs = debounce(syncWS, 600, {
+  trailing: true,
+  leading: true,
+  maxWait: 1500
+});
+
+
+async function syncWS() {
   try {
     if (ws) {
+      if (wsLastHashCode === hashCode()) return;
+      const sess = mST();
       console.log({ wsLastHashCode });
+      
       const message = await makePatchFrom(
         wsLastHashCode,
         sess,
@@ -234,6 +235,31 @@ export async function saveCode(sess: ICodeSession) {
     }
   } catch (e) {
     console.error("error 2", { e });
+  }
+}
+
+async function syncRTC(){
+
+  try {
+    if (Object.keys(rtcConns).length > 0) {
+
+
+      if (webRTCLastSeenHashCode === hashCode()) return;
+      const sess = mST();
+      console.log({ wsLastHashCode });
+
+      const message = webRTCLastSeenHashCode
+        ? await makePatchFrom(
+          webRTCLastSeenHashCode,
+          sess,
+        )
+        : await makePatch(sess);
+      if (message && message.patch) {
+        console.log("sendRTC");
+        sendChannel.send(message);
+      }}
+  } catch (e) {
+    console.error("Error sending RTC...", { e });
   }
 }
 
@@ -263,10 +289,7 @@ export async function join() {
         rejoin();
       }
     };
-    sendWS = throttle(mess, 1000, {
-      leading: true,
-      trailing: true,
-    });
+    sendWS = mess;
     ws.addEventListener(
       "message",
       (message) => processWsMessage(message, "ws"),
@@ -728,7 +751,7 @@ async function handleNewICECandidateMessage(
   await rtcConns[target].addIceCandidate(candidate);
 }
 
-async function sw() {
+export async function sw() {
   try {
     navigator.serviceWorker.onmessage = async (event) => {
       /** @type {null|ServiceWorker} */

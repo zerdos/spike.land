@@ -79,8 +79,8 @@
       "bytes": 2723,
       "imports": []
     },
-    "../../packages/code/dist/chunk-chunk-EJRBJW3W.mjs": {
-      "bytes": 164326,
+    "../../packages/code/dist/chunk-chunk-4JZ3EQ5K.mjs": {
+      "bytes": 164539,
       "imports": [
         {
           "path": "../../packages/code/dist/chunk-chunk-E5P5SGZK.mjs",
@@ -89,10 +89,10 @@
       ]
     },
     "../../packages/code/dist/js/session.mjs": {
-      "bytes": 351,
+      "bytes": 377,
       "imports": [
         {
-          "path": "../../packages/code/dist/chunk-chunk-EJRBJW3W.mjs",
+          "path": "../../packages/code/dist/chunk-chunk-4JZ3EQ5K.mjs",
           "kind": "import-statement"
         },
         {
@@ -219,8 +219,8 @@
         "../../packages/code/dist/chunk-chunk-E5P5SGZK.mjs": {
           "bytesInOutput": 1342
         },
-        "../../packages/code/dist/chunk-chunk-EJRBJW3W.mjs": {
-          "bytesInOutput": 163599
+        "../../packages/code/dist/chunk-chunk-4JZ3EQ5K.mjs": {
+          "bytesInOutput": 163747
         },
         "src/getBackupSession.ts": {
           "bytesInOutput": 2836
@@ -235,7 +235,7 @@
           "bytesInOutput": 478
         }
       },
-      "bytes": 253191
+      "bytes": 253339
     }
   }
 }

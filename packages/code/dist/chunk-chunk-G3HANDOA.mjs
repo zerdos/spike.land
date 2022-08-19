@@ -6,7 +6,7 @@ import {
   makePatchFrom,
   onSessionUpdate,
   startSession
-} from "./chunk-chunk-EJRBJW3W.mjs";
+} from "./chunk-chunk-4JZ3EQ5K.mjs";
 import {
   LazyMotion,
   __rest,
@@ -22,7 +22,7 @@ import {
   require_emotion_utils_cjs,
   require_extends,
   require_react_is
-} from "./chunk-chunk-3ZGYVGKO.mjs";
+} from "./chunk-chunk-B634UVEL.mjs";
 import {
   Children,
   Component,
@@ -3602,9 +3602,9 @@ var require_emotion_styled_cjs = __commonJS({
   }
 });
 
-// ../../.yarn/global/cache/lodash.throttle-npm-4.1.1-856641af92-9.zip/node_modules/lodash.throttle/index.js
+// ../../.yarn/global/cache/lodash.debounce-npm-4.0.8-f1d6e09799-9.zip/node_modules/lodash.debounce/index.js
 var require_lodash = __commonJS({
-  "../../.yarn/global/cache/lodash.throttle-npm-4.1.1-856641af92-9.zip/node_modules/lodash.throttle/index.js"(exports, module) {
+  "../../.yarn/global/cache/lodash.debounce-npm-4.0.8-f1d6e09799-9.zip/node_modules/lodash.debounce/index.js"(exports, module) {
     init_define_process();
     var FUNC_ERROR_TEXT = "Expected a function";
     var NAN = 0 / 0;
@@ -3624,7 +3624,7 @@ var require_lodash = __commonJS({
     var now = function() {
       return root.Date.now();
     };
-    function debounce(func, wait2, options) {
+    function debounce2(func, wait2, options) {
       var lastArgs, lastThis, maxWait, result, timerId, lastCallTime, lastInvokeTime = 0, leading = false, maxing = false, trailing = true;
       if (typeof func != "function") {
         throw new TypeError(FUNC_ERROR_TEXT);
@@ -3704,21 +3704,6 @@ var require_lodash = __commonJS({
       debounced.flush = flush;
       return debounced;
     }
-    function throttle2(func, wait2, options) {
-      var leading = true, trailing = true;
-      if (typeof func != "function") {
-        throw new TypeError(FUNC_ERROR_TEXT);
-      }
-      if (isObject(options)) {
-        leading = "leading" in options ? !!options.leading : leading;
-        trailing = "trailing" in options ? !!options.trailing : trailing;
-      }
-      return debounce(func, wait2, {
-        "leading": leading,
-        "maxWait": wait2,
-        "trailing": trailing
-      });
-    }
     function isObject(value) {
       var type = typeof value;
       return !!value && (type == "object" || type == "function");
@@ -3747,7 +3732,7 @@ var require_lodash = __commonJS({
       var isBinary = reIsBinary.test(value);
       return isBinary || reIsOctal.test(value) ? freeParseInt(value.slice(2), isBinary ? 2 : 8) : reIsBadHex.test(value) ? NAN : +value;
     }
-    module.exports = throttle2;
+    module.exports = debounce2;
   }
 });
 
@@ -6278,12 +6263,15 @@ var ErrorBoundary_default = ErrorBoundary;
 var import_jsx_runtime = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
 Object.assign(window, {});
 var modalRoot = document.getElementById("root");
-var _el;
+var _el, _codeSpace;
 var Root = class extends react_default.Component {
   constructor(props) {
     super(props);
     __privateAdd(this, _el, void 0);
+    __privateAdd(this, _codeSpace, void 0);
+    __privateSet(this, _codeSpace, props.codeSpace);
     __privateSet(this, _el, document.createElement("div"));
+    __privateGet(this, _el).id = `root-${__privateGet(this, _codeSpace)}`;
     __privateGet(this, _el).style.height = "100%";
   }
   componentDidMount() {
@@ -6301,6 +6289,7 @@ var Root = class extends react_default.Component {
   }
 };
 _el = new WeakMap();
+_codeSpace = new WeakMap();
 var orig = location.origin.includes("localhost") ? "." : location.origin;
 var initShims = async (assets) => {
   location.origin.includes("localhost") ? importShim.addImportMap({
@@ -6326,12 +6315,13 @@ var initShims = async (assets) => {
   });
 };
 var apps = {};
-var AutoUpdateApp = ({ hash, starter }) => {
+var AutoUpdateApp = ({ hash, starter, codeSpace: codeSpace2 }) => {
   if (!apps[hash]) {
     apps[hash] = starter;
   }
   const App = apps[hash];
   return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Root, {
+    codeSpace: codeSpace2,
     children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ErrorBoundary_default, {
       children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(App, {})
     })
@@ -10850,7 +10840,7 @@ var Editor = ({ code, i, codeSpace: codeSpace2 }) => {
     myCode: code,
     counter: i,
     runner: async ({ code: code2, counter: counter2 }) => {
-      const { runner: runner2 } = await import("./chunk-runner-EQ7D27ZS.mjs");
+      const { runner: runner2 } = await import("./chunk-runner-6E263JVF.mjs");
       runner2({ code: code2, counter: counter2 });
       changeContent((x) => ({ ...x, runner: runner2, code: code2, counter: counter2 }));
     },
@@ -10893,6 +10883,8 @@ var Editor = ({ code, i, codeSpace: codeSpace2 }) => {
       changeContent((x) => ({
         ...x,
         setValue: (code2) => {
+          if (code2 == mod.code)
+            return;
           let state = null;
           try {
             state = editor.saveViewState();
@@ -11097,6 +11089,7 @@ var AppToRender = ({ codeSpace: codeSpace2, children }) => {
   }, []);
   if (isStandalone)
     return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(AutoUpdateApp, {
+      codeSpace: codeSpace2,
       hash,
       starter: children
     });
@@ -11106,6 +11099,7 @@ var AppToRender = ({ codeSpace: codeSpace2, children }) => {
         hashCode: 0,
         room: codeSpace2,
         children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(AutoUpdateApp, {
+          codeSpace: codeSpace2,
           hash,
           starter: children
         })
@@ -11220,7 +11214,7 @@ var sendChannel = {
   }
 };
 var run = async (startState) => {
-  codeSpace = startState.codeSpace;
+  globalThis.codeSpace = codeSpace = startState.codeSpace;
   address = startState.address;
   const { assets } = startState;
   startSession(codeSpace, {
@@ -11268,26 +11262,25 @@ async function saveCode(sess) {
   if (sess.i !== mST().i)
     return;
   bc.postMessage({ ignoreUser: user, sess, codeSpace, address, messageData });
-  try {
-    try {
-      if (Object.keys(rtcConns).length > 0) {
-        const message = webRTCLastSeenHashCode ? await makePatchFrom(
-          webRTCLastSeenHashCode,
-          sess
-        ) : await makePatch(sess);
-        if (message && message.patch) {
-          console.log("sendRTC");
-          sendChannel.send(message);
-        }
-      }
-    } catch (e2) {
-      console.error("Error sending RTC...", { e: e2 });
-    }
-  } catch (e2) {
-    console.log("Error 1");
-  }
+  debouncedSyncWs();
+  debouncedSyncRTC();
+}
+var debouncedSyncRTC = (0, import_lodash.default)(syncRTC, 100, {
+  trailing: true,
+  leading: true,
+  maxWait: 500
+});
+var debouncedSyncWs = (0, import_lodash.default)(syncWS, 600, {
+  trailing: true,
+  leading: true,
+  maxWait: 1500
+});
+async function syncWS() {
   try {
     if (ws) {
+      if (wsLastHashCode === hashCode())
+        return;
+      const sess = mST();
       console.log({ wsLastHashCode });
       const message = await makePatchFrom(
         wsLastHashCode,
@@ -11307,6 +11300,26 @@ async function saveCode(sess) {
     }
   } catch (e2) {
     console.error("error 2", { e: e2 });
+  }
+}
+async function syncRTC() {
+  try {
+    if (Object.keys(rtcConns).length > 0) {
+      if (webRTCLastSeenHashCode === hashCode())
+        return;
+      const sess = mST();
+      console.log({ wsLastHashCode });
+      const message = webRTCLastSeenHashCode ? await makePatchFrom(
+        webRTCLastSeenHashCode,
+        sess
+      ) : await makePatch(sess);
+      if (message && message.patch) {
+        console.log("sendRTC");
+        sendChannel.send(message);
+      }
+    }
+  } catch (e2) {
+    console.error("Error sending RTC...", { e: e2 });
   }
 }
 async function join() {
@@ -11332,10 +11345,7 @@ async function join() {
         rejoin();
       }
     };
-    sendWS = (0, import_lodash.default)(mess, 1e3, {
-      leading: true,
-      trailing: true
-    });
+    sendWS = mess;
     ws.addEventListener(
       "message",
       (message) => processWsMessage(message, "ws")
@@ -11633,10 +11643,45 @@ async function handleNewICECandidateMessage(init, target) {
   console.log(rtcConns[target]);
   await rtcConns[target].addIceCandidate(candidate);
 }
+async function sw() {
+  try {
+    navigator.serviceWorker.onmessage = async (event) => {
+      const serviceWorker = event.source;
+      if (serviceWorker == null)
+        return;
+      switch (event.data.method) {
+        case "ipfs-message-port":
+          console.log("Message port request");
+          const channel = new MessageChannel();
+          return serviceWorker.postMessage({
+            method: "ipfs-message-port",
+            id: event.data.id,
+            port: channel.port2
+          }, { transfer: [channel.port2] });
+      }
+    };
+    if (document.documentElement.dataset.viewer) {
+      const load = async (path) => {
+        const paths = path && path.split("/") || [];
+        const protocol = paths[0] || "";
+        switch (protocol) {
+          case "ipfs":
+          case "ipns": {
+            document.body.innerHTML = `<iframe id="viewer" style="width:100%;height:100%;position:fixed;top:0;left:0;border:none;" src="/view${path}"></iframe>`;
+          }
+        }
+      };
+      return load(location.pathname);
+    }
+  } catch {
+    console.log("ipfs load error");
+  }
+}
 
 export {
   appFactory,
   run,
   saveCode,
-  join
+  join,
+  sw
 };

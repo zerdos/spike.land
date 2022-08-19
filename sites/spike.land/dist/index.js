@@ -948,7 +948,7 @@ var init_define_process = __esm({
   }
 });
 
-// ../../packages/code/dist/chunk-chunk-EJRBJW3W.mjs
+// ../../packages/code/dist/chunk-chunk-4JZ3EQ5K.mjs
 var require_diff = __commonJS2({
   "../../.yarn/global/cache/fast-diff-npm-1.2.0-5ba4171bb6-9.zip/node_modules/fast-diff/diff.js"(exports, module) {
     init_define_process();
@@ -6027,6 +6027,10 @@ var CodeSession = class {
         newHash,
         patch
       };
+    };
+    this.patchSync = (sess) => {
+      this.session = this.session.set("state", this.session.get("state").merge(sess));
+      this.update();
     };
     this.applyPatch = async ({
       oldHash,
