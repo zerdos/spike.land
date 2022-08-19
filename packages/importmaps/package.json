@@ -1,0 +1,24 @@
+{
+  "name": "new",
+  "version": "1.0.0",
+  "main": "index.js",
+  "type": "module",
+  "license": "MIT",
+  "devDependencies": {
+    "@jspm/generator": "^1.0.0-beta.36",
+    "@types/react-dom": "17",
+    "esbuild": "^0.15.5",
+    "esbuild-plugin-import-map": "^2.1.0",
+    "serve": "^14.0.1",
+    "typescript": "^4.7.4"
+  },
+  "scripts": {
+    "dev": "node server.mjs && yarn serve --ssl-cert .certs/localhost.pem --ssl-key .certs/localhost-key.pem public"
+  },
+  "dependencies": {
+    "@emotion/react": "^11.10.0",
+    "framer-motion": "^6.2.0",
+    "react": "17",
+    "react-dom": "17"
+  }
+}
