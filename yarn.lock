@@ -381,7 +381,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@cloudflare/kv-asset-handler@npm:0.2.0, @cloudflare/kv-asset-handler@npm:^0.2.0":
+"@cloudflare/kv-asset-handler@npm:^0.2.0":
   version: 0.2.0
   resolution: "@cloudflare/kv-asset-handler@npm:0.2.0"
   dependencies:
@@ -2462,7 +2462,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@spike.land/code-worker@workspace:sites/spike.land"
   dependencies:
-    "@cloudflare/kv-asset-handler": "npm:0.2.0"
+    "@cloudflare/kv-asset-handler": "npm:^0.2.0"
     "@cloudflare/workers-types": "npm:3.14.1"
     "@spike.land/code": "npm:^0.9.1"
     esbuild: "npm:0.15.5"
@@ -2690,7 +2690,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/lodash@npm:*, @types/lodash@npm:4.14.183":
+"@types/lodash@npm:*":
+  version: 4.14.184
+  resolution: "@types/lodash@npm:4.14.184"
+  checksum: acee0bd73f0067cafb7b7a12995e868f64d95c2b6e5361be7d51440e8dafb4ad2be3b2cac352e4e42d777ffc305c46807148cba50072a1fb5a4ab770d4ec2fc2
+  languageName: node
+  linkType: hard
+
+"@types/lodash@npm:4.14.183":
   version: 4.14.183
   resolution: "@types/lodash@npm:4.14.183"
   checksum: e2a9cca3f0c607cfbb683849a52f24aae535cbab36885797e64eae128eb54781f210038fa5b555a907e6588cf8adf4e6595e8275d95a2af9cd6648d3cccdd73c
@@ -4256,9 +4263,9 @@ __metadata:
   linkType: hard
 
 "electron-to-chromium@npm:^1.4.202":
-  version: 1.4.224
-  resolution: "electron-to-chromium@npm:1.4.224"
-  checksum: e8934966539b37d4575e1761e06664375bf7cc9e1dbf63c9959638e8b9fac68d40363d708b735feb05b87db5aa77c04a656a76e822fe7c51d5590cb449c8dc0e
+  version: 1.4.225
+  resolution: "electron-to-chromium@npm:1.4.225"
+  checksum: f4a2a0cdb0646103173b031a9f5bdf233469a1cb866aea78b1e441e597e44127193b11cfd042663b84d46a584ab0069fcb91aba6cf90210f591963612a82be0a
   languageName: node
   linkType: hard
 

@@ -141,6 +141,7 @@ export class Code {
             },
           });
         }
+        case "session.json": 
         case "session": {
           if (path[1]) {
             const session = await this.kv.get<ICodeSession>(path[1]);
