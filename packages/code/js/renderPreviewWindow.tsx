@@ -1,4 +1,4 @@
-import React, { Fragment, ReactElement } from "react";
+import { Fragment } from "react";
 import {createRoot} from "react-dom/client";
 import { ReactNode, useEffect, useState } from "react";
 import { appFactory, AutoUpdateApp } from "./starter";
@@ -60,7 +60,7 @@ background:  repeating-radial-gradient(circle at bottom left,
   </div>
 );
 
-const AppToRender: FC<{ codeSpace: string; children: ReactElement }> = (
+const AppToRender: FC<{ codeSpace: string; children: FC }> = (
   { codeSpace, children },
 ) => {
   const [hash, setHash] = useState(() => hashCode());
@@ -71,7 +71,7 @@ const AppToRender: FC<{ codeSpace: string; children: ReactElement }> = (
       const newHash = hashCode();
       if (hash !== newHash) {
         try {
-          await appFactory(mST().transpiled);
+          await appFactory();
           setHash(newHash);
         } catch (e) {
           console.error({ e });
@@ -110,11 +110,11 @@ const AppToRender: FC<{ codeSpace: string; children: ReactElement }> = (
 
 export const renderPreviewWindow = (
   codeSpace: string,
-  child: React.ReactElement,
+  child: FC,
 ) => {
-  const div =document.getElementById("app-root");
+  const div =document.getElementById("app-root")!;
   div.style.height='100%';
-const root = globalThis.appRoot = createRoot(div);
+const root = createRoot(div);
 root.render(<Fragment>
 <AppToRender codeSpace={codeSpace}>{child}</AppToRender>
 </Fragment>);

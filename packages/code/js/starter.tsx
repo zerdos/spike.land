@@ -1,23 +1,26 @@
-import React, { FC, Fragment, ReactNode , useRef} from "react";
+import React, { FC, ReactNode} from "react";
 import { createPortal } from "react-dom";
 // import { prefixer } from 'stylis';
 
 import type {} from "react-dom/next";
+import "es-module-shims"
 
 // import {CacheProvider, createCache } from "@emotion/react"
-import { mST } from "./session";
-import { md5 } from "./md5";
+import { mST, hashCode } from "./session";
 import ErrorBoundary from "./ErrorBoundary";
 
 Object.assign(window, {});
 
 const modalRoot = document.getElementById("root")!;
 
-export class Root extends React.Component {
-  constructor(props) {
-    super(props);
-     this.el=document.createElement("div");
-     this.el.style.height='100%';
+export class Root extends React.Component<{children: ReactNode}> {
+  #el: HTMLDivElement;
+  children: ReactNode
+  constructor(props: {children: ReactNode}) {
+     super(props);
+    
+     this.#el=document.createElement("div");
+     this.#el.style.height='100%';
 
   }
 
@@ -31,28 +34,28 @@ export class Root extends React.Component {
     // state to Modal and only render the children when Modal
     // is inserted in the DOM tree.
     modalRoot.innerHTML ="";
-    modalRoot.append(this.el);
+    modalRoot.append(this.#el);
   }
 
   componentWillUnmount() {
-    modalRoot.appendChild(this.el);
+    modalRoot.appendChild(this.#el);
   }
 
   render() {
     return createPortal(
       this.props.children,
-      this.el,
+      this.#el,
     );
   }
 }
 
 
 const orig = location.origin.includes("localhost") ? "." : location.origin;
-let importmapped = false;
+// let isEsModuleShimsLoaded = false;
 export const initShims = async (assets: { [key: string]: string }) => {
-  if (importmapped) return;
-  importmapped = true;
-  await import("es-module-shims");
+  // if (isEsModuleShimsLoaded) return;
+  // isEsModuleShimsLoaded = true;
+  // const {importShim} = await import("es-module-shims");
 
   location.origin.includes("localhost")
     ? importShim.addImportMap({
@@ -85,41 +88,38 @@ export const initShims = async (assets: { [key: string]: string }) => {
     });
 };
 
-let App: JSX.Element = <Fragment></Fragment>;
-const apps: { [key: number]: JSX.Element } = {};
+const apps: { [key: string]: FC } = {};
 
 // {[md5(starter.transpiled)]: await appFactory(starter.transpiled)};
 
-export const AutoUpdateApp: FC<{ hash: number; starter: ReactNode }> = (
+export const AutoUpdateApp: FC<{ hash: number; starter: FC }> = (
   { hash, starter }
 ) => {
 
-  const result = md5(mST().transpiled);
+  // const result = md5(mST().transpiled);
 
   // const ref = useRef(null);
 
-  if (!apps[result]) {
-    apps[result] = starter;
+  if (!apps[hash]) {
+    apps[hash] = starter;
   }
 
-  const App = apps[result];
-
+  const App = apps[hash];
 
 
   return <Root>
-        <ErrorBoundary>
-        {/* <CacheProvider value={cache}> */}
-       <App hash={hash} />
-       {/* </CacheProvider> */}
-        </ErrorBoundary>
-     
-        </Root> ;
+    <ErrorBoundary>
+    {/* <CacheProvider value={cache}> */}
+      <App/>
+  {/* </CacheProvider> */}
+    </ErrorBoundary>
+  </Root>
 }
 
 
 
-export async function appFactory(transpiled: string): Promise<FC> {
-  const result = md5(transpiled);
+export async function appFactory(): Promise<FC> {
+  // const result = md5(transpiled);
   // return lazy(>import(`/live/${codeSpace}/js#${result}`));
   // if (globalThis.transpiled === transpiled) return globalThis.App;
   // globalThis.transpiled = transpiled;
@@ -133,12 +133,15 @@ export async function appFactory(transpiled: string): Promise<FC> {
   //   return;
   // }
 
-  if (!apps[result]) {
-    apps[result] = (await importShim(createJsBlob(transpiled))).default as unknown as FC;
+  const hash = hashCode();
+  
+
+  if (!apps[hash]) {
+    apps[hash] = (await importShim(createJsBlob(mST().transpiled))).default as unknown as FC;
   }
 
 
-  return apps[result];
+  return apps[hash];
 }
 
 export function createJsBlob(code: string) {
