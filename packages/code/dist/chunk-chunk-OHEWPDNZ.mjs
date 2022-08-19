@@ -4,7 +4,7 @@ import {
   init_define_process
 } from "./chunk-chunk-E5P5SGZK.mjs";
 
-// ../../.yarn/global/cache/preact-npm-10.10.3-e4aa11e764-9.zip/node_modules/preact/dist/preact.module.js
+// ../../.yarn/global/cache/preact-npm-10.10.6-e3746adb94-9.zip/node_modules/preact/dist/preact.module.js
 var preact_module_exports = {};
 __export(preact_module_exports, {
   Component: () => d,
@@ -312,7 +312,7 @@ function B(n3, l4) {
 }
 var n, l, u, i, t, o, r, f, e, c;
 var init_preact_module = __esm({
-  "../../.yarn/global/cache/preact-npm-10.10.3-e4aa11e764-9.zip/node_modules/preact/dist/preact.module.js"() {
+  "../../.yarn/global/cache/preact-npm-10.10.6-e3746adb94-9.zip/node_modules/preact/dist/preact.module.js"() {
     init_define_process();
     f = {};
     e = [];
@@ -338,7 +338,7 @@ var init_preact_module = __esm({
   }
 });
 
-// ../../.yarn/global/cache/preact-npm-10.10.3-e4aa11e764-9.zip/node_modules/preact/hooks/dist/hooks.module.js
+// ../../.yarn/global/cache/preact-npm-10.10.6-e3746adb94-9.zip/node_modules/preact/hooks/dist/hooks.module.js
 function d2(t3, u4) {
   l.__h && l.__h(r2, t3, o2 || u4), o2 = 0;
   var i4 = r2.__H || (r2.__H = { __: [], __h: [] });
@@ -361,14 +361,17 @@ function y2(n3, u4, i4) {
       var u5 = o5.__c.__H.__.filter(function(n5) {
         return n5.__c;
       });
-      return u5.every(function(n5) {
+      if (u5.every(function(n5) {
         return !n5.__N;
-      }) ? !c4 || c4.call(this, n4, t3, r4) : !u5.every(function(n5) {
-        if (!n5.__N)
-          return true;
-        var t4 = n5.__[0];
-        return n5.__ = n5.__N, n5.__N = void 0, t4 === n5.__[0];
-      }) && (!c4 || c4.call(this, n4, t3, r4));
+      }))
+        return !c4 || c4.call(this, n4, t3, r4);
+      var i5 = false;
+      return u5.forEach(function(n5) {
+        if (n5.__N) {
+          var t4 = n5.__[0];
+          n5.__ = n5.__N, n5.__N = void 0, t4 !== n5.__[0] && (i5 = true);
+        }
+      }), !!i5 && (!c4 || c4.call(this, n4, t3, r4));
     };
   }
   return o5.__N || o5.__;
@@ -438,7 +441,7 @@ function z2(n3, t3) {
 }
 var t2, r2, u2, i2, o2, c2, f2, e2, a2, v2, l2, m2, g2;
 var init_hooks_module = __esm({
-  "../../.yarn/global/cache/preact-npm-10.10.3-e4aa11e764-9.zip/node_modules/preact/hooks/dist/hooks.module.js"() {
+  "../../.yarn/global/cache/preact-npm-10.10.6-e3746adb94-9.zip/node_modules/preact/hooks/dist/hooks.module.js"() {
     init_define_process();
     init_preact_module();
     o2 = 0;
@@ -495,7 +498,7 @@ var init_hooks_module = __esm({
   }
 });
 
-// ../../.yarn/global/cache/preact-npm-10.10.3-e4aa11e764-9.zip/node_modules/preact/compat/dist/compat.module.js
+// ../../.yarn/global/cache/preact-npm-10.10.6-e3746adb94-9.zip/node_modules/preact/compat/dist/compat.module.js
 function S2(n3, t3) {
   for (var e4 in t3)
     n3[e4] = t3[e4];
@@ -626,7 +629,7 @@ function dn(t3, u4) {
 }
 var w3, x3, N2, k3, A3, O2, F2, W, P2, $2, j3, H2, G, J, K, Q, X, ln, cn, compat_module_default;
 var init_compat_module = __esm({
-  "../../.yarn/global/cache/preact-npm-10.10.3-e4aa11e764-9.zip/node_modules/preact/compat/dist/compat.module.js"() {
+  "../../.yarn/global/cache/preact-npm-10.10.6-e3746adb94-9.zip/node_modules/preact/compat/dist/compat.module.js"() {
     init_define_process();
     init_hooks_module();
     init_hooks_module();
@@ -1097,7 +1100,7 @@ var init_dist = __esm({
   }
 });
 
-// ../../.yarn/global/cache/preact-npm-10.10.3-e4aa11e764-9.zip/node_modules/preact/jsx-runtime/dist/jsxRuntime.module.js
+// ../../.yarn/global/cache/preact-npm-10.10.6-e3746adb94-9.zip/node_modules/preact/jsx-runtime/dist/jsxRuntime.module.js
 function e3(_4, e4, n3, t3, f4) {
   var l4, s4, u4 = {};
   for (s4 in e4)
@@ -1110,7 +1113,7 @@ function e3(_4, e4, n3, t3, f4) {
 }
 var o4;
 var init_jsxRuntime_module = __esm({
-  "../../.yarn/global/cache/preact-npm-10.10.3-e4aa11e764-9.zip/node_modules/preact/jsx-runtime/dist/jsxRuntime.module.js"() {
+  "../../.yarn/global/cache/preact-npm-10.10.6-e3746adb94-9.zip/node_modules/preact/jsx-runtime/dist/jsxRuntime.module.js"() {
     init_define_process();
     init_preact_module();
     init_preact_module();
