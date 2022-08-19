@@ -1,7 +1,7 @@
 import {
   appFactory,
   saveCode
-} from "./chunk-chunk-U5O4DYKY.mjs";
+} from "./chunk-chunk-RBNSFFIU.mjs";
 import {
   mST
 } from "./chunk-chunk-EJRBJW3W.mjs";
@@ -76,7 +76,7 @@ async function runner({ code, counter }) {
     let restartError = false;
     if (transpiled.length > 0) {
       try {
-        const App = await appFactory(transpiled);
+        const App = await appFactory();
         const { html, css } = renderFromString(App);
         if (i > counter)
           return;
