@@ -27,7 +27,7 @@
   "scripts": {
     "test": "uvu -r esbuild-register tests",
     "typecheck": "cd monorepo/packages/code && yarn tsc",
-    "clean": "rm -rf .tsBuildInfo js/vendor && js/vendor && yarn favicons && yarn importmap",
+    "clean": "rm -rf .tsBuildInfo js/vendor && js/vendor && yarn favicons",
     "build:sw": "esbuild --outfile=../sites/spike.land/public/sw.js --platform=browser --bundle --minify ./js/sw.js && yarn sw",
     "start": "cd ../../.. && yarn start",
     "push": "cd ../../.. && yarn push",
@@ -38,7 +38,6 @@
     "prebuild": "yarn test || echo FAILED",
     "build": "rm -rf dist && yarn favicons && node esbuild-dev.mjs",
     "favicons": "cp -af js/assets/favicons/. ./dist && mkdir -p  ../../sites/spike.land/public/assets && cp js/assets/synthwave.webp   ../../sites/spike.land/public/assets/",
-    "importmap": "node --experimental-json-modules --experimental-fetch generate.mjs > ./importmap_NEW.json && mv importmap_NEW.json js/importmap.json",
     "workbox-cli": "workbox-cli",
     "sw": "echo ok",
     "xsw": "yarn workbox injectManifest workbox-config.json"
@@ -92,12 +91,13 @@
     "prettier": "2.7.1",
     "prop-types": "^15.8.1",
     "qrious": "^4.0.2",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "react-qrious": "2.5.5",
     "stream-browserify": "3.0.0",
     "tslib": "^2.4.0"
   },
   "devDependencies": {
-    "@jspm/generator": "1.0.0-beta.36",
     "@originjs/vite-plugin-commonjs": "^1.0.3",
     "@types/events": "^3.0.0",
     "@types/lodash": "4.14.183",

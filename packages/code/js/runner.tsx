@@ -77,8 +77,6 @@ export async function runner({ code, counter }: {
         const { html, css } = renderFromString(App);
         // console.log({html, css});
 
-        if (i > counter) return;
-
         await saveCode({
           code,
           transpiled,

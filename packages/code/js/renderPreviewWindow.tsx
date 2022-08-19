@@ -89,7 +89,7 @@ const AppToRender: FC<{ codeSpace: string; children: FC }> = (
     }, 800);
   }, []);
 
-  if (isStandalone) return <AutoUpdateApp hash={hash} starter={children} />;
+  if (isStandalone) return <AutoUpdateApp codeSpace={codeSpace} hash={hash} starter={children} />;
 
   return (
     <RainbowContainer>
@@ -101,7 +101,7 @@ const AppToRender: FC<{ codeSpace: string; children: FC }> = (
         hashCode={0}
         room={codeSpace}
       >
-        <AutoUpdateApp hash={hash} starter={children} />
+        <AutoUpdateApp codeSpace={codeSpace} hash={hash} starter={children} />
       </DraggableWindow>
       <Editor code={mST().code} i={mST().i} codeSpace={codeSpace} />
     </RainbowContainer>

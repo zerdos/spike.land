@@ -42,6 +42,8 @@
     "@cloudflare/kv-asset-handler": "^0.2.0",
     "@cloudflare/workers-types": "^3.14.1",
     "@emotion/react": "^11.10.0",
-    "monaco-editor": "^0.34.0"
+    "@types/react": "18.0.17",
+    "monaco-editor": "^0.34.0",
+    "react": "^18.2.0"
   }
 }

@@ -3,7 +3,6 @@ import { KVPlugin, Log, LogLevel, Miniflare } from "miniflare";
 const run = async () => {
   const port = 8000;
 
-  consty;
   const mf = new Miniflare({
     envPath: true,
     packagePath: true,

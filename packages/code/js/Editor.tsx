@@ -79,6 +79,7 @@ export const Editor: FC<{ code: string; i: number; codeSpace: string }> = (
       changeContent((x) => ({
         ...x,
         setValue: (code: string) => {
+          if (code==mod.code) return;
           let state = null;
           try {
             state = editor.saveViewState();
