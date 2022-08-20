@@ -10,9 +10,9 @@ import fs from "fs"
 
 import { Generator } from '@jspm/generator';
 import packg from "./package.json" assert {type: "json"}
-import esbuild from "esbuild"
+// import esbuild from "esbuild"
 
-import * as importMap from "esbuild-plugin-import-map";
+// import * as importMap from "esbuild-plugin-import-map";
 
 
 // const conf = await getPackageConfig(packg)
@@ -68,18 +68,18 @@ const outHtml = await generator.htmlInject(`
 `, {  esModuleShims: true});
 
 
-await esbuild.build({
-  format: "esm",
-  entryPoints: ["./src/index.tsx"],
-  bundle: true,
-  define: {
-    "process.env.NODE_ENV": JSON.stringify("development")
-  },
-  target: "es2021",
-  platform: "browser",
-  outdir: "./dist",
-  plugins: [importMap.plugin()]
-});
+// await esbuild.build({
+//   format: "esm",
+//   entryPoints: ["./src/index.tsx"],
+//   bundle: true,
+//   define: {
+//     "process.env.NODE_ENV": JSON.stringify("development")
+//   },
+//   target: "es2021",
+//   platform: "browser",
+//   outdir: "./dist",
+//   plugins: [importMap.plugin()]
+// });
 
 fs.writeFileSync("./dist/index.html", outHtml)
 
