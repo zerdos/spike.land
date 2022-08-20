@@ -26,10 +26,12 @@ import {
 import {
   Children,
   Component,
+  PureComponent,
   V,
   cloneElement,
   createContext,
   createElement,
+  createRef,
   createRoot,
   e,
   forwardRef,
@@ -3743,6 +3745,175 @@ init_define_process();
 init_define_process();
 init_react();
 init_react();
+
+// ../../.yarn/__virtual__/react-reverse-portal-virtual-1d0f51ed61/0/global/cache/react-reverse-portal-npm-2.1.1-e50ec91de3-9.zip/node_modules/react-reverse-portal/dist/web/index.js
+init_define_process();
+init_react();
+init_react();
+var __extends = function() {
+  var extendStatics = function(d, b) {
+    extendStatics = Object.setPrototypeOf || { __proto__: [] } instanceof Array && function(d2, b2) {
+      d2.__proto__ = b2;
+    } || function(d2, b2) {
+      for (var p2 in b2)
+        if (b2.hasOwnProperty(p2))
+          d2[p2] = b2[p2];
+    };
+    return extendStatics(d, b);
+  };
+  return function(d, b) {
+    extendStatics(d, b);
+    function __() {
+      this.constructor = d;
+    }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+  };
+}();
+var ELEMENT_TYPE_HTML = "html";
+var ELEMENT_TYPE_SVG = "svg";
+var SVG_NAMESPACE = "http://www.w3.org/2000/svg";
+var validateElementType = function(domElement, elementType) {
+  if (elementType === ELEMENT_TYPE_HTML) {
+    return domElement instanceof HTMLElement;
+  }
+  if (elementType === ELEMENT_TYPE_SVG) {
+    return domElement instanceof SVGElement;
+  }
+  throw new Error('Unrecognized element type "' + elementType + '" for validateElementType.');
+};
+var createPortalNode = function(elementType, options) {
+  var initialProps = {};
+  var parent;
+  var lastPlaceholder;
+  var element;
+  if (elementType === ELEMENT_TYPE_HTML) {
+    element = document.createElement("div");
+  } else if (elementType === ELEMENT_TYPE_SVG) {
+    element = document.createElementNS(SVG_NAMESPACE, "g");
+  } else {
+    throw new Error('Invalid element type "' + elementType + '" for createPortalNode: must be "html" or "svg".');
+  }
+  if (options && typeof options === "object") {
+    for (var _i = 0, _a = Object.entries(options.attributes); _i < _a.length; _i++) {
+      var _b = _a[_i], key = _b[0], value = _b[1];
+      element.setAttribute(key, value);
+    }
+  }
+  var portalNode = {
+    element,
+    elementType,
+    setPortalProps: function(props) {
+      initialProps = props;
+    },
+    getInitialPortalProps: function() {
+      return initialProps;
+    },
+    mount: function(newParent, newPlaceholder) {
+      if (newPlaceholder === lastPlaceholder) {
+        return;
+      }
+      portalNode.unmount();
+      if (newParent !== parent) {
+        if (!validateElementType(newParent, elementType)) {
+          throw new Error('Invalid element type for portal: "' + elementType + '" portalNodes must be used with ' + elementType + " elements, but OutPortal is within <" + newParent.tagName + ">.");
+        }
+      }
+      newParent.replaceChild(portalNode.element, newPlaceholder);
+      parent = newParent;
+      lastPlaceholder = newPlaceholder;
+    },
+    unmount: function(expectedPlaceholder) {
+      if (expectedPlaceholder && expectedPlaceholder !== lastPlaceholder) {
+        return;
+      }
+      if (parent && lastPlaceholder) {
+        parent.replaceChild(lastPlaceholder, portalNode.element);
+        parent = void 0;
+        lastPlaceholder = void 0;
+      }
+    }
+  };
+  return portalNode;
+};
+var InPortal = function(_super) {
+  __extends(InPortal2, _super);
+  function InPortal2(props) {
+    var _this = _super.call(this, props) || this;
+    _this.addPropsChannel = function() {
+      Object.assign(_this.props.node, {
+        setPortalProps: function(props2) {
+          _this.setState({ nodeProps: props2 });
+        }
+      });
+    };
+    _this.state = {
+      nodeProps: _this.props.node.getInitialPortalProps()
+    };
+    return _this;
+  }
+  InPortal2.prototype.componentDidMount = function() {
+    this.addPropsChannel();
+  };
+  InPortal2.prototype.componentDidUpdate = function() {
+    this.addPropsChannel();
+  };
+  InPortal2.prototype.render = function() {
+    var _this = this;
+    var _a = this.props, children = _a.children, node = _a.node;
+    return V(Children.map(children, function(child) {
+      if (!isValidElement(child))
+        return child;
+      return cloneElement(child, _this.state.nodeProps);
+    }), node.element);
+  };
+  return InPortal2;
+}(PureComponent);
+var OutPortal = function(_super) {
+  __extends(OutPortal2, _super);
+  function OutPortal2(props) {
+    var _this = _super.call(this, props) || this;
+    _this.placeholderNode = createRef();
+    _this.passPropsThroughPortal();
+    return _this;
+  }
+  OutPortal2.prototype.passPropsThroughPortal = function() {
+    var propsForTarget = Object.assign({}, this.props, { node: void 0 });
+    this.props.node.setPortalProps(propsForTarget);
+  };
+  OutPortal2.prototype.componentDidMount = function() {
+    var node = this.props.node;
+    this.currentPortalNode = node;
+    var placeholder = this.placeholderNode.current;
+    var parent = placeholder.parentNode;
+    node.mount(parent, placeholder);
+    this.passPropsThroughPortal();
+  };
+  OutPortal2.prototype.componentDidUpdate = function() {
+    var node = this.props.node;
+    if (this.currentPortalNode && node !== this.currentPortalNode) {
+      this.currentPortalNode.unmount(this.placeholderNode.current);
+      this.currentPortalNode.setPortalProps({});
+      this.currentPortalNode = node;
+    }
+    var placeholder = this.placeholderNode.current;
+    var parent = placeholder.parentNode;
+    node.mount(parent, placeholder);
+    this.passPropsThroughPortal();
+  };
+  OutPortal2.prototype.componentWillUnmount = function() {
+    var node = this.props.node;
+    node.unmount(this.placeholderNode.current);
+    node.setPortalProps({});
+  };
+  OutPortal2.prototype.render = function() {
+    return createElement("div", { ref: this.placeholderNode });
+  };
+  return OutPortal2;
+}(PureComponent);
+var createHtmlPortalNode = createPortalNode.bind(null, ELEMENT_TYPE_HTML);
+var createSvgPortalNode = createPortalNode.bind(null, ELEMENT_TYPE_SVG);
+
+// js/renderPreviewWindow.tsx
 init_react();
 
 // js/starter.tsx
@@ -6315,17 +6486,16 @@ var initShims = async (assets) => {
   });
 };
 var apps = {};
-var AutoUpdateApp = ({ hash, starter, codeSpace: codeSpace2 }) => {
+var AutoUpdateApp = ({ hash, starter }) => {
   if (!apps[hash]) {
     apps[hash] = starter;
   }
   const App = apps[hash];
-  return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Root, {
-    codeSpace: codeSpace2,
-    children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ErrorBoundary_default, {
-      children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(App, {})
-    })
+  return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ErrorBoundary_default, {
+    children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(App, {})
   });
+  {
+  }
 };
 async function appFactory() {
   const hash = hashCode();
@@ -10582,14 +10752,7 @@ var DraggableWindow = ({
   const [{ bottom: bottom2, right: right2 }, setPositions] = useState(startPositions);
   const [width2, setWidth] = useState(window.innerWidth * devicePixelRatio);
   const [height2, setHeight] = useState(window.innerHeight * devicePixelRatio);
-  const ref = useRef(null);
   const scale = scaleRange / 100;
-  useEffect(
-    () => {
-      ref.current?.appendChild(document.getElementById("root"));
-    },
-    [ref]
-  );
   useEffect(() => {
     const reveal = async () => {
       setPositions({
@@ -10733,11 +10896,7 @@ var DraggableWindow = ({
                   overflow:overlay;
                   overflow-y: hidden;
               `,
-                  children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-                    style: { height: "100%" },
-                    ref,
-                    children
-                  })
+                  children
                 })
               }),
               /* @__PURE__ */ (0, import_jsx_runtime.jsx)(m.div, {
@@ -10840,7 +10999,7 @@ var Editor = ({ code, i, codeSpace: codeSpace2 }) => {
     myCode: code,
     counter: i,
     runner: async ({ code: code2, counter: counter2 }) => {
-      const { runner: runner2 } = await import("./chunk-runner-RU4OCPZ2.mjs");
+      const { runner: runner2 } = await import("./chunk-runner-SZYQARQQ.mjs");
       runner2({ code: code2, counter: counter2 });
       changeContent((x) => ({ ...x, runner: runner2, code: code2, counter: counter2 }));
     },
@@ -11087,34 +11246,42 @@ var AppToRender = ({ codeSpace: codeSpace2, children }) => {
       setIsStandalone(isStandalone2);
     }, 800);
   }, []);
-  if (isStandalone)
-    return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(AutoUpdateApp, {
-      codeSpace: codeSpace2,
-      hash,
-      starter: children
-    });
-  return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(RainbowContainer, {
+  const portalNode = useMemo(() => createHtmlPortalNode({
+    attributes: { id: `root-${codeSpace2}`, style: "height: 100%" }
+  }), []);
+  return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(p, {
     children: [
-      /* @__PURE__ */ (0, import_jsx_runtime.jsx)(DraggableWindow, {
-        hashCode: 0,
-        room: codeSpace2,
+      /* @__PURE__ */ (0, import_jsx_runtime.jsx)(InPortal, {
+        node: portalNode,
         children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(AutoUpdateApp, {
           codeSpace: codeSpace2,
           hash,
           starter: children
         })
       }),
-      /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Editor, {
-        code: mST().code,
-        i: mST().i,
-        codeSpace: codeSpace2
+      isStandalone ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)(OutPortal, {
+        node: portalNode
+      }) : /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(RainbowContainer, {
+        children: [
+          /* @__PURE__ */ (0, import_jsx_runtime.jsx)(DraggableWindow, {
+            hashCode: 0,
+            room: codeSpace2,
+            children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(OutPortal, {
+              node: portalNode
+            })
+          }),
+          /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Editor, {
+            code: mST().code,
+            i: mST().i,
+            codeSpace: codeSpace2
+          })
+        ]
       })
     ]
   });
 };
 var renderPreviewWindow = (codeSpace2, child) => {
-  const div = document.getElementById("app-root");
-  div.style.height = "100%";
+  const div = document.getElementById("root");
   const root = createRoot(div);
   root.render(/* @__PURE__ */ (0, import_jsx_runtime.jsx)(p, {
     children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(AppToRender, {

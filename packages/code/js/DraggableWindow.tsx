@@ -1,6 +1,6 @@
 import { css } from "@emotion/react";
 
-import { ReactNode, useEffect, useRef, useState } from "react";
+import { ReactNode, useEffect, useState } from "react";
 import type { FC } from "react";
 
 import { domMax, LazyMotion, m } from "framer-motion";
@@ -56,16 +56,16 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
   const [{ bottom, right }, setPositions] = useState(startPositions);
   const [width, setWidth] = useState(window.innerWidth * devicePixelRatio);
   const [height, setHeight] = useState(window.innerHeight * devicePixelRatio);
-  const ref = useRef<HTMLDivElement>(null);
+  // const ref = useRef<HTMLDivElement>(null);
 
   const scale = scaleRange / 100;
 
-  useEffect(()=> {
+  // useEffect(()=> {
     
-    ref.current?.appendChild(document.getElementById("root")!)
+  //   ref.current?.appendChild(document.getElementById("root")!)
     
-  } 
-    , [ref]);
+  // } 
+  //   , [ref]);
 
   useEffect(() => {
     const reveal = async () => {
@@ -234,10 +234,10 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
                   overflow-y: hidden;
               `}
               >
-                  <div 
-                  style={{height: "100%"}} ref={ref}>
+                  {/* <div 
+                  style={{height: "100%"}} ref={ref}> */}
                   {children}
-                </div>
+                {/* </div> */}
 
                 </m.div>
             </m.div>
