@@ -2571,6 +2571,12 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@spike.land/jammy-xubuntu-desktop@workspace:dockerhub/devimages/jammy-xubuntu-desktop":
+  version: 0.0.0-use.local
+  resolution: "@spike.land/jammy-xubuntu-desktop@workspace:dockerhub/devimages/jammy-xubuntu-desktop"
+  languageName: unknown
+  linkType: soft
+
 "@spike.land/monorepo-modules@workspace:dockerhub/devimages/monorepo-modules":
   version: 0.0.0-use.local
   resolution: "@spike.land/monorepo-modules@workspace:dockerhub/devimages/monorepo-modules"
