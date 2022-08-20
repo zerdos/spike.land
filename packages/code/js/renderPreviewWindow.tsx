@@ -1,5 +1,6 @@
-import { Fragment } from "react";
+import { Fragment, useMemo } from "react";
 import {createRoot} from "react-dom/client";
+import {createHtmlPortalNode, InPortal, OutPortal} from "react-reverse-portal"
 import { ReactNode, useEffect, useState } from "react";
 import { appFactory, AutoUpdateApp } from "./starter";
 import { css } from "@emotion/react";
@@ -89,10 +90,20 @@ const AppToRender: FC<{ codeSpace: string; children: FC }> = (
     }, 800);
   }, []);
 
-  if (isStandalone) return <AutoUpdateApp codeSpace={codeSpace} hash={hash} starter={children} />;
+  const portalNode = useMemo(() =>
+  createHtmlPortalNode({
+    attributes: { id: `root-${codeSpace}`, style: "height: 100%" },
+  }), []);
 
-  return (
-    <RainbowContainer>
+return (
+  <Fragment>
+    <InPortal node={portalNode}>
+      <AutoUpdateApp codeSpace={codeSpace} hash={hash} starter={children} />
+    </InPortal>
+
+
+ {isStandalone  ?<OutPortal node={portalNode}></OutPortal>:
+ <RainbowContainer>
       <DraggableWindow
         // onRestore={() => {
         //   const model = globalThis.model;
@@ -101,10 +112,11 @@ const AppToRender: FC<{ codeSpace: string; children: FC }> = (
         hashCode={0}
         room={codeSpace}
       >
-        <AutoUpdateApp codeSpace={codeSpace} hash={hash} starter={children} />
+       <OutPortal node={portalNode}></OutPortal>
       </DraggableWindow>
       <Editor code={mST().code} i={mST().i} codeSpace={codeSpace} />
-    </RainbowContainer>
+    </RainbowContainer>}
+    </Fragment>
   );
 };
 
@@ -112,8 +124,8 @@ export const renderPreviewWindow = (
   codeSpace: string,
   child: FC,
 ) => {
-  const div =document.getElementById("app-root")!;
-  div.style.height='100%';
+  const div =document.getElementById("root")!;
+  // div.style.height='100%';
 const root = createRoot(div);
 root.render(<Fragment>
 <AppToRender codeSpace={codeSpace}>{child}</AppToRender>

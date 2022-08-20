@@ -95,7 +95,7 @@ const apps: { [key: string]: FC } = {};
 // {[md5(starter.transpiled)]: await appFactory(starter.transpiled)};
 
 export const AutoUpdateApp: FC<{ hash: number; starter: FC, codeSpace: string }> = (
-  { hash, starter, codeSpace }
+  { hash, starter }
 ) => {
 
   // const result = md5(mST().transpiled);
@@ -109,13 +109,13 @@ export const AutoUpdateApp: FC<{ hash: number; starter: FC, codeSpace: string }>
   const App = apps[hash];
 
 
-  return <Root codeSpace={codeSpace}>
-    <ErrorBoundary>
+  // return <Root codeSpace={codeSpace}>
+  return  <ErrorBoundary>
     {/* <CacheProvider value={cache}> */}
       <App/>
   {/* </CacheProvider> */}
     </ErrorBoundary>
-  </Root>
+  {/* </Root> */}
 }
 
 
