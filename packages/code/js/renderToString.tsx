@@ -2,7 +2,7 @@
 
 import { render } from "react-dom";
 import type { FC } from "react";
-import { hashCode, mST, patchSync } from "session";
+import { hashCode, mST, patchSync } from "./session";
 
 // const WithCache: FC<{children: ReactNode, cache: EmotionCache}> = ({children, cache}) => <CacheProvider value={cache}>{children}</CacheProvider>
 
@@ -23,7 +23,9 @@ export const renderFromString = (App: FC) => {
   setTimeout(()=>{
     if (hash !== hashCode()) return;
     const {css, html}= mST();
-  const temp = document.getElementById("root-"+globalThis.codeSpace)!
+    // @ts-ignore
+    const codeSpcae: string = globalThis["codeSpace"] as unknown as string;
+  const temp = document.getElementById("root-"+ codeSpcae)!
  
   const htmlHtml = temp.innerHTML;
  const newCss = extractCritical(htmlHtml);
