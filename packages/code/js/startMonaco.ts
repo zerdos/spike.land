@@ -1,10 +1,13 @@
 import { version } from "monaco-editor/package.json";
 import type monaco from "monaco-editor";
+
+import {Uri} from "monaco-editor"
 import pMap from "p-map";
 
 // import { createJsBlob } from "./starter";
-import editorWorker  from "./monaco-editor/editor/editor.worker.monaco.worker.js";
-import tsWorker  from './monaco-editor/language/typescript/ts.worker.monaco.worker.js'
+import editorWorker  from "./monaco-editor/editor/editor.worker.monaco.worker.js?url";
+import tsWorker  from './monaco-editor/language/typescript/ts.worker.monaco.worker.js?url'
+
 
 
 // import wfile from "monaco-editor/min/vs/language/typescript/tsWorker.js";
@@ -25,9 +28,8 @@ import tsWorker  from './monaco-editor/language/typescript/ts.worker.monaco.work
 let started = false;
 
 const monacoContribution = async (
-  typescript: monaco.languages.typescript,
-  editor: monaco.editor,
-  Uri: monaco.Uri,
+  typescript: typeof monaco.languages.typescript,
+  editor: typeof monaco.editor,
   code: string,
 ) => {
   // const {typescript} = languages;
@@ -274,12 +276,10 @@ export const startMonaco = async (
     name: string;
   },
 ) => {
-  const { languages, editor, Uri } = await import(
-    `/npm:monaco-editor@${version}?target=es2021`
-  ) as unknown as monaco;
+  const { languages, editor } = await import("monaco-editor");
 
   const returnModules = {
-    editor: {} as unknown as ReturnType<monaco.editor.create>,
+    editor: {} as unknown as ReturnType<typeof editor.create>,
     monaco: { editor, languages, Uri },
   };
 
@@ -314,7 +314,7 @@ export const startMonaco = async (
   `;
   shadowRoot.appendChild(innerStyle);
 
-  await monacoContribution(languages.typescript, editor, Uri, code);
+  await monacoContribution(languages.typescript, editor, code);
 
   returnModules.editor = editor.create(innerContainer, {
     model: editor.createModel(

@@ -191,6 +191,7 @@ export class CodeSession implements ICodeSess {
         hashStore[serverRecord.hashCode()] = serverRecord;
       } else {
         const { mST } = await import(
+          /* @vite-ignore */
           location.origin + `/live/${this.room}/mst.mjs?${Date.now()}`
         );
         const latestRec = this.session.get("state").merge(

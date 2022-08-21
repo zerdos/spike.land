@@ -1,5 +1,5 @@
-import React, { FC, ReactNode} from "react";
-import { createPortal } from "react-dom";
+import type { FC} from "react";
+// import { createPortal } from "react-dom";
 // import { prefixer } from 'stylis';
 
 import type {} from "react-dom/next";
@@ -7,49 +7,49 @@ import "es-module-shims"
 
 // import {CacheProvider, createCache } from "@emotion/react"
 import { mST, hashCode } from "./session";
-import ErrorBoundary from "./ErrorBoundary";
+// import ErrorBoundary from "./ErrorBoundary";
 
 Object.assign(window, {});
 
-const modalRoot = document.getElementById("root")!;
+// const modalRoot = document.getElementById("root")!;
 
-export class Root extends React.Component<{children: ReactNode, codeSpace: string}> {
-  #el: HTMLDivElement;
-  #codeSpace: string;
-  children: ReactNode
-  constructor(props: {children: ReactNode, codeSpace: string}) {
-     super(props);
-    this.#codeSpace=props.codeSpace; 
-     this.#el=document.createElement("div");
-     this.#el.id=`root-${this.#codeSpace}`;
-     this.#el.style.height='100%';
+// export class Root extends React.Component<{children: ReactNode, codeSpace: string}> {
+//   #el: HTMLDivElement;
+//   #codeSpace: string;
+//   children: ReactNode
+//   constructor(props: {children: ReactNode, codeSpace: string}) {
+//      super(props);
+//     this.#codeSpace=props.codeSpace; 
+//      this.#el=document.createElement("div");
+//      this.#el.id=`root-${this.#codeSpace}`;
+//      this.#el.style.height='100%';
 
-  }
+//   }
 
-  componentDidMount() {
-    // The portal element is inserted in the DOM tree after
-    // the Modal's children are mounted, meaning that children
-    // will be mounted on a detached DOM node. If a child
-    // component requires to be attached to the DOM tree
-    // immediately when mounted, for example to measure a
-    // DOM node, or uses 'autoFocus' in a descendant, add
-    // state to Modal and only render the children when Modal
-    // is inserted in the DOM tree.
-    modalRoot.innerHTML ="";
-    modalRoot.append(this.#el);
-  }
+//   componentDidMount() {
+//     // The portal element is inserted in the DOM tree after
+//     // the Modal's children are mounted, meaning that children
+//     // will be mounted on a detached DOM node. If a child
+//     // component requires to be attached to the DOM tree
+//     // immediately when mounted, for example to measure a
+//     // DOM node, or uses 'autoFocus' in a descendant, add
+//     // state to Modal and only render the children when Modal
+//     // is inserted in the DOM tree.
+//     modalRoot.innerHTML ="";
+//     modalRoot.append(this.#el);
+//   }
 
-  componentWillUnmount() {
-    modalRoot.appendChild(this.#el);
-  }
+//   componentWillUnmount() {
+//     modalRoot.appendChild(this.#el);
+//   }
 
-  render() {
-    return createPortal(
-      this.props.children,
-      this.#el,
-    );
-  }
-}
+//   render() {
+//     return createPortal(
+//       this.props.children,
+//       this.#el,
+//     );
+//   }
+// }
 
 
 const orig = location.origin.includes("localhost") ? "." : location.origin;
@@ -94,7 +94,7 @@ const apps: { [key: string]: FC } = {};
 
 // {[md5(starter.transpiled)]: await appFactory(starter.transpiled)};
 
-export const AutoUpdateApp: FC<{ hash: number; starter: FC, codeSpace: string }> = (
+export const AutoUpdateApp: FC<{ hash: number; starter: FC }> = (
   { hash, starter }
 ) => {
 
@@ -110,12 +110,7 @@ export const AutoUpdateApp: FC<{ hash: number; starter: FC, codeSpace: string }>
 
 
   // return <Root codeSpace={codeSpace}>
-  return  <ErrorBoundary>
-    {/* <CacheProvider value={cache}> */}
-      <App/>
-  {/* </CacheProvider> */}
-    </ErrorBoundary>
-  {/* </Root> */}
+  return <App/>
 }
 
 

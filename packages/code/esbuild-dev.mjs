@@ -62,19 +62,14 @@ const buildOptions = {
   legalComments: "none",
   plugins: [
     // exampleOnResolvePlugin,
-    alias({
-      "react":  new URL("./react.ts", import.meta.url).pathname,
-      "react-dom": new URL("./react.ts", import.meta.url).pathname, 
-      "react-dom/client": new URL("./react.ts", import.meta.url).pathname,
-      "react-dom/server": new URL("./react.ts", import.meta.url).pathname,
-      "react/jsx-runtime": new URL("./react.ts", import.meta.url).pathname,
-      "react/jsx-dev-runtime": new URL("./react.ts", import.meta.url).pathname,
-      "path": new URL("./path/index.js", import.meta.url).pathname,
-      "stream": new URL(
-        "../../node_modules/stream-browserify/index.js",
-        import.meta.url,
-      ).pathname,
-    }),
+    // alias({
+  
+      // "path": new URL("./path/index.js", import.meta.url).pathname,
+      // "stream": new URL(
+      //   "../../node_modules/stream-browserify/index.js",
+      //   import.meta.url,
+      // ).pathname,
+    // }),
     // importMapPlugin,
     // esbuildCommonjs(["/react.ts"]),
     // alias({

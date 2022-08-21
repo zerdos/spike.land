@@ -948,7 +948,7 @@ var init_define_process = __esm({
   }
 });
 
-// ../../packages/code/dist/chunk-chunk-4JZ3EQ5K.mjs
+// ../../packages/code/dist/chunk-chunk-T6GUAKOZ.mjs
 var require_diff = __commonJS2({
   "../../.yarn/global/cache/fast-diff-npm-1.2.0-5ba4171bb6-9.zip/node_modules/fast-diff/diff.js"(exports, module) {
     init_define_process();
@@ -6052,7 +6052,10 @@ var CodeSession = class {
           );
           hashStore[serverRecord.hashCode()] = serverRecord;
         } else {
-          const { mST: mST2 } = await import(location.origin + `/live/${this.room}/mst.mjs?${Date.now()}`);
+          const { mST: mST2 } = await import(
+            /* @vite-ignore */
+            location.origin + `/live/${this.room}/mst.mjs?${Date.now()}`
+          );
           const latestRec = this.session.get("state").merge(
             JSON.parse(str(mST2))
           );

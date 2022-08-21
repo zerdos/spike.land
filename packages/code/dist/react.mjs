@@ -26,6 +26,7 @@ import {
   react_default,
   render,
   unmountComponentAtNode,
+  unstable_batchedUpdates,
   useCallback,
   useContext,
   useDebugValue,
@@ -40,7 +41,7 @@ import {
   useState,
   version,
   y
-} from "./chunk-chunk-OHEWPDNZ.mjs";
+} from "./chunk-chunk-AWGQTHLY.mjs";
 import "./chunk-chunk-E5P5SGZK.mjs";
 init_react();
 export {
@@ -73,6 +74,7 @@ export {
   render,
   y as renderToString,
   unmountComponentAtNode,
+  unstable_batchedUpdates,
   useCallback,
   useContext,
   useDebugValue,

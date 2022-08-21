@@ -52,7 +52,7 @@ textarea {
   <script>     
   window.process = {
     env: {
-      "NODE_ENV": "production"
+      "NODE_ENV": "development"
     }};
 
 
@@ -69,14 +69,13 @@ textarea {
  </script>
   <script type="module">
     import {mST, assets, codeSpace, address} from "https://testing.spike.land/live/coder/mST.mjs" 
-    import {run } from "./js/ws"
+    import {run } from "./js/ws.ts"
 
     document.getElementById("root").innerHTML =`<div id="root-${codeSpace}" style="height: 100%">` +
                   mST.html + `</div>`
 
     run({
-      mST,
-      App,
+      mST,  
       codeSpace,
       address,
       assets

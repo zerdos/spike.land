@@ -6,6 +6,9 @@ import type { FC } from "react";
 import { domMax, LazyMotion, m } from "framer-motion";
 import { QRButton } from "./Qr";
 
+// import { useSpring, a } from '@react-spring/web'
+
+
 import {
   Fab,
   FullscreenIcon,
@@ -21,6 +24,7 @@ import type {
   ToggleButton as MuiToggleButton,
   ToggleButtonGroup as MuiToggleButtonGroup,
 } from "./mui";
+
 
 const ToggleButtonGroup = muiToggleButtonGroup as typeof MuiToggleButtonGroup;
 const ToggleButton = muiToggleButton as typeof MuiToggleButton;
@@ -49,6 +53,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
     hashCode,
   },
 ) => {
+
   const [scaleRange, changeScaleRange] = useState(100);
 
   const startPositions = { bottom: 0, right: 0 };

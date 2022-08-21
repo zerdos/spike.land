@@ -7,6 +7,8 @@ import { css } from "@emotion/react";
 import { DraggableWindow } from "./DraggableWindow";
 import type { FC } from "react";
 
+// import { useSpring, a } from '@react-spring/web'
+
 import { hashCode, mST, onSessionUpdate } from "./session";
 
 import { Editor } from "./Editor";
@@ -61,9 +63,19 @@ background:  repeating-radial-gradient(circle at bottom left,
   </div>
 );
 
+
 const AppToRender: FC<{ codeSpace: string; children: FC }> = (
   { codeSpace, children },
 ) => {
+
+  // const [flipped, set] = useState(false)
+  // const { transform, opacity } = useSpring({
+  //   opacity: flipped ? 1 : 0,
+  //   transform: `perspective(600px) rotateX(${flipped ? 180 : 0}deg)`,
+  //   config: { mass: 5, tension: 500, friction: 80 },
+  // })
+
+
   const [hash, setHash] = useState(() => hashCode());
   const [isStandalone, setIsStandalone] = useState(true);
 
@@ -98,12 +110,58 @@ const AppToRender: FC<{ codeSpace: string; children: FC }> = (
 return (
   <Fragment>
     <InPortal node={portalNode}>
-      <AutoUpdateApp codeSpace={codeSpace} hash={hash} starter={children} />
+      <AutoUpdateApp hash={hash} starter={children} />
     </InPortal>
 
 
  {isStandalone  ?<OutPortal node={portalNode}></OutPortal>:
  <RainbowContainer>
+      {/* <div css={css`
+  display: flex;
+  align-items: center;
+  height: 100%;
+  justify-content: center;
+`} onClick={() => set(state => !state)} > */}
+<OutPortal node={portalNode}></OutPortal>
+      {/* <a.div
+        css={css`
+        background-size: cover;
+        position: absolute;
+        max-width: 500px;
+        max-height: 500px;
+        width: 350px;
+        height: 200px;
+        cursor: pointer;
+        will-change: transform, opacity;
+
+        `}
+        style={{ opacity: opacity.to((o: number)=> 1 - o), transform }}
+      > 
+
+
+      
+      </a.div> */}
+      {/* <a.div
+    css={css`
+    background-size: cover;
+    position: absolute;
+    max-width: 500px;
+    max-height: 500px;
+    width: 350px;
+    height: 200px;
+    cursor: pointer;
+    will-change: transform, opacity;
+   
+    `}
+        style={{
+          opacity,
+          transform,
+          rotateX: '180deg',
+        }}
+      >    */}
+         <Editor code={mST().code} i={mST().i} codeSpace={codeSpace} />
+      {/* </a.div> */}
+    {/* </div> */}
       <DraggableWindow
         // onRestore={() => {
         //   const model = globalThis.model;
@@ -112,9 +170,9 @@ return (
         hashCode={0}
         room={codeSpace}
       >
-       <OutPortal node={portalNode}></OutPortal>
+      <OutPortal node={portalNode}></OutPortal>
       </DraggableWindow>
-      <Editor code={mST().code} i={mST().i} codeSpace={codeSpace} />
+
     </RainbowContainer>}
     </Fragment>
   );

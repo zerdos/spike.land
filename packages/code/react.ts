@@ -122,6 +122,7 @@ export const {
   cloneElement,
   createFactory,
   useInsertionEffect,
+  unstable_batchedUpdates,
   createRef,
   useCallback,
   useContext,

@@ -62,17 +62,22 @@
     "importHelpers": false,
     "incremental": true,
     "skipDefaultLibCheck": true,
-    /* Advanced Options */
     "skipLibCheck": true, /* Skip type checking of declaration files. */
     "forceConsistentCasingInFileNames": true, /* Disallow inconsistently-cased references to the same file. */
-    "baseUrl": "js"
+    "baseUrl": "js",
+    "paths": {
+      "buffer": ["buffer"],
+      "stream": ["stream-browserify"],
+      "path": ["../path/index.js"],
+      "react": ["../react.ts"],
+      "react-dom": ["../react.ts"],
+      "react-dom/client": ["../react.ts"],
+      "react-dom/server": ["../react.ts"],
+      "react/jsx-runtime": ["../react.ts"],
+      "react/jsx-dev-runtime": ["../react.ts"],
+    }
   },
   "include": ["js", "million.ts"],
   "exclude": ["./js/vendor/**"],
-  "paths": {
-    "path": ["path-browserify"],
-    "buffer": ["buffer"],
-    "stream": ["stream-browserify"],
-    "react": ["preact-compat"]
-  }
+ 
 }
