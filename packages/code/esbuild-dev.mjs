@@ -168,7 +168,7 @@ const build = (entryPoints, format = "esm") =>
     format: "esm",
     splitting: true,
     target,
-    sourcemap: false,
+    sourcemap: true,
 
     minify: !isDevelopment,
     minifyWhitespace: !isDevelopment,
@@ -220,6 +220,9 @@ const build = (entryPoints, format = "esm") =>
       ".webp": "file",
       ".tsx": "tsx",
       ".jsx": "tsx",
+      ".css": "css",
+      ".ttf": "file",
+      
       ".d.ts": "file",
       ".worker.js": "file",
       ".wasm": "file",

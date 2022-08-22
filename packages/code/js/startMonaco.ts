@@ -4,6 +4,9 @@ import type monaco from "monaco-editor";
 import {Uri} from "monaco-editor"
 import pMap from "p-map";
 
+// import codion from "monaco-editor/esm/vs/base/browser/ui/codicons/codicon/codicon.ttf"
+// import * as editorCss from "monaco-editor/min/vs/editor/editor.main.css"
+
 // import { createJsBlob } from "./starter";
 import editorWorker  from "./monaco-editor/editor/editor.worker.monaco.worker.js?url";
 import tsWorker  from './monaco-editor/language/typescript/ts.worker.monaco.worker.js?url'

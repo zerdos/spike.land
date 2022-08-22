@@ -41,8 +41,8 @@ import {
   useState,
   version,
   y
-} from "./chunk-chunk-AWGQTHLY.mjs";
-import "./chunk-chunk-E5P5SGZK.mjs";
+} from "./chunk-chunk-7KOBOMTL.mjs";
+import "./chunk-chunk-VGJVMXXD.mjs";
 init_react();
 export {
   Children,
@@ -89,3 +89,4 @@ export {
   useState,
   version
 };
+//# sourceMappingURL=react.mjs.map

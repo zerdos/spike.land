@@ -71,11 +71,11 @@ import {
   useWillChange,
   visualElement,
   wrapHandler
-} from "./chunk-chunk-4FSP2OS7.mjs";
-import "./chunk-chunk-AWGQTHLY.mjs";
+} from "./chunk-chunk-ZEVALQMV.mjs";
+import "./chunk-chunk-7KOBOMTL.mjs";
 import {
   init_define_process
-} from "./chunk-chunk-E5P5SGZK.mjs";
+} from "./chunk-chunk-VGJVMXXD.mjs";
 
 // framer-motion.ts
 init_define_process();
@@ -153,3 +153,4 @@ export {
   visualElement,
   wrapHandler
 };
+//# sourceMappingURL=framer-motion.mjs.map

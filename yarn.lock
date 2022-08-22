@@ -2613,7 +2613,7 @@ __metadata:
     clean-stack: "npm:^4.2.0"
     clsx: "npm:^1.2.1"
     csstype: "npm:^3.1.0"
-    es-module-shims: "npm:1.5.16"
+    es-module-shims: "npm:1.5.17"
     esbuild: "npm:^0.15.5"
     esbuild-plugin-alias: "npm:0.2.1"
     esbuild-plugin-import-map: "npm:2.1.0"
@@ -4676,10 +4676,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"es-module-shims@npm:1.5.16":
-  version: 1.5.16
-  resolution: "es-module-shims@npm:1.5.16"
-  checksum: 9326f4b45fec741712e2280e3e73201099a57cf648aea4bea33cb2f716d2e21a336f5bb101af5dbab738ef23610802a34fb005579e0352c21c72f05a72c4170b
+"es-module-shims@npm:1.5.17":
+  version: 1.5.17
+  resolution: "es-module-shims@npm:1.5.17"
+  checksum: 8bf39ecfa225390e97714aa7f9eb05df5efd0e9320d2fe0c682367c246d980f5df1642683f8a4b51f90ca31e1eb915c55c3914d11ac7e1a8116cd0c9b7a12c58
   languageName: node
   linkType: hard
 

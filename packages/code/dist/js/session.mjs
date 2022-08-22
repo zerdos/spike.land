@@ -9,8 +9,8 @@ import {
   onSessionUpdate,
   patchSync,
   startSession
-} from "../chunk-chunk-T6GUAKOZ.mjs";
-import "../chunk-chunk-E5P5SGZK.mjs";
+} from "../chunk-chunk-WCFMLZU2.mjs";
+import "../chunk-chunk-VGJVMXXD.mjs";
 export {
   CodeSession,
   applyPatch,
@@ -23,3 +23,4 @@ export {
   patchSync,
   startSession
 };
+//# sourceMappingURL=session.mjs.map
