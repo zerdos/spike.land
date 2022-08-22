@@ -63,12 +63,12 @@ const buildOptions = {
   plugins: [
     // exampleOnResolvePlugin,
     // alias({
-  
-      // "path": new URL("./path/index.js", import.meta.url).pathname,
-      // "stream": new URL(
-      //   "../../node_modules/stream-browserify/index.js",
-      //   import.meta.url,
-      // ).pathname,
+
+    // "path": new URL("./path/index.js", import.meta.url).pathname,
+    // "stream": new URL(
+    //   "../../node_modules/stream-browserify/index.js",
+    //   import.meta.url,
+    // ).pathname,
     // }),
     // importMapPlugin,
     // esbuildCommonjs(["/react.ts"]),
@@ -222,7 +222,7 @@ const build = (entryPoints, format = "esm") =>
       ".jsx": "tsx",
       ".css": "css",
       ".ttf": "file",
-      
+
       ".d.ts": "file",
       ".worker.js": "file",
       ".wasm": "file",

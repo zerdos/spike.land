@@ -8,7 +8,6 @@ import { QRButton } from "./Qr";
 
 // import { useSpring, a } from '@react-spring/web'
 
-
 import {
   Fab,
   FullscreenIcon,
@@ -24,7 +23,6 @@ import type {
   ToggleButton as MuiToggleButton,
   ToggleButtonGroup as MuiToggleButtonGroup,
 } from "./mui";
-
 
 const ToggleButtonGroup = muiToggleButtonGroup as typeof MuiToggleButtonGroup;
 const ToggleButton = muiToggleButton as typeof MuiToggleButton;
@@ -53,7 +51,6 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
     hashCode,
   },
 ) => {
-
   const [scaleRange, changeScaleRange] = useState(100);
 
   const startPositions = { bottom: 0, right: 0 };
@@ -66,10 +63,10 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
   const scale = scaleRange / 100;
 
   // useEffect(()=> {
-    
+
   //   ref.current?.appendChild(document.getElementById("root")!)
-    
-  // } 
+
+  // }
   //   , [ref]);
 
   useEffect(() => {
@@ -119,7 +116,6 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
     <LazyMotion features={domMax}>
       <m.div
         transition={{ delay: 0, duration: 0.4 }}
-      
         initial={{
           top: 0,
           padding: 0,
@@ -239,12 +235,13 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
                   overflow-y: hidden;
               `}
               >
-                  {/* <div 
-                  style={{height: "100%"}} ref={ref}> */}
-                  {children}
+                {
+                  /* <div
+                  style={{height: "100%"}} ref={ref}> */
+                }
+                {children}
                 {/* </div> */}
-
-                </m.div>
+              </m.div>
             </m.div>
             <m.div
               transition={{ delay: 0, duration: 0.4 }}

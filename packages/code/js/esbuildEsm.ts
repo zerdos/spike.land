@@ -5,7 +5,6 @@ import * as esbuild from "esbuild-wasm";
 import { wait } from "./wait";
 import wasmURL from "esbuild-wasm/esbuild.wasm?url";
 
-
 const mod = { initFinished: false };
 
 const mutex = new Mutex();

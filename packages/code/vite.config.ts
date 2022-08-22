@@ -1,25 +1,24 @@
-
-import react from '@vitejs/plugin-react'
+import react from "@vitejs/plugin-react";
 import { defineConfig } from "vite";
-import tsConfigRaw from "./tsconfig.json"
+import tsConfigRaw from "./tsconfig.json";
 // import importmap from "./js/importmap.json";
 
 export default defineConfig({
   esbuild: {
     jsxImportSource: "@emotion/react",
-    jsxInject: "import {jsx} from \"@emotion/react\"",
-    jsxFactory: 'jsx',
+    jsxInject: 'import {jsx} from "@emotion/react"',
+    jsxFactory: "jsx",
   },
   plugins: [react()],
   resolve: {
-     alias:  {
+    alias: {
       // "stream": "stream-browserify",
       // "path": new URL("./path/index.js", import.meta.url).toString(),
       // "react/jsx-runtime":  "./preact/jsx-runtime.mjs",
       // "react-dom/client":  "./preact/compat.mjs",
       // "react":   "./preact/compat.mjs",
       // "react-dom":  "./preact/compat.mjs",
-    }
+    },
   },
   // server: {
   //   proxy: {
@@ -52,6 +51,5 @@ export default defineConfig({
   //     }
   //   }
   // },
-  plugins: [
-  ],
+  plugins: [],
 });

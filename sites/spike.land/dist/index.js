@@ -439,7 +439,10 @@ var chat_default = {
             if (resp !== null && !resp.ok || resp.status === 307) {
               const redirectUrl = resp.headers.get("location");
               if (redirectUrl) {
-                resp = await fetch(redirectUrl, { ...request2, url: redirectUrl });
+                resp = await fetch(redirectUrl, {
+                  ...request2,
+                  url: redirectUrl
+                });
               }
               if (resp !== null && !resp.ok)
                 return resp;
@@ -480,7 +483,10 @@ var chat_default = {
             if (resp !== null && !resp.ok || resp.status === 307) {
               const redirectUrl = resp.headers.get("location");
               if (redirectUrl) {
-                resp = await fetch(redirectUrl, { ...request2, url: redirectUrl });
+                resp = await fetch(redirectUrl, {
+                  ...request2,
+                  url: redirectUrl
+                });
               }
               if (resp !== null && !resp.ok)
                 return resp;
@@ -948,7 +954,7 @@ var init_define_process = __esm({
   }
 });
 
-// ../../packages/code/dist/chunk-chunk-WCFMLZU2.mjs
+// ../../packages/code/dist/chunk-chunk-DPJZZGUT.mjs
 var require_diff = __commonJS2({
   "../../.yarn/global/cache/fast-diff-npm-1.2.0-5ba4171bb6-9.zip/node_modules/fast-diff/diff.js"(exports, module) {
     init_define_process();
@@ -6029,7 +6035,10 @@ var CodeSession = class {
       };
     };
     this.patchSync = (sess) => {
-      this.session = this.session.set("state", this.session.get("state").merge(sess));
+      this.session = this.session.set(
+        "state",
+        this.session.get("state").merge(sess)
+      );
       this.update();
     };
     this.applyPatch = async ({

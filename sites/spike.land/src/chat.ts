@@ -92,15 +92,20 @@ export default {
               return cachedResponse.clone();
             }
 
-            const esmUrl =  u.toString().replace(u.origin+ "/npm:",
-              "https://esm.sh/");
+            const esmUrl = u.toString().replace(
+              u.origin + "/npm:",
+              "https://esm.sh/",
+            );
 
-            let resp = await fetch(esmUrl, {...request, url: esmUrl});
+            let resp = await fetch(esmUrl, { ...request, url: esmUrl });
 
-            if (resp !== null && !resp.ok || resp.status===307) {
+            if (resp !== null && !resp.ok || resp.status === 307) {
               const redirectUrl = resp.headers.get("location");
               if (redirectUrl) {
-                resp = await fetch(redirectUrl, {...request, url: redirectUrl});
+                resp = await fetch(redirectUrl, {
+                  ...request,
+                  url: redirectUrl,
+                });
               }
               if (resp !== null && !resp.ok) return resp;
             }
@@ -114,7 +119,7 @@ export default {
 
             const responseToCache = new Response(
               bodyStr
-                ? bodyStr.replaceAll(regex, u.origin+ "/npm:")
+                ? bodyStr.replaceAll(regex, u.origin + "/npm:")
                   .replaceAll(regex2, ' from "/npm:')
                 : await resp.blob(),
               {
@@ -131,7 +136,6 @@ export default {
           }
 
           if (path[0].startsWith("unpkg:")) {
-
             const cacheUrl = new URL(request.url);
 
             // Construct the cache key from the cache URL
@@ -146,15 +150,20 @@ export default {
               return cachedResponse.clone();
             }
 
-            const esmUrl =  u.toString().replace(u.origin+ "/unpkg:",
-              "https://unpkg.com/");
+            const esmUrl = u.toString().replace(
+              u.origin + "/unpkg:",
+              "https://unpkg.com/",
+            );
 
-            let resp = await fetch(esmUrl, {...request, url: esmUrl});
+            let resp = await fetch(esmUrl, { ...request, url: esmUrl });
 
-            if (resp !== null && !resp.ok || resp.status===307) {
+            if (resp !== null && !resp.ok || resp.status === 307) {
               const redirectUrl = resp.headers.get("location");
               if (redirectUrl) {
-                resp = await fetch(redirectUrl, {...request, url: redirectUrl});
+                resp = await fetch(redirectUrl, {
+                  ...request,
+                  url: redirectUrl,
+                });
               }
               if (resp !== null && !resp.ok) return resp;
             }
@@ -168,7 +177,7 @@ export default {
 
             const responseToCache = new Response(
               bodyStr
-                ? bodyStr.replaceAll(regex, u.origin+ "/unpkg:")
+                ? bodyStr.replaceAll(regex, u.origin + "/unpkg:")
                   .replaceAll(regex2, ' from "/unpkg:')
                 : await resp.blob(),
               {
@@ -182,7 +191,6 @@ export default {
             );
             await cache.put(cacheKey, responseToCache.clone());
             return responseToCache;
-
           }
 
           switch (path[0]) {
@@ -224,7 +232,6 @@ export default {
               const new1 = new URL(u.pathname, "https://cloudflare-ipfs.com");
               const resp = await fetch(new1.toString());
               if (resp.ok) return resp;
-            
 
               const new2 = new URL(u.pathname, "https://ipfs.io");
               const resp2 = await fetch(new2.toString());
@@ -258,23 +265,25 @@ export default {
                   },
                 },
                 {
-                  cacheControl: (url.href.includes("chunk-")? {
-                    browserTTL:  2 * 60 * 60 * 24,
-                    edgeTTL: 2 * 60 * 60 * 24,
-                    bypassCache: false
-                  }: {
-                    browserTTL: 0,
-                    edgeTTL: 0,
-                    bypassCache: true
-                  }),
+                  cacheControl: (url.href.includes("chunk-")
+                    ? {
+                      browserTTL: 2 * 60 * 60 * 24,
+                      edgeTTL: 2 * 60 * 60 * 24,
+                      bypassCache: false,
+                    }
+                    : {
+                      browserTTL: 0,
+                      edgeTTL: 0,
+                      bypassCache: true,
+                    }),
                   ASSET_NAMESPACE: env.__STATIC_CONTENT,
                   ASSET_MANIFEST: manifestJSON,
                 },
               );
 
-              const chunkRegx = /[.]{1}[a-f0-9]{10}[.]+/gm
+              const chunkRegx = /[.]{1}[a-f0-9]{10}[.]+/gm;
 
-              if(url.href.includes("chunk-") || chunkRegx.test(url.href)) {
+              if (url.href.includes("chunk-") || chunkRegx.test(url.href)) {
                 kvResp.headers.append("Cache-Control", "immutable");
               }
 

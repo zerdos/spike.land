@@ -89,8 +89,7 @@ export const run = async (startState: {
   App: FC;
   assets: { [key: string]: string };
 }) => {
-
-  globalThis.codeSpace =    codeSpace = startState.codeSpace;
+  globalThis.codeSpace = codeSpace = startState.codeSpace;
   address = startState.address;
 
   const { assets } = startState;
@@ -195,18 +194,17 @@ export async function saveCode(sess: ICodeSession) {
   debouncedSyncRTC();
 }
 
-const debouncedSyncRTC =debounce(syncRTC, 100, {
+const debouncedSyncRTC = debounce(syncRTC, 100, {
   trailing: true,
   leading: true,
-  maxWait: 500
+  maxWait: 500,
 });
 
 const debouncedSyncWs = debounce(syncWS, 600, {
   trailing: true,
   leading: true,
-  maxWait: 1500
+  maxWait: 1500,
 });
-
 
 async function syncWS() {
   try {
@@ -214,7 +212,7 @@ async function syncWS() {
       if (wsLastHashCode === hashCode()) return;
       const sess = mST();
       console.log({ wsLastHashCode });
-      
+
       const message = await makePatchFrom(
         wsLastHashCode,
         sess,
@@ -238,12 +236,9 @@ async function syncWS() {
   }
 }
 
-async function syncRTC(){
-
+async function syncRTC() {
   try {
     if (Object.keys(rtcConns).length > 0) {
-
-
       if (webRTCLastSeenHashCode === hashCode()) return;
       const sess = mST();
       console.log({ wsLastHashCode });
@@ -257,7 +252,8 @@ async function syncRTC(){
       if (message && message.patch) {
         console.log("sendRTC");
         sendChannel.send(message);
-      }}
+      }
+    }
   } catch (e) {
     console.error("Error sending RTC...", { e });
   }
