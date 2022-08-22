@@ -1,12 +1,12 @@
 import {
   appFactory,
   saveCode
-} from "./chunk-chunk-VNZOURKY.mjs";
+} from "./chunk-chunk-ZOXVJFUG.mjs";
 import {
   hashCode,
   mST,
   patchSync
-} from "./chunk-chunk-WCFMLZU2.mjs";
+} from "./chunk-chunk-DPJZZGUT.mjs";
 import "./chunk-chunk-ZEVALQMV.mjs";
 import {
   require_emotion_react_jsx_runtime_cjs
@@ -60,17 +60,16 @@ var extractCritical = (html) => {
   const rules = {};
   for (let i2 in document.styleSheets) {
     const styleSheet = document.styleSheets[i2];
-    if (styleSheet?.cssRules)
-      Array.from(styleSheet.cssRules).forEach(
-        (rule) => {
-          if (rule && rule.cssText && rule.cssText.slice(0, 5) === ".css-") {
-            const selector = rule.cssText.slice(1, 11);
-            if (!rules[selector] && html.includes(selector) && !rule.cssText.slice(10).includes(".css-")) {
-              rules[selector] = rule.cssText;
-            }
+    if (styleSheet?.cssRules) {
+      Array.from(styleSheet.cssRules).forEach((rule) => {
+        if (rule && rule.cssText && rule.cssText.slice(0, 5) === ".css-") {
+          const selector = rule.cssText.slice(1, 11);
+          if (!rules[selector] && html.includes(selector) && !rule.cssText.slice(10).includes(".css-")) {
+            rules[selector] = rule.cssText;
           }
         }
-      );
+      });
+    }
   }
   return Object.keys(rules).map((r) => rules[r]).join(" ");
 };
@@ -84,7 +83,7 @@ async function runner({ code, counter }) {
     return;
   }
   i = counter;
-  const { init } = await import("./chunk-esbuildEsm-5TCZ6TJH.mjs");
+  const { init } = await import("./chunk-esbuildEsm-5GCM7VL3.mjs");
   transform = transform || await init();
   if (code === mST().code)
     return;
@@ -122,4 +121,4 @@ async function runner({ code, counter }) {
 export {
   runner
 };
-//# sourceMappingURL=chunk-runner-WHIAREGY.mjs.map
+//# sourceMappingURL=chunk-runner-EIFHIT5T.mjs.map

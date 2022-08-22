@@ -6,7 +6,7 @@ import {
   makePatchFrom,
   onSessionUpdate,
   startSession
-} from "./chunk-chunk-WCFMLZU2.mjs";
+} from "./chunk-chunk-DPJZZGUT.mjs";
 import {
   LazyMotion,
   __rest,
@@ -10933,7 +10933,7 @@ var Editor = ({ code, i, codeSpace: codeSpace2 }) => {
     myCode: code,
     counter: i,
     runner: async ({ code: code2, counter: counter2 }) => {
-      const { runner: runner2 } = await import("./chunk-runner-WHIAREGY.mjs");
+      const { runner: runner2 } = await import("./chunk-runner-EIFHIT5T.mjs");
       runner2({ code: code2, counter: counter2 });
       changeContent((x) => ({ ...x, runner: runner2, code: code2, counter: counter2 }));
     },
@@ -10964,7 +10964,7 @@ var Editor = ({ code, i, codeSpace: codeSpace2 }) => {
     if (!ref?.current)
       return;
     const setMonaco = async () => {
-      const { startMonaco } = await import("./chunk-startMonaco-XZGRKE72.mjs");
+      const { startMonaco } = await import("./chunk-startMonaco-ZSVVNDTB.mjs");
       const { editor, monaco } = await startMonaco(
         {
           container: ref.current,
@@ -11219,12 +11219,14 @@ var AppToRender = ({ codeSpace: codeSpace2, children }) => {
 var renderPreviewWindow = (codeSpace2, child) => {
   const div = document.getElementById("root");
   const root = createRoot(div);
-  root.render(/* @__PURE__ */ (0, import_jsx_runtime.jsx)(p, {
-    children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(AppToRender, {
-      codeSpace: codeSpace2,
-      children: child
+  root.render(
+    /* @__PURE__ */ (0, import_jsx_runtime.jsx)(p, {
+      children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(AppToRender, {
+        codeSpace: codeSpace2,
+        children: child
+      })
     })
-  }));
+  );
 };
 
 // js/ws.ts
@@ -11788,4 +11790,4 @@ export {
   join,
   sw
 };
-//# sourceMappingURL=chunk-chunk-VNZOURKY.mjs.map
+//# sourceMappingURL=chunk-chunk-ZOXVJFUG.mjs.map

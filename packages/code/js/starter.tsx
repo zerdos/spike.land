@@ -1,12 +1,12 @@
-import type { FC} from "react";
+import type { FC } from "react";
 // import { createPortal } from "react-dom";
 // import { prefixer } from 'stylis';
 
 import type {} from "react-dom/next";
-import "es-module-shims"
+import "es-module-shims";
 
 // import {CacheProvider, createCache } from "@emotion/react"
-import { mST, hashCode } from "./session";
+import { hashCode, mST } from "./session";
 // import ErrorBoundary from "./ErrorBoundary";
 
 Object.assign(window, {});
@@ -19,7 +19,7 @@ Object.assign(window, {});
 //   children: ReactNode
 //   constructor(props: {children: ReactNode, codeSpace: string}) {
 //      super(props);
-//     this.#codeSpace=props.codeSpace; 
+//     this.#codeSpace=props.codeSpace;
 //      this.#el=document.createElement("div");
 //      this.#el.id=`root-${this.#codeSpace}`;
 //      this.#el.style.height='100%';
@@ -50,7 +50,6 @@ Object.assign(window, {});
 //     );
 //   }
 // }
-
 
 const orig = location.origin.includes("localhost") ? "." : location.origin;
 // let isEsModuleShimsLoaded = false;
@@ -95,9 +94,8 @@ const apps: { [key: string]: FC } = {};
 // {[md5(starter.transpiled)]: await appFactory(starter.transpiled)};
 
 export const AutoUpdateApp: FC<{ hash: number; starter: FC }> = (
-  { hash, starter }
+  { hash, starter },
 ) => {
-
   // const result = md5(mST().transpiled);
 
   // const ref = useRef(null);
@@ -108,12 +106,9 @@ export const AutoUpdateApp: FC<{ hash: number; starter: FC }> = (
 
   const App = apps[hash];
 
-
   // return <Root codeSpace={codeSpace}>
-  return <App/>
-}
-
-
+  return <App />;
+};
 
 export async function appFactory(): Promise<FC> {
   // const result = md5(transpiled);
@@ -131,12 +126,11 @@ export async function appFactory(): Promise<FC> {
   // }
 
   const hash = hashCode();
-  
 
   if (!apps[hash]) {
-    apps[hash] = (await importShim(createJsBlob(mST().transpiled))).default as unknown as FC;
+    apps[hash] = (await importShim(createJsBlob(mST().transpiled)))
+      .default as unknown as FC;
   }
-
 
   return apps[hash];
 }

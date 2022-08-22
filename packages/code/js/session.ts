@@ -158,10 +158,13 @@ export class CodeSession implements ICodeSess {
     };
   };
 
-  patchSync = (sess:ICodeSession) =>{
-    this.session = this.session.set("state", this.session.get("state").merge(sess));
+  patchSync = (sess: ICodeSession) => {
+    this.session = this.session.set(
+      "state",
+      this.session.get("state").merge(sess),
+    );
     this.update();
-  }
+  };
 
   applyPatch = async ({
     oldHash,
@@ -300,4 +303,4 @@ function createPatch(oldCode: string, newCode: string) {
   return createDelta(oldCode, newCode);
 }
 
-export const patchSync = (sess: ICodeSession)=>session?.patchSync(sess)
+export const patchSync = (sess: ICodeSession) => session?.patchSync(sess);

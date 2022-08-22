@@ -5093,7 +5093,10 @@ var CodeSession = class {
       };
     };
     this.patchSync = (sess) => {
-      this.session = this.session.set("state", this.session.get("state").merge(sess));
+      this.session = this.session.set(
+        "state",
+        this.session.get("state").merge(sess)
+      );
       this.update();
     };
     this.applyPatch = async ({
@@ -5229,4 +5232,4 @@ export {
   startSession,
   patchSync
 };
-//# sourceMappingURL=chunk-chunk-WCFMLZU2.mjs.map
+//# sourceMappingURL=chunk-chunk-DPJZZGUT.mjs.map

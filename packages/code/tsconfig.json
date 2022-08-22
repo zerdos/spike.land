@@ -74,10 +74,9 @@
       "react-dom/client": ["../react.ts"],
       "react-dom/server": ["../react.ts"],
       "react/jsx-runtime": ["../react.ts"],
-      "react/jsx-dev-runtime": ["../react.ts"],
+      "react/jsx-dev-runtime": ["../react.ts"]
     }
   },
   "include": ["js", "million.ts"],
-  "exclude": ["./js/vendor/**"],
- 
+  "exclude": ["./js/vendor/**"]
 }

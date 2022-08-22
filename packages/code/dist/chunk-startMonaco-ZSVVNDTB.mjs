@@ -555,4 +555,4 @@ var startMonaco = async ({ code, container, name }) => {
 export {
   startMonaco
 };
-//# sourceMappingURL=chunk-startMonaco-XZGRKE72.mjs.map
+//# sourceMappingURL=chunk-startMonaco-ZSVVNDTB.mjs.map
