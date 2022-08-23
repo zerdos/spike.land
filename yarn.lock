@@ -2780,7 +2780,7 @@ __metadata:
     "@types/lodash": "npm:4.14.184"
     "@types/lodash.debounce": "npm:^4.0.7"
     "@types/lodash.throttle": "npm:^4.1.7"
-    "@types/node": "npm:18.7.10"
+    "@types/node": "npm:18.7.11"
     "@types/prettier": "npm:2.7.0"
     "@types/react": "npm:18.0.17"
     "@types/react-dom": "npm:18.0.6"
@@ -3030,10 +3030,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:18.7.10":
-  version: 18.7.10
-  resolution: "@types/node@npm:18.7.10"
-  checksum: f25d5f3cbcba1f8f9c8837229532ea0190174802c5ffe81c5f690b004a92754541dcb8be58ec43696d500ca7830073b42024f8d0fa47099ee59b179b3039d5ab
+"@types/node@npm:18.7.11":
+  version: 18.7.11
+  resolution: "@types/node@npm:18.7.11"
+  checksum: 0b3ba9f4cd396e6653ba8a820c7068bd313a5b178ea6d2eaddfdb7b8b9c632fe3a59f4c537fda3f9484c6698805eb4422a633cf783fc67bad5926312a3c815f3
   languageName: node
   linkType: hard
 
