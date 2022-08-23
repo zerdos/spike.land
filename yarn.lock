@@ -2805,7 +2805,7 @@ __metadata:
     iso-constants: "npm:0.1.2"
     lodash.debounce: "npm:4.0.8"
     lodash.throttle: "npm:4.1.1"
-    monaco-editor: "npm:0.34.0"
+    monaco-editor: "npm:0.35.0-dev.20220815"
     p-map: "npm:5.5.0"
     preact: "npm:10.10.6"
     preact-render-to-string: "npm:5.2.2"
@@ -7778,7 +7778,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"monaco-editor@npm:0.34.0, monaco-editor@npm:^0.34.0":
+"monaco-editor@npm:0.35.0-dev.20220815":
+  version: 0.35.0-dev.20220815
+  resolution: "monaco-editor@npm:0.35.0-dev.20220815"
+  checksum: e34c8767656ab374cd26cbdb50b8d1a8f66addc5c0593ed525084499c1c19436d789b87e3e23cf990b32f08043983310ced7d25e42a641806c2d25cdb627c770
+  languageName: node
+  linkType: hard
+
+"monaco-editor@npm:^0.34.0":
   version: 0.34.0
   resolution: "monaco-editor@npm:0.34.0"
   checksum: c88399a1b1e86eca6818719c08ec70cd76e133b949a22712ec42a0183f0566ce7887c63d8bab6cca08fbbf7723ad16092e46e331f3b15fcf288cca6aa64e9ab2

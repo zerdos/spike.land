@@ -23,8 +23,42 @@ var require_os = __commonJS({
 // js/startMonaco.ts
 init_define_process();
 
-// ../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9.zip/node_modules/monaco-editor/package.json
-var version = "0.34.0";
+// package.json
+var dependencies = {
+  "@emotion/react": "^11.10.0",
+  "@emotion/serialize": "^1.1.0",
+  "@emotion/styled": "11.10.0",
+  "@mui/material": "5.10.1",
+  "@react-spring/web": "^9.5.2",
+  "@types/react": "18.0.17",
+  "@types/react-dom": "18.0.6",
+  "ace-builds": "1.9.6",
+  "async-mutex": "0.3.2",
+  "big-integer": "1.6.51",
+  "clean-stack": "^4.2.0",
+  clsx: "^1.2.1",
+  csstype: "^3.1.0",
+  "es-module-shims": "1.5.17",
+  "esbuild-wasm": "0.15.5",
+  events: "^3.3.0",
+  "fast-diff": "1.2.0",
+  "framer-motion": "7.2.0",
+  immutable: "4.1.0",
+  "lodash.debounce": "4.0.8",
+  "lodash.throttle": "4.1.1",
+  "monaco-editor": "0.35.0-dev.20220815",
+  "p-map": "5.5.0",
+  preact: "10.10.6",
+  "preact-render-to-string": "5.2.2",
+  prettier: "2.7.1",
+  "prop-types": "^15.8.1",
+  qrious: "^4.0.2",
+  react: "^18.2.0",
+  "react-dom": "^18.2.0",
+  "react-qrious": "2.5.5",
+  "react-reverse-portal": "^2.1.1",
+  tslib: "^2.4.0"
+};
 
 // ../../.yarn/global/cache/p-map-npm-5.5.0-9758eb14ee-9.zip/node_modules/p-map/index.js
 init_define_process();
@@ -274,6 +308,7 @@ var editor_worker_monaco_worker_default = "./chunk-editor.worker.monaco.worker-Z
 var ts_worker_monaco_worker_default = "./chunk-ts.worker.monaco.worker-HNT3LFZA.js?url";
 
 // js/startMonaco.ts
+var version = dependencies["monaco-editor"];
 var started = false;
 var monacoContribution = async (typescript, editor, code) => {
   typescript.typescriptDefaults.setDiagnosticsOptions({
@@ -482,33 +517,11 @@ var startMonaco = async ({ code, container, name }) => {
     started = true;
   else
     return returnModules;
-  const shadowRoot = container.attachShadow({
-    mode: "open"
-  });
-  const innerContainer = document.createElement("div");
-  shadowRoot.appendChild(innerContainer);
-  innerContainer.style.width = "100%";
-  innerContainer.style.height = "100%";
-  const outerStyle = document.createElement("style");
-  outerStyle.innerText = ` @font-face {
-     font-family: codicon;
-     font-display: block;
-      src: url(/npm:monaco-editor@${version}/esm/vs/base/browser/ui/codicons/codicon/codicon.ttf) format("truetype");
-
-}`;
-  document.head.appendChild(outerStyle);
   const innerStyle = document.createElement("style");
-  innerStyle.innerText = `@import url(/npm:monaco-editor@${version}/?css);
-//   @font-face {
-//     font-family: codicon;
-//     font-display: block;
-//     src: url(/npm:monaco-editor@${version}/esm/vs/base/browser/ui/codicons/codicon/codicon.ttf) format("truetype");
-// }
-  
-  `;
-  shadowRoot.appendChild(innerStyle);
+  innerStyle.innerText = `@import url(/npm:monaco-editor@${version}/?css);`;
+  container.appendChild(innerStyle);
   await monacoContribution(languages.typescript, editor, code);
-  returnModules.editor = editor.create(innerContainer, {
+  returnModules.editor = editor.create(container, {
     model: editor.createModel(
       code,
       "typescript",
@@ -555,4 +568,4 @@ var startMonaco = async ({ code, container, name }) => {
 export {
   startMonaco
 };
-//# sourceMappingURL=chunk-startMonaco-ZSVVNDTB.mjs.map
+//# sourceMappingURL=chunk-startMonaco-ZUJHFWKD.mjs.map

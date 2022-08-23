@@ -1,9 +1,9 @@
-import { version } from "monaco-editor/package.json";
+import { dependencies } from "../package.json";
 import type monaco from "monaco-editor";
 
 import { Uri } from "monaco-editor";
 import pMap from "p-map";
-
+const version = dependencies["monaco-editor"];
 // import codion from "monaco-editor/esm/vs/base/browser/ui/codicons/codicon/codicon.ttf"
 // import * as editorCss from "monaco-editor/min/vs/editor/editor.main.css"
 
@@ -278,37 +278,33 @@ export const startMonaco = async (
   console.log("monaco-editor");
   if (!started) started = true;
   else return returnModules;
-  const shadowRoot = container.attachShadow({
-    mode: "open",
-  });
-  const innerContainer = document.createElement("div");
-  shadowRoot.appendChild(innerContainer);
-  innerContainer.style.width = "100%";
-  innerContainer.style.height = "100%";
+  // const shadowRoot = container.attachShadow({
+  //   mode: "open",
+  // });
+  // const innerContainer = document.createElement("div");
+  // // shadowRoot.appendChild(innerContainer);
+  // innerContainer.style.width = "100%";
+  // innerContainer.style.height = "100%";
 
-  const outerStyle = document.createElement("style");
-  outerStyle.innerText = ` @font-face {
-     font-family: codicon;
-     font-display: block;
-      src: url(/npm:monaco-editor@${version}/esm/vs/base/browser/ui/codicons/codicon/codicon.ttf) format("truetype");
+//   const outerStyle = document.createElement("style");
+//   outerStyle.innerText = ` @font-face {
+//      font-family: codicon;
+//      font-display: block;
+//       src: url(/npm:monaco-editor@${version}/esm/vs/base/browser/ui/codicons/codicon/codicon.ttf) format("truetype");
 
-}`;
-  document.head.appendChild(outerStyle);
+// // }`;
 
   const innerStyle = document.createElement("style");
-  innerStyle.innerText = `@import url(/npm:monaco-editor@${version}/?css);
-//   @font-face {
-//     font-family: codicon;
-//     font-display: block;
-//     src: url(/npm:monaco-editor@${version}/esm/vs/base/browser/ui/codicons/codicon/codicon.ttf) format("truetype");
-// }
-  
-  `;
-  shadowRoot.appendChild(innerStyle);
+
+  innerStyle.innerText = `@import url(/npm:monaco-editor@${version}/?css);`;
+  container.appendChild(innerStyle);
+
+  // innerStyle.innerText = `@import url(/npm:monaco-editor@${version}/?css);`;
+  // shadowRoot.appendChild(innerStyle);
 
   await monacoContribution(languages.typescript, editor, code);
 
-  returnModules.editor = editor.create(innerContainer, {
+  returnModules.editor = editor.create( container, {
     model: editor.createModel(
       code,
       "typescript",
