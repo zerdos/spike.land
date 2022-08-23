@@ -67,8 +67,8 @@ background:  repeating-radial-gradient(circle at bottom left,
   </div>
 );
 
-const AppToRender: FC<{ codeSpace: string; children: FC }> = (
-  { codeSpace, children },
+const AppToRender: FC<{ codeSpace: string; }> = (
+  { codeSpace },
 ) => {
   // const [flipped, set] = useState(false)
   // const { transform, opacity } = useSpring({
@@ -111,7 +111,7 @@ const AppToRender: FC<{ codeSpace: string; children: FC }> = (
   return (
     <Fragment>
       <InPortal node={portalNode}>
-        <AutoUpdateApp hash={hash} starter={children} />
+        <AutoUpdateApp hash={hash}/>
       </InPortal>
 
       {isStandalone
@@ -188,14 +188,13 @@ const AppToRender: FC<{ codeSpace: string; children: FC }> = (
 
 export const renderPreviewWindow = (
   codeSpace: string,
-  child: FC,
 ) => {
   const div = document.getElementById("root")!;
   // div.style.height='100%';
   const root = createRoot(div);
   root.render(
     <Fragment>
-      <AppToRender codeSpace={codeSpace}>{child}</AppToRender>
+      <AppToRender codeSpace={codeSpace} />
     </Fragment>,
   );
 };
