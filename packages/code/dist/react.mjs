@@ -41,7 +41,7 @@ import {
   useState,
   version,
   y
-} from "./chunk-chunk-7KOBOMTL.mjs";
+} from "./chunk-chunk-R3FJVMXW.mjs";
 import "./chunk-chunk-VGJVMXXD.mjs";
 init_react();
 export {

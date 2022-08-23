@@ -798,12 +798,10 @@ window.addEventListener('pageshow', (event) => {
 
 <script type="module">
     import {mST, assets, codeSpace, address} from "/live/coder/mST.mjs" 
-    import App from "/live/coder/index.js"
     import {run } from "./js/ws.mjs"
 
     run({
       mST,
-      App,
       codeSpace,
       address,
       assets

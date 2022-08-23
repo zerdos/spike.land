@@ -93,16 +93,10 @@ const apps: { [key: string]: FC } = {};
 
 // {[md5(starter.transpiled)]: await appFactory(starter.transpiled)};
 
-export const AutoUpdateApp: FC<{ hash: number; starter: FC }> = (
-  { hash, starter },
-) => {
+export const AutoUpdateApp: FC<{ hash: number}> = ({ hash }) => {
   // const result = md5(mST().transpiled);
 
   // const ref = useRef(null);
-
-  if (!apps[hash]) {
-    apps[hash] = starter;
-  }
 
   const App = apps[hash];
 
@@ -128,8 +122,24 @@ export async function appFactory(): Promise<FC> {
   const hash = hashCode();
 
   if (!apps[hash]) {
+    try{
     apps[hash] = (await importShim(createJsBlob(mST().transpiled)))
       .default as unknown as FC;
+    }catch(err){
+      if (err instanceof SyntaxError){
+        const name = err.name;
+        const message = err.message;
+        const cause = err.cause;
+        const stack = err.stack;
+       return apps[hash]=()=><div>
+          <h1>Syntax Error</h1>
+          <h2>{  name  }: {message}</h2>
+          <p>{cause?.stack}</p>
+          <pre>{stack}</pre>
+          
+          </div>
+      }
+    }
   }
 
   return apps[hash];

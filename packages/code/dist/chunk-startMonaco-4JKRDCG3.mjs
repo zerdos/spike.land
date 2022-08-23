@@ -28,7 +28,7 @@ var dependencies = {
   "@emotion/react": "^11.10.0",
   "@emotion/serialize": "^1.1.0",
   "@emotion/styled": "11.10.0",
-  "@mui/material": "5.10.1",
+  "@mui/material": "5.10.2",
   "@react-spring/web": "^9.5.2",
   "@types/react": "18.0.17",
   "@types/react-dom": "18.0.6",
@@ -42,11 +42,11 @@ var dependencies = {
   "esbuild-wasm": "0.15.5",
   events: "^3.3.0",
   "fast-diff": "1.2.0",
-  "framer-motion": "7.2.0",
+  "framer-motion": "7.2.1",
   immutable: "4.1.0",
   "lodash.debounce": "4.0.8",
   "lodash.throttle": "4.1.1",
-  "monaco-editor": "0.35.0-dev.20220815",
+  "monaco-editor": "0.34.0",
   "p-map": "5.5.0",
   preact: "10.10.6",
   "preact-render-to-string": "5.2.2",
@@ -568,4 +568,4 @@ var startMonaco = async ({ code, container, name }) => {
 export {
   startMonaco
 };
-//# sourceMappingURL=chunk-startMonaco-ZUJHFWKD.mjs.map
+//# sourceMappingURL=chunk-startMonaco-4JKRDCG3.mjs.map

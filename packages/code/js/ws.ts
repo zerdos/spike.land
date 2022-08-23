@@ -14,7 +14,7 @@ import { renderPreviewWindow } from "./renderPreviewWindow";
 import type { ICodeSession } from "./session";
 import debounce from "lodash.debounce";
 import uidV4 from "./uidV4.mjs";
-import { initShims } from "./starter";
+import { appFactory, initShims } from "./starter";
 
 const webRtcArray: (RTCDataChannel & { target: string })[] = [];
 
@@ -86,7 +86,6 @@ export const run = async (startState: {
   mST: ICodeSession;
   codeSpace: string;
   address: string;
-  App: FC;
   assets: { [key: string]: string };
 }) => {
   globalThis.codeSpace = codeSpace = startState.codeSpace;
@@ -98,7 +97,8 @@ export const run = async (startState: {
     state: startState.mST,
   }, location.origin);
 
-  renderPreviewWindow(startState.codeSpace, startState.App);
+ await appFactory()
+  renderPreviewWindow(startState.codeSpace);
 
   await initShims(assets);
   // const {join} = await import("./rtc");
