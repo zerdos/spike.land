@@ -3675,13 +3675,13 @@ var AutoUpdateApp = ({ hash }) => {
   const App = apps[hash];
   return /* @__PURE__ */ jsx2(ErrorBoundary_default, {
     children: /* @__PURE__ */ jsx2(App, {})
-  });
+  }, hash);
 };
-async function appFactory() {
+async function appFactory(transpiled = "") {
   const hash = hashCode();
   if (!apps[hash]) {
     try {
-      apps[hash] = (await import(createJsBlob(mST().transpiled))).default;
+      apps[hash] = (await import(createJsBlob(transpiled || mST().transpiled))).default;
     } catch (err) {
       if (err instanceof SyntaxError) {
         const name = err.name;
@@ -3724,6 +3724,11 @@ async function appFactory() {
         })
       });
     }
+  }
+  if (transpiled && mST().transpiled !== transpiled) {
+    const newApp = apps[hash];
+    apps[hash] = null;
+    return newApp;
   }
   return apps[hash];
 }
@@ -8225,7 +8230,7 @@ var Editor = ({ code, i, codeSpace: codeSpace2 }) => {
     myCode: code,
     counter: i,
     runner: async ({ code: code2, counter: counter2 }) => {
-      const { runner: runner2 } = await import("./chunk-runner-FWMX5O5W.mjs");
+      const { runner: runner2 } = await import("./chunk-runner-HCEVYLH7.mjs");
       runner2({ code: code2, counter: counter2 });
       changeContent((x) => ({ ...x, runner: runner2, code: code2, counter: counter2 }));
     },
@@ -9085,4 +9090,4 @@ export {
   join,
   sw
 };
-//# sourceMappingURL=chunk-chunk-H4PDKQWX.mjs.map
+//# sourceMappingURL=chunk-chunk-CK3SS75C.mjs.map

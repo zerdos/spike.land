@@ -102,10 +102,10 @@ export const AutoUpdateApp: FC<{ hash: number}> = ({ hash }) => {
   const App = apps[hash];
 
   // return <Root codeSpace={codeSpace}>
-  return <ErrorBoundary><App /></ErrorBoundary>;
+  return <ErrorBoundary key={hash}><App /></ErrorBoundary>;
 };
 
-export async function appFactory(): Promise<FC> {
+export async function appFactory(transpiled=""): Promise<FC> {
   // const result = md5(transpiled);
   // return lazy(>import(`/live/${codeSpace}/js#${result}`));
   // if (globalThis.transpiled === transpiled) return globalThis.App;
@@ -124,7 +124,7 @@ export async function appFactory(): Promise<FC> {
 
   if (!apps[hash]) {
     try{
-    apps[hash] = (await import(createJsBlob(mST().transpiled))).default as unknown as FC;
+    apps[hash] = (await import(createJsBlob(transpiled || mST().transpiled))).default as unknown as FC;
     }catch(err){
       if (err instanceof SyntaxError){
         const name = err.name;
@@ -147,6 +147,13 @@ export async function appFactory(): Promise<FC> {
     }
   }
 
+  if (transpiled && mST().transpiled!==transpiled) {
+  const newApp =  apps[hash];
+
+  apps[hash] = null;
+  return newApp;
+
+}
   return apps[hash];
 }
 

@@ -1,7 +1,7 @@
 import {
   appFactory,
   saveCode
-} from "./chunk-chunk-H4PDKQWX.mjs";
+} from "./chunk-chunk-CK3SS75C.mjs";
 import {
   hashCode,
   mST,
@@ -92,7 +92,7 @@ async function runner({ code, counter }) {
     let restartError = false;
     if (transpiled.length > 0) {
       try {
-        const App = await appFactory();
+        const App = await appFactory(transpiled);
         const { html, css } = renderFromString(App);
         await saveCode({
           code,
@@ -117,4 +117,4 @@ async function runner({ code, counter }) {
 export {
   runner
 };
-//# sourceMappingURL=chunk-runner-FWMX5O5W.mjs.map
+//# sourceMappingURL=chunk-runner-HCEVYLH7.mjs.map
