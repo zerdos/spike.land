@@ -14,8 +14,8 @@
     "./js/starter.ts": "./js/starter.ts",
     "./js/rtc.ts": "./js/rtc.ts",
     "./js/session": {
-      "import": "./dist/js/session.mjs",
-      "node": "./dist/js/session.js"
+      "import": "./dist/session.mjs",
+      "node": "./dist/session.js"
     },
     "./js/textDiff": "./js/textDiff.ts",
     "./js/esbuildEsm": "./js/esbuildEsm.ts",

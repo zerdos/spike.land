@@ -380,16 +380,22 @@ async function handleErrors(request, func) {
 }
 
 // src/chat.ts
+var a = JSON.parse(manifestJSON);
+var preact = "/" + a["react.mjs"];
 var imap = {
   "imports": {
-    "framer-motion": "/npm:framer-motion?target=es2021&external=react",
-    "@emotion/react": "/npm:@emotion/react?target=es2021&external=react",
-    "@emotion/react/jsx-runtime": "/npm:@emotion/react/jsx-runtime?target=es2021&external=react",
-    "react": "/npm:@preact/compat",
-    "react-dom": "/npm:@preact/compat",
-    "react-dom/client": "/npm:@preact/compat",
-    "react-dom/server": "/npm:@preact/compat",
-    "react/jsx-runtime": "/npm:@preact/compat"
+    "framer-motion": "/npm:framer-motion?target=es2022&external=react,tslib,@emotion/*",
+    "@emotion/react": "/npm:@emotion/react?target=es2022&external=react",
+    "@emotion/styled": "/npm:@emotion/styled?target=es2022&external=react",
+    "@emotion/react/jsx-runtime": "/npm:@emotion/react/jsx-runtime?target=es2022&external=react/jsx-runtime,react",
+    "monaco-editor": "/npm:monaco-editor",
+    "react": preact,
+    "react-dom": preact,
+    "react-dom/client": preact,
+    "react-dom/server": preact,
+    "react/jsx-runtime": preact,
+    "tslib": "/npm:tslib?target=es2022",
+    "*": "/npm:[self]"
   }
 };
 var chat_default = {
@@ -453,8 +459,13 @@ var chat_default = {
             const bodyStr = await (isText ? resp.text() : null);
             const regex = /https:\/\/esm.sh\//gm;
             const regex2 = / from "\//gm;
+            const regex3 = /import "\//gm;
+            const regex4 = /from"\//gm;
+            const regex5 = /import"\//gm;
             const responseToCache = new Response(
-              bodyStr ? bodyStr.replaceAll(regex, u.origin + "/npm:").replaceAll(regex2, ' from "/npm:') : await resp.blob(),
+              `
+              // ${cacheUrl}
+              ` + bodyStr ? bodyStr.replaceAll(regex, u.origin + "/npm:").replaceAll(regex2, ' from "/npm:/').replaceAll(regex3, 'import "/npm:/').replaceAll(regex4, ' from "/npm:/').replaceAll(regex5, 'import "/npm:/') : await resp.blob(),
               {
                 status: 200,
                 headers: {
@@ -498,7 +509,9 @@ var chat_default = {
             const regex = /https:\/\/unpkg.com\//gm;
             const regex2 = / from "\//gm;
             const responseToCache = new Response(
-              bodyStr ? bodyStr.replaceAll(regex, u.origin + "/unpkg:").replaceAll(regex2, ' from "/unpkg:') : await resp.blob(),
+              `
+              // ${cacheUrl}
+              ` + bodyStr ? bodyStr.replaceAll(regex, u.origin + "/unpkg:").replaceAll(regex2, ' from "/unpkg:') : await resp.blob(),
               {
                 status: 200,
                 headers: {
@@ -798,7 +811,7 @@ window.addEventListener('pageshow', (event) => {
 
 <script type="module">
     import {mST, assets, codeSpace, address} from "/live/coder/mST.mjs" 
-    import {run } from "./js/ws.mjs"
+    import {run } from "ws"
 
     run({
       mST,
@@ -920,7 +933,7 @@ window.addEventListener('pageshow', (event) => {
 // src/chatRoom.ts
 import manifestJSON2 from "__STATIC_CONTENT_MANIFEST";
 
-// ../../packages/code/dist/chunk-chunk-VGJVMXXD.mjs
+// ../../packages/code/dist/chunk-chunk-532LUWKD.mjs
 var __create2 = Object.create;
 var __defProp2 = Object.defineProperty;
 var __getOwnPropDesc2 = Object.getOwnPropertyDescriptor;
@@ -945,14 +958,12 @@ var __toESM2 = (mod, isNodeMode, target) => (target = mod != null ? __create2(__
   isNodeMode || !mod || !mod.__esModule ? __defProp2(target, "default", { value: mod, enumerable: true }) : target,
   mod
 ));
-var define_process_default;
 var init_define_process = __esm({
   "<define:process>"() {
-    define_process_default = { env: {}, version: "1.1.1", browser: true };
   }
 });
 
-// ../../packages/code/dist/chunk-chunk-DPJZZGUT.mjs
+// ../../packages/code/dist/chunk-chunk-CZFPQHSF.mjs
 var require_diff = __commonJS2({
   "../../.yarn/global/cache/fast-diff-npm-1.2.0-5ba4171bb6-9.zip/node_modules/fast-diff/diff.js"(exports, module) {
     init_define_process();
@@ -1974,12 +1985,12 @@ function is(valueA, valueB) {
   }
   return !!(isValueObject(valueA) && isValueObject(valueB) && valueA.equals(valueB));
 }
-var imul = typeof Math.imul === "function" && Math.imul(4294967295, 2) === -2 ? Math.imul : function imul2(a, b) {
-  a |= 0;
+var imul = typeof Math.imul === "function" && Math.imul(4294967295, 2) === -2 ? Math.imul : function imul2(a2, b) {
+  a2 |= 0;
   b |= 0;
-  var c = a & 65535;
+  var c = a2 & 65535;
   var d = b & 65535;
-  return c * d + ((a >>> 16) * d + c * (b >>> 16) << 16 >>> 0) | 0;
+  return c * d + ((a2 >>> 16) * d + c * (b >>> 16) << 16 >>> 0) | 0;
 };
 function smi(i32) {
   return i32 >>> 1 & 1073741824 | i32 & 3221225471;
@@ -2512,8 +2523,8 @@ function filterFactory(collection, predicate, context, useKeys) {
 function countByFactory(collection, grouper, context) {
   var groups = Map().asMutable();
   collection.__iterate(function(v, k) {
-    groups.update(grouper.call(context, v, k, collection), 0, function(a) {
-      return a + 1;
+    groups.update(grouper.call(context, v, k, collection), 0, function(a2) {
+      return a2 + 1;
     });
   });
   return groups.asImmutable();
@@ -2524,8 +2535,8 @@ function groupByFactory(collection, grouper, context) {
   collection.__iterate(function(v, k) {
     groups.update(
       grouper.call(context, v, k, collection),
-      function(a) {
-        return a = a || [], a.push(isKeyedIter ? [k, v] : v), a;
+      function(a2) {
+        return a2 = a2 || [], a2.push(isKeyedIter ? [k, v] : v), a2;
       }
     );
   });
@@ -2834,8 +2845,8 @@ function sortFactory(collection, comparator, mapper) {
   var entries3 = collection.toSeq().map(function(v, k) {
     return [k, v, index++, mapper ? mapper(v, k, collection) : v];
   }).valueSeq().toArray();
-  entries3.sort(function(a, b) {
-    return comparator(a[3], b[3]) || a[2] - b[2];
+  entries3.sort(function(a2, b) {
+    return comparator(a2[3], b[3]) || a2[2] - b[2];
   }).forEach(
     isKeyedCollection ? function(v, i) {
       entries3[i].length = 2;
@@ -2852,18 +2863,18 @@ function maxFactory(collection, comparator, mapper) {
   if (mapper) {
     var entry = collection.toSeq().map(function(v, k) {
       return [v, mapper(v, k, collection)];
-    }).reduce(function(a, b) {
-      return maxCompare(comparator, a[1], b[1]) ? b : a;
+    }).reduce(function(a2, b) {
+      return maxCompare(comparator, a2[1], b[1]) ? b : a2;
     });
     return entry && entry[0];
   }
-  return collection.reduce(function(a, b) {
-    return maxCompare(comparator, a, b) ? b : a;
+  return collection.reduce(function(a2, b) {
+    return maxCompare(comparator, a2, b) ? b : a2;
   });
 }
-function maxCompare(comparator, a, b) {
-  var comp = comparator(b, a);
-  return comp === 0 && b !== a && (b === void 0 || b === null || b !== b) || comp > 0;
+function maxCompare(comparator, a2, b) {
+  var comp = comparator(b, a2);
+  return comp === 0 && b !== a2 && (b === void 0 || b === null || b !== b) || comp > 0;
 }
 function zipWithFactory(keyIter, zipper, iters, zipAll2) {
   var zipSequence = makeSequence(keyIter);
@@ -2943,17 +2954,17 @@ function cacheResultThrough() {
   }
   return Seq.prototype.cacheResult.call(this);
 }
-function defaultComparator(a, b) {
-  if (a === void 0 && b === void 0) {
+function defaultComparator(a2, b) {
+  if (a2 === void 0 && b === void 0) {
     return 0;
   }
-  if (a === void 0) {
+  if (a2 === void 0) {
     return 1;
   }
   if (b === void 0) {
     return -1;
   }
-  return a > b ? 1 : a < b ? -1 : 0;
+  return a2 > b ? 1 : a2 < b ? -1 : 0;
 }
 function arrCopy(arr, offset) {
   offset = offset || 0;
@@ -4800,45 +4811,45 @@ function isSet(maybeSet) {
 function isOrderedSet(maybeOrderedSet) {
   return isSet(maybeOrderedSet) && isOrdered(maybeOrderedSet);
 }
-function deepEqual(a, b) {
-  if (a === b) {
+function deepEqual(a2, b) {
+  if (a2 === b) {
     return true;
   }
-  if (!isCollection(b) || a.size !== void 0 && b.size !== void 0 && a.size !== b.size || a.__hash !== void 0 && b.__hash !== void 0 && a.__hash !== b.__hash || isKeyed(a) !== isKeyed(b) || isIndexed(a) !== isIndexed(b) || isOrdered(a) !== isOrdered(b)) {
+  if (!isCollection(b) || a2.size !== void 0 && b.size !== void 0 && a2.size !== b.size || a2.__hash !== void 0 && b.__hash !== void 0 && a2.__hash !== b.__hash || isKeyed(a2) !== isKeyed(b) || isIndexed(a2) !== isIndexed(b) || isOrdered(a2) !== isOrdered(b)) {
     return false;
   }
-  if (a.size === 0 && b.size === 0) {
+  if (a2.size === 0 && b.size === 0) {
     return true;
   }
-  var notAssociative = !isAssociative(a);
-  if (isOrdered(a)) {
-    var entries3 = a.entries();
+  var notAssociative = !isAssociative(a2);
+  if (isOrdered(a2)) {
+    var entries3 = a2.entries();
     return b.every(function(v, k) {
       var entry = entries3.next().value;
       return entry && is(entry[1], v) && (notAssociative || is(entry[0], k));
     }) && entries3.next().done;
   }
   var flipped = false;
-  if (a.size === void 0) {
+  if (a2.size === void 0) {
     if (b.size === void 0) {
-      if (typeof a.cacheResult === "function") {
-        a.cacheResult();
+      if (typeof a2.cacheResult === "function") {
+        a2.cacheResult();
       }
     } else {
       flipped = true;
-      var _ = a;
-      a = b;
+      var _ = a2;
+      a2 = b;
       b = _;
     }
   }
   var allEqual = true;
   var bSize = b.__iterate(function(v, k) {
-    if (notAssociative ? !a.has(v) : flipped ? !is(v, a.get(k, NOT_SET)) : !is(a.get(k, NOT_SET), v)) {
+    if (notAssociative ? !a2.has(v) : flipped ? !is(v, a2.get(k, NOT_SET)) : !is(a2.get(k, NOT_SET), v)) {
       allEqual = false;
       return false;
     }
   });
-  return allEqual && a.size === bSize;
+  return allEqual && a2.size === bSize;
 }
 function mixin(ctor, methods) {
   var keyCopier = function(key) {
@@ -5698,8 +5709,8 @@ function neg(predicate) {
 function defaultZipper() {
   return arrCopy(arguments);
 }
-function defaultNegComparator(a, b) {
-  return a < b ? 1 : a > b ? -1 : 0;
+function defaultNegComparator(a2, b) {
+  return a2 < b ? 1 : a2 > b ? -1 : 0;
 }
 function hashCollection(collection) {
   if (collection.size === Infinity) {
@@ -5731,8 +5742,8 @@ function murmurHashOfSize(size, h) {
   h = smi(h ^ h >>> 16);
   return h;
 }
-function hashMerge(a, b) {
-  return a ^ b + 2654435769 + (a << 6) + (a >> 2) | 0;
+function hashMerge(a2, b) {
+  return a2 ^ b + 2654435769 + (a2 << 6) + (a2 >> 2) | 0;
 }
 var OrderedSet = /* @__PURE__ */ function(Set2) {
   function OrderedSet2(value) {
@@ -6168,29 +6179,6 @@ function getBackupSession() {
 }
 
 // src/chatRoom.ts
-var imap2 = {
-  "imports": {
-    "framer-motion": "/npm:framer-motion?target=es2021&external=react",
-    "@emotion/react": "/npm:@emotion/react?target=es2021&external=react",
-    "@emotion/react/jsx-runtime": "/npm:@emotion/react/jsx-runtime?target=es2021&external=react",
-    "react": "/npm:@preact/compat",
-    "react-dom": "/npm:@preact/compat",
-    "react-dom/client": "/npm:@preact/compat",
-    "react-dom/server": "/npm:@preact/compat",
-    "react/jsx-runtime": "/npm:@preact/compat"
-  }
-};
-var importMap = {
-  "imports": {
-    "framer-motion": "/framer-motion.mjs",
-    "@emotion/react": "/emotion.mjs",
-    "react": "/react.mjs",
-    "react-dom": "/react.mjs",
-    "react-dom/client": "/react.mjs",
-    "react-dom/server": "/react.mjs",
-    "react/jsx-runtime": "/react.mjs"
-  }
-};
 var Code = class {
   constructor(state, env) {
     this.env = env;
@@ -6309,11 +6297,11 @@ var Code = class {
             }
           });
         case "mST.mjs":
-          const a = JSON.parse(manifestJSON2);
+          const a2 = JSON.parse(manifestJSON2);
           const assets = {
-            "react.mjs": a["react.mjs"],
-            "emotion.mjs": a["emotion.mjs"],
-            "framer-motion.mjs": a["framer-motion.mjs"]
+            "react.mjs": a2["react.mjs"],
+            "emotion.mjs": a2["emotion.mjs"],
+            "framer-motion.mjs": a2["framer-motion.mjs"]
           };
           return new Response(
             `
@@ -6321,9 +6309,9 @@ var Code = class {
               export const mST=${JSON.stringify(mST())};
               export const codeSpace="${this.codeSpace}";
               export const address="${this.address}";
-              export const importmapReplaced=${JSON.stringify({ js: importMapReplace(mST().transpiled) })}
-              
-              `,
+              export const importmapReplaced=${JSON.stringify({
+              js: importMapReplace(mST().transpiled)
+            })}`,
             {
               status: 200,
               headers: {
@@ -6408,20 +6396,17 @@ var Code = class {
         case "hydrated":
         case "public": {
           const { css: css2, html: html2 } = mST();
-          const a2 = JSON.parse(manifestJSON2);
-          const assets2 = {
-            "react.mjs": a2["react.mjs"],
-            "emotion.mjs": a2["emotion.mjs"],
-            "framer-motion.mjs": a2["framer-motion.mjs"]
-          };
+          const a3 = JSON.parse(manifestJSON2);
+          const imports = { ...imap.imports, ws: "/" + a3["ws.mjs"] };
+          Object.keys(imports).map((k) => imports[k] = url.origin + imports[k]);
           return new Response(
             src_default.replaceAll(
               "/live/coder/",
               `/live/${this.codeSpace}/`
             ).replace(
               `<script type="importmap"><\/script>`,
-              ` <script type="importmap">${JSON.stringify(imap2)}<\/script>`
-            ).replace("js/ws.mjs", a2["js/ws.mjs"]).replace(
+              ` <script type="importmap">${JSON.stringify({ imports })}<\/script>`
+            ).replace("ws.mjs", a3["ws.mjs"]).replace(
               `/* #root{} */`,
               `
           #root{
@@ -6637,12 +6622,12 @@ var Code = class {
   }
 };
 function importMapReplace(codeInp) {
-  const items = Object.keys(importMap.imports);
+  const items = Object.keys(imap.imports);
   let returnStr = codeInp;
   items.map((lib) => {
     returnStr = returnStr.replaceAll(
       ` from "${lib}"`,
-      `from "${importMap.imports[lib]}"`
+      `from "${imap.imports[lib]}"`
     );
   });
   return returnStr;

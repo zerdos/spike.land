@@ -8,7 +8,6 @@ import {
   mST,
   startSession,
 } from "./session";
-import type { FC } from "react";
 import { renderPreviewWindow } from "./renderPreviewWindow";
 
 import type { ICodeSession } from "./session";
@@ -91,16 +90,17 @@ export const run = async (startState: {
   globalThis.codeSpace = codeSpace = startState.codeSpace;
   address = startState.address;
 
-  const { assets } = startState;
+  // const { assets } = startState;
   startSession(codeSpace, {
     name: user,
     state: startState.mST,
   }, location.origin);
 
- await appFactory()
+//  await initShims(assets);  
+
+ await appFactory();
   renderPreviewWindow(startState.codeSpace);
 
-  await initShims(assets);
   // const {join} = await import("./rtc");
 
   // const conn = join(codeSpace, user, (message)=>{
