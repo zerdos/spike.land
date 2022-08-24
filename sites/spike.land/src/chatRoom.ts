@@ -350,7 +350,7 @@ export class Code {
           const a = JSON.parse(manifestJSON);
     
           const imports=  {...imap.imports, ws: "/"+a["ws.mjs"]};
-          Object.keys(imports).map(k=>imports[k]= url.origin+imports[k]);
+          Object.keys(imports).map((k: keyof typeof imports)=>imports[k]= url.origin+imports[k]);
 
           return new Response(
             HTML.replaceAll(
