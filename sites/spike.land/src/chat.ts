@@ -124,6 +124,8 @@ export default {
               "charset",
             );
             const bodyStr = await (isText ? resp.text() : null);
+            if (!bodyStr) throw new Error("empty body");
+            
             const regex = /https:\/\/esm.sh\//gm;
             const regex2 = / from "\//gm;
             const regex3 = /import "\//gm;
@@ -132,11 +134,8 @@ export default {
             const regex5 = /import"\//gm;
 
             const responseToCache = new Response(
-              `
-              // ${cacheUrl}
-              `+
-              bodyStr
-                ? bodyStr.replaceAll(regex, u.origin + "/npm:")
+             
+             isText? bodyStr.replaceAll(regex, u.origin + "/npm:")
                   .replaceAll(regex2, ' from "/npm:/')
                   .replaceAll(regex3, 'import "/npm:/')
                   .replaceAll(regex4, ' from "/npm:/')
@@ -195,7 +194,8 @@ export default {
             const bodyStr = await (isText ? resp.text() : null);
             const regex = /https:\/\/unpkg.com\//gm;
             const regex2 = / from "\//gm;
-
+            if (!bodyStr) throw new Error("empty body");
+        
             const responseToCache = new Response(
               `
               // ${cacheUrl}
