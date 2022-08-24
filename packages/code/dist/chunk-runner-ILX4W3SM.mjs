@@ -1,7 +1,7 @@
 import {
   appFactory,
   saveCode
-} from "./chunk-chunk-CK3SS75C.mjs";
+} from "./chunk-chunk-EH6RLOWZ.mjs";
 import {
   hashCode,
   mST,
@@ -74,7 +74,7 @@ var extractCritical = (html) => {
 var transform = null;
 var i = 0;
 async function runner({ code, counter }) {
-  if (i >= counter) {
+  if (i < counter) {
     setTimeout(() => i = mST().i, 100);
     return;
   }
@@ -117,4 +117,4 @@ async function runner({ code, counter }) {
 export {
   runner
 };
-//# sourceMappingURL=chunk-runner-HCEVYLH7.mjs.map
+//# sourceMappingURL=chunk-runner-ILX4W3SM.mjs.map

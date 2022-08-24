@@ -8230,7 +8230,7 @@ var Editor = ({ code, i, codeSpace: codeSpace2 }) => {
     myCode: code,
     counter: i,
     runner: async ({ code: code2, counter: counter2 }) => {
-      const { runner: runner2 } = await import("./chunk-runner-HCEVYLH7.mjs");
+      const { runner: runner2 } = await import("./chunk-runner-ILX4W3SM.mjs");
       runner2({ code: code2, counter: counter2 });
       changeContent((x) => ({ ...x, runner: runner2, code: code2, counter: counter2 }));
     },
@@ -9090,4 +9090,4 @@ export {
   join,
   sw
 };
-//# sourceMappingURL=chunk-chunk-CK3SS75C.mjs.map
+//# sourceMappingURL=chunk-chunk-EH6RLOWZ.mjs.map
