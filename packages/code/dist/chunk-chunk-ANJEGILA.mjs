@@ -8,9 +8,6 @@ import {
   startSession
 } from "./chunk-chunk-CZFPQHSF.mjs";
 import {
-  wait
-} from "./chunk-chunk-QAEKXW25.mjs";
-import {
   __commonJS,
   __toESM,
   init_define_process
@@ -8215,6 +8212,19 @@ function isMobile() {
 
 // js/Editor.tsx
 import { css as css5 } from "@emotion/react";
+
+// js/wait.ts
+init_define_process();
+async function wait(delay) {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve();
+    }, delay);
+  });
+}
+
+// js/Editor.tsx
+import { Uri } from "monaco-editor";
 import { jsx as jsx6 } from "@emotion/react/jsx-runtime";
 var mod = {
   CH: () => {
@@ -8230,7 +8240,7 @@ var Editor = ({ code, i, codeSpace: codeSpace2 }) => {
     myCode: code,
     counter: i,
     runner: async ({ code: code2, counter: counter2 }) => {
-      const { runner: runner2 } = await import("./chunk-runner-ILX4W3SM.mjs");
+      const { runner: runner2 } = await import("./chunk-runner-C6NJEDP4.mjs");
       runner2({ code: code2, counter: counter2 });
       changeContent((x) => ({ ...x, runner: runner2, code: code2, counter: counter2 }));
     },
@@ -8269,11 +8279,11 @@ var Editor = ({ code, i, codeSpace: codeSpace2 }) => {
           code: mST().code
         }
       );
-      globalThis.monaco = monaco;
+      monaco;
       changeContent((x) => ({
         ...x,
         setValue: (code2) => {
-          if (code2 == mod.code)
+          if (code2 == mST().code || code2 == mod.code)
             return;
           let state = null;
           try {
@@ -8288,9 +8298,9 @@ var Editor = ({ code, i, codeSpace: codeSpace2 }) => {
         getValue: () => {
           try {
             (async () => {
-              const tsWorker = await (await globalThis.monaco.languages.typescript.getTypeScriptWorker())([
-                location.origin + "/live/" + codeSpace2 + ".tsx"
-              ]);
+              const tsWorker = await (await monaco.languages.typescript.getTypeScriptWorker())(
+                Uri.parse(location.origin + "/live/" + codeSpace2 + ".tsx")
+              );
               const diag = await tsWorker.getSemanticDiagnostics(
                 location.origin + "/live/" + codeSpace2 + ".tsx"
               );
@@ -8330,12 +8340,20 @@ var Editor = ({ code, i, codeSpace: codeSpace2 }) => {
   }, [ref]);
   useEffect7(() => {
     const lastCode = mod.code;
+    let last = 0;
     const handler = setInterval(() => {
+      const now = Date.now();
+      if (now - last < 5e3)
+        return;
+      last = now;
       if (getValue3() !== lastCode) {
-        changeContent((x) => ({ ...x, myCode: code, i: i + 1 }));
-        runner({ code, counter });
+        const code2 = getValue3();
+        if (code2 === mST().code || code2 === mod.code)
+          return;
+        changeContent((x) => ({ ...x, myCode: code2, i: i + 1 }));
+        runner({ code: code2, counter });
       }
-    }, 500);
+    }, 5e3);
     return () => clearInterval(handler);
   }, [changeContent, i, runner]);
   useEffect7(() => {
@@ -9090,4 +9108,4 @@ export {
   join,
   sw
 };
-//# sourceMappingURL=chunk-chunk-EH6RLOWZ.mjs.map
+//# sourceMappingURL=chunk-chunk-ANJEGILA.mjs.map

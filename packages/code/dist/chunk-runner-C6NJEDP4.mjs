@@ -1,13 +1,12 @@
 import {
   appFactory,
   saveCode
-} from "./chunk-chunk-EH6RLOWZ.mjs";
+} from "./chunk-chunk-ANJEGILA.mjs";
 import {
   hashCode,
   mST,
   patchSync
 } from "./chunk-chunk-CZFPQHSF.mjs";
-import "./chunk-chunk-QAEKXW25.mjs";
 import {
   init_define_process
 } from "./chunk-chunk-532LUWKD.mjs";
@@ -74,13 +73,8 @@ var extractCritical = (html) => {
 var transform = null;
 var i = 0;
 async function runner({ code, counter }) {
-  if (i < counter) {
-    setTimeout(() => i = mST().i, 100);
-    return;
-  }
   i = counter;
-  const { init } = await import("./chunk-esbuildEsm-WKQAU7C6.mjs");
-  transform = transform || await init();
+  transform = transform || await (await import("./chunk-esbuildEsm-DM4VEV2D.mjs")).init();
   if (code === mST().code)
     return;
   if (i > counter)
@@ -117,4 +111,4 @@ async function runner({ code, counter }) {
 export {
   runner
 };
-//# sourceMappingURL=chunk-runner-ILX4W3SM.mjs.map
+//# sourceMappingURL=chunk-runner-C6NJEDP4.mjs.map

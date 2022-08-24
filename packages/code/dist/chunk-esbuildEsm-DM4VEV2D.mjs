@@ -1,7 +1,4 @@
 import {
-  wait
-} from "./chunk-chunk-QAEKXW25.mjs";
-import {
   __commonJS,
   __toESM,
   init_define_process
@@ -1121,7 +1118,7 @@ var require_browser = __commonJS({
           let servedir = getFlag(options, keys, "servedir", mustBeString);
           let onRequest = getFlag(options, keys, "onRequest", mustBeFunction);
           let onWait;
-          let wait2 = new Promise((resolve, reject) => {
+          let wait = new Promise((resolve, reject) => {
             onWait = (error) => {
               serveCallbacks.delete(key);
               if (error !== null)
@@ -1143,7 +1140,7 @@ var require_browser = __commonJS({
             onWait
           });
           return {
-            wait: wait2,
+            wait,
             stop() {
               sendRequest(refs, { command: "serve-stop", key }, () => {
               });
@@ -2673,31 +2670,30 @@ var init = async () => {
 };
 var regex1 = / from \"\.\./ig;
 var regex2 = / from \"\./ig;
-async function transform2(code, retry = 4) {
-  try {
-    let result = await esbuild.transform(
-      `/** @jsx jsX */
-    import {jsx as jsX} from "@emotion/react";
-    ` + code,
-      {
-        loader: "tsx",
-        target: "esnext"
-      }
-    );
-    const transpiled = result.code.replaceAll(
-      regex1,
-      ' from "/live'
-    ).replaceAll(regex2, ' from "/live');
-    return transpiled;
-  } catch (e) {
-    if (retry > 0) {
-      await wait(100);
-      return transform2(code, retry - 1);
+async function transform2(code) {
+  const result = await esbuild.transform(
+    code,
+    {
+      loader: "tsx",
+      format: "esm",
+      treeShaking: true,
+      tsconfigRaw: {
+        "compilerOptions": {
+          "jsx": "react-jsx",
+          "jsxImportSource": "@emotion/react"
+        }
+      },
+      target: "es2021"
     }
-    throw e;
-  }
+  );
+  const transpiled = result.code.replaceAll(
+    regex1,
+    ' from "/live'
+  ).replaceAll(regex2, ' from "/live');
+  return transpiled;
 }
 export {
-  init
+  init,
+  transform2 as transform
 };
-//# sourceMappingURL=chunk-esbuildEsm-WKQAU7C6.mjs.map
+//# sourceMappingURL=chunk-esbuildEsm-DM4VEV2D.mjs.map
