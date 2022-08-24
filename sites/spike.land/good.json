@@ -1,47 +1,47 @@
 {
   "inputs": {
-    "../../.yarn/cache/mime-npm-3.0.0-8d911e4c06-f43f9b7bfa.zip/node_modules/mime/Mime.js": {
+    "../../node_modules/mime/Mime.js": {
       "bytes": 2892,
       "imports": []
     },
-    "../../.yarn/cache/mime-npm-3.0.0-8d911e4c06-f43f9b7bfa.zip/node_modules/mime/types/standard.js": {
+    "../../node_modules/mime/types/standard.js": {
       "bytes": 9530,
       "imports": []
     },
-    "../../.yarn/cache/mime-npm-3.0.0-8d911e4c06-f43f9b7bfa.zip/node_modules/mime/types/other.js": {
+    "../../node_modules/mime/types/other.js": {
       "bytes": 25894,
       "imports": []
     },
-    "../../.yarn/cache/mime-npm-3.0.0-8d911e4c06-f43f9b7bfa.zip/node_modules/mime/index.js": {
+    "../../node_modules/mime/index.js": {
       "bytes": 127,
       "imports": [
         {
-          "path": "../../.yarn/cache/mime-npm-3.0.0-8d911e4c06-f43f9b7bfa.zip/node_modules/mime/Mime.js",
+          "path": "../../node_modules/mime/Mime.js",
           "kind": "require-call"
         },
         {
-          "path": "../../.yarn/cache/mime-npm-3.0.0-8d911e4c06-f43f9b7bfa.zip/node_modules/mime/types/standard.js",
+          "path": "../../node_modules/mime/types/standard.js",
           "kind": "require-call"
         },
         {
-          "path": "../../.yarn/cache/mime-npm-3.0.0-8d911e4c06-f43f9b7bfa.zip/node_modules/mime/types/other.js",
+          "path": "../../node_modules/mime/types/other.js",
           "kind": "require-call"
         }
       ]
     },
-    "../../.yarn/cache/@cloudflare-kv-asset-handler-npm-0.2.0-683fd99c2f-bc6a02a9c8.zip/node_modules/@cloudflare/kv-asset-handler/dist/types.js": {
+    "../../node_modules/@cloudflare/kv-asset-handler/dist/types.js": {
       "bytes": 1166,
       "imports": []
     },
-    "../../.yarn/cache/@cloudflare-kv-asset-handler-npm-0.2.0-683fd99c2f-bc6a02a9c8.zip/node_modules/@cloudflare/kv-asset-handler/dist/index.js": {
+    "../../node_modules/@cloudflare/kv-asset-handler/dist/index.js": {
       "bytes": 11622,
       "imports": [
         {
-          "path": "../../.yarn/cache/mime-npm-3.0.0-8d911e4c06-f43f9b7bfa.zip/node_modules/mime/index.js",
+          "path": "../../node_modules/mime/index.js",
           "kind": "require-call"
         },
         {
-          "path": "../../.yarn/cache/@cloudflare-kv-asset-handler-npm-0.2.0-683fd99c2f-bc6a02a9c8.zip/node_modules/@cloudflare/kv-asset-handler/dist/types.js",
+          "path": "../../node_modules/@cloudflare/kv-asset-handler/dist/types.js",
           "kind": "require-call"
         }
       ]
@@ -51,10 +51,10 @@
       "imports": []
     },
     "src/chat.ts": {
-      "bytes": 12961,
+      "bytes": 13029,
       "imports": [
         {
-          "path": "../../.yarn/cache/@cloudflare-kv-asset-handler-npm-0.2.0-683fd99c2f-bc6a02a9c8.zip/node_modules/@cloudflare/kv-asset-handler/dist/index.js",
+          "path": "../../node_modules/@cloudflare/kv-asset-handler/dist/index.js",
           "kind": "import-statement"
         },
         {
@@ -106,7 +106,7 @@
       "imports": []
     },
     "src/chatRoom.ts": {
-      "bytes": 19918,
+      "bytes": 19942,
       "imports": [
         {
           "path": "src/handleErrors.ts",
@@ -184,26 +184,26 @@
       ],
       "entryPoint": "src/index.ts",
       "inputs": {
-        "../../.yarn/cache/mime-npm-3.0.0-8d911e4c06-f43f9b7bfa.zip/node_modules/mime/Mime.js": {
-          "bytesInOutput": 2067
+        "../../node_modules/mime/Mime.js": {
+          "bytesInOutput": 2014
         },
-        "../../.yarn/cache/mime-npm-3.0.0-8d911e4c06-f43f9b7bfa.zip/node_modules/mime/types/standard.js": {
-          "bytesInOutput": 10412
+        "../../node_modules/mime/types/standard.js": {
+          "bytesInOutput": 10359
         },
-        "../../.yarn/cache/mime-npm-3.0.0-8d911e4c06-f43f9b7bfa.zip/node_modules/mime/types/other.js": {
-          "bytesInOutput": 27509
+        "../../node_modules/mime/types/other.js": {
+          "bytesInOutput": 27456
         },
-        "../../.yarn/cache/mime-npm-3.0.0-8d911e4c06-f43f9b7bfa.zip/node_modules/mime/index.js": {
-          "bytesInOutput": 266
+        "../../node_modules/mime/index.js": {
+          "bytesInOutput": 213
         },
-        "../../.yarn/cache/@cloudflare-kv-asset-handler-npm-0.2.0-683fd99c2f-bc6a02a9c8.zip/node_modules/@cloudflare/kv-asset-handler/dist/types.js": {
-          "bytesInOutput": 1317
+        "../../node_modules/@cloudflare/kv-asset-handler/dist/types.js": {
+          "bytesInOutput": 1240
         },
-        "../../.yarn/cache/@cloudflare-kv-asset-handler-npm-0.2.0-683fd99c2f-bc6a02a9c8.zip/node_modules/@cloudflare/kv-asset-handler/dist/index.js": {
-          "bytesInOutput": 8918
+        "../../node_modules/@cloudflare/kv-asset-handler/dist/index.js": {
+          "bytesInOutput": 8841
         },
         "src/chat.ts": {
-          "bytesInOutput": 10588
+          "bytesInOutput": 10680
         },
         "src/handleErrors.ts": {
           "bytesInOutput": 838
@@ -239,7 +239,7 @@
           "bytesInOutput": 478
         }
       },
-      "bytes": 253266
+      "bytes": 252626
     }
   }
 }
