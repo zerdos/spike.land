@@ -48,7 +48,7 @@ export async function runner({ code, counter }: {
   counter: number;
 }) {
   // console.log({ i, counter });
-  if (i >= counter) {
+  if (i < counter) {
     setTimeout(() => i = mST().i, 100);
     return;
   }
