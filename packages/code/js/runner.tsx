@@ -73,7 +73,7 @@ export async function runner({ code, counter }: {
       try {
         // console.log(transpiled);
 
-        const App = await appFactory();
+        const App = await appFactory(transpiled);
         const { html, css } = renderFromString(App);
         // console.log({html, css});
 
