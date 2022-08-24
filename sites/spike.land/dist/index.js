@@ -6298,6 +6298,7 @@ var Code = class {
         case "mST.mjs":
           const a2 = JSON.parse(manifestJSON2);
           const assets = {
+            "ws.mjs": a2["ws.mjs"],
             "react.mjs": a2["react.mjs"],
             "emotion.mjs": a2["emotion.mjs"],
             "framer-motion.mjs": a2["framer-motion.mjs"]

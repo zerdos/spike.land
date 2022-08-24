@@ -4,6 +4,7 @@ import { isMobile } from "./isMobile.mjs";
 
 import { css } from "@emotion/react";
 import { wait } from "./wait";
+import { Uri } from "monaco-editor";
 
 const mod = {
   CH: () => {},
@@ -73,13 +74,13 @@ export const Editor: FC<{ code: string; i: number; codeSpace: string }> = (
           code: mST().code,
         },
       );
-      globalThis.monaco = monaco;
+      monaco;
       // globalThis.editor = editor;
 
       changeContent((x) => ({
         ...x,
         setValue: (code: string) => {
-          if (code == mod.code) return;
+          if (code == mST().code || code == mod.code) return;
           let state = null;
           try {
             state = editor.saveViewState();
@@ -94,11 +95,10 @@ export const Editor: FC<{ code: string; i: number; codeSpace: string }> = (
         getValue: () => {
           try {
             (async () => {
-              const tsWorker =
-                await (await globalThis.monaco.languages.typescript
-                  .getTypeScriptWorker())([
-                    location.origin + "/live/" + codeSpace + ".tsx",
-                  ]);
+              const tsWorker =await (await monaco.languages.typescript
+                  .getTypeScriptWorker())(
+                    Uri.parse(location.origin + "/live/" + codeSpace + ".tsx"),
+                  );
 
               const diag = await tsWorker.getSemanticDiagnostics(
                 location.origin + "/live/" + codeSpace + ".tsx",
@@ -151,12 +151,19 @@ export const Editor: FC<{ code: string; i: number; codeSpace: string }> = (
 
   useEffect(() => {
     const lastCode = mod.code;
+    let last = 0;
     const handler = setInterval(() => {
+      
+      const now = Date.now();
+      if (now -last<5000) return;
+      last = now;
       if (getValue() !== lastCode) {
+        const code = getValue();
+        if (code === mST().code || code === mod.code) return;
         changeContent((x) => ({ ...x, myCode: code, i: i + 1 }));
         runner({ code, counter });
       }
-    }, 500);
+    }, 5000);
     return () => clearInterval(handler);
   }, [changeContent, i, runner]);
 

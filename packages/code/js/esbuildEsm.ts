@@ -2,7 +2,6 @@
 
 import { Mutex } from "async-mutex";
 import * as esbuild from "esbuild-wasm";
-import { wait } from "./wait";
 import wasmURL from "esbuild-wasm/esbuild.wasm?url";
 
 const mod = { initFinished: false };
@@ -29,20 +28,19 @@ const regex1 = / from \"\.\./ig;
 
 const regex2 = / from \"\./ig;
 
-async function transform(code: string, retry = 4): Promise<string> {
-  //const startTime = performance.now();
-
-  try {
-    //
-
-    let result = await esbuild.transform(
-      `/** @jsx jsX */
-    import {jsx as jsX} from "@emotion/react";
-    ` +
-        code,
+export async function transform(code: string){
+const result = await esbuild.transform( code,
       {
         loader: "tsx",
-        target: "esnext",
+        format: "esm",
+        treeShaking: true,
+        tsconfigRaw: {
+          "compilerOptions": {
+            "jsx": "react-jsx",
+            "jsxImportSource": "@emotion/react"
+          }
+        },
+        target: "es2021",
       },
     );
 
@@ -53,15 +51,4 @@ async function transform(code: string, retry = 4): Promise<string> {
       .replaceAll(regex2, ' from "/live');
 
     return transpiled;
-  } catch (e) {
-    if (retry > 0) {
-      await wait(100);
-      return transform(code, retry - 1);
-    }
-    throw e;
-  }
-
-  // const endTime = performance.now();
-
-  // console.log(`esbuildEsmTransform: took ${endTime - startTime} milliseconds`);
-}
+} 

@@ -38,7 +38,7 @@ export interface IRunnerSession {
 
 // export const runnerDebounced: typeof runner = (props) => debounced(props);
 
-type ITransform = (code: string, retry?: number) => Promise<string>;
+type ITransform = (code: string) => Promise<string>;
 
 let transform: ITransform | null = null;
 let i = 0;
@@ -48,13 +48,10 @@ export async function runner({ code, counter }: {
   counter: number;
 }) {
   // console.log({ i, counter });
-  if (i < counter) {
-    setTimeout(() => i = mST().i, 100);
-    return;
-  }
+  
   i = counter;
-  const { init } = await import("./esbuildEsm");
-  transform = transform || await init();
+
+  transform = transform || (await (await import("./esbuildEsm")).init());
   if (code === mST().code) return;
   if (i > counter) return;
 
