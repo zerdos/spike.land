@@ -2583,15 +2583,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@playwright/test@npm:^1.25.0":
-  version: 1.25.0
-  resolution: "@playwright/test@npm:1.25.0"
+"@playwright/test@npm:^1.25.1":
+  version: 1.25.1
+  resolution: "@playwright/test@npm:1.25.1"
   dependencies:
     "@types/node": "npm:*"
-    playwright-core: "npm:1.25.0"
+    playwright-core: "npm:1.25.1"
   bin:
     playwright: cli.js
-  checksum: 511934342d78935d85ffb0aa0940776cb34f59bb9f70b1c48a3df97150e896efa786cd5fa8bc7a7cb963bb9b1efecdf80b10efba29092f0e49aa28ff8b8f4ec2
+  checksum: ff8c67b020641070847e8e1fa30f38b5af62f58d4eb50d46e95cce7dfda34a1cbb0c45b3527b23010d5b589af80adab230c4ad594d5f7937a68be1c759fd5ca7
   languageName: node
   linkType: hard
 
@@ -6017,7 +6017,7 @@ __metadata:
     "@cloudflare/kv-asset-handler": "npm:^0.2.0"
     "@cloudflare/workers-types": "npm:^3.14.1"
     "@emotion/react": "npm:^11.10.0"
-    "@playwright/test": "npm:^1.25.0"
+    "@playwright/test": "npm:^1.25.1"
     "@types/react": "npm:18.0.17"
     "@yarnpkg/sdks": "npm:^3.0.0-rc.14"
     lerna: "npm:^5.4.3"
@@ -8707,12 +8707,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"playwright-core@npm:1.25.0":
-  version: 1.25.0
-  resolution: "playwright-core@npm:1.25.0"
+"playwright-core@npm:1.25.1":
+  version: 1.25.1
+  resolution: "playwright-core@npm:1.25.1"
   bin:
     playwright: cli.js
-  checksum: e103d857f2f340f68b9fe354653c17a93d3e16ff48401d6d925d57e5b14cd78bd85defd0d2151eb95b71bc4bb7880d681df0e059dfbcc79c903a03b36155fd84
+  checksum: 670c65e4270ef95e2d6fe7b6996acf93f5833688072e700b82246cd0ecbad26426b8cbc86d1475072a6efa7d326f007e85e1d88865070c4048c97216f783bff2
   languageName: node
   linkType: hard
 

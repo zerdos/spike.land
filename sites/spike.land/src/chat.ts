@@ -12,13 +12,15 @@ const a = JSON.parse(manifestJSON);
 const preact = "/"+a["react.mjs"];
 export const imap = {
   "imports": {
-    "framer-motion": "/npm:framer-motion?target=es2022&external=react,tslib,@emotion/*",
+    "framer-motion": "/npm:framer-motion?bundle&target=es2022&external=react,tslib,@emotion/*",
     "@emotion/react": "/npm:@emotion/react?target=es2022&external=react",
-    "@emotion/styled": "/npm:@emotion/styled?target=es2022&external=react",
-    
+    "@emotion/styled": "/npm:@emotion/styled?target=es2022&external=react",  
     "@emotion/react/jsx-runtime":
       "/npm:@emotion/react/jsx-runtime?target=es2022&external=react/jsx-runtime,react",
-"monaco-editor": "/npm:monaco-editor",
+      "@emotion/": "/npm:@emotion/",
+"monaco-editor": "/npm:monaco-editor?bundle",
+"monaco-editor/": "/npm:monaco-editor/",
+
       "react":preact,
     "react-dom": preact,
     "react-dom/client": preact,
