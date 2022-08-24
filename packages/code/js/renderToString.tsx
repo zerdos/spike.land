@@ -24,8 +24,8 @@ export const renderFromString = (App: FC) => {
       if (hash !== hashCode()) return;
       const { css, html } = mST();
       // @ts-ignore
-      const codeSpcae: string = globalThis["codeSpace"] as unknown as string;
-      const temp = document.getElementById("root-" + codeSpcae)!;
+      const codeSpace: string = globalThis["codeSpace"] as unknown as string;
+      const temp = document.getElementById("root-" + codeSpace)!;
 
       const htmlHtml = temp.innerHTML;
       const newCss = extractCritical(htmlHtml);
@@ -45,6 +45,7 @@ export const renderFromString = (App: FC) => {
   };
 };
 const extractCritical = (html: string) => {
+  try{
   const rules: { [key: string]: string } = {};
   for (let i in document.styleSheets) {
     const styleSheet = document.styleSheets[i];
@@ -62,8 +63,13 @@ const extractCritical = (html: string) => {
         }
       });
     }
-    // }
-  }
+     }
 
   return Object.keys(rules).map((r) => rules[r]).join(" ");
+}catch{
+
+  console.error('no css')
+  return ""
+}
+
 };

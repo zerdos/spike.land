@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": ["../emotion.ts"],
-  "sourcesContent": ["import * as ea from \"@emotion/react\";\n\nconst EmotionReact = window.EmotionReact = window.EmotionReact || ea;\n\n// import createCache from \"@emotion/cache\";\n\nimport { jsxs } from \"@emotion/react/jsx-runtime\";\n//\n// export { JSX } from \"@emotion/react/jsx-runtime\";\n\n// export const ss = JSX.\nexport const { jsx } = EmotionReact;\nexport { jsxs };\n\nexport const { css } = EmotionReact;\n// export const { CacheProvider } = emotionReact;\n// export const { ClassNames } = emotionReact;\n// export const { Global } = emotionReact;\n// export const { ThemeContext } = emotionReact;\n// export const { ThemeProvider } = emotionReact;\n// // export const { __unsafe_useEmotionCache } = emotionReact;\n\n// export const { keyframes } = emotionReact;\n// export const { useTheme } = emotionReact;\n// export const { withEmotionCache } = emotionReact;\n// export const { withTheme } = emotionReact;\n\nexport default EmotionReact;\n"],
-  "mappings": ";;;;;;;;;;;AAAA;AAAA,SAAoB;AAMpB,yBAAqB;AAJrB,IAAM,eAAe,OAAO,eAAe,OAAO,gBAAgB;AAS3D,IAAM,EAAE,IAAI,IAAI;AAGhB,IAAM,EAAE,IAAI,IAAI;AAavB,IAAO,kBAAQ;",
-  "names": []
-}

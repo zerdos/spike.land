@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": ["../framer-motion.ts"],
-  "sourcesContent": ["export * from \"framer-motion\";\n"],
-  "mappings": ";;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;AAAA;",
-  "names": []
-}

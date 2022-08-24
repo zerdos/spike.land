@@ -14,51 +14,51 @@ import {
 import { Delta } from "@spike.land/code/js/session";
 // import importMap from "@spike.land/code/js/importmap.json";
 import { getBackupSession } from "./getBackupSession";
+import { imap } from "./chat";
+// const imap = {
+//   "imports": {
+//     // ...imap,
+//     "framer-motion": "/npm:framer-motion?target=es2021&external=react",
+//     "@emotion/react": "/npm:@emotion/react?target=es2021&external=react",
+//     "@emotion/react/jsx-runtime":
+//       "/npm:@emotion/react/jsx-runtime?target=es2021&external=react",
+//     "react": "/npm:@preact/compat",
+//     "react-dom": "/npm:@preact/compat",
+//     "react-dom/client": "/npm:@preact/compat",
+//     "react-dom/server": "/npm:@preact/compat",
+//     "react/jsx-runtime": "/npm:@preact/compat",
+//     // "preact": "https://ga.jspm.io/npm:preact@10.8.2/dist/preact.module.js",
+//     // "preact-render-to-string": "https://ga.jspm.io/npm:preact-render-to-string@5.2.0/dist/index.mjs",
+//     // "preact/compat": "https://ga.jspm.io/npm:preact@10.8.2/compat/dist/compat.module.js",
+//     // "preact/jsx-runtime": "https://ga.jspm.io/npm:preact@10.8.2/jsx-runtime/dist/jsxRuntime.module.js"
+//   },
+// };
 
-const imap = {
-  "imports": {
-    // ...imap,
-    "framer-motion": "/npm:framer-motion?target=es2021&external=react",
-    "@emotion/react": "/npm:@emotion/react?target=es2021&external=react",
-    "@emotion/react/jsx-runtime":
-      "/npm:@emotion/react/jsx-runtime?target=es2021&external=react",
-    "react": "/npm:@preact/compat",
-    "react-dom": "/npm:@preact/compat",
-    "react-dom/client": "/npm:@preact/compat",
-    "react-dom/server": "/npm:@preact/compat",
-    "react/jsx-runtime": "/npm:@preact/compat",
-    // "preact": "https://ga.jspm.io/npm:preact@10.8.2/dist/preact.module.js",
-    // "preact-render-to-string": "https://ga.jspm.io/npm:preact-render-to-string@5.2.0/dist/index.mjs",
-    // "preact/compat": "https://ga.jspm.io/npm:preact@10.8.2/compat/dist/compat.module.js",
-    // "preact/jsx-runtime": "https://ga.jspm.io/npm:preact@10.8.2/jsx-runtime/dist/jsxRuntime.module.js"
-  },
-};
+// // const importMap = {
+// //   imports: {
+// //     ...imap.imports,
+// //     // "@emotion/react": "/emotion.mjs",
+// //     // "@emotion/cache": "/emotion.mjs"
+// //   },
+
+// // }
 
 // const importMap = {
-//   imports: {
-//     ...imap.imports,
-//     // "@emotion/react": "/emotion.mjs",
-//     // "@emotion/cache": "/emotion.mjs"
+//   "imports": {
+//     // ...imap,
+//     "framer-motion": "/framer-motion.mjs",
+//     "@emotion/react": "/emotion.mjs",
+//     "react": "/react.mjs",
+//     "react-dom": "/react.mjs",
+//     "react-dom/client": "/react.mjs",
+//     "react-dom/server": "/react.mjs",
+//     "react/jsx-runtime": "/react.mjs",
+//     // "preact": "https://ga.jspm.io/npm:preact@10.8.2/dist/preact.module.js",
+//     // "preact-render-to-string": "https://ga.jspm.io/npm:preact-render-to-string@5.2.0/dist/index.mjs",
+//     // "preact/compat": "https://ga.jspm.io/npm:preact@10.8.2/compat/dist/compat.module.js",
+//     // "preact/jsx-runtime": "https://ga.jspm.io/npm:preact@10.8.2/jsx-runtime/dist/jsxRuntime.module.js"
 //   },
-
-// }
-
-const importMap = {
-  "imports": {
-    // ...imap,
-    "framer-motion": "/framer-motion.mjs",
-    "@emotion/react": "/emotion.mjs",
-    "react": "/react.mjs",
-    "react-dom": "/react.mjs",
-    "react-dom/client": "/react.mjs",
-    "react-dom/server": "/react.mjs",
-    "react/jsx-runtime": "/react.mjs",
-    // "preact": "https://ga.jspm.io/npm:preact@10.8.2/dist/preact.module.js",
-    // "preact-render-to-string": "https://ga.jspm.io/npm:preact-render-to-string@5.2.0/dist/index.mjs",
-    // "preact/compat": "https://ga.jspm.io/npm:preact@10.8.2/compat/dist/compat.module.js",
-    // "preact/jsx-runtime": "https://ga.jspm.io/npm:preact@10.8.2/jsx-runtime/dist/jsxRuntime.module.js"
-  },
-};
+// };
 
 interface IState extends DurableObjectState {
 }
@@ -252,10 +252,9 @@ export class Code {
               export const codeSpace="${this.codeSpace}";
               export const address="${this.address}";
               export const importmapReplaced=${
-              JSON.stringify({ js: importMapReplace(mST().transpiled) })
-            }
-              
-              `,
+              JSON.stringify({ 
+                js: importMapReplace(mST().transpiled) })
+              }`,
             {
               status: 200,
               headers: {
@@ -348,11 +347,9 @@ export class Code {
           const { css, html } = mST();
 
           const a = JSON.parse(manifestJSON);
-          const assets = {
-            "react.mjs": a["react.mjs"],
-            "emotion.mjs": a["emotion.mjs"],
-            "framer-motion.mjs": a["framer-motion.mjs"],
-          };
+    
+          const imports=  {...imap.imports, ws: "/"+a["ws.mjs"]};
+          Object.keys(imports).map(k=>imports[k]= url.origin+imports[k]);
 
           return new Response(
             HTML.replaceAll(
@@ -360,9 +357,9 @@ export class Code {
               `/live/${this.codeSpace}/`,
             ).replace(
               `<script type="importmap"></script>`,
-              ` <script type="importmap">${JSON.stringify(imap)}</script>`,
+              ` <script type="importmap">${JSON.stringify({imports})}</script>`,
             )
-              .replace("js/ws.mjs", a["js/ws.mjs"])
+              .replace("ws.mjs", a["ws.mjs"])
               .replace(
                 `/* #root{} */`,
                 `
@@ -651,16 +648,16 @@ export class Code {
   }
 }
 
-type LibName = keyof typeof importMap.imports;
+type LibName = keyof typeof imap.imports;
 
 function importMapReplace(codeInp: string) {
-  const items = Object.keys(importMap.imports) as unknown as LibName[];
+  const items = Object.keys(imap.imports) as unknown as LibName[];
   let returnStr = codeInp;
 
   items.map((lib) => {
     returnStr = returnStr.replaceAll(
       ` from "${lib}"`,
-      `from "${importMap.imports[lib]}"`,
+      `from "${imap.imports[lib]}"`,
     );
   });
 

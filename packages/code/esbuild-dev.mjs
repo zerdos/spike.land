@@ -193,7 +193,7 @@ const build = (entryPoints, format = "esm") =>
       ".monaco.worker.js",
     ],
 
-    // external: ["react", "react-dom/client", "framer-motion", "tslib", "@emotion/react"],
+    external: ["react", "react-dom", "monaco-editor", "react-dom/client", "framer-motion", "tslib", "@emotion/*"],
     platform: "browser",
     chunkNames: "chunk-[name]-[hash]",
     treeShaking: true,
@@ -235,11 +235,12 @@ const build = (entryPoints, format = "esm") =>
 
 await build([
   "./js/session.ts",
+  "js/react.ts",
   "js/ws.ts",
   // "js/rtc.ts",
-  "react.ts",
-  "framer-motion.ts",
-  "emotion.ts",
+  // "react.ts",
+  // "framer-motion.ts",
+  // "emotion.ts",
 ]);
 // ]);
 

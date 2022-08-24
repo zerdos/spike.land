@@ -16,6 +16,7 @@ import type { FC } from "react";
 import { hashCode, mST, onSessionUpdate } from "./session";
 
 import { Editor } from "./Editor";
+import { wait } from "wait";
 
 const RainbowContainer: FC<{ children: ReactNode }> = ({ children }) => (
   <div
@@ -186,9 +187,14 @@ const AppToRender: FC<{ codeSpace: string; }> = (
   );
 };
 
-export const renderPreviewWindow = (
+export const renderPreviewWindow = async (
   codeSpace: string,
 ) => {
+  if (hashCode()) await appFactory();
+  else {
+   await wait(100);
+   return await renderPreviewWindow(codeSpace);
+  }
   const div = document.getElementById("root")!;
   // div.style.height='100%';
   const root = createRoot(div);

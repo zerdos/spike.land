@@ -8,17 +8,25 @@ import manifestJSON from "__STATIC_CONTENT_MANIFEST";
 import { handleErrors } from "./handleErrors";
 import { CodeEnv } from "./env";
 
-const imap = {
+const a = JSON.parse(manifestJSON);
+const preact = "/"+a["react.mjs"];
+export const imap = {
   "imports": {
-    "framer-motion": "/npm:framer-motion?target=es2021&external=react",
-    "@emotion/react": "/npm:@emotion/react?target=es2021&external=react",
+    "framer-motion": "/npm:framer-motion?target=es2022&external=react,tslib,@emotion/*",
+    "@emotion/react": "/npm:@emotion/react?target=es2022&external=react",
+    "@emotion/styled": "/npm:@emotion/styled?target=es2022&external=react",
+    
     "@emotion/react/jsx-runtime":
-      "/npm:@emotion/react/jsx-runtime?target=es2021&external=react",
-    "react": "/npm:@preact/compat",
-    "react-dom": "/npm:@preact/compat",
-    "react-dom/client": "/npm:@preact/compat",
-    "react-dom/server": "/npm:@preact/compat",
-    "react/jsx-runtime": "/npm:@preact/compat",
+      "/npm:@emotion/react/jsx-runtime?target=es2022&external=react/jsx-runtime,react",
+"monaco-editor": "/npm:monaco-editor",
+      "react":preact,
+    "react-dom": preact,
+    "react-dom/client": preact,
+    "react-dom/server":  preact,
+    "react/jsx-runtime": preact,
+    "tslib": "/npm:tslib?target=es2022",
+    "*": "/npm:[self]"
+    
     // "preact": "https://ga.jspm.io/npm:preact@10.8.2/dist/preact.module.js",
     // "preact-render-to-string": "https://ga.jspm.io/npm:preact-render-to-string@5.2.0/dist/index.mjs",
     // "preact/compat": "https://ga.jspm.io/npm:preact@10.8.2/compat/dist/compat.module.js",
@@ -116,11 +124,22 @@ export default {
             const bodyStr = await (isText ? resp.text() : null);
             const regex = /https:\/\/esm.sh\//gm;
             const regex2 = / from "\//gm;
+            const regex3 = /import "\//gm;
+
+            const regex4 = /from"\//gm;
+            const regex5 = /import"\//gm;
 
             const responseToCache = new Response(
+              `
+              // ${cacheUrl}
+              `+
               bodyStr
                 ? bodyStr.replaceAll(regex, u.origin + "/npm:")
-                  .replaceAll(regex2, ' from "/npm:')
+                  .replaceAll(regex2, ' from "/npm:/')
+                  .replaceAll(regex3, 'import "/npm:/')
+                  .replaceAll(regex4, ' from "/npm:/')
+                  .replaceAll(regex5, 'import "/npm:/')
+                  
                 : await resp.blob(),
               {
                 status: 200,
@@ -176,6 +195,9 @@ export default {
             const regex2 = / from "\//gm;
 
             const responseToCache = new Response(
+              `
+              // ${cacheUrl}
+              `+
               bodyStr
                 ? bodyStr.replaceAll(regex, u.origin + "/unpkg:")
                   .replaceAll(regex2, ' from "/unpkg:')
