@@ -3,14 +3,14 @@ import type { FC } from "react";
 // import { prefixer } from 'stylis';
 
 import type {} from "react-dom/next";
-import "es-module-shims";
+// import "es-module-shims";
 
 // import {CacheProvider, createCache } from "@emotion/react"
 import { hashCode, mST } from "./session";
 import { css } from "@emotion/react";
-// import ErrorBoundary from "./ErrorBoundary";
+import ErrorBoundary from "./ErrorBoundary";
 
-Object.assign(window, {});
+// Object.assign(window, {});
 
 // const modalRoot = document.getElementById("root")!;
 
@@ -52,7 +52,7 @@ Object.assign(window, {});
 //   }
 // }
 
-const orig = location.origin.includes("localhost") ? "." : location.origin;
+// const orig = location.origin.includes("localhost") ? "." : location.origin;
 // let isEsModuleShimsLoaded = false;
 // export const initShims = async (assets: { [key: string]: string }) => {
   // if (isEsModuleShimsLoaded) return;
@@ -102,7 +102,7 @@ export const AutoUpdateApp: FC<{ hash: number}> = ({ hash }) => {
   const App = apps[hash];
 
   // return <Root codeSpace={codeSpace}>
-  return <App />;
+  return <ErrorBoundary><App /></ErrorBoundary>;
 };
 
 export async function appFactory(): Promise<FC> {
@@ -117,7 +117,7 @@ export async function appFactory(): Promise<FC> {
   //new TextDecoder().decode(resultU8Arr);
   // if (globalThis.App && globalThis.App === apps[result]) {
   //   globalThis.setCh && globalThis.setCh(globalThis.App);
-  //   return;
+//   return;e
   // }
 
   const hash = hashCode();

@@ -79,34 +79,34 @@ const buildOptions = {
   ],
 };
 
-await esbuild.build({
-  ...buildOptions,
-  entryPoints: [
-    ...workerEntryPoints,
-  ],
-  bundle: true,
-  minify: false,
-  // minifyWhitespace: true,
-  // minifyIdentifiers: true,
-  // minifySyntax: true,
-  target,
-  // treeShaking: true,
-  outExtension: { ".js": ".monaco.worker.js" },
-  format: "iife",
-  loader: {
-    ".ttf": "file",
-    ".webp": "file",
-    ".tsx": "tsx",
-    ".jsx": "tsx",
-    ".ts:": "ts",
-    ".css": "file",
-    ".css": "file",
-    ".ttf": "file",
-    ".wasm": "file",
-  },
+// await esbuild.build({
+//   ...buildOptions,
+//   entryPoints: [
+//     ...workerEntryPoints,
+//   ],
+//   bundle: true,
+//   minify: false,
+//   // minifyWhitespace: true,
+//   // minifyIdentifiers: true,
+//   // minifySyntax: true,
+//   target,
+//   // treeShaking: true,
+//   outExtension: { ".js": ".monaco.worker.js" },
+//   format: "iife",
+//   loader: {
+//     ".ttf": "file",
+//     ".webp": "file",
+//     ".tsx": "tsx",
+//     ".jsx": "tsx",
+//     ".ts:": "ts",
+//     ".css": "file",
+//     ".css": "file",
+//     ".ttf": "file",
+//     ".wasm": "file",
+//   },
 
-  outdir: "./js/monaco-editor",
-});
+//   outdir: "./js/monaco-editor",
+// });
 
 // await esbuild.build({
 //   ...buildOptions,

@@ -8,8 +8,10 @@ const version = dependencies["monaco-editor"];
 // import * as editorCss from "monaco-editor/min/vs/editor/editor.main.css"
 
 // import { createJsBlob } from "./starter";
-import editorWorker from "./monaco-editor/editor/editor.worker.monaco.worker.js?url";
-import tsWorker from "./monaco-editor/language/typescript/ts.worker.monaco.worker.js?url";
+import editorWorker from "monaco-editor/esm/vs/editor/editor.worker?worker"
+                                        // vs/language/typescript/ts.worker
+  //                   "./monaco-editor/editor/editor.worker.monaco.worker.js?url";
+import tsWorker from "monaco-editor/esm/vs/language/typescript/ts.worker.js?worker";
 
 // import wfile from "monaco-editor/min/vs/language/typescript/tsWorker.js";
 // import efile from "monaco-editor/min/vs/editor/editor.main.js";
@@ -255,9 +257,9 @@ const monacoContribution = async (
 window.MonacoEnvironment = {
   getWorker: function (_workerId: string, label: string) {
     if (label === "typescript" || label === "javascript") {
-      return new Worker(tsWorker);
+      return tsWorker();
     }
-    return new Worker(editorWorker);
+    return editorWorker();
   },
 };
 

@@ -384,11 +384,13 @@ var a = JSON.parse(manifestJSON);
 var preact = "/" + a["react.mjs"];
 var imap = {
   "imports": {
-    "framer-motion": "/npm:framer-motion?target=es2022&external=react,tslib,@emotion/*",
+    "framer-motion": "/npm:framer-motion?bundle&target=es2022&external=react,tslib,@emotion/*",
     "@emotion/react": "/npm:@emotion/react?target=es2022&external=react",
     "@emotion/styled": "/npm:@emotion/styled?target=es2022&external=react",
     "@emotion/react/jsx-runtime": "/npm:@emotion/react/jsx-runtime?target=es2022&external=react/jsx-runtime,react",
-    "monaco-editor": "/npm:monaco-editor",
+    "@emotion/": "/npm:@emotion/",
+    "monaco-editor": "/npm:monaco-editor?bundle",
+    "monaco-editor/": "/npm:monaco-editor/",
     "react": preact,
     "react-dom": preact,
     "react-dom/client": preact,
@@ -761,6 +763,8 @@ html, body {margin: 0; height: 100%}
  
  
    </style>
+   <script async src="https://ga.jspm.io/npm:es-module-shims@1.5.17/dist/es-module-shims.js"><\/script>
+
    <script type="importmap"><\/script>
    </head>
    
@@ -774,11 +778,6 @@ html, body {margin: 0; height: 100%}
   
 
 <script>     
-
-window.esmsInitOptions = {
-    shimMode: true,
-    polyfillEnable: [], // default empty
-  };
   
   if (location.href.indexOf(".tsx")!==-1) {
     const loc = location.href.indexOf(".tsx");
