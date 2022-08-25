@@ -55,46 +55,46 @@ import ErrorBoundary from "./ErrorBoundary";
 // const orig = location.origin.includes("localhost") ? "." : location.origin;
 // let isEsModuleShimsLoaded = false;
 // export const initShims = async (assets: { [key: string]: string }) => {
-  // if (isEsModuleShimsLoaded) return;
-  // isEsModuleShimsLoaded = true;
-  // const {importShim} = await import("es-module-shims");
+// if (isEsModuleShimsLoaded) return;
+// isEsModuleShimsLoaded = true;
+// const {importShim} = await import("es-module-shims");
 
-  // location.origin.includes("localhost")
-  //   ? importShim.addImportMap({
-  //     "imports": {
-  //       "@emotion/react":
-  //         "https://esm.sh/@emotion/react@11.10.0?alias=react:/react.mjs",
-  //       "framer-motion": "./framer-motion",
-  //       "react": orig + "/" + assets["react.mjs"],
-  //       "react-dom": orig + "/" + assets["react.mjs"],
-  //       "react-dom/client": orig + "/" + assets["react.mjs"],
-  //       "react-dom/server": orig + "/" + assets["react.mjs"],
-  //       "react/jsx-runtime": orig + "/" + assets["react.mjs"],
-  //     },
-  //   })
-  //   : importShim.addImportMap({
-  //     "imports": {
-  //       // ...imap,
-  //       "framer-motion": location.origin + "/" + assets["framer-motion.mjs"],
-  //       "@emotion/react": location.origin + "/" + assets["emotion.mjs"],
-  //       "react": location.origin + "/npm:million/react",
-  //       "react-dom": location.origin + "/npm:million/react",
-  //       "react-dom/client": location.origin + "/" + assets["react.mjs"],
-  //       "react-dom/server": location.origin + "/" + assets["react.mjs"],
-  //       "react/jsx-runtime": location.origin + "/" + assets["react.mjs"],
-  //       // "preact": "https://ga.jspm.io/npm:preact@10.8.2/dist/preact.module.js",
-  //       // "preact-render-to-string": "https://ga.jspm.io/npm:preact-render-to-string@5.2.0/dist/index.mjs",
-  //       // "preact/compat": "https://ga.jspm.io/npm:preact@10.8.2/compat/dist/compat.module.js",
-  //       // "preact/jsx-runtime": "https://ga.jspm.io/npm:preact@10.8.2/jsx-runtime/dist/jsxRuntime.module.js"
-  //     },
-  //   });
+// location.origin.includes("localhost")
+//   ? importShim.addImportMap({
+//     "imports": {
+//       "@emotion/react":
+//         "https://esm.sh/@emotion/react@11.10.0?alias=react:/react.mjs",
+//       "framer-motion": "./framer-motion",
+//       "react": orig + "/" + assets["react.mjs"],
+//       "react-dom": orig + "/" + assets["react.mjs"],
+//       "react-dom/client": orig + "/" + assets["react.mjs"],
+//       "react-dom/server": orig + "/" + assets["react.mjs"],
+//       "react/jsx-runtime": orig + "/" + assets["react.mjs"],
+//     },
+//   })
+//   : importShim.addImportMap({
+//     "imports": {
+//       // ...imap,
+//       "framer-motion": location.origin + "/" + assets["framer-motion.mjs"],
+//       "@emotion/react": location.origin + "/" + assets["emotion.mjs"],
+//       "react": location.origin + "/npm:million/react",
+//       "react-dom": location.origin + "/npm:million/react",
+//       "react-dom/client": location.origin + "/" + assets["react.mjs"],
+//       "react-dom/server": location.origin + "/" + assets["react.mjs"],
+//       "react/jsx-runtime": location.origin + "/" + assets["react.mjs"],
+//       // "preact": "https://ga.jspm.io/npm:preact@10.8.2/dist/preact.module.js",
+//       // "preact-render-to-string": "https://ga.jspm.io/npm:preact-render-to-string@5.2.0/dist/index.mjs",
+//       // "preact/compat": "https://ga.jspm.io/npm:preact@10.8.2/compat/dist/compat.module.js",
+//       // "preact/jsx-runtime": "https://ga.jspm.io/npm:preact@10.8.2/jsx-runtime/dist/jsxRuntime.module.js"
+//     },
+//   });
 // };
 
 const apps: { [key: string]: FC } = {};
 
 // {[md5(starter.transpiled)]: await appFactory(starter.transpiled)};
 
-export const AutoUpdateApp: FC<{ hash: number}> = ({ hash }) => {
+export const AutoUpdateApp: FC<{ hash: number }> = ({ hash }) => {
   // const result = md5(mST().transpiled);
 
   // const ref = useRef(null);
@@ -102,10 +102,14 @@ export const AutoUpdateApp: FC<{ hash: number}> = ({ hash }) => {
   const App = apps[hash];
 
   // return <Root codeSpace={codeSpace}>
-  return <ErrorBoundary key={hash}><App /></ErrorBoundary>;
+  return (
+    <ErrorBoundary key={hash}>
+      <App />
+    </ErrorBoundary>
+  );
 };
 
-export async function appFactory(transpiled=""): Promise<FC> {
+export async function appFactory(transpiled = ""): Promise<FC> {
   // const result = md5(transpiled);
   // return lazy(>import(`/live/${codeSpace}/js#${result}`));
   // if (globalThis.transpiled === transpiled) return globalThis.App;
@@ -117,43 +121,52 @@ export async function appFactory(transpiled=""): Promise<FC> {
   //new TextDecoder().decode(resultU8Arr);
   // if (globalThis.App && globalThis.App === apps[result]) {
   //   globalThis.setCh && globalThis.setCh(globalThis.App);
-//   return;e
+  //   return;e
   // }
 
   const hash = hashCode();
 
   if (!apps[hash]) {
-    try{
-    apps[hash] = (await import(createJsBlob(transpiled || mST().transpiled))).default as unknown as FC;
-    }catch(err){
-      if (err instanceof SyntaxError){
+    try {
+      apps[hash] = (await import(createJsBlob(transpiled || mST().transpiled)))
+        .default as unknown as FC;
+    } catch (err) {
+      if (err instanceof SyntaxError) {
         const name = err.name;
         const message = err.message;
         const cause = err.cause;
         const stack = err.stack;
-        apps[hash]= ()=><div css={css`
+        apps[hash] = () => (
+          <div
+            css={css`
         background-color: orange;
-        `}>
-          <h1>Syntax Error</h1>
-          <h2>{  name  }: {message}</h2>
-          <p>{cause?.stack}</p>
-          <pre>{stack}</pre>
-          
+        `}
+          >
+            <h1>Syntax Error</h1>
+            <h2>{name}: {message}</h2>
+            <p>{cause?.stack}</p>
+            <pre>{stack}</pre>
           </div>
+        );
       }
-      apps[hash] = ()=><div css={css`
+      apps[hash] = () => (
+        <div
+          css={css`
         background-color: orange;
-      `}><h1>Unknown Error: ${hash}</h1></div>
+      `}
+        >
+          <h1>Unknown Error: ${hash}</h1>
+        </div>
+      );
     }
   }
 
-  if (transpiled && mST().transpiled!==transpiled) {
-  const newApp =  apps[hash];
+  if (transpiled && mST().transpiled !== transpiled) {
+    const newApp = apps[hash];
 
-  apps[hash] = null;
-  return newApp;
-
-}
+    apps[hash] = null;
+    return newApp;
+  }
   return apps[hash];
 }
 

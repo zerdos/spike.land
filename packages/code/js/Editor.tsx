@@ -95,10 +95,10 @@ export const Editor: FC<{ code: string; i: number; codeSpace: string }> = (
         getValue: () => {
           try {
             (async () => {
-              const tsWorker =await (await monaco.languages.typescript
-                  .getTypeScriptWorker())(
-                    Uri.parse(location.origin + "/live/" + codeSpace + ".tsx"),
-                  );
+              const tsWorker = await (await monaco.languages.typescript
+                .getTypeScriptWorker())(
+                  Uri.parse(location.origin + "/live/" + codeSpace + ".tsx"),
+                );
 
               const diag = await tsWorker.getSemanticDiagnostics(
                 location.origin + "/live/" + codeSpace + ".tsx",
@@ -153,9 +153,8 @@ export const Editor: FC<{ code: string; i: number; codeSpace: string }> = (
     const lastCode = mod.code;
     let last = 0;
     const handler = setInterval(() => {
-      
       const now = Date.now();
-      if (now -last<5000) return;
+      if (now - last < 5000) return;
       last = now;
       if (getValue() !== lastCode) {
         const code = getValue();

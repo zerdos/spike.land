@@ -1,12 +1,12 @@
 import {
   appFactory,
   saveCode
-} from "./chunk-chunk-ANJEGILA.mjs";
+} from "./chunk-chunk-PEZAVJ2X.mjs";
 import {
   hashCode,
   mST,
   patchSync
-} from "./chunk-chunk-CZFPQHSF.mjs";
+} from "./chunk-chunk-RMPTOUUW.mjs";
 import {
   init_define_process
 } from "./chunk-chunk-532LUWKD.mjs";
@@ -20,7 +20,7 @@ import { render } from "react-dom";
 import { jsx } from "@emotion/react/jsx-runtime";
 var renderFromString = (App) => {
   const temp = document.createElement("div");
-  render(/* @__PURE__ */ jsx(App, {}), temp);
+  render(jsx(App, {}), temp);
   const html = temp.innerHTML;
   setTimeout(() => {
     const hash = hashCode();
@@ -49,8 +49,8 @@ var renderFromString = (App) => {
 var extractCritical = (html) => {
   try {
     const rules = {};
-    for (let i2 in document.styleSheets) {
-      const styleSheet = document.styleSheets[i2];
+    for (let i in document.styleSheets) {
+      const styleSheet = document.styleSheets[i];
       if (styleSheet?.cssRules) {
         Array.from(styleSheet.cssRules).forEach((rule) => {
           if (rule && rule.cssText && rule.cssText.slice(0, 5) === ".css-") {
@@ -70,27 +70,43 @@ var extractCritical = (html) => {
 };
 
 // js/runner.tsx
-var transform = null;
-var i = 0;
+var mod = {
+  i: 0,
+  esbuildInit: async () => (await await import("./chunk-esbuildEsm-NUGIUG6Q.mjs")).init()
+};
 async function runner({ code, counter }) {
-  i = counter;
-  transform = transform || await (await import("./chunk-esbuildEsm-DM4VEV2D.mjs")).init();
+  const esbuild = await mod.esbuildInit();
+  mod.i = counter;
   if (code === mST().code)
     return;
-  if (i > counter)
+  if (mod.i > counter)
     return;
   try {
-    const transpiled = await transform(code);
-    if (transpiled === mST().transpiled)
+    const transpiled = await esbuild.transform(
+      code,
+      {
+        loader: "tsx",
+        format: "esm",
+        treeShaking: true,
+        tsconfigRaw: {
+          "compilerOptions": {
+            "jsx": "react-jsx",
+            "jsxImportSource": "@emotion/react"
+          }
+        },
+        target: "es2021"
+      }
+    );
+    if (transpiled.code === mST().transpiled)
       return;
     let restartError = false;
-    if (transpiled.length > 0) {
+    if (transpiled.code.length > 0) {
       try {
-        const App = await appFactory(transpiled);
+        const App = await appFactory(transpiled.code);
         const { html, css } = renderFromString(App);
         await saveCode({
           code,
-          transpiled,
+          transpiled: transpiled.code,
           i: counter,
           html,
           css
@@ -111,4 +127,4 @@ async function runner({ code, counter }) {
 export {
   runner
 };
-//# sourceMappingURL=chunk-runner-C6NJEDP4.mjs.map
+//# sourceMappingURL=chunk-runner-4OCUA5JG.mjs.map

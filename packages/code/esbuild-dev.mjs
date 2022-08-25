@@ -175,6 +175,7 @@ const build = (entryPoints, format = "esm") =>
     minifyIdentifiers: !isDevelopment,
     minifySyntax: !isDevelopment,
     legalComments: "none",
+    ignoreAnnotations: true, 
     treeShaking: true,
     format,
     tsconfig: "./tsconfig.json",

@@ -253,9 +253,10 @@ export class Code {
               export const codeSpace="${this.codeSpace}";
               export const address="${this.address}";
               export const importmapReplaced=${
-              JSON.stringify({ 
-                js: importMapReplace(mST().transpiled) })
-              }`,
+              JSON.stringify({
+                js: importMapReplace(mST().transpiled),
+              })
+            }`,
             {
               status: 200,
               headers: {
@@ -348,9 +349,11 @@ export class Code {
           const { css, html } = mST();
 
           const a = JSON.parse(manifestJSON);
-    
-          const imports=  {...imap.imports, ws: "/"+a["ws.mjs"]};
-          Object.keys(imports).map((k: keyof typeof imports)=>imports[k]= url.origin+imports[k]);
+
+          const imports = { ...imap.imports, ws: "/" + a["ws.mjs"] };
+          Object.keys(imports).map((k: keyof typeof imports) =>
+            imports[k] = url.origin + imports[k]
+          );
 
           return new Response(
             HTML.replaceAll(
@@ -358,7 +361,9 @@ export class Code {
               `/live/${this.codeSpace}/`,
             ).replace(
               `<script type="importmap"></script>`,
-              ` <script type="importmap">${JSON.stringify({imports})}</script>`,
+              ` <script type="importmap">${
+                JSON.stringify({ imports })
+              }</script>`,
             )
               .replace("ws.mjs", a["ws.mjs"])
               .replace(

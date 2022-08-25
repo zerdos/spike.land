@@ -8,9 +8,9 @@ const version = dependencies["monaco-editor"];
 // import * as editorCss from "monaco-editor/min/vs/editor/editor.main.css"
 
 // import { createJsBlob } from "./starter";
-import editorWorker from "monaco-editor/esm/vs/editor/editor.worker?worker"
-                                        // vs/language/typescript/ts.worker
-  //                   "./monaco-editor/editor/editor.worker.monaco.worker.js?url";
+import editorWorker from "monaco-editor/esm/vs/editor/editor.worker?worker";
+// vs/language/typescript/ts.worker
+//                   "./monaco-editor/editor/editor.worker.monaco.worker.js?url";
 import tsWorker from "monaco-editor/esm/vs/language/typescript/ts.worker.js?worker";
 
 // import wfile from "monaco-editor/min/vs/language/typescript/tsWorker.js";
@@ -288,13 +288,13 @@ export const startMonaco = async (
   // innerContainer.style.width = "100%";
   // innerContainer.style.height = "100%";
 
-//   const outerStyle = document.createElement("style");
-//   outerStyle.innerText = ` @font-face {
-//      font-family: codicon;
-//      font-display: block;
-//       src: url(/npm:monaco-editor@${version}/esm/vs/base/browser/ui/codicons/codicon/codicon.ttf) format("truetype");
+  //   const outerStyle = document.createElement("style");
+  //   outerStyle.innerText = ` @font-face {
+  //      font-family: codicon;
+  //      font-display: block;
+  //       src: url(/npm:monaco-editor@${version}/esm/vs/base/browser/ui/codicons/codicon/codicon.ttf) format("truetype");
 
-// // }`;
+  // // }`;
 
   const innerStyle = document.createElement("style");
 
@@ -306,7 +306,7 @@ export const startMonaco = async (
 
   await monacoContribution(languages.typescript, editor, code);
 
-  returnModules.editor = editor.create( container, {
+  returnModules.editor = editor.create(container, {
     model: editor.createModel(
       code,
       "typescript",

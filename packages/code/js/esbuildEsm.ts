@@ -1,15 +1,23 @@
 // import "core-js/proposals/string-replace-all-stage-4";
 
 import { Mutex } from "async-mutex";
-import * as esbuild from "esbuild-wasm";
+import esbuild from "esbuild-wasm";
 import wasmURL from "esbuild-wasm/esbuild.wasm?url";
+import type {transform} from "esbuild/lib/main"
 
-const mod = { initFinished: false };
+
+
+
+const mod = { 
+    initFinished: false,
+    build: esbuild.build,
+    transform: (esbuild.transform as unknown)  as typeof transform
+};
 
 const mutex = new Mutex();
 
 export const init = async () => {
-  if (mod.initFinished) return transform;
+  if (mod.initFinished) return mod;
 
   await mutex.runExclusive(async () => {
     mod.initFinished || await esbuild.initialize(
@@ -21,34 +29,5 @@ export const init = async () => {
     return true;
   });
 
-  return transform;
+  return mod;
 };
-
-const regex1 = / from \"\.\./ig;
-
-const regex2 = / from \"\./ig;
-
-export async function transform(code: string){
-const result = await esbuild.transform( code,
-      {
-        loader: "tsx",
-        format: "esm",
-        treeShaking: true,
-        tsconfigRaw: {
-          "compilerOptions": {
-            "jsx": "react-jsx",
-            "jsxImportSource": "@emotion/react"
-          }
-        },
-        target: "es2021",
-      },
-    );
-
-    const transpiled = result.code.replaceAll(
-      regex1,
-      ' from "/live',
-    )
-      .replaceAll(regex2, ' from "/live');
-
-    return transpiled;
-} 

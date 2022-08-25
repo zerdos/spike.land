@@ -8,6 +8,10 @@ import {
   mST,
   startSession,
 } from "./session";
+
+// import * as FS from '@isomorphic-git/lightning-fs';
+
+
 import { renderPreviewWindow } from "./renderPreviewWindow";
 
 import type { ICodeSession } from "./session";
@@ -87,6 +91,10 @@ export const run = async (startState: {
   address: string;
   assets: { [key: string]: string };
 }) => {
+  // const fs= new FS.PromisifiedFS(location.origin)
+  // globalThis.fs = fs;
+  // fs.writeFile(`/live/${codeSpace}.ts`,startState.mST.code);
+
   globalThis.codeSpace = codeSpace = startState.codeSpace;
   address = startState.address;
 
@@ -96,9 +104,9 @@ export const run = async (startState: {
     state: startState.mST,
   }, location.origin);
 
-//  await initShims(assets);  
+  //  await initShims(assets);
 
- await appFactory();
+  await appFactory();
   renderPreviewWindow(startState.codeSpace);
 
   // const {join} = await import("./rtc");

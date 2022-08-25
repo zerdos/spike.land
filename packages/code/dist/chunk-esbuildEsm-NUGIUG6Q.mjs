@@ -73,9 +73,9 @@ var require_browser = __commonJS({
         default: () => browser_default,
         formatMessages: () => formatMessages,
         formatMessagesSync: () => formatMessagesSync,
-        initialize: () => initialize2,
+        initialize: () => initialize,
         serve: () => serve,
-        transform: () => transform3,
+        transform: () => transform,
         transformSync: () => transformSync,
         version: () => version
       });
@@ -1411,7 +1411,7 @@ var require_browser = __commonJS({
             return buildResponseToResult(response, callback);
           });
         };
-        let transform22 = ({ callName, refs, input, options, isTTY, fs, callback }) => {
+        let transform2 = ({ callName, refs, input, options, isTTY, fs, callback }) => {
           const details = createObjectStash();
           let start = (inputPath) => {
             try {
@@ -1542,7 +1542,7 @@ var require_browser = __commonJS({
           afterClose,
           service: {
             buildOrServe,
-            transform: transform22,
+            transform: transform2,
             formatMessages: formatMessages2,
             analyzeMetafile: analyzeMetafile2
           }
@@ -1755,7 +1755,7 @@ ${file}:${line}:${column}: ERROR: ${pluginText}${e.text}`;
       var serve = () => {
         throw new Error(`The "serve" API only works in node`);
       };
-      var transform3 = (input, options) => ensureServiceIsRunning().transform(input, options);
+      var transform = (input, options) => ensureServiceIsRunning().transform(input, options);
       var formatMessages = (messages, options) => ensureServiceIsRunning().formatMessages(messages, options);
       var analyzeMetafile = (metafile, options) => ensureServiceIsRunning().analyzeMetafile(metafile, options);
       var buildSync = () => {
@@ -1779,7 +1779,7 @@ ${file}:${line}:${column}: ERROR: ${pluginText}${e.text}`;
           throw new Error('You need to wait for the promise returned from "initialize" to be resolved before calling this');
         throw new Error('You need to call "initialize" before calling this');
       };
-      var initialize2 = (options) => {
+      var initialize = (options) => {
         options = validateInitializeOptions(options || {});
         let wasmURL = options.wasmURL;
         let wasmModule = options.wasmModule;
@@ -2646,19 +2646,23 @@ var Mutex = class {
 };
 
 // js/esbuildEsm.ts
-var esbuild = __toESM(require_browser(), 1);
+var import_esbuild_wasm = __toESM(require_browser(), 1);
 
 // ../../.yarn/global/cache/esbuild-wasm-npm-0.15.5-bc4c954bca-9.zip/node_modules/esbuild-wasm/esbuild.wasm?url
 var esbuild_default = "./chunk-esbuild-C5LYP4UP.wasm?url";
 
 // js/esbuildEsm.ts
-var mod = { initFinished: false };
+var mod = {
+  initFinished: false,
+  build: import_esbuild_wasm.default.build,
+  transform: import_esbuild_wasm.default.transform
+};
 var mutex = new Mutex();
 var init = async () => {
   if (mod.initFinished)
-    return transform2;
+    return mod;
   await mutex.runExclusive(async () => {
-    mod.initFinished || await esbuild.initialize(
+    mod.initFinished || await import_esbuild_wasm.default.initialize(
       {
         wasmURL: esbuild_default
       }
@@ -2666,34 +2670,9 @@ var init = async () => {
     mod.initFinished = true;
     return true;
   });
-  return transform2;
+  return mod;
 };
-var regex1 = / from \"\.\./ig;
-var regex2 = / from \"\./ig;
-async function transform2(code) {
-  const result = await esbuild.transform(
-    code,
-    {
-      loader: "tsx",
-      format: "esm",
-      treeShaking: true,
-      tsconfigRaw: {
-        "compilerOptions": {
-          "jsx": "react-jsx",
-          "jsxImportSource": "@emotion/react"
-        }
-      },
-      target: "es2021"
-    }
-  );
-  const transpiled = result.code.replaceAll(
-    regex1,
-    ' from "/live'
-  ).replaceAll(regex2, ' from "/live');
-  return transpiled;
-}
 export {
-  init,
-  transform2 as transform
+  init
 };
-//# sourceMappingURL=chunk-esbuildEsm-DM4VEV2D.mjs.map
+//# sourceMappingURL=chunk-esbuildEsm-NUGIUG6Q.mjs.map
