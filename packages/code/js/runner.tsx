@@ -3,6 +3,7 @@ import { saveCode } from "./ws";
 import { appFactory } from "./starter";
 import { mST } from "./session";
 import { renderFromString } from "./renderToString";
+import { toUmd } from "./toUmd";
 // var Stream = require('stream/')
 
 // import "es-module-shims";
@@ -76,6 +77,11 @@ export async function runner({ code, counter }: {
         },
         target: "es2021",
       });
+
+
+      const UMD = await toUmd(code);
+      console.log({UMD});
+    
     if (transpiled.code === mST().transpiled) return;
 
     let restartError = false;
