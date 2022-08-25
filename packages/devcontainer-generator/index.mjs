@@ -4,7 +4,7 @@ import { promises as fs } from "fs";
 // versions.json
 var node = {
   lts: "16.17.0",
-  current: "18.7.0"
+  current: "18.8.0"
 };
 var deno = "1.24.3";
 var git = "2.37.2";
