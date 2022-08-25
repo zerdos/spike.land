@@ -68,7 +68,7 @@ background:  repeating-radial-gradient(circle at bottom left,
   </div>
 );
 
-const AppToRender: FC<{ codeSpace: string; }> = (
+const AppToRender: FC<{ codeSpace: string }> = (
   { codeSpace },
 ) => {
   // const [flipped, set] = useState(false)
@@ -112,7 +112,7 @@ const AppToRender: FC<{ codeSpace: string; }> = (
   return (
     <Fragment>
       <InPortal node={portalNode}>
-        <AutoUpdateApp hash={hash}/>
+        <AutoUpdateApp hash={hash} />
       </InPortal>
 
       {isStandalone
@@ -192,8 +192,8 @@ export const renderPreviewWindow = async (
 ) => {
   if (hashCode()) await appFactory();
   else {
-   await wait(100);
-   return await renderPreviewWindow(codeSpace);
+    await wait(100);
+    return await renderPreviewWindow(codeSpace);
   }
   const div = document.getElementById("root")!;
   // div.style.height='100%';

@@ -38,22 +38,24 @@ export interface IRunnerSession {
 
 // export const runnerDebounced: typeof runner = (props) => debounced(props);
 
-type ITransform = (code: string) => Promise<string>;
-
-let transform: ITransform | null = null;
-let i = 0;
+const mod = {
+  i: 0,
+  esbuildInit: async()=> (await (await import("./esbuildEsm"))).init()
+  
+  };
 
 export async function runner({ code, counter }: {
   code: string;
   counter: number;
 }) {
   // console.log({ i, counter });
-  
-  i = counter;
 
-  transform = transform || (await (await import("./esbuildEsm")).init());
+  const esbuild =await (mod.esbuildInit());
+
+  mod.i = counter;
+
   if (code === mST().code) return;
-  if (i > counter) return;
+  if (mod.i > counter) return;
 
   // session.changes.push(changes);
 
@@ -61,22 +63,34 @@ export async function runner({ code, counter }: {
   //   (await import("./esbuildEsm.ts")).transform;
 
   try {
-    const transpiled = await transform(code);
-    if (transpiled === mST().transpiled) return;
+    const transpiled = await esbuild.transform(code, 
+      {
+        loader: "tsx",
+        format: "esm",
+        treeShaking: true,
+        tsconfigRaw: {
+          "compilerOptions": {
+            "jsx": "react-jsx",
+            "jsxImportSource": "@emotion/react"
+          }
+        },
+        target: "es2021",
+      });
+    if (transpiled.code === mST().transpiled) return;
 
     let restartError = false;
     /// yellow
-    if (transpiled.length > 0) {
+    if (transpiled.code.length > 0) {
       try {
         // console.log(transpiled);
 
-        const App = await appFactory(transpiled);
+        const App = await appFactory(transpiled.code);
         const { html, css } = renderFromString(App);
         // console.log({html, css});
 
         await saveCode({
           code,
-          transpiled,
+          transpiled: transpiled.code,
           i: counter,
           html,
           css,
