@@ -75,7 +75,6 @@ export const Editor: FC<{ code: string; i: number; codeSpace: string }> = (
         },
       );
       monaco;
-      // globalThis.editor = editor;
 
       changeContent((x) => ({
         ...x,

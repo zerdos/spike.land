@@ -27,6 +27,7 @@ var dependencies = {
   "@react-spring/web": "^9.5.2",
   "@types/react": "18.0.17",
   "@types/react-dom": "18.0.6",
+  "@yarnpkg/fslib": "^2.7.1",
   "ace-builds": "1.9.6",
   "async-mutex": "0.3.2",
   "big-integer": "1.6.51",
@@ -562,4 +563,4 @@ var startMonaco = async ({ code, container, name }) => {
 export {
   startMonaco
 };
-//# sourceMappingURL=chunk-startMonaco-WWGLIQRY.mjs.map
+//# sourceMappingURL=chunk-startMonaco-N4RCGN55.mjs.map

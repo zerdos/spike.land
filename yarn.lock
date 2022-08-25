@@ -2621,6 +2621,7 @@ __metadata:
     "@types/react-dom": 18.0.6
     "@types/rimraf": ^3.0.2
     "@vitejs/plugin-react": ^2.0.1
+    "@yarnpkg/fslib": ^2.7.1
     ace-builds: 1.9.6
     async-mutex: 0.3.2
     big-integer: 1.6.51
@@ -5927,6 +5928,7 @@ __metadata:
     "@emotion/react": ^11.10.0
     "@playwright/test": ^1.25.1
     "@types/react": 18.0.17
+    "@yarnpkg/fslib": ^2.7.1
     "@yarnpkg/sdks": ^2.6.3
     lerna: ^5.4.3
     monaco-editor: ^0.34.0

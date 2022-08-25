@@ -16,7 +16,6 @@ import type { FC } from "react";
 import { hashCode, mST, onSessionUpdate } from "./session";
 
 import { Editor } from "./Editor";
-import { wait } from "wait";
 
 const RainbowContainer: FC<{ children: ReactNode }> = ({ children }) => (
   <div
@@ -172,10 +171,6 @@ const AppToRender: FC<{ codeSpace: string }> = (
             {/* </a.div> */}
             {/* </div> */}
             <DraggableWindow
-              // onRestore={() => {
-              //   const model = globalThis.model;
-              //   model.setValue(mST().code);
-              // }}
               hashCode={0}
               room={codeSpace}
             >
@@ -187,15 +182,10 @@ const AppToRender: FC<{ codeSpace: string }> = (
   );
 };
 
-export const renderPreviewWindow = async (
+export const renderPreviewWindow = (
   codeSpace: string,
 ) => {
-  if (hashCode()) await appFactory();
-  else {
-    await wait(100);
-    return await renderPreviewWindow(codeSpace);
-  }
-  const div = document.getElementById("root")!;
+   const div = document.getElementById("root")!;
   // div.style.height='100%';
   const root = createRoot(div);
   root.render(

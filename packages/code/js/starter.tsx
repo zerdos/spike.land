@@ -110,19 +110,7 @@ export const AutoUpdateApp: FC<{ hash: number }> = ({ hash }) => {
 };
 
 export async function appFactory(transpiled = ""): Promise<FC> {
-  // const result = md5(transpiled);
-  // return lazy(>import(`/live/${codeSpace}/js#${result}`));
-  // if (globalThis.transpiled === transpiled) return globalThis.App;
-  // globalThis.transpiled = transpiled;
-
-  // hash.update(transpiled);
-  // const resultU8Arr = await hash.digest();
-
-  //new TextDecoder().decode(resultU8Arr);
-  // if (globalThis.App && globalThis.App === apps[result]) {
-  //   globalThis.setCh && globalThis.setCh(globalThis.App);
-  //   return;e
-  // }
+  
 
   const hash = hashCode();
 
@@ -164,7 +152,7 @@ export async function appFactory(transpiled = ""): Promise<FC> {
   if (transpiled && mST().transpiled !== transpiled) {
     const newApp = apps[hash];
 
-    apps[hash] = null;
+    delete apps[hash];
     return newApp;
   }
   return apps[hash];

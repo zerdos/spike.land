@@ -17,7 +17,7 @@ import { renderPreviewWindow } from "./renderPreviewWindow";
 import type { ICodeSession } from "./session";
 import debounce from "lodash.debounce";
 import uidV4 from "./uidV4.mjs";
-import { appFactory, initShims } from "./starter";
+import { appFactory } from "./starter";
 
 const webRtcArray: (RTCDataChannel & { target: string })[] = [];
 
@@ -30,7 +30,6 @@ const user = ((self && self.crypto && self.crypto.randomUUID &&
 const rtcConns: {
   [target: string]: RTCPeerConnection;
 } = {}; // To st/ RTCPeerConnection
-
 let bc: BroadcastChannel;
 let codeSpace: string;
 let address: string;
@@ -91,24 +90,19 @@ export const run = async (startState: {
   address: string;
   assets: { [key: string]: string };
 }) => {
-  // const fs= new FS.PromisifiedFS(location.origin)
-  // globalThis.fs = fs;
-  // fs.writeFile(`/live/${codeSpace}.ts`,startState.mST.code);
-
-  globalThis.codeSpace = codeSpace = startState.codeSpace;
+  codeSpace = startState.codeSpace;
   address = startState.address;
 
-  // const { assets } = startState;
   startSession(codeSpace, {
     name: user,
     state: startState.mST,
   }, location.origin);
 
-  //  await initShims(assets);
 
   await appFactory();
-  renderPreviewWindow(startState.codeSpace);
 
+  renderPreviewWindow(startState.codeSpace);
+x
   // const {join} = await import("./rtc");
 
   // const conn = join(codeSpace, user, (message)=>{
@@ -184,8 +178,7 @@ async function rejoin() {
 const ignoreUsers: string[] = [];
 
 export async function saveCode(sess: ICodeSession) {
-  // if (rtcConns !== globalThis.rtcConns) return;
-
+  
   if (sess.i <= mST().i) return;
 
   console.log("creating a patch");
@@ -270,7 +263,6 @@ async function syncRTC() {
 export async function join() {
   if (ws !== null) return ws;
 
-  // if (rtcConns !== globalThis.rtcConns) return ws;
   rejoined = true;
 
   console.log("WS connect!");
@@ -339,11 +331,6 @@ export async function join() {
     return wsConnection;
   });
 
-  // if (!globalThis.session) {
-
-  // Object.assign(session, { ...mST() });
-  // globalThis.session = session;
-
   return wsConnection;
 }
 
@@ -361,7 +348,7 @@ async function processWsMessage(
   processData(data, source);
 }
 
-async function processData(data, source) {
+async function processData(data: any, source: "ws" | "rtc") {
   console.log("ws", data.name, data.oldHash, data.newHash);
 
   // MySession.addEvent(data);

@@ -1,7 +1,7 @@
 import {
   appFactory,
   saveCode
-} from "./chunk-chunk-PEZAVJ2X.mjs";
+} from "./chunk-chunk-NCH7SY5J.mjs";
 import {
   hashCode,
   mST,
@@ -69,6 +69,29 @@ var extractCritical = (html) => {
   }
 };
 
+// js/toUmd.ts
+init_define_process();
+var toUmd = async (source) => {
+  const esbuild = await (await import("./chunk-esbuildEsm-NUGIUG6Q.mjs")).init();
+  const { code } = await esbuild.transform(
+    source,
+    {
+      loader: "tsx",
+      format: "iife",
+      globalName: "myAppp",
+      treeShaking: true,
+      tsconfigRaw: {
+        "compilerOptions": {
+          "jsx": "react-jsx",
+          "jsxImportSource": "@emotion/react"
+        }
+      },
+      target: "es2021"
+    }
+  );
+  return code;
+};
+
 // js/runner.tsx
 var mod = {
   i: 0,
@@ -97,6 +120,8 @@ async function runner({ code, counter }) {
         target: "es2021"
       }
     );
+    const UMD = await toUmd(code);
+    console.log({ UMD });
     if (transpiled.code === mST().transpiled)
       return;
     let restartError = false;
@@ -127,4 +152,4 @@ async function runner({ code, counter }) {
 export {
   runner
 };
-//# sourceMappingURL=chunk-runner-4OCUA5JG.mjs.map
+//# sourceMappingURL=chunk-runner-NNZ3PB7G.mjs.map

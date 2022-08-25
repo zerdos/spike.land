@@ -1492,22 +1492,22 @@ var require_qrious = __commonJS({
         this._pack();
         this._finish();
       }, {
-        _addAlignment: function(x, y) {
+        _addAlignment: function(x2, y) {
           var i;
           var buffer = this.buffer;
           var width2 = this.width;
-          buffer[x + width2 * y] = 1;
+          buffer[x2 + width2 * y] = 1;
           for (i = -2; i < 2; i++) {
-            buffer[x + i + width2 * (y - 2)] = 1;
-            buffer[x - 2 + width2 * (y + i + 1)] = 1;
-            buffer[x + 2 + width2 * (y + i)] = 1;
-            buffer[x + i + 1 + width2 * (y + 2)] = 1;
+            buffer[x2 + i + width2 * (y - 2)] = 1;
+            buffer[x2 - 2 + width2 * (y + i + 1)] = 1;
+            buffer[x2 + 2 + width2 * (y + i)] = 1;
+            buffer[x2 + i + 1 + width2 * (y + 2)] = 1;
           }
           for (i = 0; i < 2; i++) {
-            this._setMask(x - 1, y + i);
-            this._setMask(x + 1, y - i);
-            this._setMask(x - i, y - 1);
-            this._setMask(x + i, y + 1);
+            this._setMask(x2 - 1, y + i);
+            this._setMask(x2 + 1, y - i);
+            this._setMask(x2 - i, y - 1);
+            this._setMask(x2 + i, y + 1);
           }
         },
         _appendData: function(data, dataLength, ecc, eccLength) {
@@ -1549,36 +1549,36 @@ var require_qrious = __commonJS({
           }
         },
         _applyMask: function(mask) {
-          var r3x, r3y, x, y;
+          var r3x, r3y, x2, y;
           var buffer = this.buffer;
           var width2 = this.width;
           switch (mask) {
             case 0:
               for (y = 0; y < width2; y++) {
-                for (x = 0; x < width2; x++) {
-                  if (!(x + y & 1) && !this._isMasked(x, y)) {
-                    buffer[x + y * width2] ^= 1;
+                for (x2 = 0; x2 < width2; x2++) {
+                  if (!(x2 + y & 1) && !this._isMasked(x2, y)) {
+                    buffer[x2 + y * width2] ^= 1;
                   }
                 }
               }
               break;
             case 1:
               for (y = 0; y < width2; y++) {
-                for (x = 0; x < width2; x++) {
-                  if (!(y & 1) && !this._isMasked(x, y)) {
-                    buffer[x + y * width2] ^= 1;
+                for (x2 = 0; x2 < width2; x2++) {
+                  if (!(y & 1) && !this._isMasked(x2, y)) {
+                    buffer[x2 + y * width2] ^= 1;
                   }
                 }
               }
               break;
             case 2:
               for (y = 0; y < width2; y++) {
-                for (r3x = 0, x = 0; x < width2; x++, r3x++) {
+                for (r3x = 0, x2 = 0; x2 < width2; x2++, r3x++) {
                   if (r3x === 3) {
                     r3x = 0;
                   }
-                  if (!r3x && !this._isMasked(x, y)) {
-                    buffer[x + y * width2] ^= 1;
+                  if (!r3x && !this._isMasked(x2, y)) {
+                    buffer[x2 + y * width2] ^= 1;
                   }
                 }
               }
@@ -1588,25 +1588,25 @@ var require_qrious = __commonJS({
                 if (r3y === 3) {
                   r3y = 0;
                 }
-                for (r3x = r3y, x = 0; x < width2; x++, r3x++) {
+                for (r3x = r3y, x2 = 0; x2 < width2; x2++, r3x++) {
                   if (r3x === 3) {
                     r3x = 0;
                   }
-                  if (!r3x && !this._isMasked(x, y)) {
-                    buffer[x + y * width2] ^= 1;
+                  if (!r3x && !this._isMasked(x2, y)) {
+                    buffer[x2 + y * width2] ^= 1;
                   }
                 }
               }
               break;
             case 4:
               for (y = 0; y < width2; y++) {
-                for (r3x = 0, r3y = y >> 1 & 1, x = 0; x < width2; x++, r3x++) {
+                for (r3x = 0, r3y = y >> 1 & 1, x2 = 0; x2 < width2; x2++, r3x++) {
                   if (r3x === 3) {
                     r3x = 0;
                     r3y = !r3y;
                   }
-                  if (!r3y && !this._isMasked(x, y)) {
-                    buffer[x + y * width2] ^= 1;
+                  if (!r3y && !this._isMasked(x2, y)) {
+                    buffer[x2 + y * width2] ^= 1;
                   }
                 }
               }
@@ -1616,12 +1616,12 @@ var require_qrious = __commonJS({
                 if (r3y === 3) {
                   r3y = 0;
                 }
-                for (r3x = 0, x = 0; x < width2; x++, r3x++) {
+                for (r3x = 0, x2 = 0; x2 < width2; x2++, r3x++) {
                   if (r3x === 3) {
                     r3x = 0;
                   }
-                  if (!((x & y & 1) + !(!r3x | !r3y)) && !this._isMasked(x, y)) {
-                    buffer[x + y * width2] ^= 1;
+                  if (!((x2 & y & 1) + !(!r3x | !r3y)) && !this._isMasked(x2, y)) {
+                    buffer[x2 + y * width2] ^= 1;
                   }
                 }
               }
@@ -1631,12 +1631,12 @@ var require_qrious = __commonJS({
                 if (r3y === 3) {
                   r3y = 0;
                 }
-                for (r3x = 0, x = 0; x < width2; x++, r3x++) {
+                for (r3x = 0, x2 = 0; x2 < width2; x2++, r3x++) {
                   if (r3x === 3) {
                     r3x = 0;
                   }
-                  if (!((x & y & 1) + (r3x && r3x === r3y) & 1) && !this._isMasked(x, y)) {
-                    buffer[x + y * width2] ^= 1;
+                  if (!((x2 & y & 1) + (r3x && r3x === r3y) & 1) && !this._isMasked(x2, y)) {
+                    buffer[x2 + y * width2] ^= 1;
                   }
                 }
               }
@@ -1646,12 +1646,12 @@ var require_qrious = __commonJS({
                 if (r3y === 3) {
                   r3y = 0;
                 }
-                for (r3x = 0, x = 0; x < width2; x++, r3x++) {
+                for (r3x = 0, x2 = 0; x2 < width2; x2++, r3x++) {
                   if (r3x === 3) {
                     r3x = 0;
                   }
-                  if (!((r3x && r3x === r3y) + (x + y & 1) & 1) && !this._isMasked(x, y)) {
-                    buffer[x + y * width2] ^= 1;
+                  if (!((r3x && r3x === r3y) + (x2 + y & 1) & 1) && !this._isMasked(x2, y)) {
+                    buffer[x2 + y * width2] ^= 1;
                   }
                 }
               }
@@ -1678,14 +1678,14 @@ var require_qrious = __commonJS({
           }
         },
         _checkBadness: function() {
-          var b, b1, h2, x, y;
+          var b, b1, h2, x2, y;
           var bad = 0;
           var badness = this._badness;
           var buffer = this.buffer;
           var width2 = this.width;
           for (y = 0; y < width2 - 1; y++) {
-            for (x = 0; x < width2 - 1; x++) {
-              if (buffer[x + width2 * y] && buffer[x + 1 + width2 * y] && buffer[x + width2 * (y + 1)] && buffer[x + 1 + width2 * (y + 1)] || !(buffer[x + width2 * y] || buffer[x + 1 + width2 * y] || buffer[x + width2 * (y + 1)] || buffer[x + 1 + width2 * (y + 1)])) {
+            for (x2 = 0; x2 < width2 - 1; x2++) {
+              if (buffer[x2 + width2 * y] && buffer[x2 + 1 + width2 * y] && buffer[x2 + width2 * (y + 1)] && buffer[x2 + 1 + width2 * (y + 1)] || !(buffer[x2 + width2 * y] || buffer[x2 + 1 + width2 * y] || buffer[x2 + width2 * (y + 1)] || buffer[x2 + 1 + width2 * (y + 1)])) {
                 bad += Frame.N2;
               }
             }
@@ -1694,8 +1694,8 @@ var require_qrious = __commonJS({
           for (y = 0; y < width2; y++) {
             h2 = 0;
             badness[0] = 0;
-            for (b = 0, x = 0; x < width2; x++) {
-              b1 = buffer[x + width2 * y];
+            for (b = 0, x2 = 0; x2 < width2; x2++) {
+              b1 = buffer[x2 + width2 * y];
               if (b === b1) {
                 badness[h2]++;
               } else {
@@ -1718,11 +1718,11 @@ var require_qrious = __commonJS({
             count++;
           }
           bad += count * Frame.N4;
-          for (x = 0; x < width2; x++) {
+          for (x2 = 0; x2 < width2; x2++) {
             h2 = 0;
             badness[0] = 0;
             for (b = 0, y = 0; y < width2; y++) {
-              b1 = buffer[x + width2 * y];
+              b1 = buffer[x2 + width2 * y];
               if (b === b1) {
                 badness[h2]++;
               } else {
@@ -1867,20 +1867,20 @@ var require_qrious = __commonJS({
           this._stringBuffer = ecc;
         },
         _insertAlignments: function() {
-          var i, x, y;
+          var i, x2, y;
           var version = this._version;
           var width2 = this.width;
           if (version > 1) {
             i = Alignment_1.BLOCK[version];
             y = width2 - 7;
             for (; ; ) {
-              x = width2 - 7;
-              while (x > i - 3) {
-                this._addAlignment(x, y);
-                if (x < i) {
+              x2 = width2 - 7;
+              while (x2 > i - 3) {
+                this._addAlignment(x2, y);
+                if (x2 < i) {
                   break;
                 }
-                x -= i;
+                x2 -= i;
               }
               if (y <= i + 9) {
                 break;
@@ -1892,7 +1892,7 @@ var require_qrious = __commonJS({
           }
         },
         _insertFinders: function() {
-          var i, j, x, y;
+          var i, j, x2, y;
           var buffer = this.buffer;
           var width2 = this.width;
           for (i = 0; i < 3; i++) {
@@ -1905,77 +1905,77 @@ var require_qrious = __commonJS({
               y = width2 - 7;
             }
             buffer[y + 3 + width2 * (j + 3)] = 1;
-            for (x = 0; x < 6; x++) {
-              buffer[y + x + width2 * j] = 1;
-              buffer[y + width2 * (j + x + 1)] = 1;
-              buffer[y + 6 + width2 * (j + x)] = 1;
-              buffer[y + x + 1 + width2 * (j + 6)] = 1;
+            for (x2 = 0; x2 < 6; x2++) {
+              buffer[y + x2 + width2 * j] = 1;
+              buffer[y + width2 * (j + x2 + 1)] = 1;
+              buffer[y + 6 + width2 * (j + x2)] = 1;
+              buffer[y + x2 + 1 + width2 * (j + 6)] = 1;
             }
-            for (x = 1; x < 5; x++) {
-              this._setMask(y + x, j + 1);
-              this._setMask(y + 1, j + x + 1);
-              this._setMask(y + 5, j + x);
-              this._setMask(y + x + 1, j + 5);
+            for (x2 = 1; x2 < 5; x2++) {
+              this._setMask(y + x2, j + 1);
+              this._setMask(y + 1, j + x2 + 1);
+              this._setMask(y + 5, j + x2);
+              this._setMask(y + x2 + 1, j + 5);
             }
-            for (x = 2; x < 4; x++) {
-              buffer[y + x + width2 * (j + 2)] = 1;
-              buffer[y + 2 + width2 * (j + x + 1)] = 1;
-              buffer[y + 4 + width2 * (j + x)] = 1;
-              buffer[y + x + 1 + width2 * (j + 4)] = 1;
+            for (x2 = 2; x2 < 4; x2++) {
+              buffer[y + x2 + width2 * (j + 2)] = 1;
+              buffer[y + 2 + width2 * (j + x2 + 1)] = 1;
+              buffer[y + 4 + width2 * (j + x2)] = 1;
+              buffer[y + x2 + 1 + width2 * (j + 4)] = 1;
             }
           }
         },
         _insertTimingGap: function() {
-          var x, y;
+          var x2, y;
           var width2 = this.width;
           for (y = 0; y < 7; y++) {
             this._setMask(7, y);
             this._setMask(width2 - 8, y);
             this._setMask(7, y + width2 - 7);
           }
-          for (x = 0; x < 8; x++) {
-            this._setMask(x, 7);
-            this._setMask(x + width2 - 8, 7);
-            this._setMask(x, width2 - 8);
+          for (x2 = 0; x2 < 8; x2++) {
+            this._setMask(x2, 7);
+            this._setMask(x2 + width2 - 8, 7);
+            this._setMask(x2, width2 - 8);
           }
         },
         _insertTimingRowAndColumn: function() {
-          var x;
+          var x2;
           var buffer = this.buffer;
           var width2 = this.width;
-          for (x = 0; x < width2 - 14; x++) {
-            if (x & 1) {
-              this._setMask(8 + x, 6);
-              this._setMask(6, 8 + x);
+          for (x2 = 0; x2 < width2 - 14; x2++) {
+            if (x2 & 1) {
+              this._setMask(8 + x2, 6);
+              this._setMask(6, 8 + x2);
             } else {
-              buffer[8 + x + width2 * 6] = 1;
-              buffer[6 + width2 * (8 + x)] = 1;
+              buffer[8 + x2 + width2 * 6] = 1;
+              buffer[6 + width2 * (8 + x2)] = 1;
             }
           }
         },
         _insertVersion: function() {
-          var i, j, x, y;
+          var i, j, x2, y;
           var buffer = this.buffer;
           var version = this._version;
           var width2 = this.width;
           if (version > 6) {
             i = Version_1.BLOCK[version - 7];
             j = 17;
-            for (x = 0; x < 6; x++) {
+            for (x2 = 0; x2 < 6; x2++) {
               for (y = 0; y < 3; y++, j--) {
                 if (1 & (j > 11 ? version >> j - 12 : i >> j)) {
-                  buffer[5 - x + width2 * (2 - y + width2 - 11)] = 1;
-                  buffer[2 - y + width2 - 11 + width2 * (5 - x)] = 1;
+                  buffer[5 - x2 + width2 * (2 - y + width2 - 11)] = 1;
+                  buffer[2 - y + width2 - 11 + width2 * (5 - x2)] = 1;
                 } else {
-                  this._setMask(5 - x, 2 - y + width2 - 11);
-                  this._setMask(2 - y + width2 - 11, 5 - x);
+                  this._setMask(5 - x2, 2 - y + width2 - 11);
+                  this._setMask(2 - y + width2 - 11, 5 - x2);
                 }
               }
             }
           }
         },
-        _isMasked: function(x, y) {
-          var bit = Frame._getMaskBit(x, y);
+        _isMasked: function(x2, y) {
+          var bit = Frame._getMaskBit(x2, y);
           return this._mask[bit] === 1;
         },
         _pack: function() {
@@ -1983,72 +1983,72 @@ var require_qrious = __commonJS({
           var k = 1;
           var v = 1;
           var width2 = this.width;
-          var x = width2 - 1;
+          var x2 = width2 - 1;
           var y = width2 - 1;
           var length = (this._dataBlock + this._eccBlock) * (this._neccBlock1 + this._neccBlock2) + this._neccBlock2;
           for (i = 0; i < length; i++) {
             bit = this._stringBuffer[i];
             for (j = 0; j < 8; j++, bit <<= 1) {
               if (128 & bit) {
-                this.buffer[x + width2 * y] = 1;
+                this.buffer[x2 + width2 * y] = 1;
               }
               do {
                 if (v) {
-                  x--;
+                  x2--;
                 } else {
-                  x++;
+                  x2++;
                   if (k) {
                     if (y !== 0) {
                       y--;
                     } else {
-                      x -= 2;
+                      x2 -= 2;
                       k = !k;
-                      if (x === 6) {
-                        x--;
+                      if (x2 === 6) {
+                        x2--;
                         y = 9;
                       }
                     }
                   } else if (y !== width2 - 1) {
                     y++;
                   } else {
-                    x -= 2;
+                    x2 -= 2;
                     k = !k;
-                    if (x === 6) {
-                      x--;
+                    if (x2 === 6) {
+                      x2--;
                       y -= 8;
                     }
                   }
                 }
                 v = !v;
-              } while (this._isMasked(x, y));
+              } while (this._isMasked(x2, y));
             }
           }
         },
         _reverseMask: function() {
-          var x, y;
+          var x2, y;
           var width2 = this.width;
-          for (x = 0; x < 9; x++) {
-            this._setMask(x, 8);
+          for (x2 = 0; x2 < 9; x2++) {
+            this._setMask(x2, 8);
           }
-          for (x = 0; x < 8; x++) {
-            this._setMask(x + width2 - 8, 8);
-            this._setMask(8, x);
+          for (x2 = 0; x2 < 8; x2++) {
+            this._setMask(x2 + width2 - 8, 8);
+            this._setMask(8, x2);
           }
           for (y = 0; y < 7; y++) {
             this._setMask(8, y + width2 - 7);
           }
         },
-        _setMask: function(x, y) {
-          var bit = Frame._getMaskBit(x, y);
+        _setMask: function(x2, y) {
+          var bit = Frame._getMaskBit(x2, y);
           this._mask[bit] = 1;
         },
         _syncMask: function() {
-          var x, y;
+          var x2, y;
           var width2 = this.width;
           for (y = 0; y < width2; y++) {
-            for (x = 0; x <= y; x++) {
-              if (this.buffer[x + width2 * y]) {
-                this._setMask(x, y);
+            for (x2 = 0; x2 <= y; x2++) {
+              if (this.buffer[x2 + width2 * y]) {
+                this._setMask(x2, y);
               }
             }
           }
@@ -2062,25 +2062,25 @@ var require_qrious = __commonJS({
           }
           return array;
         },
-        _getMaskBit: function(x, y) {
+        _getMaskBit: function(x2, y) {
           var bit;
-          if (x > y) {
-            bit = x;
-            x = y;
+          if (x2 > y) {
+            bit = x2;
+            x2 = y;
             y = bit;
           }
           bit = y;
           bit += y * y;
           bit >>= 1;
-          bit += x;
+          bit += x2;
           return bit;
         },
-        _modN: function(x) {
-          while (x >= 255) {
-            x -= 255;
-            x = (x >> 8) + (x & 255);
+        _modN: function(x2) {
+          while (x2 >= 255) {
+            x2 -= 255;
+            x2 = (x2 >> 8) + (x2 & 255);
           }
-          return x;
+          return x2;
         },
         N1: 3,
         N2: 3,
@@ -2621,7 +2621,7 @@ var require_checkPropTypes = __commonJS({
         }
         try {
           throw new Error(message);
-        } catch (x) {
+        } catch (x2) {
         }
       };
     }
@@ -2690,7 +2690,7 @@ var require_factoryWithTypeCheckers = __commonJS({
         }
         try {
           throw new Error(message);
-        } catch (x) {
+        } catch (x2) {
         }
       };
     }
@@ -2728,11 +2728,11 @@ var require_factoryWithTypeCheckers = __commonJS({
         shape: createShapeTypeChecker,
         exact: createStrictShapeTypeChecker
       };
-      function is(x, y) {
-        if (x === y) {
-          return x !== 0 || 1 / x === 1 / y;
+      function is(x2, y) {
+        if (x2 === y) {
+          return x2 !== 0 || 1 / x2 === 1 / y;
         } else {
-          return x !== x && y !== y;
+          return x2 !== x2 && y !== y;
         }
       }
       function PropTypeError(message, data) {
@@ -3724,7 +3724,7 @@ async function appFactory(transpiled = "") {
   }
   if (transpiled && mST().transpiled !== transpiled) {
     const newApp = apps[hash3];
-    apps[hash3] = null;
+    delete apps[hash3];
     return newApp;
   }
   return apps[hash3];
@@ -4430,8 +4430,8 @@ function getTypeByValue(value) {
       return valueType;
   }
 }
-function ponyfillIsInteger(x) {
-  return typeof x === "number" && isFinite(x) && Math.floor(x) === x;
+function ponyfillIsInteger(x2) {
+  return typeof x2 === "number" && isFinite(x2) && Math.floor(x2) === x2;
 }
 var isInteger = Number.isInteger || ponyfillIsInteger;
 function requiredInteger(props, propName, componentName, location2) {
@@ -6601,7 +6601,7 @@ function getBoundingClientRect(element, includeScale, isFixedStrategy) {
   }
   var _ref = isElement(element) ? getWindow(element) : window, visualViewport = _ref.visualViewport;
   var addVisualOffsets = !isLayoutViewport() && isFixedStrategy;
-  var x = (clientRect.left + (addVisualOffsets && visualViewport ? visualViewport.offsetLeft : 0)) / scaleX;
+  var x2 = (clientRect.left + (addVisualOffsets && visualViewport ? visualViewport.offsetLeft : 0)) / scaleX;
   var y = (clientRect.top + (addVisualOffsets && visualViewport ? visualViewport.offsetTop : 0)) / scaleY;
   var width2 = clientRect.width / scaleX;
   var height2 = clientRect.height / scaleY;
@@ -6609,10 +6609,10 @@ function getBoundingClientRect(element, includeScale, isFixedStrategy) {
     width: width2,
     height: height2,
     top: y,
-    right: x + width2,
+    right: x2 + width2,
     bottom: y + height2,
-    left: x,
-    x,
+    left: x2,
+    x: x2,
     y
   };
 }
@@ -6859,26 +6859,26 @@ var unsetSides = {
   left: "auto"
 };
 function roundOffsetsByDPR(_ref) {
-  var x = _ref.x, y = _ref.y;
+  var x2 = _ref.x, y = _ref.y;
   var win = window;
   var dpr = win.devicePixelRatio || 1;
   return {
-    x: round(x * dpr) / dpr || 0,
+    x: round(x2 * dpr) / dpr || 0,
     y: round(y * dpr) / dpr || 0
   };
 }
 function mapToStyles(_ref2) {
   var _Object$assign2;
   var popper2 = _ref2.popper, popperRect = _ref2.popperRect, placement = _ref2.placement, variation = _ref2.variation, offsets = _ref2.offsets, position2 = _ref2.position, gpuAcceleration = _ref2.gpuAcceleration, adaptive = _ref2.adaptive, roundOffsets = _ref2.roundOffsets, isFixed = _ref2.isFixed;
-  var _offsets$x = offsets.x, x = _offsets$x === void 0 ? 0 : _offsets$x, _offsets$y = offsets.y, y = _offsets$y === void 0 ? 0 : _offsets$y;
+  var _offsets$x = offsets.x, x2 = _offsets$x === void 0 ? 0 : _offsets$x, _offsets$y = offsets.y, y = _offsets$y === void 0 ? 0 : _offsets$y;
   var _ref3 = typeof roundOffsets === "function" ? roundOffsets({
-    x,
+    x: x2,
     y
   }) : {
-    x,
+    x: x2,
     y
   };
-  x = _ref3.x;
+  x2 = _ref3.x;
   y = _ref3.y;
   var hasX = offsets.hasOwnProperty("x");
   var hasY = offsets.hasOwnProperty("y");
@@ -6906,27 +6906,27 @@ function mapToStyles(_ref2) {
     if (placement === left || (placement === top || placement === bottom) && variation === end) {
       sideX = right;
       var offsetX = isFixed && offsetParent === win && win.visualViewport ? win.visualViewport.width : offsetParent[widthProp];
-      x -= offsetX - popperRect.width;
-      x *= gpuAcceleration ? 1 : -1;
+      x2 -= offsetX - popperRect.width;
+      x2 *= gpuAcceleration ? 1 : -1;
     }
   }
   var commonStyles = Object.assign({
     position: position2
   }, adaptive && unsetSides);
   var _ref4 = roundOffsets === true ? roundOffsetsByDPR({
-    x,
+    x: x2,
     y
   }) : {
-    x,
+    x: x2,
     y
   };
-  x = _ref4.x;
+  x2 = _ref4.x;
   y = _ref4.y;
   if (gpuAcceleration) {
     var _Object$assign;
-    return Object.assign({}, commonStyles, (_Object$assign = {}, _Object$assign[sideY] = hasY ? "0" : "", _Object$assign[sideX] = hasX ? "0" : "", _Object$assign.transform = (win.devicePixelRatio || 1) <= 1 ? "translate(" + x + "px, " + y + "px)" : "translate3d(" + x + "px, " + y + "px, 0)", _Object$assign));
+    return Object.assign({}, commonStyles, (_Object$assign = {}, _Object$assign[sideY] = hasY ? "0" : "", _Object$assign[sideX] = hasX ? "0" : "", _Object$assign.transform = (win.devicePixelRatio || 1) <= 1 ? "translate(" + x2 + "px, " + y + "px)" : "translate3d(" + x2 + "px, " + y + "px, 0)", _Object$assign));
   }
-  return Object.assign({}, commonStyles, (_Object$assign2 = {}, _Object$assign2[sideY] = hasY ? y + "px" : "", _Object$assign2[sideX] = hasX ? x + "px" : "", _Object$assign2.transform = "", _Object$assign2));
+  return Object.assign({}, commonStyles, (_Object$assign2 = {}, _Object$assign2[sideY] = hasY ? y + "px" : "", _Object$assign2[sideX] = hasX ? x2 + "px" : "", _Object$assign2.transform = "", _Object$assign2));
 }
 function computeStyles(_ref5) {
   var state = _ref5.state, options = _ref5.options;
@@ -7079,21 +7079,21 @@ function getViewportRect(element, strategy) {
   var visualViewport = win.visualViewport;
   var width2 = html.clientWidth;
   var height2 = html.clientHeight;
-  var x = 0;
+  var x2 = 0;
   var y = 0;
   if (visualViewport) {
     width2 = visualViewport.width;
     height2 = visualViewport.height;
     var layoutViewport = isLayoutViewport();
     if (layoutViewport || !layoutViewport && strategy === "fixed") {
-      x = visualViewport.offsetLeft;
+      x2 = visualViewport.offsetLeft;
       y = visualViewport.offsetTop;
     }
   }
   return {
     width: width2,
     height: height2,
-    x: x + getWindowScrollBarX(element),
+    x: x2 + getWindowScrollBarX(element),
     y
   };
 }
@@ -7107,15 +7107,15 @@ function getDocumentRect(element) {
   var body = (_element$ownerDocumen = element.ownerDocument) == null ? void 0 : _element$ownerDocumen.body;
   var width2 = max(html.scrollWidth, html.clientWidth, body ? body.scrollWidth : 0, body ? body.clientWidth : 0);
   var height2 = max(html.scrollHeight, html.clientHeight, body ? body.scrollHeight : 0, body ? body.clientHeight : 0);
-  var x = -winScroll.scrollLeft + getWindowScrollBarX(element);
+  var x2 = -winScroll.scrollLeft + getWindowScrollBarX(element);
   var y = -winScroll.scrollTop;
   if (getComputedStyle(body || html).direction === "rtl") {
-    x += max(html.clientWidth, body ? body.clientWidth : 0) - width2;
+    x2 += max(html.clientWidth, body ? body.clientWidth : 0) - width2;
   }
   return {
     width: width2,
     height: height2,
-    x,
+    x: x2,
     y
   };
 }
@@ -7529,9 +7529,9 @@ function offset(_ref2) {
     acc[placement] = distanceAndSkiddingToXY(placement, state.rects, offset2);
     return acc;
   }, {});
-  var _data$state$placement = data[state.placement], x = _data$state$placement.x, y = _data$state$placement.y;
+  var _data$state$placement = data[state.placement], x2 = _data$state$placement.x, y = _data$state$placement.y;
   if (state.modifiersData.popperOffsets != null) {
-    state.modifiersData.popperOffsets.x += x;
+    state.modifiersData.popperOffsets.x += x2;
     state.modifiersData.popperOffsets.y += y;
   }
   state.modifiersData[name] = data;
@@ -10487,7 +10487,7 @@ var axisProps = {
     })
   }
 };
-var Identity = (x) => x;
+var Identity = (x2) => x2;
 var cachedSupportsTouchActionNone;
 function doesSupportTouchActionNone() {
   if (cachedSupportsTouchActionNone === void 0) {
@@ -10926,7 +10926,7 @@ function useSlider(parameters) {
 import { jsx as _jsx17 } from "react/jsx-runtime";
 import { jsxs as _jsxs9 } from "react/jsx-runtime";
 var _excluded14 = ["aria-label", "aria-valuetext", "className", "component", "classes", "disableSwap", "disabled", "getAriaLabel", "getAriaValueText", "marks", "max", "min", "name", "onChange", "onChangeCommitted", "orientation", "scale", "step", "tabIndex", "track", "value", "valueLabelDisplay", "valueLabelFormat", "isRtl", "components", "componentsProps"];
-var Identity2 = (x) => x;
+var Identity2 = (x2) => x2;
 var useUtilityClasses10 = (ownerState) => {
   const {
     disabled,
@@ -13597,8 +13597,8 @@ function unstable_createStyleFunctionSx(styleFunctionMapping2 = styleFunctionMap
             } else {
               const breakpointsValues = handleBreakpoints({
                 theme
-              }, value, (x) => ({
-                [styleKey]: x
+              }, value, (x2) => ({
+                [styleKey]: x2
               }));
               if (objectsHaveSameKeys(breakpointsValues, value)) {
                 css7[styleKey] = styleFunctionSx2({
@@ -20264,9 +20264,9 @@ var Editor = ({ code, i, codeSpace: codeSpace2 }) => {
     myCode: code,
     counter: i,
     runner: async ({ code: code2, counter: counter2 }) => {
-      const { runner: runner2 } = await import("./chunk-runner-4OCUA5JG.mjs");
+      const { runner: runner2 } = await import("./chunk-runner-NNZ3PB7G.mjs");
       runner2({ code: code2, counter: counter2 });
-      changeContent((x) => ({ ...x, runner: runner2, code: code2, counter: counter2 }));
+      changeContent((x2) => ({ ...x2, runner: runner2, code: code2, counter: counter2 }));
     },
     myId: "loading",
     getValue: () => "",
@@ -20295,7 +20295,7 @@ var Editor = ({ code, i, codeSpace: codeSpace2 }) => {
     if (!ref?.current)
       return;
     const setMonaco = async () => {
-      const { startMonaco } = await import("./chunk-startMonaco-WWGLIQRY.mjs");
+      const { startMonaco } = await import("./chunk-startMonaco-N4RCGN55.mjs");
       const { editor, monaco } = await startMonaco(
         {
           container: ref.current,
@@ -20304,8 +20304,8 @@ var Editor = ({ code, i, codeSpace: codeSpace2 }) => {
         }
       );
       monaco;
-      changeContent((x) => ({
-        ...x,
+      changeContent((x2) => ({
+        ...x2,
         setValue: (code2) => {
           if (code2 == mST().code || code2 == mod.code)
             return;
@@ -20342,8 +20342,8 @@ var Editor = ({ code, i, codeSpace: codeSpace2 }) => {
     const setAce = async () => {
       const { startAce } = await import("./chunk-startAce-CALP3HV2.mjs");
       const editor = await startAce(mST().code);
-      changeContent((x) => ({
-        ...x,
+      changeContent((x2) => ({
+        ...x2,
         onChange: (cb) => {
           editor.session.on("change", cb);
           return () => editor.session.off("change", cb);
@@ -20356,7 +20356,7 @@ var Editor = ({ code, i, codeSpace: codeSpace2 }) => {
     const loadEditors = async () => {
       engine === "monaco" ? await setMonaco() : await setAce();
       const { prettierJs: prettierJs2 } = await import("./chunk-prettierEsm-CPQXJNPK.mjs");
-      changeContent((x) => ({ ...x, prettierJs: prettierJs2 }));
+      changeContent((x2) => ({ ...x2, prettierJs: prettierJs2 }));
       await wait(1e3);
       runner({ code: code + " ", counter });
     };
@@ -20374,7 +20374,7 @@ var Editor = ({ code, i, codeSpace: codeSpace2 }) => {
         const code2 = getValue3();
         if (code2 === mST().code || code2 === mod.code)
           return;
-        changeContent((x) => ({ ...x, myCode: code2, i: i + 1 }));
+        changeContent((x2) => ({ ...x2, myCode: code2, i: i + 1 }));
         runner({ code: code2, counter });
       }
     }, 5e3);
@@ -20382,7 +20382,7 @@ var Editor = ({ code, i, codeSpace: codeSpace2 }) => {
   }, [changeContent, i, runner]);
   useEffect30(() => {
     if (i > counter) {
-      changeContent((x) => ({ ...x, myCode: code, counter: i }));
+      changeContent((x2) => ({ ...x2, myCode: code, counter: i }));
       return;
     }
     const cb = async () => {
@@ -20393,7 +20393,7 @@ var Editor = ({ code, i, codeSpace: codeSpace2 }) => {
       if (newCode === mST().code)
         return;
       try {
-        changeContent((x) => ({ ...x, counter: counter + 1, myCode: newCode }));
+        changeContent((x2) => ({ ...x2, counter: counter + 1, myCode: newCode }));
         await runner({ code: newCode, counter: counter + 1 });
       } catch (err) {
         console.error({ err });
@@ -20414,14 +20414,14 @@ var Editor = ({ code, i, codeSpace: codeSpace2 }) => {
       setValue(sess.code);
       if (mod.CH() !== changeContent) {
         const ch = mod.CH();
-        ch((x) => ({
-          ...x,
+        ch((x2) => ({
+          ...x2,
           myCode: sess.code,
           counter: sess.i
         }));
       }
-      changeContent((x) => ({
-        ...x,
+      changeContent((x2) => ({
+        ...x2,
         myCode: sess.code,
         counter: sess.i
       }));
@@ -20554,13 +20554,7 @@ var AppToRender = ({ codeSpace: codeSpace2 }) => {
     ]
   });
 };
-var renderPreviewWindow = async (codeSpace2) => {
-  if (hashCode())
-    await appFactory();
-  else {
-    await wait(100);
-    return await renderPreviewWindow(codeSpace2);
-  }
+var renderPreviewWindow = (codeSpace2) => {
   const div = document.getElementById("root");
   const root = createRoot(div);
   root.render(
@@ -20662,7 +20656,7 @@ var sendChannel = {
   }
 };
 var run = async (startState) => {
-  globalThis.codeSpace = codeSpace = startState.codeSpace;
+  codeSpace = startState.codeSpace;
   address = startState.address;
   startSession(codeSpace, {
     name: user,
@@ -20670,6 +20664,7 @@ var run = async (startState) => {
   }, location.origin);
   await appFactory();
   renderPreviewWindow(startState.codeSpace);
+  x;
   join();
   bc = new BroadcastChannel("spike.land");
   bc.onmessage = async (event) => {
@@ -21132,4 +21127,4 @@ export {
   join,
   sw
 };
-//# sourceMappingURL=chunk-chunk-PEZAVJ2X.mjs.map
+//# sourceMappingURL=chunk-chunk-NCH7SY5J.mjs.map
