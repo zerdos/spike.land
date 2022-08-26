@@ -6,7 +6,7 @@ import { hashCode, mST, patchSync } from "./session";
 
 // const WithCache: FC<{children: ReactNode, cache: EmotionCache}> = ({children, cache}) => <CacheProvider value={cache}>{children}</CacheProvider>
 
-export const renderFromString = (App: FC) => {
+export const renderFromString = (App: FC, codeSpace: string) => {
   // const myCache =  createCache({
   //   prepend: true,
   //   key: 'css',
@@ -24,7 +24,7 @@ export const renderFromString = (App: FC) => {
       if (hash !== hashCode()) return;
       const { css, html } = mST();
       // @ts-ignore
-      const codeSpace: string = globalThis["codeSpace"] as unknown as string;
+      // const codeSpace: string = globalThis["codeSpace"] as unknown as string;
       const temp = document.getElementById("root-" + codeSpace)!;
 
       const htmlHtml = temp.innerHTML;

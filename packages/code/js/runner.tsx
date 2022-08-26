@@ -45,8 +45,9 @@ const mod = {
   
   };
 
-export async function runner({ code, counter }: {
+export async function runner({ code, counter, codeSpace }: {
   code: string;
+  codeSpace: string;
   counter: number;
 }) {
   // console.log({ i, counter });
@@ -91,7 +92,7 @@ export async function runner({ code, counter }: {
         // console.log(transpiled);
 
         const App = await appFactory(transpiled.code);
-        const { html, css } = renderFromString(App);
+        const { html, css } = renderFromString(App, codeSpace);
         // console.log({html, css});
 
         await saveCode({
