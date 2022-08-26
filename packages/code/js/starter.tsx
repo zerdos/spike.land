@@ -110,8 +110,6 @@ export const AutoUpdateApp: FC<{ hash: number }> = ({ hash }) => {
 };
 
 export async function appFactory(transpiled = ""): Promise<FC> {
-  
-
   const hash = hashCode();
 
   if (!apps[hash]) {
@@ -132,8 +130,7 @@ export async function appFactory(transpiled = ""): Promise<FC> {
           >
             <h1>Syntax Error</h1>
             <h2>{name}: {message}</h2>
-            <p>{cause?.stack}</p>
-            <pre>{stack}</pre>
+            <p>{JSON.stringify({ err })}</p>
           </div>
         );
       }

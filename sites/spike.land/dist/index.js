@@ -766,7 +766,11 @@ html, body {margin: 0; height: 100%}
  
    </style>
    <script async src="https://ga.jspm.io/npm:es-module-shims@1.5.17/dist/es-module-shims.js"><\/script>
-
+   <script type="esms-options">
+    {
+      "shimMode": true
+    }
+    <\/script>
    <script type="importmap"><\/script>
    </head>
    
@@ -810,7 +814,7 @@ window.addEventListener('pageshow', (event) => {
 <div id="root"></div>
 
 
-<script type="module">
+<script type="module-shim">
     import {mST, assets, codeSpace, address} from "/live/coder/mST.mjs" 
     import {run } from "ws"
 
@@ -6487,7 +6491,7 @@ var Code = class {
               `/live/${this.codeSpace}/`
             ).replace(
               `<script type="importmap"><\/script>`,
-              ` <script type="importmap">${JSON.stringify({ imports })}<\/script>`
+              ` <script type="importmap-shim">${JSON.stringify({ imports })}<\/script>`
             ).replace("ws.mjs", a3["ws.mjs"]).replace(
               `/* #root{} */`,
               `

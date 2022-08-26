@@ -11,7 +11,6 @@ import {
 
 // import * as FS from '@isomorphic-git/lightning-fs';
 
-
 import { renderPreviewWindow } from "./renderPreviewWindow";
 
 import type { ICodeSession } from "./session";
@@ -98,7 +97,6 @@ export const run = async (startState: {
     state: startState.mST,
   }, location.origin);
 
-
   await appFactory();
 
   renderPreviewWindow(startState.codeSpace);
@@ -178,7 +176,6 @@ async function rejoin() {
 const ignoreUsers: string[] = [];
 
 export async function saveCode(sess: ICodeSession) {
-  
   if (sess.i <= mST().i) return;
 
   console.log("creating a patch");

@@ -2582,6 +2582,7 @@ __metadata:
     async-mutex: 0.3.2
     big-integer: 1.6.51
     clean-stack: ^4.2.0
+    comlink: ^4.3.1
     csstype: ^3.1.0
     es-module-shims: 1.5.17
     esbuild: ^0.15.5
@@ -4329,6 +4330,13 @@ __metadata:
     strip-ansi: "npm:^6.0.1"
     wcwidth: "npm:^1.0.0"
   checksum: 0d590023616a27bcd2135c0f6ddd6fac94543263f9995538bbe391068976e30545e5534d369737ec7c3e9db4e53e70a277462de46aeb5a36e6997b4c7559c335
+  languageName: node
+  linkType: hard
+
+"comlink@npm:^4.3.1":
+  version: 4.3.1
+  resolution: "comlink@npm:4.3.1"
+  checksum: 557360a6558708c55aff74a25f834bfb9bfca8a42444682c4d5aead57681534a0206202be2a2760b4de124c3ba6d485b08978b6d5469cb3d26bf1438ee28a4f1
   languageName: node
   linkType: hard
 
@@ -6580,6 +6588,7 @@ __metadata:
     "@types/react": 18.0.17
     "@yarnpkg/fslib": ^2.7.1
     "@yarnpkg/sdks": ^2.6.3
+    comlink: ^4.3.1
     lerna: ^5.4.3
     monaco-editor: ^0.34.0
     react: ^18.2.0

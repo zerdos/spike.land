@@ -3,15 +3,12 @@
 import { Mutex } from "async-mutex";
 import esbuild from "esbuild-wasm";
 import wasmURL from "esbuild-wasm/esbuild.wasm?url";
-import type {transform} from "esbuild/lib/main"
+import type { transform } from "esbuild/lib/main";
 
-
-
-
-const mod = { 
-    initFinished: false,
-    build: esbuild.build,
-    transform: (esbuild.transform as unknown)  as typeof transform
+const mod = {
+  initFinished: false,
+  build: esbuild.build,
+  transform: (esbuild.transform as unknown) as typeof transform,
 };
 
 const mutex = new Mutex();

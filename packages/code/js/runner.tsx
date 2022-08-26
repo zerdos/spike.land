@@ -4,6 +4,7 @@ import { appFactory } from "./starter";
 import { mST } from "./session";
 import { renderFromString } from "./renderToString";
 import { toUmd } from "./toUmd";
+import { TransformOptions } from "esbuild-wasm";
 // var Stream = require('stream/')
 
 // import "es-module-shims";
@@ -41,9 +42,8 @@ export interface IRunnerSession {
 
 const mod = {
   i: 0,
-  esbuildInit: async()=> (await (await import("./esbuildEsm"))).init()
-  
-  };
+  esbuildInit: async () => (await (await import("./esbuildEsm"))).init(),
+};
 
 export async function runner({ code, counter, codeSpace }: {
   code: string;
@@ -52,7 +52,7 @@ export async function runner({ code, counter, codeSpace }: {
 }) {
   // console.log({ i, counter });
 
-  const esbuild =await (mod.esbuildInit());
+  const esbuild = await (mod.esbuildInit());
 
   mod.i = counter;
 
@@ -65,24 +65,22 @@ export async function runner({ code, counter, codeSpace }: {
   //   (await import("./esbuildEsm.ts")).transform;
 
   try {
-    const transpiled = await esbuild.transform(code, 
-      {
-        loader: "tsx",
-        format: "esm",
-        treeShaking: true,
-        tsconfigRaw: {
-          "compilerOptions": {
-            "jsx": "react-jsx",
-            "jsxImportSource": "@emotion/react"
-          }
+    const transpiled = await esbuild.transform(code, {
+      loader: "tsx",
+      format: "esm",
+      treeShaking: true,
+      tsconfigRaw: {
+        "compilerOptions": {
+          "jsx": "react-jsx",
+          "jsxImportSource": "@emotion/react",
         },
-        target: "es2021",
-      });
+      },
+      target: "es2021",
+    } as unknown as TransformOptions);
 
+    const UMD = await toUmd(code, codeSpace);
+    console.log({ UMD });
 
-      const UMD = await toUmd(code);
-      console.log({UMD});
-    
     if (transpiled.code === mST().transpiled) return;
 
     let restartError = false;
