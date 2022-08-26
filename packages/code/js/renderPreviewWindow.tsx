@@ -185,7 +185,7 @@ const AppToRender: FC<{ codeSpace: string }> = (
 export const renderPreviewWindow = (
   codeSpace: string,
 ) => {
-   const div = document.getElementById("root")!;
+  const div = document.getElementById("root")!;
   // div.style.height='100%';
   const root = createRoot(div);
   root.render(

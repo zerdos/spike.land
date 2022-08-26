@@ -361,7 +361,7 @@ export class Code {
               `/live/${this.codeSpace}/`,
             ).replace(
               `<script type="importmap"></script>`,
-              ` <script type="importmap">${
+              ` <script type="importmap-shim">${
                 JSON.stringify({ imports })
               }</script>`,
             )

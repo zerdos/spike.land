@@ -84,8 +84,8 @@ const build = (entryPoints, format = "esm") =>
       ".jsx": "tsx",
       ".css": "css",
       ".ttf": "file",
-
       ".d.ts": "file",
+      ".js?file": "file",
       ".worker.js": "file",
       ".wasm": "file",
     },

@@ -27,7 +27,13 @@ export const Editor: FC<{ code: string; i: number; codeSpace: string }> = (
   ] = useState({
     myCode: code,
     counter: i,
-    runner: async ({ code, counter, codeSpace }: { code: string; counter: number, codeSpace: string }) => {
+    runner: async (
+      { code, counter, codeSpace }: {
+        code: string;
+        counter: number;
+        codeSpace: string;
+      },
+    ) => {
       const { runner } = await import("./runner");
       runner({ code, counter, codeSpace });
       changeContent((x: typeof mySession) => ({ ...x, runner, code, counter }));

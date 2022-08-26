@@ -68,7 +68,7 @@
       "imports": []
     },
     "src/index.html": {
-      "bytes": 2591,
+      "bytes": 2676,
       "imports": []
     },
     "src/iife.html": {
@@ -106,7 +106,7 @@
       "imports": []
     },
     "src/chatRoom.ts": {
-      "bytes": 20016,
+      "bytes": 20021,
       "imports": [
         {
           "path": "src/handleErrors.ts",
@@ -212,13 +212,13 @@
           "bytesInOutput": 1095
         },
         "src/index.html": {
-          "bytesInOutput": 2618
+          "bytesInOutput": 2704
         },
         "src/iife.html": {
           "bytesInOutput": 2272
         },
         "src/chatRoom.ts": {
-          "bytesInOutput": 14701
+          "bytesInOutput": 14706
         },
         "../../packages/code/dist/chunk-chunk-532LUWKD.mjs": {
           "bytesInOutput": 1239
@@ -239,7 +239,7 @@
           "bytesInOutput": 478
         }
       },
-      "bytes": 254643
+      "bytes": 254734
     }
   }
 }

@@ -3701,10 +3701,7 @@ async function appFactory(transpiled = "") {
               ]
             }),
             jsx2("p", {
-              children: cause?.stack
-            }),
-            jsx2("pre", {
-              children: stack
+              children: JSON.stringify({ err })
             })
           ]
         });
@@ -20264,7 +20261,7 @@ var Editor = ({ code, i, codeSpace: codeSpace2 }) => {
     myCode: code,
     counter: i,
     runner: async ({ code: code2, counter: counter2, codeSpace: codeSpace3 }) => {
-      const { runner: runner2 } = await import("./chunk-runner-QA74FVCO.mjs");
+      const { runner: runner2 } = await import("./chunk-runner-WJ5GD42E.mjs");
       runner2({ code: code2, counter: counter2, codeSpace: codeSpace3 });
       changeContent((x) => ({ ...x, runner: runner2, code: code2, counter: counter2 }));
     },
@@ -20295,7 +20292,7 @@ var Editor = ({ code, i, codeSpace: codeSpace2 }) => {
     if (!ref?.current)
       return;
     const setMonaco = async () => {
-      const { startMonaco } = await import("./chunk-startMonaco-BW455FQV.mjs");
+      const { startMonaco } = await import("./chunk-startMonaco-PGF2KIHN.mjs");
       const { editor, monaco } = await startMonaco(
         {
           container: ref.current,
@@ -21126,4 +21123,4 @@ export {
   join,
   sw
 };
-//# sourceMappingURL=chunk-chunk-HXTTJO6R.mjs.map
+//# sourceMappingURL=chunk-chunk-QTSJDOVF.mjs.map
