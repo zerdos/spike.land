@@ -826,20 +826,20 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@jspm/generator@npm:^1.0.0-beta.36":
-  version: 1.0.0-beta.36
-  resolution: "@jspm/generator@npm:1.0.0-beta.36"
+"@jspm/generator@npm:^1.0.0-beta.37":
+  version: 1.0.0-beta.37
+  resolution: "@jspm/generator@npm:1.0.0-beta.37"
   dependencies:
-    "@babel/core": "npm:^7.18.2"
-    "@babel/plugin-syntax-import-assertions": "npm:^7.17.12"
-    "@babel/preset-typescript": "npm:^7.17.2"
-    "@jspm/core": "npm:^2.0.0-beta.8"
-    "@jspm/import-map": "npm:^1.0.4"
-    es-module-lexer: "npm:^1.0.3"
-    ipfs-client: "npm:^0.7.1"
-    make-fetch-happen: "npm:^8.0.3"
-    sver: "npm:^1.8.3"
-  checksum: 737ebe1f511536729fa539439ff3db880f30133d386c2c1feb1c4c25d2e76dd9f239b22acc272800ca9d75c2c5954a66d283b3cb4fb6f893f93ddb5c05d78c71
+    "@babel/core": ^7.18.2
+    "@babel/plugin-syntax-import-assertions": ^7.17.12
+    "@babel/preset-typescript": ^7.17.2
+    "@jspm/core": ^2.0.0-beta.8
+    "@jspm/import-map": ^1.0.4
+    es-module-lexer: ^1.0.3
+    ipfs-client: ^0.7.1
+    make-fetch-happen: ^8.0.3
+    sver: ^1.8.3
+  checksum: f428814bd7024c01377a482593d14a839745a4ebc7709ce1a6000c094025af976988d173ea00791ae4d50a048ad6b104db350dc8a37b17f24cbc07fb06524dc0
   languageName: node
   linkType: hard
 
@@ -2555,7 +2555,7 @@ __metadata:
     "@spike.land/code": ^0.9.1
     esbuild: 0.15.5
     miniflare: ^2.7.1
-    typescript: 4.7.4
+    typescript: 4.8.2
     wrangler: 2.0.27
   languageName: unknown
   linkType: soft
@@ -2576,7 +2576,7 @@ __metadata:
     "@types/react": 18.0.17
     "@types/react-dom": 18.0.6
     "@types/rimraf": ^3.0.2
-    "@types/xo": ^0
+    "@types/xo": ^0.39.3
     "@vitejs/plugin-react": ^2.0.1
     ace-builds: 1.9.6
     async-mutex: 0.3.2
@@ -2604,7 +2604,7 @@ __metadata:
     react-qrious: 2.5.5
     react-reverse-portal: ^2.1.1
     tslib: ^2.4.0
-    typescript: 4.7.4
+    typescript: 4.8.2
     uvu: 0.5.6
     xo: ^0.52.1
   languageName: unknown
@@ -2970,7 +2970,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/xo@npm:^0":
+"@types/xo@npm:^0.39.3":
   version: 0.39.3
   resolution: "@types/xo@npm:0.39.3"
   dependencies:
@@ -6583,7 +6583,7 @@ __metadata:
     lerna: ^5.4.3
     monaco-editor: ^0.34.0
     react: ^18.2.0
-    typescript: ^4.7.4
+    typescript: ^4.8.2
   languageName: unknown
   linkType: soft
 
@@ -8875,7 +8875,7 @@ __metadata:
   resolution: "new@workspace:packages/importmaps"
   dependencies:
     "@emotion/react": ^11.10.0
-    "@jspm/generator": ^1.0.0-beta.36
+    "@jspm/generator": ^1.0.0-beta.37
     "@types/react-dom": 18.0.6
     esbuild: ^0.15.5
     esbuild-plugin-import-map: ^2.1.0
@@ -8883,7 +8883,7 @@ __metadata:
     react: 18.2.0
     react-dom: 18.2.0
     serve: ^14.0.1
-    typescript: ^4.7.4
+    typescript: ^4.8.2
   languageName: unknown
   linkType: soft
 
@@ -11592,17 +11592,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"type-fest@npm:^2.0.0":
+"type-fest@npm:^2.0.0, type-fest@npm:^2.13.0":
   version: 2.19.0
   resolution: "type-fest@npm:2.19.0"
   checksum: a4ef07ece297c9fba78fc1bd6d85dff4472fe043ede98bd4710d2615d15776902b595abf62bd78339ed6278f021235fb28a96361f8be86ed754f778973a0d278
-  languageName: node
-  linkType: hard
-
-"type-fest@npm:^2.13.0":
-  version: 2.18.1
-  resolution: "type-fest@npm:2.18.1"
-  checksum: 2aabebe88d4cfa8d9576058ee475f95efd878a85a6cbe0b4f4e1d45c891501d12b29057a0baddd5fc5652b128622308a499ac5eed68c69ebb05b1c960d2943cf
   languageName: node
   linkType: hard
 
@@ -11622,17 +11615,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@npm:4.7.4, typescript@npm:^4.7.4":
-  version: 4.7.4
-  resolution: "typescript@npm:4.7.4"
-  bin:
-    tsc: bin/tsc
-    tsserver: bin/tsserver
-  checksum: 5750181b1cd7e6482c4195825547e70f944114fb47e58e4aa7553e62f11b3f3173766aef9c281783edfd881f7b8299cf35e3ca8caebe73d8464528c907a164df
-  languageName: node
-  linkType: hard
-
-"typescript@npm:^4.7.3":
+"typescript@npm:4.8.2, typescript@npm:^4.7.3, typescript@npm:^4.8.2":
   version: 4.8.2
   resolution: "typescript@npm:4.8.2"
   bin:
@@ -11642,17 +11625,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@4.7.4#~builtin<compat/typescript>, typescript@patch:typescript@^4.7.4#~builtin<compat/typescript>":
-  version: 4.7.4
-  resolution: "typescript@patch:typescript@npm%3A4.7.4#~builtin<compat/typescript>::version=4.7.4&hash=a1c5e5"
-  bin:
-    tsc: bin/tsc
-    tsserver: bin/tsserver
-  checksum: 9096d8f6c16cb80ef3bf96fcbbd055bf1c4a43bd14f3b7be45a9fbe7ada46ec977f604d5feed3263b4f2aa7d4c7477ce5f9cd87de0d6feedec69a983f3a4f93e
-  languageName: node
-  linkType: hard
-
-"typescript@patch:typescript@^4.7.3#~builtin<compat/typescript>":
+"typescript@patch:typescript@4.8.2#~builtin<compat/typescript>, typescript@patch:typescript@^4.7.3#~builtin<compat/typescript>, typescript@patch:typescript@^4.8.2#~builtin<compat/typescript>":
   version: 4.8.2
   resolution: "typescript@patch:typescript@npm%3A4.8.2#~builtin<compat/typescript>::version=4.8.2&hash=a1c5e5"
   bin:
