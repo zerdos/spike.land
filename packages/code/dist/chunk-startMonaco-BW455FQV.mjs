@@ -24,19 +24,15 @@ var dependencies = {
   "@emotion/serialize": "^1.1.0",
   "@emotion/styled": "11.10.0",
   "@mui/material": "5.10.2",
-  "@react-spring/web": "^9.5.2",
   "@types/react": "18.0.17",
   "@types/react-dom": "18.0.6",
-  "@yarnpkg/fslib": "^2.7.1",
   "ace-builds": "1.9.6",
   "async-mutex": "0.3.2",
   "big-integer": "1.6.51",
   "clean-stack": "^4.2.0",
-  clsx: "^1.2.1",
   csstype: "^3.1.0",
   "es-module-shims": "1.5.17",
   "esbuild-wasm": "0.15.5",
-  events: "^3.3.0",
   "fast-diff": "1.2.0",
   "framer-motion": "7.2.1",
   immutable: "4.1.0",
@@ -563,4 +559,4 @@ var startMonaco = async ({ code, container, name }) => {
 export {
   startMonaco
 };
-//# sourceMappingURL=chunk-startMonaco-N4RCGN55.mjs.map
+//# sourceMappingURL=chunk-startMonaco-BW455FQV.mjs.map

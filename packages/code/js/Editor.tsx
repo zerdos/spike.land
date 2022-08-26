@@ -27,9 +27,9 @@ export const Editor: FC<{ code: string; i: number; codeSpace: string }> = (
   ] = useState({
     myCode: code,
     counter: i,
-    runner: async ({ code, counter }: { code: string; counter: number }) => {
+    runner: async ({ code, counter, codeSpace }: { code: string; counter: number, codeSpace: string }) => {
       const { runner } = await import("./runner");
-      runner({ code, counter });
+      runner({ code, counter, codeSpace });
       changeContent((x: typeof mySession) => ({ ...x, runner, code, counter }));
     },
     myId: "loading",
@@ -142,7 +142,7 @@ export const Editor: FC<{ code: string; i: number; codeSpace: string }> = (
       changeContent((x) => ({ ...x, prettierJs }));
       await wait(1000);
       // console.log("RUN THE RUNNER");
-      runner({ code: code + " ", counter });
+      runner({ code: code + " ", counter, codeSpace });
     };
 
     loadEditors();
@@ -159,7 +159,7 @@ export const Editor: FC<{ code: string; i: number; codeSpace: string }> = (
         const code = getValue();
         if (code === mST().code || code === mod.code) return;
         changeContent((x) => ({ ...x, myCode: code, i: i + 1 }));
-        runner({ code, counter });
+        runner({ code, counter, codeSpace });
       }
     }, 5000);
     return () => clearInterval(handler);
@@ -185,7 +185,7 @@ export const Editor: FC<{ code: string; i: number; codeSpace: string }> = (
         changeContent((x) => ({ ...x, counter: counter + 1, myCode: newCode }));
 
         // console.log("RUN THE RUNNER AGAIN");
-        await runner({ code: newCode, counter: counter + 1 });
+        await runner({ code: newCode, counter: counter + 1, codeSpace });
       } catch (err) {
         console.error({ err });
         console.error("restore editor");

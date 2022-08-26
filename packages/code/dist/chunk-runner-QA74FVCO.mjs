@@ -1,7 +1,7 @@
 import {
   appFactory,
   saveCode
-} from "./chunk-chunk-NCH7SY5J.mjs";
+} from "./chunk-chunk-HXTTJO6R.mjs";
 import {
   hashCode,
   mST,
@@ -18,7 +18,7 @@ init_define_process();
 init_define_process();
 import { render } from "react-dom";
 import { jsx } from "@emotion/react/jsx-runtime";
-var renderFromString = (App) => {
+var renderFromString = (App, codeSpace) => {
   const temp = document.createElement("div");
   render(jsx(App, {}), temp);
   const html = temp.innerHTML;
@@ -28,7 +28,6 @@ var renderFromString = (App) => {
       if (hash !== hashCode())
         return;
       const { css, html: html2 } = mST();
-      const codeSpace = globalThis["codeSpace"];
       const temp2 = document.getElementById("root-" + codeSpace);
       const htmlHtml = temp2.innerHTML;
       const newCss = extractCritical(htmlHtml);
@@ -97,7 +96,7 @@ var mod = {
   i: 0,
   esbuildInit: async () => (await await import("./chunk-esbuildEsm-NUGIUG6Q.mjs")).init()
 };
-async function runner({ code, counter }) {
+async function runner({ code, counter, codeSpace }) {
   const esbuild = await mod.esbuildInit();
   mod.i = counter;
   if (code === mST().code)
@@ -128,7 +127,7 @@ async function runner({ code, counter }) {
     if (transpiled.code.length > 0) {
       try {
         const App = await appFactory(transpiled.code);
-        const { html, css } = renderFromString(App);
+        const { html, css } = renderFromString(App, codeSpace);
         await saveCode({
           code,
           transpiled: transpiled.code,
@@ -152,4 +151,4 @@ async function runner({ code, counter }) {
 export {
   runner
 };
-//# sourceMappingURL=chunk-runner-NNZ3PB7G.mjs.map
+//# sourceMappingURL=chunk-runner-QA74FVCO.mjs.map

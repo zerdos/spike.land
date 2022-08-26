@@ -2,9 +2,7 @@ export const toUmd = async (source: string)=> {
 
 const esbuild = await (await import("./esbuildEsm")).init()
 
-
-
-
+  
 const {code} =  await esbuild.transform(source, 
     {
       loader: "tsx",
@@ -13,8 +11,7 @@ const {code} =  await esbuild.transform(source,
       treeShaking: true,
       tsconfigRaw: {
         "compilerOptions": {
-          "jsx": "r
-          2weact-jsx",z
+          "jsx": "react-jsx",
           "jsxImportSource": "@emotion/react"
         }
       },
