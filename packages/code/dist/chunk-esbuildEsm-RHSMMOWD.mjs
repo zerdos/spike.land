@@ -43,7 +43,7 @@ var require_browser = __commonJS({
         }
         return to;
       };
-      var __toCommonJS = (mod2) => __copyProps(__defProp({}, "__esModule", { value: true }), mod2);
+      var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
       var __async = (__this, __arguments, generator) => {
         return new Promise((resolve, reject) => {
           var fulfilled = (value) => {
@@ -73,9 +73,9 @@ var require_browser = __commonJS({
         default: () => browser_default,
         formatMessages: () => formatMessages,
         formatMessagesSync: () => formatMessagesSync,
-        initialize: () => initialize2,
+        initialize: () => initialize,
         serve: () => serve,
-        transform: () => transform2,
+        transform: () => transform,
         transformSync: () => transformSync,
         version: () => version
       });
@@ -1411,7 +1411,7 @@ var require_browser = __commonJS({
             return buildResponseToResult(response, callback);
           });
         };
-        let transform22 = ({ callName, refs, input, options, isTTY, fs, callback }) => {
+        let transform2 = ({ callName, refs, input, options, isTTY, fs, callback }) => {
           const details = createObjectStash();
           let start = (inputPath) => {
             try {
@@ -1542,7 +1542,7 @@ var require_browser = __commonJS({
           afterClose,
           service: {
             buildOrServe,
-            transform: transform22,
+            transform: transform2,
             formatMessages: formatMessages2,
             analyzeMetafile: analyzeMetafile2
           }
@@ -1755,7 +1755,7 @@ ${file}:${line}:${column}: ERROR: ${pluginText}${e.text}`;
       var serve = () => {
         throw new Error(`The "serve" API only works in node`);
       };
-      var transform2 = (input, options) => ensureServiceIsRunning().transform(input, options);
+      var transform = (input, options) => ensureServiceIsRunning().transform(input, options);
       var formatMessages = (messages, options) => ensureServiceIsRunning().formatMessages(messages, options);
       var analyzeMetafile = (metafile, options) => ensureServiceIsRunning().analyzeMetafile(metafile, options);
       var buildSync = () => {
@@ -1779,7 +1779,7 @@ ${file}:${line}:${column}: ERROR: ${pluginText}${e.text}`;
           throw new Error('You need to wait for the promise returned from "initialize" to be resolved before calling this');
         throw new Error('You need to call "initialize" before calling this');
       };
-      var initialize2 = (options) => {
+      var initialize = (options) => {
         options = validateInitializeOptions(options || {});
         let wasmURL = options.wasmURL;
         let wasmModule = options.wasmModule;
@@ -2484,194 +2484,36 @@ ${file}:${line}:${column}: ERROR: ${pluginText}${e.text}`;
 
 // js/esbuildEsm.ts
 init_define_process();
-
-// ../../.yarn/global/cache/async-mutex-npm-0.3.2-600f6c46a1-9.zip/node_modules/async-mutex/index.mjs
-init_define_process();
-var E_TIMEOUT = new Error("timeout while waiting for mutex to become available");
-var E_ALREADY_LOCKED = new Error("mutex already locked");
-var E_CANCELED = new Error("request for lock canceled");
-var __awaiter$2 = function(thisArg, _arguments, P, generator) {
-  function adopt(value) {
-    return value instanceof P ? value : new P(function(resolve) {
-      resolve(value);
-    });
-  }
-  return new (P || (P = Promise))(function(resolve, reject) {
-    function fulfilled(value) {
-      try {
-        step(generator.next(value));
-      } catch (e) {
-        reject(e);
-      }
-    }
-    function rejected(value) {
-      try {
-        step(generator["throw"](value));
-      } catch (e) {
-        reject(e);
-      }
-    }
-    function step(result) {
-      result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
-    }
-    step((generator = generator.apply(thisArg, _arguments || [])).next());
-  });
-};
-var Semaphore = class {
-  constructor(_maxConcurrency, _cancelError = E_CANCELED) {
-    this._maxConcurrency = _maxConcurrency;
-    this._cancelError = _cancelError;
-    this._queue = [];
-    this._waiters = [];
-    if (_maxConcurrency <= 0) {
-      throw new Error("semaphore must be initialized to a positive value");
-    }
-    this._value = _maxConcurrency;
-  }
-  acquire() {
-    const locked = this.isLocked();
-    const ticketPromise = new Promise((resolve, reject) => this._queue.push({ resolve, reject }));
-    if (!locked)
-      this._dispatch();
-    return ticketPromise;
-  }
-  runExclusive(callback) {
-    return __awaiter$2(this, void 0, void 0, function* () {
-      const [value, release] = yield this.acquire();
-      try {
-        return yield callback(value);
-      } finally {
-        release();
-      }
-    });
-  }
-  waitForUnlock() {
-    return __awaiter$2(this, void 0, void 0, function* () {
-      if (!this.isLocked()) {
-        return Promise.resolve();
-      }
-      const waitPromise = new Promise((resolve) => this._waiters.push({ resolve }));
-      return waitPromise;
-    });
-  }
-  isLocked() {
-    return this._value <= 0;
-  }
-  release() {
-    if (this._maxConcurrency > 1) {
-      throw new Error("this method is unavailable on semaphores with concurrency > 1; use the scoped release returned by acquire instead");
-    }
-    if (this._currentReleaser) {
-      const releaser = this._currentReleaser;
-      this._currentReleaser = void 0;
-      releaser();
-    }
-  }
-  cancel() {
-    this._queue.forEach((ticket) => ticket.reject(this._cancelError));
-    this._queue = [];
-  }
-  _dispatch() {
-    const nextTicket = this._queue.shift();
-    if (!nextTicket)
-      return;
-    let released = false;
-    this._currentReleaser = () => {
-      if (released)
-        return;
-      released = true;
-      this._value++;
-      this._resolveWaiters();
-      this._dispatch();
-    };
-    nextTicket.resolve([this._value--, this._currentReleaser]);
-  }
-  _resolveWaiters() {
-    this._waiters.forEach((waiter) => waiter.resolve());
-    this._waiters = [];
-  }
-};
-var __awaiter$1 = function(thisArg, _arguments, P, generator) {
-  function adopt(value) {
-    return value instanceof P ? value : new P(function(resolve) {
-      resolve(value);
-    });
-  }
-  return new (P || (P = Promise))(function(resolve, reject) {
-    function fulfilled(value) {
-      try {
-        step(generator.next(value));
-      } catch (e) {
-        reject(e);
-      }
-    }
-    function rejected(value) {
-      try {
-        step(generator["throw"](value));
-      } catch (e) {
-        reject(e);
-      }
-    }
-    function step(result) {
-      result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
-    }
-    step((generator = generator.apply(thisArg, _arguments || [])).next());
-  });
-};
-var Mutex = class {
-  constructor(cancelError) {
-    this._semaphore = new Semaphore(1, cancelError);
-  }
-  acquire() {
-    return __awaiter$1(this, void 0, void 0, function* () {
-      const [, releaser] = yield this._semaphore.acquire();
-      return releaser;
-    });
-  }
-  runExclusive(callback) {
-    return this._semaphore.runExclusive(() => callback());
-  }
-  isLocked() {
-    return this._semaphore.isLocked();
-  }
-  waitForUnlock() {
-    return this._semaphore.waitForUnlock();
-  }
-  release() {
-    this._semaphore.release();
-  }
-  cancel() {
-    return this._semaphore.cancel();
-  }
-};
-
-// js/esbuildEsm.ts
 var import_esbuild_wasm = __toESM(require_browser(), 1);
 
 // ../../.yarn/global/cache/esbuild-wasm-npm-0.15.5-bc4c954bca-9.zip/node_modules/esbuild-wasm/esbuild.wasm?url
 var esbuild_default = "./chunk-esbuild-C5LYP4UP.wasm?url";
 
 // js/esbuildEsm.ts
-var mod = {
-  initFinished: false,
-  transform: import_esbuild_wasm.transform
-};
-var mutex = new Mutex();
+var initFinished = false;
 var init = async () => {
-  if (mod.initFinished)
-    return mod;
-  await mutex.runExclusive(async () => {
-    mod.initFinished || await (0, import_esbuild_wasm.initialize)(
-      {
-        wasmURL: esbuild_default
-      }
-    );
-    mod.initFinished = true;
-    return true;
-  });
-  return mod;
+  try {
+    if (initFinished === true)
+      return import_esbuild_wasm.default;
+    initFinished = initFinished || new Promise((resolve) => {
+      import_esbuild_wasm.default.initialize(
+        {
+          wasmURL: esbuild_default
+        }
+      ).then(() => resolve(true));
+    });
+    if (await initFinished === true)
+      return import_esbuild_wasm.default;
+    throw new Error("esbuild couldn't initialize");
+  } catch {
+    throw new Error("esbuild couldn't initialize");
+  } finally {
+    if (await initFinished === true)
+      return import_esbuild_wasm.default;
+    throw new Error("esbuild couldn't initialize");
+  }
 };
 export {
   init
 };
-//# sourceMappingURL=chunk-esbuildEsm-JG4EMJLM.mjs.map
+//# sourceMappingURL=chunk-esbuildEsm-RHSMMOWD.mjs.map

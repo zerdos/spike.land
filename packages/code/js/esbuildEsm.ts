@@ -28,6 +28,7 @@ export const init = async () => {
 
   throw new Error("esbuild couldn't initialize");
   }finally{
+    if (await initFinished === true) return esbuild
     throw new Error("esbuild couldn't initialize");
   }
 };

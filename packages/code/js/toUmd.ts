@@ -14,7 +14,8 @@ const mod = {
       deps: string[];
     };
   },
-};
+}
+
 
 export const toUmd = async (source: string, name: string) => {
   const esbuild = await (await import("./esbuildEsm")).init();
@@ -36,6 +37,9 @@ export const toUmd = async (source: string, name: string) => {
       if (mod.hashMap[dep]) return;
 
       const url = await import.meta.resolve!(dep, name);
+      const urlHash = md5(url);
+      if (mod.hashMap[urlHash]) return;
+      mod.hashMap[urlHash] = url;
       const source = await (await fetch(url)).text();
       await toUmd(source, dep);
     }));
