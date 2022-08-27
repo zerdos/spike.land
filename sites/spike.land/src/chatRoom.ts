@@ -355,7 +355,7 @@ export class Code {
             imports[k] = url.origin + imports[k]
           );
 
-          return new Response(
+          return new Response(  
             HTML.replaceAll(
               "/live/coder/",
               `/live/${this.codeSpace}/`,
