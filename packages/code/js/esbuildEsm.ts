@@ -2,21 +2,14 @@
 
 import esbuild from "esbuild-wasm";
 import wasmURL from "esbuild-wasm/esbuild.wasm?url";
-import { resolve } from "path";
-import { bool } from "prop-types";
+
 
 // import type { transform } from "esbuild/lib/main";
 
 let initFinished: Promise<boolean> | boolean = false
-const mod = {
-  initFinished: false,
-  // build: esbuild.build,
-  
-};
-
-let res: (Promise<boolean>)
 
 export const init = async () => {
+  try{
   if (initFinished === true) return esbuild;
 
   initFinished = initFinished || new Promise<boolean>(resolve => {
@@ -27,10 +20,14 @@ export const init = async () => {
       },
     ).then(()=>resolve(true))
   
-
-
-
   }) ;
-  
+
   if (await initFinished === true) return esbuild;
+  throw new Error("esbuild couldn't initialize");
+  }catch{
+
+  throw new Error("esbuild couldn't initialize");
+  }finally{
+    throw new Error("esbuild couldn't initialize");
+  }
 };
