@@ -78,7 +78,7 @@ export const toUmd = async (source: string, name: string) => {
 // createJsBlob(
 
 const opts = {
-  loader: "tsx";
+  loader: "tsx",
   format: "iife",
   globalName: "myAppp",
   treeShaking: true,
