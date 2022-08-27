@@ -32,8 +32,8 @@ var require_browser = __commonJS({
       };
       var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
       var __export = (target, all) => {
-        for (var name in all)
-          __defProp(target, name, { get: all[name], enumerable: true });
+        for (var name2 in all)
+          __defProp(target, name2, { get: all[name2], enumerable: true });
       };
       var __copyProps = (to, from, except, desc) => {
         if (from && typeof from === "object" || typeof from === "function") {
@@ -539,8 +539,8 @@ var require_browser = __commonJS({
           flags.push(`--conditions=${values.join(",")}`);
         }
         if (external)
-          for (let name of external)
-            flags.push(`--external:${name}`);
+          for (let name2 of external)
+            flags.push(`--external:${name2}`);
         if (banner) {
           for (let type in banner) {
             if (type.indexOf("=") >= 0)
@@ -825,16 +825,16 @@ var require_browser = __commonJS({
             let keys = {};
             if (typeof item !== "object")
               throw new Error(`Plugin at index ${i} must be an object`);
-            const name = getFlag(item, keys, "name", mustBeString);
-            if (typeof name !== "string" || name === "")
+            const name2 = getFlag(item, keys, "name", mustBeString);
+            if (typeof name2 !== "string" || name2 === "")
               throw new Error(`Plugin at index ${i} is missing a name`);
             try {
               let setup = getFlag(item, keys, "setup", mustBeFunction);
               if (typeof setup !== "function")
                 throw new Error(`Plugin is missing a setup function`);
-              checkForInvalidFlags(item, keys, `on plugin ${JSON.stringify(name)}`);
+              checkForInvalidFlags(item, keys, `on plugin ${JSON.stringify(name2)}`);
               let plugin = {
-                name,
+                name: name2,
                 onResolve: [],
                 onLoad: []
               };
@@ -857,7 +857,7 @@ var require_browser = __commonJS({
                     command: "resolve",
                     path,
                     key: buildKey,
-                    pluginName: name
+                    pluginName: name2
                   };
                   if (pluginName != null)
                     request.pluginName = pluginName;
@@ -894,12 +894,12 @@ var require_browser = __commonJS({
                 onStart(callback2) {
                   let registeredText = `This error came from the "onStart" callback registered here:`;
                   let registeredNote = extractCallerV8(new Error(registeredText), streamIn, "onStart");
-                  onStartCallbacks.push({ name, callback: callback2, note: registeredNote });
+                  onStartCallbacks.push({ name: name2, callback: callback2, note: registeredNote });
                 },
                 onEnd(callback2) {
                   let registeredText = `This error came from the "onEnd" callback registered here:`;
                   let registeredNote = extractCallerV8(new Error(registeredText), streamIn, "onEnd");
-                  onEndCallbacks.push({ name, callback: callback2, note: registeredNote });
+                  onEndCallbacks.push({ name: name2, callback: callback2, note: registeredNote });
                 },
                 onResolve(options, callback2) {
                   let registeredText = `This error came from the "onResolve" callback registered here:`;
@@ -907,11 +907,11 @@ var require_browser = __commonJS({
                   let keys2 = {};
                   let filter = getFlag(options, keys2, "filter", mustBeRegExp);
                   let namespace = getFlag(options, keys2, "namespace", mustBeString);
-                  checkForInvalidFlags(options, keys2, `in onResolve() call for plugin ${JSON.stringify(name)}`);
+                  checkForInvalidFlags(options, keys2, `in onResolve() call for plugin ${JSON.stringify(name2)}`);
                   if (filter == null)
                     throw new Error(`onResolve() call is missing a filter`);
                   let id = nextCallbackID++;
-                  onResolveCallbacks[id] = { name, callback: callback2, note: registeredNote };
+                  onResolveCallbacks[id] = { name: name2, callback: callback2, note: registeredNote };
                   plugin.onResolve.push({ id, filter: filter.source, namespace: namespace || "" });
                 },
                 onLoad(options, callback2) {
@@ -920,11 +920,11 @@ var require_browser = __commonJS({
                   let keys2 = {};
                   let filter = getFlag(options, keys2, "filter", mustBeRegExp);
                   let namespace = getFlag(options, keys2, "namespace", mustBeString);
-                  checkForInvalidFlags(options, keys2, `in onLoad() call for plugin ${JSON.stringify(name)}`);
+                  checkForInvalidFlags(options, keys2, `in onLoad() call for plugin ${JSON.stringify(name2)}`);
                   if (filter == null)
                     throw new Error(`onLoad() call is missing a filter`);
                   let id = nextCallbackID++;
-                  onLoadCallbacks[id] = { name, callback: callback2, note: registeredNote };
+                  onLoadCallbacks[id] = { name: name2, callback: callback2, note: registeredNote };
                   plugin.onLoad.push({ id, filter: filter.source, namespace: namespace || "" });
                 },
                 esbuild: streamIn.esbuild
@@ -933,39 +933,39 @@ var require_browser = __commonJS({
                 yield promise;
               requestPlugins.push(plugin);
             } catch (e) {
-              return { ok: false, error: e, pluginName: name };
+              return { ok: false, error: e, pluginName: name2 };
             }
           }
           const callback = (request) => __async(this, null, function* () {
             switch (request.command) {
               case "on-start": {
                 let response = { errors: [], warnings: [] };
-                yield Promise.all(onStartCallbacks.map((_0) => __async(this, [_0], function* ({ name, callback: callback2, note }) {
+                yield Promise.all(onStartCallbacks.map((_0) => __async(this, [_0], function* ({ name: name2, callback: callback2, note }) {
                   try {
                     let result = yield callback2();
                     if (result != null) {
                       if (typeof result !== "object")
-                        throw new Error(`Expected onStart() callback in plugin ${JSON.stringify(name)} to return an object`);
+                        throw new Error(`Expected onStart() callback in plugin ${JSON.stringify(name2)} to return an object`);
                       let keys = {};
                       let errors = getFlag(result, keys, "errors", mustBeArray);
                       let warnings = getFlag(result, keys, "warnings", mustBeArray);
-                      checkForInvalidFlags(result, keys, `from onStart() callback in plugin ${JSON.stringify(name)}`);
+                      checkForInvalidFlags(result, keys, `from onStart() callback in plugin ${JSON.stringify(name2)}`);
                       if (errors != null)
-                        response.errors.push(...sanitizeMessages(errors, "errors", stash, name));
+                        response.errors.push(...sanitizeMessages(errors, "errors", stash, name2));
                       if (warnings != null)
-                        response.warnings.push(...sanitizeMessages(warnings, "warnings", stash, name));
+                        response.warnings.push(...sanitizeMessages(warnings, "warnings", stash, name2));
                     }
                   } catch (e) {
-                    response.errors.push(extractErrorMessageV8(e, streamIn, stash, note && note(), name));
+                    response.errors.push(extractErrorMessageV8(e, streamIn, stash, note && note(), name2));
                   }
                 })));
                 return response;
               }
               case "on-resolve": {
-                let response = {}, name = "", callback2, note;
+                let response = {}, name2 = "", callback2, note;
                 for (let id of request.ids) {
                   try {
-                    ({ name, callback: callback2, note } = onResolveCallbacks[id]);
+                    ({ name: name2, callback: callback2, note } = onResolveCallbacks[id]);
                     let result = yield callback2({
                       path: request.path,
                       importer: request.importer,
@@ -976,7 +976,7 @@ var require_browser = __commonJS({
                     });
                     if (result != null) {
                       if (typeof result !== "object")
-                        throw new Error(`Expected onResolve() callback in plugin ${JSON.stringify(name)} to return an object`);
+                        throw new Error(`Expected onResolve() callback in plugin ${JSON.stringify(name2)} to return an object`);
                       let keys = {};
                       let pluginName = getFlag(result, keys, "pluginName", mustBeString);
                       let path = getFlag(result, keys, "path", mustBeString);
@@ -989,7 +989,7 @@ var require_browser = __commonJS({
                       let warnings = getFlag(result, keys, "warnings", mustBeArray);
                       let watchFiles = getFlag(result, keys, "watchFiles", mustBeArray);
                       let watchDirs = getFlag(result, keys, "watchDirs", mustBeArray);
-                      checkForInvalidFlags(result, keys, `from onResolve() callback in plugin ${JSON.stringify(name)}`);
+                      checkForInvalidFlags(result, keys, `from onResolve() callback in plugin ${JSON.stringify(name2)}`);
                       response.id = id;
                       if (pluginName != null)
                         response.pluginName = pluginName;
@@ -1006,9 +1006,9 @@ var require_browser = __commonJS({
                       if (pluginData != null)
                         response.pluginData = stash.store(pluginData);
                       if (errors != null)
-                        response.errors = sanitizeMessages(errors, "errors", stash, name);
+                        response.errors = sanitizeMessages(errors, "errors", stash, name2);
                       if (warnings != null)
-                        response.warnings = sanitizeMessages(warnings, "warnings", stash, name);
+                        response.warnings = sanitizeMessages(warnings, "warnings", stash, name2);
                       if (watchFiles != null)
                         response.watchFiles = sanitizeStringArray(watchFiles, "watchFiles");
                       if (watchDirs != null)
@@ -1016,16 +1016,16 @@ var require_browser = __commonJS({
                       break;
                     }
                   } catch (e) {
-                    return { id, errors: [extractErrorMessageV8(e, streamIn, stash, note && note(), name)] };
+                    return { id, errors: [extractErrorMessageV8(e, streamIn, stash, note && note(), name2)] };
                   }
                 }
                 return response;
               }
               case "on-load": {
-                let response = {}, name = "", callback2, note;
+                let response = {}, name2 = "", callback2, note;
                 for (let id of request.ids) {
                   try {
-                    ({ name, callback: callback2, note } = onLoadCallbacks[id]);
+                    ({ name: name2, callback: callback2, note } = onLoadCallbacks[id]);
                     let result = yield callback2({
                       path: request.path,
                       namespace: request.namespace,
@@ -1034,7 +1034,7 @@ var require_browser = __commonJS({
                     });
                     if (result != null) {
                       if (typeof result !== "object")
-                        throw new Error(`Expected onLoad() callback in plugin ${JSON.stringify(name)} to return an object`);
+                        throw new Error(`Expected onLoad() callback in plugin ${JSON.stringify(name2)} to return an object`);
                       let keys = {};
                       let pluginName = getFlag(result, keys, "pluginName", mustBeString);
                       let contents = getFlag(result, keys, "contents", mustBeStringOrUint8Array);
@@ -1045,7 +1045,7 @@ var require_browser = __commonJS({
                       let warnings = getFlag(result, keys, "warnings", mustBeArray);
                       let watchFiles = getFlag(result, keys, "watchFiles", mustBeArray);
                       let watchDirs = getFlag(result, keys, "watchDirs", mustBeArray);
-                      checkForInvalidFlags(result, keys, `from onLoad() callback in plugin ${JSON.stringify(name)}`);
+                      checkForInvalidFlags(result, keys, `from onLoad() callback in plugin ${JSON.stringify(name2)}`);
                       response.id = id;
                       if (pluginName != null)
                         response.pluginName = pluginName;
@@ -1060,9 +1060,9 @@ var require_browser = __commonJS({
                       if (loader != null)
                         response.loader = loader;
                       if (errors != null)
-                        response.errors = sanitizeMessages(errors, "errors", stash, name);
+                        response.errors = sanitizeMessages(errors, "errors", stash, name2);
                       if (warnings != null)
-                        response.warnings = sanitizeMessages(warnings, "warnings", stash, name);
+                        response.warnings = sanitizeMessages(warnings, "warnings", stash, name2);
                       if (watchFiles != null)
                         response.watchFiles = sanitizeStringArray(watchFiles, "watchFiles");
                       if (watchDirs != null)
@@ -1070,7 +1070,7 @@ var require_browser = __commonJS({
                       break;
                     }
                   } catch (e) {
-                    return { id, errors: [extractErrorMessageV8(e, streamIn, stash, note && note(), name)] };
+                    return { id, errors: [extractErrorMessageV8(e, streamIn, stash, note && note(), name2)] };
                   }
                 }
                 return response;
@@ -1083,11 +1083,11 @@ var require_browser = __commonJS({
           if (onEndCallbacks.length > 0) {
             runOnEndCallbacks = (result, logPluginError, done) => {
               (() => __async(this, null, function* () {
-                for (const { name, callback: callback2, note } of onEndCallbacks) {
+                for (const { name: name2, callback: callback2, note } of onEndCallbacks) {
                   try {
                     yield callback2(result);
                   } catch (e) {
-                    result.errors.push(yield new Promise((resolve) => logPluginError(e, name, note && note(), resolve)));
+                    result.errors.push(yield new Promise((resolve) => logPluginError(e, name2, note && note(), resolve)));
                   }
                 }
               }))().then(done);
@@ -2484,20 +2484,188 @@ ${file}:${line}:${column}: ERROR: ${pluginText}${e.text}`;
 
 // js/esbuildEsm.ts
 init_define_process();
+
+// ../../.yarn/global/cache/async-mutex-npm-0.3.2-600f6c46a1-9.zip/node_modules/async-mutex/index.mjs
+init_define_process();
+var E_TIMEOUT = new Error("timeout while waiting for mutex to become available");
+var E_ALREADY_LOCKED = new Error("mutex already locked");
+var E_CANCELED = new Error("request for lock canceled");
+var __awaiter$2 = function(thisArg, _arguments, P, generator) {
+  function adopt(value) {
+    return value instanceof P ? value : new P(function(resolve) {
+      resolve(value);
+    });
+  }
+  return new (P || (P = Promise))(function(resolve, reject) {
+    function fulfilled(value) {
+      try {
+        step(generator.next(value));
+      } catch (e) {
+        reject(e);
+      }
+    }
+    function rejected(value) {
+      try {
+        step(generator["throw"](value));
+      } catch (e) {
+        reject(e);
+      }
+    }
+    function step(result) {
+      result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
+    }
+    step((generator = generator.apply(thisArg, _arguments || [])).next());
+  });
+};
+var Semaphore = class {
+  constructor(_maxConcurrency, _cancelError = E_CANCELED) {
+    this._maxConcurrency = _maxConcurrency;
+    this._cancelError = _cancelError;
+    this._queue = [];
+    this._waiters = [];
+    if (_maxConcurrency <= 0) {
+      throw new Error("semaphore must be initialized to a positive value");
+    }
+    this._value = _maxConcurrency;
+  }
+  acquire() {
+    const locked = this.isLocked();
+    const ticketPromise = new Promise((resolve, reject) => this._queue.push({ resolve, reject }));
+    if (!locked)
+      this._dispatch();
+    return ticketPromise;
+  }
+  runExclusive(callback) {
+    return __awaiter$2(this, void 0, void 0, function* () {
+      const [value, release] = yield this.acquire();
+      try {
+        return yield callback(value);
+      } finally {
+        release();
+      }
+    });
+  }
+  waitForUnlock() {
+    return __awaiter$2(this, void 0, void 0, function* () {
+      if (!this.isLocked()) {
+        return Promise.resolve();
+      }
+      const waitPromise = new Promise((resolve) => this._waiters.push({ resolve }));
+      return waitPromise;
+    });
+  }
+  isLocked() {
+    return this._value <= 0;
+  }
+  release() {
+    if (this._maxConcurrency > 1) {
+      throw new Error("this method is unavailable on semaphores with concurrency > 1; use the scoped release returned by acquire instead");
+    }
+    if (this._currentReleaser) {
+      const releaser = this._currentReleaser;
+      this._currentReleaser = void 0;
+      releaser();
+    }
+  }
+  cancel() {
+    this._queue.forEach((ticket) => ticket.reject(this._cancelError));
+    this._queue = [];
+  }
+  _dispatch() {
+    const nextTicket = this._queue.shift();
+    if (!nextTicket)
+      return;
+    let released = false;
+    this._currentReleaser = () => {
+      if (released)
+        return;
+      released = true;
+      this._value++;
+      this._resolveWaiters();
+      this._dispatch();
+    };
+    nextTicket.resolve([this._value--, this._currentReleaser]);
+  }
+  _resolveWaiters() {
+    this._waiters.forEach((waiter) => waiter.resolve());
+    this._waiters = [];
+  }
+};
+var __awaiter$1 = function(thisArg, _arguments, P, generator) {
+  function adopt(value) {
+    return value instanceof P ? value : new P(function(resolve) {
+      resolve(value);
+    });
+  }
+  return new (P || (P = Promise))(function(resolve, reject) {
+    function fulfilled(value) {
+      try {
+        step(generator.next(value));
+      } catch (e) {
+        reject(e);
+      }
+    }
+    function rejected(value) {
+      try {
+        step(generator["throw"](value));
+      } catch (e) {
+        reject(e);
+      }
+    }
+    function step(result) {
+      result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
+    }
+    step((generator = generator.apply(thisArg, _arguments || [])).next());
+  });
+};
+var Mutex = class {
+  constructor(cancelError) {
+    this._semaphore = new Semaphore(1, cancelError);
+  }
+  acquire() {
+    return __awaiter$1(this, void 0, void 0, function* () {
+      const [, releaser] = yield this._semaphore.acquire();
+      return releaser;
+    });
+  }
+  runExclusive(callback) {
+    return this._semaphore.runExclusive(() => callback());
+  }
+  isLocked() {
+    return this._semaphore.isLocked();
+  }
+  waitForUnlock() {
+    return this._semaphore.waitForUnlock();
+  }
+  release() {
+    this._semaphore.release();
+  }
+  cancel() {
+    return this._semaphore.cancel();
+  }
+};
+
+// js/esbuildEsm.ts
 var import_esbuild_wasm = __toESM(require_browser(), 1);
 
 // ../../.yarn/global/cache/esbuild-wasm-npm-0.15.5-bc4c954bca-9.zip/node_modules/esbuild-wasm/esbuild.wasm?url
 var esbuild_default = "./chunk-esbuild-C5LYP4UP.wasm?url";
 
 // js/esbuildEsm.ts
+var mutex = new Mutex();
 var esbuild = {
   initialize: import_esbuild_wasm.initialize,
   transform: async (code, options) => {
-    if (options?.format === "esm")
-      return (0, import_esbuild_wasm.transform)(code, options);
-    return {
-      code
-    };
+    await mutex.runExclusive(async () => {
+      try {
+        console.info(`esbuld start`);
+        const transformOnj = await (0, import_esbuild_wasm.transform)(code, options);
+        console.info(`esbuld ranspile done`);
+        return transformOnj;
+      } catch {
+        console.error("Ebuild transform errror: ", { code, name });
+      }
+    });
   }
 };
 var initFinished = false;
@@ -2526,4 +2694,4 @@ var init = async () => {
 export {
   init
 };
-//# sourceMappingURL=chunk-esbuildEsm-NWP7YFY2.mjs.map
+//# sourceMappingURL=chunk-esbuildEsm-RW5RA7K4.mjs.map

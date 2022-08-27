@@ -25,6 +25,9 @@ export const toUmd = async (source: string, name: string) => {
 
   if (!mod.data[hash]) {
     const transformed = await esbuild.transform(source, {...opts,loader: name.includes(".tsx")?"tsx": name.includes(".ts")?"ts":name.includes(".jsx")?"jsx":"js",globalName: hash.replace(/[^a-f]/g, '')});
+    if (!transformed || !transformed.code)
+      console("tranform result -code is empty") ; 
+    return ;
     mod.data = {
       ...mod.data,
       [hash]: {
