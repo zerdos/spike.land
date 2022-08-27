@@ -1,31 +1,36 @@
 // import "core-js/proposals/string-replace-all-stage-4";
 
-import { Mutex } from "async-mutex";
-import {transform, initialize} from "esbuild-wasm";
+import esbuild from "esbuild-wasm";
 import wasmURL from "esbuild-wasm/esbuild.wasm?url";
+import { resolve } from "path";
+import { bool } from "prop-types";
 
 // import type { transform } from "esbuild/lib/main";
 
+let initFinished: Promise<boolean> | boolean = false
 const mod = {
   initFinished: false,
   // build: esbuild.build,
-  transform: transform
+  
 };
 
-const mutex = new Mutex();
+let res: (Promise<boolean>)
 
 export const init = async () => {
-  if (mod.initFinished) return mod;
+  if (initFinished === true) return esbuild;
 
-  await mutex.runExclusive(async () => {
-    mod.initFinished || await initialize(
+  initFinished = initFinished || new Promise<boolean>(resolve => {
+
+    esbuild.initialize(
       {
-        wasmURL: wasmURL as unknown as string,
+        wasmURL: wasmURL as unknown as string,  
       },
-    );
-    mod.initFinished = true;
-    return true;
-  });
+    ).then(()=>resolve(true))
+  
 
-  return mod;
+
+
+  }) ;
+  
+  if (await initFinished === true) return esbuild;
 };
