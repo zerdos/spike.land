@@ -24,7 +24,7 @@ export const toUmd = async (source: string, name: string) => {
   mod.hashMap = { ...mod.hashMap, [hash]: name, [name]: hash };
 
   if (!mod.data[hash]) {
-    const transformed = await esbuild.transform(source, {...opts, globalName: hash.replace(/[^a-f]/g, '')});
+    const transformed = await esbuild.transform(source, {...opts,loader: name.includes(".tsx")?"tsx": name.includes(".ts")?"ts":name.includes(".jsx")?"jsx":"js",globalName: hash.replace(/[^a-f]/g, '')});
     mod.data = {
       ...mod.data,
       [hash]: {
@@ -78,7 +78,7 @@ export const toUmd = async (source: string, name: string) => {
 // createJsBlob(
 
 const opts = {
-  loader: "tsx",
+  loader: "tsx";
   format: "iife",
   globalName: "myAppp",
   treeShaking: true,
