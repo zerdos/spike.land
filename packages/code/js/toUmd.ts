@@ -23,7 +23,7 @@ export const toUmd = async (source: string, name: string) => {
   mod.hashMap = { ...mod.hashMap, [hash]: name, [name]: hash };
 
   if (!mod.data[hash]) {
-    const transformed = await esbuild.transform(source, opts);
+    const transformed = await esbuild.transform(source, {...opts, globalName: hash.replace(/[^a-f]/g, '')});
     mod.data = {
       ...mod.data,
       [hash]: {
@@ -35,7 +35,7 @@ export const toUmd = async (source: string, name: string) => {
     await Promise.all(mod.data[hash].deps.map(async (dep) => {
       if (mod.hashMap[dep]) return;
 
-      const url = await import.meta.resolve!(dep);
+      const url = await import.meta.resolve!(dep, name);
       const source = await (await fetch(url)).text();
       await toUmd(source, dep);
     }));

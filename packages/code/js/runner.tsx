@@ -42,7 +42,7 @@ export interface IRunnerSession {
 
 const mod = {
   i: 0,
-  esbuildInit: async () => (await (await import("./esbuildEsm"))).init(),
+  esbuildInit: async () => await (await (await import("./esbuildEsm"))).init(),
 };
 
 export async function runner({ code, counter, codeSpace }: {
@@ -78,7 +78,7 @@ export async function runner({ code, counter, codeSpace }: {
       target: "es2021",
     } as unknown as TransformOptions);
 
-    const UMD = await toUmd(code, codeSpace);
+    const UMD = await toUmd(code, `${location.origin}/live/${codeSpace}.tsx`);
     console.log({ UMD });
 
     if (transpiled.code === mST().transpiled) return;

@@ -1,7 +1,7 @@
 import {
   appFactory,
   saveCode
-} from "./chunk-chunk-QTSJDOVF.mjs";
+} from "./chunk-chunk-3MSKNRTH.mjs";
 import {
   hashCode,
   mST,
@@ -202,11 +202,11 @@ var mod = {
   data: {}
 };
 var toUmd = async (source, name) => {
-  const esbuild = await (await import("./chunk-esbuildEsm-WWAPEUMO.mjs")).init();
+  const esbuild = await (await import("./chunk-esbuildEsm-JG4EMJLM.mjs")).init();
   const hash = md5(source);
   mod.hashMap = { ...mod.hashMap, [hash]: name, [name]: hash };
   if (!mod.data[hash]) {
-    const transformed = await esbuild.transform(source, opts);
+    const transformed = await esbuild.transform(source, { ...opts, globalName: hash.replace(/[^a-f]/g, "") });
     mod.data = {
       ...mod.data,
       [hash]: {
@@ -217,7 +217,7 @@ var toUmd = async (source, name) => {
     await Promise.all(mod.data[hash].deps.map(async (dep) => {
       if (mod.hashMap[dep])
         return;
-      const url = await import.meta.resolve(dep);
+      const url = await import.meta.resolve(dep, name);
       const source2 = await (await fetch(url)).text();
       await toUmd(source2, dep);
     }));
@@ -257,7 +257,7 @@ var findDeps = (code) => {
 // js/runner.tsx
 var mod2 = {
   i: 0,
-  esbuildInit: async () => (await await import("./chunk-esbuildEsm-WWAPEUMO.mjs")).init()
+  esbuildInit: async () => await (await await import("./chunk-esbuildEsm-JG4EMJLM.mjs")).init()
 };
 async function runner({ code, counter, codeSpace }) {
   const esbuild = await mod2.esbuildInit();
@@ -311,4 +311,4 @@ async function runner({ code, counter, codeSpace }) {
 export {
   runner
 };
-//# sourceMappingURL=chunk-runner-WJ5GD42E.mjs.map
+//# sourceMappingURL=chunk-runner-DW5AONKJ.mjs.map

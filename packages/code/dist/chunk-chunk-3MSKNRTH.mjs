@@ -20261,7 +20261,7 @@ var Editor = ({ code, i, codeSpace: codeSpace2 }) => {
     myCode: code,
     counter: i,
     runner: async ({ code: code2, counter: counter2, codeSpace: codeSpace3 }) => {
-      const { runner: runner2 } = await import("./chunk-runner-WJ5GD42E.mjs");
+      const { runner: runner2 } = await import("./chunk-runner-DW5AONKJ.mjs");
       runner2({ code: code2, counter: counter2, codeSpace: codeSpace3 });
       changeContent((x) => ({ ...x, runner: runner2, code: code2, counter: counter2 }));
     },
@@ -21123,4 +21123,4 @@ export {
   join,
   sw
 };
-//# sourceMappingURL=chunk-chunk-QTSJDOVF.mjs.map
+//# sourceMappingURL=chunk-chunk-3MSKNRTH.mjs.map
