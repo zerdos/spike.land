@@ -2584,7 +2584,6 @@ __metadata:
     clean-stack: ^4.2.0
     comlink: ^4.3.1
     csstype: ^3.1.0
-    es-module-shims: 1.5.17
     esbuild: ^0.15.5
     esbuild-plugin-import-map: 2.1.0
     esbuild-wasm: 0.15.5
@@ -5112,13 +5111,6 @@ __metadata:
   version: 1.0.3
   resolution: "es-module-lexer@npm:1.0.3"
   checksum: 60d37e0477b4dafc61cf2dde370013c8c1af79b4cd58a516d49ac510d27c97297b66dd51d5374adfd5f75d67d44472e9e39662d9ee7d344e1380544787c4f2d7
-  languageName: node
-  linkType: hard
-
-"es-module-shims@npm:1.5.17":
-  version: 1.5.17
-  resolution: "es-module-shims@npm:1.5.17"
-  checksum: 9a5ed7cb4482418b206e29af79a3685d8f2a17142f0e85505bb9d902d751bb039118696a86759c071b4124a75b077af4be1813c897a7044499e561bb523c8915
   languageName: node
   linkType: hard
 

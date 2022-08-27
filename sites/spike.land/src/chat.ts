@@ -13,11 +13,11 @@ const preact = "/" + a["react.mjs"];
 export const imap = {
   "imports": {
     "framer-motion":
-      "/npm:framer-motion?bundle&target=es2022&external=react,tslib,@emotion/*",
+      "/npm:framer-motion?bundle&external=react,tslib,@emotion/*",
     "@emotion/react": "/npm:@emotion/react?bundle&external=react",
-    "@emotion/styled": "/npm:@emotion/styled?target=es2022&external=react",
+    "@emotion/styled": "/npm:@emotion/styled?&external=react",
     "@emotion/react/jsx-runtime":
-      "/npm:@emotion/react/jsx-runtime?target=es2022&external=react/jsx-runtime,react",
+      "/npm:@emotion/react/jsx-runtime?&external=react/jsx-runtime,react",
     "@emotion/": "/npm:@emotion/",
     "monaco-editor": "/npm:monaco-editor?bundle",
     "monaco-editor/": "/npm:monaco-editor/",
@@ -27,7 +27,7 @@ export const imap = {
     "react-dom/client": preact,
     "react-dom/server": preact,
     "react/jsx-runtime": preact,
-    "tslib": "/npm:tslib?target=es2022",
+    "tslib": "/npm:tslib?bundle",
     "*": "/npm:[self]",
     // "preact": "https://ga.jspm.io/npm:preact@10.8.2/dist/preact.module.js",
     // "preact-render-to-string": "https://ga.jspm.io/npm:preact-render-to-string@5.2.0/dist/index.mjs",

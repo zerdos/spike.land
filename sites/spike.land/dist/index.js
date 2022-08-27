@@ -384,10 +384,10 @@ var a = JSON.parse(manifestJSON);
 var preact = "/" + a["react.mjs"];
 var imap = {
   "imports": {
-    "framer-motion": "/npm:framer-motion?bundle&target=es2022&external=react,tslib,@emotion/*",
+    "framer-motion": "/npm:framer-motion?bundle&external=react,tslib,@emotion/*",
     "@emotion/react": "/npm:@emotion/react?bundle&external=react",
-    "@emotion/styled": "/npm:@emotion/styled?target=es2022&external=react",
-    "@emotion/react/jsx-runtime": "/npm:@emotion/react/jsx-runtime?target=es2022&external=react/jsx-runtime,react",
+    "@emotion/styled": "/npm:@emotion/styled?&external=react",
+    "@emotion/react/jsx-runtime": "/npm:@emotion/react/jsx-runtime?&external=react/jsx-runtime,react",
     "@emotion/": "/npm:@emotion/",
     "monaco-editor": "/npm:monaco-editor?bundle",
     "monaco-editor/": "/npm:monaco-editor/",
@@ -396,7 +396,7 @@ var imap = {
     "react-dom/client": preact,
     "react-dom/server": preact,
     "react/jsx-runtime": preact,
-    "tslib": "/npm:tslib?target=es2022",
+    "tslib": "/npm:tslib?bundle",
     "*": "/npm:[self]"
   }
 };
