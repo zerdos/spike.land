@@ -1,9 +1,17 @@
 // import "core-js/proposals/string-replace-all-stage-4";
 
-import esbuild from "esbuild-wasm";
+import {initialize, transform, TransformOptions} from "esbuild-wasm";
 import wasmURL from "esbuild-wasm/esbuild.wasm?url";
 
-
+const esbuild= {
+  initialize,
+  transform: async(code: string, options: TransformOptions)=>{
+    if (options?.format==="esm")  return transform(code, options);
+    return {
+      code
+  }
+}
+}
 // import type { transform } from "esbuild/lib/main";
 
 let initFinished: Promise<boolean> | boolean = false

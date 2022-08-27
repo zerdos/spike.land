@@ -1,7 +1,7 @@
 import {
   appFactory,
   saveCode
-} from "./chunk-chunk-I2UGBTIQ.mjs";
+} from "./chunk-chunk-BAXK3RRS.mjs";
 import {
   hashCode,
   mST,
@@ -202,11 +202,11 @@ var mod = {
   data: {}
 };
 var toUmd = async (source, name) => {
-  const esbuild = await (await import("./chunk-esbuildEsm-RHSMMOWD.mjs")).init();
+  const esbuild = await (await import("./chunk-esbuildEsm-NWP7YFY2.mjs")).init();
   const hash = md5(source);
   mod.hashMap = { ...mod.hashMap, [hash]: name, [name]: hash };
   if (!mod.data[hash]) {
-    const transformed = await esbuild.transform(source, { ...opts, globalName: hash.replace(/[^a-f]/g, "") });
+    const transformed = await esbuild.transform(source, { ...opts, loader: name.includes(".tsx") ? "tsx" : name.includes(".ts") ? "ts" : name.includes(".jsx") ? "jsx" : "js", globalName: hash.replace(/[^a-f]/g, "") });
     mod.data = {
       ...mod.data,
       [hash]: {
@@ -261,7 +261,7 @@ var findDeps = (code) => {
 // js/runner.tsx
 var mod2 = {
   i: 0,
-  esbuildInit: async () => await (await await import("./chunk-esbuildEsm-RHSMMOWD.mjs")).init()
+  esbuildInit: async () => await (await await import("./chunk-esbuildEsm-NWP7YFY2.mjs")).init()
 };
 async function runner({ code, counter, codeSpace }) {
   const esbuild = await mod2.esbuildInit();
@@ -315,4 +315,4 @@ async function runner({ code, counter, codeSpace }) {
 export {
   runner
 };
-//# sourceMappingURL=chunk-runner-L3JOOOAW.mjs.map
+//# sourceMappingURL=chunk-runner-LIMBJURX.mjs.map

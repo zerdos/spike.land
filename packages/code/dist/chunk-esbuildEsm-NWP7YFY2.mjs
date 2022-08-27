@@ -73,9 +73,9 @@ var require_browser = __commonJS({
         default: () => browser_default,
         formatMessages: () => formatMessages,
         formatMessagesSync: () => formatMessagesSync,
-        initialize: () => initialize,
+        initialize: () => initialize2,
         serve: () => serve,
-        transform: () => transform,
+        transform: () => transform2,
         transformSync: () => transformSync,
         version: () => version
       });
@@ -1411,7 +1411,7 @@ var require_browser = __commonJS({
             return buildResponseToResult(response, callback);
           });
         };
-        let transform2 = ({ callName, refs, input, options, isTTY, fs, callback }) => {
+        let transform22 = ({ callName, refs, input, options, isTTY, fs, callback }) => {
           const details = createObjectStash();
           let start = (inputPath) => {
             try {
@@ -1542,7 +1542,7 @@ var require_browser = __commonJS({
           afterClose,
           service: {
             buildOrServe,
-            transform: transform2,
+            transform: transform22,
             formatMessages: formatMessages2,
             analyzeMetafile: analyzeMetafile2
           }
@@ -1755,7 +1755,7 @@ ${file}:${line}:${column}: ERROR: ${pluginText}${e.text}`;
       var serve = () => {
         throw new Error(`The "serve" API only works in node`);
       };
-      var transform = (input, options) => ensureServiceIsRunning().transform(input, options);
+      var transform2 = (input, options) => ensureServiceIsRunning().transform(input, options);
       var formatMessages = (messages, options) => ensureServiceIsRunning().formatMessages(messages, options);
       var analyzeMetafile = (metafile, options) => ensureServiceIsRunning().analyzeMetafile(metafile, options);
       var buildSync = () => {
@@ -1779,7 +1779,7 @@ ${file}:${line}:${column}: ERROR: ${pluginText}${e.text}`;
           throw new Error('You need to wait for the promise returned from "initialize" to be resolved before calling this');
         throw new Error('You need to call "initialize" before calling this');
       };
-      var initialize = (options) => {
+      var initialize2 = (options) => {
         options = validateInitializeOptions(options || {});
         let wasmURL = options.wasmURL;
         let wasmModule = options.wasmModule;
@@ -2490,30 +2490,40 @@ var import_esbuild_wasm = __toESM(require_browser(), 1);
 var esbuild_default = "./chunk-esbuild-C5LYP4UP.wasm?url";
 
 // js/esbuildEsm.ts
+var esbuild = {
+  initialize: import_esbuild_wasm.initialize,
+  transform: async (code, options) => {
+    if (options?.format === "esm")
+      return (0, import_esbuild_wasm.transform)(code, options);
+    return {
+      code
+    };
+  }
+};
 var initFinished = false;
 var init = async () => {
   try {
     if (initFinished === true)
-      return import_esbuild_wasm.default;
+      return esbuild;
     initFinished = initFinished || new Promise((resolve) => {
-      import_esbuild_wasm.default.initialize(
+      esbuild.initialize(
         {
           wasmURL: esbuild_default
         }
       ).then(() => resolve(true));
     });
     if (await initFinished === true)
-      return import_esbuild_wasm.default;
+      return esbuild;
     throw new Error("esbuild couldn't initialize");
   } catch {
     throw new Error("esbuild couldn't initialize");
   } finally {
     if (await initFinished === true)
-      return import_esbuild_wasm.default;
+      return esbuild;
     throw new Error("esbuild couldn't initialize");
   }
 };
 export {
   init
 };
-//# sourceMappingURL=chunk-esbuildEsm-RHSMMOWD.mjs.map
+//# sourceMappingURL=chunk-esbuildEsm-NWP7YFY2.mjs.map

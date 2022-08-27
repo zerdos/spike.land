@@ -32,7 +32,6 @@ var dependencies = {
   "clean-stack": "^4.2.0",
   comlink: "^4.3.1",
   csstype: "^3.1.0",
-  "es-module-shims": "1.5.17",
   "esbuild-wasm": "0.15.5",
   "fast-diff": "1.2.0",
   "framer-motion": "7.2.1",
@@ -560,4 +559,4 @@ var startMonaco = async ({ code, container, name }) => {
 export {
   startMonaco
 };
-//# sourceMappingURL=chunk-startMonaco-PGF2KIHN.mjs.map
+//# sourceMappingURL=chunk-startMonaco-PEV4TY6X.mjs.map
