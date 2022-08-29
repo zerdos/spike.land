@@ -96,7 +96,7 @@ const build = (entryPoints, format = "esm") =>
   });
 
 await build([
-  "./js/session.ts",
+  "js/session.ts",
   "js/react-preact.ts",
   "js/motion.ts",
   "js/emotion.ts",
