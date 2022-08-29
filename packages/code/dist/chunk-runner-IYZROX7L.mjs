@@ -1,7 +1,7 @@
 import {
   appFactory,
   saveCode
-} from "./chunk-chunk-WPO2EKUX.mjs";
+} from "./chunk-chunk-XRMFALAO.mjs";
 import {
   hashCode,
   mST,
@@ -132,4 +132,4 @@ async function runner({ code, counter, codeSpace }) {
 export {
   runner
 };
-//# sourceMappingURL=chunk-runner-6MVCZZYB.mjs.map
+//# sourceMappingURL=chunk-runner-IYZROX7L.mjs.map
