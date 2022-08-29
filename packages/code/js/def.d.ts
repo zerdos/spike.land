@@ -9,6 +9,3 @@ declare module "*.wasm?url" {
   const returnFn: () => WebAssembly;
   export default returnFn;
 }
-
-
-

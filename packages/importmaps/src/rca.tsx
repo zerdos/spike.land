@@ -1,7 +1,7 @@
-import { css } from '@emotion/react';
-import { motion } from 'framer-motion';
+import { css } from "@emotion/react";
+import { motion } from "framer-motion";
 
-export const RCA =  () => (
+export const RCA = () => (
   <header
     css={css`
       background-color: red;
@@ -13,18 +13,21 @@ export const RCA =  () => (
       color: white;
       text-align: center;
       overflow: hidden;
-    `}>
+    `}
+  >
     <motion.div
       animate={{ rotate: 360 }}
       transition={{
         repeat: 0,
         duration: 2,
-        repeatType: 'loop',
-      }}>
+        repeatType: "loop",
+      }}
+    >
       <div
         css={css`
           font-size: calc(10px + 20vmin);
-        `}>
+        `}
+      >
         🔥
       </div>
       ---d--.dd------
@@ -36,7 +39,8 @@ export const RCA =  () => (
       css={css`
         color: #61dafb;
       `}
-      href="./">
+      href="./"
+    >
       Open the editor or wait for notuhing it to open.
     </a>
   </header>

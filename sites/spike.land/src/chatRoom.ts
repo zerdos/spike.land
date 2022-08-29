@@ -350,20 +350,20 @@ export class Code {
 
           const a = JSON.parse(manifestJSON);
 
+          const imaps: { [key: string]: string } = { ...imap.imports };
 
-          const imaps :{[key: string]: string} = {...imap.imports};
-
-          Object.keys(imap.imports).map((k) => imaps[k] = url.origin + "/"+ imaps[k]
+          Object.keys(imap.imports).map((k) =>
+            imaps[k] = url.origin + "/" + imaps[k]
           );
 
-          return new Response(  
+          return new Response(
             HTML.replaceAll(
               "/live/coder/",
               `/live/${this.codeSpace}/`,
             ).replace(
               `<script type="importmap"></script>`,
               ` <script type="importmap-shim">${
-                JSON.stringify({ imports: {...imaps } })
+                JSON.stringify({ imports: { ...imaps } })
               }</script>`,
             )
               .replace(

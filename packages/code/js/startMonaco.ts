@@ -251,12 +251,15 @@ const monacoContribution = async (
 
 window.MonacoEnvironment = {
   getWorker: async function (_workerId: string, label: string) {
-   
     if (label === "typescript" || label === "javascript") {
-      const tsWorker = (await import("monaco-editor/esm/vs/language/typescript/ts.worker?worker")).default
+      const tsWorker = (await import(
+        "monaco-editor/esm/vs/language/typescript/ts.worker?worker"
+      )).default;
       return tsWorker();
     }
-    const    editorWorker =( await import("monaco-editor/esm/vs/editor/editor.worker?worker")).default;
+    const editorWorker =
+      (await import("monaco-editor/esm/vs/editor/editor.worker?worker"))
+        .default;
     return editorWorker();
   },
 };

@@ -385,7 +385,13 @@ var ws = a["ws.mjs"];
 var preact = a["react-preact.mjs"];
 var emotionReact = a["emotion.mjs"];
 var motion = a["motion.mjs"];
-var esbuildExternal = ["monaco-editor", "react/jsx-runtime", "react/jsx-dev-runtime", "framer-motion", "tslib"];
+var esbuildExternal = [
+  "monaco-editor",
+  "react/jsx-runtime",
+  "react/jsx-dev-runtime",
+  "framer-motion",
+  "tslib"
+];
 var externals = esbuildExternal.join(",");
 var mods = {};
 esbuildExternal.map((packageName) => mods[packageName] = `npm:/${packageName}`);
@@ -462,15 +468,17 @@ var chat_default = {
                   url: redirectUrl
                 });
               }
-              if (resp !== null && !resp.ok)
+              if (resp !== null && !resp.ok) {
                 return resp;
+              }
             }
             const isText = !!resp?.headers?.get("Content-Type")?.includes(
               "charset"
             );
             const bodyStr = await (isText ? resp.text() : null);
-            if (!bodyStr)
+            if (!bodyStr) {
               throw new Error("empty body");
+            }
             const regex = /https:\/\/esm.sh\//gm;
             const regex2 = / from "\//gm;
             const regex3 = /import "\//gm;
