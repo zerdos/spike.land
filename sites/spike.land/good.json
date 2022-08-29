@@ -68,35 +68,35 @@
       "imports": []
     },
     "src/index.html": {
-      "bytes": 2682,
+      "bytes": 2678,
       "imports": []
     },
     "src/iife.html": {
       "bytes": 2244,
       "imports": []
     },
-    "../../packages/code/dist/chunk-chunk-NXHTEHEK.mjs": {
-      "bytes": 1316,
+    "../../packages/code/dist/chunk-chunk-VGJVMXXD.mjs": {
+      "bytes": 2773,
       "imports": []
     },
-    "../../packages/code/dist/chunk-chunk-S6MXAPW5.mjs": {
-      "bytes": 71682,
+    "../../packages/code/dist/chunk-chunk-EHRVFTLO.mjs": {
+      "bytes": 166668,
       "imports": [
         {
-          "path": "../../packages/code/dist/chunk-chunk-NXHTEHEK.mjs",
+          "path": "../../packages/code/dist/chunk-chunk-VGJVMXXD.mjs",
           "kind": "import-statement"
         }
       ]
     },
     "../../packages/code/dist/session.mjs": {
-      "bytes": 302,
+      "bytes": 412,
       "imports": [
         {
-          "path": "../../packages/code/dist/chunk-chunk-S6MXAPW5.mjs",
+          "path": "../../packages/code/dist/chunk-chunk-EHRVFTLO.mjs",
           "kind": "import-statement"
         },
         {
-          "path": "../../packages/code/dist/chunk-chunk-NXHTEHEK.mjs",
+          "path": "../../packages/code/dist/chunk-chunk-VGJVMXXD.mjs",
           "kind": "import-statement"
         }
       ]
@@ -185,7 +185,7 @@
       "entryPoint": "src/index.ts",
       "inputs": {
         "../../node_modules/mime/Mime.js": {
-          "bytesInOutput": 2020
+          "bytesInOutput": 2014
         },
         "../../node_modules/mime/types/standard.js": {
           "bytesInOutput": 10359
@@ -212,19 +212,19 @@
           "bytesInOutput": 1095
         },
         "src/index.html": {
-          "bytesInOutput": 2710
+          "bytesInOutput": 2706
         },
         "src/iife.html": {
           "bytesInOutput": 2272
         },
         "src/chatRoom.ts": {
-          "bytesInOutput": 14551
+          "bytesInOutput": 14669
         },
-        "../../packages/code/dist/chunk-chunk-NXHTEHEK.mjs": {
-          "bytesInOutput": 818
+        "../../packages/code/dist/chunk-chunk-VGJVMXXD.mjs": {
+          "bytesInOutput": 1342
         },
-        "../../packages/code/dist/chunk-chunk-S6MXAPW5.mjs": {
-          "bytesInOutput": 100747
+        "../../packages/code/dist/chunk-chunk-EHRVFTLO.mjs": {
+          "bytesInOutput": 165883
         },
         "src/getBackupSession.ts": {
           "bytesInOutput": 2836
@@ -239,7 +239,7 @@
           "bytesInOutput": 478
         }
       },
-      "bytes": 189438
+      "bytes": 255206
     }
   }
 }
