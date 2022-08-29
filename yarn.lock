@@ -2556,7 +2556,7 @@ __metadata:
     esbuild: 0.15.5
     miniflare: ^2.7.1
     typescript: 4.8.2
-    wrangler: 2.0.27
+    wrangler: 2.0.28
   languageName: unknown
   linkType: soft
 
@@ -6361,7 +6361,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"fsevents@patch:fsevents@npm%3A~2.3.2#~builtin<compat/fsevents>":
+"fsevents@patch:fsevents@npm%3A~2.3.2#~builtin<compat/fsevents>, fsevents@patch:fsevents@~2.3.2#~builtin<compat/fsevents>":
   version: 2.3.2
   resolution: "fsevents@patch:fsevents@npm%3A2.3.2#~builtin<compat/fsevents>::version=2.3.2&hash=18f3a7"
   dependencies:
@@ -8519,7 +8519,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"miniflare@npm:^2.6.0, miniflare@npm:^2.7.1":
+"miniflare@npm:^2.7.1":
   version: 2.7.1
   resolution: "miniflare@npm:2.7.1"
   dependencies:
@@ -11987,30 +11987,30 @@ __metadata:
   languageName: node
   linkType: hard
 
-"wrangler@npm:2.0.27":
-  version: 2.0.27
-  resolution: "wrangler@npm:2.0.27"
+"wrangler@npm:2.0.28":
+  version: 2.0.28
+  resolution: "wrangler@npm:2.0.28"
   dependencies:
-    "@cloudflare/kv-asset-handler": "npm:^0.2.0"
-    "@esbuild-plugins/node-globals-polyfill": "npm:^0.1.1"
-    "@esbuild-plugins/node-modules-polyfill": "npm:^0.1.4"
-    blake3-wasm: "npm:^2.1.5"
-    chokidar: "npm:^3.5.3"
-    esbuild: "npm:0.14.51"
-    fsevents: "npm:~2.3.2"
-    miniflare: "npm:^2.6.0"
-    nanoid: "npm:^3.3.3"
-    path-to-regexp: "npm:^6.2.0"
-    selfsigned: "npm:^2.0.1"
-    source-map: "npm:^0.7.4"
-    xxhash-wasm: "npm:^1.0.1"
+    "@cloudflare/kv-asset-handler": ^0.2.0
+    "@esbuild-plugins/node-globals-polyfill": ^0.1.1
+    "@esbuild-plugins/node-modules-polyfill": ^0.1.4
+    blake3-wasm: ^2.1.5
+    chokidar: ^3.5.3
+    esbuild: 0.14.51
+    fsevents: ~2.3.2
+    miniflare: ^2.7.1
+    nanoid: ^3.3.3
+    path-to-regexp: ^6.2.0
+    selfsigned: ^2.0.1
+    source-map: ^0.7.4
+    xxhash-wasm: ^1.0.1
   dependenciesMeta:
     fsevents:
       optional: true
   bin:
     wrangler: bin/wrangler.js
     wrangler2: bin/wrangler.js
-  checksum: c490a57aa13bba799793a76dc351043b647bc474af6ac4d0cf6f01406700049f736dcfa652943dd743e5d799da13cd4919a9f7d48da3173eb89ac0eb8abc58c6
+  checksum: 26e87503aefecfc0365ba6a66ddcaba480ee6838fc51ed3ca1e495b8a6c78f4b071b5337fec334295f15f1470aa39479a6c8109d070e68e1f5fbcad2b37bbacd
   languageName: node
   linkType: hard
 
