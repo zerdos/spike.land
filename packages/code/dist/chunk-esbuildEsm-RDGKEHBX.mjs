@@ -2659,7 +2659,7 @@ var esbuild = {
     try {
       console.info(`esbuld start`);
       const transformObj = await (0, import_esbuild_wasm.transform)(code, options);
-      console.info(`esbuld ranspile done`);
+      console.info(`esbuld transpile done`);
       return transformObj;
     } catch {
       console.error("Ebuild transform errror: ", { code, name });
@@ -2695,4 +2695,4 @@ var init = async () => {
 export {
   init
 };
-//# sourceMappingURL=chunk-esbuildEsm-UALNIISY.mjs.map
+//# sourceMappingURL=chunk-esbuildEsm-RDGKEHBX.mjs.map

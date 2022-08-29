@@ -17,7 +17,7 @@ const esbuild= {
 
     // if (options?.format==="esm") {
       const transformObj = await transform(code, options);
-      console.info(`esbuld ranspile done`)
+      console.info(`esbuld transpile done`)
     return transformObj
 }catch{
  console.error ("Ebuild transform errror: ", {code, name}) 

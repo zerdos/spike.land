@@ -3,9 +3,9 @@ import { saveCode } from "./ws";
 import { appFactory } from "./starter";
 import { mST } from "./session";
 import { renderFromString } from "./renderToString";
-import { toUmd } from "./toUmd";
+// import { toUmd } from "./toUmd";
 import type { TransformOptions } from "esbuild-wasm";
-import { md5 } from "./md5";
+// import { md5 } from "./md5";
 // var Stream = require('stream/')
 
 // import "es-module-shims";
@@ -79,20 +79,20 @@ export async function runner({ code, counter, codeSpace }: {
       target: "es2021",
     } as unknown as TransformOptions);
 
-    try{
-      (async ()=>{
-        const name = `${location.origin}/live/${codeSpace}-${md5(code)}.tsx`;
-    const UMD = await toUmd(code,name);
-    console.log({ UMD });
-  //  console.log(UMD?.toJs(name));
-      // const hashName = UMD?.hashMap[name];
-      // UMD?.data[hashName!].code + 
-    // console.log(UMD.toJs(`${location.origin}/live/${codeSpace}-${md5(code)}.tsx`))
-      })();
-    }
-    catch(e){
-      console.error({e});
-    }
+  //   try{
+  //     (async ()=>{
+  //       const name = `${location.origin}/live/${codeSpace}-${md5(code)}.tsx`;
+  //   const UMD = await toUmd(code,name);
+  //   console.log({ UMD });
+  // //  console.log(UMD?.toJs(name));
+  //     // const hashName = UMD?.hashMap[name];
+  //     // UMD?.data[hashName!].code + 
+  //   // console.log(UMD.toJs(`${location.origin}/live/${codeSpace}-${md5(code)}.tsx`))
+  //     })();
+  //   }
+  //   catch(e){
+  //     console.error({e});
+  //   }
     if (transpiled.code === mST().transpiled) return;
 
     let restartError = false;

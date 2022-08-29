@@ -11,7 +11,7 @@ import { CodeEnv } from "./env";
 const a = JSON.parse(manifestJSON);
 const ws = a["ws.mjs"];
 const preact =  a["react-preact.mjs"];
-const emotiomReact =  a["emotion.mjs"];
+const emotionReact =  a["emotion.mjs"];
 const motion=  a["motion.mjs"];
 
 const esbuildExternal =[ "monaco-editor", "react/jsx-runtime", "react/jsx-dev-runtime","framer-motion", "tslib"];
@@ -22,9 +22,9 @@ export const imap = {
   "imports": {
     ...mods, 
     "ws": ws,
-    "@emotion/react": emotiomReact,
-    "@emotion/react/jsx-runtime": emotiomReact,
-    "@emotion/react/jsx-dev-runtime": emotiomReact,
+    "@emotion/react": emotionReact,
+    "@emotion/react/jsx-runtime": emotionReact,
+    "@emotion/react/jsx-dev-runtime": emotionReact,
     "monaco-editor": "npm:monaco-editor", 
     "monaco-editor/": "npm:monaco-editor/",    
     "react": preact,

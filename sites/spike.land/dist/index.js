@@ -383,7 +383,7 @@ async function handleErrors(request, func) {
 var a = JSON.parse(manifestJSON);
 var ws = a["ws.mjs"];
 var preact = a["react-preact.mjs"];
-var emotiomReact = a["emotion.mjs"];
+var emotionReact = a["emotion.mjs"];
 var motion = a["motion.mjs"];
 var esbuildExternal = ["monaco-editor", "react/jsx-runtime", "react/jsx-dev-runtime", "framer-motion", "tslib"];
 var externals = esbuildExternal.join(",");
@@ -393,9 +393,9 @@ var imap = {
   "imports": {
     ...mods,
     "ws": ws,
-    "@emotion/react": emotiomReact,
-    "@emotion/react/jsx-runtime": emotiomReact,
-    "@emotion/react/jsx-dev-runtime": emotiomReact,
+    "@emotion/react": emotionReact,
+    "@emotion/react/jsx-runtime": emotionReact,
+    "@emotion/react/jsx-dev-runtime": emotionReact,
     "monaco-editor": "npm:monaco-editor",
     "monaco-editor/": "npm:monaco-editor/",
     "react": preact,
