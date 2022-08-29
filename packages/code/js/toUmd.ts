@@ -66,6 +66,7 @@ export const toUmd = async (source: string, name: string) => {
       await toUmd(source, dep);
     }));
   }
+  return mod;
 };
 
 // `importScripts("${comlinkUmd}");
