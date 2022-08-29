@@ -2573,7 +2573,7 @@ __metadata:
     "@types/lodash.throttle": ^4.1.7
     "@types/node": 18.7.13
     "@types/prettier": 2.7.0
-    "@types/react": 18.0.17
+    "@types/react": ^18.0.17
     "@types/react-dom": 18.0.6
     "@types/rimraf": ^3.0.2
     "@types/xo": ^0.39.3
@@ -2913,7 +2913,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react@npm:*, @types/react@npm:18.0.17":
+"@types/react@npm:*, @types/react@npm:18.0.17, @types/react@npm:^18.0.17":
   version: 18.0.17
   resolution: "@types/react@npm:18.0.17"
   dependencies:
