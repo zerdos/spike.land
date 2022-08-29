@@ -20524,7 +20524,6 @@ async function wait(delay) {
 
 // js/Editor.tsx
 var import_jsx_runtime = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
-import { Uri } from "monaco-editor";
 var mod = {
   CH: () => {
   },
@@ -20539,7 +20538,7 @@ var Editor = ({ code, i, codeSpace: codeSpace2 }) => {
     myCode: code,
     counter: i,
     runner: async ({ code: code2, counter: counter2, codeSpace: codeSpace3 }) => {
-      const { runner: runner2 } = await import("./chunk-runner-5IUMAO74.mjs");
+      const { runner: runner2 } = await import("./chunk-runner-M5UG47LB.mjs");
       runner2({ code: code2, counter: counter2, codeSpace: codeSpace3 });
       changeContent((x) => ({ ...x, runner: runner2, code: code2, counter: counter2 }));
     },
@@ -20598,7 +20597,7 @@ var Editor = ({ code, i, codeSpace: codeSpace2 }) => {
           try {
             (async () => {
               const tsWorker = await (await monaco.languages.typescript.getTypeScriptWorker())(
-                Uri.parse(location.origin + "/live/" + codeSpace2 + ".tsx")
+                monaco.Uri.parse(location.origin + "/live/" + codeSpace2 + ".tsx")
               );
               const diag = await tsWorker.getSemanticDiagnostics(
                 location.origin + "/live/" + codeSpace2 + ".tsx"
@@ -21401,4 +21400,4 @@ export {
   join,
   sw
 };
-//# sourceMappingURL=chunk-chunk-OBZDRO45.mjs.map
+//# sourceMappingURL=chunk-chunk-5KMZ6QNW.mjs.map
