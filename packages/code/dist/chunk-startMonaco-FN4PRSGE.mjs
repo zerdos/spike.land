@@ -53,9 +53,6 @@ var dependencies = {
   tslib: "^2.4.0"
 };
 
-// js/startMonaco.ts
-import { Uri } from "monaco-editor";
-
 // ../../.yarn/global/cache/p-map-npm-5.5.0-9758eb14ee-9.zip/node_modules/p-map/index.js
 init_define_process();
 
@@ -298,11 +295,9 @@ async function pMap(iterable, mapper, {
 var pMapSkip = Symbol("skip");
 
 // js/startMonaco.ts
-import editorWorker from "monaco-editor/esm/vs/editor/editor.worker?worker";
-import tsWorker from "monaco-editor/esm/vs/language/typescript/ts.worker?worker";
 var version = dependencies["monaco-editor"];
 var started = false;
-var monacoContribution = async (typescript, editor, code) => {
+var monacoContribution = async (typescript, editor, Uri, code) => {
   typescript.typescriptDefaults.setDiagnosticsOptions({
     noSuggestionDiagnostics: true,
     noSemanticValidation: true,
@@ -491,15 +486,17 @@ var monacoContribution = async (typescript, editor, code) => {
   })();
 };
 window.MonacoEnvironment = {
-  getWorker: function(_workerId, label) {
+  getWorker: async function(_workerId, label) {
     if (label === "typescript" || label === "javascript") {
+      const tsWorker = (await import("monaco-editor/esm/vs/language/typescript/ts.worker?worker")).default;
       return tsWorker();
     }
+    const editorWorker = (await import("monaco-editor/esm/vs/editor/editor.worker?worker")).default;
     return editorWorker();
   }
 };
 var startMonaco = async ({ code, container, name }) => {
-  const { languages, editor } = await import("monaco-editor");
+  const { languages, editor, Uri } = await import("monaco-editor");
   const returnModules = {
     editor: {},
     monaco: { editor, languages, Uri }
@@ -512,7 +509,7 @@ var startMonaco = async ({ code, container, name }) => {
   const innerStyle = document.createElement("style");
   innerStyle.innerText = `@import url(/npm:/monaco-editor@${version}/?css);`;
   container.appendChild(innerStyle);
-  await monacoContribution(languages.typescript, editor, code);
+  await monacoContribution(languages.typescript, editor, Uri, code);
   returnModules.editor = editor.create(container, {
     model: editor.createModel(
       code,
@@ -560,4 +557,4 @@ var startMonaco = async ({ code, container, name }) => {
 export {
   startMonaco
 };
-//# sourceMappingURL=chunk-startMonaco-73KB37LF.mjs.map
+//# sourceMappingURL=chunk-startMonaco-FN4PRSGE.mjs.map
