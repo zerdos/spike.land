@@ -49,13 +49,13 @@ const build = (entryPoints, format = "esm") =>
     minifyIdentifiers: !isDevelopment,
     minifySyntax: !isDevelopment,
     legalComments: "none",
-    ignoreAnnotations: true, 
+    ignoreAnnotations: true,
     treeShaking: true,
     format,
     tsconfig: "./tsconfig.json",
     allowOverwrite: true,
 
-  external: [ "monaco-editor/*", "tslib", "monaco-editor"],
+    external: ["monaco-editor/*", "tslib", "monaco-editor"],
     platform: "browser",
     chunkNames: "chunk-[name]-[hash]",
     treeShaking: true,
@@ -101,4 +101,4 @@ await build([
   "js/motion.ts",
   "js/emotion.ts",
   "js/ws.ts",
- ]);
+]);

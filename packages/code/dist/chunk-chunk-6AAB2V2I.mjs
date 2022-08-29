@@ -12,7 +12,7 @@ import {
   domAnimation,
   domMax,
   m
-} from "./chunk-chunk-SFP7XSVJ.mjs";
+} from "./chunk-chunk-H5GIRTMA.mjs";
 import {
   require_emotion_cache_cjs,
   require_emotion_memoize_cjs,
@@ -22,7 +22,7 @@ import {
   require_emotion_utils_cjs,
   require_extends,
   require_react_is
-} from "./chunk-chunk-PSKSHDSJ.mjs";
+} from "./chunk-chunk-M3FOS3RA.mjs";
 import {
   Children,
   Component,
@@ -53,7 +53,7 @@ import {
   useReducer,
   useRef,
   useState
-} from "./chunk-chunk-KTSAEFUL.mjs";
+} from "./chunk-chunk-BBR2VC6P.mjs";
 import {
   __commonJS,
   __toCommonJS,
@@ -20538,9 +20538,14 @@ var Editor = ({ code, i, codeSpace: codeSpace2 }) => {
     myCode: code,
     counter: i,
     runner: async ({ code: code2, counter: counter2, codeSpace: codeSpace3 }) => {
-      const { runner: runner2 } = await import("./chunk-runner-E7TLGCPV.mjs");
+      const { runner: runner2 } = await import("./chunk-runner-UPQPIBVA.mjs");
       runner2({ code: code2, counter: counter2, codeSpace: codeSpace3 });
-      changeContent((x) => ({ ...x, runner: runner2, code: code2, counter: counter2 }));
+      changeContent((x) => ({
+        ...x,
+        runner: runner2,
+        code: code2,
+        counter: counter2
+      }));
     },
     myId: "loading",
     getValue: () => "",
@@ -20569,7 +20574,7 @@ var Editor = ({ code, i, codeSpace: codeSpace2 }) => {
     if (!ref?.current)
       return;
     const setMonaco = async () => {
-      const { startMonaco } = await import("./chunk-startMonaco-7S7D72BO.mjs");
+      const { startMonaco } = await import("./chunk-startMonaco-ECHUNMOQ.mjs");
       const { editor, monaco } = await startMonaco(
         {
           container: ref.current,
@@ -20597,7 +20602,9 @@ var Editor = ({ code, i, codeSpace: codeSpace2 }) => {
           try {
             (async () => {
               const tsWorker = await (await monaco.languages.typescript.getTypeScriptWorker())(
-                monaco.Uri.parse(location.origin + "/live/" + codeSpace2 + ".tsx")
+                monaco.Uri.parse(
+                  location.origin + "/live/" + codeSpace2 + ".tsx"
+                )
               );
               const diag = await tsWorker.getSemanticDiagnostics(
                 location.origin + "/live/" + codeSpace2 + ".tsx"
@@ -20667,7 +20674,11 @@ var Editor = ({ code, i, codeSpace: codeSpace2 }) => {
       if (newCode === mST().code)
         return;
       try {
-        changeContent((x) => ({ ...x, counter: counter + 1, myCode: newCode }));
+        changeContent((x) => ({
+          ...x,
+          counter: counter + 1,
+          myCode: newCode
+        }));
         await runner({ code: newCode, counter: counter + 1, codeSpace: codeSpace2 });
       } catch (err) {
         console.error({ err });
@@ -21400,4 +21411,4 @@ export {
   join,
   sw
 };
-//# sourceMappingURL=chunk-chunk-SQH74CSE.mjs.map
+//# sourceMappingURL=chunk-chunk-6AAB2V2I.mjs.map

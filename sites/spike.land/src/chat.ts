@@ -10,23 +10,29 @@ import { CodeEnv } from "./env";
 
 const a = JSON.parse(manifestJSON);
 const ws = a["ws.mjs"];
-const preact =  a["react-preact.mjs"];
-const emotionReact =  a["emotion.mjs"];
-const motion=  a["motion.mjs"];
+const preact = a["react-preact.mjs"];
+const emotionReact = a["emotion.mjs"];
+const motion = a["motion.mjs"];
 
-const esbuildExternal =[ "monaco-editor", "react/jsx-runtime", "react/jsx-dev-runtime","framer-motion", "tslib"];
-const externals=esbuildExternal.join(",")
-const mods: {[key:string]: string} = {};
-esbuildExternal.map(packageName=>mods[packageName]=`npm:/${packageName}`)
+const esbuildExternal = [
+  "monaco-editor",
+  "react/jsx-runtime",
+  "react/jsx-dev-runtime",
+  "framer-motion",
+  "tslib",
+];
+const externals = esbuildExternal.join(",");
+const mods: { [key: string]: string } = {};
+esbuildExternal.map((packageName) => mods[packageName] = `npm:/${packageName}`);
 export const imap = {
   "imports": {
-    ...mods, 
+    ...mods,
     "ws": ws,
     "@emotion/react": emotionReact,
     "@emotion/react/jsx-runtime": emotionReact,
     "@emotion/react/jsx-dev-runtime": emotionReact,
-    "monaco-editor": "npm:monaco-editor", 
-    "monaco-editor/": "npm:monaco-editor/",    
+    "monaco-editor": "npm:monaco-editor",
+    "monaco-editor/": "npm:monaco-editor/",
     "react": preact,
     "react-dom": preact,
     "framer-motion": motion,
@@ -93,15 +99,19 @@ export default {
 
         return (async (request) => {
           if (path[0].startsWith("npm:")) {
-
-                     const isJs= u.toString().includes(".js") || u.toString().includes(".mjs")
+            const isJs = u.toString().includes(".js") ||
+              u.toString().includes(".mjs");
 
             const packageName = u.toString().replace(
               u.origin + "/npm:",
               "",
             );
-            const searchParams =  ( isJs?`?bundle&external=${esbuildExternal.filter(p=>p!==packageName).join(',')} `: "");
-            const esmUrl = 'https://esm.sh/'+ packageName +searchParams;
+            const searchParams = (isJs
+              ? `?bundle&external=${
+                esbuildExternal.filter((p) => p !== packageName).join(",")
+              } `
+              : "");
+            const esmUrl = "https://esm.sh/" + packageName + searchParams;
 
             const cacheUrl = new URL(request.url + searchParams);
 
@@ -117,7 +127,6 @@ export default {
               return cachedResponse.clone();
             }
 
-   
             let resp = await fetch(esmUrl, { ...request, url: esmUrl });
 
             if (resp !== null && !resp.ok || resp.status === 307) {
@@ -128,14 +137,18 @@ export default {
                   url: redirectUrl,
                 });
               }
-              if (resp !== null && !resp.ok) return resp;
+              if (resp !== null && !resp.ok) {
+                return resp;
+              }
             }
 
             const isText = !!resp?.headers?.get("Content-Type")?.includes(
               "charset",
             );
             const bodyStr = await (isText ? resp.text() : null);
-            if (!bodyStr) throw new Error("empty body");
+            if (!bodyStr) {
+              throw new Error("empty body");
+            }
 
             const regex = /https:\/\/esm.sh\//gm;
             const regex2 = / from "\//gm;

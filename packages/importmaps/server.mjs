@@ -1,33 +1,31 @@
 // import https from  'https';
-import fs from "fs"
-
+import fs from "fs";
 
 // const options = {
 //   key: fs.readFileSync('.certs/localhost-key.pem'),
 //   cert: fs.readFileSync('.certs/localhost.pem'),
 // };
 
-
-import { Generator } from '@jspm/generator';
-import packg from "./package.json" assert {type: "json"}
+import { Generator } from "@jspm/generator";
+import packg from "./package.json" assert { type: "json" };
 // import esbuild from "esbuild"
 
 // import * as importMap from "esbuild-plugin-import-map";
-
 
 // const conf = await getPackageConfig(packg)
 const generator = new Generator({
   // ...conf,
   // Set the map URL for relative normalization when installing local packages
   mapUrl: import.meta.url,
-  
-  defaultProvider: 'jspm', // this is the default defaultProvider
+
+  defaultProvider: "jspm", // this is the default defaultProvider
   // Always ensure to define your target environment to get a working map
   // it is advisable to always pass the "module" condition as supported by Webpack
-  env: ['development', 'browser', 'module'],
+  env: ["development", "browser", "module"],
 });
-await generator.install(Object.keys(packg.dependencies).map(x=>`${x}@${packg.dependencies[x]}`))
-
+await generator.install(
+  Object.keys(packg.dependencies).map((x) => `${x}@${packg.dependencies[x]}`),
+);
 
 // Install a new package into the import map
 
@@ -35,19 +33,18 @@ await generator.install(Object.keys(packg.dependencies).map(x=>`${x}@${packg.dep
 
 await generator.install("@emotion/react/jsx-runtime");
 
-const imap =generator.getMap();
+const imap = generator.getMap();
 
 const imapJson = JSON.parse(JSON.stringify(imap));
 
-
 importMap.load({
   imports: {
-    ...imapJson.imports
-
-  }
+    ...imapJson.imports,
+  },
 });
 
-const outHtml = await generator.htmlInject(`
+const outHtml = await generator.htmlInject(
+  `
   <!doctype html>
 
   <html>
@@ -65,8 +62,9 @@ const outHtml = await generator.htmlInject(`
   </script>
   </body>
   </html>
-`, {  esModuleShims: true});
-
+`,
+  { esModuleShims: true },
+);
 
 // await esbuild.build({
 //   format: "esm",
@@ -81,7 +79,7 @@ const outHtml = await generator.htmlInject(`
 //   plugins: [importMap.plugin()]
 // });
 
-fs.writeFileSync("./dist/index.html", outHtml)
+fs.writeFileSync("./dist/index.html", outHtml);
 
 // console.log(`https://localhost:8443`)
 // https

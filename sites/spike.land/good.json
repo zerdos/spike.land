@@ -51,7 +51,7 @@
       "imports": []
     },
     "src/chat.ts": {
-      "bytes": 13427,
+      "bytes": 13581,
       "imports": [
         {
           "path": "../../node_modules/@cloudflare/kv-asset-handler/dist/index.js",
@@ -106,7 +106,7 @@
       "imports": []
     },
     "src/chatRoom.ts": {
-      "bytes": 19962,
+      "bytes": 19977,
       "imports": [
         {
           "path": "src/handleErrors.ts",
@@ -203,7 +203,7 @@
           "bytesInOutput": 8841
         },
         "src/chat.ts": {
-          "bytesInOutput": 11077
+          "bytesInOutput": 11123
         },
         "src/handleErrors.ts": {
           "bytesInOutput": 838
@@ -239,7 +239,7 @@
           "bytesInOutput": 478
         }
       },
-      "bytes": 255206
+      "bytes": 255252
     }
   }
 }

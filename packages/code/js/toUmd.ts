@@ -8,18 +8,18 @@ import { md5 } from "./md5";
 // import { m } from "framer-motion";
 
 const mod = {
-  toJs: (name: string)=> {
+  toJs: (name: string) => {
     const md5Name = mod.hashMap[name];
-    const data =  mod.data[md5Name];
+    const data = mod.data[md5Name];
     if (!data) {
-      console.error(`cant resolve ${name}`)
-      return '';
+      console.error(`cant resolve ${name}`);
+      return "";
     }
-    
-    return mod.data[md5Name].code + mod.data[md5Name].deps.map(mod.toJs).join("\n");
 
+    return mod.data[md5Name].code +
+      mod.data[md5Name].deps.map(mod.toJs).join("\n");
   },
-    hashMap: {} as unknown as { [key: string]: string },
+  hashMap: {} as unknown as { [key: string]: string },
   // toJs: (name: string)=>{
   //   const md5Name = md5(name);
   //   return mod.data[md5Name].code +  mod.data[md5Name].deps.map(dep=>mod.toJs(dep)).join() as unknown as string
@@ -30,8 +30,7 @@ const mod = {
       deps: string[];
     };
   },
-}
-
+};
 
 export const toUmd = async (source: string, name: string) => {
   const esbuild = await (await import("./esbuildEsm")).init();
@@ -40,13 +39,22 @@ export const toUmd = async (source: string, name: string) => {
   mod.hashMap = { ...mod.hashMap, [hash]: name, [name]: hash };
 
   if (!mod.data[hash]) {
-    const transformed = await esbuild.transform(source, {...opts,loader: name.includes(".tsx")?"tsx": name.includes(".ts")?"ts":name.includes(".jsx")?"jsx":"js",globalName: hash.replace(/[^a-f]/g, '')});
-    if (!transformed || !transformed.code){
-      console.log("tranform result -code is empty") ; 
-    return ;
+    const transformed = await esbuild.transform(source, {
+      ...opts,
+      loader: name.includes(".tsx")
+        ? "tsx"
+        : name.includes(".ts")
+        ? "ts"
+        : name.includes(".jsx")
+        ? "jsx"
+        : "js",
+      globalName: hash.replace(/[^a-f]/g, ""),
+    });
+    if (!transformed || !transformed.code) {
+      console.log("tranform result -code is empty");
+      return;
     }
     mod.data = {
-    
       ...mod.data,
       [hash]: {
         ...transformed,
@@ -57,31 +65,30 @@ export const toUmd = async (source: string, name: string) => {
     await Promise.all(mod.data[hash].deps.map(async (dep) => {
       if (mod.hashMap[dep]) return;
       const importMap = importShim.getImportMap();
-    
+
       let url = "";
       let urlHash = "";
-      if (importMap.imports[dep]){
-          url = importMap.imports[dep];
-          urlHash = md5(dep);
-      } else if(dep.slice(0,2)=="./"){
-        url = new URL(dep, location.origin ).toString();
+      if (importMap.imports[dep]) {
+        url = importMap.imports[dep];
         urlHash = md5(dep);
-      } 
-      else {
-      try{
-       url = await import.meta.resolve!(dep, name);
-       urlHash = md5(dep);
+      } else if (dep.slice(0, 2) == "./") {
+        url = new URL(dep, location.origin).toString();
+        urlHash = md5(dep);
+      } else {
+        try {
+          url = await import.meta.resolve!(dep, name);
+          urlHash = md5(dep);
+        } catch {
+          console.error(`failed to resolve: ${dep}`);
+          return;
+        }
       }
-      catch{
-        console.error(`failed to resolve: ${dep}`);
-        return;
-      }}
 
       if (mod.hashMap[urlHash]) return;
       mod.hashMap[dep] = url;
       const source = await (await fetch(url)).text();
-      
-     return await toUmd(source, dep);
+
+      return await toUmd(source, dep);
     }));
   }
   return mod;
@@ -132,7 +139,7 @@ const opts = {
 
 const findDeps = (code: string) => {
   // Alternative syntax using RegExp constructor
-  const regex = /require\(\"(.+?)\"\)/mg
+  const regex = /require\(\"(.+?)\"\)/mg;
 
   let m;
   const deps: string[] = [];
@@ -145,8 +152,7 @@ const findDeps = (code: string) => {
 
     // The result can be accessed through the `m`-variable.
     m.forEach((match, groupIndex) => {
-
-     if (groupIndex==1) deps.push(match);
+      if (groupIndex == 1) deps.push(match);
       console.log(`Found match, group ${groupIndex}: ${match}`);
     });
   }
