@@ -5,6 +5,7 @@ import { mST } from "./session";
 import { renderFromString } from "./renderToString";
 // import { toUmd } from "./toUmd";
 import type { TransformOptions } from "esbuild-wasm";
+// import type { Dispatch, SetStateAction, ReactNode } from "react";
 // import { md5 } from "./md5";
 // var Stream = require('stream/')
 
@@ -25,13 +26,6 @@ import type { TransformOptions } from "esbuild-wasm";
 //   "react": "/react.mjs",} };
 
 // importShim.addImportMap(importMap)
-
-export interface IRunnerSession {
-  // changes: unknown[];
-  errorText: string;
-  child: Dispatch<SetStateAction<ReactNode[]>>;
-  url: string;
-}
 
 // const debounced = debounce(runner, 300, {
 //   maxWait: 600,
