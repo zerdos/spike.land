@@ -55,7 +55,7 @@ const build = (entryPoints, format = "esm") =>
     tsconfig: "./tsconfig.json",
     allowOverwrite: true,
 
-    external: ["react", "react-dom", "monaco-editor", "react-dom/client", "framer-motion", "tslib", "@emotion/*"],
+  external: [ "monaco-editor/*", "tslib", "monaco-editor"],
     platform: "browser",
     chunkNames: "chunk-[name]-[hash]",
     treeShaking: true,
@@ -86,7 +86,7 @@ const build = (entryPoints, format = "esm") =>
       ".ttf": "file",
       ".d.ts": "file",
       ".js?file": "file",
-      ".worker.js": "file",
+      // ".worker.js": "file",
       ".wasm": "file",
     },
     outdir,
@@ -97,6 +97,8 @@ const build = (entryPoints, format = "esm") =>
 
 await build([
   "./js/session.ts",
-  "js/react.ts",
+  "js/react-preact.ts",
+  "js/motion.ts",
+  "js/emotion.ts",
   "js/ws.ts",
  ]);

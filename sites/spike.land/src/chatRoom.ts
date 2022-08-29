@@ -350,9 +350,10 @@ export class Code {
 
           const a = JSON.parse(manifestJSON);
 
-          const imports = { ...imap.imports, ws: "/" + a["ws.mjs"] };
-          Object.keys(imports).map((k: keyof typeof imports) =>
-            imports[k] = url.origin + imports[k]
+
+          const imaps :{[key: string]: string} = {...imap.imports};
+
+          Object.keys(imap.imports).map((k) => imaps[k] = url.origin + "/"+ imaps[k]
           );
 
           return new Response(  
@@ -362,10 +363,9 @@ export class Code {
             ).replace(
               `<script type="importmap"></script>`,
               ` <script type="importmap-shim">${
-                JSON.stringify({ imports })
+                JSON.stringify({ imports: {...imaps } })
               }</script>`,
             )
-              .replace("ws.mjs", a["ws.mjs"])
               .replace(
                 `/* #root{} */`,
                 `

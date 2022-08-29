@@ -9,26 +9,31 @@ import { handleErrors } from "./handleErrors";
 import { CodeEnv } from "./env";
 
 const a = JSON.parse(manifestJSON);
-const preact = "/" + a["react.mjs"];
+const ws = a["ws.mjs"];
+const preact =  a["react-preact.mjs"];
+const emotiomReact =  a["emotion.mjs"];
+const motion=  a["motion.mjs"];
+
+const esbuildExternal =[ "monaco-editor", "react/jsx-runtime", "react/jsx-dev-runtime","framer-motion", "tslib"];
+const externals=esbuildExternal.join(",")
+const mods: {[key:string]: string} = {};
+esbuildExternal.map(packageName=>mods[packageName]=`npm:/${packageName}`)
 export const imap = {
   "imports": {
-    "framer-motion":
-      "/npm:framer-motion?bundle&external=react,tslib,@emotion/*",
-    "@emotion/react": "/npm:@emotion/react?bundle&external=react",
-    "@emotion/styled": "/npm:@emotion/styled?&external=react",
-    "@emotion/react/jsx-runtime":
-      "/npm:@emotion/react/jsx-runtime?&external=react/jsx-runtime,react",
-    "@emotion/": "/npm:@emotion/",
-    "monaco-editor": "/npm:monaco-editor?bundle",
-    "monaco-editor/": "/npm:monaco-editor/",
-
+    ...mods, 
+    "ws": ws,
+    "@emotion/react": emotiomReact,
+    "@emotion/react/jsx-runtime": emotiomReact,
+    "@emotion/react/jsx-dev-runtime": emotiomReact,
+    "monaco-editor": "npm:monaco-editor", 
+    "monaco-editor/": "npm:monaco-editor/",    
     "react": preact,
     "react-dom": preact,
+    "framer-motion": motion,
     "react-dom/client": preact,
     "react-dom/server": preact,
     "react/jsx-runtime": preact,
-    "tslib": "/npm:tslib?bundle",
-    "*": "/npm:[self]",
+    "react/jsx-dev-runtime": preact,
     // "preact": "https://ga.jspm.io/npm:preact@10.8.2/dist/preact.module.js",
     // "preact-render-to-string": "https://ga.jspm.io/npm:preact-render-to-string@5.2.0/dist/index.mjs",
     // "preact/compat": "https://ga.jspm.io/npm:preact@10.8.2/compat/dist/compat.module.js",
@@ -88,7 +93,17 @@ export default {
 
         return (async (request) => {
           if (path[0].startsWith("npm:")) {
-            const cacheUrl = new URL(request.url);
+
+                     const isJs= u.toString().includes(".js") || u.toString().includes(".mjs")
+
+            const packageName = u.toString().replace(
+              u.origin + "/npm:",
+              "",
+            );
+            const searchParams =  ( isJs?`?bundle&external=${esbuildExternal.filter(p=>p!==packageName).join(',')} `: "");
+            const esmUrl = 'https://esm.sh/'+ packageName +searchParams;
+
+            const cacheUrl = new URL(request.url + searchParams);
 
             // Construct the cache key from the cache URL
             const cacheKey = new Request(cacheUrl.toString());
@@ -102,11 +117,7 @@ export default {
               return cachedResponse.clone();
             }
 
-            const esmUrl = u.toString().replace(
-              u.origin + "/npm:",
-              "https://esm.sh/",
-            );
-
+   
             let resp = await fetch(esmUrl, { ...request, url: esmUrl });
 
             if (resp !== null && !resp.ok || resp.status === 307) {
@@ -135,7 +146,7 @@ export default {
 
             const responseToCache = new Response(
               isText
-                ? bodyStr.replaceAll(regex, u.origin + "/npm:")
+                ? bodyStr.replaceAll(regex, u.origin + "/npm:/")
                   .replaceAll(regex2, ' from "/npm:/')
                   .replaceAll(regex3, 'import "/npm:/')
                   .replaceAll(regex4, ' from "/npm:/')

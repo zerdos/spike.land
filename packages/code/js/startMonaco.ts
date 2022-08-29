@@ -11,7 +11,7 @@ const version = dependencies["monaco-editor"];
 import editorWorker from "monaco-editor/esm/vs/editor/editor.worker?worker";
 // vs/language/typescript/ts.worker
 //                   "./monaco-editor/editor/editor.worker.monaco.worker.js?url";
-import tsWorker from "monaco-editor/esm/vs/language/typescript/ts.worker.js?worker";
+import tsWorker from "monaco-editor/esm/vs/language/typescript/ts.worker?worker";
 
 // import wfile from "monaco-editor/min/vs/language/typescript/tsWorker.js";
 // import efile from "monaco-editor/min/vs/editor/editor.main.js";
@@ -298,7 +298,7 @@ export const startMonaco = async (
 
   const innerStyle = document.createElement("style");
 
-  innerStyle.innerText = `@import url(/npm:monaco-editor@${version}/?css);`;
+  innerStyle.innerText = `@import url(/npm:/monaco-editor@${version}/?css);`;
   container.appendChild(innerStyle);
 
   // innerStyle.innerText = `@import url(/npm:monaco-editor@${version}/?css);`;
