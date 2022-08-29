@@ -69,12 +69,12 @@
       "buffer": ["buffer"],
       "stream": ["stream-browserify"],
       "path": ["../path/index.js"],
-      "react": ["../react.ts"],
-      "react-dom": ["../react.ts"],
-      "react-dom/client": ["../react.ts"],
-      "react-dom/server": ["../react.ts"],
-      "react/jsx-runtime": ["../react.ts"],
-      "react/jsx-dev-runtime": ["../react.ts"]
+      "react": ["react-preact.ts"],
+      "react-dom": ["react-preact.ts"],
+      "react-dom/client": ["react-preact.ts"],
+      "react-dom/server": ["react-preact.ts"],
+      "react/jsx-runtime": ["react-preact.ts"],
+      "react/jsx-dev-runtime": ["react-preact.ts"]
     }
   },
   "include": ["js", "million.ts"],

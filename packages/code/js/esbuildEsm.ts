@@ -5,13 +5,12 @@ import { Mutex } from "async-mutex";
 // import "core-js/proposals/string-replace-all-stage-4";
 
 import {initialize, transform, TransformOptions} from "esbuild-wasm";
-import wasmURL from "esbuild-wasm/esbuild.wasm?url";
+import wasmURL from "esbuild-wasm/esbuild.wasm";
 const mutex = new Mutex();
 
 const esbuild= {
   initialize,
-  transform: async(code: string, options: TransformOptions)=>{
-    await mutex.runExclusive(async () => {
+  transform: async(code: string, options: TransformOptions)=>await mutex.runExclusive(async () => {
       try{
       console.info(`esbuld start`);
 
@@ -22,8 +21,10 @@ const esbuild= {
     return transformObj
 }catch{
  console.error ("Ebuild transform errror: ", {code, name}) 
+ return {
+  code: `console.error("ESBULD TRANSFORM ERROR")`
+ }
 }})}
-}
 // import type { transform } from "esbuild/lib/main";
 
 let initFinished: Promise<boolean> | boolean = false
@@ -36,7 +37,7 @@ export const init = async () => {
 
     esbuild.initialize(
       {
-        wasmURL: wasmURL as unknown as string,  
+        wasmURL: new URL(wasmURL, import.meta.url).toString()
       },
     ).then(()=>resolve(true))
   

@@ -3,7 +3,7 @@
 // import { hashCode } from "session";
 // import comlinkUmd from "comlink/dist/umd/comlink.js"
 import { TransformOptions } from "esbuild-wasm";
-import { md5 } from "md5";
+import { md5 } from "./md5";
 // import { m } from "framer-motion";
 
 const mod = {
@@ -25,9 +25,10 @@ export const toUmd = async (source: string, name: string) => {
 
   if (!mod.data[hash]) {
     const transformed = await esbuild.transform(source, {...opts,loader: name.includes(".tsx")?"tsx": name.includes(".ts")?"ts":name.includes(".jsx")?"jsx":"js",globalName: hash.replace(/[^a-f]/g, '')});
-    if (!transformed || !transformed.code)
-      console("tranform result -code is empty") ; 
+    if (!transformed || !transformed.code){
+      console.log("tranform result -code is empty") ; 
     return ;
+    }
     mod.data = {
       ...mod.data,
       [hash]: {

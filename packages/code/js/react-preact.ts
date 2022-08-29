@@ -101,7 +101,7 @@ export const { createContext } = React;
 
 import { renderToString } from "preact-render-to-string";
 
-import { JSX, jsx, jsxDEV, jsxs } from "preact/jsx-runtime";
+import {  jsx, jsxDEV, jsxs } from "preact/jsx-runtime";
 
 // window.PreactJSX = window.PreactJSX || { jsx: j, jsxDEV: jd, jsxs: js };
 // window.renderToString = window.renderToString || renderToStr;
