@@ -39,16 +39,22 @@ export const toUmd = async (source: string, name: string) => {
 
     await Promise.all(mod.data[hash].deps.map(async (dep) => {
       if (mod.hashMap[dep]) return;
-
+      const importMap = importShim.getImportMap();
+    
       let url = "";
       let urlHash = "";
+      if (importMap.imports[dep]){
+          url = importMap.imports[dep];
+          urlHash = md5(url);
+      } else {
       try{
        url = await import.meta.resolve!(dep, name);
        urlHash = md5(url);
       }
       catch{
         return;
-      }
+      }}
+      
       if (mod.hashMap[urlHash]) return;
       mod.hashMap[urlHash] = url;
       const source = await (await fetch(url)).text();
