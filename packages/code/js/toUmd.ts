@@ -40,8 +40,15 @@ export const toUmd = async (source: string, name: string) => {
     await Promise.all(mod.data[hash].deps.map(async (dep) => {
       if (mod.hashMap[dep]) return;
 
-      const url = await import.meta.resolve!(dep, name);
-      const urlHash = md5(url);
+      let url = "";
+      let urlHash = "";
+      try{
+       url = await import.meta.resolve!(dep, name);
+       urlHash = md5(url);
+      }
+      catch{
+        return;
+      }
       if (mod.hashMap[urlHash]) return;
       mod.hashMap[urlHash] = url;
       const source = await (await fetch(url)).text();

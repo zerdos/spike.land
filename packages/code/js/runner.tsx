@@ -3,7 +3,7 @@ import { saveCode } from "./ws";
 import { appFactory } from "./starter";
 import { mST } from "./session";
 import { renderFromString } from "./renderToString";
-// import { toUmd } from "./toUmd";
+import { toUmd } from "./toUmd";
 import type { TransformOptions } from "esbuild-wasm";
 // var Stream = require('stream/')
 
@@ -78,9 +78,15 @@ export async function runner({ code, counter, codeSpace }: {
       target: "es2021",
     } as unknown as TransformOptions);
 
-    // const UMD = await toUmd(code, `${location.origin}/live/${codeSpace}.tsx`);
-    // console.log({ UMD });
-
+    try{
+      (async ()=>{
+    const UMD = await toUmd(code, `${location.origin}/live/${codeSpace}.tsx`);
+    console.log({ UMD });
+      })();
+    }
+    catch(e){
+      console.error({e});
+    }
     if (transpiled.code === mST().transpiled) return;
 
     let restartError = false;
