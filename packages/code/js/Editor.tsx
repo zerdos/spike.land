@@ -4,7 +4,6 @@ import { isMobile } from "./isMobile.mjs";
 
 import { css } from "@emotion/react";
 import { wait } from "./wait";
-import { Uri } from "monaco-editor";
 
 const mod = {
   CH: () => {},
@@ -102,7 +101,7 @@ export const Editor: FC<{ code: string; i: number; codeSpace: string }> = (
             (async () => {
               const tsWorker = await (await monaco.languages.typescript
                 .getTypeScriptWorker())(
-                  Uri.parse(location.origin + "/live/" + codeSpace + ".tsx"),
+                  monaco.Uri.parse(location.origin + "/live/" + codeSpace + ".tsx"),
                 );
 
               const diag = await tsWorker.getSemanticDiagnostics(
