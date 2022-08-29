@@ -5,6 +5,7 @@ import { mST } from "./session";
 import { renderFromString } from "./renderToString";
 import { toUmd } from "./toUmd";
 import type { TransformOptions } from "esbuild-wasm";
+import { md5 } from "./md5";
 // var Stream = require('stream/')
 
 // import "es-module-shims";
@@ -80,8 +81,9 @@ export async function runner({ code, counter, codeSpace }: {
 
     try{
       (async ()=>{
-    const UMD = await toUmd(code, `${location.origin}/live/${codeSpace}.tsx`);
+    const UMD = await toUmd(code, `${location.origin}/live/${codeSpace}-${md5(code)}.tsx`);
     console.log({ UMD });
+    // console.log(UMD.toJs(`${location.origin}/live/${codeSpace}-${md5(code)}.tsx`))
       })();
     }
     catch(e){

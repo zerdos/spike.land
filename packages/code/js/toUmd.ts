@@ -3,11 +3,16 @@
 // import { hashCode } from "session";
 // import comlinkUmd from "comlink/dist/umd/comlink.js"
 import { TransformOptions } from "esbuild-wasm";
+// import { string } from "prop-types";
 import { md5 } from "./md5";
 // import { m } from "framer-motion";
 
 const mod = {
   hashMap: {} as unknown as { [key: string]: string },
+  // toJs: (name: string)=>{
+  //   const md5Name = md5(name);
+  //   return mod.data[md5Name].code +  mod.data[md5Name].deps.map(dep=>mod.toJs(dep)).join() as unknown as string
+  // },
   data: {} as unknown as {
     [key: string]: {
       code: string;
@@ -54,15 +59,13 @@ export const toUmd = async (source: string, name: string) => {
       catch{
         return;
       }}
-      
+
       if (mod.hashMap[urlHash]) return;
       mod.hashMap[urlHash] = url;
       const source = await (await fetch(url)).text();
       await toUmd(source, dep);
     }));
   }
-
-  return mod;
 };
 
 // `importScripts("${comlinkUmd}");

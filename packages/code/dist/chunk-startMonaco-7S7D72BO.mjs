@@ -24,7 +24,6 @@ var dependencies = {
   "@emotion/serialize": "^1.1.0",
   "@emotion/styled": "11.10.0",
   "@mui/material": "5.10.2",
-  "@types/react": "18.0.17",
   "@types/react-dom": "18.0.6",
   "ace-builds": "1.9.6",
   "async-mutex": "0.3.2",
@@ -557,4 +556,4 @@ var startMonaco = async ({ code, container, name }) => {
 export {
   startMonaco
 };
-//# sourceMappingURL=chunk-startMonaco-FN4PRSGE.mjs.map
+//# sourceMappingURL=chunk-startMonaco-7S7D72BO.mjs.map

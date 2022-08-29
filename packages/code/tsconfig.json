@@ -77,6 +77,6 @@
       "react/jsx-dev-runtime": ["react-preact.ts"]
     }
   },
-  "include": ["js", "million.ts"],
-  "exclude": ["./js/vendor/**"]
+  "include": ["js", "package.json"],
+  "exclude": []
 }

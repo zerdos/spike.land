@@ -1,4 +1,5 @@
-import { FC, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+// import type FC from "react"
 import { mST, onSessionUpdate } from "./session";
 import { isMobile } from "./isMobile.mjs";
 
@@ -12,7 +13,7 @@ const mod = {
 
 // export type IStandaloneCodeEditor = editor.Ist;
 
-export const Editor: FC<{ code: string; i: number; codeSpace: string }> = (
+export const Editor: React.FC<{ code: string; i: number; codeSpace: string }> = (
   { code, i, codeSpace },
 ) => {
   const ref = useRef<HTMLDivElement>(null) as null | {

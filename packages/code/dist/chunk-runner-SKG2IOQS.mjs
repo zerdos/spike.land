@@ -1,7 +1,7 @@
 import {
   appFactory,
   saveCode
-} from "./chunk-chunk-E5YLUKXC.mjs";
+} from "./chunk-chunk-33JAO4RK.mjs";
 import {
   hashCode,
   mST,
@@ -251,7 +251,6 @@ var toUmd = async (source, name) => {
       await toUmd(source2, dep);
     }));
   }
-  return mod;
 };
 var opts = {
   loader: "tsx",
@@ -310,7 +309,7 @@ async function runner({ code, counter, codeSpace }) {
     });
     try {
       (async () => {
-        const UMD = await toUmd(code, `${location.origin}/live/${codeSpace}.tsx`);
+        const UMD = await toUmd(code, `${location.origin}/live/${codeSpace}-${md5(code)}.tsx`);
         console.log({ UMD });
       })();
     } catch (e) {
@@ -346,4 +345,4 @@ async function runner({ code, counter, codeSpace }) {
 export {
   runner
 };
-//# sourceMappingURL=chunk-runner-3W3TNQYD.mjs.map
+//# sourceMappingURL=chunk-runner-SKG2IOQS.mjs.map
