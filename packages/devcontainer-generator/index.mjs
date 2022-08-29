@@ -6,7 +6,7 @@ var node = {
   lts: "16.17.0",
   current: "18.8.0"
 };
-var deno = "1.24.3";
+var deno = "1.25.0";
 var git = "2.37.2";
 var cypress = "10.6.0";
 var yarn = "1.22.19";
