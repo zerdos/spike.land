@@ -81,8 +81,12 @@ export async function runner({ code, counter, codeSpace }: {
 
     try{
       (async ()=>{
-    const UMD = await toUmd(code, `${location.origin}/live/${codeSpace}-${md5(code)}.tsx`);
+        const name = `${location.origin}/live/${codeSpace}-${md5(code)}.tsx`;
+    const UMD = await toUmd(code,name);
     console.log({ UMD });
+  //  console.log(UMD?.toJs(name));
+      // const hashName = UMD?.hashMap[name];
+      // UMD?.data[hashName!].code + 
     // console.log(UMD.toJs(`${location.origin}/live/${codeSpace}-${md5(code)}.tsx`))
       })();
     }

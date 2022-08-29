@@ -1,7 +1,7 @@
 import {
   appFactory,
   saveCode
-} from "./chunk-chunk-33JAO4RK.mjs";
+} from "./chunk-chunk-PKVVHLX6.mjs";
 import {
   hashCode,
   mST,
@@ -207,6 +207,15 @@ function md5(inputString) {
 
 // js/toUmd.ts
 var mod = {
+  toJs: (name) => {
+    const md5Name = mod.hashMap[name];
+    const data = mod.data[md5Name];
+    if (!data) {
+      console.error(`cant resolve ${name}`);
+      return "";
+    }
+    return mod.data[md5Name].code + mod.data[md5Name].deps.map(mod.toJs).join("\n");
+  },
   hashMap: {},
   data: {}
 };
@@ -235,22 +244,27 @@ var toUmd = async (source, name) => {
       let urlHash = "";
       if (importMap.imports[dep]) {
         url = importMap.imports[dep];
-        urlHash = md5(url);
+        urlHash = md5(dep);
+      } else if (dep.slice(0, 2) == "./") {
+        url = new URL(dep, location.origin).toString();
+        urlHash = md5(dep);
       } else {
         try {
           url = await import.meta.resolve(dep, name);
-          urlHash = md5(url);
+          urlHash = md5(dep);
         } catch {
+          console.error(`failed to resolve: ${dep}`);
           return;
         }
       }
       if (mod.hashMap[urlHash])
         return;
-      mod.hashMap[urlHash] = url;
+      mod.hashMap[dep] = url;
       const source2 = await (await fetch(url)).text();
-      await toUmd(source2, dep);
+      return await toUmd(source2, dep);
     }));
   }
+  return mod;
 };
 var opts = {
   loader: "tsx",
@@ -309,7 +323,8 @@ async function runner({ code, counter, codeSpace }) {
     });
     try {
       (async () => {
-        const UMD = await toUmd(code, `${location.origin}/live/${codeSpace}-${md5(code)}.tsx`);
+        const name = `${location.origin}/live/${codeSpace}-${md5(code)}.tsx`;
+        const UMD = await toUmd(code, name);
         console.log({ UMD });
       })();
     } catch (e) {
@@ -345,4 +360,4 @@ async function runner({ code, counter, codeSpace }) {
 export {
   runner
 };
-//# sourceMappingURL=chunk-runner-SKG2IOQS.mjs.map
+//# sourceMappingURL=chunk-runner-ZZE4RCCP.mjs.map

@@ -8,7 +8,18 @@ import { md5 } from "./md5";
 // import { m } from "framer-motion";
 
 const mod = {
-  hashMap: {} as unknown as { [key: string]: string },
+  toJs: (name: string)=> {
+    const md5Name = mod.hashMap[name];
+    const data =  mod.data[md5Name];
+    if (!data) {
+      console.error(`cant resolve ${name}`)
+      return '';
+    }
+    
+    return mod.data[md5Name].code + mod.data[md5Name].deps.map(mod.toJs).join("\n");
+
+  },
+    hashMap: {} as unknown as { [key: string]: string },
   // toJs: (name: string)=>{
   //   const md5Name = md5(name);
   //   return mod.data[md5Name].code +  mod.data[md5Name].deps.map(dep=>mod.toJs(dep)).join() as unknown as string
@@ -35,6 +46,7 @@ export const toUmd = async (source: string, name: string) => {
     return ;
     }
     mod.data = {
+    
       ...mod.data,
       [hash]: {
         ...transformed,
@@ -50,20 +62,26 @@ export const toUmd = async (source: string, name: string) => {
       let urlHash = "";
       if (importMap.imports[dep]){
           url = importMap.imports[dep];
-          urlHash = md5(url);
-      } else {
+          urlHash = md5(dep);
+      } else if(dep.slice(0,2)=="./"){
+        url = new URL(dep, location.origin ).toString();
+        urlHash = md5(dep);
+      } 
+      else {
       try{
        url = await import.meta.resolve!(dep, name);
-       urlHash = md5(url);
+       urlHash = md5(dep);
       }
       catch{
+        console.error(`failed to resolve: ${dep}`);
         return;
       }}
 
       if (mod.hashMap[urlHash]) return;
-      mod.hashMap[urlHash] = url;
+      mod.hashMap[dep] = url;
       const source = await (await fetch(url)).text();
-      await toUmd(source, dep);
+      
+     return await toUmd(source, dep);
     }));
   }
   return mod;
