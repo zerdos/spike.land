@@ -1,17 +1,11 @@
 import { dependencies } from "../package.json";
-import type monaco from "monaco-editor";
 
-import { Uri } from "monaco-editor";
 import pMap from "p-map";
 const version = dependencies["monaco-editor"];
 // import codion from "monaco-editor/esm/vs/base/browser/ui/codicons/codicon/codicon.ttf"
 // import * as editorCss from "monaco-editor/min/vs/editor/editor.main.css"
 
 // import { createJsBlob } from "./starter";
-import editorWorker from "monaco-editor/esm/vs/editor/editor.worker?worker";
-// vs/language/typescript/ts.worker
-//                   "./monaco-editor/editor/editor.worker.monaco.worker.js?url";
-import tsWorker from "monaco-editor/esm/vs/language/typescript/ts.worker?worker";
 
 // import wfile from "monaco-editor/min/vs/language/typescript/tsWorker.js";
 // import efile from "monaco-editor/min/vs/editor/editor.main.js";
@@ -33,6 +27,7 @@ let started = false;
 const monacoContribution = async (
   typescript: typeof monaco.languages.typescript,
   editor: typeof monaco.editor,
+  Uri: typeof monaco.Uri,
   code: string,
 ) => {
   // const {typescript} = languages;
@@ -255,10 +250,13 @@ const monacoContribution = async (
 };
 
 window.MonacoEnvironment = {
-  getWorker: function (_workerId: string, label: string) {
+  getWorker: async function (_workerId: string, label: string) {
+   
     if (label === "typescript" || label === "javascript") {
+      const tsWorker = (await import("monaco-editor/esm/vs/language/typescript/ts.worker?worker")).default
       return tsWorker();
     }
+    const    editorWorker =( await import("monaco-editor/esm/vs/editor/editor.worker?worker")).default;
     return editorWorker();
   },
 };
@@ -270,7 +268,7 @@ export const startMonaco = async (
     name: string;
   },
 ) => {
-  const { languages, editor } = await import("monaco-editor");
+  const { languages, editor, Uri } = await import("monaco-editor");
 
   const returnModules = {
     editor: {} as unknown as ReturnType<typeof editor.create>,
@@ -304,7 +302,7 @@ export const startMonaco = async (
   // innerStyle.innerText = `@import url(/npm:monaco-editor@${version}/?css);`;
   // shadowRoot.appendChild(innerStyle);
 
-  await monacoContribution(languages.typescript, editor, code);
+  await monacoContribution(languages.typescript, editor, Uri, code);
 
   returnModules.editor = editor.create(container, {
     model: editor.createModel(
