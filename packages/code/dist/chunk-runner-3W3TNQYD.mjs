@@ -1,7 +1,7 @@
 import {
   appFactory,
   saveCode
-} from "./chunk-chunk-R2L3SF6Q.mjs";
+} from "./chunk-chunk-E5YLUKXC.mjs";
 import {
   hashCode,
   mST,
@@ -230,13 +230,19 @@ var toUmd = async (source, name) => {
     await Promise.all(mod.data[hash].deps.map(async (dep) => {
       if (mod.hashMap[dep])
         return;
+      const importMap = importShim.getImportMap();
       let url = "";
       let urlHash = "";
-      try {
-        url = await import.meta.resolve(dep, name);
+      if (importMap.imports[dep]) {
+        url = importMap.imports[dep];
         urlHash = md5(url);
-      } catch {
-        return;
+      } else {
+        try {
+          url = await import.meta.resolve(dep, name);
+          urlHash = md5(url);
+        } catch {
+          return;
+        }
       }
       if (mod.hashMap[urlHash])
         return;
@@ -340,4 +346,4 @@ async function runner({ code, counter, codeSpace }) {
 export {
   runner
 };
-//# sourceMappingURL=chunk-runner-S4CGVMRT.mjs.map
+//# sourceMappingURL=chunk-runner-3W3TNQYD.mjs.map
