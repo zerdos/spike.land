@@ -55,7 +55,7 @@ const build = (entryPoints, format = "esm") =>
     tsconfig: "./tsconfig.json",
     allowOverwrite: true,
 
-    external: ["monaco-editor/*", "tslib", "monaco-editor"],
+    external: ["monaco-editor/*", "monaco-editor"],
     platform: "browser",
     chunkNames: "chunk-[name]-[hash]",
     treeShaking: true,
