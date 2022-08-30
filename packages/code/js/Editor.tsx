@@ -5,6 +5,7 @@ import { isMobile } from "./isMobile.mjs";
 
 import { css } from "@emotion/react";
 import { wait } from "./wait";
+import { useInsertionEffect } from "react";
 
 const mod = {
   CH: () => {},
@@ -161,6 +162,10 @@ export const Editor: React.FC<{ code: string; i: number; codeSpace: string }> =
 
       loadEditors();
     }, [ref]);
+
+    // useInsertionEffect(()=>{
+
+    // })
 
     useEffect(() => {
       const lastCode = mod.code;
