@@ -39,7 +39,7 @@ const build = (entryPoints, format = "esm") =>
     entryPoints,
     "outExtension": { ".js": ".mjs" },
     bundle: true,
-    splitting: false,
+    splitting: true,
     target,
     sourcemap: false,
 
