@@ -113,7 +113,7 @@ const monacoContribution = async (
     
     importHelpers: true,
    
-    lib,
+    lib   ,
   
     allowJs: true,
     skipLibCheck: true,
@@ -128,6 +128,7 @@ const monacoContribution = async (
     allowNonTsExtensions: true,
     "traceResolution": true,
     moduleResolution: typescript.ModuleResolutionKind.NodeJs,
+    moduleSpecifierCompletion: 2,
     declaration: true,
     module: typescript.ModuleKind.CommonJS,
     noEmitOnError: true,
@@ -151,7 +152,9 @@ const monacoContribution = async (
 
     jsxImportSource: "@emotion/react",
     jsx: typescript.JsxEmit.ReactJSX,
-    allowUmdGlobalAccess: false
+    allowUmdGlobalAccess: false,
+    "include": [location.origin + "/node_modules" ]
+
   });
 
   const regex1 = / from \'\.\./ig;
@@ -381,32 +384,11 @@ export const startMonaco = async (
 
  const codeSpace = name;
 
-   //console.log("monaco-editor");
- // if (!started) started = true;
- // else return returnModules;
-  // const shadowRoot = container.attachShadow({
-  //   mode: "open",
-  // });
-  // const innerContainer = document.createElement("div");
-  // // shadowRoot.appendChild(innerContainer);
-  // innerContainer.style.width = "100%";
-  // innerContainer.style.height = "100%";
-
-  //   const outerStyle = document.createElement("style");
-  //   outerStyle.innerText = ` @font-face {
-  //      font-family: codicon;
-  //      font-display: block;
-  //       src: url(/npm:monaco-editor@${version}/esm/vs/base/browser/ui/codicons/codicon/codicon.ttf) format("truetype");
-
-  // // }`;
 
   const innerStyle = document.createElement("style");
 
   innerStyle.innerText = `@import url(${location.origin}/npm:/monaco-editor@${version}/?css);`;
   container.appendChild(innerStyle);
-
-  // innerStyle.innerText = `@import url(/npm:monaco-editor@${version}/?css);`;
-  // shadowRoot.appendChild(innerStyle);
 
   const replaced  = await monacoContribution(languages.typescript, editor, Uri, code);
 
@@ -438,11 +420,11 @@ export const startMonaco = async (
         /**
          * Enable graceful matching. Defaults to true.
          */
-        filterGraceful: true,
+        filterGraceful: false,
         /**
          * Prevent quick suggestions when a snippet is active. Defaults to true.
          */
-        snippetsPreventQuickSuggestions: true,
+        snippetsPreventQuickSuggestions: false,
         /**
          * Favors words that appear close to the cursor.
          */
@@ -458,7 +440,7 @@ export const startMonaco = async (
         /**
          * Enable or disable the suggest status bar.
          */
-        showStatusBar: false,
+        showStatusBar: true,
         /**
          * Enable or disable the rendering of the suggestion preview.
          */
@@ -466,7 +448,7 @@ export const startMonaco = async (
         /**
          * Configures the mode of the preview.
          */
-        previewMode: "prefix",
+        previewMode: "subwordSmart",
         /**
          * Show details inline with the label. Defaults to true.
          */
@@ -487,11 +469,12 @@ export const startMonaco = async (
         /**
          * Show deprecated-suggestions.
          */
-  
+        
         /**
          * Show field-suggestions.
          */
-  
+        showFields: true,
+ 
         /**
          * Show color-suggestions.
          */
@@ -526,6 +509,16 @@ export const startMonaco = async (
         showSnippets: true,
       },
       automaticLayout: true,
+      
+      useShadowDOM: true,
+      bracketPairColorization: {independentColorPoolPerBracketType: true, enabled: true },
+codeLens: true,
+"semanticHighlighting.enabled": true,
+dragAndDrop: true,
+codeActionsOnSaveTimeout: 300,
+dropIntoEditor: {enabled: true},
+// gotoLocation: true,
+mouseStyle: "copy",
       definitionLinkOpensInPeek: true,
       theme: "vs-dark",
       autoClosingBrackets: "beforeWhitespace",
