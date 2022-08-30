@@ -95,13 +95,13 @@ export async function runner({ code, counter, codeSpace }: {
         // console.log(transpiled);
 
         const res = await renderFromString(code, transpiled.code, codeSpace);
-        
+
         if (res === null) {
           console.error("COULD NOT RENDER:");
-          console.error({code,transpiled: transpiled.code});
+          console.error({ code, transpiled: transpiled.code });
           return;
         }
-        const {html, css } = res;
+        const { html, css } = res;
         // console.log({html, css});
 
         await saveCode({

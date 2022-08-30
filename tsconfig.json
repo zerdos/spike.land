@@ -32,6 +32,6 @@
   },
   "include": [
     "packages/code/js",
-    "sites/spike.land/src"],
-
+    "sites/spike.land/src"
+  ]
 }
