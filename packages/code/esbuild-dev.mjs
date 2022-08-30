@@ -42,7 +42,7 @@ const build = (entryPoints, format = "esm") =>
     format: "esm",
     splitting: true,
     target,
-    sourcemap: true,
+    sourcemap: false,
 
     minify: !isDevelopment,
     minifyWhitespace: !isDevelopment,
