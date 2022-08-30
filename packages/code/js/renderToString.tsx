@@ -12,7 +12,7 @@ const temp = document.createElement("div");
 const tempRoot = createRoot(temp);
 const mod: {[key: string]: Promise<boolean>} = {};
 const TestBed: React.FC<{md5Hash: string, children: JSX.Element}> = ({md5Hash, children})=>{
-  let resolv;
+  let resolv; 
   mod[md5Hash] = new Promise((res)=>resolv=res);
 
   useEffect(()=>{
@@ -70,7 +70,7 @@ export const renderFromString =async (code:string, transpiled:string,  codeSpace
 
   return html?  {
     html,
-    css: extractCritical(html),
+    css:  extractCritical(html),
   }:null;
 };
 const extractCritical = (html: string) => {

@@ -446,6 +446,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@emotion/css-prettifier@npm:^1.1.0":
+  version: 1.1.0
+  resolution: "@emotion/css-prettifier@npm:1.1.0"
+  dependencies:
+    "@emotion/memoize": ^0.8.0
+    stylis: 4.0.13
+  checksum: 288873d5d662f8cd082fff6e4b24a3308443cb0b2cec0b2864be33168f94b673ba9a32d8ea37ee185fc7ab7cfb61eae78d05d907e6e92146fd0bc8631620ad36
+  languageName: node
+  linkType: hard
+
 "@emotion/hash@npm:^0.9.0":
   version: 0.9.0
   resolution: "@emotion/hash@npm:0.9.0"
@@ -2516,6 +2526,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@spike.land/code@workspace:packages/code"
   dependencies:
+    "@emotion/css-prettifier": ^1.1.0
     "@emotion/react": ^11.10.0
     "@emotion/serialize": ^1.1.0
     "@emotion/styled": 11.10.0
