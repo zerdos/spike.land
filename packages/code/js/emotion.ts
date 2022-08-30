@@ -1,16 +1,16 @@
 import * as ea from "@emotion/react";
 
-const EmotionReact = window.EmotionReact = window.EmotionReact || ea;
+const EmotionReact = window.emotionReact = window.emotionReact || ea;
 
 // import createCache from "@emotion/cache";
 
-import { jsxs } from "@emotion/react/jsx-runtime";
+export * from "@emotion/react/jsx-runtime";
 //
 // export { JSX } from "@emotion/react/jsx-runtime";
 
 // export const ss = JSX.
 export const { jsx } = EmotionReact;
-export { jsxs };
+// export { jsxs } = JSX;
 
 export const { css } = EmotionReact;
 export const { CacheProvider } = EmotionReact;
