@@ -4,6 +4,7 @@ var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
 var __getOwnPropNames = Object.getOwnPropertyNames;
 var __getProtoOf = Object.getPrototypeOf;
 var __hasOwnProp = Object.prototype.hasOwnProperty;
+var __defNormalProp = (obj, key, value) => key in obj ? __defProp(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
 var __commonJS = (cb, mod) => function __require() {
   return mod || (0, cb[__getOwnPropNames(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
 };
@@ -19,6 +20,10 @@ var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__ge
   isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
   mod
 ));
+var __publicField = (obj, key, value) => {
+  __defNormalProp(obj, typeof key !== "symbol" ? key + "" : key, value);
+  return value;
+};
 
 // ../../node_modules/mime/Mime.js
 var require_Mime = __commonJS({
@@ -6110,16 +6115,18 @@ var session = null;
 var hashStore = {};
 var CodeSession = class {
   constructor(room, user) {
-    this.cb = {};
-    this.hashCodeSession = 0;
-    this.created = new Date().toISOString();
-    this.hashOfState = () => {
+    __publicField(this, "session");
+    __publicField(this, "cb", {});
+    __publicField(this, "hashCodeSession", 0);
+    __publicField(this, "room");
+    __publicField(this, "created", new Date().toISOString());
+    __publicField(this, "hashOfState", () => {
       const state = this.session.get("state");
       const hashCode4 = state.hashCode();
       hashStore[hashCode4] = state;
       return hashCode4;
-    };
-    this.createPatchFromHashCode = async (oldHash, state) => {
+    });
+    __publicField(this, "createPatchFromHashCode", async (oldHash, state) => {
       const s = JSON.parse(str(state));
       if (!hashStore[oldHash]) {
         const resp = await fetch(
@@ -6141,15 +6148,15 @@ var CodeSession = class {
         newHash,
         patch
       };
-    };
-    this.patchSync = (sess) => {
+    });
+    __publicField(this, "patchSync", (sess) => {
       this.session = this.session.set(
         "state",
         this.session.get("state").merge(sess)
       );
       this.update();
-    };
-    this.applyPatch = async ({
+    });
+    __publicField(this, "applyPatch", async ({
       oldHash,
       newHash,
       patch
@@ -6193,7 +6200,7 @@ var CodeSession = class {
         new Error("Wrong patch");
         return;
       }
-    };
+    });
     session = this;
     this.room = room;
     const savedState = null;
