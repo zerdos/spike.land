@@ -133,11 +133,9 @@ export async function appFactory(transpiled = ""): Promise<React.FC> {
             <p>{JSON.stringify({ err })}</p>
           </div>
         );
-      } else if (err instanceof Error ){
-
+      } else if (err instanceof Error) {
         const name = err.name;
         const message = err.message;
- 
 
         apps[hash] = () => (
           <div
@@ -148,20 +146,21 @@ export async function appFactory(transpiled = ""): Promise<React.FC> {
             <h1>Syntax Error</h1>
             <h2>{name}: {message}</h2>
             <p>{JSON.stringify({ err })}</p>
-          </div>)
+          </div>
+        );
       } else {
-      apps[hash] = () => (
-        <div
-          css={css`
+        apps[hash] = () => (
+          <div
+            css={css`
         background-color: orange;
       `}
-        >
-          <h1>Unknown Error: ${hash}</h1>
-        </div>
-      );
+          >
+            <h1>Unknown Error: ${hash}</h1>
+          </div>
+        );
+      }
     }
   }
-}
 
   if (transpiled && mST().transpiled !== transpiled) {
     const newApp = apps[hash];

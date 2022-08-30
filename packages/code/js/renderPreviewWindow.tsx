@@ -67,8 +67,8 @@ background:  repeating-radial-gradient(circle at bottom left,
   </div>
 );
 
-const AppToRender: FC<{ codeSpace: string }> = (
-  { codeSpace },
+const AppToRender: FC<{ codeSpace: string, assets: {[key: string]: string} }> = (
+  { codeSpace, assets},
 ) => {
   // const [flipped, set] = useState(false)
   // const { transform, opacity } = useSpring({
@@ -167,7 +167,7 @@ const AppToRender: FC<{ codeSpace: string }> = (
         }}
       >    */
             }
-            <Editor code={mST().code} i={mST().i} codeSpace={codeSpace} />
+            <Editor code={mST().code} i={mST().i} codeSpace={codeSpace} assets={assets} />
             {/* </a.div> */}
             {/* </div> */}
             <DraggableWindow
@@ -182,15 +182,17 @@ const AppToRender: FC<{ codeSpace: string }> = (
   );
 };
 
-export const renderPreviewWindow = (
-  codeSpace: string,
-) => {
+export const renderPreviewWindow = ({codeSpace, assets}:
+  {
+    codeSpace: string,
+    assets: {[key: string]: string}
+  }) => {
   const div = document.getElementById("root")!;
   // div.style.height='100%';
   const root = createRoot(div);
   root.render(
     <Fragment>
-      <AppToRender codeSpace={codeSpace} />
+      <AppToRender codeSpace={codeSpace} assets={assets} />
     </Fragment>,
   );
 };
