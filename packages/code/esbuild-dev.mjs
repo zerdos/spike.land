@@ -7,7 +7,7 @@ const environment = process.env.NODE_ENV === "production"
 const isDevelopment = environment === "development";
 
 const outdir = "./dist";
-const target = "es2021";
+const target = "es2022";
 
 console.log(`
 -------------------------------------------------
@@ -21,8 +21,8 @@ const define = {
   "process.env.DEBUG": false,
   "process.env.version": `"1.1.1"`,
   "process.env.DUMP_SESSION_KEYS": false,
-  "process": JSON.stringify({ env: {}, version: "1.1.1", browser: true }),
-  "global": "self",
+  "process": JSON.stringify({ env: {NODE_ENV: environment}, version: "1.1.1", browser: true }),
+  "global": "window",
 };
 
 const buildOptions = {
@@ -39,7 +39,6 @@ const build = (entryPoints, format = "esm") =>
     entryPoints,
     "outExtension": { ".js": ".mjs" },
     bundle: true,
-    format: "esm",
     splitting: false,
     target,
     sourcemap: false,
@@ -50,15 +49,13 @@ const build = (entryPoints, format = "esm") =>
     minifySyntax: !isDevelopment,
     legalComments: "none",
     ignoreAnnotations: true,
-    treeShaking: false,
+    treeShaking: true,
     format,
     tsconfig: "./tsconfig.json",
     allowOverwrite: true,
-
     external: ["monaco-editor/*", "monaco-editor"],
     platform: "browser",
     chunkNames: "chunk-[name]-[hash]",
-    treeShaking: true,
     assetNames: "chunk-[name]-[hash]",
     // entryNames: "[name]-[hash]",
     resolveExtensions: [

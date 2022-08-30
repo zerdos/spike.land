@@ -3795,7 +3795,7 @@ var require_emotion_react_cjs_dev = __commonJS({
       isBrowser = typeof document !== "undefined";
       isJest = typeof jest !== "undefined";
       if (isBrowser && !isJest) {
-        globalContext = typeof globalThis !== "undefined" ? globalThis : isBrowser ? window : self;
+        globalContext = typeof globalThis !== "undefined" ? globalThis : isBrowser ? window : window;
         globalKey = "__EMOTION_REACT_" + pkg.version.split(".")[0] + "__";
         if (globalContext[globalKey]) {
           console.warn("You are loading @emotion/react when it is already loaded. Running multiple instances may cause problems. This can happen if multiple versions are used, or if multiple builds of the same version are used.");

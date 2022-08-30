@@ -31,7 +31,7 @@ var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__ge
 var define_process_default;
 var init_define_process = __esm({
   "<define:process>"() {
-    define_process_default = { env: {}, version: "1.1.1", browser: true };
+    define_process_default = { env: { NODE_ENV: "development" }, version: "1.1.1", browser: true };
   }
 });
 
@@ -103,7 +103,7 @@ var require_tslib = __commonJS({
     var __classPrivateFieldIn2;
     var __createBinding2;
     (function(factory) {
-      var root = typeof self === "object" ? self : typeof self === "object" ? self : typeof this === "object" ? this : {};
+      var root = typeof window === "object" ? window : typeof self === "object" ? self : typeof this === "object" ? this : {};
       if (typeof define === "function" && define.amd) {
         define("tslib", ["exports"], function(exports2) {
           factory(createExporter(root, createExporter(exports2)));

@@ -76,7 +76,7 @@
       "imports": []
     },
     "../../packages/code/dist/session.mjs": {
-      "bytes": 167765,
+      "bytes": 167583,
       "imports": []
     },
     "src/getBackupSession.ts": {
@@ -199,7 +199,7 @@
           "bytesInOutput": 14669
         },
         "../../packages/code/dist/session.mjs": {
-          "bytesInOutput": 167122
+          "bytesInOutput": 167310
         },
         "src/getBackupSession.ts": {
           "bytesInOutput": 2836
@@ -214,7 +214,7 @@
           "bytesInOutput": 478
         }
       },
-      "bytes": 255082
+      "bytes": 255566
     }
   }
 }
