@@ -1,4 +1,4 @@
-import type { FC } from "react";
+
 // import { createPortal } from "react-dom";
 // import { prefixer } from 'stylis';
 
@@ -90,11 +90,11 @@ import ErrorBoundary from "./ErrorBoundary";
 //   });
 // };
 
-const apps: { [key: string]: FC } = {};
+const apps: { [key: string]: React.FC } = {};
 
 // {[md5(starter.transpiled)]: await appFactory(starter.transpiled)};
 
-export const AutoUpdateApp: FC<{ hash: number }> = ({ hash }) => {
+export const AutoUpdateApp: React.FC<{ hash: number }> = ({ hash }) => {
   // const result = md5(mST().transpiled);
 
   // const ref = useRef(null);
@@ -102,14 +102,12 @@ export const AutoUpdateApp: FC<{ hash: number }> = ({ hash }) => {
   const App = apps[hash];
 
   // return <Root codeSpace={codeSpace}>
-  return (
-    <ErrorBoundary key={hash}>
+  return <ErrorBoundary key={hash}>
       <App />
     </ErrorBoundary>
-  );
 };
 
-export async function appFactory(transpiled = ""): Promise<FC> {
+export async function appFactory(transpiled = ""): Promise<React.FC> {
   const hash = hashCode();
 
   if (!apps[hash]) {

@@ -26,7 +26,6 @@ import {
 } from "./chunk-chunk-VZCGMROI.mjs";
 import {
   Children,
-  Component,
   PureComponent,
   V,
   cloneElement,
@@ -3922,20 +3921,33 @@ var import_react2 = __toESM(require_emotion_react_cjs(), 1);
 init_define_process();
 init_react_preact();
 var import_jsx_runtime = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
-var ErrorBoundary = class extends Component {
-  state = {
-    hasError: false
-  };
-  static getDerivedStateFromError(_2) {
-    return { hasError: true };
+var ErrorBoundary = class extends react_preact_default.Component {
+  constructor(props) {
+    super(props);
+    this.state = { error: null, errorInfo: null };
   }
   componentDidCatch(error, errorInfo) {
-    console.error("Uncaught error:", error, errorInfo);
+    this.setState({
+      error,
+      errorInfo
+    });
   }
   render() {
-    if (this.state.hasError) {
-      return (0, import_jsx_runtime.jsx)("h1", {
-        children: "Sorry.. there was an error"
+    if (this.state.errorInfo) {
+      return (0, import_jsx_runtime.jsxs)("div", {
+        children: [
+          (0, import_jsx_runtime.jsx)("h2", {
+            children: "Something went wrong."
+          }),
+          (0, import_jsx_runtime.jsxs)("details", {
+            style: { whiteSpace: "pre-wrap" },
+            children: [
+              this.state.error && this.state.error.toString(),
+              (0, import_jsx_runtime.jsx)("br", {}),
+              this.state.errorInfo.componentStack
+            ]
+          })
+        ]
       });
     }
     return this.props.children;
@@ -4309,29 +4321,29 @@ function getFunctionName(fn2) {
   const name = match && match[1];
   return name || "";
 }
-function getFunctionComponentName(Component2, fallback = "") {
-  return Component2.displayName || Component2.name || getFunctionName(Component2) || fallback;
+function getFunctionComponentName(Component, fallback = "") {
+  return Component.displayName || Component.name || getFunctionName(Component) || fallback;
 }
 function getWrappedName(outerType, innerType, wrapperName) {
   const functionName = getFunctionComponentName(innerType);
   return outerType.displayName || (functionName !== "" ? `${wrapperName}(${functionName})` : wrapperName);
 }
-function getDisplayName(Component2) {
-  if (Component2 == null) {
+function getDisplayName(Component) {
+  if (Component == null) {
     return void 0;
   }
-  if (typeof Component2 === "string") {
-    return Component2;
+  if (typeof Component === "string") {
+    return Component;
   }
-  if (typeof Component2 === "function") {
-    return getFunctionComponentName(Component2, "Component");
+  if (typeof Component === "function") {
+    return getFunctionComponentName(Component, "Component");
   }
-  if (typeof Component2 === "object") {
-    switch (Component2.$$typeof) {
+  if (typeof Component === "object") {
+    switch (Component.$$typeof) {
       case import_react_is.ForwardRef:
-        return getWrappedName(Component2, Component2.render, "ForwardRef");
+        return getWrappedName(Component, Component.render, "ForwardRef");
       case import_react_is.Memo:
-        return getWrappedName(Component2, Component2.type, "memo");
+        return getWrappedName(Component, Component.type, "memo");
       default:
         return void 0;
     }
@@ -14411,7 +14423,7 @@ function createStyled(input = {}) {
           }, other));
         };
       }
-      const Component2 = defaultStyledResolver(transformedStyleArg, ...expressionsWithDefaultTheme);
+      const Component = defaultStyledResolver(transformedStyleArg, ...expressionsWithDefaultTheme);
       if (true) {
         let displayName;
         if (componentName) {
@@ -14420,9 +14432,9 @@ function createStyled(input = {}) {
         if (displayName === void 0) {
           displayName = `Styled(${getDisplayName(tag)})`;
         }
-        Component2.displayName = displayName;
+        Component.displayName = displayName;
       }
-      return Component2;
+      return Component;
     };
     if (defaultStyledResolver.withConfig) {
       muiStyledResolver.withConfig = defaultStyledResolver.withConfig;
@@ -17361,20 +17373,20 @@ var TransitionGroup = function(_React$Component) {
     }
   };
   _proto.render = function render() {
-    var _this$props = this.props, Component2 = _this$props.component, childFactory2 = _this$props.childFactory, props = _objectWithoutPropertiesLoose(_this$props, ["component", "childFactory"]);
+    var _this$props = this.props, Component = _this$props.component, childFactory2 = _this$props.childFactory, props = _objectWithoutPropertiesLoose(_this$props, ["component", "childFactory"]);
     var contextValue = this.state.contextValue;
     var children2 = values2(this.state.children).map(childFactory2);
     delete props.appear;
     delete props.enter;
     delete props.exit;
-    if (Component2 === null) {
+    if (Component === null) {
       return react_preact_default.createElement(TransitionGroupContext_default.Provider, {
         value: contextValue
       }, children2);
     }
     return react_preact_default.createElement(TransitionGroupContext_default.Provider, {
       value: contextValue
-    }, react_preact_default.createElement(Component2, props, children2));
+    }, react_preact_default.createElement(Component, props, children2));
   };
   return TransitionGroup2;
 }(react_preact_default.Component);
@@ -19836,17 +19848,17 @@ var SvgIcon_default = SvgIcon;
 // .yarn/__virtual__/@mui-material-virtual-a1f04ec63e/3/.yarn/global/cache/@mui-material-npm-5.10.1-9661ab5032-9.zip/node_modules/@mui/material/utils/createSvgIcon.js
 init_react_preact();
 function createSvgIcon(path, displayName) {
-  const Component2 = (props, ref) => e(SvgIcon_default, _extends({
+  const Component = (props, ref) => e(SvgIcon_default, _extends({
     "data-testid": `${displayName}Icon`,
     ref
   }, props, {
     children: path
   }));
   if (true) {
-    Component2.displayName = `${displayName}Icon`;
+    Component.displayName = `${displayName}Icon`;
   }
-  Component2.muiName = SvgIcon_default.muiName;
-  return memo(forwardRef(Component2));
+  Component.muiName = SvgIcon_default.muiName;
+  return memo(forwardRef(Component));
 }
 
 // .yarn/__virtual__/@mui-material-virtual-a1f04ec63e/3/.yarn/global/cache/@mui-material-npm-5.10.1-9661ab5032-9.zip/node_modules/@mui/material/ToggleButton/ToggleButton.js
@@ -20535,7 +20547,7 @@ var Editor = ({ code, i, codeSpace: codeSpace2 }) => {
     myCode: code,
     counter: i,
     runner: async ({ code: code2, counter: counter2, codeSpace: codeSpace3 }) => {
-      const { runner: runner2 } = await import("./chunk-runner-X4R5UIHY.mjs");
+      const { runner: runner2 } = await import("./chunk-runner-TPHSV3F4.mjs");
       runner2({ code: code2, counter: counter2, codeSpace: codeSpace3 });
       changeContent((x) => ({
         ...x,
