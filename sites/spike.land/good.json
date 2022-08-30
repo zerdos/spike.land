@@ -75,9 +75,31 @@
       "bytes": 2244,
       "imports": []
     },
-    "../../packages/code/dist/session.mjs": {
-      "bytes": 167583,
+    "../../packages/code/dist/chunk-chunk-JAPAFYDL.mjs": {
+      "bytes": 1712,
       "imports": []
+    },
+    "../../packages/code/dist/chunk-chunk-ONQROWRT.mjs": {
+      "bytes": 166436,
+      "imports": [
+        {
+          "path": "../../packages/code/dist/chunk-chunk-JAPAFYDL.mjs",
+          "kind": "import-statement"
+        }
+      ]
+    },
+    "../../packages/code/dist/session.mjs": {
+      "bytes": 375,
+      "imports": [
+        {
+          "path": "../../packages/code/dist/chunk-chunk-ONQROWRT.mjs",
+          "kind": "import-statement"
+        },
+        {
+          "path": "../../packages/code/dist/chunk-chunk-JAPAFYDL.mjs",
+          "kind": "import-statement"
+        }
+      ]
     },
     "src/getBackupSession.ts": {
       "bytes": 2935,
@@ -198,8 +220,11 @@
         "src/chatRoom.ts": {
           "bytesInOutput": 14669
         },
-        "../../packages/code/dist/session.mjs": {
-          "bytesInOutput": 167310
+        "../../packages/code/dist/chunk-chunk-JAPAFYDL.mjs": {
+          "bytesInOutput": 1367
+        },
+        "../../packages/code/dist/chunk-chunk-ONQROWRT.mjs": {
+          "bytesInOutput": 166071
         },
         "src/getBackupSession.ts": {
           "bytesInOutput": 2836
@@ -214,7 +239,7 @@
           "bytesInOutput": 478
         }
       },
-      "bytes": 255566
+      "bytes": 255761
     }
   }
 }
