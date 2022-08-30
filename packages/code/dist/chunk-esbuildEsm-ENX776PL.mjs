@@ -32,8 +32,8 @@ var require_browser = __commonJS({
       };
       var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
       var __export = (target, all) => {
-        for (var name2 in all)
-          __defProp(target, name2, { get: all[name2], enumerable: true });
+        for (var name in all)
+          __defProp(target, name, { get: all[name], enumerable: true });
       };
       var __copyProps = (to, from, except, desc) => {
         if (from && typeof from === "object" || typeof from === "function") {
@@ -539,8 +539,8 @@ var require_browser = __commonJS({
           flags.push(`--conditions=${values.join(",")}`);
         }
         if (external)
-          for (let name2 of external)
-            flags.push(`--external:${name2}`);
+          for (let name of external)
+            flags.push(`--external:${name}`);
         if (banner) {
           for (let type in banner) {
             if (type.indexOf("=") >= 0)
@@ -825,16 +825,16 @@ var require_browser = __commonJS({
             let keys = {};
             if (typeof item !== "object")
               throw new Error(`Plugin at index ${i} must be an object`);
-            const name2 = getFlag(item, keys, "name", mustBeString);
-            if (typeof name2 !== "string" || name2 === "")
+            const name = getFlag(item, keys, "name", mustBeString);
+            if (typeof name !== "string" || name === "")
               throw new Error(`Plugin at index ${i} is missing a name`);
             try {
               let setup = getFlag(item, keys, "setup", mustBeFunction);
               if (typeof setup !== "function")
                 throw new Error(`Plugin is missing a setup function`);
-              checkForInvalidFlags(item, keys, `on plugin ${JSON.stringify(name2)}`);
+              checkForInvalidFlags(item, keys, `on plugin ${JSON.stringify(name)}`);
               let plugin = {
-                name: name2,
+                name,
                 onResolve: [],
                 onLoad: []
               };
@@ -857,7 +857,7 @@ var require_browser = __commonJS({
                     command: "resolve",
                     path,
                     key: buildKey,
-                    pluginName: name2
+                    pluginName: name
                   };
                   if (pluginName != null)
                     request.pluginName = pluginName;
@@ -894,12 +894,12 @@ var require_browser = __commonJS({
                 onStart(callback2) {
                   let registeredText = `This error came from the "onStart" callback registered here:`;
                   let registeredNote = extractCallerV8(new Error(registeredText), streamIn, "onStart");
-                  onStartCallbacks.push({ name: name2, callback: callback2, note: registeredNote });
+                  onStartCallbacks.push({ name, callback: callback2, note: registeredNote });
                 },
                 onEnd(callback2) {
                   let registeredText = `This error came from the "onEnd" callback registered here:`;
                   let registeredNote = extractCallerV8(new Error(registeredText), streamIn, "onEnd");
-                  onEndCallbacks.push({ name: name2, callback: callback2, note: registeredNote });
+                  onEndCallbacks.push({ name, callback: callback2, note: registeredNote });
                 },
                 onResolve(options, callback2) {
                   let registeredText = `This error came from the "onResolve" callback registered here:`;
@@ -907,11 +907,11 @@ var require_browser = __commonJS({
                   let keys2 = {};
                   let filter = getFlag(options, keys2, "filter", mustBeRegExp);
                   let namespace = getFlag(options, keys2, "namespace", mustBeString);
-                  checkForInvalidFlags(options, keys2, `in onResolve() call for plugin ${JSON.stringify(name2)}`);
+                  checkForInvalidFlags(options, keys2, `in onResolve() call for plugin ${JSON.stringify(name)}`);
                   if (filter == null)
                     throw new Error(`onResolve() call is missing a filter`);
                   let id = nextCallbackID++;
-                  onResolveCallbacks[id] = { name: name2, callback: callback2, note: registeredNote };
+                  onResolveCallbacks[id] = { name, callback: callback2, note: registeredNote };
                   plugin.onResolve.push({ id, filter: filter.source, namespace: namespace || "" });
                 },
                 onLoad(options, callback2) {
@@ -920,11 +920,11 @@ var require_browser = __commonJS({
                   let keys2 = {};
                   let filter = getFlag(options, keys2, "filter", mustBeRegExp);
                   let namespace = getFlag(options, keys2, "namespace", mustBeString);
-                  checkForInvalidFlags(options, keys2, `in onLoad() call for plugin ${JSON.stringify(name2)}`);
+                  checkForInvalidFlags(options, keys2, `in onLoad() call for plugin ${JSON.stringify(name)}`);
                   if (filter == null)
                     throw new Error(`onLoad() call is missing a filter`);
                   let id = nextCallbackID++;
-                  onLoadCallbacks[id] = { name: name2, callback: callback2, note: registeredNote };
+                  onLoadCallbacks[id] = { name, callback: callback2, note: registeredNote };
                   plugin.onLoad.push({ id, filter: filter.source, namespace: namespace || "" });
                 },
                 esbuild: streamIn.esbuild
@@ -933,39 +933,39 @@ var require_browser = __commonJS({
                 yield promise;
               requestPlugins.push(plugin);
             } catch (e) {
-              return { ok: false, error: e, pluginName: name2 };
+              return { ok: false, error: e, pluginName: name };
             }
           }
           const callback = (request) => __async(this, null, function* () {
             switch (request.command) {
               case "on-start": {
                 let response = { errors: [], warnings: [] };
-                yield Promise.all(onStartCallbacks.map((_0) => __async(this, [_0], function* ({ name: name2, callback: callback2, note }) {
+                yield Promise.all(onStartCallbacks.map((_0) => __async(this, [_0], function* ({ name, callback: callback2, note }) {
                   try {
                     let result = yield callback2();
                     if (result != null) {
                       if (typeof result !== "object")
-                        throw new Error(`Expected onStart() callback in plugin ${JSON.stringify(name2)} to return an object`);
+                        throw new Error(`Expected onStart() callback in plugin ${JSON.stringify(name)} to return an object`);
                       let keys = {};
                       let errors = getFlag(result, keys, "errors", mustBeArray);
                       let warnings = getFlag(result, keys, "warnings", mustBeArray);
-                      checkForInvalidFlags(result, keys, `from onStart() callback in plugin ${JSON.stringify(name2)}`);
+                      checkForInvalidFlags(result, keys, `from onStart() callback in plugin ${JSON.stringify(name)}`);
                       if (errors != null)
-                        response.errors.push(...sanitizeMessages(errors, "errors", stash, name2));
+                        response.errors.push(...sanitizeMessages(errors, "errors", stash, name));
                       if (warnings != null)
-                        response.warnings.push(...sanitizeMessages(warnings, "warnings", stash, name2));
+                        response.warnings.push(...sanitizeMessages(warnings, "warnings", stash, name));
                     }
                   } catch (e) {
-                    response.errors.push(extractErrorMessageV8(e, streamIn, stash, note && note(), name2));
+                    response.errors.push(extractErrorMessageV8(e, streamIn, stash, note && note(), name));
                   }
                 })));
                 return response;
               }
               case "on-resolve": {
-                let response = {}, name2 = "", callback2, note;
+                let response = {}, name = "", callback2, note;
                 for (let id of request.ids) {
                   try {
-                    ({ name: name2, callback: callback2, note } = onResolveCallbacks[id]);
+                    ({ name, callback: callback2, note } = onResolveCallbacks[id]);
                     let result = yield callback2({
                       path: request.path,
                       importer: request.importer,
@@ -976,7 +976,7 @@ var require_browser = __commonJS({
                     });
                     if (result != null) {
                       if (typeof result !== "object")
-                        throw new Error(`Expected onResolve() callback in plugin ${JSON.stringify(name2)} to return an object`);
+                        throw new Error(`Expected onResolve() callback in plugin ${JSON.stringify(name)} to return an object`);
                       let keys = {};
                       let pluginName = getFlag(result, keys, "pluginName", mustBeString);
                       let path = getFlag(result, keys, "path", mustBeString);
@@ -989,7 +989,7 @@ var require_browser = __commonJS({
                       let warnings = getFlag(result, keys, "warnings", mustBeArray);
                       let watchFiles = getFlag(result, keys, "watchFiles", mustBeArray);
                       let watchDirs = getFlag(result, keys, "watchDirs", mustBeArray);
-                      checkForInvalidFlags(result, keys, `from onResolve() callback in plugin ${JSON.stringify(name2)}`);
+                      checkForInvalidFlags(result, keys, `from onResolve() callback in plugin ${JSON.stringify(name)}`);
                       response.id = id;
                       if (pluginName != null)
                         response.pluginName = pluginName;
@@ -1006,9 +1006,9 @@ var require_browser = __commonJS({
                       if (pluginData != null)
                         response.pluginData = stash.store(pluginData);
                       if (errors != null)
-                        response.errors = sanitizeMessages(errors, "errors", stash, name2);
+                        response.errors = sanitizeMessages(errors, "errors", stash, name);
                       if (warnings != null)
-                        response.warnings = sanitizeMessages(warnings, "warnings", stash, name2);
+                        response.warnings = sanitizeMessages(warnings, "warnings", stash, name);
                       if (watchFiles != null)
                         response.watchFiles = sanitizeStringArray(watchFiles, "watchFiles");
                       if (watchDirs != null)
@@ -1016,16 +1016,16 @@ var require_browser = __commonJS({
                       break;
                     }
                   } catch (e) {
-                    return { id, errors: [extractErrorMessageV8(e, streamIn, stash, note && note(), name2)] };
+                    return { id, errors: [extractErrorMessageV8(e, streamIn, stash, note && note(), name)] };
                   }
                 }
                 return response;
               }
               case "on-load": {
-                let response = {}, name2 = "", callback2, note;
+                let response = {}, name = "", callback2, note;
                 for (let id of request.ids) {
                   try {
-                    ({ name: name2, callback: callback2, note } = onLoadCallbacks[id]);
+                    ({ name, callback: callback2, note } = onLoadCallbacks[id]);
                     let result = yield callback2({
                       path: request.path,
                       namespace: request.namespace,
@@ -1034,7 +1034,7 @@ var require_browser = __commonJS({
                     });
                     if (result != null) {
                       if (typeof result !== "object")
-                        throw new Error(`Expected onLoad() callback in plugin ${JSON.stringify(name2)} to return an object`);
+                        throw new Error(`Expected onLoad() callback in plugin ${JSON.stringify(name)} to return an object`);
                       let keys = {};
                       let pluginName = getFlag(result, keys, "pluginName", mustBeString);
                       let contents = getFlag(result, keys, "contents", mustBeStringOrUint8Array);
@@ -1045,7 +1045,7 @@ var require_browser = __commonJS({
                       let warnings = getFlag(result, keys, "warnings", mustBeArray);
                       let watchFiles = getFlag(result, keys, "watchFiles", mustBeArray);
                       let watchDirs = getFlag(result, keys, "watchDirs", mustBeArray);
-                      checkForInvalidFlags(result, keys, `from onLoad() callback in plugin ${JSON.stringify(name2)}`);
+                      checkForInvalidFlags(result, keys, `from onLoad() callback in plugin ${JSON.stringify(name)}`);
                       response.id = id;
                       if (pluginName != null)
                         response.pluginName = pluginName;
@@ -1060,9 +1060,9 @@ var require_browser = __commonJS({
                       if (loader != null)
                         response.loader = loader;
                       if (errors != null)
-                        response.errors = sanitizeMessages(errors, "errors", stash, name2);
+                        response.errors = sanitizeMessages(errors, "errors", stash, name);
                       if (warnings != null)
-                        response.warnings = sanitizeMessages(warnings, "warnings", stash, name2);
+                        response.warnings = sanitizeMessages(warnings, "warnings", stash, name);
                       if (watchFiles != null)
                         response.watchFiles = sanitizeStringArray(watchFiles, "watchFiles");
                       if (watchDirs != null)
@@ -1070,7 +1070,7 @@ var require_browser = __commonJS({
                       break;
                     }
                   } catch (e) {
-                    return { id, errors: [extractErrorMessageV8(e, streamIn, stash, note && note(), name2)] };
+                    return { id, errors: [extractErrorMessageV8(e, streamIn, stash, note && note(), name)] };
                   }
                 }
                 return response;
@@ -1083,11 +1083,11 @@ var require_browser = __commonJS({
           if (onEndCallbacks.length > 0) {
             runOnEndCallbacks = (result, logPluginError, done) => {
               (() => __async(this, null, function* () {
-                for (const { name: name2, callback: callback2, note } of onEndCallbacks) {
+                for (const { name, callback: callback2, note } of onEndCallbacks) {
                   try {
                     yield callback2(result);
                   } catch (e) {
-                    result.errors.push(yield new Promise((resolve) => logPluginError(e, name2, note && note(), resolve)));
+                    result.errors.push(yield new Promise((resolve) => logPluginError(e, name, note && note(), resolve)));
                   }
                 }
               }))().then(done);
@@ -2661,11 +2661,9 @@ var esbuild = {
       const transformObj = await (0, import_esbuild_wasm.transform)(code, options);
       console.info(`esbuld transpile done`);
       return transformObj;
-    } catch {
-      console.error("Ebuild transform errror: ", { code, name });
-      return {
-        code: `console.error("ESBULD TRANSFORM ERROR")`
-      };
+    } catch (err) {
+      console.error("Ebuild transform errror: ", { code, err });
+      throw err;
     }
   })
 };

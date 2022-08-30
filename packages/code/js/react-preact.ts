@@ -1,3 +1,5 @@
+export * from "preact/compat/client"
+
 import * as Preact from "preact";
 
 import { Fragment, options } from "preact";
@@ -139,6 +141,7 @@ export const {
   lazy,
   Suspense,
   StrictMode,
+  flushSync,
   forwardRef,
   memo,
   Children,
@@ -147,24 +150,4 @@ export const {
   version,
 } = React;
 
-export const flushSync = (callback: (arg: boolean) => void, arg: boolean) =>
-  callback(arg);
 
-export function createRoot(container: HTMLDivElement) {
-  return {
-    render(children: preact.VNode<any>) {
-      render(children, container);
-    },
-    unmount() {
-      unmountComponentAtNode(container);
-    },
-  };
-}
-
-export function hydrateRoot(
-  container: HTMLDivElement,
-  children: preact.VNode<any>,
-) {
-  hydrate(children, container);
-  return createRoot(container);
-}

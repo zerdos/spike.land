@@ -17,11 +17,9 @@ const esbuild = {
         const transformObj = await transform(code, options);
         console.info(`esbuld transpile done`);
         return transformObj;
-      } catch {
-        console.error("Ebuild transform errror: ", { code, name });
-        return {
-          code: `console.error("ESBULD TRANSFORM ERROR")`,
-        };
+      } catch (err){
+        console.error("Ebuild transform errror: ", { code, err });
+        throw err;
       }
     }),
 };

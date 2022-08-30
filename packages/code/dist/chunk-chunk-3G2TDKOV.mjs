@@ -794,6 +794,28 @@ var init_compat_module = __esm({
   }
 });
 
+// ../../.yarn/global/cache/preact-npm-10.10.6-e3746adb94-9.zip/node_modules/preact/compat/client.mjs
+function createRoot(container) {
+  return {
+    render(children) {
+      z3(children, container);
+    },
+    unmount() {
+      un(container);
+    }
+  };
+}
+function hydrateRoot(container, children) {
+  B2(children, container);
+  return createRoot(container);
+}
+var init_client = __esm({
+  "../../.yarn/global/cache/preact-npm-10.10.6-e3746adb94-9.zip/node_modules/preact/compat/client.mjs"() {
+    init_define_process();
+    init_compat_module();
+  }
+});
+
 // .yarn/__virtual__/preact-render-to-string-virtual-01f41805c5/3/.yarn/global/cache/preact-render-to-string-npm-5.2.2-b8f2c0c74e-9.zip/node_modules/preact-render-to-string/dist/index.mjs
 function o3(e4) {
   if (false === n2.test(e4 += ""))
@@ -1195,24 +1217,11 @@ function useId() {
   }
   return state._value;
 }
-function createRoot(container) {
-  return {
-    render(children) {
-      render(children, container);
-    },
-    unmount() {
-      unmountComponentAtNode(container);
-    }
-  };
-}
-function hydrateRoot(container, children) {
-  hydrate(children, container);
-  return createRoot(container);
-}
-var currentIndex, currentComponent, currentHook, EMPTY, oldBeforeDiff, oldBeforeRender, oldAfterDiff, oldCommit, oldBeforeUnmount, React, createContext, hydrate, render, unmountComponentAtNode, react_preact_default, createElement, cloneElement, createFactory, useInsertionEffect, unstable_batchedUpdates, createRef, useCallback, useContext, useDebugValue, isValidElement, useEffect, useImperativeHandle, useLayoutEffect, useMemo, useReducer, useRef, useState, lazy, Suspense, StrictMode, forwardRef, memo, Children, PureComponent, Component, version, flushSync;
+var currentIndex, currentComponent, currentHook, EMPTY, oldBeforeDiff, oldBeforeRender, oldAfterDiff, oldCommit, oldBeforeUnmount, React, createContext, hydrate, render, unmountComponentAtNode, react_preact_default, createElement, cloneElement, createFactory, useInsertionEffect, unstable_batchedUpdates, createRef, useCallback, useContext, useDebugValue, isValidElement, useEffect, useImperativeHandle, useLayoutEffect, useMemo, useReducer, useRef, useState, lazy, Suspense, StrictMode, flushSync, forwardRef, memo, Children, PureComponent, Component, version;
 var init_react_preact = __esm({
   "js/react-preact.ts"() {
     init_define_process();
+    init_client();
     init_preact_module();
     init_preact_module();
     init_compat_module();
@@ -1265,6 +1274,7 @@ var init_react_preact = __esm({
       lazy,
       Suspense,
       StrictMode,
+      flushSync,
       forwardRef,
       memo,
       Children,
@@ -1272,7 +1282,6 @@ var init_react_preact = __esm({
       Component,
       version
     } = React);
-    flushSync = (callback, arg) => callback(arg);
   }
 });
 
@@ -1281,6 +1290,8 @@ export {
   D,
   V,
   on,
+  createRoot,
+  hydrateRoot,
   y3 as y,
   e3 as e,
   useId,
@@ -1309,15 +1320,13 @@ export {
   lazy,
   Suspense,
   StrictMode,
+  flushSync,
   forwardRef,
   memo,
   Children,
   PureComponent,
   Component,
   version,
-  flushSync,
-  createRoot,
-  hydrateRoot,
   react_preact_exports,
   init_react_preact
 };
