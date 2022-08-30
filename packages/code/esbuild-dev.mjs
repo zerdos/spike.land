@@ -40,7 +40,7 @@ const build = (entryPoints, format = "esm") =>
     "outExtension": { ".js": ".mjs" },
     bundle: true,
     format: "esm",
-    splitting: true,
+    splitting: false,
     target,
     sourcemap: false,
 
@@ -50,7 +50,7 @@ const build = (entryPoints, format = "esm") =>
     minifySyntax: !isDevelopment,
     legalComments: "none",
     ignoreAnnotations: true,
-    treeShaking: true,
+    treeShaking: false,
     format,
     tsconfig: "./tsconfig.json",
     allowOverwrite: true,
