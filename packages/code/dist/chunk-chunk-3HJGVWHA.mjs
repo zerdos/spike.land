@@ -20535,7 +20535,7 @@ var Editor = ({ code, i, codeSpace: codeSpace2 }) => {
     myCode: code,
     counter: i,
     runner: async ({ code: code2, counter: counter2, codeSpace: codeSpace3 }) => {
-      const { runner: runner2 } = await import("./chunk-runner-ERVFF752.mjs");
+      const { runner: runner2 } = await import("./chunk-runner-X4R5UIHY.mjs");
       runner2({ code: code2, counter: counter2, codeSpace: codeSpace3 });
       changeContent((x) => ({
         ...x,
@@ -20571,7 +20571,7 @@ var Editor = ({ code, i, codeSpace: codeSpace2 }) => {
     if (!ref?.current)
       return;
     const setMonaco = async () => {
-      const { startMonaco } = await import("./chunk-startMonaco-6ZOR5ZQW.mjs");
+      const { startMonaco } = await import("./chunk-startMonaco-47IPOUWA.mjs");
       const { editor, monaco } = await startMonaco(
         {
           container: ref.current,
@@ -20993,10 +20993,10 @@ var debouncedSyncRTC = (0, import_lodash.default)(syncRTC, 100, {
   leading: true,
   maxWait: 500
 });
-var debouncedSyncWs = (0, import_lodash.default)(syncWS, 600, {
+var debouncedSyncWs = (0, import_lodash.default)(syncWS, 1200, {
   trailing: true,
   leading: true,
-  maxWait: 1500
+  maxWait: 2500
 });
 async function syncWS() {
   try {

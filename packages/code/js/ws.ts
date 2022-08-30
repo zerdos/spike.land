@@ -198,10 +198,10 @@ const debouncedSyncRTC = debounce(syncRTC, 100, {
   maxWait: 500,
 });
 
-const debouncedSyncWs = debounce(syncWS, 600, {
+const debouncedSyncWs = debounce(syncWS, 1200, {
   trailing: true,
   leading: true,
-  maxWait: 1500,
+  maxWait: 2500,
 });
 
 async function syncWS() {

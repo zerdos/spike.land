@@ -28,7 +28,7 @@ var dependencies = {
   comlink: "^4.3.1",
   csstype: "^3.1.0",
   "es-module-shims": "^1.5.17",
-  "esbuild-wasm": "0.15.5",
+  "esbuild-wasm": "0.15.6",
   "fast-diff": "1.2.0",
   "framer-motion": "7.2.1",
   immutable: "4.1.0",
