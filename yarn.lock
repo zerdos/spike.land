@@ -404,10 +404,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@cloudflare/workers-types@npm:3.14.1, @cloudflare/workers-types@npm:^3.14.1":
-  version: 3.14.1
-  resolution: "@cloudflare/workers-types@npm:3.14.1"
-  checksum: eba53686f24ec671a6930da07c7872e2c05420ffdff78e179bc440775fa0dc6fd673e1febf3069ac5099fc4725c68281be100af89dcc7855eacbffee244da5f9
+"@cloudflare/workers-types@npm:3.15.0, @cloudflare/workers-types@npm:^3.15.0":
+  version: 3.15.0
+  resolution: "@cloudflare/workers-types@npm:3.15.0"
+  checksum: dce1fb6d8852d6e205398367ea464c7665f34800493ff201d6ccc11f5c3eac795f4e38e3d7af8e8dc312faff53d7b8b9df55086831a688bd9962ecb8d8f8a2d0
   languageName: node
   linkType: hard
 
@@ -495,17 +495,18 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@emotion/react@npm:^11.10.0":
-  version: 11.10.0
-  resolution: "@emotion/react@npm:11.10.0"
+"@emotion/react@npm:^11.10.4":
+  version: 11.10.4
+  resolution: "@emotion/react@npm:11.10.4"
   dependencies:
-    "@babel/runtime": "npm:^7.18.3"
-    "@emotion/babel-plugin": "npm:^11.10.0"
-    "@emotion/cache": "npm:^11.10.0"
-    "@emotion/serialize": "npm:^1.1.0"
-    "@emotion/utils": "npm:^1.2.0"
-    "@emotion/weak-memoize": "npm:^0.3.0"
-    hoist-non-react-statics: "npm:^3.3.1"
+    "@babel/runtime": ^7.18.3
+    "@emotion/babel-plugin": ^11.10.0
+    "@emotion/cache": ^11.10.0
+    "@emotion/serialize": ^1.1.0
+    "@emotion/use-insertion-effect-with-fallbacks": ^1.0.0
+    "@emotion/utils": ^1.2.0
+    "@emotion/weak-memoize": ^0.3.0
+    hoist-non-react-statics: ^3.3.1
   peerDependencies:
     "@babel/core": ^7.0.0
     react: ">=16.8.0"
@@ -514,7 +515,7 @@ __metadata:
       optional: true
     "@types/react":
       optional: true
-  checksum: 6d692e43ff53fd3b87d4a000a9aec2ef080d66a0ebb7d0b9529c46d1e6bc1ac8a27c7dd74c27a8274ec1df1e3c960b78c035fca5d8a901a48eda445c6163b33b
+  checksum: 7555f6a1840c71d841386be2ec98ebfd6399923bd6a61247c7b07283f9a056f57e83c4fdd9ea7a7fcc3d88e5e04bb03168b4f0557934bcd501c88af4db16e1e0
   languageName: node
   linkType: hard
 
@@ -538,15 +539,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@emotion/styled@npm:11.10.0":
-  version: 11.10.0
-  resolution: "@emotion/styled@npm:11.10.0"
+"@emotion/styled@npm:11.10.4":
+  version: 11.10.4
+  resolution: "@emotion/styled@npm:11.10.4"
   dependencies:
-    "@babel/runtime": "npm:^7.18.3"
-    "@emotion/babel-plugin": "npm:^11.10.0"
-    "@emotion/is-prop-valid": "npm:^1.2.0"
-    "@emotion/serialize": "npm:^1.1.0"
-    "@emotion/utils": "npm:^1.2.0"
+    "@babel/runtime": ^7.18.3
+    "@emotion/babel-plugin": ^11.10.0
+    "@emotion/is-prop-valid": ^1.2.0
+    "@emotion/serialize": ^1.1.0
+    "@emotion/use-insertion-effect-with-fallbacks": ^1.0.0
+    "@emotion/utils": ^1.2.0
   peerDependencies:
     "@babel/core": ^7.0.0
     "@emotion/react": ^11.0.0-rc.0
@@ -556,7 +558,7 @@ __metadata:
       optional: true
     "@types/react":
       optional: true
-  checksum: f2a3e9798f807713d12771320cde9c2fa17ea6f008da605055496bd3522d81c120321240c8a1dae49c7272fea11361e1f47938ee069f678038b6836820c01243
+  checksum: d56cbf48f30c5a36d618adf2c4d7d9440b5059373a96964fa2a6e832ce9b9ae8cee11b5292b444264b3acbfdd6a8f6c9050e197a35c8dea7e9b9cc78f55ac31c
   languageName: node
   linkType: hard
 
@@ -564,6 +566,15 @@ __metadata:
   version: 0.8.0
   resolution: "@emotion/unitless@npm:0.8.0"
   checksum: 176141117ed23c0eb6e53a054a69c63e17ae532ec4210907a20b2208f91771821835f1c63dd2ec63e30e22fcc984026d7f933773ee6526dd038e0850919fae7a
+  languageName: node
+  linkType: hard
+
+"@emotion/use-insertion-effect-with-fallbacks@npm:^1.0.0":
+  version: 1.0.0
+  resolution: "@emotion/use-insertion-effect-with-fallbacks@npm:1.0.0"
+  peerDependencies:
+    react: ">=16.8.0"
+  checksum: 4f06a3b48258c832aa8022a262572061a31ff078d377e9164cccc99951309d70f4466e774fe704461b2f8715007a82ed625a54a5c7a127c89017d3ce3187d4f1
   languageName: node
   linkType: hard
 
@@ -2513,7 +2524,7 @@ __metadata:
   resolution: "@spike.land/code-worker@workspace:sites/spike.land"
   dependencies:
     "@cloudflare/kv-asset-handler": ^0.2.0
-    "@cloudflare/workers-types": ^3.14.1
+    "@cloudflare/workers-types": ^3.15.0
     "@spike.land/code": ^0.9.1
     esbuild: 0.15.6
     miniflare: ^2.7.1
@@ -2527,16 +2538,16 @@ __metadata:
   resolution: "@spike.land/code@workspace:packages/code"
   dependencies:
     "@emotion/css-prettifier": ^1.1.0
-    "@emotion/react": ^11.10.0
+    "@emotion/react": ^11.10.4
     "@emotion/serialize": ^1.1.0
-    "@emotion/styled": 11.10.0
+    "@emotion/styled": 11.10.4
     "@mui/material": 5.10.3
     "@types/events": ^3.0.0
     "@types/lodash.debounce": ^4.0.7
     "@types/lodash.throttle": ^4.1.7
     "@types/node": 18.7.14
     "@types/prettier": 2.7.0
-    "@types/react": ^18.0.17
+    "@types/react": ^18.0.18
     "@types/react-dom": 18.0.6
     "@types/xo": ^0.39.3
     ace-builds: 1.9.6
@@ -2871,7 +2882,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react@npm:*, @types/react@npm:18.0.17, @types/react@npm:^18.0.17":
+"@types/react@npm:*":
   version: 18.0.17
   resolution: "@types/react@npm:18.0.17"
   dependencies:
@@ -2879,6 +2890,17 @@ __metadata:
     "@types/scheduler": "npm:*"
     csstype: "npm:^3.0.2"
   checksum: 18cae64f5bfd6bb58fbd8ee2ba52ec82de844f114254e26de7b513e4b86621f643f9b71d7066958cd571b0d78cb86cbceda449c5289f9349ca573df29ab69252
+  languageName: node
+  linkType: hard
+
+"@types/react@npm:18.0.18, @types/react@npm:^18.0.18":
+  version: 18.0.18
+  resolution: "@types/react@npm:18.0.18"
+  dependencies:
+    "@types/prop-types": "*"
+    "@types/scheduler": "*"
+    csstype: ^3.0.2
+  checksum: 6d72d35ab3eecf382a5e0f225923f5a2c753045fce02e4e29713f36c99a24f0f770666a49dde96167f37c86271f93339d1b7e2b8969d011b137a9ebd24ee6806
   languageName: node
   linkType: hard
 
@@ -5373,8 +5395,8 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "esbuild-worker@workspace:sites/esbuild-worker"
   dependencies:
-    "@cloudflare/workers-types": 3.14.1
-    "@types/react": 18.0.17
+    "@cloudflare/workers-types": 3.15.0
+    "@types/react": 18.0.18
     "@types/react-dom": 18.0.6
     esbuild: 0.15.6
   languageName: unknown
@@ -6513,10 +6535,10 @@ __metadata:
   resolution: "github.com-spike.land@workspace:."
   dependencies:
     "@cloudflare/kv-asset-handler": ^0.2.0
-    "@cloudflare/workers-types": ^3.14.1
-    "@emotion/react": ^11.10.0
+    "@cloudflare/workers-types": ^3.15.0
+    "@emotion/react": ^11.10.4
     "@playwright/test": ^1.25.1
-    "@types/react": 18.0.17
+    "@types/react": 18.0.18
     "@types/xo": ^0.39.3
     "@yarnpkg/fslib": ^2.7.1
     "@yarnpkg/sdks": ^2.6.3
@@ -8807,7 +8829,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "new@workspace:packages/importmaps"
   dependencies:
-    "@emotion/react": ^11.10.0
+    "@emotion/react": ^11.10.4
     "@jspm/generator": ^1.0.0-beta.37
     "@types/react-dom": 18.0.6
     esbuild: ^0.15.6

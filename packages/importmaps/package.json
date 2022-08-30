@@ -16,7 +16,7 @@
     "dev": "node server.mjs && yarn serve --ssl-cert .certs/localhost.pem --ssl-key .certs/localhost-key.pem public"
   },
   "dependencies": {
-    "@emotion/react": "^11.10.0",
+    "@emotion/react": "^11.10.4",
     "framer-motion": "^7.2.1",
     "react": "18.2.0",
     "react-dom": "18.2.0"

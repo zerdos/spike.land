@@ -11,14 +11,14 @@ const esbuild = {
   transform: async (code: string, options: TransformOptions) =>
     await mutex.runExclusive(async () => {
       try {
-        console.info(`esbuld start`);
+        console.info(`esbuild start`);
 
         // if (options?.format==="esm") {
         const transformObj = await transform(code, options);
-        console.info(`esbuld transpile done`);
+        console.info(`esbuild transpile done`);
         return transformObj;
       } catch (err) {
-        console.error("Ebuild transform errror: ", { code, err });
+        console.error("Ebuild transform error: ", { code, err });
         throw err;
       }
     }),

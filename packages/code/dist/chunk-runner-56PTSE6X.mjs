@@ -1,26 +1,25 @@
 import {
   appFactory,
+  require_emotion_react_jsx_runtime_cjs,
   saveCode
-} from "./chunk-chunk-D4IDSF4Z.mjs";
+} from "./chunk-chunk-GZ6QZVHU.mjs";
 import {
   hashCode,
   mST,
   patchSync
-} from "./chunk-chunk-LDHU2TDS.mjs";
-import "./chunk-chunk-E3ZWTQPQ.mjs";
-import {
-  require_emotion_react_jsx_runtime_cjs
-} from "./chunk-chunk-TLUBWX2U.mjs";
+} from "./chunk-chunk-ONQROWRT.mjs";
+import "./chunk-chunk-HIVV7RLM.mjs";
+import "./chunk-chunk-ACNEFMLU.mjs";
 import {
   createRoot,
   flushSync,
   init_react_preact,
   useEffect
-} from "./chunk-chunk-3G2TDKOV.mjs";
+} from "./chunk-chunk-KSUIJH4T.mjs";
 import {
   __toESM,
   init_define_process
-} from "./chunk-chunk-NZ5A3UGY.mjs";
+} from "./chunk-chunk-JAPAFYDL.mjs";
 
 // js/runner.tsx
 init_define_process();
@@ -239,7 +238,7 @@ var extractCritical = (html) => {
 // js/runner.tsx
 var mod2 = {
   i: 0,
-  esbuildInit: async () => await (await await import("./chunk-esbuildEsm-ENX776PL.mjs")).init()
+  esbuildInit: async () => await (await await import("./chunk-esbuildEsm-Q6LXVVR3.mjs")).init()
 };
 async function runner({ code, counter, codeSpace }) {
   const esbuild = await mod2.esbuildInit();

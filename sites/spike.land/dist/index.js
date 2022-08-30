@@ -551,6 +551,54 @@ var chat_default = {
             await cache.put(cacheKey, responseToCache.clone());
             return responseToCache;
           }
+          if (path2[0].startsWith("node_modules")) {
+            const cacheUrl = new URL(request2.url);
+            const cacheKey = new Request(cacheUrl.toString());
+            const cache = caches.default;
+            const cachedResponse = await cache.match(cacheKey);
+            if (cachedResponse && cachedResponse.ok) {
+              return cachedResponse.clone();
+            }
+            const esmUrl = u.toString().replace(
+              u.origin + "/node_modules/",
+              "https://unpkg.com/"
+            );
+            let resp = await fetch(esmUrl, { ...request2, url: esmUrl });
+            if (resp !== null && !resp.ok || resp.status === 307) {
+              const redirectUrl = resp.headers.get("location");
+              if (redirectUrl) {
+                resp = await fetch(new URL(redirectUrl, `https://unpkg.com`).toString(), {
+                  ...request2,
+                  url: redirectUrl
+                });
+              }
+              if (resp !== null && !resp.ok)
+                return resp;
+            }
+            const isText = !!resp?.headers?.get("Content-Type")?.includes(
+              "charset"
+            );
+            const bodyStr = await (isText ? resp.text() : null);
+            const regex = /https:\/\/unpkg.com\//gm;
+            const regex2 = / from "\//gm;
+            if (!bodyStr)
+              throw new Error("empty body");
+            const responseToCache = new Response(
+              `
+              // ${cacheUrl}
+              ` + bodyStr ? bodyStr.replaceAll(regex, u.origin + "/node_modules/").replaceAll(regex2, ' from "/node_modules/') : await resp.blob(),
+              {
+                status: 200,
+                headers: {
+                  "Access-Control-Allow-Origin": "*",
+                  "Cache-Control": "immutable",
+                  "Content-Type": resp.headers.get("Content-Type")
+                }
+              }
+            );
+            await cache.put(cacheKey, responseToCache.clone());
+            return responseToCache;
+          }
           switch (path2[0]) {
             case "ping":
               return new Response("ping" + Math.random(), {
@@ -961,7 +1009,7 @@ window.addEventListener('pageshow', (event) => {
 // src/chatRoom.ts
 import manifestJSON2 from "__STATIC_CONTENT_MANIFEST";
 
-// ../../packages/code/dist/chunk-chunk-NZ5A3UGY.mjs
+// ../../packages/code/dist/chunk-chunk-JAPAFYDL.mjs
 var __create2 = Object.create;
 var __defProp2 = Object.defineProperty;
 var __getOwnPropDesc2 = Object.getOwnPropertyDescriptor;
@@ -993,7 +1041,7 @@ var init_define_process = __esm({
   }
 });
 
-// ../../packages/code/dist/chunk-chunk-LDHU2TDS.mjs
+// ../../packages/code/dist/chunk-chunk-ONQROWRT.mjs
 var require_diff = __commonJS2({
   "../../.yarn/global/cache/fast-diff-npm-1.2.0-5ba4171bb6-9.zip/node_modules/fast-diff/diff.js"(exports, module) {
     init_define_process();

@@ -2,7 +2,7 @@ import {
   __commonJS,
   __toESM,
   init_define_process
-} from "./chunk-chunk-NZ5A3UGY.mjs";
+} from "./chunk-chunk-JAPAFYDL.mjs";
 
 // ../../.yarn/global/cache/esbuild-wasm-npm-0.15.5-bc4c954bca-9.zip/node_modules/esbuild-wasm/lib/browser.js
 var require_browser = __commonJS({
@@ -2657,12 +2657,12 @@ var esbuild = {
   initialize: import_esbuild_wasm.initialize,
   transform: async (code, options) => await mutex.runExclusive(async () => {
     try {
-      console.info(`esbuld start`);
+      console.info(`esbuild start`);
       const transformObj = await (0, import_esbuild_wasm.transform)(code, options);
-      console.info(`esbuld transpile done`);
+      console.info(`esbuild transpile done`);
       return transformObj;
     } catch (err) {
-      console.error("Ebuild transform errror: ", { code, err });
+      console.error("Ebuild transform error: ", { code, err });
       throw err;
     }
   })

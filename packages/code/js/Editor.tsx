@@ -76,7 +76,7 @@ export const Editor: React.FC<{ code: string; i: number; codeSpace: string }> =
       const setMonaco = async () => {
         const { startMonaco } = await import("./startMonaco");
 
-        const { editor, monaco } = await startMonaco(
+        const { editor, monaco, model} = await startMonaco(
           /**
            * @param {any} code
            */
@@ -99,7 +99,7 @@ export const Editor: React.FC<{ code: string; i: number; codeSpace: string }> =
               console.error("error while saving the state");
             }
 
-            editor.getModel()!.setValue(code);
+          model.setValue(code);
 
             if (state) editor.restoreViewState(state);
           },
@@ -114,17 +114,17 @@ export const Editor: React.FC<{ code: string; i: number; codeSpace: string }> =
                   );
 
                 const diag = await tsWorker.getSemanticDiagnostics(
-                  location.origin + "/live/" + codeSpace + ".tsx",
+                  location.origin +    "/live/" + codeSpace + ".tsx",
                 );
                 console.log({ diag });
               })();
             } catch {
               console.error("ts diag error");
             }
-            return editor.getModel()!.getValue() as string;
+            return model.getValue() as string;
           },
           onChange: (cb: () => void) =>
-            editor?.onDidChangeModelContent(cb).dispose,
+            model.onDidChangeContent(cb).dispose,
           myId: "editor",
           // model: editor.getModel(),
         }));

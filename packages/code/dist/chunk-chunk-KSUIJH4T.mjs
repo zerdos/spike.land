@@ -2,7 +2,7 @@ import {
   __esm,
   __export,
   init_define_process
-} from "./chunk-chunk-NZ5A3UGY.mjs";
+} from "./chunk-chunk-JAPAFYDL.mjs";
 
 // ../../.yarn/global/cache/preact-npm-10.10.6-e3746adb94-9.zip/node_modules/preact/dist/preact.module.js
 var preact_module_exports = {};

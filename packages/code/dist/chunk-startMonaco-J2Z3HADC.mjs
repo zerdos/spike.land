@@ -2,7 +2,7 @@ import {
   __commonJS,
   __toESM,
   init_define_process
-} from "./chunk-chunk-NZ5A3UGY.mjs";
+} from "./chunk-chunk-JAPAFYDL.mjs";
 
 // (disabled):os
 var require_os = __commonJS({
@@ -15,38 +15,119 @@ var require_os = __commonJS({
 init_define_process();
 
 // package.json
-var dependencies = {
-  "@emotion/css-prettifier": "^1.1.0",
-  "@emotion/react": "^11.10.0",
-  "@emotion/serialize": "^1.1.0",
-  "@emotion/styled": "11.10.0",
-  "@mui/material": "5.10.3",
-  "@types/react-dom": "18.0.6",
-  "ace-builds": "1.9.6",
-  "async-mutex": "0.3.2",
-  "big-integer": "1.6.51",
-  "clean-stack": "^4.2.0",
-  comlink: "^4.3.1",
-  csstype: "^3.1.0",
-  "es-module-shims": "^1.5.17",
-  "esbuild-wasm": "0.15.6",
-  "fast-diff": "1.2.0",
-  "framer-motion": "7.2.1",
-  immutable: "4.1.0",
-  "lodash.debounce": "4.0.8",
-  "lodash.throttle": "4.1.1",
-  "monaco-editor": "0.34.0",
-  "p-map": "5.5.0",
-  preact: "10.10.6",
-  "preact-render-to-string": "5.2.2",
-  prettier: "2.7.1",
-  "prop-types": "^15.8.1",
-  qrious: "^4.0.2",
-  react: "^18.2.0",
-  "react-dom": "^18.2.0",
-  "react-qrious": "2.5.5",
-  "react-reverse-portal": "^2.1.1",
-  tslib: "^2.4.0"
+var package_default = {
+  name: "@spike.land/code",
+  version: "0.9.1",
+  description: "spike.land",
+  type: "module",
+  entry: "./index.js",
+  source: "index.js",
+  main: "public/static/bundle.mjs",
+  files: [
+    "**/*"
+  ],
+  exports: {
+    "./package.json": "./package.json",
+    "./js/starter.ts": "./js/starter.ts",
+    "./js/rtc.ts": "./js/rtc.ts",
+    "./js/session": {
+      import: "./dist/session.mjs",
+      node: "./dist/session.js"
+    },
+    "./js/textDiff": "./js/textDiff.ts",
+    "./js/esbuildEsm": "./js/esbuildEsm.ts",
+    "./js/binary": "./js/binary.ts",
+    "./js/importmap.json": "./js/importmap.json",
+    "./js/mockedMap.json": "./js/mockedMap.json",
+    "./shasums": "./shasums.ts"
+  },
+  scripts: {
+    test: "uvu -r esbuild-register tests",
+    typecheck: "cd monorepo/packages/code && yarn tsc",
+    clean: "rm -rf .tsBuildInfo js/vendor && js/vendor && yarn favicons",
+    "build:sw": "esbuild --outfile=../sites/spike.land/public/sw.js --platform=browser --bundle --minify ./js/sw.js && yarn sw",
+    start: "cd ../../.. && yarn start",
+    push: "cd ../../.. && yarn push",
+    "build:preact": "esbuild --bundle js/preact.ts  --target=esnext --minify --format=esm --platform=browser  --outfile=../../sites/spike.land/public/react.mjs",
+    "build:orbit-db": "esbuild --bundle js/preact.ts  --target=esnext --minify --format=esm --platform=browser  --outfile=../../sites/spike.land/public/react.mjs",
+    "build:framer-motion": 'yarn esbuild --bundle js/motion.tsx  --target=esnext --minify --format=esm  --platform=browser  --define:process.env.NODE_ENV=\\"production\\" --external:react --external:@emotion/is-prop-valid  --external:react --outfile=../../sites/spike.land/public/framer-motion.mjs',
+    "build:emotion": 'esbuild --bundle js/emotion.tsx  --target=esnext --format=esm --external:react --external:react/jsx-runtime --platform=browser --define:process.env.NODE_ENV=\\"production\\" --outfile=../../sites/spike.land/public/emotion.mjs',
+    prebuild: "yarn test || echo FAILED",
+    build: "rm -rf dist && yarn favicons && node esbuild-dev.mjs",
+    favicons: "cp -af js/assets/favicons/. ./dist && mkdir -p  ../../sites/spike.land/public/assets && cp js/assets/synthwave.webp   ../../sites/spike.land/public/assets/",
+    "workbox-cli": "workbox-cli",
+    sw: "echo ok",
+    xsw: "yarn workbox injectManifest workbox-config.json"
+  },
+  keywords: [
+    "monaco",
+    "editor",
+    "react",
+    "typescript",
+    "html",
+    "vscode"
+  ],
+  authors: [
+    "Zoltan Erdos <zolika84@gmail.com>"
+  ],
+  bugs: {
+    url: "https://github.com/zerdos/spike.land"
+  },
+  homepage: "/",
+  repository: "https://github.com/zerdos/spike.land",
+  author: "Zoltan Erdos <zolika84@gmail.com>",
+  license: "BSD-3-Clause",
+  publishConfig: {
+    access: "public"
+  },
+  dependencies: {
+    "@emotion/css-prettifier": "^1.1.0",
+    "@emotion/react": "^11.10.4",
+    "@emotion/serialize": "^1.1.0",
+    "@emotion/styled": "11.10.4",
+    "@mui/material": "5.10.3",
+    "@types/react-dom": "18.0.6",
+    "ace-builds": "1.9.6",
+    "async-mutex": "0.3.2",
+    "big-integer": "1.6.51",
+    "clean-stack": "^4.2.0",
+    comlink: "^4.3.1",
+    csstype: "^3.1.0",
+    "es-module-shims": "^1.5.17",
+    "esbuild-wasm": "0.15.6",
+    "fast-diff": "1.2.0",
+    "framer-motion": "7.2.1",
+    immutable: "4.1.0",
+    "lodash.debounce": "4.0.8",
+    "lodash.throttle": "4.1.1",
+    "monaco-editor": "0.34.0",
+    "p-map": "5.5.0",
+    preact: "10.10.6",
+    "preact-render-to-string": "5.2.2",
+    prettier: "2.7.1",
+    "prop-types": "^15.8.1",
+    qrious: "^4.0.2",
+    react: "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-qrious": "2.5.5",
+    "react-reverse-portal": "^2.1.1",
+    tslib: "^2.4.0"
+  },
+  devDependencies: {
+    "@types/events": "^3.0.0",
+    "@types/lodash.debounce": "^4.0.7",
+    "@types/lodash.throttle": "^4.1.7",
+    "@types/node": "18.7.14",
+    "@types/prettier": "2.7.0",
+    "@types/react": "^18.0.18",
+    "@types/xo": "^0.39.3",
+    esbuild: "^0.15.6",
+    "esbuild-plugin-import-map": "2.1.0",
+    typescript: "4.8.2",
+    uvu: "0.5.6",
+    xo: "^0.52.2"
+  },
+  gitHead: "445587aa294dbba9f178dd8b7f2979878bd92a2c"
 };
 
 // ../../.yarn/global/cache/p-map-npm-5.5.0-9758eb14ee-9.zip/node_modules/p-map/index.js
@@ -289,8 +370,70 @@ async function pMap(iterable, mapper, {
 var pMapSkip = Symbol("skip");
 
 // js/startMonaco.ts
-var version = dependencies["monaco-editor"];
-var started = false;
+var version = package_default.dependencies["monaco-editor"];
+var lib = [
+  "dom",
+  "dom.iterable",
+  "es2015.collection",
+  "es2015.core",
+  "es2015",
+  "es2015.generator",
+  "es2015.iterable",
+  "es2015.promise",
+  "es2015.proxy",
+  "es2015.reflect",
+  "es2015.symbol",
+  "es2015.symbol.wellknown",
+  "es2016.array.include",
+  "es2016",
+  "es2016.full",
+  "es2017",
+  "es2017.full",
+  "es2017.intl",
+  "es2017.object",
+  "es2017.sharedmemory",
+  "es2017.string",
+  "es2017.typedarrays",
+  "es2018.asyncgenerator",
+  "es2018.asynciterable",
+  "es2018",
+  "es2018.full",
+  "es2018.intl",
+  "es2018.promise",
+  "es2018.regexp",
+  "es2019.array",
+  "es2019",
+  "es2019.full",
+  "es2019.object",
+  "es2019.string",
+  "es2019.symbol",
+  "es2020.bigint",
+  "es2020",
+  "es2020.full",
+  "es2020.intl",
+  "es2020.promise",
+  "es2020.sharedmemory",
+  "es2020.string",
+  "es2020.symbol.wellknown",
+  "es2021",
+  "es2021.full",
+  "es2021.intl",
+  "es2021.promise",
+  "es2021.string",
+  "es2021.weakref",
+  "es5",
+  "es6",
+  "esnext",
+  "esnext.full",
+  "esnext.intl",
+  "esnext.promise",
+  "esnext.string",
+  "esnext.weakref",
+  "scripthost",
+  "webworker",
+  "webworker.importscripts",
+  "webworker.iterable"
+];
 var monacoContribution = async (typescript, editor, Uri, code) => {
   typescript.typescriptDefaults.setDiagnosticsOptions({
     noSuggestionDiagnostics: true,
@@ -298,13 +441,10 @@ var monacoContribution = async (typescript, editor, Uri, code) => {
     noSyntaxValidation: true
   });
   typescript.typescriptDefaults.setCompilerOptions({
-    baseUrl: location.origin + "/live/",
+    baseUrl: location.origin + "/",
     target: typescript.ScriptTarget.ESNext,
-    lib: [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    importHelpers: true,
+    lib,
     allowJs: true,
     skipLibCheck: true,
     esModuleInterop: true,
@@ -316,14 +456,28 @@ var monacoContribution = async (typescript, editor, Uri, code) => {
     isolatedModules: true,
     noEmit: true,
     allowNonTsExtensions: true,
+    "traceResolution": true,
     moduleResolution: typescript.ModuleResolutionKind.NodeJs,
-    declaration: false,
-    module: typescript.ModuleKind.ESNext,
+    declaration: true,
+    module: typescript.ModuleKind.CommonJS,
     noEmitOnError: true,
+    "sourceMap": true,
+    "mapRoot": location.origin + "/src/sourcemaps",
     maxNodeModuleJsDepth: 10,
+    "rootDir": location.origin + "/live",
+    paths: {
+      [location.origin + "/live/node_modules/"]: [location.origin + "/npm:/*"],
+      [location.origin + "/live/*"]: [location.origin + "/live/*"],
+      [location.origin + "/npm:*"]: [location.origin + "/npm:/*"],
+      [location.origin + "/node_modules/*"]: [location.origin + "/npm:/*"],
+      [location.origin + "node_modules/*"]: [location.origin + "/npm:/*"],
+      [location.origin + "/npm:/*"]: [location.origin + "/npm:/*"],
+      [location.origin + "^/*"]: [location.origin + "/npm:/*"]
+    },
+    typeRoots: [location.origin + "/npm:/@types/", location.origin + "/unpkg/@types/", location.origin + "/npm:/", location.origin + "/unpkg:/"],
     jsxImportSource: "@emotion/react",
     jsx: typescript.JsxEmit.ReactJSX,
-    allowUmdGlobalAccess: true
+    allowUmdGlobalAccess: false
   });
   const regex1 = / from \'\.\./ig;
   const regex2 = / from \'\./ig;
@@ -341,7 +495,7 @@ var monacoContribution = async (typescript, editor, Uri, code) => {
     );
   }
   (async () => {
-    const { dtsFiles } = await import("./chunk-types-LC2SWYRK.mjs");
+    const { dtsFiles } = await import("./chunk-types-KHUWRLXM.mjs");
     const {
       reactDts,
       jsxRuntimeDts,
@@ -411,7 +565,7 @@ var monacoContribution = async (typescript, editor, Uri, code) => {
       },
       {
         name: "@emotion/react",
-        url: emotionReactDts,
+        url: "/node_modules/@emotion/react/types/index.d.ts",
         depend: ["@emotion/cache"]
       },
       {
@@ -436,22 +590,22 @@ var monacoContribution = async (typescript, editor, Uri, code) => {
       },
       {
         name: "@emotion/react/css-prop",
-        url: emotionReactCssPropDts,
+        url: "/node_modules/@emotion/react/types/css-prop.d.ts",
         depend: ["@emotion/utils", "csstype"]
       },
       {
         name: "@emotion/react/helper",
-        url: emotionReactHelperDts,
+        url: "/node_modules/@emotion/react/types/helper.d.ts",
         depend: ["@emotion/utils", "csstype"]
       },
       {
         name: "@emotion/serialize",
-        url: emotionSerializeDts,
+        url: `/node_modules/@emotion/serialize/dist/declarations/types/index.d.ts`,
         depend: ["@emotion/utils", "csstype"]
       },
       {
         name: "@emotion/utils",
-        url: emotionUtilsDts,
+        url: "/node_modules/@emotion/utils/dist/declarations/types/index.d.ts",
         depend: []
       },
       {
@@ -460,16 +614,22 @@ var monacoContribution = async (typescript, editor, Uri, code) => {
         depend: ["popmotion"]
       }
     ];
+    typescript.typescriptDefaults.addExtraLib(
+      await (await fetch(
+        "/node_modules/framer-motion/package.json"
+      )).text(),
+      location.origin + `/node_modules/framer-motion/package.json`
+    );
     try {
       const mapper = async ({ name, url }) => typescript.typescriptDefaults.addExtraLib(
         await (await fetch(
           url
         )).text(),
-        location.origin + `/live/${name}.d.ts`
+        location.origin + `/node_modules/${name}/index.d.ts`
       );
       await pMap(importHelper, mapper, { concurrency: 2 });
     } catch {
-      console.error("Error in loading d.td");
+      console.error("Error in loading d.ts");
     }
     typescript.typescriptDefaults.setEagerModelSync(true);
     typescript.typescriptDefaults.setDiagnosticsOptions({
@@ -478,6 +638,7 @@ var monacoContribution = async (typescript, editor, Uri, code) => {
       noSyntaxValidation: false
     });
   })();
+  return code;
 };
 window.MonacoEnvironment = {
   getWorker: async function(_workerId, label) {
@@ -485,68 +646,68 @@ window.MonacoEnvironment = {
       const tsWorker = (await import("monaco-editor/esm/vs/language/typescript/ts.worker?worker")).default;
       return tsWorker();
     }
+    if (label === "json") {
+      const jsonWorker = (await import("monaco-editor/esm/vs/language/json/json.worker?worker")).default;
+      return jsonWorker();
+    }
     const editorWorker = (await import("monaco-editor/esm/vs/editor/editor.worker?worker")).default;
     return editorWorker();
   }
 };
 var startMonaco = async ({ code, container, name }) => {
   const { languages, editor, Uri } = await import("monaco-editor");
-  const returnModules = {
-    editor: {},
+  const codeSpace = name;
+  const innerStyle = document.createElement("style");
+  innerStyle.innerText = `@import url(${location.origin}/npm:/monaco-editor@${version}/?css);`;
+  container.appendChild(innerStyle);
+  const replaced = await monacoContribution(languages.typescript, editor, Uri, code);
+  editor.createModel(JSON.stringify(package_default), "json", Uri.parse(`${location.origin}/package.json`));
+  const model = editor.createModel(
+    replaced,
+    "typescript",
+    Uri.parse(`${location.origin}/live/${codeSpace}.tsx`)
+  );
+  return {
+    editor: editor.create(container, {
+      model,
+      scrollbar: {
+        scrollByPage: false,
+        alwaysConsumeMouseWheel: false
+      },
+      scrollBeyondLastLine: false,
+      scrollPredominantAxis: false,
+      smoothScrolling: true,
+      suggest: {
+        insertMode: "replace",
+        filterGraceful: true,
+        snippetsPreventQuickSuggestions: true,
+        localityBonus: true,
+        shareSuggestSelections: true,
+        showIcons: true,
+        showStatusBar: false,
+        preview: true,
+        previewMode: "prefix",
+        showInlineDetails: true,
+        showMethods: true,
+        showFunctions: true,
+        showConstructors: true,
+        showColors: true,
+        showFiles: true,
+        showReferences: true,
+        showFolders: true,
+        showTypeParameters: true,
+        showIssues: true,
+        showUsers: true,
+        showSnippets: true
+      },
+      automaticLayout: true,
+      definitionLinkOpensInPeek: true,
+      theme: "vs-dark",
+      autoClosingBrackets: "beforeWhitespace"
+    }),
+    model,
     monaco: { editor, languages, Uri }
   };
-  console.log("monaco-editor");
-  if (!started)
-    started = true;
-  else
-    return returnModules;
-  const innerStyle = document.createElement("style");
-  innerStyle.innerText = `@import url(/npm:/monaco-editor@${version}/?css);`;
-  container.appendChild(innerStyle);
-  await monacoContribution(languages.typescript, editor, Uri, code);
-  returnModules.editor = editor.create(container, {
-    model: editor.createModel(
-      code,
-      "typescript",
-      Uri.parse(location.origin + "/live/" + name + ".tsx")
-    ),
-    language: "typescript",
-    scrollbar: {
-      scrollByPage: false,
-      alwaysConsumeMouseWheel: false
-    },
-    scrollBeyondLastLine: false,
-    scrollPredominantAxis: false,
-    smoothScrolling: true,
-    suggest: {
-      insertMode: "replace",
-      filterGraceful: true,
-      snippetsPreventQuickSuggestions: true,
-      localityBonus: true,
-      shareSuggestSelections: true,
-      showIcons: true,
-      showStatusBar: false,
-      preview: true,
-      previewMode: "prefix",
-      showInlineDetails: true,
-      showMethods: true,
-      showFunctions: true,
-      showConstructors: true,
-      showColors: true,
-      showFiles: true,
-      showReferences: true,
-      showFolders: true,
-      showTypeParameters: true,
-      showIssues: true,
-      showUsers: true,
-      showSnippets: true
-    },
-    automaticLayout: true,
-    definitionLinkOpensInPeek: true,
-    theme: "vs-dark",
-    autoClosingBrackets: "beforeWhitespace"
-  });
-  return returnModules;
 };
 export {
   startMonaco

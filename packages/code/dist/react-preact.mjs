@@ -41,8 +41,8 @@ import {
   useState,
   version,
   y
-} from "./chunk-chunk-3G2TDKOV.mjs";
-import "./chunk-chunk-NZ5A3UGY.mjs";
+} from "./chunk-chunk-KSUIJH4T.mjs";
+import "./chunk-chunk-JAPAFYDL.mjs";
 init_react_preact();
 export {
   Children,

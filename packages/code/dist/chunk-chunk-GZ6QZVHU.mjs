@@ -6,24 +6,27 @@ import {
   makePatchFrom,
   onSessionUpdate,
   startSession
-} from "./chunk-chunk-LDHU2TDS.mjs";
+} from "./chunk-chunk-ONQROWRT.mjs";
 import {
   LazyMotion,
   __rest,
   domAnimation,
   domMax,
   m
-} from "./chunk-chunk-E3ZWTQPQ.mjs";
+} from "./chunk-chunk-HIVV7RLM.mjs";
 import {
   require_emotion_cache_cjs,
+  require_emotion_element_ae8cc4ba_cjs_dev,
   require_emotion_memoize_cjs,
   require_emotion_react_cjs,
-  require_emotion_react_jsx_runtime_cjs,
+  require_emotion_react_isolated_hnrs_cjs_dev,
   require_emotion_serialize_cjs,
   require_emotion_utils_cjs,
+  require_emotion_weak_memoize_cjs,
   require_extends,
+  require_hoist_non_react_statics_cjs,
   require_react_is
-} from "./chunk-chunk-TLUBWX2U.mjs";
+} from "./chunk-chunk-ACNEFMLU.mjs";
 import {
   Children,
   PureComponent,
@@ -53,13 +56,61 @@ import {
   useReducer,
   useRef,
   useState
-} from "./chunk-chunk-3G2TDKOV.mjs";
+} from "./chunk-chunk-KSUIJH4T.mjs";
 import {
   __commonJS,
   __toCommonJS,
   __toESM,
   init_define_process
-} from "./chunk-chunk-NZ5A3UGY.mjs";
+} from "./chunk-chunk-JAPAFYDL.mjs";
+
+// .yarn/__virtual__/@emotion-react-virtual-bd3d152174/3/.yarn/global/cache/@emotion-react-npm-11.10.0-06b9abb1e2-9.zip/node_modules/@emotion/react/jsx-runtime/dist/emotion-react-jsx-runtime.cjs.dev.js
+var require_emotion_react_jsx_runtime_cjs_dev = __commonJS({
+  ".yarn/__virtual__/@emotion-react-virtual-bd3d152174/3/.yarn/global/cache/@emotion-react-npm-11.10.0-06b9abb1e2-9.zip/node_modules/@emotion/react/jsx-runtime/dist/emotion-react-jsx-runtime.cjs.dev.js"(exports) {
+    "use strict";
+    init_define_process();
+    Object.defineProperty(exports, "__esModule", { value: true });
+    init_react_preact();
+    require_emotion_cache_cjs();
+    var emotionElement = require_emotion_element_ae8cc4ba_cjs_dev();
+    require_extends();
+    require_emotion_weak_memoize_cjs();
+    require_hoist_non_react_statics_cjs();
+    require_emotion_react_isolated_hnrs_cjs_dev();
+    require_emotion_utils_cjs();
+    require_emotion_serialize_cjs();
+    var ReactJSXRuntime = (init_react_preact(), __toCommonJS(react_preact_exports));
+    var Fragment = ReactJSXRuntime.Fragment;
+    function jsx8(type, props, key) {
+      if (!emotionElement.hasOwnProperty.call(props, "css")) {
+        return ReactJSXRuntime.jsx(type, props, key);
+      }
+      return ReactJSXRuntime.jsx(emotionElement.Emotion, emotionElement.createEmotionProps(type, props), key);
+    }
+    function jsxs5(type, props, key) {
+      if (!emotionElement.hasOwnProperty.call(props, "css")) {
+        return ReactJSXRuntime.jsxs(type, props, key);
+      }
+      return ReactJSXRuntime.jsxs(emotionElement.Emotion, emotionElement.createEmotionProps(type, props), key);
+    }
+    exports.Fragment = Fragment;
+    exports.jsx = jsx8;
+    exports.jsxs = jsxs5;
+  }
+});
+
+// .yarn/__virtual__/@emotion-react-virtual-bd3d152174/3/.yarn/global/cache/@emotion-react-npm-11.10.0-06b9abb1e2-9.zip/node_modules/@emotion/react/jsx-runtime/dist/emotion-react-jsx-runtime.cjs.js
+var require_emotion_react_jsx_runtime_cjs = __commonJS({
+  ".yarn/__virtual__/@emotion-react-virtual-bd3d152174/3/.yarn/global/cache/@emotion-react-npm-11.10.0-06b9abb1e2-9.zip/node_modules/@emotion/react/jsx-runtime/dist/emotion-react-jsx-runtime.cjs.js"(exports, module) {
+    "use strict";
+    init_define_process();
+    if (false) {
+      module.exports = null;
+    } else {
+      module.exports = require_emotion_react_jsx_runtime_cjs_dev();
+    }
+  }
+});
 
 // ../../.yarn/global/cache/qrious-npm-4.0.2-9d7db0e444-9.zip/node_modules/qrious/dist/qrious.js
 var require_qrious = __commonJS({
@@ -3995,18 +4046,42 @@ async function appFactory(transpiled = "") {
             })
           ]
         });
-      }
-      apps[hash3] = () => (0, import_jsx_runtime.jsx)("div", {
-        css: import_react2.css`
+      } else if (err instanceof Error) {
+        const name = err.name;
+        const message = err.message;
+        apps[hash3] = () => (0, import_jsx_runtime.jsxs)("div", {
+          css: import_react2.css`
+        background-color: orange;
+        `,
+          children: [
+            (0, import_jsx_runtime.jsx)("h1", {
+              children: "Syntax Error"
+            }),
+            (0, import_jsx_runtime.jsxs)("h2", {
+              children: [
+                name,
+                ": ",
+                message
+              ]
+            }),
+            (0, import_jsx_runtime.jsx)("p", {
+              children: JSON.stringify({ err })
+            })
+          ]
+        });
+      } else {
+        apps[hash3] = () => (0, import_jsx_runtime.jsx)("div", {
+          css: import_react2.css`
         background-color: orange;
       `,
-        children: (0, import_jsx_runtime.jsxs)("h1", {
-          children: [
-            "Unknown Error: $",
-            hash3
-          ]
-        })
-      });
+          children: (0, import_jsx_runtime.jsxs)("h1", {
+            children: [
+              "Unknown Error: $",
+              hash3
+            ]
+          })
+        });
+      }
     }
   }
   if (transpiled && mST().transpiled !== transpiled) {
@@ -20547,7 +20622,7 @@ var Editor = ({ code, i, codeSpace: codeSpace2 }) => {
     myCode: code,
     counter: i,
     runner: async ({ code: code2, counter: counter2, codeSpace: codeSpace3 }) => {
-      const { runner: runner2 } = await import("./chunk-runner-OCP7UVTK.mjs");
+      const { runner: runner2 } = await import("./chunk-runner-56PTSE6X.mjs");
       runner2({ code: code2, counter: counter2, codeSpace: codeSpace3 });
       changeContent((x) => ({
         ...x,
@@ -20583,8 +20658,8 @@ var Editor = ({ code, i, codeSpace: codeSpace2 }) => {
     if (!ref?.current)
       return;
     const setMonaco = async () => {
-      const { startMonaco } = await import("./chunk-startMonaco-GY57JUOI.mjs");
-      const { editor, monaco } = await startMonaco(
+      const { startMonaco } = await import("./chunk-startMonaco-J2Z3HADC.mjs");
+      const { editor, monaco, model } = await startMonaco(
         {
           container: ref.current,
           name: codeSpace2,
@@ -20603,7 +20678,7 @@ var Editor = ({ code, i, codeSpace: codeSpace2 }) => {
           } catch (e2) {
             console.error("error while saving the state");
           }
-          editor.getModel().setValue(code2);
+          model.setValue(code2);
           if (state)
             editor.restoreViewState(state);
         },
@@ -20623,14 +20698,14 @@ var Editor = ({ code, i, codeSpace: codeSpace2 }) => {
           } catch {
             console.error("ts diag error");
           }
-          return editor.getModel().getValue();
+          return model.getValue();
         },
-        onChange: (cb) => editor?.onDidChangeModelContent(cb).dispose,
+        onChange: (cb) => model.onDidChangeContent(cb).dispose,
         myId: "editor"
       }));
     };
     const setAce = async () => {
-      const { startAce } = await import("./chunk-startAce-Y3DSFH6U.mjs");
+      const { startAce } = await import("./chunk-startAce-CEQF64YG.mjs");
       const editor = await startAce(mST().code);
       changeContent((x) => ({
         ...x,
@@ -20645,7 +20720,7 @@ var Editor = ({ code, i, codeSpace: codeSpace2 }) => {
     };
     const loadEditors = async () => {
       engine === "monaco" ? await setMonaco() : await setAce();
-      const { prettierJs: prettierJs2 } = await import("./chunk-prettierEsm-G4KGLRXM.mjs");
+      const { prettierJs: prettierJs2 } = await import("./chunk-prettierEsm-45WADBS6.mjs");
       changeContent((x) => ({ ...x, prettierJs: prettierJs2 }));
       await wait(1e3);
       runner({ code: code + " ", counter, codeSpace: codeSpace2 });
@@ -21414,6 +21489,7 @@ async function sw() {
 }
 
 export {
+  require_emotion_react_jsx_runtime_cjs,
   appFactory,
   run,
   saveCode,
