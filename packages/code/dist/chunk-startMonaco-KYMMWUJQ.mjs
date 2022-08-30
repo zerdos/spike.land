@@ -2,7 +2,7 @@ import {
   __commonJS,
   __toESM,
   init_define_process
-} from "./chunk-chunk-JAPAFYDL.mjs";
+} from "./chunk-chunk-NZ5A3UGY.mjs";
 
 // (disabled):os
 var require_os = __commonJS({
@@ -340,7 +340,7 @@ var monacoContribution = async (typescript, editor, Uri, code) => {
     );
   }
   (async () => {
-    const { dtsFiles } = await import("./chunk-types-JKDN7LPE.mjs");
+    const { dtsFiles } = await import("./chunk-types-LC2SWYRK.mjs");
     const {
       reactDts,
       jsxRuntimeDts,

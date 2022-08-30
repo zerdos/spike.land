@@ -1,6 +1,6 @@
 import {
   init_define_process
-} from "./chunk-chunk-JAPAFYDL.mjs";
+} from "./chunk-chunk-NZ5A3UGY.mjs";
 
 // js/types.mjs
 init_define_process();

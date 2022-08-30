@@ -2,7 +2,7 @@ import {
   __commonJS,
   __toESM,
   init_define_process
-} from "./chunk-chunk-JAPAFYDL.mjs";
+} from "./chunk-chunk-NZ5A3UGY.mjs";
 
 // ../../.yarn/global/cache/fast-diff-npm-1.2.0-5ba4171bb6-9.zip/node_modules/fast-diff/diff.js
 var require_diff = __commonJS({
