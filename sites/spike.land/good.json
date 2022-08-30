@@ -51,7 +51,7 @@
       "imports": []
     },
     "src/chat.ts": {
-      "bytes": 13581,
+      "bytes": 15934,
       "imports": [
         {
           "path": "../../node_modules/@cloudflare/kv-asset-handler/dist/index.js",
@@ -75,15 +75,15 @@
       "bytes": 2244,
       "imports": []
     },
-    "../../packages/code/dist/chunk-chunk-NZ5A3UGY.mjs": {
-      "bytes": 1872,
+    "../../packages/code/dist/chunk-chunk-JAPAFYDL.mjs": {
+      "bytes": 1712,
       "imports": []
     },
-    "../../packages/code/dist/chunk-chunk-LDHU2TDS.mjs": {
+    "../../packages/code/dist/chunk-chunk-ONQROWRT.mjs": {
       "bytes": 166436,
       "imports": [
         {
-          "path": "../../packages/code/dist/chunk-chunk-NZ5A3UGY.mjs",
+          "path": "../../packages/code/dist/chunk-chunk-JAPAFYDL.mjs",
           "kind": "import-statement"
         }
       ]
@@ -92,11 +92,11 @@
       "bytes": 375,
       "imports": [
         {
-          "path": "../../packages/code/dist/chunk-chunk-LDHU2TDS.mjs",
+          "path": "../../packages/code/dist/chunk-chunk-ONQROWRT.mjs",
           "kind": "import-statement"
         },
         {
-          "path": "../../packages/code/dist/chunk-chunk-NZ5A3UGY.mjs",
+          "path": "../../packages/code/dist/chunk-chunk-JAPAFYDL.mjs",
           "kind": "import-statement"
         }
       ]
@@ -203,7 +203,7 @@
           "bytesInOutput": 8841
         },
         "src/chat.ts": {
-          "bytesInOutput": 11123
+          "bytesInOutput": 13163
         },
         "src/handleErrors.ts": {
           "bytesInOutput": 838
@@ -220,10 +220,10 @@
         "src/chatRoom.ts": {
           "bytesInOutput": 14669
         },
-        "../../packages/code/dist/chunk-chunk-NZ5A3UGY.mjs": {
+        "../../packages/code/dist/chunk-chunk-JAPAFYDL.mjs": {
           "bytesInOutput": 1367
         },
-        "../../packages/code/dist/chunk-chunk-LDHU2TDS.mjs": {
+        "../../packages/code/dist/chunk-chunk-ONQROWRT.mjs": {
           "bytesInOutput": 166071
         },
         "src/getBackupSession.ts": {
@@ -239,7 +239,7 @@
           "bytesInOutput": 478
         }
       },
-      "bytes": 255761
+      "bytes": 257801
     }
   }
 }

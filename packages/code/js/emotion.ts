@@ -1,17 +1,21 @@
 import * as ea from "@emotion/react";
+// import { jsxDEV } from "react";
 
 const EmotionReact = window.emotionReact = window.emotionReact || ea;
 
 // import createCache from "@emotion/cache";
-export * from "@emotion/react/jsx-dev-runtime";
-export {jsx as jsxs} from "./react-preact";
-export * from "@emotion/react/jsx-runtime";
+// export {JSX} from "@emotion/react/jsx-dev-runtime";
+export {jsx as jsxs}  from "react/jsx-runtime";
+
+
 //
-// export { JSX } from "@emotion/react/jsx-runtime";
+// export const  jsxs  = jsxOrig;
 
 // export const ss = JSX.
+// export {jsxs as jsx} from "./react-preact";
+
 export const { jsx } = EmotionReact;
-// export { jsxs } = JSX;
+// export { jsxs } = {...jsxDEV, ...jsxRunTime};
 
 export const { css } = EmotionReact;
 export const { CacheProvider } = EmotionReact;

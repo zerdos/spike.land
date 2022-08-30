@@ -8,6 +8,7 @@ import type {} from "react-dom/next";
 import { hashCode, mST } from "./session";
 import { css } from "@emotion/react";
 import ErrorBoundary from "./ErrorBoundary";
+import { isInstance } from "big-integer";
 
 // Object.assign(window, {});
 
@@ -132,7 +133,23 @@ export async function appFactory(transpiled = ""): Promise<React.FC> {
             <p>{JSON.stringify({ err })}</p>
           </div>
         );
-      }
+      } else if (err instanceof Error ){
+
+        const name = err.name;
+        const message = err.message;
+ 
+
+        apps[hash] = () => (
+          <div
+            css={css`
+        background-color: orange;
+        `}
+          >
+            <h1>Syntax Error</h1>
+            <h2>{name}: {message}</h2>
+            <p>{JSON.stringify({ err })}</p>
+          </div>)
+      } else {
       apps[hash] = () => (
         <div
           css={css`
@@ -144,6 +161,7 @@ export async function appFactory(transpiled = ""): Promise<React.FC> {
       );
     }
   }
+}
 
   if (transpiled && mST().transpiled !== transpiled) {
     const newApp = apps[hash];
