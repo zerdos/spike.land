@@ -1,8 +1,6 @@
 import { css } from "@emotion/react";
 
-import { ReactNode, useEffect, useState } from "react";
-import type { FC } from "react";
-
+import {  useEffect, useState } from "react";
 import { domMax, LazyMotion, m } from "framer-motion";
 import { QRButton } from "./Qr";
 
@@ -23,6 +21,7 @@ import type {
   ToggleButton as MuiToggleButton,
   ToggleButtonGroup as MuiToggleButtonGroup,
 } from "./mui";
+// import type{ ReactNode } from "react";
 
 const ToggleButtonGroup = muiToggleButtonGroup as typeof MuiToggleButtonGroup;
 const ToggleButton = muiToggleButton as typeof MuiToggleButton;
@@ -40,10 +39,10 @@ interface DraggableWindowProps {
   hashCode: number;
   position?: string;
   room: string;
-  children: ReactNode;
+  children: React.FC;
 }
 
-export const DraggableWindow: FC<DraggableWindowProps> = (
+export const DraggableWindow: React.FC<DraggableWindowProps> = (
   {
     children,
     // onRestore,
