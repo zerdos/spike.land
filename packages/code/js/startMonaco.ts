@@ -1,11 +1,9 @@
-import packageJson from "../package.json";
-
 // import {  } from 'monaco-editor/main/src/language/typescript/lib/lib.index'
 
-import type monaco from 'monaco-editor';
+import type monaco from "monaco-editor";
 import pMap from "p-map";
-const version = packageJson.dependencies["monaco-editor"];
 
+import { editor, languages, Uri } from "monaco-editor";
 
 // import codion from "monaco-editor/esm/vs/base/browser/ui/codicons/codicon/codicon.ttf"
 // import * as editorCss from "monaco-editor/min/vs/editor/editor.main.css"
@@ -29,69 +27,69 @@ const version = packageJson.dependencies["monaco-editor"];
 
 // let started = false;
 
-
-const lib = ['dom'
-,'dom.iterable'
-,'es2015.collection'
-,'es2015.core'
-,'es2015'
-,'es2015.generator'
-,'es2015.iterable'
-,'es2015.promise'
-,'es2015.proxy'
-,'es2015.reflect'
-,'es2015.symbol'
-,'es2015.symbol.wellknown'
-,'es2016.array.include'
-,'es2016'
-,'es2016.full'
-,'es2017'
-,'es2017.full'
-,'es2017.intl'
-,'es2017.object'
-,'es2017.sharedmemory'
-,'es2017.string'
-,'es2017.typedarrays'
-,'es2018.asyncgenerator'
-,'es2018.asynciterable'
-,'es2018'
-,'es2018.full'
-,'es2018.intl'
-,'es2018.promise'
-,'es2018.regexp'
-,'es2019.array'
-,'es2019'
-,'es2019.full'
-,'es2019.object'
-,'es2019.string'
-,'es2019.symbol'
-,'es2020.bigint'
-,'es2020'
-,'es2020.full'
-,'es2020.intl'
-,'es2020.promise'
-,'es2020.sharedmemory'
-,'es2020.string'
-,'es2020.symbol.wellknown'
-,'es2021'
-,'es2021.full'
-,'es2021.intl'
-,'es2021.promise'
-,'es2021.string'
-,'es2021.weakref'
-,'es5'
-,'es6'
-,'esnext'
-,'esnext.full'
-,'esnext.intl'
-,'esnext.promise'
-,'esnext.string'
-,'esnext.weakref'
-,'scripthost'
-,'webworker'
-,'webworker.importscripts'
-,'webworker.iterable']
-
+const lib = [
+  "dom",
+  "dom.iterable",
+  "es2015.collection",
+  "es2015.core",
+  "es2015",
+  // "es2015.generator",
+  // "es2015.iterable",
+  // "es2015.promise",
+  // "es2015.proxy",
+  // "es2015.reflect",
+  // "es2015.symbol",
+  // "es2015.symbol.wellknown",
+  // "es2016.array.include",
+  // "es2016",
+  // "es2016.full",
+  // "es2017",
+  // "es2017.full",
+  // "es2017.intl",
+  // "es2017.object",
+  // "es2017.sharedmemory",
+  // "es2017.string",
+  // "es2017.typedarrays",
+  "es2018.asyncgenerator",
+  "es2018.asynciterable",
+  // "es2018",
+  // "es2018.full",
+  "es2018.intl",
+  "es2018.promise",
+  "es2018.regexp",
+  "es2019.array",
+  // "es2019",
+  // "es2019.full",
+  // "es2019.object",
+  // "es2019.string",
+  // "es2019.symbol",
+  // "es2020.bigint",
+  // "es2020",
+  // "es2020.full",
+  // "es2020.intl",
+  // "es2020.promise",
+  // "es2020.sharedmemory",
+  // "es2020.string",
+  // "es2020.symbol.wellknown",
+  // "es2021",
+  // "es2021.full",
+  // "es2021.intl",
+  // "es2021.promise",
+  // "es2021.string",
+  // "es2021.weakref",
+  // "es5",
+  // "es6",
+  // "esnext",
+  // "esnext.full",
+  // "esnext.intl",
+  // "esnext.promise",
+  // "esnext.string",
+  // "esnext.weakref",
+  // "scripthost",
+  // "webworker",
+  // "webworker.importscripts",
+  // "webworker.iterable",
+];
 
 const monacoContribution = async (
   typescript: typeof monaco.languages.typescript,
@@ -110,11 +108,11 @@ const monacoContribution = async (
   typescript.typescriptDefaults.setCompilerOptions({
     baseUrl: location.origin + "/",
     target: typescript.ScriptTarget.ESNext,
-    
+
     importHelpers: true,
-   
-    lib   ,
-  
+
+    lib,
+
     allowJs: true,
     skipLibCheck: true,
     esModuleInterop: true,
@@ -133,28 +131,29 @@ const monacoContribution = async (
     module: typescript.ModuleKind.CommonJS,
     noEmitOnError: true,
     "sourceMap": true,
-    "mapRoot": location.origin+"/src/sourcemaps",
+    "mapRoot": location.origin + "/src/sourcemaps",
     maxNodeModuleJsDepth: 10,
-    "rootDir":   location.origin+"/live",
+    "rootDir": location.origin + "/live",
     paths: {
-     [location.origin + '/live/node_modules/']: [location.origin+"/npm:/*"],
-      [location.origin + "/live/*"]: [   location.origin+"/live/*"],
-      [location.origin + "/npm:*"]: [  location.origin+'/npm:/*'],
-      [location.origin + "/node_modules/*"]: [  location.origin+'/npm:/*'],  
-      [location.origin + "node_modules/*"]: [location.origin+'/npm:/*'],      
-      [location.origin + "/npm:/*"]: [  location.origin+'/npm:/*'],
-      [location.origin + "^/*"]: [  location.origin+'/npm:/*'],
-      
-      
-
+      [location.origin + "/live/node_modules/"]: [location.origin + "/npm:/*"],
+      [location.origin + "/live/*"]: [location.origin + "/live/*"],
+      [location.origin + "/npm:*"]: [location.origin + "/npm:/*"],
+      [location.origin + "/node_modules/*"]: [location.origin + "/npm:/*"],
+      [location.origin + "node_modules/*"]: [location.origin + "/npm:/*"],
+      [location.origin + "/npm:/*"]: [location.origin + "/npm:/*"],
+      [location.origin + "^/*"]: [location.origin + "/npm:/*"],
     },
-    typeRoots: [  location.origin+"/npm:/@types/",   location.origin+"/unpkg/@types/",   location.origin+"/npm:/",  location.origin+ "/unpkg:/"],
+    typeRoots: [
+      location.origin + "/npm:/@types/",
+      location.origin + "/unpkg/@types/",
+      location.origin + "/npm:/",
+      location.origin + "/unpkg:/",
+    ],
 
     jsxImportSource: "@emotion/react",
     jsx: typescript.JsxEmit.ReactJSX,
     allowUmdGlobalAccess: false,
-    "include": [location.origin + "/node_modules" ]
-
+    "include": [location.origin + "/node_modules"],
   });
 
   const regex1 = / from \'\.\./ig;
@@ -180,9 +179,7 @@ const monacoContribution = async (
     );
     // editor.createModel(await  fetch("/npm:/framer-motion").then(res=>res.text()), "javascript", Uri.parse(location.origin+"/node_modules/framer-motion/index.js"));
     // editor.createModel(await  fetch("/npm:/framer-motion").then(res=>res.text()), "javascript", Uri.parse(location.origin+"/node_modules/framer-motion/index.js"));
-      
   }
-
 
   (async () => {
     const { dtsFiles } = await import("./types.mjs");
@@ -200,12 +197,7 @@ const monacoContribution = async (
       emotionCache,
       emotionJSXNameSpaceDTS,
       emotionJSXRuntimeDTS,
-      emotionReactDts,
-      emotionReactCssPropDts,
-      emotionReactHelperDts,
       emotionThemingDts,
-      emotionSerializeDts,
-      emotionUtilsDts,
     } = dtsFiles;
     const importHelper = [
       {
@@ -268,7 +260,7 @@ const monacoContribution = async (
       },
       {
         name: "@emotion/react",
-        url: '/node_modules/@emotion/react/types/index.d.ts',
+        url: "/node_modules/@emotion/react/types/index.d.ts",
         depend: ["@emotion/cache"],
       },
       {
@@ -293,24 +285,25 @@ const monacoContribution = async (
       },
       {
         name: "@emotion/react/css-prop",
-        url: '/node_modules/@emotion/react/types/css-prop.d.ts',
+        url: "/node_modules/@emotion/react/types/css-prop.d.ts",
         depend: ["@emotion/utils", "csstype"],
       },
       {
         name: "@emotion/react/helper",
-        url:  '/node_modules/@emotion/react/types/helper.d.ts',
+        url: "/node_modules/@emotion/react/types/helper.d.ts",
         depend: ["@emotion/utils", "csstype"],
       },
       {
         name: "@emotion/serialize",
-        url: `/node_modules/@emotion/serialize/dist/declarations/types/index.d.ts`,
+        url:
+          `/node_modules/@emotion/serialize/dist/declarations/types/index.d.ts`,
 
         depend: ["@emotion/utils", "csstype"],
       },
       {
         name: "@emotion/utils",
         url: "/node_modules/@emotion/utils/dist/declarations/types/index.d.ts",
-                depend: [],
+        depend: [],
       },
       {
         name: "framer-motion",
@@ -319,14 +312,11 @@ const monacoContribution = async (
       },
     ];
 
-    typescript.typescriptDefaults.addExtraLib(
-      await (await fetch(
-      '/node_modules/framer-motion/package.json',
-      )).text(),
-      location.origin + `/node_modules/framer-motion/package.json`);
-        
-      
-
+    // typescript.typescriptDefaults.addExtraLib(
+    //   await (await fetch(
+    //   '/node_modules/framer-motion/package.json',
+    //   )).text(),
+    //   location.origin + `/node_modules/framer-motion/package.json`);
 
     try {
       const mapper = async ({ name, url }: { name: string; url: string }) =>
@@ -348,7 +338,7 @@ const monacoContribution = async (
       noSyntaxValidation: false,
     });
   })();
-  
+
   return code;
 };
 
@@ -373,6 +363,8 @@ window.MonacoEnvironment = {
   },
 };
 
+let mod = {};
+
 export const startMonaco = async (
   { code, container, name }: {
     code: string;
@@ -380,29 +372,32 @@ export const startMonaco = async (
     name: string;
   },
 ) => {
-  const { languages, editor, Uri  } = await import("monaco-editor");
+  if(mod[name]) return mod[name];
+  const codeSpace = name;
 
- const codeSpace = name;
+  // const innerStyle = document.createElement("style");
+  // monacoCss
+  // innerStyle.innerText = `@import url(${location.origin}/npm:/monaco-editor@${version}/?css);`;
+  // container.appendChild(innerStyle);
 
+  const replaced = await monacoContribution(
+    languages.typescript,
+    editor,
+    Uri,
+    code,
+  );
 
-  const innerStyle = document.createElement("style");
-
-  innerStyle.innerText = `@import url(${location.origin}/npm:/monaco-editor@${version}/?css);`;
-  container.appendChild(innerStyle);
-
-  const replaced  = await monacoContribution(languages.typescript, editor, Uri, code);
-
-  editor.createModel(JSON.stringify(packageJson) , "json", Uri.parse(`${location.origin}/package.json`))
-  // languages.typescript.typescriptDefaults.inlayHintsOptions  
+  // editor.createModel(JSON.stringify(packageJson) , "json", Uri.parse(`${location.origin}/package.json`))
+  // languages.typescript.typescriptDefaults.inlayHintsOptions
 
   const model = editor.createModel(
     replaced,
     "typescript",
     Uri.parse(`${location.origin}/live/${codeSpace}.tsx`),
-  )
+  );
 
-  return {
-    editor:  editor.create(container, {
+  return mod[name] ={
+    editor: editor.create(container, {
       model,
       scrollbar: {
         scrollByPage: false,
@@ -410,7 +405,7 @@ export const startMonaco = async (
       },
       scrollBeyondLastLine: false,
       scrollPredominantAxis: false,
-  
+
       smoothScrolling: true,
       suggest: {
         /**
@@ -453,7 +448,7 @@ export const startMonaco = async (
          * Show details inline with the label. Defaults to true.
          */
         showInlineDetails: true,
-  
+
         /**
          * Show method-suggestions.
          */
@@ -469,12 +464,12 @@ export const startMonaco = async (
         /**
          * Show deprecated-suggestions.
          */
-        
+
         /**
          * Show field-suggestions.
          */
         showFields: true,
- 
+
         /**
          * Show color-suggestions.
          */
@@ -509,21 +504,24 @@ export const startMonaco = async (
         showSnippets: true,
       },
       automaticLayout: true,
-      
+
       useShadowDOM: true,
-      bracketPairColorization: {independentColorPoolPerBracketType: true, enabled: true },
-codeLens: true,
-"semanticHighlighting.enabled": true,
-dragAndDrop: true,
-codeActionsOnSaveTimeout: 300,
-dropIntoEditor: {enabled: true},
-// gotoLocation: true,
-mouseStyle: "copy",
+      bracketPairColorization: {
+        independentColorPoolPerBracketType: true,
+        enabled: true,
+      },
+      codeLens: true,
+      "semanticHighlighting.enabled": true,
+      dragAndDrop: true,
+      codeActionsOnSaveTimeout: 300,
+      dropIntoEditor: { enabled: true },
+      // gotoLocation: true,]]
+      mouseStyle:"default",
       definitionLinkOpensInPeek: true,
       theme: "vs-dark",
       autoClosingBrackets: "beforeWhitespace",
     }),
-    model, 
-    monaco: { editor, languages, Uri }
+    model,
+    monaco: { editor, languages, Uri },
   };
 };

@@ -57,7 +57,7 @@ const build = (entryPoints, format = "esm") =>
     format,
     tsconfig: "./tsconfig.json",
     allowOverwrite: true,
-    external: ["monaco-editor/*", "monaco-editor"],
+    external: ["monaco-editor/*"],
     platform: "browser",
     chunkNames: "chunk-[name]-[hash]",
     assetNames: "chunk-[name]-[hash]",
@@ -101,5 +101,6 @@ await build([
   "js/react-preact.ts",
   "js/motion.ts",
   "js/emotion.ts",
+  "js/startMonaco.ts", 
   "js/ws.ts",
 ]);

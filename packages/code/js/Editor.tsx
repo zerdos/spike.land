@@ -2,10 +2,7 @@ import { useEffect, useRef, useState } from "react";
 // import type FC from "react"
 import { mST, onSessionUpdate } from "./session";
 import { isMobile } from "./isMobile.mjs";
-
 import { css } from "@emotion/react";
-import { wait } from "./wait";
-import { useInsertionEffect } from "react";
 
 const mod = {
   CH: () => {},
@@ -14,9 +11,9 @@ const mod = {
 
 // export type IStandaloneCodeEditor = editor.Ist;
 
-export const Editor: React.FC<{ code: string; i: number; codeSpace: string }> =
+export const Editor: React.FC<{ code: string; i: number; codeSpace: string, assets: {[key: string]: string} }> =
   (
-    { code, i, codeSpace },
+    { code, i, codeSpace, assets },
   ) => {
     const ref = useRef<HTMLDivElement>(null) as null | {
       current: HTMLDivElement;
@@ -29,6 +26,8 @@ export const Editor: React.FC<{ code: string; i: number; codeSpace: string }> =
     ] = useState({
       myCode: code,
       counter: i,
+      started: false,
+      prettierJs: (code: string)=>code+"// "+ Math.random() ,
       runner: async (
         { code, counter, codeSpace }: {
           code: string;
@@ -36,20 +35,23 @@ export const Editor: React.FC<{ code: string; i: number; codeSpace: string }> =
           codeSpace: string;
         },
       ) => {
+        // if (!mySession.x/) return;
         const { runner } = await import("./runner");
-        runner({ code, counter, codeSpace });
+        const { prettierJs } = await import("./prettierEsm");
+
+        runner({ code: prettierJs(code), counter, codeSpace });
         changeContent((x: typeof mySession) => ({
           ...x,
           runner,
           code,
           counter,
+          prettierJs
         }));
       },
       myId: "loading",
       getValue: () => "" as string,
       setValue: (_code: string) => {},
       onChange: (_cb: () => void) => {},
-      prettierJs: (code: string) => code,
       engine: isMobile() ? "ace" : "monaco",
     });
 
@@ -58,6 +60,8 @@ export const Editor: React.FC<{ code: string; i: number; codeSpace: string }> =
     const {
       counter,
       myCode,
+      started, 
+    
       myId,
       runner,
       engine,
@@ -75,9 +79,19 @@ export const Editor: React.FC<{ code: string; i: number; codeSpace: string }> =
       if (!ref?.current) return;
 
       const setMonaco = async () => {
+      
+      
+        const link = document.createElement("link");
+        link.setAttribute("rel", "stylesheet");
+        link.href =location.origin + "/" + assets["startMonaco.css"];
+        document.head.appendChild(link);
+        
+      
+          
+
         const { startMonaco } = await import("./startMonaco");
 
-        const { editor, monaco, model} = await startMonaco(
+        const { editor, monaco, model } = await startMonaco(
           /**
            * @param {any} code
            */
@@ -87,10 +101,10 @@ export const Editor: React.FC<{ code: string; i: number; codeSpace: string }> =
             code: mST().code,
           },
         );
-        monaco;
 
         changeContent((x) => ({
           ...x,
+          started: true,
           setValue: (code: string) => {
             if (code == mST().code || code == mod.code) return;
             let state = null;
@@ -100,7 +114,7 @@ export const Editor: React.FC<{ code: string; i: number; codeSpace: string }> =
               console.error("error while saving the state");
             }
 
-          model.setValue(code);
+            model.setValue(code);
 
             if (state) editor.restoreViewState(state);
           },
@@ -115,7 +129,7 @@ export const Editor: React.FC<{ code: string; i: number; codeSpace: string }> =
                   );
 
                 const diag = await tsWorker.getSemanticDiagnostics(
-                  location.origin +    "/live/" + codeSpace + ".tsx",
+                  location.origin + "/live/" + codeSpace + ".tsx",
                 );
                 console.log({ diag });
               })();
@@ -124,8 +138,7 @@ export const Editor: React.FC<{ code: string; i: number; codeSpace: string }> =
             }
             return model.getValue() as string;
           },
-          onChange: (cb: () => void) =>
-            model.onDidChangeContent(cb).dispose,
+          onChange: (cb: () => void) => model.onDidChangeContent(cb).dispose,
           myId: "editor",
           // model: editor.getModel(),
         }));
@@ -144,6 +157,7 @@ export const Editor: React.FC<{ code: string; i: number; codeSpace: string }> =
             editor.session.on("change", cb);
             return () => editor.session.off("change", cb);
           },
+          started: true,
           getValue: () => editor.session.getValue(),
           setValue: (code: string) => editor.session.setValue(code),
           myId: "editor",
@@ -151,23 +165,25 @@ export const Editor: React.FC<{ code: string; i: number; codeSpace: string }> =
       };
 
       const loadEditors = async () => {
-        engine === "monaco" ? await setMonaco() : await setAce();
+        if(engine === "monaco"){
+          await setMonaco()
+        } else {
 
-        const { prettierJs } = await import("./prettierEsm");
-        changeContent((x) => ({ ...x, prettierJs }));
-        await wait(1000);
+        await setAce();
+      }
         // console.log("RUN THE RUNNER");
         runner({ code: code + " ", counter, codeSpace });
       };
 
       loadEditors();
-    }, [ref]);
+    }, [started, ref]);
 
     // useInsertionEffect(()=>{
 
     // })
 
     useEffect(() => {
+      if (!started) return;
       const lastCode = mod.code;
       let last = 0;
       const handler = setInterval(() => {
@@ -182,9 +198,10 @@ export const Editor: React.FC<{ code: string; i: number; codeSpace: string }> =
         }
       }, 5000);
       return () => clearInterval(handler);
-    }, [changeContent, i, runner]);
+    }, [changeContent, i, runner, prettierJs]);
 
     useEffect(() => {
+      if (!started) return;
       if (i > counter) {
         changeContent((x) => ({ ...x, myCode: code, counter: i }));
         return;
@@ -224,7 +241,7 @@ export const Editor: React.FC<{ code: string; i: number; codeSpace: string }> =
       // });
 
       return onChange(() => cb());
-    }, [setValue, getValue, onChange, counter]);
+    }, [setValue, getValue, onChange, counter, prettierJs, runner]);
 
     onSessionUpdate(() => {
       console.log("sessUP");
@@ -262,9 +279,11 @@ export const Editor: React.FC<{ code: string; i: number; codeSpace: string }> =
           <div
             data-test-id={myId}
             css={css`
-max-width: 640px;
-height: ${60 + lines / 40 * 100}% ;
-`}
+        
+            max-width: 640px;
+              height: ${60 + lines / 40 * 100}%;
+            
+        `}      
             ref={ref}
           />
         )

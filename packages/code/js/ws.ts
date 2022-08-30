@@ -99,7 +99,7 @@ export const run = async (startState: {
 
   await appFactory();
 
-  renderPreviewWindow(startState.codeSpace);
+  renderPreviewWindow(startState);
 
   // const {join} = await import("./rtc");
 

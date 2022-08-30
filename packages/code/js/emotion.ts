@@ -5,8 +5,7 @@ const EmotionReact = window.emotionReact = window.emotionReact || ea;
 
 // import createCache from "@emotion/cache";
 // export {JSX} from "@emotion/react/jsx-dev-runtime";
-export {jsx as jsxs}  from "react/jsx-runtime";
-
+export { jsx as jsxs } from "react/jsx-runtime";
 
 //
 // export const  jsxs  = jsxOrig;
