@@ -2,7 +2,7 @@ import {
   __esm,
   __export,
   init_define_process
-} from "./chunk-chunk-VGJVMXXD.mjs";
+} from "./chunk-chunk-E5P5SGZK.mjs";
 
 // ../../.yarn/global/cache/preact-npm-10.10.6-e3746adb94-9.zip/node_modules/preact/dist/preact.module.js
 var preact_module_exports = {};
@@ -1321,4 +1321,3 @@ export {
   react_preact_exports,
   init_react_preact
 };
-//# sourceMappingURL=chunk-chunk-GHTTZKX7.mjs.map

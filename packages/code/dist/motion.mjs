@@ -71,11 +71,11 @@ import {
   useWillChange,
   visualElement,
   wrapHandler
-} from "./chunk-chunk-EUFAQNMJ.mjs";
-import "./chunk-chunk-GHTTZKX7.mjs";
+} from "./chunk-chunk-4QUJRLZQ.mjs";
+import "./chunk-chunk-6UQ4VASZ.mjs";
 import {
   init_define_process
-} from "./chunk-chunk-VGJVMXXD.mjs";
+} from "./chunk-chunk-E5P5SGZK.mjs";
 
 // js/motion.ts
 init_define_process();
@@ -153,4 +153,3 @@ export {
   visualElement,
   wrapHandler
 };
-//# sourceMappingURL=motion.mjs.map

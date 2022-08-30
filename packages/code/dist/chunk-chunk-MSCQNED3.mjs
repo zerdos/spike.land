@@ -2,7 +2,7 @@ import {
   __commonJS,
   __toESM,
   init_define_process
-} from "./chunk-chunk-VGJVMXXD.mjs";
+} from "./chunk-chunk-E5P5SGZK.mjs";
 
 // ../../.yarn/global/cache/fast-diff-npm-1.2.0-5ba4171bb6-9.zip/node_modules/fast-diff/diff.js
 var require_diff = __commonJS({
@@ -5310,4 +5310,3 @@ export {
   startSession,
   patchSync
 };
-//# sourceMappingURL=chunk-chunk-EHRVFTLO.mjs.map

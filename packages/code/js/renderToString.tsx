@@ -1,12 +1,11 @@
 // import {CacheProvider } from "@emotion/react"
 
 import { render } from "react-dom";
-import type { FC } from "react";
 import { hashCode, mST, patchSync } from "./session";
 
 // const WithCache: FC<{children: ReactNode, cache: EmotionCache}> = ({children, cache}) => <CacheProvider value={cache}>{children}</CacheProvider>
 
-export const renderFromString = (App: FC, codeSpace: string) => {
+export const renderFromString = (App: React.FC, codeSpace: string) => {
   // const myCache =  createCache({
   //   prepend: true,
   //   key: 'css',

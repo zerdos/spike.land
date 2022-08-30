@@ -2,7 +2,7 @@ import {
   __commonJS,
   __toESM,
   init_define_process
-} from "./chunk-chunk-VGJVMXXD.mjs";
+} from "./chunk-chunk-E5P5SGZK.mjs";
 
 // ../../.yarn/global/cache/esbuild-wasm-npm-0.15.5-bc4c954bca-9.zip/node_modules/esbuild-wasm/lib/browser.js
 var require_browser = __commonJS({
@@ -2695,4 +2695,3 @@ var init = async () => {
 export {
   init
 };
-//# sourceMappingURL=chunk-esbuildEsm-6ETIWEMB.mjs.map

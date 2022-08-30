@@ -6,14 +6,14 @@ import {
   makePatchFrom,
   onSessionUpdate,
   startSession
-} from "./chunk-chunk-EHRVFTLO.mjs";
+} from "./chunk-chunk-MSCQNED3.mjs";
 import {
   LazyMotion,
   __rest,
   domAnimation,
   domMax,
   m
-} from "./chunk-chunk-EUFAQNMJ.mjs";
+} from "./chunk-chunk-4QUJRLZQ.mjs";
 import {
   require_emotion_cache_cjs,
   require_emotion_memoize_cjs,
@@ -23,7 +23,7 @@ import {
   require_emotion_utils_cjs,
   require_extends,
   require_react_is
-} from "./chunk-chunk-ORSLIEQC.mjs";
+} from "./chunk-chunk-77AW2XKJ.mjs";
 import {
   Children,
   Component,
@@ -54,13 +54,13 @@ import {
   useReducer,
   useRef,
   useState
-} from "./chunk-chunk-GHTTZKX7.mjs";
+} from "./chunk-chunk-6UQ4VASZ.mjs";
 import {
   __commonJS,
   __toCommonJS,
   __toESM,
   init_define_process
-} from "./chunk-chunk-VGJVMXXD.mjs";
+} from "./chunk-chunk-E5P5SGZK.mjs";
 
 // ../../.yarn/global/cache/qrious-npm-4.0.2-9d7db0e444-9.zip/node_modules/qrious/dist/qrious.js
 var require_qrious = __commonJS({
@@ -20538,7 +20538,7 @@ var Editor = ({ code, i, codeSpace: codeSpace2 }) => {
     myCode: code,
     counter: i,
     runner: async ({ code: code2, counter: counter2, codeSpace: codeSpace3 }) => {
-      const { runner: runner2 } = await import("./chunk-runner-7WYD6SI7.mjs");
+      const { runner: runner2 } = await import("./chunk-runner-T6Q4SOLA.mjs");
       runner2({ code: code2, counter: counter2, codeSpace: codeSpace3 });
       changeContent((x) => ({
         ...x,
@@ -20574,7 +20574,7 @@ var Editor = ({ code, i, codeSpace: codeSpace2 }) => {
     if (!ref?.current)
       return;
     const setMonaco = async () => {
-      const { startMonaco } = await import("./chunk-startMonaco-6JUTPNX7.mjs");
+      const { startMonaco } = await import("./chunk-startMonaco-TALPYFQO.mjs");
       const { editor, monaco } = await startMonaco(
         {
           container: ref.current,
@@ -20621,7 +20621,7 @@ var Editor = ({ code, i, codeSpace: codeSpace2 }) => {
       }));
     };
     const setAce = async () => {
-      const { startAce } = await import("./chunk-startAce-X7MPBQNR.mjs");
+      const { startAce } = await import("./chunk-startAce-HWPOZFFJ.mjs");
       const editor = await startAce(mST().code);
       changeContent((x) => ({
         ...x,
@@ -20636,7 +20636,7 @@ var Editor = ({ code, i, codeSpace: codeSpace2 }) => {
     };
     const loadEditors = async () => {
       engine === "monaco" ? await setMonaco() : await setAce();
-      const { prettierJs: prettierJs2 } = await import("./chunk-prettierEsm-SUCQSWJI.mjs");
+      const { prettierJs: prettierJs2 } = await import("./chunk-prettierEsm-L2SWX3TI.mjs");
       changeContent((x) => ({ ...x, prettierJs: prettierJs2 }));
       await wait(1e3);
       runner({ code: code + " ", counter, codeSpace: codeSpace2 });
@@ -21411,4 +21411,3 @@ export {
   join,
   sw
 };
-//# sourceMappingURL=chunk-chunk-LMPC44SZ.mjs.map

@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": ["../js/emotion.ts"],
-  "sourcesContent": ["import * as ea from \"@emotion/react\";\n\nconst EmotionReact = window.EmotionReact = window.EmotionReact || ea;\n\n// import createCache from \"@emotion/cache\";\n\nimport { jsxs } from \"@emotion/react/jsx-runtime\";\n//\n// export { JSX } from \"@emotion/react/jsx-runtime\";\n\n// export const ss = JSX.\nexport const { jsx } = EmotionReact;\nexport { jsxs };\n\nexport const { css } = EmotionReact;\nexport const { CacheProvider } = EmotionReact;\nexport const { ClassNames } = EmotionReact;\nexport const { Global } = EmotionReact;\nexport const { ThemeContext } = EmotionReact;\nexport const { ThemeProvider } = EmotionReact;\n// export const { __unsafe_useEmotionCache } = emotionReact;\n\nexport const { keyframes } = EmotionReact;\nexport const { useTheme } = EmotionReact;\nexport const { withEmotionCache } = EmotionReact;\nexport const { withTheme } = EmotionReact;\n\nexport default EmotionReact;\n"],
-  "mappings": ";;;;;;;;;;;AAAA;AAAA,SAAoB;AAMpB,yBAAqB;AAJrB,IAAM,eAAe,OAAO,eAAe,OAAO,gBAAgB;AAS3D,IAAM,EAAE,IAAI,IAAI;AAGhB,IAAM,EAAE,IAAI,IAAI;AAChB,IAAM,EAAE,cAAc,IAAI;AAC1B,IAAM,EAAE,WAAW,IAAI;AACvB,IAAM,EAAE,OAAO,IAAI;AACnB,IAAM,EAAE,aAAa,IAAI;AACzB,IAAM,EAAE,cAAc,IAAI;AAG1B,IAAM,EAAE,UAAU,IAAI;AACtB,IAAM,EAAE,SAAS,IAAI;AACrB,IAAM,EAAE,iBAAiB,IAAI;AAC7B,IAAM,EAAE,UAAU,IAAI;AAE7B,IAAO,kBAAQ;",
-  "names": []
-}

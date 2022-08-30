@@ -6,7 +6,7 @@ import {
   __publicField,
   __toESM,
   init_define_process
-} from "./chunk-chunk-VGJVMXXD.mjs";
+} from "./chunk-chunk-E5P5SGZK.mjs";
 
 // (disabled):os
 var require_os = __commonJS({
@@ -346,7 +346,7 @@ var monacoContribution = async (typescript, editor, Uri, code) => {
     );
   }
   (async () => {
-    const { dtsFiles } = await import("./chunk-types-UB3XVFBX.mjs");
+    const { dtsFiles } = await import("./chunk-types-HHN7FDAH.mjs");
     const {
       reactDts,
       jsxRuntimeDts,
@@ -556,4 +556,3 @@ var startMonaco = async ({ code, container, name }) => {
 export {
   startMonaco
 };
-//# sourceMappingURL=chunk-startMonaco-6JUTPNX7.mjs.map
