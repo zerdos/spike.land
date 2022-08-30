@@ -1,6 +1,5 @@
 import { Mutex } from "async-mutex";
 
-
 // import "core-js/proposals/string-replace-all-stage-4";
 
 import { initialize, transform, TransformOptions } from "esbuild-wasm";
@@ -18,7 +17,7 @@ const esbuild = {
         const transformObj = await transform(code, options);
         console.info(`esbuld transpile done`);
         return transformObj;
-      } catch (err){
+      } catch (err) {
         console.error("Ebuild transform errror: ", { code, err });
         throw err;
       }

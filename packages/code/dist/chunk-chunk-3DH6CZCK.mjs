@@ -20547,7 +20547,7 @@ var Editor = ({ code, i, codeSpace: codeSpace2 }) => {
     myCode: code,
     counter: i,
     runner: async ({ code: code2, counter: counter2, codeSpace: codeSpace3 }) => {
-      const { runner: runner2 } = await import("./chunk-runner-7CUVRKPK.mjs");
+      const { runner: runner2 } = await import("./chunk-runner-777BTGK2.mjs");
       runner2({ code: code2, counter: counter2, codeSpace: codeSpace3 });
       changeContent((x) => ({
         ...x,

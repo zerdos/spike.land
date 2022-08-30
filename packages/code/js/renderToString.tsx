@@ -10,22 +10,28 @@ import { useEffect } from "react";
 const temp = document.createElement("div");
 
 const tempRoot = createRoot(temp);
-const mod: {[key: string]: Promise<boolean>} = {};
-const TestBed: React.FC<{md5Hash: string, children: JSX.Element}> = ({md5Hash, children})=>{
-  let resolv; 
-  mod[md5Hash] = new Promise((res)=>resolv=res);
+const mod: { [key: string]: Promise<boolean> } = {};
+const TestBed: React.FC<{ md5Hash: string; children: JSX.Element }> = (
+  { md5Hash, children },
+) => {
+  let resolv;
+  mod[md5Hash] = new Promise((res) => resolv = res);
 
-  useEffect(()=>{
-   resolv(true);
+  useEffect(() => {
+    resolv(true);
   }, []);
 
-  return <div id={md5Hash}>{children}</div>
-}
+  return <div id={md5Hash}>{children}</div>;
+};
 
-export const renderFromString =async (code:string, transpiled:string,  codeSpace: string) => {
-  const md5Code = 'ID'+md5(code).slice(0,14);
+export const renderFromString = async (
+  code: string,
+  transpiled: string,
+  codeSpace: string,
+) => {
+  const md5Code = "ID" + md5(code).slice(0, 14);
   const App = await appFactory(transpiled);
-  
+
   // const myCache =  createCache({
   //   prepend: true,
   //   key: 'css',
@@ -35,13 +41,16 @@ export const renderFromString =async (code:string, transpiled:string,  codeSpace
 
   // const temp = document.createElement("div");
 
-  
-  tempRoot.render(<TestBed key={md5Code} md5Hash={md5Code}><App /></TestBed>);
-  await new Promise<boolean>((_res=>flushSync(_res, true)));
+  tempRoot.render(
+    <TestBed key={md5Code} md5Hash={md5Code}>
+      <App />
+    </TestBed>,
+  );
+  await new Promise<boolean>((_res) => flushSync(_res, true));
   // await new Promise<boolean>((_res=>fluxshSync(_res, true)));
-  if (!mod[md5Code])   return null;
+  if (!mod[md5Code]) return null;
 
-  if (! await mod[md5Code]) return null;
+  if (!await mod[md5Code]) return null;
   const html = temp.querySelector(`#${md5Code}`)?.innerHTML;
   tempRoot.unmount();
 
@@ -50,7 +59,7 @@ export const renderFromString =async (code:string, transpiled:string,  codeSpace
     setTimeout(() => {
       if (hash !== hashCode()) return;
       const { css, html, code } = mST();
-      const newMd5Code = 'ID'+md5(code).slice(0,14);
+      const newMd5Code = "ID" + md5(code).slice(0, 14);
       if (newMd5Code !== md5Code) return;
       // @ts-ignore
       // const codeSpace: string = globalThis["codeSpace"] as unknown as string;
@@ -68,10 +77,12 @@ export const renderFromString =async (code:string, transpiled:string,  codeSpace
     }, 50);
   }, 100);
 
-  return html?  {
-    html,
-    css:  extractCritical(html),
-  }:null;
+  return html
+    ? {
+      html,
+      css: extractCritical(html),
+    }
+    : null;
 };
 const extractCritical = (html: string) => {
   try {

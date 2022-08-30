@@ -21,7 +21,11 @@ const define = {
   "process.env.DEBUG": false,
   "process.env.version": `"1.1.1"`,
   "process.env.DUMP_SESSION_KEYS": false,
-  "process": JSON.stringify({ env: {NODE_ENV: environment}, version: "1.1.1", browser: true }),
+  "process": JSON.stringify({
+    env: { NODE_ENV: environment },
+    version: "1.1.1",
+    browser: true,
+  }),
   "global": "window",
 };
 

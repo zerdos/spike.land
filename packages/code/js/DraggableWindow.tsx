@@ -1,6 +1,6 @@
 import { css } from "@emotion/react";
 
-import {  useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { domMax, LazyMotion, m } from "framer-motion";
 import { QRButton } from "./Qr";
 

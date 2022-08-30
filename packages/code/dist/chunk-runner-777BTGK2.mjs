@@ -1,7 +1,7 @@
 import {
   appFactory,
   saveCode
-} from "./chunk-chunk-XJX2QQCA.mjs";
+} from "./chunk-chunk-3DH6CZCK.mjs";
 import {
   hashCode,
   mST,
@@ -174,10 +174,12 @@ var TestBed = ({ md5Hash, children }) => {
 var renderFromString = async (code, transpiled, codeSpace) => {
   const md5Code = "ID" + md5(code).slice(0, 14);
   const App = await appFactory(transpiled);
-  tempRoot.render((0, import_jsx_runtime.jsx)(TestBed, {
-    md5Hash: md5Code,
-    children: (0, import_jsx_runtime.jsx)(App, {})
-  }, md5Code));
+  tempRoot.render(
+    (0, import_jsx_runtime.jsx)(TestBed, {
+      md5Hash: md5Code,
+      children: (0, import_jsx_runtime.jsx)(App, {})
+    }, md5Code)
+  );
   await new Promise((_res) => flushSync(_res, true));
   if (!mod[md5Code])
     return null;

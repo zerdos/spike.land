@@ -1,4 +1,4 @@
-export * from "preact/compat/client"
+export * from "preact/compat/client";
 
 import * as Preact from "preact";
 
@@ -149,5 +149,3 @@ export const {
   Component,
   version,
 } = React;
-
-

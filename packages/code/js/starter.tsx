@@ -1,4 +1,3 @@
-
 // import { createPortal } from "react-dom";
 // import { prefixer } from 'stylis';
 
@@ -102,9 +101,11 @@ export const AutoUpdateApp: React.FC<{ hash: number }> = ({ hash }) => {
   const App = apps[hash];
 
   // return <Root codeSpace={codeSpace}>
-  return <ErrorBoundary key={hash}>
+  return (
+    <ErrorBoundary key={hash}>
       <App />
     </ErrorBoundary>
+  );
 };
 
 export async function appFactory(transpiled = ""): Promise<React.FC> {
@@ -113,7 +114,7 @@ export async function appFactory(transpiled = ""): Promise<React.FC> {
   if (!apps[hash]) {
     try {
       apps[hash] = (await import(createJsBlob(transpiled || mST().transpiled)))
-      .default as unknown as React.FC;
+        .default as unknown as React.FC;
     } catch (err) {
       if (err instanceof SyntaxError) {
         const name = err.name;
