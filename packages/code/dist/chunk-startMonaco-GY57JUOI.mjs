@@ -16,6 +16,7 @@ init_define_process();
 
 // package.json
 var dependencies = {
+  "@emotion/css-prettifier": "^1.1.0",
   "@emotion/react": "^11.10.0",
   "@emotion/serialize": "^1.1.0",
   "@emotion/styled": "11.10.0",
