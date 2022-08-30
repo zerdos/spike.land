@@ -3,7 +3,8 @@ import * as ea from "@emotion/react";
 const EmotionReact = window.emotionReact = window.emotionReact || ea;
 
 // import createCache from "@emotion/cache";
-
+export * from "@emotion/react/jsx-dev-runtime";
+export {jsx as jsxs} from "./react-preact";
 export * from "@emotion/react/jsx-runtime";
 //
 // export { JSX } from "@emotion/react/jsx-runtime";

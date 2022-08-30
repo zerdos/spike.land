@@ -23,7 +23,7 @@ import {
   require_emotion_utils_cjs,
   require_extends,
   require_react_is
-} from "./chunk-chunk-YMIN6QMO.mjs";
+} from "./chunk-chunk-TLUBWX2U.mjs";
 import {
   Children,
   PureComponent,
@@ -20547,7 +20547,7 @@ var Editor = ({ code, i, codeSpace: codeSpace2 }) => {
     myCode: code,
     counter: i,
     runner: async ({ code: code2, counter: counter2, codeSpace: codeSpace3 }) => {
-      const { runner: runner2 } = await import("./chunk-runner-777BTGK2.mjs");
+      const { runner: runner2 } = await import("./chunk-runner-OCP7UVTK.mjs");
       runner2({ code: code2, counter: counter2, codeSpace: codeSpace3 });
       changeContent((x) => ({
         ...x,
