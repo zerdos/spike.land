@@ -458,6 +458,7 @@ var monacoContribution = async (typescript, editor, Uri, code) => {
     allowNonTsExtensions: true,
     "traceResolution": true,
     moduleResolution: typescript.ModuleResolutionKind.NodeJs,
+    moduleSpecifierCompletion: 2,
     declaration: true,
     module: typescript.ModuleKind.CommonJS,
     noEmitOnError: true,
@@ -477,7 +478,8 @@ var monacoContribution = async (typescript, editor, Uri, code) => {
     typeRoots: [location.origin + "/npm:/@types/", location.origin + "/unpkg/@types/", location.origin + "/npm:/", location.origin + "/unpkg:/"],
     jsxImportSource: "@emotion/react",
     jsx: typescript.JsxEmit.ReactJSX,
-    allowUmdGlobalAccess: false
+    allowUmdGlobalAccess: false,
+    "include": [location.origin + "/node_modules"]
   });
   const regex1 = / from \'\.\./ig;
   const regex2 = / from \'\./ig;
@@ -679,18 +681,19 @@ var startMonaco = async ({ code, container, name }) => {
       smoothScrolling: true,
       suggest: {
         insertMode: "replace",
-        filterGraceful: true,
-        snippetsPreventQuickSuggestions: true,
+        filterGraceful: false,
+        snippetsPreventQuickSuggestions: false,
         localityBonus: true,
         shareSuggestSelections: true,
         showIcons: true,
-        showStatusBar: false,
+        showStatusBar: true,
         preview: true,
-        previewMode: "prefix",
+        previewMode: "subwordSmart",
         showInlineDetails: true,
         showMethods: true,
         showFunctions: true,
         showConstructors: true,
+        showFields: true,
         showColors: true,
         showFiles: true,
         showReferences: true,
@@ -701,6 +704,14 @@ var startMonaco = async ({ code, container, name }) => {
         showSnippets: true
       },
       automaticLayout: true,
+      useShadowDOM: true,
+      bracketPairColorization: { independentColorPoolPerBracketType: true, enabled: true },
+      codeLens: true,
+      "semanticHighlighting.enabled": true,
+      dragAndDrop: true,
+      codeActionsOnSaveTimeout: 300,
+      dropIntoEditor: { enabled: true },
+      mouseStyle: "copy",
       definitionLinkOpensInPeek: true,
       theme: "vs-dark",
       autoClosingBrackets: "beforeWhitespace"
