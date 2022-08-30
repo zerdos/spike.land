@@ -113,7 +113,7 @@ export async function appFactory(transpiled = ""): Promise<React.FC> {
   if (!apps[hash]) {
     try {
       apps[hash] = (await import(createJsBlob(transpiled || mST().transpiled)))
-        .default as unknown as FC;
+      .default as unknown as React.FC;
     } catch (err) {
       if (err instanceof SyntaxError) {
         const name = err.name;
