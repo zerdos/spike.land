@@ -87,7 +87,7 @@ const lib = [
   // "esnext.weakref",
   // "scripthost",
   // "webworker",
-  // "webworker.importscripts",
+  // "webworker.importscriepts",
   // "webworker.iterable",
 ];
 
