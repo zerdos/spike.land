@@ -2550,6 +2550,7 @@ __metadata:
     "@types/react": ^18.0.18
     "@types/react-dom": 18.0.6
     "@types/xo": ^0.39.3
+    "@yarnpkg/esbuild-plugin-pnp": ^3.0.0-rc.15
     ace-builds: 1.9.6
     async-mutex: 0.3.2
     big-integer: 1.6.51
@@ -2561,7 +2562,7 @@ __metadata:
     esbuild-plugin-import-map: 2.1.0
     esbuild-wasm: 0.15.6
     fast-diff: 1.2.0
-    framer-motion: 7.2.1
+    framer-motion: ^7.2.1
     immutable: 4.1.0
     lodash.debounce: 4.0.8
     lodash.throttle: 4.1.1
@@ -3104,6 +3105,17 @@ __metadata:
     tslib: ^1.13.0
     tunnel: ^0.0.6
   checksum: 572aaaff198cb59ba9f27b2a964743e8d72572526a87f8a99a29e14a70e4c13917795edeec360f502b342c7641e32fde70dbe9297ccb8b57d152cd20a970df5e
+  languageName: node
+  linkType: hard
+
+"@yarnpkg/esbuild-plugin-pnp@npm:^3.0.0-rc.15":
+  version: 3.0.0-rc.15
+  resolution: "@yarnpkg/esbuild-plugin-pnp@npm:3.0.0-rc.15"
+  dependencies:
+    tslib: ^2.4.0
+  peerDependencies:
+    esbuild: ">=0.10.0"
+  checksum: 04da15355a99773b441742814ba4d0f3453a83df47aa07e215f167e156f109ab8e971489c8b1a4ddf3c79d568d35213f496ad52e97298228597e1aacc22680aa
   languageName: node
   linkType: hard
 
@@ -6228,7 +6240,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"framer-motion@npm:7.2.1, framer-motion@npm:^7.2.1":
+"framer-motion@npm:^7.2.1":
   version: 7.2.1
   resolution: "framer-motion@npm:7.2.1"
   dependencies:
