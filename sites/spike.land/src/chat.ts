@@ -18,6 +18,7 @@ const esbuildExternal = [
   "monaco-editor",
   "react/jsx-runtime",
   "react/jsx-dev-runtime",
+  "@mui/material",
   "framer-motion",
   "tslib",
 ];
@@ -33,6 +34,7 @@ export const imap = {
     "@emotion/react/jsx-dev-runtime": emotionReact,
     "monaco-editor": "npm:monaco-editor",
     "monaco-editor/": "npm:monaco-editor/",
+    "@mui/": "npm:@mui/",
     "react": preact,
     "react-dom": preact,
     "framer-motion": motion,
