@@ -962,7 +962,7 @@ var require_ace = __commonJS({
       exports2.AppConfig = AppConfig;
     });
     ace.define("ace/theme/textmate.css", ["require", "exports", "module"], function(require2, exports2, module2) {
-      module2.exports = '.ace-tm .ace_gutter {\n  background: #f0f0f0;\n  color: #333;\n}\n\n.ace-tm .ace_print-margin {\n  width: 1px;\n  background: #e8e8e8;\n}\n\n.ace-tm .ace_fold {\n    background-color: #6B72E6;\n}\n\n.ace-tm {\n  background-color: #FFFFFF;\n  color: black;\n}\n\n.ace-tm .ace_cursor {\n  color: black;\n}\n        \n.ace-tm .ace_invisible {\n  color: rgb(191, 191, 191);\n}\n\n.ace-tm .ace_storage,\n.ace-tm .ace_keyword {\n  color: blue;\n}\n\n.ace-tm .ace_constant {\n  color: rgb(197, 6, 11);\n}\n\n.ace-tm .ace_constant.ace_buildin {\n  color: rgb(88, 72, 246);\n}\n\n.ace-tm .ace_constant.ace_language {\n  color: rgb(88, 92, 246);\n}\n\n.ace-tm .ace_constant.ace_library {\n  color: rgb(6, 150, 14);\n}\n\n.ace-tm .ace_invalid {\n  background-color: rgba(255, 0, 0, 0.1);\n  color: red;\n}\n\n.ace-tm .ace_support.ace_function {\n  color: rgb(60, 76, 114);\n}\n\n.ace-tm .ace_support.ace_constant {\n  color: rgb(6, 150, 14);\n}\n\n.ace-tm .ace_support.ace_type,\n.ace-tm .ace_support.ace_class {\n  color: rgb(109, 121, 222);\n}\n\n.ace-tm .ace_keyword.ace_operator {\n  color: rgb(104, 118, 135);\n}\n\n.ace-tm .ace_string {\n  color: rgb(3, 106, 7);\n}\n\n.ace-tm .ace_comment {\n  color: rgb(76, 136, 107);\n}\n\n.ace-tm .ace_comment.ace_doc {\n  color: rgb(0, 102, 255);\n}\n\n.ace-tm .ace_comment.ace_doc.ace_tag {\n  color: rgb(128, 159, 191);\n}\n\n.ace-tm .ace_constant.ace_numeric {\n  color: rgb(0, 0, 205);\n}\n\n.ace-tm .ace_variable {\n  color: rgb(49, 132, 149);\n}\n\n.ace-tm .ace_xml-pe {\n  color: rgb(104, 104, 91);\n}\n\n.ace-tm .ace_entity.ace_name.ace_function {\n  color: #0000A2;\n}\n\n\n.ace-tm .ace_heading {\n  color: rgb(12, 7, 255);\n}\n\n.ace-tm .ace_list {\n  color:rgb(185, 6, 144);\n}\n\n.ace-tm .ace_meta.ace_tag {\n  color:rgb(0, 22, 142);\n}\n\n.ace-tm .ace_string.ace_regex {\n  color: rgb(255, 0, 0)\n}\n\n.ace-tm .ace_marker-layer .ace_selection {\n  background: rgb(181, 213, 255);\n}\n.ace-tm.ace_multiselect .ace_selection.ace_start {\n  box-shadow: 0 0 3px 0px white;\n}\n.ace-tm .ace_marker-layer .ace_step {\n  background: rgb(252, 255, 0);\n}\n\n.ace-tm .ace_marker-layer .ace_stack {\n  background: rgb(164, 229, 101);\n}\n\n.ace-tm .ace_marker-layer .ace_bracket {\n  margin: -1px 0 0 -1px;\n  border: 1px solid rgb(192, 192, 192);\n}\n\n.ace-tm .ace_marker-layer .ace_active-line {\n  background: rgba(0, 0, 0, 0.07);\n}\n\n.ace-tm .ace_gutter-active-line {\n    background-color : #dcdcdc;\n}\n\n.ace-tm .ace_marker-layer .ace_selected-word {\n  background: rgb(250, 250, 255);\n  border: 1px solid rgb(200, 200, 250);\n}\n\n.ace-tm .ace_indent-guide {\n  background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAACCAYAAACZgbYnAAAAE0lEQVQImWP4////f4bLly//BwAmVgd1/w11/gAAAABJRU5ErkJggg==") right repeat-y;\n}\n';
+      module2.exports = '.ace-tm .ace_gutter {\n  background: #f0f0f0;\n  color: #333;\n}\n\n.ace-tm .ace_print-margin {\n  width: 1px;\n  background: #e8e8e8;\n}\n\n.ace-tm .ace_fold {\n    background-color: #6B72E6;\n}\n\n.ace-tm {\n  background-color: #FFFFFF;\n  color: black;\n}\n\n.ace-tm .ace_cursor {\n  color: black;\n}\n        \n.ace-tm .ace_invisible {\n  color: rgb(191, 191, 191);\n}\n\n.ace-tm .ace_storage,\n.ace-tm .ace_keyword {\n  color: blue;\n}\n\n.ace-tm .ace_constant {\n  color: rgb(197, 6, 11);\n}\n\n.ace-tm .ace_constant.ace_buildin {\n  color: rgb(88, 72, 246);\n}\n\n.ace-tm .ace_constant.ace_language {\n  color: rgb(88, 92, 246);\n}\n\n.ace-tm .ace_constant.ace_library {\n  color: rgb(6, 150, 14);\n}\n\n.ace-tm .ace_invalid {\n  background-color: rgba(255, 0, 0, 0.1);\n  color: red;\n}\n\n.ace-tm .ace_support.ace_function {\n  color: rgb(60, 76, 114);\n}\n\n.ace-tm .ace_support.ace_constant {\n  color: rgb(6, 150, 14);\n}\n\n.ace-tm .ace_support.ace_type,\n.ace-tm .ace_support.ace_class {\n  color: rgb(109, 121, 222);\n}\n\n.ace-tm .ace_keyword.ace_operator {\n  color: rgb(104, 118, 135);\n}\n\n.ace-tm .ace_string {\n  color: rgb(3, 106, 7);\n}\n\n.ace-tm .ace_comment {\n  color: rgb(76, 136, 107);\n}\n\n.ace-tm .ace_comment.ace_doc {\n  color: rgb(0, 102, 255);\n}\n\n.ace-tm .ace_comment.ace_doc.ace_tag {\n  color: rgb(128, 159, 191);\n}\n\n.ace-tm .ace_constant.ace_numeric {\n  color: rgb(0, 0, 205);\n}\n\n.ace-tm .ace_variable {\n  color: rgb(49, 132, 149);\n}\n\n.ace-tm .ace_xml-pe {\n  color: rgb(104, 104, 91);\n}\n\n.ace-tm .ace_entity.ace_name.ace_function {\n  color: #0000A2;\n}\n\n\n.ace-tm .ace_heading {\n  color: rgb(12, 7, 255);\n}\n\n.ace-tm .ace_list {\n  color:rgb(185, 6, 144);\n}\n\n.ace-tm .ace_meta.ace_tag {\n  color:rgb(0, 22, 142);\n}\n\n.ace-tm .ace_string.ace_regex {\n  color: rgb(255, 0, 0)\n}\n\n.ace-tm .ace_marker-layer .ace_selection {\n  background: rgb(181, 213, 255);\n}\n.ace-tm.ace_multiselect .ace_selection.ace_start {\n  box-shadow: 0 0 3px 0px white;\n}\n.ace-tm .ace_marker-layer .ace_step {\n  background: rgb(252, 255, 0);\n}\n\n.ace-tm .ace_marker-layer .ace_stack {\n  background: rgb(164, 229, 101);\n}\n\n.ace-tm .ace_marker-layer .ace_bracket {\n  margin: -1px 0 0 -1px;\n  border: 1px solid rgb(192, 192, 192);\n}\n\n.ace-tm .ace_marker-layer .ace_active-line {\n  background: rgba(0, 0, 0, 0.07);\n}\n\n.ace-tm .ace_gutter-active-line {\n    background-color : #dcdcdc;\n}\n\n.ace-tm .ace_marker-layer .ace_selected-word {\n  background: rgb(250, 250, 255);\n  border: 1px solid rgb(200, 200, 250);\n}\n\n.ace-tm .ace_indent-guide {\n  background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAACCAYAAACZgbYnAAAAE0lEQVQImWP4////f4bLly//BwAmVgd1/w11/gAAAABJRU5ErkJggg==") right repeat-y;\n}\n\n.ace-tm .ace_indent-guide-active {\n  background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAACCAYAAACZgbYnAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAIGNIUk0AAHolAACAgwAA+f8AAIDpAAB1MAAA6mAAADqYAAAXb5JfxUYAAAAZSURBVHjaYvj///9/hivKyv8BAAAA//8DACLqBhbvk+/eAAAAAElFTkSuQmCC") right repeat-y;\n}\n';
     });
     ace.define("ace/theme/textmate", ["require", "exports", "module", "ace/theme/textmate.css", "ace/lib/dom"], function(require2, exports2, module2) {
       "use strict";
@@ -1084,7 +1084,7 @@ var require_ace = __commonJS({
           };
         }
       };
-      exports2.version = "1.9.6";
+      exports2.version = "1.10.0";
     });
     ace.define("ace/loader_build", ["require", "exports", "module", "ace/lib/fixoldbrowsers", "ace/config"], function(require2, exports2, module2) {
       "use strict";
@@ -3272,7 +3272,7 @@ var require_ace = __commonJS({
               clipboard && ["span", { class: "ace_mobile-button", action: "paste" }, "Paste"],
               hasUndo && ["span", { class: "ace_mobile-button", action: "undo" }, "Undo"],
               ["span", { class: "ace_mobile-button", action: "find" }, "Find"],
-              ["span", { class: "ace_mobile-button", action: "openCommandPallete" }, "Pallete"]
+              ["span", { class: "ace_mobile-button", action: "openCommandPallete" }, "Palette"]
             ] : ["span"]), contextMenu.firstChild);
           };
           var handleClick = function(e) {
@@ -11607,7 +11607,7 @@ var require_ace = __commonJS({
         },
         {
           name: "openCommandPallete",
-          description: "Open command pallete",
+          description: "Open command palette",
           bindKey: bindKey("F1", "F1"),
           exec: function(editor) {
             editor.prompt({ $type: "commands" });
@@ -11963,8 +11963,11 @@ var require_ace = __commonJS({
             var ranges = session.getMatchingBracketRanges(self.getCursorPosition());
             if (!ranges && session.$mode.getMatching)
               ranges = session.$mode.getMatching(self.session);
-            if (!ranges)
+            if (!ranges) {
+              if (self.getHighlightIndentGuides())
+                self.renderer.$textLayer.$highlightIndentGuide();
               return;
+            }
             var markerType = "ace_bracket";
             if (!Array.isArray(ranges)) {
               ranges = [ranges];
@@ -11983,6 +11986,8 @@ var require_ace = __commonJS({
                 return session.addMarker(range, markerType, "text");
               })
             };
+            if (self.getHighlightIndentGuides())
+              self.renderer.$textLayer.$highlightIndentGuide();
           }, 50);
         };
         this.$highlightTags = function() {
@@ -12479,6 +12484,12 @@ var require_ace = __commonJS({
         };
         this.getDisplayIndentGuides = function() {
           return this.renderer.getDisplayIndentGuides();
+        };
+        this.setHighlightIndentGuides = function(highlight) {
+          this.renderer.setHighlightIndentGuides(highlight);
+        };
+        this.getHighlightIndentGuides = function() {
+          return this.renderer.getHighlightIndentGuides();
         };
         this.setShowPrintMargin = function(showPrintMargin) {
           this.renderer.setShowPrintMargin(showPrintMargin);
@@ -13532,6 +13543,7 @@ var require_ace = __commonJS({
         fadeFoldWidgets: "renderer",
         showFoldWidgets: "renderer",
         displayIndentGuides: "renderer",
+        highlightIndentGuides: "renderer",
         showGutter: "renderer",
         fontSize: "renderer",
         fontFamily: "renderer",
@@ -14712,6 +14724,13 @@ var require_ace = __commonJS({
           this.$computeTabString();
           return true;
         };
+        this.$highlightIndentGuides = true;
+        this.setHighlightIndentGuides = function(highlight) {
+          if (this.$highlightIndentGuides === highlight)
+            return false;
+          this.$highlightIndentGuides = highlight;
+          return highlight;
+        };
         this.$tabStrings = [];
         this.onChangeTabSize = this.$computeTabString = function() {
           var tabSize = this.session.getTabSize();
@@ -14826,6 +14845,7 @@ var require_ace = __commonJS({
           if (config.lastRow > oldConfig.lastRow) {
             this.$lines.push(this.$renderLinesFragment(config, oldConfig.lastRow + 1, config.lastRow));
           }
+          this.$highlightIndentGuide();
         };
         this.$renderLinesFragment = function(config, firstRow, lastRow) {
           var fragment = [];
@@ -14948,14 +14968,117 @@ var require_ace = __commonJS({
             for (var i = 0; i < count; i++) {
               parent.appendChild(this.$tabStrings[" "].cloneNode(true));
             }
+            this.$highlightIndentGuide();
             return value.substr(cols);
           } else if (value[0] == "	") {
             for (var i = 0; i < cols; i++) {
               parent.appendChild(this.$tabStrings["	"].cloneNode(true));
             }
+            this.$highlightIndentGuide();
             return value.substr(cols);
           }
+          this.$highlightIndentGuide();
           return value;
+        };
+        this.$highlightIndentGuide = function() {
+          if (!this.$highlightIndentGuides || !this.displayIndentGuides)
+            return;
+          this.$highlightIndentGuideMarker = {
+            indentLevel: void 0,
+            start: void 0,
+            end: void 0,
+            dir: void 0
+          };
+          var lines = this.session.doc.$lines;
+          var cursor = this.session.selection.getCursor();
+          var initialIndent = /^\s*/.exec(this.session.doc.getLine(cursor.row))[0].length;
+          var elementIndentLevel = Math.floor(initialIndent / this.tabSize);
+          this.$highlightIndentGuideMarker = {
+            indentLevel: elementIndentLevel,
+            start: cursor.row
+          };
+          var bracketHighlight = this.session.$bracketHighlight;
+          if (bracketHighlight) {
+            var ranges = this.session.$bracketHighlight.ranges;
+            for (var i = 0; i < ranges.length; i++) {
+              if (cursor.row !== ranges[i].start.row) {
+                this.$highlightIndentGuideMarker.end = ranges[i].start.row;
+                if (cursor.row > ranges[i].start.row) {
+                  this.$highlightIndentGuideMarker.dir = -1;
+                } else {
+                  this.$highlightIndentGuideMarker.dir = 1;
+                }
+                break;
+              }
+            }
+          }
+          if (!this.$highlightIndentGuideMarker.end) {
+            if (lines[cursor.row] !== "" && cursor.column === lines[cursor.row].length) {
+              this.$highlightIndentGuideMarker.dir = 1;
+              for (var i = cursor.row + 1; i < lines.length; i++) {
+                var line = lines[i];
+                var currentIndent = /^\s*/.exec(line)[0].length;
+                if (line !== "") {
+                  this.$highlightIndentGuideMarker.end = i;
+                  if (currentIndent <= initialIndent)
+                    break;
+                }
+              }
+            }
+          }
+          this.$renderHighlightIndentGuide();
+        };
+        this.$clearActiveIndentGuide = function() {
+          var cells = this.$lines.cells;
+          for (var i = 0; i < cells.length; i++) {
+            var cell = cells[i];
+            var childNodes = cell.element.childNodes;
+            if (childNodes.length > 0) {
+              for (var j = 0; j < childNodes.length; j++) {
+                if (childNodes[j].classList && childNodes[j].classList.contains("ace_indent-guide-active")) {
+                  childNodes[j].classList.remove("ace_indent-guide-active");
+                  break;
+                }
+              }
+            }
+          }
+        };
+        this.$setIndentGuideActive = function(cell, indentLevel) {
+          var line = this.session.doc.getLine(cell.row);
+          if (line !== "") {
+            var childNodes = cell.element.childNodes;
+            if (childNodes && childNodes[indentLevel - 1] && childNodes[indentLevel - 1].classList) {
+              childNodes[indentLevel - 1].classList.add("ace_indent-guide-active");
+            }
+          }
+        };
+        this.$renderHighlightIndentGuide = function() {
+          if (!this.$lines)
+            return;
+          var cells = this.$lines.cells;
+          this.$clearActiveIndentGuide();
+          var indentLevel = this.$highlightIndentGuideMarker.indentLevel;
+          if (indentLevel !== 0) {
+            if (this.$highlightIndentGuideMarker.dir === 1) {
+              for (var i = 0; i < cells.length; i++) {
+                var cell = cells[i];
+                if (this.$highlightIndentGuideMarker.end && cell.row >= this.$highlightIndentGuideMarker.start + 1) {
+                  if (cell.row >= this.$highlightIndentGuideMarker.end)
+                    break;
+                  this.$setIndentGuideActive(cell, indentLevel);
+                }
+              }
+            } else {
+              for (var i = cells.length - 1; i >= 0; i--) {
+                var cell = cells[i];
+                if (this.$highlightIndentGuideMarker.end && cell.row < this.$highlightIndentGuideMarker.start) {
+                  if (cell.row <= this.$highlightIndentGuideMarker.end)
+                    break;
+                  this.$setIndentGuideActive(cell, indentLevel);
+                }
+              }
+            }
+          }
         };
         this.$createLineElement = function(parent) {
           var lineEl = this.dom.createElement("div");
@@ -16526,6 +16649,12 @@ styles.join("\\n")
         this.setDisplayIndentGuides = function(display) {
           this.setOption("displayIndentGuides", display);
         };
+        this.getHighlightIndentGuides = function() {
+          return this.getOption("highlightIndentGuides");
+        };
+        this.setHighlightIndentGuides = function(highlight) {
+          this.setOption("highlightIndentGuides", highlight);
+        };
         this.setShowPrintMargin = function(showPrintMargin) {
           this.setOption("showPrintMargin", showPrintMargin);
         };
@@ -17338,6 +17467,16 @@ styles.join("\\n")
           set: function(show) {
             if (this.$textLayer.setDisplayIndentGuides(show))
               this.$loop.schedule(this.CHANGE_TEXT);
+          },
+          initialValue: true
+        },
+        highlightIndentGuides: {
+          set: function(show) {
+            if (this.$textLayer.setHighlightIndentGuides(show) == true) {
+              this.$textLayer.$highlightIndentGuide();
+            } else {
+              this.$textLayer.$clearActiveIndentGuide(this.$textLayer.$lines.cells);
+            }
           },
           initialValue: true
         },
@@ -19353,7 +19492,7 @@ var require_theme_monokai = __commonJS({
   "node_modules/ace-builds/src-noconflict/theme-monokai.js"(exports, module) {
     init_define_process();
     ace.define("ace/theme/monokai.css", ["require", "exports", "module"], function(require2, exports2, module2) {
-      module2.exports = ".ace-monokai .ace_gutter {\n  background: #2F3129;\n  color: #8F908A\n}\n\n.ace-monokai .ace_print-margin {\n  width: 1px;\n  background: #555651\n}\n\n.ace-monokai {\n  background-color: #272822;\n  color: #F8F8F2\n}\n\n.ace-monokai .ace_cursor {\n  color: #F8F8F0\n}\n\n.ace-monokai .ace_marker-layer .ace_selection {\n  background: #49483E\n}\n\n.ace-monokai.ace_multiselect .ace_selection.ace_start {\n  box-shadow: 0 0 3px 0px #272822;\n}\n\n.ace-monokai .ace_marker-layer .ace_step {\n  background: rgb(102, 82, 0)\n}\n\n.ace-monokai .ace_marker-layer .ace_bracket {\n  margin: -1px 0 0 -1px;\n  border: 1px solid #49483E\n}\n\n.ace-monokai .ace_marker-layer .ace_active-line {\n  background: #202020\n}\n\n.ace-monokai .ace_gutter-active-line {\n  background-color: #272727\n}\n\n.ace-monokai .ace_marker-layer .ace_selected-word {\n  border: 1px solid #49483E\n}\n\n.ace-monokai .ace_invisible {\n  color: #52524d\n}\n\n.ace-monokai .ace_entity.ace_name.ace_tag,\n.ace-monokai .ace_keyword,\n.ace-monokai .ace_meta.ace_tag,\n.ace-monokai .ace_storage {\n  color: #F92672\n}\n\n.ace-monokai .ace_punctuation,\n.ace-monokai .ace_punctuation.ace_tag {\n  color: #fff\n}\n\n.ace-monokai .ace_constant.ace_character,\n.ace-monokai .ace_constant.ace_language,\n.ace-monokai .ace_constant.ace_numeric,\n.ace-monokai .ace_constant.ace_other {\n  color: #AE81FF\n}\n\n.ace-monokai .ace_invalid {\n  color: #F8F8F0;\n  background-color: #F92672\n}\n\n.ace-monokai .ace_invalid.ace_deprecated {\n  color: #F8F8F0;\n  background-color: #AE81FF\n}\n\n.ace-monokai .ace_support.ace_constant,\n.ace-monokai .ace_support.ace_function {\n  color: #66D9EF\n}\n\n.ace-monokai .ace_fold {\n  background-color: #A6E22E;\n  border-color: #F8F8F2\n}\n\n.ace-monokai .ace_storage.ace_type,\n.ace-monokai .ace_support.ace_class,\n.ace-monokai .ace_support.ace_type {\n  font-style: italic;\n  color: #66D9EF\n}\n\n.ace-monokai .ace_entity.ace_name.ace_function,\n.ace-monokai .ace_entity.ace_other,\n.ace-monokai .ace_entity.ace_other.ace_attribute-name,\n.ace-monokai .ace_variable {\n  color: #A6E22E\n}\n\n.ace-monokai .ace_variable.ace_parameter {\n  font-style: italic;\n  color: #FD971F\n}\n\n.ace-monokai .ace_string {\n  color: #E6DB74\n}\n\n.ace-monokai .ace_comment {\n  color: #75715E\n}\n\n.ace-monokai .ace_indent-guide {\n  background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAACCAYAAACZgbYnAAAAEklEQVQImWPQ0FD0ZXBzd/wPAAjVAoxeSgNeAAAAAElFTkSuQmCC) right repeat-y\n}";
+      module2.exports = '.ace-monokai .ace_gutter {\n  background: #2F3129;\n  color: #8F908A\n}\n\n.ace-monokai .ace_print-margin {\n  width: 1px;\n  background: #555651\n}\n\n.ace-monokai {\n  background-color: #272822;\n  color: #F8F8F2\n}\n\n.ace-monokai .ace_cursor {\n  color: #F8F8F0\n}\n\n.ace-monokai .ace_marker-layer .ace_selection {\n  background: #49483E\n}\n\n.ace-monokai.ace_multiselect .ace_selection.ace_start {\n  box-shadow: 0 0 3px 0px #272822;\n}\n\n.ace-monokai .ace_marker-layer .ace_step {\n  background: rgb(102, 82, 0)\n}\n\n.ace-monokai .ace_marker-layer .ace_bracket {\n  margin: -1px 0 0 -1px;\n  border: 1px solid #49483E\n}\n\n.ace-monokai .ace_marker-layer .ace_active-line {\n  background: #202020\n}\n\n.ace-monokai .ace_gutter-active-line {\n  background-color: #272727\n}\n\n.ace-monokai .ace_marker-layer .ace_selected-word {\n  border: 1px solid #49483E\n}\n\n.ace-monokai .ace_invisible {\n  color: #52524d\n}\n\n.ace-monokai .ace_entity.ace_name.ace_tag,\n.ace-monokai .ace_keyword,\n.ace-monokai .ace_meta.ace_tag,\n.ace-monokai .ace_storage {\n  color: #F92672\n}\n\n.ace-monokai .ace_punctuation,\n.ace-monokai .ace_punctuation.ace_tag {\n  color: #fff\n}\n\n.ace-monokai .ace_constant.ace_character,\n.ace-monokai .ace_constant.ace_language,\n.ace-monokai .ace_constant.ace_numeric,\n.ace-monokai .ace_constant.ace_other {\n  color: #AE81FF\n}\n\n.ace-monokai .ace_invalid {\n  color: #F8F8F0;\n  background-color: #F92672\n}\n\n.ace-monokai .ace_invalid.ace_deprecated {\n  color: #F8F8F0;\n  background-color: #AE81FF\n}\n\n.ace-monokai .ace_support.ace_constant,\n.ace-monokai .ace_support.ace_function {\n  color: #66D9EF\n}\n\n.ace-monokai .ace_fold {\n  background-color: #A6E22E;\n  border-color: #F8F8F2\n}\n\n.ace-monokai .ace_storage.ace_type,\n.ace-monokai .ace_support.ace_class,\n.ace-monokai .ace_support.ace_type {\n  font-style: italic;\n  color: #66D9EF\n}\n\n.ace-monokai .ace_entity.ace_name.ace_function,\n.ace-monokai .ace_entity.ace_other,\n.ace-monokai .ace_entity.ace_other.ace_attribute-name,\n.ace-monokai .ace_variable {\n  color: #A6E22E\n}\n\n.ace-monokai .ace_variable.ace_parameter {\n  font-style: italic;\n  color: #FD971F\n}\n\n.ace-monokai .ace_string {\n  color: #E6DB74\n}\n\n.ace-monokai .ace_comment {\n  color: #75715E\n}\n\n.ace-monokai .ace_indent-guide {\n  background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAACCAYAAACZgbYnAAAAEklEQVQImWPQ0FD0ZXBzd/wPAAjVAoxeSgNeAAAAAElFTkSuQmCC) right repeat-y\n}\n\n.ace-monokai .ace_indent-guide-active {\n  background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAACCAYAAACZgbYnAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAIGNIUk0AAHolAACAgwAA+f8AAIDpAAB1MAAA6mAAADqYAAAXb5JfxUYAAAAZSURBVHjaYvj///9/hivKyv8BAAAA//8DACLqBhbvk+/eAAAAAElFTkSuQmCC") right repeat-y;\n}\n';
     });
     ace.define("ace/theme/monokai", ["require", "exports", "module", "ace/theme/monokai.css", "ace/lib/dom"], function(require2, exports2, module2) {
       exports2.isDark = true;

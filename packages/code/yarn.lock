@@ -587,7 +587,7 @@ __metadata:
     "@types/react": ^18.0.18
     "@types/react-dom": 18.0.6
     "@types/xo": ^0.39.3
-    ace-builds: 1.9.6
+    ace-builds: 1.10.0
     async-mutex: 0.3.2
     big-integer: 1.6.51
     clean-stack: ^4.2.0
@@ -907,10 +907,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ace-builds@npm:1.9.6":
-  version: 1.9.6
-  resolution: "ace-builds@npm:1.9.6"
-  checksum: f84b29f7f4afb0ef5263cccbecc3fafe87285b646086ea7105002a31587df9c8521fcff8175dbb51f31b656ce7839e6713d7f0937ff92f4d4fb5e2d38c74fedc
+"ace-builds@npm:1.10.0":
+  version: 1.10.0
+  resolution: "ace-builds@npm:1.10.0"
+  checksum: af6bc0059375b172a38444087f29232314f83be5242567a71336f055f93ba631d0c167ca045cc8ba8687a3eb6056218e2105c7ed8ae1107ce34e674f15347a2a
   languageName: node
   linkType: hard
 
