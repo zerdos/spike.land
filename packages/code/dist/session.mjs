@@ -9,8 +9,8 @@ import {
   onSessionUpdate,
   patchSync,
   startSession
-} from "./chunk-chunk-ONQROWRT.mjs";
-import "./chunk-chunk-JAPAFYDL.mjs";
+} from "./chunk-chunk-K77JGIAG.mjs";
+import "./chunk-chunk-2SR2QKSU.mjs";
 export {
   CodeSession,
   applyPatch,
