@@ -8,15 +8,14 @@ import {
   V,
   cloneElement,
   createContext,
-  createElement,
   createFactory,
   createRef,
   createRoot,
   e,
   flushSync,
   forwardRef,
+  h,
   hydrate,
-  hydrateRoot,
   init_react_preact,
   isValidElement,
   lazy,
@@ -41,7 +40,7 @@ import {
   useState,
   version,
   y
-} from "./chunk-chunk-OVVOX3EZ.mjs";
+} from "./chunk-chunk-IPC2PNH5.mjs";
 import "./chunk-chunk-2SR2QKSU.mjs";
 init_react_preact();
 export {
@@ -54,7 +53,7 @@ export {
   D as SuspenseList,
   cloneElement,
   createContext,
-  createElement,
+  h as createElement,
   createFactory,
   V as createPortal,
   createRef,
@@ -64,7 +63,6 @@ export {
   flushSync,
   forwardRef,
   hydrate,
-  hydrateRoot,
   isValidElement,
   e as jsx,
   e as jsxDEV,

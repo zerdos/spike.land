@@ -13,7 +13,7 @@ import {
   domAnimation,
   domMax,
   m
-} from "./chunk-chunk-NVAD3HQ7.mjs";
+} from "./chunk-chunk-CIVCKWJH.mjs";
 import {
   require_emotion_cache_cjs,
   require_emotion_element_b63ca7c6_cjs_dev,
@@ -26,19 +26,19 @@ import {
   require_emotion_weak_memoize_cjs,
   require_extends,
   require_hoist_non_react_statics_cjs
-} from "./chunk-chunk-FJTLXHGS.mjs";
+} from "./chunk-chunk-4KFQYOVB.mjs";
 import {
   Children,
   PureComponent,
   V,
   cloneElement,
   createContext,
-  createElement,
   createRef,
   createRoot,
   e,
   flushSync,
   forwardRef,
+  h,
   init_react_preact,
   isValidElement,
   memo,
@@ -56,7 +56,7 @@ import {
   useReducer,
   useRef,
   useState
-} from "./chunk-chunk-OVVOX3EZ.mjs";
+} from "./chunk-chunk-IPC2PNH5.mjs";
 import {
   __commonJS,
   __toCommonJS,
@@ -1778,7 +1778,7 @@ var require_qrious = __commonJS({
           }
         },
         _checkBadness: function() {
-          var b, b1, h2, x, y;
+          var b, b1, h3, x, y;
           var bad = 0;
           var badness = this._badness;
           var buffer = this.buffer;
@@ -1792,19 +1792,19 @@ var require_qrious = __commonJS({
           }
           var bw = 0;
           for (y = 0; y < width2; y++) {
-            h2 = 0;
+            h3 = 0;
             badness[0] = 0;
             for (b = 0, x = 0; x < width2; x++) {
               b1 = buffer[x + width2 * y];
               if (b === b1) {
-                badness[h2]++;
+                badness[h3]++;
               } else {
-                badness[++h2] = 1;
+                badness[++h3] = 1;
               }
               b = b1;
               bw += b ? 1 : -1;
             }
-            bad += this._getBadness(h2);
+            bad += this._getBadness(h3);
           }
           if (bw < 0) {
             bw = -bw;
@@ -1819,18 +1819,18 @@ var require_qrious = __commonJS({
           }
           bad += count * Frame.N4;
           for (x = 0; x < width2; x++) {
-            h2 = 0;
+            h3 = 0;
             badness[0] = 0;
             for (b = 0, y = 0; y < width2; y++) {
               b1 = buffer[x + width2 * y];
               if (b === b1) {
-                badness[h2]++;
+                badness[h3]++;
               } else {
-                badness[++h2] = 1;
+                badness[++h3] = 1;
               }
               b = b1;
             }
-            bad += this._getBadness(h2);
+            bad += this._getBadness(h3);
           }
           return bad;
         },
@@ -4094,7 +4094,7 @@ var OutPortal = function(_super) {
     node.setPortalProps({});
   };
   OutPortal2.prototype.render = function() {
-    return createElement("div", { ref: this.placeholderNode });
+    return h("div", { ref: this.placeholderNode });
   };
   return OutPortal2;
 }(PureComponent);
@@ -4287,7 +4287,7 @@ var QRious2 = (_a) => {
     size,
     value
   });
-  return createElement("img", Object.assign(Object.assign({}, props), { src: dataUrl }));
+  return h("img", Object.assign(Object.assign({}, props), { src: dataUrl }));
 };
 
 // js/mui.tsx
@@ -14373,11 +14373,11 @@ function hslToRgb(color2) {
   const {
     values: values3
   } = color2;
-  const h2 = values3[0];
+  const h3 = values3[0];
   const s = values3[1] / 100;
   const l = values3[2] / 100;
   const a = s * Math.min(l, 1 - l);
-  const f = (n, k = (n + h2 / 30) % 12) => l - a * Math.max(Math.min(k - 3, 9 - k, 1), -1);
+  const f = (n, k = (n + h3 / 30) % 12) => l - a * Math.max(Math.min(k - 3, 9 - k, 1), -1);
   let type = "rgb";
   const rgb = [Math.round(f(0) * 255), Math.round(f(8) * 255), Math.round(f(4) * 255)];
   if (color2.type === "hsla") {
@@ -20354,7 +20354,7 @@ var Editor = ({ code, i, codeSpace: codeSpace2, assets }) => {
     started: false,
     prettierJs: (code2) => code2 + "// " + Math.random(),
     runner: async ({ code: code2, counter: counter2, codeSpace: codeSpace3 }) => {
-      const { runner: runner2 } = await import("./chunk-runner-AEMNVUP4.mjs");
+      const { runner: runner2 } = await import("./chunk-runner-XNVQXNU3.mjs");
       const { prettierJs: prettierJs2 } = await import("./chunk-prettierEsm-2HEBMOXE.mjs");
       runner2({ code: prettierJs2(code2), counter: counter2, codeSpace: codeSpace3 });
       changeContent((x) => ({
@@ -20937,7 +20937,7 @@ async function join() {
   });
   return wsConnection;
 }
-var h = {};
+var h2 = {};
 async function processWsMessage(event, source) {
   if (ws == null)
     return;
@@ -20965,9 +20965,9 @@ async function processData(data, source) {
   if (data.newHash === hashCode())
     return;
   if (data.oldHash && data.newHash) {
-    if (h[data.oldHash] && h[data.oldHash] === data.newHash)
+    if (h2[data.oldHash] && h2[data.oldHash] === data.newHash)
       return;
-    h[data.oldHash] = data.newHash;
+    h2[data.oldHash] = data.newHash;
   }
   if (data.newHash === hashCode())
     return;

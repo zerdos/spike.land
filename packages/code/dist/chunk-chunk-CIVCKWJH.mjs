@@ -3,8 +3,8 @@ import {
   Component,
   cloneElement,
   createContext,
-  createElement,
   forwardRef,
+  h,
   init_react_preact,
   isValidElement,
   p,
@@ -18,7 +18,7 @@ import {
   useMemo,
   useRef,
   useState
-} from "./chunk-chunk-OVVOX3EZ.mjs";
+} from "./chunk-chunk-IPC2PNH5.mjs";
 import {
   __commonJS,
   __toESM,
@@ -799,11 +799,11 @@ function createMotionComponent({ preloadedFeatures, createVisualElement, project
         features = context.visualElement.loadFeatures(props, lazyStrictMode, preloadedFeatures, projectionId, projectionNodeConstructor || featureDefinitions.projectionNodeConstructor, initialLayoutGroupConfig);
       }
     }
-    return createElement(
+    return h(
       VisualElementHandler,
       { visualElement: context.visualElement, props: configAndProps },
       features,
-      createElement(MotionContext.Provider, { value: context }, useRender(Component2, props, projectionId, useMotionRef(visualState, context.visualElement, externalRef), visualState, isStatic, context.visualElement))
+      h(MotionContext.Provider, { value: context }, useRender(Component2, props, projectionId, useMotionRef(visualState, context.visualElement, externalRef), visualState, isStatic, context.visualElement))
     );
   }
   return forwardRef(MotionComponent);
@@ -3709,7 +3709,7 @@ var visualElement = ({ treeType = "", build, getBaseTarget, makeTargetAnimatable
         const name = featureNames[i];
         const { isEnabled, Component: Component2 } = featureDefinitions[name];
         if (isEnabled(props) && Component2) {
-          features.push(createElement(Component2, {
+          features.push(h(Component2, {
             key: name,
             ...renderedProps,
             visualElement: element
@@ -4209,7 +4209,7 @@ function createUseRender(forwardMotionProps = false) {
     if (projectionId) {
       elementProps["data-projection-id"] = projectionId;
     }
-    return createElement(Component2, elementProps);
+    return h(Component2, elementProps);
   };
   return useRender;
 }
@@ -6967,7 +6967,7 @@ function PopChild({ children, isPresent: isPresent2 }) {
       document.head.removeChild(style2);
     };
   }, [isPresent2]);
-  return createElement(PopChildMeasure, { isPresent: isPresent2, childRef: ref, sizeRef: size }, cloneElement(children, { ref }));
+  return h(PopChildMeasure, { isPresent: isPresent2, childRef: ref, sizeRef: size }, cloneElement(children, { ref }));
 }
 
 // node_modules/framer-motion/dist/es/components/AnimatePresence/PresenceChild.mjs
@@ -7002,9 +7002,9 @@ var PresenceChild = ({ children, initial, isPresent: isPresent2, onExitComplete,
     !isPresent2 && !presenceChildren.size && onExitComplete && onExitComplete();
   }, [isPresent2]);
   if (mode === "popLayout") {
-    children = createElement(PopChild, { isPresent: isPresent2 }, children);
+    children = h(PopChild, { isPresent: isPresent2 }, children);
   }
-  return createElement(PresenceContext.Provider, { value: context }, children);
+  return h(PresenceContext.Provider, { value: context }, children);
 };
 function newChildrenMap() {
   return /* @__PURE__ */ new Map();
@@ -7053,7 +7053,7 @@ var AnimatePresence = ({ children, custom, initial = true, onExitComplete, exitB
     exiting.clear();
   });
   if (isInitialRender.current) {
-    return createElement(p, null, childrenToRender.map((child) => createElement(PresenceChild, { key: getChildKey(child), isPresent: true, initial: initial ? void 0 : false, presenceAffectsLayout, mode }, child)));
+    return h(p, null, childrenToRender.map((child) => h(PresenceChild, { key: getChildKey(child), isPresent: true, initial: initial ? void 0 : false, presenceAffectsLayout, mode }, child)));
   }
   childrenToRender = [...childrenToRender];
   const presentKeys = presentChildren.current.map(getChildKey);
@@ -7088,16 +7088,16 @@ var AnimatePresence = ({ children, custom, initial = true, onExitComplete, exitB
         onExitComplete && onExitComplete();
       }
     };
-    childrenToRender.splice(insertionIndex, 0, createElement(PresenceChild, { key: getChildKey(child), isPresent: false, onExitComplete: onExit, custom, presenceAffectsLayout, mode }, child));
+    childrenToRender.splice(insertionIndex, 0, h(PresenceChild, { key: getChildKey(child), isPresent: false, onExitComplete: onExit, custom, presenceAffectsLayout, mode }, child));
   });
   childrenToRender = childrenToRender.map((child) => {
     const key = child.key;
-    return exiting.has(key) ? child : createElement(PresenceChild, { key: getChildKey(child), isPresent: true, presenceAffectsLayout, mode }, child);
+    return exiting.has(key) ? child : h(PresenceChild, { key: getChildKey(child), isPresent: true, presenceAffectsLayout, mode }, child);
   });
   if (env !== "production" && mode === "wait" && childrenToRender.length > 1) {
     console.warn(`You're attempting to animate multiple children within AnimatePresence, but its mode is set to "wait". This will lead to odd visual behaviour.`);
   }
-  return createElement(p, null, exiting.size ? childrenToRender : childrenToRender.map((child) => cloneElement(child)));
+  return h(p, null, exiting.size ? childrenToRender : childrenToRender.map((child) => cloneElement(child)));
 };
 
 // node_modules/framer-motion/dist/es/context/DeprecatedLayoutGroupContext.mjs
@@ -7154,7 +7154,7 @@ var LayoutGroup = ({ children, id: id3, inheritId, inherit = true }) => {
     };
   }
   const memoizedContext = useMemo(() => ({ ...context.current, forceRender }), [key]);
-  return createElement(LayoutGroupContext.Provider, { value: memoizedContext }, children);
+  return h(LayoutGroupContext.Provider, { value: memoizedContext }, children);
 };
 
 // node_modules/framer-motion/dist/es/components/AnimateSharedLayout.mjs
@@ -7165,7 +7165,7 @@ var AnimateSharedLayout = ({ children }) => {
   useEffect(() => {
     warning(false, "AnimateSharedLayout is deprecated: https://www.framer.com/docs/guide-upgrade/##shared-layout-animations");
   }, []);
-  return createElement(LayoutGroup, { id: useConstant(() => `asl-${id2++}`) }, children);
+  return h(LayoutGroup, { id: useConstant(() => `asl-${id2++}`) }, children);
 };
 
 // node_modules/framer-motion/dist/es/components/MotionConfig/index.mjs
@@ -7177,7 +7177,7 @@ function MotionConfig({ children, isValidProp, ...config }) {
   config = { ...useContext(MotionConfigContext), ...config };
   config.isStatic = useConstant(() => config.isStatic);
   const context = useMemo(() => config, [JSON.stringify(config.transition), config.transformPagePoint, config.reducedMotion]);
-  return createElement(MotionConfigContext.Provider, { value: context }, children);
+  return h(MotionConfigContext.Provider, { value: context }, children);
 }
 
 // node_modules/framer-motion/dist/es/components/LazyMotion/index.mjs
@@ -7201,7 +7201,7 @@ function LazyMotion({ children, features, strict = false }) {
       });
     }
   }, []);
-  return createElement(LazyContext.Provider, { value: { renderer: loadedRenderer.current, strict } }, children);
+  return h(LazyContext.Provider, { value: { renderer: loadedRenderer.current, strict } }, children);
 }
 function isLazyBundle(features) {
   return typeof features === "function";
@@ -7348,10 +7348,10 @@ function ReorderGroup({ children, as = "ul", axis = "y", onReorder, values, ...p
   useEffect(() => {
     isReordering.current = false;
   });
-  return createElement(
+  return h(
     Component2,
     { ...props, ref: externalRef },
-    createElement(ReorderContext.Provider, { value: context }, children)
+    h(ReorderContext.Provider, { value: context }, children)
   );
 }
 var Group = forwardRef(ReorderGroup);
@@ -7383,7 +7383,7 @@ function ReorderItem({ children, style: style2 = {}, value, as = "li", onDrag, l
   useEffect(() => {
     registerItem(value, measuredLayout.current);
   }, [context]);
-  return createElement(Component2, { drag: axis, ...props, dragSnapToOrigin: true, style: { ...style2, x: point2.x, y: point2.y, zIndex }, layout, onDrag: (event, gesturePoint) => {
+  return h(Component2, { drag: axis, ...props, dragSnapToOrigin: true, style: { ...style2, x: point2.x, y: point2.y, zIndex }, layout, onDrag: (event, gesturePoint) => {
     const { velocity } = gesturePoint;
     velocity[axis] && updateOrder(value, point2[axis].get(), velocity[axis]);
     onDrag && onDrag(event, gesturePoint);

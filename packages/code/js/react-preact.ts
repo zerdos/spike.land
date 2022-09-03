@@ -1,8 +1,8 @@
-export * from "preact/compat/client";
+export {createRoot} from "preact/compat/client";
 
 import * as Preact from "preact";
 
-import { Fragment, options } from "preact";
+import { Fragment, options, createElement } from "preact";
 
 /** @type {number} */
 let currentIndex;
@@ -88,8 +88,9 @@ export function useId() {
   return state._value;
 }
 
-export { Fragment };
+export { Fragmen };
 
+export {createElement};
 // import { createContext  } from "preact/compat"
 
 import { createPortal, findDOMNode, SuspenseList } from "preact/compat";
@@ -104,8 +105,8 @@ export const { createContext } = React;
 import { renderToString } from "preact-render-to-string";
 
 import { jsx, jsxDEV, jsxs } from "preact/jsx-runtime";
-import { type } from "os";
 
+export {Fragment}
 // window.PreactJSX = window.PreactJSX || { jsx: j, jsxDEV: jd, jsxs: js };
 // window.renderToString = window.renderToString || renderToStr;
 
@@ -121,7 +122,6 @@ export default React;
 export { createPortal, findDOMNode, SuspenseList };
 
 export const {
-  createElement,
   cloneElement,
   createFactory,
   useInsertionEffect,

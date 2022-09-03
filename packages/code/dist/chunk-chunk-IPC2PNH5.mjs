@@ -805,10 +805,6 @@ function createRoot(container) {
     }
   };
 }
-function hydrateRoot(container, children) {
-  B2(children, container);
-  return createRoot(container);
-}
 var init_client = __esm({
   "node_modules/preact/compat/client.mjs"() {
     init_define_process();
@@ -1155,7 +1151,7 @@ __export(react_preact_exports, {
   SuspenseList: () => D,
   cloneElement: () => cloneElement,
   createContext: () => createContext,
-  createElement: () => createElement,
+  createElement: () => h,
   createFactory: () => createFactory,
   createPortal: () => V,
   createRef: () => createRef,
@@ -1165,7 +1161,6 @@ __export(react_preact_exports, {
   flushSync: () => flushSync,
   forwardRef: () => forwardRef,
   hydrate: () => hydrate,
-  hydrateRoot: () => hydrateRoot,
   isValidElement: () => isValidElement,
   jsx: () => e3,
   jsxDEV: () => e3,
@@ -1217,7 +1212,7 @@ function useId() {
   }
   return state._value;
 }
-var currentIndex, currentComponent, currentHook, EMPTY, oldBeforeDiff, oldBeforeRender, oldAfterDiff, oldCommit, oldBeforeUnmount, React, createContext, hydrate, render, unmountComponentAtNode, react_preact_default, createElement, cloneElement, createFactory, useInsertionEffect, unstable_batchedUpdates, createRef, useCallback, useContext, useDebugValue, isValidElement, useEffect, useImperativeHandle, useLayoutEffect, useMemo, useReducer, useRef, useState, lazy, Suspense, StrictMode, flushSync, forwardRef, memo, Children, PureComponent, Component, version;
+var currentIndex, currentComponent, currentHook, EMPTY, oldBeforeDiff, oldBeforeRender, oldAfterDiff, oldCommit, oldBeforeUnmount, React, createContext, hydrate, render, unmountComponentAtNode, react_preact_default, cloneElement, createFactory, useInsertionEffect, unstable_batchedUpdates, createRef, useCallback, useContext, useDebugValue, isValidElement, useEffect, useImperativeHandle, useLayoutEffect, useMemo, useReducer, useRef, useState, lazy, Suspense, StrictMode, flushSync, forwardRef, memo, Children, PureComponent, Component, version;
 var init_react_preact = __esm({
   "js/react-preact.ts"() {
     init_define_process();
@@ -1254,7 +1249,6 @@ var init_react_preact = __esm({
     ({ hydrate, render, unmountComponentAtNode } = React);
     react_preact_default = React;
     ({
-      createElement,
       cloneElement,
       createFactory,
       useInsertionEffect,
@@ -1286,12 +1280,12 @@ var init_react_preact = __esm({
 });
 
 export {
+  h,
   p,
   D,
   V,
   on,
   createRoot,
-  hydrateRoot,
   y3 as y,
   e3 as e,
   useId,
@@ -1300,7 +1294,6 @@ export {
   render,
   unmountComponentAtNode,
   react_preact_default,
-  createElement,
   cloneElement,
   createFactory,
   useInsertionEffect,
