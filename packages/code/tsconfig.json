@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "es2021",
+    "target": "esnext",
     /* Visit https://aka.ms/tsconfig.json to read more about this file */
 
     /* Basic Options */
@@ -16,11 +16,12 @@
     "downlevelIteration": true,
 
     "noEmit": true,
-    "module": "es2022",
+    "module": "esnext",
     "jsx": "react-jsx",
     "checkJs": false,
+  
     "jsxImportSource": "@emotion/react",
-    "sourceMap": true,
+    "sourceMap": false,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noImplicitReturns": true,
@@ -59,7 +60,8 @@
     // "experimentalDecorators": true,        /* Enables experimental support for ES7 decorators. */
     // "emitDecoratorMetadata": true,         /* Enables experimental support for emitting type metadata for decorators. */
     "composite": true,
-    "importHelpers": false,
+    "removeComments": true,
+    "importHelpers": true,
     "incremental": true,
     "skipDefaultLibCheck": true,
     "skipLibCheck": true, /* Skip type checking of declaration files. */
