@@ -588,7 +588,7 @@ __metadata:
     "@types/react-dom": 18.0.6
     "@types/xo": ^0.39.3
     ace-builds: 1.10.0
-    async-mutex: 0.3.2
+    async-mutex: 0.4.0
     big-integer: 1.6.51
     clean-stack: ^4.2.0
     comlink: ^4.3.1
@@ -1048,12 +1048,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"async-mutex@npm:0.3.2":
-  version: 0.3.2
-  resolution: "async-mutex@npm:0.3.2"
+"async-mutex@npm:0.4.0":
+  version: 0.4.0
+  resolution: "async-mutex@npm:0.4.0"
   dependencies:
-    tslib: ^2.3.1
-  checksum: 620b771dfdea1cad0a6b712915c31a1e3ca880a8cf1eae92b4590f435995e0260929c6ebaae0b9126b1456790ea498064b5bb9a506948cda760f48d3d0dcc4c8
+    tslib: ^2.4.0
+  checksum: 813a71728b35a4fbfd64dba719f04726d9133c67b577fcd951b7028c4a675a13ee34e69beb82d621f87bf81f5d4f135c4c44be0448550c7db728547244ef71fc
   languageName: node
   linkType: hard
 
