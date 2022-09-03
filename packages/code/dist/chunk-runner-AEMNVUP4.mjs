@@ -2,7 +2,7 @@ import {
   appFactory,
   require_emotion_react_jsx_runtime_cjs,
   saveCode
-} from "./chunk-chunk-6GJUVEZC.mjs";
+} from "./chunk-chunk-YFZI3HHL.mjs";
 import {
   hashCode,
   mST,
@@ -238,7 +238,7 @@ var extractCritical = (html) => {
 // js/runner.tsx
 var mod2 = {
   i: 0,
-  esbuildInit: async () => await (await await import("./chunk-esbuildEsm-PNM4UOBQ.mjs")).init()
+  esbuildInit: async () => await (await await import("./chunk-esbuildEsm-IVOS4ATC.mjs")).init()
 };
 async function runner({ code, counter, codeSpace }) {
   const esbuild = await mod2.esbuildInit();

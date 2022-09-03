@@ -71,7 +71,7 @@
     "@mui/material": "5.10.0",
     "@types/react-dom": "18.0.6",
     "ace-builds": "1.10.0",
-    "async-mutex": "0.3.2",
+    "async-mutex": "0.4.0",
     "big-integer": "1.6.51",
     "clean-stack": "^4.2.0",
     "comlink": "^4.3.1",

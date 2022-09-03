@@ -2518,26 +2518,25 @@ var __awaiter$2 = function(thisArg, _arguments, P, generator) {
   });
 };
 var Semaphore = class {
-  constructor(_maxConcurrency, _cancelError = E_CANCELED) {
-    this._maxConcurrency = _maxConcurrency;
+  constructor(_value, _cancelError = E_CANCELED) {
+    this._value = _value;
     this._cancelError = _cancelError;
-    this._queue = [];
-    this._waiters = [];
-    if (_maxConcurrency <= 0) {
-      throw new Error("semaphore must be initialized to a positive value");
-    }
-    this._value = _maxConcurrency;
+    this._weightedQueues = [];
+    this._weightedWaiters = [];
   }
-  acquire() {
-    const locked = this.isLocked();
-    const ticketPromise = new Promise((resolve, reject) => this._queue.push({ resolve, reject }));
-    if (!locked)
+  acquire(weight = 1) {
+    if (weight <= 0)
+      throw new Error(`invalid weight ${weight}: must be positive`);
+    return new Promise((resolve, reject) => {
+      if (!this._weightedQueues[weight - 1])
+        this._weightedQueues[weight - 1] = [];
+      this._weightedQueues[weight - 1].push({ resolve, reject });
       this._dispatch();
-    return ticketPromise;
+    });
   }
-  runExclusive(callback) {
+  runExclusive(callback, weight = 1) {
     return __awaiter$2(this, void 0, void 0, function* () {
-      const [value, release] = yield this.acquire();
+      const [value, release] = yield this.acquire(weight);
       try {
         return yield callback(value);
       } finally {
@@ -2545,50 +2544,66 @@ var Semaphore = class {
       }
     });
   }
-  waitForUnlock() {
-    return __awaiter$2(this, void 0, void 0, function* () {
-      if (!this.isLocked()) {
-        return Promise.resolve();
-      }
-      const waitPromise = new Promise((resolve) => this._waiters.push({ resolve }));
-      return waitPromise;
+  waitForUnlock(weight = 1) {
+    if (weight <= 0)
+      throw new Error(`invalid weight ${weight}: must be positive`);
+    return new Promise((resolve) => {
+      if (!this._weightedWaiters[weight - 1])
+        this._weightedWaiters[weight - 1] = [];
+      this._weightedWaiters[weight - 1].push(resolve);
+      this._dispatch();
     });
   }
   isLocked() {
     return this._value <= 0;
   }
-  release() {
-    if (this._maxConcurrency > 1) {
-      throw new Error("this method is unavailable on semaphores with concurrency > 1; use the scoped release returned by acquire instead");
-    }
-    if (this._currentReleaser) {
-      const releaser = this._currentReleaser;
-      this._currentReleaser = void 0;
-      releaser();
-    }
+  getValue() {
+    return this._value;
+  }
+  setValue(value) {
+    this._value = value;
+    this._dispatch();
+  }
+  release(weight = 1) {
+    if (weight <= 0)
+      throw new Error(`invalid weight ${weight}: must be positive`);
+    this._value += weight;
+    this._dispatch();
   }
   cancel() {
-    this._queue.forEach((ticket) => ticket.reject(this._cancelError));
-    this._queue = [];
+    this._weightedQueues.forEach((queue) => queue.forEach((entry) => entry.reject(this._cancelError)));
+    this._weightedQueues = [];
   }
   _dispatch() {
-    const nextTicket = this._queue.shift();
-    if (!nextTicket)
-      return;
-    let released = false;
-    this._currentReleaser = () => {
-      if (released)
-        return;
-      released = true;
-      this._value++;
-      this._resolveWaiters();
-      this._dispatch();
-    };
-    nextTicket.resolve([this._value--, this._currentReleaser]);
+    var _a;
+    for (let weight = this._value; weight > 0; weight--) {
+      const queueEntry = (_a = this._weightedQueues[weight - 1]) === null || _a === void 0 ? void 0 : _a.shift();
+      if (!queueEntry)
+        continue;
+      const previousValue = this._value;
+      const previousWeight = weight;
+      this._value -= weight;
+      weight = this._value + 1;
+      queueEntry.resolve([previousValue, this._newReleaser(previousWeight)]);
+    }
+    this._drainUnlockWaiters();
   }
-  _resolveWaiters() {
-    this._waiters.forEach((waiter) => waiter.resolve());
-    this._waiters = [];
+  _newReleaser(weight) {
+    let called = false;
+    return () => {
+      if (called)
+        return;
+      called = true;
+      this.release(weight);
+    };
+  }
+  _drainUnlockWaiters() {
+    for (let weight = this._value; weight > 0; weight--) {
+      if (!this._weightedWaiters[weight - 1])
+        continue;
+      this._weightedWaiters[weight - 1].forEach((waiter) => waiter());
+      this._weightedWaiters[weight - 1] = [];
+    }
   }
 };
 var __awaiter$1 = function(thisArg, _arguments, P, generator) {
@@ -2638,7 +2653,8 @@ var Mutex = class {
     return this._semaphore.waitForUnlock();
   }
   release() {
-    this._semaphore.release();
+    if (this._semaphore.isLocked())
+      this._semaphore.release();
   }
   cancel() {
     return this._semaphore.cancel();
