@@ -47302,20 +47302,20 @@ var ToggleHighContrast = class extends EditorAction {
 __name(ToggleHighContrast, "ToggleHighContrast");
 registerEditorAction(ToggleHighContrast);
 
-// js/monaco-workers/language/typescript/ts.worker.js
-var ts_worker_default = "./chunk-ts.worker-YTHDH3IS.js";
+// js/monaco-workers/language/typescript/ts.worker.workerJs.js
+var ts_worker_workerJs_default = "./chunk-ts.worker.workerJs-KAGGFRQX.js";
 
-// js/monaco-workers/language/json/json.worker.js
-var json_worker_default = "./chunk-json.worker-LVTR5ELN.js";
+// js/monaco-workers/language/json/json.worker.workerJs.js
+var json_worker_workerJs_default = "./chunk-json.worker.workerJs-VUEVH624.js";
 
-// js/monaco-workers/language/css/css.worker.js
-var css_worker_default = "./chunk-css.worker-M7GMPINM.js";
+// js/monaco-workers/language/css/css.worker.workerJs.js
+var css_worker_workerJs_default = "./chunk-css.worker.workerJs-YVIWE4JF.js";
 
-// js/monaco-workers/language/html/html.worker.js
-var html_worker_default = "./chunk-html.worker-A25DEBIP.js";
+// js/monaco-workers/language/html/html.worker.workerJs.js
+var html_worker_workerJs_default = "./chunk-html.worker.workerJs-7NMRMLMH.js";
 
-// js/monaco-workers/editor/editor.worker.js
-var editor_worker_default = "./chunk-editor.worker-IUASZYH7.js";
+// js/monaco-workers/editor/editor.worker.workerJs.js
+var editor_worker_workerJs_default = "./chunk-editor.worker.workerJs-IUASZYH7.js";
 
 // js/startMonaco.ts
 var lib = [
@@ -47536,18 +47536,18 @@ var monacoContribution = /* @__PURE__ */ __name(async (typescript, editor2, Uri2
 self.MonacoEnvironment = {
   getWorkerUrl: function(_moduleId, label) {
     if (label === "json") {
-      return new URL(json_worker_default, location.origin).toString();
+      return new URL(json_worker_workerJs_default, location.origin).toString();
     }
     if (label === "css" || label === "scss" || label === "less") {
-      return new URL(css_worker_default, location.origin).toString();
+      return new URL(css_worker_workerJs_default, location.origin).toString();
     }
     if (label === "html" || label === "handlebars" || label === "razor") {
-      return new URL(html_worker_default, location.origin).toString();
+      return new URL(html_worker_workerJs_default, location.origin).toString();
     }
     if (label === "typescript" || label === "javascript") {
-      return new URL(ts_worker_default, location.origin).toString();
+      return new URL(ts_worker_workerJs_default, location.origin).toString();
     }
-    return new URL(editor_worker_default, location.origin).toString();
+    return new URL(editor_worker_workerJs_default, location.origin).toString();
   }
 };
 var mod = {};
