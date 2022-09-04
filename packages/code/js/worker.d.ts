@@ -1,5 +1,5 @@
-declare module "*?worker" {
-  const workerfactory: () => Worker;
+declare module "*.worker.js" {
+  const workerUrl:  string;
 
-  export default workerfactory;
+  export default workerUrl;
 }

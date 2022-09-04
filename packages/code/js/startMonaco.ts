@@ -4,28 +4,14 @@ import type monaco from "monaco-editor";
 import pMap from "p-map";
 
 import { editor, languages, Uri } from "monaco-editor";
+import tsWorkerUrl from  "./monaco-workers/language/typescript/ts.worker"
+import jsonWorkerUrl from "./monaco-workers/language/json/json.worker"
+import cssWorkerUrl from "./monaco-workers/language/css/css.worker"
+import htmlWorker from "./monaco-workers/language/html/html.worker"
+import editorWorkerUrl from "./monaco-workers/editor/editor.worker"
 
-// import codion from "monaco-editor/esm/vs/base/browser/ui/codicons/codicon/codicon.ttf"
-// import * as editorCss from "monaco-editor/min/vs/editor/editor.main.css"
 
-// import { createJsBlob } from "./starter";
 
-// import wfile from "monaco-editor/min/vs/language/typescript/tsWorker.js";
-// import efile from "monaco-editor/min/vs/editor/editor.main.js";
-
-//@ts-ignore
-//@ts-ignore
-
-// import { MonacoJsxSyntaxHighlight } sta "monaco-jsx-syntax-highlight";
-
-// import { parse } from "@babel/parser";
-// import traverse from "@babel/traverse";
-// import MonacoJSXHighlighter from "monaco-jsx-highlighter";
-// import Buffer from "buffer";
-
-// globalThis.Buffer = Buffer;
-
-// let started = false;
 
 const lib = [
   "dom",
@@ -51,7 +37,7 @@ const lib = [
   // "es2017.string",
   // "es2017.typedarrays",
   "es2018.asyncgenerator",
-  "es2018.asynciterable",
+  "es2018.asynciterator",
   // "es2018",
   // "es2018.full",
   "es2018.intl",
@@ -87,7 +73,7 @@ const lib = [
   // "esnext.weakref",
   // "scripthost",
   // "webworker",
-  // "webworker.importscriepts",
+  // "webworker.importscripts",
   // "webworker.iterable",
 ];
 
@@ -342,28 +328,26 @@ const monacoContribution = async (
   return code;
 };
 
-window.MonacoEnvironment = {
-  getWorker: async function (_workerId: string, label: string) {
-    if (label === "typescript" || label === "javascript") {
-      const tsWorker = (await import(
-        "monaco-editor/esm/vs/language/typescript/ts.worker?worker"
-      )).default;
-      return tsWorker();
-    }
-    if (label === "json") {
-      const jsonWorker = (await import(
-        "monaco-editor/esm/vs/language/json/json.worker?worker"
-      )).default;
-      return jsonWorker();
-    }
-    const editorWorker =
-      (await import("monaco-editor/esm/vs/editor/editor.worker?worker"))
-        .default;
-    return editorWorker();
-  },
+
+self.MonacoEnvironment = {
+	getWorkerUrl: function (_moduleId, label) {
+		if (label === 'json') {
+			return new URL(jsonWorkerUrl, location.origin).toString();
+		}
+		if (label === 'css' || label === 'scss' || label === 'less') {
+			return new URL(cssWorkerUrl, location.origin).toString();
+		}
+		if (label === 'html' || label === 'handlebars' || label === 'razor') {
+			return new URL(htmlWorker, location.origin).toString();
+		}
+		if (label === 'typescript' || label === 'javascript') {
+			return new URL(tsWorkerUrl, location.origin).toString();
+		}
+		return new URL(editorWorkerUrl, location.origin).toString();
+	}
 };
 
-let mod = {};
+const mod:{[key: string]:Object } = {};
 
 export const startMonaco = async (
   { code, container, name }: {

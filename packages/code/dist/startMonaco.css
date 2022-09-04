@@ -1,4 +1,4 @@
-/* ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/standalone/browser/standalone-tokens.css */
+/* dist/startMonaco.css */
 .monaco-editor {
   font-family:
     -apple-system,
@@ -209,14 +209,10 @@
     background: transparent !important;
   }
 }
-
-/* ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/base/browser/ui/aria/aria.css */
 .monaco-aria-container {
   position: absolute;
   left: -999em;
 }
-
-/* ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/browser/widget/media/editor.css */
 ::-ms-clear {
   display: none;
 }
@@ -236,8 +232,6 @@
   position: absolute;
   top: 0;
 }
-
-/* ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/browser/controller/textAreaHandler.css */
 .monaco-editor .inputarea {
   min-width: 0;
   min-height: 0;
@@ -254,8 +248,6 @@
 .monaco-editor .inputarea.ime-input {
   z-index: 10;
 }
-
-/* ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/browser/viewParts/lineNumbers/lineNumbers.css */
 .monaco-editor .margin-view-overlays .line-numbers {
   font-variant-numeric: tabular-nums;
   position: absolute;
@@ -274,13 +266,9 @@
 .monaco-editor .margin-view-overlays .line-numbers.lh-odd {
   margin-top: 1px;
 }
-
-/* ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/base/browser/ui/mouseCursor/mouseCursor.css */
 .monaco-mouse-cursor-text {
   cursor: text;
 }
-
-/* ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/browser/viewParts/currentLineHighlight/currentLineHighlight.css */
 .monaco-editor .view-overlays .current-line {
   display: block;
   position: absolute;
@@ -298,13 +286,9 @@
 .monaco-editor .margin-view-overlays .current-line.current-line-margin.current-line-margin-both {
   border-right: 0;
 }
-
-/* ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/browser/viewParts/decorations/decorations.css */
 .monaco-editor .lines-content .cdr {
   position: absolute;
 }
-
-/* ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/base/browser/ui/scrollbar/media/scrollbars.css */
 .monaco-scrollable-element > .scrollbar > .scra {
   cursor: pointer;
   font-size: 11px !important;
@@ -346,8 +330,6 @@
   height: 3px;
   width: 3px;
 }
-
-/* ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/browser/viewParts/glyphMargin/glyphMargin.css */
 .monaco-editor .glyph-margin {
   position: absolute;
   top: 0;
@@ -358,14 +340,10 @@
   align-items: center;
   justify-content: center;
 }
-
-/* ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/browser/viewParts/indentGuides/indentGuides.css */
 .monaco-editor .lines-content .core-guide {
   position: absolute;
   box-sizing: border-box;
 }
-
-/* ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/browser/viewParts/lines/viewLines.css */
 .mtkcontrol {
   color: rgb(255, 255, 255) !important;
   background: rgb(150, 0, 0) !important;
@@ -392,8 +370,6 @@
 .monaco-editor .mtkz {
   display: inline-block;
 }
-
-/* ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/browser/viewParts/linesDecorations/linesDecorations.css */
 .monaco-editor .lines-decorations {
   position: absolute;
   top: 0;
@@ -403,16 +379,12 @@
   position: absolute;
   height: 100%;
 }
-
-/* ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/browser/viewParts/marginDecorations/marginDecorations.css */
 .monaco-editor .margin-view-overlays .cmdr {
   position: absolute;
   left: 0;
   width: 100%;
   height: 100%;
 }
-
-/* ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/browser/viewParts/minimap/minimap.css */
 .monaco-editor .minimap.slider-mouseover .minimap-slider {
   opacity: 0;
   transition: opacity 100ms linear;
@@ -444,29 +416,21 @@
 .minimap.autohide:hover {
   opacity: 1.0;
 }
-
-/* ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/browser/viewParts/overlayWidgets/overlayWidgets.css */
 .monaco-editor .overlayWidgets {
   position: absolute;
   top: 0;
   left: 0;
 }
-
-/* ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/browser/viewParts/rulers/rulers.css */
 .monaco-editor .view-ruler {
   position: absolute;
   top: 0;
 }
-
-/* ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/browser/viewParts/scrollDecoration/scrollDecoration.css */
 .monaco-editor .scroll-decoration {
   position: absolute;
   top: 0;
   left: 0;
   height: 6px;
 }
-
-/* ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/browser/viewParts/selections/selections.css */
 .monaco-editor .lines-content .cslr {
   position: absolute;
 }
@@ -506,8 +470,6 @@
 .monaco-editor.hc-light .bottom-right-radius {
   border-bottom-right-radius: 0;
 }
-
-/* ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/browser/viewParts/viewCursors/viewCursors.css */
 .monaco-editor .cursors-layer {
   position: absolute;
   top: 0;
@@ -570,8 +532,6 @@
 .cursor-expand > .cursor {
   animation: monaco-cursor-expand 0.5s ease-in-out 0s 20 alternate;
 }
-
-/* ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/browser/viewParts/blockDecorations/blockDecorations.css */
 .monaco-editor .blockDecorations-container {
   position: absolute;
   top: 0;
@@ -580,8 +540,6 @@
   position: absolute;
   box-sizing: border-box;
 }
-
-/* ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/browser/widget/media/diffEditor.css */
 .monaco-diff-editor .diffOverview {
   z-index: 9;
 }
@@ -656,8 +614,6 @@
 .monaco-editor .margin-view-zones .lightbulb-glyph:hover {
   cursor: pointer;
 }
-
-/* ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/base/browser/ui/sash/sash.css */
 :root {
   --sash-size: 4px;
 }
@@ -765,8 +721,6 @@
 .monaco-sash.debug:not(.disabled) > .orthogonal-drag-handle {
   background: red;
 }
-
-/* ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/browser/widget/media/diffReview.css */
 .monaco-diff-editor .diff-review-line-number {
   text-align: right;
   display: inline-block;
@@ -813,8 +767,6 @@
   height: 16px;
   margin: 2px 0;
 }
-
-/* ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/base/browser/ui/actionbar/actionbar.css */
 .monaco-action-bar {
   white-space: nowrap;
   height: 100%;
@@ -901,8 +853,6 @@
 .monaco-action-bar .action-item.action-dropdown-item > .action-label {
   margin-right: 1px;
 }
-
-/* ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/base/browser/ui/contextview/contextview.css */
 .context-view {
   position: absolute;
 }
@@ -913,12 +863,10 @@
   position: fixed;
   color: inherit;
 }
-
-/* ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/base/browser/ui/codicons/codicon/codicon.css */
 @font-face {
   font-family: "codicon";
   font-display: block;
-  src: url(./chunk-codicon-BEBTMDKB.ttf) format("truetype");
+  src: url(./chunk-codicon-BEBTMDKB-BEBTMDKB.ttf) format("truetype");
 }
 .codicon[class*=codicon-] {
   font: normal normal normal 16px/1 codicon;
@@ -933,8 +881,6 @@
   -webkit-user-select: none;
   -ms-user-select: none;
 }
-
-/* ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/base/browser/ui/codicons/codicon/codicon-modifiers.css */
 .codicon-wrench-subaction {
   opacity: 0.5;
 }
@@ -957,8 +903,6 @@
   animation-duration: 1s !important;
   animation-timing-function: cubic-bezier(0.53, 0.21, 0.29, 0.67) !important;
 }
-
-/* ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/standalone/browser/quickInput/standaloneQuickInput.css */
 .quick-input-widget {
   font-size: 13px;
 }
@@ -1008,8 +952,6 @@
   box-shadow: inset 0 -1px 0 rgba(68, 68, 68, 0.6);
   color: #ccc;
 }
-
-/* ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/base/browser/ui/button/button.css */
 .monaco-text-button {
   box-sizing: border-box;
   display: flex;
@@ -1084,8 +1026,6 @@
   margin: 0 0.2em;
   color: inherit !important;
 }
-
-/* ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/base/browser/ui/countBadge/countBadge.css */
 .monaco-count-badge {
   padding: 3px 6px;
   border-radius: 11px;
@@ -1104,8 +1044,6 @@
   min-height: auto;
   line-height: normal;
 }
-
-/* ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/base/browser/ui/progressbar/progressbar.css */
 .monaco-progress-container {
   width: 100%;
   height: 5px;
@@ -1149,8 +1087,6 @@
     transform: translateX(4900%) scaleX(1);
   }
 }
-
-/* ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/base/parts/quickinput/browser/media/quickInput.css */
 .quick-input-widget {
   position: absolute;
   width: 600px;
@@ -1382,8 +1318,6 @@
 .quick-input-list .monaco-list-row.focused .monaco-keybinding-key {
   background: none;
 }
-
-/* ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/base/browser/ui/inputbox/inputBox.css */
 .monaco-inputbox {
   position: relative;
   display: block;
@@ -1469,8 +1403,6 @@
   width: 16px;
   height: 16px;
 }
-
-/* ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/base/browser/ui/iconLabel/iconlabel.css */
 .monaco-icon-label {
   display: flex;
   overflow: hidden;
@@ -1546,8 +1478,6 @@
 .monaco-list-row.selected .label-description {
   opacity: .8;
 }
-
-/* ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/base/browser/ui/keybindingLabel/keybindingLabel.css */
 .monaco-keybinding {
   display: flex;
   align-items: center;
@@ -1575,8 +1505,6 @@
 .monaco-keybinding > .monaco-keybinding-key-chord-separator {
   width: 6px;
 }
-
-/* ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/base/browser/ui/list/list.css */
 .monaco-list {
   position: relative;
   height: 100%;
@@ -1642,8 +1570,6 @@
 .monaco-list-type-filter-message:empty {
   display: none;
 }
-
-/* ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/base/browser/ui/splitview/splitview.css */
 .monaco-split-view2 {
   position: relative;
   width: 100%;
@@ -1698,8 +1624,6 @@
   height: 1px;
   width: 100%;
 }
-
-/* ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/base/browser/ui/table/table.css */
 .monaco-table {
   display: flex;
   flex-direction: column;
@@ -1744,8 +1668,6 @@
 .monaco-table > .monaco-split-view2 .monaco-sash.vertical::before {
   transition: border-color 0.2s ease-out;
 }
-
-/* ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/base/browser/ui/toggle/toggle.css */
 .monaco-custom-toggle {
   margin-left: 2px;
   float: left;
@@ -1790,8 +1712,6 @@
 .monaco-custom-toggle.monaco-checkbox:not(.checked)::before {
   visibility: hidden;
 }
-
-/* ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/base/browser/ui/findinput/findInput.css */
 .monaco-findInput {
   position: relative;
 }
@@ -1858,8 +1778,6 @@
     background: transparent;
   }
 }
-
-/* ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/base/browser/ui/tree/media/tree.css */
 .monaco-tl-row {
   display: flex;
   height: 100%;
@@ -1955,19 +1873,13 @@
 .monaco-tree-type-filter-actionbar .monaco-action-bar .action-label {
   padding: 2px;
 }
-
-/* ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/anchorSelect/browser/anchorSelect.css */
 .monaco-editor .selection-anchor {
   background-color: #007ACC;
   width: 2px !important;
 }
-
-/* ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/bracketMatching/browser/bracketMatching.css */
 .monaco-editor .bracket-match {
   box-sizing: border-box;
 }
-
-/* ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/message/browser/messageController.css */
 .monaco-editor .monaco-editor-overlaymessage {
   padding-bottom: 8px;
   z-index: 10000;
@@ -2032,8 +1944,6 @@
   display: inherit;
   top: -8px;
 }
-
-/* ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/codeAction/browser/media/action.css */
 .codeActionMenuWidget {
   padding: 8px 0px 8px 0px;
   overflow: auto;
@@ -2122,8 +2032,6 @@
   cursor: pointer;
   touch-action: none;
 }
-
-/* ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/codeAction/browser/lightBulbWidget.css */
 .monaco-editor .contentWidgets .codicon-light-bulb,
 .monaco-editor .contentWidgets .codicon-lightbulb-autofix {
   display: flex;
@@ -2134,8 +2042,6 @@
 .monaco-editor .contentWidgets .codicon-lightbulb-autofix:hover {
   cursor: pointer;
 }
-
-/* ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/codelens/browser/codelensWidget.css */
 .monaco-editor .codelens-decoration {
   overflow: hidden;
   display: inline-block;
@@ -2181,8 +2087,6 @@
 .monaco-editor .codelens-decoration.fadein {
   animation: fadein 0.1s linear;
 }
-
-/* ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/colorPicker/browser/colorPicker.css */
 .colorpicker-widget {
   height: 190px;
   user-select: none;
@@ -2296,14 +2200,10 @@
   height: 150px;
   pointer-events: none;
 }
-
-/* ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/gotoSymbol/browser/link/goToDefinitionAtPosition.css */
 .monaco-editor .goto-definition-link {
   text-decoration: underline;
   cursor: pointer;
 }
-
-/* ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/peekView/browser/media/peekViewWidget.css */
 .monaco-editor .peekview-widget .head {
   box-sizing: border-box;
   display: flex;
@@ -2367,8 +2267,6 @@
 .monaco-editor .peekview-widget .monaco-list .monaco-list-row.focused .codicon {
   color: inherit !important;
 }
-
-/* ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/zoneWidget/browser/zoneWidget.css */
 .monaco-editor .zone-widget {
   position: absolute;
   z-index: 10;
@@ -2380,8 +2278,6 @@
   border-bottom-width: 0;
   position: relative;
 }
-
-/* ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/base/browser/ui/dropdown/dropdown.css */
 .monaco-dropdown {
   height: 100%;
   padding: 0;
@@ -2417,8 +2313,6 @@
   background-position: center center;
   background-repeat: no-repeat;
 }
-
-/* ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/platform/actions/browser/menuEntryActionViewItem.css */
 .monaco-action-bar .action-item.menu-entry .action-label.icon {
   width: 16px;
   height: 16px;
@@ -2454,8 +2348,6 @@
   background-position: center center;
   background-repeat: no-repeat;
 }
-
-/* ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/gotoSymbol/browser/peek/referencesWidget.css */
 .monaco-editor .zone-widget .zone-widget-container.reference-zone-widget {
   border-top-width: 1px;
   border-bottom-width: 1px;
@@ -2520,8 +2412,6 @@
   border: 1px dotted var(--vscode-contrastActiveBorder, transparent);
   box-sizing: border-box;
 }
-
-/* ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/base/browser/ui/hover/hover.css */
 .monaco-hover {
   cursor: default;
   position: absolute;
@@ -2645,8 +2535,6 @@
   opacity: 0.4;
   cursor: default;
 }
-
-/* ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/gotoError/browser/media/gotoErrorWidget.css */
 .monaco-editor .peekview-widget .head .peekview-title .severity-icon {
   display: inline-block;
   vertical-align: text-top;
@@ -2705,8 +2593,6 @@
 .monaco-editor .marker-widget .descriptioncontainer .filename {
   cursor: pointer;
 }
-
-/* ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/snippet/browser/snippetSession.css */
 .monaco-editor .snippet-placeholder {
   min-width: 2px;
   outline-style: solid;
@@ -2720,8 +2606,6 @@
   background-color: var(--vscode-editor-snippetFinalTabstopHighlightBackground, transparent);
   outline-color: var(--vscode-editor-snippetFinalTabstopHighlightBorder, transparent);
 }
-
-/* ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/dnd/browser/dnd.css */
 .monaco-editor.vs .dnd-target,
 .monaco-editor.hc-light .dnd-target {
   border-right: 2px dotted black;
@@ -2747,8 +2631,6 @@
 .monaco-editor.hc-light.mac.mouse-copy .view-lines {
   cursor: copy;
 }
-
-/* ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/find/browser/findWidget.css */
 .monaco-editor .find-widget {
   position: absolute;
   z-index: 35;
@@ -2928,8 +2810,6 @@
   top: 1px;
   left: 2px;
 }
-
-/* ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/folding/browser/folding.css */
 .monaco-editor .margin-view-overlays .codicon-folding-manual-collapsed,
 .monaco-editor .margin-view-overlays .codicon-folding-manual-expanded,
 .monaco-editor .margin-view-overlays .codicon-folding-expanded,
@@ -2957,8 +2837,6 @@
   line-height: 1em;
   cursor: pointer;
 }
-
-/* ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/suggest/browser/media/suggest.css */
 .monaco-editor .suggest-widget {
   width: 430px;
   z-index: 40;
@@ -3304,8 +3182,6 @@
 .monaco-editor .suggest-details p code {
   font-family: var(--monaco-monospace-font);
 }
-
-/* ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/inlineCompletions/browser/ghostText.css */
 .monaco-editor .suggest-preview-additional-widget {
   white-space: nowrap;
 }
@@ -3333,8 +3209,6 @@
   text-decoration: underline;
   text-underline-position: under;
 }
-
-/* ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/links/browser/links.css */
 .monaco-editor .detected-link,
 .monaco-editor .detected-link-active {
   text-decoration: underline;
@@ -3343,8 +3217,6 @@
 .monaco-editor .detected-link-active {
   cursor: pointer;
 }
-
-/* ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/parameterHints/browser/parameterHints.css */
 .monaco-editor .parameter-hints-widget {
   z-index: 39;
   display: flex;
@@ -3435,8 +3307,6 @@
   font-weight: bold;
   margin-right: 0.5em;
 }
-
-/* ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/rename/browser/renameInputField.css */
 .monaco-editor .rename-box {
   z-index: 100;
   color: inherit;
@@ -3455,15 +3325,11 @@
 .monaco-editor .rename-box.preview .rename-label {
   display: inherit;
 }
-
-/* ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/unicodeHighlighter/browser/unicodeHighlighter.css */
 .monaco-editor .unicode-highlight {
   border: 1px solid var(--vscode-editorUnicodeHighlight-border);
   background-color: var(--vscode-editorUnicodeHighlight-background);
   box-sizing: border-box;
 }
-
-/* ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/contrib/unicodeHighlighter/browser/bannerController.css */
 .editor-banner {
   box-sizing: border-box;
   cursor: default;
@@ -3530,15 +3396,11 @@
 .editor-banner .icon-container .codicon {
   color: var(--vscode-banner-iconForeground);
 }
-
-/* ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/standalone/browser/accessibilityHelp/accessibilityHelp.css */
 .monaco-editor .accessibilityHelpWidget {
   padding: 10px;
   vertical-align: middle;
   overflow: scroll;
 }
-
-/* ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/standalone/browser/iPadShowKeyboard/iPadShowKeyboard.css */
 .monaco-editor .iPadShowKeyboard {
   width: 58px;
   min-width: 0;
@@ -3557,8 +3419,6 @@
   background: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNTMiIGhlaWdodD0iMzYiIHZpZXdCb3g9IjAgMCA1MyAzNiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGcgY2xpcC1wYXRoPSJ1cmwoI2NsaXAwKSI+CjxwYXRoIGZpbGwtcnVsZT0iZXZlbm9kZCIgY2xpcC1ydWxlPSJldmVub2RkIiBkPSJNNDguMDM2NCA0LjAxMDQySDQuMDA3NzlMNC4wMDc3OSAzMi4wMjg2SDQ4LjAzNjRWNC4wMTA0MlpNNC4wMDc3OSAwLjAwNzgxMjVDMS43OTcyMSAwLjAwNzgxMjUgMC4wMDUxODc5OSAxLjc5OTg0IDAuMDA1MTg3OTkgNC4wMTA0MlYzMi4wMjg2QzAuMDA1MTg3OTkgMzQuMjM5MiAxLjc5NzIxIDM2LjAzMTIgNC4wMDc3OSAzNi4wMzEySDQ4LjAzNjRDNTAuMjQ3IDM2LjAzMTIgNTIuMDM5IDM0LjIzOTIgNTIuMDM5IDMyLjAyODZWNC4wMTA0MkM1Mi4wMzkgMS43OTk4NCA1MC4yNDcgMC4wMDc4MTI1IDQ4LjAzNjQgMC4wMDc4MTI1SDQuMDA3NzlaTTguMDEwNDIgOC4wMTMwMkgxMi4wMTNWMTIuMDE1Nkg4LjAxMDQyVjguMDEzMDJaTTIwLjAxODIgOC4wMTMwMkgxNi4wMTU2VjEyLjAxNTZIMjAuMDE4MlY4LjAxMzAyWk0yNC4wMjA4IDguMDEzMDJIMjguMDIzNFYxMi4wMTU2SDI0LjAyMDhWOC4wMTMwMlpNMzYuMDI4NiA4LjAxMzAySDMyLjAyNlYxMi4wMTU2SDM2LjAyODZWOC4wMTMwMlpNNDAuMDMxMiA4LjAxMzAySDQ0LjAzMzlWMTIuMDE1Nkg0MC4wMzEyVjguMDEzMDJaTTE2LjAxNTYgMTYuMDE4Mkg4LjAxMDQyVjIwLjAyMDhIMTYuMDE1NlYxNi4wMTgyWk0yMC4wMTgyIDE2LjAxODJIMjQuMDIwOFYyMC4wMjA4SDIwLjAxODJWMTYuMDE4MlpNMzIuMDI2IDE2LjAxODJIMjguMDIzNFYyMC4wMjA4SDMyLjAyNlYxNi4wMTgyWk00NC4wMzM5IDE2LjAxODJWMjAuMDIwOEgzNi4wMjg2VjE2LjAxODJINDQuMDMzOVpNMTIuMDEzIDI0LjAyMzRIOC4wMTA0MlYyOC4wMjZIMTIuMDEzVjI0LjAyMzRaTTE2LjAxNTYgMjQuMDIzNEgzNi4wMjg2VjI4LjAyNkgxNi4wMTU2VjI0LjAyMzRaTTQ0LjAzMzkgMjQuMDIzNEg0MC4wMzEyVjI4LjAyNkg0NC4wMzM5VjI0LjAyMzRaIiBmaWxsPSIjQzVDNUM1Ii8+CjwvZz4KPGRlZnM+CjxjbGlwUGF0aCBpZD0iY2xpcDAiPgo8cmVjdCB3aWR0aD0iNTMiIGhlaWdodD0iMzYiIGZpbGw9IndoaXRlIi8+CjwvY2xpcFBhdGg+CjwvZGVmcz4KPC9zdmc+Cg==) center center no-repeat;
   border: 4px solid #252526;
 }
-
-/* ../../../../.yarn/global/cache/monaco-editor-npm-0.34.0-2a8aa5269e-9c9.zip/node_modules/monaco-editor/esm/vs/editor/standalone/browser/inspectTokens/inspectTokens.css */
 .monaco-editor .tokens-inspect-widget {
   z-index: 50;
   user-select: text;
