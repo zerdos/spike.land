@@ -1462,7 +1462,7 @@ var warning = /* @__PURE__ */ __name(function() {
 }, "warning");
 var invariant = /* @__PURE__ */ __name(function() {
 }, "invariant");
-if (true) {
+if (false) {
   warning = /* @__PURE__ */ __name(function(check, message) {
     if (!check && typeof console !== "undefined") {
       console.warn(message);
@@ -3749,7 +3749,7 @@ function updateMotionValuesFromProps(element, next, prev) {
       if (isWillChangeMotionValue(willChange)) {
         willChange.add(key);
       }
-      if (true) {
+      if (false) {
         warnOnce(nextValue.version === "7.2.1", `Attempting to mix Framer Motion versions ${nextValue.version} with 7.2.1 may not work as expected.`);
       }
     } else if (isMotionValue(prevValue)) {
@@ -3778,7 +3778,7 @@ __name(updateMotionValuesFromProps, "updateMotionValuesFromProps");
 // ../../.yarn/__virtual__/framer-motion-virtual-541c6c2253/3/.yarn/global/cache/framer-motion-npm-7.2.1-a185689d9f-9c9.zip/node_modules/framer-motion/dist/es/utils/process.mjs
 init_define_process();
 var defaultEnvironment = "production";
-var env = typeof define_process_default === "undefined" || define_process_default.env === void 0 ? defaultEnvironment : "development";
+var env = typeof define_process_default === "undefined" || define_process_default.env === void 0 ? defaultEnvironment : "production";
 
 // ../../.yarn/__virtual__/framer-motion-virtual-541c6c2253/3/.yarn/global/cache/framer-motion-npm-7.2.1-a185689d9f-9c9.zip/node_modules/framer-motion/dist/es/render/index.mjs
 init_react_preact();
