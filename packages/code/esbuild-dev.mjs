@@ -2,6 +2,10 @@ import esbuild from "esbuild";
 import  postcss from 'esbuild-postcss';
 import autoprefixer from "autoprefixer"
 import postcssNested from "postcss-nested"
+import fs from "fs";
+import {promisify} from "util"
+
+const rm = promisify(fs.rmdir);
 
 const environment = process.env.NODE_ENV === "production"
   ? "production"
@@ -18,12 +22,15 @@ console.log(`
 -------------------------------------------------
 -------------------------------------------------`);
 
+await rm("js/monaco-workers", {"recursive": true});
+
 const define = {
   "process.env.NODE_ENV": `"production"`,
   "process.env.NODE_DEBUG": false,
   "process.env.DEBUG": false,
   "process.env.version": `"1.1.1"`,
   "process.env.DUMP_SESSION_KEYS": false,
+  // "libFileMap": JSON.stringify({}),
   "process": JSON.stringify({
     env: { NODE_ENV: "production" },
     version: "1.1.1",
@@ -59,6 +66,11 @@ const workerEntryPoints = [
 await esbuild.build({
 	entryPoints: workerEntryPoints.map((entry) => `monaco-editor/esm/${entry}`),
 	bundle: true,
+  treeShaking: true,
+  ignoreAnnotations: true,
+  platform: "browser",
+  target: "es2015",
+  outExtension: {".js": ".workerJs.js"},
   define,
 	format: 'iife',
 	outbase: 'monaco-editor/esm/vs',
@@ -103,8 +115,8 @@ const build = (entryPoints, format = "esm") =>
       ".mjs",
       ".js",
       ".wasm",
-      ".tsWorker.js",
-      ".worker.js?worker",
+      ".workerJs.js",
+      ".js?worker",
     ],
 
     define,
@@ -117,7 +129,7 @@ const build = (entryPoints, format = "esm") =>
       ".ttf": "file",
       ".d.ts": "file",
       ".js?file": "file",
-      ".worker.js": "file",
+      ".workerJs.js": "file",
       ".wasm": "file",
     },
     outdir,

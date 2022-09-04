@@ -4,11 +4,11 @@ import type monaco from "monaco-editor";
 import pMap from "p-map";
 
 import { editor, languages, Uri } from "monaco-editor";
-import tsWorkerUrl from  "./monaco-workers/language/typescript/ts.worker"
-import jsonWorkerUrl from "./monaco-workers/language/json/json.worker"
-import cssWorkerUrl from "./monaco-workers/language/css/css.worker"
-import htmlWorker from "./monaco-workers/language/html/html.worker"
-import editorWorkerUrl from "./monaco-workers/editor/editor.worker"
+import tsWorkerUrl from  "./monaco-workers/language/typescript/ts.worker.workerJs"
+import jsonWorkerUrl from "./monaco-workers/language/json/json.worker.workerJs"
+import cssWorkerUrl from "./monaco-workers/language/css/css.worker.workerJs"
+import htmlWorker from "./monaco-workers/language/html/html.worker.workerJs"
+import editorWorkerUrl from "./monaco-workers/editor/editor.worker.workerJs"
 
 
 
