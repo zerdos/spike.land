@@ -69,7 +69,6 @@ await esbuild.build({
   treeShaking: true,
   ignoreAnnotations: true,
   platform: "browser",
-  target: "es2015",
   outExtension: {".js": ".workerJs.js"},
   define,
 	format: 'iife',
